@@ -69,7 +69,7 @@ XAxiPmon_Config *XAxiPmon_LookupConfig(u16 DeviceId)
 	XAxiPmon_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index=0U; Index < (u32)XPAR_XAXIPMON_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u32)XPAR_XAXIPMON_NUM_INSTANCES; Index++) {
 		if (XAxiPmon_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XAxiPmon_ConfigTable[Index];
 			break;
@@ -86,7 +86,7 @@ XAxiPmon_Config *XAxiPmon_LookupConfig(UINTPTR BaseAddress)
 
 	for (Index = (u32)0x0; XAxiPmon_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XAxiPmon_ConfigTable[Index].BaseAddress == BaseAddress) ||
-		     !BaseAddress) {
+		    !BaseAddress) {
 			CfgPtr = &XAxiPmon_ConfigTable[Index];
 			break;
 		}

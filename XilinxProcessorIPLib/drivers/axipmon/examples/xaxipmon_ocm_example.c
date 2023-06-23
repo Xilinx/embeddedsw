@@ -104,7 +104,7 @@ int main(void)
 	}
 
 	Status = XAxiPmon_CfgInitialize(&AxiPmonInst, ConfigPtr,
-									ConfigPtr->BaseAddress);
+					ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -212,7 +212,7 @@ void OcmTransaction()
 	Xil_Out32(OCM_WRITE_ADDRESS, 0xBAADFACE);
 
 	ReadMetrics(&AxiPmonInst, &MetricsBuffer[0], XAPM_METRIC_COUNTER_0,
-				XAPM_METRIC_COUNTER_1);
+		    XAPM_METRIC_COUNTER_1);
 
 	ApmMetricConfig(&AxiPmonInst, 0, XAPM_METRIC_SET_1, XAPM_METRIC_SET_3);
 
@@ -220,7 +220,7 @@ void OcmTransaction()
 	Xil_In32(OCM_READ_ADDRESS);
 
 	ReadMetrics(&AxiPmonInst, &MetricsBuffer[3], XAPM_METRIC_COUNTER_0,
-				XAPM_METRIC_COUNTER_1);
+		    XAPM_METRIC_COUNTER_1);
 }
 
 /****************************************************************************/
@@ -248,12 +248,12 @@ int ApmMetricConfig(XAxiPmon *InstancePtr, u8 slot, u8 Metric1, u8 Metric2)
 	XAxiPmon_ResetGlobalClkCounter(InstancePtr);
 
 	Status = XAxiPmon_SetMetrics(InstancePtr, slot, Metric1,
-								 XAPM_METRIC_COUNTER_0);
+				     XAPM_METRIC_COUNTER_0);
 	if (Status == XST_FAILURE) {
 		return XST_FAILURE;
 	}
 	Status = XAxiPmon_SetMetrics(InstancePtr, slot, Metric2,
-								XAPM_METRIC_COUNTER_1);
+				     XAPM_METRIC_COUNTER_1);
 	if (Status == XST_FAILURE) {
 		return XST_FAILURE;
 	}
@@ -283,7 +283,7 @@ int ApmMetricConfig(XAxiPmon *InstancePtr, u8 slot, u8 Metric1, u8 Metric2)
 *
 *****************************************************************************/
 void ReadMetrics(XAxiPmon *InstancePtr, u32 *BufferPtr, u8 Counter1,
-				u8 Counter2)
+		 u8 Counter2)
 {
 	/* Stop Counters */
 	XAxiPmon_StopCounters(InstancePtr);

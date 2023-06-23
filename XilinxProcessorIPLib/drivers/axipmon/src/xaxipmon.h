@@ -479,7 +479,7 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_IntrGlobalEnable(InstancePtr)			\
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, 	\
-			XAPM_GIE_OFFSET, 1)
+			  XAPM_GIE_OFFSET, 1)
 
 
 /****************************************************************************/
@@ -497,7 +497,7 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_IntrGlobalDisable(InstancePtr)				\
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, 		\
-				XAPM_GIE_OFFSET, 0)
+			  XAPM_GIE_OFFSET, 0)
 
 
 /****************************************************************************/
@@ -519,8 +519,8 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_IntrEnable(InstancePtr, Mask)				     \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_IE_OFFSET, \
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_IE_OFFSET) | (Mask));
+			  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
+					   XAPM_IE_OFFSET) | (Mask));
 
 
 /****************************************************************************/
@@ -543,8 +543,8 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_IntrDisable(InstancePtr, Mask)				     \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_IE_OFFSET, \
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_IE_OFFSET) | (Mask));
+			  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
+					   XAPM_IE_OFFSET) | (Mask));
 
 /****************************************************************************/
 /**
@@ -564,8 +564,8 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_IntrClear(InstancePtr, Mask)				     \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_IS_OFFSET, \
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_IS_OFFSET) | (Mask));
+			  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
+					   XAPM_IS_OFFSET) | (Mask));
 
 /****************************************************************************/
 /**
@@ -581,8 +581,8 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiPmon_IntrGetStatus(InstancePtr)				     \
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_IS_OFFSET);
+	XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
+			 XAPM_IS_OFFSET);
 
 /****************************************************************************/
 /**
@@ -599,8 +599,8 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_EnableGlobalClkCounter(InstancePtr) \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_CTL_OFFSET, \
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_CTL_OFFSET) | XAPM_CR_GCC_ENABLE_MASK);
+			  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
+					   XAPM_CTL_OFFSET) | XAPM_CR_GCC_ENABLE_MASK);
 
 /****************************************************************************/
 /**
@@ -617,8 +617,8 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_DisableGlobalClkCounter(InstancePtr) \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_CTL_OFFSET, \
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_CTL_OFFSET) & ~(XAPM_CR_GCC_ENABLE_MASK));
+			  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
+					   XAPM_CTL_OFFSET) & ~(XAPM_CR_GCC_ENABLE_MASK));
 
 /****************************************************************************/
 /**
@@ -636,8 +636,8 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_EnableFlag(InstancePtr, Flag) \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_FEC_OFFSET, \
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_FEC_OFFSET) | (Flag));
+			  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
+					   XAPM_FEC_OFFSET) | (Flag));
 
 /****************************************************************************/
 /**
@@ -654,8 +654,8 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_DisableFlag(InstancePtr, Flag) \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_FEC_OFFSET, \
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_FEC_OFFSET) & ~(Flag));
+			  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
+					   XAPM_FEC_OFFSET) & ~(Flag));
 
 /****************************************************************************/
 /**
@@ -672,8 +672,8 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiPmon_LoadSampleIntervalCounter(InstancePtr) \
-       XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_SICR_OFFSET, \
-							XAPM_SICR_LOAD_MASK);
+	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_SICR_OFFSET, \
+			  XAPM_SICR_LOAD_MASK);
 
 
 
@@ -692,7 +692,7 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_EnableSampleIntervalCounter(InstancePtr) \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_SICR_OFFSET,\
-							XAPM_SICR_ENABLE_MASK);
+			  XAPM_SICR_ENABLE_MASK);
 
 
 /****************************************************************************/
@@ -710,8 +710,8 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_DisableSampleIntervalCounter(InstancePtr) \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_SICR_OFFSET, \
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_SICR_OFFSET) & ~(XAPM_SICR_ENABLE_MASK));
+			  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
+					   XAPM_SICR_OFFSET) & ~(XAPM_SICR_ENABLE_MASK));
 
 /****************************************************************************/
 /**
@@ -728,7 +728,7 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_EnableMetricCounterReset(InstancePtr) \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_SICR_OFFSET,\
-						XAPM_SICR_MCNTR_RST_MASK);
+			  XAPM_SICR_MCNTR_RST_MASK);
 
 /****************************************************************************/
 /**
@@ -744,9 +744,9 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiPmon_DisableMetricCounterReset(InstancePtr) \
-       XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_SICR_OFFSET, \
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_SICR_OFFSET) & ~(XAPM_SICR_MCNTR_RST_MASK));
+	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_SICR_OFFSET, \
+			  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
+					   XAPM_SICR_OFFSET) & ~(XAPM_SICR_MCNTR_RST_MASK));
 
 /****************************************************************************/
 /**
@@ -763,8 +763,8 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_EnableIDFilter(InstancePtr) \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_CTL_OFFSET, \
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_CTL_OFFSET) | XAPM_CR_IDFILTER_ENABLE_MASK);
+			  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
+					   XAPM_CTL_OFFSET) | XAPM_CR_IDFILTER_ENABLE_MASK);
 
 /****************************************************************************/
 /**
@@ -781,8 +781,8 @@ typedef struct {
 *****************************************************************************/
 #define XAxiPmon_DisableIDFilter(InstancePtr) \
 	XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress, XAPM_CTL_OFFSET, \
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XAPM_CTL_OFFSET) & ~(XAPM_CR_IDFILTER_ENABLE_MASK));
+			  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, \
+					   XAPM_CTL_OFFSET) & ~(XAPM_CR_IDFILTER_ENABLE_MASK));
 
 /****************************************************************************/
 /**
@@ -801,7 +801,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiPmon_SampleMetrics(InstancePtr) \
-       XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, XAPM_SR_OFFSET);
+	XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress, XAPM_SR_OFFSET);
 
 
 /************************** Function Prototypes *****************************/
@@ -819,7 +819,7 @@ XAxiPmon_Config *XAxiPmon_LookupConfig(UINTPTR BaseAddress);
  * Functions in xaxipmon.c
  */
 s32 XAxiPmon_CfgInitialize(XAxiPmon *InstancePtr,
-		XAxiPmon_Config *ConfigPtr, UINTPTR EffectiveAddr);
+			   XAxiPmon_Config *ConfigPtr, UINTPTR EffectiveAddr);
 
 s32 XAxiPmon_ResetMetricCounter(XAxiPmon *InstancePtr);
 
@@ -828,22 +828,22 @@ void XAxiPmon_ResetGlobalClkCounter(XAxiPmon *InstancePtr);
 s32 XAxiPmon_ResetFifo(XAxiPmon *InstancePtr);
 
 void XAxiPmon_SetIncrementerRange(XAxiPmon *InstancePtr, u8 IncrementerNum,
-					u16 RangeUpper,	u16 RangeLower);
+				  u16 RangeUpper,	u16 RangeLower);
 
 void XAxiPmon_GetIncrementerRange(XAxiPmon *InstancePtr, u8 IncrementerNum,
-				u16 *RangeUpper, u16 *RangeLower);
+				  u16 *RangeUpper, u16 *RangeLower);
 
 void XAxiPmon_SetSampleInterval(XAxiPmon *InstancePtr, u32 SampleInterval);
 
 void XAxiPmon_GetSampleInterval(XAxiPmon *InstancePtr, u32 *SampleInterval);
 
 s32 XAxiPmon_SetMetrics(XAxiPmon *InstancePtr, u8 Slot, u8 Metrics,
-							u8 CounterNum);
+			u8 CounterNum);
 
 s32 XAxiPmon_GetMetrics(XAxiPmon *InstancePtr, u8 CounterNum, u8 *Metrics,
-								u8 *Slot);
-void XAxiPmon_GetGlobalClkCounter(XAxiPmon *InstancePtr,u32 *CntHighValue,
-							u32 *CntLowValue);
+			u8 *Slot);
+void XAxiPmon_GetGlobalClkCounter(XAxiPmon *InstancePtr, u32 *CntHighValue,
+				  u32 *CntLowValue);
 
 u32 XAxiPmon_GetMetricCounter(XAxiPmon *InstancePtr, u32 CounterNum);
 
@@ -870,10 +870,10 @@ void XAxiPmon_EnableMetricsCounter(XAxiPmon *InstancePtr);
 void XAxiPmon_DisableMetricsCounter(XAxiPmon *InstancePtr);
 
 void XAxiPmon_SetLogEnableRanges(XAxiPmon *InstancePtr, u32 CounterNum,
-					u16 RangeUpper, u16 RangeLower);
+				 u16 RangeUpper, u16 RangeLower);
 
 void XAxiPmon_GetLogEnableRanges(XAxiPmon *InstancePtr, u32 CounterNum,
-					u16 *RangeUpper, u16 *RangeLower);
+				 u16 *RangeUpper, u16 *RangeLower);
 
 void XAxiPmon_EnableEventLog(XAxiPmon *InstancePtr);
 
@@ -885,7 +885,7 @@ void XAxiPmon_EnableEventLogTrigger(XAxiPmon *InstancePtr);
 
 void XAxiPmon_DisableEventLogTrigger(XAxiPmon *InstancePtr);
 
-const char * XAxiPmon_GetMetricName(u8 Metrics);
+const char *XAxiPmon_GetMetricName(u8 Metrics);
 
 void XAxiPmon_SetWriteId(XAxiPmon *InstancePtr, u32 WriteId);
 
