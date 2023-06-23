@@ -182,7 +182,7 @@ int main()
 #else
 	Status = XSpi_Initialize(&Spi, SPI_DEVICE_ID);
 #endif
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
@@ -192,8 +192,8 @@ int main()
 	 * transfer, this must be done before the slave select is set.
 	 */
 	Status = XSpi_SetOptions(&Spi, XSP_MASTER_OPTION |
-			     XSP_MANUAL_SSELECT_OPTION);
-	if(Status != XST_SUCCESS) {
+				 XSP_MANUAL_SSELECT_OPTION);
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
@@ -202,7 +202,7 @@ int main()
 	 * read and written using the SPI bus.
 	 */
 	Status = XSpi_SetSlaveSelect(&Spi, SPI_SELECT);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
@@ -216,7 +216,7 @@ int main()
 	init_stdout();
 
 	Status = FlashReadID( );
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
@@ -236,7 +236,8 @@ int main()
 		print ("ERROR in SREC line: ");
 		putnum (srec_line);
 		print (errors[ret]);
-	} else {
+	}
+	else {
 		print ("ERROR: ");
 		print (errors[ret]);
 	}
@@ -294,22 +295,25 @@ int FlashEnterExit4BAddMode(XSpi *Spi, unsigned int Enable)
 	int Status;
 	u8 *NULLPtr = NULL;
 
-	if((FlashID[FLASH_MAKE] == MICRON_ID_BYTE0) ||
-		(FlashID[FLASH_MAKE] == ISSI_ID_BYTE0)) {
+	if ((FlashID[FLASH_MAKE] == MICRON_ID_BYTE0) ||
+	    (FlashID[FLASH_MAKE] == ISSI_ID_BYTE0)) {
 
 		Status = FlashWriteEnable(Spi);
-		if(Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 	}
 
 	if (Enable) {
 		WriteBuffer[BYTE1] = ENTER_4B_ADDR_MODE;
-	} else {
-		if (FlashID[FLASH_MAKE] == ISSI_ID_BYTE0)
+	}
+	else {
+		if (FlashID[FLASH_MAKE] == ISSI_ID_BYTE0) {
 			WriteBuffer[BYTE1] = EXIT_4B_ADDR_MODE_ISSI;
-		else
+		}
+		else {
 			WriteBuffer[BYTE1] = EXIT_4B_ADDR_MODE;
+		}
 	}
 
 	Status = XSpi_Transfer(Spi, WriteBuffer, NULLPtr, 1);
@@ -348,11 +352,12 @@ int FlashReadID(void)
 		return XST_FAILURE;
 	}
 
-	for(i = 0; i < 3; i++)
+	for (i = 0; i < 3; i++) {
 		FlashID[i] = ReadBuffer[i + 1];
+	}
 #ifdef VERBOSE
 	xil_printf("FlashID=0x%x 0x%x 0x%x\n\r", ReadBuffer[1], ReadBuffer[2],
-			ReadBuffer[3]);
+		   ReadBuffer[3]);
 #endif
 	return XST_SUCCESS;
 }
@@ -377,19 +382,21 @@ static uint8_t load_exec ()
 
 	srinfo.sr_data = sr_data_buf;
 
-	if(FlashID[FLASH_SIZE] > FLASH_16_MB) {
+	if (FlashID[FLASH_SIZE] > FLASH_16_MB) {
 		Status = FlashEnterExit4BAddMode(&Spi, ENTER_4B);
-		if(Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 		mode = READ_WRITE_EXTRA_BYTES_4BYTE_MODE;
 	}
 	while (!done) {
-		if ((ret = flash_get_srec_line (sr_buf)) != 0)
+		if ((ret = flash_get_srec_line (sr_buf)) != 0) {
 			return ret;
+		}
 
-		if ((ret = decode_srec_line (sr_buf, &srinfo)) != 0)
+		if ((ret = decode_srec_line (sr_buf, &srinfo)) != 0) {
 			return ret;
+		}
 
 #ifdef VERBOSE
 		display_progress (srec_line);
@@ -400,7 +407,7 @@ static uint8_t load_exec ()
 			case SREC_TYPE_1:
 			case SREC_TYPE_2:
 			case SREC_TYPE_3:
-				memcpy ((void*)srinfo.addr, (void*)srinfo.sr_data, srinfo.dlen);
+				memcpy ((void *)srinfo.addr, (void *)srinfo.sr_data, srinfo.dlen);
 				break;
 			case SREC_TYPE_5:
 				break;
@@ -414,9 +421,9 @@ static uint8_t load_exec ()
 		}
 	}
 
-	if(FlashID[FLASH_SIZE] > FLASH_16_MB) {
+	if (FlashID[FLASH_SIZE] > FLASH_16_MB) {
 		Status = FlashEnterExit4BAddMode(&Spi, EXIT_4B);
-		if(Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 		mode = READ_WRITE_EXTRA_BYTES;
@@ -444,12 +451,13 @@ static uint8_t flash_get_srec_line (uint8_t *buf)
 	 * the type of the record and number of bytes that follow in the
 	 * rest of the record (address + data + checksum).
 	 */
-	if(mode == READ_WRITE_EXTRA_BYTES) {
+	if (mode == READ_WRITE_EXTRA_BYTES) {
 		WriteBuffer[BYTE1] = ReadCmd;
 		WriteBuffer[BYTE2] = (u8) (flbuf >> 16);
 		WriteBuffer[BYTE3] = (u8) (flbuf >> 8);
 		WriteBuffer[BYTE4] = (u8) flbuf;
-	} else {
+	}
+	else {
 		WriteBuffer[BYTE1] = ReadCmd;
 		WriteBuffer[BYTE2] = (u8) (flbuf >> 24);
 		WriteBuffer[BYTE3] = (u8) (flbuf >> 16);
@@ -458,8 +466,8 @@ static uint8_t flash_get_srec_line (uint8_t *buf)
 	}
 
 	Status = XSpi_Transfer(&Spi, WriteBuffer, ReadBuffer,
-				(RECORD_TYPE + BYTE_COUNT + mode));
-	if(Status != XST_SUCCESS) {
+			       (RECORD_TYPE + BYTE_COUNT + mode));
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
@@ -470,18 +478,20 @@ static uint8_t flash_get_srec_line (uint8_t *buf)
 	 */
 	len = grab_hex_byte((ReadBuffer + mode + RECORD_TYPE)) * 2;
 
-	for(i = 0; i < (RECORD_TYPE + BYTE_COUNT); i++)
+	for (i = 0; i < (RECORD_TYPE + BYTE_COUNT); i++) {
 		*buf++ = ReadBuffer[mode + i];
+	}
 
 	/*
 	 * Read address + data + checksum from the record.
 	 */
-	if(mode == READ_WRITE_EXTRA_BYTES) {
+	if (mode == READ_WRITE_EXTRA_BYTES) {
 		WriteBuffer[BYTE1] = ReadCmd;
 		WriteBuffer[BYTE2] = (u8) (flbuf >> 16);
 		WriteBuffer[BYTE3] = (u8) (flbuf >> 8);
 		WriteBuffer[BYTE4] = (u8) flbuf;
-	} else {
+	}
+	else {
 		WriteBuffer[BYTE1] = ReadCmd;
 		WriteBuffer[BYTE2] = (u8) (flbuf >> 24);
 		WriteBuffer[BYTE3] = (u8) (flbuf >> 16);
@@ -490,17 +500,19 @@ static uint8_t flash_get_srec_line (uint8_t *buf)
 	}
 
 	Status = XSpi_Transfer(&Spi, WriteBuffer, ReadBuffer, (len + mode));
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	flbuf += (len + RECORD_TERMINATOR);
 
-	for(i = 0; i < len; i++)
+	for (i = 0; i < len; i++) {
 		*buf++ = ReadBuffer[mode + i];
+	}
 
-	if ((RECORD_TYPE + BYTE_COUNT + len) > SREC_MAX_BYTES)
+	if ((RECORD_TYPE + BYTE_COUNT + len) > SREC_MAX_BYTES) {
 		return LD_SREC_LINE_ERROR;
+	}
 
 	return 0;
 
