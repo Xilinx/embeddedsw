@@ -12,8 +12,7 @@
 #include "xuartns550_l.h"
 #endif
 
-void
-init_stdout()
+void init_stdout()
 {
 	/* if we have a uart 16550, then that needs to be initialized */
 #if ( defined (STDOUT_IS_16550) || ( defined (SDT) && defined (XPAR_STDIN_IS_UARTNS550)))
