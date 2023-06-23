@@ -25,6 +25,7 @@
 * 1.00a bss  02/27/12 First release
 * 2.00a bss  06/23/12 Updated to support v2_00a version of IP.
 * 6.3   kvn  07/02/15 Modified code according to MISRA-C:2012 guidelines.
+* 6.10  ht   06/23/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -62,6 +63,7 @@ extern XAxiPmon_Config XAxiPmon_ConfigTable[];
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XAxiPmon_Config *XAxiPmon_LookupConfig(u16 DeviceId)
 {
 	XAxiPmon_Config *CfgPtr = NULL;
@@ -76,4 +78,21 @@ XAxiPmon_Config *XAxiPmon_LookupConfig(u16 DeviceId)
 
 	return (XAxiPmon_Config *)CfgPtr;
 }
+#else
+XAxiPmon_Config *XAxiPmon_LookupConfig(UINTPTR BaseAddress)
+{
+	XAxiPmon_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = (u32)0x0; XAxiPmon_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XAxiPmon_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		     !BaseAddress) {
+			CfgPtr = &XAxiPmon_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /** @} */

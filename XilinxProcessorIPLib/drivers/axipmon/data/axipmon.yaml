@@ -1,0 +1,79 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for PMONPSV controller
+
+maintainers:
+  - Harini T <harini.t@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+      - const: xlnx,axi-perf-monitor
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,global-count-width:
+    description: Global count width
+  xlnx,metrics-sample-count-width:
+    description: Sample metric count width.
+  xlnx,enable-event-count:
+    description: Event count is enabled
+  xlnx,num-monitor-slots:
+    description: Number of monitor slots
+  xlnx,num-of-counters:
+    description: Number of counters
+  xlnx,have-sampled-metric-cnt:
+    description: Has sampled metric counters
+  xlnx,enable-event-log:
+    description: Is event log enabled
+  xlnx,fifo-axis-depth:
+    description: FIFO axis depth
+  xlnx,fifo-axis-tdata-width:
+    description: Tdata width
+  xlnx,fifo-axis-tid-width:
+    description: Tid width
+  xlnx,enable-advanced:
+    description: Enable Advanced mode
+  xlnx,enable-profile:
+    description: Enable Profile mode
+  xlnx,enable-trace:
+    description: Enable trace mode
+  xlnx,enable-32-bit-filter-id:
+    description: Enable 32-bit filter
+  interrupts:
+config:
+    - XAxiPmon_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,global-count-width
+    - xlnx,metrics-sample-count-width
+    - xlnx,enable-event-count
+    - xlnx,num-monitor-slots
+    - xlnx,num-of-counters
+    - xlnx,have-sampled-metric-cnt
+    - xlnx,enable-event-log
+    - xlnx,fifo-axis-depth
+    - xlnx,fifo-axis-tdata-width
+    - xlnx,fifo-axis-tid-width
+    - xlnx,metric-count-scale
+    - xlnx,enable-advanced
+    - xlnx,enable-profile
+    - xlnx,enable-trace
+    - xlnx,enable-32-bit-filter-id
+    - interrupts
+    - interrupt-parent
+
+examples:
+    xaxipmon_intr_example.c:
+            - interrupts
+    xaxipmon_ocm_example.c:
+            - reg
+    xaxipmon_polled_example.c:
+            - reg
+
+...

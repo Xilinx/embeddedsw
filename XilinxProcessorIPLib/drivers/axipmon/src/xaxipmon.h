@@ -236,6 +236,7 @@
 *                     generation.
 * 6.6   ms   04/18/17 Modified tcl file to add suffix U for all macro
 *                     definitions of axipmon in xparameters.h
+* 6.10  ht   06/23/23 Added support for system device-tree flow.
 * </pre>
 *
 *****************************************************************************/
@@ -419,7 +420,11 @@ extern "C" {
  * Monitor device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;			/**< Unique ID of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;		/**< Device base address */
 	s32 GlobalClkCounterWidth;	/**< Global Clock Counter Width */
 	s32 MetricSampleCounterWidth ;	/**< Metric Sample Counters Width */
@@ -439,6 +444,9 @@ typedef struct {
 	u8  ModeProfile;		/**< Profile Mode */
 	u8  ModeTrace;			/**< Trace Mode */
 	u8  Is32BitFiltering;   /**< 32 bit filtering enabled */
+	u32 IntId; /**< Interrupt ID on GIC **/
+	UINTPTR IntrParent;	/** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
 } XAxiPmon_Config;
 
 
@@ -801,7 +809,11 @@ typedef struct {
 /**
  * Functions in xaxipmon_sinit.c
  */
+#ifndef SDT
 XAxiPmon_Config *XAxiPmon_LookupConfig(u16 DeviceId);
+#else
+XAxiPmon_Config *XAxiPmon_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /**
  * Functions in xaxipmon.c
