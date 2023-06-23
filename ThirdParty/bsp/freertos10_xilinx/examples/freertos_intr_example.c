@@ -236,6 +236,8 @@ static void prvTimerTask( void *pvParameters )
 
 	xil_printf("Waiting for semaphore, FreeRTOS tick count is %x\n", xTaskGetTickCount());
 	if ( xSemaphoreTake( xSemaphore, x100mseconds ) != pdTRUE ) {
+		xil_printf("FreeRTOS interrupt example FAILED \n");
+		vTaskDelete( xTimerTask );
 		return XST_FAILURE;
 	}
 
