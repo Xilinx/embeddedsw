@@ -258,6 +258,7 @@ exclusion
 * 2.5	sne  11/23/20 Fixed MISRAC violations.
 * 2.7	sne  04/26/22 Corrected Return value of XCanFd_GetFreeBuffer().
 * 2.8	ht   06/19/23 Added support for system device-tree flow.
+* 2.8	gm   06/22/23 Add XCanFd_stop to support release node.
 *
 * </pre>
 *
@@ -1037,6 +1038,7 @@ typedef struct {
 /* Functions in xcan.c */
 int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 			 UINTPTR EffectiveAddr);
+int XCanFd_stop(XCanFd *InstancePtr);
 u8 XCanFd_GetMode(XCanFd *InstancePtr);
 void XCanFd_EnterMode(XCanFd *InstancePtr, u8 OperationMode);
 void XCanFd_GetBusErrorCounter(XCanFd *InstancePtr, u8 *RxErrorCount,

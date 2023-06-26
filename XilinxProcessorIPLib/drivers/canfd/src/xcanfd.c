@@ -62,6 +62,7 @@
 * 2.3	sne  03/06/20 Fixed sending extra frames in XCanFd_Send_Queue API.
 * 2.3	se   03/09/20 Initialize IsPl of config structure.
 * 2.8	ht   06/19/23 Added support for system device-tree flow.
+* 2.8	gm   06/22/23 Add support for request/release node.
 *
 * </pre>
 ******************************************************************************/
@@ -73,6 +74,13 @@
 #include "xil_io.h"
 #include "xenv.h"
 #include "xcanfd.h"
+#if defined  (XPM_SUPPORT)
+#include "pm_defs.h"
+#include "pm_api_sys.h"
+#include "pm_client.h"
+#include "xstatus.h"
+#include "xpm_init.h"
+#endif
 #ifndef SDT
 #include "xparameters.h"
 #endif
@@ -124,9 +132,26 @@ int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 			 UINTPTR EffectiveAddr)
 {
 	u32 FilterIndex;
+#if defined  (XPM_SUPPORT)
+	XStatus Status;
+#endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
+
+#if defined  (XPM_SUPPORT)
+	Status = XPm_RequestNode(XpmGetNodeId((u64)EffectiveAddr), PM_CAP_ACCESS, MAX_QOS, REQUEST_ACK_BLOCKING);
+	if (XST_SUCCESS != Status) {
+		xil_printf("Canfd: XPm_RequestNode failed \r\n");
+		return Status;
+	}
+
+	Status = XPm_ResetAssert(XpmGetResetId((u64)EffectiveAddr), XILPM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		xil_printf("Canfd: XPm_ResetAssert() ERROR=0x%x \r\n", Status);
+		return Status;
+	}
+#endif
 
 	/*
 	 * Set some default values for instance data, don't indicate the device
@@ -167,6 +192,36 @@ int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 	}
 
 	return (s32)XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This routine releases resources of XCanFd instance/driver.
+*
+* @param	None
+* @return	- XST_SUCCESS if node release was successful
+*		- XST_FAILURE or an error code or a reason code
+*		  if node release was fail
+*
+* @note		None.
+*
+******************************************************************************/
+int XCanFd_stop(XCanFd *InstancePtr)
+{
+	int Status = XST_SUCCESS;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+#if defined (XPM_SUPPORT)
+	Status = XPm_ReleaseNode(XpmGetNodeId((u64)InstancePtr->CanFdConfig.BaseAddress));
+	if(Status != XST_SUCCESS) {
+		xil_printf("Canfd: XPm_ReleaseNode failed with reason 0x%x \r\n", Status);
+	}
+	return Status;
+#else
+	return Status;
+#endif
 }
 
 /*****************************************************************************/
