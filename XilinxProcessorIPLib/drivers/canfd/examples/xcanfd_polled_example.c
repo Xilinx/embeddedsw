@@ -35,6 +35,7 @@
 * 1.3   ask    08/08/18 Changed the Can ID to 11 bit value as standard Can ID
 *						is 11 bit.
 * 2.8   ht     06/19/23 Added support for system device-tree flow.
+* 2.8   gm     06/22/23 Call XCanFd_stop to release canfd node.
 * </pre>
 *
 ******************************************************************************/
@@ -137,6 +138,7 @@ static XCanFd CanFd;
 #ifndef TESTAPP_GEN
 int main(void)
 {
+	xil_printf("XCanFd Polled Mode example\n\r");
 	/*
 	 * Run the Can Polled example, specify the Device ID that is generated
 	 * in xparameters.h .
@@ -278,6 +280,9 @@ int XCanFdPolledExample(UINTPTR BaseAddress)
 
 	/* Receive The Frame */
 	Status = RecvFrame(CanFdInstPtr);
+
+	/* Stop Canfd */
+	XCanFd_stop(CanFdInstPtr);
 
 	return Status;
 
