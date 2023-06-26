@@ -463,6 +463,9 @@ XStatus XPmBisr_Repair2(u32 TagId)
 				 */
 				EfuseNextAddr += 4U;
 				break;
+			case CPM5N_TAG_ID:
+				Status = XPmRepair_Cpm5n(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
+				break;
 			case LPX_TAG_ID:
 				Status = XPmRepair_Lpx(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
 				break;
@@ -503,6 +506,7 @@ XStatus XPmBisr_TagSupportCheck2(u32 TagId)
 	switch(TagId) {
 	case VDU_TAG_ID:
 	case BFRB_TAG_ID:
+	case CPM5N_TAG_ID:
 	case LPX_TAG_ID:
 	case FPX_TAG_ID:
 	case HNICX_NTHUB_TAG_ID:

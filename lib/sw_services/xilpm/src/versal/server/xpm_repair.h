@@ -15,6 +15,17 @@
 extern "C" {
 #endif
 
+maybe_unused static inline XStatus XPmRepair_Cpm5n(u32 EfuseTagAddr, u32 TagSize,
+					u32 TagOptional, u32 *TagDataAddr)
+{
+	(void)EfuseTagAddr;
+	(void)TagSize;
+	(void)TagOptional;
+	(void)TagDataAddr;
+
+	return XST_INVALID_PARAM;
+}
+
 maybe_unused static inline XStatus XPmRepair_Lpx(u32 EfuseTagAddr, u32 TagSize,
 					u32 TagOptional, u32 *TagDataAddr)
 {
