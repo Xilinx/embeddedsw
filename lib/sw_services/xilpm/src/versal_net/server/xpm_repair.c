@@ -158,3 +158,50 @@ XStatus XPmRepair_Hnicx_Nthub(u32 EfuseTagAddr, u32 TagSize,
 done:
 	return Status;
 }
+
+XStatus XPmRepair_Cpm5n(u32 EfuseTagAddr, u32 TagSize,
+                u32 TagOptional, u32 *TagDataAddr)
+{
+    XStatus Status = XST_FAILURE;
+    u32 RegValue = 0U;
+    u64 BisrDataDestAddr = CPM5N_SLCR_BISR_CACHE_DATA_0;
+    /* Unused argument */
+    (void)TagOptional;
+
+    /* Disable write protection */
+    XPm_Out32(CPM5N_SLCR_WPROTP,  0U);
+
+    /* Copy repair data */
+    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+
+    /* Clear BISR test data register */
+    XPm_RMW32(CPM5N_SLCR_BISR_CACHE_CTRL, CPM5N_SLCR_BISR_CACHE_CTRL_CLR_MASK, CPM5N_SLCR_BISR_CACHE_CTRL_CLR_MASK);
+    XPm_RMW32(CPM5N_SLCR_BISR_CACHE_CTRL, CPM5N_SLCR_BISR_CACHE_CTRL_CLR_MASK, ~CPM5N_SLCR_BISR_CACHE_CTRL_CLR_MASK);
+
+    /* Trigger BISR */
+    RegValue |= (CPM5N_SLCR_BISR_CACHE_CTRL_TRIGGER_GLOBAL_MASK
+		 | CPM5N_SLCR_BISR_CACHE_CTRL_TRIGGER_DPU_MASK
+		 | CPM5N_SLCR_BISR_CACHE_CTRL_TRIGGER_PCIE_CDX_INTWRAP_MASK);
+    XPm_RMW32(CPM5N_SLCR_BISR_CACHE_CTRL, RegValue, RegValue);
+
+    /* Wait for BISR to finish */
+    RegValue = 0U;
+    RegValue |= (CPM5N_SLCR_BISR_CACHE_STATUS_DONE_GLOBAL_MASK
+		 | CPM5N_SLCR_BISR_CACHE_STATUS_DONE_DPU_MASK
+		 | CPM5N_SLCR_BISR_CACHE_STATUS_DONE_PCIE_CDX_INTWRAP_MASK);
+    Status = XPm_PollForMask(CPM5N_SLCR_BISR_CACHE_STATUS, RegValue, XPM_POLL_TIMEOUT);
+    if (XST_SUCCESS != Status) {
+        goto done;
+    }
+
+    /* Check for BISR pass */
+    RegValue = 0U;
+    RegValue |= (CPM5N_SLCR_BISR_CACHE_STATUS_PASS_GLOBAL_MASK
+			 | CPM5N_SLCR_BISR_CACHE_STATUS_PASS_DPU_MASK
+		 | CPM5N_SLCR_BISR_CACHE_STATUS_PASS_PCIE_CDX_INTWRAP_MASK);
+    Status = XPm_PollForMask(CPM5N_SLCR_BISR_CACHE_STATUS, RegValue, XPM_POLL_TIMEOUT);
+
+done:
+    XPm_Out32(CPM5N_SLCR_WPROTP, CPM5N_SLCR_WPROTP_DEFVAL);
+    return Status;
+}
