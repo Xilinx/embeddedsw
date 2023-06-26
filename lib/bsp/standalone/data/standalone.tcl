@@ -821,6 +821,12 @@ proc generate {os_handle} {
         }
     }
 
+    set xpm_supported [common::get_property CONFIG.xpm_support $os_handle ]
+    #Currently xpm is supported for versal and versal net only
+    if {$xpm_supported == true  &&  ([llength $cortexa72proc] > 0 || [llength $cortexa78proc] > 0)} {
+        puts $bspcfg_fh "#define XPM_SUPPORT"
+    }
+
     if { $proctype == "microblaze" && [mb_has_pvr $hw_proc_handle] } {
 
         set pvr [common::get_property CONFIG.C_PVR $hw_proc_handle]
