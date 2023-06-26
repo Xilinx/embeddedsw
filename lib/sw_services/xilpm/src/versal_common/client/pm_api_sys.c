@@ -14,6 +14,9 @@
 #include "pm_api_sys.h"
 #include "pm_callbacks.h"
 #include "pm_client.h"
+#if defined  (XPM_SUPPORT) && (__aarch64__) && (EL1_NONSECURE == 1)
+#include "xil_smc.h"
+#endif
 
 /** @cond INTERNAL */
 
@@ -332,6 +335,21 @@ done:
 XStatus XPm_RequestNode(const u32 DeviceId, const u32 Capabilities,
 			const u32 QoS, const u32 Ack)
 {
+#if defined  (XPM_SUPPORT) && (__aarch64__) && (EL1_NONSECURE == 1)
+	u64 SmcArgs1;
+	u64 SmcArgs2;
+	XSmc_OutVar Out;
+
+	SmcArgs1 = (u64)Capabilities << 32;
+	SmcArgs1 |= ((u64)DeviceId);
+
+	SmcArgs2 = (u64)Ack << 32;
+	SmcArgs2 |= ((u64)QoS);
+
+	Out = Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, SmcArgs1, SmcArgs2, 0, 0, 0, 0, 0);
+
+	return ((u32)Out.Arg0);
+#else
 	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
@@ -349,6 +367,7 @@ XStatus XPm_RequestNode(const u32 DeviceId, const u32 Capabilities,
 
 done:
 	return Status;
+#endif
 }
 
 /****************************************************************************/
@@ -365,6 +384,13 @@ done:
  ****************************************************************************/
 XStatus XPm_ReleaseNode(const u32 DeviceId)
 {
+#if defined  (XPM_SUPPORT) && (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar Out;
+
+	Out = Xil_Smc(PM_RELEASE_DEVICE_SMC_FID, DeviceId, 0, 0, 0, 0, 0, 0);
+
+	return ((u32)Out.Arg0);
+#else
 	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
@@ -381,6 +407,7 @@ XStatus XPm_ReleaseNode(const u32 DeviceId)
 
 done:
 	return Status;
+#endif
 }
 
 /****************************************************************************/
@@ -501,6 +528,17 @@ done:
  ****************************************************************************/
 XStatus XPm_ResetAssert(const u32 ResetId, const u32 Action)
 {
+#if defined  (XPM_SUPPORT) && (__aarch64__) && (EL1_NONSECURE == 1)
+	u64 SmcArgs;
+	XSmc_OutVar Out;
+
+	SmcArgs = (u64)Action << 32;
+	SmcArgs |= ((u64)ResetId);
+
+	Out = Xil_Smc(PM_ASSERT_SMC_FID, SmcArgs, 0, 0, 0, 0, 0, 0);
+
+	return ((u32)Out.Arg0);
+#else
 	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 
@@ -517,6 +555,7 @@ XStatus XPm_ResetAssert(const u32 ResetId, const u32 Action)
 
 done:
 	return Status;
+#endif
 }
 
 /****************************************************************************/
