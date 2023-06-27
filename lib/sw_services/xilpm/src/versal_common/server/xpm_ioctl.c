@@ -374,6 +374,7 @@ static XStatus XPm_ReadPggs(const u32 SubsystemId, const u32 PggsNum,
 	} else {
 		const XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
 		if ((u8)XPM_POWER_STATE_ON != Lpd->Node.State) {
+			Status = XST_FAILURE;
 			goto done;
 		}
 		PmIn32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_PGGS0_OFFSET) +
@@ -415,6 +416,7 @@ static XStatus XPm_WritePggs(const u32 SubsystemId, const u32 PggsNum,
 	} else {
 		const XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
 		if ((u8)XPM_POWER_STATE_ON != Lpd->Node.State) {
+			Status = XST_FAILURE;
 			goto done;
 		}
 		PmOut32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_PGGS0_OFFSET) +
