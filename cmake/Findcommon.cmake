@@ -175,3 +175,11 @@ function(gen_libconfig)
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
   RESULT_VARIABLE output)
 endfunction(gen_libconfig)
+
+macro(print_elf_size size_command app_name)
+  if(DEFINED ${size_command})
+    add_custom_command(
+      TARGET ${app_name}.elf POST_BUILD
+      COMMAND ${${size_command}} --format=berkeley ${app_name}.elf)
+  endif()
+endmacro()
