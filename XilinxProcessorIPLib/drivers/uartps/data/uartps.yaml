@@ -5,7 +5,7 @@
 title: Bindings for UARTPS controller
 
 maintainers:
-  - Shubhrajyoti Datta <shubhrajyoti.datta@xilinx.com>
+  - Manikanta Guntupalli <manikanta.guntupalli@amd.com>
 
 type: driver
 
@@ -39,4 +39,16 @@ required:
     - ref-clk
     - interrupts
     - interrupt-parent
+
+examples:
+    xuartps_hello_world_example.c:
+        - reg
+    xuartps_intr_example.c:
+        - interrupts
+    xuartps_low_echo_example.c:
+        - reg
+    xuartps_polled_example.c:
+        - reg
+    xuartps_selftest_example.c:
+        - reg
 ...
