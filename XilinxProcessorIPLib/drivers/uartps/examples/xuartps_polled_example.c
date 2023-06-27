@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,8 +39,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define UART_DEVICE_ID              XPAR_XUARTPS_0_DEVICE_ID
-
+#else
+#define	XUARTPS_BASEADDRESS	XPAR_XUARTPS_0_BASEADDR
+#endif
 /*
  * The following constant controls the length of the buffers to be sent
  * and received with the device, this constant must be 32 bytes or less since
@@ -53,9 +56,11 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int UartPsPolledExample(u16 DeviceId);
-
+#else
+int UartPsPolledExample(UINTPTR BaseAddress);
+#endif
 /************************** Variable Definitions *****************************/
 
 XUartPs Uart_PS;		/* Instance of the UART Device */
@@ -89,7 +94,11 @@ int main(void)
 	 * Run the Uart_PS polled example , specify the the Device ID that is
 	 * generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = UartPsPolledExample(UART_DEVICE_ID);
+#else
+	Status = UartPsPolledExample(XUARTPS_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("UART Polled Mode Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -117,7 +126,11 @@ int main(void)
 * working correctly.
 *
 ****************************************************************************/
+#ifndef SDT
 int UartPsPolledExample(u16 DeviceId)
+#else
+int UartPsPolledExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XUartPs_Config *Config;
@@ -130,7 +143,11 @@ int UartPsPolledExample(u16 DeviceId)
 	 * Initialize the UART driver so that it's ready to use.
 	 * Look up the configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Config = XUartPs_LookupConfig(DeviceId);
+#else
+	Config = XUartPs_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,16 +49,22 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define UART_DEVICE_ID                  XPAR_XUARTPS_0_DEVICE_ID
+#else
+#define	XUARTPS_BASEADDRESS		XPAR_XUARTPS_0_BASEADDR
+#endif
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int UartPsHelloWorldExample(u16 DeviceId);
-
+#else
+int UartPsHelloWorldExample(UINTPTR BaseAddress);
+#endif
 /************************** Variable Definitions *****************************/
 
 XUartPs Uart_Ps;		/* The instance of the UART Driver */
@@ -85,8 +91,11 @@ int main(void)
 	 * Run the Hello World example , specify the the Device ID that is
 	 * generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = UartPsHelloWorldExample(UART_DEVICE_ID);
-
+#else
+	Status = UartPsHelloWorldExample(XUARTPS_BASEADDRESS);
+#endif
 	if (Status == XST_FAILURE) {
 		xil_printf("Uartps hello world Example Failed\r\n");
 		return XST_FAILURE;
@@ -115,7 +124,11 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int UartPsHelloWorldExample(u16 DeviceId)
+#else
+int UartPsHelloWorldExample(UINTPTR BaseAddress)
+#endif
 {
 	u8 HelloWorld[] = "Hello World";
 	int SentCount = 0;
@@ -126,7 +139,11 @@ int UartPsHelloWorldExample(u16 DeviceId)
 	 * Initialize the UART driver so that it's ready to use
 	 * Look up the configuration in the config table and then initialize it.
 	 */
+#ifndef SDT
 	Config = XUartPs_LookupConfig(DeviceId);
+#else
+	Config = XUartPs_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
