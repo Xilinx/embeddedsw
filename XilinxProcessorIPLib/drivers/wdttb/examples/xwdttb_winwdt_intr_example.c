@@ -26,7 +26,6 @@
 * ----- ---- -------- ---------------------------------------------------------
 * 4.0   sha  02/04/16 First release
 * 5.0	sne  03/26/20 Updated example to support versal platform.
-* 5.7	sb   06/16/23 Updated example to support versal platform.
 * </pre>
 *
 ******************************************************************************/
@@ -61,10 +60,8 @@
  #define WDTTB_IRPT_INTR         XPAR_INTC_0_WDTTB_0_VEC_ID
 #else
  #define INTC_DEVICE_ID         XPAR_SCUGIC_SINGLE_DEVICE_ID
- #ifdef VERSAL_NET
-  #define WDTTB_IRPT_INTR       XPS_FPD_WWDT_2_INT_ID
- #elif versal
-  #define WDTTB_IRPT_INTR       XPS_LPD_GWDT_0_INT_ID
+ #ifdef versal
+  #define WDTTB_IRPT_INTR       XPAR_XWWDT_0_INTR
  #else
   #define WDTTB_IRPT_INTR       XPAR_FABRIC_WDTTB_0_VEC_ID
  #endif
