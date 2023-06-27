@@ -180,6 +180,8 @@ macro(print_elf_size size_command app_name)
   if(DEFINED ${size_command})
     add_custom_command(
       TARGET ${app_name}.elf POST_BUILD
-      COMMAND ${${size_command}} --format=berkeley ${app_name}.elf)
+      COMMAND ${${size_command}} --format=berkeley ${app_name}.elf
+      COMMAND ${${size_command}} --format=berkeley ${app_name}.elf > ${CMAKE_BINARY_DIR}/${app_name}.elf.size
+      VERBATIM)
   endif()
 endmacro()
