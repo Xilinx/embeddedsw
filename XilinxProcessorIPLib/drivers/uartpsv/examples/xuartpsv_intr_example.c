@@ -79,7 +79,7 @@
 
 #ifndef SDT
 int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
-			u16 DeviceId, u16 UartIntrId);
+		       u16 DeviceId, u16 UartIntrId);
 
 
 static int SetupInterruptSystem(INTC *IntcInstancePtr,
@@ -132,7 +132,7 @@ int main(void)
 	/* Run the UartPsv Interrupt example, specify the the Device ID */
 #ifndef SDT
 	Status = UartPsvIntrExample(&InterruptController, &UartPsv,
-				UARTPSV_DEVICE_ID, UARTPSV_INT_IRQ_ID);
+				    UARTPSV_DEVICE_ID, UARTPSV_INT_IRQ_ID);
 #else
 	Status = UartPsvIntrExample(&UartPsv, XUARTPSV_BASEADDRESS);
 #endif
@@ -176,7 +176,7 @@ int main(void)
 **************************************************************************/
 #ifndef SDT
 int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
-			u16 DeviceId, u16 UartIntrId)
+		       u16 DeviceId, u16 UartIntrId)
 #else
 int UartPsvIntrExample(XUartPsv *UartInstPtr, UINTPTR BaseAddress)
 #endif
@@ -219,8 +219,8 @@ int UartPsvIntrExample(XUartPsv *UartInstPtr, UINTPTR BaseAddress)
 	Status = SetupInterruptSystem(IntcInstPtr, UartInstPtr, UartIntrId);
 #else
 	Status = XSetupInterruptSystem(UartInstPtr, &XUartPsv_InterruptHandler,
-					Config->IntrId, Config->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       Config->IntrId, Config->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -248,9 +248,9 @@ int UartPsvIntrExample(XUartPsv *UartInstPtr, UINTPTR BaseAddress)
 	 * a local loop back so data that is sent will be received.
 	 */
 	IntrMask = (XUARTPSV_UARTIMSC_RXIM | XUARTPSV_UARTIMSC_TXIM |
-			XUARTPSV_UARTIMSC_RTIM | XUARTPSV_UARTIMSC_FEIM |
-			XUARTPSV_UARTIMSC_PEIM | XUARTPSV_UARTIMSC_BEIM |
-			XUARTPSV_UARTIMSC_OEIM);
+		    XUARTPSV_UARTIMSC_RTIM | XUARTPSV_UARTIMSC_FEIM |
+		    XUARTPSV_UARTIMSC_PEIM | XUARTPSV_UARTIMSC_BEIM |
+		    XUARTPSV_UARTIMSC_OEIM);
 
 
 	XUartPsv_SetInterruptMask(UartInstPtr, IntrMask);
@@ -287,7 +287,7 @@ int UartPsvIntrExample(XUartPsv *UartInstPtr, UINTPTR BaseAddress)
 	 * background
 	 */
 	while ((TotalErrorCount == 0) && ((TotalSentCount != TEST_BUFFER_SIZE)
-			|| (TotalReceivedCount != TEST_BUFFER_SIZE)));
+					  || (TotalReceivedCount != TEST_BUFFER_SIZE)));
 
 
 	/* Verify the entire receive buffer was successfully received */
@@ -423,7 +423,7 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * specific interrupt processing for the device.
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, UartIntrId,
-		(XInterruptHandler) XUartPsv_InterruptHandler, UartInstancePtr);
+			       (XInterruptHandler) XUartPsv_InterruptHandler, UartInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -443,7 +443,7 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 */
 	XIntc_Enable(IntcInstancePtr, UartIntrId);
 
-	#ifndef TESTAPP_GEN
+#ifndef TESTAPP_GEN
 	/*
 	 * Initialize the exception table.
 	 */
@@ -453,9 +453,9 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler) XIntc_InterruptHandler,
-				IntcInstancePtr);
-	#endif
+				     (Xil_ExceptionHandler) XIntc_InterruptHandler,
+				     IntcInstancePtr);
+#endif
 #else
 #ifndef TESTAPP_GEN
 	XScuGic_Config *IntcConfig; /* Config for interrupt controller */
@@ -467,7 +467,7 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -477,8 +477,8 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * hardware interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler) XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler) XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 #endif
 
 	/*
@@ -487,8 +487,8 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * performs the specific interrupt processing for the device
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, UartIntrId,
-				  (Xil_ExceptionHandler) XUartPsv_InterruptHandler,
-				  (void *) UartInstancePtr);
+				 (Xil_ExceptionHandler) XUartPsv_InterruptHandler,
+				 (void *) UartInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -499,7 +499,7 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 #endif
 #ifndef TESTAPP_GEN
 	/* Enable interrupts */
-	 Xil_ExceptionEnable();
+	Xil_ExceptionEnable();
 #endif
 
 	return XST_SUCCESS;

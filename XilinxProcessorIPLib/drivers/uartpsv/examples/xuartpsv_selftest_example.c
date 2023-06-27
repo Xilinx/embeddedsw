@@ -130,7 +130,7 @@ int UartPsvSelfTestExample(UINTPTR BaseAddress)
 	}
 
 	Status = XUartPsv_CfgInitialize(&Uart_Psv, Config,
-				Config->BaseAddress);
+					Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
