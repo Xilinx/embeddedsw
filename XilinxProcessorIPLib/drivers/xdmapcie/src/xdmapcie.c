@@ -212,6 +212,8 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 	u32 Data = DATA_MASK_32;
 	u32 Location = 0;
 	u32 Size = 0, TestWrite;
+	u64 ReqBar = 0;
+	u64 MaxBarSize = 0;
 #if defined(__aarch64__) || defined(__arch64__)
 	u64 BarAddr;
 	u32 Size_1 = 0, *PPtr;
@@ -225,6 +227,7 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 
 	u8 MaxBars = 0;
 
+	MaxBarSize = InstancePtr->Config.NpMemMaxAddr - InstancePtr->Config.NpMemBaseAddr;
 	if (Headertype == XDMAPCIE_CFG_HEADER_O_TYPE) {
 		/* For endpoints */
 		MaxBars = 6;
@@ -286,6 +289,16 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 			*(PPtr + 1) = Size_1;
 
 			TestWrite = XDmaPcie_PositionRightmostSetbit(BarAddr);
+			ReqBar = (2 << (TestWrite - 1));
+
+                        if(ReqBar > MaxBarSize) {
+                                XDmaPcie_Dbg(
+					"Requested BAR size of %uK for bus: %d, dev: %d, "
+					"function: %d is out of range \n",
+					((2 << (TestWrite - 1))/1024),Bus,Device,Function);
+                                return XST_SUCCESS;
+                        }
+
 			/* actual bar size is 2 << TestWrite */
 			BarAddr =
 				XDmaPcie_ReserveBarMem(InstancePtr, MemAs,
@@ -334,6 +347,15 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 #if defined(__aarch64__) || defined(__arch64__)
 			/* 32 bit AS is required */
 			MemAs = Size;
+			ReqBar = (2 << (TestWrite - 1));
+
+                        if(ReqBar > MaxBarSize) {
+                                XDmaPcie_Dbg(
+					"Requested BAR size of %uK for bus: %d, dev: %d, "
+					"function: %d is out of range \n",
+					((2 << (TestWrite - 1))/1024),Bus,Device,Function);
+                                return XST_SUCCESS;
+                        }
 
 			/* actual bar size is 2 << TestWrite */
 			BarAddr =
