@@ -22,7 +22,6 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 5.6   asa  01/13/23 First release of Q&A mode example.
-* 5.7   sb   06/16/23 Correct the interrupt ID for Versal-net platform.
 *
 * </pre>
 *
@@ -57,10 +56,8 @@
  #define WDTTB_IRPT_INTR         XPAR_INTC_0_WDTTB_0_VEC_ID
 #else
  #define INTC_DEVICE_ID         XPAR_SCUGIC_SINGLE_DEVICE_ID
- #ifdef VERSAL_NET
-  #define WDTTB_IRPT_INTR       XPS_FPD_WWDT_2_INT_ID
- #elif versal
-  #define WDTTB_IRPT_INTR       XPS_LPD_GWDT_0_INT_ID
+ #ifdef versal
+  #define WDTTB_IRPT_INTR       XPAR_XWWDT_0_INTR
  #else
   #define WDTTB_IRPT_INTR       XPAR_FABRIC_WDTTB_0_VEC_ID
  #endif
