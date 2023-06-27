@@ -189,7 +189,7 @@ int UartPsvPolledExample(UINTPTR BaseAddress)
 	ReceivedCount = 0;
 	while (ReceivedCount < TEST_BUFFER_SIZE) {
 		ReceivedCount +=
-		XUartPsv_Recv(&UartPsv, &RecvBuffer[ReceivedCount],
+			XUartPsv_Recv(&UartPsv, &RecvBuffer[ReceivedCount],
 				      (TEST_BUFFER_SIZE - ReceivedCount));
 	}
 	/* Verify the entire receive buffer was successfully received */

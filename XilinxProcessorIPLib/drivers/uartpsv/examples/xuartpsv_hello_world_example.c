@@ -161,7 +161,7 @@ int UartPsvHelloWorldExample(UINTPTR BaseAddress)
 	while (SentCount < (sizeof(HelloWorld) - 1)) {
 		/* Transmit the data */
 		SentCount += XUartPsv_Send(&Uart_Psv,
-					&HelloWorld[SentCount], 1);
+					   &HelloWorld[SentCount], 1);
 	}
 
 	xil_printf("Hello Test Passed\r\n");
