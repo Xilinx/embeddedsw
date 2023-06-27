@@ -315,7 +315,9 @@ int XCsuDma_IntrExample(XCsuDma *CsuDmaInstance, UINTPTR BaseAddress)
 	 * No action required for PSU_PMU.
 	 * Perform cache operations on ARM64 and R5
 	 */
-#if defined(ARMR5)
+#if defined(ARMR52)
+        Xil_DCacheInvalidateRange((INTPTR)DstPtr, SIZE * 4);
+#elif defined(ARMR5)
 	Xil_DCacheFlushRange((INTPTR)DstPtr, SIZE * 4);
 #endif
 #if defined(__aarch64__)

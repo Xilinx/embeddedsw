@@ -160,26 +160,29 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	DataSize = Size;
 #endif
 
-#if defined(ARMR5)
+#if defined(ARMR52)
+	if (((Addr >> XCSUDMA_MSB_ADDR_SHIFT) == 0U) && (Channel == (XCSUDMA_DST_CHANNEL))) {
+		Xil_DCacheInvalidateRange((INTPTR)Addr, DataSize << XCSUDMA_SIZE_SHIFT);
+	}
+#elif defined(ARMR5)
 	/* No action if 64 bit address is used when this code is running on R5.
 	 * Flush if 32 bit addressing is used.
 	 */
 	if ((Addr >> XCSUDMA_MSB_ADDR_SHIFT) == 0U) {
 		Xil_DCacheFlushRange((INTPTR)Addr, DataSize << XCSUDMA_SIZE_SHIFT);
 	}
-#else
+#endif
 	/* No action required for PSU_PMU.
 	 * Perform cache operations on ARM64 (either 32 bit and 64 bit address)
 	 */
-	#if defined(__aarch64__)
-		if (Channel == (XCSUDMA_SRC_CHANNEL)) {
-			Xil_DCacheFlushRange((INTPTR)Addr,
-					(INTPTR)(DataSize << XCSUDMA_SIZE_SHIFT));
-		} else {
-			Xil_DCacheInvalidateRange((INTPTR)Addr,
-					(INTPTR)(DataSize << XCSUDMA_SIZE_SHIFT));
-		}
-	#endif
+#if defined(__aarch64__)
+	if (Channel == (XCSUDMA_SRC_CHANNEL)) {
+		Xil_DCacheFlushRange((INTPTR)Addr,
+				(INTPTR)(DataSize << XCSUDMA_SIZE_SHIFT));
+	} else {
+		Xil_DCacheInvalidateRange((INTPTR)Addr,
+				(INTPTR)(DataSize << XCSUDMA_SIZE_SHIFT));
+	}
 #endif
 
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
@@ -949,12 +952,12 @@ void XCsuDma_ByteAlignedTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(Size <= (u32)(XCSUDMA_SIZE_MAX));
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 
-#if defined(ARMR5)
+#if defined(ARMR52)
 	/* No action if 64 bit address is used when this code is running on R5.
 	 * Flush if 32 bit addressing is used.
 	 */
-	if ((Addr >> XCSUDMA_MSB_ADDR_SHIFT) == 0U) {
-		Xil_DCacheFlushRange((INTPTR)Addr, Size << XCSUDMA_SIZE_SHIFT);
+	if (((Addr >> XCSUDMA_MSB_ADDR_SHIFT) == 0U) && (Channel == (XCSUDMA_DST_CHANNEL))){
+		Xil_DCacheInvalidateRange((INTPTR)Addr, Size << XCSUDMA_SIZE_SHIFT);
 	}
 #else
 	/* No action required for PSU_PMU.
