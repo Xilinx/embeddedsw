@@ -245,9 +245,17 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 				     u32 ReqFlags, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u32 SubClass = NODESUBCLASS(DeviceId);
+
+	/* TODO: Memory region node support is yet to be added */
+	if ((u32)XPM_NODESUBCL_DEV_MEM_REGN == SubClass) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	Status = XPm_PlatAddDevRequirement(Subsystem, DeviceId, ReqFlags, Args, NumArgs);
 
+done:
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}
@@ -2067,7 +2075,12 @@ static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 	DeviceId = Args[0];
 	SubClass = NODESUBCLASS(DeviceId);
 
-	if (NumArgs > 1U) {
+	/*
+	 * Memory region device node does not have any power node as parent.
+	 * So, skipping this check even if the ADD_NODE command has more than
+	 * one argument.
+	 */
+	if (((u32)XPM_NODESUBCL_DEV_MEM_REGN != SubClass) && (NumArgs > 1U)) {
 		/*
 		 * Check for Num Args < 3U as device specific (except PLDevice)
 		 * AddNode functions currently don't implement any NumArgs checks
@@ -2098,6 +2111,10 @@ static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 		break;
 	case (u32)XPM_NODESUBCL_DEV_MEM_CTRLR:
 		Status = AddMemCtrlrDevice(Args, PowerId);
+		break;
+	case (u32)XPM_NODESUBCL_DEV_MEM_REGN:
+		/* TODO: Memory region node support is yet to be added */
+		Status = XST_SUCCESS;
 		break;
 	default:
 		Status = XPm_PlatAddDevice(Args, NumArgs);

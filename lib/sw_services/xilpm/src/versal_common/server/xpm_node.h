@@ -146,7 +146,8 @@ typedef enum {
 	XPM_NODESUBCL_DEV_PHY = 0x6,
 	XPM_NODESUBCL_DEV_PL = 0x7,
 	XPM_NODESUBCL_DEV_AIE = 0x8,
-	XPM_NODESUBCL_DEV_MAX = 0x9
+	XPM_NODESUBCL_DEV_MEM_REGN = 0x9,
+	XPM_NODESUBCL_DEV_MAX = 0xA
 } XPm_DeviceNodeSubclass;
 
 /* Subsystem node subclass */
@@ -271,6 +272,12 @@ typedef enum {
 	XPM_NODETYPE_DEV_BFRB = 0x15,
 	XPM_NODETYPE_DEV_MAX = 0x16
 } XPm_DeviceNodeType;
+
+/* Memory region node type */
+typedef enum {
+	XPM_NODETYPE_DEV_MEM_REGN = 0x0,
+	XPM_NODETYPE_DEV_MEM_REGN_MAX = 0x1
+} XPm_MemRegnNodeType;
 
 /* Subsystem node type */
 typedef enum {
@@ -1309,6 +1316,12 @@ typedef enum {
 	XPM_NODEIDX_DEV_PLD_0 = 0x0,
 	XPM_NODEIDX_DEV_PLD_MAX = 0x10
 } XPm_PlDeviceNodeIdx;
+
+/* Memory region device node index */
+typedef enum {
+    XPM_NODEIDX_DEV_MEM_REGN_MIN = 0x0,
+    XPM_NODEIDX_DEV_MEM_REGN_MAX = 0x20
+} XPm_MemRegnDeviceNodeIdx;
 
 /* Virtual device node index */
 typedef enum {
