@@ -272,13 +272,11 @@ int XCsuDma_IntrExample(XCsuDma *CsuDmaInstance, UINTPTR BaseAddress)
 			  ((Xil_In32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET) & 0xF0000) |
 			   CSUDMA_LOOPBACK_CFG));
 #if defined (versal)
-	}
-	else if (Config->DmaType == XCSUDMA_DMATYPEIS_PMCDMA0) {
+	} else if (Config->DmaType == XCSUDMA_DMATYPEIS_PMCDMA0) {
 		Xil_Out32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET,
 			  ((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
 			   PMCDMA0_LOOPBACK_CFG));
-	}
-	else {
+	} else {
 		Xil_Out32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET,
 			  ((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
 			   PMCDMA1_LOOPBACK_CFG));
@@ -316,7 +314,7 @@ int XCsuDma_IntrExample(XCsuDma *CsuDmaInstance, UINTPTR BaseAddress)
 	 * Perform cache operations on ARM64 and R5
 	 */
 #if defined(ARMR52)
-        Xil_DCacheInvalidateRange((INTPTR)DstPtr, SIZE * 4);
+	Xil_DCacheInvalidateRange((INTPTR)DstPtr, SIZE * 4);
 #elif defined(ARMR5)
 	Xil_DCacheFlushRange((INTPTR)DstPtr, SIZE * 4);
 #endif
@@ -327,8 +325,7 @@ int XCsuDma_IntrExample(XCsuDma *CsuDmaInstance, UINTPTR BaseAddress)
 	for (Index = 0; Index < SIZE; Index++) {
 		if (*SrcPtr != *DstPtr) {
 			return XST_FAILURE;
-		}
-		else {
+		} else {
 			SrcPtr++;
 			DstPtr++;
 		}
