@@ -35,6 +35,9 @@
 #include "xuartpsv.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -48,14 +51,17 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
+#define UARTPSV_DEVICE_ID		XPAR_XUARTPSV_0_DEVICE_ID
+#else
+#define	XUARTPSV_BASEADDRESS		XPAR_XUARTPSV_0_BASEADDR
+#endif
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
-#define UARTPSV_DEVICE_ID		XPAR_XUARTPSV_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #define UARTPSV_INT_IRQ_ID		XPAR_INTC_0_UARTPSV_0_VEC_ID
 #else
 #define INTC		XScuGic
-#define UARTPSV_DEVICE_ID		XPAR_XUARTPSV_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define UARTPSV_INT_IRQ_ID		XPAR_XUARTPS_0_INTR
 #endif
@@ -71,6 +77,7 @@
 
 /************************** Function Prototypes *****************************/
 
+#ifndef SDT
 int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
 			u16 DeviceId, u16 UartIntrId);
 
@@ -78,6 +85,9 @@ int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
 static int SetupInterruptSystem(INTC *IntcInstancePtr,
 				XUartPsv *UartInstancePtr,
 				u16 UartIntrId);
+#else
+int UartPsvIntrExample(XUartPsv *UartInstPtr, UINTPTR BaseAddress);
+#endif
 
 void Handler(void *CallBackRef, u32 Event, unsigned int EventData);
 
@@ -120,8 +130,12 @@ int main(void)
 	int Status;
 
 	/* Run the UartPsv Interrupt example, specify the the Device ID */
+#ifndef SDT
 	Status = UartPsvIntrExample(&InterruptController, &UartPsv,
 				UARTPSV_DEVICE_ID, UARTPSV_INT_IRQ_ID);
+#else
+	Status = UartPsvIntrExample(&UartPsv, XUARTPSV_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("UartPsv Interrupt Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -160,8 +174,12 @@ int main(void)
 * working it may never return.
 *
 **************************************************************************/
+#ifndef SDT
 int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
 			u16 DeviceId, u16 UartIntrId)
+#else
+int UartPsvIntrExample(XUartPsv *UartInstPtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XUartPsv_Config *Config;
@@ -173,7 +191,11 @@ int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
 	 * Initialize the UART driver so that it's ready to use
 	 * Look up the configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Config = XUartPsv_LookupConfig(DeviceId);
+#else
+	Config = XUartPsv_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
@@ -193,7 +215,13 @@ int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
 	 * Connect the UART to the interrupt subsystem such that interrupts
 	 * can occur. This function is application specific.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(IntcInstPtr, UartInstPtr, UartIntrId);
+#else
+	Status = XSetupInterruptSystem(UartInstPtr, &XUartPsv_InterruptHandler,
+					Config->IntrId, Config->IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -352,7 +380,7 @@ void Handler(void *CallBackRef, u32 Event, unsigned int EventData)
 	}
 }
 
-
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -476,3 +504,4 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
+#endif
