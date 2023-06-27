@@ -5,7 +5,7 @@
 title: Bindings for UARTPSV controller
 
 maintainers:
-  - Shubhrajyoti Datta <shubhrajyoti.datta@xilinx.com>
+  - Manikanta Guntupalli <manikanta.guntupalli@amd.com>
 
 type: driver
 
@@ -34,4 +34,14 @@ required:
     - xlnx,baudrate
     - interrupts
     - interrupt-parent
+
+examples:
+    xuartpsv_hello_world_example.c:
+        - reg
+    xuartpsv_intr_example.c:
+        - interrupts
+    xuartpsv_polled_example.c:
+        - reg
+    xuartpsv_selftest_example.c:
+        - reg
 ...
