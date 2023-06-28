@@ -62,7 +62,7 @@
 
 #ifndef SDT
 int RtcPsuSecondsIntrExample(XScuGic *IntcInstPtr, XRtcPsu *RtcInstPtr,
-			u16 DeviceId, u16 RtcIntrId);
+			     u16 DeviceId, u16 RtcIntrId);
 
 
 static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
@@ -102,7 +102,7 @@ int main(void)
 	/* Run the RtcPsu Interrupt example, specify the the Device ID */
 #ifndef SDT
 	Status = RtcPsuSecondsIntrExample(&InterruptController, &RtcPsu,
-				RTC_DEVICE_ID, RTC_SEC_INT_IRQ_ID);
+					  RTC_DEVICE_ID, RTC_SEC_INT_IRQ_ID);
 #else
 	Status = RtcPsuSecondsIntrExample(&RtcPsu, XPAR_XRTCPSU_0_BASEADDR);
 #endif
@@ -142,9 +142,9 @@ int main(void)
 **************************************************************************/
 #ifndef SDT
 int RtcPsuSecondsIntrExample(XScuGic *IntcInstPtr, XRtcPsu *RtcInstPtr,
-			u16 DeviceId, u16 RtcIntrId)
+			     u16 DeviceId, u16 RtcIntrId)
 #else
-int RtcPsuSecondsIntrExample(XRtcPsu *RtcInstPtr,UINTPTR BaseAddress)
+int RtcPsuSecondsIntrExample(XRtcPsu *RtcInstPtr, UINTPTR BaseAddress)
 #endif
 {
 	int Status;
@@ -181,10 +181,10 @@ int RtcPsuSecondsIntrExample(XRtcPsu *RtcInstPtr,UINTPTR BaseAddress)
 #ifndef SDT
 	Status = SetupInterruptSystem(IntcInstPtr, RtcInstPtr, RtcIntrId);
 #else
-	Status = XSetupInterruptSystem(RtcInstPtr,&XRtcPsu_InterruptHandler,
-					Config->IntrId[1],
-					Config->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(RtcInstPtr, &XRtcPsu_InterruptHandler,
+				       Config->IntrId[1],
+				       Config->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -201,14 +201,14 @@ int RtcPsuSecondsIntrExample(XRtcPsu *RtcInstPtr,UINTPTR BaseAddress)
 	/*
 	 * Enable the interrupt of the RTC device so interrupts will occur.
 	 */
-	XRtcPsu_SetInterruptMask(RtcInstPtr,XRTC_INT_EN_SECS_MASK);
+	XRtcPsu_SetInterruptMask(RtcInstPtr, XRTC_INT_EN_SECS_MASK);
 
-	while( Seconds != REPETATIONS);
+	while ( Seconds != REPETATIONS);
 
 	/*
 	 * Disable the interrupt of the RTC device so interrupts will not occur.
 	 */
-	XRtcPsu_ClearInterruptMask(RtcInstPtr,XRTC_INT_DIS_SECS_MASK);
+	XRtcPsu_ClearInterruptMask(RtcInstPtr, XRTC_INT_DIS_SECS_MASK);
 
 	return XST_SUCCESS;
 }
@@ -276,7 +276,7 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -286,8 +286,8 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * hardware interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler) XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler) XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 #endif
 
 	/*
@@ -296,8 +296,8 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * performs the specific interrupt processing for the device
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, RtcIntrId,
-				  (Xil_ExceptionHandler) XRtcPsu_InterruptHandler,
-				  (void *) RtcInstancePtr);
+				 (Xil_ExceptionHandler) XRtcPsu_InterruptHandler,
+				 (void *) RtcInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -308,7 +308,7 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 
 #ifndef TESTAPP_GEN
 	/* Enable interrupts */
-	 Xil_ExceptionEnable();
+	Xil_ExceptionEnable();
 #endif
 
 	return XST_SUCCESS;

@@ -148,9 +148,9 @@ int RtcPsuSecondsPolledExample(UINTPTR BaseAddress)
 	 * If seconds interrupt was not generated in ISR, then the processor goes
 	 * into an infinite loop. This represents a failure case of seconds example.
 	 */
-	for (Seconds = 1;Seconds <= REPETATIONS; Seconds++) {
+	for (Seconds = 1; Seconds <= REPETATIONS; Seconds++) {
 		while (!XRtcPsu_IsSecondsEventGenerated(&Rtc_Psu));
-		xil_printf("Seconds value is %02d.\n\r",Seconds);
+		xil_printf("Seconds value is %02d.\n\r", Seconds);
 	}
 
 	xil_printf("Seconds feature tested.\n\r");

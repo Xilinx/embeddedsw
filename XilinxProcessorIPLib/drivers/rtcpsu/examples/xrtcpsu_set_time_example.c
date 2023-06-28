@@ -118,8 +118,8 @@ int RtcPsuSetTimeExample(UINTPTR BaseAddress)
 #endif
 {
 	int Status;
-	u32 CurrentTime, DesiredTime,LastSetTime;
-	XRtcPsu_DT dt1,dt2,dt3;
+	u32 CurrentTime, DesiredTime, LastSetTime;
+	XRtcPsu_DT dt1, dt2, dt3;
 
 	/*
 	 * Initialize the RTC driver so that it's ready to use.
@@ -148,28 +148,28 @@ int RtcPsuSetTimeExample(UINTPTR BaseAddress)
 	xil_printf("Day Convention : 0-Fri, 1-Sat, 2-Sun, 3-Mon, 4-Tue, 5-Wed, 6-Thur\n\r");
 	xil_printf("Last set time for RTC is..\n\r");
 	LastSetTime = XRtcPsu_GetLastSetTime(&Rtc_Psu);
-	XRtcPsu_SecToDateTime(LastSetTime,&dt1);
+	XRtcPsu_SecToDateTime(LastSetTime, &dt1);
 	xil_printf("YEAR:MM:DD HR:MM:SS \t %04d:%02d:%02d %02d:%02d:%02d\t Day = %d\n\r",
-			dt1.Year,dt1.Month,dt1.Day,dt1.Hour,dt1.Min,dt1.Sec,dt1.WeekDay);
+		   dt1.Year, dt1.Month, dt1.Day, dt1.Hour, dt1.Min, dt1.Sec, dt1.WeekDay);
 
 	xil_printf("Current RTC time is..\n\r");
 	CurrentTime = XRtcPsu_GetCurrentTime(&Rtc_Psu);
-	XRtcPsu_SecToDateTime(CurrentTime,&dt2);
+	XRtcPsu_SecToDateTime(CurrentTime, &dt2);
 	xil_printf("YEAR:MM:DD HR:MM:SS \t %04d:%02d:%02d %02d:%02d:%02d\t Day = %d\n\r",
-			dt2.Year,dt2.Month,dt2.Day,dt2.Hour,dt2.Min,dt2.Sec,dt2.WeekDay);
+		   dt2.Year, dt2.Month, dt2.Day, dt2.Hour, dt2.Min, dt2.Sec, dt2.WeekDay);
 
 	xil_printf("Enter Desired Current Time YEAR:MM:DD HR:MM:SS : ");
 #if defined(__aarch64__)
 	scanf("%d %d %d %d %d %d", &dt3.Year, &dt3.Month, &dt3.Day,
-			&dt3.Hour, &dt3.Min, &dt3.Sec);
+	      &dt3.Hour, &dt3.Min, &dt3.Sec);
 #else
 	scanf("%ld %ld %ld %ld %ld %ld", &dt3.Year, &dt3.Month, &dt3.Day,
-			&dt3.Hour, &dt3.Min, &dt3.Sec);
+	      &dt3.Hour, &dt3.Min, &dt3.Sec);
 #endif
-	xil_printf("%d %d %d %d %d %d\n\r",dt3.Year,dt3.Month,dt3.Day,dt3.Hour,dt3.Min,dt3.Sec);
+	xil_printf("%d %d %d %d %d %d\n\r", dt3.Year, dt3.Month, dt3.Day, dt3.Hour, dt3.Min, dt3.Sec);
 
 	DesiredTime = XRtcPsu_DateTimeToSec(&dt3);
-	XRtcPsu_SetTime(&Rtc_Psu,DesiredTime);
+	XRtcPsu_SetTime(&Rtc_Psu, DesiredTime);
 
 	return XST_SUCCESS;
 }

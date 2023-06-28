@@ -159,20 +159,20 @@ int RtcPsuSetCalibrationExample(UINTPTR BaseAddress)
 	xil_printf("\n\rEnter Internet / Network Time YEAR:MM:DD HR:MM:SS : ");
 #if defined(__aarch64__)
 	scanf("%d %d %d %d %d %d", &dt1.Year, &dt1.Month, &dt1.Day,
-			&dt1.Hour, &dt1.Min, &dt1.Sec);
+	      &dt1.Hour, &dt1.Min, &dt1.Sec);
 #else
 	scanf("%ld %ld %ld %ld %ld %ld", &dt1.Year, &dt1.Month, &dt1.Day,
-			&dt1.Hour, &dt1.Min, &dt1.Sec);
+	      &dt1.Hour, &dt1.Min, &dt1.Sec);
 #endif
-	xil_printf("%d %d %d %d %d %d\n\r",dt1.Year,dt1.Month,dt1.Day,dt1.Hour,dt1.Min,dt1.Sec);
+	xil_printf("%d %d %d %d %d %d\n\r", dt1.Year, dt1.Month, dt1.Day, dt1.Hour, dt1.Min, dt1.Sec);
 
 	NetworkTime = XRtcPsu_DateTimeToSec(&dt1);
 
 	xil_printf("\n\rOld Calibration value : %08x\tCrystal Frequency : %08x\n\r",
-			Rtc_Psu.CalibrationValue,Rtc_Psu.OscillatorFreq);
+		   Rtc_Psu.CalibrationValue, Rtc_Psu.OscillatorFreq);
 
 	/* Set RTC time to user input time */
-	XRtcPsu_SetTime(&Rtc_Psu,NetworkTime);
+	XRtcPsu_SetTime(&Rtc_Psu, NetworkTime);
 
 	/*
 	 * For time accuracy RTC module need to be calibrated at regular interval,
@@ -181,9 +181,9 @@ int RtcPsuSetCalibrationExample(UINTPTR BaseAddress)
 	 * used for finding new calibration values.
 	 */
 	sleep(10);
-	NetworkTime = NetworkTime+10;
+	NetworkTime = NetworkTime + 10;
 
-	XRtcPsu_CalculateCalibration(&Rtc_Psu,NetworkTime,OscillatorFreq);
+	XRtcPsu_CalculateCalibration(&Rtc_Psu, NetworkTime, OscillatorFreq);
 
 	Status = XRtcPsu_CfgInitialize(&Rtc_Psu, Config, Config->BaseAddr);
 	if (Status != XST_SUCCESS) {
@@ -191,7 +191,7 @@ int RtcPsuSetCalibrationExample(UINTPTR BaseAddress)
 	}
 
 	xil_printf("New Calibration value : %08x\tCrystal Frequency : %08x\n\r",
-			Rtc_Psu.CalibrationValue,Rtc_Psu.OscillatorFreq);
+		   Rtc_Psu.CalibrationValue, Rtc_Psu.OscillatorFreq);
 
 	return XST_SUCCESS;
 }

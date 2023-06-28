@@ -148,13 +148,13 @@ int RtcPsuAlarmPolledExample(UINTPTR BaseAddress)
 	xil_printf("\n\rDay Convention : 0-Fri, 1-Sat, 2-Sun, 3-Mon, 4-Tue, 5-Wed, 6-Thur\n\r");
 	xil_printf("Current RTC time is..\n\r");
 	CurrentTime = XRtcPsu_GetCurrentTime(&Rtc_Psu);
-	XRtcPsu_SecToDateTime(CurrentTime,&dt0);
+	XRtcPsu_SecToDateTime(CurrentTime, &dt0);
 	xil_printf("YEAR:MM:DD HR:MM:SS \t %04d:%02d:%02d %02d:%02d:%02d\t Day = %d\n\r",
-			dt0.Year,dt0.Month,dt0.Day,dt0.Hour,dt0.Min,dt0.Sec,dt0.WeekDay);
+		   dt0.Year, dt0.Month, dt0.Day, dt0.Hour, dt0.Min, dt0.Sec, dt0.WeekDay);
 
 	CurrentTime = XRtcPsu_GetCurrentTime(&Rtc_Psu);
 	AlarmTime = CurrentTime + ALARM_PERIOD;
-	XRtcPsu_SetAlarm(&Rtc_Psu,AlarmTime,0U);
+	XRtcPsu_SetAlarm(&Rtc_Psu, AlarmTime, 0U);
 
 	/*
 	 * If Alarm was not generated, then the processor goes into an infinite
