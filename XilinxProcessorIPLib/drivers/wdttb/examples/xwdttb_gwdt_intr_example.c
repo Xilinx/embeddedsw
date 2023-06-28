@@ -50,9 +50,9 @@
 #define INTC		XScuGic
 #define GWDT_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
 #ifdef VERSAL_NET
- #define GWDT_INTR_VEC_ID       XPS_FPD_GWDT_2_INT_ID
+#define GWDT_INTR_VEC_ID       XPS_FPD_GWDT_2_INT_ID
 #elif defined(versal)
- #define GWDT_INTR_VEC_ID        XPS_LPD_GWDT_0_INT_ID
+#define GWDT_INTR_VEC_ID        XPS_LPD_GWDT_0_INT_ID
 #endif
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif
@@ -191,7 +191,7 @@ int GWdtIntrExample(XScuGic *IntcInstancePtr, XWdtTb *GWdtInstancePtr,
 	 * can occur
 	 */
 	Status = GWdtSetupIntrSystem(IntcInstancePtr, GWdtInstancePtr,
-				      GWdtIntrId);
+				     GWdtIntrId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -288,8 +288,8 @@ static int GWdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-			IntcInstancePtr);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 
 	/*
 	 * Connect the device driver handler that will be called when an
@@ -297,8 +297,8 @@ static int GWdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, GWdtIntrId,
-			(Xil_ExceptionHandler)GWdtIntrHandler,
-			(void *)GWdtInstancePtr);
+				 (Xil_ExceptionHandler)GWdtIntrHandler,
+				 (void *)GWdtInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}

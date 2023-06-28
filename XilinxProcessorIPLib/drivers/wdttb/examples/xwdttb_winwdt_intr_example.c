@@ -57,17 +57,17 @@
 #endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
- #define INTC_DEVICE_ID         XPAR_INTC_0_DEVICE_ID
- #define WDTTB_IRPT_INTR         XPAR_INTC_0_WDTTB_0_VEC_ID
+#define INTC_DEVICE_ID         XPAR_INTC_0_DEVICE_ID
+#define WDTTB_IRPT_INTR         XPAR_INTC_0_WDTTB_0_VEC_ID
 #else
- #define INTC_DEVICE_ID         XPAR_SCUGIC_SINGLE_DEVICE_ID
- #ifdef VERSAL_NET
-  #define WDTTB_IRPT_INTR      XPS_FPD_WWDT_2_INT_ID
- #elif defined(versal)
-  #define WDTTB_IRPT_INTR      XPS_LPD_WWDT_0_INT_ID
- #else
-  #define WDTTB_IRPT_INTR       XPAR_FABRIC_WDTTB_0_VEC_ID
- #endif
+#define INTC_DEVICE_ID         XPAR_SCUGIC_SINGLE_DEVICE_ID
+#ifdef VERSAL_NET
+#define WDTTB_IRPT_INTR      XPS_FPD_WWDT_2_INT_ID
+#elif defined(versal)
+#define WDTTB_IRPT_INTR      XPS_LPD_WWDT_0_INT_ID
+#else
+#define WDTTB_IRPT_INTR       XPAR_FABRIC_WDTTB_0_VEC_ID
+#endif
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 #define WIN_WDT_SW_COUNT	0xF00000	/**< Number of clock cycles for
@@ -91,16 +91,16 @@
 /************************** Function Prototypes ******************************/
 
 int WinWdtIntrExample(INTC *IntcInstancePtr,
-			XWdtTb *WdtTbInstancePtr,
-			u16 WdtTbDeviceId,
-			u16 WdtTbIntrId);
+		      XWdtTb *WdtTbInstancePtr,
+		      u16 WdtTbDeviceId,
+		      u16 WdtTbIntrId);
 
 static void WdtTbIntrHandler(void *CallBackRef);
 static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 				XWdtTb *WdtTbInstancePtr,
 				u16 WdtTbIntrId);
 static void WdtTbDisableIntrSystem(INTC *IntcInstancePtr,
-				u16 WdtTbIntrId);
+				   u16 WdtTbIntrId);
 
 /************************** Variable Definitions *****************************/
 
@@ -133,9 +133,9 @@ int main(void)
 	 * xparameters.h
 	 */
 	Status = WinWdtIntrExample(&IntcInstance,
-				&WdtTbInstance,
-				WDTTB_DEVICE_ID,
-				WDTTB_IRPT_INTR);
+				   &WdtTbInstance,
+				   WDTTB_DEVICE_ID,
+				   WDTTB_IRPT_INTR);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Window WDT interrupt example failed.\n\r");
 		return XST_FAILURE;
@@ -180,9 +180,9 @@ int main(void)
 *
 ******************************************************************************/
 int WinWdtIntrExample(INTC *IntcInstancePtr,
-			XWdtTb *WdtTbInstancePtr,
-			u16 WdtTbDeviceId,
-			u16 WdtTbIntrId)
+		      XWdtTb *WdtTbInstancePtr,
+		      u16 WdtTbDeviceId,
+		      u16 WdtTbIntrId)
 {
 	int Status;
 	XWdtTb_Config *Config;
@@ -206,7 +206,7 @@ int WinWdtIntrExample(INTC *IntcInstancePtr,
 		return XST_FAILURE;
 	}
 
-	if(!WdtTbInstancePtr->Config.IsPl) {
+	if (!WdtTbInstancePtr->Config.IsPl) {
 		/*Enable Window Watchdog Feature in WWDT */
 		XWdtTb_ConfigureWDTMode(WdtTbInstancePtr, XWT_WWDT);
 	}
@@ -224,8 +224,8 @@ int WinWdtIntrExample(INTC *IntcInstancePtr,
 	 * can occur
 	 */
 	Status = WdtTbSetupIntrSystem(IntcInstancePtr,
-					WdtTbInstancePtr,
-					WdtTbIntrId);
+				      WdtTbInstancePtr,
+				      WdtTbIntrId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -331,7 +331,7 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 	 * xparameters.h
 	 */
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #endif /* TESTAPP_GEN */
@@ -342,9 +342,9 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 	 * the specific interrupt processing for the device
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, WdtTbIntrId,
-			(XInterruptHandler)WdtTbIntrHandler,
-			(void *)WdtTbInstancePtr);
-	if(Status != XST_SUCCESS) {
+			       (XInterruptHandler)WdtTbIntrHandler,
+			       (void *)WdtTbInstancePtr);
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
@@ -354,7 +354,7 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 	 * all devices that cause interrupts
 	 */
 	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #endif /* TESTAPP_GEN */
@@ -376,22 +376,22 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #endif /* TESTAPP_GEN */
 
 	XScuGic_SetPriorityTriggerType(IntcInstancePtr, WdtTbIntrId,
-					0xA0, 0x3);
+				       0xA0, 0x3);
 
 	/*
 	 * Connect the interrupt handler that will be called when an
 	 * interrupt occurs for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, WdtTbIntrId,
-				(Xil_ExceptionHandler)WdtTbIntrHandler,
-				WdtTbInstancePtr);
+				 (Xil_ExceptionHandler)WdtTbIntrHandler,
+				 WdtTbInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -408,8 +408,8 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 	 * Register the interrupt controller handler with the exception table
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)INTC_HANDLER,
-			IntcInstancePtr);
+				     (Xil_ExceptionHandler)INTC_HANDLER,
+				     IntcInstancePtr);
 
 	/* Enable non-critical exceptions */
 	Xil_ExceptionEnable();
