@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  07/18/22 Initial release
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
+*       am   06/19/23 Added error code for failure cases
 *
 * </pre>
 * @note
@@ -65,6 +66,7 @@ int XSecure_AesDecryptKat(XSecure_ClientInstance *InstancePtr)
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -105,6 +107,7 @@ int XSecure_AesDecryptCmKat(XSecure_ClientInstance *InstancePtr)
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -138,6 +141,7 @@ int XSecure_RsaPublicEncKat(XSecure_ClientInstance *InstancePtr)
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -175,6 +179,7 @@ int XSecure_Sha3Kat(XSecure_ClientInstance *InstancePtr)
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -210,6 +215,7 @@ int XSecure_EllipticSignVerifyKat(XSecure_ClientInstance *InstancePtr, XSecure_E
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -248,6 +254,7 @@ int XSecure_AesEncryptKat(XSecure_ClientInstance *InstancePtr)
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -281,6 +288,7 @@ int XSecure_RsaPrivateDecKat(XSecure_ClientInstance *InstancePtr)
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -316,6 +324,7 @@ int XSecure_EllipticSignGenKat(XSecure_ClientInstance *InstancePtr, XSecure_EccC
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
