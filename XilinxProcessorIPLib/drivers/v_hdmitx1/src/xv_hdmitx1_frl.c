@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -382,14 +383,6 @@ static int XV_HdmiTx1_ExecFrlState_Lts2(XV_HdmiTx1 *InstancePtr)
 					       1,
 					       XV_HDMITX1_DDC_STAT_FLGS_REG,
 					       (u8*)&DdcBuf);
-
-		if (Status == XST_SUCCESS &&
-				(DdcBuf & XV_HDMITX1_DDC_STAT_FLGS_DSC_DECODE_MASK)) {
-			if (InstancePtr->DscDecodeFailCallback) {
-				InstancePtr->DscDecodeFailCallback(InstancePtr->DscDecodeFailRef);
-			}
-		}
-
 		if (Status == XST_SUCCESS &&
 		    (DdcBuf & XV_HDMITX1_DDC_STAT_FLGS_FLT_RDY_MASK)) {
 #ifdef DEBUG_TX_FRL_VERBOSITY
@@ -916,6 +909,15 @@ static int XV_HdmiTx1_ExecFrlState_LtsP(XV_HdmiTx1 *InstancePtr)
 #endif
 		if (InstancePtr->CedUpdateCallback) {
 			InstancePtr->CedUpdateCallback(InstancePtr->CedUpdateRef);
+		}
+	}
+
+	Status = XV_HdmiTx1_DdcReadReg(InstancePtr, XV_HDMITX1_DDC_ADDRESS, 1,
+				       XV_HDMITX1_DDC_STCR_REG, (u8 *)&DdcBuf);
+	if (Status == XST_SUCCESS &&
+	    (DdcBuf & XV_HDMITX1_DDC_STAT_FLGS_DSC_DECODE_MASK)) {
+		if (InstancePtr->DscDecodeFailCallback) {
+			InstancePtr->DscDecodeFailCallback(InstancePtr->DscDecodeFailRef);
 		}
 	}
 
