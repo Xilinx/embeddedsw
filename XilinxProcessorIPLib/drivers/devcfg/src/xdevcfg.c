@@ -56,7 +56,7 @@
 *			XDCFG_INT_STS_OFFSET) &
 *			XDCFG_IXR_D_P_DONE_MASK) !=
 *			XDCFG_IXR_D_P_DONE_MASK);
-*
+* 3.8  Nava 06/21/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -107,7 +107,7 @@
 *
 ******************************************************************************/
 int XDcfg_CfgInitialize(XDcfg *InstancePtr,
-			 XDcfg_Config *ConfigPtr, u32 EffectiveAddress)
+			XDcfg_Config *ConfigPtr, u32 EffectiveAddress)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
@@ -125,7 +125,9 @@ int XDcfg_CfgInitialize(XDcfg *InstancePtr,
 	/*
 	 * Copy configuration into instance.
 	 */
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 
 	/*
 	 * Save the base address pointer such that the registers of the block
@@ -173,10 +175,10 @@ void XDcfg_EnablePCAP(XDcfg *InstancePtr)
 
 
 	CtrlReg = XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
-					XDCFG_CTRL_OFFSET);
+				XDCFG_CTRL_OFFSET);
 
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr, XDCFG_CTRL_OFFSET,
-			(CtrlReg | XDCFG_CTRL_PCAP_MODE_MASK));
+		       (CtrlReg | XDCFG_CTRL_PCAP_MODE_MASK));
 
 }
 
@@ -204,10 +206,10 @@ void XDcfg_DisablePCAP(XDcfg *InstancePtr)
 
 
 	CtrlReg = XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
-					XDCFG_CTRL_OFFSET);
+				XDCFG_CTRL_OFFSET);
 
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr, XDCFG_CTRL_OFFSET,
-			(CtrlReg & ( ~XDCFG_CTRL_PCAP_MODE_MASK)));
+		       (CtrlReg & ( ~XDCFG_CTRL_PCAP_MODE_MASK)));
 
 }
 
@@ -236,10 +238,10 @@ void XDcfg_SetControlRegister(XDcfg *InstancePtr, u32 Mask)
 
 
 	CtrlReg = XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
-					XDCFG_CTRL_OFFSET);
+				XDCFG_CTRL_OFFSET);
 
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr, XDCFG_CTRL_OFFSET,
-			(CtrlReg | Mask));
+		       (CtrlReg | Mask));
 
 }
 
@@ -267,10 +269,10 @@ void XDcfg_ClearControlRegister(XDcfg *InstancePtr, u32 Mask)
 
 
 	CtrlReg = XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
-					XDCFG_CTRL_OFFSET);
+				XDCFG_CTRL_OFFSET);
 
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr, XDCFG_CTRL_OFFSET,
-			(CtrlReg & ~Mask));
+		       (CtrlReg & ~Mask));
 
 }
 
@@ -489,7 +491,7 @@ void XDcfg_SetRomShadowRegister(XDcfg *InstancePtr, u32 Data)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr, XDCFG_ROM_SHADOW_OFFSET,
-				Data);
+		       Data);
 
 }
 
@@ -546,10 +548,10 @@ void XDcfg_SetMiscControlRegister(XDcfg *InstancePtr, u32 Mask)
 
 
 	RegData = XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
-					XDCFG_MCTRL_OFFSET);
+				XDCFG_MCTRL_OFFSET);
 
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr, XDCFG_MCTRL_OFFSET,
-				(RegData | Mask));
+		       (RegData | Mask));
 }
 
 /****************************************************************************/
@@ -602,10 +604,10 @@ u32 XDcfg_IsDmaBusy(XDcfg *InstancePtr)
 
 	/* Read the PCAP status register for DMA status */
 	RegData = XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
-					XDCFG_STATUS_OFFSET);
+				XDCFG_STATUS_OFFSET);
 
 	if ((RegData & XDCFG_STATUS_DMA_CMD_Q_F_MASK) ==
-				XDCFG_STATUS_DMA_CMD_Q_F_MASK){
+	    XDCFG_STATUS_DMA_CMD_Q_F_MASK) {
 		return XST_SUCCESS;
 	}
 
@@ -638,24 +640,24 @@ u32 XDcfg_IsDmaBusy(XDcfg *InstancePtr)
 *
 ****************************************************************************/
 void XDcfg_InitiateDma(XDcfg *InstancePtr, u32 SourcePtr, u32 DestPtr,
-				u32 SrcWordLength, u32 DestWordLength)
+		       u32 SrcWordLength, u32 DestWordLength)
 {
 
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-				XDCFG_DMA_SRC_ADDR_OFFSET,
-				SourcePtr);
+		       XDCFG_DMA_SRC_ADDR_OFFSET,
+		       SourcePtr);
 
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-				XDCFG_DMA_DEST_ADDR_OFFSET,
-				DestPtr);
+		       XDCFG_DMA_DEST_ADDR_OFFSET,
+		       DestPtr);
 
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-				XDCFG_DMA_SRC_LEN_OFFSET,
-				SrcWordLength);
+		       XDCFG_DMA_SRC_LEN_OFFSET,
+		       SrcWordLength);
 
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-				XDCFG_DMA_DEST_LEN_OFFSET,
-				DestWordLength);
+		       XDCFG_DMA_DEST_LEN_OFFSET,
+		       DestWordLength);
 }
 
 /******************************************************************************/
@@ -681,8 +683,8 @@ void XDcfg_InitiateDma(XDcfg *InstancePtr, u32 SourcePtr, u32 DestPtr,
 *
 ****************************************************************************/
 static u32 XDcfg_PcapReadback(XDcfg *InstancePtr, u32 SourcePtr,
-				u32 SrcWordLength, u32 DestPtr,
-				u32 DestWordLength)
+			      u32 SrcWordLength, u32 DestPtr,
+			      u32 DestWordLength)
 {
 	u32 IntrReg;
 
@@ -690,7 +692,7 @@ static u32 XDcfg_PcapReadback(XDcfg *InstancePtr, u32 SourcePtr,
 	 * Send READ Frame command to FPGA
 	 */
 	XDcfg_InitiateDma(InstancePtr, SourcePtr, XDCFG_DMA_INVALID_ADDRESS,
-				SrcWordLength, 0);
+			  SrcWordLength, 0);
 
 	/*
 	 * Store the enabled interrupts to enable before the actual read
@@ -702,10 +704,10 @@ static u32 XDcfg_PcapReadback(XDcfg *InstancePtr, u32 SourcePtr,
 	/*
 	 * Wait till you get the DMA done for the read command sent
 	 */
-	 while ((XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
-			XDCFG_INT_STS_OFFSET) &
-			XDCFG_IXR_D_P_DONE_MASK) !=
-			XDCFG_IXR_D_P_DONE_MASK);
+	while ((XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
+			      XDCFG_INT_STS_OFFSET) &
+		XDCFG_IXR_D_P_DONE_MASK) !=
+	       XDCFG_IXR_D_P_DONE_MASK);
 	/*
 	 * Enable the previously stored Interrupts .
 	 */
@@ -715,7 +717,7 @@ static u32 XDcfg_PcapReadback(XDcfg *InstancePtr, u32 SourcePtr,
 	 * Initiate the DMA write command.
 	 */
 	XDcfg_InitiateDma(InstancePtr, XDCFG_DMA_INVALID_ADDRESS, (u32)DestPtr,
-				0, DestWordLength);
+			  0, DestWordLength);
 
 	return XST_SUCCESS;
 }
@@ -763,9 +765,9 @@ static u32 XDcfg_PcapReadback(XDcfg *InstancePtr, u32 SourcePtr,
 *
 *****************************************************************************/
 u32 XDcfg_Transfer(XDcfg *InstancePtr,
-			void *SourcePtr, u32 SrcWordLength,
-			void *DestPtr, u32 DestWordLength,
-			u32 TransferType)
+		   void *SourcePtr, u32 SrcWordLength,
+		   void *DestPtr, u32 DestWordLength,
+		   u32 TransferType)
 {
 
 	u32 CtrlReg;
@@ -782,7 +784,7 @@ u32 XDcfg_Transfer(XDcfg *InstancePtr,
 	 * Check whether the fabric is in initialized state
 	 */
 	if ((XDcfg_ReadReg(InstancePtr->Config.BaseAddr, XDCFG_STATUS_OFFSET)
-			& XDCFG_STATUS_PCFG_INIT_MASK) == 0) {
+	     & XDCFG_STATUS_PCFG_INIT_MASK) == 0) {
 		/*
 		 * We don't need to check PCFG_INIT to be high for
 		 * non-encrypted loopback transfers.
@@ -793,7 +795,7 @@ u32 XDcfg_Transfer(XDcfg *InstancePtr,
 	}
 
 	if ((TransferType == XDCFG_SECURE_PCAP_WRITE) ||
-		(TransferType == XDCFG_NON_SECURE_PCAP_WRITE)) {
+	    (TransferType == XDCFG_NON_SECURE_PCAP_WRITE)) {
 
 		/* Check for valid source pointer and length */
 		if ((!SourcePtr) || (SrcWordLength == 0)) {
@@ -804,8 +806,8 @@ u32 XDcfg_Transfer(XDcfg *InstancePtr,
 		CtrlReg = XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
 					XDCFG_MCTRL_OFFSET);
 		XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-				XDCFG_MCTRL_OFFSET, (CtrlReg &
-				~(XDCFG_MCTRL_PCAP_LPBK_MASK)));
+			       XDCFG_MCTRL_OFFSET, (CtrlReg &
+						    ~(XDCFG_MCTRL_PCAP_LPBK_MASK)));
 
 		if (TransferType == XDCFG_NON_SECURE_PCAP_WRITE) {
 			/*
@@ -816,8 +818,8 @@ u32 XDcfg_Transfer(XDcfg *InstancePtr,
 						XDCFG_CTRL_OFFSET);
 
 			XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-					XDCFG_CTRL_OFFSET, (CtrlReg &
-					  ~XDCFG_CTRL_PCAP_RATE_EN_MASK));
+				       XDCFG_CTRL_OFFSET, (CtrlReg &
+							   ~XDCFG_CTRL_PCAP_RATE_EN_MASK));
 
 		}
 		if (TransferType == XDCFG_SECURE_PCAP_WRITE) {
@@ -829,11 +831,11 @@ u32 XDcfg_Transfer(XDcfg *InstancePtr,
 			 * operation.
 			 */
 			XDcfg_SetControlRegister(InstancePtr,
-						XDCFG_CTRL_PCAP_RATE_EN_MASK);
+						 XDCFG_CTRL_PCAP_RATE_EN_MASK);
 		}
 
 		XDcfg_InitiateDma(InstancePtr, (u32)SourcePtr,
-				(u32)DestPtr, SrcWordLength, DestWordLength);
+				  (u32)DestPtr, SrcWordLength, DestWordLength);
 
 	}
 
@@ -848,8 +850,8 @@ u32 XDcfg_Transfer(XDcfg *InstancePtr,
 		CtrlReg = XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
 					XDCFG_MCTRL_OFFSET);
 		XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-				XDCFG_MCTRL_OFFSET, (CtrlReg &
-				~(XDCFG_MCTRL_PCAP_LPBK_MASK)));
+			       XDCFG_MCTRL_OFFSET, (CtrlReg &
+						    ~(XDCFG_MCTRL_PCAP_LPBK_MASK)));
 
 		/*
 		 * For PCAP readback of FPGA configuration register or memory,
@@ -861,26 +863,26 @@ u32 XDcfg_Transfer(XDcfg *InstancePtr,
 		 * transfer to support this mode of operation.
 		 */
 		return XDcfg_PcapReadback(InstancePtr,
-					 (u32)SourcePtr, SrcWordLength,
-					 (u32)DestPtr, 	 DestWordLength);
+					  (u32)SourcePtr, SrcWordLength,
+					  (u32)DestPtr, 	 DestWordLength);
 	}
 
 
 	if ((TransferType == XDCFG_CONCURRENT_SECURE_READ_WRITE) ||
-		(TransferType == XDCFG_CONCURRENT_NONSEC_READ_WRITE)) {
+	    (TransferType == XDCFG_CONCURRENT_NONSEC_READ_WRITE)) {
 
 		if ((!SourcePtr) || (SrcWordLength == 0) ||
-			(!DestPtr) || (DestWordLength == 0)) {
+		    (!DestPtr) || (DestWordLength == 0)) {
 			return XST_INVALID_PARAM;
 		}
 
 		if (TransferType == XDCFG_CONCURRENT_NONSEC_READ_WRITE) {
 			/* Enable internal PCAP loopback */
 			CtrlReg = XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
-					XDCFG_MCTRL_OFFSET);
+						XDCFG_MCTRL_OFFSET);
 			XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-					XDCFG_MCTRL_OFFSET, (CtrlReg |
-					XDCFG_MCTRL_PCAP_LPBK_MASK));
+				       XDCFG_MCTRL_OFFSET, (CtrlReg |
+							    XDCFG_MCTRL_PCAP_LPBK_MASK));
 
 			/*
 			 * Clear QUARTER_PCAP_RATE_EN bit
@@ -890,8 +892,8 @@ u32 XDcfg_Transfer(XDcfg *InstancePtr,
 						XDCFG_CTRL_OFFSET);
 
 			XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-					XDCFG_CTRL_OFFSET, (CtrlReg &
-					  ~XDCFG_CTRL_PCAP_RATE_EN_MASK));
+				       XDCFG_CTRL_OFFSET, (CtrlReg &
+							   ~XDCFG_CTRL_PCAP_RATE_EN_MASK));
 
 		}
 		if (TransferType == XDCFG_CONCURRENT_SECURE_READ_WRITE) {
@@ -899,8 +901,8 @@ u32 XDcfg_Transfer(XDcfg *InstancePtr,
 			CtrlReg = XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
 						XDCFG_MCTRL_OFFSET);
 			XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-					XDCFG_MCTRL_OFFSET, (CtrlReg &
-					~(XDCFG_MCTRL_PCAP_LPBK_MASK)));
+				       XDCFG_MCTRL_OFFSET, (CtrlReg &
+							    ~(XDCFG_MCTRL_PCAP_LPBK_MASK)));
 
 			/*
 			 * Set the QUARTER_PCAP_RATE_EN bit
@@ -908,11 +910,11 @@ u32 XDcfg_Transfer(XDcfg *InstancePtr,
 			 * cycles, this is required for encrypted data.
 			 */
 			XDcfg_SetControlRegister(InstancePtr,
-					XDCFG_CTRL_PCAP_RATE_EN_MASK);
+						 XDCFG_CTRL_PCAP_RATE_EN_MASK);
 		}
 
 		XDcfg_InitiateDma(InstancePtr, (u32)SourcePtr,
-				(u32)DestPtr, SrcWordLength, DestWordLength);
+				  (u32)DestPtr, SrcWordLength, DestWordLength);
 	}
 
 	return XST_SUCCESS;

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +22,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -----------------------------------------------
 * 1.00  sdm    05/25/11 First release.
+* 3.8   Nava   06/21/23 Added support for system device-tree flow.
 * </pre>
 *
 *******************************************************************************/
@@ -38,16 +40,22 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define DCFG_DEVICE_ID		XPAR_XDCFG_0_DEVICE_ID
-
+#ifndef SDT
+#define DCFG_DEVICE_ID          XPAR_XDCFG_0_DEVICE_ID
+#else
+#define DCFG_BASEADDR           XPAR_XDEVCFG_0_BASEADDR
+#endif
 
 /**************************** Type Definitions ********************************/
 
 /***************** Macros (Inline Functions) Definitions **********************/
 
 /************************** Function Prototypes *******************************/
-
+#ifndef SDT
 int DcfgSelfTestExample(u16 DeviceId);
+#else
+int DcfgSelfTestExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions ******************************/
 
@@ -78,7 +86,11 @@ int main(void)
 	 * Call the example, specify the device ID that is generated in
 	 * xparameters.h
 	 */
+#ifndef SDT
 	Status = DcfgSelfTestExample(DCFG_DEVICE_ID);
+#else
+	Status = DcfgSelfTestExample(DCFG_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("DevCfg Selftest Example Failed\r\n");
 		return XST_FAILURE;
@@ -107,7 +119,11 @@ int main(void)
 * @note		None
 *
 ****************************************************************************/
+#ifndef SDT
 int DcfgSelfTestExample(u16 DeviceId)
+#else
+int DcfgSelfTestExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XDcfg_Config *ConfigPtr;
@@ -115,14 +131,18 @@ int DcfgSelfTestExample(u16 DeviceId)
 	/*
 	 * Initialize the Device Configuration Interface driver.
 	 */
+#ifndef SDT
 	ConfigPtr = XDcfg_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XDcfg_LookupConfig(BaseAddress);
+#endif
 
 	/*
 	 * This is where the virtual address would be used, this example
 	 * uses physical address.
 	 */
 	Status = XDcfg_CfgInitialize(&DcfgInstance, ConfigPtr,
-					ConfigPtr->BaseAddr);
+				     ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

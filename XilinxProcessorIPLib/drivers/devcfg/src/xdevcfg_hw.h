@@ -27,6 +27,7 @@
 *		     version UG585 (v1.4) November 16, 2012.
 * 2.04a	kpc	10/07/13 Added function prototype.
 * 3.00a	kpc	25/02/14 Corrected the XDCFG_BASE_ADDRESS macro value.
+* 3.8   Nava    06/21/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -211,14 +212,14 @@ extern "C" {
 						     *  of Init Signal
 						     */
 #define XDCFG_IXR_ERROR_FLAGS_MASK		(XDCFG_IXR_AXI_WTO_MASK | \
-						XDCFG_IXR_AXI_WERR_MASK | \
-						XDCFG_IXR_AXI_RTO_MASK |  \
-						XDCFG_IXR_AXI_RERR_MASK | \
-						XDCFG_IXR_RX_FIFO_OV_MASK | \
-						XDCFG_IXR_DMA_CMD_ERR_MASK |\
-						XDCFG_IXR_DMA_Q_OV_MASK |   \
-						XDCFG_IXR_P2D_LEN_ERR_MASK |\
-						XDCFG_IXR_PCFG_HMAC_ERR_MASK)
+		XDCFG_IXR_AXI_WERR_MASK | \
+		XDCFG_IXR_AXI_RTO_MASK |  \
+		XDCFG_IXR_AXI_RERR_MASK | \
+		XDCFG_IXR_RX_FIFO_OV_MASK | \
+		XDCFG_IXR_DMA_CMD_ERR_MASK |\
+		XDCFG_IXR_DMA_Q_OV_MASK |   \
+		XDCFG_IXR_P2D_LEN_ERR_MASK |\
+		XDCFG_IXR_PCFG_HMAC_ERR_MASK)
 
 
 #define XDCFG_IXR_ALL_MASK			0x00F7F8EF
@@ -267,9 +268,9 @@ extern "C" {
 							     *  Status
 							     */
 #define XDCFG_STATUS_EFUSE_BBRAM_KEY_DISABLE_MASK	0x00000008
-							   /**< BBRAM key
-							     *  disable
-							     */
+/**< BBRAM key
+  *  disable
+  */
 #define XDCFG_STATUS_EFUSE_SEC_EN_MASK		0x00000004 /**< Efuse Security
 							     *  Enable Status
 							     */

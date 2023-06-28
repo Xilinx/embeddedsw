@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +42,7 @@
 * 3.1   kpc  04/22/14 Fixed CR#780203. Enable the pcap clock if it is not set.
 *       ms   04/10/17 Modified filename tag to include the file in doxygen
 *                     examples.
+* 3.8   Nava 06/21/23 Added support for system device-tree flow.
 *</pre>
 ******************************************************************************/
 
@@ -55,7 +57,11 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define DCFG_DEVICE_ID		XPAR_XDCFG_0_DEVICE_ID
+#else
+#define DCFG_BASEADDR           XPAR_XDEVCFG_0_BASEADDR
+#endif
 
 /*
  * The BIT_STREAM_LOCATION is a dummy address and BIT_STREAM_SIZE_WORDS is a
@@ -75,9 +81,11 @@
 #define SLCR_LOCK	0xF8000004 /**< SLCR Write Protection Lock */
 #define SLCR_UNLOCK	0xF8000008 /**< SLCR Write Protection Unlock */
 #define SLCR_LVL_SHFTR_EN 0xF8000900 /**< SLCR Level Shifters Enable */
-#define SLCR_PCAP_CLK_CTRL XPAR_PS7_SLCR_0_S_AXI_BASEADDR + 0x168 /**< SLCR
-					* PCAP clock control register address
-					*/
+#ifndef SDT
+#define SLCR_PCAP_CLK_CTRL XPAR_PS7_SLCR_0_S_AXI_BASEADDR + 0x168 /**< SLCR PCAP clock control register address */
+#else
+#define SLCR_PCAP_CLK_CTRL XPAR_SLCR_BASEADDR + 0x168
+#endif
 
 #define SLCR_PCAP_CLK_CTRL_EN_MASK 0x1
 #define SLCR_LOCK_VAL	0x767B
@@ -89,7 +97,11 @@
 
 /************************** Function Prototypes ******************************/
 
-int XDcfgPolledExample(XDcfg * DcfgInstance, u16 DeviceId);
+#ifndef SDT
+int XDcfgPolledExample(XDcfg *DcfgInstance, u16 DeviceId);
+#else
+int XDcfgPolledExample(XDcfg *DcfgInstance, UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -117,7 +129,11 @@ int main(void)
 	 * Call the example , specify the device ID that is generated in
 	 * xparameters.h.
 	 */
+#ifndef SDT
 	Status = XDcfgPolledExample(&DcfgInstance, DCFG_DEVICE_ID);
+#else
+	Status = XDcfgPolledExample(&DcfgInstance, DCFG_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Dcfg Polled Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -142,7 +158,11 @@ int main(void)
 * @note		None
 *
 ****************************************************************************/
+#ifndef SDT
 int XDcfgPolledExample(XDcfg *DcfgInstPtr, u16 DeviceId)
+#else
+int XDcfgPolledExample(XDcfg *DcfgInstPtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u32 IntrStsReg = 0;
@@ -154,14 +174,18 @@ int XDcfgPolledExample(XDcfg *DcfgInstPtr, u16 DeviceId)
 	/*
 	 * Initialize the Device Configuration Interface driver.
 	 */
+#ifndef SDT
 	ConfigPtr = XDcfg_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XDcfg_LookupConfig(BaseAddress);
+#endif
 
 	/*
 	 * This is where the virtual address would be used, this example
 	 * uses physical address.
 	 */
 	Status = XDcfg_CfgInitialize(DcfgInstPtr, ConfigPtr,
-					ConfigPtr->BaseAddr);
+				     ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -187,7 +211,7 @@ int XDcfgPolledExample(XDcfg *DcfgInstPtr, u16 DeviceId)
 	if (!(StatusReg & SLCR_PCAP_CLK_CTRL_EN_MASK)) {
 		Xil_Out32(SLCR_UNLOCK, SLCR_UNLOCK_VAL);
 		Xil_Out32(SLCR_PCAP_CLK_CTRL,
-				(StatusReg | SLCR_PCAP_CLK_CTRL_EN_MASK));
+			  (StatusReg | SLCR_PCAP_CLK_CTRL_EN_MASK));
 		Xil_Out32(SLCR_UNLOCK, SLCR_LOCK_VAL);
 	}
 
@@ -212,14 +236,14 @@ int XDcfgPolledExample(XDcfg *DcfgInstPtr, u16 DeviceId)
 	 * Clear the interrupt status bits
 	 */
 	XDcfg_IntrClear(DcfgInstPtr, (XDCFG_IXR_PCFG_DONE_MASK |
-					XDCFG_IXR_D_P_DONE_MASK |
-					XDCFG_IXR_DMA_DONE_MASK));
+				      XDCFG_IXR_D_P_DONE_MASK |
+				      XDCFG_IXR_DMA_DONE_MASK));
 
 	/* Check if DMA command queue is full */
 	StatusReg = XDcfg_ReadReg(DcfgInstPtr->Config.BaseAddr,
-				XDCFG_STATUS_OFFSET);
+				  XDCFG_STATUS_OFFSET);
 	if ((StatusReg & XDCFG_STATUS_DMA_CMD_Q_F_MASK) ==
-			XDCFG_STATUS_DMA_CMD_Q_F_MASK) {
+	    XDCFG_STATUS_DMA_CMD_Q_F_MASK) {
 		return XST_FAILURE;
 	}
 
@@ -227,27 +251,27 @@ int XDcfgPolledExample(XDcfg *DcfgInstPtr, u16 DeviceId)
 	 * Download bitstream in non secure mode
 	 */
 	XDcfg_Transfer(DcfgInstPtr, (u8 *)BIT_STREAM_LOCATION,
-			BIT_STREAM_SIZE_WORDS,
-			(u8 *)XDCFG_DMA_INVALID_ADDRESS,
-			0, XDCFG_NON_SECURE_PCAP_WRITE);
+		       BIT_STREAM_SIZE_WORDS,
+		       (u8 *)XDCFG_DMA_INVALID_ADDRESS,
+		       0, XDCFG_NON_SECURE_PCAP_WRITE);
 
 	/* Poll IXR_DMA_DONE */
 	IntrStsReg = XDcfg_IntrGetStatus(DcfgInstPtr);
 	while ((IntrStsReg & XDCFG_IXR_DMA_DONE_MASK) !=
-			XDCFG_IXR_DMA_DONE_MASK) {
+	       XDCFG_IXR_DMA_DONE_MASK) {
 		IntrStsReg = XDcfg_IntrGetStatus(DcfgInstPtr);
 	}
 
 	if (PartialCfg) {
 		/* Poll IXR_D_P_DONE */
 		while ((IntrStsReg & XDCFG_IXR_D_P_DONE_MASK) !=
-				XDCFG_IXR_D_P_DONE_MASK) {
+		       XDCFG_IXR_D_P_DONE_MASK) {
 			IntrStsReg = XDcfg_IntrGetStatus(DcfgInstPtr);
 		}
 	} else {
 		/* Poll IXR_PCFG_DONE */
 		while ((IntrStsReg & XDCFG_IXR_PCFG_DONE_MASK) !=
-				XDCFG_IXR_PCFG_DONE_MASK) {
+		       XDCFG_IXR_PCFG_DONE_MASK) {
 			IntrStsReg = XDcfg_IntrGetStatus(DcfgInstPtr);
 		}
 		/*

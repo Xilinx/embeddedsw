@@ -18,6 +18,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- ---------------------------------------------
 * 2.04a kpc 10/07/13 First release
+* 3.8  Nava 06/21/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -60,7 +61,7 @@ void XDcfg_ResetHw(u32 BaseAddr)
 
 	/* Mask the interrupts  */
 	XDcfg_WriteReg(BaseAddr, XDCFG_INT_MASK_OFFSET,
-			XDCFG_IXR_ALL_MASK);
+		       XDCFG_IXR_ALL_MASK);
 	/* Clear the interuupt status */
 	Regval = XDcfg_ReadReg(BaseAddr, XDCFG_INT_STS_OFFSET);
 	XDcfg_WriteReg(BaseAddr, XDCFG_INT_STS_OFFSET, Regval);
@@ -78,7 +79,7 @@ void XDcfg_ResetHw(u32 BaseAddr)
 	XDcfg_WriteReg(BaseAddr, XDCFG_MCTRL_OFFSET, Regval);
 	/*Reset the configuration register to reset value */
 	XDcfg_WriteReg(BaseAddr, XDCFG_CFG_OFFSET,
-				XDCFG_CONFIG_RESET_VALUE);
+		       XDCFG_CONFIG_RESET_VALUE);
 	/*Disable the PCAP rate enable bit */
 	Regval = XDcfg_ReadReg(BaseAddr, XDCFG_CTRL_OFFSET);
 	Regval = Regval & ~XDCFG_CTRL_PCAP_RATE_EN_MASK;
