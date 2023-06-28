@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -22,6 +23,6 @@ BEGIN LIBRARY xilrsa
   OPTION SUPPORTED_PERIPHERALS = (ps7_cortexa9);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lrsa,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx RSA Library to access RSA and SHA software algorithms on Zynq ";
-  OPTION VERSION = 1.6;
+  OPTION VERSION = 1.7;
   OPTION NAME = xilrsa;  
 END LIBRARY
