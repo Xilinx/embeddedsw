@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,17 +51,17 @@
 static s32 XNandPsu_ReadBbt(XNandPsu *InstancePtr, u32 Target);
 
 static s32 XNandPsu_SearchBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
-							u32 Target);
+			      u32 Target);
 
 static void XNandPsu_CreateBbt(XNandPsu *InstancePtr, u32 Target);
 
 static void XNandPsu_ConvertBbt(XNandPsu *InstancePtr, u8 *Buf, u32 Target);
 
 static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
-				XNandPsu_BbtDesc *MirrorDesc, u32 Target);
+			     XNandPsu_BbtDesc *MirrorDesc, u32 Target);
 
-static s32 XNandPsu_MarkBbt(XNandPsu* InstancePtr, XNandPsu_BbtDesc *Desc,
-							u32 Target);
+static s32 XNandPsu_MarkBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
+			    u32 Target);
 
 static s32 XNandPsu_UpdateBbt(XNandPsu *InstancePtr, u32 Target);
 
@@ -84,7 +85,7 @@ void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr)
 	/* Initialize primary Bad Block Table(BBT) */
 	for (Index = 0U; Index < XNANDPSU_MAX_TARGETS; Index++) {
 		InstancePtr->BbtDesc.PageOffset[Index] =
-						XNANDPSU_BBT_DESC_PAGE_OFFSET;
+			XNANDPSU_BBT_DESC_PAGE_OFFSET;
 	}
 	if (InstancePtr->EccMode == XNANDPSU_ONDIE) {
 		InstancePtr->BbtDesc.SigOffset = XNANDPSU_ONDIE_SIG_OFFSET;
@@ -103,25 +104,25 @@ void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr)
 
 	/* Assuming that the flash device will have at least 4 blocks. */
 	if (InstancePtr->Geometry.NumTargetBlocks <= InstancePtr->
-							BbtDesc.MaxBlocks){
+	    BbtDesc.MaxBlocks) {
 		InstancePtr->BbtDesc.MaxBlocks = 4U;
 	}
 
 	/* Initialize mirror Bad Block Table(BBT) */
 	for (Index = 0U; Index < XNANDPSU_MAX_TARGETS; Index++) {
 		InstancePtr->BbtMirrorDesc.PageOffset[Index] =
-						XNANDPSU_BBT_DESC_PAGE_OFFSET;
+			XNANDPSU_BBT_DESC_PAGE_OFFSET;
 	}
 	if (InstancePtr->EccMode == XNANDPSU_ONDIE) {
 		InstancePtr->BbtMirrorDesc.SigOffset =
-					XNANDPSU_ONDIE_SIG_OFFSET;
+			XNANDPSU_ONDIE_SIG_OFFSET;
 		InstancePtr->BbtMirrorDesc.VerOffset =
-					XNANDPSU_ONDIE_VER_OFFSET;
+			XNANDPSU_ONDIE_VER_OFFSET;
 	} else {
 		InstancePtr->BbtMirrorDesc.SigOffset =
-					XNANDPSU_BBT_DESC_SIG_OFFSET;
+			XNANDPSU_BBT_DESC_SIG_OFFSET;
 		InstancePtr->BbtMirrorDesc.VerOffset =
-					XNANDPSU_BBT_DESC_VER_OFFSET;
+			XNANDPSU_BBT_DESC_VER_OFFSET;
 	}
 	InstancePtr->BbtMirrorDesc.SigLength = XNANDPSU_BBT_DESC_SIG_LEN;
 	InstancePtr->BbtMirrorDesc.MaxBlocks = XNANDPSU_BBT_DESC_MAX_BLOCKS;
@@ -133,7 +134,7 @@ void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr)
 
 	/* Assuming that the flash device will have at least 4 blocks. */
 	if (InstancePtr->Geometry.NumTargetBlocks <= InstancePtr->
-						BbtMirrorDesc.MaxBlocks){
+	    BbtMirrorDesc.MaxBlocks) {
 		InstancePtr->BbtMirrorDesc.MaxBlocks = 4U;
 	}
 
@@ -152,7 +153,7 @@ void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr)
 		InstancePtr->BbPattern.Length =
 			XNANDPSU_BB_PTRN_LEN_SML_PAGE;
 	}
-	for(Index = 0U; Index < XNANDPSU_BB_PTRN_LEN_LARGE_PAGE; Index++) {
+	for (Index = 0U; Index < XNANDPSU_BB_PTRN_LEN_LARGE_PAGE; Index++) {
 		InstancePtr->BbPattern.Pattern[Index] = XNANDPSU_BB_PATTERN;
 	}
 }
@@ -189,42 +190,40 @@ static void XNandPsu_CreateBbt(XNandPsu *InstancePtr, u32 Target)
 	s32 Status;
 
 	/* Number of pages to search for bad block pattern */
-	if ((InstancePtr->BbPattern.Options & XNANDPSU_BBT_SCAN_2ND_PAGE) != 0U)
-	{
+	if ((InstancePtr->BbPattern.Options & XNANDPSU_BBT_SCAN_2ND_PAGE) != 0U) {
 		NumPages = 2U;
 	} else {
 		NumPages = 1U;
 	}
 	/* Scan all the blocks for factory marked bad blocks */
-	for(BlockIndex = StartBlock; BlockIndex < (StartBlock + NumBlocks);
-							BlockIndex++) {
+	for (BlockIndex = StartBlock; BlockIndex < (StartBlock + NumBlocks);
+	     BlockIndex++) {
 		/* Block offset in Bad Block Table(BBT) entry */
 		BlockOffset = BlockIndex >> XNANDPSU_BBT_BLOCK_SHIFT;
 		/* Block shift value in the byte */
 		BlockShift = XNandPsu_BbtBlockShift(BlockIndex);
 		Page = BlockIndex * InstancePtr->Geometry.PagesPerBlock;
 		/* Search for the bad block pattern */
-		for(PageIndex = 0U; PageIndex < NumPages; PageIndex++) {
+		for (PageIndex = 0U; PageIndex < NumPages; PageIndex++) {
 			Status = XNandPsu_ReadSpareBytes(InstancePtr,
-					(Page + PageIndex), &Buf[0]);
+							 (Page + PageIndex), &Buf[0]);
 
 			if (Status != XST_SUCCESS) {
 				/* Marking as bad block */
 				InstancePtr->Bbt[BlockOffset] |=
 					(u8)(XNANDPSU_BLOCK_FACTORY_BAD <<
-					 BlockShift);
+					     BlockShift);
 				break;
 			}
 			/*
 			 * Read the spare bytes to check for bad block
 			 * pattern
 			 */
-			for(Length = 0U; Length <
-				InstancePtr->BbPattern.Length; Length++) {
+			for (Length = 0U; Length <
+			     InstancePtr->BbPattern.Length; Length++) {
 				if (Buf[InstancePtr->BbPattern.Offset + Length]
-						!=
-					InstancePtr->BbPattern.Pattern[Length])
-				{
+				    !=
+				    InstancePtr->BbPattern.Pattern[Length]) {
 					/* Bad block found */
 					InstancePtr->Bbt[BlockOffset] |=
 						(u8)
@@ -261,7 +260,7 @@ s32 XNandPsu_ScanBbt(XNandPsu *InstancePtr)
 
 	/* Zero the RAM based Bad Block Table(BBT) entries */
 	BbtLen = InstancePtr->Geometry.NumBlocks >>
-					XNANDPSU_BBT_BLOCK_SHIFT;
+		 XNANDPSU_BBT_BLOCK_SHIFT;
 	(void)memset(&InstancePtr->Bbt[0], 0, BbtLen);
 
 	for (Index = 0U; Index < InstancePtr->Geometry.NumTargets; Index++) {
@@ -271,15 +270,15 @@ s32 XNandPsu_ScanBbt(XNandPsu *InstancePtr)
 			XNandPsu_CreateBbt(InstancePtr, Index);
 			/* Write the Bad Block Table(BBT) to the flash */
 			Status = XNandPsu_WriteBbt(InstancePtr,
-					&InstancePtr->BbtDesc,
-					&InstancePtr->BbtMirrorDesc, Index);
+						   &InstancePtr->BbtDesc,
+						   &InstancePtr->BbtMirrorDesc, Index);
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
 			/* Write the Mirror Bad Block Table(BBT) to the flash */
 			Status = XNandPsu_WriteBbt(InstancePtr,
-					&InstancePtr->BbtMirrorDesc,
-					&InstancePtr->BbtDesc, Index);
+						   &InstancePtr->BbtMirrorDesc,
+						   &InstancePtr->BbtDesc, Index);
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
@@ -288,14 +287,14 @@ s32 XNandPsu_ScanBbt(XNandPsu *InstancePtr)
 			 * (BBT) as Reserved
 			 */
 			Status = XNandPsu_MarkBbt(InstancePtr,
-							&InstancePtr->BbtDesc,
-							Index);
+						  &InstancePtr->BbtDesc,
+						  Index);
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
 			Status = XNandPsu_MarkBbt(InstancePtr,
-						&InstancePtr->BbtMirrorDesc,
-							Index);
+						  &InstancePtr->BbtMirrorDesc,
+						  Index);
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
@@ -327,40 +326,40 @@ static void XNandPsu_ConvertBbt(XNandPsu *InstancePtr, u8 *Buf, u32 Target)
 	u8 BlockType;
 	u32 BlockIndex;
 	u32 BbtLen = InstancePtr->Geometry.NumTargetBlocks >>
-					XNANDPSU_BBT_BLOCK_SHIFT;
+		     XNANDPSU_BBT_BLOCK_SHIFT;
 	u32 StartBlock = Target * InstancePtr->Geometry.NumTargetBlocks;
 
-	for(BlockOffset = StartBlock; BlockOffset < (StartBlock + BbtLen);
-						BlockOffset++) {
+	for (BlockOffset = StartBlock; BlockOffset < (StartBlock + BbtLen);
+	     BlockOffset++) {
 		Data = *(Buf + BlockOffset);
 		/* Clear the RAM based Bad Block Table(BBT) contents */
 		InstancePtr->Bbt[BlockOffset] = 0x0U;
 		/* Loop through the every 4 blocks in the bitmap */
-		for(BlockIndex = 0U; BlockIndex < XNANDPSU_BBT_ENTRY_NUM_BLOCKS;
-				BlockIndex++) {
+		for (BlockIndex = 0U; BlockIndex < XNANDPSU_BBT_ENTRY_NUM_BLOCKS;
+		     BlockIndex++) {
 			BlockShift = XNandPsu_BbtBlockShift(BlockIndex);
 			BlockType = (u8) ((Data >> BlockShift) &
-				XNANDPSU_BLOCK_TYPE_MASK);
-			switch(BlockType) {
+					  XNANDPSU_BLOCK_TYPE_MASK);
+			switch (BlockType) {
 				case XNANDPSU_FLASH_BLOCK_FAC_BAD:
 					/* Factory bad block */
 					InstancePtr->Bbt[BlockOffset] |=
 						(u8)
 						(XNANDPSU_BLOCK_FACTORY_BAD <<
-						BlockShift);
+						 BlockShift);
 					break;
 				case XNANDPSU_FLASH_BLOCK_RESERVED:
 					/* Reserved block */
 					InstancePtr->Bbt[BlockOffset] |=
 						(u8)
 						(XNANDPSU_BLOCK_RESERVED <<
-						BlockShift);
+						 BlockShift);
 					break;
 				case XNANDPSU_FLASH_BLOCK_BAD:
 					/* Bad block due to wear */
 					InstancePtr->Bbt[BlockOffset] |=
 						(u8)(XNANDPSU_BLOCK_BAD <<
-						BlockShift);
+						     BlockShift);
 					break;
 				default:
 					/* Good block */
@@ -388,7 +387,7 @@ static s32 XNandPsu_ReadBbt(XNandPsu *InstancePtr, u32 Target)
 	u64 Offset;
 #ifdef __ICCARM__
 #pragma pack(push, 1)
-	u8 Buf[XNANDPSU_BBT_BUF_LENGTH]= {0U};
+	u8 Buf[XNANDPSU_BBT_BUF_LENGTH] = {0U};
 #pragma pack(pop)
 #else
 	u8 Buf[XNANDPSU_BBT_BUF_LENGTH] __attribute__ ((aligned(64))) = {0U};
@@ -401,28 +400,28 @@ static s32 XNandPsu_ReadBbt(XNandPsu *InstancePtr, u32 Target)
 	XNandPsu_BbtDesc *Desc = &InstancePtr->BbtDesc;
 	XNandPsu_BbtDesc *MirrorDesc = &InstancePtr->BbtMirrorDesc;
 	BufLen = InstancePtr->Geometry.NumBlocks >>
-			XNANDPSU_BBT_BLOCK_SHIFT;
+		 XNANDPSU_BBT_BLOCK_SHIFT;
 	/* Search the Bad Block Table(BBT) in flash */
 	Status1 = XNandPsu_SearchBbt(InstancePtr, Desc, Target);
 	Status2 = XNandPsu_SearchBbt(InstancePtr, MirrorDesc, Target);
 	if ((Status1 != XST_SUCCESS) && (Status2 != XST_SUCCESS)) {
 #ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Bad block table not found\r\n",__func__);
+		xil_printf("%s: Bad block table not found\r\n", __func__);
 #endif
 		Status = XST_FAILURE;
 		goto Out;
 	}
 #ifdef XNANDPSU_DEBUG
-	xil_printf("%s: Bad block table found\r\n",__func__);
+	xil_printf("%s: Bad block table found\r\n", __func__);
 #endif
 	/* Bad Block Table found */
 	if ((Desc->Valid != 0U) && (MirrorDesc->Valid != 0U)) {
 		/* Valid BBT & Mirror BBT found */
 		if (Desc->Version[Target] > MirrorDesc->Version[Target]) {
 			Offset = (u64)Desc->PageOffset[Target] *
-				(u64)InstancePtr->Geometry.BytesPerPage;
+				 (u64)InstancePtr->Geometry.BytesPerPage;
 			Status = XNandPsu_Read(InstancePtr, Offset, BufLen,
-								&Buf[0]);
+					       &Buf[0]);
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
@@ -432,16 +431,16 @@ static s32 XNandPsu_ReadBbt(XNandPsu *InstancePtr, u32 Target)
 
 			/* Write the BBT to Mirror BBT location in flash */
 			Status = XNandPsu_WriteBbt(InstancePtr, MirrorDesc,
-							Desc, Target);
+						   Desc, Target);
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
 		} else if (Desc->Version[Target] <
-						MirrorDesc->Version[Target]) {
+			   MirrorDesc->Version[Target]) {
 			Offset = (u64)MirrorDesc->PageOffset[Target] *
-				(u64)InstancePtr->Geometry.BytesPerPage;
+				 (u64)InstancePtr->Geometry.BytesPerPage;
 			Status = XNandPsu_Read(InstancePtr, Offset, BufLen,
-								&Buf[0]);
+					       &Buf[0]);
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
@@ -451,16 +450,16 @@ static s32 XNandPsu_ReadBbt(XNandPsu *InstancePtr, u32 Target)
 
 			/* Write the Mirror BBT to BBT location in flash */
 			Status = XNandPsu_WriteBbt(InstancePtr, Desc,
-							MirrorDesc, Target);
+						   MirrorDesc, Target);
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
 		} else {
 			/* Both are up-to-date */
 			Offset = (u64)Desc->PageOffset[Target] *
-				(u64)InstancePtr->Geometry.BytesPerPage;
+				 (u64)InstancePtr->Geometry.BytesPerPage;
 			Status = XNandPsu_Read(InstancePtr, Offset, BufLen,
-								&Buf[0]);
+					       &Buf[0]);
 			if (Status != XST_SUCCESS) {
 				goto Out;
 			}
@@ -470,7 +469,7 @@ static s32 XNandPsu_ReadBbt(XNandPsu *InstancePtr, u32 Target)
 	} else if (Desc->Valid != 0U) {
 		/* Valid Primary BBT found */
 		Offset = (u64)Desc->PageOffset[Target] *
-			(u64)InstancePtr->Geometry.BytesPerPage;
+			 (u64)InstancePtr->Geometry.BytesPerPage;
 		Status = XNandPsu_Read(InstancePtr, Offset, BufLen, &Buf[0]);
 		if (Status != XST_SUCCESS) {
 			goto Out;
@@ -481,14 +480,14 @@ static s32 XNandPsu_ReadBbt(XNandPsu *InstancePtr, u32 Target)
 
 		/* Write the BBT to Mirror BBT location in flash */
 		Status = XNandPsu_WriteBbt(InstancePtr, MirrorDesc, Desc,
-								Target);
+					   Target);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
 	} else {
 		/* Valid Mirror BBT found */
 		Offset = (u64)MirrorDesc->PageOffset[Target] *
-			(u64)InstancePtr->Geometry.BytesPerPage;
+			 (u64)InstancePtr->Geometry.BytesPerPage;
 		Status = XNandPsu_Read(InstancePtr, Offset, BufLen, &Buf[0]);
 		if (Status != XST_SUCCESS) {
 			goto Out;
@@ -499,7 +498,7 @@ static s32 XNandPsu_ReadBbt(XNandPsu *InstancePtr, u32 Target)
 
 		/* Write the Mirror BBT to BBT location in flash */
 		Status = XNandPsu_WriteBbt(InstancePtr, Desc, MirrorDesc,
-								Target);
+					   Target);
 		if (Status != XST_SUCCESS) {
 			goto Out;
 		}
@@ -523,7 +522,7 @@ Out:
 *
 ******************************************************************************/
 static s32 XNandPsu_SearchBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
-								u32 Target)
+			      u32 Target)
 {
 	u32 StartBlock;
 	u32 SigOffset;
@@ -543,26 +542,25 @@ static s32 XNandPsu_SearchBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 	s32 Status;
 
 	StartBlock = ((Target + (u32)1) *
-				InstancePtr->Geometry.NumTargetBlocks) - (u32)1;
+		      InstancePtr->Geometry.NumTargetBlocks) - (u32)1;
 	SigOffset = Desc->SigOffset;
 	VerOffset = Desc->VerOffset;
 	MaxBlocks = Desc->MaxBlocks;
 	SigLength = Desc->SigLength;
 
 	/* Read the last 4 blocks for Bad Block Table(BBT) signature */
-	for(Block = 0U; Block < MaxBlocks; Block++) {
+	for (Block = 0U; Block < MaxBlocks; Block++) {
 		PageOff = (StartBlock - Block) *
-			InstancePtr->Geometry.PagesPerBlock;
+			  InstancePtr->Geometry.PagesPerBlock;
 
-			Status = XNandPsu_ReadSpareBytes(InstancePtr, PageOff, &Buf[0]);
+		Status = XNandPsu_ReadSpareBytes(InstancePtr, PageOff, &Buf[0]);
 		if (Status != XST_SUCCESS) {
 			continue;
 		}
 		/* Check the Bad Block Table(BBT) signature */
-		for(Offset = 0U; Offset < SigLength; Offset++) {
+		for (Offset = 0U; Offset < SigLength; Offset++) {
 			if (Buf[Offset + SigOffset] !=
-				(u8)(Desc->Signature[Offset]))
-			{
+			    (u8)(Desc->Signature[Offset])) {
 				break; /* Check the next blocks */
 			}
 		}
@@ -596,7 +594,7 @@ Out:
 *
 ******************************************************************************/
 static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
-				XNandPsu_BbtDesc *MirrorDesc, u32 Target)
+			     XNandPsu_BbtDesc *MirrorDesc, u32 Target)
 {
 	u64 Offset;
 	u32 Block = {0U};
@@ -604,8 +602,8 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 			InstancePtr->Geometry.NumTargetBlocks) - (u32)1;
 #ifdef __ICCARM__
 #pragma pack(push, 1)
-	u8 Buf[XNANDPSU_BBT_BUF_LENGTH]= {0U};
-	u8 SpareBuf[XNANDPSU_MAX_SPARE_SIZE]= {0U};
+	u8 Buf[XNANDPSU_BBT_BUF_LENGTH] = {0U};
+	u8 SpareBuf[XNANDPSU_MAX_SPARE_SIZE] = {0U};
 #pragma pack(pop)
 #else
 	u8 Buf[XNANDPSU_BBT_BUF_LENGTH] __attribute__ ((aligned(64))) = {0U};
@@ -621,17 +619,16 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 	u32 Index;
 	u8 BlockType;
 	u32 BbtLen = InstancePtr->Geometry.NumBlocks >>
-						XNANDPSU_BBT_BLOCK_SHIFT;
+		     XNANDPSU_BBT_BLOCK_SHIFT;
 	/* Find a valid block to write the Bad Block Table(BBT) */
 	if ((!Desc->Valid) != 0U) {
-		for(Index = 0U; Index < Desc->MaxBlocks; Index++) {
+		for (Index = 0U; Index < Desc->MaxBlocks; Index++) {
 			Block  = (EndBlock - Index);
 			BlockOffset = Block >> XNANDPSU_BBT_BLOCK_SHIFT;
 			BlockShift = XNandPsu_BbtBlockShift(Block);
 			BlockType = (InstancePtr->Bbt[BlockOffset] >>
-					BlockShift) & XNANDPSU_BLOCK_TYPE_MASK;
-			switch(BlockType)
-			{
+				     BlockShift) & XNANDPSU_BLOCK_TYPE_MASK;
+			switch (BlockType) {
 				case XNANDPSU_BLOCK_BAD:
 				case XNANDPSU_BLOCK_FACTORY_BAD:
 					continue;
@@ -640,9 +637,9 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 					break;
 			}
 			Desc->PageOffset[Target] = Block *
-				InstancePtr->Geometry.PagesPerBlock;
+						   InstancePtr->Geometry.PagesPerBlock;
 			if (Desc->PageOffset[Target] !=
-					MirrorDesc->PageOffset[Target]) {
+			    MirrorDesc->PageOffset[Target]) {
 				/* Free block found */
 				Desc->Valid = 1U;
 				break;
@@ -653,29 +650,29 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 		/* Block not found for writing Bad Block Table(BBT) */
 		if (Index >= Desc->MaxBlocks) {
 #ifdef XNANDPSU_DEBUG
-		xil_printf("%s: Blocks unavailable for writing BBT\r\n",
-								__func__);
+			xil_printf("%s: Blocks unavailable for writing BBT\r\n",
+				   __func__);
 #endif
 			Status = XST_FAILURE;
 			goto Out;
 		}
 	} else {
 		Block = Desc->PageOffset[Target] /
-					InstancePtr->Geometry.PagesPerBlock;
+			InstancePtr->Geometry.PagesPerBlock;
 	}
 	/* Convert the memory based BBT to flash based table */
 	(void)memset(Buf, 0xff, BbtLen);
 
 	/* Loop through the number of blocks */
-	for(BlockOffset = 0U; BlockOffset < BbtLen; BlockOffset++) {
+	for (BlockOffset = 0U; BlockOffset < BbtLen; BlockOffset++) {
 		Data = InstancePtr->Bbt[BlockOffset];
 		/* Calculate the bit mask for 4 blocks at a time in loop */
-		for(BlockIndex = 0U; BlockIndex < XNANDPSU_BBT_ENTRY_NUM_BLOCKS;
-				BlockIndex++) {
+		for (BlockIndex = 0U; BlockIndex < XNANDPSU_BBT_ENTRY_NUM_BLOCKS;
+		     BlockIndex++) {
 			BlockShift = XNandPsu_BbtBlockShift(BlockIndex);
 			Buf[BlockOffset] &= ~(Mask[Data &
-					XNANDPSU_BLOCK_TYPE_MASK] <<
-					BlockShift);
+						   XNANDPSU_BLOCK_TYPE_MASK] <<
+					      BlockShift);
 			Data >>= XNANDPSU_BBT_BLOCK_SHIFT;
 		}
 	}
@@ -687,7 +684,7 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 
 	/* Write the BBT to page offset */
 	Offset = (u64)Desc->PageOffset[Target] *
-			(u64)InstancePtr->Geometry.BytesPerPage;
+		 (u64)InstancePtr->Geometry.BytesPerPage;
 	Status = XNandPsu_Write(InstancePtr, Offset, BbtLen, &Buf[0]);
 	if (Status != XST_SUCCESS) {
 		goto Out;
@@ -701,11 +698,11 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 	}
 
 	(void)Xil_MemCpy(SpareBuf + Desc->SigOffset, &Desc->Signature[0],
-							Desc->SigLength);
+			 Desc->SigLength);
 	(void)memcpy(SpareBuf + Desc->VerOffset, &Desc->Version[Target], 1U);
 
 	Status = XNandPsu_WriteSpareBytes(InstancePtr,
-				Desc->PageOffset[Target], &SpareBuf[0]);
+					  Desc->PageOffset[Target], &SpareBuf[0]);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}
@@ -734,23 +731,23 @@ static s32 XNandPsu_UpdateBbt(XNandPsu *InstancePtr, u32 Target)
 	/* Update the version number */
 	Version = InstancePtr->BbtDesc.Version[Target];
 	InstancePtr->BbtDesc.Version[Target] = (u8)(((u16)Version +
-							(u16)1) % (u16)256U);
+					       (u16)1) % (u16)256U);
 
 	Version = InstancePtr->BbtMirrorDesc.Version[Target];
 	InstancePtr->BbtMirrorDesc.Version[Target] = (u8)(((u16)Version +
-							(u16)1) % (u16)256);
+			(u16)1) % (u16)256);
 	/* Update the primary Bad Block Table(BBT) in flash */
 	Status = XNandPsu_WriteBbt(InstancePtr, &InstancePtr->BbtDesc,
-						&InstancePtr->BbtMirrorDesc,
-						Target);
+				   &InstancePtr->BbtMirrorDesc,
+				   Target);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}
 
 	/* Update the mirrored Bad Block Table(BBT) in flash */
 	Status = XNandPsu_WriteBbt(InstancePtr, &InstancePtr->BbtMirrorDesc,
-						&InstancePtr->BbtDesc,
-						Target);
+				   &InstancePtr->BbtDesc,
+				   Target);
 	if (Status != XST_SUCCESS) {
 		goto Out;
 	}
@@ -772,8 +769,8 @@ Out:
 *		- XST_FAILURE if fail.
 *
 ******************************************************************************/
-static s32 XNandPsu_MarkBbt(XNandPsu* InstancePtr, XNandPsu_BbtDesc *Desc,
-								u32 Target)
+static s32 XNandPsu_MarkBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
+			    u32 Target)
 {
 	u32 BlockIndex;
 	u32 BlockOffset;
@@ -786,15 +783,15 @@ static s32 XNandPsu_MarkBbt(XNandPsu* InstancePtr, XNandPsu_BbtDesc *Desc,
 
 	/* Mark the last four blocks as Reserved */
 	BlockIndex = ((Target + (u32)1) * InstancePtr->Geometry.NumTargetBlocks) -
-						Desc->MaxBlocks - (u32)1;
+		     Desc->MaxBlocks - (u32)1;
 
-	for(Index = 0U; Index < Desc->MaxBlocks; Index++) {
+	for (Index = 0U; Index < Desc->MaxBlocks; Index++) {
 
 		BlockOffset = BlockIndex >> XNANDPSU_BBT_BLOCK_SHIFT;
 		BlockShift = XNandPsu_BbtBlockShift(BlockIndex);
 		OldVal = InstancePtr->Bbt[BlockOffset];
 		NewVal = (u8) (OldVal | (XNANDPSU_BLOCK_RESERVED <<
-							BlockShift));
+					 BlockShift));
 		InstancePtr->Bbt[BlockOffset] = NewVal;
 
 		if (OldVal != NewVal) {
@@ -848,10 +845,9 @@ s32 XNandPsu_IsBlockBad(XNandPsu *InstancePtr, u32 Block)
 	BlockType = (Data >> BlockShift) & XNANDPSU_BLOCK_TYPE_MASK;
 
 	if ((BlockType != XNANDPSU_BLOCK_GOOD) &&
-		(BlockType != XNANDPSU_BLOCK_RESERVED)) {
+	    (BlockType != XNANDPSU_BLOCK_RESERVED)) {
 		Status = XST_SUCCESS;
-	}
-	else {
+	} else {
 		Status = XST_FAILURE;
 	}
 	return Status;

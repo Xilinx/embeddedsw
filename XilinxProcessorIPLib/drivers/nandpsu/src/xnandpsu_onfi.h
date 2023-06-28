@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -138,7 +139,7 @@ extern "C" {
  * This enum defines the ONFI 3.1 commands.
  */
 enum OnfiCommandList {
-	READ=0,				/**< Read */
+	READ = 0,				/**< Read */
 	MULTIPLANE_READ,		/**< Multiplane Read */
 	COPYBACK_READ,			/**< Copyback Read */
 	CHANGE_READ_COLUMN,		/**< Change Read Column */
@@ -256,7 +257,8 @@ typedef struct {
 } OnfiParamPage;
 #pragma pack(pop)
 #else
-}__attribute__((packed))OnfiParamPage;
+}
+__attribute__((packed))OnfiParamPage;
 #endif
 
 /* ONFI extended parameter page structure. */
@@ -277,7 +279,7 @@ typedef struct {
 } OnfiExtPrmPage;
 #pragma pack(pop)
 #else
-}__attribute__((packed))OnfiExtPrmPage;
+} __attribute__((packed))OnfiExtPrmPage;
 #endif
 
 /* Driver extended parameter page information. */
@@ -294,7 +296,7 @@ typedef struct {
 } OnfiExtEccBlock;
 #pragma pack(pop)
 #else
-}__attribute__((packed))OnfiExtEccBlock;
+} __attribute__((packed))OnfiExtEccBlock;
 #endif
 
 typedef struct {

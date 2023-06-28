@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -451,7 +452,7 @@ extern "C" {
 *
 *****************************************************************************/
 #define XNandPsu_ReadReg(BaseAddress, RegOffset)			\
-			Xil_In32((BaseAddress) + (RegOffset))
+	Xil_In32((BaseAddress) + (RegOffset))
 
 /****************************************************************************/
 /**
@@ -469,7 +470,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XNandPsu_WriteReg(BaseAddress, RegOffset, Data)			\
-			Xil_Out32(((BaseAddress) + (RegOffset)), (Data))
+	Xil_Out32(((BaseAddress) + (RegOffset)), (Data))
 
 /************************** Function Prototypes ******************************/
 
