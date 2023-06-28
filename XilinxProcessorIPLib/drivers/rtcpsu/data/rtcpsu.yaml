@@ -1,0 +1,45 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for RTCPSU controller
+
+maintainers:
+  - Harini T <harini.t@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,zynqmp-rtc
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XRtcPsu_Config
+
+required:
+    - compatible
+    - reg
+    - interrupts: 2
+    - interrupt-parent
+
+examples:
+        xrtcpsu_alarm_interrupt_example.c:
+                - interrupts
+        xrtcpsu_alarm_polled_example.c:
+                - reg
+        xrtcpsu_periodic_alarm_interrupt_example.c:
+                - interrupts
+        xrtcpsu_seconds_interrupt_example.c:
+                - interrupts
+        xrtcpsu_seconds_polled_example.c:
+                - reg
+        xrtcpsu_set_calibration_example.c:
+                - reg
+        xrtcpsu_set_time_example.c:
+                - reg
+...
