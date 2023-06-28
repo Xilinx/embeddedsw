@@ -32,6 +32,7 @@
  * 4.8   ma   07/08/2022 Added support for secure lockdown
  *       dc   07/13/2022 Reserved error codes reservation for Versal net
  * 5.0   kpt  07/24/2022 Added error codes for KAT
+ * 5.2   am   06/22/2023 Added KAT error code
  *
  * </pre>
  *
@@ -119,7 +120,7 @@ typedef enum {
 							is not allowed for IPI for
 							any operations */
 	XSECURE_AES_KAT_DECRYPT_UPDATE_FAILED_ERROR, /**< 0x55 - Error when AES KAT decrypt
-												update fails */
+							update fails */
 	XSECURE_AES_KAT_UPDATE_AAD_FAILED_ERROR,/**< 0x56 - Error when aad update
 														fails */
 	XSECURE_AES_KAT_ENCRYPT_INIT_FAILED_ERROR, /**< 0x57 - Error when encrypt
@@ -130,21 +131,23 @@ typedef enum {
 														final fails */
 	XSECURE_KAT_GCM_TAG_MISMATCH_ERROR,/**< 0x5A - Error when GCM mismatch occurs */
 	XSECURE_AES_ZERO_PUF_KEY_NOT_ALLOWED,	/**< 0x5B - Error when PUF Key is selected as key source and PUF key is zeroized */
-    XSECURE_AES_UNALIGNED_SIZE_ERROR,	    /**< 0x5C - Error when data is unaligned*/
+	XSECURE_AES_UNALIGNED_SIZE_ERROR,	/**< 0x5C - Error when data is unaligned*/
 
-	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR = 0x80, /**< 0x80 - RSA KAT fails  */
+	XSECURE_RSA_KAT_INIT_ERROR = 0x80,	/**< 0x80 - RSA KAT intialization failure */
 
-	XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR, /**< 0x81 - Error when RSA data
+	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR, /**< 0x81 - RSA KAT fails  */
+
+	XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR, /**< 0x82 - Error when RSA data
 							not matched with
 							expected data  */
-	XSECURE_RSA_INVALID_PARAM_RESERVED,	     /**< 0x82 - Invalid Argument */
-	XSECURE_RSAKAT_INVALID_PARAM,		     /**< 0x83 - Invalid Argument */
-	XSECURE_RSA_STATE_MISMATCH_RESERVED,	     /**< 0x84 - State mismatch */
-	XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR,	/**< 0x85 - RSA decrypt failed error */
-	XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR,	/**< 0x86 - RSA when decrypted data doesn't
-												match with plain text */
+	XSECURE_RSA_INVALID_PARAM_RESERVED,	     /**< 0x83 - Invalid Argument */
+	XSECURE_RSAKAT_INVALID_PARAM,		     /**< 0x84 - Invalid Argument */
+	XSECURE_RSA_STATE_MISMATCH_RESERVED,	     /**< 0x85 - State mismatch */
+	XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR,	/**< 0x86 - RSA decrypt failed error */
+	XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR,	/**< 0x87 - RSA when decrypted data doesn't
+							match with plain text */
 
-	/*
+	/**
 	 * The error codes from 0x90 to 0xBF are reserved for Versal net platform
 	 * This range is reserved please don't define any error codes for Versal
 	 */
@@ -171,6 +174,11 @@ typedef enum {
 	XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR,        /**< 0xCE - R is not within ECC order */
 	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR,        /**< 0xCF - S is not within ECC order */
 	XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR,   /**< 0xD0 - Curve not supported for KAT */
+	XSECURE_ELLIPTIC_KAT_SIGN_VERIFY_ERROR,	/**< 0xD1 - Signature verify error for KAT */
+	XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_ERROR, /**< 0xD2 - Generate Signature error for KAT */
+	XSECURE_ELLIPTIC_KAT_GENERATE_SIGNR_ERROR, /**< 0xD3 - Generate Signature R error for KAT */
+	XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_64BIT_ERROR, /**< 0xD4 - Generate Signature error for KAT */
+	XSECURE_ELLIPTIC_KAT_64BIT_SIGN_VERIFY_ERROR,	/**< 0xD5 - Signature verify error for KAT */
 
 	XSECURE_ERR_CODE_RESERVED = 0xF0,	/**< 0xF0 -
 	                    Till 2022.1 - No tamper response when tamper interrupt is detected
