@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017 - 2023 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xv_sditxss_selftest_example.c
-* @addtogroup xv_sditxss_v1_0
+* @addtogroup v_sditxss_v4_3
 * @{
 *
 * This file contains a design example using the XV_SdiTxSs driver. It performs a

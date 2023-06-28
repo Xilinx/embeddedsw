@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017 - 2023 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xv_sditxss_coreinit.c
-* @addtogroup v_sditxss_v4_2
+* @addtogroup v_sditxss_v4_3
 * @{
 * @details
 
