@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,18 +63,18 @@ u32 XNandPsu_OnfiParamPageCrc(u8 *ParamBuf, u32 StartOff, u32 Length)
 	u32 DataByteCount = 0U;
 	u32 CrcMask, CrcHighBit;
 
-	CrcMask = ((u32)(((u32)1 << (Order - (u32)1)) -(u32)1) << (u32)1) | (u32)1;
+	CrcMask = ((u32)(((u32)1 << (Order - (u32)1)) - (u32)1) << (u32)1) | (u32)1;
 	CrcHighBit = (u32)((u32)1 << (Order - (u32)1));
 	/*
 	 * CRC covers the data bytes between byte 0 and byte 253
 	 * (ONFI 1.0, section 5.4.1.36)
 	 */
-	for(i = StartOff; i < Length; i++) {
+	for (i = StartOff; i < Length; i++) {
 		DataIn = *(ParamBuf + i);
 		c = (u32)DataIn;
 		DataByteCount++;
 		j = 0x80U;
-		while(j != 0U) {
+		while (j != 0U) {
 			Bit = Crc & CrcHighBit;
 			Crc <<= 1U;
 			if ((c & j) != 0U) {

@@ -290,14 +290,14 @@ typedef enum {
  */
 typedef struct {
 	u32 PageOffset[XNANDPSU_MAX_TARGETS];
-				/**< Page offset where BBT resides */
+	/**< Page offset where BBT resides */
 	u32 SigOffset;		/**< Signature offset in Spare area */
 	u32 VerOffset;		/**< Offset of BBT version */
 	u32 SigLength;		/**< Length of the signature */
 	u32 MaxBlocks;		/**< Max blocks to search for BBT */
 	char Signature[5];	/**< BBT signature */
 	u8 Version[XNANDPSU_MAX_TARGETS];
-				/**< BBT version */
+	/**< BBT version */
 	u32 Valid;		/**< BBT descriptor is valid or not */
 } XNandPsu_BbtDesc;
 
@@ -424,9 +424,9 @@ typedef struct {
  *****************************************************************************/
 #define XNandPsu_SetBits(InstancePtr, RegOffset, BitMask)		\
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,		\
-		(RegOffset),						\
-	((u32)(XNandPsu_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		(RegOffset)) | (BitMask))))
+			  (RegOffset),						\
+			  ((u32)(XNandPsu_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					  (RegOffset)) | (BitMask))))
 
 /*****************************************************************************/
 /**
@@ -444,9 +444,9 @@ typedef struct {
  *****************************************************************************/
 #define XNandPsu_ClrBits(InstancePtr, RegOffset, BitMask)		\
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,		\
-		(RegOffset),						\
-	((u32)(XNandPsu_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		(RegOffset)) & ~(BitMask))))
+			  (RegOffset),						\
+			  ((u32)(XNandPsu_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					  (RegOffset)) & ~(BitMask))))
 
 /*****************************************************************************/
 /**
@@ -465,9 +465,9 @@ typedef struct {
  *****************************************************************************/
 #define XNandPsu_ReadModifyWrite(InstancePtr, RegOffset, Mask, Value)	\
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,		\
-		(RegOffset),						\
-	((u32)((u32)(XNandPsu_ReadReg((InstancePtr)->Config.BaseAddress,\
-		(u32)(RegOffset)) & (u32)(~(Mask))) | (u32)(Value))))
+			  (RegOffset),						\
+			  ((u32)((u32)(XNandPsu_ReadReg((InstancePtr)->Config.BaseAddress,\
+					  (u32)(RegOffset)) & (u32)(~(Mask))) | (u32)(Value))))
 
 /*****************************************************************************/
 /**
@@ -482,9 +482,9 @@ typedef struct {
  *
  *****************************************************************************/
 #define XNandPsu_IntrSigEnable(InstancePtr, Mask)			\
-		XNandPsu_SetBits((InstancePtr),				\
-			XNANDPSU_INTR_SIG_EN_OFFSET,			\
-			(Mask))
+	XNandPsu_SetBits((InstancePtr),				\
+			 XNANDPSU_INTR_SIG_EN_OFFSET,			\
+			 (Mask))
 
 /*****************************************************************************/
 /**
@@ -499,9 +499,9 @@ typedef struct {
  *
  *****************************************************************************/
 #define XNandPsu_IntrSigClear(InstancePtr, Mask)			\
-		XNandPsu_ClrBits((InstancePtr),				\
-			XNANDPSU_INTR_SIG_EN_OFFSET,			\
-			(Mask))
+	XNandPsu_ClrBits((InstancePtr),				\
+			 XNANDPSU_INTR_SIG_EN_OFFSET,			\
+			 (Mask))
 
 /*****************************************************************************/
 /**
@@ -516,9 +516,9 @@ typedef struct {
  *
  *****************************************************************************/
 #define XNandPsu_IntrStsEnable(InstancePtr, Mask)			\
-		XNandPsu_SetBits((InstancePtr),				\
-			XNANDPSU_INTR_STS_EN_OFFSET,			\
-			(Mask))
+	XNandPsu_SetBits((InstancePtr),				\
+			 XNANDPSU_INTR_STS_EN_OFFSET,			\
+			 (Mask))
 
 /*****************************************************************************/
 /**
@@ -536,15 +536,15 @@ typedef struct {
 /************************** Function Prototypes *****************************/
 
 s32 XNandPsu_CfgInitialize(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr,
-				u32 EffectiveAddr);
+			   u32 EffectiveAddr);
 
 s32 XNandPsu_Erase(XNandPsu *InstancePtr, u64 Offset, u64 Length);
 
 s32 XNandPsu_Write(XNandPsu *InstancePtr, u64 Offset, u64 Length,
-							u8 *SrcBuf);
+		   u8 *SrcBuf);
 
 s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length,
-							u8 *DestBuf);
+		  u8 *DestBuf);
 
 s32 XNandPsu_EraseBlock(XNandPsu *InstancePtr, u32 Target, u32 Block);
 
@@ -553,14 +553,14 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf);
 s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf);
 
 s32 XNandPsu_ChangeTimingMode(XNandPsu *InstancePtr,
-				XNandPsu_DataInterface NewIntf,
-				XNandPsu_TimingMode NewMode);
+			      XNandPsu_DataInterface NewIntf,
+			      XNandPsu_TimingMode NewMode);
 
 s32 XNandPsu_GetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
-								u8 *Buf);
+			u8 *Buf);
 
 s32 XNandPsu_SetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
-								u8 *Buf);
+			u8 *Buf);
 
 s32 XNandPsu_ScanBbt(XNandPsu *InstancePtr);
 
@@ -575,7 +575,7 @@ void XNandPsu_EnableEccMode(XNandPsu *InstancePtr);
 void XNandPsu_DisableEccMode(XNandPsu *InstancePtr);
 
 void XNandPsu_Prepare_Cmd(XNandPsu *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
-			u8 DmaMode, u8 AddrCycles);
+			  u8 DmaMode, u8 AddrCycles);
 
 /* XNandPsu_LookupConfig in xnandpsu_sinit.c */
 #ifndef SDT

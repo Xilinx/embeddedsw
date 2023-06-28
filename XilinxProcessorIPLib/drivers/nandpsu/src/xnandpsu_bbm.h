@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -141,10 +142,10 @@ extern "C" {
 #define XNANDPSU_BBT_SIG_LENGTH		4U
 
 #define XNANDPSU_BBT_BUF_LENGTH		((XNANDPSU_MAX_BLOCKS >> 		\
-					 XNANDPSU_BBT_BLOCK_SHIFT) +	\
-					(XNANDPSU_BBT_DESC_SIG_OFFSET +	\
-					 XNANDPSU_BBT_SIG_LENGTH +	\
-					 XNANDPSU_BBT_VERSION_LENGTH))
+		XNANDPSU_BBT_BLOCK_SHIFT) +	\
+		(XNANDPSU_BBT_DESC_SIG_OFFSET +	\
+		 XNANDPSU_BBT_SIG_LENGTH +	\
+		 XNANDPSU_BBT_VERSION_LENGTH))
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -162,7 +163,7 @@ extern "C" {
 *
 *****************************************************************************/
 #define XNandPsu_BbtBlockShift(Block) \
-			(u8)(((Block) * 2U) & XNANDPSU_BLOCK_SHIFT_MASK)
+	(u8)(((Block) * 2U) & XNANDPSU_BLOCK_SHIFT_MASK)
 
 /************************** Variable Definitions *****************************/
 
