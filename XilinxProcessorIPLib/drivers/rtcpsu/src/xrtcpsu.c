@@ -63,7 +63,8 @@
 /************************** Variable Definitions *****************************/
 
 static const u32 DaysInMonth[] = {31, 28, 31, 30, 31,
-					30, 31, 31, 30, 31, 30, 31};
+				  30, 31, 31, 30, 31, 30, 31
+				 };
 
 /************************** Function Prototypes ******************************/
 
@@ -124,24 +125,24 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
 
 	/* Set the calibration value in calibration register. */
 	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_CALIB_WR_OFFSET,
-				InstancePtr->CalibrationValue);
+			 InstancePtr->CalibrationValue);
 
 	/*	Set the Oscillator crystal and Battery switch enable
 	 *	in control register.
 	 */
 	ControlRegister = XRtcPsu_ReadReg(InstancePtr->RtcConfig.BaseAddr
-		+ XRTC_CTL_OFFSET);
+					  + XRTC_CTL_OFFSET);
 	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_CTL_OFFSET,
-			(ControlRegister | (u32)XRTCPSU_CRYSTAL_OSC_EN |
-				(u32)XRTC_CTL_BATTERY_EN_MASK));
+			 (ControlRegister | (u32)XRTCPSU_CRYSTAL_OSC_EN |
+			  (u32)XRTC_CTL_BATTERY_EN_MASK));
 
 	/* Clear the Interrupt Status and Disable the interrupts. */
 	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_INT_STS_OFFSET,
-			((u32)XRTC_INT_STS_ALRM_MASK |
-				(u32)XRTC_INT_STS_SECS_MASK));
+			 ((u32)XRTC_INT_STS_ALRM_MASK |
+			  (u32)XRTC_INT_STS_SECS_MASK));
 	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_INT_DIS_OFFSET,
-			((u32)XRTC_INT_DIS_ALRM_MASK |
-				(u32)XRTC_INT_DIS_SECS_MASK));
+			 ((u32)XRTC_INT_DIS_ALRM_MASK |
+			  (u32)XRTC_INT_DIS_SECS_MASK));
 
 	/* Indicate the component is now ready to use. */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
@@ -198,10 +199,10 @@ void XRtcPsu_SetTime(XRtcPsu *InstancePtr, u32 Time)
 	 * next Second is triggered exactly at 1 sec period
 	 */
 	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_CALIB_WR_OFFSET,
-					InstancePtr->CalibrationValue);
+			 InstancePtr->CalibrationValue);
 	/* clear the RTC secs interrupt from status register */
 	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_INT_STS_OFFSET,
-						XRTC_INT_STS_SECS_MASK);
+			 XRTC_INT_STS_SECS_MASK);
 	InstancePtr->CurrTimeUpdated = (u32)0U;
 	/* Update the flag before setting the time */
 	InstancePtr->TimeUpdated = (u32)1U;
@@ -231,20 +232,20 @@ u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
 	u32 CurrTime;
 
 	IntMask = XRtcPsu_ReadReg(InstancePtr->RtcConfig.BaseAddr +
-		XRTC_INT_MSK_OFFSET);
+				  XRTC_INT_MSK_OFFSET);
 
 	if ((IntMask & XRTC_INT_STS_SECS_MASK) != (u32)0) {
 		/* We come here if interrupts are disabled */
 		Status = XRtcPsu_ReadReg(InstancePtr->RtcConfig.BaseAddr +
-			XRTC_INT_STS_OFFSET);
+					 XRTC_INT_STS_OFFSET);
 		if ((InstancePtr->TimeUpdated == (u32)1) &&
-			((Status & XRTC_INT_STS_SECS_MASK) == (u32)0)) {
+		    ((Status & XRTC_INT_STS_SECS_MASK) == (u32)0)) {
 			/* Give the previous written time */
 			CurrTime = XRtcPsu_GetLastSetTime(InstancePtr) - (u32)1;
 		} else {
 			/* Clear TimeUpdated */
 			if ((InstancePtr->TimeUpdated == (u32)1) &&
-				((Status & XRTC_INT_STS_SECS_MASK) == (u32)1)) {
+			    ((Status & XRTC_INT_STS_SECS_MASK) == (u32)1)) {
 				InstancePtr->TimeUpdated = (u32)0;
 			}
 
@@ -254,15 +255,14 @@ u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
 	} else {
 		/* We come here if interrupts are enabled */
 		if ((InstancePtr->TimeUpdated == (u32)1) &&
-			(InstancePtr->CurrTimeUpdated == (u32)0)) {
+		    (InstancePtr->CurrTimeUpdated == (u32)0)) {
 			/* Give the previous written time -1 sec */
 			CurrTime = XRtcPsu_GetLastSetTime(InstancePtr) - (u32)1;
 		} else {
 			/* Clear TimeUpdated */
-			if (InstancePtr->TimeUpdated == (u32)1)
-                        {
+			if (InstancePtr->TimeUpdated == (u32)1) {
 				InstancePtr->TimeUpdated = (u32)0;
-                        }
+			}
 			/* RTC time got updated */
 			CurrTime = XRtcPsu_ReadCurrentTime(InstancePtr);
 		}
@@ -292,12 +292,12 @@ void XRtcPsu_SetAlarm(XRtcPsu *InstancePtr, u32 Alarm, u32 Periodic)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((Alarm - XRtcPsu_GetCurrentTime(InstancePtr)) > (u32)0);
 
-	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr+XRTC_ALRM_OFFSET,
-								Alarm);
+	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_ALRM_OFFSET,
+			 Alarm);
 	if (Periodic != 0U) {
 		InstancePtr->IsPeriodicAlarm = 1U;
 		InstancePtr->PeriodicAlarmTime =
-				Alarm - XRtcPsu_GetCurrentTime(InstancePtr);
+			Alarm - XRtcPsu_GetCurrentTime(InstancePtr);
 	}
 }
 
@@ -334,40 +334,33 @@ void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 	dt->Hour = CurrentTime % 24U;
 	TempDays = CurrentTime / 24U;
 
-	if (TempDays == 0U)
-        {
+	if (TempDays == 0U) {
 		TempDays = 1U;
-        }
+	}
 	dt->WeekDay = TempDays % 7U;
 
 	for (dt->Year = 0U; dt->Year <= 99U; ++(dt->Year)) {
-		if ((dt->Year % 4U) == 0U)
-                {
+		if ((dt->Year % 4U) == 0U) {
 			Leap = 1U;
-                }
-		else
-                {
+		} else {
 			Leap = 0U;
-                }
+		}
 
-		if (TempDays <= (365U + Leap))
-                {
+		if (TempDays <= (365U + Leap)) {
 			break;
-                }
+		}
 
 		TempDays -= (365U + Leap);
 	}
 
 	for (dt->Month = 1U; dt->Month >= 1U; ++(dt->Month)) {
 		DaysPerMonth = DaysInMonth[dt->Month - (u32)1];
-		if ((Leap == 1U) && (dt->Month == 2U))
-                {
+		if ((Leap == 1U) && (dt->Month == 2U)) {
 			DaysPerMonth++;
-                }
-		if (TempDays <= DaysPerMonth)
-                {
+		}
+		if (TempDays <= DaysPerMonth) {
 			break;
-                }
+		}
 
 		TempDays -= DaysPerMonth;
 	}
@@ -398,22 +391,19 @@ u32 XRtcPsu_DateTimeToSec(XRtcPsu_DT *dt)
 
 	Xil_AssertNonvoid(dt != NULL);
 
-	if (dt->Year >= 2000U)
-        {
+	if (dt->Year >= 2000U) {
 		dt->Year -= 2000U;
-        }
+	}
 
-	for (i = 1U; i < dt->Month; i++)
-        {
+	for (i = 1U; i < dt->Month; i++) {
 		dt->Day += (u32)DaysInMonth[i - (u32)1];
-        }
-	if ((dt->Month > 2U) && ((dt->Year % 4U) == 0U))
-        {
+	}
+	if ((dt->Month > 2U) && ((dt->Year % 4U) == 0U)) {
 		dt->Day++;
-        }
+	}
 	Days = dt->Day + (365U * dt->Year) + ((dt->Year + 3U) / 4U);
 	Seconds = (((((Days * 24U) + dt->Hour) * 60U) + dt->Min) * 60U)
-							+ dt->Sec;
+		  + dt->Sec;
 	return Seconds;
 }
 
@@ -448,7 +438,7 @@ u32 XRtcPsu_DateTimeToSec(XRtcPsu_DT *dt)
  *
  *****************************************************************************/
 void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
-	u32 CrystalOscFreq)
+				  u32 CrystalOscFreq)
 {
 	u32 ReadTime;
 	u32 SetTime;
@@ -474,7 +464,7 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
 	 * and Fnew will not be calculated.
 	 */
 	if ((Calibration == 0U) ||
-		(CrystalOscFreq != InstancePtr->OscillatorFreq)) {
+	    (CrystalOscFreq != InstancePtr->OscillatorFreq)) {
 		Cnew = CrystalOscFreq - (u32)1;
 		Fnew = 0U;
 	} else {
@@ -484,7 +474,7 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
 			XRTC_CALIB_RD_FRACTN_DATA_SHIFT;
 
 		Xf = (float)((ReadTime - SetTime) / (TimeReal - SetTime));
-		Xf = Xf * (float)((Cprev+1U) + ((Fprev+1U)/16U));
+		Xf = Xf * (float)((Cprev + 1U) + ((Fprev + 1U) / 16U));
 
 		Cnew = (u32)(Xf) - (u32)1;
 		Fnew = XRtcPsu_RoundOff((Xf - (u32)Xf) * (float)16U) - (u32)1;
@@ -517,12 +507,12 @@ u32 XRtcPsu_IsSecondsEventGenerated(XRtcPsu *InstancePtr)
 
 	/* Loop the interrupt status register for Seconds Event */
 	if ((XRtcPsu_ReadReg(InstancePtr->RtcConfig.BaseAddr +
-		XRTC_INT_STS_OFFSET) & (XRTC_INT_STS_SECS_MASK)) == 0U) {
+			     XRTC_INT_STS_OFFSET) & (XRTC_INT_STS_SECS_MASK)) == 0U) {
 		Status = 0U;
 	} else {
 		/* Clear the interrupt status register */
 		XRtcPsu_WriteReg((InstancePtr)->RtcConfig.BaseAddr +
-				XRTC_INT_STS_OFFSET, XRTC_INT_STS_SECS_MASK);
+				 XRTC_INT_STS_OFFSET, XRTC_INT_STS_SECS_MASK);
 		Status = 1U;
 	}
 	return Status;
@@ -548,13 +538,13 @@ u32 XRtcPsu_IsAlarmEventGenerated(XRtcPsu *InstancePtr)
 
 	/* Loop the interrupt status register for Alarm Event */
 	if ((XRtcPsu_ReadReg(InstancePtr->RtcConfig.BaseAddr +
-		XRTC_INT_STS_OFFSET) & (XRTC_INT_STS_ALRM_MASK)) == 0U) {
+			     XRTC_INT_STS_OFFSET) & (XRTC_INT_STS_ALRM_MASK)) == 0U) {
 		Status = 0U;
 	} else {
 		/* Clear the interrupt status register */
 		XRtcPsu_WriteReg((InstancePtr)->RtcConfig.BaseAddr +
-				XRTC_INT_STS_OFFSET, XRTC_INT_STS_ALRM_MASK);
-						Status = 1U;
+				 XRTC_INT_STS_OFFSET, XRTC_INT_STS_ALRM_MASK);
+		Status = 1U;
 	}
 	return Status;
 }

@@ -66,7 +66,7 @@
 
 #ifndef SDT
 int RtcPsuPeriodicAlarmIntrExample(XScuGic *IntcInstPtr, XRtcPsu *RtcInstPtr,
-			u16 DeviceId, u16 RtcIntrId);
+				   u16 DeviceId, u16 RtcIntrId);
 
 
 static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
@@ -107,7 +107,7 @@ int main(void)
 	/* Run the RtcPsu Interrupt example, specify the the Device ID */
 #ifndef SDT
 	Status = RtcPsuPeriodicAlarmIntrExample(&InterruptController, &RtcPsu,
-				RTC_DEVICE_ID, RTC_ALARM_INT_IRQ_ID);
+						RTC_DEVICE_ID, RTC_ALARM_INT_IRQ_ID);
 #else
 	Status = RtcPsuPeriodicAlarmIntrExample(&RtcPsu, XPAR_XRTCPSU_0_BASEADDR);
 #endif
@@ -147,7 +147,7 @@ int main(void)
 **************************************************************************/
 #ifndef SDT
 int RtcPsuPeriodicAlarmIntrExample(XScuGic *IntcInstPtr, XRtcPsu *RtcInstPtr,
-			u16 DeviceId, u16 RtcIntrId)
+				   u16 DeviceId, u16 RtcIntrId)
 #else
 int RtcPsuPeriodicAlarmIntrExample(XRtcPsu *RtcInstPtr, UINTPTR BaseAddress)
 #endif
@@ -184,9 +184,9 @@ int RtcPsuPeriodicAlarmIntrExample(XRtcPsu *RtcInstPtr, UINTPTR BaseAddress)
 	xil_printf("\n\rDay Convention : 0-Fri, 1-Sat, 2-Sun, 3-Mon, 4-Tue, 5-Wed, 6-Thur\n\r");
 	xil_printf("Current RTC time is..\n\r");
 	CurrentTime = XRtcPsu_GetCurrentTime(RtcInstPtr);
-	XRtcPsu_SecToDateTime(CurrentTime,&dt0);
+	XRtcPsu_SecToDateTime(CurrentTime, &dt0);
 	xil_printf("YEAR:MM:DD HR:MM:SS \t %04d:%02d:%02d %02d:%02d:%02d\t Day = %d\n\r",
-			dt0.Year,dt0.Month,dt0.Day,dt0.Hour,dt0.Min,dt0.Sec,dt0.WeekDay);
+		   dt0.Year, dt0.Month, dt0.Day, dt0.Hour, dt0.Min, dt0.Sec, dt0.WeekDay);
 
 	/*
 	 * Connect the RTC to the interrupt subsystem such that interrupts
@@ -195,10 +195,10 @@ int RtcPsuPeriodicAlarmIntrExample(XRtcPsu *RtcInstPtr, UINTPTR BaseAddress)
 #ifndef SDT
 	Status = SetupInterruptSystem(IntcInstPtr, RtcInstPtr, RtcIntrId);
 #else
-	Status = XSetupInterruptSystem(RtcInstPtr,&XRtcPsu_InterruptHandler,
-					Config->IntrId[0],
-					Config->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(RtcInstPtr, &XRtcPsu_InterruptHandler,
+				       Config->IntrId[0],
+				       Config->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -219,14 +219,14 @@ int RtcPsuPeriodicAlarmIntrExample(XRtcPsu *RtcInstPtr, UINTPTR BaseAddress)
 
 	CurrentTime = XRtcPsu_GetCurrentTime(RtcInstPtr);
 	Alarm = CurrentTime + PERIODIC_ALARM_PERIOD;
-	XRtcPsu_SetAlarm(RtcInstPtr,Alarm,1U);
+	XRtcPsu_SetAlarm(RtcInstPtr, Alarm, 1U);
 
-	while( PeriodicAlarms != REPETATIONS);
+	while ( PeriodicAlarms != REPETATIONS);
 
 	/*
 	 * Disable the interrupt of the RTC device so interrupts will not occur.
 	 */
-	XRtcPsu_ClearInterruptMask(RtcInstPtr,XRTC_INT_DIS_ALRM_MASK);
+	XRtcPsu_ClearInterruptMask(RtcInstPtr, XRTC_INT_DIS_ALRM_MASK);
 	XRtcPsu_ResetAlarm(RtcInstPtr);
 
 	return XST_SUCCESS;
@@ -256,7 +256,7 @@ void Handler(void *CallBackRef, u32 Event)
 	/* Alarm event */
 	if (Event == XRTCPSU_EVENT_ALARM_GEN) {
 		PeriodicAlarms++;
-		xil_printf("%dSec Periodic Alarm generated.\n\r",PERIODIC_ALARM_PERIOD);
+		xil_printf("%dSec Periodic Alarm generated.\n\r", PERIODIC_ALARM_PERIOD);
 	}
 }
 
@@ -296,7 +296,7 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -306,8 +306,8 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * hardware interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler) XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler) XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 #endif
 
 	/*
@@ -316,8 +316,8 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * performs the specific interrupt processing for the device
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, RtcIntrId,
-				  (Xil_ExceptionHandler) XRtcPsu_InterruptHandler,
-				  (void *) RtcInstancePtr);
+				 (Xil_ExceptionHandler) XRtcPsu_InterruptHandler,
+				 (void *) RtcInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -328,7 +328,7 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 
 #ifndef TESTAPP_GEN
 	/* Enable interrupts */
-	 Xil_ExceptionEnable();
+	Xil_ExceptionEnable();
 #endif
 
 	return XST_SUCCESS;
