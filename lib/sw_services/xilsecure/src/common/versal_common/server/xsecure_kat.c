@@ -22,6 +22,7 @@
 *                       of loop redundancy checks
 *       dc   08/26/2022 Removed initializations of arrays
 * 5.1   yog  05/03/2023 Fixed MISRA C violation of Rule 12.1
+* 5.2   am   06/22/2023 Added KAT error code for failure cases
 *
 * </pre>
 *
@@ -1105,6 +1106,7 @@ int XSecure_RsaPublicEncryptKat(void)
 	Status = XSecure_RsaInitialize(&XSecureRsaInstance, (u8 *)RsaModulus,
 		(u8 *)RsaModExt, (u8 *)&PubExp);
 	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_KAT_INIT_ERROR;
 		goto END;
 	}
 
@@ -1195,6 +1197,7 @@ int XSecure_RsaPrivateDecryptKat(void)
 	Status = XSecure_RsaInitialize(&XSecureRsaInstance, (u8 *)RsaModulus,
 		(u8 *)RsaModExt, (u8 *)RsaPrivateExp);
 	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_KAT_INIT_ERROR;
 		goto END;
 	}
 
@@ -1251,7 +1254,7 @@ int XSecure_EllipticVerifySignKat(XSecure_EllipticCrvClass CrvClass) {
 
 	if ((PubKey->Qx == NULL) || (PubKey->Qy == NULL) || (ExpSign->SignR == NULL)
 		|| (ExpSign->SignS == NULL)) {
-		Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+		Status = (int)XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR;
 		goto END;
 	}
 
@@ -1264,6 +1267,10 @@ int XSecure_EllipticVerifySignKat(XSecure_EllipticCrvClass CrvClass) {
 	Status = XST_FAILURE;
 	Status = XSecure_EllipticVerifySign(XSECURE_ECC_NIST_P384, (u8*)&ExpEccSha3Hash[0U],
 				XSECURE_HASH_SIZE_IN_BYTES, PubKey, ExpSign);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_ELLIPTIC_KAT_SIGN_VERIFY_ERROR;
+		goto END;
+	}
 
 END:
 	return Status;
@@ -1293,7 +1300,7 @@ int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass) {
 
 	if ((ExpSign->SignR == NULL) || (ExpSign->SignS == NULL)
 		|| (D == NULL) || (K == NULL)) {
-		Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+		Status = (int)XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR;
 		goto END;
 	}
 
@@ -1303,6 +1310,7 @@ int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass) {
 	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P384, (u8*)&ExpEccSha3Hash[0U],
 				Size, D, K, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_ERROR;
 		goto END_CLR;
 	}
 
@@ -1310,6 +1318,7 @@ int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass) {
 	Status = Xil_SMemCmp_CT(GeneratedSign.SignR, (Size * 2U), ExpSign->SignR, (Size * 2U),
 				(Size * 2U));
 	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_ELLIPTIC_KAT_GENERATE_SIGNR_ERROR;
 		goto END_CLR;
 	}
 
@@ -1352,7 +1361,7 @@ int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_El
 		Size = XSECURE_ECC_P521_SIZE_IN_BYTES;
 	}
 	else {
-		Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+		Status = (int)XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR;
 		goto END;
 	}
 
@@ -1364,11 +1373,16 @@ int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_El
 	Status = XSecure_EllipticGenerateSignature_64Bit(Curvetype, &HashInfo,
 				DAddr, (u64)(UINTPTR)K, &GeneratedSignAddr);
 	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_64BIT_ERROR;
 		goto END_CLR;
 	}
 
 	Status = XST_FAILURE;
 	Status = XSecure_EllipticVerifySign_64Bit(Curvetype, &HashInfo, PubKeyAddr, &GeneratedSignAddr);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_ELLIPTIC_KAT_64BIT_SIGN_VERIFY_ERROR;
+		goto END_CLR;
+	}
 
 END_CLR:
 	SStatus = Xil_SMemSet(Sign, sizeof(Sign), 0U, sizeof(Sign));

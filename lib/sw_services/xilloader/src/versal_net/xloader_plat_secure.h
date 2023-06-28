@@ -24,6 +24,7 @@
 *       sk   03/17/2023 Renamed Kekstatus to DecKeyMask
 *       dd   03/28/2023 Updated doxygen comments
 *       sk   06/12/2023 Renamed XLoader_UpdateKekSrc to XLoader_GetKekSrc
+*       am   06/19/2023 Added KAT error codes
 *
 * </pre>
 *
@@ -137,6 +138,8 @@ typedef enum {
 		/**<0x28 Error glitch detected */
 	XLOADER_SEC_ENC_DATA_NOT_ALIGNED_ERROR,
 		/**<0x29 Error encrypted data is not 128 bit aligned */
+	XLOADER_SEC_KAT_FAILED_ERROR,
+		/**<0x30 Secure KAT failed error */
 } XLoader_SecErrCodes;
 
 

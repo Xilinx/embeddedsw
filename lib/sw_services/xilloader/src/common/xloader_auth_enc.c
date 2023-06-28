@@ -107,6 +107,7 @@
 *       sk   05/18/2023 Deprecate copy to memory feature
 *       kal  06/18/23 Send device to SLD when 2nd AuthJTag message authentication
 *	              fails, when AUTH_JTAG_LOCK_DIS eFuse is programmed
+*       am   06/19/23 Added KAT error code for failure cases
 *
 * </pre>
 *
@@ -342,6 +343,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 		Status = XLoader_AesKatTest(SecurePtr);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO, "AES KAT test failed\n\r");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 			goto END;
 		}
 
@@ -696,6 +698,8 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 
 	Status = XLoader_Sha3Kat(SecurePtr);
 	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO, "SHA3 KAT failed\n\r");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 		goto END;
 	}
 
@@ -811,7 +815,8 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 
 		Status = XLoader_AesKatTest(SecurePtr);
 		if (Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_INFO, "Failed at AES KAT test\n\r");
+			XPlmi_Printf(DEBUG_INFO, "AES KAT test failed\n\r");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 			goto ERR_END;
 		}
 
@@ -961,6 +966,8 @@ static int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 
 	Status = XLoader_AuthKat(SecurePtr);
 	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO, "Auth KAT failed\n\r");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 		goto END;
 	}
 
@@ -2936,6 +2943,7 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
 			XSecure_AesDecryptCmKat, SecurePtr->AesInstPtr)
 		if(Status != XST_SUCCESS) {
+			Status = XLoader_UpdateMinorErr(XLOADER_SEC_KAT_FAILED_ERROR, Status);
 			XPlmi_Printf(DEBUG_GENERAL, "DPACM KAT failed\n\r");
 			goto END;
 		}
@@ -2952,6 +2960,7 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
 			XSecure_AesDecryptKat, SecurePtr->AesInstPtr);
 		if(Status != XST_SUCCESS) {
+			Status = XLoader_UpdateMinorErr(XLOADER_SEC_KAT_FAILED_ERROR, Status);
 			XPlmi_Printf(DEBUG_GENERAL, "AES KAT failed\n\r");
 			goto END;
 		}
@@ -3815,6 +3824,8 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 
 	Status = XLoader_Sha3Kat(SecurePtr);
 	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO, "SHA3 KAT failed\n\r");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 		goto END;
 	}
 
@@ -4015,6 +4026,7 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 			else {
 				XPlmi_Printf(DEBUG_GENERAL, "ECDSA KAT Failed\n\r");
 			}
+			Status = XLoader_UpdateMinorErr(XLOADER_SEC_KAT_FAILED_ERROR, Status);
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= AuthKatMask;
@@ -4057,6 +4069,7 @@ static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr) {
 			XSecure_Sha3Kat, Sha3InstPtr);
 		if(Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "SHA3 KAT failed\n\r");
+			Status = XLoader_UpdateMinorErr(XLOADER_SEC_KAT_FAILED_ERROR, Status);
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XPLMI_SECURE_SHA3_KAT_MASK;
