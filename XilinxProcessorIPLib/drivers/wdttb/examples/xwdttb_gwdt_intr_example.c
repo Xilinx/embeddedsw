@@ -27,6 +27,7 @@
 * ----- ---- -------- ---------------------------------------------------------
 * 5.0	sne  03/26/20 First release
 * 5.1   sne  06/01/20 Configured Generic watchdog offset value.
+* 5.7   sb   06/27/23 Correct the interrupt ID for Versal-net platform.
 *
 * </pre>
 *
@@ -48,7 +49,11 @@
 #ifndef TESTAPP_GEN
 #define INTC		XScuGic
 #define GWDT_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
-#define GWDT_INTR_VEC_ID	XPAR_XGWDT_0_INTR
+#ifdef VERSAL_NET
+ #define GWDT_INTR_VEC_ID       XPS_FPD_GWDT_2_INT_ID
+#elif defined(versal)
+ #define GWDT_INTR_VEC_ID        XPS_LPD_GWDT_0_INT_ID
+#endif
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif
 
