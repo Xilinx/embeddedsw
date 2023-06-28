@@ -44,7 +44,7 @@
  *                       Literal value requires a U suffix,Casting operation to a pointer
  *			 Array has no bounds specified,Logical conjunctions need brackets.
  * 1.8	 sg	07/13/19 Corrected calibration algorithm
- *
+ * 1.13	 ht	06/22/23 Added support for system device-tree flow.
  * </pre>
  *
  ******************************************************************************/
@@ -106,7 +106,9 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
 	 */
 	InstancePtr->IsReady = 0U;
 	InstancePtr->RtcConfig.BaseAddr = EffectiveAddr;
+#ifndef SDT
 	InstancePtr->RtcConfig.DeviceId = ConfigPtr->DeviceId;
+#endif
 
 	if (InstancePtr->OscillatorFreq == 0U) {
 		InstancePtr->CalibrationValue = XRTC_CALIBRATION_VALUE;
