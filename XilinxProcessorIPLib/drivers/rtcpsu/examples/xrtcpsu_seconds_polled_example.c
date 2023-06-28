@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -----------------------------------------------
 * 1.00  kvn 05/12/15 First Release
+* 1.13  ht  06/21/23 Added support for system device-tree flow.
 *
 * </pre>
 ******************************************************************************/
@@ -37,7 +39,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define RTC_DEVICE_ID              XPAR_XRTCPSU_0_DEVICE_ID
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -46,8 +50,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int RtcPsuSecondsPolledExample(u16 DeviceId);
-
+#else
+int RtcPsuSecondsPolledExample(UINTPTR BaseAddress);
+#endif
 /************************** Variable Definitions *****************************/
 
 XRtcPsu Rtc_Psu;		/* Instance of the RTC Device */
@@ -72,7 +79,11 @@ int main(void)
 	 * Run the Rtc_Psu polled example , specify the the Device ID that is
 	 * generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = RtcPsuSecondsPolledExample(RTC_DEVICE_ID);
+#else
+	Status = RtcPsuSecondsPolledExample(XPAR_XRTCPSU_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("RTC Seconds Polled Mode Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -99,7 +110,11 @@ int main(void)
 * working correctly.
 *
 ****************************************************************************/
+#ifndef SDT
 int RtcPsuSecondsPolledExample(u16 DeviceId)
+#else
+int RtcPsuSecondsPolledExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XRtcPsu_Config *Config;
@@ -109,7 +124,11 @@ int RtcPsuSecondsPolledExample(u16 DeviceId)
 	 * Initialize the RTC driver so that it's ready to use.
 	 * Look up the configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Config = XRtcPsu_LookupConfig(DeviceId);
+#else
+	Config = XRtcPsu_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
