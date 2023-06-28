@@ -14,6 +14,7 @@
 #include "xpm_notifier.h"
 #include "xpm_requirement.h"
 #include "xpm_subsystem.h"
+#include "xpm_apucore.h"
 
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh,
@@ -311,6 +312,13 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 	Status = XPmCore_ForcePwrDwn(DeviceId);
 	if (XST_SUCCESS != Status) {
 		goto done;
+	}
+
+	/*clear pwr dwn status. this will make boot status as initial boot*/
+	if(XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)){
+		XPm_ApuCore *ApuCore = (XPm_ApuCore *)Core;
+		XPm_RMW32(ApuCore->PcilPwrDwnReg,ApuCore->Core.PwrDwnMask,
+			~ApuCore->Core.PwrDwnMask);
 	}
 
 	SubsystemId = XPmDevice_GetSubsystemIdOfCore(&Core->Device);

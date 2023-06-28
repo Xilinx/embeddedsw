@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +46,25 @@ extern "C" {
 #define XPM_ACPU_3_1_WAKEUP_MASK	BIT(13)
 #define XPM_ACPU_3_2_WAKEUP_MASK	BIT(14)
 #define XPM_ACPU_3_3_WAKEUP_MASK	BIT(15)
+
+#define APU_PCIL_CORE_0_PWRDWN  0xECB10000U
+#define APU_PCIL_CORE_1_PWRDWN  0xECB10030U
+#define APU_PCIL_CORE_2_PWRDWN  0xECB10060U
+#define APU_PCIL_CORE_3_PWRDWN  0xECB10090U
+#define APU_PCIL_CORE_4_PWRDWN  0xECB100C0U
+#define APU_PCIL_CORE_5_PWRDWN  0xECB100F0U
+#define APU_PCIL_CORE_6_PWRDWN  0xECB10120U
+#define APU_PCIL_CORE_7_PWRDWN  0xECB10150U
+#define APU_PCIL_CORE_8_PWRDWN  0xECB10180U
+#define APU_PCIL_CORE_9_PWRDWN  0xECB101B0U
+#define APU_PCIL_CORE_10_PWRDWN 0xECB101E0U
+#define APU_PCIL_CORE_11_PWRDWN 0xECB10210U
+#define APU_PCIL_CORE_12_PWRDWN 0xECB10240U
+#define APU_PCIL_CORE_13_PWRDWN 0xECB10270U
+#define APU_PCIL_CORE_14_PWRDWN 0xECB102A0U
+#define APU_PCIL_CORE_15_PWRDWN 0xECB102D0U
+
+#define APU_PCIL_CORE_PWRDWN_MASK (0x1U)
 
 typedef struct XPm_ApuCore XPm_ApuCore;
 /************************** Function Prototypes ******************************/

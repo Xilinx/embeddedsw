@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@ extern "C" {
 struct XPm_ApuCore {
 	XPm_Core Core; /**< Processor core devices */
 	u32 FpdApuBaseAddr; /**< Base address of FPD_APU module */
+	u32 PcilPwrDwnReg; /*< Base Address of APU pwr dwn/ctrl reg*/
 };
 
 /************************** Function Prototypes ******************************/
