@@ -23,6 +23,7 @@
 * 2.01a nm  07/07/12 Updated the XDcfg_IntrClear function to directly
 *		     set the mask instead of oring it with the
 *		     value read from the interrupt status register
+* 3.8  Nava 06/21/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -71,11 +72,11 @@ void XDcfg_IntrEnable(XDcfg *InstancePtr, u32 Mask)
 	 * Enable the specified interrupts in the Interrupt Mask Register.
 	 */
 	RegValue = XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
-				    XDCFG_INT_MASK_OFFSET);
+				 XDCFG_INT_MASK_OFFSET);
 	RegValue &= ~(Mask & XDCFG_IXR_ALL_MASK);
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-				XDCFG_INT_MASK_OFFSET,
-				RegValue);
+		       XDCFG_INT_MASK_OFFSET,
+		       RegValue);
 }
 
 
@@ -109,11 +110,11 @@ void XDcfg_IntrDisable(XDcfg *InstancePtr, u32 Mask)
 	 * Disable the specified interrupts in the Interrupt Mask Register.
 	 */
 	RegValue = XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
-				    XDCFG_INT_MASK_OFFSET);
+				 XDCFG_INT_MASK_OFFSET);
 	RegValue |= (Mask & XDCFG_IXR_ALL_MASK);
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-				XDCFG_INT_MASK_OFFSET,
-				RegValue);
+		       XDCFG_INT_MASK_OFFSET,
+		       RegValue);
 }
 /****************************************************************************/
 /**
@@ -171,7 +172,7 @@ u32 XDcfg_IntrGetStatus(XDcfg *InstancePtr)
 	 * Return the value read from the Interrupt Status register.
 	 */
 	return XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
-				XDCFG_INT_STS_OFFSET);
+			     XDCFG_INT_STS_OFFSET);
 }
 
 /****************************************************************************/
@@ -200,8 +201,8 @@ void XDcfg_IntrClear(XDcfg *InstancePtr, u32 Mask)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-				XDCFG_INT_STS_OFFSET,
-				Mask);
+		       XDCFG_INT_STS_OFFSET,
+		       Mask);
 
 }
 
@@ -233,7 +234,7 @@ void XDcfg_InterruptHandler(XDcfg *InstancePtr)
 	 * Read the Interrupt status register.
 	 */
 	IntrStatusReg = XDcfg_ReadReg(InstancePtr->Config.BaseAddr,
-					 XDCFG_INT_STS_OFFSET);
+				      XDCFG_INT_STS_OFFSET);
 
 	/*
 	 * Write the status back to clear the interrupts so that no
@@ -241,13 +242,13 @@ void XDcfg_InterruptHandler(XDcfg *InstancePtr)
 	 * This also does the DMA acknowledgment automatically.
 	 */
 	XDcfg_WriteReg(InstancePtr->Config.BaseAddr,
-				XDCFG_INT_STS_OFFSET, IntrStatusReg);
+		       XDCFG_INT_STS_OFFSET, IntrStatusReg);
 
 	/*
 	 * Signal application that there are events to handle.
 	 */
 	InstancePtr->StatusHandler(InstancePtr->CallBackRef,
-					   IntrStatusReg);
+				   IntrStatusReg);
 
 }
 
@@ -269,7 +270,7 @@ void XDcfg_InterruptHandler(XDcfg *InstancePtr)
 *
 *****************************************************************************/
 void XDcfg_SetHandler(XDcfg *InstancePtr, void *CallBackFunc,
-				void *CallBackRef)
+		      void *CallBackRef)
 {
 	/*
 	 * Asserts validate the input arguments

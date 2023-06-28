@@ -134,6 +134,7 @@
 * 3.5   ms  04/18/17 Modified tcl file to add suffix U for all macros
 *                    definitions of devcfg in xparameters.h
 *       ms  08/07/17 Fixed compilation warnings in xdevcfg_sinit.c
+* 3.8  Nava 06/21/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -179,8 +180,18 @@ typedef void (*XDcfg_IntrHandler) (void *CallBackRef, u32 Status);
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID of device */
+#else
+	char *Name;
+#endif
 	u32 BaseAddr;		/**< Base address of the device */
+#ifdef SDT
+	u32 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+                                 * trigger type and level flags */
+	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+                                 * Parent base address */
+#endif
 } XDcfg_Config;
 
 /**
@@ -211,7 +222,7 @@ typedef struct {
 *****************************************************************************/
 #define XDcfg_Unlock(InstancePtr)					\
 	XDcfg_WriteReg((InstancePtr)->Config.BaseAddr, 			\
-	XDCFG_UNLOCK_OFFSET, XDCFG_UNLOCK_DATA)
+		       XDCFG_UNLOCK_OFFSET, XDCFG_UNLOCK_DATA)
 
 
 
@@ -231,8 +242,8 @@ typedef struct {
 #define XDcfg_GetPsVersion(InstancePtr)					\
 	((XDcfg_ReadReg((InstancePtr)->Config.BaseAddr, 		\
 			XDCFG_MCTRL_OFFSET)) & 				\
-			XDCFG_MCTRL_PCAP_PS_VERSION_MASK) >> 		\
-			XDCFG_MCTRL_PCAP_PS_VERSION_SHIFT
+	 XDCFG_MCTRL_PCAP_PS_VERSION_MASK) >> 		\
+					   XDCFG_MCTRL_PCAP_PS_VERSION_SHIFT
 
 
 
@@ -251,7 +262,7 @@ typedef struct {
 *****************************************************************************/
 #define XDcfg_ReadMultiBootConfig(InstancePtr)			\
 	XDcfg_ReadReg((InstancePtr)->Config.BaseAddr,  		\
-			XDCFG_MULTIBOOT_ADDR_OFFSET)
+		      XDCFG_MULTIBOOT_ADDR_OFFSET)
 
 
 /****************************************************************************/
@@ -270,8 +281,8 @@ typedef struct {
 *****************************************************************************/
 #define XDcfg_SelectIcapInterface(InstancePtr)				  \
 	XDcfg_WriteReg((InstancePtr)->Config.BaseAddr, XDCFG_CTRL_OFFSET,   \
-	((XDcfg_ReadReg((InstancePtr)->Config.BaseAddr, XDCFG_CTRL_OFFSET)) \
-	& ( ~XDCFG_CTRL_PCAP_PR_MASK)))
+		       ((XDcfg_ReadReg((InstancePtr)->Config.BaseAddr, XDCFG_CTRL_OFFSET)) \
+			& ( ~XDCFG_CTRL_PCAP_PR_MASK)))
 
 /****************************************************************************/
 /**
@@ -289,8 +300,8 @@ typedef struct {
 *****************************************************************************/
 #define XDcfg_SelectPcapInterface(InstancePtr)				   \
 	XDcfg_WriteReg((InstancePtr)->Config.BaseAddr, XDCFG_CTRL_OFFSET,    \
-	((XDcfg_ReadReg((InstancePtr)->Config.BaseAddr, XDCFG_CTRL_OFFSET))  \
-	| XDCFG_CTRL_PCAP_PR_MASK))
+		       ((XDcfg_ReadReg((InstancePtr)->Config.BaseAddr, XDCFG_CTRL_OFFSET))  \
+			| XDCFG_CTRL_PCAP_PR_MASK))
 
 
 
@@ -299,7 +310,11 @@ typedef struct {
 /*
  * Lookup configuration in xdevcfg_sinit.c.
  */
+#ifndef SDT
 XDcfg_Config *XDcfg_LookupConfig(u16 DeviceId);
+#else
+XDcfg_Config *XDcfg_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * Selftest function in xdevcfg_selftest.c
@@ -310,7 +325,7 @@ int XDcfg_SelfTest(XDcfg *InstancePtr);
  * Interface functions in xdevcfg.c
  */
 int XDcfg_CfgInitialize(XDcfg *InstancePtr,
-			 XDcfg_Config *ConfigPtr, u32 EffectiveAddress);
+			XDcfg_Config *ConfigPtr, u32 EffectiveAddress);
 
 void XDcfg_EnablePCAP(XDcfg *InstancePtr);
 
@@ -345,12 +360,12 @@ u32 XDcfg_GetMiscControlRegister(XDcfg *InstancePtr);
 u32 XDcfg_IsDmaBusy(XDcfg *InstancePtr);
 
 void XDcfg_InitiateDma(XDcfg *InstancePtr, u32 SourcePtr, u32 DestPtr,
-				u32 SrcWordLength, u32 DestWordLength);
+		       u32 SrcWordLength, u32 DestWordLength);
 
 u32 XDcfg_Transfer(XDcfg *InstancePtr,
-				void *SourcePtr, u32 SrcWordLength,
-				void *DestPtr, u32 DestWordLength,
-				u32 TransferType);
+		   void *SourcePtr, u32 SrcWordLength,
+		   void *DestPtr, u32 DestWordLength,
+		   u32 TransferType);
 
 /*
  * Interrupt related function prototypes implemented in xdevcfg_intr.c
@@ -368,7 +383,7 @@ void XDcfg_IntrClear(XDcfg *InstancePtr, u32 Mask);
 void XDcfg_InterruptHandler(XDcfg *InstancePtr);
 
 void XDcfg_SetHandler(XDcfg *InstancePtr, void *CallBackFunc,
-				void *CallBackRef);
+		      void *CallBackRef);
 
 #ifdef __cplusplus
 }
