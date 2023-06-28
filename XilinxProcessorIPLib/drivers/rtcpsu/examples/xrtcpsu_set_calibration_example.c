@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +25,7 @@
 * 1.6	tjs 09/17/18 Fixed compilation warnings
 * 1.8   sg  07/17/19 Update example sequence for finding
 *			new calibration values
+* 1.13	ht  06/21/23 Added support for system device-tree flow.
 *
 * </pre>
 ******************************************************************************/
@@ -43,15 +45,20 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define RTC_DEVICE_ID              XPAR_XRTCPSU_0_DEVICE_ID
+#endif
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int RtcPsuSetCalibrationExample(u16 DeviceId);
+#else
+int RtcPsuSetCalibrationExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -78,7 +85,11 @@ int main(void)
 	 * Run the Rtc_Psu set calibration example , specify the the Device ID
 	 * that is generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = RtcPsuSetCalibrationExample(RTC_DEVICE_ID);
+#else
+	Status = RtcPsuSetCalibrationExample(XPAR_XRTCPSU_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("RTC Set Calibration Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -103,7 +114,11 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int RtcPsuSetCalibrationExample(u16 DeviceId)
+#else
+int RtcPsuSetCalibrationExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u32 NetworkTime;
@@ -114,7 +129,11 @@ int RtcPsuSetCalibrationExample(u16 DeviceId)
 	 * Initialize the RTC driver so that it's ready to use.
 	 * Look up the configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Config = XRtcPsu_LookupConfig(DeviceId);
+#else
+	Config = XRtcPsu_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}

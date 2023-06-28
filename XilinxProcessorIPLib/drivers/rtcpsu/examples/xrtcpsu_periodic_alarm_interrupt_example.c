@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,7 @@
 *                    variable.
 *       ms  04/10/17 Modified filename tag to include the file in doxygen
 *                    examples.
+* 1.13  ht  06/21/23 Added support for system device-tree flow.
 * </pre>
 ****************************************************************************/
 
@@ -36,6 +38,9 @@
 #include "xscugic.h"		/* Interrupt controller device driver */
 #include "xil_exception.h"
 #include "xil_printf.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions **************************/
 
@@ -45,9 +50,11 @@
  * change all the needed parameters in one place.
  */
 
+#ifndef SDT
 #define RTC_DEVICE_ID         XPAR_XRTCPSU_0_DEVICE_ID
 #define INTC_DEVICE_ID			XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define RTC_ALARM_INT_IRQ_ID	XPAR_XRTCPSU_ALARM_INTR
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -57,6 +64,7 @@
 
 /************************** Function Prototypes *****************************/
 
+#ifndef SDT
 int RtcPsuPeriodicAlarmIntrExample(XScuGic *IntcInstPtr, XRtcPsu *RtcInstPtr,
 			u16 DeviceId, u16 RtcIntrId);
 
@@ -64,6 +72,9 @@ int RtcPsuPeriodicAlarmIntrExample(XScuGic *IntcInstPtr, XRtcPsu *RtcInstPtr,
 static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 				XRtcPsu *RtcInstancePtr,
 				u16 RtcIntrId);
+#else
+int RtcPsuPeriodicAlarmIntrExample(XRtcPsu *RtcInstPtr, UINTPTR BaseAddress);
+#endif
 
 void Handler(void *CallBackRef, u32 Event);
 
@@ -71,7 +82,9 @@ void Handler(void *CallBackRef, u32 Event);
 /************************** Variable Definitions ***************************/
 
 XRtcPsu RtcPsu;		/* Instance of the RTC Device */
+#ifndef SDT
 XScuGic InterruptController;	/* Instance of the Interrupt Controller */
+#endif
 volatile u32 PeriodicAlarms;
 
 
@@ -92,8 +105,12 @@ int main(void)
 	int Status;
 
 	/* Run the RtcPsu Interrupt example, specify the the Device ID */
+#ifndef SDT
 	Status = RtcPsuPeriodicAlarmIntrExample(&InterruptController, &RtcPsu,
 				RTC_DEVICE_ID, RTC_ALARM_INT_IRQ_ID);
+#else
+	Status = RtcPsuPeriodicAlarmIntrExample(&RtcPsu, XPAR_XRTCPSU_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("RTC Periodic Alarm Interrupt Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -128,8 +145,12 @@ int main(void)
 * In this function if interrupts are not working it may never return.
 *
 **************************************************************************/
+#ifndef SDT
 int RtcPsuPeriodicAlarmIntrExample(XScuGic *IntcInstPtr, XRtcPsu *RtcInstPtr,
 			u16 DeviceId, u16 RtcIntrId)
+#else
+int RtcPsuPeriodicAlarmIntrExample(XRtcPsu *RtcInstPtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XRtcPsu_Config *Config;
@@ -140,7 +161,11 @@ int RtcPsuPeriodicAlarmIntrExample(XScuGic *IntcInstPtr, XRtcPsu *RtcInstPtr,
 	 * Initialize the RTC driver so that it's ready to use
 	 * Look up the configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Config = XRtcPsu_LookupConfig(DeviceId);
+#else
+	Config = XRtcPsu_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
@@ -167,7 +192,14 @@ int RtcPsuPeriodicAlarmIntrExample(XScuGic *IntcInstPtr, XRtcPsu *RtcInstPtr,
 	 * Connect the RTC to the interrupt subsystem such that interrupts
 	 * can occur. This function is application specific.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(IntcInstPtr, RtcInstPtr, RtcIntrId);
+#else
+	Status = XSetupInterruptSystem(RtcInstPtr,&XRtcPsu_InterruptHandler,
+					Config->IntrId[0],
+					Config->IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -228,7 +260,7 @@ void Handler(void *CallBackRef, u32 Event)
 	}
 }
 
-
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -301,3 +333,4 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
+#endif
