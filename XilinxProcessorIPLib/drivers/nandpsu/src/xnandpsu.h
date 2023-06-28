@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -154,6 +155,7 @@
 * 1.10  akm    01/05/22    Remove assert checks form static and internal APIs.
 * 1.11  akm    03/31/22    Fix unused parameter warning.
 * 1.11  akm    03/31/22    Fix misleading-indentation warning.
+* 1.12  akm    06/27/23    Update the driver to support for system device-tree flow.
 *
 * </pre>
 *
@@ -218,7 +220,11 @@ extern "C" {
  * controller.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Instance ID of NAND flash controller */
+#else
+	char *Name;
+#endif
 	u32 BaseAddress;	/**< Base address of NAND flash controller */
 	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
 #if defined  (XCLOCKING)
@@ -572,7 +578,11 @@ void XNandPsu_Prepare_Cmd(XNandPsu *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
 			u8 DmaMode, u8 AddrCycles);
 
 /* XNandPsu_LookupConfig in xnandpsu_sinit.c */
+#ifndef SDT
 XNandPsu_Config *XNandPsu_LookupConfig(u16 DevID);
+#else
+XNandPsu_Config *XNandPsu_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 
 #ifdef __cplusplus

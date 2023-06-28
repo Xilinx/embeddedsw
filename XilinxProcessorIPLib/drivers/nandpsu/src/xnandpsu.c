@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,6 +91,7 @@
 * 1.10  akm    01/05/22    Remove assert checks form static and internal APIs.
 * 1.11  akm    03/31/22    Fix unused parameter warning.
 * 1.11  akm    03/31/22    Fix misleading-indentation warning.
+* 1.12  akm    06/27/23    Update the driver to support for system device-tree flow.
 *
 * </pre>
 *
@@ -232,7 +234,9 @@ s32 XNandPsu_CfgInitialize(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr,
 	s32 Status = XST_FAILURE;
 
 	/* Initialize InstancePtr Config structure */
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
 #if defined  (XCLOCKING)
