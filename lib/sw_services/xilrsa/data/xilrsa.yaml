@@ -1,0 +1,25 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: Bindings for xilrsa library.
+
+maintainers:
+  - Harsha, Harsha <harsha.harsha@amd.com>
+  - Akula, Kalyani <kalyani.akula@amd.com>
+  - Challa, Durga <durga.challa@amd.com>
+  - Kundanala, Praveen Teja <praveen.teja.kundanala@amd.com>
+
+type: library
+
+version: 1.6
+
+description: Xilinx RSA Library to access RSA and SHA software algorithms on Zynq.
+
+supported_processors:
+  - ps7_cortexa9
+
+supported_os:
+  - standalone
+  - freertos10_xilinx
