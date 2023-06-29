@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +40,7 @@ XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
 		       XPm_ResetNode *Reset, u32 GicProxyMask,
 		       u32 GicProxyGroup);
 XStatus XPmHbMonDev_Init(XPm_Device *Device, u32 Id, XPm_Power *Power);
+XStatus XPmPeriph_SsitTempPropInitTask(void);
 
 #ifdef __cplusplus
 }

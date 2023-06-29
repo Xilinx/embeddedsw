@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,6 +11,20 @@
 #include "xpm_requirement.h"
 #include "xplmi_err_common.h"
 #include "xplmi_scheduler.h"
+#include "xpm_regs.h"
+#include "xpm_common.h"
+#include "xpm_ioctl.h"
+
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+
+#include "xplmi_ssit.h"
+
+/* Scheduler owner ID for SSIT propagation task */
+#define XPM_SSIT_TEMP_PROP_ID   PM_DEV_AMS_ROOT
+/* Default task period */
+#define DEFAULT_SSIT_TEMP_PERIOD 100U
+
+#endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 static struct XPm_PeriphOps GenericOps = {
 	.SetWakeupSource = XPmGicProxy_WakeEventSet,
@@ -256,3 +271,152 @@ static int HbMon_Scheduler(void *data)
 done:
 	return (int)Status;
 }
+
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+
+/*
+ * Handler for SSIT temperature propagation periodic task
+ */
+static int XPmPeriph_TempPropTask(void *data)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Response[XPLMI_CMD_RESP_SIZE-1U];
+	s16 Min, Max;
+	u32 NodeId = PM_DEV_AMS_ROOT;
+	u32 SlrCount = 0U;
+	s16 Temp;
+
+	(void)data;
+
+	/* Get primary SLR device temp */
+	Min = (s16)XPm_In32(PMC_SYSMON_BASEADDR + PMC_SYSMON_DEVICE_TEMP_MIN_OFFSET);
+	Max = (s16)XPm_In32(PMC_SYSMON_BASEADDR + PMC_SYSMON_DEVICE_TEMP_MAX_OFFSET);
+
+	for (u32 SlrMask = XPlmi_GetSlavesSlrMask(); (SlrMask & 0x1U) != 0U; SlrMask >>= 1U) {
+		++SlrCount;
+		NodeId = PM_DEV_AMS_ROOT | (SlrCount << NODE_SLR_IDX_SHIFT);
+
+		/*
+		 * TODO: Once IOCTL_READ_REG supports "count" argument only one
+		 * XPm_DevIoctl call needs to be made
+		 */
+		/* Get Max temp from secondary SLR */
+		Status = XPm_DevIoctl(PM_SUBSYS_DEFAULT, NodeId, IOCTL_READ_REG,
+				      PMC_SYSMON_DEVICE_TEMP_MAX_OFFSET, 0, 0, Response, XPLMI_CMD_SECURE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		Temp = (s16)Response[0];
+		/* Check if SLR temperature reading exceeds current max */
+		if (Temp > Max) {
+			Max = Temp;
+		}
+
+		/* Get Min temp from secondary SLR */
+		Status = XPm_DevIoctl(PM_SUBSYS_DEFAULT, NodeId, IOCTL_READ_REG,
+				      PMC_SYSMON_DEVICE_TEMP_MIN_OFFSET, 0, 0, Response, XPLMI_CMD_SECURE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		Temp = (s16)Response[0];
+		/* Check if SLR temperature reading exceeds current min */
+		if (Temp < Min) {
+			Min = Temp;
+		}
+	}
+
+	XPm_UnlockPcsr(PMC_SYSMON_BASEADDR);
+
+	/* Store Min and Max temperatures in local registers */
+	XPm_Out32(PMC_SYSMON_TEST_ANA_CTRL0, Max);
+	XPm_Out32(PMC_SYSMON_TEST_ANA_CTRL1, Min);
+
+	XPm_LockPcsr(PMC_SYSMON_BASEADDR);
+
+	/* Check if max temperatures have exceeded device upper threshold */
+	if (Max > (s16)(XPm_In32(PMC_SYSMON_DEVICE_TEMP_TH_UPPER))) {
+		/*
+		* Device temperature has exceeded upper threshold.
+		* Trigger device temperature EAM event locally in master SLR.
+		*/
+		XPm_Out32(PMC_GLOBAL_PMC_ERR2_TRIG, XIL_EVENT_ERROR_MASK_PMCSMON9);
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief This function starts the periodic task for SSIT temperature
+ *        propagation. The task is only enabled on SSIT devices and only runs
+ *        on primary SLR. If it is not enabled through RTCA then the task is
+ *        never started. The task period is configured through RTCA and must
+ *        be no lower than 10ms. Anything lower is rounded up to 10ms and any
+ *        period which is not a multiple of 10 is rounded up. Once the
+ *        task is enabled, it is expected to run for the lifetime of the
+ *        system, it can not be disabled during runtime.
+ *
+ * @param  None
+ *
+ * @return XST_SUCCESS if successful, return error code otherwise
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmPeriph_SsitTempPropInitTask(void)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Period = (XPm_In32(XPLMI_RTCFG_SSIT_TEMP_PROPAGATION) &
+			 XPM_RTCA_SSIT_TEMP_PROP_FREQ_MASK) >>
+			 XPM_RTCA_SSIT_TEMP_PROP_FREQ_SHIFT;
+
+	/*
+	 * Check if device is primary SLR. If current device is secondary SLR,
+	 * do not start the task and exit without failure.
+	 */
+	if (XPLMI_SSIT_MASTER_SLR_INDEX != XPlmi_GetSlrIndex()) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Check if task should be enabled */
+	if (0U == (XPm_In32(XPLMI_RTCFG_SSIT_TEMP_PROPAGATION) &
+		   XPM_RTCA_SSIT_TEMP_PROP_ENABLE_MASK)) {
+		/* Task is not enabled. Exit without failure */
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* If periodicity is 0 set to default value of 100ms */
+	if (0U == Period) {
+		Period = DEFAULT_SSIT_TEMP_PERIOD;
+	}
+
+	/*
+	 * If periodicity is not a multiple of 10 then round up to the nearest
+	 * multiple of 10. This ensures that the period is not faster than
+	 * expected.
+	 */
+	if (0U != (Period % XPLMI_SCHED_TICK)) {
+		Period = ((Period / XPLMI_SCHED_TICK) + 1U) * XPLMI_SCHED_TICK;
+	}
+
+	Status = XPlmi_SchedulerAddTask(XPM_SSIT_TEMP_PROP_ID, XPmPeriph_TempPropTask,
+					NULL, Period, XPLM_TASK_PRIORITY_0,
+					NULL, XPLMI_PERIODIC_TASK);
+
+done:
+	return Status;
+}
+
+#else
+
+XStatus XPmPeriph_SsitTempPropInitTask(void)
+{
+	return XST_SUCCESS;
+}
+
+#endif /* PLM_ENABLE_PLM_TO_PLM_COMM */

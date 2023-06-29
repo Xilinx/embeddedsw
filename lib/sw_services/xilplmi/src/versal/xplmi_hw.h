@@ -82,6 +82,7 @@
 *       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 * 1.10  bm   05/22/2023 Update current CDO command offset in GSW Error Status
+*       nb   06/28/2023 Add ERR2 trigger and status macros for SMON9
 *
 * </pre>
 *
@@ -228,12 +229,18 @@ extern "C" {
 #define PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK   (0X20000000U)
 #define PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERRX_MASK   (0xE0000000U)
 #define PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK   (0X00020000U)
+#define PMC_GLOBAL_PMC_ERR2_STATUS_PMC_SMON9_MASK   (0X00010000U)
 
 /*
  * Register: PMC_GLOBAL_PMC_ERR1_TRIG
  */
 #define PMC_GLOBAL_PMC_ERR1_TRIG	(PMC_GLOBAL_BASEADDR + 0X00020010U)
 #define PMC_GLOBAL_PMC_ERR1_TRIG_FW_CR_MASK			(0x00000004U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR2_TRIG
+ */
+#define PMC_GLOBAL_PMC_ERR2_TRIG	(PMC_GLOBAL_BASEADDR + 0X00020014U)
 
 /*
  * Register: PMC_GLOBAL_PMC_ERR_OUT1_MASK
