@@ -1,0 +1,27 @@
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: ZynqMP PMU Firmware
+
+maintainers:
+  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+  - Madhav Bhatt <madhav.bhatt@amd.com>
+
+type: apps
+
+description: Platform Management Unit Firmware for ZynqMP.
+
+supported_processors:
+  - psu_pmu
+
+supported_os:
+  - standalone
+
+depends_libs:
+    xiltimer: {}
+    xilfpga: {}
+    xilsecure: {}
+    xilskey: {}
+...
