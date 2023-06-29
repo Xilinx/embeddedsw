@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018-2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,7 +28,7 @@
 #include "xpsmfw_ipi_manager.h"
 #include "ipi.h"
 
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#if defined(XPAR_XIPIPSU_0_DEVICE_ID) || defined(XPAR_XIPIPSU_0_BASEADDR)
 /* Instance of IPI Driver */
 static XIpiPsu IpiInst;
 static XIpiPsu *IpiInstPtr = &IpiInst;
@@ -38,7 +39,11 @@ XStatus XPsmfw_IpiManagerInit(void)
 	XIpiPsu_Config *IpiCfgPtr;
 
 	/* Load Config for PSM IPI */
+#ifndef SDT
 	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
+#else
+	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_BASEADDR);
+#endif
 
 	if (IpiCfgPtr == NULL) {
 		Status = XST_FAILURE;

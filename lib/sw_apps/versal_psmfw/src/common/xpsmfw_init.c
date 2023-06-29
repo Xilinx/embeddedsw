@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018-2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,7 +67,7 @@ XStatus XPsmFw_Init(void)
 {
 	XStatus Status = XST_FAILURE;
 
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#if defined(XPAR_XIPIPSU_0_DEVICE_ID) || defined(XPAR_XIPIPSU_0_BASEADDR)
 	if (XST_SUCCESS != XPsmfw_IpiManagerInit()) {
 		XPsmFw_Printf(DEBUG_ERROR, "%s: Error! IPI Manager Initialization failed\r\n", __func__);
 	}

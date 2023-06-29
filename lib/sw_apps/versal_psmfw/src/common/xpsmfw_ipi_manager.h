@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,7 +34,7 @@ extern "C" {
 #include "xparameters.h"
 #include "xpsmfw_default.h"
 
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#if defined(XPAR_XIPIPSU_0_DEVICE_ID) || defined(XPAR_XIPIPSU_0_BASEADDR)
 #include "xipipsu.h"
 
 #define XPSMFW_IPI_MASK_COUNT 	XIPIPSU_MAX_TARGETS
