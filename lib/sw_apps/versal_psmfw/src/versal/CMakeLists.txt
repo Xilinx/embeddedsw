@@ -1,0 +1,22 @@
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+collect (PROJECT_LIB_HEADERS crf.h)
+collect (PROJECT_LIB_HEADERS crl.h)
+collect (PROJECT_LIB_HEADERS fpd_apu.h)
+collect (PROJECT_LIB_HEADERS psm_global.h)
+collect (PROJECT_LIB_HEADERS psm_local.h)
+collect (PROJECT_LIB_HEADERS rpu.h)
+collect (PROJECT_LIB_SOURCES xpsmfw_api.c)
+collect (PROJECT_LIB_HEADERS xpsmfw_api.h)
+collect (PROJECT_LIB_SOURCES xpsmfw_dvsec.c)
+collect (PROJECT_LIB_HEADERS xpsmfw_dvsec.h)
+collect (PROJECT_LIB_HEADERS xpsmfw_dvsec_common.h)
+collect (PROJECT_LIB_SOURCES xpsmfw_gic.c)
+collect (PROJECT_LIB_HEADERS xpsmfw_gic.h)
+collect (PROJECT_LIB_SOURCES xpsmfw_plat.c)
+collect (PROJECT_LIB_HEADERS xpsmfw_plat.h)
+collect (PROJECT_LIB_SOURCES xpsmfw_power.c)
+collect (PROJECT_LIB_HEADERS xpsmfw_power.h)
+collect (PROJECT_LIB_SOURCES xpsmfw_stl.c)
+collect (PROJECT_LIB_HEADERS xpsmfw_stl.h)

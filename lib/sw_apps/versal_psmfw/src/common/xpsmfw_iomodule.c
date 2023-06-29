@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,7 +47,7 @@ static void XPsmFw_InterruptIpiHandler(void)
 		goto done;
 	}
 
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#if defined(XPAR_XIPIPSU_0_DEVICE_ID) || defined(XPAR_XIPIPSU_0_BASEADDR)
 	Status = XPsmFw_DispatchIpiHandler(IPI_PSM_ISR_PMC_MASK);
 #else
 	XPsmFw_Printf(DEBUG_ERROR, "PSM IPI channel is not enabled\r\n");

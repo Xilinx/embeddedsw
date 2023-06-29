@@ -1,0 +1,23 @@
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: versal PSM Firmware
+
+maintainers:
+  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+  - Madhav Bhatt <madhav.bhatt@amd.com>
+type: apps
+
+description: Processing System Management Unit Firmware for versal.
+
+depends_libs:
+    xiltimer: {}
+
+supported_processors:
+  - psv_psm
+
+supported_os:
+  - standalone
+...
