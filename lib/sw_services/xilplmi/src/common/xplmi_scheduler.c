@@ -46,6 +46,7 @@
 *                       creation error
 * 1.07  ng   11/11/2022 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.08  nb   06/28/2023 Move XPLMI_SCHED_TICK to header
 *
 * </pre>
 *
@@ -67,8 +68,6 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
-#define XPLMI_SCHED_TICK	(10U)
 
 /**
  * @}

@@ -796,6 +796,7 @@ XStatus XPm_HookAfterBootPdi(void)
 {
 	volatile XStatus Status = XST_FAILURE;
 	u32 Platform = XPm_GetPlatform();
+	u32 DeviceType = PMC_TAP_SLR_TYPE_MASK & XPm_In32(PMC_TAP_BASEADDR + PMC_TAP_SLR_TYPE_OFFSET);
 
 	/* If platform is COSIM, run setup for PL and AIE devices */
 	if (PLATFORM_VERSION_COSIM == Platform) {
@@ -804,6 +805,11 @@ XStatus XPm_HookAfterBootPdi(void)
 
 	/* Start HBM temperature monitoring task, if applicable */
 	XSECURE_TEMPORAL_CHECK(done, Status, XPmMem_HBMTempMonInitTask);
+
+	/* If SSIT device on primary SLR, start SSIT temperature propagation task */
+	if (SLR_TYPE_SSIT_DEV_MASTER_SLR == DeviceType) {
+		XSECURE_TEMPORAL_CHECK(done, Status, XPmPeriph_SsitTempPropInitTask);
+	}
 
 done:
 	return Status;

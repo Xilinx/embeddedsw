@@ -35,6 +35,7 @@
 *       dd   03/28/2023 Updated doxygen comments
 * 1.02  bm   04/28/2023 Add XPlmi_GetRomIroFreq API
 *       dd   05/24/2023 Updated doxygen comments
+*       nb   06/28/2023 Add RTCA def for SSIT temperature propagation
 *
 * </pre>
 *
@@ -76,6 +77,7 @@ extern "C" {
 #define XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH	(XPLMI_RTCFG_BASEADDR + 0x288U) /**< Image store address high */
 #define XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW	(XPLMI_RTCFG_BASEADDR + 0x28CU) /**< Image store address low */
 #define XPLMI_RTCFG_IMG_STORE_SIZE		(XPLMI_RTCFG_BASEADDR + 0x290U) /**< Image store size */
+#define XPLMI_RTCFG_SSIT_TEMP_PROPAGATION	(XPLMI_RTCFG_BASEADDR + 0x298U) /**< SSIT temperature prop config */
 
 /* Masks of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_PLM_MJTAG_WA_IS_ENABLED_MASK	(0x00000001U) /**< MJTAG word aligner enable status check mask */
