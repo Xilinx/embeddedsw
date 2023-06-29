@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,14 +31,22 @@
 
 static struct XPm_Proc Proc_APU0 = {
 	.DevId = PM_DEV_ACPU_0,
+#ifndef SDT
 	.PwrCtrl = XPAR_PSV_APU_0_S_AXI_BASEADDR + APU_PWRCTRL_OFFSET,
+#else
+	.PwrCtrl = XPAR_PSV_APU_0_BASEADDR + APU_PWRCTRL_OFFSET,
+#endif
 	.PwrDwnMask = APU_0_PWRCTL_CPUPWRDWNREQ_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU1 = {
 	.DevId = PM_DEV_ACPU_1,
+#ifndef SDT
 	.PwrCtrl = XPAR_PSV_APU_0_S_AXI_BASEADDR + APU_PWRCTRL_OFFSET,
+#else
+	.PwrCtrl = XPAR_PSV_APU_0_BASEADDR + APU_PWRCTRL_OFFSET,
+#endif
 	.PwrDwnMask = APU_1_PWRCTL_CPUPWRDWNREQ_MASK,
 	.Ipi = NULL,
 };
@@ -57,14 +66,22 @@ struct XPm_Proc *PrimaryProc = &Proc_APU0;
 
 static struct XPm_Proc Proc_RPU0 = {
 	.DevId = PM_DEV_RPU0_0,
+#ifndef SDT
 	.PwrCtrl = XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_0_PWRDWN_OFFSET,
+#else
+	.PwrCtrl = XPAR_PSV_RPU_0_BASEADDR + RPU_0_PWRDWN_OFFSET,
+#endif
 	.PwrDwnMask = RPU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_RPU1 = {
 	.DevId = PM_DEV_RPU0_1,
+#ifndef SDT
 	.PwrCtrl = XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_1_PWRDWN_OFFSET,
+#else
+	.PwrCtrl = XPAR_PSV_RPU_0_BASEADDR + RPU_1_PWRDWN_OFFSET,
+#endif
 	.PwrDwnMask = RPU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
@@ -100,7 +117,11 @@ XStatus XPm_SetPrimaryProc(void)
 	Status = (s32)XST_SUCCESS;
 #elif defined (__arm__)
 	ProcId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & PM_AFL0_MASK);
+#ifndef SDT
 	if (0U == (XPm_Read(XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_GLBL_CTRL_OFFSET) &
+#else
+	if (0U == (XPm_Read(XPAR_PSV_RPU_0_BASEADDR + RPU_GLBL_CTRL_OFFSET) &
+#endif
 	    RPU_GLBL_CNTL_SLSPLIT_MASK)) {
 		ProcId = 0;
 		Status = Xil_SMemCpy(ProcName, sizeof(RPU_LS), RPU_LS, sizeof(RPU_LS), sizeof(RPU_LS));

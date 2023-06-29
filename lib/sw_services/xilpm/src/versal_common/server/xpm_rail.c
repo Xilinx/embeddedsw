@@ -48,6 +48,7 @@ static XStatus I2CInitialize(XIicPs *Iic)
 		goto done;
 	}
 
+#ifndef SDT
 #ifdef XPAR_XIICPS_0_DEVICE_ID
 	if ((u32)XPAR_XIICPS_0_BASEADDR == Device->Node.BaseAddress) {
 		I2CDeviceId = XPAR_XIICPS_0_DEVICE_ID;
@@ -69,6 +70,9 @@ static XStatus I2CInitialize(XIicPs *Iic)
 	}
 
 	Config = XIicPs_LookupConfig(I2CDeviceId);
+#else
+	Config = XIicPs_LookupConfig(Device->Node.BaseAddress);
+#endif
 	if (NULL == Config) {
 		goto done;
 	}
