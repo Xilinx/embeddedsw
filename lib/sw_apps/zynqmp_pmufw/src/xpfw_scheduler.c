@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -88,6 +89,10 @@ done:
 XStatus XPfw_SchedulerStart(XPfw_Scheduler_t *SchedPtr)
 {
 	XStatus Status;
+#ifdef SDT
+	u32 CpuFreq = XGet_CpuFreq();
+	u32 CountPerTick = (CpuFreq / 1000U) * TICK_MILLISECONDS ;
+#endif
 
 	if (SchedPtr == NULL) {
 		Status = XST_FAILURE;
@@ -96,8 +101,13 @@ XStatus XPfw_SchedulerStart(XPfw_Scheduler_t *SchedPtr)
 
 	SchedPtr->Enabled = (u32)TRUE;
 
+#ifndef SDT
 	XPfw_Write32(SchedPtr->PitBaseAddr + PIT_PRELOAD_OFFSET,
 			COUNT_PER_TICK);
+#else
+	XPfw_Write32(SchedPtr->PitBaseAddr + PIT_PRELOAD_OFFSET,
+			CountPerTick);
+#endif
 	XPfw_Write32(SchedPtr->PitBaseAddr + PIT_CONTROL_OFFSET, 3U);
 	Status = XST_SUCCESS;
 

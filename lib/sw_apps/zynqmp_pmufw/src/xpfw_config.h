@@ -13,6 +13,9 @@ extern "C" {
 #endif
 
 #include "xparameters.h"
+#ifdef SDT
+#include "bspconfig.h"
+#endif
 
 /************* User Configurable Options ***************/
 
@@ -52,8 +55,10 @@ extern "C" {
 #endif
 
 /* PMU clock frequency in Hz */
+#ifndef SDT
 #ifndef XPFW_CFG_PMU_CLK_FREQ
 #define XPFW_CFG_PMU_CLK_FREQ XPAR_CPU_CORE_CLOCK_FREQ_HZ
+#endif
 #endif
 
 /* Let the MB sleep when it is Idle in Main Loop */
@@ -507,6 +512,12 @@ extern "C" {
 
 #if (CONNECT_PMU_GPO_5_VAL) && (!defined(CONNECT_PMU_GPO_5))
 #define CONNECT_PMU_GPO_5
+#endif
+
+#ifdef SDT
+#if defined(XPAR_XDDRCPSU_0_BASEADDR)
+#define XPAR_DDRCPSU_0_DEVICE_ID XPAR_XDDRCPSU_0_BASEADDR
+#endif
 #endif
 
 #ifdef XPAR_DDRCPSU_0_DEVICE_ID
