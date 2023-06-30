@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017-2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2023 Xilinx Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -98,6 +99,7 @@
 * 4.10  vv    02/05/19   Added new pixel formats with 12 and 16 bpc.
 * 4.50  kp    12/07/21   Added new 3 planar video format Y_U_V8.
 * 4.60  kp    10/27/21   Added new 3 planar video format Y_U_V10.
+* 4.70  pg    05/23/23   Added new 3 planar video format Y_U_V8_420.
 * </pre>
 *
 ******************************************************************************/
@@ -232,6 +234,21 @@ typedef struct {
 ******************************************************************************/
 #define XVFrmbufWr_IsY_U_V10Enabled(InstancePtr) \
                                  ((InstancePtr)->FrmbufWr.Config.Y_U_V10En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y_U_V8_420 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY_U_V8_420Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_U_V8_420En)
 
 /*****************************************************************************/
 /**

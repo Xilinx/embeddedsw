@@ -1,6 +1,7 @@
 
 /*******************************************************************
-* Copyright (c) 2010-2021 Xilinx, Inc. All Rights Reserved.
+* Copyright (c) 2010-2023 Xilinx Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************/
 
@@ -50,6 +51,7 @@ XV_frmbufwr_Config XV_frmbufwr_ConfigTable[XPAR_XV_FRMBUFWR_NUM_INSTANCES] =
 		XPAR_V_FRMBUF_WR_0_HAS_Y16,
 		XPAR_V_FRMBUF_WR_0_HAS_Y_U_V8,
 		XPAR_V_FRMBUF_WR_0_HAS_Y_U_V10,
+		XPAR_V_FRMBUF_WR_0_HAS_Y_U_V8_420,
 		XPAR_V_FRMBUF_WR_0_HAS_INTERLACED
 	}
 };

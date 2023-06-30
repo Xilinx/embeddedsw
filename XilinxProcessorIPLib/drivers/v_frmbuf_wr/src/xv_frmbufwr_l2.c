@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017-2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2023 Xilinx Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +35,7 @@
 * 4.10  vv    02/05/19   Added new pixel formats with 12 and 16 bpc.
 * 4.50  kp    12/07/21   Added new 3 planar video format Y_U_V8.
 * 4.60  kp    10/27/21   Added new 3 planar video format Y_U_V10.
+* 4.70  pg    05/23/23   Added new 3 planar video format Y_U_V8_420.
 * </pre>
 *
 ******************************************************************************/
@@ -148,8 +150,11 @@ XVidC_ColorFormat WrMemory2Live(XVidC_ColorFormat MemFmt)
        case XVIDC_CSF_MEM_Y_U_V8 :
             StrmFmt = XVIDC_CSF_YCRCB_444;
             break;
-	   case XVIDC_CSF_MEM_Y_U_V10 :
+       case XVIDC_CSF_MEM_Y_U_V10 :
             StrmFmt = XVIDC_CSF_YCRCB_444;
+            break;
+       case XVIDC_CSF_MEM_Y_U_V8_420 :
+            StrmFmt = XVIDC_CSF_YCRCB_420;
             break;
        default:
             StrmFmt = (XVidC_ColorFormat)~0;
@@ -541,6 +546,11 @@ int XVFrmbufWr_SetMemFormat(XV_FrmbufWr_l2 *InstancePtr,
            FmtValid = TRUE;
          }
          break;
+      case XVIDC_CSF_MEM_Y_U_V8_420 :
+         if (XVFrmbufWr_IsY_U_V8_420Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
       default :
          FmtValid = FALSE;
          break;
@@ -809,6 +819,7 @@ void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr)
   xil_printf("Y16 Enabled:                %d\r\n", InstancePtr->FrmbufWr.Config.Y16En);
   xil_printf("Y_U_V8 Enabled:             %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V8En);
   xil_printf("Y_U_V10 Enabled:            %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V10En);
+  xil_printf("Y_U_V8_420 Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V8_420En);
   xil_printf("Interlaced Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Interlaced);
 
   xil_printf("Control Reg:                0x%x\r\n", ctrl);

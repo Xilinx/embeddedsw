@@ -1,5 +1,6 @@
 // ==============================================================
-// Copyright (c) 1986 - 2021 Xilinx Inc. All rights reserved.
+// Copyright (c) 1986 - 2023 Xilinx Inc. All rights reserved.
+// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -78,6 +79,7 @@ typedef struct {
   u16 Y16En;                /**< Y16      support */
   u16 Y_U_V8En;             /**< Y_U_V8   support */
   u16 Y_U_V10En;            /**< Y_U_V10   support */
+  u16 Y_U_V8_420En;         /**< Y_U_V8_420   support */
   u16 Interlaced;           /**< Interlaced support */
 } XV_frmbufwr_Config;
 #endif
