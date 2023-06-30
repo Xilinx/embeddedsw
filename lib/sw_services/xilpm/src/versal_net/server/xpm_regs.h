@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,10 +48,21 @@ extern "C" {
 #define PMC_TAP_SLR_TYPE_WIDTH					(0x00000002U)
 #define PMC_TAP_SLR_TYPE_MASK					(0x00000007U)
 
-	/**
+/**
  * LPD SLCR Module
  */
 #define LPD_SLCR_WPROT0_OFFSET                  (0x00000000U)
+
+/**
+ * Register: LPD_SLCR_SECURE
+ */
+#define LPD_SLCR_SECURE_WPROT0_OFFSET				(0x00000000U)
+
+/**
+ * Register: FPD_SLCR_SECURE
+ */
+#define FPD_SLCR_SECURE_WPROT0_OFFSET				(0x00000000U)
+
 
 /* PMC_GLOBAL registers */
 #define PMC_GLOBAL_GGS4_OFFSET			(0x00000040U)
