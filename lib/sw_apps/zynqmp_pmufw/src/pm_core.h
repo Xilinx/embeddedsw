@@ -1,5 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -30,6 +31,7 @@ void PmResetAssert(const PmMaster *const master, const u32 reset,
 		   const u32 action);
 void PmShutdownInterruptHandler(void);
 void PmKillBoardPower(void);
+void PmExtReset(void);
 
 #ifdef __cplusplus
 }

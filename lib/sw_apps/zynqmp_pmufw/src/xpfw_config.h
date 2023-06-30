@@ -116,6 +116,8 @@ extern "C" {
  * 	                       GPO1[2] is the board power line.
  * 	- BOARD_SHUTDOWN_PIN_STATE : Tells what should be the state of board power
  * 	                             line when system shutdown request comes
+ * 	- EXT_RESET_MIO_PIN_VAL : Board external reset MIO pin (32-37)
+ * 	- EXT_RESET_MIO_PIN_STATE_VAL : Board external reset MIO pin active state (0-1)
  *	- ENABLE_DYNAMIC_MIO_CONFIG: Enables IOCTL support for configuring MIO
  *				     regiisters
  */
@@ -475,6 +477,22 @@ extern "C" {
 
 #if (BOARD_SHUTDOWN_PIN_STATE_VAL) && (!defined(BOARD_SHUTDOWN_PIN_STATE))
 #define BOARD_SHUTDOWN_PIN_STATE	0U
+#endif
+
+#ifdef EXT_RESET_MIO_PIN_STATE_VAL
+#if !((EXT_RESET_MIO_PIN_STATE_VAL >= 0) && (EXT_RESET_MIO_PIN_STATE_VAL <= 1))
+#error "Error: Out of range active pin state (valid 0 or 1)"
+#endif
+#endif
+
+#ifdef EXT_RESET_MIO_PIN_VAL
+#if !((EXT_RESET_MIO_PIN_VAL >= 32) && (EXT_RESET_MIO_PIN_VAL <= 37))
+#error "Error: Out of range pin number (valid 32-37)"
+#endif
+/* Add default active low state in case not passed in */
+#ifndef EXT_RESET_MIO_PIN_STATE_VAL
+#define EXT_RESET_MIO_PIN_STATE_VAL		(0U)
+#endif
 #endif
 
 #if (SECURE_ACCESS_VAL) && (!defined(SECURE_ACCESS))

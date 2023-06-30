@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,6 +15,7 @@
 #ifdef ENABLE_DDR_SR_WR
 #include "pm_ddr.h"
 #endif
+#include "pm_core.h"
 
 
 
@@ -82,6 +84,7 @@ void XPfw_ResetSystem(void)
 #ifdef ENABLE_DDR_SR_WR
 	XPfw_PrepareDDRForWR();
 #endif
+	PmExtReset();
 
 	XPfw_RMW32(CRL_APB_RESET_CTRL,
 		   CRL_APB_RESET_CTRL_SOFT_RESET_MASK,

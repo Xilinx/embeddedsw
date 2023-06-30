@@ -209,6 +209,32 @@ void PmKillBoardPower(void) { }
 #endif
 
 /**
+ * PmExtReset() - External system reset using GPO pin
+ */
+#if defined(EXT_RESET_MIO_PIN_VAL) && defined(EXT_RESET_MIO_PIN_STATE_VAL)
+void PmExtReset(void)
+{
+	#define EXT_RESET_GPO_PIN	(EXT_RESET_MIO_PIN_VAL - MIO_TRI_PIN32)
+
+	u32 reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
+	u32 mask = PMU_IOMODULE_GPO1_MIO_0_MASK << EXT_RESET_GPO_PIN;
+	u32 value = (u32)EXT_RESET_MIO_PIN_STATE_VAL << EXT_RESET_GPO_PIN;
+	u32 mioPinOffset = IOU_SLCR_MIO_PIN_32_OFFSET + EXT_RESET_GPO_PIN * 4U;
+
+	reg = (reg & (~mask)) | (mask & value);
+	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
+
+	/* Configure external reset pin to be controlled by the PMU */
+	XPfw_RMW32((IOU_SLCR_BASE + mioPinOffset), 0x000000FEU, 0x00000008U);
+
+	/* Clear the EXT_RESET_MIO_PIN pin tri-state */
+	PmPinCtrlMioTriState(EXT_RESET_MIO_PIN_VAL, 0U);
+}
+#else
+void PmExtReset(void) { }
+#endif
+
+/**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
  * @ack     Ack argument as requested by the master
  * @master  IPI channel to use
