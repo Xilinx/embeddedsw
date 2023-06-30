@@ -8,7 +8,7 @@
 /**
 *
 * @file xv_frmbufwr_l2.c
-* @addtogroup v_frmbuf_wr_v4_6
+* @addtogroup v_frmbuf_wr_v4_7
 * @{
 *
 * Frame Buffer Write Layer-2 Driver. The functions in this file provides an
