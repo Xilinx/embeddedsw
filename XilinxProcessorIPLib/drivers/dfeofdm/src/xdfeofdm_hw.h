@@ -54,7 +54,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     11/21/22 Initial version
 * 1.1   dc     05/22/23 State and status upgrades
-*
+*       dc     06/28/23 Add phase compensation calculation
 * </pre>
 *
 ******************************************************************************/
@@ -93,6 +93,10 @@ extern "C" {
 #define XDFEOFDM_MODEL_PARAM_NUM_ANTENNA_WIDTH 4U
 #define XDFEOFDM_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET 16U
 #define XDFEOFDM_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH 4U
+#define XDFEOFDM_MODEL_PARAM_PHASE_COMPENSATION_OFFSET 20U
+#define XDFEOFDM_MODEL_PARAM_PHASE_COMPENSATION_WIDTH 1U
+#define XDFEOFDM_MODEL_PARAM_PHASE_COMPENSATION_DISABLED 0U
+#define XDFEOFDM_MODEL_PARAM_PHASE_COMPENSATION_ENABLED 1U
 
 /* Delays */
 #define XDFEOFDM_DELAY_OFFSET 0x10U /**< Register offset */
@@ -210,6 +214,7 @@ extern "C" {
 	0x1200U /**< Register offset */
 #define XDFEOFDM_CC_SEQUENCE_LENGTH_NEXT_OFFSET 0x1204U /**< Register offset */
 #define XDFEOFDM_CC_SEQUENCE_LENGTH_WIDTH 4U
+#define XDFEOFDM_CC_SEQUENCE_LENGTH_OFFSET 0U
 
 /* CC Sequence */
 #define XDFEOFDM_CC_SEQUENCE_CURRENT_OFFSET(X)                                 \
@@ -262,6 +267,13 @@ extern "C" {
 	(0x1540U + (X << 2U)) /**< Register offset */
 #define XDFEOFDM_CARRIER_CONFIGURATION2_OUTPUT_DELAY_OFFSET 0U
 #define XDFEOFDM_CARRIER_CONFIGURATION2_OUTPUT_DELAY_WIDTH 16U
+
+#define XDFEOFDM_PHASE_COMPENSATION_CURRENT_OFFSET(X)                          \
+	(0x2000U + (X << 2U)) /**< Register offset */
+#define XDFEOFDM_PHASE_COMPENSATION_NEXT_OFFSET(X)                             \
+	(0x3000U + (X << 2U)) /**< Register offset */
+#define XDFEOFDM_PHASE_COMPENSATION_OFFSET 0U
+#define XDFEOFDM_PHASE_COMPENSATION_WIDTH 32U
 
 #ifdef __cplusplus
 }
