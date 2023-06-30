@@ -1,5 +1,6 @@
-##############################################################################
-# Copyright (C) 2017-2021 Xilinx, Inc. All rights reserved.
+#############################################################################
+# Copyright (C) 2017-2023 Xilinx, Inc. All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##
 #############################################################################
@@ -8,11 +9,11 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_frmbuf_wr
 
- OPTION supported_peripherals = (v_frmbuf_wr_v[2]_[0-4] );
+ OPTION supported_peripherals = (v_frmbuf_wr_v[2]_[0-5] );
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION DEPENDS = (video_common);
  OPTION name = v_frmbuf_wr;
- OPTION version = 4.6;
+ OPTION version = 4.7;
 
 END driver
