@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -10,7 +11,7 @@ BEGIN driver cfupmc
   OPTION supported_peripherals = (psv_pmc_cfu_apb pmc_cfu pmc_cfu_apb psxl_pmc_cfu_apb psx_pmc_cfu_apb);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.5;
+  OPTION VERSION = 1.6;
   OPTION NAME = cfupmc;
 
 END driver
