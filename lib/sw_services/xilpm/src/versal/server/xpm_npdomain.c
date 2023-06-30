@@ -26,6 +26,8 @@
 #define XPM_NODEIDX_MEMIC_NSU_MIN2		XPM_NODEIDX_MEMIC_NSU_50
 #define XPM_NODEIDX_MEMIC_NSU_MAX2		XPM_NODEIDX_MEMIC_NSU_57
 
+static u32 IsCrypto = 0U;
+
 static u32 NpdMemIcAddresses[XPM_NODEIDX_MEMIC_MAX];
 
 static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
@@ -81,6 +83,15 @@ static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
+	/*
+	 * If device is xcvm2152, DDRMC5 has crypto blcok so set local flag.
+	 * NOTE: This is a temporary solution until topology support is
+	 * available.
+	 */
+	if (PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+		IsCrypto = 1U;
+	}
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -102,6 +113,31 @@ static void NpdPreBisrReqs(void)
 	return;
 }
 
+static void UbInitStateDeassert(void)
+{
+	const XPm_Device *Device;
+	u32 BaseAddress;
+	u32 i = 0U;
+
+	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
+		Device = XPmDevice_GetById(DDRMC_DEVID(i));
+		if (NULL != Device) {
+			BaseAddress = Device->Node.BaseAddress;
+
+			XPm_UnlockPcsr(BaseAddress);
+			PmOut32(BaseAddress + NPI_PCSR_MASK_OFFSET,
+				NPI_DDRMC_PSCR_CONTROL_UB_INITSTATE_MASK);
+			PmOut32(BaseAddress + NPI_PCSR_CONTROL_OFFSET, 0);
+			XPm_LockPcsr(BaseAddress);
+
+			/* Only UB0 for non sillicon platforms */
+			if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
+				break;
+			}
+		}
+	}
+}
+
 static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
@@ -109,8 +145,6 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus SocRailPwrSts = XST_FAILURE;
 	XStatus AuxRailPwrSts = XST_FAILURE;
 	u32 i=0;
-	const XPm_Device *Device;
-	u32 BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SlrType;
 	u32 SysmonAddr;
@@ -168,23 +202,11 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			XPm_LockPcsr(NpdMemIcAddresses[i]);
 	}
 
-	/* Deassert UB_INITSTATE for DDR blocks */
-	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
-		Device = XPmDevice_GetById(DDRMC_DEVID(i));
-		if (NULL != Device) {
-			BaseAddress = Device->Node.BaseAddress;
-			XPm_UnlockPcsr(BaseAddress);
-			PmOut32(BaseAddress + NPI_PCSR_MASK_OFFSET,
-				NPI_DDRMC_PSCR_CONTROL_UB_INITSTATE_MASK);
-			PmOut32(BaseAddress + NPI_PCSR_CONTROL_OFFSET, 0);
-			XPm_LockPcsr(BaseAddress);
-			/* Only UB0 for non sillicon platforms */
-			if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
-				Status = XST_SUCCESS;
-				break;
-			}
-		}
+	if (1U != IsCrypto) {
+		/* Deassert UB_INITSTATE for DDR blocks */
+		UbInitStateDeassert();
 	}
+
 	/* When NPD is powered, copy sysmon data */
 	for (i = (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN; i < (u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MAX; i++) {
 		/* Copy_trim< AMS_SAT_N> */
@@ -198,22 +220,29 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		}
 	}
 
-	/* Assert pcomplete to indicate HC is done and NoC is ready to use */
-	/* Unlock PCSR Register*/
-	XPm_UnlockPcsr(NPI_BASEADDR + NPI_NIR_0_OFFSET);
+	if (1U != IsCrypto) {
+		/* Assert pcomplete to indicate HC is done and NoC is ready to use */
+		/* Unlock PCSR Register*/
+		XPm_UnlockPcsr(NPI_BASEADDR + NPI_NIR_0_OFFSET);
 
-	/* Unmask the pcomplete bit */
-	PmOut32(NPI_BASEADDR + NPI_NIR_0_OFFSET + NPI_PCSR_MASK_OFFSET,
-		NPI_PCSR_CONTROL_PCOMPLETE_MASK);
+		/* Unmask the pcomplete bit */
+		PmOut32(NPI_BASEADDR + NPI_NIR_0_OFFSET + NPI_PCSR_MASK_OFFSET,
+			NPI_PCSR_CONTROL_PCOMPLETE_MASK);
 
-	/*Assert control on pcomplete bit*/
-	PmOut32(NPI_BASEADDR + NPI_NIR_0_OFFSET + NPI_PCSR_CONTROL_OFFSET,
-		NPI_PCSR_CONTROL_PCOMPLETE_MASK);
+		/*Assert control on pcomplete bit*/
+		PmOut32(NPI_BASEADDR + NPI_NIR_0_OFFSET + NPI_PCSR_CONTROL_OFFSET,
+			NPI_PCSR_CONTROL_PCOMPLETE_MASK);
 
-	/*Lock PCSR Register */
-	XPm_LockPcsr(NPI_BASEADDR + NPI_NIR_0_OFFSET);
+		/*Lock PCSR Register */
+		XPm_LockPcsr(NPI_BASEADDR + NPI_NIR_0_OFFSET);
+	}
 
 	Status = XPmPowerDomain_SecureEfuseTransfer(PM_POWER_NOC);
+
+	if (1U == IsCrypto) {
+		/* Deassert UB_INITSTATE for DDR blocks */
+		UbInitStateDeassert();
+	}
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -349,6 +378,13 @@ static void TriggerMemClearNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrLen
 			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
 		PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET,
 			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
+
+		if (1U == IsCrypto) {
+			XPm_Out32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
+				  DDRMC5_UB_PCSR_MEM_CLEAR_TRIGGER_CRYPTO_MASK);
+			XPm_Out32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET,
+				  DDRMC5_UB_PCSR_MEM_CLEAR_TRIGGER_CRYPTO_MASK);
+		}
 	}
 }
 
@@ -381,6 +417,16 @@ static XStatus IsMemClearDoneNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrL
 		if (XST_SUCCESS != Status) {
 			*DbgErr = XPM_INT_ERR_DDR_MEM_CLEAR_DONE;
 			break;
+		}
+
+		if (1U == IsCrypto) {
+			Status = XPm_PollForMask(DdrMcAddresses[i] + NPI_PCSR_STATUS_OFFSET,
+						 DDRMC5_UB_PCSR_MEM_CLEAR_DONE_CRYPTO_MASK,
+						 XPM_POLL_TIMEOUT);
+			if (XST_SUCCESS != Status) {
+				*DbgErr = XPM_INT_ERR_DDR_MEM_CLEAR_DONE;
+				break;
+			}
 		}
 	}
 
@@ -417,6 +463,14 @@ static XStatus IsMemClearPass(const u32 *DdrMcAddresses, const u32 DdrMcAddrLeng
 			*DbgErr = XPM_INT_ERR_DDR_MEM_CLEAR_PASS;
 			goto done;
 		}
+
+		if (1U == IsCrypto) {
+			if (DDRMC5_UB_PCSR_MEM_CLEAR_PASS_CRYPTO_MASK !=
+			    (RegValue & DDRMC5_UB_PCSR_MEM_CLEAR_PASS_CRYPTO_MASK)) {
+				*DbgErr = XPM_INT_ERR_DDR_MEM_CLEAR_PASS;
+				goto done;
+			}
+		}
 	}
 	Status = XST_SUCCESS;
 
@@ -445,6 +499,12 @@ static void CleanupMemClearNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrLen
                 PmOut32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
                         NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
 		PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
+
+		if (1U == IsCrypto) {
+			XPm_Out32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
+				  DDRMC5_UB_PCSR_MEM_CLEAR_TRIGGER_CRYPTO_MASK);
+			XPm_Out32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
+		}
 	}
 }
 
@@ -614,6 +674,8 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			DbgErr = XPM_INT_ERR_BISR_REPAIR;
 			goto fail;
 		}
+
+		/* TODO: Add BISR for DDRMC5 and DDRMC5_CRYPTO tags */
 
 		/* Disable Bisr clock */
 		for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
