@@ -26,6 +26,7 @@
 *			XWdtPs_GetExternalSignalLength
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.2	sne    08/05/19 Fixed coverity warnings.
+* 3.6	sb     06/27/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -89,7 +90,9 @@ s32 XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
 		/*
 		 * Copy configuration into instance.
 		 */
+#ifndef SDT
 		InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 
 		/*
 		 * Save the base address pointer such that the registers of the block

@@ -21,6 +21,7 @@
 * ----- ------ -------- ----------------------------------------------
 * 1.00a ecm/jz 01/15/10 First release
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.6   sb     06/27/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -53,6 +54,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XWdtPs_Config *XWdtPs_LookupConfig(u16 DeviceId)
 {
 	XWdtPs_Config *CfgPtr = NULL;
@@ -66,4 +68,20 @@ XWdtPs_Config *XWdtPs_LookupConfig(u16 DeviceId)
 	}
 	return (XWdtPs_Config *)CfgPtr;
 }
+#else
+XWdtPs_Config *XWdtPs_LookupConfig(u32 BaseAddress)
+{
+	XWdtPs_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0U; XWdtPs_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XWdtPs_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XWdtPs_ConfigTable[Index];
+			break;
+		}
+	}
+	return (XWdtPs_Config *)CfgPtr;
+}
+#endif
 /** @} */

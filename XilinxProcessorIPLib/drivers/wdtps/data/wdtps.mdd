@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -10,7 +11,7 @@ BEGIN driver wdtps
   OPTION supported_peripherals = (ps7_wdt psu_wdt);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.5;
+  OPTION VERSION = 3.6;
   OPTION NAME = wdtps;
 
 END driver
