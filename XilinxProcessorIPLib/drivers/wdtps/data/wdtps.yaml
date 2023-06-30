@@ -1,0 +1,43 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for WDTPS controller
+
+maintainers:
+  - Srikanth Boyapally <srikanth.boyapally@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - cdns,wdt-r1p2
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,clock-freq:
+    description: Input clock frequency
+
+config:
+    - XWdtPs_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,wdt-clk-freq-hz
+    - interrupts
+    - interrupt-parent
+
+examples:
+   xwdtps_intr_example.c:
+    - interrupts
+   xwdtps_polled_example.c:
+    - reg
+   xwdtps_selftest_example.c:
+    - reg
+tapp:
+   xwdtps_selftest_example.c:
+        declaration: xwdtps_selftest_example
+...
