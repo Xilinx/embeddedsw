@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,7 @@
 * 1.00a ecm/jz 01/15/10 First release
 * 3.1	sg	   08/20/18 Updated interrupt example to fix interrupt ID
 * 						conflict issue
+* 3.6	sb	   06/27/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -38,6 +40,9 @@
 #include "xscugic.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -46,6 +51,7 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #ifdef XPAR_PS7_WDT_0_DEVICE_ID
 #define WDT_IRPT_INTR		XPS_WDT_INT_ID
 #endif
@@ -64,6 +70,7 @@
 
 #define WDT_DEVICE_ID		XPAR_XWDTPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#endif
 
 /**************************** Type Definitions *******************************/
 #define HANDLER_CALLED  0xFFFFFFFF
@@ -72,15 +79,21 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int WdtPsIntrExample(XScuGic *IntcInstancePtr, XWdtPs * WdtInstancePtr,
 		       u16 WdtDeviceId, u16 WdtIntrId);
+#else
+int WdtPsIntrExample(XWdtPs * WdtInstancePtr, UINTPTR BaseAddress);
+#endif
 
 static void WdtIntrHandler(void *CallBackRef);
 
+#ifndef SDT
 static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 				  XWdtPs * WdtInstancePtr, u16 WdtIntrId);
 
 static void WdtDisableIntrSystem(XScuGic *IntcInstancePtr, u16 WdtIntrId);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -109,8 +122,12 @@ int main(void)
 	 * Call the interrupt example, specify the parameters generated in
 	 * xparameters.h
 	 */
+#ifndef SDT
 	Status = WdtPsIntrExample(&IntcInstance,
 				&WdtInstance, WDT_DEVICE_ID, WDT_IRPT_INTR);
+#else
+	Status = WdtPsIntrExample(&WdtInstance, XPAR_XWDTPS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("WDT Interrupt Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -144,8 +161,12 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int WdtPsIntrExample(XScuGic *IntcInstancePtr,
 		  XWdtPs * WdtInstancePtr, u16 WdtDeviceId, u16 WdtIntrId)
+#else
+int WdtPsIntrExample(XWdtPs * WdtInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u32 Timebase = 0;
@@ -157,7 +178,11 @@ int WdtPsIntrExample(XScuGic *IntcInstancePtr,
 	/*
 	 * Initialize the Wdt driver.
 	 */
+#ifndef SDT
 	ConfigPtr = XWdtPs_LookupConfig(WdtDeviceId);
+#else
+	ConfigPtr = XWdtPs_LookupConfig(BaseAddress);
+#endif
 
 	/*
 	 * This is where the virtual address would be used, this example
@@ -229,7 +254,13 @@ int WdtPsIntrExample(XScuGic *IntcInstancePtr,
 	/*
 	 * Connect to the interrupt subsystem so that interrupts can occur.
 	 */
+#ifndef SDT
 	Status = WdtSetupIntrSystem(IntcInstancePtr, WdtInstancePtr, WdtIntrId);
+#else
+	Status = XSetupInterruptSystem(WdtInstancePtr,&WdtIntrHandler,
+				       ConfigPtr->IntrId,ConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -273,7 +304,12 @@ int WdtPsIntrExample(XScuGic *IntcInstancePtr,
 			 * Disable and disconnect the interrupt system.
 			 */
 
+#ifndef SDT
 			WdtDisableIntrSystem(IntcInstancePtr, WdtIntrId);
+#else
+			XDisconnectInterruptCntrl(ConfigPtr->IntrId,
+						  ConfigPtr->IntrParent);
+#endif
 			return XST_FAILURE;
 		}
 
@@ -286,8 +322,13 @@ int WdtPsIntrExample(XScuGic *IntcInstancePtr,
 			/*
 			 * Disable and disconnect the interrupt system.
 			 */
+#ifndef SDT
 				WdtDisableIntrSystem(IntcInstancePtr,
 							WdtIntrId);
+#else
+				XDisconnectInterruptCntrl(ConfigPtr->IntrId,
+							  ConfigPtr->IntrParent);
+#endif
 			return XST_FAILURE;
 		}
 	}
@@ -329,7 +370,12 @@ int WdtPsIntrExample(XScuGic *IntcInstancePtr,
 			/*
 			 * Disable and disconnect the interrupt system.
 			 */
+#ifndef SDT
 			WdtDisableIntrSystem(IntcInstancePtr, WdtIntrId);
+#else
+			XDisconnectInterruptCntrl(ConfigPtr->IntrId,
+						  ConfigPtr->IntrParent);
+#endif
 			return XST_FAILURE;
 		}
 	}
@@ -337,11 +383,16 @@ int WdtPsIntrExample(XScuGic *IntcInstancePtr,
 	/*
 	 * Disable and disconnect the interrupt system.
 	 */
+#ifndef SDT
 	WdtDisableIntrSystem(IntcInstancePtr, WdtIntrId);
+#else
+	XDisconnectInterruptCntrl(ConfigPtr->IntrId, ConfigPtr->IntrParent);
+#endif
 
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -422,6 +473,7 @@ static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -445,6 +497,7 @@ static void WdtIntrHandler(void *CallBackRef)
 	HandlerCalled = HANDLER_CALLED;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -468,3 +521,4 @@ static void WdtDisableIntrSystem(XScuGic *IntcInstancePtr, u16 WdtIntrId)
 	XScuGic_Disconnect(IntcInstancePtr, WdtIntrId);
 
 }
+#endif
