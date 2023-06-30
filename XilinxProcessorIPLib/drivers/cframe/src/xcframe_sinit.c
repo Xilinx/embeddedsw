@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,9 +17,10 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who     Date     Changes
-* ----- ------  -------- ---------------------------------------------------
-* 1.0   kc   22/10/2017 First release
+* Ver   Who  Date     Changes
+* ----- ---- -------- ---------------------------------------------------
+* 1.0   kc   22/10/17 First release
+* 1.1   ng   06/30/23 Added support for system device tree flow
 * </pre>
 *
 ******************************************************************************/
@@ -26,7 +28,10 @@
 /***************************** Include Files *********************************/
 
 #include "xcframe.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
+
 
 /************************** Constant Definitions *****************************/
 
@@ -61,6 +66,7 @@
 *
 * @note		None.
 ******************************************************************************/
+#ifndef SDT
 XCframe_Config *XCframe_LookupConfig(u16 DeviceId)
 {
 	extern XCframe_Config XCframe_ConfigTable[XPAR_XCFRAME_NUM_INSTANCES];
@@ -78,4 +84,23 @@ XCframe_Config *XCframe_LookupConfig(u16 DeviceId)
 
 	return (XCframe_Config *)CfgPtr;
 }
+#else
+XCframe_Config *XCframe_LookupConfig(UINTPTR BaseAddress)
+{
+	extern XCframe_Config XCframe_ConfigTable[];
+	XCframe_Config *CfgPtr = NULL;
+	u32 Index;
+
+	/* Checks all the instances */
+	for (Index = 0U; XCframe_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XCframe_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XCframe_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XCframe_Config *)CfgPtr;
+}
+#endif
 /** @} */

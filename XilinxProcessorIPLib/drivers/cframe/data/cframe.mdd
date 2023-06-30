@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -10,7 +11,7 @@ BEGIN driver cframe
   OPTION supported_peripherals = (psv_pmc_cfi_cframe psxl_pmc_cfi_cframe psx_pmc_cfi_cframe cfi_cframe);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.4;
+  OPTION VERSION = 1.5;
   OPTION NAME = cframe;
 
 END driver
