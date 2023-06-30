@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * 1.01  bsv  06/11/2019 Added XCframe_ClearCframeErr API
 * 1.02  bsv  17/02/2020 XCframe_SafetyWriteReg API added
 * 1.03  bsv  07/15/2021 Fix doxygen warnings
+* 1.04  ng   06/30/23   Added support for system device tree flow
 *
 * </pre>
 *
@@ -105,9 +107,13 @@ typedef struct
 * Each CFRAME core should have a configuration structure associated.
 */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< DeviceId is the unique ID of the
 				  *  device */
-	u32 BaseAddress;	/**< BaseAddress is the physical base address
+#else
+	char *Name;
+#endif
+	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 				  *  of the device's registers */
 } XCframe_Config;
 
@@ -141,7 +147,12 @@ typedef struct {
  */
 
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 XCframe_Config *XCframe_LookupConfig(u16 DeviceId);
+#else
+XCframe_Config *XCframe_LookupConfig(UINTPTR BaseAddress);
+#endif
+
 s32 XCframe_CfgInitialize(XCframe *InstancePtr, XCframe_Config *CfgPtr,
 			u32 EffectiveAddr);
 s32 XCframe_SelfTest(XCframe *InstancePtr);
