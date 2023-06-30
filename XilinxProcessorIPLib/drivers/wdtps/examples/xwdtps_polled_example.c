@@ -145,7 +145,7 @@ int WdtPsPolledExample(UINTPTR BaseAddress)
 	 */
 	EffectiveAddress = ConfigPtr->BaseAddress;
 	Status = XWdtPs_CfgInitialize(&Watchdog, ConfigPtr,
-				       EffectiveAddress);
+				      EffectiveAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -154,15 +154,15 @@ int WdtPsPolledExample(UINTPTR BaseAddress)
 	 * Set the initial counter restart to the smallest value (0).
 	 */
 	XWdtPs_SetControlValue(&Watchdog,
-				(u8) XWDTPS_COUNTER_RESET, (u8) 0);
+			       (u8) XWDTPS_COUNTER_RESET, (u8) 0);
 
 
 	/*
 	 * Set the initial Divider ratio at the smallest value.
 	 */
 	XWdtPs_SetControlValue(&Watchdog,
-				(u8) XWDTPS_CLK_PRESCALE,
-				(u8) XWDTPS_CCR_PSCALE_0008);
+			       (u8) XWDTPS_CLK_PRESCALE,
+			       (u8) XWDTPS_CCR_PSCALE_0008);
 
 	/*
 	 * Disable the RESET output.
@@ -195,7 +195,7 @@ int WdtPsPolledExample(UINTPTR BaseAddress)
 	 * Change the initial restart count value and make sure the WDT takes longer.
 	 */
 	XWdtPs_SetControlValue(&Watchdog,
-				(u8) XWDTPS_COUNTER_RESET, (u8) 1);
+			       (u8) XWDTPS_COUNTER_RESET, (u8) 1);
 
 
 	XWdtPs_RestartWdt(&Watchdog);

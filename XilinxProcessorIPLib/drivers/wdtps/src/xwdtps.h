@@ -157,8 +157,8 @@ extern XWdtPs_Config XWdtPs_ConfigTable[];      /**< Configuration table */
 *
 ******************************************************************************/
 #define XWdtPs_IsWdtExpired(InstancePtr)				  \
-((XWdtPs_ReadReg((InstancePtr)->Config.BaseAddress, XWDTPS_SR_OFFSET) & \
-   XWDTPS_SR_WDZ_MASK) == XWDTPS_SR_WDZ_MASK)
+	((XWdtPs_ReadReg((InstancePtr)->Config.BaseAddress, XWDTPS_SR_OFFSET) & \
+	  XWDTPS_SR_WDZ_MASK) == XWDTPS_SR_WDZ_MASK)
 
 
 /****************************************************************************/
@@ -177,7 +177,7 @@ extern XWdtPs_Config XWdtPs_ConfigTable[];      /**< Configuration table */
 ******************************************************************************/
 #define XWdtPs_RestartWdt(InstancePtr)					\
 	XWdtPs_WriteReg((InstancePtr)->Config.BaseAddress,		\
-		XWDTPS_RESTART_OFFSET, XWDTPS_RESTART_KEY_VAL)
+			XWDTPS_RESTART_OFFSET, XWDTPS_RESTART_KEY_VAL)
 
 /************************** Function Prototypes ******************************/
 
@@ -194,7 +194,7 @@ XWdtPs_Config *XWdtPs_LookupConfig(u32 BaseAddress);
  * Interface functions in xwdtps.c
  */
 s32 XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
-			XWdtPs_Config *ConfigPtr, UINTPTR EffectiveAddress);
+			 XWdtPs_Config *ConfigPtr, UINTPTR EffectiveAddress);
 
 void XWdtPs_Start(XWdtPs *InstancePtr);
 

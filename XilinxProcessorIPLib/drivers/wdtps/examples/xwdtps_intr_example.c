@@ -57,15 +57,15 @@
 #endif
 
 #ifdef XPAR_PSU_CSU_WDT_DEVICE_ID
-	#define WDT_IRPT_INTR		XPS_CSU_WDT_INT_ID
+#define WDT_IRPT_INTR		XPS_CSU_WDT_INT_ID
 #else
-	#ifdef XPAR_PSU_WDT_0_DEVICE_ID
-		#define WDT_IRPT_INTR		XPS_LPD_SWDT_INT_ID
-	#else
-		#ifdef XPAR_PSU_WDT_1_DEVICE_ID
-			#define WDT_IRPT_INTR		XPS_FPD_SWDT_INT_ID
-		#endif
-	#endif
+#ifdef XPAR_PSU_WDT_0_DEVICE_ID
+#define WDT_IRPT_INTR		XPS_LPD_SWDT_INT_ID
+#else
+#ifdef XPAR_PSU_WDT_1_DEVICE_ID
+#define WDT_IRPT_INTR		XPS_FPD_SWDT_INT_ID
+#endif
+#endif
 #endif
 
 #define WDT_DEVICE_ID		XPAR_XWDTPS_0_DEVICE_ID
@@ -80,17 +80,17 @@
 /************************** Function Prototypes ******************************/
 
 #ifndef SDT
-int WdtPsIntrExample(XScuGic *IntcInstancePtr, XWdtPs * WdtInstancePtr,
-		       u16 WdtDeviceId, u16 WdtIntrId);
+int WdtPsIntrExample(XScuGic *IntcInstancePtr, XWdtPs *WdtInstancePtr,
+		     u16 WdtDeviceId, u16 WdtIntrId);
 #else
-int WdtPsIntrExample(XWdtPs * WdtInstancePtr, UINTPTR BaseAddress);
+int WdtPsIntrExample(XWdtPs *WdtInstancePtr, UINTPTR BaseAddress);
 #endif
 
 static void WdtIntrHandler(void *CallBackRef);
 
 #ifndef SDT
 static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
-				  XWdtPs * WdtInstancePtr, u16 WdtIntrId);
+			      XWdtPs *WdtInstancePtr, u16 WdtIntrId);
 
 static void WdtDisableIntrSystem(XScuGic *IntcInstancePtr, u16 WdtIntrId);
 #endif
@@ -124,7 +124,7 @@ int main(void)
 	 */
 #ifndef SDT
 	Status = WdtPsIntrExample(&IntcInstance,
-				&WdtInstance, WDT_DEVICE_ID, WDT_IRPT_INTR);
+				  &WdtInstance, WDT_DEVICE_ID, WDT_IRPT_INTR);
 #else
 	Status = WdtPsIntrExample(&WdtInstance, XPAR_XWDTPS_0_BASEADDR);
 #endif
@@ -163,9 +163,9 @@ int main(void)
 ******************************************************************************/
 #ifndef SDT
 int WdtPsIntrExample(XScuGic *IntcInstancePtr,
-		  XWdtPs * WdtInstancePtr, u16 WdtDeviceId, u16 WdtIntrId)
+		     XWdtPs *WdtInstancePtr, u16 WdtDeviceId, u16 WdtIntrId)
 #else
-int WdtPsIntrExample(XWdtPs * WdtInstancePtr, UINTPTR BaseAddress)
+int WdtPsIntrExample(XWdtPs *WdtInstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	int Status;
@@ -191,7 +191,7 @@ int WdtPsIntrExample(XWdtPs * WdtInstancePtr, UINTPTR BaseAddress)
 	EffectiveAddress = ConfigPtr->BaseAddress;
 
 	Status = XWdtPs_CfgInitialize(WdtInstancePtr, ConfigPtr,
-				       EffectiveAddress);
+				      EffectiveAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -208,14 +208,14 @@ int WdtPsIntrExample(XWdtPs * WdtInstancePtr, UINTPTR BaseAddress)
 	 * Set the initial counter restart to the smallest value (0).
 	 */
 	XWdtPs_SetControlValue(WdtInstancePtr,
-				(u8) XWDTPS_COUNTER_RESET, (u8) 0);
+			       (u8) XWDTPS_COUNTER_RESET, (u8) 0);
 
 	/*
 	 * Set the initial Divider ratio at the smallest value.
 	 */
 	XWdtPs_SetControlValue(WdtInstancePtr,
-				(u8) XWDTPS_CLK_PRESCALE,
-				(u8) XWDTPS_CCR_PSCALE_0008);
+			       (u8) XWDTPS_CLK_PRESCALE,
+			       (u8) XWDTPS_CCR_PSCALE_0008);
 
 	/*
 	 * Disable the RESET output.
@@ -257,8 +257,8 @@ int WdtPsIntrExample(XWdtPs * WdtInstancePtr, UINTPTR BaseAddress)
 #ifndef SDT
 	Status = WdtSetupIntrSystem(IntcInstancePtr, WdtInstancePtr, WdtIntrId);
 #else
-	Status = XSetupInterruptSystem(WdtInstancePtr,&WdtIntrHandler,
-				       ConfigPtr->IntrId,ConfigPtr->IntrParent,
+	Status = XSetupInterruptSystem(WdtInstancePtr, &WdtIntrHandler,
+				       ConfigPtr->IntrId, ConfigPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
@@ -323,11 +323,11 @@ int WdtPsIntrExample(XWdtPs * WdtInstancePtr, UINTPTR BaseAddress)
 			 * Disable and disconnect the interrupt system.
 			 */
 #ifndef SDT
-				WdtDisableIntrSystem(IntcInstancePtr,
-							WdtIntrId);
+			WdtDisableIntrSystem(IntcInstancePtr,
+					     WdtIntrId);
 #else
-				XDisconnectInterruptCntrl(ConfigPtr->IntrId,
-							  ConfigPtr->IntrParent);
+			XDisconnectInterruptCntrl(ConfigPtr->IntrId,
+						  ConfigPtr->IntrParent);
 #endif
 			return XST_FAILURE;
 		}
@@ -412,7 +412,7 @@ int WdtPsIntrExample(XWdtPs * WdtInstancePtr, UINTPTR BaseAddress)
 *
 ******************************************************************************/
 static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
-				XWdtPs *WdtInstancePtr, u16 WdtIntrId)
+			      XWdtPs *WdtInstancePtr, u16 WdtIntrId)
 {
 	int Status;
 	XScuGic_Config *IntcConfig;
@@ -430,24 +430,24 @@ static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	XScuGic_GetPriorityTriggerType(IntcInstancePtr, WdtIntrId,
-	                                            &Priority, &Trigger);
+				       &Priority, &Trigger);
 	Trigger = 3;
 	XScuGic_SetPriorityTriggerType(IntcInstancePtr, WdtIntrId,
-				    Priority, Trigger);
+				       Priority, Trigger);
 
 	/*
 	 * Connect the interrupt controller interrupt handler to the hardware
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 
 	/*
 	 * Connect the device driver handler that will be called when an
@@ -455,8 +455,8 @@ static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, WdtIntrId,
-				(Xil_ExceptionHandler)WdtIntrHandler,
-				(void *)WdtInstancePtr);
+				 (Xil_ExceptionHandler)WdtIntrHandler,
+				 (void *)WdtInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}

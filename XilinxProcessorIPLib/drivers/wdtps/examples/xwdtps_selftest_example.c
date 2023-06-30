@@ -137,7 +137,7 @@ int WdtPsSelfTestExample(UINTPTR BaseAddress)
 	 * uses physical address.
 	 */
 	Status = XWdtPs_CfgInitialize(&Watchdog, ConfigPtr,
-				       ConfigPtr->BaseAddress);
+				      ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

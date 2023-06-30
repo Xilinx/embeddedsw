@@ -71,7 +71,7 @@
 *
 ******************************************************************************/
 s32 XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
-			XWdtPs_Config *ConfigPtr, UINTPTR EffectiveAddress)
+			 XWdtPs_Config *ConfigPtr, UINTPTR EffectiveAddress)
 {
 	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -134,7 +134,7 @@ void XWdtPs_Start(XWdtPs *InstancePtr)
 	 * Read the contents of the ZMR register.
 	 */
 	Register = XWdtPs_ReadReg(InstancePtr->Config.BaseAddress,
-				 XWDTPS_ZMR_OFFSET);
+				  XWDTPS_ZMR_OFFSET);
 
 	/*
 	 * Enable the Timer field in the register and Set the access key so the
@@ -147,7 +147,7 @@ void XWdtPs_Start(XWdtPs *InstancePtr)
 	 * Update the ZMR with the new value.
 	 */
 	XWdtPs_WriteReg(InstancePtr->Config.BaseAddress, XWDTPS_ZMR_OFFSET,
-			  Register);
+			Register);
 
 	/*
 	 * Indicate that the device is started.
@@ -183,7 +183,7 @@ void XWdtPs_Stop(XWdtPs *InstancePtr)
 	 * Read the contents of the ZMR register.
 	 */
 	Register = XWdtPs_ReadReg(InstancePtr->Config.BaseAddress,
-				 XWDTPS_ZMR_OFFSET);
+				  XWDTPS_ZMR_OFFSET);
 
 	/*
 	 * Disable the Timer field in the register and
@@ -196,7 +196,7 @@ void XWdtPs_Stop(XWdtPs *InstancePtr)
 	 * Update the ZMR with the new value.
 	 */
 	XWdtPs_WriteReg(InstancePtr->Config.BaseAddress, XWDTPS_ZMR_OFFSET,
-			  Register);
+			Register);
 
 	InstancePtr->IsStarted = 0U;
 }
@@ -226,13 +226,13 @@ void XWdtPs_EnableOutput(XWdtPs *InstancePtr, u8 Signal)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((Signal == XWDTPS_RESET_SIGNAL) ||
-			(Signal == XWDTPS_IRQ_SIGNAL));
+		       (Signal == XWDTPS_IRQ_SIGNAL));
 
 	/*
 	 * Read the contents of the ZMR register.
 	 */
 	Register = XWdtPs_ReadReg(InstancePtr->Config.BaseAddress,
-				 XWDTPS_ZMR_OFFSET);
+				  XWDTPS_ZMR_OFFSET);
 
 	if (Signal == XWDTPS_RESET_SIGNAL) {
 		/*
@@ -257,7 +257,7 @@ void XWdtPs_EnableOutput(XWdtPs *InstancePtr, u8 Signal)
 	 * Update the ZMR with the new value.
 	 */
 	XWdtPs_WriteReg(InstancePtr->Config.BaseAddress, XWDTPS_ZMR_OFFSET,
-			  Register);
+			Register);
 }
 
 /****************************************************************************/
@@ -284,13 +284,13 @@ void XWdtPs_DisableOutput(XWdtPs *InstancePtr, u8 Signal)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((Signal == XWDTPS_RESET_SIGNAL) ||
-			(Signal == XWDTPS_IRQ_SIGNAL));
+		       (Signal == XWDTPS_IRQ_SIGNAL));
 
 	/*
 	 * Read the contents of the ZMR register.
 	 */
 	Register = XWdtPs_ReadReg(InstancePtr->Config.BaseAddress,
-				 XWDTPS_ZMR_OFFSET);
+				  XWDTPS_ZMR_OFFSET);
 
 	if (Signal == XWDTPS_RESET_SIGNAL) {
 		/*
@@ -315,7 +315,7 @@ void XWdtPs_DisableOutput(XWdtPs *InstancePtr, u8 Signal)
 	 * Update the ZMR with the new value.
 	 */
 	XWdtPs_WriteReg(InstancePtr->Config.BaseAddress, XWDTPS_ZMR_OFFSET,
-			  Register);
+			Register);
 }
 
 /****************************************************************************/
@@ -349,13 +349,13 @@ u32 XWdtPs_GetControlValue(XWdtPs *InstancePtr, u8 Control)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((Control == XWDTPS_CLK_PRESCALE) ||
-			(Control == XWDTPS_COUNTER_RESET));
+			  (Control == XWDTPS_COUNTER_RESET));
 
 	/*
 	 * Read the contents of the CCR register.
 	 */
 	Register = XWdtPs_ReadReg(InstancePtr->Config.BaseAddress,
-			 XWDTPS_CCR_OFFSET);
+				  XWDTPS_CCR_OFFSET);
 
 	if (Control == XWDTPS_CLK_PRESCALE) {
 		/*
@@ -412,13 +412,13 @@ void XWdtPs_SetControlValue(XWdtPs *InstancePtr, u8 Control, u32 Value)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((Control == XWDTPS_CLK_PRESCALE) ||
-			(Control == XWDTPS_COUNTER_RESET));
+		       (Control == XWDTPS_COUNTER_RESET));
 
 	/*
 	 * Read the contents of the CCR register.
 	 */
 	Register = XWdtPs_ReadReg(InstancePtr->Config.BaseAddress,
-				 XWDTPS_CCR_OFFSET);
+				  XWDTPS_CCR_OFFSET);
 
 	if (Control == XWDTPS_CLK_PRESCALE) {
 		/*
@@ -449,6 +449,6 @@ void XWdtPs_SetControlValue(XWdtPs *InstancePtr, u8 Control, u32 Value)
 	 * Update the CCR with the new value.
 	 */
 	XWdtPs_WriteReg(InstancePtr->Config.BaseAddress, XWDTPS_CCR_OFFSET,
-			  Register);
+			Register);
 }
 /** @} */
