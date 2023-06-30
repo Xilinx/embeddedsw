@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,15 +63,6 @@ maybe_unused static inline XStatus XPmDevice_SdResetWorkaround(const XPm_Device 
 	(void)Device;
 	return XST_SUCCESS;
 }
-maybe_unused static inline XStatus HandleDeviceAttr(struct XPm_Reqm *Reqm, u32 ReqCaps,
-				       u32 PrevState, u32 Enable)
-{
-	(void)Reqm;
-	(void)ReqCaps;
-	(void)PrevState;
-	(void)Enable;
-	return XST_SUCCESS;
-}
 maybe_unused static inline XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const XPm_Subsystem *Subsystem,
 		const u32 Divider)
 {
@@ -113,12 +105,6 @@ maybe_unused static inline void PlatDevRequest(XPm_Device *Device,
 	(void)Subsystem;
 	(void)QoS;
 	(void)Status;
-}
-maybe_unused static inline XStatus AddDevAttributes(const u32 *Args, const u32 NumArgs)
-{
-	(void)Args;
-	(void)NumArgs;
-	return XST_SUCCESS;
 }
 
 #ifdef __cplusplus

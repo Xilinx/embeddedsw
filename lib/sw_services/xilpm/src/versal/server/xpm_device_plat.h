@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,11 +58,8 @@ maybe_unused static u8 XPmDevice_IsRequestable(u32 NodeId)
 }
 
 /************************** Function Prototypes ******************************/
-XStatus AddDevAttributes(const u32 *Args, const u32 NumArgs);
 XStatus XPmDevice_ConfigureADMA(const u32 Id);
 XStatus XPmDevice_SdResetWorkaround(const XPm_Device *Device);
-XStatus HandleDeviceAttr(struct XPm_Reqm *Reqm, u32 ReqCaps,
-				u32 PrevState, u32 Enable);
 XStatus XPmDevice_PlatAddParent(const u32 Id, const u32 ParentId);
 struct XPm_Reqm *XPmDevice_GetAieReqm(XPm_Device *Device, XPm_Subsystem *Subsystem);
 void PlatDevRequest(const XPm_Device *Device, const XPm_Subsystem *Subsystem, const u32 QoS, XStatus *Status);
