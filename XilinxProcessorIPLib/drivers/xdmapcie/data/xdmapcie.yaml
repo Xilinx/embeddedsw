@@ -1,0 +1,36 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for XDMAPCIE controller
+
+maintainers:
+  - Bhavana Jupalli <Bhavana.Jupalli@amd.com>
+  - Thippeswamy Havalige <thippeswamy.havalige@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,versal-cpm-host-1.00
+          - xlnx,xdma-host-3.00
+	   - xlnx,qdma-host-3.00
+
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XDmaPcie_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,num-of-bars
+    - xlnx,include-baroffset-reg
+    - xlnx,port-type
+    - reg
+    - ranges: 2
+...

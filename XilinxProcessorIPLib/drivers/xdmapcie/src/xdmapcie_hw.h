@@ -41,11 +41,11 @@ extern "C" {
 #endif /* _ASMLANGUAGE */
 
 /************************** Constant Definitions *****************************/
-#ifdef XPAR_QDMA_0_DEVICE_ID
+#if defined(XPAR_QDMA_0_DEVICE_ID) || defined(XPAR_QDMA_0_COMPATIBLE)
 #define QDMA_PCIE_BRIDGE
 #endif
 
-#ifdef XPAR_XDMA_0_DEVICE_ID
+#if defined(XPAR_XDMA_0_DEVICE_ID) || defined(XPAR_XDMA_0_COMPATIBLE)
 #define XDMA_PCIE_BRIDGE
 #endif
 
