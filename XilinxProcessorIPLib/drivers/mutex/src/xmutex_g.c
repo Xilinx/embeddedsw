@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xmutex_g.c
-* @addtogroup mutex_v4_6
+* @addtogroup mutex Overview
 * @{
 *
 * This file contains a configuration table that specifies the configuration
