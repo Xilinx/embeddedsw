@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +44,7 @@
 *                       ensure that "Successfully ran" and "Failed" strings
 *                       are available in all examples. This is a fix for
 *                       CR-965028.
+* 4.7   ht   06/21/23 Added support for system device-tree flow.
 *
 *</pre>
 *******************************************************************************/
@@ -62,7 +64,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define MUTEX_DEVICE_ID		XPAR_MUTEX_0_DEVICE_ID
+#endif
 
 #define MUTEX_NUM 		0 /**< The Mutex number on which this
 				   *   example is run
@@ -82,7 +86,11 @@ XMutex Mutex;	/* Mutex instance */
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int MutexExample (u16 MutexDeviceID);
+#else
+int MutexExample (UINTPTR BaseAddress);
+#endif
 
 /*****************************************************************************/
 /**
@@ -102,15 +110,18 @@ int MutexExample (u16 MutexDeviceID);
 int main(void)
 {
 	printf ("MutexExample :\tStarts.\r\n");
-
+#ifndef SDT
 	if (MutexExample (MUTEX_DEVICE_ID) != XST_SUCCESS) {
-		printf ("MutexExample :\tMutex tapp Example Failed.\r\n");
-		printf ("MutexExample :\tEnds.\r\n");
+#else
+	if (MutexExample (XPAR_MUTEX_0_BASEADDR) != XST_SUCCESS) {
+#endif
+		xil_printf ("MutexExample :\tMutex tapp Example Failed.\r\n");
+		xil_printf ("MutexExample :\tEnds.\r\n");
 		return XST_FAILURE;
 	}
 
-	printf ("MutexExample :\tSuccessfully ran Mutex tapp Example\r\n");
-	printf ("MutexExample :\tEnds.\r\n");
+	xil_printf ("MutexExample :\tSuccessfully ran Mutex tapp Example\r\n");
+	xil_printf ("MutexExample :\tEnds.\r\n");
 
 	return XST_SUCCESS;
 }
@@ -134,7 +145,11 @@ int main(void)
 * @note		None
 *
 ******************************************************************************/
+#ifndef SDT
 int MutexExample(u16 MutexDeviceID)
+#else
+int MutexExample (UINTPTR BaseAddress)
+#endif
 {
 	XMutex_Config *ConfigPtr;
 	XStatus Status;
@@ -145,7 +160,11 @@ int MutexExample(u16 MutexDeviceID)
 	 * Use this configuration info down below when initializing this
 	 * driver instance.
 	 */
+#ifndef SDT
 	ConfigPtr = XMutex_LookupConfig(MutexDeviceID);
+#else
+	ConfigPtr = XMutex_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == (XMutex_Config *)NULL) {
 		return XST_FAILURE;
 	}
