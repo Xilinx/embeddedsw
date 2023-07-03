@@ -48,6 +48,7 @@
 *       bm   03/11/2023 Added redundancy on SSIT Event Trigger register write
 *		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.07  bm   06/23/2023 Added SSIT Msg Event access permissions validation
 *
 * </pre>
 *
@@ -97,6 +98,9 @@ static u32 XPlmi_SsitGetSlaveErrorMask(void);
 #define XPLMI_WAIT_FOR_ALL_SLRS_READY_TIMEOUT	(1000U)
 #define XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_US		(1U)
 #define XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_NS		(XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_US * 1000)
+
+/* Ssit Event IPI Index */
+#define XPLMI_SSIT_EVENT_IPI_INDEX		(0x1U)
 
 /**************************** Type Definitions *******************************/
 #define XPLMI_GET_EVENT_ARRAY_INDEX(EventIndex)		(u8)(EventIndex/XPLMI_SSIT_MAX_BITS)
@@ -1026,11 +1030,14 @@ static int XPlmi_SsitEventHandler(void *Data)
  * @param	Data is the SLR Type from where the event occurred
  *
  * @return	Returns the Status of SSIT Message event
+ *		- XPLMI_ERR_SSIT_MSG_EVENT_NO_ACCESS if MSG Event access is
+ *		  not allowed
  *
  *****************************************************************************/
 static int XPlmi_SsitMsgEventHandler(void *Data)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u32 MsgBuf[XPLMI_SSIT_MAX_MSG_LEN] = {0U};
 	XPlmi_Cmd Cmd = {0U};
 
@@ -1058,16 +1065,27 @@ static int XPlmi_SsitMsgEventHandler(void *Data)
 	 * a forwarded command from master SLR
 	 */
 	Cmd.SubsystemId = 0U;
+	Cmd.IpiReqType = (Cmd.CmdId & IPI_CMD_HDR_SECURE_BIT_MASK) >>
+				IPI_CMD_HDR_SECURE_BIT_SHIFT;
+
+	/* Check Access permission of the ssit event */
+	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPlmi_ValidateIpiCmd,
+			&Cmd, XPLMI_SSIT_EVENT_IPI_INDEX);
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_MSG_EVENT_NO_ACCESS,
+				Status | StatusTmp);
+		goto END;
+	}
 
 	/* Call the received command handler */
 	Status = XPlmi_CmdExecute(&Cmd);
 
+END:
 	/* Write the response to the response buffer */
 	Cmd.Response[0U] = (u32)Status;
 	Status = XPlmi_SsitWriteResponseAndAckMsgEvent(Cmd.Response,
 			XPLMI_SSIT_MAX_MSG_LEN);
 
-END:
 	return Status;
 }
 
