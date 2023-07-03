@@ -95,6 +95,8 @@
 *       bm   06/13/2023 Added unique error code support for mask poll.
 *                       Also added generic logic for 32-bit and 64-bit mask poll.
 *       bm   06/13/2023 Log PLM error before deferring
+*       bm   06/23/2023 Added access permissions for IPI commands
+*                       Added set_ipi_access cdo command
 *
 * </pre>
 *
@@ -159,6 +161,17 @@
 #define XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL	(1U)
 #define XPLMI_BEGIN_CMD_EXTRA_OFFSET			(2U)
 #define XPLMI_BEGIN_MAX_STRING_WORD_LEN		(XPLMI_BEGIN_MAX_LOG_STR_LEN /  XPLMI_WORD_LEN)
+
+/* Masks and shift defines of set ipi access command */
+#define XPLMI_SET_IPI_ACCESS_MODULE_ID_MASK	(0xFFU)
+#define XPLMI_SET_IPI_ACCESS_API_ID_LOWER_MASK	(0xFF00U)
+#define XPLMI_SET_IPI_ACCESS_API_ID_LOWER_SHIFT	(8U)
+#define XPLMI_SET_IPI_ACCESS_API_ID_UPPER_MASK	(0xFF0000U)
+#define XPLMI_SET_IPI_ACCESS_API_ID_UPPER_SHIFT	(16U)
+
+/* Index defines of set ipi access command payload */
+#define XPLMI_SET_IPI_ACCESS_API_ID_VAL_INDEX	(0U)
+#define XPLMI_SET_IPI_ACCESS_PERM_VAL_INDEX	(1U)
 
 /* Maximum procs supported */
 #define XPLMI_MAX_PSM_PROCS		(10U)
@@ -1987,6 +2000,9 @@ static int XPlmi_Begin(XPlmi_Cmd *Cmd)
 	u8  LogString[XPLMI_BEGIN_MAX_LOG_STR_LEN] __attribute__ ((aligned(4U)));
 	u32 StrLen = 0U;
 
+	XPLMI_EXPORT_CMD(XPLMI_BEGIN_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
+
 	if (Cmd->ProcessedLen != 0U) {
 		Status = XST_SUCCESS;
 		goto END;
@@ -2052,6 +2068,9 @@ static int XPlmi_End(XPlmi_Cmd *Cmd)
 	u32 EndLength = 0U;
 	int Status = XST_FAILURE;
 
+	XPLMI_EXPORT_CMD(XPLMI_END_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ZERO, XPLMI_CMD_ARG_CNT_ZERO);
+
 	/* Stack empty, End does not have begin */
 	if (OffsetListTop < 0) {
 		XPlmi_Printf(DEBUG_GENERAL,"End does not have valid begin\n");
@@ -2089,6 +2108,8 @@ static int XPlmi_Break(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u32 Level = 0U;
 
+	XPLMI_EXPORT_CMD(XPLMI_BREAK_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ZERO, XPLMI_CMD_ARG_CNT_ONE);
 	/*
 	 * Get Level to skip all commands until Levels number of nested “end”
 	 * commands have been seen
@@ -2102,6 +2123,100 @@ static int XPlmi_Break(XPlmi_Cmd *Cmd)
 	/* Jump to "end" associated with break level */
 	Status = XPlmi_GetJumpOffSet(Cmd, Level);
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets ipi access permissions for the range of commands
+ *		requested.
+ *
+ * @param	Cmd is pointer to the command structure
+ *              Command payload parameters are
+ *              - Api Id Upper Limit, Api Id Lower Limit, Module Id
+ *              - Access Permission Mask
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+		- XPLMI_ERR_SET_IPI_MODULE_MAX if the module id is greater than
+		max module count
+		- XPLMI_ERR_SET_IPI_INVALID_API_ID_UPPER if the Api Id Upper limit
+		is greater than maximum api count
+		- XPLMI_ERR_SET_IPI_INVALID_API_ID_LOWER if the Api Id Lower limit
+		is greater than Api Id upper limit
+		- XPLMI_ERR_SET_IPI_ACCESS_PERM_NOT_SET if the Ipi Access permission
+		is not set properly
+		- XPLMI_ERR_SET_IPI_PERM_BUFF_NOT_REGISTERED if the permission buffer
+		in which the access permissions has to be stored is not registered
+ *
+ *****************************************************************************/
+static int XPlmi_SetIpiAccess(XPlmi_Cmd *Cmd)
+{
+
+	volatile u32 ApiIndex;
+	int Status = XST_FAILURE;
+	const XPlmi_Module *Module = NULL;
+	u32 ModuleId = Cmd->Payload[XPLMI_SET_IPI_ACCESS_API_ID_VAL_INDEX] &
+			XPLMI_SET_IPI_ACCESS_MODULE_ID_MASK;
+	u32 ApiIdLower = (Cmd->Payload[XPLMI_SET_IPI_ACCESS_API_ID_VAL_INDEX] &
+			XPLMI_SET_IPI_ACCESS_API_ID_LOWER_MASK) >> XPLMI_SET_IPI_ACCESS_API_ID_LOWER_SHIFT;
+	u32 ApiIdUpper = (Cmd->Payload[XPLMI_SET_IPI_ACCESS_API_ID_VAL_INDEX] &
+			XPLMI_SET_IPI_ACCESS_API_ID_UPPER_MASK) >> XPLMI_SET_IPI_ACCESS_API_ID_UPPER_SHIFT;
+	XPlmi_AccessPerm_t AccessPermMask = (XPlmi_AccessPerm_t)(Cmd->Payload[XPLMI_SET_IPI_ACCESS_PERM_VAL_INDEX] &
+			XPLMI_GET_ALL_IPI_MASK(XPLMI_FULL_IPI_ACCESS));
+
+	XPLMI_EXPORT_CMD(XPLMI_SET_IPI_ACCESS_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
+	/**
+	 * Validate module number
+	 */
+	if ((ModuleId >= XPLMI_MAX_MODULES)) {
+		Status = XPLMI_ERR_SET_IPI_MODULE_MAX;
+		goto END;
+	}
+
+	/** Check if the module is registered */
+	Module = Modules[ModuleId];
+	if (Module == NULL) {
+		/* Ignore if module is not registered */
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/* Set permissions only if Access Permission buffer is registered */
+	if (Module->AccessPermBufferPtr == NULL) {
+		Status= XPLMI_ERR_SET_IPI_PERM_BUFF_NOT_REGISTERED;
+		goto END;
+	}
+
+	/* Check if Api Id upper limit is valid */
+	if (ApiIdUpper >= Module->CmdCnt) {
+		Status = XPLMI_ERR_SET_IPI_INVALID_API_ID_UPPER;
+		goto END;
+	}
+
+	/* Check if Api Id lower limit is valid */
+	if (ApiIdLower > ApiIdUpper) {
+		Status = XPLMI_ERR_SET_IPI_INVALID_API_ID_LOWER;
+		goto END;
+	}
+
+	/* Set access permissions for api id range specified in the command */
+	for (ApiIndex = ApiIdLower; ApiIndex <= ApiIdUpper; ApiIndex++) {
+		/* Write and readback the requested access permission */
+		Module->AccessPermBufferPtr[ApiIndex] = AccessPermMask;
+		if (Module->AccessPermBufferPtr[ApiIndex] != AccessPermMask) {
+			Status = XPLMI_ERR_SET_IPI_ACCESS_PERM_NOT_SET;
+			break;
+		}
+	}
+
+	if (ApiIndex <= ApiIdUpper) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+END:
 	return Status;
 }
 
@@ -2202,15 +2317,63 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_ScatterWrite2),
 		XPLMI_MODULE_COMMAND(XPlmi_TamperTrigger),
 		XPLMI_MODULE_COMMAND(XPlmi_SetFipsKatMask),
+		XPLMI_MODULE_COMMAND(XPlmi_SetIpiAccess)
 	};
+
+	/* Buffer to store access permissions of xilplmi generic module */
+	static XPlmi_AccessPerm_t XPlmi_GenericAccessPermBuff[XPLMI_ARRAY_SIZE(XPlmi_GenericCmds)] = {
+		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_FEATURES_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_MASK_POLL_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_MASK_WRITE_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_WRITE_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_DELAY_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_DMA_WRITE_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_MASK_POLL64_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_MASK_WRITE64_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_WRITE64_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_DMA_XFER_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_INIT_SEQ_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CFI_READ_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SET_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_WRITE_KEYHOLE_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SSIT_SYNC_SLAVES_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SSIT_SYNC_MASTER_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SSIT_WAIT_SLAVES_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_NOP_CMD_ID),
+		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_GET_DEVICE_CMD_ID),
+		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_EVENT_LOGGING_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SET_BOARD_CMD_ID),
+		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_GET_BOARD_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SET_WDT_PARAM_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_LOG_STR_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_LOG_ADDR_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_MARKER_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_PROC_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_BEGIN_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_END_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_BREAK_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_OT_CHECK_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_PSM_SEQUENCE_CMD_ID),
+#ifdef VERSAL_NET
+		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_INPLACE_PLM_UPDATE_CMD_ID),
+#else
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_INPLACE_PLM_UPDATE_CMD_ID),
+#endif
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SCATTER_WRITE_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SCATTER_WRITE2_CMD_ID),
+		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_TAMPER_TRIGGER_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SET_FIPS_MASK_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SET_IPI_ACCESS_CMD_ID),
+	};
+
 	/* This is to store CMD_END in xplm_modules section */
-	XPLMI_EXPORT_CMD(XPLMI_END_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+	XPLMI_EXPORT_CMD(XPLMI_CDO_END_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_ZERO, XPLMI_CMD_ARG_CNT_ZERO);
 
 	XPlmi_Generic.Id = XPLMI_MODULE_GENERIC_ID;
 	XPlmi_Generic.CmdAry = XPlmi_GenericCmds;
 	XPlmi_Generic.CmdCnt = XPLMI_ARRAY_SIZE(XPlmi_GenericCmds);
-	XPlmi_Generic.CheckIpiAccess = XPlmi_CheckIpiAccess;
+	XPlmi_Generic.AccessPermBufferPtr = XPlmi_GenericAccessPermBuff;
 #ifdef VERSAL_NET
 	XPlmi_Generic.UpdateHandler = XPlmi_GenericHandler;
 #endif

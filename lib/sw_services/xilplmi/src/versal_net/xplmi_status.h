@@ -36,6 +36,7 @@
 *       bm   02/04/2023 Added support to return warnings
 *       har  02/24 2023 Added error codes for X.509 certificate generation
 * 1.02  bm   06/13/2023 Add API to just log PLM error
+*       bm   06/23/2023 Added error codes for ipi access filtering
 *
 * </pre>
 *
@@ -164,7 +165,9 @@ typedef enum {
 	XPLMI_ERR_INVALID_LOG_BUF_LEN, /**< 0x114 - Error when invalid log buffer
 						 length is received in Logging command. */
 	XPLMI_ERR_IPI_CMD, /**< 0x115 - Error when command execution through
-							IPI is not supported */
+						IPI is not supported because it's a CDO or
+						due to access permission restriction. See
+						minor error code for more details */
 	XPLMI_ERR_REGISTER_IOMOD_HANDLER, /**< 0x116 - Error when registering
 						IoModule Handler */
 	XPLMI_ERR_WDT_PERIODICITY, /**< 0x117 - Invalid Periodicity parameter for
@@ -215,8 +218,7 @@ typedef enum {
 						driver */
 	XPLMI_ERR_UNALIGNED_DMA_XFER,	/**< 0x12F - Error during DMA involving
 			of unaligned SrcAddr, DestAddr or number of words */
-	XPLMI_IPI_ACCESS_ERR, /**< 0x130 - Access permissions failed for PLMI IPI
-						command received */
+	XPLMI_ERR_RESERVED1, /**< 0x130 - Reserved Error 1 */
 	XPLMI_ERR_TASK_EXISTS,	/**< 0x131 - Error when the task that is being
 						added to scheduler already exists */
 	XPLMI_ERR_INVALID_TASK_TYPE, /**< 0x132 - Error when invalid task type is

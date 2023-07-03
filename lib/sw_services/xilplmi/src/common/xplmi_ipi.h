@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +39,7 @@
 *       skg  06/20/2022 Misra-C violation Rule 8.13 fixed
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/18/2022 Shutdown modules gracefully during update
+* 1.08  bm   06/23/2023 Added IPI access permissions validation
 *
 * </pre>
 *
@@ -77,6 +79,7 @@ extern "C" {
 
 /* Command header secure bit defines */
 #define IPI_CMD_HDR_SECURE_BIT_MASK		(0x1000000U)
+#define IPI_CMD_HDR_SECURE_BIT_SHIFT		(24U)
 
 /**************************** Type Definitions *******************************/
 
@@ -90,6 +93,7 @@ int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type);
 int XPlmi_IpiTrigger(u32 DestCpuMask);
 int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount);
 int XPlmi_IpiDrvInit(void);
+int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
 
 /************************** Variable Definitions *****************************/
 

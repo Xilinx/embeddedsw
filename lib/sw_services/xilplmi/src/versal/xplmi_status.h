@@ -111,6 +111,7 @@
 *       bm   03/11/2023 Added error code for XPlmi_PreInit failure
 *       dd   03/28/2023 Updated doxygen comments
 * 1.09  bm   06/13/2023 Add API to just log PLM error
+*       bm   06/23/2023 Added error codes for ipi access filtering
 *
 * </pre>
 *
@@ -152,10 +153,8 @@ extern "C" {
  * between error and warning. Note that this bit will be cleared before
  * printing or writing to the FW_ERR register.
  */
-typedef enum {
-	XPLMI_WARNING_MAJOR_MASK = 0x4000, /**< To set warning in major error code */
-	XPLMI_WARNING_MINOR_MASK = 0x40000000 /**< To set warning in minor error code */
-} XPlmiWarningMasks_t ;
+#define XPLMI_WARNING_MAJOR_MASK	0x4000, /**< To set warning in major error code */
+#define XPLMI_WARNING_MINOR_MASK	0x40000000 /**< To set warning in minor error code */
 
 /*
  * In case of failure of any security operation, the buffer must be
@@ -239,7 +238,9 @@ typedef enum {
 	XPLMI_ERR_INVALID_LOG_BUF_LEN, /**< 0x114 - Error when invalid log buffer
 						 length is received in Logging command. */
 	XPLMI_ERR_IPI_CMD, /**< 0x115 - Error when command execution through
-							IPI is not supported */
+						IPI is not supported because it's a CDO or
+						due to access permission restriction. See
+						minor error code for more details */
 	XPLMI_ERR_REGISTER_IOMOD_HANDLER, /**< 0x116 - Error when registering
 						IoModule Handler */
 	XPLMI_ERR_WDT_PERIODICITY, /**< 0x117 - Invalid Periodicity parameter for
@@ -290,8 +291,7 @@ typedef enum {
 						driver */
 	XPLMI_ERR_UNALIGNED_DMA_XFER,	/**< 0x12F - Error during DMA involving
 			of unaligned SrcAddr, DestAddr or number of words */
-	XPLMI_IPI_ACCESS_ERR, /**< 0x130 - Access permissions failed for PLMI IPI
-						command received */
+	XPLMI_ERR_RESERVED1, /**< 0x130 - Reserved Error 1 */
 	XPLMI_ERR_TASK_EXISTS,	/**< 0x131 - Error when the task that is being
 						added to scheduler already exists */
 	XPLMI_ERR_INVALID_TASK_TYPE, /**< 0x132 - Error when invalid task type is
@@ -353,6 +353,9 @@ typedef enum {
 	                    Hence, cannot trigger the event */
 	XPLMI_ERR_SSIT_EOPDI_SYNC, /**< 0x1AC - SSIT error in slave PDI load status SYNC
 				     to master */
+	XPLMI_ERR_SSIT_MSG_EVENT_NO_ACCESS, /**< 0x1AD - Error when the IPI message event
+					received by Slave SLR is not permitted due to
+					access permission violation */
 
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */
