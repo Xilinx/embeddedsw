@@ -26,6 +26,7 @@
 * 5.0   kpt  07/24/2022 Added XSecure_KatIpiHandler and support to go into
 *                       secure lockdown when KAT fails
 * 5.1   skg  10/17/2022 Added Null to invalid command handler of secure module
+* 5.2   bm   06/23/2023 Added access permissions for IPI commands
 *
 * </pre>
 *
@@ -52,11 +53,40 @@
 #include "xplmi_tamper.h"
 
 /************************** Function Prototypes ******************************/
-static int XSecure_CheckIpiAccess(u32 CmdId, u32 IpiReqType);
 
 /************************** Constant Definitions *****************************/
 static XPlmi_Module XPlmi_Secure;
 static XPlmi_ModuleCmd XSecure_Cmds[XSECURE_API_MAX];
+
+/* Buffer holding access permissions of secure module commands */
+static XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX] =
+{
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_FEATURES),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_RSA_SIGN_VERIFY),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_RSA_PUBLIC_ENCRYPT),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_RSA_PRIVATE_DECRYPT),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA3_UPDATE),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_ELLIPTIC_GENERATE_KEY),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_ELLIPTIC_GENERATE_SIGN),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_ELLIPTIC_VALIDATE_KEY),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_ELLIPTIC_VERIFY_SIGN),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_INIT),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_OP_INIT),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_UPDATE_AAD),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_ENCRYPT_UPDATE),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_ENCRYPT_FINAL),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_DECRYPT_UPDATE),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_DECRYPT_FINAL),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_KEY_ZERO),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_WRITE_KEY),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_LOCK_USER_KEY),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_KEK_DECRYPT),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_SET_DPA_CM),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_KAT),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_TRNG_GENERATE),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_PERFORM_OPERATION),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_UPDATE_CRYPTO_STATUS),
+};
 
 static XPlmi_Module XPlmi_Secure =
 {
@@ -64,7 +94,7 @@ static XPlmi_Module XPlmi_Secure =
 	XSecure_Cmds,
 	XSECURE_API(XSECURE_API_MAX),
 	NULL,
-	XSecure_CheckIpiAccess,
+	XSecure_AccessPermBuff,
 	NULL,
 };
 
@@ -212,42 +242,4 @@ void XSecure_CmdsInit(void)
 	}
 	XPlmi_ModuleRegister(&XPlmi_Secure);
 
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function checks if the IPI command is accessible or not
- *
- * @param	CmdId - Not used in the function
- * @param	IpiReqType is the IPI command request type
- *
- * @return	XST_SUCCESS on success
- *              XSECURE_IPI_ACCESS_NOT_ALLOWED on failure
- *
- * @note	By default, only secure IPI requests are supported for Xilsecure
- *              client APIs. Non-secure IPI requests are supported only if
- *              it is enabled in BSP by user.
- *
- *****************************************************************************/
-static int XSecure_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
-{
-	volatile int Status = XST_FAILURE;
-	u8 NonSecureIpiAccess;
-	(void)CmdId;
-
-#ifndef XSECURE_NONSECURE_IPI_ACCESS
-	NonSecureIpiAccess = FALSE;
-#else
-	NonSecureIpiAccess = TRUE;
-#endif
-
-	if ((NonSecureIpiAccess == FALSE) && (IpiReqType == XPLMI_CMD_NON_SECURE)) {
-		Status = XSECURE_IPI_ACCESS_NOT_ALLOWED;
-		goto END;
-	}
-
-	Status = XST_SUCCESS;
-
-END:
-	return Status;
 }

@@ -23,6 +23,7 @@
 # 5.0   bm   07/06/22 Refactor versal and versal_net code
 #       am   07/24/22 Added support for a78 and r52 processors of VersalNet
 # 5.1   vns  02/09/23 Modified secure_environment to xsecure_environment
+# 5.2   bm  06/23/23  Deprecated nonsecure_ipi_access parameter
 #
 ##############################################################################
 
@@ -264,17 +265,6 @@ proc xgen_opts_file {libhandle} {
 
 		puts $file_handle "\n/* TPM Settings */"
 		puts $file_handle "#define XSECURE_TPM_ENABLE\n"
-
-		close $file_handle
-	}
-	# Get nonsecure_ipi_access value set by user, by default it is FALSE
-	set value [common::get_property CONFIG.nonsecure_ipi_access $libhandle]
-	if {$value == true} {
-		#Open xparameters.h file
-		set file_handle [hsi::utils::open_include_file "xparameters.h"]
-
-		puts $file_handle "\n/* Xilinx Secure library User Settings */"
-		puts $file_handle "#define XSECURE_NONSECURE_IPI_ACCESS\n"
 
 		close $file_handle
 	}
