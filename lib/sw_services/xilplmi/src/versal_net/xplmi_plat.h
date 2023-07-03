@@ -36,6 +36,7 @@
 *       dd   03/28/2023 Updated doxygen comments
 * 1.04  bm   04/28/2023 Add XPlmi_GetRomIroFreq prototype
 *       dd   05/24/2023 Updated doxygen comments
+*       bm   06/23/2023 Added error codes for ipi access filtering
 *
 * </pre>
 *
@@ -95,6 +96,29 @@ enum {
 						argument is passed */
 	XPLMI_ERR_NO_UART_PRESENT, /**< 0x5 - Error when no uart is present to
 						configure in run-time */
+	XPLMI_ERR_SET_IPI_MODULE_MAX, /**< 0x6 - Error if the module id is greater than max module count */
+	XPLMI_ERR_SET_IPI_PERM_BUFF_NOT_REGISTERED, /**< 0x7 - Error if the permission buffer in which the access
+						      permissions has to be stored is not registered or defined */
+	XPLMI_ERR_SET_IPI_INVALID_API_ID_UPPER, /**< 0x8 - Error if the Api Id Upper limit is greater than
+						maximum api count */
+	XPLMI_ERR_SET_IPI_INVALID_API_ID_LOWER, /**< 0x9 - Error if the Api Id Lower limit is greater than
+						Api Id upper limit */
+	XPLMI_ERR_SET_IPI_ACCESS_PERM_NOT_SET, /**< 0xA - Error if the Ipi Access permission is not set
+						 properly */
+	XPLMI_ERR_VALIDATE_IPI_NO_SECURE_ACCESS, /**< 0xB - Error if the Api Id received during IPI request only
+						   supports non-secure request */
+	XPLMI_ERR_VALIDATE_IPI_INVALID_ID, /**< 0xC - Error if the module id or ipi source index is not
+						valid during ipi validation */
+	XPLMI_ERR_VALIDATE_IPI_MODULE_NOT_REGISTERED, /**< 0xD - Error if the module associated with the
+						command's module id is not registered. This is checked
+						during ipi validation */
+	XPLMI_ERR_VALIDATE_IPI_INVALID_API_ID, /**< 0xE - Error if the Api Id received is greater than
+						 the maximum supported commands in the module. This is checked
+						 during ipi validation */
+	XPLMI_ERR_VALIDATE_IPI_NO_IPI_ACCESS, /**< 0xF - Error if the Api Id received during IPI request doesn't
+						have IPI access. */
+	XPLMI_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS, /**< 0x10 - Error if the Api Id received during IPI request only
+						   supports secure request */
 };
 
 typedef struct {
@@ -144,9 +168,6 @@ typedef enum {
 #define XPLMI_SSIT_SLAVE1_SLR_NTOP	(0x2U) /**< Slave1 SLR NTop */
 #define XPLMI_SSIT_SLAVE2_SLR_TOP	(0x1U) /**< Slave2 SLR Top */
 #define XPLMI_SSIT_INVALID_SLR		(0x0U) /**< Invalid SLR */
-
-/* Macros for command ids */
-#define XPLMI_PSM_SEQUENCE_CMD_ID	(31U)  /**< PSM sequence command Id */
 
 /* GIC related Macros */
 #define XPLMI_GICP_SOURCE_COUNT		(0x8U) /**< GICP source count */
@@ -485,8 +506,6 @@ u8 XPlmi_IsKatRan(u32 PlmKatMask);
 u32 XPlmi_GetRomIroFreq(void);
 
 /* Functions defined in xplmi_plat_cmd.c */
-int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType);
-int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId);
 int XPlmi_InPlacePlmUpdate(XPlmi_Cmd *Cmd);
 int XPlmi_PsmSequence(XPlmi_Cmd *Cmd);
 int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd);

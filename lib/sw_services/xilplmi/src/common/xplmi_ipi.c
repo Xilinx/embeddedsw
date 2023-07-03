@@ -75,6 +75,7 @@
  *       bm   03/09/2023 Added redundant calls for XPlmi_ValidateCmd and
  *                       CheckIpiAccess
  *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+ * 1.08  bm   06/23/2023 Added IPI access permissions validation
  *
  * </pre>
  *
@@ -100,9 +101,11 @@
 #define XPLMI_PMC_IMAGE_ID		(0x1C000001U)
 #define XPLMI_IPI_PMC_IMR_MASK		(0xFCU)
 #define XPLMI_IPI_PMC_IMR_SHIFT		(0x2U)
+#define XPLMI_IPI5_BUFFER_INDEX		(0x7U)
+#define XPLMI_ACCESS_PERM_MASK		(0x3U)
+#define XPLMI_ACCESS_PERM_SHIFT		(0x2U)
 
 /************************** Function Prototypes ******************************/
-static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
 static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex);
 static XPlmi_SubsystemHandler XPlmi_GetPmSubsystemHandler(
 	XPlmi_SubsystemHandler SubsystemHandler);
@@ -267,12 +270,15 @@ END:
  * 			received
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
+ * 			- XST_SUCCESS on success
+ * 			- XPLMI_ERR_IPI_CMD if command cannot be executed through IPI.
+ * 			- Other error codes returned through the called functions.
  *
  *****************************************************************************/
 static int XPlmi_IpiDispatchHandler(void *Data)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
 	u8 MaskIndex;
 	XPlmi_Cmd Cmd = {0U};
@@ -306,16 +312,33 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 			goto END;
 		}
 
+		/**
+		 * Get IPI request type
+		 */
 		Cmd.CmdId = Payload[0U];
-		Status = XST_FAILURE;
+		Cmd.IpiReqType = XPlmi_GetIpiReqType(Cmd.CmdId,
+				IpiInst.Config.TargetList[MaskIndex].BufferIndex);
 
 		/**
 		 * Validate the IPI command
 		*/
-		Status = XPlmi_ValidateIpiCmd(&Cmd,
+		Status = XST_FAILURE;
+		XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPlmi_ValidateIpiCmd, &Cmd,
 				IpiInst.Config.TargetList[MaskIndex].BufferIndex);
-		if (Status != XST_SUCCESS) {
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, Status | StatusTmp);
 			goto END;
+		}
+
+		/**
+		 * Get Subsystem Id
+		 */
+		if (Cmd.IpiMask == XPLMI_IPI_XSDB_MASTER_MASK) {
+			Cmd.SubsystemId = XPLMI_PMC_IMAGE_ID;
+		}
+		else {
+			Cmd.SubsystemId =
+				(*XPlmi_GetPmSubsystemHandler(NULL))(Cmd.IpiMask);
 		}
 
 		Cmd.Len = (Cmd.CmdId >> 16U) & 255U;
@@ -343,7 +366,7 @@ END:
 		 *  Skip providing ack if it is handled in the command handler.
 		 */
 		if ((u8)TRUE == Cmd.AckInPLM) {
-			Cmd.Response[0U] = (u32)Status;
+			Cmd.Response[0U] = (u32)Status & (~(u32)XPLMI_WARNING_STATUS_MASK);
 			/**
 			 * Send response to caller
 			 */
@@ -512,78 +535,84 @@ int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
  * @param	SrcIndex is the source index of IPI command
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XPLMI_ERR_IPI_CMD if command cannot be executed through IPI.
- * 			- XPLMI_IPI_ACCESS_ERR if access permissions for PLMI IPI command
- * 			received are invalid.
+ * 		- XST_SUCCESS on success.
+		- XPLMI_ERR_VALIDATE_IPI_INVALID_ID if the module id or ipi
+		source index is not valid during ipi validation
+		- XPLMI_ERR_VALIDATE_IPI_MODULE_NOT_REGISTERED if the module
+		associated with the command's module id is not registered.
+		- XPLMI_ERR_VALIDATE_IPI_INVALID_API_ID if the Api Id received
+		is greater than the maximum supported commands in the module.
+		- XPLMI_ERR_VALIDATE_IPI_NO_IPI_ACCESS if the Api Id received
+		during IPI request doesn't have IPI access.
+		- XPLMI_ERR_VALIDATE_IPI_NO_SECURE_ACCESS if the Api Id received
+		during IPI request only supports non-secure request
+		- XPLMI_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS if the Api Id
+		received during IPI request only supports secure request
  *
  *****************************************************************************/
-static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
+int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 {
-	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 ModuleId = (Cmd->CmdId & XPLMI_CMD_MODULE_ID_MASK) >>
 			XPLMI_CMD_MODULE_ID_SHIFT;
 	u32 ApiId = Cmd->CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
+	u32 AccessPerm = XPLMI_NO_IPI_ACCESS;
 	const XPlmi_Module *Module = NULL;
 
 	/**
 	 * Validate module number and source IPI index
 	 */
 	if ((ModuleId >= XPLMI_MAX_MODULES) ||
+		(SrcIndex > XPLMI_IPI5_BUFFER_INDEX) ||
 		(SrcIndex == IPI_NO_BUF_CHANNEL_INDEX)) {
-		/* Return error code if IPI validation failed */
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, 0);
+		Status = XPLMI_ERR_VALIDATE_IPI_INVALID_ID;
 		goto END;
 	}
 
 	/** Check if the module is registered */
 	Module = Modules[ModuleId];
 	if (Module == NULL) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_NOT_REGISTERED, 0);
+		Status = XPLMI_ERR_VALIDATE_IPI_MODULE_NOT_REGISTERED;
 		goto END;
 	}
 
 	/**
-	 * Validate IPI Command
+	 * Validate IPI Command access permission if the permission buffer is
+	 * registered for the respective module
 	 */
-	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPlmi_ValidateCmd, ModuleId, ApiId);
-	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-		/* Return error code if IPI validation failed */
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, 0);
-		goto END;
-	}
-
-	/**
-	 * Get Subsystem Id
-	 */
-	if (Cmd->IpiMask == XPLMI_IPI_XSDB_MASTER_MASK) {
-		Cmd->SubsystemId = XPLMI_PMC_IMAGE_ID;
-	}
-	else {
-		Cmd->SubsystemId =
-			(*XPlmi_GetPmSubsystemHandler(NULL))(Cmd->IpiMask);
-	}
-
-	/**
-	 * Get IPI request type
-	 */
-	Cmd->IpiReqType = XPlmi_GetIpiReqType(Cmd->CmdId, SrcIndex);
-	/**
-	 * Check command IPI access if module has registered the handler
-	 * If handler is not registered, do nothing
-	 */
-	if (Module->CheckIpiAccess != NULL) {
-		XSECURE_REDUNDANT_CALL(Status, StatusTmp,
-			Module->CheckIpiAccess, Cmd->CmdId,
-			Cmd->IpiReqType);
-		/* Return error code if IPI access failed */
-		if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-			Status |= StatusTmp;
-			Status = XPlmi_UpdateStatus(XPLMI_IPI_ACCESS_ERR | XPLMI_WARNING_MAJOR_MASK,
-				Status);
+	if (Module->AccessPermBufferPtr != NULL) {
+		/** Check if ApiId is greater than the max supported APIs by module */
+		if (ApiId >= Module->CmdCnt) {
+			/* If a Invalid Cmd Handler is registered skip throwing error */
+			if (Module->InvalidCmdHandler == NULL) {
+				Status = XPLMI_ERR_VALIDATE_IPI_INVALID_API_ID;
+			}
+			else {
+				Status = XST_SUCCESS;
+			}
+			goto END;
+		}
+		AccessPerm = (u32)Module->AccessPermBufferPtr[ApiId] >> (XPLMI_ACCESS_PERM_SHIFT * SrcIndex);
+		AccessPerm &= XPLMI_ACCESS_PERM_MASK;
+		/** Check if the requested command is supported only through CDO */
+		if (AccessPerm == XPLMI_NO_IPI_ACCESS) {
+			Status = XPLMI_ERR_VALIDATE_IPI_NO_IPI_ACCESS;
+			goto END;
+		}
+		/** Check the access permissions of the requested Api */
+		if ((Cmd->IpiReqType == XPLMI_CMD_NON_SECURE) &&
+				(AccessPerm == XPLMI_SECURE_IPI_ACCESS)) {
+			Status = XPLMI_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS | XPLMI_WARNING_MINOR_MASK;
+			goto END;
+		}
+		if ((Cmd->IpiReqType == XPLMI_CMD_SECURE) &&
+				(AccessPerm == XPLMI_NON_SECURE_IPI_ACCESS)) {
+			Status = XPLMI_ERR_VALIDATE_IPI_NO_SECURE_ACCESS | XPLMI_WARNING_MINOR_MASK;
+			goto END;
 		}
 	}
+
+	Status = XST_SUCCESS;
 
 END:
 	return Status;

@@ -37,6 +37,7 @@
 *       jd   08/31/2022 Typecasting CmdIdVal to u8 in XPLMI_EXPORT_CMD
 * 1.08  skg  10/04/2022 Added Invalid command handler to handle invalid Commands which includes SlrIndex in cmd id
 *       am   12/21/2022 Added XilOcp module Id
+* 1.09  bm   06/23/2023 Added support for Access permission buffer
 *
 * </pre>
 *
@@ -55,6 +56,7 @@ extern "C" {
 #include "xplmi_cmd.h"
 #include "xplmi_plat.h"
 #include "xparameters.h"
+#include "xil_types.h"
 
 /**@cond xplmi_internal
  * @{
@@ -80,12 +82,14 @@ typedef struct {
 	int (*Handler)(XPlmi_Cmd *Cmd);
 } XPlmi_ModuleCmd;
 
+typedef u16 XPlmi_AccessPerm_t;
+
 typedef struct {
 	u32 Id;
 	const XPlmi_ModuleCmd *CmdAry;
 	u32 CmdCnt;
-    int (*InvalidCmdHandler)(u32 *Payload, u32 *RespBuf);
-	int (*CheckIpiAccess)(u32 CmdId, u32 IpiReqType);
+	int (*InvalidCmdHandler)(u32 *Payload, u32 *RespBuf);
+	XPlmi_AccessPerm_t *AccessPermBufferPtr;
 #ifdef VERSAL_NET
 	XPlmi_UpdateHandler_t UpdateHandler;
 #endif
@@ -112,6 +116,22 @@ typedef struct {
 		.MaxArgCnt = MaxArgCntVal,\
 		.AlsoReserved = 0U}; \
 }
+
+/* Macros of IPI Access Permissions */
+#define XPLMI_NO_IPI_ACCESS		(u32)(0x0U)
+#define XPLMI_SECURE_IPI_ACCESS		(u32)(0x1U)
+#define XPLMI_NON_SECURE_IPI_ACCESS	(u32)(0x2U)
+#define XPLMI_FULL_IPI_ACCESS		(u32)(0x3U)
+
+#define XPLMI_GET_ALL_IPI_MASK(Mask)	((Mask) | ((Mask) << 2U) | \
+					((Mask) << 4U) | ((Mask) << 6U) | \
+					((Mask) << 8U) | ((Mask) << 10U) | \
+					((Mask) << 12U) | ((Mask) << 14U))
+
+#define XPLMI_ALL_IPI_NO_ACCESS(ApiId)		[ApiId] = XPLMI_GET_ALL_IPI_MASK(XPLMI_NO_IPI_ACCESS)
+#define XPLMI_ALL_IPI_SECURE_ACCESS(ApiId)	[ApiId] = XPLMI_GET_ALL_IPI_MASK(XPLMI_SECURE_IPI_ACCESS)
+#define XPLMI_ALL_IPI_NON_SECURE_ACCESS(ApiId)	[ApiId] = XPLMI_GET_ALL_IPI_MASK(XPLMI_NON_SECURE_IPI_ACCESS)
+#define XPLMI_ALL_IPI_FULL_ACCESS(ApiId)	[ApiId] = XPLMI_GET_ALL_IPI_MASK(XPLMI_FULL_IPI_ACCESS)
 
 /* Macros for command arguments count */
 #define XPLMI_CMD_ARG_CNT_ZERO		(0U)
@@ -147,6 +167,9 @@ typedef struct {
 #define XPLMI_CFI_READ_CMD_ID		(11U)
 #define XPLMI_SET_CMD_ID		(12U)
 #define XPLMI_WRITE_KEYHOLE_CMD_ID	(13U)
+#define XPLMI_SSIT_SYNC_SLAVES_CMD_ID	(14U)
+#define XPLMI_SSIT_SYNC_MASTER_CMD_ID	(15U)
+#define XPLMI_SSIT_WAIT_SLAVES_CMD_ID	(16U)
 #define XPLMI_NOP_CMD_ID		(17U)
 #define XPLMI_GET_DEVICE_CMD_ID		(18U)
 #define XPLMI_EVENT_LOGGING_CMD_ID	(19U)
@@ -157,12 +180,18 @@ typedef struct {
 #define XPLMI_LOG_ADDR_CMD_ID		(24U)
 #define XPLMI_MARKER_CMD_ID		(25U)
 #define XPLMI_PROC_CMD_ID		(26U)
+#define XPLMI_BEGIN_CMD_ID		(27U)
+#define XPLMI_END_CMD_ID		(28U)
+#define XPLMI_BREAK_CMD_ID		(29U)
 #define XPLMI_OT_CHECK_CMD_ID		(30U)
+#define XPLMI_PSM_SEQUENCE_CMD_ID	(31U)
+#define XPLMI_INPLACE_PLM_UPDATE_CMD_ID	(32U)
 #define XPLMI_SCATTER_WRITE_CMD_ID	(33U)
 #define XPLMI_SCATTER_WRITE2_CMD_ID	(34U)
 #define XPLMI_TAMPER_TRIGGER_CMD_ID	(35U)
-#define XPLMI_SET_FIPS_MASK_CMD_ID  (36U)
-#define XPLMI_END_CMD_ID		(0xFFU)
+#define XPLMI_SET_FIPS_MASK_CMD_ID	(36U)
+#define XPLMI_SET_IPI_ACCESS_CMD_ID	(37U)
+#define XPLMI_CDO_END_CMD_ID		(0xFFU)
 
 /************************** Function Prototypes ******************************/
 void XPlmi_ModuleRegister(XPlmi_Module *Module);

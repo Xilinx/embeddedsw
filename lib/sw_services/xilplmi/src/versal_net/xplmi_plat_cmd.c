@@ -28,6 +28,7 @@
 *       kpt  01/04/2023 Added XPlmi_SetFipsKatMask command
 *       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.02  bm   06/23/2023 Removed existing hardcoded logic of validating IPI commands
 *
 * </pre>
 *
@@ -54,7 +55,6 @@
 #define XPLMI_PROC_PSM_SEND_START_ADDR_IDX	(1U) /**< Start address index */
 #define XPLMI_PROC_PSM_SEND_END_ADDR_IDX	(2U) /**< End address index */
 #define XPLMI_PROC_PAYLOAD_ARG_CNT		(8U) /**< Payload argument count */
-#define XPLMI_PLM_GENERIC_PLMUPDATE		(0x20U) /**< Generic PLM update */
 
 /* IPI Max Timeout */
 #define IPI_MAX_TIMEOUT			(~0U) /**< IPI Max timeout */
@@ -71,108 +71,6 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-
-/*****************************************************************************/
-/**
- * @brief	This function checks if the IPI command is accessible or not
- *
- * @param	CmdId is the Command ID
- * @param	IpiReqType is the IPI command request type
- *
- * @return
- * 			- XST_SUCCESS on success
- * 			- XST_FAILURE on failure
- *
- *****************************************************************************/
-int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
-{
-	int Status = XST_FAILURE;
-	u32 ModuleCmdId = CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
-
-	/* Secure check for PLMI IPI commands */
-	switch (ModuleCmdId) {
-		/*
-		 * Check IPI request type for Event Logging IPI command
-		 * and allow access only if the request is secure
-		 */
-		case XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL:
-			if (XPLMI_CMD_SECURE == IpiReqType) {
-				Status = XST_SUCCESS;
-			}
-			break;
-
-		/* Allow access for all other IPI commands */
-		default:
-			Status = XST_SUCCESS;
-			break;
-	}
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function checks whether the Cmd passed is supported
- * 			via IPI mechanism or not.
- *
- * @param	ModuleId is the module ID
- * @param	ApiId is the API ID
- *
- * @return
- * 			- XST_SUCCESS on success
- * 			- XST_FAILURE on failure
- *
- *****************************************************************************/
-int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId)
-{
-	int Status = XST_FAILURE;
-
-	/* Validate IPI Command */
-	switch (ModuleId) {
-		case XPLMI_MODULE_GENERIC_ID:
-			/*
-			 * Only Device ID, Event Logging and Get Board
-			 * commands are allowed through IPI.
-			 * All other commands are allowed only from CDO file.
-			 */
-			if ((ApiId == XPLMI_PLM_GENERIC_DEVICE_ID_VAL) ||
-					(ApiId == XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL) ||
-					(ApiId == XPLMI_PLM_MODULES_FEATURES_VAL) ||
-					(ApiId == XPLMI_PLM_GENERIC_PLMUPDATE) ||
-					(ApiId == XPLMI_PLM_MODULES_GET_BOARD_VAL) ||
-					(ApiId == XPLMI_PLM_GENERIC_TAMP_TRIGGER_VAL)) {
-				Status = XST_SUCCESS;
-			}
-			break;
-
-		case XPLMI_MODULE_ERROR_ID:
-			/*
-			 * Only features command is allowed in EM module through IPI.
-			 * Other EM commands are allowed only from CDO file.
-			 */
-			if (ApiId == XPLMI_PLM_MODULES_FEATURES_VAL) {
-				Status = XST_SUCCESS;
-			}
-			break;
-
-		case XPLMI_MODULE_LOADER_ID:
-			/*
-			 * Except Set Image Info command, all other commands are allowed
-			 * in Loader module through IPI.
-			 */
-			if (ApiId != XPLMI_PLM_LOADER_SET_IMG_INFO_VAL) {
-				Status = XST_SUCCESS;
-			}
-			break;
-
-		default:
-			/* Other module's commands are allowed through IPI */
-			Status = XST_SUCCESS;
-			break;
-	}
-
-	return Status;
-}
 
 /*****************************************************************************/
 /**
