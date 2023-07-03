@@ -1,0 +1,44 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for MUTEX controller
+
+maintainers:
+  - Harini T <harini.t@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+      - const: xlnx,mutex-2.1
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,num-mutex:
+    description: |
+      Number of mutexes available.
+  xlnx,enable-user:
+    description: |
+      If Enabled user register can be used to store arbitary data.
+
+config:
+    - XMutex_Config
+
+required:
+    - compatible
+    - reg: 1
+    - xlnx,num-mutex
+    - xlnx,enable-user
+
+examples:
+        xmutex_tapp_example.c:
+                - reg
+
+tapp:
+        xmutex_tapp_example.c:
+                declaration: MutexExample
+                hwproperties:
+                        - reg
+
+...

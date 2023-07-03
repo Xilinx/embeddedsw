@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xmutex.c
-* @addtogroup mutex_v4_6
+* @addtogroup mutex Overview
 * @{
 *
 * Contains required functions for the XMutex driver.
@@ -28,6 +29,7 @@
 * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XMutex_CfgInitialize API.
 * 4.2   mi   09/22/16 Fixed compilation warnings.
+* 4.7   ht   06/21/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -36,7 +38,9 @@
 
 #include <string.h>
 #include "xmutex.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xil_types.h"
 #include "xil_assert.h"
 

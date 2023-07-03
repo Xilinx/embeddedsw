@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xmutex.h
-* @addtogroup mutex_v4_6
+* @addtogroup mutex Overview
 * @{
 * @details
 *
@@ -91,6 +92,7 @@
 * 4.4   adk  19/09/19 Updated tcl to generate proper canonical definitions when
 *                     mutex is configured for more then one axi interface.
 * 4.6   sd   02/09/20 Updated makefile for parallel execution.
+* 4.7   ht   06/21/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -116,7 +118,11 @@ extern "C" {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;	/**< Unique ID of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;/**< Register base address */
 	u32 NumMutex;	/**< Number of Mutexes in this device */
 	 u8 UserReg;	/**< User Register, access not controlled by Mutex */
@@ -157,7 +163,11 @@ int XMutex_SetUser(XMutex *InstancePtr, u8 MutexNumber, u32 User);
 /*
  * Static Initialization function, in file xmutex_sinit.c
  */
+#ifndef SDT
 XMutex_Config *XMutex_LookupConfig(u16 DeviceId);
+#else
+XMutex_Config *XMutex_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * Functions for self-test, in file xmutex_selftest.c
