@@ -72,6 +72,7 @@
 *       sk   04/28/2023 Updated load partial pdi command to support PDI loading
 *                       from mage Store based on PDI ID
 *       sk   05/18/2023 Deprecate copy to memory feature,removed SubsystemPdiIns
+*       bm   06/23/2023 Added access permissions for IPI commands
 *
 * </pre>
 *
@@ -107,6 +108,22 @@
 
 /* Get Image Info List Macros */
 #define XLOADER_NUM_ENTRIES_MASK		(0x0000FFFFU)
+
+/* Loader command Ids */
+#define XLOADER_CMD_ID_FEATURES			(0U)
+#define XLOADER_CMD_ID_LOAD_SUBSYSTEM_PDI     	(1U)
+#define XLOADER_CMD_ID_LOAD_DDRCPY_IMG        	(2U)
+#define XLOADER_CMD_ID_GET_IMAGE_INFO         	(3U)
+#define XLOADER_CMD_ID_SET_IMAGE_INFO         	(4U)
+#define XLOADER_CMD_ID_GET_IMAGE_INFO_LIST     	(5U)
+#define XLOADER_CMD_ID_EXTRACT_METAHEADER    	(6U)
+#define XLOADER_CMD_ID_LOAD_READBACK_PDI      	(7U)
+#define XLOADER_CMD_ID_UPDATE_MULTIBOOT      	(8U)
+#define XLOADER_CMD_ID_ADD_IMAGESTORE_PDI     	(9U)
+#define XLOADER_CMD_ID_REMOVE_IMAGESTORE_PDI  	(10U)
+#define XLOADER_CMD_ID_GET_ATF_HANDOFF_PARAMS  	(11U)
+#define XLOADER_CMD_ID_CFRAME_DATA_CLEAR_CHECK 	(12U)
+#define XLOADER_CMD_ID_WRITE_IMAGESTORE_PDI   	(13U)
 
 /**************************** Type Definitions *******************************/
 
@@ -163,21 +180,15 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_SD_FILE_SYSTEM_VAL			(0xF0000000U)
 #define XLOADER_GET_HANDOFF_PARAM_SIZE_MASK	(0x7FFFFFFFU)
 
-/* Loader command defines */
-#define XLOADER_CMD_READBACK_CMD_ID				(0x7U)
-#define XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID	(0x8U)
-
+/* Export ImgHdrTbl mask defines */
 #define XLOADER_IMG_HDR_TBL_EXPORT_MASK0	(0x00021F7FU)
 #define XLOADER_IMG_HDR_EXPORT_MASK0	(0x00003FFBU)
 #define XLOADER_PRTN_HDR_EXPORT_MASK0	(0x00001DFFU)
 
 /* Command related macros */
-#define XLOADER_SET_IMAGE_INFO_CMD_ID		(4U)
 #define XLOADER_ATF_HANDOFF_FORMAT_SIZE		(8U)
 #define XLOADER_ATF_HANDOFF_PRTN_ENTRIES_SIZE	(16U)
 
-/* Image Store Loader Command */
-#define XLOADER_WRITE_IMAGE_STORE_CMD_ID	(13U)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -399,7 +410,7 @@ END:
  *****************************************************************************/
 static int XLoader_SetImageInfo(XPlmi_Cmd *Cmd)
 {
-	XPLMI_EXPORT_CMD(XLOADER_SET_IMAGE_INFO_CMD_ID, XPLMI_MODULE_LOADER_ID,
+	XPLMI_EXPORT_CMD(XLOADER_CMD_ID_SET_IMAGE_INFO, XPLMI_MODULE_LOADER_ID,
 		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
 	/* This acts as a placeholder for the implementation done by bootgen */
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)XST_SUCCESS;
@@ -757,7 +768,7 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 	XPlmi_ProcList ProcList;
 	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
 
-	XPLMI_EXPORT_CMD(XLOADER_WRITE_IMAGE_STORE_CMD_ID, XPLMI_MODULE_LOADER_ID,
+	XPLMI_EXPORT_CMD(XLOADER_CMD_ID_WRITE_IMAGESTORE_PDI, XPLMI_MODULE_LOADER_ID,
 				XPLMI_CMD_ARG_CNT_TWO, XPLMI_UNLIMITED_ARG_CNT);
 
 	if(PdiList->PdiImgStrSize == XLOADER_IMG_STORE_INVALID_SIZE) {
@@ -1148,51 +1159,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function checks if the IPI command is accessible or not
- *
- * @param	CmdId is the Command ID
- * @param	IpiReqType is the IPI command request type
- *
- * @return
- * 			- XST_SUCCESS on success.
- * 			- XLOADER_ERR_GLITCH_DETECTED if glitch is detected.
- *
- *****************************************************************************/
-static int XLoader_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
-{
-	int Status = XST_FAILURE;
-	volatile u8 ModuleCmdId = (u8)(CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK);
-	volatile u8 ModuleCmdIdTmp = (u8)(CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK);
-	volatile u32 IpiRequestType = IpiReqType;
-	volatile u32 IpiRequestTypeTmp = IpiReqType;
-
-	/** Secure check for Loader IPI commands */
-	if (((ModuleCmdId == XLOADER_CMD_READBACK_CMD_ID) &&
-		(ModuleCmdIdTmp == XLOADER_CMD_READBACK_CMD_ID)) ||
-		((ModuleCmdId == XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID) &&
-		(ModuleCmdIdTmp == XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID))) {
-		if ((XPLMI_CMD_SECURE == IpiRequestType) &&
-			(XPLMI_CMD_SECURE == IpiRequestTypeTmp)) {
-			Status = XST_SUCCESS;
-		}
-	}
-	else if (((ModuleCmdId != XLOADER_CMD_READBACK_CMD_ID) &&
-		(ModuleCmdIdTmp != XLOADER_CMD_READBACK_CMD_ID)) &&
-		((ModuleCmdId != XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID) &&
-		(ModuleCmdIdTmp != XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID))) {
-		if (ModuleCmdId == ModuleCmdIdTmp) {
-			Status = XST_SUCCESS;
-		}
-	}
-	else {
-		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
-	}
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
  * @brief	Contains the array of PLM loader commands
  *
  *****************************************************************************/
@@ -1216,6 +1182,29 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 
 /*****************************************************************************/
 /**
+ * @brief	Contains the array of PLM loader access permissions
+ *
+ *****************************************************************************/
+static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)] =
+{
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_FEATURES),
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_LOAD_SUBSYSTEM_PDI),
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_LOAD_DDRCPY_IMG),
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_GET_IMAGE_INFO),
+	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_SET_IMAGE_INFO),
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_GET_IMAGE_INFO_LIST),
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_EXTRACT_METAHEADER),
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_LOAD_READBACK_PDI),
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_UPDATE_MULTIBOOT),
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_ADD_IMAGESTORE_PDI),
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_REMOVE_IMAGESTORE_PDI),
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_GET_ATF_HANDOFF_PARAMS),
+	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CFRAME_DATA_CLEAR_CHECK),
+	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_WRITE_IMAGESTORE_PDI)
+};
+
+/*****************************************************************************/
+/**
  * @brief	Contains the module ID and loader commands array
  *
  *****************************************************************************/
@@ -1225,7 +1214,7 @@ static XPlmi_Module XPlmi_Loader =
 	XLoader_Cmds,
 	XPLMI_ARRAY_SIZE(XLoader_Cmds),
 	NULL,
-	XLoader_CheckIpiAccess,
+	XLoader_AccessPermBuff,
 #ifdef VERSAL_NET
 	XLoader_UpdateHandler
 #endif
