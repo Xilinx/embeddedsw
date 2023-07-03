@@ -39,8 +39,7 @@
 
 /************************** Variable Prototypes ******************************/
 
-XMutex_Config XMutex_ConfigTable[] =
-{
+XMutex_Config XMutex_ConfigTable[] = {
 	{
 		XPAR_MUTEX_0_DEVICE_ID,
 		XPAR_MUTEX_0_BASEADDR,

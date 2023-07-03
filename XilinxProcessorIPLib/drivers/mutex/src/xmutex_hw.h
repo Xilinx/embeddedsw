@@ -122,7 +122,7 @@ extern "C" {
 ******************************************************************************/
 #define XMutex_WriteReg(BaseAddress, MutexNumber, RegOffset, ValueToWrite) \
 	Xil_Out32(((BaseAddress) + XMutex_Offset(MutexNumber) +		   \
-			(RegOffset)), (ValueToWrite))
+		   (RegOffset)), (ValueToWrite))
 
 /************************** Function Prototypes ******************************/
 
