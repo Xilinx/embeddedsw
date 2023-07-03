@@ -125,7 +125,7 @@ typedef struct {
 #endif
 	UINTPTR BaseAddress;/**< Register base address */
 	u32 NumMutex;	/**< Number of Mutexes in this device */
-	 u8 UserReg;	/**< User Register, access not controlled by Mutex */
+	u8 UserReg;	/**< User Register, access not controlled by Mutex */
 } XMutex_Config;
 
 
@@ -156,7 +156,7 @@ int XMutex_Trylock(XMutex *InstancePtr, u8 MutexNumber);
 int XMutex_Unlock(XMutex *InstancePtr, u8 MutexNumber);
 int XMutex_IsLocked(XMutex *InstancePtr, u8 MutexNumber);
 void XMutex_GetStatus(XMutex *InstancePtr, u8 MutexNumber, u32 *Locked,
-			u32 *Owner);
+		      u32 *Owner);
 int XMutex_GetUser(XMutex *InstancePtr, u8 MutexNumber, u32 *User);
 int XMutex_SetUser(XMutex *InstancePtr, u8 MutexNumber, u32 User);
 

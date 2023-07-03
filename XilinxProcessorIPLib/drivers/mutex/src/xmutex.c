@@ -86,7 +86,7 @@ int XMutex_CfgInitialize(XMutex *InstancePtr, XMutex_Config *ConfigPtr,
 
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
 
-	for(i=0; i < ConfigPtr->NumMutex; i++){
+	for (i = 0; i < ConfigPtr->NumMutex; i++) {
 		XMutex_Unlock(InstancePtr, i);
 	}
 
@@ -125,12 +125,12 @@ void XMutex_Lock(XMutex *InstancePtr, u8 MutexNumber)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(MutexNumber < InstancePtr->Config.NumMutex);
 
-	while (1){
+	while (1) {
 		XMutex_WriteReg(InstancePtr->Config.BaseAddress, MutexNumber,
 				XMU_MUTEX_REG_OFFSET, LockPattern);
 		Value = XMutex_ReadReg(InstancePtr->Config.BaseAddress,
-					MutexNumber,
-					XMU_MUTEX_REG_OFFSET);
+				       MutexNumber,
+				       XMU_MUTEX_REG_OFFSET);
 		if (Value == LockPattern) {
 			break;
 		}
@@ -171,10 +171,10 @@ int XMutex_Trylock(XMutex *InstancePtr, u8 MutexNumber)
 			XMU_MUTEX_REG_OFFSET, LockPattern);
 
 	Value = XMutex_ReadReg(InstancePtr->Config.BaseAddress, MutexNumber,
-				XMU_MUTEX_REG_OFFSET);
+			       XMU_MUTEX_REG_OFFSET);
 	if (Value == LockPattern) {
 		return XST_SUCCESS;
-	} else{
+	} else {
 		return XST_DEVICE_BUSY;
 	}
 }
@@ -208,7 +208,7 @@ int XMutex_Unlock(XMutex *InstancePtr, u8 MutexNumber)
 	Xil_AssertNonvoid(MutexNumber < InstancePtr->Config.NumMutex);
 
 	Value = XMutex_ReadReg(InstancePtr->Config.BaseAddress, MutexNumber,
-				XMU_MUTEX_REG_OFFSET);
+			       XMU_MUTEX_REG_OFFSET);
 
 	/* Verify that the caller actually owns the Mutex */
 	if ((Value & OWNER_MASK) != UnLockPattern) {
@@ -247,7 +247,7 @@ int XMutex_IsLocked(XMutex *InstancePtr, u8 MutexNumber)
 	Xil_AssertNonvoid(MutexNumber < InstancePtr->Config.NumMutex);
 
 	Value = XMutex_ReadReg(InstancePtr->Config.BaseAddress, MutexNumber,
-				XMU_MUTEX_REG_OFFSET);
+			       XMU_MUTEX_REG_OFFSET);
 
 	return ((int)(Value & LOCKED_BIT));
 }
@@ -276,7 +276,7 @@ int XMutex_IsLocked(XMutex *InstancePtr, u8 MutexNumber)
 *
 ******************************************************************************/
 void XMutex_GetStatus(XMutex *InstancePtr, u8 MutexNumber, u32 *Locked,
-			u32 *Owner)
+		      u32 *Owner)
 {
 	u32 Value;
 
@@ -323,7 +323,7 @@ int XMutex_GetUser(XMutex *InstancePtr, u8 MutexNumber, u32 *User)
 	}
 
 	*User = XMutex_ReadReg(InstancePtr->Config.BaseAddress, MutexNumber,
-				XMU_USER_REG_OFFSET);
+			       XMU_USER_REG_OFFSET);
 	return XST_SUCCESS;
 }
 

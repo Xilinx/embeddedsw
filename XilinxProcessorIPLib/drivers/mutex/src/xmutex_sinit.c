@@ -82,7 +82,7 @@ XMutex_Config *XMutex_LookupConfig(UINTPTR BaseAddress)
 
 	for (Index = (u32)0x0; XMutex_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XMutex_ConfigTable[Index].BaseAddress == BaseAddress) ||
-		     !BaseAddress) {
+		    !BaseAddress) {
 			CfgPtr = &XMutex_ConfigTable[Index];
 			break;
 		}
