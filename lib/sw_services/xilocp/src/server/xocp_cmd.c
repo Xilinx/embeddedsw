@@ -20,6 +20,7 @@
 *       am   01/10/23 Added client side condition for dme ApiId
 * 1.2   har  02/24/23 Updated the code to support modified command for GetUsrCfg
 *       kal  05/28/23 Added SW PCR extend and logging functions
+*       bm   06/23/23 Added access permissions for IPI commands
 *
 * </pre>
 *
@@ -44,13 +45,32 @@
 /************************** Constant Definitions *****************************/
 static XPlmi_ModuleCmd XOcp_Cmds[XOCP_API_MAX];
 
+/* Buffer holding access permissions of ocp module commands */
+static XPlmi_AccessPerm_t XOcp_AccessPermBuff[XOCP_API_MAX] =
+{
+	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_FEATURES),
+	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_EXTEND_HWPCR),
+	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GET_HWPCR),
+	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GET_HWPCRLOG),
+	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GENDMERESP),
+	XPLMI_ALL_IPI_NO_ACCESS(XOCP_API_DEVAKINPUT),
+	XPLMI_ALL_IPI_NO_ACCESS(XOCP_API_GETCERTUSERCFG),
+	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GETX509CERT),
+	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_ATTESTWITHDEVAK),
+	XPLMI_ALL_IPI_NO_ACCESS(XOCP_API_SET_SWPCRCONFIG),
+	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_EXTEND_SWPCR),
+	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GET_SWPCR),
+	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GET_SWPCRLOG),
+	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GET_SWPCRDATA),
+};
+
 static XPlmi_Module XPlmi_Ocp =
 {
 	XPLMI_MODULE_XILOCP_ID,
 	XOcp_Cmds,
 	XOCP_API(XOCP_API_MAX),
 	NULL,
-	NULL,
+	XOcp_AccessPermBuff,
 	NULL
 };
 
