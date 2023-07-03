@@ -33,6 +33,7 @@
 # 5.1   vns 02/09/23  Changed secure_environment to xsecure_environment
 # 5.2   har  02/15/23 Updated library version for 2023.2
 #       kpt 05/18/23  Updated adaptproptestcutoff and repcounttestcutoff default values
+#       bm  06/23/23  Deprecated nonsecure_ipi_access parameter
 #
 ##############################################################################
 
@@ -50,11 +51,12 @@ BEGIN LIBRARY xilsecure
   PARAM name = xsecure_environment, desc = "Enables trusted execution environment \nto allow device key usage(post boot) in ZynqMP \nfor IPI response/Linux/U-boot calls valid only \nfor PMUFW BSP", type = bool, default = false;
   PARAM name = tpm_support, desc = "Enables decryption of bitstream to memory and \nthen writes it to PCAP, allows calculation of \nsha on decrypted bitstream in chunks \nvalid only for ZynqMP FSBL BSP", type = bool, default = false;
   PARAM name = mode, desc = "Enables A72/R5 server and client mode support for XilSecure library for \n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
-  PARAM name = nonsecure_ipi_access, desc = "Enables non secure access for Xilsecure IPI commands for Versal", type = bool, default = false;
   PARAM name = cache_disable, desc = "Enables/Disables cache", type = bool, default = true;
   PARAM name = seedlife, desc = "Number of generates required before reseeding and the value ranging from 1 - 2^19 bits", type = int, default = 256;
   PARAM name = dlen, desc = "Seed length in multiples of TRNG block size i.e 16 bytes and the value ranging from 7 - 31", type = int, default = 7;
   PARAM name = adaptproptestcutoff, desc = "Cutoff value to run adaptive health tests", type = int, default = 645;
   PARAM name = repcounttestcutoff, desc = " Cutoff value to run repetitive health tests", type = int, default = 66;
   PARAM name = xsecure_elliptic_endianness, desc = "Data endianness selection for elliptic curve APIs \n of Versal and Versal Net\n this selection is applicable only for server mode", type = enum, values = (xsecure_ecc_endianess = "littleendian", xsecure_ecc_endianess = "bigendian"), default = "littleendian";
+  #deprecated parameters
+  PARAM name = nonsecure_ipi_access, state = DEPRECATED, desc = "Deprecated in 2023.2 release", type = bool, default = false;
 END LIBRARY
