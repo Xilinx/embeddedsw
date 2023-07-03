@@ -22,6 +22,7 @@
 *       skg  12/14/2022 Added invalid command handler in Xplmi_module structure
 *       am   02/13/2023 Fixed MISRA C violations
 *       am   02/17/2023 Fixed HIS_COMF violations
+* 2.2   bm   06/23/2023 Added access permissions for IPI commands
 *
 * </pre>
 *
@@ -50,13 +51,22 @@ static int XPuf_InvalidCmdHandler(u32 *Payload, u32 *RespBuf);
 /************************** Constant Definitions *****************************/
 static XPlmi_ModuleCmd XPuf_Cmds[XPUF_API_MAX];
 
+/* Buffer holding access permissions of puf module commands */
+static XPlmi_AccessPerm_t XPuf_AccessPermBuff[XPUF_API_MAX] =
+{
+	XPLMI_ALL_IPI_FULL_ACCESS(XPUF_API_FEATURES),
+	XPLMI_ALL_IPI_FULL_ACCESS(XPUF_PUF_REGISTRATION),
+	XPLMI_ALL_IPI_FULL_ACCESS(XPUF_PUF_REGENERATION),
+	XPLMI_ALL_IPI_FULL_ACCESS(XPUF_PUF_CLEAR_PUF_ID),
+};
+
 static XPlmi_Module XPlmi_Puf =
 {
 	XPLMI_MODULE_XILPUF_ID,
 	XPuf_Cmds,
 	XPUF_API(XPUF_API_MAX),
 	XPuf_InvalidCmdHandler,
-	NULL,
+	XPuf_AccessPermBuff,
 #ifdef VERSAL_NET
 	NULL
 #endif
