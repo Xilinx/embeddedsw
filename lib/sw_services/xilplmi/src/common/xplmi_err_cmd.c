@@ -38,6 +38,7 @@
 *       bm   07/13/2022 Update EAM logic for In-Place PLM Update
 * 1.07  skg  10/17/2022 Added Null to invalid cmd handler of xplmi_ErrModule
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       bm   06/23/2023 Added access permissions for IPI commands
 *
 * </pre>
 *
@@ -54,6 +55,10 @@
 #include "xplmi_err.h"
 
 /************************** Constant Definitions *****************************/
+
+/* Error Module command Ids */
+#define XPLMI_CMD_ID_EM_FEATURES	(0U)
+#define XPLMI_CMD_ID_EM_SET_ACTION	(1U)
 
 /**************************** Type Definitions *******************************/
 
@@ -91,6 +96,9 @@ static XPlmi_Module XPlmi_ErrModule;
 static int XPlmi_CmdEmFeatures(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
+
+	XPLMI_EXPORT_CMD(XPLMI_CMD_ID_EM_FEATURES, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_MAJOR_MODULE_VERSION, XPLMI_MINOR_MODULE_VERSION);
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
 
@@ -144,6 +152,9 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	u32 PmcPsmCrErrVal = ErrorMasks & PmcPsmCrErrMask;
 	u32 PmcPsmNCrErrVal = ErrorMasks & PmcPsmNCrErrMask;
 	u32 FwErrVal = ErrorMasks & FwErrMask;
+
+	XPLMI_EXPORT_CMD(XPLMI_CMD_ID_EM_SET_ACTION, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"%s: NodeId: 0x%0x,  ErrorAction: 0x%0x, ErrorMasks: 0x%0x\n\r",
@@ -245,6 +256,17 @@ static const XPlmi_ModuleCmd XPlmi_ErrCmds[] =
 
 /*****************************************************************************/
 /**
+ * @brief	Contains the array of PLM error commands access permissions
+ *
+ *****************************************************************************/
+static XPlmi_AccessPerm_t XPlmi_ErrAccessPermBuff[XPLMI_ARRAY_SIZE(XPlmi_ErrCmds)] =
+{
+	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_EM_FEATURES),
+	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_EM_SET_ACTION),
+};
+
+/*****************************************************************************/
+/**
  * @brief	Contains the module ID and PLM error commands array
  *
  *****************************************************************************/
@@ -254,7 +276,7 @@ static XPlmi_Module XPlmi_ErrModule =
 	XPlmi_ErrCmds,
 	XPLMI_ARRAY_SIZE(XPlmi_ErrCmds),
 	NULL,
-	NULL,
+	XPlmi_ErrAccessPermBuff,
 #ifdef VERSAL_NET
 	NULL
 #endif
