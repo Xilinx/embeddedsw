@@ -79,7 +79,7 @@ XAxiVdma_Config *XAxiVdma_LookupConfig(UINTPTR BaseAddress)
 
 	for (Index = (u32)0x0; XAxiVdma_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XAxiVdma_ConfigTable[Index].BaseAddress == BaseAddress) ||
-		     !BaseAddress) {
+		    !BaseAddress) {
 			CfgPtr = &XAxiVdma_ConfigTable[Index];
 			break;
 		}
