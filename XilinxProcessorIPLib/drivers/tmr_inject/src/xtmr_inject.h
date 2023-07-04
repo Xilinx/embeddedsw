@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,6 +56,7 @@
 *                          compilation time.
 * 1.4   adk  02/24/22 While updating the IIR offset apply the mask.
 * 1.5   adk  27/12/22 Updated addtogroup tag.
+* 1.6   adk  03/07/23 Added support for system device-tree flow.
 * </pre>
 *
 *****************************************************************************/
@@ -81,7 +82,11 @@ extern "C" {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR RegBaseAddr;	/**< Register base address */
 	u8  MagicByte;		/**< Magic Byte parameter */
 	u8  CpuId;		/**< CPU to Inject parameter */
@@ -114,8 +119,13 @@ typedef struct {
 /*
  * Initialization functions in xtmr_inject_sinit.c
  */
+#ifndef SDT
 int XTMR_Inject_Initialize(XTMR_Inject *InstancePtr, u16 DeviceId);
 XTMR_Inject_Config *XTMR_Inject_LookupConfig(u16 DeviceId);
+#else
+int XTMR_Inject_Initialize(XTMR_Inject *InstancePtr, UINTPTR BaseAddr);
+XTMR_Inject_Config *XTMR_Inject_LookupConfig(UINTPTR BaseAddr);
+#endif
 
 /*
  * Required functions, in file xtmr_inject.c
