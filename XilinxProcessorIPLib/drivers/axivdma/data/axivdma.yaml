@@ -1,0 +1,129 @@
+# Copyright (c) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for AXI VDMA controller
+
+maintainers:
+  - Abin Joseph <abin.joseph@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-vdma-6.3
+          - xlnx,axi-vdma-1.00.a
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,num-fstores:
+    description: AXI VDMA controller number of framebuffers as configured in the hardware.
+  xlnx,include-mm2s:
+    description: AXI VDMA IP is configured with MM2S Channel enabled
+  xlnx,include-mm2s-dre:
+    description: AXI VDMA IP MM2S Channel is configured with DRE enabled
+  xlnx,mm2s-data-width:
+    description: MM2S Channel data width
+  xlnx,include-s2mm:
+    description: MCDMA IP is configured with S2MM Channel enabled
+  xlnx,include-s2mm-dre:
+    description: MCDMA IP S2MM Channel is configured with DRE enabled
+  xlnx,s2mm-data-width:
+    description: S2MM Channel data width
+  xlnx,include-sg:
+    description: Tells whether AXI VDMA controller SG feature is enabled or not
+  xlnx,enable-vidparam-reads:
+    description: If set AXI VDMA controller read enable for video parameters indirect mode is enabled
+  xlnx,flush-fsync:
+    description: AXI VDMA controller DMA operations synchronized to Frame Sync
+  xlnx,flush-on-fsync:
+    description: AXI VDMA controller DMA operations are flushed & channel states reset on Frame Sync
+  xlnx,mm2s-linebuffer-depth:
+    description: AXI VDMA controller Depth of Read Channel Line Buffer FIFO
+  xlnx,s2mm-linebuffer-depth:
+    description: AXI VDMA controller Depth of Write Channel Line Buffer FIFO
+  xlnx,mm2s-genlock-mode:
+    description: AXI VDMA controller MM2S Channel Gen Lock Mode
+  xlnx,s2mm-genlock-mode:
+    description: AXI VDMA controller S2MM Channel Gen Lock Mode
+  xlnx,include-internal-genlock:
+    description: AXI VDMA controller Internal Gen Lock
+  xlnx,s2mm-sof-enable:
+    description: AXI VDMA controller S2MM Channel Start of Flag Enable
+  xlnx,mm2s-tdata-width:
+    description: AXI VDMA controller MM2S Channel Stream data width
+  xlnx,s2mm-tdata-width:
+    description: AXI VDMA controller S2MM Channel Stream data width
+  xlnx,enable-debug-info-1:
+    description: If set AXI VDMA controller MM2S Threshold Register Enabled
+  xlnx,enable-debug-info-5:
+    description: If set AXI VDMA controller MM2S Frame Store Register Enabled
+  xlnx,enable-debug-info-6:
+    description: If set AXI VDMA controller MM2S Delay Counter (Control Reg) Enabled
+  xlnx,enable-debug-info-7:
+    description: If set AXI VDMA controller MM2S Frame Counter (Control Reg) Enabled
+  xlnx,enable-debug-info-9:
+    description: If set AXI VDMA controller S2MM Threshold Register Enabled
+  xlnx,enable-debug-info-13:
+    description: If set AXI VDMA controller S2MM Frame Store Register Enabled
+  xlnx,enable-debug-info-14:
+    description: If set AXI VDMA controller S2MM Delay Counter (Control Reg) Enabled
+  xlnx,enable-debug-info-15:
+    description: If set AXI VDMA controller S2MM Delay Counter (Control Reg) Enabled
+  xlnx,enable-debug-all:
+    description: If set AXI VDMA controller all Debug Features Enabled
+  xlnx,addrwidth:
+    description: Address width of the AXI VDMA controller
+  xlnx,enable-vert-flip:
+    description: If set AXI VDMA controller is configured with vertical flip enabled
+
+config:
+    - XAxiVdma_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,num-fstores
+    - xlnx,include-mm2s
+    - xlnx,include-mm2s-dre
+    - xlnx,mm2s-data-width
+    - xlnx,include-s2mm
+    - xlnx,include-s2mm-dre
+    - xlnx,s2mm-data-width
+    - xlnx,include-sg
+    - xlnx,enable-vidparam-reads
+    - xlnx,flush-fsync
+    - xlnx,flush-on-fsync
+    - xlnx,mm2s-linebuffer-depth
+    - xlnx,s2mm-linebuffer-depth
+    - xlnx,mm2s-genlock-mode
+    - xlnx,s2mm-genlock-mode
+    - xlnx,include-internal-genlock
+    - xlnx,s2mm-sof-enable
+    - xlnx,mm2s-tdata-width
+    - xlnx,s2mm-data-width
+    - xlnx,enable-debug-info-1
+    - xlnx,enable-debug-info-5
+    - xlnx,enable-debug-info-6
+    - xlnx,enable-debug-info-7
+    - xlnx,enable-debug-info-9
+    - xlnx,enable-debug-info-13
+    - xlnx,enable-debug-info-14
+    - xlnx,enable-debug-info-15
+    - xlnx,enable-debug-all
+    - xlnx,addrwidth
+    - xlnx,enable-vert-flip
+    - interrupts: 2
+    - interrupt-parent
+
+examples:
+    xaxivdma_example_intr.c:
+        - xlnx,include-sg: 0
+        - interrupts
+
+tapp:
+    xaxivdma_example_selftest.c:
+        declaration: AxiVDMASelfTestExample
+...

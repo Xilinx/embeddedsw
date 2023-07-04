@@ -392,7 +392,11 @@ typedef void (*XAxiVdma_ErrorCallBack) (void *CallBackRef, u32 ErrorMask);
  * with it.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;         /**< DeviceId is the unique ID  of the device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;      /**< BaseAddress is the physical base address of the
                             *  device's registers */
 	u16 MaxFrameStoreNum; /**< The maximum number of Frame Stores */
@@ -446,6 +450,8 @@ typedef struct {
 							   configuration parameter */
 	int AddrWidth;		  /**< Address Width */
 	u8 HasVFlip;		 /**< Whether hardware has Vertical Flip enabled(c_enable_vert_flip) */
+	u16 IntrId[2]; /** Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 } XAxiVdma_Config;
 
 /**
@@ -522,7 +528,11 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 /* Initialization */
+#ifndef SDT
 XAxiVdma_Config *XAxiVdma_LookupConfig(u16 DeviceId);
+#else
+XAxiVdma_Config *XAxiVdma_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 			   UINTPTR EffectiveAddr);
