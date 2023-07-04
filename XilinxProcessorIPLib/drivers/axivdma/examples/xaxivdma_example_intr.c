@@ -68,14 +68,20 @@
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
+#ifndef SDT
 #include "sleep.h"
 #include "xil_util.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 
 #include "xil_cache.h"
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
 #include "xscugic.h"
+#endif
 #endif
 
 #ifndef __MICROBLAZE__
@@ -91,6 +97,7 @@
 /*
  * Device related constants. These need to defined as per the HW system.
  */
+#ifndef SDT
 #define DMA_DEVICE_ID		XPAR_AXIVDMA_0_DEVICE_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -112,7 +119,21 @@
 #elif XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
 #define DDR_BASE_ADDR		XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
 #define DDR_HIGH_ADDR	 	XPAR_MIG_0_C0_DDR4_MEMORY_MAP_HIGHADDR
+#endif
 #else
+
+#ifdef XPAR_MEM0_BASEADDRESS
+#define DDR_BASE_ADDR		XPAR_MEM0_BASEADDRESS
+#define DDR_HIGH_ADDR		XPAR_MEM0_HIGHADDRESS
+#endif
+
+#ifdef XPAR_PSU_DDR_1_BASEADDRESS
+#define DDR_BASE_ADDR		XPAR_PSU_DDR_1_BASEADDRESS
+#define DDR_HIGH_ADDR		XPAR_PSU_DDR_1_HIGHADDRESS
+#endif
+#endif
+
+#ifndef DDR_BASE_ADDR
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
 			DEFAULT SET TO 0x01000000
 #define DDR_BASE_ADDR		0x10000000
@@ -195,10 +216,12 @@
  */
 XAxiVdma AxiVdma;
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 static XIntc Intc;	/* Instance of the Interrupt Controller */
 #else
 static XScuGic Intc;	/* Instance of the Interrupt Controller */
+#endif
 #endif
 
 /* Data address
@@ -238,10 +261,12 @@ static int StartTransfer(XAxiVdma *InstancePtr);
 static int CheckFrame(int FrameIndex);
 static void BufferInit(UINTPTR BaseAddr, int Length, u8 StartValue);
 
+#ifndef SDT
 static int SetupIntrSystem(XAxiVdma *AxiVdmaPtr, u16 ReadIntrId,
 				u16 WriteIntrId);
 
 static void DisableIntrSystem(u16 ReadIntrId, u16 WriteIntrId);
+#endif
 
 /* Interrupt call back functions
  */
@@ -295,7 +320,9 @@ int main(void)
 	int Status,Index;
 	XAxiVdma_Config *Config;
 	XAxiVdma_FrameCounter FrameCfg;
+	#ifndef SDT
 	int Polls;
+	#endif
 
 #if defined(XPAR_UARTNS550_0_BASEADDR)
 	Uart550_Setup();
@@ -317,6 +344,7 @@ int main(void)
 	/* The information of the XAxiVdma_Config comes from hardware build.
 	 * The user IP should pass this information to the AXI DMA core.
 	 */
+#ifndef SDT
 	Config = XAxiVdma_LookupConfig(DMA_DEVICE_ID);
 	if (!Config) {
 		xil_printf(
@@ -324,6 +352,15 @@ int main(void)
 
 		return XST_FAILURE;
 	}
+#else
+	Config = XAxiVdma_LookupConfig(XPAR_XAXIVDMA_0_BASEADDR);
+	if (!Config) {
+		xil_printf(
+		    "No video DMA found for Address %llx\r\n", XPAR_XAXIVDMA_0_BASEADDR);
+
+		return XST_FAILURE;
+	}
+#endif
 
 	/* Set default read and write count based on HW config*/
 	ReadCount = Config->MaxFrameStoreNum;
@@ -417,15 +454,32 @@ int main(void)
 
 		return XST_FAILURE;
 	}
-
+	#ifndef SDT
 	Status = SetupIntrSystem(&AxiVdma, READ_INTR_ID, WRITE_INTR_ID);
+	#else
+	Status = XSetupInterruptSystem(&AxiVdma, &XAxiVdma_WriteIntrHandler,
+				       Config->IntrId[1], Config->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	#endif
 	if (Status != XST_SUCCESS) {
-
 		xil_printf(
-		    "Setup interrupt system failed %d\r\n", Status);
+		    "Setup interrupt system failed for write %d\r\n", Status);
+
+		return XST_FAILURE;
+
+	}
+
+	#ifdef SDT
+	Status = XSetupInterruptSystem(&AxiVdma, &XAxiVdma_ReadIntrHandler,
+				       Config->IntrId[0], Config->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf(
+		    "Setup interrupt system failed for read %d\r\n", Status);
 
 		return XST_FAILURE;
 	}
+	#endif
 
 	/* Register callback functions
 	 */
@@ -459,7 +513,7 @@ int main(void)
 			xil_printf("DMA Mismatch Error\r\n");
 		return XST_FAILURE;
 	}
-
+	#ifndef SDT
 	/* Check for any error events to occur */
 	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUMBER_OF_EVENTS, &ReadError);
 	if (Status == XST_SUCCESS) {
@@ -489,14 +543,26 @@ int main(void)
 		xil_printf("DMA write failed %d\r\n", Status);
                 goto Done;
 	}
+	#else
+	/* Every set of frame buffer finish causes a completion interrupt
+	 */
+	while ((WriteDone < NUM_TEST_FRAME_SETS) && !ReadError &&
+	      (ReadDone < NUM_TEST_FRAME_SETS) && !WriteError) {
+		/* NOP */
+	}
+	#endif
+
 
 	/* Soft reset for AXI VDMA channels which causes the AXI VDMA
 	 * channels to be reset
 	 */
-
+	#ifndef SDT
 	Polls = XAXIVDMA_RESET_TIMEOUT_USEC;
+	#endif
 	XAxiVdma_Reset(&AxiVdma,XAXIVDMA_READ);
+	XAxiVdma_Reset(&AxiVdma,XAXIVDMA_WRITE);
 
+	#ifndef SDT
 	while (Polls && XAxiVdma_ResetNotDone(&AxiVdma,XAXIVDMA_READ)) {
 		usleep(1);
 		Polls -= 1;
@@ -530,8 +596,33 @@ int main(void)
 	}
 	xil_printf("Successfully ran axivdma intr Example\r\n");
 
+	#else
+	if (ReadError || WriteError) {
+		xil_printf("Test has transfer error %d/%d, Failed\r\n",
+		    ReadError, WriteError);
+
+		Status = XST_FAILURE;
+		goto Done;
+	}
+	else {
+		for(Index = 0; Index < ReadCount; Index++) {
+			Status = CheckFrame(Index);
+			if (Status != XST_SUCCESS) {
+				xil_printf("Check frame %d failed %d\n\r", Index, Status);
+				goto Done;
+			}
+		}
+		xil_printf("Successfully ran axivdma intr Example\r\n");
+	}
+	#endif
+
 Done:
+	#ifndef SDT
 	DisableIntrSystem(READ_INTR_ID, WRITE_INTR_ID);
+	#else
+	XDisconnectInterruptCntrl(Config->IntrId[0], Config->IntrParent);
+	XDisconnectInterruptCntrl(Config->IntrId[1], Config->IntrParent);
+	#endif
 
 	if (Status != XST_SUCCESS) {
 		if(Status == XST_VDMA_MISMATCH_ERROR)
@@ -560,7 +651,7 @@ Done:
 ******************************************************************************/
 static int ReadSetup(XAxiVdma *InstancePtr)
 {
-	int Index;
+	int Index,Index1;
 	UINTPTR Addr;
 	int Status;
 
@@ -724,6 +815,7 @@ static int StartTransfer(XAxiVdma *InstancePtr)
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /*
 *
@@ -897,6 +989,8 @@ static void DisableIntrSystem(u16 ReadIntrId, u16 WriteIntrId)
 #endif
 }
 
+#endif
+
 /*****************************************************************************/
 /*
  * Call back function for read channel
@@ -1000,7 +1094,10 @@ static int CheckFrame(int FrameIndex)
 	Vsize_Max = ReadCfg.VertSizeInput;
 
 	Xil_DCacheInvalidateRange((UINTPTR)RdAddr, Vsize_Max*Hsize_Max*ReadCount);
-
+#if 1
+	xdbg_printf(XDBG_DEBUG_GENERAL,"Check frame %d/%d with hsize %d vsize %d\n\r",
+		RdFrame, WrFrame, Hsize_Max, Vsize_Max);
+#endif
 	for (Vsize = 0; Vsize < Vsize_Max; Vsize++) {
 		for (Hsize = 0; Hsize < Hsize_Max; Hsize++) {
 			Index = Hsize + Vsize * FRAME_HORIZONTAL_LEN;

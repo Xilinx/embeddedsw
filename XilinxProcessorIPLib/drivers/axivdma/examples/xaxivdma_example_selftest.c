@@ -38,8 +38,10 @@
  * Device hardware build related constants.
  */
 
+#ifndef SDT
  #ifndef TESTAPP_GEN
 #define DMA_DEV_ID		XPAR_AXIVDMA_0_DEVICE_ID
+#endif
 #endif
 
 
@@ -51,7 +53,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int AxiVDMASelfTestExample(u16 DeviceId);
+#else
+int AxiVDMASelfTestExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 /*
@@ -82,7 +88,11 @@ int main()
 	xil_printf("\r\n--- Entering main() --- \r\n");
 
 	/* Run the poll example for simple transfer */
+#ifndef SDT
 	Status = AxiVDMASelfTestExample(DMA_DEV_ID);
+#else
+	Status = AxiVDMASelfTestExample(XPAR_XAXIVDMA_0_BASEADDR);
+#endif
 
 	if (Status != XST_SUCCESS) {
 
@@ -113,12 +123,20 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int AxiVDMASelfTestExample(u16 DeviceId)
+#else
+int AxiVDMASelfTestExample(UINTPTR BaseAddress)
+#endif
 {
 	XAxiVdma_Config *Config;
 	int Status = XST_SUCCESS;
 
+#ifndef SDT
 	Config = XAxiVdma_LookupConfig(DeviceId);
+#else
+	Config = XAxiVdma_LookupConfig(BaseAddress);
+#endif
 	if (!Config) {
 			return XST_FAILURE;
 	}
