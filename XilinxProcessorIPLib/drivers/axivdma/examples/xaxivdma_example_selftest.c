@@ -39,7 +39,7 @@
  */
 
 #ifndef SDT
- #ifndef TESTAPP_GEN
+#ifndef TESTAPP_GEN
 #define DMA_DEV_ID		XPAR_AXIVDMA_0_DEVICE_ID
 #endif
 #endif
@@ -138,7 +138,7 @@ int AxiVDMASelfTestExample(UINTPTR BaseAddress)
 	Config = XAxiVdma_LookupConfig(BaseAddress);
 #endif
 	if (!Config) {
-			return XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	/* Initialize DMA engine */
