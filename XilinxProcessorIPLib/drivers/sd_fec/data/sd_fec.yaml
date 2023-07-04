@@ -1,0 +1,38 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for SDFEC controller
+
+maintainers:
+  - Conall O Griofa <conall.ogriofa@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,sd-fec-1.1
+
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,drv-standard:
+    description: Driver standard
+  xlnx,drv-initialization-params:
+    description: Initialization paramaters for sdfec
+
+config:
+    - XSdFec_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,drv-standard
+    - xlnx,drv-initialization-params
+
+examples:
+
+...

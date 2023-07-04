@@ -1,4 +1,5 @@
 ###############################################################################
+# Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved
 # Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
@@ -12,7 +13,7 @@ BEGIN driver sd_fec
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION name = sd_fec;
- OPTION version = 1.2;
+ OPTION version = 1.3;
 
 END driver
 
