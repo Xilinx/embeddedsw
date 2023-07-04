@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017-2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017-2023 Xilinx, Inc. All Rights Reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xv_frmbufrd_l2_intr.c
-* @addtogroup v_frmbuf_rd_v4_6
+* @addtogroup v_frmbuf_rd_v4_7
 * @{
 *
 * The functions in this file provides interrupt handler and associated
