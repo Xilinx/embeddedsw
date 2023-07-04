@@ -115,7 +115,7 @@ static u8 PcrBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.PcrBuf")))
 static XOcp_HwPcrEvent   HwPcrEvents[XOCP_READ_NUM_OF_LOG_ENTRIES] __attribute__ ((section (".data.HwPcrEvents")));
 static XOcp_HwPcrLogInfo HwPcrLogInfo __attribute__ ((section (".data.HwPcrLogInfo")));
 static XOcp_PcrMeasurement SwPcrMeasurement[XOCP_NUM_SW_PCR_LOG_EVENTS] __attribute__ ((section (".data.SwPcrMeasurement")));
-static u8 ExtendHash[XOCP_EXTENDED_HASH_SIZE_IN_BYTES] =
+static u8 ExtendHash[XOCP_EXTENDED_HASH_SIZE_IN_BYTES]__attribute__ ((section (".data.ExtendHash")))=
 						{0x70,0x69,0x77,0x35,0x0b,0x93,
 						0x92,0xa0,0x48,0x2c,0xd8,0x23,
 						0x38,0x47,0xd2,0xd9,0x2d,0x1a,

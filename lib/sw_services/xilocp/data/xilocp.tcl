@@ -36,7 +36,8 @@ proc ocp_drc {libhandle} {
 
 	if { $proc_type != "psxl_pmc" && $proc_type != "psxl_cortexa78" &&
 		$proc_type != "psxl_cortexr52" && $proc_type != "psx_pmc" &&
-		$proc_type != "psx_cortexa78" && $proc_type != "psx_cortexr52"} {
+		$proc_type != "psx_cortexa78" && $proc_type != "psx_cortexr52" &&
+		$proc_type != "microblaze"} {
 		error "ERROR: XilOcp library is supported only for Versal Net devices";
 		return;
 	}
@@ -50,7 +51,7 @@ proc ocp_drc {libhandle} {
 			file copy -force $entry "./src"
 		}
 	} elseif { $proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" ||
-		$proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52" } {
+		$proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52" || $proc_type == "microblaze"} {
 		set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
 		if { [llength $librarylist] == 0 } {
 			error "This library requires xilmailbox library in the Board Support Package.";
