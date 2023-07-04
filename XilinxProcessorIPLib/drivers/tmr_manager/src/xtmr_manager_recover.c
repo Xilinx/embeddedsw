@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,7 +33,9 @@
 #include "xtmr_manager.h"
 #include "xtmr_manager_l.h"
 #include "xil_io.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -75,8 +77,13 @@ void XTMR_Manager_BreakHandler (XTMR_Manager *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((InstancePtr->Cr & XTM_CR_RIR_MASK) != 0);
+#ifndef SDT
 	Xil_AssertVoid((InstancePtr->Cr & XTM_CR_MAGIC1_MASK) ==
 		       XPAR_TMR_MANAGER_0_MAGIC1);
+#else
+	Xil_AssertVoid((InstancePtr->Cr & XTM_CR_MAGIC1_MASK) ==
+		       InstancePtr->Config.Magic1);
+#endif
 
 	/* Call user defined pre-recovery handler, if any */
 	if (InstancePtr->PreResetHandler != NULL)
