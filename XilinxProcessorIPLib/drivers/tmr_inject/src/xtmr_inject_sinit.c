@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,7 +27,9 @@
 /***************************** Include Files ********************************/
 
 #include "xstatus.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xtmr_inject_i.h"
 
 /************************** Constant Definitions ****************************/
@@ -58,6 +60,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XTMR_Inject_Config *XTMR_Inject_LookupConfig(u16 DeviceId)
 {
 	XTMR_Inject_Config *CfgPtr = NULL;
@@ -72,6 +75,22 @@ XTMR_Inject_Config *XTMR_Inject_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XTMR_Inject_Config *XTMR_Inject_LookupConfig(UINTPTR BaseAddr)
+{
+	XTMR_Inject_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index=0; XTMR_Inject_ConfigTable[Index].RegBaseAddr != NULL; Index++) {
+		if (XTMR_Inject_ConfigTable[Index].RegBaseAddr == BaseAddr) {
+			CfgPtr = &XTMR_Inject_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 
 /****************************************************************************/
 /**
@@ -92,7 +111,11 @@ XTMR_Inject_Config *XTMR_Inject_LookupConfig(u16 DeviceId)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 int XTMR_Inject_Initialize(XTMR_Inject *InstancePtr, u16 DeviceId)
+#else
+int XTMR_Inject_Initialize(XTMR_Inject *InstancePtr, UINTPTR BaseAddr)
+#endif
 {
 	XTMR_Inject_Config *ConfigPtr;
 
@@ -105,7 +128,11 @@ int XTMR_Inject_Initialize(XTMR_Inject *InstancePtr, u16 DeviceId)
 	 * Lookup the device configuration in the configuration table. Use this
 	 * configuration info when initializing this component.
 	 */
+#ifndef SDT
 	ConfigPtr = XTMR_Inject_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XTMR_Inject_LookupConfig(BaseAddr);
+#endif
 
 	if (ConfigPtr == (XTMR_Inject_Config *)NULL) {
 		return XST_DEVICE_NOT_FOUND;
