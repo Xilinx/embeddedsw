@@ -1,4 +1,5 @@
 /******************************************************************************
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -66,7 +67,11 @@ extern "C" {
  * Contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
     u16     DeviceId;
+#else
+	char *Name;
+#endif
     UINTPTR BaseAddress;
     u32     Standard;
     u32     Initialization[4];
@@ -145,8 +150,11 @@ int XSdFecInitialize(XSdFec *InstancePtr, u16 DeviceId);
  *
  * Returns the configuration struct for a given device ID
  */
+#ifndef SDT
 XSdFec_Config* XSdFecLookupConfig(u16 DeviceId);
-
+#else
+XSdFec_Config *XSdFec_LookupConfig(UINTPTR BaseAddress);
+#endif
 /**\brief Device initialization
  *
  * Uses a configuration structure provided by the caller
