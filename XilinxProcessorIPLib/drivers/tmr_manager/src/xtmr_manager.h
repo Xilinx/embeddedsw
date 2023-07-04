@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -71,6 +71,7 @@
 *       adk  02/23/22 Added new API XTMR_Manager_Configure_BrkDelay()
 *       	      for configuring break delay.
 * 1.4   adk  27/12/22 Updated addtogroup tag.
+* 1.5   adk  03/07/23 Added support for system device-tree flow.
 * </pre>
 *
 *****************************************************************************/
@@ -111,7 +112,11 @@ typedef struct {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR RegBaseAddr;	/**< Register base address */
 	u32 BrkDelayRstValue;	/**< Value of parameter C_BRK_DLEAY_RST_VALUE */
 	u64 MaskRstValue;	/**< Value of parameter C_MASK_RST_VALUE */
@@ -143,6 +148,9 @@ typedef struct {
  */
 typedef struct {
 	XTMR_Manager_Stats Stats;	/* Component Statistics */
+#ifdef SDT
+	XTMR_Manager_Config Config;    /* Config structure pointer */
+#endif
 	UINTPTR RegBaseAddress;		/* Base address of registers */
 	u32 IsReady;			/* Device is initialized and ready */
 
@@ -173,8 +181,13 @@ typedef struct {
 /*
  * Initialization functions in xtmr_manager_sinit.c
  */
+#ifndef SDT
 int XTMR_Manager_Initialize(XTMR_Manager *InstancePtr, u16 DeviceId);
 XTMR_Manager_Config *XTMR_Manager_LookupConfig(u16 DeviceId);
+#else
+int XTMR_Manager_Initialize(XTMR_Manager *InstancePtr, UINTPTR BaseAddr);
+XTMR_Manager_Config *XTMR_Manager_LookupConfig(UINTPTR BaseAddr);
+#endif
 
 /*
  * Required functions, in file xtmr_manager.c

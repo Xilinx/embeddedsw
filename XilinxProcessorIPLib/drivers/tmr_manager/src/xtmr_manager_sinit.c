@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,7 +27,9 @@
 /***************************** Include Files ********************************/
 
 #include "xstatus.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xtmr_manager_i.h"
 
 /************************** Constant Definitions ****************************/
@@ -58,6 +60,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XTMR_Manager_Config *XTMR_Manager_LookupConfig(u16 DeviceId)
 {
 	XTMR_Manager_Config *CfgPtr = NULL;
@@ -72,6 +75,22 @@ XTMR_Manager_Config *XTMR_Manager_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XTMR_Manager_Config *XTMR_Manager_LookupConfig(UINTPTR BaseAddr)
+{
+	XTMR_Manager_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index=0; XTMR_Manager_ConfigTable[Index].Name != NULL; Index++) {
+		if (XTMR_Manager_ConfigTable[Index].RegBaseAddr == BaseAddr) {
+			CfgPtr = &XTMR_Manager_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 
 /****************************************************************************/
 /**
@@ -97,7 +116,11 @@ XTMR_Manager_Config *XTMR_Manager_LookupConfig(u16 DeviceId)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 int XTMR_Manager_Initialize(XTMR_Manager *InstancePtr, u16 DeviceId)
+#else
+int XTMR_Manager_Initialize(XTMR_Manager *InstancePtr, UINTPTR BaseAddr)
+#endif
 {
 	XTMR_Manager_Config *ConfigPtr;
 
@@ -110,7 +133,11 @@ int XTMR_Manager_Initialize(XTMR_Manager *InstancePtr, u16 DeviceId)
 	 * Lookup the device configuration in the configuration table. Use this
 	 * configuration info when initializing this component.
 	 */
+#ifndef SDT
 	ConfigPtr = XTMR_Manager_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XTMR_Manager_LookupConfig(BaseAddr);
+#endif
 
 	if (ConfigPtr == (XTMR_Manager_Config *)NULL) {
 		return XST_DEVICE_NOT_FOUND;

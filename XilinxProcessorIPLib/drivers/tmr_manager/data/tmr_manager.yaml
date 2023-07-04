@@ -1,0 +1,46 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for tmr_manager controller
+
+maintainers:
+  - Appana Durga Kedareswara Rao <appana.durga.kedareswara.rao@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,tmr-manager-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XTMR_Manager_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,brk-delay-rst-value
+    - xlnx,mask-rst-value
+    - xlnx,magic1
+    - xlnx,magic2
+    - xlnx,ue-is-fatal
+    - xlnx,ue-width
+    - xlnx,no-of-comparators
+    - xlnx,comparators-mask
+    - xlnx,watchdog
+    - xlnx,watchdog-width
+    - xlnx,sem-interface
+    - xlnx,sem-heartbeat-watchdog
+    - xlnx,sem-heartbeat-watchdog-width
+    - xlnx,brk-delay-width
+    - xlnx,tmr
+    - xlnx,test-comparator
+    - xlnx,strict-miscompare
+    - xlnx,use-debug-disable
+    - xlnx,use-tmr-disable
+...
