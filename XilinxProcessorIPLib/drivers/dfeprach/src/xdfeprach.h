@@ -77,6 +77,7 @@
 * 1.5   dc     12/14/22 Update multiband register arithmetic
 *       dc     01/02/23 Multiband registers update
 * 1.6   dc     08/06/23 Support dynamic and static modes of operation
+*       cog    07/04/23 Add support for SDT
 *
 * </pre>
 * @endcond
@@ -91,7 +92,9 @@ extern "C" {
 /**************************** Includes ***************************************/
 #ifdef __BAREMETAL__
 #include "xil_types.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xstatus.h"
 #else
 #include <linux/types.h>
@@ -105,6 +108,7 @@ extern "C" {
 #ifndef __BAREMETAL__
 #define XDFEPRACH_MAX_NUM_INSTANCES                                            \
 	(1U) /**< Maximum number of driver instances running at the same time. */
+#define XDFEPRACH_INSTANCE_EXISTS(X) (X < XDFEPRACH_MAX_NUM_INSTANCES)
 /**
 * @cond nocomments
 */
@@ -123,7 +127,14 @@ extern "C" {
 #define XST_FAILURE (1U) /**< Failure flag */
 #endif
 #else
+#ifndef SDT
 #define XDFEPRACH_MAX_NUM_INSTANCES XPAR_XDFEPRACH_NUM_INSTANCES
+#define XDFEPRACH_INSTANCE_EXISTS(X) (X < XDFEPRACH_MAX_NUM_INSTANCES)
+#else
+#define XDFEPRACH_MAX_NUM_INSTANCES                                            \
+	(1U) /**< Maximum number of driver instances running at the same time. */
+#define XDFEPRACH_INSTANCE_EXISTS(X) (XDfePrach_ConfigTable[X].Name != NULL)
+#endif
 #endif
 
 #define XDFEPRACH_NODE_NAME_MAX_LENGTH (50U) /**< Node name maximum length. */
@@ -592,7 +603,11 @@ typedef XDfePrach_StatusMask XDfePrach_InterruptMask;
  * PRACH Config Structure.
  */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId; /**< The component instance Id */
+#else
+       char *Name; /**< Unique name of the device */
+#endif
 	metal_phys_addr_t BaseAddr; /**< Instance base address */
 	u32 NumAntenna
 		[XDFEPRACH_BAND_ID_MAX]; /**< [1-8] CORE.MODEL_PARAM.NUM_ANTENNA */
@@ -622,6 +637,11 @@ typedef struct {
 	struct metal_io_region *Io; /**< Libmetal IO structure */
 	struct metal_device *Device; /**< Libmetal device structure */
 } XDfePrach;
+
+/************************** Variable Definitions *****************************/
+#ifdef __BAREMETAL__
+extern XDfePrach_Config XDfePrach_ConfigTable[XDFEPRACH_MAX_NUM_INSTANCES];
+#endif
 
 /**************************** API declarations *******************************/
 /* System initialization API */

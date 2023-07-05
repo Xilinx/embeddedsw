@@ -1,0 +1,40 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for DFE PRACH controller
+
+maintainers:
+  - Dragan Cvetic <dragan.cvetic@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,xdfe-nr-prach-2.0
+
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XDfePrach_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,num-antenna
+    - xlnx,num-cc-per-antenna
+    - xlnx,num-slot-channels
+    - xlnx,num-slots
+    - xlnx,num-rach-lanes
+    - xlnx,num-rach-channels
+    - xlnx,has-axis-ctrl
+    - xlnx,has-irq
+    - xlnx,num-bands
+
+examples:
+
+...
