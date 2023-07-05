@@ -1,0 +1,43 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for DFE EQU controller
+
+maintainers:
+  - Dragan Cvetic <dragan.cvetic@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,xdfe-equalizer-1.0
+
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,num-channels:
+    decription: Number of channels
+  xlnx,sample-width:
+    decription: Sample width
+  xlnx,complex-mode:
+    decription: complex mode flag
+  xlnx,tuser-width:
+    decription: Tuser width
+
+config:
+    - XDfeEqu_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,num-channels
+    - xlnx,sample-width
+    - xlnx,complex-mode
+    - xlnx,tuser-width
+
+examples:
+
+...

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +35,7 @@
 *       dc     02/18/22 Write 1 clears event status
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     04/06/22 Update documentation
+* 1.5   cog    07/04/23 Add support for SDT
 *
 * </pre>
 * @addtogroup dfeequ Overview
@@ -67,7 +69,7 @@
 * @endcond
 */
 #define XDFEEQU_TAP_MAX (24U) /**< Maximum tap value */
-#define XDFEEQU_DRIVER_VERSION_MINOR (4U) /**< Driver's minor version number */
+#define XDFEEQU_DRIVER_VERSION_MINOR (5U) /**< Driver's minor version number */
 #define XDFEEQU_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
@@ -602,7 +604,7 @@ XDfeEqu *XDfeEqu_InstanceInit(const char *DeviceNodeName)
 	/* Is this first EQU initialisation ever? */
 	if (0U == XDfeEqu_DriverHasBeenRegisteredOnce) {
 		/* Set up environment to non-initialized */
-		for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
+		for (Index = 0; XDFEEQU_INSTANCE_EXISTS(Index); Index++) {
 			XDfeEqu_Equalizer[Index].StateId =
 				XDFEEQU_STATE_NOT_READY;
 			XDfeEqu_Equalizer[Index].NodeName[0] = '\0';
@@ -615,7 +617,7 @@ XDfeEqu *XDfeEqu_InstanceInit(const char *DeviceNodeName)
 	 * a) if no, do full initialization
 	 * b) if yes, skip initialization and return the object pointer
 	 */
-	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEEQU_INSTANCE_EXISTS(Index); Index++) {
 		if (0U == strncmp(XDfeEqu_Equalizer[Index].NodeName,
 				  DeviceNodeName, strlen(DeviceNodeName))) {
 			XDfeEqu_Equalizer[Index].StateId = XDFEEQU_STATE_READY;
@@ -626,7 +628,7 @@ XDfeEqu *XDfeEqu_InstanceInit(const char *DeviceNodeName)
 	/*
 	 * Find the available slot for this instance.
 	 */
-	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEEQU_INSTANCE_EXISTS(Index); Index++) {
 		if (XDfeEqu_Equalizer[Index].NodeName[0] == '\0') {
 			strncpy(XDfeEqu_Equalizer[Index].NodeName,
 				DeviceNodeName, XDFEEQU_NODE_NAME_MAX_LENGTH);
@@ -643,7 +645,7 @@ register_metal:
 	memcpy(Str, InstancePtr->NodeName, XDFEEQU_NODE_NAME_MAX_LENGTH);
 	AddrStr = strtok(Str, ".");
 	Addr = strtoul(AddrStr, NULL, 16);
-	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEEQU_INSTANCE_EXISTS(Index); Index++) {
 		if (Addr == XDfeEqu_metal_phys[Index]) {
 			InstancePtr->Device = &XDfeEqu_CustomDevice[Index];
 			goto bm_register_metal;
@@ -696,7 +698,7 @@ void XDfeEqu_InstanceClose(XDfeEqu *InstancePtr)
 	u32 Index;
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEEQU_INSTANCE_EXISTS(Index); Index++) {
 		/* Find the instance in XDfeEqu_Equalizer array */
 		if (&XDfeEqu_Equalizer[Index] == InstancePtr) {
 			/* Release libmetal */

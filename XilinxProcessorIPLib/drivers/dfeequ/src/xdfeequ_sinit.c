@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +28,7 @@
 * 1.1   dc     10/26/21 Make driver R5 compatible
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/19/21 Update doxygen documentation
+* 1.5   cog    07/04/23 Add support for SDT
 *
 * </pre>
 *
@@ -38,7 +40,9 @@
 #include <stdio.h>
 
 #ifdef __BAREMETAL__
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include <metal/alloc.h>
 #else
 #include <dirent.h>
@@ -82,7 +86,6 @@
 #define XDFEEQU_WORD_SIZE 4U
 
 #else
-#define XDFEEQU_MAX_NUM_INSTANCES XPAR_XDFEEQU_NUM_INSTANCES
 #define XDFEEQU_BUS_NAME "generic"
 #define XDFEEQU_REGION_SIZE 0x4000U
 #endif
@@ -95,9 +98,6 @@ extern int metal_linux_get_device_property(struct metal_device *device,
 #endif
 
 /************************** Variable Definitions *****************************/
-#ifdef __BAREMETAL__
-extern XDfeEqu_Config XDfeEqu_ConfigTable[XPAR_XDFEEQU_NUM_INSTANCES];
-#endif
 XDfeEqu XDfeEqu_Equalizer[XDFEEQU_MAX_NUM_INSTANCES];
 
 #ifdef __BAREMETAL__
@@ -129,7 +129,7 @@ u32 XDfeEqu_GetConfigTable(XDfeEqu *InstancePtr, XDfeEqu_Config **ConfigTable)
 	AddrStr = strtok(Str, ".");
 	Addr = strtoul(AddrStr, NULL, 16);
 
-	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEEQU_INSTANCE_EXISTS(Index); Index++) {
 		if (XDfeEqu_ConfigTable[Index].BaseAddr == Addr) {
 			*ConfigTable = &XDfeEqu_ConfigTable[Index];
 			return XST_SUCCESS;
