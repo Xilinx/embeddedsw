@@ -84,7 +84,7 @@ XCanPs_Config *XCanPs_LookupConfig(u32 BaseAddress)
 
 	for (Index = 0U; XCanPs_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XCanPs_ConfigTable[Index].BaseAddr == BaseAddress) ||
-				!BaseAddress) {
+		    !BaseAddress) {
 			CfgPtr = &XCanPs_ConfigTable[Index];
 			break;
 		}

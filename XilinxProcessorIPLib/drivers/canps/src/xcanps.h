@@ -340,7 +340,7 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 *******************************************************************************/
 #define XCanPs_IsTxDone(InstancePtr) \
 	(((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr),		\
-		XCANPS_ISR_OFFSET) & XCANPS_IXR_TXOK_MASK) != (u32)0) ? TRUE : FALSE)
+			  XCANPS_ISR_OFFSET) & XCANPS_IXR_TXOK_MASK) != (u32)0) ? TRUE : FALSE)
 
 
 /****************************************************************************/
@@ -360,7 +360,7 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 *****************************************************************************/
 #define XCanPs_IsTxFifoFull(InstancePtr) \
 	(((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr), 	\
-		XCANPS_SR_OFFSET) & XCANPS_SR_TXFLL_MASK) != (u32)0) ? TRUE : FALSE)
+			  XCANPS_SR_OFFSET) & XCANPS_SR_TXFLL_MASK) != (u32)0) ? TRUE : FALSE)
 
 
 /****************************************************************************/
@@ -380,7 +380,7 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 *****************************************************************************/
 #define XCanPs_IsHighPriorityBufFull(InstancePtr) \
 	(((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr), 	\
-		XCANPS_SR_OFFSET) & XCANPS_SR_TXBFLL_MASK) != (u32)0) ? TRUE : FALSE)
+			  XCANPS_SR_OFFSET) & XCANPS_SR_TXBFLL_MASK) != (u32)0) ? TRUE : FALSE)
 
 
 /****************************************************************************/
@@ -400,7 +400,7 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 *****************************************************************************/
 #define XCanPs_IsRxEmpty(InstancePtr) \
 	(((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr), 	\
-		XCANPS_ISR_OFFSET) & XCANPS_IXR_RXNEMP_MASK) != (u32)0) ? FALSE : TRUE)
+			  XCANPS_ISR_OFFSET) & XCANPS_IXR_RXNEMP_MASK) != (u32)0) ? FALSE : TRUE)
 
 
 /****************************************************************************/
@@ -430,7 +430,7 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 *****************************************************************************/
 #define XCanPs_IsAcceptFilterBusy(InstancePtr) 		\
 	(((XCanPs_ReadReg(((InstancePtr)->CanConfig.BaseAddr), 	\
-		XCANPS_SR_OFFSET) & XCANPS_SR_ACFBSY_MASK) != (u32)0) ? TRUE : FALSE)
+			  XCANPS_SR_OFFSET) & XCANPS_SR_ACFBSY_MASK) != (u32)0) ? TRUE : FALSE)
 
 
 /****************************************************************************/
@@ -458,8 +458,8 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 *
 *****************************************************************************/
 #define XCanPs_CreateIdValue(StandardId, SubRemoteTransReq, IdExtension, \
-		ExtendedId, RemoteTransReq) 				\
- ((((StandardId) << XCANPS_IDR_ID1_SHIFT) & XCANPS_IDR_ID1_MASK) |	\
+			     ExtendedId, RemoteTransReq) 				\
+((((StandardId) << XCANPS_IDR_ID1_SHIFT) & XCANPS_IDR_ID1_MASK) |	\
  (((SubRemoteTransReq) << XCANPS_IDR_SRR_SHIFT) & XCANPS_IDR_SRR_MASK)|\
  (((IdExtension) << XCANPS_IDR_IDE_SHIFT) & XCANPS_IDR_IDE_MASK) |	\
  (((ExtendedId) << XCANPS_IDR_ID2_SHIFT) & XCANPS_IDR_ID2_MASK) |	\
@@ -501,7 +501,7 @@ extern XCanPs_Config XCanPs_ConfigTable[];
 *****************************************************************************/
 #define XCanPs_ClearTimestamp(InstancePtr) 			\
 	XCanPs_WriteReg((InstancePtr)->CanConfig.BaseAddr, 		\
-				XCANPS_TCR_OFFSET, XCANPS_TCR_CTS_MASK)
+			XCANPS_TCR_OFFSET, XCANPS_TCR_CTS_MASK)
 
 /************************** Function Prototypes ******************************/
 
@@ -509,14 +509,14 @@ extern XCanPs_Config XCanPs_ConfigTable[];
  * Functions in xcanps.c
  */
 s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
-				UINTPTR EffectiveAddr);
+			 UINTPTR EffectiveAddr);
 
 void XCanPs_Reset(XCanPs *InstancePtr);
 u8 XCanPs_GetMode(XCanPs *InstancePtr);
 void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode);
 u32 XCanPs_GetStatus(XCanPs *InstancePtr);
 void XCanPs_GetBusErrorCounter(XCanPs *InstancePtr, u8 *RxErrorCount,
-				 u8 *TxErrorCount);
+			       u8 *TxErrorCount);
 u32 XCanPs_GetBusErrorStatus(XCanPs *InstancePtr);
 void XCanPs_ClearBusErrorStatus(XCanPs *InstancePtr, u32 Mask);
 s32 XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr);
@@ -526,16 +526,16 @@ void XCanPs_AcceptFilterEnable(XCanPs *InstancePtr, u32 FilterIndexes);
 void XCanPs_AcceptFilterDisable(XCanPs *InstancePtr, u32 FilterIndexes);
 u32 XCanPs_AcceptFilterGetEnabled(XCanPs *InstancePtr);
 s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
-			 u32 MaskValue, u32 IdValue);
+			   u32 MaskValue, u32 IdValue);
 void XCanPs_AcceptFilterGet(XCanPs *InstancePtr, u32 FilterIndex,
-			  u32 *MaskValue, u32 *IdValue);
+			    u32 *MaskValue, u32 *IdValue);
 
 s32 XCanPs_SetBaudRatePrescaler(XCanPs *InstancePtr, u8 Prescaler);
 u8 XCanPs_GetBaudRatePrescaler(XCanPs *InstancePtr);
 s32 XCanPs_SetBitTiming(XCanPs *InstancePtr, u8 SyncJumpWidth,
-			  u8 TimeSegment2, u8 TimeSegment1);
+			u8 TimeSegment2, u8 TimeSegment1);
 void XCanPs_GetBitTiming(XCanPs *InstancePtr, u8 *SyncJumpWidth,
-			   u8 *TimeSegment2, u8 *TimeSegment1);
+			 u8 *TimeSegment2, u8 *TimeSegment1);
 
 s32 XCanPs_SetRxIntrWatermark(XCanPs *InstancePtr, u8 Threshold);
 u8 XCanPs_GetRxIntrWatermark(XCanPs *InstancePtr);
@@ -557,7 +557,7 @@ u32 XCanPs_IntrGetStatus(XCanPs *InstancePtr);
 void XCanPs_IntrClear(XCanPs *InstancePtr, u32 Mask);
 void XCanPs_IntrHandler(void *InstancePtr);
 s32 XCanPs_SetHandler(XCanPs *InstancePtr, u32 HandlerType,
-			void *CallBackFunc, void *CallBackRef);
+		      void *CallBackFunc, void *CallBackRef);
 
 /*
  * Functions in xcanps_sinit.c

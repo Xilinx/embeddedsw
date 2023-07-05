@@ -68,6 +68,6 @@
 void XCanPs_ResetHw(UINTPTR BaseAddr)
 {
 	XCanPs_WriteReg(BaseAddr, XCANPS_SRR_OFFSET, \
-			   XCANPS_SRR_SRST_MASK);
+			XCANPS_SRR_SRST_MASK);
 }
 /** @} */

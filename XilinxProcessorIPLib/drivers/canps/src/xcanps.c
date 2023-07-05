@@ -74,7 +74,7 @@ static void StubHandler(void);
 *
 ******************************************************************************/
 s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
-				UINTPTR EffectiveAddr)
+			 UINTPTR EffectiveAddr)
 {
 	s32 Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -144,7 +144,7 @@ void XCanPs_Reset(XCanPs *InstancePtr)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr, XCANPS_SRR_OFFSET, \
-			   XCANPS_SRR_SRST_MASK);
+			XCANPS_SRR_SRST_MASK);
 }
 
 /****************************************************************************/
@@ -176,19 +176,16 @@ u8 XCanPs_GetMode(XCanPs *InstancePtr)
 	if ((StatusReg & XCANPS_SR_CONFIG_MASK) != (u32)0) {
 		return (u8)XCANPS_MODE_CONFIG;
 
-	}
-	else if ((StatusReg & XCANPS_SR_SLEEP_MASK) != (u32)0) {
+	} else if ((StatusReg & XCANPS_SR_SLEEP_MASK) != (u32)0) {
 		return (u8)XCANPS_MODE_SLEEP;
 
-	}
-	else if ((StatusReg & XCANPS_SR_NORMAL_MASK) != (u32)0) {
+	} else if ((StatusReg & XCANPS_SR_NORMAL_MASK) != (u32)0) {
 		if ((StatusReg & XCANPS_SR_SNOOP_MASK) != (u32)0) {
 			return (u8)XCANPS_MODE_SNOOP;
 		} else {
 			return (u8)XCANPS_MODE_NORMAL;
 		}
-	}
-	else {
+	} else {
 		/*
 		 * If this line is reached, the device is in Loop Back Mode.
 		 */
@@ -231,10 +228,10 @@ void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((OperationMode == (u8)XCANPS_MODE_CONFIG) ||
-			(OperationMode == (u8)XCANPS_MODE_SLEEP) ||
-			(OperationMode == (u8)XCANPS_MODE_NORMAL) ||
-			(OperationMode == (u8)XCANPS_MODE_LOOPBACK) ||
-			(OperationMode == (u8)XCANPS_MODE_SNOOP));
+		       (OperationMode == (u8)XCANPS_MODE_SLEEP) ||
+		       (OperationMode == (u8)XCANPS_MODE_NORMAL) ||
+		       (OperationMode == (u8)XCANPS_MODE_LOOPBACK) ||
+		       (OperationMode == (u8)XCANPS_MODE_SNOOP));
 
 	CurrentMode = XCanPs_GetMode(InstancePtr);
 
@@ -244,7 +241,7 @@ void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode)
 	 * Mode, no transition through Configuration Mode is needed.
 	 */
 	if ((CurrentMode == (u8)XCANPS_MODE_NORMAL) &&
-		(OperationMode == (u8)XCANPS_MODE_SLEEP)) {
+	    (OperationMode == (u8)XCANPS_MODE_SLEEP)) {
 		/*
 		 * Normal Mode ---> Sleep Mode
 		 */
@@ -253,15 +250,14 @@ void XCanPs_EnterMode(XCanPs *InstancePtr, u8 OperationMode)
 		return;
 
 	} else if ((CurrentMode == (u8)XCANPS_MODE_SLEEP) &&
-		 (OperationMode == (u8)XCANPS_MODE_NORMAL)) {
+		   (OperationMode == (u8)XCANPS_MODE_NORMAL)) {
 		/*
 		 * Sleep Mode ---> Normal Mode
 		 */
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_MSR_OFFSET, 0U);
+				XCANPS_MSR_OFFSET, 0U);
 		return;
-	}
-	else {
+	} else {
 		/*
 		 * If the mode transition is not any of the two cases above, CAN must
 		 * enter Configuration Mode before switching into the target operation
@@ -341,7 +337,7 @@ u32 XCanPs_GetStatus(XCanPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	return XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_SR_OFFSET);
+			      XCANPS_SR_OFFSET);
 }
 
 /*****************************************************************************/
@@ -361,7 +357,7 @@ u32 XCanPs_GetStatus(XCanPs *InstancePtr)
 *
 ******************************************************************************/
 void XCanPs_GetBusErrorCounter(XCanPs *InstancePtr, u8 *RxErrorCount,
-				 u8 *TxErrorCount)
+			       u8 *TxErrorCount)
 {
 	u32 ErrorCount;
 
@@ -373,9 +369,9 @@ void XCanPs_GetBusErrorCounter(XCanPs *InstancePtr, u8 *RxErrorCount,
 	 * Read Error Counter Register and parse it.
 	 */
 	ErrorCount = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_ECR_OFFSET);
+				    XCANPS_ECR_OFFSET);
 	*RxErrorCount = (u8)((ErrorCount & XCANPS_ECR_REC_MASK) >>
-				XCANPS_ECR_REC_SHIFT);
+			     XCANPS_ECR_REC_SHIFT);
 	*TxErrorCount = (u8)(ErrorCount & XCANPS_ECR_TEC_MASK);
 }
 
@@ -400,7 +396,7 @@ u32 XCanPs_GetBusErrorStatus(XCanPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	return XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_ESR_OFFSET);
+			      XCANPS_ESR_OFFSET);
 }
 
 /*****************************************************************************/
@@ -458,13 +454,13 @@ s32 XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr)
 	Xil_AssertNonvoid(FramePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-        /*
-         * Check for transfer in progress.
-         */
-        if (InstancePtr->IsBusy == (u32)TRUE) {
-                Status = (s32)XST_DEVICE_BUSY;
-                goto END;
-        }
+	/*
+	 * Check for transfer in progress.
+	 */
+	if (InstancePtr->IsBusy == (u32)TRUE) {
+		Status = (s32)XST_DEVICE_BUSY;
+		goto END;
+	}
 
 	if (XCanPs_IsTxFifoFull(InstancePtr) == TRUE) {
 		Status = (s32)XST_FIFO_NO_ROOM;
@@ -491,7 +487,7 @@ s32 XCanPs_Send(XCanPs *InstancePtr, u32 *FramePtr)
 
 		Status = (s32)XST_SUCCESS;
 	}
-	END:
+END:
 	return Status;
 }
 
@@ -530,13 +526,13 @@ s32 XCanPs_Recv(XCanPs *InstancePtr, u32 *FramePtr)
 		 * Read IDR, DLC, Data Word 1 and Data Word 2 from the CAN device.
 		 */
 		FramePtr[0] = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						XCANPS_RXFIFO_ID_OFFSET);
+					     XCANPS_RXFIFO_ID_OFFSET);
 		FramePtr[1] = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						XCANPS_RXFIFO_DLC_OFFSET);
+					     XCANPS_RXFIFO_DLC_OFFSET);
 		FramePtr[2] = Xil_EndianSwap32(XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						XCANPS_RXFIFO_DW1_OFFSET));
+					       XCANPS_RXFIFO_DW1_OFFSET));
 		FramePtr[3] = Xil_EndianSwap32(XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						XCANPS_RXFIFO_DW2_OFFSET));
+					       XCANPS_RXFIFO_DW2_OFFSET));
 
 		/*
 		 * Clear RXNEMP bit in ISR. This allows future XCanPs_IsRxEmpty() call
@@ -582,13 +578,13 @@ s32 XCanPs_SendHighPriority(XCanPs *InstancePtr, u32 *FramePtr)
 	Xil_AssertNonvoid(FramePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-        /*
-         * Check for transfer in progress.
-         */
-        if (InstancePtr->IsBusy == (u32)TRUE) {
-                Status = (s32)XST_DEVICE_BUSY;
-                goto END;
-        }
+	/*
+	 * Check for transfer in progress.
+	 */
+	if (InstancePtr->IsBusy == (u32)TRUE) {
+		Status = (s32)XST_DEVICE_BUSY;
+		goto END;
+	}
 
 	if (XCanPs_IsHighPriorityBufFull(InstancePtr) == TRUE) {
 		Status = (s32)XST_FIFO_NO_ROOM;
@@ -615,7 +611,7 @@ s32 XCanPs_SendHighPriority(XCanPs *InstancePtr, u32 *FramePtr)
 
 		Status = (s32)XST_SUCCESS;
 	}
-	END:
+END:
 	return Status;
 }
 
@@ -649,7 +645,7 @@ void XCanPs_AcceptFilterEnable(XCanPs *InstancePtr, u32 FilterIndexes)
 	 *  Calculate the new value and write to AFR.
 	 */
 	EnabledFilters =  XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						XCANPS_AFR_OFFSET);
+					 XCANPS_AFR_OFFSET);
 	EnabledFilters |= FilterIndexes;
 	EnabledFilters &= (u32)XCANPS_AFR_UAF_ALL_MASK;
 	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr, XCANPS_AFR_OFFSET,
@@ -691,7 +687,7 @@ void XCanPs_AcceptFilterDisable(XCanPs *InstancePtr, u32 FilterIndexes)
 					XCANPS_AFR_OFFSET);
 	EnabledFilters &= (u32)XCANPS_AFR_UAF_ALL_MASK & (~FilterIndexes);
 	XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr, XCANPS_AFR_OFFSET,
-			   EnabledFilters);
+			EnabledFilters);
 }
 
 /*****************************************************************************/
@@ -716,7 +712,7 @@ u32 XCanPs_AcceptFilterGetEnabled(XCanPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	return XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_AFR_OFFSET);
+			      XCANPS_AFR_OFFSET);
 
 }
 
@@ -750,7 +746,7 @@ u32 XCanPs_AcceptFilterGetEnabled(XCanPs *InstancePtr)
 *
 ******************************************************************************/
 s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
-			 u32 MaskValue, u32 IdValue)
+			   u32 MaskValue, u32 IdValue)
 {
 	u32 EnabledFilters;
 	s32 Status;
@@ -758,9 +754,9 @@ s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((FilterIndex == XCANPS_AFR_UAF4_MASK) ||
-			(FilterIndex == XCANPS_AFR_UAF3_MASK) ||
-			(FilterIndex == XCANPS_AFR_UAF2_MASK) ||
-			(FilterIndex == XCANPS_AFR_UAF1_MASK));
+			  (FilterIndex == XCANPS_AFR_UAF3_MASK) ||
+			  (FilterIndex == XCANPS_AFR_UAF2_MASK) ||
+			  (FilterIndex == XCANPS_AFR_UAF1_MASK));
 
 	/*
 	 * Return an error if the given filter is currently enabled.
@@ -842,14 +838,14 @@ s32 XCanPs_AcceptFilterSet(XCanPs *InstancePtr, u32 FilterIndex,
 *
 ******************************************************************************/
 void XCanPs_AcceptFilterGet(XCanPs *InstancePtr, u32 FilterIndex,
-			  u32 *MaskValue, u32 *IdValue)
+			    u32 *MaskValue, u32 *IdValue)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((FilterIndex == XCANPS_AFR_UAF4_MASK) ||
-			 (FilterIndex == XCANPS_AFR_UAF3_MASK) ||
-			 (FilterIndex == XCANPS_AFR_UAF2_MASK) ||
-			 (FilterIndex == XCANPS_AFR_UAF1_MASK));
+		       (FilterIndex == XCANPS_AFR_UAF3_MASK) ||
+		       (FilterIndex == XCANPS_AFR_UAF2_MASK) ||
+		       (FilterIndex == XCANPS_AFR_UAF1_MASK));
 	Xil_AssertVoid(MaskValue != NULL);
 	Xil_AssertVoid(IdValue != NULL);
 
@@ -860,21 +856,21 @@ void XCanPs_AcceptFilterGet(XCanPs *InstancePtr, u32 FilterIndex,
 
 		case XCANPS_AFR_UAF2_MASK:	/* Acceptance Filter No. 2 */
 			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						  XCANPS_AFMR2_OFFSET);
+						    XCANPS_AFMR2_OFFSET);
 			*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
 						  XCANPS_AFIR2_OFFSET);
 			break;
 
 		case XCANPS_AFR_UAF3_MASK:	/* Acceptance Filter No. 3 */
 			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						  XCANPS_AFMR3_OFFSET);
+						    XCANPS_AFMR3_OFFSET);
 			*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
 						  XCANPS_AFIR3_OFFSET);
 			break;
 
 		case XCANPS_AFR_UAF4_MASK:	/* Acceptance Filter No. 4 */
 			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-						  XCANPS_AFMR4_OFFSET);
+						    XCANPS_AFMR4_OFFSET);
 			*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
 						  XCANPS_AFIR4_OFFSET);
 			break;
@@ -882,9 +878,9 @@ void XCanPs_AcceptFilterGet(XCanPs *InstancePtr, u32 FilterIndex,
 		default:
 			/* Acceptance Filter No. 1 */
 			*MaskValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_AFMR1_OFFSET);
+						    XCANPS_AFMR1_OFFSET);
 			*IdValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_AFIR1_OFFSET);
+						  XCANPS_AFIR1_OFFSET);
 			break;
 
 	}
@@ -924,7 +920,7 @@ s32 XCanPs_SetBaudRatePrescaler(XCanPs *InstancePtr, u8 Prescaler)
 	} else {
 
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr, XCANPS_BRPR_OFFSET,
-					(u32)Prescaler);
+				(u32)Prescaler);
 
 		Status = (s32)XST_SUCCESS;
 	}
@@ -954,7 +950,7 @@ u8 XCanPs_GetBaudRatePrescaler(XCanPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	ReadValue = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_BRPR_OFFSET);
+				   XCANPS_BRPR_OFFSET);
 	return ((u8)ReadValue);
 }
 
@@ -986,7 +982,7 @@ u8 XCanPs_GetBaudRatePrescaler(XCanPs *InstancePtr)
 *
 ******************************************************************************/
 s32 XCanPs_SetBitTiming(XCanPs *InstancePtr, u8 SyncJumpWidth,
-			  u8 TimeSegment2, u8 TimeSegment1)
+			u8 TimeSegment2, u8 TimeSegment1)
 {
 	u32 Value;
 	s32 Status;
@@ -1003,9 +999,9 @@ s32 XCanPs_SetBitTiming(XCanPs *InstancePtr, u8 SyncJumpWidth,
 
 		Value = ((u32) TimeSegment1) & XCANPS_BTR_TS1_MASK;
 		Value |= (((u32) TimeSegment2) << XCANPS_BTR_TS2_SHIFT) &
-			XCANPS_BTR_TS2_MASK;
+			 XCANPS_BTR_TS2_MASK;
 		Value |= (((u32) SyncJumpWidth) << XCANPS_BTR_SJW_SHIFT) &
-			XCANPS_BTR_SJW_MASK;
+			 XCANPS_BTR_SJW_MASK;
 
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_BTR_OFFSET, Value);
@@ -1037,7 +1033,7 @@ s32 XCanPs_SetBitTiming(XCanPs *InstancePtr, u8 SyncJumpWidth,
 *
 ******************************************************************************/
 void XCanPs_GetBitTiming(XCanPs *InstancePtr, u8 *SyncJumpWidth,
-			   u8 *TimeSegment2, u8 *TimeSegment1)
+			 u8 *TimeSegment2, u8 *TimeSegment1)
 {
 	u32 Value;
 
@@ -1048,7 +1044,7 @@ void XCanPs_GetBitTiming(XCanPs *InstancePtr, u8 *SyncJumpWidth,
 	Xil_AssertVoid(TimeSegment1 != NULL);
 
 	Value = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_BTR_OFFSET);
+			       XCANPS_BTR_OFFSET);
 
 	*TimeSegment1 = (u8) (Value & XCANPS_BTR_TS1_MASK);
 	*TimeSegment2 =
@@ -1090,7 +1086,7 @@ s32 XCanPs_SetRxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
 	} else {
 
 		ThrReg = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_WIR_OFFSET);
+					XCANPS_WIR_OFFSET);
 
 		ThrReg &= XCANPS_WIR_EW_MASK;
 		ThrReg |= ((u32)Threshold & XCANPS_WIR_FW_MASK);
@@ -1123,8 +1119,8 @@ u8 XCanPs_GetRxIntrWatermark(XCanPs *InstancePtr)
 
 
 	return (u8) (XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-					XCANPS_WIR_OFFSET) &
-					XCANPS_WIR_FW_MASK);
+				    XCANPS_WIR_OFFSET) &
+		     XCANPS_WIR_FW_MASK);
 }
 
 
@@ -1159,11 +1155,11 @@ s32 XCanPs_SetTxIntrWatermark(XCanPs *InstancePtr, u8 Threshold)
 	} else {
 
 		ThrReg = XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_WIR_OFFSET);
+					XCANPS_WIR_OFFSET);
 
 		ThrReg &= XCANPS_WIR_FW_MASK;
 		ThrReg |= (((u32)Threshold << XCANPS_WIR_EW_SHIFT)
-				& XCANPS_WIR_EW_MASK);
+			   & XCANPS_WIR_EW_MASK);
 		XCanPs_WriteReg(InstancePtr->CanConfig.BaseAddr,
 				XCANPS_WIR_OFFSET, ThrReg);
 
@@ -1192,8 +1188,8 @@ u8 XCanPs_GetTxIntrWatermark(XCanPs *InstancePtr)
 
 
 	return (u8) ((XCanPs_ReadReg(InstancePtr->CanConfig.BaseAddr,
-				XCANPS_WIR_OFFSET) & XCANPS_WIR_EW_MASK) >>
-					XCANPS_WIR_EW_SHIFT);
+				     XCANPS_WIR_OFFSET) & XCANPS_WIR_EW_MASK) >>
+		     XCANPS_WIR_EW_SHIFT);
 }
 
 
