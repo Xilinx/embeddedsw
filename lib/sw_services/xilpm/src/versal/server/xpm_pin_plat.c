@@ -1975,3 +1975,23 @@ XStatus XPmPin_GetNumPins(u32 *NumPins)
 	*NumPins = PmNumPins;
 	return XST_SUCCESS;
 }
+
+/****************************************************************************/
+/**
+ * @brief  Get requested pin node by node index
+ *
+ * @param PinIndex     Pin Index.
+ *
+ * @return Pointer to requested XPm_PinNode, NULL otherwise
+ *
+ * @note Requires only node index
+ *
+ ****************************************************************************/
+XPm_PinNode *XPmPin_GetByIndex(const u32 PinIndex)
+{
+	XPm_PinNode *Pin = NULL;
+
+	Pin = PmMioPins[PinIndex];
+
+	return Pin;
+}

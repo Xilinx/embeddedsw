@@ -76,7 +76,8 @@
 	(1ULL << (u64)XPM_QID_PINCTRL_GET_PIN_GROUPS) | \
 	(1ULL << (u64)XPM_QID_CLOCK_GET_NUM_CLOCKS) | \
 	(1ULL << (u64)XPM_QID_CLOCK_GET_MAX_DIVISOR) | \
-	(1ULL << (u64)XPM_QID_PLD_GET_PARENT))
+	(1ULL << (u64)XPM_QID_PLD_GET_PARENT) | \
+	(1ULL << (u64)XPM_QID_PINCTRL_GET_ATTRIBUTES))
 
 u32 ResetReason;
 
@@ -969,6 +970,9 @@ XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
 		break;
 	case (u32)XPM_QID_PLD_GET_PARENT:
 		Status = XPmPlDevice_GetParent(Arg1, Output);
+		break;
+	case (u32)XPM_QID_PINCTRL_GET_ATTRIBUTES:
+		Status = XPmPin_QueryAttributes(Arg1, Output);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;

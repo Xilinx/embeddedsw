@@ -78,6 +78,8 @@ XStatus XPmPin_GetPinGroups(u32 PinId, u32 Index, u16 *Groups);
 XStatus XPmPin_CheckPerms(const u32 SubsystemId, const u32 PinId);
 XStatus XPmPin_Release(const u32 SubsystemId, const u32 PinId);
 XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId);
+XStatus XPmPin_QueryAttributes(const u32 PinIndex, u32 *Resp);
+XPm_PinNode *XPmPin_GetByIndex(const u32 PinIndex);
 
 #ifdef __cplusplus
 }
