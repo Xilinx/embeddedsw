@@ -188,7 +188,7 @@ int main(void)
 	 * Run the Spi Polled example.
 	 */
 #ifndef	SDT
-	Status = SpiPsFlashPolledExample(&SpiInstance,SPI_DEVICE_ID);
+	Status = SpiPsFlashPolledExample(&SpiInstance, SPI_DEVICE_ID);
 #else
 	Status = SpiPsFlashPolledExample(&SpiInstance, XPAR_XSPIPS_0_BASEADDR);
 #endif
@@ -226,7 +226,7 @@ int main(void)
 *****************************************************************************/
 #ifndef SDT
 int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr,
-			 u16 SpiDeviceId)
+			    u16 SpiDeviceId)
 #else
 int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 #endif
@@ -259,7 +259,7 @@ int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	}
 
 	Status = XSpiPs_CfgInitialize(SpiInstancePtr, SpiConfig,
-					SpiConfig->BaseAddress);
+				      SpiConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -277,7 +277,7 @@ int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 * chip select mode options
 	 */
 	XSpiPs_SetOptions(SpiInstancePtr, XSPIPS_MANUAL_START_OPTION | \
-			XSPIPS_MASTER_OPTION | XSPIPS_FORCE_SSELECT_OPTION);
+			  XSPIPS_MASTER_OPTION | XSPIPS_FORCE_SSELECT_OPTION);
 
 	/*
 	 * Set the SPI device pre-scalar to divide by 8
@@ -294,7 +294,7 @@ int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 * changed in a debug environment to guarantee
 	 */
 	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MaxSize;
-		 Count++, UniqueValue++) {
+	     Count++, UniqueValue++) {
 		WriteBuffer[DATA_OFFSET + Count] = (u8)(UniqueValue);
 	}
 
@@ -344,7 +344,7 @@ int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 */
 	BufferPtr = &ReadBuffer[DATA_OFFSET];
 	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MaxSize;
-			 Count++, UniqueValue++) {
+	     Count++, UniqueValue++) {
 		if (BufferPtr[Count] != (u8)(UniqueValue)) {
 			return XST_FAILURE;
 		}
@@ -360,7 +360,7 @@ int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 * changed in a debug environment to guarantee
 	 */
 	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MaxSize;
-		 Count++, UniqueValue++) {
+	     Count++, UniqueValue++) {
 		WriteBuffer[DATA_OFFSET + Count] = (u8)(UniqueValue);
 	}
 
@@ -369,7 +369,7 @@ int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 * chip select mode options
 	 */
 	XSpiPs_SetOptions(SpiInstancePtr, XSPIPS_MASTER_OPTION | \
-			XSPIPS_FORCE_SSELECT_OPTION);
+			  XSPIPS_FORCE_SSELECT_OPTION);
 
 	/*
 	 * Erase the flash
@@ -395,7 +395,7 @@ int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 */
 	BufferPtr = &ReadBuffer[DATA_OFFSET];
 	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MaxSize;
-			 Count++, UniqueValue++) {
+	     Count++, UniqueValue++) {
 		if (BufferPtr[Count] != (u8)(UniqueValue)) {
 			return XST_FAILURE;
 		}
@@ -438,7 +438,7 @@ static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 			 * as a separate transfer before the write
 			 */
 			XSpiPs_PolledTransfer(SpiPtr, &WriteEnableCmd, NULL,
-						sizeof(WriteEnableCmd));
+					      sizeof(WriteEnableCmd));
 
 			/*
 			 * Setup the write command with the specified address
@@ -446,13 +446,13 @@ static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 			 */
 			TempBuffer[COMMAND_OFFSET] = Command;
 			TempBuffer[ADDRESS_1_OFFSET] =
-					 (u8)((TempAddress & 0xFF0000) >> 16);
+				(u8)((TempAddress & 0xFF0000) >> 16);
 			TempBuffer[ADDRESS_2_OFFSET] =
-					 (u8)((TempAddress & 0xFF00) >> 8);
+				(u8)((TempAddress & 0xFF00) >> 8);
 			TempBuffer[ADDRESS_3_OFFSET] =
-					 (u8)(TempAddress & 0xFF);
+				(u8)(TempAddress & 0xFF);
 			TempBuffer[DATA_OFFSET] =
-					 WriteBuffer[DATA_OFFSET + Temp];
+				WriteBuffer[DATA_OFFSET + Temp];
 
 			/*
 			 * Send the write command, address, and data to the
@@ -475,7 +475,7 @@ static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 				 */
 
 				XSpiPs_PolledTransfer(SpiPtr, ReadStatusCmd,
-					 FlashStatus, sizeof(ReadStatusCmd));
+						      FlashStatus, sizeof(ReadStatusCmd));
 
 				/*
 				 * If the status indicates the write is done,
@@ -491,7 +491,7 @@ static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 			}
 
 			XSpiPs_PolledTransfer(SpiPtr, &WriteDisableCmd,
-					 NULL, sizeof(WriteDisableCmd));
+					      NULL, sizeof(WriteDisableCmd));
 		}
 	}
 }
@@ -525,7 +525,7 @@ static void FlashRead(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 	WriteBuffer[ADDRESS_3_OFFSET] = (u8)(Address & 0xFF);
 
 	XSpiPs_PolledTransfer(SpiPtr, WriteBuffer, ReadBuffer,
-			  ByteCount + OVERHEAD_SIZE);
+			      ByteCount + OVERHEAD_SIZE);
 
 }
 
@@ -549,7 +549,7 @@ static int SST_GlobalBlkProtectUnlk(XSpiPs *SpiInstancePtr)
 	u8 ulbpr[] = { GLOBAL_BLK_PROT_UNLK };
 
 	/* send wite enable */
-	Status = XSpiPs_PolledTransfer(SpiInstancePtr, WriteEnable, NULL,sizeof(WriteEnable));
+	Status = XSpiPs_PolledTransfer(SpiInstancePtr, WriteEnable, NULL, sizeof(WriteEnable));
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -587,12 +587,12 @@ static int FlashReadID(XSpiPs *SpiInstance)
 	SendBuffer[2] = 0;
 	SendBuffer[3] = 0;
 
-	for(Index=0; Index < ByteCount; Index++) {
+	for (Index = 0; Index < ByteCount; Index++) {
 		SendBuffer[4 + Index] = 0x00;
 	}
 
 	Status = XSpiPs_PolledTransfer(SpiInstance, SendBuffer, RecvBuffer,
-			 (4 + ByteCount));
+				       (4 + ByteCount));
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -601,7 +601,7 @@ static int FlashReadID(XSpiPs *SpiInstance)
 		/* Use SST_READ_ID(0x9f) for reading id*/
 		SendBuffer[0] = SST_READ_ID;
 		Status = XSpiPs_PolledTransfer(SpiInstance, SendBuffer, RecvBuffer,
-				(4 + ByteCount));
+					       (4 + ByteCount));
 
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -613,7 +613,7 @@ static int FlashReadID(XSpiPs *SpiInstance)
 		}
 	}
 
-	for(Index=0; Index < ByteCount; Index++) {
+	for (Index = 0; Index < ByteCount; Index++) {
 		xil_printf("ID : %0x\r\n", RecvBuffer[4 + Index]);
 	}
 
@@ -648,11 +648,11 @@ static void FlashErase(XSpiPs *SpiPtr)
 	 * before the erase
 	 */
 	XSpiPs_PolledTransfer(SpiPtr, &WriteEnableCmd, NULL,
-			  sizeof(WriteEnableCmd));
+			      sizeof(WriteEnableCmd));
 
 	while (1) {
 		XSpiPs_PolledTransfer(SpiPtr, ReadStatusCmd, FlashStatus,
-				  sizeof(ReadStatusCmd));
+				      sizeof(ReadStatusCmd));
 
 		/*
 		 * If the status indicates the write enabled, then stop
@@ -672,10 +672,10 @@ static void FlashErase(XSpiPs *SpiPtr)
 	 * separate transfer before the erase
 	 */
 	XSpiPs_PolledTransfer(SpiPtr, WriteStatusCmd, NULL,
-			  sizeof(WriteStatusCmd));
+			      sizeof(WriteStatusCmd));
 	while (1) {
 		XSpiPs_PolledTransfer(SpiPtr, ReadStatusCmd, FlashStatus,
-				  sizeof(ReadStatusCmd));
+				      sizeof(ReadStatusCmd));
 		/*
 		 * If the status indicates the WP bits cleared, then stop
 		 * waiting; if a value of 0xFF in the status byte is
@@ -694,11 +694,11 @@ static void FlashErase(XSpiPs *SpiPtr)
 	 * before the erase
 	 */
 	XSpiPs_PolledTransfer(SpiPtr, &WriteEnableCmd, NULL,
-			  sizeof(WriteEnableCmd));
+			      sizeof(WriteEnableCmd));
 
 	while (1) {
 		XSpiPs_PolledTransfer(SpiPtr, ReadStatusCmd, FlashStatus,
-				  sizeof(ReadStatusCmd));
+				      sizeof(ReadStatusCmd));
 
 		/*
 		 * If the status indicates the write enabled, then stop
@@ -728,7 +728,7 @@ static void FlashErase(XSpiPs *SpiPtr)
 	 */
 	while (1) {
 		XSpiPs_PolledTransfer(SpiPtr, ReadStatusCmd, FlashStatus,
-				  sizeof(ReadStatusCmd));
+				      sizeof(ReadStatusCmd));
 
 		/*
 		 * If the status indicates the write is done, then stop

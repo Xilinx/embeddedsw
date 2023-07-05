@@ -70,10 +70,10 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #define SpiPs_RecvByte(BaseAddress) \
-		(u8)XSpiPs_In32((BaseAddress) + XSPIPS_RXD_OFFSET)
+	(u8)XSpiPs_In32((BaseAddress) + XSPIPS_RXD_OFFSET)
 
 #define SpiPs_SendByte(BaseAddress, Data) \
-		XSpiPs_Out32((BaseAddress) + XSPIPS_TXD_OFFSET, (Data))
+	XSpiPs_Out32((BaseAddress) + XSPIPS_TXD_OFFSET, (Data))
 
 /************************** Function Prototypes ******************************/
 
@@ -178,7 +178,7 @@ int SpiPsSlavePolledExample(UINTPTR BaseAddress)
 	}
 
 	Status = XSpiPs_CfgInitialize((&SpiInstance), SpiConfig,
-					SpiConfig->BaseAddress);
+				      SpiConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -189,7 +189,7 @@ int SpiPsSlavePolledExample(UINTPTR BaseAddress)
 	 * to quiescent high and CPHA is set to 1.
 	 */
 	Status = XSpiPs_SetOptions((&SpiInstance), (XSPIPS_CR_CPHA_MASK) | \
-			(XSPIPS_CR_CPOL_MASK));
+				   (XSPIPS_CR_CPOL_MASK));
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -199,7 +199,7 @@ int SpiPsSlavePolledExample(UINTPTR BaseAddress)
 	/*
 	 * Set the Rx FIFO Threshold to the Max Data
 	 */
-	XSpiPs_SetRXWatermark((&SpiInstance),MAX_DATA);
+	XSpiPs_SetRXWatermark((&SpiInstance), MAX_DATA);
 
 	/*
 	 * Enable the device.
@@ -251,22 +251,22 @@ void SpiSlaveRead(int ByteCount)
 	u32 StatusReg;
 
 	StatusReg = XSpiPs_ReadReg(SpiInstance.Config.BaseAddress,
-					XSPIPS_SR_OFFSET);
+				   XSPIPS_SR_OFFSET);
 
 	/*
 	 * Polling the Rx Buffer for Data
 	 */
-	do{
+	do {
 		StatusReg = XSpiPs_ReadReg(SpiInstance.Config.BaseAddress,
-					XSPIPS_SR_OFFSET);
-	}while(!(StatusReg & XSPIPS_IXR_RXNEMPTY_MASK));
+					   XSPIPS_SR_OFFSET);
+	} while (!(StatusReg & XSPIPS_IXR_RXNEMPTY_MASK));
 
 	/*
 	 * Reading the Rx Buffer
 	 */
-	for(Count = 0; Count < ByteCount; Count++){
+	for (Count = 0; Count < ByteCount; Count++) {
 		ReadBuffer[Count] = SpiPs_RecvByte(
-				SpiInstance.Config.BaseAddress);
+					    SpiInstance.Config.BaseAddress);
 	}
 
 }
@@ -291,16 +291,16 @@ void SpiSlaveWrite(u8 *Sendbuffer, int ByteCount)
 	int TransCount = 0;
 
 	StatusReg = XSpiPs_ReadReg(SpiInstance.Config.BaseAddress,
-				XSPIPS_SR_OFFSET);
+				   XSPIPS_SR_OFFSET);
 
 	/*
 	 * Fill the TXFIFO with as many bytes as it will take (or as
 	 * many as we have to send).
 	 */
 	while ((ByteCount > 0) &&
-		(TransCount < XSPIPS_FIFO_DEPTH)) {
+	       (TransCount < XSPIPS_FIFO_DEPTH)) {
 		SpiPs_SendByte(SpiInstance.Config.BaseAddress,
-				*Sendbuffer);
+			       *Sendbuffer);
 		Sendbuffer++;
 		++TransCount;
 		ByteCount--;
@@ -311,8 +311,8 @@ void SpiSlaveWrite(u8 *Sendbuffer, int ByteCount)
 	 */
 	do {
 		StatusReg = XSpiPs_ReadReg(
-				SpiInstance.Config.BaseAddress,
-					XSPIPS_SR_OFFSET);
+				    SpiInstance.Config.BaseAddress,
+				    XSPIPS_SR_OFFSET);
 	} while ((StatusReg & XSPIPS_IXR_TXOW_MASK) == 0);
 
 }
