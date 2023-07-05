@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * ----- ------ -------- -----------------------------------------------
 * 1.00  drg/jz 01/25/10 First release
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.9   sb     07/05/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -39,7 +41,11 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+#ifndef SDT
 extern XSpiPs_Config XSpiPs_ConfigTable[XPAR_XSPIPS_NUM_INSTANCES];
+#else
+extern XSpiPs_Config XSpiPs_ConfigTable[];
+#endif
 
 /*****************************************************************************/
 /**
@@ -58,6 +64,7 @@ extern XSpiPs_Config XSpiPs_ConfigTable[XPAR_XSPIPS_NUM_INSTANCES];
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XSpiPs_Config *XSpiPs_LookupConfig(u16 DeviceId)
 {
 	XSpiPs_Config *CfgPtr = NULL;
@@ -71,4 +78,21 @@ XSpiPs_Config *XSpiPs_LookupConfig(u16 DeviceId)
 	}
 	return (XSpiPs_Config *)CfgPtr;
 }
+#else
+XSpiPs_Config *XSpiPs_LookupConfig(u32 BaseAddress)
+{
+	XSpiPs_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = (u32)0x0; XSpiPs_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XSpiPs_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XSpiPs_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XSpiPs_Config *)CfgPtr;
+}
+#endif
 /** @} */

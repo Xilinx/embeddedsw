@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -237,6 +238,7 @@
 * 3.6   sg     02/05/21 Added polled mode example for TPM device.
 * 3.7   asa    04/01/22 Updated version to 3.7. Fixed issue in selftest
 *                       example.
+* 3.9   sb     07/05/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -382,9 +384,17 @@ typedef void (*XSpiPs_StatusHandler) (const void *CallBackRef, u32 StatusEvent,
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	u32 BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
+	u16 IntrId;		/**< Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags */
+	UINTPTR IntrParent; 	/**< Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
 } XSpiPs_Config;
 
 /**
@@ -638,7 +648,11 @@ typedef struct {
 /*
  * Initialization function, implemented in xspips_sinit.c
  */
+#ifndef SDT
 XSpiPs_Config *XSpiPs_LookupConfig(u16 DeviceId);
+#else
+XSpiPs_Config *XSpiPs_LookupConfig(u32 BaseAddress);
+#endif
 
 /*
  * Functions implemented in xspips.c
