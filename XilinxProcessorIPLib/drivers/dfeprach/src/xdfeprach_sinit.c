@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 1.4   dc     08/18/22 Update IP version number
 * 1.5   dc     12/14/22 Update multiband register arithmetic
 *       dc     01/02/23 Multiband registers update
+* 1.6   cog    07/04/23 Add support for SDT
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -40,7 +41,9 @@
 #include <stdio.h>
 
 #ifdef __BAREMETAL__
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include <metal/alloc.h>
 #else
 #include <dirent.h>
@@ -116,9 +119,6 @@ extern int metal_linux_get_device_property(struct metal_device *device,
 #endif
 
 /************************** Variable Definitions *****************************/
-#ifdef __BAREMETAL__
-extern XDfePrach_Config XDfePrach_ConfigTable[XPAR_XDFEPRACH_NUM_INSTANCES];
-#endif
 XDfePrach XDfePrach_Prach[XDFEPRACH_MAX_NUM_INSTANCES];
 
 #ifdef __BAREMETAL__
@@ -151,7 +151,7 @@ u32 XDfePrach_GetConfigTable(XDfePrach *InstancePtr,
 	AddrStr = strtok(Str, ".");
 	Addr = strtoul(AddrStr, NULL, 16);
 
-	for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEPRACH_INSTANCE_EXISTS(Index); Index++) {
 		if (XDfePrach_ConfigTable[Index].BaseAddr == Addr) {
 			*ConfigTable = &XDfePrach_ConfigTable[Index];
 			return XST_SUCCESS;

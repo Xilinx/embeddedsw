@@ -49,6 +49,7 @@
 *       dc     05/09/23 Dual and single mode calculation fix
 *       dc     08/06/23 Support dynamic and static modes of operation
 *       dc     06/20/23 Depricate obsolete APIs
+*       cog    07/04/23 Add support for SDT
 * </pre>
 * @addtogroup dfeprach Overview
 * @{
@@ -1532,7 +1533,7 @@ XDfePrach *XDfePrach_InstanceInit(const char *DeviceNodeName)
 	/* Is this first PRACH initialisation ever? */
 	if (0U == XDfePrach_DriverHasBeenRegisteredOnce) {
 		/* Set up environment to non-initialized */
-		for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
+		for (Index = 0; XDFEPRACH_INSTANCE_EXISTS(Index); Index++) {
 			XDfePrach_Prach[Index].StateId =
 				XDFEPRACH_STATE_NOT_READY;
 			XDfePrach_Prach[Index].NodeName[0] = '\0';
@@ -1545,7 +1546,7 @@ XDfePrach *XDfePrach_InstanceInit(const char *DeviceNodeName)
 	 * a) if no, do full initialization
 	 * b) if yes, skip initialization and return the object pointer
 	 */
-	for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEPRACH_INSTANCE_EXISTS(Index); Index++) {
 		if (0U == strncmp(XDfePrach_Prach[Index].NodeName,
 				  DeviceNodeName, strlen(DeviceNodeName))) {
 			XDfePrach_Prach[Index].StateId = XDFEPRACH_STATE_READY;
@@ -1556,7 +1557,7 @@ XDfePrach *XDfePrach_InstanceInit(const char *DeviceNodeName)
 	/*
 	 * Find the available slot for this instance.
 	 */
-	for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEPRACH_INSTANCE_EXISTS(Index); Index++) {
 		if (XDfePrach_Prach[Index].NodeName[0] == '\0') {
 			strncpy(XDfePrach_Prach[Index].NodeName, DeviceNodeName,
 				XDFEPRACH_NODE_NAME_MAX_LENGTH);
@@ -1573,7 +1574,7 @@ register_metal:
 	memcpy(Str, InstancePtr->NodeName, XDFEPRACH_NODE_NAME_MAX_LENGTH);
 	AddrStr = strtok(Str, ".");
 	Addr = strtoul(AddrStr, NULL, 16);
-	for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEPRACH_INSTANCE_EXISTS(Index); Index++) {
 		if (Addr == XDfePrach_metal_phys[Index]) {
 			InstancePtr->Device = &XDfePrach_CustomDevice[Index];
 			goto bm_register_metal;
@@ -1626,7 +1627,7 @@ void XDfePrach_InstanceClose(XDfePrach *InstancePtr)
 	u32 Index;
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEPRACH_INSTANCE_EXISTS(Index); Index++) {
 		/* Find the instance in XDfePrach_Prach array */
 		if (&XDfePrach_Prach[Index] == InstancePtr) {
 			/* Release libmetal */
