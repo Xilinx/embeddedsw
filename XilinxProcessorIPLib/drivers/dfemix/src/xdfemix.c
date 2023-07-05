@@ -59,6 +59,7 @@
 *       dc     02/21/23 Correct switch trigger register name
 * 1.6   dc     06/15/23 Correct comment about gain
 *       dc     06/20/23 Depricate obsolete APIs
+*       cog    07/04/23 Add support for SDT
 * </pre>
 * @addtogroup dfemix Overview
 * @{
@@ -1756,7 +1757,7 @@ XDfeMix *XDfeMix_InstanceInit(const char *DeviceNodeName)
 	/* Is this first mixer initialisation ever? */
 	if (0U == XDfeMix_DriverHasBeenRegisteredOnce) {
 		/* Set up environment to non-initialized */
-		for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
+		for (Index = 0; XDFEMIX_INSTANCE_EXISTS(Index); Index++) {
 			XDfeMix_Mixer[Index].StateId = XDFEMIX_STATE_NOT_READY;
 			XDfeMix_Mixer[Index].NodeName[0] = '\0';
 		}
@@ -1768,7 +1769,7 @@ XDfeMix *XDfeMix_InstanceInit(const char *DeviceNodeName)
 	 * a) if no, do full initialization
 	 * b) if yes, skip initialization and return the object pointer
 	 */
-	for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEMIX_INSTANCE_EXISTS(Index); Index++) {
 		if (0U == strncmp(XDfeMix_Mixer[Index].NodeName, DeviceNodeName,
 				  strlen(DeviceNodeName))) {
 			XDfeMix_Mixer[Index].StateId = XDFEMIX_STATE_READY;
@@ -1779,7 +1780,7 @@ XDfeMix *XDfeMix_InstanceInit(const char *DeviceNodeName)
 	/*
 	 * Find the available slot for this instance.
 	 */
-	for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEMIX_INSTANCE_EXISTS(Index); Index++) {
 		if (XDfeMix_Mixer[Index].NodeName[0] == '\0') {
 			strncpy(XDfeMix_Mixer[Index].NodeName, DeviceNodeName,
 				XDFEMIX_NODE_NAME_MAX_LENGTH);
@@ -1796,7 +1797,7 @@ register_metal:
 	memcpy(Str, InstancePtr->NodeName, XDFEMIX_NODE_NAME_MAX_LENGTH);
 	AddrStr = strtok(Str, ".");
 	Addr = strtoul(AddrStr, NULL, 16);
-	for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEMIX_INSTANCE_EXISTS(Index); Index++) {
 		if (Addr == XDfeMix_metal_phys[Index]) {
 			InstancePtr->Device = &XDfeMix_CustomDevice[Index];
 			goto bm_register_metal;
@@ -1849,7 +1850,7 @@ void XDfeMix_InstanceClose(XDfeMix *InstancePtr)
 	u32 Index;
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEMIX_INSTANCE_EXISTS(Index); Index++) {
 		/* Find the instance in XDfeMix_Mixer array */
 		if (&XDfeMix_Mixer[Index] == InstancePtr) {
 			/* Release libmetal */

@@ -84,6 +84,7 @@
 *       dc     11/11/22 Update get overflow status API
 *       dc     11/11/22 Update NCOIdx and CCID check
 * 1.6   dc     06/15/23 Correct comment about gain
+*       cog    07/04/23 Add support for SDT
 *
 * </pre>
 * @endcond
@@ -98,7 +99,9 @@ extern "C" {
 /**************************** Includes ***************************************/
 #ifdef __BAREMETAL__
 #include "xil_types.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xstatus.h"
 #else
 #include <linux/types.h>
@@ -112,6 +115,7 @@ extern "C" {
 #ifndef __BAREMETAL__
 #define XDFEMIX_MAX_NUM_INSTANCES                                              \
 	(10U) /**< Maximum number of driver instances running at the same time. */
+#define XDFEMIX_INSTANCE_EXISTS(X) (X < XDFEMIX_MAX_NUM_INSTANCES)
 /**
 * @cond nocomments
 */
@@ -130,7 +134,14 @@ extern "C" {
 #define XST_FAILURE (1U) /**< Failure flag */
 #endif
 #else
+#ifndef SDT
 #define XDFEMIX_MAX_NUM_INSTANCES XPAR_XDFEMIX_NUM_INSTANCES
+#define XDFEMIX_INSTANCE_EXISTS(X) (X < XDFEMIX_MAX_NUM_INSTANCES)
+#else
+#define XDFEMIX_MAX_NUM_INSTANCES                                              \
+	(10U) /**< Maximum number of driver instances running at the same time. */
+#define XDFEMIX_INSTANCE_EXISTS(X) (XDfeMix_ConfigTable[X].Name != NULL)
+#endif
 #endif
 
 #define XDFEMIX_NODE_NAME_MAX_LENGTH (50U) /**< Node name maximum length */
@@ -494,7 +505,11 @@ typedef XDfeMix_Status XDfeMix_InterruptMask;
  * Mixer Config Structure.
  */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId; /**< Device Id */
+#else
+	char *Name; /**< Unique name of the device */
+#endif
 	metal_phys_addr_t BaseAddr; /**< Device base address */
 	u32 Mode; /**< [0,1] 0=downlink, 1=uplink, 2=switchable */
 	u32 NumAntenna; /**< [1,2,4,8] */
@@ -525,6 +540,11 @@ typedef struct {
 	struct metal_io_region *Io; /**< Libmetal IO structure */
 	struct metal_device *Device; /**< Libmetal device structure */
 } XDfeMix;
+
+/************************** Variable Definitions *****************************/
+#ifdef __BAREMETAL__
+extern XDfeMix_Config XDfeMix_ConfigTable[XDFEMIX_MAX_NUM_INSTANCES];
+#endif
 
 /**************************** API declarations *******************************/
 /* System initialization API */
