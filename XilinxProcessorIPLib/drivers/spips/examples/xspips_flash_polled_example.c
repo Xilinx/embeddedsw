@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +31,7 @@
 *                    generation and also modified filename tag to include
 *                    the file in doxygen examples.
 * 3.2  nsk  03/26/19 Add support for versal
+* 3.9  sb   07/05/23 Added support for system device-tree flow.
 *</pre>
 *
 ******************************************************************************/
@@ -48,7 +50,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define SPI_DEVICE_ID		XPAR_XSPIPS_0_DEVICE_ID
+#endif
 
 /*
  * The following constants define the commands which may be sent to the flash
@@ -127,7 +131,11 @@ static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command);
 
 static void FlashRead(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command);
 
+#ifndef SDT
 int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, u16 SpiDeviceId);
+#else
+int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress);
+#endif
 
 static int FlashReadID(XSpiPs *SpiInstance);
 
@@ -179,7 +187,11 @@ int main(void)
 	/*
 	 * Run the Spi Polled example.
 	 */
+#ifndef	SDT
 	Status = SpiPsFlashPolledExample(&SpiInstance,SPI_DEVICE_ID);
+#else
+	Status = SpiPsFlashPolledExample(&SpiInstance, XPAR_XSPIPS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("SPI SerialFlash Polled Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -212,8 +224,12 @@ int main(void)
 * is pulled up.
 *
 *****************************************************************************/
+#ifndef SDT
 int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr,
 			 u16 SpiDeviceId)
+#else
+int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u8 *BufferPtr;
@@ -233,7 +249,11 @@ int SpiPsFlashPolledExample(XSpiPs *SpiInstancePtr,
 	/*
 	 * Initialize the SPI driver so that it's ready to use
 	 */
+#ifndef	SDT
 	SpiConfig = XSpiPs_LookupConfig(SpiDeviceId);
+#else
+	SpiConfig = XSpiPs_LookupConfig(BaseAddress);
+#endif
 	if (NULL == SpiConfig) {
 		return XST_FAILURE;
 	}
