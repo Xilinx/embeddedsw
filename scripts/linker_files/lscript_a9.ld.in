@@ -176,6 +176,14 @@ SECTIONS
    __fini_array_end = .;
 } > @DDR@
 
+.drvcfg_sec : {
+    . = ALIGN(8);
+     __drvcfgsecdata_start = .;
+    KEEP (*(.drvcfg_sec))
+    __drvcfgsecdata_end = .;
+    __drvcfgsecdata_size = __drvcfgsecdata_end - __drvcfgsecdata_start;
+} > @DDR@
+
 .ARM.attributes : {
    __ARM.attributes_start = .;
    *(.ARM.attributes)
@@ -267,14 +275,6 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _UNDEF_STACK_SIZE;
    . = ALIGN(16);
    __undef_stack = .;
-} > @DDR@
-
-.drvcfg_sec : {
-    . = ALIGN(8);
-     __drvcfgsecdata_start = .;
-    KEEP (*(.drvcfg_sec))
-    __drvcfgsecdata_end = .;
-    __drvcfgsecdata_size = __drvcfgsecdata_end - __drvcfgsecdata_start;
 } > @DDR@
 
 end = .;
