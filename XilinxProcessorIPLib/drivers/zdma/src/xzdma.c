@@ -92,7 +92,9 @@ s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
 	Xil_AssertNonvoid(EffectiveAddr != ((u32)0x00));
 
 	InstancePtr->Config.BaseAddress = CfgPtr->BaseAddress;
+#ifndef SDT
 	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
+#endif
 	InstancePtr->Config.DmaType = CfgPtr->DmaType;
 	InstancePtr->Config.IsCacheCoherent = CfgPtr->IsCacheCoherent;
 
