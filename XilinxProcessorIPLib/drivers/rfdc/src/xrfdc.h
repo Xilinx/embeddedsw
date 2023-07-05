@@ -289,6 +289,7 @@
 *                       DAC coupling.
 *       cog    01/07/23 Added VOP support for DC coupled DACs and removed VOP
 *                       support for ES1 Parts.
+* 12.1  cog    07/04/23 Add support for SDT.
 *
 * </pre>
 *
@@ -662,7 +663,11 @@ typedef struct {
  * RFdc Config Structure.
  */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId;
+#else
+	char *Name;/**< Unique name of the device */
+#endif
 	metal_phys_addr_t BaseAddr;
 	u32 ADCType; /* ADC Type 4GSPS or 2GSPS*/
 	u32 MasterADCTile; /* ADC master Tile */
@@ -1338,7 +1343,11 @@ typedef struct {
 /*****************************************************************************/
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 XRFdc_Config *XRFdc_LookupConfig(u16 DeviceId);
+#else
+XRFdc_Config *XRFdc_LookupConfig(metal_phys_addr_t BaseAddr);
+#endif
 u32 XRFdc_RegisterMetal(XRFdc *InstancePtr, u16 DeviceId, struct metal_device **DevicePtr);
 u32 XRFdc_CfgInitialize(XRFdc *InstancePtr, XRFdc_Config *ConfigPtr);
 u32 XRFdc_StartUp(XRFdc *InstancePtr, u32 Type, int Tile_Id);

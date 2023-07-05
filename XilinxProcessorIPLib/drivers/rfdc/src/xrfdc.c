@@ -210,6 +210,7 @@
 *       cog    01/18/22 Refactor connected data components.
 *       cog    01/18/22 Added safety checks.
 * 12.0  cog    09/01/22 Upversion.
+* 12.1  cog    07/04/23 Add support for SDT.
 *
 * </pre>
 *
@@ -2493,5 +2494,5 @@ u8 XRFdc_GetTileLayout(XRFdc *InstancePtr)
 ******************************************************************************/
 double XRFdc_GetDriverVersion(void)
 {
-	return 12.0;
+	return 12.1;
 }

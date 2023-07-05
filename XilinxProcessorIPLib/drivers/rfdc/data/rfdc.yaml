@@ -1,0 +1,112 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: bindings for rfdc
+
+maintainers:
+  - conall o'griofa <conall.ogriofa@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+      items:
+          - const: lnx,usp-rf-data-converter-2.6
+  reg:
+    description: physical base address and size of the controller register map
+  xlnx,high-speed-adc:
+    description: legacy value for indicating whether or not the device is a dual ADC type
+  xlnx,sysref-master:
+    description: sysref master tiles
+  xlnx,sysref-source:
+    description: sysref source tiles
+  xlnx,ip-type:
+    description: generation of the device
+  xlnx,silicon-revision:
+    description: silicon revision
+  xlnx,enable:
+    description: tile enabled status
+  xlnx,pll-enable:
+    description: pll enabled status of tile
+  xlnx,sampling-rate:
+    description: sampling rate of converter
+  xlnx,refclk-freq:
+    description: reference clock frequency
+  xlnx,fabric-freq:
+    description: fabric frequency
+  xlnx,fbdiv:
+    description: pll feedback divisor
+  xlnx,refclk-div:
+    description: reference clock divisor
+  xlnx,fs-max:
+    description: maximum frequency for converter
+  xlnx,slices:
+    description: number of converters on tile
+  xlnx,link-coupling:
+    description: (DAC only) the link couplng AC/DC
+  xlnx,slice-enable:
+    description: slice enabled status
+  xlnx,invsinc-ctrl:
+    description: (DAC only) invers sinc filter enabled status
+  xlnx,mixer-mode:
+    description: mixer mode
+  xlnx,decoder-mode:
+    description: (DAC only) decoder mode
+  xlnx,data-type:
+    description: whether data is complex or real
+  xlnx,data-width:
+    description: word width of FIFO
+  xlnx,interpolation-mode:
+    description: (DAC only) the interpolation rate
+  xlnx,interpolation-mode:
+    description: (DAC only) the interpolation rate
+  xlnx,decimation-mode:
+    description: (ADC only) the decimation rate
+  xlnx,fifo-enable:
+    description: FIFO enable status
+  xlnx,mixer-type:
+    description: coarse or fine mixer
+
+config:
+    - XRFdc_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,high-speed-adc
+    - xlnx,sysref-master
+    - xlnx,sysref-master
+    - xlnx,sysref-source
+    - xlnx,sysref-source
+    - xlnx,ip-type
+    - xlnx,silicon-revision
+    - child,required:
+        - nosub
+        - xlnx,enable
+        - xlnx,pll-enable
+        - xlnx,sampling-rate
+        - xlnx,refclk-freq
+        - xlnx,fabric-freq
+        - xlnx,fbdiv
+        - xlnx,refclk-div
+        - xlnx,fs-max
+        - xlnx,slices
+        - xlnx,link-coupling
+        - child,required:
+            - nosub
+            - xlnx,slice-enable
+            - xlnx,invsinc-ctrl
+            - xlnx,mixer-mode
+            - xlnx,decoder-mode
+            - xlnx,data-type
+            - xlnx,data-width
+            - xlnx,interpolation-mode
+            - xlnx,decimation-mode
+            - xlnx,fifo-enable
+            - xlnx,adder-enable
+            - xlnx,mixer-type
+
+examples:
+
+...
