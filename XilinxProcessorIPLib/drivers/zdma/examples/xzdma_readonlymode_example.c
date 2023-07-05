@@ -63,7 +63,7 @@ static void DoneHandler(void *CallBackRef);
 #ifndef SDT
 #define ZDMA_DEVICE_ID		XPAR_XZDMA_0_DEVICE_ID /* ZDMA device Id */
 #define ZDMA_INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
-					/**< SCUGIC Device ID */
+/**< SCUGIC Device ID */
 #define ZDMA_INTR_DEVICE_ID	XPAR_XADMAPS_0_INTR/**< ZDMA Interrupt Id */
 #endif
 
@@ -178,7 +178,7 @@ int XZDma_SimpleReadOnlyExample(UINTPTR BaseAddress)
 	 * Flushing source address in cache
 	 */
 	if (!Config->IsCacheCoherent) {
-	Xil_DCacheFlushRange((INTPTR)SrcBuf, SIZE);
+		Xil_DCacheFlushRange((INTPTR)SrcBuf, SIZE);
 	}
 
 	/* ZDMA has set in simple transfer of Read only mode */
@@ -187,20 +187,20 @@ int XZDma_SimpleReadOnlyExample(UINTPTR BaseAddress)
 		return XST_FAILURE;
 	}
 	XZDma_SetCallBack(&ZDma, XZDMA_HANDLER_DONE,
-			 (void *)DoneHandler, &ZDma);
+			  (void *)DoneHandler, &ZDma);
 	/*
 	 * Connect to the interrupt controller.
 	 */
-	#ifndef SDT
+#ifndef SDT
 	Status = SetupInterruptSystem(&Intc, &(ZDma),
-			ZDMA_INTR_DEVICE_ID);
-	#else
+				      ZDMA_INTR_DEVICE_ID);
+#else
 	Status = XSetupInterruptSystem(&ZDma, &XZDma_IntrHandler,
 				       Config->IntrId, Config->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
-	#endif
+#endif
 	if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	/* Configuration settings */
@@ -287,7 +287,7 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -297,8 +297,8 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * hardware interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler) XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler) XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 #endif
 
 	/*
@@ -307,8 +307,8 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * performs the specific interrupt processing for the device
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, IntrId,
-			(Xil_ExceptionHandler) XZDma_IntrHandler,
-				  (void *) InstancePtr);
+				 (Xil_ExceptionHandler) XZDma_IntrHandler,
+				 (void *) InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

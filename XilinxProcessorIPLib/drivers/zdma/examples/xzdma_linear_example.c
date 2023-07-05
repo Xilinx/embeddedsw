@@ -72,7 +72,7 @@ static void ErrorHandler(void *CallBackRef, u32 Mask);
 #ifndef SDT
 #define ZDMA_DEVICE_ID		XPAR_XZDMA_0_DEVICE_ID /* ZDMA device Id */
 #define ZDMA_INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
-						/**< SCUGIC Device ID */
+/**< SCUGIC Device ID */
 #define ZDMA_INTR_DEVICE_ID	XPAR_XADMAPS_0_INTR/**< ZDMA Interrupt Id */
 #endif
 
@@ -94,23 +94,23 @@ XZDma ZDma;		/**<Instance of the ZDMA Device */
 XScuGic Intc;		/**< XIntc Instance */
 #endif
 #if defined(__ICCARM__)
-    #pragma data_alignment = 64
-	u32 DstBuf[256];   /**< Destination buffer */
-    #pragma data_alignment = 64
-	u32 SrcBuf[256];   /**< Source buffer */
-    #pragma data_alignment = 64
-	u32 Dst1Buf[400];  /**< Destination buffer */
-    #pragma data_alignment = 64
-	u32 Src1Buf[400];  /**< Source buffer */
-    #pragma data_alignment = 64
-	u32 AlloMem[200];  /**< memory allocated for descriptors */
+#pragma data_alignment = 64
+u32 DstBuf[256];   /**< Destination buffer */
+#pragma data_alignment = 64
+u32 SrcBuf[256];   /**< Source buffer */
+#pragma data_alignment = 64
+u32 Dst1Buf[400];  /**< Destination buffer */
+#pragma data_alignment = 64
+u32 Src1Buf[400];  /**< Source buffer */
+#pragma data_alignment = 64
+u32 AlloMem[200];  /**< memory allocated for descriptors */
 #else
 u32 DstBuf[256] __attribute__ ((aligned (64)));	/**< Destination buffer */
 u32 SrcBuf[256] __attribute__ ((aligned (64)));	/**< Source buffer */
 u32 Dst1Buf[256] __attribute__ ((aligned (64)));/**< Destination buffer */
 u32 Src1Buf[256] __attribute__ ((aligned (64)));/**< Source buffer */
 u32 AlloMem[256] __attribute__ ((aligned (64)));
-			/**< memory allocated for descriptors */
+/**< memory allocated for descriptors */
 #endif
 volatile static u32 Done = 0;	/**< Variable for Done interrupt */
 volatile static u32 Pause = 0;	/**< Variable for Pause interrupt */
@@ -203,11 +203,11 @@ int XZDma_LinearExample(UINTPTR BaseAddress)
 
 	/* Filling the buffers for data transfer */
 	Value = TESTDATA1;
-	for (Index = 0; Index < (DESCRIPTOR1_DATA_SIZE/4); Index++) {
+	for (Index = 0; Index < (DESCRIPTOR1_DATA_SIZE / 4); Index++) {
 		SrcBuf[Index] = Value++;
 	}
 	Value = TESTDATA2;
-	for (Index = 0; Index < (DESCRIPTOR2_DATA_SIZE/4); Index++) {
+	for (Index = 0; Index < (DESCRIPTOR2_DATA_SIZE / 4); Index++) {
 		Src1Buf[Index] = Value++;
 	}
 
@@ -222,20 +222,20 @@ int XZDma_LinearExample(UINTPTR BaseAddress)
 
 	/* Interrupt call back has been set */
 	XZDma_SetCallBack(&ZDma, XZDMA_HANDLER_DONE,
-				(void *)DoneHandler, &ZDma);
+			  (void *)DoneHandler, &ZDma);
 	XZDma_SetCallBack(&ZDma, XZDMA_HANDLER_ERROR,
-				(void *)ErrorHandler, &ZDma);
+			  (void *)ErrorHandler, &ZDma);
 	/*
 	 * Connect to the interrupt controller.
 	 */
-	#ifndef SDT
+#ifndef SDT
 	Status = SetupInterruptSystem(&Intc, &(ZDma),
-			ZDMA_INTR_DEVICE_ID);
-	#else
+				      ZDMA_INTR_DEVICE_ID);
+#else
 	Status = XSetupInterruptSystem(&ZDma, &XZDma_IntrHandler,
 				       Config->IntrId, Config->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
-	#endif
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -259,36 +259,36 @@ int XZDma_LinearExample(UINTPTR BaseAddress)
 	Data[0].Size = DESCRIPTOR1_DATA_SIZE;
 	Data[0].DstAddr = (UINTPTR)DstBuf;
 	if (Config->IsCacheCoherent) {
-	    Data[0].SrcCoherent = 1;
-	    Data[0].DstCoherent = 1;
+		Data[0].SrcCoherent = 1;
+		Data[0].DstCoherent = 1;
 	} else {
-	    Data[0].SrcCoherent = 0;
-	    Data[0].DstCoherent = 0;
+		Data[0].SrcCoherent = 0;
+		Data[0].DstCoherent = 0;
 	}
-	    Data[0].Pause = 1;
+	Data[0].Pause = 1;
 
 	Data[1].SrcAddr = (UINTPTR)Src1Buf;
 	Data[1].Size = DESCRIPTOR2_DATA_SIZE;
 	Data[1].DstAddr = (UINTPTR)Dst1Buf;
 	if (Config->IsCacheCoherent) {
-	    Data[1].SrcCoherent = 1;
-	    Data[1].DstCoherent = 1;
+		Data[1].SrcCoherent = 1;
+		Data[1].DstCoherent = 1;
 	}
-	    Data[1].Pause = 0;
+	Data[1].Pause = 0;
 
 	/*
 	 * Invalidating destination address and flushing
 	 * source address in cache before the start of DMA data transfer.
 	 */
 	if (!Config->IsCacheCoherent) {
-	    Xil_DCacheFlushRange((INTPTR)Data[0].SrcAddr, Data[0].Size);
-	    Xil_DCacheInvalidateRange((INTPTR)Data[0].DstAddr, Data[0].Size);
-	    Xil_DCacheFlushRange((INTPTR)Data[1].SrcAddr, Data[1].Size);
-	    Xil_DCacheInvalidateRange((INTPTR)Data[1].DstAddr, Data[1].Size);
+		Xil_DCacheFlushRange((INTPTR)Data[0].SrcAddr, Data[0].Size);
+		Xil_DCacheInvalidateRange((INTPTR)Data[0].DstAddr, Data[0].Size);
+		Xil_DCacheFlushRange((INTPTR)Data[1].SrcAddr, Data[1].Size);
+		Xil_DCacheInvalidateRange((INTPTR)Data[1].DstAddr, Data[1].Size);
 	}
 	/* Enable required interrupts */
 	XZDma_EnableIntr(&ZDma, (XZDMA_IXR_DMA_DONE_MASK |
-					XZDMA_IXR_DMA_PAUSE_MASK));
+				 XZDMA_IXR_DMA_PAUSE_MASK));
 	XZDma_Start(&ZDma, Data, 2); /* Initiates the data transfer */
 
 	/*
@@ -311,22 +311,22 @@ int XZDma_LinearExample(UINTPTR BaseAddress)
 
 	/* Disable relevant interrupts */
 	XZDma_DisableIntr(&ZDma, (XZDMA_IXR_DMA_DONE_MASK |
-						XZDMA_IXR_DMA_PAUSE_MASK));
+				  XZDMA_IXR_DMA_PAUSE_MASK));
 
 	/* Before the destination buffer data is accessed do one more invalidation
-         * to ensure that the latest data is read. This is as per ARM recommendations.
-         */
+	 * to ensure that the latest data is read. This is as per ARM recommendations.
+	 */
 	if (!Config->IsCacheCoherent) {
 		Xil_DCacheInvalidateRange((INTPTR)Data[0].DstAddr, Data[0].Size);
 		Xil_DCacheInvalidateRange((INTPTR)Data[1].DstAddr, Data[1].Size);
 	}
 	/* Validating the data transfer */
-	for (Index = 0; Index < (DESCRIPTOR1_DATA_SIZE/4); Index++) {
+	for (Index = 0; Index < (DESCRIPTOR1_DATA_SIZE / 4); Index++) {
 		if (SrcBuf[Index] != DstBuf[Index]) {
 			return XST_FAILURE;
 		}
 	}
-	for (Index = 0; Index < (DESCRIPTOR2_DATA_SIZE/4); Index++) {
+	for (Index = 0; Index < (DESCRIPTOR2_DATA_SIZE / 4); Index++) {
 		if (Src1Buf[Index] != Dst1Buf[Index]) {
 			return XST_FAILURE;
 		}
@@ -377,7 +377,7 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -387,8 +387,8 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * hardware interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler) XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler) XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 #endif
 
 	/*
@@ -397,8 +397,8 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * performs the specific interrupt processing for the device
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, IntrId,
-			(Xil_ExceptionHandler) XZDma_IntrHandler,
-				  (void *) InstancePtr);
+				 (Xil_ExceptionHandler) XZDma_IntrHandler,
+				 (void *) InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

@@ -72,7 +72,7 @@ static void DoneHandler(void *CallBackRef);
 #ifndef SDT
 #define ZDMA_DEVICE_ID		XPAR_XZDMA_0_DEVICE_ID /* ZDMA device Id */
 #define ZDMA_INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
-												/**< SCUGIC Device ID */
+/**< SCUGIC Device ID */
 #define ZDMA_INTR_DEVICE_ID	XPAR_XADMAPS_0_INTR /**< ZDMA Interrupt Id */
 #endif
 
@@ -91,8 +91,8 @@ XScuGic Intc;		/**< XIntc Instance */
 #endif
 u32 SrcBuf[4];		/**< Source buffer */
 #if defined(__ICCARM__)
-    #pragma data_alignment = 64
-	u32 DstBuf[300]; /**< Destination buffer */
+#pragma data_alignment = 64
+u32 DstBuf[300]; /**< Destination buffer */
 #else
 u32 DstBuf[300] __attribute__ ((aligned (64))); /**< Destination buffer */
 #endif
@@ -193,20 +193,20 @@ int XZDma_WriteOnlyExample(UINTPTR BaseAddress)
 	/*
 	 * Connect to the interrupt controller.
 	 */
-	#ifndef SDT
+#ifndef SDT
 	Status = SetupInterruptSystem(&Intc, &(ZDma),
-			ZDMA_INTR_DEVICE_ID);
-	#else
+				      ZDMA_INTR_DEVICE_ID);
+#else
 	Status = XSetupInterruptSystem(&ZDma, &XZDma_IntrHandler,
 				       Config->IntrId, Config->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
-	#endif
+#endif
 	if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
+		return XST_FAILURE;
 	}
 	(void)XZDma_SetCallBack(&ZDma,
-		XZDMA_HANDLER_DONE, (void *)(DoneHandler),
-							&ZDma);
+				XZDMA_HANDLER_DONE, (void *)(DoneHandler),
+				&ZDma);
 	/* Configuration settings */
 	Configur.OverFetch = 0;
 	Configur.SrcIssue = 0x1F;
@@ -239,8 +239,7 @@ int XZDma_WriteOnlyExample(UINTPTR BaseAddress)
 		SrcBuf[2] = 0x4567;
 		SrcBuf[3] = 0xEF;
 		XZDma_WOData(&ZDma, SrcBuf);
-	}
-	else { /* For ADMA */
+	} else { /* For ADMA */
 		SrcBuf[0] = 0x1234;
 		SrcBuf[1] = 0xABCD;
 		XZDma_WOData(&ZDma, SrcBuf);
@@ -263,31 +262,30 @@ int XZDma_WriteOnlyExample(UINTPTR BaseAddress)
 	XZDma_DisableIntr(&ZDma, XZDMA_IXR_DMA_DONE_MASK);
 
 	/* Before the destination buffer data is accessed do one more invalidation
-         * to ensure that the latest data is read. This is as per ARM recommendations.
-         */
+	 * to ensure that the latest data is read. This is as per ARM recommendations.
+	 */
 	if (!Config->IsCacheCoherent) {
 		Xil_DCacheInvalidateRange((INTPTR)DstBuf, SIZE);
 	}
 	/* Validation */
 	if (ZDma.Config.DmaType == 0) { /* For GDMA */
-		for (Index = 0; Index < (SIZE/4)/4; Index++) {
+		for (Index = 0; Index < (SIZE / 4) / 4; Index++) {
 			for (Index1 = 0; Index1 < 4; Index1++) {
 				if (SrcBuf[Index1] != *Buf++) {
 					return XST_FAILURE;
 				}
 			}
 		}
-	}
-	else { /* For ADMA */
+	} else { /* For ADMA */
 #ifdef versal
-		for (Index = 0; Index < (SIZE/4)/4; Index++) {
+		for (Index = 0; Index < (SIZE / 4) / 4; Index++) {
 			for (Index1 = 0; Index1 < 4; Index1++) {
 #else
-		for (Index = 0; Index < (SIZE/4)/2; Index++) {
+		for (Index = 0; Index < (SIZE / 4) / 2; Index++) {
 			for (Index1 = 0; Index1 < 2; Index1++) {
 #endif
 				if (SrcBuf[Index1] != *Buf++) {
-						return XST_FAILURE;
+					return XST_FAILURE;
 				}
 			}
 		}
@@ -338,7 +336,7 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -348,8 +346,8 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * hardware interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler) XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler) XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 #endif
 
 	/*
@@ -358,8 +356,8 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * performs the specific interrupt processing for the device
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, IntrId,
-			(Xil_ExceptionHandler) XZDma_IntrHandler,
-				  (void *) InstancePtr);
+				 (Xil_ExceptionHandler) XZDma_IntrHandler,
+				 (void *) InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

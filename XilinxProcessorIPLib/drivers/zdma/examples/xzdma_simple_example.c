@@ -79,7 +79,7 @@
 #else
 #define INTC		XScuGic
 #define ZDMA_INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
-					/**< SCUGIC Device ID */
+/**< SCUGIC Device ID */
 #define ZDMA_INTR_DEVICE_ID	XPAR_XADMAPS_0_INTR /**< ZDMA Interrupt Id */
 #endif
 #endif
@@ -121,13 +121,13 @@ static INTC Intc;	/**< XIntc Instance */
 #endif
 
 #if defined(__ICCARM__)
-    #pragma data_alignment = 64
-	u8 ZDmaDstBuf[SIZE]; /**< Destination buffer */
-    #pragma data_alignment = 64
-	u8 ZDmaSrcBuf[SIZE]; /**< Source buffer */
+#pragma data_alignment = 64
+u8 ZDmaDstBuf[SIZE]; /**< Destination buffer */
+#pragma data_alignment = 64
+u8 ZDmaSrcBuf[SIZE]; /**< Source buffer */
 #else
-	u8 ZDmaDstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
-	u8 ZDmaSrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
+u8 ZDmaDstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
+u8 ZDmaSrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
 #endif
 volatile static u32 Done = 0;				/**< Done flag */
 volatile static u32 ErrorStatus = 0;			/**< Error Status flag*/
@@ -150,12 +150,12 @@ int main(void)
 	int Status;
 
 	/* Run the simple example */
-	#ifndef SDT
+#ifndef SDT
 	Status = XZDma_SimpleExample(&Intc, &ZDma, (u16)ZDMA_DEVICE_ID,
 				     ZDMA_INTR_DEVICE_ID);
-	#else
+#else
 	Status = XZDma_SimpleExample(&ZDma, XPAR_XZDMA_0_BASEADDR);
-	#endif
+#endif
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("ZDMA Simple Example Failed\r\n");
@@ -229,16 +229,16 @@ int XZDma_SimpleExample(XZDma *ZdmaInstPtr, UINTPTR BaseAddress)
 
 	/* Filling the buffer for data transfer */
 	Value = TESTVALUE;
-	for (Index = 0; Index < SIZE/4; Index++) {
-		*(ZDmaSrcBuf +Index) = Value++;
+	for (Index = 0; Index < SIZE / 4; Index++) {
+		*(ZDmaSrcBuf + Index) = Value++;
 	}
 	/*
 	 * Invalidating destination address and flushing
 	 * source address in cache
 	 */
 	if (!Config->IsCacheCoherent) {
-	Xil_DCacheFlushRange((INTPTR)ZDmaSrcBuf, SIZE);
-	Xil_DCacheInvalidateRange((INTPTR)ZDmaDstBuf, SIZE);
+		Xil_DCacheFlushRange((INTPTR)ZDmaSrcBuf, SIZE);
+		Xil_DCacheInvalidateRange((INTPTR)ZDmaDstBuf, SIZE);
 	}
 
 	/* ZDMA has set in simple transfer of Normal mode */
@@ -249,20 +249,20 @@ int XZDma_SimpleExample(XZDma *ZdmaInstPtr, UINTPTR BaseAddress)
 
 	/* Interrupt call back has been set */
 	XZDma_SetCallBack(ZdmaInstPtr, XZDMA_HANDLER_DONE,
-				(void *)DoneHandler, ZdmaInstPtr);
+			  (void *)DoneHandler, ZdmaInstPtr);
 	XZDma_SetCallBack(ZdmaInstPtr, XZDMA_HANDLER_ERROR,
-				(void *)ErrorHandler, ZdmaInstPtr);
+			  (void *)ErrorHandler, ZdmaInstPtr);
 	/*
 	 * Connect to the interrupt controller.
 	 */
-	#ifndef SDT
+#ifndef SDT
 	Status = SetupInterruptSystem(IntcInstPtr, ZdmaInstPtr,
 				      IntrId);
-	#else
+#else
 	Status = XSetupInterruptSystem(ZdmaInstPtr, &XZDma_IntrHandler,
 				       Config->IntrId, Config->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
-	#endif
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -301,10 +301,12 @@ int XZDma_SimpleExample(XZDma *ZdmaInstPtr, UINTPTR BaseAddress)
 
 	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUM_OF_EVENTS, &ErrorStatus);
 	if (Status == XST_SUCCESS) {
-		if (ErrorStatus & XZDMA_IXR_AXI_WR_DATA_MASK)
+		if (ErrorStatus & XZDMA_IXR_AXI_WR_DATA_MASK) {
 			xil_printf("Error occurred on write data channel\n\r");
-		if (ErrorStatus & XZDMA_IXR_AXI_RD_DATA_MASK)
+		}
+		if (ErrorStatus & XZDMA_IXR_AXI_RD_DATA_MASK) {
 			xil_printf("Error occurred on read data channel\n\r");
+		}
 		return XST_FAILURE;
 	}
 
@@ -318,21 +320,23 @@ int XZDma_SimpleExample(XZDma *ZdmaInstPtr, UINTPTR BaseAddress)
 	XZDma_DisableIntr(ZdmaInstPtr, (XZDMA_IXR_ALL_INTR_MASK));
 
 	if (ErrorStatus) {
-		if (ErrorStatus & XZDMA_IXR_AXI_WR_DATA_MASK)
+		if (ErrorStatus & XZDMA_IXR_AXI_WR_DATA_MASK) {
 			xil_printf("Error occurred on write data channel\n\r");
-		if (ErrorStatus & XZDMA_IXR_AXI_RD_DATA_MASK)
+		}
+		if (ErrorStatus & XZDMA_IXR_AXI_RD_DATA_MASK) {
 			xil_printf("Error occurred on read data channel\n\r");
+		}
 		return XST_FAILURE;
 	}
 
 	/* Before the destination buffer data is accessed do one more invalidation
-         * to ensure that the latest data is read. This is as per ARM recommendations.
-         */
+	 * to ensure that the latest data is read. This is as per ARM recommendations.
+	 */
 	if (!Config->IsCacheCoherent) {
 		Xil_DCacheInvalidateRange((INTPTR)ZDmaDstBuf, SIZE);
 	}
 	/* Checking the data transferred */
-	for (Index = 0; Index < SIZE/4; Index++) {
+	for (Index = 0; Index < SIZE / 4; Index++) {
 		if (ZDmaSrcBuf[Index] != ZDmaDstBuf[Index]) {
 			return XST_FAILURE;
 		}
@@ -368,8 +372,8 @@ int XZDma_SimpleExample(XZDma *ZdmaInstPtr, UINTPTR BaseAddress)
 *
 ****************************************************************************/
 int SetupInterruptSystem(INTC *IntcInstancePtr,
-				XZDma *InstancePtr,
-				u16 IntrId)
+			 XZDma *InstancePtr,
+			 u16 IntrId)
 {
 	int Status;
 
@@ -377,8 +381,7 @@ int SetupInterruptSystem(INTC *IntcInstancePtr,
 #ifndef TESTAPP_GEN
 	/* Initialize the interrupt controller and connect the ISRs */
 	Status = XIntc_Initialize(IntcInstancePtr, ZDMA_INTC_DEVICE_ID);
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != XST_SUCCESS) {
 
 		xil_printf("Failed init intc\r\n");
 		return XST_FAILURE;
@@ -388,9 +391,8 @@ int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * Connect the driver interrupt handler
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, IntrId,
-				(XInterruptHandler)XZDma_IntrHandler, InstancePtr);
-	if (Status != XST_SUCCESS)
-	{
+			       (XInterruptHandler)XZDma_IntrHandler, InstancePtr);
+	if (Status != XST_SUCCESS) {
 
 		xil_printf("Failed connect intc\r\n");
 		return XST_FAILURE;
@@ -401,8 +403,7 @@ int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * all devices that cause interrupts.
 	 */
 	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #endif
@@ -414,8 +415,8 @@ int SetupInterruptSystem(INTC *IntcInstancePtr,
 #ifndef TESTAPP_GEN
 	Xil_ExceptionInit();
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XIntc_InterruptHandler,
-				(void *)IntcInstancePtr);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     (void *)IntcInstancePtr);
 #endif
 #else
 #ifndef TESTAPP_GEN
@@ -430,7 +431,7 @@ int SetupInterruptSystem(INTC *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -440,8 +441,8 @@ int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * hardware interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler) XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler) XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 #endif
 
 	/*
@@ -450,8 +451,8 @@ int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * performs the specific interrupt processing for the device
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, IntrId,
-			(Xil_ExceptionHandler) XZDma_IntrHandler,
-				  (void *) InstancePtr);
+				 (Xil_ExceptionHandler) XZDma_IntrHandler,
+				 (void *) InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
