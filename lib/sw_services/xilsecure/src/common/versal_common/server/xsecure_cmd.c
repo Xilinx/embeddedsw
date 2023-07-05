@@ -29,6 +29,7 @@
 * 5.1   skg  10/04/2022 Added NULL to invalid hidden handler of xilsecure
 *       skg  12/16/2022 Added XSecure_InvalidCmdHandler to invalid cmd Handler
 * 5.2   bm   06/23/2023 Added access permissions for IPI commands
+*       bm   07/05/2023 Added crypto check in features command
 * </pre>
 *
 * @note
@@ -55,6 +56,7 @@
 #include "xsecure_kat_ipihandler.h"
 #include "xsecure_cmd.h"
 #include "xplmi_ssit.h"
+#include "xsecure_cryptochk.h"
 
 /************************** Function Prototypes ******************************/
 static int XSecure_InvalidCmdHandler(u32 *Payload, u32 *RespBuf);
@@ -171,7 +173,10 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_KAT):
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
 #endif
-		Status = XST_SUCCESS;
+		Status = XSecure_CryptoCheck();
+		if (Status != XST_SUCCESS) {
+			Status |= XPLMI_WARNING_MINOR_MASK;
+		}
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Cmd not supported\r\n");

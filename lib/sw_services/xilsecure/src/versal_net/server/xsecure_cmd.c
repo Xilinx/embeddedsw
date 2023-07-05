@@ -27,6 +27,7 @@
 *                       secure lockdown when KAT fails
 * 5.1   skg  10/17/2022 Added Null to invalid command handler of secure module
 * 5.2   bm   06/23/2023 Added access permissions for IPI commands
+*       bm   07/05/2023 Added crypto check in features command
 *
 * </pre>
 *
@@ -51,6 +52,7 @@
 #include "xsecure_cmd.h"
 #include "xplmi.h"
 #include "xplmi_tamper.h"
+#include "xsecure_cryptochk.h"
 
 /************************** Function Prototypes ******************************/
 
@@ -149,7 +151,10 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_UPDATE_CRYPTO_STATUS):
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
 #endif
-		Status = XST_SUCCESS;
+		Status = XSecure_CryptoCheck();
+		if (Status != XST_SUCCESS) {
+			Status |= XPLMI_WARNING_MINOR_MASK;
+		}
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Cmd not supported\r\n");
