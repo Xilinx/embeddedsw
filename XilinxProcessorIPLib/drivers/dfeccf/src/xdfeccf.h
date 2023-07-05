@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -84,6 +84,7 @@
 * 1.5   dc     09/12/22 Update handling overflow status
 *       dc     10/28/22 Switching Uplink/Downlink support
 *       dc     11/11/22 Align AddCC to switchable UL/DL algorithm
+* 1.6   cog    07/04/23 Add support for SDT
 *
 * </pre>
 * @endcond
@@ -98,7 +99,9 @@ extern "C" {
 /**************************** Includes ***************************************/
 #ifdef __BAREMETAL__
 #include "xil_types.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xstatus.h"
 #else
 #include <linux/types.h>
@@ -112,6 +115,7 @@ extern "C" {
 #ifndef __BAREMETAL__
 #define XDFECCF_MAX_NUM_INSTANCES                                              \
 	(10U) /**< Maximum number of driver instances running at the same time. */
+#define XDFECCF_INSTANCE_EXISTS(X) (X < XDFECCF_MAX_NUM_INSTANCES)
 /**
 * @cond nocomments
 */
@@ -130,7 +134,14 @@ extern "C" {
 #define XST_FAILURE (1U) /**< Failure flag */
 #endif
 #else
+#ifndef SDT
 #define XDFECCF_MAX_NUM_INSTANCES XPAR_XDFECCF_NUM_INSTANCES
+#define XDFECCF_INSTANCE_EXISTS(X) (X < XDFECCF_MAX_NUM_INSTANCES)
+#else
+#define XDFECCF_MAX_NUM_INSTANCES                                              \
+	(10U) /**< Maximum number of driver instances running at the same time. */
+#define XDFECCF_INSTANCE_EXISTS(X) (XDfeCcf_ConfigTable[X].Name != NULL)
+#endif
 #endif
 
 #define XDFECCF_NODE_NAME_MAX_LENGTH (50U) /**< Node name maximum length */
@@ -390,7 +401,11 @@ typedef XDfeCcf_Status XDfeCcf_InterruptMask;
  * CCF Config Structure.
  */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId; /**< The component instance Id */
+#else
+	char *Name; /**< Unique name of the device */
+#endif
 	metal_phys_addr_t BaseAddr; /**< Instance base address */
 	u32 NumAntenna; /**< Number of antennas */
 	u32 NumCCPerAntenna; /**< Number of CCs per antenna */
@@ -413,6 +428,11 @@ typedef struct {
 	struct metal_io_region *Io; /**< Libmetal IO structure */
 	struct metal_device *Device; /**< Libmetal device structure */
 } XDfeCcf;
+
+/************************** Variable Definitions *****************************/
+#ifdef __BAREMETAL__
+extern XDfeCcf_Config XDfeCcf_ConfigTable[XDFECCF_MAX_NUM_INSTANCES];
+#endif
 
 /**************************** API declarations *******************************/
 /* System initialization API */

@@ -53,6 +53,7 @@
 *       dc     11/25/22 Update macro of SW version Minor number
 * 1.6   dc     06/15/23 Function comment update
 *       dc     06/20/23 Depricate obsolete APIs
+*       cog    07/04/23 Add support for SDT
 * </pre>
 * @addtogroup dfeccf Overview
 * @{
@@ -777,7 +778,7 @@ XDfeCcf *XDfeCcf_InstanceInit(const char *DeviceNodeName)
 	/* Is this first CCF initialisation ever? */
 	if (0U == XDfeCcf_DriverHasBeenRegisteredOnce) {
 		/* Set up environment to non-initialized */
-		for (Index = 0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
+		for (Index = 0; XDFECCF_INSTANCE_EXISTS(Index); Index++) {
 			XDfeCcf_ChFilter[Index].StateId =
 				XDFECCF_STATE_NOT_READY;
 			XDfeCcf_ChFilter[Index].NodeName[0] = '\0';
@@ -790,7 +791,7 @@ XDfeCcf *XDfeCcf_InstanceInit(const char *DeviceNodeName)
 	 * a) if no, do full initialization
 	 * b) if yes, skip initialization and return the object pointer
 	 */
-	for (Index = 0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFECCF_INSTANCE_EXISTS(Index); Index++) {
 		if (0U == strncmp(XDfeCcf_ChFilter[Index].NodeName,
 				  DeviceNodeName, strlen(DeviceNodeName))) {
 			XDfeCcf_ChFilter[Index].StateId = XDFECCF_STATE_READY;
@@ -801,7 +802,7 @@ XDfeCcf *XDfeCcf_InstanceInit(const char *DeviceNodeName)
 	/*
 	 * Find the available slot for this instance.
 	 */
-	for (Index = 0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFECCF_INSTANCE_EXISTS(Index); Index++) {
 		if (XDfeCcf_ChFilter[Index].NodeName[0] == '\0') {
 			strncpy(XDfeCcf_ChFilter[Index].NodeName,
 				DeviceNodeName, XDFECCF_NODE_NAME_MAX_LENGTH);
@@ -818,7 +819,7 @@ register_metal:
 	memcpy(Str, InstancePtr->NodeName, XDFECCF_NODE_NAME_MAX_LENGTH);
 	AddrStr = strtok(Str, ".");
 	Addr = strtoul(AddrStr, NULL, 16);
-	for (Index = 0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFECCF_INSTANCE_EXISTS(Index); Index++) {
 		if (Addr == XDfeCcf_metal_phys[Index]) {
 			InstancePtr->Device = &XDfeCcf_CustomDevice[Index];
 			goto bm_register_metal;
@@ -871,7 +872,7 @@ void XDfeCcf_InstanceClose(XDfeCcf *InstancePtr)
 	u32 Index;
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	for (Index = 0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFECCF_INSTANCE_EXISTS(Index); Index++) {
 		/* Find the instance in XDfeCcf_ChFilter array */
 		if (&XDfeCcf_ChFilter[Index] == InstancePtr) {
 			/* Release libmetal */
