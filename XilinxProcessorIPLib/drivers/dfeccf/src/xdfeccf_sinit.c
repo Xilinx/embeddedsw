@@ -30,6 +30,7 @@
 *       dc     11/19/21 Update doxygen documentation
 * 1.4   dc     08/18/22 Update IP version number
 * 1.5   dc     10/28/22 Switching Uplink/Downlink support
+* 1.6   cog    07/04/23 Add support for SDT
 *
 * </pre>
 * @addtogroup dfeccf Overview
@@ -47,7 +48,9 @@
 #include <stdio.h>
 
 #ifdef __BAREMETAL__
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include <metal/alloc.h>
 #else
 #include <dirent.h>
@@ -98,9 +101,6 @@ extern int metal_linux_get_device_property(struct metal_device *device,
 #endif
 
 /************************** Variable Definitions *****************************/
-#ifdef __BAREMETAL__
-extern XDfeCcf_Config XDfeCcf_ConfigTable[XPAR_XDFECCF_NUM_INSTANCES];
-#endif
 XDfeCcf XDfeCcf_ChFilter[XDFECCF_MAX_NUM_INSTANCES];
 
 #ifdef __BAREMETAL__
@@ -132,7 +132,7 @@ u32 XDfeCcf_GetConfigTable(XDfeCcf *InstancePtr, XDfeCcf_Config **ConfigTable)
 	AddrStr = strtok(Str, ".");
 	Addr = strtoul(AddrStr, NULL, 16);
 
-	for (Index = 0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFECCF_INSTANCE_EXISTS(Index); Index++) {
 		if (XDfeCcf_ConfigTable[Index].BaseAddr == Addr) {
 			*ConfigTable = &XDfeCcf_ConfigTable[Index];
 			return XST_SUCCESS;

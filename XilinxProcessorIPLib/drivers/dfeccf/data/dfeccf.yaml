@@ -1,0 +1,43 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for DFE CCF controller
+
+maintainers:
+  - Dragan Cvetic <dragan.cvetic@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,xdfe-cc-filter-1.1
+
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,num-antenna:
+    decription: Number of antennas
+  xlnx,num-cc-per-antenna:
+    decription: Number of CCs per antenna
+  xlnx,antenna-interleave:
+    decription: Number of antenna slots
+  xlnx,switchable:
+    decription: If true DL/UL switching is supported
+
+config:
+    - XDfeCcf_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,num-antenna
+    - xlnx,num-cc-per-antenna
+    - xlnx,antenna-interleave
+    - xlnx,switchable
+
+examples:
+
+...
