@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,6 +61,7 @@
 * 1.3   dc     02/18/22 Write 1 clears event status
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     04/06/22 Update documentation
+* 1.5   cog    07/04/23 Add support for SDT
 *
 * </pre>
 * @endcond
@@ -74,7 +76,9 @@ extern "C" {
 /**************************** Includes ***************************************/
 #ifdef __BAREMETAL__
 #include "xil_types.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xstatus.h"
 #else
 #include <linux/types.h>
@@ -88,6 +92,7 @@ extern "C" {
 #ifndef __BAREMETAL__
 #define XDFEEQU_MAX_NUM_INSTANCES                                              \
 	(10U) /**< Maximum number of driver instances running at the same time. */
+#define XDFEEQU_INSTANCE_EXISTS(X) (X < XDFEEQU_MAX_NUM_INSTANCES)
 /**
 * @cond nocomments
 */
@@ -106,7 +111,14 @@ extern "C" {
 #define XST_FAILURE (1L) /**< Failure flag */
 #endif
 #else
+#ifndef SDT
 #define XDFEEQU_MAX_NUM_INSTANCES XPAR_XDFEEQU_NUM_INSTANCES
+#define XDFEEQU_INSTANCE_EXISTS(X) (X < XDFEEQU_MAX_NUM_INSTANCES)
+#else
+#define XDFEEQU_MAX_NUM_INSTANCES                                              \
+	(10U) /**< Maximum number of driver instances running at the same time. */
+#define XDFEEQU_INSTANCE_EXISTS(X) (XDfeEqu_ConfigTable[X].Name != NULL)
+#endif
 #endif
 
 #define XDFEEQU_NODE_NAME_MAX_LENGTH (50U) /**< Node name maximum length */
@@ -301,7 +313,11 @@ typedef struct {
  * Equalizer Config Structure.
  */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId; /**< The component instance Id */
+#else
+	char *Name; /**< Unique name of the device */
+#endif
 	metal_phys_addr_t BaseAddr; /**< Instance base address */
 	u32 NumChannels; /**< Number of channels */
 	u32 SampleWidth; /**< Sample width */
@@ -319,6 +335,11 @@ typedef struct {
 	struct metal_io_region *Io; /**< Libmetal IO structure */
 	struct metal_device *Device; /**< Libmetal device structure */
 } XDfeEqu;
+
+/************************** Variable Definitions *****************************/
+#ifdef __BAREMETAL__
+extern XDfeEqu_Config XDfeEqu_ConfigTable[XDFEEQU_MAX_NUM_INSTANCES];
+#endif
 
 /**************************** API declarations *******************************/
 /* System initialization API */
