@@ -1,0 +1,60 @@
+# Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for ZDMA controller
+
+maintainers:
+  - Abin Joseph <abin.joseph@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+      - const: xlnx,zynqmp-dma-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,dma-type:
+    description: |
+      Differentiates the dma controller that driver supports
+      0 - GDMA(FPD DMA) controller
+      1 - ADMA(LPD DMA) controller
+  dma-coherent:
+    description: Present if dma operations are coherent
+    type: boolean
+
+config:
+    - XZDma_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,dma-type
+    - dma-coherent
+    - interrupts
+    - interrupt-parent
+
+examples:
+    xzdma_linear_example.c:
+        - interrupts
+    xzdma_linkedlist_example.c:
+        - interrupts
+    xzdma_readonlymode_example.c:
+        - interrupts
+    xzdma_simple_example.c:
+        - interrupts
+    xzdma_writeonlymode_example.c:
+        - interrupts
+    xzdma_selftest_example.c:
+        - interrupts
+
+tapp:
+   xzdma_selftest_example.c:
+        declaration: XZDma_SelfTestExample
+   xzdma_simple_example.c:
+        declaration: XZDma_SimpleExample
+        hwproperties:
+            - interrupts
+...

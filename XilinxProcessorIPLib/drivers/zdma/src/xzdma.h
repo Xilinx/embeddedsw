@@ -296,11 +296,21 @@ typedef void (*XZDma_ErrorHandler) (void *CallBackRef, u32 ErrorMask);
 * Each ZDMA core should have a configuration structure associated.
 */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Device Id of ZDMA */
+#else
+	char *Name;		/**< Compatible string */
+#endif
 	u32 BaseAddress;	/**< BaseAddress of ZDMA */
 	u8 DmaType;		/**< Type of DMA */
 	u8 IsCacheCoherent; /**< Describes whether Cache Coherent or not;
                               * Applicable only to A53 in EL1 NS mode */
+	#ifdef SDT
+	u16 IntrId;		/** Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags */
+	UINTPTR IntrParent; 	/** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+	#endif
 } XZDma_Config;
 
 /******************************************************************************/
@@ -668,7 +678,11 @@ typedef struct {
 
 /************************ Prototypes of functions **************************/
 
+#ifndef SDT
 XZDma_Config *XZDma_LookupConfig(u16 DeviceId);
+#else
+XZDma_Config *XZDma_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
 			u32 EffectiveAddr);
