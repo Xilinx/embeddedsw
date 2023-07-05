@@ -191,8 +191,8 @@ int CanPsPolledExample(UINTPTR BaseAddress)
 		return XST_FAILURE;
 	}
 	Status = XCanPs_CfgInitialize(CanInstPtr,
-					ConfigPtr,
-					ConfigPtr->BaseAddr);
+				      ConfigPtr,
+				      ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -211,7 +211,7 @@ int CanPsPolledExample(UINTPTR BaseAddress)
 	 * Register (BRPR) and Bit Timing Register (BTR).
 	 */
 	XCanPs_EnterMode(CanInstPtr, XCANPS_MODE_CONFIG);
-	while(XCanPs_GetMode(CanInstPtr) != XCANPS_MODE_CONFIG);
+	while (XCanPs_GetMode(CanInstPtr) != XCANPS_MODE_CONFIG);
 
 	/*
 	 * Setup Baud Rate Prescaler Register (BRPR) and
@@ -219,15 +219,15 @@ int CanPsPolledExample(UINTPTR BaseAddress)
 	 */
 	XCanPs_SetBaudRatePrescaler(CanInstPtr, TEST_BRPR_BAUD_PRESCALAR);
 	XCanPs_SetBitTiming(CanInstPtr, TEST_BTR_SYNCJUMPWIDTH,
-				TEST_BTR_SECOND_TIMESEGMENT,
+			    TEST_BTR_SECOND_TIMESEGMENT,
 
-				TEST_BTR_FIRST_TIMESEGMENT);
+			    TEST_BTR_FIRST_TIMESEGMENT);
 
 	/*
 	 * Enter Loop Back Mode.
 	 */
 	XCanPs_EnterMode(CanInstPtr, XCANPS_MODE_LOOPBACK);
-	while(XCanPs_GetMode(CanInstPtr) != XCANPS_MODE_LOOPBACK);
+	while (XCanPs_GetMode(CanInstPtr) != XCANPS_MODE_LOOPBACK);
 
 	/*
 	 * Send a frame, receive the frame via the loop back and verify its
@@ -335,11 +335,13 @@ static int RecvFrame(XCanPs *InstancePtr)
 		 * Verify Identifier and Data Length Code.
 		 */
 		if (RxFrame[0] !=
-			(u32)XCanPs_CreateIdValue((u32)TEST_MESSAGE_ID, 0, 0, 0, 0))
+		    (u32)XCanPs_CreateIdValue((u32)TEST_MESSAGE_ID, 0, 0, 0, 0)) {
 			return XST_LOOPBACK_ERROR;
+		}
 
-		if ((RxFrame[1] & ~XCANPS_DLCR_TIMESTAMP_MASK) != TxFrame[1])
+		if ((RxFrame[1] & ~XCANPS_DLCR_TIMESTAMP_MASK) != TxFrame[1]) {
 			return XST_LOOPBACK_ERROR;
+		}
 
 		/*
 		 * Verify Data field contents.
