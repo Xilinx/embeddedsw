@@ -34,7 +34,9 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "xplmi_debug.h"
-
+#ifndef PLM_ECDSA_EXCLUDE
+#include "xsecure_elliptic.h"
+#endif
 /**************************** Type Definitions *******************************/
 #define XCERT_USERCFG_MAX_SIZE						(32U)
 
@@ -42,7 +44,9 @@ extern "C" {
 #define XCERT_ISSUER_MAX_SIZE					(600U)
 #define XCERT_SUBJECT_MAX_SIZE					(600U)
 #define XCERT_VALIDITY_MAX_SIZE					(40U)
+#define XCERT_HASH_SIZE_IN_BYTES                        	(48U)
 #define XCert_Printf						XPlmi_Printf
+#define XCERT_ECC_P384_PUBLIC_KEY_LEN                   	(96U) /**< Length of ECC P-384 Public Key */
 
 /**************************** Type Definitions *******************************/
 typedef enum {
@@ -52,7 +56,12 @@ typedef enum {
 } XCert_UserCfgFields;
 
 typedef struct {
-	u32 SubsystemId;
+	u8 Sign[XCERT_ECC_P384_PUBLIC_KEY_LEN]; /**< Signature of TBS certificate */
+	u8 Hash[XCERT_HASH_SIZE_IN_BYTES];	/**< Hash of the TBS certificate */
+	u8 IsSignAvailable;			/**< Flag to check if signature is available */
+} XCert_SignStore;
+
+typedef struct {
 	u8 Issuer[XCERT_ISSUER_MAX_SIZE];
 	u32 IssuerLen;
 	u8 Subject[XCERT_SUBJECT_MAX_SIZE];
@@ -60,6 +69,12 @@ typedef struct {
 	u8 Validity[XCERT_VALIDITY_MAX_SIZE];
 	u32 ValidityLen;
 } XCert_UserCfg;
+
+typedef struct {
+	u32 SubsystemId;	/**< Subsystem Id */
+	XCert_UserCfg UserCfg;	/**< User configuration */
+	XCert_SignStore SignStore; /**< Signature store */
+} XCert_InfoStore;
 
 typedef struct {
 	u8 IsSelfSigned;

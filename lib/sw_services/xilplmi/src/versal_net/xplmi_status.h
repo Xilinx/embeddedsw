@@ -771,6 +771,8 @@ typedef enum {
 		/**< 0x6C8 Stored user configuration is all zeroes */
 	XOCP_ERR_X509_USR_CFG_NOT_FOUND,
 		/**< 0x6C9 User configuration not found for provided Subsystem Id*/
+	XOCP_ERR_X509_GET_SIGN,
+		/**< 0x6CA Failed to get the signature stored */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

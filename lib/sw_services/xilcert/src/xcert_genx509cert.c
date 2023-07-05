@@ -48,15 +48,14 @@
 #define XCERT_OID_EC_PUBLIC_KEY				"06072A8648CE3D0201"
 #define XCERT_OID_P384					"06052B81040022"
 
-#define XCERT_HASH_SIZE_IN_BYTES			(48U)
 #define XCERT_SERIAL_FIELD_LEN				(22U)
 #define XCERT_BIT7_MASK 				(0x80)
 #define XCERT_MAX_CERT_SUPPORT				(4U)
 #define XCERT_LOWER_NIBBLE_MASK				(0xFU)
 	/**< Number of supported certificates is 4 -> 1 DevIK certificate and 3 DevAK certificates */
-
+#define XCERT_SIGN_AVAILABLE				(0x3U) /**< Signature available in SignStore */
 /************************** Function Prototypes ******************************/
-static XCert_UserCfg *XCert_GetUserCfgDB(void);
+static XCert_InfoStore *XCert_GetCertDB(void);
 static u32* XCert_GetNumOfEntriesInUserCfgDB(void);
 static int XCert_IsBufferNonZero(u8* Buffer, int BufferLen);
 static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg);
@@ -70,6 +69,7 @@ static void XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, const u32 Subject
 static int XCert_GenPubKeyAlgIdentifierField(u8* TBSCertBuf, u32 *Len);
 static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey,u32 *PubKeyInfoLen);
 static void XCert_GenSignField(u8* X509CertBuf, u8* Signature, u32 *SignLen);
+static int XCert_GetSignStored(u32 SubsystemId, XCert_SignStore **SignStore);
 #endif
 static int XCert_GenTBSCertificate(u8* X509CertBuf, XCert_Config* Cfg, u32 *DataLen);
 static void XCert_GetData(const u32 Size, const u8 *Src, const u64 DstAddr);
@@ -77,24 +77,29 @@ static void XCert_GetData(const u32 Size, const u8 *Src, const u64 DstAddr);
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
- * @brief	This function provides the pointer to the UserCfg database.
+ * @brief	This function provides the pointer to the X509 InfoStore database.
  *
  * @return
- *	-	Pointer to the first entry in UserCfg database
+ *	-	Pointer to the first entry in InfoStore database
  *
- * @note	UserCfgDB is used to store the user configurable fields of
- * 		X.509 certificate for different subsystems.
+ * @note	InfoStore DB is used to store the user configurable fields of
+ * 		X.509 certificate, hash and signature of the TBS Ceritificate
+ * 		for different subsystems.
  *		Each entry in the DB wil have following fields:
- *		------------------------------------------------------
- *		| Subsystem Id  |  Issuer   |  Subject  |  Validity  |
- *		------------------------------------------------------
+ *		- Subsystem Id
+ *		- Issuer
+ *		- Subject
+ *		- Validity
+ *		- Signature
+ *		- Hash
+ *		- IsSignAvailable
  *
  ******************************************************************************/
-static XCert_UserCfg *XCert_GetUserCfgDB(void)
+static XCert_InfoStore *XCert_GetCertDB(void)
 {
-	static XCert_UserCfg UsrCfgDB[XCERT_MAX_CERT_SUPPORT] = {0U};
+	static XCert_InfoStore CertDB[XCERT_MAX_CERT_SUPPORT] = {0U};
 
-	return &UsrCfgDB[0];
+	return &CertDB[0];
 }
 
 /*****************************************************************************/
@@ -164,7 +169,7 @@ END:
 static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg)
 {
 	int Status = XST_FAILURE;
-	XCert_UserCfg *CertUsrCfgDB = XCert_GetUserCfgDB();
+	XCert_InfoStore *CertDB = XCert_GetCertDB();
 	u32 *NumOfEntriesInUserCfgDB = XCert_GetNumOfEntriesInUserCfgDB();
 	u32 Idx;
 
@@ -172,32 +177,32 @@ static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg)
 	 * Search for given Subsystem ID in the UserCfg DB
 	 */
 	for (Idx = 0; Idx < *NumOfEntriesInUserCfgDB; Idx++) {
-		if (CertUsrCfgDB[Idx].SubsystemId == SubsystemId) {
+		if (CertDB[Idx].SubsystemId == SubsystemId) {
 			/**
 			 * If Subsystem ID is found then check that Subject,
 			 * Issuer and Validity for that Subsystem ID is non-zero.
 			 */
-			Status = XCert_IsBufferNonZero(CertUsrCfgDB[Idx].Issuer,
-				CertUsrCfgDB[Idx].IssuerLen);
+			Status = XCert_IsBufferNonZero(CertDB[Idx].UserCfg.Issuer,
+				CertDB[Idx].UserCfg.IssuerLen);
 			if (Status != XST_SUCCESS) {
 				Status = XOCP_ERR_X509_INVALID_USER_CFG;
 				goto END;
 			}
 
-			Status = XCert_IsBufferNonZero(CertUsrCfgDB[Idx].Subject,
-				CertUsrCfgDB[Idx].SubjectLen);
+			Status = XCert_IsBufferNonZero(CertDB[Idx].UserCfg.Subject,
+				CertDB[Idx].UserCfg.SubjectLen);
 			if (Status != XST_SUCCESS) {
 				Status = XOCP_ERR_X509_INVALID_USER_CFG;
 				goto END;
 			}
 
-			Status = XCert_IsBufferNonZero(CertUsrCfgDB[Idx].Validity,
-				CertUsrCfgDB[Idx].ValidityLen);
+			Status = XCert_IsBufferNonZero(CertDB[Idx].UserCfg.Validity,
+				CertDB[Idx].UserCfg.ValidityLen);
 			if (Status != XST_SUCCESS) {
 				Status = XOCP_ERR_X509_INVALID_USER_CFG;
 				goto END;
 			}
-			*UserCfg = &CertUsrCfgDB[Idx];
+			*UserCfg = &CertDB[Idx].UserCfg;
 			Status = XST_SUCCESS;
 			goto END;
 		}
@@ -211,6 +216,43 @@ static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg)
 END:
 	return Status;
 }
+
+#ifndef PLM_ECDSA_EXCLUDE
+/*****************************************************************************/
+/**
+ * @brief	This function finds the provided Subsystem ID in InfoStore DB and
+ *		returns the pointer to the corresponding sign entry in DB.
+ *
+ * @param	SubsystemId - SubsystemId for which stored signature is requested
+ * @param	SignStore - Pointer to the entry in DB for the provided Subsystem ID
+ *
+ * @return
+ *		XST_SUCCESS - If subsystem ID is found
+ *		Error Code - Upon any failure
+ *
+ ******************************************************************************/
+static int XCert_GetSignStored(u32 SubsystemId, XCert_SignStore **SignStore)
+{
+	int Status = XST_FAILURE;
+	XCert_InfoStore *CertDB = XCert_GetCertDB();
+	u32 *NumOfEntriesInCertDB = XCert_GetNumOfEntriesInUserCfgDB();
+	u32 Idx;
+
+	/**
+	 * Search for given Subsystem ID in the CertDB
+	 */
+	for (Idx = 0; Idx < *NumOfEntriesInCertDB; Idx++) {
+		if (CertDB[Idx].SubsystemId == SubsystemId) {
+			*SignStore = &CertDB[Idx].SignStore;
+			Status = XST_SUCCESS;
+			goto END;
+		}
+	}
+
+END:
+	return Status;
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -232,7 +274,7 @@ int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8*
 	int Status = XST_FAILURE;
 	u32 IdxToBeUpdated;
 	u8 IsSubsystemIdPresent = FALSE;
-	XCert_UserCfg *CertUsrCfgDB = XCert_GetUserCfgDB();
+	XCert_InfoStore *CertDB = XCert_GetCertDB();
 	u32 *NumOfEntriesInUserCfgDB = XCert_GetNumOfEntriesInUserCfgDB();
 	u32 Idx;
 
@@ -254,7 +296,7 @@ int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8*
 	 * new subsystem.
 	*/
 	for (Idx = 0; Idx < *NumOfEntriesInUserCfgDB; Idx++) {
-		if (CertUsrCfgDB[Idx].SubsystemId == SubSystemId) {
+		if (CertDB[Idx].SubsystemId == SubSystemId) {
 			IdxToBeUpdated = Idx;
 			IsSubsystemIdPresent = TRUE;
 			break;
@@ -267,21 +309,21 @@ int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8*
 			Status = XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED;
 			goto END;
 		}
-		CertUsrCfgDB[IdxToBeUpdated].SubsystemId = SubSystemId;
+		CertDB[IdxToBeUpdated].SubsystemId = SubSystemId;
 		*NumOfEntriesInUserCfgDB = (*NumOfEntriesInUserCfgDB) + 1;
 	}
 
 	if (FieldType == XCERT_ISSUER) {
-		XSecure_MemCpy(CertUsrCfgDB[IdxToBeUpdated].Issuer, Val, Len);
-		CertUsrCfgDB[IdxToBeUpdated].IssuerLen = Len;
+		XSecure_MemCpy(CertDB[IdxToBeUpdated].UserCfg.Issuer, Val, Len);
+		CertDB[IdxToBeUpdated].UserCfg.IssuerLen = Len;
 	}
 	else if (FieldType == XCERT_SUBJECT) {
-		XSecure_MemCpy(CertUsrCfgDB[IdxToBeUpdated].Subject, Val, Len);
-		CertUsrCfgDB[IdxToBeUpdated].SubjectLen = Len;
+		XSecure_MemCpy(CertDB[IdxToBeUpdated].UserCfg.Subject, Val, Len);
+		CertDB[IdxToBeUpdated].UserCfg.SubjectLen = Len;
 	}
 	else {
-		XSecure_MemCpy(CertUsrCfgDB[IdxToBeUpdated].Validity, Val, Len);
-		CertUsrCfgDB[IdxToBeUpdated].ValidityLen = Len;
+		XSecure_MemCpy(CertDB[IdxToBeUpdated].UserCfg.Validity, Val, Len);
+		CertDB[IdxToBeUpdated].UserCfg.ValidityLen = Len;
 	}
 
 	Status = XST_SUCCESS;
@@ -315,12 +357,15 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	u32 TBSCertLen = 0U;
 	u32 SignAlgoLen;
 #ifndef PLM_ECDSA_EXCLUDE
+	int HashCmpStatus = XST_FAILURE;
 	u32 SignLen;
 	u8 Sign[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U] = {0U};
 	u8 SignTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U] = {0U};
 	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
+	XCert_SignStore *SignStore;
 #endif
 	u8 HashTmp[XCERT_HASH_SIZE_IN_BYTES] = {0U};
+	u8 *TbsCertStart;
 	(void)MaxCertSize;
 
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
@@ -331,6 +376,8 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	TbsCertStart = Curr;
 
 	/**
 	 * Generate TBS certificate field
@@ -358,30 +405,78 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	/**
 	 * Calcualte SHA2 Digest of the TBS certificate
 	 */
-	Status = XSecure_Sha384Digest(Start, TBSCertLen, HashTmp);
+	Status = XSecure_Sha384Digest(TbsCertStart, TBSCertLen, HashTmp);
 	if (Status != XST_SUCCESS) {
 		Status = XOCP_ERR_X509_GEN_TBSCERT_DIGEST;
 		goto END;
 	}
 #ifndef PLM_ECDSA_EXCLUDE
 
-	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)Hash,
-					(u64)(UINTPTR)HashTmp);
 	/**
-	 * Calculate signature of the TBS certificate using the private key
+	 * Get the TBS certificate signature stored in Cert DB
 	 */
-	Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384, (const u8 *)Hash, sizeof(Hash),
-				Cfg->AppCfg.PrvtKey, SignTmp);
+	Status = XCert_GetSignStored(Cfg->SubSystemId, &SignStore);
 	if (Status != XST_SUCCESS) {
-		Status = XOCP_ERR_X509_CALC_SIGN;
+		Status = (int)XOCP_ERR_X509_GET_SIGN;
 		goto END;
 	}
+	/**
+	 * If the Signature is available, compare the hash stored with
+	 * the hash calculated to make sure nothing is changed.
+	 * if hash matches, copy the stored signature else generate
+	 * the signature again.
+	 */
+	if (SignStore->IsSignAvailable == XCERT_SIGN_AVAILABLE) {
+		HashCmpStatus = Xil_SMemCmp((void *)HashTmp, sizeof(HashTmp),
+				(void *)SignStore->Hash, sizeof(SignStore->Hash),
+				sizeof(HashTmp));
+		if (HashCmpStatus == XST_SUCCESS) {
+			Status = Xil_SMemCpy((void *)Sign, sizeof(Sign),
+				(void *)SignStore->Sign, sizeof(SignStore->Sign),
+				sizeof(Sign));
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+	}
 
-	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+	/**
+	 * If the Signature is not available or Hash comparision from above fails,
+	 * regenerate the signature.
+	 */
+	if ((SignStore->IsSignAvailable != XCERT_SIGN_AVAILABLE) || (HashCmpStatus != XST_SUCCESS)) {
+
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)Hash,
+					(u64)(UINTPTR)HashTmp);
+		/**
+		 * Calculate signature of the TBS certificate using the private key
+		 */
+		Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384, (const u8 *)Hash, sizeof(Hash),
+				Cfg->AppCfg.PrvtKey, SignTmp);
+		if (Status != XST_SUCCESS) {
+			Status = XOCP_ERR_X509_CALC_SIGN;
+			goto END;
+		}
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
 				(u64)(UINTPTR)Sign, (u64)(UINTPTR)SignTmp);
-	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
-			(u64)(UINTPTR)(Sign + XSECURE_ECC_P384_SIZE_IN_BYTES),
-			(u64)(UINTPTR)(SignTmp + XSECURE_ECC_P384_SIZE_IN_BYTES));
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+				(u64)(UINTPTR)(Sign + XSECURE_ECC_P384_SIZE_IN_BYTES),
+				(u64)(UINTPTR)(SignTmp + XSECURE_ECC_P384_SIZE_IN_BYTES));
+		/**
+		 * Copy the generated signature and hash into SignStore
+		 */
+		Status = Xil_SMemCpy(SignStore->Hash, sizeof(SignStore->Hash),
+				HashTmp, sizeof(HashTmp), sizeof(HashTmp));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = Xil_SMemCpy(SignStore->Sign, sizeof(SignStore->Sign),
+				Sign, sizeof(Sign), sizeof(Sign));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		SignStore->IsSignAvailable = XCERT_SIGN_AVAILABLE;
+	}
 	/**
 	 * Generate Signature field
 	 */
