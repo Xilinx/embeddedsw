@@ -475,6 +475,42 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function returns pin attributes like type, subclass
+ *	   and class based on the pin index.
+ *
+ * @param PinIndex	Pin Index.
+ * @param Resp		Attributes Response.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
+ *
+ ****************************************************************************/
+XStatus XPmPin_QueryAttributes(const u32 PinIndex, u32 *Resp)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_PinNode *Pin;
+
+	/* Check for valid pin index */
+	if ((PinIndex >= (u32)XPM_NODEIDX_STMIC_MAX) || (PinIndex == (u32)XPM_NODEIDX_STMIC_MIN)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Pin = XPmPin_GetByIndex(PinIndex);
+	if (NULL == Pin) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	*Resp = Pin->Node.Id;
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function requests pin.
  *
  * @param SubsystemId	Subsystem ID.
