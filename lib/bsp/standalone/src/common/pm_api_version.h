@@ -166,6 +166,7 @@
  * | XPM_QID_CLOCK_GET_NUM_CLOCKS		| 12	| Both		| Get number of clocks			|
  * | XPM_QID_CLOCK_GET_MAX_DIVISOR		| 13	| Both		| Get max clock divisor			|
  * | XPM_QID_PLD_GET_PARENT			| 14	| Versal	| Get PLD parent			|
+ * | XPM_QID_PINCTRL_GET_ATTRIBUTES		| 15	| Versal	| Get pin attributes			|
  *
  *****************************************************************************/
 
