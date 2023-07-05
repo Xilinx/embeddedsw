@@ -21,16 +21,20 @@
 #include "xpm_cpmdomain.h"
 
 static XPlmi_ModuleCmd XPlmi_PsmCmds[PSM_API_MAX+1];
+static XPlmi_AccessPerm_t XPlmi_PsmAccessPermBuff[PSM_API_MAX+1] = {
+	[PM_PSM_TO_PLM_EVENT] = XPLMI_SECURE_IPI_ACCESS,
+};
+
 static XPlmi_Module XPlmi_Psm =
 {
         XPLMI_MODULE_XILPSM_ID,
         XPlmi_PsmCmds,
         PSM_API_MAX+1,
 		NULL,
+	XPlmi_PsmAccessPermBuff,
 #ifdef VERSAL_NET
         NULL,
 #endif
-	NULL,
 };
 
 /* This replicates PsmToPlmEvent stored at PSM reserved RAM location */
