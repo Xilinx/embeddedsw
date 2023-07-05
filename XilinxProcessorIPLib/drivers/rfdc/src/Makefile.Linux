@@ -1,10 +1,11 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 APP = rfdc
 
 LIBSOURCES=*.c
 OUTS = *.o
 NAME := rfdc
 MAJOR = 12
-MINOR = 0
+MINOR = 1
 VERSION = $(MAJOR).$(MINOR)
 
 all: lib$(NAME).so
