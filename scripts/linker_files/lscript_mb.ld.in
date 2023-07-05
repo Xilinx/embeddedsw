@@ -69,6 +69,14 @@ SECTIONS
    PROVIDE(___DTORS_END___ = .);
 } > @DDR@
 
+.drvcfg_sec : {
+    . = ALIGN(8);
+     __drvcfgsecdata_start = .;
+    KEEP (*(.drvcfg_sec))
+    __drvcfgsecdata_end = .;
+    __drvcfgsecdata_size = __drvcfgsecdata_end - __drvcfgsecdata_start;
+} > @DDR@
+
 .rodata : {
    __rodata_start = .;
    *(.rodata)
@@ -194,14 +202,6 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . = ALIGN(8);
    _stack = .;
    __stack = _stack;
-} > @DDR@
-
-.drvcfg_sec : {
-    . = ALIGN(8);
-     __drvcfgsecdata_start = .;
-    KEEP (*(.drvcfg_sec))
-    __drvcfgsecdata_end = .;
-    __drvcfgsecdata_size = __drvcfgsecdata_end - __drvcfgsecdata_start;
 } > @DDR@
 
 _end = .;
