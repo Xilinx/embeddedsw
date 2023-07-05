@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,6 +54,7 @@
 * 3.3	akm    08/06/19 Initialized DeviceID in XSpiPs_CfgInitialize function.
 * 3.8   sg     08/16/22 Updated SPI enable and chip selection sequence
 * 			for manual mode.
+* 3.9   sb     07/05/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -170,7 +172,9 @@ s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, const XSpiPs_Config *ConfigPtr,
 		InstancePtr->Config.BaseAddress = EffectiveAddr;
 		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 		InstancePtr->StatusHandler = StubStatusHandler;
+#ifndef SDT
 		InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
