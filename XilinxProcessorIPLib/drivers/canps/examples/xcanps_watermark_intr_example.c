@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,7 +28,7 @@
 * ----- -----  -------- -----------------------------------------------
 * 1.00a xd/sv  01/12/10 First release
 * 3.1   adk    10/11/15 Fixed CR#911958 Add support for Tx Watermark testing.
-*
+* 3.7   ht     06/28/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -40,6 +41,9 @@
 #include "xscugic.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -48,9 +52,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define CAN_DEVICE_ID		XPAR_XCANPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define CAN_INTR_VEC_ID		XPAR_XCANPS_0_INTR
+#endif
 
 /*
  * Maximum CAN frame length in words.
@@ -100,11 +106,15 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int CanPsWatermarkIntrExample(XScuGic *IntcInstPtr,
 				XCanPs *CanInstPtr,
 				u16 CanDeviceId,
 				u16 CanIntrId);
-
+#else
+int CanPsWatermarkIntrExample(XCanPs *CanInstPtr,
+				UINTPTR BaseAddress);
+#endif
 static void Config(XCanPs *InstancePtr);
 static void SendFrame(XCanPs *InstancePtr);
 static int ReceiveData(XCanPs *InstancePtr);
@@ -114,16 +124,18 @@ static void RecvHandler(void *CallBackRef);
 static void ErrorHandler(void *CallBackRef, u32 ErrorMask);
 static void EventHandler(void *CallBackRef, u32 Mask);
 
+#ifndef SDT
 static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 				XCanPs *CanInstancePtr,
 				u16 CanIntrId);
-
+#endif
 
 /************************** Variable Definitions *****************************/
 
 static XCanPs CanInstance;   /* Instance of the Can driver */
+#ifndef SDT
 static XScuGic IntcInstance; /* Instance of the Interrupt Controller driver */
-
+#endif
 
 /*
  * Buffers to hold frames to send and receive. These are declared as global so
@@ -164,8 +176,13 @@ int main(void)
 	/*
 	 * Run the Can Rx Watermark interrupt example.
 	 */
+#ifndef SDT
 	Status = CanPsWatermarkIntrExample(&IntcInstance, &CanInstance,
 					    CAN_DEVICE_ID, CAN_INTR_VEC_ID);
+#else
+	Status = CanPsWatermarkIntrExample(&CanInstance,
+					XPAR_XCANPS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("CAN Watermark Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -197,8 +214,13 @@ int main(void)
 *		an infinite loop and will never return to the caller.
 *
 ******************************************************************************/
+#ifndef SDT
 int CanPsWatermarkIntrExample(XScuGic *IntcInstPtr, XCanPs *CanInstPtr,
 				u16 CanDeviceId, u16 CanIntrId)
+#else
+int CanPsWatermarkIntrExample(XCanPs *CanInstPtr,
+				UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XCanPs_Config *ConfigPtr;
@@ -207,7 +229,11 @@ int CanPsWatermarkIntrExample(XScuGic *IntcInstPtr, XCanPs *CanInstPtr,
 	/*
 	 * Initialize the Can device.
 	 */
+#ifndef SDT
 	ConfigPtr = XCanPs_LookupConfig(CanDeviceId);
+#else
+	ConfigPtr = XCanPs_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -255,9 +281,16 @@ int CanPsWatermarkIntrExample(XScuGic *IntcInstPtr, XCanPs *CanInstPtr,
 	/*
 	 * Connect to the interrupt controller.
 	 */
+#ifndef SDT
 	Status =  SetupInterruptSystem(IntcInstPtr,
 					CanInstPtr,
 					CanIntrId);
+#else
+	Status = XSetupInterruptSystem(CanInstPtr,&XCanPs_IntrHandler,
+					ConfigPtr->IntrId,
+					ConfigPtr->IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -696,6 +729,7 @@ static void EventHandler(void *CallBackRef, u32 IntrMask)
 	}
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -777,3 +811,4 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 #endif
 	return XST_SUCCESS;
 }
+#endif

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +28,7 @@
 * 2.1 adk 		23/08/14 Fixed CR:798792 Peripheral test for CANPS IP in
 *						 SDK claims a 40kbps baud rate but it's not.
 * 3.1   mus    01/14/16 Added support for intc interrupt controller
+* 3.7   ht     06/28/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -44,6 +46,9 @@
 #include "xscugic.h"
 #endif
 
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 /*
@@ -51,6 +56,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define CAN_DEVICE_ID		XPAR_XCANPS_0_DEVICE_ID
@@ -61,6 +67,7 @@
 #define CAN_DEVICE_ID		XPAR_XCANPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define CAN_INTR_VEC_ID		XPAR_XCANPS_0_INTR
+#endif
 #endif
 /* Maximum CAN frame length in word */
 #define XCANPS_MAX_FRAME_SIZE_IN_WORDS (XCANPS_MAX_FRAME_SIZE / sizeof(u32))
@@ -104,10 +111,15 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int CanPsIntrExample(INTC *IntcInstPtr,
 			XCanPs *CanInstPtr,
 			u16 CanDeviceId,
 			u16 CanIntrId);
+#else
+int CanPsIntrExample(XCanPs *CanInstPtr,
+		UINTPTR BaseAddress);
+#endif
 static void Config(XCanPs *InstancePtr);
 static void SendFrame(XCanPs *InstancePtr);
 
@@ -116,15 +128,19 @@ static void RecvHandler(void *CallBackRef);
 static void ErrorHandler(void *CallBackRef, u32 ErrorMask);
 static void EventHandler(void *CallBackRef, u32 Mask);
 
+#ifndef SDT
 static int SetupInterruptSystem(INTC *IntcInstancePtr,
 				XCanPs *CanInstancePtr,
 				u16 CanIntrId);
+#endif
 
 /************************** Variable Definitions *****************************/
 
 #ifndef TESTAPP_GEN
 static XCanPs CanInstance;    /* Instance of the Can driver */
+#ifndef SDT
 static INTC IntcInstance; /* Instance of the Interrupt Controller driver */
+#endif
 #endif
 
 /*
@@ -165,8 +181,13 @@ int main(void)
 	/*
 	 * Run the Can interrupt example.
 	 */
+#ifndef SDT
 	Status = CanPsIntrExample(&IntcInstance, &CanInstance,
 				   CAN_DEVICE_ID, CAN_INTR_VEC_ID);
+#else
+	Status = CanPsIntrExample(&CanInstance,
+			XPAR_XCANPS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("CAN Interrupt Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -198,8 +219,12 @@ int main(void)
 *		an infinite loop and will never return to the caller.
 *
 ******************************************************************************/
+#ifndef SDT
 int CanPsIntrExample(INTC *IntcInstPtr, XCanPs *CanInstPtr,
 			u16 CanDeviceId, u16 CanIntrId)
+#else
+int CanPsIntrExample(XCanPs *CanInstPtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XCanPs_Config *ConfigPtr;
@@ -207,7 +232,11 @@ int CanPsIntrExample(INTC *IntcInstPtr, XCanPs *CanInstPtr,
 	/*
 	 * Initialize the Can device.
 	 */
+#ifndef SDT
 	ConfigPtr = XCanPs_LookupConfig(CanDeviceId);
+#else
+	ConfigPtr = XCanPs_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -251,9 +280,16 @@ int CanPsIntrExample(INTC *IntcInstPtr, XCanPs *CanInstPtr,
 	/*
 	 * Connect to the interrupt controller.
 	 */
+#ifndef SDT
 	Status =  SetupInterruptSystem(IntcInstPtr,
 					CanInstPtr,
 					CanIntrId);
+#else
+	Status = XSetupInterruptSystem(CanInstPtr,&XCanPs_IntrHandler,
+					ConfigPtr->IntrId,
+					ConfigPtr->IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -605,7 +641,7 @@ static void EventHandler(void *CallBackRef, u32 IntrMask)
 	}
 }
 
-
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -732,3 +768,4 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 #endif
 	return XST_SUCCESS;
 }
+#endif
