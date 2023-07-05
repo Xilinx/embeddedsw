@@ -17,8 +17,7 @@ properties:
         - enum:
           - xlnx,versal-cpm-host-1.00
           - xlnx,xdma-host-3.00
-	   - xlnx,qdma-host-3.00
-
+          - xlnx,qdma-host-3.00
   reg:
     description: Physical base address and size of the controller register map
 
