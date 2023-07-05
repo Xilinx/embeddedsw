@@ -85,14 +85,14 @@
 
 /**************************** Type Definitions *******************************/
 int SpiPsReadID(XSpiPs *SpiPtr);
-int SpiPsTpmStatusGet(XSpiPs *SpiPtr, u8* StatusPtr);
+int SpiPsTpmStatusGet(XSpiPs *SpiPtr, u8 *StatusPtr);
 int SpiPsTpmStatusSet(XSpiPs *SpiPtr, u8 StatusVal);
-int SpiPsTpmAccessGet(XSpiPs *SpiPtr, u8* Access);
+int SpiPsTpmAccessGet(XSpiPs *SpiPtr, u8 *Access);
 int SpiPsTpmAccessSet(XSpiPs *SpiPtr, u8 Access);
-int SpiPsTpmFifoRead(XSpiPs *SpiPtr, u8* DataPtr, u8 ByteCount);
-int SpiPsTpmFifoWrite(XSpiPs *SpiPtr, u8* DataPtr, u8 ByteCount);
-int SpiPsTpmTransfer(XSpiPs *SpiPtr, u32 Address, u8* TxBuf, u8* RxBuf, u16 Length);
-int SpiPsTpmDataTransfer(XSpiPs *SpiPtr, u8* TxBuf, u8* RxBuf, u16 TxLen);
+int SpiPsTpmFifoRead(XSpiPs *SpiPtr, u8 *DataPtr, u8 ByteCount);
+int SpiPsTpmFifoWrite(XSpiPs *SpiPtr, u8 *DataPtr, u8 ByteCount);
+int SpiPsTpmTransfer(XSpiPs *SpiPtr, u32 Address, u8 *TxBuf, u8 *RxBuf, u16 Length);
+int SpiPsTpmDataTransfer(XSpiPs *SpiPtr, u8 *TxBuf, u8 *RxBuf, u16 TxLen);
 #ifndef SDT
 int SpiPsTpmPolledExample(XSpiPs *SpiInstancePtr, u16 SpiDeviceId);
 #else
@@ -112,66 +112,68 @@ u8 TpmRxBuffer[XSPIPS_TPM_RESP_MAX_SIZE + XSPIPS_TPM_TX_HEAD_SIZE];
 u8 TpmRespBuffer[XSPIPS_TPM_RESP_MAX_SIZE];
 
 static u8 tpm2_getcap[] = {
-		0x80, 0x01, /* TPM_ST_NO_SESSIONS */
-		0x00, 0x00, 0x00, 0x16, /* Command Size */
-		0x00, 0x00, 0x01, 0x7A, /* TPM_CC_Get Cap */
-		0x00, 0x00, 0x00, 0x06, /* TPM_SU_CLEAR */
-		0x00, 0x00, 0x01, 0x29, 0x00, 0x00, 0x00, 0x01
+	0x80, 0x01, /* TPM_ST_NO_SESSIONS */
+	0x00, 0x00, 0x00, 0x16, /* Command Size */
+	0x00, 0x00, 0x01, 0x7A, /* TPM_CC_Get Cap */
+	0x00, 0x00, 0x00, 0x06, /* TPM_SU_CLEAR */
+	0x00, 0x00, 0x01, 0x29, 0x00, 0x00, 0x00, 0x01
 };
 
 static u8 tpm2_selftest[] = {
-		0x80, 0x01, /* TPM_ST_NO_SESSIONS */
-		0x00, 0x00, 0x00, 0x0C, /* Command Size */
-		0x00, 0x00, 0x01, 0x43, /* TPM_CC_Selftest */
-		0x00, 0x00 /* TPM_SU_CLEAR */
+	0x80, 0x01, /* TPM_ST_NO_SESSIONS */
+	0x00, 0x00, 0x00, 0x0C, /* Command Size */
+	0x00, 0x00, 0x01, 0x43, /* TPM_CC_Selftest */
+	0x00, 0x00 /* TPM_SU_CLEAR */
 };
 
 static u8 tpm2_startup[] = {
-		0x80, 0x01, /* TPM_ST_NO_SESSIONS */
-		0x00, 0x00, 0x00, 0x0C, /* Command Size */
-		0x00, 0x00, 0x01, 0x44, /* TPM_CC_Startup */
-		0x00, 0x00 /* TPM_SU_CLEAR */
+	0x80, 0x01, /* TPM_ST_NO_SESSIONS */
+	0x00, 0x00, 0x00, 0x0C, /* Command Size */
+	0x00, 0x00, 0x01, 0x44, /* TPM_CC_Startup */
+	0x00, 0x00 /* TPM_SU_CLEAR */
 };
 
 static u8 tpm2_pcrread[] = {
-		0x80, 0x01, /* TPM_ST_NO_SESSIONS */
-		0x00, 0x00, 0x00, 0x14, /* Command Size */
-		0x00, 0x00, 0x01, 0x7E, /* TPM_CC_PCR_Read */
-		0x00, 0x00, 0x00, 0x01, /* PCR Count */
-		0x00, 0x00, /* Hash algorithm */
-		0x03, /* Size PCRs */
-		0x00, 0x00, 0x00 /* PCR Select */
+	0x80, 0x01, /* TPM_ST_NO_SESSIONS */
+	0x00, 0x00, 0x00, 0x14, /* Command Size */
+	0x00, 0x00, 0x01, 0x7E, /* TPM_CC_PCR_Read */
+	0x00, 0x00, 0x00, 0x01, /* PCR Count */
+	0x00, 0x00, /* Hash algorithm */
+	0x03, /* Size PCRs */
+	0x00, 0x00, 0x00 /* PCR Select */
 };
 
 static u8 tpm2_pcrreset[] = {
-		0x80, 0x02, /* TPM_ST_SESSIONS */
-		0x00, 0x00, 0x00, 0x1B, /* Command Size */
-		0x00, 0x00, 0x01, 0x3D, /* TPM_CC_PCR_Reset */
-		0x00, 0x00, 0x00, 0x00, /* PCR_Index */
-		0x00, 0x00, /* NULL Password */
-		0x00, 0x09, /* Authorization Size */
-		0x40, 0x00, 0x00, 0x09, /* Password authorization session */
-		0x00, 0x00, 0x01, 0x00, 0x00
+	0x80, 0x02, /* TPM_ST_SESSIONS */
+	0x00, 0x00, 0x00, 0x1B, /* Command Size */
+	0x00, 0x00, 0x01, 0x3D, /* TPM_CC_PCR_Reset */
+	0x00, 0x00, 0x00, 0x00, /* PCR_Index */
+	0x00, 0x00, /* NULL Password */
+	0x00, 0x09, /* Authorization Size */
+	0x40, 0x00, 0x00, 0x09, /* Password authorization session */
+	0x00, 0x00, 0x01, 0x00, 0x00
 };
 
 static u8 tpm2_pcrextend[XSPIPS_TPM_PCR_EXT_CMD_SIZE +
-XSPIPS_TPM_SHA256_DIGEST_SIZE] = {
-		0x80, 0x02, /* TPM_ST_SESSIONS */
-		0x00, 0x00, 0x00, 0x00, /* Command Size */
-		0x00, 0x00, 0x01, 0x82, /* TPM_CC_PCR_Extend */
-		0x00, 0x00, 0x00, 0x00, /* PCR_Index */
-		0x00, 0x00, /* NULL Password */
-		0x00, 0x09, /* Authorization Size */
-		0x40, 0x00, 0x00, 0x09, /* Password authorization session */
-		0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, /* TPML_DIGEST_VALUES */
-		0x00, 0x00 /* Hash Algorithm */
+						     XSPIPS_TPM_SHA256_DIGEST_SIZE] = {
+	0x80, 0x02, /* TPM_ST_SESSIONS */
+	0x00, 0x00, 0x00, 0x00, /* Command Size */
+	0x00, 0x00, 0x01, 0x82, /* TPM_CC_PCR_Extend */
+	0x00, 0x00, 0x00, 0x00, /* PCR_Index */
+	0x00, 0x00, /* NULL Password */
+	0x00, 0x09, /* Authorization Size */
+	0x40, 0x00, 0x00, 0x09, /* Password authorization session */
+	0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, /* TPML_DIGEST_VALUES */
+	0x00, 0x00 /* Hash Algorithm */
 };
 
 /* Below digest just for reference user can set as required */
 static u8 sha1[XSPIPS_TPM_SHA1_DIGEST_SIZE] = {
-		0x00, 0x01, 0x02, 0x03, 0x04, 05};
+	0x00, 0x01, 0x02, 0x03, 0x04, 05
+};
 static u8 sha256[XSPIPS_TPM_SHA256_DIGEST_SIZE] = {
-		0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF};
+	0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF
+};
 
 /*****************************************************************************/
 /**
@@ -248,7 +250,7 @@ int SpiPsTpmPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	}
 
 	Status = XSpiPs_CfgInitialize(SpiInstancePtr, SpiConfig,
-				       SpiConfig->BaseAddress);
+				      SpiConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -265,8 +267,8 @@ int SpiPsTpmPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 * Set the Spi device as a master. External loopback is required.
 	 */
 	XSpiPs_SetOptions(SpiInstancePtr, XSPIPS_MANUAL_START_OPTION |
-				XSPIPS_MASTER_OPTION |
-			   XSPIPS_FORCE_SSELECT_OPTION);
+			  XSPIPS_MASTER_OPTION |
+			  XSPIPS_FORCE_SSELECT_OPTION);
 
 	XSpiPs_SetClkPrescaler(SpiInstancePtr, XSPIPS_CLK_PRESCALE_16);
 
@@ -288,7 +290,7 @@ int SpiPsTpmPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 			return XST_FAILURE;
 		}
 	} while (!((Access & XSPIPS_TPM_ACCESS_VALID)
-			&& (Access & XSPIPS_TPM_ACCESS_ACT_LOCAL)));
+		   && (Access & XSPIPS_TPM_ACCESS_ACT_LOCAL)));
 
 	/*
 	 * Read TPM ID information
@@ -299,7 +301,7 @@ int SpiPsTpmPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	}
 
 	Status = SpiPsTpmDataTransfer(SpiInstancePtr, tpm2_getcap, TpmRespBuffer,
-			tpm2_getcap[5]);
+				      tpm2_getcap[5]);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -318,127 +320,127 @@ int SpiPsTpmPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 
 		switch (Option) {
 
-		case XSPIPS_TPM2_CMD_SELFTEST:
-			xil_printf("CMD: tpm2_selftest\r\n");
-			Status = SpiPsTpmDataTransfer(SpiInstancePtr, tpm2_selftest,
-					TpmRespBuffer, tpm2_selftest[5]);
-			break;
-
-		case XSPIPS_TPM2_CMD_STARTUP:
-			xil_printf("CMD: tpm2_startup\r\n");
-			Status = SpiPsTpmDataTransfer(SpiInstancePtr, tpm2_startup,
-					TpmRespBuffer, tpm2_startup[5]);
-			break;
-
-		case XSPIPS_TPM2_CMD_PCR_READ:
-			xil_printf("CMD: tpm2_pcrread\r\n");
-
-			xil_printf("Select PCR Index(0-23)\r\n");
-			scanf("%d", &PcrIndex);
-			xil_printf("PCR Index: %d\r\n", PcrIndex);
-
-			if (PcrIndex > 23) {
-				xil_printf("Invalid PCR index\r\n");
+			case XSPIPS_TPM2_CMD_SELFTEST:
+				xil_printf("CMD: tpm2_selftest\r\n");
+				Status = SpiPsTpmDataTransfer(SpiInstancePtr, tpm2_selftest,
+							      TpmRespBuffer, tpm2_selftest[5]);
 				break;
-			}
 
-			xil_printf("Select hash algorithm 1: sha1 2: sha256\r\n");
-			scanf("%d", &HashAlgo);
-
-			if (HashAlgo == 1) {
-				xil_printf("Hash: sha1\r\n");
-				tpm2_pcrread[15] = 0x04;
-			} else if (HashAlgo == 2) {
-				xil_printf("Hash: sha256\r\n");
-				tpm2_pcrread[15] = 0x0B;
-			} else {
-				xil_printf("Invalid PCR index\r\n");
+			case XSPIPS_TPM2_CMD_STARTUP:
+				xil_printf("CMD: tpm2_startup\r\n");
+				Status = SpiPsTpmDataTransfer(SpiInstancePtr, tpm2_startup,
+							      TpmRespBuffer, tpm2_startup[5]);
 				break;
-			}
 
-			tpm2_pcrread[17 + (PcrIndex / 8)] = (1 << (PcrIndex % 8));
+			case XSPIPS_TPM2_CMD_PCR_READ:
+				xil_printf("CMD: tpm2_pcrread\r\n");
 
-			Status = SpiPsTpmDataTransfer(SpiInstancePtr, tpm2_pcrread,
-					TpmRespBuffer, tpm2_pcrread[5]);
-			break;
+				xil_printf("Select PCR Index(0-23)\r\n");
+				scanf("%d", &PcrIndex);
+				xil_printf("PCR Index: %d\r\n", PcrIndex);
 
-		case XSPIPS_TPM2_CMD_PCR_RESET:
-			xil_printf("CMD: tpm2_pcrreset\r\n");
-
-			xil_printf("Select PCR Index(16-23)\r\n");
-
-			scanf("%d", &PcrIndex);
-			xil_printf("PCR Index: %d\r\n", PcrIndex);
-
-			if ((PcrIndex < 16) || (PcrIndex > 23)) {
-				xil_printf("Invalid PCR index\r\n");
-				break;
-			}
-
-			tpm2_pcrreset[13] = PcrIndex;
-
-			Status = SpiPsTpmDataTransfer(SpiInstancePtr, tpm2_pcrreset,
-					TpmRespBuffer, tpm2_pcrreset[5]);
-			break;
-
-		case XSPIPS_TPM2_CMD_PCR_EXTEND:
-			xil_printf("CMD: tpm2_pcrextend\r\n");
-
-			xil_printf("Select PCR Index(0-16 and 23)\r\n");
-
-			scanf("%d", &PcrIndex);
-			xil_printf("PCR Index: %d\r\n", PcrIndex);
-
-			if (PcrIndex > 16) {
-				if(PcrIndex != 23) {
+				if (PcrIndex > 23) {
 					xil_printf("Invalid PCR index\r\n");
 					break;
 				}
-			}
-			tpm2_pcrextend[13] = PcrIndex;
 
-			xil_printf("Select hash algorithm 1: sha1 2: sha256\r\n");
-			scanf("%d", &HashAlgo);
+				xil_printf("Select hash algorithm 1: sha1 2: sha256\r\n");
+				scanf("%d", &HashAlgo);
 
-			if (HashAlgo == 1) {
-				xil_printf("Hash: sha1\r\n");
+				if (HashAlgo == 1) {
+					xil_printf("Hash: sha1\r\n");
+					tpm2_pcrread[15] = 0x04;
+				} else if (HashAlgo == 2) {
+					xil_printf("Hash: sha256\r\n");
+					tpm2_pcrread[15] = 0x0B;
+				} else {
+					xil_printf("Invalid PCR index\r\n");
+					break;
+				}
 
-				tpm2_pcrextend[32] = 0x04;
+				tpm2_pcrread[17 + (PcrIndex / 8)] = (1 << (PcrIndex % 8));
 
-				tpm2_pcrextend[5] = XSPIPS_TPM_PCR_EXT_CMD_SIZE
-						+ XSPIPS_TPM_SHA1_DIGEST_SIZE;
+				Status = SpiPsTpmDataTransfer(SpiInstancePtr, tpm2_pcrread,
+							      TpmRespBuffer, tpm2_pcrread[5]);
+				break;
 
-				for(Index= 0; Index<XSPIPS_TPM_SHA1_DIGEST_SIZE; Index++)
-					tpm2_pcrextend[XSPIPS_TPM_PCR_EXT_CMD_SIZE + Index] =
+			case XSPIPS_TPM2_CMD_PCR_RESET:
+				xil_printf("CMD: tpm2_pcrreset\r\n");
+
+				xil_printf("Select PCR Index(16-23)\r\n");
+
+				scanf("%d", &PcrIndex);
+				xil_printf("PCR Index: %d\r\n", PcrIndex);
+
+				if ((PcrIndex < 16) || (PcrIndex > 23)) {
+					xil_printf("Invalid PCR index\r\n");
+					break;
+				}
+
+				tpm2_pcrreset[13] = PcrIndex;
+
+				Status = SpiPsTpmDataTransfer(SpiInstancePtr, tpm2_pcrreset,
+							      TpmRespBuffer, tpm2_pcrreset[5]);
+				break;
+
+			case XSPIPS_TPM2_CMD_PCR_EXTEND:
+				xil_printf("CMD: tpm2_pcrextend\r\n");
+
+				xil_printf("Select PCR Index(0-16 and 23)\r\n");
+
+				scanf("%d", &PcrIndex);
+				xil_printf("PCR Index: %d\r\n", PcrIndex);
+
+				if (PcrIndex > 16) {
+					if (PcrIndex != 23) {
+						xil_printf("Invalid PCR index\r\n");
+						break;
+					}
+				}
+				tpm2_pcrextend[13] = PcrIndex;
+
+				xil_printf("Select hash algorithm 1: sha1 2: sha256\r\n");
+				scanf("%d", &HashAlgo);
+
+				if (HashAlgo == 1) {
+					xil_printf("Hash: sha1\r\n");
+
+					tpm2_pcrextend[32] = 0x04;
+
+					tpm2_pcrextend[5] = XSPIPS_TPM_PCR_EXT_CMD_SIZE
+							    + XSPIPS_TPM_SHA1_DIGEST_SIZE;
+
+					for (Index = 0; Index < XSPIPS_TPM_SHA1_DIGEST_SIZE; Index++)
+						tpm2_pcrextend[XSPIPS_TPM_PCR_EXT_CMD_SIZE + Index] =
 							sha1[Index];
 
-			} else if (HashAlgo == 2) {
-				xil_printf("Hash: sha256\r\n");
+				} else if (HashAlgo == 2) {
+					xil_printf("Hash: sha256\r\n");
 
-				tpm2_pcrextend[32] = 0x0B;
+					tpm2_pcrextend[32] = 0x0B;
 
-				tpm2_pcrextend[5] = XSPIPS_TPM_PCR_EXT_CMD_SIZE
-						+ XSPIPS_TPM_SHA256_DIGEST_SIZE;
+					tpm2_pcrextend[5] = XSPIPS_TPM_PCR_EXT_CMD_SIZE
+							    + XSPIPS_TPM_SHA256_DIGEST_SIZE;
 
-				for(Index= 0; Index<XSPIPS_TPM_SHA256_DIGEST_SIZE; Index++)
-					tpm2_pcrextend[XSPIPS_TPM_PCR_EXT_CMD_SIZE + Index] =
+					for (Index = 0; Index < XSPIPS_TPM_SHA256_DIGEST_SIZE; Index++)
+						tpm2_pcrextend[XSPIPS_TPM_PCR_EXT_CMD_SIZE + Index] =
 							sha256[Index];
 
-			} else {
-				xil_printf("Invalid PCR index\r\n");
+				} else {
+					xil_printf("Invalid PCR index\r\n");
+					break;
+				}
+
+				Status = SpiPsTpmDataTransfer(SpiInstancePtr, tpm2_pcrextend,
+							      TpmRespBuffer, tpm2_pcrextend[5]);
 				break;
-			}
 
-			Status = SpiPsTpmDataTransfer(SpiInstancePtr, tpm2_pcrextend,
-					TpmRespBuffer, tpm2_pcrextend[5]);
-			break;
+			case XSPIPS_EXIT_CMD_LOOP:
+				ExitCmdLoop = 1;
+				break;
 
-		case XSPIPS_EXIT_CMD_LOOP:
-			ExitCmdLoop = 1;
-			break;
-
-		default:
-			xil_printf("Invalid option selected\r\n");
+			default:
+				xil_printf("Invalid option selected\r\n");
 
 		}
 
@@ -449,7 +451,7 @@ int SpiPsTpmPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 		if (!ExitCmdLoop) {
 			for (Index = 0; Index < TpmRespBuffer[5]; Index++) {
 				xil_printf("Response Data[%d] = 0x%x\r\n", Index,
-						TpmRespBuffer[Index]);
+					   TpmRespBuffer[Index]);
 			}
 		}
 	}
@@ -475,7 +477,7 @@ int SpiPsReadID(XSpiPs *SpiPtr)
 	u32 VendId;
 	u8 RevId;
 
-	Status = SpiPsTpmTransfer(SpiPtr, XSPIPS_TPM_DID_VID, NULL, (u8*)&VendId, 4);
+	Status = SpiPsTpmTransfer(SpiPtr, XSPIPS_TPM_DID_VID, NULL, (u8 *)&VendId, 4);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -505,7 +507,8 @@ int SpiPsReadID(XSpiPs *SpiPtr)
 * @note		None.
 *
 ******************************************************************************/
-int SpiPsTpmStatusGet(XSpiPs *SpiPtr, u8* StatusPtr) {
+int SpiPsTpmStatusGet(XSpiPs *SpiPtr, u8 *StatusPtr)
+{
 	int Status;
 
 	Status = SpiPsTpmTransfer(SpiPtr, XSPIPS_TPM_STS, NULL, StatusPtr, 1);
@@ -529,7 +532,8 @@ int SpiPsTpmStatusGet(XSpiPs *SpiPtr, u8* StatusPtr) {
 * @note		None.
 *
 ******************************************************************************/
-int SpiPsTpmStatusSet(XSpiPs *SpiPtr, u8 StatusVal) {
+int SpiPsTpmStatusSet(XSpiPs *SpiPtr, u8 StatusVal)
+{
 	int Status;
 
 	Status = SpiPsTpmTransfer(SpiPtr, XSPIPS_TPM_STS, &StatusVal, NULL, 1);
@@ -553,7 +557,8 @@ int SpiPsTpmStatusSet(XSpiPs *SpiPtr, u8 StatusVal) {
 * @note		None.
 *
 ******************************************************************************/
-int SpiPsTpmAccessGet(XSpiPs *SpiPtr, u8* AccessPtr) {
+int SpiPsTpmAccessGet(XSpiPs *SpiPtr, u8 *AccessPtr)
+{
 	int Status;
 
 	Status = SpiPsTpmTransfer(SpiPtr, XSPIPS_TPM_ACCESS, NULL, AccessPtr, 1);
@@ -577,7 +582,8 @@ int SpiPsTpmAccessGet(XSpiPs *SpiPtr, u8* AccessPtr) {
 * @note		None.
 *
 ******************************************************************************/
-int SpiPsTpmAccessSet(XSpiPs *SpiPtr, u8 Access) {
+int SpiPsTpmAccessSet(XSpiPs *SpiPtr, u8 Access)
+{
 	int Status;
 
 	Status = SpiPsTpmTransfer(SpiPtr, XSPIPS_TPM_ACCESS, &Access, NULL, 1);
@@ -602,7 +608,8 @@ int SpiPsTpmAccessSet(XSpiPs *SpiPtr, u8 Access) {
 * @note		None.
 *
 ******************************************************************************/
-int SpiPsTpmFifoRead(XSpiPs *SpiPtr, u8* DataPtr, u8 ByteCount) {
+int SpiPsTpmFifoRead(XSpiPs *SpiPtr, u8 *DataPtr, u8 ByteCount)
+{
 	int Status;
 
 	Status = SpiPsTpmTransfer(SpiPtr, XSPIPS_TPM_DATA_FIFO, NULL, DataPtr, ByteCount);
@@ -627,7 +634,8 @@ int SpiPsTpmFifoRead(XSpiPs *SpiPtr, u8* DataPtr, u8 ByteCount) {
 * @note		None.
 *
 ******************************************************************************/
-int SpiPsTpmFifoWrite(XSpiPs *SpiPtr, u8* DataPtr, u8 ByteCount) {
+int SpiPsTpmFifoWrite(XSpiPs *SpiPtr, u8 *DataPtr, u8 ByteCount)
+{
 	int Status;
 
 	Status = SpiPsTpmTransfer(SpiPtr, XSPIPS_TPM_DATA_FIFO, DataPtr, NULL, ByteCount);
@@ -655,7 +663,7 @@ int SpiPsTpmFifoWrite(XSpiPs *SpiPtr, u8* DataPtr, u8 ByteCount) {
 *
 ******************************************************************************/
 int SpiPsTpmTransfer(XSpiPs *SpiPtr, u32 Address, u8 *TxBuf, u8 *RxBuf,
-		u16 Length)
+		     u16 Length)
 {
 	u16 TranLen;
 	u16 RxOffset = 0;
@@ -665,7 +673,7 @@ int SpiPsTpmTransfer(XSpiPs *SpiPtr, u32 Address, u8 *TxBuf, u8 *RxBuf,
 	while (Length) {
 
 		TranLen = (Length <= XSPIPS_TPM_SPI_MAX_SIZE) ? Length :
-		XSPIPS_TPM_SPI_MAX_SIZE;
+			  XSPIPS_TPM_SPI_MAX_SIZE;
 
 		TpmTxBuffer[0] = (RxBuf ? 0x80 : 0) | (TranLen - 1);
 		TpmTxBuffer[1] = 0xD4;
@@ -679,7 +687,7 @@ int SpiPsTpmTransfer(XSpiPs *SpiPtr, u32 Address, u8 *TxBuf, u8 *RxBuf,
 		}
 
 		Status = XSpiPs_PolledTransfer(SpiPtr, TpmTxBuffer, TpmRxBuffer,
-				TranLen + XSPIPS_TPM_TX_HEAD_SIZE);
+					       TranLen + XSPIPS_TPM_TX_HEAD_SIZE);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -711,7 +719,7 @@ int SpiPsTpmTransfer(XSpiPs *SpiPtr, u32 Address, u8 *TxBuf, u8 *RxBuf,
 * @note		None.
 *
 ******************************************************************************/
-int SpiPsTpmDataTransfer(XSpiPs *SpiPtr, u8* TxBuf, u8* RxBuf, u16 Txlen)
+int SpiPsTpmDataTransfer(XSpiPs *SpiPtr, u8 *TxBuf, u8 *RxBuf, u16 Txlen)
 {
 	u8 StatusVal;
 	int Status;
@@ -750,7 +758,7 @@ int SpiPsTpmDataTransfer(XSpiPs *SpiPtr, u8* TxBuf, u8* RxBuf, u16 Txlen)
 			return XST_FAILURE;
 		}
 	} while (!((StatusVal & XSPIPS_TPM_STS_VALID)
-			&& (StatusVal & XSPIPS_TPM_STS_DATA_AVAIL)));
+		   && (StatusVal & XSPIPS_TPM_STS_DATA_AVAIL)));
 
 	/* Read Data from device */
 	Status = SpiPsTpmFifoRead(SpiPtr, RxBuf, XSPIPS_TPM_RX_HEAD_SIZE);
@@ -760,12 +768,13 @@ int SpiPsTpmDataTransfer(XSpiPs *SpiPtr, u8* TxBuf, u8* RxBuf, u16 Txlen)
 
 	RxLen = RxBuf[5];
 
-	if(RxLen > XSPIPS_TPM_RESP_MAX_SIZE)
+	if (RxLen > XSPIPS_TPM_RESP_MAX_SIZE) {
 		return XST_FAILURE;
+	}
 
 	RxLen = RxBuf[5] - XSPIPS_TPM_RX_HEAD_SIZE;
 
-	if(RxLen) {
+	if (RxLen) {
 		Status = SpiPsTpmFifoRead(SpiPtr, RxBuf + XSPIPS_TPM_RX_HEAD_SIZE, RxLen);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;

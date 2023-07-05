@@ -133,7 +133,7 @@ static int is_sst;
 /************************** Function Prototypes ******************************/
 
 static int SpiPsSetupIntrSystem(XScuGic *IntcInstancePtr,
-			       XSpiPs *SpiInstancePtr, u16 SpiIntrId);
+				XSpiPs *SpiInstancePtr, u16 SpiIntrId);
 
 static void SpiPsDisableIntrSystem(XScuGic *IntcInstancePtr, u16 SpiIntrId);
 
@@ -149,7 +149,7 @@ static int FlashReadID(XSpiPs *SpiInstance);
 
 #ifndef SDT
 int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
-			 u16 SpiDeviceId, u16 SpiIntrId);
+			  u16 SpiDeviceId, u16 SpiIntrId);
 #else
 int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress);
 #endif
@@ -163,7 +163,7 @@ static int SST_GlobalBlkProtectUnlk(XSpiPs *SpiInstancePtr);
  * are initialized to zero each time the program runs. They could be local
  * but should at least be static so they are zeroed.
  */
- #ifndef TESTAPP_GEN
+#ifndef TESTAPP_GEN
 static XScuGic IntcInstance;
 static XSpiPs SpiInstance;
 #endif
@@ -217,7 +217,7 @@ int main(void)
 	 */
 #ifndef SDT
 	Status = SpiPsFlashIntrExample(&IntcInstance, &SpiInstance,
-				      SPI_DEVICE_ID, SPI_INTR_ID);
+				       SPI_DEVICE_ID, SPI_INTR_ID);
 #else
 	Status = SpiPsFlashIntrExample(&SpiInstance, XPAR_XSPIPS_0_BASEADDR);
 #endif
@@ -260,7 +260,7 @@ int main(void)
 *****************************************************************************/
 #ifndef SDT
 int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
-			 u16 SpiDeviceId, u16 SpiIntrId)
+			  u16 SpiDeviceId, u16 SpiIntrId)
 #else
 int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 #endif
@@ -296,7 +296,7 @@ int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	}
 
 	Status = XSpiPs_CfgInitialize(SpiInstancePtr, SpiConfig,
-					SpiConfig->BaseAddress);
+				      SpiConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -315,7 +315,7 @@ int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 */
 #ifndef SDT
 	Status = SpiPsSetupIntrSystem(IntcInstancePtr, SpiInstancePtr,
-				     SpiIntrId);
+				      SpiIntrId);
 #else
 	Status = XSetupInterruptSystem(SpiInstancePtr, &XSpiPs_InterruptHandler,
 				       SpiConfig->IntrId,
@@ -333,14 +333,14 @@ int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 * able to access the instance data
 	 */
 	XSpiPs_SetStatusHandler(SpiInstancePtr, SpiInstancePtr,
-				 (XSpiPs_StatusHandler) SpiPsHandler);
+				(XSpiPs_StatusHandler) SpiPsHandler);
 
 	/*
 	 * Set the SPI device as a master with manual start and manual
 	 * chip select mode options
 	 */
 	XSpiPs_SetOptions(SpiInstancePtr, XSPIPS_MANUAL_START_OPTION | \
-			XSPIPS_MASTER_OPTION | XSPIPS_FORCE_SSELECT_OPTION);
+			  XSPIPS_MASTER_OPTION | XSPIPS_FORCE_SSELECT_OPTION);
 
 	/*
 	 * Set the SPI device pre-scalar to divide by 8
@@ -406,7 +406,7 @@ int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 */
 	BufferPtr = &ReadBuffer[DATA_OFFSET];
 	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MaxSize;
-			 Count++, UniqueValue++) {
+	     Count++, UniqueValue++) {
 		if (BufferPtr[Count] != (u8)(UniqueValue)) {
 			return XST_FAILURE;
 		}
@@ -417,7 +417,7 @@ int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 * chip select mode options
 	 */
 	XSpiPs_SetOptions(SpiInstancePtr, XSPIPS_MASTER_OPTION | \
-			XSPIPS_FORCE_SSELECT_OPTION);
+			  XSPIPS_FORCE_SSELECT_OPTION);
 
 	memset(WriteBuffer, 0x00, sizeof(WriteBuffer));
 	memset(ReadBuffer, 0x00, sizeof(ReadBuffer));
@@ -455,7 +455,7 @@ int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 */
 	BufferPtr = &ReadBuffer[DATA_OFFSET];
 	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MaxSize;
-			 Count++, UniqueValue++) {
+	     Count++, UniqueValue++) {
 		if (BufferPtr[Count] != (u8)(UniqueValue)) {
 			return XST_FAILURE;
 		}
@@ -546,7 +546,7 @@ static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 			TransferInProgress = TRUE;
 
 			XSpiPs_Transfer(SpiPtr, &WriteEnableCmd, NULL,
-					 sizeof(WriteEnableCmd));
+					sizeof(WriteEnableCmd));
 
 			/*
 			 * Wait for the transfer on the SPI bus to be complete before
@@ -560,13 +560,13 @@ static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 			 */
 			TempBuffer[COMMAND_OFFSET] = Command;
 			TempBuffer[ADDRESS_1_OFFSET] =
-					 (u8)((TempAddress & 0xFF0000) >> 16);
+				(u8)((TempAddress & 0xFF0000) >> 16);
 			TempBuffer[ADDRESS_2_OFFSET] =
-					 (u8)((TempAddress & 0xFF00) >> 8);
+				(u8)((TempAddress & 0xFF00) >> 8);
 			TempBuffer[ADDRESS_3_OFFSET] =
-					 (u8)(TempAddress & 0xFF);
+				(u8)(TempAddress & 0xFF);
 			TempBuffer[DATA_OFFSET] =
-					 WriteBuffer[DATA_OFFSET + Temp];
+				WriteBuffer[DATA_OFFSET + Temp];
 
 			/*
 			 * Send the write command, address, and data to the
@@ -595,7 +595,7 @@ static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 				TransferInProgress = TRUE;
 
 				XSpiPs_Transfer(SpiPtr, ReadStatusCmd,
-					 FlashStatus, sizeof(ReadStatusCmd));
+						FlashStatus, sizeof(ReadStatusCmd));
 
 				/*
 				 * Wait for the transfer on the SPI bus
@@ -619,7 +619,7 @@ static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 			TransferInProgress = TRUE;
 
 			XSpiPs_Transfer(SpiPtr, &WriteDisableCmd, NULL,
-					 sizeof(WriteDisableCmd));
+					sizeof(WriteDisableCmd));
 
 			/*
 			 * Wait for the transfer on the SPI bus to be complete
@@ -666,7 +666,7 @@ static void FlashRead(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 	TransferInProgress = TRUE;
 
 	XSpiPs_Transfer(SpiPtr, WriteBuffer, ReadBuffer,
-			  ByteCount + OVERHEAD_SIZE);
+			ByteCount + OVERHEAD_SIZE);
 
 	/*
 	 * Wait for the transfer on the SPI bus to be complete before
@@ -695,7 +695,7 @@ static int SST_GlobalBlkProtectUnlk(XSpiPs *SpiInstancePtr)
 	u8 ulbpr[] = { GLOBAL_BLK_PROT_UNLK };
 
 	/* send wite enable */
-	Status = XSpiPs_PolledTransfer(SpiInstancePtr, WriteEnable, NULL,sizeof(WriteEnable));
+	Status = XSpiPs_PolledTransfer(SpiInstancePtr, WriteEnable, NULL, sizeof(WriteEnable));
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -732,14 +732,14 @@ static int FlashReadID(XSpiPs *SpiInstance)
 	SendBuffer[2] = 0;
 	SendBuffer[3] = 0;
 
-	for(Index=0; Index < ByteCount; Index++) {
+	for (Index = 0; Index < ByteCount; Index++) {
 		SendBuffer[4 + Index] = 0x00;
 	}
 
 	TransferInProgress = TRUE;
 
 	XSpiPs_Transfer(SpiInstance, SendBuffer, RecvBuffer,
-			 (4 + ByteCount));
+			(4 + ByteCount));
 
 	while (TransferInProgress);
 
@@ -747,7 +747,7 @@ static int FlashReadID(XSpiPs *SpiInstance)
 		/* Use SST_READ_ID(0x9f) for reading id*/
 		SendBuffer[0] = SST_READ_ID;
 		XSpiPs_PolledTransfer(SpiInstance, SendBuffer, RecvBuffer,
-				(4 + ByteCount));
+				      (4 + ByteCount));
 
 		while (TransferInProgress);
 
@@ -757,7 +757,7 @@ static int FlashReadID(XSpiPs *SpiInstance)
 		}
 	}
 
-	for(Index=0; Index < ByteCount; Index++) {
+	for (Index = 0; Index < ByteCount; Index++) {
 		xil_printf("ID : %0x\r\n", RecvBuffer[4 + Index]);
 	}
 
@@ -811,7 +811,7 @@ static void FlashErase(XSpiPs *SpiPtr)
 		TransferInProgress = TRUE;
 
 		XSpiPs_Transfer(SpiPtr, ReadStatusCmd, FlashStatus,
-				  sizeof(ReadStatusCmd));
+				sizeof(ReadStatusCmd));
 
 		/*
 		 * Wait for the transfer on the SPI bus to be complete
@@ -856,7 +856,7 @@ static void FlashErase(XSpiPs *SpiPtr)
 		TransferInProgress = TRUE;
 
 		XSpiPs_Transfer(SpiPtr, ReadStatusCmd, FlashStatus,
-				  sizeof(ReadStatusCmd));
+				sizeof(ReadStatusCmd));
 
 		/*
 		 * Wait for the transfer on the SPI bus to be complete
@@ -902,7 +902,7 @@ static void FlashErase(XSpiPs *SpiPtr)
 		TransferInProgress = TRUE;
 
 		XSpiPs_Transfer(SpiPtr, ReadStatusCmd, FlashStatus,
-				  sizeof(ReadStatusCmd));
+				sizeof(ReadStatusCmd));
 
 		/*
 		 * Wait for the transfer on the SPI bus to be complete
@@ -953,7 +953,7 @@ static void FlashErase(XSpiPs *SpiPtr)
 		TransferInProgress = TRUE;
 
 		XSpiPs_Transfer(SpiPtr, ReadStatusCmd, FlashStatus,
-				  sizeof(ReadStatusCmd));
+				sizeof(ReadStatusCmd));
 
 		/*
 		 * Wait for the transfer on the SPI bus to be complete
@@ -993,7 +993,7 @@ static void FlashErase(XSpiPs *SpiPtr)
 *
 ******************************************************************************/
 static int SpiPsSetupIntrSystem(XScuGic *IntcInstancePtr,
-			       XSpiPs *SpiInstancePtr, u16 SpiIntrId)
+				XSpiPs *SpiInstancePtr, u16 SpiIntrId)
 {
 	int Status;
 
@@ -1011,7 +1011,7 @@ static int SpiPsSetupIntrSystem(XScuGic *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -1021,8 +1021,8 @@ static int SpiPsSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 
 	/*
 	 * Connect the device driver handler that will be called when an
@@ -1030,8 +1030,8 @@ static int SpiPsSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, SpiIntrId,
-				(Xil_ExceptionHandler)XSpiPs_InterruptHandler,
-				(void *)SpiInstancePtr);
+				 (Xil_ExceptionHandler)XSpiPs_InterruptHandler,
+				 (void *)SpiInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}

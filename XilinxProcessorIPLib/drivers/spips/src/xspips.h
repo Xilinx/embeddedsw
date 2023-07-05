@@ -378,7 +378,7 @@ extern "C" {
  *		requested if the status event indicates an error.
  */
 typedef void (*XSpiPs_StatusHandler) (const void *CallBackRef, u32 StatusEvent,
-					u32 ByteCount);
+				      u32 ByteCount);
 
 /**
  * This typedef contains configuration information for the device.
@@ -436,8 +436,8 @@ typedef struct {
 *
 *****************************************************************************/
 #define XSpiPs_IsManualStart(InstancePtr) \
-		(((XSpiPs_GetOptions(InstancePtr) & \
-		  XSPIPS_MANUAL_START_OPTION) != (u32)0U) ? TRUE : FALSE)
+	(((XSpiPs_GetOptions(InstancePtr) & \
+	   XSPIPS_MANUAL_START_OPTION) != (u32)0U) ? TRUE : FALSE)
 
 /****************************************************************************/
 /*
@@ -455,8 +455,8 @@ typedef struct {
 *
 *****************************************************************************/
 #define XSpiPs_IsManualChipSelect(InstancePtr) \
-		(((XSpiPs_GetOptions(InstancePtr) & \
-		  XSPIPS_FORCE_SSELECT_OPTION) != (u32)0U) ? TRUE : FALSE)
+	(((XSpiPs_GetOptions(InstancePtr) & \
+	   XSPIPS_FORCE_SSELECT_OPTION) != (u32)0U) ? TRUE : FALSE)
 
 /****************************************************************************/
 /*
@@ -474,8 +474,8 @@ typedef struct {
 *
 *****************************************************************************/
 #define XSpiPs_IsDecodeSSelect(InstancePtr) \
-		(((XSpiPs_GetOptions(InstancePtr) & \
-		  XSPIPS_DECODE_SSELECT_OPTION) != (u32)0U) ? TRUE : FALSE)
+	(((XSpiPs_GetOptions(InstancePtr) & \
+	   XSPIPS_DECODE_SSELECT_OPTION) != (u32)0U) ? TRUE : FALSE)
 
 /****************************************************************************/
 /*
@@ -493,8 +493,8 @@ typedef struct {
 *
 *****************************************************************************/
 #define XSpiPs_IsMaster(InstancePtr) \
-		(((XSpiPs_GetOptions(InstancePtr) & \
-		  XSPIPS_MASTER_OPTION) != (u32)0U) ? TRUE : FALSE)
+	(((XSpiPs_GetOptions(InstancePtr) & \
+	   XSPIPS_MASTER_OPTION) != (u32)0U) ? TRUE : FALSE)
 
 /****************************************************************************/
 /**
@@ -514,7 +514,7 @@ typedef struct {
 *****************************************************************************/
 #define XSpiPs_SetSlaveIdle(InstancePtr, RegisterValue)	\
 	XSpiPs_Out32(((InstancePtr)->Config.BaseAddress) + 	\
-		XSPIPS_SICR_OFFSET, (RegisterValue))
+		     XSPIPS_SICR_OFFSET, (RegisterValue))
 
 /****************************************************************************/
 /**
@@ -532,7 +532,7 @@ typedef struct {
 *****************************************************************************/
 #define XSpiPs_GetSlaveIdle(InstancePtr)				\
 	XSpiPs_In32(((InstancePtr)->Config.BaseAddress) + 		\
-	XSPIPS_SICR_OFFSET)
+		    XSPIPS_SICR_OFFSET)
 
 /****************************************************************************/
 /**
@@ -552,7 +552,7 @@ typedef struct {
 *****************************************************************************/
 #define XSpiPs_SetTXWatermark(InstancePtr, RegisterValue)		\
 	XSpiPs_Out32(((InstancePtr)->Config.BaseAddress) + 		\
-		XSPIPS_TXWR_OFFSET, (RegisterValue))
+		     XSPIPS_TXWR_OFFSET, (RegisterValue))
 
 /****************************************************************************/
 /**
@@ -590,7 +590,7 @@ typedef struct {
 *****************************************************************************/
 #define XSpiPs_SetRXWatermark(InstancePtr, RegisterValue)		\
 	XSpiPs_Out32(((InstancePtr)->Config.BaseAddress) + 		\
-		XSPIPS_RXWR_OFFSET, (RegisterValue))
+		     XSPIPS_RXWR_OFFSET, (RegisterValue))
 
 /****************************************************************************/
 /**
@@ -625,7 +625,7 @@ typedef struct {
 *****************************************************************************/
 #define XSpiPs_Enable(InstancePtr)					\
 	XSpiPs_Out32(((InstancePtr)->Config.BaseAddress) + XSPIPS_ER_OFFSET, \
-		XSPIPS_ER_ENABLE_MASK)
+		     XSPIPS_ER_ENABLE_MASK)
 
 /****************************************************************************/
 /**
@@ -657,19 +657,19 @@ XSpiPs_Config *XSpiPs_LookupConfig(u32 BaseAddress);
 /*
  * Functions implemented in xspips.c
  */
-s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, const XSpiPs_Config * ConfigPtr,
-				u32 EffectiveAddr);
+s32 XSpiPs_CfgInitialize(XSpiPs *InstancePtr, const XSpiPs_Config *ConfigPtr,
+			 u32 EffectiveAddr);
 
 void XSpiPs_Reset(XSpiPs *InstancePtr);
 
 s32 XSpiPs_Transfer(XSpiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
-			u32 ByteCount);
+		    u32 ByteCount);
 
 s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
-				u8 *RecvBufPtr, u32 ByteCount);
+			  u8 *RecvBufPtr, u32 ByteCount);
 
 void XSpiPs_SetStatusHandler(XSpiPs *InstancePtr, void *CallBackRef,
-				XSpiPs_StatusHandler FunctionPtr);
+			     XSpiPs_StatusHandler FunctionPtr);
 void XSpiPs_InterruptHandler(XSpiPs *InstancePtr);
 
 void XSpiPs_Abort(XSpiPs *InstancePtr);
@@ -692,9 +692,9 @@ s32 XSpiPs_SetClkPrescaler(const XSpiPs *InstancePtr, u8 Prescaler);
 u8 XSpiPs_GetClkPrescaler(const XSpiPs *InstancePtr);
 
 s32 XSpiPs_SetDelays(const XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
-			u8 DelayAfter, u8 DelayInit);
+		     u8 DelayAfter, u8 DelayInit);
 void XSpiPs_GetDelays(const XSpiPs *InstancePtr, u8 *DelayNss, u8 *DelayBtwn,
-			u8 *DelayAfter, u8 *DelayInit);
+		      u8 *DelayAfter, u8 *DelayInit);
 #ifdef __cplusplus
 }
 #endif

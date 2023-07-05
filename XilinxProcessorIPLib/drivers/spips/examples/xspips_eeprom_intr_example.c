@@ -143,7 +143,7 @@ void EepromWrite(XSpiPs *SpiPtr, u16 Address, u8 ByteCount,
 
 #ifndef SDT
 int SpiPsEepromIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
-			 u16 SpiDeviceId, u16 SpiIntrId);
+			   u16 SpiDeviceId, u16 SpiIntrId);
 #else
 int SpiPsEepromIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress);
 #endif
@@ -206,7 +206,7 @@ int main(void)
 	 */
 #ifndef SDT
 	Status = SpiPsEepromIntrExample(&IntcInstance, &SpiInstance,
-				      SPI_DEVICE_ID, SPI_INTR_ID);
+					SPI_DEVICE_ID, SPI_INTR_ID);
 #else
 	Status = SpiPsEepromIntrExample(&SpiInstance, XPAR_XSPIPS_0_BASEADDR);
 #endif
@@ -244,7 +244,7 @@ int main(void)
 *****************************************************************************/
 #ifndef SDT
 int SpiPsEepromIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
-			 u16 SpiDeviceId, u16 SpiIntrId)
+			   u16 SpiDeviceId, u16 SpiIntrId)
 #else
 int SpiPsEepromIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 #endif
@@ -269,7 +269,7 @@ int SpiPsEepromIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	}
 
 	Status = XSpiPs_CfgInitialize(SpiInstancePtr, SpiConfig,
-				       SpiConfig->BaseAddress);
+				      SpiConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -305,13 +305,13 @@ int SpiPsEepromIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 * able to access the instance data
 	 */
 	XSpiPs_SetStatusHandler(SpiInstancePtr, SpiInstancePtr,
-				 (XSpiPs_StatusHandler) SpiHandler);
+				(XSpiPs_StatusHandler) SpiHandler);
 
 	/*
 	 * Set the Spi device as a master. External loopback is required.
 	 */
 	XSpiPs_SetOptions(SpiInstancePtr, XSPIPS_MASTER_OPTION |
-			   XSPIPS_FORCE_SSELECT_OPTION);
+			  XSPIPS_FORCE_SSELECT_OPTION);
 
 	XSpiPs_SetClkPrescaler(SpiInstancePtr, XSPIPS_CLK_PRESCALE_64);
 
@@ -322,9 +322,9 @@ int SpiPsEepromIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 * changed in a debug environment to guarantee
 	 */
 	for (UniqueValue = 13, Count = 0; Count < MAX_DATA;
-					Count++, UniqueValue++) {
+	     Count++, UniqueValue++) {
 		WriteBuffer[WRITE_DATA_OFFSET + Count] =
-					(u8)(UniqueValue + Test);
+			(u8)(UniqueValue + Test);
 		ReadBuffer[READ_DATA_OFFSET + Count] = 0xA5;
 	}
 
@@ -339,7 +339,7 @@ int SpiPsEepromIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 */
 	for (Page = 0; Page < PAGE_COUNT; Page++) {
 		EepromWrite(SpiInstancePtr, Page * PAGE_SIZE, PAGE_SIZE,
-				&WriteBuffer[Page * PAGE_SIZE]);
+			    &WriteBuffer[Page * PAGE_SIZE]);
 	}
 
 	/*
@@ -356,7 +356,7 @@ int SpiPsEepromIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	BufferPtr = &ReadBuffer[READ_DATA_OFFSET];
 
 	for (UniqueValue = 13, Count = 0; Count < MAX_DATA;
-					Count++, UniqueValue++) {
+	     Count++, UniqueValue++) {
 		if (BufferPtr[Count] != (u8)(UniqueValue + Test)) {
 			return XST_FAILURE;
 		}
@@ -441,7 +441,7 @@ void EepromRead(XSpiPs *SpiPtr, u16 Address, int ByteCount,
 	TransferInProgress = TRUE;
 
 	XSpiPs_Transfer(SpiPtr, Buffer, &Buffer[DATA_OFFSET],
-			 ByteCount + OVERHEAD_SIZE);
+			ByteCount + OVERHEAD_SIZE);
 
 	/*
 	 * Wait for the transfer on the SPI bus to be complete before proceeding
@@ -531,7 +531,7 @@ void EepromWrite(XSpiPs *SpiPtr, u16 Address, u8 ByteCount,
 		TransferInProgress = TRUE;
 
 		XSpiPs_Transfer(SpiPtr, ReadStatusCmd, EepromStatus,
-				 sizeof(ReadStatusCmd));
+				sizeof(ReadStatusCmd));
 
 		/*
 		 * Wait for the transfer on the SPI bus to be complete before
@@ -591,7 +591,7 @@ static int SpiSetupIntrSystem(XScuGic *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -601,8 +601,8 @@ static int SpiSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 #endif
 
 	/*
@@ -611,8 +611,8 @@ static int SpiSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, SpiIntrId,
-				(Xil_ExceptionHandler)XSpiPs_InterruptHandler,
-				(void *)SpiInstancePtr);
+				 (Xil_ExceptionHandler)XSpiPs_InterruptHandler,
+				 (void *)SpiInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}

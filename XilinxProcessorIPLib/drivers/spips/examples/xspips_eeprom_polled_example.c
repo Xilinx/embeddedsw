@@ -237,7 +237,7 @@ int SpiPsEepromPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	}
 
 	Status = XSpiPs_CfgInitialize(SpiInstancePtr, SpiConfig,
-				       SpiConfig->BaseAddress);
+				      SpiConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -254,7 +254,7 @@ int SpiPsEepromPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 * Set the Spi device as a master. External loopback is required.
 	 */
 	XSpiPs_SetOptions(SpiInstancePtr, XSPIPS_MASTER_OPTION |
-			   XSPIPS_FORCE_SSELECT_OPTION);
+			  XSPIPS_FORCE_SSELECT_OPTION);
 
 	XSpiPs_SetClkPrescaler(SpiInstancePtr, XSPIPS_CLK_PRESCALE_64);
 
@@ -265,9 +265,9 @@ int SpiPsEepromPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	 * changed in a debug environment to guarantee
 	 */
 	for (UniqueValue = 13, Count = 0; Count < MAX_DATA;
-					Count++, UniqueValue++) {
+	     Count++, UniqueValue++) {
 		WriteBuffer[WRITE_DATA_OFFSET + Count] =
-					(u8)(UniqueValue + Test);
+			(u8)(UniqueValue + Test);
 		ReadBuffer[READ_DATA_OFFSET + Count] = 0xA5;
 	}
 
@@ -283,9 +283,9 @@ int SpiPsEepromPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 	UniqueValue = 13;
 	for (Page = 0; Page < PAGE_COUNT; Page++) {
 		EepromWrite(SpiInstancePtr, Page * PAGE_SIZE, PAGE_SIZE,
-				&WriteBuffer[Page * PAGE_SIZE]);
+			    &WriteBuffer[Page * PAGE_SIZE]);
 		EepromRead(SpiInstancePtr, Page * PAGE_SIZE, PAGE_SIZE,
-				ReadBuffer);
+			   ReadBuffer);
 
 		BufferPtr = &ReadBuffer[READ_DATA_OFFSET];
 		for (Count = 0; Count < PAGE_SIZE; Count++, UniqueValue++) {
@@ -330,7 +330,7 @@ void EepromRead(XSpiPs *SpiPtr, u16 Address, int ByteCount,
 	 * receive the specified number of bytes of data in the data buffer
 	 */
 	XSpiPs_PolledTransfer(SpiPtr, Buffer, &Buffer[DATA_OFFSET],
-				ByteCount + OVERHEAD_SIZE);
+			      ByteCount + OVERHEAD_SIZE);
 }
 
 /*****************************************************************************/
@@ -367,7 +367,7 @@ void EepromWrite(XSpiPs *SpiPtr, u16 Address, u8 ByteCount,
 	 * the write
 	 */
 	XSpiPs_PolledTransfer(SpiPtr, &WriteEnableCmd, NULL,
-				sizeof(WriteEnableCmd));
+			      sizeof(WriteEnableCmd));
 
 	/*
 	 * Setup the write command with the specified address and data for the
@@ -404,7 +404,7 @@ void EepromWrite(XSpiPs *SpiPtr, u16 Address, u8 ByteCount,
 		 * status byte
 		 */
 		XSpiPs_PolledTransfer(SpiPtr, ReadStatusCmd, EepromStatus,
-					sizeof(ReadStatusCmd));
+				      sizeof(ReadStatusCmd));
 
 		/*
 		 * If the status indicates the write is done, then stop waiting,
