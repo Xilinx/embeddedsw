@@ -1,0 +1,52 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for CANPS controller
+
+maintainers:
+  - Harini T <harini.t@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - const: xlnx,zynq-can-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XCanPs_Config
+
+required:
+    - compatible
+    - reg
+    - interrupts
+    - interrupt-parent
+
+examples:
+        xcanps_intr_example.c:
+                - interrupts
+        xcanps_watermark_intr_example.c:
+                - interrupts
+        xcanps_polled_example.c:
+                - reg
+
+tapp:
+        xcanps_intr_example.c:
+                declaration: CanPsIntrExample
+                hwproperties:
+                        - interrupts
+        xcanps_watermark_intr_example.c:
+                declaration: CanPsWatermarkIntrExample
+                hwproperties:
+                        - interrupts
+        xcanps_polled_example.c:
+                declaration: CanPsPolledExample
+                hwproperties:
+                        - reg
+
+
+...

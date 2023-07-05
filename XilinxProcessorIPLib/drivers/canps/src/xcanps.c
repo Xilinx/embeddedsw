@@ -29,7 +29,7 @@
 * 3.3	sne    08/06/19	Fixed coverity warnings.
 * 3.5	sne    07/01/20 Fixed MISRAC warnings.
 * 3.5	sne    07/01/20 Fixed multiple packets send issue.
-*
+* 3.7	ht     06/28/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -86,8 +86,9 @@ s32 XCanPs_CfgInitialize(XCanPs *InstancePtr, XCanPs_Config *ConfigPtr,
 	 */
 	InstancePtr->IsReady = 0U;
 	InstancePtr->CanConfig.BaseAddr = EffectiveAddr;
+#ifndef SDT
 	InstancePtr->CanConfig.DeviceId = ConfigPtr->DeviceId;
-
+#endif
 	/*
 	 * Set all handlers to stub values, let user configure this data later.
 	 */

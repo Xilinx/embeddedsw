@@ -185,7 +185,7 @@
 * 3.5 sne     06/29/20  Fixed MISRA-C violations.
 * 3.5 sne     06/29/20  Fix multiple packets send issue CR-1066438.
 * 3.5 sne     08/28/20  Modify Makefile to support parallel make execution.
-*
+* 3.7 ht      06/28/23  Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -229,8 +229,18 @@ extern "C" {
  * This typedef contains configuration information for a device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID of device */
+#else
+	char *Name;		/**< Unique name of the device */
+#endif
 	UINTPTR BaseAddr;	/**< Register base address */
+#ifdef SDT
+	u16 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+				  * trigger type and level flags */
+	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+				  * Parent base address */
+#endif
 } XCanPs_Config;
 
 /******************************************************************************/
@@ -552,7 +562,11 @@ s32 XCanPs_SetHandler(XCanPs *InstancePtr, u32 HandlerType,
 /*
  * Functions in xcanps_sinit.c
  */
+#ifndef SDT
 XCanPs_Config *XCanPs_LookupConfig(u16 DeviceId);
+#else
+XCanPs_Config *XCanPs_LookupConfig(u32 BaseAddress);
+#endif
 
 #ifdef __cplusplus
 }
