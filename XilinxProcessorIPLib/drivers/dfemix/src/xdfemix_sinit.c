@@ -34,6 +34,7 @@
 *       dc     11/19/21 Update doxygen documentation
 * 1.4   dc     08/18/22 Update IP version number
 * 1.5   dc     09/28/22 Auxiliary NCO support
+* 1.6   cog    07/04/23 Add support for SDT
 *
 * </pre>
 *
@@ -46,7 +47,9 @@
 #include <stdio.h>
 
 #ifdef __BAREMETAL__
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include <metal/alloc.h>
 #else
 #include <dirent.h>
@@ -107,9 +110,6 @@ extern int metal_linux_get_device_property(struct metal_device *device,
 #endif
 
 /************************** Variable Definitions *****************************/
-#ifdef __BAREMETAL__
-extern XDfeMix_Config XDfeMix_ConfigTable[XPAR_XDFEMIX_NUM_INSTANCES];
-#endif
 XDfeMix XDfeMix_Mixer[XDFEMIX_MAX_NUM_INSTANCES];
 
 #ifdef __BAREMETAL__
@@ -141,7 +141,7 @@ u32 XDfeMix_GetConfigTable(XDfeMix *InstancePtr, XDfeMix_Config **ConfigTable)
 	AddrStr = strtok(Str, ".");
 	Addr = strtoul(AddrStr, NULL, 16);
 
-	for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEMIX_INSTANCE_EXISTS(Index); Index++) {
 		if (XDfeMix_ConfigTable[Index].BaseAddr == Addr) {
 			*ConfigTable = &XDfeMix_ConfigTable[Index];
 			return XST_SUCCESS;

@@ -1,0 +1,61 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for DFE MIX controller
+
+maintainers:
+  - Dragan Cvetic <dragan.cvetic@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,xdfe-cc-mixer-2.0
+
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,mode:
+    decription: 0=downlink, 1=uplink, 2=switchable
+  xlnx,num-antenna:
+    decription: Number of antenna
+  xlnx,max-useable-ccids:
+    decription: Max usable CC Ids
+  xlnx,lanes:
+    decription: Number of lanes
+  xlnx,antenna-interleave:
+    decription: Number of antenna slots
+  xlnx,mixer-cps:
+    decription: Mixer Cps
+  xlnx,num-auxiliary:
+    decription: Num auxiliary
+  xlnx,data-iwidth:
+    decription: 16 for 16-bit sample data and 24 for 18-bit sample data
+  xlnx,data-owidth:
+    decription: 16 for 16-bit sample data and 24 for 18-bit sample data
+  xlnx,tuser-width:
+    decription: Tuser width
+
+config:
+    - XDfeMix_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,modeint
+    - xlnx,num-antenna
+    - xlnx,max-useable-ccids
+    - xlnx,lanes
+    - xlnx,antenna-interleave
+    - xlnx,mixer-cps
+    - xlnx,num-auxiliary
+    - xlnx,data-iwidth
+    - xlnx,data-owidth
+    - xlnx,tuser-width
+
+examples:
+
+...
