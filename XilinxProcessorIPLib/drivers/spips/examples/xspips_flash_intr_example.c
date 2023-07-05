@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +30,7 @@
 *                    recognize it as documentation block for doxygen
 *                    generation.
 * 3.2  nsk  03/26/19 Add support for versal
+* 3.9  sb   07/05/23 Added support for system device-tree flow.
 *</pre>
 *
 ******************************************************************************/
@@ -41,6 +43,9 @@
 #include "xscugic.h"		/* Interrupt controller device driver */
 #include "xil_exception.h"
 #include "xil_printf.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -49,9 +54,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define SPI_DEVICE_ID		XPAR_XSPIPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define SPI_INTR_ID		XPAR_XSPIPS_1_INTR
+#endif
 
 /*
  * The following constants define the commands which may be sent to the flash
@@ -140,8 +147,12 @@ static void FlashRead(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command);
 
 static int FlashReadID(XSpiPs *SpiInstance);
 
+#ifndef SDT
 int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 			 u16 SpiDeviceId, u16 SpiIntrId);
+#else
+int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress);
+#endif
 
 static int SST_GlobalBlkProtectUnlk(XSpiPs *SpiInstancePtr);
 
@@ -204,8 +215,12 @@ int main(void)
 	/*
 	 * Run the Spi Interrupt example.
 	 */
+#ifndef SDT
 	Status = SpiPsFlashIntrExample(&IntcInstance, &SpiInstance,
 				      SPI_DEVICE_ID, SPI_INTR_ID);
+#else
+	Status = SpiPsFlashIntrExample(&SpiInstance, XPAR_XSPIPS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("SPI FLASH Interrupt Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -243,8 +258,12 @@ int main(void)
 * read a status of 0xFF for the status register as the bus is pulled up.
 *
 *****************************************************************************/
+#ifndef SDT
 int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 			 u16 SpiDeviceId, u16 SpiIntrId)
+#else
+int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u8 *BufferPtr;
@@ -259,13 +278,19 @@ int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	if ((Platform == XPLAT_ZYNQ_ULTRA_MP) || (Platform == XPLAT_VERSAL)) {
 		MaxSize = 1024 * 10;
 		ChipSelect = FLASH_SPI_SELECT_0;	/* Device is on CS 0 */
+#ifndef SDT
 		SpiIntrId = XPAR_XSPIPS_0_INTR;
+#endif
 	}
 
 	/*
 	 * Initialize the SPI driver so that it's ready to use
 	 */
+#ifndef SDT
 	SpiConfig = XSpiPs_LookupConfig(SpiDeviceId);
+#else
+	SpiConfig = XSpiPs_LookupConfig(BaseAddress);
+#endif
 	if (NULL == SpiConfig) {
 		return XST_FAILURE;
 	}
@@ -288,8 +313,15 @@ int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	 * Connect the Spi device to the interrupt subsystem such that
 	 * interrupts can occur. This function is application specific
 	 */
+#ifndef SDT
 	Status = SpiPsSetupIntrSystem(IntcInstancePtr, SpiInstancePtr,
 				     SpiIntrId);
+#else
+	Status = XSetupInterruptSystem(SpiInstancePtr, &XSpiPs_InterruptHandler,
+				       SpiConfig->IntrId,
+				       SpiConfig->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -429,7 +461,11 @@ int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 		}
 	}
 
+#ifndef SDT
 	SpiPsDisableIntrSystem(IntcInstancePtr, SpiIntrId);
+#else
+	XDisconnectInterruptCntrl(SpiConfig->IntrId, SpiConfig->IntrParent);
+#endif
 	return XST_SUCCESS;
 }
 
@@ -939,6 +975,7 @@ static void FlashErase(XSpiPs *SpiPtr)
 
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -1037,3 +1074,4 @@ static void SpiPsDisableIntrSystem(XScuGic *IntcInstancePtr, u16 SpiIntrId)
 	 */
 	XScuGic_Disconnect(IntcInstancePtr, SpiIntrId);
 }
+#endif
