@@ -49,13 +49,18 @@
 
 #include "xzdma.h"
 #include "xparameters.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 #include "xil_cache.h"
 #include "xil_util.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
 #include "xscugic.h"
+#endif
 #endif
 
 /************************** Constant Definitions ******************************/
@@ -65,6 +70,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define ZDMA_DEVICE_ID		XPAR_XZDMA_0_DEVICE_ID /* ZDMA device Id */
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
@@ -75,6 +81,7 @@
 #define ZDMA_INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
 					/**< SCUGIC Device ID */
 #define ZDMA_INTR_DEVICE_ID	XPAR_XADMAPS_0_INTR /**< ZDMA Interrupt Id */
+#endif
 #endif
 
 #ifndef TESTAPP_GEN
@@ -91,10 +98,15 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 			u16 DeviceId, u16 IntrId);
 static int SetupInterruptSystem(INTC *IntcInstancePtr,
 				XZDma *InstancePtr, u16 IntrId);
+#else
+int XZDma_SimpleExample(XZDma *ZdmaInstPtr,
+			UINTPTR BaseAddress);
+#endif
 static void DoneHandler(void *CallBackRef);
 static void ErrorHandler(void *CallBackRef, u32 Mask);
 
@@ -103,7 +115,9 @@ static void ErrorHandler(void *CallBackRef, u32 Mask);
 
 #ifndef TESTAPP_GEN
 XZDma ZDma;		/**<Instance of the ZDMA Device */
+#ifndef SDT
 static INTC Intc;	/**< XIntc Instance */
+#endif
 #endif
 
 #if defined(__ICCARM__)
@@ -136,8 +150,13 @@ int main(void)
 	int Status;
 
 	/* Run the simple example */
+	#ifndef SDT
 	Status = XZDma_SimpleExample(&Intc, &ZDma, (u16)ZDMA_DEVICE_ID,
 				     ZDMA_INTR_DEVICE_ID);
+	#else
+	Status = XZDma_SimpleExample(&ZDma, XPAR_XZDMA_0_BASEADDR);
+	#endif
+
 	if (Status != XST_SUCCESS) {
 		xil_printf("ZDMA Simple Example Failed\r\n");
 		return XST_FAILURE;
@@ -168,8 +187,12 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 			u16 DeviceId, u16 IntrId)
+#else
+int XZDma_SimpleExample(XZDma *ZdmaInstPtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XZDma_Config *Config;
@@ -183,7 +206,11 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 	 * Look up the configuration in the config table,
 	 * then initialize it.
 	 */
+#ifndef SDT
 	Config = XZDma_LookupConfig(DeviceId);
+#else
+	Config = XZDma_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
@@ -228,8 +255,14 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 	/*
 	 * Connect to the interrupt controller.
 	 */
+	#ifndef SDT
 	Status = SetupInterruptSystem(IntcInstPtr, ZdmaInstPtr,
 				      IntrId);
+	#else
+	Status = XSetupInterruptSystem(ZdmaInstPtr, &XZDma_IntrHandler,
+				       Config->IntrId, Config->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -312,7 +345,7 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 
 	return XST_SUCCESS;
 }
-
+#ifndef SDT
 /*****************************************************************************/
 /**
 * This function sets up the interrupt system so interrupts can occur for the
@@ -439,7 +472,7 @@ int SetupInterruptSystem(INTC *IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
-
+#endif
 
 /*****************************************************************************/
 /**

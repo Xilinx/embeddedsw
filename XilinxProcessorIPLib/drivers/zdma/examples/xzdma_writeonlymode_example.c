@@ -47,12 +47,19 @@
 #include "xparameters.h"
 #include "xscugic.h"
 #include "xil_util.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int XZDma_WriteOnlyExample(u16 DeviceId);
 static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 				XZDma *InstancePtr, u16 IntrId);
+#else
+int XZDma_WriteOnlyExample(UINTPTR BaseAddress);
+#endif
 static void DoneHandler(void *CallBackRef);
 
 /************************** Constant Definitions ******************************/
@@ -62,10 +69,12 @@ static void DoneHandler(void *CallBackRef);
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define ZDMA_DEVICE_ID		XPAR_XZDMA_0_DEVICE_ID /* ZDMA device Id */
 #define ZDMA_INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
 												/**< SCUGIC Device ID */
 #define ZDMA_INTR_DEVICE_ID	XPAR_XADMAPS_0_INTR /**< ZDMA Interrupt Id */
+#endif
 
 #define SIZE			1024 /* Size of the data to be written */
 
@@ -77,7 +86,9 @@ static void DoneHandler(void *CallBackRef);
 /************************** Variable Definitions *****************************/
 
 XZDma ZDma;		/**<Instance of the ZDMA Device */
+#ifndef SDT
 XScuGic Intc;		/**< XIntc Instance */
+#endif
 u32 SrcBuf[4];		/**< Source buffer */
 #if defined(__ICCARM__)
     #pragma data_alignment = 64
@@ -104,7 +115,11 @@ int main(void)
 	int Status;
 
 	/* Run the simple write only mode example */
+#ifndef SDT
 	Status = XZDma_WriteOnlyExample((u16)ZDMA_DEVICE_ID);
+#else
+	Status = XZDma_WriteOnlyExample(XPAR_XZDMA_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("ZDMA Example Failed\r\n");
 		return XST_FAILURE;
@@ -130,7 +145,11 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int XZDma_WriteOnlyExample(u16 DeviceId)
+#else
+int XZDma_WriteOnlyExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XZDma_Config *Config;
@@ -145,7 +164,11 @@ int XZDma_WriteOnlyExample(u16 DeviceId)
 	 * Look up the configuration in the config table,
 	 * then initialize it.
 	 */
+#ifndef SDT
 	Config = XZDma_LookupConfig(DeviceId);
+#else
+	Config = XZDma_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
@@ -170,8 +193,14 @@ int XZDma_WriteOnlyExample(u16 DeviceId)
 	/*
 	 * Connect to the interrupt controller.
 	 */
+	#ifndef SDT
 	Status = SetupInterruptSystem(&Intc, &(ZDma),
 			ZDMA_INTR_DEVICE_ID);
+	#else
+	Status = XSetupInterruptSystem(&ZDma, &XZDma_IntrHandler,
+				       Config->IntrId, Config->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	#endif
 	if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 	}
@@ -270,7 +299,7 @@ int XZDma_WriteOnlyExample(u16 DeviceId)
 	return XST_SUCCESS;
 
 }
-
+#ifndef SDT
 /*****************************************************************************/
 /**
 * This function sets up the interrupt system so interrupts can occur for the
@@ -349,7 +378,7 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
-
+#endif
 /*****************************************************************************/
 /**
 * This static function handles ZDMA Done interrupts.
