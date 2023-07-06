@@ -77,6 +77,8 @@
 			/**< Length of value of Subject Key ID */
 #define XCERT_AUTH_KEY_ID_VAL_LEN			(20U)
 			/**< Length of value of Authority Key ID */
+#define XCERT_UNCOMPRESSED_PUB_KEY			(0x04U)
+			/**< To indicate uncompressed public key */
 #define XCERT_MAX_LEN_OF_KEYUSAGE_VAL			(2U)
 			/**< Maximum length of value of key usage */
 
@@ -836,11 +838,12 @@ END:
 static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey, u32 *PubKeyInfoLen)
 {
 	int Status = XST_FAILURE;
-	u32 KeyLen = XSECURE_ECC_P384_SIZE_IN_BYTES + XSECURE_ECC_P384_SIZE_IN_BYTES;
+	u32 KeyLen = XCERT_ECC_P384_PUBLIC_KEY_LEN;
 	u8* Curr = TBSCertBuf;
 	u8* SequenceLenIdx;
 	u8* SequenceValIdx;
 	u32 Len;
+	u8 UncompressedPublicKey[XCERT_ECC_P384_PUBLIC_KEY_LEN + 1U] = {0U};
 
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
 	SequenceLenIdx = Curr++;
@@ -854,7 +857,17 @@ static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey, u32
 		Curr = Curr + Len;
 	}
 
-	XCert_CreateBitString(Curr, SubjectPublicKey, KeyLen, &Len);
+	/**
+	 * First byte of the Public key should be 0x04 to indicate that it is
+	 * an uncompressed public key.
+	 */
+	UncompressedPublicKey[0U] = XCERT_UNCOMPRESSED_PUB_KEY;
+	Status -= Xil_SMemCpy(UncompressedPublicKey + 1U, KeyLen + 1U, SubjectPublicKey, KeyLen, KeyLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XCert_CreateBitString(Curr, UncompressedPublicKey, KeyLen + 1U, &Len);
 	Curr = Curr + Len;
 
 	*SequenceLenIdx = Curr - SequenceValIdx;
@@ -1513,6 +1526,9 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
+
+	*(Curr++) = XCERT_OPTIONAL_PARAM_0_TAG;
+	*(Curr++) = XCERT_LEN_OF_VERSION_FIELD;
 
 	/**
 	 * Generate Version field
