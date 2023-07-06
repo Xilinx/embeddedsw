@@ -48,46 +48,7 @@ static XIpiPsu IpiInst;
 
 /************************** Global Variables ********************************/
 
-#if defined  (VERSAL)
-XpmNodeInfo XpmNodeData[] = {
-	/* { Base Address, Node ID, Reset ID } */
-	{ 0xFE200000U, PM_DEV_USB_0, PM_RST_USB_0 },		/* USB_0 */
-	{ 0xFF0C0000U, PM_DEV_GEM_0, PM_RST_GEM_0 },		/* GEM_0 */
-	{ 0xFF0D0000U, PM_DEV_GEM_1, PM_RST_GEM_1 },		/* GEM_1 */
-	{ 0xFF040000U, PM_DEV_SPI_0, PM_RST_SPI_0 },		/* SPI_0 */
-	{ 0xFF050000U, PM_DEV_SPI_1, PM_RST_SPI_1 },		/* SPI_1 */
-	{ 0xFF020000U, PM_DEV_I2C_0, PM_RST_I2C_0 },		/* I2C_0 */
-	{ 0xFF030000U, PM_DEV_I2C_1, PM_RST_I2C_1 },		/* I2C_1 */
-	{ 0xFF060000U, PM_DEV_CAN_FD_0, PM_RST_CAN_FD_0 },	/* CAN_FD_0 */
-	{ 0xFF070000U, PM_DEV_CAN_FD_1, PM_RST_CAN_FD_1 },	/* CAN_FD_1 */
-	{ 0xFF000000U, PM_DEV_UART_0, PM_RST_UART_0 },		/* UART_0 */
-	{ 0xFF010000U, PM_DEV_UART_1, PM_RST_UART_1 },		/* UART_1 */
-	{ 0xFF0B0000U, PM_DEV_GPIO, PM_RST_GPIO_LPD },		/* GPIO */
-	{ 0xFF0E0000U, PM_DEV_TTC_0, PM_RST_TTC_0 },		/* TTC_0 */
-	{ 0xFF0F0000U, PM_DEV_TTC_1, PM_RST_TTC_1 },		/* TTC_1 */
-	{ 0xFF100000U, PM_DEV_TTC_2, PM_RST_TTC_2 },		/* TTC_2 */
-	{ 0xFF110000U, PM_DEV_TTC_3, PM_RST_TTC_3 },		/* TTC_3 */
-	{ 0xFF120000U, PM_DEV_SWDT_LPD, PM_RST_SWDT_LPD },	/* SWDT_LPD */
-	{ 0xFD4D0000U, PM_DEV_SWDT_FPD, PM_RST_SWDT_FPD },	/* SWDT_FPD */
-	{ 0xF1010000U, PM_DEV_OSPI, PM_RST_OSPI },		/* OSPI */
-	{ 0xF1030000U, PM_DEV_QSPI, PM_RST_QSPI },		/* QSPI */
-	{ 0xF1020000U, PM_DEV_GPIO_PMC, PM_RST_GPIO_PMC },	/* GPIO_PMC */
-	{ 0xF1000000U, PM_DEV_I2C_PMC, PM_RST_I2C_PMC },	/* I2C_PMC */
-	{ 0xF1040000U, PM_DEV_SDIO_0, PM_RST_SDIO_0 },		/* SDIO_0 */
-	{ 0xF1050000U, PM_DEV_SDIO_1, PM_RST_SDIO_1 },		/* SDIO_1 */
-	{ 0xFFA80000U, PM_DEV_ADMA_0, PM_RST_ADMA },		/* ADMA_0 */
-	{ 0xFFA90000U, PM_DEV_ADMA_1, PM_RST_ADMA },		/* ADMA_1 */
-	{ 0xFFAA0000U, PM_DEV_ADMA_2, PM_RST_ADMA },		/* ADMA_2 */
-	{ 0xFFAB0000U, PM_DEV_ADMA_3, PM_RST_ADMA },		/* ADMA_3 */
-	{ 0xFFAC0000U, PM_DEV_ADMA_4, PM_RST_ADMA },		/* ADMA_4 */
-	{ 0xFFAD0000U, PM_DEV_ADMA_5, PM_RST_ADMA },		/* ADMA_5 */
-	{ 0xFFAE0000U, PM_DEV_ADMA_6, PM_RST_ADMA },		/* ADMA_6 */
-	{ 0xFFAF0000U, PM_DEV_ADMA_7, PM_RST_ADMA },		/* ADMA_7 */
-	{ 0xFF300000U, PM_DEV_IPI_0, PM_RST_IPI },		/* IPI */
-};
-#endif
-
-#if defined  (VERSAL_NET)
+#ifdef VERSAL_NET
 XpmNodeInfo XpmNodeData[] = {
 	/* { Base Address, Node ID, Reset ID } */
 	{ 0xF1B00000U, PM_DEV_USB_0, PM_RST_USB_0 },		/* USB_0 */
@@ -129,6 +90,43 @@ XpmNodeInfo XpmNodeData[] = {
 	{ 0xEBD70000U, PM_DEV_ADMA_7, PM_RST_ADMA },		/* ADMA_7 */
 	{ 0xEB300000U, PM_DEV_IPI_0, PM_RST_IPI },		/* IPI */
 };
+#elif defined(versal)
+XpmNodeInfo XpmNodeData[] = {
+	/* { Base Address, Node ID, Reset ID } */
+	{ 0xFE200000U, PM_DEV_USB_0, PM_RST_USB_0 },		/* USB_0 */
+	{ 0xFF0C0000U, PM_DEV_GEM_0, PM_RST_GEM_0 },		/* GEM_0 */
+	{ 0xFF0D0000U, PM_DEV_GEM_1, PM_RST_GEM_1 },		/* GEM_1 */
+	{ 0xFF040000U, PM_DEV_SPI_0, PM_RST_SPI_0 },		/* SPI_0 */
+	{ 0xFF050000U, PM_DEV_SPI_1, PM_RST_SPI_1 },		/* SPI_1 */
+	{ 0xFF020000U, PM_DEV_I2C_0, PM_RST_I2C_0 },		/* I2C_0 */
+	{ 0xFF030000U, PM_DEV_I2C_1, PM_RST_I2C_1 },		/* I2C_1 */
+	{ 0xFF060000U, PM_DEV_CAN_FD_0, PM_RST_CAN_FD_0 },	/* CAN_FD_0 */
+	{ 0xFF070000U, PM_DEV_CAN_FD_1, PM_RST_CAN_FD_1 },	/* CAN_FD_1 */
+	{ 0xFF000000U, PM_DEV_UART_0, PM_RST_UART_0 },		/* UART_0 */
+	{ 0xFF010000U, PM_DEV_UART_1, PM_RST_UART_1 },		/* UART_1 */
+	{ 0xFF0B0000U, PM_DEV_GPIO, PM_RST_GPIO_LPD },		/* GPIO */
+	{ 0xFF0E0000U, PM_DEV_TTC_0, PM_RST_TTC_0 },		/* TTC_0 */
+	{ 0xFF0F0000U, PM_DEV_TTC_1, PM_RST_TTC_1 },		/* TTC_1 */
+	{ 0xFF100000U, PM_DEV_TTC_2, PM_RST_TTC_2 },		/* TTC_2 */
+	{ 0xFF110000U, PM_DEV_TTC_3, PM_RST_TTC_3 },		/* TTC_3 */
+	{ 0xFF120000U, PM_DEV_SWDT_LPD, PM_RST_SWDT_LPD },	/* SWDT_LPD */
+	{ 0xFD4D0000U, PM_DEV_SWDT_FPD, PM_RST_SWDT_FPD },	/* SWDT_FPD */
+	{ 0xF1010000U, PM_DEV_OSPI, PM_RST_OSPI },		/* OSPI */
+	{ 0xF1030000U, PM_DEV_QSPI, PM_RST_QSPI },		/* QSPI */
+	{ 0xF1020000U, PM_DEV_GPIO_PMC, PM_RST_GPIO_PMC },	/* GPIO_PMC */
+	{ 0xF1000000U, PM_DEV_I2C_PMC, PM_RST_I2C_PMC },	/* I2C_PMC */
+	{ 0xF1040000U, PM_DEV_SDIO_0, PM_RST_SDIO_0 },		/* SDIO_0 */
+	{ 0xF1050000U, PM_DEV_SDIO_1, PM_RST_SDIO_1 },		/* SDIO_1 */
+	{ 0xFFA80000U, PM_DEV_ADMA_0, PM_RST_ADMA },		/* ADMA_0 */
+	{ 0xFFA90000U, PM_DEV_ADMA_1, PM_RST_ADMA },		/* ADMA_1 */
+	{ 0xFFAA0000U, PM_DEV_ADMA_2, PM_RST_ADMA },		/* ADMA_2 */
+	{ 0xFFAB0000U, PM_DEV_ADMA_3, PM_RST_ADMA },		/* ADMA_3 */
+	{ 0xFFAC0000U, PM_DEV_ADMA_4, PM_RST_ADMA },		/* ADMA_4 */
+	{ 0xFFAD0000U, PM_DEV_ADMA_5, PM_RST_ADMA },		/* ADMA_5 */
+	{ 0xFFAE0000U, PM_DEV_ADMA_6, PM_RST_ADMA },		/* ADMA_6 */
+	{ 0xFFAF0000U, PM_DEV_ADMA_7, PM_RST_ADMA },		/* ADMA_7 */
+	{ 0xFF300000U, PM_DEV_IPI_0, PM_RST_IPI },		/* IPI */
+};
 #endif
 
 /****************************************************************************/
@@ -141,7 +139,7 @@ XpmNodeInfo XpmNodeData[] = {
  * * @note      none
  * *
  * *****************************************************************************/
-u64 XpmGetNodeId(u64 BaseAddress)
+UINTPTR XpmGetNodeId(UINTPTR BaseAddress)
 {
 	u32 id;
 
@@ -150,7 +148,7 @@ u64 XpmGetNodeId(u64 BaseAddress)
 			return XpmNodeData[id].NodeId;
 		}
 	}
-	return (u64)XST_FAILURE;
+	return (UINTPTR)XST_FAILURE;
 }
 
 /****************************************************************************/
@@ -163,7 +161,7 @@ u64 XpmGetNodeId(u64 BaseAddress)
  * * @note      none
  * *
  * *****************************************************************************/
-u64 XpmGetResetId(u64 BaseAddress)
+UINTPTR XpmGetResetId(UINTPTR BaseAddress)
 {
 	u32 id;
 
@@ -172,7 +170,7 @@ u64 XpmGetResetId(u64 BaseAddress)
 			return XpmNodeData[id].ResetId;
 		}
 	}
-	return (u64)XST_FAILURE;
+	return (UINTPTR)XST_FAILURE;
 }
 
 static XStatus XpmIpiConfig(XIpiPsu *const IpiInst)
