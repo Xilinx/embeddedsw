@@ -39,15 +39,9 @@ if(CMAKE_EXPORT_COMPILE_COMMANDS)
 endif()
 
 aux_source_directory(${CMAKE_SOURCE_DIR} _sources)
-string(APPEND CMAKE_C_FLAGS ${USER_COMPILE_OPTIONS})
 string(APPEND CMAKE_C_LINK_FLAGS ${USER_LINK_OPTIONS})
 add_executable(${APP_NAME}.elf xpfw_start.S ${_sources})
-target_link_libraries(${APP_NAME}.elf -Wl,--no-relax -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v9.2 -mxl-soft-mul -Os -flto -ffat-lto-objects -Wl,--gc-sections -nostartfiles -T\"${CMAKE_SOURCE_DIR}/lscript.ld\" -L\"${USER_LINK_DIRECTORIES}/\" -Wl,--start-group ${_deps} -Wl,--end-group)
+target_link_libraries(${APP_NAME}.elf -Wl,--no-relax -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v9.2 -mxl-soft-mul -Os -flto -ffat-lto-objects -Wl,--gc-sections -nostartfiles -T\"${CMAKE_SOURCE_DIR}/lscript.ld\" -L\"${CMAKE_LIBRARY_PATH}/\" -L\"${USER_LINK_DIRECTORIES}/\" -Wl,--start-group ${_deps} -Wl,--end-group)
 target_compile_definitions(${APP_NAME}.elf PUBLIC ${USER_COMPILE_DEFINITIONS})
 target_include_directories(${APP_NAME}.elf PUBLIC ${USER_INCLUDE_DIRECTORIES})
-
-if(DEFINED CMAKE_SIZE)
-	add_custom_command(
-		TARGET ${APP_NAME}.elf POST_BUILD
-		COMMAND ${CMAKE_SIZE} --format=berkeley ${APP_NAME}.elf)
-endif()
+print_elf_size(CMAKE_SIZE ${APP_NAME})
