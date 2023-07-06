@@ -27,6 +27,7 @@
 
 /***************************** Include Files *********************************/
 
+
 #include "xparameters.h"
 #include "xaxicdma.h"
 
@@ -43,6 +44,7 @@
  * @note	None.
  *
  ******************************************************************************/
+#ifndef SDT
 XAxiCdma_Config *XAxiCdma_LookupConfig(u32 DeviceId)
 {
 	extern XAxiCdma_Config XAxiCdma_ConfigTable[];
@@ -60,4 +62,22 @@ XAxiCdma_Config *XAxiCdma_LookupConfig(u32 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XAxiCdma_Config *XAxiCdma_LookupConfig(UINTPTR BaseAddress)
+{
+	extern XAxiCdma_Config XAxiCdma_ConfigTable[];
+	XAxiCdma_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = (u32)0x0; XAxiCdma_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XAxiCdma_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		     !BaseAddress) {
+			CfgPtr = &XAxiCdma_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /** @} */
