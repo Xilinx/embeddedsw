@@ -72,10 +72,14 @@
 #include "xparameters.h"
 #include "xil_util.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
 #include "xscugic.h"
+#endif
+#else
+#include "xinterrupt_wrap.h"
 #endif
 
 #ifndef __MICROBLAZE__
@@ -92,6 +96,7 @@ extern void xil_printf(const char *format, ...);
 
 /******************** Constant Definitions **********************************/
 
+#ifndef SDT
 #ifndef TESTAPP_GEN
 /*
  * Device hardware build related constants.
@@ -107,6 +112,7 @@ extern void xil_printf(const char *format, ...);
 #endif
 #endif
 
+
 #ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #define MEMORY_BASE		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
@@ -115,7 +121,16 @@ extern void xil_printf(const char *format, ...);
 #define MEMORY_BASE	XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
 #elif XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #define MEMORY_BASE	XPAR_PSU_DDR_0_S_AXI_BASEADDR
+#endif
+
 #else
+
+#ifdef XPAR_MEM0_BASEADDRESS
+#define MEMORY_BASE		XPAR_MEM0_BASEADDRESS
+#endif
+#endif
+
+#ifndef MEMORY_BASE
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
 			DEFAULT SET TO 0x01000000
 #define MEMORY_BASE		0x01000000
@@ -168,7 +183,7 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries);
 static int SubmitSgTransfer(XAxiCdma * InstancePtr);
 static int DoSgTransfer(XAxiCdma * InstancePtr);
 
-
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 
 static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
@@ -187,16 +202,23 @@ static void DisableIntrSystem(XScuGic *IntcInstancePtr, u32 IntrId);
 int XAxiCdma_HybridIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 						u16 DeviceId,u32 IntrId);
 #endif
+#else
+
+int XAxiCdma_HybridIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress);
+#endif
+
 
 
 /************************** Variable Definitions *****************************/
 
 #ifndef TESTAPP_GEN
 static XAxiCdma Engine;       /* Instance of the XAxiCdma */
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 static XIntc IntcController;	/* Instance of the Interrupt Controller */
 #else
 static XScuGic IntcController;	/* Instance of the Interrupt Controller */
+#endif
 #endif
 
 #endif
@@ -246,8 +268,12 @@ int main(void)
 
 	/* Run the interrupt example for simple transfer
 	 */
+#ifndef SDT
 	Status = XAxiCdma_HybridIntrExample(&IntcController, &Engine,
 				DMA_CTRL_DEVICE_ID, DMA_CTRL_IRPT_INTR);
+#else
+	Status = XAxiCdma_HybridIntrExample(&Engine, XAXICDMA_BASEADDRESS);
+#endif
 
 	if (Status != (XST_SUCCESS)) {
 		xil_printf("Axicdma Hybrid interrupt Example Failed\r\n");
@@ -504,6 +530,7 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 /******************************************************************************/
 /*
 * Setup the interrupt system, including:
@@ -696,6 +723,7 @@ static void DisableIntrSystem(XScuGic *IntcInstancePtr, u32 IntrId)
 
 
 }
+#endif
 #endif
 /*****************************************************************************/
 /*
@@ -978,12 +1006,16 @@ static int DoSgTransfer(XAxiCdma * InstancePtr)
 *		function hangs
 *
 ******************************************************************************/
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 int XAxiCdma_HybridIntrExample(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 						u16 DeviceId,u32 IntrId)
 #else
 int XAxiCdma_HybridIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 						u16 DeviceId,u32 IntrId)
+#endif
+#else
+int XAxiCdma_HybridIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	XAxiCdma_Config *CfgPtr;
@@ -992,6 +1024,7 @@ int XAxiCdma_HybridIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 
 	/* Initialize the XAxiCdma device.
 	 */
+#ifndef SDT
 	CfgPtr = XAxiCdma_LookupConfig(DeviceId);
 	if (!CfgPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
@@ -1000,7 +1033,16 @@ int XAxiCdma_HybridIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 
 		return XST_FAILURE;
 	}
+#else
+	CfgPtr = XAxiCdma_LookupConfig(BaseAddress);
+	if (!CfgPtr) {
+		xdbg_printf(XDBG_DEBUG_ERROR,
+		    "Cannot find config structure for device %llx\r\n",
+			BaseAddress);
 
+		return XST_FAILURE;
+	}
+#endif
 	Status = XAxiCdma_CfgInitialize(InstancePtr, CfgPtr,
 						CfgPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
@@ -1012,7 +1054,13 @@ int XAxiCdma_HybridIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 
 	/* Setup the interrupt system
 	 */
+#ifndef SDT
 	Status = SetupIntrSystem(IntcInstancePtr, InstancePtr, IntrId);
+#else
+	Status = XSetupInterruptSystem(InstancePtr, &XAxiCdma_IntrHandler,
+				       CfgPtr->IntrId, CfgPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
 		    "Setup Intr system failed with %d\r\n", Status);
@@ -1033,8 +1081,11 @@ int XAxiCdma_HybridIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 		   BUFFER_BYTESIZE, SubmitTries);
 
 	if(Status != XST_SUCCESS) {
+#ifndef SDT
 		DisableIntrSystem(IntcInstancePtr, IntrId);
-
+#else
+		XDisconnectInterruptCntrl(CfgPtr->IntrId, CfgPtr->IntrParent);
+#endif
 		return XST_FAILURE;
 	}
 
@@ -1047,7 +1098,11 @@ int XAxiCdma_HybridIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 
 	Status = DoSgTransfer(InstancePtr);
 	if(Status != XST_SUCCESS) {
+#ifndef SDT
 		DisableIntrSystem(IntcInstancePtr, IntrId);
+#else
+		XDisconnectInterruptCntrl(CfgPtr->IntrId, CfgPtr->IntrParent);
+#endif
 
 		return XST_FAILURE;
 	}
@@ -1063,7 +1118,11 @@ int XAxiCdma_HybridIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 		   BUFFER_BYTESIZE, SubmitTries);
 
 	if(Status != XST_SUCCESS) {
+#ifndef SDT
 		DisableIntrSystem(IntcInstancePtr, IntrId);
+#else
+		XDisconnectInterruptCntrl(CfgPtr->IntrId, CfgPtr->IntrParent);
+#endif
 
 		return XST_FAILURE;
 	}
@@ -1072,7 +1131,11 @@ int XAxiCdma_HybridIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 
 	/* Test finishes successfully, clean up and return
 	 */
+#ifndef SDT
 	DisableIntrSystem(IntcInstancePtr, IntrId);
+#else
+	XDisconnectInterruptCntrl(CfgPtr->IntrId, CfgPtr->IntrParent);
+#endif
 
 	return XST_SUCCESS;
 }
