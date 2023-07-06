@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 20222 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +33,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 11.6 Nava 06/28/23  Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -51,7 +53,11 @@
  * included if the example is generated from the TestAppGen test tool.
  */
 #ifndef TESTAPP_GEN
+#ifndef SDT
 #define HWICAP_DEVICE_ID		XPAR_HWICAP_0_DEVICE_ID
+#else
+#define HWICAP_BASEADDR			XPAR_XHWICAP_0_BASEADDR
+#endif
 #endif
 
 
@@ -62,9 +68,11 @@
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int HwIcapTestAppExample(u16 DeviceId);
-
+#else
+int HwIcapTestAppExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -92,7 +100,11 @@ int main(void)
 	 * Run the HwIcap Example, specify the Device ID generated in
 	 * xparameters.h
 	 */
+#ifndef SDT
 	Status = HwIcapTestAppExample(HWICAP_DEVICE_ID);
+#else
+	Status = HwIcapTestAppExample(HWICAP_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Hwicap testapp Example Failed\r\n");
 		return XST_FAILURE;
@@ -116,7 +128,11 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int HwIcapTestAppExample(u16 HwIcapDeviceId)
+#else
+int HwIcapTestAppExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 
@@ -126,7 +142,11 @@ int HwIcapTestAppExample(u16 HwIcapDeviceId)
 	/*
 	 * Initialize the HwIcap driver.
 	 */
+#ifndef SDT
 	ConfigPtr = XHwIcap_LookupConfig(HwIcapDeviceId);
+#else
+	ConfigPtr = XHwIcap_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}

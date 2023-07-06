@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2003 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2003 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,9 +48,10 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
-* 11.2 Nava 30/01/19  Rename the example since sdk is expecting _example
+* 11.2 Nava 01/30/19  Rename the example since sdk is expecting _example
 *		      extension to support the import examples feature
 *		      from system.mss file.
+* 11.6 Nava 06/28/23  Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -70,8 +72,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define HWICAP_DEVICEID         XPAR_HWICAP_0_DEVICE_ID
-
+#else
+#define HWICAP_BASEADDR		XPAR_XHWICAP_0_BASEADDR
+#endif
 
 #define printf   xil_printf          /* A smaller footprint printf */
 
@@ -80,8 +85,11 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int HwIcapReadConfigRegExample(u16 DeviceId);
+#else
+int HwIcapReadConfigRegExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -107,7 +115,11 @@ int main(void)
 	 * Run the HwIcap example, specify the Device Id generated in
 	 * xparameters.h.
 	 */
+#ifndef SDT
 	Status = HwIcapReadConfigRegExample(HWICAP_DEVICEID);
+#else
+	Status = HwIcapReadConfigRegExample(HWICAP_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Hwicap read config reg Example Failed\r\n");
 		return XST_FAILURE;
@@ -131,7 +143,11 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int HwIcapReadConfigRegExample(u16 DeviceId)
+#else
+int HwIcapReadConfigRegExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XHwIcap_Config *CfgPtr;
@@ -140,7 +156,11 @@ int HwIcapReadConfigRegExample(u16 DeviceId)
 	/*
 	 * Initialize the HwIcap instance.
 	 */
+#ifndef SDT
 	CfgPtr = XHwIcap_LookupConfig(DeviceId);
+#else
+	CfgPtr = XHwIcap_LookupConfig(BaseAddress);
+#endif
 	if (CfgPtr == NULL) {
 		return XST_FAILURE;
 	}

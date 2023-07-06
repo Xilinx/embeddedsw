@@ -163,6 +163,7 @@
 *                      families older than 7 series.So removed .o referenced
 *                      function prototypes from the header file.
 * 11.5 Nava   09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
+* 11.6 Nava   06/28/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -223,7 +224,15 @@ typedef void (*XHwIcap_StatusHandler) (void *CallBackRef, u32 StatusEvent,
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Device ID  of device */
+#else
+	char *Name;
+	u32 IntrId;		/** Bits[11:0] Interrupt-id Bits[15:12]
+				  * trigger type and level flags */
+	UINTPTR IntrParent;	/** Bit[0] Interrupt parent type Bit[64/32:1]
+				  * Parent base address */
+#endif
 	UINTPTR BaseAddress;	/**< Register base address */
 	int IcapWidth;		/**< Width of ICAP */
 	int IsLiteMode;		/**< IsLiteMode, 0 not
@@ -629,7 +638,11 @@ void XHwIcap_Abort(XHwIcap *InstancePtr);
 /*
  * Functions in xhwicap_sinit.c.
  */
+#ifndef SDT
 XHwIcap_Config *XHwIcap_LookupConfig(u16 DeviceId);
+#else
+XHwIcap_Config *XHwIcap_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * Functions in the xhwicap_srp.c

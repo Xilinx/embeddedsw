@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2003 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2003 - 20222 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +35,7 @@
 * 5.00a hvm  2/20/10  Updated to support S6.
 * 6.00a hvm  08/05/11 Added support for K7 family
 * 10.0  bss  6/24/14  Removed support for families older than 7 series
+* 11.6  Nava 06/28/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -53,7 +55,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define HWICAP_DEVICEID		XPAR_HWICAP_0_DEVICE_ID
+#else
+#define HWICAP_BASEADDR         XPAR_XHWICAP_0_BASEADDR
+#endif
 
 #define HWICAP_EXAMPLE_BLOCK		0
 
@@ -75,9 +81,11 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int HwIcapReadFramePolledExample(u16 DeviceId);
-
+#else
+int HwIcapReadFramePolledExample(UINTPTR BaseAddress);
+#endif
 /************************** Variable Definitions *****************************/
 
 static XHwIcap HwIcap;
@@ -103,7 +111,11 @@ int main(void)
 	 * Run the HwIcap example, specify the Device ID generated in
 	 * xparameters.h
 	 */
+#ifndef SDT
 	Status = HwIcapReadFramePolledExample(HWICAP_DEVICEID);
+#else
+	Status = HwIcapReadFramePolledExample(HWICAP_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -126,7 +138,11 @@ int main(void)
 * @note		None
 *
 ****************************************************************************/
+#ifndef SDT
 int HwIcapReadFramePolledExample(u16 DeviceId)
+#else
+int HwIcapReadFramePolledExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u32 Index;
@@ -136,7 +152,11 @@ int HwIcapReadFramePolledExample(u16 DeviceId)
 	/*
 	 * Initialize the HwIcap instance.
 	 */
+#ifndef SDT
 	CfgPtr = XHwIcap_LookupConfig(DeviceId);
+#else
+	CfgPtr = XHwIcap_LookupConfig(BaseAddress);
+#endif
 	if (CfgPtr == NULL) {
 		return XST_FAILURE;
 	}
