@@ -11,7 +11,7 @@
 * @addtogroup trafgen Overview
 * @{
 *
-* This file implements AXI Traffic Generator device-wise initialization and 
+* This file implements AXI Traffic Generator device-wise initialization and
 * control functions.
 * For more information on the implementation of this driver, see xtrafgen.h.
 *
@@ -47,18 +47,18 @@
 * @return       Pointer to the Command Info structure
 *
 * @note         C-style signature:
-*               XTrafGen_CmdInfo *XTrafGen_GetCmdInfo(XTrafGen 
+*               XTrafGen_CmdInfo *XTrafGen_GetCmdInfo(XTrafGen
 *				*InstancePtr)
 *
 *****************************************************************************/
 #define XTrafGen_GetCmdInfo(InstancePtr) \
-                        (&((InstancePtr)->CmdInfo))
+	(&((InstancePtr)->CmdInfo))
 
 /************************** Function Prototypes ******************************/
 static void XTrafGen_PrepCmdWords(XTrafGen *InstancePtr,
-				XTrafGen_Cmd *CmdPtr, u32 *CmdWords);
+				  XTrafGen_Cmd *CmdPtr, u32 *CmdWords);
 static void XTrafGen_PrepParamWord(XTrafGen *InstancePtr,
-                                XTrafGen_Cmd *CmdPtr, u32 *ParamWord);
+				   XTrafGen_Cmd *CmdPtr, u32 *ParamWord);
 static int XTrafGen_ProgramCmdRam(XTrafGen *InstancePtr, u8 RdWrFlag);
 static int XTrafGen_ProgramParamRam(XTrafGen *InstancePtr, u8 RdWrFlag);
 
@@ -66,12 +66,12 @@ static int XTrafGen_ProgramParamRam(XTrafGen *InstancePtr, u8 RdWrFlag);
 
 /*****************************************************************************/
 /**
- * This function initializes a AXI Traffic Generator device.  This function 
+ * This function initializes a AXI Traffic Generator device.  This function
  * must be called prior to using a AXI Traffic Generator Device.  Initializing
- * a engine includes setting up the register base address, setting up the 
+ * a engine includes setting up the register base address, setting up the
  * instance data, and ensuring the hardware is in a quiescent state.
  *
- * @param       InstancePtr is a pointer to the Axi Traffic Generator instance 
+ * @param       InstancePtr is a pointer to the Axi Traffic Generator instance
  *              to be worked on.
  * @param	CfgPtr references the structure holding the hardware
  *		configuration for the Axi Traffic Generator core to initialize.
@@ -90,14 +90,14 @@ static int XTrafGen_ProgramParamRam(XTrafGen *InstancePtr, u8 RdWrFlag);
  *              is NULL
  *
  *****************************************************************************/
-int XTrafGen_CfgInitialize(XTrafGen * InstancePtr,
-			XTrafGen_Config *Config, UINTPTR EffectiveAddress)
+int XTrafGen_CfgInitialize(XTrafGen *InstancePtr,
+			   XTrafGen_Config *Config, UINTPTR EffectiveAddress)
 {
 	u32 ConfigStatus;
 
 	InstancePtr->IsReady = 0;
 
-	if(!Config) {
+	if (!Config) {
 		return XST_INVALID_PARAM;
 	}
 
@@ -114,6 +114,7 @@ int XTrafGen_CfgInitialize(XTrafGen * InstancePtr,
 	InstancePtr->Config.IntId[1] = Config->IntId[1];
 	InstancePtr->Config.IntrParent = Config->IntrParent;
 #endif
+
 	if ((Config->BusType == 1) && (Config->Mode == 1 ||
 				       Config->ModeType == 2)) {
 
@@ -123,41 +124,41 @@ int XTrafGen_CfgInitialize(XTrafGen * InstancePtr,
 		if (ConfigStatus & XTG_CFG_STS_MFULL_MASK) {
 			InstancePtr->OperatingMode = XTG_MODE_FULL;
 		}
-	
+
 		/* Is it operating in Basic Mode */
 		if (ConfigStatus & XTG_CFG_STS_MBASIC_MASK) {
 			InstancePtr->OperatingMode = XTG_MODE_BASIC;
 		}
-	
+
 		/* Master Width */
-		InstancePtr->MasterWidth = 
-				(ConfigStatus & XTG_CFG_STS_MWIDTH_MASK) >>
-					XTG_CFG_STS_MWIDTH_SHIFT;
+		InstancePtr->MasterWidth =
+			(ConfigStatus & XTG_CFG_STS_MWIDTH_MASK) >>
+			XTG_CFG_STS_MWIDTH_SHIFT;
 
 		/* Slave Width */
-		InstancePtr->SlaveWidth = 
-				(ConfigStatus & XTG_CFG_STS_SWIDTH_MASK) >>
-					XTG_CFG_STS_SWIDTH_SHIFT;
+		InstancePtr->SlaveWidth =
+			(ConfigStatus & XTG_CFG_STS_SWIDTH_MASK) >>
+			XTG_CFG_STS_SWIDTH_SHIFT;
 
 		/* Initialize parameters */
 		InstancePtr->CmdInfo.LastWrValidIndex = -1;
 		InstancePtr->CmdInfo.LastRdValidIndex = -1;
 	}
 
-	/* Is it operating in Static Mode */	
-	if((Config->BusType == 1) && (Config->Mode == 3) && 
-			(Config->ModeType == 1 || Config->ModeType == 2)) {
-			InstancePtr->OperatingMode = XTG_MODE_STATIC;
+	/* Is it operating in Static Mode */
+	if ((Config->BusType == 1) && (Config->Mode == 3) &&
+	    (Config->ModeType == 1 || Config->ModeType == 2)) {
+		InstancePtr->OperatingMode = XTG_MODE_STATIC;
 	}
-	
+
 	/* Is it operating in Streaming Mode */
-	if((Config->BusType == 3) && (Config->Mode == 1)) {
-			InstancePtr->OperatingMode = XTG_MODE_STREAMING;
+	if ((Config->BusType == 3) && (Config->Mode == 1)) {
+		InstancePtr->OperatingMode = XTG_MODE_STREAMING;
 	}
-	
+
 	/* Is it operating in System-init Mode */
-	if(Config->BusType == 2) {
-			InstancePtr->OperatingMode = XTG_MODE_SYS_INIT;
+	if (Config->BusType == 2) {
+		InstancePtr->OperatingMode = XTG_MODE_SYS_INIT;
 	}
 
 	/* Initialization is successful */
@@ -171,9 +172,9 @@ int XTrafGen_CfgInitialize(XTrafGen * InstancePtr,
 /**
 * Add a command to the software list of commands.
 *
-* This function prepares the four Command Words and one Parameter Word from 
-* the Command structure passed from the user application.  It then adds to a 
-* list of commands (maintained in the software). Both CMDRAM and PARAMRAM are 
+* This function prepares the four Command Words and one Parameter Word from
+* the Command structure passed from the user application.  It then adds to a
+* list of commands (maintained in the software). Both CMDRAM and PARAMRAM are
 * divided into two regions, one for reads and one for writes. Each region can
 * hold 256 commands with each entry containing four Command RAM words and one
 * Parameter RAM word.
@@ -182,7 +183,7 @@ int XTrafGen_CfgInitialize(XTrafGen * InstancePtr,
 *               worked on.
 * @param	CmdPtr is a pointer to Command structure.
 *
-* @return       
+* @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if reached max number of command entries
 *
@@ -195,20 +196,21 @@ int XTrafGen_AddCommand(XTrafGen *InstancePtr, XTrafGen_Cmd *CmdPtr)
 	u32 *ParamWord;
 
 	/* Verify arguments */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(CmdPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CmdPtr != NULL);
 
 	CmdInfo = XTrafGen_GetCmdInfo(InstancePtr);
 
 	if ((CmdInfo->WrIndexEnd && CmdPtr->RdWrFlag) ||
-		(CmdInfo->RdIndexEnd && !CmdPtr->RdWrFlag)) {
+	    (CmdInfo->RdIndexEnd && !CmdPtr->RdWrFlag)) {
 		return XST_FAILURE;
 	}
 
-	if (CmdPtr->RdWrFlag)
+	if (CmdPtr->RdWrFlag) {
 		Index = &CmdInfo->WrIndex;
-	else
+	} else {
 		Index = &CmdInfo->RdIndex;
+	}
 
 	CmdWords = CmdInfo->CmdEntry[CmdPtr->RdWrFlag][*Index].CmdWords;
 	XTrafGen_PrepCmdWords(InstancePtr, CmdPtr, CmdWords);
@@ -216,20 +218,22 @@ int XTrafGen_AddCommand(XTrafGen *InstancePtr, XTrafGen_Cmd *CmdPtr)
 	ParamWord = &CmdInfo->CmdEntry[CmdPtr->RdWrFlag][*Index].ParamWord;
 	XTrafGen_PrepParamWord(InstancePtr, CmdPtr, ParamWord);
 
-	if (CmdPtr->CRamCmd.ValidCmd) { 
-		if (CmdPtr->RdWrFlag == XTG_WRITE)
+	if (CmdPtr->CRamCmd.ValidCmd) {
+		if (CmdPtr->RdWrFlag == XTG_WRITE) {
 			CmdInfo->LastWrValidIndex = *Index;
-		else
+		} else {
 			CmdInfo->LastRdValidIndex = *Index;
+		}
 	}
 
-	if (*Index != MAX_NUM_ENTRIES - 1)
+	if (*Index != MAX_NUM_ENTRIES - 1) {
 		(*Index)++;
-	else {
-		if (CmdPtr->RdWrFlag == XTG_WRITE)
+	} else {
+		if (CmdPtr->RdWrFlag == XTG_WRITE) {
 			CmdInfo->WrIndexEnd = 1;
-		else
+		} else {
 			CmdInfo->RdIndexEnd = 1;
+		}
 	}
 
 	return XST_SUCCESS;
@@ -244,9 +248,9 @@ int XTrafGen_AddCommand(XTrafGen *InstancePtr, XTrafGen_Cmd *CmdPtr)
 
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
-* @param	RdWrFlag specifies a Read or Write Region 
+* @param	RdWrFlag specifies a Read or Write Region
 *
-* @return       
+* @return
 *		- Last Valid Command Index
 *
 *****************************************************************************/
@@ -254,19 +258,20 @@ int XTrafGen_GetLastValidIndex(XTrafGen *InstancePtr, u32 RdWrFlag)
 {
 	XTrafGen_CmdInfo *CmdInfo;
 	u32 Index;
-				
+
 	/* Verify arguments */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	CmdInfo = XTrafGen_GetCmdInfo(InstancePtr);
 
-	if (RdWrFlag == XTG_WRITE)
+	if (RdWrFlag == XTG_WRITE) {
 		Index = CmdInfo->LastWrValidIndex;
-	else
+	} else {
 		Index = CmdInfo->LastRdValidIndex;
+	}
 
 	return Index;
-} 
+}
 
 /*****************************************************************************/
 /**
@@ -277,7 +282,7 @@ int XTrafGen_GetLastValidIndex(XTrafGen *InstancePtr, u32 RdWrFlag)
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
 *
-* @return       
+* @return
 *		- XST_SUCCESS if successful
 *	        - XST_FAILURE if programming internal RAMs failed
 *
@@ -288,14 +293,14 @@ int XTrafGen_WriteCmdsToHw(XTrafGen *InstancePtr)
 	u32 Status;
 
 	/* Verify arguments */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	for (Index = 0; Index < NUM_BLOCKS; Index++) {
 		Status = XTrafGen_ProgramCmdRam(InstancePtr, Index);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-					
+
 		Status = XTrafGen_ProgramParamRam(InstancePtr, Index);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -315,7 +320,7 @@ int XTrafGen_WriteCmdsToHw(XTrafGen *InstancePtr)
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
 *
-* @return       
+* @return
 *		- XST_SUCCESS if successful
 *	        - XST_FAILURE if programming internal RAMs failed
 *
@@ -327,7 +332,7 @@ int XTrafGen_EraseAllCommands(XTrafGen *InstancePtr)
 	u32 Index;
 
 	/* Verify arguments */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	CmdInfo = XTrafGen_GetCmdInfo(InstancePtr);
 
@@ -340,7 +345,7 @@ int XTrafGen_EraseAllCommands(XTrafGen *InstancePtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-					
+
 		Status = XTrafGen_ProgramParamRam(InstancePtr, Index);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -350,7 +355,7 @@ int XTrafGen_EraseAllCommands(XTrafGen *InstancePtr)
 	CmdInfo->WrIndex = CmdInfo->RdIndex = 0;
 	CmdInfo->WrIndexEnd = CmdInfo->RdIndexEnd = 0;
 	CmdInfo->LastWrValidIndex = CmdInfo->LastRdValidIndex = -1;
-	
+
 	return XST_SUCCESS;
 }
 
@@ -369,26 +374,26 @@ int XTrafGen_EraseAllCommands(XTrafGen *InstancePtr)
 * @param	RdWrFlag specifies whether to write or read
 * @param 	Data is the pointer to array which contains data to write or
 *		reads data into.
-* 
+*
 *****************************************************************************/
-void XTrafGen_AccessMasterRam(XTrafGen *InstancePtr, u32 Offset, 
-					int Length, u8 RdWrFlag, u32 *Data)
+void XTrafGen_AccessMasterRam(XTrafGen *InstancePtr, u32 Offset,
+			      int Length, u8 RdWrFlag, u32 *Data)
 {
 	u32 Index = 0;
-		
+
 	/* Verify arguments */
-        Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Offset + Length) <= XTG_MASTER_RAM_SIZE);
 
 	while (Length > 0) {
 		if (RdWrFlag == XTG_WRITE) {
 			XTrafGen_WriteMasterRam(
-					InstancePtr->Config.BaseAddress, 
-					Offset, Data[Index]);
+				InstancePtr->Config.BaseAddress,
+				Offset, Data[Index]);
 		} else {
 			Data[Index] =
 				XTrafGen_ReadMasterRam(
-					InstancePtr->Config.BaseAddress, 
+					InstancePtr->Config.BaseAddress,
 					Offset);
 		}
 		Length -= 4;
@@ -401,7 +406,7 @@ void XTrafGen_AccessMasterRam(XTrafGen *InstancePtr, u32 Offset,
 /**
 * Prepares all the four Command RAM Words
 *
-* The CMDRAM is divided into two 4 KB regions, one for reads and one for 
+* The CMDRAM is divided into two 4 KB regions, one for reads and one for
 * writes. Each region of CMDRAM can hold 256 commands each of 128 bits i.e.
 * Four command words each of size 32 bits. This function prepares these
 * command words from the user specified configuration.
@@ -413,14 +418,14 @@ void XTrafGen_AccessMasterRam(XTrafGen *InstancePtr, u32 Offset,
 *
 *****************************************************************************/
 static void XTrafGen_PrepCmdWords(XTrafGen *InstancePtr,
-				XTrafGen_Cmd *CmdPtr, u32 *CmdWords)
+				  XTrafGen_Cmd *CmdPtr, u32 *CmdWords)
 {
 	XTrafGen_CRamCmd *Cmd;
 
 	/* Verify arguments */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(CmdPtr != NULL);
-        Xil_AssertVoid(CmdWords != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CmdPtr != NULL);
+	Xil_AssertVoid(CmdWords != NULL);
 
 	Cmd = &CmdPtr->CRamCmd;
 
@@ -434,34 +439,34 @@ static void XTrafGen_PrepCmdWords(XTrafGen *InstancePtr,
 	}
 
 	/* Command Word 1 */
-        CmdWords[1] = 0;
-        CmdWords[1] |= ((Cmd->Length & XTG_LEN_MASK) << XTG_LEN_SHIFT);
-        CmdWords[1] |= ((Cmd->Lock & XTG_LOCK_MASK) << XTG_LOCK_SHIFT);
-        CmdWords[1] |= ((Cmd->Burst & XTG_BURST_MASK) << XTG_BURST_SHIFT);
-        CmdWords[1] |= ((Cmd->Size & XTG_SIZE_MASK) << XTG_SIZE_SHIFT);
-        CmdWords[1] |= ((Cmd->Id & XTG_ID_MASK) << XTG_ID_SHIFT);
-        CmdWords[1] |= ((Cmd->Prot & XTG_PROT_MASK) << XTG_PROT_SHIFT);
-        CmdWords[1] |= ((Cmd->LastAddress & XTG_LAST_ADDR_MASK) <<
-					XTG_LAST_ADDR_SHIFT);
-        CmdWords[1] |= ((Cmd->ValidCmd & XTG_VALID_CMD_MASK) <<
-					XTG_VALID_CMD_SHIFT);
+	CmdWords[1] = 0;
+	CmdWords[1] |= ((Cmd->Length & XTG_LEN_MASK) << XTG_LEN_SHIFT);
+	CmdWords[1] |= ((Cmd->Lock & XTG_LOCK_MASK) << XTG_LOCK_SHIFT);
+	CmdWords[1] |= ((Cmd->Burst & XTG_BURST_MASK) << XTG_BURST_SHIFT);
+	CmdWords[1] |= ((Cmd->Size & XTG_SIZE_MASK) << XTG_SIZE_SHIFT);
+	CmdWords[1] |= ((Cmd->Id & XTG_ID_MASK) << XTG_ID_SHIFT);
+	CmdWords[1] |= ((Cmd->Prot & XTG_PROT_MASK) << XTG_PROT_SHIFT);
+	CmdWords[1] |= ((Cmd->LastAddress & XTG_LAST_ADDR_MASK) <<
+			XTG_LAST_ADDR_SHIFT);
+	CmdWords[1] |= ((Cmd->ValidCmd & XTG_VALID_CMD_MASK) <<
+			XTG_VALID_CMD_SHIFT);
 
 	/* Command Word 2 */
-        CmdWords[2] = 0;
-        CmdWords[2] |= ((Cmd->MasterRamIndex & XTG_MSTRAM_INDEX_MASK) <<
-					XTG_MSTRAM_INDEX_SHIFT);
-        CmdWords[2] |= ((Cmd->OtherDepend & XTG_OTHER_DEPEND_MASK) <<
-					XTG_OTHER_DEPEND_SHIFT);
-        CmdWords[2] |= ((Cmd->MyDepend & XTG_MY_DEPEND_MASK) <<
-					XTG_MY_DEPEND_SHIFT);
+	CmdWords[2] = 0;
+	CmdWords[2] |= ((Cmd->MasterRamIndex & XTG_MSTRAM_INDEX_MASK) <<
+			XTG_MSTRAM_INDEX_SHIFT);
+	CmdWords[2] |= ((Cmd->OtherDepend & XTG_OTHER_DEPEND_MASK) <<
+			XTG_OTHER_DEPEND_SHIFT);
+	CmdWords[2] |= ((Cmd->MyDepend & XTG_MY_DEPEND_MASK) <<
+			XTG_MY_DEPEND_SHIFT);
 
 	/* Command Word 3 */
-        CmdWords[3] = 0;
-        CmdWords[3] |= ((Cmd->Qos & XTG_QOS_MASK) << XTG_QOS_SHIFT);
-        CmdWords[3] |= ((Cmd->User & XTG_USER_MASK) << XTG_USER_SHIFT);
-        CmdWords[3] |= ((Cmd->Cache & XTG_CACHE_MASK) << XTG_CACHE_SHIFT);
-        CmdWords[3] |= ((Cmd->ExpectedResp & XTG_EXPECTED_RESP_MASK) <<
-					XTG_EXPECTED_RESP_SHIFT);
+	CmdWords[3] = 0;
+	CmdWords[3] |= ((Cmd->Qos & XTG_QOS_MASK) << XTG_QOS_SHIFT);
+	CmdWords[3] |= ((Cmd->User & XTG_USER_MASK) << XTG_USER_SHIFT);
+	CmdWords[3] |= ((Cmd->Cache & XTG_CACHE_MASK) << XTG_CACHE_SHIFT);
+	CmdWords[3] |= ((Cmd->ExpectedResp & XTG_EXPECTED_RESP_MASK) <<
+			XTG_EXPECTED_RESP_SHIFT);
 }
 
 /*****************************************************************************/
@@ -479,45 +484,45 @@ static void XTrafGen_PrepCmdWords(XTrafGen *InstancePtr,
 *
 *****************************************************************************/
 static void XTrafGen_PrepParamWord(XTrafGen *InstancePtr,
-				XTrafGen_Cmd *CmdPtr, u32 *ParamWord)
+				   XTrafGen_Cmd *CmdPtr, u32 *ParamWord)
 {
 	XTrafGen_PRamCmd *Cmd;
 
 	/* Verify arguments */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(CmdPtr != NULL);
-        Xil_AssertVoid(ParamWord != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CmdPtr != NULL);
+	Xil_AssertVoid(ParamWord != NULL);
 
 	Cmd = &CmdPtr->PRamCmd;
 
 	*ParamWord = 0;
 	*ParamWord |= (Cmd->Opcode & XTG_PARAM_OP_MASK) << XTG_PARAM_OP_SHIFT;
 	*ParamWord |= (Cmd->AddrMode & XTG_PARAM_ADDRMODE_MASK) <<
-					XTG_PARAM_ADDRMODE_SHIFT;
+		      XTG_PARAM_ADDRMODE_SHIFT;
 	*ParamWord |= (Cmd->IdMode & XTG_PARAM_IDMODE_MASK) <<
-					XTG_PARAM_IDMODE_SHIFT;
+		      XTG_PARAM_IDMODE_SHIFT;
 	*ParamWord |= (Cmd->IntervalMode & XTG_PARAM_INTERVALMODE_MASK) <<
-					XTG_PARAM_INTERVALMODE_SHIFT;
+		      XTG_PARAM_INTERVALMODE_SHIFT;
 
 	switch (Cmd->Opcode) {
-	case XTG_PARAM_OP_RPT:
-	case XTG_PARAM_OP_DELAY:
-		*ParamWord |=  (Cmd->OpCntl0 & XTG_PARAM_COUNT_MASK) <<
-					XTG_PARAM_COUNT_SHIFT;
-		break;
+		case XTG_PARAM_OP_RPT:
+		case XTG_PARAM_OP_DELAY:
+			*ParamWord |=  (Cmd->OpCntl0 & XTG_PARAM_COUNT_MASK) <<
+				       XTG_PARAM_COUNT_SHIFT;
+			break;
 
-	case XTG_PARAM_OP_FIXEDRPT:
-    		*ParamWord |=  (Cmd->OpCntl0 & XTG_PARAM_ADDRRANGE_MASK) <<
-					XTG_PARAM_ADDRRANGE_SHIFT;
-    		*ParamWord |=  (Cmd->OpCntl1 & XTG_PARAM_DELAY_MASK) <<
-					XTG_PARAM_DELAY_SHIFT;
-    		*ParamWord |=  (Cmd->OpCntl2 & XTG_PARAM_DELAYRANGE_MASK) <<
-					XTG_PARAM_DELAYRANGE_SHIFT;
-		break;
+		case XTG_PARAM_OP_FIXEDRPT:
+			*ParamWord |=  (Cmd->OpCntl0 & XTG_PARAM_ADDRRANGE_MASK) <<
+				       XTG_PARAM_ADDRRANGE_SHIFT;
+			*ParamWord |=  (Cmd->OpCntl1 & XTG_PARAM_DELAY_MASK) <<
+				       XTG_PARAM_DELAY_SHIFT;
+			*ParamWord |=  (Cmd->OpCntl2 & XTG_PARAM_DELAYRANGE_MASK) <<
+				       XTG_PARAM_DELAYRANGE_SHIFT;
+			break;
 
-	case XTG_PARAM_OP_NOP:
-    		*ParamWord = 0;
-		break;
+		case XTG_PARAM_OP_NOP:
+			*ParamWord = 0;
+			break;
 	}
 }
 
@@ -525,19 +530,19 @@ static void XTrafGen_PrepParamWord(XTrafGen *InstancePtr,
 /**
 * Program Command RAM
 *
-* This function write the list of Command Words prepared by using 
+* This function write the list of Command Words prepared by using
 * *_AddCommand() to Command RAM till the last command entry added.
 
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
-* @param	RdWrFlag specifies Read or Write Region 
+* @param	RdWrFlag specifies Read or Write Region
 *
-* @return       
+* @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if no valid commands present
 *
 *****************************************************************************/
-static int XTrafGen_ProgramCmdRam(XTrafGen *InstancePtr, u8 RdWrFlag) 
+static int XTrafGen_ProgramCmdRam(XTrafGen *InstancePtr, u8 RdWrFlag)
 {
 	XTrafGen_CmdInfo *CmdInfo;
 	u32 *CmdWords;
@@ -547,9 +552,9 @@ static int XTrafGen_ProgramCmdRam(XTrafGen *InstancePtr, u8 RdWrFlag)
 	u32 CmdWordIndex;
 	u32 Offset1;
 	int ValidIndex;
-	
+
 	/* Verify arguments */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	CmdInfo = XTrafGen_GetCmdInfo(InstancePtr);
 
@@ -576,15 +581,15 @@ static int XTrafGen_ProgramCmdRam(XTrafGen *InstancePtr, u8 RdWrFlag)
 			}
 			if ( InstancePtr->Config.AddressWidth > 32) {
 				XTrafGen_WriteCmdRam_Msb(InstancePtr->Config.BaseAddress,
-					Offset1, CmdWords[4]);
-					Offset1 += 4;
+							 Offset1, CmdWords[4]);
+				Offset1 += 4;
 			}
 
 		} else {
 			return XST_FAILURE;
 		}
 	}
- 
+
 	return XST_SUCCESS;
 }
 
@@ -592,14 +597,14 @@ static int XTrafGen_ProgramCmdRam(XTrafGen *InstancePtr, u8 RdWrFlag)
 /**
 * Program Parameter RAM
 *
-* This function write the list of Parameter Words prepared by using 
+* This function write the list of Parameter Words prepared by using
 * *_AddCommand() to Parameter RAM till the last command entry added.
 
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
-* @param	RdWrFlag specifies Read or Write Region 
+* @param	RdWrFlag specifies Read or Write Region
 *
-* @return       
+* @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if no valid commands present
 *
@@ -612,9 +617,9 @@ static int XTrafGen_ProgramParamRam(XTrafGen *InstancePtr, u8 RdWrFlag)
 	u32 Index;
 	u32 Offset;
 	int ValidIndex;
-	
+
 	/* Verify arguments */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	CmdInfo = XTrafGen_GetCmdInfo(InstancePtr);
 
@@ -641,7 +646,7 @@ static int XTrafGen_ProgramParamRam(XTrafGen *InstancePtr, u8 RdWrFlag)
 		}
 	}
 
-	return XST_SUCCESS;	
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -659,10 +664,10 @@ void XTrafGen_PrintCmds(XTrafGen *InstancePtr)
 {
 	XTrafGen_CmdInfo *CmdInfo;
 	int Index1;
-	int Index2; 
+	int Index2;
 
 	/* Verify arguments */
-        Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
 
 	CmdInfo = XTrafGen_GetCmdInfo(InstancePtr);
 
@@ -671,17 +676,17 @@ void XTrafGen_PrintCmds(XTrafGen *InstancePtr)
 		xil_printf("Cmd%d:\t", Index1);
 		for (Index2 = 0; Index2 < 5; Index2++) {
 			xil_printf("0x%08x, ",
-				CmdInfo->CmdEntry[1][Index1].CmdWords[Index2]);
+				   CmdInfo->CmdEntry[1][Index1].CmdWords[Index2]);
 		}
 		xil_printf("0x%08x\n\r", CmdInfo->CmdEntry[1][Index1].ParamWord);
 	}
-			
+
 	xil_printf("Commands configured for Read Block: \n\r");
 	for (Index1 = 0; Index1 < MAX_NUM_ENTRIES; Index1++) {
 		xil_printf("Cmd%d:\t", Index1);
 		for (Index2 = 0; Index2 < 5; Index2++) {
 			xil_printf("0x%08x, ",
-				CmdInfo->CmdEntry[0][Index1].CmdWords[Index2]);
+				   CmdInfo->CmdEntry[0][Index1].CmdWords[Index2]);
 		}
 		xil_printf("0x%08x\n\r", CmdInfo->CmdEntry[0][Index1].ParamWord);
 	}

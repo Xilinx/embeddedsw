@@ -13,18 +13,18 @@
 * @details
 *
 * This file contains the implementation of the AXI Traffic Generator driver.
-* User documentation for the driver functions is contained in this file in the 
+* User documentation for the driver functions is contained in this file in the
 * form of comment blocks at the front of each function.
 *
-* The AXI Traffic Generator IP is designed to generate AXI4 traffic which can 
-* be used to stress different modules/interconnect connected in the system. 
+* The AXI Traffic Generator IP is designed to generate AXI4 traffic which can
+* be used to stress different modules/interconnect connected in the system.
 * Different configurable options allow the user to generate a wide variety of
 * traffic based on their requirements.  The core is broadly separated into a
-* master and slave block, each of which contains the write block and read 
+* master and slave block, each of which contains the write block and read
 * block. Other support features are provided by the Control registers and
 * Internal RAMs.
 *
-* The commands to be issued by the AXI traffic generator are loaded in a 
+* The commands to be issued by the AXI traffic generator are loaded in a
 * 128-bit wide, 512 deep command RAM through AXI Slave interface. After the
 * core is enabled, control logic issues the write/read commands based on the
 * command settings programmed. The core updates the Status registers and
@@ -33,15 +33,15 @@
 * The Axi Traffic Genrator has five different modes:
 *
 * - Advanced Mode: Advanced Mode allows full control over the traffic generation
-*   Control registers are provided to you to program the core to generate 
+*   Control registers are provided to you to program the core to generate
 *   different AXI4 transactions.
 *
-* - Basic Mode: Basic Mode allows basic AXI4 traffic generation with less 
+* - Basic Mode: Basic Mode allows basic AXI4 traffic generation with less
 *   resource overhead.
 *
-* - Static Mode: Static Mode allows you to generate a simple AXI4 traffic with 
+* - Static Mode: Static Mode allows you to generate a simple AXI4 traffic with
 *   very less resource and minimum processor intervention.In this Mode the core
-*   continuously generates fixed address and fixed length INCR type read and 
+*   continuously generates fixed address and fixed length INCR type read and
 *   write transfers.
 *
 * - System Init Mode: System Init Mode is a special Mode where core provides
@@ -49,8 +49,8 @@
 *   without a processor to initialize the system peripherals with preconfigured
 *   values on system reset.
 *
-* - Streaming Mode: In Streaming Mode the core can be configured to generate 
-*   traffic based on the register configuration. 
+* - Streaming Mode: In Streaming Mode the core can be configured to generate
+*   traffic based on the register configuration.
 *
 * <b>Initialization & Configuration</b>
 *
@@ -78,28 +78,28 @@
 * Command and Parameter RAMs. The CMDRAM and PARAMRAM is divided into two
 * regions: write and read. Each region can hold 256 entries.  Once the core
 * is enabled, the internal control logic issues write/read commands. To
-* handle command programming efficiently, we are maintaining a software 
+* handle command programming efficiently, we are maintaining a software
 * list of commands. Following APIs are provided to handle this mechanism:
 *
-* - XTrafGen_AddCommand(): This function prepares the Command Words and 
-*   Parameter Word from the Command structure passed from the user 
+* - XTrafGen_AddCommand(): This function prepares the Command Words and
+*   Parameter Word from the Command structure passed from the user
 *   application.  It then adds to a software list of commands.
 *
-* - XTrafGen_WriteCmdsToHw(): This function writes the prepared list of 
+* - XTrafGen_WriteCmdsToHw(): This function writes the prepared list of
 *   Command and Parameter Words prepared to CMDRAM and PARAMRAM.
 *
 * - XTrafGen_GetLastValidIndex(): This function gets last Valid Command
 *   Index of Write/Read region. The last valid command index is used to
-*   set 'my_depend' and 'other_depend' fields of the Command RAM. 
+*   set 'my_depend' and 'other_depend' fields of the Command RAM.
 *
 * - XTrafGen_EraseAllCommands(): This function clears the list of commands
 *   maintained in software and also updates the respective RAMs.
 *
-* - XTrafGen_PrintAllCmds(): This function displays the list of commands.  
+* - XTrafGen_PrintAllCmds(): This function displays the list of commands.
 *
 * <b>Master RAM Handling</b>
 *
-* AXI Traffic Generator uses MSTRAM to 
+* AXI Traffic Generator uses MSTRAM to
 * - Take data from this RAM for write transactions
 * - Store data to this RAM for read transaction
 * User need to call this API to write/read to/from Master RAM,
@@ -119,11 +119,11 @@
 * The application can control which interrupts are enabled using these
 * functions:
 * - XTrafGen_EnableMasterCmpInterrupt()
-* - XTrafGen_MasterErrIntrEnable() 
+* - XTrafGen_MasterErrIntrEnable()
 * - XTrafGen_SlaveErrIntrEnable()
 *
 * The interrupt system has to be set up and if the interrupts are enabled,
-* Traffic Generator notifies the software either about the completion or an 
+* Traffic Generator notifies the software either about the completion or an
 * error in transfer through interrupts.
 *
 * <b> Examples </b>
@@ -155,8 +155,8 @@
 * 1.01a adk  03/09/13 Updated Driver to Support Streaming and Static Mode
 * 2.00a adk  16/09/13 Fixed CR:737291
 * 2.01a adk  21/10/13 Fixed CR:740522 Updated the MasterRam offset as per latest
-*		      IP.This driver is valid only for IP(v2.0) onwards. The 
-*		      XTG_MASTER_RAM_OFFSET has been changed from 
+*		      IP.This driver is valid only for IP(v2.0) onwards. The
+*		      XTG_MASTER_RAM_OFFSET has been changed from
 *		      0x10000 to 0xc000.
 * 2.01a adk  15/11/13 Fixed CR:760808 added Macro's for the New bit fields added
 * 		      in the latest tarfgen IP(v2.0).
@@ -201,14 +201,14 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define MAX_NUM_ENTRIES	256	/**< Number of command entries per region */	
+#define MAX_NUM_ENTRIES	256	/**< Number of command entries per region */
 #define NUM_BLOCKS	2	/**< Number of Read and write regions */
 
 /* Direction Flags */
-#define XTG_WRITE	1	/**< Write Direction Flag */	 
+#define XTG_WRITE	1	/**< Write Direction Flag */
 #define XTG_READ	0	/**< Read Direction Flag */
 
-/* Operating Mode flags */	
+/* Operating Mode flags */
 #define XTG_MODE_FULL		0	/**< Full Mode */
 #define XTG_MODE_BASIC		1	/**< Basic Mode */
 #define XTG_MODE_STATIC		2	/**< Static Mode */
@@ -218,13 +218,13 @@ extern "C" {
 /* Master Width Flags */
 #define XTG_MWIDTH_32	0	/**< Master Width - 32 */
 #define XTG_MWIDTH_64	1	/**< Master Width - 64 */
-	
+
 /* Slave Width Flags */
 #define XTG_SWIDTH_32	0	/**< Slave Width - 32 */
 #define XTG_SWIDTH_64	1	/**< Slave Width - 64 */
-	
+
 /* Internal RAM Sizes */
-#define XTG_PRM_RAM_BLOCK_SIZE	0x400	/**< PARAM Block Size (1KB) */	
+#define XTG_PRM_RAM_BLOCK_SIZE	0x400	/**< PARAM Block Size (1KB) */
 #define XTG_CMD_RAM_BLOCK_SIZE	0x1000 	/**< Cmd RAM Block Size (4KB) */
 #define XTG_EXTCMD_RAM_BLOCK_SIZE 0x400	/**< Extended CMDRAM Block Size (1KB) */
 #define XTG_PARAM_RAM_SIZE	0x800	/**< Parameter RAM (2KB) */
@@ -234,11 +234,10 @@ extern "C" {
 /************************** Type Definitions *****************************/
 
 /**
- *  Command Ram word fields 
+ *  Command Ram word fields
  *
  */
-typedef struct XTrafGen_CRamCmd
-{
+typedef struct XTrafGen_CRamCmd {
 	UINTPTR Address;		/**< Address Driven to a*_addr line */
 	u32 ValidCmd;		/**< Valid Command */
 	u32 LastAddress;	/**< Last address */
@@ -246,7 +245,7 @@ typedef struct XTrafGen_CRamCmd
 	u32 Id;			/**< Driven to a*_id line */
 	u32 Size;		/**< Driven to a*_size line */
 	u32 Burst;		/**< Driven to a*_burst line */
-	u32 Lock;		/** Driven to a*_lock line */	
+	u32 Lock;		/** Driven to a*_lock line */
 	u32 Length;		/**< Driven to a*_len line  */
 	u32 MyDepend;		/**< My depend command no */
 	u32 OtherDepend;	/**< Other depend Command no */
@@ -258,12 +257,11 @@ typedef struct XTrafGen_CRamCmd
 } XTrafGen_CRamCmd;
 
 /**
- *  Parameter Ram word fields 
+ *  Parameter Ram word fields
  *
  */
-typedef struct XTrafGen_PRamCmd
-{
-	u32 OpCntl0;		/**< Control field 0 */ 	
+typedef struct XTrafGen_PRamCmd {
+	u32 OpCntl0;		/**< Control field 0 */
 	u32 OpCntl1;		/**< Control field 1 */
 	u32 OpCntl2;		/**< Control field 2 */
 	u32 AddrMode;		/**< Address mode */
@@ -277,13 +275,12 @@ typedef struct XTrafGen_PRamCmd
  *
  *  This structure should be updated by user with required
  *  configuration
- */ 
-typedef struct XTrafGen_Cmd
-{
-	XTrafGen_CRamCmd CRamCmd; /**< Command RAM struct */ 
-	XTrafGen_PRamCmd PRamCmd; /**< Param RAM struct */ 
+ */
+typedef struct XTrafGen_Cmd {
+	XTrafGen_CRamCmd CRamCmd; /**< Command RAM struct */
+	XTrafGen_PRamCmd PRamCmd; /**< Param RAM struct */
 
-	u8 RdWrFlag;		/**< Write/Read region? */ 
+	u8 RdWrFlag;		/**< Write/Read region? */
 } XTrafGen_Cmd;
 
 /**
@@ -291,8 +288,7 @@ typedef struct XTrafGen_Cmd
  *
  * This structure denotes each entry of 256 commands.
  */
-typedef struct XTrafGen_CmdEntry
-{
+typedef struct XTrafGen_CmdEntry {
 	u32 CmdWords[5];	/**< Command Ram words */
 	u32 ParamWord;		/**< Parameter Ram word */
 } XTrafGen_CmdEntry;
@@ -320,26 +316,26 @@ typedef struct XTrafGen_Config {
 } XTrafGen_Config;
 
 /**
- * Command Information Structure 
+ * Command Information Structure
  *
- * This structure is maintained by the driver 
+ * This structure is maintained by the driver
  */
 typedef struct XTrafGen_CmdInfo {
 	u32 WrIndex;	/**< Write Region Command Index */
 	u32 RdIndex;	/**< Read Region Command Index */
-	
+
 	u8 WrIndexEnd;	/**< Write Index End */
 	u8 RdIndexEnd;	/**< Read Index End */
 
-	int LastWrValidIndex;	/**< Write Last Valid Command Index */ 
+	int LastWrValidIndex;	/**< Write Last Valid Command Index */
 	int LastRdValidIndex;	/**< Read Last Valid Command Index */
 
 	XTrafGen_CmdEntry CmdEntry[2][MAX_NUM_ENTRIES];
-				/**< Software array of Commands */
+	/**< Software array of Commands */
 } XTrafGen_CmdInfo;
 
 /**
- * The XTrafGen driver instance data. An instance must be allocated for 
+ * The XTrafGen driver instance data. An instance must be allocated for
  * each Traffic Generator device in use.
  */
 typedef struct XTrafGen {
@@ -349,9 +345,9 @@ typedef struct XTrafGen {
 	u8 MasterWidth; 	/**< Master Width */
 	u8 SlaveWidth;		/**< Slave Width */
 
-	XTrafGen_CmdInfo CmdInfo; /**< Command Info structure */	
-	
-	int IsReady;	/* Device is initialized and ready */	
+	XTrafGen_CmdInfo CmdInfo; /**< Command Info structure */
+
+	int IsReady;	/* Device is initialized and ready */
 } XTrafGen;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -372,8 +368,8 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_ReadCoreRevision(InstancePtr)	\
 	((XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_MCNTL_OFFSET) & XTG_MCNTL_REV_MASK) >> \
-		XTG_MCNTL_REV_SHIFT)
+			   XTG_MCNTL_OFFSET) & XTG_MCNTL_REV_MASK) >> \
+	 XTG_MCNTL_REV_SHIFT)
 
 /****************************************************************************/
 /**
@@ -391,8 +387,8 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_ReadIdWidth(InstancePtr)	\
 	((XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_MCNTL_OFFSET) & XTG_MCNTL_MSTID_MASK) >>	\
-		XTG_MCNTL_MSTID_SHIFT)
+			   XTG_MCNTL_OFFSET) & XTG_MCNTL_MSTID_MASK) >>	\
+	 XTG_MCNTL_MSTID_SHIFT)
 
 /****************************************************************************/
 /**
@@ -410,9 +406,9 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_StartMasterLogic(InstancePtr)	\
 	XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_MCNTL_OFFSET,	\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-			XTG_MCNTL_OFFSET) | XTG_MCNTL_MSTEN_MASK))
+			  XTG_MCNTL_OFFSET,	\
+			  (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					    XTG_MCNTL_OFFSET) | XTG_MCNTL_MSTEN_MASK))
 
 /****************************************************************************/
 /**
@@ -432,13 +428,13 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_IsMasterLogicDone(InstancePtr)	\
 	((XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_MCNTL_OFFSET) & XTG_MCNTL_MSTEN_MASK) ? \
-		FALSE : TRUE)
+			   XTG_MCNTL_OFFSET) & XTG_MCNTL_MSTEN_MASK) ? \
+	 FALSE : TRUE)
 
 /****************************************************************************/
 /**
 *
-* XTrafGen_LoopEnable loops through the command set created using CMDRAM and 
+* XTrafGen_LoopEnable loops through the command set created using CMDRAM and
 * PARAMRAM indefinitely in Advanced mode/Basic mode of ATG.
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -452,14 +448,14 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_LoopEnable(InstancePtr)	\
 	XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_MCNTL_OFFSET,	\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-			XTG_MCNTL_OFFSET) | XTG_MCNTL_LOOPEN_MASK))
+			  XTG_MCNTL_OFFSET,	\
+			  (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					    XTG_MCNTL_OFFSET) | XTG_MCNTL_LOOPEN_MASK))
 
 /****************************************************************************/
 /**
 *
-* XTrafGen_LoopDisable Disables the loop bit in Master control regiset in 
+* XTrafGen_LoopDisable Disables the loop bit in Master control regiset in
 * Advanced mode/Basic mode of ATG.
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -473,29 +469,29 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_LoopDisable(InstancePtr)	\
 	XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_MCNTL_OFFSET,	\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-			XTG_MCNTL_OFFSET) & ~XTG_MCNTL_LOOPEN_MASK))
-			
+			  XTG_MCNTL_OFFSET,	\
+			  (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					    XTG_MCNTL_OFFSET) & ~XTG_MCNTL_LOOPEN_MASK))
+
 /****************************************************************************/
 /**
 *
 * XTrafGen_WriteSlaveControlReg enables control bits of Slave Control
-* Register. This API will write the value passed from the user. 
+* Register. This API will write the value passed from the user.
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
-* @param	Value is the Slave Control Register value to set 
+* @param	Value is the Slave Control Register value to set
 *
 * @return	None
 *
 * @note         C-style signature:
-*               void XTrafGen_WriteSlaveControlReg(XTrafGen *InstancePtr, 
+*               void XTrafGen_WriteSlaveControlReg(XTrafGen *InstancePtr,
 *						u32 Value)
 *****************************************************************************/
 #define XTrafGen_WriteSlaveControlReg(InstancePtr, Value)	\
 	XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_SCNTL_OFFSET, Value)
+			  XTG_SCNTL_OFFSET, Value)
 
 /****************************************************************************/
 /**
@@ -505,7 +501,7 @@ typedef struct XTrafGen {
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
 *
-* @return      	TRUE if master complete bit is set. 
+* @return      	TRUE if master complete bit is set.
 *               FALSE if master complete bit is not set.
 *
 * @note         C-style signature:
@@ -514,7 +510,7 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_CheckforMasterComplete(InstancePtr)	\
 	((XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_ERR_STS_OFFSET) & XTG_ERR_MSTCMP_MASK) ? TRUE : FALSE)
+			   XTG_ERR_STS_OFFSET) & XTG_ERR_MSTCMP_MASK) ? TRUE : FALSE)
 
 /****************************************************************************/
 /**
@@ -532,7 +528,7 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_ReadErrors(InstancePtr)	\
 	(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_ERR_STS_OFFSET) & XTG_ERR_ALL_ERR_MASK)
+			  XTG_ERR_STS_OFFSET) & XTG_ERR_ALL_ERR_MASK)
 
 /****************************************************************************/
 /**
@@ -550,10 +546,10 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_EnableMasterCmpInterrupt(InstancePtr)	\
 	XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_ERR_EN_OFFSET,	\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-			XTG_ERR_EN_OFFSET) |	\
-			XTG_ERR_MSTCMP_MASK))
+			  XTG_ERR_EN_OFFSET,	\
+			  (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					    XTG_ERR_EN_OFFSET) |	\
+			   XTG_ERR_MSTCMP_MASK))
 
 /****************************************************************************/
 /**
@@ -571,10 +567,10 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_ClearMasterCmpInterrupt(InstancePtr)	\
 	XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_ERR_STS_OFFSET,	\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-			XTG_ERR_STS_OFFSET) |	\
-			XTG_ERR_MSTCMP_MASK))
+			  XTG_ERR_STS_OFFSET,	\
+			  (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					    XTG_ERR_STS_OFFSET) |	\
+			   XTG_ERR_MSTCMP_MASK))
 
 /****************************************************************************/
 /**
@@ -598,14 +594,14 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_ClearErrors(InstancePtr, Mask)	\
 	XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_ERR_STS_OFFSET,	\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-			XTG_ERR_STS_OFFSET) | Mask))
+			  XTG_ERR_STS_OFFSET,	\
+			  (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					    XTG_ERR_STS_OFFSET) | Mask))
 
 /****************************************************************************/
 /**
 *
-* XTrafGen_EnableErrors enable errors specified in <i>Mask</i>.  The 
+* XTrafGen_EnableErrors enable errors specified in <i>Mask</i>.  The
 * corresponding error for each bit set to 1 in <i>Mask</i>, will be
 * enabled.
 *
@@ -624,9 +620,9 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_EnableErrors(InstancePtr, Mask)	\
 	XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_ERR_EN_OFFSET,	\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-			XTG_ERR_EN_OFFSET) | Mask))
+			  XTG_ERR_EN_OFFSET,	\
+			  (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					    XTG_ERR_EN_OFFSET) | Mask))
 
 /*****************************************************************************/
 /**
@@ -644,10 +640,10 @@ typedef struct XTrafGen {
 ******************************************************************************/
 #define XTrafGen_MasterErrIntrEnable(InstancePtr)                     \
 	XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,  \
-		XTG_MSTERR_INTR_OFFSET,	\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XTG_MSTERR_INTR_OFFSET) |	\
-			XTG_MSTERR_INTR_MINTREN_MASK)) 
+			  XTG_MSTERR_INTR_OFFSET,	\
+			  (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
+					    XTG_MSTERR_INTR_OFFSET) |	\
+			   XTG_MSTERR_INTR_MINTREN_MASK))
 
 /*****************************************************************************/
 /**
@@ -665,10 +661,10 @@ typedef struct XTrafGen {
 ******************************************************************************/
 #define XTrafGen_MasterErrIntrDisable(InstancePtr)                     \
 	XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,  \
-		XTG_MSTERR_INTR_OFFSET,	\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XTG_MSTERR_INTR_OFFSET) &	\
-			~XTG_MSTERR_INTR_MINTREN_MASK)) 
+			  XTG_MSTERR_INTR_OFFSET,	\
+			  (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
+					    XTG_MSTERR_INTR_OFFSET) &	\
+			   ~XTG_MSTERR_INTR_MINTREN_MASK))
 
 /*****************************************************************************/
 /**
@@ -686,9 +682,9 @@ typedef struct XTrafGen {
 ******************************************************************************/
 #define XTrafGen_SlaveErrIntrEnable(InstancePtr)                     \
 	XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,  \
-		XTG_SCNTL_OFFSET, \
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XTG_SCNTL_OFFSET) | XTG_SCNTL_ERREN_MASK)) 
+			  XTG_SCNTL_OFFSET, \
+			  (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
+					    XTG_SCNTL_OFFSET) | XTG_SCNTL_ERREN_MASK))
 
 /*****************************************************************************/
 /**
@@ -706,10 +702,10 @@ typedef struct XTrafGen {
 ******************************************************************************/
 #define XTrafGen_SlaveErrIntrDisable(InstancePtr)	\
 	XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,  \
-		XTG_SCNTL_OFFSET, \
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XTG_SCNTL_OFFSET) & 	\
-			~XTG_SCNTL_ERREN_MASK)) 
+			  XTG_SCNTL_OFFSET, \
+			  (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
+					    XTG_SCNTL_OFFSET) & 	\
+			   ~XTG_SCNTL_ERREN_MASK))
 
 /*****************************************************************************/
 /**
@@ -727,12 +723,12 @@ typedef struct XTrafGen {
 ******************************************************************************/
 #define XTrafGen_ReadConfigStatus(InstancePtr)                     \
 	(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,  \
-	XTG_CFG_STS_OFFSET))
+			  XTG_CFG_STS_OFFSET))
 
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_StaticEnable enable the traffic generation when the core is 
+*
+* XTrafGen_StaticEnable enable the traffic generation when the core is
 * configured Static Mode.
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -745,14 +741,14 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_StaticEnable(InstancePtr)				\
 	(XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,		\
-		XTG_STATIC_CNTL_OFFSET,					\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		 XTG_STATIC_CNTL_OFFSET) | XTG_STATIC_CNTL_STEN_MASK)))	
+			   XTG_STATIC_CNTL_OFFSET,					\
+			   (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					     XTG_STATIC_CNTL_OFFSET) | XTG_STATIC_CNTL_STEN_MASK)))
 
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_StaticDisable disables the traffic generation on the Axi TrafGen 
+*
+* XTrafGen_StaticDisable disables the traffic generation on the Axi TrafGen
 * when the core is configured in Static Mode
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -765,13 +761,13 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_StaticDisable(InstancePtr)				\
 	(XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,		\
-		XTG_STATIC_CNTL_OFFSET,					\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		 XTG_STATIC_CNTL_OFFSET) & XTG_STATIC_CNTL_RESET_MASK)))
-				
+			   XTG_STATIC_CNTL_OFFSET,					\
+			   (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					     XTG_STATIC_CNTL_OFFSET) & XTG_STATIC_CNTL_RESET_MASK)))
+
 /*****************************************************************************/
 /**
-* 
+*
 * XTrafGen_StaticVersion returns the version value for the Axi TrafGen
 * When configured in Static Mode
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -785,12 +781,12 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_StaticVersion(InstancePtr)				\
 	((XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,		\
-		XTG_STATIC_CNTL_OFFSET) & XTG_STATIC_CNTL_VER_MASK) >>  \
-		XTG_STATIC_CNTL_VER_SHIFT )
-				
+			   XTG_STATIC_CNTL_OFFSET) & XTG_STATIC_CNTL_VER_MASK) >>  \
+	 XTG_STATIC_CNTL_VER_SHIFT )
+
 /*****************************************************************************/
 /**
-* 
+*
 * XTrafGen_SetStaticBurstLen Configures the Burst Length for AxiTrafGen
 * In Static Mode
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -800,16 +796,16 @@ typedef struct XTrafGen {
 * @return       None.
 *
 * @note         C-style signature:
-*               void XTrafGen_SetStaticBurstLen(XTrafGen *InstancePtr, 
+*               void XTrafGen_SetStaticBurstLen(XTrafGen *InstancePtr,
 *						u32 Value)
 *****************************************************************************/
 #define XTrafGen_SetStaticBurstLen(InstancePtr,Value)			\
 	(XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STATIC_LEN_OFFSET,Value))
+			   XTG_STATIC_LEN_OFFSET,Value))
 
 /*****************************************************************************/
 /**
-* 
+*
 * XTrafGen_GetStaticBurstLen Gets the Burst Length for AxiTrafGen in StaticMode
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -822,12 +818,12 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_GetStaticBurstLen(InstancePtr)			\
 	(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STATIC_LEN_OFFSET))
+			  XTG_STATIC_LEN_OFFSET))
 
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_GetStaticTransferDone gets the state of Transfer done bit 
+*
+* XTrafGen_GetStaticTransferDone gets the state of Transfer done bit
 * in Control register When the TraficGen is configured in Static Mode.
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -841,12 +837,12 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_GetStaticTransferDone(InstancePtr)			\
 	((XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-			XTG_STATIC_CNTL_OFFSET)) & XTG_STATIC_CNTL_TD_MASK)
+			   XTG_STATIC_CNTL_OFFSET)) & XTG_STATIC_CNTL_TD_MASK)
 
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_SetStaticTransferDone sets the Transfer done bit in Control register 
+*
+* XTrafGen_SetStaticTransferDone sets the Transfer done bit in Control register
 * When AxiTrafGen is Configured in Static Mode.
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -860,14 +856,14 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_SetStaticTransferDone(InstancePtr)   			\
 	XTrafGen_WriteReg(InstancePtr->Config.BaseAddress, 	        \
-		XTG_STATIC_CNTL_OFFSET, 				\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STATIC_CNTL_OFFSET) | XTG_STATIC_CNTL_TD_MASK))
+			  XTG_STATIC_CNTL_OFFSET, 				\
+			  (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					    XTG_STATIC_CNTL_OFFSET) | XTG_STATIC_CNTL_TD_MASK))
 
 /****************************************************************************/
 /**
 *
-* XTrafGen_IsStaticTransferDone checks for reset value  When Static Traffic generation 
+* XTrafGen_IsStaticTransferDone checks for reset value  When Static Traffic generation
 * Completed by reading Control Register.
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -882,14 +878,14 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_IsStaticTransferDone(InstancePtr)	\
 	(((XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STATIC_CNTL_OFFSET) & XTG_STATIC_CNTL_TD_MASK) == \
-		XTG_STATIC_CNTL_RESET_MASK) ? \
-		TRUE : FALSE)	
-	
+			    XTG_STATIC_CNTL_OFFSET) & XTG_STATIC_CNTL_TD_MASK) == \
+	  XTG_STATIC_CNTL_RESET_MASK) ? \
+	 TRUE : FALSE)
+
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_StreamEnable enable the traffic generation on the Axi TrafGen 
+*
+* XTrafGen_StreamEnable enable the traffic generation on the Axi TrafGen
 * When the core is configured in Streaming Mode
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -902,14 +898,14 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_StreamEnable(InstancePtr) 				\
 	(XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,		\
-		XTG_STREAM_CNTL_OFFSET,					\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STREAM_CNTL_OFFSET) | XTG_STREAM_CNTL_STEN_MASK)))
+			   XTG_STREAM_CNTL_OFFSET,					\
+			   (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					     XTG_STREAM_CNTL_OFFSET) | XTG_STREAM_CNTL_STEN_MASK)))
 
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_StreamDisable Disable the traffic generation on the Axi TrafGen 
+*
+* XTrafGen_StreamDisable Disable the traffic generation on the Axi TrafGen
 * When core is configured in Streaming Mode
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -922,14 +918,14 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_StreamDisable(InstancePtr)			\
 	(XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STREAM_CNTL_OFFSET,				\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STREAM_CNTL_OFFSET) & XTG_STREAM_CNTL_RESET_MASK)))
+			   XTG_STREAM_CNTL_OFFSET,				\
+			   (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					     XTG_STREAM_CNTL_OFFSET) & XTG_STREAM_CNTL_RESET_MASK)))
 
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_StreamVersion returns the version value for the Axi TrafGen 
+*
+* XTrafGen_StreamVersion returns the version value for the Axi TrafGen
 * When configured in  Streaming Mode
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -942,35 +938,35 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_StreamVersion(InstancePtr)		\
 	((XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STREAM_CNTL_OFFSET) & XTG_STREAM_CNTL_VER_MASK) \
-		>> XTG_STREAM_CNTL_VER_SHIFT )
-	
+			   XTG_STREAM_CNTL_OFFSET) & XTG_STREAM_CNTL_VER_MASK) \
+	 >> XTG_STREAM_CNTL_VER_SHIFT )
+
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_SetStreamingTransLen Configures the length of transaction for 
+*
+* XTrafGen_SetStreamingTransLen Configures the length of transaction for
 * AxiTrafGen in Streaming Mode.
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
-* @param	Value is the transfer length to set in the transfer length 
+* @param	Value is the transfer length to set in the transfer length
 *		Register.
 *
 * @return       None.
 *
 * @note         C-style signature:
-*               void XTrafGen_SetStreamingTransLen(XTrafGen *InstancePtr, 
+*               void XTrafGen_SetStreamingTransLen(XTrafGen *InstancePtr,
 *						u32 Value)
 *****************************************************************************/
 #define XTrafGen_SetStreamingTransLen(InstancePtr,Value)		\
 	(XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,		\
-		XTG_STREAM_TL_OFFSET,					\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STREAM_TL_OFFSET) | Value)))
+			   XTG_STREAM_TL_OFFSET,					\
+			   (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					     XTG_STREAM_TL_OFFSET) | Value)))
 
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_GetStreamingTransLen Gets the length of transaction for 
+*
+* XTrafGen_GetStreamingTransLen Gets the length of transaction for
 * AxiTrafGen in Streaming Mode
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -984,12 +980,12 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_GetStreamingTransLen(InstancePtr)		\
 	(XTrafGen_ReadReg(InstancePtr->Config.BaseAddress,	\
-		XTG_STREAM_TL_OFFSET)& XTG_STREAM_TL_TLEN_MASK)
+			  XTG_STREAM_TL_OFFSET)& XTG_STREAM_TL_TLEN_MASK)
 
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_GetStreamingTransCnt Gets the transfer count for AxiTrafGen in 
+*
+* XTrafGen_GetStreamingTransCnt Gets the transfer count for AxiTrafGen in
 * Streaming Mode
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -1003,13 +999,13 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_GetStreamingTransCnt(InstancePtr)		\
 	((XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
-		XTG_STREAM_TL_OFFSET ) & XTG_STREAM_TL_TCNT_MASK) \
-		>> XTG_STREAM_TL_TCNT_SHIFT)
+			   XTG_STREAM_TL_OFFSET ) & XTG_STREAM_TL_TCNT_MASK) \
+	 >> XTG_STREAM_TL_TCNT_SHIFT)
 
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_SetStreamingRandomLen Configures the random transaction length 
+*
+* XTrafGen_SetStreamingRandomLen Configures the random transaction length
 * for AxiTrafGen in Streaming Mode.
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -1019,20 +1015,20 @@ typedef struct XTrafGen {
 * @return       None.
 *
 * @note         C-style signature:
-*               void XTrafGen_SetStreamingRandomLen(XTrafGen *InstancePtr, 
+*               void XTrafGen_SetStreamingRandomLen(XTrafGen *InstancePtr,
 *						u32 Value)
 *
 *****************************************************************************/
 #define XTrafGen_SetStreamingRandomLen(InstancePtr,Value)		\
 	(XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,		\
-		XTG_STREAM_CFG_OFFSET,					\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STREAM_CFG_OFFSET) | Value)))
-	
+			   XTG_STREAM_CFG_OFFSET,					\
+			   (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					     XTG_STREAM_CFG_OFFSET) | Value)))
+
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_GetStreamingProgDelay Gets the Programmable Delay for AxiTrafGen in 
+*
+* XTrafGen_GetStreamingProgDelay Gets the Programmable Delay for AxiTrafGen in
 * Streaming Mode.
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -1046,13 +1042,13 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_GetStreamingProgDelay(InstancePtr)	\
 	((XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
-		XTG_STREAM_TL_OFFSET ) \
-		& XTG_STREAM_CFG_PDLY_MASK) >> XTG_STREAM_CFG_PDLY_SHIFT)
+			   XTG_STREAM_TL_OFFSET ) \
+	  & XTG_STREAM_CFG_PDLY_MASK) >> XTG_STREAM_CFG_PDLY_SHIFT)
 
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_SetStreamingTransCnt Configures the transfer count for 
+*
+* XTrafGen_SetStreamingTransCnt Configures the transfer count for
 * AxiTrafGen in Streaming Mode.
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -1062,21 +1058,21 @@ typedef struct XTrafGen {
 * @return       None.
 *
 * @note         C-style signature:
-*               void XTrafGen_SetStreamingTransCnt(XTrafGen *InstancePtr, 
+*               void XTrafGen_SetStreamingTransCnt(XTrafGen *InstancePtr,
 *						u32 Value)
 *
 *****************************************************************************/
 #define XTrafGen_SetStreamingTransCnt(InstancePtr, Value) \
 	(XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STREAM_TL_OFFSET,	\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		 XTG_STREAM_TL_OFFSET) |((Value << XTG_STREAM_TL_TCNT_SHIFT) \
-		 & XTG_STREAM_TL_TCNT_MASK))))
-		
+			   XTG_STREAM_TL_OFFSET,	\
+			   (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					     XTG_STREAM_TL_OFFSET) |((Value << XTG_STREAM_TL_TCNT_SHIFT) \
+							     & XTG_STREAM_TL_TCNT_MASK))))
+
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_SetStreamingProgDelay Configures the Programmable Delay for 
+*
+* XTrafGen_SetStreamingProgDelay Configures the Programmable Delay for
 * AxiTrafGen in Streaming Mode.
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -1086,21 +1082,21 @@ typedef struct XTrafGen {
 * @return       None.
 *
 * @note         C-style signature:
-*               void XTrafGen_SetStreamingProgDelay(XTrafGen *InstancePtr, 
+*               void XTrafGen_SetStreamingProgDelay(XTrafGen *InstancePtr,
 *						u32 Value)
 *
 *****************************************************************************/
 #define XTrafGen_SetStreamingProgDelay(InstancePtr, Value) \
 	(XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STREAM_CFG_OFFSET,  \
-	        (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
-		 XTG_STREAM_CFG_OFFSET)|(Value << XTG_STREAM_CFG_PDLY_SHIFT)) \
-		 & XTG_STREAM_CFG_PDLY_MASK))
+			   XTG_STREAM_CFG_OFFSET,  \
+			   (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
+					     XTG_STREAM_CFG_OFFSET)|(Value << XTG_STREAM_CFG_PDLY_SHIFT)) \
+			   & XTG_STREAM_CFG_PDLY_MASK))
 
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_SetStreamingTdestPort Configures the Value to drive on TDEST port 
+*
+* XTrafGen_SetStreamingTdestPort Configures the Value to drive on TDEST port
 * for Axi TrafGen in Streaming Mode.
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -1109,21 +1105,21 @@ typedef struct XTrafGen {
 * @return       None.
 *
 * @note         C-style signature:
-*               void XTrafGen_SetStreamingTdestPort(XTrafGen *InstancePtr, 
+*               void XTrafGen_SetStreamingTdestPort(XTrafGen *InstancePtr,
 *						u8 Value)
 *
 *****************************************************************************/
 #define XTrafGen_SetStreamingTdestPort(InstancePtr, Value) \
 	(XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,  \
-		XTG_STREAM_CFG_OFFSET,  \
-	        (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
-		XTG_STREAM_CFG_OFFSET)|(Value << XTG_STREAM_CFG_TDEST_SHIFT)) \
-		& XTG_STREAM_CFG_TDEST_MASK))
-		
+			   XTG_STREAM_CFG_OFFSET,  \
+			   (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
+					     XTG_STREAM_CFG_OFFSET)|(Value << XTG_STREAM_CFG_TDEST_SHIFT)) \
+			   & XTG_STREAM_CFG_TDEST_MASK))
+
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_SetTransferDone sets the Transfer done bit in Control register 
+*
+* XTrafGen_SetTransferDone sets the Transfer done bit in Control register
 * When AxiTrafGen is Configured in  Streaming Mode.
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -1137,14 +1133,14 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_SetStreamingTransferDone(InstancePtr)   \
 	XTrafGen_WriteReg(InstancePtr->Config.BaseAddress,   \
-		XTG_STREAM_CNTL_OFFSET, 			\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
-		XTG_STREAM_CNTL_OFFSET) | XTG_STREAM_CNTL_TD_MASK))
+			  XTG_STREAM_CNTL_OFFSET, 			\
+			  (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress, \
+					    XTG_STREAM_CNTL_OFFSET) | XTG_STREAM_CNTL_TD_MASK))
 
 /****************************************************************************/
 /**
 *
-* XTrafGen_IsStreamingTransferDone checks for reset value  When Streaming Traffic 
+* XTrafGen_IsStreamingTransferDone checks for reset value  When Streaming Traffic
 * generation is Completed by reading Stream Control Register.
 *
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
@@ -1159,14 +1155,14 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_IsStreamingTransferDone(InstancePtr)	\
 	(((XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STREAM_CNTL_OFFSET) & XTG_STREAM_CNTL_TD_MASK) == \
-		XTG_STREAM_CNTL_RESET_MASK) ? \
-		TRUE : FALSE)	
-		
+			    XTG_STREAM_CNTL_OFFSET) & XTG_STREAM_CNTL_TD_MASK) == \
+	  XTG_STREAM_CNTL_RESET_MASK) ? \
+	 TRUE : FALSE)
+
 /*****************************************************************************/
 /**
-* 
-* XTrafGen_ResetStreamingRandomLen resets the random transaction length 
+*
+* XTrafGen_ResetStreamingRandomLen resets the random transaction length
 * for AxiTrafGen in Streaming Mode.
 * @param        InstancePtr is a pointer to the Axi TrafGen instance to be
 *               worked on.
@@ -1179,17 +1175,17 @@ typedef struct XTrafGen {
 *****************************************************************************/
 #define XTrafGen_ResetStreamingRandomLen(InstancePtr)		\
 	(XTrafGen_WriteReg((InstancePtr)->Config.BaseAddress,		\
-		XTG_STREAM_CFG_OFFSET,					\
-		(XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XTG_STREAM_CFG_OFFSET) & ~XTG_STREAM_CFG_RANDL_MASK)))
-			
+			   XTG_STREAM_CFG_OFFSET,					\
+			   (XTrafGen_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					     XTG_STREAM_CFG_OFFSET) & ~XTG_STREAM_CFG_RANDL_MASK)))
+
 /************************** Function Prototypes ******************************/
 
 /*
  * Initialization and control functions in xtrafgen.c
  */
-int XTrafGen_CfgInitialize(XTrafGen * InstancePtr,
-                             XTrafGen_Config *Config, UINTPTR EffectiveAddress);
+int XTrafGen_CfgInitialize(XTrafGen *InstancePtr,
+			   XTrafGen_Config *Config, UINTPTR EffectiveAddress);
 #ifndef SDT
 XTrafGen_Config *XTrafGen_LookupConfig(u32 DeviceId);
 #else
@@ -1200,7 +1196,7 @@ int XTrafGen_AddCommand(XTrafGen *InstancePtr, XTrafGen_Cmd *CmdPtr);
 int XTrafGen_GetLastValidIndex(XTrafGen *InstancePtr, u32 RdWrFlag);
 int XTrafGen_WriteCmdsToHw(XTrafGen *InstancePtr);
 void XTrafGen_AccessMasterRam(XTrafGen *InstancePtr, u32 Offset,
-                                     int Length, u8 Write, u32 *Data);
+			      int Length, u8 Write, u32 *Data);
 void XTrafGen_PrintCmds(XTrafGen *InstancePtr);
 int XTrafGen_EraseAllCommands(XTrafGen *InstancePtr);
 
