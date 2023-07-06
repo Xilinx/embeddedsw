@@ -41,11 +41,15 @@ extern "C" {
 
 /**************************** Constant Definitions *******************************/
 #define XCERT_ISSUER_MAX_SIZE					(600U)
+	/**< Max length of the DER encoded Issuer field received from CDO */
 #define XCERT_SUBJECT_MAX_SIZE					(600U)
+	/**< Max length of the DER encoded Subject field received from CDO */
 #define XCERT_VALIDITY_MAX_SIZE					(40U)
+	/**< Max length of the DER encoded Validity field received from CDO */
 #define XCERT_HASH_SIZE_IN_BYTES				(48U)
 					/**< Length of hash in bytes */
 #define XCert_Printf						XPlmi_Printf
+				/**< Alias of XPlmi_Printf to be used in XilCert*/
 #define XCERT_ECC_P384_PUBLIC_KEY_LEN				(96U)
 					/**< Length of ECC P-384 Public Key */
 
@@ -63,12 +67,12 @@ typedef struct {
 } XCert_SignStore;
 
 typedef struct {
-	u8 Issuer[XCERT_ISSUER_MAX_SIZE];
-	u32 IssuerLen;
-	u8 Subject[XCERT_SUBJECT_MAX_SIZE];
-	u32 SubjectLen;
-	u8 Validity[XCERT_VALIDITY_MAX_SIZE];
-	u32 ValidityLen;
+	u8 Issuer[XCERT_ISSUER_MAX_SIZE];	/**< DER encoded value of Issuer */
+	u32 IssuerLen;		/**< Length of DER encoded Issuer field */
+	u8 Subject[XCERT_SUBJECT_MAX_SIZE];	/**< DER encoded value of Subject */
+	u32 SubjectLen;		/**< Length of DER encoded Subject field */
+	u8 Validity[XCERT_VALIDITY_MAX_SIZE];	/**< DER encoded value of Validity */
+	u32 ValidityLen;	/**< Length of DER encoded Validity field */
 } XCert_UserCfg;
 
 typedef struct {
@@ -87,16 +91,14 @@ typedef struct {
 }XCert_AppCfg;
 
 typedef struct {
-	u32 SubSystemId;
-	XCert_UserCfg *UserCfg;
-	XCert_AppCfg AppCfg;
+	u32 SubSystemId;	/**< Subsystem ID */
+	XCert_UserCfg *UserCfg;		/**< Configuration from User */
+	XCert_AppCfg AppCfg;	/**< Configuration from application */
 }XCert_Config;
 
 /************************** Function Prototypes ******************************/
 int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config *Cfg);
-XCert_UserCfg *XCert_GetCertUserInput(void);
 int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8* Val, u32 Len);
-u32* XCert_GetCertUsrCfgStoreIdx(void);
 
 #endif
 #ifdef __cplusplus
