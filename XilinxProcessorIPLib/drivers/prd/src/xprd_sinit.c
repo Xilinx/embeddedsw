@@ -78,7 +78,7 @@ XPrd_Config *XPrd_LookupConfig(u16 DeviceId)
 	u32 Index;
 
 	for (Index = 0; Index < (u32)XPAR_XPRD_NUM_INSTANCES;
-		Index++) {
+	     Index++) {
 		if (XPrd_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XPrd_ConfigTable[Index];
 			break;

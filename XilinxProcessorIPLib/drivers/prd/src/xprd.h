@@ -135,7 +135,7 @@ XPrd_Config *XPrd_LookupConfig(UINTPTR BaseAddress);
 
 /* Functions in xprd.c */
 s32 XPrd_CfgInitialize(XPrd *InstancePtr, XPrd_Config *ConfigPtr,
-				u32 EffectiveAddress);
+		       u32 EffectiveAddress);
 void XPrd_SetDecouplerState(XPrd *InstancePtr, XPrd_State DecouplerValue);
 XPrd_State XPrd_GetDecouplerState(XPrd *InstancePtr);
 
