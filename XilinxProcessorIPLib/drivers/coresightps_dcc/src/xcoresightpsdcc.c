@@ -30,7 +30,7 @@
 *                       for MB BSPs. Instead it throws up a warning. This
 *                       fixes the CR#953056.
 * 1.5   sne    01/19/19 Fixed MISRA-C Violations CR#1025101.
-*
+* 1.9   ht     07/05/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -161,5 +161,15 @@ static INLINE u32 XCoresightPs_DccGetStatus(void)
 #endif
 	return Status;
 }
+
+#ifdef XPAR_STDIN_IS_CORESIGHTPS_DCC
+void outbyte(char c) {
+	XCoresightPs_DccSendByte(STDOUT_BASEADDRESS, c);
+}
+
+char inbyte(void) {
+	return XCoresightPs_DccRecvByte(STDIN_BASEADDRESS);
+}
+#endif
 #endif
 /** @} */
