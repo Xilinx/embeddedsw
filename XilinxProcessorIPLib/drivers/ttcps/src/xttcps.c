@@ -41,6 +41,7 @@
 * 3.10  aru    05/06/19 Added assert check for driver instance and freq
 *			parameter in  XTtcPs_CalcIntervalFromFreq().
 * 3.10  aru    05/30/19 Added interrupt handler to clear ISR
+* 3.18  gm    06/26/23	Added PM Request/Release node support.
 * </pre>
 *
 ******************************************************************************/
@@ -48,6 +49,13 @@
 /***************************** Include Files *********************************/
 
 #include "xttcps.h"
+#if defined  (XPM_SUPPORT)
+#include "pm_defs.h"
+#include "pm_api_sys.h"
+#include "pm_client.h"
+#include "xpm_init.h"
+#include "xdebug.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -59,6 +67,21 @@
 static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent);
 /************************** Variable Definitions *****************************/
 
+#if defined  (XPM_SUPPORT)
+extern XTtcPs_Config XTtcPs_ConfigTable[XPAR_XTTCPS_NUM_INSTANCES];
+
+static u32 GetTtcNodeAddress(u16 DeviceId)
+{
+	u32 Index;
+
+	for (Index = 0U; Index < (u32)XPAR_XTTCPS_NUM_INSTANCES; Index++) {
+		if (XTtcPs_ConfigTable[Index].DeviceId == DeviceId) {
+			return XTtcPs_ConfigTable[Index].BaseAddress;
+		}
+	}
+	return 0;
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -101,6 +124,9 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 {
 	s32 Status;
 	u32 IsStartResult;
+#if defined  (XPM_SUPPORT)
+	u32 TtcNodeAddr;
+#endif
 #ifdef SDT
 	u16 Count;
 #endif
@@ -110,6 +136,22 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
+
+#if defined  (XPM_SUPPORT)
+	TtcNodeAddr = GetTtcNodeAddress((ConfigPtr->DeviceId/3)*3);
+
+	Status = XPm_RequestNode(XpmGetNodeId((UINTPTR)TtcNodeAddr), PM_CAP_ACCESS, MAX_QOS, REQUEST_ACK_BLOCKING);
+	if (XST_SUCCESS != Status) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "Ttc: XPm_RequestNode failed\r\n");
+		return Status;
+	}
+
+	Status = XPm_ResetAssert(XpmGetResetId((UINTPTR)TtcNodeAddr), XILPM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "Ttc: XPm_ResetAssert() ERROR=0x%x \r\n", Status);
+		return Status;
+	}
+#endif
 
 	/*
 	 * Set some default values
