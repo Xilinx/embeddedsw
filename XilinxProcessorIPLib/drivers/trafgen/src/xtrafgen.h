@@ -303,12 +303,20 @@ typedef struct XTrafGen_CmdEntry
  * This structure passes the hardware building information to the driver
  */
 typedef struct XTrafGen_Config {
+#ifndef SDT
 	u16 DeviceId;		/**< Device Id */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< Base Address */
 	u32 BusType;		/**< Atgmode */
 	u32 Mode;		/**< Atgmode_l2 */
 	u32 ModeType;		/**< Axismode */
 	u32 AddressWidth;	/**< AddressWidth */
+	u32 IntId[2]; /**< Interrupt ID on GIC **/
+	UINTPTR IntrParent; 	/** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+
 } XTrafGen_Config;
 
 /**
@@ -1182,7 +1190,12 @@ typedef struct XTrafGen {
  */
 int XTrafGen_CfgInitialize(XTrafGen * InstancePtr,
                              XTrafGen_Config *Config, UINTPTR EffectiveAddress);
+#ifndef SDT
 XTrafGen_Config *XTrafGen_LookupConfig(u32 DeviceId);
+#else
+XTrafGen_Config *XTrafGen_LookupConfig(UINTPTR BaseAdress);
+#endif
+
 int XTrafGen_AddCommand(XTrafGen *InstancePtr, XTrafGen_Cmd *CmdPtr);
 int XTrafGen_GetLastValidIndex(XTrafGen *InstancePtr, u32 RdWrFlag);
 int XTrafGen_WriteCmdsToHw(XTrafGen *InstancePtr);
