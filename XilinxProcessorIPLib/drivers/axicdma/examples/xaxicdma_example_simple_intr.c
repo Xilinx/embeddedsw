@@ -63,10 +63,14 @@
 #include "xparameters.h"
 #include "xil_util.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
 #include "xscugic.h"
+#endif
+#else
+#include "xinterrupt_wrap.h"
 #endif
 
 #ifndef __MICROBLAZE__
@@ -81,6 +85,7 @@
 
 /******************** Constant Definitions **********************************/
 
+#ifndef SDT
 #ifndef TESTAPP_GEN
 /*
  * The following constants map to the XPAR parameters created in the
@@ -95,6 +100,7 @@
 #define DMA_CTRL_DEVICE_ID 	XPAR_AXICDMA_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define DMA_CTRL_IRPT_INTR	XPAR_FABRIC_AXICDMA_0_VEC_ID
+#endif
 #endif
 #endif
 
@@ -121,6 +127,7 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries);
 
 static void Example_CallBack(void *CallBackRef, u32 IrqMask, int *IgnorePtr);
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 			u32 IntrId);
@@ -139,15 +146,20 @@ int XAxiCdma_SimpleIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 	u16 DeviceId,u32 IntrId);
 
 #endif
+#else
+int XAxiCdma_SimpleIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
 #ifndef TESTAPP_GEN
 static XAxiCdma AxiCdmaInstance;	/* Instance of the XAxiCdma */
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 static XIntc IntcController;	/* Instance of the Interrupt Controller */
 #else
 static XScuGic IntcController;	/* Instance of the Interrupt Controller */
+#endif
 #endif
 #endif
 
@@ -186,9 +198,12 @@ int main()
 
 	/* Run the interrupt example for simple transfer
 	 */
+#ifndef SDT
 	Status = XAxiCdma_SimpleIntrExample(&IntcController, &AxiCdmaInstance,
 			DMA_CTRL_DEVICE_ID,DMA_CTRL_IRPT_INTR);
-
+#else
+	Status = XAxiCdma_SimpleIntrExample(&AxiCdmaInstance, XAXICDMA_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("XAxiCdma_SimpleIntr Example Failed\r\n");
 		return XST_FAILURE;
@@ -219,12 +234,16 @@ int main()
 *		then this function hangs
 *
 ******************************************************************************/
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 int XAxiCdma_SimpleIntrExample(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 	u16 DeviceId,u32 IntrId)
 #else
 int XAxiCdma_SimpleIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 	u16 DeviceId, u32 IntrId)
+#endif
+#else
+int XAxiCdma_SimpleIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	XAxiCdma_Config *CfgPtr;
@@ -235,7 +254,11 @@ int XAxiCdma_SimpleIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 
 	/* Initialize the XAxiCdma device.
 	 */
+#ifndef SDT
 	CfgPtr = XAxiCdma_LookupConfig(DeviceId);
+#else
+	CfgPtr = XAxiCdma_LookupConfig(BaseAddress);
+#endif
 	if (!CfgPtr) {
 		return XST_FAILURE;
 	}
@@ -247,7 +270,13 @@ int XAxiCdma_SimpleIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 
 	/* Setup the interrupt system
 	 */
+#ifndef SDT
 	Status = SetupIntrSystem(IntcInstancePtr, InstancePtr, IntrId);
+#else
+	Status = XSetupInterruptSystem(InstancePtr, &XAxiCdma_IntrHandler,
+				       CfgPtr->IntrId, CfgPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -261,14 +290,22 @@ int XAxiCdma_SimpleIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 			   BUFFER_BYTESIZE, SubmitTries);
 
 		if(Status != XST_SUCCESS) {
+#ifndef SDT
 			DisableIntrSystem(IntcInstancePtr, IntrId);
+#else
+			XDisconnectInterruptCntrl(CfgPtr->IntrId, CfgPtr->IntrParent);
+#endif
 			return XST_FAILURE;
 		}
 	}
 
 	/* Test finishes successfully, clean up and return
 	 */
+#ifndef SDT
 	DisableIntrSystem(IntcInstancePtr, IntrId);
+#else
+	XDisconnectInterruptCntrl(CfgPtr->IntrId, CfgPtr->IntrParent);
+#endif
 
 	return XST_SUCCESS;
 }
@@ -371,7 +408,7 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 
 	return XST_SUCCESS;
 }
-
+#ifndef SDT
 /******************************************************************************/
 /*
 * Setup the interrupt system, including:
@@ -523,7 +560,7 @@ static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 	return XST_SUCCESS;
 }
 #endif
-
+#endif
 /*****************************************************************************/
 /*
 * Callback function for the simple transfer. It is called by the driver's
@@ -555,7 +592,7 @@ static void Example_CallBack(void *CallBackRef, u32 IrqMask, int *IgnorePtr)
 
 }
 
-
+#ifndef SDT
 /*****************************************************************************/
 /*
 *
@@ -590,5 +627,6 @@ static void DisableIntrSystem(XScuGic *IntcInstancePtr, u32 IntrId)
 
 }
 
+#endif
 #endif
 
