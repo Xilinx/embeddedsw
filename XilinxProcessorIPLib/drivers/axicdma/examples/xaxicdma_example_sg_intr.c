@@ -132,7 +132,7 @@ extern void xil_printf(const char *format, ...);
 
 #ifndef MEMORY_BASE
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
-			DEFAULT SET TO 0x01000000
+DEFAULT SET TO 0x01000000
 #define MEMORY_BASE		0x01000000
 #endif
 
@@ -173,26 +173,26 @@ static void Uart550_Setup(void);
 static void Example_CallBack(void *CallBackRef, u32 IrqMask, int *NumBdPtr);
 
 
-static int SetupTransfer(XAxiCdma * InstancePtr);
-static int DoTransfer(XAxiCdma * InstancePtr);
+static int SetupTransfer(XAxiCdma *InstancePtr);
+static int DoTransfer(XAxiCdma *InstancePtr);
 static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length);
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
-							u32 IntrId);
+			   u32 IntrId);
 static void DisableIntrSystem(XIntc *IntcInstancePtr, u32 IntrId);
 
 int XAxiCdma_SgIntrExample(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
-				u16 DeviceId,u32 IntrId);
+			   u16 DeviceId, u32 IntrId);
 
 #else
 static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
-							u32 IntrId);
+			   u32 IntrId);
 static void DisableIntrSystem(XScuGic *IntcInstancePtr, u32 IntrId);
 
 int XAxiCdma_SgIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
-				u16 DeviceId,u32 IntrId);
+			   u16 DeviceId, u32 IntrId);
 
 #endif
 #else
@@ -255,7 +255,7 @@ int main()
 	 */
 #ifndef SDT
 	Status = XAxiCdma_SgIntrExample(&IntcController, &Engine,
-				DMA_CTRL_DEVICE_ID, DMA_CTRL_IRPT_INTR);
+					DMA_CTRL_DEVICE_ID, DMA_CTRL_IRPT_INTR);
 #else
 	Status = XAxiCdma_SgIntrExample(&Engine, XAXICDMA_BASEADDRESS);
 #endif
@@ -289,10 +289,10 @@ static void Uart550_Setup(void)
 {
 
 	XUartNs550_SetBaud(XPAR_UARTNS550_0_BASEADDR,
-			XPAR_XUARTNS550_CLOCK_HZ, 9600);
+			   XPAR_XUARTNS550_CLOCK_HZ, 9600);
 
 	XUartNs550_SetLineControlReg(XPAR_UARTNS550_0_BASEADDR,
-			XUN_LCR_8_DATA_BITS);
+				     XUN_LCR_8_DATA_BITS);
 }
 #endif
 
@@ -343,14 +343,14 @@ static void Example_CallBack(void *CallBackRef, u32 IrqMask, int *NumBdPtr)
 		 * It is ok if BdCount is zero as a previous callback may
 		 * have ripen all finished BDs
 		 */
-		if(BdCount > 0) {
+		if (BdCount > 0) {
 
 			Status = XAxiCdma_BdRingFree(InstancePtr,
-			              BdCount, BdPtr);
+						     BdCount, BdPtr);
 
-			if(Status != XST_SUCCESS) {
+			if (Status != XST_SUCCESS) {
 				xdbg_printf(XDBG_DEBUG_ERROR,
-				    "Error free BD %x\r\n", Status);
+					    "Error free BD %x\r\n", Status);
 
 				Error = 1;
 				return;
@@ -384,7 +384,7 @@ static void Example_CallBack(void *CallBackRef, u32 IrqMask, int *NumBdPtr)
 *******************************************************************************/
 #ifdef XPAR_INTC_0_DEVICE_ID
 static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
-							u32 IntrId)
+			   u32 IntrId)
 {
 	int Status;
 
@@ -395,7 +395,7 @@ static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Interrupt controller initialization failed %d\r\n",Status);
+			    "Interrupt controller initialization failed %d\r\n", Status);
 
 		return XST_FAILURE;
 	}
@@ -406,10 +406,10 @@ static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 	 * It will call the example callback upon transfer completion
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, IntrId,
-	         (XInterruptHandler)XAxiCdma_IntrHandler, (void *)InstancePtr);
+			       (XInterruptHandler)XAxiCdma_IntrHandler, (void *)InstancePtr);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Interrupt handler registration failed %d\r\n", Status);
+			    "Interrupt handler registration failed %d\r\n", Status);
 
 		return XST_FAILURE;
 	}
@@ -435,8 +435,8 @@ static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 
 	Xil_ExceptionInit();
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)XIntc_InterruptHandler,
-			(void *)IntcInstancePtr);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     (void *)IntcInstancePtr);
 
 	Xil_ExceptionEnable();
 
@@ -447,7 +447,7 @@ static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 #else
 
 static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
-							u32 IntrId)
+			   u32 IntrId)
 {
 	int Status;
 
@@ -468,7 +468,7 @@ static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -482,8 +482,8 @@ static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, IntrId,
-				(Xil_InterruptHandler)XAxiCdma_IntrHandler,
-				InstancePtr);
+				 (Xil_InterruptHandler)XAxiCdma_IntrHandler,
+				 InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -504,8 +504,8 @@ static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 
 
 	/*
@@ -574,7 +574,7 @@ static void DisableIntrSystem(XScuGic *IntcInstancePtr, u32 IntrId)
 * @note		None.
 *
 ******************************************************************************/
-static int SetupTransfer(XAxiCdma * InstancePtr)
+static int SetupTransfer(XAxiCdma *InstancePtr)
 {
 	int Status;
 	XAxiCdma_Bd BdTemplate;
@@ -588,20 +588,20 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 
 	/* Setup BD ring */
 	BdCount = XAxiCdma_BdRingCntCalc(XAXICDMA_BD_MINIMUM_ALIGNMENT,
-				    BD_SPACE_HIGH - BD_SPACE_BASE + 1,
-				    (UINTPTR)BD_SPACE_BASE);
+					 BD_SPACE_HIGH - BD_SPACE_BASE + 1,
+					 (UINTPTR)BD_SPACE_BASE);
 
 	if (BdCount < 1) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Invalid buffer %x\r\n",
-			(unsigned int)BD_SPACE_BASE);
+			    (unsigned int)BD_SPACE_BASE);
 		return XST_FAILURE;
 	}
 
 	Status = XAxiCdma_BdRingCreate(InstancePtr, BD_SPACE_BASE,
-		BD_SPACE_BASE, XAXICDMA_BD_MINIMUM_ALIGNMENT, BdCount);
+				       BD_SPACE_BASE, XAXICDMA_BD_MINIMUM_ALIGNMENT, BdCount);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Create BD ring failed %d\r\n",
-		Status);
+			    Status);
 
 		return XST_FAILURE;
 	}
@@ -613,7 +613,7 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	Status = XAxiCdma_BdRingClone(InstancePtr, &BdTemplate);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Clone BD ring failed %d\r\n",
-		Status);
+			    Status);
 
 		return XST_FAILURE;
 	}
@@ -621,11 +621,11 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	/* Initialize receive buffer to 0's and transmit buffer with pattern
 	 */
 	memset((void *)ReceiveBufferPtr, 0,
-		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
+	       MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
 
 	SrcBufferPtr = (u8 *)TransmitBufferPtr;
-	for(Index = 0; Index < MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER;
-								Index++) {
+	for (Index = 0; Index < MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER;
+	     Index++) {
 		SrcBufferPtr[Index] = Index & 0xFF;
 	}
 
@@ -633,15 +633,15 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	 * is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TransmitBufferPtr,
-		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
+			     MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
 	Xil_DCacheFlushRange((UINTPTR)ReceiveBufferPtr,
-		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
+			     MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
 
 	Status = XAxiCdma_SetCoalesce(InstancePtr, COALESCING_COUNT,
-		DELAY_COUNT);
+				      DELAY_COUNT);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		     "Set coalescing failed %d\r\n", Status);
+			    "Set coalescing failed %d\r\n", Status);
 
 		return XST_FAILURE;
 	}
@@ -666,7 +666,7 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static int DoTransfer(XAxiCdma * InstancePtr)
+static int DoTransfer(XAxiCdma *InstancePtr)
 {
 	XAxiCdma_Bd *BdPtr;
 	XAxiCdma_Bd *BdCurPtr;
@@ -677,7 +677,7 @@ static int DoTransfer(XAxiCdma * InstancePtr)
 	static int Counter = 0;
 
 	Status = XAxiCdma_BdRingAlloc(InstancePtr,
-		    NUMBER_OF_BDS_TO_TRANSFER, &BdPtr);
+				      NUMBER_OF_BDS_TO_TRANSFER, &BdPtr);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Failed bd alloc\r\n");
 
@@ -690,33 +690,33 @@ static int DoTransfer(XAxiCdma * InstancePtr)
 
 	/* Set up the BDs
 	 */
-	for(Index = 0; Index< NUMBER_OF_BDS_TO_TRANSFER; Index++) {
+	for (Index = 0; Index < NUMBER_OF_BDS_TO_TRANSFER; Index++) {
 		Counter += 1;
 
 		Status = XAxiCdma_BdSetSrcBufAddr(BdCurPtr, SrcBufferAddr);
-		if(Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Set src addr failed %d, %x/%x\r\n",
-			    Status, (unsigned int)BdCurPtr,
-			    (unsigned int)SrcBufferAddr);
+				    "Set src addr failed %d, %x/%x\r\n",
+				    Status, (unsigned int)BdCurPtr,
+				    (unsigned int)SrcBufferAddr);
 
 			return XST_FAILURE;
 		}
 
 		Status = XAxiCdma_BdSetDstBufAddr(BdCurPtr, DstBufferAddr);
-		if(Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Set dst addr failed %d, %x/%x\r\n",
-			    Status, (unsigned int)BdCurPtr,
-			    (unsigned int)DstBufferAddr);
+				    "Set dst addr failed %d, %x/%x\r\n",
+				    Status, (unsigned int)BdCurPtr,
+				    (unsigned int)DstBufferAddr);
 
 			return XST_FAILURE;
 		}
 
 		Status = XAxiCdma_BdSetLength(BdCurPtr, MAX_PKT_LEN);
-		if(Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Set BD length failed %d\r\n", Status);
+				    "Set BD length failed %d\r\n", Status);
 
 			return XST_FAILURE;
 		}
@@ -728,8 +728,8 @@ static int DoTransfer(XAxiCdma * InstancePtr)
 
 	/* Give the BDs to hardware */
 	Status = XAxiCdma_BdRingToHw(InstancePtr,
-		NUMBER_OF_BDS_TO_TRANSFER, BdPtr, Example_CallBack,
-	    (void *)InstancePtr);
+				     NUMBER_OF_BDS_TO_TRANSFER, BdPtr, Example_CallBack,
+				     (void *)InstancePtr);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Failed to hw %d\r\n", Status);
 
@@ -766,9 +766,9 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Data check failure %d: %x/%x\r\n",
-			    Index, (unsigned int)DestPtr[Index],
-			    (unsigned int)SrcPtr[Index]);
+				    "Data check failure %d: %x/%x\r\n",
+				    Index, (unsigned int)DestPtr[Index],
+				    (unsigned int)SrcPtr[Index]);
 
 			return XST_FAILURE;
 		}
@@ -798,10 +798,10 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 int XAxiCdma_SgIntrExample(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
-				u16 DeviceId,u32 IntrId)
+			   u16 DeviceId, u32 IntrId)
 #else
 int XAxiCdma_SgIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
-				u16 DeviceId,u32 IntrId)
+			   u16 DeviceId, u32 IntrId)
 #endif
 #else
 int XAxiCdma_SgIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
@@ -825,8 +825,8 @@ int XAxiCdma_SgIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 	CfgPtr = XAxiCdma_LookupConfig(DeviceId);
 	if (!CfgPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Cannot find config structure for device %d\r\n",
-			XPAR_AXICDMA_0_DEVICE_ID);
+			    "Cannot find config structure for device %d\r\n",
+			    XPAR_AXICDMA_0_DEVICE_ID);
 
 		return XST_FAILURE;
 	}
@@ -834,18 +834,18 @@ int XAxiCdma_SgIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 	CfgPtr = XAxiCdma_LookupConfig(BaseAddress);
 	if (!CfgPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Cannot find config structure for device %llx\r\n",
-			BaseAddress);
+			    "Cannot find config structure for device %llx\r\n",
+			    BaseAddress);
 
 		return XST_FAILURE;
 	}
 #endif
 
 	Status = XAxiCdma_CfgInitialize(InstancePtr, CfgPtr,
-						CfgPtr->BaseAddress);
+					CfgPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Initialization failed with %d\r\n", Status);
+			    "Initialization failed with %d\r\n", Status);
 
 		return XST_FAILURE;
 	}
@@ -855,7 +855,7 @@ int XAxiCdma_SgIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 	Status = SetupTransfer(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Setup BD ring failed with %d\r\n", Status);
+			    "Setup BD ring failed with %d\r\n", Status);
 
 		return XST_FAILURE;
 	}
@@ -865,13 +865,13 @@ int XAxiCdma_SgIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 #ifndef SDT
 	Status = SetupIntrSystem(IntcInstancePtr, InstancePtr, IntrId);
 #else
-		Status = XSetupInterruptSystem(InstancePtr, &XAxiCdma_IntrHandler,
+	Status = XSetupInterruptSystem(InstancePtr, &XAxiCdma_IntrHandler,
 				       CfgPtr->IntrId, CfgPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Setup Intr system failed with %d\r\n", Status);
+			    "Setup Intr system failed with %d\r\n", Status);
 
 		return XST_FAILURE;
 	}
@@ -888,7 +888,7 @@ int XAxiCdma_SgIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 	Status = DoTransfer(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Do transfer failed with %d\r\n", Status);
+			    "Do transfer failed with %d\r\n", Status);
 
 		return XST_FAILURE;
 	}
@@ -897,11 +897,11 @@ int XAxiCdma_SgIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUMBER_OF_EVENTS, &Error);
 	if (Status == XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Transfer has error %x\r\n",
-		    (unsigned int)XAxiCdma_GetError(InstancePtr));
+			    (unsigned int)XAxiCdma_GetError(InstancePtr));
 #ifndef SDT
 		DisableIntrSystem(IntcInstancePtr, IntrId);
 #else
-	XDisconnectInterruptCntrl(CfgPtr->IntrId, CfgPtr->IntrParent);
+		XDisconnectInterruptCntrl(CfgPtr->IntrId, CfgPtr->IntrParent);
 #endif
 
 		return XST_FAILURE;
@@ -910,22 +910,22 @@ int XAxiCdma_SgIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 	/* Wait until the DMA transfer is done or timeout */
 	Status = Xil_WaitForEvent((UINTPTR)&Done, NUMBER_OF_BDS_TO_TRANSFER, NUMBER_OF_BDS_TO_TRANSFER, POLL_TIMEOUT_COUNTER);
 	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "Transfer failed %d\r\n",Status);
+		xdbg_printf(XDBG_DEBUG_ERROR, "Transfer failed %d\r\n", Status);
 
-                return XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	/* Transfer completes successfully, check data
 	 */
 	Status = CheckData(SrcPtr, DstPtr,
-		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
+			   MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Check data failed for sg "
-		    "transfer\r\n");
+			    "transfer\r\n");
 #ifndef SDT
 		DisableIntrSystem(IntcInstancePtr, IntrId);
 #else
-	XDisconnectInterruptCntrl(CfgPtr->IntrId, CfgPtr->IntrParent);
+		XDisconnectInterruptCntrl(CfgPtr->IntrId, CfgPtr->IntrParent);
 #endif
 		return XST_FAILURE;
 	}
@@ -935,7 +935,7 @@ int XAxiCdma_SgIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 #ifndef SDT
 	DisableIntrSystem(IntcInstancePtr, IntrId);
 #else
-XDisconnectInterruptCntrl(CfgPtr->IntrId, CfgPtr->IntrParent);
+	XDisconnectInterruptCntrl(CfgPtr->IntrId, CfgPtr->IntrParent);
 #endif
 
 	return XST_SUCCESS;

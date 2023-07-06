@@ -71,7 +71,7 @@ XAxiCdma_Config *XAxiCdma_LookupConfig(UINTPTR BaseAddress)
 
 	for (Index = (u32)0x0; XAxiCdma_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XAxiCdma_ConfigTable[Index].BaseAddress == BaseAddress) ||
-		     !BaseAddress) {
+		    !BaseAddress) {
 			CfgPtr = &XAxiCdma_ConfigTable[Index];
 			break;
 		}

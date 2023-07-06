@@ -147,7 +147,7 @@ u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
 	InstancePtr->WordLength = ((unsigned int)CfgPtr->DataWidth) >> 3;
 	InstancePtr->AddrWidth = CfgPtr->AddrWidth;
 #ifdef SDT
-InstancePtr->BurstLen = CfgPtr->BurstLen;
+	InstancePtr->BurstLen = CfgPtr->BurstLen;
 #endif
 
 	/* AXI CDMA supports 32 bits data width and up
@@ -285,7 +285,7 @@ int XAxiCdma_SelectKeyHole(XAxiCdma *InstancePtr, u32 Direction, u32 Select)
 				 XAXICDMA_CR_OFFSET);
 
 	if (Select) {
-		if (XPAR_AXICDMA_0_M_AXI_MAX_BURST_LEN == 16){
+		if (XPAR_AXICDMA_0_M_AXI_MAX_BURST_LEN == 16) {
 			if (Direction == XAXICDMA_KEYHOLE_WRITE) {
 				Value |= XAXICDMA_CR_KHOLE_WR_MASK;
 			} else {

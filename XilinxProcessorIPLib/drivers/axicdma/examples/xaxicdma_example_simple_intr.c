@@ -130,20 +130,20 @@ static void Example_CallBack(void *CallBackRef, u32 IrqMask, int *IgnorePtr);
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
-			u32 IntrId);
+			   u32 IntrId);
 
 static void DisableIntrSystem(XIntc *IntcInstancePtr, u32 IntrId);
 
 int XAxiCdma_SimpleIntrExample(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
-	u16 DeviceId,u32 IntrId);
+			       u16 DeviceId, u32 IntrId);
 #else
 static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
-			u32 IntrId);
+			   u32 IntrId);
 
 static void DisableIntrSystem(XScuGic *IntcInstancePtr, u32 IntrId);
 
 int XAxiCdma_SimpleIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
-	u16 DeviceId,u32 IntrId);
+			       u16 DeviceId, u32 IntrId);
 
 #endif
 #else
@@ -200,7 +200,7 @@ int main()
 	 */
 #ifndef SDT
 	Status = XAxiCdma_SimpleIntrExample(&IntcController, &AxiCdmaInstance,
-			DMA_CTRL_DEVICE_ID,DMA_CTRL_IRPT_INTR);
+					    DMA_CTRL_DEVICE_ID, DMA_CTRL_IRPT_INTR);
 #else
 	Status = XAxiCdma_SimpleIntrExample(&AxiCdmaInstance, XAXICDMA_BASEADDRESS);
 #endif
@@ -237,10 +237,10 @@ int main()
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 int XAxiCdma_SimpleIntrExample(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
-	u16 DeviceId,u32 IntrId)
+			       u16 DeviceId, u32 IntrId)
 #else
 int XAxiCdma_SimpleIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
-	u16 DeviceId, u32 IntrId)
+			       u16 DeviceId, u32 IntrId)
 #endif
 #else
 int XAxiCdma_SimpleIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
@@ -287,9 +287,9 @@ int XAxiCdma_SimpleIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 
 	for (Index = 0; Index < Tries; Index++) {
 		Status = DoSimpleTransfer(InstancePtr,
-			   BUFFER_BYTESIZE, SubmitTries);
+					  BUFFER_BYTESIZE, SubmitTries);
 
-		if(Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 #ifndef SDT
 			DisableIntrSystem(IntcInstancePtr, IntrId);
 #else
@@ -359,8 +359,8 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 		Retries -= 1;
 
 		Status = XAxiCdma_SimpleTransfer(InstancePtr, (UINTPTR)SrcBuffer,
-			(UINTPTR)DestBuffer, Length, Example_CallBack,
-			(void *)InstancePtr);
+						 (UINTPTR)DestBuffer, Length, Example_CallBack,
+						 (void *)InstancePtr);
 
 		if (Status == XST_SUCCESS) {
 			break;
@@ -400,8 +400,8 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Data check failure %d: %x/%x\r\n",
-			    Index, DestPtr[Index], SrcPtr[Index]);
+				    "Data check failure %d: %x/%x\r\n",
+				    Index, DestPtr[Index], SrcPtr[Index]);
 			return XST_FAILURE;
 		}
 	}
@@ -429,7 +429,7 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 *******************************************************************************/
 #ifdef XPAR_INTC_0_DEVICE_ID
 static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
-			u32 IntrId)
+			   u32 IntrId)
 {
 	int Status;
 
@@ -448,8 +448,8 @@ static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 	 * It will call the example callback upon transfer completion
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, IntrId,
-			(XInterruptHandler)XAxiCdma_IntrHandler,
-			(void *)InstancePtr);
+			       (XInterruptHandler)XAxiCdma_IntrHandler,
+			       (void *)InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -475,8 +475,8 @@ static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 
 	Xil_ExceptionInit();
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)XIntc_InterruptHandler,
-			(void *)IntcInstancePtr);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     (void *)IntcInstancePtr);
 
 	Xil_ExceptionEnable();
 
@@ -488,7 +488,7 @@ static int SetupIntrSystem(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 #else
 
 static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
-			u32 IntrId)
+			   u32 IntrId)
 
 {
 	int Status;
@@ -510,7 +510,7 @@ static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -524,8 +524,8 @@ static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, IntrId,
-				(Xil_InterruptHandler)XAxiCdma_IntrHandler,
-				InstancePtr);
+				 (Xil_InterruptHandler)XAxiCdma_IntrHandler,
+				 InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -546,8 +546,8 @@ static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 
 
 	/*

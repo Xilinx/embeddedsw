@@ -104,7 +104,7 @@ extern void xil_printf(const char *format, ...);
 
 #ifndef MEMORY_BASE
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
-			DEFAULT SET TO 0x01000000
+DEFAULT SET TO 0x01000000
 #define MEMORY_BASE		0x01000000
 #endif
 
@@ -137,8 +137,8 @@ static void Uart550_Setup(void);
 #endif
 
 static int CheckCompletion(XAxiCdma *InstancePtr);
-static int SetupTransfer(XAxiCdma * InstancePtr);
-static int DoTransfer(XAxiCdma * InstancePtr);
+static int SetupTransfer(XAxiCdma *InstancePtr);
+static int DoTransfer(XAxiCdma *InstancePtr);
 static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length);
 #ifndef SDT
 int XAxiCdma_SgPollExample(u16 DeviceId);
@@ -221,10 +221,10 @@ static void Uart550_Setup(void)
 	/* Set the baudrate to be predictable
 	 */
 	XUartNs550_SetBaud(XPAR_UARTNS550_0_BASEADDR,
-			XPAR_XUARTNS550_CLOCK_HZ, 9600);
+			   XPAR_XUARTNS550_CLOCK_HZ, 9600);
 
 	XUartNs550_SetLineControlReg(XPAR_UARTNS550_0_BASEADDR,
-			XUN_LCR_8_DATA_BITS);
+				     XUN_LCR_8_DATA_BITS);
 }
 #endif
 
@@ -256,7 +256,7 @@ static int CheckCompletion(XAxiCdma *InstancePtr)
 	 */
 	if (XAxiCdma_GetError(InstancePtr) != 0x0) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Transfer error %x\r\n",
-		    (unsigned int)XAxiCdma_GetError(InstancePtr));
+			    (unsigned int)XAxiCdma_GetError(InstancePtr));
 
 		Error = 1;
 		return 0;
@@ -268,7 +268,7 @@ static int CheckCompletion(XAxiCdma *InstancePtr)
 
 	/* Check finished BDs then release them
 	 */
-	if(BdCount > 0) {
+	if (BdCount > 0) {
 		BdCurPtr = BdPtr;
 
 		for (Index = 0; Index < BdCount; Index++) {
@@ -289,9 +289,9 @@ static int CheckCompletion(XAxiCdma *InstancePtr)
 		 */
 		Status = XAxiCdma_BdRingFree(InstancePtr, BdCount, BdPtr);
 
-		if(Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Error free BD %x\r\n", Status);
+				    "Error free BD %x\r\n", Status);
 
 			Error = 1;
 			return 0;
@@ -317,7 +317,7 @@ static int CheckCompletion(XAxiCdma *InstancePtr)
 * @note		None
 *
 ******************************************************************************/
-static int SetupTransfer(XAxiCdma * InstancePtr)
+static int SetupTransfer(XAxiCdma *InstancePtr)
 {
 	int Status;
 	XAxiCdma_Bd BdTemplate;
@@ -331,14 +331,14 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 
 	/* Setup BD ring */
 	BdCount = XAxiCdma_BdRingCntCalc(XAXICDMA_BD_MINIMUM_ALIGNMENT,
-				    BD_SPACE_HIGH - BD_SPACE_BASE + 1,
-				    (UINTPTR)BD_SPACE_BASE);
+					 BD_SPACE_HIGH - BD_SPACE_BASE + 1,
+					 (UINTPTR)BD_SPACE_BASE);
 
 	Status = XAxiCdma_BdRingCreate(InstancePtr, BD_SPACE_BASE,
-		BD_SPACE_BASE, XAXICDMA_BD_MINIMUM_ALIGNMENT, BdCount);
+				       BD_SPACE_BASE, XAXICDMA_BD_MINIMUM_ALIGNMENT, BdCount);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Create BD ring failed %d\r\n",
-							 	Status);
+			    Status);
 		return XST_FAILURE;
 	}
 
@@ -349,7 +349,7 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	Status = XAxiCdma_BdRingClone(InstancePtr, &BdTemplate);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Clone BD ring failed %d\r\n",
-				Status);
+			    Status);
 
 		return XST_FAILURE;
 	}
@@ -357,10 +357,10 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	/* Initialize receive buffer to 0's and transmit buffer with pattern
 	 */
 	memset((void *)ReceiveBufferPtr, 0,
-		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
+	       MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
 
 	SrcBufferPtr = (u8 *)TransmitBufferPtr;
-	for(Index = 0; Index < MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER; Index++) {
+	for (Index = 0; Index < MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER; Index++) {
 		SrcBufferPtr[Index] = Index & 0xFF;
 	}
 
@@ -368,9 +368,9 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 	 * is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TransmitBufferPtr,
-		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
+			     MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
 	Xil_DCacheFlushRange((UINTPTR)ReceiveBufferPtr,
-		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
+			     MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
 
 	return XST_SUCCESS;
 }
@@ -389,7 +389,7 @@ static int SetupTransfer(XAxiCdma * InstancePtr)
 * @note		None
 *
 ******************************************************************************/
-static int DoTransfer(XAxiCdma * InstancePtr)
+static int DoTransfer(XAxiCdma *InstancePtr)
 {
 	XAxiCdma_Bd *BdPtr;
 	XAxiCdma_Bd *BdCurPtr;
@@ -399,7 +399,7 @@ static int DoTransfer(XAxiCdma * InstancePtr)
 	UINTPTR DstBufferAddr;
 
 	Status = XAxiCdma_BdRingAlloc(InstancePtr,
-		    NUMBER_OF_BDS_TO_TRANSFER, &BdPtr);
+				      NUMBER_OF_BDS_TO_TRANSFER, &BdPtr);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Failed bd alloc\r\n");
 
@@ -412,31 +412,31 @@ static int DoTransfer(XAxiCdma * InstancePtr)
 
 	/* Set up the BDs
 	 */
-	for(Index = 0; Index < NUMBER_OF_BDS_TO_TRANSFER; Index++) {
+	for (Index = 0; Index < NUMBER_OF_BDS_TO_TRANSFER; Index++) {
 		Status = XAxiCdma_BdSetSrcBufAddr(BdCurPtr, SrcBufferAddr);
-		if(Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Set src addr failed %d, %x/%x\r\n",
-			    Status, (unsigned int)BdCurPtr,
-			    (unsigned int)SrcBufferAddr);
+				    "Set src addr failed %d, %x/%x\r\n",
+				    Status, (unsigned int)BdCurPtr,
+				    (unsigned int)SrcBufferAddr);
 
 			return XST_FAILURE;
 		}
 
 		Status = XAxiCdma_BdSetDstBufAddr(BdCurPtr, DstBufferAddr);
-		if(Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Set dst addr failed %d, %x/%x\r\n",
-			    Status, (unsigned int)BdCurPtr,
-			    (unsigned int)DstBufferAddr);
+				    "Set dst addr failed %d, %x/%x\r\n",
+				    Status, (unsigned int)BdCurPtr,
+				    (unsigned int)DstBufferAddr);
 
 			return XST_FAILURE;
 		}
 
 		Status = XAxiCdma_BdSetLength(BdCurPtr, MAX_PKT_LEN);
-		if(Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Set BD length failed %d\r\n", Status);
+				    "Set BD length failed %d\r\n", Status);
 
 			return XST_FAILURE;
 		}
@@ -449,7 +449,7 @@ static int DoTransfer(XAxiCdma * InstancePtr)
 
 	/* Give the BDs to hardware */
 	Status = XAxiCdma_BdRingToHw(InstancePtr, NUMBER_OF_BDS_TO_TRANSFER,
-		BdPtr, NULL, NULL);
+				     BdPtr, NULL, NULL);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Failed to hw %d\r\n", Status);
 
@@ -486,8 +486,8 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Data check failure %d: %x/%x\r\n",
-			    Index, DestPtr[Index], SrcPtr[Index]);
+				    "Data check failure %d: %x/%x\r\n",
+				    Index, DestPtr[Index], SrcPtr[Index]);
 
 			return XST_FAILURE;
 		}
@@ -534,8 +534,8 @@ int XAxiCdma_SgPollExample(UINTPTR BaseAddress)
 	CfgPtr = XAxiCdma_LookupConfig(DeviceId);
 	if (!CfgPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Cannot find config structure for device %d\r\n",
-			XPAR_AXICDMA_0_DEVICE_ID);
+			    "Cannot find config structure for device %d\r\n",
+			    XPAR_AXICDMA_0_DEVICE_ID);
 
 		return XST_FAILURE;
 	}
@@ -543,17 +543,17 @@ int XAxiCdma_SgPollExample(UINTPTR BaseAddress)
 	CfgPtr = XAxiCdma_LookupConfig(BaseAddress);
 	if (!CfgPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Cannot find config structure for device %llx\r\n",
-			BaseAddress);
+			    "Cannot find config structure for device %llx\r\n",
+			    BaseAddress);
 
 		return XST_FAILURE;
 	}
 #endif
 	Status = XAxiCdma_CfgInitialize(&AxiCdmaInstance, CfgPtr,
-		CfgPtr->BaseAddress);
+					CfgPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Initialization failed with %d\r\n", Status);
+			    "Initialization failed with %d\r\n", Status);
 
 		return XST_FAILURE;
 	}
@@ -563,7 +563,7 @@ int XAxiCdma_SgPollExample(UINTPTR BaseAddress)
 	Status = SetupTransfer(&AxiCdmaInstance);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Setup BD ring failed with %d\r\n", Status);
+			    "Setup BD ring failed with %d\r\n", Status);
 
 		return XST_FAILURE;
 	}
@@ -576,7 +576,7 @@ int XAxiCdma_SgPollExample(UINTPTR BaseAddress)
 	Status = DoTransfer(&AxiCdmaInstance);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Do transfer failed with %d\r\n", Status);
+			    "Do transfer failed with %d\r\n", Status);
 
 		return XST_FAILURE;
 	}
@@ -587,17 +587,18 @@ int XAxiCdma_SgPollExample(UINTPTR BaseAddress)
 	 */
 	while (TimeOut) {
 		if ((CheckCompletion(&AxiCdmaInstance) >=
-		     NUMBER_OF_BDS_TO_TRANSFER) && !Error)
+		     NUMBER_OF_BDS_TO_TRANSFER) && !Error) {
 			break;
+		}
 		TimeOut--;
 		usleep(1U);
 	}
 
-	if(Error) {
+	if (Error) {
 		int TimeOut = RESET_LOOP_COUNT;
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "Transfer has error %x\r\n",
-				Error);
+			    Error);
 
 		/* Need to reset the hardware to restore to the correct state
 		 */
@@ -614,7 +615,7 @@ int XAxiCdma_SgPollExample(UINTPTR BaseAddress)
 		 */
 		if (!TimeOut) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Reset hardware failed with %d\r\n", Status);
+				    "Reset hardware failed with %d\r\n", Status);
 
 		}
 
@@ -624,10 +625,10 @@ int XAxiCdma_SgPollExample(UINTPTR BaseAddress)
 	/* Transfer completed successfully, check data
 	 */
 	Status = CheckData(SrcPtr, DstPtr,
-		MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
+			   MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Check data failed for sg "
-		    "transfer\r\n");
+			    "transfer\r\n");
 		return XST_FAILURE;
 	}
 
