@@ -20,13 +20,14 @@
 *
 * Ver  Who    Date        Changes
 * --- ---- ------------  ------------------------------------------------
-* 1.0  ms   07/18/2016   First release
+* 1.0  ms   07/18/16     First release
 * 1.1  ms   08/01/17     Defined "XPRC_SR_DECOMPRESS_BAD_FORMAT_ERROR" and
 *                        "XPRC_SR_DECOMPRESS_BAD_SIZE_ERROR" status error
 *                        macros and modified the value of macro
 *                        "XPRC_SR_BS_COMPATIBLE_ERROR".
 * 1.2  Nava 29/03/19     Updated the tcl logic to generated the
 *                        XPrc_ConfigTable properly.
+* 2.2  Nava 07/04/23     Fixed code formatting issues.
 * </pre>
 *
 ******************************************************************************/
@@ -123,44 +124,44 @@ extern "C" {
 #define XPRC_CR_CMD_FIELD_WIDTH		(8)	/**< Command Field Width */
 #define XPRC_CR_CMD_FIELD_MSB \
 	(XPRC_CR_CMD_FIELD_LSB + XPRC_CR_CMD_FIELD_WIDTH-1)
-						/**< Command Field MSB */
+/**< Command Field MSB */
 /*@}*/
 
 /** @name The Byte field
  * @{
  */
 #define XPRC_CR_BYTE_FIELD_LSB		(XPRC_CR_CMD_FIELD_MSB+1)
-						/**< Byte Field LSB */
+/**< Byte Field LSB */
 #define XPRC_CR_BYTE_FIELD_WIDTH	(8)	/**< Byte Field Width */
 #define XPRC_CR_BYTE_FIELD_MSB \
 	(XPRC_CR_BYTE_FIELD_LSB + XPRC_CR_BYTE_FIELD_WIDTH-1)
-						/**< Byte Field MSB */
+/**< Byte Field MSB */
 /*@}*/
 
 /** @name The Halfword field
  * @{
  */
 #define XPRC_CR_HALFWORD_FIELD_LSB	(XPRC_CR_BYTE_FIELD_MSB+1)
-						/**< Halfword Field LSB */
+/**< Halfword Field LSB */
 #define XPRC_CR_HALFWORD_FIELD_WIDTH	(16)	/**< Halfword Field Width */
 #define XPRC_CR_HALFWORD_FIELD_MSB \
 	(XPRC_CR_HALFWORD_FIELD_LSB + XPRC_CR_HALFWORD_FIELD_WIDTH-1)
-						/**< Halfword Field MSB */
+/**< Halfword Field MSB */
 /*@}*/
 
 /** @name Bit positions for User Control command options within the byte field
  * @{
  */
 #define XPRC_CR_USER_CONTROL_RM_SHUTDOWN_REQ_BIT	(0)
-						/**< Rm Shutdown Required */
+/**< Rm Shutdown Required */
 #define XPRC_CR_USER_CONTROL_RM_DECOUPLE_BIT		(1)
-						/**< Rm Decouple */
+/**< Rm Decouple */
 #define XPRC_CR_USER_CONTROL_SW_SHUTDOWN_REQ_BIT	(2)
-						/**< Sw_Shutdown Required */
+/**< Sw_Shutdown Required */
 #define XPRC_CR_USER_CONTROL_SW_STARTUP_REQ_BIT		(3)
-						/**< Sw Startup Required */
+/**< Sw Startup Required */
 #define XPRC_CR_USER_CONTROL_RM_RESET_BIT		(4)
-						/**< Rm Reset */
+/**< Rm Reset */
 /*@}*/
 
 /** @name Status Register Value

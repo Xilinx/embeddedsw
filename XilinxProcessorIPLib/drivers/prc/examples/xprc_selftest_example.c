@@ -57,9 +57,9 @@ u32 XPrc_SelfTestExample(u16 DeviceId);
 u32 XPrc_SelfTestExample(UINTPTR BaseAddress);
 #endif
 extern u32 XPrc_GetRegisterAddress(XPrc *InstancePtr, u32 VsmId,
-			u8 RegisterType, u16 TableRow);
+				   u8 RegisterType, u16 TableRow);
 extern u32 XPrc_GetRegisterOffset(XPrc *InstancePtr, u32 VsmId, u8 BankId,
-			u8 TableInBank, u8 TableRow);
+				  u8 TableInBank, u8 TableRow);
 extern u16 XPrc_GetOffsetForTableType(u8 TableId);
 
 /************************** Variable Definitions *****************************/

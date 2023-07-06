@@ -19,9 +19,10 @@
 *
 * Ver   Who     Date         Changes
 * ---- ----- -----------  ------------------------------------------------
-* 1.0   ms   07/18/2016    First release.
-* 1.2   Nava 29/03/19      Updated the tcl logic to generated the
-*                          XPrc_ConfigTable properly.
+* 1.0   ms    07/18/16    First release.
+* 1.2   Nava  29/03/19    Updated the tcl logic to generated the
+*                         XPrc_ConfigTable properly.
+* 2.2   Nava  07/04/23    Fixed code formatting issues.
 * </pre>
 *
 ******************************************************************************/
@@ -40,7 +41,7 @@
 
 /************************** Function Prototypes ******************************/
 extern u32 XPrc_GetRegisterAddress(XPrc *InstancePtr, u32 VsmId,
-			u8 RegisterType, u16 TableRow);
+				   u8 RegisterType, u16 TableRow);
 
 /*****************************************************************************/
 /**
@@ -68,7 +69,7 @@ s32 XPrc_SelfTest(XPrc *InstancePtr)
 
 	/* Read value from the Status register */
 	Address = XPrc_GetRegisterAddress(InstancePtr, VsmId,
-			XPRC_STATUS_REG, XPRC_REG_TABLE_ROW);
+					  XPRC_STATUS_REG, XPRC_REG_TABLE_ROW);
 	Value = XPrc_ReadReg(Address);
 
 	return XST_SUCCESS;
