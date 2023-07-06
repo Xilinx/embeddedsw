@@ -9,7 +9,7 @@
 # 11.2 02/01/19 Updated the Number of words per frame as mention in the
 #               ug570
 # 11.5 09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
-#
+# 11.6 06/28/23 Added support for system device-tree flow.
 ##############################################################################
 OPTION psf_version = 2.1;
 
@@ -18,7 +18,7 @@ BEGIN driver hwicap
 OPTION supported_peripherals = axi_hwicap_v[0-9]_[0-9]; 
 OPTION driver_state = ACTIVE;
 OPTION copyfiles = all;
-OPTION VERSION = 11.5;
+OPTION VERSION = 11.6;
 OPTION NAME = hwicap;
 
 END DRIVER

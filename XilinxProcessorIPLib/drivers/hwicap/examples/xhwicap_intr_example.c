@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +39,7 @@
 * 11.2 Nava 30/01/19  Replaced #error with #pragma message since the information
 *                     related to #error is not an error info. It provides an
 *		      information about the example behaviour.
+* 11.6 Nava 22/06/23  Added support for system device-tree flow.
 *</pre>
 ******************************************************************************/
 
@@ -45,7 +47,11 @@
 
 #include "xparameters.h"	/* XPAR parameters */
 #include "xhwicap.h"		/* HwIcap device driver */
+#ifndef SDT
 #include "xintc.h"		/* Interrupt controller device driver */
+#else
+#include "xinterrupt_wrap.h"
+#endif
 #include "xil_exception.h"      /* Exceptions */
 #include "xil_printf.h"
 
@@ -56,9 +62,13 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define HWICAP_DEVICE_ID		XPAR_HWICAP_0_DEVICE_ID
 #define INTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
 #define HWICAP_IRPT_INTR		XPAR_INTC_0_HWICAP_0_VEC_ID
+#else
+#define HWICAP_BASEADDR			XPAR_XHWICAP_0_BASEADDR
+#endif
 
 /*
  *  This is the size of the buffer in words which is written in this example.
@@ -79,17 +89,20 @@
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int HwIcapIntrExample(XIntc *IntcInstancePtr,
 			XHwIcap *HwIcapInstancePtr,
 			u16 HwIcapDeviceId,
 			u16 HwIcapIntrId);
 
-void HwIcapIntrHandler(void *CallBackRef, u32 StatusEvent, u32 WordCount);
-
 static int HwIcapSetupInterruptSystem(XIntc* IntcInstancePtr,
 				      XHwIcap *HwIcapPtr,
 				      u16 IntrId );
+#else
+int HwIcapIntrExample(XHwIcap *HwIcapInstancePtr, UINTPTR BaseAddress);
+#endif
+
+void HwIcapIntrHandler(void *CallBackRef, u32 StatusEvent, u32 WordCount);
 
 /************************** Variable Definitions *****************************/
 
@@ -97,7 +110,9 @@ static int HwIcapSetupInterruptSystem(XIntc* IntcInstancePtr,
  * The instances to support the device drivers are global such that the
  * are initialized to zero each time the program runs.
  */
+#ifndef SDT
 static XIntc IntcInstance;	/* The instance of the Interrupt Controller */
+#endif
 static XHwIcap  HwIcapInstance;	/* The instance of the HwIcap device */
 
 /*
@@ -138,9 +153,13 @@ int main(void)
 	/*
 	 * Run the HwIcap Interrupt example.
 	 */
+#ifndef SDT
 	Status = HwIcapIntrExample(&IntcInstance, &HwIcapInstance,
 			    HWICAP_DEVICE_ID,
 			    HWICAP_IRPT_INTR);
+#else
+	Status = HwIcapIntrExample(&HwIcapInstance, HWICAP_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Hwicap interrupt Example Failed\r\n");
 		return XST_FAILURE;
@@ -176,8 +195,12 @@ int main(void)
 * working it may never return.
 *
 ******************************************************************************/
+#ifndef SDT
 int HwIcapIntrExample(XIntc *IntcInstancePtr, XHwIcap *HwIcapInstancePtr,
 			u16 HwIcapDeviceId, u16 HwIcapIntrId)
+#else
+int HwIcapIntrExample(XHwIcap *HwIcapInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u32 Count;
@@ -187,7 +210,11 @@ int HwIcapIntrExample(XIntc *IntcInstancePtr, XHwIcap *HwIcapInstancePtr,
 	/*
 	 * Initialize the HwIcap driver.
 	 */
+#ifndef SDT
 	ConfigPtr = XHwIcap_LookupConfig(HwIcapDeviceId);
+#else
+	ConfigPtr = XHwIcap_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -211,9 +238,16 @@ int HwIcapIntrExample(XIntc *IntcInstancePtr, XHwIcap *HwIcapInstancePtr,
 	 * Connect the HwIcap device to the interrupt subsystem such that
 	 * interrupts can occur. This function is application specific.
 	 */
+#ifndef SDT
 	Status = HwIcapSetupInterruptSystem(IntcInstancePtr,
 					HwIcapInstancePtr,
 					HwIcapIntrId);
+#else
+	Status = XSetupInterruptSystem(HwIcapInstancePtr, XHwIcap_IntrHandler,
+				       HwIcapInstancePtr->HwIcapConfig.IntrId,
+				       HwIcapInstancePtr->HwIcapConfig.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -306,6 +340,7 @@ void HwIcapIntrHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount)
 	}
 }
 
+#ifndef SDT
 /****************************************************************************/
 /**
 *
@@ -390,4 +425,4 @@ static int HwIcapSetupInterruptSystem(XIntc* IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
-
+#endif
