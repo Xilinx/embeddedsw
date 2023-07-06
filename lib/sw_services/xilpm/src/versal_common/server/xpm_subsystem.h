@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,6 +12,10 @@
 #include "xpm_defs.h"
 #include "xstatus.h"
 #include "xpm_subsystem_plat.h"
+
+#ifdef VERSAL_NET
+#include "xpm_update.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -104,6 +109,9 @@ struct XPm_Subsystem {
 	struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
 	void (*NotifyCb)(u32 SubsystemId, const u32 EventId);
 	XPm_Subsystem *NextSubsystem;
+#ifdef VERSAL_NET
+	SaveRestoreHandler_t SaveRestoreHandler;
+#endif
 };
 
 /************************** Function Prototypes ******************************/
