@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,7 +53,10 @@
 #include "xtrafgen.h"
 #include "xparameters.h"
 #include "xil_exception.h"
+
+#ifdef XPAR_AXI_FIFO_0_BASEADDR
 #include "xllfifo.h"
+#endif
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
 #include "xuartns550_l.h"       /* to use uartns550 */
@@ -62,7 +66,9 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#ifndef SDT
 #define TRAFGEN_DEV_ID	XPAR_AXI_TRAFFIC_GEN_2_DEVICE_ID
+#endif
 
 #ifdef XPAR_V6DDR_0_S_AXI_BASEADDR
 #define DDR_BASE_ADDR	XPAR_V6DDR_0_S_AXI_BASEADDR
@@ -72,6 +78,8 @@
 #define DDR_BASE_ADDR	XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
 #define DDR_BASE_ADDR XPAR_MIG_1_BASEADDR
+#elif XPAR_MIG_0_BASEADDRESS
+#define DDR_BASE_ADDR XPAR_MIG_0_BASEADDRESS
 #endif
 
 #ifndef DDR_BASE_ADDR
@@ -87,7 +95,11 @@
 #undef DEBUG
 
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 int XTrafGenStremingModeMasterExample(XTrafGen *InstancePtr, u16 DeviceId);
+#else
+int XTrafGenStremingModeMasterExample(XTrafGen *InstancePtr, UINTPTR BaseAddress);
+#endif
 #ifdef XPAR_UARTNS550_0_BASEADDR
 static void Uart550_Setup(void);
 #endif
@@ -122,8 +134,13 @@ int main()
 
 	xil_printf("--- Entering main() ---\n\r");
 
+#ifndef SDT
 	Status = XTrafGenStremingModeMasterExample(&XTrafGenInstance, 
 				TRAFGEN_DEV_ID);
+#else
+	Status = XTrafGenStremingModeMasterExample(&XTrafGenInstance,
+				XPAR_XTRAFGEN_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Traffic Gen Streaming Example Test Failed\n\r");
 		xil_printf("--- Exiting main() ---\n\r");
@@ -165,7 +182,11 @@ int main()
 *			-XST_FAILURE to indicate failure
 *
 ******************************************************************************/
+#ifndef SDT
 int XTrafGenStremingModeMasterExample(XTrafGen *InstancePtr, u16 DeviceId)
+#else
+int XTrafGenStremingModeMasterExample(XTrafGen *InstancePtr, UINTPTR BaseAddress)
+#endif
 {
 
 	XTrafGen_Config *Config;
@@ -184,9 +205,15 @@ int XTrafGenStremingModeMasterExample(XTrafGen *InstancePtr, u16 DeviceId)
 #endif
 
 	/* Initialize the Device Configuration Interface driver */
+#ifndef SDT
 	Config = XTrafGen_LookupConfig(DeviceId);
+#else
+	Config = XTrafGen_LookupConfig(BaseAddress);
+#endif
 	if (!Config) {
+#ifndef SDT
 		xil_printf("No config found for %d\r\n", DeviceId);
+#endif
 		return XST_FAILURE;
 	}
 

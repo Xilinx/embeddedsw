@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,7 +54,9 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#ifndef SDT
 #define TRAFGEN_DEV_ID	XPAR_XTRAFGEN_0_DEVICE_ID
+#endif
 
 #ifdef XPAR_V6DDR_0_S_AXI_BASEADDR
 #define DDR_BASE_ADDR	XPAR_V6DDR_0_S_AXI_BASEADDR
@@ -65,6 +68,8 @@
 #define DDR_BASE_ADDR XPAR_MIG_7SERIES_1_BASEADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
 #define DDR_BASE_ADDR XPAR_MIG7SERIES_0_BASEADDR
+#elif XPAR_MIG_0_BASEADDRESS
+#define DDR_BASE_ADDR XPAR_MIG_0_BASEADDRESS
 #endif
 
 #ifndef DDR_BASE_ADDR
@@ -82,7 +87,11 @@
 #undef DEBUG
 
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 int XTrafGenPollingExample(XTrafGen *InstancePtr, u16 DeviceId);
+#else
+int XTrafGenPollingExample(XTrafGen *InstancePtr, UINTPTR BaseAddress);
+#endif
 void InitDefaultCommands(XTrafGen_Cmd *CmdPtr);
 #ifdef XPAR_UARTNS550_0_BASEADDR
 static void Uart550_Setup(void);
@@ -133,7 +142,11 @@ int main()
 
 	xil_printf("Entering main\n\r");
 
+#ifndef SDT
 	Status = XTrafGenPollingExample(&XTrafGenInstance, TRAFGEN_DEV_ID);
+#else
+	Status = XTrafGenPollingExample(&XTrafGenInstance, XPAR_XTRAFGEN_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Traffic Generator Polling Example Test Failed\n\r");
 		xil_printf("--- Exiting main() ---\n\r");
@@ -178,7 +191,11 @@ int main()
 *			-XST_FAILURE to indicate failure
 *
 ******************************************************************************/
+#ifndef SDT
 int XTrafGenPollingExample(XTrafGen *InstancePtr, u16 DeviceId)
+#else
+int XTrafGenPollingExample(XTrafGen *InstancePtr, UINTPTR BaseAddress)
+#endif
 {
 
 	XTrafGen_Config *Config;
@@ -198,9 +215,15 @@ int XTrafGenPollingExample(XTrafGen *InstancePtr, u16 DeviceId)
 #endif
 
 	/* Initialize the Device Configuration Interface driver */
+#ifndef SDT
 	Config = XTrafGen_LookupConfig(DeviceId);
+#else
+	Config = XTrafGen_LookupConfig(BaseAddress);
+#endif
 	if (!Config) {
+#ifndef SDT
 		xil_printf("No config found for %d\r\n", DeviceId);
+#endif
 		return XST_FAILURE;
 	}
 
