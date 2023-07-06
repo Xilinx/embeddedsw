@@ -1,0 +1,40 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for DFE OFDM controller
+
+maintainers:
+  - Dragan Cvetic <dragan.cvetic@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,xdfe-ofdm-1.1
+
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,num-antenna:
+    decription: Number of antenna
+  xlnx,antenna-interleave:
+    decription: Antenna interleave
+  xlnx,phase-compensation:
+    decription: Disabled (0) Enabled (1)
+
+config:
+    - XDfeOfdm_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,num-antenna
+    - xlnx,antenna-interleave
+    - xlnx,phase-compensation
+
+examples:
+
+...

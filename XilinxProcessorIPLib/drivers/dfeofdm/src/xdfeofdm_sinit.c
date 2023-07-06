@@ -19,6 +19,7 @@
 * 1.0   dc     11/21/22 Initial version
 *       dc     02/20/23 Update hw version
 * 1.1   dc     05/22/23 State and status upgrades
+*       cog    07/04/23 Add support for SDT
 *
 * </pre>
 * @addtogroup dfeofdm Overview
@@ -35,7 +36,9 @@
 #include <stdio.h>
 
 #ifdef __BAREMETAL__
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include <metal/alloc.h>
 #else
 #include <dirent.h>

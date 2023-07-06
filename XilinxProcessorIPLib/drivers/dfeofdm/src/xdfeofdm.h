@@ -62,7 +62,9 @@ extern "C" {
 /**************************** Includes ***************************************/
 #ifdef __BAREMETAL__
 #include "xil_types.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xstatus.h"
 #else
 #include <linux/types.h>
@@ -76,6 +78,7 @@ extern "C" {
 #ifndef __BAREMETAL__
 #define XDFEOFDM_MAX_NUM_INSTANCES                                             \
 	(10U) /**< Maximum number of driver instances running at the same time. */
+#define XDFEOFDM_INSTANCE_EXISTS(X) (X < XDFEOFDM_MAX_NUM_INSTANCES)
 /**
 * @cond nocomments
 */
@@ -94,7 +97,14 @@ extern "C" {
 #define XST_FAILURE (1U) /**< Failure flag */
 #endif
 #else
+#ifndef SDT
 #define XDFEOFDM_MAX_NUM_INSTANCES XPAR_XDFEOFDM_NUM_INSTANCES
+#define XDFEOFDM_INSTANCE_EXISTS(X) (X < XDFEOFDM_MAX_NUM_INSTANCES)
+#else
+#define XDFEOFDM_MAX_NUM_INSTANCES                                              \
+	(10U) /**< Maximum number of driver instances running at the same time. */
+#define XDFEOFDM_INSTANCE_EXISTS(X) (XDfeOfdm_ConfigTable[X].Name != NULL)
+#endif
 #endif
 
 #define XDFEOFDM_NODE_NAME_MAX_LENGTH (50U) /**< Node name maximum length */
@@ -373,7 +383,11 @@ typedef struct {
  * OFDM Config Structure.
  */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId; /**< The component instance Id */
+#else
+	char *Name; /**< Unique name of the device */
+#endif
 	metal_phys_addr_t BaseAddr; /**< Instance base address */
 	u32 NumAntenna; /**< Number of antenas */
 	u32 AntennaInterleave; /**< Antenna interleave */
@@ -394,6 +408,11 @@ typedef struct {
 	struct metal_io_region *Io; /**< Libmetal IO structure */
 	struct metal_device *Device; /**< Libmetal device structure */
 } XDfeOfdm;
+
+/************************** Variable Definitions *****************************/
+#ifdef __BAREMETAL__
+extern XDfeOfdm_Config XDfeOfdm_ConfigTable[XDFEOFDM_MAX_NUM_INSTANCES];
+#endif
 
 /**************************** API declarations *******************************/
 /* System initialization API */

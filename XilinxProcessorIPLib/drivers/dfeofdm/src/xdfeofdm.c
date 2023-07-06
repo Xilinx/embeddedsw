@@ -20,6 +20,7 @@
 * 1.1   dc     05/22/23 State and status upgrades
 *       dc     06/20/23 Depricate obsolete APIs
 *       dc     06/28/23 Add phase compensation calculation
+*       cog    07/04/23 Add support for SDT
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -820,7 +821,7 @@ XDfeOfdm *XDfeOfdm_InstanceInit(const char *DeviceNodeName)
 	/* Is this first OFDM initialisation ever? */
 	if (0U == XDfeOfdm_DriverHasBeenRegisteredOnce) {
 		/* Set up environment to non-initialized */
-		for (Index = 0; Index < XDFEOFDM_MAX_NUM_INSTANCES; Index++) {
+		for (Index = 0; XDFEOFDM_INSTANCE_EXISTS(Index); Index++) {
 			XDfeOfdm_Ofdm[Index].StateId = XDFEOFDM_STATE_NOT_READY;
 			XDfeOfdm_Ofdm[Index].NodeName[0] = '\0';
 		}
@@ -832,7 +833,7 @@ XDfeOfdm *XDfeOfdm_InstanceInit(const char *DeviceNodeName)
 	 * a) if no, do full initialization
 	 * b) if yes, skip initialization and return the object pointer
 	 */
-	for (Index = 0; Index < XDFEOFDM_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEOFDM_INSTANCE_EXISTS(Index); Index++) {
 		if (0U == strncmp(XDfeOfdm_Ofdm[Index].NodeName, DeviceNodeName,
 				  strlen(DeviceNodeName))) {
 			XDfeOfdm_Ofdm[Index].StateId = XDFEOFDM_STATE_READY;
@@ -843,7 +844,7 @@ XDfeOfdm *XDfeOfdm_InstanceInit(const char *DeviceNodeName)
 	/*
 	 * Find the available slot for this instance.
 	 */
-	for (Index = 0; Index < XDFEOFDM_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEOFDM_INSTANCE_EXISTS(Index); Index++) {
 		if (XDfeOfdm_Ofdm[Index].NodeName[0] == '\0') {
 			strncpy(XDfeOfdm_Ofdm[Index].NodeName, DeviceNodeName,
 				XDFEOFDM_NODE_NAME_MAX_LENGTH);
@@ -860,7 +861,7 @@ register_metal:
 	memcpy(Str, InstancePtr->NodeName, XDFEOFDM_NODE_NAME_MAX_LENGTH);
 	AddrStr = strtok(Str, ".");
 	Addr = strtoul(AddrStr, NULL, 16);
-	for (Index = 0; Index < XDFEOFDM_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEOFDM_INSTANCE_EXISTS(Index); Index++) {
 		if (Addr == XDfeOfdm_metal_phys[Index]) {
 			InstancePtr->Device = &XDfeOfdm_CustomDevice[Index];
 			goto bm_register_metal;
@@ -913,7 +914,7 @@ void XDfeOfdm_InstanceClose(XDfeOfdm *InstancePtr)
 	u32 Index;
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	for (Index = 0; Index < XDFEOFDM_MAX_NUM_INSTANCES; Index++) {
+	for (Index = 0; XDFEOFDM_INSTANCE_EXISTS(Index); Index++) {
 		/* Find the instance in XDfeOfdm_Ofdm array */
 		if (&XDfeOfdm_Ofdm[Index] == InstancePtr) {
 			/* Release libmetal */
