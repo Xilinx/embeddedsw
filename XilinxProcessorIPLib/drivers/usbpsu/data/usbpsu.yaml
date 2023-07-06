@@ -35,15 +35,63 @@ required:
     - interrupt-parent
 
 examples:
-        xusb_intr_example.c:
+    xusb_intr_example.c:
+        - dependency_files:
+            - xusb_class_storage.c
+            - xusb_class_storage.h
+            - xusb_ch9_storage.c
+            - xusb_ch9_storage.h
+            - xusb_ch9.c
+            - xusb_ch9.h
+            - xusb_wrapper.c
+            - xusb_wrapper.h
         - interrupts
 
-        xusb_composite_example.c:
+    xusb_composite_example.c:
+        - dependency_files:
+            - xusb_ch9_composite.c
+            - xusb_ch9_composite.h
+            - xusb_class_composite.c
+            - xusb_class_composite.h
+            - xusb_ch9.c
+            - xusb_ch9.h
+            - xusb_wrapper.c
+            - xusb_wrapper.h
         - interrupts
 
-        xusb_dfu_example.c:
+    xusb_dfu_example.c:
+        - dependency_files:
+            - xusb_class_dfu.c
+            - xusb_class_dfu.h
+            - xusb_ch9_dfu.c
+            - xusb_ch9_dfu.h
+            - xusb_ch9.c
+            - xusb_ch9.h
+            - xusb_wrapper.c
+            - xusb_wrapper.h
         - interrupts
 
-        xusb_audio_dfu_example.c:
+    xusb_audio_dfu_example.c:
+        - dependency_files:
+            - xusb_ch9_audio_dfu.c
+            - xusb_ch9_audio_dfu.h
+            - xusb_class_audio_dfu.c
+            - xusb_class_audio_dfu.h
+            - xusb_ch9.c
+            - xusb_ch9.h
+            - xusb_wrapper.c
+            - xusb_wrapper.h
         - interrupts
+
+    xusb_poll_example.c:
+        - dependency_files:
+            - xusb_class_storage.c
+            - xusb_class_storage.h
+            - xusb_ch9_storage.c
+            - xusb_ch9_storage.h
+            - xusb_ch9.c
+            - xusb_ch9.h
+            - xusb_wrapper.c
+            - xusb_wrapper.h
+        - reg
 ...
