@@ -45,6 +45,7 @@
 * 8.00a bss  06/20/12 Deleted ReadId API as per CR 656162
 * 10.0  bss  6/24/14  Removed support for families older than 7 series
 * 11.5  Nava 09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
+* 11.6  Nava 06/28/23 Added support for system device-tree flow.
 * </pre>
 *
 *****************************************************************************/
@@ -85,7 +86,7 @@ int XHwIcap_CommandDesync(XHwIcap *InstancePtr)
 {
 	int Status;
 	u32 FrameBuffer[DESYNC_COMMAND_SIZE];
-	u32 Index =0;
+	u32 Index = 0;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -130,7 +131,7 @@ int XHwIcap_CommandCapture(XHwIcap *InstancePtr)
 {
 	int Status;
 	u32 FrameBuffer[CAPTURE_COMMAND_SIZE];
-	u32 Index =0;
+	u32 Index = 0;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -179,9 +180,9 @@ int XHwIcap_CommandCapture(XHwIcap *InstancePtr)
 u32 XHwIcap_GetConfigReg(XHwIcap *InstancePtr, u32 ConfigReg, u32 *RegData)
 {
 	int Status;
-	int EosRetries =0; /* Counter for checking EOS to become high */
+	int EosRetries = 0; /* Counter for checking EOS to become high */
 	u32 FrameBuffer[READ_CFG_REG_COMMAND_SIZE];
-	u32 Index =0;
+	u32 Index = 0;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -203,14 +204,13 @@ u32 XHwIcap_GetConfigReg(XHwIcap *InstancePtr, u32 ConfigReg, u32 *RegData)
 	 * only after EOS bit becomes high.
 	 */
 
-	while((!(XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
-			XHI_SR_OFFSET)& XHI_SR_EOS_MASK))) {
+	while ((!(XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
+				  XHI_SR_OFFSET)& XHI_SR_EOS_MASK))) {
 
-		if(EosRetries < XHI_MAX_RETRIES) {
+		if (EosRetries < XHI_MAX_RETRIES) {
 			EosRetries++;
-		}
-		else {
-	   		return XST_FAILURE;
+		} else {
+			return XST_FAILURE;
 		}
 
 	}
@@ -226,13 +226,13 @@ u32 XHwIcap_GetConfigReg(XHwIcap *InstancePtr, u32 ConfigReg, u32 *RegData)
 
 	while (XHwIcap_IsDeviceBusy(InstancePtr) != FALSE);
 	while ((XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
-			XHI_CR_OFFSET)) & XHI_CR_WRITE_MASK);
+				XHI_CR_OFFSET)) & XHI_CR_WRITE_MASK);
 
 	/*
 	 * Read the Config Register using DeviceRead since
 	 * DeviceRead reads depending on ICAP Width for V6
 	 * and 7 series devices
-  	 */
+	 */
 	XHwIcap_DeviceRead(InstancePtr, RegData, 1);
 
 	return XST_SUCCESS;

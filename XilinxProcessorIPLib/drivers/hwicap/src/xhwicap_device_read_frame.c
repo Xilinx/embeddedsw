@@ -31,7 +31,7 @@
 * 10.0  bss  6/24/14  Removed support for families older than 7 series
 * 11.0  MNK  6/12/14  Added support for 8-series family devices.
 * 11.5  Nava 09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
-*
+* 11.6  Nava 06/28/23 Added support for system device-tree flow.
 * </pre>
 *
 *****************************************************************************/
@@ -78,8 +78,8 @@
 *
 *****************************************************************************/
 int XHwIcap_DeviceReadFrame(XHwIcap *InstancePtr, long Top, long Block,
-				long HClkRow, long MajorFrame, long MinorFrame,
-				u32 *FrameBuffer)
+			    long HClkRow, long MajorFrame, long MinorFrame,
+			    u32 *FrameBuffer)
 {
 
 	u32 Packet;
@@ -140,17 +140,17 @@ int XHwIcap_DeviceReadFrame(XHwIcap *InstancePtr, long Top, long Block,
 	 */
 	switch (InstancePtr->DeviceFamily) {
 		case DEVICE_TYPE_7SERIES :
-				TotalWords = InstancePtr->WordsPerFrame << 1;
-				NumNoops = 32;
-				break;
+			TotalWords = InstancePtr->WordsPerFrame << 1;
+			NumNoops = 32;
+			break;
 		case DEVICE_TYPE_ULTRA :
 			TotalWords = (InstancePtr->WordsPerFrame << 1) + 10;
 			NumNoops = 64;
-				break;
+			break;
 		case DEVICE_TYPE_ULTRA_PLUS :
 			TotalWords = (InstancePtr->WordsPerFrame << 1) + 25;
 			NumNoops = 64;
-				break;
+			break;
 		default:
 			return XST_FAILURE;
 	}
@@ -164,7 +164,7 @@ int XHwIcap_DeviceReadFrame(XHwIcap *InstancePtr, long Top, long Block,
 	WriteBuffer[Index++] = XHI_NOOP_PACKET;
 	WriteBuffer[Index++] = XHI_NOOP_PACKET;
 
-	for(unsigned int i = 0; i < NumNoops; i++) {
+	for (unsigned int i = 0; i < NumNoops; i++) {
 		WriteBuffer[Index++] = XHI_NOOP_PACKET;
 	}
 
@@ -173,7 +173,7 @@ int XHwIcap_DeviceReadFrame(XHwIcap *InstancePtr, long Top, long Block,
 	 * present in the FIFO to the ICAP device
 	 */
 	Status = XHwIcap_DeviceWrite(InstancePtr, (u32 *)&WriteBuffer[0],
-			Index);
+				     Index);
 	if (Status != XST_SUCCESS)  {
 		return XST_FAILURE;
 	}

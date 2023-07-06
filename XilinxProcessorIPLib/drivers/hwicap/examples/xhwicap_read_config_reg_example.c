@@ -182,100 +182,100 @@ int HwIcapReadConfigRegExample(UINTPTR BaseAddress)
 	printf("Value of the Configuration Registers. \r\n\r\n");
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CRC, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" CRC -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FAR, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" FAR -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FDRI, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" FDRI -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_FDRO, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" FDRO -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CMD, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" CMD -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CTL, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" CTL -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_MASK, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" MASK -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_STAT, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" STAT -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_LOUT, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" LOUT -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_COR, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" COR -> \t %x \t\r\n", ConfigRegData);
 	}
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_MFWR, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" MFWR -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CBC, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" CBC -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_AXSS, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" AXSS -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_IDCODE, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" IDCODE -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_COR_1, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" COR_1 -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CSOB, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" CSOB -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_WBSTAR, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" WBSTAR -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_TIMER, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" TIMER -> \t %x \t\r\n", ConfigRegData);
 	}
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_BOOTSTS, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" BOOTSTS -> \t %x \t\r\n", ConfigRegData);
 	}
 
 	if (XHwIcap_GetConfigReg(&HwIcap, XHI_CTL_1, (u32 *)&ConfigRegData) ==
-		XST_SUCCESS) {
+	    XST_SUCCESS) {
 		printf(" CTL_1 -> \t %x \t\r\n", ConfigRegData);
 	}
 

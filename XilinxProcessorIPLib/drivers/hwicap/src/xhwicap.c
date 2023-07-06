@@ -63,6 +63,7 @@
 * 11.2	Nava  02/01/19 Updated the Number of words per frame as mention in the
 *		       ug570
 * 11.5  Nava  09/30/22 Added New IDCODE's as mentioned in the ug570 Doc.
+* 11.6  Nava  06/28/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -91,34 +92,37 @@
  * 7-series family number information taken for ug470_7series_config.pdf
  */
 
-static u32 series_7idcodes[NUM_7SERIES_IDCODES] =
-	{0x3622093, 0x3620093, 0x37C4093, 0x362F093, 0x37C8093, 0x37C7093,
+static u32 series_7idcodes[NUM_7SERIES_IDCODES] = {
+	0x3622093, 0x3620093, 0x37C4093, 0x362F093, 0x37C8093, 0x37C7093,
 	0x37C3093, 0x362E093, 0x37C2093, 0x362D093, 0x362C093, 0x3632093,
 	0x3631093, 0x3636093, 0x3647093, 0x364C093, 0x3651093, 0x3747093,
 	0x3656093, 0x3752093, 0x3751093, 0x3671093, 0x36B3093, 0x3667093,
 	0x3682093, 0x3687093, 0x3692093, 0x3691093, 0x3696093, 0x36D5093,
-	0x36D9093, 0x36DB093 };
+	0x36D9093, 0x36DB093
+};
 
 /*
  * 8-series family number information taken for ug570_7series_config.pdf
  */
 
-static u32 series_ultra_idcodes[NUM_ULTRA_SERIES_IDCODES] =
-	{0x3824093, 0x3823093, 0x3822093, 0x3919093, 0x380F093, 0x3844093,
+static u32 series_ultra_idcodes[NUM_ULTRA_SERIES_IDCODES] = {
+	0x3824093, 0x3823093, 0x3822093, 0x3919093, 0x380F093, 0x3844093,
 	0x390D093, 0x3939093, 0x3843093, 0x3842093, 0x392D093, 0x3933093,
-	0x3931093, 0x396D093 };
+	0x3931093, 0x396D093
+};
 
-static u32 series_ultra_plus_idcodes[NUM_ULTRA_PLUS_SERIES_IDCODES] =
-	{0x4A63093, 0x4A62093, 0x484A093, 0x4A4E093, 0x4A52093, 0x4A56093,
+static u32 series_ultra_plus_idcodes[NUM_ULTRA_PLUS_SERIES_IDCODES] = {
+	0x4A63093, 0x4A62093, 0x484A093, 0x4A4E093, 0x4A52093, 0x4A56093,
 	0x4B39093, 0x4B2B093, 0x4B29093, 0x4B31093, 0x4B49093, 0x4B51093,
 	0x4AC5093, 0x4AC4093, 0x4A65093, 0x4A64093, 0x4ACF093, 0x4BA1093,
 	0x4ACE093, 0x4B43093, 0x4B41093, 0x4B6B093, 0x4B69093, 0x4B71093,
-	0x4B79093, 0x4B73093, 0x4B7B093, 0x4B61093 };
+	0x4B79093, 0x4B73093, 0x4B7B093, 0x4B61093
+};
 
 
 /************************** Function Prototypes *****************************/
 static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
-				u32 ByteCount);
+			      u32 ByteCount);
 static u32 FindDeviceType(u32 IdCode);
 
 /****************************************************************************/
@@ -145,7 +149,7 @@ static u32 FindDeviceType(u32 IdCode);
 *
 *****************************************************************************/
 int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
-				UINTPTR EffectiveAddr)
+			  UINTPTR EffectiveAddr)
 {
 	int Status;
 	u32 DeviceIdCode;
@@ -212,7 +216,7 @@ int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 	DeviceIdCode = DeviceIdCode & XHI_DEVICE_ID_CODE_MASK;
 
 	if ((DeviceIdCode == XHI_DEVICE_ID_CODE_MASK) ||
-			(DeviceIdCode == 0x0)) {
+	    (DeviceIdCode == 0x0)) {
 		return XST_FAILURE;
 	}
 
@@ -228,17 +232,17 @@ int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 
 	switch (DeviceType) {
 		case DEVICE_TYPE_7SERIES :
-				InstancePtr->WordsPerFrame = DEVICE_7SERIES_WORDS_PER_FRAME;
-				break;
+			InstancePtr->WordsPerFrame = DEVICE_7SERIES_WORDS_PER_FRAME;
+			break;
 		case DEVICE_TYPE_ULTRA :
-				InstancePtr->WordsPerFrame = DEVICE_ULTRA_WORDS_PER_FRAME;
-				break;
+			InstancePtr->WordsPerFrame = DEVICE_ULTRA_WORDS_PER_FRAME;
+			break;
 		case DEVICE_TYPE_ULTRA_PLUS :
-				InstancePtr->WordsPerFrame = DEVICE_ULTRA_PLUS_WORDS_PER_FRAME;
-				break;
+			InstancePtr->WordsPerFrame = DEVICE_ULTRA_PLUS_WORDS_PER_FRAME;
+			break;
 		default:
 			return XST_FAILURE;
-        }
+	}
 
 	InstancePtr->BytesPerFrame = (InstancePtr->WordsPerFrame * 4);
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
@@ -290,9 +294,9 @@ int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 {
 #if XPAR_HWICAP_0_ICAP_DWIDTH == 8
-	u8 Fifo[NumWords*4];
+	u8 Fifo[NumWords * 4];
 #elif XPAR_HWICAP_0_ICAP_DWIDTH == 16
-	u16 Fifo[NumWords*2];
+	u16 Fifo[NumWords * 2];
 #endif
 
 #if (XPAR_HWICAP_0_ICAP_DWIDTH == 8) || (XPAR_HWICAP_0_ICAP_DWIDTH == 16)
@@ -339,10 +343,8 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 
 #if (XPAR_HWICAP_0_ICAP_DWIDTH == 8) || (XPAR_HWICAP_0_ICAP_DWIDTH == 16)
 	/* 16 bit */
-	if(InstancePtr->HwIcapConfig.IcapWidth == 16)
-	{
-		for(Index = 0;Index < (NumWords*2);Index = Index + 2)
-		{
+	if (InstancePtr->HwIcapConfig.IcapWidth == 16) {
+		for (Index = 0; Index < (NumWords * 2); Index = Index + 2) {
 			Fifo[Index + 1] = *FrameBuffer;
 			Fifo[Index]	= *FrameBuffer >> 16;
 			FrameBuffer++;
@@ -353,10 +355,8 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	}
 
 	/* 8 bit */
-	else
-	{
-		for(Index = 0;Index < (NumWords*4);Index = Index + 4)
-		{
+	else {
+		for (Index = 0; Index < (NumWords * 4); Index = Index + 4) {
 			Fifo[Index + 3] = *FrameBuffer;
 			Fifo[Index + 2] = *FrameBuffer >> 8;
 			Fifo[Index + 1] = *FrameBuffer >> 16;
@@ -381,7 +381,7 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	 */
 
 #if (XPAR_HWICAP_0_MODE == 1)
-	 /* If Lite Mode then write one by one word in WriteFIFO register */
+	/* If Lite Mode then write one by one word in WriteFIFO register */
 	while (InstancePtr->RemainingWords > 0) {
 
 		XHwIcap_FifoWrite(InstancePtr, *InstancePtr->SendBufferPtr);
@@ -407,7 +407,7 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 
 	WrFifoVacancy = XHwIcap_GetWrFifoVacancy(InstancePtr);
 	while ((WrFifoVacancy != 0) &&
-			(InstancePtr->RemainingWords > 0)) {
+	       (InstancePtr->RemainingWords > 0)) {
 
 		XHwIcap_FifoWrite(InstancePtr, *InstancePtr->SendBufferPtr);
 		InstancePtr->RemainingWords--;
@@ -425,7 +425,7 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	/*
 	 * Check if there is more data to be written to the ICAP
 	 */
-	if (InstancePtr->RemainingWords != 0U){
+	if (InstancePtr->RemainingWords != 0U) {
 
 		/*
 		 * Check whether it is polled or interrupt mode of operation.
@@ -460,9 +460,9 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 				WrFifoVacancy =
 					XHwIcap_GetWrFifoVacancy(InstancePtr);
 				while ((WrFifoVacancy != 0) &&
-			       		(InstancePtr->RemainingWords > 0)) {
+				       (InstancePtr->RemainingWords > 0)) {
 					XHwIcap_FifoWrite(InstancePtr,
-						*InstancePtr->SendBufferPtr);
+							  *InstancePtr->SendBufferPtr);
 					InstancePtr->RemainingWords--;
 					WrFifoVacancy--;
 					InstancePtr->SendBufferPtr++;
@@ -470,18 +470,18 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 
 				XHwIcap_StartConfig(InstancePtr);
 				while ((XHwIcap_ReadReg(InstancePtr->
-					HwIcapConfig.BaseAddress,
-					XHI_CR_OFFSET)) & XHI_CR_WRITE_MASK);
-				}
-
-				/*
-		 		 * Clear the flag to indicate the write has
-		 		 * been done
-		 		 */
-				InstancePtr->IsTransferInProgress = FALSE;
-				InstancePtr->RequestedWords = 0x0;
+							HwIcapConfig.BaseAddress,
+							XHI_CR_OFFSET)) & XHI_CR_WRITE_MASK);
 			}
+
+			/*
+			 * Clear the flag to indicate the write has
+			 * been done
+			 */
+			InstancePtr->IsTransferInProgress = FALSE;
+			InstancePtr->RequestedWords = 0x0;
 		}
+	}
 
 	else {
 		/*
@@ -524,9 +524,9 @@ int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	u32 Retries = 0;
 	u32 Index = 0; /* Array Index */
 #if XPAR_HWICAP_0_ICAP_DWIDTH == 8
-	u8 Data[NumWords*4];
+	u8 Data[NumWords * 4];
 #elif XPAR_HWICAP_0_ICAP_DWIDTH == 16
-	u16 Data[NumWords*2];
+	u16 Data[NumWords * 2];
 #else
 	u32 *Data = FrameBuffer;
 #endif
@@ -561,18 +561,16 @@ int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	InstancePtr->IsTransferInProgress = TRUE;
 
 	/* 8 bit */
-	if(InstancePtr->HwIcapConfig.IcapWidth == 8)
-	{
+	if (InstancePtr->HwIcapConfig.IcapWidth == 8) {
 		InstancePtr->RequestedWords = NumWords * 4;
 		InstancePtr->RemainingWords = NumWords * 4;
-		XHwIcap_SetSizeReg(InstancePtr, NumWords*4);
+		XHwIcap_SetSizeReg(InstancePtr, NumWords * 4);
 	}
 	/* 16 bit */
-	else if(InstancePtr->HwIcapConfig.IcapWidth == 16)
-	{
+	else if (InstancePtr->HwIcapConfig.IcapWidth == 16) {
 		InstancePtr->RequestedWords = NumWords * 2;
 		InstancePtr->RemainingWords = NumWords * 2;
-		XHwIcap_SetSizeReg(InstancePtr, NumWords*2);
+		XHwIcap_SetSizeReg(InstancePtr, NumWords * 2);
 	}
 
 	/* 32 bit */
@@ -592,9 +590,9 @@ int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	/* As long as there is still data to read... */
 	while (InstancePtr->RemainingWords > 0) {
 		/* Wait until we have some data in the fifo. */
-		while(RdFifoOccupancy == 0) {
+		while (RdFifoOccupancy == 0) {
 			RdFifoOccupancy =
-			XHwIcap_GetRdFifoOccupancy(InstancePtr);
+				XHwIcap_GetRdFifoOccupancy(InstancePtr);
 			Retries++;
 			if (Retries > XHI_MAX_RETRIES) {
 				break;
@@ -603,16 +601,16 @@ int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 
 		/* Read the data from the Read FIFO. */
 #if (XPAR_HWICAP_0_ICAP_DWIDTH == 8) || (XPAR_HWICAP_0_ICAP_DWIDTH == 16)
-		while((RdFifoOccupancy != 0) &&
-				(InstancePtr->RemainingWords > 0)) {
+		while ((RdFifoOccupancy != 0) &&
+		       (InstancePtr->RemainingWords > 0)) {
 			Data[Index] = XHwIcap_FifoRead(InstancePtr);
 			InstancePtr->RemainingWords--;
 			RdFifoOccupancy--;
 			Index++;
 		}
 #else
-		while((RdFifoOccupancy != 0) &&
-				(InstancePtr->RemainingWords > 0)) {
+		while ((RdFifoOccupancy != 0) &&
+		       (InstancePtr->RemainingWords > 0)) {
 			*Data++ = XHwIcap_FifoRead(InstancePtr);
 			InstancePtr->RemainingWords--;
 			RdFifoOccupancy--;
@@ -620,13 +618,12 @@ int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 #endif
 	}
 	while ((XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
-			XHI_CR_OFFSET)) &
-			XHI_CR_READ_MASK);
+				XHI_CR_OFFSET)) &
+	       XHI_CR_READ_MASK);
 
 	/* 8 bit */
-	if(InstancePtr->HwIcapConfig.IcapWidth == 8)
-	{
-		for(Index = 0 ; Index < (NumWords * 4) ; Index = Index + 4) {
+	if (InstancePtr->HwIcapConfig.IcapWidth == 8) {
+		for (Index = 0 ; Index < (NumWords * 4) ; Index = Index + 4) {
 			*FrameBuffer = Data[Index] << 24;
 			*FrameBuffer = *FrameBuffer | Data[Index + 1] << 16;
 			*FrameBuffer = *FrameBuffer | Data[Index + 2] << 8;
@@ -635,9 +632,8 @@ int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 		}
 	}
 	/* 16 bit */
-	else if(InstancePtr->HwIcapConfig.IcapWidth == 16)
-	{
-		for(Index = 0 ; Index < (NumWords * 2) ; Index = Index + 2) {
+	else if (InstancePtr->HwIcapConfig.IcapWidth == 16) {
+		for (Index = 0 ; Index < (NumWords * 2) ; Index = Index + 2) {
 			*FrameBuffer = Data[Index] << 16;
 			*FrameBuffer = *FrameBuffer | Data[Index + 1];
 			FrameBuffer++;
@@ -648,7 +644,7 @@ int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	 * If the requested number of words have not been read from
 	 * the device then indicate failure.
 	 */
-	if (InstancePtr->RemainingWords != 0){
+	if (InstancePtr->RemainingWords != 0) {
 		return XST_FAILURE;
 	}
 
@@ -687,10 +683,10 @@ void XHwIcap_Reset(XHwIcap *InstancePtr)
 	 * Control Register.
 	 */
 	RegData = XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
-				XHI_CR_OFFSET);
+				  XHI_CR_OFFSET);
 
 	XHwIcap_WriteReg(InstancePtr->HwIcapConfig.BaseAddress, XHI_CR_OFFSET,
-				RegData | XHI_CR_SW_RESET_MASK);
+			 RegData | XHI_CR_SW_RESET_MASK);
 
 	/*
 	 * Reset pulse of atleast 3 slower clock cycle
@@ -698,7 +694,7 @@ void XHwIcap_Reset(XHwIcap *InstancePtr)
 	usleep(10);
 
 	XHwIcap_WriteReg(InstancePtr->HwIcapConfig.BaseAddress, XHI_CR_OFFSET,
-				RegData & (~ XHI_CR_SW_RESET_MASK));
+			 RegData & (~ XHI_CR_SW_RESET_MASK));
 
 }
 
@@ -728,18 +724,18 @@ void XHwIcap_FlushFifo(XHwIcap *InstancePtr)
 	 * Control Register.
 	 */
 	RegData = XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
-				XHI_CR_OFFSET);
+				  XHI_CR_OFFSET);
 
 	XHwIcap_WriteReg(InstancePtr->HwIcapConfig.BaseAddress, XHI_CR_OFFSET,
-				RegData | XHI_CR_FIFO_CLR_MASK);
+			 RegData | XHI_CR_FIFO_CLR_MASK);
 
 	/*
-         * Reset pulse of atleast 3 slower clock cycle
-         */
-        usleep(10);
+	 * Reset pulse of atleast 3 slower clock cycle
+	 */
+	usleep(10);
 
 	XHwIcap_WriteReg(InstancePtr->HwIcapConfig.BaseAddress, XHI_CR_OFFSET,
-				RegData & (~ XHI_CR_FIFO_CLR_MASK));
+			 RegData & (~ XHI_CR_FIFO_CLR_MASK));
 
 }
 
@@ -771,10 +767,10 @@ void XHwIcap_Abort(XHwIcap *InstancePtr)
 	 * the Control Register.
 	 */
 	RegData = XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
-				XHI_CR_OFFSET);
+				  XHI_CR_OFFSET);
 
 	XHwIcap_WriteReg(InstancePtr->HwIcapConfig.BaseAddress, XHI_CR_OFFSET,
-				RegData | XHI_CR_SW_ABORT_MASK);
+			 RegData | XHI_CR_SW_ABORT_MASK);
 
 }
 
@@ -787,34 +783,34 @@ void XHwIcap_Abort(XHwIcap *InstancePtr)
 *******************************************************************************/
 static u32 FindDeviceType(u32 IdCode)
 {
-        u32 i=0;
-        u32 DeviceType = 0;
+	u32 i = 0;
+	u32 DeviceType = 0;
 
-        for (i = 0; i < NUM_7SERIES_IDCODES; i++) {
+	for (i = 0; i < NUM_7SERIES_IDCODES; i++) {
 
-                if ( series_7idcodes[i] == IdCode ) {
-                        DeviceType = DEVICE_TYPE_7SERIES;
-                        goto END;
-                }
-        }
+		if ( series_7idcodes[i] == IdCode ) {
+			DeviceType = DEVICE_TYPE_7SERIES;
+			goto END;
+		}
+	}
 
-        for (i = 0; i < NUM_ULTRA_SERIES_IDCODES; i++) {
+	for (i = 0; i < NUM_ULTRA_SERIES_IDCODES; i++) {
 
-                if ( series_ultra_idcodes[i] == IdCode ) {
-                        DeviceType = DEVICE_TYPE_ULTRA;
-                        goto END;
-                }
-        }
+		if ( series_ultra_idcodes[i] == IdCode ) {
+			DeviceType = DEVICE_TYPE_ULTRA;
+			goto END;
+		}
+	}
 
-        for (i = 0; i < NUM_ULTRA_PLUS_SERIES_IDCODES; i++) {
+	for (i = 0; i < NUM_ULTRA_PLUS_SERIES_IDCODES; i++) {
 
-                if ( series_ultra_plus_idcodes[i] == IdCode ) {
-                        DeviceType = DEVICE_TYPE_ULTRA_PLUS;
-                        goto END;
-                }
-        }
+		if ( series_ultra_plus_idcodes[i] == IdCode ) {
+			DeviceType = DEVICE_TYPE_ULTRA_PLUS;
+			goto END;
+		}
+	}
 END:
-        return DeviceType;
+	return DeviceType;
 }
 
 /*****************************************************************************/

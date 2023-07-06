@@ -91,11 +91,11 @@
 /************************** Function Prototypes ******************************/
 #ifndef SDT
 int HwIcapIntrExample(XIntc *IntcInstancePtr,
-			XHwIcap *HwIcapInstancePtr,
-			u16 HwIcapDeviceId,
-			u16 HwIcapIntrId);
+		      XHwIcap *HwIcapInstancePtr,
+		      u16 HwIcapDeviceId,
+		      u16 HwIcapIntrId);
 
-static int HwIcapSetupInterruptSystem(XIntc* IntcInstancePtr,
+static int HwIcapSetupInterruptSystem(XIntc *IntcInstancePtr,
 				      XHwIcap *HwIcapPtr,
 				      u16 IntrId );
 #else
@@ -155,8 +155,8 @@ int main(void)
 	 */
 #ifndef SDT
 	Status = HwIcapIntrExample(&IntcInstance, &HwIcapInstance,
-			    HWICAP_DEVICE_ID,
-			    HWICAP_IRPT_INTR);
+				   HWICAP_DEVICE_ID,
+				   HWICAP_IRPT_INTR);
 #else
 	Status = HwIcapIntrExample(&HwIcapInstance, HWICAP_BASEADDR);
 #endif
@@ -197,7 +197,7 @@ int main(void)
 ******************************************************************************/
 #ifndef SDT
 int HwIcapIntrExample(XIntc *IntcInstancePtr, XHwIcap *HwIcapInstancePtr,
-			u16 HwIcapDeviceId, u16 HwIcapIntrId)
+		      u16 HwIcapDeviceId, u16 HwIcapIntrId)
 #else
 int HwIcapIntrExample(XHwIcap *HwIcapInstancePtr, UINTPTR BaseAddress)
 #endif
@@ -219,8 +219,8 @@ int HwIcapIntrExample(XHwIcap *HwIcapInstancePtr, UINTPTR BaseAddress)
 		return XST_FAILURE;
 	}
 	Status = XHwIcap_CfgInitialize(HwIcapInstancePtr,
-					ConfigPtr,
-					ConfigPtr->BaseAddress);
+				       ConfigPtr,
+				       ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -240,8 +240,8 @@ int HwIcapIntrExample(XHwIcap *HwIcapInstancePtr, UINTPTR BaseAddress)
 	 */
 #ifndef SDT
 	Status = HwIcapSetupInterruptSystem(IntcInstancePtr,
-					HwIcapInstancePtr,
-					HwIcapIntrId);
+					    HwIcapInstancePtr,
+					    HwIcapIntrId);
 #else
 	Status = XSetupInterruptSystem(HwIcapInstancePtr, XHwIcap_IntrHandler,
 				       HwIcapInstancePtr->HwIcapConfig.IntrId,
@@ -259,7 +259,7 @@ int HwIcapIntrExample(XHwIcap *HwIcapInstancePtr, UINTPTR BaseAddress)
 	 * handler is able to access the instance data.
 	 */
 	XHwIcap_SetInterruptHandler(HwIcapInstancePtr, HwIcapInstancePtr,
-			 (XHwIcap_StatusHandler)HwIcapIntrHandler);
+				    (XHwIcap_StatusHandler)HwIcapIntrHandler);
 
 	/*
 	 * Initialize the write buffer with pattern to write.
@@ -288,8 +288,8 @@ int HwIcapIntrExample(XHwIcap *HwIcapInstancePtr, UINTPTR BaseAddress)
 	 */
 	TransferInProgress = TRUE;
 	Status = XHwIcap_DeviceWrite(HwIcapInstancePtr,
-					(u32 *) &WriteBuffer[0],
-					TEST_WRITE_BUFFER_SIZE);
+				     (u32 *) &WriteBuffer[0],
+				     TEST_WRITE_BUFFER_SIZE);
 	if (Status != XST_SUCCESS)  {
 		return XST_FAILURE;
 	}
@@ -364,7 +364,7 @@ void HwIcapIntrHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount)
 *
 *
 ****************************************************************************/
-static int HwIcapSetupInterruptSystem(XIntc* IntcInstancePtr,
+static int HwIcapSetupInterruptSystem(XIntc *IntcInstancePtr,
 				      XHwIcap *HwIcapPtr,
 				      u16 IntrId )
 {
@@ -384,9 +384,9 @@ static int HwIcapSetupInterruptSystem(XIntc* IntcInstancePtr,
 	 * specific interrupt processing for the device.
 	 */
 	Status = XIntc_Connect(IntcInstancePtr,
-		 		IntrId,
-				(XInterruptHandler) XHwIcap_IntrHandler,
-				HwIcapPtr);
+			       IntrId,
+			       (XInterruptHandler) XHwIcap_IntrHandler,
+			       HwIcapPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -416,8 +416,8 @@ static int HwIcapSetupInterruptSystem(XIntc* IntcInstancePtr,
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler) XIntc_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler) XIntc_InterruptHandler,
+				     IntcInstancePtr);
 	/*
 	 * Enable non-critical exceptions.
 	 */

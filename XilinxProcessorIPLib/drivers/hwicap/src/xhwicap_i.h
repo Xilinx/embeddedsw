@@ -47,7 +47,7 @@
 *                     Updated XHI_NUM_FRAME_WORDS to 101
 *                     Updated XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME to 202
 * 11.5 Nava  09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
-*
+* 11.6 Nava  06/28/23 Added support for system device-tree flow.
 * </pre>
 *
 *****************************************************************************/
@@ -157,10 +157,10 @@ extern "C" {
 #define XHI_CMD_CRCC			16
 #define XHI_CMD_LTIMER			17
 #define XHI_TYPE_2_READ 		((XHI_TYPE_2 << XHI_TYPE_SHIFT) | \
-					(XHI_OP_READ << XHI_OP_SHIFT))
+		(XHI_OP_READ << XHI_OP_SHIFT))
 
 #define XHI_TYPE_2_WRITE 		( (XHI_TYPE_2 << XHI_TYPE_SHIFT) | \
-					(XHI_OP_WRITE << XHI_OP_SHIFT) )
+		(XHI_OP_WRITE << XHI_OP_SHIFT) )
 
 /*
  * Packet constants
@@ -249,7 +249,7 @@ extern "C" {
 *****************************************************************************/
 #define XHwIcap_Type1Read(Register) \
 	( (XHI_TYPE_1 << XHI_TYPE_SHIFT) | (Register << XHI_REGISTER_SHIFT) | \
-	(XHI_OP_READ << XHI_OP_SHIFT) )
+	  (XHI_OP_READ << XHI_OP_SHIFT) )
 
 /****************************************************************************/
 /**
@@ -282,7 +282,7 @@ extern "C" {
 *****************************************************************************/
 #define XHwIcap_Type1Write(Register) \
 	( (XHI_TYPE_1 << XHI_TYPE_SHIFT) | (Register << XHI_REGISTER_SHIFT) | \
-	(XHI_OP_WRITE << XHI_OP_SHIFT) )
+	  (XHI_OP_WRITE << XHI_OP_SHIFT) )
 
 /****************************************************************************/
 /**
@@ -299,7 +299,7 @@ extern "C" {
 *****************************************************************************/
 #define XHwIcap_Type2Write(Register) \
 	( (XHI_TYPE_2 << XHI_TYPE_SHIFT) | (Register << XHI_REGISTER_SHIFT) | \
-	(XHI_OP_WRITE << XHI_OP_SHIFT) )
+	  (XHI_OP_WRITE << XHI_OP_SHIFT) )
 
 /****************************************************************************/
 /**
@@ -322,9 +322,9 @@ extern "C" {
 #define XHwIcap_SetupFarV5(Top, Block, Row, ColumnAddress, MinorAddress)  \
 	(Block << XHI_FAR_BLOCK_SHIFT) | \
 	((Top << XHI_FAR_TOP_BOTTOM_SHIFT) | \
-	(Row << XHI_FAR_ROW_ADDR_SHIFT) | \
-	(ColumnAddress << XHI_FAR_COLUMN_ADDR_SHIFT) | \
-	(MinorAddress << XHI_FAR_MINOR_ADDR_SHIFT))
+	 (Row << XHI_FAR_ROW_ADDR_SHIFT) | \
+	 (ColumnAddress << XHI_FAR_COLUMN_ADDR_SHIFT) | \
+	 (MinorAddress << XHI_FAR_MINOR_ADDR_SHIFT))
 
 #define XHwIcap_SetupFar XHwIcap_SetupFarV5
 

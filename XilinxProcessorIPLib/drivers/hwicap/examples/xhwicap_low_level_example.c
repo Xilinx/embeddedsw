@@ -95,8 +95,7 @@
  */
 #define HWICAP_EXAMPLE_BITSTREAM_LENGTH     6
 
-static u32 ReadId[HWICAP_EXAMPLE_BITSTREAM_LENGTH] =
-{
+static u32 ReadId[HWICAP_EXAMPLE_BITSTREAM_LENGTH] = {
 	XHI_DUMMY_PACKET, /* Dummy Word */
 	XHI_SYNC_PACKET, /* Sync Word*/
 	XHI_NOOP_PACKET, /* Type 1 NO OP */
@@ -191,7 +190,7 @@ u32 HwIcapLowLevelExample(u32 BaseAddress, u32 *IdCode)
 	 */
 	Retries = 0;
 	while ((XHwIcap_ReadReg(BaseAddress, XHI_SR_OFFSET) &
-			XHI_SR_DONE_MASK) != XHI_SR_DONE_MASK) {
+		XHI_SR_DONE_MASK) != XHI_SR_DONE_MASK) {
 		Retries++;
 		if (Retries > XHI_MAX_RETRIES) {
 
@@ -209,7 +208,7 @@ u32 HwIcapLowLevelExample(u32 BaseAddress, u32 *IdCode)
 	 * Wait till the Write bit is cleared in the CR register.
 	 */
 	while ((XHwIcap_ReadReg(BaseAddress, XHI_CR_OFFSET)) &
-					XHI_CR_WRITE_MASK);
+	       XHI_CR_WRITE_MASK);
 	/*
 	 * Write to the SIZE register. We want to readback one word.
 	 */
@@ -226,7 +225,7 @@ u32 HwIcapLowLevelExample(u32 BaseAddress, u32 *IdCode)
 	 */
 	Retries = 0;
 	while ((XHwIcap_ReadReg(BaseAddress, XHI_SR_OFFSET) &
-			XHI_SR_DONE_MASK) != XHI_SR_DONE_MASK) {
+		XHI_SR_DONE_MASK) != XHI_SR_DONE_MASK) {
 		Retries++;
 		if (Retries > XHI_MAX_RETRIES) {
 
@@ -242,7 +241,7 @@ u32 HwIcapLowLevelExample(u32 BaseAddress, u32 *IdCode)
 	 * Wait till the Read bit is cleared in the CR register.
 	 */
 	while ((XHwIcap_ReadReg(BaseAddress, XHI_CR_OFFSET)) &
-					XHI_CR_READ_MASK);
+	       XHI_CR_READ_MASK);
 	/*
 	 * Return the IDCODE value
 	 */

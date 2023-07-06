@@ -38,7 +38,7 @@
 * 9.0   bss  02/20/14 Added Kintex 8 and Virtex72000T device Idcodes.
 * 10.0  bss  6/24/14  Removed support for families older than 7 series
 * 11.5  Nava 09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
-*
+* 11.6  Nava 06/28/23 Added support for system device-tree flow.
 * </pre>
 *
 *****************************************************************************/

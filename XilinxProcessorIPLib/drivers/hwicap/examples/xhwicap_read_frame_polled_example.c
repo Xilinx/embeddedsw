@@ -193,10 +193,10 @@ int HwIcapReadFramePolledExample(UINTPTR BaseAddress)
 	 * Print Frame contents
 	 */
 	for (Index = HwIcap.WordsPerFrame;
-		Index < (HwIcap.WordsPerFrame << 1) ; Index++) {
+	     Index < (HwIcap.WordsPerFrame << 1) ; Index++) {
 
 		printf("Frame Word %d -> \t %x \r\n",
-			(Index - HwIcap.WordsPerFrame) , FrameData[Index]);
+		       (Index - HwIcap.WordsPerFrame), FrameData[Index]);
 	}
 
 	printf("\r\nHwIcapReadFramePolledExample Passed Successfully.\r\n\r\n");

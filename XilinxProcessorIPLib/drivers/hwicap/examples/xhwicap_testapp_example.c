@@ -152,7 +152,7 @@ int HwIcapTestAppExample(UINTPTR BaseAddress)
 	}
 
 	Status = XHwIcap_CfgInitialize(&HwIcap, ConfigPtr,
-				ConfigPtr->BaseAddress);
+				       ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
