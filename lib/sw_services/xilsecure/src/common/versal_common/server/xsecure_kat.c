@@ -23,6 +23,7 @@
 *       dc   08/26/2022 Removed initializations of arrays
 * 5.1   yog  05/03/2023 Fixed MISRA C violation of Rule 12.1
 * 5.2   am   06/22/2023 Added KAT error code for failure cases
+*       yog  07/06/2023 Added support for P-256
 *
 * </pre>
 *
@@ -310,7 +311,7 @@ static const u8 D_P384[XSECURE_ECC_P384_SIZE_IN_BYTES] = {
 	0x1D, 0x02, 0x5D, 0x89, 0x74, 0x2A, 0x21, 0x9C
 };
 
-static const u8 K_P384[XSECURE_ECC_P521_SIZE_IN_BYTES] = {
+static const u8 K_P384[XSECURE_ECC_P384_SIZE_IN_BYTES] = {
 	0x00, 0x2E, 0xC0, 0xFA, 0xEB, 0xC1, 0x7E, 0x7F,
 	0xA2, 0xDC, 0xDB, 0xC1, 0x1A, 0x94, 0x04, 0x90,
 	0x22, 0xB2, 0xCD, 0xC2, 0xAF, 0xCE, 0x60, 0x42,
@@ -604,10 +605,11 @@ u8* XSecure_GetKatEccPrivateKey(XSecure_EllipticCrvClass CrvClass) {
 u8* XSecure_GetKatEccEphimeralKey(XSecure_EllipticCrvTyp CrvType) {
 	static u8 *K;
 
+	/* select ephimeral key as per the curve*/
 	if (CrvType == XSECURE_ECC_NIST_P384) {
 		K = (u8*)K_P384;
 	}
-	else if (CrvType == XSECURE_ECC_NIST_P521) {
+	else if ((CrvType == XSECURE_ECC_NIST_P521) || (CrvType == XSECURE_ECC_NIST_P256)) {
 		K = (u8*)K_P521;
 	}
 	else {
@@ -1354,11 +1356,15 @@ int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_El
 	u8 *K = XSecure_GetKatEccEphimeralKey(Curvetype);
 	u8 Size = 0U;
 
+	/* Get size as per the curve type*/
 	if (Curvetype == XSECURE_ECC_NIST_P384) {
 		Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
 	}
 	else if (Curvetype == XSECURE_ECC_NIST_P521) {
 		Size = XSECURE_ECC_P521_SIZE_IN_BYTES;
+	}
+	else if (Curvetype == XSECURE_ECC_NIST_P256) {
+		Size = XSECURE_ECC_P256_SIZE_IN_BYTES;
 	}
 	else {
 		Status = (int)XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR;
@@ -1370,6 +1376,7 @@ int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_El
 	GeneratedSignAddr.SignR = (u64)(UINTPTR)&Sign[0U];
 	GeneratedSignAddr.SignS = (u64)(UINTPTR)&Sign[Size];
 
+	/*Generate signature for given Hash and curve type*/
 	Status = XSecure_EllipticGenerateSignature_64Bit(Curvetype, &HashInfo,
 				DAddr, (u64)(UINTPTR)K, &GeneratedSignAddr);
 	if (Status != XST_SUCCESS) {
@@ -1378,6 +1385,7 @@ int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_El
 	}
 
 	Status = XST_FAILURE;
+	/*Verify the signature*/
 	Status = XSecure_EllipticVerifySign_64Bit(Curvetype, &HashInfo, PubKeyAddr, &GeneratedSignAddr);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_ELLIPTIC_KAT_64BIT_SIGN_VERIFY_ERROR;

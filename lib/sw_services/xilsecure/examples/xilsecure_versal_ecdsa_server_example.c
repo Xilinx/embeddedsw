@@ -44,7 +44,6 @@
 /************************** Constant Definitions *****************************/
 #define TEST_NIST_P384
 #define TEST_NIST_P521
-#define TEST_NIST_P256
 
 /************************** Function Prototypes ******************************/
 static void XSecure_ShowData(const u8* Data, u32 Len);
@@ -54,7 +53,7 @@ static int XSecure_TestP384();
 #ifdef TEST_NIST_P521
 static int XSecure_TestP521();
 #endif
-#ifdef TEST_NIST_P256
+#ifdef ECC_SUPPORT_NIST_P256
 static int XSecure_TestP256();
 #endif
 
@@ -95,7 +94,7 @@ static int XSecure_TestP256();
 	}
 #endif
 
-#ifdef TEST_NIST_P256
+#ifdef ECC_SUPPORT_NIST_P256
 	xil_printf("Test P-256 curve started \r\n");
 	Status = XSecure_TestP256();
 	if (Status != XST_SUCCESS) {
@@ -296,7 +295,7 @@ END:
 }
 #endif
 
-#ifdef TEST_NIST_P256
+#ifdef ECC_SUPPORT_NIST_P256
 int XSecure_TestP256()
 {
 	int Status = XST_FAILURE;

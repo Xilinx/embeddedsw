@@ -162,6 +162,9 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 					KeyAddr->Qy);
 		}
 	}
+	else{
+		Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	}
 
 END:
 	ClearStatus = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
@@ -323,6 +326,9 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 			Status = XST_SUCCESS;
 		}
 	}
+	else{
+		Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	}
 
 END:
 	/* Zeroize local key copy */
@@ -477,6 +483,9 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 		else {
 			Status = XST_SUCCESS;
 		}
+	}
+	else{
+		Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	}
 
 END:
@@ -651,6 +660,9 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 		else {
 			Status = XST_SUCCESS;
 		}
+	}
+	else{
+		Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	}
 
 END:
