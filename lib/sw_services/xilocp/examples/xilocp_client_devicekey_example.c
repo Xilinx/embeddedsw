@@ -90,6 +90,7 @@ static void XOcp_PrintData(const u8 *Data, u32 size);
 static int XOcp_AttestationExample(XOcp_ClientInstance *OcpClientInstance);
 static int XOcp_GetX509DevIK(XOcp_ClientInstance *OcpClientInsPtr);
 static int XOcp_GetX509DevAK(XOcp_ClientInstance *OcpClientInsPtr);
+static int XOcp_GetX509DevIKCSR(XOcp_ClientInstance *OcpClientInsPtr);
 /************************** Variable Definitions *****************************/
 #if defined (__GNUC__)
 static u8 Signature[XOCP_ECC_SIGN_TOTAL_LEN] __attribute__ ((section (".data.Signature")));
@@ -155,6 +156,11 @@ int main(void)
 	}
 	/* DEVAK X.509 certificate generate */
 	Status = XOcp_GetX509DevAK(&OcpClientInstance);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	/* Generate DevIk CSR */
+	Status = XOcp_GetX509DevIKCSR(&OcpClientInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -242,6 +248,47 @@ static int XOcp_GetX509DevAK(XOcp_ClientInstance *OcpClientInsPtr)
 						ActualCertSize);
 		XOcp_PrintData((u8 *)X509Cert, ActualCertSize);
 		xil_printf("\n\rSuccessfully generated  DEV AK X509 certificate\n\r");
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function get self signed Certificate signing Request for DevIK
+*
+* @param	OcpClientInsPtr pointer to the OCP client instance.
+*
+* @return
+*          - XST_SUCCESS - On success
+*          - Errorcode - On failure
+*
+******************************************************************************/
+static int XOcp_GetX509DevIKCSR(XOcp_ClientInstance *OcpClientInsPtr)
+{
+	int Status = XST_FAILURE;
+
+	DataX509.DevKeySel = XOCP_DEVIK;
+	DataX509.CertAddr = (u64)(UINTPTR)X509Cert;
+	DataX509.CertSize = XOCP_X509_CERT_BUF_SIZE;
+	DataX509.ActualLenAddr = (u64)(UINTPTR)&ActualCertSize;
+	DataX509.IsCsr = TRUE;
+
+#ifndef XOCP_CACHE_DISABLE
+	Xil_DCacheInvalidateRange((UINTPTR)&DataX509, sizeof(DataX509));
+	Xil_DCacheInvalidateRange((UINTPTR)X509Cert, XOCP_X509_CERT_BUF_SIZE);
+	Xil_DCacheInvalidateRange((UINTPTR)&ActualCertSize, sizeof(ActualCertSize));
+#endif
+
+	Status = XOcp_GetX509Cert(OcpClientInsPtr, (u64)(UINTPTR)&DataX509);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Generation of DEV IK CSR failed\n\r");
+	}
+	else {
+		xil_printf("DEV IK CSR of length %d bytes \n\r",
+							ActualCertSize);
+		XOcp_PrintData((u8 *)X509Cert, ActualCertSize);
+		xil_printf("\n\rSuccessfully generated  DEV IK CSR\n\r");
 	}
 
 	return Status;

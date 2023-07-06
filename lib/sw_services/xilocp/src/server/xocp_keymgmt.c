@@ -490,7 +490,13 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 				(u8 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
 		CertConfig.AppCfg.IssuerPrvtKey = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
 		CertConfig.AppCfg.IssuerPublicKey = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
-		CertConfig.AppCfg.FwHash = (u8 *)XOCP_PMC_GLOBAL_PMC_FW_AUTH_HASH_0;
+		if (XOcp_GetX509CertPtr->IsCsr != (u8)TRUE) {
+			CertConfig.AppCfg.IsCsr = (u8)FALSE;
+			CertConfig.AppCfg.FwHash = (u8 *)XOCP_PMC_GLOBAL_PMC_FW_AUTH_HASH_0;
+		}
+		else {
+			CertConfig.AppCfg.IsCsr = (u8)TRUE;
+		}
 	}
 	else {
 		DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
