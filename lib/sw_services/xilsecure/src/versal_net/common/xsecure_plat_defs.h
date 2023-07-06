@@ -59,6 +59,7 @@ extern "C" {
 #define XSECURE_PKI_NODE_ID		(0xC410089U) /**< PKI node id*/
 
 #define XSECURE_WORD_LEN		(4U) /**< Word length */
+#define XSECURE_ADDR_HIGH_SHIFT		(32U) /**< Shift for getting higher address*/
 
 /************************** Variable Definitions *****************************/
 
@@ -90,7 +91,8 @@ typedef enum {
 	XSECURE_API_TRNG_GENERATE,		/**< 22U */
 	XSECURE_API_AES_PERFORM_OPERATION, /**< 23U */
 	XSECURE_API_UPDATE_CRYPTO_STATUS,  /**< 24U */
-	XSECURE_API_MAX,			/**< 25U */
+	XSECURE_API_GEN_SHARED_SECRET,		/**< 25U */
+	XSECURE_API_MAX,			/**< 26U */
 } XSecure_ApiId;
 
 /**< XilSecure KAT ids */
