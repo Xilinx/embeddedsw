@@ -47,6 +47,7 @@
 #include "xsecure_rsa_ipihandler.h"
 #include "xsecure_sha_ipihandler.h"
 #include "xsecure_trng_ipihandler.h"
+#include "xsecure_plat_elliptic_ipihandler.h"
 #include "xsecure_plat_kat_ipihandler.h"
 #include "xsecure_plat_ipihandler.h"
 #include "xsecure_cmd.h"
@@ -134,6 +135,7 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_SIGN):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VALIDATE_KEY):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
+	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
 #endif
 	case XSECURE_API(XSECURE_API_AES_INIT):
 	case XSECURE_API(XSECURE_API_AES_OP_INIT):
@@ -223,6 +225,11 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_UPDATE_CRYPTO_STATUS):
 		Status = XSecure_PlatIpiHandler(Cmd);
 		break;
+#ifndef PLM_ECDSA_EXCLUDE
+	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
+		Status = XSecure_PlatEllipticIpiHandler(Cmd);
+		break;
+#endif
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
