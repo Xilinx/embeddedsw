@@ -85,7 +85,15 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 		XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask);
 #endif /* XPLMI_IPI_DEVICE_ID */
 		XPlmi_LpdInit();
-		Status = XST_SUCCESS;
+		/* Call LibPM hook */
+		Status = XPm_HookAfterPlmCdo();
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
+		Status = XPmUpdate_RestoreAllNodes();
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
 	}
 	else {
 		/*
@@ -96,9 +104,11 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-
-	/* Call LibPM hook */
+		/* Call LibPM hook */
 		Status = XPm_HookAfterPlmCdo();
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
 	}
 
 END:
