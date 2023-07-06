@@ -129,8 +129,10 @@ extern "C" {
 #include "sleep.h"
 #endif
 
+#ifndef SDT
 #ifdef __MICROBLAZE__
 #include "microblaze_sleep.h"
+#endif
 #endif
 #include "xil_cache.h"
 
