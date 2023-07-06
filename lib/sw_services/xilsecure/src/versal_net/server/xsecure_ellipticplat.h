@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2023, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -57,6 +57,8 @@ int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 	u32 EphemeralKeyAddr);
 int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
 		const u8* Hash, u32 HashLen, u8 *PrvtKey, u8* Signature);
+int XSecure_PerformEcdh(XSecure_EllipticCrvTyp CrvType, u64 PrvtKeyAddr, u64 PubKeyAddr,
+	u64 SharedSecretAddr);
 
 #endif
 

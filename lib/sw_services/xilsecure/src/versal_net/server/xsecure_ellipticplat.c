@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2023, Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -315,4 +315,38 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This is a wrapper function which calls the IPCores API to perform ECDH and
+ * 		generate shared secret.
+ *
+ * @param	CrvType - Curve Type of the keys used to generate shared secret
+ * @param	PrvtKeyAddr - 64-bit address of the private key
+ * @param	PubKeyAddr - 64-bit address of public key
+ * @param	SharedSecretAddr - 64-bit address of buffer for storing shared secret
+ *
+ * @return
+ *		 - XST_SUCCESS  On success
+ *		 - Errorcode  On failure
+ *
+ * @note	Shared secret is calculated by performing scalar multiplication
+ * 		on public key and private key provided as input.
+
+ ******************************************************************************/
+int XSecure_PerformEcdh(XSecure_EllipticCrvTyp CrvType, u64 PrvtKeyAddr, u64 PubKeyAddr,
+	u64 SharedSecretAddr)
+{
+	int Status = XST_FAILURE;
+
+	(void)CrvType;
+	(void)PrvtKeyAddr;
+	(void)PubKeyAddr;
+	(void)SharedSecretAddr;
+
+	/**
+	 * Call IPCores API to calculate shared secret
+	 */
+
+	return Status;
+}
 #endif
