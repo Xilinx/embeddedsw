@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +9,9 @@
 
 #include "xpm_mem.h"
 #include "xpm_powerdomain.h"
+#ifdef VERSAL_NET
+#include "xpm_pldevice_plat.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {

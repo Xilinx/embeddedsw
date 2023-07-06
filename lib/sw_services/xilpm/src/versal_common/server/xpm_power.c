@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -441,8 +442,12 @@ XStatus XPmPower_Init(XPm_Power *Power,
 		Status = XST_DEVICE_BUSY;
 		goto done;
 	}
-
+#ifdef VERSAL_NET
+	XPmNode_Init(&Power->Node, Id, (u8)XPM_POWER_STATE_OFF, BaseAddress, XPmPower_DoSaveRestore);
+#else
 	XPmNode_Init(&Power->Node, Id, (u8)XPM_POWER_STATE_OFF, BaseAddress);
+
+#endif
 
 	Power->Parent = Parent;
 	Power->HandleEvent = PowerEvent;

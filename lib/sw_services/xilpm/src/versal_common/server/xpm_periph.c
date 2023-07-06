@@ -72,6 +72,9 @@ XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
 	Periph->GicProxyMask = GicProxyMask;
 	Periph->GicProxyGroup = GicProxyGroup;
 
+#ifdef VERSAL_NET
+	Periph->Device.Node.SaveRestoreHandler = XPmPeriph_DoSaveRestore;
+#endif
 done:
 	return Status;
 }

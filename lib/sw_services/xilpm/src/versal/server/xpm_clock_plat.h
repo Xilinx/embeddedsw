@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,9 @@ extern "C" {
 			((idx) == (u32)XPM_NODEIDX_CLK_CPM_DMA_ALT_REF) ||	\
 			((idx) == (u32)XPM_NODEIDX_CLK_CPM_AUX2_REF))
 #define CLK_DUMMY_PARENT		(-2)
+
+typedef struct XPm_ClockNode XPm_ClockNode;
+typedef struct XPm_ClockHandle XPm_ClockHandle;
 
 void XPmClock_SetPlClockAsReadOnly(void);
 

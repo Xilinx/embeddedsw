@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,8 +61,6 @@ typedef struct XPm_ClkTopology {
 	u16 MuxSources[MAX_MUX_PARENTS]; /**< Clock index of mux sources */
 }XPm_ClkTopology;
 
-typedef struct XPm_ClockNode XPm_ClockNode;
-typedef struct XPm_ClockHandle XPm_ClockHandle;
 
 /**
  * The clock class.	 This is the base class for all the clocks.
