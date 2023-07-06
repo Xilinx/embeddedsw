@@ -35,8 +35,7 @@
 
 /************************** Constant Definitions *****************************/
 
-XTrafGen_Config XTrafGen_ConfigTable[] =
-{
+XTrafGen_Config XTrafGen_ConfigTable[] = {
 	{
 		XPAR_XTRAFGEN_0_DEVICE_ID,
 		XPAR_XTRAFGEN_0_BASEADDR,

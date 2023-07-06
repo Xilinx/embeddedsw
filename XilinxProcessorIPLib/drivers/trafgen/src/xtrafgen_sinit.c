@@ -75,7 +75,7 @@ XTrafGen_Config *XTrafGen_LookupConfig(UINTPTR BaseAddress)
 
 	for (Index = 0; XTrafGen_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XTrafGen_ConfigTable[Index].BaseAddress == BaseAddress) ||
-                    !BaseAddress) {
+		    !BaseAddress) {
 			CfgPtr = &XTrafGen_ConfigTable[Index];
 			break;
 		}

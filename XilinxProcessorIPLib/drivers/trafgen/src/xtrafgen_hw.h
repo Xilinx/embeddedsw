@@ -25,9 +25,9 @@
 * 1.00a srt  1/12/13  First release
 * 1.01a adk  03/09/13 Updated Driver to Support Static and Streaming Mode
 * 2.00a adk  16/09/13 Fixed CR:737291
-* 2.01a adk  21/10/13 Fixed CR:740522 Updated the MasterRam offset as per latest 
-*		      IP.This driver is valid only for IP(v2.0) onwards. The 
-*		      XTG_MASTER_RAM_OFFSET has been changed from 
+* 2.01a adk  21/10/13 Fixed CR:740522 Updated the MasterRam offset as per latest
+*		      IP.This driver is valid only for IP(v2.0) onwards. The
+*		      XTG_MASTER_RAM_OFFSET has been changed from
 *		      0x10000 to 0xc000.
 * 2.01a adk  15/11/13 Fixed CR:760808 Added Mask for the New bit field added
 *		      (XTG_MCNTL_LOOPEN_MASK).
@@ -67,12 +67,12 @@ extern "C" {
 #define XTG_STREAM_CNTL_OFFSET	0x30	/**< Streaming Control */
 #define XTG_STREAM_CFG_OFFSET	0x34    /**< Streaming Config */
 #define XTG_STREAM_TL_OFFSET	0x38    /**< Streaming Transfer Length */
- 
- /** 
-  *  Static Mode Register Descrptions 
-  */
- #define XTG_STATIC_CNTL_OFFSET	0x60	/**< Static Control */
- #define XTG_STATIC_LEN_OFFSET	0x64	/**< Static Length */
+
+/**
+ *  Static Mode Register Descrptions
+ */
+#define XTG_STATIC_CNTL_OFFSET	0x60	/**< Static Control */
+#define XTG_STATIC_LEN_OFFSET	0x64	/**< Static Length */
 
 /*@}*/
 
@@ -106,20 +106,20 @@ extern "C" {
  * @{
  */
 #define XTG_SCNTL_BLKRD_MASK	0x00080000	/**< Enable  
-						Block Read */	
+						Block Read */
 #define XTG_SCNTL_DISEXCL_MASK	0x00040000	/**< Disable  
-						Exclusive Access */	
+						Exclusive Access */
 #define XTG_SCNTL_WORDR_MASK	0x00020000	/**< Write Response  
-						Order Enable */	
+						Order Enable */
 #define XTG_SCNTL_RORDR_MASK	0x00010000	/**< Read Response  
-						Order Enable */	
+						Order Enable */
 #define XTG_SCNTL_ERREN_MASK	0x00008000	/**< Slv Error 
-						Interrupt Enable */	
+						Interrupt Enable */
 
 /*@}*/
 
 /** @name Error bitmasks
- *  These bits are shared with the XTG_ERR_STS_OFFSET and 
+ *  These bits are shared with the XTG_ERR_STS_OFFSET and
  *  XTG_ERR_EN_OFFSET register.
  * @{
  */
@@ -192,7 +192,7 @@ extern "C" {
 
 #define XTG_STREAM_CNTL_TD_SHIFT		1		/**< Transfer Done Shift */
 #define XTG_STREAM_CNTL_TD_MASK			0x00000002	/**< Transfer Done Mask */
- 
+
 #define XTG_STREAM_CNTL_STEN_MASK		0x00000001	/**< Streaming Enable Mask */
 #define XTG_STREAM_CNTL_RESET_MASK		0x00000000	/**< Streaming Disable Mask */
 /*@}*/
@@ -202,31 +202,31 @@ extern "C" {
  *  These bits are associated with the XTG_STR_CFG_OFFSET register.
  * @{
  */
- #define XTG_STREAM_CFG_PDLY_SHIFT		16	 	/**< Programmable Delay Shift */
- #define XTG_STREAM_CFG_PDLY_MASK		0xFFFF0000	/**< Programmable Delay Mask */
- 
- #define XTG_STREAM_CFG_TDEST_SHIFT		8		/**< TDEST PORT Shift */
- #define XTG_STREAM_CFG_TDEST_MASK		0x0000FF00	/**< TDEST PORT Mask */
- 
- #define XTG_STREAM_CFG_RANDLY_SHIFT		1		/**< Random Delay Shift */
- #define XTG_STREAM_CFG_RANDLY_MASK		0x00000002	/**< Random Delay Mask */
- 
- #define XTG_STREAM_CFG_RANDL_MASK		0x00000001	/**< Random Length Mask */
- /*@}*/
- 
- 
- /*@}*/
+#define XTG_STREAM_CFG_PDLY_SHIFT		16	 	/**< Programmable Delay Shift */
+#define XTG_STREAM_CFG_PDLY_MASK		0xFFFF0000	/**< Programmable Delay Mask */
+
+#define XTG_STREAM_CFG_TDEST_SHIFT		8		/**< TDEST PORT Shift */
+#define XTG_STREAM_CFG_TDEST_MASK		0x0000FF00	/**< TDEST PORT Mask */
+
+#define XTG_STREAM_CFG_RANDLY_SHIFT		1		/**< Random Delay Shift */
+#define XTG_STREAM_CFG_RANDLY_MASK		0x00000002	/**< Random Delay Mask */
+
+#define XTG_STREAM_CFG_RANDL_MASK		0x00000001	/**< Random Length Mask */
+/*@}*/
+
+
+/*@}*/
 /** @name Streaming Transfer Length Register bit definitions.
  *  These bits are associated with the XTG_STR_TL_OFFSET register.
  * @{
  */
- #define XTG_STREAM_TL_TCNT_SHIFT		16	 	/**< Transfer Count Shift */
- #define XTG_STREAM_TL_TCNT_MASK		0xFFFF0000	/**< Transfer Count Mask */
- 
- #define XTG_STREAM_TL_TLEN_MASK		0x0000FFFF	/**< Transfer Length Mask */
- /*@}*/
- 
-  /*@}*/
+#define XTG_STREAM_TL_TCNT_SHIFT		16	 	/**< Transfer Count Shift */
+#define XTG_STREAM_TL_TCNT_MASK		0xFFFF0000	/**< Transfer Count Mask */
+
+#define XTG_STREAM_TL_TLEN_MASK		0x0000FFFF	/**< Transfer Length Mask */
+/*@}*/
+
+/*@}*/
 /** @name Static Control Register bit definitions.
  *  These bits are associated with the XTG_STATIC_CNTL_OFFSET register.
  * @{
@@ -236,18 +236,18 @@ extern "C" {
 
 #define XTG_STATIC_CNTL_TD_SHIFT		1		/**< Transfer Done Shift */
 #define XTG_STATIC_CNTL_TD_MASK			0x00000002	/**< Transfer Done Mask */
- 
+
 #define XTG_STATIC_CNTL_STEN_MASK		0x00000001	/**< Static enable Mask */
 #define XTG_STATIC_CNTL_RESET_MASK		0x00000000	/**< Static Disable Mask */
- /*@}*/
- 
-  /*@}*/
+/*@}*/
+
+/*@}*/
 /** @name Static Length Register bit definitions.
  *  These bits are associated with the XTG_STATIC_LEN_OFFSET register.
  * @{
  */
- #define XTG_STATIC_LEN_BLEN_MASK		0x000000FF	 /**< Burst length Mask */
- /*@}*/
+#define XTG_STATIC_LEN_BLEN_MASK		0x000000FF	 /**< Burst length Mask */
+/*@}*/
 
 /** @name Axi Traffic Generator Command Entry field mask/shifts
  *  @{
@@ -260,7 +260,7 @@ extern "C" {
 #define XTG_ID_MASK		0x3F		/**< Driven to a*_id line */
 #define XTG_PROT_MASK		0x7		/**< Driven to a*_prot line */
 #define XTG_LAST_ADDR_MASK	0x7		/**< Last address */
-#define XTG_VALID_CMD_MASK	0x1		/**< Valid Command */	
+#define XTG_VALID_CMD_MASK	0x1		/**< Valid Command */
 #define XTG_MSTRAM_INDEX_MASK	0x1FFF		/**< Master RAM Index */
 #define XTG_OTHER_DEPEND_MASK	0x1FF		/**< Other depend Command no */
 #define XTG_MY_DEPEND_MASK	0x1FF		/**< My depend command no */
@@ -305,14 +305,14 @@ extern "C" {
 #define XTG_PARAM_ADDRRANGE_SHIFT	20	/**< Address Range */
 
 /* Parameter Entry field mask values */
-#define XTG_PARAM_ADDRMODE_MASK		0x3	/**< Address mode */	
+#define XTG_PARAM_ADDRMODE_MASK		0x3	/**< Address mode */
 #define XTG_PARAM_INTERVALMODE_MASK	0x3	/**< Interval mode */
 #define XTG_PARAM_IDMODE_MASK		0x1	/**< Id mode */
 #define XTG_PARAM_OP_MASK		0x7	/**< Opcode */
 
 /* PARAM RAM Opcode mask values */
 #define XTG_PARAM_COUNT_MASK		0xFFFFFF/**< Repeat/Delay count */
-#define XTG_PARAM_DELAYRANGE_MASK	0xFF	/**< Delay Range */ 
+#define XTG_PARAM_DELAYRANGE_MASK	0xFF	/**< Delay Range */
 #define XTG_PARAM_DELAY_MASK		0xFFF	/**< FIXED RPT Delay count */
 #define XTG_PARAM_ADDRRANGE_MASK	0xF	/**< Address Range */
 
@@ -320,7 +320,7 @@ extern "C" {
 #define XTG_PARAM_OP_NOP		0	/**< NOP mode */
 #define XTG_PARAM_OP_RPT		1	/**< Repeat mode */
 #define XTG_PARAM_OP_DELAY		2 	/**< Delay mode */
-#define XTG_PARAM_OP_FIXEDRPT		3	/**< Fixed Repeat Delay */ 
+#define XTG_PARAM_OP_FIXEDRPT		3	/**< Fixed Repeat Delay */
 
 /* PARAM RAM Address mode values */
 #define XTG_PARAM_OP_ADDRMODE_CONST	0	/**< Constant Addr mode */
@@ -328,7 +328,7 @@ extern "C" {
 #define XTG_PARAM_OP_ADDRMODE_RAND	2 	/**< Random Addr mode */
 
 /* PARAM RAM Interval mode values */
-#define XTG_PARAMOP_INTERVALMODE_CONST	0	/**< Constant Interval mode */	
+#define XTG_PARAMOP_INTERVALMODE_CONST	0	/**< Constant Interval mode */
 #define XTG_PARAMOP_INTERVALMODE_RAND	1	/**< Random Interval mode */
 
 /*@}*/
@@ -395,7 +395,7 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* XTrafGen_WriteParamRam, writes <i>Data</i> to the Parameter RAM 
+* XTrafGen_WriteParamRam, writes <i>Data</i> to the Parameter RAM
 * specified by <i>Offset</i>.
 *
 * @param	BaseAddress is the base address of the Axi TrafGen device.
