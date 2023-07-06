@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,9 @@
 #include "xocp_init.h"
 #include "xplmi_dma.h"
 #include "xplmi_hw.h"
+#include "xsecure_defs.h"
+#include "xsecure_ellipticplat.h"
+#include "xsecure_elliptic.h"
 
 /************************** Function Prototypes *****************************/
 static int XOcp_ExtendHwPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHigh, u32 Size);
@@ -55,7 +58,10 @@ static int XOcp_ExtendSwPcrIpi(u32 ExtParamsAddrLow, u32 ExtParamsAddrHigh);
 static int XOcp_GetSwPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PcrBufSize);
 static int XOcp_GetSwPcrLogIpi(u32 AddrLow, u32 AddrHigh);
 static int XOcp_GetSwPcrDataIpi(u32 AddrLow, u32 AddrHigh);
-
+#ifndef PLM_ECDSA_EXCLUDE
+static int XOcp_GenSharedSecretwithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, u32 PubKeyAddrHigh,
+	u32 SharedSecretAddrLow, u32 SharedSecretAddrHigh);
+#endif
 /*************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -114,6 +120,12 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_GET_SWPCRDATA):
 			Status = XOcp_GetSwPcrDataIpi(Pload[0], Pload[1]);
 			break;
+#ifndef PLM_ECDSA_EXCLUDE
+		case XOCP_API(XOCP_API_GEN_SHARED_SECRET):
+			Status = XOcp_GenSharedSecretwithDevAkIpi(Cmd->SubsystemId, Pload[0], Pload[1],
+				Pload[2], Pload[3]);
+			break;
+#endif
 		default:
 			XOcp_Printf(DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 			Status = XST_INVALID_PARAM;
@@ -420,4 +432,56 @@ static int XOcp_GetSwPcrDataIpi(u32 AddrLow, u32 AddrHigh)
 
 	return Status;
 }
+
+#ifndef PLM_ECDSA_EXCLUDE
+/*****************************************************************************/
+/**
+ * @brief	This function handler calls XSecure_PerformEcdh server API to
+ * 		generate the shared secret using ECDH.
+ *
+ * @param	SubSystemId - ID of the subsystem from where the command is
+ * 			originating
+ * @param	PubKeyAddrLow - Lower 32 bit address of the Public Key buffer
+ * @param	PubKeyAddrHigh - Upper 32 bit address of the Public Key buffer
+ * @param	SharedSecretAddrLow - Lower 32 bit address of the Shared Secret buffer
+ * @param	SharedSecretAddrHigh - Upper 32 bit address of the Shared Secret buffer
+ *
+ * @return
+ *		 - XST_SUCCESS  On Success
+ *		 - Errorcode  On failure
+
+ ******************************************************************************/
+static int XOcp_GenSharedSecretwithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, u32 PubKeyAddrHigh,
+	u32 SharedSecretAddrLow, u32 SharedSecretAddrHigh)
+{
+	volatile int Status = XST_FAILURE;
+	u64 PubKeyAddr = ((u64)PubKeyAddrHigh << XOCP_ADDR_HIGH_SHIFT) | (u64)PubKeyAddrLow;
+	u64 SharedSecretAddr = ((u64)SharedSecretAddrHigh << XOCP_ADDR_HIGH_SHIFT) | (u64)SharedSecretAddrLow;
+	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
+	u32 DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
+	u64 PrvtKeyAddr;
+	u8 PubKeyTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
+	u8 SharedSecretTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
+
+	DevAkData = DevAkData + DevAkIndex;
+
+	if (DevAkData->IsDevAkKeyReady == TRUE) {
+		PrvtKeyAddr = (u64)(UINTPTR)DevAkData->EccPrvtKey;
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES * 2U,
+			(u64)(UINTPTR)PubKeyTmp, PubKeyAddr);
+
+		Status = XSecure_PerformEcdh(XSECURE_ECC_NIST_P384, PrvtKeyAddr,
+			(u64)(UINTPTR)PubKeyTmp, (u64)(UINTPTR)SharedSecretTmp);
+
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES * 2U, SharedSecretAddr,
+		(u64)(UINTPTR)SharedSecretTmp);
+	}
+	else {
+		Status = XOCP_ERR_DEVAK_NOT_READY;
+	}
+
+	return Status;
+}
+#endif
+
 #endif /* PLM_OCP */
