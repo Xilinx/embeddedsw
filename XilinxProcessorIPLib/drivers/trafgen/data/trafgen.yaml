@@ -1,0 +1,54 @@
+# SPDX-License-Identifier: MIT
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: GPL-2.0
+%YAML 1.2
+---
+title: Bindings for Trafgen controller
+
+maintainers:
+  - Shubhrajyoti Datta <shubhrajyoti.datta@xilinx.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-traffic-gen
+          - xlnx,axi-traffic-gen-3.0
+  reg:
+    description: Standard reg property
+  xlnx,atg-mode:
+    description: ATG mode
+  xlnx,atg-mode-l2:
+    description: ATG mode l2
+  xlnx,axis-mode:
+    description: Axis mode
+  xlnx,master-axi-width:
+    description: Address width
+
+config:
+    - XTrafGen_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,atg-mode
+    - xlnx,atg-mode-l2
+    - xlnx,axis-mode
+    - xlnx,master-axi-width
+    - interrupts: 2
+    - interrupt-parent
+
+examples:
+    xtrafgen_interrupt_example.c:
+        - interrupts
+    xtrafgen_polling_example.c:
+        - reg
+    xtrafgen_static_mode_example.c:
+        - reg
+    xtrafgen_master_streaming_example.c:
+        - reg
+...

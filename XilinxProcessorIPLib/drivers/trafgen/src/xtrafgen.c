@@ -104,12 +104,19 @@ int XTrafGen_CfgInitialize(XTrafGen * InstancePtr,
 	/* Setup the instance */
 	memset(InstancePtr, 0, sizeof(XTrafGen));
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
+#ifndef SDT
 	InstancePtr->Config.DeviceId = Config->DeviceId;
+#endif
 	InstancePtr->Config.AddressWidth = Config->AddressWidth;
-		
-	if((Config->BusType == 1) && (Config->Mode == 1 || 
-						Config->ModeType == 2)) {
-	
+
+#ifdef SDT
+	InstancePtr->Config.IntId[0] = Config->IntId[0];
+	InstancePtr->Config.IntId[1] = Config->IntId[1];
+	InstancePtr->Config.IntrParent = Config->IntrParent;
+#endif
+	if ((Config->BusType == 1) && (Config->Mode == 1 ||
+				       Config->ModeType == 2)) {
+
 		ConfigStatus = XTrafGen_ReadConfigStatus(InstancePtr);
 
 		/* Is it operating in Full Mode */
