@@ -51,7 +51,9 @@ extern "C" {
  * @{
  */
 /**< Macros to enable /disable support of NIST P-384 and NIST P-521 curve */
+#ifdef ECC_SUPPORT_NIST_P256
 #define XSECURE_ECC_SUPPORT_NIST_P256
+#endif
 #define XSECURE_ECC_SUPPORT_NIST_P384
 #define XSECURE_ECC_SUPPORT_NIST_P521
 /** @} */

@@ -85,7 +85,6 @@
 /************************** Constant Definitions *****************************/
 #define TEST_NIST_P384
 #define TEST_NIST_P521
-#define TEST_NIST_P256
 
 #define XSECURE_ECC_P384_SIZE_IN_BYTES	(48U)
 #define XSECURE_ECC_P521_SIZE_IN_BYTES	(66U)
@@ -175,7 +174,7 @@ static const u8 K_P521[] __attribute__ ((section (".data.K_P521"))) = {
 };
 #endif
 
-#ifdef TEST_NIST_P256
+#ifdef ECC_SUPPORT_NIST_P256
 static const u8 Hash_P256[] __attribute__ ((section (".data.Hash_P256"))) = {
 		0x71U, 0x84U, 0x79U, 0xC9U, 0x84U, 0x28U, 0x7CU, 0xAAU,
 		0x5CU, 0x0BU, 0xEDU, 0xEEU, 0xEDU, 0xFFU, 0x4BU, 0x29U,
@@ -206,7 +205,7 @@ static int XSecure_TestP384(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R);
 #ifdef TEST_NIST_P521
 static int XSecure_TestP521(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R);
 #endif
-#ifdef TEST_NIST_P256
+#ifdef ECC_SUPPORT_NIST_P256
 static int XSecure_TestP256(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R);
 #endif
 
@@ -288,7 +287,7 @@ int main()
 	}
 #endif
 
-#ifdef TEST_NIST_P256
+#ifdef ECC_SUPPORT_NIST_P256
 	xil_printf("Test P-256 curve started \r\n");
 	Q = &SharedMem[0U];
 	R = &Q[P256_KEY_SIZE];
@@ -505,7 +504,7 @@ END:
 *		- XST_FAILURE if the test for elliptic curve P-256 failed.
 *
 ******************************************************************************/
-#ifdef TEST_NIST_P256
+#ifdef ECC_SUPPORT_NIST_P256
 int XSecure_TestP256(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R)
 {
 	int Status = XST_FAILURE;

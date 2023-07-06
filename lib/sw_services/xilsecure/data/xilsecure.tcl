@@ -268,6 +268,17 @@ proc xgen_opts_file {libhandle} {
 
 		close $file_handle
 	}
+	# Get ecc_support_nist_p256 value set by user, by default it is FALSE
+        set value [common::get_property CONFIG.ecc_support_nist_p256 $libhandle]
+	if {$value == true} {
+		#Open xparameters.h file
+		set file_handle [hsi::utils::open_include_file "xparameters.h"]
+
+		puts $file_handle "\n/* ECC curve P-256 support */"
+		puts $file_handle "#define ECC_SUPPORT_NIST_P256\n"
+
+		close $file_handle
+        }
 	# Get cache_disable value set by user, by default it is FALSE
 	set value [common::get_property CONFIG.cache_disable $libhandle]
 	if {$value == true} {
