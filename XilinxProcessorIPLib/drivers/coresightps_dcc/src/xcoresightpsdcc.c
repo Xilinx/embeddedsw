@@ -75,13 +75,14 @@ static INLINE u32 XCoresightPs_DccGetStatus(void);
 void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data)
 {
 	(void) BaseAddress;
-	while (XCoresightPs_DccGetStatus() & XCORESIGHTPS_DCC_STATUS_TX)
-	{dsb();}
+	while (XCoresightPs_DccGetStatus() & XCORESIGHTPS_DCC_STATUS_TX) {
+		dsb();
+	}
 #ifdef __aarch64__
 	asm volatile ("msr dbgdtrtx_el0, %0" : : "r" (Data));
 #elif defined (__GNUC__) || defined (__ICCARM__)
 	asm volatile("mcr p14, 0, %0, c0, c5, 0"
-			: : "r" (Data));
+		     : : "r" (Data));
 #else
 	{
 		volatile register u32 Reg __asm("cp14:0:c0:c5:0");
@@ -112,14 +113,15 @@ u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 	u8 Data = 0U;
 	(void) BaseAddress;
 
-	while (!(XCoresightPs_DccGetStatus() & XCORESIGHTPS_DCC_STATUS_RX))
-        {dsb();}
+	while (!(XCoresightPs_DccGetStatus() & XCORESIGHTPS_DCC_STATUS_RX)) {
+		dsb();
+	}
 
 #ifdef __aarch64__
 	asm volatile ("mrs %0, dbgdtrrx_el0" : "=r" (Data));
 #elif defined (__GNUC__) || defined (__ICCARM__)
 	asm volatile("mrc p14, 0, %0, c0, c5, 0"
-			: "=r" (Data));
+		     : "=r" (Data));
 #else
 	{
 		volatile register u32 Reg __asm("cp14:0:c0:c5:0");
@@ -152,7 +154,7 @@ static INLINE u32 XCoresightPs_DccGetStatus(void)
 	asm volatile ("mrs %0, mdccsr_el0" : "=r" (Status));
 #elif defined (__GNUC__) || defined (__ICCARM__)
 	asm volatile("mrc p14, 0, %0, c0, c1, 0"
-			: "=r" (Status) : : "cc");
+		     : "=r" (Status) : : "cc");
 #else
 	{
 		volatile register u32 Reg __asm("cp14:0:c0:c1:0");
@@ -163,11 +165,13 @@ static INLINE u32 XCoresightPs_DccGetStatus(void)
 }
 
 #ifdef XPAR_STDIN_IS_CORESIGHTPS_DCC
-void outbyte(char c) {
+void outbyte(char c)
+{
 	XCoresightPs_DccSendByte(STDOUT_BASEADDRESS, c);
 }
 
-char inbyte(void) {
+char inbyte(void)
+{
 	return XCoresightPs_DccRecvByte(STDIN_BASEADDRESS);
 }
 #endif
