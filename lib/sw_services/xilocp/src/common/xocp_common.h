@@ -174,10 +174,11 @@ typedef struct {
 } XOcp_SwPcrLogReadData;
 
 typedef struct {
-	u64 CertAddr;
-	u64 ActualLenAddr;
-	u32 CertSize;
-	XOcp_DevKey DevKeySel;
+	u64 CertAddr;		/**< Address of Certificate */
+	u64 ActualLenAddr;	/**< Address of Actual Length of certificate */
+	u32 CertSize;		/**< Size of certificate */
+	XOcp_DevKey DevKeySel;	/**< Select Device key - DevIK/ DevAK */
+	u32 IsCsr;		/**< Flag for Certificate Signing Request */
 } XOcp_X509Cert;
 
 typedef struct {

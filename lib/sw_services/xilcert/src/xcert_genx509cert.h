@@ -79,6 +79,7 @@ typedef struct {
 
 typedef struct {
 	u32 IsSelfSigned;	/**< Flag to check if self-signed certificate */
+	u32 IsCsr;		/**< Flag to check if Certificate Signing Request */
 	u8* SubjectPublicKey;	/**< Subject Public Key */
 	u8* IssuerPrvtKey;	/**< Issuer Private Key */
 	u8* IssuerPublicKey;	/**< Issuer Public Key */

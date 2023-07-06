@@ -58,6 +58,9 @@
 #define XCERT_OID_KEY_USAGE_EXTN			"0603551D0F"
 #define XCERT_OID_EKU_EXTN				"0603551D25"
 #define XCERT_OID_EKU_CLIENT_AUTH			"06082B06010505070302"
+#define XCERT_OID_EKU_HW_TYPE				"060B2B06010401823766010C01"
+#define XCERT_OID_BASIC_CONSTRAINT_EXTN			"0603551D13"
+#define XCERT_OID_EXTN_REQUEST				"06092A864886F70D01090E"
 #define XCERT_OID_SHA3_384				"0609608648016503040209"
 /** @} */
 
@@ -128,7 +131,7 @@ static XCert_InfoStore *XCert_GetCertDB(void);
 static u32* XCert_GetNumOfEntriesInUserCfgDB(void);
 static int XCert_IsBufferNonZero(u8* Buffer, int BufferLen);
 static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg);
-static void XCert_GenVersionField(u8* TBSCertBuf, u32 *VersionLen);
+static void XCert_GenVersionField(u8* TBSCertBuf, XCert_Config *Cfg, u32 *VersionLen);
 static void XCert_GenSerialField(u8* TBSCertBuf, u8* Serial, u32 *SerialLen);
 static int XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen);
 static void XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, const u32 IssuerValLen, u32 *IssuerLen);
@@ -150,6 +153,9 @@ static void XCert_UpdateKeyUsageVal(u8* KeyUsageVal, XCert_KeyUsageOption KeyUsa
 static int XCert_GenKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *KeyUsageExtnLen);
 static int XCert_GenExtKeyUsageField(u8* TBSCertBuf,  XCert_Config* Cfg, u32 *EkuLen);
 static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u32 *ExtensionsLen);
+static int XCert_GenBasicConstraintsExtnField(u8* CertReqInfoBuf, u32 *Len);
+static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *ExtensionsLen);
+static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *CertReqInfoLen);
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -431,7 +437,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	u8* Curr = Start;
 	u8* SequenceLenIdx;
 	u8* SequenceValIdx;
-	u32 TBSCertLen = 0U;
+	u32 DataLen = 0U;
 	u32 SignAlgoLen;
 #ifndef PLM_ECDSA_EXCLUDE
 	int HashCmpStatus = XST_FAILURE;
@@ -455,16 +461,18 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	}
 
 	TbsCertStart = Curr;
+	if (Cfg->AppCfg.IsCsr == TRUE) {
+		Status = XCert_GenCertReqInfo(Curr, Cfg, &DataLen);
+	}
+	else {
+		Status = XCert_GenTBSCertificate(Curr, Cfg, &DataLen);
+	}
 
-	/**
-	 * Generate TBS certificate field
-	 */
-	Status = XCert_GenTBSCertificate(Curr, Cfg, &TBSCertLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	else {
-		Curr = Curr + TBSCertLen;
+		Curr = Curr + DataLen;
 	}
 
 	/**
@@ -482,7 +490,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	/**
 	 * Calcualte SHA2 Digest of the TBS certificate
 	 */
-	Status = XSecure_Sha384Digest(TbsCertStart, TBSCertLen, HashTmp);
+	Status = XSecure_Sha384Digest(TbsCertStart, DataLen, HashTmp);
 	if (Status != XST_SUCCESS) {
 		Status = XOCP_ERR_X509_GEN_TBSCERT_DIGEST;
 		goto END;
@@ -591,18 +599,25 @@ END:
  *
  * @note	Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
  *		This field describes the version of the encoded certificate.
- *		XilCert library supports X.509 V3 certificates.
+ *		XilCert library supports X.509 V3 certificates. For Certificate
+ *		Signing Request, the supported version is V1
  *
  ******************************************************************************/
-static void XCert_GenVersionField(u8* TBSCertBuf, u32 *VersionLen)
+static void XCert_GenVersionField(u8* TBSCertBuf, XCert_Config *Cfg, u32 *VersionLen)
 {
 	u8* Curr = TBSCertBuf;
 
 	*(Curr++) = XCERT_ASN1_TAG_INTEGER;
 	*(Curr++) = XCERT_LEN_OF_VALUE_OF_VERSION;
-	*(Curr++) = XCERT_VERSION_VALUE_V3;
 
-	*VersionLen = Curr - TBSCertBuf;
+	if (Cfg->AppCfg.IsCsr != TRUE) {
+		*(Curr++) = XCERT_VERSION_VALUE_V3;
+	}
+	else {
+		*(Curr++) = XCERT_VERSION_VALUE_V1;
+	}
+
+	*VersionLen = (u32)(Curr - TBSCertBuf);
 }
 
 /*****************************************************************************/
@@ -1362,6 +1377,16 @@ static int XCert_GenExtKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Eku
 		Curr = Curr + OidLen;
 	}
 
+	if (Cfg->AppCfg.IsCsr == TRUE) {
+		Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_EKU_HW_TYPE, &OidLen);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		else {
+			Curr = Curr + OidLen;
+		}
+	}
+
 	*EkuSequenceLenIdx = (u8)(Curr - EkuSequenceValIdx);
 	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
 	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
@@ -1491,6 +1516,160 @@ END:
 }
 
 
+/******************************************************************************/
+/**
+ * @brief	This function creates the Basic Constraints extension field
+ *
+ * @param	CertReqInfoBuf is the pointer in the buffer where
+ *		the Basic Constraints extension field shall be added.
+ * @param	Len is the length of the Basic Constraints Extension field.
+ *
+ * @note	This extension shall be part of the CSR only
+ *
+ ******************************************************************************/
+static int XCert_GenBasicConstraintsExtnField(u8* CertReqInfoBuf, u32 *Len)
+{
+	int Status = XST_FAILURE;
+	u8* Curr = CertReqInfoBuf;
+	u8* SequenceLenIdx;
+	u8* SequenceValIdx;
+	u8* OctetStrLenIdx;
+	u8* OctetStrValIdx;
+	u8* BasicConstraintSequenceLenIdx;
+	u8* BasicConstraintSequenceValIdx;
+	u32 OidLen;
+	u32 FieldLen;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	SequenceLenIdx = Curr++;
+	SequenceValIdx = Curr;
+
+	Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_BASIC_CONSTRAINT_EXTN, &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + OidLen;
+	}
+
+	XCert_CreateBoolean(Curr, (u8)TRUE, &FieldLen);
+	Curr = Curr + FieldLen;
+
+	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
+	OctetStrLenIdx = Curr++;
+	OctetStrValIdx = Curr;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	BasicConstraintSequenceLenIdx = Curr++;
+	BasicConstraintSequenceValIdx = Curr;
+
+	XCert_CreateBoolean(Curr, (u8)TRUE, &FieldLen);
+	Curr = Curr + FieldLen;
+
+	*(Curr++) = XCERT_ASN1_TAG_INTEGER;
+	*(Curr++) = XCERT_LEN_OF_VALUE_OF_PATH_LEN_CONSTRAINT;
+	*(Curr++) = XCERT_PATH_LEN_CONSTRAINT_VALUE_0x0;
+
+	*BasicConstraintSequenceLenIdx = (u8)(Curr - BasicConstraintSequenceValIdx);
+	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
+	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
+	*Len = (u32)(Curr - CertReqInfoBuf);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function creates the X.509 v3 extensions field present in
+ * 		TBS Certificate.
+ *
+ * @param	CertReqInfoBuf is the pointer in the Certificate Request Info
+ * 		buffer where extensions field shall be added.
+ * @param	Cfg is structure which includes configuration for the Certificate Request Info
+ * @param	ExtensionsLen is the length of the Extensions field.
+ *
+ ******************************************************************************/
+static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *ExtensionsLen)
+{
+	int Status = XST_FAILURE;
+	u8* Curr = CertReqInfoBuf;
+	u8* SequenceLenIdx;
+	u8* SequenceValIdx;
+	u8* OptionalTagLenIdx;
+	u8* OptionalTagValIdx;
+	u8* ExtnReqSeqLenIdx;
+	u8* ExtnReqSeqValIdx;
+	u8* SetLenIdx;
+	u8* SetValIdx;
+	u32 Len;
+	u32 OidLen;
+
+	*(Curr++) = XCERT_OPTIONAL_PARAM_0_TAG;
+	OptionalTagLenIdx = Curr++;
+	OptionalTagValIdx = Curr;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	ExtnReqSeqLenIdx = Curr++;
+	ExtnReqSeqValIdx = Curr;
+
+	Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_EXTN_REQUEST, &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + OidLen;
+	}
+
+	*(Curr++) = XCERT_ASN1_TAG_SET;
+	SetLenIdx = Curr++;
+	SetValIdx = Curr;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	SequenceLenIdx = Curr++;
+	SequenceValIdx = Curr;
+
+	Status = XCert_GenKeyUsageField(Curr, Cfg, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + Len;
+	}
+
+	Status = XCert_GenExtKeyUsageField(Curr, Cfg, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + Len;
+	}
+
+	Status = XCert_GenUeidExnField(Curr, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + Len;
+	}
+
+	Status = XCert_GenBasicConstraintsExtnField(Curr, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + Len;
+	}
+
+	*SetLenIdx = (u8)(Curr - SetValIdx);
+	*ExtnReqSeqLenIdx = (u8)(Curr - ExtnReqSeqValIdx);
+	*OptionalTagLenIdx = (u8)(Curr - OptionalTagValIdx);
+	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
+	*ExtensionsLen = (u32)(Curr - CertReqInfoBuf);
+
+END:
+	return Status;
+}
 
 /*****************************************************************************/
 /**
@@ -1533,7 +1712,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	/**
 	 * Generate Version field
 	 */
-	XCert_GenVersionField(Curr, &Len);
+	XCert_GenVersionField(Curr, Cfg, &Len);
 	Curr = Curr + Len;
 
 	/**
@@ -1655,6 +1834,80 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function creates the Certification Request Info.
+ *
+ * @param	CertReqInfoBuf is address of the buffer which stores the Certification Request Info
+ * @param	Cfg is structure which includes configuration for the Certification Request Info
+ * @param	CertReqInfoLen is the length of the Certification Request Info
+ *
+ ******************************************************************************/
+static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *CertReqInfoLen)
+{
+	int Status = XST_FAILURE;
+	u8* Start = CertReqInfoBuf;
+	u8* Curr  = Start;
+	u8* SequenceLenIdx;
+	u8* SequenceValIdx;
+	u32 Len;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	SequenceLenIdx = Curr++;
+	SequenceValIdx = Curr;
+
+	/**
+	 * Generate Version field
+	 */
+	XCert_GenVersionField(Curr, Cfg, &Len);
+	Curr = Curr + Len;
+
+	/**
+	 * Generate Subject field
+	 */
+	XCert_GenSubjectField(Curr, Cfg->UserCfg->Subject, Cfg->UserCfg->SubjectLen, &Len);
+	Curr = Curr + Len;
+
+#ifndef PLM_ECDSA_EXCLUDE
+	/**
+	 * Generate Public Key Info field
+	 */
+	Status = XCert_GenPublicKeyInfoField(Curr, Cfg->AppCfg.SubjectPublicKey, &Len);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD;
+		goto END;
+	}
+	else {
+		Curr = Curr + Len;
+	}
+#else
+	Status = XOCP_ECDSA_NOT_ENABLED_ERR;
+	goto END;
+#endif
+
+	Status = XCert_GenCsrExtensions(Curr, Cfg, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + Len;
+	}
+
+	Status =  XCert_UpdateEncodedLength(SequenceLenIdx, (u32)(Curr - SequenceValIdx), SequenceValIdx);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_X509_UPDATE_ENCODED_LEN;
+		goto END;
+	}
+	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+
+	*CertReqInfoLen = (u32)(Curr - Start);
+
+
+END:
+	return Status;
+}
+
 #ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
