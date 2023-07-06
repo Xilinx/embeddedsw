@@ -31,6 +31,11 @@ collect (PROJECT_LIB_HEADERS xstatus.h)
 collect (PROJECT_LIB_SOURCES outbyte.c)
 collect (PROJECT_LIB_SOURCES inbyte.c)
 collect (PROJECT_LIB_HEADERS xmem_config.h)
+if(("${CMAKE_MACHINE}" STREQUAL "Versal") OR
+   ("${CMAKE_MACHINE}" STREQUAL "VersalNet") OR
+   ("${CMAKE_MACHINE}" STREQUAL "ZynqMP"))
+collect (PROJECT_LIB_HEADERS pm_api_version.h)
+endif()
 add_subdirectory(intr)
 if (NOT ${NON_YOCTO})
 collect (PROJECT_LIB_HEADERS sleep.h)
