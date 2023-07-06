@@ -40,6 +40,11 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /**
+ * Register: XOCP_PMC_GLOBAL_PMC_FW_AUTH_HASH_0
+ */
+#define XOCP_PMC_GLOBAL_PMC_FW_AUTH_HASH_0	(PMC_GLOBAL_BASEADDR + 0x00000750U)
+
+/**
  * Register: XOCP_PMC_GLOBAL_PCR_0_0
  */
 #define XOCP_PMC_GLOBAL_PCR_0_0			(PMC_GLOBAL_BASEADDR + 0x00005200U)

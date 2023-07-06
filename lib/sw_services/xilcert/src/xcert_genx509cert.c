@@ -44,16 +44,83 @@
 #include "xsecure_plat_kat.h"
 
 /************************** Constant Definitions *****************************/
+/** @name Macros for OIDs
+ * @{
+ */
+ /**< Object IDs used in X.509 Certificate and Certificate Signing Request */
 #define XCERT_OID_SIGN_ALGO				"06082A8648CE3D040303"
 #define XCERT_OID_EC_PUBLIC_KEY				"06072A8648CE3D0201"
 #define XCERT_OID_P384					"06052B81040022"
+#define XCERT_OID_SUB_KEY_IDENTIFIER			"0603551D0E"
+#define XCERT_OID_AUTH_KEY_IDENTIFIER			"0603551D23"
+#define XCERT_OID_TCB_INFO_EXTN				"0606678105050401"
+#define XCERT_OID_UEID_EXTN				"0606678105050404"
+#define XCERT_OID_KEY_USAGE_EXTN			"0603551D0F"
+#define XCERT_OID_EKU_EXTN				"0603551D25"
+#define XCERT_OID_EKU_CLIENT_AUTH			"06082B06010505070302"
+#define XCERT_OID_SHA3_384				"0609608648016503040209"
+/** @} */
 
 #define XCERT_SERIAL_FIELD_LEN				(22U)
-#define XCERT_BIT7_MASK 				(0x80)
-#define XCERT_MAX_CERT_SUPPORT				(4U)
+			/**< Length of Serial Field */
+#define XCERT_BIT7_MASK 				(0x80U)
+			/**< Mask to get bit 7*/
 #define XCERT_LOWER_NIBBLE_MASK				(0xFU)
+			/**< Mask to get lower nibble */
+#define XCERT_SIGN_AVAILABLE				(0x3U)
+			/**< Signature available in SignStore */
+#define XCERT_BYTE_MASK					(0xFFU)
+			/**< Mask to get byte */
+#define XCERT_MAX_CERT_SUPPORT				(4U)
 	/**< Number of supported certificates is 4 -> 1 DevIK certificate and 3 DevAK certificates */
-#define XCERT_SIGN_AVAILABLE				(0x3U) /**< Signature available in SignStore */
+#define XCERT_SUB_KEY_ID_VAL_LEN			(20U)
+			/**< Length of value of Subject Key ID */
+#define XCERT_AUTH_KEY_ID_VAL_LEN			(20U)
+			/**< Length of value of Authority Key ID */
+#define XCERT_MAX_LEN_OF_KEYUSAGE_VAL			(2U)
+			/**< Maximum length of value of key usage */
+
+#define XCERT_WORD_LEN					(0x04U)
+			/**< Length of word in bytes */
+#define XCERT_LEN_OF_BYTE_IN_BITS			(8U)
+			/**< Length of byte in bits */
+#define XCERT_AUTH_KEY_ID_OPTIONAL_PARAM		(0x80U)
+		/**< Optional parameter in Authority Key Identifier field*/
+
+/** @name Optional parameter tags
+ * @{
+ */
+ /**< Tags for optional parameters */
+#define XCERT_OPTIONAL_PARAM_0_TAG			(0xA0U)
+#define XCERT_OPTIONAL_PARAM_3_TAG			(0xA3U)
+#define XCERT_OPTIONAL_PARAM_6_TAG			(0xA6U)
+/** @} */
+
+/** @name DNA
+ * @{
+ */
+ /**< Macros related to Address of DNA and length of DNA in words and bytes */
+#define XCERT_DNA_0_ADDRESS				(0xF1250020U)
+#define XCERT_DNA_LEN_IN_WORDS				(4U)
+#define XCERT_DNA_LEN_IN_BYTES				(XCERT_DNA_LEN_IN_WORDS * XCERT_WORD_LEN)
+/** @} */
+
+#define XCert_In32					(XPlmi_In32)
+			/**< Alias of XPlmi_In32 to be used in XilCert*/
+
+/************************** Type Definitions ******************************/
+typedef enum {
+	XCERT_DIGITALSIGNATURE,	/**< Digital Signature */
+	XCERT_NONREPUDIATION,	/**< Non Repudiation */
+	XCERT_KEYENCIPHERMENT,	/**< Key Encipherment */
+	XCERT_DATAENCIPHERMENT,	/**< Data Encipherment */
+	XCERT_KEYAGREEMENT,	/**< Key Agreeement */
+	XCERT_KEYCERTSIGN,	/**< Key Certificate Sign */
+	XCERT_CRLSIGN,		/**< CRL Sign */
+	XCERT_ENCIPHERONLY,	/**< Encipher Only */
+	XCERT_DECIPHERONLY	/**< Decipher Only */
+} XCert_KeyUsageOption;
+
 /************************** Function Prototypes ******************************/
 static XCert_InfoStore *XCert_GetCertDB(void);
 static u32* XCert_GetNumOfEntriesInUserCfgDB(void);
@@ -73,6 +140,14 @@ static int XCert_GetSignStored(u32 SubsystemId, XCert_SignStore **SignStore);
 #endif
 static int XCert_GenTBSCertificate(u8* X509CertBuf, XCert_Config* Cfg, u32 *DataLen);
 static void XCert_GetData(const u32 Size, const u8 *Src, const u64 DstAddr);
+static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicKey, u32 *SubjectKeyIdentifierLen);
+static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublicKey, u32 *AuthorityKeyIdentifierLen);
+static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TcbInfoExtnLen);
+static int XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen);
+static void XCert_UpdateKeyUsageVal(u8* KeyUsageVal, XCert_KeyUsageOption KeyUsageOption);
+static int XCert_GenKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *KeyUsageExtnLen);
+static int XCert_GenExtKeyUsageField(u8* TBSCertBuf,  XCert_Config* Cfg, u32 *EkuLen);
+static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u32 *ExtensionsLen);
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -452,7 +527,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 		 * Calculate signature of the TBS certificate using the private key
 		 */
 		Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384, (const u8 *)Hash, sizeof(Hash),
-				Cfg->AppCfg.PrvtKey, SignTmp);
+				Cfg->AppCfg.IssuerPrvtKey, SignTmp);
 		if (Status != XST_SUCCESS) {
 			Status = XOCP_ERR_X509_CALC_SIGN;
 			goto END;
@@ -790,6 +865,620 @@ END:
 }
 #endif
 
+/******************************************************************************/
+/**
+ * @brief	This function creates the Subject Key Identifier field present in
+ * 		TBS Certificate.
+ *
+ * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ *		the Subject Key Identifier field shall be added.
+ * @param	SubjectPublicKey is the public key whose hash will be used as
+ * 		Subject Key Identifier
+ * @param	SubjectKeyIdentifierLen is the length of the Subject Key Identifier field.
+ *
+ * @note	SubjectKeyIdentifierExtension  ::=  SEQUENCE  {
+ *		extnID      OBJECT IDENTIFIER,
+ *		extnValue   OCTET STRING
+ *		}
+ *		To calculate value of SubjectKeyIdentifier field, hash is
+ *		calculated on the Subject Public Key and 20 bytes from LSB of
+ *		the hash is considered as the value for this field.
+ *
+ ******************************************************************************/
+static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicKey, u32 *SubjectKeyIdentifierLen)
+{
+	int Status = XST_FAILURE;
+	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
+	u8* Curr = TBSCertBuf;
+	u8* SequenceLenIdx;
+	u8* SequenceValIdx;
+	u8* OctetStrLenIdx;
+	u8* OctetStrValIdx;
+	u32 OidLen;
+	u32 FieldLen;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	SequenceLenIdx = Curr++;
+	SequenceValIdx = Curr;
+
+	Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_SUB_KEY_IDENTIFIER, &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + OidLen;
+	}
+
+	Status = XSecure_Sha384Digest(SubjectPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, Hash);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
+	OctetStrLenIdx = Curr++;
+	OctetStrValIdx = Curr;
+
+	XCert_CreateOctetString(Curr, Hash, XCERT_SUB_KEY_ID_VAL_LEN, &FieldLen);
+	Curr = Curr + FieldLen;
+
+	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
+	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
+	*SubjectKeyIdentifierLen = (u32)(Curr - TBSCertBuf);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function creates the Authority Key Identifier field present in
+ * 		TBS Certificate.
+ *
+ * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ *		the Authority Key Identifier field shall be added.
+ * @param	IssuerPublicKey is the public key whose hash will be used as
+ * 		Authority Key Identifier
+ * @param	AuthorityKeyIdentifierLen is the length of the Authority Key Identifier field.
+ *
+ * @note
+ * 		id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
+ *
+ *		AuthorityKeyIdentifier ::= SEQUENCE {
+ *		keyIdentifier             [0] KeyIdentifier           OPTIONAL,
+ *		authorityCertIssuer       [1] GeneralNames            OPTIONAL,
+ *		authorityCertSerialNumber [2] CertificateSerialNumber OPTIONAL  }
+ *
+ *		KeyIdentifier ::= OCTET STRING
+ *		To calculate value ofAuthorityKeyIdentifier field, hash is
+ *		calculated on the Issuer Public Key and 20 bytes from LSB of
+ *		the hash is considered as the value for this field.
+ *
+ ******************************************************************************/
+static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublicKey, u32 *AuthorityKeyIdentifierLen)
+{
+	int Status = XST_FAILURE;
+	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
+	u8* Curr = TBSCertBuf;
+	u8* SequenceLenIdx;
+	u8* SequenceValIdx;
+	u8* OctetStrLenIdx;
+	u8* OctetStrValIdx;
+	u8* KeyIdSequenceLenIdx;
+	u8* KeyIdSequenceValIdx;
+	u32 OidLen;
+	u32 FieldLen;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	SequenceLenIdx = Curr++;
+	SequenceValIdx = Curr;
+
+	Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_AUTH_KEY_IDENTIFIER, &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + OidLen;
+	}
+
+	Status = XSecure_Sha384Digest(IssuerPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, Hash);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
+	OctetStrLenIdx = Curr++;
+	OctetStrValIdx = Curr;
+
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	KeyIdSequenceLenIdx = Curr++;
+	KeyIdSequenceValIdx = Curr;
+
+	XCert_CreateOctetString(Curr, Hash, XCERT_AUTH_KEY_ID_VAL_LEN, &FieldLen);
+	Curr = Curr + FieldLen;
+
+	/**
+	 * 0x80 indicates that the SEQUENCE contains the optional parameter tagged
+	 * as [0] in the AuthorityKeyIdentifier sequence
+	 */
+	*KeyIdSequenceValIdx = XCERT_AUTH_KEY_ID_OPTIONAL_PARAM;
+
+	*KeyIdSequenceLenIdx = (u8)(Curr - KeyIdSequenceValIdx);
+	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
+	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
+	*AuthorityKeyIdentifierLen = (u32)(Curr - TBSCertBuf);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function creates the TCB Info Extension(2.23.133.5.4.1)
+ * 		field present in TBS Certificate.
+ *
+ * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ *		the TCB Info Extension field shall be added.
+ * @param	TcbInfoExtnLen is the length of the Authority Key Identifier field.
+ *
+ * @note
+ * 		tcg-dice-TcbInfo OBJECT IDENTIFIER ::= {tcg-dice 1}
+ *		DiceTcbInfo ::== SEQUENCE {
+ *			vendor [0] IMPLICIT UTF8String OPTIONAL,
+ *			model [1] IMPLICIT UTF8String OPTIONAL,
+ *			version [2] IMPLICIT UTF8String OPTIONAL,
+ *			svn [3] IMPLICIT INTEGER OPTIONAL,
+ *			layer [4] IMPLICIT INTEGER OPTIONAL,
+ *			index [5] IMPLICIT INTEGER OPTIONAL,
+ *			fwids [6] IMPLICIT FWIDLIST OPTIONAL,
+ *			flags [7] IMPLICIT OperationalFlags OPTIONAL,
+ *			vendorInfo [8] IMPLICIT OCTET STRING OPTIONAL,
+ *			type [9] IMPLICIT OCTET STRING OPTIONAL
+ *		}
+ *		FWIDLIST ::== SEQUENCE SIZE (1..MAX) OF FWID
+ *		FWID ::== SEQUENCE {
+ *			hashAlg OBJECT IDENTIFIER,
+ *			digest OCTET STRING
+ *		}
+ *
+ * 		As per requirement, only fwids needs to be included in the extension.
+ *		For DevIk certificates, the value of fwid shall be SHA3-384 hash of
+ *		PLM and PMC CDO.
+ *		For DevAk certificates, the value of fwid shall be SHA3-384 hash of
+ *		the application.
+ *
+ ******************************************************************************/
+static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TcbInfoExtnLen)
+{
+	int Status = XST_FAILURE;
+	u8* Curr = TBSCertBuf;
+	u8* SequenceLenIdx;
+	u8* SequenceValIdx;
+	u8* OctetStrLenIdx;
+	u8* OctetStrValIdx;
+	u8* TcbInfoSequenceLenIdx;
+	u8* TcbInfoSequenceValIdx;
+	u8* OptionalTagLenIdx;
+	u8* OptionalTagValIdx;
+	u8* FwIdSequenceLenIdx;
+	u8* FwIdSequenceValIdx;
+	u32 OidLen;
+	u32 FieldLen;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	SequenceLenIdx = Curr++;
+	SequenceValIdx = Curr;
+
+	Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_TCB_INFO_EXTN, &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + OidLen;
+	}
+
+	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
+	OctetStrLenIdx = Curr++;
+	OctetStrValIdx = Curr;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	TcbInfoSequenceLenIdx = Curr++;
+	TcbInfoSequenceValIdx = Curr;
+
+	*(Curr++) = XCERT_OPTIONAL_PARAM_6_TAG;
+	OptionalTagLenIdx = Curr++;
+	OptionalTagValIdx = Curr;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	FwIdSequenceLenIdx = Curr++;
+	FwIdSequenceValIdx = Curr;
+
+	Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_SHA3_384, &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + OidLen;
+	}
+
+	XCert_CreateOctetString(Curr, Cfg->AppCfg.FwHash, XCERT_HASH_SIZE_IN_BYTES, &FieldLen);
+	Curr = Curr + FieldLen;
+
+	*FwIdSequenceLenIdx = (u8)(Curr - FwIdSequenceValIdx);
+	*OptionalTagLenIdx = (u8)(Curr - OptionalTagValIdx);
+	*TcbInfoSequenceLenIdx = (u8)(Curr - TcbInfoSequenceValIdx);
+	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
+	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
+	*TcbInfoExtnLen = (u32)(Curr - TBSCertBuf);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function creates the UEID extension(2.23.133.5.4.4) field
+ * 		present in TBS Certificate.
+ *
+ * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ *		the UEID extension field shall be added.
+ * @param	UeidExnLen is the length of the UEID Extension field.
+ *
+ * @note	tcg-dice-Ueid OBJECT IDENTIFIER ::= {tcg-dice 4}
+ *		TcgUeid ::== SEQUENCE {
+ *			ueid OCTET STRING
+ *		}
+ *		The content of the UEID extension should contributes to the CDI
+ *		which generated the Subject Key. Hence Device DNA is used as the
+ *		value of this extension.
+ *
+ ******************************************************************************/
+static int XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen)
+{
+	int Status = XST_FAILURE;
+	u8* Curr = TBSCertBuf;
+	u8* SequenceLenIdx;
+	u8* SequenceValIdx;
+	u8* OctetStrLenIdx;
+	u8* OctetStrValIdx;
+	u8* UeidSequenceLenIdx;
+	u8* UeidSequenceValIdx;
+	u32 OidLen;
+	u32 FieldLen;
+	u32 Dna[XCERT_DNA_LEN_IN_WORDS] = {0U};
+	u32 Offset;
+	u32 Address;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	SequenceLenIdx = Curr++;
+	SequenceValIdx = Curr;
+
+	Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_UEID_EXTN, &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + OidLen;
+	}
+
+	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
+	OctetStrLenIdx = Curr++;
+	OctetStrValIdx = Curr;
+
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	UeidSequenceLenIdx = Curr++;
+	UeidSequenceValIdx = Curr;
+
+	for (Offset = 0; Offset < XCERT_DNA_LEN_IN_WORDS; Offset++) {
+		Address = XCERT_DNA_0_ADDRESS + (Offset * XCERT_WORD_LEN);
+		Dna[Offset] = XCert_In32(Address);
+	}
+
+	XCert_CreateOctetString(Curr, (u8*)Dna, XCERT_DNA_LEN_IN_BYTES ,&FieldLen);
+	Curr = Curr + FieldLen;
+
+	*UeidSequenceLenIdx = (u8)(Curr - UeidSequenceValIdx);
+	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
+	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
+	*UeidExnLen = (u32)(Curr - TBSCertBuf);
+
+END:
+	return Status;
+}
+
+
+/******************************************************************************/
+/**
+ * @brief	This function updates the value of Key Usage extension field
+ * 		present in TBS Certificate as per the KeyUsageOption.
+ *
+ * @param	KeyUsageVal is the pointer in the Key Usage value buffer where
+ *		the Key Usage option shall be updated.
+ * @param	KeyUsageOption is type of key usage which has to be updated
+ *
+ ******************************************************************************/
+static void XCert_UpdateKeyUsageVal(u8* KeyUsageVal, XCert_KeyUsageOption KeyUsageOption)
+{
+	u8 Idx = KeyUsageOption / XCERT_LEN_OF_BYTE_IN_BITS;
+	u8 ShiftVal = (XCERT_LEN_OF_BYTE_IN_BITS * (Idx + 1U)) - (u8)KeyUsageOption - 1U;
+
+	KeyUsageVal[Idx] |= 1U << ShiftVal;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function creates the Key Usage extension field present in
+ * 		TBS Certificate.
+ *
+ * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ *		the Key Usage extension field shall be added.
+ * @param	Cfg is structure which includes configuration for the TBS Certificate.
+ * @param	KeyUsageExtnLen is the length of the Key Usage Extension field.
+ *
+ * @note	id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
+ *
+ *		KeyUsage ::= BIT STRING {
+ *			digitalSignature        (0),
+ *			nonRepudiation          (1),
+ *			keyEncipherment         (2),
+ *			dataEncipherment        (3),
+ *			keyAgreement            (4),
+ *			keyCertSign             (5),
+ *			cRLSign                 (6),
+ *			encipherOnly            (7),
+ *			decipherOnly            (8)
+ *		}
+ *
+ ******************************************************************************/
+static int XCert_GenKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *KeyUsageExtnLen)
+{
+	int Status = XST_FAILURE;
+	u8* Curr = TBSCertBuf;
+	u8* SequenceLenIdx;
+	u8* SequenceValIdx;
+	u8* OctetStrLenIdx;
+	u8* OctetStrValIdx;
+	u32 OidLen;
+	u32 FieldLen;
+	u8 KeyUsageVal[XCERT_MAX_LEN_OF_KEYUSAGE_VAL] = {0U};
+	u8 KeyUsageValLen;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	SequenceLenIdx = Curr++;
+	SequenceValIdx = Curr;
+
+	Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_KEY_USAGE_EXTN, &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + OidLen;
+	}
+
+	XCert_CreateBoolean(Curr, (u8)TRUE, &FieldLen);
+	Curr = Curr + FieldLen;
+
+	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
+	OctetStrLenIdx = Curr++;
+	OctetStrValIdx = Curr;
+
+	if (Cfg->AppCfg.IsSelfSigned == TRUE) {
+		XCert_UpdateKeyUsageVal(KeyUsageVal, XCERT_KEYCERTSIGN);
+	}
+	else {
+		XCert_UpdateKeyUsageVal(KeyUsageVal, XCERT_DIGITALSIGNATURE);
+		XCert_UpdateKeyUsageVal(KeyUsageVal, XCERT_KEYAGREEMENT);
+	}
+
+	if ((KeyUsageVal[1U] & XCERT_BYTE_MASK) == 0U) {
+		KeyUsageValLen = XCERT_MAX_LEN_OF_KEYUSAGE_VAL - 1U;
+	}
+	else {
+		KeyUsageValLen = XCERT_MAX_LEN_OF_KEYUSAGE_VAL;
+	}
+
+	XCert_CreateBitString(Curr, KeyUsageVal, KeyUsageValLen, &FieldLen);
+	Curr = Curr + FieldLen;
+
+	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
+	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
+	*KeyUsageExtnLen = (u32)(Curr - TBSCertBuf);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function creates the Extended Key Usage extension field
+ * 		present in TBS Certificate.
+ *
+ * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ *		the Extended Key Usage extension field shall be added.
+ * @param	Cfg is structure which includes configuration for the TBS Certificate.
+ * @param	EkuLen is the length of the Extended Key Usage Extension field.
+ *
+ * @note	id-ce-extKeyUsage OBJECT IDENTIFIER ::= { id-ce 37 }
+ *		ExtKeyUsageSyntax ::= SEQUENCE SIZE (1..MAX) OF KeyPurposeId
+ *		KeyPurposeId ::= OBJECT IDENTIFIER
+ *
+ ******************************************************************************/
+static int XCert_GenExtKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *EkuLen)
+{
+	int Status = XST_FAILURE;
+	u8* Curr = TBSCertBuf;
+	u8* SequenceLenIdx;
+	u8* SequenceValIdx;
+	u8* OctetStrLenIdx;
+	u8* OctetStrValIdx;
+	u8* EkuSequenceLenIdx;
+	u8* EkuSequenceValIdx;
+	u32 OidLen;
+	u32 FieldLen;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	SequenceLenIdx = Curr++;
+	SequenceValIdx = Curr;
+
+	Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_EKU_EXTN, &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + OidLen;
+	}
+
+	XCert_CreateBoolean(Curr, (u8)TRUE, &FieldLen);
+	Curr = Curr + FieldLen;
+
+	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
+	OctetStrLenIdx = Curr++;
+	OctetStrValIdx = Curr;
+
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	EkuSequenceLenIdx = Curr++;
+	EkuSequenceValIdx = Curr;
+
+	Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_EKU_CLIENT_AUTH, &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + OidLen;
+	}
+
+	*EkuSequenceLenIdx = (u8)(Curr - EkuSequenceValIdx);
+	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
+	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
+	*EkuLen = (u32)(Curr - TBSCertBuf);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function creates the X.509 v3 extensions field present in
+ * 		TBS Certificate.
+ *
+ * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ *		the X.509 V3 extensions field shall be added.
+ * @param	Cfg is structure which includes configuration for the TBS Certificate.
+ * @param	ExtensionsLen is the length of the X.509 V3 Extensions field.
+ *
+ * @note	Extensions  ::=  SEQUENCE SIZE (1..MAX) OF Extension
+ *
+ *		Extension  ::=  SEQUENCE  {
+ *		extnID      OBJECT IDENTIFIER,
+ *		critical    BOOLEAN DEFAULT FALSE,
+ *		extnValue   OCTET STRING
+ *				-- contains the DER encoding of an ASN.1 value
+ *				-- corresponding to the extension type identified
+ *				-- by extnID
+ *		}
+ *
+ *		This field is a SEQUENCE of the different extensions which should
+ * 		be part of the Version 3 of the X.509 certificate.
+ *
+ ******************************************************************************/
+static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u32 *ExtensionsLen)
+{
+	int Status = XST_FAILURE;
+	u8* Curr = TBSCertBuf;
+	u8* SequenceLenIdx;
+	u8* SequenceValIdx;
+	u8* OptionalTagLenIdx;
+	u8* OptionalTagValIdx;
+	u32 Len;
+
+	*(Curr++) = XCERT_OPTIONAL_PARAM_3_TAG;
+	OptionalTagLenIdx = Curr++;
+	OptionalTagValIdx = Curr;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	SequenceLenIdx = Curr++;
+	SequenceValIdx = Curr;
+
+	Status = XCert_GenSubjectKeyIdentifierField(Curr, Cfg->AppCfg.SubjectPublicKey, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + Len;
+	}
+
+	Status = XCert_GenAuthorityKeyIdentifierField(Curr, Cfg->AppCfg.IssuerPublicKey, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + Len;
+	}
+
+	Status = XCert_GenTcbInfoExtnField(Curr, Cfg, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + Len;
+	}
+
+	/**
+	 * UEID entension (2.23.133.5.4.4) should be added for self-signed
+	 * DevIK certificates only
+	 */
+	if (Cfg->AppCfg.IsSelfSigned == TRUE) {
+		Status = XCert_GenUeidExnField(Curr, &Len);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		else {
+			Curr = Curr + Len;
+		}
+	}
+
+	Status = XCert_GenKeyUsageField(Curr, Cfg, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + Len;
+	}
+
+	if (Cfg->AppCfg.IsSelfSigned == TRUE) {
+		Status = XCert_GenExtKeyUsageField(Curr, Cfg, &Len);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		else {
+			Curr = Curr + Len;
+		}
+	}
+
+	Status =  XCert_UpdateEncodedLength(SequenceLenIdx, (u32)(Curr - SequenceValIdx), SequenceValIdx);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_X509_UPDATE_ENCODED_LEN;
+		goto END;
+	}
+	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+
+	Status =  XCert_UpdateEncodedLength(OptionalTagLenIdx, (u32)(Curr - OptionalTagValIdx), OptionalTagValIdx);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_X509_UPDATE_ENCODED_LEN;
+		goto END;
+	}
+	Curr = Curr + ((*OptionalTagLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+
+	*ExtensionsLen = (u32)(Curr - TBSCertBuf);
+
+END:
+	return Status;
+}
+
+
+
 /*****************************************************************************/
 /**
  * @brief	This function creates the TBS(To Be Signed) Certificate.
@@ -886,6 +1575,18 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	Status = XOCP_ECDSA_NOT_ENABLED_ERR;
 	goto END;
 #endif
+
+	/**
+	 * Generate X.509 V3 extensions field
+	 *
+	 */
+	Status = XCert_GenX509v3ExtensionsField(Curr, Cfg, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + Len;
+	}
 
 	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != TRUE) {
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_Sha384Kat);

@@ -38,15 +38,16 @@ extern "C" {
 #include "xsecure_elliptic.h"
 #endif
 /**************************** Type Definitions *******************************/
-#define XCERT_USERCFG_MAX_SIZE						(32U)
 
 /**************************** Constant Definitions *******************************/
 #define XCERT_ISSUER_MAX_SIZE					(600U)
 #define XCERT_SUBJECT_MAX_SIZE					(600U)
 #define XCERT_VALIDITY_MAX_SIZE					(40U)
-#define XCERT_HASH_SIZE_IN_BYTES                        	(48U)
+#define XCERT_HASH_SIZE_IN_BYTES				(48U)
+					/**< Length of hash in bytes */
 #define XCert_Printf						XPlmi_Printf
-#define XCERT_ECC_P384_PUBLIC_KEY_LEN                   	(96U) /**< Length of ECC P-384 Public Key */
+#define XCERT_ECC_P384_PUBLIC_KEY_LEN				(96U)
+					/**< Length of ECC P-384 Public Key */
 
 /**************************** Type Definitions *******************************/
 typedef enum {
@@ -77,9 +78,11 @@ typedef struct {
 } XCert_InfoStore;
 
 typedef struct {
-	u8 IsSelfSigned;
-	u8* SubjectPublicKey;
-	u8* PrvtKey;
+	u32 IsSelfSigned;	/**< Flag to check if self-signed certificate */
+	u8* SubjectPublicKey;	/**< Subject Public Key */
+	u8* IssuerPrvtKey;	/**< Issuer Private Key */
+	u8* IssuerPublicKey;	/**< Issuer Public Key */
+	u8* FwHash;		/**< Firmware Hash */
 }XCert_AppCfg;
 
 typedef struct {
