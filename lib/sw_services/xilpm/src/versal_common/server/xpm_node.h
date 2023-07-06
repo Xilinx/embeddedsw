@@ -14,7 +14,9 @@
 #include <xil_types.h>
 #include <xstatus.h>
 #include "xpm_nodeid.h"
-
+#ifdef VERSAL_NET
+#include "xpm_update.h"
+#endif
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -36,8 +38,11 @@ struct XPm_Node {
 };
 
 /************************** Function Prototypes ******************************/
+#ifdef VERSAL_NET
+XPm_Node* XPmNode_GetNodeAt(u32 Index);
+u32 XPmNode_GetNumNodes(void);
+#endif
 void XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress);
-
 
 #define NODE_CLASS_SHIFT	26U
 #define NODE_SUBCLASS_SHIFT	20U
