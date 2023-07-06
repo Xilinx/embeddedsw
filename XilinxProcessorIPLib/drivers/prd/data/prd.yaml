@@ -1,0 +1,35 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for DFX Decoupler
+
+maintainers:
+  - Manne, Nava kishore <nava.kishore.manne@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+    OneOf:
+     - items:
+       - enum:
+         - xlnx,pr_decoupler
+         - xlnx,dfx-decoupler-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XPrd_Config
+
+required:
+    - compatible
+    - reg
+
+examples:
+    xprd_example.c:
+        - gpio-connected: phandle
+    xprd_selftest_example.c:
+        - reg
+...
