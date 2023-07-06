@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -442,6 +442,52 @@ int XOcp_ClientAttestWithDevAk(XOcp_ClientInstance *InstancePtr,
 
 	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
 			sizeof(Payload)/sizeof(u32));
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function sends IPI request to generate shared secret using
+ * 		Elliptic Curve Diffie–Hellman Key Exchange (ECDH). The private
+ * 		key used to generate the shared secret is internal DevAK
+ * 		private key which is determined by the subsystem from where the
+ * 		command is originating.
+ *
+ * @param	InstancePtr		Pointer to the client instance
+ * @param	PubKey			Pointer to the buffer which contains the
+ * 					public key to be used for calculating
+ * 					shared secret using ECDH.
+ * @param	SharedSecret		Pointer to the output buffer which shall
+ * 					be used to store shared secret
+ *
+ * @return
+ *		 - XST_SUCCESS  On Success
+ *		 - Errorcode  On failure
+ *
+ ******************************************************************************/
+int XSecure_GenSharedSecretwithDevAk(XOcp_ClientInstance *InstancePtr, const u8* PubKey, u8 *SharedSecret)
+{
+	int Status = XST_FAILURE;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
+	u64 PubKeyAddr = (u64)(UINTPTR)PubKey;
+	u64 SharedSecretAddr = (u64)(UINTPTR)SharedSecret;
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/* Fill IPI Payload */
+	Payload[0U] = OcpHeader(0U, XOCP_API_GEN_SHARED_SECRET);
+	Payload[1U] = (u32)PubKeyAddr;
+	Payload[2U] = (u32)(PubKeyAddr >> XOCP_ADDR_HIGH_SHIFT);
+	Payload[3U] = (u32)SharedSecretAddr;
+	Payload[4U] = (u32)(SharedSecretAddr >> XOCP_ADDR_HIGH_SHIFT);
+
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -67,6 +67,8 @@ extern "C" {
 
 #define XOCP_DME_NONCE_SIZE_IN_BITS		(256U) /**< Nonce buffer size in bits */
 
+#define XOCP_ADDR_HIGH_SHIFT			(32U) /**< Shift to get higher address */
+
 /***************************** Include Files *********************************/
 
 /************************** Constant Definitions ****************************/
@@ -96,7 +98,8 @@ typedef enum {
 	XOCP_API_GET_SWPCR,	/**< 11U */
 	XOCP_API_GET_SWPCRLOG,	/**< 12U */
 	XOCP_API_GET_SWPCRDATA,	/**< 13U */
-	XOCP_API_MAX		/**< 14U */
+	XOCP_API_GEN_SHARED_SECRET, /**< 14U*/
+	XOCP_API_MAX		/**< 15U */
 } XOcp_ApiId;
 /** @} */
 

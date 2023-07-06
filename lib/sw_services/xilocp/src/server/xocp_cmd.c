@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -117,6 +117,7 @@ static int XOcp_FeaturesCmd(u32 ApiId)
 		case XOCP_API(XOCP_API_GET_SWPCR):
 		case XOCP_API(XOCP_API_GET_SWPCRLOG):
 		case XOCP_API(XOCP_API_GET_SWPCRDATA):
+		case XOCP_API(XOCP_API_GEN_SHARED_SECRET):
 			Status = XST_SUCCESS;
 			break;
 		default:
@@ -164,6 +165,7 @@ static int XOcp_ProcessCmd(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_GET_SWPCR):
 		case XOCP_API(XOCP_API_GET_SWPCRLOG):
 		case XOCP_API(XOCP_API_GET_SWPCRDATA):
+		case XOCP_API(XOCP_API_GEN_SHARED_SECRET):
 			Status = XOcp_IpiHandler(Cmd);
 			break;
 		case XOCP_API(XOCP_API_DEVAKINPUT):
