@@ -539,6 +539,11 @@ proc generate {os_handle} {
 			}
 		}
 	}
+	set xpm_supported [common::get_property CONFIG.xpm_support $os_handle ]
+	#Currently xpm is supported for versal and versal net only
+	if {$xpm_supported == true  &&  ([llength $is_versal] > 0 || [llength $is_versal_net] > 0)} {
+		puts $bspcfg_fh "#define XPM_SUPPORT"
+	}
 	puts $bspcfg_fh ""
 	puts $bspcfg_fh "\#endif /*end of __BSPCONFIG_H_*/"
 	close $bspcfg_fh
