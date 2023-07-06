@@ -63,7 +63,7 @@ s32 XPrd_SelfTest(XPrd *InstancePtr)
 
 	/* Read the value from the status register */
 	Data = XPrd_ReadReg((InstancePtr->Config.BaseAddress) +
-			XPRD_CTRL_OFFSET);
+			    XPRD_CTRL_OFFSET);
 
 	return XST_SUCCESS;
 }

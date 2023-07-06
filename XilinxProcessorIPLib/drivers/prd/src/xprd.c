@@ -60,7 +60,7 @@
 *
 ******************************************************************************/
 s32 XPrd_CfgInitialize(XPrd *InstancePtr, XPrd_Config *ConfigPtr,
-				u32 EffectiveAddress)
+		       u32 EffectiveAddress)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
@@ -108,10 +108,10 @@ void XPrd_SetDecouplerState(XPrd *InstancePtr, XPrd_State DecouplerValue)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((DecouplerValue == XPRD_DECOUPLER_ON) ||
-			(DecouplerValue == XPRD_DECOUPLER_OFF));
+		       (DecouplerValue == XPRD_DECOUPLER_OFF));
 
 	XPrd_WriteReg(((InstancePtr->Config.BaseAddress) + XPRD_CTRL_OFFSET),
-			DecouplerValue);
+		      DecouplerValue);
 }
 
 /*****************************************************************************/
@@ -136,7 +136,7 @@ XPrd_State XPrd_GetDecouplerState(XPrd *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	Data = XPrd_ReadReg((InstancePtr->Config.BaseAddress) +
-			XPRD_CTRL_OFFSET) & XPRD_CTRL_DECOUPLER_MASK;
+			    XPRD_CTRL_OFFSET) & XPRD_CTRL_DECOUPLER_MASK;
 
 	return (Data) ? XPRD_DECOUPLER_ON : XPRD_DECOUPLER_OFF;
 }
