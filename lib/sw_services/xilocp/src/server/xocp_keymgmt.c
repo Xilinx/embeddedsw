@@ -488,7 +488,9 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 		CertConfig.AppCfg.IsSelfSigned = TRUE;
 		CertConfig.AppCfg.SubjectPublicKey =
 				(u8 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
-		CertConfig.AppCfg.PrvtKey = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
+		CertConfig.AppCfg.IssuerPrvtKey = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
+		CertConfig.AppCfg.IssuerPublicKey = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
+		CertConfig.AppCfg.FwHash = (u8 *)XOCP_PMC_GLOBAL_PMC_FW_AUTH_HASH_0;
 	}
 	else {
 		DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
@@ -507,7 +509,9 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 		CertConfig.SubSystemId = SubSystemId;
 		CertConfig.AppCfg.IsSelfSigned = FALSE;
 		CertConfig.AppCfg.SubjectPublicKey = (u8 *)DevAkData->EccX;
-		CertConfig.AppCfg.PrvtKey = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
+		CertConfig.AppCfg.IssuerPrvtKey = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
+		CertConfig.AppCfg.IssuerPublicKey = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
+		CertConfig.AppCfg.FwHash = DevAkData->SubSysHash;
 	}
 
 	Status = XCert_GenerateX509Cert(XOcp_GetX509CertPtr->CertAddr,
