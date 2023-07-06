@@ -69,10 +69,10 @@ XHwIcap_Config *XHwIcap_LookupConfig(u16 DeviceId)
 	XHwIcap_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index=0; Index < XPAR_XHWICAP_NUM_INSTANCES; Index++) {
+	for (Index = 0; Index < XPAR_XHWICAP_NUM_INSTANCES; Index++) {
 		if (XHwIcap_ConfigTable[Index].DeviceId == DeviceId) {
-		CfgPtr = &XHwIcap_ConfigTable[Index];
-		break;
+			CfgPtr = &XHwIcap_ConfigTable[Index];
+			break;
 		}
 	}
 

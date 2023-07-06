@@ -28,7 +28,7 @@
 * 1.00a sv     09/17/07 First release
 * 4.00a hvm    12/1/09  Updated with HAL phase 1 modifications
 * 11.5  Nava   09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
-*
+* 11.6  Nava   06/28/23 Added support for system device-tree flow.
 * </pre>
 *
 *****************************************************************************/
@@ -83,7 +83,7 @@ int XHwIcap_SelfTest(XHwIcap *InstancePtr)
 	 * Enable Register before writing them so that they can be restored.
 	 */
 	DgieRegister = XHwIcap_ReadReg(InstancePtr->HwIcapConfig.BaseAddress,
-						XHI_GIER_OFFSET);
+				       XHI_GIER_OFFSET);
 	IeRegister = XHwIcap_IntrGetEnabled(InstancePtr);
 
 	/*
@@ -102,9 +102,9 @@ int XHwIcap_SelfTest(XHwIcap *InstancePtr)
 	}
 
 	XHwIcap_IntrEnable(InstancePtr, (XHI_IPIXR_WEMPTY_MASK |
-					XHI_IPIXR_RDP_MASK));
+					 XHI_IPIXR_RDP_MASK));
 	if (XHwIcap_IntrGetEnabled(InstancePtr) !=
-			(XHI_IPIXR_WEMPTY_MASK | XHI_IPIXR_RDP_MASK)) {
+	    (XHI_IPIXR_WEMPTY_MASK | XHI_IPIXR_RDP_MASK)) {
 		Status |= XST_FAILURE;
 	}
 
@@ -123,7 +123,7 @@ int XHwIcap_SelfTest(XHwIcap *InstancePtr)
 	 * before the test.
 	 */
 	XHwIcap_WriteReg(InstancePtr->HwIcapConfig.BaseAddress,
-				XHI_GIER_OFFSET, DgieRegister);
+			 XHI_GIER_OFFSET, DgieRegister);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

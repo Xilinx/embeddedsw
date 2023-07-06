@@ -30,7 +30,7 @@
 * 2.00a  sv    09/22/07 First release
 * 4.00a  hvm   12/1/09  Updated with HAL phase 1 changes
 * 11.5   Nava  09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
-*
+* 11.6   Nava  06/28/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -74,8 +74,8 @@
 * quickly and queue potentially time-consuming work to a task-level thread.
 *
 ******************************************************************************/
-void XHwIcap_SetInterruptHandler(XHwIcap * InstancePtr, void *CallBackRef,
-			   		XHwIcap_StatusHandler FuncPtr)
+void XHwIcap_SetInterruptHandler(XHwIcap *InstancePtr, void *CallBackRef,
+				 XHwIcap_StatusHandler FuncPtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(FuncPtr != NULL);
@@ -134,7 +134,7 @@ void XHwIcap_IntrHandler(void *InstancePtr)
 			while ((WrFifoVacancy != 0) &&
 			       (HwIcapPtr->RemainingWords > 0)) {
 				XHwIcap_FifoWrite(HwIcapPtr,
-						*HwIcapPtr->SendBufferPtr);
+						  *HwIcapPtr->SendBufferPtr);
 
 				HwIcapPtr->RemainingWords--;
 				WrFifoVacancy--;
@@ -142,8 +142,7 @@ void XHwIcap_IntrHandler(void *InstancePtr)
 			}
 
 			XHwIcap_StartConfig(HwIcapPtr);
-		}
-		else {
+		} else {
 
 			if (HwIcapPtr->RequestedWords != 0) {
 
@@ -156,8 +155,8 @@ void XHwIcap_IntrHandler(void *InstancePtr)
 				XHwIcap_IntrGlobalDisable(HwIcapPtr);
 				HwIcapPtr->IsTransferInProgress = FALSE;
 				HwIcapPtr->StatusHandler(HwIcapPtr->StatusRef,
-						    XST_HWICAP_WRITE_DONE,
-						    HwIcapPtr->RequestedWords);
+							 XST_HWICAP_WRITE_DONE,
+							 HwIcapPtr->RequestedWords);
 			}
 		}
 	}

@@ -32,7 +32,7 @@
 * 6.00a hvm  08/01/11 Added support for K7
 * 10.0  bss  6/24/14  Removed support for families older than 7 series
 * 11.5  Nava 09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
-*
+* 11.6  Nava 06/28/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -84,8 +84,8 @@
 *
 *****************************************************************************/
 int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top, long Block,
-				long HClkRow, long MajorFrame, long MinorFrame,
-				u32 *FrameData)
+			     long HClkRow, long MajorFrame, long MinorFrame,
+			     u32 *FrameData)
 {
 
 	u32 Packet;
@@ -93,7 +93,7 @@ int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top, long Block,
 	u32 TotalWords;
 	int Status;
 	u32 WriteBuffer[READ_FRAME_SIZE];
-	u32 Index =0;
+	u32 Index = 0;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -159,8 +159,7 @@ int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top, long Block,
 		 */
 		Packet = XHwIcap_Type1Write(XHI_FDRI) | TotalWords;
 		WriteBuffer[Index++] = Packet;
-	}
-	else {
+	} else {
 
 		/*
 		 * Create Type 2 Packet.
@@ -185,8 +184,8 @@ int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top, long Block,
 	 * Write the modified frame data.
 	 */
 	Status = XHwIcap_DeviceWrite(InstancePtr,
-				(u32 *) &FrameData[InstancePtr->WordsPerFrame],
-				InstancePtr->WordsPerFrame);
+				     (u32 *) &FrameData[InstancePtr->WordsPerFrame],
+				     InstancePtr->WordsPerFrame);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -196,7 +195,7 @@ int XHwIcap_DeviceWriteFrame(XHwIcap *InstancePtr, long Top, long Block,
 	 * before the data frame.
 	 */
 	Status = XHwIcap_DeviceWrite(InstancePtr, (u32 *) &FrameData[0],
-				    InstancePtr->WordsPerFrame);
+				     InstancePtr->WordsPerFrame);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

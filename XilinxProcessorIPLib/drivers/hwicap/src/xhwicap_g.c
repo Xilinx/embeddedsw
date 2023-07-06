@@ -22,6 +22,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a bjb  12/08/03 First release
 * 11.5  Nava 09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
+* 11.6  Nava 06/28/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -48,12 +49,11 @@
 /**
  * The configuration table for opb_hwicap devices
  */
-XHwIcap_Config XHwIcap_ConfigTable[XPAR_XHWICAP_NUM_INSTANCES] =
-{
-    {
-        XPAR_HWICAP_0_DEVICE_ID,    /* Unique ID of device */
-        XPAR_HWICAP_0_BASEADDR,     /* Device base address */
-    },
+XHwIcap_Config XHwIcap_ConfigTable[XPAR_XHWICAP_NUM_INSTANCES] = {
+	{
+		XPAR_HWICAP_0_DEVICE_ID,    /* Unique ID of device */
+		XPAR_HWICAP_0_BASEADDR,     /* Device base address */
+	},
 };
 
 
