@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -74,7 +75,7 @@ static void XSecure_TrngPrintRandomNum(const u8 *Randnum);
 
 /************************** Variable Definitions *****************************/
 
-static const u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__ ((section (".data.RandBuf")));
+static const u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__((aligned (64U)) __attribute__ ((section (".data.RandBuf")));
 
 /*****************************************************************************/
 /**

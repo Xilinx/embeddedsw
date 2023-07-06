@@ -171,7 +171,7 @@ proc secure_drc {libhandle} {
 				file copy -force $entry "./src"
 			}
 			if {$proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" ||
-			    $proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52"} {
+			    $proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52" || $proc_type == "microblaze"} {
 				foreach entry [glob -nocomplain -types f [file join "$versal_net/client" *]] {
 					file copy -force $entry "./src"
 				}
