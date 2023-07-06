@@ -14,6 +14,7 @@
  * Ver   Who     Date      Changes
  * ----- ------  --------  -----------------------------------------------------
  * 1.0   Nava    10/25/22  First release
+ * 2.0   Nava    06/21/23  Added PKI multi-queue support for ECC operations.
  *
  * </pre>
  *
@@ -27,10 +28,6 @@
  *
  * @note: This example supports only VersalNet platform.
  */
-#define RQ_CFG_INPUT_PAGE_ADDR		0x540000U
-#define RQ_CFG_OUTPUT_PAGE_ADDR		0x560000U
-#define CQ_CFG_ADDR			0x580000U
-
 /*****************************************************************************/
 int main(void)
 {
@@ -38,14 +35,31 @@ int main(void)
 	XPki_EcdsaCrvInfo CrvInfo = {0};
 	int Status = XST_FAILURE;
 
-	InstanceParam.RQInputAddr = RQ_CFG_INPUT_PAGE_ADDR;
-	InstanceParam.RQOutputAddr = RQ_CFG_OUTPUT_PAGE_ADDR;
-	InstanceParam.CQAddr = CQ_CFG_ADDR;
-
 	Status = XPki_Initialize(&InstanceParam);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failed to initialize the PKI module with error: 0x%x\r\n", Status);
 		goto END;
+	}
+
+	CrvInfo.CrvType = ECC_NIST_P192;
+	CrvInfo.Crv = ECC_PRIME;
+
+	Status = XST_FAILURE;
+	Status = XPki_EcdsaSignGenerateKat(&InstanceParam, &CrvInfo);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ECDSA P192 Signature generation test failed with error: 0x%x\r\n", Status);
+		goto END;
+	} else {
+		xil_printf("ECDSA P192 Signature generation test ran Successfully\r\n");
+	}
+
+	Status = XST_FAILURE;
+	Status = XPki_EcdsaVerifySignKat(&InstanceParam, &CrvInfo);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ECDSA P192 Verify Signature test failed with error: 0x%x\r\n", Status);
+		goto END;
+	} else {
+		xil_printf("ECDSA P192 Verify Signature test ran Successfully\r\n");
 	}
 
 	CrvInfo.CrvType = ECC_NIST_P256;
@@ -107,6 +121,7 @@ int main(void)
 	} else {
 		xil_printf("ECDSA P521 Verify Signature test ran Successfully\r\n");
 	}
+
 END:
 	XPki_Close();
 

@@ -31,6 +31,7 @@
  * Ver   Who   Date      Changes
  * ----- ----  --------  -------------------------------------------------------
  * 1.0   Nava  12/05/22  Initial Release
+ * 2.0   Nava  06/21/23  Added PKI multi-queue support for ECC operations.
  *
  * </pre>
  *
@@ -55,6 +56,8 @@ extern "C" {
 #include "xparameters.h"
 #include "xilpki_ecdsa.h"
 #include "xtrngpsx.h"
+#include "xil_mmu.h"
+/***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Constant Definitions *****************************/
 /**
@@ -151,16 +154,81 @@ extern "C" {
 /*PKI: CQ_CTL_TRIGPOS_00 */
 #define FPD_PKI_CQ_CTL_TRIGPOS			( ( FPD_PKI_CRYPTO_BASEADDR ) + 0x00002028U )
 
+#define XPKI_REQ_MAX_COUNT		256U
+
 /* Error codes */
 #define XPKI_INVALID_PARAM		0x2U
 #define XPKI_ERROR_UNALIGN_ADDR		0x3U
+#define XPKI_INVALID_QUEUE_ID		0x4U
+#define XPKI_UNSUPPORTED_OPS		0x5U
+#define XPKI_QUEUE_FULL			0x6U
+#define XPKI_SLOT_SIZE_ERR		0x7U
+#define XPKI_INVALID_REQ_ID		0x8U
+
+/* Queue Slot Size */
+#define PKI_QUEUE_0_SLOT_SIZE_BYTES	128U
+#define PKI_QUEUE_1_SLOT_SIZE_BYTES	256U
+#define PKI_QUEUE_2_SLOT_SIZE_BYTES	512U
+#define PKI_QUEUE_3_SLOT_SIZE_BYTES	512U
 
 /**************************** Type Definitions *******************************/
+typedef enum {
+	PKI_QUEUE_ID_0 = 0,
+	PKI_QUEUE_ID_1,
+	PKI_QUEUE_ID_2,
+	PKI_QUEUE_ID_3
+} XPki_QueueID;
+
+typedef enum {
+	PKI_ECC_NIST_P192_SIGN = 1,
+	PKI_ECC_NIST_P256_SIGN,
+	PKI_ECC_NIST_P384_SIGN,
+	PKI_ECC_NIST_P521_SIGN,
+	PKI_ECC_NIST_P192_SIGN_VERIFY,
+	PKI_ECC_NIST_P256_SIGN_VERIFY,
+	PKI_ECC_NIST_P384_SIGN_VERIFY,
+	PKI_ECC_NIST_P521_SIGN_VERIFY,
+	PKI_ECC_NIST_P192_KEY_PRIV_GEN,
+	PKI_ECC_NIST_P256_KEY_PRIV_GEN,
+	PKI_ECC_NIST_P384_KEY_PRIV_GEN,
+	PKI_ECC_NIST_P521_KEY_PRIV_GEN,
+	PKI_ECC_NIST_P192_KEY_PUB_GEN,
+	PKI_ECC_NIST_P256_KEY_PUB_GEN,
+	PKI_ECC_NIST_P384_KEY_PUB_GEN,
+	PKI_ECC_NIST_P521_KEY_PUB_GEN,
+	PKI_MAX_OPS
+} Xpki_OpsType;
+
+
+typedef struct {
+	void *PtrInputData;
+	void *PtrOutputData;
+	XPki_QueueID QueueID;
+	Xpki_OpsType OpsType;
+	u8 Is_RanProj_En;
+	u8 Is_RanKE_En;
+	u8 IS_RanMod_En;
+	void (*XPki_CompletionCallBack)(u32 RequestID, u32 Status);
+} XPki_Request_Info;
+
+typedef struct {
+	UINTPTR RQInputAddr;
+	UINTPTR RQOutputAddr;
+	UINTPTR CQAddr;
+	u32 QSlotSize;
+	u32 QMaxSlots;
+	u32 QFreeSlots;
+	u32 RQ_SubmitList[XPKI_REQ_MAX_COUNT];
+	void (*XPki_IntrCallBack[XPKI_REQ_MAX_COUNT])(u32 RequestID, u32 Status);
+} XPki_MultiQueueData;
+
 typedef struct {
 	UINTPTR RQInputAddr;
 	UINTPTR RQOutputAddr;
 	UINTPTR CQAddr;
 	u8 Is_Cm_Enabled;
+	XPki_MultiQueueData MultiQinfo[4];
+	u32 RQCount;
 } XPki_Instance;
 
 /************************** Function Prototypes ******************************/
@@ -182,5 +250,9 @@ int XPki_EcdsaSignGenerateKat(XPki_Instance *InstancePtr, XPki_EcdsaCrvInfo *Crv
 int XPki_EcdsaPwct(XPki_Instance *InstancePtr, XPki_EcdsaCrvInfo *CrvInfo,
 		   XPki_EcdsaKey *Pubkey, u8 *PrivKey);
 int XPki_TrngGenerateRandomNum(u8 Size, u8 *RandBuf);
+int XilPki_EnQueue(XPki_Instance *InstancePtr, XPki_Request_Info *Request_InfoPtr,
+		   u32 *RequestID);
+int XilPki_DeQueue(XPki_Instance *InstancePtr, XPki_Request_Info *Request_InfoPtr,
+		   u32 RequestID);
 void XPki_Close(void);
 #endif  /* XILPKI_H */
