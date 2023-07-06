@@ -253,35 +253,35 @@ typedef struct {
 	u16 NumberOfRms[XPRC_MAX_NUMBER_OF_VSMS];/**< Number of RMs
 						   *  in each VSM */
 	u16 NumberOfRmsAllocated[XPRC_MAX_NUMBER_OF_VSMS];
-						/**< Number of RMs allocated
-						  *  in each VSM */
+	/**< Number of RMs allocated
+	  *  in each VSM */
 	u8 Start_In_Shutdown[XPRC_MAX_NUMBER_OF_VSMS];
-						/**< Whether each VSM should
-						  *  start in the shutdown
-						  *  state */
+	/**< Whether each VSM should
+	  *  start in the shutdown
+	  *  state */
 	u16 No_Of_Triggers_Allocated[XPRC_MAX_NUMBER_OF_VSMS];
-						/**< Number of triggers for
-						  *  each VSM */
+	/**< Number of triggers for
+	  *  each VSM */
 	u8 Shutdown_On_Error[XPRC_MAX_NUMBER_OF_VSMS];
-					/**< Whether each VSM should enter the
-					  *  shutdown state if an error
-					  *  occurs */
+	/**< Whether each VSM should enter the
+	  *  shutdown state if an error
+	  *  occurs */
 	u8 Has_Por_Rm[XPRC_MAX_NUMBER_OF_VSMS];	/**< Whether each VSM has
 						  *  a POR RM */
 	u16 Por_Rm[XPRC_MAX_NUMBER_OF_VSMS];	/**< The POR RM for each VSM */
 	u16 Has_Axis_Status[XPRC_MAX_NUMBER_OF_VSMS];
-						/**< Whether each VSM has an
-						  *  Axi4 Status Channel */
+	/**< Whether each VSM has an
+	  *  Axi4 Status Channel */
 	u16 Has_Axis_Control[XPRC_MAX_NUMBER_OF_VSMS];
-						/**< Whether each VSM has an
-						  *  Axi4 Control Channel */
+	/**< Whether each VSM has an
+	  *  Axi4 Control Channel */
 	u16 Skip_Rm_Startup_After_Reset[XPRC_MAX_NUMBER_OF_VSMS];
-						/**< Whether each VSM shoud
-						  *  Skip Rm Startup after
-						  *  Reset */
+	/**< Whether each VSM shoud
+	  *  Skip Rm Startup after
+	  *  Reset */
 	u16 Num_Hw_Triggers[XPRC_MAX_NUMBER_OF_VSMS];
-						/**< The Number of Hardware
-						  *  Triggers each VSM has */
+	/**< The Number of Hardware
+	  *  Triggers each VSM has */
 
 	/**
 	 * Register information
@@ -320,7 +320,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetNumberOfVsms(InstancePtr) \
-		(InstancePtr)->Config.NumberOfVsms
+	(InstancePtr)->Config.NumberOfVsms
 
 /*****************************************************************************/
 /**
@@ -336,7 +336,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetRequiresClearBitstreams(InstancePtr) \
-		(InstancePtr)->Config.RequiresClearBitstreams
+	(InstancePtr)->Config.RequiresClearBitstreams
 
 /*****************************************************************************/
 /**
@@ -351,7 +351,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetCpArbitrationProtocol(InstancePtr) \
-		(InstancePtr)->Config.Cp_Arbitration_Protocol
+	(InstancePtr)->Config.Cp_Arbitration_Protocol
 
 /*****************************************************************************/
 /**
@@ -368,7 +368,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetHasAxiLiteIf(InstancePtr) \
-		(InstancePtr)->Config.Has_Axi_Lite_If
+	(InstancePtr)->Config.Has_Axi_Lite_If
 
 /*****************************************************************************/
 /**
@@ -384,7 +384,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetResetActiveLevel(InstancePtr) \
-		(InstancePtr)->Config.Reset_Active_Level
+	(InstancePtr)->Config.Reset_Active_Level
 
 /*****************************************************************************/
 /**
@@ -399,7 +399,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetCpFifoDepth(InstancePtr) \
-		(InstancePtr)->Config.Cp_Fifo_Depth
+	(InstancePtr)->Config.Cp_Fifo_Depth
 
 /*****************************************************************************/
 /**
@@ -530,7 +530,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetRegSelectMsb(InstancePtr) \
-		(InstancePtr)->Config.RegSelectMsb
+	(InstancePtr)->Config.RegSelectMsb
 
 /*****************************************************************************/
 /**
@@ -545,7 +545,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetRegSelectLsb(InstancePtr) \
-		(InstancePtr)->Config.RegSelectLsb
+	(InstancePtr)->Config.RegSelectLsb
 
 /*****************************************************************************/
 /**
@@ -561,7 +561,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetNumRms(InstancePtr, VsmId) \
-		(InstancePtr)->Config.NumberOfRms[VsmId]
+	(InstancePtr)->Config.NumberOfRms[VsmId]
 
 /*****************************************************************************/
 /**
@@ -578,7 +578,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetNumRmsAllocated(InstancePtr, VsmId) \
-		(InstancePtr)->Config.NumberOfRmsAllocated[VsmId]
+	(InstancePtr)->Config.NumberOfRmsAllocated[VsmId]
 
 /*****************************************************************************/
 /**
@@ -595,7 +595,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetStartInShutdown(InstancePtr, VsmId) \
-		(InstancePtr)->Config.Start_In_Shutdown[VsmId]
+	(InstancePtr)->Config.Start_In_Shutdown[VsmId]
 
 /*****************************************************************************/
 /**
@@ -612,7 +612,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetNumTriggersAllocated(InstancePtr, VsmId) \
-		(InstancePtr)->Config.No_Of_Triggers_Allocated[VsmId]
+	(InstancePtr)->Config.No_Of_Triggers_Allocated[VsmId]
 
 /*****************************************************************************/
 /**
@@ -630,7 +630,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetShutdownOnError(InstancePtr, VsmId) \
-		(InstancePtr)->Config.Shutdown_On_Error[VsmId]
+	(InstancePtr)->Config.Shutdown_On_Error[VsmId]
 
 /*****************************************************************************/
 /**
@@ -649,7 +649,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetHasPorRm(InstancePtr, VsmId) \
-		(InstancePtr)->Config.Has_Por_Rm[VsmId]
+	(InstancePtr)->Config.Has_Por_Rm[VsmId]
 
 /*****************************************************************************/
 /**
@@ -667,7 +667,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetPorRm(InstancePtr, VsmId) \
-		(InstancePtr)->Config.Por_Rm[VsmId]
+	(InstancePtr)->Config.Por_Rm[VsmId]
 
 /*****************************************************************************/
 /**
@@ -685,7 +685,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetHasAxisStatus(InstancePtr, VsmId) \
-		(InstancePtr)->Config.Has_Axis_Status[VsmId]
+	(InstancePtr)->Config.Has_Axis_Status[VsmId]
 
 /*****************************************************************************/
 /**
@@ -703,7 +703,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetHasAxisControl(InstancePtr, VsmId) \
-		(InstancePtr)->Config.Has_Axis_Control[VsmId]
+	(InstancePtr)->Config.Has_Axis_Control[VsmId]
 
 /*****************************************************************************/
 /**
@@ -721,7 +721,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetSkipRmStartupAfterReset(InstancePtr, VsmId) \
-		(InstancePtr)->Config.Skip_Rm_Startup_After_Reset[VsmId]
+	(InstancePtr)->Config.Skip_Rm_Startup_After_Reset[VsmId]
 
 /*****************************************************************************/
 /**
@@ -737,7 +737,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetNumHwTriggers(InstancePtr, VsmId) \
-		(InstancePtr)->Config.Num_Hw_Triggers[VsmId]
+	(InstancePtr)->Config.Num_Hw_Triggers[VsmId]
 
 /************************** Function Prototypes ******************************/
 
@@ -750,16 +750,16 @@ XPrc_Config *XPrc_LookupConfig(UINTPTR BaseAddress);
 
 /* Functions in xprc.c */
 s32 XPrc_CfgInitialize(XPrc *InstancePtr, XPrc_Config *ConfigPtr,
-				u32 EffectiveAddr);
+		       u32 EffectiveAddr);
 void XPrc_SendShutdownCommand(XPrc *InstancePtr, u16 VsmId );
 void XPrc_SendRestartWithNoStatusCommand(XPrc *InstancePtr, u16 VsmId );
 void XPrc_SendRestartWithStatusCommand(XPrc *InstancePtr, u16 VsmId,
-				u8 Full, u16 RmId );
+				       u8 Full, u16 RmId );
 void XPrc_SendProceedCommand(XPrc *InstancePtr, u16 VsmId);
 void XPrc_SendUserControlCommand(XPrc *InstancePtr, u16 VsmId,
-				u8 Rm_Shutdown_Req, u8 Rm_Decouple,
-				u8 Sw_Shutdown_Req, u8 Sw_Startup_Req,
-				u8 Rm_Reset);
+				 u8 Rm_Shutdown_Req, u8 Rm_Decouple,
+				 u8 Sw_Shutdown_Req, u8 Sw_Startup_Req,
+				 u8 Rm_Reset);
 u32 XPrc_ReadStatusReg(XPrc *InstancePtr, u16 VsmId);
 u8 XPrc_IsVsmInShutdown(XPrc *InstancePtr, u32 VsmIdOrStatus);
 u32 XPrc_GetVsmState(XPrc *InstancePtr, u32 VsmIdOrStatus);
@@ -773,25 +773,25 @@ void XPrc_SetTriggerToRmMapping(XPrc *InstancePtr, u16 VsmId, u16 TriggerId,
 u32 XPrc_GetTriggerToRmMapping(XPrc *InstancePtr, u16 VsmId, u16 TriggerId);
 void XPrc_SetRmBsIndex(XPrc *InstancePtr, u16 VsmId, u16 RmId, u16 BsIndex);
 void XPrc_SetRmClearingBsIndex(XPrc *InstancePtr, u16 VsmId, u16 RmId,
-				u16 ClearingBsIndex);
+			       u16 ClearingBsIndex);
 u32 XPrc_GetRmBsIndex(XPrc *InstancePtr, u16 VsmId, u16 RmId);
 u16 XPrc_GetRmClearingBsIndex(XPrc *InstancePtr, u16 VsmId, u16 RmId);
 void XPrc_SetRmControl(XPrc *InstancePtr, u16 VsmId, u16 RmId,
-				u8 ShutdownRequired, u8 StartupRequired,
-				u8 ResetRequired, u8 ResetDuration);
+		       u8 ShutdownRequired, u8 StartupRequired,
+		       u8 ResetRequired, u8 ResetDuration);
 void XPrc_GetRmControl(XPrc *InstancePtr, u16 VsmId, u16 RmId,
-				u8 *ShutdownRequired, u8 *StartupRequired,
-				u8 *ResetRequired, u8 *ResetDuration);
+		       u8 *ShutdownRequired, u8 *StartupRequired,
+		       u8 *ResetRequired, u8 *ResetDuration);
 void XPrc_SetBsId(XPrc *InstancePtr, u16 VsmId, u16 BsIndex, u16 BsId);
 u32 XPrc_GetBsId(XPrc *InstancePtr, u16 VsmId, u16 BsIndex);
 void XPrc_SetBsSize(XPrc *InstancePtr, u16 VsmId, u16 BsIndex, u32 BsSize);
 u32 XPrc_GetBsSize(XPrc *InstancePtr, u16 VsmId, u16 BsIndex);
 void XPrc_SetBsAddress(XPrc *InstancePtr, u16 VsmId, u16 BsIndex,
-				u32 BsAddress);
+		       u32 BsAddress);
 u32 XPrc_GetBsAddress(XPrc *InstancePtr, u16 VsmId, u16 BsIndex);
 u32 XPrc_GetRegisterAddress(XPrc *InstancePtr, u32 VsmId, u8 RegisterType,
-				u16 TableRow);
-void XPrc_PrintVsmStatus(XPrc *InstancePtr, u32 VsmIdOrStatus, char * Prefix);
+			    u16 TableRow);
+void XPrc_PrintVsmStatus(XPrc *InstancePtr, u32 VsmIdOrStatus, char *Prefix);
 
 /* Functions in xprc_selftest.c */
 s32 XPrc_SelfTest(XPrc *InstancePtr);
