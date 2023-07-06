@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +22,7 @@
 *       ms    04/05/2017     Modified comment lines notation in functions to
 *                            avoid unnecessary description displayed
 *                            while generating doxygen.
-*
+* 2.2   Nava  06/22/2023     Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -39,16 +40,24 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define XPRD_DEVICE_ID	XPAR_PR_DECOUPLER_0_DEVICE_ID
-#define XGPIO_DEVICE_ID	XPAR_GPIO_DEVICE_ID
+#define XGPIO_DEVICE_ID	XPAR_GPIO_0_DEVICE_ID
+#else
+#define PRD_BASEADDR    XPAR_XPRD_0_BASEADDR
+#define XGPIO_BASEADDR	XPAR_XGPIO_0_BASEADDR
+#endif
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 u32 XPrd_Example(u16 DeviceId);
+#else
+u32 XPrd_Example(UINTPTR BaseAddress);
+#endif
 u32 XPrd_TestDecouplerState(XGpio DecouplerGpio);
 
 /************************** Variable Definitions *****************************/
@@ -74,7 +83,11 @@ int main(void)
 	u32 Status;
 
 	/* Run the selftest example */
+#ifndef SDT
 	Status = XPrd_Example((u16)XPRD_DEVICE_ID);
+#else
+	Status = XPrd_Example(PRD_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("PR Decoupler Example is failed\r\n");
 		return XST_FAILURE;
@@ -100,7 +113,11 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 XPrd_Example(u16 DeviceId)
+#else
+u32 XPrd_Example(UINTPTR BaseAddress)
+#endif
 {
 	u32 Status;
 	XPrd_Config *XPrdCfgPtr;
@@ -112,8 +129,11 @@ u32 XPrd_Example(u16 DeviceId)
 	 * Initialize the PR Decoupler driver so that it's ready to use.
 	 * Look up the configuration in the config table, then initialize it.
 	 */
-
+#ifndef SDT
 	XPrdCfgPtr = XPrd_LookupConfig(DeviceId);
+#else
+	XPrdCfgPtr = XPrd_LookupConfig(BaseAddress);
+#endif
 	if (NULL == XPrdCfgPtr) {
 		return XST_FAILURE;
 	}
@@ -124,7 +144,11 @@ u32 XPrd_Example(u16 DeviceId)
 	}
 
 	/* Set up the Decoupler GPIO */
+#ifndef SDT
 	XDecouplerGpioCfgPtr = XGpio_LookupConfig((u16)XGPIO_DEVICE_ID);
+#else
+	XDecouplerGpioCfgPtr = XGpio_LookupConfig(XGPIO_BASEADDR);
+#endif
 	if (NULL == XDecouplerGpioCfgPtr) {
 		return XST_FAILURE;
 	}

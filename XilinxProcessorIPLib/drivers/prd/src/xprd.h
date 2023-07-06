@@ -74,7 +74,7 @@
 *       ms     04/05/2017    Modified comment lines notation in functions
 *                            of prd examples to avoid unnecessary description
 *                            which was displayed while generating doxygen.
-*
+* 2.2   Nava   06/22/2023    Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -105,7 +105,11 @@ typedef enum {
 
 /* This typedef contains configuration information for a device */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID of the device */
+#else
+	char *Name;
+#endif
 	u32 BaseAddress;	/**< Register Base Address */
 } XPrd_Config;
 
@@ -123,7 +127,11 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Functions in xprd_sinit.c */
+#ifndef SDT
 XPrd_Config *XPrd_LookupConfig(u16 DeviceId);
+#else
+XPrd_Config *XPrd_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /* Functions in xprd.c */
 s32 XPrd_CfgInitialize(XPrd *InstancePtr, XPrd_Config *ConfigPtr,
