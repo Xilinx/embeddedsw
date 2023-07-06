@@ -206,7 +206,7 @@ int XAxiCdma_SimplePollExample(UINTPTR BaseAddress)
 	}
 
 	Status = XAxiCdma_CfgInitialize(&AxiCdmaInstance, CfgPtr,
-		CfgPtr->BaseAddress);
+					CfgPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -217,9 +217,9 @@ int XAxiCdma_SimplePollExample(UINTPTR BaseAddress)
 
 	for (Index = 0; Index < Tries; Index++) {
 		Status = DoSimplePollTransfer(&AxiCdmaInstance,
-			BUFFER_BYTESIZE, SubmitTries);
+					      BUFFER_BYTESIZE, SubmitTries);
 		if (Status != XST_SUCCESS) {
-				return XST_FAILURE;
+			return XST_FAILURE;
 		}
 	}
 
@@ -274,7 +274,7 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 		Retries -= 1;
 
 		Status = XAxiCdma_SimpleTransfer(InstancePtr, (UINTPTR)SrcBuffer,
-			(UINTPTR)DestBuffer, Length, NULL, NULL);
+						 (UINTPTR)DestBuffer, Length, NULL, NULL);
 		if (Status == XST_SUCCESS) {
 			break;
 		}
@@ -291,10 +291,10 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 	/* Wait until the DMA transfer is done or timeout
 	 */
 	Status = Xil_WaitForEvent(InstancePtr->BaseAddr + XAXICDMA_SR_OFFSET,
-                       XAXICDMA_SR_IDLE_MASK, XAXICDMA_SR_IDLE_MASK, POLL_TIMEOUT_COUNTER);
+				  XAXICDMA_SR_IDLE_MASK, XAXICDMA_SR_IDLE_MASK, POLL_TIMEOUT_COUNTER);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-				"Failed to complete the transfer with %d\r\n", Status);
+			    "Failed to complete the transfer with %d\r\n", Status);
 		return XST_FAILURE;
 	}
 
@@ -361,8 +361,8 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 	for (Index = 0; Index < Length; Index++) {
 		if ( DestPtr[Index] != SrcPtr[Index]) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Data check failure %d: %x/%x\r\n",
-			    Index, DestPtr[Index], SrcPtr[Index]);
+				    "Data check failure %d: %x/%x\r\n",
+				    Index, DestPtr[Index], SrcPtr[Index]);
 			return XST_FAILURE;
 		}
 	}
