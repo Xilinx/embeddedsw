@@ -404,13 +404,21 @@ typedef struct {
  * @{
  */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId;             /**< Unique ID of this instance */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;          /**< Physical address of this instance */
 	int HasDRE;               /**< Whether support unaligned transfers */
 	int IsLite;               /**< Whether hardware build is lite mode */
 	int DataWidth;            /**< Length of a word in bits */
 	int BurstLen;             /**< Burst length */
 	int AddrWidth;		  /**< Address Width */
+#ifdef SDT
+u16 IntrId; /** Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XAxiCdma_Config;
 
 /**
@@ -450,6 +458,9 @@ typedef struct {
 	int HwBdCnt;               /**< Number of BDs in work group */
 	int PostBdCnt;             /**< Number of BDs in post-work group */
 	int AllBdCnt;              /**< Total Number of BDs */
+#ifdef SDT
+	int BurstLen;		   /**< Burst length */
+#endif
 
 	/* Callback function for simple transfer*/
 	XAxiCdma_CallBackFn SimpleCallBackFn; /**< Callback function for simple
@@ -504,7 +515,11 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 XAxiCdma_Config *XAxiCdma_LookupConfig(u32 DeviceId);
+#else
+XAxiCdma_Config *XAxiCdma_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
 			   UINTPTR EffectiveAddr);

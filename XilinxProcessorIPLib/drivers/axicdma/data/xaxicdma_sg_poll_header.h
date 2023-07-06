@@ -11,7 +11,10 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifndef SDT
 int XAxiCdma_SgPollExample(u16 DeviceId);
-
+#else
+int XAxiCdma_SgPollExample(UINTPTR BaseAddress);
+#endif
 #endif
 

@@ -1,0 +1,73 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for AXI CDMA controller
+
+maintainers:
+  - Abin Joseph <abin.joseph@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-cdma-4.1
+          - xlnx,axi-cdma-1.00.a
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,include-dre:
+    description: AXI CDMA controller is configured with DRE enabled
+  xlnx,lite-mode:
+    description: AXI CDMA controller is configured with axi lite mode enabled
+  xlnx,datawidth:
+    description: AXI CDMA controller configured data width
+  xlnx,max-burst-len:
+    description: AXI CDMA controller configured burst length
+  xlnx,addrwidth:
+    description: AXI CDMA controller configured address width
+
+config:
+    - XAxiCdma_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,include-dre
+    - xlnx,lite-mode
+    - xlnx,datawidth
+    - xlnx,max-burst-len
+    - xlnx,addrwidth
+    - interrupts
+    - interrupt-parent
+    - xlnx,include-sg
+
+examples:
+    xaxicdma_example_simple_intr.c:
+        - interrupts
+    xaxicdma_example_sg_intr.c:
+        - interrupts
+        - xlnx,include-sg: 1
+    xaxicdma_example_sg_poll.c:
+        - xlnx,include-sg: 1
+    xaxicdma_example_hybrid_intr.c:
+        - interrupts
+        - xlnx,include-sg: 1
+    xaxicdma_example_hybrid_poll.c:
+        - xlnx,include-sg: 1
+    xaxicdma_example_simple_poll.c:
+        - interrupts
+
+tapp:
+    xaxicdma_example_simple_intr.c:
+        declaration: XAxiCdma_SimpleIntrExample
+    xaxicdma_example_sg_intr.c:
+        declaration: XAxiCdma_SgIntrExample
+    xaxicdma_example_sg_poll.c:
+        declaration: XAxiCdma_SgPollExample
+    xaxicdma_example_simple_poll.c:
+        declaration: XAxiCdma_SimplePollExample
+...
