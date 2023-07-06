@@ -63,7 +63,9 @@
  * | PM_PINCTRL_GET_FUNCTION	| 0x1E	| Both		| 1	 | The API is used to reads the pin function				     |
  * | PM_PINCTRL_SET_FUNCTION	| 0x1F	| Both		| 1	 | The API is used to sets the pin function				     |
  * | PM_PINCTRL_CONFIG_PARAM_GET| 0x20	| Both		| 1	 | The API is used to reads the pin parameter value			     |
- * | PM_PINCTRL_CONFIG_PARAM_SET| 0x21	| Both		| 1	 | The API is used to sets the pin parameter value			     |
+ * | PM_PINCTRL_CONFIG_PARAM_SET| 0x21	| Both		| 2	 | V1 - The API is used to set the pin parameter value			     |
+ * | ^				| ^	| ^		| ^	 | V2 - Added support of MIO tri-state controlling functionality	     |
+ * | ^				| ^	| ^		| ^	 | Note: V2 is supported in ZynqMP but Versal supports only V1		     |
  * | PM_IOCTL			| 0x22	| Both		| 3	 | V1 - The API is used to performs driver-like IOCTL functions on shared\n									system devices								    |
  * | ^				| ^	| ^		| ^	 | V2 - Added support of bitmask functionality, user can check the supported\n									ID first before performing the actual functionality			    |
  * | ^				| ^	| ^		| ^	 | V3 - Add support of zeroization of AIE data and program memory separately |
