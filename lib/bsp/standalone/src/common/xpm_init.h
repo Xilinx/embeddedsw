@@ -23,25 +23,24 @@
 /************************** Constant Definitions *****************************/
 
 #if defined  (XPM_SUPPORT)
-#if defined  (VERSAL)
-#define	MAX_NODE_COUNT	33
-#endif
-#if defined  (VERSAL_NET)
+#ifdef VERSAL_NET
 #define	MAX_NODE_COUNT	38
+#elif defined(versal)
+#define	MAX_NODE_COUNT	33
 #endif
 
 /**************************** Type Definitions *******************************/
 
 typedef struct {
-    u64 BaseAddress;
-    u64 NodeId;
-    u64 ResetId;
+    UINTPTR BaseAddress;
+    UINTPTR NodeId;
+    UINTPTR ResetId;
 } XpmNodeInfo;
 
 /************************** Function Prototypes ******************************/
 
-u64 XpmGetNodeId(u64 BaseAddress);
-u64 XpmGetResetId(u64 BaseAddress);
+UINTPTR XpmGetNodeId(UINTPTR BaseAddress);
+UINTPTR XpmGetResetId(UINTPTR BaseAddress);
 
 #endif
 #endif
