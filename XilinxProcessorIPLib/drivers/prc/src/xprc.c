@@ -20,13 +20,14 @@
 *
 * Ver   Who     Date         Changes
 * ---- ----- ------------  -----------------------------------------------
-* 1.0   ms    07/18/2016    First release
+* 1.0   ms    07/18/16      First release
 * 1.1   ms    08/01/17      Added a new parameter "Cp_Compression" in
 *                           "XPrc_CfgInitialize" function.
 *                           Added new status error macros in function
 *                           "XPrc_PrintVsmStatus".
 * 1.2  Nava   29/03/19      Updated the tcl logic to generated the
 *                           XPrc_ConfigTable properly.
+* 2.2  Nava   07/04/23      Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -83,7 +84,9 @@ s32 XPrc_CfgInitialize(XPrc *InstancePtr, XPrc_Config *ConfigPtr,
 	 * is ready to use until everything has been initialized successfully.
 	 */
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 
 	InstancePtr->Config.NumberOfVsms = ConfigPtr->NumberOfVsms;
 	InstancePtr->Config.RequiresClearBitstreams =
@@ -317,10 +320,10 @@ void XPrc_SetTriggerToRmMapping(XPrc *InstancePtr, u16 VsmId, u16 TriggerId,
 	Address = XPrc_GetRegisterAddress(InstancePtr, VsmId,
 				XPRC_TRIGGER_REG, TriggerId);
 
-	xprc_printf(XPRC_DEBUG_GENERAL,"XPrc_SetTriggerToRmMapping :: Instance"
-		"%d, VSMID = %x, Address = %x, Trigger = %x, Rm = %x \n\r",
-		InstancePtr->Config.DeviceId, VsmId, Address, TriggerId,
-		RmId);
+	xprc_printf(XPRC_DEBUG_GENERAL, "XPrc_SetTriggerToRmMapping ::InstanceAddr"
+		    "%x, VSMID = %x, Address = %x, Trigger = %x, Rm = %x \n\r",
+		    InstancePtr->Config.BaseAddress, VsmId, Address, TriggerId,
+		    RmId);
 
 	XPrc_WriteReg(Address, RmId);
 }
@@ -388,10 +391,10 @@ void XPrc_SetRmBsIndex(XPrc *InstancePtr, u16 VsmId, u16 RmId, u16 BsIndex)
 	Address = XPrc_GetRegisterAddress(InstancePtr, VsmId,
 				XPRC_RM_BS_INDEX_REG, RmId);
 
-	xprc_printf(XPRC_DEBUG_GENERAL,"XPrc_SetRmBsIndex :: Instance %d,"
-		"VSMID = %x, Address = %x, Rm = %x, Bs Index = %x \n\r",
-		InstancePtr->Config.DeviceId, VsmId, Address, RmId,
-		BsIndex);
+	xprc_printf(XPRC_DEBUG_GENERAL, "XPrc_SetRmBsIndex ::InstanceAddr %x,"
+		    "VSMID = %x, Address = %x, Rm = %x, Bs Index = %x \n\r",
+		    InstancePtr->Config.BaseAddress, VsmId, Address, RmId,
+		    BsIndex);
 
 	XPrc_WriteReg(Address, BsIndex);
 }
@@ -436,11 +439,11 @@ void XPrc_SetRmClearingBsIndex(XPrc *InstancePtr, u16 VsmId, u16 RmId,
 	Data = BsIndex;
 	Data |= (ClearingBsIndex << XPRC_RM_CLEARING_BS_INDEX_SHIFT);
 
-	xprc_printf(XPRC_DEBUG_GENERAL,"XPrc_SetRmClearingBsIndex :: Instance"
-		"%d, VSMID = %x, Address = %x, Rm = %x, Data = %x,"
-		"Clearing Bs Index = %x, Bs Index = %x\n\r",
-		InstancePtr->Config.DeviceId, VsmId, Address, RmId, Data,
-		ClearingBsIndex, BsIndex);
+	xprc_printf(XPRC_DEBUG_GENERAL, "XPrc_SetRmClearingBsIndex ::InstanceAddr"
+		    "%x, VSMID = %x, Address = %x, Rm = %x, Data = %x,"
+		    "Clearing Bs Index = %x, Bs Index = %x\n\r",
+		    InstancePtr->Config.BaseAddress, VsmId, Address, RmId, Data,
+		    ClearingBsIndex, BsIndex);
 
 	XPrc_WriteReg(Address, Data);
 }
@@ -584,12 +587,12 @@ void XPrc_SetRmControl(XPrc *InstancePtr, u16 VsmId, u16 RmId,
 	Data |= ((ResetDuration << XPRC_RM_CR_RESET_DURATION_SHIFT) &
 			XPRC_RM_CR_RESET_DURATION_MASK);
 
-	xprc_printf(XPRC_DEBUG_GENERAL,"XPrc_SetRmControl :: Instance %d,"
-		"VSMID = %x, Address = %x, Data = %x (| Reset Duration %0d |"
-		"Reset Required %0d | Startup Required = %0d | Shutdown"
-		"Required = %0d |)\n\r", InstancePtr->Config.DeviceId,
-		VsmId, Address, Data, ResetDuration, ResetRequired,
-		StartupRequired, ShutdownRequired);
+	xprc_printf(XPRC_DEBUG_GENERAL, "XPrc_SetRmControl ::InstanceAddr %x,"
+		    "VSMID = %x, Address = %x, Data = %x (| Reset Duration %0d |"
+		    "Reset Required %0d | Startup Required = %0d | Shutdown"
+		    "Required = %0d |)\n\r", InstancePtr->Config.BaseAddress,
+		    VsmId, Address, Data, ResetDuration, ResetRequired,
+		    StartupRequired, ShutdownRequired);
 
 	XPrc_WriteReg(Address, Data);
 }
@@ -668,12 +671,12 @@ void XPrc_GetRmControl(XPrc *InstancePtr, u16 VsmId, u16 RmId,
 				XPRC_RM_CR_RESET_DURATION_SHIFT;
 	}
 
-	xprc_printf(XPRC_DEBUG_GENERAL,"XPrc_GetRmControl :: Instance %d,"
-		"VSMID = %x, Address = %x, Data = %x (| Reset Duration %0d |"
-		"Reset Required %0d | Startup Required = %0d | Shutdown"
-		"Required = %0d |)\n\r", InstancePtr->Config.DeviceId,
-		VsmId, Address, Data, *ResetDuration, *ResetRequired,
-		*StartupRequired, *ShutdownRequired);
+	xprc_printf(XPRC_DEBUG_GENERAL, "XPrc_GetRmControl ::InstanceAddr %x,"
+		    "VSMID = %x, Address = %x, Data = %x (| Reset Duration %0d |"
+		    "Reset Required %0d | Startup Required = %0d | Shutdown"
+		    "Required = %0d |)\n\r", InstancePtr->Config.BaseAddress,
+		    VsmId, Address, Data, *ResetDuration, *ResetRequired,
+		    *StartupRequired, *ShutdownRequired);
 
 }
 
@@ -706,10 +709,10 @@ void XPrc_SetBsId(XPrc *InstancePtr, u16 VsmId, u16 BsIndex, u16 BsId)
 	Address = XPrc_GetRegisterAddress(InstancePtr, VsmId,
 			XPRC_BS_ID_REG, BsIndex);
 
-	xprc_printf(XPRC_DEBUG_GENERAL,"XPrc_SetBsId :: Instance %d, VSMID ="
-		"%x, Address = %x, Bs Index = %x, Bs Id = %x \n\r",
-		InstancePtr->Config.DeviceId, VsmId, Address, BsIndex,
-		BsId);
+	xprc_printf(XPRC_DEBUG_GENERAL, "XPrc_SetBsId ::InstanceAddr %x, VSMID ="
+		    "%x, Address = %x, Bs Index = %x, Bs Id = %x \n\r",
+		    InstancePtr->Config.BaseAddress, VsmId, Address, BsIndex,
+		    BsId);
 
 	XPrc_WriteReg(Address, BsId);
 }
@@ -777,10 +780,10 @@ void XPrc_SetBsSize(XPrc *InstancePtr, u16 VsmId, u16 BsIndex, u32 BsSize)
 	Address = XPrc_GetRegisterAddress(InstancePtr, VsmId,
 			XPRC_BS_SIZE_REG, BsIndex);
 
-	xprc_printf(XPRC_DEBUG_GENERAL,"XPrc_SetBsSize :: Instance %d, VSMID ="
-		"%x, Address = %x, Bs Index = %x, Bs Size = %x \n\r",
-		InstancePtr->Config.DeviceId, VsmId, Address, BsIndex,
-		BsSize);
+	xprc_printf(XPRC_DEBUG_GENERAL, "XPrc_SetBsSize ::InstanceAddr %x, VSMID ="
+		    "%x, Address = %x, Bs Index = %x, Bs Size = %x \n\r",
+		    InstancePtr->Config.BaseAddress, VsmId, Address, BsIndex,
+		    BsSize);
 
 	XPrc_WriteReg(Address, BsSize);
 }
@@ -815,10 +818,10 @@ u32 XPrc_GetBsSize(XPrc *InstancePtr, u16 VsmId, u16 BsIndex)
 
 	Data = XPrc_ReadReg(Address);
 
-	xprc_printf(XPRC_DEBUG_GENERAL,"XPrc_getBsSize :: Instance %d, VSMID ="
-		"%x, Address = %x, Bs Index = %x, Bs Size = %x \n\r",
-		InstancePtr->Config.DeviceId, VsmId, Address, BsIndex,
-		Data);
+	xprc_printf(XPRC_DEBUG_GENERAL, "XPrc_getBsSize ::InstanceAddr %x, VSMID ="
+		    "%x, Address = %x, Bs Index = %x, Bs Size = %x \n\r",
+		    InstancePtr->Config.BaseAddress, VsmId, Address, BsIndex,
+		    Data);
 
 	return Data;
 }
@@ -851,10 +854,10 @@ void XPrc_SetBsAddress(XPrc *InstancePtr, u16 VsmId, u16 BsIndex,
 	Address = XPrc_GetRegisterAddress(InstancePtr, VsmId,
 			XPRC_BS_ADDRESS_REG, BsIndex);
 
-	xprc_printf(XPRC_DEBUG_GENERAL,"XPrc_SetBsAddress :: Instance %d,"
-		"VSMID = %x, Address = %x, Bs Index = %x, Bs Address ="
-		"%x \n\r", InstancePtr->Config.DeviceId, VsmId, Address,
-		BsIndex, BsAddress);
+	xprc_printf(XPRC_DEBUG_GENERAL, "XPrc_SetBsAddress ::InstanceAddr %x,"
+		    "VSMID = %x, Address = %x, Bs Index = %x, Bs Address ="
+		    "%x \n\r", InstancePtr->Config.BaseAddress, VsmId, Address,
+		    BsIndex, BsAddress);
 
 	XPrc_WriteReg(Address, BsAddress);
 }
@@ -889,10 +892,10 @@ u32 XPrc_GetBsAddress(XPrc *InstancePtr, u16 VsmId, u16 BsIndex)
 
 	Data = XPrc_ReadReg(Address);
 
-	xprc_printf(XPRC_DEBUG_GENERAL,"XPrc_getBsAddress:: Instance %d,"
-		"VSMID = %x, Address = %x, Bs Index = %x, Bs Address ="
-		"%x \n\r", InstancePtr->Config.DeviceId, VsmId, Address,
-		BsIndex, Data);
+	xprc_printf(XPRC_DEBUG_GENERAL, "XPrc_getBsAddress::InstanceAddr %x,"
+		    "VSMID = %x, Address = %x, Bs Index = %x, Bs Address ="
+		    "%x \n\r", InstancePtr->Config.BaseAddress, VsmId, Address,
+		    BsIndex, Data);
 
 	return Data;
 }
@@ -1239,9 +1242,9 @@ void XPrc_SendSwTrigger(XPrc *InstancePtr, u16 VsmId, u16 TriggerId)
 	Address = XPrc_GetRegisterAddress(InstancePtr, VsmId,
 			XPRC_SW_TRIGGER_REG, XPRC_REG_TABLE_ROW);
 
-	xprc_printf(XPRC_DEBUG_GENERAL,"XPrc_SendTrigger :: Instance %d,"
-		"VSM_ID = %x, Address = %x, TriggerId = %x\n\r",
-		InstancePtr->Config.DeviceId, VsmId, Address, TriggerId);
+	xprc_printf(XPRC_DEBUG_GENERAL, "XPrc_SendTrigger ::InstanceAddr %x,"
+		    "VSM_ID = %x, Address = %x, TriggerId = %x\n\r",
+		    InstancePtr->Config.BaseAddress, VsmId, Address, TriggerId);
 
 	XPrc_WriteReg(Address, TriggerId);
 }
@@ -1460,10 +1463,10 @@ static void XPrc_SendCommand(XPrc *InstancePtr, u16 VsmId, u8 Cmd, u8 Byte,
 	Data |= (Byte << XPRC_CR_BYTE_FIELD_LSB);
 	Data |= Cmd;
 
-	xprc_printf(XPRC_DEBUG_GENERAL,"XPrc_SendCommand :: Instance %d,"
-		"VSMID = %x, Address = %x, Data = %x (| Halfword %x | Byte"
-		"%x | Cmd = %x |)\n\r", InstancePtr->Config.DeviceId,
-		VsmId, Address, Data, Halfword, Byte, Cmd);
+	xprc_printf(XPRC_DEBUG_GENERAL, "XPrc_SendCommand ::InstanceAddr %x,"
+		    "VSMID = %x, Address = %x, Data = %x (| Halfword %x | Byte"
+		    "%x | Cmd = %x |)\n\r", InstancePtr->Config.BaseAddress,
+		    VsmId, Address, Data, Halfword, Byte, Cmd);
 
 	XPrc_WriteReg(Address, Data);
 }

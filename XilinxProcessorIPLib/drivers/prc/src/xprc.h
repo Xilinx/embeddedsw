@@ -97,10 +97,10 @@
 *
 * Ver   Who      Date        Changes
 * ---- -----  ------------  ----------------------------------------------
-* 1.0   ms     07/18/2016   First release
+* 1.0   ms     07/18/16     First release
 *       ms     03/17/17     Added readme.txt file in examples folder for
 *                           doxygen generation.
-*       ms     04/05/2017   Modified comment lines notation in functions
+*       ms     04/05/17     Modified comment lines notation in functions
 *                           of prc examples to avoid unnecessary description
 *                           which was displayed while generating doxygen.
 * 1.1   ms     04/18/17     Modified tcl file to add suffix U for all macros
@@ -113,6 +113,7 @@
 *                           flags. Added the Updated api.tcl to data folder.
 * 1.2  Nava   29/03/19      Updated the tcl logic to generated the
 *                           XPrc_ConfigTable properly.
+* 2.2  Nava   07/04/23      Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -231,7 +232,11 @@ extern "C" {
 
 /* This typedef contains configuration information for a device */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;			/**< Unique ID of device */
+#else
+	char *Name;
+#endif
 	u32 BaseAddress;		/**< Register Base Address */
 	u16 NumberOfVsms;		/**< Number of VSMs */
 	u8 RequiresClearBitstreams;	/**< Derived from CP_FAMILY */
@@ -737,7 +742,11 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Lookup configuration in xprc_sinit.c */
+#ifndef SDT
 XPrc_Config *XPrc_LookupConfig(u16 DeviceId);
+#else
+XPrc_Config *XPrc_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /* Functions in xprc.c */
 s32 XPrc_CfgInitialize(XPrc *InstancePtr, XPrc_Config *ConfigPtr,
