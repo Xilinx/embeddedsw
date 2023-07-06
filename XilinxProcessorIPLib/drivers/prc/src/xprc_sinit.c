@@ -20,9 +20,10 @@
 *
 * Ver   Who     Date        Changes
 * ---- ---- ------------ --------------------------------------------------
-* 1.0   ms   07/18/2016    First release
-* 1.2   Nava 29/03/19      Updated the tcl logic to generated the
-*                          XPrc_ConfigTable properly.
+* 1.0   ms    07/18/16    First release
+* 1.2   Nava  29/03/19    Updated the tcl logic to generated the
+*                         XPrc_ConfigTable properly.
+* 2.2   Nava  07/04/23    Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -30,7 +31,9 @@
 /***************************** Include Files *********************************/
 
 #include "xprc.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -62,6 +65,7 @@ extern XPrc_Config XPrc_ConfigTable[];
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XPrc_Config *XPrc_LookupConfig(u16 DeviceId)
 {
 	XPrc_Config *ConfigPtr = NULL;
@@ -76,4 +80,21 @@ XPrc_Config *XPrc_LookupConfig(u16 DeviceId)
 
 	return ConfigPtr;
 }
+#else
+XPrc_Config *XPrc_LookupConfig(UINTPTR BaseAddress)
+{
+	XPrc_Config *ConfigPtr = NULL;
+	u32 Index;
+
+	for (Index = 0; XPrc_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XPrc_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			ConfigPtr = &XPrc_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return ConfigPtr;
+}
+#endif
 /** @} */

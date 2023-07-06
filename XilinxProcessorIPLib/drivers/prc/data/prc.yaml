@@ -1,0 +1,118 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for PRC controller
+
+maintainers:
+  - Manne, Nava kishore <nava.kishore.manne@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+    OneOf:
+     - items:
+       - enum:
+         - xlnx,pr_controller
+         - xlnx,pr-controller
+         - xlnx,dfx-controller
+         - xlnx,dfx_controller
+         - xlnx,dfx-controller-1.0
+         - xlnx,prc-1.1
+  reg:
+    description: Physical base address and size of the controller register map
+  num-vsms:
+    description: Number of VSMs
+  clearing-bitstream:
+    description: Bitstream is a clearing bitstream or not
+  cp-arbitration-protocol:
+    description: CAP arbitration protocol
+  has-axi-lite-if:
+    description: Enable the AXI Lite Interface
+  reset-active-level:
+    description: Reset Active Level
+  cp-fifo-depth:
+    description: CAP FIFO Depth
+  cp-fifo-type:
+    description: CAP FIFO Implementation
+  cp-family:
+    description: Managed Device Type
+  cdc-stages:
+    description: CDC Stages
+  cp-compression:
+    description: Specify if partial bitstreams are compressed
+  num-rms:
+    description: Number of RMs
+  num-rms-alloc:
+    description: Number of RMs allocated
+  start-in-shutdown:
+    description: Whether VSM should start in the shutdown state or not
+  num-trigger-alloc:
+    description: Number of Triggers allocated
+  shutdown-on-err:
+    description: Whether VSM should enter the shutdown state if an error is detected or not
+  has-por-rm:
+    description: Whether VSM contains a RM or not
+  por-rm:
+    description: RM of each VSM
+  has-axis-status:
+    description: Has Status channel
+  has-axis-control:
+    description: Has Control Channel
+  skip-rm-startup-after-reset:
+    description: Select this option to skip the start-up steps after a reset
+  num-hw-triggers:
+    description: Number of hardware Triggers
+  vsm-msb:
+    description: MSB of VSM register
+  vsm-lsb:
+    description: LSB of VSM register
+  bank-msb:
+    description: MSB of Bank register
+  bank-lsb:
+    description: LSB of Bank register
+  reg-select-msb:
+    description: MSB of Select register
+  reg-select-lsb:
+    description: LSB of Select register
+
+config:
+    - XPrc_Config
+
+required:
+    - compatible
+    - reg
+    - num-vsms
+    - clearing-bitstream
+    - cp-arbitration-protocol
+    - has-axi-lite-if
+    - reset-active-level
+    - cp-fifo-depth
+    - cp-fifo-type
+    - cp-family
+    - cdc-stages
+    - cp-compression
+    - num-rms
+    - num-rms-alloc
+    - start-in-shutdown
+    - num-trigger-alloc
+    - shutdown-on-err
+    - has-por-rm
+    - por-rm
+    - has-axis-status
+    - has-axis-control
+    - skip-rm-startup-after-reset
+    - num-hw-triggers
+    - vsm-msb
+    - vsm-lsb
+    - bank-msb
+    - bank-lsb
+    - reg-select-msb
+    - reg-select-lsb
+
+examples:
+    xprc_selftest_example.c:
+        - reg
+...
