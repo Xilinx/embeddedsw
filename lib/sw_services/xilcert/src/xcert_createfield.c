@@ -40,15 +40,27 @@
 
 /************************** Constant Definitions *****************************/
 #define XCERT_MAX_FIELD_VAL_LENGTH					(200U)
-#define XCERT_BIT7_MASK 						(0x80)
+					/**< Max length of value of field */
+#define XCERT_BIT7_MASK 						(0x80U)
+					/**< Mask to get bit 7*/
 
 #define XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES				(127U)
+	/**< Max length for which short form encoding of length is used */
 #define XCERT_LONG_FORM_2_BYTES_MAX_LENGTH_IN_BYTES			(255U)
+	/**< Max length for which long form encoding of length is used */
 #define XCERT_LONG_FORM_LENGTH_1BYTE					(0x81U)
+	/**< To indicate that length is 1 byte long*/
 #define XCERT_LONG_FORM_LENGTH_2BYTES					(0x82U)
+	/**< To indicate that length is 2 bytes long*/
 #define XCERT_BYTE0_MASK						(0xFFU)
+					/**< Mask to get byte 0 */
 #define XCERT_BYTE1_MASK						(0xFF00U)
-#define XCERT_LENGTH_OF_BYTE_IN_BITS					(8)
+					/**< Mask to get byte 1 */
+#define XCERT_LENGTH_OF_BYTE_IN_BITS					(8U)
+					/**< Length of byte in bits */
+
+/************************** Function Prototypes ******************************/
+static u8 XCert_GetTrailingZeroesCount(u8 Data);
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -64,8 +76,9 @@
  * @note	ASN.1 tag for Integer is 0x02.
  *
  ******************************************************************************/
-void XCert_CreateInteger(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32* FieldLen)
+int XCert_CreateInteger(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32* FieldLen)
 {
+	int Status = XST_FAILURE;
 	u8* Curr = DataBuf;
 	u8* IntegerLenIdx;
 	u8* IntegerValIdx;
@@ -82,10 +95,17 @@ void XCert_CreateInteger(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32*
 		*(Curr++) = 0x0;
 	}
 
-	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)IntegerVal, IntegerLen);
+	Status  = Xil_SMemCpy(Curr, IntegerLen, IntegerVal, IntegerLen, IntegerLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Curr = Curr + IntegerLen;
-	*IntegerLenIdx = Curr - IntegerValIdx;
-	*FieldLen = Curr - DataBuf;
+	*IntegerLenIdx = (u8)(Curr - IntegerValIdx);
+	*FieldLen = (u8)(Curr - DataBuf);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -103,15 +123,27 @@ void XCert_CreateInteger(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32*
  ******************************************************************************/
 void XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32* FieldLen)
 {
+	u8 NumofTrailingZeroes;
 	u8* Curr = DataBuf;
+	u8* BitStringLenIdx;
+	u8* BitStringValIdx;
 
 	*(Curr++) = XCERT_ASN1_TAG_BITSTRING;
-	*(Curr++) = BitStringLen;
+	BitStringLenIdx = Curr++;
+	BitStringValIdx = Curr;
+
+	/**
+	 * The first byte of the value of the BITSTRING is used to show the number
+	 * of unused bits in the last byte of the BITSTRING.
+	 */
+	NumofTrailingZeroes = XCert_GetTrailingZeroesCount(*(BitStringVal + BitStringLen - 1U));
+	*(Curr++) = NumofTrailingZeroes;
 
 	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)BitStringVal, BitStringLen);
 
 	Curr = Curr + BitStringLen;
-	*FieldLen = Curr - DataBuf;
+	*BitStringLenIdx = (u8)(Curr - BitStringValIdx);
+	*FieldLen = (u8)(Curr - DataBuf);
 }
 
 /*****************************************************************************/
@@ -132,10 +164,10 @@ void XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStr
 	u8* Curr = DataBuf;
 
 	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
-	*(Curr++) = OctetStringLen;
+	*(Curr++) = (u8)(OctetStringLen);
 	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)OctetStringVal, OctetStringLen);
 	Curr = Curr + OctetStringLen;
-	*FieldLen = Curr - DataBuf;
+	*FieldLen = (u8)(Curr - DataBuf);
 }
 
 /*****************************************************************************/
@@ -160,15 +192,15 @@ int XCert_CreateRawDataFromStr(u8* DataBuf, const char* RawData, u32* RawDataLen
 	u8 FieldVal[XCERT_MAX_FIELD_VAL_LENGTH] = {0U};
 	u32 Len = Xil_Strnlen(RawData, XCERT_MAX_FIELD_VAL_LENGTH);
 
-	Status =  Xil_ConvertStringToHexBE(RawData, FieldVal,
-		Xil_Strnlen(RawData, XCERT_MAX_FIELD_VAL_LENGTH) * 4);
+	Status =  (int)Xil_ConvertStringToHexBE(RawData, FieldVal,
+		Xil_Strnlen(RawData, XCERT_MAX_FIELD_VAL_LENGTH) * 4U);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)FieldVal, Len/2);
-	Curr = Curr + Len/2;
-	*RawDataLen = Curr - DataBuf;
+	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)FieldVal, Len / 2U);
+	Curr = Curr + Len / 2U;
+	*RawDataLen = (u8)(Curr - DataBuf);
 
 END:
 	return Status;
@@ -196,7 +228,36 @@ void XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, const u32 
 
 	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)RawData, LenOfRawDataVal);
 	Curr = Curr + LenOfRawDataVal;
-	*RawDataFieldLen = Curr - DataBuf;
+	*RawDataFieldLen = (u8)(Curr - DataBuf);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function creates DER encoded ASN.1 Boolean
+ *
+ * @param	DataBuf is the pointer to the buffer where the encoded data
+		needs to be updated
+ * @param	BooleanVal can be TRUE or FALSE
+ * @param	FieldLen is the total length of the encoded ASN.1 Boolean
+ *
+ * @note	ASN.1 tag for Boolean is 0x01
+ *
+ ******************************************************************************/
+void XCert_CreateBoolean(u8* DataBuf, const u8 BooleanVal, u32* FieldLen)
+{
+	u8* Curr = DataBuf;
+
+	*(Curr++) = XCERT_ASN1_TAG_BOOLEAN;
+	*(Curr++) = XCERT_LEN_OF_VALUE_OF_BOOLEAN;
+
+	if (BooleanVal == (u8)TRUE) {
+		*(Curr++) = (u8)XCERT_BOOLEAN_TRUE;
+	}
+	else {
+		*(Curr++) = (u8)XCERT_BOOLEAN_FALSE;
+	}
+
+	*FieldLen = (u8)(Curr - DataBuf);
 }
 
 /*****************************************************************************/
@@ -229,28 +290,52 @@ int XCert_UpdateEncodedLength(u8* LenIdx, u32 Len, u8* ValIdx)
 	int Status = XST_FAILURE;
 
 	if (Len <= XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES) {
-		*LenIdx = Len;
+		*LenIdx = (u8)Len;
 		Status = XST_SUCCESS;
 	}
 	else if ((Len > XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES) && (Len <=
 		XCERT_LONG_FORM_2_BYTES_MAX_LENGTH_IN_BYTES)) {
 		*LenIdx = XCERT_LONG_FORM_LENGTH_1BYTE;
-		Status = Xil_SMemMove(ValIdx + 1, Len, ValIdx, Len, Len);
+		Status = Xil_SMemMove(ValIdx + 1U, Len, ValIdx, Len, Len);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		*(LenIdx + 1) = Len;
+		*(LenIdx + 1U) = (u8)Len;
 	}
 	else {
 		*LenIdx = XCERT_LONG_FORM_LENGTH_2BYTES;
-		Status = Xil_SMemMove(ValIdx + 2, Len, ValIdx, Len, Len);
+		Status = Xil_SMemMove(ValIdx + 2U, Len, ValIdx, Len, Len);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		*(LenIdx + 1) = (Len & XCERT_BYTE1_MASK) >> XCERT_LENGTH_OF_BYTE_IN_BITS;
-		*(LenIdx + 2) = Len & XCERT_BYTE0_MASK;
+		*(LenIdx + 1U) = (u8)((Len & XCERT_BYTE1_MASK) >> XCERT_LENGTH_OF_BYTE_IN_BITS);
+		*(LenIdx + 2U) = (u8)(Len & XCERT_BYTE0_MASK);
 	}
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function takes a byte of data as input and returns number of
+ * 		trailing zeroes in that byte.
+ *
+ * @param	Data is input byte for which number of trailing zeroes need to
+ * 		be counted
+ *
+ * @return
+ *		Number of trailing zeroes
+ *
+ ******************************************************************************/
+static u8 XCert_GetTrailingZeroesCount(u8 Data)
+{
+	u8 Count = 0;
+
+	while ((Data & 0x1U) == 0x0U) {
+		Data = Data >> 0x1U;
+		Count++;
+	}
+
+	return Count;
 }
