@@ -14,6 +14,7 @@
  * Ver   Who     Date      Changes
  * ----- ------  --------  -----------------------------------------------------
  * 1.0   Nava    10/25/22  First release
+ * 2.0   Nava    06/21/23  Added PKI multi-queue support for ECC operations.
  *
  * </pre>
  *
@@ -27,9 +28,6 @@
  *
  * @note: This example supports only VersalNet platform.
  */
-#define RQ_CFG_INPUT_PAGE_ADDR		0x540000U
-#define RQ_CFG_OUTPUT_PAGE_ADDR		0x560000U
-#define CQ_CFG_ADDR			0x580000U
 
 #define MAX_BUFF_SIZE			66U
 
@@ -44,10 +42,6 @@ int main(void)
 	u8 PrivKey[MAX_BUFF_SIZE] = {0};
 	int Status = XST_FAILURE;
 
-	InstanceParam.RQInputAddr = RQ_CFG_INPUT_PAGE_ADDR;
-	InstanceParam.RQOutputAddr = RQ_CFG_OUTPUT_PAGE_ADDR;
-	InstanceParam.CQAddr = CQ_CFG_ADDR;
-
 	Status = XPki_Initialize(&InstanceParam);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failed to initialize the PKI module with error: 0x%x\r\n", Status);
@@ -56,6 +50,24 @@ int main(void)
 
 	PubKey.Qx = PubKeyQx;
 	PubKey.Qy = PubKeyQy;
+
+	Status = XPki_EcdsaGenerateKeyPair(&InstanceParam, ECC_NIST_P192, &PubKey, PrivKey);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ECDSA P192 KeyPair generation failed with error: 0x%x\r\n", Status);
+		goto END;
+	} else {
+		xil_printf("ECDSA P192 KeyPair generation test ran Successfully\r\n");
+	}
+
+	CrvInfo.CrvType = ECC_NIST_P192;
+	CrvInfo.Crv = ECC_PRIME;
+	Status = XPki_EcdsaPwct(&InstanceParam, &CrvInfo, &PubKey, PrivKey);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ECDSA P192 Pairwise consistency test failed with error: 0x%x\r\n", Status);
+		goto END;
+	} else {
+		xil_printf("ECDSA P192 Pairwise consistency test ran Successfully\r\n");
+	}
 
 	Status = XPki_EcdsaGenerateKeyPair(&InstanceParam, ECC_NIST_P256, &PubKey, PrivKey);
 	if (Status != XST_SUCCESS) {

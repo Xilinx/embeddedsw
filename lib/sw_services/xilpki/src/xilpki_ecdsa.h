@@ -18,6 +18,7 @@
  * Ver   Who   Date      Changes
  * ----- ----  --------  -------------------------------------------------------
  * 1.0   Nava  12/05/22  Initial Release
+ * 2.0   Nava  06/21/23  Added PKI multi-queue support for ECC operations.
  *
  * </pre>
  *
@@ -35,6 +36,7 @@ extern "C" {
 #include "xilpki.h"
 
 /************************** Constant Definitions *****************************/
+#define NIST_P192_LEN_BYTES	24U /* Bytes */
 #define NIST_P384_LEN_BYTES	48U /* Bytes */
 #define NIST_P256_LEN_BYTES	32U /* Bytes */
 #define NIST_P521_LEN_BYTES	66U /* Bytes */
@@ -49,7 +51,8 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 typedef enum {
-	ECC_NIST_P256 = 1,
+	ECC_NIST_P192 = 1,
+	ECC_NIST_P256,
 	ECC_NIST_P384,
 	ECC_NIST_P521
 } XPki_EcdsaCrvType;
