@@ -1,0 +1,42 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for SMC controller
+
+maintainers:
+  - Amit Kumar Mahapatra <amit-kumar.mahapatra@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - arm,pl353-smc-r2p1
+  reg:
+    description: Physical base address and size of the SMC controller register map
+  flashbase:
+    description: Physical base address of NAND Flash controller register map
+  nand-bus-width:
+    description: Flash interface connection with controller either x8 or x16
+
+config:
+    - XNandPs_Config
+
+required:
+    - compatible
+    - reg
+    - flashbase
+    - nand-bus-width
+
+examples:
+        xnandps_cache_example.c:
+                - reg
+        xnandps_example.c:
+                - reg
+        xnandps_skip_example.c:
+                - reg
+...

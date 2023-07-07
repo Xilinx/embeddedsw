@@ -53,6 +53,7 @@
 * 2.2  sb     01/31/2015   Use the address cycles defined in onfi parameter
 *			   page than hardcoding this value to 5 for read and
 *			   write operations.
+* 2.8  akm     07/06/23    Update the driver to support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -157,7 +158,9 @@ int XNandPs_CfgInitialize(XNandPs *InstancePtr, XNandPs_Config *ConfigPtr,
 	/*
 	 * Set the values read from the device config and the base address.
 	 */
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->Config.SmcBase = SmcBaseAddr;
 	InstancePtr->Config.FlashBase = FlashBaseAddr;
 	InstancePtr->Config.FlashWidth = ConfigPtr->FlashWidth;

@@ -157,6 +157,7 @@
 *			   and XNandPs_ReadBbt().
 * 2.6	akm    09/03/20    Updated the Makefile to support parallel make execution.
 * 2.7   sg     03/18/21    Added validation check for parameter page.
+* 2.8  akm     07/06/23    Update the driver to support for system device-tree flow.
 *
 * </pre>
 *
@@ -289,7 +290,11 @@ typedef enum {
  * This typedef contains configuration information for the flash device.
  */
 typedef struct {
+#ifndef SDT
 	u16  DeviceId;		/**< Instance ID of device */
+#else
+	char *Name;
+#endif
 	u32  SmcBase;		/**< SMC Base address */
 	u32  FlashBase;		/**< NAND base address */
 	u32  FlashWidth;	/**< Flash width */
@@ -413,7 +418,11 @@ typedef struct {
 /*
  * Functions in xnandps_sinit.c
  */
+#ifndef SDT
 XNandPs_Config *XNandPs_LookupConfig(u16 DeviceId);
+#else
+XNandPs_Config *XNandPs_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * Functions in xnandps.c

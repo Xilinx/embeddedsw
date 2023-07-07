@@ -23,13 +23,16 @@
 * Ver   Who    Date    	   Changes
 * ----- ---- ----------  -----------------------------------------------
 * 1.00a nm   12/10/2010  First release
+* 2.8  akm   07/06/23    Update the driver to support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xnandps.h"
 
 /************************** Constant Definitions *****************************/
@@ -60,6 +63,7 @@ extern XNandPs_Config XNandPs_ConfigTable[];
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XNandPs_Config *XNandPs_LookupConfig(u16 DeviceId)
 {
 	XNandPs_Config *CfgPtr = NULL;
@@ -73,4 +77,20 @@ XNandPs_Config *XNandPs_LookupConfig(u16 DeviceId)
 	}
 	return CfgPtr;
 }
+#else
+XNandPs_Config *XNandPs_LookupConfig(UINTPTR BaseAddress)
+{
+	XNandPs_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0U; XNandPs_ConfigTable[Index].Name != NULL; Index++) {
+		if (XNandPs_ConfigTable[Index].SmcBase == BaseAddress ||
+		    !BaseAddress) {
+			CfgPtr = &XNandPs_ConfigTable[Index];
+			break;
+		}
+	}
+	return CfgPtr;
+}
+#endif
 /** @} */
