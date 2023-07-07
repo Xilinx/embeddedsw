@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2020 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -16,6 +17,7 @@
 * Ver Who Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.4 sd  5/21/20 Initial version for Clock Wizard Example
+* 1.6 sd 7/7/23   Add SDT support.
 * </pre>
 *
 ******************************************************************************/
@@ -36,7 +38,9 @@
 * They are only defined here such that a user can easily change all the
 * needed device IDs in one place.
 */
+#ifndef SDT
 #define XCLK_WIZARD_DEVICE_ID		XPAR_CLK_WIZ_0_DEVICE_ID
+#endif
 #define XCLK_US_WIZ_RECONFIG_OFFSET	0x0000025C  /**< Reconfig Register */
 
 /*
@@ -53,7 +57,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, u32 DeviceId);
+#else
+u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 XClk_Wiz ClkWiz_Dynamic; /* The instance of the ClkWiz_Dynamic */
@@ -83,7 +91,11 @@ int main()
 	xil_printf("CLK_WIZARD example\n\r");
 	xil_printf("-------------------------------------------\n\r\n\r");
 
+#ifndef SDT
 	Status = ClkWiz_Example(&ClkWiz_Dynamic, XCLK_WIZARD_DEVICE_ID);
+#else
+	Status = ClkWiz_Example(&ClkWiz_Dynamic, XPAR_CLK_WIZ_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("CLK_WIZARD example Failed");
 		return XST_FAILURE;
@@ -109,7 +121,11 @@ int main()
 *		- XST_SUCCESS if successful.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, u32 DeviceId)
+#else
+u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	XClk_Wiz_Config *CfgPtr_Dynamic;
 	u32 Status = XST_FAILURE;
@@ -118,7 +134,11 @@ u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, u32 DeviceId)
 	/*
 	 * Get the CLK_WIZ Dynamic reconfiguration driver instance
 	 */
+#ifndef SDT
 	CfgPtr_Dynamic = XClk_Wiz_LookupConfig(DeviceId);
+#else
+	CfgPtr_Dynamic = XClk_Wiz_LookupConfig(BaseAddress);
+#endif
 	if (!CfgPtr_Dynamic) {
 		return XST_FAILURE;
 	}
