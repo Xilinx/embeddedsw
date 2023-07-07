@@ -26,6 +26,7 @@
 *		      all the driver files.
 * 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XCan_VmInitialize API.
+* 3.7   ht   07/04/23 Added support for system device-tree flow.
 * </pre>
 ******************************************************************************/
 
@@ -36,7 +37,9 @@
 #include "xil_io.h"
 #include "xenv.h"
 #include "xcan.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -82,7 +85,11 @@ static void StubHandler(void);
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int XCan_Initialize(XCan *InstancePtr, u16 DeviceId)
+#else
+int XCan_Initialize(XCan *InstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	XCan_Config *ConfigPtr;
 
@@ -96,7 +103,11 @@ int XCan_Initialize(XCan *InstancePtr, u16 DeviceId)
 	 * configuration info down below when initializing this instance of
 	 * the driver.
 	 */
+#ifndef SDT
 	ConfigPtr = XCan_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XCan_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}
@@ -151,7 +162,11 @@ int XCan_Initialize(XCan *InstancePtr, u16 DeviceId)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int XCan_VmInitialize(XCan *InstancePtr, u16 DeviceId, UINTPTR VirtAddr)
+#else
+int XCan_VmInitialize(XCan *InstancePtr, UINTPTR BaseAddress, UINTPTR VirtAddr)
+#endif
 {
 	XCan_Config *ConfigPtr;
 
@@ -167,7 +182,11 @@ int XCan_VmInitialize(XCan *InstancePtr, u16 DeviceId, UINTPTR VirtAddr)
 	 * configuration info down below when initializing this instance of the
 	 * driver.
 	 */
+#ifndef SDT
 	ConfigPtr = XCan_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XCan_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}
@@ -987,6 +1006,7 @@ void XCan_AcceptFilterGet(XCan *InstancePtr, u32 FilterIndex,
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XCan_Config *XCan_LookupConfig(u16 DeviceId)
 {
 	XCan_Config *CfgPtr = NULL;
@@ -1001,7 +1021,23 @@ XCan_Config *XCan_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XCan_Config *XCan_LookupConfig(UINTPTR BaseAddress)
+{
+	XCan_Config *CfgPtr = NULL;
+	int Index;
 
+	for (Index = 0U; XCan_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XCan_ConfigTable[Index].BaseAddress == BaseAddress) ||
+				!BaseAddress) {
+			CfgPtr = &XCan_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /*****************************************************************************/
 /**
 *
@@ -1020,13 +1056,23 @@ XCan_Config *XCan_LookupConfig(u16 DeviceId)
 ******************************************************************************/
 XCan_Config *XCan_GetConfig(unsigned int InstanceIndex)
 {
-	XCan_Config *CfgPtr;
+	XCan_Config *CfgPtr = NULL;
 
+#ifndef SDT
 	/* Check parameter */
-	if (InstanceIndex >= XPAR_XCAN_NUM_INSTANCES)
-		return NULL;
+	if (InstanceIndex < XPAR_XCAN_NUM_INSTANCES)
+		CfgPtr = &XCan_ConfigTable[InstanceIndex];
 
-	CfgPtr = &XCan_ConfigTable[InstanceIndex];
+#else
+	int Index;
+
+        for (Index = 0U; XCan_ConfigTable[Index].Name != NULL; Index++) {
+                if (Index == InstanceIndex) {
+                        CfgPtr = &XCan_ConfigTable[Index];
+                        break;
+                }
+        }
+#endif
 
 	return CfgPtr;
 }
