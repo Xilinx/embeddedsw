@@ -17,7 +17,8 @@
 # 1.07	hv   10-27-21 Uprev library to v1.5.
 # 1.08  gm   11-22-22 Added support for A72 and Uprev library to v1.7
 # 1.09	hv   11-16-22 Adds PL microblaze in supported peripherals
-# 1.07	rv   04-21-23 Uprev library to v1.8
+# 1.10	rv   04-21-23 Uprev library to v1.8
+# 1.11  gm   07-07-23 Added support for FreeRTOS
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -25,7 +26,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilsem
   OPTION drc = sem_drc;
   OPTION copyfiles = all;
-  OPTION REQUIRES_OS = (standalone);
+  OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc psxl_pmc psx_pmc psv_cortexr5 psxl_cortexr52 psx_cortexr52 psu_cortexa72 psv_cortexa72 microblaze);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsem,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Soft Error Mitigation Library";
