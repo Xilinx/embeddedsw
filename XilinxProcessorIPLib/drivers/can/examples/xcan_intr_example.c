@@ -77,9 +77,9 @@
 #define CAN_INTR_VEC_ID		XPAR_INTC_0_CAN_0_VEC_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
- #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #else
- #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #else
 #define XCAN_BASEADDRESS	XPAR_CAN_0_BASEADDR
@@ -276,10 +276,10 @@ static int XCanIntrExample(UINTPTR BaseAddress)
 #ifndef SDT
 	Status = SetupInterruptSystem(&Can);
 #else
-	Status = XSetupInterruptSystem(&Can,&XCan_IntrHandler,
-					ConfigPtr->IntrId,
-					ConfigPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(&Can, &XCan_IntrHandler,
+				       ConfigPtr->IntrId,
+				       ConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -294,7 +294,7 @@ static int XCanIntrExample(UINTPTR BaseAddress)
 	 * Enter Loop Back Mode.
 	 */
 	XCan_EnterMode(&Can, XCAN_MODE_LOOPBACK);
-	while(XCan_GetMode(&Can) != XCAN_MODE_LOOPBACK);
+	while (XCan_GetMode(&Can) != XCAN_MODE_LOOPBACK);
 
 	/*
 	 * Loop back a frame. The RecvHandler is expected to handle
@@ -338,7 +338,7 @@ static void Config(XCan *InstancePtr)
 	 * Configuration Mode.
 	 */
 	XCan_EnterMode(InstancePtr, XCAN_MODE_CONFIG);
-	while(XCan_GetMode(InstancePtr) != XCAN_MODE_CONFIG);
+	while (XCan_GetMode(InstancePtr) != XCAN_MODE_CONFIG);
 
 	/*
 	 * Setup Baud Rate Prescaler Register (BRPR) and
@@ -347,8 +347,8 @@ static void Config(XCan *InstancePtr)
 	 */
 	XCan_SetBaudRatePrescaler(InstancePtr, TEST_BRPR_BAUD_PRESCALAR);
 	XCan_SetBitTiming(InstancePtr, TEST_BTR_SYNCJUMPWIDTH,
-					TEST_BTR_SECOND_TIMESEGMENT,
-					TEST_BTR_FIRST_TIMESEGMENT);
+			  TEST_BTR_SECOND_TIMESEGMENT,
+			  TEST_BTR_FIRST_TIMESEGMENT);
 }
 
 /*****************************************************************************/
@@ -470,7 +470,7 @@ static void RecvHandler(void *CallBackRef)
 	* Verify Data field contents.
 	*/
 	FramePtr = (u8 *)(&RxFrame[2]);
-	for (Index = 0; Index < FRAME_DATA_LENGTH; Index++){
+	for (Index = 0; Index < FRAME_DATA_LENGTH; Index++) {
 		if (*FramePtr++ != (u8)Index) {
 			LoopbackError = TRUE;
 			break;
@@ -500,31 +500,31 @@ static void RecvHandler(void *CallBackRef)
 static void ErrorHandler(void *CallBackRef, u32 ErrorMask)
 {
 
-	if(ErrorMask & XCAN_ESR_ACKER_MASK) {
+	if (ErrorMask & XCAN_ESR_ACKER_MASK) {
 		/*
 		 * ACK Error handling code should be put here.
 		 */
 	}
 
-	if(ErrorMask & XCAN_ESR_BERR_MASK) {
+	if (ErrorMask & XCAN_ESR_BERR_MASK) {
 		/*
 		 * Bit Error handling code should be put here.
 		 */
 	}
 
-	if(ErrorMask & XCAN_ESR_STER_MASK) {
+	if (ErrorMask & XCAN_ESR_STER_MASK) {
 		/*
 		 * Stuff Error handling code should be put here.
 		 */
 	}
 
-	if(ErrorMask & XCAN_ESR_FMER_MASK) {
+	if (ErrorMask & XCAN_ESR_FMER_MASK) {
 		/*
 		 * Form Error handling code should be put here.
 		 */
 	}
 
-	if(ErrorMask & XCAN_ESR_CRCER_MASK) {
+	if (ErrorMask & XCAN_ESR_CRCER_MASK) {
 		/*
 		 * CRC Error handling code should be put here.
 		 */
@@ -581,28 +581,28 @@ static void EventHandler(void *CallBackRef, u32 IntrMask)
 		return;
 	}
 
-	if(IntrMask & XCAN_IXR_RXOFLW_MASK) { /* RX FIFO Overflow Interrupt */
+	if (IntrMask & XCAN_IXR_RXOFLW_MASK) { /* RX FIFO Overflow Interrupt */
 		/*
 		 * Code to handle RX FIFO Overflow
 		 * Interrupt should be put here.
 		 */
 	}
 
-	if(IntrMask & XCAN_IXR_RXUFLW_MASK) { /* RX FIFO Underflow Interrupt */
+	if (IntrMask & XCAN_IXR_RXUFLW_MASK) { /* RX FIFO Underflow Interrupt */
 		/*
 		 * Code to handle RX FIFO Underflow
 		 * Interrupt should be put here.
 		 */
 	}
 
-	if(IntrMask & XCAN_IXR_TXBFLL_MASK) { /* TX High Priority Full Intr */
+	if (IntrMask & XCAN_IXR_TXBFLL_MASK) { /* TX High Priority Full Intr */
 		/*
 		 * Code to handle TX High Priority Buffer Full
 		 * Interrupt should be put here.
 		 */
 	}
 
-	if(IntrMask & XCAN_IXR_TXFLL_MASK) { /* TX FIFO Full Interrupt */
+	if (IntrMask & XCAN_IXR_TXFLL_MASK) { /* TX FIFO Full Interrupt */
 		/*
 		 * Code to handle TX FIFO Full
 		 * Interrupt should be put here.
@@ -657,7 +657,7 @@ static int SetupInterruptSystem(XCan *InstancePtr)
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 	/*
- 	 * Initialize the interrupt controller driver so that it's ready to use.
+	 * Initialize the interrupt controller driver so that it's ready to use.
 	 * INTC_DEVICE_ID specifies the XINTC device ID that is generated in
 	 * xparameters.h.
 	 */
@@ -672,9 +672,9 @@ static int SetupInterruptSystem(XCan *InstancePtr)
 	 * interrupt processing for the device.
 	 */
 	Status = XIntc_Connect(&InterruptController,
-				CAN_INTR_VEC_ID,
-				(XInterruptHandler)XCan_IntrHandler,
-				InstancePtr);
+			       CAN_INTR_VEC_ID,
+			       (XInterruptHandler)XCan_IntrHandler,
+			       InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -685,7 +685,7 @@ static int SetupInterruptSystem(XCan *InstancePtr)
 	 * can cause interrupts through the interrupt controller.
 	 */
 	Status = XIntc_Start(&InterruptController, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS){
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
@@ -708,14 +708,14 @@ static int SetupInterruptSystem(XCan *InstancePtr)
 	}
 
 	Status = XScuGic_CfgInitialize(&InterruptController, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 
 	XScuGic_SetPriorityTriggerType(&InterruptController, CAN_INTR_VEC_ID,
-					0xA0, 0x3);
+				       0xA0, 0x3);
 
 	/*
 	 * Connect the interrupt handler that will be called when an
@@ -747,8 +747,8 @@ static int SetupInterruptSystem(XCan *InstancePtr)
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			 (Xil_ExceptionHandler)INTC_HANDLER,
-			 &InterruptController);
+				     (Xil_ExceptionHandler)INTC_HANDLER,
+				     &InterruptController);
 
 	/*
 	 * Enable exceptions.
