@@ -19,6 +19,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -----------------------------------------------------------------
  * 1.00a hvm  12/3/10 First release
+ * 5.6   pm   07/05/23 Removed powerpc support.
  *
  * </pre>
  *****************************************************************************/
@@ -76,11 +77,6 @@ int main()
 	if (NULL == UsbConfigPtr) {
 		return XST_FAILURE;
 	}
-#ifdef __PPC__
-
-	Xil_ICacheEnableRegion (0x80000001);
-	Xil_DCacheEnableRegion (0x80000001);
-#endif
 #ifdef __MICROBLAZE__
 	Xil_ICacheInvalidate();
 	Xil_ICacheEnable();

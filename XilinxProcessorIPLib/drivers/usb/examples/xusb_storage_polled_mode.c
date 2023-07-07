@@ -27,6 +27,7 @@
  *		       EPDataSend is called. Similarly the cache invalidation
  *	               is done after the call to EPDataReceive and after the
  *		       dma transfer is over.
+ * 5.6   pm   07/05/23 Removed powerpc support.
  * </pre>
  *****************************************************************************/
 /***************************** Include Files *********************************/
@@ -76,13 +77,9 @@ int main()
 {
 	int Status;
 
-/* Enable caches for PPC and Microblaze, for
+/* Enable caches for Microblaze, for
  * ARM caches are enabled by BSP  */
-#ifdef __PPC__
-
-	Xil_ICacheEnableRegion (0x80000001);
-	Xil_DCacheEnableRegion (0x80000001);
-#elif __MICROBLAZE__
+#ifdef __MICROBLAZE__
 	Xil_ICacheInvalidate();
 	Xil_ICacheEnable();
 

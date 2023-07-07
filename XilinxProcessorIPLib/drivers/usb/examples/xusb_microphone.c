@@ -27,6 +27,7 @@
  *			reset when USB reset is asserted (CR 627574).
  * 4.02a bss  02/20/12 Modified main function to call Xil_DCacheFlushRange
  * 			when DMA is enabled.(CR 640005)
+ * 5.6   pm   07/05/23 Removed powerpc support.
  *
  * </pre>
  *****************************************************************************/
@@ -82,11 +83,6 @@ int main()
 		return XST_FAILURE;
 	}
 
-#ifdef __PPC__
-
-	Xil_ICacheEnableRegion (0x80000001);
-	Xil_DCacheEnableRegion (0x80000001);
-#endif
 #ifdef __MICROBLAZE__
 	Xil_ICacheInvalidate();
 	Xil_ICacheEnable();
