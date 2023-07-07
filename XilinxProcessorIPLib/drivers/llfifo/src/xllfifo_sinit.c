@@ -26,8 +26,10 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
 #include "xllfifo.h"
+#ifndef SDT
+#include "xparameters.h"
+#endif
 
 /*****************************************************************************/
 /**
@@ -42,6 +44,7 @@
  * @note	None
  *
  ******************************************************************************/
+#ifndef SDT
 XLlFifo_Config *XLlFfio_LookupConfig(u32 DeviceId)
 {
 	extern XLlFifo_Config XLlFifo_ConfigTable[];
@@ -60,4 +63,24 @@ XLlFifo_Config *XLlFfio_LookupConfig(u32 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XLlFifo_Config *XLlFfio_LookupConfig(UINTPTR BaseAddress)
+{
+	extern XLlFifo_Config XLlFifo_ConfigTable[];
+	XLlFifo_Config *CfgPtr;
+	u32 Index;
+
+	CfgPtr = NULL;
+
+	for (Index = (u32)0x0; XLlFifo_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XLlFifo_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XLlFifo_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /** @} */

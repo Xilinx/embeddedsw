@@ -163,6 +163,7 @@
  *		       Updated comments in the usage section as per example code.
  *		       Fix doxygen warnings in the driver.
  * 5.5 sd     09/04/20  Makefile update for parallel execution.
+ * 5.6 sd     07/7/23  Add system devicetree support.
  * </pre>
  *
  *****************************************************************************/
@@ -207,13 +208,27 @@ typedef struct XLlFifo {
 	XStrm_TxFifoStreamer TxStreamer; /**< TxStreamer is the byte streamer
 	                                  *   instance for the transmit channel.
 	                                  */
+#ifdef SDT
+	u32 IntId; /**< Interrupt ID on GIC **/
+	UINTPTR IntrParent; 	/** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
 } XLlFifo;
 
 typedef struct XLlFifo_Config {
+#ifndef SDT
 	u32 DeviceId;		/**< Deviceid of the AXI FIFO */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< Base Address of the AXI FIFO */
 	u32 Axi4BaseAddress;    /**< Axi4 interface Base address */
 	u32 Datainterface;	/**< Type of Datainterface */
+#ifdef SDT
+	u32 IntId; /**< Interrupt ID on GIC **/
+	UINTPTR IntrParent; 	/** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
 }XLlFifo_Config;
 
 /****************************************************************************/
@@ -695,7 +710,11 @@ extern u32 _xllfifo_ipis_value;
 int XLlFifo_CfgInitialize(XLlFifo *InstancePtr,
 			XLlFifo_Config *Config, UINTPTR EffectiveAddress);
 void XLlFifo_Initialize(XLlFifo *InstancePtr, UINTPTR BaseAddress);
+#ifndef SDT
 XLlFifo_Config *XLlFfio_LookupConfig(u32 DeviceId);
+#else
+XLlFifo_Config *XLlFfio_LookupConfig(UINTPTR BaseAddress);
+#endif
 u32 XLlFifo_iRxOccupancy(XLlFifo *InstancePtr);
 u32 XLlFifo_iRxGetLen(XLlFifo *InstancePtr);
 u32 XLlFifo_iTxVacancy(XLlFifo *InstancePtr);
