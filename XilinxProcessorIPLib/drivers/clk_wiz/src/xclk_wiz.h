@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -80,6 +81,7 @@
 *                  generation.
 * 1.3 sd  4/09/20 Added versal support.
 * 1.4 sd  5/22/20 Added zynqmp set rate.
+* 1.6 sd  7/07/23 Added ST support.
 * </pre>
 *
 ******************************************************************************/
@@ -141,7 +143,11 @@ extern "C" {
 *
 */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId;	         /**< Device Id */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddr;        /**< Base address of CLK_WIZ Controller */
 	u32 EnableClkMon;        /**< It enables the Clock Monitor*/
 	u32 EnableUserClkWiz0;   /**< Enable user clk 0 */
@@ -160,6 +166,11 @@ typedef struct {
 				going as input to the PLL/MMCM */
 	double PrimInClkFreq;       /**< Input Clock */
 	u32 NumClocks;		/**< Number of clocks */
+#ifdef SDT
+	u32 IntId;		/**< Interrupt ID on GIC **/
+	UINTPTR IntrParent; 	/** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
 } XClk_Wiz_Config;
 
 /*****************************************************************************/
@@ -419,7 +430,11 @@ static inline void XClk_Wiz_IntrAckIrq(XClk_Wiz *InstancePtr, u32 Value) {
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 XClk_Wiz_Config *XClk_Wiz_LookupConfig(u32 DeviceId);
+#else
+XClk_Wiz_Config *XClk_Wiz_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 u32 XClk_Wiz_SetRate(XClk_Wiz *InstancePtr, u64 SetRate);
 

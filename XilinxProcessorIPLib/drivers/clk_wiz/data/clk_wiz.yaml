@@ -1,0 +1,44 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Xilinx clocking wizard
+
+maintainers:
+  - Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+    items:
+      - items:
+        - enum:
+          - xlnx,clocking-wizard
+          - xlnx,clocking-wizard-6.0
+          - xlnx,clk-wizard-1.0
+
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,prim-in-freq:
+    description: Input clock frequency
+
+config:
+    - XClk_Wiz_Config
+
+required:
+  - compatible
+  - reg
+  - xlnx,prim-in-freq
+  - interrupts
+  - interrupt-parent
+
+examples:
+    xclk_wiz_intr_example.c:
+        - interrupts
+    xclk_wiz_setrate_example.c:
+        - reg
+    xclk_wiz_versal_example.c:
+        - reg
+...
