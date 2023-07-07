@@ -201,7 +201,7 @@ int XCanPolledExample(UINTPTR BaseAddress)
 	 * Register (BRPR) and Bit Timing Register (BTR)
 	 */
 	XCan_EnterMode(&Can, XCAN_MODE_CONFIG);
-	while(XCan_GetMode(&Can) != XCAN_MODE_CONFIG);
+	while (XCan_GetMode(&Can) != XCAN_MODE_CONFIG);
 
 	/*
 	 * Setup Baud Rate Prescaler Register (BRPR) and Bit Timing Register
@@ -210,14 +210,14 @@ int XCanPolledExample(UINTPTR BaseAddress)
 	 */
 	XCan_SetBaudRatePrescaler(&Can, TEST_BRPR_BAUD_PRESCALAR);
 	XCan_SetBitTiming(&Can, TEST_BTR_SYNCJUMPWIDTH,
-				TEST_BTR_SECOND_TIMESEGMENT,
-				TEST_BTR_FIRST_TIMESEGMENT);
+			  TEST_BTR_SECOND_TIMESEGMENT,
+			  TEST_BTR_FIRST_TIMESEGMENT);
 
 	/*
 	 * Enter Loop Back Mode.
 	 */
 	XCan_EnterMode(&Can, XCAN_MODE_LOOPBACK);
-	while(XCan_GetMode(&Can) != XCAN_MODE_LOOPBACK);
+	while (XCan_GetMode(&Can) != XCAN_MODE_LOOPBACK);
 
 	/*
 	 * Send a frame, receive the frame via the loopback and verify its
@@ -322,11 +322,13 @@ static int RecvFrame(XCan *InstancePtr)
 		 * Verify Identifier and Data Length Code.
 		 */
 		if (RxFrame[0] !=
-				XCan_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0))
+		    XCan_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0)) {
 			return XST_LOOPBACK_ERROR;
+		}
 
-		if (RxFrame[1] != XCan_CreateDlcValue(FRAME_DATA_LENGTH))
+		if (RxFrame[1] != XCan_CreateDlcValue(FRAME_DATA_LENGTH)) {
 			return XST_LOOPBACK_ERROR;
+		}
 
 		/*
 		 * Verify Data field contents.

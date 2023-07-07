@@ -325,7 +325,7 @@ typedef struct {
 *****************************************************************************/
 #define XCan_IsTxDone(InstancePtr) \
 	((XCan_ReadReg(((InstancePtr)->BaseAddress), XCAN_ISR_OFFSET) & \
-		XCAN_IXR_TXOK_MASK) ? TRUE : FALSE)
+	  XCAN_IXR_TXOK_MASK) ? TRUE : FALSE)
 
 
 /****************************************************************************/
@@ -345,7 +345,7 @@ typedef struct {
 *****************************************************************************/
 #define XCan_IsTxFifoFull(InstancePtr) \
 	((XCan_ReadReg(((InstancePtr)->BaseAddress), XCAN_SR_OFFSET) & \
-		XCAN_SR_TXFLL_MASK) ? TRUE : FALSE)
+	  XCAN_SR_TXFLL_MASK) ? TRUE : FALSE)
 
 
 /****************************************************************************/
@@ -365,7 +365,7 @@ typedef struct {
 *****************************************************************************/
 #define XCan_IsHighPriorityBufFull(InstancePtr) \
 	((XCan_ReadReg(((InstancePtr)->BaseAddress), XCAN_SR_OFFSET) & \
-	XCAN_SR_TXBFLL_MASK) ? TRUE : FALSE)
+	  XCAN_SR_TXBFLL_MASK) ? TRUE : FALSE)
 
 
 /****************************************************************************/
@@ -385,7 +385,7 @@ typedef struct {
 *****************************************************************************/
 #define XCan_IsRxEmpty(InstancePtr) \
 	((XCan_ReadReg(((InstancePtr)->BaseAddress), XCAN_ISR_OFFSET) & \
-		XCAN_IXR_RXNEMP_MASK) ? FALSE : TRUE)
+	  XCAN_IXR_RXNEMP_MASK) ? FALSE : TRUE)
 
 
 /****************************************************************************/
@@ -411,8 +411,8 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCan_IsAcceptFilterBusy(InstancePtr) \
-		((XCan_ReadReg(((InstancePtr)->BaseAddress), XCAN_SR_OFFSET) & \
-		XCAN_SR_ACFBSY_MASK) ? TRUE : FALSE)
+	((XCan_ReadReg(((InstancePtr)->BaseAddress), XCAN_SR_OFFSET) & \
+	  XCAN_SR_ACFBSY_MASK) ? TRUE : FALSE)
 
 
 /****************************************************************************/
@@ -439,12 +439,12 @@ typedef struct {
 *
 *****************************************************************************/
 #define XCan_CreateIdValue(StandardId, SubRemoteTransReq, IdExtension, \
-		ExtendedId, RemoteTransReq) \
-	((((StandardId) << XCAN_IDR_ID1_SHIFT) & XCAN_IDR_ID1_MASK) | \
-	(((SubRemoteTransReq) << XCAN_IDR_SRR_SHIFT) & XCAN_IDR_SRR_MASK) | \
-	(((IdExtension) << XCAN_IDR_IDE_SHIFT) & XCAN_IDR_IDE_MASK) | \
-	(((ExtendedId) << XCAN_IDR_ID2_SHIFT) & XCAN_IDR_ID2_MASK) | \
-	((RemoteTransReq) & XCAN_IDR_RTR_MASK))
+			   ExtendedId, RemoteTransReq) \
+((((StandardId) << XCAN_IDR_ID1_SHIFT) & XCAN_IDR_ID1_MASK) | \
+ (((SubRemoteTransReq) << XCAN_IDR_SRR_SHIFT) & XCAN_IDR_SRR_MASK) | \
+ (((IdExtension) << XCAN_IDR_IDE_SHIFT) & XCAN_IDR_IDE_MASK) | \
+ (((ExtendedId) << XCAN_IDR_ID2_SHIFT) & XCAN_IDR_ID2_MASK) | \
+ ((RemoteTransReq) & XCAN_IDR_RTR_MASK))
 
 /****************************************************************************/
 /**
