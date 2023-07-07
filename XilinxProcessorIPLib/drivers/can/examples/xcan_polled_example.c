@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +33,7 @@
 *               ensure that "Successfully ran" and "Failed" strings are
 *               available in all examples. This is a fix for CR-965028.
 * 3.3   ask  08/01/18 Fixed Cppcheck and GCC warnings in can driver
+* 3.7   ht     07/04/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -48,7 +50,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define CAN_DEVICE_ID	XPAR_CAN_0_DEVICE_ID
+#else
+#define XCAN_BASEADDRESS	XPAR_CAN_0_BASEADDR
+#endif
 
 /*
  * Maximum CAN frame length in words.
@@ -83,7 +89,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int XCanPolledExample(u16 DeviceId);
+#else
+int XCanPolledExample(UINTPTR BaseAddress);
+#endif
 static int SendFrame(XCan *InstancePtr);
 static int RecvFrame(XCan *InstancePtr);
 
@@ -122,7 +132,11 @@ int main(void)
 	 * Run the Can Polled example, specify the Device ID that is generated
 	 * in xparameters.h .
 	 */
+#ifndef SDT
 	if (XCanPolledExample(CAN_DEVICE_ID)) {
+#else
+	if (XCanPolledExample(XCAN_BASEADDRESS)) {
+#endif
 		xil_printf("Can polled Example Failed\r\n");
 		return XST_FAILURE;
 	}
@@ -153,14 +167,22 @@ int main(void)
 * loop and will never return to the caller.
 *
 ******************************************************************************/
+#ifndef SDT
 int XCanPolledExample(u16 DeviceId)
+#else
+int XCanPolledExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 
 	/*
 	 * Initialize the XCan driver.
 	 */
+#ifndef SDT
 	Status = XCan_Initialize(&Can, DeviceId);
+#else
+	Status = XCan_Initialize(&Can, BaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
