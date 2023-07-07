@@ -37,7 +37,7 @@
 *       dd   05/24/2023 Updated doxygen comments
 *       nb   06/28/2023 Add RTCA def for SSIT temperature propagation
 *       bm   07/03/2023 Added IPI access permissions validation
-*
+*       bm   07/06/2023 Added XPlmi_RunProc macro
 * </pre>
 *
 * @note
@@ -249,7 +249,8 @@ enum {
 #define XPlmi_PsmSequence		NULL /**< PSM sequence */
 #define XPlmi_ScatterWrite		NULL /**< Scatter write */
 #define XPlmi_ScatterWrite2		NULL /**< Scatter write2 */
-#define XPlmi_SetFipsKatMask	NULL /**< Set Fip Kat mask */
+#define XPlmi_SetFipsKatMask		NULL /**< Set Fip Kat mask */
+#define XPlmi_RunProc			NULL /**< Run Proc */
 
 #define GET_RTCFG_PMC_ERR_ADDR(Index)		(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PMC error address */
 #define GET_RTCFG_PSM_ERR_ADDR(Index)		(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PSM error address */

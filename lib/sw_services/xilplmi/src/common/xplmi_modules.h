@@ -38,6 +38,7 @@
 * 1.08  skg  10/04/2022 Added Invalid command handler to handle invalid Commands which includes SlrIndex in cmd id
 *       am   12/21/2022 Added XilOcp module Id
 * 1.09  bm   06/23/2023 Added support for Access permission buffer
+*       bm   07/06/2023 Added command id for run_proc command
 *
 * </pre>
 *
@@ -191,6 +192,7 @@ typedef struct {
 #define XPLMI_TAMPER_TRIGGER_CMD_ID	(35U)
 #define XPLMI_SET_FIPS_MASK_CMD_ID	(36U)
 #define XPLMI_SET_IPI_ACCESS_CMD_ID	(37U)
+#define XPLMI_RUN_PROC_CMD_ID		(38U)
 #define XPLMI_CDO_END_CMD_ID		(0xFFU)
 
 /************************** Function Prototypes ******************************/

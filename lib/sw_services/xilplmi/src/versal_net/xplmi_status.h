@@ -37,6 +37,7 @@
 *       har  02/24 2023 Added error codes for X.509 certificate generation
 * 1.02  bm   06/13/2023 Add API to just log PLM error
 *       bm   06/23/2023 Added error codes for ipi access filtering
+*       bm   07/06/2023 Added XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS error code
 *
 * </pre>
 *
@@ -251,6 +252,8 @@ typedef enum {
 	XPLMI_ERR_MODULE_NOT_REGISTERED, /**< 0x141 - Error when the module of the CDO/IPI command
 					   used is not registered */
 	XPLMI_ERR_PRE_INIT,	/**< 0x142 - Error PLMI pre initialization failed */
+	XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS, /**< 0x143 - Error when max recursive CDO processing
+						has been occured */
 
 	/** Platform specific Status codes used in PLMI from 0x1A0 to 0x1FF */
 	XPLMI_ERR_PLM_UPDATE_COMPATIBILITY = 0x1A0, /**< 0x1A0 - Error in compatibility check

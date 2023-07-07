@@ -99,6 +99,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       sk   05/18/2023 Deprecate copy to memory feature
 *       bm   05/22/2023 Update current CDO command offset in GSW Error Status
+*       bm   07/06/2023 Remove XPlmi_ClearEndStack call
 *
 * </pre>
 *
@@ -442,8 +443,6 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			Cdo.Cmd.KeyHoleParams.Func = PdiPtr->MetaHdr.DeviceCopy;
 		}
 	}
-	/* Clear previous End Stack before processing any CDO */
-	XPlmi_ClearEndStack();
 
 	while (DeviceCopy->Len > 0U) {
 		/** Update the len for last chunk */

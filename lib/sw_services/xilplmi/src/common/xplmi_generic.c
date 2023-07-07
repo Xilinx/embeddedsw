@@ -97,6 +97,7 @@
 *       bm   06/13/2023 Log PLM error before deferring
 *       bm   06/23/2023 Added access permissions for IPI commands
 *                       Added set_ipi_access cdo command
+*       bm   07/06/2023 Updated Begin offset Stack logic
 *
 * </pre>
 *
@@ -193,13 +194,11 @@ static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void);
 static int XPlmi_DmaUnalignedXfer(u64* SrcAddr, u64* DestAddr, u32* Len,
 	u8 Flag);
 static int XPlmi_KeyHoleXfr(XPlmi_KeyHoleXfrParams* KeyHoleXfrParams);
-static int XPlmi_StackPush(u32 *Data);
-static int XPlmi_StackPop(u32 PopLevel, u32 *Data);
+static int XPlmi_StackPush(XPlmi_CdoParamsStack *CdoParamsStack, u32 *Data);
+static int XPlmi_StackPop(XPlmi_CdoParamsStack *CdoParamsStack, u32 PopLevel, u32 *Data);
 static int XPlmi_TamperTrigger(XPlmi_Cmd *Cmd);
 
 /************************** Variable Definitions *****************************/
-static u32 OffsetList[XPLMI_BEGIN_OFFSET_STACK_SIZE] = {0U};
-static int OffsetListTop = -1;
 
 /*****************************************************************************/
 /**
@@ -2008,14 +2007,14 @@ static int XPlmi_Begin(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 	/* Max 10 nested begin supported */
-	if (OffsetListTop == (int)(XPLMI_BEGIN_OFFSET_STACK_SIZE - 1U)) {
+	if (Cmd->CdoParamsStack.OffsetListTop == (int)(XPLMI_BEGIN_OFFSET_STACK_SIZE - 1U)) {
 		XPlmi_Printf(DEBUG_GENERAL,"Max %d nested begin supported\n",
 				XPLMI_BEGIN_OFFSET_STACK_SIZE);
 		goto END;
 	}
 
 	/* Push "end" Offset to stack */
-	Status = XPlmi_StackPush(&EndOffSet);
+	Status = XPlmi_StackPush(&Cmd->CdoParamsStack, &EndOffSet);
 	if ( Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -2072,13 +2071,13 @@ static int XPlmi_End(XPlmi_Cmd *Cmd)
 		XPLMI_CMD_ARG_CNT_ZERO, XPLMI_CMD_ARG_CNT_ZERO);
 
 	/* Stack empty, End does not have begin */
-	if (OffsetListTop < 0) {
+	if (Cmd->CdoParamsStack.OffsetListTop < 0) {
 		XPlmi_Printf(DEBUG_GENERAL,"End does not have valid begin\n");
 		goto END;
 	}
 
 	/* Popped "end" length from stack should match with current ProcessedCdoLen */
-	Status = XPlmi_StackPop(XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL,
+	Status = XPlmi_StackPop(&Cmd->CdoParamsStack, XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL,
 			&EndLength);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -2317,7 +2316,8 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_ScatterWrite2),
 		XPLMI_MODULE_COMMAND(XPlmi_TamperTrigger),
 		XPLMI_MODULE_COMMAND(XPlmi_SetFipsKatMask),
-		XPLMI_MODULE_COMMAND(XPlmi_SetIpiAccess)
+		XPLMI_MODULE_COMMAND(XPlmi_SetIpiAccess),
+		XPLMI_MODULE_COMMAND(XPlmi_RunProc),
 	};
 
 	/* Buffer to store access permissions of xilplmi generic module */
@@ -2364,6 +2364,7 @@ void XPlmi_GenericInit(void)
 		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_TAMPER_TRIGGER_CMD_ID),
 		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SET_FIPS_MASK_CMD_ID),
 		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SET_IPI_ACCESS_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_RUN_PROC_CMD_ID),
 	};
 
 	/* This is to store CMD_END in xplm_modules section */
@@ -2630,22 +2631,23 @@ END:
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_StackPush(u32 *Data)
+static int XPlmi_StackPush(XPlmi_CdoParamsStack *CdoParamsStack, u32 *Data)
 {
 	int Status = XST_FAILURE;
 
 	/* Validate stack top */
-	if (OffsetListTop < -1) {
+	if (CdoParamsStack->OffsetListTop < -1) {
 		XPlmi_Printf(DEBUG_GENERAL,
 				"Invalid top in End address stack\n");
 		goto END;
 	}
 
-	if (OffsetListTop >= (int)(XPLMI_BEGIN_OFFSET_STACK_SIZE - 1U)) {
+	if (CdoParamsStack->OffsetListTop >= (int)(XPLMI_BEGIN_OFFSET_STACK_SIZE - 1U)) {
 		XPlmi_Printf(DEBUG_GENERAL,
 				"End address stack is full\n");
 	} else {
-		OffsetList[++OffsetListTop] = *Data;
+		CdoParamsStack->OffsetListTop++;
+		CdoParamsStack->OffsetList[CdoParamsStack->OffsetListTop] = *Data;
 		Status = XST_SUCCESS;
 	}
 
@@ -2664,27 +2666,27 @@ END:
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_StackPop(u32 PopLevel, u32 *Data)
+static int XPlmi_StackPop(XPlmi_CdoParamsStack *CdoParamsStack, u32 PopLevel, u32 *Data)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
 
 	/* Validate stack top */
-	if (OffsetListTop >= (int)XPLMI_BEGIN_OFFSET_STACK_SIZE) {
+	if (CdoParamsStack->OffsetListTop >= (int)XPLMI_BEGIN_OFFSET_STACK_SIZE) {
 		XPlmi_Printf(DEBUG_GENERAL,
 				"Invalid top in End address stack\n");
 		goto END;
 	}
 
 	for (Index = 0U; Index < PopLevel; Index++) {
-		if (OffsetListTop < 0) {
+		if (CdoParamsStack->OffsetListTop < 0) {
 			XPlmi_Printf(DEBUG_GENERAL,
 				"End address stack is empty\n");
 			Status = XST_FAILURE;
 			break;
 		} else {
-			*Data = OffsetList[OffsetListTop];
-			--OffsetListTop;
+			*Data = CdoParamsStack->OffsetList[CdoParamsStack->OffsetListTop];
+			--CdoParamsStack->OffsetListTop;
 			Status = XST_SUCCESS;
 		}
 	}
@@ -2715,14 +2717,14 @@ int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level)
 	 * - Stack empty, Break does not have begin
 	 * - Break level should be always less than no. of stack element
 	 */
-	if ((Level == 0U) || (OffsetListTop < 0) ||
-			(Level > (u32)(OffsetListTop + 1))) {
+	if ((Level == 0U) || (Cmd->CdoParamsStack.OffsetListTop < 0) ||
+			(Level > (u32)(Cmd->CdoParamsStack.OffsetListTop + 1))) {
 		goto END;
 	}
 
 	/* If level > 1, then remove (Level - 1) lengths from stack */
 	if (Level > XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL) {
-		Status = XPlmi_StackPop(--Level, &PopAddr);
+		Status = XPlmi_StackPop(&Cmd->CdoParamsStack, --Level, &PopAddr);
 		if ( Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -2732,24 +2734,11 @@ int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level)
 	 * Calculate jump offset using "end" length available at the top of
 	 * the stack
 	 */
-	Cmd->BreakLength = OffsetList[OffsetListTop];
+	Cmd->BreakLength = Cmd->CdoParamsStack.OffsetList[Cmd->CdoParamsStack.OffsetListTop];
 
 	Status = XST_SUCCESS;
 END:
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function clears the end stack
- *
- * @return
- * 			- None
- *
- *****************************************************************************/
-void XPlmi_ClearEndStack(void)
-{
-	OffsetListTop = -1;
 }
 
 /**

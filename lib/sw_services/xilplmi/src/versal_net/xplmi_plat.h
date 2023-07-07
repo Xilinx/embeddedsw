@@ -37,6 +37,7 @@
 * 1.04  bm   04/28/2023 Add XPlmi_GetRomIroFreq prototype
 *       dd   05/24/2023 Updated doxygen comments
 *       bm   06/23/2023 Added error codes for ipi access filtering
+*       bm   07/06/2023 Added XPlmi_RunProc prototype
 *
 * </pre>
 *
@@ -511,6 +512,7 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd);
 int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd);
 int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd);
 int XPlmi_SetFipsKatMask(XPlmi_Cmd *Cmd);
+int XPlmi_RunProc(XPlmi_Cmd *Cmd);
 
 
 int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq);
