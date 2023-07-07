@@ -1,6 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
-* Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +38,7 @@
  *			alignment.
  * 4.01a hvm  09/14/11 Fixed the compilation issue at the RamDisk variable
  *			declaration. CR625055.
+ * 5.6   pm   07/05/23 Added support for system device-tree flow.
  *
  * </pre>
  *****************************************************************************/
@@ -637,9 +639,12 @@ void ModeSense(XUsb * InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock);
 void ReadCapacity(XUsb * InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock);
 void RFC(XUsb * InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock);
 void Inquiry(XUsb * InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock);
-static int SetupInterruptSystem(XUsb * InstancePtr);
 void MassStorageReset(XUsb * InstancePtr);
 void GetMaxLUN(XUsb * InstancePtr);
+
+#ifndef SDT
+static int SetupInterruptSystem(XUsb * InstancePtr);
+#endif
 
 #ifdef __cplusplus
 }

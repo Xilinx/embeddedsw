@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,26 +29,35 @@
  * 4.02a bss  02/20/12 Modified main function to call Xil_DCacheFlushRange
  * 			when DMA is enabled.(CR 640005)
  * 5.6   pm   07/05/23 Removed powerpc support.
+ * 5.6   pm   07/05/23 Added support for system device-tree flow.
  *
  * </pre>
  *****************************************************************************/
 /***************************** Include Files *********************************/
 
 #include "xusb.h"
-#include "xintc.h"
 #include "xusb_microphone.h"
 #include "stdio.h"
 #include "data.h"
 #include "xil_exception.h"
 #include "xil_cache.h"
+#include "xparameters.h"
 
+#ifndef SDT
+#include "xintc.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 /************************** Constant Definitions *****************************/
 
+#ifndef SDT
 #define USB_DEVICE_ID		XPAR_USB_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #define USB_INTR		XPAR_INTC_0_USB_0_VEC_ID
 
-static int SetupInterruptSystem(XUsb * InstancePtr);
+#else
+#define XUSB_BASEADDRESS	XPAR_XUSB_0_BASEADDR
+#endif /* SDT */
 
 /************************** Variable Definitions *****************************/
 
@@ -55,7 +65,10 @@ static XUsb UsbInstance;		/* The instance of the USB device */
 
 XUsb_Config *UsbConfigPtr;	/* Pointer to the USB config structure */
 
+#ifndef SDT
 XIntc InterruptController;	/* Instance of the Interrupt Controller */
+static int SetupInterruptSystem(XUsb * InstancePtr);
+#endif
 
 /*****************************************************************************/
 /**
@@ -78,11 +91,16 @@ int main()
 	/*
 	 * Initialize the USB driver.
 	 */
+#ifndef SDT
 	UsbConfigPtr = XUsb_LookupConfig(USB_DEVICE_ID);
+#else
+	UsbConfigPtr = XUsb_LookupConfig(XUSB_BASEADDRESS);
+#endif
 	if (UsbConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
 
+#ifndef SDT
 #ifdef __MICROBLAZE__
 	Xil_ICacheInvalidate();
 	Xil_ICacheEnable();
@@ -90,6 +108,7 @@ int main()
 
 	Xil_DCacheInvalidate();
 	Xil_DCacheEnable();
+#endif
 #endif
 	Status = XUsb_CfgInitialize(&UsbInstance,
 					UsbConfigPtr,
@@ -127,7 +146,15 @@ int main()
 	/*
 	 * Setup the interrupt system.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(&UsbInstance);
+#else
+	Status = XSetupInterruptSystem(&UsbInstance,
+					&XUsb_IntrHandler,
+					UsbConfigPtr->IntrId,
+					UsbConfigPtr->IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -401,6 +428,7 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 	}
 }
 
+#ifndef SDT
 /******************************************************************************/
 /**
 *
@@ -479,4 +507,4 @@ static int SetupInterruptSystem(XUsb * InstancePtr)
 
 	return XST_SUCCESS;
 }
-
+#endif

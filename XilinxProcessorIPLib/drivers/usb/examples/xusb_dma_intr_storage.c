@@ -1,6 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
-* Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +29,7 @@
  *			reset when USB reset is asserted (CR 627574).
  * 4.03a bss  02/05/13 Updated the example to support Zynq
  * 5.6   pm   07/05/23 Removed powerpc support.
+ * 5.6   pm   07/05/23 Added support for system device-tree flow.
  * </pre>
  *****************************************************************************/
 /***************************** Include Files *********************************/
@@ -37,18 +39,23 @@
 #include "xenv_standalone.h"
 #include "xil_exception.h"
 #include "xil_cache.h"
+#include "xil_printf.h"
+#include "xparameters.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #include <stdio.h>
 #else
 #include "xscugic.h"
-#include "xil_printf.h"
 #endif
-
+#else
+#include "xinterrupt_wrap.h"
+#endif /* SDT */
 
 /************************** Constant Definitions *****************************/
 
+#ifndef SDT
 #define USB_DEVICE_ID		XPAR_USB_0_DEVICE_ID
 
 
@@ -57,8 +64,9 @@
 #define USB_INTR		XPAR_INTC_0_USB_0_VEC_ID
 #else
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define USB_INTR			XPAR_FABRIC_AXI_USB2_DEVICE_1_USB_IRPT_INTR
+#define USB_INTR		XPAR_FABRIC_AXI_USB2_DEVICE_0_USB_IRPT_INTR
 #endif /* XPAR_INTC_0_DEVICE_ID */
+#endif
 
 #define READ_COMMAND		1
 #define WRITE_COMMAND		2
@@ -66,6 +74,7 @@
 
 /************************** Variable Definitions *****************************/
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define INTC_HANDLER	XIntc_InterruptHandler
@@ -73,13 +82,16 @@
 #define INTC		XScuGic
 #define INTC_HANDLER	XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
-
+#else
+#define XUSB_BASEADDRESS	XPAR_XUSB_0_BASEADDR
+#endif /* SDT */
 
 XUsb UsbInstance;		/* The instance of the USB device */
 XUsb_Config *UsbConfigPtr;	/* Instance of the USB config structure */
 
+#ifndef SDT
 INTC InterruptController;	/* Instance of the Interrupt Controller */
-
+#endif
 
 volatile u8 CmdFlag = 0;
 
@@ -123,10 +135,15 @@ int main()
 	/*
 	 * Initialize the USB driver.
 	 */
+#ifndef SDT
 	UsbConfigPtr = XUsb_LookupConfig(USB_DEVICE_ID);
+#else
+	UsbConfigPtr = XUsb_LookupConfig(XUSB_BASEADDRESS);
+#endif
 	if (NULL == UsbConfigPtr) {
 		return XST_FAILURE;
 	}
+#ifndef SDT
 #ifdef __MICROBLAZE__
 	Xil_ICacheInvalidate();
 	Xil_ICacheEnable();
@@ -134,6 +151,7 @@ int main()
 
 	Xil_DCacheInvalidate();
 	Xil_DCacheEnable();
+#endif
 #endif
 #ifdef __aarch64__
 	Xil_DCacheInvalidate();
@@ -187,7 +205,15 @@ int main()
 	/*
 	 * Setup the interrupt system.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(&UsbInstance);
+#else
+	Status = XSetupInterruptSystem(&UsbInstance,
+					&XUsb_IntrHandler,
+					UsbConfigPtr->IntrId,
+					UsbConfigPtr->IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -515,7 +541,7 @@ void Ep2IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 
 	}
 	if (CmdFlag != WRITE_COMMAND) {
-		Xil_DCacheInvalidateRange(							(u32) &CmdBlock, sizeof(CmdBlock));
+		Xil_DCacheInvalidateRange((u32) &CmdBlock, sizeof(CmdBlock));
 
 		RxDmaTransfer = TRUE;
 		XUsb_EpDataRecv(InstancePtr, 2,
@@ -1210,6 +1236,7 @@ void GetMaxLUN(XUsb * InstancePtr)
 			XUSB_BUFFREADY_OFFSET, 1);
 }
 
+#ifndef SDT
 /******************************************************************************/
 /**
 *
@@ -1334,5 +1361,5 @@ static int SetupInterruptSystem(XUsb * InstancePtr)
 
 	return XST_SUCCESS;
 }
-
+#endif
 

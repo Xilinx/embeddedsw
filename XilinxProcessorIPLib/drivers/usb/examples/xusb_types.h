@@ -1,6 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
-* Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
  * ----- ---- ------------------------------------------------------------------
  * 1.00a hvm  2/22/07 First release
  * 4.00a hvm  12/20/10 Updated with the Audio device definitions.
+ * 5.6   pm   07/05/23 Added support for system device-tree flow.
  *
  * </pre>
  *****************************************************************************/
@@ -27,6 +29,7 @@
 #ifndef __XUSBTYPES_H__
 #define __XUSBTYPES_H__
 #ifdef __cplusplus
+#include "xusb.h"
 extern "C" {
 #endif
 

@@ -1,0 +1,15 @@
+/******************************************************************************
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef XUSB_EXAMPLE_CONFIG_H
+#define XUSB_EXAMPLE_CONFIG_H
+
+#cmakedefine HID_DEVICES @HID_DEVICES@
+#cmakedefine USB_KEYBOARD @USB_KEYBOARD@
+#cmakedefine USB_MOUSE @USB_MOUSE@
+#cmakedefine MASS_STORAGE_DEVICE @MASS_STORAGE_DEVICE@
+#cmakedefine MICROPHONE @MICROPHONE@
+
+#endif /* XUSB_EXAMPLE_CONFIG_H */
