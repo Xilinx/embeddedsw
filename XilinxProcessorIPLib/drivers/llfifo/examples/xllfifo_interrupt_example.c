@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +45,7 @@
  *                      RDFO should be read before reading RLR. Reading RLR
  *                      first will result in the RDFO being reset to zero and
  *                      no data being received.
+ * 5.6   sd  07/7/23    Add system devicetree support.
  * </pre>
  *
  * ***************************************************************************
@@ -61,16 +63,22 @@
 #include "xuartns550_l.h"       /* to use uartns550 */
 #endif
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
  #include "xintc.h"
 #else
  #include "xscugic.h"
 #endif
+#endif
 
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#ifndef SDT
 #define FIFO_DEV_ID	   	XPAR_AXI_FIFO_0_DEVICE_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -87,6 +95,7 @@
 #else
  #define INTC           XScuGic
  #define INTC_HANDLER   XScuGic_InterruptHandler
+#endif
 #endif
 
 
@@ -105,15 +114,19 @@
 static void Uart550_Setup(void);
 #endif
 
+#ifndef SDT
 int XLlFifoInterruptExample(XLlFifo *InstancePtr, u16 DeviceId);
+int SetupInterruptSystem(INTC *IntcInstancePtr, XLlFifo *InstancePtr,
+				u16 FifoIntrId);
+static void DisableIntrSystem(INTC *IntcInstancePtr, u16 FifoIntrId);
+#else
+int XLlFifoInterruptExample(XLlFifo *InstancePtr, UINTPTR BaseAddress);
+#endif
 int TxSend(XLlFifo *InstancePtr, u32 *SourceAddr);
 static void FifoHandler(XLlFifo *Fifo);
 static void FifoRecvHandler(XLlFifo *Fifo);
 static void FifoSendHandler(XLlFifo *Fifo);
 static void FifoErrorHandler(XLlFifo *InstancePtr, u32 Pending);
-int SetupInterruptSystem(INTC *IntcInstancePtr, XLlFifo *InstancePtr,
-				u16 FifoIntrId);
-static void DisableIntrSystem(INTC *IntcInstancePtr, u16 FifoIntrId);
 
 /*
  * Flags interrupt handlers use to notify the application context the events.
@@ -131,7 +144,9 @@ XLlFifo FifoInstance;
 /*
  * Instance of the Interrupt Controller
  */
+#ifndef SDT
 static INTC Intc;
+#endif
 
 u32 SourceBuffer[MAX_DATA_BUFFER_SIZE * WORD_SIZE];
 u32 DestinationBuffer[MAX_DATA_BUFFER_SIZE * WORD_SIZE];
@@ -158,7 +173,11 @@ int main()
 
 	xil_printf("--- Entering main() ---\n\r");
 
+#ifndef SDT
 	Status = XLlFifoInterruptExample(&FifoInstance, FIFO_DEV_ID);
+#else
+	Status = XLlFifoInterruptExample(&FifoInstance, XPAR_XLLFIFO_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Axi Streaming FIFO Interrupt Example Test Failed");
 		xil_printf("--- Exiting main() ---\n\r");
@@ -194,7 +213,11 @@ int main()
 *		-XST_FAILURE to indicate failure
 *
 ******************************************************************************/
+#ifndef SDT
 int XLlFifoInterruptExample(XLlFifo *InstancePtr, u16 DeviceId)
+#else
+int XLlFifoInterruptExample(XLlFifo *InstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	XLlFifo_Config *Config;
 	int Status;
@@ -210,9 +233,15 @@ int XLlFifoInterruptExample(XLlFifo *InstancePtr, u16 DeviceId)
 #endif
 
 	/* Initialize the Device Configuration Interface driver */
+#ifndef SDT
 	Config = XLlFfio_LookupConfig(DeviceId);
+#else
+	Config = XLlFfio_LookupConfig(BaseAddress);
+#endif
 	if (!Config) {
+#ifndef SDT
 		xil_printf("No config found for %d\r\n", DeviceId);
+#endif
 		return XST_FAILURE;
 	}
 
@@ -241,7 +270,14 @@ int XLlFifoInterruptExample(XLlFifo *InstancePtr, u16 DeviceId)
 	 * Connect the Axi Streaming FIFO to the interrupt subsystem such
 	 * that interrupts can occur. This function is application specific.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(&Intc, InstancePtr, FIFO_INTR_ID);
+#else
+	Status = XSetupInterruptSystem(InstancePtr, &FifoHandler,
+			               InstancePtr->IntId,
+				       InstancePtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failed intr setup\r\n");
 		return XST_FAILURE;
@@ -280,7 +316,9 @@ int XLlFifoInterruptExample(XLlFifo *InstancePtr, u16 DeviceId)
 		return XST_FAILURE;
 	}
 
+#ifndef SDT
 	DisableIntrSystem(&Intc, FIFO_INTR_ID);
+#endif
 	return Status;
 }
 
@@ -466,6 +504,7 @@ static void FifoErrorHandler(XLlFifo *InstancePtr, u32 Pending)
 * @note     None.
 *
 ****************************************************************************/
+#ifndef SDT
 int SetupInterruptSystem(INTC *IntcInstancePtr, XLlFifo *InstancePtr,
 				u16 FifoIntrId)
 {
@@ -585,6 +624,7 @@ static void DisableIntrSystem(INTC *IntcInstancePtr, u16 FifoIntrId)
 	XScuGic_Disconnect(IntcInstancePtr, FifoIntrId);
 #endif
 }
+#endif
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
 /*****************************************************************************/
