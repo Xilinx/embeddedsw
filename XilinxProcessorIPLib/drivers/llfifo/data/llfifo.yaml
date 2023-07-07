@@ -1,0 +1,36 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: GPL-2.0
+%YAML 1.2
+---
+title: Bindings for AXI FIFO controller
+
+maintainers:
+  - Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+  - Appana Durga Kedareswara Rao <appanad.durga.rao@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - const: xlnx,axi-fifo-mm-s-4.2
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XLlFifo_Config
+
+required:
+    - compatible
+    - reg: 2
+    - xlnx,data-interface-type
+    - interrupts
+    - interrupt-parent
+
+examples:
+    xllfifo_interrupt_example.c:
+        - interrupts
+    xllfifo_polling_example.c:
+        - reg
+...
