@@ -25,6 +25,9 @@
 * 		      long to fix misra_c_2012_rule_12_2 violation.
 * 8.0   mus  02/24/22 Updated #defines to support CortexR52 processor
 * 8.1   mus  02/20/23 Added #defines related to CPU affinity.
+* 9.0   mus  07/04/23 Added weak definitions for _TCM_A_REGION, _TCM_B_REGION,
+*                     and _TCM_C_REGION  variables, to avoid compilation failure
+*                     in case they are not exported by linker script.
 * </pre>
 *
 ******************************************************************************/
@@ -38,6 +41,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
+
+#if defined (ARMR52)
+#include "xil_types.h"
+#endif
 
 /* GPRs */
 #define XREG_GPR0				r0
@@ -147,6 +154,9 @@ extern "C" {
 
 
 #if defined (ARMR52)
+__attribute__((weak)) u32  _TCM_A_REGION  __attribute__((__section__(".bootdata"))) = 0;
+__attribute__((weak)) u32 _TCM_B_REGION  __attribute__((__section__(".bootdata"))) = 0;
+__attribute__((weak)) u32 _TCM_C_REGION  __attribute__((__section__(".bootdata"))) = 0;
 /*
  * 0th bit: XN
  * bits [2:1]: Access permission bits

@@ -67,6 +67,9 @@
 * 8.0  mus  07/06/21  Added support for VERSAL NET
 * 9.0  mus  04/28/23  Updated for CortexR52 to support strongly ordered device
 *                     attribute at index 3 of MAIR register.
+* 9.0  mus  07/04/23  Add support to initialize TCM A, B and C for CortexR52
+*                     based on _TCM_A_REGION, _TCM_B_REGION and _TCM_C_REGION
+*                     variables exported by linker script.
 * </pre>
 *
 ******************************************************************************/
@@ -87,6 +90,11 @@
 .global __undef_stack
 .global _vector_table
 
+#if defined (ARMR52)
+.global _TCM_A_REGION
+.global _TCM_B_REGION
+.global _TCM_C_REGION
+#endif
 
 /* Stack Pointer locations for boot code */
 .set Undef_stack,	__undef_stack
@@ -122,7 +130,6 @@
 #define RPU_TZ_MASK	0x1
 
 .section .boot,"axS"
-
 
 /* this initializes the various processor modes */
 
@@ -283,6 +290,28 @@ InitEL1:
 	/* disable TCM ECC */
 	bic r0, r0, #(0x1 << 0)				/* disable TCM and L1 cache ECC */
 	mcr p15, 1, r0, c9, c1, 2			/* Write IMP_MEMPROTCTLR */
+
+/* Enable TCM */
+	ldr r0, =_TCM_A_REGION
+	ldr r1, [r0]
+	tst r1, #0x1
+	beq InitTCMB
+	mcr p15, 0, r1, c9, c1, 0  /* Write r1 to IMP_ATCMREGIONR */
+
+InitTCMB:
+	ldr r0, =_TCM_B_REGION
+	ldr r1, [r0]
+	tst r1, #0x1
+	beq InitTCMC
+	mcr p15, 0, r1, c9, c1, 1  /* Write r1 to IMP_BTCMREGIONR */
+
+InitTCMC:
+	ldr r0, =_TCM_C_REGION
+	ldr r1, [r0]
+	tst r1, #0x1
+	beq InitTCMDone
+	mcr p15, 0, r1, c9, c1, 2  /* Write r1 to IMP_CTCMREGIONR */
+InitTCMDone:
 
 /* Disable branch prediction */
 	mrc p15, 1, r0, c9, c1, 1			/* Read IMP_BPCTLR */
