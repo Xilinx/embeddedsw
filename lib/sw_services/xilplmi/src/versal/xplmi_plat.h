@@ -39,6 +39,7 @@
 *       bm   07/03/2023 Added IPI access permissions validation
 *       bm   07/06/2023 Added XPlmi_RunProc macro
 *                       Refactored Proc logic to more generic logic
+*                       Added list commands
 * </pre>
 *
 * @note
@@ -253,6 +254,10 @@ enum {
 #define XPlmi_ScatterWrite2		NULL /**< Scatter write2 */
 #define XPlmi_SetFipsKatMask		NULL /**< Set Fip Kat mask */
 #define XPlmi_RunProc			NULL /**< Run Proc */
+#define XPlmi_ListSet			NULL /**< List Set */
+#define XPlmi_ListWrite			NULL /**< List Write */
+#define XPlmi_ListMaskWrite		NULL /**< List Mask Write */
+#define XPlmi_ListMaskPoll		NULL /**< List Mask Poll */
 
 #define GET_RTCFG_PMC_ERR_ADDR(Index)		(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PMC error address */
 #define GET_RTCFG_PSM_ERR_ADDR(Index)		(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PSM error address */

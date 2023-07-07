@@ -50,6 +50,7 @@
 * 1.09  sk   01/11/2023 Added Declaration for XPlmi_MoveProc
 *       ng   03/16/2023 Added control to disable minimal timeout in maskpoll
 * 1.10  bm   07/06/2023 Refactored Proc logic to more generic logic
+*       bm   07/06/2023 Updated prototypes required for list commands logic
 *
 * </pre>
 *
@@ -150,6 +151,9 @@ typedef struct {
 #define XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_SHIFT	(24U)
 #define	XPLMI_MASKPOLL_FLAGS_DISABLE_MINIMAL_TIMEOUT	(XPLMI_BIT(31)) /**< if
 		bit 31 in flags is set, then disable minimal timeout. */
+#define XPLMI_MASK_POLL_32BIT_TYPE		(0U)
+#define XPLMI_MASK_POLL_64BIT_TYPE		(1U)
+#define XPLMI_LIST_MASK_POLL_32BIT_TYPE		(2U)
 
 /* Defines related to module commands */
 #define XPLMI_PLM_GENERIC_CMD_ID_MASK		(0xFFU)
@@ -166,6 +170,7 @@ typedef struct {
 /* Proc List types */
 #define XPLMI_PSM_BUFFER_LIST		(0x0U)
 #define XPLMI_PMC_BUFFER_LIST		(0x1U)
+#define XPLMI_ADDR_BUFFER_LIST		(0x2U)
 
 /* Proc related defines */
 #define XPLMI_PMC_RAM_PROC_ID_MASK	(0x80000000U) /** All procs which need to be
@@ -187,6 +192,7 @@ int XPlmi_MoveBuffer(u8 BufferIndex, XPlmi_BufferList *BufferList);
 int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList);
 int XPlmi_SearchBufferList(XPlmi_BufferList *BufferList, u32 BufferId,
 		u64 *BufAddr, u32 *BufLen);
+int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u64 Addr, u32 Type);
 
 /* xplmi_plat.c definitions */
 XPlmi_BoardParams *XPlmi_GetBoardParams(void);

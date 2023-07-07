@@ -99,6 +99,7 @@
 *                       Added set_ipi_access cdo command
 *       bm   07/06/2023 Updated Begin offset Stack logic
 *       bm   07/06/2023 Refactored Proc logic to more generic logic
+*       bm   07/06/2023 Added list commands
 *
 * </pre>
 *
@@ -148,6 +149,7 @@
 
 /* Mask poll related macros */
 #define XPLMI_MASKPOLL_ADDR_INDEX		(0U)
+#define XPLMI_MASKPOLL_ADDR_64BIT_INDEX		(1U)
 #define XPLMI_MASKPOLL_MASK_INDEX		(1U)
 #define XPLMI_MASKPOLL_EXP_VAL_INDEX		(2U)
 #define XPLMI_MASKPOLL_TIMEOUT_INDEX		(3U)
@@ -332,11 +334,9 @@ static int XPlmi_GetDeviceID(XPlmi_Cmd *Cmd)
  * 		- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u32 Is64Bit)
+int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u64 Addr, u32 Type)
 {
 	int Status = XST_FAILURE;
-	u32 Addr;
-	u64 Addr64Bit;
 	u32 Mask;
 	u32 ExpectedValue;
 	u32 TimeOutInUs;
@@ -352,23 +352,18 @@ static int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u32 Is64Bit)
 	XPlmi_PerfTime PerfTime = {0U};
 #endif
 
-	if (Is64Bit == TRUE) {
+	if (Type == XPLMI_MASK_POLL_64BIT_TYPE) {
 		Offset = XPLMI_MASK_POLL_64BIT_OFFSET;
 	}
 
 	/* Initialize variables */
-	Addr = Cmd->Payload[XPLMI_MASKPOLL_ADDR_INDEX];
-	Addr64Bit = (u64)Cmd->Payload[Offset];
 	Mask = Cmd->Payload[XPLMI_MASKPOLL_MASK_INDEX + Offset];
 	ExpectedValue = Cmd->Payload[XPLMI_MASKPOLL_EXP_VAL_INDEX + Offset];
 	TimeOutInUs = Cmd->Payload[XPLMI_MASKPOLL_TIMEOUT_INDEX + Offset];
 	ExtLen = XPLMI_MASKPOLL_LEN_EXT + Offset;
-	if (Is64Bit == TRUE) {
-		Addr64Bit |= (u64)Cmd->Payload[XPLMI_MASKPOLL_ADDR_INDEX] << 32U;
-	}
 
 	/* Error out if Cmd length is greater than supported length */
-	if (Cmd->Len > ExtLen + 1U) {
+	if (Cmd->Len > (ExtLen + 1U)) {
 		goto END;
 	}
 
@@ -390,11 +385,11 @@ static int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u32 Is64Bit)
 	}
 
 	/* Mask Poll for expected value */
-	if (Is64Bit == TRUE) {
-		Status = XPlmi_UtilPoll64(Addr64Bit, Mask, ExpectedValue, TimeOutInUs);
+	if (Type == XPLMI_MASK_POLL_64BIT_TYPE) {
+		Status = XPlmi_UtilPoll64(Addr, Mask, ExpectedValue, TimeOutInUs);
 	}
 	else {
-		Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs, NULL);
+		Status = XPlmi_UtilPoll((u32)Addr, Mask, ExpectedValue, TimeOutInUs, NULL);
 	}
 
 	/* Print in case of failure or when DEBUG_INFO is enabled */
@@ -403,9 +398,9 @@ static int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u32 Is64Bit)
 	}
 
 	XPlmi_Printf(DebugLevel, "MaskPoll: Addr: 0x%0x%08x, Mask: 0x%0x, ExpVal: 0x%0x, Timeout: %u",
-		(u32)(Addr64Bit >> 32U), (u32)(Addr64Bit & MASK_ALL), Mask, ExpectedValue, TimeOutInUs);
+		(u32)(Addr >> 32U), (u32)(Addr & MASK_ALL), Mask, ExpectedValue, TimeOutInUs);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf_WoTS(DebugLevel, ", RegVal: 0x%0x ...ERROR\r\n", XPlmi_In64(Addr64Bit));
+		XPlmi_Printf_WoTS(DebugLevel, ", RegVal: 0x%0x ...ERROR\r\n", XPlmi_In64(Addr));
 	}
 	else {
 		XPlmi_Printf_WoTS(DebugLevel, " ...DONE\r\n");
@@ -418,7 +413,7 @@ static int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u32 Is64Bit)
 		" %u.%03u ms Poll Time: Addr: 0x%x%08x, Mask: 0x%0x,"
 		" ExpVal: 0x%0x, Timeout: %u \r\n",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
-		(u32)(Addr64Bit >> 32U), (u32)(Addr64Bit & MASK_ALL), Mask, ExpectedValue, TimeOutInUs);
+		(u32)(Addr >> 32U), (u32)(Addr & MASK_ALL), Mask, ExpectedValue, TimeOutInUs);
 #endif
 
 	/*
@@ -440,7 +435,7 @@ static int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u32 Is64Bit)
 			/* Jump to "end" associated with break level */
 			Status = XPlmi_GetJumpOffSet(Cmd, Level);
 		}
-		if ((Cmd->Len == ExtLen + 1U) && (MinErrCode != 0U) && (Status != XST_SUCCESS)) {
+		if ((Cmd->Len == (ExtLen + 1U)) && (MinErrCode != 0U) && (Status != XST_SUCCESS)) {
 			/*
 			 * Overwrite the error code with the error code value present
 			 * in payload argument.
@@ -477,7 +472,8 @@ static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 	XPLMI_EXPORT_CMD(XPLMI_MASK_POLL_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_SIX);
 
-	return XPlmi_GenericMaskPoll(Cmd, FALSE);
+	return XPlmi_GenericMaskPoll(Cmd, (u64)Cmd->Payload[XPLMI_MASKPOLL_ADDR_INDEX],
+			XPLMI_MASK_POLL_32BIT_TYPE);
 }
 
 /*****************************************************************************/
@@ -699,10 +695,15 @@ static int XPlmi_DmaWrite(XPlmi_Cmd *Cmd)
  *****************************************************************************/
 static int XPlmi_MaskPoll64(XPlmi_Cmd *Cmd)
 {
+	u64 Addr;
+
 	XPLMI_EXPORT_CMD(XPLMI_MASK_POLL64_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_FIVE, XPLMI_CMD_ARG_CNT_SEVEN);
 
-	return XPlmi_GenericMaskPoll(Cmd, TRUE);
+	Addr = (u64)Cmd->Payload[XPLMI_MASKPOLL_ADDR_64BIT_INDEX];
+	Addr |= (u64)Cmd->Payload[XPLMI_MASKPOLL_ADDR_INDEX] << 32U;
+
+	return XPlmi_GenericMaskPoll(Cmd, Addr, XPLMI_MASK_POLL_64BIT_TYPE);
 }
 
 /*****************************************************************************/
@@ -1934,13 +1935,14 @@ int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList
 	u32 CmdLenInBytes = (Cmd->Len - 1U) * XPLMI_WORD_LEN;
 	u32 CurrPayloadLen;
 
-	/* Check if Buffer memory is available */
-	if (BufferList->IsBufferMemAvailable != (u8)TRUE) {
-		Status = (int)XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE;
-		goto END;
-	}
-
 	if (Cmd->ProcessedLen == 0U) {
+
+		/* Check if Buffer memory is available */
+		if (BufferList->IsBufferMemAvailable != (u8)TRUE) {
+			Status = (int)XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE;
+			goto END;
+		}
+
 		/* Check if received BufferId is already in memory */
 		BufferList->Data[BufferList->BufferCount].Id = BufferId;
 		while (BufferList->Data[Index].Id != BufferId) {
@@ -1986,7 +1988,7 @@ int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList
 		Cmd->ResumeData[0U] = (u32)BufferList->Data[BufferList->BufferCount].Addr;
 
 		/* Check if new proc length fits in the proc allocated memory */
-		if ((Cmd->ResumeData[0U] + CmdLenInBytes) > (BufferList->Data[0U].Addr +
+		if ((Cmd->ResumeData[0U] + CmdLenInBytes) > ((u32)BufferList->Data[0U].Addr +
 				BufferList->BufferMemSize)) {
 			Status = (int)XPLMI_UNSUPPORTED_PROC_LENGTH;
 			goto END;
@@ -2390,6 +2392,10 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_SetFipsKatMask),
 		XPLMI_MODULE_COMMAND(XPlmi_SetIpiAccess),
 		XPLMI_MODULE_COMMAND(XPlmi_RunProc),
+		XPLMI_MODULE_COMMAND(XPlmi_ListSet),
+		XPLMI_MODULE_COMMAND(XPlmi_ListWrite),
+		XPLMI_MODULE_COMMAND(XPlmi_ListMaskWrite),
+		XPLMI_MODULE_COMMAND(XPlmi_ListMaskPoll),
 	};
 
 	/* Buffer to store access permissions of xilplmi generic module */
@@ -2437,6 +2443,10 @@ void XPlmi_GenericInit(void)
 		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SET_FIPS_MASK_CMD_ID),
 		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SET_IPI_ACCESS_CMD_ID),
 		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_RUN_PROC_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_LIST_SET_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_LIST_WRITE_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_LIST_MASK_WRITE_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_LIST_MASK_POLL_CMD_ID),
 	};
 
 	/* This is to store CMD_END in xplm_modules section */

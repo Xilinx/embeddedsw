@@ -39,6 +39,7 @@
 *       bm   06/23/2023 Added error codes for ipi access filtering
 *       bm   07/06/2023 Added XPlmi_RunProc prototype
 *                       Refactored Proc logic to more generic logic
+*                       Added list commands prototypes
 *
 * </pre>
 *
@@ -515,7 +516,11 @@ int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd);
 int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd);
 int XPlmi_SetFipsKatMask(XPlmi_Cmd *Cmd);
 int XPlmi_RunProc(XPlmi_Cmd *Cmd);
-
+void XPlmi_SetAddrBufferList(void);
+int XPlmi_ListSet(XPlmi_Cmd *Cmd);
+int XPlmi_ListWrite(XPlmi_Cmd *Cmd);
+int XPlmi_ListMaskWrite(XPlmi_Cmd *Cmd);
+int XPlmi_ListMaskPoll(XPlmi_Cmd *Cmd);
 
 int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq);
 

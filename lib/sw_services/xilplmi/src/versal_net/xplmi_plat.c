@@ -32,6 +32,7 @@
 * 1.02  bm   04/28/2023 Update Pmc IRO frequency by detecting the part
 *       dd   05/24/2023 Updated doxygen comments
 *       ng   05/31/2023 Initialised IsKatRan state to False
+*       bm   07/06/2023 Initialize address buffer list
 *
 * </pre>
 *
@@ -223,6 +224,9 @@ int XPlmi_PreInit(void)
 		XPlmi_RestoreWdt();
 	}
 
+	/* Initialize Address Buffer List */
+	XPlmi_SetAddrBufferList();
+
 	return XST_SUCCESS;
 }
 
@@ -351,11 +355,11 @@ int XPlmi_GenericHandler(XPlmi_ModuleOp Op)
 		}
 	}
 	else if (Op.Mode == XPLMI_MODULE_SHUTDOWN_COMPLETE) {
-		if (GenericHandlerState != XPLMI_MODULE_SHUTDOWN_INITIATED_STATE) {
+		if (GenericHandlerState == XPLMI_MODULE_SHUTDOWN_COMPLETED_STATE) {
+			Status = XST_SUCCESS;
 			goto END;
 		}
-		else if (GenericHandlerState == XPLMI_MODULE_SHUTDOWN_COMPLETED_STATE) {
-			Status = XST_SUCCESS;
+		if (GenericHandlerState != XPLMI_MODULE_SHUTDOWN_INITIATED_STATE) {
 			goto END;
 		}
 
