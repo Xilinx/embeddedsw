@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2020 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +28,7 @@
 * 1.1 ms  01/23/17 Modified xil_printf statement in main function to
 *                  ensure that "Successfully ran" and "Failed" strings are
 *                  available in all examples. This is a fix for CR-965028.
+* 1.6 sd 7/7/23    Add SDT support.
 * </pre>
 *
 ******************************************************************************/
@@ -46,7 +48,9 @@
  #include "xil_printf.h"
 #endif
 
-
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 /*
@@ -54,6 +58,7 @@
 * They are only defined here such that a user can easily change all the
 * needed device IDs in one place.
 */
+#ifndef SDT
 #define XCLK_WIZ_DEVICE_ID		XPAR_CLK_WIZ_0_DEVICE_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -71,6 +76,7 @@
 * reconfigurable parameter
 */
 #define XCLK_WIZ_DYN_DEVICE_ID		XPAR_CLK_WIZ_1_DEVICE_ID
+#endif
 
 /*
 * The following constants are part of clock dynamic reconfiguration
@@ -100,6 +106,7 @@
 
 
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
  #define XINTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
  #define INTC		XIntc
@@ -109,6 +116,7 @@
  #define INTC		XScuGic
  #define INTC_HANDLER	XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
+#endif
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -119,8 +127,12 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 u32 ClkWiz_IntrExample(INTC *IntcInstancePtr, u32 DeviceId);
 int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr);
+#else
+u32 ClkWiz_IntrExample(UINTPTR BaseAddress);
+#endif
 void XClk_Wiz_IntrHandler(void *InstancePtr);
 void XClk_Wiz_InterruptEnable(XClk_Wiz *InstancePtr, u32 Mask);
 int Clk_Wiz_Reconfig(XClk_Wiz_Config *CfgPtr_Dynamic);
@@ -140,7 +152,9 @@ volatile u8 Clk_Outof_Range_Flag = 1;
 volatile u8 Clk_Glitch_Flag = 1;
 volatile u8 Clk_Stop_Flag = 1;
 
+#ifndef SDT
 INTC Intc;
+#endif
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -380,7 +394,11 @@ int main()
 	xil_printf("(c) 2016 by Xilinx\n\r");
 	xil_printf("-------------------------------------------\n\r\n\r");
 
+#ifndef SDT
 	Status = ClkWiz_IntrExample(&Intc, XCLK_WIZ_DEVICE_ID);
+#else
+	Status = ClkWiz_IntrExample(XPAR_CLK_WIZARD_1_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("CLK_WIZ Monitor interrupt example Failed");
 		return XST_FAILURE;
@@ -410,6 +428,7 @@ int main()
 * @note		None
 *
 ****************************************************************************/
+#ifndef SDT
 int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
 {
 
@@ -514,6 +533,7 @@ int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
 
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -535,14 +555,22 @@ int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
 *		events.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 ClkWiz_IntrExample(INTC *IntcInstancePtr, u32 DeviceId)
+#else
+u32 ClkWiz_IntrExample(UINTPTR BaseAddress)
+#endif
 {
 	XClk_Wiz_Config *CfgPtr_Mon;
 	XClk_Wiz_Config *CfgPtr_Dynamic;
 	ULONG Exit_Count = 0;
 	u32 Status = XST_SUCCESS;
 
+#ifndef SDT
 	CfgPtr_Mon = XClk_Wiz_LookupConfig(DeviceId);
+#else
+	CfgPtr_Mon = XClk_Wiz_LookupConfig(BaseAddress);
+#endif
 	if (!CfgPtr_Mon) {
 		return XST_FAILURE;
 	}
@@ -569,7 +597,11 @@ u32 ClkWiz_IntrExample(INTC *IntcInstancePtr, u32 DeviceId)
 	/*
 	 * Get the CLK_WIZ Dynamic reconfiguration driver instance
 	 */
+#ifndef SDT
 	CfgPtr_Dynamic = XClk_Wiz_LookupConfig(XCLK_WIZ_DYN_DEVICE_ID);
+#else
+	CfgPtr_Dynamic = XClk_Wiz_LookupConfig(XPAR_CLK_WIZARD_2_BASEADDR);
+#endif
 	if (!CfgPtr_Dynamic) {
 		return XST_FAILURE;
 	}
@@ -588,7 +620,21 @@ u32 ClkWiz_IntrExample(INTC *IntcInstancePtr, u32 DeviceId)
 	 * occur. This function is application specific.
 	 */
 
+#ifndef SDT
 	Status = SetupInterruptSystem(IntcInstancePtr, &ClkWiz_Mon);
+#else
+	/* Setup call back handlers */
+	XClk_Wiz_SetCallBack(&ClkWiz_Mon, XCLK_WIZ_HANDLER_CLK_OUTOF_RANGE,
+				ClkWiz_ClkOutOfRangeEventHandler, &ClkWiz_Mon);
+	XClk_Wiz_SetCallBack(&ClkWiz_Mon, XCLK_WIZ_HANDLER_CLK_GLITCH,
+				ClkWiz_ClkGlitchEventHandler, &ClkWiz_Mon);
+	XClk_Wiz_SetCallBack(&ClkWiz_Mon, XCLK_WIZ_HANDLER_CLK_STOP,
+				ClkWiz_ClkStopEventHandler, &ClkWiz_Mon);
+	Status = XSetupInterruptSystem(&ClkWiz_Mon, &XClk_Wiz_IntrHandler,
+			               ClkWiz_Mon.Config.IntId,
+				       ClkWiz_Mon.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
