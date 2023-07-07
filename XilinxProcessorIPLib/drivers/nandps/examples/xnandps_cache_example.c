@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +28,7 @@
 * ----- ---- ----------  -----------------------------------------------
 * 1.00  nm   04/25/2013  First release.
 *       ms   04/10/17    Modified Comment lines to follow doxygen rules
+* 2.8  akm   07/06/23    Add support for system device-tree flow.
 *</pre>
 *
 ******************************************************************************/
@@ -45,7 +47,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define NAND_DEVICE_ID		XPAR_XNANDPS_0_DEVICE_ID
+#endif
 /* Test parameters */
 #define NAND_TEST_START_BLOCK	64	/**< Starting block to test */
 #define NAND_TEST_NUM_BLOCKS	16	/**< Number of blocks to test */
@@ -58,7 +62,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int NandReadWriteCacheExample(u32 NandDeviceId);
+#else
+int NandReadWriteCacheExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 XNandPs NandInstance; /* XNand Instance. */
@@ -92,7 +100,11 @@ int main(void)
 	 * Run the NAND read write example, specify the Base Address that
 	 * is generated in xparameters.h .
 	 */
+#ifndef SDT
 	Status = NandReadWriteCacheExample(NAND_DEVICE_ID);
+#else
+	Status = NandReadWriteCacheExample(XPAR_XNANDPS_0_BASEADDR);
+#endif
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("Nand Flash Read Write Example Test Failed\r\n");
@@ -127,7 +139,11 @@ int main(void)
 *		programmed.
 *
 ****************************************************************************/
+#ifndef SDT
 int NandReadWriteCacheExample(u32 NandDeviceId)
+#else
+int NandReadWriteCacheExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u32 Index;
@@ -141,7 +157,11 @@ int NandReadWriteCacheExample(u32 NandDeviceId)
 	/*
 	 * Initialize the flash driver.
 	 */
+#ifndef SDT
 	ConfigPtr = XNandPs_LookupConfig(NandDeviceId);
+#else
+	ConfigPtr = XNandPs_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}

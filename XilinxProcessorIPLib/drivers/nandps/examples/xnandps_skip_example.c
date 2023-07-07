@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +26,7 @@
 * 1.00  nm   12/10/2010   First release
 * 1.01a nm   28/02/2012   Modified the test offsets.
 *       ms   04/10/17     Modified Comment lines to follow doxygen rules
+* 2.8  akm   07/06/23    Add support for system device-tree flow.
 *</pre>
 *
 ******************************************************************************/
@@ -43,7 +45,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define NAND_DEVICE_ID		XPAR_XNANDPS_0_DEVICE_ID
+#endif
 /* Test parameters */
 #define NAND_TEST_OFFSET	0x01000000	/**< Flash Test Offset */
 #define NAND_TEST_LENGTH	0x00080000	/**< Test Length */
@@ -54,7 +58,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int NandSkipBlockExample(u32 NandDeviceId);
+#else
+int NandSkipBlockExample(UINTPTR BaseAddress);
+#endif
 
 int XNandPs_SkipRead(XNandPs *InstancePtr, u64 Offset, u32 Length, void
 		*DestPtr);
@@ -97,7 +105,11 @@ int main(void)
 	 * Run the NAND read write example, specify the Base Address that
 	 * is generated in xparameters.h .
 	 */
+#ifndef SDT
 	Status = NandSkipBlockExample(NAND_DEVICE_ID);
+#else
+	Status = NandSkipBlockExample(XPAR_XNANDPS_0_BASEADDR);
+#endif
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("Nand Flash Skip Block Method Example Test Failed\r\n");
@@ -132,7 +144,11 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int NandSkipBlockExample(u32 NandDeviceId)
+#else
+int NandSkipBlockExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u32 Index;
@@ -143,7 +159,11 @@ int NandSkipBlockExample(u32 NandDeviceId)
 	/*
 	 * Initialize the flash driver.
 	 */
+#ifndef SDT
 	ConfigPtr = XNandPs_LookupConfig(NandDeviceId);
+#else
+	ConfigPtr = XNandPs_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
