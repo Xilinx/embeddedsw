@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,13 +28,16 @@
 * 		  Use PrimInClkFreq for input clock rate.
 *     sd  8/12/20 Added a setrate function that takes the rate in Hz.
 * 1.5 sd  5/22/20 Prevent return in void function
+* 1.6 sd  7/07/23 Added SDT support.
 * </pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
 #include "xstatus.h"
+#ifndef SDT
+#include "xparameters.h"
+#endif
 #include "xclk_wiz.h"
 
 /************************** Constant Definitions *****************************/
@@ -89,6 +93,11 @@ u32 XClk_Wiz_CfgInitialize(XClk_Wiz *InstancePtr, XClk_Wiz_Config *CfgPtr,
 	InstancePtr->Config = *CfgPtr;
 
 	InstancePtr->Config.BaseAddr = EffectiveAddr;
+#ifdef SDT
+	InstancePtr->Config.IntId = CfgPtr->IntId;
+	InstancePtr->Config.IntrParent = CfgPtr->IntrParent;
+#endif
+
 
 	/* Set all handlers to stub values, let user configure this data later
 	 */
