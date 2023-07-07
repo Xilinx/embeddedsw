@@ -69,7 +69,7 @@ XNandPs_Config *XNandPs_LookupConfig(u16 DeviceId)
 	XNandPs_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index=0; Index < XPAR_XNANDPS_NUM_INSTANCES; Index++) {
+	for (Index = 0; Index < XPAR_XNANDPS_NUM_INSTANCES; Index++) {
 		if (XNandPs_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XNandPs_ConfigTable[Index];
 			break;

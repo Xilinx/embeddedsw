@@ -92,7 +92,7 @@ static void XNandPs_WriteBuf(XNandPs *InstancePtr, u8 *Buf, u32 Length);
 static int XNandPs_IsBusy(XNandPs *InstancePtr);
 
 void XNandPs_SendCommand(XNandPs *InstancePtr, XNandPs_CommandFormat
-		*Command, int Page, int Column);
+			 *Command, int Page, int Column);
 
 static void XNandPs_EccSetCfg(XNandPs *InstancePtr, u32 EccConfig);
 
@@ -115,11 +115,12 @@ extern int Onfi_NandInit(XNandPs *InstancePtr);
 u32 NandOob16[] = {13, 14, 15};	/**< Ecc position for 16 bytes spare area */
 
 u32 NandOob32[] = {26, 27, 28, 29, 30, 31};
-				/**< Ecc position for 32 bytes spare area */
+/**< Ecc position for 32 bytes spare area */
 
 u32 NandOob64[] = {52, 53, 54, 55, 56, 57,
-		   58, 59, 60, 61, 62, 63};
-				/**< Ecc position for 64 bytes spare area */
+		   58, 59, 60, 61, 62, 63
+		  };
+/**< Ecc position for 64 bytes spare area */
 
 extern XNandPs_CommandFormat OnfiCommands[];	/**< ONFI commands */
 
@@ -144,7 +145,7 @@ extern XNandPs_CommandFormat OnfiCommands[];	/**< ONFI commands */
 *
 ******************************************************************************/
 int XNandPs_CfgInitialize(XNandPs *InstancePtr, XNandPs_Config *ConfigPtr,
-				u32 SmcBaseAddr, u32 FlashBaseAddr)
+			  u32 SmcBaseAddr, u32 FlashBaseAddr)
 {
 	u32 PageSize;
 	int Status;
@@ -166,8 +167,8 @@ int XNandPs_CfgInitialize(XNandPs *InstancePtr, XNandPs_Config *ConfigPtr,
 	InstancePtr->Config.FlashWidth = ConfigPtr->FlashWidth;
 
 	XNandPs_WriteReg(InstancePtr->Config.SmcBase +
-		XNANDPS_MEMC_CLR_CONFIG_OFFSET,
-		XNANDPS_CLR_CONFIG);	/* Disable interrupts */
+			 XNANDPS_MEMC_CLR_CONFIG_OFFSET,
+			 XNANDPS_CLR_CONFIG);	/* Disable interrupts */
 
 	/*
 	 * ONFI query to get geometry
@@ -191,10 +192,9 @@ int XNandPs_CfgInitialize(XNandPs *InstancePtr, XNandPs_Config *ConfigPtr,
 	/*
 	 * Initialize ECC Block Parameters
 	 */
-	switch (InstancePtr->EccMode)
-	{
+	switch (InstancePtr->EccMode) {
 		case XNANDPS_ECC_NONE:
-			/* Fall through */
+		/* Fall through */
 		case XNANDPS_ECC_ONDIE:
 			/* Bypass the ECC block in the SMC controller */
 			XNandPs_EccDisable(InstancePtr);
@@ -206,13 +206,15 @@ int XNandPs_CfgInitialize(XNandPs *InstancePtr, XNandPs_Config *ConfigPtr,
 		case XNANDPS_ECC_HW:
 			/* Use SMC ECC controller ECC block */
 			Status = XNandPs_EccHwInit(InstancePtr);
-			if (Status != XST_SUCCESS)
+			if (Status != XST_SUCCESS) {
 				return Status;
+			}
 
 			/* Initialize ECC SW parameters */
 			Status = XNandPs_EccSwInit(InstancePtr);
-			if (Status != XST_SUCCESS)
+			if (Status != XST_SUCCESS) {
 				return Status;
+			}
 
 			/* Initialize the Read/Write page routines */
 			InstancePtr->ReadPage = XNandPs_ReadPage_HwEcc;
@@ -260,14 +262,14 @@ static void XNandPs_EccSetCfg(XNandPs *InstancePtr, u32 EccConfig)
 	 * Check the busy status of the ECC block
 	 */
 	while (XNandPs_ReadReg(InstancePtr->Config.SmcBase +
-		XNANDPS_ECC_STATUS_OFFSET(XNANDPS_IF1_ECC_OFFSET)) &
-		XNANDPS_ECC_STATUS_MASK);
+			       XNANDPS_ECC_STATUS_OFFSET(XNANDPS_IF1_ECC_OFFSET)) &
+	       XNANDPS_ECC_STATUS_MASK);
 	/*
 	 * Write ECC configuration register
 	 */
 	XNandPs_WriteReg(InstancePtr->Config.SmcBase +
-		(XNANDPS_ECC_MEMCFG_OFFSET(XNANDPS_IF1_ECC_OFFSET)),
-		EccConfig);
+			 (XNANDPS_ECC_MEMCFG_OFFSET(XNANDPS_IF1_ECC_OFFSET)),
+			 EccConfig);
 }
 
 /*****************************************************************************/
@@ -289,8 +291,8 @@ static void XNandPs_EccSetMemCmd1(XNandPs *InstancePtr, u32 EccCmd)
 	 * Set the ECC mem command1 register
 	 */
 	XNandPs_WriteReg(InstancePtr->Config.SmcBase +
-		(XNANDPS_ECC_MEMCMD1_OFFSET(XNANDPS_IF1_ECC_OFFSET)),
-		EccCmd);
+			 (XNANDPS_ECC_MEMCMD1_OFFSET(XNANDPS_IF1_ECC_OFFSET)),
+			 EccCmd);
 }
 
 /*****************************************************************************/
@@ -312,8 +314,8 @@ static void XNandPs_EccSetMemCmd2(XNandPs *InstancePtr, u32 EccCmd)
 	 * Set the ECC mem command2 register
 	 */
 	XNandPs_WriteReg(InstancePtr->Config.SmcBase +
-		(XNANDPS_ECC_MEMCMD2_OFFSET(XNANDPS_IF1_ECC_OFFSET)),
-		EccCmd);
+			 (XNANDPS_ECC_MEMCMD2_OFFSET(XNANDPS_IF1_ECC_OFFSET)),
+			 EccCmd);
 }
 
 /*****************************************************************************/
@@ -335,7 +337,7 @@ static void XNandPs_EccDisable(XNandPs *InstancePtr)
 	 * Bypass the ECC block in the SMC controller
 	 */
 	EccConfig = XNandPs_ReadReg(InstancePtr->Config.SmcBase +
-		(XNANDPS_ECC_MEMCFG_OFFSET(XNANDPS_IF1_ECC_OFFSET)));
+				    (XNANDPS_ECC_MEMCFG_OFFSET(XNANDPS_IF1_ECC_OFFSET)));
 
 	EccConfig &= ~XNANDPS_ECC_MEMCFG_ECC_MODE_MASK;
 	XNandPs_EccSetCfg(InstancePtr, EccConfig);
@@ -369,18 +371,18 @@ static int XNandPs_EccHwInit(XNandPs *InstancePtr)
 	/*
 	 * Configure HW ECC block
 	 */
-	switch(PageSize) {
+	switch (PageSize) {
 		case XNANDPS_PAGE_SIZE_512:
 			EccConfig = (XNANDPS_ECC_MEMCFG |
-					XNANDPS_ECC_MEMCFG_PAGE_SIZE_512);
+				     XNANDPS_ECC_MEMCFG_PAGE_SIZE_512);
 			break;
 		case XNANDPS_PAGE_SIZE_1024:
 			EccConfig = (XNANDPS_ECC_MEMCFG |
-					XNANDPS_ECC_MEMCFG_PAGE_SIZE_1024);
+				     XNANDPS_ECC_MEMCFG_PAGE_SIZE_1024);
 			break;
 		case XNANDPS_PAGE_SIZE_2048:
 			EccConfig = (XNANDPS_ECC_MEMCFG |
-					XNANDPS_ECC_MEMCFG_PAGE_SIZE_2048);
+				     XNANDPS_ECC_MEMCFG_PAGE_SIZE_2048);
 			break;
 		default:
 			/*
@@ -423,34 +425,34 @@ static int XNandPs_EccSwInit(XNandPs *InstancePtr)
 	 */
 	InstancePtr->EccConfig.BytesPerBlock = XNANDPS_ECC_BYTES;
 	InstancePtr->EccConfig.BlockSize = XNANDPS_ECC_BLOCK_SIZE;
-	InstancePtr->EccConfig.TotalBytes = (PageSize/XNANDPS_ECC_BLOCK_SIZE)
-		* XNANDPS_ECC_BYTES;
-	InstancePtr->EccConfig.NumSteps = PageSize/XNANDPS_ECC_BLOCK_SIZE;
+	InstancePtr->EccConfig.TotalBytes = (PageSize / XNANDPS_ECC_BLOCK_SIZE)
+					    * XNANDPS_ECC_BYTES;
+	InstancePtr->EccConfig.NumSteps = PageSize / XNANDPS_ECC_BLOCK_SIZE;
 
 	/*
 	 * Ecc write position in spare data area as per Linux mtd subsystem
 	 */
-	switch(SpareBytesSize) {
+	switch (SpareBytesSize) {
 		case XNANDPS_SPARE_SIZE_16:
-			for(Index = 0; Index <
-					InstancePtr->EccConfig.TotalBytes;
-					Index++) {
+			for (Index = 0; Index <
+			     InstancePtr->EccConfig.TotalBytes;
+			     Index++) {
 				InstancePtr->EccConfig.EccPos[Index] =
 					NandOob16[Index];
 			}
 			break;
 		case XNANDPS_SPARE_SIZE_32:
-			for(Index = 0; Index <
-					InstancePtr->EccConfig.TotalBytes;
-					Index++) {
+			for (Index = 0; Index <
+			     InstancePtr->EccConfig.TotalBytes;
+			     Index++) {
 				InstancePtr->EccConfig.EccPos[Index] =
 					NandOob32[Index];
 			}
 			break;
 		case XNANDPS_SPARE_SIZE_64:
-			for(Index = 0; Index <
-					InstancePtr->EccConfig.TotalBytes;
-					Index++) {
+			for (Index = 0; Index <
+			     InstancePtr->EccConfig.TotalBytes;
+			     Index++) {
 				InstancePtr->EccConfig.EccPos[Index] =
 					NandOob64[Index];
 			}
@@ -485,7 +487,7 @@ static int XNandPs_EccSwInit(XNandPs *InstancePtr)
 *
 ******************************************************************************/
 int XNandPs_Read(XNandPs *InstancePtr, u64 Offset, u32 Length, void *DestPtr,
-			u8 *UserSparePtr)
+		 u8 *UserSparePtr)
 {
 	u32 Page;
 	u32 Col;
@@ -503,10 +505,10 @@ int XNandPs_Read(XNandPs *InstancePtr, u64 Offset, u32 Length, void *DestPtr,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(Length != 0);
 
-	Page = (u32) (Offset/InstancePtr->Geometry.BytesPerPage);
+	Page = (u32) (Offset / InstancePtr->Geometry.BytesPerPage);
 	Col = (u32) (Offset & (InstancePtr->Geometry.BytesPerPage - 1));
 	PartialBytes = InstancePtr->Geometry.BytesPerPage - Col;
-	NumOfBytes = (PartialBytes < Length) ? PartialBytes:Length;
+	NumOfBytes = (PartialBytes < Length) ? PartialBytes : Length;
 	CopyOffset = InstancePtr->Geometry.BytesPerPage - PartialBytes;
 
 	/*
@@ -543,8 +545,8 @@ int XNandPs_Read(XNandPs *InstancePtr, u64 Offset, u32 Length, void *DestPtr,
 		 * Clear the interrupt condition
 		 */
 		XNandPs_WriteReg((InstancePtr->Config.SmcBase +
-					XNANDPS_MEMC_CLR_CONFIG_OFFSET),
-				XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
+				  XNANDPS_MEMC_CLR_CONFIG_OFFSET),
+				 XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
 
 		/*
 		 *  Read the page data
@@ -565,7 +567,7 @@ int XNandPs_Read(XNandPs *InstancePtr, u64 Offset, u32 Length, void *DestPtr,
 		Length -= NumOfBytes;
 		Page++;
 		NumOfBytes = (Length > InstancePtr->Geometry.BytesPerPage) ?
-				InstancePtr->Geometry.BytesPerPage:Length;
+			     InstancePtr->Geometry.BytesPerPage : Length;
 		CopyOffset = 0;
 	}
 
@@ -574,7 +576,7 @@ int XNandPs_Read(XNandPs *InstancePtr, u64 Offset, u32 Length, void *DestPtr,
 	 */
 	if (UserSparePtr) {
 		memcpy(UserSparePtr, InstancePtr->SpareBufPtr,
-				InstancePtr->Geometry.SpareBytesPerPage);
+		       InstancePtr->Geometry.SpareBytesPerPage);
 	}
 
 	return XST_SUCCESS;
@@ -603,7 +605,7 @@ int XNandPs_Read(XNandPs *InstancePtr, u64 Offset, u32 Length, void *DestPtr,
 *
 ******************************************************************************/
 int XNandPs_ReadCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
-			void *DestPtr, u8 *UserSparePtr)
+		      void *DestPtr, u8 *UserSparePtr)
 {
 	u32 Page;
 	u32 Col;
@@ -628,25 +630,25 @@ int XNandPs_ReadCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 	 */
 	if (!InstancePtr->Features.ReadCache) {
 		return XNandPs_Read(InstancePtr, Offset, Length, DestPtr,
-							UserSparePtr);
+				    UserSparePtr);
 	}
 
-	Page = (u32) (Offset/InstancePtr->Geometry.BytesPerPage);
+	Page = (u32) (Offset / InstancePtr->Geometry.BytesPerPage);
 	Col = (u32) (Offset & (InstancePtr->Geometry.BytesPerPage - 1));
 	PartialBytes = InstancePtr->Geometry.BytesPerPage - Col;
-	NumOfBytes = (PartialBytes < Length) ? PartialBytes:Length;
+	NumOfBytes = (PartialBytes < Length) ? PartialBytes : Length;
 	CopyOffset = InstancePtr->Geometry.BytesPerPage - PartialBytes;
 	/*
 	 * Calculate number of pages to read
 	 */
-	NumPages = Length/InstancePtr->Geometry.BytesPerPage;
-	NumPages += (Length % InstancePtr->Geometry.BytesPerPage) ? 1:0;
+	NumPages = Length / InstancePtr->Geometry.BytesPerPage;
+	NumPages += (Length % InstancePtr->Geometry.BytesPerPage) ? 1 : 0;
 	/*
 	 * Read, Read Cache start, Read Cache end
 	 */
 	if (NumPages <= 1) {
 		return XNandPs_Read(InstancePtr, Offset, Length, DestPtr,
-							UserSparePtr);
+				    UserSparePtr);
 	}
 
 	/*
@@ -673,8 +675,8 @@ int XNandPs_ReadCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 	 * Clear the interrupt condition
 	 */
 	XNandPs_WriteReg((InstancePtr->Config.SmcBase +
-				XNANDPS_MEMC_CLR_CONFIG_OFFSET),
-			XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
+			  XNANDPS_MEMC_CLR_CONFIG_OFFSET),
+			 XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
 
 	/*
 	 * Check ONFI Status Register
@@ -716,13 +718,13 @@ int XNandPs_ReadCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 			 * Send NAND page cache end command 0x3F
 			 */
 			XNandPs_SendCommand(InstancePtr,
-					&OnfiCommands[READ_CACHE_END_SEQ],
-					XNANDPS_PAGE_NOT_VALID,
-					XNANDPS_COLUMN_NOT_VALID);
+					    &OnfiCommands[READ_CACHE_END_SEQ],
+					    XNANDPS_PAGE_NOT_VALID,
+					    XNANDPS_COLUMN_NOT_VALID);
 		} else {
 			XNandPs_SendCommand(InstancePtr,
-					&OnfiCommands[READ_CACHE_RANDOM],
-					Page, 0);
+					    &OnfiCommands[READ_CACHE_RANDOM],
+					    Page, 0);
 		}
 
 		/*
@@ -735,14 +737,14 @@ int XNandPs_ReadCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 		 * Clear the interrupt condition
 		 */
 		XNandPs_WriteReg((InstancePtr->Config.SmcBase +
-					XNANDPS_MEMC_CLR_CONFIG_OFFSET),
-				XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
+				  XNANDPS_MEMC_CLR_CONFIG_OFFSET),
+				 XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
 
 		if (NumPages <= 1) {
 			XNandPs_SendCommand(InstancePtr,
-					&OnfiCommands[CHANGE_READ_COLUMN],
-					XNANDPS_PAGE_NOT_VALID,
-					0);
+					    &OnfiCommands[CHANGE_READ_COLUMN],
+					    XNANDPS_PAGE_NOT_VALID,
+					    0);
 		}
 
 		/*
@@ -764,7 +766,7 @@ int XNandPs_ReadCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 		Length -= NumOfBytes;
 		NumPages--;
 		NumOfBytes = (Length > InstancePtr->Geometry.BytesPerPage) ?
-				InstancePtr->Geometry.BytesPerPage:Length;
+			     InstancePtr->Geometry.BytesPerPage : Length;
 		CopyOffset = 0;
 	}
 
@@ -773,7 +775,7 @@ int XNandPs_ReadCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 	 */
 	if (UserSparePtr) {
 		memcpy(UserSparePtr, InstancePtr->SpareBufPtr,
-				InstancePtr->Geometry.SpareBytesPerPage);
+		       InstancePtr->Geometry.SpareBytesPerPage);
 	}
 
 	return XST_SUCCESS;
@@ -805,7 +807,7 @@ int XNandPs_ReadCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 *
 ******************************************************************************/
 int XNandPs_Write(XNandPs *InstancePtr, u64 Offset, u32 Length, void *SrcPtr,
-			u8 *UserSparePtr)
+		  u8 *UserSparePtr)
 {
 	u32 Page;
 	u32 Col;
@@ -836,27 +838,26 @@ int XNandPs_Write(XNandPs *InstancePtr, u64 Offset, u32 Length, void *SrcPtr,
 	 */
 	if (UserSparePtr == NULL) {
 		memset(InstancePtr->SpareBufPtr, 0xff,
-				InstancePtr->Geometry.SpareBytesPerPage);
+		       InstancePtr->Geometry.SpareBytesPerPage);
 	} else {
 		memcpy(InstancePtr->SpareBufPtr, UserSparePtr,
-				InstancePtr->Geometry.SpareBytesPerPage);
+		       InstancePtr->Geometry.SpareBytesPerPage);
 	}
 
-	Page = (u32) (Offset/InstancePtr->Geometry.BytesPerPage);
+	Page = (u32) (Offset / InstancePtr->Geometry.BytesPerPage);
 	Col = (u32) (Offset & (InstancePtr->Geometry.BytesPerPage - 1));
 	PartialBytes = InstancePtr->Geometry.BytesPerPage - Col;
-	NumOfBytes = (PartialBytes < Length) ? PartialBytes:Length;
+	NumOfBytes = (PartialBytes < Length) ? PartialBytes : Length;
 	CopyOffset = InstancePtr->Geometry.BytesPerPage - PartialBytes;
 
-	while (Length)
-	{
+	while (Length) {
 		/*
 		 * Partial write, fill the remaining buffer with 0xff
 		 */
 		if (NumOfBytes < InstancePtr->Geometry.BytesPerPage) {
 			BufPtr = &InstancePtr->DataBuf[0];
 			memset(BufPtr, 0xff,
-					InstancePtr->Geometry.BytesPerPage);
+			       InstancePtr->Geometry.BytesPerPage);
 			memcpy(BufPtr + CopyOffset, Ptr, NumOfBytes);
 		} else {
 			BufPtr = (u8 *)Ptr;
@@ -866,7 +867,7 @@ int XNandPs_Write(XNandPs *InstancePtr, u64 Offset, u32 Length, void *SrcPtr,
 		 * Send ONFI Program command
 		 */
 		XNandPs_SendCommand(InstancePtr, &OnfiCommands[PAGE_PROGRAM],
-					Page, 0);
+				    Page, 0);
 
 		/*
 		 * Write the page data
@@ -880,7 +881,7 @@ int XNandPs_Write(XNandPs *InstancePtr, u64 Offset, u32 Length, void *SrcPtr,
 		Length -= NumOfBytes;
 		Page++;
 		NumOfBytes = (Length > InstancePtr->Geometry.BytesPerPage) ?
-				InstancePtr->Geometry.BytesPerPage:Length;
+			     InstancePtr->Geometry.BytesPerPage : Length;
 		CopyOffset = 0;
 	}
 
@@ -914,7 +915,7 @@ int XNandPs_Write(XNandPs *InstancePtr, u64 Offset, u32 Length, void *SrcPtr,
 *
 ******************************************************************************/
 int XNandPs_WriteCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
-				void *SrcPtr, u8 *UserSparePtr)
+		       void *SrcPtr, u8 *UserSparePtr)
 {
 	u32 Page;
 	u32 Col;
@@ -947,39 +948,38 @@ int XNandPs_WriteCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 	 */
 	if (UserSparePtr == NULL) {
 		memset(InstancePtr->SpareBufPtr, 0xff,
-				InstancePtr->Geometry.SpareBytesPerPage);
+		       InstancePtr->Geometry.SpareBytesPerPage);
 	} else {
 		memcpy(InstancePtr->SpareBufPtr, UserSparePtr,
-				InstancePtr->Geometry.SpareBytesPerPage);
+		       InstancePtr->Geometry.SpareBytesPerPage);
 	}
 
-	Page = (u32) (Offset/InstancePtr->Geometry.BytesPerPage);
+	Page = (u32) (Offset / InstancePtr->Geometry.BytesPerPage);
 	Col = (u32) (Offset & (InstancePtr->Geometry.BytesPerPage - 1));
 	PartialBytes = InstancePtr->Geometry.BytesPerPage - Col;
-	NumOfBytes = (PartialBytes < Length) ? PartialBytes:Length;
+	NumOfBytes = (PartialBytes < Length) ? PartialBytes : Length;
 	CopyOffset = InstancePtr->Geometry.BytesPerPage - PartialBytes;
 	/*
 	 * Calculate number of pages to write
 	 */
-	NumPages = Length/InstancePtr->Geometry.BytesPerPage;
-	NumPages += (Length % InstancePtr->Geometry.BytesPerPage) ? 1:0;
+	NumPages = Length / InstancePtr->Geometry.BytesPerPage;
+	NumPages += (Length % InstancePtr->Geometry.BytesPerPage) ? 1 : 0;
 	/*
 	 * Check for enough pages for cache programming
 	 */
 	if (NumPages <= 1) {
 		return XNandPs_Write(InstancePtr, Offset, Length, SrcPtr,
-							UserSparePtr);
+				     UserSparePtr);
 	}
 
-	while (Length && (NumPages > 0))
-	{
+	while (Length && (NumPages > 0)) {
 		/*
 		 * Partial write, fill the remaining buffer with 0xff
 		 */
 		if (NumOfBytes < InstancePtr->Geometry.BytesPerPage) {
 			BufPtr = &InstancePtr->DataBuf[0];
 			memset(BufPtr, 0xff,
-					InstancePtr->Geometry.BytesPerPage);
+			       InstancePtr->Geometry.BytesPerPage);
 			memcpy(BufPtr + CopyOffset, Ptr, NumOfBytes);
 		} else {
 			BufPtr = (u8 *)Ptr;
@@ -990,8 +990,8 @@ int XNandPs_WriteCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 			 * Send ONFI Program cache command
 			 */
 			XNandPs_SendCommand(InstancePtr,
-					&OnfiCommands[PAGE_CACHE_PROGRAM],
-						Page, 0);
+					    &OnfiCommands[PAGE_CACHE_PROGRAM],
+					    Page, 0);
 			/*
 			 * Write the page data
 			 */
@@ -1004,8 +1004,8 @@ int XNandPs_WriteCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 			 * Send ONFI Program command
 			 */
 			XNandPs_SendCommand(InstancePtr,
-						&OnfiCommands[PAGE_PROGRAM],
-						Page, 0);
+					    &OnfiCommands[PAGE_PROGRAM],
+					    Page, 0);
 			/*
 			 * Write the page data
 			 */
@@ -1020,7 +1020,7 @@ int XNandPs_WriteCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 		Page++;
 		NumPages--;
 		NumOfBytes = (Length > InstancePtr->Geometry.BytesPerPage) ?
-				InstancePtr->Geometry.BytesPerPage:Length;
+			     InstancePtr->Geometry.BytesPerPage : Length;
 		CopyOffset = 0;
 	}
 
@@ -1043,14 +1043,14 @@ int XNandPs_WriteCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
 *
 ***************************************************************************/
 void XNandPs_SendCommand(XNandPs *InstancePtr, XNandPs_CommandFormat
-		*Command, int Page, int Column)
+			 *Command, int Page, int Column)
 {
 	u32 EndCmdReq = 0;
 	u32 EccLast = 0;
 	u32 ClearCs = 0;
 	u32 CmdPhaseAddr;
 	u32 DataPhaseAddr;
-	u32 CmdPhaseData=0;
+	u32 CmdPhaseData = 0;
 	u32 PageShift;
 
 	Xil_AssertVoid(Command != NULL);
@@ -1060,9 +1060,9 @@ void XNandPs_SendCommand(XNandPs *InstancePtr, XNandPs_CommandFormat
 	}
 
 	if ((Command->StartCmd == ONFI_CMD_READ1) ||
-		(Command->StartCmd == ONFI_CMD_PAGE_PROG1)) {
+	    (Command->StartCmd == ONFI_CMD_PAGE_PROG1)) {
 		Command->AddrCycles = InstancePtr->Geometry.RowAddrCycles +
-					InstancePtr->Geometry.ColAddrCycles;
+				      InstancePtr->Geometry.ColAddrCycles;
 	}
 	if ((Command->StartCmd == ONFI_CMD_BLOCK_ERASE1)) {
 		Command->AddrCycles = InstancePtr->Geometry.RowAddrCycles;
@@ -1072,11 +1072,11 @@ void XNandPs_SendCommand(XNandPs *InstancePtr, XNandPs_CommandFormat
 	 * Construct command phase address
 	 */
 	CmdPhaseAddr = InstancePtr->Config.FlashBase			|
-		(Command->AddrCycles << XNANDPS_ADDR_CYCLES_SHIFT)	|
-		(EndCmdReq << XNANDPS_END_CMD_VALID_SHIFT)	|
-		XNANDPS_COMMAND_PHASE_MASK			|
-		(Command->EndCmd << XNANDPS_END_CMD_SHIFT)	|
-		(Command->StartCmd << XNANDPS_START_CMD_SHIFT);
+		       (Command->AddrCycles << XNANDPS_ADDR_CYCLES_SHIFT)	|
+		       (EndCmdReq << XNANDPS_END_CMD_VALID_SHIFT)	|
+		       XNANDPS_COMMAND_PHASE_MASK			|
+		       (Command->EndCmd << XNANDPS_END_CMD_SHIFT)	|
+		       (Command->StartCmd << XNANDPS_START_CMD_SHIFT);
 
 	InstancePtr->CommandPhaseAddr = CmdPhaseAddr;
 
@@ -1093,11 +1093,11 @@ void XNandPs_SendCommand(XNandPs *InstancePtr, XNandPs_CommandFormat
 	 * Construct data phase address
 	 */
 	DataPhaseAddr = InstancePtr->Config.FlashBase			|
-			  (ClearCs << XNANDPS_CLEAR_CS_SHIFT)		|
-			  (EndCmdReq << XNANDPS_END_CMD_VALID_SHIFT)	|
-			  XNANDPS_DATA_PHASE_MASK			|
-			  (Command->EndCmd << XNANDPS_END_CMD_SHIFT)	|
-			  (EccLast << XNANDPS_ECC_LAST_SHIFT);
+			(ClearCs << XNANDPS_CLEAR_CS_SHIFT)		|
+			(EndCmdReq << XNANDPS_END_CMD_VALID_SHIFT)	|
+			XNANDPS_DATA_PHASE_MASK			|
+			(Command->EndCmd << XNANDPS_END_CMD_SHIFT)	|
+			(EccLast << XNANDPS_ECC_LAST_SHIFT);
 
 	InstancePtr->DataPhaseAddr = DataPhaseAddr;
 
@@ -1105,9 +1105,9 @@ void XNandPs_SendCommand(XNandPs *InstancePtr, XNandPs_CommandFormat
 	 * Command phase data
 	 */
 	if (Column != XNANDPS_COLUMN_NOT_VALID && Page !=
-			XNANDPS_PAGE_NOT_VALID) {
+	    XNANDPS_PAGE_NOT_VALID) {
 		if (InstancePtr->Geometry.FlashWidth ==
-				XNANDPS_FLASH_WIDTH_16) {
+		    XNANDPS_FLASH_WIDTH_16) {
 			Column >>= 1;
 		}
 		CmdPhaseData = Column;
@@ -1129,7 +1129,7 @@ void XNandPs_SendCommand(XNandPs *InstancePtr, XNandPs_CommandFormat
 		CmdPhaseData = Page;
 	} else {
 		if (InstancePtr->Geometry.FlashWidth ==
-				XNANDPS_FLASH_WIDTH_16) {
+		    XNANDPS_FLASH_WIDTH_16) {
 			Column >>= 1;
 		}
 		CmdPhaseData = Column;
@@ -1189,8 +1189,8 @@ int XNandPs_ReadSpareBytes(XNandPs *InstancePtr, u32 Page, u8 *Buf)
 	 * Clear the interrupt condition
 	 */
 	XNandPs_WriteReg((InstancePtr->Config.SmcBase +
-			XNANDPS_MEMC_CLR_CONFIG_OFFSET),
-			XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
+			  XNANDPS_MEMC_CLR_CONFIG_OFFSET),
+			 XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
 
 	/*
 	 * Check ONFI Status Register
@@ -1205,11 +1205,11 @@ int XNandPs_ReadSpareBytes(XNandPs *InstancePtr, u32 Page, u8 *Buf)
 	 * reading data
 	 */
 	ZeroCommand = InstancePtr->Config.FlashBase |
-			(0 << XNANDPS_ADDR_CYCLES_SHIFT)|
-			(0 << XNANDPS_END_CMD_VALID_SHIFT)|
-			(XNANDPS_COMMAND_PHASE_MASK)|
-			(0 << XNANDPS_END_CMD_SHIFT)|
-			(0 << XNANDPS_START_CMD_SHIFT);
+		      (0 << XNANDPS_ADDR_CYCLES_SHIFT) |
+		      (0 << XNANDPS_END_CMD_VALID_SHIFT) |
+		      (XNANDPS_COMMAND_PHASE_MASK) |
+		      (0 << XNANDPS_END_CMD_SHIFT) |
+		      (0 << XNANDPS_START_CMD_SHIFT);
 
 	/*
 	 * AXI transaction for sending command 0x00 to the flash
@@ -1235,8 +1235,9 @@ int XNandPs_ReadSpareBytes(XNandPs *InstancePtr, u32 Page, u8 *Buf)
 	 */
 	if (InstancePtr->EccMode == XNANDPS_ECC_HW) {
 		Status = XNandPs_EccHwInit(InstancePtr);
-		if (Status != XST_SUCCESS)
+		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
+		}
 	}
 
 	return XST_SUCCESS;
@@ -1284,7 +1285,7 @@ int XNandPs_WriteSpareBytes(XNandPs *InstancePtr, u32 Page, u8 *Buf)
 	 * Write to the spare area
 	 */
 	XNandPs_WriteBuf(InstancePtr, Buf, (Length -
-				XNANDPS_AXI_DATA_WIDTH));
+					    XNANDPS_AXI_DATA_WIDTH));
 	/*
 	 * Last transaction clear chip select
 	 */
@@ -1304,8 +1305,8 @@ int XNandPs_WriteSpareBytes(XNandPs *InstancePtr, u32 Page, u8 *Buf)
 	 * Clear the interrupt condition
 	 */
 	XNandPs_WriteReg((InstancePtr->Config.SmcBase +
-			XNANDPS_MEMC_CLR_CONFIG_OFFSET),
-			XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
+			  XNANDPS_MEMC_CLR_CONFIG_OFFSET),
+			 XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
 	/*
 	 * Check SR[0] bit
 	 */
@@ -1319,8 +1320,9 @@ int XNandPs_WriteSpareBytes(XNandPs *InstancePtr, u32 Page, u8 *Buf)
 	 */
 	if (InstancePtr->EccMode == XNANDPS_ECC_HW) {
 		Status = XNandPs_EccHwInit(InstancePtr);
-		if (Status != XST_SUCCESS)
+		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
+		}
 	}
 
 	return XST_SUCCESS;
@@ -1347,8 +1349,8 @@ static int XNandPs_IsBusy(XNandPs *InstancePtr)
 	 * Read the memory controller status register
 	 */
 	Status = XNandPs_ReadReg(InstancePtr->Config.SmcBase +
-			XNANDPS_MEMC_STATUS_OFFSET) &
-		XNANDPS_MEMC_STATUS_RAW_INT_STATUS1_MASK;
+				 XNANDPS_MEMC_STATUS_OFFSET) &
+		 XNANDPS_MEMC_STATUS_RAW_INT_STATUS1_MASK;
 
 	if (Status) {
 		return FALSE;
@@ -1382,21 +1384,21 @@ static int XNandPs_EccCalculate(XNandPs *InstancePtr, u8 *EccData)
 	 * Check the busy status of the ECC block
 	 */
 	while (XNandPs_ReadReg(InstancePtr->Config.SmcBase +
-		XNANDPS_ECC_STATUS_OFFSET(XNANDPS_IF1_ECC_OFFSET)) &
-		XNANDPS_ECC_STATUS_MASK);
+			       XNANDPS_ECC_STATUS_OFFSET(XNANDPS_IF1_ECC_OFFSET)) &
+	       XNANDPS_ECC_STATUS_MASK);
 
-	for(EccReg = 0; EccReg < 4; EccReg++) {
+	for (EccReg = 0; EccReg < 4; EccReg++) {
 
 		EccValue = XNandPs_ReadReg(InstancePtr->Config.SmcBase +
-			XNANDPS_ECC_VALUE0_OFFSET(XNANDPS_IF1_ECC_OFFSET +
-				(EccReg * 4)));
+					   XNANDPS_ECC_VALUE0_OFFSET(XNANDPS_IF1_ECC_OFFSET +
+							   (EccReg * 4)));
 		EccStatus = (EccValue >> 24) & 0xFF;
 
 		/*
 		 * Check if the ECC value not valid
 		 */
 		if ((EccStatus >> 6) & 0x1) {
-			for(EccByte = 0; EccByte < 3; EccByte++) {
+			for (EccByte = 0; EccByte < 3; EccByte++) {
 				*EccData = EccValue & 0xFF;
 				EccValue = EccValue >> 8;
 				EccData++;
@@ -1528,7 +1530,7 @@ static int XNandPs_ReadPage_HwEcc(XNandPs *InstancePtr, u8 *DstPtr)
 	 * Read page sized bytes in one less AXI data width
 	 */
 	XNandPs_ReadBuf(InstancePtr, Ptr,
-				(BytesPerPage - XNANDPS_AXI_DATA_WIDTH));
+			(BytesPerPage - XNANDPS_AXI_DATA_WIDTH));
 
 	Ptr += (BytesPerPage - XNANDPS_AXI_DATA_WIDTH);
 
@@ -1556,7 +1558,7 @@ static int XNandPs_ReadPage_HwEcc(XNandPs *InstancePtr, u8 *DstPtr)
 	DataPhaseAddr &= ~XNANDPS_ECC_LAST;
 	InstancePtr->DataPhaseAddr = DataPhaseAddr;
 	XNandPs_ReadBuf(InstancePtr, SparePtr,
-				(SpareBytesPerPage - XNANDPS_AXI_DATA_WIDTH));
+			(SpareBytesPerPage - XNANDPS_AXI_DATA_WIDTH));
 
 	/*
 	 * Clear chip select for last AXI transaction
@@ -1571,7 +1573,7 @@ static int XNandPs_ReadPage_HwEcc(XNandPs *InstancePtr, u8 *DstPtr)
 	 * Read the stored ECC code
 	 */
 	EccPos = &InstancePtr->EccConfig.EccPos[0];
-	for(Index = 0; Index < InstancePtr->EccConfig.TotalBytes; Index++) {
+	for (Index = 0; Index < InstancePtr->EccConfig.TotalBytes; Index++) {
 		EccCode[Index] = ~(InstancePtr->SpareBufPtr[EccPos[Index]]);
 	}
 
@@ -1579,9 +1581,9 @@ static int XNandPs_ReadPage_HwEcc(XNandPs *InstancePtr, u8 *DstPtr)
 	 * Check for ECC errors
 	 */
 	EccOffset = 0;
-	for(; EccSteps; EccSteps--) {
+	for (; EccSteps; EccSteps--) {
 		Status = XNandPs_EccCorrect(DstPtr,
-				&EccCalc[EccOffset],&EccCode[EccOffset]);
+					    &EccCalc[EccOffset], &EccCode[EccOffset]);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
@@ -1633,11 +1635,11 @@ static int XNandPs_ReadPage(XNandPs *InstancePtr, u8 *DstPtr)
 	 * reading data
 	 */
 	ZeroCommand = InstancePtr->Config.FlashBase |
-			(0 << XNANDPS_ADDR_CYCLES_SHIFT)|
-			(0 << XNANDPS_END_CMD_VALID_SHIFT)|
-			(XNANDPS_COMMAND_PHASE_MASK)|
-			(0 << XNANDPS_END_CMD_SHIFT)|
-			(0 << XNANDPS_START_CMD_SHIFT);
+		      (0 << XNANDPS_ADDR_CYCLES_SHIFT) |
+		      (0 << XNANDPS_END_CMD_VALID_SHIFT) |
+		      (XNANDPS_COMMAND_PHASE_MASK) |
+		      (0 << XNANDPS_END_CMD_SHIFT) |
+		      (0 << XNANDPS_START_CMD_SHIFT);
 
 	/*
 	 * AXI transaction for sending command 0x00 to the flash
@@ -1703,7 +1705,7 @@ static int XNandPs_WritePage_HwEcc(XNandPs *InstancePtr, u8 *SrcPtr)
 	 * Transfer page sized bytes in one less AXI data width
 	 */
 	XNandPs_WriteBuf(InstancePtr, Ptr,
-				(BytesPerPage - XNANDPS_AXI_DATA_WIDTH));
+			 (BytesPerPage - XNANDPS_AXI_DATA_WIDTH));
 
 	Ptr += (BytesPerPage - XNANDPS_AXI_DATA_WIDTH);
 
@@ -1728,7 +1730,7 @@ static int XNandPs_WritePage_HwEcc(XNandPs *InstancePtr, u8 *SrcPtr)
 	 * Fill the Spare buffer with calculated ECC
 	 */
 	EccPos = &InstancePtr->EccConfig.EccPos[0];
-	for(Index = 0; Index < InstancePtr->EccConfig.TotalBytes; Index++) {
+	for (Index = 0; Index < InstancePtr->EccConfig.TotalBytes; Index++) {
 		InstancePtr->SpareBufPtr[EccPos[Index]] = ~(EccCalc[Index]);
 	}
 
@@ -1739,7 +1741,7 @@ static int XNandPs_WritePage_HwEcc(XNandPs *InstancePtr, u8 *SrcPtr)
 	DataPhaseAddr &= ~XNANDPS_ECC_LAST;
 	InstancePtr->DataPhaseAddr = DataPhaseAddr;
 	XNandPs_WriteBuf(InstancePtr, SparePtr,
-				(SpareBytesPerPage - XNANDPS_AXI_DATA_WIDTH));
+			 (SpareBytesPerPage - XNANDPS_AXI_DATA_WIDTH));
 
 	/*
 	 * Clear chip select for last AXI transaction
@@ -1760,8 +1762,8 @@ static int XNandPs_WritePage_HwEcc(XNandPs *InstancePtr, u8 *SrcPtr)
 	 * Clear the interrupt condition
 	 */
 	XNandPs_WriteReg((InstancePtr->Config.SmcBase +
-				XNANDPS_MEMC_CLR_CONFIG_OFFSET),
-				XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
+			  XNANDPS_MEMC_CLR_CONFIG_OFFSET),
+			 XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
 
 	/*
 	 * Check SR[0] bit
@@ -1810,7 +1812,7 @@ static int XNandPs_WritePage(XNandPs *InstancePtr, u8 *SrcPtr)
 	 * Write the spare data bytes
 	 */
 	XNandPs_WriteBuf(InstancePtr, SparePtr,
-			(SpareBytesPerPage - XNANDPS_AXI_DATA_WIDTH));
+			 (SpareBytesPerPage - XNANDPS_AXI_DATA_WIDTH));
 
 	/*
 	 * Clear chip select for last AXI transaction
@@ -1831,8 +1833,8 @@ static int XNandPs_WritePage(XNandPs *InstancePtr, u8 *SrcPtr)
 	 * Clear the interrupt condition
 	 */
 	XNandPs_WriteReg((InstancePtr->Config.SmcBase +
-				XNANDPS_MEMC_CLR_CONFIG_OFFSET),
-				XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
+			  XNANDPS_MEMC_CLR_CONFIG_OFFSET),
+			 XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
 
 	/*
 	 * Check SR[0] bit
@@ -1881,7 +1883,7 @@ int XNandPs_EraseBlock(XNandPs *InstancePtr, u32 BlockNum)
 
 	Page = BlockNum * InstancePtr->Geometry.PagesPerBlock;
 	XNandPs_SendCommand(InstancePtr, &OnfiCommands[BLOCK_ERASE], Page,
-			XNANDPS_COLUMN_NOT_VALID);
+			    XNANDPS_COLUMN_NOT_VALID);
 
 	/*
 	 * Poll the Memory controller status register
@@ -1893,8 +1895,8 @@ int XNandPs_EraseBlock(XNandPs *InstancePtr, u32 BlockNum)
 	 * Clear the interrupt condition
 	 */
 	XNandPs_WriteReg((InstancePtr->Config.SmcBase +
-				XNANDPS_MEMC_CLR_CONFIG_OFFSET),
-			XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
+			  XNANDPS_MEMC_CLR_CONFIG_OFFSET),
+			 XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK);
 
 	/*
 	 * Check the SR[0] whether the erase operation is successful or not
@@ -1925,7 +1927,7 @@ static void XNandPs_ReadBuf(XNandPs *InstancePtr, u8 *Buf, u32 Length)
 	u32 AxiLen = Length >> 2;
 	u32 *Ptr = (u32 *)Buf;
 
-	for(Index = 0; Index < AxiLen; Index++) {
+	for (Index = 0; Index < AxiLen; Index++) {
 		Ptr[Index] = XNandPs_ReadReg(InstancePtr->DataPhaseAddr);
 	}
 }
@@ -1949,7 +1951,7 @@ static void XNandPs_WriteBuf(XNandPs *InstancePtr, u8 *Buf, u32 Length)
 	u32 AxiLen = Length >> 2;
 	u32 *Ptr = (u32 *)Buf;
 
-	for(Index = 0; Index < AxiLen; Index++) {
+	for (Index = 0; Index < AxiLen; Index++) {
 		XNandPs_WriteReg(InstancePtr->DataPhaseAddr, Ptr[Index]);
 	}
 }

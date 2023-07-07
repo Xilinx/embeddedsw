@@ -332,34 +332,34 @@ extern "C" {
  *  @{
  */
 #define XNANDPS_REFRESH_PERIOD_0_MASK			0x0000000F
-					/**< Interface 0 refresh period mask */
+/**< Interface 0 refresh period mask */
 #define XNANDPS_REFRESH_PERIOD_1_MASK			0x0000000F
-					/**< Interface 1 refresh period mask */
+/**< Interface 1 refresh period mask */
 /* @} */
 
 /** @name Opmode register bit definitions and masks
  *  @{
  */
 #define XNANDPS_OPMODE_MW_MASK				0x00000003
-					/**< Opmode Memory width mask */
+/**< Opmode Memory width mask */
 #define XNANDPS_OPMODE_RD_SYNC_MASK			0x00000004
-					/**< Opmode rd_sync mask */
+/**< Opmode rd_sync mask */
 #define XNANDPS_OPMODE_RD_BL_MASK			0x00000038
-					/**< Opmode rd_bl mask */
+/**< Opmode rd_bl mask */
 #define XNANDPS_OPMODE_WR_SYNC_MASK			0x00000040
-					/**< Opmode wr_sync mask */
+/**< Opmode wr_sync mask */
 #define XNANDPS_OPMODE_WR_BL_MASK			0x00000380
-					/**< Opmode BAA mask */
+/**< Opmode BAA mask */
 #define XNANDPS_OPMODE_BAA_MASK			0x00000400
-					/**< Opmode ADV mask */
+/**< Opmode ADV mask */
 #define XNANDPS_OPMODE_ADV_MASK			0x00000800
-					/**< Opmode BLS mask */
+/**< Opmode BLS mask */
 #define XNANDPS_OPMODE_BLS_MASK			0x00001000
-					/**< Opmode Burst align mask */
+/**< Opmode Burst align mask */
 #define XNANDPS_OPMODE_BURST_ALIGN_MASK		0x0000E000
-					/**< Opmode Address mask */
+/**< Opmode Address mask */
 #define XNANDPS_OPMODE_ADDRESS_MASK			0x00FF0000
-					/**< Opmode Address match mask */
+/**< Opmode Address match mask */
 #define XNANDPS_OPMODE_ADDRESS_MATCH_MASK		0xFF000000
 /* @} */
 
@@ -402,42 +402,42 @@ extern "C" {
  *  @{
  */
 #define XNANDPS_ECC_MEMCFG_PAGE_SIZE_MASK		0x00000003
-					/**< Ecc cfg page_size mask */
+/**< Ecc cfg page_size mask */
 #define XNANDPS_ECC_MEMCFG_ECC_MODE_MASK		0x0000000C
-					/**< Ecc cfg ecc_mode mask */
+/**< Ecc cfg ecc_mode mask */
 #define XNANDPS_ECC_MEMCFG_ECC_READ_END_MASK		0x00000010
-					/**< Ecc cfg ecc_read_end mask */
+/**< Ecc cfg ecc_read_end mask */
 #define XNANDPS_ECC_MEMCFG_ECC_JUMP_MASK		0x00000060
-					/**< Ecc cfg ecc_jump mask */
+/**< Ecc cfg ecc_jump mask */
 #define XNANDPS_ECC_MEMCFG_IGNORE_ADD8_MASK		0x00000080
-				/**< Ecc cfg ecc_ignore_add_eight mask */
+/**< Ecc cfg ecc_ignore_add_eight mask */
 #define XNANDPS_ECC_MEMCFG_ECC_INT_PASS_MASK		0x00000100
-					/**< Ecc cfg ecc_int_pass mask */
+/**< Ecc cfg ecc_int_pass mask */
 #define XNANDPS_ECC_MEMCFG_ECC_INT_ABORT_MASK		0x00000200
-					/**< Ecc cfg ecc_int_abort mask */
+/**< Ecc cfg ecc_int_abort mask */
 #define XNANDPS_ECC_MEMCFG_ECC_EXTRA_BLOCK_MASK	0x00000400
-					/**< Ecc cfg ecc_extra_block mask */
+/**< Ecc cfg ecc_extra_block mask */
 #define XNANDPS_ECC_MEMCFG_ECC_EXTRA_BLOCK_SIZE_MASK	0x00001800
-				/**< Ecc cfg ecc_extra_block_size mask */
+/**< Ecc cfg ecc_extra_block_size mask */
 
 #define XNANDPS_ECC_MEMCFG_PAGE_SIZE_SHIFT		0
-					/**< Ecc cfg page_size shift */
+/**< Ecc cfg page_size shift */
 #define XNANDPS_ECC_MEMCFG_ECC_MODE_SHIFT		2
-					/**< Ecc cfg ecc_mode shift */
+/**< Ecc cfg ecc_mode shift */
 #define XNANDPS_ECC_MEMCFG_ECC_READ_END_SHIFT		4
-					/**< Ecc cfg ecc_read_end shift */
+/**< Ecc cfg ecc_read_end shift */
 #define XNANDPS_ECC_MEMCFG_ECC_JUMP_SHIFT		5
-					/**< Ecc cfg ecc_jump shift */
+/**< Ecc cfg ecc_jump shift */
 #define XNANDPS_ECC_MEMCFG_IGNORE_ADD8_SHIFT		7
-				/**< Ecc cfg ecc_ignore_add_eight shift */
+/**< Ecc cfg ecc_ignore_add_eight shift */
 #define XNANDPS_ECC_MEMCFG_ECC_INT_PASS_SHIFT		8
-					/**< Ecc cfg ecc_int_pass shift */
+/**< Ecc cfg ecc_int_pass shift */
 #define XNANDPS_ECC_MEMCFG_ECC_INT_ABORT_SHIFT		9
-					/**< Ecc cfg ecc_int_abort shift */
+/**< Ecc cfg ecc_int_abort shift */
 #define XNANDPS_ECC_MEMCFG_ECC_EXTRA_BLOCK_SHIFT	10
-					/**< Ecc cfg ecc_extra_block shift */
+/**< Ecc cfg ecc_extra_block shift */
 #define XNANDPS_ECC_MEMCFG_ECC_EXTRA_BLOCK_SIZE_SHIFT	11
-				/**< Ecc cfg ecc_extra_block_size shift */
+/**< Ecc cfg ecc_extra_block_size shift */
 
 #define XNANDPS_ECC_MEMCFG_PAGE_SIZE_512		0x1	/**< ECC cfg
 					page size value for 512 byte page */
@@ -452,82 +452,82 @@ extern "C" {
  *  @{
  */
 #define XNANDPS_ECC_MEMCOMMAND1_WR_CMD_MASK		0x000000FF
-					/**< Ecc command 1 nand_wr_cmd mask */
+/**< Ecc command 1 nand_wr_cmd mask */
 #define XNANDPS_ECC_MEMCOMMAND1_RD_CMD_MASK		0x0000FF00
-					/**< Ecc command 1 nand_rd_cmd mask */
+/**< Ecc command 1 nand_rd_cmd mask */
 #define XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_MASK	0x00FF0000
-				/**< Ecc command 1 nand_rd_cmd_end mask */
+/**< Ecc command 1 nand_rd_cmd_end mask */
 #define XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_VALID_MASK	0x01000000
-			/**< Ecc command 1 nand_rd_cmd_end_valid mask */
+/**< Ecc command 1 nand_rd_cmd_end_valid mask */
 
 #define XNANDPS_ECC_MEMCOMMAND1_WR_CMD_SHIFT		0
-					/**< Ecc command 1 nand_wr_cmd shift */
+/**< Ecc command 1 nand_wr_cmd shift */
 #define XNANDPS_ECC_MEMCOMMAND1_RD_CMD_SHIFT		8
-					/**< Ecc command 1 nand_rd_cmd shift */
+/**< Ecc command 1 nand_rd_cmd shift */
 #define XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_SHIFT	16
-				/**< Ecc command 1 nand_rd_cmd_end shift */
+/**< Ecc command 1 nand_rd_cmd_end shift */
 #define XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_VALID_SHIFT	24
-			/**< Ecc command 1 nand_rd_cmd_end_valid shift */
+/**< Ecc command 1 nand_rd_cmd_end_valid shift */
 /* @} */
 
 /** @name ECC mem command2 register bit definitions and masks
  *  @{
  */
 #define XNANDPS_ECC_MEMCOMMAND2_WR_COL_CHANGE_MASK		0x000000FF
-				/**< Ecc command2 nand_wr_col_change mask */
+/**< Ecc command2 nand_wr_col_change mask */
 #define XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_MASK		0x0000FF00
-				/**< Ecc command2 nand_rd_col_change mask */
+/**< Ecc command2 nand_rd_col_change mask */
 #define XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_MASK		0x00FF0000
-			/**< Ecc command2 nand_rd_col_change_end mask */
+/**< Ecc command2 nand_rd_col_change_end mask */
 #define XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_VALID_MASK	0x00FF0000
-			/**< Ecc command2 nand_rd_col_change_end_valid mask */
+/**< Ecc command2 nand_rd_col_change_end_valid mask */
 
 
 #define XNANDPS_ECC_MEMCOMMAND2_WR_COL_CHANGE_SHIFT		0
-				/**< Ecc command2 nand_wr_col_change shift */
+/**< Ecc command2 nand_wr_col_change shift */
 #define XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_SHIFT		8
-				/**< Ecc command2 nand_rd_col_change shift */
+/**< Ecc command2 nand_rd_col_change shift */
 #define XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_SHIFT	16
-			/**< Ecc command2 nand_rd_col_change_end shift */
+/**< Ecc command2 nand_rd_col_change_end shift */
 #define XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_VALID_SHIFT	24
-			/**< Ecc command2 nand_rd_col_change_end_valid shift */
+/**< Ecc command2 nand_rd_col_change_end_valid shift */
 /* @} */
 
 /** @name ECC value register bit definitions and masks
  *  @{
  */
 #define XNANDPS_ECC_VALUE_MASK				0x00FFFFFF
-					/**< Ecc value ecc_value mask */
+/**< Ecc value ecc_value mask */
 #define XNANDPS_ECC_VALUE_CORRECT_MASK			0x08000000
-					/**< Ecc value ecc_correct mask */
+/**< Ecc value ecc_correct mask */
 #define XNANDPS_ECC_VALUE_FAIL_MASK			0x10000000
-					/**< Ecc value ecc_fail mask */
+/**< Ecc value ecc_fail mask */
 #define XNANDPS_ECC_VALUE_READ_MASK			0x20000000
-					/**< Ecc value ecc_read mask */
+/**< Ecc value ecc_read mask */
 #define XNANDPS_ECC_VALUE_VALID_MASK			0x40000000
-					/**< Ecc value ecc_valid mask */
+/**< Ecc value ecc_valid mask */
 #define XNANDPS_ECC_VALUE_INT_MASK			0x80000000
-					/**< Ecc value ecc_int mask */
+/**< Ecc value ecc_int mask */
 /* @} */
 
 /** @name Peripheral ID register bit definitions and masks
  *  @{
  */
 #define XNANDPS_PERIPH_ID_PART_NUM_MASK		0x00000FFF
-					/**< Peripheral ID part_num mask */
+/**< Peripheral ID part_num mask */
 #define XNANDPS_PERIPH_ID_DESIGNER_ID_MASK		0x000FF000
-					/**< Peripheral ID designed id mask */
+/**< Peripheral ID designed id mask */
 #define XNANDPS_PERIPH_ID_REVISION_MASK		0x00F00000
-					/**< Peripheral ID revision mask */
+/**< Peripheral ID revision mask */
 #define XNANDPS_PERIPH_ID_INTG_CFG_MASK		0x01000000
-				/**< Peripheral ID integration_cfg mask */
+/**< Peripheral ID integration_cfg mask */
 /* @} */
 
 /** @name Peripheral ID register bit definitions and masks
  *  @{
  */
 #define XNANDPS_PCELL_ID_MASK				0x000000FF
-			/**< Primecell identification register mask */
+/**< Primecell identification register mask */
 /* @} */
 
 /**************************** Type Definitions *******************************/

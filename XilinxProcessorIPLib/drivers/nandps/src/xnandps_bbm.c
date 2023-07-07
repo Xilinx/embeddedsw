@@ -50,9 +50,9 @@ static void XNandPs_CreateBbt(XNandPs *InstancePtr);
 static void XNandPs_ConvertBbt(XNandPs *InstancePtr, u8 *Buf);
 
 static int XNandPs_WriteBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc,
-				XNandPs_BbtDesc *MirrorDesc);
+			    XNandPs_BbtDesc *MirrorDesc);
 
-static int XNandPs_MarkBbt(XNandPs* InstancePtr, XNandPs_BbtDesc *Desc);
+static int XNandPs_MarkBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc);
 
 static int XNandPs_UpdateBbt(XNandPs *InstancePtr);
 
@@ -128,7 +128,7 @@ void XNandPs_InitBbtDesc(XNandPs *InstancePtr)
 		InstancePtr->BbPattern.Length =
 			XNANDPS_BB_PATTERN_LENGTH_SMALL_PAGE;
 	}
-	for(Index=0; Index < XNANDPS_BB_PATTERN_LENGTH_LARGE_PAGE; Index++) {
+	for (Index = 0; Index < XNANDPS_BB_PATTERN_LENGTH_LARGE_PAGE; Index++) {
 		InstancePtr->BbPattern.Pattern[Index] = XNANDPS_BB_PATTERN;
 	}
 }
@@ -154,7 +154,7 @@ static void XNandPs_CreateBbt(XNandPs *InstancePtr)
 	u32 Page;
 	u8 Buf[XNANDPS_MAX_SPARE_SIZE];
 	u32 BbtLen = InstancePtr->Geometry.NumBlocks >>
-		XNANDPS_BBT_BLOCK_SHIFT;
+		     XNANDPS_BBT_BLOCK_SHIFT;
 	int Status;
 
 	/*
@@ -174,8 +174,8 @@ static void XNandPs_CreateBbt(XNandPs *InstancePtr)
 	/*
 	 * Scan all the blocks for factory marked bad blocks
 	 */
-	for(BlockIndex = 0; BlockIndex <
-			InstancePtr->Geometry.NumBlocks; BlockIndex++) {
+	for (BlockIndex = 0; BlockIndex <
+	     InstancePtr->Geometry.NumBlocks; BlockIndex++) {
 		/*
 		 * Block offset in Bad Block Table(BBT) entry
 		 */
@@ -189,9 +189,9 @@ static void XNandPs_CreateBbt(XNandPs *InstancePtr)
 		/*
 		 * Search for the bad block pattern
 		 */
-		for(PageIndex = 0; PageIndex < NumPages; PageIndex++) {
+		for (PageIndex = 0; PageIndex < NumPages; PageIndex++) {
 			Status = XNandPs_ReadSpareBytes(InstancePtr,
-					(Page + PageIndex), &Buf[0]);
+							(Page + PageIndex), &Buf[0]);
 
 			if (Status != XST_SUCCESS) {
 				/* Marking as bad block */
@@ -205,12 +205,11 @@ static void XNandPs_CreateBbt(XNandPs *InstancePtr)
 			 * Read the spare bytes to check for bad block
 			 * pattern
 			 */
-			for(Length = 0; Length <
-				InstancePtr->BbPattern.Length; Length++) {
+			for (Length = 0; Length <
+			     InstancePtr->BbPattern.Length; Length++) {
 				if (Buf[InstancePtr->BbPattern.Offset + Length]
-						!=
-					InstancePtr->BbPattern.Pattern[Length])
-				{
+				    !=
+				    InstancePtr->BbPattern.Pattern[Length]) {
 					/* Bad block found */
 					InstancePtr->Bbt[BlockOffset] |=
 						(XNANDPS_BLOCK_FACTORY_BAD <<
@@ -251,8 +250,8 @@ int XNandPs_ScanBbt(XNandPs *InstancePtr)
 		 * Write the Bad Block Table(BBT) to the flash
 		 */
 		Status = XNandPs_WriteBbt(InstancePtr,
-				&InstancePtr->BbtDesc,
-				&InstancePtr->BbtMirrorDesc);
+					  &InstancePtr->BbtDesc,
+					  &InstancePtr->BbtMirrorDesc);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
@@ -261,8 +260,8 @@ int XNandPs_ScanBbt(XNandPs *InstancePtr)
 		 * Write the Mirror Bad Block Table(BBT) to the flash
 		 */
 		Status = XNandPs_WriteBbt(InstancePtr,
-				&InstancePtr->BbtMirrorDesc,
-				&InstancePtr->BbtDesc);
+					  &InstancePtr->BbtMirrorDesc,
+					  &InstancePtr->BbtDesc);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
@@ -297,9 +296,9 @@ static void XNandPs_ConvertBbt(XNandPs *InstancePtr, u8 *Buf)
 	u8 BlockType;
 	u32 BlockIndex;
 	u32 BbtLen = InstancePtr->Geometry.NumBlocks >>
-		XNANDPS_BBT_BLOCK_SHIFT;
+		     XNANDPS_BBT_BLOCK_SHIFT;
 
-	for(BlockOffset = 0; BlockOffset < BbtLen; BlockOffset++) {
+	for (BlockOffset = 0; BlockOffset < BbtLen; BlockOffset++) {
 		Data = Buf[BlockOffset];
 
 		/*
@@ -310,12 +309,12 @@ static void XNandPs_ConvertBbt(XNandPs *InstancePtr, u8 *Buf)
 		/*
 		 * Loop through the every 4 blocks in the bitmap
 		 */
-		for(BlockIndex = 0; BlockIndex < XNANDPS_BBT_ENTRY_NUM_BLOCKS;
-				BlockIndex++) {
+		for (BlockIndex = 0; BlockIndex < XNANDPS_BBT_ENTRY_NUM_BLOCKS;
+		     BlockIndex++) {
 			BlockShift = XNandPs_BbtBlockShift(BlockIndex);
 			BlockType = (Data >> BlockShift) &
-				XNANDPS_BLOCK_TYPE_MASK;
-			switch(BlockType) {
+				    XNANDPS_BLOCK_TYPE_MASK;
+			switch (BlockType) {
 				case XNANDPS_FLASH_BLOCK_FACTORY_BAD:
 					/* Factory bad block */
 					InstancePtr->Bbt[BlockOffset] |=
@@ -385,7 +384,7 @@ static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 		 */
 		if (Desc->Version > MirrorDesc->Version) {
 			Offset = ((u64)Desc->PageOffset) *
-				((u64)InstancePtr->Geometry.BytesPerPage);
+				 ((u64)InstancePtr->Geometry.BytesPerPage);
 			XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
 
 			/*
@@ -398,13 +397,13 @@ static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 			 * Write the BBT to Mirror BBT location in flash
 			 */
 			Status = XNandPs_WriteBbt(InstancePtr, MirrorDesc,
-					Desc);
+						  Desc);
 			if (Status != XST_SUCCESS) {
 				return Status;
 			}
 		} else if (Desc->Version < MirrorDesc->Version) {
 			Offset = ((u64)MirrorDesc->PageOffset) *
-				((u64)InstancePtr->Geometry.BytesPerPage);
+				 ((u64)InstancePtr->Geometry.BytesPerPage);
 			XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
 
 			/*
@@ -417,14 +416,14 @@ static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 			 * Write the Mirror BBT to BBT location in flash
 			 */
 			Status = XNandPs_WriteBbt(InstancePtr, Desc,
-					MirrorDesc);
+						  MirrorDesc);
 			if (Status != XST_SUCCESS) {
 				return Status;
 			}
 		} else {
 			/* Both are up-to-date */
 			Offset = ((u64)Desc->PageOffset) *
-				((u64)InstancePtr->Geometry.BytesPerPage);
+				 ((u64)InstancePtr->Geometry.BytesPerPage);
 			XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
 
 			/*
@@ -457,7 +456,7 @@ static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 		 * Valid Mirror BBT found
 		 */
 		Offset = ((u64)MirrorDesc->PageOffset) *
-			((u64)InstancePtr->Geometry.BytesPerPage);
+			 ((u64)InstancePtr->Geometry.BytesPerPage);
 		XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
 
 		/*
@@ -511,9 +510,9 @@ static int XNandPs_SearchBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc)
 	/*
 	 * Read the last 4 blocks for Bad Block Table(BBT) signature
 	 */
-	for(Block = 0; Block < MaxBlocks; Block++) {
+	for (Block = 0; Block < MaxBlocks; Block++) {
 		PageOff = (StartBlock - Block) *
-			InstancePtr->Geometry.PagesPerBlock;
+			  InstancePtr->Geometry.PagesPerBlock;
 
 		Status = XNandPs_ReadSpareBytes(InstancePtr, PageOff, &Buf[0]);
 		if (Status != XST_SUCCESS) {
@@ -523,9 +522,8 @@ static int XNandPs_SearchBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc)
 		/*
 		 * Check the Bad Block Table(BBT) signature
 		 */
-		for(Offset = 0; Offset < SigLength; Offset++) {
-			if (Buf[Offset + SigOffset] != Desc->Signature[Offset])
-			{
+		for (Offset = 0; Offset < SigLength; Offset++) {
+			if (Buf[Offset + SigOffset] != Desc->Signature[Offset]) {
 				break; /* Check the next blocks */
 			}
 		}
@@ -559,7 +557,7 @@ static int XNandPs_SearchBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc)
 *
 ******************************************************************************/
 static int XNandPs_WriteBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc,
-				XNandPs_BbtDesc *MirrorDesc)
+			    XNandPs_BbtDesc *MirrorDesc)
 {
 	u64 Offset;
 	u32 Block = InstancePtr->Geometry.NumBlocks - 1;
@@ -574,20 +572,19 @@ static int XNandPs_WriteBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc,
 	u32 Index;
 	u8 BlockType;
 	u32 BbtLen = InstancePtr->Geometry.NumBlocks >>
-		XNANDPS_BBT_BLOCK_SHIFT;
+		     XNANDPS_BBT_BLOCK_SHIFT;
 
 	/*
 	 * Find a valid block to write the Bad Block Table(BBT)
 	 */
 	if (!Desc->Valid) {
-		for(Index = 0; Index < Desc->MaxBlocks; Index++) {
+		for (Index = 0; Index < Desc->MaxBlocks; Index++) {
 			Block  = (Block - Index);
 			BlockOffset = Block >> XNANDPS_BBT_BLOCK_SHIFT;
 			BlockShift = XNandPs_BbtBlockShift(Block);
 			BlockType = (InstancePtr->Bbt[BlockOffset] >>
-					BlockShift) & XNANDPS_BLOCK_TYPE_MASK;
-			switch(BlockType)
-			{
+				     BlockShift) & XNANDPS_BLOCK_TYPE_MASK;
+			switch (BlockType) {
 				case XNANDPS_BLOCK_BAD:
 				case XNANDPS_BLOCK_FACTORY_BAD:
 					continue;
@@ -596,7 +593,7 @@ static int XNandPs_WriteBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc,
 					break;
 			}
 			Desc->PageOffset = Block *
-				InstancePtr->Geometry.PagesPerBlock;
+					   InstancePtr->Geometry.PagesPerBlock;
 			if (Desc->PageOffset != MirrorDesc->PageOffset) {
 				/* Free block found */
 				Desc->Valid = 1;
@@ -611,7 +608,7 @@ static int XNandPs_WriteBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc,
 			return XST_FAILURE;
 		}
 	} else {
-		Block = Desc->PageOffset/InstancePtr->Geometry.PagesPerBlock;
+		Block = Desc->PageOffset / InstancePtr->Geometry.PagesPerBlock;
 	}
 
 	/*
@@ -622,17 +619,17 @@ static int XNandPs_WriteBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc,
 	/*
 	 * Loop through the number of blocks
 	 */
-	for(BlockOffset = 0; BlockOffset < BbtLen; BlockOffset++) {
+	for (BlockOffset = 0; BlockOffset < BbtLen; BlockOffset++) {
 		Data = InstancePtr->Bbt[BlockOffset];
 		/*
 		 * Calculate the bit mask for 4 blocks at a time in loop
 		 */
-		for(BlockIndex = 0; BlockIndex < XNANDPS_BBT_ENTRY_NUM_BLOCKS;
-				BlockIndex++) {
+		for (BlockIndex = 0; BlockIndex < XNANDPS_BBT_ENTRY_NUM_BLOCKS;
+		     BlockIndex++) {
 			BlockShift = XNandPs_BbtBlockShift(BlockIndex);
 			Buf[BlockOffset] &= ~(Mask[Data &
-					XNANDPS_BLOCK_TYPE_MASK] <<
-					BlockShift);
+						   XNANDPS_BLOCK_TYPE_MASK] <<
+					      BlockShift);
 			Data >>= XNANDPS_BBT_BLOCK_SHIFT;
 		}
 	}
@@ -650,7 +647,7 @@ static int XNandPs_WriteBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc,
 	 */
 	memset(SpareBuf, 0xff, InstancePtr->Geometry.SpareBytesPerPage);
 	memcpy(SpareBuf + Desc->SigOffset, &Desc->Signature[0],
-			Desc->SigLength);
+	       Desc->SigLength);
 	memcpy(SpareBuf + Desc->VerOffset, &Desc->Version, 1);
 
 	/*
@@ -692,7 +689,7 @@ static int XNandPs_UpdateBbt(XNandPs *InstancePtr)
 	 * Update the primary Bad Block Table(BBT) in flash
 	 */
 	Status = XNandPs_WriteBbt(InstancePtr, &InstancePtr->BbtDesc,
-						&InstancePtr->BbtMirrorDesc);
+				  &InstancePtr->BbtMirrorDesc);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -701,7 +698,7 @@ static int XNandPs_UpdateBbt(XNandPs *InstancePtr)
 	 * Update the mirrored Bad Block Table(BBT) in flash
 	 */
 	Status = XNandPs_WriteBbt(InstancePtr, &InstancePtr->BbtMirrorDesc,
-						&InstancePtr->BbtDesc);
+				  &InstancePtr->BbtDesc);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -720,7 +717,7 @@ static int XNandPs_UpdateBbt(XNandPs *InstancePtr)
 *		- XST_FAILURE if fail.
 *
 ******************************************************************************/
-static int XNandPs_MarkBbt(XNandPs* InstancePtr, XNandPs_BbtDesc *Desc)
+static int XNandPs_MarkBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc)
 {
 	u32 BlockIndex;
 	u32 BlockOffset;
@@ -736,7 +733,7 @@ static int XNandPs_MarkBbt(XNandPs* InstancePtr, XNandPs_BbtDesc *Desc)
 	 */
 	BlockIndex = InstancePtr->Geometry.NumBlocks - Desc->MaxBlocks - 1;
 
-	for(Index = 0; Index < Desc->MaxBlocks; Index++,BlockIndex++) {
+	for (Index = 0; Index < Desc->MaxBlocks; Index++, BlockIndex++) {
 
 		BlockOffset = BlockIndex >> XNANDPS_BBT_BLOCK_SHIFT;
 		BlockShift = XNandPs_BbtBlockShift(BlockIndex);
@@ -791,10 +788,11 @@ int XNandPs_IsBlockBad(XNandPs *InstancePtr, u32 Block)
 	Data = InstancePtr->Bbt[BlockOffset];	/* Block information in BBT */
 	BlockType = (Data >> BlockShift) & XNANDPS_BLOCK_TYPE_MASK;
 
-	if (BlockType != XNANDPS_BLOCK_GOOD)
+	if (BlockType != XNANDPS_BLOCK_GOOD) {
 		return XST_SUCCESS;
-	else
+	} else {
 		return XST_FAILURE;
+	}
 }
 
 /*****************************************************************************/
