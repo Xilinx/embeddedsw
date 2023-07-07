@@ -73,6 +73,7 @@
 *                       from mage Store based on PDI ID
 *       sk   05/18/2023 Deprecate copy to memory feature,removed SubsystemPdiIns
 *       bm   06/23/2023 Added access permissions for IPI commands
+*       bm   07/06/2023 Refactored Proc logic to more generic logic
 *
 * </pre>
 *
@@ -659,7 +660,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 	u64 SrcAddr, DestAddr;
 	u32 PdiSize = Cmd->Payload[XLOADER_CMD_IMGSTORE_PDI_SIZE_INDEX];
 	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
-	XPlmi_ProcList ProcList;
+	XPlmi_BufferList BufferList;
 	u32 FreeImgStoreSpace;
 	u64 ImgStoreEndAddr;
 	u32 Index = 0U;
@@ -698,11 +699,11 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_IMG_STORE_FULL, 0);
 			goto END;
 		} else {
-			ProcList.ProcCount = PdiList->Count;
+			BufferList.BufferCount = PdiList->Count;
 			XPlmi_Printf(DEBUG_DETAILED, "Img Store add PdiId: 0x%x\n\r",PdiId);
-			ProcList.ProcData = (XPlmi_ProcData*)&PdiList->ImgList[0];
-			/* Re-Purpose MoveProc func to handle memory re-organisation */
-			Status = XPlmi_MoveProc((u8)Index,&ProcList);
+			BufferList.Data = (XPlmi_BufferData*)&PdiList->ImgList[0];
+			/* Re-Purpose MoveBuffer func to handle memory re-organisation */
+			Status = XPlmi_MoveBuffer((u8)Index,&BufferList);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -765,7 +766,7 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 	u64 ImgStoreEndAddr;
 	u32 Index = 0U;
 	u32 FreeImgStoreSpace;
-	XPlmi_ProcList ProcList;
+	XPlmi_BufferList BufferList;
 	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
 
 	XPLMI_EXPORT_CMD(XLOADER_CMD_ID_WRITE_IMAGESTORE_PDI, XPLMI_MODULE_LOADER_ID,
@@ -803,11 +804,11 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 				Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 				goto END;
 			} else {
-				ProcList.ProcCount = PdiList->Count;
+				BufferList.BufferCount = PdiList->Count;
 				XPlmi_Printf(DEBUG_DETAILED, "Img Store PdiId : 0x%x\n\r",PdiId);
-				ProcList.ProcData = (XPlmi_ProcData*)&PdiList->ImgList[0];
-				/* Re-Purpose MoveProc func to handle memory re-organisation */
-				Status = XPlmi_MoveProc((u8)Index,&ProcList);
+				BufferList.Data = (XPlmi_BufferData*)&PdiList->ImgList[0];
+				/* Re-Purpose MoveBuffer func to handle memory re-organisation */
+				Status = XPlmi_MoveBuffer((u8)Index,&BufferList);
 				if (Status != XST_SUCCESS) {
 					goto END;
 				}
@@ -874,7 +875,7 @@ static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
 	u32 PdiId = (u32)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDI_ID_INDEX];
 	u8 Index;
 	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
-	XPlmi_ProcList ProcList;
+	XPlmi_BufferList BufferList;
 
 	if (PdiList->Count == 0U) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_EMPTY, 0);
@@ -884,11 +885,11 @@ static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
 	/** If PdiId matches with any entry in the List, remove it */
 	for (Index = 0U; Index < PdiList->Count; Index++) {
 		if (PdiList->ImgList[Index].PdiId  == PdiId) {
-			ProcList.ProcCount = PdiList->Count;
+			BufferList.BufferCount = PdiList->Count;
 			XPlmi_Printf(DEBUG_DETAILED, "Removing PdiId: 0x%x\n\r",PdiId);
-			ProcList.ProcData = (XPlmi_ProcData*)&PdiList->ImgList[0];
-			/* Re-Purpose MoveProc func to handle memory re-organisation */
-			Status = XPlmi_MoveProc(Index,&ProcList);
+			BufferList.Data = (XPlmi_BufferData*)&PdiList->ImgList[0];
+			/* Re-Purpose MoveBuffer func to handle memory re-organisation */
+			Status = XPlmi_MoveBuffer(Index,&BufferList);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}

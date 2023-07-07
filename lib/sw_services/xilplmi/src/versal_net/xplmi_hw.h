@@ -32,6 +32,7 @@
 *       sk   01/13/2023 Added Register/Mask defines for PMX LPD FPD CPM domain
 * 1.02  bm   04/28/2023 Added IRO_SWAP and sysmon related macros
 *       bm   05/22/2023 Update current CDO command offset in GSW Error Status
+*       bm   07/06/2023 Refactored Proc logic to more generic logic
 *
 * </pre>
 *
@@ -724,8 +725,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_IMAGE_INFO_TBL_BUFFER_LEN		(0x300U)	/* 768B */
 
 /* PMC RAM secure lockdown reserved memory macros */
-#define XPLMI_PMCRAM_PROC_MEMORY			(XPLMI_PMCRAM_BASEADDR + 0x16000U)
-#define XPLMI_PMCRAM_PROC_MEMORY_LENGTH		(0xC00U)
+#define XPLMI_PMCRAM_BUFFER_MEMORY			(XPLMI_PMCRAM_BASEADDR + 0x16000U)
+#define XPLMI_PMCRAM_BUFFER_MEMORY_LENGTH		(0xC00U)
 
 /*
  * Definitions required from Efuse

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,7 +52,7 @@ extern "C" {
 #define ENABLE_WAKE1(BitMask)	XPmPsm_RegWrite(PSMX_GLOBAL_WAKEUP1_IRQ_EN, BitMask)
 #define DISABLE_WAKE1(BitMask)	XPmPsm_RegWrite(PSMX_GLOBAL_WAKEUP1_IRQ_DIS, BitMask)
 
-#define XPM_SET_PROC_LIST_PLAT	XPlmi_SetProcList(PROC_LOCATION_ADDRESS, PROC_LOCATION_LENGTH)
+#define XPM_SET_PROC_LIST_PLAT	XPlmi_SetBufferList(PROC_LOCATION_ADDRESS, PROC_LOCATION_LENGTH)
 
 XStatus XPmPsm_SendPowerUpReq(XPm_Power *Power);
 XStatus XPmPsm_SendPowerDownReq(XPm_Power *Power);

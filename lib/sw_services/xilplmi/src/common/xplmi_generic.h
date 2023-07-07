@@ -49,6 +49,7 @@
 *       bm   01/03/2023 Clear End Stack before processing a CDO partition
 * 1.09  sk   01/11/2023 Added Declaration for XPlmi_MoveProc
 *       ng   03/16/2023 Added control to disable minimal timeout in maskpoll
+* 1.10  bm   07/06/2023 Refactored Proc logic to more generic logic
 *
 * </pre>
 *
@@ -103,14 +104,15 @@ typedef struct {
 typedef struct {
 	u32 Id;
 	u64 Addr;
-} XPlmi_ProcData;
+} XPlmi_BufferData;
 
 typedef struct {
-	u8 ProcCount;
-	u8 IsProcMemAvailable;
-	u16 ProcMemSize;
-	XPlmi_ProcData *ProcData;
-} XPlmi_ProcList;
+	u8 MaxBufferCount;
+	u8 BufferCount;
+	u8 IsBufferMemAvailable;
+	u16 BufferMemSize;
+	XPlmi_BufferData *Data;
+} XPlmi_BufferList;
 
 typedef struct {
 	u8 Name[XPLMI_MAX_NAME_LEN + 1U];
@@ -162,8 +164,8 @@ typedef struct {
 #define XPLMI_BREAK_LEVEL_MASK			(0xFFU)
 
 /* Proc List types */
-#define XPLMI_PSM_PROC_LIST		(0x0U)
-#define XPLMI_PMC_PROC_LIST		(0x1U)
+#define XPLMI_PSM_BUFFER_LIST		(0x0U)
+#define XPLMI_PMC_BUFFER_LIST		(0x1U)
 
 /* Proc related defines */
 #define XPLMI_PMC_RAM_PROC_ID_MASK	(0x80000000U) /** All procs which need to be
@@ -176,12 +178,15 @@ void XPlmi_GenericInit(void);
 int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal);
 int XPlmi_SetReadBackProps(const XPlmi_ReadBackProps *ReadBack);
 int XPlmi_ExecuteProc(u32 ProcId);
-int XPlmi_SetProcList(u32 Address, u16 Size);
-XPlmi_ProcList* XPlmi_GetProcList(u8 ProcListType);
+int XPlmi_SetBufferList(u32 Address, u16 Size);
+XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType);
 int XPlmi_DmaTransfer(u64 Dest, u64 Src, u32 Len, u32 Flags);
 int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level);
 void XPlmi_ClearEndStack(void);
-int XPlmi_MoveProc(u8 ProcIndex, XPlmi_ProcList *ProcList);
+int XPlmi_MoveBuffer(u8 BufferIndex, XPlmi_BufferList *BufferList);
+int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList);
+int XPlmi_SearchBufferList(XPlmi_BufferList *BufferList, u32 BufferId,
+		u64 *BufAddr, u32 *BufLen);
 
 /* xplmi_plat.c definitions */
 XPlmi_BoardParams *XPlmi_GetBoardParams(void);

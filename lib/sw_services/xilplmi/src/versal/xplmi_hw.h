@@ -83,6 +83,7 @@
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 * 1.10  bm   05/22/2023 Update current CDO command offset in GSW Error Status
 *       nb   06/28/2023 Add ERR2 trigger and status macros for SMON9
+*       bm   07/06/2023 Refactored Proc logic to more generic logic
 *
 * </pre>
 *
@@ -668,8 +669,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_IMAGE_INFO_TBL_BUFFER_LEN		(0x300U)	/* 768B */
 
 /* PMC RAM secure lockdown reserved memory macros */
-#define XPLMI_PMCRAM_PROC_MEMORY			(XPLMI_PMCRAM_BASEADDR + 0x16000U)
-#define XPLMI_PMCRAM_PROC_MEMORY_LENGTH		(0xC00U)
+#define XPLMI_PMCRAM_BUFFER_MEMORY			(XPLMI_PMCRAM_BASEADDR + 0x16000U)
+#define XPLMI_PMCRAM_BUFFER_MEMORY_LENGTH		(0xC00U)
 
 /*
  * Definitions required from Efuse

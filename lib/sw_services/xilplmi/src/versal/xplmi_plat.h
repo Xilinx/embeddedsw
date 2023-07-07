@@ -38,6 +38,7 @@
 *       nb   06/28/2023 Add RTCA def for SSIT temperature propagation
 *       bm   07/03/2023 Added IPI access permissions validation
 *       bm   07/06/2023 Added XPlmi_RunProc macro
+*                       Refactored Proc logic to more generic logic
 * </pre>
 *
 * @note
@@ -230,6 +231,7 @@ enum {
 						have IPI access. */
 	XPLMI_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS, /**< 0x10 - Error if the Api Id received during IPI request only
 						   supports secure request */
+	XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE, /**< 0x11 - Error if Buffer memory is not available for storing */
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/

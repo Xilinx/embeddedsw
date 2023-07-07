@@ -38,6 +38,7 @@
 *       dd   05/24/2023 Updated doxygen comments
 *       bm   06/23/2023 Added error codes for ipi access filtering
 *       bm   07/06/2023 Added XPlmi_RunProc prototype
+*                       Refactored Proc logic to more generic logic
 *
 * </pre>
 *
@@ -120,6 +121,7 @@ enum {
 						have IPI access. */
 	XPLMI_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS, /**< 0x10 - Error if the Api Id received during IPI request only
 						   supports secure request */
+	XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE, /**< 0x11 - Error if Buffer memory is not available for storing */
 };
 
 typedef struct {
