@@ -71,7 +71,7 @@ static XPlmi_Module XPlmi_Ocp =
 	XOCP_API(XOCP_API_MAX),
 	NULL,
 	XOcp_AccessPermBuff,
-	NULL
+	XOcp_DataZeroize
 };
 
 #define XOCP_CERT_USERIN_FIELD_MASK			(0x00FF0000U)

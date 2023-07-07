@@ -19,6 +19,7 @@
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       dd   03/28/2023 Updated doxygen comments
+* 1.02  vns  07/06/2023 Added EXPORT_OCP_DS
 *
 * </pre>
 *
@@ -157,6 +158,7 @@ typedef int (*XPlmi_CompatibilityCheck_t)(u32 PdiAddr);
 #define EXPORT_XILPSM_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_XILPSM_ID, __VA_ARGS__) /**< XilPSM data structure */
 #define EXPORT_ERROR_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_ERROR_ID, __VA_ARGS__) /**< Error data structure */
 #define EXPORT_STL_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_STL_ID, __VA_ARGS__) /**< STL data structure */
+#define EXPORT_OCP_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_XILOCP_ID, __VA_ARGS__) /**< OCP data structure */
 
 
 /************************** Function Prototypes ******************************/
