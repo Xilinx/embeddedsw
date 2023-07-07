@@ -11,8 +11,8 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifndef SDT
 int XZDma_SelfTestExample(u16 DeviceId);
-
 #ifdef XPAR_SCUGIC_0_DEVICE_ID
 int XZDma_SimpleExample(XScuGic *IntcInstPtr, XZDma *ZdmaInstPtr,
 			u16 DeviceId, u16 IntrId);
@@ -21,5 +21,10 @@ int XZDma_SimpleExample(XScuGic *IntcInstPtr, XZDma *ZdmaInstPtr,
 int XZDma_SimpleExample(XIntc *IntcInstPtr, XZDma *ZdmaInstPtr,
 			u16 DeviceId, u16 IntrId);
 #endif
+#endif
+#else
+int XZDma_SelfTestExample(UINTPTR BaseAddress);
+int XZDma_SimpleExample(XZDma *ZdmaInstPtr,
+			UINTPTR BaseAddress);
 #endif
 #endif
