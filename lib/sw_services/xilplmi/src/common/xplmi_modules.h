@@ -39,6 +39,7 @@
 *       am   12/21/2022 Added XilOcp module Id
 * 1.09  bm   06/23/2023 Added support for Access permission buffer
 *       bm   07/06/2023 Added command id for run_proc command
+*       bm   07/06/2023 Added list command ids
 *
 * </pre>
 *
@@ -193,6 +194,10 @@ typedef struct {
 #define XPLMI_SET_FIPS_MASK_CMD_ID	(36U)
 #define XPLMI_SET_IPI_ACCESS_CMD_ID	(37U)
 #define XPLMI_RUN_PROC_CMD_ID		(38U)
+#define XPLMI_LIST_SET_CMD_ID		(39U)
+#define XPLMI_LIST_WRITE_CMD_ID		(40U)
+#define XPLMI_LIST_MASK_WRITE_CMD_ID	(41U)
+#define XPLMI_LIST_MASK_POLL_CMD_ID	(42U)
 #define XPLMI_CDO_END_CMD_ID		(0xFFU)
 
 /************************** Function Prototypes ******************************/

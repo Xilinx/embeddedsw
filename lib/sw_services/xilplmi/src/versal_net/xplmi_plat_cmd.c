@@ -31,6 +31,7 @@
 * 1.02  bm   06/23/2023 Removed existing hardcoded logic of validating IPI commands
 *       bm   07/06/2023 Added XPlmi_RunProc command
 *       bm   07/06/2023 Refactored Proc logic to more generic logic
+*       bm   07/06/2023 Added List commands
 *
 * </pre>
 *
@@ -66,6 +67,10 @@
 #define XPLMI_SCATTER_WRITE2_PAYLOAD_LEN		(3U) /**< Scatter write2 payload length */
 #define XPLMI_FIPS_WRITE_KATMASK_PAYLOAD_LEN	(7U) /**< FIPS write KAT mask payload length */
 
+/* Address Buffer related macros */
+#define XPLMI_MAX_ADDR_BUFFERS (1U)
+#define XPLMI_MAX_ADDR_LIST_CNT (200U)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -73,6 +78,27 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+/* Address Buffers List */
+static XPlmi_BufferList AddressBufferList = {0U};
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes Address Buffer List
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_SetAddrBufferList(void)
+{
+	static u32 AddrBuffer[XPLMI_MAX_ADDR_LIST_CNT];
+	static XPlmi_BufferData AddressBuffers[XPLMI_MAX_ADDR_BUFFERS + 1U] = {0U};
+
+	AddressBufferList.Data = AddressBuffers;
+	AddressBufferList.Data[0U].Addr = (u32)(UINTPTR)AddrBuffer;
+	AddressBufferList.BufferMemSize = sizeof(AddrBuffer);
+	AddressBufferList.IsBufferMemAvailable = (u8)TRUE;
+	AddressBufferList.MaxBufferCount = XPLMI_MAX_ADDR_BUFFERS;
+}
 
 /*****************************************************************************/
 /**
@@ -201,7 +227,7 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
 		Cmd->ResumeData[1U] = (u32)BufferList->Data[BufferList->BufferCount].Addr;
 		/* Check if new proc length fits in the proc allocated memory */
 		if ((Cmd->ResumeData[1U] + (Cmd->Len * XPLMI_WORD_LEN)) >
-			(BufferList->Data[0U].Addr + BufferList->BufferMemSize)) {
+			((u32)BufferList->Data[0U].Addr + BufferList->BufferMemSize)) {
 			XPlmi_Printf(DEBUG_GENERAL,"psm_sequence too large \
 				to fit in BufferList.\n\r");
 			Status = (int)XPLMI_UNSUPPORTED_PROC_LENGTH;
@@ -412,8 +438,161 @@ int XPlmi_RunProc(XPlmi_Cmd *Cmd)
 
 	XPLMI_EXPORT_CMD(XPLMI_RUN_PROC_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 			XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
+
 	/* Execute Proc with the given Proc ID */
 	Status = XPlmi_ExecuteProc(Cmd->Payload[0U]);
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will create a list with given list of addresses
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 		- XST_SUCCESS if success and error code if failure
+ *
+ *****************************************************************************/
+int XPlmi_ListSet(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 ListId = 0U;
+
+	XPLMI_EXPORT_CMD(XPLMI_LIST_SET_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
+
+	if (Cmd->ProcessedLen == 0U) {
+		ListId = Cmd->Payload[0U];
+	}
+
+	Status = XPlmi_StoreBuffer(Cmd, ListId, &AddressBufferList);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will execute write for the requested list of
+ *		addresses
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 		- XST_SUCCESS if success and error code if failure
+ *
+ *****************************************************************************/
+int XPlmi_ListWrite(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 ListId = Cmd->Payload[0U];
+	u32 Value = Cmd->Payload[1U];
+	u64 BufAddr;
+	const u32 *BufPtr;
+	u32 BufLen;
+	u32 Index;
+
+	XPLMI_EXPORT_CMD(XPLMI_LIST_WRITE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
+
+	Status = XPlmi_SearchBufferList(&AddressBufferList, ListId, &BufAddr, &BufLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	BufPtr = (u32*)(UINTPTR)BufAddr;
+
+	for (Index = 0U; Index < BufLen; Index++) {
+		XPlmi_Out32(BufPtr[Index], Value);
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will execute mask write for the requested list of
+ *		addresses
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 		- XST_SUCCESS if success and error code if failure
+ *
+ *****************************************************************************/
+int XPlmi_ListMaskWrite(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 ListId = Cmd->Payload[0U];
+	u32 Mask = Cmd->Payload[1U];
+	u32 Value = Cmd->Payload[2U];
+	u64 BufAddr;
+	const u32 *BufPtr;
+	u32 BufLen;
+	u32 Index;
+
+	XPLMI_EXPORT_CMD(XPLMI_LIST_MASK_WRITE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
+
+	Status = XPlmi_SearchBufferList(&AddressBufferList, ListId, &BufAddr, &BufLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	BufPtr = (u32*)(UINTPTR)BufAddr;
+
+	for (Index = 0U; Index < BufLen; Index++) {
+		XPlmi_UtilRMW(BufPtr[Index], Mask, Value);
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will execute mask poll for the requested list of
+ *		addresses
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 		- XST_SUCCESS if success and error code if failure
+ *
+ *****************************************************************************/
+int XPlmi_ListMaskPoll(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 ListId = Cmd->Payload[0U];
+	u64 BufAddr;
+	const u32 *BufPtr;
+	u32 BufLen;
+	u32 Index;
+
+	XPLMI_EXPORT_CMD(XPLMI_LIST_MASK_POLL_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_SIX);
+
+	Status = XPlmi_SearchBufferList(&AddressBufferList, ListId, &BufAddr, &BufLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	BufPtr = (u32 *)(UINTPTR)BufAddr;
+
+	for (Index = 0U; Index < BufLen; Index++) {
+		Status = XPlmi_GenericMaskPoll(Cmd, (u64)BufPtr[Index],
+				XPLMI_LIST_MASK_POLL_32BIT_TYPE);
+		if (Status != XST_SUCCESS) {
+			break;
+		}
+	}
+
+END:
 	return Status;
 }
