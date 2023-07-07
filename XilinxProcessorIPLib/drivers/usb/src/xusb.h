@@ -165,6 +165,7 @@
 *                     generation.
 * 5.3   asa  02/05/19 Added dependencies.props in data folder for
 *                     importing examples in SDK.
+* 5.6   pm   07/05/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -315,10 +316,20 @@ typedef struct {
  * XUsb_ConfigureDevice() function call.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID of device. */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< Core register base address. */
 	u8 DmaEnabled;		/**< DMA support Enabled */
 	u8 AddrWidth;		/**< DMA Address Width */
+#ifdef SDT
+	u16 IntrId;		/**< Bits[11:0] Interrupt-id Bits[15:12] trigger
+				     type and level flags */
+	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1]
+				     Parent base address */
+#endif
 } XUsb_Config;
 
 
@@ -453,7 +464,11 @@ void XUsb_UlpiIntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
  * Implemented in xusb_sinit.c
  */
 
+#ifndef SDT
 XUsb_Config *XUsb_LookupConfig(u16 DeviceId);
+#else
+XUsb_Config *XUsb_LookupConfig(u32 BaseAddress);
+#endif
 
 #ifdef __cplusplus
 }
