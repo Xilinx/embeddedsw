@@ -26,6 +26,7 @@
 * 1.00a  hvm  2/22/07 First release
 * 2.00a  hvm  12/2/08 Updated the configuration structure with the
 *			INCLUDE_DMA option.
+* 5.6   pm   05/07/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -34,6 +35,7 @@
 
 #include "xparameters.h"
 #include "xusb.h"
+#include "xstatus.h"
 
 /************************** Constant Definitions *****************************/
 

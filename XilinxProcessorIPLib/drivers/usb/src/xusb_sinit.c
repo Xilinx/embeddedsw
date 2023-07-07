@@ -24,6 +24,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a hvm  12/28/06 First release
+* 5.6   pm   07/05/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -61,6 +62,7 @@ extern XUsb_Config XUsb_ConfigTable[];
 *		- NULL if the specified device ID was not found.
 *
 ******************************************************************************/
+#ifndef SDT
 XUsb_Config *XUsb_LookupConfig(u16 DeviceId)
 {
 	XUsb_Config *CfgPtr = NULL;
@@ -75,4 +77,21 @@ XUsb_Config *XUsb_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XUsb_Config *XUsb_LookupConfig(u32 BaseAddress)
+{
+	XUsb_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0U; XUsb_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XUsb_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XUsb_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /** @} */
