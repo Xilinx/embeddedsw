@@ -39,6 +39,8 @@
 * 8.0   mus    07/06/21  Added support for VERSAL NET
 * 9.0   dp     03/29/23  Added support to use ttc as sleep timer for VersalNet
 *                        Cortex-R52.
+* 9.0   asa    07/07/23  Made changes to include XTime_StartTimer for
+*                        r52 freertos bsp.
 *
 * </pre>
 *
@@ -62,7 +64,7 @@
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-#if defined(XSLEEP_TIMER_IS_DEFAULT_TIMER) && defined(ARMR52)
+#if defined (ARMR52) && ((defined(FREERTOS_BSP)) || (defined(XSLEEP_TIMER_IS_DEFAULT_TIMER)))
 
 #define LPD_RST_TIMESTAMP  0xEB5E035CU
 /**

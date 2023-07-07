@@ -38,11 +38,15 @@
 * 9.0   mus  04/20/23 Removed call to Xil_InitializeExistingMPURegConfig, as
 *                     MPU configuration data structure is already being updated
 *                     by Init_Mpu function.
+* 9.0   asa  07/07/23 Made changes to ensure that XTime_StartTimer is
+*                     called for the scenario where xiltimer is not
+*                     enabled for freertos r52 bsp.
 * </pre>
 *
 ******************************************************************************/
 #ifndef SDT
 #include "xparameters.h"
+#include "bspconfig.h"
 #endif
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
@@ -160,7 +164,7 @@ noaccess:
 
 	/* configure the timer if TTC is present */
 #ifndef XPAR_XILTIMER_ENABLED
-#if defined (ARMR52) && defined(XSLEEP_TIMER_IS_DEFAULT_TIMER)
+#if defined (ARMR52) && ((defined(FREERTOS_BSP)) || (defined(XSLEEP_TIMER_IS_DEFAULT_TIMER)))
 	bl XTime_StartTimer
 #elif defined (SLEEP_TIMER_BASEADDR)
     bl XTime_StartTTCTimer

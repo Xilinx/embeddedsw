@@ -36,6 +36,8 @@
 * 			 10_4 violation.
 * 9.0   dp     03/29/23  Added support to use ttc as sleep timer for VersalNet
 *                        Cortex-R52.
+* 9.0   asa    07/07/23  Made changes to include bspconfig.h and update
+*                        macros checks for r52 freertos bsp use case.
 * </pre>
 *
 ******************************************************************************/
@@ -54,6 +56,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xparameters.h"
+#include "bspconfig.h"
 /***************** Macros (Inline Functions) Definitions *********************/
 #if defined (ARMR52)
 /* TODO: Taken from ARMv8 32 bit BSP, check if we can keep it in some common location */
@@ -89,7 +92,7 @@ static inline u64 arch_counter_get_cntvct(void)
 
 #define IRQ_FIQ_MASK 	0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
 
-#if defined(XSLEEP_TIMER_IS_DEFAULT_TIMER) && defined(ARMR52)
+#if defined (ARMR52) && ((defined(FREERTOS_BSP)) || (defined(XSLEEP_TIMER_IS_DEFAULT_TIMER)))
 #pragma message ("For the sleep routines, global timer is used")
 #elif defined (SLEEP_TIMER_BASEADDR)
 #pragma message ("For the sleep routines, TTC3/TTC2 is used")
