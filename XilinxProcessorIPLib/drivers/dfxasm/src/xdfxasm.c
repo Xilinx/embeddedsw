@@ -21,7 +21,7 @@
 * Ver  Who    Date          Changes
 * --- ----- ----------  -----------------------------------------------
 * 1.0  dp    07/14/2020     First release
-*
+* 1.2  Nava  06/22/2023     Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -72,8 +72,9 @@ s32 XDfxasm_CfgInitialize(XDfxasm *InstancePtr, XDfxasm_Config *ConfigPtr,
 	 * successfully.
 	 */
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
-
+#endif
 	/* Indicate the component is now ready to use */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
