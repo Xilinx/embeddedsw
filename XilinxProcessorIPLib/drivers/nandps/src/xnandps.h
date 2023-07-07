@@ -245,35 +245,35 @@ extern "C" {
 
 /* Flash memory controller operating parameters */
 #define XNANDPS_CLR_CONFIG	\
-			((XNANDPS_MEMC_CLR_CONFIG_INT_DISABLE1_MASK)	| \
-			(XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK)	| \
-			(XNANDPS_MEMC_CLR_CONFIG_ECC_INT_DISABLE1_MASK))
-			/**< Interrupt settings */
+	((XNANDPS_MEMC_CLR_CONFIG_INT_DISABLE1_MASK)	| \
+	 (XNANDPS_MEMC_CLR_CONFIG_INT_CLR1_MASK)	| \
+	 (XNANDPS_MEMC_CLR_CONFIG_ECC_INT_DISABLE1_MASK))
+/**< Interrupt settings */
 
 #define XNANDPS_ECC_MEMCFG \
-			((0x1 << XNANDPS_ECC_MEMCFG_ECC_MODE_SHIFT) | \
-			(0x1 << XNANDPS_ECC_MEMCFG_ECC_READ_END_SHIFT)  | \
-			(0x0 << XNANDPS_ECC_MEMCFG_ECC_JUMP_SHIFT))
-			/**< ECC memory configuration settings */
+	((0x1 << XNANDPS_ECC_MEMCFG_ECC_MODE_SHIFT) | \
+	 (0x1 << XNANDPS_ECC_MEMCFG_ECC_READ_END_SHIFT)  | \
+	 (0x0 << XNANDPS_ECC_MEMCFG_ECC_JUMP_SHIFT))
+/**< ECC memory configuration settings */
 
 #define XNANDPS_ECC_CMD1 \
-			((0x80 << XNANDPS_ECC_MEMCOMMAND1_WR_CMD_SHIFT) | \
-		(0x00 << XNANDPS_ECC_MEMCOMMAND1_RD_CMD_SHIFT)  | \
-		(0x30 << XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_SHIFT) | \
-		(0x1 << XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_VALID_SHIFT))
-			/**< ECC command 1 settings */
+	((0x80 << XNANDPS_ECC_MEMCOMMAND1_WR_CMD_SHIFT) | \
+	 (0x00 << XNANDPS_ECC_MEMCOMMAND1_RD_CMD_SHIFT)  | \
+	 (0x30 << XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_SHIFT) | \
+	 (0x1 << XNANDPS_ECC_MEMCOMMAND1_RD_CMD_END_VALID_SHIFT))
+/**< ECC command 1 settings */
 
 #define XNANDPS_ECC_CMD2	\
-		((0x85 << XNANDPS_ECC_MEMCOMMAND2_WR_COL_CHANGE_SHIFT) | \
-		(0x05 << XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_SHIFT)  | \
-		(0xE0 << XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_SHIFT) | \
-	(0x1 << XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_VALID_SHIFT))
-			/**< ECC command 2 settings */
+	((0x85 << XNANDPS_ECC_MEMCOMMAND2_WR_COL_CHANGE_SHIFT) | \
+	 (0x05 << XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_SHIFT)  | \
+	 (0xE0 << XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_SHIFT) | \
+	 (0x1 << XNANDPS_ECC_MEMCOMMAND2_RD_COL_CHANGE_END_VALID_SHIFT))
+/**< ECC command 2 settings */
 
 #define XNANDPS_CLR_CS		(0x1 << XNANDPS_CLEAR_CS_SHIFT)
-				/**< set Clear chip select */
+/**< set Clear chip select */
 #define XNANDPS_ECC_LAST	(0x1 << XNANDPS_ECC_LAST_SHIFT)
-				/**< set Ecc last */
+/**< set Ecc last */
 
 /**************************** Type Definitions *******************************/
 /*
@@ -360,7 +360,7 @@ typedef struct {
 	u32 BytesPerBlock;	/**< Number of ECC bytes for a block */
 	u32 TotalBytes;		/**< Total number of ECC bytes for Page */
 	u32 EccPos[XNANDPS_MAX_SPARE_SIZE];
-				/**< ECC position in the spare area */
+	/**< ECC position in the spare area */
 } XNandPs_EccConfig;
 
 /**
@@ -384,16 +384,16 @@ typedef struct XNandPsTag {
 						  search */
 	u8 Bbt[XNANDPS_MAX_BLOCKS >> 2];	/**< Bad block table array */
 	u8 DataBuf[XNANDPS_MAX_PAGE_SIZE + XNANDPS_MAX_SPARE_SIZE];
-			/**< Data buffer for partial read/writes */
+	/**< Data buffer for partial read/writes */
 	u8 *SpareBufPtr;		/**< Pointer to store spare buffer */
 	u8 EccCalc[XNANDPS_MAX_SPARE_SIZE];	/**< Buffer for calculated
 						  ECC */
 	u8 EccCode[XNANDPS_MAX_SPARE_SIZE];	/**< Buffer for stored ECC */
 	XNandPs_EccMode EccMode;		/**< ECC Mode */
 	int (*ReadPage) (struct XNandPsTag *InstancePtr, u8 *DstPtr);
-						/**< Read Page routine */
+	/**< Read Page routine */
 	int (*WritePage) (struct XNandPsTag *InstancePtr, u8 *SrcPtr);
-						/**< Write Page routine */
+	/**< Write Page routine */
 } XNandPs;
 
 /**
@@ -431,15 +431,15 @@ XNandPs_Config *XNandPs_LookupConfig(UINTPTR BaseAddress);
  * Initialization, read, write and erase functions.
  */
 int XNandPs_CfgInitialize(XNandPs *InstancePtr, XNandPs_Config *ConfigPtr,
-			u32 SmcBaseAddr, u32 FlashBaseAddr);
+			  u32 SmcBaseAddr, u32 FlashBaseAddr);
 int XNandPs_Read(XNandPs *InstancePtr, u64 Offset, u32 Bytes, void *DestPtr,
-			u8 *UserSparePtr);
+		 u8 *UserSparePtr);
 int XNandPs_ReadCache(XNandPs *InstancePtr, u64 Offset, u32 Bytes,
-			void *SrcPtr, u8 *UserSparePtr);
+		      void *SrcPtr, u8 *UserSparePtr);
 int XNandPs_Write(XNandPs *InstancePtr, u64 Offset, u32 Bytes, void *SrcPtr,
-			u8 *UserSparePtr);
+		  u8 *UserSparePtr);
 int XNandPs_WriteCache(XNandPs *InstancePtr, u64 Offset, u32 Length,
-			void *SrcPtr, u8 *UserSparePtr);
+		       void *SrcPtr, u8 *UserSparePtr);
 int XNandPs_ReadSpareBytes(XNandPs *InstancePtr, u32 Page, u8 *Buf);
 int XNandPs_WriteSpareBytes(XNandPs *InstancePtr, u32 Page, u8 *Buf);
 int XNandPs_EraseBlock(XNandPs *InstancePtr, u32 BlockNum);

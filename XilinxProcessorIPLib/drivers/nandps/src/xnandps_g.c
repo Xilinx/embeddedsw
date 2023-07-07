@@ -48,8 +48,7 @@
  * This table contains configuration information for each System Monitor/ADC
  * device in the system.
  */
-XNandPs_Config XNandPs_ConfigTable[XPAR_XNANDPS_NUM_INSTANCES] =
-{
+XNandPs_Config XNandPs_ConfigTable[XPAR_XNANDPS_NUM_INSTANCES] = {
 	{
 		XPAR_XNANDPS_0_DEVICE_ID,	/**< Device ID of device */
 		XPAR_XPARPORTPS_CTRL_BASEADDR,	/**< SMC Base address

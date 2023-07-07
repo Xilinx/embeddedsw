@@ -165,7 +165,7 @@ extern "C" {
  * This enum defines the onfi commands.
  */
 enum OnfiCommandsEnum {
-	READ=0,			/**< ONFI Read */
+	READ = 0,			/**< ONFI Read */
 	CHANGE_READ_COLUMN,	/**< ONFI Change Read Column */
 	BLOCK_ERASE,		/**< ONFI Block Erase */
 	READ_STATUS,		/**< ONFI Read Status */
@@ -287,7 +287,8 @@ typedef struct {
 } OnfiNand_Geometry;
 #pragma pack(pop)
 #else
-}__attribute__((packed))OnfiNand_Geometry;
+}
+__attribute__((packed))OnfiNand_Geometry;
 #endif
 
 /************************** Function Prototypes ******************************/

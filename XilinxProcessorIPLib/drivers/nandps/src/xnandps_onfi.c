@@ -58,7 +58,7 @@ static unsigned long Onfi_Crc16(u8 *Buf);
 static int Onfi_ReadParamPage(XNandPs *InstancePtr, u8 *Buf);
 
 extern void XNandPs_SendCommand(XNandPs *InstancePtr, XNandPs_CommandFormat
-		*Command, int Page, int Column);
+				*Command, int Page, int Column);
 /************************** Variable Definitions *****************************/
 
 /**
@@ -66,41 +66,59 @@ extern void XNandPs_SendCommand(XNandPs *InstancePtr, XNandPs_CommandFormat
  */
 XNandPs_CommandFormat OnfiCommands[] = {
 	{ONFI_CMD_READ1, ONFI_CMD_READ2, 5, XNANDPS_CMD_PHASE},
-					/*<< Read command format */
-	{ONFI_CMD_CHANGE_READ_COLUMN1, ONFI_CMD_CHANGE_READ_COLUMN2,
-	2, XNANDPS_CMD_PHASE},		/*<< Change Read column format */
+	/*<< Read command format */
+	{
+		ONFI_CMD_CHANGE_READ_COLUMN1, ONFI_CMD_CHANGE_READ_COLUMN2,
+		2, XNANDPS_CMD_PHASE
+	},		/*<< Change Read column format */
 	{ONFI_CMD_BLOCK_ERASE1, ONFI_CMD_BLOCK_ERASE2, 3, XNANDPS_CMD_PHASE},
-					/*<<Block Erase command format */
-	{ONFI_CMD_READ_STATUS, XNANDPS_END_CMD_NONE, 0,
-		XNANDPS_END_CMD_INVALID},
-					/*<< Read Status command format */
+	/*<<Block Erase command format */
+	{
+		ONFI_CMD_READ_STATUS, XNANDPS_END_CMD_NONE, 0,
+		XNANDPS_END_CMD_INVALID
+	},
+	/*<< Read Status command format */
 	{ONFI_CMD_PAGE_PROG1, ONFI_CMD_PAGE_PROG2, 5, XNANDPS_DATA_PHASE},
-					/*<< Page program command format */
-	{ONFI_CMD_CHANGE_WRITE_COLUMN, XNANDPS_END_CMD_NONE, 2,
-		XNANDPS_END_CMD_INVALID},	/*<< Change Write Column
+	/*<< Page program command format */
+	{
+		ONFI_CMD_CHANGE_WRITE_COLUMN, XNANDPS_END_CMD_NONE, 2,
+		XNANDPS_END_CMD_INVALID
+	},	/*<< Change Write Column
 						  command format */
 	{ONFI_CMD_READ_ID, XNANDPS_END_CMD_NONE, 1, XNANDPS_END_CMD_INVALID},
-					/*<< Read ID command format */
-	{ONFI_CMD_READ_PARAM_PAGE, XNANDPS_END_CMD_NONE, 1,
-		XNANDPS_END_CMD_INVALID},
-					/*<< Read Param Page command format */
+	/*<< Read ID command format */
+	{
+		ONFI_CMD_READ_PARAM_PAGE, XNANDPS_END_CMD_NONE, 1,
+		XNANDPS_END_CMD_INVALID
+	},
+	/*<< Read Param Page command format */
 	{ONFI_CMD_RESET, XNANDPS_END_CMD_NONE, 0, XNANDPS_END_CMD_INVALID},
-					/*<< Reset command format */
-	{ONFI_CMD_GET_FEATURES, XNANDPS_END_CMD_NONE, 1,
-		XNANDPS_END_CMD_INVALID},
-					/*<< Get Features */
-	{ONFI_CMD_SET_FEATURES, XNANDPS_END_CMD_NONE, 1,
-		XNANDPS_END_CMD_INVALID},
-					/*<< Set Features */
-	{ONFI_CMD_READ_CACHE_ENHANCED1, ONFI_CMD_READ_CACHE_ENHANCED2, 5,
-		XNANDPS_CMD_PHASE},
-					/*<< Read page cache random */
-	{ONFI_CMD_READ_CACHE_END, XNANDPS_END_CMD_NONE, 0,
-		XNANDPS_END_CMD_INVALID},
-					/*<< Read page cache end */
-	{ONFI_CMD_PAGE_CACHE_PROGRAM1, ONFI_CMD_PAGE_CACHE_PROGRAM2, 5,
-		XNANDPS_DATA_PHASE},
-					/*<< Program page cache */
+	/*<< Reset command format */
+	{
+		ONFI_CMD_GET_FEATURES, XNANDPS_END_CMD_NONE, 1,
+		XNANDPS_END_CMD_INVALID
+	},
+	/*<< Get Features */
+	{
+		ONFI_CMD_SET_FEATURES, XNANDPS_END_CMD_NONE, 1,
+		XNANDPS_END_CMD_INVALID
+	},
+	/*<< Set Features */
+	{
+		ONFI_CMD_READ_CACHE_ENHANCED1, ONFI_CMD_READ_CACHE_ENHANCED2, 5,
+		XNANDPS_CMD_PHASE
+	},
+	/*<< Read page cache random */
+	{
+		ONFI_CMD_READ_CACHE_END, XNANDPS_END_CMD_NONE, 0,
+		XNANDPS_END_CMD_INVALID
+	},
+	/*<< Read page cache end */
+	{
+		ONFI_CMD_PAGE_CACHE_PROGRAM1, ONFI_CMD_PAGE_CACHE_PROGRAM2, 5,
+		XNANDPS_DATA_PHASE
+	},
+	/*<< Program page cache */
 };
 
 /**************************************************************************/
@@ -125,12 +143,13 @@ static void Onfi_ReadData(XNandPs *InstancePtr, u8 *Buf, u32 Length)
 	/*
 	 * 8-bit/16-bit access for basic read operations
 	 */
-	for(Index = 0; Index < Length; Index++) {
+	for (Index = 0; Index < Length; Index++) {
 
-		if (InstancePtr->Config.FlashWidth == XNANDPS_FLASH_WIDTH_16)
+		if (InstancePtr->Config.FlashWidth == XNANDPS_FLASH_WIDTH_16) {
 			Buf[Index] = (u8)Xil_In16(InstancePtr->DataPhaseAddr);
-		else
+		} else {
 			Buf[Index] = Xil_In8(InstancePtr->DataPhaseAddr);
+		}
 	}
 }
 
@@ -156,11 +175,12 @@ static void Onfi_WriteData(XNandPs *InstancePtr, u8 *Buf, u32 Length)
 	/*
 	 * 8-bit/16-bit access for basic write operations
 	 */
-	for(Index = 0; Index < Length; Index++) {
-		if (InstancePtr->Config.FlashWidth == XNANDPS_FLASH_WIDTH_16)
+	for (Index = 0; Index < Length; Index++) {
+		if (InstancePtr->Config.FlashWidth == XNANDPS_FLASH_WIDTH_16) {
 			Xil_Out16(InstancePtr->DataPhaseAddr, Buf[Index]);
-		else
+		} else {
 			Xil_Out8(InstancePtr->DataPhaseAddr, Buf[Index]);
+		}
 	}
 }
 
@@ -181,12 +201,13 @@ u8 Onfi_CmdReadStatus(XNandPs *InstancePtr)
 	u8 Status;
 
 	XNandPs_SendCommand(InstancePtr, &OnfiCommands[READ_STATUS],
-			XNANDPS_PAGE_NOT_VALID, XNANDPS_COLUMN_NOT_VALID);
+			    XNANDPS_PAGE_NOT_VALID, XNANDPS_COLUMN_NOT_VALID);
 
-	if(InstancePtr->Config.FlashWidth == XNANDPS_FLASH_WIDTH_16)
+	if (InstancePtr->Config.FlashWidth == XNANDPS_FLASH_WIDTH_16) {
 		Status = (u8) Xil_In16(InstancePtr->DataPhaseAddr);
-	else
+	} else {
 		Status = Xil_In8(InstancePtr->DataPhaseAddr);
+	}
 
 	return Status;
 }
@@ -208,14 +229,14 @@ static void Onfi_CmdReset(XNandPs *InstancePtr)
 	u8 Status;
 
 	XNandPs_SendCommand(InstancePtr, &OnfiCommands[RESET],
-			XNANDPS_PAGE_NOT_VALID, XNANDPS_COLUMN_NOT_VALID);
+			    XNANDPS_PAGE_NOT_VALID, XNANDPS_COLUMN_NOT_VALID);
 
 	/*
 	 * Check the Status Register SR[6]
 	 */
 	do {
 		Status = Onfi_CmdReadStatus(InstancePtr);
-	}while ((Status & ONFI_STATUS_RDY) != ONFI_STATUS_RDY);
+	} while ((Status & ONFI_STATUS_RDY) != ONFI_STATUS_RDY);
 }
 
 /**************************************************************************/
@@ -233,7 +254,7 @@ static void Onfi_CmdReset(XNandPs *InstancePtr)
 static void Onfi_CmdReadId(XNandPs *InstancePtr, u8 Address)
 {
 	XNandPs_SendCommand(InstancePtr, &OnfiCommands[READ_ID],
-			XNANDPS_PAGE_NOT_VALID, Address);
+			    XNANDPS_PAGE_NOT_VALID, Address);
 }
 
 /**************************************************************************/
@@ -254,23 +275,23 @@ static void Onfi_CmdReadParamPage(XNandPs *InstancePtr)
 	u32 ZeroCommand;
 
 	XNandPs_SendCommand(InstancePtr, &OnfiCommands[READ_PARAM_PAGE],
-			XNANDPS_PAGE_NOT_VALID, 0x00);
+			    XNANDPS_PAGE_NOT_VALID, 0x00);
 	/*
 	 * Check the Status Register SR[6]
 	 */
 	do {
 		Status = Onfi_CmdReadStatus(InstancePtr);
-	}while ((Status & ONFI_STATUS_RDY) != ONFI_STATUS_RDY);
+	} while ((Status & ONFI_STATUS_RDY) != ONFI_STATUS_RDY);
 
 	/*
 	 * ONFI : Reissue the 0x00 on the command line to start reading data
 	 */
 	ZeroCommand = InstancePtr->Config.FlashBase |
-			(0 << XNANDPS_ADDR_CYCLES_SHIFT)|
-			(0 << XNANDPS_END_CMD_VALID_SHIFT)|
-			(XNANDPS_COMMAND_PHASE_MASK)|
-			(0 << XNANDPS_END_CMD_SHIFT)|
-			(0 << XNANDPS_START_CMD_SHIFT);
+		      (0 << XNANDPS_ADDR_CYCLES_SHIFT) |
+		      (0 << XNANDPS_END_CMD_VALID_SHIFT) |
+		      (XNANDPS_COMMAND_PHASE_MASK) |
+		      (0 << XNANDPS_END_CMD_SHIFT) |
+		      (0 << XNANDPS_START_CMD_SHIFT);
 
 	/*
 	 * Dummy AXI transaction for sending command 0x00 to the flash
@@ -297,24 +318,24 @@ static void Onfi_GetFeature(XNandPs *InstancePtr, u8 Feature, u8 *Val)
 	u32 ZeroCommand;
 
 	XNandPs_SendCommand(InstancePtr, &OnfiCommands[GET_FEATURES],
-			XNANDPS_PAGE_NOT_VALID, Feature);
+			    XNANDPS_PAGE_NOT_VALID, Feature);
 	/*
 	 * Check the Status Register SR[6]
 	 */
 	do {
 		Status = Onfi_CmdReadStatus(InstancePtr);
-	}while ((Status & ONFI_STATUS_RDY) != ONFI_STATUS_RDY);
+	} while ((Status & ONFI_STATUS_RDY) != ONFI_STATUS_RDY);
 
 	/*
 	 * ONFI 2.3: Reissue the 0x00 on the command line to start reading
 	 * data.
 	 */
 	ZeroCommand = InstancePtr->Config.FlashBase |
-			(0 << XNANDPS_ADDR_CYCLES_SHIFT)|
-			(0 << XNANDPS_END_CMD_VALID_SHIFT)|
-			(XNANDPS_COMMAND_PHASE_MASK)|
-			(0 << XNANDPS_END_CMD_SHIFT)|
-			(0 << XNANDPS_START_CMD_SHIFT);
+		      (0 << XNANDPS_ADDR_CYCLES_SHIFT) |
+		      (0 << XNANDPS_END_CMD_VALID_SHIFT) |
+		      (XNANDPS_COMMAND_PHASE_MASK) |
+		      (0 << XNANDPS_END_CMD_SHIFT) |
+		      (0 << XNANDPS_START_CMD_SHIFT);
 
 	/*
 	 * Dummy AXI transaction for sending command 0x00 to the flash
@@ -345,7 +366,7 @@ static void Onfi_SetFeature(XNandPs *InstancePtr, u8 Feature, u8 *Val)
 	u8 Status;
 
 	XNandPs_SendCommand(InstancePtr, &OnfiCommands[SET_FEATURES],
-			XNANDPS_PAGE_NOT_VALID, Feature);
+			    XNANDPS_PAGE_NOT_VALID, Feature);
 
 	Onfi_WriteData(InstancePtr, Val, 4);
 
@@ -354,7 +375,7 @@ static void Onfi_SetFeature(XNandPs *InstancePtr, u8 Feature, u8 *Val)
 	 */
 	do {
 		Status = Onfi_CmdReadStatus(InstancePtr);
-	}while ((Status & ONFI_STATUS_RDY) != ONFI_STATUS_RDY);
+	} while ((Status & ONFI_STATUS_RDY) != ONFI_STATUS_RDY);
 }
 
 /**************************************************************************/
@@ -381,23 +402,26 @@ static unsigned long Onfi_Crc16(u8 *Buf)
 	u32 Bit;
 	u32 DataIn;
 	int DataByteCount = 0;
-	u32 CrcMask = ((((u32)1 << (Order - 1)) -1) << 1) | 1;
+	u32 CrcMask = ((((u32)1 << (Order - 1)) - 1) << 1) | 1;
 	u32 CrcHighBit = (u32)1 << (Order - 1);
 
 	/*
 	 * CRC covers the data bytes between byte 0 and byte 253 (ONFI 1.0, sec
 	 * 5.4.1.36)
 	 */
-	for(Index = 0; Index < ONFI_CRC_LEN; Index++)
-	{
+	for (Index = 0; Index < ONFI_CRC_LEN; Index++) {
 		DataIn = Buf[Index];
 		c = (u32)DataIn;
 		DataByteCount++;
-		for(j = 0x80; j; j >>= 1) {
+		for (j = 0x80; j; j >>= 1) {
 			Bit = Crc & CrcHighBit;
 			Crc <<= 1;
-			if (c & j) Bit ^= CrcHighBit;
-			if (Bit) Crc ^= Polynom;
+			if (c & j) {
+				Bit ^= CrcHighBit;
+			}
+			if (Bit) {
+				Crc ^= Polynom;
+			}
 		}
 		Crc &= CrcMask;
 	}
@@ -431,12 +455,12 @@ static int Onfi_ReadParamPage(XNandPs *InstancePtr, u8 *Buf)
 	 */
 	Onfi_CmdReadParamPage(InstancePtr);
 	/* Read the 3 mandatory parameter pages */
-	for(Index = 0; Index < 3; Index++) {
+	for (Index = 0; Index < 3; Index++) {
 		Onfi_ReadData(InstancePtr, Buf, ONFI_PARAM_PAGE_LEN);
 		Geometry = (OnfiNand_Geometry *)Buf;
 		/* Check the CRC */
 		CrcCalc = Onfi_Crc16(Buf);
-		if(CrcCalc == Geometry->Crc) {
+		if (CrcCalc == Geometry->Crc) {
 			break;
 		}
 	}
@@ -473,7 +497,7 @@ int Onfi_NandInit(XNandPs *InstancePtr)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	for(Target=0; Target < XNANDPS_MAX_TARGETS; Target++) {
+	for (Target = 0; Target < XNANDPS_MAX_TARGETS; Target++) {
 		/*
 		 * Reset the target
 		 */
@@ -489,16 +513,16 @@ int Onfi_NandInit(XNandPs *InstancePtr)
 		 * Check the ONFI signature to know that the target supports
 		 * ONFI
 		 */
-		if (Id[0]=='O' && Id[1]=='N' && Id[2]=='F' && Id[3]=='I') {
+		if (Id[0] == 'O' && Id[1] == 'N' && Id[2] == 'F' && Id[3] == 'I') {
 			/* Read the parameter page structure */
 			Status = Onfi_ReadParamPage(InstancePtr,
-					(u8 *)&Nand_Geometry);
+						    (u8 *)&Nand_Geometry);
 			if (Status != XST_FAILURE) {
 				if (Nand_Geometry.BytesPerPage > XNANDPS_MAX_PAGE_SIZE ||
-					Nand_Geometry.SpareBytesPerPage > XNANDPS_MAX_SPARE_SIZE ||
-					Nand_Geometry.PagesPerBlock > XNANDPS_MAX_PAGES_PER_BLOCK ||
-					Nand_Geometry.BlocksPerLun > XNANDPS_MAX_BLOCKS ||
-					Nand_Geometry.NumLuns > XNANDPS_MAX_LUNS) {
+				    Nand_Geometry.SpareBytesPerPage > XNANDPS_MAX_SPARE_SIZE ||
+				    Nand_Geometry.PagesPerBlock > XNANDPS_MAX_PAGES_PER_BLOCK ||
+				    Nand_Geometry.BlocksPerLun > XNANDPS_MAX_BLOCKS ||
+				    Nand_Geometry.NumLuns > XNANDPS_MAX_LUNS) {
 					return XST_FAILURE;
 				}
 
@@ -520,7 +544,7 @@ int Onfi_NandInit(XNandPs *InstancePtr)
 					 Nand_Geometry.BlocksPerLun *
 					 Nand_Geometry.PagesPerBlock);
 				InstancePtr->Geometry.BlockSize =
-					 (Nand_Geometry.PagesPerBlock *
+					(Nand_Geometry.PagesPerBlock *
 					 Nand_Geometry.BytesPerPage);
 				InstancePtr->Geometry.DeviceSize =
 					(InstancePtr->Geometry.NumBlocks *
@@ -535,21 +559,21 @@ int Onfi_NandInit(XNandPs *InstancePtr)
 					((Nand_Geometry.AddrCycles >> 4) & 0xf);
 
 				OnfiCommands[READ].AddrCycles =
-						(InstancePtr->Geometry.RowAddrCycles +
-						InstancePtr->Geometry.ColAddrCycles);
+					(InstancePtr->Geometry.RowAddrCycles +
+					 InstancePtr->Geometry.ColAddrCycles);
 
 				OnfiCommands[PAGE_PROGRAM].AddrCycles =
-						(InstancePtr->Geometry.RowAddrCycles +
-						InstancePtr->Geometry.ColAddrCycles);
+					(InstancePtr->Geometry.RowAddrCycles +
+					 InstancePtr->Geometry.ColAddrCycles);
 
 				OnfiCommands[BLOCK_ERASE].AddrCycles =
-						InstancePtr->Geometry.RowAddrCycles;
+					InstancePtr->Geometry.RowAddrCycles;
 
 				OnfiCommands[CHANGE_READ_COLUMN].AddrCycles =
-						InstancePtr->Geometry.ColAddrCycles;
+					InstancePtr->Geometry.ColAddrCycles;
 
 				OnfiCommands[CHANGE_WRITE_COLUMN].AddrCycles =
-						InstancePtr->Geometry.ColAddrCycles;
+					InstancePtr->Geometry.ColAddrCycles;
 				/*
 				 * Read JEDEC ID
 				 */
@@ -557,25 +581,25 @@ int Onfi_NandInit(XNandPs *InstancePtr)
 				Onfi_ReadData(InstancePtr, &JedecId[0], 2);
 
 				if ((JedecId[0] == 0x2C) &&
-						/* 1 Gb flash devices */
-						((JedecId[1] == 0xF1) ||
-						(JedecId[1] == 0xA1) ||
-						(JedecId[1] == 0xB1) ||
-						/* 2 Gb flash devices */
-						(JedecId[1] == 0xAA) ||
-						(JedecId[1] == 0xBA) ||
-						(JedecId[1] == 0xDA) ||
-						(JedecId[1] == 0xCA) ||
-						/* 4 Gb flash devices */
-						(JedecId[1] == 0xAC) ||
-						(JedecId[1] == 0xBC) ||
-						(JedecId[1] == 0xDC) ||
-						(JedecId[1] == 0xCC) ||
-						/* 8 Gb flash devices */
-						(JedecId[1] == 0xA3) ||
-						(JedecId[1] == 0xB3) ||
-						(JedecId[1] == 0xD3) ||
-						(JedecId[1] == 0xC3))) {
+				    /* 1 Gb flash devices */
+				    ((JedecId[1] == 0xF1) ||
+				     (JedecId[1] == 0xA1) ||
+				     (JedecId[1] == 0xB1) ||
+				     /* 2 Gb flash devices */
+				     (JedecId[1] == 0xAA) ||
+				     (JedecId[1] == 0xBA) ||
+				     (JedecId[1] == 0xDA) ||
+				     (JedecId[1] == 0xCA) ||
+				     /* 4 Gb flash devices */
+				     (JedecId[1] == 0xAC) ||
+				     (JedecId[1] == 0xBC) ||
+				     (JedecId[1] == 0xDC) ||
+				     (JedecId[1] == 0xCC) ||
+				     /* 8 Gb flash devices */
+				     (JedecId[1] == 0xA3) ||
+				     (JedecId[1] == 0xB3) ||
+				     (JedecId[1] == 0xD3) ||
+				     (JedecId[1] == 0xC3))) {
 					/*
 					 * Check if this flash supports On-Die ECC.
 					 * Micron Flash: MT29F1G08ABADA, MT29F1G08ABBDA
@@ -589,17 +613,17 @@ int Onfi_NandInit(XNandPs *InstancePtr)
 					 */
 
 					Onfi_SetFeature(InstancePtr, 0x90,
-								&EccSetFeature[0]);
+							&EccSetFeature[0]);
 					/* Check to see if ECC feature is set */
 					Onfi_GetFeature(InstancePtr, 0x90,
-								&EccGetFeature[0]);
+							&EccGetFeature[0]);
 					if (EccGetFeature[0] & 0x08) {
 						InstancePtr->EccMode = XNANDPS_ECC_ONDIE;
 					} else {
 						InstancePtr->EccMode = XNANDPS_ECC_HW;
 					}
 				} else if (Nand_Geometry.BytesPerPage < 512 ||
-					Nand_Geometry.BytesPerPage > 2048) {
+					   Nand_Geometry.BytesPerPage > 2048) {
 					/*
 					 * This controller doesn't support ECC for
 					 * page size < 512 & > 2048 bytes.
@@ -615,8 +639,8 @@ int Onfi_NandInit(XNandPs *InstancePtr)
 				 */
 				InstancePtr->Geometry.FlashWidth =
 					(Nand_Geometry.Features & 0x1) ?
-						XNANDPS_FLASH_WIDTH_16 :
-						XNANDPS_FLASH_WIDTH_8;
+					XNANDPS_FLASH_WIDTH_16 :
+					XNANDPS_FLASH_WIDTH_8;
 				/*
 				 * Features and Optional commands supported.
 				 * On-Die ECC flash doesn't support these
@@ -624,9 +648,9 @@ int Onfi_NandInit(XNandPs *InstancePtr)
 				 */
 				if (InstancePtr->EccMode != XNANDPS_ECC_ONDIE) {
 					InstancePtr->Features.ProgramCache =
-						(Nand_Geometry.OptionalCmds & 0x1) ? 1:0;
+						(Nand_Geometry.OptionalCmds & 0x1) ? 1 : 0;
 					InstancePtr->Features.ReadCache =
-						(Nand_Geometry.OptionalCmds & 0x2) ? 1:0;
+						(Nand_Geometry.OptionalCmds & 0x2) ? 1 : 0;
 				}
 			} else {
 				return XST_FAILURE;

@@ -146,7 +146,7 @@ extern "C" {
 *
 *****************************************************************************/
 #define XNandPs_BbtBlockShift(Block) \
-		((Block * 2) & XNANDPS_BLOCK_SHIFT_MASK)
+	((Block * 2) & XNANDPS_BLOCK_SHIFT_MASK)
 
 /************************** Variable Definitions *****************************/
 
