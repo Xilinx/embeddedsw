@@ -45,6 +45,10 @@ extern "C" {
 #define QDMA_PCIE_BRIDGE
 #endif
 
+#if defined XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_NOC_PCIE_1_COMPATIBLE
+#define versal
+#endif
+
 #if defined(XPAR_XDMA_0_DEVICE_ID) || defined(XPAR_XDMA_0_COMPATIBLE)
 #define XDMA_PCIE_BRIDGE
 #endif
