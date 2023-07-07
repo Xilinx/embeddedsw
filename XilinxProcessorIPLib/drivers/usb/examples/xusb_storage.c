@@ -41,6 +41,7 @@
  * 4.02a bss  11/01/11 Modified UsbIfIntrHandler function to unconditionally
  *			reset when USB reset is asserted (CR 627574).
  * 5.2	MNK    03/30/2016 Modified the example to support ZYNQMP.
+ * 5.6   pm   07/05/23 Removed powerpc support.
  * </pre>
  *****************************************************************************/
 /***************************** Include Files *********************************/
@@ -114,11 +115,6 @@ int main()
 	if (NULL == UsbConfigPtr) {
 		return XST_FAILURE;
 	}
-#ifdef __PPC__
-
-	Xil_ICacheEnableRegion (0x80000001);
-	Xil_DCacheEnableRegion (0x80000001);
-#endif
 #ifdef __MICROBLAZE__
 	Xil_ICacheInvalidate();
 	Xil_ICacheEnable();
