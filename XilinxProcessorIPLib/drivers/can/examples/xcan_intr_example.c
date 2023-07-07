@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +41,7 @@
 *                    ensure that "Successfully ran" and "Failed" strings are
 *                    available in all examples. This is a fix for CR-965028.
 * 3.3   ask  08/01/18 Fixed Cppcheck and GCC warnings in can driver
+* 3.7   ht   07/04/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -47,16 +49,20 @@
 /***************************** Include Files *********************************/
 
 #include "xcan.h"
-#include "xparameters.h"
 #include "xstatus.h"
 #include "xil_exception.h"
+#include "xparameters.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #include <stdio.h>
 #else  /* SCU GIC */
 #include "xscugic.h"
 #include "xil_printf.h"
+#endif
+#else
+#include "xinterrupt_wrap.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -66,6 +72,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define CAN_DEVICE_ID		XPAR_CAN_0_DEVICE_ID
 #define CAN_INTR_VEC_ID		XPAR_INTC_0_CAN_0_VEC_ID
 
@@ -74,7 +81,9 @@
 #else
  #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
-
+#else
+#define XCAN_BASEADDRESS	XPAR_CAN_0_BASEADDR
+#endif
 
 /* Maximum CAN frame length in word */
 #define XCAN_MAX_FRAME_SIZE_IN_WORDS (XCAN_MAX_FRAME_SIZE / sizeof(u32))
@@ -100,6 +109,7 @@
 #define TEST_BTR_FIRST_TIMESEGMENT	15
 
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define INTC_HANDLER	XIntc_InterruptHandler
@@ -107,7 +117,7 @@
 #define INTC		XScuGic
 #define INTC_HANDLER	XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
-
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -117,7 +127,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 static int XCanIntrExample(u16 DeviceId);
+#else
+static int XCanIntrExample(UINTPTR BaseAddress);
+#endif
 static void Config(XCan *InstancePtr);
 static void SendFrame(XCan *InstancePtr);
 
@@ -168,7 +182,11 @@ int main(void)
 	/*
 	 * Run the Can interrupt example.
 	 */
+#ifndef SDT
 	if (XCanIntrExample(CAN_DEVICE_ID)) {
+#else
+	if (XCanIntrExample(XCAN_BASEADDRESS)) {
+#endif
 		xil_printf("Can Interrupt Example Failed\r\n");
 		return XST_FAILURE;
 	}
@@ -192,14 +210,29 @@ int main(void)
 *		an infinite loop and will never return to the caller.
 *
 ******************************************************************************/
+#ifndef SDT
 static int XCanIntrExample(u16 DeviceId)
+#else
+static int XCanIntrExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
+#ifdef SDT
+	XCan_Config *ConfigPtr;
 
+	ConfigPtr = XCan_LookupConfig(XCAN_BASEADDRESS);
+	if (ConfigPtr == NULL) {
+		return XST_FAILURE;
+	}
+#endif
 	/*
 	 * Initialize the XCan driver.
 	 */
+#ifndef SDT
 	Status = XCan_Initialize(&Can, DeviceId);
+#else
+	Status = XCan_Initialize(&Can, BaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -240,7 +273,14 @@ static int XCanIntrExample(u16 DeviceId)
 	/*
 	 * Connect to the interrupt controller.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(&Can);
+#else
+	Status = XSetupInterruptSystem(&Can,&XCan_IntrHandler,
+					ConfigPtr->IntrId,
+					ConfigPtr->IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -592,6 +632,7 @@ static void EventHandler(void *CallBackRef, u32 IntrMask)
 	}
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -716,4 +757,4 @@ static int SetupInterruptSystem(XCan *InstancePtr)
 
 	return XST_SUCCESS;
 }
-
+#endif
