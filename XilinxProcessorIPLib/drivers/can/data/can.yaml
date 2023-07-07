@@ -1,0 +1,50 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for CAN controller
+
+maintainers:
+  - Harini T <harini.t@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-can-1.00.a
+          - xlnx,can-5.0
+  reg:
+    description: Physical base address and size of the controller register map
+  can-num-acf:
+    description: Number of acceptance filters configured in the design
+
+config:
+    - XCan_Config
+
+required:
+    - compatible
+    - reg
+    - can-num-acf
+    - interrupts
+    - interrupt-parent
+
+examples:
+        xcan_intr_example.c:
+                - interrupts
+        xcan_polled_example.c:
+                - reg
+
+tapp:
+        xcan_intr_example.c:
+                - declaration: XCanIntrExample
+                - hwproperties:
+                        - interrupts
+        xcan_polled_example.c:
+                - declaration: XCanPolledExample
+                - hwproperties:
+                        - reg
+
+...

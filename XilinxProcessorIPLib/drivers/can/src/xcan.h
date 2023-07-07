@@ -174,7 +174,7 @@ exclusion
 *                     generation.
 * 3.3   ask  08/01/18 Fixed Cppcheck and GCC warnings in can driver
 * 3.5	sne  08/28/20 Modify Makefile to support parallel make execution.
-*
+* 3.7	ht   07/04/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -217,9 +217,17 @@ extern "C" {
  * This typedef contains configuration information for a device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
+#else
+	char *Name;		/**< Unique name of the device */
+#endif
 	UINTPTR BaseAddress;	/**< Register base address */
 	u8 NumOfAcceptFilters;	/**< Number of Acceptance Filters */
+#ifdef SDT
+	u16 IntrId; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XCan_Config;
 
 /******************************************************************************/
@@ -462,8 +470,13 @@ typedef struct {
 /*
  * Functions in xcan.c
  */
+#ifndef SDT
 int XCan_Initialize(XCan *InstancePtr, u16 DeviceId);
 int XCan_VmInitialize(XCan *InstancePtr, u16 DeviceId, UINTPTR VirtAddr);
+#else
+int XCan_Initialize(XCan *InstancePtr, UINTPTR BaseAddress);
+int XCan_VmInitialize(XCan *InstancePtr, UINTPTR BaseAddress, UINTPTR VirtAddr);
+#endif
 void XCan_Reset(XCan *InstancePtr);
 u8 XCan_GetMode(XCan *InstancePtr);
 void XCan_EnterMode(XCan *InstancePtr, u8 OperationMode);
@@ -482,7 +495,11 @@ int XCan_AcceptFilterSet(XCan *InstancePtr, u32 FilterIndex,
 			 u32 MaskValue, u32 IdValue);
 void XCan_AcceptFilterGet(XCan *InstancePtr, u32 FilterIndex,
 			  u32 *MaskValue, u32 *IdValue);
+#ifndef SDT
 XCan_Config *XCan_LookupConfig(u16 DeviceId);
+#else
+XCan_Config *XCan_LookupConfig(UINTPTR BaseAddress);
+#endif
 XCan_Config *XCan_GetConfig(unsigned int InstanceIndex);
 
 /*
