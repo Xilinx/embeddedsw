@@ -265,8 +265,9 @@ extern "C" {
 * 		u32 XClk_Wiz_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
 *
 ******************************************************************************/
-static inline u32 XClk_Wiz_ReadReg(UINTPTR BaseAddress, u32 RegOffset)  {
-			return (Xil_In32((BaseAddress) + (u32)(RegOffset)));
+static inline u32 XClk_Wiz_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
+{
+	return (Xil_In32((BaseAddress) + (u32)(RegOffset)));
 }
 
 /*****************************************************************************/
@@ -285,8 +286,9 @@ static inline u32 XClk_Wiz_ReadReg(UINTPTR BaseAddress, u32 RegOffset)  {
 *
 ******************************************************************************/
 static inline void XClk_Wiz_WriteReg(UINTPTR BaseAddress, u32 RegOffset,
-								u32 Data) {
-		Xil_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data));
+				     u32 Data)
+{
+	Xil_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data));
 }
 
 #ifdef __cplusplus
