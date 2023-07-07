@@ -173,13 +173,13 @@ u32 XDfxasm_TestState(void)
 	 * shutdown.
 	 */
 	for (Index = 0; Index < 4; Index++) {
-		ShutdownMode = Index %2;
+		ShutdownMode = Index % 2;
 		XDfxasm_SetState(&Dfxasm, (XDfxasm_State)ShutdownMode);
 		ShutdownState = XDfxasm_GetState(&Dfxasm) & 0x1;
 		if (ShutdownState != ShutdownMode) {
 			xil_printf("    ERROR: ShutdownState = %0u,"
-				"ShutdownMode = %0u\n", ShutdownState,
-				ShutdownMode);
+				   "ShutdownMode = %0u\n", ShutdownState,
+				   ShutdownMode);
 			return XST_FAILURE;
 		}
 	}
