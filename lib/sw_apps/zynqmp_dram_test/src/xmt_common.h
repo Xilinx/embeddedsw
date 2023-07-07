@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -53,7 +53,11 @@ extern "C" {
 #include "xil_exception.h"
 #include "xpseudo_asm.h"
 #include "xdebug.h"
+#ifndef SDT
 #include "xtime_l.h"
+#else
+#include "xiltimer.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 

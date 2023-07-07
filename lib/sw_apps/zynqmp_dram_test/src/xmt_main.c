@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -46,6 +46,8 @@
 #define XMT_DEFAULT_TEST_PATTERN	0U
 #define XMT_MAX_MODE_NUM		15U
 
+#ifndef SDT
+
 #ifdef XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #define XMT_DDR_0_SIZE			((XPAR_PSU_DDR_0_S_AXI_HIGHADDR -\
 					XPAR_PSU_DDR_0_S_AXI_BASEADDR) + 1U)
@@ -75,7 +77,38 @@
 #endif
 #define XMT_DDR_MAX_SIZE		(XMT_DDR_0_SIZE + XMT_DDR_1_SIZE)
 
+#else
 
+#ifdef XPAR_PSU_DDR_0_BASEADDRESS
+#define XMT_DDR_0_SIZE                  ((XPAR_PSU_DDR_0_HIGHADDRESS -\
+                                        XPAR_PSU_DDR_0_BASEADDRESS) + 1U)
+#define XMT_DDR_0_BASEADDR              XPAR_PSU_DDR_0_BASEADDRESS
+#define XMT_DDR_0_HIGHADDR              XPAR_PSU_DDR_0_HIGHADDRESS
+#else
+#define XMT_DDR_0_SIZE                  0U
+#define XMT_DDR_0_BASEADDR              0U
+#define XMT_DDR_0_HIGHADDR              0U
+#endif
+
+#ifdef XPAR_PSU_DDR_1_BASEADDRESS
+#define XMT_DDR_1_SIZE                  ((XPAR_PSU_DDR_1_HIGHADDRESS -\
+                                        XPAR_PSU_DDR_1_BASEADDRESS) + 1U)
+#define XMT_DDR_1_BASEADDR              XPAR_PSU_DDR_1_BASEADDRESS
+#define XMT_DDR_1_HIGHADDR              XPAR_PSU_DDR_1_HIGHADDRESS
+#else
+#define XMT_DDR_1_SIZE                  0U
+#define XMT_DDR_1_BASEADDR              0U
+#define XMT_DDR_1_HIGHADDR              0U
+#endif
+
+#if (defined(XPAR_PSU_DDR_0_BASEADDRESS))
+#define XMT_DDR_BASEADDR                XPAR_PSU_DDR_0_BASEADDRESS
+#elif (defined(XPAR_PSU_DDR_1_BASEADDRESS))
+#define XMT_DDR_BASEADDR                XPAR_PSU_DDR_1_BASEADDRESS
+#endif
+#define XMT_DDR_MAX_SIZE                (XMT_DDR_0_SIZE + XMT_DDR_1_SIZE)
+
+#endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -398,7 +431,11 @@ static double XMt_CalcTime(XTime tCur)
 	tDiff = tEnd - tCur;
 
 	/* Convert tPerf into seconds */
+#ifndef SDT
 	tPerfS = ((double)tDiff / (double)COUNTS_PER_SECOND);
+#else
+	tPerfS = ((double)tDiff / (double)XSLEEPTIMER_FREQ);
+#endif
 
 	return tPerfS;
 }
@@ -495,6 +532,8 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 	}
 
 	if (XMtPtr->DCacheEnable != 0U) {
+#ifndef SDT
+
 #if (defined(XPAR_PSU_DDR_0_S_AXI_BASEADDR))
 		if ((XMT_DDR_BASEADDR + Start + Size) < (XMT_DDR_0_HIGHADDR + 1U)) {
 			Xil_DCacheInvalidateRange(XMT_DDR_BASEADDR + Start, Size);
@@ -504,6 +543,21 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 		}
 #elif (defined(XPAR_PSU_DDR_1_S_AXI_BASEADDR))
 		Xil_DCacheInvalidateRange(XMT_DDR_BASEADDR + Start, Size);
+#endif
+
+#else
+
+#if (defined(XPAR_PSU_DDR_0_BASEADDRESS))
+		if ((XMT_DDR_BASEADDR + Start + Size) < (XMT_DDR_0_HIGHADDR + 1U)) {
+                        Xil_DCacheInvalidateRange(XMT_DDR_BASEADDR + Start, Size);
+                } else {
+                        Xil_DCacheInvalidateRange(Start, XMT_DDR_0_HIGHADDR + 1U - (XMT_DDR_BASEADDR + Start));
+                        Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, XMT_DDR_BASEADDR + Start + Size - XMT_DDR_1_BASEADDR);
+                }
+#elif (defined(XPAR_PSU_DDR_1_BASEADDRESS))
+		Xil_DCacheInvalidateRange(XMT_DDR_BASEADDR + Start, Size);
+#endif
+
 #endif
 	}
 
@@ -697,6 +751,8 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 	}
 
 	if (XMtPtr->DCacheEnable != 0U) {
+#ifndef SDT
+
 #if (defined(XPAR_PSU_DDR_0_S_AXI_BASEADDR))
 		if ((StartAddr + (Len * XMT_KB2BYTE)) < (XMT_DDR_0_HIGHADDR + 1U)) {
 			Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
@@ -706,6 +762,21 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 		}
 #elif (defined(XPAR_PSU_DDR_1_S_AXI_BASEADDR))
 		Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
+#endif
+
+#else
+
+#if (defined(XPAR_PSU_DDR_0_BASEADDRESS))
+                if ((StartAddr + (Len * XMT_KB2BYTE)) < (XMT_DDR_0_HIGHADDR + 1U)) {
+                        Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
+                } else {
+                        Xil_DCacheInvalidateRange(StartAddr, XMT_DDR_0_HIGHADDR + 1U - StartAddr);
+                        Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, StartAddr + (Len * XMT_KB2BYTE) - XMT_DDR_1_BASEADDR);
+                }
+#elif (defined(XPAR_PSU_DDR_1_BASEADDRESS))
+                Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
+#endif
+
 #endif
 	}
 

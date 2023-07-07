@@ -1,0 +1,23 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Zynq MP DRAM tests
+
+maintainers:
+  - Harini T <harini.t@amd.com>
+
+type: apps
+
+description: |-
+  This application runs out of OCM and performs memory tests on Zynq MP DRAM. For more information about the test, refer to ZYNQMP_DRAM_DIAGNOSTICS_TEST.docx, in the src directory of the application.
+
+depends_libs:
+    xiltimer: {}
+
+supported_processors:
+  - psu_cortexa53
+
+supported_os:
+  - standalone
+...
