@@ -20,4 +20,6 @@ depends:
         - reg
     uartpsv:
         - reg
+    coresightps_dcc:
+        - reg
 ...
