@@ -47,6 +47,7 @@
 *                       configured
 *       sk   19/05/2023 Added call to save Boot PDI info
 *       sk   06/12/2023 Read Kek src & Plmkat status after In-Place PLM update
+*       vns  07/06/2023 Added regeneration of DEVAK post in place PLM update
 *
 * </pre>
 *
@@ -61,6 +62,9 @@
 #include "xplmi_err_common.h"
 #include "xloader_plat.h"
 #include "xplmi_plat.h"
+#ifdef PLM_OCP
+#include "xocp_keymgmt.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -105,7 +109,12 @@ int XPlm_LoadBootPdi(void *Arg)
 		BootPdiInfo->DecKeySrc = XLoader_GetKekSrc();
 		XPlmi_GetBootKatStatus((volatile u32*)&BootPdiInfo->PlmKatStatus);
 	#endif
+		/* Regenerate DEVAK keys of the sub-systems */
+#ifdef PLM_OCP
+		Status = XOcp_RegenSubSysDevAk();
+#else
 		Status = XST_SUCCESS;
+#endif
 		goto ERR_END;
 	}
 	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");

@@ -21,6 +21,7 @@
 * 1.0   vns  07/08/2022   Initial release
 *       vns  01/10/2023   Adds logic to generate the DEVA on subsystem based.
 * 1.2   har  02/24/2023   Added macro XOCP_INVALID_USR_CFG_INDEX
+*       vns  07/06/2023   Added DEVAK regenerate support and Data clear before shutdown
 *
 * </pre>
 *
@@ -58,6 +59,9 @@ extern "C" {
 #define XOCP_INVALID_DEVAK_INDEX			(0xFFFFFFFFU)
 #define XOCP_INVALID_USR_CFG_INDEX			(0xFFFFFFFFU)
 
+/* XilOCP Module Data Structure Ids*/
+#define XOCP_DEVAK_SUBSYS_HASH_DS_ID		(1U)
+
 /**************************** Type Definitions *******************************/
 /**
  * OCP key management driver instance to store the states
@@ -70,6 +74,15 @@ typedef struct {
 } XOcp_KeyMgmt;
 
 /**
+ * DEVAK data storage for in place PLM update
+ */
+typedef struct {
+	u32 SubSystemId;	/**< Corresponding Sub system ID */
+	u8 SubSysHash[XSECURE_HASH_SIZE_IN_BYTES]; /**< Hash of the subsystem */
+	u32 ValidData;		/**< Valid Data */
+} XOcp_SubSysHash;
+
+/**
  * DEV AK data structure
  */
 typedef struct {
@@ -79,7 +92,7 @@ typedef struct {
 	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES]; /**< ECC DEV AK private key */
 	u8 EccX[XOCP_ECC_P384_SIZE_BYTES];	/**< ECC DEVAK publick key X */
 	u8 EccY[XOCP_ECC_P384_SIZE_BYTES];	/**< ECC DEVAK publick key Y */
-	u8 IsDevAkKeyReady; /**< Indicates Dev AK availability */
+	u32 IsDevAkKeyReady; /**< Indicates Dev AK availability */
 } XOcp_DevAkData;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -95,6 +108,8 @@ int XOcp_GenerateDevAk(u32 SubSystemId);
 int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId);
 int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId);
 int XOcp_IsDevIkReady(void);
+int XOcp_RegenSubSysDevAk(void);
+int XOcp_DataZeroize(XPlmi_ModuleOp Op);
 #ifdef __cplusplus
 }
 #endif
