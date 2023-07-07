@@ -50,7 +50,7 @@
 
 #ifdef XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #define XMT_DDR_0_SIZE			((XPAR_PSU_DDR_0_S_AXI_HIGHADDR -\
-					XPAR_PSU_DDR_0_S_AXI_BASEADDR) + 1U)
+		XPAR_PSU_DDR_0_S_AXI_BASEADDR) + 1U)
 #define XMT_DDR_0_BASEADDR		XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #define XMT_DDR_0_HIGHADDR		XPAR_PSU_DDR_0_S_AXI_HIGHADDR
 #else
@@ -61,7 +61,7 @@
 
 #ifdef XPAR_PSU_DDR_1_S_AXI_BASEADDR
 #define XMT_DDR_1_SIZE			((XPAR_PSU_DDR_1_S_AXI_HIGHADDR -\
-					XPAR_PSU_DDR_1_S_AXI_BASEADDR) + 1U)
+		XPAR_PSU_DDR_1_S_AXI_BASEADDR) + 1U)
 #define XMT_DDR_1_BASEADDR		XPAR_PSU_DDR_1_S_AXI_BASEADDR
 #define XMT_DDR_1_HIGHADDR		XPAR_PSU_DDR_1_S_AXI_HIGHADDR
 #else
@@ -81,7 +81,7 @@
 
 #ifdef XPAR_PSU_DDR_0_BASEADDRESS
 #define XMT_DDR_0_SIZE                  ((XPAR_PSU_DDR_0_HIGHADDRESS -\
-                                        XPAR_PSU_DDR_0_BASEADDRESS) + 1U)
+		XPAR_PSU_DDR_0_BASEADDRESS) + 1U)
 #define XMT_DDR_0_BASEADDR              XPAR_PSU_DDR_0_BASEADDRESS
 #define XMT_DDR_0_HIGHADDR              XPAR_PSU_DDR_0_HIGHADDRESS
 #else
@@ -92,7 +92,7 @@
 
 #ifdef XPAR_PSU_DDR_1_BASEADDRESS
 #define XMT_DDR_1_SIZE                  ((XPAR_PSU_DDR_1_HIGHADDRESS -\
-                                        XPAR_PSU_DDR_1_BASEADDRESS) + 1U)
+		XPAR_PSU_DDR_1_BASEADDRESS) + 1U)
 #define XMT_DDR_1_BASEADDR              XPAR_PSU_DDR_1_BASEADDRESS
 #define XMT_DDR_1_HIGHADDR              XPAR_PSU_DDR_1_HIGHADDRESS
 #else
@@ -384,30 +384,54 @@ static u16 AggressorPattern16Bit[] = {
 
 /* Test Pattern for Simple Memory tests */
 u64 TestPattern[12][4] = {
-	{0xFFFF0000FFFF0000, 0xFFFF0000FFFF0000,
-	0xFFFF0000FFFF0000, 0xFFFF0000FFFF0000},
-	{0x0000FFFF0000FFFF, 0x0000FFFF0000FFFF,
-	0x0000FFFF0000FFFF, 0x0000FFFF0000FFFF},
-	{0xAAAA5555AAAA5555, 0xAAAA5555AAAA5555,
-	0xAAAA5555AAAA5555, 0xAAAA5555AAAA5555},
-	{0x5555AAAA5555AAAA, 0x5555AAAA5555AAAA,
-	0x5555AAAA5555AAAA, 0x5555AAAA5555AAAA},
-	{0x0000000000000000, 0x0000000000000000,
-	0x0000000000000000, 0x0000000000000000},
-	{0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF,
-	0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF},
-	{0xAAAAAAAAAAAAAAAA, 0xAAAAAAAAAAAAAAAA,
-	0xAAAAAAAAAAAAAAAA, 0xAAAAAAAAAAAAAAAA},
-	{0x5555555555555555, 0x5555555555555555,
-	0x5555555555555555, 0x5555555555555555},
-	{0x0000000000000000, 0xFFFFFFFFFFFFFFFF,
-	0x0000000000000000, 0xFFFFFFFFFFFFFFFF},
-	{0xFFFFFFFFFFFFFFFF, 0x0000000000000000,
-	0xFFFFFFFFFFFFFFFF, 0x0000000000000000},
-	{0x5555555555555555, 0xAAAAAAAAAAAAAAAA,
-	0x5555555555555555, 0xAAAAAAAAAAAAAAAA},
-	{0xAAAAAAAAAAAAAAAA, 0x5555555555555555,
-	0xAAAAAAAAAAAAAAAA, 0x5555555555555555}
+	{
+		0xFFFF0000FFFF0000, 0xFFFF0000FFFF0000,
+		0xFFFF0000FFFF0000, 0xFFFF0000FFFF0000
+	},
+	{
+		0x0000FFFF0000FFFF, 0x0000FFFF0000FFFF,
+		0x0000FFFF0000FFFF, 0x0000FFFF0000FFFF
+	},
+	{
+		0xAAAA5555AAAA5555, 0xAAAA5555AAAA5555,
+		0xAAAA5555AAAA5555, 0xAAAA5555AAAA5555
+	},
+	{
+		0x5555AAAA5555AAAA, 0x5555AAAA5555AAAA,
+		0x5555AAAA5555AAAA, 0x5555AAAA5555AAAA
+	},
+	{
+		0x0000000000000000, 0x0000000000000000,
+		0x0000000000000000, 0x0000000000000000
+	},
+	{
+		0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF,
+		0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF
+	},
+	{
+		0xAAAAAAAAAAAAAAAA, 0xAAAAAAAAAAAAAAAA,
+		0xAAAAAAAAAAAAAAAA, 0xAAAAAAAAAAAAAAAA
+	},
+	{
+		0x5555555555555555, 0x5555555555555555,
+		0x5555555555555555, 0x5555555555555555
+	},
+	{
+		0x0000000000000000, 0xFFFFFFFFFFFFFFFF,
+		0x0000000000000000, 0xFFFFFFFFFFFFFFFF
+	},
+	{
+		0xFFFFFFFFFFFFFFFF, 0x0000000000000000,
+		0xFFFFFFFFFFFFFFFF, 0x0000000000000000
+	},
+	{
+		0x5555555555555555, 0xAAAAAAAAAAAAAAAA,
+		0x5555555555555555, 0xAAAAAAAAAAAAAAAA
+	},
+	{
+		0xAAAAAAAAAAAAAAAA, 0x5555555555555555,
+		0xAAAAAAAAAAAAAAAA, 0x5555555555555555
+	}
 };
 
 /*****************************************************************************/
@@ -511,7 +535,7 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 	Start = ((u64) StartVal);
 	Size = ((u64) SizeVal) * XMT_MB2BYTE;
 
-	memset(LocalErrCnt, 0U, 8*(sizeof(s32)));
+	memset(LocalErrCnt, 0U, 8 * (sizeof(s32)));
 
 	/* Get the Starting Time value */
 	XTime_GetTime(&tCur1);
@@ -549,11 +573,11 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 
 #if (defined(XPAR_PSU_DDR_0_BASEADDRESS))
 		if ((XMT_DDR_BASEADDR + Start + Size) < (XMT_DDR_0_HIGHADDR + 1U)) {
-                        Xil_DCacheInvalidateRange(XMT_DDR_BASEADDR + Start, Size);
-                } else {
-                        Xil_DCacheInvalidateRange(Start, XMT_DDR_0_HIGHADDR + 1U - (XMT_DDR_BASEADDR + Start));
-                        Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, XMT_DDR_BASEADDR + Start + Size - XMT_DDR_1_BASEADDR);
-                }
+			Xil_DCacheInvalidateRange(XMT_DDR_BASEADDR + Start, Size);
+		} else {
+			Xil_DCacheInvalidateRange(Start, XMT_DDR_0_HIGHADDR + 1U - (XMT_DDR_BASEADDR + Start));
+			Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, XMT_DDR_BASEADDR + Start + Size - XMT_DDR_1_BASEADDR);
+		}
 #elif (defined(XPAR_PSU_DDR_1_BASEADDRESS))
 		Xil_DCacheInvalidateRange(XMT_DDR_BASEADDR + Start, Size);
 #endif
@@ -581,7 +605,7 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 			MemErr++;
 			for (Cnt = 0U; Cnt < XMtPtr->DdrConfigLanes; Cnt++) {
 				if ((((Data ^ RefVal) >>
-						(Cnt * 8)) & 0xff) != 0U) {
+				      (Cnt * 8)) & 0xff) != 0U) {
 					/* Update per Lane Error count */
 					LocalErrCnt[Cnt]++;
 				}
@@ -589,9 +613,9 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 			/* Print the Verbose Information */
 			if ((Verbose == 1U) && (MemErr <= 10)) {
 				xil_printf("Memtest_0 ERROR: "
-				"Addr=0x%X rd/RefVal/xor ="
-				"0x%016llx 0x%016llx 0x%016llx \r\n",
-				Addr, Data, RefVal, Data ^ RefVal);
+					   "Addr=0x%X rd/RefVal/xor ="
+					   "0x%016llx 0x%016llx 0x%016llx \r\n",
+					   Addr, Data, RefVal, Data ^ RefVal);
 			}
 		}
 	}
@@ -600,23 +624,23 @@ static void XMt_Memtest(XMt_CfgData *XMtPtr, u32 StartVal, u32 SizeVal,
 	TestTime = XMt_CalcTime(tCur1);
 
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_2_LANE) {
-			/* Print the Memory Test Report */
-			xil_printf("\rMT0(%2d)  | %6d | %4d, %4d  | %d.%06d\r\n",
-			       ModeVal, MemErr, LocalErrCnt[0], LocalErrCnt[1]
-					, (int)TestTime, (int)((TestTime - (int)TestTime)*1000000.0f));
+		/* Print the Memory Test Report */
+		xil_printf("\rMT0(%2d)  | %6d | %4d, %4d  | %d.%06d\r\n",
+			   ModeVal, MemErr, LocalErrCnt[0], LocalErrCnt[1]
+			   , (int)TestTime, (int)((TestTime - (int)TestTime) * 1000000.0f));
 	} else if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_4_LANE) {
 		/* Print the Memory Test Report */
 		xil_printf("\rMT0(%2d)  | %6d | %4d, %4d, %4d, %4d  | %d.%06d\r\n",
-		       ModeVal, MemErr, LocalErrCnt[0], LocalErrCnt[1], LocalErrCnt[2],
-		       LocalErrCnt[3], (int)TestTime,
-		       (int)((TestTime - (int)TestTime)*1000000.0f));
+			   ModeVal, MemErr, LocalErrCnt[0], LocalErrCnt[1], LocalErrCnt[2],
+			   LocalErrCnt[3], (int)TestTime,
+			   (int)((TestTime - (int)TestTime) * 1000000.0f));
 	} else if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_8_LANE) {
 		/* Print the Memory Test Report */
 		xil_printf("\rMT0(%2d)  | %6d | %4d, %4d, %4d, %4d, %4d, %4d, %4d, %4d | %d.%06d\r\n",
-		       ModeVal, MemErr, LocalErrCnt[0], LocalErrCnt[1], LocalErrCnt[2],
-		       LocalErrCnt[3], LocalErrCnt[4], LocalErrCnt[5], LocalErrCnt[6],
-		       LocalErrCnt[7], (int)TestTime,
-		       (int)((TestTime - (int)TestTime)*1000000.0f));
+			   ModeVal, MemErr, LocalErrCnt[0], LocalErrCnt[1], LocalErrCnt[2],
+			   LocalErrCnt[3], LocalErrCnt[4], LocalErrCnt[5], LocalErrCnt[6],
+			   LocalErrCnt[7], (int)TestTime,
+			   (int)((TestTime - (int)TestTime) * 1000000.0f));
 	}
 
 	XMt_PrintLine(XMtPtr, 4);
@@ -649,21 +673,21 @@ static void XMt_MemtestAll(XMt_CfgData *XMtPtr, u64 TestStart, u64 TestSize,
 			InvMaskInd = (Index >> 4) & 0x07;
 			Pattern[0][Index] = Pattern64Bit[Index & 15];
 			Pattern[1][Index] = Pattern64Bit[Index & 15] ^
-					InvertMask64Bit[InvMaskInd];
+					    InvertMask64Bit[InvMaskInd];
 		}
 	} else if (BusWidth == XMT_DDR_CONFIG_32BIT_WIDTH) {
 		for (Index = 0U; Index < 128U; Index++) {
 			InvMaskInd = (Index >> 4) & 0x07;
 			Pattern[0][Index] = Pattern32Bit[Index & 15];
 			Pattern[1][Index] = Pattern32Bit[Index & 15] ^
-					InvertMask32Bit[InvMaskInd];
+					    InvertMask32Bit[InvMaskInd];
 		}
 	} else {
 		for (Index = 0U; Index < 128U; Index++) {
 			InvMaskInd = (Index >> 4) & 0x07;
 			Pattern[0][Index] = Pattern16Bit[Index & 15];
 			Pattern[1][Index] = Pattern16Bit[Index & 15] ^
-					InvertMask16Bit[InvMaskInd];
+					    InvertMask16Bit[InvMaskInd];
 		}
 	}
 
@@ -728,7 +752,7 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 	StartAddr = XMT_DDR_BASEADDR + StartAddr;
 
 	/* Do the Write operation on memory size specified in argument */
-	for (Index = StartAddr; Index < (StartAddr+(Len*XMT_KB2BYTE)); Index += Offset) {
+	for (Index = StartAddr; Index < (StartAddr + (Len * XMT_KB2BYTE)); Index += Offset) {
 		if (Index < (XMT_DDR_0_HIGHADDR + 1U)) {
 			Addr = Index;
 		} else {
@@ -738,15 +762,15 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 		if (Offset == 8U) {
 			Xil_Out64(Addr, AggressorPattern64Bit[DataPtr]);
 			DataPtr++;
-			DataPtr = (DataPtr) % (sizeof(AggressorPattern64Bit)/sizeof(u64));
+			DataPtr = (DataPtr) % (sizeof(AggressorPattern64Bit) / sizeof(u64));
 		} else if (Offset == 4U) {
 			Xil_Out32(Addr, AggressorPattern32Bit[DataPtr]);
 			DataPtr++;
-			DataPtr = (DataPtr) % (sizeof(AggressorPattern32Bit)/sizeof(u32));
+			DataPtr = (DataPtr) % (sizeof(AggressorPattern32Bit) / sizeof(u32));
 		} else {
 			Xil_Out16(Addr, AggressorPattern16Bit[DataPtr]);
 			DataPtr++;
-			DataPtr = (DataPtr) % (sizeof(AggressorPattern16Bit)/sizeof(u16));
+			DataPtr = (DataPtr) % (sizeof(AggressorPattern16Bit) / sizeof(u16));
 		}
 	}
 
@@ -767,14 +791,14 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 #else
 
 #if (defined(XPAR_PSU_DDR_0_BASEADDRESS))
-                if ((StartAddr + (Len * XMT_KB2BYTE)) < (XMT_DDR_0_HIGHADDR + 1U)) {
-                        Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
-                } else {
-                        Xil_DCacheInvalidateRange(StartAddr, XMT_DDR_0_HIGHADDR + 1U - StartAddr);
-                        Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, StartAddr + (Len * XMT_KB2BYTE) - XMT_DDR_1_BASEADDR);
-                }
+		if ((StartAddr + (Len * XMT_KB2BYTE)) < (XMT_DDR_0_HIGHADDR + 1U)) {
+			Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
+		} else {
+			Xil_DCacheInvalidateRange(StartAddr, XMT_DDR_0_HIGHADDR + 1U - StartAddr);
+			Xil_DCacheInvalidateRange(XMT_DDR_1_BASEADDR, StartAddr + (Len * XMT_KB2BYTE) - XMT_DDR_1_BASEADDR);
+		}
 #elif (defined(XPAR_PSU_DDR_1_BASEADDRESS))
-                Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
+		Xil_DCacheInvalidateRange(StartAddr, Len * XMT_KB2BYTE);
 #endif
 
 #endif
@@ -783,7 +807,7 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 	DataPtr = 0U;
 
 	/* Do the Read operation on memory size specified in argument */
-	for (Index = StartAddr; Index < (StartAddr+(Len*XMT_KB2BYTE)); Index += Offset) {
+	for (Index = StartAddr; Index < (StartAddr + (Len * XMT_KB2BYTE)); Index += Offset) {
 		if (Index < (XMT_DDR_0_HIGHADDR + 1U)) {
 			Addr = Index;
 		} else {
@@ -794,27 +818,27 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 			ReadVal = Xil_In64(Addr);
 			ExpectedVal = AggressorPattern64Bit[DataPtr];
 			DataPtr++;
-			DataPtr = (DataPtr) % (sizeof(AggressorPattern64Bit)/sizeof(u64));
+			DataPtr = (DataPtr) % (sizeof(AggressorPattern64Bit) / sizeof(u64));
 		} else if (Offset == 4U) {
 			ReadVal = Xil_In32(Addr);
 			ExpectedVal = AggressorPattern32Bit[DataPtr];
 			DataPtr++;
-			DataPtr = (DataPtr) % (sizeof(AggressorPattern32Bit)/sizeof(u32));
+			DataPtr = (DataPtr) % (sizeof(AggressorPattern32Bit) / sizeof(u32));
 		} else {
 			ReadVal = Xil_In16(Addr);
 			ExpectedVal = AggressorPattern16Bit[DataPtr];
 			DataPtr++;
-			DataPtr = (DataPtr) % (sizeof(AggressorPattern16Bit)/sizeof(u16));
+			DataPtr = (DataPtr) % (sizeof(AggressorPattern16Bit) / sizeof(u16));
 		}
 
 		/* Compare the Read Value and the Expected Value */
 		if (ReadVal != ExpectedVal) {
 			for (Lane = 0U; Lane < XMtPtr->DdrConfigLanes; Lane++) {
 				if ((((ReadVal ^ ExpectedVal) >>
-						(Lane * 8)) & 0xFF) != 0U) {
+				      (Lane * 8)) & 0xFF) != 0U) {
 					RegVal = Xil_In32(XMT_RESULTS_BASE +
-							  (Lane*4));
-					Xil_Out32(XMT_RESULTS_BASE + (Lane*4),
+							  (Lane * 4));
+					Xil_Out32(XMT_RESULTS_BASE + (Lane * 4),
 						  RegVal + 1);
 				}
 			}
@@ -893,13 +917,13 @@ int main(void)
 		xil_printf("\r\n");
 
 		if (((Ch >= '0') && (Ch <= '9')) ||
-			((Ch == 'm') || (Ch == 'M')) ||
-			((Ch == 'g') || (Ch == 'G'))) {
+		    ((Ch == 'm') || (Ch == 'M')) ||
+		    ((Ch == 'g') || (Ch == 'G'))) {
 			if ((Ch >= '0') && (Ch <= '9')) {
 				TestSize = 0x10 << (Ch - '0');
 			} else {
 				xil_printf("\r\n Enter the size in %s : ",
-						((Ch == 'm') || (Ch == 'M')) ? "MB" : "GB");
+					   ((Ch == 'm') || (Ch == 'M')) ? "MB" : "GB");
 				TestSize = 0;
 				do {
 					SizeChar = inbyte();
@@ -915,11 +939,11 @@ int main(void)
 				} while ((SizeChar != '\n') && (SizeChar != '\r'));
 
 				TestSize = ((Ch == 'g') || (Ch == 'G')) ?
-							(TestSize * XMT_KB2BYTE) : TestSize;
+					   (TestSize * XMT_KB2BYTE) : TestSize;
 			}
 
 			if ((StartAddr + (TestSize * XMT_MB2BYTE)) <=
-					XMT_DDR_MAX_SIZE) {
+			    XMT_DDR_MAX_SIZE) {
 				for (Index = 0; Index < Iter; Index++) {
 					xil_printf("\r\nStarting Memory Test...\r\n");
 					xil_printf("%dMB length - Address 0x%x...\r\n",
@@ -953,10 +977,10 @@ int main(void)
 
 		} else if ((Ch == 'c') || (Ch == 'C')) {
 			if ((XMt.DdrType == XMT_DDR_TYPE_DDR4) ||
-					(XMt.DdrType == XMT_DDR_TYPE_LPDDR4)) {
+			    (XMt.DdrType == XMT_DDR_TYPE_LPDDR4)) {
 				for (Index = 0; Index < Iter; Index++) {
 					Status = XMt_MeasureRdEye2D(&XMt, StartAddr,
-								  XMT_DEFAULT_TEST_LEN);
+								    XMT_DEFAULT_TEST_LEN);
 					if (Status != XST_SUCCESS) {
 						Status = XST_FAILURE;
 						goto RETURN_PATH;
@@ -968,10 +992,10 @@ int main(void)
 
 		} else if ((Ch == 'e') || (Ch == 'E')) {
 			if ((XMt.DdrType == XMT_DDR_TYPE_DDR4) ||
-					(XMt.DdrType == XMT_DDR_TYPE_LPDDR4)) {
+			    (XMt.DdrType == XMT_DDR_TYPE_LPDDR4)) {
 				for (Index = 0; Index < Iter; Index++) {
 					Status = XMt_MeasureWrEye2D(&XMt, StartAddr,
-								  XMT_DEFAULT_TEST_LEN);
+								    XMT_DEFAULT_TEST_LEN);
 					if (Status != XST_SUCCESS) {
 						Status = XST_FAILURE;
 						goto RETURN_PATH;
@@ -1007,7 +1031,7 @@ int main(void)
 
 		} else if ((Ch == 't') || (Ch == 'T')) {
 			xil_printf("Please enter the Start address in hex"
-				"(without leading 0x and press enter):");
+				   "(without leading 0x and press enter):");
 			StartAddr = 0;
 			do {
 				SizeChar = inbyte();
@@ -1044,14 +1068,14 @@ int main(void)
 
 			if (RankArg >= XMt.DdrConfigRanks || RankArg < 0) {
 				xil_printf("\r\nInvalid Selection. "
-					"Available no. of ranks: %d."
-					"Rank selected: %d\r\n",
-					XMt.DdrConfigRanks, RankArg);
+					   "Available no. of ranks: %d."
+					   "Rank selected: %d\r\n",
+					   XMt.DdrConfigRanks, RankArg);
 			} else {
 				XMt_SelectRank(RankArg);
 				XMt.RankSel = RankArg;
 				StartAddr = (StartAddr & ~((u64)1U << 32))
-						  | ((u64)RankArg << 32);
+					    | ((u64)RankArg << 32);
 			}
 
 		} else if ((Ch == 'i') || (Ch == 'I')) {

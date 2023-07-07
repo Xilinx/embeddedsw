@@ -349,11 +349,11 @@ static INLINE void XMt_MaskWrite(u32 Offset, u32 Mask, u32 Value)
  *****************************************************************************/
 static INLINE void XMt_SetRegValue(u32 Addr, u32 Mask, u32 Shift, u32 Value)
 {
-    u32 Rd = 0;
-    Rd  = Xil_In32(Addr);
-    Rd  = Rd & (~Mask);
-    Rd  = Rd | (Value << Shift);
-    Xil_Out32(Addr, Rd);
+	u32 Rd = 0;
+	Rd  = Xil_In32(Addr);
+	Rd  = Rd & (~Mask);
+	Rd  = Rd | (Value << Shift);
+	Xil_Out32(Addr, Rd);
 }
 
 /*****************************************************************************/
