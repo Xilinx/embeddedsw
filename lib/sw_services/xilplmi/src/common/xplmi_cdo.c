@@ -57,6 +57,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.08  bm   05/22/2023 Update current CDO command offset in GSW Error Status
 *       bm   06/13/2023 Log PLM error before deferring
+*       bm   07/06/2023 Added Check for recursive CDO processing
 *
 * </pre>
 *
@@ -81,6 +82,8 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/**< Maximum recursive CDO processing allowed */
+#define XPLMI_MAX_RECURSIVE_CDO_PROCESS (2U)
 
 /************************** Function Prototypes ******************************/
 
@@ -229,6 +232,7 @@ int XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 	/* Set LogCdoOffset Flag only when PGGS1 register indicates to log */
 	CdoPtr->LogCdoOffset = (u8)((XPlmi_In32(PMC_GLOBAL_PERS_GLOB_GEN_STORAGE1) &
 				PMC_GLOBAL_LOG_CDO_OFFSET_MASK) >> PMC_GLOBAL_LOG_CDO_OFFSET_SHIFT);
+	CdoPtr->Cmd.CdoParamsStack.OffsetListTop = -1;
 
 END:
 	return Status;
@@ -410,6 +414,17 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	u32 *BufPtr = CdoPtr->BufPtr;
 	u32 BufLen = CdoPtr->BufLen;
 	u32 RemainingLen;
+	static u32 CdoLevel = 0U;
+
+	/*
+	 * Check for Maximum recursive CDO processing allowed.
+	 * Note that this is possible only using run_proc command.
+	 */
+	CdoLevel++;
+	if (CdoLevel > XPLMI_MAX_RECURSIVE_CDO_PROCESS) {
+		Status = XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS;
+		goto END;
+	}
 
 	/** - Verify the header for the first chunk of CDO */
 	if (CdoPtr->Cdo1stChunk == (u8)TRUE) {
@@ -533,6 +548,9 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	Status = XST_SUCCESS;
 
 END:
+	if (CdoLevel != 0U) {
+		CdoLevel--;
+	}
 	XPlmi_SetPlmLiveStatus();
 	return Status;
 }

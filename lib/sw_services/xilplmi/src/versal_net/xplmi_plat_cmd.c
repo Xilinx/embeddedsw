@@ -29,6 +29,7 @@
 *       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.02  bm   06/23/2023 Removed existing hardcoded logic of validating IPI commands
+*       bm   07/06/2023 Added XPlmi_RunProc command
 *
 * </pre>
 *
@@ -392,4 +393,26 @@ int XPlmi_SetFipsKatMask(XPlmi_Cmd *Cmd)
 END:
 	return Status;
 
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will run the already stored proc if present
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 		- XST_SUCCESS if success and error code if failure
+ *
+ *****************************************************************************/
+int XPlmi_RunProc(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+
+	XPLMI_EXPORT_CMD(XPLMI_RUN_PROC_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+			XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
+	/* Execute Proc with the given Proc ID */
+	Status = XPlmi_ExecuteProc(Cmd->Payload[0U]);
+
+	return Status;
 }

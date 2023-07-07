@@ -45,6 +45,7 @@
 *       bm   08/24/2022 Support Begin, Break and End commands across chunk
 *                       boundaries
 * 1.8   skg  10/04/2022 Added masks for SLR ID and Zeriozing the SLR ID
+* 1.9   bm   07/06/2023 Added XPlmi_ClearEndStack member to XPlmi_Cmd structure
 *
 * </pre>
 *
@@ -74,10 +75,17 @@ extern "C" {
 #define XPLMI_CMD_MODULE_ID_SHIFT		(8U)
 #define XPLMI_CMD_SLR_ID_MASK           (0X000000C0U)              /* Mask for extracting SlrIndex */
 #define XPLMI_SLR_ID_ZEROISE            ~(XPLMI_CMD_SLR_ID_MASK)  /* Mask for making SlrIndex Zero after use*/
+#define XPLMI_BEGIN_OFFSET_STACK_SIZE		(10U)
 
 /**************************** Type Definitions *******************************/
 typedef struct XPlmi_Cmd XPlmi_Cmd;
 typedef struct XPlmi_KeyHoleParams XPlmi_KeyHoleParams;
+
+
+typedef struct {
+	u32 OffsetList[XPLMI_BEGIN_OFFSET_STACK_SIZE];
+	int OffsetListTop;
+} XPlmi_CdoParamsStack;
 
 struct XPlmi_KeyHoleParams {
 	u64 SrcAddr; /**< Boot Source address */
@@ -98,6 +106,7 @@ struct XPlmi_Cmd {
 	int (*ResumeHandler)(XPlmi_Cmd * CmdPtr);
 	u32 ResumeData[XPLMI_CMD_RESUME_DATALEN];
 	XPlmi_KeyHoleParams KeyHoleParams;
+	XPlmi_CdoParamsStack CdoParamsStack;
 	u32 IpiReqType;
 	u32 BreakLength;
 	u32 ProcessedCdoLen;
