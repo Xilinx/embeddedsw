@@ -68,7 +68,7 @@ XDfxasm_Config *XDfxasm_LookupConfig(u16 DeviceId)
 	u32 Index;
 
 	for (Index = 0; Index < (u32)XPAR_XDFXASM_NUM_INSTANCES;
-		Index++) {
+	     Index++) {
 		if (XDfxasm_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XDfxasm_ConfigTable[Index];
 			break;

@@ -105,10 +105,10 @@ void XDfxasm_SetState(XDfxasm *InstancePtr, XDfxasm_State ShutdownValue)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((ShutdownValue == XDFX_ASM_SHUTDOWN_MODE) ||
-			(ShutdownValue == XDFX_ASM_PASSTHROUGH_MODE));
+		       (ShutdownValue == XDFX_ASM_PASSTHROUGH_MODE));
 
 	XDfxasm_WriteReg(((InstancePtr->Config.BaseAddress) + XDFX_ASM_CTRL_OFFSET),
-			ShutdownValue);
+			 ShutdownValue);
 }
 
 /*****************************************************************************/
@@ -142,7 +142,7 @@ u32 XDfxasm_GetState(XDfxasm *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	Data = XDfxasm_ReadReg((InstancePtr->Config.BaseAddress) +
-			XDFX_ASM_CTRL_OFFSET) & XDFX_ASM_CTRL_SHUTDOWN_MASK;
+			       XDFX_ASM_CTRL_OFFSET) & XDFX_ASM_CTRL_SHUTDOWN_MASK;
 
 	return Data;
 }
