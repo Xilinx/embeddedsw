@@ -21,7 +21,7 @@
 * Ver   Who    Date          Changes
 * ----- ----- -----------   ---------------------------------------------
 * 1.0   dp    07/14/20      First release
-*
+* 1.2   Nava  06/22/23      Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -29,8 +29,9 @@
 /***************************** Include Files *********************************/
 
 #include "xdfxasm.h"
+#ifndef SDT
 #include "xparameters.h"
-
+#endif
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -40,8 +41,11 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+#ifndef SDT
 extern XDfxasm_Config XDfxasm_ConfigTable[XPAR_XDFXASM_NUM_INSTANCES];
-
+#else
+extern XDfxasm_Config XDfxasm_ConfigTable[];
+#endif
 /*****************************************************************************/
 /**
 *
@@ -57,6 +61,7 @@ extern XDfxasm_Config XDfxasm_ConfigTable[XPAR_XDFXASM_NUM_INSTANCES];
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XDfxasm_Config *XDfxasm_LookupConfig(u16 DeviceId)
 {
 	XDfxasm_Config *CfgPtr = NULL;
@@ -72,4 +77,22 @@ XDfxasm_Config *XDfxasm_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XDfxasm_Config *XDfxasm_LookupConfig(UINTPTR BaseAddress)
+{
+	XDfxasm_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0; XDfxasm_ConfigTable[Index].Name != NULL;
+	     Index++) {
+		if ((XDfxasm_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XDfxasm_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /** @} */

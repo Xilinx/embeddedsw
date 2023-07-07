@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@
 *                            invoking XDfxasm_SetState() in the routine
 *                            XDfxasm_TestState() to avoid compilation issue
 *                            with cpp compiler.
+* 1.2   Nava  06/22/2023     Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -39,15 +41,22 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define XDFX_ASM_DEVICE_ID	XPAR_DFX_ASM_0_DEVICE_ID
+#else
+#define XDFX_BASEADDR		XPAR_XDFXASM_0_BASEADDR
+#endif
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 u32 XDfxasm_Example(u16 DeviceId);
+#else
+u32 XDfxasm_Example(UINTPTR BaseAddress);
+#endif
 u32 XDfxasm_TestState(void);
 
 /************************** Variable Definitions *****************************/
@@ -73,7 +82,11 @@ int main(void)
 	u32 Status;
 
 	/* Run the selftest example */
+#ifndef SDT
 	Status = XDfxasm_Example((u16)XDFX_ASM_DEVICE_ID);
+#else
+	Status = XDfxasm_Example(XDFX_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Dfx Axi Shutdown manager Example is failed\r\n");
 		return XST_FAILURE;
@@ -99,7 +112,11 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 XDfxasm_Example(u16 DeviceId)
+#else
+u32 XDfxasm_Example(UINTPTR BaseAddress)
+#endif
 {
 	u32 Status;
 	XDfxasm_Config *XDfxasmCfgPtr;
@@ -109,8 +126,11 @@ u32 XDfxasm_Example(u16 DeviceId)
 	 * to use. Look up the configuration in the config table, then initialize
 	 * it.
 	 */
-
+#ifndef SDT
 	XDfxasmCfgPtr = XDfxasm_LookupConfig(DeviceId);
+#else
+	XDfxasmCfgPtr = XDfxasm_LookupConfig(BaseAddress);
+#endif
 	if (NULL == XDfxasmCfgPtr) {
 		return XST_FAILURE;
 	}

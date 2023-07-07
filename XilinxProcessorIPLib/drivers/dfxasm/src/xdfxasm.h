@@ -59,7 +59,7 @@
 * Ver   Who     Date          Changes
 * ----- -----  -----------   ---------------------------------------------
 * 1.0   dp     07/14/20      First release
-*
+* 1.2   Nava   06/22/23      Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -90,7 +90,11 @@ typedef enum {
 
 /* This typedef contains configuration information for a device */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID of the device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< Register Base Address */
 } XDfxasm_Config;
 
@@ -108,7 +112,11 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Functions in xdfxasm_sinit.c */
+#ifndef SDT
 XDfxasm_Config *XDfxasm_LookupConfig(u16 DeviceId);
+#else
+XDfxasm_Config *XDfxasm_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /* Functions in xdfxasm.c */
 s32 XDfxasm_CfgInitialize(XDfxasm *InstancePtr, XDfxasm_Config *ConfigPtr,
