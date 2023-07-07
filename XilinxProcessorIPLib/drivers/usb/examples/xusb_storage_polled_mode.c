@@ -1,6 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
-* Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +29,7 @@
  *	               is done after the call to EPDataReceive and after the
  *		       dma transfer is over.
  * 5.6   pm   07/05/23 Removed powerpc support.
+ * 5.6   pm   07/05/23 Added support for system device-tree flow.
  * </pre>
  *****************************************************************************/
 /***************************** Include Files *********************************/
@@ -40,7 +42,13 @@
 
 /************************** Constant Definitions *****************************/
 
+
+#ifndef SDT
 #define USB_DEVICE_ID		XPAR_USB_0_DEVICE_ID
+#else
+#define XUSB_BASEADDRESS	XPAR_XUSB_0_BASEADDR
+#endif /* SDT */
+
 #define READ_COMMAND		1
 #define WRITE_COMMAND		2
 
@@ -79,6 +87,7 @@ int main()
 
 /* Enable caches for Microblaze, for
  * ARM caches are enabled by BSP  */
+#ifndef SDT
 #ifdef __MICROBLAZE__
 	Xil_ICacheInvalidate();
 	Xil_ICacheEnable();
@@ -87,11 +96,16 @@ int main()
 	Xil_DCacheInvalidate();
 	Xil_DCacheEnable();
 #endif
+#endif
 
 	/*
 	 * Initialize the USB driver.
 	 */
+#ifndef SDT
 	UsbConfigPtr = XUsb_LookupConfig(USB_DEVICE_ID);
+#else
+	UsbConfigPtr = XUsb_LookupConfig(XUSB_BASEADDRESS);
+#endif
 	if (NULL == UsbConfigPtr) {
 		return XST_FAILURE;
 	}
