@@ -179,7 +179,7 @@ static u32  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
 			if ( Fvco >= VcoMin && Fvco <= VcoMax ) {
 
 				for (Div = Omin; Div <= Omax; Div++ ) {
-					Freq = Fvco/Div;
+					Freq = Fvco / Div;
 
 					if (Freq > SetRate) {
 						Diff = Freq - SetRate;
@@ -272,7 +272,7 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 			if ( Fvco >= VcoMin * XCLK_MHZ && Fvco <= VcoMax * XCLK_MHZ ) {
 
 				for (Div = Omin; Div <= Omax; Div++ ) {
-					Freq = Fvco/Div;
+					Freq = Fvco / Div;
 
 					if (Freq > SetRate) {
 						Diff = Freq - SetRate;
@@ -338,16 +338,18 @@ u32 XClk_Wiz_SetRateHz(XClk_Wiz  *InstancePtr, u64 SetRate)
 	Xil_AssertNonvoid(SetRate != 0);
 
 
-	if (InstancePtr->Config.NumClocks  != 1 )
+	if (InstancePtr->Config.NumClocks  != 1 ) {
 		return Status;
+	}
 
 	Status = XClk_Wiz_CalculateDivisorsHz(InstancePtr, SetRate);
-	if ( Status != XST_SUCCESS)
+	if ( Status != XST_SUCCESS) {
 		return Status;
+	}
 
 	Platform = XGetPlatform_Info();
 
-	if(Platform != (u32)XPLAT_VERSAL) {
+	if (Platform != (u32)XPLAT_VERSAL) {
 		Reg = InstancePtr->MVal << 8 | InstancePtr->DVal;
 		XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_ZYNQMP_REG0_OFFSET, Reg);
 		Reg =  InstancePtr->OVal;
@@ -434,14 +436,16 @@ u32 XClk_Wiz_SetRate(XClk_Wiz  *InstancePtr, u64 SetRate)
 
 	Platform = XGetPlatform_Info();
 
-	if (InstancePtr->Config.NumClocks  != 1 )
+	if (InstancePtr->Config.NumClocks  != 1 ) {
 		return Status;
+	}
 
 	Status = XClk_Wiz_CalculateDivisors(InstancePtr, SetRate);
-	if ( Status != XST_SUCCESS)
+	if ( Status != XST_SUCCESS) {
 		return Status;
+	}
 
-	if(Platform != (u32)XPLAT_VERSAL) {
+	if (Platform != (u32)XPLAT_VERSAL) {
 		Reg = InstancePtr->MVal << 8 | InstancePtr->DVal;
 		XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_ZYNQMP_REG0_OFFSET, Reg);
 		Reg =  InstancePtr->OVal;
@@ -519,18 +523,21 @@ u32 XClk_Wiz_EnableClock(XClk_Wiz  *InstancePtr, u32 ClockId)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (ClockId > XCLK_WIZ_MAX_OUTPUT)
+	if (ClockId > XCLK_WIZ_MAX_OUTPUT) {
 		return XST_FAILURE;
+	}
 
 	Platform = XGetPlatform_Info();
 
-	if(Platform != (u32)XPLAT_VERSAL)
+	if (Platform != (u32)XPLAT_VERSAL) {
 		return XST_SUCCESS;
+	}
 
-	if (ClockId < 3)
+	if (ClockId < 3) {
 		RegisterOffset = XCLK_WIZ_REG3_OFFSET + ClockId * 8 ;
-	else
+	} else {
 		RegisterOffset = XCLK_WIZ_REG19_OFFSET + ClockId * 8 ;
+	}
 
 	XCLK_WIZ_BIT_SET(InstancePtr->Config.BaseAddr, RegisterOffset, XCLK_WIZ_REG3_USED);
 
@@ -559,16 +566,19 @@ u32 XClk_Wiz_DisableClock(XClk_Wiz  *InstancePtr, u32 ClockId)
 
 	Platform = XGetPlatform_Info();
 
-	if(Platform != (u32)XPLAT_VERSAL)
+	if (Platform != (u32)XPLAT_VERSAL) {
 		return XST_SUCCESS;
+	}
 
-	if (ClockId > XCLK_WIZ_MAX_OUTPUT)
+	if (ClockId > XCLK_WIZ_MAX_OUTPUT) {
 		return XST_FAILURE;
+	}
 
-	if (ClockId < 3)
+	if (ClockId < 3) {
 		RegisterOffset = XCLK_WIZ_REG3_OFFSET + ClockId * 8 ;
-	else
+	} else {
 		RegisterOffset = XCLK_WIZ_REG19_OFFSET + ClockId * 8 ;
+	}
 
 	XCLK_WIZ_BIT_RESET(InstancePtr->Config.BaseAddr, RegisterOffset, XCLK_WIZ_REG3_USED);
 	return XST_SUCCESS;
@@ -647,11 +657,11 @@ void XClk_Wiz_GetInterruptSettings(XClk_Wiz  *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	InstancePtr->ClkWizIntrStatus = XCLK_WIZ_GET_BITFIELD_VALUE
-	((InstancePtr)->Config.BaseAddr, XCLK_WIZ_ISR_OFFSET,
-	XCLK_WIZ_ISR_ALLINTR_MASK, XCLK_WIZ_ISR_ALLINTR_SHIFT);
+					((InstancePtr)->Config.BaseAddr, XCLK_WIZ_ISR_OFFSET,
+					 XCLK_WIZ_ISR_ALLINTR_MASK, XCLK_WIZ_ISR_ALLINTR_SHIFT);
 	InstancePtr->ClkIntrEnable = XCLK_WIZ_GET_BITFIELD_VALUE
-	((InstancePtr)->Config.BaseAddr, XCLK_WIZ_IER_OFFSET,
-	XCLK_WIZ_IER_ALLINTR_MASK, XCLK_WIZ_IER_ALLINTR_SHIFT);
+				     ((InstancePtr)->Config.BaseAddr, XCLK_WIZ_IER_OFFSET,
+				      XCLK_WIZ_IER_ALLINTR_MASK, XCLK_WIZ_IER_ALLINTR_SHIFT);
 }
 
 /*****************************************************************************/

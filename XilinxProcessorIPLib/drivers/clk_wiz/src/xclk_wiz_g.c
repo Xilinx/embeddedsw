@@ -12,8 +12,7 @@
 * The configuration table for devices
 */
 
-XClk_Wiz_Config XClk_Wiz_ConfigTable[] =
-{
+XClk_Wiz_Config XClk_Wiz_ConfigTable[] = {
 	{
 		XPAR_CLK_MONITOR_DEVICE_ID,
 		XPAR_CLK_MONITOR_BASEADDR,
