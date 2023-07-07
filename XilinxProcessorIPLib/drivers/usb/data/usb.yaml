@@ -1,0 +1,92 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for USBPSU controller
+
+maintainers:
+  - Piyush Mehta <piyush.mehta@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-usb2-device-5.0
+          - xlnx,usb2-device-4.00.a
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,has-builtin-dma:
+    description: Present if dma support Enabled
+    type: boolean
+  xlnx,axi_addr_width:
+    description: Present if dma operations are coherent
+    type: unsigned int
+
+config:
+    - XUsb_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,has-builtin-dma
+    - xlnx,axi_addr_width
+    - interrupts
+    - interrupt-parent
+
+examples:
+    xusb_dma_intr_storage.c:
+        - dependency_files:
+            - xusb_cp9.c
+            - xusb_cp9.h
+            - xusb_storage.h
+            - xusb_types.h
+        - interrupts
+
+    xusb_microphone.c:
+        - dependency_files:
+            - xusb_cp9.c
+            - xusb_cp9.h
+            - xusb_microphone.h
+            - xusb_types.h
+            - data.h
+        - interrupts
+
+    xusb_keyboard.c:
+        - dependency_files:
+            - xusb_cp9.c
+            - xusb_cp9.h
+            - xusb_keyboard.h
+            - xusb_types.h
+        - interrupts
+
+    xusb_mouse.c:
+        - dependency_files:
+            - xusb_cp9.c
+            - xusb_cp9.h
+            - xusb_mouse.h
+            - xusb_types.h
+        - interrupts
+
+    xusb_phy_read_write.c:
+        - interrupts
+
+    xusb_storage.c:
+        - dependency_files:
+            - xusb_cp9.c
+            - xusb_cp9.h
+            - xusb_storage.h
+            - xusb_types.h
+        - interrupts
+
+    xusb_storage_polled_mode.c:
+        - dependency_files:
+            - xusb_cp9.c
+            - xusb_cp9.h
+            - xusb_storage.h
+            - xusb_types.h
+        - reg
+...
