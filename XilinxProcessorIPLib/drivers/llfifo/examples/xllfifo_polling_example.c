@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,7 +65,9 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#ifndef SDT
 #define FIFO_DEV_ID	   	XPAR_AXI_FIFO_0_DEVICE_ID
+#endif
 
 #define WORD_SIZE 4			/* Size of words in bytes */
 
@@ -81,7 +84,12 @@
 static void Uart550_Setup(void);
 #endif
 
+#ifndef SDT
 int XLlFifoPollingExample(XLlFifo *InstancePtr, u16 DeviceId);
+#else
+int XLlFifoPollingExample(XLlFifo *InstancePtr, UINTPTR BaseAddress);
+#endif
+
 int TxSend(XLlFifo *InstancePtr, u32 *SourceAddr);
 int RxReceive(XLlFifo *InstancePtr, u32 *DestinationAddr);
 
@@ -116,7 +124,11 @@ int main()
 
 	xil_printf("--- Entering main() ---\n\r");
 
+#ifndef SDT
 	Status = XLlFifoPollingExample(&FifoInstance, FIFO_DEV_ID);
+#else
+	Status = XLlFifoPollingExample(&FifoInstance, XPAR_XLLFIFO_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Axi Streaming FIFO Polling Example Test Failed\n\r");
 		xil_printf("--- Exiting main() ---\n\r");
@@ -152,7 +164,11 @@ int main()
 *		-XST_FAILURE to indicate failure
 *
 ******************************************************************************/
+#ifndef SDT
 int XLlFifoPollingExample(XLlFifo *InstancePtr, u16 DeviceId)
+#else
+int XLlFifoPollingExample(XLlFifo *InstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	XLlFifo_Config *Config;
 	int Status;
@@ -168,9 +184,15 @@ int XLlFifoPollingExample(XLlFifo *InstancePtr, u16 DeviceId)
 #endif
 
 	/* Initialize the Device Configuration Interface driver */
+#ifndef SDT
 	Config = XLlFfio_LookupConfig(DeviceId);
+#else
+	Config = XLlFfio_LookupConfig(BaseAddress);
+#endif
 	if (!Config) {
+#ifndef SDT
 		xil_printf("No config found for %d\r\n", DeviceId);
+#endif
 		return XST_FAILURE;
 	}
 
