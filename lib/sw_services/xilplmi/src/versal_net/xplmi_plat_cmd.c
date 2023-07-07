@@ -30,6 +30,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.02  bm   06/23/2023 Removed existing hardcoded logic of validating IPI commands
 *       bm   07/06/2023 Added XPlmi_RunProc command
+*       bm   07/06/2023 Refactored Proc logic to more generic logic
 *
 * </pre>
 *
@@ -51,11 +52,11 @@
 
 /************************** Constant Definitions *****************************/
 /* PSM sequence related constants definitions */
-#define XPLMI_PROC_PSM_SEND_API_ID		(0x8U) /**< API Id */
-#define XPLMI_PROC_PSM_SEND_API_ID_IDX		(0U) /**< API Id index */
-#define XPLMI_PROC_PSM_SEND_START_ADDR_IDX	(1U) /**< Start address index */
-#define XPLMI_PROC_PSM_SEND_END_ADDR_IDX	(2U) /**< End address index */
-#define XPLMI_PROC_PAYLOAD_ARG_CNT		(8U) /**< Payload argument count */
+#define XPLMI_BUFFER_PSM_SEND_API_ID		(0x8U) /**< API Id */
+#define XPLMI_BUFFER_PSM_SEND_API_ID_IDX		(0U) /**< API Id index */
+#define XPLMI_BUFFER_PSM_SEND_START_ADDR_IDX	(1U) /**< Start address index */
+#define XPLMI_BUFFER_PSM_SEND_END_ADDR_IDX	(2U) /**< End address index */
+#define XPLMI_BUFFER_PAYLOAD_ARG_CNT		(8U) /**< Payload argument count */
 
 /* IPI Max Timeout */
 #define IPI_MAX_TIMEOUT			(~0U) /**< IPI Max timeout */
@@ -111,12 +112,12 @@ int XPlmi_InPlacePlmUpdate(XPlmi_Cmd *Cmd)
 static int XPlmi_SendToPsm(u32 BuffAddr, u32 BuffLen)
 {
 	int Status = XST_FAILURE;
-	u32 Response[XPLMI_PROC_PAYLOAD_ARG_CNT] = {0U};
-	u32 LocalPayload[XPLMI_PROC_PAYLOAD_ARG_CNT] = {0U};
+	u32 Response[XPLMI_BUFFER_PAYLOAD_ARG_CNT] = {0U};
+	u32 LocalPayload[XPLMI_BUFFER_PAYLOAD_ARG_CNT] = {0U};
 
-	LocalPayload[XPLMI_PROC_PSM_SEND_API_ID_IDX] = XPLMI_PROC_PSM_SEND_API_ID;
-	LocalPayload[XPLMI_PROC_PSM_SEND_START_ADDR_IDX] = BuffAddr;
-	LocalPayload[XPLMI_PROC_PSM_SEND_END_ADDR_IDX] =  BuffLen;
+	LocalPayload[XPLMI_BUFFER_PSM_SEND_API_ID_IDX] = XPLMI_BUFFER_PSM_SEND_API_ID;
+	LocalPayload[XPLMI_BUFFER_PSM_SEND_START_ADDR_IDX] = BuffAddr;
+	LocalPayload[XPLMI_BUFFER_PSM_SEND_END_ADDR_IDX] =  BuffLen;
 
 #ifdef XPLMI_IPI_DEVICE_ID
 	Status = XPlmi_IpiPollForAck(IPI_PMC_ISR_PSM_BIT_MASK, IPI_MAX_TIMEOUT);
@@ -126,7 +127,7 @@ static int XPlmi_SendToPsm(u32 BuffAddr, u32 BuffLen)
 	}
 
 	Status = XPlmi_IpiWrite(IPI_PMC_ISR_PSM_BIT_MASK, LocalPayload,
-			XPLMI_PROC_PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
+			XPLMI_BUFFER_PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
 	if (XST_SUCCESS != Status) {
 		XPlmi_Printf(DEBUG_GENERAL,"%s: ERROR writing to IPI \
 			request buffer\n", __func__);
@@ -146,7 +147,7 @@ static int XPlmi_SendToPsm(u32 BuffAddr, u32 BuffLen)
 	}
 
 	Status = XPlmi_IpiRead(IPI_PMC_ISR_PSM_BIT_MASK, Response,
-		       XPLMI_PROC_PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_RESP);
+		       XPLMI_BUFFER_PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_RESP);
 	if (XST_SUCCESS != Status) {
 		XPlmi_Printf(DEBUG_GENERAL,"%s: ERROR: Reading from IPI \
 			Response buffer\r\n", __func__);
@@ -181,14 +182,14 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u32 SrcAddr = (u32)(&Cmd->Payload[0U]);
 	u32 CurrPayloadLen = Cmd->PayloadLen;;
-	XPlmi_ProcList *ProcList = XPlmi_GetProcList(XPLMI_PSM_PROC_LIST);
+	XPlmi_BufferList *BufferList = XPlmi_GetBufferList(XPLMI_PSM_BUFFER_LIST);
 
 	XPLMI_EXPORT_CMD(XPLMI_PSM_SEQUENCE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
 
 	if ((XPlmi_IsLpdInitialized() != (u8)TRUE) ||
-		(ProcList->IsProcMemAvailable != (u8)TRUE)) {
-		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized or Proc memory "
+		(BufferList->IsBufferMemAvailable != (u8)TRUE)) {
+		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized or Buffer memory "
 			"is not available for psm sequence\r\n");
 		Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
 		goto END;
@@ -197,17 +198,17 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
 	if (Cmd->ProcessedLen == 0){
 		/* This is the beggining of the CMD execution. */
 		/* Latch on the first address of psm_sequence */
-		Cmd->ResumeData[1U] = (u32)ProcList->ProcData[ProcList->ProcCount].Addr;
+		Cmd->ResumeData[1U] = (u32)BufferList->Data[BufferList->BufferCount].Addr;
 		/* Check if new proc length fits in the proc allocated memory */
 		if ((Cmd->ResumeData[1U] + (Cmd->Len * XPLMI_WORD_LEN)) >
-			(ProcList->ProcData[0U].Addr + ProcList->ProcMemSize)) {
+			(BufferList->Data[0U].Addr + BufferList->BufferMemSize)) {
 			XPlmi_Printf(DEBUG_GENERAL,"psm_sequence too large \
-				to fit in ProcList.\n\r");
+				to fit in BufferList.\n\r");
 			Status = (int)XPLMI_UNSUPPORTED_PROC_LENGTH;
 			goto END;
 		}
 		/* Store the destination of the DMA to Resume Data to handle resume case*/
-		Cmd->ResumeData[0U] = (u32)ProcList->ProcData[ProcList->ProcCount].Addr;
+		Cmd->ResumeData[0U] = (u32)BufferList->Data[BufferList->BufferCount].Addr;
 	}
 
 	/* Copy the received proc to proc memory */

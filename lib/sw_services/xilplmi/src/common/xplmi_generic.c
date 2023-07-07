@@ -98,6 +98,7 @@
 *       bm   06/23/2023 Added access permissions for IPI commands
 *                       Added set_ipi_access cdo command
 *       bm   07/06/2023 Updated Begin offset Stack logic
+*       bm   07/06/2023 Refactored Proc logic to more generic logic
 *
 * </pre>
 *
@@ -175,8 +176,8 @@
 #define XPLMI_SET_IPI_ACCESS_PERM_VAL_INDEX	(1U)
 
 /* Maximum procs supported */
-#define XPLMI_MAX_PSM_PROCS		(10U)
-#define XPLMI_MAX_PMC_PROCS		(5U)
+#define XPLMI_MAX_PSM_BUFFERS		(10U)
+#define XPLMI_MAX_PMC_BUFFERS		(5U)
 
 /* Secure Lockdown and SRST Tamper response mask */
 #define XPLMI_SLD_AND_SRST_TAMPER_RESP_MASK	(0xEU)
@@ -1600,44 +1601,46 @@ static int XPlmi_Marker(XPlmi_Cmd *Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function provides functionality to move procs when proc
- *          command is received for existing ProcId.
+ *          command is received for existing BufferId.
  *
- * @param	ProcIndex is the index of ProcId to be moved
+ * @param	BufferIndex is the index of BufferId to be moved
+ * @param	BufferList is the list of buffers whose buffers
+ *              need to be moved
  *
  * @return
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_MoveProc(u8 ProcIndex, XPlmi_ProcList *ProcList)
+int XPlmi_MoveBuffer(u8 BufferIndex, XPlmi_BufferList *BufferList)
 {
 	int Status = XST_FAILURE;
 	u64 DestAddr;
 	u64 SrcAddr;
 	u32 Len;
-	u8 Index = ProcIndex;
-	u32 DeletedProcLen;
+	u8 Index = BufferIndex;
+	u32 DeletedBufferLen;
 
 	/**
 	 * - If only one proc is available and if a new proc command is received with
 	 * same ID, it can directly be overwritten.
 	 */
-	if ((ProcList->ProcCount == 1U) ||
-		(Index == (ProcList->ProcCount - 1U))) {
+	if ((BufferList->BufferCount == 1U) ||
+		(Index == (BufferList->BufferCount - 1U))) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
 
 	/**
-	 * - If proc command is received for existing ProcId,
+	 * - If proc command is received for existing BufferId,
 	 * move all procs behind this to front
 	 */
-	DestAddr = ProcList->ProcData[Index].Addr;
-	SrcAddr = ProcList->ProcData[Index + 1U].Addr;
-	Len = (u32)((ProcList->ProcData[ProcList->ProcCount].Addr -
+	DestAddr = BufferList->Data[Index].Addr;
+	SrcAddr = BufferList->Data[Index + 1U].Addr;
+	Len = (u32)((BufferList->Data[BufferList->BufferCount].Addr -
 			SrcAddr)/XPLMI_WORD_LEN);
 	/* Length of the proc that is removed */
-	DeletedProcLen = (u32)(ProcList->ProcData[Index + 1U].Addr -
-			ProcList->ProcData[Index].Addr);
+	DeletedBufferLen = (u32)(BufferList->Data[Index + 1U].Addr -
+			BufferList->Data[Index].Addr);
 
 	/** - Call XPlmi_DmaTransfer with flags DMA0 and INCR */
 	Status = XPlmi_DmaTransfer(DestAddr, SrcAddr, Len, XPLMI_PMCDMA_0);
@@ -1645,11 +1648,11 @@ int XPlmi_MoveProc(u8 ProcIndex, XPlmi_ProcList *ProcList)
 		goto END;
 	}
 
-	/** - Update ProcList with moved data */
-	while(Index <= ProcList->ProcCount) {
-		ProcList->ProcData[Index].Id = ProcList->ProcData[Index + 1U].Id;
-		ProcList->ProcData[Index].Addr =
-					ProcList->ProcData[Index + 1U].Addr - DeletedProcLen;
+	/** - Update BufferList with moved data */
+	while(Index <= BufferList->BufferCount) {
+		BufferList->Data[Index].Id = BufferList->Data[Index + 1U].Id;
+		BufferList->Data[Index].Addr =
+					BufferList->Data[Index + 1U].Addr - DeletedBufferLen;
 		Index++;
 	}
 
@@ -1659,49 +1662,51 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function defines ProcList and returns the address of the same
+ * @brief	This function defines BufferList and returns the address of the same
  *
- * @param   ProcListType is the proc list type if it is stored in PMC or PSM RAM
+ * @param	BufferListType is the proc list type if it is stored in PMC or PSM RAM
  *
- * @return	ProcList is the address of ProcList structure
+ * @return	BufferList is the address of BufferList structure
  *
  *****************************************************************************/
-XPlmi_ProcList* XPlmi_GetProcList(u8 ProcListType)
+XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
 {
 	/**
-	 * - Create static ProcList structure and initialize with zero during
+	 * - Create static BufferList structure and initialize with zero during
 	 * initial call.
 	 */
-	static XPlmi_ProcList PsmProcList = {0U};
-	static XPlmi_ProcData PsmProcs[XPLMI_MAX_PSM_PROCS + 1U] = {0U};
-	static XPlmi_ProcList PmcProcList = {0U};
-	static XPlmi_ProcData PmcProcs[XPLMI_MAX_PMC_PROCS + 1U] = {0U};
-	XPlmi_ProcList *ProcList = &PsmProcList;
+	static XPlmi_BufferList PsmBufferList = {0U};
+	static XPlmi_BufferData PsmBuffers[XPLMI_MAX_PSM_BUFFERS + 1U] = {0U};
+	static XPlmi_BufferList PmcBufferList = {0U};
+	static XPlmi_BufferData PmcBuffers[XPLMI_MAX_PMC_BUFFERS + 1U] = {0U};
+	XPlmi_BufferList *BufferList = &PsmBufferList;
 
-	PsmProcList.ProcData = PsmProcs;
-	PmcProcList.ProcData = PmcProcs;
+	PsmBufferList.Data = PsmBuffers;
+	PsmBufferList.MaxBufferCount = XPLMI_MAX_PSM_BUFFERS;
+	PmcBufferList.Data = PmcBuffers;
+	PmcBufferList.MaxBufferCount = XPLMI_MAX_PMC_BUFFERS;
 
-	if (ProcListType == XPLMI_PMC_PROC_LIST) {
-		ProcList = &PmcProcList;
+	if (BufferListType == XPLMI_PMC_BUFFER_LIST) {
+		BufferList = &PmcBufferList;
 
 		/**
-		 * - Initialize first ProcData address of the PmcProcList to the PMC RAM
-		 * reserved address and ProcMemSize with the Max Size allocated
+		 * - Initialize first Data address of the PmcBufferList to the PMC RAM
+		 * reserved address and BufferMemSize with the Max Size allocated
 		 */
-		PmcProcList.ProcData[0U].Addr = XPLMI_PMCRAM_PROC_MEMORY;
-		PmcProcList.ProcMemSize = XPLMI_PMCRAM_PROC_MEMORY_LENGTH;
-		PmcProcList.IsProcMemAvailable = (u8)TRUE;
+		PmcBufferList.Data[0U].Addr = XPLMI_PMCRAM_BUFFER_MEMORY;
+		PmcBufferList.BufferMemSize = XPLMI_PMCRAM_BUFFER_MEMORY_LENGTH;
+		PmcBufferList.IsBufferMemAvailable = (u8)TRUE;
 	}
 
-	return ProcList;
+	return BufferList;
 }
 
 /*****************************************************************************/
 /**
- * @brief	This function sets PSM ProcList address to given Address and Size
+ * @brief	This function sets PSM BufferList address to given Address and Size
  *
- * @param	Address is the address of Proc reserved memory for PSM ProcList
- * @param	Size is the size of Proc reserved memory for PSM ProcList in bytes
+ * @param	Address is the address of Buffer reserved memory for PSM BufferList
+ * @param	Size is the size of Buffer reserved memory for PSM BufferList in bytes
  *
  * @return
  * 			- XST_SUCCESS on success and error code on failure
@@ -1709,10 +1714,10 @@ XPlmi_ProcList* XPlmi_GetProcList(u8 ProcListType)
  * 			invalid.
  *
  *****************************************************************************/
-int XPlmi_SetProcList(u32 Address, u16 Size)
+int XPlmi_SetBufferList(u32 Address, u16 Size)
 {
 	int Status = XST_FAILURE;
-	XPlmi_ProcList *ProcList = XPlmi_GetProcList(XPLMI_PSM_PROC_LIST);
+	XPlmi_BufferList *BufferList = XPlmi_GetBufferList(XPLMI_PSM_BUFFER_LIST);
 
 	/**
 	 * - Validate the allocated memory address range.
@@ -1726,12 +1731,60 @@ int XPlmi_SetProcList(u32 Address, u16 Size)
 	}
 
 	/**
-	 * - Initialize first ProcData address of PSM ProcList to the given Address
-	 * and ProcMemSize with the given Size
+	 * - Initialize first Data address of PSM BufferList to the given Address
+	 * and BufferMemSize with the given Size
 	 */
-	ProcList->ProcData[0U].Addr = Address;
-	ProcList->ProcMemSize = Size;
-	ProcList->IsProcMemAvailable = (u8)TRUE;
+	BufferList->Data[0U].Addr = Address;
+	BufferList->BufferMemSize = Size;
+	BufferList->IsBufferMemAvailable = (u8)TRUE;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function searches Buffer list with the buffer Id to
+ *		provide buffer address and buffer length
+ *
+ * @param	BufferList is the pointer to the list of buffers to search
+ * @param	BufferId is the id of the buffer to search for
+ * @param	BufAddr is the address of the Buffer found
+ * @param	BufLen is the length of the Buffer found
+ *
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
+ * 			- XPLMI_PROCID_NOT_VALID if provided proc id is invalid.
+ *
+ *****************************************************************************/
+int XPlmi_SearchBufferList(XPlmi_BufferList *BufferList, u32 BufferId,
+		u64 *BufAddr, u32 *BufLen)
+{
+	int Status = XST_FAILURE;
+	u8 BufferIndex = 0U;
+
+	/** Check if Buffer Memory is available */
+	if (BufferList->IsBufferMemAvailable != (u8)TRUE) {
+		Status = XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE;
+		goto END;
+	}
+	/** Search for the buffer index which has a matching BufferId */
+	BufferList->Data[BufferList->BufferCount].Id = BufferId;
+	while (BufferList->Data[BufferIndex].Id != BufferId) {
+		BufferIndex++;
+	}
+
+	/** - Execute proc if the received BufferId is valid. */
+	if (BufferIndex >= BufferList->BufferCount) {
+		Status = (int)XPLMI_PROCID_NOT_VALID;
+		goto END;
+	}
+	/** Fill BufAddr and BufLen pointers with resulting values */
+	*BufAddr = BufferList->Data[BufferIndex].Addr;
+	*BufLen = (u32)(BufferList->Data[BufferIndex + 1U].Addr -
+		BufferList->Data[BufferIndex].Addr) / XPLMI_WORD_LEN;
+
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
@@ -1754,57 +1807,47 @@ int XPlmi_ExecuteProc(u32 ProcId)
 {
 	int Status = XST_FAILURE;
 	XPlmiCdo ProcCdo;
-	XPlmi_ProcList *ProcList = NULL;
-	u8 ProcIndex = 0U;
-	u8 ProcListType = XPLMI_PSM_PROC_LIST;
+	XPlmi_BufferList *BufferList = NULL;
+	u32 BufferListType = XPLMI_PSM_BUFFER_LIST;
+	u64 BufAddr;
 	XPlmi_Printf(DEBUG_GENERAL, "Proc ID received: 0x%x\r\n", ProcId);
 
 	/** - If the ProcId has MSB set, then its in PMC RAM memory. */
 	if ((ProcId & XPLMI_PMC_RAM_PROC_ID_MASK) == XPLMI_PMC_RAM_PROC_ID_MASK) {
-		ProcListType = XPLMI_PMC_PROC_LIST;
+		BufferListType = XPLMI_PMC_BUFFER_LIST;
 	}
 
-	ProcList = XPlmi_GetProcList(ProcListType);
+	BufferList = XPlmi_GetBufferList(BufferListType);
 
-	if (ProcListType == XPLMI_PSM_PROC_LIST) {
+	if (BufferListType == XPLMI_PSM_BUFFER_LIST) {
 		/**
 		 * - If LPD is not initialized or Proc memory is not available,
 		 * do not execute the proc and return an error.
 		 */
-		if ((XPlmi_IsLpdInitialized() != (u8)TRUE) ||
-				(ProcList->IsProcMemAvailable != (u8)TRUE)) {
-			XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized or Proc memory "
-					"is not available, Proc commands cannot be executed\r\n");
+		if (XPlmi_IsLpdInitialized() != (u8)TRUE) {
 			Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
 			goto END;
 		}
 	}
 
-	ProcList->ProcData[ProcList->ProcCount].Id = ProcId;
-	while (ProcList->ProcData[ProcIndex].Id != ProcId) {
-		ProcIndex++;
+	Status = XPlmi_MemSetBytes((void *const)&ProcCdo,
+		sizeof(ProcCdo), 0U, sizeof(ProcCdo));
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
-	/** - Execute proc if the received ProcId is valid. */
-	if (ProcIndex < ProcList->ProcCount) {
-		/** - Pass the Proc CDO to CDO parser. */
-		Status = XPlmi_MemSetBytes((void *const)&ProcCdo,
-			sizeof(ProcCdo), 0U, sizeof(ProcCdo));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		/** - Fill ProcCdo structure with Proc related parameters. */
-		ProcCdo.BufPtr = (u32 *)(UINTPTR)ProcList->ProcData[ProcIndex].Addr;
-		ProcCdo.BufLen = (u32)((ProcList->ProcData[ProcIndex + 1U].Addr -
-			ProcList->ProcData[ProcIndex].Addr) / XPLMI_WORD_LEN);
-		ProcCdo.CdoLen = ProcCdo.BufLen;
-		ProcCdo.SubsystemId = XPLMI_PMC_SUBSYS_NODE_ID;
-		/** - Execute Proc. */
-		Status = XPlmi_ProcessCdo(&ProcCdo);
-	} else {
-		/* Return an error if the received ProcId is not valid */
-		Status = (int)XPLMI_PROCID_NOT_VALID;
-		XPlmi_Printf(DEBUG_GENERAL, "Invalid proc ID received\r\n");
+
+	/* Search the buffer list for the proc */
+	Status = XPlmi_SearchBufferList(BufferList, ProcId, &BufAddr, &ProcCdo.BufLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
+
+	/** - Fill ProcCdo structure with Proc related parameters. */
+	ProcCdo.BufPtr = (u32 *)(UINTPTR)BufAddr;
+	ProcCdo.CdoLen = ProcCdo.BufLen;
+	ProcCdo.SubsystemId = XPLMI_PMC_SUBSYS_NODE_ID;
+	/** - Execute Proc. */
+	Status = XPlmi_ProcessCdo(&ProcCdo);
 
 END:
 	return Status;
@@ -1822,25 +1865,17 @@ END:
  *
  * @return
  * 			- XST_SUCCESS on success.
- * 			- XPLMI_ERR_PROC_LPD_NOT_INITIALIZED if LPD failed to initialize.
  * 			- XPLMI_UNSUPPORTED_PROC_LENGTH if received proc does not fit in
  * 			proc memory.
- * 			- XPLMI_MAX_PROC_COMMANDS_RECEIVED on maximum supported proc commands
- * 			received.
  *
  *****************************************************************************/
 static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 ProcId;
-	u8 Index = 0U;
-	u32 SrcAddr;
-	u32 LenDiff = 0U;
-	u32 CmdLenInBytes = (Cmd->Len - 1U) * XPLMI_WORD_LEN;
-	u32 CurrPayloadLen;
-	XPlmi_ProcList *ProcList = NULL;
-	u8 ProcListType = XPLMI_PSM_PROC_LIST;
-	u8 MaxProcs = XPLMI_MAX_PSM_PROCS;
+	u32 ProcId = 0U;
+	XPlmi_BufferList *BufferList = NULL;
+	u32 BufferListType = XPLMI_PSM_BUFFER_LIST;
+
 	XPLMI_EXPORT_CMD(XPLMI_PROC_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
 
@@ -1848,47 +1883,84 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 		ProcId = Cmd->Payload[0U];
 		/* Check if the Procs are stored in PSM RAM or PMC RAM */
 		if ((ProcId & XPLMI_PMC_RAM_PROC_ID_MASK) == XPLMI_PMC_RAM_PROC_ID_MASK) {
-			ProcListType = XPLMI_PMC_PROC_LIST;
-			MaxProcs = XPLMI_MAX_PMC_PROCS;
+			BufferListType = XPLMI_PMC_BUFFER_LIST;
 		}
 
-		/* Get the proc list */
-		ProcList = XPlmi_GetProcList(ProcListType);
+		/* Get the buffer list */
+		BufferList = XPlmi_GetBufferList(BufferListType);
 
-		if (ProcListType == XPLMI_PSM_PROC_LIST) {
+		if (BufferListType == XPLMI_PSM_BUFFER_LIST) {
 			/*
-			 * Check if LPD is initialized and ProcList is initialized
-			 * as we are using PSM RAM to store Proc data
+			 * Check if LPD is initialized and BufferList is initialized
+			 * as we are using PSM RAM to store Buffer data
 			 */
 			if ((XPlmi_IsLpdInitialized() != (u8)TRUE) ||
-					(ProcList->IsProcMemAvailable != (u8)TRUE)) {
-				XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized or Proc memory"
-						" is not available, Proc commands cannot be stored\r\n");
+					(BufferList->IsBufferMemAvailable != (u8)TRUE)) {
 				Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
 				goto END;
 			}
 		}
+	}
 
-		/* Check if received ProcId is already in memory */
-		ProcList->ProcData[ProcList->ProcCount].Id = ProcId;
-		while (ProcList->ProcData[Index].Id != ProcId) {
+	/** Store Proc in the respective Buffer List */
+	Status = XPlmi_StoreBuffer(Cmd, ProcId, BufferList);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function stores the buffer data into the buffer list provided
+ *
+ * @param	Cmd is pointer to the command structure
+ * @param	BufferId is the Id of the Buffer to be stored in the buffer list
+ * @param	BufferList is the pointer to the BufferList
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_UNSUPPORTED_PROC_LENGTH if received proc does not fit in
+ * 			proc memory.
+ * 			- XPLMI_MAX_PROC_COMMANDS_RECEIVED on maximum supported proc commands
+ * 			received.
+ *
+ *****************************************************************************/
+int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList)
+{
+	int Status = XST_FAILURE;
+	u8 Index = 0U;
+	u32 SrcAddr;
+	u32 LenDiff = 0U;
+	u32 CmdLenInBytes = (Cmd->Len - 1U) * XPLMI_WORD_LEN;
+	u32 CurrPayloadLen;
+
+	/* Check if Buffer memory is available */
+	if (BufferList->IsBufferMemAvailable != (u8)TRUE) {
+		Status = (int)XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE;
+		goto END;
+	}
+
+	if (Cmd->ProcessedLen == 0U) {
+		/* Check if received BufferId is already in memory */
+		BufferList->Data[BufferList->BufferCount].Id = BufferId;
+		while (BufferList->Data[Index].Id != BufferId) {
 			Index++;
 		}
-		if (Index < ProcList->ProcCount) {
+		if (Index < BufferList->BufferCount) {
 			/*
 			 * Get Length difference if received proc length is greater than
 			 * length of the proc in memory
 			 * This is to check if new proc fits in available memory
 			 */
-			if (CmdLenInBytes > (ProcList->ProcData[Index + 1U].Addr -
-					ProcList->ProcData[Index].Addr)) {
-				LenDiff = (u32)(CmdLenInBytes - (ProcList->ProcData[Index + 1U].Addr -
-						ProcList->ProcData[Index].Addr));
+			if (CmdLenInBytes > (BufferList->Data[Index + 1U].Addr -
+					BufferList->Data[Index].Addr)) {
+				LenDiff = (u32)(CmdLenInBytes - (BufferList->Data[Index + 1U].Addr -
+						BufferList->Data[Index].Addr));
 			}
 			/* Check if new proc length fits in the proc allocated memory */
-			if ((LenDiff + (ProcList->ProcData[ProcList->ProcCount].Addr -
-					ProcList->ProcData[ProcList->ProcCount - 1U].Addr)) >
-					ProcList->ProcMemSize) {
+			if ((LenDiff + (BufferList->Data[BufferList->BufferCount].Addr -
+					BufferList->Data[BufferList->BufferCount - 1U].Addr)) >
+					BufferList->BufferMemSize) {
 				Status = (int)XPLMI_UNSUPPORTED_PROC_LENGTH;
 				goto END;
 			}
@@ -1897,36 +1969,36 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 			 * If proc command is received for existing proc,
 			 * move other procs
 			 */
-			Status = XPlmi_MoveProc(Index, ProcList);
+			Status = XPlmi_MoveBuffer(Index, BufferList);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			--ProcList->ProcCount;
+			--BufferList->BufferCount;
 		} else {
 			/* Check if proc list is full */
-			if (ProcList->ProcCount == MaxProcs) {
+			if (BufferList->BufferCount == BufferList->MaxBufferCount) {
 				Status = (int)XPLMI_MAX_PROC_COMMANDS_RECEIVED;
 				goto END;
 			}
 		}
 
 		/* New proc address where the proc data need to be copied */
-		Cmd->ResumeData[0U] = (u32)ProcList->ProcData[ProcList->ProcCount].Addr;
+		Cmd->ResumeData[0U] = (u32)BufferList->Data[BufferList->BufferCount].Addr;
 
 		/* Check if new proc length fits in the proc allocated memory */
-		if ((Cmd->ResumeData[0U] + CmdLenInBytes) > (ProcList->ProcData[0U].Addr +
-				ProcList->ProcMemSize)) {
+		if ((Cmd->ResumeData[0U] + CmdLenInBytes) > (BufferList->Data[0U].Addr +
+				BufferList->BufferMemSize)) {
 			Status = (int)XPLMI_UNSUPPORTED_PROC_LENGTH;
 			goto END;
 		}
 		SrcAddr = (u32)(&Cmd->Payload[1U]);
 		CurrPayloadLen = Cmd->PayloadLen - 1U;
 
-		/* Add an entry in ProcList */
-		ProcList->ProcData[ProcList->ProcCount].Id = ProcId;
-		ProcList->ProcCount++;
-		ProcList->ProcData[ProcList->ProcCount].Addr =
-				ProcList->ProcData[ProcList->ProcCount - 1U].Addr + CmdLenInBytes;
+		/* Add an entry in BufferList */
+		BufferList->Data[BufferList->BufferCount].Id = BufferId;
+		BufferList->BufferCount++;
+		BufferList->Data[BufferList->BufferCount].Addr =
+				BufferList->Data[BufferList->BufferCount - 1U].Addr + CmdLenInBytes;
 	} else {
 		/* Handle command resume for proc data */
 		SrcAddr = (u32)(&Cmd->Payload[0U]);
