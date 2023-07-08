@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +30,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 3.9   gm   07/08/23 Added SDT support
 * </pre>
 ******************************************************************************/
 
@@ -46,7 +48,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define UARTLITE_DEVICE_ID	XPAR_UARTLITE_0_DEVICE_ID
+#else
+#define XUARTLITE_BASEADDRESS	XPAR_AXI_UARTLITE_0_BASEADDR
+#endif
 
 /*
  * The following constant controls the length of the buffers to be sent
@@ -63,8 +69,11 @@
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int UartLitePolledExample(u16 DeviceId);
+#else
+int UartLitePolledExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -96,7 +105,11 @@ int main(void)
 	 * Run the UartLite polled example, specify the Device ID that is
 	 * generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = UartLitePolledExample(UARTLITE_DEVICE_ID);
+#else
+	Status = UartLitePolledExample(XUARTLITE_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Uartlite polled Example Failed\r\n");
 		return XST_FAILURE;
@@ -133,7 +146,11 @@ int main(void)
 * not return.
 *
 ****************************************************************************/
+#ifndef SDT
 int UartLitePolledExample(u16 DeviceId)
+#else
+int UartLitePolledExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	unsigned int SentCount;
@@ -143,7 +160,11 @@ int UartLitePolledExample(u16 DeviceId)
 	/*
 	 * Initialize the UartLite driver so that it is ready to use.
 	 */
+#ifndef	SDT
 	Status = XUartLite_Initialize(&UartLite, DeviceId);
+#else
+	Status = XUartLite_Initialize(&UartLite, BaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
