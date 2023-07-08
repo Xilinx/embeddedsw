@@ -103,7 +103,7 @@ int UartLiteIntrExample(INTC *IntcInstancePtr,
 			u16 UartLiteIntrId);
 #else
 int UartLiteIntrExample(XUartLite *UartLiteInstancePtr,
-                        UINTPTR BaseAddress);
+			UINTPTR BaseAddress);
 #endif
 
 static void UartLiteSendHandler(void *CallBackRef, unsigned int EventData);
@@ -112,12 +112,12 @@ static void UartLiteRecvHandler(void *CallBackRef, unsigned int EventData);
 
 #ifndef SDT
 static int UartLiteSetupIntrSystem(INTC *IntcInstancePtr,
-				XUartLite *UartLiteInstancePtr,
-				u16 UartLiteIntrId);
+				   XUartLite *UartLiteInstancePtr,
+				   u16 UartLiteIntrId);
 #endif
 
 static void UartLiteDisableIntrSystem(INTC *IntrInstancePtr,
-				u16 UartLiteIntrId);
+				      u16 UartLiteIntrId);
 
 
 /************************** Variable Definitions *****************************/
@@ -170,9 +170,9 @@ int main(void)
 	 */
 #ifndef SDT
 	Status = UartLiteIntrExample(&IntcInstance,
-				 &UartLiteInst,
-				 UARTLITE_DEVICE_ID,
-				 UARTLITE_IRPT_INTR);
+				     &UartLiteInst,
+				     UARTLITE_DEVICE_ID,
+				     UARTLITE_IRPT_INTR);
 #else
 	Status = UartLiteIntrExample(&UartLiteInst, XUARTLITE_BASEADDRESS);
 #endif
@@ -264,8 +264,8 @@ int UartLiteIntrExample(XUartLite *UartLiteInstPtr,
 					 UartLiteIntrId);
 #else
 	Status = XSetupInterruptSystem(UartLiteInstPtr, &XUartLite_InterruptHandler,
-					CfgPtr->IntrId, CfgPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       CfgPtr->IntrId, CfgPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -278,9 +278,9 @@ int UartLiteIntrExample(XUartLite *UartLiteInstPtr,
 	 * reference so the handlers are able to access the instance data.
 	 */
 	XUartLite_SetSendHandler(UartLiteInstPtr, UartLiteSendHandler,
-							 UartLiteInstPtr);
+				 UartLiteInstPtr);
 	XUartLite_SetRecvHandler(UartLiteInstPtr, UartLiteRecvHandler,
-							 UartLiteInstPtr);
+				 UartLiteInstPtr);
 
 	/*
 	 * Enable the interrupt of the UartLite so that the interrupts
@@ -391,8 +391,8 @@ static void UartLiteRecvHandler(void *CallBackRef, unsigned int EventData)
 *
 ****************************************************************************/
 int UartLiteSetupIntrSystem(INTC *IntcInstancePtr,
-				XUartLite *UartLiteInstPtr,
-				u16 UartLiteIntrId)
+			    XUartLite *UartLiteInstPtr,
+			    u16 UartLiteIntrId)
 {
 	int Status;
 
@@ -415,8 +415,8 @@ int UartLiteSetupIntrSystem(INTC *IntcInstancePtr,
 	 * interrupt processing for the device.
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, UartLiteIntrId,
-			(XInterruptHandler)XUartLite_InterruptHandler,
-			(void *)UartLiteInstPtr);
+			       (XInterruptHandler)XUartLite_InterruptHandler,
+			       (void *)UartLiteInstPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -452,14 +452,14 @@ int UartLiteSetupIntrSystem(INTC *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #endif /* TESTAPP_GEN */
 
 	XScuGic_SetPriorityTriggerType(IntcInstancePtr, UartLiteIntrId,
-					0xA0, 0x3);
+				       0xA0, 0x3);
 
 	/*
 	 * Connect the interrupt handler that will be called when an
@@ -491,8 +491,8 @@ int UartLiteSetupIntrSystem(INTC *IntcInstancePtr,
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)INTC_HANDLER,
-			IntcInstancePtr);
+				     (Xil_ExceptionHandler)INTC_HANDLER,
+				     IntcInstancePtr);
 
 	/*
 	 * Enable exceptions.
@@ -521,7 +521,7 @@ int UartLiteSetupIntrSystem(INTC *IntcInstancePtr,
 *
 ******************************************************************************/
 static void UartLiteDisableIntrSystem(INTC *IntcInstancePtr,
-					  u16 UartLiteIntrId)
+				      u16 UartLiteIntrId)
 {
 
 	/*
