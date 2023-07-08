@@ -204,8 +204,8 @@ int UartLitePolledExample(UINTPTR BaseAddress)
 	 */
 	while (1) {
 		ReceivedCount += XUartLite_Recv(&UartLite,
-					   RecvBuffer + ReceivedCount,
-					   TEST_BUFFER_SIZE - ReceivedCount);
+						RecvBuffer + ReceivedCount,
+						TEST_BUFFER_SIZE - ReceivedCount);
 		if (ReceivedCount == TEST_BUFFER_SIZE) {
 			break;
 		}

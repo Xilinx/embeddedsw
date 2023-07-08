@@ -93,15 +93,15 @@
 /************************** Function Prototypes ******************************/
 #ifndef SDT
 int UartLiteIntrExample(INTC *IntcInstancePtr, XUartLite *UartLiteInstancePtr,
-		u16 UartLiteDeviceId, u16 UartLiteIntrId);
+			u16 UartLiteDeviceId, u16 UartLiteIntrId);
 #else
 int UartLiteIntrExample(XUartLite *UartLiteInstancePtr,
-		UINTPTR BaseAddress);
+			UINTPTR BaseAddress);
 #endif
 
 #ifndef SDT
 static int SetupInterruptSystem(INTC *IntcInstancePtr,
-		XUartLite *UartLiteInstancePtr, u16 UartLiteIntrId);
+				XUartLite *UartLiteInstancePtr, u16 UartLiteIntrId);
 #endif
 
 void SendHandler(void *CallBackRef, unsigned int EventData);
@@ -145,7 +145,8 @@ static volatile int TotalSentCount;
  * @note		None
  *
  *******************************************************************************/
-int main(void) {
+int main(void)
+{
 	int Status;
 
 	/*
@@ -154,8 +155,8 @@ int main(void) {
 	 */
 #ifndef SDT
 	Status = UartLiteIntrExample(&IntcInstance, &UartLite,
-	UARTLITE_DEVICE_ID,
-	UARTLITE_IRPT_INTR);
+				     UARTLITE_DEVICE_ID,
+				     UARTLITE_IRPT_INTR);
 #else
 	Status = UartLiteIntrExample(&UartLite, XUARTLITE_BASEADDRESS);
 #endif
@@ -196,10 +197,10 @@ int main(void) {
 ****************************************************************************/
 #ifndef SDT
 int UartLiteIntrExample(INTC *IntcInstancePtr, XUartLite *UartLiteInstPtr,
-						u16 DeviceId, u16 UartLiteIntrId)
+			u16 DeviceId, u16 UartLiteIntrId)
 #else
 int UartLiteIntrExample(XUartLite *UartLiteInstPtr,
-		UINTPTR BaseAddress)
+			UINTPTR BaseAddress)
 #endif
 {
 	int Status;
@@ -235,11 +236,11 @@ int UartLiteIntrExample(XUartLite *UartLiteInstPtr,
 	 */
 #ifndef SDT
 	Status = SetupInterruptSystem(IntcInstancePtr, UartLiteInstPtr,
-			UartLiteIntrId);
+				      UartLiteIntrId);
 #else
 	Status = XSetupInterruptSystem(&UartLite, &XUartLite_InterruptHandler,
-			CfgPtr->IntrId, CfgPtr->IntrParent,
-			XINTERRUPT_DEFAULT_PRIORITY);
+				       CfgPtr->IntrId, CfgPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -285,7 +286,7 @@ int UartLiteIntrExample(XUartLite *UartLiteInstPtr,
 	 * up in this loop if the interrupts are not working correctly.
 	 */
 	while ((TotalReceivedCount != TEST_BUFFER_SIZE)
-			|| (TotalSentCount != TEST_BUFFER_SIZE)) {
+	       || (TotalSentCount != TEST_BUFFER_SIZE)) {
 	}
 
 	/*
@@ -321,7 +322,8 @@ int UartLiteIntrExample(XUartLite *UartLiteInstPtr,
 * @note		None.
 *
 ****************************************************************************/
-void SendHandler(void *CallBackRef, unsigned int EventData) {
+void SendHandler(void *CallBackRef, unsigned int EventData)
+{
 	TotalSentCount = EventData;
 }
 
@@ -348,7 +350,8 @@ void SendHandler(void *CallBackRef, unsigned int EventData) {
 * @note		None.
 *
 ****************************************************************************/
-void RecvHandler(void *CallBackRef, unsigned int EventData) {
+void RecvHandler(void *CallBackRef, unsigned int EventData)
+{
 	TotalReceivedCount = EventData;
 }
 
@@ -372,7 +375,8 @@ void RecvHandler(void *CallBackRef, unsigned int EventData) {
 *
 ****************************************************************************/
 static int SetupInterruptSystem(INTC *IntcInstancePtr,
-		XUartLite *UartLiteInstancePtr, u16 UartLiteIntrId) {
+				XUartLite *UartLiteInstancePtr, u16 UartLiteIntrId)
+{
 	int Status;
 
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -394,8 +398,8 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * interrupt processing for the device.
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, UartLiteIntrId,
-			(XInterruptHandler)XUartLite_InterruptHandler,
-			(void *)UartLiteInstPtr);
+			       (XInterruptHandler)XUartLite_InterruptHandler,
+			       (void *)UartLiteInstPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -431,7 +435,7 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-			IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -444,8 +448,8 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * interrupt occurs for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, UartLiteIntrId,
-							(Xil_ExceptionHandler) XUartLite_InterruptHandler,
-							UartLiteInstancePtr);
+				 (Xil_ExceptionHandler) XUartLite_InterruptHandler,
+				 UartLiteInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -467,7 +471,7 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler) INTC_HANDLER, IntcInstancePtr);
+				     (Xil_ExceptionHandler) INTC_HANDLER, IntcInstancePtr);
 
 	/*
 	 * Enable exceptions.
