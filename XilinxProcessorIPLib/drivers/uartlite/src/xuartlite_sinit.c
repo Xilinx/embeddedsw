@@ -59,6 +59,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XUartLite_Config *XUartLite_LookupConfig(u16 DeviceId)
 {
 	XUartLite_Config *CfgPtr = NULL;
@@ -73,7 +74,23 @@ XUartLite_Config *XUartLite_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XUartLite_Config *XUartLite_LookupConfig(UINTPTR BaseAddress)
+{
+	XUartLite_Config *CfgPtr = NULL;
+	u32 Index;
 
+	for (Index = (u32)0x0; XUartLite_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XUartLite_ConfigTable[Index].RegBaseAddr == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XUartLite_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /****************************************************************************/
 /**
 *
@@ -98,7 +115,11 @@ XUartLite_Config *XUartLite_LookupConfig(u16 DeviceId)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 int XUartLite_Initialize(XUartLite *InstancePtr, u16 DeviceId)
+#else
+int XUartLite_Initialize(XUartLite *InstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	XUartLite_Config *ConfigPtr;
 
@@ -111,7 +132,11 @@ int XUartLite_Initialize(XUartLite *InstancePtr, u16 DeviceId)
 	 * Lookup the device configuration in the configuration table. Use this
 	 * configuration info when initializing this component.
 	 */
+#ifndef SDT
 	ConfigPtr = XUartLite_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XUartLite_LookupConfig(BaseAddress);
+#endif
 
 	if (ConfigPtr == (XUartLite_Config *)NULL) {
 		return XST_DEVICE_NOT_FOUND;
