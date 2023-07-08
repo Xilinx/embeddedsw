@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +29,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 3.9   gm   07/08/23 Added SDT support
 * </pre>
 ******************************************************************************/
 
@@ -46,7 +48,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define UARTLITE_BASEADDR	   XPAR_UARTLITE_0_BASEADDR
+#else
+#define UARTLITE_BASEADDR	   XPAR_XUARTLITE_0_BASEADDR
+#endif
 
 /*
  * The following constant controls the length of the buffers to be sent
@@ -63,8 +69,11 @@
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int UartLiteLowLevelExample(u32 UartliteBaseAddress);
+#else
+int UartLiteLowLevelExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -123,7 +132,11 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int UartLiteLowLevelExample(u32 UartliteBaseAddress)
+#else
+int UartLiteLowLevelExample(UINTPTR UartliteBaseAddress)
+#endif
 {
 	int Index;
 
