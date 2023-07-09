@@ -1,0 +1,107 @@
+# Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for AXI DMA controller
+
+maintainers:
+  - Abin Joseph <abin.joseph@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-dma-7.1
+          - xlnx,axi-dma-1.00.a
+          - xlnx,eth-dma
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,sg-include-stscntrl-strm:
+    description: AXI DMA controller is configured with Status Control stream enabled
+  xlnx,include-mm2s:
+    description: AXI DMA controller is configured with MM2S Channel enabled
+  xlnx,include-mm2s-dre:
+    description: AXI DMA conrtroller MM2S Channel is configured with DRE enabled
+  xlnx,mm2s-data-width:
+    description: AXI DMA controller MM2S Channel data width
+  xlnx,include-s2mm:
+    description: AXI DMA controller is configured with S2MM Channel enabled
+  xlnx,include-s2mm-dre:
+    description: AXI DMA controller S2MM Channel is configured with DRE enabled
+  xlnx,s2mm-data-width:
+    description: AXI DMA controller S2MM Channel data width
+  xlnx,include-sg:
+    description: Tells whether AXI DMA controller SG feature is enabled or not
+  xlnx,num-mm2s-channels:
+    description: AXI DMA controller number of MM2S Channels configured
+  xlnx,num-s2mm-channels:
+    description: AXI DMA controller number of S2MM Channels configured
+  xlnx,mm2s-burst-size:
+    description: AXI DMA controller MM2S channel burst size
+  xlnx,s2mm-burst-size:
+    description: AXI DMA controller S2MM channel burst size
+  xlnx,micro-dma:
+    description: Tells whether AXI DMA controller Micro DMA feature is enabled or not
+  xlnx,addrwidth:
+    description: AXI DMA controller Address width
+  xlnx,sg-length-width:
+    description: AXI DMA controller max transfer length
+
+config:
+    - XAxiDma_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,sg-include-stscntrl-strm
+    - xlnx,include-mm2s
+    - xlnx,include-mm2s-dre
+    - xlnx,mm2s-data-width
+    - xlnx,include-s2mm
+    - xlnx,include-s2mm-dre
+    - xlnx,s2mm-data-width
+    - xlnx,include-sg
+    - xlnx,num-mm2s-channels
+    - xlnx,num-s2mm-channels
+    - xlnx,mm2s-burst-size
+    - xlnx,s2mm-burst-size
+    - xlnx,micro-dma
+    - xlnx,addrwidth
+    - xlnx,sg-length-width
+    - interrupts: 2
+    - interrupt-parent
+
+examples:
+        xaxidma_example_simple_poll.c:
+                - xlnx,include-sg: 0
+
+        xaxidma_example_simple_intr.c:
+                - xlnx,include-sg: 0
+                - interrupts
+
+        xaxidma_example_sg_intr.c:
+                - xlnx,include-sg: 1
+                - interrupts
+
+        xaxidma_example_sgcyclic_intr.c:
+                - xlnx,include-sg: 1
+                - interrupts
+
+        xaxidma_example_sg_poll.c:
+                - xlnx,include-sg: 1
+
+        xaxidma_example_poll_multi_pkts.c:
+                - xlnx,include-sg: 1
+
+        xaxidma_example_selftest.c:
+                - xlnx,include-sg: 0
+
+tapp:
+    xaxidma_example_selftest.c:
+        declaration: AxiDMASelfTestExample
+
+...

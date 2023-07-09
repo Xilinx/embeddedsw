@@ -12,7 +12,7 @@ BEGIN driver axidma
   OPTION supported_peripherals = axi_dma_v[3-9]_[0-9];
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 9.16;
+  OPTION VERSION = 9.17;
   OPTION NAME = axidma;
 
 END driver
