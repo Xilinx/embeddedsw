@@ -69,6 +69,9 @@
 #include "xil_exception.h"
 #include "xdebug.h"
 #include "xil_util.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 #ifdef __aarch64__
 #include "xil_mmu.h"
@@ -82,10 +85,12 @@
 extern void xil_printf(const char *format, ...);
 #endif
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
  #include "xintc.h"
 #else
  #include "xscugic.h"
+#endif
 #endif
 
 /******************** Constant Definitions **********************************/
@@ -93,6 +98,7 @@ extern void xil_printf(const char *format, ...);
  * Device hardware build related constants.
  */
 
+#ifndef SDT
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
 
 #ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
@@ -105,6 +111,13 @@ extern void xil_printf(const char *format, ...);
 #define DDR_BASE_ADDR	XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #endif
 
+#else
+
+#ifdef XPAR_MEM0_BASEADDRESS
+#define DDR_BASE_ADDR		XPAR_MEM0_BASEADDRESS
+#endif
+#endif
+
 #ifndef DDR_BASE_ADDR
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
 			DEFAULT SET TO 0x01000000
@@ -113,12 +126,14 @@ extern void xil_printf(const char *format, ...);
 #define MEM_BASE_ADDR		(DDR_BASE_ADDR + 0x1000000)
 #endif
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define RX_INTR_ID		XPAR_INTC_0_AXIDMA_0_S2MM_INTROUT_VEC_ID
 #define TX_INTR_ID		XPAR_INTC_0_AXIDMA_0_MM2S_INTROUT_VEC_ID
 #else
 #define RX_INTR_ID		XPAR_FABRIC_AXIDMA_0_S2MM_INTROUT_VEC_ID
 #define TX_INTR_ID		XPAR_FABRIC_AXIDMA_0_MM2S_INTROUT_VEC_ID
+#endif
 #endif
 
 #define RX_BD_SPACE_BASE	(MEM_BASE_ADDR)
@@ -129,10 +144,12 @@ extern void xil_printf(const char *format, ...);
 #define RX_BUFFER_BASE		(MEM_BASE_ADDR + 0x00300000)
 #define RX_BUFFER_HIGH		(MEM_BASE_ADDR + 0x004FFFFF)
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC_DEVICE_ID          XPAR_INTC_0_DEVICE_ID
 #else
 #define INTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
+#endif
 #endif
 
 /* Timeout loop counter for reset
@@ -165,12 +182,14 @@ extern void xil_printf(const char *format, ...);
 #define COALESCING_COUNT		NUMBER_OF_PKTS_TO_TRANSFER
 #define DELAY_TIMER_COUNT		100
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
  #define INTC		XIntc
  #define INTC_HANDLER	XIntc_InterruptHandler
 #else
  #define INTC		XScuGic
  #define INTC_HANDLER	XScuGic_InterruptHandler
+#endif
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -191,11 +210,12 @@ static void RxCallBack(XAxiDma_BdRing * RxRingPtr);
 static void RxIntrHandler(void *Callback);
 
 
-
+#ifndef SDT
 static int SetupIntrSystem(INTC * IntcInstancePtr,
 			   XAxiDma * AxiDmaPtr, u16 TxIntrId, u16 RxIntrId);
 static void DisableIntrSystem(INTC * IntcInstancePtr,
 					u16 TxIntrId, u16 RxIntrId);
+#endif
 
 static int RxSetup(XAxiDma * AxiDmaInstPtr);
 static int TxSetup(XAxiDma * AxiDmaInstPtr);
@@ -207,9 +227,9 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr);
  */
 XAxiDma AxiDma;
 
-
+#ifndef SDT
 static INTC Intc;	/* Instance of the Interrupt Controller */
-
+#endif
 /*
  * Flags interrupt handlers use to notify the application context the events.
  */
@@ -251,6 +271,10 @@ int main(void)
 {
 	int Status;
 	XAxiDma_Config *Config;
+#ifdef SDT
+	XAxiDma_BdRing *RxRingPtr;
+	XAxiDma_BdRing *TxRingPtr;
+#endif
 
 	/* Initial setup for Uart16550 */
 #ifdef XPAR_UARTNS550_0_BASEADDR
@@ -265,13 +289,21 @@ int main(void)
 	Xil_SetTlbAttributes(RX_BD_SPACE_BASE, MARK_UNCACHEABLE);
 #endif
 
+#ifndef SDT
 	Config = XAxiDma_LookupConfig(DMA_DEV_ID);
 	if (!Config) {
 		xil_printf("No config found for %d\r\n", DMA_DEV_ID);
 
 		return XST_FAILURE;
 	}
+#else
+	Config = XAxiDma_LookupConfig(XPAR_AXI_DMA_BASEADDR);
+	if (!Config) {
+		xil_printf("No config found for %d\r\n", XPAR_AXI_DMA_BASEADDR);
 
+		return XST_FAILURE;
+	}
+#endif
 	/* Initialize DMA engine */
 	XAxiDma_CfgInitialize(&AxiDma, Config);
 
@@ -297,12 +329,28 @@ int main(void)
 	}
 
 	/* Set up Interrupt system  */
+#ifndef SDT
 	Status = SetupIntrSystem(&Intc, &AxiDma, TX_INTR_ID, RX_INTR_ID);
+#else
+	TxRingPtr = XAxiDma_GetTxRing(&AxiDma);
+	Status = XSetupInterruptSystem(TxRingPtr, &TxIntrHandler,
+				       Config->IntrId[0], Config->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 
 		xil_printf("Failed intr setup\r\n");
 		return XST_FAILURE;
 	}
+#ifdef SDT
+	RxRingPtr = XAxiDma_GetRxRing(&AxiDma);
+	Status = XSetupInterruptSystem(RxRingPtr, &RxIntrHandler,
+				       Config->IntrId[1], Config->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
 
 	/* Initialize flags before start transfer test  */
 	TxDone = 0;
@@ -363,7 +411,12 @@ int main(void)
 
 	/* Disable TX and RX Ring interrupts and return success */
 
+#ifndef SDT
 	DisableIntrSystem(&Intc, TX_INTR_ID, RX_INTR_ID);
+#else
+	XDisconnectInterruptCntrl(Config->IntrId[0], Config->IntrParent);
+	XDisconnectInterruptCntrl(Config->IntrId[1], Config->IntrParent);
+#endif
 
 Done:
 
@@ -699,7 +752,7 @@ static void RxIntrHandler(void *Callback)
 		RxCallBack(RxRingPtr);
 	}
 }
-
+#ifndef SDT
 /*****************************************************************************/
 /*
 *
@@ -848,7 +901,7 @@ static void DisableIntrSystem(INTC * IntcInstancePtr,
 	XScuGic_Disconnect(IntcInstancePtr, RxIntrId);
 #endif
 }
-
+#endif
 /*****************************************************************************/
 /*
 *
@@ -1158,8 +1211,23 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 				/* The first BD has SOF set
 				 */
 				CrBits |= XAXIDMA_BD_CTRL_TXSOF_MASK;
-
+#ifndef SDT
 #if (XPAR_AXIDMA_0_SG_INCLUDE_STSCNTRL_STRM == 1)
+/* The first BD has total transfer length set
+				 * in the last APP word, this is for the
+				 * loopback widget
+				 */
+				Status = XAxiDma_BdSetAppWord(BdCurPtr,
+				    XAXIDMA_LAST_APPWORD,
+				    MAX_PKT_LEN * NUMBER_OF_BDS_PER_PKT);
+
+				if (Status != XST_SUCCESS) {
+					xil_printf("Set app word failed with %d\r\n",
+					Status);
+				}
+#endif
+#else
+if (TxRingPtr->HasStsCntrlStrm) {
 				/* The first BD has total transfer length set
 				 * in the last APP word, this is for the
 				 * loopback widget
@@ -1172,6 +1240,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 					xil_printf("Set app word failed with %d\r\n",
 					Status);
 				}
+			}
 #endif
 			}
 
