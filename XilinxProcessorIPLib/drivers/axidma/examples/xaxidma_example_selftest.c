@@ -38,7 +38,7 @@
  * Device hardware build related constants.
  */
 
- #ifndef TESTAPP_GEN
+#ifndef TESTAPP_GEN
 #ifndef SDT
 #define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
 #endif

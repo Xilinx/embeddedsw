@@ -74,9 +74,9 @@
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
- #include "xintc.h"
+#include "xintc.h"
 #else
- #include "xscugic.h"
+#include "xscugic.h"
 #endif
 #endif
 
@@ -109,7 +109,7 @@
 
 #ifndef DDR_BASE_ADDR
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
-		DEFAULT SET TO 0x01000000
+DEFAULT SET TO 0x01000000
 #define MEM_BASE_ADDR		0x01000000
 #else
 #define MEM_BASE_ADDR		(DDR_BASE_ADDR + 0x1000000)
@@ -137,11 +137,11 @@
 #endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
- #define INTC		XIntc
- #define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC		XIntc
+#define INTC_HANDLER	XIntc_InterruptHandler
 #else
- #define INTC		XScuGic
- #define INTC_HANDLER	XScuGic_InterruptHandler
+#define INTC		XScuGic
+#define INTC_HANDLER	XScuGic_InterruptHandler
 #endif
 #endif
 
@@ -188,10 +188,10 @@ static void RxIntrHandler(void *Callback);
 
 
 #ifndef SDT
-static int SetupIntrSystem(INTC * IntcInstancePtr,
-			   XAxiDma * AxiDmaPtr, u16 TxIntrId, u16 RxIntrId);
-static void DisableIntrSystem(INTC * IntcInstancePtr,
-					u16 TxIntrId, u16 RxIntrId);
+static int SetupIntrSystem(INTC *IntcInstancePtr,
+			   XAxiDma *AxiDmaPtr, u16 TxIntrId, u16 RxIntrId);
+static void DisableIntrSystem(INTC *IntcInstancePtr,
+			      u16 TxIntrId, u16 RxIntrId);
 
 #endif
 
@@ -282,7 +282,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	if(XAxiDma_HasSg(&AxiDma)){
+	if (XAxiDma_HasSg(&AxiDma)) {
 		xil_printf("Device configured as SG mode \r\n");
 		return XST_FAILURE;
 	}
@@ -314,18 +314,18 @@ int main(void)
 	/* Disable all interrupts before setup */
 
 	XAxiDma_IntrDisable(&AxiDma, XAXIDMA_IRQ_ALL_MASK,
-						XAXIDMA_DMA_TO_DEVICE);
+			    XAXIDMA_DMA_TO_DEVICE);
 
 	XAxiDma_IntrDisable(&AxiDma, XAXIDMA_IRQ_ALL_MASK,
-				XAXIDMA_DEVICE_TO_DMA);
+			    XAXIDMA_DEVICE_TO_DMA);
 
 	/* Enable all interrupts */
 	XAxiDma_IntrEnable(&AxiDma, XAXIDMA_IRQ_ALL_MASK,
-							XAXIDMA_DMA_TO_DEVICE);
+			   XAXIDMA_DMA_TO_DEVICE);
 
 
 	XAxiDma_IntrEnable(&AxiDma, XAXIDMA_IRQ_ALL_MASK,
-							XAXIDMA_DEVICE_TO_DMA);
+			   XAXIDMA_DEVICE_TO_DMA);
 
 	/* Initialize flags before start transfer test  */
 	TxDone = 0;
@@ -334,10 +334,10 @@ int main(void)
 
 	Value = TEST_START_VALUE;
 
-	for(Index = 0; Index < MAX_PKT_LEN; Index ++) {
-			TxBufferPtr[Index] = Value;
+	for (Index = 0; Index < MAX_PKT_LEN; Index ++) {
+		TxBufferPtr[Index] = Value;
 
-			Value = (Value + 1) & 0xFF;
+		Value = (Value + 1) & 0xFF;
 	}
 
 	/* Flush the buffers before the DMA transfer, in case the Data Cache
@@ -347,17 +347,17 @@ int main(void)
 	Xil_DCacheFlushRange((UINTPTR)RxBufferPtr, MAX_PKT_LEN);
 
 	/* Send a packet */
-	for(Index = 0; Index < Tries; Index ++) {
+	for (Index = 0; Index < Tries; Index ++) {
 
-		Status = XAxiDma_SimpleTransfer(&AxiDma,(UINTPTR) RxBufferPtr,
-					MAX_PKT_LEN, XAXIDMA_DEVICE_TO_DMA);
+		Status = XAxiDma_SimpleTransfer(&AxiDma, (UINTPTR) RxBufferPtr,
+						MAX_PKT_LEN, XAXIDMA_DEVICE_TO_DMA);
 
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 
-		Status = XAxiDma_SimpleTransfer(&AxiDma,(UINTPTR) TxBufferPtr,
-					MAX_PKT_LEN, XAXIDMA_DMA_TO_DEVICE);
+		Status = XAxiDma_SimpleTransfer(&AxiDma, (UINTPTR) TxBufferPtr,
+						MAX_PKT_LEN, XAXIDMA_DMA_TO_DEVICE);
 
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -442,10 +442,10 @@ static void Uart550_Setup(void)
 {
 
 	XUartNs550_SetBaud(XPAR_UARTNS550_0_BASEADDR,
-			XPAR_XUARTNS550_CLOCK_HZ, 9600);
+			   XPAR_XUARTNS550_CLOCK_HZ, 9600);
 
 	XUartNs550_SetLineControlReg(XPAR_UARTNS550_0_BASEADDR,
-			XUN_LCR_8_DATA_BITS);
+				     XUN_LCR_8_DATA_BITS);
 }
 #endif
 
@@ -480,10 +480,10 @@ static int CheckData(int Length, u8 StartValue)
 	 */
 	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, Length);
 
-	for(Index = 0; Index < Length; Index++) {
+	for (Index = 0; Index < Length; Index++) {
 		if (RxPacket[Index] != Value) {
 			xil_printf("Data error %d: %x/%x\r\n",
-			    Index, RxPacket[Index], Value);
+				   Index, RxPacket[Index], Value);
 
 			return XST_FAILURE;
 		}
@@ -620,7 +620,7 @@ static void RxIntrHandler(void *Callback)
 		TimeOut = RESET_TIMEOUT_COUNTER;
 
 		while (TimeOut) {
-			if(XAxiDma_ResetIsDone(AxiDmaInst)) {
+			if (XAxiDma_ResetIsDone(AxiDmaInst)) {
 				break;
 			}
 
@@ -657,8 +657,8 @@ static void RxIntrHandler(void *Callback)
 * @note		None.
 *
 ******************************************************************************/
-static int SetupIntrSystem(INTC * IntcInstancePtr,
-			   XAxiDma * AxiDmaPtr, u16 TxIntrId, u16 RxIntrId)
+static int SetupIntrSystem(INTC *IntcInstancePtr,
+			   XAxiDma *AxiDmaPtr, u16 TxIntrId, u16 RxIntrId)
 {
 	int Status;
 
@@ -714,7 +714,7 @@ static int SetupIntrSystem(INTC * IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -729,15 +729,15 @@ static int SetupIntrSystem(INTC * IntcInstancePtr,
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, TxIntrId,
-				(Xil_InterruptHandler)TxIntrHandler,
-				AxiDmaPtr);
+				 (Xil_InterruptHandler)TxIntrHandler,
+				 AxiDmaPtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
 
 	Status = XScuGic_Connect(IntcInstancePtr, RxIntrId,
-				(Xil_InterruptHandler)RxIntrHandler,
-				AxiDmaPtr);
+				 (Xil_InterruptHandler)RxIntrHandler,
+				 AxiDmaPtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -752,8 +752,8 @@ static int SetupIntrSystem(INTC * IntcInstancePtr,
 
 	Xil_ExceptionInit();
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)INTC_HANDLER,
-			(void *)IntcInstancePtr);
+				     (Xil_ExceptionHandler)INTC_HANDLER,
+				     (void *)IntcInstancePtr);
 
 	Xil_ExceptionEnable();
 
@@ -774,8 +774,8 @@ static int SetupIntrSystem(INTC * IntcInstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-static void DisableIntrSystem(INTC * IntcInstancePtr,
-					u16 TxIntrId, u16 RxIntrId)
+static void DisableIntrSystem(INTC *IntcInstancePtr,
+			      u16 TxIntrId, u16 RxIntrId)
 {
 #ifdef XPAR_INTC_0_DEVICE_ID
 	/* Disconnect the interrupts for the DMA TX and RX channels */

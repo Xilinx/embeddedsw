@@ -60,7 +60,7 @@
 *     None.
 *
 ******************************************************************************/
-int XAxiDma_Selftest(XAxiDma * InstancePtr)
+int XAxiDma_Selftest(XAxiDma *InstancePtr)
 {
 	int TimeOut;
 
@@ -74,7 +74,7 @@ int XAxiDma_Selftest(XAxiDma * InstancePtr)
 
 	while (TimeOut) {
 
-		if(XAxiDma_ResetIsDone(InstancePtr)) {
+		if (XAxiDma_ResetIsDone(InstancePtr)) {
 			break;
 		}
 
@@ -82,8 +82,9 @@ int XAxiDma_Selftest(XAxiDma * InstancePtr)
 
 	}
 
-	if (!TimeOut)
+	if (!TimeOut) {
 		return XST_FAILURE;
+	}
 
 	return XST_SUCCESS;
 }

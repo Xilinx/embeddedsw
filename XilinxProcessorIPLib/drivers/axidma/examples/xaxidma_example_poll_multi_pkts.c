@@ -104,7 +104,7 @@ extern void xil_printf(const char *format, ...);
 
 #ifndef DDR_BASE_ADDR
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
-		DEFAULT SET TO 0x01000000
+DEFAULT SET TO 0x01000000
 #define MEM_BASE_ADDR		0x01000000
 #else
 #define MEM_BASE_ADDR		(DDR_BASE_ADDR + 0x1000000)
@@ -133,11 +133,11 @@ extern void xil_printf(const char *format, ...);
 static void Uart550_Setup(void);
 #endif
 
-static int RxSetup(XAxiDma * AxiDmaInstPtr);
-static int TxSetup(XAxiDma * AxiDmaInstPtr);
-static int SendPackets(XAxiDma * AxiDmaInstPtr);
+static int RxSetup(XAxiDma *AxiDmaInstPtr);
+static int TxSetup(XAxiDma *AxiDmaInstPtr);
+static int SendPackets(XAxiDma *AxiDmaInstPtr);
 static int CheckData(void);
-static int CheckDmaResult(XAxiDma * AxiDmaInstPtr);
+static int CheckDmaResult(XAxiDma *AxiDmaInstPtr);
 
 /************************** Variable Definitions *****************************/
 /*
@@ -212,7 +212,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	if(!XAxiDma_HasSg(&AxiDma)) {
+	if (!XAxiDma_HasSg(&AxiDma)) {
 		xil_printf("Device configured as simple mode \r\n");
 
 		return XST_FAILURE;
@@ -273,10 +273,10 @@ static void Uart550_Setup(void)
 	/* Set the baudrate to be predictable
 	 */
 	XUartNs550_SetBaud(XPAR_UARTNS550_0_BASEADDR,
-			XPAR_XUARTNS550_CLOCK_HZ, 9600);
+			   XPAR_XUARTNS550_CLOCK_HZ, 9600);
 
 	XUartNs550_SetLineControlReg(XPAR_UARTNS550_0_BASEADDR,
-			XUN_LCR_8_DATA_BITS);
+				     XUN_LCR_8_DATA_BITS);
 
 }
 #endif
@@ -295,7 +295,7 @@ static void Uart550_Setup(void)
 * @note		None.
 *
 ******************************************************************************/
-static int RxSetup(XAxiDma * AxiDmaInstPtr)
+static int RxSetup(XAxiDma *AxiDmaInstPtr)
 {
 	XAxiDma_BdRing *RxRingPtr;
 	int Delay = 0;
@@ -320,11 +320,11 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 
 	/* Setup Rx BD space */
 	BdCount = XAxiDma_BdRingCntCalc(XAXIDMA_BD_MINIMUM_ALIGNMENT,
-				RX_BD_SPACE_HIGH - RX_BD_SPACE_BASE + 1);
+					RX_BD_SPACE_HIGH - RX_BD_SPACE_BASE + 1);
 
 	Status = XAxiDma_BdRingCreate(RxRingPtr, RX_BD_SPACE_BASE,
-				RX_BD_SPACE_BASE,
-				XAXIDMA_BD_MINIMUM_ALIGNMENT, BdCount);
+				      RX_BD_SPACE_BASE,
+				      XAXIDMA_BD_MINIMUM_ALIGNMENT, BdCount);
 
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -356,17 +356,17 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 		Status = XAxiDma_BdSetBufAddr(BdCurPtr, RxBufferPtr);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Rx set buffer addr %x on BD %x failed %d\r\n",
-			(unsigned int)RxBufferPtr, (UINTPTR)BdCurPtr,
-								Status);
+				   (unsigned int)RxBufferPtr, (UINTPTR)BdCurPtr,
+				   Status);
 
 			return XST_FAILURE;
 		}
 
 		Status = XAxiDma_BdSetLength(BdCurPtr, MAX_PKT_LEN,
-				RxRingPtr->MaxTransferLen);
+					     RxRingPtr->MaxTransferLen);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Rx set length %d on BD %x failed %d\r\n",
-			    MAX_PKT_LEN, (UINTPTR)BdCurPtr, Status);
+				   MAX_PKT_LEN, (UINTPTR)BdCurPtr, Status);
 
 			return XST_FAILURE;
 		}
@@ -413,7 +413,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 * @note     None.
 *
 ******************************************************************************/
-static int TxSetup(XAxiDma * AxiDmaInstPtr)
+static int TxSetup(XAxiDma *AxiDmaInstPtr)
 {
 	XAxiDma_BdRing *TxRingPtr;
 	XAxiDma_Bd BdTemplate;
@@ -433,11 +433,11 @@ static int TxSetup(XAxiDma * AxiDmaInstPtr)
 
 	/* Setup Tx BD space  */
 	BdCount = XAxiDma_BdRingCntCalc(XAXIDMA_BD_MINIMUM_ALIGNMENT,
-				TX_BD_SPACE_HIGH - TX_BD_SPACE_BASE + 1);
+					TX_BD_SPACE_HIGH - TX_BD_SPACE_BASE + 1);
 
 	Status = XAxiDma_BdRingCreate(TxRingPtr, TX_BD_SPACE_BASE,
-				TX_BD_SPACE_BASE,
-				XAXIDMA_BD_MINIMUM_ALIGNMENT, BdCount);
+				      TX_BD_SPACE_BASE,
+				      XAXIDMA_BD_MINIMUM_ALIGNMENT, BdCount);
 	if (Status != XST_SUCCESS) {
 		xil_printf("failed create BD ring in txsetup\r\n");
 
@@ -480,7 +480,7 @@ static int TxSetup(XAxiDma * AxiDmaInstPtr)
 * @note		None.
 *
 ******************************************************************************/
-static int SendPackets(XAxiDma * AxiDmaInstPtr)
+static int SendPackets(XAxiDma *AxiDmaInstPtr)
 {
 	XAxiDma_BdRing *TxRingPtr;
 	u8 *TxPacket;
@@ -497,7 +497,7 @@ static int SendPackets(XAxiDma * AxiDmaInstPtr)
 
 	Value = TEST_START_VALUE;
 
-	for(i = 0; i < MAX_PKT_LEN * NUMBER_OF_PACKETS; i ++) {
+	for (i = 0; i < MAX_PKT_LEN * NUMBER_OF_PACKETS; i ++) {
 		TxPacket[i] = Value;
 
 		Value = (Value + 1) & 0xFF;
@@ -507,9 +507,9 @@ static int SendPackets(XAxiDma * AxiDmaInstPtr)
 	 * is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN *
-							NUMBER_OF_PACKETS);
+			     NUMBER_OF_PACKETS);
 	Xil_DCacheFlushRange((UINTPTR)RX_BUFFER_BASE, MAX_PKT_LEN *
-						 NUMBER_OF_PACKETS);
+			     NUMBER_OF_PACKETS);
 
 	TxRingPtr = XAxiDma_GetTxRing(AxiDmaInstPtr);
 
@@ -529,16 +529,16 @@ static int SendPackets(XAxiDma * AxiDmaInstPtr)
 		Status = XAxiDma_BdSetBufAddr(CurBdPtr, BufAddr);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Tx set buffer addr %x on BD %x failed %d\r\n",
-			(unsigned int)BufAddr, (UINTPTR)CurBdPtr, Status);
+				   (unsigned int)BufAddr, (UINTPTR)CurBdPtr, Status);
 
 			return XST_FAILURE;
 		}
 
 		Status = XAxiDma_BdSetLength(CurBdPtr, MAX_PKT_LEN,
-				TxRingPtr->MaxTransferLen);
+					     TxRingPtr->MaxTransferLen);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Tx set length %d on BD %x failed %d\r\n",
-			    MAX_PKT_LEN, (UINTPTR)CurBdPtr, Status);
+				   MAX_PKT_LEN, (UINTPTR)CurBdPtr, Status);
 
 			return XST_FAILURE;
 		}
@@ -548,38 +548,38 @@ static int SendPackets(XAxiDma * AxiDmaInstPtr)
 
 #ifndef SDT
 #if (XPAR_AXIDMA_0_SG_INCLUDE_STSCNTRL_STRM == 1)
-/* The first BD has total transfer length set in
-			 * the last APP word, this is for the loopback widget
-			 */
+			/* The first BD has total transfer length set in
+						 * the last APP word, this is for the loopback widget
+						 */
 			Status = XAxiDma_BdSetAppWord(CurBdPtr,
-			    XAXIDMA_LAST_APPWORD,
-			    MAX_PKT_LEN * NUMBER_OF_PACKETS);
+						      XAXIDMA_LAST_APPWORD,
+						      MAX_PKT_LEN * NUMBER_OF_PACKETS);
 
 			if (Status != XST_SUCCESS) {
 				xil_printf("Set app word failed with %d\r\n",
-								Status);
+					   Status);
 			}
 #endif
 #else
-if (TxRingPtr->HasStsCntrlStrm) {
-			/* The first BD has total transfer length set in
-			 * the last APP word, this is for the loopback widget
-			 */
-			Status = XAxiDma_BdSetAppWord(CurBdPtr,
-			    XAXIDMA_LAST_APPWORD,
-			    MAX_PKT_LEN * NUMBER_OF_PACKETS);
+			if (TxRingPtr->HasStsCntrlStrm) {
+				/* The first BD has total transfer length set in
+				 * the last APP word, this is for the loopback widget
+				 */
+				Status = XAxiDma_BdSetAppWord(CurBdPtr,
+							      XAXIDMA_LAST_APPWORD,
+							      MAX_PKT_LEN * NUMBER_OF_PACKETS);
 
-			if (Status != XST_SUCCESS) {
-				xil_printf("Set app word failed with %d\r\n",
-								Status);
+				if (Status != XST_SUCCESS) {
+					xil_printf("Set app word failed with %d\r\n",
+						   Status);
+				}
 			}
-		}
 #endif
-	}
+		}
 		if (i == (NUMBER_OF_PACKETS - 1)) {
 			CrBits |= XAXIDMA_BD_CTRL_TXEOF_MASK;
 			XAxiDma_BdSetCtrl(CurBdPtr,
-					XAXIDMA_BD_CTRL_TXEOF_MASK);
+					  XAXIDMA_BD_CTRL_TXEOF_MASK);
 		}
 		XAxiDma_BdSetCtrl(CurBdPtr, CrBits);
 
@@ -626,12 +626,12 @@ static int CheckData(void)
 	 * Data Cache is enabled
 	 */
 	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, MAX_PKT_LEN *
-								NUMBER_OF_PACKETS);
+				  NUMBER_OF_PACKETS);
 
-	for(i = 0; i < MAX_PKT_LEN * NUMBER_OF_PACKETS; i++) {
+	for (i = 0; i < MAX_PKT_LEN * NUMBER_OF_PACKETS; i++) {
 		if (RxPacket[i] != Value) {
 			xil_printf("Data error %d: %x/%x\r\n",
-			    i, (unsigned int)RxPacket[i], (unsigned int)Value);
+				   i, (unsigned int)RxPacket[i], (unsigned int)Value);
 
 			return XST_FAILURE;
 		}
@@ -655,7 +655,7 @@ static int CheckData(void)
 * @note		None.
 *
 ******************************************************************************/
-static int CheckDmaResult(XAxiDma * AxiDmaInstPtr)
+static int CheckDmaResult(XAxiDma *AxiDmaInstPtr)
 {
 	XAxiDma_BdRing *TxRingPtr;
 	XAxiDma_BdRing *RxRingPtr;
@@ -670,7 +670,7 @@ static int CheckDmaResult(XAxiDma * AxiDmaInstPtr)
 	/* Wait until the TX transactions are done */
 	while (ProcessedBdCount < NUMBER_OF_PACKETS) {
 		ProcessedBdCount += XAxiDma_BdRingFromHw(TxRingPtr,
-					       XAXIDMA_ALL_BDS, &BdPtr);
+				    XAXIDMA_ALL_BDS, &BdPtr);
 	}
 
 	/* Free all processed TX BDs for future transmission */
@@ -685,7 +685,7 @@ static int CheckDmaResult(XAxiDma * AxiDmaInstPtr)
 	while (ProcessedBdCount < NUMBER_OF_PACKETS) {
 
 		ProcessedBdCount += XAxiDma_BdRingFromHw(RxRingPtr,
-					       XAXIDMA_ALL_BDS, &BdPtr);
+				    XAXIDMA_ALL_BDS, &BdPtr);
 	}
 
 

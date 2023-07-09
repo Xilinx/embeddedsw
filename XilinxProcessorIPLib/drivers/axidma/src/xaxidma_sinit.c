@@ -115,7 +115,7 @@ XAxiDma_Config *XAxiDma_LookupConfig(UINTPTR BaseAddress)
 
 	for (Index = (u32)0x0; XAxiDma_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XAxiDma_ConfigTable[Index].BaseAddr == BaseAddress) ||
-		     !BaseAddress) {
+		    !BaseAddress) {
 			CfgPtr = &XAxiDma_ConfigTable[Index];
 			break;
 		}
