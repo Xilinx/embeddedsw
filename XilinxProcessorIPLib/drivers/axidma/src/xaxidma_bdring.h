@@ -215,51 +215,51 @@ typedef struct {
 		if (!RingPtr->IsRxChannel) {				       \
 			if (!(RingPtr->Addr_ext)) {		               \
 				(RingPtr)->BdaRestart = (XAxiDma_Bd *)(        \
-				UINTPTR)XAxiDma_ReadReg((RingPtr)->ChanBase,   \
-				XAXIDMA_CDESC_OFFSET);                         \
+							UINTPTR)XAxiDma_ReadReg((RingPtr)->ChanBase,   \
+									XAXIDMA_CDESC_OFFSET);                         \
 			} else {			                       \
 				(RingPtr)->BdaRestart  = (XAxiDma_Bd *)((      \
-				XAxiDma_ReadReg((RingPtr)->ChanBase,  	       \
-				XAXIDMA_CDESC_OFFSET)) |                       \
-				(LEFT_SHIFT_BY_32_BITS (XAxiDma_ReadReg(       \
-				(RingPtr)->ChanBase,                           \
-				XAXIDMA_CDESC_MSB_OFFSET))));                  \
+									XAxiDma_ReadReg((RingPtr)->ChanBase,  	       \
+											XAXIDMA_CDESC_OFFSET)) |                       \
+									(LEFT_SHIFT_BY_32_BITS (XAxiDma_ReadReg(       \
+											(RingPtr)->ChanBase,                           \
+											XAXIDMA_CDESC_MSB_OFFSET))));                  \
 			}						       \
 		} else {						       \
 			if (!RingPtr->RingIndex) {			       \
 				if (!(RingPtr->Addr_ext)) {		       \
 					(RingPtr)->BdaRestart = 	       \
-					(XAxiDma_Bd *)(UINTPTR)	    	       \
-					XAxiDma_ReadReg((RingPtr)->ChanBase,   \
-					XAXIDMA_CDESC_OFFSET);		       \
+									       (XAxiDma_Bd *)(UINTPTR)	    	       \
+									       XAxiDma_ReadReg((RingPtr)->ChanBase,   \
+											       XAXIDMA_CDESC_OFFSET);		       \
 				} else {	                               \
 					(RingPtr)->BdaRestart  =               \
-					(XAxiDma_Bd *)((XAxiDma_ReadReg(       \
-					(RingPtr)->ChanBase,  		       \
-					XAXIDMA_CDESC_OFFSET)) |               \
-					(LEFT_SHIFT_BY_32_BITS                 \
-					(XAxiDma_ReadReg((RingPtr)->ChanBase,  \
-					XAXIDMA_CDESC_MSB_OFFSET))));          \
+									       (XAxiDma_Bd *)((XAxiDma_ReadReg(       \
+											       (RingPtr)->ChanBase,  		       \
+											       XAXIDMA_CDESC_OFFSET)) |               \
+											       (LEFT_SHIFT_BY_32_BITS                 \
+													       (XAxiDma_ReadReg((RingPtr)->ChanBase,  \
+															       XAXIDMA_CDESC_MSB_OFFSET))));          \
 				}					       \
 			} else {	             			       \
 				if (!(RingPtr->Addr_ext)) {		       \
 					(RingPtr)->BdaRestart = 	       \
-					(XAxiDma_Bd *)(UINTPTR)		       \
-					XAxiDma_ReadReg((RingPtr)->ChanBase,   \
-					(XAXIDMA_RX_CDESC0_OFFSET +	       \
-					(RingPtr->RingIndex - 1) * 	       \
-					XAXIDMA_RX_NDESC_OFFSET)); 	       \
+									       (XAxiDma_Bd *)(UINTPTR)		       \
+									       XAxiDma_ReadReg((RingPtr)->ChanBase,   \
+											       (XAXIDMA_RX_CDESC0_OFFSET +	       \
+													       (RingPtr->RingIndex - 1) * 	       \
+													       XAXIDMA_RX_NDESC_OFFSET)); 	       \
 				} else {			               \
 					(RingPtr)->BdaRestart  =               \
-					(XAxiDma_Bd *)((XAxiDma_ReadReg(       \
-					(RingPtr)->ChanBase,  		       \
-					XAXIDMA_CDESC_OFFSET)) |               \
-					(LEFT_SHIFT_BY_32_BITS                 \
-					(XAxiDma_ReadReg(                      \
-					(RingPtr)->ChanBase,                   \
-					(XAXIDMA_RX_CDESC0_MSB_OFFSET +        \
-					(RingPtr->RingIndex - 1) *             \
-					XAXIDMA_RX_NDESC_OFFSET)))));          \
+									       (XAxiDma_Bd *)((XAxiDma_ReadReg(       \
+											       (RingPtr)->ChanBase,  		       \
+											       XAXIDMA_CDESC_OFFSET)) |               \
+											       (LEFT_SHIFT_BY_32_BITS                 \
+													       (XAxiDma_ReadReg(                      \
+															       (RingPtr)->ChanBase,                   \
+															       (XAXIDMA_RX_CDESC0_MSB_OFFSET +        \
+																	       (RingPtr->RingIndex - 1) *             \
+																	       XAXIDMA_RX_NDESC_OFFSET)))));          \
 				}					       \
 			}						       \
 		}							       \
@@ -281,11 +281,11 @@ typedef struct {
 *****************************************************************************/
 #define XAxiDma_BdRingGetCurrBd(RingPtr)				       \
 	RingPtr->Addr_ext ? ((XAxiDma_Bd *)                                    \
-	((XAxiDma_ReadReg((RingPtr)->ChanBase,		                       \
-	XAXIDMA_CDESC_OFFSET)) | (LEFT_SHIFT_BY_32_BITS                        \
-	(XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_CDESC_MSB_OFFSET))))) :  \
+			     ((XAxiDma_ReadReg((RingPtr)->ChanBase,		                       \
+					       XAXIDMA_CDESC_OFFSET)) | (LEFT_SHIFT_BY_32_BITS                        \
+							       (XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_CDESC_MSB_OFFSET))))) :  \
 	((XAxiDma_Bd *)XAxiDma_ReadReg((RingPtr)->ChanBase,                    \
-	XAXIDMA_CDESC_OFFSET));
+				       XAXIDMA_CDESC_OFFSET));
 
 /****************************************************************************/
 /**
@@ -304,9 +304,9 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiDma_BdRingNext(RingPtr, BdPtr)			\
-		(((UINTPTR)(BdPtr) >= (RingPtr)->LastBdAddr) ?	\
-			(UINTPTR)(RingPtr)->FirstBdAddr :	\
-			(UINTPTR)((UINTPTR)(BdPtr) + (RingPtr)->Separation))
+	(((UINTPTR)(BdPtr) >= (RingPtr)->LastBdAddr) ?	\
+	 (UINTPTR)(RingPtr)->FirstBdAddr :	\
+	 (UINTPTR)((UINTPTR)(BdPtr) + (RingPtr)->Separation))
 
 /****************************************************************************/
 /**
@@ -325,9 +325,9 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiDma_BdRingPrev(RingPtr, BdPtr)				\
-		(((u32)(BdPtr) <= (RingPtr)->FirstBdAddr) ?		\
-			(XAxiDma_Bd*)(RingPtr)->LastBdAddr :		\
-			(XAxiDma_Bd*)((u32)(BdPtr) - (RingPtr)->Separation))
+	(((u32)(BdPtr) <= (RingPtr)->FirstBdAddr) ?		\
+	 (XAxiDma_Bd*)(RingPtr)->LastBdAddr :		\
+	 (XAxiDma_Bd*)((u32)(BdPtr) - (RingPtr)->Separation))
 
 /****************************************************************************/
 /**
@@ -344,7 +344,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiDma_BdRingGetSr(RingPtr)				\
-		XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET)
+	XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET)
 
 /****************************************************************************/
 /**
@@ -362,8 +362,8 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiDma_BdRingGetError(RingPtr)				\
-		(XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET) \
-			& XAXIDMA_ERR_ALL_MASK)
+	(XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET) \
+	 & XAXIDMA_ERR_ALL_MASK)
 
 /****************************************************************************/
 /**
@@ -381,8 +381,8 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiDma_BdRingHwIsStarted(RingPtr)				\
-		((XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET) \
-			& XAXIDMA_HALTED_MASK) ? FALSE : TRUE)
+	((XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET) \
+	  & XAXIDMA_HALTED_MASK) ? FALSE : TRUE)
 
 /****************************************************************************/
 /**
@@ -401,9 +401,9 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiDma_BdRingBusy(RingPtr)					 \
-		(XAxiDma_BdRingHwIsStarted(RingPtr) &&		\
-		((XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET) \
-			& XAXIDMA_IDLE_MASK) ? FALSE : TRUE))
+	(XAxiDma_BdRingHwIsStarted(RingPtr) &&		\
+	 ((XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET) \
+	   & XAXIDMA_IDLE_MASK) ? FALSE : TRUE))
 
 /****************************************************************************/
 /**
@@ -421,9 +421,9 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiDma_BdRingIntEnable(RingPtr, Mask)			\
-		(XAxiDma_WriteReg((RingPtr)->ChanBase, XAXIDMA_CR_OFFSET, \
-		XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_CR_OFFSET) \
-			| ((Mask) & XAXIDMA_IRQ_ALL_MASK)))
+	(XAxiDma_WriteReg((RingPtr)->ChanBase, XAXIDMA_CR_OFFSET, \
+			  XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_CR_OFFSET) \
+			  | ((Mask) & XAXIDMA_IRQ_ALL_MASK)))
 
 /****************************************************************************/
 /**
@@ -441,7 +441,7 @@ typedef struct {
 *****************************************************************************/
 #define XAxiDma_BdRingIntGetEnabled(RingPtr)				\
 	(XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_CR_OFFSET) \
-		& XAXIDMA_IRQ_ALL_MASK)
+	 & XAXIDMA_IRQ_ALL_MASK)
 
 /****************************************************************************/
 /**
@@ -460,9 +460,9 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiDma_BdRingIntDisable(RingPtr, Mask)				\
-		(XAxiDma_WriteReg((RingPtr)->ChanBase, XAXIDMA_CR_OFFSET, \
-		XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_CR_OFFSET) & \
-			~((Mask) & XAXIDMA_IRQ_ALL_MASK)))
+	(XAxiDma_WriteReg((RingPtr)->ChanBase, XAXIDMA_CR_OFFSET, \
+			  XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_CR_OFFSET) & \
+			  ~((Mask) & XAXIDMA_IRQ_ALL_MASK)))
 
 /****************************************************************************/
 /**
@@ -482,8 +482,8 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiDma_BdRingGetIrq(RingPtr)				\
-		(XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET) \
-			& XAXIDMA_IRQ_ALL_MASK)
+	(XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET) \
+	 & XAXIDMA_IRQ_ALL_MASK)
 
 /****************************************************************************/
 /**
@@ -500,8 +500,8 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiDma_BdRingAckIrq(RingPtr, Mask)				\
-		XAxiDma_WriteReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET,\
-			(Mask) & XAXIDMA_IRQ_ALL_MASK)
+	XAxiDma_WriteReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET,\
+			 (Mask) & XAXIDMA_IRQ_ALL_MASK)
 
 /****************************************************************************/
 /**
@@ -516,7 +516,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XAxiDma_BdRingEnableCyclicDMA(RingPtr)			\
-		(RingPtr->Cyclic = 1)
+	(RingPtr->Cyclic = 1)
 
 /****************************************************************************/
 
@@ -525,29 +525,29 @@ typedef struct {
 /*
  * Descriptor ring functions xaxidma_bdring.c
  */
-int XAxiDma_StartBdRingHw(XAxiDma_BdRing* RingPtr);
-int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing* RingPtr);
-u32 XAxiDma_BdRingCreate(XAxiDma_BdRing * RingPtr, UINTPTR PhysAddr,
-		UINTPTR VirtAddr, u32 Alignment, int BdCount);
-int XAxiDma_BdRingClone(XAxiDma_BdRing * RingPtr, XAxiDma_Bd * SrcBdPtr);
-int XAxiDma_BdRingAlloc(XAxiDma_BdRing * RingPtr, int NumBd,
-		XAxiDma_Bd ** BdSetPtr);
-int XAxiDma_BdRingUnAlloc(XAxiDma_BdRing * RingPtr, int NumBd,
-		XAxiDma_Bd * BdSetPtr);
-int XAxiDma_BdRingToHw(XAxiDma_BdRing * RingPtr, int NumBd,
-		XAxiDma_Bd * BdSetPtr);
-int XAxiDma_BdRingFromHw(XAxiDma_BdRing * RingPtr, int BdLimit,
-		XAxiDma_Bd ** BdSetPtr);
-int XAxiDma_BdRingFree(XAxiDma_BdRing * RingPtr, int NumBd,
-		XAxiDma_Bd * BdSetPtr);
-int XAxiDma_BdRingStart(XAxiDma_BdRing * RingPtr);
-int XAxiDma_BdRingSetCoalesce(XAxiDma_BdRing * RingPtr, u32 Counter, u32 Timer);
-void XAxiDma_BdRingGetCoalesce(XAxiDma_BdRing * RingPtr,
-		u32 *CounterPtr, u32 *TimerPtr);
+int XAxiDma_StartBdRingHw(XAxiDma_BdRing *RingPtr);
+int XAxiDma_UpdateBdRingCDesc(XAxiDma_BdRing *RingPtr);
+u32 XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, UINTPTR PhysAddr,
+			 UINTPTR VirtAddr, u32 Alignment, int BdCount);
+int XAxiDma_BdRingClone(XAxiDma_BdRing *RingPtr, XAxiDma_Bd *SrcBdPtr);
+int XAxiDma_BdRingAlloc(XAxiDma_BdRing *RingPtr, int NumBd,
+			XAxiDma_Bd **BdSetPtr);
+int XAxiDma_BdRingUnAlloc(XAxiDma_BdRing *RingPtr, int NumBd,
+			  XAxiDma_Bd *BdSetPtr);
+int XAxiDma_BdRingToHw(XAxiDma_BdRing *RingPtr, int NumBd,
+		       XAxiDma_Bd *BdSetPtr);
+int XAxiDma_BdRingFromHw(XAxiDma_BdRing *RingPtr, int BdLimit,
+			 XAxiDma_Bd **BdSetPtr);
+int XAxiDma_BdRingFree(XAxiDma_BdRing *RingPtr, int NumBd,
+		       XAxiDma_Bd *BdSetPtr);
+int XAxiDma_BdRingStart(XAxiDma_BdRing *RingPtr);
+int XAxiDma_BdRingSetCoalesce(XAxiDma_BdRing *RingPtr, u32 Counter, u32 Timer);
+void XAxiDma_BdRingGetCoalesce(XAxiDma_BdRing *RingPtr,
+			       u32 *CounterPtr, u32 *TimerPtr);
 
 /* The following functions are for debug only
  */
-int XAxiDma_BdRingCheck(XAxiDma_BdRing * RingPtr);
+int XAxiDma_BdRingCheck(XAxiDma_BdRing *RingPtr);
 void XAxiDma_BdRingDumpRegs(XAxiDma_BdRing *RingPtr);
 #ifdef __cplusplus
 }

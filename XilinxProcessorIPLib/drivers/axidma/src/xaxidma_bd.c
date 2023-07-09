@@ -74,14 +74,14 @@ int XAxiDma_BdSetLength(XAxiDma_Bd *BdPtr, u32 LenBytes, u32 LengthMask)
 	if (LenBytes <= 0 || (LenBytes > LengthMask)) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "invalid length %d\n",
-		    (int)LenBytes);
+			    (int)LenBytes);
 
 		return XST_INVALID_PARAM;
 	}
 
 	XAxiDma_BdWrite((BdPtr), XAXIDMA_BD_CTRL_LEN_OFFSET,
-		((XAxiDma_BdRead((BdPtr), XAXIDMA_BD_CTRL_LEN_OFFSET) & \
-		~LengthMask)) | LenBytes);
+			((XAxiDma_BdRead((BdPtr), XAXIDMA_BD_CTRL_LEN_OFFSET) & \
+			  ~LengthMask)) | LenBytes);
 
 	return XST_SUCCESS;
 }
@@ -100,7 +100,7 @@ int XAxiDma_BdSetLength(XAxiDma_Bd *BdPtr, u32 LenBytes, u32 LengthMask)
  * @note	This function can be used only when DMA is in SG mode
  *
  *****************************************************************************/
-u32 XAxiDma_BdSetBufAddr(XAxiDma_Bd* BdPtr, UINTPTR Addr)
+u32 XAxiDma_BdSetBufAddr(XAxiDma_Bd *BdPtr, UINTPTR Addr)
 {
 	u32 HasDRE;
 	u8 WordLen;
@@ -111,8 +111,8 @@ u32 XAxiDma_BdSetBufAddr(XAxiDma_Bd* BdPtr, UINTPTR Addr)
 	if (Addr & (WordLen - 1)) {
 		if ((HasDRE & XAXIDMA_BD_HAS_DRE_MASK) == 0) {
 			xil_printf("Error set buf addr %x with %x and %x,"
-			" %x\r\n",Addr, HasDRE, (WordLen - 1),
-			Addr & (WordLen - 1));
+				   " %x\r\n", Addr, HasDRE, (WordLen - 1),
+				   Addr & (WordLen - 1));
 
 			return XST_INVALID_PARAM;
 		}
@@ -143,14 +143,14 @@ u32 XAxiDma_BdSetBufAddr(XAxiDma_Bd* BdPtr, UINTPTR Addr)
  * @note	This function can be used only when DMA is in SG mode
  *
  *****************************************************************************/
-u32 XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd* BdPtr, UINTPTR Addr)
+u32 XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd *BdPtr, UINTPTR Addr)
 {
 	if (Addr & XAXIDMA_MICROMODE_MIN_BUF_ALIGN) {
-			xil_printf("Error set buf addr %x and %x,"
-			" %x\r\n", Addr, XAXIDMA_MICROMODE_MIN_BUF_ALIGN,
-			Addr & XAXIDMA_MICROMODE_MIN_BUF_ALIGN);
+		xil_printf("Error set buf addr %x and %x,"
+			   " %x\r\n", Addr, XAXIDMA_MICROMODE_MIN_BUF_ALIGN,
+			   Addr & XAXIDMA_MICROMODE_MIN_BUF_ALIGN);
 
-			return XST_INVALID_PARAM;
+		return XST_INVALID_PARAM;
 	}
 
 #if defined(__aarch64__) || defined(__arch64__)
@@ -185,12 +185,12 @@ u32 XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd* BdPtr, UINTPTR Addr)
  *		This function can be used only when DMA is in SG mode
  *
  *****************************************************************************/
-int XAxiDma_BdSetAppWord(XAxiDma_Bd* BdPtr, int Offset, u32 Word)
+int XAxiDma_BdSetAppWord(XAxiDma_Bd *BdPtr, int Offset, u32 Word)
 {
 	if (XAxiDma_BdRead(BdPtr, XAXIDMA_BD_HAS_STSCNTRL_OFFSET) == 0) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingSetAppWord: no sts cntrl"
-			"stream in hardware build, cannot set app word\r\n");
+			    "stream in hardware build, cannot set app word\r\n");
 
 		return XST_INVALID_PARAM;
 	}
@@ -198,7 +198,7 @@ int XAxiDma_BdSetAppWord(XAxiDma_Bd* BdPtr, int Offset, u32 Word)
 	if ((Offset < 0) || (Offset > XAXIDMA_LAST_APPWORD)) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingSetAppWord: invalid"
-			"offset %d",Offset);
+			    "offset %d", Offset);
 
 		return XST_INVALID_PARAM;
 	}
@@ -223,22 +223,22 @@ int XAxiDma_BdSetAppWord(XAxiDma_Bd* BdPtr, int Offset, u32 Word)
  * @note	This function can be used only when DMA is in SG mode
  *
  *****************************************************************************/
-u32 XAxiDma_BdGetAppWord(XAxiDma_Bd* BdPtr, int Offset, int *Valid)
+u32 XAxiDma_BdGetAppWord(XAxiDma_Bd *BdPtr, int Offset, int *Valid)
 {
 	*Valid = 0;
 
 	if (XAxiDma_BdRead(BdPtr, XAXIDMA_BD_HAS_STSCNTRL_OFFSET) == 0) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingGetAppWord: no sts cntrl "
-			"stream in hardware build, no app word available\r\n");
+			    "stream in hardware build, no app word available\r\n");
 
 		return (u32)0;
 	}
 
-	if((Offset < 0) || (Offset > XAXIDMA_LAST_APPWORD)) {
+	if ((Offset < 0) || (Offset > XAXIDMA_LAST_APPWORD)) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingGetAppWord: invalid"
-			" offset %d", Offset);
+			    " offset %d", Offset);
 
 		return (u32)0;
 	}
@@ -260,7 +260,7 @@ u32 XAxiDma_BdGetAppWord(XAxiDma_Bd* BdPtr, int Offset, int *Valid)
  * @note	This function can be used only when DMA is in SG mode
  *
  *****************************************************************************/
-void XAxiDma_BdSetCtrl(XAxiDma_Bd* BdPtr, u32 Data)
+void XAxiDma_BdSetCtrl(XAxiDma_Bd *BdPtr, u32 Data)
 {
 	u32 RegValue = XAxiDma_BdRead(BdPtr, XAXIDMA_BD_CTRL_LEN_OFFSET);
 
@@ -283,42 +283,42 @@ void XAxiDma_BdSetCtrl(XAxiDma_Bd* BdPtr, u32 Data)
  * @note	This function can be used only when DMA is in SG mode
  *
  *****************************************************************************/
-void XAxiDma_DumpBd(XAxiDma_Bd* BdPtr)
+void XAxiDma_DumpBd(XAxiDma_Bd *BdPtr)
 {
 
 	xil_printf("Dump BD %x:\r\n", (UINTPTR)BdPtr);
 	xil_printf("\tNext Bd Ptr: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_NDESC_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_NDESC_OFFSET));
 	xil_printf("\tBuff addr: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_BUFA_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_BUFA_OFFSET));
 	xil_printf("\tMCDMA Fields: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_MCCTL_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_MCCTL_OFFSET));
 	xil_printf("\tVSIZE_STRIDE: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr,
-					XAXIDMA_BD_STRIDE_VSIZE_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr,
+						XAXIDMA_BD_STRIDE_VSIZE_OFFSET));
 	xil_printf("\tContrl len: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_CTRL_LEN_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_CTRL_LEN_OFFSET));
 	xil_printf("\tStatus: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_STS_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_STS_OFFSET));
 
 	xil_printf("\tAPP 0: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_USR0_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_USR0_OFFSET));
 	xil_printf("\tAPP 1: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_USR1_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_USR1_OFFSET));
 	xil_printf("\tAPP 2: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_USR2_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_USR2_OFFSET));
 	xil_printf("\tAPP 3: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_USR3_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_USR3_OFFSET));
 	xil_printf("\tAPP 4: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_USR4_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_USR4_OFFSET));
 
 	xil_printf("\tSW ID: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_ID_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_ID_OFFSET));
 	xil_printf("\tStsCtrl: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr,
-	           XAXIDMA_BD_HAS_STSCNTRL_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr,
+						XAXIDMA_BD_HAS_STSCNTRL_OFFSET));
 	xil_printf("\tDRE: %x\r\n",
-	    (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_HAS_DRE_OFFSET));
+		   (unsigned int)XAxiDma_BdRead(BdPtr, XAXIDMA_BD_HAS_DRE_OFFSET));
 
 	xil_printf("\r\n");
 }
