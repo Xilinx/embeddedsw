@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 � 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -593,7 +594,6 @@ u32 DpTxSs_PlatformInit(void)
 	}
 	/* Set the direction for gpio channel 1 bit 0 as input */
 	XGpio_SetDataDirection(&Gpio, 1, 0x01);
-	 xil_printf("\r\nT3\r\n");
 #endif
 
 	   XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
