@@ -20,6 +20,7 @@
 *       kpt  07/24/22 Added XSECURE_API_KAT and additional KAT ids
 *       dc   08/26/22 Removed gaps in between the API IDs
 * 5.1   kpt  01/04/22 Add macros related to KAT for external modules
+* 5.2   vns  07/06/23 Added separate IPI commands for Crypto Status and KAT status updates
 *
 * </pre>
 * @note
@@ -40,23 +41,9 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**< KAT macros */
-#define XSECURE_KAT_HDR_LEN		(3U) /**< Header Length*/
+#define XSECURE_KAT_HDR_LEN		(2U) /**< Header Length*/
 #define XSECURE_MAX_KAT_MASK_LEN	(3U) /**< Maximum mask length*/
 #define XSECURE_MIN_KAT_MASK_LEN	(1U) /**< Minimum mask length*/
-
-/**< Node ids */
-#define XSECURE_DDR_0_NODE_ID		(0x18320010U) /**< DDR0*/
-#define XSECURE_DDR_1_NODE_ID		(0x18320011U) /**< DDR1*/
-#define XSECURE_DDR_2_NODE_ID		(0x18320012U) /**< DDR2*/
-#define XSECURE_DDR_3_NODE_ID		(0x18320013U) /**< DDR3*/
-#define XSECURE_DDR_4_NODE_ID		(0x18320014U) /**< DDR4*/
-#define XSECURE_DDR_5_NODE_ID		(0x18320015U) /**< DDR5*/
-#define XSECURE_DDR_6_NODE_ID		(0x18320016U) /**< DDR6*/
-#define XSECURE_DDR_7_NODE_ID		(0x18320017U) /**< DDR7*/
-#define XSECURE_HNIC_NODE_ID		(0x4230031U) /**< HNIC node id  */
-#define XSECURE_CPM5N_NODE_ID		(0x4218032U) /**< CPM5N Node id */
-#define XSECURE_PCIDE_NODE_ID		(0xc410053U) /**< PCIDE node id*/
-#define XSECURE_PKI_NODE_ID		(0xC410089U) /**< PKI node id*/
 
 #define XSECURE_WORD_LEN		(4U) /**< Word length */
 #define XSECURE_ADDR_HIGH_SHIFT		(32U) /**< Shift for getting higher address*/
@@ -90,9 +77,17 @@ typedef enum {
 	XSECURE_API_KAT,			/**< 21U */
 	XSECURE_API_TRNG_GENERATE,		/**< 22U */
 	XSECURE_API_AES_PERFORM_OPERATION, /**< 23U */
-	XSECURE_API_UPDATE_CRYPTO_STATUS,  /**< 24U */
-	XSECURE_API_GEN_SHARED_SECRET,		/**< 25U */
-	XSECURE_API_MAX,			/**< 26U */
+	XSECURE_API_UPDATE_HNIC_CRYPTO_STATUS,  /**< 24U */
+	XSECURE_API_UPDATE_CPM5N_CRYPTO_STATUS, /**< 25U */
+	XSECURE_API_UPDATE_PCIDE_CRYPTO_STATUS, /**< 26U */
+	XSECURE_API_UPDATE_PKI_CRYPTO_STATUS, 	/**< 27U */
+	XSECURE_API_UPDATE_DDR_KAT_STATUS,	/**< 28U */
+	XSECURE_API_UPDATE_HNIC_KAT_STATUS,	/**< 29U */
+	XSECURE_API_UPDATE_CPM5N_KAT_STATUS,	/**< 30U */
+	XSECURE_API_UPDATE_PCIDE_KAT_STATUS,	/**< 31U */
+	XSECURE_API_UPDATE_PKI_KAT_STATUS,	/**< 32U */
+	XSECURE_API_GEN_SHARED_SECRET,		/**< 33U */
+	XSECURE_API_MAX,			/**< 34U */
 } XSecure_ApiId;
 
 /**< XilSecure KAT ids */
