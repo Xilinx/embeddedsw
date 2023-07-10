@@ -5,7 +5,7 @@
 title: Bindings for OSPIPSV controller
 
 maintainers:
-  - Sai Krishna Potthuri <lakshmi.sai.krishna.potthuri@xilinx.com>
+  - Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
 
 type: driver
 
@@ -38,4 +38,8 @@ required:
 examples:
    xospipsv_flash_intr_example.c:
     - interrupts
+   xospipsv_flash_non_blocking_read_example.c:
+    - reg
+   xospipsv_flash_polled_example.c:
+    - reg
 ...
