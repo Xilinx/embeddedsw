@@ -37,17 +37,17 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+static int XSecure_UpdateCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp,
+		u32 CryptoMask, u32 ApiId);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
 /**
  *
- * @brief	This function sends IPI request to set crypto status bit
+ * @brief	This function sends IPI request to set crypto status bit of HNIC
  *
  * @param	InstancePtr  		Pointer to the client instance
  * @param   CryptoStatusOp		Operation to set or clear crypto status bit
- * @param   NodeId				Nodeid of the module
  * @param   CryptoMask  		Mask to set or clear crypto status bit
  *
  * @return
@@ -55,11 +55,96 @@
  *	-	Errorcode	- On failure
  *
  ******************************************************************************/
-int XSecure_UpdateCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp,
-		u32 NodeId, u32 CryptoMask)
+int XSecure_UpdateHnicCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp,
+	 u32 CryptoMask)
+{
+	return((XSecure_UpdateCryptoStatus(InstancePtr, CryptoStatusOp, CryptoMask,
+			XSECURE_API_UPDATE_HNIC_CRYPTO_STATUS)));
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function sends IPI request to set crypto status bit of of CPM 5N
+ *
+ * @param	InstancePtr  		Pointer to the client instance
+ * @param   CryptoStatusOp		Operation to set or clear crypto status bit
+ * @param   CryptoMask  		Mask to set or clear crypto status bit
+ *
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *	-	Errorcode	- On failure
+ *
+ ******************************************************************************/
+int XSecure_UpdateCpm5NCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp,
+	 u32 CryptoMask)
+{
+	return((XSecure_UpdateCryptoStatus(InstancePtr, CryptoStatusOp, CryptoMask,
+			XSECURE_API_UPDATE_CPM5N_CRYPTO_STATUS)));
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function sends IPI request to set crypto status bit of PCIDE
+ *
+ * @param	InstancePtr  		Pointer to the client instance
+ * @param   CryptoStatusOp		Operation to set or clear crypto status bit
+ * @param   CryptoMask  		Mask to set or clear crypto status bit
+ *
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *	-	Errorcode	- On failure
+ *
+ ******************************************************************************/
+int XSecure_UpdatePcideCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp,
+	 u32 CryptoMask)
+{
+	return((XSecure_UpdateCryptoStatus(InstancePtr, CryptoStatusOp, CryptoMask,
+			XSECURE_API_UPDATE_PCIDE_CRYPTO_STATUS)));
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function sends IPI request to set crypto status bit of PKI
+ *
+ * @param	InstancePtr  		Pointer to the client instance
+ * @param   CryptoStatusOp		Operation to set or clear crypto status bit
+ * @param   CryptoMask  		Mask to set or clear crypto status bit
+ *
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *	-	Errorcode	- On failure
+ *
+ ******************************************************************************/
+int XSecure_UpdatePkiCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp,
+	 u32 CryptoMask)
+{
+	return((XSecure_UpdateCryptoStatus(InstancePtr, CryptoStatusOp, CryptoMask,
+			XSECURE_API_UPDATE_PKI_CRYPTO_STATUS)));
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function sends IPI request to set crypto status bit(s) of module
+ *
+ * @param	InstancePtr  		Pointer to the client instance
+ * @param   CryptoStatusOp		Operation to set or clear crypto status bit
+ * @param   CryptoMask  		Mask to set or clear crypto status bit
+ * @param	ApiId				API ID of the IPI command
+ *
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *	-	Errorcode	- On failure
+ *
+ ******************************************************************************/
+static int XSecure_UpdateCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp,
+		u32 CryptoMask, u32 ApiId)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -72,10 +157,9 @@ int XSecure_UpdateCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_Cryp
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_UPDATE_CRYPTO_STATUS);
+	Payload[0U] = HEADER(0U, ApiId);
 	Payload[1U] = CryptoStatusOp;
-	Payload[2U] = NodeId;
-	Payload[3U] = CryptoMask;
+	Payload[2U] = CryptoMask;
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 

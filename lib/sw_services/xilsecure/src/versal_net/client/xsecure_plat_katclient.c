@@ -38,7 +38,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+static int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr,
+		XSecure_KatOp KatOp, u32 KatMaskLen, u32 *KatMask, u32 ApiId);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
@@ -77,24 +78,153 @@ END:
 /**
  *
  * @brief	This function sends IPI request to PLM to set
- *          or clear kat mask of KAT's running on CPM5N, NICSEC.
+ *          or clear kat mask of HNIC.
  *
  * @param	InstancePtr - Pointer to the client instance
  * @param   KatOp		- Operation to set or clear KAT mask
- * @param   NodeId		- Nodeid of the module
- * @param   KatMaskLen  - Length of the KAT mask
- * @param   KatMask     - Pointer to the KAT mask
+ * @param   KatMaskLen  -    Length of the KAT mask
+ * @param   KatMask     - KAT mask
  *
  * @return
  *	-	XST_SUCCESS - On Success
  *	-	Errorcode - On failure
  *
  ******************************************************************************/
-int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp, u32 NodeId,
+int XSecure_UpdateHnicKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp,
+		u32 KatMaskLen, u32 *KatMask)
+{
+	volatile int Status = XST_FAILURE;
+
+	if (KatMaskLen != XSECURE_MIN_KAT_MASK_LEN) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XSecure_UpdateKatStatus(InstancePtr, KatOp, KatMaskLen, KatMask,
+				XSECURE_API_UPDATE_HNIC_KAT_STATUS);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function sends IPI request to PLM to set
+ *          or clear kat mask of CPM5N.
+ *
+ * @param	InstancePtr - Pointer to the client instance
+ * @param   KatOp		- Operation to set or clear KAT mask
+ * @param   KatMaskLen  -    Length of the KAT mask
+ * @param   KatMask     - KAT mask
+ *
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *	-	Errorcode - On failure
+ *
+ ******************************************************************************/
+int XSecure_UpdateCpm5NKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp,
+		u32 KatMaskLen, u32 *KatMask)
+{
+	volatile int Status = XST_FAILURE;
+
+	if (KatMaskLen != XSECURE_MIN_KAT_MASK_LEN) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XSecure_UpdateKatStatus(InstancePtr, KatOp, KatMaskLen,
+			KatMask, XSECURE_API_UPDATE_CPM5N_KAT_STATUS);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function sends IPI request to PLM to set
+ *          or clear kat mask of PCIDE.
+ *
+ * @param	InstancePtr - Pointer to the client instance
+ * @param   KatOp		- Operation to set or clear KAT mask
+ * @param   KatMaskLen  - Length of the KAT mask
+ * @param   KatMask     - KAT mask
+ *
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *	-	Errorcode - On failure
+ *
+ ******************************************************************************/
+int XSecure_UpdatePcideKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp,
+		u32 KatMaskLen, u32 *KatMask)
+{
+	volatile int Status = XST_FAILURE;
+
+	if (KatMaskLen != XSECURE_MIN_KAT_MASK_LEN) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XSecure_UpdateKatStatus(InstancePtr, KatOp, KatMaskLen,
+			 KatMask, XSECURE_API_UPDATE_PCIDE_KAT_STATUS);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function sets or clears KAT mask of PKI.
+ *
+ * @param	InstancePtr - Pointer to the client instance
+ * @param   KatOp		- Operation to set or clear KAT mask
+ * @param   KatMaskLen  - Length of the KAT mask
+ * @param   KatMask     - Pointer to the KAT mask
+ *
+ * @return
+	-	XST_SUCCESS - If set or clear is successful
+ *	-	XST_FAILURE - On failure
+ *
+ ******************************************************************************/
+int XSecure_UpdatePkiKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp,
 	u32 KatMaskLen, u32 *KatMask)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_7U];
+
+	if (KatMaskLen != XSECURE_MAX_KAT_MASK_LEN) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XSecure_UpdateKatStatus(InstancePtr, KatOp, KatMaskLen,
+			 KatMask, XSECURE_API_UPDATE_PKI_KAT_STATUS);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function sends IPI request to PLM to set
+ *          or clear kat mask of HNIC.
+ *
+ * @param	InstancePtr - Pointer to the client instance
+ * @param   KatOp		- Operation to set or clear KAT mask
+ * @param   KatMaskLen  - Length of the KAT mask
+ * @param   KatMask     - KAT
+ * @param	ApiId		- IPI request API ID
+ *
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *	-	Errorcode - On failure
+ *
+ ******************************************************************************/
+static int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr,
+		XSecure_KatOp KatOp, u32 KatMaskLen, u32 *KatMask, u32 ApiId)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
+	u32 Index;
+
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -106,21 +236,12 @@ int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp K
 		goto END;
 	}
 
-	if ((KatMaskLen < XSECURE_MIN_KAT_MASK_LEN) || (KatMaskLen > XSECURE_MAX_KAT_MASK_LEN)) {
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
-
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER((KatMaskLen + XSECURE_KAT_HDR_LEN), XSECURE_API_KAT);
-	Payload[1U] = (u32)XSECURE_API_UPDATE_KAT_STATUS;
-	Payload[2U] = (u32)KatOp;
-	Payload[3U] = NodeId;
+	Payload[0U] = HEADER((XSECURE_KAT_HDR_LEN + KatMaskLen), ApiId);
+	Payload[1U] = (u32)KatOp;
 
-	Status = Xil_SMemCpy((u8*)&Payload[4U], (KatMaskLen * XSECURE_WORD_LEN), (u8*)KatMask, (KatMaskLen * XSECURE_WORD_LEN),
-				(KatMaskLen * XSECURE_WORD_LEN));
-	if (Status != XST_SUCCESS) {
-		goto END;
+	for (Index = 0U; Index < KatMaskLen; Index++) {
+		Payload[2U + Index] = KatMask[Index];
 	}
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));

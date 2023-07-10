@@ -324,34 +324,34 @@ typedef enum {
 					XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK | XPLMI_SECURE_SHA384_KAT_MASK) /**< KAT mask */
 
 
-#define XPLMI_DDR_0_KAT_MASK			(0x0FU) /**< DDR 0 KAT mask */
-#define XPLMI_DDR_1_KAT_MASK			(0x0FU << 4U) /**< DDR 1 KAT mask */
-#define XPLMI_DDR_2_KAT_MASK			(0x0FU << 8U) /**< DDR 2 KAT mask */
-#define XPLMI_DDR_3_KAT_MASK			(0x0FU << 12U) /**< DDR 3 KAT mask */
-#define XPLMI_DDR_4_KAT_MASK			(0x0FU << 16U) /**< DDR 4 KAT mask */
-#define XPLMI_DDR_5_KAT_MASK			(0x0FU << 20U) /**< DDR 5 KAT mask */
-#define XPLMI_DDR_6_KAT_MASK			(0x0FU << 24U) /**< DDR 6 KAT mask */
-#define XPLMI_DDR_7_KAT_MASK			(0x0FU << 28U) /**< DDR 7 KAT mask */
-#define XPLMI_HNIC_KAT_MASK			(0xFFU) /**< HNIC KAT mask */
-#define XPLMI_CPM5N_KAT_MASK			(0xFFU << 8U) /**< CPM5N KAT mask */
-#define XPLMI_PCIDE_KAT_MASK			(0x3U << 16U) /**< PCIDE KAT mask */
+#define XPLMI_DDR_0_KAT_MASK			(0x0000000FU) /**< DDR 0 KAT mask */
+#define XPLMI_DDR_1_KAT_MASK			(0x000000F0U) /**< DDR 1 KAT mask */
+#define XPLMI_DDR_2_KAT_MASK			(0x00000F00U) /**< DDR 2 KAT mask */
+#define XPLMI_DDR_3_KAT_MASK			(0x0000F000U) /**< DDR 3 KAT mask */
+#define XPLMI_DDR_4_KAT_MASK			(0x000F0000U) /**< DDR 4 KAT mask */
+#define XPLMI_DDR_5_KAT_MASK			(0x00F00000U) /**< DDR 5 KAT mask */
+#define XPLMI_DDR_6_KAT_MASK			(0x0F000000U) /**< DDR 6 KAT mask */
+#define XPLMI_DDR_7_KAT_MASK			(0xF0000000U) /**< DDR 7 KAT mask */
+#define XPLMI_HNIC_KAT_MASK			(0x000000FFU) /**< HNIC KAT mask */
+#define XPLMI_CPM5N_KAT_MASK			(0x0000FF00U) /**< CPM5N KAT mask */
+#define XPLMI_PCIDE_KAT_MASK			(0x00030000U) /**< PCIDE KAT mask */
 #define XPLMI_HNIC_CPM5N_PCIDE_KAT_MASK		(XPLMI_HNIC_KAT_MASK | XPLMI_CPM5N_KAT_MASK | XPLMI_PCIDE_KAT_MASK) /**< HNIC CPM5N PCIDE KAT mask */
 #define XPLMI_PKI_KAT_MASK			(0x01FFFFFFU) /**< PKI KAT mask */
 
 /*
  * RTCA area crypto bit masks
  */
-#define XPLMI_SECURE_AES_MASK			(0x1U << 21U) /**< AES mask */
-#define XPLMI_SECURE_RSA_MASK			(0x1U << 22U) /**< RSA mask */
-#define XPLMI_SECURE_ECDSA_MASK			(0x1U << 23U) /**< ECDSA mask */
-#define XPLMI_SECURE_SHA3_384_MASK		(0x1U << 24U) /**< SHA3_384 mask */
-#define XPLMI_SECURE_TRNG_MASK			(0x1U << 25U) /**< TRNG mask */
-#define XPLMI_SECURE_HNIC_AES_MASK		(0x1U << 26U) /**< HNIC AES mask */
-#define XPLMI_SECURE_CPM5N_AES_MASK		(0x1U << 27U) /**< CPM5N AES mask */
-#define XPLMI_SECURE_PCIDE_AES_MASK		(0x1U << 28U) /**< PCIDE AES mask */
-#define XPLMI_SECURE_PKI_RSA_MASK		(0x1U << 29U) /**< PKI RSA mask */
-#define XPLMI_SECURE_PKI_ECC_MASK		(0x1U << 30U) /**< PKI ECC mask */
-#define XPLMI_SECURE_PKI_SHA2_MASK		(0x1U << 31U) /**< PKI SHA2 mask */
+#define XPLMI_SECURE_AES_MASK			(0x00200000U) /**< AES mask */
+#define XPLMI_SECURE_RSA_MASK			(0x00400000U) /**< RSA mask */
+#define XPLMI_SECURE_ECDSA_MASK			(0x00800000U) /**< ECDSA mask */
+#define XPLMI_SECURE_SHA3_384_MASK		(0x01000000U) /**< SHA3_384 mask */
+#define XPLMI_SECURE_TRNG_MASK			(0x02000000U) /**< TRNG mask */
+#define XPLMI_SECURE_HNIC_AES_MASK		(0x04000000U) /**< HNIC AES mask */
+#define XPLMI_SECURE_CPM5N_AES_MASK		(0x08000000U) /**< CPM5N AES mask */
+#define XPLMI_SECURE_PCIDE_AES_MASK		(0x10000000U) /**< PCIDE AES mask */
+#define XPLMI_SECURE_PKI_RSA_MASK		(0x20000000U) /**< PKI RSA mask */
+#define XPLMI_SECURE_PKI_ECC_MASK		(0x40000000U) /**< PKI ECC mask */
+#define XPLMI_SECURE_PKI_SHA2_MASK		(0x80000000U) /**< PKI SHA2 mask */
 #define XPLMI_SECURE_PKI_CRYPTO_MASK	(XPLMI_SECURE_PKI_RSA_MASK | XPLMI_SECURE_PKI_ECC_MASK | \
 					XPLMI_SECURE_PKI_SHA2_MASK) /**< PKI crypto mask */
 

@@ -19,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   kpt  07/19/22 Initial release
+* 5.2   vns  07/07/23 Added separate IPI commands for KAT status updates
 *
 * </pre>
 * @note
@@ -46,8 +47,14 @@ extern "C" {
 /************************** Function Definitions *****************************/
 
 int XSecure_TrngKat(XSecure_ClientInstance *InstancePtr);
-int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp, u32 NodeId,
-	u32 KatMaskLen, u32 *KatMask);
+int XSecure_UpdateHnicKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp,
+		u32 KatMaskLen, u32 *KatMask);
+int XSecure_UpdateCpm5NKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp,
+		u32 KatMaskLen, u32 *KatMask);
+int XSecure_UpdatePcideKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp,
+		u32 KatMaskLen, u32 *KatMask);
+int XSecure_UpdatePkiKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp,
+		u32 KatMaskLen, u32 *KatMask);
 
 #ifdef __cplusplus
 }
