@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xadcps_g.c
-* @addtogroup xadcps_v2_6
+* @addtogroup Overview
 * @{
 *
 * This file contains a configuration table that specifies the configuration
