@@ -19,6 +19,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.1  kpt   01/13/2023 Initial release
+* 5.2  vns   07/06/2023 Separated IPI commands of Update Crypto Status
 *
 * </pre>
 *
@@ -37,7 +38,7 @@
 
 /************************** Function Prototypes *****************************/
 
-static int XSecure_UpdateCryptoStatus(XSecure_CryptoStatusOp CryptoOp, u32 NodeId, u32 CryptoMask);
+static int XSecure_UpdateCryptoMask(XSecure_CryptoStatusOp CryptoOp, u32 CryptoMask, u32 CryptoVal);
 
 /*****************************************************************************/
 /**
@@ -54,12 +55,29 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
+	u32 CryptoMask;
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
-	case XSECURE_API(XSECURE_API_UPDATE_CRYPTO_STATUS):
-		Status = XSecure_UpdateCryptoStatus((XSecure_CryptoStatusOp)Pload[0U], Pload[1U], Pload[2U]);
-	default:
+	case XSECURE_API(XSECURE_API_UPDATE_HNIC_CRYPTO_STATUS):
+		CryptoMask = XPLMI_SECURE_HNIC_AES_MASK;
 		break;
+	case XSECURE_API(XSECURE_API_UPDATE_CPM5N_CRYPTO_STATUS):
+		CryptoMask = XPLMI_SECURE_CPM5N_AES_MASK;
+		break;
+	case XSECURE_API(XSECURE_API_UPDATE_PCIDE_CRYPTO_STATUS):
+		CryptoMask = XPLMI_SECURE_PCIDE_AES_MASK;
+		break;
+	case XSECURE_API(XSECURE_API_UPDATE_PKI_CRYPTO_STATUS):
+		CryptoMask = XPLMI_SECURE_PKI_CRYPTO_MASK;
+		break;
+	default:
+		CryptoMask = 0U;
+		break;
+	}
+
+	if (CryptoMask != 0U) {
+		Status = XSecure_UpdateCryptoMask((XSecure_CryptoStatusOp)Pload[0],
+					CryptoMask, (Pload[1U] & CryptoMask));
 	}
 
 	return Status;
@@ -70,63 +88,28 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
  * @brief   This function sets or clears Crypto bit mask of given NodeId
  *
  * @param   CryptoOp	   - Operation to set or clear crypto bit mask
- * @param   NodeId		   - Nodeid of the module
- * @param   CryptoVal      - Mask to set crypto bits
+ * @param   CryptoMask	   - Crypto Mask of the module
+ * @param   CryptoVal      - Crypto value to be updated
  *
  * @return
 	-	XST_SUCCESS - If set or clear is successful
  *	-	XST_FAILURE - On failure
  *
  ******************************************************************************/
-static int XSecure_UpdateCryptoStatus(XSecure_CryptoStatusOp CryptoOp, u32 NodeId, u32 CryptoVal)
+static int XSecure_UpdateCryptoMask(XSecure_CryptoStatusOp CryptoOp, u32 CryptoMask, u32 CryptoVal)
 {
 	int Status = XST_FAILURE;
-	u32 Val = 0U;
-	u32 CryptoMask = 0U;
 
 	if ((CryptoOp != XSECURE_CRYPTO_STATUS_SET) && (CryptoOp != XSECURE_CRYPTO_STATUS_CLEAR)) {
 		goto END;
 	}
 
-	/** TODO - Validate NodeId */
-
-	switch(NodeId) {
-		case XSECURE_DDR_0_NODE_ID:
-		case XSECURE_DDR_1_NODE_ID:
-		case XSECURE_DDR_2_NODE_ID:
-		case XSECURE_DDR_3_NODE_ID:
-		case XSECURE_DDR_4_NODE_ID:
-		case XSECURE_DDR_5_NODE_ID:
-		case XSECURE_DDR_6_NODE_ID:
-		case XSECURE_DDR_7_NODE_ID:
-			/* Read value from DDR counters */
-			break;
-		case XSECURE_HNIC_NODE_ID:
-			Val = CryptoVal & XPLMI_SECURE_HNIC_AES_MASK;
-			CryptoMask = XPLMI_SECURE_HNIC_AES_MASK;
-			break;
-		case XSECURE_CPM5N_NODE_ID:
-			Val = CryptoVal & XPLMI_SECURE_CPM5N_AES_MASK;
-			CryptoMask = XPLMI_SECURE_CPM5N_AES_MASK;
-			break;
-		case XSECURE_PCIDE_NODE_ID:
-			Val = CryptoVal & XPLMI_SECURE_PCIDE_AES_MASK;
-			CryptoMask = XPLMI_SECURE_PCIDE_AES_MASK;
-			break;
-		case XSECURE_PKI_NODE_ID:
-			Val = CryptoVal & XPLMI_SECURE_PKI_CRYPTO_MASK;
-			CryptoMask = XPLMI_SECURE_PKI_CRYPTO_MASK;
-			break;
-		default:
-			XSecure_Printf(XSECURE_DEBUG_GENERAL,"Invalid NodeId for operation");
-			break;
-	}
 	if (CryptoMask != 0U) {
 		if (CryptoOp != XSECURE_CRYPTO_STATUS_SET) {
-			XPlmi_UpdateCryptoStatus(CryptoMask, ~Val);
+			XPlmi_UpdateCryptoStatus(CryptoMask, ~CryptoVal);
 		}
 		else {
-			XPlmi_UpdateCryptoStatus(CryptoMask, Val);
+			XPlmi_UpdateCryptoStatus(CryptoMask, CryptoVal);
 		}
 	}
 

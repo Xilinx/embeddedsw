@@ -43,6 +43,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd);
+int XSecure_UpdateKatStatusIpiHandler(XPlmi_Cmd *Cmd);
 
 #ifdef __cplusplus
 }
