@@ -20,6 +20,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   bm   07/06/22 Initial release
+* 5.2   yog  07/10/23 Added support of unaligned data sizes for Versal Net
 *
 * </pre>
 *
@@ -36,6 +37,9 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xsecure_sha_hw.h"
+#include "xpmcdma.h"
+#include "xsecure_aes_core_hw.h"
+#include "xsecure_error.h"
 
 /************************** Constant Definitions ****************************/
 #define XSECURE_SSS_MAX_SRCS	(8U)	/**< Maximum resources */
@@ -48,6 +52,10 @@ extern "C" {
 
 #define XSECURE_SSS_SHA3_1_DMA0_VAL	(0xA000000U) /**<SSS SHA3 instance 1 DMA0 value*/
 #define XSECURE_SSS_SHA3_1_DMA1_VAL	(0xF000000U) /**<SSS SHA3 instance 1 DMA1 value*/
+#define XSECURE_AES_NO_CFG_DST_DMA	(0xFFFFFFFFU) /**< Not to configure Dst DMA at this address in AES*/
+#define XSECURE_ENABLE_BYTE_SWAP	(0x1U)  /**< Enables data swap in AES */
+
+#define XSECURE_DISABLE_BYTE_SWAP	(0x0U)  /**< Disables data swap in AES */
 
 /***************************** Type Definitions******************************/
 /*
@@ -67,11 +75,24 @@ typedef enum {
 	XSECURE_SSS_INVALID /**< Invalid */
 }XSecure_SssSrc;
 
+typedef struct {
+	u64 SrcDataAddr;        /**< Address of source buffer */
+	u64 DestDataAddr;       /**< Address of destination buffer */
+	u8 SrcChannelCfg;       /**< DMA Source channel configuration */
+	u8 DestChannelCfg;      /**< DMA destination channel configuration  */
+	u8 IsLastChunkSrc;      /**< Flag for last update in source */
+	u8 IsLastChunkDest;     /**< Flag for last update in destination */
+}XSecure_AesDmaCfg;
+
 /***************************** Function Prototypes ***************************/
 
 void XSecure_SetRsaCryptoStatus(void);
 void XSecure_UpdateCryptoStatus(UINTPTR BaseAddress, u32 Op);
 void XSecure_UpdateTrngCryptoStatus(u32 Op);
+int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDmaCfg, u32 Size, UINTPTR BaseAddress);
+void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
+       XPmcDma_Channel Channel, u8 EndianType);
+int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
 
 /***************************** Variable Prototypes  ***************************/
 

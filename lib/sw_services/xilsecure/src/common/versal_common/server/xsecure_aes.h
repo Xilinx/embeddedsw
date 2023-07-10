@@ -39,6 +39,7 @@
 * 5.0   kpt  07/24/2022 Moved XSecure_AesDecryptKat into XSecure_Kat.c
 *       kpt  08/19/2022 Added GMAC support
 *       vss  05/16/2023 Fixed coverity warning NO_EFFECT
+* 5.2   yog  07/10/2023 Added support of unaligned data sizes for Versal Net
 *
 * </pre>
 *

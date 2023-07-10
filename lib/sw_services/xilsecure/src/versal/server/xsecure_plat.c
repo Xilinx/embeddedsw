@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   bm   07/06/22 Initial release
+* 5.2   yog  07/10/23 Added support of unaligned data sizes for Versal Net
 *
 * </pre>
 *
@@ -114,4 +116,145 @@ const XSecure_Sha3Config Sha3ConfigTable[XSECURE_SHA3_NUM_OF_INSTANCES] =
 	}
 
 	return Mask;
+}
+/*****************************************************************************/
+/**
+ *
+ * @brief      This function validates the size
+ *
+ * @param      Size            Size of data in bytes.
+ * @param      IsLastChunk     Last chunk indication
+ *
+ * @return
+ *     -       XST_SUCCESS on successful valdation
+ *     -       Error code on failure
+ *
+ ******************************************************************************/
+int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
+{
+	int Status = XST_FAILURE;
+
+	/* Validate the Size */
+	if ((Size % XSECURE_WORD_SIZE) != 0x00U) {
+		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
+		goto END;
+	}
+	/* Validate the size based on last chunk */
+	if ((IsLastChunk != TRUE) &&
+		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {
+		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+/*****************************************************************************/
+/**
+ *
+ * @brief       This function configures the PMC DMA channels and transfers data
+ *
+ * @param       PmcDmaPtr       Pointer to the XPmcDma instance.
+ * @param       AesDmaCfg       DMA SRC and DEST channel configuration
+ * @param       Size            Size of data in bytes.
+ *
+ * @return
+ *	-	XST_SUCCESS on successful configuration
+ *	-	Error code on failure
+ *
+ ******************************************************************************/
+int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg *AesDmaCfg, u32 Size, UINTPTR BaseAddress)
+{
+	int Status = XST_FAILURE;
+	(void)BaseAddress;
+
+	if ((PmcDmaPtr == NULL) || (AesDmaCfg == NULL) || (Size == 0U)) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+	/* Enable PMC DMA Src and Dst channels for byte swapping.*/
+	if (AesDmaCfg->SrcChannelCfg == TRUE) {
+		XSecure_AesPmcDmaCfgEndianness(PmcDmaPtr,
+				XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
+	}
+
+	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
+			((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
+		XSecure_AesPmcDmaCfgEndianness(PmcDmaPtr,
+			XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
+	}
+
+	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
+		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
+		XPmcDma_64BitTransfer(PmcDmaPtr, XPMCDMA_DST_CHANNEL,
+			(u32)AesDmaCfg->DestDataAddr, (u32)(AesDmaCfg->DestDataAddr >> 32U),
+			Size / XSECURE_WORD_SIZE, AesDmaCfg->IsLastChunkDest);
+	}
+
+	if (AesDmaCfg->SrcChannelCfg == TRUE) {
+		XPmcDma_64BitTransfer(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
+			(u32)AesDmaCfg->SrcDataAddr, (u32)(AesDmaCfg->SrcDataAddr >> 32U),
+			Size / XSECURE_WORD_SIZE, AesDmaCfg->IsLastChunkSrc);
+	}
+
+	if (AesDmaCfg->SrcChannelCfg == TRUE) {
+		/* Wait for the SRC DMA completion. */
+		Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr,
+			XPMCDMA_SRC_CHANNEL);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		/* Acknowledge the transfer has completed */
+		XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
+			XPMCDMA_IXR_DONE_MASK);
+	}
+
+	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
+		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
+		/* Wait for the DEST DMA completion. */
+		Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr,
+			XPMCDMA_DST_CHANNEL);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		/* Acknowledge the transfer has completed */
+		XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_DST_CHANNEL,
+			XPMCDMA_IXR_DONE_MASK);
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This is a helper function to enable/disable byte swapping feature
+ * 		of PMC DMA
+ *
+ * @param	InstancePtr  Pointer to the XPmcDma instance
+ * @param	Channel 	 Channel Type
+ *			- XPMCDMA_SRC_CHANNEL
+ *			 -XPMCDMA_DST_CHANNEL
+ * @param	EndianType
+ *			- 1 : Enable Byte Swapping
+ *			- 0 : Disable Byte Swapping
+ *
+ *
+ ******************************************************************************/
+void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
+	XPmcDma_Channel Channel, u8 EndianType)
+{
+	XPmcDma_Configure ConfigValues = {0U};
+
+	/* Assert validates the input arguments */
+	XSecure_AssertVoid(InstancePtr != NULL);
+
+	/* Updates the XPmcDma_Configure structure with PmcDma's channel values */
+	XPmcDma_GetConfig(InstancePtr, Channel, &ConfigValues);
+	ConfigValues.EndianType = EndianType;
+	/* Updates the PmcDma's channel with XPmcDma_Configure structure values */
+	XPmcDma_SetConfig(InstancePtr, Channel, &ConfigValues);
 }
