@@ -25,6 +25,7 @@
 *       ng   11/23/2022 Fixed doxygen file name error
 *       sk   01/11/2023 Added macro for Image Store as SBD
 * 1.02  ng   04/27/2023 Added support for cluster flags in ATF handoff params
+*       sk   07/09/2023 Added defines for TCM Boot Enable Bit, Mask
 *
 * </pre>
 *
@@ -89,6 +90,7 @@ extern "C" {
 #define XIH_PH_ATTRB_CLUSTER_LOCKSTEP_MASK	(0x0030U)
 #define XIH_PH_ATTRB_A78_EXEC_ST_MASK		(0x0008U)
 #define XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT		(6U)
+#define XIH_PH_ATTRB_TCM_BOOT_MASK		(0x180000U)
 
 /**
  *  Prtn Attribute Values
@@ -119,6 +121,7 @@ extern "C" {
 #define XIH_PH_ATTRB_DSTN_CPU_R52_0				(0x500U)
 #define XIH_PH_ATTRB_DSTN_CPU_R52_1				(0x600U)
 #define XIH_PH_ATTRB_DSTN_CPU_PSM				(0x800U)
+#define XIH_PH_ATTRB_TCM_BOOT_ENABLED				(0x180000U)
 
 /**
  * Below is the bit mapping of fields in the ATF Handoff parameters
