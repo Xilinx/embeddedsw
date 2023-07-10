@@ -75,6 +75,7 @@
 *       bm   06/23/2023 Added access permissions for IPI commands
 *       bm   07/06/2023 Refactored Proc logic to more generic logic
 *       sk   07/06/2023 Added new IPI command to support Unlock Jtag request
+*       kpt  07/10/2023 Added new IPI command to read DDR crypto status
 *
 * </pre>
 *
@@ -126,7 +127,8 @@
 #define XLOADER_CMD_ID_GET_ATF_HANDOFF_PARAMS  	(11U)
 #define XLOADER_CMD_ID_CFRAME_DATA_CLEAR_CHECK 	(12U)
 #define XLOADER_CMD_ID_WRITE_IMAGESTORE_PDI   	(13U)
-#define XLOADER_CMD_ID_CONFIG_JTAG_STATE  	(14U)
+#define XLOADER_CMD_ID_CONFIG_JTAG_STATE  	    (14U)
+#define XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS (15U)
 
 /**************************** Type Definitions *******************************/
 
@@ -1180,7 +1182,8 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_GetATFHandOffParams),
 	XPLMI_MODULE_COMMAND(XLoader_CframeDataClearCheck),
 	XPLMI_MODULE_COMMAND(XLoader_WriteImageStorePdi),
-	XPLMI_MODULE_COMMAND(XLoader_ConfigureJtagState)
+	XPLMI_MODULE_COMMAND(XLoader_ConfigureJtagState),
+	XPLMI_MODULE_COMMAND(XLoader_ReadDdrCryptoPerfCounters)
 };
 
 /*****************************************************************************/
@@ -1205,9 +1208,14 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CFRAME_DATA_CLEAR_CHECK),
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_WRITE_IMAGESTORE_PDI),
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET))
-	XPLMI_ALL_IPI_SECURE_ACCESS(XLOADER_CMD_ID_CONFIG_JTAG_STATE)
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_CONFIG_JTAG_STATE),
 #else
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CONFIG_JTAG_STATE),
+#endif
+#ifdef VERSAL_NET
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS)
+#else
+	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS)
 #endif
 };
 

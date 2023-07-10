@@ -30,6 +30,7 @@
 *       sk   07/07/2023 Added function declaration for Config Jtag State
 *                       Moved minor error codes to plat headers
 *                       Added error codes for Invalid JTAG Config Request
+*       kpt  07/10/2023 Added IPI support to read DDR crypto status
 *
 * </pre>
 *
@@ -150,6 +151,8 @@ extern "C" {
 /* Platform specific Minor Error Codes start from 0x100 */
 
 #define XLOADER_ERR_INVALID_JTAG_OPERATION	(0x100U) /**< Invalid JTAG/DAP config request */
+#define XLOADER_ERR_DDR_DEVICE_ID           (0x101U) /**< Invalid DDR device id */
+#define XLOADER_ERR_PCOMPLETE_NOT_DONE      (0x102U) /**< Pcomplete not done for given DDR device id */
 
 /**************************** Type Definitions *******************************/
 
@@ -299,6 +302,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo, u32 *DigestIndex, u32 PdiType);
 XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
+int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
 
 /************************** Variable Definitions *****************************/
 

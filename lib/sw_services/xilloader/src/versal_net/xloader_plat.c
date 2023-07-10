@@ -35,7 +35,8 @@
 *                       DS export to handle in-place update flow,
 *                       Removed XLoader_GetPdiInstance function definition
 *       bm   06/13/2023 Log PLM error before deferring
-*       sk   07/06/23 Added Jtag DAP config support for Non-Secure Debug
+*       sk   07/06/2023 Added Jtag DAP config support for Non-Secure Debug
+*       kpt  07/10/2023 Added IPI support to read DDR crypto status
 *
 * </pre>
 *
@@ -63,6 +64,7 @@
 #endif
 #include "xplmi_scheduler.h"
 #include "xplmi_plat.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U) /**< Image version information */
@@ -79,7 +81,12 @@
 #define XLOADER_TCM_B_1 (3U) /**< TCM_B 1 */
 #define XLOADER_RPU_CLUSTER_A (0U) /**< RPU cluster A */
 #define XLOADER_RPU_CLUSTER_B (1U) /**< RPU cluster B */
-
+#define XLOADER_CMD_GET_DDR_DEVICE_ID (0U) /**< DDR device id */
+#define XLOADER_DDR_CRYPTO_MAIN_OFFSET   (0X40000U) /**< DDR crypto block offset from ub */
+#define XLOADER_DDR_PERF_MON_CNT0_OFFSET (0X868U)   /**< Counter 0 offset */
+#define XLOADER_DDR_PERF_MON_CNT1_OFFSET (0X86CU)   /**< Counter 1 offset */
+#define XLOADER_DDR_PERF_MON_CNT2_OFFSET (0X870U)   /**< Counter 2 offset */
+#define XLOADER_DDR_PERF_MON_CNT3_OFFSET (0X874U)   /**< Counter 3 offset */
 #ifndef PLM_SECURE_EXCLUDE
 #define XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_INDEX	(0U)
 #define XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_MASK		(0x03U)
@@ -835,6 +842,54 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			goto END;
 		}
 	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	 This function reads DDR crypto performance counters of given DDR device id
+ *
+ * @param	 Cmd is pointer to the command structure
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ *          - ErrorCode on Failure.
+ *
+ *****************************************************************************/
+int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd)
+{
+	int Status  = XST_FAILURE;
+	u32 BaseAddr = 0U;
+	u32 PcsrCtrl = 0U;
+	u32 DevId = Cmd->Payload[XLOADER_CMD_GET_DDR_DEVICE_ID];
+
+	/* Validate the given device id */
+	if ((NODESUBCLASS(DevId) != (u32)XPM_NODESUBCL_DEV_MEM_CTRLR) ||
+		(NODETYPE(DevId) != XPM_NODETYPE_DEV_DDR)) {
+		Status = (int)XLOADER_ERR_DDR_DEVICE_ID;
+		goto END;
+	}
+
+	/** Get DDRMC UB Base address */
+	Status = XPm_GetDeviceBaseAddr(DevId, &BaseAddr);
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
+
+	/** Read PCSR control status */
+	PcsrCtrl = XPlmi_In32(BaseAddr + DDRMC_PCSR_CONTROL_OFFSET);
+	if (0U == (PcsrCtrl & DDRMC_PCSR_CONTROL_PCOMPLETE_MASK)) {
+		Status = (int)XLOADER_ERR_PCOMPLETE_NOT_DONE;
+		goto END;
+	}
+
+	/** Read DDR crypto counters */
+	Cmd->Response[1U] = XPlmi_In32(BaseAddr + XLOADER_DDR_CRYPTO_MAIN_OFFSET + XLOADER_DDR_PERF_MON_CNT0_OFFSET);
+	Cmd->Response[2U] = XPlmi_In32(BaseAddr + XLOADER_DDR_CRYPTO_MAIN_OFFSET + XLOADER_DDR_PERF_MON_CNT1_OFFSET);
+	Cmd->Response[3U] = XPlmi_In32(BaseAddr + XLOADER_DDR_CRYPTO_MAIN_OFFSET + XLOADER_DDR_PERF_MON_CNT2_OFFSET);
+	Cmd->Response[4U] = XPlmi_In32(BaseAddr + XLOADER_DDR_CRYPTO_MAIN_OFFSET + XLOADER_DDR_PERF_MON_CNT3_OFFSET);
 
 END:
 	return Status;

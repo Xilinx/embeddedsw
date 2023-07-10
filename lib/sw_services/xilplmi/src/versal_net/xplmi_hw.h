@@ -33,6 +33,7 @@
 * 1.02  bm   04/28/2023 Added IRO_SWAP and sysmon related macros
 *       bm   05/22/2023 Update current CDO command offset in GSW Error Status
 *       bm   07/06/2023 Refactored Proc logic to more generic logic
+*       kpt  07/10/2023 Added macros related to DDRMC status check
 *
 * </pre>
 *
@@ -545,6 +546,14 @@ extern "C" {
 #define CPM5N_CDX_PCIEB2_CSR_MISC_EVENT_STATUS				(0xE4422110U)
 #define CPM5N_CDX_PCIEB3_CSR_MISC_EVENT_STATUS				(0xE4432110U)
 #define CPM5N_LINK_UP_EVENT_MASK					(0x800U)
+
+/*
+ * Definitions required for checking DDRMC status
+ */
+#define DDRMC_PCSR_CONTROL_OFFSET	(0x00000004U)
+#define DDRMC_PCSR_CONTROL_PCOMPLETE_MASK	(0x00000001U)
+#define DDRMC_PCSR_STATUS_OFFSET	(0x00000008U)
+
 
 /*****************************************************************************/
 /**

@@ -273,6 +273,25 @@ static inline int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePt
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function reads DDR crypto performance counters of given device id
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ *          - XST_FAILURE on Failure.
+ *
+ *****************************************************************************/
+
+static inline int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd)
+{
+	(void)Cmd;
+	/* Not Applicable for Versal */
+	return XST_SUCCESS;
+}
+
 /************************** Function Prototypes ******************************/
 XLoader_ImageInfoTbl *XLoader_GetImageInfoTbl(void);
 void XLoader_SetJtagTapToReset(void);
