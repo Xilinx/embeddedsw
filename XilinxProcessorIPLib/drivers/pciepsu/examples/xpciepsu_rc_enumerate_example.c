@@ -1,6 +1,5 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -46,9 +45,6 @@
 #include "xparameters.h" /* Defines for XPAR constants */
 #include "xpciepsu_common.h"
 /**************************** Constant Definitions ****************************/
-#ifndef SDT
-#define XPAR_PSU_PCIE_DEVICE_ID
-#endif
 
 /****************************** Type Definitions ******************************/
 
@@ -56,11 +52,7 @@
 
 /***************************** Function Prototypes ****************************/
 
-#ifndef SDT
 int PcieInitRootComplex(XPciePsu *PciePsuPtr, u16 DeviceId);
-#else
-int PcieInitRootComplex(XPciePsu *PciePsuPtr, UINTPTR BrigReg);
-#endif
 
 /**************************** Variable Definitions ****************************/
 
@@ -84,11 +76,8 @@ int main(void)
 	int Status;
 
 	/* Initialize Root Complex */
-#ifndef SDT
+#ifdef XPAR_PSU_PCIE_DEVICE_ID
 	Status = PcieInitRootComplex(&PciePsuInstance, XPAR_PSU_PCIE_DEVICE_ID);
-#else
-	Status = PcieInitRootComplex(&PciePsuInstance, XPAR_PCIE_BASEADDR);
-#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Psu pcie Root Complex Enumerate "
 			"Example Failed\r\n");
@@ -100,6 +89,7 @@ int main(void)
 
 	xil_printf("\r\nSuccessfully ran PSU PCIe Root Complex "
 			"Enumerate Example\r\n");
+#endif
 	return XST_SUCCESS;
 }
 
@@ -118,21 +108,13 @@ int main(void)
 *
 *
 *******************************************************************************/
-#ifndef SDT
 int PcieInitRootComplex(XPciePsu *PciePsuPtr, u16 DeviceId)
-#else
-int PcieInitRootComplex(XPciePsu *PciePsuPtr, UINTPTR BrigReg)
-#endif
 {
 	int Status;
 	const XPciePsu_Config *ConfigPtr;
 	u32 HeaderData;
 
-#ifndef SDT
 	ConfigPtr = XPciePsu_LookupConfig(DeviceId);
-#else
-	ConfigPtr = XPciePsu_LookupConfig(BrigReg);
-#endif
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
 	if (ConfigPtr->PcieMode == XPCIEPSU_MODE_ENDPOINT) {
