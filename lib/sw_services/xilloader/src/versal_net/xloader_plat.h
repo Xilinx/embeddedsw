@@ -27,6 +27,9 @@
 *       sk   04/28/2023 Added define for Image Store as PDI source
 *       sk   05/31/2023 Reassign PDI inst DS id for BootPDI info DS
 *       sk   06/12/2023 Removed XLoader_GetPdiInstance function declaration
+*       sk   07/07/2023 Added function declaration for Config Jtag State
+*                       Moved minor error codes to plat headers
+*                       Added error codes for Invalid JTAG Config Request
 *
 * </pre>
 *
@@ -107,6 +110,46 @@ extern "C" {
 #define XLOADER_MEASURE_START		(0U) /**< Data measure start */
 #define XLOADER_MEASURE_UPDATE		(1U) /**< Data measure update */
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
+
+/* Minor Error Codes */
+#define XLOADER_ERR_INVALID_IMGID		(0x2U) /**< Invalid ImgID passed in Command */
+#define XLOADER_ERR_NO_VALID_IMG_FOUND		(0x3U) /**< No Valid Image Found in the Image Info Table */
+#define XLOADER_ERR_IMAGE_INFO_TBL_FULL		(0x4U) /**< Image Info Table is Full */
+#define XLOADER_ERR_PARENT_QUERY_RELATION_CHECK	(0x5U) /**< Error on Parent Query while checking for Child Relation */
+#define XLOADER_ERR_MEMSET_BOOT_HDR_FW_RSVD	(0x6U) /**< Error during memset on XilPdi_BootHdrFwRsvd */
+#define XLOADER_ERR_MEMSET_PDIPTR		(0x7U) /**< Error during memset on PdiPtr */
+#define XLOADER_ERR_MEMSET_QSPI_PSU_INST	(0x8U) /**< Error during memset on QspiPsuInstance */
+#define XLOADER_ERR_MEMSET_SD_BOOT_FILE		(0x9U) /**< Error during memset on SD BootFile */
+#define XLOADER_ERR_MEMSET_SD_INSTANCE		(0xAU) /**< Error during memset on SdInstance */
+#define XLOADER_ERR_MEMSET_USB_INSTANCE		(0xBU) /**< Error during memset on UsbInstance */
+#define XLOADER_ERR_MEMSET_USB_PRIVATE_DATA	(0xCU) /**< Error during memset on UsbPrivateData */
+#define XLOADER_ERR_MEMSET_DFU_OBJ		(0xDU) /**< Error during memset on DfuObj */
+#define XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE	(0xEU) /**< Error when buffer size given by user
+							is less than the metaheader length */
+#define XLOADER_ERR_INVALID_PDI_INPUT	(0xFU) /**< Error when PDI given is not a full PDI
+							or partial PDI */
+#define XLOADER_ERR_INVALID_DEST_IMGINFOTBL_SIZE	(0x10U) /**< Error when the destination
+							buffer provided to store image info
+							table is less than the current length
+							of image info table */
+#define XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR		(0x11U) /**< Error when invalid source address
+							is passed as a input to extract metaheader
+							command */
+#define XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR	(0x12U) /**< Error when invalid destination address
+							is passed as a input to extract metaheader
+							command */
+#define XLOADER_ERR_INVALID_METAHEADER_OFFSET	(0x13U) /**< Error when the metaheader offset provided
+							in full PDI is not present in DDR */
+/* Minor Error codes for Major Error code: XLOADER_ERR_GEN_IDCODE */
+#define XLOADER_ERR_IDCODE		(0x14U) /**< IDCODE mismatch */
+#define XLOADER_ERR_EXT_IDCODE		(0x15U) /**< EXTENDED IDCODE mismatch */
+#define XLOADER_ERR_EXT_ID_SI		(0x16U) /**< Invalid combination of
+						* EXTENDED IDCODE - Device
+						*/
+
+/* Platform specific Minor Error Codes start from 0x100 */
+
+#define XLOADER_ERR_INVALID_JTAG_OPERATION	(0x100U) /**< Invalid JTAG/DAP config request */
 
 /**************************** Type Definitions *******************************/
 
@@ -255,6 +298,7 @@ int XLoader_HdrMeasurement(XilPdi* PdiPtr);
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo, u32 *DigestIndex, u32 PdiType);
 XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
+int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
 
 /************************** Variable Definitions *****************************/
 

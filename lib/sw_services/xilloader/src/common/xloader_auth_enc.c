@@ -108,6 +108,7 @@
 *       kal  06/18/23 Send device to SLD when 2nd AuthJTag message authentication
 *	              fails, when AUTH_JTAG_LOCK_DIS eFuse is programmed
 *       am   06/19/23 Added KAT error code for failure cases
+*       sk   07/06/23 Added Jtag DAP config support for Non-Secure Debug
 *
 * </pre>
 *
@@ -200,12 +201,10 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr);
 static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePtr);
 static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr);
-static void XLoader_EnableJtag(void);
 static int XLoader_AuthJtag(u32 *TimeOut);
 static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last);
 static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
-static void XLoader_DisableJtag(void);
 static void XLoader_ClearKatStatusOnCfg(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
 static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
 static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr);
@@ -3406,7 +3405,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 				goto END;
 			}
 		}
-		XLoader_EnableJtag();
+		XLoader_EnableJtag((u32)XLOADER_CONFIG_DAP_STATE_ALL_DBG);
 		*TimeOut = SecureParams.AuthJtagMessagePtr->JtagEnableTimeout;
 	}
 
@@ -3427,15 +3426,22 @@ END:
 * 			- None
 *
 ******************************************************************************/
-static void XLoader_EnableJtag(void)
+void XLoader_EnableJtag(u32 CfgState)
 {
-	/**
-	 * Enable secure/non-secure debug
-	 * Enabled invasive & non-invasive debug
-	 */
-	XPlmi_Out32(XLOADER_PMC_TAP_DAP_CFG_OFFSET,
-		XLOADER_DAP_CFG_ENABLE_ALL_DBG_MASK);
+	u32 DapCfgMask;
 
+	if (CfgState == XLOADER_CONFIG_DAP_STATE_ALL_DBG) {
+		/**
+		 * Enable secure/non-secure debug
+		 * Enabled invasive & non-invasive debug
+		 */
+		DapCfgMask = XLOADER_DAP_CFG_ENABLE_ALL_DBG_MASK;
+	} else {
+		/** Enable only non-secure debug */
+		DapCfgMask = (XLOADER_DAP_CFG_NIDEN_MASK | XLOADER_DAP_CFG_DBGEN_MASK);
+	}
+
+	XPlmi_Out32(XLOADER_PMC_TAP_DAP_CFG_OFFSET, DapCfgMask);
 	/**
 	 * Enable all the instructions
 	 */
@@ -3465,7 +3471,7 @@ static void XLoader_EnableJtag(void)
 * 			- None
 *
 ****************************************************************************/
-static void XLoader_DisableJtag(void)
+void XLoader_DisableJtag(void)
 {
 	/**
 	 * Reset DBG module

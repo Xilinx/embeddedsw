@@ -35,6 +35,7 @@
 *                       DS export to handle in-place update flow,
 *                       Removed XLoader_GetPdiInstance function definition
 *       bm   06/13/2023 Log PLM error before deferring
+*       sk   07/06/23 Added Jtag DAP config support for Non-Secure Debug
 *
 * </pre>
 *
@@ -79,6 +80,12 @@
 #define XLOADER_RPU_CLUSTER_A (0U) /**< RPU cluster A */
 #define XLOADER_RPU_CLUSTER_B (1U) /**< RPU cluster B */
 
+#ifndef PLM_SECURE_EXCLUDE
+#define XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_INDEX	(0U)
+#define XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_MASK		(0x03U)
+#define XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE		(0x03U)
+#define XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE		(0x00U)
+#endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -1547,3 +1554,46 @@ END:
 	return Status;
 }
 #endif
+
+/*****************************************************************************/
+/**
+ * @brief	This function enables or disable Jtag Access
+ * 			Command payload parameters are
+ *				- Flag (enable / disable)
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_INVALID_JTAG_OPERATION
+ *
+*****************************************************************************/
+int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd)
+{
+	volatile int Status = XST_FAILURE;
+#ifndef PLM_SECURE_EXCLUDE
+	u32 Flag = (u32)(Cmd->Payload[XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_INDEX]
+			& XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_MASK);
+
+	if (((Flag != XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE) &&
+			(Flag != XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE))) {
+		/** Invalid JTAG Operation request */
+		Status = XLOADER_ERR_INVALID_JTAG_OPERATION;
+		goto END;
+	}
+
+	if (Flag == XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE) {
+		XLoader_EnableJtag(XLOADER_CONFIG_DAP_STATE_NONSECURE_DBG);
+	} else {
+		XLoader_DisableJtag();
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+#else
+	Status = XLOADER_ERR_INVALID_JTAG_OPERATION;
+	(void)Cmd;
+#endif
+	return Status;
+}
