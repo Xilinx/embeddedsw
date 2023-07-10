@@ -1,7 +1,8 @@
-/*******************************************************************************
-* Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+/******************************************************************************
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-*******************************************************************************/
+******************************************************************************/
 
 /*****************************************************************************/
 /**
@@ -36,6 +37,8 @@
 * 1.10 ND 07/21/22 Updated the LMK03318 address.
 * 1.11 ND 08/26/22 Added DELAY macro to increase delay in IDT_8T49N24x_SetClock()
 * 				   if encountering iic race condition.
+* 1.12 ND 06/15/23 Enhanced application for supporting any combbination of
+* 				   hdcp1.X/2.X combination in the Rx or Tx of the design.
 *
 * </pre>
 *
@@ -535,6 +538,7 @@ u32 DpSs_Main(void)
 	 extern uint32_t Hdcp22Lc128_Sz;
 	 extern uint8_t Hdcp22RxPrivateKey[];
 	 extern uint32_t Hdcp22RxPrivateKey_Sz;
+
 #ifdef USE_EEPROM_HDCP_KEYS
 	 extern uint8_t Hdcp14KeyA[];
 	 extern uint8_t Hdcp14KeyB[];
@@ -566,6 +570,7 @@ u32 DpSs_Main(void)
         XV_DpRxSs_Hdcp22SetKey(&DpRxSsInst,
                         XV_DPRXSS_KEY_HDCP22_PRIVATE,
                         Hdcp22RxPrivateKey);
+
 #ifdef USE_EEPROM_HDCP_KEYS
 	 }
 #endif
@@ -1400,6 +1405,7 @@ u32 DpSs_SetupIntrSystem(void)
 	 * above performs the specific interrupt processing for the device.
 	 * */
 #ifdef RxOnly
+
 	Status = XScuGic_Connect(IntcInstPtr, XINTC_DPRXSS_DP_INTERRUPT_ID,
 				(Xil_InterruptHandler)XDpRxSs_DpIntrHandler,
 				&DpRxSsInst);
@@ -1454,12 +1460,14 @@ u32 DpSs_SetupIntrSystem(void)
 
 #endif
 #if ENABLE_HDCP_IN_DESIGN
-
+#if (ENABLE_HDCP1x_IN_TX || ENABLE_HDCP22_IN_TX)
 	XScuGic_Connect(IntcInstPtr, XPAR_FABRIC_DP14TXSS_0_DPTXSS_TIMER_IRQ_VEC_ID,
 			(Xil_InterruptHandler)XTmrCtr_InterruptHandler,
 			DpTxSsInst.TmrCtrPtr);
 	XScuGic_Enable(IntcInstPtr, XPAR_FABRIC_DP14TXSS_0_DPTXSS_TIMER_IRQ_VEC_ID);
+#endif
 
+#if (ENABLE_HDCP1x_IN_RX || ENABLE_HDCP22_IN_RX)
 	/* Hook up Rx interrupt service routine */
 	Status = XScuGic_Connect(IntcInstPtr,
 			XPAR_FABRIC_DP14RXSS_0_DPRXSS_TIMER_IRQ_VEC_ID,
@@ -1470,6 +1478,7 @@ u32 DpSs_SetupIntrSystem(void)
 	}
 
 	XScuGic_Enable(IntcInstPtr, XPAR_FABRIC_DP14RXSS_0_DPRXSS_TIMER_IRQ_VEC_ID);
+#endif
 #endif
 
 	/* Initialize the exception table. */

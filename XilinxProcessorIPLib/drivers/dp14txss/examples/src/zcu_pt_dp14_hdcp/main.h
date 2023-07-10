@@ -1,7 +1,8 @@
-/*******************************************************************************
-* Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+/******************************************************************************
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-*******************************************************************************/
+******************************************************************************/
 
 /*****************************************************************************/
 /**
@@ -118,11 +119,22 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 * There is only one interrupt controlled to be selected from SCUGIC and GPIO
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
+#if (ENABLE_HDCP1x_IN_TX || ENABLE_HDCP22_IN_TX)
 #define XINTC_DPTXSS_DP_INTERRUPT_ID \
 	XPAR_FABRIC_DP14TXSS_0_DPTXSS_DP_IRQ_VEC_ID
+#else
+#define XINTC_DPTXSS_DP_INTERRUPT_ID \
+	XPAR_FABRIC_DP14TXSS_0_VEC_ID
+#endif
 
+#if (ENABLE_HDCP1x_IN_RX || ENABLE_HDCP22_IN_RX)
 #define XINTC_DPRXSS_DP_INTERRUPT_ID \
-    XPAR_FABRIC_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID
+    XPAR_FABRIC_DP14RXSS_0_DPRXSS_DP_IRQ_VEC_ID
+#else
+#define XINTC_DPRXSS_DP_INTERRUPT_ID \
+		XPAR_FABRIC_DP14RXSS_0_VEC_ID
+#endif
+
 #define XINTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define XINTC                    XScuGic
 #define XINTC_HANDLER            XScuGic_InterruptHandler

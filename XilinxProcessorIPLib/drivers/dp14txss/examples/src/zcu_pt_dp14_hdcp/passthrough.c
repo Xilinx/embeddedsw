@@ -1,7 +1,9 @@
-/*******************************************************************************
-* Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+/******************************************************************************
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-*******************************************************************************/
+******************************************************************************/
+
 
 /*****************************************************************************/
 /**
@@ -260,7 +262,7 @@ void DpPt_Main(void){
 
 #if  ENABLE_HDCP_IN_DESIGN
 
-#if (ENABLE_HDCP22_IN_RX > 0)
+#if (ENABLE_HDCP_IN_DESIGN && ENABLE_HDCP22_IN_RX)
 	XHdcp22_Dp_RxSetRxCaps(DpRxSsInst.Hdcp22Ptr, TRUE);
 #endif
 
@@ -270,7 +272,7 @@ void DpPt_Main(void){
 
 #if ENABLE_HDCP_IN_DESIGN
 	u32 TxAuthAttempts = 0;
-	u8 auxValues_org;
+	u8 auxValues_org = 0;
 	retval=0;
 
 	DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 2000000);
@@ -329,8 +331,15 @@ void DpPt_Main(void){
 #endif
 //	XHdcp1xExample_Enable();
 #endif
+
+#if	(ENABLE_HDCP1x_IN_RX | ENABLE_HDCP22_IN_RX)
 	XDpRxSs_HdcpEnable(&DpRxSsInst);
+#endif
+
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 	XDpTxSs_HdcpEnable(&DpTxSsInst);
+#endif
+
 #else
         xil_printf ("--->HDCP feature is not enabled in application<---\r\n");
 #endif
@@ -1045,7 +1054,7 @@ void DpPt_Main(void){
 
 		// Rx and pass-through side process
 		dprx_tracking();
-#if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP_IN_DESIGN && (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP22_IN_RX))
 		//Wait for few frames to ensure valid video is received
 		if (tx_after_rx == 1 && rx_trained == 1
 				&& DpRxSsInst.link_up_trigger == 1
@@ -1054,13 +1063,13 @@ void DpPt_Main(void){
 
 						)
 #else
-						if (tx_after_rx == 1 && rx_trained == 1 && DpRxSsInst.link_up_trigger == 1 )
+		if (tx_after_rx == 1 && rx_trained == 1 && DpRxSsInst.link_up_trigger == 1 )
 #endif
-			{
+		{
 		    tx_after_rx = 0;
 		    if (track_msa == 1) {
 			usleep(20000);
-#if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP_IN_DESIGN && (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX))
 				XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
 				XDpTxSs_HdcpDisable(&DpTxSsInst);
 #if ENABLE_HDCP1x_IN_TX
@@ -1082,20 +1091,21 @@ void DpPt_Main(void){
 							DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount); //LaneCount_init_tx);
 					XDpTxSs_SetPhysicalState(&DpTxSsInst, !hdcp_capable_org);
 #endif
+
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 					XHdcp1xExample_Poll();
 #if ENABLE_HDCP1x_IN_TX
 					XDpTxSs_SetPhysicalState(&DpTxSsInst, hdcp_capable_org);
 #endif
-#endif
-#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 					XHdcp1xExample_Poll();
 #endif
 				} //hdcp_capable_org check
 				else {
+#if (ENABLE_HDCP_IN_DESIGN && (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP22_IN_RX))
 					if (DpRxSsInst.TmrCtrResetDone == 1) {
 						tx_after_rx = 0;
 					}
+#endif
 				}
 #endif
 				// It is observed that some monitors do not give HPD
@@ -1118,6 +1128,7 @@ void DpPt_Main(void){
 		if (rx_trained && rx_aud && tx_done) {
 			Dppt_DetectAudio();
 		}
+
 #if ENABLE_HDCP_IN_DESIGN
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 		XHdcp1xExample_Poll();
@@ -1137,8 +1148,12 @@ void DpPt_Main(void){
 				0
 #endif
 		)
+#if (ENABLE_HDCP_IN_DESIGN && (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP22_IN_RX))
 				&& rx_trained
-				&& XDpTxSs_IsConnected(&DpTxSsInst) && tx_done)
+#else
+				|| rx_trained
+#endif
+				&& XDpTxSs_IsConnected(&DpTxSsInst) && tx_done && hdcp_capable_org)
 		{
 			if((
 #if ENABLE_HDCP1x_IN_TX
@@ -1175,15 +1190,19 @@ void DpPt_Main(void){
 #else
 								0
 #endif
-								) {
+							) {
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 									XDpTxSs_Authenticate(&DpTxSsInst);
+#endif
 						}
 					}
 					else
 					{
 						DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 75000);
 						TxAuthAttempts = 0;
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 						XDpTxSs_EnableEncryption(&DpTxSsInst,0x1);
+#endif
 					}
 
 				} else {
@@ -1200,7 +1219,9 @@ void DpPt_Main(void){
 								0
 #endif
 								) {
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 										XDpTxSs_Authenticate(&DpTxSsInst);
+#endif
 						} else if (
 #if ENABLE_HDCP1x_IN_TX
 								DpTxSsInst.Hdcp1xPtr->Tx.CurrentState == 0 ||
@@ -1212,19 +1233,33 @@ void DpPt_Main(void){
 							/* DP TX State 0 : Disabled
 							 * DP TX State 11 : Phy-layer-down */
 
-#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
+#if ENABLE_HDCP1x_IN_TX
 							XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
+#endif
+
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 							XHdcp1xExample_Poll();
 #endif
+
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 							XDpTxSs_HdcpEnable(&DpTxSsInst);
+#endif
+
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 							XHdcp1xExample_Poll();
 #endif
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 							XDpTxSs_Authenticate(&DpTxSsInst);
+#endif
+
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 							XHdcp1xExample_Poll();
 #endif
+
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 							XDpTxSs_EnableEncryption(&DpTxSsInst,0x1);
+#endif
+
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 							XHdcp1xExample_Poll();
 #endif
@@ -1232,8 +1267,9 @@ void DpPt_Main(void){
 					} else {
 						DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 75000);
 						TxAuthAttempts = 0;
-
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 						XDpTxSs_EnableEncryption(&DpTxSsInst,0x1);
+#endif
 					}
 				}
 			}
@@ -1262,6 +1298,7 @@ void DpPt_Main(void){
 			/*
 			 * Bring down TX encryption/authentication
 			 */
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 			if ((XDpTxSs_IsAuthenticated(&DpTxSsInst)==1))
 			{
 				xil_printf(".~\r\n");
@@ -1275,6 +1312,7 @@ void DpPt_Main(void){
 				XHdcp1xExample_Poll();
 #endif
 			}
+#endif
 		}
 #endif
 
@@ -1626,14 +1664,12 @@ void dprx_tracking(void) {
 		rx_aud = 1;
 		track_msa = Dppt_DetectResolution(DpRxSsInst.DpPtr, Msa,
 				DpRxSsInst.link_up_trigger);
-
 	}
 
 }
 
 void dptx_tracking (void) {
 //	u32 Status;
-
 	// When TX is cable is connected, the application will re-initiate the
 	// TX training. Note that EDID is not updated.
 	// Hence you should not change the monitors at runtime
@@ -1676,5 +1712,4 @@ void dptx_tracking (void) {
 		hpd_pulse_con_event = 0;
 		filter_count = 0;
 	}
-
 }

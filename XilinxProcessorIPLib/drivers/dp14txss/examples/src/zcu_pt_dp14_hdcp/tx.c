@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2020-2021 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -684,8 +685,11 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 					0
 #endif
 					) {
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 				/* Disable Encryption */
 				XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
+#endif
+
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 				XHdcp1xExample_Poll();
 #endif
@@ -693,11 +697,18 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 				/* Re-start authentication (the expectation is
 				 * that HDCP is already in the authenticated state). */
 				xdbg_printf(XDBG_DEBUG_GENERAL, "\033[1m\033[43m\033[34m (*<*)Tx-> \033[0m \n");
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 				XDpTxSs_Authenticate(&DpTxSsInst);
+#endif
+
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 				XHdcp1xExample_Poll();
 #endif
+
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 				XDpTxSs_EnableEncryption(&DpTxSsInst, 0x1);
+#endif
+
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 				XHdcp1xExample_Poll();
 #endif
@@ -717,8 +728,10 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 					0
 #endif
 			) {
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 				/* Disable Encryption */
 				XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
+#endif
 //				XHdcp1xExample_Poll();
 
 				/* Re-start authentication (the expectation is
@@ -1266,7 +1279,12 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 
 #if ENABLE_HDCP_IN_DESIGN
 		if (hdcp_capable != hdcp_capable_org) {
-			do_not_train_tx = 1;
+			if(hdcp_capable != 1){
+				do_not_train_tx = 1;
+			}
+			else{
+				do_not_train_tx = 0;
+			}
 			hdcp_capable_org = hdcp_capable;
 		}
 		else{
