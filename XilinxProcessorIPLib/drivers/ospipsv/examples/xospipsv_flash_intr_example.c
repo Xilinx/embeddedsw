@@ -91,9 +91,11 @@ int OspiPsvInterruptFlashExample(XScuGic *IntcInstancePtr, XOspiPsv *OspiPsvInst
 #else
 int OspiPsvInterruptFlashExample(XOspiPsv *OspiPsvInstancePtr, UINTPTR BaseAddress);
 #endif
+#ifndef SDT
 static int OspiPsvSetupIntrSystem(XScuGic *IntcInstancePtr,
 				  XOspiPsv *OspiPsvInstancePtr);
 static void OspiPsvDisableIntrSystem(XScuGic *IntcInstancePtr, u16 OspiPsvIntrId);
+#endif
 void OspiPsvHandler(void *CallBackRef, u32 StatusEvent);
 int FlashReadID(XOspiPsv *OspiPsvPtr);
 int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr);
@@ -1464,6 +1466,7 @@ int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable)
  * @note	None.
  *
  ******************************************************************************/
+#ifndef SDT
 static int OspiPsvSetupIntrSystem(XScuGic *IntcInstancePtr,
 				  XOspiPsv *OspiPsvInstancePtr)
 {
@@ -1549,6 +1552,7 @@ static void OspiPsvDisableIntrSystem(XScuGic *IntcInstancePtr,
 	 */
 	XScuGic_Disconnect(IntcInstancePtr, OspiPsvIntrId);
 }
+#endif
 
 /*****************************************************************************/
 /**
