@@ -1,7 +1,8 @@
-/*******************************************************************************
-* Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+/******************************************************************************
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-*******************************************************************************/
+******************************************************************************/
 
 /*****************************************************************************/
 /**
@@ -100,6 +101,7 @@ u32 DpRxSs_Setup(void)
 			XDP_RX_INTERRUPT_MASK_BW_CHANGE_MASK);
 
 #if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP22_IN_RX)
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 			XDP_RX_INTERRUPT_MASK_HDCP_DEBUG_WRITE_MASK |
 			XDP_RX_INTERRUPT_MASK_HDCP_AKSV_WRITE_MASK |
@@ -107,6 +109,7 @@ u32 DpRxSs_Setup(void)
 			XDP_RX_INTERRUPT_MASK_HDCP_AINFO_WRITE_MASK |
 			XDP_RX_INTERRUPT_MASK_HDCP_RO_READ_MASK |
 			XDP_RX_INTERRUPT_MASK_HDCP_BINFO_READ_MASK);
+#endif
 #endif
 
 	XDp_RxInterruptEnable1(DpRxSsInst.DpPtr,
@@ -325,19 +328,20 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 {
-//	xil_printf("inside DpRxSs_VerticalBlankHandler\n\r");
-
 	DpRxSsInst.VBlankCount++;
 	if (DpRxSsInst.VBlankCount > 200) {
 		//when Vblank is received, HDCP is put in enabled state and the
 		// timer is started. TX is not setup until the timer is done.
 		// This ensures that certain sources like MacBook gets
 		//  time to Authenticate.
-		#if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP_IN_DESIGN && (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP22_IN_RX))
 				XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x01F80000);
 				XDpRxSs_StartTimer(&DpRxSsInst);
-		#endif
 
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
+				 XHdcp1xExample_Poll();
+#endif
+#endif
 	} //end of (vblank_count >= 100)
 	else if (DpRxSsInst.VBlankCount == 80)
 	{
@@ -345,8 +349,12 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 #if ENABLE_HDCP_IN_DESIGN
 		XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x01F80000);
 //		XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
-#if ENABLE_HDCP1x_IN_RX
+#if (ENABLE_HDCP1x_IN_RX && (ENABLE_HDCP1x_IN_TX || ENABLE_HDCP22_IN_TX))
 	    XDpRxSs_SetPhysicalState(&DpRxSsInst, hdcp_capable_org); //TRUE)
+#else
+#if ENABLE_HDCP1x_IN_RX
+		XDpRxSs_SetPhysicalState(&DpRxSsInst, 1);
+#endif
 #endif
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	    XHdcp1xExample_Poll();
@@ -402,12 +410,12 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
 #endif
-//#if ENABLE_HDCP1x_IN_RX
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP22_IN_RX)
 	XDpRxSs_StopTimer(&DpRxSsInst);
 
 	// This function will over write timer function pointer to be the right one.
 	Dprx_HdcpUnAuthCallback((void *)&DpRxSsInst); 	// Added from 16.4 release
-
+#endif
 #endif
 	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 750);
 //	XDpRxSs_AudioDisable(&DpRxSsInst);
@@ -459,16 +467,19 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 	rx_unplugged = 0;
 #if ENABLE_HDCP_IN_DESIGN
     XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
-#if ENABLE_HDCP1x_IN_RX
+#if (ENABLE_HDCP1x_IN_RX && (ENABLE_HDCP1x_IN_TX || ENABLE_HDCP22_IN_TX))
     XDpRxSs_SetPhysicalState(&DpRxSsInst, hdcp_capable_org); //TRUE);
+#else
+#if ENABLE_HDCP1x_IN_RX
+    XDpRxSs_SetPhysicalState(&DpRxSsInst, 1);
+#endif
 #endif
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
     XHdcp1xExample_Poll();
-#endif
-#endif
-
     XDpRxSs_HdcpSetProtocol(&DpRxSsInst, XDPRXSS_HDCP_14);
 	XDpRxSs_HdcpEnable(&DpRxSsInst);
+#endif
+#endif
 }
 
 /*****************************************************************************/
@@ -561,8 +572,9 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 	XHdcp1xExample_Poll();
 #endif
 
-//#if ENABLE_HDCP1x_IN_RX
+#if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP22_IN_RX)
 	XDpRxSs_StopTimer(&DpRxSsInst);
+#endif
 //	IsTxEncrypted = 0;
 //	IsTxAuthenticated = 0;
 #endif
@@ -1210,14 +1222,22 @@ void Dprx_HdcpAuthCallback(void *InstancePtr) {
 	/* Set Timer Counter reset done */
 	XDpRxSsInst->TmrCtrResetDone = 1;
 	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 		XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
+#endif
+
 #if ENABLE_HDCP1x_IN_TX
 		XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
 #endif
+
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 		XHdcp1xExample_Poll();
 #endif
+
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 		XDpTxSs_HdcpEnable(&DpTxSsInst);
+#endif
+
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 		XHdcp1xExample_Poll();
 #endif
