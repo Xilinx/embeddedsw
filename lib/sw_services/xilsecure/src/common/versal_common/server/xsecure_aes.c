@@ -81,6 +81,7 @@
 * 5.1   kal  09/27/2022 Pass AesDmCfg structure as reference instead of value to
 *                       XSecure_AesPmcDmaCfgAndXfer function
 *       skg  10/13/2022 Added Encrypt/Decrypt update error handling check
+* 5.2   yog  07/10/2023 Added support of unaligned data sizes for Versal Net
 *
 * </pre>
 *
@@ -107,11 +108,6 @@
 											features for KUP */
 #define XSECURE_AES_ENABLE_KUP_IV_UPDATE	(0x1U)	/**< Enables IV and Key save
 											features for KUP */
-
-#define XSECURE_ENABLE_BYTE_SWAP		(0x1U)	/**< Enables data swap in AES */
-
-#define XSECURE_DISABLE_BYTE_SWAP		(0x0U)	/**< Disables data swap in AES */
-
 #define XSECURE_AES_AAD_ENABLE			(0x1U)	/**< Enables authentication of
 													data pushed in AES engine*/
 #define XSECURE_AES_AAD_DISABLE			(0x0U)	/**< Disables authentication of
@@ -129,23 +125,12 @@ typedef struct {
 	u32 KeyClearVal;	/**< Key source clear value*/
 } XSecure_AesKeyLookup;
 
-typedef struct {
-	u64 SrcDataAddr;	/**< Address of source buffer */
-	u64 DestDataAddr;	/**< Address of destination buffer */
-	u8 SrcChannelCfg;	/**< DMA Source channel configuration */
-	u8 DestChannelCfg;	/**< DMA destination channel configuration  */
-	u8 IsLastChunkSrc;	/**< Flag for last update in source */
-	u8 IsLastChunkDest;	/**< Flag for last update in destination */
-} XSecure_AesDmaCfg;
-
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Prototypes ******************************/
 
 static int XSecure_AesWaitForDone(const XSecure_Aes *InstancePtr);
 static int XSecure_AesKeyLoad(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize);
-static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
-	XPmcDma_Channel Channel, u8 EndianType);
 static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr);
 static int XSecure_AesOpInit(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr);
@@ -639,22 +624,25 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	/* Validate the input arguments */
-	if (InstancePtr == NULL) {
+	if ((InstancePtr == NULL) || (AadAddr == 0x00U)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((AadAddr == 0x00U) || ((AadSize % XSECURE_QWORD_SIZE) != 0x00U)) {
+#ifndef VERSAL_NET
+	/* Validate Aad Size for versal*/
+	if ((AadSize % XSECURE_QWORD_SIZE) != 0x00U) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END_RST;
 	}
-
+#endif
+	/* Validate AES state */
 	if ((InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) &&
 		(InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED)) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END_RST;
 	}
-
+	/* Enable AAD by writing to the register */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_AAD_OFFSET,
 		XSECURE_AES_AAD_ENABLE);
 
@@ -663,9 +651,9 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	AesDmaCfg.IsLastChunkSrc = (u8)InstancePtr->IsGmacEn;
 
 	/*
-     * Enable destination channel swapping to read
-     * GMAC tag in correct order from hardware.
-     */
+	 * Enable destination channel swapping to read
+	 * GMAC tag in correct order from hardware.
+	 */
 	if (InstancePtr->IsGmacEn == TRUE) {
 		XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
             XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
@@ -964,22 +952,24 @@ int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	if (((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) ||
-		((Size % XSECURE_WORD_SIZE) != 0x00U)) {
+	if (((IsLastChunk != TRUE) && (IsLastChunk != FALSE))) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
 		goto END_RST;
 	}
-
-    if ((IsLastChunk != TRUE) &&
-		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {
-		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
+	/* Validate the size for last chunk */
+	Status = XSecure_AesValidateSize(Size, IsLastChunk);
+	if (Status != XST_SUCCESS) {
 		goto END_RST;
 	}
-
+	/* Validate the AES state */
 	if (InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END_RST;
 	}
+	/* Enable AES Data swap */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
+
 
 	Status = XSecureAesUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
 
@@ -1284,27 +1274,28 @@ int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	int Status = XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) ) {
+	if ((InstancePtr == NULL)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
-	if (((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) ||
-		((Size % XSECURE_WORD_SIZE) != 0x00U)) {
+	if (((IsLastChunk != TRUE) && (IsLastChunk != FALSE))) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
 		goto END_RST;
 	}
-
-    if ((IsLastChunk != TRUE) &&
-		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {
-		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
+	/* Validate the size for last chunk*/
+	Status = XSecure_AesValidateSize(Size, IsLastChunk);
+	if (Status != XST_SUCCESS) {
 		goto END_RST;
 	}
-
+	/* Validate the AES state */
 	if (InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END_RST;
 	}
+	/* Enable AES Data swap */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
 
 	Status = XSecureAesUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
 
@@ -1921,37 +1912,6 @@ static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr)
 	return Status;
 }
 
-/******************************************************************************/
-/**
- * @brief	This is a helper function to enable/disable byte swapping feature
- * 		of PMC DMA
- *
- * @param	InstancePtr  Pointer to the XPmcDma instance
- * @param	Channel 	 Channel Type
- *			- XPMCDMA_SRC_CHANNEL
- *			 -XPMCDMA_DST_CHANNEL
- * @param	EndianType
- *			- 1 : Enable Byte Swapping
- *			- 0 : Disable Byte Swapping
- *
- *
- ******************************************************************************/
-static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
-	XPmcDma_Channel Channel, u8 EndianType)
-{
-	XPmcDma_Configure ConfigValues;
-
-	(void)Xil_SMemSet(&ConfigValues, sizeof(ConfigValues), 0U,
-			 sizeof(ConfigValues));
-
-	/* Assert validates the input arguments */
-	XSecure_AssertVoid(InstancePtr != NULL);
-
-	XPmcDma_GetConfig(InstancePtr, Channel, &ConfigValues);
-	ConfigValues.EndianType = EndianType;
-	XPmcDma_SetConfig(InstancePtr, Channel, &ConfigValues);
-}
-
 /*****************************************************************************/
 /**
  * @brief	This function initializes AES engine for encryption or decryption
@@ -2033,57 +1993,7 @@ static int XSecure_AesPmcDmaCfgAndXfer(const XSecure_Aes *InstancePtr,
 		goto END;
 	}
 
-	/* Enable PMC DMA Src and Dst channels for byte swapping.*/
-	if (AesDmaCfg->SrcChannelCfg == TRUE) {
-		XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
-			XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
-	}
-
-	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
-		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
-		XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
-			XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
-	}
-
-	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
-		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
-		XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
-			(u32)AesDmaCfg->DestDataAddr, (u32)(AesDmaCfg->DestDataAddr >> 32U),
-			Size / XSECURE_WORD_SIZE, AesDmaCfg->IsLastChunkDest);
-	}
-
-	if (AesDmaCfg->SrcChannelCfg == TRUE) {
-		XPmcDma_64BitTransfer(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-			(u32)AesDmaCfg->SrcDataAddr, (u32)(AesDmaCfg->SrcDataAddr >> 32U),
-			Size / XSECURE_WORD_SIZE, AesDmaCfg->IsLastChunkSrc);
-	}
-
-	if (AesDmaCfg->SrcChannelCfg == TRUE) {
-		/* Wait for the SRC DMA completion. */
-		Status = XPmcDma_WaitForDoneTimeout(InstancePtr->PmcDmaPtr,
-			XPMCDMA_SRC_CHANNEL);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-		/* Acknowledge the transfer has completed */
-		XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-			XPMCDMA_IXR_DONE_MASK);
-	}
-
-	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
-		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
-		/* Wait for the DEST DMA completion. */
-		Status = XPmcDma_WaitForDoneTimeout(InstancePtr->PmcDmaPtr,
-			XPMCDMA_DST_CHANNEL);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-		/* Acknowledge the transfer has completed */
-		XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
-			XPMCDMA_IXR_DONE_MASK);
-	}
+	Status = XSecure_AesPlatPmcDmaCfgAndXfer(InstancePtr->PmcDmaPtr, AesDmaCfg, Size, InstancePtr->BaseAddress);
 
 END:
 	return Status;
