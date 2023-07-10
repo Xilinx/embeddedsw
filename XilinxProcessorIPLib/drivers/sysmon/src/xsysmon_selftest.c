@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xsysmon_selftest.c
-* @addtogroup sysmon_v7_7
+* @addtogroup Overview
 * @{
 *
 * This file contains a diagnostic self test function for the XSysMon driver.
