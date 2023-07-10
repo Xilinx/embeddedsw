@@ -157,10 +157,12 @@ typedef struct {
 	u32 InputClockHz;	/**< Input clock frequency */
 	u8 IsCacheCoherent;		/**< If OSPI is Cache Coherent or not */
 	u8 ConnectionMode;	/**< OSPI connection mode */
-	u16 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+#ifdef SDT
+	u16 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
 	                        * trigger type and level flags */
-	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
 	                        * Parent base address */
+#endif
 } XOspiPsv_Config;
 
 /**
