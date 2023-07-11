@@ -28,6 +28,7 @@
 *					  XBram_CfgInitialize API.
 * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XBram_CfgInitialize API.
+* 4.9   sd   07/07/23 Added SDT support.
 *</pre>
 *
 *****************************************************************************/
@@ -113,6 +114,11 @@ int XBram_CfgInitialize(XBram *InstancePtr,
 	InstancePtr->Config.CorrectableCounterBits =
 					Config->CorrectableCounterBits;
 	InstancePtr->Config.WriteAccess = Config->WriteAccess;
+#ifdef SDT
+	InstancePtr->Config.IntId = Config->IntId;
+	InstancePtr->Config.IntrParent = Config->IntrParent;
+#endif
+
 
 	/*
 	 * Indicate the instance is now ready to use, initialized without error
