@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@
 * 4.1   ms   01/23/17 Modified xil_printf statement in main function to
 *                     ensure that "Successfully ran" and "Failed" strings are
 *                     available in all examples. This is a fix for CR-965028.
+* 4.9   sd   07/07/23 Added SDT support.
 *</pre>
 *
 ******************************************************************************/
@@ -39,12 +41,20 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define BRAM_DEVICE_ID		XPAR_BRAM_0_DEVICE_ID
+#else
+#define BRAM_DEVICE_ID		XPAR_XBRAM_0_BASEADDR
+#endif
 
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int BramExample(u16 DeviceId);
+#else
+int BramExample(UINTPTR BaseAddress);
+#endif
 static void InitializeECC(XBram_Config *ConfigPtr, u32 EffectiveAddr);
 
 
@@ -102,7 +112,11 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int BramExample(u16 DeviceId)
+#else
+int BramExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XBram_Config *ConfigPtr;
@@ -116,7 +130,11 @@ int BramExample(u16 DeviceId)
 	 * Use this configuration info down below when initializing this
 	 * driver.
 	 */
+#ifndef SDT
 	ConfigPtr = XBram_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XBram_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == (XBram_Config *) NULL) {
 		return XST_FAILURE;
 	}

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +29,7 @@
 * 4.7   mus  08/25/21 BRAM and interrupt controller instance need not to be
 *                     declared in case of peripheral test, added condition to skip
 *                     them in case of peripheral test (CR#1108877)
+* 4.9   sd   07/07/23 Added SDT support.
 *</pre>
 *
 ******************************************************************************/
@@ -37,9 +39,14 @@
 #include "xparameters.h"
 #include "xbram.h"
 #include "xil_exception.h"
+#ifndef SDT
 #include "xintc.h"
+#endif
 #include "xil_cache.h"
 #include <stdio.h>
+#ifndef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -48,25 +55,33 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define BRAM_DEVICE_ID		XPAR_BRAM_1_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #define INTC_BRAM_INTERRUPT_ID	XPAR_INTC_0_BRAM_1_VEC_ID
+#endif
 
 /************************** Function Prototypes ******************************/
 static void BramIntrExceptionHandler(void *InstancePtr);
 
 static void BramDriverHandler(void *CallBackRef);
 
+#ifndef SDT
 int BramIntrExample(XIntc* IntcInstancePtr, XBram* InstancePtr,
 		     u16 DeviceId, u16 IntrId);
+#else
+int BramIntrExample(XBram* InstancePtr, UINTPTR BaseAddress);
+#endif
 
 static void InitializeECC(XBram_Config *ConfigPtr, u32 EffectiveAddr);
 
+#ifndef SDT
 static int BramSetupIntrSystem(XIntc* IntcInstancePtr, XBram* InstancePtr,
 			 u16 DeviceId, u16 IntrId);
 
 static void BramDisableIntr(XIntc* IntcInstancePtr, XBram* InstancePtr,
 		      u16 IntrId);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -77,7 +92,9 @@ static void BramDisableIntr(XIntc* IntcInstancePtr, XBram* InstancePtr,
  #ifndef TESTAPP_GEN
 XBram Bram;	/* The Instance of the BRAM Driver */
 
+#ifndef SDT
 XIntc Intc;	/* The Instance of the Interrupt Controller Driver */
+#endif
 #endif
 
 static volatile u32 IntrCount;		/* Total number of interrupts */
@@ -102,8 +119,12 @@ int main(void)
 {
 	int Status;
 
+#ifndef SDT
 	Status = BramIntrExample(&Intc, &Bram, BRAM_DEVICE_ID,
 				 INTC_BRAM_INTERRUPT_ID);
+#else
+	Status = BramIntrExample(&Bram, XPAR_XBRAM_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS ) {
 		xil_printf("Bram Interrupt Example Failed\r\n");
 		return XST_FAILURE;
@@ -135,8 +156,12 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int BramIntrExample(XIntc* IntcInstancePtr, XBram* InstancePtr,
 		     u16 DeviceId, u16 IntrId)
+#else
+int BramIntrExample(XBram* InstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XBram_Config *ConfigPtr;
@@ -150,7 +175,11 @@ int BramIntrExample(XIntc* IntcInstancePtr, XBram* InstancePtr,
 	 * Use this configuration info down below when initializing this
 	 * driver.
 	 */
+#ifndef SDT
 	ConfigPtr = XBram_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XBram_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == (XBram_Config *) NULL) {
 		return XST_FAILURE;
 	}
@@ -165,9 +194,16 @@ int BramIntrExample(XIntc* IntcInstancePtr, XBram* InstancePtr,
         InitializeECC(ConfigPtr, ConfigPtr->CtrlBaseAddress);
 
 
+#ifndef SDT
 	Status = BramSetupIntrSystem(IntcInstancePtr,
 					InstancePtr, DeviceId,
 					IntrId);
+#else
+	Status = XSetupInterruptSystem(InstancePtr, &BramDriverHandler,
+			               InstancePtr->Config.IntId,
+				       InstancePtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -185,7 +221,12 @@ int BramIntrExample(XIntc* IntcInstancePtr, XBram* InstancePtr,
 		return XST_FAILURE;
 	}
 
+#ifndef SDT
 	BramDisableIntr(IntcInstancePtr, InstancePtr, IntrId);
+#else
+	XDisconnectInterruptCntrl(InstancePtr->Config.IntId,
+				       InstancePtr->Config.IntrParent);
+#endif
 
 	if (InstancePtr->Config.FaultInjectionPresent) {
 		if (ExceptionCount == 0 &&
@@ -221,6 +262,7 @@ int BramIntrExample(XIntc* IntcInstancePtr, XBram* InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 static int BramSetupIntrSystem(XIntc* IntcInstancePtr, XBram* InstancePtr,
 			 u16 DeviceId, u16 IntrId)
 {
@@ -293,6 +335,7 @@ static int BramSetupIntrSystem(XIntc* IntcInstancePtr, XBram* InstancePtr,
 
 	return XST_SUCCESS;
 }
+#endif
 
 
 /****************************************************************************/
@@ -358,6 +401,7 @@ static void BramDriverHandler(void *CallbackRef)
 }
 
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -382,6 +426,7 @@ static void BramDisableIntr(XIntc* IntcInstancePtr, XBram* InstancePtr, u16 Intr
 	Xil_ExceptionDisable();
 #endif
 }
+#endif
 
 
 /*****************************************************************************/
