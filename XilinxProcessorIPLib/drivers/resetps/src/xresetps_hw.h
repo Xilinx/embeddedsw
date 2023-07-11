@@ -38,6 +38,13 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /* Register address defines */
 /* CRF_APB defines */
+#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ 33330000U
+#define XPAR_PSU_CRL_APB_S_AXI_BASEADDR 0xFF5E0000
+#define XPAR_PSU_IOUSLCR_0_S_AXI_BASEADDR 0xFF180000
+#define XPAR_PSU_CRF_APB_S_AXI_BASEADDR		0xFD1A0000
+#define XPAR_PSU_PMU_IOMODULE_S_AXI_BASEADDR 0xFFD40000
+#define XPAR_PSU_PMU_GLOBAL_0_S_AXI_BASEADDR 0xFFD80000
+#define XPAR_PSU_LPD_SLCR_S_AXI_BASEADDR 0xFF410000
 #define XRESETPS_CRF_APB_BASE     (XPAR_PSU_CRF_APB_S_AXI_BASEADDR)
 /* RST_FPD_TOP Address and mask definations */
 #define XRESETPS_CRF_APB_RST_FPD_TOP \

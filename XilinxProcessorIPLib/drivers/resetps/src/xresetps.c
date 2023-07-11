@@ -24,6 +24,7 @@
 * 1.2   Nava   05/21/18 Fixed compilation warnings on R5.
 * 1.2   sd     07/20/18 Fixed Doxygen Reported warnings.
 * 1.5   sk     11/30/21 Fix compilation warnings reported with "-Wundef" flag.
+* 1.6   sd     07/07/23 Added SDT support.
 * </pre>
 *
 ******************************************************************************/
@@ -432,7 +433,11 @@ XStatus XResetPs_CfgInitialize(XResetPs *InstancePtr,
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
 	/* Copying instance */
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#else
+	InstancePtr->Config.BaseAddress = ConfigPtr->BaseAddress;
+#endif
 
 	return XST_SUCCESS;
 }
