@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -156,105 +157,105 @@ void ParseCBW(struct Usb_DevData *InstancePtr, struct storage_dev *dev)
 	u8	Index;
 
 	switch (dev->cbw.CBWCB[0]) {
-	case USB_RBC_INQUIRY:
-		dev->phase = USB_EP_STATE_DATA_IN;
-		Index = (IsSuperSpeed(InstancePtr) != XST_SUCCESS) ? 0 : 1;
-		dev->currTrans.Ptr = (u8 *) &scsiInquiry[Index];
-		dev->currTrans.Length = sizeof(scsiInquiry[Index]);
-		break;
+		case USB_RBC_INQUIRY:
+			dev->phase = USB_EP_STATE_DATA_IN;
+			Index = (IsSuperSpeed(InstancePtr) != XST_SUCCESS) ? 0 : 1;
+			dev->currTrans.Ptr = (u8 *) &scsiInquiry[Index];
+			dev->currTrans.Length = sizeof(scsiInquiry[Index]);
+			break;
 
-	case USB_UFI_GET_CAP_LIST: {
-		SCSI_CAP_LIST	*CapList;
+		case USB_UFI_GET_CAP_LIST: {
+				SCSI_CAP_LIST	*CapList;
 
-		CapList = (SCSI_CAP_LIST *) txBuffer;
-		CapList->listLength	= 8;
-		CapList->descCode	= 3;
-		CapList->numBlocks	= htonl(STORAGE_NUM_BLOCKS);
-		CapList->blockLength = htons(STORAGE_BLOCK_SIZE);
-		dev->phase = USB_EP_STATE_DATA_IN;
-		dev->currTrans.Ptr = txBuffer;
-		dev->currTrans.Length =  sizeof(SCSI_CAP_LIST);
-	}
-		break;
+				CapList = (SCSI_CAP_LIST *) txBuffer;
+				CapList->listLength	= 8;
+				CapList->descCode	= 3;
+				CapList->numBlocks	= htonl(STORAGE_NUM_BLOCKS);
+				CapList->blockLength = htons(STORAGE_BLOCK_SIZE);
+				dev->phase = USB_EP_STATE_DATA_IN;
+				dev->currTrans.Ptr = txBuffer;
+				dev->currTrans.Length =  sizeof(SCSI_CAP_LIST);
+			}
+			break;
 
-	case USB_RBC_READ_CAP: {
-		SCSI_READ_CAPACITY	*Cap;
+		case USB_RBC_READ_CAP: {
+				SCSI_READ_CAPACITY	*Cap;
 
-		Cap = (SCSI_READ_CAPACITY *) txBuffer;
-		Cap->numBlocks = htonl(STORAGE_NUM_BLOCKS - 1);
-		Cap->blockSize = htonl(STORAGE_BLOCK_SIZE);
-		dev->phase = USB_EP_STATE_DATA_IN;
-		dev->currTrans.Ptr = txBuffer;
-		dev->currTrans.Length = sizeof(SCSI_READ_CAPACITY);
-	}
-		break;
+				Cap = (SCSI_READ_CAPACITY *) txBuffer;
+				Cap->numBlocks = htonl(STORAGE_NUM_BLOCKS - 1);
+				Cap->blockSize = htonl(STORAGE_BLOCK_SIZE);
+				dev->phase = USB_EP_STATE_DATA_IN;
+				dev->currTrans.Ptr = txBuffer;
+				dev->currTrans.Length = sizeof(SCSI_READ_CAPACITY);
+			}
+			break;
 
-	case USB_RBC_READ:
-		Offset = htonl(((SCSI_READ_WRITE *) &dev->cbw.CBWCB)->block) *
-			STORAGE_BLOCK_SIZE;
-		dev->phase = USB_EP_STATE_DATA_IN;
-		dev->currTrans.Ptr = dev->disk + Offset;
-		dev->currTrans.Length =
-			htons(((SCSI_READ_WRITE *) &dev->cbw.CBWCB)->length) *
-			STORAGE_BLOCK_SIZE;
-		break;
+		case USB_RBC_READ:
+			Offset = htonl(((SCSI_READ_WRITE *) &dev->cbw.CBWCB)->block) *
+				 STORAGE_BLOCK_SIZE;
+			dev->phase = USB_EP_STATE_DATA_IN;
+			dev->currTrans.Ptr = dev->disk + Offset;
+			dev->currTrans.Length =
+				htons(((SCSI_READ_WRITE *) &dev->cbw.CBWCB)->length) *
+				STORAGE_BLOCK_SIZE;
+			break;
 
-	case USB_RBC_MODE_SENSE:
-		memcpy(txBuffer, "\003\000\000\000", 4);
-		dev->phase = USB_EP_STATE_DATA_IN;
-		dev->currTrans.Ptr = txBuffer;
-		dev->currTrans.Length = 4;
-		break;
+		case USB_RBC_MODE_SENSE:
+			memcpy(txBuffer, "\003\000\000\000", 4);
+			dev->phase = USB_EP_STATE_DATA_IN;
+			dev->currTrans.Ptr = txBuffer;
+			dev->currTrans.Length = 4;
+			break;
 
-	case USB_RBC_MODE_SELECT:
-		dev->phase = USB_EP_STATE_DATA_OUT;
-		dev->currTrans.Ptr = txBuffer;
-		dev->currTrans.Length = 24;
-		break;
+		case USB_RBC_MODE_SELECT:
+			dev->phase = USB_EP_STATE_DATA_OUT;
+			dev->currTrans.Ptr = txBuffer;
+			dev->currTrans.Length = 24;
+			break;
 
-	case USB_RBC_TEST_UNIT_READY:
-		dev->phase = USB_EP_STATE_STATUS;
-		dev->currTrans.Length = 0;
-		break;
-
-	case USB_RBC_MEDIUM_REMOVAL:
-		dev->phase = USB_EP_STATE_STATUS;
-		dev->currTrans.Length = 0;
-		break;
-
-	case USB_RBC_VERIFY:
-		dev->phase = USB_EP_STATE_STATUS;
-		dev->currTrans.Length = 0;
-		break;
-
-	case USB_RBC_WRITE:
-		Offset = htonl(((SCSI_READ_WRITE *) &dev->cbw.CBWCB)->block) *
-			STORAGE_BLOCK_SIZE;
-		dev->phase = USB_EP_STATE_DATA_OUT;
-		dev->currTrans.Ptr = dev->disk + Offset;
-		dev->currTrans.Length =
-			htons(((SCSI_READ_WRITE *) &dev->cbw.CBWCB)->length) *
-			STORAGE_BLOCK_SIZE;
-		break;
-
-	case USB_RBC_STARTSTOP_UNIT: {
-		u8 immed;
-
-		immed = ((SCSI_START_STOP *) &dev->cbw.CBWCB)->immed;
-		/* If the immediate bit is 0 we are supposed to send
-		 * a success status.
-		 */
-		if (0 == (immed & 0x01)) {
+		case USB_RBC_TEST_UNIT_READY:
 			dev->phase = USB_EP_STATE_STATUS;
 			dev->currTrans.Length = 0;
-		}
-		break;
-	}
+			break;
 
-	case USB_SYNC_SCSI:
-		dev->phase = USB_EP_STATE_STATUS;
-		dev->currTrans.Length = 0;
-		break;
+		case USB_RBC_MEDIUM_REMOVAL:
+			dev->phase = USB_EP_STATE_STATUS;
+			dev->currTrans.Length = 0;
+			break;
+
+		case USB_RBC_VERIFY:
+			dev->phase = USB_EP_STATE_STATUS;
+			dev->currTrans.Length = 0;
+			break;
+
+		case USB_RBC_WRITE:
+			Offset = htonl(((SCSI_READ_WRITE *) &dev->cbw.CBWCB)->block) *
+				 STORAGE_BLOCK_SIZE;
+			dev->phase = USB_EP_STATE_DATA_OUT;
+			dev->currTrans.Ptr = dev->disk + Offset;
+			dev->currTrans.Length =
+				htons(((SCSI_READ_WRITE *) &dev->cbw.CBWCB)->length) *
+				STORAGE_BLOCK_SIZE;
+			break;
+
+		case USB_RBC_STARTSTOP_UNIT: {
+				u8 immed;
+
+				immed = ((SCSI_START_STOP *) &dev->cbw.CBWCB)->immed;
+				/* If the immediate bit is 0 we are supposed to send
+				 * a success status.
+				 */
+				if (0 == (immed & 0x01)) {
+					dev->phase = USB_EP_STATE_STATUS;
+					dev->currTrans.Length = 0;
+				}
+				break;
+			}
+
+		case USB_SYNC_SCSI:
+			dev->phase = USB_EP_STATE_STATUS;
+			dev->currTrans.Length = 0;
+			break;
 	}
 }
 
@@ -271,7 +272,7 @@ void ParseCBW(struct Usb_DevData *InstancePtr, struct storage_dev *dev)
 *
 *****************************************************************************/
 void SendCSW(struct Usb_DevData *InstancePtr, struct storage_dev *dev,
-		u32 Length)
+	     u32 Length)
 {
 	dev->csw.dCSWSignature = 0x53425355;
 	dev->csw.dCSWTag = dev->cbw.dCBWTag;
@@ -280,7 +281,7 @@ void SendCSW(struct Usb_DevData *InstancePtr, struct storage_dev *dev,
 	dev->phase = USB_EP_STATE_STATUS;
 
 	EpBufferSend(InstancePtr->PrivateData, STORAGE_EP,
-			(void *) &dev->csw, 13);
+		     (void *) &dev->csw, 13);
 }
 
 /****************************************************************************/
@@ -301,19 +302,20 @@ void prvSCSITask(void *pvParameters)
 		(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
 	struct storage_dev *dev = (struct storage_dev *)ch9_ptr->data_ptr;
 
-	if (InstancePtr->Speed == USB_SPEED_SUPER)
+	if (InstancePtr->Speed == USB_SPEED_SUPER) {
 		MaxPktSize = 1024;
-	else
+	} else {
 		MaxPktSize = 512;
+	}
 
 	dev->xSemaphore = xSemaphoreCreateBinary();
 
 	/* Endpoint enables - not needed for Control EP */
 	EpEnable(InstancePtr->PrivateData, STORAGE_EP, USB_EP_DIR_IN,
-			MaxPktSize, USB_EP_TYPE_BULK);
+		 MaxPktSize, USB_EP_TYPE_BULK);
 
 	EpEnable(InstancePtr->PrivateData, STORAGE_EP, USB_EP_DIR_OUT,
-			MaxPktSize, USB_EP_TYPE_BULK);
+		 MaxPktSize, USB_EP_TYPE_BULK);
 
 	xSemaphoreGive(dev->xSemaphore);
 
@@ -322,21 +324,22 @@ void prvSCSITask(void *pvParameters)
 		xSemaphoreTake(dev->xSemaphore, portMAX_DELAY);
 		dev->phase = USB_EP_STATE_COMMAND;
 		EpBufferRecv(InstancePtr->PrivateData, STORAGE_EP,
-				(u8 *)&(dev->cbw), sizeof(dev->cbw));
+			     (u8 *) & (dev->cbw), sizeof(dev->cbw));
 
 		xSemaphoreTake(dev->xSemaphore, portMAX_DELAY);
 		ParseCBW(InstancePtr, dev);
 
 		if (dev->phase == USB_EP_STATE_DATA_IN)
 			EpBufferSend(InstancePtr->PrivateData, STORAGE_EP,
-					dev->currTrans.Ptr,
-					dev->currTrans.Length);
+				     dev->currTrans.Ptr,
+				     dev->currTrans.Length);
 		else if (dev->phase == USB_EP_STATE_DATA_OUT)
 			EpBufferRecv(InstancePtr->PrivateData, STORAGE_EP,
-					dev->currTrans.Ptr,
-					dev->currTrans.Length);
-		else
+				     dev->currTrans.Ptr,
+				     dev->currTrans.Length);
+		else {
 			xSemaphoreGive(dev->xSemaphore);
+		}
 
 		xSemaphoreTake(dev->xSemaphore, portMAX_DELAY);
 		SendCSW(InstancePtr, dev, 0);

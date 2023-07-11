@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -68,7 +69,7 @@ static USBCH9_DATA dfu_data = {
 		.Usb_ClassReq = Usb_DfuClassReq,
 		/* Set the DFU address for call back */
 	},
-	.data_ptr = (void *)&DFU,
+	.data_ptr = (void *) &DFU,
 };
 
 /****************************************************************************/
@@ -90,15 +91,15 @@ static USBCH9_DATA dfu_data = {
 void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
 {
 	xPortInstallInterruptHandler(UsbIntrId,
-			(XInterruptHandler)XUsbPsu_IntrHandler,
-			(void *)InstancePtr);
+				     (XInterruptHandler)XUsbPsu_IntrHandler,
+				     (void *)InstancePtr);
 
 	XUsbPsu_EnableIntr(InstancePtr, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-			XUSBPSU_DEVTEN_WKUPEVTEN |
-			XUSBPSU_DEVTEN_ULSTCNGEN |
-			XUSBPSU_DEVTEN_CONNECTDONEEN |
-			XUSBPSU_DEVTEN_USBRSTEN |
-			XUSBPSU_DEVTEN_DISCONNEVTEN);
+			   XUSBPSU_DEVTEN_WKUPEVTEN |
+			   XUSBPSU_DEVTEN_ULSTCNGEN |
+			   XUSBPSU_DEVTEN_CONNECTDONEEN |
+			   XUSBPSU_DEVTEN_USBRSTEN |
+			   XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 	vPortEnableInterrupt(UsbIntrId);
 }
@@ -118,7 +119,7 @@ void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
 *
 *****************************************************************************/
 static int XUsbDfuExample(struct Usb_DevData *UsbInstPtr,  u16 DeviceId,
-		u16 UsbIntrId)
+			  u16 UsbIntrId)
 {
 	s32 Status;
 	Usb_Config *UsbConfigPtr;
@@ -129,8 +130,9 @@ static int XUsbDfuExample(struct Usb_DevData *UsbInstPtr,  u16 DeviceId,
 	 * specify the controller ID that is generated in xparameters.h
 	 */
 	UsbConfigPtr = LookupConfig(DeviceId);
-	if (NULL == UsbConfigPtr)
+	if (NULL == UsbConfigPtr) {
 		return XST_FAILURE;
+	}
 
 	/* We are passing the physical base address as the third argument
 	 * because the physical and virtual base address are the same in our
@@ -138,9 +140,10 @@ static int XUsbDfuExample(struct Usb_DevData *UsbInstPtr,  u16 DeviceId,
 	 * argument needs to be the virtual base address.
 	 */
 	Status = CfgInitialize(UsbInstPtr, UsbConfigPtr,
-			UsbConfigPtr->BaseAddress);
-	if (XST_SUCCESS != Status)
+			       UsbConfigPtr->BaseAddress);
+	if (XST_SUCCESS != Status) {
 		return XST_FAILURE;
+	}
 
 	/* hook up chapter9 handler */
 	Set_Ch9Handler(UsbInstPtr->PrivateData, Ch9Handler);
@@ -214,7 +217,7 @@ static void prvMainTask(void *pvParameters)
 int main(void)
 {
 	xTaskCreate(prvMainTask, (const char *) "DFU", configMINIMAL_STACK_SIZE,
-			NULL, tskIDLE_PRIORITY, &xMainTask);
+		    NULL, tskIDLE_PRIORITY, &xMainTask);
 
 	/* Start the tasks and timer running. */
 	vTaskStartScheduler();

@@ -52,7 +52,7 @@
 *
 *****************************************************************************/
 void XUsbPsu_EpEvent(struct XUsbPsu *InstancePtr,
-		const struct XUsbPsu_Event_Epevt *Event)
+		     const struct XUsbPsu_Event_Epevt *Event)
 {
 	struct XUsbPsu_Ep *Ept;
 	u32 Epnum;
@@ -71,18 +71,18 @@ void XUsbPsu_EpEvent(struct XUsbPsu *InstancePtr,
 
 	/* Handle other end point events */
 	switch (Event->Endpoint_Event) {
-	case XUSBPSU_DEPEVT_XFERCOMPLETE:
-	case XUSBPSU_DEPEVT_XFERINPROGRESS:
-		XUsbPsu_EpXferComplete(InstancePtr, Event);
-		break;
+		case XUSBPSU_DEPEVT_XFERCOMPLETE:
+		case XUSBPSU_DEPEVT_XFERINPROGRESS:
+			XUsbPsu_EpXferComplete(InstancePtr, Event);
+			break;
 
-	case XUSBPSU_DEPEVT_XFERNOTREADY:
-		XUsbPsu_EpXferNotReady(InstancePtr, Event);
-		break;
+		case XUSBPSU_DEPEVT_XFERNOTREADY:
+			XUsbPsu_EpXferNotReady(InstancePtr, Event);
+			break;
 
-	default:
-		/* Made for Misra-C Compliance. */
-		break;
+		default:
+			/* Made for Misra-C Compliance. */
+			break;
 	}
 }
 
@@ -99,61 +99,61 @@ void XUsbPsu_EpEvent(struct XUsbPsu *InstancePtr,
 *
 *****************************************************************************/
 void XUsbPsu_DeviceEvent(struct XUsbPsu *InstancePtr,
-		const struct XUsbPsu_Event_Devt *Event)
+			 const struct XUsbPsu_Event_Devt *Event)
 {
 
 	switch (Event->Type) {
-	case XUSBPSU_DEVICE_EVENT_DISCONNECT:
-		XUsbPsu_DisconnectIntr(InstancePtr);
-		break;
+		case XUSBPSU_DEVICE_EVENT_DISCONNECT:
+			XUsbPsu_DisconnectIntr(InstancePtr);
+			break;
 
-	case XUSBPSU_DEVICE_EVENT_RESET:
-		XUsbPsu_ResetIntr(InstancePtr);
-		break;
+		case XUSBPSU_DEVICE_EVENT_RESET:
+			XUsbPsu_ResetIntr(InstancePtr);
+			break;
 
-	case XUSBPSU_DEVICE_EVENT_CONNECT_DONE:
-		XUsbPsu_ConnDoneIntr(InstancePtr);
-		break;
+		case XUSBPSU_DEVICE_EVENT_CONNECT_DONE:
+			XUsbPsu_ConnDoneIntr(InstancePtr);
+			break;
 
-	case XUSBPSU_DEVICE_EVENT_WAKEUP:
-		break;
+		case XUSBPSU_DEVICE_EVENT_WAKEUP:
+			break;
 
-	case XUSBPSU_DEVICE_EVENT_HIBER_REQ:
+		case XUSBPSU_DEVICE_EVENT_HIBER_REQ:
 #ifdef XUSBPSU_HIBERNATION_ENABLE
-		if (InstancePtr->HasHibernation == (u8)TRUE) {
-			if (XUsbPsu_HibernationIntr(InstancePtr)
-						== XST_FAILURE) {
+			if (InstancePtr->HasHibernation == (u8)TRUE) {
+				if (XUsbPsu_HibernationIntr(InstancePtr)
+				    == XST_FAILURE) {
 #ifdef XUSBPSU_DEBUG
-				xil_printf("Hibernation event failure\r\n");
+					xil_printf("Hibernation event failure\r\n");
 #endif
+				}
 			}
-		}
 #endif
-		break;
+			break;
 
-	case XUSBPSU_DEVICE_EVENT_LINK_STATUS_CHANGE:
-		XUsbPsu_LinkStsChangeIntr(InstancePtr,
-				Event->Event_Info);
-		break;
+		case XUSBPSU_DEVICE_EVENT_LINK_STATUS_CHANGE:
+			XUsbPsu_LinkStsChangeIntr(InstancePtr,
+						  Event->Event_Info);
+			break;
 
-	case XUSBPSU_DEVICE_EVENT_EOPF:
-		break;
+		case XUSBPSU_DEVICE_EVENT_EOPF:
+			break;
 
-	case XUSBPSU_DEVICE_EVENT_SOF:
-		break;
+		case XUSBPSU_DEVICE_EVENT_SOF:
+			break;
 
-	case XUSBPSU_DEVICE_EVENT_ERRATIC_ERROR:
-		break;
+		case XUSBPSU_DEVICE_EVENT_ERRATIC_ERROR:
+			break;
 
-	case XUSBPSU_DEVICE_EVENT_CMD_CMPL:
-		break;
+		case XUSBPSU_DEVICE_EVENT_CMD_CMPL:
+			break;
 
-	case XUSBPSU_DEVICE_EVENT_OVERFLOW:
-		break;
+		case XUSBPSU_DEVICE_EVENT_OVERFLOW:
+			break;
 
-	default:
-		/* Made for Misra-C Compliance. */
-		break;
+		default:
+			/* Made for Misra-C Compliance. */
+			break;
 	}
 }
 
@@ -178,7 +178,7 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheInvalidateRange((INTPTR)Evt->BuffAddr,
-					XUSBPSU_EVENT_BUFFERS_SIZE);
+					  XUSBPSU_EVENT_BUFFERS_SIZE);
 	}
 
 	while (Evt->Count > 0U) {
@@ -231,59 +231,59 @@ s32 XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr)
 	LinkState = (XusbPsuLinkState)XUsbPsu_GetLinkState(InstancePtr);
 
 	switch (LinkState) {
-	case XUSBPSU_LINK_STATE_RESET:
-		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCFG);
-		RegVal &= ~XUSBPSU_DCFG_DEVADDR_MASK;
-		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCFG, RegVal);
+		case XUSBPSU_LINK_STATE_RESET:
+			RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCFG);
+			RegVal &= ~XUSBPSU_DCFG_DEVADDR_MASK;
+			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCFG, RegVal);
 
-		if (XUsbPsu_SetLinkState(InstancePtr,
-						XUSBPSU_LINK_STATE_CHANGE_RECOV)
-						== (s32)XST_FAILURE) {
+			if (XUsbPsu_SetLinkState(InstancePtr,
+						 XUSBPSU_LINK_STATE_CHANGE_RECOV)
+			    == (s32)XST_FAILURE) {
 #ifdef XUSBPSU_DEBUG
-			xil_printf("Failed to put link in Recovery\r\n");
+				xil_printf("Failed to put link in Recovery\r\n");
 #endif
-			return (s32)XST_FAILURE;
-		}
-		break;
-	case XUSBPSU_LINK_STATE_SS_DIS:
-		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
-		RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
-		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
-		EnterHiber = 1U;
-		break;
-	case XUSBPSU_LINK_STATE_U3:
-		/* enter hibernation again */
-		EnterHiber = 1U;
-		break;
+				return (s32)XST_FAILURE;
+			}
+			break;
+		case XUSBPSU_LINK_STATE_SS_DIS:
+			RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
+			RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
+			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
+			EnterHiber = 1U;
+			break;
+		case XUSBPSU_LINK_STATE_U3:
+			/* enter hibernation again */
+			EnterHiber = 1U;
+			break;
 #if defined (versal)
-	case XUSBPSU_LINK_STATE_RESUME:
-	/* In USB 2.0, to avoid hibernation interrupt at the time of connection
-	 * clear KEEP_CONNECT bit.
-	 */
-		RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
-		RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
-		XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
+		case XUSBPSU_LINK_STATE_RESUME:
+			/* In USB 2.0, to avoid hibernation interrupt at the time of connection
+			 * clear KEEP_CONNECT bit.
+			 */
+			RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCTL);
+			RegVal &= ~XUSBPSU_DCTL_KEEP_CONNECT;
+			XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 
-		if (XUsbPsu_SetLinkState(InstancePtr,
-						XUSBPSU_LINK_STATE_CHANGE_RECOV)
-						== (s32)XST_FAILURE) {
+			if (XUsbPsu_SetLinkState(InstancePtr,
+						 XUSBPSU_LINK_STATE_CHANGE_RECOV)
+			    == (s32)XST_FAILURE) {
 #ifdef XUSBPSU_DEBUG
-			xil_printf("Failed to put link in Recovery\r\n");
+				xil_printf("Failed to put link in Recovery\r\n");
 #endif
-			return (s32)XST_FAILURE;
-		}
-		break;
+				return (s32)XST_FAILURE;
+			}
+			break;
 #endif
-	default:
-		if (XUsbPsu_SetLinkState(InstancePtr,
-						XUSBPSU_LINK_STATE_CHANGE_RECOV)
-						== (s32)XST_FAILURE) {
+		default:
+			if (XUsbPsu_SetLinkState(InstancePtr,
+						 XUSBPSU_LINK_STATE_CHANGE_RECOV)
+			    == (s32)XST_FAILURE) {
 #ifdef XUSBPSU_DEBUG
-			xil_printf("Failed to put link in Recovery\r\n");
+				xil_printf("Failed to put link in Recovery\r\n");
 #endif
-			return (s32)XST_FAILURE;
-		}
-		break;
+				return (s32)XST_FAILURE;
+			}
+			break;
 	};
 
 	if (XUsbPsu_RestoreEps(InstancePtr) == XST_FAILURE) {
@@ -294,9 +294,9 @@ s32 XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr)
 
 	if (EnterHiber == 1U)  {
 		if (XUsbPsu_HibernationIntr(InstancePtr)
-						== XST_FAILURE) {
+		    == XST_FAILURE) {
 #ifdef XUSBPSU_DEBUG
-		xil_printf("Handle hibernation event fail\r\n");
+			xil_printf("Handle hibernation event fail\r\n");
 #endif
 			return (s32)XST_FAILURE;
 		}

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -76,7 +77,7 @@ static USBCH9_DATA composite_data = {
 		.Usb_ClassReq = Usb_ClassReq,
 		.Usb_GetDescReply = Usb_GetDescReply,
 	},
-	.data_ptr = (void *)&comp_dev,
+	.data_ptr = (void *) &comp_dev,
 };
 
 /****************************************************************************/
@@ -99,8 +100,8 @@ static void set_audio_transfer_size(struct audio_if *f_audio)
 	 * descriptors
 	 */
 	AudioFreq = (u32)((u8)audio_freq[CUR_AUDIO_FREQ][0] |
-			(u8)audio_freq[CUR_AUDIO_FREQ][1] << 8 |
-			(u8)audio_freq[CUR_AUDIO_FREQ][2] << 16);
+			  (u8)audio_freq[CUR_AUDIO_FREQ][1] << 8 |
+			  (u8)audio_freq[CUR_AUDIO_FREQ][2] << 16);
 
 	/*
 	 * Audio transmission Bytes required to send in one sec
@@ -112,15 +113,16 @@ static void set_audio_transfer_size(struct audio_if *f_audio)
 
 	/* Audio data transfer size to be transferred at every interval */
 	MaxPacketsize = AUDIO_CHANNEL_NUM * AUDIO_FRAME_SIZE *
-		DIV_ROUND_UP(AudioFreq, INTERVAL_PER_SECOND /
-				(1 << (AUDIO_INTERVAL - 1)));
+			DIV_ROUND_UP(AudioFreq, INTERVAL_PER_SECOND /
+				     (1 << (AUDIO_INTERVAL - 1)));
 	f_audio->packetsize = ((Rate / f_audio->interval) < MaxPacketsize) ?
-		(Rate / f_audio->interval) : MaxPacketsize;
+			      (Rate / f_audio->interval) : MaxPacketsize;
 
-	if (f_audio->packetsize < MaxPacketsize)
+	if (f_audio->packetsize < MaxPacketsize) {
 		f_audio->packetresidue = Rate % f_audio->interval;
-	else
+	} else {
 		f_audio->packetresidue = 0;
+	}
 }
 
 /****************************************************************************/
@@ -279,7 +281,7 @@ static void Usb_KeyboardInHabdler(void *CallBackRef, u32 RequestedBytes, u32 Byt
 *
 *****************************************************************************/
 static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
-		u16 UsbIntrId, void *IntcPtr)
+				u16 UsbIntrId, void *IntcPtr)
 {
 	s32 Status;
 
@@ -290,27 +292,31 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 
 	/* Initialize the interrupt controller driver */
 	IntcConfig = XScuGic_LookupConfig(IntcDeviceID);
-	if (NULL == IntcConfig)
+	if (NULL == IntcConfig) {
 		return XST_FAILURE;
+	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-			IntcConfig->CpuBaseAddress);
-	if (Status != XST_SUCCESS)
+				       IntcConfig->CpuBaseAddress);
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 
 	/* Connect to the interrupt controller */
 	Status = XScuGic_Connect(IntcInstancePtr, UsbIntrId,
-			(Xil_ExceptionHandler)XUsbPsu_IntrHandler,
-			(void *)InstancePtr);
-	if (Status != XST_SUCCESS)
+				 (Xil_ExceptionHandler)XUsbPsu_IntrHandler,
+				 (void *)InstancePtr);
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 	Status = XScuGic_Connect(IntcInstancePtr, USB_WAKEUP_INTR_ID,
-			(Xil_ExceptionHandler)XUsbPsu_WakeUpIntrHandler,
-			(void *)InstancePtr);
-	if (Status != XST_SUCCESS)
+				 (Xil_ExceptionHandler)XUsbPsu_WakeUpIntrHandler,
+				 (void *)InstancePtr);
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 #endif
 
 	/* Enable the interrupt for the USB */
@@ -324,16 +330,16 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	 * Wakeup and Overflow events.
 	 */
 	XUsbPsu_EnableIntr(InstancePtr, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-			XUSBPSU_DEVTEN_WKUPEVTEN |
-			XUSBPSU_DEVTEN_ULSTCNGEN |
-			XUSBPSU_DEVTEN_CONNECTDONEEN |
-			XUSBPSU_DEVTEN_USBRSTEN |
-			XUSBPSU_DEVTEN_DISCONNEVTEN);
+			   XUSBPSU_DEVTEN_WKUPEVTEN |
+			   XUSBPSU_DEVTEN_ULSTCNGEN |
+			   XUSBPSU_DEVTEN_CONNECTDONEEN |
+			   XUSBPSU_DEVTEN_USBRSTEN |
+			   XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 	if (InstancePtr->HasHibernation)
 		XUsbPsu_EnableIntr(InstancePtr,
-				XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
+				   XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
 #endif
 
 	/*
@@ -341,8 +347,8 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	 * interrupt handling logic in the ARM processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-			IntcInstancePtr);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 
 	/* Enable interrupts in the ARM */
 	Xil_ExceptionEnable();
@@ -366,7 +372,7 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 *
 *****************************************************************************/
 static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr, XScuGic *IntrInstPtr,
-		struct composite_dev *dev, u16 DeviceId, u16 IntcDeviceID, u16 UsbIntrId)
+				struct composite_dev *dev, u16 DeviceId, u16 IntcDeviceID, u16 UsbIntrId)
 {
 	s32 Status;
 	Usb_Config *UsbConfigPtr;
@@ -377,8 +383,9 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr, XScuGic *IntrIns
 	 * specify the controller ID that is generated in xparameters.h
 	 */
 	UsbConfigPtr = LookupConfig(DeviceId);
-	if (NULL == UsbConfigPtr)
+	if (NULL == UsbConfigPtr) {
 		return XST_FAILURE;
+	}
 
 	/* We are passing the physical base address as the third argument
 	 * because the physical and virtual base address are the same in our
@@ -386,9 +393,10 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr, XScuGic *IntrIns
 	 * argument needs to be the virtual base address.
 	 */
 	Status = CfgInitialize(UsbInstPtr, UsbConfigPtr,
-			UsbConfigPtr->BaseAddress);
-	if (XST_SUCCESS != Status)
+			       UsbConfigPtr->BaseAddress);
+	if (XST_SUCCESS != Status) {
 		return XST_FAILURE;
+	}
 
 	/* hook up chapter9 handler */
 	Set_Ch9Handler(UsbInstPtr->PrivateData, Ch9Handler);
@@ -415,28 +423,29 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr, XScuGic *IntrIns
 
 	/* set handler for in endpoint, will be called when data is sent*/
 	SetEpHandler(UsbInstPtr->PrivateData, ISO_EP, USB_EP_DIR_IN,
-			Usb_AudioInHandler);
+		     Usb_AudioInHandler);
 
 	/* set handler for out endpoint, will be called when data is recv*/
 	SetEpHandler(UsbInstPtr->PrivateData, ISO_EP, USB_EP_DIR_OUT,
-			Usb_AudioOutHandler);
+		     Usb_AudioOutHandler);
 
 	set_audio_transfer_size(&dev->f_audio);
 
 	/* Mass storage endpoint event hadler registration */
 	SetEpHandler(UsbInstance.PrivateData, STORAGE_EP, USB_EP_DIR_OUT,
-			Usb_StorageOutHandler);
+		     Usb_StorageOutHandler);
 	SetEpHandler(UsbInstance.PrivateData, STORAGE_EP, USB_EP_DIR_IN,
-			Usb_StorageInHandler);
+		     Usb_StorageInHandler);
 
 	/* Keyboard endpoint event hadler */
 	SetEpHandler(UsbInstPtr->PrivateData, KEYBOARD_EP, USB_EP_DIR_IN,
-			Usb_KeyboardInHabdler);
+		     Usb_KeyboardInHabdler);
 	/* setup interrupts */
 	Status = SetupInterruptSystem(UsbInstPtr->PrivateData, IntcDeviceID,
-			UsbIntrId, (void *)IntrInstPtr);
-	if (Status != XST_SUCCESS)
+				      UsbIntrId, (void *)IntrInstPtr);
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 
 	/* Start the controller so that Host can see our device */
 	Usb_Start(UsbInstPtr->PrivateData);
@@ -451,9 +460,9 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr, XScuGic *IntrIns
 				struct keyboard_if *f = &dev->f_keyboard;
 
 				xTaskCreate(prvKeyboardTask, (const char *) "Keyboard Task",
-						configMINIMAL_STACK_SIZE,
-						UsbInstPtr, tskIDLE_PRIORITY,
-						&(f->xKeyboardTask));
+					    configMINIMAL_STACK_SIZE,
+					    UsbInstPtr, tskIDLE_PRIORITY,
+					    &(f->xKeyboardTask));
 			}
 
 			if (Notification & KEYBOARD_UNCONFIG) {
@@ -468,17 +477,17 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr, XScuGic *IntrIns
 				struct storage_if *f = &dev->f_storage;
 
 				xTaskCreate(prvSCSITask, (const char *) "SCSI Task",
-						configMINIMAL_STACK_SIZE, UsbInstPtr,
-						tskIDLE_PRIORITY + 2, &(f->xSCSITask));
+					    configMINIMAL_STACK_SIZE, UsbInstPtr,
+					    tskIDLE_PRIORITY + 2, &(f->xSCSITask));
 			}
 
 			if (Notification & MSG_UNCONFIG) {
 				struct storage_if *f = &dev->f_storage;
 
 				EpDisable(UsbInstPtr->PrivateData, STORAGE_EP,
-						USB_EP_DIR_IN);
+					  USB_EP_DIR_IN);
 				EpDisable(UsbInstPtr->PrivateData, STORAGE_EP,
-						USB_EP_DIR_OUT);
+					  USB_EP_DIR_OUT);
 
 				vSemaphoreDelete(f->xSemaphore);
 				vTaskDelete(f->xSCSITask);
@@ -488,16 +497,16 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr, XScuGic *IntrIns
 				struct audio_if *f = &(dev->f_audio);
 
 				xTaskCreate(prvRecordTask, (const char *) "Record Task",
-						configMINIMAL_STACK_SIZE, UsbInstPtr,
-						tskIDLE_PRIORITY + 3, &(f->xRecordTask));
+					    configMINIMAL_STACK_SIZE, UsbInstPtr,
+					    tskIDLE_PRIORITY + 3, &(f->xRecordTask));
 			}
 
 			if (Notification & PLAY_START) {
 				struct audio_if *f = &(dev->f_audio);
 
 				xTaskCreate(prvPlayBackTask, (const char *) "PlayBack Task",
-						configMINIMAL_STACK_SIZE, UsbInstPtr,
-						tskIDLE_PRIORITY + 3, &(f->xPlayTask));
+					    configMINIMAL_STACK_SIZE, UsbInstPtr,
+					    tskIDLE_PRIORITY + 3, &(f->xPlayTask));
 			}
 
 			if (Notification & RECORD_STOP) {
@@ -540,7 +549,7 @@ static void prvMainTask(void *pvParameters)
 	struct composite_dev *dev = pvParameters;
 
 	Status = XUsbCompositeExample(&UsbInstance, &InterruptController, dev,
-			USB_DEVICE_ID, INTC_DEVICE_ID, USB_INTR_ID);
+				      USB_DEVICE_ID, INTC_DEVICE_ID, USB_INTR_ID);
 	if (Status == XST_FAILURE) {
 		xil_printf("USB Composite Example failed\r\n");
 		vTaskDelete(NULL);
@@ -563,11 +572,11 @@ int main(void)
 {
 
 	xTaskCreate(prvMainTask,	 		/* The function that implements the task. */
-			(const char *) "Mass Storage",	/* Text name for the task, provided to assist debugging only. */
-			configMINIMAL_STACK_SIZE, 	/* The stack allocated to the task. */
-			&comp_dev, 			/* The task parameter is not used, so set to NULL. */
-			tskIDLE_PRIORITY + 4,		/* The task runs at the idle priority. */
-			&comp_dev.xMainTask);
+		    (const char *) "Mass Storage",	/* Text name for the task, provided to assist debugging only. */
+		    configMINIMAL_STACK_SIZE, 	/* The stack allocated to the task. */
+		    &comp_dev, 			/* The task parameter is not used, so set to NULL. */
+		    tskIDLE_PRIORITY + 4,		/* The task runs at the idle priority. */
+		    &comp_dev.xMainTask);
 
 	/* Start the tasks and timer running. */
 	vTaskStartScheduler();

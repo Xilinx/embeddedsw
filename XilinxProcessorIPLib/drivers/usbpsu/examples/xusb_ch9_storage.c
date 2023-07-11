@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -56,8 +57,8 @@ USB_STD_DEV_DESC deviceDesc[] = {
 USB_STD_DEV_DESC __attribute__ ((aligned(16))) deviceDesc[] = {
 #endif
 	{/*
-	  * USB 2.0
-	  */
+		 * USB 2.0
+		 */
 		sizeof(USB_STD_DEV_DESC),	/* bLength */
 		USB_TYPE_DEVICE_DESC,	/* bDescriptorType */
 		0x0200,					/* bcdUSB 2.0 */
@@ -74,8 +75,8 @@ USB_STD_DEV_DESC __attribute__ ((aligned(16))) deviceDesc[] = {
 		0x01					/* bNumConfigurations */
 	},
 	{/*
-	  * USB 3.0
-	  */
+		 * USB 3.0
+		 */
 		sizeof(USB_STD_DEV_DESC),	/* bLength */
 		USB_TYPE_DEVICE_DESC,	/* bDescriptorType */
 		0x0300,					/* bcdUSB 3.0 */
@@ -102,8 +103,8 @@ USB30_CONFIG config3 = {
 USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 #endif
 	{/*
-	  * Std Config
-	  */
+		 * Std Config
+		 */
 		sizeof(USB_STD_CFG_DESC),	/* bLength */
 		USB_TYPE_CONFIG_DESC,	/* bDescriptorType */
 		sizeof(USB30_CONFIG),	/* wTotalLength */
@@ -114,8 +115,8 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		0x00					/* bMaxPower  */
 	},
 	{/*
-	  * Mass Storage Standard Interface Descriptor
-	  */
+		 * Mass Storage Standard Interface Descriptor
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		USB_TYPE_INTERFACE_DESC,	/* bDescriptorType */
 		0x00,					/* bInterfaceNumber */
@@ -127,8 +128,8 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		0x01					/* iInterface */
 	},
 	{/*
-	  * Bulk In Endpoint Config
-	  */
+		 * Bulk In Endpoint Config
+		 */
 		sizeof(USB_STD_EP_DESC),	/* bLength */
 		USB_TYPE_ENDPOINT_CFG_DESC,	/* bDescriptorType */
 		USB_EP1_IN,				/* bEndpointAddress */
@@ -138,8 +139,8 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		0x00					/* bInterval */
 	},
 	{/*
-	  * SS Endpoint companion
-	  */
+		 * SS Endpoint companion
+		 */
 		sizeof(USB_STD_EP_SS_COMP_DESC),	/* bLength */
 		0x30, 					/* bDescriptorType */
 		0x0F,					/* bMaxBurst */
@@ -147,8 +148,8 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		0x00					/* wBytesPerInterval */
 	},
 	{/*
-	  * Bulk Out Endpoint Config
-	  */
+		 * Bulk Out Endpoint Config
+		 */
 		sizeof(USB_STD_EP_DESC),	/* bLength */
 		USB_TYPE_ENDPOINT_CFG_DESC,	/* bDescriptorType */
 		USB_EP1_OUT,			/* bEndpointAddress */
@@ -158,8 +159,8 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		0x00					/* bInterval */
 	},
 	{/*
-	  * SS Endpoint companion
-	  */
+		 * SS Endpoint companion
+		 */
 		sizeof(USB_STD_EP_SS_COMP_DESC),	/* bLength */
 		0x30, 					/* bDescriptorType */
 		0x0F,					/* bMaxBurst */
@@ -174,8 +175,8 @@ USB_CONFIG config2 = {
 USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 #endif
 	{/*
-	  * Std Config
-	  */
+		 * Std Config
+		 */
 		sizeof(USB_STD_CFG_DESC),	/* bLength */
 		USB_TYPE_CONFIG_DESC,	/* bDescriptorType */
 		sizeof(USB_CONFIG),		/* wTotalLength */
@@ -186,8 +187,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* bMaxPower  */
 	},
 	{/*
-	  * Mass Storage Standard Interface Descriptor
-	  */
+		 * Mass Storage Standard Interface Descriptor
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		USB_TYPE_INTERFACE_DESC,	/* bDescriptorType */
 		0x00,					/* bInterfaceNumber */
@@ -199,8 +200,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x05					/* iInterface */
 	},
 	{/*
-	  * Bulk In Endpoint Config
-	  */
+		 * Bulk In Endpoint Config
+		 */
 		sizeof(USB_STD_EP_DESC),	/* bLength */
 		USB_TYPE_ENDPOINT_CFG_DESC,	/* bDescriptorType */
 		USB_EP1_IN,					/* bEndpointAddress */
@@ -210,8 +211,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* bInterval */
 	},
 	{/*
-	  * Bulk Out Endpoint Config
-	  */
+		 * Bulk Out Endpoint Config
+		 */
 		sizeof(USB_STD_EP_DESC),	/* bLength */
 		USB_TYPE_ENDPOINT_CFG_DESC,	/* bDescriptorType */
 		USB_EP1_OUT,					/* bEndpointAddress */
@@ -259,13 +260,13 @@ static u8 StringList[2][6][128] = {
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr,
-		u8 *BufPtr, u32 BufLen)
+			     u8 *BufPtr, u32 BufLen)
 {
 	u8 Index;
 	s32 Status;
 
 	Status = IsSuperSpeed(InstancePtr);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		/* USB 2.0 */
 		Index = 0;
 	} else {
@@ -303,14 +304,14 @@ u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr,
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr,
-		u8 *BufPtr, u32 BufLen)
+			     u8 *BufPtr, u32 BufLen)
 {
 	s32 Status;
 	u8 *config;
 	u32 CfgDescLen;
 
 	Status = IsSuperSpeed(InstancePtr);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		/* USB 2.0 */
 		config = (u8 *)&config2;
 		CfgDescLen  = sizeof(USB_CONFIG);
@@ -352,7 +353,7 @@ u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr,
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr,
-		u8 *BufPtr,	u32 BufLen, u8 Index)
+			     u8 *BufPtr,	u32 BufLen, u8 Index)
 {
 	u32 i;
 	char *String;
@@ -365,7 +366,7 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr,
 	USB_STD_STRING_DESC *StringDesc;
 
 	Status = IsSuperSpeed(InstancePtr);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		/* USB 2.0 */
 		StrArray = 0;
 	} else {
@@ -439,24 +440,30 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 	static USB_BOS_DESC __attribute__ ((aligned(16))) bosDesc = {
 #endif
 		/* BOS descriptor */
-		{sizeof(USB_STD_BOS_DESC), /* bLength */
-		USB_TYPE_BOS_DESC, /* DescriptorType */
-		sizeof(USB_BOS_DESC), /* wTotalLength */
-		0x02}, /* bNumDeviceCaps */
+		{
+			sizeof(USB_STD_BOS_DESC), /* bLength */
+			USB_TYPE_BOS_DESC, /* DescriptorType */
+			sizeof(USB_BOS_DESC), /* wTotalLength */
+			0x02
+		}, /* bNumDeviceCaps */
 
-		{sizeof(USB_STD_DEVICE_CAP_7BYTE), /* bLength */
-		0x10, /* bDescriptorType */
-		0x02, /* bDevCapabiltyType */
-		0x06}, /* bmAttributes */
+		{
+			sizeof(USB_STD_DEVICE_CAP_7BYTE), /* bLength */
+			0x10, /* bDescriptorType */
+			0x02, /* bDevCapabiltyType */
+			0x06
+		}, /* bmAttributes */
 
-		{sizeof(USB_STD_DEVICE_CAP_10BYTE), /* bLength */
-		0x10, /* bDescriptorType */
-		0x03, /* bDevCapabiltyType */
-		0x00, /* bmAttributes */
-		(0x000F), /* wSpeedsSupported */
-		0x01, /* bFunctionalitySupport */
-		0x01, /* bU1DevExitLat */
-		(0x01F4)} /* wU2DevExitLat */
+		{
+			sizeof(USB_STD_DEVICE_CAP_10BYTE), /* bLength */
+			0x10, /* bDescriptorType */
+			0x03, /* bDevCapabiltyType */
+			0x00, /* bmAttributes */
+			(0x000F), /* wSpeedsSupported */
+			0x01, /* bFunctionalitySupport */
+			0x01, /* bU1DevExitLat */
+			(0x01F4)
+		} /* wU2DevExitLat */
 	};
 
 	/* Check buffer pointer is OK and buffer is big enough. */
@@ -536,12 +543,12 @@ s32 Usb_SetConfiguration(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl)
 *****************************************************************************/
 
 s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
-								 SetupPacket *SetupData)
+			    SetupPacket *SetupData)
 {
 	s32 RetVal;
 	u16 MaxPktSize;
 
-	if(InstancePtr->Speed == USB_SPEED_SUPER) {
+	if (InstancePtr->Speed == USB_SPEED_SUPER) {
 		MaxPktSize = 1024;
 	} else {
 		MaxPktSize = 512;
@@ -555,14 +562,14 @@ s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
 
 		/* Endpoint enables - not needed for Control EP */
 		RetVal = EpEnable(InstancePtr->PrivateData, 1, USB_EP_DIR_IN,
-				MaxPktSize, USB_EP_TYPE_BULK);
+				  MaxPktSize, USB_EP_TYPE_BULK);
 		if (RetVal != XST_SUCCESS) {
 			xil_printf("failed to enable BULK IN Ep\r\n");
 			return XST_FAILURE;
 		}
 
 		RetVal = EpEnable(InstancePtr->PrivateData, 1, USB_EP_DIR_OUT,
-				MaxPktSize, USB_EP_TYPE_BULK);
+				  MaxPktSize, USB_EP_TYPE_BULK);
 		if (RetVal != XST_SUCCESS) {
 			xil_printf("failed to enable BULK OUT Ep\r\n");
 			return XST_FAILURE;
@@ -579,7 +586,7 @@ s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
 		 * to receive it. OUT Ep Handler will be called when data is
 		 * received
 		 */
-		EpBufferRecv(InstancePtr->PrivateData, 1, (u8*)&CBW, sizeof(CBW));
+		EpBufferRecv(InstancePtr->PrivateData, 1, (u8 *)&CBW, sizeof(CBW));
 	} else {
 		/* SET_CONFIGURATION with value 0 */
 

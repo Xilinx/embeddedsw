@@ -70,7 +70,7 @@ XUsbPsu_Config *XUsbPsu_LookupConfig(u16 DeviceId)
 	u32 i;
 
 	for (i = 0U; i < (u32)XPAR_XUSBPSU_NUM_INSTANCES; i++) {
-			if (XUsbPsu_ConfigTable[i].DeviceId == DeviceId) {
+		if (XUsbPsu_ConfigTable[i].DeviceId == DeviceId) {
 			CfgPtr = &XUsbPsu_ConfigTable[i];
 			break;
 		}

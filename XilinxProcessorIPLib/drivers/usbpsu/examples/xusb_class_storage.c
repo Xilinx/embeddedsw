@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -125,23 +126,23 @@ void ClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(SetupData   != NULL);
 
-	switch(SetupData->bRequest) {
-	case USB_CLASSREQ_MASS_STORAGE_RESET:
-		/* For Control transfers, Status Phase is handled by driver */
+	switch (SetupData->bRequest) {
+		case USB_CLASSREQ_MASS_STORAGE_RESET:
+			/* For Control transfers, Status Phase is handled by driver */
 
-		EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
-		break;
+			EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
+			break;
 
-	case USB_CLASSREQ_GET_MAX_LUN:
-		EpBufferSend(InstancePtr->PrivateData, 0, &MaxLUN, 1);
-		break;
+		case USB_CLASSREQ_GET_MAX_LUN:
+			EpBufferSend(InstancePtr->PrivateData, 0, &MaxLUN, 1);
+			break;
 
-	default:
-		/*
-		 * Unsupported command. Stall the end point.
-		 */
-		EpSetStall(InstancePtr->PrivateData, 0, USB_EP_DIR_OUT);
-		break;
+		default:
+			/*
+			 * Unsupported command. Stall the end point.
+			 */
+			EpSetStall(InstancePtr->PrivateData, 0, USB_EP_DIR_OUT);
+			break;
 	}
 }
 
@@ -164,178 +165,165 @@ void ParseCBW(struct Usb_DevData *InstancePtr)
 	s32 Status;
 
 	switch (CBW.CBWCB[0]) {
-	case USB_RBC_INQUIRY:
-	{
+		case USB_RBC_INQUIRY: {
 #ifdef CLASS_STORAGE_DEBUG
-		printf("SCSI: INQUIRY\r\n");
+				printf("SCSI: INQUIRY\r\n");
 #endif
-		Phase = USB_EP_STATE_DATA_IN;
+				Phase = USB_EP_STATE_DATA_IN;
 
-		Status = IsSuperSpeed(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			/* USB 2.0 */
-			Index = 0;
-		} else {
-			/* USB 3.0 */
-			Index = 1;
-		}
+				Status = IsSuperSpeed(InstancePtr);
+				if (Status != XST_SUCCESS) {
+					/* USB 2.0 */
+					Index = 0;
+				} else {
+					/* USB 3.0 */
+					Index = 1;
+				}
 
-		EpBufferSend(InstancePtr->PrivateData, 1,
-					(u8 *) &scsiInquiry[Index],
-					sizeof(scsiInquiry[Index]));
-		break;
-	}
+				EpBufferSend(InstancePtr->PrivateData, 1,
+					     (u8 *) &scsiInquiry[Index],
+					     sizeof(scsiInquiry[Index]));
+				break;
+			}
 
-	case USB_UFI_GET_CAP_LIST:
-	{
-		SCSI_CAP_LIST	*CapList;
+		case USB_UFI_GET_CAP_LIST: {
+				SCSI_CAP_LIST	*CapList;
 
-		CapList = (SCSI_CAP_LIST *) txBuffer;
+				CapList = (SCSI_CAP_LIST *) txBuffer;
 #ifdef CLASS_STORAGE_DEBUG
-		printf("SCSI: CAPLIST\r\n");
+				printf("SCSI: CAPLIST\r\n");
 #endif
-		CapList->listLength	= 8;
-		CapList->descCode	= 3;
-		CapList->numBlocks	= htonl(VFLASH_NUM_BLOCKS);
-		CapList->blockLength = htons(VFLASH_BLOCK_SIZE);
+				CapList->listLength	= 8;
+				CapList->descCode	= 3;
+				CapList->numBlocks	= htonl(VFLASH_NUM_BLOCKS);
+				CapList->blockLength = htons(VFLASH_BLOCK_SIZE);
 
-		Phase = USB_EP_STATE_DATA_IN;
-		EpBufferSend(InstancePtr->PrivateData, 1, txBuffer,
-						sizeof(SCSI_CAP_LIST));
+				Phase = USB_EP_STATE_DATA_IN;
+				EpBufferSend(InstancePtr->PrivateData, 1, txBuffer,
+					     sizeof(SCSI_CAP_LIST));
 
-		break;
-	}
+				break;
+			}
 
-	case USB_RBC_READ_CAP:
-	{
-		SCSI_READ_CAPACITY	*Cap;
+		case USB_RBC_READ_CAP: {
+				SCSI_READ_CAPACITY	*Cap;
 
-		Cap = (SCSI_READ_CAPACITY *) txBuffer;
+				Cap = (SCSI_READ_CAPACITY *) txBuffer;
 #ifdef CLASS_STORAGE_DEBUG
-		printf("SCSI: READCAP\r\n");
+				printf("SCSI: READCAP\r\n");
 #endif
-		Cap->numBlocks = htonl(VFLASH_NUM_BLOCKS - 1);
-		Cap->blockSize = htonl(VFLASH_BLOCK_SIZE);
-		Phase = USB_EP_STATE_DATA_IN;
-		EpBufferSend(InstancePtr->PrivateData, 1, txBuffer,
-					sizeof(SCSI_READ_CAPACITY));
+				Cap->numBlocks = htonl(VFLASH_NUM_BLOCKS - 1);
+				Cap->blockSize = htonl(VFLASH_BLOCK_SIZE);
+				Phase = USB_EP_STATE_DATA_IN;
+				EpBufferSend(InstancePtr->PrivateData, 1, txBuffer,
+					     sizeof(SCSI_READ_CAPACITY));
 
-		break;
-	}
+				break;
+			}
 
-	case USB_RBC_READ:
-	{
-		Offset = htonl(((SCSI_READ_WRITE *) &CBW.CBWCB)->block) *
-					VFLASH_BLOCK_SIZE;
+		case USB_RBC_READ: {
+				Offset = htonl(((SCSI_READ_WRITE *) &CBW.CBWCB)->block) *
+					 VFLASH_BLOCK_SIZE;
 #ifdef CLASS_STORAGE_DEBUG
-		printf("SCSI: READ Offset 0x%08x\r\n", Offset);
+				printf("SCSI: READ Offset 0x%08x\r\n", Offset);
 #endif
 
-		Phase = USB_EP_STATE_DATA_IN;
-		u32 RetVal = EpBufferSend(InstancePtr->PrivateData, 1,
-				&VirtFlash[Offset],
-				htons(((SCSI_READ_WRITE *) &CBW.CBWCB)->
-				 length) * VFLASH_BLOCK_SIZE);
-		if (RetVal != XST_SUCCESS) {
-			xil_printf("Failed: READ Offset 0x%08x\n",
-								Offset);
-			return;
-		}
-		break;
-	}
-	case USB_RBC_MODE_SENSE:
-	{
+				Phase = USB_EP_STATE_DATA_IN;
+				u32 RetVal = EpBufferSend(InstancePtr->PrivateData, 1,
+							  &VirtFlash[Offset],
+							  htons(((SCSI_READ_WRITE *) &CBW.CBWCB)->
+								length) * VFLASH_BLOCK_SIZE);
+				if (RetVal != XST_SUCCESS) {
+					xil_printf("Failed: READ Offset 0x%08x\n",
+						   Offset);
+					return;
+				}
+				break;
+			}
+		case USB_RBC_MODE_SENSE: {
 #ifdef CLASS_STORAGE_DEBUG
-		printf("SCSI: MODE SENSE\r\n");
+				printf("SCSI: MODE SENSE\r\n");
 #endif
-		Phase = USB_EP_STATE_DATA_IN;
-		EpBufferSend(InstancePtr->PrivateData, 1,
-					(u8 *) "\003\000\000\000", 4);
-		break;
-	}
-	case USB_RBC_MODE_SELECT:
-	{
-	#ifdef CLASS_STORAGE_DEBUG
-			printf("SCSI: MODE_SELECT\r\n");
-	#endif
-		Phase = USB_EP_STATE_DATA_OUT;
-		EpBufferRecv(InstancePtr->PrivateData,
-				1, (u8 *)Array, 24);
-		break;
-	}
-	case USB_RBC_TEST_UNIT_READY:
-	{
+				Phase = USB_EP_STATE_DATA_IN;
+				EpBufferSend(InstancePtr->PrivateData, 1,
+					     (u8 *) "\003\000\000\000", 4);
+				break;
+			}
+		case USB_RBC_MODE_SELECT: {
 #ifdef CLASS_STORAGE_DEBUG
-	printf("SCSI: TEST UNIT READY\r\n");
+				printf("SCSI: MODE_SELECT\r\n");
 #endif
-		SendCSW(InstancePtr, 0);
-		break;
-	}
-	case USB_RBC_MEDIUM_REMOVAL:
-	{
+				Phase = USB_EP_STATE_DATA_OUT;
+				EpBufferRecv(InstancePtr->PrivateData,
+					     1, (u8 *)Array, 24);
+				break;
+			}
+		case USB_RBC_TEST_UNIT_READY: {
 #ifdef CLASS_STORAGE_DEBUG
-	printf("SCSI: MEDIUM REMOVAL\r\n");
+				printf("SCSI: TEST UNIT READY\r\n");
 #endif
-		SendCSW(InstancePtr, 0);
-		break;
-	}
-	case USB_RBC_VERIFY:
-	{
+				SendCSW(InstancePtr, 0);
+				break;
+			}
+		case USB_RBC_MEDIUM_REMOVAL: {
 #ifdef CLASS_STORAGE_DEBUG
-	printf("SCSI: VERIFY\n");
+				printf("SCSI: MEDIUM REMOVAL\r\n");
 #endif
-		SendCSW(InstancePtr, 0);
-		break;
-	}
-	case USB_RBC_WRITE:
-	{
-		Offset = htonl(((SCSI_READ_WRITE *) &CBW.CBWCB)->
-					   block) * VFLASH_BLOCK_SIZE;
+				SendCSW(InstancePtr, 0);
+				break;
+			}
+		case USB_RBC_VERIFY: {
 #ifdef CLASS_STORAGE_DEBUG
-		printf("SCSI: WRITE Offset 0x%08x\r\n", Offset);
+				printf("SCSI: VERIFY\n");
 #endif
-		VirtFlashWritePointer = &VirtFlash[Offset];
+				SendCSW(InstancePtr, 0);
+				break;
+			}
+		case USB_RBC_WRITE: {
+				Offset = htonl(((SCSI_READ_WRITE *) &CBW.CBWCB)->
+					       block) * VFLASH_BLOCK_SIZE;
+#ifdef CLASS_STORAGE_DEBUG
+				printf("SCSI: WRITE Offset 0x%08x\r\n", Offset);
+#endif
+				VirtFlashWritePointer = &VirtFlash[Offset];
 
-		rxBytesLeft = htons(((SCSI_READ_WRITE *) &CBW.CBWCB)->length)
-						* VFLASH_BLOCK_SIZE;
+				rxBytesLeft = htons(((SCSI_READ_WRITE *) &CBW.CBWCB)->length)
+					      * VFLASH_BLOCK_SIZE;
 
-		Phase = USB_EP_STATE_DATA_OUT;
-		EpBufferRecv(InstancePtr->PrivateData, 1,
-				&VirtFlash[Offset], rxBytesLeft);
-		break;
-	}
-	case USB_RBC_STARTSTOP_UNIT:
-	{
-		u8 immed;
+				Phase = USB_EP_STATE_DATA_OUT;
+				EpBufferRecv(InstancePtr->PrivateData, 1,
+					     &VirtFlash[Offset], rxBytesLeft);
+				break;
+			}
+		case USB_RBC_STARTSTOP_UNIT: {
+				u8 immed;
 
-		immed = ((SCSI_START_STOP *) &CBW.CBWCB)->immed;
+				immed = ((SCSI_START_STOP *) &CBW.CBWCB)->immed;
 #ifdef CLASS_STORAGE_DEBUG
-		printf("SCSI: START/STOP unit: immed %02x\r\n", immed);
+				printf("SCSI: START/STOP unit: immed %02x\r\n", immed);
 #endif
-		/* If the immediate bit is 0 we are supposed to send
-		 * a success status.
-		 */
-		if (0 == (immed & 0x01)) {
-			SendCSW(InstancePtr, 0);
-		}
-		break;
-	}
+				/* If the immediate bit is 0 we are supposed to send
+				 * a success status.
+				 */
+				if (0 == (immed & 0x01)) {
+					SendCSW(InstancePtr, 0);
+				}
+				break;
+			}
 
-	case USB_RBC_REQUEST_SENSE:
-	{
+		case USB_RBC_REQUEST_SENSE: {
 #ifdef CLASS_STORAGE_DEBUG
-		printf("SCSI: REQUEST_SENSE\r\n");
+				printf("SCSI: REQUEST_SENSE\r\n");
 #endif
-		break;
-	}
-	case USB_SYNC_SCSI:
-	{
+				break;
+			}
+		case USB_SYNC_SCSI: {
 #ifdef CLASS_STORAGE_DEBUG
-		printf("SCSI: SYNCHRONISE_SCSI\r\n");
+				printf("SCSI: SYNCHRONISE_SCSI\r\n");
 #endif
-		SendCSW(InstancePtr, 0);
-		break;
-	}
+				SendCSW(InstancePtr, 0);
+				break;
+			}
 	}
 }
 

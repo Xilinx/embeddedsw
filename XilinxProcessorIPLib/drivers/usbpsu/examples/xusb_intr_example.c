@@ -80,12 +80,12 @@ u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 
 /************************** Function Prototypes ******************************/
 void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
-							u32 BytesTxed);
+		    u32 BytesTxed);
 void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
-							u32 BytesTxed);
+		   u32 BytesTxed);
 #ifndef SDT
 static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
-		u16 USB_INTR_ID, void *IntcPtr);
+				u16 USB_INTR_ID, void *IntcPtr);
 #endif
 /************************** Variable Definitions *****************************/
 struct Usb_DevData UsbInstance;
@@ -145,27 +145,27 @@ u8 *VirtFlashWritePointer = VirtFlash;
 
 /* Initialize a DFU data structure */
 static USBCH9_DATA storage_data = {
-		.ch9_func = {
-				/* Set the chapter9 hooks */
-				.Usb_Ch9SetupDevDescReply =
-						Usb_Ch9SetupDevDescReply,
-				.Usb_Ch9SetupCfgDescReply =
-						Usb_Ch9SetupCfgDescReply,
-				.Usb_Ch9SetupBosDescReply =
-						Usb_Ch9SetupBosDescReply,
-				.Usb_Ch9SetupStrDescReply =
-						Usb_Ch9SetupStrDescReply,
-				.Usb_SetConfiguration =
-						Usb_SetConfiguration,
-				.Usb_SetConfigurationApp =
-						Usb_SetConfigurationApp,
-				/* hook the set interface handler */
-				.Usb_SetInterfaceHandler = NULL,
-				/* hook up storage class handler */
-				.Usb_ClassReq = ClassReq,
-				.Usb_GetDescReply = NULL,
-		},
-		.data_ptr = (void *)NULL,
+	.ch9_func = {
+		/* Set the chapter9 hooks */
+		.Usb_Ch9SetupDevDescReply =
+		Usb_Ch9SetupDevDescReply,
+		.Usb_Ch9SetupCfgDescReply =
+		Usb_Ch9SetupCfgDescReply,
+		.Usb_Ch9SetupBosDescReply =
+		Usb_Ch9SetupBosDescReply,
+		.Usb_Ch9SetupStrDescReply =
+		Usb_Ch9SetupStrDescReply,
+		.Usb_SetConfiguration =
+		Usb_SetConfiguration,
+		.Usb_SetConfigurationApp =
+		Usb_SetConfigurationApp,
+		/* hook the set interface handler */
+		.Usb_SetInterfaceHandler = NULL,
+		/* hook up storage class handler */
+		.Usb_ClassReq = ClassReq,
+		.Usb_GetDescReply = NULL,
+	},
+	.data_ptr = (void *)NULL,
 };
 
 /****************************************************************************/
@@ -212,7 +212,7 @@ int main(void)
 	 * argument needs to be the virtual base address.
 	 */
 	Status = CfgInitialize(&UsbInstance, UsbConfigPtr,
-					UsbConfigPtr->BaseAddress);
+			       UsbConfigPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
 		return XST_FAILURE;
 	}
@@ -224,9 +224,9 @@ int main(void)
 	Set_DrvData(UsbInstance.PrivateData, &storage_data);
 
 	EpConfigure(UsbInstance.PrivateData, 1, USB_EP_DIR_OUT,
-				USB_EP_TYPE_BULK);
+		    USB_EP_TYPE_BULK);
 	EpConfigure(UsbInstance.PrivateData, 1, USB_EP_DIR_IN,
-				USB_EP_TYPE_BULK);
+		    USB_EP_TYPE_BULK);
 
 	Status = ConfigureDevice(UsbInstance.PrivateData, &Buffer[0], MEMORY_SIZE);
 	if (XST_SUCCESS != Status) {
@@ -239,16 +239,16 @@ int main(void)
 	 * BulkInHandler -  to be called when data is sent
 	 */
 	SetEpHandler(UsbInstance.PrivateData, 1, USB_EP_DIR_OUT,
-					BulkOutHandler);
+		     BulkOutHandler);
 	SetEpHandler(UsbInstance.PrivateData, 1, USB_EP_DIR_IN,
-					BulkInHandler);
+		     BulkInHandler);
 
 	/* setup interrupts */
 #ifndef SDT
 	Status = SetupInterruptSystem((struct XUsbPsu *)UsbInstance.PrivateData,
-					INTC_DEVICE_ID,
-					USB_INT_ID,
-					(void *)&InterruptController);
+				      INTC_DEVICE_ID,
+				      USB_INT_ID,
+				      (void *)&InterruptController);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -257,20 +257,20 @@ int main(void)
 	Usb_Start(UsbInstance.PrivateData);
 #else
 	Status = XSetupInterruptSystem(UsbInstance.PrivateData,
-					&XUsbPsu_IntrHandler,
-					UsbConfigPtr->IntrId[INTRNAME_DWC3USB3],
-					UsbConfigPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       &XUsbPsu_IntrHandler,
+				       UsbConfigPtr->IntrId[INTRNAME_DWC3USB3],
+				       UsbConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 	Status = XSetupInterruptSystem(UsbInstance.PrivateData,
-					&XUsbPsu_WakeUpIntrHandler,
-					UsbConfigPtr->IntrId[INTRNAME_HIBER],
-					UsbConfigPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       &XUsbPsu_WakeUpIntrHandler,
+				       UsbConfigPtr->IntrId[INTRNAME_HIBER],
+				       UsbConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -280,23 +280,23 @@ int main(void)
 	 * Wakeup and Overflow events.
 	 */
 	XUsbPsu_EnableIntr(UsbInstance.PrivateData,
-			XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-			XUSBPSU_DEVTEN_WKUPEVTEN |
-			XUSBPSU_DEVTEN_ULSTCNGEN |
-			XUSBPSU_DEVTEN_CONNECTDONEEN |
-			XUSBPSU_DEVTEN_USBRSTEN |
-			XUSBPSU_DEVTEN_DISCONNEVTEN);
+			   XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
+			   XUSBPSU_DEVTEN_WKUPEVTEN |
+			   XUSBPSU_DEVTEN_ULSTCNGEN |
+			   XUSBPSU_DEVTEN_CONNECTDONEEN |
+			   XUSBPSU_DEVTEN_USBRSTEN |
+			   XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 	if (InstancePtr->HasHibernation)
 		XUsbPsu_EnableIntr(UsbInstance.PrivateData,
-				XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
+				   XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
 #endif
 	/* Start the controller so that Host can see our device */
 	Usb_Start(UsbInstance.PrivateData);
 #endif
 
-	while(1) {
+	while (1) {
 		/* Rest is taken care by interrupts */
 	}
 
@@ -318,7 +318,7 @@ int main(void)
 *
 *****************************************************************************/
 void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
-							u32 BytesTxed)
+		    u32 BytesTxed)
 {
 	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
 
@@ -327,12 +327,12 @@ void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 	} else if (Phase == USB_EP_STATE_DATA_OUT) {
 		/* WRITE command */
 		switch (CBW.CBWCB[0]) {
-		case USB_RBC_WRITE:
-			VirtFlashWritePointer += BytesTxed;
-			rxBytesLeft -= BytesTxed;
-			break;
-		default:
-			break;
+			case USB_RBC_WRITE:
+				VirtFlashWritePointer += BytesTxed;
+				rxBytesLeft -= BytesTxed;
+				break;
+			default:
+				break;
 		}
 		SendCSW(InstancePtr, 0);
 	}
@@ -353,7 +353,7 @@ void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 *
 *****************************************************************************/
 void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
-						   u32 BytesTxed)
+		   u32 BytesTxed)
 {
 	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
 
@@ -363,7 +363,7 @@ void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
 	} else if (Phase == USB_EP_STATE_STATUS) {
 		Phase = USB_EP_STATE_COMMAND;
 		/* Receive next CBW */
-		EpBufferRecv(InstancePtr->PrivateData, 1, (u8*)&CBW, sizeof(CBW));
+		EpBufferRecv(InstancePtr->PrivateData, 1, (u8 *)&CBW, sizeof(CBW));
 	}
 }
 
@@ -388,7 +388,7 @@ void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
 *
 *****************************************************************************/
 static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
-		u16 USB_INTR_ID, void *IntcPtr)
+				u16 USB_INTR_ID, void *IntcPtr)
 {
 	/*
 	 * This below is done to remove warnings which occur when usbpsu
@@ -449,18 +449,18 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	 * Wakeup and Overflow events.
 	 */
 	XUsbPsu_EnableIntr(InstancePtr, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-                        XUSBPSU_DEVTEN_WKUPEVTEN |
-                        XUSBPSU_DEVTEN_ULSTCNGEN |
-                        XUSBPSU_DEVTEN_CONNECTDONEEN |
-                        XUSBPSU_DEVTEN_USBRSTEN |
-                        XUSBPSU_DEVTEN_DISCONNEVTEN);
+			   XUSBPSU_DEVTEN_WKUPEVTEN |
+			   XUSBPSU_DEVTEN_ULSTCNGEN |
+			   XUSBPSU_DEVTEN_CONNECTDONEEN |
+			   XUSBPSU_DEVTEN_USBRSTEN |
+			   XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 	/*
 	 * Register the interrupt controller handler with the exception table
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XIntc_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     IntcInstancePtr);
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #elif defined (PLATFORM_ZYNQMP) || defined (versal)
 	s32 Status;
@@ -479,7 +479,7 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-								   IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -488,15 +488,15 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	 * Connect to the interrupt controller
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, USB_INTR_ID,
-							(Xil_ExceptionHandler)XUsbPsu_IntrHandler,
-							(void *)InstancePtr);
+				 (Xil_ExceptionHandler)XUsbPsu_IntrHandler,
+				 (void *)InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 	Status = XScuGic_Connect(IntcInstancePtr, USB_WAKEUP_INTR_ID,
-							(Xil_ExceptionHandler)XUsbPsu_WakeUpIntrHandler,
-							(void *)InstancePtr);
+				 (Xil_ExceptionHandler)XUsbPsu_WakeUpIntrHandler,
+				 (void *)InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -515,16 +515,16 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	 * Wakeup and Overflow events.
 	 */
 	XUsbPsu_EnableIntr(InstancePtr, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-                        XUSBPSU_DEVTEN_WKUPEVTEN |
-                        XUSBPSU_DEVTEN_ULSTCNGEN |
-                        XUSBPSU_DEVTEN_CONNECTDONEEN |
-                        XUSBPSU_DEVTEN_USBRSTEN |
-                        XUSBPSU_DEVTEN_DISCONNEVTEN);
+			   XUSBPSU_DEVTEN_WKUPEVTEN |
+			   XUSBPSU_DEVTEN_ULSTCNGEN |
+			   XUSBPSU_DEVTEN_CONNECTDONEEN |
+			   XUSBPSU_DEVTEN_USBRSTEN |
+			   XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 	if (InstancePtr->HasHibernation)
 		XUsbPsu_EnableIntr(InstancePtr,
-				XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
+				   XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
 #endif
 
 	/*
@@ -532,8 +532,8 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	 * interrupt handling logic in the ARM processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-								(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-								IntcInstancePtr);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 #endif /* PLATFORM_ZYNQMP or versal */
 
 	/*

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -40,7 +41,7 @@
 
 /************************** Function Prototypes ******************************/
 static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
-								SetupPacket *SetupData);
+			  SetupPacket *SetupData);
 
 /************************** Variable Definitions *****************************/
 
@@ -58,38 +59,38 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 *
 ******************************************************************************/
 void Ch9Handler(struct Usb_DevData *InstancePtr,
-			SetupPacket *SetupData)
+		SetupPacket *SetupData)
 {
 	USBCH9_DATA *ch9_ptr =
-			(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
+		(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
 
 #ifdef CH9_DEBUG
 	printf("Handle setup packet\n");
 #endif
 
 	switch (SetupData->bRequestType & USB_REQ_TYPE_MASK) {
-	case USB_CMD_STDREQ:
-		Usb_StdDevReq(InstancePtr, SetupData);
-		break;
+		case USB_CMD_STDREQ:
+			Usb_StdDevReq(InstancePtr, SetupData);
+			break;
 
-	case USB_CMD_CLASSREQ:
-		ch9_ptr->ch9_func.Usb_ClassReq(InstancePtr, SetupData);
-		break;
+		case USB_CMD_CLASSREQ:
+			ch9_ptr->ch9_func.Usb_ClassReq(InstancePtr, SetupData);
+			break;
 
-	case USB_CMD_VENDREQ:
+		case USB_CMD_VENDREQ:
 
 #ifdef CH9_DEBUG
-		printf("vendor request %x\n", SetupData->bRequest);
+			printf("vendor request %x\n", SetupData->bRequest);
 #endif
-		break;
+			break;
 
-	default:
-		/* Stall on Endpoint 0 */
+		default:
+			/* Stall on Endpoint 0 */
 #ifdef CH9_DEBUG
-		printf("unknown class req, stalling at %s\n", __func__);
+			printf("unknown class req, stalling at %s\n", __func__);
 #endif
-		EpSetStall(InstancePtr->PrivateData, 0, USB_EP_DIR_OUT);
-		break;
+			EpSetStall(InstancePtr->PrivateData, 0, USB_EP_DIR_OUT);
+			break;
 	}
 
 }
@@ -108,7 +109,7 @@ void Ch9Handler(struct Usb_DevData *InstancePtr,
 *
 ******************************************************************************/
 static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
-			      SetupPacket *SetupData)
+			  SetupPacket *SetupData)
 {
 #ifdef __ICCARM__
 #if defined (PLATFORM_ZYNQMP) || defined (versal)
@@ -131,7 +132,7 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 	u8 Error = 0;
 	u32 ReplyLen;
 	USBCH9_DATA *usb_data =
-			(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
+		(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
 	u8 EpNum = SetupData->wIndex & USB_ENDPOINT_NUMBER_MASK;
 	/*
 	 * Direction -- USB_EP_DIR_IN or USB_EP_DIR_OUT
@@ -155,384 +156,385 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 
 	switch (SetupData->bRequest) {
 
-	case USB_REQ_GET_STATUS:
+		case USB_REQ_GET_STATUS:
 
-		switch(SetupData->bRequestType & USB_STATUS_MASK) {
-		case USB_STATUS_DEVICE:
+			switch (SetupData->bRequestType & USB_STATUS_MASK) {
+				case USB_STATUS_DEVICE:
 #ifdef CH9_DEBUG
-			printf("GET STATUS DEVICE\r\n");
+					printf("GET STATUS DEVICE\r\n");
 #endif
 
-			/* It seems we do not have to worry about zeroing out
-			 * the rest of the reply buffer even though we are only
-			 * using the first two bytes.
-			 */
-			*((u16 *) &Reply[0]) = 0x0100; /* Self powered */
-			break;
+					/* It seems we do not have to worry about zeroing out
+					 * the rest of the reply buffer even though we are only
+					 * using the first two bytes.
+					 */
+					*((u16 *) &Reply[0]) = 0x0100; /* Self powered */
+					break;
 
-		case USB_STATUS_INTERFACE:
+				case USB_STATUS_INTERFACE:
 #ifdef CH9_DEBUG
-			printf("GET STATUS INTERFACE\r\n");
+					printf("GET STATUS INTERFACE\r\n");
 #endif
-			*((u16 *) &Reply[0]) = 0x0;
-			break;
+					*((u16 *) &Reply[0]) = 0x0;
+					break;
 
-		case USB_STATUS_ENDPOINT:
+				case USB_STATUS_ENDPOINT:
 #ifdef CH9_DEBUG
-			printf("GET STATUS ENDPOINT\r\n");
+					printf("GET STATUS ENDPOINT\r\n");
 #endif
-			*((u16 *) &Reply[0]) = IsEpStalled(InstancePtr->PrivateData,
-					EpNum, Direction);
-			break;
+					*((u16 *) &Reply[0]) = IsEpStalled(InstancePtr->PrivateData,
+									   EpNum, Direction);
+					break;
 
-		default:
+				default:
 #ifdef CH9_DEBUG
-			printf("unknown request for status %x\r\n",
-				SetupData->bRequestType);
+					printf("unknown request for status %x\r\n",
+					       SetupData->bRequestType);
 #endif
-			break;
-		}
-
-		EpBufferSend(InstancePtr->PrivateData, 0, Reply, SetupData->wLength);
-		break;
-
-	case USB_REQ_SET_ADDRESS:
-
-		/* With bit 24 set the address value is held in a shadow
-		 * register until the status phase is acked. At which point it
-		 * address value is written into the address register.
-		 */
-		SetDeviceAddress(InstancePtr->PrivateData, SetupData->wValue);
-#ifdef CH9_DEBUG
-		printf("SET ADDRESS: %d\r\n", SetupData->wValue);
-#endif
-
-		EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
-		break;
-
-	case USB_REQ_GET_INTERFACE:
-#ifdef CH9_DEBUG
-		printf("GET INTERFACE %d/%d/%d\r\n",
-			SetupData->wIndex, SetupData->wLength, 0);
-#endif
-		break;
-
-	case USB_REQ_GET_DESCRIPTOR:
-		/* Get descriptor type. */
-		switch ((SetupData->wValue >> 8) & 0xff) {
-
-		case USB_TYPE_DEVICE_DESC:
-		case USB_TYPE_DEVICE_QUALIFIER:
-			/*
-			 * Set up the reply buffer with the device descriptor
-			 * data.
-			 */
-			ReplyLen = usb_data->ch9_func.
-					Usb_Ch9SetupDevDescReply(
-						InstancePtr, Reply,
-						USB_REQ_REPLY_LEN);
-
-			ReplyLen = ReplyLen > SetupData->wLength ?
-						SetupData->wLength : ReplyLen;
-#ifdef CH9_DEBUG
-			printf("GET DEV DESC %d/%d\r\n", ReplyLen,
-						SetupData->wLength);
-#endif
-			if(((SetupData->wValue >> 8) & 0xff) ==
-					USB_TYPE_DEVICE_QUALIFIER) {
-				Reply[0] = (u8)ReplyLen;
-				Reply[1] = (u8)0x6;
-				Reply[2] = (u8)0x0;
-				Reply[3] = (u8)0x2;
-				Reply[4] = (u8)0xFF;
-				Reply[5] = (u8)0x00;
-				Reply[6] = (u8)0x0;
-				Reply[7] = (u8)0x10;
-				Reply[8] = (u8)0;
-				Reply[9] = (u8)0x0;
-			}
-			Status = EpBufferSend(InstancePtr->PrivateData, 0,
-					Reply, ReplyLen);
-			if (XST_SUCCESS != Status) {
-				/* Failure case needs to be handled */
-				for (;;);
-			}
-			break;
-
-		case USB_TYPE_CONFIG_DESC:
-
-			/* Set up the reply buffer with the configuration
-			 * descriptor data.
-			 */
-			ReplyLen = usb_data->ch9_func.
-					Usb_Ch9SetupCfgDescReply(
-						InstancePtr, Reply,
-						USB_REQ_REPLY_LEN);
-
-#ifdef CH9_DEBUG
-			printf("GET CONFIG DESC %d/%d\r\n", ReplyLen,
-                   SetupData->wLength);
-#endif
-			ReplyLen = ReplyLen > SetupData->wLength ?
-						SetupData->wLength : ReplyLen;
-
-			Status = EpBufferSend(InstancePtr->PrivateData, 0,
-							Reply, ReplyLen);
-			if (XST_SUCCESS != Status) {
-				/* Failure case needs to be handled */
-				for (;;);
-			}
-			break;
-
-		case USB_TYPE_STRING_DESC:
-            /* Set up the reply buffer with the configuration
-			 * descriptor data.
-			 */
-			ReplyLen = usb_data->ch9_func.
-					Usb_Ch9SetupStrDescReply(
-						InstancePtr, Reply, 128,
-						SetupData->wValue & 0xFF);
-
-#ifdef CH9_DEBUG
-		    printf("GET STRING DESC %d/%d\r\n", ReplyLen,
-                   SetupData->wLength);
-#endif
-			ReplyLen = ReplyLen > SetupData->wLength ?
-						SetupData->wLength : ReplyLen;
-
-			Status = EpBufferSend(InstancePtr->PrivateData, 0,
-							Reply, ReplyLen);
-			if (XST_SUCCESS != Status) {
-				/* Failure case needs to be handled */
-				for (;;);
+					break;
 			}
 
+			EpBufferSend(InstancePtr->PrivateData, 0, Reply, SetupData->wLength);
 			break;
 
-		case USB_TYPE_BOS_DESC:
-            /* Set up the reply buffer with the BOS descriptor
-			 * data.
-			 */
-			ReplyLen = usb_data->ch9_func.
-					Usb_Ch9SetupBosDescReply(Reply,
-							USB_REQ_REPLY_LEN);
+		case USB_REQ_SET_ADDRESS:
 
+			/* With bit 24 set the address value is held in a shadow
+			 * register until the status phase is acked. At which point it
+			 * address value is written into the address register.
+			 */
+			SetDeviceAddress(InstancePtr->PrivateData, SetupData->wValue);
 #ifdef CH9_DEBUG
-			printf("GET BOS DESC %d/%d\r\n", ReplyLen,
-                   SetupData->wLength);
+			printf("SET ADDRESS: %d\r\n", SetupData->wValue);
 #endif
 
-			ReplyLen = ReplyLen > SetupData->wLength ?
-						SetupData->wLength : ReplyLen;
-
-			Status = EpBufferSend(InstancePtr->PrivateData, 0,
-							Reply, ReplyLen);
-			if (XST_SUCCESS != Status) {
-				/* Failure case needs to be handled */
-				for (;;);
-			}
+			EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
 			break;
 
-		default:
-			if (usb_data->ch9_func.Usb_GetDescReply) {
-				/* send any class dependent descriptors */
-				ReplyLen = usb_data->ch9_func.Usb_GetDescReply(InstancePtr,
-									SetupData, Reply);
-				if ( ReplyLen == 0 )
-					Error = 1;
-				else {
-					Status = EpBufferSend(InstancePtr->PrivateData, 0,
-									Reply, ReplyLen);
-					if (XST_SUCCESS != Status) {
-					/* Failure case needs to be handled */
-					for (;;);
+		case USB_REQ_GET_INTERFACE:
+#ifdef CH9_DEBUG
+			printf("GET INTERFACE %d/%d/%d\r\n",
+			       SetupData->wIndex, SetupData->wLength, 0);
+#endif
+			break;
+
+		case USB_REQ_GET_DESCRIPTOR:
+			/* Get descriptor type. */
+			switch ((SetupData->wValue >> 8) & 0xff) {
+
+				case USB_TYPE_DEVICE_DESC:
+				case USB_TYPE_DEVICE_QUALIFIER:
+					/*
+					 * Set up the reply buffer with the device descriptor
+					 * data.
+					 */
+					ReplyLen = usb_data->ch9_func.
+						   Usb_Ch9SetupDevDescReply(
+							   InstancePtr, Reply,
+							   USB_REQ_REPLY_LEN);
+
+					ReplyLen = ReplyLen > SetupData->wLength ?
+						   SetupData->wLength : ReplyLen;
+#ifdef CH9_DEBUG
+					printf("GET DEV DESC %d/%d\r\n", ReplyLen,
+					       SetupData->wLength);
+#endif
+					if (((SetupData->wValue >> 8) & 0xff) ==
+					    USB_TYPE_DEVICE_QUALIFIER) {
+						Reply[0] = (u8)ReplyLen;
+						Reply[1] = (u8)0x6;
+						Reply[2] = (u8)0x0;
+						Reply[3] = (u8)0x2;
+						Reply[4] = (u8)0xFF;
+						Reply[5] = (u8)0x00;
+						Reply[6] = (u8)0x0;
+						Reply[7] = (u8)0x10;
+						Reply[8] = (u8)0;
+						Reply[9] = (u8)0x0;
 					}
-				}
-			} else {
-				Error = 1;
-			}
-			break;
-		}
-		break;
+					Status = EpBufferSend(InstancePtr->PrivateData, 0,
+							      Reply, ReplyLen);
+					if (XST_SUCCESS != Status) {
+						/* Failure case needs to be handled */
+						for (;;);
+					}
+					break;
 
-	case USB_REQ_SET_CONFIGURATION:
+				case USB_TYPE_CONFIG_DESC:
+
+					/* Set up the reply buffer with the configuration
+					 * descriptor data.
+					 */
+					ReplyLen = usb_data->ch9_func.
+						   Usb_Ch9SetupCfgDescReply(
+							   InstancePtr, Reply,
+							   USB_REQ_REPLY_LEN);
 
 #ifdef CH9_DEBUG
-		printf("SET CONFIG\r\n");
+					printf("GET CONFIG DESC %d/%d\r\n", ReplyLen,
+					       SetupData->wLength);
+#endif
+					ReplyLen = ReplyLen > SetupData->wLength ?
+						   SetupData->wLength : ReplyLen;
+
+					Status = EpBufferSend(InstancePtr->PrivateData, 0,
+							      Reply, ReplyLen);
+					if (XST_SUCCESS != Status) {
+						/* Failure case needs to be handled */
+						for (;;);
+					}
+					break;
+
+				case USB_TYPE_STRING_DESC:
+					/* Set up the reply buffer with the configuration
+						 * descriptor data.
+						 */
+					ReplyLen = usb_data->ch9_func.
+						   Usb_Ch9SetupStrDescReply(
+							   InstancePtr, Reply, 128,
+							   SetupData->wValue & 0xFF);
+
+#ifdef CH9_DEBUG
+					printf("GET STRING DESC %d/%d\r\n", ReplyLen,
+					       SetupData->wLength);
+#endif
+					ReplyLen = ReplyLen > SetupData->wLength ?
+						   SetupData->wLength : ReplyLen;
+
+					Status = EpBufferSend(InstancePtr->PrivateData, 0,
+							      Reply, ReplyLen);
+					if (XST_SUCCESS != Status) {
+						/* Failure case needs to be handled */
+						for (;;);
+					}
+
+					break;
+
+				case USB_TYPE_BOS_DESC:
+					/* Set up the reply buffer with the BOS descriptor
+						 * data.
+						 */
+					ReplyLen = usb_data->ch9_func.
+						   Usb_Ch9SetupBosDescReply(Reply,
+									    USB_REQ_REPLY_LEN);
+
+#ifdef CH9_DEBUG
+					printf("GET BOS DESC %d/%d\r\n", ReplyLen,
+					       SetupData->wLength);
 #endif
 
-		if(InstancePtr->Speed == USB_SPEED_SUPER) {
+					ReplyLen = ReplyLen > SetupData->wLength ?
+						   SetupData->wLength : ReplyLen;
+
+					Status = EpBufferSend(InstancePtr->PrivateData, 0,
+							      Reply, ReplyLen);
+					if (XST_SUCCESS != Status) {
+						/* Failure case needs to be handled */
+						for (;;);
+					}
+					break;
+
+				default:
+					if (usb_data->ch9_func.Usb_GetDescReply) {
+						/* send any class dependent descriptors */
+						ReplyLen = usb_data->ch9_func.Usb_GetDescReply(InstancePtr,
+								SetupData, Reply);
+						if ( ReplyLen == 0 ) {
+							Error = 1;
+						} else {
+							Status = EpBufferSend(InstancePtr->PrivateData, 0,
+									      Reply, ReplyLen);
+							if (XST_SUCCESS != Status) {
+								/* Failure case needs to be handled */
+								for (;;);
+							}
+						}
+					} else {
+						Error = 1;
+					}
+					break;
+			}
+			break;
+
+		case USB_REQ_SET_CONFIGURATION:
+
+#ifdef CH9_DEBUG
+			printf("SET CONFIG\r\n");
+#endif
+
+			if (InstancePtr->Speed == USB_SPEED_SUPER) {
 #ifdef USB_LPM_MODE
-			AcceptU1U2Sleep(InstancePtr->PrivateData);
+				AcceptU1U2Sleep(InstancePtr->PrivateData);
 #endif
-		}
+			}
 
-		usb_data->ch9_func.
+			usb_data->ch9_func.
 			Usb_SetConfiguration(InstancePtr, SetupData);
-		usb_data->ch9_func.
+			usb_data->ch9_func.
 			Usb_SetConfigurationApp(InstancePtr, SetupData);
 
-		EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
-		break;
-
-	case USB_REQ_GET_CONFIGURATION:
-#ifdef CH9_DEBUG
-		printf("GET CONFIGURATION\r\n");
-#endif
-
-		/* When we run CV test suite application in Windows, need to
-		 * add GET_CONFIGURATION command to pass test suite
-		 */
-		*((u8 *) &Reply[0]) = GetConfigDone(InstancePtr->PrivateData);
-		Status = EpBufferSend(InstancePtr->PrivateData, 0, Reply,
-								SetupData->wLength);
-		if (XST_SUCCESS != Status) {
-			/* Failure case needs to be handled */
-			for (;;);
-		}
-		break;
-
-	case USB_REQ_CLEAR_FEATURE:
-#ifdef CH9_DEBUG
-		printf("CLEAR FEATURE\r\n");
-#endif
-		switch(SetupData->bRequestType & USB_STATUS_MASK) {
-		case USB_STATUS_ENDPOINT:
-			if (SetupData->wValue == USB_ENDPOINT_HALT)
-				EpClearStall(InstancePtr->PrivateData, EpNum, Direction);
+			EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
 			break;
 
-		case USB_STATUS_DEVICE:
-			if(InstancePtr->Speed == USB_SPEED_SUPER) {
-				if(SetupData->wValue == USB_U1_ENABLE) {
-					U1SleepDisable(InstancePtr->PrivateData);
-				} else if(SetupData->wValue == USB_U2_ENABLE) {
-					U2SleepDisable(InstancePtr->PrivateData);
-				}
+		case USB_REQ_GET_CONFIGURATION:
+#ifdef CH9_DEBUG
+			printf("GET CONFIGURATION\r\n");
+#endif
+
+			/* When we run CV test suite application in Windows, need to
+			 * add GET_CONFIGURATION command to pass test suite
+			 */
+			*((u8 *) &Reply[0]) = GetConfigDone(InstancePtr->PrivateData);
+			Status = EpBufferSend(InstancePtr->PrivateData, 0, Reply,
+					      SetupData->wLength);
+			if (XST_SUCCESS != Status) {
+				/* Failure case needs to be handled */
+				for (;;);
 			}
-
-			EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
 			break;
 
-		default:
-			Error = 1;
-			break;
-		}
-		break;
-
-	case USB_REQ_SET_FEATURE:
+		case USB_REQ_CLEAR_FEATURE:
 #ifdef CH9_DEBUG
-		printf("SET FEATURE\r\n");
+			printf("CLEAR FEATURE\r\n");
 #endif
-		switch(SetupData->bRequestType & USB_STATUS_MASK) {
-		case USB_STATUS_ENDPOINT:
-			if (SetupData->wValue == USB_ENDPOINT_HALT)
-				EpSetStall(InstancePtr->PrivateData, EpNum,
-						Direction);
-
-			EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
-
-			break;
-
-		/* When we run CV test suite application in Windows, need to
-		 * add INTRF_FUNC_SUSNPEND command to pass test suite
-		 */
-		case USB_STATUS_INTERFACE:
-			switch (SetupData->wValue) {
-				case USB_INTRF_FUNC_SUSPEND:
-						/* enable Low power suspend */
-						/* enable remote wakeup */
+			switch (SetupData->bRequestType & USB_STATUS_MASK) {
+				case USB_STATUS_ENDPOINT:
+					if (SetupData->wValue == USB_ENDPOINT_HALT) {
+						EpClearStall(InstancePtr->PrivateData, EpNum, Direction);
+					}
 					break;
+
+				case USB_STATUS_DEVICE:
+					if (InstancePtr->Speed == USB_SPEED_SUPER) {
+						if (SetupData->wValue == USB_U1_ENABLE) {
+							U1SleepDisable(InstancePtr->PrivateData);
+						} else if (SetupData->wValue == USB_U2_ENABLE) {
+							U2SleepDisable(InstancePtr->PrivateData);
+						}
+					}
+
+					EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
+					break;
+
 				default:
 					Error = 1;
+					break;
 			}
 			break;
 
-		case USB_STATUS_DEVICE:
-			if(InstancePtr->Speed == USB_SPEED_SUPER) {
-				if(SetupData->wValue == USB_U1_ENABLE) {
-#ifdef USB_LPM_MODE
-					U1SleepEnable(InstancePtr->PrivateData);
+		case USB_REQ_SET_FEATURE:
+#ifdef CH9_DEBUG
+			printf("SET FEATURE\r\n");
 #endif
-				} else if (SetupData->wValue == USB_U2_ENABLE) {
-#ifdef USB_LPM_MODE
-					U2SleepEnable(InstancePtr->PrivateData);
-#endif
-				}
-			}
+			switch (SetupData->bRequestType & USB_STATUS_MASK) {
+				case USB_STATUS_ENDPOINT:
+					if (SetupData->wValue == USB_ENDPOINT_HALT)
+						EpSetStall(InstancePtr->PrivateData, EpNum,
+							   Direction);
 
-			if (SetupData->wValue == USB_TEST_MODE) {
-				u32 TestSel = (SetupData->wIndex >> 8) & 0xFF;
+					EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
 
-				EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
-				usleep(1000);
-
-				switch (TestSel) {
-				case USB_TEST_J:
-				case USB_TEST_K:
-				case USB_TEST_SE0_NAK:
-				case USB_TEST_PACKET:
-				case USB_TEST_FORCE_ENABLE:
-					//Set Bits in PORTSCR
-					SetBits(InstancePtr->PrivateData, TestSel << 16);
 					break;
+
+				/* When we run CV test suite application in Windows, need to
+				 * add INTRF_FUNC_SUSNPEND command to pass test suite
+				 */
+				case USB_STATUS_INTERFACE:
+					switch (SetupData->wValue) {
+						case USB_INTRF_FUNC_SUSPEND:
+							/* enable Low power suspend */
+							/* enable remote wakeup */
+							break;
+						default:
+							Error = 1;
+					}
+					break;
+
+				case USB_STATUS_DEVICE:
+					if (InstancePtr->Speed == USB_SPEED_SUPER) {
+						if (SetupData->wValue == USB_U1_ENABLE) {
+#ifdef USB_LPM_MODE
+							U1SleepEnable(InstancePtr->PrivateData);
+#endif
+						} else if (SetupData->wValue == USB_U2_ENABLE) {
+#ifdef USB_LPM_MODE
+							U2SleepEnable(InstancePtr->PrivateData);
+#endif
+						}
+					}
+
+					if (SetupData->wValue == USB_TEST_MODE) {
+						u32 TestSel = (SetupData->wIndex >> 8) & 0xFF;
+
+						EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
+						usleep(1000);
+
+						switch (TestSel) {
+							case USB_TEST_J:
+							case USB_TEST_K:
+							case USB_TEST_SE0_NAK:
+							case USB_TEST_PACKET:
+							case USB_TEST_FORCE_ENABLE:
+								//Set Bits in PORTSCR
+								SetBits(InstancePtr->PrivateData, TestSel << 16);
+								break;
+							default:
+								/* Unsupported test selector */
+								break;
+						}
+						break;
+					}
+					break;
+
 				default:
-					/* Unsupported test selector */
+					Error = 1;
 					break;
-				}
-				break;
 			}
+
+			break;
+
+		/* For set interface, check the alt setting host wants */
+		case USB_REQ_SET_INTERFACE:
+
+#ifdef CH9_DEBUG
+			printf("SET INTERFACE %d/%d\n", SetupData->wValue, SetupData->wIndex);
+#endif
+
+			/* Call the set interface handler, if any*/
+			if (usb_data->ch9_func.Usb_SetInterfaceHandler != NULL) {
+				usb_data->ch9_func.Usb_SetInterfaceHandler(
+					InstancePtr, SetupData);
+			}
+
+			EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
+			break;
+
+		case USB_REQ_SET_SEL:
+#ifdef CH9_DEBUG
+			printf("SET SEL \r\n");
+#endif
+
+			EpBufferRecv(InstancePtr->PrivateData, 0, TmpBuffer, 6);
+			SetU1SleepTimeout(InstancePtr->PrivateData, 0x0A);
+			SetU2SleepTimeout(InstancePtr->PrivateData, 0x04);
+			break;
+
+		case USB_REQ_SET_ISOCH_DELAY:
+#ifdef CH9_DEBUG
+			printf("SET ISOCH DELAY \r\n");
+#endif
 			break;
 
 		default:
 			Error = 1;
 			break;
-		}
-
-		break;
-
-	/* For set interface, check the alt setting host wants */
-	case USB_REQ_SET_INTERFACE:
-
-#ifdef CH9_DEBUG
-		printf("SET INTERFACE %d/%d\n", SetupData->wValue, SetupData->wIndex);
-#endif
-
-		/* Call the set interface handler, if any*/
-		if (usb_data->ch9_func.Usb_SetInterfaceHandler != NULL) {
-			usb_data->ch9_func.Usb_SetInterfaceHandler(
-							InstancePtr, SetupData);
-		}
-
-		EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
-		break;
-
-	case USB_REQ_SET_SEL:
-#ifdef CH9_DEBUG
-		printf("SET SEL \r\n");
-#endif
-
-		EpBufferRecv(InstancePtr->PrivateData, 0, TmpBuffer, 6);
-		SetU1SleepTimeout(InstancePtr->PrivateData, 0x0A);
-		SetU2SleepTimeout(InstancePtr->PrivateData, 0x04);
-		break;
-
-	case USB_REQ_SET_ISOCH_DELAY:
-#ifdef CH9_DEBUG
-		printf("SET ISOCH DELAY \r\n");
-#endif
-		break;
-
-	default:
-		Error = 1;
-		break;
 	}
 
 	/* Set the send stall bit if there was an error */
 	if (Error) {
 #ifdef CH9_DEBUG
 		printf("std dev req %d/%d error, stall 0 in out\n",
-			SetupData->bRequest, (SetupData->wValue >> 8) & 0xff);
+		       SetupData->bRequest, (SetupData->wValue >> 8) & 0xff);
 #endif
 		EpSetStall(InstancePtr->PrivateData, 0, USB_EP_DIR_OUT);
 	}

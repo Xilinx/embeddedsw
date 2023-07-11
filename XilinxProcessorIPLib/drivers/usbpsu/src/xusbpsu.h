@@ -143,10 +143,10 @@ extern "C" {
 
 #if defined (PLATFORM_ZYNQMP) || defined (versal)
 #define ALIGNMENT_CACHELINE		__attribute__ ((aligned(64)))
-					/**< ALIGNMENT of CACHELINE 64 */
+/**< ALIGNMENT of CACHELINE 64 */
 #else
 #define ALIGNMENT_CACHELINE		__attribute__ ((aligned(32)))
-					/**< ALIGNMENT of CACHELINE 32 */
+/**< ALIGNMENT of CACHELINE 32 */
 #endif
 
 #define	XUSBPSU_PHY_TIMEOUT		5000U	/**< Phy timeout- microseconds */
@@ -175,20 +175,20 @@ extern "C" {
 #define XUSBPSU_NUM_TRBS		8U	/**< Number of TRB */
 
 #define XUSBPSU_EVENT_PENDING		(0x00000001U << 0U)
-						/**< Event pending bit */
+/**< Event pending bit */
 
 #define XUSBPSU_EP_ENABLED		(0x00000001U << 0U)
-						/**< EP status Enabled */
+/**< EP status Enabled */
 #define XUSBPSU_EP_STALL		(0x00000001U << 1U)
-						/**< EP status WEDGE */
+/**< EP status WEDGE */
 #define XUSBPSU_EP_WEDGE		(0x00000001U << 2U)
-						/**< EP status busy */
+/**< EP status busy */
 #define XUSBPSU_EP_BUSY			((u32)0x00000001U << 4U)
-						/**< EP status busy */
+/**< EP status busy */
 #define XUSBPSU_EP_PENDING_REQUEST	(0x00000001U << 5U)
-						/**< EP status pending request */
+/**< EP status pending request */
 #define XUSBPSU_EP_MISSED_ISOC		(0x00000001U << 6U)
-						/**< EP status missed ISOC */
+/**< EP status missed ISOC */
 
 #define	XUSBPSU_GHWPARAMS0		0U	/**< Global Hardware Parameter Register 0 */
 #define	XUSBPSU_GHWPARAMS1		1U	/**< Global Hardware Parameter Register 1 */
@@ -200,36 +200,19 @@ extern "C" {
 #define	XUSBPSU_GHWPARAMS7		7U	/**< Global Hardware Parameter Register 7 */
 
 /* HWPARAMS0 */
-#define XUSBPSU_MODE(n)			((n) & 0x7U)
-						/**< USB MODE Host, Device
-						 * or DRD
-						 */
-#define XUSBPSU_MDWIDTH(n)		(((n) & 0xFF00) >> 8U)
-						/**< DATA bus width */
+#define XUSBPSU_MODE(n)			((n) & 0x7U) /**< USB MODE Host, Device or DRD */
+#define XUSBPSU_MDWIDTH(n)		(((n) & 0xFF00) >> 8U) /**< DATA bus width */
 
 /* HWPARAMS1 */
-#define XUSBPSU_NUM_INT(n)		(((n) & (0x3F << 15U)) >> 15U)
-						/**< Number of event buffer in
-						 *   devicemode
-						 */
+#define XUSBPSU_NUM_INT(n)		(((n) & (0x3F << 15U)) >> 15U)  /**< Number of event buffer in devicemode */
 
 /* HWPARAMS3 */
-#define XUSBPSU_NUM_IN_EPS_MASK		((u32)0x0000001FU << (u32)18U)
-						/**< Number of Device Mode
-						 *   Active IN Endpoints mask
-						 */
-#define XUSBPSU_NUM_EPS_MASK		((u32)0x0000003FU << (u32)12U)
-						/**< Number of Device Mode
-						 *   Endpoints mask
-						 */
+#define XUSBPSU_NUM_IN_EPS_MASK		((u32)0x0000001FU << (u32)18U) /**< Number of Device Mode Active IN Endpoints mask */
+#define XUSBPSU_NUM_EPS_MASK		((u32)0x0000003FU << (u32)12U) /**< Number of Device Mode Endpoints mask */
 #define XUSBPSU_NUM_EPS(p)		(((u32)(p) &		\
-					(XUSBPSU_NUM_EPS_MASK)) >> (u32)12)
-						/**< Number of Device Mode EP */
+		(XUSBPSU_NUM_EPS_MASK)) >> (u32)12) /**< Number of Device Mode EP */
 #define XUSBPSU_NUM_IN_EPS(p)		(((u32)(p) &		\
-					(XUSBPSU_NUM_IN_EPS_MASK)) >> (u32)18)
-						/**< Number of Device Mode
-						 *   Active IN Endpoints
-						 */
+		(XUSBPSU_NUM_IN_EPS_MASK)) >> (u32)18) /**< Number of Device Mode Active IN Endpoints */
 
 /* HWPARAMS7 */
 #define XUSBPSU_RAM1_DEPTH(n)		((n) & 0xFFFFU) /**< depth of RAM1 */
@@ -241,10 +224,7 @@ extern "C" {
 #define XUSBPSU_DEPEVT_EPCMDCMPLT	0x07U	/**< Device EP command complete event */
 
 /* Within XferNotReady */
-#define DEPEVT_STATUS_TRANSFER_ACTIVE	(1U << 3U)
-						/**< EP event status transfer
-						 *   active
-						 */
+#define DEPEVT_STATUS_TRANSFER_ACTIVE	(1U << 3U) /**< EP event status transfer active */
 
 /* Within XferComplete */
 #define DEPEVT_STATUS_BUSERR		(1U << 0U) /**< EP Event status bus error */
@@ -360,9 +340,9 @@ typedef enum {
  * return Physical EP number as dwc3 mapping
  */
 #define XUSBPSU_PhysicalEp(epnum, direction)	(((epnum) << 1U ) | (direction))
-						/**< Return Physical EP number
-						 *   as dwc3 mapping
-						 */
+/**< Return Physical EP number
+ *   as dwc3 mapping
+ */
 /** @endcond */
 
 /**************************** Type Definitions ******************************/
@@ -400,7 +380,8 @@ struct XUsbPsu_Trb {
 }; /**< Transfer Request Block - Hardware format */
 #pragma pack(pop)
 #else
-} __attribute__((packed)); /**< Transfer Request Block - Hardware format */
+}
+__attribute__((packed)); /**< Transfer Request Block - Hardware format */
 #endif
 
 /**
@@ -427,11 +408,11 @@ struct XUsbPsu_EpParams {
 #pragma pack(push, 1)
 #endif
 typedef struct {
-        u8  bRequestType;	/**< Characteristics of request */
-        u8  bRequest;		/**< Type of request */
-        u16 wValue;		/**< Word-sized that varies according to request */
-        u16 wIndex;		/**< Used to pass an index or offset */
-        u16 wLength;		/**< Number of bytes to transfer */
+	u8  bRequestType;	/**< Characteristics of request */
+	u8  bRequest;		/**< Type of request */
+	u16 wValue;		/**< Word-sized that varies according to request */
+	u16 wIndex;		/**< Used to pass an index or offset */
+	u16 wLength;		/**< Number of bytes to transfer */
 #if defined (__ICCARM__)
 } SetupPacket;			/**< USB Standard Control Request */
 #pragma pack(pop)
@@ -462,20 +443,20 @@ typedef struct {
  */
 struct XUsbPsu_Ep {
 	void (*Handler)(void *, u32, u32);
-						/**< User handler called
-						 *   when data is sent for IN Ep
-						 *   and received for OUT Ep
-						 */
+	/**< User handler called
+	 *   when data is sent for IN Ep
+	 *   and received for OUT Ep
+	 */
 #if defined (__ICCARM__)
-    #pragma data_alignment = 64
+#pragma data_alignment = 64
 	struct XUsbPsu_Trb EpTrb[NO_OF_TRB_PER_EP + 1U]; /**< One extra Trb is
 							  * for Link Trb
 							  */
 #else
 	struct XUsbPsu_Trb EpTrb[NO_OF_TRB_PER_EP + 1U] ALIGNMENT_CACHELINE;
-						/**< TRB used by endpoint
-						 *   One extra Link TRB
-						 */
+	/**< TRB used by endpoint
+	 *   One extra Link TRB
+	 */
 #endif
 	u32	EpStatus;	/**< Flags to represent Endpoint status */
 	u32	EpSavedState;	/**< Endpoint status saved at the time of
@@ -511,7 +492,7 @@ struct XUsbPsu_Ep {
  */
 typedef struct {
 #ifndef SDT
-        u16 DeviceId;		/**< Unique ID of controller */
+	u16 DeviceId;		/**< Unique ID of controller */
 #else
 	char *Name;
 #endif
@@ -520,7 +501,7 @@ typedef struct {
 	u8 EnableSuperSpeed;	/**< Set to enable super speed support */
 #ifdef SDT
 	u16 IntrId[3];	/** Bits[11:0] Interrupt-id Bits[15:12] trigger type */
-			/** level flags */
+	/** level flags */
 	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] */
 #endif
 #if defined (XCLOCKING)
@@ -580,16 +561,16 @@ struct Usb_DevData {
  */
 struct XUsbPsu {
 #if defined (__ICCARM__)
-    #pragma data_alignment = 64
+#pragma data_alignment = 64
 	SetupPacket SetupData;	/**< Setup data packet */
-    #pragma data_alignment = 64
+#pragma data_alignment = 64
 	struct XUsbPsu_Trb Ep0_Trb;	/**< TRB for control transfers */
 #else
 	SetupPacket SetupData ALIGNMENT_CACHELINE;
-				/**< Setup Packet buffer */
+	/**< Setup Packet buffer */
 	struct XUsbPsu_Trb Ep0_Trb ALIGNMENT_CACHELINE;
 #endif
-				/**< TRB for control transfers */
+	/**< TRB for control transfers */
 	XUsbPsu_Config *ConfigPtr;	/**< Configuration info pointer */
 	struct XUsbPsu_Ep eps[XUSBPSU_ENDPOINTS_NUM]; /**< Endpoints */
 	struct XUsbPsu_EvtBuffer Evt;	/**< Usb event buffer */
@@ -599,20 +580,20 @@ struct XUsbPsu {
 	u32 ConfigDescSize;	/**< Config descriptor size */
 	struct Usb_DevData *AppData; /**< Allication Data */
 	void (*Chapter9)(struct Usb_DevData *, SetupPacket *);
-				/**< USB Chapter9 function handler */
+	/**< USB Chapter9 function handler */
 	void (*ResetIntrHandler)(struct Usb_DevData *);
-				/**< Reset function handler */
+	/**< Reset function handler */
 	void (*DisconnectIntrHandler)(struct Usb_DevData *);
-				/**< Disconnect function handler */
+	/**< Disconnect function handler */
 	void *DevDesc;		/**< Device descriptor pointer */
 	void *ConfigDesc;	/**< Config descriptor pointer */
 #if defined(__ICCARM__)
-    #pragma data_alignment = XUSBPSU_EVENT_BUFFERS_SIZE
+#pragma data_alignment = XUSBPSU_EVENT_BUFFERS_SIZE
 	u8 EventBuffer[XUSBPSU_EVENT_BUFFERS_SIZE]; /**< Event buffer array */
 #else
 	u8 EventBuffer[XUSBPSU_EVENT_BUFFERS_SIZE]
-			__attribute__((aligned(XUSBPSU_EVENT_BUFFERS_SIZE)));
-				/**< Event buffer array */
+	__attribute__((aligned(XUSBPSU_EVENT_BUFFERS_SIZE)));
+	/**< Event buffer array */
 #endif
 	u8 NumOutEps;		/**< Number of out endpoints */
 	u8 NumInEps;		/**< Number of in endpoint */
@@ -639,9 +620,9 @@ struct XUsbPsu {
 #pragma pack(push, 1)
 #endif
 struct XUsbPsu_Event_Type {
-	u32	Is_DevEvt:1;	/**< Device specific event */
-	u32	Type:7;		/**< Event types */
-	u32	Reserved8_31:24; /**< Reserved, not used */
+	u32	Is_DevEvt: 1;	/**< Device specific event */
+	u32	Type: 7;		/**< Event types */
+	u32	Reserved8_31: 24; /**< Reserved, not used */
 #if defined (__ICCARM__)
 }; /**< Device Endpoint Events type */
 #pragma pack(pop)
@@ -671,12 +652,12 @@ struct XUsbPsu_Event_Type {
 #pragma pack(push, 1)
 #endif
 struct XUsbPsu_Event_Epevt {
-	u32	Is_EpEvt:1; /**< indicates this is an endpoint event */
-	u32	Epnumber:5; /**< number of the endpoint */
-	u32	Endpoint_Event:4; /**< endpoint event */
-	u32	Reserved11_10:2; /**< Reserved, not used */
-	u32	Status:4; /**< Indicates the status of the event */
-	u32	Parameters:16; /**< Parameters of the current event */
+	u32	Is_EpEvt: 1; /**< indicates this is an endpoint event */
+	u32	Epnumber: 5; /**< number of the endpoint */
+	u32	Endpoint_Event: 4; /**< endpoint event */
+	u32	Reserved11_10: 2; /**< Reserved, not used */
+	u32	Status: 4; /**< Indicates the status of the event */
+	u32	Parameters: 16; /**< Parameters of the current event */
 #if defined (__ICCARM__)
 }; /**< Device Endpoint Events */
 #pragma pack(pop)
@@ -709,12 +690,12 @@ struct XUsbPsu_Event_Epevt {
 #pragma pack(push, 1)
 #endif
 struct XUsbPsu_Event_Devt {
-	u32	Is_DevEvt:1; /**< non-endpoint event */
-	u32	Device_Event:7; /**< device event */
-	u32	Type:4; /**< type of device event */
-	u32	Reserved15_12:4; /**< Reserved, not used */
-	u32	Event_Info:9; /**< Information about this event */
-	u32	Reserved31_25:7; /**< Reserved, not used */
+	u32	Is_DevEvt: 1; /**< non-endpoint event */
+	u32	Device_Event: 7; /**< device event */
+	u32	Type: 4; /**< type of device event */
+	u32	Reserved15_12: 4; /**< Reserved, not used */
+	u32	Event_Info: 9; /**< Information about this event */
+	u32	Reserved31_25: 7; /**< Reserved, not used */
 #if defined (__ICCARM__)
 }; /**< Device Events */
 #pragma pack(pop)
@@ -732,10 +713,10 @@ struct XUsbPsu_Event_Devt {
 #pragma pack(push, 1)
 #endif
 struct XUsbPsu_Event_Gevt {
-	u32	Is_GlobalEvt:1; /**< non-endpoint event (not used)*/
-	u32	Device_Event:7; /**< it's (0x03) Carkit or (0x04) I2C event */
-	u32	Phy_Port_Number:4; /**< Phy_Port_Number:4 */
-	u32	Reserved31_12:20; /**< reserved31_12 */
+	u32	Is_GlobalEvt: 1; /**< non-endpoint event (not used)*/
+	u32	Device_Event: 7; /**< it's (0x03) Carkit or (0x04) I2C event */
+	u32	Phy_Port_Number: 4; /**< Phy_Port_Number:4 */
+	u32	Reserved31_12: 20; /**< reserved31_12 */
 #if defined (__ICCARM__)
 }; /**< Core events */
 #pragma pack(pop)
@@ -769,33 +750,29 @@ extern XUsbPsu_Config XUsbPsu_ConfigTable[]; /**< Configuration table */
 								 */
 #else
 #define IS_ALIGNED(x, a)	(((x) & ((typeof(x))(a) - 1U)) == 0U)
-						/**< parameter aligned */
+/**< parameter aligned */
 #endif
 
 #if defined (__ICCARM__)
 #define roundup(x, y) (((((x) + (u32)(y - 1U)) / (u32)y) * (u32)y))
-						/**< roundup value based on
-						 * input parameter
-						 */
+/**< roundup value based on
+ * input parameter
+ */
 
 #else
 #define roundup(x, y) (                                 \
-        (((x) + (u32)((typeof(y))(y) - 1U)) / \
-			(u32)((typeof(y))(y))) * \
-				(u32)((typeof(y))(y))               \
-)	/**< roundup value based on input parameter */
+		(((x) + (u32)((typeof(y))(y) - 1U)) / \
+		 (u32)((typeof(y))(y))) * \
+		(u32)((typeof(y))(y))               \
+		      )	/**< roundup value based on input parameter */
 #endif
 #define DECLARE_DEV_DESC(Instance, desc)			\
 	(Instance).DevDesc = &(desc); 					\
-	(Instance).DevDescSize = sizeof((desc)) /**< Device descriptor
-						 * declaration
-						 */
+	(Instance).DevDescSize = sizeof((desc)) /**< Device descriptor declaration */
 
 #define DECLARE_CONFIG_DESC(Instance, desc) 		\
 	(Instance).ConfigDesc = &(desc); 				\
-	(Instance).ConfigDescSize = sizeof((desc)) /**< Config descriptor
-						    * declaration
-						    */
+	(Instance).ConfigDescSize = sizeof((desc)) /**< Config descriptor declaration */
 /** @endcond */
 
 /*****************************************************************************/
@@ -812,7 +789,8 @@ extern XUsbPsu_Config XUsbPsu_ConfigTable[]; /**< Configuration table */
 * @note		None.
 *
 ******************************************************************************/
-static inline void *XUsbPsu_get_drvdata(struct XUsbPsu *InstancePtr) {
+static inline void *XUsbPsu_get_drvdata(struct XUsbPsu *InstancePtr)
+{
 	return InstancePtr->data_ptr;
 }
 
@@ -832,7 +810,8 @@ static inline void *XUsbPsu_get_drvdata(struct XUsbPsu *InstancePtr) {
 *
 ******************************************************************************/
 static inline void XUsbPsu_set_drvdata(struct XUsbPsu *InstancePtr,
-		void *data) {
+				       void *data)
+{
 	InstancePtr->data_ptr = data;
 }
 
@@ -852,8 +831,9 @@ static inline void XUsbPsu_set_drvdata(struct XUsbPsu *InstancePtr,
 *
 ******************************************************************************/
 static inline void XUsbPsu_set_ch9handler(
-		struct XUsbPsu *InstancePtr,
-		void (*func)(struct Usb_DevData *, SetupPacket *)) {
+	struct XUsbPsu *InstancePtr,
+	void (*func)(struct Usb_DevData *, SetupPacket *))
+{
 	InstancePtr->Chapter9 = func;
 }
 
@@ -873,8 +853,9 @@ static inline void XUsbPsu_set_ch9handler(
 *
 ******************************************************************************/
 static inline void XUsbPsu_set_rsthandler(
-		struct XUsbPsu *InstancePtr,
-		void (*func)(struct Usb_DevData *)) {
+	struct XUsbPsu *InstancePtr,
+	void (*func)(struct Usb_DevData *))
+{
 	InstancePtr->ResetIntrHandler = func;
 }
 
@@ -894,8 +875,9 @@ static inline void XUsbPsu_set_rsthandler(
 *
 ******************************************************************************/
 static inline void XUsbPsu_set_disconnect(
-		struct XUsbPsu *InstancePtr,
-		void (*func)(struct Usb_DevData *)) {
+	struct XUsbPsu *InstancePtr,
+	void (*func)(struct Usb_DevData *))
+{
 	InstancePtr->DisconnectIntrHandler = func;
 }
 
@@ -905,7 +887,7 @@ static inline void XUsbPsu_set_disconnect(
  * Functions in xusbpsu.c
  */
 s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
-			XUsbPsu_Config *ConfigPtr, u32 BaseAddress);
+			  XUsbPsu_Config *ConfigPtr, u32 BaseAddress);
 s32 XUsbPsu_Start(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_Stop(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Timeout);
@@ -921,7 +903,7 @@ s32 XUsbPsu_IsSuperSpeed(struct XUsbPsu *InstancePtr);
  * Functions in xusbpsu_command.c
  */
 s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-				u16 Maxsize, u8 Type, u8 Restore);
+		     u16 Maxsize, u8 Type, u8 Restore);
 s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir);
 
 /*
@@ -929,16 +911,16 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir);
  */
 void XUsbPsu_ClearStalls(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
-				u8 *BufferPtr, u32 BufferLen);
+			 u8 *BufferPtr, u32 BufferLen);
 s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
-				u8 *BufferPtr, u32 Length);
+			 u8 *BufferPtr, u32 Length);
 void XUsbPsu_EpSetStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir);
 void XUsbPsu_EpClearStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir);
 void XUsbPsu_SetEpHandler(struct XUsbPsu *InstancePtr, u8 Epnum,
-			u8 Dir, void (*Handler)(void *, u32, u32));
+			  u8 Dir, void (*Handler)(void *, u32, u32));
 s32 XUsbPsu_IsEpStalled(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir);
 void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
-				u8 Dir, u8 Force);
+			  u8 Dir, u8 Force);
 
 /*
  * Functions in xusbpsu_intr.c

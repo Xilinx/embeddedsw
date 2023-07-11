@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -38,38 +39,38 @@
 
 /************************** Variable Definitions *****************************/
 u8 report_desc[] = {
-	 0x05, 0x01,     /* USAGE_PAGE (Generic Desktop)           */
-	 0x09, 0x06,     /* USAGE (Keyboard)                       */
-	 0xa1, 0x01,     /* COLLECTION (Application)               */
-	 0x05, 0x07,     /*   USAGE_PAGE (Keyboard)                */
-	 0x19, 0xe0,     /*   USAGE_MINIMUM (Keyboard LeftControl) */
-	 0x29, 0xe7,     /*   USAGE_MAXIMUM (Keyboard Right GUI)   */
-	 0x15, 0x00,     /*   LOGICAL_MINIMUM (0)                  */
-	 0x25, 0x01,     /*   LOGICAL_MAXIMUM (1)                  */
-	 0x75, 0x01,     /*   REPORT_SIZE (1)                      */
-	 0x95, 0x08,     /*   REPORT_COUNT (8)                     */
-	 0x81, 0x02,     /*   INPUT (Data,Var,Abs)                 */
-	 0x95, 0x01,     /*   REPORT_COUNT (1)                     */
-	 0x75, 0x08,     /*   REPORT_SIZE (8)                      */
-	 0x81, 0x03,     /*   INPUT (Cnst,Var,Abs)                 */
-	 0x95, 0x05,     /*   REPORT_COUNT (5)                     */
-	 0x75, 0x01,     /*   REPORT_SIZE (1)                      */
-	 0x05, 0x08,     /*   USAGE_PAGE (LEDs)                    */
-	 0x19, 0x01,     /*   USAGE_MINIMUM (Num Lock)             */
-	 0x29, 0x05,     /*   USAGE_MAXIMUM (Kana)                 */
-	 0x91, 0x02,     /*   OUTPUT (Data,Var,Abs)                */
-	 0x95, 0x01,     /*   REPORT_COUNT (1)                     */
-	 0x75, 0x03,     /*   REPORT_SIZE (3)                      */
-	 0x91, 0x03,     /*   OUTPUT (Cnst,Var,Abs)                */
-	 0x95, 0x06,     /*   REPORT_COUNT (6)                     */
-	 0x75, 0x08,     /*   REPORT_SIZE (8)                      */
-	 0x15, 0x00,     /*   LOGICAL_MINIMUM (0)                  */
-	 0x25, 0x65,     /*   LOGICAL_MAXIMUM (101)                */
-	 0x05, 0x07,     /*   USAGE_PAGE (Keyboard)                */
-	 0x19, 0x00,     /*   USAGE_MINIMUM (Reserved)             */
-	 0x29, 0x65,     /*   USAGE_MAXIMUM (Keyboard Application) */
-	 0x81, 0x00,     /*   INPUT (Data,Ary,Abs)                 */
-	 0xc0            /* END_COLLECTION                         */
+	0x05, 0x01,     /* USAGE_PAGE (Generic Desktop)           */
+	0x09, 0x06,     /* USAGE (Keyboard)                       */
+	0xa1, 0x01,     /* COLLECTION (Application)               */
+	0x05, 0x07,     /*   USAGE_PAGE (Keyboard)                */
+	0x19, 0xe0,     /*   USAGE_MINIMUM (Keyboard LeftControl) */
+	0x29, 0xe7,     /*   USAGE_MAXIMUM (Keyboard Right GUI)   */
+	0x15, 0x00,     /*   LOGICAL_MINIMUM (0)                  */
+	0x25, 0x01,     /*   LOGICAL_MAXIMUM (1)                  */
+	0x75, 0x01,     /*   REPORT_SIZE (1)                      */
+	0x95, 0x08,     /*   REPORT_COUNT (8)                     */
+	0x81, 0x02,     /*   INPUT (Data,Var,Abs)                 */
+	0x95, 0x01,     /*   REPORT_COUNT (1)                     */
+	0x75, 0x08,     /*   REPORT_SIZE (8)                      */
+	0x81, 0x03,     /*   INPUT (Cnst,Var,Abs)                 */
+	0x95, 0x05,     /*   REPORT_COUNT (5)                     */
+	0x75, 0x01,     /*   REPORT_SIZE (1)                      */
+	0x05, 0x08,     /*   USAGE_PAGE (LEDs)                    */
+	0x19, 0x01,     /*   USAGE_MINIMUM (Num Lock)             */
+	0x29, 0x05,     /*   USAGE_MAXIMUM (Kana)                 */
+	0x91, 0x02,     /*   OUTPUT (Data,Var,Abs)                */
+	0x95, 0x01,     /*   REPORT_COUNT (1)                     */
+	0x75, 0x03,     /*   REPORT_SIZE (3)                      */
+	0x91, 0x03,     /*   OUTPUT (Cnst,Var,Abs)                */
+	0x95, 0x06,     /*   REPORT_COUNT (6)                     */
+	0x75, 0x08,     /*   REPORT_SIZE (8)                      */
+	0x15, 0x00,     /*   LOGICAL_MINIMUM (0)                  */
+	0x25, 0x65,     /*   LOGICAL_MAXIMUM (101)                */
+	0x05, 0x07,     /*   USAGE_PAGE (Keyboard)                */
+	0x19, 0x00,     /*   USAGE_MINIMUM (Reserved)             */
+	0x29, 0x65,     /*   USAGE_MAXIMUM (Keyboard Application) */
+	0x81, 0x00,     /*   INPUT (Data,Ary,Abs)                 */
+	0xc0            /* END_COLLECTION                         */
 };
 
 /* Device Descriptors */
@@ -272,7 +273,7 @@ static u8 StringList[2][6][128] = {
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
-		u32 BufLen)
+			     u32 BufLen)
 {
 	u8 Index;
 	s32 Status;
@@ -286,8 +287,9 @@ u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 		Index = 1;
 	}
 
-	if (!BufPtr || BufLen < sizeof(USB_STD_DEV_DESC))
+	if (!BufPtr || BufLen < sizeof(USB_STD_DEV_DESC)) {
 		return 0;
+	}
 
 	memcpy(BufPtr, &deviceDesc[Index], sizeof(USB_STD_DEV_DESC));
 
@@ -310,7 +312,7 @@ u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
-		u32 BufLen)
+			     u32 BufLen)
 {
 	s32 Status;
 	u8 *config;
@@ -327,8 +329,9 @@ u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 		CfgDescLen  = sizeof(USB30_CONFIG);
 	}
 
-	if (!BufPtr || BufLen < sizeof(USB_STD_CFG_DESC))
+	if (!BufPtr || BufLen < sizeof(USB_STD_CFG_DESC)) {
 		return 0;
+	}
 
 	memcpy(BufPtr, config, CfgDescLen);
 
@@ -353,7 +356,7 @@ u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
-		u32 BufLen, u8 Index)
+			     u32 BufLen, u8 Index)
 {
 	u32 i;
 	char *String;
@@ -374,13 +377,15 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 		StrArray = 1;
 	}
 
-	if (!BufPtr)
+	if (!BufPtr) {
 		return 0;
+	}
 
 	String = (char *)&StringList[StrArray][Index];
 
-	if (Index >= sizeof(StringList) / sizeof(u8 *))
+	if (Index >= sizeof(StringList) / sizeof(u8 *)) {
 		return 0;
+	}
 
 	StringLen = strlen(String);
 
@@ -399,14 +404,16 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 		StringDesc->bLength = StringLen * 2 + 2;
 		StringDesc->bDescriptorType = 0x03;
 
-		for (i = 0; i < StringLen; i++)
+		for (i = 0; i < StringLen; i++) {
 			StringDesc->wLANGID[i] = (u16) String[i];
+		}
 	}
 	DescLen = StringDesc->bLength;
 
 	/* Check if the provided buffer is big enough to hold the descriptor. */
-	if (DescLen > BufLen)
+	if (DescLen > BufLen) {
 		return 0;
+	}
 
 	memcpy(BufPtr, StringDesc, DescLen);
 
@@ -436,29 +443,36 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 	static USB_BOS_DESC __attribute__ ((aligned(16))) bosDesc = {
 #endif
 		/* BOS descriptor */
-		{sizeof(USB_STD_BOS_DESC),	/* bLength */
+		{
+			sizeof(USB_STD_BOS_DESC),	/* bLength */
 			USB_TYPE_BOS_DESC,	/* DescriptorType */
 			sizeof(USB_BOS_DESC),	/* wTotalLength */
-			0x02},			/* bNumDeviceCaps */
+			0x02
+		},			/* bNumDeviceCaps */
 
-		{sizeof(USB_STD_DEVICE_CAP_7BYTE), /* bLength */
+		{
+			sizeof(USB_STD_DEVICE_CAP_7BYTE), /* bLength */
 			0x10,			/* bDescriptorType */
 			0x02,			/* bDevCapabiltyType */
-			0x06},			/* bmAttributes */
+			0x06
+		},			/* bmAttributes */
 
-		{sizeof(USB_STD_DEVICE_CAP_10BYTE), /* bLength */
+		{
+			sizeof(USB_STD_DEVICE_CAP_10BYTE), /* bLength */
 			0x10,			/* bDescriptorType */
 			0x03,			/* bDevCapabiltyType */
 			0x00,			/* bmAttributes */
 			(0x000F),		/* wSpeedsSupported */
 			0x01,			/* bFunctionalitySupport */
 			0x01,			/* bU1DevExitLat */
-			(0x01F4)}		/* wU2DevExitLat */
+			(0x01F4)
+		}		/* wU2DevExitLat */
 	};
 
 	/* Check buffer pointer is OK and buffer is big enough. */
-	if (!BufPtr || BufLen < sizeof(USB_STD_BOS_DESC))
+	if (!BufPtr || BufLen < sizeof(USB_STD_BOS_DESC)) {
 		return 0;
+	}
 
 	memcpy(BufPtr, &bosDesc, sizeof(USB_BOS_DESC));
 
@@ -527,7 +541,7 @@ s32 Usb_SetConfiguration(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl)
 *
 *****************************************************************************/
 s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
-		SetupPacket *SetupData)
+			    SetupPacket *SetupData)
 {
 	BaseType_t xHigherPriorityTaskWoken;
 
@@ -535,16 +549,16 @@ s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
 
 		SetConfigDone(InstancePtr->PrivateData, 1U);
 		xTaskNotifyFromISR(xMainTask, KEYBOARD_CONFIG,
-				eSetValueWithOverwrite,
-				&xHigherPriorityTaskWoken);
+				   eSetValueWithOverwrite,
+				   &xHigherPriorityTaskWoken);
 		portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 
 	} else {
 
 		SetConfigDone(InstancePtr->PrivateData, 0U);
 		xTaskNotifyFromISR(xMainTask, KEYBOARD_UNCONFIG,
-				eSetValueWithOverwrite,
-				&xHigherPriorityTaskWoken);
+				   eSetValueWithOverwrite,
+				   &xHigherPriorityTaskWoken);
 		portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 	}
 
@@ -566,13 +580,13 @@ s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
 *
 ******************************************************************************/
 u32 Usb_GetDescReply(struct Usb_DevData *InstancePtr, SetupPacket *SetupData,
-		u8 *BufPtr)
+		     u8 *BufPtr)
 {
 	u32 reply_len = 0;
 
 	switch ((SetupData->bRequestType << 8) | SetupData->bRequest) {
 		case (((USB_DIR_IN | USB_CMD_STDREQ | USB_STATUS_INTERFACE) << 8)
-				| USB_REQ_GET_DESCRIPTOR):
+				      | USB_REQ_GET_DESCRIPTOR):
 			switch (SetupData->wValue >> 8) {
 				case USB_TYPE_HID_DESC:
 					reply_len = sizeof(USB_STD_HID_DESC);
@@ -582,13 +596,13 @@ u32 Usb_GetDescReply(struct Usb_DevData *InstancePtr, SetupPacket *SetupData,
 				case USB_TYPE_REPORT_DESC:
 					reply_len = sizeof(report_desc);
 					reply_len = SetupData->wLength > reply_len ?
-						reply_len : SetupData->wLength;
+						    reply_len : SetupData->wLength;
 					memcpy(BufPtr, &report_desc, reply_len);
 
 					break;
 				default:
 					xil_printf("## Unknown descriptor request 0x%x\n",
-							SetupData->wValue >> 8);
+						   SetupData->wValue >> 8);
 					break;
 			}
 			break;

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -240,7 +241,7 @@ static u8 StringList[2][6][128] = {
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr,
-		u8 *BufPtr, u32 BufLen)
+			     u8 *BufPtr, u32 BufLen)
 {
 	u8 Index;
 	s32 Status;
@@ -254,8 +255,9 @@ u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr,
 		Index = 1;
 	}
 
-	if (!BufPtr || BufLen < sizeof(USB_STD_DEV_DESC))
+	if (!BufPtr || BufLen < sizeof(USB_STD_DEV_DESC)) {
 		return 0;
+	}
 
 	memcpy(BufPtr, &deviceDesc[Index], sizeof(USB_STD_DEV_DESC));
 
@@ -278,7 +280,7 @@ u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr,
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr,
-		u8 *BufPtr, u32 BufLen)
+			     u8 *BufPtr, u32 BufLen)
 {
 	s32 Status;
 	u8 *config;
@@ -295,8 +297,9 @@ u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr,
 		CfgDescLen  = sizeof(USB30_CONFIG);
 	}
 
-	if (!BufPtr || BufLen < sizeof(USB_STD_CFG_DESC))
+	if (!BufPtr || BufLen < sizeof(USB_STD_CFG_DESC)) {
 		return 0;
+	}
 
 	memcpy(BufPtr, config, CfgDescLen);
 
@@ -321,7 +324,7 @@ u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr,
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr,
-		u8 *BufPtr, u32 BufLen, u8 Index)
+			     u8 *BufPtr, u32 BufLen, u8 Index)
 {
 	u32 i;
 	char *String;
@@ -342,13 +345,15 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr,
 		StrArray = 1;
 	}
 
-	if (!BufPtr)
+	if (!BufPtr) {
 		return 0;
+	}
 
 	String = (char *)&StringList[StrArray][Index];
 
-	if (Index >= sizeof(StringList) / sizeof(u8 *))
+	if (Index >= sizeof(StringList) / sizeof(u8 *)) {
 		return 0;
+	}
 
 	StringLen = strlen(String);
 
@@ -367,14 +372,16 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr,
 		StringDesc->bLength = StringLen * 2 + 2;
 		StringDesc->bDescriptorType = 0x03;
 
-		for (i = 0; i < StringLen; i++)
+		for (i = 0; i < StringLen; i++) {
 			StringDesc->wLANGID[i] = (u16) String[i];
+		}
 	}
 	DescLen = StringDesc->bLength;
 
 	/* Check if the provided buffer is big enough to hold the descriptor. */
-	if (DescLen > BufLen)
+	if (DescLen > BufLen) {
 		return 0;
+	}
 
 	memcpy(BufPtr, StringDesc, DescLen);
 
@@ -403,29 +410,36 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 	static USB_BOS_DESC __attribute__ ((aligned(16))) bosDesc = {
 #endif
 		/* BOS descriptor */
-		{sizeof(USB_STD_BOS_DESC),	/* bLength */
+		{
+			sizeof(USB_STD_BOS_DESC),	/* bLength */
 			USB_TYPE_BOS_DESC,	/* DescriptorType */
 			sizeof(USB_BOS_DESC),	/* wTotalLength */
-			0x02},			/* bNumDeviceCaps */
+			0x02
+		},			/* bNumDeviceCaps */
 
-		{sizeof(USB_STD_DEVICE_CAP_7BYTE), /* bLength */
+		{
+			sizeof(USB_STD_DEVICE_CAP_7BYTE), /* bLength */
 			0x10,			/* bDescriptorType */
 			0x02,			/* bDevCapabiltyType */
-			0x06},			/* bmAttributes */
+			0x06
+		},			/* bmAttributes */
 
-		{sizeof(USB_STD_DEVICE_CAP_10BYTE), /* bLength */
+		{
+			sizeof(USB_STD_DEVICE_CAP_10BYTE), /* bLength */
 			0x10,			/* bDescriptorType */
 			0x03,			/* bDevCapabiltyType */
 			0x00,			/* bmAttributes */
 			(0x000F),		/* wSpeedsSupported */
 			0x01,			/* bFunctionalitySupport */
 			0x01,			/* bU1DevExitLat */
-			(0x01F4)}		/* wU2DevExitLat */
+			(0x01F4)
+		}		/* wU2DevExitLat */
 	};
 
 	/* Check buffer pointer is OK and buffer is big enough. */
-	if (!BufPtr || BufLen < sizeof(USB_STD_BOS_DESC))
+	if (!BufPtr || BufLen < sizeof(USB_STD_BOS_DESC)) {
 		return 0;
+	}
 
 	memcpy(BufPtr, &bosDesc, sizeof(USB_BOS_DESC));
 
@@ -494,7 +508,7 @@ s32 Usb_SetConfiguration(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl)
 *
 *****************************************************************************/
 s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
-		SetupPacket *SetupData)
+			    SetupPacket *SetupData)
 {
 	BaseType_t xHigherPriorityTaskWoken;
 
@@ -506,16 +520,16 @@ s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
 		SetConfigDone(InstancePtr->PrivateData, 1U);
 
 		xTaskNotifyFromISR(xMainTask, MSG_CONFIG,
-				eSetValueWithOverwrite,
-				&xHigherPriorityTaskWoken);
+				   eSetValueWithOverwrite,
+				   &xHigherPriorityTaskWoken);
 		portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 
 	} else {
 
 		SetConfigDone(InstancePtr->PrivateData, 0U);
 		xTaskNotifyFromISR(xMainTask, MSG_UNCONFIG,
-				eSetValueWithOverwrite,
-				&xHigherPriorityTaskWoken);
+				   eSetValueWithOverwrite,
+				   &xHigherPriorityTaskWoken);
 		portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 	}
 

@@ -12,8 +12,7 @@
 * The configuration table for devices
 */
 
-XUsbPsu_Config XUsbPsu_ConfigTable[] =
-{
+XUsbPsu_Config XUsbPsu_ConfigTable[] = {
 	{
 		XPAR_PSU_USB_0_DEVICE_ID,
 		XPAR_PSU_USB_0_BASEADDR
