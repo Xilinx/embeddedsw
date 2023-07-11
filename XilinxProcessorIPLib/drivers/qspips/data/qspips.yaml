@@ -1,0 +1,61 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for QSPIPS controller
+
+maintainers:
+  - Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,zynq-qspi-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,clock-freq:
+    description: Input clock frequency
+  dma-coherent:
+    description: Present if dma operations are coherent
+    type: boolean
+
+config:
+    - XQspiPs_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,clock-freq
+    - xlnx,connection-mode
+    - interrupts
+    - interrupt-parent
+
+additionalProperties:
+    - xlnx,qspi-mode
+
+examples:
+   xqspips_flash_intr_example.c:
+    - interrupts
+   xqspips_flash_polled_example.c:
+    - reg
+   xqspips_dual_flash_lqspi_example.c:
+    - reg
+   xqspips_dual_flash_stack_lqspi_example.c:
+    - reg
+   xqspips_flash_lqspi_example.c:
+    - reg
+   xqspips_g128_flash_example.c:
+    - reg
+   xqspips_selftest_example.c:
+    - reg
+
+tapp:
+   xqspips_selftest_example.c :
+        declaration: QspiPsSelfTestExample
+
+...
