@@ -45,6 +45,7 @@ proc openamp_drc {libhandle} {
 # 	we need to generate the following:
 #		1. Makefile options
 #		2. System Arch settings for OpenAMP to use
+#		3. Cleanup extra files from Vitis NG flow
 #-------
 proc generate {libhandle} {
 	# Get the processor
@@ -124,6 +125,8 @@ proc generate {libhandle} {
 
 		set ::env(LD_LIBRARY_PATH) "${shared_lib_dir}/tps/lnx64/cmake-3.3.2/libs/Ubuntu/x86_64-linux-gnu/:${ld_lib_path}"
 	}
+
+	file delete -force "sdt"
 
 	# Run cmake to generate make file
 	set bdir "build_openamp"
