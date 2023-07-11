@@ -83,7 +83,7 @@ XMbox_Config *XMbox_LookupConfig(UINTPTR BaseAddress)
 	/* Checks all the instances */
 	for (Index = (u32)0x0; XMbox_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XMbox_ConfigTable[Index].BaseAddress == BaseAddress) ||
-				!BaseAddress) {
+		    !BaseAddress) {
 			CfgPtr = &XMbox_ConfigTable[Index];
 			break;
 		}
