@@ -70,6 +70,7 @@
 *       ana  10/15/20 Updated doxygen tags
 * 4.5   bsv  04/01/21 Added support to encrypt bitstream to memory in chunks
 *                     and then write to PCAP
+* 5.2	mmd  07/09/23 Included header file for crypto algorithm information
 *
 * </pre>
 * @endcond
@@ -88,6 +89,7 @@ extern "C" {
 #include "xcsudma.h"
 #include "xil_util.h"
 #include "xsecure_sss.h"
+#include "xsecure_aesalginfo.h"
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal
