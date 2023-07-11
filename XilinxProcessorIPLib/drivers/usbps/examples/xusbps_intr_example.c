@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +25,7 @@
 *				 ailgned to cache line size.
 * 2.1   kpc    04/28/14 Cleanup and removed unused functions
 * 2.4   vak    04/01/19 Fixed IAR data_alignment warnings
+* 2.8   pm     07/07/23 Added support for system device-tree flow
 *</pre>
 ******************************************************************************/
 
@@ -31,7 +33,6 @@
 
 #include "xparameters.h"		/* XPAR parameters */
 #include "xusbps.h"			/* USB controller driver */
-#include "xscugic.h"
 #include "xusbps_ch9.h"		/* Generic Chapter 9 handling code */
 #include "xusbps_class_storage.h"	/* Storage class handling code */
 #include "xil_exception.h"
@@ -41,6 +42,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifndef SDT
+#include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #define MEMORY_SIZE (64 * 1024)
@@ -54,21 +61,26 @@ u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifdef SDT
+#define USBPS_BASEADDR		XPS_USB0_BASEADDR /* USBPS base address */
+#endif
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 static int UsbIntrExample(XScuGic *IntcInstancePtr, XUsbPs *UsbInstancePtr,
 			  u16 UsbDeviceId, u16 UsbIntrId);
+static void UsbDisableIntrSystem(XScuGic *IntcInstancePtr, u16 UsbIntrId);
+static int UsbSetupIntrSystem(XScuGic *IntcInstancePtr,
+			      XUsbPs *UsbInstancePtr, u16 UsbIntrId);
+#else
+static int UsbIntrExample(XUsbPs *UsbInstancePtr, UINTPTR BaseAddress);
+#endif
 
 static void UsbIntrHandler(void *CallBackRef, u32 Mask);
 static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum,
 					u8 EventType, void *Data);
 static void XUsbPs_Ep1EventHandler(void *CallBackRef, u8 EpNum,
 					u8 EventType, void *Data);
-static int UsbSetupIntrSystem(XScuGic *IntcInstancePtr,
-			      XUsbPs *UsbInstancePtr, u16 UsbIntrId);
-static void UsbDisableIntrSystem(XScuGic *IntcInstancePtr, u16 UsbIntrId);
-
 
 /************************** Variable Definitions *****************************/
 
@@ -100,8 +112,12 @@ int main(void)
 	int Status;
 
 	/* Run the USB Interrupt example.*/
+#ifndef SDT
 	Status = UsbIntrExample(&IntcInstance, &UsbInstance,
 				XPAR_XUSBPS_0_DEVICE_ID, XPAR_XUSBPS_0_INTR);
+#else
+	Status = UsbIntrExample(&UsbInstance, USBPS_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -130,8 +146,12 @@ int main(void)
  * 		- XST_FAILURE on error
  *
  ******************************************************************************/
+#ifndef SDT
 static int UsbIntrExample(XScuGic *IntcInstancePtr, XUsbPs *UsbInstancePtr,
 					u16 UsbDeviceId, u16 UsbIntrId)
+#else
+static int UsbIntrExample(XUsbPs *UsbInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int	Status;
 	u8	*MemPtr = NULL;
@@ -149,7 +169,11 @@ static int UsbIntrExample(XScuGic *IntcInstancePtr, XUsbPs *UsbInstancePtr,
 	/* Initialize the USB driver so that it's ready to use,
 	 * specify the controller ID that is generated in xparameters.h
 	 */
+#ifndef SDT
 	UsbConfigPtr = XUsbPs_LookupConfig(UsbDeviceId);
+#else
+	UsbConfigPtr = XUsbPs_LookupConfig(BaseAddress);
+#endif
 	if (NULL == UsbConfigPtr) {
 		goto out;
 	}
@@ -169,9 +193,16 @@ static int UsbIntrExample(XScuGic *IntcInstancePtr, XUsbPs *UsbInstancePtr,
 
 	/* Set up the interrupt subsystem.
 	 */
+#ifndef SDT
 	Status = UsbSetupIntrSystem(IntcInstancePtr,
 				    UsbInstancePtr,
 				    UsbIntrId);
+#else
+	Status = XSetupInterruptSystem(UsbInstancePtr, &XUsbPs_IntrHandler,
+				       UsbConfigPtr->IntrId,
+				       UsbConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (XST_SUCCESS != Status)
 	{
 		goto out;
@@ -295,9 +326,13 @@ out:
 	 */
 	XUsbPs_Stop(UsbInstancePtr);
 	XUsbPs_IntrDisable(UsbInstancePtr, XUSBPS_IXR_ALL);
-	(int) XUsbPs_IntrSetHandler(UsbInstancePtr, NULL, NULL, 0);
-
+#ifndef SDT
 	UsbDisableIntrSystem(IntcInstancePtr, UsbIntrId);
+#else
+	XDisconnectInterruptCntrl(UsbConfigPtr->IntrId,
+				  UsbConfigPtr->IntrParent);
+#endif
+	(int) XUsbPs_IntrSetHandler(UsbInstancePtr, NULL, NULL, 0);
 
 	/* Free allocated memory.
 	 */
@@ -480,6 +515,7 @@ static void XUsbPs_Ep1EventHandler(void *CallBackRef, u8 EpNum,
 * 		- XST_FAILURE on error
 *
 ******************************************************************************/
+#ifndef SDT
 static int UsbSetupIntrSystem(XScuGic *IntcInstancePtr,
 			      XUsbPs *UsbInstancePtr, u16 UsbIntrId)
 {
@@ -552,3 +588,4 @@ static void UsbDisableIntrSystem(XScuGic *IntcInstancePtr, u16 UsbIntrId)
 	/* Disconnect and disable the interrupt for the USB controller. */
 	XScuGic_Disconnect(IntcInstancePtr, UsbIntrId);
 }
+#endif
