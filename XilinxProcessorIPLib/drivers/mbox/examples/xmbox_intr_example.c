@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +48,7 @@
 *                     proper documentation while generating doxygen and
 *                     modified filename tag to include the file in doxygen
 *                     examples.
+* 4.6   ht   07/07/23 Added support for system device-tree flow.
 *</pre>
 *******************************************************************************/
 
@@ -55,7 +57,11 @@
 #include "xmbox.h"
 #include "xstatus.h"
 #include "xparameters.h"
+#ifndef SDT
 #include "xintc.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 
 #include "xil_exception.h"
 #include "xil_cache.h"
@@ -92,10 +98,13 @@ int Timeout;
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define MBOX_DEVICE_ID		XPAR_MBOX_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #define MBOX_INTR_ID		XPAR_INTC_0_MBOX_0_VEC_ID
-
+#else
+#define XMBOX_BASEADDRESS XPAR_XMBOX_0_BASEADDR
+#endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -105,8 +114,10 @@ int Timeout;
 /************************** Variable Definitions *****************************/
 static XMbox Mbox;
 
+#ifndef SDT
 #ifndef TESTAPP_GEN
 static XIntc IntcInst;
+#endif
 #endif
 
 static volatile int IntrCount = 0;
@@ -121,8 +132,11 @@ char *ProducerHello = "Hello! The Producer greets the Consumer...";
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int MailboxExample(XIntc *IntcInstancePtr, u16 MboxDeviceId, u16 MboxIntrId);
+#else
+int MailboxExample(UINTPTR BaseAddress);
+#endif
 
 int MailboxExample_Send(XMbox *MboxInstancePtr, int CPU_Id, int Blocking);
 int MailboxExample_Receive(XMbox *MboxInstancePtr, int CPU_Id, int Blocking);
@@ -130,11 +144,12 @@ int MailboxExample_Wait(volatile int *Count, char *Name, int Threshold);
 
 static void MailboxIntrHandler(void *CallbackRef);
 
+#ifndef SDT
 static int MailboxSetupIntrSystem(XIntc *IntcInstancePtr,
 				  XMbox *MboxInstPtr,
 				  u16 IntcDevId,
 				  u16 MboxIntrId);
-
+#endif
 /*****************************************************************************/
 /**
 * This function is the main function for the mailbox interrupt example.
@@ -151,8 +166,12 @@ int main(void)
 {
 	printf ("MailboxExample :\tStarts for CPU %d.\r\n", MY_CPU_ID);
 
+#ifndef SDT
 	if (MailboxExample(&IntcInst, MBOX_DEVICE_ID, MBOX_INTR_ID)
 				!= XST_SUCCESS) {
+#else
+	if(MailboxExample(XMBOX_BASEADDRESS) != XST_SUCCESS){
+#endif
 		printf("MailboxExample :\t mbox intr Example Failed.\r\n");
 		return XST_FAILURE;
 	}
@@ -183,7 +202,11 @@ int main(void)
 * @note		None
 *
 *****************************************************************************/
+#ifndef SDT
 int MailboxExample(XIntc *IntcInstancePtr, u16 MboxDeviceId, u16 MboxIntrId)
+#else
+int MailboxExample(UINTPTR BaseAddress)
+#endif
 {
 	XMbox_Config *ConfigPtr;
 	int Status;
@@ -196,7 +219,11 @@ int MailboxExample(XIntc *IntcInstancePtr, u16 MboxDeviceId, u16 MboxIntrId)
 	 * Use this configuration info down below when initializing this
 	 * component.
 	 */
+#ifndef SDT
 	ConfigPtr = XMbox_LookupConfig(MboxDeviceId );
+#else
+	ConfigPtr = XMbox_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == (XMbox_Config *)NULL){
 		return XST_FAILURE;
 	}
@@ -212,11 +239,17 @@ int MailboxExample(XIntc *IntcInstancePtr, u16 MboxDeviceId, u16 MboxIntrId)
 	/*
 	 * Setup the interrupt system.
 	 */
+#ifndef SDT
 	Status = MailboxSetupIntrSystem(IntcInstancePtr,
 					&Mbox,
 					INTC_DEVICE_ID,
 					MboxIntrId);
-
+#else
+	Status = XSetupInterruptSystem(&Mbox, &MailboxIntrHandler,
+					ConfigPtr->IntrId,
+					ConfigPtr->IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	/* Send the hello */
 	Status = MailboxExample_Send(&Mbox, MY_CPU_ID, 0);
 
@@ -385,6 +418,7 @@ int MailboxExample_Receive(XMbox *MboxInstancePtr, int CPU_Id, int Blocking)
 	}
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -490,7 +524,7 @@ static int MailboxSetupIntrSystem(XIntc *IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
-
+#endif
 /*****************************************************************************/
 /**
 *
