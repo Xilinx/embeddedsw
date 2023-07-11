@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,17 +53,25 @@
 *                    to wait for the on going operation to complete before
 *                    performing the next operation.
 * 3.10  akm 08/17/22 Fix logical error in NumSect calculation.
+* 3.11  akm 07/10/23 Add support for system device-tree flow for example.
 *</pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
+#ifndef SDT
 #include "xparameters.h"	/* SDK generated parameters */
+#endif
 #include "xqspips.h"		/* QSPI device driver */
+#ifndef SDT
 #include "xscugic.h"		/* Interrupt controller device driver */
+#endif
 #include "xil_exception.h"
 #include "xil_printf.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -71,9 +80,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define QSPI_DEVICE_ID		XPAR_XQSPIPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define QSPI_INTR_ID		XPAR_XQSPIPS_0_INTR
+#endif
 
 /*
  * The following constants define the commands which may be sent to the FLASH
@@ -148,10 +159,12 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 static int QspiSetupIntrSystem(XScuGic *IntcInstancePtr,
 			       XQspiPs *QspiInstancePtr, u16 QspiIntrId);
 
 static void QspiDisableIntrSystem(XScuGic *IntcInstancePtr, u16 QspiIntrId);
+#endif
 
 void QspiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount);
 
@@ -165,8 +178,12 @@ int FlashReadID(void);
 
 void FlashQuadEnable(XQspiPs *QspiPtr);
 
+#ifndef SDT
 int QspiFlashIntrExample(XScuGic *IntcInstancePtr, XQspiPs *QspiInstancePtr,
 			 u16 QspiDeviceId, u16 QspiIntrId);
+#else
+int QspiFlashIntrExample(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -175,7 +192,9 @@ int QspiFlashIntrExample(XScuGic *IntcInstancePtr, XQspiPs *QspiInstancePtr,
  * are initialized to zero each time the program runs. They could be local
  * but should at least be static so they are zeroed.
  */
+#ifndef SDT
 static XScuGic IntcInstance;
+#endif
 static XQspiPs QspiInstance;
 
 /*
@@ -222,8 +241,12 @@ int main(void)
 	xil_printf("QSPI FLASH Interrupt Example Test \r\n");
 
 	/* Run the Qspi Interrupt example.*/
+#ifndef SDT
 	Status = QspiFlashIntrExample(&IntcInstance, &QspiInstance,
 				      QSPI_DEVICE_ID, QSPI_INTR_ID);
+#else
+	Status = QspiFlashIntrExample(&QspiInstance,XPAR_XQSPIPS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("QSPI FLASH Interrupt Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -257,8 +280,12 @@ int main(void)
 * read a status of 0xFF for the status register as the bus is pulled up.
 *
 *****************************************************************************/
+#ifndef SDT
 int QspiFlashIntrExample(XScuGic *IntcInstancePtr, XQspiPs *QspiInstancePtr,
 			 u16 QspiDeviceId, u16 QspiIntrId)
+#else
+int QspiFlashIntrExample(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u8 *BufferPtr;
@@ -268,7 +295,11 @@ int QspiFlashIntrExample(XScuGic *IntcInstancePtr, XQspiPs *QspiInstancePtr,
 	XQspiPs_Config *QspiConfig;
 
 	/* Initialize the QSPI driver so that it's ready to use*/
+#ifndef SDT
 	QspiConfig = XQspiPs_LookupConfig(QspiDeviceId);
+#else
+	QspiConfig = XQspiPs_LookupConfig(BaseAddress);
+#endif
 	if (QspiConfig == NULL) {
 		return XST_FAILURE;
 	}
@@ -289,8 +320,15 @@ int QspiFlashIntrExample(XScuGic *IntcInstancePtr, XQspiPs *QspiInstancePtr,
 	 * Connect the Qspi device to the interrupt subsystem such that
 	 * interrupts can occur. This function is application specific
 	 */
+#ifndef SDT
 	Status = QspiSetupIntrSystem(IntcInstancePtr, QspiInstancePtr,
 				     QspiIntrId);
+#else
+	Status = XSetupInterruptSystem(QspiInstancePtr, &XQspiPs_InterruptHandler,
+				       QspiConfig->IntrId,
+				       QspiConfig->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -535,7 +573,11 @@ int QspiFlashIntrExample(XScuGic *IntcInstancePtr, XQspiPs *QspiInstancePtr,
 		}
 	}
 
+#ifndef SDT
 	QspiDisableIntrSystem(IntcInstancePtr, QspiIntrId);
+#else
+	XDisconnectInterruptCntrl(QspiConfig->IntrId, QspiConfig->IntrParent);
+#endif
 	return XST_SUCCESS;
 }
 
@@ -929,6 +971,7 @@ int FlashReadID(void)
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -1017,6 +1060,7 @@ static void QspiDisableIntrSystem(XScuGic *IntcInstancePtr, u16 QspiIntrId)
 	/* Disconnect and disable the interrupt for the Qspi device.*/
 	XScuGic_Disconnect(IntcInstancePtr, QspiIntrId);
 }
+#endif
 
 /**
  *

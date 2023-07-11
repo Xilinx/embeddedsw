@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,13 +52,16 @@
 *                    to wait for the on going operation to complete before
 *                    performing the next operation.
 * 3.10  akm 08/17/22 Fix logical error in NumSect calculation.
+* 3.11  akm 07/10/23 Add support for system device-tree flow for example.
 *</pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
+#ifndef SDT
 #include "xparameters.h"	/* SDK generated parameters */
+#endif
 #include "xqspips.h"		/* QSPI device driver */
 #include "xil_printf.h"
 
@@ -68,7 +72,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define QSPI_DEVICE_ID		XPAR_XQSPIPS_0_DEVICE_ID
+#endif
 
 /*
  * The following constants define the commands which may be sent to the FLASH
@@ -153,7 +159,11 @@ int FlashReadID(void);
 
 void FlashQuadEnable(XQspiPs *QspiPtr);
 
+#ifndef SDT
 int LinearQspiFlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId);
+#else
+int LinearQspiFlashExample(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -196,7 +206,11 @@ int main(void)
 	xil_printf("Linear QSPI FLASH Example Test \r\n");
 
 	/* Run the Qspi Interrupt example.*/
+#ifndef SDT
 	Status = LinearQspiFlashExample(&QspiInstance, QSPI_DEVICE_ID);
+#else
+	Status = LinearQspiFlashExample(&QspiInstance, XPAR_XQSPIPS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Linear QSPI FLASH Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -222,7 +236,11 @@ int main(void)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 int LinearQspiFlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
+#else
+int LinearQspiFlashExample(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u8 UniqueValue;
@@ -231,7 +249,11 @@ int LinearQspiFlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 	XQspiPs_Config *QspiConfig;
 
 	/* Initialize the QSPI driver so that it's ready to use*/
+#ifndef SDT
 	QspiConfig = XQspiPs_LookupConfig(QspiDeviceId);
+#else
+	QspiConfig = XQspiPs_LookupConfig(BaseAddress);
+#endif
 	if (NULL == QspiConfig) {
 		return XST_FAILURE;
 	}
