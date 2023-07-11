@@ -141,7 +141,7 @@ static void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr)
 *
 *****************************************************************************/
 s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
-				XUsbPsu_Config *ConfigPtr, u32 BaseAddress)
+			  XUsbPsu_Config *ConfigPtr, u32 BaseAddress)
 {
 	s32 Status;
 	u32 RegVal;
@@ -165,7 +165,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 	RegVal = XUsbPsu_ReadHwParams(InstancePtr, 3U);
 	InstancePtr->NumInEps = (u8)XUSBPSU_NUM_IN_EPS(RegVal);
 	InstancePtr->NumOutEps = (u8)(XUSBPSU_NUM_EPS(RegVal) -
-			InstancePtr->NumInEps);
+				      InstancePtr->NumInEps);
 
 	/* Map USB and Physical Endpoints */
 	XUsbPsu_InitializeEps(InstancePtr);
@@ -178,7 +178,7 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 	 * Set connection speed based on EnableSuperSpeed parameter
 	 */
 	Speed = (ConfigPtr->EnableSuperSpeed == (u8)TRUE) ?
-			XUSBPSU_DCFG_SUPERSPEED : XUSBPSU_DCFG_HIGHSPEED;
+		XUSBPSU_DCFG_SUPERSPEED : XUSBPSU_DCFG_HIGHSPEED;
 
 	/*
 	 * Setting to max speed to support SS and HS
@@ -216,7 +216,7 @@ s32 XUsbPsu_Start(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 
 	if (XUsbPsu_WaitClearTimeout(InstancePtr, XUSBPSU_DSTS,
-			XUSBPSU_DSTS_DEVCTRLHLT, 500U) == XST_FAILURE) {
+				     XUSBPSU_DSTS_DEVCTRLHLT, 500U) == XST_FAILURE) {
 		return (s32)XST_FAILURE;
 	}
 
@@ -248,7 +248,7 @@ s32 XUsbPsu_Stop(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCTL, RegVal);
 
 	if (XUsbPsu_WaitSetTimeout(InstancePtr, XUSBPSU_DSTS,
-			XUSBPSU_DSTS_DEVCTRLHLT, 500U) == XST_FAILURE) {
+				   XUSBPSU_DSTS_DEVCTRLHLT, 500U) == XST_FAILURE) {
 		return (s32)XST_FAILURE;
 	}
 
@@ -290,13 +290,13 @@ u8 XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr)
  *
  ****************************************************************************/
 s32 XUsbPsu_SetLinkState(struct XUsbPsu *InstancePtr,
-		XusbPsuLinkStateChange State)
+			 XusbPsuLinkStateChange State)
 {
 	u32		RegVal;
 
-	 /* Wait until device controller is ready. */
+	/* Wait until device controller is ready. */
 	if (XUsbPsu_WaitClearTimeout(InstancePtr, XUSBPSU_DSTS,
-			XUSBPSU_DSTS_DCNRD, 500U) == XST_FAILURE) {
+				     XUSBPSU_DSTS_DCNRD, 500U) == XST_FAILURE) {
 		return (s32)XST_FAILURE;
 	}
 

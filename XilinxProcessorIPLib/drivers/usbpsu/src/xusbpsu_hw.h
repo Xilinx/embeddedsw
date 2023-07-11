@@ -403,7 +403,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XUsbPsu_ReadVendorReg(Offset) \
-       Xil_In32(VENDOR_BASE_ADDRESS + (u32)(Offset))
+	Xil_In32(VENDOR_BASE_ADDRESS + (u32)(Offset))
 
 /*****************************************************************************/
 /**
@@ -421,7 +421,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XUsbPsu_WriteVendorReg(Offset, Data) \
-       Xil_Out32(VENDOR_BASE_ADDRESS + (u32)(Offset), (u32)(Data))
+	Xil_Out32(VENDOR_BASE_ADDRESS + (u32)(Offset), (u32)(Data))
 
 #if defined (versal)
 /*****************************************************************************/
@@ -475,7 +475,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XUsbPsu_ReadLpdReg(Offset) \
-       Xil_In32(LPD_BASE_ADDRESS + (u32)(Offset))
+	Xil_In32(LPD_BASE_ADDRESS + (u32)(Offset))
 
 /*****************************************************************************/
 /**
@@ -493,7 +493,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XUsbPsu_WriteLpdReg(Offset, Data) \
-       Xil_Out32(LPD_BASE_ADDRESS + (u32)(Offset), (u32)(Data))
+	Xil_Out32(LPD_BASE_ADDRESS + (u32)(Offset), (u32)(Data))
 
 /************************** Function Prototypes ******************************/
 

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -492,11 +493,11 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x02,				/* bcdADC - Audio Class 1.0 H */
 		UAC2_FUNCTION_IO_BOX,		/* bCategory */
 		(sizeof(UAC2_AC_HEADER_DESC) +
-			sizeof(UAC2_CLOCK_SOURCE_DESC) +
-			sizeof(UAC2_CLOCK_SELECTOR_DESC) +
-			(sizeof(UAC2_INPUT_TERMINAL_DESC) +
-			sizeof(UAC2_FEATURE_UNIT_DESC) +
-			sizeof(UAC2_OUTPUT_TERMINAL_DESC)) * 2),/* wTotalLength */
+		 sizeof(UAC2_CLOCK_SOURCE_DESC) +
+		 sizeof(UAC2_CLOCK_SELECTOR_DESC) +
+		 (sizeof(UAC2_INPUT_TERMINAL_DESC) +
+		  sizeof(UAC2_FEATURE_UNIT_DESC) +
+		  sizeof(UAC2_OUTPUT_TERMINAL_DESC)) * 2),/* wTotalLength */
 		0x01				/* bmControls */
 	},
 	{
@@ -841,7 +842,7 @@ static u8 StringList[2][20][128] = {
  *
  ******************************************************************************/
 u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr,
-		u8 *BufPtr, u32 BufLen)
+			     u8 *BufPtr, u32 BufLen)
 {
 	u8 Index;
 	s32 Status;
@@ -855,8 +856,9 @@ u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr,
 		Index = 1;
 	}
 
-	if (!BufPtr || BufLen < sizeof(USB_STD_DEV_DESC))
+	if (!BufPtr || BufLen < sizeof(USB_STD_DEV_DESC)) {
 		return 0;
+	}
 
 	memcpy(BufPtr, &deviceDesc[Index], sizeof(USB_STD_DEV_DESC));
 
@@ -879,14 +881,15 @@ u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr,
  *
  ******************************************************************************/
 u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr,
-		u8 *BufPtr, u32 BufLen)
+			     u8 *BufPtr, u32 BufLen)
 {
 	s32 Status;
 	u8 *config;
 	u32 CfgDescLen;
 
-	if (!BufPtr || BufLen < sizeof(USB_STD_CFG_DESC))
+	if (!BufPtr || BufLen < sizeof(USB_STD_CFG_DESC)) {
 		return 0;
+	}
 
 	Status = IsSuperSpeed(InstancePtr);
 	if (Status != XST_SUCCESS) {
@@ -924,7 +927,7 @@ u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr,
  *
  ******************************************************************************/
 u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
-		u32 BufLen, u8 Index)
+			     u32 BufLen, u8 Index)
 {
 	s32 i;
 	char *String;
@@ -936,12 +939,14 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 
 	USB_STD_STRING_DESC *StringDesc;
 
-	if (!BufPtr)
+	if (!BufPtr) {
 		return 0;
+	}
 
 	/* check the validity of index */
-	if (Index >= sizeof(StringList) / sizeof(u8 *))
+	if (Index >= sizeof(StringList) / sizeof(u8 *)) {
 		return 0;
+	}
 
 	Status = IsSuperSpeed(InstancePtr);
 	if (Status != XST_SUCCESS) {
@@ -971,14 +976,16 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 		StringDesc->bLength = StringLen * 2 + 2;
 		StringDesc->bDescriptorType = 0x03;
 
-		for (i = 0; i < StringLen; i++)
+		for (i = 0; i < StringLen; i++) {
 			StringDesc->wLANGID[i] = (u16) String[i];
+		}
 	}
 	DescLen = StringDesc->bLength;
 
 	/* Check if the provided buffer is big enough to hold the descriptor. */
-	if (DescLen > BufLen)
+	if (DescLen > BufLen) {
 		return 0;
+	}
 
 	memcpy(BufPtr, StringDesc, DescLen);
 
@@ -1030,11 +1037,13 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 			(0x000F),			/* wSpeedsSupported */
 			0x01,				/* bFunctionalitySup */
 			0x01,				/* bU1DevExitLat */
-			(0x01F4)}			/* wU2DevExitLat */
+			(0x01F4)
+		}			/* wU2DevExitLat */
 	};
 
-	if (!BufPtr || BufLen < sizeof(USB_STD_BOS_DESC))
+	if (!BufPtr || BufLen < sizeof(USB_STD_BOS_DESC)) {
 		return 0;
+	}
 
 	memcpy(BufPtr, &bosDesc, sizeof(USB_BOS_DESC));
 
@@ -1104,7 +1113,7 @@ s32 Usb_SetConfiguration(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl)
  *
  *****************************************************************************/
 s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
-		SetupPacket *SetupData)
+			    SetupPacket *SetupData)
 {
 	s32 RetVal;
 
@@ -1113,14 +1122,14 @@ s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
 
 		/* Endpoint disables - not needed for Control EP */
 		RetVal = EpDisable(InstancePtr->PrivateData, ISO_EP,
-				USB_EP_DIR_OUT);
+				   USB_EP_DIR_OUT);
 		if (RetVal != XST_SUCCESS) {
 			xil_printf("failed to disable ISOC OUT Ep\r\n");
 			return XST_FAILURE;
 		}
 
 		RetVal = EpDisable(InstancePtr->PrivateData, ISO_EP,
-				USB_EP_DIR_IN);
+				   USB_EP_DIR_IN);
 		if (RetVal != XST_SUCCESS) {
 			xil_printf("failed to disable ISOC IN Ep\r\n");
 			return XST_FAILURE;
@@ -1147,7 +1156,7 @@ s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
  *
  *****************************************************************************/
 void Usb_SetInterfaceHandler(struct Usb_DevData *InstancePtr,
-		SetupPacket *SetupData)
+			     SetupPacket *SetupData)
 {
 	USBCH9_DATA *ch9_ptr =
 		(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
@@ -1158,14 +1167,14 @@ void Usb_SetInterfaceHandler(struct Usb_DevData *InstancePtr,
 		if ((SetupData->wValue & 0xff) == 1) {
 
 			xTaskNotifyFromISR(dev->xMainTask, PLAY_START,
-					eSetValueWithOverwrite,
-					&xHigherPriorityTaskWoken);
+					   eSetValueWithOverwrite,
+					   &xHigherPriorityTaskWoken);
 			portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 		} else {
 
 			xTaskNotifyFromISR(dev->xMainTask, PLAY_STOP,
-					eSetValueWithOverwrite,
-					&xHigherPriorityTaskWoken);
+					   eSetValueWithOverwrite,
+					   &xHigherPriorityTaskWoken);
 			portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 		}
 	}
@@ -1174,14 +1183,14 @@ void Usb_SetInterfaceHandler(struct Usb_DevData *InstancePtr,
 		if ((SetupData->wValue & 0xff) == 1) {
 
 			xTaskNotifyFromISR(dev->xMainTask, RECORD_START,
-					eSetValueWithOverwrite,
-					&xHigherPriorityTaskWoken);
+					   eSetValueWithOverwrite,
+					   &xHigherPriorityTaskWoken);
 			portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 		} else {
 
 			xTaskNotifyFromISR(dev->xMainTask, RECORD_STOP,
-					eSetValueWithOverwrite,
-					&xHigherPriorityTaskWoken);
+					   eSetValueWithOverwrite,
+					   &xHigherPriorityTaskWoken);
 			portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 		}
 	}

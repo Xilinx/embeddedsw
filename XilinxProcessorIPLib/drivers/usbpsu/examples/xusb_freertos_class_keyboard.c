@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -59,7 +60,7 @@ xSemaphoreHandle xSemaphore;
 *
 *****************************************************************************/
 void Usb_ClassReq_Keyboard(struct Usb_DevData *InstancePtr,
-		SetupPacket *SetupData)
+			   SetupPacket *SetupData)
 {
 	uint16_t reply_len = 0;
 	uint8_t bRequest = SetupData->bRequest;
@@ -69,19 +70,19 @@ void Usb_ClassReq_Keyboard(struct Usb_DevData *InstancePtr,
 
 	switch ((bRequestType << 8) | bRequest) {
 		case (((USB_DIR_OUT | USB_CMD_CLASSREQ | USB_STATUS_INTERFACE) << 8)
-				| SET_IDLE_REQUEST):
+				      | SET_IDLE_REQUEST):
 			EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
 			break;
 
 		case (((USB_DIR_IN | USB_CMD_CLASSREQ | USB_STATUS_INTERFACE) << 8)
-				| GET_REPORT_REQUEST):
+				      | GET_REPORT_REQUEST):
 			/* send an empty report */
 			reply_len = wLength > REPORT_LENGTH ?
-				(u16)REPORT_LENGTH : wLength;
+				    (u16)REPORT_LENGTH : wLength;
 
 			memset(class_data, 0x0, reply_len);
 			EpBufferSend(InstancePtr->PrivateData, 1,
-					(u8 *)class_data, reply_len);
+				     (u8 *)class_data, reply_len);
 			break;
 
 		default:
@@ -108,16 +109,17 @@ void prvKeyboardTask(void *pvParameters)
 	u8 NoKeyData[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 	if ((InstancePtr->Speed == USB_SPEED_SUPER) ||
-			(InstancePtr->Speed == USB_SPEED_HIGH))
+	    (InstancePtr->Speed == USB_SPEED_HIGH)) {
 		MaxPktSize = 0x400;
-	else
+	} else {
 		MaxPktSize = 0x40;
+	}
 
 	xSemaphore = xSemaphoreCreateBinary();
 	xSemaphoreGive(xSemaphore);
 
 	EpEnable(InstancePtr->PrivateData, KEYBOARD_EP, USB_EP_DIR_IN,
-			MaxPktSize, USB_EP_TYPE_INTERRUPT);
+		 MaxPktSize, USB_EP_TYPE_INTERRUPT);
 
 	while (1) {
 
@@ -128,12 +130,12 @@ void prvKeyboardTask(void *pvParameters)
 			/* get key from serial and send key */
 			KeyData[2] = (inbyte() - ('a' - 4));
 			EpBufferSend(InstancePtr->PrivateData, KEYBOARD_EP,
-					(u8 *)&KeyData[0], 8);
+				     (u8 *)&KeyData[0], 8);
 			SendKey = 0;
 		} else {
 			/* send key release */
 			EpBufferSend(InstancePtr->PrivateData, KEYBOARD_EP,
-					(u8 *)&NoKeyData[0], 8);
+				     (u8 *)&NoKeyData[0], 8);
 			SendKey = 1;
 		}
 	}

@@ -75,11 +75,11 @@ extern "C" {
 /* Device Endpoint Command Register */
 #define XUSBPSU_DEPCMD_PARAM_SHIFT              16U /**< Command parameter shift by 16 bit */
 #define XUSBPSU_DEPCMD_PARAM(x)         ((u32)(x) << XUSBPSU_DEPCMD_PARAM_SHIFT)
-							/**< Command Parameters
-							 *   Or Event Parameters
-							 */
+/**< Command Parameters
+ *   Or Event Parameters
+ */
 #define XUSBPSU_DEPCMD_GET_RSC_IDX(x)  (((u32)(x) >> XUSBPSU_DEPCMD_PARAM_SHIFT) & \
-                                        (u32)0x0000007fU) /**< Transfer Resource Index */
+					(u32)0x0000007fU) /**< Transfer Resource Index */
 #define XUSBPSU_DEPCMD_STATUS(x)                (((u32)(x) >> 12U) & (u32)0xFU) /**< Command Status */
 #define XUSBPSU_DEPCMD_HIPRI_FORCERM            0x00000800U /**< HighPriority/ForceRM bit 11 */
 #define XUSBPSU_DEPCMD_CMDACT                   0x00000400U /**< Command Active bit 10U */
@@ -97,9 +97,9 @@ extern "C" {
 
 /* The EP number goes 0..31 so ep0 is always out and ep1 is always in */
 #define XUSBPSU_DALEPENA_EP(n)                  ((u32)0x00000001U << (n))
-						/**< Device Active USB Endpoint
-						 *   Enable Register
-						 */
+/**< Device Active USB Endpoint
+ *   Enable Register
+ */
 
 #define XUSBPSU_DEPCFG_INT_NUM(n)               ((u32)(n) << 0U) /**< Interrupt number */
 #define XUSBPSU_DEPCFG_XFER_COMPLETE_EN         0x00000100U /**< XferComplete Enable bit 8 */

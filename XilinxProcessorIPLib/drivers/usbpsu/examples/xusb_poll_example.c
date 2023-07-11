@@ -61,9 +61,9 @@ u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 
 /************************** Function Prototypes ******************************/
 void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
-							u32 BytesTxed);
+		    u32 BytesTxed);
 void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
-							u32 BytesTxed);
+		   u32 BytesTxed);
 
 /************************** Variable Definitions *****************************/
 struct Usb_DevData UsbInstance;
@@ -99,27 +99,27 @@ u8	*VirtFlashWritePointer = VirtFlash;
 
 /* Initialize a DFU data structure */
 static USBCH9_DATA storage_data = {
-		.ch9_func = {
-				/* Set the chapter9 hooks */
-				.Usb_Ch9SetupDevDescReply =
-						Usb_Ch9SetupDevDescReply,
-				.Usb_Ch9SetupCfgDescReply =
-						Usb_Ch9SetupCfgDescReply,
-				.Usb_Ch9SetupBosDescReply =
-						Usb_Ch9SetupBosDescReply,
-				.Usb_Ch9SetupStrDescReply =
-						Usb_Ch9SetupStrDescReply,
-				.Usb_SetConfiguration =
-						Usb_SetConfiguration,
-				.Usb_SetConfigurationApp =
-						Usb_SetConfigurationApp,
-				/* hook the set interface handler */
-				.Usb_SetInterfaceHandler = NULL,
-				/* hook up storage class handler */
-				.Usb_ClassReq = ClassReq,
-				.Usb_GetDescReply = NULL,
-		},
-		.data_ptr = (void *)NULL,
+	.ch9_func = {
+		/* Set the chapter9 hooks */
+		.Usb_Ch9SetupDevDescReply =
+		Usb_Ch9SetupDevDescReply,
+		.Usb_Ch9SetupCfgDescReply =
+		Usb_Ch9SetupCfgDescReply,
+		.Usb_Ch9SetupBosDescReply =
+		Usb_Ch9SetupBosDescReply,
+		.Usb_Ch9SetupStrDescReply =
+		Usb_Ch9SetupStrDescReply,
+		.Usb_SetConfiguration =
+		Usb_SetConfiguration,
+		.Usb_SetConfigurationApp =
+		Usb_SetConfigurationApp,
+		/* hook the set interface handler */
+		.Usb_SetInterfaceHandler = NULL,
+		/* hook up storage class handler */
+		.Usb_ClassReq = ClassReq,
+		.Usb_GetDescReply = NULL,
+	},
+	.data_ptr = (void *)NULL,
 };
 
 /****************************************************************************/
@@ -162,7 +162,7 @@ int main(void)
 	 * argument needs to be the virtual base address.
 	 */
 	Status = CfgInitialize(&UsbInstance, UsbConfigPtr,
-					UsbConfigPtr->BaseAddress);
+			       UsbConfigPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
 		return XST_FAILURE;
 	}
@@ -174,12 +174,12 @@ int main(void)
 	Set_DrvData(UsbInstance.PrivateData, &storage_data);
 
 	EpConfigure(UsbInstance.PrivateData, 1U, USB_EP_DIR_OUT,
-				USB_EP_TYPE_BULK);
+		    USB_EP_TYPE_BULK);
 	EpConfigure(UsbInstance.PrivateData, 1U, USB_EP_DIR_IN,
-				USB_EP_TYPE_BULK);
+		    USB_EP_TYPE_BULK);
 
 	Status = ConfigureDevice(UsbInstance.PrivateData,
-						&Buffer[0U], MEMORY_SIZE);
+				 &Buffer[0U], MEMORY_SIZE);
 	if (XST_SUCCESS != Status) {
 		return XST_FAILURE;
 	}
@@ -190,26 +190,26 @@ int main(void)
 	 * BulkInHandler -  to be called when data is sent
 	 */
 	SetEpHandler(UsbInstance.PrivateData, 1U, USB_EP_DIR_OUT,
-					BulkOutHandler);
+		     BulkOutHandler);
 	SetEpHandler(UsbInstance.PrivateData, 1U, USB_EP_DIR_IN,
-					BulkInHandler);
+		     BulkInHandler);
 
 	/*
 	 * Enable events for Reset, Disconnect, ConnectionDone, Link State
 	 * Wakeup and Overflow events.
 	 */
 	UsbEnableEvent((struct XUsbPsu *)UsbInstance.PrivateData,
-					XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-					 XUSBPSU_DEVTEN_WKUPEVTEN |
-					 XUSBPSU_DEVTEN_ULSTCNGEN |
-					 XUSBPSU_DEVTEN_CONNECTDONEEN |
-					 XUSBPSU_DEVTEN_USBRSTEN |
-					 XUSBPSU_DEVTEN_DISCONNEVTEN);
+		       XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
+		       XUSBPSU_DEVTEN_WKUPEVTEN |
+		       XUSBPSU_DEVTEN_ULSTCNGEN |
+		       XUSBPSU_DEVTEN_CONNECTDONEEN |
+		       XUSBPSU_DEVTEN_USBRSTEN |
+		       XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 	/* Start the controller so that Host can see our device */
 	Usb_Start(UsbInstance.PrivateData);
 
-	while(1U) {
+	while (1U) {
 		/* Call Poll Handler for any valid events */
 		UsbPollHandler((struct XUsbPsu *)UsbInstance.PrivateData);
 	}
@@ -232,7 +232,7 @@ int main(void)
 *
 *****************************************************************************/
 void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
-							u32 BytesTxed)
+		    u32 BytesTxed)
 {
 	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
 
@@ -241,12 +241,12 @@ void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 	} else if (Phase == USB_EP_STATE_DATA_OUT) {
 		/* WRITE command */
 		switch (CBW.CBWCB[0U]) {
-		case USB_RBC_WRITE:
-			VirtFlashWritePointer += BytesTxed;
-			rxBytesLeft -= BytesTxed;
-			break;
-		default:
-			break;
+			case USB_RBC_WRITE:
+				VirtFlashWritePointer += BytesTxed;
+				rxBytesLeft -= BytesTxed;
+				break;
+			default:
+				break;
 		}
 		SendCSW(InstancePtr, 0U);
 	}
@@ -267,7 +267,7 @@ void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 *
 *****************************************************************************/
 void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
-						   u32 BytesTxed)
+		   u32 BytesTxed)
 {
 	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
 
@@ -278,6 +278,6 @@ void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
 		Phase = USB_EP_STATE_COMMAND;
 		/* Receive next CBW */
 		EpBufferRecv(InstancePtr->PrivateData, 1U,
-							(u8*)&CBW, sizeof(CBW));
+			     (u8 *)&CBW, sizeof(CBW));
 	}
 }

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -52,8 +53,8 @@ USB_STD_DEV_DESC deviceDesc[] = {
 USB_STD_DEV_DESC __attribute__ ((aligned(16))) deviceDesc[] = {
 #endif
 	{/*
-	  * USB 2.0
-	  */
+		 * USB 2.0
+		 */
 		sizeof(USB_STD_DEV_DESC),	/* bLength */
 		USB_TYPE_DEVICE_DESC,	/* bDescriptorType */
 		0x0200,					/* bcdUSB 2.0 */
@@ -70,8 +71,8 @@ USB_STD_DEV_DESC __attribute__ ((aligned(16))) deviceDesc[] = {
 		0x01					/* bNumConfigurations */
 	},
 	{/*
-	  * USB 3.0
-	  */
+		 * USB 3.0
+		 */
 		sizeof(USB_STD_DEV_DESC),	/* bLength */
 		USB_TYPE_DEVICE_DESC,	/* bDescriptorType */
 		0x0300,					/* bcdUSB 3.0 */
@@ -98,8 +99,8 @@ USB30_CONFIG config3 = {
 USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 #endif
 	{/*
-	  * Std Config
-	  */
+		 * Std Config
+		 */
 		sizeof(USB_STD_CFG_DESC),	/* bLength */
 		USB_TYPE_CONFIG_DESC,	/* bDescriptorType */
 		sizeof(USB30_CONFIG),	/* wTotalLength */
@@ -110,8 +111,8 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		0x00					/* bMaxPower  */
 	},
 	{/*
-	  * Vendor Specific Standard Interface Descriptor
-	  */
+		 * Vendor Specific Standard Interface Descriptor
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		USB_TYPE_INTERFACE_DESC,	/* bDescriptorType */
 		0x00,					/* bInterfaceNumber */
@@ -123,8 +124,8 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		0x04					/* iInterface */
 	},
 	{/*
-	  * Bulk In Endpoint Config
-	  */
+		 * Bulk In Endpoint Config
+		 */
 		sizeof(USB_STD_EP_DESC),	/* bLength */
 		USB_TYPE_ENDPOINT_CFG_DESC,	/* bDescriptorType */
 		USB_EP1_IN,				/* bEndpointAddress */
@@ -134,8 +135,8 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		0x00					/* bInterval */
 	},
 	{/*
-	  * SS Endpoint companion
-	  */
+		 * SS Endpoint companion
+		 */
 		sizeof(USB_STD_EP_SS_COMP_DESC),	/* bLength */
 		0x30, 					/* bDescriptorType */
 		0x0F,					/* bMaxBurst */
@@ -143,8 +144,8 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		0x00					/* wBytesPerInterval */
 	},
 	{/*
-	  * Bulk Out Endpoint Config
-	  */
+		 * Bulk Out Endpoint Config
+		 */
 		sizeof(USB_STD_EP_DESC),	/* bLength */
 		USB_TYPE_ENDPOINT_CFG_DESC,	/* bDescriptorType */
 		USB_EP1_OUT,			/* bEndpointAddress */
@@ -154,8 +155,8 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		0x00					/* bInterval */
 	},
 	{/*
-	  * SS Endpoint companion
-	  */
+		 * SS Endpoint companion
+		 */
 		sizeof(USB_STD_EP_SS_COMP_DESC),	/* bLength */
 		0x30,					/* bDescriptorType */
 		0x0F,					/* bMaxBurst */
@@ -163,35 +164,35 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		0x00					/* wBytesPerInterval */
 	},
 	{/*
-	  * DFU Interface descriptor
-	  */
+		 * DFU Interface descriptor
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		USB_TYPE_INTERFACE_DESC,	/* bDescriptorType */
 		0x00,					/* bInterfaceNumber */
 		0x01,					/* bAlternateSetting */
 		0x00,					/* bNumEndPoints */
 		USB_CLASS_DFU,			/* bInterfaceClass */
-					/* DFU application specific class code */
+		/* DFU application specific class code */
 		0x01,					/* bInterfaceSubClass */
-					/* DFU device firmware upgrade code */
+		/* DFU device firmware upgrade code */
 		0x02,					/* bInterfaceProtocol */
-					/* DFU mode protocol */
+		/* DFU mode protocol */
 		0x04					/* iInterface */
-					/*DFU string descriptor*/
+		/*DFU string descriptor*/
 	},
 	{/*
-	  * DFU functional descriptor
-	  */
+		 * DFU functional descriptor
+		 */
 		sizeof(USB_DFU_FUNC_DESC),	/* bLength*/
 		USB_TYPE_DFUFUNC_DESC,	/* bDescriptorType */
 		0x03,					/* bmAttributes */
-					/* Device is only download/upload capable */
+		/* Device is only download/upload capable */
 		8192,					/* wDetatchTimeOut */
-					/* 8192 ms */
+		/* 8192 ms */
 		DFU_MAX_TRANSFER,		/* wTransferSize */
-					/* DFU block size 1024*/
+		/* DFU block size 1024*/
 		0x0110					/* bcdDfuVersion */
-					/* DFU version 1.1 */
+		/* DFU version 1.1 */
 	}
 };
 
@@ -201,8 +202,8 @@ USB_CONFIG config2 = {
 USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 #endif
 	{/*
-	  * Std Config
-	  */
+		 * Std Config
+		 */
 		sizeof(USB_STD_CFG_DESC),	/* bLength */
 		USB_TYPE_CONFIG_DESC,	/* bDescriptorType */
 		sizeof(USB_CONFIG),		/* wTotalLength */
@@ -213,8 +214,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* bMaxPower  */
 	},
 	{/*
-	  * Vendor Specific Standard Interface Descriptor
-	  */
+		 * Vendor Specific Standard Interface Descriptor
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		USB_TYPE_INTERFACE_DESC,	/* bDescriptorType */
 		0x00,					/* bInterfaceNumber */
@@ -226,8 +227,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x04					/* iInterface */
 	},
 	{/*
-	  * Bulk In Endpoint Config
-	  */
+		 * Bulk In Endpoint Config
+		 */
 		sizeof(USB_STD_EP_DESC),	/* bLength */
 		USB_TYPE_ENDPOINT_CFG_DESC,	/* bDescriptorType */
 		USB_EP1_IN,				/* bEndpointAddress */
@@ -237,8 +238,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* bInterval */
 	},
 	{/*
-	  * Bulk Out Endpoint Config
-	  */
+		 * Bulk Out Endpoint Config
+		 */
 		sizeof(USB_STD_EP_DESC),	/* bLength */
 		USB_TYPE_ENDPOINT_CFG_DESC,	/* bDescriptorType */
 		USB_EP1_OUT,			/* bEndpointAddress */
@@ -248,34 +249,34 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* bInterval */
 	},
 	{/*
-	  * DFU Interface Descriptor
-	  */
+		 * DFU Interface Descriptor
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		USB_TYPE_INTERFACE_DESC,	/* bDescriptorType */
 		0x00,					/* bInterfaceNumber */
 		0x01,					/* bAlternateSetting */
 		0x00,					/* bNumEndPoints */
 		USB_CLASS_DFU,			/* bInterfaceClass */
-					/* DFU application specific class code */
+		/* DFU application specific class code */
 		0x01,					/* bInterfaceSubClass */
-					/* DFU device firmware upgrade code */
+		/* DFU device firmware upgrade code */
 		0x02,					/* bInterfaceProtocol */
-					/* DFU mode protocol */
+		/* DFU mode protocol */
 		0x04					/* iInterface */
 	},
 	{/*
-	  * DFU functional descriptor
-	  */
+		 * DFU functional descriptor
+		 */
 		sizeof(USB_DFU_FUNC_DESC),	/* bLength*/
 		USB_TYPE_DFUFUNC_DESC,	/* bDescriptorType */
 		0x03,					/* bmAttributes */
-					/* Device is only download capable bitCanDnload */
+		/* Device is only download capable bitCanDnload */
 		8192,					/* wDetatchTimeOut */
-					/* 8192 ms */
+		/* 8192 ms */
 		DFU_MAX_TRANSFER,		/* wTransferSize */
-					/* DFU block size 1024*/
+		/* DFU block size 1024*/
 		0x0110					/* bcdDfuVersion */
-					/* DFU version 1.1 */
+		/* DFU version 1.1 */
 	}
 };
 
@@ -288,8 +289,8 @@ DFU_USB30_CONFIG DFUconfig3 = {
 DFU_USB30_CONFIG __attribute__ ((aligned(16))) DFUconfig3 = {
 #endif
 	{/*
-	  * Std Config
-	  */
+		 * Std Config
+		 */
 		sizeof(USB_STD_CFG_DESC),	/* bLength */
 		USB_TYPE_CONFIG_DESC,	/* bDescriptorType */
 		sizeof(DFU_USB30_CONFIG),	/* wTotalLength */
@@ -300,34 +301,34 @@ DFU_USB30_CONFIG __attribute__ ((aligned(16))) DFUconfig3 = {
 		0x00					/* bMaxPower  */
 	},
 	{/*
-	  * DFU Interface Descriptor
-	  */
+		 * DFU Interface Descriptor
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		USB_TYPE_INTERFACE_DESC,	/* bDescriptorType */
 		0x00,					/* bInterfaceNumber */
 		0x00,					/* bAlternateSetting */
 		0x00,					/* bNumEndPoints */
 		USB_CLASS_DFU,			/* bInterfaceClass */
-					/* DFU application specific class code */
+		/* DFU application specific class code */
 		0x01,					/* bInterfaceSubClass */
-					/* DFU device firmware upgrade code */
+		/* DFU device firmware upgrade code */
 		0x02,					/* bInterfaceProtocol */
-					/* DFU mode protocol */
+		/* DFU mode protocol */
 		0x04					/* iInterface */
 	},
 	{/*
-	  * DFU functional discriptor
-	  */
+		 * DFU functional discriptor
+		 */
 		sizeof(USB_DFU_FUNC_DESC),	/* bLength*/
 		USB_TYPE_DFUFUNC_DESC,	/* bDescriptorType */
 		0x03,					/* bmAttributes */
-					/* Device is only download/upload capable */
+		/* Device is only download/upload capable */
 		8192,					/*wDetatchTimeOut */
-					/* 8192 ms */
+		/* 8192 ms */
 		DFU_MAX_TRANSFER,		/*wTransferSize */
-					/* DFU block size 1024 */
+		/* DFU block size 1024 */
 		0x0110					/*bcdDfuVersion */
-					/* DFU version 1.1 */
+		/* DFU version 1.1 */
 	}
 };
 
@@ -337,8 +338,8 @@ DFU_USB_CONFIG DFUconfig2 = {
 DFU_USB_CONFIG __attribute__ ((aligned(16))) DFUconfig2 = {
 #endif
 	{/*
-	  * Std Config
-	  */
+		 * Std Config
+		 */
 		sizeof(USB_STD_CFG_DESC),	/* bLength */
 		USB_TYPE_CONFIG_DESC,	/* bDescriptorType */
 		sizeof(DFU_USB_CONFIG),	/* wTotalLength */
@@ -349,34 +350,34 @@ DFU_USB_CONFIG __attribute__ ((aligned(16))) DFUconfig2 = {
 		0x00					/* bMaxPower  */
 	},
 	{/*
-	  * DFU Interface Descriptor
-	  */
+		 * DFU Interface Descriptor
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		USB_TYPE_INTERFACE_DESC,	/* bDescriptorType */
 		0x00,					/* bInterfaceNumber */
 		0x00,					/* bAlternateSetting */
 		0x00,					/* bNumEndPoints */
 		USB_CLASS_DFU,			/* bInterfaceClass */
-					/* DFU application specific class code */
+		/* DFU application specific class code */
 		0x01,					/* bInterfaceSubClass */
-					/* DFU device firmware upgrade code */
+		/* DFU device firmware upgrade code */
 		0x02,					/* bInterfaceProtocol */
-					/* DFU mode protocol */
+		/* DFU mode protocol */
 		0x04					/* iInterface */
 	},
 	{/*
-	  * DFU functional discriptor
-	  */
+		 * DFU functional discriptor
+		 */
 		sizeof(USB_DFU_FUNC_DESC),	/* bLength*/
 		USB_TYPE_DFUFUNC_DESC,	/* bDescriptorType */
 		0x03,					/* bmAttributes */
-					/* Device is only download/upload capable */
+		/* Device is only download/upload capable */
 		8192,					/*wDetatchTimeOut */
-					/* 8192 ms*/
+		/* 8192 ms*/
 		DFU_MAX_TRANSFER,		/*wTransferSize */
-					/* DFU block size 1024 */
+		/* DFU block size 1024 */
 		0x0110					/*bcdDfuVersion */
-					/* DFU version 1.1 */
+		/* DFU version 1.1 */
 	}
 };
 
@@ -439,13 +440,13 @@ static u8 DFUStringList[2][6][128] = {
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr,
-		u8 *BufPtr, u32 BufLen)
+			     u8 *BufPtr, u32 BufLen)
 {
 	u8 Index;
 	s32 Status;
 
 	Status = IsSuperSpeed(InstancePtr);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		/* USB 2.0 */
 		Index = 0;
 	} else {
@@ -454,11 +455,13 @@ u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr,
 	}
 
 	/* Check buffer pointer is there and buffer is big enough. */
-	if (!BufPtr)
+	if (!BufPtr) {
 		return 0;
+	}
 
-	if (BufLen < sizeof(USB_STD_DEV_DESC))
+	if (BufLen < sizeof(USB_STD_DEV_DESC)) {
 		return 0;
+	}
 
 	memcpy(BufPtr, &deviceDesc[Index], sizeof(USB_STD_DEV_DESC));
 
@@ -481,17 +484,17 @@ u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr,
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr,
-		u8 *BufPtr, u32 BufLen)
+			     u8 *BufPtr, u32 BufLen)
 {
 	s32 Status;
 	u8 *config;
 	u32 CfgDescLen;
 	USBCH9_DATA *ch9_ptr =
-			(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
+		(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
 	struct dfu_if *DFU = (struct dfu_if *)(ch9_ptr->data_ptr);
 
 	Status = IsSuperSpeed(InstancePtr);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		/* USB 2.0 */
 		if (DFU->is_dfu == 1) {
 			config = (u8 *)&DFUconfig2;
@@ -512,11 +515,13 @@ u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr,
 	}
 
 	/* Check buffer pointer is OK and buffer is big enough. */
-	if (!BufPtr)
+	if (!BufPtr) {
 		return 0;
+	}
 
-	if (BufLen < sizeof(USB_STD_CFG_DESC))
+	if (BufLen < sizeof(USB_STD_CFG_DESC)) {
 		return 0;
+	}
 
 	memcpy(BufPtr, config, CfgDescLen);
 
@@ -541,7 +546,7 @@ u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr,
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr,
-		u8 *BufPtr,	u32 BufLen, u8 Index)
+			     u8 *BufPtr,	u32 BufLen, u8 Index)
 {
 	u32 i;
 	char *String;
@@ -551,13 +556,13 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr,
 	s32 Status;
 	u8 StrArray;
 	USBCH9_DATA *ch9_ptr =
-			(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
+		(USBCH9_DATA *)Get_DrvData(InstancePtr->PrivateData);
 	struct dfu_if *DFU = (struct dfu_if *)(ch9_ptr->data_ptr);
 
 	USB_STD_STRING_DESC *StringDesc;
 
 	Status = IsSuperSpeed(InstancePtr);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		/* USB 2.0 */
 		StrArray = 0;
 	} else {
@@ -565,17 +570,20 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr,
 		StrArray = 1;
 	}
 
-	if (!BufPtr)
+	if (!BufPtr) {
 		return 0;
+	}
 
 	if (DFU->is_dfu == 1) {
 		String = (char *)&DFUStringList[StrArray][Index];
-		if (Index >= sizeof(DFUStringList) / sizeof(u8 *))
+		if (Index >= sizeof(DFUStringList) / sizeof(u8 *)) {
 			return 0;
+		}
 	} else {
 		String = (char *)&StringList[StrArray][Index];
-		if (Index >= sizeof(StringList) / sizeof(u8 *))
+		if (Index >= sizeof(StringList) / sizeof(u8 *)) {
 			return 0;
+		}
 	}
 
 	StringLen = strlen(String);
@@ -602,8 +610,9 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr,
 	DescLen = StringDesc->bLength;
 
 	/* Check if the provided buffer is big enough to hold the descriptor. */
-	if (DescLen > BufLen)
+	if (DescLen > BufLen) {
 		return 0;
+	}
 
 	memcpy(BufPtr, StringDesc, DescLen);
 
@@ -634,41 +643,52 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 	static USB_BOS_DESC __attribute__ ((aligned(16))) bosDesc = {
 #endif
 		/* BOS descriptor */
-		{sizeof(USB_STD_BOS_DESC), /* bLength */
-		USB_TYPE_BOS_DESC, /* DescriptorType */
-		sizeof(USB_BOS_DESC), /* wTotalLength */
-		0x02}, /* bNumDeviceCaps */
+		{
+			sizeof(USB_STD_BOS_DESC), /* bLength */
+			USB_TYPE_BOS_DESC, /* DescriptorType */
+			sizeof(USB_BOS_DESC), /* wTotalLength */
+			0x02
+		}, /* bNumDeviceCaps */
 
-		{sizeof(USB_STD_DEVICE_CAP_7BYTE), /* bLength */
-		0x10, /* bDescriptorType */
-		0x02, /* bDevCapabiltyType */
+		{
+			sizeof(USB_STD_DEVICE_CAP_7BYTE), /* bLength */
+			0x10, /* bDescriptorType */
+			0x02, /* bDevCapabiltyType */
 #ifdef USB_LPM_MODE
-		0x06}, /* bmAttributes */
+			0x06
+		}, /* bmAttributes */
 #else
-		0x00}, /* Disable LPM/BESL for USB 2.0*/
+			0x00
+		}, /* Disable LPM/BESL for USB 2.0*/
 #endif
 
-		{sizeof(USB_STD_DEVICE_CAP_10BYTE), /* bLength */
-		0x10, /* bDescriptorType */
-		0x03, /* bDevCapabiltyType */
-		0x00, /* bmAttributes */
-		(0x000F), /* wSpeedsSupported */
-		0x01, /* bFunctionalitySupport */
+		{
+			sizeof(USB_STD_DEVICE_CAP_10BYTE), /* bLength */
+			0x10, /* bDescriptorType */
+			0x03, /* bDevCapabiltyType */
+			0x00, /* bmAttributes */
+			(0x000F), /* wSpeedsSupported */
+			0x01, /* bFunctionalitySupport */
 #ifdef USB_LPM_MODE
-		0x01, /* bU1DevExitLat */
-		(0x01F4)} /* wU2DevExitLat */
+			0x01, /* bU1DevExitLat */
+			(0x01F4)} /* wU2DevExitLat */
 #else
-		0x00, /* Disable LPM for USB 3.0 */
-		0x00} /* Disable LPM for USB 3.0 */
+			0x00, /* Disable LPM for USB 3.0 */
+			0x00
+		} /* Disable LPM for USB 3.0 */
 #endif
 	};
 
 	/* Check buffer pointer is OK and buffer is big enough. */
 	if (!BufPtr)
+	{
 		return 0;
+	}
 
 	if (BufLen < sizeof(USB_STD_BOS_DESC))
+	{
 		return 0;
+	}
 
 	memcpy(BufPtr, &bosDesc, sizeof(USB_BOS_DESC));
 
@@ -738,7 +758,7 @@ s32 Usb_SetConfiguration(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl)
 *
 *****************************************************************************/
 s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
-						SetupPacket *SetupData)
+			    SetupPacket *SetupData)
 {
 	/* Do nothing */
 

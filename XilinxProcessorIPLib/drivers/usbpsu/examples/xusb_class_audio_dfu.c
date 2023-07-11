@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -83,7 +84,7 @@ s32 Usb_DfuSetState(struct dfu_if *DFU, u8 dfu_state)
 
 #ifdef DFU_DEBUG
 				xil_printf("Waiting for USB reset to happen"
-						"to enter into DFU_IDLE state....\n");
+					   "to enter into DFU_IDLE state....\n");
 #endif
 
 				/* Wait For USB Reset to happen */
@@ -104,7 +105,7 @@ s32 Usb_DfuSetState(struct dfu_if *DFU, u8 dfu_state)
 			} else if (DFU->curr_state == STATE_DFU_IDLE) {
 #ifdef DFU_DEBUG
 				xil_printf("Waiting for USB reset to"
-						"happen to enter into APP_IDLE state....\n");
+					   "happen to enter into APP_IDLE state....\n");
 #endif
 				/* Wait For USB Reset to happen */
 				Usb_DfuWaitForReset(DFU);
@@ -160,8 +161,9 @@ stall:
 void USB_DfuSetDwloadState(struct dfu_if *DFU, u8 *status)
 {
 
-	if (DFU->got_dnload_rqst != 1)
+	if (DFU->got_dnload_rqst != 1) {
 		return;
+	}
 
 	switch (DFU->curr_state) {
 
@@ -285,95 +287,96 @@ void Usb_SetIntf(struct Usb_DevData *InstancePtr,  SetupPacket *SetupData)
 
 	switch (SetupData->wIndex & 0xff) {
 
-	case DFU_INTF:		/* DFU */
-		/* Setting the alternate setting requested */
-		f_dfu->current_inf = SetupData->wValue;
-		if ((f_dfu->current_inf >= DFU_ALT_SETTING) ||
-				(f_dfu->runtime_to_dfu == 1)) {
+		case DFU_INTF:		/* DFU */
+			/* Setting the alternate setting requested */
+			f_dfu->current_inf = SetupData->wValue;
+			if ((f_dfu->current_inf >= DFU_ALT_SETTING) ||
+			    (f_dfu->runtime_to_dfu == 1)) {
 
-			/* Clear the flag , before entering into
-			 * DFU mode from runtime mode
-			 */
-			if (f_dfu->runtime_to_dfu == 1)
-				f_dfu->runtime_to_dfu = 0;
+				/* Clear the flag , before entering into
+				 * DFU mode from runtime mode
+				 */
+				if (f_dfu->runtime_to_dfu == 1) {
+					f_dfu->runtime_to_dfu = 0;
+				}
 
-			/* Entering DFU_IDLE state */
-			Usb_DfuSetState(f_dfu, STATE_DFU_IDLE);
-		} else {
-			/* Entering APP_IDLE state */
-			Usb_DfuSetState(f_dfu, STATE_APP_IDLE);
-		}
-		break;
-
-	case AUDIO_INTF_IN:	/* AUDIO */
-		if ((SetupData->wValue & 0xff) == 1) {
-
-			f_audio->index = 0;
-			f_audio->residue = 0;
-			f_audio->firstpkt = 1;
-
-			SetEpInterval(InstancePtr->PrivateData, ISO_EP,
-					USB_EP_DIR_IN, AUDIO_INTERVAL);
-
-			/* Endpoint enables - not needed for Control EP */
-			RetVal = EpEnable(InstancePtr->PrivateData, ISO_EP,
-					USB_EP_DIR_IN, MaxPktSize,
-					USB_EP_TYPE_ISOCHRONOUS);
-			if (RetVal != XST_SUCCESS) {
-				xil_printf("failed to enable ISOC IN Ep\r\n");
-				return;
+				/* Entering DFU_IDLE state */
+				Usb_DfuSetState(f_dfu, STATE_DFU_IDLE);
+			} else {
+				/* Entering APP_IDLE state */
+				Usb_DfuSetState(f_dfu, STATE_APP_IDLE);
 			}
-		} else {
+			break;
 
-			StreamOff(InstancePtr->PrivateData, ISO_EP, USB_EP_DIR_IN);
+		case AUDIO_INTF_IN:	/* AUDIO */
+			if ((SetupData->wValue & 0xff) == 1) {
 
-			/* Endpoint disables - not needed for Control EP */
-			RetVal = EpDisable(InstancePtr->PrivateData, ISO_EP,
-					USB_EP_DIR_IN);
-			if (RetVal != XST_SUCCESS) {
-				xil_printf("failed to disable ISOC IN Ep\r\n");
-				return;
+				f_audio->index = 0;
+				f_audio->residue = 0;
+				f_audio->firstpkt = 1;
+
+				SetEpInterval(InstancePtr->PrivateData, ISO_EP,
+					      USB_EP_DIR_IN, AUDIO_INTERVAL);
+
+				/* Endpoint enables - not needed for Control EP */
+				RetVal = EpEnable(InstancePtr->PrivateData, ISO_EP,
+						  USB_EP_DIR_IN, MaxPktSize,
+						  USB_EP_TYPE_ISOCHRONOUS);
+				if (RetVal != XST_SUCCESS) {
+					xil_printf("failed to enable ISOC IN Ep\r\n");
+					return;
+				}
+			} else {
+
+				StreamOff(InstancePtr->PrivateData, ISO_EP, USB_EP_DIR_IN);
+
+				/* Endpoint disables - not needed for Control EP */
+				RetVal = EpDisable(InstancePtr->PrivateData, ISO_EP,
+						   USB_EP_DIR_IN);
+				if (RetVal != XST_SUCCESS) {
+					xil_printf("failed to disable ISOC IN Ep\r\n");
+					return;
+				}
 			}
-		}
 
-		break;
+			break;
 
-	case AUDIO_INTF_OUT:
-		if ((SetupData->wValue & 0xff) == 1) {
+		case AUDIO_INTF_OUT:
+			if ((SetupData->wValue & 0xff) == 1) {
 
-			f_audio->index = 0;
-			f_audio->residue = 0;
-			f_audio->firstpkt = 1;
+				f_audio->index = 0;
+				f_audio->residue = 0;
+				f_audio->firstpkt = 1;
 
-			SetEpInterval(InstancePtr->PrivateData, ISO_EP,
-					USB_EP_DIR_OUT, AUDIO_INTERVAL);
+				SetEpInterval(InstancePtr->PrivateData, ISO_EP,
+					      USB_EP_DIR_OUT, AUDIO_INTERVAL);
 
-			/* Endpoint enables - not needed for Control EP */
-			RetVal = EpEnable(InstancePtr->PrivateData, ISO_EP,
-					USB_EP_DIR_OUT, MaxPktSize,
-					USB_EP_TYPE_ISOCHRONOUS);
-			if (RetVal != XST_SUCCESS) {
-				xil_printf("failed to enable ISOC OUT Ep\r\n");
-				return;
+				/* Endpoint enables - not needed for Control EP */
+				RetVal = EpEnable(InstancePtr->PrivateData, ISO_EP,
+						  USB_EP_DIR_OUT, MaxPktSize,
+						  USB_EP_TYPE_ISOCHRONOUS);
+				if (RetVal != XST_SUCCESS) {
+					xil_printf("failed to enable ISOC OUT Ep\r\n");
+					return;
+				}
+			} else {
+
+				StreamOff(InstancePtr->PrivateData, ISO_EP, USB_EP_DIR_OUT);
+
+				/* Endpoint disables - not needed for Control EP */
+				RetVal = EpDisable(InstancePtr->PrivateData, ISO_EP,
+						   USB_EP_DIR_OUT);
+				if (RetVal != XST_SUCCESS) {
+					xil_printf("failed to disable ISOC OUT Ep\r\n");
+					return;
+				}
 			}
-		} else {
 
-			StreamOff(InstancePtr->PrivateData, ISO_EP, USB_EP_DIR_OUT);
+			break;
 
-			/* Endpoint disables - not needed for Control EP */
-			RetVal = EpDisable(InstancePtr->PrivateData, ISO_EP,
-					USB_EP_DIR_OUT);
-			if (RetVal != XST_SUCCESS) {
-				xil_printf("failed to disable ISOC OUT Ep\r\n");
-				return;
-			}
-		}
-
-		break;
-
-	default:
-		xil_printf("Invalid number for set interface request\r\n");
-		break;
+		default:
+			xil_printf("Invalid number for set interface request\r\n");
+			break;
 	}
 }
 
@@ -408,214 +411,216 @@ static void Usb_AudioClassReq(struct Usb_DevData *InstancePtr, SetupPacket *Setu
 	/* Check that the requested reply length is not bigger than our reply
 	 * buffer. This should never happen...
 	 */
-	if (SetupData->wLength > USB_REQ_REPLY_LEN)
+	if (SetupData->wLength > USB_REQ_REPLY_LEN) {
 		return;
+	}
 
 	switch (SetupData->bRequest) {
 
-	case UAC2_CS_CUR:
-		switch (UnitId) {
-		case USB_CLK_SRC_ID:
-			switch (SetupData->wValue >> 8) {
-			case UAC2_CS_CONTROL_SAM_FREQ:
-				if ((SetupData->bRequestType &
-							USB_ENDPOINT_DIR_MASK) == 0) {
-					/* Set Request */
-					ReplyLen = SetupData->wLength;
-					EpBufferRecv(InstancePtr->PrivateData, 0,
-							Reply, ReplyLen);
+		case UAC2_CS_CUR:
+			switch (UnitId) {
+				case USB_CLK_SRC_ID:
+					switch (SetupData->wValue >> 8) {
+						case UAC2_CS_CONTROL_SAM_FREQ:
+							if ((SetupData->bRequestType &
+							     USB_ENDPOINT_DIR_MASK) == 0) {
+								/* Set Request */
+								ReplyLen = SetupData->wLength;
+								EpBufferRecv(InstancePtr->PrivateData, 0,
+									     Reply, ReplyLen);
 
-					EpBufferSend(InstancePtr->PrivateData, 0,
-									NULL, 0);
-				} else {
-					/* Get Request */
-					ReplyLen = SetupData->wLength > 4 ? 4 :
-						SetupData->wLength;
+								EpBufferSend(InstancePtr->PrivateData, 0,
+									     NULL, 0);
+							} else {
+								/* Get Request */
+								ReplyLen = SetupData->wLength > 4 ? 4 :
+									   SetupData->wLength;
 
-					Reply[0] = (u8)0x44;
-					Reply[1] = (u8)0xAC;
-					Reply[2] = (u8)0x00;
-					Reply[3] = (u8)0x00;
+								Reply[0] = (u8)0x44;
+								Reply[1] = (u8)0xAC;
+								Reply[2] = (u8)0x00;
+								Reply[3] = (u8)0x00;
 
-					EpBufferSend(InstancePtr->PrivateData, 0,
-							Reply, ReplyLen);
-				}
-				break;
+								EpBufferSend(InstancePtr->PrivateData, 0,
+									     Reply, ReplyLen);
+							}
+							break;
 
-			case UAC2_CS_CONTROL_CLOCK_VALID:
-				ReplyLen = SetupData->wLength > 4 ? 4 :
-					SetupData->wLength;
-				/* Internal clock always valid */
-				Reply[0] = (u8)0x01;
+						case UAC2_CS_CONTROL_CLOCK_VALID:
+							ReplyLen = SetupData->wLength > 4 ? 4 :
+								   SetupData->wLength;
+							/* Internal clock always valid */
+							Reply[0] = (u8)0x01;
 
-				EpBufferSend(InstancePtr->PrivateData, 0,
-						Reply, ReplyLen);
-				break;
+							EpBufferSend(InstancePtr->PrivateData, 0,
+								     Reply, ReplyLen);
+							break;
 
-			default:
-				/* Unknown Control Selector for Clock Unit */
-				Error = 1;
-				break;
+						default:
+							/* Unknown Control Selector for Clock Unit */
+							Error = 1;
+							break;
+					}
+					break;
+
+				case USB_CLK_SEL_ID:
+					if ((SetupData->bRequestType & USB_ENDPOINT_DIR_MASK) == 0) {
+						/* Set Request */
+						ReplyLen = SetupData->wLength;
+						EpBufferRecv(InstancePtr->PrivateData, 0,
+							     Reply, ReplyLen);
+
+						EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
+					} else {
+						/* Get Request */
+						ReplyLen = SetupData->wLength > 4 ? 4 :
+							   SetupData->wLength;
+						Reply[0] = (u8)0x01;
+
+						EpBufferSend(InstancePtr->PrivateData, 0,
+							     Reply, ReplyLen);
+					}
+					break;
+
+				case OUT_FETR_UNT_ID:
+				case IN_FETR_UNT_ID:
+					switch (SetupData->wValue >> 8) {
+						case UAC2_FU_VOLUME_CONTROL:
+							/* Feature not available */
+							if ((SetupData->bRequestType &
+							     USB_ENDPOINT_DIR_MASK) == 0) {
+								/* Set Request */
+								ReplyLen = SetupData->wLength;
+								EpBufferRecv(InstancePtr->PrivateData, 0,
+									     Reply, ReplyLen);
+
+								EpBufferSend(InstancePtr->PrivateData, 0,
+									     NULL, 0);
+							} else {
+								/* Get Request */
+								ReplyLen = SetupData->wLength > 4 ? 4 :
+									   SetupData->wLength;
+								Reply[0] = 0x00;
+								Reply[1] = 0x00;
+
+								EpBufferSend(InstancePtr->PrivateData, 0,
+									     Reply, ReplyLen);
+							}
+							break;
+
+						case UAC2_FU_MUTE_CONTROL:
+							/* Feature not available */
+							if ((SetupData->bRequestType &
+							     USB_ENDPOINT_DIR_MASK) == 0) {
+								/* Set Request */
+								ReplyLen = SetupData->wLength;
+								EpBufferRecv(InstancePtr->PrivateData, 0,
+									     Reply, ReplyLen);
+
+								EpBufferSend(InstancePtr->PrivateData, 0,
+									     NULL, 0);
+							} else {
+								/* Get Request */
+								ReplyLen = SetupData->wLength > 4 ? 4 :
+									   SetupData->wLength;
+								Reply[0] = 0x01;
+
+								EpBufferSend(InstancePtr->PrivateData, 0,
+									     Reply, ReplyLen);
+							}
+							break;
+
+						default:
+							/* Unknown Control Selector for Feature Unit */
+							Error = 1;
+							break;
+					}
+					break;
+
+				default:
+					/* Unknown unit ID */
+					Error = 1;
+					break;
 			}
 			break;
 
-		case USB_CLK_SEL_ID:
-			if ((SetupData->bRequestType & USB_ENDPOINT_DIR_MASK) == 0) {
-				/* Set Request */
-				ReplyLen = SetupData->wLength;
-				EpBufferRecv(InstancePtr->PrivateData, 0,
-						Reply, ReplyLen);
+		case UAC2_CS_RANGE:
+			switch (UnitId) {
+				case USB_CLK_SRC_ID:
+					switch (SetupData->wValue >> 8) {
+						case UAC2_CS_CONTROL_SAM_FREQ:
+							ReplyLen = SetupData->wLength > 14 ? 14 :
+								   SetupData->wLength;
+							Reply[0] = (u8)0x01;
+							Reply[1] = (u8)0x00;
+							Reply[2] = (u8)0x44;
+							Reply[3] = (u8)0xAC;
+							Reply[4] = (u8)0x00;
+							Reply[5] = (u8)0x00;
+							Reply[6] = (u8)0x44;
+							Reply[7] = (u8)0xAC;
+							Reply[8] = (u8)0x00;
+							Reply[9] = (u8)0x00;
+							Reply[10] = (u8)0x00;
+							Reply[11] = (u8)0x00;
+							Reply[12] = (u8)0x00;
+							Reply[13] = (u8)0x00;
 
-				EpBufferSend(InstancePtr->PrivateData, 0, NULL, 0);
-			} else {
-				/* Get Request */
-				ReplyLen = SetupData->wLength > 4 ? 4 :
-					SetupData->wLength;
-				Reply[0] = (u8)0x01;
+							EpBufferSend(InstancePtr->PrivateData, 0,
+								     Reply, ReplyLen);
+							break;
 
-				EpBufferSend(InstancePtr->PrivateData, 0,
-						Reply, ReplyLen);
+						default:
+							/* Unknown Clock Source Range Request */
+							Error = 1;
+							break;
+					}
+					break;
+
+				case OUT_FETR_UNT_ID:
+				case IN_FETR_UNT_ID:
+					switch (SetupData->wValue >> 8) {
+						case UAC2_FU_VOLUME_CONTROL:
+							/* Feature not available */
+							ReplyLen = SetupData->wLength > 14 ? 14 :
+								   SetupData->wLength;
+							Reply[0] = (u8)0x01;
+							Reply[1] = (u8)0x00;
+							Reply[2] = (u8)0x00;
+							Reply[3] = (u8)0x81;
+							Reply[4] = (u8)0x00;
+							Reply[5] = (u8)0x00;
+							Reply[6] = (u8)0x00;
+							Reply[7] = (u8)0x01;
+
+							EpBufferSend(InstancePtr->PrivateData, 0,
+								     Reply, ReplyLen);
+							break;
+
+						default:
+							/* Unknown Control Selector for Feature Unit */
+							Error = 1;
+							break;
+					}
+					break;
+
+				default:
+					/* Unknown unit ID */
+					Error = 1;
+					break;
 			}
+
 			break;
-
-		case OUT_FETR_UNT_ID:
-		case IN_FETR_UNT_ID:
-			switch (SetupData->wValue >> 8) {
-			case UAC2_FU_VOLUME_CONTROL:
-				/* Feature not available */
-				if ((SetupData->bRequestType &
-							USB_ENDPOINT_DIR_MASK) == 0) {
-					/* Set Request */
-					ReplyLen = SetupData->wLength;
-					EpBufferRecv(InstancePtr->PrivateData, 0,
-							Reply, ReplyLen);
-
-					EpBufferSend(InstancePtr->PrivateData, 0,
-							NULL, 0);
-				} else {
-					/* Get Request */
-					ReplyLen = SetupData->wLength > 4 ? 4 :
-						SetupData->wLength;
-					Reply[0] = 0x00;
-					Reply[1] = 0x00;
-
-					EpBufferSend(InstancePtr->PrivateData, 0,
-							Reply, ReplyLen);
-				}
-				break;
-
-			case UAC2_FU_MUTE_CONTROL:
-				/* Feature not available */
-				if ((SetupData->bRequestType &
-							USB_ENDPOINT_DIR_MASK) == 0) {
-					/* Set Request */
-					ReplyLen = SetupData->wLength;
-					EpBufferRecv(InstancePtr->PrivateData, 0,
-							Reply, ReplyLen);
-
-					EpBufferSend(InstancePtr->PrivateData, 0,
-							NULL, 0);
-				} else {
-					/* Get Request */
-					ReplyLen = SetupData->wLength > 4 ? 4 :
-						SetupData->wLength;
-					Reply[0] = 0x01;
-
-					EpBufferSend(InstancePtr->PrivateData, 0,
-							Reply, ReplyLen);
-				}
-				break;
-
-			default:
-				/* Unknown Control Selector for Feature Unit */
-				Error = 1;
-				break;
-			}
-			break;
-
 		default:
-			/* Unknown unit ID */
 			Error = 1;
+			Ep0StallRestart(InstancePtr->PrivateData);
 			break;
-		}
-		break;
-
-	case UAC2_CS_RANGE:
-		switch (UnitId) {
-		case USB_CLK_SRC_ID:
-			switch (SetupData->wValue >> 8) {
-			case UAC2_CS_CONTROL_SAM_FREQ:
-				ReplyLen = SetupData->wLength > 14 ? 14 :
-					SetupData->wLength;
-				Reply[0] = (u8)0x01;
-				Reply[1] = (u8)0x00;
-				Reply[2] = (u8)0x44;
-				Reply[3] = (u8)0xAC;
-				Reply[4] = (u8)0x00;
-				Reply[5] = (u8)0x00;
-				Reply[6] = (u8)0x44;
-				Reply[7] = (u8)0xAC;
-				Reply[8] = (u8)0x00;
-				Reply[9] = (u8)0x00;
-				Reply[10] = (u8)0x00;
-				Reply[11] = (u8)0x00;
-				Reply[12] = (u8)0x00;
-				Reply[13] = (u8)0x00;
-
-				EpBufferSend(InstancePtr->PrivateData, 0,
-						Reply, ReplyLen);
-				break;
-
-			default:
-				/* Unknown Clock Source Range Request */
-				Error = 1;
-				break;
-			}
-			break;
-
-		case OUT_FETR_UNT_ID:
-		case IN_FETR_UNT_ID:
-			switch (SetupData->wValue >> 8) {
-			case UAC2_FU_VOLUME_CONTROL:
-				/* Feature not available */
-				ReplyLen = SetupData->wLength > 14 ? 14 :
-					SetupData->wLength;
-				Reply[0] = (u8)0x01;
-				Reply[1] = (u8)0x00;
-				Reply[2] = (u8)0x00;
-				Reply[3] = (u8)0x81;
-				Reply[4] = (u8)0x00;
-				Reply[5] = (u8)0x00;
-				Reply[6] = (u8)0x00;
-				Reply[7] = (u8)0x01;
-
-				EpBufferSend(InstancePtr->PrivateData, 0,
-						Reply, ReplyLen);
-				break;
-
-			default:
-				/* Unknown Control Selector for Feature Unit */
-				Error = 1;
-				break;
-			}
-			break;
-
-		default:
-			/* Unknown unit ID */
-			Error = 1;
-			break;
-		}
-
-		break;
-	default:
-		Error = 1;
-		Ep0StallRestart(InstancePtr->PrivateData);
-		break;
 	}
 
 	/* Set the send stall bit if there is an error */
-	if (Error)
+	if (Error) {
 		Ep0StallRestart(InstancePtr->PrivateData);
+	}
 }
 
 /*****************************************************************************/
@@ -663,8 +668,9 @@ static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 			break;
 
 		case DFU_DNLOAD:
-			if (dfu->got_dnload_rqst == 0)
+			if (dfu->got_dnload_rqst == 0) {
 				dfu->got_dnload_rqst = 1;
+			}
 
 			if ((dfu->total_transfers == 0) && (SetupData->wValue == 0)) {
 				/* we are the start of the data, clear
@@ -678,9 +684,9 @@ static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 
 			if (rxBytesLeft > 0) {
 				result = EpBufferRecv(InstancePtr->PrivateData, 0,
-						(f->virtualdisk) +
-						dfu->total_bytes_dnloaded,
-						rxBytesLeft);
+						      (f->virtualdisk) +
+						      dfu->total_bytes_dnloaded,
+						      rxBytesLeft);
 				dfu->total_bytes_dnloaded += rxBytesLeft;
 			} else if ((dfu->got_dnload_rqst == 1) && (rxBytesLeft == 0)) {
 				dfu->curr_state = STATE_DFU_IDLE;
@@ -708,22 +714,22 @@ static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 
 			if (dfu->total_bytes_uploaded < dfu->total_bytes_dnloaded) {
 				if ((dfu->total_bytes_uploaded + txBytesLeft) >
-						dfu->total_bytes_dnloaded) {
+				    dfu->total_bytes_dnloaded) {
 					/* Upload only remaining bytes */
 					txBytesLeft =
 						(dfu->total_bytes_dnloaded -
 						 dfu->total_bytes_uploaded);
 				}
 				result = EpBufferSend(InstancePtr->PrivateData, 0,
-						(f->virtualdisk) +
-						dfu->total_bytes_uploaded,
-						txBytesLeft);
+						      (f->virtualdisk) +
+						      dfu->total_bytes_uploaded,
+						      txBytesLeft);
 				dfu->total_bytes_uploaded += txBytesLeft;
 			} else {
 				/* Send a short packet */
 				result = EpBufferSend(InstancePtr->PrivateData, 0,
-						(f->virtualdisk) +
-						dfu->total_bytes_uploaded, 0);
+						      (f->virtualdisk) +
+						      dfu->total_bytes_uploaded, 0);
 				dfu->total_bytes_uploaded = 0;
 				dfu->total_transfers = 0;
 			}
@@ -733,7 +739,7 @@ static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 		case DFU_GETSTATUS:
 			USB_DfuGetStatus(dfu, (u8 *)DFUReply);
 			EpBufferSend(InstancePtr->PrivateData,
-					0, DFUReply, SetupData->wLength);
+				     0, DFUReply, SetupData->wLength);
 			break;
 
 		case DFU_CLRSTATUS:
@@ -746,7 +752,7 @@ static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 		case DFU_GETSTATE:
 			DFUReply[0] = (u8)dfu->curr_state;
 			EpBufferSend(InstancePtr->PrivateData,
-					0, DFUReply, SetupData->wLength);
+				     0, DFUReply, SetupData->wLength);
 			break;
 
 		case DFU_ABORT:

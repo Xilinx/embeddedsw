@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -37,38 +38,38 @@
 
 /************************** Variable Definitions *****************************/
 static u8 report_desc[] = {
-	 0x05, 0x01,     /* USAGE_PAGE (Generic Desktop)           */
-	 0x09, 0x06,     /* USAGE (Keyboard)                       */
-	 0xa1, 0x01,     /* COLLECTION (Application)               */
-	 0x05, 0x07,     /*   USAGE_PAGE (Keyboard)                */
-	 0x19, 0xe0,     /*   USAGE_MINIMUM (Keyboard LeftControl) */
-	 0x29, 0xe7,     /*   USAGE_MAXIMUM (Keyboard Right GUI)   */
-	 0x15, 0x00,     /*   LOGICAL_MINIMUM (0)                  */
-	 0x25, 0x01,     /*   LOGICAL_MAXIMUM (1)                  */
-	 0x75, 0x01,     /*   REPORT_SIZE (1)                      */
-	 0x95, 0x08,     /*   REPORT_COUNT (8)                     */
-	 0x81, 0x02,     /*   INPUT (Data,Var,Abs)                 */
-	 0x95, 0x01,     /*   REPORT_COUNT (1)                     */
-	 0x75, 0x08,     /*   REPORT_SIZE (8)                      */
-	 0x81, 0x03,     /*   INPUT (Cnst,Var,Abs)                 */
-	 0x95, 0x05,     /*   REPORT_COUNT (5)                     */
-	 0x75, 0x01,     /*   REPORT_SIZE (1)                      */
-	 0x05, 0x08,     /*   USAGE_PAGE (LEDs)                    */
-	 0x19, 0x01,     /*   USAGE_MINIMUM (Num Lock)             */
-	 0x29, 0x05,     /*   USAGE_MAXIMUM (Kana)                 */
-	 0x91, 0x02,     /*   OUTPUT (Data,Var,Abs)                */
-	 0x95, 0x01,     /*   REPORT_COUNT (1)                     */
-	 0x75, 0x03,     /*   REPORT_SIZE (3)                      */
-	 0x91, 0x03,     /*   OUTPUT (Cnst,Var,Abs)                */
-	 0x95, 0x06,     /*   REPORT_COUNT (6)                     */
-	 0x75, 0x08,     /*   REPORT_SIZE (8)                      */
-	 0x15, 0x00,     /*   LOGICAL_MINIMUM (0)                  */
-	 0x25, 0x65,     /*   LOGICAL_MAXIMUM (101)                */
-	 0x05, 0x07,     /*   USAGE_PAGE (Keyboard)                */
-	 0x19, 0x00,     /*   USAGE_MINIMUM (Reserved)             */
-	 0x29, 0x65,     /*   USAGE_MAXIMUM (Keyboard Application) */
-	 0x81, 0x00,     /*   INPUT (Data,Ary,Abs)                 */
-	 0xc0            /* END_COLLECTION                         */
+	0x05, 0x01,     /* USAGE_PAGE (Generic Desktop)           */
+	0x09, 0x06,     /* USAGE (Keyboard)                       */
+	0xa1, 0x01,     /* COLLECTION (Application)               */
+	0x05, 0x07,     /*   USAGE_PAGE (Keyboard)                */
+	0x19, 0xe0,     /*   USAGE_MINIMUM (Keyboard LeftControl) */
+	0x29, 0xe7,     /*   USAGE_MAXIMUM (Keyboard Right GUI)   */
+	0x15, 0x00,     /*   LOGICAL_MINIMUM (0)                  */
+	0x25, 0x01,     /*   LOGICAL_MAXIMUM (1)                  */
+	0x75, 0x01,     /*   REPORT_SIZE (1)                      */
+	0x95, 0x08,     /*   REPORT_COUNT (8)                     */
+	0x81, 0x02,     /*   INPUT (Data,Var,Abs)                 */
+	0x95, 0x01,     /*   REPORT_COUNT (1)                     */
+	0x75, 0x08,     /*   REPORT_SIZE (8)                      */
+	0x81, 0x03,     /*   INPUT (Cnst,Var,Abs)                 */
+	0x95, 0x05,     /*   REPORT_COUNT (5)                     */
+	0x75, 0x01,     /*   REPORT_SIZE (1)                      */
+	0x05, 0x08,     /*   USAGE_PAGE (LEDs)                    */
+	0x19, 0x01,     /*   USAGE_MINIMUM (Num Lock)             */
+	0x29, 0x05,     /*   USAGE_MAXIMUM (Kana)                 */
+	0x91, 0x02,     /*   OUTPUT (Data,Var,Abs)                */
+	0x95, 0x01,     /*   REPORT_COUNT (1)                     */
+	0x75, 0x03,     /*   REPORT_SIZE (3)                      */
+	0x91, 0x03,     /*   OUTPUT (Cnst,Var,Abs)                */
+	0x95, 0x06,     /*   REPORT_COUNT (6)                     */
+	0x75, 0x08,     /*   REPORT_SIZE (8)                      */
+	0x15, 0x00,     /*   LOGICAL_MINIMUM (0)                  */
+	0x25, 0x65,     /*   LOGICAL_MAXIMUM (101)                */
+	0x05, 0x07,     /*   USAGE_PAGE (Keyboard)                */
+	0x19, 0x00,     /*   USAGE_MINIMUM (Reserved)             */
+	0x29, 0x65,     /*   USAGE_MAXIMUM (Keyboard Application) */
+	0x81, 0x00,     /*   INPUT (Data,Ary,Abs)                 */
+	0xc0            /* END_COLLECTION                         */
 };
 
 /* Device Descriptors */
@@ -510,9 +511,9 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		USB_CLASS_DFU,			/* bInterfaceClass */
 		0x01,				/* bInterfaceSubClass */
 		0x02,				/* bInterfaceProtocol */
-						/* DFU mode protocol */
+		/* DFU mode protocol */
 		0x0F				/* iInterface */
-						/*DFU string descriptor*/
+		/*DFU string descriptor*/
 	},
 	{
 		/* DFU functional descriptor */
@@ -520,11 +521,11 @@ USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		USB_TYPE_DFUFUNC_DESC,		/* bDescriptorType */
 		0x03,				/* bmAttributes */
 		8192,				/* wDetatchTimeOut */
-						/* 8192 ms */
+		/* 8192 ms */
 		DFU_MAX_TRANSFER,		/* wTransferSize */
-						/* DFU block size 1024*/
+		/* DFU block size 1024*/
 		0x0110				/* bcdDfuVersion */
-						/* DFU version 1.1 */
+		/* DFU version 1.1 */
 	},
 	{
 		/* Mass Storage Standard Interface Descriptor */
@@ -664,11 +665,11 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x02,				/* bcdADC - Audio Class 1.0 H */
 		UAC2_FUNCTION_IO_BOX,		/* bCategory */
 		(sizeof(UAC2_AC_HEADER_DESC) +
-			sizeof(UAC2_CLOCK_SOURCE_DESC) +
-			sizeof(UAC2_CLOCK_SELECTOR_DESC) +
-			(sizeof(UAC2_INPUT_TERMINAL_DESC) +
-			sizeof(UAC2_FEATURE_UNIT_DESC) +
-			sizeof(UAC2_OUTPUT_TERMINAL_DESC)) * 2),/* wTotalLength */
+		 sizeof(UAC2_CLOCK_SOURCE_DESC) +
+		 sizeof(UAC2_CLOCK_SELECTOR_DESC) +
+		 (sizeof(UAC2_INPUT_TERMINAL_DESC) +
+		  sizeof(UAC2_FEATURE_UNIT_DESC) +
+		  sizeof(UAC2_OUTPUT_TERMINAL_DESC)) * 2),/* wTotalLength */
 		0x01				/* bmControls */
 	},
 	{
@@ -976,7 +977,7 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		USB_CLASS_DFU,			/* bInterfaceClass */
 		0x01,				/* bInterfaceSubClass */
 		0x02,				/* bInterfaceProtocol */
-						/* DFU mode protocol */
+		/* DFU mode protocol */
 		0x0F				/* iInterface */
 	},
 	{
@@ -985,11 +986,11 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		USB_TYPE_DFUFUNC_DESC,		/* bDescriptorType */
 		0x03,				/* bmAttributes */
 		8192,				/* wDetatchTimeOut */
-						/* 8192 ms */
+		/* 8192 ms */
 		DFU_MAX_TRANSFER,		/* wTransferSize */
-						/* DFU block size 1024*/
+		/* DFU block size 1024*/
 		0x0110				/* bcdDfuVersion */
-						/* DFU version 1.1 */
+		/* DFU version 1.1 */
 	},
 	{
 		/* Mass Storage Standard Interface Descriptor */
@@ -1082,11 +1083,11 @@ DFU_USB30_CONFIG __attribute__ ((aligned(16))) DFUconfig3 = {
 		0x00,				/* bAlternateSetting */
 		0x00,				/* bNumEndPoints */
 		USB_CLASS_DFU,			/* bInterfaceClass */
-						/* DFU application specific class code */
+		/* DFU application specific class code */
 		0x01,				/* bInterfaceSubClass */
-						/* DFU device firmware upgrade code */
+		/* DFU device firmware upgrade code */
 		0x02,				/* bInterfaceProtocol */
-						/* DFU mode protocol */
+		/* DFU mode protocol */
 		0x04				/* iInterface */
 	},
 	{
@@ -1095,11 +1096,11 @@ DFU_USB30_CONFIG __attribute__ ((aligned(16))) DFUconfig3 = {
 		USB_TYPE_DFUFUNC_DESC,		/* bDescriptorType */
 		0x03,				/* bmAttributes */
 		8192,				/* wDetatchTimeOut */
-						/* 8192 ms */
+		/* 8192 ms */
 		DFU_MAX_TRANSFER,		/* wTransferSize */
-						/* DFU block size 1024 */
+		/* DFU block size 1024 */
 		0x0110				/* bcdDfuVersion */
-						/* DFU version 1.1 */
+		/* DFU version 1.1 */
 	}
 };
 
@@ -1129,7 +1130,7 @@ DFU_USB_CONFIG __attribute__ ((aligned(16))) DFUconfig2 = {
 		USB_CLASS_DFU,			/* bInterfaceClass */
 		0x01,				/* bInterfaceSubClass */
 		0x02,				/* bInterfaceProtocol */
-						/* DFU mode protocol */
+		/* DFU mode protocol */
 		0x04				/* iInterface */
 	},
 	{
@@ -1138,11 +1139,11 @@ DFU_USB_CONFIG __attribute__ ((aligned(16))) DFUconfig2 = {
 		USB_TYPE_DFUFUNC_DESC,		/* bDescriptorType */
 		0x03,				/* bmAttributes */
 		8192,				/* wDetatchTimeOut */
-						/* 8192 ms*/
+		/* 8192 ms*/
 		DFU_MAX_TRANSFER,		/* wTransferSize */
-						/* DFU block size 1024 */
+		/* DFU block size 1024 */
 		0x0110				/* bcdDfuVersion */
-						/* DFU version 1.1 */
+		/* DFU version 1.1 */
 	}
 };
 
@@ -1233,7 +1234,7 @@ static u8 DFUStringList[2][6][128] = {
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
-		u32 BufLen)
+			     u32 BufLen)
 {
 	u8 Index;
 	s32 Status;
@@ -1248,11 +1249,13 @@ u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 	}
 
 	/* Check buffer pointer is there and buffer is big enough. */
-	if (!BufPtr)
+	if (!BufPtr) {
 		return 0;
+	}
 
-	if (BufLen < sizeof(USB_STD_DEV_DESC))
+	if (BufLen < sizeof(USB_STD_DEV_DESC)) {
 		return 0;
+	}
 
 	memcpy(BufPtr, &deviceDesc[Index], sizeof(USB_STD_DEV_DESC));
 
@@ -1274,7 +1277,7 @@ u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
-		u32 BufLen)
+			     u32 BufLen)
 {
 	s32 Status;
 	u8 *config;
@@ -1305,11 +1308,13 @@ u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 	}
 
 	/* Check buffer pointer is OK and buffer is big enough. */
-	if (!BufPtr)
+	if (!BufPtr) {
 		return 0;
+	}
 
-	if (BufLen < sizeof(USB_STD_CFG_DESC))
+	if (BufLen < sizeof(USB_STD_CFG_DESC)) {
 		return 0;
+	}
 
 	memcpy(BufPtr, config, CfgDescLen);
 
@@ -1333,7 +1338,7 @@ u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
-		u32 BufLen, u8 Index)
+			     u32 BufLen, u8 Index)
 {
 	u32 i;
 	char *String;
@@ -1357,17 +1362,20 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 		StrArray = 1;
 	}
 
-	if (!BufPtr)
+	if (!BufPtr) {
 		return 0;
+	}
 
 	if (DFU->is_dfu == 1) {
 		String = (char *)&DFUStringList[StrArray][Index];
-		if (Index >= sizeof(DFUStringList) / sizeof(u8 *))
+		if (Index >= sizeof(DFUStringList) / sizeof(u8 *)) {
 			return 0;
+		}
 	} else {
 		String = (char *)&StringList[StrArray][Index];
-		if (Index >= sizeof(StringList) / sizeof(u8 *))
+		if (Index >= sizeof(StringList) / sizeof(u8 *)) {
 			return 0;
+		}
 	}
 
 	StringLen = strlen(String);
@@ -1394,8 +1402,9 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 	DescLen = StringDesc->bLength;
 
 	/* Check if the provided buffer is big enough to hold the descriptor. */
-	if (DescLen > BufLen)
+	if (DescLen > BufLen) {
 		return 0;
+	}
 
 	memcpy(BufPtr, StringDesc, DescLen);
 
@@ -1425,41 +1434,52 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 	static USB_BOS_DESC __attribute__ ((aligned(16))) bosDesc = {
 #endif
 		/* BOS descriptor */
-		{sizeof(USB_STD_BOS_DESC),	/* bLength */
-		USB_TYPE_BOS_DESC,		/* DescriptorType */
-		sizeof(USB_BOS_DESC),		/* wTotalLength */
-		0x02},				/* bNumDeviceCaps */
+		{
+			sizeof(USB_STD_BOS_DESC),	/* bLength */
+			USB_TYPE_BOS_DESC,		/* DescriptorType */
+			sizeof(USB_BOS_DESC),		/* wTotalLength */
+			0x02
+		},				/* bNumDeviceCaps */
 
-		{sizeof(USB_STD_DEVICE_CAP_7BYTE), /* bLength */
-		0x10,				/* bDescriptorType */
-		0x02,				/* bDevCapabiltyType */
+		{
+			sizeof(USB_STD_DEVICE_CAP_7BYTE), /* bLength */
+			0x10,				/* bDescriptorType */
+			0x02,				/* bDevCapabiltyType */
 #ifdef USB_LPM_MODE
-		0x06},				/* bmAttributes */
+			0x06
+		},				/* bmAttributes */
 #else
-		0x00},				/* Disable LPM for USB 2.0*/
+			0x00
+		},				/* Disable LPM for USB 2.0*/
 #endif
 
-		{sizeof(USB_STD_DEVICE_CAP_10BYTE), /* bLength */
-		0x10,				/* bDescriptorType */
-		0x03,				/* bDevCapabiltyType */
-		0x00,				/* bmAttributes */
-		(0x000F),			/* wSpeedsSupported */
-		0x01,				/* bFunctionalitySupport */
+		{
+			sizeof(USB_STD_DEVICE_CAP_10BYTE), /* bLength */
+			0x10,				/* bDescriptorType */
+			0x03,				/* bDevCapabiltyType */
+			0x00,				/* bmAttributes */
+			(0x000F),			/* wSpeedsSupported */
+			0x01,				/* bFunctionalitySupport */
 #ifdef USB_LPM_MODE
-		0x01,				/* bU1DevExitLat */
-		(0x01F4)}			/* wU2DevExitLat */
+			0x01,				/* bU1DevExitLat */
+			(0x01F4)}			/* wU2DevExitLat */
 #else
-		0x00,				/* Disable LPM for USB 3.0 */
-		0x00}				/* Disable LPM for USB 3.0 */
+			0x00,				/* Disable LPM for USB 3.0 */
+			0x00
+		}				/* Disable LPM for USB 3.0 */
 #endif
 	};
 
 	/* Check buffer pointer is OK and buffer is big enough. */
 	if (!BufPtr)
+	{
 		return 0;
+	}
 
 	if (BufLen < sizeof(USB_STD_BOS_DESC))
+	{
 		return 0;
+	}
 
 	memcpy(BufPtr, &bosDesc, sizeof(USB_BOS_DESC));
 
@@ -1535,29 +1555,29 @@ s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 		SetConfigDone(InstancePtr->PrivateData, 1U);
 
 		xTaskNotifyFromISR(dev->xMainTask, KEYBOARD_CONFIG |
-				MSG_CONFIG, eSetValueWithOverwrite,
-				&xHigherPriorityTaskWoken);
+				   MSG_CONFIG, eSetValueWithOverwrite,
+				   &xHigherPriorityTaskWoken);
 		portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 	} else {
 
 		/* Endpoint disables - not needed for Control EP */
 		RetVal = EpDisable(InstancePtr->PrivateData, ISO_EP,
-				USB_EP_DIR_OUT);
+				   USB_EP_DIR_OUT);
 		if (RetVal != XST_SUCCESS) {
 			xil_printf("failed to disable ISOC OUT Ep\r\n");
 			return XST_FAILURE;
 		}
 
 		RetVal = EpDisable(InstancePtr->PrivateData, ISO_EP,
-				USB_EP_DIR_IN);
+				   USB_EP_DIR_IN);
 		if (RetVal != XST_SUCCESS) {
 			xil_printf("failed to disable ISOC IN Ep\r\n");
 			return XST_FAILURE;
 		}
 
 		xTaskNotifyFromISR(dev->xMainTask, KEYBOARD_UNCONFIG |
-				MSG_UNCONFIG, eSetValueWithOverwrite,
-				&xHigherPriorityTaskWoken);
+				   MSG_UNCONFIG, eSetValueWithOverwrite,
+				   &xHigherPriorityTaskWoken);
 		portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 
 		SetConfigDone(InstancePtr->PrivateData, 0U);
@@ -1581,36 +1601,36 @@ s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 *
 ******************************************************************************/
 u32 Usb_GetDescReply(struct Usb_DevData *InstancePtr, SetupPacket *SetupData,
-		u8 *BufPtr)
+		     u8 *BufPtr)
 {
 	u32 ReplyLen = 0;
 
 	switch (SetupData->bRequest) {
-	case USB_REQ_GET_DESCRIPTOR:
-		switch (SetupData->wValue >> 8) {
-		case USB_TYPE_HID_DESC:
-			ReplyLen = sizeof (USB_STD_HID_DESC);
-			memcpy(BufPtr, &hid_desc, ReplyLen);
-			break;
+		case USB_REQ_GET_DESCRIPTOR:
+			switch (SetupData->wValue >> 8) {
+				case USB_TYPE_HID_DESC:
+					ReplyLen = sizeof (USB_STD_HID_DESC);
+					memcpy(BufPtr, &hid_desc, ReplyLen);
+					break;
 
-		case USB_TYPE_REPORT_DESC:
-			ReplyLen = sizeof(report_desc);
-			ReplyLen = SetupData->wLength > ReplyLen ?
-				ReplyLen : SetupData->wLength;
-			memcpy(BufPtr, &report_desc, ReplyLen);
+				case USB_TYPE_REPORT_DESC:
+					ReplyLen = sizeof(report_desc);
+					ReplyLen = SetupData->wLength > ReplyLen ?
+						   ReplyLen : SetupData->wLength;
+					memcpy(BufPtr, &report_desc, ReplyLen);
+					break;
+
+				default:
+					xil_printf("Keyboard: Unknown desc request 0x%x\n",
+						   SetupData->wValue >> 8);
+					break;
+			}
 			break;
 
 		default:
-			xil_printf("Keyboard: Unknown desc request 0x%x\n",
-					SetupData->wValue >> 8);
+			xil_printf("Keyboard: Unknown request 0x%x\r\n",
+				   SetupData->bRequest);
 			break;
-		}
-		break;
-
-	default:
-		xil_printf("Keyboard: Unknown request 0x%x\r\n",
-				SetupData->bRequest);
-		break;
 	}
 
 	return ReplyLen;

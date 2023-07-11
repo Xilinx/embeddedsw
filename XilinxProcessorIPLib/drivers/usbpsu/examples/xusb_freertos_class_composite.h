@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -187,7 +188,8 @@ typedef struct {
 } USB_CBW;
 #pragma pack(pop)
 #else
-} __attribute__((__packed__))USB_CBW;
+}
+__attribute__((__packed__))USB_CBW;
 #endif
 
 #ifdef __ICCARM__

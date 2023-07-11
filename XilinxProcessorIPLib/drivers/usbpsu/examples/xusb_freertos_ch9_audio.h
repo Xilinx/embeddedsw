@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -140,7 +141,8 @@ typedef struct {
 } USB_IF_ASSOC_DESC;
 #pragma pack(pop)
 #else
-} __attribute__((__packed__))USB_IF_ASSOC_DESC;
+}
+__attribute__((__packed__))USB_IF_ASSOC_DESC;
 #endif
 
 /* UAC2 class specific audio interface header descriptor */
@@ -468,17 +470,17 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr,
-		u8 *BufPtr, u32 BufLen);
+			     u8 *BufPtr, u32 BufLen);
 u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr,
-		u8 *BufPtr, u32 BufLen);
+			     u8 *BufPtr, u32 BufLen);
 u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen);
 u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
-		u32 BufLen, u8 Index);
+			     u32 BufLen, u8 Index);
 s32 Usb_SetConfiguration(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl);
 s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
-		SetupPacket *Ctrl);
+			    SetupPacket *Ctrl);
 void Usb_SetInterfaceHandler(struct Usb_DevData *InstancePtr,
-		SetupPacket *Ctrl);
+			     SetupPacket *Ctrl);
 
 #ifdef __cplusplus
 }

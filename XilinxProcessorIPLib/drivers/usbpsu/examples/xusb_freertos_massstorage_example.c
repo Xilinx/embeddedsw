@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -92,7 +93,7 @@ static USBCH9_DATA storage_data = {
 		.Usb_SetConfigurationApp = Usb_SetConfigurationApp,
 		.Usb_ClassReq = ClassReq,
 	},
-	.data_ptr = (void *)&storage_dev,
+	.data_ptr = (void *) &storage_dev,
 };
 
 /****************************************************************************/
@@ -114,15 +115,15 @@ static USBCH9_DATA storage_data = {
 void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
 {
 	xPortInstallInterruptHandler(UsbIntrId,
-			(XInterruptHandler)XUsbPsu_IntrHandler,
-			(void *)InstancePtr);
+				     (XInterruptHandler)XUsbPsu_IntrHandler,
+				     (void *)InstancePtr);
 
 	XUsbPsu_EnableIntr(InstancePtr, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-			XUSBPSU_DEVTEN_WKUPEVTEN |
-			XUSBPSU_DEVTEN_ULSTCNGEN |
-			XUSBPSU_DEVTEN_CONNECTDONEEN |
-			XUSBPSU_DEVTEN_USBRSTEN |
-			XUSBPSU_DEVTEN_DISCONNEVTEN);
+			   XUSBPSU_DEVTEN_WKUPEVTEN |
+			   XUSBPSU_DEVTEN_ULSTCNGEN |
+			   XUSBPSU_DEVTEN_CONNECTDONEEN |
+			   XUSBPSU_DEVTEN_USBRSTEN |
+			   XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 	vPortEnableInterrupt(UsbIntrId);
 }
@@ -142,7 +143,7 @@ void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
 *
 *****************************************************************************/
 static int XUsbMassStorageExamle(struct Usb_DevData *UsbInstPtr,
-		u16 DeviceId, u16 UsbIntrId)
+				 u16 DeviceId, u16 UsbIntrId)
 {
 	s32 Status;
 	Usb_Config *UsbConfigPtr;
@@ -164,7 +165,7 @@ static int XUsbMassStorageExamle(struct Usb_DevData *UsbInstPtr,
 	 * argument needs to be the virtual base address.
 	 */
 	Status = CfgInitialize(UsbInstPtr, UsbConfigPtr,
-			UsbConfigPtr->BaseAddress);
+			       UsbConfigPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
 		xil_printf("CfgInitialize failed: %d\r\n", Status);
 		return XST_FAILURE;
@@ -177,12 +178,12 @@ static int XUsbMassStorageExamle(struct Usb_DevData *UsbInstPtr,
 	Set_DrvData(UsbInstPtr->PrivateData, &storage_data);
 
 	EpConfigure(UsbInstPtr->PrivateData, 1, USB_EP_DIR_OUT,
-			USB_EP_TYPE_BULK);
+		    USB_EP_TYPE_BULK);
 	EpConfigure(UsbInstPtr->PrivateData, 1, USB_EP_DIR_IN,
-			USB_EP_TYPE_BULK);
+		    USB_EP_TYPE_BULK);
 
 	Status = ConfigureDevice(UsbInstPtr->PrivateData, &Buffer[0],
-			MEMORY_SIZE);
+				 MEMORY_SIZE);
 	if (XST_SUCCESS != Status) {
 		xil_printf("ConfigureDevice failed: %d\r\n", Status);
 		return XST_FAILURE;
@@ -194,9 +195,9 @@ static int XUsbMassStorageExamle(struct Usb_DevData *UsbInstPtr,
 	 * BulkInHandler -  to be called when data is sent
 	 */
 	SetEpHandler(UsbInstPtr->PrivateData, 1, USB_EP_DIR_OUT,
-			BulkOutHandler);
+		     BulkOutHandler);
 	SetEpHandler(UsbInstPtr->PrivateData, 1, USB_EP_DIR_IN,
-			BulkInHandler);
+		     BulkInHandler);
 
 	/* setup interrupts */
 	SetupInterruptSystem(UsbInstPtr->PrivateData, UsbIntrId);
@@ -212,17 +213,17 @@ static int XUsbMassStorageExamle(struct Usb_DevData *UsbInstPtr,
 		if (Ret == pdTRUE) {
 			if (Notification & MSG_CONFIG)
 				xTaskCreate(prvSCSITask,
-						(const char *) "SCSI Task",
-						configMINIMAL_STACK_SIZE,
-						UsbInstPtr,
-						tskIDLE_PRIORITY + 2,
-						&storage_dev.xSCSITask);
+					    (const char *) "SCSI Task",
+					    configMINIMAL_STACK_SIZE,
+					    UsbInstPtr,
+					    tskIDLE_PRIORITY + 2,
+					    &storage_dev.xSCSITask);
 
 			if (Notification & MSG_UNCONFIG) {
 				EpDisable(UsbInstPtr->PrivateData, STORAGE_EP,
-						USB_EP_DIR_IN);
+					  USB_EP_DIR_IN);
 				EpDisable(UsbInstPtr->PrivateData, STORAGE_EP,
-						USB_EP_DIR_OUT);
+					  USB_EP_DIR_OUT);
 
 				vSemaphoreDelete(storage_dev.xSemaphore);
 				vTaskDelete(storage_dev.xSCSITask);
@@ -247,7 +248,7 @@ static void prvMainTask(void *pvParameters)
 	s32 Status;
 
 	Status = XUsbMassStorageExamle(&UsbInstance, USB_DEVICE_ID,
-			USB_INTR_ID);
+				       USB_INTR_ID);
 	if (Status == XST_FAILURE) {
 		xil_printf("FreeRTOS USB MASS STORGE Example failed\r\n");
 		vTaskDelete(NULL);
@@ -273,8 +274,8 @@ int main(void)
 	CacheInit();
 
 	xTaskCreate(prvMainTask, (const char *) "Mass Storage",
-			configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2,
-			&xMainTask);
+		    configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2,
+		    &xMainTask);
 
 	/* Start the tasks and timer running. */
 	vTaskStartScheduler();

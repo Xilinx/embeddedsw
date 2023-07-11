@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -92,7 +93,7 @@ static USBCH9_DATA iso_data = {
 		.Usb_SetInterfaceHandler = Usb_SetInterfaceHandler,
 		.Usb_ClassReq = Usb_ClassReq,
 	},
-	.data_ptr = (void *)&audio_dev,
+	.data_ptr = (void *) &audio_dev,
 };
 
 /****************************************************************************/
@@ -114,15 +115,15 @@ static USBCH9_DATA iso_data = {
 void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
 {
 	xPortInstallInterruptHandler(UsbIntrId,
-			(XInterruptHandler)XUsbPsu_IntrHandler,
-			(void *)InstancePtr);
+				     (XInterruptHandler)XUsbPsu_IntrHandler,
+				     (void *)InstancePtr);
 
 	XUsbPsu_EnableIntr(InstancePtr, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-			XUSBPSU_DEVTEN_WKUPEVTEN |
-			XUSBPSU_DEVTEN_ULSTCNGEN |
-			XUSBPSU_DEVTEN_CONNECTDONEEN |
-			XUSBPSU_DEVTEN_USBRSTEN |
-			XUSBPSU_DEVTEN_DISCONNEVTEN);
+			   XUSBPSU_DEVTEN_WKUPEVTEN |
+			   XUSBPSU_DEVTEN_ULSTCNGEN |
+			   XUSBPSU_DEVTEN_CONNECTDONEEN |
+			   XUSBPSU_DEVTEN_USBRSTEN |
+			   XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 	vPortEnableInterrupt(UsbIntrId);
 }
@@ -144,8 +145,8 @@ static void set_audio_transfer_size(struct audio_dev *f_audio)
 
 	/* Audio sampling frequency which filled in TYPE One Format desc */
 	AudioFreq = (u32)((u8)audio_freq[CUR_AUDIO_FREQ][0] |
-			(u8)audio_freq[CUR_AUDIO_FREQ][1] << 8 |
-			(u8)audio_freq[CUR_AUDIO_FREQ][2] << 16);
+			  (u8)audio_freq[CUR_AUDIO_FREQ][1] << 8 |
+			  (u8)audio_freq[CUR_AUDIO_FREQ][2] << 16);
 
 	/*
 	 * Audio transmission Bytes required to send in one sec
@@ -157,15 +158,16 @@ static void set_audio_transfer_size(struct audio_dev *f_audio)
 
 	/* Audio data transfer size to be transferred at every interval */
 	MaxPacketsize = AUDIO_CHANNEL_NUM * AUDIO_FRAME_SIZE *
-		DIV_ROUND_UP(AudioFreq, INTERVAL_PER_SECOND /
-				(1 << (AUDIO_INTERVAL - 1)));
+			DIV_ROUND_UP(AudioFreq, INTERVAL_PER_SECOND /
+				     (1 << (AUDIO_INTERVAL - 1)));
 	f_audio->packetsize = ((Rate / f_audio->interval) < MaxPacketsize) ?
-		(Rate / f_audio->interval) : MaxPacketsize;
+			      (Rate / f_audio->interval) : MaxPacketsize;
 
-	if (f_audio->packetsize < MaxPacketsize)
+	if (f_audio->packetsize < MaxPacketsize) {
 		f_audio->packetresidue = Rate % f_audio->interval;
-	else
+	} else {
 		f_audio->packetresidue = 0;
+	}
 }
 
 /****************************************************************************/
@@ -183,7 +185,7 @@ static void set_audio_transfer_size(struct audio_dev *f_audio)
  *
  *****************************************************************************/
 static void Usb_IsoOutHandler(void *CallBackRef, u32 RequestedBytes,
-		u32 BytesTxed)
+			      u32 BytesTxed)
 {
 	struct Usb_DevData *InstancePtr = CallBackRef;
 	USBCH9_DATA *ch9_ptr =
@@ -211,7 +213,7 @@ static void Usb_IsoOutHandler(void *CallBackRef, u32 RequestedBytes,
  *
  *****************************************************************************/
 static void Usb_IsoInHandler(void *CallBackRef, u32 RequestedBytes,
-		u32 BytesTxed)
+			     u32 BytesTxed)
 {
 	struct Usb_DevData *InstancePtr = CallBackRef;
 	USBCH9_DATA *ch9_ptr =
@@ -239,7 +241,7 @@ static void Usb_IsoInHandler(void *CallBackRef, u32 RequestedBytes,
 *
 *****************************************************************************/
 static int XUsbAudioExample(struct Usb_DevData *UsbInstPtr,
-		struct audio_dev *dev, u16 DeviceId, u16 UsbIntrId)
+			    struct audio_dev *dev, u16 DeviceId, u16 UsbIntrId)
 {
 	s32 Status;
 	Usb_Config *UsbConfigPtr;
@@ -253,7 +255,7 @@ static int XUsbAudioExample(struct Usb_DevData *UsbInstPtr,
 	}
 
 	Status = CfgInitialize(UsbInstPtr, UsbConfigPtr,
-			UsbConfigPtr->BaseAddress);
+			       UsbConfigPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
 		xil_printf("CfgInitialize failed: %d\r\n", Status);
 		return XST_FAILURE;
@@ -266,12 +268,12 @@ static int XUsbAudioExample(struct Usb_DevData *UsbInstPtr,
 	Set_DrvData(UsbInstPtr->PrivateData, &iso_data);
 
 	EpConfigure(UsbInstPtr->PrivateData, ISO_EP, USB_EP_DIR_IN,
-			USB_EP_TYPE_ISOCHRONOUS);
+		    USB_EP_TYPE_ISOCHRONOUS);
 	EpConfigure(UsbInstPtr->PrivateData, ISO_EP, USB_EP_DIR_OUT,
-			USB_EP_TYPE_ISOCHRONOUS);
+		    USB_EP_TYPE_ISOCHRONOUS);
 
 	Status = ConfigureDevice(UsbInstPtr->PrivateData, &Buffer[0],
-			MEMORY_SIZE);
+				 MEMORY_SIZE);
 	if (XST_SUCCESS != Status) {
 		xil_printf("ConfigureDevice failed: %d\r\n", Status);
 		return XST_FAILURE;
@@ -283,10 +285,10 @@ static int XUsbAudioExample(struct Usb_DevData *UsbInstPtr,
 	 * XUsbPsu_IsoOutHandler -  to be called when data is received
 	 */
 	SetEpHandler(UsbInstPtr->PrivateData, ISO_EP, USB_EP_DIR_IN,
-			Usb_IsoInHandler);
+		     Usb_IsoInHandler);
 
 	SetEpHandler(UsbInstPtr->PrivateData, ISO_EP, USB_EP_DIR_OUT,
-			Usb_IsoOutHandler);
+		     Usb_IsoOutHandler);
 
 	/* Setup interrupts */
 	SetupInterruptSystem(UsbInstPtr->PrivateData, UsbIntrId);
@@ -304,34 +306,34 @@ static int XUsbAudioExample(struct Usb_DevData *UsbInstPtr,
 		if (Ret == pdTRUE) {
 			if (Notification & RECORD_START)
 				xTaskCreate(prvRecordTask,
-						(const char *) "Record Task",
-						configMINIMAL_STACK_SIZE,
-						UsbInstPtr,
-						tskIDLE_PRIORITY + 2,
-						&(dev->xRecordTask));
+					    (const char *) "Record Task",
+					    configMINIMAL_STACK_SIZE,
+					    UsbInstPtr,
+					    tskIDLE_PRIORITY + 2,
+					    &(dev->xRecordTask));
 
 			if (Notification & PLAY_START)
 				xTaskCreate(prvPlayBackTask,
-						(const char *) "PlayBack Task",
-						configMINIMAL_STACK_SIZE,
-						UsbInstPtr,
-						tskIDLE_PRIORITY + 2,
-						&(dev->xPlayTask));
+					    (const char *) "PlayBack Task",
+					    configMINIMAL_STACK_SIZE,
+					    UsbInstPtr,
+					    tskIDLE_PRIORITY + 2,
+					    &(dev->xPlayTask));
 
 			if (Notification & RECORD_STOP) {
 				StreamOff(UsbInstPtr->PrivateData, ISO_EP,
-						USB_EP_DIR_IN);
+					  USB_EP_DIR_IN);
 				EpDisable(UsbInstPtr->PrivateData, ISO_EP,
-						USB_EP_DIR_IN);
+					  USB_EP_DIR_IN);
 				vSemaphoreDelete(dev->xSemaphoreRecord);
 				vTaskDelete(dev->xRecordTask);
 			}
 
 			if (Notification & PLAY_STOP) {
 				StreamOff(UsbInstPtr->PrivateData, ISO_EP,
-						USB_EP_DIR_OUT);
+					  USB_EP_DIR_OUT);
 				EpDisable(UsbInstPtr->PrivateData, ISO_EP,
-						USB_EP_DIR_OUT);
+					  USB_EP_DIR_OUT);
 				vSemaphoreDelete(dev->xSemaphorePlay);
 				vTaskDelete(dev->xPlayTask);
 			}
@@ -355,7 +357,7 @@ static void prvMainTask(void *pvParameters)
 	s32 Status;
 
 	Status = XUsbAudioExample(&UsbInstance, &audio_dev, USB_DEVICE_ID,
-			USB_INTR_ID);
+				  USB_INTR_ID);
 	if (Status == XST_FAILURE) {
 		xil_printf("FreeRTOS USB Audio Example failed\r\n");
 		vTaskDelete(NULL);
@@ -381,8 +383,8 @@ int main(void)
 	CacheInit();
 
 	xTaskCreate(prvMainTask, (const char *) "Audio",
-			configMINIMAL_STACK_SIZE, NULL,	tskIDLE_PRIORITY,
-			&audio_dev.xMainTask);
+		    configMINIMAL_STACK_SIZE, NULL,	tskIDLE_PRIORITY,
+		    &audio_dev.xMainTask);
 
 	/* Start the tasks and timer running. */
 	vTaskStartScheduler();

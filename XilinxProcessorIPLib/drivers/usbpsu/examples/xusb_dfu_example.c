@@ -62,7 +62,7 @@
 /************************** Function Prototypes ******************************/
 #ifndef SDT
 static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
-		u16 USB_INTR_ID, void *IntcPtr);
+				u16 USB_INTR_ID, void *IntcPtr);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -115,7 +115,7 @@ static USBCH9_DATA dfu_data = {
 		.Usb_ClassReq = Usb_DfuClassReq,
 		/* Set the DFU address for call back */
 	},
-	.data_ptr = (void *)&DFU,
+	.data_ptr = (void *) &DFU,
 };
 
 /****************************************************************************/
@@ -149,8 +149,9 @@ int main(void)
 #else
 	UsbConfigPtr = LookupConfig(XUSBPSU_BASEADDRESS);
 #endif
-	if (NULL == UsbConfigPtr)
+	if (NULL == UsbConfigPtr) {
 		return XST_FAILURE;
+	}
 
 	/* We are passing the physical base address as the third argument
 	 * because the physical and virtual base address are the same in our
@@ -158,9 +159,10 @@ int main(void)
 	 * argument needs to be the virtual base address.
 	 */
 	Status = CfgInitialize(&UsbInstance, UsbConfigPtr,
-					UsbConfigPtr->BaseAddress);
-	if (XST_SUCCESS != Status)
+			       UsbConfigPtr->BaseAddress);
+	if (XST_SUCCESS != Status) {
 		return XST_FAILURE;
+	}
 
 	/* hook up chapter9 handler */
 	Set_Ch9Handler(UsbInstance.PrivateData, Ch9Handler);
@@ -186,30 +188,31 @@ int main(void)
 	/* setup interrupts */
 #ifndef SDT
 	Status = SetupInterruptSystem((struct XUsbPsu *)UsbInstance.PrivateData,
-					INTC_DEVICE_ID,
-					USB_INT_ID,
-					(void *)&InterruptController);
-	if (Status != XST_SUCCESS)
+				      INTC_DEVICE_ID,
+				      USB_INT_ID,
+				      (void *)&InterruptController);
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 
 	/* Start the controller so that Host can see our device */
 	Usb_Start(UsbInstance.PrivateData);
 #else
 	Status = XSetupInterruptSystem(UsbInstance.PrivateData,
-					&XUsbPsu_IntrHandler,
-					UsbConfigPtr->IntrId[INTRNAME_DWC3USB3],
-					UsbConfigPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       &XUsbPsu_IntrHandler,
+				       UsbConfigPtr->IntrId[INTRNAME_DWC3USB3],
+				       UsbConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 	Status = XSetupInterruptSystem(UsbInstance.PrivateData,
-					&XUsbPsu_WakeUpIntrHandler,
-					UsbConfigPtr->IntrId[INTRNAME_HIBER],
-					UsbConfigPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       &XUsbPsu_WakeUpIntrHandler,
+				       UsbConfigPtr->IntrId[INTRNAME_HIBER],
+				       UsbConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -219,17 +222,17 @@ int main(void)
 	 * Wakeup and Overflow events.
 	 */
 	XUsbPsu_EnableIntr(UsbInstance.PrivateData,
-			XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-			XUSBPSU_DEVTEN_WKUPEVTEN |
-			XUSBPSU_DEVTEN_ULSTCNGEN |
-			XUSBPSU_DEVTEN_CONNECTDONEEN |
-			XUSBPSU_DEVTEN_USBRSTEN |
-			XUSBPSU_DEVTEN_DISCONNEVTEN);
+			   XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
+			   XUSBPSU_DEVTEN_WKUPEVTEN |
+			   XUSBPSU_DEVTEN_ULSTCNGEN |
+			   XUSBPSU_DEVTEN_CONNECTDONEEN |
+			   XUSBPSU_DEVTEN_USBRSTEN |
+			   XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 	if (InstancePtr->HasHibernation)
 		XUsbPsu_EnableIntr(UsbInstance.PrivateData,
-				XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
+				   XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
 #endif
 	/* Start the controller so that Host can see our device */
 	Usb_Start(UsbInstance.PrivateData);
@@ -261,7 +264,7 @@ int main(void)
 *
 *****************************************************************************/
 static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
-		u16 USB_INTR_ID, void *IntcPtr)
+				u16 USB_INTR_ID, void *IntcPtr)
 {
 	/*
 	 * This below is done to remove warnings which occur when usbpsu
@@ -322,18 +325,18 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	 * Wakeup and Overflow events.
 	 */
 	XUsbPsu_EnableIntr(InstancePtr, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-                        XUSBPSU_DEVTEN_WKUPEVTEN |
-                        XUSBPSU_DEVTEN_ULSTCNGEN |
-                        XUSBPSU_DEVTEN_CONNECTDONEEN |
-                        XUSBPSU_DEVTEN_USBRSTEN |
-                        XUSBPSU_DEVTEN_DISCONNEVTEN);
+			   XUSBPSU_DEVTEN_WKUPEVTEN |
+			   XUSBPSU_DEVTEN_ULSTCNGEN |
+			   XUSBPSU_DEVTEN_CONNECTDONEEN |
+			   XUSBPSU_DEVTEN_USBRSTEN |
+			   XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 	/*
 	 * Register the interrupt controller handler with the exception table
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XIntc_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     IntcInstancePtr);
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #elif defined (PLATFORM_ZYNQMP) || defined (versal)
 	s32 Status;
@@ -352,7 +355,7 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-								   IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -361,15 +364,15 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	 * Connect to the interrupt controller
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, USB_INTR_ID,
-							(Xil_ExceptionHandler)XUsbPsu_IntrHandler,
-							(void *)InstancePtr);
+				 (Xil_ExceptionHandler)XUsbPsu_IntrHandler,
+				 (void *)InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 	Status = XScuGic_Connect(IntcInstancePtr, USB_WAKEUP_INTR_ID,
-							(Xil_ExceptionHandler)XUsbPsu_WakeUpIntrHandler,
-							(void *)InstancePtr);
+				 (Xil_ExceptionHandler)XUsbPsu_WakeUpIntrHandler,
+				 (void *)InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -388,16 +391,16 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	 * Wakeup and Overflow events.
 	 */
 	XUsbPsu_EnableIntr(InstancePtr, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-                        XUSBPSU_DEVTEN_WKUPEVTEN |
-                        XUSBPSU_DEVTEN_ULSTCNGEN |
-                        XUSBPSU_DEVTEN_CONNECTDONEEN |
-                        XUSBPSU_DEVTEN_USBRSTEN |
-                        XUSBPSU_DEVTEN_DISCONNEVTEN);
+			   XUSBPSU_DEVTEN_WKUPEVTEN |
+			   XUSBPSU_DEVTEN_ULSTCNGEN |
+			   XUSBPSU_DEVTEN_CONNECTDONEEN |
+			   XUSBPSU_DEVTEN_USBRSTEN |
+			   XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 #ifdef XUSBPSU_HIBERNATION_ENABLE
 	if (InstancePtr->HasHibernation)
 		XUsbPsu_EnableIntr(InstancePtr,
-				XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
+				   XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
 #endif
 
 	/*
@@ -405,8 +408,8 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 	 * interrupt handling logic in the ARM processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-								(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-								IntcInstancePtr);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 #endif /* PLATFORM_ZYNQMP or versal */
 
 	/*

@@ -121,9 +121,8 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_ClearStallAllEp(InstancePtr);
 
 	for (Index = 0U; Index <
-		((u32)InstancePtr->NumInEps + (u32)InstancePtr->NumOutEps);
-			Index++)
-	{
+	     ((u32)InstancePtr->NumInEps + (u32)InstancePtr->NumOutEps);
+	     Index++) {
 		InstancePtr->eps[Index].EpStatus = 0U;
 	}
 
@@ -153,29 +152,29 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 *
 *****************************************************************************/
 void XUsbPsu_Ep0Intr(struct XUsbPsu *InstancePtr,
-		const struct XUsbPsu_Event_Epevt *Event)
+		     const struct XUsbPsu_Event_Epevt *Event)
 {
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Event != NULL);
 
 	switch (Event->Endpoint_Event) {
-	case XUSBPSU_DEPEVT_XFERCOMPLETE:
-		XUsbPsu_Ep0XferComplete(InstancePtr, Event);
-		break;
+		case XUSBPSU_DEPEVT_XFERCOMPLETE:
+			XUsbPsu_Ep0XferComplete(InstancePtr, Event);
+			break;
 
-	case XUSBPSU_DEPEVT_XFERNOTREADY:
-		XUsbPsu_Ep0XferNotReady(InstancePtr, Event);
-		break;
+		case XUSBPSU_DEPEVT_XFERNOTREADY:
+			XUsbPsu_Ep0XferNotReady(InstancePtr, Event);
+			break;
 
-	case XUSBPSU_DEPEVT_XFERINPROGRESS:
-	case XUSBPSU_DEPEVT_STREAMEVT:
-	case XUSBPSU_DEPEVT_EPCMDCMPLT:
-		break;
+		case XUSBPSU_DEPEVT_XFERINPROGRESS:
+		case XUSBPSU_DEPEVT_STREAMEVT:
+		case XUSBPSU_DEPEVT_EPCMDCMPLT:
+			break;
 
-	default:
-		/* Default case is a required MIRSA-C guideline. */
-		break;
+		default:
+			/* Default case is a required MIRSA-C guideline. */
+			break;
 	}
 }
 
@@ -201,41 +200,41 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 	InstancePtr->AppData->Speed = Speed;
 
 	switch (Speed) {
-	case XUSBPSU_DCFG_SUPERSPEED:
+		case XUSBPSU_DCFG_SUPERSPEED:
 #ifdef XUSBPSU_DEBUG
-		xil_printf("Super Speed\r\n");
+			xil_printf("Super Speed\r\n");
 #endif
-		Size = 512U;
-		InstancePtr->AppData->Speed = XUSBPSU_SPEED_SUPER;
-		break;
+			Size = 512U;
+			InstancePtr->AppData->Speed = XUSBPSU_SPEED_SUPER;
+			break;
 
-	case XUSBPSU_DCFG_HIGHSPEED:
+		case XUSBPSU_DCFG_HIGHSPEED:
 #ifdef XUSBPSU_DEBUG
-		xil_printf("High Speed\r\n");
+			xil_printf("High Speed\r\n");
 #endif
-		Size = 64U;
-		InstancePtr->AppData->Speed = XUSBPSU_SPEED_HIGH;
-		break;
+			Size = 64U;
+			InstancePtr->AppData->Speed = XUSBPSU_SPEED_HIGH;
+			break;
 
-	case XUSBPSU_DCFG_FULLSPEED2:
-	case XUSBPSU_DCFG_FULLSPEED1:
+		case XUSBPSU_DCFG_FULLSPEED2:
+		case XUSBPSU_DCFG_FULLSPEED1:
 #ifdef XUSBPSU_DEBUG
-		xil_printf("Full Speed\r\n");
+			xil_printf("Full Speed\r\n");
 #endif
-		Size = 64U;
-		InstancePtr->AppData->Speed = XUSBPSU_SPEED_FULL;
-		break;
+			Size = 64U;
+			InstancePtr->AppData->Speed = XUSBPSU_SPEED_FULL;
+			break;
 
-	case XUSBPSU_DCFG_LOWSPEED:
+		case XUSBPSU_DCFG_LOWSPEED:
 #ifdef XUSBPSU_DEBUG
-		xil_printf("Low Speed\r\n");
+			xil_printf("Low Speed\r\n");
 #endif
-		Size = 64U;
-		InstancePtr->AppData->Speed = XUSBPSU_SPEED_LOW;
-		break;
-	default :
-		Size = 64U;
-		break;
+			Size = 64U;
+			InstancePtr->AppData->Speed = XUSBPSU_SPEED_LOW;
+			break;
+		default :
+			Size = 64U;
+			break;
 	}
 
 	if (InstancePtr->AppData->Speed == XUSBPSU_SPEED_SUPER) {
@@ -292,7 +291,7 @@ void XUsbPsu_LinkStsChangeIntr(struct XUsbPsu *InstancePtr, u32 EvtInfo)
 *
 *****************************************************************************/
 void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
-			const union XUsbPsu_Event *Event)
+			  const union XUsbPsu_Event *Event)
 {
 
 	if (Event->Type.Is_DevEvt == 0U) {
@@ -302,14 +301,14 @@ void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
 	}
 
 	switch (Event->Type.Type) {
-	case XUSBPSU_EVENT_TYPE_DEV:
-		/* Device Specific Event */
-		XUsbPsu_DeviceEvent(InstancePtr, &Event->Devt);
-		break;
-	/* Carkit and I2C events not supported now */
-	default:
-		/* Made for Misra-C Compliance. */
-		break;
+		case XUSBPSU_EVENT_TYPE_DEV:
+			/* Device Specific Event */
+			XUsbPsu_DeviceEvent(InstancePtr, &Event->Devt);
+			break;
+		/* Carkit and I2C events not supported now */
+		default:
+			/* Made for Misra-C Compliance. */
+			break;
 	}
 }
 
@@ -407,7 +406,7 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 	u32 Count;
 	u32 RegVal;
 
-	InstancePtr = (struct XUsbPsu  *)XUsbPsuInstancePtr;
+	InstancePtr = (struct XUsbPsu *)XUsbPsuInstancePtr;
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Evt = &InstancePtr->Evt;
@@ -464,7 +463,7 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
 	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
 		XUsbPsu_WriteLpdReg(RST_LPD_TOP,
-				(u32)(RegVal & ~USB0_CORE_RST));
+				    (u32)(RegVal & ~USB0_CORE_RST));
 	}
 
 #if defined (PLATFORM_ZYNQMP)
@@ -481,13 +480,13 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 			     XIL_CUR_PWR_STATE_BITMASK,
 			     XIL_CUR_PWR_STATE_D0,
 			     (u32)XUSBPSU_PWR_STATE_RETRIES) !=
-			     (u32)XST_SUCCESS) {
+	    (u32)XST_SUCCESS) {
 #else
 	if (Xil_WaitForEvent(VSL_CUR_PWR_ST_REG + XIL_CUR_PWR_STATE,
 			     XIL_CUR_PWR_STATE_BITMASK,
 			     XIL_CUR_PWR_STATE_D0,
 			     (u32)XUSBPSU_PWR_STATE_RETRIES) !=
-			     (u32)XST_SUCCESS) {
+	    (u32)XST_SUCCESS) {
 #endif
 		xil_printf("Failed to change power state to D0\r\n");
 		return;
@@ -507,7 +506,7 @@ void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
 
 	/* Wait until device controller is ready */
 	if (XUsbPsu_WaitClearTimeout(InstancePtr, XUSBPSU_DSTS,
-		XUSBPSU_DSTS_DCNRD, XUSBPSU_CTRL_RDY_RETRIES) == XST_FAILURE) {
+				     XUSBPSU_DSTS_DCNRD, XUSBPSU_CTRL_RDY_RETRIES) == XST_FAILURE) {
 		xil_printf("Failed to ready device controller\r\n");
 		return;
 	}

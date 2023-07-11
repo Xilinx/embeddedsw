@@ -70,20 +70,20 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 
 	TrbPtr->BufferPtrLow = (UINTPTR)&InstancePtr->SetupData;
 	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16U)
-									 >> 16U;
+				>> 16U;
 	TrbPtr->Size = 8U;
 	TrbPtr->Ctrl = XUSBPSU_TRBCTL_CONTROL_SETUP;
 
 	TrbPtr->Ctrl |= (XUSBPSU_TRB_CTRL_HWO
-			| XUSBPSU_TRB_CTRL_LST
-			| XUSBPSU_TRB_CTRL_IOC
-			| XUSBPSU_TRB_CTRL_ISP_IMI);
+			 | XUSBPSU_TRB_CTRL_LST
+			 | XUSBPSU_TRB_CTRL_IOC
+			 | XUSBPSU_TRB_CTRL_ISP_IMI);
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr,
-						 sizeof(struct XUsbPsu_Trb));
+				     sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheFlushRange((UINTPTR)&InstancePtr->SetupData,
-						 sizeof(SetupPacket));
+				     sizeof(SetupPacket));
 	}
 
 	Params->Param0 = 0U;
@@ -99,8 +99,8 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
-								Ept->UsbEpNum,
-								Ept->Direction);
+			     Ept->UsbEpNum,
+			     Ept->Direction);
 
 	return (s32)XST_SUCCESS;
 }
@@ -118,7 +118,7 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 *
 *****************************************************************************/
 void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
-				 const struct XUsbPsu_Event_Epevt *Event)
+			     const struct XUsbPsu_Event_Epevt *Event)
 {
 	struct XUsbPsu_Ep *Ept;
 	SetupPacket *Ctrl;
@@ -131,39 +131,39 @@ void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
 	Ept->ResourceIndex = 0U;
 
 	switch (InstancePtr->Ep0State) {
-	case XUSBPSU_EP0_SETUP_PHASE:
-		if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
-			Xil_DCacheInvalidateRange(
+		case XUSBPSU_EP0_SETUP_PHASE:
+			if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
+				Xil_DCacheInvalidateRange(
 					(INTPTR)&InstancePtr->SetupData,
 					sizeof(InstancePtr->SetupData));
-		}
-		Length = Ctrl->wLength;
-		if (Length == 0U) {
-			InstancePtr->IsThreeStage = 0U;
-			InstancePtr->ControlDir = XUSBPSU_EP_DIR_OUT;
-		} else {
-			InstancePtr->IsThreeStage = 1U;
-			InstancePtr->ControlDir = !!(Ctrl->bRequestType &
-							XUSBPSU_USB_DIR_IN);
-		}
+			}
+			Length = Ctrl->wLength;
+			if (Length == 0U) {
+				InstancePtr->IsThreeStage = 0U;
+				InstancePtr->ControlDir = XUSBPSU_EP_DIR_OUT;
+			} else {
+				InstancePtr->IsThreeStage = 1U;
+				InstancePtr->ControlDir = !!(Ctrl->bRequestType &
+							     XUSBPSU_USB_DIR_IN);
+			}
 
-		Xil_AssertVoid(InstancePtr->Chapter9 != NULL);
+			Xil_AssertVoid(InstancePtr->Chapter9 != NULL);
 
-		InstancePtr->Chapter9(InstancePtr->AppData,
-						&InstancePtr->SetupData);
-		break;
+			InstancePtr->Chapter9(InstancePtr->AppData,
+					      &InstancePtr->SetupData);
+			break;
 
-	case XUSBPSU_EP0_DATA_PHASE:
-		XUsbPsu_Ep0DataDone(InstancePtr, Event);
-		break;
+		case XUSBPSU_EP0_DATA_PHASE:
+			XUsbPsu_Ep0DataDone(InstancePtr, Event);
+			break;
 
-	case XUSBPSU_EP0_STATUS_PHASE:
-		XUsbPsu_Ep0StatusDone(InstancePtr);
-		break;
+		case XUSBPSU_EP0_STATUS_PHASE:
+			XUsbPsu_Ep0StatusDone(InstancePtr);
+			break;
 
-	default:
-		/* Default case is a required MISRA-C guideline. */
-		break;
+		default:
+			/* Default case is a required MISRA-C guideline. */
+			break;
 	}
 }
 
@@ -180,36 +180,36 @@ void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
 *
 *****************************************************************************/
 void XUsbPsu_Ep0XferNotReady(struct XUsbPsu *InstancePtr,
-				 const struct XUsbPsu_Event_Epevt *Event)
+			     const struct XUsbPsu_Event_Epevt *Event)
 {
 	struct XUsbPsu_Ep *Ept;
 
 	Ept = &InstancePtr->eps[Event->Epnumber];
 
 	switch (Event->Status) {
-	case DEPEVT_STATUS_CONTROL_DATA:
-		/*
-		 * We already have a DATA transfer in the controller's cache,
-		 * if we receive a XferNotReady(DATA) we will ignore it, unless
-		 * it's for the wrong direction.
-		 *
-		 * In that case, we must issue END_TRANSFER command to the Data
-		 * Phase we already have started and issue SetStall on the
-		 * control endpoint.
-		 */
-		if (Event->Epnumber != InstancePtr->ControlDir) {
-			XUsbPsu_Ep0_EndControlData(InstancePtr, Ept);
-			XUsbPsu_Ep0StallRestart(InstancePtr);
-		}
-		break;
+		case DEPEVT_STATUS_CONTROL_DATA:
+			/*
+			 * We already have a DATA transfer in the controller's cache,
+			 * if we receive a XferNotReady(DATA) we will ignore it, unless
+			 * it's for the wrong direction.
+			 *
+			 * In that case, we must issue END_TRANSFER command to the Data
+			 * Phase we already have started and issue SetStall on the
+			 * control endpoint.
+			 */
+			if (Event->Epnumber != InstancePtr->ControlDir) {
+				XUsbPsu_Ep0_EndControlData(InstancePtr, Ept);
+				XUsbPsu_Ep0StallRestart(InstancePtr);
+			}
+			break;
 
-	case DEPEVT_STATUS_CONTROL_STATUS:
-		(void)XUsbPsu_Ep0StartStatus(InstancePtr, Event);
-		break;
+		case DEPEVT_STATUS_CONTROL_STATUS:
+			(void)XUsbPsu_Ep0StartStatus(InstancePtr, Event);
+			break;
 
-	default:
-		/* Default case is a required MIRSA-C guideline. */
-		break;
+		default:
+			/* Default case is a required MIRSA-C guideline. */
+			break;
 	}
 }
 
@@ -254,31 +254,31 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 	TrbPtr->Ctrl = XUSBPSU_TRBCTL_CONTROL_DATA;
 
 	TrbPtr->Ctrl |= (XUSBPSU_TRB_CTRL_HWO
-			| XUSBPSU_TRB_CTRL_LST
-			| XUSBPSU_TRB_CTRL_IOC
-			| XUSBPSU_TRB_CTRL_ISP_IMI);
+			 | XUSBPSU_TRB_CTRL_LST
+			 | XUSBPSU_TRB_CTRL_IOC
+			 | XUSBPSU_TRB_CTRL_ISP_IMI);
 
 	Params->Param0 = 0U;
 	Params->Param1 = (UINTPTR)TrbPtr;
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr,
-					 sizeof(struct XUsbPsu_Trb));
+				     sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheFlushRange((INTPTR)BufferPtr, BufferLen);
 	}
 
 	InstancePtr->Ep0State = XUSBPSU_EP0_DATA_PHASE;
 
 	Ret = XUsbPsu_SendEpCmd(InstancePtr, 0U, XUSBPSU_EP_DIR_IN,
-					XUSBPSU_DEPCMD_STARTTRANSFER, Params);
+				XUSBPSU_DEPCMD_STARTTRANSFER, Params);
 	if (Ret != XST_SUCCESS) {
 		return (s32)XST_FAILURE;
 	}
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
-								Ept->UsbEpNum,
-								Ept->Direction);
+			     Ept->UsbEpNum,
+			     Ept->Direction);
 
 	return (s32)XST_SUCCESS;
 }
@@ -336,13 +336,13 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 	TrbPtr->Ctrl = XUSBPSU_TRBCTL_CONTROL_DATA;
 
 	TrbPtr->Ctrl |= (XUSBPSU_TRB_CTRL_HWO
-			| XUSBPSU_TRB_CTRL_LST
-			| XUSBPSU_TRB_CTRL_IOC
-			| XUSBPSU_TRB_CTRL_ISP_IMI);
+			 | XUSBPSU_TRB_CTRL_LST
+			 | XUSBPSU_TRB_CTRL_IOC
+			 | XUSBPSU_TRB_CTRL_ISP_IMI);
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr,
-					 sizeof(struct XUsbPsu_Trb));
+				     sizeof(struct XUsbPsu_Trb));
 		Xil_DCacheInvalidateRange((INTPTR)BufferPtr, Length);
 	}
 
@@ -359,7 +359,7 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
-						Ept->UsbEpNum, Ept->Direction);
+			     Ept->UsbEpNum, Ept->Direction);
 
 	return (s32)XST_SUCCESS;
 }
@@ -392,7 +392,7 @@ s32 XUsbPsu_RestoreEp0(struct XUsbPsu *InstancePtr)
 		}
 
 		Ret = XUsbPsu_EpEnable(InstancePtr, Ept->UsbEpNum,
-			Ept->Direction, Ept->MaxSize, Ept->Type, (u8)TRUE);
+				       Ept->Direction, Ept->MaxSize, Ept->Type, (u8)TRUE);
 		if (Ret == XST_FAILURE) {
 			return (s32)XST_FAILURE;
 		}

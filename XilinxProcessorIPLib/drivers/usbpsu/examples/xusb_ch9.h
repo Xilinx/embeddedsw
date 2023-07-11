@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -114,11 +115,11 @@ typedef struct {
  * SUPERSPEED USB ENDPOINT COMPANION descriptor structure
  */
 typedef struct {
-  u8 bLength;
-  u8 bDescriptorType;
-  u8 bMaxBurst;
-  u8 bmAttributes;
-  u16 wBytesPerInterval;
+	u8 bLength;
+	u8 bDescriptorType;
+	u8 bMaxBurst;
+	u8 bmAttributes;
+	u16 wBytesPerInterval;
 } attribute (USB_STD_EP_SS_COMP_DESC);
 
 typedef struct {
@@ -152,27 +153,27 @@ typedef struct {
 	u16 wU2DevExitLat;
 } attribute(USB_STD_DEVICE_CAP_10BYTE);
 
-typedef struct{
+typedef struct {
 	USB_STD_BOS_DESC	bos_desc;
 	USB_STD_DEVICE_CAP_7BYTE dev_cap7;
 	USB_STD_DEVICE_CAP_10BYTE dev_cap10;
 } attribute(USB_BOS_DESC);
 
 typedef struct {
-    u32 (*Usb_Ch9SetupDevDescReply)(struct Usb_DevData *,u8 *, u32);
-    u32 (*Usb_Ch9SetupCfgDescReply)(struct Usb_DevData *,u8 *, u32);
-    u32 (*Usb_Ch9SetupBosDescReply)(u8 *, u32);
-    u32 (*Usb_Ch9SetupStrDescReply)(struct Usb_DevData *,u8 *, u32, u8);
-    s32 (*Usb_SetConfiguration)(struct Usb_DevData *, SetupPacket *);
-    s32 (*Usb_SetConfigurationApp)(struct Usb_DevData *, SetupPacket *);
+	u32 (*Usb_Ch9SetupDevDescReply)(struct Usb_DevData *, u8 *, u32);
+	u32 (*Usb_Ch9SetupCfgDescReply)(struct Usb_DevData *, u8 *, u32);
+	u32 (*Usb_Ch9SetupBosDescReply)(u8 *, u32);
+	u32 (*Usb_Ch9SetupStrDescReply)(struct Usb_DevData *, u8 *, u32, u8);
+	s32 (*Usb_SetConfiguration)(struct Usb_DevData *, SetupPacket *);
+	s32 (*Usb_SetConfigurationApp)(struct Usb_DevData *, SetupPacket *);
 	void (*Usb_SetInterfaceHandler)(struct Usb_DevData *, SetupPacket *);
 	void (*Usb_ClassReq)(struct Usb_DevData *, SetupPacket *);
-	u32 (*Usb_GetDescReply)(struct Usb_DevData *, SetupPacket *,u8 *);
+	u32 (*Usb_GetDescReply)(struct Usb_DevData *, SetupPacket *, u8 *);
 } attribute(CH9FUNC_CONTAINER);
 
 typedef struct {
 	CH9FUNC_CONTAINER ch9_func;
-	void * data_ptr;
+	void *data_ptr;
 } attribute(USBCH9_DATA);
 
 #ifdef __ICCARM__

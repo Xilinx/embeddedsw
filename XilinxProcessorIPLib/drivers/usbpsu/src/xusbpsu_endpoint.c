@@ -62,7 +62,7 @@
 *
 *****************************************************************************/
 u32 XUsbPsu_EpGetTransferIndex(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
-								u8 Dir)
+			       u8 Dir)
 {
 	u8 PhyEpNum;
 	u32 ResourceIndex;
@@ -70,7 +70,7 @@ u32 XUsbPsu_EpGetTransferIndex(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(UsbEpNum <= (u8)16U);
 	Xil_AssertNonvoid((Dir == XUSBPSU_EP_DIR_IN) ||
-						(Dir == XUSBPSU_EP_DIR_OUT));
+			  (Dir == XUSBPSU_EP_DIR_OUT));
 
 	PhyEpNum = (u8)XUSBPSU_PhysicalEp(UsbEpNum, Dir);
 	ResourceIndex = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DEPCMD(PhyEpNum));
@@ -122,7 +122,7 @@ s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
 		}
 
 		return XUsbPsu_SendEpCmd(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT,
-								 Cmd, Params);
+					 Cmd, Params);
 	}
 
 	return (s32)XST_SUCCESS;
@@ -147,7 +147,7 @@ s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
 *
 *****************************************************************************/
 s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
-						u16 Size, u8 Type, u8 Restore)
+			u16 Size, u8 Type, u8 Restore)
 {
 	struct XUsbPsu_Ep *Ept;
 	struct XUsbPsu_EpParams *Params;
@@ -160,7 +160,7 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	Ept = &InstancePtr->eps[PhyEpNum];
 
 	Params->Param0 = XUSBPSU_DEPCFG_EP_TYPE(Type)
-		| XUSBPSU_DEPCFG_MAX_PACKET_SIZE(Size);
+			 | XUSBPSU_DEPCFG_MAX_PACKET_SIZE(Size);
 
 	/*
 	 * Set burst size to 1 as recommended
@@ -170,7 +170,7 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 	}
 
 	Params->Param1 = XUSBPSU_DEPCFG_XFER_COMPLETE_EN
-		| XUSBPSU_DEPCFG_XFER_NOT_READY_EN;
+			 | XUSBPSU_DEPCFG_XFER_NOT_READY_EN;
 
 	if (Restore == (u8)TRUE) {
 		Params->Param0 |= XUSBPSU_DEPCFG_ACTION_RESTORE;
@@ -187,18 +187,18 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 
 	if (Dir != XUSBPSU_EP_DIR_OUT) {
 		Params->Param0 |= XUSBPSU_DEPCFG_FIFO_NUMBER((u32)PhyEpNum >>
-									 1U);
+				  1U);
 	}
 
 	if (Ept->Type == XUSBPSU_ENDPOINT_XFER_ISOC) {
 		Params->Param1 |= XUSBPSU_DEPCFG_BINTERVAL_M1(Ept->Interval -
-									 1U);
+				  1U);
 		Params->Param1 |= XUSBPSU_DEPCFG_XFER_IN_PROGRESS_EN;
 	}
 
 	return XUsbPsu_SendEpCmd(InstancePtr, UsbEpNum, Dir,
-						 XUSBPSU_DEPCMD_SETEPCONFIG,
-						 Params);
+				 XUSBPSU_DEPCMD_SETEPCONFIG,
+				 Params);
 }
 
 /****************************************************************************/
@@ -225,8 +225,8 @@ s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	Params->Param0 = XUSBPSU_DEPXFERCFG_NUM_XFER_RES(1U);
 
 	return XUsbPsu_SendEpCmd(InstancePtr, UsbEpNum, Dir,
-					 XUSBPSU_DEPCMD_SETTRANSFRESOURCE,
-					 Params);
+				 XUSBPSU_DEPCMD_SETTRANSFRESOURCE,
+				 Params);
 }
 
 /****************************************************************************/
@@ -254,7 +254,7 @@ void XUsbPsu_StopActiveTransfers(struct XUsbPsu *InstancePtr)
 		}
 
 		XUsbPsu_StopTransfer(InstancePtr, Ept->UsbEpNum,
-				Ept->Direction, (u8)TRUE);
+				     Ept->Direction, (u8)TRUE);
 	}
 }
 
@@ -287,7 +287,7 @@ void XUsbPsu_ClearStallAllEp(struct XUsbPsu *InstancePtr)
 		}
 
 		XUsbPsu_EpClearStall(InstancePtr, Ept->UsbEpNum,
-							Ept->Direction);
+				     Ept->Direction);
 	}
 }
 
@@ -319,11 +319,11 @@ s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 		}
 
 		Ret = XUsbPsu_EpEnable(InstancePtr, Ept->UsbEpNum,
-					Ept->Direction, Ept->MaxSize,
-					Ept->Type, (u8)TRUE);
+				       Ept->Direction, Ept->MaxSize,
+				       Ept->Type, (u8)TRUE);
 		if (Ret == XST_FAILURE) {
 			xil_printf("Failed to enable EP %d on wakeup: %d\r\n",
-					EpNum, Ret);
+				   EpNum, Ret);
 			return (s32)XST_FAILURE;
 		}
 	}
@@ -337,12 +337,12 @@ s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)
 
 		if ((Ept->EpStatus & XUSBPSU_EP_STALL) != (u32)0U) {
 			XUsbPsu_EpSetStall(InstancePtr, Ept->UsbEpNum,
-								Ept->Direction);
+					   Ept->Direction);
 		} else {
 			Ret = XUsbPsu_RestartEp(InstancePtr, Ept->PhyEpNum);
 			if (Ret == XST_FAILURE) {
-			xil_printf("Failed to restart EP %d on wakeup: %d\r\n",
-						EpNum, Ret);
+				xil_printf("Failed to restart EP %d on wakeup: %d\r\n",
+					   EpNum, Ret);
 				return (s32)XST_FAILURE;
 			}
 		}

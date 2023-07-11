@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -99,15 +100,15 @@ static USBCH9_DATA keyboard_data = {
 void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
 {
 	xPortInstallInterruptHandler(UsbIntrId,
-			(XInterruptHandler)XUsbPsu_IntrHandler,
-			(void *)InstancePtr);
+				     (XInterruptHandler)XUsbPsu_IntrHandler,
+				     (void *)InstancePtr);
 
 	XUsbPsu_EnableIntr(InstancePtr, XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
-			XUSBPSU_DEVTEN_WKUPEVTEN |
-			XUSBPSU_DEVTEN_ULSTCNGEN |
-			XUSBPSU_DEVTEN_CONNECTDONEEN |
-			XUSBPSU_DEVTEN_USBRSTEN |
-			XUSBPSU_DEVTEN_DISCONNEVTEN);
+			   XUSBPSU_DEVTEN_WKUPEVTEN |
+			   XUSBPSU_DEVTEN_ULSTCNGEN |
+			   XUSBPSU_DEVTEN_CONNECTDONEEN |
+			   XUSBPSU_DEVTEN_USBRSTEN |
+			   XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 	vPortEnableInterrupt(UsbIntrId);
 }
@@ -127,7 +128,7 @@ void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
 *
 *****************************************************************************/
 static int XUsbKeyboardExample(struct Usb_DevData *UsbInstPtr,
-		u16 DeviceId, u16 UsbIntrId)
+			       u16 DeviceId, u16 UsbIntrId)
 {
 	s32 Status;
 	Usb_Config *UsbConfigPtr;
@@ -141,7 +142,7 @@ static int XUsbKeyboardExample(struct Usb_DevData *UsbInstPtr,
 	}
 
 	Status = CfgInitialize(UsbInstPtr, UsbConfigPtr,
-			UsbConfigPtr->BaseAddress);
+			       UsbConfigPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
 		xil_printf("CfgInitialize failed: %d\r\n", Status);
 		return XST_FAILURE;
@@ -154,10 +155,10 @@ static int XUsbKeyboardExample(struct Usb_DevData *UsbInstPtr,
 	Set_DrvData(UsbInstPtr->PrivateData, &keyboard_data);
 
 	EpConfigure(UsbInstPtr->PrivateData, 1, USB_EP_DIR_IN,
-			USB_EP_TYPE_INTERRUPT);
+		    USB_EP_TYPE_INTERRUPT);
 
 	Status = ConfigureDevice(UsbInstPtr->PrivateData, &Buffer[0],
-			MEMORY_SIZE);
+				 MEMORY_SIZE);
 	if (XST_SUCCESS != Status) {
 		xil_printf("ConfigureDevice failed: %d\r\n", Status);
 		return XST_FAILURE;
@@ -168,7 +169,7 @@ static int XUsbKeyboardExample(struct Usb_DevData *UsbInstPtr,
 	 * Usb_EpInHandler -  to be called when data is sent
 	 */
 	SetEpHandler(UsbInstPtr->PrivateData, 1, USB_EP_DIR_IN,
-			Usb_EpInHandler);
+		     Usb_EpInHandler);
 
 	/* setup interrupts */
 	SetupInterruptSystem(UsbInstPtr->PrivateData, UsbIntrId);
@@ -184,14 +185,14 @@ static int XUsbKeyboardExample(struct Usb_DevData *UsbInstPtr,
 		if (Ret == pdTRUE) {
 			if (Notification & KEYBOARD_CONFIG)
 				xTaskCreate(prvKeyboardTask,
-						(const char *) "Keyboard Task",
-						configMINIMAL_STACK_SIZE,
-						UsbInstPtr, tskIDLE_PRIORITY,
-						&xKeyboardTask);
+					    (const char *) "Keyboard Task",
+					    configMINIMAL_STACK_SIZE,
+					    UsbInstPtr, tskIDLE_PRIORITY,
+					    &xKeyboardTask);
 
 			if (Notification & KEYBOARD_UNCONFIG) {
 				EpDisable(UsbInstPtr->PrivateData, KEYBOARD_EP,
-						USB_EP_DIR_IN);
+					  USB_EP_DIR_IN);
 
 				vSemaphoreDelete(xSemaphore);
 				vTaskDelete(xKeyboardTask);
@@ -241,8 +242,8 @@ int main(void)
 	CacheInit();
 
 	xTaskCreate(prvMainTask, (const char *) "Keyboard",
-			configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY,
-			&xMainTask);
+		    configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY,
+		    &xMainTask);
 
 	/* Start the tasks and timer running. */
 	vTaskStartScheduler();

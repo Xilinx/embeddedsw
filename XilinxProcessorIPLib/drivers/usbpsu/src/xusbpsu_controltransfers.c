@@ -89,7 +89,7 @@ void XUsbPsu_Ep0StallRestart(struct XUsbPsu *InstancePtr)
 *
 *****************************************************************************/
 void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
-				 const struct XUsbPsu_Event_Epevt *Event)
+			 const struct XUsbPsu_Event_Epevt *Event)
 {
 	struct XUsbPsu_Ep	*Ept;
 	struct XUsbPsu_Trb	*TrbPtr;
@@ -105,7 +105,7 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheInvalidateRange((INTPTR)TrbPtr,
-					 sizeof(struct XUsbPsu_Trb));
+					  sizeof(struct XUsbPsu_Trb));
 	}
 
 	Status = XUSBPSU_TRB_SIZE_TRBSTS(TrbPtr->Size);
@@ -132,13 +132,13 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 		/* Invalidate Cache */
 		if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 			Xil_DCacheInvalidateRange((INTPTR)Ept->BufferPtr,
-							 Ept->BytesTxed);
+						  Ept->BytesTxed);
 		}
 	}
 
 	if (Ept->Handler != NULL) {
 		Ept->Handler(InstancePtr->AppData, Ept->RequestedBytes,
-							 Ept->BytesTxed);
+			     Ept->BytesTxed);
 	}
 }
 
@@ -163,7 +163,7 @@ void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr)
 		s32 Ret;
 
 		Ret = XUsbPsu_SetTestMode(InstancePtr,
-					InstancePtr->TestMode);
+					  InstancePtr->TestMode);
 		if (Ret < 0) {
 			XUsbPsu_Ep0StallRestart(InstancePtr);
 			return;
@@ -172,7 +172,7 @@ void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr)
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheInvalidateRange((INTPTR)TrbPtr,
-					 sizeof(struct XUsbPsu_Trb));
+					  sizeof(struct XUsbPsu_Trb));
 	}
 
 	(void)XUsbPsu_RecvSetup(InstancePtr);
@@ -191,7 +191,7 @@ void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr)
 *
 *****************************************************************************/
 s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
-				const struct XUsbPsu_Event_Epevt *Event)
+			   const struct XUsbPsu_Event_Epevt *Event)
 {
 	struct XUsbPsu_Ep  *Ept;
 	struct XUsbPsu_EpParams *Params;
@@ -208,24 +208,24 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 	}
 
 	Type = (InstancePtr->IsThreeStage != 0U) ?
-					 XUSBPSU_TRBCTL_CONTROL_STATUS3
-					: XUSBPSU_TRBCTL_CONTROL_STATUS2;
+	       XUSBPSU_TRBCTL_CONTROL_STATUS3
+	       : XUSBPSU_TRBCTL_CONTROL_STATUS2;
 	TrbPtr = &InstancePtr->Ep0_Trb;
 	/* we use same TrbPtr for setup packet */
 	TrbPtr->BufferPtrLow = (UINTPTR)&InstancePtr->SetupData;
 	TrbPtr->BufferPtrHigh = ((UINTPTR)&InstancePtr->SetupData >> 16U)
-								 >> 16U;
+				>> 16U;
 	TrbPtr->Size = 0U;
 	TrbPtr->Ctrl = Type;
 
 	TrbPtr->Ctrl |= (XUSBPSU_TRB_CTRL_HWO
-			| XUSBPSU_TRB_CTRL_LST
-			| XUSBPSU_TRB_CTRL_IOC
-			| XUSBPSU_TRB_CTRL_ISP_IMI);
+			 | XUSBPSU_TRB_CTRL_LST
+			 | XUSBPSU_TRB_CTRL_IOC
+			 | XUSBPSU_TRB_CTRL_ISP_IMI);
 
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr,
-						 sizeof(struct XUsbPsu_Trb));
+				     sizeof(struct XUsbPsu_Trb));
 	}
 
 	Params->Param0 = 0U;
@@ -240,16 +240,16 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 	Dir = !InstancePtr->ControlDir;
 
 	Ret = XUsbPsu_SendEpCmd(InstancePtr, 0U, Dir,
-						XUSBPSU_DEPCMD_STARTTRANSFER,
-						Params);
+				XUSBPSU_DEPCMD_STARTTRANSFER,
+				Params);
 	if (Ret != XST_SUCCESS) {
 		return (s32)XST_FAILURE;
 	}
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
 	Ept->ResourceIndex = (u8)XUsbPsu_EpGetTransferIndex(InstancePtr,
-								Ept->UsbEpNum,
-								Ept->Direction);
+			     Ept->UsbEpNum,
+			     Ept->Direction);
 
 	return (s32)XST_SUCCESS;
 }
@@ -267,7 +267,7 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 *
 *****************************************************************************/
 void XUsbPsu_Ep0_EndControlData(struct XUsbPsu *InstancePtr,
-						struct XUsbPsu_Ep *Ept)
+				struct XUsbPsu_Ep *Ept)
 {
 	struct XUsbPsu_EpParams *Params;
 	u32	Cmd;
@@ -282,7 +282,7 @@ void XUsbPsu_Ep0_EndControlData(struct XUsbPsu *InstancePtr,
 	Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
 	Cmd |= XUSBPSU_DEPCMD_PARAM(Ept->ResourceIndex);
 	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
-						Cmd, Params);
+				Cmd, Params);
 	Ept->ResourceIndex = 0U;
 	XUsbPsu_Sleep(200U);
 }
@@ -306,13 +306,13 @@ s32 XUsbPsu_EnableControlEp(struct XUsbPsu *InstancePtr, u16 Size)
 	Xil_AssertNonvoid((Size >= 64U) && (Size <= 512U));
 
 	RetVal = XUsbPsu_EpEnable(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT, Size,
-				XUSBPSU_ENDPOINT_XFER_CONTROL, (u8)FALSE);
+				  XUSBPSU_ENDPOINT_XFER_CONTROL, (u8)FALSE);
 	if (RetVal == XST_FAILURE) {
 		return (s32)XST_FAILURE;
 	}
 
 	RetVal = XUsbPsu_EpEnable(InstancePtr, 0U, XUSBPSU_EP_DIR_IN, Size,
-				XUSBPSU_ENDPOINT_XFER_CONTROL, (u8)FALSE);
+				  XUSBPSU_ENDPOINT_XFER_CONTROL, (u8)FALSE);
 	if (RetVal == XST_FAILURE) {
 		return (s32)XST_FAILURE;
 	}
