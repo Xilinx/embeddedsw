@@ -23,6 +23,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/23 Initial release
 *       kpt  05/18/23 Updated adapttestcutoff and reptestcutoff default values
+* 1.1   mmd  07/09/23 Included header file for crypto algorithm information
 *
 * </pre>
 *
@@ -37,6 +38,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xtrngpsx_alginfo.h"
 
 /************************** Constant Definitions *****************************/
 #define XTRNGPSX_DEFAULT_SEED_LIFE		256U	/**< Default seed life */
