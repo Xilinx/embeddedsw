@@ -33,4 +33,8 @@ required:
     - xlnx,port-type
     - xlnx,csr-slcr
     - ranges: 2
+
+examples:
+    xdmapcie_rc_enumerate_example.c:
+        - reg
 ...
