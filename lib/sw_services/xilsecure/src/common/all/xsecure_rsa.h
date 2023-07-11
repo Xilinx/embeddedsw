@@ -63,6 +63,7 @@
 *       ana  10/15/20 Updated doxygen tags
 * 4.6   har  07/14/21 Fixed doxygen warnings
 *       gm   07/16/21 Added APIs to support 64-bit address
+* 5.2   mmd  07/09/23 Included header file for crypto algorithm information
 *
 * </pre>
 *
@@ -80,6 +81,7 @@ extern "C" {
 #include "xparameters.h"
 #ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa_core.h"
+#include "xsecure_rsaalginfo.h"
 
 /************************** Constant Definitions ****************************/
 #define XSECURE_RSA_BYTE_PAD_LENGTH	(3U)  /**< PKCS Byte Padding */

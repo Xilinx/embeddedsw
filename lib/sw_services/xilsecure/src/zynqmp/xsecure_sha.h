@@ -50,7 +50,8 @@
 *       har  03/23/20 Moved to zynqmp directory
 *                     Replaced function like macro with inline function
 *       ana  10/15/20 Updated doxygen tags
-
+* 5.2	mmd  07/09/23 Included header file for crypto algorithm information
+*
 * </pre>
 *
 * @note
@@ -69,6 +70,7 @@ extern "C" {
 #include "xcsudma.h"
 #include "xil_assert.h"
 #include "xsecure_sss.h"
+#include "xsecure_sha3alginfo.h"
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal
