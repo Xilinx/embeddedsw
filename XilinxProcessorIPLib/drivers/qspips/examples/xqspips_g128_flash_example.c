@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,13 +39,15 @@
 *                    generation.
 * 		tjs	06/16/17 Added support for IS25LP256D flash part (PR-4650)
 * 3.10 akm 08/17/22  Fix logical error in NumSect calculation.
+* 3.11 akm 07/10/23 Add support for system device-tree flow for example.
 *</pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
+#ifndef SDT
 #include "xparameters.h"	/* SDK generated parameters */
+#endif
 #include "xqspips.h"		/* QSPI device driver */
 #include "xil_printf.h"
 
@@ -221,7 +224,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define QSPI_DEVICE_ID		XPAR_XQSPIPS_0_DEVICE_ID
+#endif
 /*
  * The following defines are for dual flash stacked mode interface.
  */
@@ -279,7 +284,11 @@ typedef struct{
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int QspiG128FlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId);
+#else
+int QspiG128FlashExample(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress);
+#endif
 
 void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr);
 
@@ -434,7 +443,11 @@ int main(void)
 	/*
 	 * Run the Qspi Interrupt example.
 	 */
+#ifndef SDT
 	Status = QspiG128FlashExample(&QspiInstance, QSPI_DEVICE_ID);
+#else
+	Status = QspiG128FlashExample(&QspiInstance, XPAR_XQSPIPS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("QSPI Greater than 128Mb Flash Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -461,7 +474,11 @@ int main(void)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 int QspiG128FlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
+#else
+int QspiG128FlashExample(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u8 UniqueValue;
@@ -472,7 +489,11 @@ int QspiG128FlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 	/*
 	 * Initialize the QSPI driver so that it's ready to use
 	 */
+#ifndef SDT
 	QspiConfig = XQspiPs_LookupConfig(QspiDeviceId);
+#else
+	QspiConfig = XQspiPs_LookupConfig(BaseAddress);
+#endif
 	if (NULL == QspiConfig) {
 		return XST_FAILURE;
 	}

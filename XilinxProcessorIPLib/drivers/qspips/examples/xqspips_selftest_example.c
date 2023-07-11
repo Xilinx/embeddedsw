@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,13 +21,16 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -----------------------------------------------
 * 1.00  drg/jz 01/25/10 First release.
+* 3.11  akm    07/10/23 Add support for system device-tree flow for example.
 * </pre>
 *
 *******************************************************************************/
 
 /***************************** Include Files **********************************/
 
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xqspips.h"
 #include "xil_printf.h"
 
@@ -37,15 +41,20 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define QSPI_DEVICE_ID		XPAR_XQSPIPS_0_DEVICE_ID
+#endif
 
 /**************************** Type Definitions ********************************/
 
 /***************** Macros (Inline Functions) Definitions **********************/
 
 /************************** Function Prototypes *******************************/
-
+#ifndef SDT
 int QspiPsSelfTestExample(u16 DeviceId);
+#else
+int QspiPsSelfTestExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions ******************************/
 
@@ -72,7 +81,11 @@ int main(void)
 	 * Call the example , specify the device ID that is generated in
 	 * xparameters.h
 	 */
+#ifndef SDT
 	Status = QspiPsSelfTestExample(QSPI_DEVICE_ID);
+#else
+	Status = QspiPsSelfTestExample(XPAR_XQSPIPS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("QSPI Selftest Example Failed\r\n");
 		return XST_FAILURE;
@@ -99,7 +112,11 @@ int main(void)
 * @note		None
 *
 ****************************************************************************/
+#ifndef SDT
 int QspiPsSelfTestExample(u16 DeviceId)
+#else
+int QspiPsSelfTestExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XQspiPs_Config *QspiConfig;
@@ -107,7 +124,11 @@ int QspiPsSelfTestExample(u16 DeviceId)
 	/*
 	 * Initialize the QSPI device.
 	 */
+#ifndef SDT
 	QspiConfig = XQspiPs_LookupConfig(DeviceId);
+#else
+	QspiConfig = XQspiPs_LookupConfig(BaseAddress);
+#endif
 	if (NULL == QspiConfig) {
 		return XST_FAILURE;
 	}
