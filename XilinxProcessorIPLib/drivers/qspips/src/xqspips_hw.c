@@ -72,13 +72,13 @@ void XQspiPs_ResetHw(u32 BaseAddress)
 	 * Disable interrupts
 	 */
 	XQspiPs_WriteReg(BaseAddress, XQSPIPS_IDR_OFFSET,
-				XQSPIPS_IXR_DISABLE_ALL);
+			 XQSPIPS_IXR_DISABLE_ALL);
 
 	/*
 	 * Disable device
 	 */
 	XQspiPs_WriteReg(BaseAddress, XQSPIPS_ER_OFFSET,
-				0);
+			 0);
 
 	/*
 	 * De-assert slave select lines.
@@ -93,14 +93,14 @@ void XQspiPs_ResetHw(u32 BaseAddress)
 	 * status bit is used next to clear the RXFIFO
 	 */
 	XQspiPs_WriteReg(BaseAddress, XQSPIPS_TXWR_OFFSET,
-			(XQSPIPS_TXWR_RESET_VALUE & XQSPIPS_TXWR_MASK));
+			 (XQSPIPS_TXWR_RESET_VALUE & XQSPIPS_TXWR_MASK));
 	XQspiPs_WriteReg(BaseAddress, XQSPIPS_RXWR_OFFSET,
-			(XQSPIPS_RXWR_RESET_VALUE & XQSPIPS_RXWR_MASK));
+			 (XQSPIPS_RXWR_RESET_VALUE & XQSPIPS_RXWR_MASK));
 
 	/*
 	 * Clear RXFIFO
 	 */
-	while ((XQspiPs_ReadReg(BaseAddress,XQSPIPS_SR_OFFSET) &
+	while ((XQspiPs_ReadReg(BaseAddress, XQSPIPS_SR_OFFSET) &
 		XQSPIPS_IXR_RXNEMPTY_MASK) != 0) {
 		XQspiPs_ReadReg(BaseAddress, XQSPIPS_RXD_OFFSET);
 	}
@@ -111,7 +111,7 @@ void XQspiPs_ResetHw(u32 BaseAddress)
 	 */
 	XQspiPs_ReadReg(BaseAddress, XQSPIPS_SR_OFFSET);
 	XQspiPs_WriteReg(BaseAddress, XQSPIPS_SR_OFFSET,
-				XQSPIPS_IXR_WR_TO_CLR_MASK);
+			 XQSPIPS_IXR_WR_TO_CLR_MASK);
 
 	/*
 	 * Write default value to configuration register
@@ -125,7 +125,7 @@ void XQspiPs_ResetHw(u32 BaseAddress)
 	 * De-select linear mode
 	 */
 	XQspiPs_WriteReg(BaseAddress, XQSPIPS_LQSPI_CR_OFFSET,
-				0x0);
+			 0x0);
 
 }
 
@@ -167,33 +167,33 @@ void XQspiPs_LinearInit(u32 BaseAddress)
 	 * enable linear mode and use fast read.
 	 */
 
-	if(XPAR_XQSPIPS_0_QSPI_MODE == XQSPIPS_CONNECTION_MODE_SINGLE){
+	if (XPAR_XQSPIPS_0_QSPI_MODE == XQSPIPS_CONNECTION_MODE_SINGLE) {
 
 		LinearCfg = XQSPIPS_LQSPI_CR_RST_STATE;
 
-	}else if(XPAR_XQSPIPS_0_QSPI_MODE ==
-			XQSPIPS_CONNECTION_MODE_STACKED){
+	} else if (XPAR_XQSPIPS_0_QSPI_MODE ==
+		   XQSPIPS_CONNECTION_MODE_STACKED) {
 
 		LinearCfg = XQSPIPS_LQSPI_CR_RST_STATE |
-				XQSPIPS_LQSPI_CR_TWO_MEM_MASK;
+			    XQSPIPS_LQSPI_CR_TWO_MEM_MASK;
 
-	}else if(XPAR_XQSPIPS_0_QSPI_MODE ==
-			XQSPIPS_CONNECTION_MODE_PARALLEL){
+	} else if (XPAR_XQSPIPS_0_QSPI_MODE ==
+		   XQSPIPS_CONNECTION_MODE_PARALLEL) {
 
 		LinearCfg = XQSPIPS_LQSPI_CR_RST_STATE |
-				XQSPIPS_LQSPI_CR_TWO_MEM_MASK |
-				XQSPIPS_LQSPI_CR_SEP_BUS_MASK;
+			    XQSPIPS_LQSPI_CR_TWO_MEM_MASK |
+			    XQSPIPS_LQSPI_CR_SEP_BUS_MASK;
 
 	}
 
 	XQspiPs_WriteReg(BaseAddress, XQSPIPS_LQSPI_CR_OFFSET,
-				LinearCfg);
+			 LinearCfg);
 
 	/*
 	 * Enable device
 	 */
 	XQspiPs_WriteReg(BaseAddress, XQSPIPS_ER_OFFSET,
-				XQSPIPS_ER_ENABLE_MASK);
+			 XQSPIPS_ER_ENABLE_MASK);
 
 }
 /** @} */
