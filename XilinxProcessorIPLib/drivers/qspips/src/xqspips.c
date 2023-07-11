@@ -118,7 +118,7 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 static void XQspiPs_GetReadData(XQspiPs *InstancePtr, u32 Data, u8 Size);
 static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
-				unsigned ByteCount);
+			      unsigned ByteCount);
 
 /************************** Variable Definitions *****************************/
 
@@ -192,7 +192,7 @@ static XQspiPsInstFormat FlashInst[] = {
 *
 ******************************************************************************/
 int XQspiPs_CfgInitialize(XQspiPs *InstancePtr, XQspiPs_Config *ConfigPtr,
-				u32 EffectiveAddr)
+			  u32 EffectiveAddr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
@@ -266,11 +266,11 @@ void XQspiPs_Reset(XQspiPs *InstancePtr)
 	 * Do not modify reserved bits.
 	 */
 	ConfigReg = XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-			 XQSPIPS_CR_OFFSET);
+				    XQSPIPS_CR_OFFSET);
 	ConfigReg |= XQSPIPS_CR_RESET_MASK_SET;
 	ConfigReg &= ~XQSPIPS_CR_RESET_MASK_CLR;
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPS_CR_OFFSET,
-			  ConfigReg);
+			 ConfigReg);
 }
 
 /*****************************************************************************/
@@ -300,7 +300,7 @@ void XQspiPs_Abort(XQspiPs *InstancePtr)
 	 * De-assert slave select lines.
 	 */
 	ConfigReg = XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-			 XQSPIPS_CR_OFFSET);
+				    XQSPIPS_CR_OFFSET);
 	ConfigReg |= (XQSPIPS_CR_SSCTRL_MASK | XQSPIPS_CR_SSFORCE_MASK);
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
 			 XQSPIPS_CR_OFFSET, ConfigReg);
@@ -311,24 +311,24 @@ void XQspiPs_Abort(XQspiPs *InstancePtr)
 	IsLock = XQspiPs_ReadReg(XPAR_XSLCR_0_BASEADDR, SLCR_LOCKSTA);
 	if (IsLock) {
 		XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, SLCR_UNLOCK,
-				SLCR_UNLOCK_MASK);
+				 SLCR_UNLOCK_MASK);
 	}
 	XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, LQSPI_RST_CTRL,
-			LQSPI_RST_CTRL_MASK);
+			 LQSPI_RST_CTRL_MASK);
 	XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, LQSPI_RST_CTRL, 0x0);
 	if (IsLock) {
 		XQspiPs_WriteReg(XPAR_XSLCR_0_BASEADDR, SLCR_LOCK,
-				SLCR_LOCK_MASK);
+				 SLCR_LOCK_MASK);
 	}
 
 	/*
 	 * Set the RX and TX FIFO threshold to reset value (one)
 	 */
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XQSPIPS_RXWR_OFFSET, XQSPIPS_RXWR_RESET_VALUE);
+			 XQSPIPS_RXWR_OFFSET, XQSPIPS_RXWR_RESET_VALUE);
 
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XQSPIPS_TXWR_OFFSET, XQSPIPS_TXWR_RESET_VALUE);
+			 XQSPIPS_TXWR_OFFSET, XQSPIPS_TXWR_RESET_VALUE);
 
 	InstancePtr->RemainingBytes = 0;
 	InstancePtr->RequestedBytes = 0;
@@ -401,7 +401,7 @@ void XQspiPs_Abort(XQspiPs *InstancePtr)
 *
 ******************************************************************************/
 s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
-			u32 ByteCount)
+		     u32 ByteCount)
 {
 	u32 StatusReg;
 	u32 ConfigReg;
@@ -461,7 +461,7 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 	 * Set the RX FIFO threshold
 	 */
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XQSPIPS_RXWR_OFFSET, XQSPIPS_RXFIFO_THRESHOLD_OPT);
+			 XQSPIPS_RXWR_OFFSET, XQSPIPS_RXFIFO_THRESHOLD_OPT);
 
 	/*
 	 * If the slave select is "Forced" or under manual control,
@@ -469,11 +469,11 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 	 */
 	if (XQspiPs_IsManualChipSelect(InstancePtr)) {
 		ConfigReg = XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-				 XQSPIPS_CR_OFFSET);
+					    XQSPIPS_CR_OFFSET);
 		ConfigReg &= ~XQSPIPS_CR_SSCTRL_MASK;
 		XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XQSPIPS_CR_OFFSET,
-				  ConfigReg);
+				 XQSPIPS_CR_OFFSET,
+				 ConfigReg);
 	}
 
 	/*
@@ -485,7 +485,7 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 	 * Clear all the interrupts.
 	 */
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPS_SR_OFFSET,
-			XQSPIPS_IXR_WR_TO_CLR_MASK);
+			 XQSPIPS_IXR_WR_TO_CLR_MASK);
 
 	if (Index < ARRAY_SIZE(FlashInst)) {
 		CurrInst = &FlashInst[Index];
@@ -494,7 +494,7 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 		 * Spansion (3 bytes) and Micron (2 bytes)
 		 */
 		if ((CurrInst->OpCode == XQSPIPS_FLASH_OPCODE_WRSR) &&
-			(ByteCount == 3)) {
+		    (ByteCount == 3)) {
 			CurrInst->InstSize = 3;
 			CurrInst->TxOffset = XQSPIPS_TXD_11_OFFSET;
 		}
@@ -512,36 +512,36 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 		 * The remaining bytes of the instruction will be transmitted
 		 * through TXD0 below.
 		 */
-		switch (ByteCount%4) {
-		case XQSPIPS_SIZE_ONE:
-			CurrInst->OpCode = Instruction;
-			CurrInst->InstSize = XQSPIPS_SIZE_ONE;
-			CurrInst->TxOffset = XQSPIPS_TXD_01_OFFSET;
-			if (ByteCount > 4) {
-				SwitchFlag = 1;
-			}
-			break;
-		case XQSPIPS_SIZE_TWO:
-			CurrInst->OpCode = Instruction;
-			CurrInst->InstSize = XQSPIPS_SIZE_TWO;
-			CurrInst->TxOffset = XQSPIPS_TXD_10_OFFSET;
-			if (ByteCount > 4) {
-				SwitchFlag = 1;
-			}
-			break;
-		case XQSPIPS_SIZE_THREE:
-			CurrInst->OpCode = Instruction;
-			CurrInst->InstSize = XQSPIPS_SIZE_THREE;
-			CurrInst->TxOffset = XQSPIPS_TXD_11_OFFSET;
-			if (ByteCount > 4) {
-				SwitchFlag = 1;
-			}
-			break;
-		default:
-			CurrInst->OpCode = Instruction;
-			CurrInst->InstSize = XQSPIPS_SIZE_FOUR;
-			CurrInst->TxOffset = XQSPIPS_TXD_00_OFFSET;
-			break;
+		switch (ByteCount % 4) {
+			case XQSPIPS_SIZE_ONE:
+				CurrInst->OpCode = Instruction;
+				CurrInst->InstSize = XQSPIPS_SIZE_ONE;
+				CurrInst->TxOffset = XQSPIPS_TXD_01_OFFSET;
+				if (ByteCount > 4) {
+					SwitchFlag = 1;
+				}
+				break;
+			case XQSPIPS_SIZE_TWO:
+				CurrInst->OpCode = Instruction;
+				CurrInst->InstSize = XQSPIPS_SIZE_TWO;
+				CurrInst->TxOffset = XQSPIPS_TXD_10_OFFSET;
+				if (ByteCount > 4) {
+					SwitchFlag = 1;
+				}
+				break;
+			case XQSPIPS_SIZE_THREE:
+				CurrInst->OpCode = Instruction;
+				CurrInst->InstSize = XQSPIPS_SIZE_THREE;
+				CurrInst->TxOffset = XQSPIPS_TXD_11_OFFSET;
+				if (ByteCount > 4) {
+					SwitchFlag = 1;
+				}
+				break;
+			default:
+				CurrInst->OpCode = Instruction;
+				CurrInst->InstSize = XQSPIPS_SIZE_FOUR;
+				CurrInst->TxOffset = XQSPIPS_TXD_00_OFFSET;
+				break;
 		}
 	}
 
@@ -578,8 +578,8 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 		 */
 		if (XQspiPs_IsManualStart(InstancePtr)) {
 			ConfigReg = XQspiPs_ReadReg(
-					InstancePtr->Config.BaseAddress,
-					 XQSPIPS_CR_OFFSET);
+					    InstancePtr->Config.BaseAddress,
+					    XQSPIPS_CR_OFFSET);
 			ConfigReg |= XQSPIPS_CR_MANSTRT_MASK;
 			XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
 					 XQSPIPS_CR_OFFSET, ConfigReg);
@@ -589,8 +589,8 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 		 */
 		do {
 			StatusReg = XQspiPs_ReadReg(
-					InstancePtr->Config.BaseAddress,
-					XQSPIPS_SR_OFFSET);
+					    InstancePtr->Config.BaseAddress,
+					    XQSPIPS_SR_OFFSET);
 		} while ((StatusReg & XQSPIPS_IXR_TXOW_MASK) == 0);
 
 	}
@@ -600,15 +600,15 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 	 * we have to send).
 	 */
 	while ((InstancePtr->RemainingBytes > 0) &&
-		(TransCount < XQSPIPS_FIFO_DEPTH)) {
+	       (TransCount < XQSPIPS_FIFO_DEPTH)) {
 		/*
 		 * In case of Write fill the Tx FIFO with data to be transmitted.
 		 * In case of Read fill the TX FIFO with first 4bytes(1Byte Command + 3Byte Address)
 		 * of data from TX Buffer and the remaining bytes(i.e., RequestedBytes - 4)
 		 * with DUMMY.
 		 */
-		if(InstancePtr->RecvBufferPtr &&
-		   ((InstancePtr->RequestedBytes - InstancePtr->RemainingBytes) > 4)) {
+		if (InstancePtr->RecvBufferPtr &&
+		    ((InstancePtr->RequestedBytes - InstancePtr->RemainingBytes) > 4)) {
 			XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
 					 XQSPIPS_TXD_00_OFFSET, XQSPIPS_DUMMY_TX_DATA);
 		} else {
@@ -630,19 +630,19 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 	 * enabling interrupts should have been done by the caller).
 	 */
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XQSPIPS_IER_OFFSET, XQSPIPS_IXR_RXNEMPTY_MASK |
-			  XQSPIPS_IXR_TXOW_MASK | XQSPIPS_IXR_RXOVR_MASK |
-			  XQSPIPS_IXR_TXUF_MASK);
+			 XQSPIPS_IER_OFFSET, XQSPIPS_IXR_RXNEMPTY_MASK |
+			 XQSPIPS_IXR_TXOW_MASK | XQSPIPS_IXR_RXOVR_MASK |
+			 XQSPIPS_IXR_TXUF_MASK);
 
 	/*
 	 * If, in Manual Start mode, Start the transfer.
 	 */
 	if (XQspiPs_IsManualStart(InstancePtr)) {
 		ConfigReg = XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XQSPIPS_CR_OFFSET);
+					    XQSPIPS_CR_OFFSET);
 		ConfigReg |= XQSPIPS_CR_MANSTRT_MASK;
 		XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XQSPIPS_CR_OFFSET, ConfigReg);
+				 XQSPIPS_CR_OFFSET, ConfigReg);
 	}
 
 	return XST_SUCCESS;
@@ -702,7 +702,7 @@ s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 *
 ******************************************************************************/
 s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
-			    u8 *RecvBufPtr, u32 ByteCount)
+			   u8 *RecvBufPtr, u32 ByteCount)
 {
 	u32 StatusReg;
 	u32 ConfigReg;
@@ -763,7 +763,7 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 	 * Set the RX FIFO threshold
 	 */
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XQSPIPS_RXWR_OFFSET, XQSPIPS_RXFIFO_THRESHOLD_OPT);
+			 XQSPIPS_RXWR_OFFSET, XQSPIPS_RXFIFO_THRESHOLD_OPT);
 
 	/*
 	 * If the slave select is "Forced" or under manual control,
@@ -771,11 +771,11 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 	 */
 	if (XQspiPs_IsManualChipSelect(InstancePtr)) {
 		ConfigReg = XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-				 XQSPIPS_CR_OFFSET);
+					    XQSPIPS_CR_OFFSET);
 		ConfigReg &= ~XQSPIPS_CR_SSCTRL_MASK;
 		XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XQSPIPS_CR_OFFSET,
-				  ConfigReg);
+				 XQSPIPS_CR_OFFSET,
+				 ConfigReg);
 	}
 
 	/*
@@ -791,7 +791,7 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 		 * Spansion (3 bytes) and Micron (2 bytes)
 		 */
 		if ((CurrInst->OpCode == XQSPIPS_FLASH_OPCODE_WRSR) &&
-			(ByteCount == 3)) {
+		    (ByteCount == 3)) {
 			CurrInst->InstSize = 3;
 			CurrInst->TxOffset = XQSPIPS_TXD_11_OFFSET;
 		}
@@ -809,35 +809,35 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 		 * through TXD0 below.
 		 */
 		switch (ByteCount % 4) {
-		case XQSPIPS_SIZE_ONE:
-			CurrInst->OpCode = Instruction;
-			CurrInst->InstSize = XQSPIPS_SIZE_ONE;
-			CurrInst->TxOffset = XQSPIPS_TXD_01_OFFSET;
-			if (ByteCount > 4) {
-				SwitchFlag = 1;
-			}
-			break;
-		case XQSPIPS_SIZE_TWO:
-			CurrInst->OpCode = Instruction;
-			CurrInst->InstSize = XQSPIPS_SIZE_TWO;
-			CurrInst->TxOffset = XQSPIPS_TXD_10_OFFSET;
-			if (ByteCount > 4) {
-				SwitchFlag = 1;
-			}
-			break;
-		case XQSPIPS_SIZE_THREE:
-			CurrInst->OpCode = Instruction;
-			CurrInst->InstSize = XQSPIPS_SIZE_THREE;
-			CurrInst->TxOffset = XQSPIPS_TXD_11_OFFSET;
-			if (ByteCount > 4) {
-				SwitchFlag = 1;
-			}
-			break;
-		default:
-			CurrInst->OpCode = Instruction;
-			CurrInst->InstSize = XQSPIPS_SIZE_FOUR;
-			CurrInst->TxOffset = XQSPIPS_TXD_00_OFFSET;
-			break;
+			case XQSPIPS_SIZE_ONE:
+				CurrInst->OpCode = Instruction;
+				CurrInst->InstSize = XQSPIPS_SIZE_ONE;
+				CurrInst->TxOffset = XQSPIPS_TXD_01_OFFSET;
+				if (ByteCount > 4) {
+					SwitchFlag = 1;
+				}
+				break;
+			case XQSPIPS_SIZE_TWO:
+				CurrInst->OpCode = Instruction;
+				CurrInst->InstSize = XQSPIPS_SIZE_TWO;
+				CurrInst->TxOffset = XQSPIPS_TXD_10_OFFSET;
+				if (ByteCount > 4) {
+					SwitchFlag = 1;
+				}
+				break;
+			case XQSPIPS_SIZE_THREE:
+				CurrInst->OpCode = Instruction;
+				CurrInst->InstSize = XQSPIPS_SIZE_THREE;
+				CurrInst->TxOffset = XQSPIPS_TXD_11_OFFSET;
+				if (ByteCount > 4) {
+					SwitchFlag = 1;
+				}
+				break;
+			default:
+				CurrInst->OpCode = Instruction;
+				CurrInst->InstSize = XQSPIPS_SIZE_FOUR;
+				CurrInst->TxOffset = XQSPIPS_TXD_00_OFFSET;
+				break;
 		}
 	}
 
@@ -861,7 +861,7 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 
 	/* Write the command to the FIFO */
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-					CurrInst->TxOffset, Data);
+			 CurrInst->TxOffset, Data);
 	++TransCount;
 
 	/*
@@ -874,8 +874,8 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 		 */
 		if (XQspiPs_IsManualStart(InstancePtr)) {
 			ConfigReg = XQspiPs_ReadReg(
-					InstancePtr->Config.BaseAddress,
-					 XQSPIPS_CR_OFFSET);
+					    InstancePtr->Config.BaseAddress,
+					    XQSPIPS_CR_OFFSET);
 			ConfigReg |= XQSPIPS_CR_MANSTRT_MASK;
 			XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
 					 XQSPIPS_CR_OFFSET, ConfigReg);
@@ -885,8 +885,8 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 		 */
 		do {
 			StatusReg = XQspiPs_ReadReg(
-					InstancePtr->Config.BaseAddress,
-					XQSPIPS_SR_OFFSET);
+					    InstancePtr->Config.BaseAddress,
+					    XQSPIPS_SR_OFFSET);
 		} while ((StatusReg & XQSPIPS_IXR_TXOW_MASK) == 0);
 
 	}
@@ -902,15 +902,15 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 	 * many as we have to send).
 	 */
 	while ((InstancePtr->RemainingBytes > 0) &&
-		(TransCount < XQSPIPS_FIFO_DEPTH)) {
+	       (TransCount < XQSPIPS_FIFO_DEPTH)) {
 		/*
 		 * In case of Write fill the Tx FIFO with data to be transmitted.
 		 * In case of Read fill the TX FIFO with first 4bytes(1Byte Command + 3Byte Address)
 		 * of data from TX Buffer and the remaining bytes(i.e., RequestedBytes - 4)
 		 * with DUMMY.
 		 */
-		if(InstancePtr->RecvBufferPtr &&
-		   ((InstancePtr->RequestedBytes - InstancePtr->RemainingBytes) > 4)) {
+		if (InstancePtr->RecvBufferPtr &&
+		    ((InstancePtr->RequestedBytes - InstancePtr->RemainingBytes) > 4)) {
 			XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
 					 XQSPIPS_TXD_00_OFFSET, XQSPIPS_DUMMY_TX_DATA);
 		} else {
@@ -928,22 +928,22 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 	}
 
 	while ((InstancePtr->RemainingBytes > 0) ||
-	      (InstancePtr->RequestedBytes > 0)) {
+	       (InstancePtr->RequestedBytes > 0)) {
 
 		/*
 		 * Fill the TX FIFO with RX threshold no. of entries (or as
 		 * many as we have to send, in case that's less).
 		 */
 		while ((InstancePtr->RemainingBytes > 0) &&
-			(TransCount < XQSPIPS_RXFIFO_THRESHOLD_OPT)) {
+		       (TransCount < XQSPIPS_RXFIFO_THRESHOLD_OPT)) {
 			/*
 			 * In case of Write fill the Tx FIFO with data to be transmitted.
 			 * In case of Read fill the TX FIFO with first 4bytes(1Byte Command + 3Byte Address)
 			 * of data from TX Buffer and the remaining bytes(i.e., RequestedBytes - 4)
 			 * with DUMMY.
 			 */
-			if(InstancePtr->RecvBufferPtr &&
-			   ((InstancePtr->RequestedBytes - InstancePtr->RemainingBytes) > 4)) {
+			if (InstancePtr->RecvBufferPtr &&
+			    ((InstancePtr->RequestedBytes - InstancePtr->RemainingBytes) > 4)) {
 				XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
 						 XQSPIPS_TXD_00_OFFSET, XQSPIPS_DUMMY_TX_DATA);
 			} else {
@@ -965,8 +965,8 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 		 */
 		if (IsManualStart == TRUE) {
 			ConfigReg = XQspiPs_ReadReg(
-					InstancePtr->Config.BaseAddress,
-					 XQSPIPS_CR_OFFSET);
+					    InstancePtr->Config.BaseAddress,
+					    XQSPIPS_CR_OFFSET);
 			ConfigReg |= XQSPIPS_CR_MANSTRT_MASK;
 			XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
 					 XQSPIPS_CR_OFFSET, ConfigReg);
@@ -989,10 +989,10 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 
 		do {
 			StatusReg = XQspiPs_ReadReg(
-					InstancePtr->Config.BaseAddress,
-					XQSPIPS_SR_OFFSET);
+					    InstancePtr->Config.BaseAddress,
+					    XQSPIPS_SR_OFFSET);
 		} while (((StatusReg & XQSPIPS_IXR_TXOW_MASK) == 0) &&
-			((StatusReg & XQSPIPS_IXR_RXNEMPTY_MASK) == 0));
+			 ((StatusReg & XQSPIPS_IXR_RXNEMPTY_MASK) == 0));
 
 		/*
 		 * A transmit has just completed. Process received data
@@ -1005,7 +1005,7 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 		 * software may not care to receive data).
 		 */
 		while ((InstancePtr->RequestedBytes > 0) &&
-			(RxCount < XQSPIPS_RXFIFO_THRESHOLD_OPT)) {
+		       (RxCount < XQSPIPS_RXFIFO_THRESHOLD_OPT)) {
 			u32 Data;
 
 			RxCount++;
@@ -1013,13 +1013,13 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 			if (InstancePtr->RecvBufferPtr != NULL) {
 				if (InstancePtr->RequestedBytes < 4) {
 					Data = XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-						XQSPIPS_RXD_OFFSET);
+							       XQSPIPS_RXD_OFFSET);
 					XQspiPs_GetReadData(InstancePtr, Data,
-						InstancePtr->RequestedBytes);
+							    InstancePtr->RequestedBytes);
 				} else {
 					(*(u32 *)InstancePtr->RecvBufferPtr) =
 						XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-						XQSPIPS_RXD_OFFSET);
+								XQSPIPS_RXD_OFFSET);
 					InstancePtr->RecvBufferPtr += 4;
 					InstancePtr->RequestedBytes -= 4;
 					if (InstancePtr->RequestedBytes < 0) {
@@ -1028,7 +1028,7 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 				}
 			} else {
 				Data = XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-						XQSPIPS_RXD_OFFSET);
+						       XQSPIPS_RXD_OFFSET);
 				InstancePtr->RequestedBytes -= 4;
 			}
 		}
@@ -1041,10 +1041,10 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 	 */
 	if (XQspiPs_IsManualChipSelect(InstancePtr)) {
 		ConfigReg = XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-				 XQSPIPS_CR_OFFSET);
+					    XQSPIPS_CR_OFFSET);
 		ConfigReg |= XQSPIPS_CR_SSCTRL_MASK;
 		XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XQSPIPS_CR_OFFSET, ConfigReg);
+				 XQSPIPS_CR_OFFSET, ConfigReg);
 	}
 
 	/*
@@ -1061,7 +1061,7 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 	 * Reset the RX FIFO threshold to one
 	 */
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XQSPIPS_RXWR_OFFSET, XQSPIPS_RXWR_RESET_VALUE);
+			 XQSPIPS_RXWR_OFFSET, XQSPIPS_RXWR_RESET_VALUE);
 
 	return XST_SUCCESS;
 }
@@ -1086,7 +1086,7 @@ s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
 *
 ******************************************************************************/
 int XQspiPs_LqspiRead(XQspiPs *InstancePtr, u8 *RecvBufPtr,
-			u32 Address, unsigned ByteCount)
+		      u32 Address, unsigned ByteCount)
 {
 	int Status = (int)XST_SUCCESS;
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1103,11 +1103,11 @@ int XQspiPs_LqspiRead(XQspiPs *InstancePtr, u8 *RecvBufPtr,
 	XQspiPs_Enable(InstancePtr);
 
 	if (XQspiPs_GetLqspiConfigReg(InstancePtr) &
-		XQSPIPS_LQSPI_CR_LINEAR_MASK) {
+	    XQSPIPS_LQSPI_CR_LINEAR_MASK) {
 		memcpy((void *)RecvBufPtr,
-		      (const void *)(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR +
-		       Address),
-		      (size_t)ByteCount);
+		       (const void *)(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR +
+				      Address),
+		       (size_t)ByteCount);
 		Status = (int)XST_SUCCESS;
 	} else {
 		Status = (int)XST_FAILURE;
@@ -1161,10 +1161,10 @@ int XQspiPs_SetSlaveSelect(XQspiPs *InstancePtr)
 	 * Select the slave
 	 */
 	ConfigReg = XQspiPs_ReadReg(InstancePtr->Config.BaseAddress,
-				      XQSPIPS_CR_OFFSET);
+				    XQSPIPS_CR_OFFSET);
 	ConfigReg &= ~XQSPIPS_CR_SSCTRL_MASK;
 	XQspiPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XQSPIPS_CR_OFFSET, ConfigReg);
+			 XQSPIPS_CR_OFFSET, ConfigReg);
 
 	return XST_SUCCESS;
 }
@@ -1207,7 +1207,7 @@ int XQspiPs_SetSlaveSelect(XQspiPs *InstancePtr)
 *
 ******************************************************************************/
 void XQspiPs_SetStatusHandler(XQspiPs *InstancePtr, void *CallBackRef,
-				XQspiPs_StatusHandler FuncPtr)
+			      XQspiPs_StatusHandler FuncPtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(FuncPtr != NULL);
@@ -1234,7 +1234,7 @@ void XQspiPs_SetStatusHandler(XQspiPs *InstancePtr, void *CallBackRef,
 *
 ******************************************************************************/
 static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
-				unsigned ByteCount)
+			      unsigned ByteCount)
 {
 	(void) CallBackRef;
 	(void) StatusEvent;
@@ -1299,15 +1299,15 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 	 * TX_EMPTY interrupt.
 	 */
 	IntrStatus = XQspiPs_ReadReg(QspiPtr->Config.BaseAddress,
-				      XQSPIPS_SR_OFFSET);
+				     XQSPIPS_SR_OFFSET);
 	XQspiPs_WriteReg(QspiPtr->Config.BaseAddress, XQSPIPS_SR_OFFSET,
-			  (IntrStatus & XQSPIPS_IXR_WR_TO_CLR_MASK));
+			 (IntrStatus & XQSPIPS_IXR_WR_TO_CLR_MASK));
 	XQspiPs_WriteReg(QspiPtr->Config.BaseAddress, XQSPIPS_IDR_OFFSET,
-			XQSPIPS_IXR_TXOW_MASK | XQSPIPS_IXR_RXNEMPTY_MASK |
-			XQSPIPS_IXR_RXOVR_MASK | XQSPIPS_IXR_TXUF_MASK);
+			 XQSPIPS_IXR_TXOW_MASK | XQSPIPS_IXR_RXNEMPTY_MASK |
+			 XQSPIPS_IXR_RXOVR_MASK | XQSPIPS_IXR_TXUF_MASK);
 
 	if ((IntrStatus & XQSPIPS_IXR_TXOW_MASK) ||
-		(IntrStatus & XQSPIPS_IXR_RXNEMPTY_MASK)) {
+	    (IntrStatus & XQSPIPS_IXR_RXNEMPTY_MASK)) {
 
 		/*
 		 * Rx FIFO has just reached threshold no. of entries.
@@ -1321,24 +1321,24 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 		 */
 		TransCount = QspiPtr->RequestedBytes - QspiPtr->RemainingBytes;
 		if (TransCount % 4) {
-			TransCount = TransCount/4 + 1;
+			TransCount = TransCount / 4 + 1;
 		} else {
-			TransCount = TransCount/4;
+			TransCount = TransCount / 4;
 		}
 
 		while ((Count < TransCount) &&
-			(Count < XQSPIPS_RXFIFO_THRESHOLD_OPT)) {
+		       (Count < XQSPIPS_RXFIFO_THRESHOLD_OPT)) {
 
 			if (QspiPtr->RecvBufferPtr != NULL) {
 				if (QspiPtr->RequestedBytes < 4) {
 					Data = XQspiPs_ReadReg(QspiPtr->Config.BaseAddress,
-						XQSPIPS_RXD_OFFSET);
+							       XQSPIPS_RXD_OFFSET);
 					XQspiPs_GetReadData(QspiPtr, Data,
-						QspiPtr->RequestedBytes);
+							    QspiPtr->RequestedBytes);
 				} else {
 					(*(u32 *)QspiPtr->RecvBufferPtr) =
 						XQspiPs_ReadReg(QspiPtr->Config.BaseAddress,
-						XQSPIPS_RXD_OFFSET);
+								XQSPIPS_RXD_OFFSET);
 					QspiPtr->RecvBufferPtr += 4;
 					QspiPtr->RequestedBytes -= 4;
 					if (QspiPtr->RequestedBytes < 0) {
@@ -1364,7 +1364,7 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 		 * remaining entries (in case that is less than threshold)
 		 */
 		while ((QspiPtr->RemainingBytes > 0) &&
-			(Count < XQSPIPS_RXFIFO_THRESHOLD_OPT)) {
+		       (Count < XQSPIPS_RXFIFO_THRESHOLD_OPT)) {
 			/*
 			 * Send more data.
 			 * In case of Write fill the Tx FIFO with data to be transmitted.
@@ -1372,8 +1372,8 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 			 * of data from TX Buffer and the remaining bytes(i.e., RequestedBytes - 4)
 			 * with DUMMY.
 			 */
-			if(QspiPtr->RecvBufferPtr &&
-			   ((QspiPtr->RequestedBytes - QspiPtr->RemainingBytes) > 4)) {
+			if (QspiPtr->RecvBufferPtr &&
+			    ((QspiPtr->RequestedBytes - QspiPtr->RemainingBytes) > 4)) {
 				XQspiPs_WriteReg(QspiPtr->Config.BaseAddress,
 						 XQSPIPS_TXD_00_OFFSET, XQSPIPS_DUMMY_TX_DATA);
 			} else {
@@ -1392,7 +1392,7 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 		}
 
 		if ((QspiPtr->RemainingBytes == 0) &&
-			(QspiPtr->RequestedBytes == 0)) {
+		    (QspiPtr->RequestedBytes == 0)) {
 			/*
 			 * No more data to send.  Disable the interrupt
 			 * and inform the upper layer software that the
@@ -1400,11 +1400,11 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 			 * when another transfer is initiated.
 			 */
 			XQspiPs_WriteReg(QspiPtr->Config.BaseAddress,
-					  XQSPIPS_IDR_OFFSET,
-					  XQSPIPS_IXR_RXNEMPTY_MASK |
-					  XQSPIPS_IXR_TXOW_MASK |
-					  XQSPIPS_IXR_RXOVR_MASK |
-					  XQSPIPS_IXR_TXUF_MASK);
+					 XQSPIPS_IDR_OFFSET,
+					 XQSPIPS_IXR_RXNEMPTY_MASK |
+					 XQSPIPS_IXR_TXOW_MASK |
+					 XQSPIPS_IXR_RXOVR_MASK |
+					 XQSPIPS_IXR_TXUF_MASK);
 
 			/*
 			 * If the Slave select is being manually controlled,
@@ -1412,12 +1412,12 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 			 */
 			if (XQspiPs_IsManualChipSelect(InstancePtr)) {
 				ConfigReg = XQspiPs_ReadReg(
-						QspiPtr->Config.BaseAddress,
-						XQSPIPS_CR_OFFSET);
+						    QspiPtr->Config.BaseAddress,
+						    XQSPIPS_CR_OFFSET);
 				ConfigReg |= XQSPIPS_CR_SSCTRL_MASK;
 				XQspiPs_WriteReg(QspiPtr->Config.BaseAddress,
-						  XQSPIPS_CR_OFFSET,
-						   ConfigReg);
+						 XQSPIPS_CR_OFFSET,
+						 ConfigReg);
 			}
 
 			/*
@@ -1434,11 +1434,11 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 			 * Reset the RX FIFO threshold to one
 			 */
 			XQspiPs_WriteReg(QspiPtr->Config.BaseAddress,
-				XQSPIPS_RXWR_OFFSET, XQSPIPS_RXWR_RESET_VALUE);
+					 XQSPIPS_RXWR_OFFSET, XQSPIPS_RXWR_RESET_VALUE);
 
 			QspiPtr->StatusHandler(QspiPtr->StatusRef,
-						XST_SPI_TRANSFER_DONE,
-						QspiPtr->RequestedBytes);
+					       XST_SPI_TRANSFER_DONE,
+					       QspiPtr->RequestedBytes);
 		} else {
 			/*
 			 * Enable the TXOW interrupt.
@@ -1454,12 +1454,12 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 			 */
 			if (XQspiPs_IsManualStart(QspiPtr)) {
 				ConfigReg = XQspiPs_ReadReg(
-					QspiPtr->Config.BaseAddress,
-					 XQSPIPS_CR_OFFSET);
+						    QspiPtr->Config.BaseAddress,
+						    XQSPIPS_CR_OFFSET);
 				ConfigReg |= XQSPIPS_CR_MANSTRT_MASK;
 				XQspiPs_WriteReg(
 					QspiPtr->Config.BaseAddress,
-					 XQSPIPS_CR_OFFSET, ConfigReg);
+					XQSPIPS_CR_OFFSET, ConfigReg);
 			}
 		}
 	}
@@ -1477,11 +1477,11 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 		 */
 		if (XQspiPs_IsManualChipSelect(InstancePtr)) {
 			ConfigReg = XQspiPs_ReadReg(
-					QspiPtr->Config.BaseAddress,
-					XQSPIPS_CR_OFFSET);
+					    QspiPtr->Config.BaseAddress,
+					    XQSPIPS_CR_OFFSET);
 			ConfigReg |= XQSPIPS_CR_SSCTRL_MASK;
 			XQspiPs_WriteReg(QspiPtr->Config.BaseAddress,
-				XQSPIPS_CR_OFFSET, ConfigReg);
+					 XQSPIPS_CR_OFFSET, ConfigReg);
 		}
 
 		/*
@@ -1493,10 +1493,10 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 		 * Reset the RX FIFO threshold to one
 		 */
 		XQspiPs_WriteReg(QspiPtr->Config.BaseAddress,
-			XQSPIPS_RXWR_OFFSET, XQSPIPS_RXWR_RESET_VALUE);
+				 XQSPIPS_RXWR_OFFSET, XQSPIPS_RXWR_RESET_VALUE);
 
 		QspiPtr->StatusHandler(QspiPtr->StatusRef,
-			XST_SPI_RECEIVE_OVERRUN, BytesDone);
+				       XST_SPI_RECEIVE_OVERRUN, BytesDone);
 	}
 
 	if (IntrStatus & XQSPIPS_IXR_TXUF_MASK) {
@@ -1509,11 +1509,11 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 		 */
 		if (XQspiPs_IsManualChipSelect(InstancePtr)) {
 			ConfigReg = XQspiPs_ReadReg(
-					QspiPtr->Config.BaseAddress,
-					XQSPIPS_CR_OFFSET);
+					    QspiPtr->Config.BaseAddress,
+					    XQSPIPS_CR_OFFSET);
 			ConfigReg |= XQSPIPS_CR_SSCTRL_MASK;
 			XQspiPs_WriteReg(QspiPtr->Config.BaseAddress,
-					  XQSPIPS_CR_OFFSET, ConfigReg);
+					 XQSPIPS_CR_OFFSET, ConfigReg);
 		}
 
 		/*
@@ -1525,10 +1525,10 @@ void XQspiPs_InterruptHandler(void *InstancePtr)
 		 * Reset the RX FIFO threshold to one
 		 */
 		XQspiPs_WriteReg(QspiPtr->Config.BaseAddress,
-			XQSPIPS_RXWR_OFFSET, XQSPIPS_RXWR_RESET_VALUE);
+				 XQSPIPS_RXWR_OFFSET, XQSPIPS_RXWR_RESET_VALUE);
 
 		QspiPtr->StatusHandler(QspiPtr->StatusRef,
-				      XST_SPI_TRANSMIT_UNDERRUN, BytesDone);
+				       XST_SPI_TRANSMIT_UNDERRUN, BytesDone);
 	}
 }
 
@@ -1553,46 +1553,46 @@ static void XQspiPs_GetReadData(XQspiPs *InstancePtr, u32 Data, u8 Size)
 
 	if (InstancePtr->RecvBufferPtr) {
 		switch (Size) {
-		case 1:
-			if (InstancePtr->ShiftReadData == 1) {
-				*((u8 *)InstancePtr->RecvBufferPtr) =
-					((Data & 0xFF000000) >> 24);
-			} else {
-				*((u8 *)InstancePtr->RecvBufferPtr) =
-					(Data & 0xFF);
-			}
-			InstancePtr->RecvBufferPtr += 1;
-			break;
-		case 2:
-			if (InstancePtr->ShiftReadData == 1) {
-				*((u16 *)InstancePtr->RecvBufferPtr) =
-					((Data >> 16) & 0xFF00) |
-					((Data >> 8) & 0xFF);
-			} else 	{
-				*((u16 *)InstancePtr->RecvBufferPtr) =
-					(Data & 0xFFFF);
-			}
-			InstancePtr->RecvBufferPtr += 2;
-			break;
-		case 3:
-			if (InstancePtr->ShiftReadData == 1) {
-				*((u16 *)InstancePtr->RecvBufferPtr) =
-					((Data & 0x00FFFF00) >> 8);
+			case 1:
+				if (InstancePtr->ShiftReadData == 1) {
+					*((u8 *)InstancePtr->RecvBufferPtr) =
+						((Data & 0xFF000000) >> 24);
+				} else {
+					*((u8 *)InstancePtr->RecvBufferPtr) =
+						(Data & 0xFF);
+				}
+				InstancePtr->RecvBufferPtr += 1;
+				break;
+			case 2:
+				if (InstancePtr->ShiftReadData == 1) {
+					*((u16 *)InstancePtr->RecvBufferPtr) =
+						((Data >> 16) & 0xFF00) |
+						((Data >> 8) & 0xFF);
+				} else 	{
+					*((u16 *)InstancePtr->RecvBufferPtr) =
+						(Data & 0xFFFF);
+				}
 				InstancePtr->RecvBufferPtr += 2;
-				DataByte3 = ((Data & 0xFF000000) >> 24);
-				*((u8 *)InstancePtr->RecvBufferPtr) = DataByte3;
-			} else {
-				*((u16 *)InstancePtr->RecvBufferPtr) =
-					(Data & 0xFFFF);
-				InstancePtr->RecvBufferPtr += 2;
-				DataByte3 = ((Data & 0x00FF0000) >> 16);
-				*((u8 *)InstancePtr->RecvBufferPtr) = DataByte3;
-			}
-			InstancePtr->RecvBufferPtr += 1;
-			break;
-		default:
-			/* This will never execute */
-			break;
+				break;
+			case 3:
+				if (InstancePtr->ShiftReadData == 1) {
+					*((u16 *)InstancePtr->RecvBufferPtr) =
+						((Data & 0x00FFFF00) >> 8);
+					InstancePtr->RecvBufferPtr += 2;
+					DataByte3 = ((Data & 0xFF000000) >> 24);
+					*((u8 *)InstancePtr->RecvBufferPtr) = DataByte3;
+				} else {
+					*((u16 *)InstancePtr->RecvBufferPtr) =
+						(Data & 0xFFFF);
+					InstancePtr->RecvBufferPtr += 2;
+					DataByte3 = ((Data & 0x00FF0000) >> 16);
+					*((u8 *)InstancePtr->RecvBufferPtr) = DataByte3;
+				}
+				InstancePtr->RecvBufferPtr += 1;
+				break;
+			default:
+				/* This will never execute */
+				break;
 		}
 	}
 	InstancePtr->ShiftReadData  = 0;

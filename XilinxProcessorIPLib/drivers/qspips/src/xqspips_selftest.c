@@ -87,15 +87,15 @@ int XQspiPs_SelfTest(XQspiPs *InstancePtr)
 	 * hardware out there.
 	 */
 	Status = XQspiPs_SetDelays(InstancePtr, DelayTestNss, DelayTestBtwn,
-				DelayTestAfter, DelayTestInit);
+				   DelayTestAfter, DelayTestInit);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
 
 	XQspiPs_GetDelays(InstancePtr, &DelayTestNss, &DelayTestBtwn,
-				&DelayTestAfter, &DelayTestInit);
+			  &DelayTestAfter, &DelayTestInit);
 	if ((0x5A != DelayTestNss) || (0xA5 != DelayTestBtwn) ||
-		(0xAA != DelayTestAfter) || (0x55 != DelayTestInit)) {
+	    (0xAA != DelayTestAfter) || (0x55 != DelayTestInit)) {
 		return XST_REGISTER_ERROR;
 	}
 

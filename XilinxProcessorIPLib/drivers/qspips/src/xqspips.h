@@ -480,7 +480,7 @@ extern "C" {
  *		requested if the status event indicates an error.
  */
 typedef void (*XQspiPs_StatusHandler) (void *CallBackRef, u32 StatusEvent,
-					unsigned ByteCount);
+				       unsigned ByteCount);
 
 /**
  * This typedef contains configuration information for the device.
@@ -583,7 +583,7 @@ typedef struct {
 *****************************************************************************/
 #define XQspiPs_SetSlaveIdle(InstancePtr, RegisterValue)	\
 	XQspiPs_Out32(((InstancePtr)->Config.BaseAddress) +	\
-			XQSPIPS_SICR_OFFSET, (RegisterValue))
+		      XQSPIPS_SICR_OFFSET, (RegisterValue))
 
 /****************************************************************************/
 /**
@@ -601,7 +601,7 @@ typedef struct {
 *****************************************************************************/
 #define XQspiPs_GetSlaveIdle(InstancePtr)				\
 	XQspiPs_In32(((InstancePtr)->Config.BaseAddress) +		\
-	XQSPIPS_SICR_OFFSET)
+		     XQSPIPS_SICR_OFFSET)
 
 /****************************************************************************/
 /**
@@ -620,7 +620,7 @@ typedef struct {
 *****************************************************************************/
 #define XQspiPs_SetTXWatermark(InstancePtr, RegisterValue)		\
 	XQspiPs_Out32(((InstancePtr)->Config.BaseAddress) +		\
-			XQSPIPS_TXWR_OFFSET, (RegisterValue))
+		      XQSPIPS_TXWR_OFFSET, (RegisterValue))
 
 /****************************************************************************/
 /**
@@ -656,7 +656,7 @@ typedef struct {
 *****************************************************************************/
 #define XQspiPs_SetRXWatermark(InstancePtr, RegisterValue)		\
 	XQspiPs_Out32(((InstancePtr)->Config.BaseAddress) +		\
-			XQSPIPS_RXWR_OFFSET, (RegisterValue))
+		      XQSPIPS_RXWR_OFFSET, (RegisterValue))
 
 /****************************************************************************/
 /**
@@ -690,7 +690,7 @@ typedef struct {
 *****************************************************************************/
 #define XQspiPs_Enable(InstancePtr)					\
 	XQspiPs_Out32((InstancePtr->Config.BaseAddress) + XQSPIPS_ER_OFFSET, \
-			XQSPIPS_ER_ENABLE_MASK)
+		      XQSPIPS_ER_ENABLE_MASK)
 
 /****************************************************************************/
 /**
@@ -726,7 +726,7 @@ typedef struct {
 *****************************************************************************/
 #define XQspiPs_SetLqspiConfigReg(InstancePtr, RegisterValue)		\
 	XQspiPs_Out32(((InstancePtr)->Config.BaseAddress) +		\
-			XQSPIPS_LQSPI_CR_OFFSET, (RegisterValue))
+		      XQSPIPS_LQSPI_CR_OFFSET, (RegisterValue))
 
 /****************************************************************************/
 /**
@@ -744,7 +744,7 @@ typedef struct {
 *****************************************************************************/
 #define XQspiPs_GetLqspiConfigReg(InstancePtr)				\
 	XQspiPs_In32((InstancePtr->Config.BaseAddress) +		\
-			XQSPIPS_LQSPI_CR_OFFSET)
+		     XQSPIPS_LQSPI_CR_OFFSET)
 
 /************************** Function Prototypes ******************************/
 
@@ -761,21 +761,21 @@ XQspiPs_Config *XQspiPs_LookupConfig(UINTPTR BaseAddress);
  * Functions implemented in xqspips.c
  */
 int XQspiPs_CfgInitialize(XQspiPs *InstancePtr, XQspiPs_Config *Config,
-			   u32 EffectiveAddr);
+			  u32 EffectiveAddr);
 void XQspiPs_Reset(XQspiPs *InstancePtr);
 void XQspiPs_Abort(XQspiPs *InstancePtr);
 
 s32 XQspiPs_Transfer(XQspiPs *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
-		      u32 ByteCount);
+		     u32 ByteCount);
 s32 XQspiPs_PolledTransfer(XQspiPs *InstancePtr, u8 *SendBufPtr,
-			    u8 *RecvBufPtr, u32 ByteCount);
+			   u8 *RecvBufPtr, u32 ByteCount);
 int XQspiPs_LqspiRead(XQspiPs *InstancePtr, u8 *RecvBufPtr,
-			u32 Address, unsigned ByteCount);
+		      u32 Address, unsigned ByteCount);
 
 int XQspiPs_SetSlaveSelect(XQspiPs *InstancePtr);
 
 void XQspiPs_SetStatusHandler(XQspiPs *InstancePtr, void *CallBackRef,
-				XQspiPs_StatusHandler FuncPtr);
+			      XQspiPs_StatusHandler FuncPtr);
 void XQspiPs_InterruptHandler(void *InstancePtr);
 
 /*
@@ -793,9 +793,9 @@ s32 XQspiPs_SetClkPrescaler(XQspiPs *InstancePtr, u8 Prescaler);
 u8 XQspiPs_GetClkPrescaler(XQspiPs *InstancePtr);
 
 int XQspiPs_SetDelays(XQspiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
-			 u8 DelayAfter, u8 DelayInit);
+		      u8 DelayAfter, u8 DelayInit);
 void XQspiPs_GetDelays(XQspiPs *InstancePtr, u8 *DelayNss, u8 *DelayBtwn,
-			 u8 *DelayAfter, u8 *DelayInit);
+		       u8 *DelayAfter, u8 *DelayInit);
 #ifdef __cplusplus
 }
 #endif
