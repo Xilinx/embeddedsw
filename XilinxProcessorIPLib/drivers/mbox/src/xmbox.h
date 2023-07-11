@@ -139,7 +139,7 @@
 * 4.3   sa   04/20/17 Support for FIFO reset using hardware control register.
 *       sd   07/26/17 Modified tcl file to prevent false unconnected flagging.
 * 4.5   sd   09/03/20 Updated makefile for parallel execution.
-*
+* 4.6   ht   07/06/23 Added support for system device-tree flow.
 *</pre>
 *
 ******************************************************************************/
@@ -164,12 +164,22 @@ extern "C" {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< Register base address */
 	u8 UseFSL;		/**< use the FSL for the interface. */
 	u8 SendID;		/**< FSL link for the write i/f mailbox. */
 	u8 RecvID;		/**< FSL link for the read i/f mailbox. */
 
+#ifdef SDT
+	u32 IntrId;		/** Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags */
+	UINTPTR IntrParent;	/** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
 } XMbox_Config;
 
 /**
@@ -216,7 +226,11 @@ void XMbox_SetReceiveThreshold(XMbox *InstancePtr, u32 Value);
 /*
  * Static initialization function, in file xmbox_sinit.c
  */
+#ifndef SDT
 XMbox_Config *XMbox_LookupConfig(u16 DeviceId);
+#else
+XMbox_Config *XMbox_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 #ifdef __cplusplus
 }
