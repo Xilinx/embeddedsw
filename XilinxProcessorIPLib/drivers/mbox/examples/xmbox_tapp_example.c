@@ -114,7 +114,7 @@ char *ProducerHello = "Hello! The Producer greets the Consumer...";
 #ifndef SDT
 int MailboxExample(u16 MboxDeviceId);
 #else
-int MailboxExample(XMbox *MboxInstancePtr,UINTPTR BaseAddress);
+int MailboxExample(XMbox *MboxInstancePtr, UINTPTR BaseAddress);
 #endif
 
 static int MailboxExample_Send(XMbox *MboxInstancePtr, int CPU_Id);
@@ -242,12 +242,13 @@ static int MailboxExample_Send(XMbox *MboxInstancePtr, int CPU_Id)
 	while (Nbytes != HELLO_SIZE) {
 		/* Write a message to the mbox */
 		Status = XMbox_Write(MboxInstancePtr,
-					(u32 *)((u8 *)ProducerHello + Nbytes),
-					HELLO_SIZE - Nbytes,
-					&BytesSent);
+				     (u32 *)((u8 *)ProducerHello + Nbytes),
+				     HELLO_SIZE - Nbytes,
+				     &BytesSent);
 
-		if (Status == XST_SUCCESS)
+		if (Status == XST_SUCCESS) {
 			Nbytes += BytesSent;
+		}
 	}
 
 	return XST_SUCCESS;
@@ -281,14 +282,16 @@ static int MailboxExample_Receive(XMbox *MboxInstancePtr, int CPU_Id)
 	while (Nbytes < HELLO_SIZE) {
 		/* Read a message from the mbox */
 		Status = XMbox_Read(MboxInstancePtr,
-					(u32 *)(RecvMsg + Nbytes),
-					HELLO_SIZE - Nbytes, &BytesRcvd);
+				    (u32 *)(RecvMsg + Nbytes),
+				    HELLO_SIZE - Nbytes, &BytesRcvd);
 
-		if (Status == XST_SUCCESS)
+		if (Status == XST_SUCCESS) {
 			Nbytes += BytesRcvd;
+		}
 
-		if (Timeout++ > TIMEOUT_MAX_COUNT)
+		if (Timeout++ > TIMEOUT_MAX_COUNT) {
 			return XST_FAILURE;
+		}
 	}
 
 	/* Compare the recieved the message is the same as we expect */

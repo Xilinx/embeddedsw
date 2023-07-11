@@ -204,7 +204,7 @@ typedef struct {
 int XMbox_CfgInitialize(XMbox *InstancePtr, XMbox_Config *ConfigPtr,
 			UINTPTR EffectiveAddress);
 int XMbox_Read(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes,
-			u32 *BytesRecvdPtr);
+	       u32 *BytesRecvdPtr);
 void XMbox_ReadBlocking(XMbox *InstancePtr, u32 *BufferPtr,
 			u32 RequestedBytes);
 int XMbox_Write(XMbox *InstancePtr, u32 *BufferPtr, u32 RequestedBytes,

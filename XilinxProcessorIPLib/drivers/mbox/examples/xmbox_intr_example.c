@@ -168,9 +168,9 @@ int main(void)
 
 #ifndef SDT
 	if (MailboxExample(&IntcInst, MBOX_DEVICE_ID, MBOX_INTR_ID)
-				!= XST_SUCCESS) {
+	    != XST_SUCCESS) {
 #else
-	if(MailboxExample(XMBOX_BASEADDRESS) != XST_SUCCESS){
+	if (MailboxExample(XMBOX_BASEADDRESS) != XST_SUCCESS) {
 #endif
 		printf("MailboxExample :\t mbox intr Example Failed.\r\n");
 		return XST_FAILURE;
@@ -224,7 +224,7 @@ int MailboxExample(UINTPTR BaseAddress)
 #else
 	ConfigPtr = XMbox_LookupConfig(BaseAddress);
 #endif
-	if (ConfigPtr == (XMbox_Config *)NULL){
+	if (ConfigPtr == (XMbox_Config *)NULL) {
 		return XST_FAILURE;
 	}
 
@@ -232,7 +232,7 @@ int MailboxExample(UINTPTR BaseAddress)
 	 * Perform the rest of the initialization
 	 */
 	Status = XMbox_CfgInitialize(&Mbox, ConfigPtr, ConfigPtr->BaseAddress);
-	if (Status != XST_SUCCESS){
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
@@ -246,9 +246,9 @@ int MailboxExample(UINTPTR BaseAddress)
 					MboxIntrId);
 #else
 	Status = XSetupInterruptSystem(&Mbox, &MailboxIntrHandler,
-					ConfigPtr->IntrId,
-					ConfigPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       ConfigPtr->IntrId,
+				       ConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	/* Send the hello */
 	Status = MailboxExample_Send(&Mbox, MY_CPU_ID, 0);
@@ -270,8 +270,9 @@ int MailboxExample(UINTPTR BaseAddress)
 
 	/* wait for STA */
 	if (Mbox.Config.UseFSL == 0) {
-		if (MailboxExample_Wait(&IntrSTACount, "STA", 0))
+		if (MailboxExample_Wait(&IntrSTACount, "STA", 0)) {
 			return XST_FAILURE;
+		}
 	}
 
 	/* test blocking send and receive */
@@ -348,17 +349,18 @@ int MailboxExample_Send(XMbox *MboxInstancePtr, int CPU_Id, int Blocking)
 	Nbytes = 0;
 	if (Blocking) {
 		XMbox_WriteBlocking(MboxInstancePtr,
-					(u32 *)ProducerHello,
-					HELLO_SIZE);
+				    (u32 *)ProducerHello,
+				    HELLO_SIZE);
 	} else {
 		while (Nbytes != HELLO_SIZE) {
 			/* Write a message to the mbox */
 			Status = XMbox_Write(MboxInstancePtr,
-					(u32*)((u8*)ProducerHello + Nbytes),
-					HELLO_SIZE - Nbytes,
-					&BytesSent);
-			if (Status == XST_SUCCESS)
+					     (u32 *)((u8 *)ProducerHello + Nbytes),
+					     HELLO_SIZE - Nbytes,
+					     &BytesSent);
+			if (Status == XST_SUCCESS) {
 				Nbytes += BytesSent;
+			}
 		}
 	}
 
@@ -398,7 +400,7 @@ int MailboxExample_Receive(XMbox *MboxInstancePtr, int CPU_Id, int Blocking)
 		while (Nbytes < HELLO_SIZE) {
 			/* Read a message from the mbox */
 			Status = XMbox_Read(MboxInstancePtr,
-					    (u32*)(RecvMsg + Nbytes),
+					    (u32 *)(RecvMsg + Nbytes),
 					    HELLO_SIZE - Nbytes, &BytesRcvd);
 
 			if (Status == XST_SUCCESS) {
@@ -476,9 +478,9 @@ static int MailboxSetupIntrSystem(XIntc *IntcInstancePtr,
 	 * performs the specific interrupt processing for the device
 	 */
 	Status = XIntc_Connect(IntcInstancePtr,
-				MboxIntrId,
-				(XInterruptHandler)MailboxIntrHandler,
-				(void *)MboxInstPtr);
+			       MboxIntrId,
+			       (XInterruptHandler)MailboxIntrHandler,
+			       (void *)MboxInstPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -518,8 +520,8 @@ static int MailboxSetupIntrSystem(XIntc *IntcInstancePtr,
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XIntc_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     IntcInstancePtr);
 #endif /* TESTAPP_GEN */
 
 	return XST_SUCCESS;
