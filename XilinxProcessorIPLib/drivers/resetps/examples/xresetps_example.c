@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +25,7 @@
 * 1.00  cjp    10/07/17 First release
 * 1.2   cjp    04/27/18 Updated for clockps interdependency
 *       mus    02/28/19 Initialized FailCnt variable
+* 1.6   sd     07/07/23 Added SDT support.
 * </pre>
 *
 ******************************************************************************/
@@ -35,7 +37,9 @@
 #include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
+#ifndef SDT
 #define RESET_DEVICE_ID    (XPAR_XRESETPS_DEVICE_ID)
+#endif
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -48,7 +52,11 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 static XStatus ResetPsExample(XResetPs *ResetInstancePtr, u16 ResetDevId);
+#else
+static XStatus ResetPsExample(XResetPs *ResetInstancePtr, u32 BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 XResetPs ResetInstance;		/* Instance of Reset Controller */
@@ -80,7 +88,11 @@ int main(void)
 	xil_printf("Reset Example Test\r\n");
 
 	/* reset peripherals */
+#ifndef SDT
 	Status = ResetPsExample(&ResetInstance, RESET_DEVICE_ID);
+#else
+	Status = ResetPsExample(&ResetInstance, XPAR_XRESETPS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Reset Test Failed\r\n");
 		return XST_FAILURE;
@@ -107,7 +119,11 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 static XStatus ResetPsExample(XResetPs *ResetInstancePtr, u16 ResetDeviceId)
+#else
+static XStatus ResetPsExample(XResetPs *ResetInstancePtr, u32 BaseAddress)
+#endif
 {
 	int                Status;
 	u8                 CurrPeri;
@@ -117,7 +133,11 @@ static XStatus ResetPsExample(XResetPs *ResetInstancePtr, u16 ResetDeviceId)
 	XResetPs_RstStatus IsAsserted;
 
 	/* Initialize the Reset controller driver */
+#ifndef SDT
 	ConfigPtr = XResetPs_LookupConfig(ResetDeviceId);
+#else
+	ConfigPtr = XResetPs_LookupConfig(BaseAddress);
+#endif
 
 	Status = XResetPs_CfgInitialize(ResetInstancePtr, ConfigPtr);
 	if (Status != XST_SUCCESS) {
