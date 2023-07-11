@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -43,6 +44,7 @@
 *		given device ID, or NULL if no match is found.
 *
 *******************************************************************************/
+#ifndef SDT
 XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId)
 {
 	XPciePsu_Config *CfgPtr = NULL;
@@ -69,3 +71,31 @@ XPciePsu_Config *XPciePsu_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XPciePsu_Config *XPciePsu_LookupConfig(UINTPTR BrigReg)
+{
+	XPciePsu_Config *CfgPtr = NULL;
+	unsigned int Index;
+
+	for (Index = 0; XPciePsu_ConfigTable[Index].Name != NULL; Index++) {
+		if (XPciePsu_ConfigTable[Index].BrigReg == BrigReg) {
+			if(XPciePsu_ConfigTable[Index].BrigReg == 0xff ||
+					XPciePsu_ConfigTable[Index].Ecam == 0xff ||
+					XPciePsu_ConfigTable[Index].NpMemBaseAddr == 0xff ||
+					XPciePsu_ConfigTable[Index].NpMemMaxAddr == 0xff ||
+#if defined(__aarch64__) || defined(__arch64__)
+					XPciePsu_ConfigTable[Index].PMemBaseAddr == 0xff ||
+					XPciePsu_ConfigTable[Index].PMemMaxAddr == 0xff ||
+#endif
+					XPciePsu_ConfigTable[Index].PciReg == 0xffU){
+				CfgPtr = NULL;
+				goto End;
+			}
+			CfgPtr = &XPciePsu_ConfigTable[Index];
+			break;
+		}
+	}
+End:
+	return CfgPtr;
+}
+#endif
