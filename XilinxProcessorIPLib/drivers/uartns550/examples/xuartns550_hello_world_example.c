@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +26,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 3.9   gm   07/09/23 Added SDT support
 * </pre>
 ******************************************************************************/
 
@@ -41,8 +43,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define UART_DEVICE_ID		XPAR_UARTNS550_0_DEVICE_ID
-
+#ifndef SDT
+#define UART_DEVICE_ID			XPAR_UARTNS550_0_DEVICE_ID
+#else
+#define XUARTNS550_BASEADDRESS		XPAR_XUARTNS550_0_BASEADDR
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -52,7 +57,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int UartNs550HelloWorldExample(u16 DeviceId);
+#else
+int UartNs550HelloWorldExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -79,7 +88,11 @@ int main(void)
 	 * Run the UartNs550 example, specify the the Device ID that is
 	 * generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = UartNs550HelloWorldExample(UART_DEVICE_ID);
+#else
+	Status = UartNs550HelloWorldExample(XUARTNS550_BASEADDRESS);
+#endif
 
 	if (Status == XST_FAILURE) {
 		xil_printf("Uartns550 hello world Example Failed\r\n");
@@ -112,7 +125,11 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int UartNs550HelloWorldExample(u16 DeviceId)
+#else
+int UartNs550HelloWorldExample(UINTPTR BaseAddress)
+#endif
 {
 	u8 HelloWorld[] = "Hello World";
 	int SentCount = 0;
@@ -121,7 +138,11 @@ int UartNs550HelloWorldExample(u16 DeviceId)
 	/*
 	 * Initialize the UartNs550 device so that it is ready to use
 	 */
+#ifndef SDT
 	Status = XUartNs550_Initialize(&UartNs550, DeviceId);
+#else
+	Status = XUartNs550_Initialize(&UartNs550, BaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

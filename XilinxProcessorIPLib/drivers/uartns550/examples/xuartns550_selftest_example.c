@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 3.9   gm   07/09/23 Added SDT support.
 * </pre>
 ******************************************************************************/
 
@@ -43,7 +45,11 @@
  * change all the needed parameters in one place.
  */
 #ifndef TESTAPP_GEN
-#define UART_DEVICE_ID		XPAR_UARTNS550_0_DEVICE_ID
+#ifndef SDT
+#define UART_DEVICE_ID			XPAR_UARTNS550_0_DEVICE_ID
+#else
+#define XUARTNS550_BASEADDRESS		XPAR_XUARTNS550_0_BASEADDR
+#endif
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -54,7 +60,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int UartNs550SelfTestExample(u16 DeviceId);
+#else
+int UartNs550SelfTestExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -80,7 +90,11 @@ int main(void)
 	/*
 	 *  Run the UartNs550 selftest example
 	 */
+#ifndef SDT
 	Status = UartNs550SelfTestExample(UART_DEVICE_ID);
+#else
+	Status = UartNs550SelfTestExample(XUARTNS550_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Uartns550 selftest Example Failed\r\n");
 		return XST_FAILURE;
@@ -108,14 +122,22 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int UartNs550SelfTestExample(u16 DeviceId)
+#else
+int UartNs550SelfTestExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 
 	/*
 	 * Initialize the UartNs550 driver so that it's ready to use
 	 */
+#ifndef SDT
 	Status = XUartNs550_Initialize(&UartNs550, DeviceId);
+#else
+	Status = XUartNs550_Initialize(&UartNs550, BaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
