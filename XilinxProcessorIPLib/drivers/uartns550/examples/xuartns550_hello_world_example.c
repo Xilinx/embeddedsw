@@ -152,7 +152,7 @@ int UartNs550HelloWorldExample(UINTPTR BaseAddress)
 		 * Transmit the data
 		 */
 		SentCount += XUartNs550_Send(&UartNs550,
-				&HelloWorld[SentCount], 1);
+					     &HelloWorld[SentCount], 1);
 	}
 
 	return SentCount;

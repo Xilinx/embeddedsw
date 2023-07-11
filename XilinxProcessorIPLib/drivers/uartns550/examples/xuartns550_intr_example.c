@@ -103,20 +103,20 @@
 
 #ifndef SDT
 int UartNs550IntrExample(INTC *IntcInstancePtr,
-			XUartNs550 *UartInstancePtr,
-			u16 UartDeviceId,
-			u16 UartIntrId);
+			 XUartNs550 *UartInstancePtr,
+			 u16 UartDeviceId,
+			 u16 UartIntrId);
 #else
 int UartNs550IntrExample(XUartNs550 *UartInstancePtr,
-			UINTPTR BaseAddress);
+			 UINTPTR BaseAddress);
 #endif
 
 void UartNs550IntrHandler(void *CallBackRef, u32 Event, unsigned int EventData);
 
 #ifndef SDT
 static int UartNs550SetupIntrSystem(INTC *IntcInstancePtr,
-				XUartNs550 *UartInstancePtr,
-				u16 UartIntrId);
+				    XUartNs550 *UartInstancePtr,
+				    u16 UartIntrId);
 
 static void UartNs550DisableIntrSystem(INTC *IntcInstancePtr, u16 UartIntrId);
 #endif
@@ -167,12 +167,12 @@ int main(void)
 	 */
 #ifndef SDT
 	Status = UartNs550IntrExample(&IntcInstance,
-					&UartNs550Instance,
-					UART_DEVICE_ID,
-					UART_IRPT_INTR);
+				      &UartNs550Instance,
+				      UART_DEVICE_ID,
+				      UART_IRPT_INTR);
 #else
 	Status = UartNs550IntrExample(&UartNs550Instance,
-					XUARTNS550_BASEADDRESS);
+				      XUARTNS550_BASEADDRESS);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Uartns550 interrupt Example Failed\r\n");
@@ -215,12 +215,12 @@ int main(void)
 *******************************************************************************/
 #ifndef SDT
 int UartNs550IntrExample(INTC *IntcInstancePtr,
-			XUartNs550 *UartInstancePtr,
-			u16 UartDeviceId,
-			u16 UartIntrId)
+			 XUartNs550 *UartInstancePtr,
+			 u16 UartDeviceId,
+			 u16 UartIntrId)
 #else
 int UartNs550IntrExample(XUartNs550 *UartInstancePtr,
-			UINTPTR BaseAddress)
+			 UINTPTR BaseAddress)
 #endif
 {
 	int Status;
@@ -259,12 +259,12 @@ int UartNs550IntrExample(XUartNs550 *UartInstancePtr,
 	 */
 #ifndef SDT
 	Status = UartNs550SetupIntrSystem(IntcInstancePtr,
-						UartInstancePtr,
-						UartIntrId);
+					  UartInstancePtr,
+					  UartIntrId);
 #else
 	Status = XSetupInterruptSystem(UartInstancePtr, &UartNs550IntrHandler,
-			CfgPtr->IntrId, CfgPtr->IntrParent,
-			XINTERRUPT_DEFAULT_PRIORITY);
+				       CfgPtr->IntrId, CfgPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -277,7 +277,7 @@ int UartNs550IntrExample(XUartNs550 *UartInstancePtr,
 	 * the handlers are able to access the instance data.
 	 */
 	XUartNs550_SetHandler(UartInstancePtr, UartNs550IntrHandler,
-			  UartInstancePtr);
+			      UartInstancePtr);
 
 	/*
 	 * Enable the interrupt of the UART so interrupts will occur, setup
@@ -285,7 +285,7 @@ int UartNs550IntrExample(XUartNs550 *UartInstancePtr,
 	 * FIFOs enabled.
 	 */
 	Options = XUN_OPTION_DATA_INTR | XUN_OPTION_LOOPBACK |
-			XUN_OPTION_FIFOS_ENABLE;
+		  XUN_OPTION_FIFOS_ENABLE;
 	XUartNs550_SetOptions(UartInstancePtr, Options);
 
 
@@ -318,7 +318,7 @@ int UartNs550IntrExample(XUartNs550 *UartInstancePtr,
 	 * up in this loop if the interrupts are not working correctly.
 	 */
 	while ((TotalReceivedCount != TEST_BUFFER_SIZE) ||
-		(TotalSentCount != TEST_BUFFER_SIZE)) {
+	       (TotalSentCount != TEST_BUFFER_SIZE)) {
 	}
 
 	/*
@@ -357,7 +357,7 @@ int UartNs550IntrExample(XUartNs550 *UartInstancePtr,
 	 */
 	Options = XUartNs550_GetOptions(UartInstancePtr);
 	Options = Options & ~(XUN_OPTION_DATA_INTR | XUN_OPTION_LOOPBACK |
-			XUN_OPTION_FIFOS_ENABLE);
+			      XUN_OPTION_FIFOS_ENABLE);
 	XUartNs550_SetOptions(UartInstancePtr, Options);
 
 	return XST_SUCCESS;
@@ -445,8 +445,8 @@ void UartNs550IntrHandler(void *CallBackRef, u32 Event, unsigned int EventData)
 *
 *******************************************************************************/
 static int UartNs550SetupIntrSystem(INTC *IntcInstancePtr,
-					XUartNs550 *UartInstancePtr,
-					u16 UartIntrId)
+				    XUartNs550 *UartInstancePtr,
+				    u16 UartIntrId)
 {
 	int Status;
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -467,8 +467,8 @@ static int UartNs550SetupIntrSystem(INTC *IntcInstancePtr,
 	 * specific interrupt processing for the device.
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, UartIntrId,
-			   (XInterruptHandler)XUartNs550_InterruptHandler,
-			   (void *)UartInstancePtr);
+			       (XInterruptHandler)XUartNs550_InterruptHandler,
+			       (void *)UartInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -504,14 +504,14 @@ static int UartNs550SetupIntrSystem(INTC *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #endif /* TESTAPP_GEN */
 
 	XScuGic_SetPriorityTriggerType(IntcInstancePtr, UartIntrId,
-					0xA0, 0x3);
+				       0xA0, 0x3);
 
 	/*
 	 * Connect the interrupt handler that will be called when an
@@ -541,8 +541,8 @@ static int UartNs550SetupIntrSystem(INTC *IntcInstancePtr,
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			 (Xil_ExceptionHandler)INTC_HANDLER,
-			 IntcInstancePtr);
+				     (Xil_ExceptionHandler)INTC_HANDLER,
+				     IntcInstancePtr);
 
 	/*
 	 * Enable exceptions.

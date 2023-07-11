@@ -209,14 +209,13 @@ int UartNs550PolledExample(UINTPTR BaseAddress)
 	 * accordingly.
 	 */
 	while (1) {
-	   ReceivedCount += XUartNs550_Recv(&UartNs550,
-					   RecvBuffer + ReceivedCount,
-					   TEST_BUFFER_SIZE - ReceivedCount);
-	   if (ReceivedCount == TEST_BUFFER_SIZE)
-	   {
-		break;
-           }
-        }
+		ReceivedCount += XUartNs550_Recv(&UartNs550,
+						 RecvBuffer + ReceivedCount,
+						 TEST_BUFFER_SIZE - ReceivedCount);
+		if (ReceivedCount == TEST_BUFFER_SIZE) {
+			break;
+		}
+	}
 
 	/*
 	 * Check the receive buffer data against the send buffer and verify the
