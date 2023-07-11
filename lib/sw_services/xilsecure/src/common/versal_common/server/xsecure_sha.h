@@ -49,6 +49,7 @@
 * 5.0   bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_kat.c
 *       dc   08/26/22 Changed u8 to u32 type for size optimization
+* 5.1	mmd  07/09/23 Included header file for crypto algorithm information
 *
 * </pre>
 *
@@ -67,6 +68,7 @@ extern "C" {
 #include "xpmcdma.h"
 #include "xsecure_sss.h"
 #include "xsecure_plat.h"
+#include "xsecure_sha3alginfo.h"
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal

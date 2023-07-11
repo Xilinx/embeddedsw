@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -23,6 +24,7 @@
 *       kpt  04/28/21 Added enum XSecure_ShaState to update sha driver states
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.0   kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_katclient.c
+* 5.2	mmd  07/09/23 Included header file for crypto algorithm information
 *
 * </pre>
 *
@@ -41,6 +43,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xsecure_mailbox.h"
 #include "xsecure_defs.h"
+#include "xsecure_sha3alginfo.h"
 
 /************************** Constant Definitions *****************************/
 

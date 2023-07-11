@@ -72,6 +72,8 @@
  * ----- ---- -------- -----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
  * 1.1   ssc  03/24/22 New error code XTRNGPSV_ERROR_GLITCH and doxygen fixes
+ * 1.4   mmd  07/10/23 Included header file for crypto algorithm information
+ *
  * </pre>
  *
  ******************************************************************************/
@@ -86,6 +88,7 @@
 #include "xil_util.h"
 #include "sleep.h"
 #include "xtrngpsv_hw.h"
+#include "xtrngpsv_alginfo.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -24,6 +25,7 @@
 * 5.0   kpt  07/24/22 Moved XSecure_AesDecryptKat and XSecure_AesDecryptCMKat
 *                     into xsecure_katclient.c
 *       kpt  08/19/22 Added GMAC support
+* 5.2   mmd  07/09/23 Included header file for crypto algorithm information
 *
 * </pre>
 * @note
@@ -41,6 +43,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xsecure_mailbox.h"
 #include "xsecure_defs.h"
+#include "xsecure_aesalginfo.h"
 
 /**************************** Type Definitions *******************************/
 typedef enum {

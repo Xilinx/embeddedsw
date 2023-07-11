@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +40,7 @@
 *       kpt  08/19/2022 Added GMAC support
 *       vss  05/16/2023 Fixed coverity warning NO_EFFECT
 * 5.2   yog  07/10/2023 Added support of unaligned data sizes for Versal Net
+*       mmd  07/11/2023 Included header file for crypto algorithm information
 *
 * </pre>
 *
@@ -57,6 +58,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xpmcdma.h"
 #include "xsecure_sss.h"
+#include "xsecure_aesalginfo.h"
 
 /************************** Constant Definitions *****************************/
 /** @cond xsecure_internal
