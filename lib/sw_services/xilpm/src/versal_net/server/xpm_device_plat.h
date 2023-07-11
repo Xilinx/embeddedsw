@@ -58,11 +58,7 @@ maybe_unused static inline void XPmDevice_ConfigureADMA(const u32 Id)
 {
 	(void)Id;
 }
-maybe_unused static inline XStatus XPmDevice_SdResetWorkaround(const XPm_Device *Device)
-{
-	(void)Device;
-	return XST_SUCCESS;
-}
+XStatus XPmDevice_SdResetWorkaround(const XPm_Device *Device);
 maybe_unused static inline XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const XPm_Subsystem *Subsystem,
 		const u32 Divider)
 {
