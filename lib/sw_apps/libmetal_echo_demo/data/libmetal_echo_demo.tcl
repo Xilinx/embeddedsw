@@ -183,6 +183,7 @@ proc swapp_generate {} {
 
     file delete -force "machine"
     file delete -force "system"
+    file delete -force "sdt"
 
     return
 }
