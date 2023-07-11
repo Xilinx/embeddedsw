@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +26,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 3.9   gm   07/09/23 Added SDT support
 * </pre>
 ******************************************************************************/
 
@@ -42,8 +44,14 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define UART_BASEADDR		XPAR_UARTNS550_0_BASEADDR
 #define UART_CLOCK_HZ		XPAR_UARTNS550_0_CLOCK_FREQ_HZ
+#else
+#define UART_BASEADDR		XPAR_XUARTNS550_0_BASEADDR
+#define UART_CLOCK_HZ		XPAR_XUARTNS550_0_CLOCK_FREQ
+#endif
+
 /*
  * The following constant controls the length of the buffers to be sent
  * and received with the UART, this constant must be 16 bytes or less so the

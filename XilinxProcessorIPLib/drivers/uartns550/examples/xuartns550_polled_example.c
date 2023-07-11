@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 3.9   gm   07/09/23 Added SDT support
 * </pre>
 ******************************************************************************/
 
@@ -42,7 +44,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define UART_DEVICE_ID		XPAR_UARTNS550_0_DEVICE_ID
+#ifndef SDT
+#define UART_DEVICE_ID			XPAR_UARTNS550_0_DEVICE_ID
+#else
+#define XUARTNS550_BASEADDRESS		XPAR_XUARTNS550_0_BASEADDR
+#endif
 
 /*
  * The following constant controls the length of the buffers to be sent
@@ -60,7 +66,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int UartNs550PolledExample(u16 DeviceId);
+#else
+int UartNs550PolledExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -96,7 +106,11 @@ int main(void)
 	 * Run the UartNs550 polled example , specify the the Device ID that is
 	 * generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = UartNs550PolledExample(UART_DEVICE_ID);
+#else
+	Status = UartNs550PolledExample(XUARTNS550_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Uartns550 polled Example Failed\r\n");
 		return XST_FAILURE;
@@ -129,7 +143,11 @@ int main(void)
 *		if the hardware is not working correctly.
 *
 ****************************************************************************/
+#ifndef SDT
 int UartNs550PolledExample(u16 DeviceId)
+#else
+int UartNs550PolledExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	unsigned int SentCount;
@@ -141,7 +159,11 @@ int UartNs550PolledExample(u16 DeviceId)
 	 * Initialize the UART Lite driver so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = XUartNs550_Initialize(&UartNs550, DeviceId);
+#else
+	Status = XUartNs550_Initialize(&UartNs550, BaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
