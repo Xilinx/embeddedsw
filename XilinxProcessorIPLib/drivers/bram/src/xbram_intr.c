@@ -72,10 +72,10 @@ void XBram_InterruptEnable(XBram *InstancePtr, u32 Mask)
 	 * interrupts without disabling or enabling any others.
 	 */
 	Register = XBram_ReadReg(InstancePtr->Config.CtrlBaseAddress,
-					XBRAM_ECC_EN_IRQ_OFFSET);
+				 XBRAM_ECC_EN_IRQ_OFFSET);
 	XBram_WriteReg(InstancePtr->Config.CtrlBaseAddress,
-					XBRAM_ECC_EN_IRQ_OFFSET,
-					Register | Mask);
+		       XBRAM_ECC_EN_IRQ_OFFSET,
+		       Register | Mask);
 }
 
 
@@ -108,10 +108,10 @@ void XBram_InterruptDisable(XBram *InstancePtr, u32 Mask)
 	 * interrupts without enabling or disabling any others.
 	 */
 	Register = XBram_ReadReg(InstancePtr->Config.CtrlBaseAddress,
-					XBRAM_ECC_EN_IRQ_OFFSET);
+				 XBRAM_ECC_EN_IRQ_OFFSET);
 	XBram_WriteReg(InstancePtr->Config.CtrlBaseAddress,
-				XBRAM_ECC_EN_IRQ_OFFSET,
-				Register & (~Mask));
+		       XBRAM_ECC_EN_IRQ_OFFSET,
+		       Register & (~Mask));
 }
 
 /****************************************************************************/
@@ -147,10 +147,10 @@ void XBram_InterruptClear(XBram *InstancePtr, u32 Mask)
 	 * set.
 	 */
 	Register = XBram_ReadReg(InstancePtr->Config.CtrlBaseAddress,
-					XBRAM_ECC_STATUS_OFFSET);
+				 XBRAM_ECC_STATUS_OFFSET);
 	XBram_WriteReg(InstancePtr->Config.CtrlBaseAddress,
-				XBRAM_ECC_STATUS_OFFSET,
-				Register & Mask);
+		       XBRAM_ECC_STATUS_OFFSET,
+		       Register & Mask);
 
 
 }
@@ -171,14 +171,14 @@ void XBram_InterruptClear(XBram *InstancePtr, u32 Mask)
 * @note		None.
 *
 *****************************************************************************/
-u32 XBram_InterruptGetEnabled(XBram * InstancePtr)
+u32 XBram_InterruptGetEnabled(XBram *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(InstancePtr->Config.CtrlBaseAddress != 0);
 
 	return XBram_ReadReg(InstancePtr->Config.CtrlBaseAddress,
-				XBRAM_ECC_EN_IRQ_OFFSET);
+			     XBRAM_ECC_EN_IRQ_OFFSET);
 }
 
 
@@ -201,13 +201,13 @@ u32 XBram_InterruptGetEnabled(XBram * InstancePtr)
 * XBram_InterruptEnable().
 *
 *****************************************************************************/
-u32 XBram_InterruptGetStatus(XBram * InstancePtr)
+u32 XBram_InterruptGetStatus(XBram *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(InstancePtr->Config.CtrlBaseAddress != 0);
 
 	return XBram_ReadReg(InstancePtr->Config.CtrlBaseAddress,
-				XBRAM_ECC_EN_IRQ_OFFSET);
+			     XBRAM_ECC_EN_IRQ_OFFSET);
 }
 /** @} */

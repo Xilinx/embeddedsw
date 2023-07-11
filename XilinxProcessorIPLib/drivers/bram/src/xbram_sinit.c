@@ -90,7 +90,7 @@ XBram_Config *XBram_LookupConfig(UINTPTR BaseAddress)
 
 	for (Index = (u32)0x0; XBram_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XBram_ConfigTable[Index].BaseAddress == BaseAddress) ||
-				!BaseAddress) {
+		    !BaseAddress) {
 			CfgPtr = &XBram_ConfigTable[Index];
 			break;
 		}
