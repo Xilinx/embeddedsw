@@ -1,5 +1,6 @@
 ##############################################################################
 # Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##
 #############################################################################
@@ -44,7 +45,7 @@ proc generate {drv_handle} {
 				# if substring DSI_DATATYPE is present in the string
 				if { [regexp -nocase {DSI_DATATYPE } $line] } {
 					# using string map to replace true with 1 and false with 0
-					set line [string map {RGB888 0x3E RGB565 0x0E RGB666_L 0x2E RGB666_P 0x1E} $line]
+					set line [string map {RGB888 0x3E RGB565 0x0E RGB666_L 0x2E RGB666_P 0x1E Compressed 0x0B} $line]
 				}
 				# if substring DPHY_EN_REG_IF is present in the string
 				if { [regexp -nocase {DPHY_EN_REG_IF} $line] } {
