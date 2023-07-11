@@ -62,6 +62,8 @@
 *      bm        03/14/23 Added XSECURE_REDUNDANT_CALL and XSECURE_REDUNDANT_IMPL macros
 *      sk        03/14/23 Added Status Check Glitch detect Macro
 * 9.0  ml        03/03/23 Add description to fix doxygen warnings.
+*      mmd       07/09/23 Added macro to build version
+*
 * </pre>
 *
 *****************************************************************************/
@@ -73,6 +75,7 @@
 extern "C" {
 #endif
 
+/******************************* Include Files ********************************/
 #include "xil_types.h"
 #include "xil_io.h"
 #include "xstatus.h"
@@ -84,8 +87,21 @@ extern "C" {
 #define XIL_MAX_HEX_STR_LEN	512U /**< Maximum string length handled by
                                           Xil_ValidateHexStr function */
 
-
 /****************** Macros (Inline Functions) Definitions *********************/
+
+/******************************************************************************/
+/**
+ *
+ * Builds version number by concatenates 16-bit Major version and Minor version.
+ *
+ * @param   Major is the 16-bit major version number
+ * @param   Minor is the 16-bit minor version number
+ *
+ * @return	32-bit version number
+ *
+ ******************************************************************************/
+#define XIL_BUILD_VERSION(Major, Minor)		(((Major) << 16U) | (Minor))
+
 #ifdef __GNUC__
 /******************************************************************************/
 /**
