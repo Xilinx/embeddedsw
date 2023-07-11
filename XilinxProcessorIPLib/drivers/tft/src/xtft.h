@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xtft.h
-* @addtogroup tft_v6_3
+* @addtogroup tft Overview
 * @{
 * @details
 *
@@ -107,6 +108,7 @@
 * 6.1   ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                     definitions of tft in xparameters.h
 * 6.3   sd   02/09/20 Updated makefile for parallel execution.
+* 6.4   sd   07/08/23 Added SDT support.
 *</pre>
 *
 ****************************************************************************/
@@ -151,8 +153,11 @@ extern "C" {
  * and Unique identifier of the device.
  */
 typedef struct {
-
+#ifndef SDT
 	u16 DeviceId;			/**< Unique ID of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;		/**< Base address of device */
 	UINTPTR VideoMemBaseAddr;	/**< Video Memory Base address */
 	u32 AddrWidth;			/**< Address Width */
@@ -183,7 +188,11 @@ typedef struct {
 /*
  * Initialization function in xtft_sinit.c.
  */
+#ifndef SDT
 XTft_Config *XTft_LookupConfig(u16 DeviceId);
+#else
+XTft_Config *XTft_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * Functions for basic driver operations in xtft.c.

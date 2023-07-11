@@ -1,0 +1,39 @@
+# SPDX-License-Identifier: MIT
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: GPL-2.0
+%YAML 1.2
+---
+title: Bindings for Tft controller
+
+maintainers:
+  - Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-tft-2.0
+  reg:
+    description: Standard reg property
+  xlnx,default-tft-base-addr:
+    description: TFT default address
+  xlnx,max-burst-len:
+    description: Address width
+
+config:
+    - XTft_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,default-tft-base-addr
+    - xlnx,max-burst-len
+
+examples:
+    xtft_example.c:
+        - reg
+...

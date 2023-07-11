@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xtft_sinit.c
-* @addtogroup tft_v6_3
+* @addtogroup tft Overview
 * @{
 *
 * This file defines the implementation of Tft device static initialization
@@ -20,12 +21,15 @@
 * Ver    Who   Date      Changes
 * -----  ----  --------  -----------------------------------------------
 * 1.00a  sg    03/24/08  First release
+* 6.4   sd     07/08/23  Added SDT support.
 * </pre>
 *
 *****************************************************************************/
 
 /***************************** Include Files ********************************/
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xtft.h"
 
 /************************** Constant Definitions ****************************/
@@ -53,6 +57,7 @@ extern XTft_Config XTft_ConfigTable[];
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 XTft_Config *XTft_LookupConfig(u16 DeviceId)
 {
 	XTft_Config *CfgPtr = NULL;
@@ -71,5 +76,21 @@ XTft_Config *XTft_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XTft_Config *XTft_LookupConfig(UINTPTR BaseAddress)
+{
+	XTft_Config *CfgPtr = NULL;
+	u32 Index;
 
+	for (Index = 0; XTft_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XTft_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XTft_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XTft_Config *) CfgPtr;
+}
+#endif
 /** @} */

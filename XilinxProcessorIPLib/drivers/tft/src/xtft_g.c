@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xtft_g.c
-* @addtogroup tft_v6_3
+* @addtogroup tft Overview
 * @{
 *
 * This file contains a configuration table that specifies the parameters of
