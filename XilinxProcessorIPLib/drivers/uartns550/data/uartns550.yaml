@@ -1,0 +1,46 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for UARTNS550 controller
+
+maintainers:
+  - Manikanta Guntupalli <manikanta.guntupalli@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - const: xlnx,axi-uart16550-2.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,clock-freq:
+    description: Input clock frequency
+  current-speed:
+    description: Default baudrate
+
+config:
+    - XUartNs550_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,clock-freq
+    - current-speed
+    - interrupts
+    - interrupt-parent
+examples:
+    xuartns550_hello_world_example.c:
+        - reg
+    xuartns550_intr_example.c:
+        - interrupts
+    xuartns550_low_level_example.c:
+        - reg
+    xuartns550_polled_example.c:
+        - reg
+    xuartns550_selftest_example.c:
+        - reg
+...

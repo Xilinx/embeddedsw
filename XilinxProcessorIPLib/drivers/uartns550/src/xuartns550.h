@@ -149,6 +149,7 @@
 *                     generation.
 * 3.5   ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                     definitions of uartns550 in xparameters.h
+* 3.9   gm   07/09/23 Added SDT support
 * </pre>
 *
 *****************************************************************************/
@@ -292,10 +293,20 @@ extern "C" {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< Base address of device */
 	u32 InputClockHz;	/**< Input clock frequency */
 	u32 DefaultBaudRate;	/**< Baud Rate in bps, ie 1200 */
+#ifdef SDT
+	u16 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags */
+	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
 } XUartNs550_Config;
 
 /**
@@ -382,8 +393,13 @@ typedef struct {
 /*
  * Initialization functions in xuartns550_sinit.c
  */
+#ifndef SDT
 int XUartNs550_Initialize(XUartNs550 *InstancePtr, u16 DeviceId);
 XUartNs550_Config *XUartNs550_LookupConfig(u16 DeviceId);
+#else
+int XUartNs550_Initialize(XUartNs550 *InstancePtr, UINTPTR BaseAddress);
+XUartNs550_Config *XUartNs550_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * Required functions in xuartns550.c
