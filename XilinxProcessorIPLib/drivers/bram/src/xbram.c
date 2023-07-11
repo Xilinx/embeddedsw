@@ -100,19 +100,19 @@ int XBram_CfgInitialize(XBram *InstancePtr,
 	InstancePtr->Config.DataWidth = Config->DataWidth;
 	InstancePtr->Config.EccPresent = Config->EccPresent;
 	InstancePtr->Config.FaultInjectionPresent =
-					Config->FaultInjectionPresent;
+		Config->FaultInjectionPresent;
 	InstancePtr->Config.CorrectableFailingRegisters =
-					Config->CorrectableFailingRegisters;
+		Config->CorrectableFailingRegisters;
 	InstancePtr->Config.CorrectableFailingDataRegs =
-					Config->CorrectableFailingDataRegs;
+		Config->CorrectableFailingDataRegs;
 	InstancePtr->Config.UncorrectableFailingRegisters =
-					Config->UncorrectableFailingRegisters;
+		Config->UncorrectableFailingRegisters;
 	InstancePtr->Config.UncorrectableFailingDataRegs =
-					Config->UncorrectableFailingDataRegs;
+		Config->UncorrectableFailingDataRegs;
 	InstancePtr->Config.EccStatusInterruptPresent =
-					Config->EccStatusInterruptPresent;
+		Config->EccStatusInterruptPresent;
 	InstancePtr->Config.CorrectableCounterBits =
-					Config->CorrectableCounterBits;
+		Config->CorrectableCounterBits;
 	InstancePtr->Config.WriteAccess = Config->WriteAccess;
 #ifdef SDT
 	InstancePtr->Config.IntId = Config->IntId;

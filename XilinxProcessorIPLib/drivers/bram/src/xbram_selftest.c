@@ -56,12 +56,12 @@
 
 /***************** Macros (Inline Functions) Definitions ********************/
 #define RD(reg)		XBram_ReadReg(InstancePtr->Config.CtrlBaseAddress, \
-					XBRAM_ ## reg)
+				      XBRAM_ ## reg)
 #define WR(reg, data)	XBram_WriteReg(InstancePtr->Config.CtrlBaseAddress, \
-						XBRAM_ ## reg, data)
+				       XBRAM_ ## reg, data)
 
 #define CHECK(reg, data, result) if (result!=XST_SUCCESS || RD(reg)!=data) \
-						result = XST_FAILURE;
+		result = XST_FAILURE;
 
 /************************** Variable Definitions ****************************/
 static u32 PrngResult;
@@ -71,7 +71,7 @@ static INLINE u32 PrngData(u32 *PrngResult);
 
 static INLINE u32 CalculateEcc(u32 Data);
 
-static void InjectErrors(XBram * InstancePtr, UINTPTR Addr,
+static void InjectErrors(XBram *InstancePtr, UINTPTR Addr,
 			 int Index1, int Index2, int Width,
 			 u32 *ActualData, u32 *ActualEcc);
 
@@ -171,7 +171,7 @@ static INLINE u32 CalculateEcc(u32 Data)
 * @note		None.
 *
 ******************************************************************************/
-static void InjectErrors(XBram * InstancePtr, const UINTPTR Addr,
+static void InjectErrors(XBram *InstancePtr, const UINTPTR Addr,
 			 int Index1, int Index2, int Width,
 			 u32 *ActualData, u32 *ActualEcc)
 {
@@ -260,8 +260,9 @@ int XBram_SelfTest(XBram *InstancePtr, u8 IntMask)
 	 * Only 32-bit data width is supported as of yet. 64-bit and 128-bit
 	 * widths will be supported in future.
 	 */
-	if (InstancePtr->Config.DataWidth != 32)
+	if (InstancePtr->Config.DataWidth != 32) {
 		return (XST_SUCCESS);
+	}
 
 	/*
 	 * Read from the implemented readable registers in the hardware device.
@@ -291,17 +292,17 @@ int XBram_SelfTest(XBram *InstancePtr, u8 IntMask)
 			return (XST_FAILURE);
 		}
 	}
-xil_printf("ssd %s %d\n\r", __func__, __LINE__);
+	xil_printf("ssd %s %d\n\r", __func__, __LINE__);
 	if (InstancePtr->Config.CorrectableCounterBits > 0) {
 		u32 Value;
 
 		/* Calculate counter max value */
 		if (InstancePtr->Config.CorrectableCounterBits == 32) {
-		 	Value = 0xFFFFFFFF;
+			Value = 0xFFFFFFFF;
 		} else {
-		 	Value = (1 <<
-		 		InstancePtr->Config.CorrectableCounterBits) - 1;
-		 }
+			Value = (1 <<
+				 InstancePtr->Config.CorrectableCounterBits) - 1;
+		}
 
 		WR(CE_CNT_OFFSET, Value);
 		if (RD(CE_CNT_OFFSET) != Value) {
@@ -322,174 +323,182 @@ xil_printf("ssd %s %d\n\r", __func__, __LINE__);
 	    InstancePtr->Config.WriteAccess != 0) {
 
 		static u32 Addr[2];
-	    u32 SavedWords[2];
-	    u32 ActualData;
-	    u32 ActualEcc;
-	    u32 CounterValue = 0;
-	    u32 CounterMax;
-	    int WordIndex = 0;
-	    int Result = XST_SUCCESS;
-	    int Index1;
-	    int Index2;
-	    int Width;
+		u32 SavedWords[2];
+		u32 ActualData;
+		u32 ActualEcc;
+		u32 CounterValue = 0;
+		u32 CounterMax;
+		int WordIndex = 0;
+		int Result = XST_SUCCESS;
+		int Index1;
+		int Index2;
+		int Width;
 
-	    Addr[0] = InstancePtr->Config.MemBaseAddress &
-						(UINTPTR)0xfffffffffffffffc;
-	    Addr[1] = InstancePtr->Config.MemHighAddress &
-					(UINTPTR)0xfffffffffffffffc;
-	    PrngResult = 42; /* Random seed */
+		Addr[0] = InstancePtr->Config.MemBaseAddress &
+			  (UINTPTR)0xfffffffffffffffc;
+		Addr[1] = InstancePtr->Config.MemHighAddress &
+			  (UINTPTR)0xfffffffffffffffc;
+		PrngResult = 42; /* Random seed */
 
-	    /* Save two words in BRAM used for test */
-	    SavedWords[0] = XBram_In32(Addr[0]);
-	    SavedWords[1] = XBram_In32(Addr[1]);
+		/* Save two words in BRAM used for test */
+		SavedWords[0] = XBram_In32(Addr[0]);
+		SavedWords[1] = XBram_In32(Addr[1]);
 
-	    for (Width = 1; Width <= 4; Width <<= 1) {
-		/* Calculate counter max value */
-		if (InstancePtr->Config.CorrectableCounterBits == 32) {
-			CounterMax = 0xFFFFFFFF;
-		} else {
-			CounterMax =(1 <<
-				InstancePtr->Config.CorrectableCounterBits) - 1;
-		}
-
-		/* Inject and check all single bit errors */
-		for (Index1 = 0; Index1 < TOTAL_BITS; Index1++) {
-			/* Save counter value */
-			if (InstancePtr->Config.CorrectableCounterBits > 0) {
-				CounterValue = RD(CE_CNT_OFFSET);
+		for (Width = 1; Width <= 4; Width <<= 1) {
+			/* Calculate counter max value */
+			if (InstancePtr->Config.CorrectableCounterBits == 32) {
+				CounterMax = 0xFFFFFFFF;
+			} else {
+				CounterMax = (1 <<
+					      InstancePtr->Config.CorrectableCounterBits) - 1;
 			}
 
-			/* Inject single bit error */
-			InjectErrors(InstancePtr, Addr[WordIndex], Index1,
-				     Index1, Width, &ActualData, &ActualEcc);
+			/* Inject and check all single bit errors */
+			for (Index1 = 0; Index1 < TOTAL_BITS; Index1++) {
+				/* Save counter value */
+				if (InstancePtr->Config.CorrectableCounterBits > 0) {
+					CounterValue = RD(CE_CNT_OFFSET);
+				}
 
-			/* Check that CE is set */
-			if (InstancePtr->Config.EccStatusInterruptPresent) {
-				CHECK(ECC_STATUS_OFFSET,
-					XBRAM_IR_CE_MASK, Result);
-			}
+				/* Inject single bit error */
+				InjectErrors(InstancePtr, Addr[WordIndex], Index1,
+					     Index1, Width, &ActualData, &ActualEcc);
 
-			/* Check that address, data, ECC are correct */
-			if (InstancePtr->Config.CorrectableFailingRegisters) {
-				CHECK(CE_FFA_0_OFFSET, Addr[WordIndex], Result);
- 			}
- 			/* Checks are only for LMB BRAM */
- 			if (InstancePtr->Config.CorrectableFailingDataRegs) {
-  				CHECK(CE_FFD_0_OFFSET, ActualData, Result);
-  				CHECK(CE_FFE_0_OFFSET, ActualEcc, Result);
-  			}
-
-			/* Check that counter has incremented */
-			if (InstancePtr->Config.CorrectableCounterBits > 0 &&
-				CounterValue < CounterMax) {
-					CHECK(CE_CNT_OFFSET,
-					CounterValue + 1, Result);
-			}
-
-			/* Restore correct data in the used word */
-			XBram_Out32(Addr[WordIndex], SavedWords[WordIndex]);
-
-			/* Allow interrupts to occur */
-			/* Clear status register */
-			if (InstancePtr->Config.EccStatusInterruptPresent) {
-				WR(ECC_EN_IRQ_OFFSET, IntMask);
-				WR(ECC_STATUS_OFFSET, XBRAM_IR_ALL_MASK);
-				WR(ECC_EN_IRQ_OFFSET, 0);
-			}
-
-			/* Switch to the other word */
-			WordIndex = WordIndex ^ 1;
-
-			if (Result != XST_SUCCESS) break;
-
-		}
-
-		if (Result != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-
-		for (Index1 = 0; Index1 < TOTAL_BITS; Index1++) {
-			for (Index2 = 0; Index2 < TOTAL_BITS; Index2++) {
-			    if (Index1 != Index2) {
-				/* Inject double bit error */
-				InjectErrors(InstancePtr,
-					Addr[WordIndex],
-						Index1, Index2, Width,
-						&ActualData,
-						&ActualEcc);
-
-				/* Check that UE is set */
-				if (InstancePtr->Config.
-				    EccStatusInterruptPresent) {
+				/* Check that CE is set */
+				if (InstancePtr->Config.EccStatusInterruptPresent) {
 					CHECK(ECC_STATUS_OFFSET,
-					XBRAM_IR_UE_MASK,
-					Result);
+					      XBRAM_IR_CE_MASK, Result);
 				}
 
 				/* Check that address, data, ECC are correct */
-				if (InstancePtr->Config.
-				    UncorrectableFailingRegisters) {
-					CHECK(UE_FFA_0_OFFSET, Addr[WordIndex],
-							Result);
-					CHECK(UE_FFD_0_OFFSET,
-						ActualData, Result);
-					CHECK(UE_FFE_0_OFFSET, ActualEcc,
-						Result);
-					}
+				if (InstancePtr->Config.CorrectableFailingRegisters) {
+					CHECK(CE_FFA_0_OFFSET, Addr[WordIndex], Result);
+				}
+				/* Checks are only for LMB BRAM */
+				if (InstancePtr->Config.CorrectableFailingDataRegs) {
+					CHECK(CE_FFD_0_OFFSET, ActualData, Result);
+					CHECK(CE_FFE_0_OFFSET, ActualEcc, Result);
+				}
+
+				/* Check that counter has incremented */
+				if (InstancePtr->Config.CorrectableCounterBits > 0 &&
+				    CounterValue < CounterMax) {
+					CHECK(CE_CNT_OFFSET,
+					      CounterValue + 1, Result);
+				}
 
 				/* Restore correct data in the used word */
-				XBram_Out32(Addr[WordIndex],
-						SavedWords[WordIndex]);
+				XBram_Out32(Addr[WordIndex], SavedWords[WordIndex]);
 
 				/* Allow interrupts to occur */
 				/* Clear status register */
-				if (InstancePtr->Config.
-				    EccStatusInterruptPresent) {
+				if (InstancePtr->Config.EccStatusInterruptPresent) {
 					WR(ECC_EN_IRQ_OFFSET, IntMask);
-					WR(ECC_STATUS_OFFSET,
-						XBRAM_IR_ALL_MASK);
+					WR(ECC_STATUS_OFFSET, XBRAM_IR_ALL_MASK);
 					WR(ECC_EN_IRQ_OFFSET, 0);
 				}
 
 				/* Switch to the other word */
 				WordIndex = WordIndex ^ 1;
-			    }
-				if (Result != XST_SUCCESS) break;
-			}
-			if (Result != XST_SUCCESS) break;
-		}
 
-		/* Check saturation of correctable error counter */
-		if (InstancePtr->Config.CorrectableCounterBits > 0 &&
-			Result == XST_SUCCESS) {
+				if (Result != XST_SUCCESS) {
+					break;
+				}
+
+			}
+
+			if (Result != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			for (Index1 = 0; Index1 < TOTAL_BITS; Index1++) {
+				for (Index2 = 0; Index2 < TOTAL_BITS; Index2++) {
+					if (Index1 != Index2) {
+						/* Inject double bit error */
+						InjectErrors(InstancePtr,
+							     Addr[WordIndex],
+							     Index1, Index2, Width,
+							     &ActualData,
+							     &ActualEcc);
+
+						/* Check that UE is set */
+						if (InstancePtr->Config.
+						    EccStatusInterruptPresent) {
+							CHECK(ECC_STATUS_OFFSET,
+							      XBRAM_IR_UE_MASK,
+							      Result);
+						}
+
+						/* Check that address, data, ECC are correct */
+						if (InstancePtr->Config.
+						    UncorrectableFailingRegisters) {
+							CHECK(UE_FFA_0_OFFSET, Addr[WordIndex],
+							      Result);
+							CHECK(UE_FFD_0_OFFSET,
+							      ActualData, Result);
+							CHECK(UE_FFE_0_OFFSET, ActualEcc,
+							      Result);
+						}
+
+						/* Restore correct data in the used word */
+						XBram_Out32(Addr[WordIndex],
+							    SavedWords[WordIndex]);
+
+						/* Allow interrupts to occur */
+						/* Clear status register */
+						if (InstancePtr->Config.
+						    EccStatusInterruptPresent) {
+							WR(ECC_EN_IRQ_OFFSET, IntMask);
+							WR(ECC_STATUS_OFFSET,
+							   XBRAM_IR_ALL_MASK);
+							WR(ECC_EN_IRQ_OFFSET, 0);
+						}
+
+						/* Switch to the other word */
+						WordIndex = WordIndex ^ 1;
+					}
+					if (Result != XST_SUCCESS) {
+						break;
+					}
+				}
+				if (Result != XST_SUCCESS) {
+					break;
+				}
+			}
+
+			/* Check saturation of correctable error counter */
+			if (InstancePtr->Config.CorrectableCounterBits > 0 &&
+			    Result == XST_SUCCESS) {
 
 				WR(CE_CNT_OFFSET, CounterMax);
 
 				InjectErrors(InstancePtr, Addr[WordIndex], 0, 0,
-					4, &ActualData, &ActualEcc);
+					     4, &ActualData, &ActualEcc);
 
 				CHECK(CE_CNT_OFFSET, CounterMax, Result);
-		}
+			}
 
-		/* Restore the two words used for test */
-		XBram_Out32(Addr[0], SavedWords[0]);
-		XBram_Out32(Addr[1], SavedWords[1]);
+			/* Restore the two words used for test */
+			XBram_Out32(Addr[0], SavedWords[0]);
+			XBram_Out32(Addr[1], SavedWords[1]);
 
-		/* Clear the Status Register. */
-		if (InstancePtr->Config.EccStatusInterruptPresent) {
-			WR(ECC_STATUS_OFFSET, XBRAM_IR_ALL_MASK);
-		}
+			/* Clear the Status Register. */
+			if (InstancePtr->Config.EccStatusInterruptPresent) {
+				WR(ECC_STATUS_OFFSET, XBRAM_IR_ALL_MASK);
+			}
 
-		/* Set Correctable Counter to zero */
-		if (InstancePtr->Config.CorrectableCounterBits > 0) {
-			WR(CE_CNT_OFFSET, 0);
-		}
+			/* Set Correctable Counter to zero */
+			if (InstancePtr->Config.CorrectableCounterBits > 0) {
+				WR(CE_CNT_OFFSET, 0);
+			}
 
-		if (Result != XST_SUCCESS) break;
+			if (Result != XST_SUCCESS) {
+				break;
+			}
 
-	    } /* Width loop */
+		} /* Width loop */
 
-	    return (Result);
+		return (Result);
 	}
 
 	return (XST_SUCCESS);
