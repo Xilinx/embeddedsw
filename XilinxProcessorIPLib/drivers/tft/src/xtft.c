@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xtft.c
-* @addtogroup tft_v6_3
+* @addtogroup tft Overview
 * @{
 *
 * This file defines all the functions for the XTft driver. See the xtft.h
@@ -39,6 +40,7 @@
 *			 in systems with memory greater than 4 GB
 *			 Updated XTft_CfgInitialize API so that input
 *			 argument EffectiveAddr is a UINTPTR type
+* 6.4    sd  7/07/23     Added SDT support.
 * </pre>
 *
 ****************************************************************************/
@@ -99,7 +101,9 @@ int XTft_CfgInitialize(XTft *InstancePtr, XTft_Config *ConfigPtr,
 	 * Setup the DeviceId, Video Memory Address and Base Address
 	 * from the configuration structure.
 	 */
+#ifndef SDT
 	InstancePtr->TftConfig.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->TftConfig.BaseAddress = EffectiveAddr;
 	InstancePtr->TftConfig.VideoMemBaseAddr =
 				ConfigPtr->VideoMemBaseAddr;
