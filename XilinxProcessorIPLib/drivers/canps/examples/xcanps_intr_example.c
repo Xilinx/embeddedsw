@@ -29,6 +29,7 @@
 *						 SDK claims a 40kbps baud rate but it's not.
 * 3.1   mus    01/14/16 Added support for intc interrupt controller
 * 3.7   ht     06/28/23 Added support for system device-tree flow.
+*              07/10/23 Updated conditional macros for interrupt headers.
 * </pre>
 *
 ******************************************************************************/
@@ -40,13 +41,13 @@
 #include "xil_exception.h"
 #include "xil_printf.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
 #include "xscugic.h"
 #endif
-
-#ifdef SDT
+#else
 #include "xinterrupt_wrap.h"
 #endif
 /************************** Constant Definitions *****************************/

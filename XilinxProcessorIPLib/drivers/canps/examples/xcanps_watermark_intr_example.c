@@ -29,7 +29,7 @@
 * 1.00a xd/sv  01/12/10 First release
 * 3.1   adk    10/11/15 Fixed CR#911958 Add support for Tx Watermark testing.
 * 3.7   ht     06/28/23 Added support for system device-tree flow.
-*
+*              07/10/23 Updated conditional macros for interrupt headers.
 * </pre>
 *
 ******************************************************************************/
@@ -38,10 +38,11 @@
 
 #include "xparameters.h"
 #include "xcanps.h"
-#include "xscugic.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
-#ifdef SDT
+#ifndef SDT
+#include "xscugic.h"
+#else
 #include "xinterrupt_wrap.h"
 #endif
 

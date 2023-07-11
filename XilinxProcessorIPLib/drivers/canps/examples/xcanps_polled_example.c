@@ -25,6 +25,7 @@
 * 2.1 adk 		23/08/14 Fixed CR:798792 Peripheral test for CANPS IP in
 *						 SDK claims a 40kbps baud rate but it's not.
 * 3.7   ht     06/28/23 Added support for system device-tree flow.
+*       ht     07/10/23 Added support for peripheral test in SDT flow.
 * </pre>
 *
 ******************************************************************************/
@@ -94,7 +95,7 @@
 #ifndef SDT
 int CanPsPolledExample(u16 DeviceId);
 #else
-int CanPsPolledExample(UINTPTR BaseAddress);
+int CanPsPolledExample(XCanPs *CanInstancePtr, UINTPTR BaseAddress);
 #endif
 static int SendFrame(XCanPs *InstancePtr);
 static int RecvFrame(XCanPs *InstancePtr);
@@ -139,7 +140,7 @@ int main(void)
 #ifndef SDT
 	Status = CanPsPolledExample(CAN_DEVICE_ID);
 #else
-	Status = CanPsPolledExample(XPAR_XCANPS_0_BASEADDR);
+	Status = CanPsPolledExample(&Can, XPAR_XCANPS_0_BASEADDR);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("CAN Polled Mode Example Test Failed\r\n");
@@ -172,7 +173,7 @@ int main(void)
 #ifndef SDT
 int CanPsPolledExample(u16 DeviceId)
 #else
-int CanPsPolledExample(UINTPTR BaseAddress)
+int CanPsPolledExample(XCanPs *CanInstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	int Status;

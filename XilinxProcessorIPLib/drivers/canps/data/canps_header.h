@@ -11,6 +11,7 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifndef SDT
 int CanPsPolledExample(u16 DeviceId);
 
 #ifdef XPAR_SCUGIC_0_DEVICE_ID
@@ -22,4 +23,10 @@ int CanPsIntrExample(XIntc *IntcInstPtr, XCanPs *CanInstPtr,
 			u16 CanDeviceId, u16 CanIntrId);
 #endif
 #endif
+
+#else
+int CanPsPolledExample(XCanPs *CanInstPtr, UINTPTR BaseAddress);
+int CanPsIntrExample(XCanPs *CanInstPtr, UINTPTR BaseAddress);
+#endif
+
 #endif

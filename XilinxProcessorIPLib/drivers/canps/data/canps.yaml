@@ -39,10 +39,6 @@ tapp:
                 declaration: CanPsIntrExample
                 hwproperties:
                         - interrupts
-        xcanps_watermark_intr_example.c:
-                declaration: CanPsWatermarkIntrExample
-                hwproperties:
-                        - interrupts
         xcanps_polled_example.c:
                 declaration: CanPsPolledExample
                 hwproperties:
