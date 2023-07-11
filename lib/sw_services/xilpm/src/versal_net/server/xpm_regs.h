@@ -19,6 +19,8 @@ extern "C" {
 /**
  * PMC IOU SLCR Module
  */
+#define PMC_IOU_SLCR_SD0_DLL_DIV_MAP0_OFFSET			(0x00000458U)
+#define PMC_IOU_SLCR_SD0_DLL_DIV_MAP1_OFFSET			(0x0000045CU)
 #define PMC_IOU_SLCR_WPROT0_OFFSET              (0x00000828U)
 
 /**
