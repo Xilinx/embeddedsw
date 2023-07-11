@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/***************************** Include Files *********************************/
+#include "xil_types.h"
 
 /**************************** Type Definitions *******************************/
 typedef enum _Xil_CryptoAlgNistStatus {

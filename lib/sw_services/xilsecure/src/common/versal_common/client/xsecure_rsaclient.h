@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +22,7 @@
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.0   kpt  07/24/22 Moved XSecure_RsaKat into xsecure_katclient.c
+* 5.2   mmd  07/09/23 Included header file for crypto algorithm information
 *
 * </pre>
 * @note
@@ -38,6 +40,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xsecure_mailbox.h"
 #include "xsecure_defs.h"
+#include "xsecure_rsaalginfo.h"
 
 /**************************** Type Definitions *******************************/
 

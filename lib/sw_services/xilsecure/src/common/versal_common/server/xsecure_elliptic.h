@@ -33,6 +33,7 @@
 * 5.0   kpt  07/24/22 Moved XSecure_EllipticKat into xsecure_kat.c
 * 5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
 *       yog  06/07/23 Added support for P-256 Curve
+*       mmd  07/09/23 Included header file for crypto algorithm information
 *
 * </pre>
 *
@@ -51,6 +52,7 @@ extern "C" {
 #ifndef PLM_ECDSA_EXCLUDE
 #include "xil_types.h"
 #include "xsecure_ellipticcrvs.h"
+#include "xsecure_ellipticalginfo.h"
 
 /************************** Constant Definitions ****************************/
 #define XSECURE_ECC_P384_SIZE_IN_BYTES	(48U)
