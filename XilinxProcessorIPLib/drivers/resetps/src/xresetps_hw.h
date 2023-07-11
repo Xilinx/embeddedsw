@@ -48,7 +48,7 @@ extern "C" {
 #define XRESETPS_CRF_APB_BASE     (XPAR_PSU_CRF_APB_S_AXI_BASEADDR)
 /* RST_FPD_TOP Address and mask definations */
 #define XRESETPS_CRF_APB_RST_FPD_TOP \
-				  ((XRESETPS_CRF_APB_BASE) + ((u32)0X00000100U))
+	((XRESETPS_CRF_APB_BASE) + ((u32)0X00000100U))
 #define PCIE_CFG_RESET_MASK       ((u32)0X00080000U)
 #define PCIE_BRIDGE_RESET_MASK    ((u32)0X00040000U)
 #define PCIE_CTRL_RESET_MASK      ((u32)0X00020000U)
@@ -68,7 +68,7 @@ extern "C" {
 #define SATA_RESET_MASK           ((u32)0X00000002U)
 /* RST_FPD_APU Address and mask definations */
 #define XRESETPS_CRF_APB_RST_FPD_APU \
-				  ((XRESETPS_CRF_APB_BASE) + ((u32)0X00000104U))
+	((XRESETPS_CRF_APB_BASE) + ((u32)0X00000104U))
 #define ACPU3_PWRON_RESET_MASK    ((u32)0X00002000U)
 #define ACPU2_PWRON_RESET_MASK    ((u32)0X00001000U)
 #define ACPU1_PWRON_RESET_MASK    ((u32)0X00000800U)
@@ -80,38 +80,38 @@ extern "C" {
 #define ACPU0_RESET_MASK          ((u32)0X00000001U)
 /* RST_DDR_SS Address and mask definations */
 #define XRESETPS_CRF_APB_RST_DDR_SS \
-				  ((XRESETPS_CRF_APB_BASE) + ((u32)0X00000108U))
+	((XRESETPS_CRF_APB_BASE) + ((u32)0X00000108U))
 #define DDR_RESET_MASK            ((u32)0X00000008U)
 #define DDR_APM_RESET_MASK        ((u32)0X00000004U)
 /* APLL_CTRL Address and mask definations */
 #define XRESETPS_CRF_APB_APLL_CTRL \
-				  ((XRESETPS_CRF_APB_BASE) + ((u32)0X00000020U))
+	((XRESETPS_CRF_APB_BASE) + ((u32)0X00000020U))
 #define APLL_RESET_MASK           ((u32)0X00000001U)
 /* DPLL_CTRL Address and mask definations */
 #define XRESETPS_CRF_APB_DPLL_CTRL \
-				  ((XRESETPS_CRF_APB_BASE) + ((u32)0X0000002CU))
+	((XRESETPS_CRF_APB_BASE) + ((u32)0X0000002CU))
 #define DPLL_RESET_MASK           ((u32)0X00000001U)
 /* VPLL_CTRL Address and mask definations */
 #define XRESETPS_CRF_APB_VPLL_CTRL \
-				  ((XRESETPS_CRF_APB_BASE) + ((u32)0X00000038U))
+	((XRESETPS_CRF_APB_BASE) + ((u32)0X00000038U))
 #define VPLL_RESET_MASK           ((u32)0X00000001U)
 
 /* CRL_APB defines */
 #define XRESETPS_CRL_APB_BASE     (XPAR_PSU_CRL_APB_S_AXI_BASEADDR)
 /* RESET_CTRL Address and mask definations */
 #define XRESETPS_CRL_APB_RESET_CTRL \
-				  ((XRESETPS_CRL_APB_BASE) + ((u32)0X00000218U))
+	((XRESETPS_CRL_APB_BASE) + ((u32)0X00000218U))
 #define SOFT_RESET_MASK           ((u32)0X00000010U)
 /* RST_LPD_IOU0 Address and mask definations */
 #define XRESETPS_CRL_APB_RST_LPD_IOU0 \
-				  ((XRESETPS_CRL_APB_BASE) + ((u32)0X00000230U))
+	((XRESETPS_CRL_APB_BASE) + ((u32)0X00000230U))
 #define GEM0_RESET_MASK           ((u32)0X00000001U)
 #define GEM1_RESET_MASK           ((u32)0X00000002U)
 #define GEM2_RESET_MASK           ((u32)0X00000004U)
 #define GEM3_RESET_MASK           ((u32)0X00000008U)
 /* RST_LPD_IOU2 Address and mask definations */
 #define XRESETPS_CRL_APB_RST_LPD_IOU2 \
-				  ((XRESETPS_CRL_APB_BASE) + ((u32)0X00000238U))
+	((XRESETPS_CRL_APB_BASE) + ((u32)0X00000238U))
 #define QSPI_RESET_MASK           ((u32)0X00000001U)
 #define UART0_RESET_MASK          ((u32)0X00000002U)
 #define UART1_RESET_MASK          ((u32)0X00000004U)
@@ -135,7 +135,7 @@ extern "C" {
 #define TIMESTAMP_RESET_MASK      ((u32)0X00100000U)
 /* RST_LPD_TOP Address and mask definations */
 #define XRESETPS_CRL_APB_RST_LPD_TOP \
-				  ((XRESETPS_CRL_APB_BASE) + ((u32)0X0000023CU))
+	((XRESETPS_CRL_APB_BASE) + ((u32)0X0000023CU))
 #define RPU_R50_RESET_MASK        ((u32)0X00000001U)
 #define RPU_R51_RESET_MASK        ((u32)0X00000002U)
 #define RPU_AMBA_RESET_MASK       ((u32)0X00000004U)
@@ -156,18 +156,18 @@ extern "C" {
 #define FPD_RESET_MASK            ((u32)0X00800000U)
 /* RST_LPD_DBG Address and mask definations */
 #define XRESETPS_CRL_APB_RST_LPD_DBG \
-				  ((XRESETPS_CRL_APB_BASE) + ((u32)0X00000240U))
+	((XRESETPS_CRL_APB_BASE) + ((u32)0X00000240U))
 #define RPU_DBG1_RESET_MASK       ((u32)0X00000020U)
 #define RPU_DBG0_RESET_MASK       ((u32)0X00000010U)
 #define DBG_LPD_RESET_MASK        ((u32)0X00000002U)
 #define DBG_FPD_RESET_MASK        ((u32)0X00000001U)
 /* IOPLL_CTRL Address and mask definations */
 #define XRESETPS_CRL_APB_IOPLL_CTRL \
-				  ((XRESETPS_CRL_APB_BASE) + ((u32)0X00000020U))
+	((XRESETPS_CRL_APB_BASE) + ((u32)0X00000020U))
 #define IOPLL_RESET_MASK          ((u32)0X00000001U)
 /* RPLL_CTRL Address and mask definations */
 #define XRESETPS_CRL_APB_RPLL_CTRL \
-				  ((XRESETPS_CRL_APB_BASE) + ((u32)0X00000030U))
+	((XRESETPS_CRL_APB_BASE) + ((u32)0X00000030U))
 #define RPLL_RESET_MASK           ((u32)0X00000001U)
 #define RPLL_BYPASS_MASK          ((u32)0X00000008U)
 
@@ -175,7 +175,7 @@ extern "C" {
 #define XRESETPS_PMU_IOM_BASE     (XPAR_PSU_PMU_IOMODULE_S_AXI_BASEADDR)
 /* PMU_IOM_GPO3 Address and mask definations */
 #define XRESETPS_PMU_IOM_GPO3_CTRL \
-				  ((XRESETPS_PMU_IOM_BASE) + ((u32)0X0000001CU))
+	((XRESETPS_PMU_IOM_BASE) + ((u32)0X0000001CU))
 #define GPO3_PL0_RESET_MASK       ((u32)0X00000001U)
 #define GPO3_PL1_RESET_MASK       ((u32)0X00000002U)
 #define GPO3_PL2_RESET_MASK       ((u32)0X00000004U)
@@ -216,7 +216,7 @@ extern "C" {
 #define XRESETPS_PMU_LCL_BASE     (XPAR_PSU_PMU_LOCAL_0_S_AXI_BASEADDR)
 /* GPO Read control address */
 #define XRESETPS_PMU_LCL_READ_CTRL \
-				  ((XRESETPS_PMU_LCL_BASE) + ((u32)0X0000021CU))
+	((XRESETPS_PMU_LCL_BASE) + ((u32)0X0000021CU))
 
 /* PMU_GLB defines */
 #define XRESETPS_PMU_GLB_BASE     (XPAR_PSU_PMU_GLOBAL_0_S_AXI_BASEADDR)
@@ -236,14 +236,14 @@ extern "C" {
 #define FPD_AFI_FM_ISO_MASK       ((u32)0X00000004U)
 #define FPD_AFI_FS_ISO_MASK       ((u32)0X00000008U)
 #define AIB_ISO_CTRL_MASK         (LPD_AFI_FM_ISO_MASK | LPD_AFI_FS_ISO_MASK | \
-				      FPD_AFI_FM_ISO_MASK | FPD_AFI_FS_ISO_MASK)
+				   FPD_AFI_FM_ISO_MASK | FPD_AFI_FS_ISO_MASK)
 /* PMU_GLB_AIB status Address and mask definations */
 #define XRESETPS_PMU_GLB_AIB_STATUS \
-				  ((XRESETPS_PMU_GLB_BASE) + ((u32)0X00000604U))
+	((XRESETPS_PMU_GLB_BASE) + ((u32)0X00000604U))
 #define AIB_ISO_STATUS_MASK       (AIB_ISO_CTRL_MASK)
 /* PMU_GLB_PWR status Address and mask definations */
 #define XRESETPS_PMU_GLB_PWR_STATUS \
-				  ((XRESETPS_PMU_GLB_BASE) + ((u32)0X00000100U))
+	((XRESETPS_PMU_GLB_BASE) + ((u32)0X00000100U))
 #define FPD_PSCHK_MASK            ((u32)0x00400000U)
 #define PCIE_CTRL_PSCHK_MASK      (FPD_PSCHK_MASK)
 #define DP_PSCHK_MASK             (FPD_PSCHK_MASK)
@@ -253,15 +253,15 @@ extern "C" {
 #define GPU_PP0_PSCHK_MASK        (((u32)0x00000010U) | (FPD_PSCHK_MASK))
 #define GPU_PP1_PSCHK_MASK        (((u32)0x00000020U) | (FPD_PSCHK_MASK))
 #define GPU_PSCHK_MASK            ((GPU_PP0_PSCHK_MASK) | \
-					(GPU_PP1_PSCHK_MASK) | (FPD_PSCHK_MASK))
+				   (GPU_PP1_PSCHK_MASK) | (FPD_PSCHK_MASK))
 
 /* LPD_SLCR defines */
 #define XRESETPS_LPD_SCR_BASE     (XPAR_PSU_LPD_SLCR_S_AXI_BASEADDR)
 /* LPD_SCR_AXIISO_REQ and LPD_SCR_AXIISO_ACK Address and mask definations */
 #define XRESETPS_LPD_SCR_AXIISO_REQ_CTRL \
-				  ((XRESETPS_LPD_SCR_BASE) + ((u32)0X00003030U))
+	((XRESETPS_LPD_SCR_BASE) + ((u32)0X00003030U))
 #define XRESETPS_LPD_SCR_AXIISO_ACK_CTRL \
-				  ((XRESETPS_LPD_SCR_BASE) + ((u32)0X00003040U))
+	((XRESETPS_LPD_SCR_BASE) + ((u32)0X00003040U))
 #define RPU0_MASTER_ISO_MASK      ((u32)0X00010000U)
 #define RPU1_MASTER_ISO_MASK      ((u32)0X00020000U)
 #define RPU_MASTER_ISO_MASK	  (RPU0_MASTER_ISO_MASK | RPU1_MASTER_ISO_MASK)
@@ -273,13 +273,13 @@ extern "C" {
 #define AFIFS1_ISO_MASK           ((u32)0X00000002U)
 #define AFIFS0_ISO_MASK           ((u32)0X00000001U)
 #define FPD_TO_LPD_ISO_MASK       (FPD_LPDIBS_ISO_MASK | FPD_OCM_ISO_MASK | \
-					      AFIFS0_ISO_MASK | AFIFS1_ISO_MASK)
+				   AFIFS0_ISO_MASK | AFIFS1_ISO_MASK)
 #define LPD_DDR_ISO_MASK          ((u32)0X08000000U)
 #define FPD_MAIN_ISO_MASK         ((u32)0X01000000U)
 #define LPD_TO_FPD_ISO_MASK       (LPD_DDR_ISO_MASK | FPD_MAIN_ISO_MASK)
 /* LPD_SLCR_APBISO_REQ Address and mask definations */
 #define XRESETPS_LPD_SLCR_APBISO_REQ_CTRL \
-				  ((XRESETPS_LPD_SCR_BASE) + ((u32)0X00003048U))
+	((XRESETPS_LPD_SCR_BASE) + ((u32)0X00003048U))
 #define GPU_ISO_MASK              ((u32)0X00000001U)
 
 /* CSU defines */
@@ -296,7 +296,7 @@ extern "C" {
 
 /* AIB ack reconfirmation count */
 #define XRESETPS_AIB_PSPL_RECONFIRM_CNT \
-				  (0x2U)
+	(0x2U)
 
 /**************************** Type Definitions *******************************/
 

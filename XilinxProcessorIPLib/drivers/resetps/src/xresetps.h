@@ -271,7 +271,7 @@ typedef enum {
 * 		vice versa.
 ******************************************************************************/
 #define XRESETPS_SUPPORTED_ACT(ResetSupport, PulseSupport, AssertSupport) \
-		     ((ResetSupport << 2) | (PulseSupport << 1) | AssertSupport)
+	((ResetSupport << 2) | (PulseSupport << 1) | AssertSupport)
 
 /****************************************************************************/
 /**
@@ -331,7 +331,7 @@ typedef enum {
 *
 ******************************************************************************/
 #define XResetPs_ReadReg(RegAddress) \
-				Xil_In32((u32)RegAddress)
+	Xil_In32((u32)RegAddress)
 
 /****************************************************************************/
 /**
@@ -347,7 +347,7 @@ typedef enum {
 *
 ******************************************************************************/
 #define XResetPs_WriteReg(RegAddress, Data) \
-				Xil_Out32((u32)RegAddress, (u32)Data)
+	Xil_Out32((u32)RegAddress, (u32)Data)
 
 /************************** Function Prototypes ******************************/
 
@@ -364,15 +364,15 @@ XResetPs_Config *XResetPs_LookupConfig(u32 BaseAddress);
  * Interface functions in xresetps.c
  */
 XStatus XResetPs_CfgInitialize(XResetPs *InstancePtr,
-						    XResetPs_Config *ConfigPtr);
+			       XResetPs_Config *ConfigPtr);
 XStatus XResetPs_ResetAssert(XResetPs *InstancePtr,
-						  const XResetPs_RstId ResetID);
+			     const XResetPs_RstId ResetID);
 XStatus XResetPs_ResetDeassert(XResetPs *InstancePtr,
-						  const XResetPs_RstId ResetID);
+			       const XResetPs_RstId ResetID);
 XStatus XResetPs_ResetPulse(XResetPs *InstancePtr,
-						  const XResetPs_RstId ResetID);
+			    const XResetPs_RstId ResetID);
 XStatus XResetPs_ResetStatus(XResetPs *InstancePtr,
-		      const XResetPs_RstId ResetID, XResetPs_RstStatus *Status);
+			     const XResetPs_RstId ResetID, XResetPs_RstStatus *Status);
 
 #ifdef __cplusplus
 }
