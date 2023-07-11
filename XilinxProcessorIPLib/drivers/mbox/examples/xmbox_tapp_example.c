@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +52,7 @@
 *                     CR-965028.
 *       ms   04/05/17 Added tabspace for return statements in functions for
 *                     proper documentation while generating doxygen.
+* 4.6   ht   07/07/23 Added support for system device-tree flow.
 *</pre>
 *****************************************************************************/
 
@@ -84,7 +86,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define MBOX_DEVICE_ID		XPAR_MBOX_0_DEVICE_ID
+#else
+#define XMBOX_BASEADDRESS XPAR_XMBOX_0_BASEADDR
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -105,7 +111,11 @@ char *ProducerHello = "Hello! The Producer greets the Consumer...";
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int MailboxExample(u16 MboxDeviceId);
+#else
+int MailboxExample(XMbox *MboxInstancePtr,UINTPTR BaseAddress);
+#endif
 
 static int MailboxExample_Send(XMbox *MboxInstancePtr, int CPU_Id);
 static int MailboxExample_Receive(XMbox *MboxInstancePtr, int CPU_Id);
@@ -127,7 +137,11 @@ int main(void)
 {
 	printf ("MailboxExample :\tStarts for CPU %d.\r\n", MY_CPU_ID);
 
+#ifndef SDT
 	if (MailboxExample(MBOX_DEVICE_ID) != XST_SUCCESS) {
+#else
+	if (MailboxExample(&Mbox, XMBOX_BASEADDRESS) != XST_SUCCESS) {
+#endif
 		printf("MailboxExample :\t mbox tapp Example Failed.\r\n");
 		printf("MailboxExample :\tEnds.\r\n");
 		return XST_FAILURE;
@@ -155,7 +169,12 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int MailboxExample(u16 MboxDeviceId)
+#else
+int MailboxExample(XMbox *MboxInstancePtr, UINTPTR BaseAddress)
+#endif
+
 {
 
 	XMbox_Config *ConfigPtr;
@@ -166,7 +185,11 @@ int MailboxExample(u16 MboxDeviceId)
 	 * Use this configuration info down below when initializing this
 	 * component.
 	 */
+#ifndef SDT
 	ConfigPtr = XMbox_LookupConfig(MboxDeviceId );
+#else
+	ConfigPtr = XMbox_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == (XMbox_Config *)NULL) {
 		return XST_FAILURE;
 	}

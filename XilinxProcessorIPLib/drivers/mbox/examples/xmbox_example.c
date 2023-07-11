@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +37,7 @@
 *                     CR-965028.
 *       ms   04/10/17 Modified filename tag to include the file in doxygen
 *                     examples.
+* 4.6   ht   07/07/23 Added support for system device-tree flow.
 *</pre>
 *******************************************************************************/
 
@@ -57,6 +59,9 @@
 #define MY_CPU_ID XPAR_CPU_ID
 #endif
 
+#ifdef SDT
+#define XMBOX_BASEADDRESS XPAR_XMBOX_0_BASEADDR
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -143,10 +148,17 @@ int ProdCon ()
 	 * Use this configuration info down below when initializing this
 	 * component.
 	 */
+#ifndef SDT
 	ConfigPtr = XMbox_LookupConfig(XPAR_MBOX_4_DEVICE_ID );
+#else
+	ConfigPtr = XMbox_LookupConfig(XMBOX_BASEADDRESS);
+#endif
+
 	if (ConfigPtr == (XMbox_Config *)NULL) {
+#ifndef SDT
 		printf ("(%s):\tLookupConfig Failed.%8.8x\r\n",
 			Role[MY_CPU_ID], XPAR_MBOX_4_DEVICE_ID );
+#endif
 		return XST_FAILURE;
 	}
 
