@@ -164,6 +164,7 @@
  *                    examples.
  * 2.5   pm  02/20/20 Added ISO support for usb 2.0 and ch9 common framework
  * 			calls.
+ * 2.8   pm  07/07/23 Added support for system device-tree flow.
  * </pre>
  *
  ******************************************************************************/
@@ -537,8 +538,17 @@ typedef struct {
  * XUsbPs_ConfigureDevice() function call
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceID;		/**< Unique ID of controller. */
+#else
+	char *Name;	/**< Unique Name of controller */
+#endif
 	u32 BaseAddress;	/**< Core register base address. */
+#ifdef SDT
+	u16 IntrId;	/** Bits[11:0] Interrupt-id Bits[15:12] trigger type */
+			/** level flags */
+	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] */
+#endif
 } XUsbPs_Config;
 
 typedef XUsbPs_Config Usb_Config;
@@ -1123,7 +1133,11 @@ s32 XUsbPs_EpDataBufferReceive(XUsbPs *InstancePtr, u8 EpNum,
  * Helper functions for static configuration.
  * Implemented in xusbps_sinit.c
  */
+#ifndef SDT
 XUsbPs_Config *XUsbPs_LookupConfig(u16 DeviceId);
+#else
+XUsbPs_Config *XUsbPs_LookupConfig(u32 BaseAddress);
+#endif
 
 #ifdef __cplusplus
 }
