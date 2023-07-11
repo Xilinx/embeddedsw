@@ -84,7 +84,7 @@ XResetPs_Config *XResetPs_LookupConfig(u32 BaseAddress)
 
 	for (Index = 0U; XResetPs_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XResetPs_ConfigTable[Index].BaseAddress == BaseAddress) ||
-                    !BaseAddress) {
+		    !BaseAddress) {
 			CfgPtr = &XResetPs_ConfigTable[Index];
 			break;
 		}
