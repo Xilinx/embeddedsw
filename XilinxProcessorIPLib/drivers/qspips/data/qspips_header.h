@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,5 +11,9 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifndef SDT
 int QspiPsSelfTestExample(u16 DeviceId);
+#else
+int QspiPsSelfTestExample(UINTPTR BaseAddress);
+#endif
 #endif

@@ -271,6 +271,7 @@
 *			XQspiPs_InterruptHandler() APIs to fill TX FIFO with valid
 *			data when RX buffer is not NULL.
 * 3.8	akm 09/02/20 Updated the Makefile to support parallel make execution.
+* 3.11	akm 07/10/23 Update the driver to support for system device-tree flow.
 *
 * </pre>
 *
@@ -485,10 +486,20 @@ typedef void (*XQspiPs_StatusHandler) (void *CallBackRef, u32 StatusEvent,
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	u32 BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
 	u8  ConnectionMode; /**< Single, Stacked and Parallel mode */
+#ifdef SDT
+	u32 IntrId;		/**< Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags */
+	UINTPTR IntrParent; 	/**< Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
 } XQspiPs_Config;
 
 /**
@@ -740,7 +751,11 @@ typedef struct {
 /*
  * Initialization function, implemented in xqspips_sinit.c
  */
+#ifndef SDT
 XQspiPs_Config *XQspiPs_LookupConfig(u16 DeviceId);
+#else
+XQspiPs_Config *XQspiPs_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * Functions implemented in xqspips.c
