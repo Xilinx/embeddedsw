@@ -291,7 +291,7 @@ int XBram_SelfTest(XBram *InstancePtr, u8 IntMask)
 			return (XST_FAILURE);
 		}
 	}
-
+xil_printf("ssd %s %d\n\r", __func__, __LINE__);
 	if (InstancePtr->Config.CorrectableCounterBits > 0) {
 		u32 Value;
 

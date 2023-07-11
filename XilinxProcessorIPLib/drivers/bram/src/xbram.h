@@ -102,6 +102,7 @@
 * 4.8   adk 04/11/22 Modified driver tcl fix lmb_bram_if_cntlr canonical
 * 		     redefinition warnings when multiple lmb_bram_if_cntlr
 * 		     instances are present.
+* 4.9   sd  07/07/23 Added SDT support.
 * </pre>
 *****************************************************************************/
 #ifndef XBRAM_H		/* prevent circular inclusions */
@@ -127,7 +128,12 @@ extern "C" {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;			   /**< Unique ID  of device */
+#else
+	char *Name;
+	UINTPTR BaseAddress;		   /**< Device register base address.*/
+#endif
 	u32 DataWidth;			   /**< BRAM data width */
 	int EccPresent;			   /**< Is ECC supported in H/W */
 	int FaultInjectionPresent;	   /**< Is Fault Injection
@@ -154,6 +160,11 @@ typedef struct {
 	UINTPTR MemHighAddress;		   /**< Device memory high address */
 	UINTPTR CtrlBaseAddress;		   /**< Device register base address.*/
 	UINTPTR CtrlHighAddress;		   /**< Device register base address.*/
+#ifdef SDT
+	u32 IntId;			   /**< Interrupt ID on GIC **/
+	UINTPTR IntrParent; 		   /** Bit[0] Interrupt parent type Bit[64/32:1]
+						 * Parent base address */
+#endif
 } XBram_Config;
 
 /**
@@ -175,7 +186,11 @@ typedef struct {
 /*
  * Functions in xbram_sinit.c
  */
+#ifndef SDT
 XBram_Config *XBram_LookupConfig(u16 DeviceId);
+#else
+XBram_Config *XBram_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * Functions implemented in xbram.c
