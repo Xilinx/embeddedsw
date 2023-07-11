@@ -132,6 +132,7 @@ proc swapp_generate {} {
 
     file delete -force "machine"
     file delete -force "system"
+    file delete -force "sdt"
 
     set with_rpmsg_userspace [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == WITH_RPMSG_USERSPACE } ] ]
     if  { $with_rpmsg_userspace} {

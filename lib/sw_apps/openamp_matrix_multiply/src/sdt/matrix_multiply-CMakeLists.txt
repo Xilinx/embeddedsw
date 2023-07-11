@@ -1,0 +1,26 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+set (_cflags "${CMAKE_C_FLAGS} ${APP_EXTRA_C_FLAGS} -fdata-sections -ffunction-sections")
+set (_fw_dir "${APPS_SHARE_DIR}")
+
+collector_list (_list PROJECT_INC_DIRS)
+collector_list (_app_list APP_INC_DIRS)
+include_directories (${_list} ${_app_list} ${CMAKE_CURRENT_SOURCE_DIR})
+
+collector_list (_list PROJECT_LIB_DIRS)
+collector_list (_app_list APP_LIB_DIRS)
+link_directories (${_list} ${_app_list})
+
+get_property (_linker_opt GLOBAL PROPERTY APP_LINKER_OPT)
+collector_list (_deps PROJECT_LIB_DEPS)
+
+find_library(OPENAMP_LIB NAMES open_amp HINTS "${OPENAMP_DIR}/lib")
+
+set (_app matrix_multiply)
+collector_list (_sources APP_COMMON_SOURCES)
+list (APPEND _sources "${CMAKE_CURRENT_SOURCE_DIR}/matrix_multiplyd.c")
+add_executable (${_app}.out ${_sources})
+set_source_files_properties(${_sources} PROPERTIES COMPILE_FLAGS "${_cflags}")
+
+target_link_libraries(${_app}.out -Wl,-Map=${_app}.map -Wl,--gc-sections ${_linker_opt} -Wl,--start-group ${OPENAMP_LIB} ${_deps} -Wl,--end-group)
+
+install (TARGETS ${_app}.out RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
