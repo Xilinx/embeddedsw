@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2008 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +40,7 @@
 *                       ensure that "Successfully ran" and "Failed" strings
 *                       are available in all examples. This is a fix for
 *                       CR-965028.
+* 6.4   sd     07/08/23 Added SDT support.
 *
 * </pre>
 *
@@ -56,7 +58,10 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define TFT_DEVICE_ID	XPAR_TFT_0_DEVICE_ID
+#endif
+
 
 
 #ifdef XPAR_V6DDR_0_S_AXI_HIGHADDR
@@ -104,7 +109,11 @@
 static int TftWriteString(XTft *InstancePtr, const u8 *CharValue);
 static int TftDrawLine(XTft *InstancePtr, u32 ColStartPos, u32 RowStartPos,
 			u32 ColEndPos, u32 RowEndPos, u32 PixelVal);
+#ifndef SDT
 int TftExample(u32 TftDeviceId);
+#else
+int TftExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions ****************************/
 
@@ -129,7 +138,11 @@ int main()
 {
 	int Status;
 
+#ifndef SDT
 	Status = TftExample(TFT_DEVICE_ID);
+#else
+	Status = TftExample(XPAR_XTFT_0_BASEADDR);
+#endif
 	if ( Status != XST_SUCCESS) {
 		xil_printf("Tft Example Failed\r\n");
 		return XST_FAILURE;
@@ -160,7 +173,11 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int TftExample(u32 TftDeviceId)
+#else
+int TftExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u8 VarChar;
@@ -169,7 +186,11 @@ int TftExample(u32 TftDeviceId)
 	/*
 	 * Get address of the XTft_Config structure for the given device id.
 	 */
+#ifndef SDT
 	TftConfigPtr = XTft_LookupConfig(TftDeviceId);
+#else
+	TftConfigPtr = XTft_LookupConfig(BaseAddress);
+#endif
 	if (TftConfigPtr == (XTft_Config *)NULL) {
 		return XST_FAILURE;
 	}
