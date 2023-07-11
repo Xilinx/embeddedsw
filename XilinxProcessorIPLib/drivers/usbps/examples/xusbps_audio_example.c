@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -17,6 +18,7 @@
  * Ver   Who	Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   pm	20/02/20 First release
+ * 2.8   pm	07/07/23 Added support for system device-tree flow.
  *
  * </pre>
  *
@@ -28,12 +30,16 @@
 #include "xusbps_ch9_audio.h"
 #include "xusbps_class_audio.h"
 
-#include "xscugic.h"
 #include "xil_exception.h"
 #include "xpseudo_asm.h"
 #include "xreg_cortexa9.h"
 #include "xil_cache.h"
 
+#ifndef SDT
+#include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 
 #ifdef XUSBPS_MICROPHONE
 #include "xusbps_audiodata.h"
@@ -87,10 +93,13 @@ u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 
 #endif
 
+#ifndef SDT
 #define USB_DEVICE_ID		XPAR_XUSBPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define	USB_INTR_ID		XPAR_XUSBPS_0_INTR
-
+#else
+#define USBPS_BASEADDR		XPS_USB0_BASEADDR /* USBPS base address */
+#endif
 /************************** Function Prototypes ******************************/
 static void XUsbPs_IsoInHandler(void *CallBackRef, u32 RequestedBytes,
 		u32 BytesTxed );
@@ -98,10 +107,14 @@ static void XUsbPs_IsoOutHandler(void *CallBackRef, u32 RequestedBytes,
 		u32 BytesTxed );
 static void XUsbPs_AudioTransferSize(void);
 static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum, u8 EventType);
-s32 XUsbPs_SetupInterruptSystem(XUsbPs *InstancePtr, u16 IntcDeviceID,
-		XScuGic *IntcInstancePtr);
 s32 XUsbPs_CfgInit(struct Usb_DevData *InstancePtr, Usb_Config *ConfigPtr,
 		u32 BaseAddress);
+
+#ifndef SDT
+s32 XUsbPs_SetupInterruptSystem(XUsbPs *InstancePtr, u16 IntcDeviceID,
+		XScuGic *IntcInstancePtr);
+#endif
+
 /************************** Variable Definitions *****************************/
 struct Usb_DevData UsbInstance;
 
@@ -111,7 +124,10 @@ XUsbPs PrivateData;
 /*
  * Interrupt controller instance
  */
+#ifndef SDT
 XScuGic InterruptController;
+#endif
+
 XUsbPs_DeviceConfig DeviceConfig;
 
 /*
@@ -164,7 +180,11 @@ int main(void)
 
 	xil_printf("Xilinx Audio Start...\r\n");
 
+#ifndef SDT
 	UsbConfigPtr = XUsbPs_LookupConfig(USB_DEVICE_ID);
+#else
+	UsbConfigPtr = XUsbPs_LookupConfig(USBPS_BASEADDR);
+#endif
 	if (NULL == UsbConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -236,9 +256,20 @@ int main(void)
 	/*
 	 * Setup interrupts
 	 */
+#ifndef SDT
 	Status = XUsbPs_SetupInterruptSystem((XUsbPs *)UsbInstance.PrivateData,
 			INTC_DEVICE_ID,
 			&InterruptController);
+#else
+	Status = XSetupInterruptSystem((XUsbPs *)UsbInstance.PrivateData,
+				       &XUsbPs_IntrHandler,
+				       UsbConfigPtr->IntrId,
+				       UsbConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+
+	XUsbPs_IntrEnable((XUsbPs *)UsbInstance.PrivateData,
+			  XUSBPS_IXR_UR_MASK | XUSBPS_IXR_UI_MASK);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -494,6 +525,7 @@ static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum, u8 EventType) {
  * @note		None.
  *
  *****************************************************************************/
+#ifndef SDT
 s32 XUsbPs_SetupInterruptSystem(XUsbPs *InstancePtr, u16 IntcDeviceID,
 		XScuGic *IntcInstancePtr)
 {
@@ -548,6 +580,7 @@ s32 XUsbPs_SetupInterruptSystem(XUsbPs *InstancePtr, u16 IntcDeviceID,
 
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
