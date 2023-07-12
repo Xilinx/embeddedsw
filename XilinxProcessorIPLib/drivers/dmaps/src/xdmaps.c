@@ -153,8 +153,7 @@ int XDmaPs_CfgInitialize(XDmaPs *InstPtr,
 #ifdef SDT
 	InstPtr->Config.IntrParent = Config->IntrParent;
 	/*  Added one fault Inerrupt and eight per-channel Interrupt  */
-	for(Channel = 0; Channel < (XDMAPS_CHANNELS_PER_DEV + 1); Channel++)
-	{
+	for (Channel = 0; Channel < (XDMAPS_CHANNELS_PER_DEV + 1); Channel++) {
 		InstPtr->Config.IntrId[Channel] = Config->IntrId[Channel];
 	}
 #endif
