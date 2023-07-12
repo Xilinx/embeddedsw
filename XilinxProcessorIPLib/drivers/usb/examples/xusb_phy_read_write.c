@@ -65,7 +65,7 @@ volatile u8 PhyAccessDone = 0;
 
 void UsbIfPhyIntrHandler(void *CallBackRef, u32 IntrStatus);
 #ifndef SDT
-static int SetupInterruptSystem(XUsb * InstancePtr);
+static int SetupInterruptSystem(XUsb *InstancePtr);
 #endif
 
 /*****************************************************************************/
@@ -120,7 +120,7 @@ int main()
 	}
 
 	XUsb_UlpiIntrSetHandler (&UsbInstance, (void *) UsbIfPhyIntrHandler,
-			    &UsbInstance);
+				 &UsbInstance);
 	/*
 	 * Setup the interrupt system.
 	 */
@@ -128,10 +128,10 @@ int main()
 	Status = SetupInterruptSystem(&UsbInstance);
 #else
 	Status = XSetupInterruptSystem(&UsbInstance,
-					&XUsb_IntrHandler,
-					UsbConfigPtr->IntrId,
-					UsbConfigPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       &XUsb_IntrHandler,
+				       UsbConfigPtr->IntrId,
+				       UsbConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -150,7 +150,7 @@ int main()
 	 * Initiate a ULPI register write transaction.
 	 */
 	XUsb_UlpiPhyWriteRegister(&UsbInstance, ULPI_SCRATCH_REGISTER,
-					WRITE_REG_DATA);
+				  WRITE_REG_DATA);
 
 
 	/* Wait until the write transaction is done */
@@ -160,9 +160,9 @@ int main()
 	 * Read the PHY read register.  We do not wait for transaction
 	 * complete interrupt in this case. The API internally polls for the
 	 * completion and then returns the register value read.
- 	 */
+	 */
 	ReadRegData = XUsb_UlpiPhyReadRegister(&UsbInstance,
-					ULPI_SCRATCH_REGISTER);
+					       ULPI_SCRATCH_REGISTER);
 
 
 	/* Compare the Written data and read data*/
@@ -225,7 +225,7 @@ void UsbIfPhyIntrHandler(void *CallBackRef, u32 IntrStatus)
 * @note		None
 *
 *******************************************************************************/
-static int SetupInterruptSystem(XUsb * InstancePtr)
+static int SetupInterruptSystem(XUsb *InstancePtr)
 {
 	int Status;
 
@@ -273,8 +273,8 @@ static int SetupInterruptSystem(XUsb * InstancePtr)
 	 * Register the interrupt controller handler with the exception table
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XIntc_InterruptHandler,
-				&InterruptController);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     &InterruptController);
 
 	/*
 	 * Enable non-critical exceptions

@@ -204,8 +204,8 @@ int UsbMouseExample(UINTPTR UsbBaseAddress, UINTPTR GpioBaseAddress)
 	 * argument needs to be the virtual base address.
 	 */
 	Status = XUsb_CfgInitialize(&UsbInstance,
-				       UsbConfigPtr,
-				       UsbConfigPtr->BaseAddress);
+				    UsbConfigPtr,
+				    UsbConfigPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
 		return XST_FAILURE;
 	}
@@ -229,8 +229,8 @@ int UsbMouseExample(UINTPTR UsbBaseAddress, UINTPTR GpioBaseAddress)
 	 * argument needs to be the virtual base address.
 	 */
 	Status = XGpio_CfgInitialize(&Gpio,
-					GpioConfigPtr,
-					GpioConfigPtr->BaseAddress);
+				     GpioConfigPtr,
+				     GpioConfigPtr->BaseAddress);
 
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -256,15 +256,15 @@ int UsbMouseExample(UINTPTR UsbBaseAddress, UINTPTR GpioBaseAddress)
 	 * Setup the interrupt handlers.
 	 */
 	XUsb_IntrSetHandler(&UsbInstance, (void *)UsbIfIntrHandler,
-				&UsbInstance);
+			    &UsbInstance);
 
 	XUsb_EpSetHandler(&UsbInstance, 0,
-				(XUsb_EpHandlerFunc *)Ep0IntrHandler,
-				&UsbInstance);
+			  (XUsb_EpHandlerFunc *)Ep0IntrHandler,
+			  &UsbInstance);
 
 	XUsb_EpSetHandler(&UsbInstance, 1,
-				(XUsb_EpHandlerFunc *)Ep1IntrHandler,
-				&UsbInstance);
+			  (XUsb_EpHandlerFunc *)Ep1IntrHandler,
+			  &UsbInstance);
 
 	/*
 	 * Setup the interrupt system.
@@ -273,10 +273,10 @@ int UsbMouseExample(UINTPTR UsbBaseAddress, UINTPTR GpioBaseAddress)
 	Status = SetupInterruptSystem(&UsbInstance, &Gpio);
 #else
 	Status = XSetupInterruptSystem(&UsbInstance,
-					&XUsb_IntrHandler,
-					UsbConfigPtr->IntrId,
-					UsbConfigPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       &XUsb_IntrHandler,
+				       UsbConfigPtr->IntrId,
+				       UsbConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -286,20 +286,20 @@ int UsbMouseExample(UINTPTR UsbBaseAddress, UINTPTR GpioBaseAddress)
 	 * Enable the interrupts.
 	 */
 	XUsb_IntrEnable(&UsbInstance, XUSB_STATUS_GLOBAL_INTR_MASK |
-				XUSB_STATUS_RESET_MASK |
-				XUSB_STATUS_SUSPEND_MASK |
-				XUSB_STATUS_DISCONNECT_MASK |
-				XUSB_STATUS_FIFO_BUFF_RDY_MASK |
-				XUSB_STATUS_FIFO_BUFF_FREE_MASK |
-				XUSB_STATUS_EP0_BUFF1_COMP_MASK |
-				XUSB_STATUS_EP1_BUFF1_COMP_MASK |
-				XUSB_STATUS_EP1_BUFF2_COMP_MASK );
+			XUSB_STATUS_RESET_MASK |
+			XUSB_STATUS_SUSPEND_MASK |
+			XUSB_STATUS_DISCONNECT_MASK |
+			XUSB_STATUS_FIFO_BUFF_RDY_MASK |
+			XUSB_STATUS_FIFO_BUFF_FREE_MASK |
+			XUSB_STATUS_EP0_BUFF1_COMP_MASK |
+			XUSB_STATUS_EP1_BUFF1_COMP_MASK |
+			XUSB_STATUS_EP1_BUFF2_COMP_MASK );
 #ifdef SDT
 	Status = XSetupInterruptSystem(&Gpio,
-					&GpioIsr,
-					GpioConfigPtr->IntrId,
-					GpioConfigPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       &GpioIsr,
+				       GpioConfigPtr->IntrId,
+				       GpioConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -406,21 +406,21 @@ void UsbIfIntrHandler(void *CallBackRef, u32 IntrStatus)
 
 	if (IntrStatus & XUSB_STATUS_RESET_MASK) {
 
-			XUsb_Stop(InstancePtr);
-			InstancePtr->DeviceConfig.CurrentConfiguration = 0;
-			InstancePtr->DeviceConfig.Status = XUSB_RESET;
-			for (Index = 0; Index < 3; Index++) {
-				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					       InstancePtr->
-					       EndPointOffset[Index], 0);
-			}
-			/*
-			 * Re-initialize the device and set the device address
-			 * to 0 and re-start the device.
-			 */
-			InitUsbInterface(InstancePtr);
-			XUsb_SetDeviceAddress(InstancePtr, 0);
-			XUsb_Start(InstancePtr);
+		XUsb_Stop(InstancePtr);
+		InstancePtr->DeviceConfig.CurrentConfiguration = 0;
+		InstancePtr->DeviceConfig.Status = XUSB_RESET;
+		for (Index = 0; Index < 3; Index++) {
+			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+				      InstancePtr->
+				      EndPointOffset[Index], 0);
+		}
+		/*
+		 * Re-initialize the device and set the device address
+		 * to 0 and re-start the device.
+		 */
+		InitUsbInterface(InstancePtr);
+		XUsb_SetDeviceAddress(InstancePtr, 0);
+		XUsb_Start(InstancePtr);
 
 		XUsb_IntrDisable(InstancePtr, XUSB_STATUS_RESET_MASK);
 		XUsb_IntrEnable(InstancePtr, (XUSB_STATUS_DISCONNECT_MASK |
@@ -465,7 +465,7 @@ void Ep0IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 	/*
 	 * Process the end point zero buffer interrupt.
 	 */
-	if (IntrStatus & XUSB_BUFFREADY_EP0_BUFF_MASK){
+	if (IntrStatus & XUSB_BUFFREADY_EP0_BUFF_MASK) {
 		if (IntrStatus & XUSB_STATUS_SETUP_PACKET_MASK) {
 			/*
 			 * Received a setup packet. Execute the chapter 9
@@ -473,28 +473,28 @@ void Ep0IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 			 */
 			XUsb_IntrEnable(InstancePtr,
 					(XUSB_STATUS_DISCONNECT_MASK |
-					XUSB_STATUS_SUSPEND_MASK |
-					XUSB_STATUS_RESET_MASK));
+					 XUSB_STATUS_SUSPEND_MASK |
+					 XUSB_STATUS_RESET_MASK));
 			SetupRequest = Chapter9(InstancePtr);
 			if (SetupRequest != XST_SUCCESS) {
-				switch(SetupRequest){
-				case 0x9:
-					break;
-				case 0x10:
-					break;
-				/*
-				 * Unsupported command. Stall
-				 * the end point.
-				 */
-				 default:
-					XUsb_EpStall(InstancePtr, 0);
-				break;
+				switch (SetupRequest) {
+					case 0x9:
+						break;
+					case 0x10:
+						break;
+					/*
+					 * Unsupported command. Stall
+					 * the end point.
+					 */
+					default:
+						XUsb_EpStall(InstancePtr, 0);
+						break;
 				}
 			}
 		} else if (IntrStatus & XUSB_STATUS_FIFO_BUFF_RDY_MASK) {
-				EP0ProcessOutToken(InstancePtr);
+			EP0ProcessOutToken(InstancePtr);
 		} else if (IntrStatus & XUSB_STATUS_FIFO_BUFF_FREE_MASK) {
-				EP0ProcessInToken(InstancePtr);
+			EP0ProcessInToken(InstancePtr);
 		}
 	}
 }
@@ -529,14 +529,14 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 	 */
 	if (IntrStatus & XUSB_BUFFREADY_EP1_BUFF1_MASK) {
 		EpReg = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-		(InstancePtr->EndPointOffset[1] + XUSB_EP_BUF0COUNT_OFFSET));
+				     (InstancePtr->EndPointOffset[1] + XUSB_EP_BUF0COUNT_OFFSET));
 		InstancePtr->DeviceConfig.Ep[1].Buffer0Count = EpReg;
 		InstancePtr->DeviceConfig.Ep[1].Buffer0Ready = 0;
 	}
 
 	if (IntrStatus & XUSB_BUFFREADY_EP1_BUFF2_MASK) {
 		EpReg = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-		(InstancePtr->EndPointOffset[1] + XUSB_EP_BUF1COUNT_OFFSET));
+				     (InstancePtr->EndPointOffset[1] + XUSB_EP_BUF1COUNT_OFFSET));
 		InstancePtr->DeviceConfig.Ep[1].Buffer1Count = EpReg;
 		InstancePtr->DeviceConfig.Ep[1].Buffer1Ready = 0;
 	}
@@ -582,7 +582,7 @@ void GpioIsr(void *InstancePtr)
 	 * the button changes.
 	 */
 	if ((XGpio_InterruptGetStatus(GpioPtr) & BUTTON_INTERRUPT) !=
-		BUTTON_INTERRUPT) {
+	    BUTTON_INTERRUPT) {
 		return;
 	}
 
@@ -605,22 +605,23 @@ void GpioIsr(void *InstancePtr)
 		 * Determine which button changed state and then get
 		 * the current state of the associated LED
 		 */
-		if (ButtonsChanged & 0x1F){
+		if (ButtonsChanged & 0x1F) {
 
-				if (ButtonsChanged & EXIT_BUTTON){
-					StopTest = TRUE;
-					break;
-				}
-				TxBuf[1] = Position [State];
-				TxBuf[2] = Position [State+2];
-				++State;
-				for (Index =0; Index < 5; Index++){
-					XUsb_EpDataSend(&UsbInstance, 1,
+			if (ButtonsChanged & EXIT_BUTTON) {
+				StopTest = TRUE;
+				break;
+			}
+			TxBuf[1] = Position [State];
+			TxBuf[2] = Position [State + 2];
+			++State;
+			for (Index = 0; Index < 5; Index++) {
+				XUsb_EpDataSend(&UsbInstance, 1,
 						(unsigned char *)&TxBuf[0], 4);
-				}
+			}
 
-				if (State > 7)
-					State = 0;
+			if (State > 7) {
+				State = 0;
+			}
 		}
 		break;
 	}
@@ -663,7 +664,7 @@ static int SetupInterruptSystem(XUsb *UsbInstancePtr, XGpio *Gpio)
 	 * Initialize the interrupt controller driver.
 	 */
 	Status = XIntc_Initialize(&Intc, INTC_DEVICE_ID);
-	if (Status != XST_SUCCESS){
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
@@ -673,9 +674,9 @@ static int SetupInterruptSystem(XUsb *UsbInstancePtr, XGpio *Gpio)
 	 * for the USB device occurs.
 	 */
 	Status = XIntc_Connect(&Intc, USB_INTR,
-			    (XInterruptHandler)XUsb_IntrHandler,
-			    (void *)UsbInstancePtr);
-	if (Status != XST_SUCCESS){
+			       (XInterruptHandler)XUsb_IntrHandler,
+			       (void *)UsbInstancePtr);
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
@@ -684,7 +685,7 @@ static int SetupInterruptSystem(XUsb *UsbInstancePtr, XGpio *Gpio)
 	 * for the GPIO device occurs.
 	 */
 	XIntc_Connect(&Intc, INTC_GPIO_INTERRUPT_ID,
-			(XInterruptHandler)GpioIsr,(void *) Gpio);
+		      (XInterruptHandler)GpioIsr, (void *) Gpio);
 
 	/*
 	 * Start the interrupt controller such that interrupts are enabled for
@@ -692,7 +693,7 @@ static int SetupInterruptSystem(XUsb *UsbInstancePtr, XGpio *Gpio)
 	 * the USB can cause interrupts through the interrupt controller.
 	 */
 	Status = XIntc_Start(&Intc, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS){
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
@@ -722,8 +723,8 @@ static int SetupInterruptSystem(XUsb *UsbInstancePtr, XGpio *Gpio)
 	 * Register the interrupt controller handler with the exception table
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XIntc_InterruptHandler,
-				&Intc);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     &Intc);
 
 	/*
 	 * Enable non-critical exceptions

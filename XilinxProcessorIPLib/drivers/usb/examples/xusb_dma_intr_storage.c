@@ -200,8 +200,8 @@ int main()
 			  (XUsb_EpHandlerFunc *) Ep2IntrHandler, &UsbInstance);
 
 	XUsb_DmaIntrSetHandler(&UsbInstance,
-			  (XUsb_IntrHandlerFunc *) DmaIntrHandler,
-			  &UsbInstance);
+			       (XUsb_IntrHandlerFunc *) DmaIntrHandler,
+			       &UsbInstance);
 	/*
 	 * Setup the interrupt system.
 	 */
@@ -209,10 +209,10 @@ int main()
 	Status = SetupInterruptSystem(&UsbInstance);
 #else
 	Status = XSetupInterruptSystem(&UsbInstance,
-					&XUsb_IntrHandler,
-					UsbConfigPtr->IntrId,
-					UsbConfigPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       &XUsb_IntrHandler,
+				       UsbConfigPtr->IntrId,
+				       UsbConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -264,7 +264,7 @@ int main()
  * @note	None.
  *
  ******************************************************************************/
-void InitUsbInterface(XUsb * InstancePtr)
+void InitUsbInterface(XUsb *InstancePtr)
 {
 
 	XUsb_DeviceConfig DeviceConfig;
@@ -307,13 +307,13 @@ void InitUsbInterface(XUsb * InstancePtr)
 	XUsb_EpEnable(InstancePtr, 2);
 
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-		       XUSB_BUFFREADY_OFFSET, 1 << 2);
+		      XUSB_BUFFREADY_OFFSET, 1 << 2);
 
 	InstancePtr->DeviceConfig.Ep[2].Buffer0Ready = 1;
 
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-		       XUSB_BUFFREADY_OFFSET, (1 <<
-				(2 + XUSB_STATUS_EP_BUFF2_SHIFT)));
+		      XUSB_BUFFREADY_OFFSET, (1 <<
+					      (2 + XUSB_STATUS_EP_BUFF2_SHIFT)));
 
 	InstancePtr->DeviceConfig.Ep[2].Buffer1Ready = 1;
 
@@ -356,21 +356,21 @@ void UsbIfIntrHandler(void *CallBackRef, u32 IntrStatus)
 
 	if (IntrStatus & XUSB_STATUS_RESET_MASK) {
 
-			XUsb_Stop(InstancePtr);
-			InstancePtr->DeviceConfig.CurrentConfiguration = 0;
-			InstancePtr->DeviceConfig.Status = XUSB_RESET;
-			for (Index = 0; Index < 3; Index++) {
-				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					       InstancePtr->
-					       EndPointOffset[Index], 0);
-			}
-			/*
-			 * Re-initialize the device and set the device address
-			 * to 0 and re-start the device.
-			 */
-			InitUsbInterface(InstancePtr);
-			XUsb_SetDeviceAddress(InstancePtr, 0);
-			XUsb_Start(InstancePtr);
+		XUsb_Stop(InstancePtr);
+		InstancePtr->DeviceConfig.CurrentConfiguration = 0;
+		InstancePtr->DeviceConfig.Status = XUSB_RESET;
+		for (Index = 0; Index < 3; Index++) {
+			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+				      InstancePtr->
+				      EndPointOffset[Index], 0);
+		}
+		/*
+		 * Re-initialize the device and set the device address
+		 * to 0 and re-start the device.
+		 */
+		InitUsbInterface(InstancePtr);
+		XUsb_SetDeviceAddress(InstancePtr, 0);
+		XUsb_Start(InstancePtr);
 
 		XUsb_IntrDisable(InstancePtr, XUSB_STATUS_RESET_MASK);
 		XUsb_IntrEnable(InstancePtr, (XUSB_STATUS_DISCONNECT_MASK |
@@ -444,11 +444,9 @@ void Ep0IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 				}
 
 			}
-		}
-		else if (IntrStatus & XUSB_STATUS_FIFO_BUFF_RDY_MASK) {
+		} else if (IntrStatus & XUSB_STATUS_FIFO_BUFF_RDY_MASK) {
 			EP0ProcessOutToken(InstancePtr);
-		}
-		else if (IntrStatus & XUSB_STATUS_FIFO_BUFF_FREE_MASK) {
+		} else if (IntrStatus & XUSB_STATUS_FIFO_BUFF_FREE_MASK) {
 			EP0ProcessInToken(InstancePtr);
 		}
 	}
@@ -488,9 +486,9 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 	}
 
 	if (((IntrStatus & XUSB_BUFFREADY_EP1_BUFF1_MASK) ==
-			XUSB_BUFFREADY_EP1_BUFF1_MASK) &&
-		((IntrStatus & XUSB_BUFFREADY_EP1_BUFF2_MASK) ==
-			XUSB_BUFFREADY_EP1_BUFF2_MASK)){
+	     XUSB_BUFFREADY_EP1_BUFF1_MASK) &&
+	    ((IntrStatus & XUSB_BUFFREADY_EP1_BUFF2_MASK) ==
+	     XUSB_BUFFREADY_EP1_BUFF2_MASK)) {
 		TwoTxInterrupts = TRUE;
 	}
 	if (CmdFlag == READ_COMMAND) {
@@ -534,9 +532,9 @@ void Ep2IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 	}
 
 	if (((IntrStatus & XUSB_BUFFREADY_EP2_BUFF1_MASK) ==
-			XUSB_BUFFREADY_EP2_BUFF1_MASK) &&
-		((IntrStatus & XUSB_BUFFREADY_EP2_BUFF2_MASK) ==
-			XUSB_BUFFREADY_EP2_BUFF2_MASK)){
+	     XUSB_BUFFREADY_EP2_BUFF1_MASK) &&
+	    ((IntrStatus & XUSB_BUFFREADY_EP2_BUFF2_MASK) ==
+	     XUSB_BUFFREADY_EP2_BUFF2_MASK)) {
 		TwoRxInterrupts = TRUE;
 
 	}
@@ -545,7 +543,7 @@ void Ep2IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 
 		RxDmaTransfer = TRUE;
 		XUsb_EpDataRecv(InstancePtr, 2,
-			(unsigned char *) (&CmdBlock),
+				(unsigned char *) (&CmdBlock),
 				sizeof(CmdBlock));
 	} else {
 
@@ -587,34 +585,34 @@ void DmaIntrHandler(void *CallBackRef, u32 IntrStatus)
 				ReadTransfer (InstancePtr);
 
 			} else	{
-				if (CmdFlag != WRITE_COMMAND){
+				if (CmdFlag != WRITE_COMMAND) {
 					if (ResponseSent == FALSE) {
-					Xil_DCacheFlushRange(
-						(u32)&CmdStatusBlock,
-						USBCSW_LENGTH);
-					/*
-					 * Send a Success Status.
-					 */
-						TxDmaTransfer = TRUE;
-					if (XUsb_EpDataSend(&UsbInstance,
-						1,
-						(unsigned char *) &CmdStatusBlock, USBCSW_LENGTH)
-						!= XST_SUCCESS) {
-						TxDmaTransfer = FALSE;
-					xil_printf("NormalResp Failure\n");
-						if (
-						UsbInstance.DeviceConfig.Status
-						==
-						XUSB_DISCONNECTED) {
+						Xil_DCacheFlushRange(
+							(u32)&CmdStatusBlock,
+							USBCSW_LENGTH);
 						/*
-						 * We've been reset exit.
+						 * Send a Success Status.
 						 */
+						TxDmaTransfer = TRUE;
+						if (XUsb_EpDataSend(&UsbInstance,
+								    1,
+								    (unsigned char *) &CmdStatusBlock, USBCSW_LENGTH)
+						    != XST_SUCCESS) {
+							TxDmaTransfer = FALSE;
+							xil_printf("NormalResp Failure\n");
+							if (
+								UsbInstance.DeviceConfig.Status
+								==
+								XUSB_DISCONNECTED) {
+								/*
+								 * We've been reset exit.
+								 */
 #ifdef XUSB_MS_DEBUG
-						xil_printf("Disconnected \r\n");
+								xil_printf("Disconnected \r\n");
 #endif
-						}
-					} else {
-						ResponseSent = TRUE;
+							}
+						} else {
+							ResponseSent = TRUE;
 						}
 					}
 				}
@@ -652,9 +650,9 @@ void DmaIntrHandler(void *CallBackRef, u32 IntrStatus)
 
 	if (IntrStatus & XUSB_STATUS_DMA_ERROR_MASK) {
 
-	/*
-	 * Code can be added here to handle the DMA error event.
-	 */
+		/*
+		 * Code can be added here to handle the DMA error event.
+		 */
 #ifdef XUSB_MS_DEBUG
 		xil_printf("DMA error\r\n");
 #endif
@@ -675,7 +673,7 @@ void DmaIntrHandler(void *CallBackRef, u32 IntrStatus)
  * @note	None.
  *
  ******************************************************************************/
-void ProcessRxCmd(XUsb * InstancePtr)
+void ProcessRxCmd(XUsb *InstancePtr)
 {
 	u8 Length;
 	u8 *BufPtr;
@@ -694,145 +692,143 @@ void ProcessRxCmd(XUsb * InstancePtr)
 	 * Process the command.
 	 */
 	switch (CmdBlock.OpCode) {
-	case SCSI_READ_10:
+		case SCSI_READ_10:
 #ifdef XUSB_MS_DEBUG
-		xil_printf("SCSI READ \r\n");
+			xil_printf("SCSI READ \r\n");
 #endif
-		Read10(InstancePtr, &CmdBlock, &CmdStatusBlock);
-		if (Read10Abort == 1) {
-			Read10Abort = 0;
-			goto FuncExit;
-		}
-		break;
+			Read10(InstancePtr, &CmdBlock, &CmdStatusBlock);
+			if (Read10Abort == 1) {
+				Read10Abort = 0;
+				goto FuncExit;
+			}
+			break;
 
-	case SCSI_WRITE_10:
+		case SCSI_WRITE_10:
 #ifdef XUSB_MS_DEBUG
-		xil_printf("SCSI WRITE \r\n");
+			xil_printf("SCSI WRITE \r\n");
 #endif
-		Write10(InstancePtr, &CmdBlock, &CmdStatusBlock);
-		if (Write10Abort == 1) {
-			Write10Abort = 0;
-			goto FuncExit;
-		}
-		break;
+			Write10(InstancePtr, &CmdBlock, &CmdStatusBlock);
+			if (Write10Abort == 1) {
+				Write10Abort = 0;
+				goto FuncExit;
+			}
+			break;
 
-	case SCSI_INQUIRY:
+		case SCSI_INQUIRY:
 #ifdef XUSB_MS_DEBUG
-		xil_printf("SCSI INQUIRY \r\n");
+			xil_printf("SCSI INQUIRY \r\n");
 #endif
-		BufPtr = (u8 *) (&(Piq.device_type));
-		Length = sizeof(INQUIRY);
-		SendResp = TRUE;
-		break;
+			BufPtr = (u8 *) (&(Piq.device_type));
+			Length = sizeof(INQUIRY);
+			SendResp = TRUE;
+			break;
 
-	case SCSI_READ_FORMAT_CAPACITIES:
+		case SCSI_READ_FORMAT_CAPACITIES:
 #ifdef XUSB_MS_DEBUG
-		xil_printf("SCSI READ FORMAT \r\n");
+			xil_printf("SCSI READ FORMAT \r\n");
 #endif
-		BufPtr = (u8 *) (&(Pcl.caplstlen[0]));
-		Length = sizeof(CAPACITY_LIST);
-		SendResp = TRUE;
-		break;
+			BufPtr = (u8 *) (&(Pcl.caplstlen[0]));
+			Length = sizeof(CAPACITY_LIST);
+			SendResp = TRUE;
+			break;
 
-	case SCSI_READ_CAPACITY:
+		case SCSI_READ_CAPACITY:
 #ifdef XUSB_MS_DEBUG
-		xil_printf("SCSI READ CAPACITY\r\n");
+			xil_printf("SCSI READ CAPACITY\r\n");
 #endif
-		Prc.lastLBA[3] = (RAMDISKSECTORS - 1) & 0xFF;
-		Prc.lastLBA[2] = ((RAMDISKSECTORS - 1) & 0xFF00) >> 8;
-		Prc.lastLBA[1] = ((RAMDISKSECTORS - 1) & 0xFF0000) >> 16;
-		Prc.lastLBA[0] = ((RAMDISKSECTORS - 1) & 0xFF000000) >> 24;
-		Prc.blocklength[3] = BLOCK_SIZE & 0xFF;
-		Prc.blocklength[2] = (BLOCK_SIZE & 0xFF00) >> 8;
-		Prc.blocklength[1] = (BLOCK_SIZE & 0xFF0000) >> 16;
-		Prc.blocklength[0] = (BLOCK_SIZE & 0xFF000000) >> 24;
-		BufPtr = (u8 *) (&Prc.lastLBA[0]);
-		Length = sizeof(READ_CAPACITY);
-		SendResp = TRUE;
-		break;
+			Prc.lastLBA[3] = (RAMDISKSECTORS - 1) & 0xFF;
+			Prc.lastLBA[2] = ((RAMDISKSECTORS - 1) & 0xFF00) >> 8;
+			Prc.lastLBA[1] = ((RAMDISKSECTORS - 1) & 0xFF0000) >> 16;
+			Prc.lastLBA[0] = ((RAMDISKSECTORS - 1) & 0xFF000000) >> 24;
+			Prc.blocklength[3] = BLOCK_SIZE & 0xFF;
+			Prc.blocklength[2] = (BLOCK_SIZE & 0xFF00) >> 8;
+			Prc.blocklength[1] = (BLOCK_SIZE & 0xFF0000) >> 16;
+			Prc.blocklength[0] = (BLOCK_SIZE & 0xFF000000) >> 24;
+			BufPtr = (u8 *) (&Prc.lastLBA[0]);
+			Length = sizeof(READ_CAPACITY);
+			SendResp = TRUE;
+			break;
 
-	case SCSI_MODE_SENSE:
+		case SCSI_MODE_SENSE:
 #ifdef XUSB_MS_DEBUG
-		xil_printf("SCSI MODE SENSE \r\n");
+			xil_printf("SCSI MODE SENSE \r\n");
 #endif
-		Pms_cdb = (PSCSI_MODESENSE_CDB)
-			(&(CmdBlock.dCBWFlags));
+			Pms_cdb = (PSCSI_MODESENSE_CDB)
+				  (&(CmdBlock.dCBWFlags));
 
-		if (Pms_cdb->pagecode != MODESENSE_RETURNALL) {
+			if (Pms_cdb->pagecode != MODESENSE_RETURNALL) {
 #ifdef XUSB_MS_DEBUG
-		xil_printf("SCSI MODE SENSE Reply Short\r\n");
+				xil_printf("SCSI MODE SENSE Reply Short\r\n");
 #endif
-			BufPtr = (u8 *) (&(Pmsd_s.mpl.mode_data_length));
-			Length = sizeof(MODE_SENSE_REPLY_SHORT);
+				BufPtr = (u8 *) (&(Pmsd_s.mpl.mode_data_length));
+				Length = sizeof(MODE_SENSE_REPLY_SHORT);
 
 
-		}
-		else {
+			} else {
+				/*
+				 * Load up full mode sense data.
+				 */
+#ifdef XUSB_MS_DEBUG
+				xil_printf("SCSI MODE SENSE Reply All\r\n");
+#endif
+				BufPtr = (u8 *) (&(Pmsd_l.mpl.mode_data_length));
+				Length = sizeof(MODE_SENSE_REPLY_ALL);
+			}
+			SendResp = TRUE;
+			break;
+
+		case SCSI_TEST_UNIT_READY:
+		case SCSI_VERIFY:
+#ifdef XUSB_MS_DEBUG
+			xil_printf("SCSI UNIT READY/VERIFY \r\n");
+#endif
 			/*
-			 * Load up full mode sense data.
+			 * We are always ready.
 			 */
-#ifdef XUSB_MS_DEBUG
-		xil_printf("SCSI MODE SENSE Reply All\r\n");
-#endif
-			BufPtr = (u8 *) (&(Pmsd_l.mpl.mode_data_length));
-			Length = sizeof(MODE_SENSE_REPLY_ALL);
-		}
-		SendResp = TRUE;
-		break;
-
-	case SCSI_TEST_UNIT_READY:
-	case SCSI_VERIFY:
-#ifdef XUSB_MS_DEBUG
-		xil_printf("SCSI UNIT READY/VERIFY \r\n");
-#endif
-		/*
-		 * We are always ready.
-		 */
-		CmdStatusBlock.bCSWStatus = CMD_PASSED;
-		SendStatus = TRUE;
-		break;
-
-	case SCSI_REQUEST_SENSE:
-#ifdef XUSB_MS_DEBUG
-		xil_printf("SCSI REQUEST SENSE \r\n");
-#endif
-		BufPtr = (u8 *) (&(Prss.error_code));
-		Length = sizeof(REQUEST_SENSE);
-		SendResp = TRUE;
-
-		break;
-
-	case SCSI_MEDIA_REMOVAL:
-#ifdef XUSB_MS_DEBUG
-		xil_printf("SCSI REMOVAL \r\n");
-#endif
-		Pmr = (PSCSI_MEDIA_REMOVAL_TYPE)
-			& (CmdBlock.dCBWFlags);
-
-		if (Pmr->prevent == 0x1) {
-			/*
-			 * We cannot prevent removal.
-			 */
-#ifdef XUSB_MS_DEBUG
-		xil_printf("SCSI REMOVAL failed\r\n");
-#endif
-			CmdStatusBlock.bCSWStatus = CMD_FAILED;
-		}
-		else {
 			CmdStatusBlock.bCSWStatus = CMD_PASSED;
-		}
-		CmdStatusBlock.Residue.value = 0;
-		SendStatus = TRUE;
-		break;
+			SendStatus = TRUE;
+			break;
 
-	default:
-		/*
-		 * Set status to failure.
-		 */
-		CmdStatusBlock.bCSWStatus = CMD_FAILED;
-		CmdStatusBlock.Residue.value = 0;
-		SendStatus = TRUE;
-		break;
+		case SCSI_REQUEST_SENSE:
+#ifdef XUSB_MS_DEBUG
+			xil_printf("SCSI REQUEST SENSE \r\n");
+#endif
+			BufPtr = (u8 *) (&(Prss.error_code));
+			Length = sizeof(REQUEST_SENSE);
+			SendResp = TRUE;
+
+			break;
+
+		case SCSI_MEDIA_REMOVAL:
+#ifdef XUSB_MS_DEBUG
+			xil_printf("SCSI REMOVAL \r\n");
+#endif
+			Pmr = (PSCSI_MEDIA_REMOVAL_TYPE)
+			      & (CmdBlock.dCBWFlags);
+
+			if (Pmr->prevent == 0x1) {
+				/*
+				 * We cannot prevent removal.
+				 */
+#ifdef XUSB_MS_DEBUG
+				xil_printf("SCSI REMOVAL failed\r\n");
+#endif
+				CmdStatusBlock.bCSWStatus = CMD_FAILED;
+			} else {
+				CmdStatusBlock.bCSWStatus = CMD_PASSED;
+			}
+			CmdStatusBlock.Residue.value = 0;
+			SendStatus = TRUE;
+			break;
+
+		default:
+			/*
+			 * Set status to failure.
+			 */
+			CmdStatusBlock.bCSWStatus = CMD_FAILED;
+			CmdStatusBlock.Residue.value = 0;
+			SendStatus = TRUE;
+			break;
 
 	}
 
@@ -840,7 +836,7 @@ void ProcessRxCmd(XUsb * InstancePtr)
 
 		Xil_DCacheFlushRange((u32)BufPtr, Length);
 		if (XUsb_EpDataSend(InstancePtr, 1, BufPtr, Length) !=
-		       XST_SUCCESS) {
+		    XST_SUCCESS) {
 			xil_printf("SendResp failure\r\n");
 			if (InstancePtr->DeviceConfig.Status ==
 			    XUSB_DISCONNECTED) {
@@ -861,10 +857,10 @@ void ProcessRxCmd(XUsb * InstancePtr)
 
 	if (SendStatus == TRUE) {
 		Xil_DCacheFlushRange((u32)&CmdStatusBlock,
-				USBCSW_LENGTH);
+				     USBCSW_LENGTH);
 		if (XUsb_EpDataSend(&UsbInstance, 1,
-			(unsigned char *) &CmdStatusBlock,
-				USBCSW_LENGTH) != XST_SUCCESS){
+				    (unsigned char *) &CmdStatusBlock,
+				    USBCSW_LENGTH) != XST_SUCCESS) {
 
 			xil_printf("SendStatus Failure\n");
 			SendStatus = FALSE;
@@ -873,11 +869,11 @@ void ProcessRxCmd(XUsb * InstancePtr)
 			TxDmaTransfer = TRUE;
 		}
 	}
-	if (CmdStatusBlock.bCSWStatus != CMD_PASSED){
+	if (CmdStatusBlock.bCSWStatus != CMD_PASSED) {
 		xil_printf("command failed \r\n");
 	}
 
-      FuncExit:
+FuncExit:
 	return;
 }
 
@@ -897,7 +893,7 @@ void ProcessRxCmd(XUsb * InstancePtr)
  * @note	None.
  *
  ******************************************************************************/
-void Read10(XUsb * InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)
+void Read10(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)
 {
 	u8 *RamDiskPtr;
 
@@ -929,14 +925,14 @@ void Read10(XUsb * InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)
 	RdResponseSent = FALSE;
 	if (BlockCount.IntBlockCount) {
 
-		RamDiskPtr = (u8 *) &(RamDisk[Lba.IntLba][0]);
+		RamDiskPtr = (u8 *) & (RamDisk[Lba.IntLba][0]);
 
 		if (InstancePtr->DeviceConfig.CurrentSpeed ==
 		    XUSB_EP_HIGH_SPEED) {
 			Xil_DCacheFlushRange((u32)RamDiskPtr, 512);
 
 			if (XUsb_EpDataSend(InstancePtr, 1, RamDiskPtr,
-					       512) != XST_SUCCESS) {
+					    512) != XST_SUCCESS) {
 				TxDmaTransfer = FALSE;
 				if (InstancePtr->DeviceConfig.Status ==
 				    XUSB_DISCONNECTED) {
@@ -951,17 +947,16 @@ void Read10(XUsb * InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)
 
 				if (Read10Abort == 1) {
 #ifdef 	XUSB_MS_DEBUG
-						xil_printf("Read Abort \r\n");
+					xil_printf("Read Abort \r\n");
 #endif
-						ErrCode = ERR_USBABORT;
+					ErrCode = ERR_USBABORT;
 					goto FuncExit;
 				}
 
 			} else {
 				TxDmaTransfer = TRUE;
 			}
-		}
-		else {
+		} else {
 			/*
 			 * Full speed is 64 bytes a packet, so 8 make up 512
 			 * bytes.
@@ -969,17 +964,17 @@ void Read10(XUsb * InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)
 			Xil_DCacheFlushRange((u32)RamDiskPtr, 64);
 
 			if (XUsb_EpDataSend(InstancePtr, 1,
-					       RamDiskPtr,
-					       64) != XST_SUCCESS) {
+					    RamDiskPtr,
+					    64) != XST_SUCCESS) {
 				if (InstancePtr->DeviceConfig.Status ==
 				    XUSB_DISCONNECTED) {
-						/*
-						 * We've been reset exit.
-						 */
+					/*
+					 * We've been reset exit.
+					 */
 #ifdef 	XUSB_MS_DEBUG
 					xil_printf("Rd Disconnected \r\n");
 #endif
-						goto FuncExit;
+					goto FuncExit;
 				}
 				if (Read10Abort == 1) {
 #ifdef 	XUSB_MS_DEBUG
@@ -1013,7 +1008,7 @@ FuncExit:
  * @note	None.
  *
  ******************************************************************************/
-void Write10(XUsb * InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)
+void Write10(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)
 {
 
 	/*
@@ -1060,52 +1055,52 @@ void ReadTransfer(XUsb *InstancePtr)
 {
 
 	if (InstancePtr->DeviceConfig.CurrentSpeed ==
-		    XUSB_EP_HIGH_SPEED) {
-		if (FirstPkt == 0){
-				BlockCount.IntBlockCount--;
-				Lba.IntLba++;
+	    XUSB_EP_HIGH_SPEED) {
+		if (FirstPkt == 0) {
+			BlockCount.IntBlockCount--;
+			Lba.IntLba++;
 		}
 		FirstPkt = 1;
 	}
 	if (BlockCount.IntBlockCount > 0) {
-			RdRamDiskPtr = (u8 *) &(RamDisk[Lba.IntLba][0]);
-			Xil_DCacheFlushRange((u32)RdRamDiskPtr, 512);
-			if (InstancePtr->DeviceConfig.CurrentSpeed ==
-				XUSB_EP_HIGH_SPEED) {
-				if (XUsb_EpDataSend(&UsbInstance, 1,
-					RdRamDiskPtr, 512) == XST_SUCCESS){
-					TxDmaTransfer = TRUE;
-					BlockCount.IntBlockCount--;
-					Lba.IntLba++;
-				}
-			} else {
+		RdRamDiskPtr = (u8 *) & (RamDisk[Lba.IntLba][0]);
+		Xil_DCacheFlushRange((u32)RdRamDiskPtr, 512);
+		if (InstancePtr->DeviceConfig.CurrentSpeed ==
+		    XUSB_EP_HIGH_SPEED) {
+			if (XUsb_EpDataSend(&UsbInstance, 1,
+					    RdRamDiskPtr, 512) == XST_SUCCESS) {
+				TxDmaTransfer = TRUE;
+				BlockCount.IntBlockCount--;
+				Lba.IntLba++;
+			}
+		} else {
 
-				RdRamDiskPtr += (64 * RdIndex);
-				Xil_DCacheFlushRange((u32)RdRamDiskPtr,
-				64);
-				XUsb_EpDataSend(&UsbInstance, 1, RdRamDiskPtr,
+			RdRamDiskPtr += (64 * RdIndex);
+			Xil_DCacheFlushRange((u32)RdRamDiskPtr,
+					     64);
+			XUsb_EpDataSend(&UsbInstance, 1, RdRamDiskPtr,
 					64);
-				RdIndex += 1;
-				if (RdIndex == 8){
-					RdIndex = 0;
-					BlockCount.IntBlockCount--;
-					Lba.IntLba++;
-				}
+			RdIndex += 1;
+			if (RdIndex == 8) {
+				RdIndex = 0;
+				BlockCount.IntBlockCount--;
+				Lba.IntLba++;
 			}
+		}
 	} else {
-			if (RdResponseSent == FALSE) {
-				Xil_DCacheFlushRange((u32)&CmdStatusBlock,
-					USBCSW_LENGTH);
-					CmdStatusBlock.bCSWStatus = CMD_PASSED;
-					CmdStatusBlock.Residue.value = 0;
-				if (XUsb_EpDataSend(&UsbInstance, 1,
-				(unsigned char *) &CmdStatusBlock, USBCSW_LENGTH) == XST_SUCCESS) {
-					FirstPkt = 0;
-					CmdFlag = 0;
-					TxDmaTransfer = TRUE;
-					RdResponseSent = TRUE;
-				}
+		if (RdResponseSent == FALSE) {
+			Xil_DCacheFlushRange((u32)&CmdStatusBlock,
+					     USBCSW_LENGTH);
+			CmdStatusBlock.bCSWStatus = CMD_PASSED;
+			CmdStatusBlock.Residue.value = 0;
+			if (XUsb_EpDataSend(&UsbInstance, 1,
+					    (unsigned char *) &CmdStatusBlock, USBCSW_LENGTH) == XST_SUCCESS) {
+				FirstPkt = 0;
+				CmdFlag = 0;
+				TxDmaTransfer = TRUE;
+				RdResponseSent = TRUE;
 			}
+		}
 	}
 }
 
@@ -1127,49 +1122,49 @@ void WriteTransfer(XUsb *InstancePtr)
 	if (BlockCount.IntBlockCount > 0) {
 
 		RxDmaTransfer = TRUE;
-		WrRamDiskPtr = (u8 *) &(RamDisk[Lba.IntLba][0]);
+		WrRamDiskPtr = (u8 *) & (RamDisk[Lba.IntLba][0]);
 		Xil_DCacheInvalidateRange((u32)WrRamDiskPtr, 512);
 		if (InstancePtr->DeviceConfig.CurrentSpeed ==
-				XUSB_EP_HIGH_SPEED) {
+		    XUSB_EP_HIGH_SPEED) {
 			if (XUsb_EpDataRecv(&UsbInstance, 2, WrRamDiskPtr,
-					512) == XST_SUCCESS){
-			if (BlockCount.IntBlockCount == 1){
-				WrDataPhase = TRUE;
-			}
-			BlockCount.IntBlockCount--;
-			Lba.IntLba++;
+					    512) == XST_SUCCESS) {
+				if (BlockCount.IntBlockCount == 1) {
+					WrDataPhase = TRUE;
+				}
+				BlockCount.IntBlockCount--;
+				Lba.IntLba++;
 			} else {
-			xil_printf("WrData recv failure\n");
+				xil_printf("WrData recv failure\n");
 			}
 		} else {
 			WrRamDiskPtr += (64 * WrIndex);
 			Xil_DCacheInvalidateRange((u32)WrRamDiskPtr,
-						64);
+						  64);
 			XUsb_EpDataRecv(&UsbInstance, 2, WrRamDiskPtr,
-						64);
+					64);
 			WrIndex += 1;
-			if (WrIndex == 8){
+			if (WrIndex == 8) {
 				WrIndex = 0;
 				BlockCount.IntBlockCount--;
 				Lba.IntLba++;
 			}
 		}
 	} else {
-			if (TxDmaTransfer == FALSE) {
-				WrDataPhase = FALSE;
-				CmdStatusBlock.bCSWStatus = CMD_PASSED;
-				CmdStatusBlock.Residue.value = 0;
-				Xil_DCacheFlushRange((u32)&CmdStatusBlock,
-					USBCSW_LENGTH);
-				if (XUsb_EpDataSend(&UsbInstance, 1,
-				(unsigned char *) &CmdStatusBlock,
-				USBCSW_LENGTH) == XST_SUCCESS){
-					TxDmaTransfer = TRUE;
-					CmdFlag = 0;
-				} else {
-					xil_printf("Write Resp Failure\n");
-				}
+		if (TxDmaTransfer == FALSE) {
+			WrDataPhase = FALSE;
+			CmdStatusBlock.bCSWStatus = CMD_PASSED;
+			CmdStatusBlock.Residue.value = 0;
+			Xil_DCacheFlushRange((u32)&CmdStatusBlock,
+					     USBCSW_LENGTH);
+			if (XUsb_EpDataSend(&UsbInstance, 1,
+					    (unsigned char *) &CmdStatusBlock,
+					    USBCSW_LENGTH) == XST_SUCCESS) {
+				TxDmaTransfer = TRUE;
+				CmdFlag = 0;
+			} else {
+				xil_printf("Write Resp Failure\n");
 			}
+		}
 	}
 }
 /******************************************************************************/
@@ -1183,19 +1178,19 @@ void WriteTransfer(XUsb *InstancePtr)
 * @note    	None.
 *
 ******************************************************************************/
-void MassStorageReset(XUsb * InstancePtr)
+void MassStorageReset(XUsb *InstancePtr)
 {
 	switch (CmdBlock.OpCode) {
-	case SCSI_READ_10:
-		Read10Abort = 1;
-		break;
+		case SCSI_READ_10:
+			Read10Abort = 1;
+			break;
 
-	case SCSI_WRITE_10:
-		Write10Abort = 1;
-		break;
+		case SCSI_WRITE_10:
+			Write10Abort = 1;
+			break;
 
-	default:
-		break;
+		default:
+			break;
 	}
 
 	/*
@@ -1217,7 +1212,7 @@ void MassStorageReset(XUsb * InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void GetMaxLUN(XUsb * InstancePtr)
+void GetMaxLUN(XUsb *InstancePtr)
 {
 	u32 *RamBase;
 
@@ -1230,10 +1225,10 @@ void GetMaxLUN(XUsb * InstancePtr)
 
 	InstancePtr->DeviceConfig.Ep[0].Buffer0Ready = 1;
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			(InstancePtr->EndPointOffset[0] +
-			XUSB_EP_BUF0COUNT_OFFSET), 1);
+		      (InstancePtr->EndPointOffset[0] +
+		       XUSB_EP_BUF0COUNT_OFFSET), 1);
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			XUSB_BUFFREADY_OFFSET, 1);
+		      XUSB_BUFFREADY_OFFSET, 1);
 }
 
 #ifndef SDT
@@ -1257,7 +1252,7 @@ void GetMaxLUN(XUsb * InstancePtr)
 * @note		None
 *
 *******************************************************************************/
-static int SetupInterruptSystem(XUsb * InstancePtr)
+static int SetupInterruptSystem(XUsb *InstancePtr)
 {
 	int Status;
 
@@ -1311,14 +1306,14 @@ static int SetupInterruptSystem(XUsb * InstancePtr)
 	}
 
 	Status = XScuGic_CfgInitialize(&InterruptController, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 
 	XScuGic_SetPriorityTriggerType(&InterruptController, USB_INTR,
-					0xA0, 0x3);
+				       0xA0, 0x3);
 
 	/*
 	 * Connect the interrupt handler that will be called when an
@@ -1348,8 +1343,8 @@ static int SetupInterruptSystem(XUsb * InstancePtr)
 	 * Register the interrupt controller handler with the exception table
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)INTC_HANDLER,
-				&InterruptController);
+				     (Xil_ExceptionHandler)INTC_HANDLER,
+				     &InterruptController);
 
 	/*
 	 * Enable non-critical exceptions

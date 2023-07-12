@@ -361,13 +361,13 @@ typedef struct {
 	void *HandlerRef;
 
 	XUsb_IntrHandlerFunc ErrHandlerFunc;
-	void * ErrHandlerRef;
+	void *ErrHandlerRef;
 
 	XUsb_IntrHandlerFunc DmaHandlerFunc;
-	void * DmaHandlerRef;
+	void *DmaHandlerRef;
 
 	XUsb_IntrHandlerFunc UlpiHandlerFunc;
-	void * UlpiHandlerRef;
+	void *UlpiHandlerRef;
 
 } XUsb;
 
@@ -383,7 +383,7 @@ typedef struct {
  * Implemented in the file xusb.c
  */
 int XUsb_CfgInitialize(XUsb *InstancePtr, XUsb_Config *ConfigPtr,
-			UINTPTR EffectiveAddr);
+		       UINTPTR EffectiveAddr);
 
 int XUsb_ConfigureDevice(XUsb *InstancePtr, XUsb_DeviceConfig *CfgPtr);
 
@@ -399,15 +399,15 @@ void XUsb_SetTestMode(XUsb *InstancePtr, u8 TestMode, u8 *BufPtr);
 void XUsb_DmaReset(XUsb *InstancePtr);
 
 void XUsb_DmaTransfer(XUsb *InstancePtr, UINTPTR *SrcAddr, UINTPTR *DstAddr,
-				u16 Length);
+		      u16 Length);
 
 void XUsb_ReadErrorCounters(XUsb *InstancePtr, u8 *BitStuffErrors,
-				u8 *PidErrors, u8 *CrcErrors);
+			    u8 *PidErrors, u8 *CrcErrors);
 
 u8 XUsb_UlpiPhyReadRegister(XUsb *InstancePtr, u8 RegAddr);
 
 int XUsb_UlpiPhyWriteRegister(XUsb *InstancePtr, u8 RegAddr,
-				u8 UlpiPhyRegData);
+			      u8 UlpiPhyRegData);
 
 void XUsb_SieReset(XUsb *InstancePtr);
 
@@ -444,16 +444,16 @@ void XUsb_IntrHandler(void *InstancePtr);
 void XUsb_IntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
 			 void *CallBackRef);
 void XUsb_EpSetHandler(XUsb *InstancePtr, u8 EpNum,
-			XUsb_EpHandlerFunc *CallBackFunc, void *CallBackRef);
+		       XUsb_EpHandlerFunc *CallBackFunc, void *CallBackRef);
 
 void XUsb_ErrIntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
-			 void *CallBackRef);
+			    void *CallBackRef);
 
 void XUsb_DmaIntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
-			 void *CallBackRef);
+			    void *CallBackRef);
 
 void XUsb_UlpiIntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
-			 void *CallBackRef);
+			     void *CallBackRef);
 
 /*
  * Static configuration helper function.

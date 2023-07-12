@@ -1,5 +1,5 @@
 # Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
-# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
 include(${CMAKE_CURRENT_SOURCE_DIR}/UsbExample.cmake)

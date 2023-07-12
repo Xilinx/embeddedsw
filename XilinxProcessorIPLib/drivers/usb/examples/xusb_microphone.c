@@ -67,7 +67,7 @@ XUsb_Config *UsbConfigPtr;	/* Pointer to the USB config structure */
 
 #ifndef SDT
 XIntc InterruptController;	/* Instance of the Interrupt Controller */
-static int SetupInterruptSystem(XUsb * InstancePtr);
+static int SetupInterruptSystem(XUsb *InstancePtr);
 #endif
 
 /*****************************************************************************/
@@ -111,8 +111,8 @@ int main()
 #endif
 #endif
 	Status = XUsb_CfgInitialize(&UsbInstance,
-					UsbConfigPtr,
-					UsbConfigPtr->BaseAddress);
+				    UsbConfigPtr,
+				    UsbConfigPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
 		return XST_FAILURE;
 	}
@@ -150,10 +150,10 @@ int main()
 	Status = SetupInterruptSystem(&UsbInstance);
 #else
 	Status = XSetupInterruptSystem(&UsbInstance,
-					&XUsb_IntrHandler,
-					UsbConfigPtr->IntrId,
-					UsbConfigPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       &XUsb_IntrHandler,
+				       UsbConfigPtr->IntrId,
+				       UsbConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -195,18 +195,18 @@ int main()
 
 		if (UsbInstance.Config.DmaEnabled) {
 			/* Flush the cache before DMA transfer */
-			Xil_DCacheFlushRange((u32)&Hello_wav[Index],(u32)1024);
+			Xil_DCacheFlushRange((u32)&Hello_wav[Index], (u32)1024);
 		}
 
 		if (XUsb_EpDataSend(&UsbInstance, 1, &Hello_wav[Index],
-					1024) == XST_SUCCESS){
-				Index += 1024;
-				Cnt ++;
-				if (Cnt >= 9000){
-					Cnt =0;
-					Index = 0;
-				}
+				    1024) == XST_SUCCESS) {
+			Index += 1024;
+			Cnt ++;
+			if (Cnt >= 9000) {
+				Cnt = 0;
+				Index = 0;
 			}
+		}
 	}
 	return XST_SUCCESS;
 }
@@ -226,7 +226,7 @@ int main()
  * @note	None.
  *
  ******************************************************************************/
-void InitUsbInterface(XUsb * InstancePtr)
+void InitUsbInterface(XUsb *InstancePtr)
 {
 
 	XUsb_DeviceConfig DeviceConfig;
@@ -294,21 +294,21 @@ void UsbIfIntrHandler(void *CallBackRef, u32 IntrStatus)
 
 	if (IntrStatus & XUSB_STATUS_RESET_MASK) {
 
-			XUsb_Stop(InstancePtr);
-			InstancePtr->DeviceConfig.CurrentConfiguration = 0;
-			InstancePtr->DeviceConfig.Status = XUSB_RESET;
-			for (Index = 0; Index < 3; Index++) {
-				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					       InstancePtr->
-					       EndPointOffset[Index], 0);
-			}
-			/*
-			 * Re-initialize the device and set the device address
-			 * to 0 and re-start the device.
-			 */
-			InitUsbInterface(InstancePtr);
-			XUsb_SetDeviceAddress(InstancePtr, 0);
-			XUsb_Start(InstancePtr);
+		XUsb_Stop(InstancePtr);
+		InstancePtr->DeviceConfig.CurrentConfiguration = 0;
+		InstancePtr->DeviceConfig.Status = XUSB_RESET;
+		for (Index = 0; Index < 3; Index++) {
+			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+				      InstancePtr->
+				      EndPointOffset[Index], 0);
+		}
+		/*
+		 * Re-initialize the device and set the device address
+		 * to 0 and re-start the device.
+		 */
+		InitUsbInterface(InstancePtr);
+		XUsb_SetDeviceAddress(InstancePtr, 0);
+		XUsb_Start(InstancePtr);
 
 		XUsb_IntrDisable(InstancePtr, XUSB_STATUS_RESET_MASK);
 		XUsb_IntrEnable(InstancePtr, (XUSB_STATUS_DISCONNECT_MASK |
@@ -372,22 +372,20 @@ void Ep0IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 				xil_printf("unsuppported %d\r\n", SetupRequest);
 
 				EpCfgReg = XUsb_ReadReg(
-					InstancePtr->Config.BaseAddress,
-					 InstancePtr->EndPointOffset[0]);
+						   InstancePtr->Config.BaseAddress,
+						   InstancePtr->EndPointOffset[0]);
 				EpCfgReg |= XUSB_EP_CFG_DATA_TOGGLE_MASK;
 
 				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					InstancePtr->EndPointOffset[0],
-					EpCfgReg);
+					      InstancePtr->EndPointOffset[0],
+					      EpCfgReg);
 				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_BUFFREADY_OFFSET, 1);
+					      XUSB_BUFFREADY_OFFSET, 1);
 
 			}
-		}
-		else if (IntrStatus & XUSB_STATUS_FIFO_BUFF_RDY_MASK) {
+		} else if (IntrStatus & XUSB_STATUS_FIFO_BUFF_RDY_MASK) {
 			EP0ProcessOutToken(InstancePtr);
-		}
-		else if (IntrStatus & XUSB_STATUS_FIFO_BUFF_FREE_MASK) {
+		} else if (IntrStatus & XUSB_STATUS_FIFO_BUFF_FREE_MASK) {
 			EP0ProcessInToken(InstancePtr);
 		}
 	}
@@ -420,11 +418,11 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 	 * Process the End point 1 interrupts.
 	 */
 	if (IntrStatus & XUSB_BUFFREADY_EP1_BUFF1_MASK) {
-			InstancePtr->DeviceConfig.Ep[1].Buffer0Ready = 0;
+		InstancePtr->DeviceConfig.Ep[1].Buffer0Ready = 0;
 	}
 
 	if (IntrStatus & XUSB_BUFFREADY_EP1_BUFF2_MASK) {
-			InstancePtr->DeviceConfig.Ep[1].Buffer1Ready = 0;
+		InstancePtr->DeviceConfig.Ep[1].Buffer1Ready = 0;
 	}
 }
 
@@ -449,7 +447,7 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 * @note		None
 *
 *******************************************************************************/
-static int SetupInterruptSystem(XUsb * InstancePtr)
+static int SetupInterruptSystem(XUsb *InstancePtr)
 {
 	int Status;
 
@@ -467,8 +465,8 @@ static int SetupInterruptSystem(XUsb * InstancePtr)
 	 * for the USB device occurs.
 	 */
 	Status = XIntc_Connect(&InterruptController, USB_INTR,
-				(XInterruptHandler) XUsb_IntrHandler,
-				(void *) InstancePtr);
+			       (XInterruptHandler) XUsb_IntrHandler,
+			       (void *) InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -497,8 +495,8 @@ static int SetupInterruptSystem(XUsb * InstancePtr)
 	 * Register the interrupt controller handler with the exception table
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XIntc_InterruptHandler,
-				&InterruptController);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     &InterruptController);
 
 	/*
 	 * Enable non-critical exceptions
