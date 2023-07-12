@@ -38,7 +38,6 @@
 * 1.02  bm   06/13/2023 Add API to just log PLM error
 *       bm   06/23/2023 Added error codes for ipi access filtering
 *       bm   07/06/2023 Added XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS error code
-*       sk   07/10/2023 Removed XLOADER_ERR_TCM_ADDR_OUTOF_RANGE error code
 *
 * </pre>
 *
@@ -428,7 +427,8 @@ typedef enum {
 	XLOADER_ERR_IMG_ID_NOT_FOUND,	/**< 0x320 - Error when Image ID is
 					  not found in subsystem while reloading
 					  image */
-	XLOADER_ERR_RESERVED5,		/**< 0x321 - XLoader Reserved Error 5 */
+	XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, /**< 0x321 - Error while loading to
+					    TCM and if address is out of range*/
 	XLOADER_ERR_CFRAME_LOOKUP,	/**< 0x322 - Error when CFRAME driver
 					  look up fails */
 	XLOADER_ERR_CFRAME_CFG,		/**< 0x323 - Error when CFRAME driver

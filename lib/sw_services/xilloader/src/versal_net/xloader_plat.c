@@ -37,8 +37,6 @@
 *       bm   06/13/2023 Log PLM error before deferring
 *       sk   07/06/2023 Added Jtag DAP config support for Non-Secure Debug
 *       kpt  07/10/2023 Added IPI support to read DDR crypto status
-*       sk   07/09/2023 Enable TCM Boot based on PH Attribute
-*                       Removed XLoader_GetLoadAddr targeting TCM Memory
 *
 * </pre>
 *
@@ -53,7 +51,6 @@
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
 #include "xpm_nodeid.h"
-#include "xpm_rpucore_plat.h"
 #include "xloader_plat.h"
 #include "xplmi_update.h"
 #include "xplmi.h"
@@ -103,6 +100,8 @@
 /************************** Function Prototypes ******************************/
 static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu,
 	const u32 DstnCluster);
+static int XLoader_GetLoadAddr(u32 DstnCpu, u32 DstnCluster, u64 *LoadAddrPtr,
+	u32 Len);
 static int XLoader_InitSha3Instance1(void);
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams,
@@ -676,13 +675,6 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	u32 ClusterLockstep = 0U;
 	u32 DeviceId;
 	u32 Mode = 0U;
-	u32 TcmBootFlag = FALSE;
-
-		/** Check if TCM Boot Bit is set */
-	if ((PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_TCM_BOOT_MASK) == XIH_PH_ATTRB_TCM_BOOT_ENABLED) {
-		XPlmi_Printf(DEBUG_DETAILED, "TCM Boot Enabled\n");
-		TcmBootFlag = TRUE;
-	}
 
 	/**
 	 * - Verify the load address.
@@ -745,7 +737,6 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			XPmRpuCore_SetTcmBoot(DeviceId, (u8)TcmBootFlag);
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_R52_1:
 			if (DstnCluster > XIH_ATTRB_DSTN_CLUSTER_1) {
@@ -758,7 +749,6 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			XPmRpuCore_SetTcmBoot(DeviceId, (u8)TcmBootFlag);
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_A78_0:
 			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster * 4);
@@ -813,6 +803,13 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			Status = XLoader_RequestTCM(XLOADER_TCM_B_1);
 		}
 	}
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
+
+	Status = XLoader_GetLoadAddr(PrtnParams->DstnCpu, DstnCluster,
+			&PrtnParams->DeviceCopy.DestAddr,
+			(PrtnHdr->UnEncDataWordLen * XIH_PRTN_WORD_LEN));
 	if (XST_SUCCESS != Status) {
 		goto END;
 	}
@@ -983,6 +980,64 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 			PdiPtr->NoOfHandoffCpus += 1U;
 		}
 	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function updates the load address based on the
+ * 			destination CPU.
+ *
+ * @param	DstnCpu is destination CPU
+ * @param	DstnCluster is destination Cluste
+ * @param	LoadAddrPtr is the destination load address pointer
+ * @param	Len is the length of the partition
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_TCM_ADDR_OUTOF_RANGE if provided TCM address is invalid.
+ *
+ *****************************************************************************/
+static int XLoader_GetLoadAddr(u32 DstnCpu, u32 DstnCluster, u64 *LoadAddrPtr, u32 Len)
+{
+	int Status = XST_FAILURE;
+	u64 Address = *LoadAddrPtr;
+
+	if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R52_0) &&
+			((Address < (XLOADER_R52_TCMA_LOAD_ADDRESS +
+			XLOADER_R52_TCM_TOTAL_LENGTH)))) {
+		if (((Address % XLOADER_R52_TCM_TOTAL_LENGTH) + Len) >
+			XLOADER_R52_TCM_TOTAL_LENGTH) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
+			goto END;
+		}
+
+		Address += XLOADER_R52_0A_TCMA_BASE_ADDR +
+				(DstnCluster * XLOADER_R52_TCM_CLUSTER_OFFSET);
+	}
+	else if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R52_1) &&
+			((Address < (XLOADER_R52_TCMA_LOAD_ADDRESS +
+			XLOADER_R52_TCM_TOTAL_LENGTH)))) {
+		if (((Address % XLOADER_R52_TCM_TOTAL_LENGTH) + Len) >
+			XLOADER_R52_TCM_TOTAL_LENGTH) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
+			goto END;
+		}
+
+		Address += XLOADER_R52_1A_TCMA_BASE_ADDR +
+				(DstnCluster * XLOADER_R52_TCM_CLUSTER_OFFSET);
+	}
+	else {
+		/* Do nothing */
+	}
+
+	/*
+	 * Update the load address
+	 */
+	*LoadAddrPtr = Address;
 	Status = XST_SUCCESS;
 
 END:

@@ -31,7 +31,6 @@
 *                       Moved minor error codes to plat headers
 *                       Added error codes for Invalid JTAG Config Request
 *       kpt  07/10/2023 Added IPI support to read DDR crypto status
-*       sk   07/10/2023 Removed TCM Address, Offset defines
 *
 * </pre>
 *
@@ -72,6 +71,18 @@ extern "C" {
 #define XLOADER_PDI_SRC_DDR		(0xFU) /**< PDI source DDR */
 #define XLOADER_PDI_SRC_IS		(0x10U) /**< PDI source Image Store */
 #define XLOADER_PDI_SRC_INVALID		(0xFFU)  /**< PDI source invalid */
+
+#define XLOADER_R52_0A_TCMA_BASE_ADDR 	(0xEBA00000U) /**< R52_0A TCMA base address */
+#define XLOADER_R52_1A_TCMA_BASE_ADDR 	(0xEBA40000U) /**< R52_1A TCMA base address */
+#define XLOADER_R52_0B_TCMA_BASE_ADDR 	(0xEBA80000U) /**< R52_0B TCMA base address */
+#define XLOADER_R52_1B_TCMA_BASE_ADDR 	(0xEBAC0000U) /**< R52_1B TCMA base address */
+#define XLOADER_R52_TCM_CLUSTER_OFFSET	(0x00080000U) /**< R52_TCM TCM cluster offset */
+
+/*
+ * TCM address for R52
+ */
+#define XLOADER_R52_TCMA_LOAD_ADDRESS	(0x0U) /**< R52 TCMA load address */
+#define XLOADER_R52_TCM_TOTAL_LENGTH	(0x30000U) /**< R52 TCMA total length */
 
 #define XLOADER_APU_CLUSTER0	(0U) /**< APU cluster 0 */
 #define XLOADER_APU_CLUSTER1	(1U) /**< APU cluster 1 */
