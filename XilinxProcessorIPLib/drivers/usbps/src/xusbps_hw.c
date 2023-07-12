@@ -44,7 +44,7 @@
 
 /*****************************************************************************/
 /**
-* This function perform the reset sequence to the given usbps interface by 
+* This function perform the reset sequence to the given usbps interface by
 * configuring the appropriate control bits in the usbps specific registers.
 * the usbps reset sequence involves the below steps
 * 	Disable the interrupts
@@ -62,34 +62,33 @@ void XUsbPs_ResetHw(u32 BaseAddress)
 {
 	u32 RegVal;
 	u32 Timeout = 0;
-	
+
 	/* Host and device mode */
 	/* Disable the interrupts */
-	XUsbPs_WriteReg(BaseAddress,XUSBPS_IER_OFFSET,0x0);
+	XUsbPs_WriteReg(BaseAddress, XUSBPS_IER_OFFSET, 0x0);
 	/* Clear the interuupt status */
-	RegVal = XUsbPs_ReadReg(BaseAddress,XUSBPS_ISR_OFFSET);
-	XUsbPs_WriteReg(BaseAddress,XUSBPS_ISR_OFFSET,RegVal);
+	RegVal = XUsbPs_ReadReg(BaseAddress, XUSBPS_ISR_OFFSET);
+	XUsbPs_WriteReg(BaseAddress, XUSBPS_ISR_OFFSET, RegVal);
 
-	/* Perform the reset operation using USB CMD register */	
-	RegVal = XUsbPs_ReadReg(BaseAddress,XUSBPS_CMD_OFFSET);
+	/* Perform the reset operation using USB CMD register */
+	RegVal = XUsbPs_ReadReg(BaseAddress, XUSBPS_CMD_OFFSET);
 	RegVal = RegVal | XUSBPS_CMD_RST_MASK;
-	XUsbPs_WriteReg(BaseAddress,XUSBPS_CMD_OFFSET,RegVal);
-	RegVal = XUsbPs_ReadReg(BaseAddress,XUSBPS_CMD_OFFSET);
+	XUsbPs_WriteReg(BaseAddress, XUSBPS_CMD_OFFSET, RegVal);
+	RegVal = XUsbPs_ReadReg(BaseAddress, XUSBPS_CMD_OFFSET);
 	/* Wait till the reset operation returns success */
 	/*
 	* FIX ME: right now no indication to the caller or user about
 	* timeout overflow
 	*/
-	while ((RegVal & XUSBPS_CMD_RST_MASK) && (Timeout < XUSBPS_RESET_TIMEOUT))
-	{
-		RegVal = XUsbPs_ReadReg(BaseAddress,XUSBPS_CMD_OFFSET);	
+	while ((RegVal & XUSBPS_CMD_RST_MASK) && (Timeout < XUSBPS_RESET_TIMEOUT)) {
+		RegVal = XUsbPs_ReadReg(BaseAddress, XUSBPS_CMD_OFFSET);
 		Timeout++;
 	}
-	/* Update periodic list base address register with reset value */		
-	XUsbPs_WriteReg(BaseAddress,XUSBPS_LISTBASE_OFFSET,0x0);	
-	/* Update async/endpoint list base address register with reset value */		
-	XUsbPs_WriteReg(BaseAddress,XUSBPS_ASYNCLISTADDR_OFFSET,0x0);		
-	
+	/* Update periodic list base address register with reset value */
+	XUsbPs_WriteReg(BaseAddress, XUSBPS_LISTBASE_OFFSET, 0x0);
+	/* Update async/endpoint list base address register with reset value */
+	XUsbPs_WriteReg(BaseAddress, XUSBPS_ASYNCLISTADDR_OFFSET, 0x0);
+
 }
 
 

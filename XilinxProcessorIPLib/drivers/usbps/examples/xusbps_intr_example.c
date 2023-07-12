@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -78,9 +78,9 @@ static int UsbIntrExample(XUsbPs *UsbInstancePtr, UINTPTR BaseAddress);
 
 static void UsbIntrHandler(void *CallBackRef, u32 Mask);
 static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum,
-					u8 EventType, void *Data);
+				   u8 EventType, void *Data);
 static void XUsbPs_Ep1EventHandler(void *CallBackRef, u8 EpNum,
-					u8 EventType, void *Data);
+				   u8 EventType, void *Data);
 
 /************************** Variable Definitions *****************************/
 
@@ -148,7 +148,7 @@ int main(void)
  ******************************************************************************/
 #ifndef SDT
 static int UsbIntrExample(XScuGic *IntcInstancePtr, XUsbPs *UsbInstancePtr,
-					u16 UsbDeviceId, u16 UsbIntrId)
+			  u16 UsbDeviceId, u16 UsbIntrId)
 #else
 static int UsbIntrExample(XUsbPs *UsbInstancePtr, UINTPTR BaseAddress)
 #endif
@@ -185,8 +185,8 @@ static int UsbIntrExample(XUsbPs *UsbInstancePtr, UINTPTR BaseAddress)
 	 * argument needs to be the virtual base address.
 	 */
 	Status = XUsbPs_CfgInitialize(UsbInstancePtr,
-				       UsbConfigPtr,
-				       UsbConfigPtr->BaseAddress);
+				      UsbConfigPtr,
+				      UsbConfigPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
 		goto out;
 	}
@@ -203,8 +203,7 @@ static int UsbIntrExample(XUsbPs *UsbInstancePtr, UINTPTR BaseAddress)
 				       UsbConfigPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
-	if (XST_SUCCESS != Status)
-	{
+	if (XST_SUCCESS != Status) {
 		goto out;
 	}
 
@@ -256,7 +255,7 @@ static int UsbIntrExample(XUsbPs *UsbInstancePtr, UINTPTR BaseAddress)
 	DeviceConfig.NumEndpoints = NumEndpoints;
 
 	MemPtr = (u8 *)&Buffer[0];
-	memset(MemPtr,0,MEMORY_SIZE);
+	memset(MemPtr, 0, MEMORY_SIZE);
 	Xil_DCacheFlushRange((unsigned int)MemPtr, MEMORY_SIZE);
 
 	/* Finish the configuration of the DeviceConfig structure and configure
@@ -271,7 +270,7 @@ static int UsbIntrExample(XUsbPs *UsbInstancePtr, UINTPTR BaseAddress)
 
 	/* Set the handler for receiving frames. */
 	Status = XUsbPs_IntrSetHandler(UsbInstancePtr, UsbIntrHandler, NULL,
-						XUSBPS_IXR_UE_MASK);
+				       XUSBPS_IXR_UE_MASK);
 	if (XST_SUCCESS != Status) {
 		goto out;
 	}
@@ -280,8 +279,8 @@ static int UsbIntrExample(XUsbPs *UsbInstancePtr, UINTPTR BaseAddress)
 	 * will receive and handle the Setup packet from the host.
 	 */
 	Status = XUsbPs_EpSetHandler(UsbInstancePtr, 0,
-				XUSBPS_EP_DIRECTION_OUT,
-				XUsbPs_Ep0EventHandler, UsbInstancePtr);
+				     XUSBPS_EP_DIRECTION_OUT,
+				     XUsbPs_Ep0EventHandler, UsbInstancePtr);
 
 	/* Set the handler for handling endpoint 1 events.
 	 *
@@ -291,12 +290,12 @@ static int UsbIntrExample(XUsbPs *UsbInstancePtr, UINTPTR BaseAddress)
 	 * been sent.
 	 */
 	Status = XUsbPs_EpSetHandler(UsbInstancePtr, 1,
-				XUSBPS_EP_DIRECTION_OUT,
-				XUsbPs_Ep1EventHandler, UsbInstancePtr);
+				     XUSBPS_EP_DIRECTION_OUT,
+				     XUsbPs_Ep1EventHandler, UsbInstancePtr);
 
 	/* Enable the interrupts. */
 	XUsbPs_IntrEnable(UsbInstancePtr, XUSBPS_IXR_UR_MASK |
-					   XUSBPS_IXR_UI_MASK);
+			  XUSBPS_IXR_UI_MASK);
 
 
 	/* Start the USB engine */
@@ -387,7 +386,7 @@ static void UsbIntrHandler(void *CallBackRef, u32 Mask)
 *
 ******************************************************************************/
 static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum,
-					u8 EventType, void *Data)
+				   u8 EventType, void *Data)
 {
 	XUsbPs			*InstancePtr;
 	int			Status;
@@ -403,33 +402,33 @@ static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum,
 
 	switch (EventType) {
 
-	/* Handle the Setup Packets received on Endpoint 0. */
-	case XUSBPS_EP_EVENT_SETUP_DATA_RECEIVED:
-		Status = XUsbPs_EpGetSetupData(InstancePtr, EpNum, &SetupData);
-		if (XST_SUCCESS == Status) {
-			/* Handle the setup packet. */
-			(int) XUsbPs_Ch9HandleSetupPacket(InstancePtr,
-							   &SetupData);
-		}
-		break;
+		/* Handle the Setup Packets received on Endpoint 0. */
+		case XUSBPS_EP_EVENT_SETUP_DATA_RECEIVED:
+			Status = XUsbPs_EpGetSetupData(InstancePtr, EpNum, &SetupData);
+			if (XST_SUCCESS == Status) {
+				/* Handle the setup packet. */
+				(int) XUsbPs_Ch9HandleSetupPacket(InstancePtr,
+								  &SetupData);
+			}
+			break;
 
-	/* We get data RX events for 0 length packets on endpoint 0. We receive
-	 * and immediately release them again here, but there's no action to be
-	 * taken.
-	 */
-	case XUSBPS_EP_EVENT_DATA_RX:
-		/* Get the data buffer. */
-		Status = XUsbPs_EpBufferReceive(InstancePtr, EpNum,
-					&BufferPtr, &BufferLen, &Handle);
-		if (XST_SUCCESS == Status) {
-			/* Return the buffer. */
-			XUsbPs_EpBufferRelease(Handle);
-		}
-		break;
+		/* We get data RX events for 0 length packets on endpoint 0. We receive
+		 * and immediately release them again here, but there's no action to be
+		 * taken.
+		 */
+		case XUSBPS_EP_EVENT_DATA_RX:
+			/* Get the data buffer. */
+			Status = XUsbPs_EpBufferReceive(InstancePtr, EpNum,
+							&BufferPtr, &BufferLen, &Handle);
+			if (XST_SUCCESS == Status) {
+				/* Return the buffer. */
+				XUsbPs_EpBufferRelease(Handle);
+			}
+			break;
 
-	default:
-		/* Unhandled event. Ignore. */
-		break;
+		default:
+			/* Unhandled event. Ignore. */
+			break;
 	}
 }
 
@@ -453,7 +452,7 @@ static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum,
 *
 ******************************************************************************/
 static void XUsbPs_Ep1EventHandler(void *CallBackRef, u8 EpNum,
-					u8 EventType, void *Data)
+				   u8 EventType, void *Data)
 {
 	XUsbPs *InstancePtr;
 	int Status;
@@ -468,30 +467,30 @@ static void XUsbPs_Ep1EventHandler(void *CallBackRef, u8 EpNum,
 	InstancePtr = (XUsbPs *) CallBackRef;
 
 	switch (EventType) {
-	case XUSBPS_EP_EVENT_DATA_RX:
-		/* Get the data buffer.*/
-		Status = XUsbPs_EpBufferReceive(InstancePtr, EpNum,
-					&BufferPtr, &BufferLen, &Handle);
-		/* Invalidate the Buffer Pointer */
-		InavalidateLen =  BufferLen;
-		if (BufferLen % 32) {
-			InavalidateLen = (BufferLen/32) * 32 + 32;
-		}
+		case XUSBPS_EP_EVENT_DATA_RX:
+			/* Get the data buffer.*/
+			Status = XUsbPs_EpBufferReceive(InstancePtr, EpNum,
+							&BufferPtr, &BufferLen, &Handle);
+			/* Invalidate the Buffer Pointer */
+			InavalidateLen =  BufferLen;
+			if (BufferLen % 32) {
+				InavalidateLen = (BufferLen / 32) * 32 + 32;
+			}
 
-		Xil_DCacheInvalidateRange((unsigned int)BufferPtr,
-									InavalidateLen);
-		if (XST_SUCCESS == Status) {
-			/* Handle the storage class request. */
-			XUsbPs_HandleStorageReq(InstancePtr, EpNum,
+			Xil_DCacheInvalidateRange((unsigned int)BufferPtr,
+						  InavalidateLen);
+			if (XST_SUCCESS == Status) {
+				/* Handle the storage class request. */
+				XUsbPs_HandleStorageReq(InstancePtr, EpNum,
 							BufferPtr, BufferLen);
-			/* Release the buffer. */
-			XUsbPs_EpBufferRelease(Handle);
-		}
-		break;
+				/* Release the buffer. */
+				XUsbPs_EpBufferRelease(Handle);
+			}
+			break;
 
-	default:
-		/* Unhandled event. Ignore. */
-		break;
+		default:
+			/* Unhandled event. Ignore. */
+			break;
 	}
 }
 
@@ -531,7 +530,7 @@ static int UsbSetupIntrSystem(XScuGic *IntcInstancePtr,
 		return XST_FAILURE;
 	}
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -542,16 +541,16 @@ static int UsbSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-				    (Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				    IntcInstancePtr);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 	/*
 	 * Connect the device driver handler that will be called when an
 	 * interrupt for the device occurs, the handler defined above performs
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, UsbIntrId,
-				(Xil_ExceptionHandler)XUsbPs_IntrHandler,
-				(void *)UsbInstancePtr);
+				 (Xil_ExceptionHandler)XUsbPs_IntrHandler,
+				 (void *)UsbInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}

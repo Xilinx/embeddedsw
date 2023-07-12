@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -115,7 +116,7 @@ static u8 txBuffer[128] ALIGNMENT_CACHELINE;
 *
 ******************************************************************************/
 void XUsbPs_HandleStorageReq(XUsbPs *InstancePtr, u8 EpNum,
-				u8 *BufferPtr, u32 BufferLen)
+			     u8 *BufferPtr, u32 BufferLen)
 {
 	USB_CBW	*CBW;
 	u32	Offset;
@@ -131,199 +132,196 @@ void XUsbPs_HandleStorageReq(XUsbPs *InstancePtr, u8 EpNum,
 		CBW = (USB_CBW *) BufferPtr;
 
 		switch (CBW->CBWCB[0]) {
-		case USB_RBC_INQUIRY:
+			case USB_RBC_INQUIRY:
 #ifdef CLASS_STORAGE_DEBUG
- 			printf("SCSI: INQUIRY\n");
+				printf("SCSI: INQUIRY\n");
 #endif
-			XUsbPs_EpBufferSend(InstancePtr, 1,
-						(void *) &scsiInquiry,
-						sizeof(scsiInquiry));
-			/* Send Success Status 	 */
-			CBW->dCBWSignature = 0x55534253;
-			CBW->dCBWDataTransferLength = 0;
-			CBW->bmCBWFlags = 0;
+				XUsbPs_EpBufferSend(InstancePtr, 1,
+						    (void *) &scsiInquiry,
+						    sizeof(scsiInquiry));
+				/* Send Success Status 	 */
+				CBW->dCBWSignature = 0x55534253;
+				CBW->dCBWDataTransferLength = 0;
+				CBW->bmCBWFlags = 0;
 
-			XUsbPs_EpBufferSend(InstancePtr, 1, (void *) CBW, 13);
-			break;
+				XUsbPs_EpBufferSend(InstancePtr, 1, (void *) CBW, 13);
+				break;
 
 
-		case USB_UFI_GET_CAP_LIST:
-		{
-			SCSI_CAP_LIST	*CapList;
+			case USB_UFI_GET_CAP_LIST: {
+					SCSI_CAP_LIST	*CapList;
 
-			CapList = (SCSI_CAP_LIST *) txBuffer;
+					CapList = (SCSI_CAP_LIST *) txBuffer;
 #ifdef CLASS_STORAGE_DEBUG
- 			printf("SCSI: CAPLIST\n");
+					printf("SCSI: CAPLIST\n");
 #endif
-			CapList->listLength	= 8;
-			CapList->descCode	= 3;
-			CapList->numBlocks	= htonl(VFLASH_NUM_BLOCKS);
-			CapList->blockLength	= htons(VFLASH_BLOCK_SIZE);
-			XUsbPs_EpBufferSend(InstancePtr, 1, txBuffer,
+					CapList->listLength	= 8;
+					CapList->descCode	= 3;
+					CapList->numBlocks	= htonl(VFLASH_NUM_BLOCKS);
+					CapList->blockLength	= htons(VFLASH_BLOCK_SIZE);
+					XUsbPs_EpBufferSend(InstancePtr, 1, txBuffer,
+							    sizeof(SCSI_CAP_LIST));
+					/* Send Success Status
+					 */
+					CBW->dCBWSignature = 0x55534253;
+					CBW->dCBWDataTransferLength =
+						be2le(be2le(CBW->dCBWDataTransferLength) -
 						      sizeof(SCSI_CAP_LIST));
-			/* Send Success Status
-			 */
-			CBW->dCBWSignature = 0x55534253;
-			CBW->dCBWDataTransferLength =
-				be2le(be2le(CBW->dCBWDataTransferLength) -
-						      sizeof(SCSI_CAP_LIST));
-			CBW->bmCBWFlags = 0;
+					CBW->bmCBWFlags = 0;
 
-			XUsbPs_EpBufferSend(InstancePtr, 1, (u8 *) CBW, 13);
-			break;
-		}
+					XUsbPs_EpBufferSend(InstancePtr, 1, (u8 *) CBW, 13);
+					break;
+				}
 
-		case USB_RBC_READ_CAP:
-		{
-			SCSI_READ_CAPACITY	*Cap;
+			case USB_RBC_READ_CAP: {
+					SCSI_READ_CAPACITY	*Cap;
 
-			Cap = (SCSI_READ_CAPACITY *) txBuffer;
+					Cap = (SCSI_READ_CAPACITY *) txBuffer;
 #ifdef CLASS_STORAGE_DEBUG
- 			printf("SCSI: READCAP\n");
+					printf("SCSI: READCAP\n");
 #endif
-			Cap->numBlocks = htonl(VFLASH_NUM_BLOCKS - 1);
-			Cap->blockSize = htonl(VFLASH_BLOCK_SIZE);
-			XUsbPs_EpBufferSend(InstancePtr, 1, txBuffer,
-					      sizeof(SCSI_READ_CAPACITY));
-			/* Send Success Status  */
-			CBW->dCBWSignature = 0x55534253;
-			CBW->dCBWDataTransferLength = 0;
-			CBW->bmCBWFlags = 0;
+					Cap->numBlocks = htonl(VFLASH_NUM_BLOCKS - 1);
+					Cap->blockSize = htonl(VFLASH_BLOCK_SIZE);
+					XUsbPs_EpBufferSend(InstancePtr, 1, txBuffer,
+							    sizeof(SCSI_READ_CAPACITY));
+					/* Send Success Status  */
+					CBW->dCBWSignature = 0x55534253;
+					CBW->dCBWDataTransferLength = 0;
+					CBW->bmCBWFlags = 0;
 
-			XUsbPs_EpBufferSend(InstancePtr, 1, (u8 *) CBW, 13);
-			break;
-		}
+					XUsbPs_EpBufferSend(InstancePtr, 1, (u8 *) CBW, 13);
+					break;
+				}
 
-		case USB_RBC_READ:
-			Offset = htonl(((SCSI_READ_WRITE *) CBW->CBWCB)->
-				       block) * VFLASH_BLOCK_SIZE;
+			case USB_RBC_READ:
+				Offset = htonl(((SCSI_READ_WRITE *) CBW->CBWCB)->
+					       block) * VFLASH_BLOCK_SIZE;
 #ifdef CLASS_STORAGE_DEBUG
-			printf("SCSI: READ Offset 0x%08x\n", (int) Offset);
+				printf("SCSI: READ Offset 0x%08x\n", (int) Offset);
 #endif
-			XUsbPs_EpBufferSend(InstancePtr, 1, &VirtFlash[Offset],
-				      htons(((SCSI_READ_WRITE *) CBW->CBWCB)->
-					    length) * VFLASH_BLOCK_SIZE);
-			/* Send Success Status */
-			CBW->dCBWSignature = 0x55534253;
-			CBW->dCBWDataTransferLength = 0;
-			CBW->bmCBWFlags = 0;
-
-			XUsbPs_EpBufferSend(InstancePtr, 1, (u8 *) CBW, 13);
-			break;
-
-		case USB_RBC_MODE_SENSE:
-#ifdef CLASS_STORAGE_DEBUG
- 			printf("SCSI: MODE SENSE\n");
-#endif
-			XUsbPs_EpBufferSend(InstancePtr, 1,
-				      (u8 *) "\003\000\000\000", 4);
-
-			/* Send Success Status */
-			CBW->dCBWSignature = 0x55534253;
-			CBW->dCBWDataTransferLength =
-				be2le(be2le(CBW->dCBWDataTransferLength) - 4);
-			CBW->bmCBWFlags = 0;
-
-			XUsbPs_EpBufferSend(InstancePtr, 1, (u8 *) CBW, 13);
-			break;
-
-
-		case USB_RBC_TEST_UNIT_READY:
-		case USB_RBC_MEDIUM_REMOVAL:
-		case USB_RBC_VERIFY:
-#ifdef CLASS_STORAGE_DEBUG
- 			printf("SCSI: TEST UNIT READY\n");
-#endif
-			/* Send Success Status */
-			CBW->dCBWSignature = 0x55534253;
-			CBW->dCBWDataTransferLength = 0;
-			CBW->bmCBWFlags = 0;
-
-			XUsbPs_EpBufferSend(InstancePtr, 1, (u8 *) CBW, 13);
-			break;
-
-
-		case USB_RBC_WRITE:
-			Offset = htonl(((SCSI_READ_WRITE *) CBW->CBWCB)->
-				       block) * VFLASH_BLOCK_SIZE;
-#ifdef CLASS_STORAGE_DEBUG
-			printf("SCSI: WRITE Offset 0x%08x\n", (int) Offset);
-#endif
-			VirtFlashWritePointer = &VirtFlash[Offset];
-			/* Save the CBW for the DATA and STATUS phases. */
-			lastCBW = *CBW;
-			rxBytesLeft =
-				htons(((SCSI_READ_WRITE *) CBW->CBWCB)->length)
-							* VFLASH_BLOCK_SIZE;
-
-			phase = USB_EP_STATE_DATA;
-			break;
-
-
-		case USB_RBC_STARTSTOP_UNIT:
-		{
-			u8 immed;
-
-			immed = ((SCSI_START_STOP *) CBW->CBWCB)->immed;
-#ifdef CLASS_STORAGE_DEBUG
-			printf("SCSI: START/STOP unit: immed %02x\n", immed);
-#endif
-			/* If the immediate bit is 0 we are supposed to send
-			 * a success status.
-			 */
-			if (0 == (immed & 0x01)) {
+				XUsbPs_EpBufferSend(InstancePtr, 1, &VirtFlash[Offset],
+						    htons(((SCSI_READ_WRITE *) CBW->CBWCB)->
+							  length) * VFLASH_BLOCK_SIZE);
 				/* Send Success Status */
 				CBW->dCBWSignature = 0x55534253;
 				CBW->dCBWDataTransferLength = 0;
 				CBW->bmCBWFlags = 0;
 
-				XUsbPs_EpBufferSend(InstancePtr, 1,
-							(u8 *) CBW, 13);
-			}
-			break;
-		}
+				XUsbPs_EpBufferSend(InstancePtr, 1, (u8 *) CBW, 13);
+				break;
 
-
-		/* Commands that we do not support for this example. */
-		case 0x04:	/* Format Unit */
-		case 0x15:	/* Mode Select */
-		case 0x5e:	/* Persistent Reserve In */
-		case 0x5f:	/* Persistent Reserve Out */
-		case 0x17:	/* Release */
-		case 0x03:	/* Request Sense */
-		case 0x16:	/* Reserve */
-		case 0x35:	/* Sync Cache */
-		case 0x3b:	/* Write Buffer */
+			case USB_RBC_MODE_SENSE:
 #ifdef CLASS_STORAGE_DEBUG
-			printf("SCSI: Got unhandled command %02x\n", CBW->CBWCB[0]);
+				printf("SCSI: MODE SENSE\n");
 #endif
-		default:
-			break;
+				XUsbPs_EpBufferSend(InstancePtr, 1,
+						    (u8 *) "\003\000\000\000", 4);
+
+				/* Send Success Status */
+				CBW->dCBWSignature = 0x55534253;
+				CBW->dCBWDataTransferLength =
+					be2le(be2le(CBW->dCBWDataTransferLength) - 4);
+				CBW->bmCBWFlags = 0;
+
+				XUsbPs_EpBufferSend(InstancePtr, 1, (u8 *) CBW, 13);
+				break;
+
+
+			case USB_RBC_TEST_UNIT_READY:
+			case USB_RBC_MEDIUM_REMOVAL:
+			case USB_RBC_VERIFY:
+#ifdef CLASS_STORAGE_DEBUG
+				printf("SCSI: TEST UNIT READY\n");
+#endif
+				/* Send Success Status */
+				CBW->dCBWSignature = 0x55534253;
+				CBW->dCBWDataTransferLength = 0;
+				CBW->bmCBWFlags = 0;
+
+				XUsbPs_EpBufferSend(InstancePtr, 1, (u8 *) CBW, 13);
+				break;
+
+
+			case USB_RBC_WRITE:
+				Offset = htonl(((SCSI_READ_WRITE *) CBW->CBWCB)->
+					       block) * VFLASH_BLOCK_SIZE;
+#ifdef CLASS_STORAGE_DEBUG
+				printf("SCSI: WRITE Offset 0x%08x\n", (int) Offset);
+#endif
+				VirtFlashWritePointer = &VirtFlash[Offset];
+				/* Save the CBW for the DATA and STATUS phases. */
+				lastCBW = *CBW;
+				rxBytesLeft =
+					htons(((SCSI_READ_WRITE *) CBW->CBWCB)->length)
+					* VFLASH_BLOCK_SIZE;
+
+				phase = USB_EP_STATE_DATA;
+				break;
+
+
+			case USB_RBC_STARTSTOP_UNIT: {
+					u8 immed;
+
+					immed = ((SCSI_START_STOP *) CBW->CBWCB)->immed;
+#ifdef CLASS_STORAGE_DEBUG
+					printf("SCSI: START/STOP unit: immed %02x\n", immed);
+#endif
+					/* If the immediate bit is 0 we are supposed to send
+					 * a success status.
+					 */
+					if (0 == (immed & 0x01)) {
+						/* Send Success Status */
+						CBW->dCBWSignature = 0x55534253;
+						CBW->dCBWDataTransferLength = 0;
+						CBW->bmCBWFlags = 0;
+
+						XUsbPs_EpBufferSend(InstancePtr, 1,
+								    (u8 *) CBW, 13);
+					}
+					break;
+				}
+
+
+			/* Commands that we do not support for this example. */
+			case 0x04:	/* Format Unit */
+			case 0x15:	/* Mode Select */
+			case 0x5e:	/* Persistent Reserve In */
+			case 0x5f:	/* Persistent Reserve Out */
+			case 0x17:	/* Release */
+			case 0x03:	/* Request Sense */
+			case 0x16:	/* Reserve */
+			case 0x35:	/* Sync Cache */
+			case 0x3b:	/* Write Buffer */
+#ifdef CLASS_STORAGE_DEBUG
+				printf("SCSI: Got unhandled command %02x\n", CBW->CBWCB[0]);
+#endif
+			default:
+				break;
 		}
 	}
 	/* DATA phase.
 	 */
 	else if (USB_EP_STATE_DATA == phase) {
 		switch (lastCBW.CBWCB[0]) {
-		case USB_RBC_WRITE:
-			/* Copy the data we just read into the VirtFlash buffer. */
-			memcpy(VirtFlashWritePointer, BufferPtr, BufferLen);
-			VirtFlashWritePointer += BufferLen;
+			case USB_RBC_WRITE:
+				/* Copy the data we just read into the VirtFlash buffer. */
+				memcpy(VirtFlashWritePointer, BufferPtr, BufferLen);
+				VirtFlashWritePointer += BufferLen;
 
-			rxBytesLeft -= BufferLen;
+				rxBytesLeft -= BufferLen;
 
-			if (rxBytesLeft <= 0) {
-				/* Send Success Status */
-				lastCBW.dCBWSignature = 0x55534253;
-				lastCBW.dCBWDataTransferLength = 0;
-				lastCBW.bmCBWFlags = 0;
+				if (rxBytesLeft <= 0) {
+					/* Send Success Status */
+					lastCBW.dCBWSignature = 0x55534253;
+					lastCBW.dCBWDataTransferLength = 0;
+					lastCBW.bmCBWFlags = 0;
 
-				XUsbPs_EpBufferSend(InstancePtr, 1,
-						      (void *) &lastCBW, 13);
+					XUsbPs_EpBufferSend(InstancePtr, 1,
+							    (void *) &lastCBW, 13);
 
-				phase = USB_EP_STATE_COMMAND;
-			}
-			break;
+					phase = USB_EP_STATE_COMMAND;
+				}
+				break;
 		}
 	}
 }
@@ -351,17 +349,17 @@ void XUsbPs_ClassReq(XUsbPs *InstancePtr, XUsbPs_SetupData *SetupData)
 
 	switch (SetupData->bRequest) {
 
-	case XUSBPS_CLASSREQ_MASS_STORAGE_RESET:
-		XUsbPs_EpBufferSend(InstancePtr, 0, NULL, 0);
-		break;
+		case XUSBPS_CLASSREQ_MASS_STORAGE_RESET:
+			XUsbPs_EpBufferSend(InstancePtr, 0, NULL, 0);
+			break;
 
-	case XUSBPS_CLASSREQ_GET_MAX_LUN:
-		XUsbPs_EpBufferSend(InstancePtr, 0, &MaxLUN, 1);
-		break;
+		case XUSBPS_CLASSREQ_GET_MAX_LUN:
+			XUsbPs_EpBufferSend(InstancePtr, 0, &MaxLUN, 1);
+			break;
 
-	default:
-		XUsbPs_EpStall(InstancePtr, 0, XUSBPS_EP_DIRECTION_IN);
-		break;
+		default:
+			XUsbPs_EpStall(InstancePtr, 0, XUSBPS_EP_DIRECTION_IN);
+			break;
 	}
 }
 

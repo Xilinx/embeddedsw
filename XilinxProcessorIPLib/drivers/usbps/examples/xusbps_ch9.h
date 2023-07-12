@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -172,7 +173,7 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 int XUsbPs_Ch9HandleSetupPacket(XUsbPs *InstancePtr,
-				 XUsbPs_SetupData *SetupData);
+				XUsbPs_SetupData *SetupData);
 u8 XUsbPs_GetConfigDone(void *InstancePtr);
 void XUsbPs_SetConfigDone(void *InstancePtr, u8 Flag);
 

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -94,7 +95,8 @@ typedef struct {
 } USB_CBW;
 #pragma pack(pop)
 #else
-} __attribute__((__packed__))USB_CBW;
+}
+__attribute__((__packed__))USB_CBW;
 #endif
 
 #ifdef __ICCARM__
@@ -188,7 +190,7 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 void XUsbPs_HandleStorageReq(XUsbPs *InstancePtr, u8 EpNum,
-				u8 *BufferPtr, u32 BufferLen);
+			     u8 *BufferPtr, u32 BufferLen);
 void XUsbPs_ClassReq(XUsbPs *InstancePtr, XUsbPs_SetupData *SetupData);
 
 #ifdef __cplusplus

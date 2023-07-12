@@ -84,15 +84,15 @@ void XUsbPs_IntrHandler(void *HandlerRef)
 
 	/* Clear the interrupt status register. */
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_ISR_OFFSET, IrqSts);
+			XUSBPS_ISR_OFFSET, IrqSts);
 
 	/* Nak interrupt, used to respond to host's IN request */
-	if(IrqSts & XUSBPS_IXR_NAK_MASK) {
+	if (IrqSts & XUSBPS_IXR_NAK_MASK) {
 		/* Ack the hardware	 */
 		XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSBPS_EPNAKISR_OFFSET,
-			XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-						XUSBPS_EPNAKISR_OFFSET));
+				XUSBPS_EPNAKISR_OFFSET,
+				XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
+					       XUSBPS_EPNAKISR_OFFSET));
 	}
 
 
@@ -135,25 +135,25 @@ void XUsbPs_IntrHandler(void *HandlerRef)
 		 * is possible to send setup packets on other endpoints).
 		 */
 		EpStat = XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-						XUSBPS_EPSTAT_OFFSET);
+					XUSBPS_EPSTAT_OFFSET);
 		if (EpStat & 0x0001) {
 			/* Handle the setup packet */
 			XUsbPs_IntrHandleEp0Setup(InstancePtr);
 
 			/* Re-Prime the endpoint.
 			 * Endpoint is de-primed if a setup packet comes in.
-	 		 */
+			 */
 			XUsbPs_EpPrime(InstancePtr, 0, XUSBPS_EP_DIRECTION_OUT);
 		}
 
 		/* Check for RX and TX complete interrupts. */
 		EpCompl = XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-						XUSBPS_EPCOMPL_OFFSET);
+					 XUSBPS_EPCOMPL_OFFSET);
 
 
 		/* ACK the complete interrupts. */
 		XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSBPS_EPCOMPL_OFFSET, EpCompl);
+				XUSBPS_EPCOMPL_OFFSET, EpCompl);
 
 		/* Check OUT (RX) endpoints. */
 		if (EpCompl & XUSBPS_EP_OUT_MASK) {
@@ -190,8 +190,8 @@ void XUsbPs_IntrHandler(void *HandlerRef)
 *
 ******************************************************************************/
 int XUsbPs_IntrSetHandler(XUsbPs *InstancePtr,
-			   XUsbPs_IntrHandlerFunc CallBackFunc,
-			   void *CallBackRef, u32 Mask)
+			  XUsbPs_IntrHandlerFunc CallBackFunc,
+			  void *CallBackRef, u32 Mask)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -257,27 +257,27 @@ static void XUsbPs_IntrHandleTX(XUsbPs *InstancePtr, u32 EpCompl)
 
 
 			if (InstancePtr->DeviceConfig.EpCfg[Index].In.Type ==
-						XUSBPS_EP_TYPE_ISOCHRONOUS) {
+			    XUSBPS_EP_TYPE_ISOCHRONOUS) {
 				if (Ep->HandlerIsoFunc) {
 					Ep->HandlerIsoFunc(Ep->HandlerRef,
-							Ep->RequestedBytes,
-							Ep->BytesTxed);
+							   Ep->RequestedBytes,
+							   Ep->BytesTxed);
 				}
 			} else {
 				if (Ep->HandlerFunc) {
-				void *BufPtr;
+					void *BufPtr;
 
-				BufPtr = (void *) XUsbPs_ReaddTD(Ep->dTDTail,
-							XUSBPS_dTDUSERDATA);
+					BufPtr = (void *) XUsbPs_ReaddTD(Ep->dTDTail,
+									 XUSBPS_dTDUSERDATA);
 
-				Ep->HandlerFunc(Ep->HandlerRef, Index,
-						XUSBPS_EP_EVENT_DATA_TX,
-								BufPtr);
+					Ep->HandlerFunc(Ep->HandlerRef, Index,
+							XUSBPS_EP_EVENT_DATA_TX,
+							BufPtr);
 				}
 			}
 
 			Ep->dTDTail = XUsbPs_dTDGetNLP(Ep->dTDTail);
-		} while(Ep->dTDTail != Ep->dTDHead);
+		} while (Ep->dTDTail != Ep->dTDHead);
 	}
 }
 
@@ -330,25 +330,26 @@ static void XUsbPs_IntrHandleRX(XUsbPs *InstancePtr, u32 EpCompl)
 			 * taken.
 			 */
 			if (InstancePtr->DeviceConfig.EpCfg[Index].Out.Type ==
-						XUSBPS_EP_TYPE_ISOCHRONOUS){
+			    XUSBPS_EP_TYPE_ISOCHRONOUS) {
 				if (Index == 0) {
 					u8	BufferPtr[64] = {0};
 
 					/* Get the data buffer. */
 					XUsbPs_EpDataBufferReceive(InstancePtr,
-							0, &BufferPtr[0], 64);
+								   0, &BufferPtr[0], 64);
 					Ep->MemAlloted = 0;
 				}
 
 				if (Ep->MemAlloted == 1) {
 					XUsbPs_EpGetData(InstancePtr, Index,
-							Ep->RequestedBytes);
-				} else
+							 Ep->RequestedBytes);
+				} else {
 					break;
+				}
 			} else {
 				if (Ep->HandlerFunc) {
-				Ep->HandlerFunc(Ep->HandlerRef, Index,
-						XUSBPS_EP_EVENT_DATA_RX, NULL);
+					Ep->HandlerFunc(Ep->HandlerRef, Index,
+							XUSBPS_EP_EVENT_DATA_RX, NULL);
 				}
 
 				Ep->dTDCurr = XUsbPs_dTDGetNLP(Ep->dTDCurr);
@@ -380,11 +381,12 @@ static void XUsbPs_IntrHandleReset(XUsbPs *InstancePtr, u32 IrqSts)
 	u32 Timeout;
 	u8 Index;
 
-	if (InstancePtr->AppData != NULL)
+	if (InstancePtr->AppData != NULL) {
 		InstancePtr->AppData->State = XUSBPS_STATE_DEFAULT;
+	}
 
 	for (Index = 0; Index < InstancePtr->DeviceConfig.NumEndpoints;
-					Index++) {
+	     Index++) {
 		InstancePtr->DeviceConfig.Ep[Index].Out.MemAlloted = 0;
 		InstancePtr->DeviceConfig.Ep[Index].Out.BufferPtr = NULL;
 		InstancePtr->DeviceConfig.Ep[Index].Out.BytesTxed = 0;
@@ -399,8 +401,8 @@ static void XUsbPs_IntrHandleReset(XUsbPs *InstancePtr, u32 IrqSts)
 	 * itself.
 	 */
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress, XUSBPS_EPSTAT_OFFSET,
-		XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_EPSTAT_OFFSET));
+			XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
+				       XUSBPS_EPSTAT_OFFSET));
 
 	/* Clear all the endpoint complete status bits by reading the
 	 * XUSBPS_EPCOMPL_OFFSET register and writings its value back
@@ -408,8 +410,8 @@ static void XUsbPs_IntrHandleReset(XUsbPs *InstancePtr, u32 IrqSts)
 	 */
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
 			XUSBPS_EPCOMPL_OFFSET,
-		XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_EPCOMPL_OFFSET));
+			XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
+				       XUSBPS_EPCOMPL_OFFSET));
 
 	/* Cancel all endpoint prime status by waiting until all bits
 	 * in XUSBPS_EPPRIME_OFFSET are 0 and then writing 0xFFFFFFFF
@@ -419,12 +421,12 @@ static void XUsbPs_IntrHandleReset(XUsbPs *InstancePtr, u32 IrqSts)
 	 */
 	Timeout = XUSBPS_TIMEOUT_COUNTER;
 	while ((XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-					XUSBPS_EPPRIME_OFFSET) &
-					XUSBPS_EP_ALL_MASK) && --Timeout) {
+			       XUSBPS_EPPRIME_OFFSET) &
+		XUSBPS_EP_ALL_MASK) && --Timeout) {
 		/* NOP */
 	}
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_EPFLUSH_OFFSET, 0xFFFFFFFF);
+			XUSBPS_EPFLUSH_OFFSET, 0xFFFFFFFF);
 
 	/* Make sure that the reset bit in XUSBPS_PORTSCR1_OFFSET is
 	 * still set at this point. If the code gets to this point and
@@ -432,8 +434,8 @@ static void XUsbPs_IntrHandleReset(XUsbPs *InstancePtr, u32 IrqSts)
 	 * hardware reset is necessary.
 	 */
 	if (!(XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_PORTSCR1_OFFSET) &
-				XUSBPS_PORTSCR_PR_MASK)) {
+			     XUSBPS_PORTSCR1_OFFSET) &
+	      XUSBPS_PORTSCR_PR_MASK)) {
 		/* Send a notification to the user that a hardware
 		 * RESET is required. At this point we can only hope
 		 * that the user registered an interrupt handler and
@@ -442,8 +444,7 @@ static void XUsbPs_IntrHandleReset(XUsbPs *InstancePtr, u32 IrqSts)
 		if (InstancePtr->HandlerFunc) {
 			(InstancePtr->HandlerFunc)(InstancePtr->HandlerRef,
 						   IrqSts);
-		}
-		else {
+		} else {
 			for (;;);
 		}
 
