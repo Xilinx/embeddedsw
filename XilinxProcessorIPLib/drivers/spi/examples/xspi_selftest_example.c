@@ -97,8 +97,8 @@ int main(void)
 	Status = SpiSelfTestExample(XPAR_XSPI_0_BASEADDR);
 #endif
 	if (Status != XST_SUCCESS) {
-	xil_printf("Spi selftest Example Failed\r\n");
-	return XST_FAILURE;
+		xil_printf("Spi selftest Example Failed\r\n");
+		return XST_FAILURE;
 	}
 
 	xil_printf("Successfully ran Spi selftest Example\r\n");
@@ -145,7 +145,7 @@ int SpiSelfTestExample(UINTPTR BaseAddress)
 	}
 
 	Status = XSpi_CfgInitialize(&Spi, ConfigPtr,
-				  ConfigPtr->BaseAddress);
+				    ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

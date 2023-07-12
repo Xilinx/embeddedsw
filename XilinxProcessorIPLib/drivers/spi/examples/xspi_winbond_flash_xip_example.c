@@ -148,7 +148,7 @@ int SpiXipExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 	}
 
 	Status = XSpi_CfgInitialize(SpiInstancePtr, ConfigPtr,
-				  ConfigPtr->BaseAddress);
+				    ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
