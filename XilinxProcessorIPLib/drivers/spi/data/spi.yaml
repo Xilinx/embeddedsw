@@ -1,0 +1,97 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for SPIPS controller
+
+maintainers:
+    - Srikanth Boyapally <srikanth.boyapally@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-quad-spi-3.2
+          - xlnx,xps-spi-2.00.a
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,hasfifos:
+    description: Input clock frequency
+  xlnx,slaveonly:
+    description: Is the device slave only
+  xlnx,num-ss-bits:
+    description: Num of slave select bits on the device
+  bits-per-word:
+    description: Data transfer Width
+  xlnx,spi-mode:
+    description: Standard/Dual/Quad mode
+  xlnx,axiinterface:
+    description: AXI-Lite/AXI Full Interface
+  xlnx,AxiFullBaseAddress:
+    description: AXI Full Interface Base address of the device
+  xlnx,xipmode:
+    description: 0 if Non-XIP, 1 if XIP Mode
+  xlnx,startup-block:
+    description: 1 if Starup block is used in h/w
+  interrupts:
+    description: interrupt id
+  interrupt-parent:
+    description: interrupt parent connected
+
+config:
+    - XSpi_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,hasfifos
+    - xlnx,slaveonly
+    - xlnx,num-ss-bits
+    - bits-per-word
+    - xlnx,spi-mode
+    - xlnx,axi-interface
+    - xlnx,Axi4-address
+    - xlnx,xip-mode
+    - xlnx,startup-block
+    - fifo-size
+    - interrupts
+    - interrupt-parent
+examples:
+    xspi_polled_example.c:
+        - reg
+    xspi_slave_polled_example.c:
+        - reg
+    xspi_low_level_example.c:
+        - reg
+    xspi_winbond_flash_xip_example.c:
+        - reg
+    xspi_selftest_example.c:
+        - reg
+    xspi_stm_flash_example.c:
+        - reg
+    xspi_intr_example.c:
+        - interrupts
+    xspi_atmel_flash_example.c:
+        - interrupts
+    xspi_eeprom_example.c:
+        - interrupts
+    xspi_intel_flash_example.c:
+        - interrupts
+    xspi_winbond_flash_quad_example.c:
+        - interrupts
+    xspi_numonyx_flash_quad_example.c:
+        - interrupts
+    xspi_slave_intr_example.c:
+        - interrupts
+
+tapp:
+   xspi_selftest_example.c:
+        declaration: SpiSelfTestExample
+   xspi_intr_example.c:
+        declaration: SpiIntrExample
+        hwproperties:
+            - interrupts
+...
