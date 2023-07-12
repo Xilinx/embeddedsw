@@ -3796,23 +3796,23 @@ static XHdmi_MenuType XHdmi_OnSemiDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
     case 5 :
 	xil_printf("-----TX Reg dump -------\r\n");
-#if defined (XPS_BOARD_VEK280_ES)
+#if defined (XPS_BOARD_VEK280)
 	if (Vfmc[0].isTxTi == 1) {
 		TI_TMDS1204_RegisterDump(&Iic,0x5E);
 	} else {
 #endif
 		ONSEMI_NB7NQ621M_RegisterDump(&Iic,0x5B);
-#if defined (XPS_BOARD_VEK280_ES)
+#if defined (XPS_BOARD_VEK280)
 	}
 #endif
 	xil_printf("-----RX Reg dump -------\r\n");
-#if defined (XPS_BOARD_VEK280_ES)
+#if defined (XPS_BOARD_VEK280)
 	if (Vfmc[0].isRxTi == 1) {
 		TI_TMDS1204_RegisterDump(&Iic,0x5B);
 	} else {
 #endif
 		ONSEMI_NB7NQ621M_RegisterDump(&Iic,0x5C);
-#if defined (XPS_BOARD_VEK280_ES)
+#if defined (XPS_BOARD_VEK280)
 	}
 #endif
 	break;

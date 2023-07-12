@@ -27,14 +27,14 @@
 /***************************** Include Files *********************************/
 #include "rc21008adrv.h"
 
-#if defined (XPS_BOARD_VEK280_ES)
+#if defined (XPS_BOARD_VEK280)
 /************************** Constant Definitions *****************************/
 #define IDT_8T49N24X_ADV_FUNC_EN 0 /* Enable unused APIs */
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES)
+	defined (XPS_BOARD_VEK280)
 #define I2C_REPEATED_START 0x01
 #define I2C_STOP 0x00
 #else
@@ -80,7 +80,7 @@ static unsigned RC21008A_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES)
+	defined (XPS_BOARD_VEK280)
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 

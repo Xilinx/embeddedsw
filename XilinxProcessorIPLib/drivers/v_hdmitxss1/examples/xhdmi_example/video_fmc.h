@@ -47,7 +47,10 @@
 #include "ti_lmk03318.h"
 #include "onsemi_nb7nq621m.h"
 #include "si5344drv.h"
-#if defined (XPS_BOARD_VEK280_ES)
+#if defined (XPS_BOARD_VEK280_ES) || (XPS_BOARD_VEK280_ES_REVB)
+#define XPS_BOARD_VEK280
+#endif
+#if defined (XPS_BOARD_VEK280)
 #include "ti_tmds1204.h"
 #include "rc21008adrv.h"
 #endif
