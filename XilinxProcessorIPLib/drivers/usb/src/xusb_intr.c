@@ -81,10 +81,10 @@ void XUsb_IntrEnable(XUsb *InstancePtr, u32 Mask)
 	 * Write to the Interrupt Enable Register to enable the interrupts.
 	 */
 	IntrValue = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-				  XUSB_IER_OFFSET);
+				 XUSB_IER_OFFSET);
 	IntrValue |= (Mask & (XUSB_STATUS_INTR_ALL_MASK));
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			XUSB_IER_OFFSET, IntrValue);
+		      XUSB_IER_OFFSET, IntrValue);
 
 }
 
@@ -115,10 +115,10 @@ void XUsb_IntrDisable(XUsb *InstancePtr, u32 Mask)
 	 * Write to the Interrupt Enable Register to disable the interrupts.
 	 */
 	IntrValue = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-				  XUSB_IER_OFFSET);
+				 XUSB_IER_OFFSET);
 	IntrValue &= (~(Mask & (XUSB_STATUS_INTR_ALL_MASK)));
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			XUSB_IER_OFFSET, IntrValue);
+		      XUSB_IER_OFFSET, IntrValue);
 
 }
 
@@ -169,17 +169,17 @@ void XUsb_IntrHandler(void *InstancePtr)
 	 * Read the Interrupt Enable Register.
 	 */
 	IntrEnable = XUsb_ReadReg(UsbInstPtr->Config.BaseAddress,
-				   XUSB_IER_OFFSET);
+				  XUSB_IER_OFFSET);
 
 	/*
 	 * Read the Interrupt Status Register.
 	 */
 	IntrStatus = XUsb_ReadReg(UsbInstPtr->Config.BaseAddress,
-				   XUSB_STATUS_OFFSET);
+				  XUSB_STATUS_OFFSET);
 
 
 	if ((IntrStatus & XUSB_STATUS_HIGH_SPEED_MASK) ==
-			XUSB_STATUS_HIGH_SPEED_MASK) {
+	    XUSB_STATUS_HIGH_SPEED_MASK) {
 		UsbInstPtr->DeviceConfig.CurrentSpeed =
 			XUSB_EP_HIGH_SPEED;
 	} else {
@@ -220,7 +220,7 @@ void XUsb_IntrHandler(void *InstancePtr)
 			Ep = &UsbInstPtr->DeviceConfig.Ep[XUSB_EP_NUMBER_ZERO];
 			if (Ep->HandlerFunc) {
 				Ep->HandlerFunc(Ep->HandlerRef,
-				XUSB_EP_NUMBER_ZERO, IntrStatus);
+						XUSB_EP_NUMBER_ZERO, IntrStatus);
 
 			}
 		}
@@ -229,22 +229,22 @@ void XUsb_IntrHandler(void *InstancePtr)
 		 * Process the endpoint buffer interrupts.
 		 */
 		for (Index = 0; Index <
-				(UsbInstPtr->DeviceConfig.NumEndpoints - 1);
-					Index++) {
+		     (UsbInstPtr->DeviceConfig.NumEndpoints - 1);
+		     Index++) {
 
 			if ((PendingIntr &
-				(XUSB_STATUS_EP1_BUFF1_COMP_MASK << Index)) ||
-				(PendingIntr &
-					(XUSB_STATUS_EP1_BUFF2_COMP_MASK <<
-						Index))) {
+			     (XUSB_STATUS_EP1_BUFF1_COMP_MASK << Index)) ||
+			    (PendingIntr &
+			     (XUSB_STATUS_EP1_BUFF2_COMP_MASK <<
+			      Index))) {
 
 				Ep = &UsbInstPtr->DeviceConfig.Ep[Index + 1];
 				if (Ep->HandlerFunc) {
 					Ep->HandlerFunc(Ep->HandlerRef,
-					(Index + 1), (PendingIntr & (
-					(XUSB_STATUS_EP1_BUFF1_COMP_MASK |
-				 		XUSB_STATUS_EP1_BUFF2_COMP_MASK)
-				 		<< Index)));
+							(Index + 1), (PendingIntr & (
+									      (XUSB_STATUS_EP1_BUFF1_COMP_MASK |
+									       XUSB_STATUS_EP1_BUFF2_COMP_MASK)
+									      << Index)));
 
 				}
 			}
@@ -261,7 +261,7 @@ void XUsb_IntrHandler(void *InstancePtr)
 			 * Call the DMA event handler
 			 */
 			UsbInstPtr->DmaHandlerFunc(UsbInstPtr->DmaHandlerRef,
-				IntrStatus);
+						   IntrStatus);
 		}
 	}
 
@@ -274,7 +274,7 @@ void XUsb_IntrHandler(void *InstancePtr)
 		 * Call the error handler
 		 */
 		UsbInstPtr->ErrHandlerFunc(UsbInstPtr->ErrHandlerRef,
-			IntrStatus);
+					   IntrStatus);
 
 	}
 
@@ -287,7 +287,7 @@ void XUsb_IntrHandler(void *InstancePtr)
 		 * Call the ULPI PHY handler
 		 */
 		UsbInstPtr->UlpiHandlerFunc(UsbInstPtr->UlpiHandlerRef,
-			IntrStatus);
+					    IntrStatus);
 
 	}
 }
@@ -342,7 +342,7 @@ void XUsb_IntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
 *
 ******************************************************************************/
 void XUsb_EpSetHandler(XUsb *InstancePtr, u8 EpNum,
-			XUsb_EpHandlerFunc *CallBackFunc, void *CallBackRef)
+		       XUsb_EpHandlerFunc *CallBackFunc, void *CallBackRef)
 {
 	XUsb_EpConfig *Ep;
 
@@ -376,7 +376,7 @@ void XUsb_EpSetHandler(XUsb *InstancePtr, u8 EpNum,
 *
 ******************************************************************************/
 void XUsb_ErrIntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
-			 void *CallBackRef)
+			    void *CallBackRef)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -406,7 +406,7 @@ void XUsb_ErrIntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
 *
 ******************************************************************************/
 void XUsb_DmaIntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
-			 void *CallBackRef)
+			    void *CallBackRef)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -436,7 +436,7 @@ void XUsb_DmaIntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
 *
 ******************************************************************************/
 void XUsb_UlpiIntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
-			 void *CallBackRef)
+			     void *CallBackRef)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);

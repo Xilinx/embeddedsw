@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -92,34 +93,35 @@ extern IntChar UsbMemData;		/* Dual Port memory */
 extern u32 AltSetting;
 USB_STD_DEV_DESC DeviceDescriptor __attribute__ ((aligned(4))) = {
 	sizeof(USB_STD_DEV_DESC),	/* Descriptor Size 18 bytes */
-		DEVICE_DESCR,	/* This is a device descriptor */
+	DEVICE_DESCR,	/* This is a device descriptor */
 #ifdef __LITTLE_ENDIAN__
-		0x0200,		/* USB version */
+	0x0200,		/* USB version */
 #else
-		0x02,		/* USB version */
+	0x02,		/* USB version */
 #endif
-		0,		/* Vendor Specific */
-		00,		/* Unused */
-		00,		/* Unused */
-		0x40,		/* Ep0 Max Pkt Size 64 bytes */
+	0,		/* Vendor Specific */
+	00,		/* Unused */
+	00,		/* Unused */
+	0x40,		/* Ep0 Max Pkt Size 64 bytes */
 #ifdef __LITTLE_ENDIAN__
-		0x03FD,		/* Vendor Id */
-		0x0200,		/* Product Id */
-		0x0100,		/* BCD device */
+	0x03FD,		/* Vendor Id */
+	0x0200,		/* Product Id */
+	0x0100,		/* BCD device */
 #else
-		0xFD03,		/* Vendor Id */
-		0x0002,		/* Product Id */
-		0x01,		/* BCD device */
+	0xFD03,		/* Vendor Id */
+	0x0002,		/* Product Id */
+	0x01,		/* BCD device */
 #endif
-		01,		/* String Index of manufacturer */
-		02,		/* String Index of product */
-		03,		/* String Index of serial number */
-		01		/* Number of configurations */
+	01,		/* String Index of manufacturer */
+	02,		/* String Index of product */
+	03,		/* String Index of serial number */
+	01		/* Number of configurations */
 };
 
 USB_STD_QUAL_DESC QualifierDescriptor __attribute__ ((aligned(4))) = {
-sizeof(USB_STD_QUAL_DESC),
-		QUALIFIER_DESCR, 00, 02, 0, 00, 00, 0x40, 01, 0};
+	sizeof(USB_STD_QUAL_DESC),
+	QUALIFIER_DESCR, 00, 02, 0, 00, 00, 0x40, 01, 0
+};
 
 FPGA1_CONFIGURATION __attribute__ ((aligned(4))) HsUsbConfig = {
 	{
@@ -158,23 +160,23 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) HsUsbConfig = {
 		 * USB Audio Class-Specific AC Interface Header Descriptor
 		 */
 		sizeof(USB_CLASS_SPECIFIC_AC_IF_HEADER_DESC),
-					/* bLength */
+		/* bLength */
 		CS_INTERFACE,		/* bDescriptorType */
 		0x01,			/* bDescriptorSubtype */
 		0x00,			/* bcdADC - Audio Class 1.0 L*/
 		0x01,			/* bcdADC - Audio Class 1.0 H*/
 		(sizeof(USB_CLASS_SPECIFIC_AC_IF_HEADER_DESC) +
-		sizeof(USB_INPUT_TERMINAL_DESC) +
-		sizeof(USB_OUTPUT_TERMINAL_DESC)),
+		 sizeof(USB_INPUT_TERMINAL_DESC) +
+		 sizeof(USB_OUTPUT_TERMINAL_DESC)),
 		0x00,			/* wTotalLength */
 		0x01,			/* bInCollection How many
 					   Audio Streaming descriptors */
 		0x01			/* baInterfaceNr Their interface
 					   numbers */
-	 },
-	 {	/*
-	 	 * USB Audio Input Terminal Descriptor
-	 	 */
+	},
+	{	/*
+		 * USB Audio Input Terminal Descriptor
+		 */
 		sizeof(USB_INPUT_TERMINAL_DESC),	/* bLength */
 		CS_INTERFACE,			/* bDescriptorType */
 		INPUT_TERMINAL,			/* bDescriptorSubtype */
@@ -199,7 +201,7 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) HsUsbConfig = {
 		OUTPUT_TERMINAL,		/* bDescriptorSubtype*/
 		0x02,				/* bTerminalId */
 		0x01,				/* wTerminalType L*/
-						/* USB streaming */
+		/* USB streaming */
 		0x01,				/* wTerminalType H*/
 		0x00,				/* bAssocTerminal */
 		0x01,				/* bSourceId */
@@ -217,78 +219,78 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) HsUsbConfig = {
 		USB_CLASS_AUDIO,		/* bInterfaceClass */
 		USB_AUDIO_STREAMING,		/* bInterfaceSubclass*/
 		0x00,				/* bInterfaceProtocol*/
- 		0x00				/* iInterface*/
+		0x00				/* iInterface*/
 	},
 	{
-	{
-		/*
-		 * USB Standard Interface Descriptor (Alt. Set. 1)
-		 */
-		sizeof(USB_STD_IF_DESC),	/* bLength */
-		INTERFACE_DESCR,		/* bDescriptorType */
-		0x01,				/* bInterfaceNumber */
-		0x01,				/* bAlternateSetting */
-		0x01,				/* bNumEndpoints */
-		USB_CLASS_AUDIO,		/* bInterfaceClass */
-		USB_AUDIO_STREAMING,		/* bInterfaceSubclass*/
-		0x00,				/* bInterfaceProtocol*/
-		0x00				/* iInterface */
-	},
-	{
-		/*
-		 * USB Audio Class-Specific AS General Interface Descriptor
-		 */
-		sizeof(USB_CLASS_SPECIFIC_AS_IF_DESC),	/* bLength */
-		CS_INTERFACE,			/* bDescriptorType  */
-		0x01,				/* bDescriptorSubtype*/
-		0x02,				/* bTerminalLink */
-		0x01,				/* bDelay */
-		0x01,				/* PCM wFormatTagL*/
-		0x00				/* wFormatTagH*/
-	},
-	{
-		/*
-		 * USB Audio Type I Format Type Descriptor
-		 */
-		sizeof(USB_AUDIO_TYPE_I_FORMAT_DESC),/* bLength */
-		CS_INTERFACE,			/* bDescriptorType */
-		FORMAT_TYPE_SUBTYPE,		/* bDescriptorSubtype*/
-		FORMAT_TYPE_I,				/* bFormatType */
-		0x01,				/* bNrChannels */
-		0x02,				/* bSubFrameSize */
-		0x10,				/* bBitResolution */
-		0x01,				/* bSamFreqType */
-		0x40,				/*Sample freq 8000Hz*/
-		0x1F,				/*Sample freq 8000Hz*/
-		0x00				/*Sample freq 8000Hz*/
-   	},
-	{
-		/*
-		 * USB Audio Standard Endpoint Descriptor
-		 */
-		sizeof(USB_STD_AUDIO_EP_DESC),	/* bLength */
-		ENDPOINT_DESCR,			/* bType */
-		0x81,				/* bEndpoint IN endpoint
+		{
+			/*
+			 * USB Standard Interface Descriptor (Alt. Set. 1)
+			 */
+			sizeof(USB_STD_IF_DESC),	/* bLength */
+			INTERFACE_DESCR,		/* bDescriptorType */
+			0x01,				/* bInterfaceNumber */
+			0x01,				/* bAlternateSetting */
+			0x01,				/* bNumEndpoints */
+			USB_CLASS_AUDIO,		/* bInterfaceClass */
+			USB_AUDIO_STREAMING,		/* bInterfaceSubclass*/
+			0x00,				/* bInterfaceProtocol*/
+			0x00				/* iInterface */
+		},
+		{
+			/*
+			 * USB Audio Class-Specific AS General Interface Descriptor
+			 */
+			sizeof(USB_CLASS_SPECIFIC_AS_IF_DESC),	/* bLength */
+			CS_INTERFACE,			/* bDescriptorType  */
+			0x01,				/* bDescriptorSubtype*/
+			0x02,				/* bTerminalLink */
+			0x01,				/* bDelay */
+			0x01,				/* PCM wFormatTagL*/
+			0x00				/* wFormatTagH*/
+		},
+		{
+			/*
+			 * USB Audio Type I Format Type Descriptor
+			 */
+			sizeof(USB_AUDIO_TYPE_I_FORMAT_DESC),/* bLength */
+			CS_INTERFACE,			/* bDescriptorType */
+			FORMAT_TYPE_SUBTYPE,		/* bDescriptorSubtype*/
+			FORMAT_TYPE_I,				/* bFormatType */
+			0x01,				/* bNrChannels */
+			0x02,				/* bSubFrameSize */
+			0x10,				/* bBitResolution */
+			0x01,				/* bSamFreqType */
+			0x40,				/*Sample freq 8000Hz*/
+			0x1F,				/*Sample freq 8000Hz*/
+			0x00				/*Sample freq 8000Hz*/
+		},
+		{
+			/*
+			 * USB Audio Standard Endpoint Descriptor
+			 */
+			sizeof(USB_STD_AUDIO_EP_DESC),	/* bLength */
+			ENDPOINT_DESCR,			/* bType */
+			0x81,				/* bEndpoint IN endpoint
 						   address 1*/
-		USB_ISOC_TRANSFER_TYPE_ADAPT, 	/* Isochronous, adaptive */
-		0x00,				/* bMaxPacketSizeL */
-		0x14,				/* bMaxPacketSizeH */
-		0x04,				/* bInterval */
-		0x00,				/* bRefresh */
-		0x00				/* bSyncAddress */
-	},
-	{
-		/*
-		 * USB Class-Specific Audio Data Endpoint Descriptor
-		 */
-		sizeof(USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC), /* bLength */
-		CS_ENDPOINT,			/* bDescriptorType */
-		0x01,				/* bDescriptorSubtype */
-		0x00,				/* bmAttributes */
-		0x00,				/* bLockDelayUnits */
-		0x00,				/* wLockDelayL */
-		0x00				/* wLockDelayH */
-	}
+			USB_ISOC_TRANSFER_TYPE_ADAPT, 	/* Isochronous, adaptive */
+			0x00,				/* bMaxPacketSizeL */
+			0x14,				/* bMaxPacketSizeH */
+			0x04,				/* bInterval */
+			0x00,				/* bRefresh */
+			0x00				/* bSyncAddress */
+		},
+		{
+			/*
+			 * USB Class-Specific Audio Data Endpoint Descriptor
+			 */
+			sizeof(USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC), /* bLength */
+			CS_ENDPOINT,			/* bDescriptorType */
+			0x01,				/* bDescriptorSubtype */
+			0x00,				/* bmAttributes */
+			0x00,				/* bLockDelayUnits */
+			0x00,				/* wLockDelayL */
+			0x00				/* wLockDelayH */
+		}
 	}
 };
 
@@ -329,25 +331,25 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) FsUsbConfig = {
 		 * USB Audio Class-Specific AC Interface Header Descriptor
 		 */
 		sizeof(USB_CLASS_SPECIFIC_AC_IF_HEADER_DESC),
-					/* bLength */
+		/* bLength */
 		CS_INTERFACE,		/* bDescriptorType */
 		0x01,			/* bDescriptorSubtype */
 		0x00,			/* bcdADC - Audio Class 1.0 L*/
 		0x01,			/* bcdADC - Audio Class 1.0 H*/
 		(sizeof(USB_CLASS_SPECIFIC_AC_IF_HEADER_DESC) +
-		sizeof(USB_INPUT_TERMINAL_DESC) +
-		sizeof(USB_OUTPUT_TERMINAL_DESC)),
+		 sizeof(USB_INPUT_TERMINAL_DESC) +
+		 sizeof(USB_OUTPUT_TERMINAL_DESC)),
 		0x00,
-					/* wTotalLength */
+		/* wTotalLength */
 		0x01,			/* bInCollection How many
 					   Audio Streaming descriptors
 					   */
 		0x01			/* baInterfaceNr Their interface
 					   numbers */
-	 },
-	 {	/*
-	 	 * USB Audio Input Terminal Descriptor
-	 	 */
+	},
+	{	/*
+		 * USB Audio Input Terminal Descriptor
+		 */
 		sizeof(USB_INPUT_TERMINAL_DESC),	/* bLength */
 		CS_INTERFACE,			/* bDescriptorType */
 		INPUT_TERMINAL,			/* bDescriptorSubtype */
@@ -372,7 +374,7 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) FsUsbConfig = {
 		OUTPUT_TERMINAL,		/* bDescriptorSubtype*/
 		0x02,				/* bTerminalId */
 		0x01,				/* wTerminalType L*/
-						/* USB streaming */
+		/* USB streaming */
 		0x01,				/* wTerminalType H*/
 		0x00,				/* bAssocTerminal */
 		0x01,				/* bSourceId */
@@ -390,78 +392,78 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) FsUsbConfig = {
 		USB_CLASS_AUDIO,		/* bInterfaceClass */
 		USB_AUDIO_STREAMING,		/* bInterfaceSubclass*/
 		0x00,				/* bInterfaceProtocol*/
- 		0x00				/* iInterface*/
+		0x00				/* iInterface*/
 	},
 	{
-	{
-		/*
-		 * USB Standard Interface Descriptor (Alt. Set. 1)
-		 */
-		sizeof(USB_STD_IF_DESC),	/* bLength */
-		INTERFACE_DESCR,		/* bDescriptorType */
-		0x01,				/* bInterfaceNumber */
-		0x01,				/* bAlternateSetting */
-		0x01,				/* bNumEndpoints */
-		USB_CLASS_AUDIO,		/* bInterfaceClass */
-		USB_AUDIO_STREAMING,		/* bInterfaceSubclass*/
-		0x00,				/* bInterfaceProtocol*/
-		0x00				/* iInterface */
-	},
-	{
-		/*
-		 * USB Audio Class-Specific AS General Interface Descriptor
-		 */
-		sizeof(USB_CLASS_SPECIFIC_AS_IF_DESC),	/* bLength */
-		CS_INTERFACE,			/* bDescriptorType  */
-		0x01,				/* bDescriptorSubtype*/
-		0x02,				/* bTerminalLink */
-		0x01,				/* bDelay */
-		0x00,				/* PCM wFormatTagL*/
-		0x01				/* wFormatTagH*/
-	},
-	{
-		/*
-		 * USB Audio Type I Format Type Descriptor
-		 */
-		sizeof(USB_AUDIO_TYPE_I_FORMAT_DESC),/* bLength */
-		CS_INTERFACE,			/* bDescriptorType */
-		FORMAT_TYPE_SUBTYPE,		/* bDescriptorSubtype*/
-		FORMAT_TYPE_I,				/* bFormatType */
-		0x01,				/* bNrChannels */
-		0x02,				/* bSubFrameSize */
-		0x10,				/* bBitResolution */
-		0x01,				/* bSamFreqType */
-		0x00,				/*Sample freq 8000Hz*/
-		0x1F,				/*Sample freq 8000Hz*/
-		0x40				/*Sample freq 8000Hz*/
-   	},
-	{
-		/*
-		 * USB Audio Standard Endpoint Descriptor
-		 */
-		sizeof(USB_STD_AUDIO_EP_DESC),	/* bLength */
-		ENDPOINT_DESCR,			/* bType */
-		0x81,				/* bEndpoint IN endpoint
+		{
+			/*
+			 * USB Standard Interface Descriptor (Alt. Set. 1)
+			 */
+			sizeof(USB_STD_IF_DESC),	/* bLength */
+			INTERFACE_DESCR,		/* bDescriptorType */
+			0x01,				/* bInterfaceNumber */
+			0x01,				/* bAlternateSetting */
+			0x01,				/* bNumEndpoints */
+			USB_CLASS_AUDIO,		/* bInterfaceClass */
+			USB_AUDIO_STREAMING,		/* bInterfaceSubclass*/
+			0x00,				/* bInterfaceProtocol*/
+			0x00				/* iInterface */
+		},
+		{
+			/*
+			 * USB Audio Class-Specific AS General Interface Descriptor
+			 */
+			sizeof(USB_CLASS_SPECIFIC_AS_IF_DESC),	/* bLength */
+			CS_INTERFACE,			/* bDescriptorType  */
+			0x01,				/* bDescriptorSubtype*/
+			0x02,				/* bTerminalLink */
+			0x01,				/* bDelay */
+			0x00,				/* PCM wFormatTagL*/
+			0x01				/* wFormatTagH*/
+		},
+		{
+			/*
+			 * USB Audio Type I Format Type Descriptor
+			 */
+			sizeof(USB_AUDIO_TYPE_I_FORMAT_DESC),/* bLength */
+			CS_INTERFACE,			/* bDescriptorType */
+			FORMAT_TYPE_SUBTYPE,		/* bDescriptorSubtype*/
+			FORMAT_TYPE_I,				/* bFormatType */
+			0x01,				/* bNrChannels */
+			0x02,				/* bSubFrameSize */
+			0x10,				/* bBitResolution */
+			0x01,				/* bSamFreqType */
+			0x00,				/*Sample freq 8000Hz*/
+			0x1F,				/*Sample freq 8000Hz*/
+			0x40				/*Sample freq 8000Hz*/
+		},
+		{
+			/*
+			 * USB Audio Standard Endpoint Descriptor
+			 */
+			sizeof(USB_STD_AUDIO_EP_DESC),	/* bLength */
+			ENDPOINT_DESCR,			/* bType */
+			0x81,				/* bEndpoint IN endpoint
 						   address 1*/
-		USB_ISOC_TRANSFER_TYPE_ADAPT, 	/* Isochronous, adaptive */
-		0x00,				/* bMaxPacketSizeL */
-		0x10,				/* bMaxPacketSizeH */
-		0x04,				/* bInterval */
-		0x00,				/* bRefresh */
-		0x00				/* bSyncAddress */
-	},
-	{
-		/*
-		 * USB Class-Specific Audio Data Endpoint Descriptor
-		 */
-		sizeof(USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC), /* bLength */
-		CS_ENDPOINT,			/* bDescriptorType */
-		0x01,				/* bDescriptorSubtype */
-		0x00,				/* bmAttributes */
-		0x00,				/* bLockDelayUnits */
-		0x00,				/* wLockDelayL */
-		0x00				/* wLockDelayH */
-	}
+			USB_ISOC_TRANSFER_TYPE_ADAPT, 	/* Isochronous, adaptive */
+			0x00,				/* bMaxPacketSizeL */
+			0x10,				/* bMaxPacketSizeH */
+			0x04,				/* bInterval */
+			0x00,				/* bRefresh */
+			0x00				/* bSyncAddress */
+		},
+		{
+			/*
+			 * USB Class-Specific Audio Data Endpoint Descriptor
+			 */
+			sizeof(USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC), /* bLength */
+			CS_ENDPOINT,			/* bDescriptorType */
+			0x01,				/* bDescriptorSubtype */
+			0x00,				/* bmAttributes */
+			0x00,				/* bLockDelayUnits */
+			0x00,				/* wLockDelayL */
+			0x00				/* wLockDelayH */
+		}
 	}
 };
 
@@ -484,7 +486,8 @@ USB_STD_STRING_MAN_DESC Manufacturer __attribute__ ((aligned(4))) = {
 	 * Manufacturer String.
 	 */
 	sizeof(USB_STD_STRING_MAN_DESC), STRING_DESCR, {
-	'X', 0, 'I', 0, 'L', 0, 'I', 0, 'N', 0, 'X', 0, ' ', 0}
+		'X', 0, 'I', 0, 'L', 0, 'I', 0, 'N', 0, 'X', 0, ' ', 0
+	}
 };
 
 USB_STD_STRING_PS_DESC ProductString __attribute__ ((aligned(4))) = {
@@ -492,7 +495,8 @@ USB_STD_STRING_PS_DESC ProductString __attribute__ ((aligned(4))) = {
 	 * Product ID String.
 	 */
 	sizeof(USB_STD_STRING_PS_DESC), STRING_DESCR, {
-	'F', 0, 'P', 0, 'G', 0, 'A', 0, '4', 0}
+		'F', 0, 'P', 0, 'G', 0, 'A', 0, '4', 0
+	}
 };
 
 USB_STD_STRING_SN_DESC SerialNumber __attribute__ ((aligned(4))) = {
@@ -500,14 +504,15 @@ USB_STD_STRING_SN_DESC SerialNumber __attribute__ ((aligned(4))) = {
 	 * Product ID String.
 	 */
 	sizeof(USB_STD_STRING_SN_DESC), STRING_DESCR, {
-	'0', 0, '0', 0, '0', 0, '0', 0, '0', 0, '0', 0, '0', 0, '1', 0,
-			'7', 0, '1', 0, '5', 0, '0', 0, '4', 0, '2', 0,
-			'6', 0, '2', 0, '0', 0, '0', 0, '5', 0, '7', 0, '4', 0}
+		'0', 0, '0', 0, '0', 0, '0', 0, '0', 0, '0', 0, '0', 0, '1', 0,
+		'7', 0, '1', 0, '5', 0, '0', 0, '4', 0, '2', 0,
+		'6', 0, '2', 0, '0', 0, '0', 0, '5', 0, '7', 0, '4', 0
+	}
 };
 
 /************************** Function Prototypes *******************************/
 
-void InitUsbInterface(XUsb * InstancePtr);
+void InitUsbInterface(XUsb *InstancePtr);
 void UsbIfIntrHandler(void *CallBackRef, u32 IntrStatus);
 void EpIntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus);
 void Ep0IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus);

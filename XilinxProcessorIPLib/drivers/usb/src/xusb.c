@@ -87,7 +87,7 @@ static void StubHandler(void);
 *
 ******************************************************************************/
 int XUsb_CfgInitialize(XUsb *InstancePtr, XUsb_Config *ConfigPtr,
-			UINTPTR EffectiveAddr)
+		       UINTPTR EffectiveAddr)
 {
 	u8 Index;
 
@@ -109,7 +109,7 @@ int XUsb_CfgInitialize(XUsb *InstancePtr, XUsb_Config *ConfigPtr,
 	for (Index = 0; Index < XUSB_MAX_ENDPOINTS; Index++) {
 
 		InstancePtr->EndPointOffset[Index] = XUSB_EP0_CONFIG_OFFSET +
-			(Index * 0x10);
+						     (Index * 0x10);
 	}
 	InstancePtr->HandlerFunc = (XUsb_IntrHandlerFunc) StubHandler;
 	InstancePtr->ErrHandlerFunc = (XUsb_IntrHandlerFunc) StubHandler;
@@ -159,8 +159,7 @@ int XUsb_ConfigureDevice(XUsb *InstancePtr, XUsb_DeviceConfig *CfgPtr)
 			CfgPtr->Ep[Index].EpType;
 		if (Index == 0) {
 			InstancePtr->DeviceConfig.Ep[Index].Buffer0Ready = 1;
-		}
-		else {
+		} else {
 			InstancePtr->DeviceConfig.Ep[Index].Buffer0Ready = 0;
 		}
 
@@ -199,7 +198,7 @@ void XUsb_Start(XUsb *InstancePtr)
 	 * Start the USB Serial Interface Engine.
 	 */
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			XUSB_CONTROL_OFFSET, XUSB_CONTROL_USB_READY_MASK);
+		      XUSB_CONTROL_OFFSET, XUSB_CONTROL_USB_READY_MASK);
 
 }
 
@@ -222,7 +221,7 @@ void XUsb_Stop(XUsb *InstancePtr)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	CrRegValue = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-				   XUSB_CONTROL_OFFSET);
+				  XUSB_CONTROL_OFFSET);
 
 	CrRegValue &= ~XUSB_CONTROL_USB_READY_MASK;
 
@@ -230,7 +229,7 @@ void XUsb_Stop(XUsb *InstancePtr)
 	 * Stop the USB Serial Interface Engine.
 	 */
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-		       XUSB_CONTROL_OFFSET, CrRegValue);
+		      XUSB_CONTROL_OFFSET, CrRegValue);
 }
 
 /*****************************************************************************/
@@ -252,7 +251,7 @@ u32 XUsb_GetFrameNum(const XUsb *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	FrameNumPtr = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-				    XUSB_FRAMENUM_OFFSET);
+				   XUSB_FRAMENUM_OFFSET);
 
 	return (FrameNumPtr);
 
@@ -284,7 +283,7 @@ int XUsb_SetDeviceAddress(XUsb *InstancePtr, u8 Address)
 	}
 
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			XUSB_ADDRESS_OFFSET, Address);
+		      XUSB_ADDRESS_OFFSET, Address);
 
 	return XST_SUCCESS;
 }
@@ -314,8 +313,8 @@ void XUsb_SetTestMode(XUsb *InstancePtr, u8 TestMode, u8 *BufPtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((TestMode == TEST_J) ||
-			(TestMode == TEST_K) ||
-			(TestMode == TEST_SE0_NAK) || (TestMode == TEST_PKT));
+		       (TestMode == TEST_K) ||
+		       (TestMode == TEST_SE0_NAK) || (TestMode == TEST_PKT));
 
 	/*
 	 * Stop the SIE.
@@ -354,7 +353,7 @@ void XUsb_SetTestMode(XUsb *InstancePtr, u8 TestMode, u8 *BufPtr)
 	 * Set the test mode.
 	 */
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress, XUSB_TESTMODE_OFFSET,
-		       TestMode);
+		      TestMode);
 	/*
 	 * Re-start the SIE.
 	 */
@@ -388,7 +387,7 @@ void XUsb_DmaReset(XUsb *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress, XUSB_DMA_RESET_OFFSET,
-				XUSB_DMA_RESET_VALUE);
+		      XUSB_DMA_RESET_VALUE);
 }
 
 
@@ -413,7 +412,7 @@ void XUsb_DmaReset(XUsb *InstancePtr)
 *
 ******************************************************************************/
 void XUsb_DmaTransfer(XUsb *InstancePtr, UINTPTR *SrcAddr, UINTPTR *DstAddr,
-				u16 Length)
+		      u16 Length)
 {
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -429,32 +428,32 @@ void XUsb_DmaTransfer(XUsb *InstancePtr, UINTPTR *SrcAddr, UINTPTR *DstAddr,
 	if (InstancePtr->Config.AddrWidth > 32) {
 
 		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_DMA_DSAR_ADDR_OFFSET_LSB,
-					LOWER_32_BITS((UINTPTR)SrcAddr));
+			      XUSB_DMA_DSAR_ADDR_OFFSET_LSB,
+			      LOWER_32_BITS((UINTPTR)SrcAddr));
 		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-                                        XUSB_DMA_DSAR_ADDR_OFFSET_MSB,
-                                        UPPER_32_BITS((UINTPTR)SrcAddr));
+			      XUSB_DMA_DSAR_ADDR_OFFSET_MSB,
+			      UPPER_32_BITS((UINTPTR)SrcAddr));
 
 
 		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_DMA_DDAR_ADDR_OFFSET_LSB,
-					LOWER_32_BITS((UINTPTR)DstAddr));
+			      XUSB_DMA_DDAR_ADDR_OFFSET_LSB,
+			      LOWER_32_BITS((UINTPTR)DstAddr));
 		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-                                        XUSB_DMA_DDAR_ADDR_OFFSET_MSB,
-                                         UPPER_32_BITS((UINTPTR)DstAddr));
+			      XUSB_DMA_DDAR_ADDR_OFFSET_MSB,
+			      UPPER_32_BITS((UINTPTR)DstAddr));
 	} else {
 
 		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_DMA_DSAR_ADDR_OFFSET,
-						(UINTPTR)SrcAddr);
+			      XUSB_DMA_DSAR_ADDR_OFFSET,
+			      (UINTPTR)SrcAddr);
 
 		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_DMA_DDAR_ADDR_OFFSET,
-						(UINTPTR)DstAddr);
+			      XUSB_DMA_DDAR_ADDR_OFFSET,
+			      (UINTPTR)DstAddr);
 	}
-		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_DMA_LENGTH_OFFSET,
-						Length);
+	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+		      XUSB_DMA_LENGTH_OFFSET,
+		      Length);
 }
 
 /******************************************************************************/
@@ -474,7 +473,7 @@ void XUsb_DmaTransfer(XUsb *InstancePtr, UINTPTR *SrcAddr, UINTPTR *DstAddr,
 *
 ******************************************************************************/
 void XUsb_ReadErrorCounters(XUsb *InstancePtr, u8 *BitStuffErrors,
-				u8 *PidErrors, u8 *CrcErrors)
+			    u8 *PidErrors, u8 *CrcErrors)
 {
 	u32 ErrCounterReg;
 
@@ -484,14 +483,14 @@ void XUsb_ReadErrorCounters(XUsb *InstancePtr, u8 *BitStuffErrors,
 	Xil_AssertVoid(CrcErrors != NULL);
 
 	ErrCounterReg = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-				XUSB_ECR_OFFSET);
+				     XUSB_ECR_OFFSET);
 
 	*BitStuffErrors = (ErrCounterReg & XUSB_ECR_BITSTUFF_ERRCNT_MASK) >>
-						XUSB_ECR_BITSTUFF_ERRCNT_SHIFT;
+			  XUSB_ECR_BITSTUFF_ERRCNT_SHIFT;
 	*PidErrors = (ErrCounterReg & XUSB_ECR_PID_ERRCNT_MASK) >>
-						XUSB_ECR_PID_ERRCNT_SHIFT;
+		     XUSB_ECR_PID_ERRCNT_SHIFT;
 	*CrcErrors = (ErrCounterReg & XUSB_ECR_CRC_ERRCNT_MASK) >>
-						XUSB_ECR_CRC_ERRCNT_SHIFT;
+		     XUSB_ECR_CRC_ERRCNT_SHIFT;
 }
 
 /******************************************************************************/
@@ -523,7 +522,7 @@ u8 XUsb_UlpiPhyReadRegister(XUsb *InstancePtr, u8 RegAddr)
 	 * Check whether the earlier transaction is complete.
 	 */
 	if (XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-		XUSB_UPAR_OFFSET) & XUSB_UPAR_BUSY_MASK) {
+			 XUSB_UPAR_OFFSET) & XUSB_UPAR_BUSY_MASK) {
 
 		return XST_DEVICE_BUSY;
 	}
@@ -532,14 +531,14 @@ u8 XUsb_UlpiPhyReadRegister(XUsb *InstancePtr, u8 RegAddr)
 	 * Initiate the read transaction for the given PHY register.
 	 */
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress, XUSB_UPAR_OFFSET,
-			RegAddr);
+		      RegAddr);
 
 	while (XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-		XUSB_UPAR_OFFSET) & XUSB_UPAR_BUSY_MASK);
+			    XUSB_UPAR_OFFSET) & XUSB_UPAR_BUSY_MASK);
 
-	return(((XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-				XUSB_UPAR_OFFSET) & XUSB_UPAR_REG_DATA_MASK) >>
-				XUSB_UPAR_REG_DATA_SHIFT));
+	return (((XUsb_ReadReg(InstancePtr->Config.BaseAddress,
+			       XUSB_UPAR_OFFSET) & XUSB_UPAR_REG_DATA_MASK) >>
+		 XUSB_UPAR_REG_DATA_SHIFT));
 
 }
 
@@ -563,7 +562,7 @@ u8 XUsb_UlpiPhyReadRegister(XUsb *InstancePtr, u8 RegAddr)
 *
 ******************************************************************************/
 int XUsb_UlpiPhyWriteRegister(XUsb *InstancePtr, u8 RegAddr,
-				u8 UlpiPhyRegData)
+			      u8 UlpiPhyRegData)
 {
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -572,7 +571,7 @@ int XUsb_UlpiPhyWriteRegister(XUsb *InstancePtr, u8 RegAddr,
 	 * Check whether the earlier transaction is complete.
 	 */
 	if (XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-		XUSB_UPAR_OFFSET) & XUSB_UPAR_BUSY_MASK) {
+			 XUSB_UPAR_OFFSET) & XUSB_UPAR_BUSY_MASK) {
 
 		return XST_DEVICE_BUSY;
 	}
@@ -581,9 +580,9 @@ int XUsb_UlpiPhyWriteRegister(XUsb *InstancePtr, u8 RegAddr,
 	 * Initiate the write transaction for the given PHY register.
 	 */
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress, XUSB_UPAR_OFFSET,
-			(RegAddr |
-			(XUSB_UPAR_READ_WRITE_MASK) | (UlpiPhyRegData <<
-			XUSB_UPAR_REG_DATA_SHIFT)));
+		      (RegAddr |
+		       (XUSB_UPAR_READ_WRITE_MASK) | (UlpiPhyRegData <<
+				       XUSB_UPAR_REG_DATA_SHIFT)));
 
 	return XST_SUCCESS;
 
@@ -628,12 +627,12 @@ void XUsb_SieReset(XUsb *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	RegData = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-						XUSB_CONTROL_OFFSET);
+			       XUSB_CONTROL_OFFSET);
 	/* Reset by writing 1 */
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress, XUSB_CONTROL_OFFSET,
-				RegData | XUSB_CONTROL_SIE_RESET_MASK);
+		      RegData | XUSB_CONTROL_SIE_RESET_MASK);
 	/* Release from reset by writing 0 */
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress, XUSB_CONTROL_OFFSET,
-				RegData & (~(XUSB_CONTROL_SIE_RESET_MASK)));
+		      RegData & (~(XUSB_CONTROL_SIE_RESET_MASK)));
 }
 /** @} */

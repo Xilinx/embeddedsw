@@ -74,11 +74,11 @@ void XUsb_EpEnable(const XUsb *InstancePtr, u8 EpNum)
 	Xil_AssertVoid(EpNum < XUSB_MAX_ENDPOINTS);
 
 	EpConfigReg = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-				    InstancePtr->EndPointOffset[EpNum]);
+				   InstancePtr->EndPointOffset[EpNum]);
 	EpConfigReg |= XUSB_EP_CFG_VALID_MASK;
 
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			InstancePtr->EndPointOffset[EpNum], EpConfigReg);
+		      InstancePtr->EndPointOffset[EpNum], EpConfigReg);
 
 }
 
@@ -105,11 +105,11 @@ void XUsb_EpDisable(const XUsb *InstancePtr, u8 EpNum)
 	Xil_AssertVoid(EpNum < XUSB_MAX_ENDPOINTS);
 
 	EpConfigReg = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-				    InstancePtr->EndPointOffset[EpNum]);
+				   InstancePtr->EndPointOffset[EpNum]);
 	EpConfigReg &= ~XUSB_EP_CFG_VALID_MASK;
 
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			InstancePtr->EndPointOffset[EpNum], EpConfigReg);
+		      InstancePtr->EndPointOffset[EpNum], EpConfigReg);
 
 }
 
@@ -137,11 +137,11 @@ void XUsb_EpStall(const XUsb *InstancePtr, u8 EpNum)
 	Xil_AssertVoid(EpNum < XUSB_MAX_ENDPOINTS);
 
 	EpConfigReg = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-				    InstancePtr->EndPointOffset[EpNum]);
+				   InstancePtr->EndPointOffset[EpNum]);
 	EpConfigReg |= XUSB_EP_CFG_STALL_MASK;
 
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			InstancePtr->EndPointOffset[EpNum], EpConfigReg);
+		      InstancePtr->EndPointOffset[EpNum], EpConfigReg);
 
 }
 
@@ -169,11 +169,11 @@ void XUsb_EpUnstall(const XUsb *InstancePtr, u8 EpNum)
 	Xil_AssertVoid(EpNum < XUSB_MAX_ENDPOINTS);
 
 	EpConfigReg = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-				    InstancePtr->EndPointOffset[EpNum]);
+				   InstancePtr->EndPointOffset[EpNum]);
 	EpConfigReg &= ~XUSB_EP_CFG_STALL_MASK;
 
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			InstancePtr->EndPointOffset[EpNum], EpConfigReg);
+		      InstancePtr->EndPointOffset[EpNum], EpConfigReg);
 
 }
 
@@ -206,33 +206,33 @@ void XUsb_EpConfigure(XUsb *InstancePtr, u8 EpNum, XUsb_EpConfig *EpCfgPtr)
 	 * EP buffer location.
 	 */
 	EpCfgReg |= ((EpCfgPtr->OutIn << XUSB_EP_CFG_OUT_IN_SHIFT) |
-			(EpCfgPtr->EpType << XUSB_EP_CFG_ISO_SHIFT) |
-			(EpCfgPtr->Size << XUSB_EP_CFG_PACKET_SIZE_SHIFT) |
-			(EpCfgPtr->RamBase));
+		     (EpCfgPtr->EpType << XUSB_EP_CFG_ISO_SHIFT) |
+		     (EpCfgPtr->Size << XUSB_EP_CFG_PACKET_SIZE_SHIFT) |
+		     (EpCfgPtr->RamBase));
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			InstancePtr->EndPointOffset[EpNum], EpCfgReg);
+		      InstancePtr->EndPointOffset[EpNum], EpCfgReg);
 
 	/*
 	 * Set the Buffer count and the Buffer ready bits.
 	 */
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			(InstancePtr->EndPointOffset[EpNum] +
-			XUSB_EP_BUF0COUNT_OFFSET), EpCfgPtr->Buffer0Count);
+		      (InstancePtr->EndPointOffset[EpNum] +
+		       XUSB_EP_BUF0COUNT_OFFSET), EpCfgPtr->Buffer0Count);
 
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			(InstancePtr->EndPointOffset[EpNum] +
-			XUSB_EP_BUF1COUNT_OFFSET), EpCfgPtr->Buffer1Count);
+		      (InstancePtr->EndPointOffset[EpNum] +
+		       XUSB_EP_BUF1COUNT_OFFSET), EpCfgPtr->Buffer1Count);
 
 	if (EpCfgPtr->Buffer0Ready == 1) {
 		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSB_BUFFREADY_OFFSET, 1 << EpNum);
+			      XUSB_BUFFREADY_OFFSET, 1 << EpNum);
 	}
 
 	if (EpCfgPtr->Buffer1Ready == 1) {
 		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSB_BUFFREADY_OFFSET, (1 <<
-						(EpNum +
-						XUSB_STATUS_EP_BUFF2_SHIFT)));
+			      XUSB_BUFFREADY_OFFSET, (1 <<
+						      (EpNum +
+						       XUSB_STATUS_EP_BUFF2_SHIFT)));
 	}
 }
 
@@ -280,14 +280,14 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 		 * Get the Buffer address and copy the transmit data.
 		 */
 		RamBase = (UINTPTR *) (InstancePtr->Config.BaseAddress +
-					(InstancePtr->DeviceConfig.Ep[EpNum].
+				       (InstancePtr->DeviceConfig.Ep[EpNum].
 					RamBase));
 		/*
 		 * Set the Buffer count register with transmit length.
 		 */
 		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-				(InstancePtr->EndPointOffset[EpNum] +
-				XUSB_EP_BUF0COUNT_OFFSET), BufferLen);
+			      (InstancePtr->EndPointOffset[EpNum] +
+			       XUSB_EP_BUF0COUNT_OFFSET), BufferLen);
 
 		InstancePtr->DeviceConfig.Ep[EpNum].CurBufNum = 1;
 		InstancePtr->DeviceConfig.Ep[EpNum].Buffer0Ready = 1;
@@ -299,11 +299,11 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 			 * enable the DMA transfer.
 			 */
 			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSB_DMA_CONTROL_OFFSET,
-				(XUSB_DMA_BRR_CTRL |(1 << EpNum)));
+				      XUSB_DMA_CONTROL_OFFSET,
+				      (XUSB_DMA_BRR_CTRL | (1 << EpNum)));
 
 			XUsb_DmaTransfer(InstancePtr, (UINTPTR *)BufferPtr,
-						RamBase, BytesToSend);
+					 RamBase, BytesToSend);
 
 		} else {
 
@@ -325,11 +325,10 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 			 * Enable the transmission.
 			 */
 			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_BUFFREADY_OFFSET, (1 << EpNum));
+				      XUSB_BUFFREADY_OFFSET, (1 << EpNum));
 		}
 
-	}
-	else {
+	} else {
 
 		if ((InstancePtr->DeviceConfig.Ep[EpNum].CurBufNum == 1) &&
 		    (InstancePtr->DeviceConfig.Ep[EpNum].Buffer1Ready == 0)) {
@@ -337,36 +336,36 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 			 * Get the Buffer address and copy the transmit data.
 			 */
 			RamBase = (UINTPTR *) (InstancePtr->Config.BaseAddress +
-						((InstancePtr->DeviceConfig.
-					Ep[EpNum].RamBase)) +
-					(InstancePtr->DeviceConfig.Ep[EpNum].
-					Size));
+					       ((InstancePtr->DeviceConfig.
+						 Ep[EpNum].RamBase)) +
+					       (InstancePtr->DeviceConfig.Ep[EpNum].
+						Size));
 			/*
 			 * Set the Buffer count register with transmit length
 			 * and enable the buffer for transmission.
 			 */
 			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					(InstancePtr->EndPointOffset[EpNum] +
-					XUSB_EP_BUF1COUNT_OFFSET), BufferLen);
+				      (InstancePtr->EndPointOffset[EpNum] +
+				       XUSB_EP_BUF1COUNT_OFFSET), BufferLen);
 
 			InstancePtr->DeviceConfig.Ep[EpNum].CurBufNum = 0;
 			InstancePtr->DeviceConfig.Ep[EpNum].Buffer1Ready = 1;
 
-			if (InstancePtr->Config.DmaEnabled){
+			if (InstancePtr->Config.DmaEnabled) {
 
 				/*
 				 * Set the correct buffer ready mask and
 				 * enable the DMA transfer
 				 */
 				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_DMA_CONTROL_OFFSET,
-					( XUSB_DMA_BRR_CTRL |
-					(1 << (EpNum +
-						XUSB_STATUS_EP_BUFF2_SHIFT))));
+					      XUSB_DMA_CONTROL_OFFSET,
+					      ( XUSB_DMA_BRR_CTRL |
+						(1 << (EpNum +
+						       XUSB_STATUS_EP_BUFF2_SHIFT))));
 
 				XUsb_DmaTransfer(InstancePtr,
-					(UINTPTR *)BufferPtr, RamBase,
-					BytesToSend );
+						 (UINTPTR *)BufferPtr, RamBase,
+						 BytesToSend );
 
 			} else {
 
@@ -380,7 +379,7 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 					BytesToSend -= 4;
 				}
 				TempRamBase = (u8 *) RamBase;
-				while (BytesToSend--){
+				while (BytesToSend--) {
 					*TempRamBase++ = *BufferPtr++;
 				}
 
@@ -388,14 +387,13 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 				 * Enable the Transmission.
 				 */
 				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_BUFFREADY_OFFSET, (1 << (EpNum +
-						XUSB_STATUS_EP_BUFF2_SHIFT)));
+					      XUSB_BUFFREADY_OFFSET, (1 << (EpNum +
+								      XUSB_STATUS_EP_BUFF2_SHIFT)));
 
 			}
 
 
-		}
-		else {
+		} else {
 			/*
 			 * None of the ping-pong buffer is free. Reply a
 			 * failure.
@@ -446,26 +444,26 @@ int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 		 * Get the EP buffer address and copy the Received data.
 		 */
 		RamBase = (UINTPTR *) (InstancePtr->Config.BaseAddress +
-					(InstancePtr->DeviceConfig.Ep[EpNum].
+				       (InstancePtr->DeviceConfig.Ep[EpNum].
 					RamBase));
 		InstancePtr->DeviceConfig.Ep[EpNum].Buffer0Ready = 1;
 		InstancePtr->DeviceConfig.Ep[EpNum].CurBufNum = 1;
 
-		if (InstancePtr->Config.DmaEnabled){
+		if (InstancePtr->Config.DmaEnabled) {
 
 			/*
 			 * Set the correct buffer ready mask and
 			 * enable the DMA transfer.
 			 */
 			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_DMA_CONTROL_OFFSET,
-					(XUSB_DMA_BRR_CTRL |
-					XUSB_DMA_READ_FROM_DPRAM |
-					(1 << EpNum)));
+				      XUSB_DMA_CONTROL_OFFSET,
+				      (XUSB_DMA_BRR_CTRL |
+				       XUSB_DMA_READ_FROM_DPRAM |
+				       (1 << EpNum)));
 
 			XUsb_DmaTransfer(InstancePtr, RamBase,
-						(UINTPTR *)BufferPtr,
-							RxBytesToRead);
+					 (UINTPTR *)BufferPtr,
+					 RxBytesToRead);
 
 		} else {
 			/*
@@ -479,16 +477,15 @@ int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 				RxBytesToRead -= 4;
 			}
 			TempRamBase = (u8 *) RamBase;
-			while (RxBytesToRead--){
+			while (RxBytesToRead--) {
 				*BufferPtr++ = *TempRamBase++;
 			}
 
 			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSB_BUFFREADY_OFFSET, 1 << EpNum);
+				      XUSB_BUFFREADY_OFFSET, 1 << EpNum);
 		}
 
-	}
-	else {
+	} else {
 
 		if ((InstancePtr->DeviceConfig.Ep[EpNum].CurBufNum == 1) &&
 		    (InstancePtr->DeviceConfig.Ep[EpNum].Buffer1Ready == 0)) {
@@ -496,10 +493,10 @@ int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 			 * Get the EP buffer address and copy the Received data.
 			 */
 			RamBase = (UINTPTR *) (InstancePtr->Config.BaseAddress +
-						((InstancePtr->DeviceConfig.
-					Ep[EpNum].RamBase)) +
-					(InstancePtr->DeviceConfig.Ep[EpNum].
-					Size));
+					       ((InstancePtr->DeviceConfig.
+						 Ep[EpNum].RamBase)) +
+					       (InstancePtr->DeviceConfig.Ep[EpNum].
+						Size));
 			InstancePtr->DeviceConfig.Ep[EpNum].Buffer1Ready = 1;
 			InstancePtr->DeviceConfig.Ep[EpNum].CurBufNum = 0;
 
@@ -510,15 +507,15 @@ int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 				 * enable the DMA transfer
 				 */
 				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_DMA_CONTROL_OFFSET, (
-						(XUSB_DMA_BRR_CTRL |
-						XUSB_DMA_READ_FROM_DPRAM |
-						(1 << (EpNum +
-						XUSB_STATUS_EP_BUFF2_SHIFT)))));
+					      XUSB_DMA_CONTROL_OFFSET, (
+						      (XUSB_DMA_BRR_CTRL |
+						       XUSB_DMA_READ_FROM_DPRAM |
+						       (1 << (EpNum +
+							      XUSB_STATUS_EP_BUFF2_SHIFT)))));
 
 				XUsb_DmaTransfer(InstancePtr, RamBase,
-							(UINTPTR *)BufferPtr,
-								RxBytesToRead);
+						 (UINTPTR *)BufferPtr,
+						 RxBytesToRead);
 
 			} else {
 				/*
@@ -533,16 +530,15 @@ int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 				}
 
 				TempRamBase = (u8 *) RamBase;
-				while (RxBytesToRead--){
+				while (RxBytesToRead--) {
 					*BufferPtr++ = *TempRamBase++;
 				}
 				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_BUFFREADY_OFFSET,
-					(1 << (EpNum +
-						XUSB_STATUS_EP_BUFF2_SHIFT)));
+					      XUSB_BUFFREADY_OFFSET,
+					      (1 << (EpNum +
+						     XUSB_STATUS_EP_BUFF2_SHIFT)));
 			}
-		}
-		else {
+		} else {
 
 			return XST_FAILURE;
 		}
@@ -569,7 +565,7 @@ int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 *
 *****************************************************************************/
 void XUsb_EpIsoTransferConfigure(XUsb *InstancePtr, u8 EpNum,
-					u8 NoOfTransfers)
+				 u8 NoOfTransfers)
 {
 	u32 EpConfigReg;
 
@@ -579,14 +575,14 @@ void XUsb_EpIsoTransferConfigure(XUsb *InstancePtr, u8 EpNum,
 	Xil_AssertVoid(NoOfTransfers < 2);
 
 	EpConfigReg = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-				    InstancePtr->EndPointOffset[EpNum]);
+				   InstancePtr->EndPointOffset[EpNum]);
 
 
 	EpConfigReg |= 	(NoOfTransfers << XUSB_EP_CFG_ISOTRANS_SHIFT);
 
 
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			InstancePtr->EndPointOffset[EpNum], EpConfigReg);
+		      InstancePtr->EndPointOffset[EpNum], EpConfigReg);
 
 }
 /** @} */

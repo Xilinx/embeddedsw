@@ -53,9 +53,9 @@
  */
 XUsb_Config XUsb_ConfigTable[XPAR_XUSB_NUM_INSTANCES] = {
 	{
-	 XPAR_USB_0_DEVICE_ID,	/* Device ID for the instance */
-	 XPAR_USB_0_BASEADDR,	/* Device base address */
-	 XPAR_USB_0_INCLUDE_DMA /* DMA enable Option */
+		XPAR_USB_0_DEVICE_ID,	/* Device ID for the instance */
+		XPAR_USB_0_BASEADDR,	/* Device base address */
+		XPAR_USB_0_INCLUDE_DMA /* DMA enable Option */
 	}
 
 };

@@ -1,6 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
-* Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,9 +56,9 @@ USB_STD_DEV_DESC DeviceDescriptor __attribute__ ((aligned (4))) = {
 	sizeof (USB_STD_DEV_DESC), 	/* Descriptor Size 18 bytes */
 	DEVICE_DESCR, 			/* This is a device descriptor */
 #ifdef __LITTLE_ENDIAN__
-		0x0200,		/* USB version */
+	0x0200,		/* USB version */
 #else
-		0x02,		/* USB version */
+	0x02,		/* USB version */
 #endif
 	0xFF, 				/* Vendor Specific */
 	00, 				/* Unused */
@@ -80,8 +81,9 @@ USB_STD_DEV_DESC DeviceDescriptor __attribute__ ((aligned (4))) = {
 };
 
 USB_STD_QUAL_DESC QualifierDescriptor __attribute__ ((aligned(4))) = {
-sizeof(USB_STD_QUAL_DESC),
-		QUALIFIER_DESCR, 00, 02, 0, 00, 00, 0x40, 01, 0};
+	sizeof(USB_STD_QUAL_DESC),
+	QUALIFIER_DESCR, 00, 02, 0, 00, 00, 0x40, 01, 0
+};
 
 FPGA1_CONFIGURATION  __attribute__ ((aligned (4))) FsUsbConfig  = {
 
@@ -213,56 +215,54 @@ FPGA1_CONFIGURATION  __attribute__ ((aligned (4))) HsUsbConfig  = {
 
 };
 
-USB_STD_STRING_DESC LangId __attribute__ ((aligned (4))) =
-{
+USB_STD_STRING_DESC LangId __attribute__ ((aligned (4))) = {
 	/*
 	 * Language ID codes.
 	 */
 	4, STRING_DESCR, {0x0409}
 };
 
-USB_STD_STRING_MAN_DESC Manufacturer __attribute__ ((aligned (4))) =
-{
+USB_STD_STRING_MAN_DESC Manufacturer __attribute__ ((aligned (4))) = {
 	/*
 	 * Manufacturer String.
 	 */
 	sizeof(USB_STD_STRING_MAN_DESC), STRING_DESCR,
-	{'X',0,'I',0,'L',0,'I',0,'N',0,'X',0,' ',0}
+	{'X', 0, 'I', 0, 'L', 0, 'I', 0, 'N', 0, 'X', 0, ' ', 0}
 };
 
-USB_STD_STRING_PS_DESC ProductString __attribute__ ((aligned (4))) =
-{
+USB_STD_STRING_PS_DESC ProductString __attribute__ ((aligned (4))) = {
 	/*
 	 * Product ID String.
 	 */
 	sizeof(USB_STD_STRING_PS_DESC), STRING_DESCR,
-	{'F',0,'P',0,'G',0,'A',0,'3',0}
+	{'F', 0, 'P', 0, 'G', 0, 'A', 0, '3', 0}
 };
 
-USB_STD_STRING_SN_DESC SerialNumber __attribute__ ((aligned (4))) =
-{
+USB_STD_STRING_SN_DESC SerialNumber __attribute__ ((aligned (4))) = {
 	/*
 	 * Product ID String.
 	 */
 	sizeof(USB_STD_STRING_SN_DESC), STRING_DESCR,
-	{'0',0,'0',0,'0',0,'0',0,'0',0,'0',0,'0',0,'1',0,
-	'7',0,'1',0,'5',0,'0',0,'4',0,'2',0,'6',0,'2',0,
-	'0',0,'0',0,'5',0,'7',0,'4',0}
+	{
+		'0', 0, '0', 0, '0', 0, '0', 0, '0', 0, '0', 0, '0', 0, '1', 0,
+		'7', 0, '1', 0, '5', 0, '0', 0, '4', 0, '2', 0, '6', 0, '2', 0,
+		'0', 0, '0', 0, '5', 0, '7', 0, '4', 0
+	}
 };
 
 USB_STD_HID_DESC HidDescriptor __attribute__ ((aligned(4))) = {
-		sizeof(USB_STD_HID_DESC),	/* bLength */
-			0x21,			/* bDescriptorType = HID */
-			0x10,			/* bcdHID L */
-			0x01,			/* bcdHID H Rev 1.1 */
-			0x00,			/* bCountryCode (none) */
-			0x01,			/* bNumDescriptors
+	sizeof(USB_STD_HID_DESC),	/* bLength */
+	0x21,			/* bDescriptorType = HID */
+	0x10,			/* bcdHID L */
+	0x01,			/* bcdHID H Rev 1.1 */
+	0x00,			/* bCountryCode (none) */
+	0x01,			/* bNumDescriptors
 						(one report descriptor) */
-			0x22,			/* bDescriptorType (report)*/
-			0x34,                    /* wDescriptorLength
+	0x22,			/* bDescriptorType (report)*/
+	0x34,                    /* wDescriptorLength
 						(L/H) (report descriptor size
 						is 43 bytes) */
-			0x00
+	0x00
 };
 
 

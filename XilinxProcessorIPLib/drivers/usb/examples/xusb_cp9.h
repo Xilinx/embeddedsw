@@ -1,6 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
-* Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,21 +62,21 @@ typedef union {
 
 /************************** Function Prototypes *******************************/
 
-void EP0ProcessOutToken(XUsb * InstancePtr);
-void EP0ProcessInToken(XUsb * InstancePtr);
-int Chapter9(XUsb * InstancePtr);
-int ExecuteCommand(XUsb * InstancePtr);
-void GetInterface(XUsb * InstancePtr);
-void SetInterface(XUsb * InstancePtr);
-void SetupControlWriteStatusStage(XUsb * InstancePtr);
-void GetStatus(XUsb * InstancePtr);
-void GetDescriptor(XUsb * InstancePtr);
-void SetDescriptor(XUsb * InstancePtr);
-void GetConfiguration(XUsb * InstancePtr);
-void SetConfiguration(XUsb * InstancePtr);
-void SetClearFeature(XUsb * InstancePtr, int flag);
-void LoadEP0(XUsb * InstancePtr);
-extern void InitUsbInterface(XUsb * InstancePtr);
+void EP0ProcessOutToken(XUsb *InstancePtr);
+void EP0ProcessInToken(XUsb *InstancePtr);
+int Chapter9(XUsb *InstancePtr);
+int ExecuteCommand(XUsb *InstancePtr);
+void GetInterface(XUsb *InstancePtr);
+void SetInterface(XUsb *InstancePtr);
+void SetupControlWriteStatusStage(XUsb *InstancePtr);
+void GetStatus(XUsb *InstancePtr);
+void GetDescriptor(XUsb *InstancePtr);
+void SetDescriptor(XUsb *InstancePtr);
+void GetConfiguration(XUsb *InstancePtr);
+void SetConfiguration(XUsb *InstancePtr);
+void SetClearFeature(XUsb *InstancePtr, int flag);
+void LoadEP0(XUsb *InstancePtr);
+extern void InitUsbInterface(XUsb *InstancePtr);
 
 #ifdef __cplusplus
 }

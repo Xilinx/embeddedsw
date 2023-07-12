@@ -1,6 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
-* Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -73,62 +74,62 @@ extern USB_STD_HID_DESC HidDescriptor;
 #endif
 
 #ifdef USB_KEYBOARD
-const unsigned char ReportDesc[0x2b] =   // Report descriptor
-	{
-	0x05,0x01,		/* Usage Page (generic desktop) */
-	0x09,0x06,		/* Usage (keyboard) */
-	0xA1,0x01,		/* Collection */
-	0x05,0x07,		/*   Usage Page 7 (keyboard/keypad) */
-	0x19,0xE0,		/*   Usage Minimum = 224 */
-	0x29,0xE7,		/*   Usage Maximum = 231 */
-	0x15,0x00,		/*   Logical Minimum = 0 */
-	0x25,0x01,		/*   Logical Maximum = 1 */
-	0x75,0x01,		/*   Report Size = 1 */
-	0x95,0x08,		/*   Report Count = 8 */
-	0x81,0x02,		/*  Input(Data,Variable,Absolute) */
-	0x95,0x01,		/*   Report Count = 1 */
-	0x75,0x08,		/*   Report Size = 8 */
-	0x81,0x01,		/*  Input(Constant) */
-	0x19,0x00,		/*   Usage Minimum = 0 */
-	0x29,0x65,		/*   Usage Maximum = 101 */
-	0x15,0x00,		/*   Logical Minimum = 0 */
-	0x25,0x65,		/*   Logical Maximum = 101 */
-	0x75,0x08,		/*   Report Size = 8 */
-	0x95,0x01,		/*   Report Count = 1 */
-	0x81,0x00,		/*  Input(Data,Variable,Array) */
-	0xC0};			/* End Collection */
+const unsigned char ReportDesc[0x2b] = { // Report descriptor
+	0x05, 0x01,		/* Usage Page (generic desktop) */
+	0x09, 0x06,		/* Usage (keyboard) */
+	0xA1, 0x01,		/* Collection */
+	0x05, 0x07,		/*   Usage Page 7 (keyboard/keypad) */
+	0x19, 0xE0,		/*   Usage Minimum = 224 */
+	0x29, 0xE7,		/*   Usage Maximum = 231 */
+	0x15, 0x00,		/*   Logical Minimum = 0 */
+	0x25, 0x01,		/*   Logical Maximum = 1 */
+	0x75, 0x01,		/*   Report Size = 1 */
+	0x95, 0x08,		/*   Report Count = 8 */
+	0x81, 0x02,		/*  Input(Data,Variable,Absolute) */
+	0x95, 0x01,		/*   Report Count = 1 */
+	0x75, 0x08,		/*   Report Size = 8 */
+	0x81, 0x01,		/*  Input(Constant) */
+	0x19, 0x00,		/*   Usage Minimum = 0 */
+	0x29, 0x65,		/*   Usage Maximum = 101 */
+	0x15, 0x00,		/*   Logical Minimum = 0 */
+	0x25, 0x65,		/*   Logical Maximum = 101 */
+	0x75, 0x08,		/*   Report Size = 8 */
+	0x95, 0x01,		/*   Report Count = 1 */
+	0x81, 0x00,		/*  Input(Data,Variable,Array) */
+	0xC0
+};			/* End Collection */
 #endif
 
 #ifdef USB_MOUSE
-const unsigned char ReportDesc[0x34] =   // Report descriptor
-	{
-	0x05,0x01,		/* Usage Page (generic desktop) */
-	0x09,0x02,		/* Usage (mouse) */
-	0xA1,0x01,		/* Collection */
-	0x09,0x01,		/*   Usage Page 7 () */
-	0xA1,0x00,		/*   Usage Minimum = 224 */
-	0x05,0x09,		/*   Usage Maximum = 231 */
-	0x19,0x01,		/*   Logical Minimum = 0 */
-	0x29,0x03,		/*   Logical Maximum = 1 */
-	0x15,0x00,		/*   Report Size = 1 */
-	0x25,0x01,		/*   Report Count = 8 */
-	0x95,0x03,		/*  Input(Data,Variable,Absolute) */
-	0x75,0x01,		/*   Report Count = 1 */
-	0x81,0x02,		/*   Report Size = 8 */
-	0x95,0x01,		/*  Input(Constant) */
-	0x75,0x05,		/*   Usage Minimum = 0 */
-	0x81,0x01,		/*   Usage Maximum = 101 */
-	0x05,0x01,		/*   Logical Minimum = 0 */
-	0x09,0x30,		/*   Logical Maximum = 101 */
-	0x09,0x31,		/*   Report Size = 8 */
-	0x09,0x38,
-	0x15,0x81,		/*   Report Count = 1 */
-	0x25,0x7F,		/*  Input(Data,Variable,Array) */
-	0x75,0x08,
-	0x95,0x03,
-	0x81,0x06,
+const unsigned char ReportDesc[0x34] = { // Report descriptor
+	0x05, 0x01,		/* Usage Page (generic desktop) */
+	0x09, 0x02,		/* Usage (mouse) */
+	0xA1, 0x01,		/* Collection */
+	0x09, 0x01,		/*   Usage Page 7 () */
+	0xA1, 0x00,		/*   Usage Minimum = 224 */
+	0x05, 0x09,		/*   Usage Maximum = 231 */
+	0x19, 0x01,		/*   Logical Minimum = 0 */
+	0x29, 0x03,		/*   Logical Maximum = 1 */
+	0x15, 0x00,		/*   Report Size = 1 */
+	0x25, 0x01,		/*   Report Count = 8 */
+	0x95, 0x03,		/*  Input(Data,Variable,Absolute) */
+	0x75, 0x01,		/*   Report Count = 1 */
+	0x81, 0x02,		/*   Report Size = 8 */
+	0x95, 0x01,		/*  Input(Constant) */
+	0x75, 0x05,		/*   Usage Minimum = 0 */
+	0x81, 0x01,		/*   Usage Maximum = 101 */
+	0x05, 0x01,		/*   Logical Minimum = 0 */
+	0x09, 0x30,		/*   Logical Maximum = 101 */
+	0x09, 0x31,		/*   Report Size = 8 */
+	0x09, 0x38,
+	0x15, 0x81,		/*   Report Count = 1 */
+	0x25, 0x7F,		/*  Input(Data,Variable,Array) */
+	0x75, 0x08,
+	0x95, 0x03,
+	0x81, 0x06,
 	0xC0,
-	0xC0};			/* End Collection */
+	0xC0
+};			/* End Collection */
 #endif
 
 /************************** Function Prototypes *******************************/
@@ -144,32 +145,32 @@ const unsigned char ReportDesc[0x34] =   // Report descriptor
 * @note		None.
 *
 ******************************************************************************/
-void EP0ProcessOutToken(XUsb * InstancePtr)
+void EP0ProcessOutToken(XUsb *InstancePtr)
 {
 	u8 Count;
 	u8 *RamBase;
 	u16 Index;
 
 	switch (Ch9_CmdBuf.SetupSeqRX) {
-	case STATUS_PHASE:
-		/*
-		 * This resets both state machines for the next
-		 * Setup packet.
-		 */
-		Ch9_CmdBuf.SetupSeqRX = SETUP_PHASE;
-		Ch9_CmdBuf.SetupSeqTX = SETUP_PHASE;
-		break;
+		case STATUS_PHASE:
+			/*
+			 * This resets both state machines for the next
+			 * Setup packet.
+			 */
+			Ch9_CmdBuf.SetupSeqRX = SETUP_PHASE;
+			Ch9_CmdBuf.SetupSeqTX = SETUP_PHASE;
+			break;
 
-	case DATA_PHASE:
+		case DATA_PHASE:
 
-		Count = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-					XUSB_EP_BUF0COUNT_OFFSET);
+			Count = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
+					     XUSB_EP_BUF0COUNT_OFFSET);
 			/*
 			 * Copy the data to be received from the DPRAM.
 			*/
 			RamBase = (u8 *) (InstancePtr->Config.BaseAddress +
-					((InstancePtr->DeviceConfig.Ep[0].
-						RamBase) << 2));
+					  ((InstancePtr->DeviceConfig.Ep[0].
+					    RamBase) << 2));
 
 			for (Index = 0; Index < Count; Index++) {
 
@@ -186,17 +187,17 @@ void EP0ProcessOutToken(XUsb * InstancePtr)
 				 * Set the Tx packet size and the Tx enable bit.
 				 */
 				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_EP_BUF0COUNT_OFFSET, Count);
+					      XUSB_EP_BUF0COUNT_OFFSET, Count);
 
 				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_BUFFREADY_OFFSET, 1);
+					      XUSB_BUFFREADY_OFFSET, 1);
 
 				InstancePtr->DeviceConfig.Ep[0].Buffer0Ready = 1;
 			}
 			break;
 
-	default:
-		break;
+		default:
+			break;
 	}
 }
 
@@ -211,69 +212,67 @@ void EP0ProcessOutToken(XUsb * InstancePtr)
 * @note     	None.
 *
 ******************************************************************************/
-void EP0ProcessInToken(XUsb * InstancePtr)
+void EP0ProcessInToken(XUsb *InstancePtr)
 {
 	u32 EpCfgReg;
 
 	switch (Ch9_CmdBuf.SetupSeqTX) {
-	case STATUS_PHASE:
-		if (Ch9_CmdBuf.Byte1.bRequest == SET_ADDRESS) {
-			/*
-			 * Set the address of the device.
-			 */
-			XUsb_SetDeviceAddress(InstancePtr,
-					      Ch9_CmdBuf.Word1.Byte23.
-					      bDescriptorIndex);
-		}
-		else if (Ch9_CmdBuf.Byte1.bRequest == SET_FEATURE) {
-			if (Ch9_CmdBuf.Byte0.bmRequestType ==
-			    STANDARD_OUT_DEVICE) {
+		case STATUS_PHASE:
+			if (Ch9_CmdBuf.Byte1.bRequest == SET_ADDRESS) {
+				/*
+				 * Set the address of the device.
+				 */
+				XUsb_SetDeviceAddress(InstancePtr,
+						      Ch9_CmdBuf.Word1.Byte23.
+						      bDescriptorIndex);
+			} else if (Ch9_CmdBuf.Byte1.bRequest == SET_FEATURE) {
+				if (Ch9_CmdBuf.Byte0.bmRequestType ==
+				    STANDARD_OUT_DEVICE) {
 #ifdef __LITTLE_ENDIAN__
-			Ch9_CmdBuf.Word1.wValue =
-			((u16)(Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex) |
-			(u16)(Ch9_CmdBuf.Word1.Byte23.bDescriptorType	<< 8));
+					Ch9_CmdBuf.Word1.wValue =
+						((u16)(Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex) |
+						 (u16)(Ch9_CmdBuf.Word1.Byte23.bDescriptorType	<< 8));
 #endif
 
-				if (Ch9_CmdBuf.Word1.wValue == TEST_MODE) {
-					XUsb_SetTestMode(InstancePtr, TEST_J,
-							 NULL);
+					if (Ch9_CmdBuf.Word1.wValue == TEST_MODE) {
+						XUsb_SetTestMode(InstancePtr, TEST_J,
+								 NULL);
+					}
 				}
 			}
-		}
-		break;
+			break;
 
-	case DATA_PHASE:
-		if (Ch9_CmdBuf.ContWriteCount == 0) {
-			/*
-			 * We're done with data transfer, next
-			 * will be zero length OUT with data toggle of
-			 * 1. Setup data_toggle.
-			 */
-			EpCfgReg = XUsb_ReadReg(InstancePtr->Config.
-						 BaseAddress,
-						 InstancePtr->
-						 EndPointOffset[0]);
-			EpCfgReg |= XUSB_EP_CFG_DATA_TOGGLE_MASK;
-			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-				       InstancePtr->EndPointOffset[0],
-				       EpCfgReg);
-			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-				       (InstancePtr->EndPointOffset[0] +
-					XUSB_EP_BUF0COUNT_OFFSET), 0);
-			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-				       XUSB_BUFFREADY_OFFSET, 1);
-			InstancePtr->DeviceConfig.Ep[0].Buffer0Ready = 1;
+		case DATA_PHASE:
+			if (Ch9_CmdBuf.ContWriteCount == 0) {
+				/*
+				 * We're done with data transfer, next
+				 * will be zero length OUT with data toggle of
+				 * 1. Setup data_toggle.
+				 */
+				EpCfgReg = XUsb_ReadReg(InstancePtr->Config.
+							BaseAddress,
+							InstancePtr->
+							EndPointOffset[0]);
+				EpCfgReg |= XUSB_EP_CFG_DATA_TOGGLE_MASK;
+				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+					      InstancePtr->EndPointOffset[0],
+					      EpCfgReg);
+				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+					      (InstancePtr->EndPointOffset[0] +
+					       XUSB_EP_BUF0COUNT_OFFSET), 0);
+				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+					      XUSB_BUFFREADY_OFFSET, 1);
+				InstancePtr->DeviceConfig.Ep[0].Buffer0Ready = 1;
 
-			Ch9_CmdBuf.SetupSeqTX = STATUS_PHASE;
+				Ch9_CmdBuf.SetupSeqTX = STATUS_PHASE;
 
-		}
-		else {
-			LoadEP0(InstancePtr);
-		}
-		break;
+			} else {
+				LoadEP0(InstancePtr);
+			}
+			break;
 
-	default:
-		break;
+		default:
+			break;
 	}
 
 }
@@ -289,7 +288,7 @@ void EP0ProcessInToken(XUsb * InstancePtr)
 * @note     	None.
 *
 ******************************************************************************/
-int Chapter9(XUsb * InstancePtr)
+int Chapter9(XUsb *InstancePtr)
 {
 	volatile unsigned int *RamBase;
 
@@ -297,7 +296,7 @@ int Chapter9(XUsb * InstancePtr)
 	 * Load up the chapter 9 command buffer.
 	 */
 	RamBase = (unsigned int *) (InstancePtr->Config.BaseAddress +
-					XUSB_SETUP_PKT_ADDR_OFFSET);
+				    XUSB_SETUP_PKT_ADDR_OFFSET);
 	/*
 	 * Get the first 4 bytes of the setup packet.
 	 */
@@ -340,8 +339,7 @@ int Chapter9(XUsb * InstancePtr)
 		Ch9_CmdBuf.SetupSeqRX = STATUS_PHASE;
 		Ch9_CmdBuf.SetupSeqTX = DATA_PHASE;
 		return (ExecuteCommand(InstancePtr));
-	}
-	else {
+	} else {
 		/*
 		 * Execute the put command.
 		 */
@@ -370,7 +368,7 @@ int Chapter9(XUsb * InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int ExecuteCommand(XUsb * InstancePtr)
+int ExecuteCommand(XUsb *InstancePtr)
 {
 
 	if ((Ch9_CmdBuf.Byte0.bmRequestType & TYPE_MASK) == TYPE_STANDARD) {
@@ -378,92 +376,90 @@ int ExecuteCommand(XUsb * InstancePtr)
 		 * Process the chapter 9 command.
 		 */
 		switch (Ch9_CmdBuf.Byte1.bRequest) {
-		case GET_STATUS:
+			case GET_STATUS:
 #ifdef	XUSB_CH9_DEBUG
-			xil_printf("Get Status \r\n");
+				xil_printf("Get Status \r\n");
 #endif
-			GetStatus(InstancePtr);
-			break;
+				GetStatus(InstancePtr);
+				break;
 
-		case CLEAR_FEATURE:
+			case CLEAR_FEATURE:
 #ifdef	XUSB_CH9_DEBUG
-			xil_printf("Clear Feature \r\n");
+				xil_printf("Clear Feature \r\n");
 #endif
-			SetClearFeature(InstancePtr, FALSE);
-			break;
+				SetClearFeature(InstancePtr, FALSE);
+				break;
 
-		case SET_FEATURE:
+			case SET_FEATURE:
 #ifdef	XUSB_CH9_DEBUG
-			xil_printf("Set Feature \r\n");
+				xil_printf("Set Feature \r\n");
 #endif
-			SetClearFeature(InstancePtr, TRUE);
-			break;
+				SetClearFeature(InstancePtr, TRUE);
+				break;
 
-		case SET_ADDRESS:
+			case SET_ADDRESS:
 #ifdef	XUSB_CH9_DEBUG
-			xil_printf("Set address \r\n");
+				xil_printf("Set address \r\n");
 #endif
-			SetupControlWriteStatusStage(InstancePtr);
-			break;
+				SetupControlWriteStatusStage(InstancePtr);
+				break;
 
-		case GET_DESCRIPTOR:
-			GetDescriptor(InstancePtr);
-			break;
+			case GET_DESCRIPTOR:
+				GetDescriptor(InstancePtr);
+				break;
 
-		case SET_DESCRIPTOR:
+			case SET_DESCRIPTOR:
 #ifdef	XUSB_CH9_DEBUG
-			xil_printf("Set Descriptor  \r\n");
+				xil_printf("Set Descriptor  \r\n");
 #endif
-			SetDescriptor(InstancePtr);
-			break;
+				SetDescriptor(InstancePtr);
+				break;
 
-		case GET_CONFIGURATION:
+			case GET_CONFIGURATION:
 #ifdef	XUSB_CH9_DEBUG
-			xil_printf("Get Configuration  \r\n");
+				xil_printf("Get Configuration  \r\n");
 #endif
-			GetConfiguration(InstancePtr);
-			break;
+				GetConfiguration(InstancePtr);
+				break;
 
-		case SET_CONFIGURATION:
+			case SET_CONFIGURATION:
 #ifdef	XUSB_CH9_DEBUG
-			xil_printf("Set Configuration  \r\n");
+				xil_printf("Set Configuration  \r\n");
 #endif
-			SetConfiguration(InstancePtr);
-			break;
+				SetConfiguration(InstancePtr);
+				break;
 
-		case GET_INTERFACE:
+			case GET_INTERFACE:
 #ifdef	XUSB_CH9_DEBUG
-			xil_printf("Get Interface  \r\n");
+				xil_printf("Get Interface  \r\n");
 #endif
-			GetInterface(InstancePtr);
-			break;
+				GetInterface(InstancePtr);
+				break;
 
-		case SET_INTERFACE:
+			case SET_INTERFACE:
 #ifdef	XUSB_CH9_DEBUG
-			xil_printf("Set Interface  \r\n");
+				xil_printf("Set Interface  \r\n");
 #endif
-			SetInterface(InstancePtr);
-			break;
+				SetInterface(InstancePtr);
+				break;
 
-		case SYCH_FRAME:
-			break;
+			case SYCH_FRAME:
+				break;
 
-		default:
-			/*
-			 * The default is to stall the end point zero.
-			 */
-			XUsb_EpStall(InstancePtr, 0);
-			break;
+			default:
+				/*
+				 * The default is to stall the end point zero.
+				 */
+				XUsb_EpStall(InstancePtr, 0);
+				break;
 		}
 
-	}
-	else if ((Ch9_CmdBuf.Byte0.bmRequestType & TYPE_MASK) == TYPE_CLASS) {
+	} else if ((Ch9_CmdBuf.Byte0.bmRequestType & TYPE_MASK) == TYPE_CLASS) {
 #ifdef	XUSB_CH9_DEBUG
 		xil_printf("Sub class code %d \r\n", Ch9_CmdBuf.Byte1.bRequest);
 #endif
 		return (Ch9_CmdBuf.Byte1.bRequest);
-	}
-	else {
+	} else {
 		/*
 		 * Unsupported command. Stall the end point.
 		 */
@@ -487,32 +483,31 @@ int ExecuteCommand(XUsb * InstancePtr)
 * @note     	None.
 *
 ******************************************************************************/
-void GetInterface(XUsb * InstancePtr)
+void GetInterface(XUsb *InstancePtr)
 {
 	u32 *RamBase;
 
 #ifdef __LITTLE_ENDIAN__
 	Ch9_CmdBuf.Word1.wValue =
 		((u16)(Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex) |
-		(u16)(Ch9_CmdBuf.Word1.Byte23.bDescriptorType	<< 8));
+		 (u16)(Ch9_CmdBuf.Word1.Byte23.bDescriptorType	<< 8));
 #endif
 
 	if (Ch9_CmdBuf.Word1.wValue == 0) {
 		RamBase = (u32 *) (InstancePtr->Config.BaseAddress +
-					((InstancePtr->DeviceConfig.Ep[0].
-					 RamBase) << 2));
+				   ((InstancePtr->DeviceConfig.Ep[0].
+				     RamBase) << 2));
 		UsbMemData.Word = 0x0;
 		*RamBase = UsbMemData.Word;
 		InstancePtr->DeviceConfig.Ep[0].Buffer0Ready = 1;
 
 		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			       (InstancePtr->EndPointOffset[0] +
-				XUSB_EP_BUF0COUNT_OFFSET), 1);
+			      (InstancePtr->EndPointOffset[0] +
+			       XUSB_EP_BUF0COUNT_OFFSET), 1);
 		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSB_BUFFREADY_OFFSET, 1);
+			      XUSB_BUFFREADY_OFFSET, 1);
 
-	}
-	else {
+	} else {
 		XUsb_EpStall(InstancePtr, 0);
 	}
 
@@ -529,14 +524,13 @@ void GetInterface(XUsb * InstancePtr)
 * @note     	None.
 *
 ******************************************************************************/
-void SetInterface(XUsb * InstancePtr)
+void SetInterface(XUsb *InstancePtr)
 {
 	if ((Ch9_CmdBuf.Word1.wValue == 0) && (Ch9_CmdBuf.Word2.wIndex == 0)) {
 		SetupControlWriteStatusStage(InstancePtr);
-	}
-	else {
+	} else {
 #ifdef MICROPHONE
- 		SetupControlWriteStatusStage(InstancePtr);
+		SetupControlWriteStatusStage(InstancePtr);
 #else
 		XUsb_EpStall(InstancePtr, 0);
 #endif
@@ -555,22 +549,22 @@ void SetInterface(XUsb * InstancePtr)
  * @note     	None.
  *
  ******************************************************************************/
-void SetupControlWriteStatusStage(XUsb * InstancePtr)
+void SetupControlWriteStatusStage(XUsb *InstancePtr)
 {
 	u32 EpCfgReg;
 
 	EpCfgReg = XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-				 InstancePtr->EndPointOffset[0]);
+				InstancePtr->EndPointOffset[0]);
 	EpCfgReg |= XUSB_EP_CFG_DATA_TOGGLE_MASK;
 
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-		       InstancePtr->EndPointOffset[0], EpCfgReg);
+		      InstancePtr->EndPointOffset[0], EpCfgReg);
 	InstancePtr->DeviceConfig.Ep[0].Buffer0Count = 0;
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			(InstancePtr->EndPointOffset[0] +
-			XUSB_EP_BUF0COUNT_OFFSET), 0);
+		      (InstancePtr->EndPointOffset[0] +
+		       XUSB_EP_BUF0COUNT_OFFSET), 0);
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			XUSB_BUFFREADY_OFFSET, 1);
+		      XUSB_BUFFREADY_OFFSET, 1);
 }
 
 /******************************************************************************/
@@ -584,75 +578,74 @@ void SetupControlWriteStatusStage(XUsb * InstancePtr)
 * @note     	None.
 *
 ******************************************************************************/
-void GetStatus(XUsb * InstancePtr)
+void GetStatus(XUsb *InstancePtr)
 {
 	u32 *RamBase;
 	u8 EndPoint;
 
 	UsbMemData.Word = 0x0;
 	RamBase = (u32 *) (InstancePtr->Config.BaseAddress +
-			((InstancePtr->DeviceConfig.Ep[0].RamBase) << 2));
+			   ((InstancePtr->DeviceConfig.Ep[0].RamBase) << 2));
 
 	switch (Ch9_CmdBuf.Byte0.bmRequestType) {
-	case STANDARD_IN_DEVICE:
-		UsbMemData.Byte.Zero = 0x01;
-		UsbMemData.Byte.One = 0x00;
+		case STANDARD_IN_DEVICE:
+			UsbMemData.Byte.Zero = 0x01;
+			UsbMemData.Byte.One = 0x00;
 
-		*RamBase = UsbMemData.Word;
-
-		InstancePtr->DeviceConfig.Ep[0].Buffer0Ready = 1;
-		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			       (InstancePtr->EndPointOffset[0] +
-				XUSB_EP_BUF0COUNT_OFFSET), 2);
-		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			       XUSB_BUFFREADY_OFFSET, 1);
-		break;
-
-	case STANDARD_IN_INTERFACE:
-		if ((Ch9_CmdBuf.Word2.wIndex > 0) &&
-		    (Ch9_CmdBuf.Word2.wIndex <= MAX_INTERFACES)) {
-			UsbMemData.Byte.Zero = 0;
-			UsbMemData.Byte.One = 0;
 			*RamBase = UsbMemData.Word;
+
 			InstancePtr->DeviceConfig.Ep[0].Buffer0Ready = 1;
-			XUsb_WriteReg(InstancePtr->Config.
-				BaseAddress, (InstancePtr->EndPointOffset
-					[0] + XUSB_EP_BUF0COUNT_OFFSET),
-				       2);
 			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-					XUSB_BUFFREADY_OFFSET, 1);
-		}
-		else {
+				      (InstancePtr->EndPointOffset[0] +
+				       XUSB_EP_BUF0COUNT_OFFSET), 2);
+			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+				      XUSB_BUFFREADY_OFFSET, 1);
+			break;
+
+		case STANDARD_IN_INTERFACE:
+			if ((Ch9_CmdBuf.Word2.wIndex > 0) &&
+			    (Ch9_CmdBuf.Word2.wIndex <= MAX_INTERFACES)) {
+				UsbMemData.Byte.Zero = 0;
+				UsbMemData.Byte.One = 0;
+				*RamBase = UsbMemData.Word;
+				InstancePtr->DeviceConfig.Ep[0].Buffer0Ready = 1;
+				XUsb_WriteReg(InstancePtr->Config.
+					      BaseAddress, (InstancePtr->EndPointOffset
+							    [0] + XUSB_EP_BUF0COUNT_OFFSET),
+					      2);
+				XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+					      XUSB_BUFFREADY_OFFSET, 1);
+			} else {
+				XUsb_EpStall(InstancePtr, 0);
+			}
+			break;
+
+		case STANDARD_IN_ENDPOINT:
+			EndPoint = (unsigned int) (Ch9_CmdBuf.Word2.wIndex & 0x07);
+			UsbMemData.Byte.Zero =
+				(u8) (((XUsb_ReadReg(InstancePtr->Config.BaseAddress,
+						     InstancePtr->
+						     EndPointOffset[EndPoint]))
+				       & XUSB_EP_CFG_STALL_MASK) >>
+				      XUSB_EP_CFG_STALL_SHIFT);
+			UsbMemData.Byte.One = 0;
+
+			*RamBase = UsbMemData.Word;
+
+			InstancePtr->DeviceConfig.Ep[0].Buffer0Ready = 1;
+			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+				      (InstancePtr->EndPointOffset[0] +
+				       XUSB_EP_BUF0COUNT_OFFSET), 2);
+			XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+				      XUSB_BUFFREADY_OFFSET, 1);
+			break;
+
+		default:
+			/*
+			 * The default is to stall the end point.
+			 */
 			XUsb_EpStall(InstancePtr, 0);
-		}
-		break;
-
-	case STANDARD_IN_ENDPOINT:
-		EndPoint = (unsigned int) (Ch9_CmdBuf.Word2.wIndex & 0x07);
-		UsbMemData.Byte.Zero =
-			(u8) (((XUsb_ReadReg(InstancePtr->Config.BaseAddress,
-						InstancePtr->
-						EndPointOffset[EndPoint]))
-						& XUSB_EP_CFG_STALL_MASK) >>
-						XUSB_EP_CFG_STALL_SHIFT);
-		UsbMemData.Byte.One = 0;
-
-		*RamBase = UsbMemData.Word;
-
-		InstancePtr->DeviceConfig.Ep[0].Buffer0Ready = 1;
-		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-				(InstancePtr->EndPointOffset[0] +
-				XUSB_EP_BUF0COUNT_OFFSET), 2);
-		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSB_BUFFREADY_OFFSET, 1);
-		break;
-
-	default:
-		/*
-		 * The default is to stall the end point.
-		 */
-		XUsb_EpStall(InstancePtr, 0);
-		break;
+			break;
 	}
 }
 
@@ -667,260 +660,254 @@ void GetStatus(XUsb * InstancePtr)
 * @note     	None.
 *
 ******************************************************************************/
-void GetDescriptor(XUsb * InstancePtr)
+void GetDescriptor(XUsb *InstancePtr)
 {
 	switch (Ch9_CmdBuf.Word1.Byte23.bDescriptorType) {
-	case DEVICE_DESCR:
+		case DEVICE_DESCR:
 #ifdef	XUSB_CH9_DEBUG
-		xil_printf("Get Dev Descriptor \r\n");
+			xil_printf("Get Dev Descriptor \r\n");
 #endif
-		if (InstancePtr->DeviceConfig.CurrentSpeed ==
-			XUSB_EP_HIGH_SPEED) {
+			if (InstancePtr->DeviceConfig.CurrentSpeed ==
+			    XUSB_EP_HIGH_SPEED) {
+				Ch9_CmdBuf.ContWritePtr =
+					(unsigned char *) &DeviceDescriptor;
+			} else {
+				Ch9_CmdBuf.ContWritePtr = (u8 *) &DeviceDescriptor;
+			}
+			Ch9_CmdBuf.ContWriteCount = sizeof(USB_STD_DEV_DESC);
+			if (Ch9_CmdBuf.ContWriteCount > Ch9_CmdBuf.Word3.wLength) {
+				Ch9_CmdBuf.ContWriteCount = Ch9_CmdBuf.Word3.wLength;
+			}
+			break;
+
+		case QUALIFIER_DESCR:
+#ifdef	XUSB_CH9_DEBUG
+			xil_printf("Get Qua Descriptor \r\n");
+#endif
 			Ch9_CmdBuf.ContWritePtr =
-				(unsigned char *) &DeviceDescriptor;
-		}
-		else {
-			Ch9_CmdBuf.ContWritePtr = (u8 *) &DeviceDescriptor;
-		}
-		Ch9_CmdBuf.ContWriteCount = sizeof(USB_STD_DEV_DESC);
-		if (Ch9_CmdBuf.ContWriteCount > Ch9_CmdBuf.Word3.wLength) {
-			Ch9_CmdBuf.ContWriteCount = Ch9_CmdBuf.Word3.wLength;
-		}
-		break;
+				(unsigned char *) &QualifierDescriptor;
+			Ch9_CmdBuf.ContWriteCount = sizeof(USB_STD_QUAL_DESC);
+			if (Ch9_CmdBuf.ContWriteCount > Ch9_CmdBuf.Word3.wLength) {
+				Ch9_CmdBuf.ContWriteCount = Ch9_CmdBuf.Word3.wLength;
+			}
+			break;
 
-	case QUALIFIER_DESCR:
+		case CONFIG_DESCR:
 #ifdef	XUSB_CH9_DEBUG
-		xil_printf("Get Qua Descriptor \r\n");
+			xil_printf("Get Config Descriptor \r\n");
 #endif
-		Ch9_CmdBuf.ContWritePtr =
-			(unsigned char *) &QualifierDescriptor;
-		Ch9_CmdBuf.ContWriteCount = sizeof(USB_STD_QUAL_DESC);
-		if (Ch9_CmdBuf.ContWriteCount > Ch9_CmdBuf.Word3.wLength) {
-			Ch9_CmdBuf.ContWriteCount = Ch9_CmdBuf.Word3.wLength;
-		}
-		break;
+			if (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex <=
+			    DeviceDescriptor.bNumConfigurations) {
+				switch (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex) {
+					case 0:
+						/*
+						 * Duplicate this for each configuration
+						 * supported.
+						 */
+						if (InstancePtr->DeviceConfig.
+						    CurrentSpeed == XUSB_EP_HIGH_SPEED) {
+#ifdef	XUSB_CH9_DEBUG
+							xil_printf("High Speed  \r\n");
+#endif
+							HsUsbConfig.stdCfg.bType = CONFIG_DESCR;
+							Ch9_CmdBuf.ContWritePtr =
+								(u8 *) &HsUsbConfig;
+							Ch9_CmdBuf.ContWriteCount =
+								HsUsbConfig.stdCfg.bTotalLength;
+						} else {
+							FsUsbConfig.stdCfg.bType = CONFIG_DESCR;
+							Ch9_CmdBuf.ContWritePtr =
+								(u8 *) &FsUsbConfig;
+							Ch9_CmdBuf.ContWriteCount =
+								FsUsbConfig.stdCfg.bTotalLength;
+						}
+						if (Ch9_CmdBuf.ContWriteCount >
+						    Ch9_CmdBuf.Word3.wLength) {
+							Ch9_CmdBuf.ContWriteCount =
+								Ch9_CmdBuf.Word3.wLength;
+						}
+						break;
 
-	case CONFIG_DESCR:
-#ifdef	XUSB_CH9_DEBUG
-		xil_printf("Get Config Descriptor \r\n");
-#endif
-		if (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex <=
-		    DeviceDescriptor.bNumConfigurations) {
-			switch (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex) {
-			case 0:
-				/*
-				 * Duplicate this for each configuration
-				 * supported.
-				 */
-				if (InstancePtr->DeviceConfig.
-				    CurrentSpeed == XUSB_EP_HIGH_SPEED) {
-#ifdef	XUSB_CH9_DEBUG
-					xil_printf("High Speed  \r\n");
-#endif
-					HsUsbConfig.stdCfg.bType = CONFIG_DESCR;
-					Ch9_CmdBuf.ContWritePtr =
-						(u8 *) &HsUsbConfig;
-					Ch9_CmdBuf.ContWriteCount =
-						HsUsbConfig.stdCfg.bTotalLength;
+					default:
+						XUsb_EpStall(InstancePtr, 0);
+						goto Func_Exit7;
+						break;
 				}
-				else {
-					FsUsbConfig.stdCfg.bType = CONFIG_DESCR;
-					Ch9_CmdBuf.ContWritePtr =
-						(u8 *) &FsUsbConfig;
-					Ch9_CmdBuf.ContWriteCount =
-						FsUsbConfig.stdCfg.bTotalLength;
-				}
-				if (Ch9_CmdBuf.ContWriteCount >
-				    Ch9_CmdBuf.Word3.wLength) {
-					Ch9_CmdBuf.ContWriteCount =
-						Ch9_CmdBuf.Word3.wLength;
-				}
-				break;
-
-			default:
+			} else {
 				XUsb_EpStall(InstancePtr, 0);
 				goto Func_Exit7;
-				break;
 			}
-		}
-		else {
-			XUsb_EpStall(InstancePtr, 0);
-			goto Func_Exit7;
-		}
-		break;
+			break;
 
-	case OSD_CONFIG_DESCR:
+		case OSD_CONFIG_DESCR:
 #ifdef	XUSB_CH9_DEBUG
-		xil_printf("Get OSD Config Descriptor \r\n");
+			xil_printf("Get OSD Config Descriptor \r\n");
 #endif
-		if (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex <=
-		    DeviceDescriptor.bNumConfigurations) {
-			switch (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex) {
-			case 0:
-				/*
-				 * Duplicate this for each
-				 * configuration supported.
-				 */
-				if (InstancePtr->DeviceConfig.
-				    CurrentSpeed == XUSB_EP_HIGH_SPEED) {
-					FsUsbConfig.stdCfg.bType =
-						OSD_CONFIG_DESCR;
-					Ch9_CmdBuf.ContWritePtr =
-						(u8 *) &FsUsbConfig;
-					Ch9_CmdBuf.ContWriteCount =
-						FsUsbConfig.stdCfg.bTotalLength;
-				}
-				else {
-					HsUsbConfig.stdCfg.bType =
-						OSD_CONFIG_DESCR;
-					Ch9_CmdBuf.ContWritePtr =
-						(u8 *) &HsUsbConfig;
-					Ch9_CmdBuf.ContWriteCount =
-						HsUsbConfig.stdCfg.bTotalLength;
-				}
-				if (Ch9_CmdBuf.ContWriteCount >
-				    Ch9_CmdBuf.Word3.wLength) {
-					Ch9_CmdBuf.ContWriteCount =
-						Ch9_CmdBuf.Word3.wLength;
-				}
-				break;
+			if (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex <=
+			    DeviceDescriptor.bNumConfigurations) {
+				switch (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex) {
+					case 0:
+						/*
+						 * Duplicate this for each
+						 * configuration supported.
+						 */
+						if (InstancePtr->DeviceConfig.
+						    CurrentSpeed == XUSB_EP_HIGH_SPEED) {
+							FsUsbConfig.stdCfg.bType =
+								OSD_CONFIG_DESCR;
+							Ch9_CmdBuf.ContWritePtr =
+								(u8 *) &FsUsbConfig;
+							Ch9_CmdBuf.ContWriteCount =
+								FsUsbConfig.stdCfg.bTotalLength;
+						} else {
+							HsUsbConfig.stdCfg.bType =
+								OSD_CONFIG_DESCR;
+							Ch9_CmdBuf.ContWritePtr =
+								(u8 *) &HsUsbConfig;
+							Ch9_CmdBuf.ContWriteCount =
+								HsUsbConfig.stdCfg.bTotalLength;
+						}
+						if (Ch9_CmdBuf.ContWriteCount >
+						    Ch9_CmdBuf.Word3.wLength) {
+							Ch9_CmdBuf.ContWriteCount =
+								Ch9_CmdBuf.Word3.wLength;
+						}
+						break;
 
-			default:
+					default:
+						XUsb_EpStall(InstancePtr, 0);
+						goto Func_Exit7;
+						break;
+				}
+			} else {
 				XUsb_EpStall(InstancePtr, 0);
 				goto Func_Exit7;
-				break;
 			}
-		}
-		else {
-			XUsb_EpStall(InstancePtr, 0);
-			goto Func_Exit7;
-		}
-		break;
+			break;
 
-	case STRING_DESCR:
-		if (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex <= 3) {
-			switch (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex) {
-			case 0:
-				/*
-				 * Set the language ID's.
-				 */
+		case STRING_DESCR:
+			if (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex <= 3) {
+				switch (Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex) {
+					case 0:
+						/*
+						 * Set the language ID's.
+						 */
 #ifdef	XUSB_CH9_DEBUG
-				xil_printf("Get LangId  \r\n");
+						xil_printf("Get LangId  \r\n");
 #endif
-				Ch9_CmdBuf.ContWritePtr =
-					(unsigned char *) &LangId;
-				Ch9_CmdBuf.ContWriteCount = LangId.bLength;
-				if (Ch9_CmdBuf.ContWriteCount >
-				    Ch9_CmdBuf.Word3.wLength) {
-					Ch9_CmdBuf.ContWriteCount =
-						Ch9_CmdBuf.Word3.wLength;
-				}
-				break;
+						Ch9_CmdBuf.ContWritePtr =
+							(unsigned char *) &LangId;
+						Ch9_CmdBuf.ContWriteCount = LangId.bLength;
+						if (Ch9_CmdBuf.ContWriteCount >
+						    Ch9_CmdBuf.Word3.wLength) {
+							Ch9_CmdBuf.ContWriteCount =
+								Ch9_CmdBuf.Word3.wLength;
+						}
+						break;
 
-			case 1:
-				/*
-				 * Set the Manufacturer's String.
-				 */
+					case 1:
+						/*
+						 * Set the Manufacturer's String.
+						 */
 #ifdef	XUSB_CH9_DEBUG
-				xil_printf("Get Manuferer  \r\n");
+						xil_printf("Get Manuferer  \r\n");
 #endif
-				Ch9_CmdBuf.ContWritePtr =
-					(unsigned char *) &Manufacturer;
-				Ch9_CmdBuf.ContWriteCount =
-					Manufacturer.bLength;
-				if (Ch9_CmdBuf.ContWriteCount >
-				    Ch9_CmdBuf.Word3.wLength) {
-					Ch9_CmdBuf.ContWriteCount =
-						Ch9_CmdBuf.Word3.wLength;
-				}
-				break;
+						Ch9_CmdBuf.ContWritePtr =
+							(unsigned char *) &Manufacturer;
+						Ch9_CmdBuf.ContWriteCount =
+							Manufacturer.bLength;
+						if (Ch9_CmdBuf.ContWriteCount >
+						    Ch9_CmdBuf.Word3.wLength) {
+							Ch9_CmdBuf.ContWriteCount =
+								Ch9_CmdBuf.Word3.wLength;
+						}
+						break;
 
-			case 2:
-				/*
-				 * Set the Product String.
-				 */
+					case 2:
+						/*
+						 * Set the Product String.
+						 */
 #ifdef	XUSB_CH9_DEBUG
-				xil_printf("Get Product Id  \r\n");
+						xil_printf("Get Product Id  \r\n");
 #endif
-				Ch9_CmdBuf.ContWritePtr =
-					(unsigned char *) &ProductString;
-				Ch9_CmdBuf.ContWriteCount =
-					ProductString.bLength;
-				if (Ch9_CmdBuf.ContWriteCount >
-				    Ch9_CmdBuf.Word3.wLength) {
-					Ch9_CmdBuf.ContWriteCount =
-						Ch9_CmdBuf.Word3.wLength;
-				}
-				break;
+						Ch9_CmdBuf.ContWritePtr =
+							(unsigned char *) &ProductString;
+						Ch9_CmdBuf.ContWriteCount =
+							ProductString.bLength;
+						if (Ch9_CmdBuf.ContWriteCount >
+						    Ch9_CmdBuf.Word3.wLength) {
+							Ch9_CmdBuf.ContWriteCount =
+								Ch9_CmdBuf.Word3.wLength;
+						}
+						break;
 
-			case 3:
-				/*
-				 * Set the Serial Number String.
-				 */
+					case 3:
+						/*
+						 * Set the Serial Number String.
+						 */
 #ifdef	XUSB_CH9_DEBUG
-				xil_printf("Get Serial No  \r\n");
+						xil_printf("Get Serial No  \r\n");
 #endif
-				Ch9_CmdBuf.ContWritePtr =
-					(unsigned char *) &SerialNumber;
-				Ch9_CmdBuf.ContWriteCount =
-					SerialNumber.bLength;
-				if (Ch9_CmdBuf.ContWriteCount >
-				    Ch9_CmdBuf.Word3.wLength) {
-					Ch9_CmdBuf.ContWriteCount =
-						Ch9_CmdBuf.Word3.wLength;
+						Ch9_CmdBuf.ContWritePtr =
+							(unsigned char *) &SerialNumber;
+						Ch9_CmdBuf.ContWriteCount =
+							SerialNumber.bLength;
+						if (Ch9_CmdBuf.ContWriteCount >
+						    Ch9_CmdBuf.Word3.wLength) {
+							Ch9_CmdBuf.ContWriteCount =
+								Ch9_CmdBuf.Word3.wLength;
+						}
+						break;
+					default:
+						XUsb_EpStall(InstancePtr, 0);
+						goto Func_Exit7;
+						break;
 				}
-				break;
-			default:
+			} else {
 				XUsb_EpStall(InstancePtr, 0);
 				goto Func_Exit7;
-				break;
 			}
-		}
-		else {
-			XUsb_EpStall(InstancePtr, 0);
-			goto Func_Exit7;
-		}
-		break;
+			break;
 
 #ifdef HID_DEVICES
-	case HID_DESC:
+		case HID_DESC:
 #ifdef	XUSB_CH9_DEBUG
-		xil_printf("Get HID descriptor \r\n");
+			xil_printf("Get HID descriptor \r\n");
 #endif
-		Ch9_CmdBuf.ContWritePtr = (unsigned char *)&HidDescriptor;
-		Ch9_CmdBuf.ContWriteCount =
-			HidDescriptor.bLength;
-		if (Ch9_CmdBuf.ContWriteCount >
-		    Ch9_CmdBuf.Word3.wLength) {
+			Ch9_CmdBuf.ContWritePtr = (unsigned char *)&HidDescriptor;
 			Ch9_CmdBuf.ContWriteCount =
-				Ch9_CmdBuf.Word3.wLength;
-		}
-		break;
-	case REPORT_DESC:
+				HidDescriptor.bLength;
+			if (Ch9_CmdBuf.ContWriteCount >
+			    Ch9_CmdBuf.Word3.wLength) {
+				Ch9_CmdBuf.ContWriteCount =
+					Ch9_CmdBuf.Word3.wLength;
+			}
+			break;
+		case REPORT_DESC:
 #ifdef 	XUSB_CH9_DEBUG
-		xil_printf(" Get Report descriptor \r\n");
+			xil_printf(" Get Report descriptor \r\n");
 #endif
-		Ch9_CmdBuf.ContWritePtr = (unsigned char *) &ReportDesc[0];
-		Ch9_CmdBuf.ContWriteCount = sizeof (ReportDesc);
-		if (Ch9_CmdBuf.ContWriteCount >
-		    Ch9_CmdBuf.Word3.wLength) {
-			Ch9_CmdBuf.ContWriteCount =
-				Ch9_CmdBuf.Word3.wLength;
-		}
-		break;
+			Ch9_CmdBuf.ContWritePtr = (unsigned char *) &ReportDesc[0];
+			Ch9_CmdBuf.ContWriteCount = sizeof (ReportDesc);
+			if (Ch9_CmdBuf.ContWriteCount >
+			    Ch9_CmdBuf.Word3.wLength) {
+				Ch9_CmdBuf.ContWriteCount =
+					Ch9_CmdBuf.Word3.wLength;
+			}
+			break;
 #endif
-	default:
-		/*
-		 * The default is to stall the end point zero.
-		 */
-		XUsb_EpStall(InstancePtr, 0);
-		goto Func_Exit7;
-		break;
+		default:
+			/*
+			 * The default is to stall the end point zero.
+			 */
+			XUsb_EpStall(InstancePtr, 0);
+			goto Func_Exit7;
+			break;
 
 	}
 	LoadEP0(InstancePtr);
 
-      Func_Exit7:
+Func_Exit7:
 	return;
 }
 
@@ -935,7 +922,7 @@ void GetDescriptor(XUsb * InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void SetDescriptor(XUsb * InstancePtr)
+void SetDescriptor(XUsb *InstancePtr)
 {
 	/*
 	 * Command not supported.
@@ -954,7 +941,7 @@ void SetDescriptor(XUsb * InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void GetConfiguration(XUsb * InstancePtr)
+void GetConfiguration(XUsb *InstancePtr)
 {
 	u32 *RamBase;
 
@@ -970,10 +957,10 @@ void GetConfiguration(XUsb * InstancePtr)
 
 	InstancePtr->DeviceConfig.Ep[0].Buffer0Ready = 1;
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			(InstancePtr->EndPointOffset[0] +
-			XUSB_EP_BUF0COUNT_OFFSET), 1);
+		      (InstancePtr->EndPointOffset[0] +
+		       XUSB_EP_BUF0COUNT_OFFSET), 1);
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-			XUSB_BUFFREADY_OFFSET, 1);
+		      XUSB_BUFFREADY_OFFSET, 1);
 	Ch9_CmdBuf.ContWriteCount = 0;
 
 }
@@ -989,72 +976,72 @@ void GetConfiguration(XUsb * InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void SetConfiguration(XUsb * InstancePtr)
+void SetConfiguration(XUsb *InstancePtr)
 {
 	u8 Index;
 
 #ifdef __LITTLE_ENDIAN__
 	Ch9_CmdBuf.Word1.wValue =
 		((u16)(Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex) |
-		(u16)(Ch9_CmdBuf.Word1.Byte23.bDescriptorType	<< 8));
+		 (u16)(Ch9_CmdBuf.Word1.Byte23.bDescriptorType	<< 8));
 #endif
 
 	switch (Ch9_CmdBuf.Word1.wValue) {
-	case 0:
-		/*
-		 * This configuration value resets the device to the
-		 * un configured state like power up.
-		 */
+		case 0:
+			/*
+			 * This configuration value resets the device to the
+			 * un configured state like power up.
+			 */
 #ifdef	XUSB_CH9_DEBUG
-		xil_printf("Reset Configuration \r\n");
+			xil_printf("Reset Configuration \r\n");
 #endif
-		InstancePtr->DeviceConfig.CurrentConfiguration = 0;
-		InitUsbInterface(InstancePtr);
-		/*
-		 * Cause a valid status phase to be issued.
-		 */
-		SetupControlWriteStatusStage(InstancePtr);
-		break;
+			InstancePtr->DeviceConfig.CurrentConfiguration = 0;
+			InitUsbInterface(InstancePtr);
+			/*
+			 * Cause a valid status phase to be issued.
+			 */
+			SetupControlWriteStatusStage(InstancePtr);
+			break;
 
-	case CONFIGURATION_ONE:
+		case CONFIGURATION_ONE:
 #ifdef	XUSB_CH9_DEBUG
-		xil_printf("USB enumerated \r\n");
+			xil_printf("USB enumerated \r\n");
 #endif
-		InstancePtr->DeviceConfig.CurrentConfiguration = 1;
+			InstancePtr->DeviceConfig.CurrentConfiguration = 1;
 
 
-		SetupControlWriteStatusStage(InstancePtr);
+			SetupControlWriteStatusStage(InstancePtr);
 
-		for (Index = 0; Index < InstancePtr->DeviceConfig.NumEndpoints;
-		Index++){
+			for (Index = 0; Index < InstancePtr->DeviceConfig.NumEndpoints;
+			     Index++) {
 
-			if (Index != 0){
-				if (InstancePtr->DeviceConfig.Ep[Index].OutIn ==
-						XUSB_EP_DIRECTION_OUT) {
-					XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-						       XUSB_BUFFREADY_OFFSET, 1 << Index);
+				if (Index != 0) {
+					if (InstancePtr->DeviceConfig.Ep[Index].OutIn ==
+					    XUSB_EP_DIRECTION_OUT) {
+						XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+							      XUSB_BUFFREADY_OFFSET, 1 << Index);
 
-					InstancePtr->DeviceConfig.Ep[Index].Buffer0Ready = 1;
+						InstancePtr->DeviceConfig.Ep[Index].Buffer0Ready = 1;
 
-					XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-						       XUSB_BUFFREADY_OFFSET, (1 <<
-								       (Index +
-										XUSB_STATUS_EP_BUFF2_SHIFT)));
-					InstancePtr->DeviceConfig.Ep[Index].Buffer1Ready = 1;
+						XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+							      XUSB_BUFFREADY_OFFSET, (1 <<
+										      (Index +
+										       XUSB_STATUS_EP_BUFF2_SHIFT)));
+						InstancePtr->DeviceConfig.Ep[Index].Buffer1Ready = 1;
+					}
 				}
 			}
-		}
-		break;
+			break;
 
 		/*
 		 * Additional configurations can be added here.
 		 */
-	default:
-		/*
-		 * stall the end point.
-		 */
-		XUsb_EpStall(InstancePtr, 0);
-		break;
+		default:
+			/*
+			 * stall the end point.
+			 */
+			XUsb_EpStall(InstancePtr, 0);
+			break;
 	}
 }
 
@@ -1072,7 +1059,7 @@ void SetConfiguration(XUsb * InstancePtr)
 * @note 	None.
 *
 ******************************************************************************/
-void SetClearFeature(XUsb * InstancePtr, int flag)
+void SetClearFeature(XUsb *InstancePtr, int flag)
 {
 	u8 EndPoint;
 	u8 OutInbit;
@@ -1081,90 +1068,88 @@ void SetClearFeature(XUsb * InstancePtr, int flag)
 #ifdef __LITTLE_ENDIAN__
 	Ch9_CmdBuf.Word1.wValue =
 		((u16)(Ch9_CmdBuf.Word1.Byte23.bDescriptorIndex) |
-		(u16)(Ch9_CmdBuf.Word1.Byte23.bDescriptorType	<< 8));
+		 (u16)(Ch9_CmdBuf.Word1.Byte23.bDescriptorType	<< 8));
 #endif
 
 	switch (Ch9_CmdBuf.Byte0.bmRequestType) {
-	case STANDARD_OUT_DEVICE:
-		switch (Ch9_CmdBuf.Word1.wValue) {
-		case DEVICE_REMOTE_WAKEUP:
-			/*
-			 * User needs to add code here.
-			 */
-			break;
-
-		case TEST_MODE:
-			/*
-			 * The Test Mode will be executed
-			 * after the status phase.
-			 */
-			break;
-
-		default:
-			XUsb_EpStall(InstancePtr, 0);
-			break;
-		}
-		break;
-
-	case STANDARD_OUT_ENDPOINT:
-		if (Ch9_CmdBuf.Word1.wValue == 0) {
-			EndPoint = Ch9_CmdBuf.Word2.wIndex & 0xf;
-			OutInbit = Ch9_CmdBuf.Word2.wIndex & 0x80;
-			OutInbit = OutInbit >> 7;
-
-			/*
-			 * Make sure direction matches.
-			 */
-			if (OutInbit !=
-			    InstancePtr->DeviceConfig.Ep[EndPoint].OutIn) {
-				XUsb_EpStall(InstancePtr, 0);
-				goto Func_Exit10;
-			}
-
-			if (EndPoint == 0) {
-				/*
-				 * Clear the stall.
-				 */
-				XUsb_EpUnstall(InstancePtr, 0);
-
-				break;
-			}
-			else {
-				if (flag == TRUE) {
-					XUsb_EpStall(InstancePtr, EndPoint);
-				}
-				else {
-					XUsb_EpUnstall(InstancePtr, EndPoint);
-
+		case STANDARD_OUT_DEVICE:
+			switch (Ch9_CmdBuf.Word1.wValue) {
+				case DEVICE_REMOTE_WAKEUP:
 					/*
-					 * Clear the data toggle.
+					 * User needs to add code here.
 					 */
-					EpCfgReg =
-						XUsb_ReadReg(InstancePtr->
-							      Config.
+					break;
+
+				case TEST_MODE:
+					/*
+					 * The Test Mode will be executed
+					 * after the status phase.
+					 */
+					break;
+
+				default:
+					XUsb_EpStall(InstancePtr, 0);
+					break;
+			}
+			break;
+
+		case STANDARD_OUT_ENDPOINT:
+			if (Ch9_CmdBuf.Word1.wValue == 0) {
+				EndPoint = Ch9_CmdBuf.Word2.wIndex & 0xf;
+				OutInbit = Ch9_CmdBuf.Word2.wIndex & 0x80;
+				OutInbit = OutInbit >> 7;
+
+				/*
+				 * Make sure direction matches.
+				 */
+				if (OutInbit !=
+				    InstancePtr->DeviceConfig.Ep[EndPoint].OutIn) {
+					XUsb_EpStall(InstancePtr, 0);
+					goto Func_Exit10;
+				}
+
+				if (EndPoint == 0) {
+					/*
+					 * Clear the stall.
+					 */
+					XUsb_EpUnstall(InstancePtr, 0);
+
+					break;
+				} else {
+					if (flag == TRUE) {
+						XUsb_EpStall(InstancePtr, EndPoint);
+					} else {
+						XUsb_EpUnstall(InstancePtr, EndPoint);
+
+						/*
+						 * Clear the data toggle.
+						 */
+						EpCfgReg =
+							XUsb_ReadReg(InstancePtr->
+								     Config.
+								     BaseAddress,
+								     InstancePtr->
+								     EndPointOffset
+								     [EndPoint]);
+						EpCfgReg &=
+							~XUSB_EP_CFG_DATA_TOGGLE_MASK;
+						XUsb_WriteReg(InstancePtr->Config.
 							      BaseAddress,
 							      InstancePtr->
-							      EndPointOffset
-							      [EndPoint]);
-					EpCfgReg &=
-						~XUSB_EP_CFG_DATA_TOGGLE_MASK;
-					XUsb_WriteReg(InstancePtr->Config.
-						       BaseAddress,
-						       InstancePtr->
-						       EndPointOffset[EndPoint],
-						       EpCfgReg);
+							      EndPointOffset[EndPoint],
+							      EpCfgReg);
+					}
 				}
 			}
-		}
-		break;
+			break;
 
 		/*
 		 * Add more here as needed.
 		 */
-	default:
-		XUsb_EpStall(InstancePtr, 0);
-		goto Func_Exit10;
-		break;
+		default:
+			XUsb_EpStall(InstancePtr, 0);
+			goto Func_Exit10;
+			break;
 	}
 
 	/*
@@ -1172,7 +1157,7 @@ void SetClearFeature(XUsb * InstancePtr, int flag)
 	 */
 	SetupControlWriteStatusStage(InstancePtr);
 
-      Func_Exit10:
+Func_Exit10:
 	return;
 }
 
@@ -1187,7 +1172,7 @@ void SetClearFeature(XUsb * InstancePtr, int flag)
 * @note		None.
 *
 ******************************************************************************/
-void LoadEP0(XUsb * InstancePtr)
+void LoadEP0(XUsb *InstancePtr)
 {
 	u16 Count;
 	u8 *RamBase;
@@ -1195,8 +1180,7 @@ void LoadEP0(XUsb * InstancePtr)
 
 	if (MaxControlSize >= Ch9_CmdBuf.ContWriteCount) {
 		Count = Ch9_CmdBuf.ContWriteCount;
-	}
-	else {
+	} else {
 		Count = MaxControlSize;
 	}
 
@@ -1214,10 +1198,10 @@ void LoadEP0(XUsb * InstancePtr)
 	 * Set the Tx packet size and enable the Transmission.
 	 */
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-		       XUSB_EP_BUF0COUNT_OFFSET, Count);
+		      XUSB_EP_BUF0COUNT_OFFSET, Count);
 
 	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-		       XUSB_BUFFREADY_OFFSET, 1);
+		      XUSB_BUFFREADY_OFFSET, 1);
 
 	InstancePtr->DeviceConfig.Ep[0].Buffer0Ready = 1;
 
