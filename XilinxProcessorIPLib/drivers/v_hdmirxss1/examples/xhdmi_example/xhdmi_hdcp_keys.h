@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,6 +61,9 @@ int XHdcp_LoadKeys(void *IicPtr,
 		u8 *Hdcp14KeyA, u32 Hdcp14KeyASize, u8 *Hdcp14KeyB, u32 Hdcp14KeyBSize);
 int XHdcp_KeyManagerInit(u32 BaseAddress, u8 *Hdcp14Key);
 
+#if defined (XPS_BOARD_VEK280_ES) || (XPS_BOARD_VEK280_ES_REVB)
+#define XPS_BOARD_VEK280
+#endif
 
 #ifdef __cplusplus
 }
