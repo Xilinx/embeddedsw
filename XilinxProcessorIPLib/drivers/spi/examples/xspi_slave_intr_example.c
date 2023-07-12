@@ -47,6 +47,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 4.11  sb   07/11/23 Added support for system device-tree flow.
 *
 *</pre>
 ******************************************************************************/
@@ -55,7 +56,11 @@
 
 #include "xparameters.h"	/* XPAR parameters */
 #include "xspi.h"		/* SPI device driver */
+#ifndef SDT
 #include "xintc.h"		/* Interrupt controller device driver */
+#else
+#include "xinterrupt_wrap.h"
+#endif
 #include "stdio.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
@@ -67,9 +72,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #define SPI_IRPT_INTR		XPAR_INTC_0_SPI_0_VEC_ID
+#endif
 
 /*
  * This is the size of the buffer to be transmitted/received in this example.
@@ -84,9 +91,15 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, u16 SpiDeviceId);
+#else
+static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress);
+#endif
 
+#ifndef SDT
 static int SetupInterruptSystem(XSpi *SpiInstance);
+#endif
 
 static void SpiHandler(void *CallBackRef, u32 StatusEvent,
 		       unsigned int ByteCount);
@@ -98,7 +111,9 @@ static void SpiHandler(void *CallBackRef, u32 StatusEvent,
  * should at least be static so that they are zeroed.
  */
 static XSpi  SpiInstance;   /* Instance of the SPI device */
+#ifndef SDT
 static XIntc IntcInstance;  /* Instance of the Interrupt controller device */
+#endif
 
 /*
  * The following variables are used to read/write from the  Spi device, these
@@ -138,7 +153,11 @@ int main(void)
 	/*
 	 * Run the Spi Slave interrupt example.
 	 */
+#ifndef SDT
 	Status = SpiSlaveIntrExample(&SpiInstance, SPI_DEVICE_ID);
+#else
+	Status = SpiSlaveIntrExample(&SpiInstance, XPAR_XSPI_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Spi slave interrupt Example Failed\r\n");
 		return XST_FAILURE;
@@ -167,7 +186,11 @@ int main(void)
 *		working, it may never return.
 *
 ******************************************************************************/
+#ifndef SDT
 static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, u16 SpiDeviceId)
+#else
+static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	XSpi_Config *ConfigPtr;
 	int Status;
@@ -180,7 +203,11 @@ static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, u16 SpiDeviceId)
 	 * Initialize the SPI driver so that it's ready to use, specify the
 	 * device ID that is generated in xparameters.h.
 	 */
+#ifndef SDT
 	ConfigPtr = XSpi_LookupConfig(SpiDeviceId);
+#else
+	ConfigPtr = XSpi_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -195,7 +222,14 @@ static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, u16 SpiDeviceId)
 	 * Connect the SPI driver to the interrupt subsystem such that
 	 * interrupts can occur. This function is application specific.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(SpiInstancePtr);
+#else
+        Status = XSetupInterruptSystem(SpiInstancePtr, &XSpi_InterruptHandler,
+                                       ConfigPtr->IntrId,
+                                       ConfigPtr->IntrParent,
+                                       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -288,6 +322,7 @@ static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, u16 SpiDeviceId)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 static int SetupInterruptSystem(XSpi *SpiInstance)
 {
 	int Status;
@@ -349,6 +384,7 @@ static int SetupInterruptSystem(XSpi *SpiInstance)
 
 	return XST_SUCCESS;
 }
+#endif
 
 /******************************************************************************/
 /**

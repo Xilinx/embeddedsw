@@ -29,6 +29,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 4.11  sb   07/11/23 Added support for system device-tree flow.
 * </pre>
 *
 *******************************************************************************/
@@ -47,7 +48,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define SPI_DEVICE_ID       XPAR_SPI_0_DEVICE_ID
+#endif
 
 /**************************** Type Definitions ********************************/
 
@@ -57,7 +60,11 @@
 
 /************************** Function Prototypes *******************************/
 
+#ifndef SDT
 int SpiSelfTestExample(u16 DeviceId);
+#else
+int SpiSelfTestExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions ******************************/
 
@@ -84,7 +91,11 @@ int main(void)
 	 * Call the example , specify the device ID that is generated in
 	 * xparameters.h
 	 */
+#ifndef SDT
 	Status = SpiSelfTestExample(SPI_DEVICE_ID);
+#else
+	Status = SpiSelfTestExample(XPAR_XSPI_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 	xil_printf("Spi selftest Example Failed\r\n");
 	return XST_FAILURE;
@@ -112,7 +123,11 @@ int main(void)
 * @note		None
 *
 ****************************************************************************/
+#ifndef SDT
 int SpiSelfTestExample(u16 DeviceId)
+#else
+int SpiSelfTestExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XSpi_Config *ConfigPtr;	/* Pointer to Configuration data */
@@ -120,7 +135,11 @@ int SpiSelfTestExample(u16 DeviceId)
 	/*
 	 * Initialize the SPI driver so that it is  ready to use.
 	 */
+#ifndef SDT
 	ConfigPtr = XSpi_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XSpi_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}

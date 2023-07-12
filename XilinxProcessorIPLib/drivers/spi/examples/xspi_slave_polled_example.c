@@ -42,6 +42,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 4.11  sb   07/11/23 Added support for system device-tree flow.
 *
 *</pre>
 ******************************************************************************/
@@ -60,7 +61,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID
+#endif
 
 /*
  * This is the size of the buffer to be transmitted/received in this example.
@@ -75,7 +78,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 static int SpiSlavePolledExample(XSpi *SpiInstancePtr, u16 SpiDeviceId);
+#else
+static int SpiSlavePolledExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -118,7 +125,12 @@ int main(void)
 	/*
 	 * Run the Spi Slave polled example.
 	 */
+#ifndef SDT
 	Status = SpiSlavePolledExample(&SpiInstance, SPI_DEVICE_ID);
+#else
+
+	Status = SpiSlavePolledExample(&SpiInstance, XPAR_XSPI_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Spi slave polled Example Failed\r\n");
 		return XST_FAILURE;
@@ -147,7 +159,11 @@ int main(void)
 *		device doesn't receive any data, it may never return.
 *
 ******************************************************************************/
+#ifndef SDT
 int SpiSlavePolledExample(XSpi *SpiInstancePtr, u16 SpiDeviceId)
+#else
+static int SpiSlavePolledExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	XSpi_Config *ConfigPtr;
 	int Status;
@@ -160,7 +176,11 @@ int SpiSlavePolledExample(XSpi *SpiInstancePtr, u16 SpiDeviceId)
 	 * Initialize the SPI driver so that it's ready to use, specify the
 	 * device ID that is generated in xparameters.h.
 	 */
+#ifndef SDT
 	ConfigPtr = XSpi_LookupConfig(SpiDeviceId);
+#else
+	ConfigPtr = XSpi_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}

@@ -31,6 +31,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 *       ms   04/05/17 Modified Comment lines to follow doxygen rules.
+* 4.11  sb   07/11/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -38,10 +39,15 @@
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"	/* EDK generated parameters */
+#ifndef SDT
 #include "xintc.h"		/* Interrupt controller device driver */
+#endif
 #include "xspi.h"		/* SPI device driver */
 #include "xil_exception.h"
 #include "xil_printf.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -50,9 +56,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define SPI_DEVICE_ID			XPAR_SPI_0_DEVICE_ID
 #define INTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
 #define SPI_INTR_ID			XPAR_INTC_0_SPI_0_VEC_ID
+#endif
 
 /*
  * The following constant defines the slave select signal that is used to
@@ -149,7 +157,9 @@ int SpiFlashQuadEnable(XSpi *SpiPtr);
 int SpiFlashEnableHPM(XSpi *SpiPtr);
 static int SpiFlashWaitForFlashReady(void);
 void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount);
+#ifndef SDT
 static int SetupInterruptSystem(XSpi *SpiPtr);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -158,7 +168,9 @@ static int SetupInterruptSystem(XSpi *SpiPtr);
  * are initialized to zero each time the program runs. They could be local
  * but should at least be static so they are zeroed.
  */
+#ifndef SDT
 static XIntc InterruptController;
+#endif
 static XSpi Spi;
 
 /*
@@ -209,7 +221,11 @@ int main(void)
 	 * Initialize the SPI driver so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h.
 	 */
+#ifndef SDT
 	ConfigPtr = XSpi_LookupConfig(SPI_DEVICE_ID);
+#else
+	ConfigPtr = XSpi_LookupConfig(XPAR_XSPI_0_BASEADDR);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}
@@ -224,7 +240,14 @@ int main(void)
 	 * Connect the SPI driver to the interrupt subsystem such that
 	 * interrupts can occur. This function is application specific.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(&Spi);
+#else
+        Status = XSetupInterruptSystem(&Spi, &XSpi_InterruptHandler,
+                                       ConfigPtr->IntrId,
+                                       ConfigPtr->IntrParent,
+                                       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -1106,6 +1129,7 @@ void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 * @note		None
 *
 ******************************************************************************/
+#ifndef SDT
 static int SetupInterruptSystem(XSpi *SpiPtr)
 {
 
@@ -1169,3 +1193,4 @@ static int SetupInterruptSystem(XSpi *SpiPtr)
 
 	return XST_SUCCESS;
 }
+#endif
