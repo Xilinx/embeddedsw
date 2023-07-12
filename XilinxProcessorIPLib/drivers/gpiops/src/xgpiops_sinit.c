@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,8 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sv   01/15/10 First Release
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.12  gm   07/11/23 Added SDT support.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -57,6 +59,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XGpioPs_Config *XGpioPs_LookupConfig(u16 DeviceId)
 {
 	XGpioPs_Config *CfgPtr = NULL;
@@ -71,4 +74,21 @@ XGpioPs_Config *XGpioPs_LookupConfig(u16 DeviceId)
 
 	return (XGpioPs_Config *)CfgPtr;
 }
+#else
+XGpioPs_Config *XGpioPs_LookupConfig(u32 BaseAddress)
+{
+	XGpioPs_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = (u32)0x0; XGpioPs_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XGpioPs_ConfigTable[Index].BaseAddr == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XGpioPs_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XGpioPs_Config *)CfgPtr;
+}
+#endif
 /** @} */

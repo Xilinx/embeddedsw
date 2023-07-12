@@ -1,0 +1,36 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for GPIOPS controller
+
+maintainers:
+  - Manikanta Guntupalli <manikanta.guntupalli@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - const: xlnx,zynqmp-gpio-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XGpioPs_Config
+
+required:
+    - compatible
+    - reg
+    - interrupts
+    - interrupt-parent
+
+examples:
+    xgpiops_intr_example.c:
+        - interrupts
+    xgpiops_polled_example.c:
+        - reg
+
+...

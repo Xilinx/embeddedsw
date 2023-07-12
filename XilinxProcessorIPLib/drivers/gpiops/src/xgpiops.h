@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -124,6 +124,7 @@
 * 3.8	sne  09/17/20 Added description for Versal PS and PMC GPIO pins.
 * 3.9	sne  03/15/21 Fixed MISRA-C violations.
 * 3.11  sg   02/23/23 Update bank and pin mapping information.
+* 3.12  gm   07/11/23 Added SDT support.
 *
 * </pre>
 *
@@ -209,8 +210,18 @@ typedef void (*XGpioPs_Handler) (void *CallBackRef, u32 Bank, u32 Status);
  * This typedef contains configuration information for a device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddr;		/**< Register base address */
+#ifdef SDT
+	u16 IntrId;		/** Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags */
+	UINTPTR IntrParent; 	/** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
 } XGpioPs_Config;
 
 /**
@@ -290,7 +301,11 @@ u32 XGpioPs_IntrGetStatusPin(const XGpioPs *InstancePtr, u32 Pin);
 void XGpioPs_IntrClearPin(const XGpioPs *InstancePtr, u32 Pin);
 
 /* Functions in xgpiops_sinit.c */
+#ifndef SDT
 XGpioPs_Config *XGpioPs_LookupConfig(u16 DeviceId);
+#else
+XGpioPs_Config *XGpioPs_LookupConfig(u32 BaseAddress);
+#endif
 #ifdef __cplusplus
 }
 #endif

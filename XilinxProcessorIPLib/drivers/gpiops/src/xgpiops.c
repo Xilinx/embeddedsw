@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,8 @@
 *                     as Pointer to const,Casting operation to a pointer,
 *                     Literal value requires a U suffix.
 * 3.5   sne  03/13/19 Added Versal support.
+* 3.12  gm   07/11/23 Added SDT support.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -89,7 +91,9 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 	 */
 	InstancePtr->IsReady = 0U;
 	InstancePtr->GpioConfig.BaseAddr = EffectiveAddr;
+#ifndef SDT
 	InstancePtr->GpioConfig.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->Handler = (XGpioPs_Handler)StubHandler;
 	InstancePtr->Platform = XGetPlatform_Info();
 
