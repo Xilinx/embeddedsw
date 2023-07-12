@@ -28,6 +28,7 @@
 *                     the last cache line will not get invalidated under certain
 *                     scenarios. Changes are made to fix the same.
 * 9.0    ml  03/03/23 Added description to fix doxygen warnings.
+* 9.0    ml  07/12/23 fixed compilation warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -126,7 +127,7 @@ void Xil_DCacheInvalidate(void)
 	u32 stack_start,stack_end,stack_size;
 #if defined (ARMR52)
     register u32 CsidReg, C7Reg;
-    u32 CacheSize, LineSize, NumWays;
+    u32 LineSize, NumWays;
     u32 Way, WayIndex, Set, SetIndex, NumSet;
 #endif
 
@@ -174,9 +175,6 @@ void Xil_DCacheInvalidate(void)
         /* Get the cacheline size, way size, index size from csidr */
         LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
 
-
-        /* Determine Cache Size */
-        CacheSize = (NumSet * NumWays * (0x00000001U << LineSize));
 
         Way = 0U;
         Set = 0U;
@@ -373,7 +371,9 @@ void Xil_DCacheFlush(void)
 ****************************************************************************/
 void Xil_DCacheFlushLine(INTPTR adr)
 {
-#if !defined(ARMR52)
+#if defined(ARMR52)
+	(void)adr;
+#else
 	u32 currmask;
 
 	currmask = mfcpsr();
@@ -405,7 +405,10 @@ void Xil_DCacheFlushLine(INTPTR adr)
 ****************************************************************************/
 void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 {
-#if !defined(ARMR52)
+#if defined(ARMR52)
+	(void)adr;
+	(void)len;
+#else
 	u32 LocalAddr = adr;
 	const u32 cacheline = 32U;
 	u32 end;
