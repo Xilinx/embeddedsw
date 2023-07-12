@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 4.5  sne   06/12/19 Fixed IAR compiler warning.
+* 4.10 gm    07/11/23 Added SDT support.
 *
 * </pre>
 ******************************************************************************/
@@ -50,7 +52,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define GPIO_EXAMPLE_DEVICE_ID  XPAR_GPIO_0_DEVICE_ID
+#else
+#define	XGPIO_AXI_BASEADDRESS	XPAR_AXI_GPIO_0_BASEADDR
+#endif
 
 /*
  * The following constant is used to wait after an LED is turned on to make
@@ -122,7 +128,11 @@ int main(void)
 	volatile int Delay;
 
 	/* Initialize the GPIO driver */
+#ifndef SDT
 	Status = XGpio_Initialize(&Gpio, GPIO_EXAMPLE_DEVICE_ID);
+#else
+	Status = XGpio_Initialize(&Gpio, XGPIO_AXI_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Gpio Initialization Failed\r\n");
 		return XST_FAILURE;
