@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /*****************************************************************************/
@@ -39,6 +39,7 @@
 * 3.7	sne  12/04/19 Reverted versal example support.
 * 3.8	sne  09/17/20 Added description for Versal PS and PMC GPIO pins.
 * 3.9	sne  11/19/20 Added versal PmcGpio example support.
+* 3.12  gm   07/11/23 Added SDT support.
 *
 * </pre>
 *
@@ -60,8 +61,12 @@
  * change all the needed parameters in one place for ZYNQ & ZYNQMP.
  */
 
+#ifndef SDT
 #ifndef GPIO_DEVICE_ID
 #define GPIO_DEVICE_ID		XPAR_XGPIOPS_0_DEVICE_ID
+#endif
+#else
+#define	XGPIOPS_BASEADDR	XPAR_XGPIOPS_0_BASEADDR
 #endif
 
 /*
@@ -83,7 +88,11 @@
 
 static int GpioOutputExample(void);
 static int GpioInputExample(u32 *DataRead);
+#ifndef SDT
 int GpioPolledExample(u16 DeviceId, u32 *DataRead);
+#else
+int GpioPolledExample(UINTPTR BaseAddress, u32 *DataRead);
+#endif
 
 /************************** Variable Definitions **************************/
 static u32 Input_Pin; /* Switch button */
@@ -114,7 +123,11 @@ int main(void)
 	u32 InputData;
 
 	printf("GPIO Polled Mode Example Test \r\n");
+#ifndef SDT
 	Status = GpioPolledExample(GPIO_DEVICE_ID, &InputData);
+#else
+	Status = GpioPolledExample(XGPIOPS_BASEADDR, &InputData);
+#endif
 	if (Status != XST_SUCCESS) {
 		printf("GPIO Polled Mode Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -143,14 +156,22 @@ int main(void)
 * @note		This function will not return if the test is running.
 *
 ******************************************************************************/
+#ifndef SDT
 int GpioPolledExample(u16 DeviceId, u32 *DataRead)
+#else
+int GpioPolledExample(UINTPTR BaseAddress, u32 *DataRead)
+#endif
 {
 	int Status;
 	XGpioPs_Config *ConfigPtr;
 	int Type_of_board;
 
 	/* Initialize the GPIO driver. */
+#ifndef SDT
 	ConfigPtr = XGpioPs_LookupConfig(GPIO_DEVICE_ID);
+#else
+	ConfigPtr = XGpioPs_LookupConfig(BaseAddress);
+#endif
 	Type_of_board = XGetPlatform_Info();
 	switch (Type_of_board) {
 		case XPLAT_ZYNQ_ULTRA_MP:
