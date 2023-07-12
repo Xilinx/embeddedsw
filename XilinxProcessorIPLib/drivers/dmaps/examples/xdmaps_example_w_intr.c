@@ -21,8 +21,8 @@
 *                         address.
 * 1.02a sg     05/16/2012 Some code cleanup and reorganisation of the
 *			  functions within the example.
-* 1.06a kpc    04/24/2012 Modified the APIs to make this file compatible with 
-*                         peripheral test suite.							 
+* 1.06a kpc    04/24/2012 Modified the APIs to make this file compatible with
+*                         peripheral test suite.
 * 2.1   kpc    08/23/2014 Fixed IAR compiler reported error.
 * 2.3   ms     01/23/17  Modified xil_printf statement in main function to
 *                        ensure that "Successfully ran" and "Failed" strings are
@@ -95,7 +95,7 @@ int SetupInterruptSystem(XScuGic *GicPtr, XDmaPs *DmaPtr);
 int XDmaPs_Example_W_Intr(XDmaPs *DmapsInstPtr, UINTPTR BaseAddress);
 #endif
 void DmaDoneHandler(unsigned int Channel, XDmaPs_Cmd *DmaCmd,
-			void *CallbackRef);
+		    void *CallbackRef);
 
 /************************** Macro Definitions *****************************/
 
@@ -136,16 +136,14 @@ int main(void)
 	int Status;
 
 #ifndef SDT
-	Status = XDmaPs_Example_W_Intr(&GicInstance,DMA_DEVICE_ID);
+	Status = XDmaPs_Example_W_Intr(&GicInstance, DMA_DEVICE_ID);
 #else
-	Status = XDmaPs_Example_W_Intr(&DmaInstance,DMAPS_BASEADDR);
+	Status = XDmaPs_Example_W_Intr(&DmaInstance, DMAPS_BASEADDR);
 #endif
 	if (Status != XST_SUCCESS) {
-                xil_printf("Error: XDMaPs_Example_W_Intr failed\r\n");
-                return XST_FAILURE;
-        }
-	else
-	{
+		xil_printf("Error: XDMaPs_Example_W_Intr failed\r\n");
+		return XST_FAILURE;
+	} else {
 		xil_printf("Successfully ran XDMaPs_Example_W_Intr\r\n");
 		return XST_SUCCESS;
 	}
@@ -205,12 +203,12 @@ int XDmaPs_Example_W_Intr(XDmaPs *DmapsInstPtr, UINTPTR BaseAddress)
 	DmaCfg = XDmaPs_LookupConfig(BaseAddress);
 #endif
 	if (DmaCfg == NULL) {
-                return XST_FAILURE;
-        }
+		return XST_FAILURE;
+	}
 
 	Status = XDmaPs_CfgInitialize(DmaInst,
-				   DmaCfg,
-				   DmaCfg->BaseAddress);
+				      DmaCfg,
+				      DmaCfg->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -222,54 +220,54 @@ int XDmaPs_Example_W_Intr(XDmaPs *DmapsInstPtr, UINTPTR BaseAddress)
 #ifndef SDT
 	Status = SetupInterruptSystem(GicPtr, DmaInst);
 #else
-	Status = XSetupInterruptSystem(DmapsInstPtr,&XDmaPs_FaultISR,
-			DmapsInstPtr->Config.IntrId[0],
-			DmapsInstPtr->Config.IntrParent,
-			XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(DmapsInstPtr, &XDmaPs_FaultISR,
+				       DmapsInstPtr->Config.IntrId[0],
+				       DmapsInstPtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 
-	Status = XSetupInterruptSystem(DmapsInstPtr,&XDmaPs_DoneISR_0,
-                        DmapsInstPtr->Config.IntrId[1],
-                        DmapsInstPtr->Config.IntrParent,
-                        XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(DmapsInstPtr, &XDmaPs_DoneISR_0,
+				       DmapsInstPtr->Config.IntrId[1],
+				       DmapsInstPtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 
-	Status = XSetupInterruptSystem(DmapsInstPtr,&XDmaPs_DoneISR_1,
-                        DmapsInstPtr->Config.IntrId[2],
-                        DmapsInstPtr->Config.IntrParent,
-                        XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(DmapsInstPtr, &XDmaPs_DoneISR_1,
+				       DmapsInstPtr->Config.IntrId[2],
+				       DmapsInstPtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 
-	Status = XSetupInterruptSystem(DmapsInstPtr,&XDmaPs_DoneISR_2,
-                        DmapsInstPtr->Config.IntrId[3],
-                        DmapsInstPtr->Config.IntrParent,
-                        XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(DmapsInstPtr, &XDmaPs_DoneISR_2,
+				       DmapsInstPtr->Config.IntrId[3],
+				       DmapsInstPtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 
-	Status = XSetupInterruptSystem(DmapsInstPtr,&XDmaPs_DoneISR_3,
-                        DmapsInstPtr->Config.IntrId[4],
-                        DmapsInstPtr->Config.IntrParent,
-                        XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(DmapsInstPtr, &XDmaPs_DoneISR_3,
+				       DmapsInstPtr->Config.IntrId[4],
+				       DmapsInstPtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 
-	Status = XSetupInterruptSystem(DmapsInstPtr,&XDmaPs_DoneISR_4,
-                        DmapsInstPtr->Config.IntrId[5],
-                        DmapsInstPtr->Config.IntrParent,
-                        XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(DmapsInstPtr, &XDmaPs_DoneISR_4,
+				       DmapsInstPtr->Config.IntrId[5],
+				       DmapsInstPtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 
-	Status = XSetupInterruptSystem(DmapsInstPtr,&XDmaPs_DoneISR_5,
-                        DmapsInstPtr->Config.IntrId[6],
-                        DmapsInstPtr->Config.IntrParent,
-                        XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(DmapsInstPtr, &XDmaPs_DoneISR_5,
+				       DmapsInstPtr->Config.IntrId[6],
+				       DmapsInstPtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 
-	Status = XSetupInterruptSystem(DmapsInstPtr,&XDmaPs_DoneISR_6,
-                        DmapsInstPtr->Config.IntrId[7],
-                        DmapsInstPtr->Config.IntrParent,
-                        XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(DmapsInstPtr, &XDmaPs_DoneISR_6,
+				       DmapsInstPtr->Config.IntrId[7],
+				       DmapsInstPtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 
-	Status = XSetupInterruptSystem(DmapsInstPtr,&XDmaPs_DoneISR_7,
-                        DmapsInstPtr->Config.IntrId[8],
-                        DmapsInstPtr->Config.IntrParent,
-                        XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(DmapsInstPtr, &XDmaPs_DoneISR_7,
+				       DmapsInstPtr->Config.IntrId[8],
+				       DmapsInstPtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
-                return XST_FAILURE;
-        }
+		return XST_FAILURE;
+	}
 
 	TestStatus = XST_SUCCESS;
 
@@ -280,20 +278,22 @@ int XDmaPs_Example_W_Intr(XDmaPs *DmapsInstPtr, UINTPTR BaseAddress)
 
 
 			/* Initialize source */
-			for (Index = 0; Index < DMA_LENGTH; Index++)
+			for (Index = 0; Index < DMA_LENGTH; Index++) {
 				Src[Index] = DMA_LENGTH - Index;
+			}
 
 			/* Clear destination */
-			for (Index = 0; Index < DMA_LENGTH; Index++)
+			for (Index = 0; Index < DMA_LENGTH; Index++) {
 				Dst[Index] = 0;
+			}
 
 			Checked[Channel] = 0;
 
 			/* Set the Done interrupt handler */
 			XDmaPs_SetDoneHandler(DmaInst,
-					       Channel,
-					       DmaDoneHandler,
-					       (void *)Checked);
+					      Channel,
+					      DmaDoneHandler,
+					      (void *)Checked);
 
 			Status = XDmaPs_Start(DmaInst, Channel, &DmaCmd, 0);
 			if (Status != XST_SUCCESS) {
@@ -343,7 +343,7 @@ int XDmaPs_Example_W_Intr(XDmaPs *DmapsInstPtr, UINTPTR BaseAddress)
 int SetupInterruptSystem(XScuGic *GicPtr, XDmaPs *DmaPtr)
 {
 	int Status;
-#ifndef TESTAPP_GEN	
+#ifndef TESTAPP_GEN
 	XScuGic_Config *GicConfig;
 
 
@@ -370,8 +370,8 @@ int SetupInterruptSystem(XScuGic *GicPtr, XDmaPs *DmaPtr)
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-			     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
-			     GicPtr);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     GicPtr);
 #endif
 	/*
 	 * Connect the device driver handlers that will be called when an interrupt
@@ -398,36 +398,37 @@ int SetupInterruptSystem(XScuGic *GicPtr, XDmaPs *DmaPtr)
 				 (Xil_InterruptHandler)XDmaPs_DoneISR_0,
 				 (void *)DmaPtr);
 	Status |= XScuGic_Connect(GicPtr,
-				 DMA_DONE_INTR_1,
-				 (Xil_InterruptHandler)XDmaPs_DoneISR_1,
-				 (void *)DmaPtr);
+				  DMA_DONE_INTR_1,
+				  (Xil_InterruptHandler)XDmaPs_DoneISR_1,
+				  (void *)DmaPtr);
 	Status |= XScuGic_Connect(GicPtr,
-				 DMA_DONE_INTR_2,
-				 (Xil_InterruptHandler)XDmaPs_DoneISR_2,
-				 (void *)DmaPtr);
+				  DMA_DONE_INTR_2,
+				  (Xil_InterruptHandler)XDmaPs_DoneISR_2,
+				  (void *)DmaPtr);
 	Status |= XScuGic_Connect(GicPtr,
-				 DMA_DONE_INTR_3,
-				 (Xil_InterruptHandler)XDmaPs_DoneISR_3,
-				 (void *)DmaPtr);
+				  DMA_DONE_INTR_3,
+				  (Xil_InterruptHandler)XDmaPs_DoneISR_3,
+				  (void *)DmaPtr);
 	Status |= XScuGic_Connect(GicPtr,
-				 DMA_DONE_INTR_4,
-				 (Xil_InterruptHandler)XDmaPs_DoneISR_4,
-				 (void *)DmaPtr);
+				  DMA_DONE_INTR_4,
+				  (Xil_InterruptHandler)XDmaPs_DoneISR_4,
+				  (void *)DmaPtr);
 	Status |= XScuGic_Connect(GicPtr,
-				 DMA_DONE_INTR_5,
-				 (Xil_InterruptHandler)XDmaPs_DoneISR_5,
-				 (void *)DmaPtr);
+				  DMA_DONE_INTR_5,
+				  (Xil_InterruptHandler)XDmaPs_DoneISR_5,
+				  (void *)DmaPtr);
 	Status |= XScuGic_Connect(GicPtr,
-				 DMA_DONE_INTR_6,
-				 (Xil_InterruptHandler)XDmaPs_DoneISR_6,
-				 (void *)DmaPtr);
+				  DMA_DONE_INTR_6,
+				  (Xil_InterruptHandler)XDmaPs_DoneISR_6,
+				  (void *)DmaPtr);
 	Status |= XScuGic_Connect(GicPtr,
-				 DMA_DONE_INTR_7,
-				 (Xil_InterruptHandler)XDmaPs_DoneISR_7,
-				 (void *)DmaPtr);
+				  DMA_DONE_INTR_7,
+				  (Xil_InterruptHandler)XDmaPs_DoneISR_7,
+				  (void *)DmaPtr);
 
-	if (Status != XST_SUCCESS)
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 
 	/*
 	 * Enable the interrupts for the device
@@ -479,7 +480,7 @@ void DmaDoneHandler(unsigned int Channel, XDmaPs_Cmd *DmaCmd, void *CallbackRef)
 	/* compare the src and dst buffer */
 	for (Index = 0; Index < DMA_LENGTH; Index++) {
 		if ((Src[Index] != Dst[Index]) ||
-				(Dst[Index] != DMA_LENGTH - Index)) {
+		    (Dst[Index] != DMA_LENGTH - Index)) {
 			Status = -XST_FAILURE;
 		}
 	}

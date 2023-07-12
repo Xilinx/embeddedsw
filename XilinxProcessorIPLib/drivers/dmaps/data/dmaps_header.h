@@ -12,7 +12,7 @@
 #include "xstatus.h"
 
 #ifndef SDT
-int XDmaPs_Example_W_Intr(XScuGic *GicPtr,u16 DeviceId);
+int XDmaPs_Example_W_Intr(XScuGic *GicPtr, u16 DeviceId);
 #else
 int XDmaPs_Example_W_Intr(XDmaPs *DmapsInstPtr, UINTPTR BaseAddress);
 #endif

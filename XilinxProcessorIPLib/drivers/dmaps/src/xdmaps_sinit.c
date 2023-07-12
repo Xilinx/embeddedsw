@@ -87,7 +87,7 @@ XDmaPs_Config *XDmaPs_LookupConfig(UINTPTR BaseAddress)
 
 	for (i = (u32)0x0; XDmaPs_ConfigTable[i].Name != NULL; i++) {
 		if ((XDmaPs_ConfigTable[i].BaseAddress == BaseAddress) ||
-		     !BaseAddress) {
+		    !BaseAddress) {
 			CfgPtr = &XDmaPs_ConfigTable[i];
 			break;
 		}
@@ -98,16 +98,16 @@ XDmaPs_Config *XDmaPs_LookupConfig(UINTPTR BaseAddress)
 
 u32 XDmaPs_GetDrvIndex(XDmaPs *InstancePtr, UINTPTR BaseAddress)
 {
-        XDmaPs_Config *CfgPtr = NULL;
-        u32 Index = 0;
+	XDmaPs_Config *CfgPtr = NULL;
+	u32 Index = 0;
 
-        for (Index = (u32)0x0; XDmaPs_ConfigTable[Index].Name != NULL; Index++) {
-                if ((XDmaPs_ConfigTable[Index].BaseAddress == BaseAddress)) {
-                        break;
-                }
-        }
+	for (Index = (u32)0x0; XDmaPs_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XDmaPs_ConfigTable[Index].BaseAddress == BaseAddress)) {
+			break;
+		}
+	}
 
-        return Index;
+	return Index;
 }
 #endif
 /** @} */
