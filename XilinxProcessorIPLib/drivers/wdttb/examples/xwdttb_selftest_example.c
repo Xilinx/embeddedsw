@@ -96,7 +96,7 @@ int main(void)
 #else
 	Status = WdtTbSelfTestExample(XPAR_XWDTTB_0_BASEADDR);
 #endif
-	if (Status != XST_SUCCESS){
+	if (Status != XST_SUCCESS) {
 		xil_printf("WDTTB self test example failed\n\r");
 		return XST_FAILURE;
 	}
@@ -160,14 +160,14 @@ int WdtTbSelfTestExample(UINTPTR BaseAddress)
 	 * it is ready to use.
 	 */
 	Status = XWdtTb_CfgInitialize(&WatchdogTimebase, Config,
-			Config->BaseAddr);
+				      Config->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	/*Enable Window Watchdog Feature in WWDT*/
 #ifndef SDT
-	if(!WatchdogTimebase.Config.IsPl) {
+	if (!WatchdogTimebase.Config.IsPl) {
 #else
 	if (!(strcmp(WatchdogTimebase.Config.Name, "xlnx,versal-wwdt-1.0"))) {
 #endif

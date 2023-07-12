@@ -115,17 +115,17 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 	if (InstancePtr->EnableWinMode == (u32)1) {
 		/* Configure first window with zero count */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_FWR_OFFSET,
-			XWT_FW_COUNT);
+				XWT_FW_COUNT);
 
 		/* Configure second window count */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_SWR_OFFSET,
-			XWT_SW_COUNT);
+				XWT_SW_COUNT);
 
 		/* Enable Window WDT */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET,
-			XWT_ESR_WEN_MASK);
+				XWT_ESR_WEN_MASK);
 		TbrValue2 = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-			     XWT_ESR_OFFSET) & XWT_ESR_WEN_MASK);
+					    XWT_ESR_OFFSET) & XWT_ESR_WEN_MASK);
 		if (TbrValue2 == (u32)1U) {
 			Status = (s32)XST_SUCCESS;
 		} else {
@@ -135,11 +135,11 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 
 		/* Set writable mode */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_MWR_OFFSET,
-			1);
+				1);
 
 		/* Read enable status register and update WEN bit */
 		TbrValue1 = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-			XWT_ESR_OFFSET) & (~XWT_ESR_WEN_MASK);
+					   XWT_ESR_OFFSET) & (~XWT_ESR_WEN_MASK);
 
 		/*
 		 * Clear WSW bit. Otherwise writing 1 will generate restart
@@ -149,11 +149,11 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 
 		/* Disable Window WDT feature */
 		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET,
-			TbrValue1);
+				TbrValue1);
 		/* Read enable status register and get last bad events */
 		TbrValue2 = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-			     XWT_ESR_OFFSET) & XWT_ESR_LBE_MASK) >>
-			     XWT_ESR_LBE_SHIFT;
+					    XWT_ESR_OFFSET) & XWT_ESR_LBE_MASK) >>
+			    XWT_ESR_LBE_SHIFT;
 
 		/* Compare last bad event */
 		if (TbrValue2 == (u32)0) {
@@ -162,63 +162,61 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 			Status = (s32)XST_FAILURE;
 		}
 
-	}
-	else {
+	} else {
 #ifndef SDT
 		if (InstancePtr->Config.IsPl == (u32)0) {
 #else
 		if (!(strcmp(InstancePtr->Config.Name, "xlnx,versal-wwdt-1.0"))) {
 #endif
-                /* Write General Watchdog offset register for Generating interrupt */
-                XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWOR_OFFSET,XWT_GWOR_COUNT);
-                /*Enable GWEN bit for starting General Watchdog timer */
-                XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWCSR_OFFSET,XWT_GWCSR_GWEN_MASK);
-		TbrValue1 = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-					    XWT_GWCSR_OFFSET) & XWT_GWCSR_GWEN_MASK);
-		if (TbrValue1 == (u32)1) {
+			/* Write General Watchdog offset register for Generating interrupt */
+			XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GWOR_OFFSET, XWT_GWOR_COUNT);
+			/*Enable GWEN bit for starting General Watchdog timer */
+			XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GWCSR_OFFSET, XWT_GWCSR_GWEN_MASK);
+			TbrValue1 = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
+						    XWT_GWCSR_OFFSET) & XWT_GWCSR_GWEN_MASK);
+			if (TbrValue1 == (u32)1) {
+				Status = (s32)XST_SUCCESS;
+			} else {
+				Status = (s32)XST_FAILURE;
+				goto End;
+			}
+			/* Write General WDT Refresh register to restart the timer */
+			XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GWRR_OFFSET, 1U);
+			/* Disable GWEN Register */
+			XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
+					XWT_GWCSR_OFFSET, (~(u32)XWT_GWCSR_GWEN_MASK));
 			Status = (s32)XST_SUCCESS;
 		} else {
-			Status = (s32)XST_FAILURE;
-			goto End;
-		}
-                /* Write General WDT Refresh register to restart the timer */
-                XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_GWRR_OFFSET,1U);
-                /* Disable GWEN Register */
-		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
-				XWT_GWCSR_OFFSET, (~(u32)XWT_GWCSR_GWEN_MASK));
-		Status = (s32)XST_SUCCESS;
-		} else {
 
-		/*
-		 * Read the timebase register twice to start the test
-		 */
-		TbrValue1 = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-			XWT_TBR_OFFSET);
-		TbrValue2 = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-			XWT_TBR_OFFSET);
+			/*
+			 * Read the timebase register twice to start the test
+			 */
+			TbrValue1 = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
+						   XWT_TBR_OFFSET);
+			TbrValue2 = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
+						   XWT_TBR_OFFSET);
 
-		/*
-		 * Read the timebase register for a number of iterations or
-		 * until it increments, which ever occurs first
-		 */
-		while ((LoopCount <= XWT_MAX_SELFTEST_LOOP_COUNT) &&
-		       (TbrValue2 == TbrValue1)) {
-			TbrValue2 =
-				XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-					XWT_TBR_OFFSET);
-			LoopCount++;
-		}
+			/*
+			 * Read the timebase register for a number of iterations or
+			 * until it increments, which ever occurs first
+			 */
+			while ((LoopCount <= XWT_MAX_SELFTEST_LOOP_COUNT) &&
+			       (TbrValue2 == TbrValue1)) {
+				TbrValue2 =
+					XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
+						       XWT_TBR_OFFSET);
+				LoopCount++;
+			}
 
-		/*
-		 * If the timebase register changed the test is successful,
-		 * otherwise it failed
-		 */
-		if (TbrValue2 != TbrValue1) {
-			Status = (s32)XST_SUCCESS;
-		}
-		else {
-			Status = (s32)XST_WDTTB_TIMER_FAILED;
-		}
+			/*
+			 * If the timebase register changed the test is successful,
+			 * otherwise it failed
+			 */
+			if (TbrValue2 != TbrValue1) {
+				Status = (s32)XST_SUCCESS;
+			} else {
+				Status = (s32)XST_WDTTB_TIMER_FAILED;
+			}
 		}
 	}
 End:
