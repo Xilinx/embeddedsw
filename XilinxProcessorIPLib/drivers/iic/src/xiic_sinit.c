@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +26,7 @@
 *		      the name and some of the macros have been renamed to be
 *		      consistent, see the xiic_i.h and xiic_l.h files for further
 *		      information
+* 3.10  gm   07/09/23 Added SDT support.
 * </pre>
 *
 ****************************************************************************/
@@ -63,6 +65,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XIic_Config *XIic_LookupConfig(u16 DeviceId)
 {
 	XIic_Config *CfgPtr = NULL;
@@ -77,7 +80,23 @@ XIic_Config *XIic_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XIic_Config *XIic_LookupConfig(u32 BaseAddress)
+{
+	XIic_Config *CfgPtr = NULL;
+	u32 Index;
 
+	for (Index = 0; XIic_ConfigTable[Index].Name != NULL; Index++) {
+		if (XIic_ConfigTable[Index].BaseAddress == BaseAddress ||
+		    !BaseAddress) {
+			CfgPtr = &XIic_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /*****************************************************************************/
 /**
 *
@@ -116,7 +135,11 @@ XIic_Config *XIic_LookupConfig(u16 DeviceId)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int XIic_Initialize(XIic *InstancePtr, u16 DeviceId)
+#else
+int XIic_Initialize(XIic *InstancePtr, u32 BaseAddress)
+#endif
 {
 	XIic_Config *ConfigPtr;	/* Pointer to configuration data */
 
@@ -129,7 +152,11 @@ int XIic_Initialize(XIic *InstancePtr, u16 DeviceId)
 	 * Lookup the device configuration in the temporary CROM table. Use this
 	 * configuration info down below when initializing this component.
 	 */
+#ifndef SDT
 	ConfigPtr = XIic_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XIic_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}

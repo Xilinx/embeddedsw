@@ -1,0 +1,71 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for IIC controller
+
+maintainers:
+  - Manikanta Guntupalli <manikanta.guntupalli@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-iic-2.0
+          - xlnx,xps-iic-2.00.a
+  reg:
+    description: Physical base address and size of the controller register map
+  Has10BitAddr:
+    description: Does device have 10 bit address decoding
+  GpOutWidth:
+    description: Number of bits in general purpose output
+
+config:
+    - XIic_Config
+
+required:
+    - compatible
+    - reg
+    - Has10BitAddr
+    - GpOutWidth
+    - interrupts
+    - interrupt-parent
+
+examples:
+    xiic_eeprom_example.c:
+        - interrupts
+
+    xiic_dynamic_eeprom_example.c:
+        - interrupts
+
+    xiic_low_level_dynamic_eeprom_example.c:
+        - reg
+
+    xiic_low_level_eeprom_example.c:
+        - reg
+
+    xiic_low_level_tempsensor_example.c:
+        - reg
+
+    xiic_multi_master_example.c:
+        - interrupts
+
+    xiic_repeated_start_example.c:
+        - interrupts
+
+    xiic_selftest_example.c:
+        - reg
+
+    xiic_slave_example.c:
+        - interrupts
+
+    xiic_tempsensor_example.c:
+        - interrupts
+
+    xiic_tenbitaddr_example.c:
+        - interrupts
+...

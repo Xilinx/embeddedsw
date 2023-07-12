@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -284,6 +285,7 @@
 *       ms   04/05/17 Modified Comment lines in functions of iic
 *                     examples to recognize it as documentation block
 *                     for doxygen generation.
+* 3.10  gm   07/09/23 Added SDT support.
 * </pre>
 *
 ******************************************************************************/
@@ -377,10 +379,20 @@ extern "C" {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;	  /**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;  /**< Device base address */
 	int Has10BitAddr; /**< Does device have 10 bit address decoding */
 	u8 GpOutWidth;	  /**< Number of bits in general purpose output */
+#ifdef SDT
+	u16 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags */
+	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
 } XIic_Config;
 
 /****************************************************************************/
@@ -496,8 +508,13 @@ static inline u32 XIic_IsIicBusy(XIic *InstancePtr)
 /*
  * Initialization functions in xiic_sinit.c
  */
+#ifndef SDT
 int XIic_Initialize(XIic *InstancePtr, u16 DeviceId);
 XIic_Config *XIic_LookupConfig(u16 DeviceId);
+#else
+int XIic_Initialize(XIic *InstancePtr, u32 BaseAddress);
+XIic_Config *XIic_LookupConfig(u32 BaseAddress);
+#endif
 
 /*
  * Functions in xiic.c
