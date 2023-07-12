@@ -499,10 +499,17 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
     {RX_R3_TMDS_20, 0x0A, 0x1C},
     {RX_R3_TMDS_20, 0x0B, 0x01},
     {RX_R3_TMDS_20, 0x0C, 0x00},
+#if defined XPS_BOARD_VCK190
     {RX_R3_TMDS_20, 0x0D, 0x00},
     {RX_R3_TMDS_20, 0x0E, 0x03},
     {RX_R3_TMDS_20, 0x0F, 0x21},
     {RX_R3_TMDS_20, 0x10, 0x2A},
+#else
+    {RX_R3_TMDS_20, 0x0D, 0x10},
+    {RX_R3_TMDS_20, 0x0E, 0x03},
+    {RX_R3_TMDS_20, 0x0F, 0x10},
+    {RX_R3_TMDS_20, 0x10, 0x03},
+#endif
     {RX_R3_TMDS_20, 0x11, 0x0F},
     {RX_R3_TMDS_20, 0x12, 0x00},
     {RX_R3_TMDS_20, 0x13, 0x00},
@@ -518,6 +525,7 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
     {RX_R3_TMDS_20, 0x1D, 0x03},
     {RX_R3_TMDS_20, 0x1E, 0x00},
 
+#if defined XPS_BOARD_VCK190
     {RX_R3_FRL, 0x0A, 0x24},
     {RX_R3_FRL, 0x0B, 0x01},
     {RX_R3_FRL, 0x0C, 0x00},
@@ -539,7 +547,29 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
     {RX_R3_FRL, 0x1C, 0x20},
     {RX_R3_FRL, 0x1D, 0x07},
     {RX_R3_FRL, 0x1E, 0x00},
-
+#else
+    {RX_R3_FRL, 0x0A, 0x64},//0x64 is Global with Lane swap for TMDS clock
+    {RX_R3_FRL, 0x0B, 0x01},
+    {RX_R3_FRL, 0x0C, 0x00},
+    {RX_R3_FRL, 0x0D, 0x30},
+    {RX_R3_FRL, 0x0E, 0x03},
+    {RX_R3_FRL, 0x0F, 0x10},
+    {RX_R3_FRL, 0x10, 0x03},
+    {RX_R3_FRL, 0x11, 0x0F},
+    {RX_R3_FRL, 0x12, 0x33},
+    {RX_R3_FRL, 0x13, 0x33},//Channel A
+    {RX_R3_FRL, 0x14, 0x0A},
+    {RX_R3_FRL, 0x15, 0x00},
+    {RX_R3_FRL, 0x16, 0x11},
+    {RX_R3_FRL, 0x17, 0x05},
+    {RX_R3_FRL, 0x18, 0x00},
+    {RX_R3_FRL, 0x19, 0x11},
+    {RX_R3_FRL, 0x1A, 0x05},
+    {RX_R3_FRL, 0x1B, 0x00},
+    {RX_R3_FRL, 0x1C, 0x11},
+    {RX_R3_FRL, 0x1D, 0x05},
+    {RX_R3_FRL, 0x1E, 0x00},
+#endif
 };
 
 /************************** Function Prototypes ******************************/

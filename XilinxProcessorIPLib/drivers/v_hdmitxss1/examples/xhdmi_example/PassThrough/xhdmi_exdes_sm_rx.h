@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -65,6 +66,9 @@
 
 #endif
 
+#if defined (XPS_BOARD_VEK280_ES) || (XPS_BOARD_VEK280_ES_REVB)
+#define XPS_BOARD_VEK280
+#endif
 /**************************** Type Definitions ******************************/
 
 /**
