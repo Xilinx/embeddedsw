@@ -27,7 +27,9 @@
 /***************************** Include Files ********************************/
 
 #include "xstatus.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xdmaps.h"
 
 /************************** Constant Definitions ****************************/
@@ -61,6 +63,7 @@ extern XDmaPs_Config XDmaPs_ConfigTable[];
 * None.
 *
 ******************************************************************************/
+#ifndef SDT
 XDmaPs_Config *XDmaPs_LookupConfig(u16 DeviceId)
 {
 	XDmaPs_Config *CfgPtr = NULL;
@@ -76,4 +79,35 @@ XDmaPs_Config *XDmaPs_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XDmaPs_Config *XDmaPs_LookupConfig(UINTPTR BaseAddress)
+{
+	XDmaPs_Config *CfgPtr = NULL;
+	int i;
+
+	for (i = (u32)0x0; XDmaPs_ConfigTable[i].Name != NULL; i++) {
+		if ((XDmaPs_ConfigTable[i].BaseAddress == BaseAddress) ||
+		     !BaseAddress) {
+			CfgPtr = &XDmaPs_ConfigTable[i];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+
+u32 XDmaPs_GetDrvIndex(XDmaPs *InstancePtr, UINTPTR BaseAddress)
+{
+        XDmaPs_Config *CfgPtr = NULL;
+        u32 Index = 0;
+
+        for (Index = (u32)0x0; XDmaPs_ConfigTable[Index].Name != NULL; Index++) {
+                if ((XDmaPs_ConfigTable[Index].BaseAddress == BaseAddress)) {
+                        break;
+                }
+        }
+
+        return Index;
+}
+#endif
 /** @} */
