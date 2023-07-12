@@ -11,7 +11,7 @@ BEGIN driver gpiops
   OPTION supported_peripherals = (ps7_gpio psu_gpio psv_pmc_gpio psv_gpio psxl_pmc_gpio psxl_gpio psx_pmc_gpio psx_gpio);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.11;
+  OPTION VERSION = 3.12;
   OPTION NAME = gpiops;
 
 END driver
