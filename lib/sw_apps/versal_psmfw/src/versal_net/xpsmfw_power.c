@@ -1423,9 +1423,11 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	/*Set the start address */
 	LowAddress = (u32)(PsmToPlmEvent.ResumeAddress[Args->Id] & 0xffffffe0ULL);
 	if(0U != PsmToPlmEvent.ResumeAddress[Args->Id] & 1ULL){
-		u32 TcmBootFlag = (Xil_In32(Args->ResetCfgAddr)&RPU_TCMBOOT_MASK)>>0x4;
-		if(0U == TcmBootFlag){
-			XPsmFw_Write32(Args->VectTableAddr, LowAddress);
+		XPsmFw_Write32(Args->VectTableAddr, LowAddress);
+		if(0U == LowAddress){
+			XPsmFw_RMW32(Args->ResetCfgAddr,RPU_TCMBOOT_MASK,RPU_TCMBOOT_MASK);
+		}else{
+			XPsmFw_RMW32(Args->ResetCfgAddr,RPU_TCMBOOT_MASK,~RPU_TCMBOOT_MASK);
 		}
 		PsmToPlmEvent.ResumeAddress[Args->Id] = 0U;
 	}
