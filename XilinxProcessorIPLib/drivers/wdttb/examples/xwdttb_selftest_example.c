@@ -30,6 +30,7 @@
 * 4.5	sne  09/27/19 Updated example file to support AXI Timebase WDT and
 *		      WWDT.
 * 5.0	sne  03/11/20 Added XWdtTb_ConfigureWDTMode api to configure mode.
+* 5.7	sb   07/12/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -46,7 +47,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define TIMEBASE_WDT_DEVICE_ID  XPAR_WDTTB_0_DEVICE_ID
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -56,7 +59,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int WdtTbSelfTestExample(u16 DeviceId);
+#else
+int WdtTbSelfTestExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -84,7 +91,11 @@ int main(void)
 	 * Run the Self Test example , specify the device ID that is generated in
 	 * xparameters.h
 	 */
+#ifndef SDT
 	Status = WdtTbSelfTestExample(TIMEBASE_WDT_DEVICE_ID);
+#else
+	Status = WdtTbSelfTestExample(XPAR_XWDTTB_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS){
 		xil_printf("WDTTB self test example failed\n\r");
 		return XST_FAILURE;
@@ -122,7 +133,11 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int WdtTbSelfTestExample(u16 DeviceId)
+#else
+int WdtTbSelfTestExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XWdtTb_Config *Config;
@@ -131,7 +146,11 @@ int WdtTbSelfTestExample(u16 DeviceId)
 	 * Initialize the WDTTB driver so that it's ready to use look up
 	 * configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Config = XWdtTb_LookupConfig(DeviceId);
+#else
+	Config = XWdtTb_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
@@ -147,7 +166,11 @@ int WdtTbSelfTestExample(u16 DeviceId)
 	}
 
 	/*Enable Window Watchdog Feature in WWDT*/
+#ifndef SDT
 	if(!WatchdogTimebase.Config.IsPl) {
+#else
+	if (!(strcmp(WatchdogTimebase.Config.Name, "xlnx,versal-wwdt-1.0"))) {
+#endif
 		XWdtTb_ConfigureWDTMode(&WatchdogTimebase, XWT_WWDT);
 	}
 

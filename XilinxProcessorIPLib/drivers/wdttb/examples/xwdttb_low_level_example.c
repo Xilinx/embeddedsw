@@ -34,6 +34,7 @@
 *		      condition instead of timer expiry state to avoid a race
 * 		      condition
 * 4.0   sha  02/04/16 Added debug messages.
+* 5.7   sb   07/12/23 Added support for system device-tree flow.
 *</pre>
 ******************************************************************************/
 
@@ -50,7 +51,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define WDTTB_BASEADDR  XPAR_WDTTB_0_BASEADDR
+#endif
 
 
 /**************************** Type Definitions *******************************/
@@ -61,7 +64,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int XWdtTb_LowLevelExample(u32 WdtTbBaseAddress);
+#else
+int XWdtTb_LowLevelExample(UINTPTR WdtTbBaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -86,7 +93,11 @@ int main(void)
 	 * Run the low level example, specify the Base Address that is
 	 * generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = XWdtTb_LowLevelExample(WDTTB_BASEADDR);
+#else
+	Status = XWdtTb_LowLevelExample(XPAR_XWDTTB_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("WDTTB low level example failed.\n\r");
 		return XST_FAILURE;
@@ -120,7 +131,11 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int XWdtTb_LowLevelExample(u32 WdtTbBaseAddress)
+#else
+int XWdtTb_LowLevelExample(UINTPTR WdtTbBaseAddress)
+#endif
 {
 	int Count = 0;
 

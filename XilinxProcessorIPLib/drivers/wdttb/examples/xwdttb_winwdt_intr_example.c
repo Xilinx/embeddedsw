@@ -27,6 +27,7 @@
 * 4.0   sha  02/04/16 First release
 * 5.0	sne  03/26/20 Updated example to support versal platform.
 * 5.7	sb   06/27/23 Correct the interrupt ID for Versal-net platform.
+* 5.7	sb   07/12/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -44,6 +45,9 @@
 #include "xscugic.h"
 #include "xil_printf.h"
 #endif
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -52,6 +56,7 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #ifndef TESTAPP_GEN
 #define WDTTB_DEVICE_ID         XPAR_WDTTB_0_DEVICE_ID
 #endif
@@ -69,6 +74,7 @@
 #define WDTTB_IRPT_INTR       XPAR_FABRIC_WDTTB_0_VEC_ID
 #endif
 #endif /* XPAR_INTC_0_DEVICE_ID */
+#endif /* SDT */
 
 #define WIN_WDT_SW_COUNT	0xF00000	/**< Number of clock cycles for
 						  *  second window */
@@ -77,6 +83,7 @@
 
 /**************************** Type Definitions *******************************/
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC			XIntc
 #define INTC_HANDLER		XIntc_InterruptHandler
@@ -84,29 +91,38 @@
 #define INTC			XScuGic
 #define INTC_HANDLER		XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int WinWdtIntrExample(INTC *IntcInstancePtr,
 		      XWdtTb *WdtTbInstancePtr,
 		      u16 WdtTbDeviceId,
 		      u16 WdtTbIntrId);
+#else
+int WinWdtIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
+#endif
 
 static void WdtTbIntrHandler(void *CallBackRef);
+#ifndef SDT
 static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 				XWdtTb *WdtTbInstancePtr,
 				u16 WdtTbIntrId);
 static void WdtTbDisableIntrSystem(INTC *IntcInstancePtr,
 				   u16 WdtTbIntrId);
+#endif
 
 /************************** Variable Definitions *****************************/
 
 #ifndef TESTAPP_GEN
 XWdtTb WdtTbInstance;	/* Instance of Time Base WatchDog Timer */
+#ifndef SDT
 INTC IntcInstance;	/* Instance of the Interrupt Controller */
+#endif
 #endif
 
 static volatile int WdtExpired;
@@ -132,10 +148,14 @@ int main(void)
 	 * Call the WdtTb interrupt example, specify the parameters generated in
 	 * xparameters.h
 	 */
+#ifndef SDT
 	Status = WinWdtIntrExample(&IntcInstance,
 				   &WdtTbInstance,
 				   WDTTB_DEVICE_ID,
 				   WDTTB_IRPT_INTR);
+#else
+	Status = WinWdtIntrExample(&WdtTbInstance, XPAR_XWDTTB_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Window WDT interrupt example failed.\n\r");
 		return XST_FAILURE;
@@ -179,10 +199,14 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int WinWdtIntrExample(INTC *IntcInstancePtr,
 		      XWdtTb *WdtTbInstancePtr,
 		      u16 WdtTbDeviceId,
 		      u16 WdtTbIntrId)
+#else
+int WinWdtIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XWdtTb_Config *Config;
@@ -191,7 +215,11 @@ int WinWdtIntrExample(INTC *IntcInstancePtr,
 	 * Initialize the WDTTB driver so that it's ready to use look up
 	 * configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Config = XWdtTb_LookupConfig(WdtTbDeviceId);
+#else
+	Config = XWdtTb_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
@@ -206,7 +234,11 @@ int WinWdtIntrExample(INTC *IntcInstancePtr,
 		return XST_FAILURE;
 	}
 
+#ifndef SDT
 	if (!WdtTbInstancePtr->Config.IsPl) {
+#else
+        if (!(strcmp(WdtTbInstancePtr->Config.Name, "xlnx,versal-wwdt-1.0"))) {
+#endif
 		/*Enable Window Watchdog Feature in WWDT */
 		XWdtTb_ConfigureWDTMode(WdtTbInstancePtr, XWT_WWDT);
 	}
@@ -223,9 +255,16 @@ int WinWdtIntrExample(INTC *IntcInstancePtr,
 	 * Connect the WdtTb to the interrupt subsystem so that interrupts
 	 * can occur
 	 */
+#ifndef SDT
 	Status = WdtTbSetupIntrSystem(IntcInstancePtr,
 				      WdtTbInstancePtr,
 				      WdtTbIntrId);
+#else
+	Status = XSetupInterruptSystem(WdtTbInstancePtr, &WdtTbIntrHandler,
+				       Config->IntrId[0],
+				       Config->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -278,7 +317,11 @@ int WinWdtIntrExample(INTC *IntcInstancePtr,
 	/* Check for last event */
 	if (XWdtTb_GetLastEvent(WdtTbInstancePtr) != XWDTTB_NO_BAD_EVENT) {
 		/* Disable and disconnect the interrupt system */
+#ifndef SDT
 		WdtTbDisableIntrSystem(IntcInstancePtr, WdtTbIntrId);
+#else
+		XDisconnectInterruptCntrl(Config->IntrId[0], Config->IntrParent);
+#endif
 
 		/* Stop the timer */
 		XWdtTb_Stop(WdtTbInstancePtr);
@@ -286,7 +329,11 @@ int WinWdtIntrExample(INTC *IntcInstancePtr,
 	}
 
 	/* Disable and disconnect the interrupt system */
+#ifndef SDT
 	WdtTbDisableIntrSystem(IntcInstancePtr, WdtTbIntrId);
+#else
+	XDisconnectInterruptCntrl(Config->IntrId[0], Config->IntrParent);
+#endif
 
 	/* Stop the timer */
 	XWdtTb_Stop(WdtTbInstancePtr);
@@ -294,6 +341,7 @@ int WinWdtIntrExample(INTC *IntcInstancePtr,
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -418,6 +466,7 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -444,6 +493,7 @@ static void WdtTbIntrHandler(void *CallBackRef)
 	XWdtTb_RestartWdt(WdtTbInstancePtr);
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -472,3 +522,4 @@ static void WdtTbDisableIntrSystem(INTC *IntcInstancePtr, u16 WdtTbIntrId)
 
 #endif
 }
+#endif
