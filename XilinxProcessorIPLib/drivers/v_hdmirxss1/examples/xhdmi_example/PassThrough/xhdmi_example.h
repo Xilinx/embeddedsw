@@ -35,16 +35,20 @@ extern "C" {
 #include <stdlib.h>
 #include "platform.h"
 
+#if defined (XPS_BOARD_VEK280_ES) || (XPS_BOARD_VEK280_ES_REVB)
+#define XPS_BOARD_VEK280
+#endif
+
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190)
 #include "xiicps.h"
-#elif (defined XPS_BOARD_VEK280_ES)
+#elif (defined XPS_BOARD_VEK280)
 #include "xiicps.h"
 #include "xiic.h"
 #else
 #include "xiic.h"
-#ifdef XPS_BOARD_VEK280_ES
+#ifdef XPS_BOARD_VEK280
 #else
 #define XPS_BOARD_VCU118
 #endif
@@ -204,7 +208,7 @@ typedef enum {
 /* TCA9528 (U34) Definitions */
 #define VCK190_U135_MUX_I2C_ADDR	0x75
 #define VCK190_U135_MUX_SEL_HPC0	0x02
-#elif defined (XPS_BOARD_VEK280_ES)
+#elif defined (XPS_BOARD_VEK280)
 /* TCA9528 (U34) Definitions */
 #define VCK190_U34_MUX_I2C_ADDR		0x74
 #define VCK190_U34_MUX_SEL_NONE		0x80
@@ -375,7 +379,7 @@ extern u8 AuxFifoStartFlag;
     defined (XPS_BOARD_VCK190)
 XIicPs Ps_Iic0, Iic;
 #define PS_IIC_CLK 100000
-#elif defined (XPS_BOARD_VEK280_ES)
+#elif defined (XPS_BOARD_VEK280)
 //XIicPs Ps_Iic0, Iic1;
 XIicPs Ps_Iic0;
 #define PS_IIC_CLK 100000
