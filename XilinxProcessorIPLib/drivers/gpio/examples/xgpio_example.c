@@ -84,16 +84,16 @@
  * parameter. Note that the channel parameter is fixed as channel 1.
  */
 #define XGpio_SetDataDirection(InstancePtr, DirectionMask) \
-        XGpio_SetDataDirection(InstancePtr, LED_CHANNEL, DirectionMask)
+	XGpio_SetDataDirection(InstancePtr, LED_CHANNEL, DirectionMask)
 
 #define XGpio_DiscreteRead(InstancePtr) \
-        XGpio_DiscreteRead(InstancePtr, LED_CHANNEL)
+	XGpio_DiscreteRead(InstancePtr, LED_CHANNEL)
 
 #define XGpio_DiscreteWrite(InstancePtr, Mask) \
-        XGpio_DiscreteWrite(InstancePtr, LED_CHANNEL, Mask)
+	XGpio_DiscreteWrite(InstancePtr, LED_CHANNEL, Mask)
 
 #define XGpio_DiscreteSet(InstancePtr, Mask) \
-        XGpio_DiscreteSet(InstancePtr, LED_CHANNEL, Mask)
+	XGpio_DiscreteSet(InstancePtr, LED_CHANNEL, Mask)
 
 #endif
 

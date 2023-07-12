@@ -48,11 +48,11 @@
 #include "xil_exception.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
- #include "xintc.h"
- #include <stdio.h>
+#include "xintc.h"
+#include <stdio.h>
 #else
- #include "xscugic.h"
- #include "xil_printf.h"
+#include "xscugic.h"
+#include "xil_printf.h"
 #endif
 #ifdef SDT
 #include "xinterrupt_wrap.h"
@@ -74,11 +74,11 @@
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
- #define INTC_GPIO_INTERRUPT_ID	XPAR_INTC_0_GPIO_0_VEC_ID
- #define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#define INTC_GPIO_INTERRUPT_ID	XPAR_INTC_0_GPIO_0_VEC_ID
+#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
 #else
- #define INTC_GPIO_INTERRUPT_ID	XPAR_FABRIC_AXI_GPIO_0_IP2INTC_IRPT_INTR
- #define INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define INTC_GPIO_INTERRUPT_ID	XPAR_FABRIC_AXI_GPIO_0_IP2INTC_IRPT_INTR
+#define INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif
 
@@ -116,13 +116,13 @@
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
- #define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
- #define INTC		XIntc
- #define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#define INTC		XIntc
+#define INTC_HANDLER	XIntc_InterruptHandler
 #else
- #define INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
- #define INTC		XScuGic
- #define INTC_HANDLER	XScuGic_InterruptHandler
+#define INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define INTC		XScuGic
+#define INTC_HANDLER	XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif
 
@@ -131,14 +131,14 @@ void GpioHandler(void *CallBackRef);
 
 #ifndef SDT
 int GpioIntrExample(INTC *IntcInstancePtr, XGpio *InstancePtr,
-			u16 DeviceId, u16 IntrId,
-			u16 IntrMask, u32 *DataRead);
+		    u16 DeviceId, u16 IntrId,
+		    u16 IntrMask, u32 *DataRead);
 
 int GpioSetupIntrSystem(INTC *IntcInstancePtr, XGpio *InstancePtr,
 			u16 DeviceId, u16 IntrId, u16 IntrMask);
 
 void GpioDisableIntr(INTC *IntcInstancePtr, XGpio *InstancePtr,
-			u16 IntrId, u16 IntrMask);
+		     u16 IntrId, u16 IntrMask);
 #else
 
 int GpioIntrExample(XGpio *InstancePtr,
@@ -182,27 +182,28 @@ int main(void)
 	int Status;
 	u32 DataRead;
 
-	  print(" Press button to Generate Interrupt\r\n");
+	print(" Press button to Generate Interrupt\r\n");
 
 #ifndef SDT
-	  Status = GpioIntrExample(&Intc, &Gpio,
-				   GPIO_DEVICE_ID,
-				   INTC_GPIO_INTERRUPT_ID,
-				   GPIO_CHANNEL1, &DataRead);
+	Status = GpioIntrExample(&Intc, &Gpio,
+				 GPIO_DEVICE_ID,
+				 INTC_GPIO_INTERRUPT_ID,
+				 GPIO_CHANNEL1, &DataRead);
 #else
-	  Status = GpioIntrExample(&Gpio,
-				   XGPIO_AXI_BASEADDRESS,
-				   GPIO_CHANNEL1, &DataRead);
+	Status = GpioIntrExample(&Gpio,
+				 XGPIO_AXI_BASEADDRESS,
+				 GPIO_CHANNEL1, &DataRead);
 #endif
 
-	if (Status == 0 ){
-		if(DataRead == 0)
+	if (Status == 0 ) {
+		if (DataRead == 0) {
 			print("No button pressed. \r\n");
-		else
+		} else {
 			print("Successfully ran Gpio Interrupt Tapp Example\r\n");
+		}
 	} else {
-		 print("Gpio Interrupt Tapp Example Failed.\r\n");
-		 return XST_FAILURE;
+		print("Gpio Interrupt Tapp Example Failed.\r\n");
+		return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;
@@ -234,10 +235,10 @@ int main(void)
 *
 ******************************************************************************/
 #ifndef SDT
-int GpioIntrExample(INTC *IntcInstancePtr, XGpio* InstancePtr, u16 DeviceId,
-			u16 IntrId, u16 IntrMask, u32 *DataRead)
+int GpioIntrExample(INTC *IntcInstancePtr, XGpio *InstancePtr, u16 DeviceId,
+		    u16 IntrId, u16 IntrMask, u32 *DataRead)
 #else
-int GpioIntrExample(XGpio* InstancePtr, UINTPTR BaseAddress,
+int GpioIntrExample(XGpio *InstancePtr, UINTPTR BaseAddress,
 		    u16 IntrMask, u32 *DataRead)
 #endif
 {
@@ -260,9 +261,9 @@ int GpioIntrExample(XGpio* InstancePtr, UINTPTR BaseAddress,
 
 #ifndef SDT
 	Status = GpioSetupIntrSystem(IntcInstancePtr, InstancePtr, DeviceId,
-					IntrId, IntrMask);
+				     IntrId, IntrMask);
 #else
-	Status = XSetupInterruptSystem(InstancePtr,&GpioHandler,
+	Status = XSetupInterruptSystem(InstancePtr, &GpioHandler,
 				       ConfigPtr->IntrId,
 				       ConfigPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
@@ -274,7 +275,7 @@ int GpioIntrExample(XGpio* InstancePtr, UINTPTR BaseAddress,
 	IntrFlag = 0;
 	delay = 0;
 
-	while(!IntrFlag && (delay < INTR_DELAY)) {
+	while (!IntrFlag && (delay < INTR_DELAY)) {
 		delay++;
 	}
 
@@ -362,14 +363,14 @@ int GpioSetupIntrSystem(INTC *IntcInstancePtr, XGpio *InstancePtr,
 	}
 
 	Result = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Result != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #endif /* TESTAPP_GEN */
 
 	XScuGic_SetPriorityTriggerType(IntcInstancePtr, IntrId,
-					0xA0, 0x3);
+				       0xA0, 0x3);
 
 	/*
 	 * Connect the interrupt handler that will be called when an
@@ -399,7 +400,7 @@ int GpioSetupIntrSystem(INTC *IntcInstancePtr, XGpio *InstancePtr,
 	Xil_ExceptionInit();
 
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			 (Xil_ExceptionHandler)INTC_HANDLER, IntcInstancePtr);
+				     (Xil_ExceptionHandler)INTC_HANDLER, IntcInstancePtr);
 
 	/* Enable non-critical exceptions */
 	Xil_ExceptionEnable();
@@ -450,7 +451,7 @@ void GpioHandler(void *CallbackRef)
 *
 ******************************************************************************/
 void GpioDisableIntr(INTC *IntcInstancePtr, XGpio *InstancePtr,
-			u16 IntrId, u16 IntrMask)
+		     u16 IntrId, u16 IntrMask)
 {
 	XGpio_InterruptDisable(InstancePtr, IntrMask);
 #ifdef XPAR_INTC_0_DEVICE_ID

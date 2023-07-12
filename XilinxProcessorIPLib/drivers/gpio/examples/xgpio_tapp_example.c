@@ -133,7 +133,7 @@ int main(void)
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Gpio tapp Example Failed\r\n");
-		  return XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 #ifndef SDT
@@ -143,7 +143,7 @@ int main(void)
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Gpio tapp Example Failed\r\n");
-		  return XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	printf("Data read from GPIO Input is  0x%x \n\r", (int)InputData);
@@ -188,27 +188,27 @@ int GpioOutputExample(UINTPTR BaseAddress, u32 GpioWidth)
 	 * specify the device ID that is generated in xparameters.h
 	 */
 #ifndef SDT
-	 Status = XGpio_Initialize(&GpioOutput, DeviceId);
+	Status = XGpio_Initialize(&GpioOutput, DeviceId);
 #else
 	Status = XGpio_Initialize(&GpioOutput, BaseAddress);
 #endif
-	 if (Status != XST_SUCCESS)  {
-		  return XST_FAILURE;
-	 }
+	if (Status != XST_SUCCESS)  {
+		return XST_FAILURE;
+	}
 
-	 /* Set the direction for all signals to be outputs */
-	 XGpio_SetDataDirection(&GpioOutput, LED_CHANNEL, 0x0);
+	/* Set the direction for all signals to be outputs */
+	XGpio_SetDataDirection(&GpioOutput, LED_CHANNEL, 0x0);
 
-	 /* Set the GPIO outputs to low */
-	 XGpio_DiscreteWrite(&GpioOutput, LED_CHANNEL, 0x0);
+	/* Set the GPIO outputs to low */
+	XGpio_DiscreteWrite(&GpioOutput, LED_CHANNEL, 0x0);
 
-	 for (LedBit = 0x0; LedBit < GpioWidth; LedBit++)  {
+	for (LedBit = 0x0; LedBit < GpioWidth; LedBit++)  {
 
 		for (LedLoop = 0; LedLoop < LED_MAX_BLINK; LedLoop++) {
 
 			/* Set the GPIO Output to High */
 			XGpio_DiscreteWrite(&GpioOutput, LED_CHANNEL,
-						1 << LedBit);
+					    1 << LedBit);
 
 #ifndef __SIM__
 			/* Wait a small amount of time so the LED is visible */
@@ -217,7 +217,7 @@ int GpioOutputExample(UINTPTR BaseAddress, u32 GpioWidth)
 #endif
 			/* Clear the GPIO Output */
 			XGpio_DiscreteClear(&GpioOutput, LED_CHANNEL,
-						1 << LedBit);
+					    1 << LedBit);
 
 
 #ifndef __SIM__
@@ -225,11 +225,11 @@ int GpioOutputExample(UINTPTR BaseAddress, u32 GpioWidth)
 			for (Delay = 0; Delay < LED_DELAY; Delay++);
 #endif
 
-		  }
+		}
 
-	 }
+	}
 
-	 return XST_SUCCESS;
+	return XST_SUCCESS;
 
 }
 
@@ -258,28 +258,28 @@ int GpioInputExample(u16 DeviceId, u32 *DataRead)
 int GpioInputExample(UINTPTR BaseAddress, u32 *DataRead)
 #endif
 {
-	 int Status;
+	int Status;
 
-	 /*
-	  * Initialize the GPIO driver so that it's ready to use,
-	  * specify the device ID that is generated in xparameters.h
-	  */
+	/*
+	 * Initialize the GPIO driver so that it's ready to use,
+	 * specify the device ID that is generated in xparameters.h
+	 */
 #ifndef SDT
-	 Status = XGpio_Initialize(&GpioInput, DeviceId);
+	Status = XGpio_Initialize(&GpioInput, DeviceId);
 #else
-	 Status = XGpio_Initialize(&GpioInput, BaseAddress);
+	Status = XGpio_Initialize(&GpioInput, BaseAddress);
 #endif
-	 if (Status != XST_SUCCESS) {
-		  return XST_FAILURE;
-	 }
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
-	 /* Set the direction for all signals to be inputs */
-	 XGpio_SetDataDirection(&GpioInput, LED_CHANNEL, 0xFFFFFFFF);
+	/* Set the direction for all signals to be inputs */
+	XGpio_SetDataDirection(&GpioInput, LED_CHANNEL, 0xFFFFFFFF);
 
-	 /* Read the state of the data so that it can be  verified */
-	 *DataRead = XGpio_DiscreteRead(&GpioInput, LED_CHANNEL);
+	/* Read the state of the data so that it can be  verified */
+	*DataRead = XGpio_DiscreteRead(&GpioInput, LED_CHANNEL);
 
-	 return XST_SUCCESS;
+	return XST_SUCCESS;
 
 }
 
