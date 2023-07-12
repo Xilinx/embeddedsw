@@ -12,6 +12,10 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifndef SDT
 int XCanPolledExample(u16 DeviceId);
+#else
+int XCanPolledExample(XCan *Can, u16 DeviceId);
+#endif
 
 #endif

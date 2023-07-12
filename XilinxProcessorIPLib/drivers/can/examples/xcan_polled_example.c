@@ -92,7 +92,7 @@
 #ifndef SDT
 int XCanPolledExample(u16 DeviceId);
 #else
-int XCanPolledExample(UINTPTR BaseAddress);
+int XCanPolledExample(XCan *Can, UINTPTR BaseAddress);
 #endif
 static int SendFrame(XCan *InstancePtr);
 static int RecvFrame(XCan *InstancePtr);
@@ -135,7 +135,7 @@ int main(void)
 #ifndef SDT
 	if (XCanPolledExample(CAN_DEVICE_ID)) {
 #else
-	if (XCanPolledExample(XCAN_BASEADDRESS)) {
+	if (XCanPolledExample(&Can, XCAN_BASEADDRESS)) {
 #endif
 		xil_printf("Can polled Example Failed\r\n");
 		return XST_FAILURE;
@@ -170,7 +170,7 @@ int main(void)
 #ifndef SDT
 int XCanPolledExample(u16 DeviceId)
 #else
-int XCanPolledExample(UINTPTR BaseAddress)
+int XCanPolledExample(XCan *Can, UINTPTR BaseAddress)
 #endif
 {
 	int Status;

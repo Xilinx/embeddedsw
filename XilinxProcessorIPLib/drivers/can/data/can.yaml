@@ -16,6 +16,7 @@ properties:
         - enum:
           - xlnx,axi-can-1.00.a
           - xlnx,can-5.0
+          - xlnx,can-5.1
   reg:
     description: Physical base address and size of the controller register map
   can-num-acf:
@@ -38,13 +39,9 @@ examples:
                 - reg
 
 tapp:
-        xcan_intr_example.c:
-                - declaration: XCanIntrExample
-                - hwproperties:
-                        - interrupts
         xcan_polled_example.c:
-                - declaration: XCanPolledExample
-                - hwproperties:
+                declaration: XCanPolledExample
+                hwproperties:
                         - reg
 
 ...
