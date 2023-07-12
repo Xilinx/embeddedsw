@@ -27,6 +27,5 @@ XStatus XPmApuCore_AssignRegisterMask(XPm_ApuCore *ApuCore, const u32 Id)
 		Status = XST_INVALID_PARAM;
 	}
 
-done:
 	return Status;
 }
