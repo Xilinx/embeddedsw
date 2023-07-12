@@ -26,6 +26,6 @@ BEGIN driver v_sditxss
   OPTION driver_state = ACTIVE;
   OPTION DEPENDS = (v_sditx vtc);
   OPTION copyfiles = all;
-  OPTION VERSION = 4.3;
+  OPTION VERSION = 4.4;
   OPTION NAME = v_sditxss;
 END driver
