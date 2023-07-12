@@ -8,7 +8,7 @@
 /**
 *
 * @file xv_sditxss_coreinit.h
-* @addtogroup v_sditxss_v4_3
+* @addtogroup v_sditxss Overview
 * @{
 *
 * This header file contains the sdi tx subsystem sub-cores

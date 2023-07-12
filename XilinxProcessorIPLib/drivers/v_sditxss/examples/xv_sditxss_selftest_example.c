@@ -8,7 +8,7 @@
 /**
 *
 * @file xv_sditxss_selftest_example.c
-* @addtogroup v_sditxss_v4_3
+* @addtogroup v_sditxss Overview
 * @{
 *
 * This file contains a design example using the XV_SdiTxSs driver. It performs a

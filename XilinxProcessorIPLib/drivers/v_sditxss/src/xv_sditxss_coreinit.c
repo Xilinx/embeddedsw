@@ -8,7 +8,7 @@
 /**
 *
 * @file xv_sditxss_coreinit.c
-* @addtogroup v_sditxss_v4_3
+* @addtogroup v_sditxss Overview
 * @{
 * @details
 

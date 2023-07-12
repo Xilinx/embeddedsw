@@ -8,7 +8,7 @@
 /**
 *
 * @file xv_sditxss_selftest.c
-* @addtogroup xv_sditxss_v4_3
+* @addtogroup v_sditxss Overview
 * @{
 * This file contains self test function for the SDI Tx Subsystem
 *
