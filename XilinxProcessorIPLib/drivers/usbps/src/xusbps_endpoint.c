@@ -23,7 +23,7 @@
  * 1.03a nm  09/21/12 Fixed CR#678977. Added proper sequence for setup packet
  *                    handling.
  * 1.04a nm  11/02/12 Fixed CR#683931. Mult bits are set properly in dQH.
- * 2.00a kpc 04/03/14 Fixed CR#777763. Updated the macro names 
+ * 2.00a kpc 04/03/14 Fixed CR#777763. Updated the macro names
  * 2.1   kpc 04/28/14 Added XUsbPs_EpBufferSendWithZLT api and merged common
  *		      code to XUsbPs_EpQueueRequest.
  * 2.3   bss 01/19/16 Modified XUsbPs_EpQueueRequest function to fix CR#873972
@@ -53,7 +53,7 @@ static void XUsbPs_EpListInit(XUsbPs_DeviceConfig *DevCfgPtr);
 static void XUsbPs_dQHInit(XUsbPs_DeviceConfig *DevCfgPtr);
 static int  XUsbPs_dTDInit(XUsbPs_DeviceConfig *DevCfgPtr);
 static int  XUsbPs_dTDAttachBuffer(XUsbPs_dTD *dTDPtr,
-					const u8 *BufferPtr, u32 BufferLen);
+				   const u8 *BufferPtr, u32 BufferLen);
 
 static void XUsbPs_dQHSetMaxPacketLenISO(XUsbPs_dQH *dQHPtr, u32 Len);
 
@@ -61,11 +61,11 @@ static void XUsbPs_dQHSetMaxPacketLenISO(XUsbPs_dQH *dQHPtr, u32 Len);
  * request.
  */
 static void XUsbPs_dQHReinitEp(XUsbPs_DeviceConfig *DevCfgPtr,
-					int EpNum, unsigned short NewDirection);
+			       int EpNum, unsigned short NewDirection);
 static int XUsbPs_dTDReinitEp(XUsbPs_DeviceConfig *DevCfgPtr,
-					int EpNum, unsigned short NewDirection);
+			      int EpNum, unsigned short NewDirection);
 static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
-				const u8 *BufferPtr, u32 BufferLen, u8 ReqZero);
+				 const u8 *BufferPtr, u32 BufferLen, u8 ReqZero);
 
 /******************************* Functions ************************************/
 
@@ -93,7 +93,7 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
  *
  ******************************************************************************/
 int XUsbPs_ConfigureDevice(XUsbPs *InstancePtr,
-			    const XUsbPs_DeviceConfig *CfgPtr)
+			   const XUsbPs_DeviceConfig *CfgPtr)
 {
 	int	Status;
 	u32 ModeValue = 0x0;
@@ -108,8 +108,8 @@ int XUsbPs_ConfigureDevice(XUsbPs *InstancePtr,
 	/* Align the buffer to a 2048 byte (XUSBPS_dQH_BASE_ALIGN) boundary.*/
 	InstancePtr->DeviceConfig.PhysAligned =
 		(InstancePtr->DeviceConfig.DMAMemPhys +
-					 XUSBPS_dQH_BASE_ALIGN) &
-						~(XUSBPS_dQH_BASE_ALIGN -1);
+		 XUSBPS_dQH_BASE_ALIGN) &
+		~(XUSBPS_dQH_BASE_ALIGN - 1);
 
 	/* Initialize the endpoint pointer list data structure. */
 	XUsbPs_EpListInit(&InstancePtr->DeviceConfig);
@@ -132,8 +132,8 @@ int XUsbPs_ConfigureDevice(XUsbPs *InstancePtr,
 
 	/* Set the Queue Head List address. */
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_EPLISTADDR_OFFSET,
-				InstancePtr->DeviceConfig.PhysAligned);
+			XUSBPS_EPLISTADDR_OFFSET,
+			InstancePtr->DeviceConfig.PhysAligned);
 
 	/* Set the USB mode register to configure DEVICE mode.
 	 *
@@ -145,10 +145,10 @@ int XUsbPs_ConfigureDevice(XUsbPs *InstancePtr,
 	ModeValue = XUSBPS_MODE_CM_DEVICE_MASK | XUSBPS_MODE_SLOM_MASK;
 
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_MODE_OFFSET, ModeValue);
+			XUSBPS_MODE_OFFSET, ModeValue);
 
 	XUsbPs_SetBits(InstancePtr, XUSBPS_OTGCSR_OFFSET,
-				XUSBPS_OTGSC_OT_MASK);
+		       XUSBPS_OTGSC_OT_MASK);
 
 	return XST_SUCCESS;
 }
@@ -170,13 +170,13 @@ int XUsbPs_ConfigureDevice(XUsbPs *InstancePtr,
 *
 ******************************************************************************/
 int XUsbPs_EpBufferSend(XUsbPs *InstancePtr, u8 EpNum,
-				const u8 *BufferPtr, u32 BufferLen)
+			const u8 *BufferPtr, u32 BufferLen)
 {
 	Xil_AssertNonvoid(InstancePtr  != NULL);
 	Xil_AssertNonvoid(EpNum < InstancePtr->DeviceConfig.NumEndpoints);
 
 	return XUsbPs_EpQueueRequest(InstancePtr, EpNum, BufferPtr,
-					BufferLen, FALSE);
+				     BufferLen, FALSE);
 }
 
 /*****************************************************************************/
@@ -197,7 +197,7 @@ int XUsbPs_EpBufferSend(XUsbPs *InstancePtr, u8 EpNum,
 *
 ******************************************************************************/
 int XUsbPs_EpBufferSendWithZLT(XUsbPs *InstancePtr, u8 EpNum,
-				const u8 *BufferPtr, u32 BufferLen)
+			       const u8 *BufferPtr, u32 BufferLen)
 {
 	u8 ReqZero = FALSE;
 	XUsbPs_EpSetup *Ep;
@@ -208,12 +208,12 @@ int XUsbPs_EpBufferSendWithZLT(XUsbPs *InstancePtr, u8 EpNum,
 	Ep = &InstancePtr->DeviceConfig.EpCfg[EpNum].In;
 
 	if ((BufferLen >= Ep->MaxPacketSize) &&
-		(BufferLen % Ep->MaxPacketSize == 0)) {
+	    (BufferLen % Ep->MaxPacketSize == 0)) {
 		ReqZero = TRUE;
 	}
 
 	return XUsbPs_EpQueueRequest(InstancePtr, EpNum, BufferPtr,
-						BufferLen, ReqZero);
+				     BufferLen, ReqZero);
 }
 
 /*****************************************************************************/
@@ -235,7 +235,7 @@ int XUsbPs_EpBufferSendWithZLT(XUsbPs *InstancePtr, u8 EpNum,
 *
 ******************************************************************************/
 static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
-				const u8 *BufferPtr, u32 BufferLen, u8 ReqZero)
+				 const u8 *BufferPtr, u32 BufferLen, u8 ReqZero)
 {
 	int		Status;
 	u32		Token;
@@ -260,7 +260,7 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
 
 	Xil_DCacheFlushRange((unsigned int)BufferPtr, BufferLen);
 
-	if(Ep->dTDTail != Ep->dTDHead) {
+	if (Ep->dTDTail != Ep->dTDHead) {
 		PipeEmpty = 0;
 	}
 	XUsbPs_dTDInvalidateCache(Ep->dTDHead);
@@ -299,11 +299,12 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
 				InstancePtr->
 				DeviceConfig.EpCfg[EpNum].Out.MaxPacketSize;
 			if (BufferLen == 0 ||
-					(BufferLen %
-					InstancePtr->
-					DeviceConfig.EpCfg[EpNum].
-					Out.MaxPacketSize))
+			    (BufferLen %
+			     InstancePtr->
+			     DeviceConfig.EpCfg[EpNum].
+			     Out.MaxPacketSize)) {
 				Multo++;
+			}
 
 			XUsbPs_dTDSetMultO(Ep->dTDHead, (Multo << 10));
 		}
@@ -325,32 +326,32 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
 			ReqZero = FALSE;
 		}
 
-	} while(BufferLen || exit);
+	} while (BufferLen || exit);
 
 	XUsbPs_dTDSetTerminate(Ep->dTDHead);
 	XUsbPs_dTDFlushCache(Ep->dTDHead);
 
-	if(!PipeEmpty) {
+	if (!PipeEmpty) {
 		/* Read the endpoint prime register. */
 		RegValue = XUsbPs_ReadReg(InstancePtr->Config.BaseAddress, XUSBPS_EPPRIME_OFFSET);
-		if(RegValue & BitMask) {
+		if (RegValue & BitMask) {
 			return XST_SUCCESS;
 		}
 
 		do {
 			RegValue = XUsbPs_ReadReg(InstancePtr->Config.BaseAddress, XUSBPS_CMD_OFFSET);
 			XUsbPs_WriteReg(InstancePtr->Config.BaseAddress, XUSBPS_CMD_OFFSET,
-						RegValue | XUSBPS_CMD_ATDTW_MASK);
+					RegValue | XUSBPS_CMD_ATDTW_MASK);
 			Temp = XUsbPs_ReadReg(InstancePtr->Config.BaseAddress, XUSBPS_EPRDY_OFFSET)
-						& BitMask;
-		} while(!(XUsbPs_ReadReg(InstancePtr->Config.BaseAddress, XUSBPS_CMD_OFFSET) &
-				XUSBPS_CMD_ATDTW_MASK));
+			       & BitMask;
+		} while (!(XUsbPs_ReadReg(InstancePtr->Config.BaseAddress, XUSBPS_CMD_OFFSET) &
+			   XUSBPS_CMD_ATDTW_MASK));
 
 		RegValue = XUsbPs_ReadReg(InstancePtr->Config.BaseAddress, XUSBPS_CMD_OFFSET);
 		XUsbPs_WriteReg(InstancePtr->Config.BaseAddress, XUSBPS_CMD_OFFSET,
-					RegValue & ~XUSBPS_CMD_ATDTW_MASK);
+				RegValue & ~XUSBPS_CMD_ATDTW_MASK);
 
-		if(Temp) {
+		if (Temp) {
 			return XST_SUCCESS;
 		}
 	}
@@ -413,10 +414,10 @@ void XUsbPs_EpGetData(XUsbPs *InstancePtr, u8 EpNum, u32 BufferLen)
 		XUsbPs_dTDInvalidateCache(Ep->dTDCurr);
 
 		DataBuff = (u8 *) XUsbPs_ReaddTD(Ep->dTDCurr,
-				XUSBPS_dTDUSERDATA);
+						 XUSBPS_dTDUSERDATA);
 
 		length = EpSetup->BufSize -
-				XUsbPs_dTDGetTransferLen(Ep->dTDCurr);
+			 XUsbPs_dTDGetTransferLen(Ep->dTDCurr);
 
 		if (length > 0) {
 			BufferLen = length;
@@ -427,11 +428,11 @@ void XUsbPs_EpGetData(XUsbPs *InstancePtr, u8 EpNum, u32 BufferLen)
 		/* Invalidate the Buffer Pointer */
 		InavalidateLen =  BufferLen;
 		if (BufferLen % 32) {
-			InavalidateLen = (BufferLen/32) * 32 + 32;
+			InavalidateLen = (BufferLen / 32) * 32 + 32;
 		}
 
 		Xil_DCacheInvalidateRange((unsigned int)DataBuff,
-				InavalidateLen);
+					  InavalidateLen);
 
 		memcpy(Ep->BufferPtr, DataBuff,  BufferLen);
 
@@ -461,12 +462,12 @@ void XUsbPs_EpGetData(XUsbPs *InstancePtr, u8 EpNum, u32 BufferLen)
 		 * or lesser data.
 		 */
 		if ((Ep->RequestedBytes <= Ep->BytesTxed) ||
-				(Ep->BytesTxed % EpSetup->MaxPacketSize)) {
+		    (Ep->BytesTxed % EpSetup->MaxPacketSize)) {
 			Ep->MemAlloted  = 0;
 			if (Ep->HandlerIsoFunc) {
 				Ep->HandlerIsoFunc(Ep->HandlerRef,
-						Ep->RequestedBytes,
-						Ep->BytesTxed);
+						   Ep->RequestedBytes,
+						   Ep->BytesTxed);
 			}
 
 			break;
@@ -502,7 +503,7 @@ void XUsbPs_EpGetData(XUsbPs *InstancePtr, u8 EpNum, u32 BufferLen)
  *
  ******************************************************************************/
 int XUsbPs_EpBufferReceive(XUsbPs *InstancePtr, u8 EpNum,
-				u8 **BufferPtr, u32 *BufferLenPtr, u32 *Handle)
+			   u8 **BufferPtr, u32 *BufferLenPtr, u32 *Handle)
 {
 	XUsbPs_EpOut	*Ep;
 	XUsbPs_EpSetup	*EpSetup;
@@ -535,14 +536,14 @@ int XUsbPs_EpBufferReceive(XUsbPs *InstancePtr, u8 EpNum,
 	 * Transfer Descriptor.
 	 */
 	*BufferPtr = (u8 *) XUsbPs_ReaddTD(Ep->dTDCurr,
-						XUSBPS_dTDUSERDATA);
+					   XUSBPS_dTDUSERDATA);
 
 	length = EpSetup->BufSize -
-			XUsbPs_dTDGetTransferLen(Ep->dTDCurr);
+		 XUsbPs_dTDGetTransferLen(Ep->dTDCurr);
 
-	if(length > 0) {
+	if (length > 0) {
 		*BufferLenPtr = length;
-	}else {
+	} else {
 		*BufferLenPtr = 0;
 	}
 
@@ -617,7 +618,7 @@ void XUsbPs_EpBufferRelease(u32 Handle)
  *
  ******************************************************************************/
 s32 XUsbPs_EpDataBufferReceive(XUsbPs *InstancePtr, u8 EpNum,
-			u8 *BufferPtr, u32 BufferLen)
+			       u8 *BufferPtr, u32 BufferLen)
 {
 	XUsbPs_EpOut	*Ep;
 
@@ -671,8 +672,8 @@ s32 XUsbPs_EpDataBufferReceive(XUsbPs *InstancePtr, u8 EpNum,
  *
  ******************************************************************************/
 int XUsbPs_EpSetHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
-			 XUsbPs_EpHandlerFunc CallBackFunc,
-			 void *CallBackRef)
+			XUsbPs_EpHandlerFunc CallBackFunc,
+			void *CallBackRef)
 {
 	XUsbPs_Endpoint	*Ep;
 
@@ -682,12 +683,12 @@ int XUsbPs_EpSetHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
 
 	Ep = &InstancePtr->DeviceConfig.Ep[EpNum];
 
-	if(Direction & XUSBPS_EP_DIRECTION_OUT) {
+	if (Direction & XUSBPS_EP_DIRECTION_OUT) {
 		Ep->Out.HandlerFunc	= CallBackFunc;
 		Ep->Out.HandlerRef	= CallBackRef;
 	}
 
-	if(Direction & XUSBPS_EP_DIRECTION_IN) {
+	if (Direction & XUSBPS_EP_DIRECTION_IN) {
 		Ep->In.HandlerFunc	= CallBackFunc;
 		Ep->In.HandlerRef	= CallBackRef;
 	}
@@ -719,7 +720,7 @@ int XUsbPs_EpSetHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
  *
  ******************************************************************************/
 s32 XUsbPs_EpSetIsoHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
-					XUsbPs_EpIsoHandlerFunc CallBackFunc)
+			   XUsbPs_EpIsoHandlerFunc CallBackFunc)
 {
 	XUsbPs_Endpoint	*Ep;
 	void *CallBackRef = (void *) InstancePtr->AppData;
@@ -771,21 +772,21 @@ int XUsbPs_EpPrime(XUsbPs *InstancePtr, u8 EpNum, u8 Direction)
 	/* Get the right bit mask for the endpoint direction. */
 	switch (Direction) {
 
-	case XUSBPS_EP_DIRECTION_OUT:
-		Mask = 0x00000001;
-		break;
+		case XUSBPS_EP_DIRECTION_OUT:
+			Mask = 0x00000001;
+			break;
 
-	case XUSBPS_EP_DIRECTION_IN:
-		Mask = 0x00010000;
-		break;
+		case XUSBPS_EP_DIRECTION_IN:
+			Mask = 0x00010000;
+			break;
 
-	default:
-		return XST_INVALID_PARAM;
+		default:
+			return XST_INVALID_PARAM;
 	}
 
 	/* Write the endpoint prime register. */
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_EPPRIME_OFFSET, Mask << EpNum);
+			XUSBPS_EPPRIME_OFFSET, Mask << EpNum);
 
 	return XST_SUCCESS;
 }
@@ -808,7 +809,7 @@ int XUsbPs_EpPrime(XUsbPs *InstancePtr, u8 EpNum, u8 Direction)
 * @note		None.
 ******************************************************************************/
 int XUsbPs_EpGetSetupData(XUsbPs *InstancePtr, int EpNum,
-				XUsbPs_SetupData *SetupDataPtr)
+			  XUsbPs_SetupData *SetupDataPtr)
 {
 	XUsbPs_EpOut	*Ep;
 
@@ -845,7 +846,7 @@ int XUsbPs_EpGetSetupData(XUsbPs *InstancePtr, int EpNum,
 	/* Clear the pending endpoint setup stat bit.
 	 */
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_EPSTAT_OFFSET, 1 << EpNum);
+			XUSBPS_EPSTAT_OFFSET, 1 << EpNum);
 
 	/* Clear the Tripwire bit and continue.
 	 */
@@ -878,8 +879,8 @@ int XUsbPs_EpGetSetupData(XUsbPs *InstancePtr, int EpNum,
 	 */
 	Timeout = XUSBPS_TIMEOUT_COUNTER;
 	while ((XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_EPSTAT_OFFSET) &
-				(1 << EpNum)) && --Timeout) {
+			       XUSBPS_EPSTAT_OFFSET) &
+		(1 << EpNum)) && --Timeout) {
 		/* NOP */
 	}
 	if (0 == Timeout) {
@@ -1064,18 +1065,18 @@ static void XUsbPs_dQHInit(XUsbPs_DeviceConfig *DevCfgPtr)
 			 * values in queue head than other types.
 			 * Also	enable ZLT for isochronous.
 			 */
-			if(XUSBPS_EP_TYPE_ISOCHRONOUS == EpCfg[EpNum].Out.Type) {
+			if (XUSBPS_EP_TYPE_ISOCHRONOUS == EpCfg[EpNum].Out.Type) {
 				XUsbPs_dQHSetMaxPacketLenISO(Ep[EpNum].Out.dQH,
-                        EpCfg[EpNum].Out.MaxPacketSize);
+							     EpCfg[EpNum].Out.MaxPacketSize);
 				XUsbPs_dQHEnableZLT(Ep[EpNum].Out.dQH);
-			}else {
+			} else {
 				XUsbPs_dQHSetMaxPacketLen(Ep[EpNum].Out.dQH,
-					    EpCfg[EpNum].Out.MaxPacketSize);
+							  EpCfg[EpNum].Out.MaxPacketSize);
 				XUsbPs_dQHDisableZLT(Ep[EpNum].Out.dQH);
 			}
 
 			/* Only control OUT needs this */
-			if(XUSBPS_EP_TYPE_CONTROL == EpCfg[EpNum].Out.Type) {
+			if (XUSBPS_EP_TYPE_CONTROL == EpCfg[EpNum].Out.Type) {
 				XUsbPs_dQHSetIOS(Ep[EpNum].Out.dQH);
 			}
 
@@ -1090,17 +1091,17 @@ static void XUsbPs_dQHInit(XUsbPs_DeviceConfig *DevCfgPtr)
 		/* IN Queue Heads. */
 		if (XUSBPS_EP_TYPE_NONE != EpCfg[EpNum].In.Type) {
 			XUsbPs_WritedQH(Ep[EpNum].In.dQH,
-				  XUSBPS_dQHCPTR, Ep[EpNum].In.dTDs);
+					XUSBPS_dQHCPTR, Ep[EpNum].In.dTDs);
 
 
 			/* Isochronous ep packet size can be larger than 1024.*/
-			if(XUSBPS_EP_TYPE_ISOCHRONOUS == EpCfg[EpNum].In.Type) {
+			if (XUSBPS_EP_TYPE_ISOCHRONOUS == EpCfg[EpNum].In.Type) {
 				XUsbPs_dQHSetMaxPacketLenISO(Ep[EpNum].In.dQH,
-						EpCfg[EpNum].In.MaxPacketSize);
+							     EpCfg[EpNum].In.MaxPacketSize);
 				XUsbPs_dQHEnableZLT(Ep[EpNum].In.dQH);
-			}else {
+			} else {
 				XUsbPs_dQHSetMaxPacketLen(Ep[EpNum].In.dQH,
-					    EpCfg[EpNum].In.MaxPacketSize);
+							  EpCfg[EpNum].In.MaxPacketSize);
 				XUsbPs_dQHDisableZLT(Ep[EpNum].In.dQH);
 			}
 
@@ -1155,8 +1156,7 @@ static int XUsbPs_dTDInit(XUsbPs_DeviceConfig *DevCfgPtr)
 		 */
 		if (XUSBPS_EP_TYPE_NONE != EpCfg[EpNum].Out.Type) {
 			NumdTD = EpCfg[EpNum].Out.NumBufs;
-		}
-		else {
+		} else {
 			NumdTD = 0;
 		}
 
@@ -1169,7 +1169,7 @@ static int XUsbPs_dTDInit(XUsbPs_DeviceConfig *DevCfgPtr)
 
 			/* Set NEXT link pointer. */
 			XUsbPs_WritedTD(&Out->dTDs[Td], XUSBPS_dTDNLP,
-					  &Out->dTDs[NextTd]);
+					&Out->dTDs[NextTd]);
 
 			/* Set the OUT descriptor ACTIVE and enable the
 			 * interrupt on complete.
@@ -1188,10 +1188,10 @@ static int XUsbPs_dTDInit(XUsbPs_DeviceConfig *DevCfgPtr)
 			}
 
 			Status = XUsbPs_dTDAttachBuffer(
-					&Out->dTDs[Td],
-					Out->dTDBufs +
-						(Td * EpCfg[EpNum].Out.BufSize),
-					EpCfg[EpNum].Out.BufSize);
+					 &Out->dTDs[Td],
+					 Out->dTDBufs +
+					 (Td * EpCfg[EpNum].Out.BufSize),
+					 EpCfg[EpNum].Out.BufSize);
 			if (XST_SUCCESS != Status) {
 				return XST_FAILURE;
 			}
@@ -1208,8 +1208,7 @@ static int XUsbPs_dTDInit(XUsbPs_DeviceConfig *DevCfgPtr)
 		 */
 		if (XUSBPS_EP_TYPE_NONE != EpCfg[EpNum].In.Type) {
 			NumdTD = EpCfg[EpNum].In.NumBufs;
-		}
-		else {
+		} else {
 			NumdTD = 0;
 		}
 
@@ -1220,7 +1219,7 @@ static int XUsbPs_dTDInit(XUsbPs_DeviceConfig *DevCfgPtr)
 
 			/* Set NEXT link pointer. */
 			XUsbPs_WritedTD(In->dTDs[Td], XUSBPS_dTDNLP,
-					  In->dTDs[NextTd]);
+					In->dTDs[NextTd]);
 
 			/* Set the IN descriptor's TERMINATE bits. */
 			XUsbPs_dTDSetTerminate(In->dTDs[Td]);
@@ -1256,7 +1255,7 @@ static int XUsbPs_dTDInit(XUsbPs_DeviceConfig *DevCfgPtr)
  *
  ******************************************************************************/
 static int XUsbPs_dTDAttachBuffer(XUsbPs_dTD *dTDPtr,
-					const u8 *BufferPtr, u32 BufferLen)
+				  const u8 *BufferPtr, u32 BufferLen)
 {
 	u32	BufAddr;
 	u32	BufEnd;
@@ -1287,7 +1286,7 @@ static int XUsbPs_dTDAttachBuffer(XUsbPs_dTD *dTDPtr,
 	 * Only do this check, if we are not sending a 0-length buffer.
 	 */
 	if (BufferLen > 0) {
-		BufEnd = BufAddr + BufferLen -1;
+		BufEnd = BufAddr + BufferLen - 1;
 		PtrNum = 1;
 
 		while ((BufAddr & 0xFFFFF000) != (BufEnd & 0xFFFFF000)) {
@@ -1298,7 +1297,7 @@ static int XUsbPs_dTDAttachBuffer(XUsbPs_dTD *dTDPtr,
 			 */
 			BufAddr = (BufAddr + 0x1000) & 0xFFFFF000;
 			XUsbPs_WritedTD(dTDPtr, XUSBPS_dTDBPTR(PtrNum),
-								BufAddr);
+					BufAddr);
 			PtrNum++;
 		}
 	}
@@ -1345,14 +1344,14 @@ static void XUsbPs_dQHSetMaxPacketLenISO(XUsbPs_dQH *dQHPtr, u32 Len)
 
 	/* Set Max packet size */
 	XUsbPs_WritedQH(dQHPtr, XUSBPS_dQHCFG,
-		(XUsbPs_ReaddQH(dQHPtr, XUSBPS_dQHCFG) &
-			~XUSBPS_dQHCFG_MPL_MASK) |
+			(XUsbPs_ReaddQH(dQHPtr, XUSBPS_dQHCFG) &
+			 ~XUSBPS_dQHCFG_MPL_MASK) |
 			(MaxPktSize << XUSBPS_dQHCFG_MPL_SHIFT));
 
 	/* Set Mult to tell hardware how many transactions in each microframe */
 	XUsbPs_WritedQH(dQHPtr, XUSBPS_dQHCFG,
-		(XUsbPs_ReaddQH(dQHPtr, XUSBPS_dQHCFG) &
-			~XUSBPS_dQHCFG_MULT_MASK) |
+			(XUsbPs_ReaddQH(dQHPtr, XUSBPS_dQHCFG) &
+			 ~XUSBPS_dQHCFG_MULT_MASK) |
 			(Mult << XUSBPS_dQHCFG_MULT_SHIFT));
 
 }
@@ -1383,8 +1382,9 @@ static void XUsbPs_dQHSetMaxPacketLenISO(XUsbPs_dQH *dQHPtr, u32 Len)
 *
 ******************************************************************************/
 int XUsbPs_ReconfigureEp(XUsbPs *InstancePtr, XUsbPs_DeviceConfig *CfgPtr,
-				int EpNum, unsigned short NewDirection,
-				int DirectionChanged) {
+			 int EpNum, unsigned short NewDirection,
+			 int DirectionChanged)
+{
 
 	int Status = XST_SUCCESS;
 	XUsbPs_Endpoint *Ep;
@@ -1399,8 +1399,8 @@ int XUsbPs_ReconfigureEp(XUsbPs *InstancePtr, XUsbPs_DeviceConfig *CfgPtr,
 	/* If transfer direction changes, dTDs has to be reset
 	 * Number of buffers are preset and should not to be changed.
 	 */
-	if(DirectionChanged) {
-		if(NewDirection == XUSBPS_EP_DIRECTION_OUT) {
+	if (DirectionChanged) {
+		if (NewDirection == XUSBPS_EP_DIRECTION_OUT) {
 			u8 *p;
 
 			/* Swap the pointer to the dTDs.
@@ -1410,19 +1410,19 @@ int XUsbPs_ReconfigureEp(XUsbPs *InstancePtr, XUsbPs_DeviceConfig *CfgPtr,
 
 			/* Set the OUT buffer if buffer size is not zero
 			 */
-			if(EpCfg[EpNum].Out.BufSize > 0) {
+			if (EpCfg[EpNum].Out.BufSize > 0) {
 				Ep[EpNum].Out.dTDBufs = p;
 			}
-		} else if(NewDirection == XUSBPS_EP_DIRECTION_IN) {
+		} else if (NewDirection == XUSBPS_EP_DIRECTION_IN) {
 			Ep[EpNum].In.dTDs = Ep[EpNum].Out.dTDs;
 		}
 	}
 
 	/* Reset dTD progress tracking pointers
 	 */
-	if(NewDirection == XUSBPS_EP_DIRECTION_IN) {
+	if (NewDirection == XUSBPS_EP_DIRECTION_IN) {
 		Ep[EpNum].In.dTDHead = Ep[EpNum].In.dTDTail = Ep[EpNum].In.dTDs;
-	} else if(NewDirection == XUSBPS_EP_DIRECTION_OUT) {
+	} else if (NewDirection == XUSBPS_EP_DIRECTION_OUT) {
 		Ep[EpNum].Out.dTDCurr = Ep[EpNum].Out.dTDs;
 	}
 
@@ -1433,7 +1433,7 @@ int XUsbPs_ReconfigureEp(XUsbPs *InstancePtr, XUsbPs_DeviceConfig *CfgPtr,
 	/* Reinitialize the dTD linked list, and flush the cache
 	 */
 	Status = XUsbPs_dTDReinitEp(CfgPtr, EpNum, NewDirection);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		return Status;
 	}
 
@@ -1459,7 +1459,7 @@ int XUsbPs_ReconfigureEp(XUsbPs *InstancePtr, XUsbPs_DeviceConfig *CfgPtr,
  *
  ******************************************************************************/
 static void XUsbPs_dQHReinitEp(XUsbPs_DeviceConfig *DevCfgPtr,
-int EpNum, unsigned short NewDirection)
+			       int EpNum, unsigned short NewDirection)
 {
 	XUsbPs_Endpoint	*Ep;
 	XUsbPs_EpConfig	*EpCfg;
@@ -1478,23 +1478,23 @@ int EpNum, unsigned short NewDirection)
 	 * - Enable Interrupt On Setup (IOS)
 	 *
 	 */
-	if(NewDirection == XUSBPS_EP_DIRECTION_OUT) {
+	if (NewDirection == XUSBPS_EP_DIRECTION_OUT) {
 		/* OUT Queue Heads.
 		 */
 		XUsbPs_WritedQH(Ep[EpNum].Out.dQH,
-			XUSBPS_dQHCPTR, Ep[EpNum].Out.dTDs);
+				XUSBPS_dQHCPTR, Ep[EpNum].Out.dTDs);
 
 		/* For isochronous, ep max packet size translates to different
 		 * values in queue head than other types.
 		 * Also	enable ZLT for isochronous.
 		 */
-		if(XUSBPS_EP_TYPE_ISOCHRONOUS == EpCfg[EpNum].Out.Type) {
+		if (XUSBPS_EP_TYPE_ISOCHRONOUS == EpCfg[EpNum].Out.Type) {
 			XUsbPs_dQHSetMaxPacketLenISO(Ep[EpNum].Out.dQH,
-   					EpCfg[EpNum].Out.MaxPacketSize);
+						     EpCfg[EpNum].Out.MaxPacketSize);
 			XUsbPs_dQHEnableZLT(Ep[EpNum].Out.dQH);
-		}else {
+		} else {
 			XUsbPs_dQHSetMaxPacketLen(Ep[EpNum].Out.dQH,
-				    EpCfg[EpNum].Out.MaxPacketSize);
+						  EpCfg[EpNum].Out.MaxPacketSize);
 			XUsbPs_dQHDisableZLT(Ep[EpNum].Out.dQH);
 		}
 
@@ -1507,21 +1507,21 @@ int EpNum, unsigned short NewDirection)
 
 		XUsbPs_dQHFlushCache(Ep[EpNum].Out.dQH);
 
-	} else if(NewDirection == XUSBPS_EP_DIRECTION_IN) {
+	} else if (NewDirection == XUSBPS_EP_DIRECTION_IN) {
 
 		/* IN Queue Heads.
 		 */
 		XUsbPs_WritedQH(Ep[EpNum].In.dQH,
-			  XUSBPS_dQHCPTR, Ep[EpNum].In.dTDs);
+				XUSBPS_dQHCPTR, Ep[EpNum].In.dTDs);
 
 		/* Isochronous ep packet size can be larger than 1024. */
-		if(XUSBPS_EP_TYPE_ISOCHRONOUS == EpCfg[EpNum].In.Type) {
+		if (XUSBPS_EP_TYPE_ISOCHRONOUS == EpCfg[EpNum].In.Type) {
 			XUsbPs_dQHSetMaxPacketLenISO(Ep[EpNum].In.dQH,
-   				EpCfg[EpNum].In.MaxPacketSize);
+						     EpCfg[EpNum].In.MaxPacketSize);
 			XUsbPs_dQHEnableZLT(Ep[EpNum].In.dQH);
-		}else {
+		} else {
 			XUsbPs_dQHSetMaxPacketLen(Ep[EpNum].In.dQH,
-			    EpCfg[EpNum].In.MaxPacketSize);
+						  EpCfg[EpNum].In.MaxPacketSize);
 			XUsbPs_dQHDisableZLT(Ep[EpNum].In.dQH);
 		}
 
@@ -1554,7 +1554,7 @@ int EpNum, unsigned short NewDirection)
  *
  ******************************************************************************/
 static int XUsbPs_dTDReinitEp(XUsbPs_DeviceConfig *DevCfgPtr,
-int EpNum, unsigned short NewDirection)
+			      int EpNum, unsigned short NewDirection)
 {
 	XUsbPs_Endpoint	*Ep;
 	XUsbPs_EpConfig	*EpCfg;
@@ -1568,7 +1568,7 @@ int EpNum, unsigned short NewDirection)
 	EpCfg	= DevCfgPtr->EpCfg;
 
 
-	if(NewDirection == XUSBPS_EP_DIRECTION_OUT) {
+	if (NewDirection == XUSBPS_EP_DIRECTION_OUT) {
 		XUsbPs_EpOut	*Out = &Ep[EpNum].Out;
 
 		/* OUT Descriptors
@@ -1590,7 +1590,7 @@ int EpNum, unsigned short NewDirection)
 			/* Set NEXT link pointer.
 			 */
 			XUsbPs_WritedTD(&Out->dTDs[Td], XUSBPS_dTDNLP,
-					  &Out->dTDs[NextTd]);
+					&Out->dTDs[NextTd]);
 
 			/* Set the OUT descriptor ACTIVE and enable the
 			 * interrupt on complete.
@@ -1605,17 +1605,17 @@ int EpNum, unsigned short NewDirection)
 			if (Out->dTDBufs != NULL) {
 
 				Status = XUsbPs_dTDAttachBuffer(
-						&Out->dTDs[Td],
-						Out->dTDBufs +
-							(Td * EpCfg[EpNum].Out.BufSize),
-						EpCfg[EpNum].Out.BufSize);
+						 &Out->dTDs[Td],
+						 Out->dTDBufs +
+						 (Td * EpCfg[EpNum].Out.BufSize),
+						 EpCfg[EpNum].Out.BufSize);
 				if (Status != XST_SUCCESS) {
 					return XST_FAILURE;
 				}
 			}
 			XUsbPs_dTDFlushCache(&Out->dTDs[Td]);
 		}
-	} else if(NewDirection == XUSBPS_EP_DIRECTION_IN) {
+	} else if (NewDirection == XUSBPS_EP_DIRECTION_IN) {
 		XUsbPs_EpIn	*In  = &Ep[EpNum].In;
 
 		/* IN Descriptors
@@ -1634,7 +1634,7 @@ int EpNum, unsigned short NewDirection)
 			/* Set NEXT link pointer.
 			 */
 			XUsbPs_WritedTD(&In->dTDs[Td], XUSBPS_dTDNLP,
-					  &In->dTDs[NextTd]);
+					&In->dTDs[NextTd]);
 
 			/* Set the IN descriptor's TERMINATE bits.
 			 */

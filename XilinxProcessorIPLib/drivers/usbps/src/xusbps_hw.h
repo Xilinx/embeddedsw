@@ -23,7 +23,7 @@
  * 1.00a wgr  10/10/10 First release
  * 1.04a nm   10/23/12 Fixed CR# 679106.
  * 1.05a kpc  07/03/13 Added XUsbPs_ResetHw function prototype
- * 2.00a kpc  04/03/14 Fixed CR#777764. Corrected max endpoint vale and masks 
+ * 2.00a kpc  04/03/14 Fixed CR#777764. Corrected max endpoint vale and masks
  * 2.5   pm   02/20/20 Added Endpoint Control Register bit positions for Rx & Tx
  * </pre>
  *
@@ -111,7 +111,7 @@ extern "C" {
 
 /* NOTE: The Port Control / Status Register index is 1-based. */
 #define XUSBPS_PORTSCRn_OFFSET(n)	\
-		(XUSBPS_PORTSCR1_OFFSET + (((n)-1) * XUSBPS_REG_SPACING))
+	(XUSBPS_PORTSCR1_OFFSET + (((n)-1) * XUSBPS_REG_SPACING))
 
 
 #define XUSBPS_OTGCSR_OFFSET	0x000001A4 /**< OTG Status and Control */
@@ -134,7 +134,7 @@ extern "C" {
 #define XUSBPS_EP_ALL_MASK	0x0FFF0FFF /**< Mask used for endpoint control
 					     *  registers */
 #define XUSBPS_EPCRn_OFFSET(n)	\
-		(XUSBPS_EPCR0_OFFSET + ((n) * XUSBPS_REG_SPACING))
+	(XUSBPS_EPCR0_OFFSET + ((n) * XUSBPS_REG_SPACING))
 
 #define  XUSBPS_EPFLUSH_RX_SHIFT   0
 #define  XUSBPS_EPFLUSH_TX_SHIFT  16
@@ -252,24 +252,24 @@ extern "C" {
 #define XUSBPS_IXR_TI1_MASK	0x02000000 /**< Timer 1 Interrupt */
 
 #define XUSBPS_IXR_ALL			(XUSBPS_IXR_UI_MASK	| \
-					 XUSBPS_IXR_UE_MASK		| \
-					 XUSBPS_IXR_PC_MASK	| \
-					 XUSBPS_IXR_FRE_MASK	| \
-					 XUSBPS_IXR_AA_MASK	| \
-					 XUSBPS_IXR_UR_MASK		| \
-					 XUSBPS_IXR_SR_MASK		| \
-					 XUSBPS_IXR_SLE_MASK	| \
-					 XUSBPS_IXR_ULPI_MASK		| \
-					 XUSBPS_IXR_HCH_MASK	| \
-					 XUSBPS_IXR_RCL_MASK	| \
-					 XUSBPS_IXR_PS_MASK | \
-					 XUSBPS_IXR_AS_MASK		| \
-					 XUSBPS_IXR_NAK_MASK		| \
-					 XUSBPS_IXR_UA_MASK	| \
-					 XUSBPS_IXR_UP_MASK | \
-					 XUSBPS_IXR_TI0_MASK | \
-					 XUSBPS_IXR_TI1_MASK)
-					/**< Mask for ALL IRQ types */
+		XUSBPS_IXR_UE_MASK		| \
+		XUSBPS_IXR_PC_MASK	| \
+		XUSBPS_IXR_FRE_MASK	| \
+		XUSBPS_IXR_AA_MASK	| \
+		XUSBPS_IXR_UR_MASK		| \
+		XUSBPS_IXR_SR_MASK		| \
+		XUSBPS_IXR_SLE_MASK	| \
+		XUSBPS_IXR_ULPI_MASK		| \
+		XUSBPS_IXR_HCH_MASK	| \
+		XUSBPS_IXR_RCL_MASK	| \
+		XUSBPS_IXR_PS_MASK | \
+		XUSBPS_IXR_AS_MASK		| \
+		XUSBPS_IXR_NAK_MASK		| \
+		XUSBPS_IXR_UA_MASK	| \
+		XUSBPS_IXR_UP_MASK | \
+		XUSBPS_IXR_TI0_MASK | \
+		XUSBPS_IXR_TI1_MASK)
+/**< Mask for ALL IRQ types */
 /* @} */
 
 
@@ -292,13 +292,13 @@ extern "C" {
  *  @{
  */
 #define XUSBPS_DEVICEADDR_DEVICEAADV_MASK	0x01000000
-					/**< Device Addr Auto Advance */
+/**< Device Addr Auto Advance */
 #define XUSBPS_DEVICEADDR_ADDR_MASK		0xFE000000
-					/**< Device Address */
+/**< Device Address */
 #define XUSBPS_DEVICEADDR_ADDR_SHIFT		25
-					/**< Address shift */
+/**< Address shift */
 #define XUSBPS_DEVICEADDR_MAX			127
-					/**< Biggest allowed address */
+/**< Biggest allowed address */
 /* @} */
 
 /** @name USB TT Control Register (TTCTRL) bit positions.
@@ -320,11 +320,11 @@ extern "C" {
  *  @{
  */
 #define XUSBPS_TXFILL_OVERHEAD_MASK	0x000000FF
-					/**< Scheduler Overhead */
+/**< Scheduler Overhead */
 #define XUSBPS_TXFILL_HEALTH_MASK	0x00001F00
-					/**< Scheduler Health Cntr */
+/**< Scheduler Health Cntr */
 #define XUSBPS_TXFILL_BURST_MASK	0x003F0000
-					/**< FIFO Burst Threshold */
+/**< FIFO Burst Threshold */
 /* @} */
 
 
@@ -412,22 +412,22 @@ extern "C" {
 							* Enable Bit */
 
 #define XUSBPS_OTG_ISB_ALL	(XUSBPS_OTGSC_IDIS_MASK |\
-				XUSBPS_OTGSC_AVVIS_MASK | \
-				XUSBPS_OTGSC_ASVIS_MASK | \
-				XUSBPS_OTGSC_BSVIS_MASK | \
-				XUSBPS_OTGSC_BSEIS_MASK | \
-				XUSBPS_OTGSC_1MSS_MASK | \
-				XUSBPS_OTGSC_DPIS_MASK)
-				/** Mask for All IRQ status masks */
+				 XUSBPS_OTGSC_AVVIS_MASK | \
+				 XUSBPS_OTGSC_ASVIS_MASK | \
+				 XUSBPS_OTGSC_BSVIS_MASK | \
+				 XUSBPS_OTGSC_BSEIS_MASK | \
+				 XUSBPS_OTGSC_1MSS_MASK | \
+				 XUSBPS_OTGSC_DPIS_MASK)
+/** Mask for All IRQ status masks */
 
 #define XUSBPS_OTG_IEB_ALL	(XUSBPS_OTGSC_IDIE_MASK |\
-				XUSBPS_OTGSC_AVVIE_MASK | \
-				XUSBPS_OTGSC_ASVIE_MASK | \
-				XUSBPS_OTGSC_BSVIE_MASK | \
-				XUSBPS_OTGSC_BSEE_IEB_MASK | \
-				XUSBPS_OTGSC_1MSE_MASK | \
-				XUSBPS_OTGSC_DPIE_MASK)
-				/** Mask for All IRQ Enable masks */
+				 XUSBPS_OTGSC_AVVIE_MASK | \
+				 XUSBPS_OTGSC_ASVIE_MASK | \
+				 XUSBPS_OTGSC_BSVIE_MASK | \
+				 XUSBPS_OTGSC_BSEE_IEB_MASK | \
+				 XUSBPS_OTGSC_1MSE_MASK | \
+				 XUSBPS_OTGSC_DPIE_MASK)
+/** Mask for All IRQ Enable masks */
 /* @} */
 
 
@@ -469,7 +469,7 @@ extern "C" {
 *
 *****************************************************************************/
 #define XUsbPs_ReadReg(BaseAddress, RegOffset) \
-				Xil_In32(BaseAddress + (RegOffset))
+	Xil_In32(BaseAddress + (RegOffset))
 
 
 /****************************************************************************/
@@ -488,7 +488,7 @@ extern "C" {
 *
  *****************************************************************************/
 #define XUsbPs_WriteReg(BaseAddress, RegOffset, Data) \
-				Xil_Out32(BaseAddress + (RegOffset), (Data))
+	Xil_Out32(BaseAddress + (RegOffset), (Data))
 
 
 /************************** Function Prototypes ******************************/

@@ -42,13 +42,13 @@
 
 XUsbPs_Config XUsbPs_ConfigTable[] = {
 	{
-            0,
-	    XPAR_XUSBPS_0_BASEADDR
+		0,
+		XPAR_XUSBPS_0_BASEADDR
 	},
 #ifdef XPAR_XUSBPS_1_BASEADDR
 	{
-            1,
-	    XPAR_XUSBPS_1_BASEADDR
+		1,
+		XPAR_XUSBPS_1_BASEADDR
 	}
 #endif
 };

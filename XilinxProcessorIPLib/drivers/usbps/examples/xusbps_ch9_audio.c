@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -33,13 +34,13 @@
 
 /************************** Function Prototypes ******************************/
 static s32 EpEnable(XUsbPs *InstancePtr, u8 EpNum, u8 Dir,
-		u16 Maxsize, u8 Type);
+		    u16 Maxsize, u8 Type);
 static void XUsbPs_SetEpInterval(XUsbPs *InstancePtr,
-		u8 UsbEpNum, u8 Dir, u32 Interval);
+				 u8 UsbEpNum, u8 Dir, u32 Interval);
 static void XUsbPs_StreamOn(XUsbPs *InstancePtr, u8 EpNum,
-		u8 Dir, u8 *BufferPtr);
+			    u8 Dir, u8 *BufferPtr);
 static void XUsbPs_StreamOff(XUsbPs *InstancePtr, u8 EpNum,
-		u8 Dir);
+			     u8 Dir);
 
 /************************** Variable Definitions *****************************/
 extern u8 AudioFreq[MAX_AUDIO_FREQ + 1][3];
@@ -83,8 +84,8 @@ USB_STD_DEV_DESC __attribute__ ((aligned(16))) deviceDesc = {
 
 USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 	{/*
-	  * Std Config
-	  */
+		 * Std Config
+		 */
 		sizeof(USB_STD_CFG_DESC),	/* bLength */
 		XUSBPS_TYPE_CONFIG_DESC,	/* bDescriptorType */
 		sizeof(USB_CONFIG),		/* wTotalLength */
@@ -95,8 +96,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x01				/* bMaxPower  */
 	},
 	{/*
-	  * UAC1.0 Standard Interface Descriptor
-	  */
+		 * UAC1.0 Standard Interface Descriptor
+		 */
 		sizeof(USB_STD_IF_DESC),	/* Interface Descriptor size 9 bytes */
 		XUSBPS_TYPE_IF_CFG_DESC,	/* This is an interface descriptor */
 		0x00,				/* Interface number 0 */
@@ -108,8 +109,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* iInterface */
 	},
 	{/*
-	  * USB Audio Class-Specific AC Interface Header Descriptor
-	  */
+		 * USB Audio Class-Specific AC Interface Header Descriptor
+		 */
 		sizeof(UAC1_AC_HEADER_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		0x01,				/* bDescriptorSubtype */
@@ -126,8 +127,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 					   numbers */
 	},
 	{/*
-	  * Input Terminal Descriptor
-	  */
+		 * Input Terminal Descriptor
+		 */
 		sizeof(UAC1_INPUT_TERMINAL_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		UAC_INPUT_TERMINAL,		/* bDescriptorSubtype */
@@ -146,8 +147,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* iTerminal */
 	},
 	{/*
-	  * Feature Unit Descriptor
-	  */
+		 * Feature Unit Descriptor
+		 */
 		sizeof(UAC1_FEATURE_UNIT_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		UAC_FEATURE_UNIT,		/* bDescriptorSubtype*/
@@ -163,8 +164,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* iFeature */
 	},
 	{/*
-	  * Output Terminal Descriptor
-	  */
+		 * Output Terminal Descriptor
+		 */
 		sizeof(UAC1_OUTPUT_TERMINAL_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		UAC_OUTPUT_TERMINAL,	/* bDescriptorSubtype */
@@ -180,8 +181,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* iTerminal */
 	},
 	{/*
-	  * Audio Streaming Interface - Alt0
-	  */
+		 * Audio Streaming Interface - Alt0
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		XUSBPS_TYPE_IF_CFG_DESC,	/* bDescriptorType */
 		0x01,					/* bInterfaceNumber */
@@ -193,8 +194,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* iInterface */
 	},
 	{/*
-	  * Audio Streaming Interface - Alt1
-	  */
+		 * Audio Streaming Interface - Alt1
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		XUSBPS_TYPE_IF_CFG_DESC,	/* bDescriptorType */
 		0x01,					/* bInterfaceNumber */
@@ -206,8 +207,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* iInterface */
 	},
 	{/*
-	  * Audio Stream Interface Descriptor
-	  */
+		 * Audio Stream Interface Descriptor
+		 */
 		sizeof(UAC1_AS_HEADER_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType  */
 		UAC_AS_GENERAL,			/* bDescriptorSubtype */
@@ -221,8 +222,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* wFormatTagH*/
 	},
 	{/*
-	  * Audio Type I Format Type Descriptor
-	  */
+		 * Audio Type I Format Type Descriptor
+		 */
 		sizeof(UAC1_FORMAT_TYPE_I_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		UAC_FORMAT_TYPE_SUBTYPE,	/* bDescriptorSubtype */
@@ -236,8 +237,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* Sample freq 8000Hz */
 	},
 	{/*
-	  * STD Endpoint Descriptor
-	  */
+		 * STD Endpoint Descriptor
+		 */
 		sizeof(USB_EP_DESC),	/* bLength */
 		XUSBPS_TYPE_ENDPOINT_CFG_DESC,		/* bType */
 #ifdef XUSBPS_MICROPHONE
@@ -253,8 +254,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00					/* bSyncAddress */
 	},
 	{/*
-	  * CS AS ISO Endpoint
-	  */
+		 * CS AS ISO Endpoint
+		 */
 		sizeof(UAC1_ISO_EP_DESC),	/* bLength */
 		XUSBPS_DT_CS_ENDPOINT,		/* bDescriptorType */
 		UAC_EP_GENERAL,			/* bDescriptorSubtype */
@@ -284,8 +285,8 @@ static u8 StringList[1][6][128] = {
  */
 USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 	{/*
-	  * Std Config
-	  */
+		 * Std Config
+		 */
 		sizeof(USB_STD_CFG_DESC),	/* bLength */
 		XUSBPS_TYPE_CONFIG_DESC,	/* bDescriptorType */
 		sizeof(USB_CONFIG),		/* wTotalLength */
@@ -296,8 +297,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x01				/* bMaxPower  */
 	},
 	{/*
-	  * Class-Specific Interface Association Descriptor
-	  */
+		 * Class-Specific Interface Association Descriptor
+		 */
 		sizeof(USB_IF_ASSOC_DESC),		/* bLength */
 		XUSBPS_TYPE_INTERFACE_ASSOCIATION,	/* bDescriptorType */
 		0x00,					/* bFirstInterface */
@@ -308,8 +309,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x04					/* iFunction */
 	},
 	{/*
-	  * UAC2.0 Standard Interface Descriptor
-	  */
+		 * UAC2.0 Standard Interface Descriptor
+		 */
 		sizeof(USB_STD_IF_DESC),	/* Interface Descriptor size 9 bytes */
 		XUSBPS_TYPE_IF_CFG_DESC,	/* This is an interface descriptor */
 		0x00,				/* Interface number 0 */
@@ -321,8 +322,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x05				/* iInterface */
 	},
 	{/*
-	  * USB Audio Class-Specific AC Interface Header Descriptor
-	  */
+		 * USB Audio Class-Specific AC Interface Header Descriptor
+		 */
 		sizeof(UAC2_AC_HEADER_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,		/* bDescriptorType */
 		0x01,				/* bDescriptorSubtype */
@@ -338,8 +339,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x01				/* bmControls */
 	},
 	{/*
-	  * Clock Source Descriptor
-	  */
+		 * Clock Source Descriptor
+		 */
 		sizeof(UAC2_CLOCK_SOURCE_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,		/* bDescriptorType */
 		UAC2_CLOCK_SOURCE,		/* bDescriptorSubtype */
@@ -350,8 +351,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x06					/* iClockSource */
 	},
 	{/*
-	  * Clock Selector Descriptor
-	  */
+		 * Clock Selector Descriptor
+		 */
 		sizeof(UAC2_CLOCK_SELECTOR_DESC),/* bLength */
 		XUSBPS_DT_CS_INTERFACE,		/* bDescriptorType */
 		UAC2_CLOCK_SELECTOR,		/* bDescriptorSubtype */
@@ -364,8 +365,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00				/* iClockSelector */
 	},
 	{/*
-	  * USB_OUT Input terminal
-	  */
+		 * USB_OUT Input terminal
+		 */
 		sizeof(UAC2_INPUT_TERMINAL_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		UAC_INPUT_TERMINAL,		/* bDescriptorSubtype */
@@ -384,8 +385,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x07				/* iTerminal */
 	},
 	{/*
-	  * USB_OUT Feature Unit Descriptor
-	  */
+		 * USB_OUT Feature Unit Descriptor
+		 */
 		sizeof(UAC2_FEATURE_UNIT_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		UAC_FEATURE_UNIT,		/* bDescriptorSubtype */
@@ -401,8 +402,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00				/* iFeature */
 	},
 	{/*
-	  * USB_OUT Output Terminal
-	  */
+		 * USB_OUT Output Terminal
+		 */
 		sizeof(UAC2_OUTPUT_TERMINAL_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		UAC_OUTPUT_TERMINAL,	/* bDescriptorSubtype */
@@ -416,8 +417,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x08				/* iTerminal */
 	},
 	{/*
-	  * USB_IN Input Terminal
-	  */
+		 * USB_IN Input Terminal
+		 */
 		sizeof(UAC2_INPUT_TERMINAL_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		UAC_INPUT_TERMINAL,		/* bDescriptorSubtype */
@@ -436,8 +437,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x09				/* iTerminal */
 	},
 	{/*
-	  * USB_IN Feature Unit Descriptor
-	  */
+		 * USB_IN Feature Unit Descriptor
+		 */
 		sizeof(UAC2_FEATURE_UNIT_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		UAC_FEATURE_UNIT,		/* bDescriptorSubtype */
@@ -453,8 +454,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00				/* iFeature */
 	},
 	{/*
-	  * USB_IN Output Terminal
-	  */
+		 * USB_IN Output Terminal
+		 */
 		sizeof(UAC2_OUTPUT_TERMINAL_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		UAC_OUTPUT_TERMINAL,	/* bDescriptorSubtype */
@@ -468,8 +469,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x0a				/* iTerminal */
 	},
 	{/*
-	  * Audio Streaming OUT Interface - Alt0
-	  */
+		 * Audio Streaming OUT Interface - Alt0
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		XUSBPS_TYPE_IF_CFG_DESC,	/* bDescriptorType */
 		0x01,				/* bInterfaceNumber */
@@ -481,8 +482,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x0b				/* iInterface */
 	},
 	{/*
-	  * Audio Streaming OUT Interface - Alt1
-	  */
+		 * Audio Streaming OUT Interface - Alt1
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		XUSBPS_TYPE_IF_CFG_DESC,	/* bDescriptorType */
 		0x01,				/* bInterfaceNumber */
@@ -494,8 +495,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x0c				/* iInterface */
 	},
 	{/*
-	  * Audio Stream OUT Interface Descriptor
-	  */
+		 * Audio Stream OUT Interface Descriptor
+		 */
 		sizeof(UAC2_AS_HEADER_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType  */
 		UAC_AS_GENERAL,			/* bDescriptorSubtype */
@@ -514,8 +515,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00				/* iChannelNames */
 	},
 	{/*
-	  * Audio USB_OUT Format
-	  */
+		 * Audio USB_OUT Format
+		 */
 		sizeof(UAC2_FORMAT_TYPE_I_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		UAC_FORMAT_TYPE_SUBTYPE,	/* bDescriptorSubtype */
@@ -524,8 +525,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		BIT_RESOLUTION			/* bBitResolution */
 	},
 	{/*
-	  * STD OUT Endpoint
-	  */
+		 * STD OUT Endpoint
+		 */
 		sizeof(USB_EP_DESC),	/* bLength */
 		XUSBPS_TYPE_ENDPOINT_CFG_DESC,		/* bType */
 		USB_EP1_OUT,			/* bEndpoint OUT endpoint address 0 */
@@ -535,8 +536,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		AUDIO_INTERVAL			/* bInterval */
 	},
 	{/*
-	  * CS AS ISO OUT Endpoint
-	  */
+		 * CS AS ISO OUT Endpoint
+		 */
 		sizeof(UAC2_ISO_EP_DESC),	/* bLength */
 		XUSBPS_DT_CS_ENDPOINT,		/* bDescriptorType */
 		UAC_EP_GENERAL,			/* bDescriptorSubtype */
@@ -547,8 +548,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00				/* wLockDelayH */
 	},
 	{/*
-	  * Audio Streaming IN Interface - Alt0
-	  */
+		 * Audio Streaming IN Interface - Alt0
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		XUSBPS_TYPE_IF_CFG_DESC,	/* bDescriptorType */
 		0x02,				/* bInterfaceNumber */
@@ -560,8 +561,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x0d				/* iInterface */
 	},
 	{/*
-	  * Audio Streaming IN Interface - Alt1
-	  */
+		 * Audio Streaming IN Interface - Alt1
+		 */
 		sizeof(USB_STD_IF_DESC),	/* bLength */
 		XUSBPS_TYPE_IF_CFG_DESC,	/* bDescriptorType */
 		0x02,				/* bInterfaceNumber */
@@ -573,8 +574,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x0e					/* iInterface */
 	},
 	{/*
-	  * Audio Stream IN Interface Descriptor
-	  */
+		 * Audio Stream IN Interface Descriptor
+		 */
 		sizeof(UAC2_AS_HEADER_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		UAC_AS_GENERAL,			/* bDescriptorSubtype */
@@ -593,8 +594,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		0x00				/* iChannelNames */
 	},
 	{/*
-	  * Audio USB_IN Format
-	  */
+		 * Audio USB_IN Format
+		 */
 		sizeof(UAC2_FORMAT_TYPE_I_DESC),	/* bLength */
 		XUSBPS_DT_CS_INTERFACE,	/* bDescriptorType */
 		UAC_FORMAT_TYPE_SUBTYPE,	/* bDescriptorSubtype */
@@ -603,8 +604,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		BIT_RESOLUTION			/* bBitResolution */
 	},
 	{/*
-	  * STD AS ISO IN Endpoint
-	  */
+		 * STD AS ISO IN Endpoint
+		 */
 		sizeof(USB_EP_DESC),		/* bLength */
 		XUSBPS_TYPE_ENDPOINT_CFG_DESC,	/* bType */
 		USB_EP1_IN,			/* bEndpoint IN endpoint address 0 */
@@ -614,8 +615,8 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		AUDIO_INTERVAL			/* bInterval */
 	},
 	{/*
-	  * CS AS ISO IN Endpoint
-	  */
+		 * CS AS ISO IN Endpoint
+		 */
 		sizeof(UAC2_ISO_EP_DESC),	/* bLength */
 		XUSBPS_DT_CS_ENDPOINT,		/* bDescriptorType */
 		UAC_EP_GENERAL,			/* bDescriptorSubtype */
@@ -850,17 +851,17 @@ void XUsbPs_SetConfiguration(XUsbPs *InstancePtr, int ConfigIdx)
  *
  *****************************************************************************/
 void XUsbPs_SetConfigurationApp(XUsbPs *InstancePtr,
-		XUsbPs_SetupData *SetupData)
+				XUsbPs_SetupData *SetupData)
 {
 
 	XUsbPs_SetConfigDone((XUsbPs *)InstancePtr, 1U);
 	if ((SetupData->wValue & 0xff) == 0) {
 		/* Endpoint disables - not needed for Control EP */
 		XUsbPs_EpDisable((XUsbPs *)InstancePtr, ISO_EP,
-				XUSBPS_EP_DIRECTION_OUT);
+				 XUSBPS_EP_DIRECTION_OUT);
 
 		XUsbPs_EpDisable((XUsbPs *)InstancePtr, ISO_EP,
-				XUSBPS_EP_DIRECTION_IN);
+				 XUSBPS_EP_DIRECTION_IN);
 
 		XUsbPs_SetConfigDone((XUsbPs *)InstancePtr, 0U);
 	}
@@ -882,7 +883,7 @@ void XUsbPs_SetConfigurationApp(XUsbPs *InstancePtr,
  *
  *****************************************************************************/
 void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
-		XUsbPs_SetupData *SetupData)
+				XUsbPs_SetupData *SetupData)
 {
 	s32 RetVal;
 	u16 MaxPktSize = 1024;
@@ -897,15 +898,15 @@ void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
 
 	if ((SetupData->wValue & 0xff) == 1) {
 		XUsbPs_SetEpInterval(InstancePtr, ISO_EP,
-				XUSBPS_EP_DIRECTION_IN,
-				AUDIO_INTERVAL);
+				     XUSBPS_EP_DIRECTION_IN,
+				     AUDIO_INTERVAL);
 		Index = 0;
 		Residue = 0;
 		FirstPktFrame = 1;
 		/* Endpoint enables - not needed for Control EP */
 		RetVal = EpEnable((XUsbPs *)InstancePtr, ISO_EP,
-				XUSBPS_EP_DIRECTION_IN,
-				MaxPktSize, USB_EP_TYPE_ISOCHRONOUS);
+				  XUSBPS_EP_DIRECTION_IN,
+				  MaxPktSize, USB_EP_TYPE_ISOCHRONOUS);
 		if (RetVal != XST_SUCCESS) {
 			xil_printf("failed to enable ISOC IN Ep\r\n");
 			return;
@@ -916,22 +917,22 @@ void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
 		XUsbPs_StreamOff(InstancePtr, ISO_EP, XUSBPS_EP_DIRECTION_IN);
 		/* Endpoint disables - not needed for Control EP */
 		XUsbPs_EpDisable((XUsbPs *)InstancePtr, ISO_EP,
-				XUSBPS_EP_DIRECTION_IN);
+				 XUSBPS_EP_DIRECTION_IN);
 	}
 
 #else	/* SPEAKER */
 
 	if ((SetupData->wValue & 0xff) == 1) {
 		XUsbPs_SetEpInterval(InstancePtr, ISO_EP,
-				XUSBPS_EP_DIRECTION_OUT,
-				AUDIO_INTERVAL);
+				     XUSBPS_EP_DIRECTION_OUT,
+				     AUDIO_INTERVAL);
 		Index = 0;
 		Residue = 0;
 		FirstPktFrame = 1;
 		/* Endpoint enables - not needed for Control EP */
 		RetVal = EpEnable(InstancePtr,
-				ISO_EP, XUSBPS_EP_DIRECTION_OUT,
-				MaxPktSize, USB_EP_TYPE_ISOCHRONOUS);
+				  ISO_EP, XUSBPS_EP_DIRECTION_OUT,
+				  MaxPktSize, USB_EP_TYPE_ISOCHRONOUS);
 		if (RetVal != XST_SUCCESS) {
 			xil_printf("failed to enable ISOC OUT Ep\r\n");
 			return;
@@ -942,7 +943,7 @@ void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
 		XUsbPs_StreamOff(InstancePtr, ISO_EP, XUSBPS_EP_DIRECTION_OUT);
 		/* Endpoint disables - not needed for Control EP */
 		XUsbPs_EpDisable((XUsbPs *)InstancePtr, ISO_EP,
-				XUSBPS_EP_DIRECTION_OUT);
+				 XUSBPS_EP_DIRECTION_OUT);
 	}
 
 #endif  /* end of SPEAKER */
@@ -952,15 +953,15 @@ void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
 	if ((SetupData->wIndex & 0xff) == 1) {
 		if ((SetupData->wValue & 0xff) == 1) {
 			XUsbPs_SetEpInterval(InstancePtr,
-					ISO_EP, XUSBPS_EP_DIRECTION_OUT,
-					AUDIO_INTERVAL);
+					     ISO_EP, XUSBPS_EP_DIRECTION_OUT,
+					     AUDIO_INTERVAL);
 			Index = 0;
 			Residue = 0;
 			FirstPktFrame = 1;
 			/* Endpoint enables - not needed for Control EP */
 			RetVal = EpEnable((XUsbPs *)InstancePtr, ISO_EP,
-					XUSBPS_EP_DIRECTION_OUT,
-					MaxPktSize, USB_EP_TYPE_ISOCHRONOUS);
+					  XUSBPS_EP_DIRECTION_OUT,
+					  MaxPktSize, USB_EP_TYPE_ISOCHRONOUS);
 			if (RetVal != XST_SUCCESS) {
 				xil_printf("failed to enable ISOC OUT Ep\r\n");
 				return;
@@ -970,24 +971,24 @@ void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
 					BufferPtrTemp);
 		} else {
 			XUsbPs_StreamOff(InstancePtr, ISO_EP,
-					XUSBPS_EP_DIRECTION_OUT);
+					 XUSBPS_EP_DIRECTION_OUT);
 			/* Endpoint disables - not needed for Control EP */
 			XUsbPs_EpDisable((XUsbPs *)InstancePtr, ISO_EP,
-					XUSBPS_EP_DIRECTION_OUT);
+					 XUSBPS_EP_DIRECTION_OUT);
 		}
 	}
 
 	if ((SetupData->wIndex & 0xff) == 2) {
 		if ((SetupData->wValue & 0xff) == 1) {
 			XUsbPs_SetEpInterval(InstancePtr, ISO_EP,
-					XUSBPS_EP_DIRECTION_IN, AUDIO_INTERVAL);
+					     XUSBPS_EP_DIRECTION_IN, AUDIO_INTERVAL);
 			Index = 0;
 			Residue = 0;
 			FirstPktFrame = 1;
 			/* Endpoint enables - not needed for Control EP */
 			RetVal = EpEnable((XUsbPs *)InstancePtr, ISO_EP,
-					XUSBPS_EP_DIRECTION_IN,
-					MaxPktSize, USB_EP_TYPE_ISOCHRONOUS);
+					  XUSBPS_EP_DIRECTION_IN,
+					  MaxPktSize, USB_EP_TYPE_ISOCHRONOUS);
 			if (RetVal != XST_SUCCESS) {
 				xil_printf("failed to enable ISOC IN Ep\r\n");
 				return;
@@ -997,10 +998,10 @@ void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
 					BufferPtrTemp);
 		} else {
 			XUsbPs_StreamOff(InstancePtr, ISO_EP,
-					XUSBPS_EP_DIRECTION_IN);
+					 XUSBPS_EP_DIRECTION_IN);
 			/* Endpoint disables - not needed for Control EP */
 			XUsbPs_EpDisable((XUsbPs *)InstancePtr, ISO_EP,
-					XUSBPS_EP_DIRECTION_IN);
+					 XUSBPS_EP_DIRECTION_IN);
 		}
 	}
 #endif	// end of UAC2
@@ -1021,7 +1022,7 @@ void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
  *
  ******************************************************************************/
 static void XUsbPs_SetEpInterval(XUsbPs *InstancePtr, u8 UsbEpNum, u8 Dir,
-					u32 Interval)
+				 u32 Interval)
 {
 
 	if (Dir == XUSBPS_EP_DIRECTION_OUT)
@@ -1047,13 +1048,14 @@ static void XUsbPs_SetEpInterval(XUsbPs *InstancePtr, u8 UsbEpNum, u8 Dir,
  *
  ******************************************************************************/
 static void XUsbPs_StreamOn(XUsbPs *InstancePtr, u8 EpNum, u8 Dir,
-							u8 *BufferPtr)
+			    u8 *BufferPtr)
 {
 	if (Dir == XUSBPS_EP_DIRECTION_OUT)
 		XUsbPs_EpDataBufferReceive((XUsbPs *)InstancePtr, EpNum,
-							BufferPtr, 0);
-	else
+					   BufferPtr, 0);
+	else {
 		XUsbPs_EpBufferSend((XUsbPs *)InstancePtr, EpNum, BufferPtr, 0);
+	}
 }
 
 /******************************************************************************/
@@ -1096,16 +1098,16 @@ static s32 EpEnable(XUsbPs *InstancePtr, u8 EpNum, u8 Dir, u16 Maxsize, u8 Type)
 	(void)Maxsize;
 	XUsbPs_EpEnable((XUsbPs *)InstancePtr, EpNum, Dir);
 	/* Set BULK mode for both directions.  */
-	if(Dir == XUSBPS_EP_DIRECTION_OUT) {
+	if (Dir == XUSBPS_EP_DIRECTION_OUT) {
 		XUsbPs_ClrBits((XUsbPs *)InstancePtr,
-				XUSBPS_EPCRn_OFFSET(EpNum),
-				XUSBPS_EPCR_RXT_TYPE_MASK |
-				XUSBPS_EPCR_RXR_MASK |
-				XUSBPS_EPCR_RXS_MASK);
+			       XUSBPS_EPCRn_OFFSET(EpNum),
+			       XUSBPS_EPCR_RXT_TYPE_MASK |
+			       XUSBPS_EPCR_RXR_MASK |
+			       XUSBPS_EPCR_RXS_MASK);
 		XUsbPs_SetBits((XUsbPs *)InstancePtr,
-				XUSBPS_EPCRn_OFFSET(EpNum),
-				((Type - 1) << XUSBPS_EPCR_RXT_TYPE_SHIFT) |
-				XUSBPS_EPCR_RXR_MASK);
+			       XUSBPS_EPCRn_OFFSET(EpNum),
+			       ((Type - 1) << XUSBPS_EPCR_RXT_TYPE_SHIFT) |
+			       XUSBPS_EPCR_RXR_MASK);
 
 		/* Prime the OUT endpoint. */
 		XUsbPs_EpPrime((XUsbPs *)InstancePtr, EpNum, Dir);
@@ -1117,24 +1119,24 @@ static s32 EpEnable(XUsbPs *InstancePtr, u8 EpNum, u8 Dir, u16 Maxsize, u8 Type)
 		((XUsbPs *)InstancePtr)->DeviceConfig.Ep[EpNum].Out.BytesTxed
 			= 0;
 		((XUsbPs *)InstancePtr)->
-			DeviceConfig.Ep[EpNum].Out.RequestedBytes = 0;
+		DeviceConfig.Ep[EpNum].Out.RequestedBytes = 0;
 	} else {
 		XUsbPs_ClrBits((XUsbPs *)InstancePtr,
-				XUSBPS_EPCRn_OFFSET(EpNum),
-				XUSBPS_EPCR_TXT_TYPE_MASK |
-				XUSBPS_EPCR_TXR_MASK |
-				XUSBPS_EPCR_TXS_MASK);
+			       XUSBPS_EPCRn_OFFSET(EpNum),
+			       XUSBPS_EPCR_TXT_TYPE_MASK |
+			       XUSBPS_EPCR_TXR_MASK |
+			       XUSBPS_EPCR_TXS_MASK);
 		XUsbPs_SetBits((XUsbPs *)InstancePtr,
-				XUSBPS_EPCRn_OFFSET(EpNum),
-				((Type - 1) << XUSBPS_EPCR_TXT_TYPE_SHIFT) |
-				XUSBPS_EPCR_TXR_MASK);
+			       XUSBPS_EPCRn_OFFSET(EpNum),
+			       ((Type - 1) << XUSBPS_EPCR_TXT_TYPE_SHIFT) |
+			       XUSBPS_EPCR_TXR_MASK);
 
 		((XUsbPs *)InstancePtr)->
-			DeviceConfig.Ep[EpNum].In.BufferPtr = NULL;
+		DeviceConfig.Ep[EpNum].In.BufferPtr = NULL;
 		((XUsbPs *)InstancePtr)->
-			DeviceConfig.Ep[EpNum].In.BytesTxed = 0;
+		DeviceConfig.Ep[EpNum].In.BytesTxed = 0;
 		((XUsbPs *)InstancePtr)->
-			DeviceConfig.Ep[EpNum].In.RequestedBytes = 0;
+		DeviceConfig.Ep[EpNum].In.RequestedBytes = 0;
 	}
 	return XST_SUCCESS;
 }

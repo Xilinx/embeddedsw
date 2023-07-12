@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -216,78 +217,78 @@ extern "C" {
 * Standard USB structures as per 2.0 specification
 */
 typedef struct {
-u8 bLength;
-u8 bDescriptorType;
-u16 bcdUSB;
-u8 bDeviceClass;
-u8 bDeviceSubClass;
-u8 bDeviceProtocol;
-u8 bMaxPacketSize0;
-u16 idVendor;
-u16 idProduct;
-u16 bcdDevice;
-u8 iManufacturer;
-u8 iProduct;
-u8 iSerialNumber;
-u8 bNumConfigurations;
+	u8 bLength;
+	u8 bDescriptorType;
+	u16 bcdUSB;
+	u8 bDeviceClass;
+	u8 bDeviceSubClass;
+	u8 bDeviceProtocol;
+	u8 bMaxPacketSize0;
+	u16 idVendor;
+	u16 idProduct;
+	u16 bcdDevice;
+	u8 iManufacturer;
+	u8 iProduct;
+	u8 iSerialNumber;
+	u8 bNumConfigurations;
 } __attribute__((__packed__))USB_STD_DEV_DESC;
 
 typedef struct {
-u8 bLength;
-u8 bType;
-u16 wTotalLength;
-u8 bNumberInterfaces;
-u8 bConfigValue;
-u8 bIConfigString;
-u8 bAttributes;
-u8 bMaxPower;
+	u8 bLength;
+	u8 bType;
+	u16 wTotalLength;
+	u8 bNumberInterfaces;
+	u8 bConfigValue;
+	u8 bIConfigString;
+	u8 bAttributes;
+	u8 bMaxPower;
 }  __attribute__((__packed__))USB_STD_CFG_DESC;
 
 typedef struct {
-u8 bLength;
-u8 bDescriptorType;
-u8 bInterfaceNumber;
-u8 bAlternateSetting;
-u8 bNumEndPoints;
-u8 bInterfaceClass;
-u8 bInterfaceSubClass;
-u8 bInterfaceProtocol;
-u8 iInterface;
+	u8 bLength;
+	u8 bDescriptorType;
+	u8 bInterfaceNumber;
+	u8 bAlternateSetting;
+	u8 bNumEndPoints;
+	u8 bInterfaceClass;
+	u8 bInterfaceSubClass;
+	u8 bInterfaceProtocol;
+	u8 iInterface;
 }  __attribute__((__packed__))USB_STD_IF_DESC;
 
 
 typedef struct {
-u8 bLength;
-u8 bDescriptorType;
-u8 bEndpointAddress;
-u8 bmAttributes;
-u8 bMaxPacketSizeL;
-u8 bMaxPacketSizeH;
-u8 bInterval;
+	u8 bLength;
+	u8 bDescriptorType;
+	u8 bEndpointAddress;
+	u8 bmAttributes;
+	u8 bMaxPacketSizeL;
+	u8 bMaxPacketSizeH;
+	u8 bInterval;
 }  __attribute__((__packed__))USB_STD_EP_DESC;
 
 typedef struct {
-u8 bLength;
-u8 bDescriptorType;
-u16 wLANGID[1];
+	u8 bLength;
+	u8 bDescriptorType;
+	u16 wLANGID[1];
 }  __attribute__((__packed__))USB_STD_STRING_DESC;
 
 typedef struct {
-u8 bLength;
-u8 bDescriptorType;
-u8 bDevCapabiltyType;
-u32 bmAttributes;
+	u8 bLength;
+	u8 bDescriptorType;
+	u8 bDevCapabiltyType;
+	u32 bmAttributes;
 } __attribute__((__packed__))USB_STD_DEVICE_CAP_7BYTE;
 
 typedef struct {
-u8 bLength;
-u8 bDescriptorType;
-u8 bDevCapabiltyType;
-u8 bmAttributes;
-u16 wSpeedsSupported;
-u8 bFunctionalitySupport;
-u8 bU1DevExitLat;
-u16 wU2DevExitLat;
+	u8 bLength;
+	u8 bDescriptorType;
+	u8 bDevCapabiltyType;
+	u8 bmAttributes;
+	u16 wSpeedsSupported;
+	u8 bFunctionalitySupport;
+	u8 bU1DevExitLat;
+	u16 wU2DevExitLat;
 } __attribute__((__packed__))USB_STD_DEVICE_CAP_10BYTE;
 
 #ifdef XUSBPS_UAC1
@@ -594,7 +595,7 @@ typedef struct {
 	u8 baCSourceID[NUM_CLK_SRC];
 	u8 bmControl;
 	u8 iClockSelector;
-}UAC2_CLOCK_SELECTOR_DESC;
+} UAC2_CLOCK_SELECTOR_DESC;
 
 typedef struct {
 	USB_STD_CFG_DESC 		stdCfg;
@@ -664,9 +665,9 @@ u32 XUsbPs_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen);
 u32 XUsbPs_Ch9SetupStrDescReply(u8 *BufPtr,	u32 BufLen, u8 Index);
 void XUsbPs_SetConfiguration(XUsbPs *InstancePtr, int config);
 void XUsbPs_SetConfigurationApp(XUsbPs *InstancePtr,
-	XUsbPs_SetupData *SetupData);
+				XUsbPs_SetupData *SetupData);
 void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
-	XUsbPs_SetupData *SetupData);
+				XUsbPs_SetupData *SetupData);
 
 #ifdef __cplusplus
 }

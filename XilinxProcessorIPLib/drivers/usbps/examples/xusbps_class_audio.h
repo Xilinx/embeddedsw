@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -70,7 +71,7 @@ extern "C" {
 
 /************************** Function Prototypes *******************************/
 void XUsbPs_ClassReq(XUsbPs *InstancePtr,
-		XUsbPs_SetupData *SetupData);
+		     XUsbPs_SetupData *SetupData);
 
 #ifdef __cplusplus
 }

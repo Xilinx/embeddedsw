@@ -75,7 +75,7 @@
 *
 ******************************************************************************/
 int XUsbPs_CfgInitialize(XUsbPs *InstancePtr,
-			  const XUsbPs_Config *ConfigPtr, u32 VirtBaseAddress)
+			 const XUsbPs_Config *ConfigPtr, u32 VirtBaseAddress)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr   != NULL);
@@ -119,16 +119,16 @@ void XUsbPs_DeviceReset(XUsbPs *InstancePtr)
 	 * itself.
 	 */
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress, XUSBPS_EPSTAT_OFFSET,
-		XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XUSBPS_EPSTAT_OFFSET));
+			XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
+				       XUSBPS_EPSTAT_OFFSET));
 
 	/* Clear all the endpoint complete status bits by reading the
 	 * XUSBPS_EPCOMPL_OFFSET register and writings its value back
 	 * to itself.
 	 */
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress, XUSBPS_EPCOMPL_OFFSET,
-		XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XUSBPS_EPCOMPL_OFFSET));
+			XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
+				       XUSBPS_EPCOMPL_OFFSET));
 
 	/* Cancel all endpoint prime status by waiting until all bits
 	 * in XUSBPS_EPPRIME_OFFSET are 0 and then writing 0xFFFFFFFF
@@ -138,25 +138,25 @@ void XUsbPs_DeviceReset(XUsbPs *InstancePtr)
 	 */
 	Timeout = XUSBPS_TIMEOUT_COUNTER;
 	while ((XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_EPPRIME_OFFSET) &
-				XUSBPS_EP_ALL_MASK) && --Timeout) {
+			       XUSBPS_EPPRIME_OFFSET) &
+		XUSBPS_EP_ALL_MASK) && --Timeout) {
 		/* NOP */
 	}
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_EPFLUSH_OFFSET, 0xFFFFFFFF);
+			XUSBPS_EPFLUSH_OFFSET, 0xFFFFFFFF);
 
 	XUsbPs_Stop(InstancePtr);
 
 	/* Write to CR register for controller reset */
- 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress, XUSBPS_CMD_OFFSET,
-		XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_CMD_OFFSET) | XUSBPS_CMD_RST_MASK);
+	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress, XUSBPS_CMD_OFFSET,
+			XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
+				       XUSBPS_CMD_OFFSET) | XUSBPS_CMD_RST_MASK);
 
 	/* Wait for reset to finish, hardware clears the reset bit once done  */
 	Timeout = 1000000;
-	while((XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_CMD_OFFSET) &
-				XUSBPS_CMD_RST_MASK) && --Timeout) {
+	while ((XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
+			       XUSBPS_CMD_OFFSET) &
+		XUSBPS_CMD_RST_MASK) && --Timeout) {
 		/* NOP */
 	}
 }
@@ -197,14 +197,14 @@ int XUsbPs_Reset(XUsbPs *InstancePtr)
 	 * system) this can lead to _very_ long Timeout periods.
 	 */
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_CMD_OFFSET, XUSBPS_CMD_RST_MASK);
+			XUSBPS_CMD_OFFSET, XUSBPS_CMD_RST_MASK);
 
 
 	/* Wait for the RESET bit to be cleared by HW. */
 	Timeout = XUSBPS_TIMEOUT_COUNTER;
 	while ((XUsbPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_CMD_OFFSET) &
-				XUSBPS_CMD_RST_MASK) && --Timeout) {
+			       XUSBPS_CMD_OFFSET) &
+		XUSBPS_CMD_RST_MASK) && --Timeout) {
 		/* NOP */
 	}
 
@@ -321,8 +321,8 @@ int XUsbPs_SetDeviceAddress(XUsbPs *InstancePtr, u8 Address)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	if ((InstancePtr->AppData != NULL) &&
-			(InstancePtr->AppData->State ==
-					XUSBPS_STATE_CONFIGURED)) {
+	    (InstancePtr->AppData->State ==
+	     XUSBPS_STATE_CONFIGURED)) {
 		return XST_FAILURE;
 	}
 
@@ -336,15 +336,16 @@ int XUsbPs_SetDeviceAddress(XUsbPs *InstancePtr, u8 Address)
 	 * after an IN occurred and has been ACKed on the endpoint.
 	 */
 	XUsbPs_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSBPS_DEVICEADDR_OFFSET,
-			 	(Address << XUSBPS_DEVICEADDR_ADDR_SHIFT) |
-			 	XUSBPS_DEVICEADDR_DEVICEAADV_MASK);
+			XUSBPS_DEVICEADDR_OFFSET,
+			(Address << XUSBPS_DEVICEADDR_ADDR_SHIFT) |
+			XUSBPS_DEVICEADDR_DEVICEAADV_MASK);
 
 	if (InstancePtr->AppData != NULL) {
-		if (Address)
+		if (Address) {
 			InstancePtr->AppData->State = XUSBPS_STATE_ADDRESS;
-		else
+		} else {
 			InstancePtr->AppData->State = XUSBPS_STATE_DEFAULT;
+		}
 	}
 	return XST_SUCCESS;
 }

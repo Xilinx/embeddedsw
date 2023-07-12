@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,10 +57,10 @@ typedef struct {
 	u8  iSerialNumber;
 	u8  bNumConfigurations;
 #ifdef __ICCARM__
-}USB_STD_DEV_DESC;
+} USB_STD_DEV_DESC;
 #pragma pack(pop)
 #else
-}__attribute__((__packed__))USB_STD_DEV_DESC;
+} __attribute__((__packed__))USB_STD_DEV_DESC;
 #endif
 
 #ifdef __ICCARM__
@@ -75,10 +76,10 @@ typedef struct {
 	u8  bmAttributes;
 	u8  bMaxPower;
 #ifdef __ICCARM__
-}USB_STD_CFG_DESC;
+} USB_STD_CFG_DESC;
 #pragma pack(pop)
 #else
-}__attribute__((__packed__))USB_STD_CFG_DESC;
+} __attribute__((__packed__))USB_STD_CFG_DESC;
 #endif
 
 #ifdef __ICCARM__
@@ -95,10 +96,10 @@ typedef struct {
 	u8  bInterfaceProtocol;
 	u8  iInterface;
 #ifdef __ICCARM__
-}USB_STD_IF_DESC;
+} USB_STD_IF_DESC;
 #pragma pack(pop)
 #else
-}__attribute__((__packed__))USB_STD_IF_DESC;
+} __attribute__((__packed__))USB_STD_IF_DESC;
 #endif
 
 #ifdef __ICCARM__
@@ -112,10 +113,10 @@ typedef struct {
 	u16 wMaxPacketSize;
 	u8  bInterval;
 #ifdef __ICCARM__
-}USB_STD_EP_DESC;
+} USB_STD_EP_DESC;
 #pragma pack(pop)
 #else
-}__attribute__((__packed__))USB_STD_EP_DESC;
+} __attribute__((__packed__))USB_STD_EP_DESC;
 #endif
 
 #ifdef __ICCARM__
@@ -126,10 +127,10 @@ typedef struct {
 	u8  bDescriptorType;
 	u16 wLANGID[1];
 #ifdef __ICCARM__
-}USB_STD_STRING_DESC;
+} USB_STD_STRING_DESC;
 #pragma pack(pop)
 #else
-}__attribute__((__packed__))USB_STD_STRING_DESC;
+} __attribute__((__packed__))USB_STD_STRING_DESC;
 #endif
 
 #ifdef __ICCARM__
@@ -141,10 +142,10 @@ typedef struct {
 	USB_STD_EP_DESC epCfg1;
 	USB_STD_EP_DESC epCfg2;
 #ifdef __ICCARM__
-}USB_CONFIG;
+} USB_CONFIG;
 #pragma pack(pop)
 #else
-}__attribute__((__packed__))USB_CONFIG;
+} __attribute__((__packed__))USB_CONFIG;
 #endif
 
 /************************** Function Prototypes ******************************/
@@ -227,41 +228,49 @@ u32 XUsbPs_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen)
 {
 	USB_CONFIG config = {
 		/* Std Config */
-		{sizeof(USB_STD_CFG_DESC),	/* bLength */
-		 USB_CONFIG_DESC,		/* bDescriptorType */
-		 be2les(sizeof(USB_CONFIG)),	/* wTotalLength */
-		 0x01,				/* bNumInterfaces */
-		 0x01,				/* bConfigurationValue */
-		 0x04,				/* iConfiguration */
-		 0xc0,				/* bmAttribute */
-		 0x00},				/* bMaxPower  */
+		{
+			sizeof(USB_STD_CFG_DESC),	/* bLength */
+			USB_CONFIG_DESC,		/* bDescriptorType */
+			be2les(sizeof(USB_CONFIG)),	/* wTotalLength */
+			0x01,				/* bNumInterfaces */
+			0x01,				/* bConfigurationValue */
+			0x04,				/* iConfiguration */
+			0xc0,				/* bmAttribute */
+			0x00
+		},				/* bMaxPower  */
 
 		/* Interface Config */
-		{sizeof(USB_STD_IF_DESC),	/* bLength */
-		 USB_INTERFACE_CFG_DESC,	/* bDescriptorType */
-		 0x00,				/* bInterfaceNumber */
-		 0x00,				/* bAlternateSetting */
-		 0x02,				/* bNumEndPoints */
-		 0x08,				/* bInterfaceClass */
-		 0x06,				/* bInterfaceSubClass */
-		 0x50,				/* bInterfaceProtocol */
-		 0x05},				/* iInterface */
+		{
+			sizeof(USB_STD_IF_DESC),	/* bLength */
+			USB_INTERFACE_CFG_DESC,	/* bDescriptorType */
+			0x00,				/* bInterfaceNumber */
+			0x00,				/* bAlternateSetting */
+			0x02,				/* bNumEndPoints */
+			0x08,				/* bInterfaceClass */
+			0x06,				/* bInterfaceSubClass */
+			0x50,				/* bInterfaceProtocol */
+			0x05
+		},				/* iInterface */
 
 		/* Bulk Out Endpoint Config */
-		{sizeof(USB_STD_EP_DESC),	/* bLength */
-		 USB_ENDPOINT_CFG_DESC,		/* bDescriptorType */
-		 0x00 | USB_BULKOUT_EP,		/* bEndpointAddress */
-		 0x02,				/* bmAttribute  */
-		 be2les(0x200),			/* wMaxPacketSize */
-		 0x00},				/* bInterval */
+		{
+			sizeof(USB_STD_EP_DESC),	/* bLength */
+			USB_ENDPOINT_CFG_DESC,		/* bDescriptorType */
+			0x00 | USB_BULKOUT_EP,		/* bEndpointAddress */
+			0x02,				/* bmAttribute  */
+			be2les(0x200),			/* wMaxPacketSize */
+			0x00
+		},				/* bInterval */
 
 		/* Bulk In Endpoint Config */
-		{sizeof(USB_STD_EP_DESC),	/* bLength */
-		 USB_ENDPOINT_CFG_DESC,		/* bDescriptorType */
-		 0x80 | USB_BULKIN_EP,		/* bEndpointAddress */
-		 0x02,				/* bmAttribute  */
-		 be2les(0x200),			/* wMaxPacketSize */
-		 0x00}				/* bInterval */
+		{
+			sizeof(USB_STD_EP_DESC),	/* bLength */
+			USB_ENDPOINT_CFG_DESC,		/* bDescriptorType */
+			0x80 | USB_BULKIN_EP,		/* bEndpointAddress */
+			0x02,				/* bmAttribute  */
+			be2les(0x200),			/* wMaxPacketSize */
+			0x00
+		}				/* bInterval */
 	};
 
 	/* Check buffer pointer is OK and buffer is big enough. */
@@ -382,10 +391,10 @@ void XUsbPs_SetConfiguration(XUsbPs *InstancePtr, int ConfigIdx)
 
 	/* Set BULK mode for both directions.  */
 	XUsbPs_SetBits(InstancePtr, XUSBPS_EPCR1_OFFSET,
-						XUSBPS_EPCR_TXT_BULK_MASK |
-						XUSBPS_EPCR_RXT_BULK_MASK |
-						XUSBPS_EPCR_TXR_MASK |
-						XUSBPS_EPCR_RXR_MASK);
+		       XUSBPS_EPCR_TXT_BULK_MASK |
+		       XUSBPS_EPCR_RXT_BULK_MASK |
+		       XUSBPS_EPCR_TXR_MASK |
+		       XUSBPS_EPCR_RXR_MASK);
 
 	/* Prime the OUT endpoint. */
 	XUsbPs_EpPrime(InstancePtr, 1, XUSBPS_EP_DIRECTION_OUT);
@@ -410,7 +419,7 @@ void XUsbPs_SetConfiguration(XUsbPs *InstancePtr, int ConfigIdx)
  *
  *****************************************************************************/
 void XUsbPs_SetConfigurationApp(XUsbPs *InstancePtr,
-					XUsbPs_SetupData *SetupData)
+				XUsbPs_SetupData *SetupData)
 {
 	(void)InstancePtr;
 	(void)SetupData;
@@ -428,7 +437,7 @@ void XUsbPs_SetConfigurationApp(XUsbPs *InstancePtr,
  *
  *****************************************************************************/
 void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
-					XUsbPs_SetupData *SetupData)
+				XUsbPs_SetupData *SetupData)
 {
 	(void)InstancePtr;
 	(void)SetupData;

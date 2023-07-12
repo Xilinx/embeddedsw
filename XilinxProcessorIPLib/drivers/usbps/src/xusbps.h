@@ -258,13 +258,13 @@ extern "C" {
 #define XUSBPS_EP_STS_CONTROLLER_STATE	2 /**< Current controller state. */
 /* @} */
 
- /*
-  * Device Speeds
-  */
- #define		XUSBPS_SPEED_UNKNOWN			0U
- #define		XUSBPS_SPEED_LOW				1U
- #define		XUSBPS_SPEED_FULL				2U
- #define		XUSBPS_SPEED_HIGH				3U
+/*
+ * Device Speeds
+ */
+#define		XUSBPS_SPEED_UNKNOWN			0U
+#define		XUSBPS_SPEED_LOW				1U
+#define		XUSBPS_SPEED_FULL				2U
+#define		XUSBPS_SPEED_HIGH				3U
 
 /**
  * @name USB Default alternate setting
@@ -274,15 +274,15 @@ extern "C" {
 #define XUSBPS_DEFAULT_ALT_SETTING	0 /**< The default alternate setting is 0 */
 /* @} */
 
- /*
-  * Device States
-  */
- #define		XUSBPS_STATE_ATTACHED			0U
- #define		XUSBPS_STATE_POWERED			1U
- #define		XUSBPS_STATE_DEFAULT			2U
- #define		XUSBPS_STATE_ADDRESS			3U
- #define		XUSBPS_STATE_CONFIGURED			4U
- #define		XUSBPS_STATE_SUSPENDED			5U
+/*
+ * Device States
+ */
+#define		XUSBPS_STATE_ATTACHED			0U
+#define		XUSBPS_STATE_POWERED			1U
+#define		XUSBPS_STATE_DEFAULT			2U
+#define		XUSBPS_STATE_ADDRESS			3U
+#define		XUSBPS_STATE_CONFIGURED			4U
+#define		XUSBPS_STATE_SUSPENDED			5U
 
 /**
  * @name Endpoint event types
@@ -292,11 +292,11 @@ extern "C" {
  * @{
  */
 #define XUSBPS_EP_EVENT_SETUP_DATA_RECEIVED	0x01
-			/**< Setup data has been received on the endpoint. */
+/**< Setup data has been received on the endpoint. */
 #define XUSBPS_EP_EVENT_DATA_RX		0x02
-			/**< Data frame has been received on the endpoint. */
+/**< Data frame has been received on the endpoint. */
 #define XUSBPS_EP_EVENT_DATA_TX		0x03
-			/**< Data frame has been sent on the endpoint. */
+/**< Data frame has been sent on the endpoint. */
 /* @} */
 
 
@@ -305,7 +305,7 @@ extern "C" {
  * @{
  */
 #define XUSBPS_MAX_PACKET_SIZE		1024
-				/**< Maximum value can be put into the queue head */
+/**< Maximum value can be put into the queue head */
 /* @} */
 /**************************** Type Definitions *******************************/
 
@@ -322,7 +322,7 @@ extern "C" {
  *		was registered.
  */
 typedef void (*XUsbPs_EpHandlerFunc)(void *CallBackRef,
-				      u8 EpNum, u8 EventType, void *Data);
+				     u8 EpNum, u8 EventType, void *Data);
 
 /******************************************************************************
  * This data type defines the callback function to be used for Endpoint
@@ -371,24 +371,24 @@ typedef u8	XUsbPs_dTD[XUSBPS_dTD_ALIGN];
  */
 typedef struct {
 	XUsbPs_dQH	*dQH;
-		/**< Pointer to the Queue Head structure of the endpoint. */
+	/**< Pointer to the Queue Head structure of the endpoint. */
 
 	XUsbPs_dTD	*dTDs;
-		/**< Pointer to the first dTD of the dTD list for this
-		 * endpoint. */
+	/**< Pointer to the first dTD of the dTD list for this
+	 * endpoint. */
 
 	XUsbPs_dTD	*dTDCurr;
-		/**< Buffer to the currently processed descriptor. */
+	/**< Buffer to the currently processed descriptor. */
 
 	u8	*dTDBufs;
-		/**< Pointer to the first buffer of the buffer list for this
-		 * endpoint. */
+	/**< Pointer to the first buffer of the buffer list for this
+	 * endpoint. */
 
 	XUsbPs_EpHandlerFunc	HandlerFunc;
 	XUsbPs_EpIsoHandlerFunc HandlerIsoFunc;
-		/**< Handler function for this endpoint. */
+	/**< Handler function for this endpoint. */
 	void			*HandlerRef;
-		/**< User data reference for the handler. */
+	/**< User data reference for the handler. */
 	u32	RequestedBytes;	/**< RequestedBytes for transfer */
 	u32	BytesTxed;		/**< Actual Bytes transferred */
 	u8	*BufferPtr;		/**< Buffer location */
@@ -402,23 +402,23 @@ typedef struct {
  */
 typedef struct {
 	XUsbPs_dQH	*dQH;
-		/**< Pointer to the Queue Head structure of the endpoint. */
+	/**< Pointer to the Queue Head structure of the endpoint. */
 
 	XUsbPs_dTD	*dTDs;
-		/**< List of pointers to the Transfer Descriptors of the
-		 * endpoint. */
+	/**< List of pointers to the Transfer Descriptors of the
+	 * endpoint. */
 
 	XUsbPs_dTD	*dTDHead;
-		/**< Buffer to the next available descriptor in the list. */
+	/**< Buffer to the next available descriptor in the list. */
 
 	XUsbPs_dTD	*dTDTail;
-		/**< Buffer to the last unsent descriptor in the list*/
+	/**< Buffer to the last unsent descriptor in the list*/
 
 	XUsbPs_EpHandlerFunc	HandlerFunc;
 	XUsbPs_EpIsoHandlerFunc HandlerIsoFunc;
-		/**< Handler function for this endpoint. */
+	/**< Handler function for this endpoint. */
 	void			*HandlerRef;
-		/**< User data reference for the handler. */
+	/**< User data reference for the handler. */
 	u32	RequestedBytes;	/**< RequestedBytes for transfer */
 	u32	BytesTxed;		/**< Actual Bytes transferred */
 	u8	*BufferPtr;		/**< Buffer location */
@@ -464,21 +464,21 @@ XUsbPs_SetupData;
  */
 typedef struct {
 	u32	Type;
-		/**< Endpoint type:
-			- XUSBPS_EP_TYPE_CONTROL
-			- XUSBPS_EP_TYPE_ISOCHRONOUS
-			- XUSBPS_EP_TYPE_BULK
-			- XUSBPS_EP_TYPE_INTERRUPT */
+	/**< Endpoint type:
+		- XUSBPS_EP_TYPE_CONTROL
+		- XUSBPS_EP_TYPE_ISOCHRONOUS
+		- XUSBPS_EP_TYPE_BULK
+		- XUSBPS_EP_TYPE_INTERRUPT */
 
 	u32	NumBufs;
-		/**< Number of buffers to be handled by this endpoint. */
+	/**< Number of buffers to be handled by this endpoint. */
 	u32	BufSize;
-		/**< Buffer size. Only relevant for OUT (receive) Endpoints. */
+	/**< Buffer size. Only relevant for OUT (receive) Endpoints. */
 
 	u16	MaxPacketSize;
-		/**< Maximum packet size for this endpoint. This number will
-		 * define the maximum number of bytes sent on the wire per
-		 * transaction. Range: 0..1024 */
+	/**< Maximum packet size for this endpoint. This number will
+	 * define the maximum number of bytes sent on the wire per
+	 * transaction. Range: 0..1024 */
 } XUsbPs_EpSetup;
 
 
@@ -504,7 +504,7 @@ typedef struct {
 				  in the core. */
 
 	XUsbPs_EpConfig	EpCfg[XUSBPS_MAX_ENDPOINTS];
-				/**< List of endpoint configurations. */
+	/**< List of endpoint configurations. */
 
 
 	u32 DMAMemPhys;		/**< Physical base address of DMAable memory
@@ -520,7 +520,7 @@ typedef struct {
 	 * structure which is allocated by the caller.
 	 */
 	XUsbPs_Endpoint	Ep[XUSBPS_MAX_ENDPOINTS];
-				/**< List of endpoint metadata structures. */
+	/**< List of endpoint metadata structures. */
 
 	u32 PhysAligned;	/**< 64 byte aligned base address of the DMA
 				   memory block. Will be computed and set by
@@ -546,7 +546,7 @@ typedef struct {
 	u32 BaseAddress;	/**< Core register base address. */
 #ifdef SDT
 	u16 IntrId;	/** Bits[11:0] Interrupt-id Bits[15:12] trigger type */
-			/** level flags */
+	/** level flags */
 	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] */
 #endif
 } XUsbPs_Config;
@@ -567,7 +567,7 @@ struct Usb_DevData {
  */
 typedef struct {
 	XUsbPs_SetupData SetupData;
-					/**< Setup Packet buffer */
+	/**< Setup Packet buffer */
 	XUsbPs_Config Config;	/**< Configuration structure */
 
 	int CurrentAltSetting;	/**< Current alternative setting of interface */
@@ -584,15 +584,15 @@ typedef struct {
 	 * XUsbPs_ConfigureDevice() function call.
 	 */
 	XUsbPs_DeviceConfig	DeviceConfig;
-				/**< Configuration for the DEVICE mode. */
+	/**< Configuration for the DEVICE mode. */
 
 	XUsbPs_IntrHandlerFunc	HandlerFunc;
-		/**< Handler function for the controller. */
+	/**< Handler function for the controller. */
 	void			*HandlerRef;
-		/**< User data reference for the handler. */
+	/**< User data reference for the handler. */
 	u32			HandlerMask;
-		/**< User interrupt mask. Defines which interrupts will cause
-		 * the callback to be called. */
+	/**< User interrupt mask. Defines which interrupts will cause
+	 * the callback to be called. */
 	struct Usb_DevData *AppData;
 	u8 IsConfigDone;
 	void *data_ptr;		/* pointer for storing applications data */
@@ -666,7 +666,7 @@ typedef struct {
  ******************************************************************************/
 #define XUsbPs_ForceFS(InstancePtr)					\
 	XUsbPs_SetBits(InstancePtr, XUSBPS_PORTSCR1_OFFSET,		\
- 		XUSBPS_PORTSCR_PFSC_MASK)
+		       XUSBPS_PORTSCR_PFSC_MASK)
 
 
 /*****************************************************************************/
@@ -682,14 +682,14 @@ typedef struct {
  *
  ******************************************************************************/
 #define XUsbPs_StartTimer0(InstancePtr, Interval) 			\
-{									\
-	XUsbPs_WriteReg((InstancePtr)->Config.BaseAddress, 		\
-			XUSBPS_TIMER0_LD_OFFSET, (Interval));		\
-	XUsbPs_SetBits(InstancePtr, XUSBPS_TIMER0_CTL_OFFSET,		\
-			XUSBPS_TIMER_RUN_MASK |			\
-			XUSBPS_TIMER_RESET_MASK |			\
-			XUSBPS_TIMER_REPEAT_MASK);			\
-}									\
+	{									\
+		XUsbPs_WriteReg((InstancePtr)->Config.BaseAddress, 		\
+				XUSBPS_TIMER0_LD_OFFSET, (Interval));		\
+		XUsbPs_SetBits(InstancePtr, XUSBPS_TIMER0_CTL_OFFSET,		\
+			       XUSBPS_TIMER_RUN_MASK |			\
+			       XUSBPS_TIMER_RESET_MASK |			\
+			       XUSBPS_TIMER_REPEAT_MASK);			\
+	}									\
 
 
 /*****************************************************************************/
@@ -704,7 +704,7 @@ typedef struct {
 ******************************************************************************/
 #define XUsbPs_StopTimer0(InstancePtr) \
 	XUsbPs_ClrBits(InstancePtr, XUSBPS_TIMER0_CTL_OFFSET,		\
-		XUSBPS_TIMER_RUN_MASK)
+		       XUSBPS_TIMER_RUN_MASK)
 
 
 /*****************************************************************************/
@@ -719,8 +719,8 @@ typedef struct {
 ******************************************************************************/
 #define XUsbPs_ReadTimer0(InstancePtr) 				\
 	XUsbPs_ReadReg((InstancePtr)->Config.BaseAddress,		\
-			XUSBPS_TIMER0_CTL_OFFSET) & 			\
-					XUSBPS_TIMER_COUNTER_MASK
+		       XUSBPS_TIMER0_CTL_OFFSET) & 			\
+	XUSBPS_TIMER_COUNTER_MASK
 
 
 /*****************************************************************************/
@@ -735,7 +735,7 @@ typedef struct {
 ******************************************************************************/
 #define XUsbPs_RemoteWakeup(InstancePtr) \
 	XUsbPs_SetBits(InstancePtr, XUSBPS_PORTSCR1_OFFSET,		 \
-			XUSBPS_PORTSCR_FPR_MASK)
+		       XUSBPS_PORTSCR_FPR_MASK)
 
 
 /******************************************************************************
@@ -760,8 +760,8 @@ typedef struct {
 ******************************************************************************/
 #define XUsbPs_EpEnable(InstancePtr, EpNum, Dir) \
 	XUsbPs_SetBits(InstancePtr, XUSBPS_EPCRn_OFFSET(EpNum),	 \
-	((Dir) & XUSBPS_EP_DIRECTION_OUT ? XUSBPS_EPCR_RXE_MASK : 0) | \
-	((Dir) & XUSBPS_EP_DIRECTION_IN  ? XUSBPS_EPCR_TXE_MASK : 0))
+		       ((Dir) & XUSBPS_EP_DIRECTION_OUT ? XUSBPS_EPCR_RXE_MASK : 0) | \
+		       ((Dir) & XUSBPS_EP_DIRECTION_IN  ? XUSBPS_EPCR_TXE_MASK : 0))
 
 
 /*****************************************************************************/
@@ -781,8 +781,8 @@ typedef struct {
 ******************************************************************************/
 #define XUsbPs_EpDisable(InstancePtr, EpNum, Dir) \
 	XUsbPs_ClrBits(InstancePtr, XUSBPS_EPCRn_OFFSET(EpNum),		 \
-		((Dir) & XUSBPS_EP_DIRECTION_OUT ? XUSBPS_EPCR_RXE_MASK : 0) | \
-		((Dir) & XUSBPS_EP_DIRECTION_IN  ? XUSBPS_EPCR_TXE_MASK : 0))
+		       ((Dir) & XUSBPS_EP_DIRECTION_OUT ? XUSBPS_EPCR_RXE_MASK : 0) | \
+		       ((Dir) & XUSBPS_EP_DIRECTION_IN  ? XUSBPS_EPCR_TXE_MASK : 0))
 
 
 /*****************************************************************************/
@@ -803,8 +803,8 @@ typedef struct {
 ******************************************************************************/
 #define XUsbPs_EpStall(InstancePtr, EpNum, Dir) \
 	XUsbPs_SetBits(InstancePtr, XUSBPS_EPCRn_OFFSET(EpNum),	 \
-	((Dir) & XUSBPS_EP_DIRECTION_OUT ? XUSBPS_EPCR_RXS_MASK : 0) | \
-	((Dir) & XUSBPS_EP_DIRECTION_IN  ? XUSBPS_EPCR_TXS_MASK : 0))
+		       ((Dir) & XUSBPS_EP_DIRECTION_OUT ? XUSBPS_EPCR_RXS_MASK : 0) | \
+		       ((Dir) & XUSBPS_EP_DIRECTION_IN  ? XUSBPS_EPCR_TXS_MASK : 0))
 
 
 /*****************************************************************************/
@@ -824,8 +824,8 @@ typedef struct {
 ******************************************************************************/
 #define XUsbPs_EpUnStall(InstancePtr, EpNum, Dir) \
 	XUsbPs_ClrBits(InstancePtr, XUSBPS_EPCRn_OFFSET(EpNum),	 \
-	((Dir) & XUSBPS_EP_DIRECTION_OUT ? XUSBPS_EPCR_RXS_MASK : 0) | \
-	((Dir) & XUSBPS_EP_DIRECTION_IN  ? XUSBPS_EPCR_TXS_MASK : 0))
+		       ((Dir) & XUSBPS_EP_DIRECTION_OUT ? XUSBPS_EPCR_RXS_MASK : 0) | \
+		       ((Dir) & XUSBPS_EP_DIRECTION_IN  ? XUSBPS_EPCR_TXS_MASK : 0))
 
 
 /*****************************************************************************/
@@ -845,8 +845,8 @@ typedef struct {
 ******************************************************************************/
 #define XUsbPs_EpFlush(InstancePtr, EpNum, Dir) \
 	XUsbPs_SetBits(InstancePtr, XUSBPS_EPFLUSH_OFFSET,	\
-		1 << (EpNum + ((Dir) & XUSBPS_EP_DIRECTION_OUT ?		\
-			XUSBPS_EPFLUSH_RX_SHIFT:XUSBPS_EPFLUSH_TX_SHIFT))) \
+		       1 << (EpNum + ((Dir) & XUSBPS_EP_DIRECTION_OUT ?		\
+				      XUSBPS_EPFLUSH_RX_SHIFT:XUSBPS_EPFLUSH_TX_SHIFT))) \
 
 /*****************************************************************************/
 /**
@@ -860,7 +860,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XUsbPs_IntrEnable(InstancePtr, IntrMask)	\
-		XUsbPs_SetBits(InstancePtr, XUSBPS_IER_OFFSET, IntrMask)
+	XUsbPs_SetBits(InstancePtr, XUSBPS_IER_OFFSET, IntrMask)
 
 
 /*****************************************************************************/
@@ -876,7 +876,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XUsbPs_IntrDisable(InstancePtr, IntrMask)	\
-		XUsbPs_ClrBits(InstancePtr, XUSBPS_IER_OFFSET, IntrMask)
+	XUsbPs_ClrBits(InstancePtr, XUSBPS_IER_OFFSET, IntrMask)
 
 
 /*****************************************************************************/
@@ -925,7 +925,7 @@ typedef struct {
 ******************************************************************************/
 #define XUsbPs_NakIntrClear(InstancePtr, NakIntrMask)			\
 	XUsbPs_WriteReg((InstancePtr)->Config.BaseAddress,		\
-				XUSBPS_EPNAKISR_OFFSET, NakIntrMask)
+			XUSBPS_EPNAKISR_OFFSET, NakIntrMask)
 
 
 
@@ -951,8 +951,8 @@ typedef struct {
 *
 ******************************************************************************/
 #define XUsbPs_SetIntrThreshold(InstancePtr, Threshold)		\
-		XUsbPs_WriteReg((InstancePtr)->Config.BaseAddress,	\
-					XUSBPS_CMD_OFFSET, (Threshold))\
+	XUsbPs_WriteReg((InstancePtr)->Config.BaseAddress,	\
+			XUSBPS_CMD_OFFSET, (Threshold))\
 
 
 /*****************************************************************************/
@@ -966,8 +966,8 @@ typedef struct {
 *
 ******************************************************************************/
 #define XUsbPs_SetSetupTripwire(InstancePtr)				\
-		XUsbPs_SetBits(InstancePtr, XUSBPS_CMD_OFFSET,	\
-				XUSBPS_CMD_SUTW_MASK)
+	XUsbPs_SetBits(InstancePtr, XUSBPS_CMD_OFFSET,	\
+		       XUSBPS_CMD_SUTW_MASK)
 
 
 /*****************************************************************************/
@@ -981,8 +981,8 @@ typedef struct {
 *
 ******************************************************************************/
 #define XUsbPs_ClrSetupTripwire(InstancePtr)				\
-		XUsbPs_ClrBits(InstancePtr, XUSBPS_CMD_OFFSET,	\
-				XUSBPS_CMD_SUTW_MASK)
+	XUsbPs_ClrBits(InstancePtr, XUSBPS_CMD_OFFSET,	\
+		       XUSBPS_CMD_SUTW_MASK)
 
 
 /*****************************************************************************/
@@ -1000,9 +1000,9 @@ typedef struct {
 *
 ******************************************************************************/
 #define XUsbPs_SetupTripwireIsSet(InstancePtr)				\
-		(XUsbPs_ReadReg((InstancePtr)->Config.BaseAddress, 	\
-				XUSBPS_CMD_OFFSET) &			\
-				XUSBPS_CMD_SUTW_MASK ? TRUE : FALSE)
+	(XUsbPs_ReadReg((InstancePtr)->Config.BaseAddress, 	\
+			XUSBPS_CMD_OFFSET) &			\
+	 XUSBPS_CMD_SUTW_MASK ? TRUE : FALSE)
 
 
 /******************************************************************************
@@ -1026,8 +1026,8 @@ typedef struct {
 *****************************************************************************/
 #define XUsbPs_SetBits(InstancePtr, RegOffset, Bits) \
 	XUsbPs_WriteReg((InstancePtr)->Config.BaseAddress, RegOffset,	\
-		XUsbPs_ReadReg((InstancePtr)->Config.BaseAddress, 	\
-					RegOffset) | (Bits));
+			XUsbPs_ReadReg((InstancePtr)->Config.BaseAddress, 	\
+				       RegOffset) | (Bits));
 
 
 /****************************************************************************/
@@ -1048,8 +1048,8 @@ typedef struct {
 *****************************************************************************/
 #define XUsbPs_ClrBits(InstancePtr, RegOffset, Bits) \
 	XUsbPs_WriteReg((InstancePtr)->Config.BaseAddress, RegOffset,	\
-		XUsbPs_ReadReg((InstancePtr)->Config.BaseAddress, 	\
-				RegOffset) & ~(Bits));
+			XUsbPs_ReadReg((InstancePtr)->Config.BaseAddress, 	\
+				       RegOffset) & ~(Bits));
 
 
 /************************** Function Prototypes ******************************/
@@ -1060,10 +1060,10 @@ typedef struct {
  * Implemented in file xusbps.c
  */
 int XUsbPs_CfgInitialize(XUsbPs *InstancePtr,
-			  const XUsbPs_Config *ConfigPtr, u32 BaseAddress);
+			 const XUsbPs_Config *ConfigPtr, u32 BaseAddress);
 
 int XUsbPs_ConfigureDevice(XUsbPs *InstancePtr,
-				const XUsbPs_DeviceConfig *CfgPtr);
+			   const XUsbPs_DeviceConfig *CfgPtr);
 
 /**
  * Common functions used for DEVICE/HOST mode.
@@ -1097,23 +1097,23 @@ int XUsbPs_RequestHostResume(const XUsbPs *InstancePtr);
 int XUsbPs_EpBufferSend(XUsbPs *InstancePtr, u8 EpNum,
 			const u8 *BufferPtr, u32 BufferLen);
 int XUsbPs_EpBufferSendWithZLT(XUsbPs *InstancePtr, u8 EpNum,
-			const u8 *BufferPtr, u32 BufferLen);
+			       const u8 *BufferPtr, u32 BufferLen);
 int XUsbPs_EpBufferReceive(XUsbPs *InstancePtr, u8 EpNum,
-			u8 **BufferPtr, u32 *BufferLenPtr, u32 *Handle);
+			   u8 **BufferPtr, u32 *BufferLenPtr, u32 *Handle);
 void XUsbPs_EpBufferRelease(u32 Handle);
 
 int XUsbPs_EpSetHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
 			XUsbPs_EpHandlerFunc CallBackFunc,
 			void *CallBackRef);
 s32 XUsbPs_EpSetIsoHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
-			XUsbPs_EpIsoHandlerFunc CallBackFunc);
+			   XUsbPs_EpIsoHandlerFunc CallBackFunc);
 int XUsbPs_EpGetSetupData(XUsbPs *InstancePtr, int EpNum,
-			XUsbPs_SetupData *SetupDataPtr);
+			  XUsbPs_SetupData *SetupDataPtr);
 
 int XUsbPs_EpPrime(XUsbPs *InstancePtr, u8 EpNum, u8 Direction);
 
 int XUsbPs_ReconfigureEp(XUsbPs *InstancePtr, XUsbPs_DeviceConfig *CfgPtr,
-			int EpNum, unsigned short NewDirection, int DirectionChanged);
+			 int EpNum, unsigned short NewDirection, int DirectionChanged);
 
 /*
  * Interrupt handling functions
@@ -1123,12 +1123,12 @@ int XUsbPs_ReconfigureEp(XUsbPs *InstancePtr, XUsbPs_DeviceConfig *CfgPtr,
 void XUsbPs_IntrHandler(void *InstancePtr);
 
 int XUsbPs_IntrSetHandler(XUsbPs *InstancePtr,
-			   XUsbPs_IntrHandlerFunc CallBackFunc,
-			   void *CallBackRef, u32 Mask);
+			  XUsbPs_IntrHandlerFunc CallBackFunc,
+			  void *CallBackRef, u32 Mask);
 void XUsbPs_EpGetData(XUsbPs *InstancePtr, u8 EpNum, u32 BufferLen);
 
 s32 XUsbPs_EpDataBufferReceive(XUsbPs *InstancePtr, u8 EpNum,
-			u8 *BufferPtr, u32 BufferLen);
+			       u8 *BufferPtr, u32 BufferLen);
 /*
  * Helper functions for static configuration.
  * Implemented in xusbps_sinit.c
