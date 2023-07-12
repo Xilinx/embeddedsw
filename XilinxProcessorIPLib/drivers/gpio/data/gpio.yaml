@@ -1,0 +1,61 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for GPIO controller
+
+maintainers:
+  - Manikanta Guntupalli <manikanta.guntupalli@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,xps-gpio-1.00.a
+          - xlnx,axi-gpio-2.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,is-dual:
+    description: 1 if dual channel present, 0 if dual channel not present
+
+config:
+    - XGpio_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,interrupt-present
+    - xlnx,is-dual
+    - interrupts
+    - interrupt-parent
+
+examples:
+  xgpio_example.c:
+    - reg
+  xgpio_intr_tapp_example.c:
+    - interrupts
+  xgpio_low_level_example.c:
+    - reg
+  xgpio_tapp_example.c:
+    - reg
+
+tapp:
+   xgpio_example.c:
+        hwproperties:
+            - reg
+   xgpio_intr_tapp_example.c:
+        declaration: GpioIntrExample
+        hwproperties:
+            - interrupts
+   xgpio_low_level_example.c:
+        hwproperties:
+            - reg
+   xgpio_tapp_example.c:
+        declaration: GpioOutputExample
+        hwproperties:
+            - reg
+...

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -98,6 +99,7 @@
 * 4.6	sne  08/11/19 Fixed compilation error of armcc compiler.
 * 4.7   sne  08/28/20 Modify Makefile to support parallel make execution.
 * 4.8	sne  02/10/21 Fixed doxygen warnings.
+* 4.10  gm   07/11/23 Added SDT support.
 *
 * </pre>
 *****************************************************************************/
@@ -124,10 +126,18 @@ extern "C" {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< Device base address */
 	int InterruptPresent;	/**< Are interrupts supported in h/w */
 	int IsDual;		/**< Are 2 channels supported in h/w */
+#ifdef SDT
+	u16 IntrId; /** Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XGpio_Config;
 
 /**
@@ -150,8 +160,13 @@ typedef struct {
 /*
  * Initialization functions in xgpio_sinit.c
  */
+#ifndef SDT
 int XGpio_Initialize(XGpio *InstancePtr, u16 DeviceId);
 XGpio_Config *XGpio_LookupConfig(u16 DeviceId);
+#else
+int XGpio_Initialize(XGpio *InstancePtr, UINTPTR BaseAddress);
+XGpio_Config *XGpio_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * API Basic functions implemented in xgpio.c
