@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -79,6 +80,8 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.5   sd   08/29/18 Update the fifo flush.
+* 3.10  gm   07/09/23 Added SDT support.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -97,7 +100,8 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define IIC_BASE_ADDRESS	XPAR_IIC_0_BASEADDR
+
+#define IIC_BASE_ADDRESS	XPAR_AXI_IIC_0_BASEADDR
 
 /*
  * The following constant defines the address of the IIC Slave device on the

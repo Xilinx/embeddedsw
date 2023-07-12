@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +30,7 @@
 * 1.00a mta  03/09/06 Minor updates due to changes in the low level driver for
 *			 supporting repeated start functionality.
 * 2.00a sdm  09/22/09 Minor modifications as per coding guidelines.
+* 3.10  gm   07/09/23 Added SDT support
 *
 * </pre>
 *
@@ -46,8 +48,8 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define IIC_BASE_ADDRESS	XPAR_IIC_0_BASEADDR
 
+#define IIC_BASE_ADDRESS	XPAR_AXI_IIC_0_BASEADDR
 
 /*
  * The following constant defines the address of the IIC
