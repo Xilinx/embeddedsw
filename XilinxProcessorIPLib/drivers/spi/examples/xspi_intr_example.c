@@ -38,6 +38,7 @@
 *                     CR-965028.
 * 4.5	akm  07/12/19 Fixed compilation error by passing the correct interrupt
 *		      controller instance to SpiIntrExample() function.
+* 4.11	sb   07/11/23 Added support for system device-tree flow.
 *</pre>
 ******************************************************************************/
 
@@ -48,10 +49,14 @@
 #include "xil_exception.h"
 #include "xil_printf.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
  #include "xintc.h"
 #else
  #include "xscugic.h"
+#endif
+#else
+#include "xinterrupt_wrap.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -61,6 +66,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #ifndef TESTAPP_GEN
 #define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
@@ -73,6 +79,7 @@
 #else
  #define INTC           XScuGic
  #define INTC_HANDLER   XScuGic_InterruptHandler
+#endif
 #endif
 
 /*
@@ -95,16 +102,22 @@ typedef u8 DataBuffer[BUFFER_SIZE];
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int SpiIntrExample(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 					u16 SpiDeviceId, u16
 					SpiIntrId);
+#else
+int SpiIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress);
+#endif
 
 void SpiIntrHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount);
 
+#ifndef SDT
 static int SpiSetupIntrSystem(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 					u16 SpiIntrId);
 
 static void SpiDisableIntrSystem(INTC *IntcInstancePtr, u16 SpiIntrId);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -113,7 +126,9 @@ static void SpiDisableIntrSystem(INTC *IntcInstancePtr, u16 SpiIntrId);
  * are initialized to zero each time the program runs.
  */
 #ifndef TESTAPP_GEN
+#ifndef SDT
 static INTC Intc;	 /* The instance of the Interrupt Controller */
+#endif
 static XSpi  SpiInstance;	 /* The instance of the SPI device */
 #endif
 
@@ -156,10 +171,14 @@ int main(void)
 	/*
 	 * Run the Spi Interrupt example.
 	 */
+#ifndef SDT
 	Status = SpiIntrExample(&Intc,
 				&SpiInstance,
 				SPI_DEVICE_ID,
 				SPI_IRPT_INTR);
+#else
+	Status = SpiIntrExample(&SpiInstance, XPAR_XSPI_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Spi interrupt Example Failed\r\n");
 		return XST_FAILURE;
@@ -197,8 +216,12 @@ int main(void)
 * working it may never return.
 *
 ******************************************************************************/
+#ifndef SDT
 int SpiIntrExample(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 			u16 SpiDeviceId, u16 SpiIntrId)
+#else
+int SpiIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u32 Count;
@@ -208,7 +231,11 @@ int SpiIntrExample(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 	/*
 	 * Initialize the SPI driver so that it is  ready to use.
 	 */
+#ifndef SDT
 	ConfigPtr = XSpi_LookupConfig(SpiDeviceId);
+#else
+	 ConfigPtr = XSpi_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}
@@ -238,9 +265,16 @@ int SpiIntrExample(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 	 * Connect the Spi device to the interrupt subsystem such that
 	 * interrupts can occur. This function is application specific.
 	 */
+#ifndef SDT
 	Status = SpiSetupIntrSystem(IntcInstancePtr,
 					SpiInstancePtr,
 				 	SpiIntrId);
+#else
+	Status = XSetupInterruptSystem(SpiInstancePtr, &XSpi_InterruptHandler,
+				       ConfigPtr->IntrId,
+				       ConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -297,7 +331,11 @@ int SpiIntrExample(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 	/*
 	 * Disable the Spi interrupt.
 	 */
+#ifndef SDT
 	SpiDisableIntrSystem(IntcInstancePtr, SpiIntrId);
+#else
+	XDisconnectInterruptCntrl(ConfigPtr->IntrId, ConfigPtr->IntrParent);
+#endif
 
 	/*
 	 * Compare the data received with the data that was transmitted.
@@ -370,6 +408,7 @@ void SpiIntrHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount)
 * @note		None
 *
 ******************************************************************************/
+#ifndef SDT
 static int SpiSetupIntrSystem(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 					 u16 SpiIntrId)
 {
@@ -503,3 +542,4 @@ static void SpiDisableIntrSystem(INTC *IntcInstancePtr, u16 SpiIntrId)
 
 	
 }
+#endif
