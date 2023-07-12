@@ -288,6 +288,7 @@
 * 		      made in the interrupt app tcl file.
 * 4.10  akm  02/21/23 Avoid data loss in interrupt mode with TX HALF EMPTY
 *                     Interrupt enabled.
+* 4.11  sb   07/11/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -390,7 +391,11 @@ typedef struct {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< Base address of the device */
 	int HasFifos;		/**< Does device have FIFOs? */
 	u32 SlaveOnly;		/**< Is the device slave only? */
@@ -403,6 +408,12 @@ typedef struct {
 	u8 XipMode;             /**< 0 if Non-XIP, 1 if XIP Mode */
 	u8 Use_Startup;		/**< 1 if Starup block is used in h/w */
 	u16 FifosDepth;		/**< TX and RX FIFO Depth */
+#ifdef SDT
+	u16 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
+	                        * trigger type and level flags */
+	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
+	                        * Parent base address */
+#endif
 } XSpi_Config;
 
 /**
@@ -797,8 +808,13 @@ typedef struct {
 /*
  * Initialization functions in xspi_sinit.c
  */
+#ifndef SDT
 int XSpi_Initialize(XSpi *InstancePtr, u16 DeviceId);
 XSpi_Config *XSpi_LookupConfig(u16 DeviceId);
+#else
+int XSpi_Initialize(XSpi *InstancePtr, UINTPTR BaseAddress);
+XSpi_Config *XSpi_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * Functions, in xspi.c
