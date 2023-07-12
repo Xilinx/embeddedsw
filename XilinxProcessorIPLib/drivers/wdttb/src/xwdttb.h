@@ -183,6 +183,7 @@
 *		      Generic WDT example
 * 5.5	sne  05/07/22 Added XWdtTb_SetGenericWdtWindowTimeOut API to configure
 *		      generic watchdog window.
+* 5.7	sb   07/12/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -222,13 +223,23 @@ typedef enum {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID of the device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddr;	/**< Base address of the device */
 	u32 EnableWinWdt;	/**< Flag for Window WDT enable */
+#ifndef SDT
 	u32 MaxCountWidth;	/**< Maximum width of first timer */
 	u32 SstCountWidth;	/**< Maximum width of Second Sequence Timer */
 	u32 IsPl;		/**< IsPl, 1= AXI Timebase ,0= WWDT  */
+#endif
 	u32 Clock;		/**< Watchdog Clock Frequency */
+#ifdef SDT
+	u16 IntrId[4];          /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XWdtTb_Config;
 
 /**
@@ -762,7 +773,11 @@ u32 XWdtTb_IsGenericWdtFWExpired(const XWdtTb *InstancePtr);
 
 void XWdtTb_RestartWdt(const XWdtTb *InstancePtr);
 
+#ifndef SDT
 XWdtTb_Config *XWdtTb_LookupConfig(u16 DeviceId);
+#else
+XWdtTb_Config *XWdtTb_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /* Window WDT functions implemented in xwdttb.c */
 void XWdtTb_AlwaysEnable(const XWdtTb *InstancePtr);

@@ -23,6 +23,7 @@
 * 4.0  sha 01/29/16 Updated version to 4.0 as it is newly added file in driver
 *                   version 4.0.
 * 4.3  srm 01/30/18 Added doxygen tags
+* 5.7  sb  07/12/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -67,6 +68,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XWdtTb_Config *XWdtTb_LookupConfig(u16 DeviceId)
 {
 	XWdtTb_Config *CfgPtr = NULL;
@@ -87,4 +89,23 @@ XWdtTb_Config *XWdtTb_LookupConfig(u16 DeviceId)
 
 	return (XWdtTb_Config *)CfgPtr;
 }
+#else
+XWdtTb_Config *XWdtTb_LookupConfig(UINTPTR BaseAddress)
+{
+	XWdtTb_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0U; XWdtTb_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XWdtTb_ConfigTable[Index].BaseAddr == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XWdtTb_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XWdtTb_Config *)CfgPtr;
+}
+/** @} */
+
+#endif
 /** @} */

@@ -1,0 +1,75 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for WDTTB controller
+
+maintainers:
+  - Srikanth Boyapally <srikanth.boyapally@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-timebase-wdt-3.0
+          - xlnx,xps-timebase-wdt-1.00.a
+          - xlnx,versal-wwdt-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,clock-freq:
+    description: Input clock frequency
+
+config:
+    - XWdtTb_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,enable-window-wdt
+    - xlnx,wdt-clk-freq-hz
+    - interrupts: 4
+    - interrupt-parent
+
+examples:
+   xwdttb_gwdt_selftest_example.c:
+    - compatible : xlnx,versal-wwdt-1.0
+   xwdttb_gwdt_example.c:
+    - compatible : xlnx,versal-wwdt-1.0
+   xwdttb_gwdt_intr_example.c:
+    - compatible : xlnx,versal-wwdt-1.0
+    - interrupts
+   xwdttb_winwdt_qamode_example.c:
+    - compatible : xlnx,versal-wwdt-1.0
+    - interrupts
+   xwdttb_winwdt_example.c:
+    - compatible : xlnx,versal-wwdt-1.0
+   xwdttb_winwdt_intr_example.c:
+    - compatible : xlnx,versal-wwdt-1.0
+    - interrupts
+   xwdttb_low_level_example.c:
+    - xlnx,enable-window-wdt : 0
+    - compatible : xlnx,axi-timebase-wdt-3.0
+   xwdttb_example.c:
+    - xlnx,enable-window-wdt : 0
+    - compatible : xlnx,axi-timebase-wdt-3.0
+   xwdttb_intr_example.c:
+    - xlnx,enable-window-wdt : 0
+    - compatible : xlnx,axi-timebase-wdt-3.0
+    - interrupts
+   xwdttb_winwdt_example.c:
+    - xlnx,enable-window-wdt : 1
+    - compatible : xlnx,axi-timebase-wdt-3.0
+   xwdttb_selftest_example.c:
+    - xlnx,enable-window-wdt : 1
+    - compatible : xlnx,axi-timebase-wdt-3.0
+   xwdttb_winwdt_intr_example.c:
+    - xlnx,enable-window-wdt : 1
+    - compatible : xlnx,axi-timebase-wdt-3.0
+    - interrupts
+
+depends:
+   clockps: []
+...

@@ -44,6 +44,7 @@
 *		      configuring Generic Watchdog window.
 * 5.0	sne  02/27/20 Reorganize the driver source.
 * 5.0	sne  03/09/20 Fixed MISRA-C violations.
+* 5.7	sb   07/12/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -163,7 +164,11 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)
 
 	}
 	else {
+#ifndef SDT
 		if (InstancePtr->Config.IsPl == (u32)0) {
+#else
+		if (!(strcmp(InstancePtr->Config.Name, "xlnx,versal-wwdt-1.0"))) {
+#endif
                 /* Write General Watchdog offset register for Generating interrupt */
                 XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWOR_OFFSET,XWT_GWOR_COUNT);
                 /*Enable GWEN bit for starting General Watchdog timer */
