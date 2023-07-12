@@ -252,7 +252,7 @@ int GpioIntrExample(XGpioPs *Gpio, UINTPTR BaseAddress)
 	/* Enable the GPIO interrupts of GPIO Bank. */
 	XGpioPs_IntrEnable(Gpio, GPIO_BANK, (1 << Input_Bank_Pin));
 
-	Status = XSetupInterruptSystem(Gpio,&XGpioPs_IntrHandler,
+	Status = XSetupInterruptSystem(Gpio, &XGpioPs_IntrHandler,
 				       ConfigPtr->IntrId,
 				       ConfigPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
@@ -272,7 +272,7 @@ int GpioIntrExample(XGpioPs *Gpio, UINTPTR BaseAddress)
 	 * Loop forever while the button changes are handled by the interrupt
 	 * level processing.
 	 */
-	while(AllButtonsPressed == FALSE);
+	while (AllButtonsPressed == FALSE);
 
 	return XST_SUCCESS;
 }
@@ -345,7 +345,7 @@ static int SetupInterruptSystem(XScuGic *GicInstancePtr, XGpioPs *Gpio,
 	}
 
 	Status = XScuGic_CfgInitialize(GicInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -356,8 +356,8 @@ static int SetupInterruptSystem(XScuGic *GicInstancePtr, XGpioPs *Gpio,
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				GicInstancePtr);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     GicInstancePtr);
 
 	/*
 	 * Connect the device driver handler that will be called when an
@@ -365,8 +365,8 @@ static int SetupInterruptSystem(XScuGic *GicInstancePtr, XGpioPs *Gpio,
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(GicInstancePtr, GpioIntrId,
-				(Xil_ExceptionHandler)XGpioPs_IntrHandler,
-				(void *)Gpio);
+				 (Xil_ExceptionHandler)XGpioPs_IntrHandler,
+				 (void *)Gpio);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
