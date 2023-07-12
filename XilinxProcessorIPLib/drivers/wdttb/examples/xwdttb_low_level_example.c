@@ -148,7 +148,7 @@ int XWdtTb_LowLevelExample(UINTPTR WdtTbBaseAddress)
 	 */
 	XWdtTb_WriteReg(WdtTbBaseAddress, XWT_TWCSR0_OFFSET,
 			(XWT_CSR0_WRS_MASK | XWT_CSR0_WDS_MASK |
-			XWT_CSR0_EWDT1_MASK));
+			 XWT_CSR0_EWDT1_MASK));
 
 	XWdtTb_WriteReg(WdtTbBaseAddress, XWT_TWCSR1_OFFSET,
 			XWT_CSRX_EWDT2_MASK);
@@ -163,15 +163,15 @@ int XWdtTb_LowLevelExample(UINTPTR WdtTbBaseAddress)
 		 * If the watchdog timer expired, then restart it.
 		 */
 		if (XWdtTb_ReadReg(WdtTbBaseAddress, XWT_TWCSR0_OFFSET) &
-				XWT_CSR0_WDS_MASK) {
+		    XWT_CSR0_WDS_MASK) {
 
 			/*
 			 * Restart the watchdog timer as a normal application
 			 * would
 			 */
 			XWdtTb_WriteReg(WdtTbBaseAddress, XWT_TWCSR0_OFFSET,
-				(XWT_CSR0_WRS_MASK | XWT_CSR0_WDS_MASK |
-				XWT_CSR0_EWDT1_MASK));
+					(XWT_CSR0_WRS_MASK | XWT_CSR0_WDS_MASK |
+					 XWT_CSR0_EWDT1_MASK));
 			Count++;
 		}
 
@@ -180,7 +180,7 @@ int XWdtTb_LowLevelExample(UINTPTR WdtTbBaseAddress)
 		 * If this is set means then the test has failed
 		 */
 		if (XWdtTb_ReadReg(WdtTbBaseAddress, XWT_TWCSR0_OFFSET) &
-				XWT_CSR0_WRS_MASK) {
+		    XWT_CSR0_WRS_MASK) {
 			return XST_FAILURE;
 		}
 
@@ -188,7 +188,7 @@ int XWdtTb_LowLevelExample(UINTPTR WdtTbBaseAddress)
 		 * Check whether the WatchDog timer expires two times.
 		 * If the timer expires two times then the test is passed.
 		 */
-		if(Count == 2) {
+		if (Count == 2) {
 			break;
 		}
 	}

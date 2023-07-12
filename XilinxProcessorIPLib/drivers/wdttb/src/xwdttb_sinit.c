@@ -76,7 +76,7 @@ XWdtTb_Config *XWdtTb_LookupConfig(u16 DeviceId)
 
 	/* Checking for device id for which instance it is matching */
 	for (Index = (u32)0x0; Index < (u32)(XPAR_XWDTTB_NUM_INSTANCES);
-								Index++) {
+	     Index++) {
 
 		/* Assigning address of config table if both device ids
 		 * are matched

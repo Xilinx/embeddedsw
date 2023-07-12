@@ -162,7 +162,7 @@ int WdtTbExample(UINTPTR BaseAddress)
 	 * it is ready to use.
 	 */
 	Status = XWdtTb_CfgInitialize(&WatchdogTimebase, Config,
-			Config->BaseAddr);
+				      Config->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -208,7 +208,7 @@ int WdtTbExample(UINTPTR BaseAddress)
 		 * If this is set means then the test has failed
 		 */
 		if (XWdtTb_ReadReg(WatchdogTimebase.Config.BaseAddr,
-				XWT_TWCSR0_OFFSET) & XWT_CSR0_WRS_MASK) {
+				   XWT_TWCSR0_OFFSET) & XWT_CSR0_WRS_MASK) {
 
 			/*
 			 * Stop the watchdog timer
@@ -221,7 +221,7 @@ int WdtTbExample(UINTPTR BaseAddress)
 		 * Check whether the WatchDog timer expires two times.
 		 * If the timer expires two times then the test is passed.
 		 */
-		if(Count == 2) {
+		if (Count == 2) {
 			break;
 		}
 	}

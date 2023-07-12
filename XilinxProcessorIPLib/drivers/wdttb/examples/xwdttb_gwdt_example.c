@@ -76,25 +76,24 @@ XWdtTb GWatchdog;       /* The instance of the WatchDog Time Base */
 #ifndef TESTAPP_GEN
 int main(void)
 {
-        int Status;
+	int Status;
 
-        /*
-         * Run the Generic Watchdog  example , specify the device ID that is generated in
-         * xparameters.h
-         */
+	/*
+	 * Run the Generic Watchdog  example , specify the device ID that is generated in
+	 * xparameters.h
+	 */
 #ifndef SDT
-        Status = GWdtTbExample(WDTTB_DEVICE_ID);
+	Status = GWdtTbExample(WDTTB_DEVICE_ID);
 #else
 	Status = GWdtTbExample(XPAR_XWDTTB_0_BASEADDR);
 #endif
-        if (Status != XST_SUCCESS)
-        {
-                xil_printf("Generic WdtTb example failed\n\r");
-                return XST_FAILURE;
-        }
-        xil_printf("Successfully ran Generic WdtTb example \n\r");
+	if (Status != XST_SUCCESS) {
+		xil_printf("Generic WdtTb example failed\n\r");
+		return XST_FAILURE;
+	}
+	xil_printf("Successfully ran Generic WdtTb example \n\r");
 
-        return XST_SUCCESS;
+	return XST_SUCCESS;
 }
 #endif
 
@@ -123,82 +122,77 @@ int GWdtTbExample(u16 DeviceId)
 int GWdtTbExample(UINTPTR BaseAddress)
 #endif
 {
-        int Status;
-        int RefreshReg=0;
-        XWdtTb_Config *Config;
+	int Status;
+	int RefreshReg = 0;
+	XWdtTb_Config *Config;
 
-        /*
-         * Initialize the WDTPSV driver so that it's ready to use look up
-         * configuration in the config table, then initialize it.
-         */
+	/*
+	 * Initialize the WDTPSV driver so that it's ready to use look up
+	 * configuration in the config table, then initialize it.
+	 */
 #ifndef SDT
-        Config = XWdtTb_LookupConfig(DeviceId);
+	Config = XWdtTb_LookupConfig(DeviceId);
 #else
 	Config = XWdtTb_LookupConfig(BaseAddress);
 #endif
-        if (NULL == Config) {
-                return XST_FAILURE;
-        }
+	if (NULL == Config) {
+		return XST_FAILURE;
+	}
 
-        /*
-         * Initialize the watchdog timer  driver so that
-         * it is ready to use.
-         */
-        Status = XWdtTb_CfgInitialize(&GWatchdog, Config,
-                        Config->BaseAddr);
-        if (Status != XST_SUCCESS)
-        {
-                return XST_FAILURE;
-        }
+	/*
+	 * Initialize the watchdog timer  driver so that
+	 * it is ready to use.
+	 */
+	Status = XWdtTb_CfgInitialize(&GWatchdog, Config,
+				      Config->BaseAddr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
-        /*
-         * Perform a self-test to ensure that the hardware was built
-         * correctly
-         */
-        Status = XWdtTb_SelfTest(&GWatchdog);
-        if (Status != XST_SUCCESS)
-        {
-                return XST_FAILURE;
-        }
-        xil_printf("\nSelf test completed \n\r");
+	/*
+	 * Perform a self-test to ensure that the hardware was built
+	 * correctly
+	 */
+	Status = XWdtTb_SelfTest(&GWatchdog);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	xil_printf("\nSelf test completed \n\r");
 
-        /* Update GWOR Register */
-        XWdtTb_SetGenericWdtWindow(&GWatchdog, WDTPSV_GWOR_COUNT);
+	/* Update GWOR Register */
+	XWdtTb_SetGenericWdtWindow(&GWatchdog, WDTPSV_GWOR_COUNT);
 
-        /*
-         * Start the watchdog timer, the General Watchdog  is automatically reset
-         * when this occurs.
-         */
-        XWdtTb_Start(&GWatchdog);
+	/*
+	 * Start the watchdog timer, the General Watchdog  is automatically reset
+	 * when this occurs.
+	 */
+	XWdtTb_Start(&GWatchdog);
 
-        /*
-         * Verify Whether the Generic WatchDog Refresh Status has been set in the next two
-         * expire state.
-         */
-        while (1) {
-                xil_printf(".");
-                /* Refresh  General Watchdog timer if generic_wdt_interrupt occurred */
-                if(RefreshReg<=2)
-                {
-                        if(XWdtTb_IsGenericWdtFWExpired(&GWatchdog))
-                        {
-                                XWdtTb_RestartWdt(&GWatchdog);
-                        RefreshReg++;
-                        xil_printf("\n Refresh kick%d\n\r",RefreshReg);
-                        }
-                }
-                /*
-                 * If the watchdog timer expired, then restart it.
-                 */
-                if (XWdtTb_IsWdtExpired(&GWatchdog))
-                {
+	/*
+	 * Verify Whether the Generic WatchDog Refresh Status has been set in the next two
+	 * expire state.
+	 */
+	while (1) {
+		xil_printf(".");
+		/* Refresh  General Watchdog timer if generic_wdt_interrupt occurred */
+		if (RefreshReg <= 2) {
+			if (XWdtTb_IsGenericWdtFWExpired(&GWatchdog)) {
+				XWdtTb_RestartWdt(&GWatchdog);
+				RefreshReg++;
+				xil_printf("\n Refresh kick%d\n\r", RefreshReg);
+			}
+		}
+		/*
+		 * If the watchdog timer expired, then restart it.
+		 */
+		if (XWdtTb_IsWdtExpired(&GWatchdog)) {
 
-                        xil_printf("\n\rGeneric watchdog second window expired\n\r");
-                        XWdtTb_Stop(&GWatchdog);
-                        break;
-                }
+			xil_printf("\n\rGeneric watchdog second window expired\n\r");
+			XWdtTb_Stop(&GWatchdog);
+			break;
+		}
 
-        }
+	}
 
-        return XST_SUCCESS;
+	return XST_SUCCESS;
 }

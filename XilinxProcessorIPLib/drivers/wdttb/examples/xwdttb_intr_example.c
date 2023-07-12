@@ -101,9 +101,9 @@
 
 #ifndef SDT
 int WdtTbIntrExample(INTC *IntcInstancePtr,
-			XWdtTb *WdtTbInstancePtr,
-			u16 WdtTbDeviceId,
-			u16 WdtTbIntrId);
+		     XWdtTb *WdtTbInstancePtr,
+		     u16 WdtTbDeviceId,
+		     u16 WdtTbIntrId);
 #else
 int WdtTbIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
 #endif
@@ -117,7 +117,7 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 				u16 WdtTbIntrId);
 
 static void WdtTbDisableIntrSystem(INTC *IntcInstancePtr,
-				u16 WdtTbIntrId);
+				   u16 WdtTbIntrId);
 #endif
 
 
@@ -156,9 +156,9 @@ int main(void)
 	 */
 #ifndef SDT
 	Status = WdtTbIntrExample(&IntcInstance,
-				&WdtTbInstance,
-				WDTTB_DEVICE_ID,
-				WDTTB_IRPT_INTR);
+				  &WdtTbInstance,
+				  WDTTB_DEVICE_ID,
+				  WDTTB_IRPT_INTR);
 #else
 	Status = WdtTbIntrExample(&WdtTbInstance, XPAR_XWDTTB_0_BASEADDR);
 #endif
@@ -208,9 +208,9 @@ int main(void)
 ******************************************************************************/
 #ifndef SDT
 int WdtTbIntrExample(INTC *IntcInstancePtr,
-			XWdtTb *WdtTbInstancePtr,
-			u16 WdtTbDeviceId,
-			u16 WdtTbIntrId)
+		     XWdtTb *WdtTbInstancePtr,
+		     u16 WdtTbDeviceId,
+		     u16 WdtTbIntrId)
 #else
 int WdtTbIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 #endif
@@ -236,7 +236,7 @@ int WdtTbIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 	 * it is ready to use.
 	 */
 	Status = XWdtTb_CfgInitialize(WdtTbInstancePtr, Config,
-			Config->BaseAddr);
+				      Config->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -260,8 +260,8 @@ int WdtTbIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 	 */
 #ifndef SDT
 	Status = WdtTbSetupIntrSystem(IntcInstancePtr,
-					WdtTbInstancePtr,
-					WdtTbIntrId);
+				      WdtTbInstancePtr,
+				      WdtTbIntrId);
 #else
 	Status = XSetupInterruptSystem(WdtTbInstancePtr, &WdtTbIntrHandler,
 				       Config->IntrId[0],
@@ -295,7 +295,7 @@ int WdtTbIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 	 * If this is set means then the test has failed
 	 */
 	if (XWdtTb_ReadReg(WdtTbInstancePtr->Config.BaseAddr,
-			XWT_TWCSR0_OFFSET) & XWT_CSR0_WRS_MASK) {
+			   XWT_TWCSR0_OFFSET) & XWT_CSR0_WRS_MASK) {
 		/*
 		 * Disable and disconnect the interrupt system
 		 */
@@ -367,7 +367,7 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 	 * xparameters.h
 	 */
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #endif /* TESTAPP_GEN */
@@ -378,9 +378,9 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 	 * the specific interrupt processing for the device
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, WdtTbIntrId,
-			   (XInterruptHandler)WdtTbIntrHandler,
-			   (void *)WdtTbInstancePtr);
-	if(Status != XST_SUCCESS) {
+			       (XInterruptHandler)WdtTbIntrHandler,
+			       (void *)WdtTbInstancePtr);
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
@@ -390,7 +390,7 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 	 * all devices that cause interrupts
 	 */
 	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #endif /* TESTAPP_GEN */
@@ -415,14 +415,14 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #endif /* TESTAPP_GEN */
 
 	XScuGic_SetPriorityTriggerType(IntcInstancePtr, WdtTbIntrId,
-					0xA0, 0x3);
+				       0xA0, 0x3);
 
 	/*
 	 * Connect the interrupt handler that will be called when an
@@ -452,8 +452,8 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 	 * Register the interrupt controller handler with the exception table
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			 (Xil_ExceptionHandler)INTC_HANDLER,
-			 IntcInstancePtr);
+				     (Xil_ExceptionHandler)INTC_HANDLER,
+				     IntcInstancePtr);
 
 	/*
 	 * Enable non-critical exceptions

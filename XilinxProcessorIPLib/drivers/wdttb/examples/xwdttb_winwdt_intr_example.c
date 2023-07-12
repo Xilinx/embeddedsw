@@ -237,7 +237,7 @@ int WinWdtIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 #ifndef SDT
 	if (!WdtTbInstancePtr->Config.IsPl) {
 #else
-        if (!(strcmp(WdtTbInstancePtr->Config.Name, "xlnx,versal-wwdt-1.0"))) {
+	if (!(strcmp(WdtTbInstancePtr->Config.Name, "xlnx,versal-wwdt-1.0"))) {
 #endif
 		/*Enable Window Watchdog Feature in WWDT */
 		XWdtTb_ConfigureWDTMode(WdtTbInstancePtr, XWT_WWDT);
