@@ -47,6 +47,7 @@
 * 2.3 kpc     14/10/16   Fixed the compiler error when optimization O0 is used.
 * 2.5 hk      08/16/19   Add a memory barrier before DMASEV as per specification.
 * 2.6 hk      02/14/20   Correct boundary check for Channel.
+* 2.7 aj      12/07/23   Fixed changes to support system device tree flow
 *
 * </pre>
 *
@@ -144,8 +145,19 @@ int XDmaPs_CfgInitialize(XDmaPs *InstPtr,
 	/*
 	 * Setup the driver instance using passed in parameters
 	 */
+#ifndef SDT
 	InstPtr->Config.DeviceId = Config->DeviceId;
+#endif
 	InstPtr->Config.BaseAddress = EffectiveAddr;
+
+#ifdef SDT
+	InstPtr->Config.IntrParent = Config->IntrParent;
+	/*  Added one fault Inerrupt and eight per-channel Interrupt  */
+	for(Channel = 0; Channel < (XDMAPS_CHANNELS_PER_DEV + 1); Channel++)
+	{
+		InstPtr->Config.IntrId[Channel] = Config->IntrId[Channel];
+	}
+#endif
 
 	CfgReg = XDmaPs_ReadReg(EffectiveAddr, XDMAPS_CR1_OFFSET);
 	CacheLength = CfgReg & XDMAPS_CR1_I_CACHE_LEN_MASK;
@@ -163,7 +175,11 @@ int XDmaPs_CfgInitialize(XDmaPs *InstPtr,
 	for (Channel = 0; Channel < XDMAPS_CHANNELS_PER_DEV; Channel++) {
 		ChanData = InstPtr->Chans + Channel;
 		ChanData->ChanId = Channel;
+#ifndef SDT
 		ChanData->DevId = Config->DeviceId;
+#else
+		ChanData->DevId = XDmaPs_GetDrvIndex(InstPtr, EffectiveAddr);
+#endif
 	}
 
 	InstPtr->IsReady = 1;
@@ -249,8 +265,11 @@ void XDmaPs_FaultISR(XDmaPs *InstPtr)
 	Fsm = XDmaPs_ReadReg(BaseAddr, XDMAPS_FSM_OFFSET) & 0x01;
 	Fsc = XDmaPs_ReadReg(BaseAddr, XDMAPS_FSC_OFFSET) & 0xFF;
 
-
+#ifndef SDT
 	DevId = InstPtr->Config.DeviceId;
+#else
+	DevId = XDmaPs_GetDrvIndex(InstPtr, BaseAddr);
+#endif
 
 	if (Fsm) {
 		/*

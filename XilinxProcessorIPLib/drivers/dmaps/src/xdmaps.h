@@ -61,6 +61,7 @@
 * 2.4   adk    13/08/18 Fixed armcc compiler warnings in the driver CR-1008310.
 * 2.8	sk     05/18/21 Modify all inline functions declarations from extern inline
 *			to static inline to avoid the linkage conflict for IAR compiler.
+* 2.9   aj     11/07/23 Added support for system device tree
 * </pre>
 *
 *****************************************************************************/
@@ -89,8 +90,19 @@ extern "C" {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;	 /**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	u32 BaseAddress; /**< Base address of device (IPIF) */
+
+#ifdef SDT
+	u32 IntrId[9];		/** Bits[11:0] Interrupt-id Bits[15:12]
+				* trigger type and level flags */
+	UINTPTR IntrParent;	/** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
 } XDmaPs_Config;
 
 
@@ -313,7 +325,12 @@ void XDmaPs_FaultISR(XDmaPs *InstPtr);
 /*
  * Static loopup function implemented in xdmaps_sinit.c
  */
+#ifndef SDT
 XDmaPs_Config *XDmaPs_LookupConfig(u16 DeviceId);
+#else
+XDmaPs_Config *XDmaPs_LookupConfig(UINTPTR BaseAddress);
+u32 XDmaPs_GetDrvIndex(XDmaPs *InstancePtr, UINTPTR BaseAddress);
+#endif
 
 
 /*
