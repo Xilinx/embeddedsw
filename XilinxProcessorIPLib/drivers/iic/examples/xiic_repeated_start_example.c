@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2006 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2006 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +40,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 3.10  gm   07/09/23 Added SDT support
 *
 * </pre>
 *
@@ -48,9 +50,18 @@
 
 #include "xparameters.h"
 #include "xiic.h"
-#include "xintc.h"
+#ifndef SDT
+#ifdef XPAR_INTC_0_DEVICE_ID
+ #include "xintc.h"
+#else
+ #include "xscugic.h"
+#endif
+#endif
 #include "xil_exception.h"
 #include "xil_printf.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -59,9 +70,25 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define IIC_DEVICE_ID		XPAR_IIC_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
-#define IIC_INTR_ID		XPAR_INTC_0_IIC_0_VEC_ID
+#else
+#define	XIIC_BASEADDRESS	XPAR_XIIC_0_BASEADDR
+#endif
+
+#ifndef SDT
+#ifdef XPAR_INTC_0_DEVICE_ID
+ #define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+ #define IIC_INTR_ID	XPAR_INTC_0_IIC_0_VEC_ID
+ #define INTC			XIntc
+ #define INTC_HANDLER	XIntc_InterruptHandler
+#else
+ #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+ #define IIC_INTR_ID		XPAR_FABRIC_IIC_0_VEC_ID
+ #define INTC			 	XScuGic
+ #define INTC_HANDLER		XScuGic_InterruptHandler
+#endif
+#endif
 
 /*
  * The following constant defines the address of the IIC
@@ -82,7 +109,9 @@
 int IicRepeatedStartExample();
 static int WriteData(u16 ByteCount);
 static int ReadData(u8 *BufferPtr, u16 ByteCount);
+#ifndef SDT
 static int SetupInterruptSystem(XIic *IicInstPtr);
+#endif
 static void SendHandler(XIic *InstancePtr);
 static void ReceiveHandler(XIic *InstancePtr);
 static void StatusHandler(XIic *InstancePtr, int Event);
@@ -90,7 +119,9 @@ static void StatusHandler(XIic *InstancePtr, int Event);
 /************************** Variable Definitions *****************************/
 
 XIic IicInstance;
-XIntc InterruptController;
+#ifndef SDT
+INTC Intc; 	/* The instance of the Interrupt Controller Driver */
+#endif
 
 u8 WriteBuffer[SEND_COUNT];	/* Write buffer for writing a page. */
 u8 ReadBuffer[RECEIVE_COUNT];	/* Read buffer for reading a page. */
@@ -154,7 +185,11 @@ int IicRepeatedStartExample(void)
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
+#ifndef SDT
 	ConfigPtr = XIic_LookupConfig(XPAR_IIC_0_DEVICE_ID);
+#else
+	ConfigPtr = XIic_LookupConfig(XIIC_BASEADDRESS);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -168,7 +203,13 @@ int IicRepeatedStartExample(void)
 	/*
 	 * Setup the Interrupt System.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(&IicInstance);
+#else
+	Status = XSetupInterruptSystem(&IicInstance, &XIic_InterruptHandler,
+					ConfigPtr->IntrId, ConfigPtr->IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -379,6 +420,7 @@ static int ReadData(u8 *BufferPtr, u16 ByteCount)
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 * This function setups the interrupt system so interrupts can occur for the
@@ -399,14 +441,13 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 {
 	int Status;
 
-	if (InterruptController.IsStarted == XIL_COMPONENT_IS_STARTED) {
-		return XST_SUCCESS;
-	}
+#ifdef XPAR_INTC_0_DEVICE_ID
 
 	/*
 	 * Initialize the interrupt controller driver so that it's ready to use.
 	 */
-	Status = XIntc_Initialize(&InterruptController, INTC_DEVICE_ID);
+	Status = XIntc_Initialize(&Intc, INTC_DEVICE_ID);
+
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -414,9 +455,9 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 	/*
 	 * Connect the device driver handler that will be called when an
 	 * interrupt for the device occurs, the handler defined above performs
-	 *  the specific interrupt processing for the device.
+	 * the specific interrupt processing for the device.
 	 */
-	Status = XIntc_Connect(&InterruptController, IIC_INTR_ID,
+	Status = XIntc_Connect(&Intc, IIC_INTR_ID,
 				   (XInterruptHandler) XIic_InterruptHandler,
 				   IicInstPtr);
 	if (Status != XST_SUCCESS) {
@@ -427,7 +468,7 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 	 * Start the interrupt controller so interrupts are enabled for all
 	 * devices that cause interrupts.
 	 */
-	Status = XIntc_Start(&InterruptController, XIN_REAL_MODE);
+	Status = XIntc_Start(&Intc, XIN_REAL_MODE);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -435,7 +476,47 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 	/*
 	 * Enable the interrupts for the IIC device.
 	 */
-	XIntc_Enable(&InterruptController, IIC_INTR_ID);
+	XIntc_Enable(&Intc, IIC_INTR_ID);
+
+#else
+
+	XScuGic_Config *IntcConfig;
+
+	/*
+	 * Initialize the interrupt controller driver so that it is ready to
+	 * use.
+	 */
+	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	if (NULL == IntcConfig) {
+		return XST_FAILURE;
+	}
+
+	Status = XScuGic_CfgInitialize(&Intc, IntcConfig,
+					IntcConfig->CpuBaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	XScuGic_SetPriorityTriggerType(&Intc, IIC_INTR_ID,
+					0xA0, 0x3);
+
+	/*
+	 * Connect the interrupt handler that will be called when an
+	 * interrupt occurs for the device.
+	 */
+	Status = XScuGic_Connect(&Intc, IIC_INTR_ID,
+				 (Xil_InterruptHandler)XIic_InterruptHandler,
+				 IicInstPtr);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+
+	/*
+	 * Enable the interrupt for the IIC device.
+	 */
+	XScuGic_Enable(&Intc, IIC_INTR_ID);
+
+#endif
 
 	/*
 	 * Initialize the exception table.
@@ -446,8 +527,8 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				 (Xil_ExceptionHandler) XIntc_InterruptHandler,
-				 &InterruptController);
+				 (Xil_ExceptionHandler) INTC_HANDLER,
+				 &Intc);
 
 	/*
 	 * Enable non-critical exceptions.
@@ -456,6 +537,7 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**

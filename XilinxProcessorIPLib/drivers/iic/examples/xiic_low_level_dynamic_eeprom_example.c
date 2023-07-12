@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2006 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -74,6 +75,7 @@
 *       ms   04/05/17 Modified Comment lines in functions to
 *                     recognize it as documentation block for doxygen
 *                     generation.
+* 3.10  gm   07/09/23 Added SDT support.
 * </pre>
 *
 ******************************************************************************/
@@ -92,7 +94,8 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define IIC_BASE_ADDRESS	XPAR_IIC_0_BASEADDR
+
+#define IIC_BASE_ADDRESS	XPAR_AXI_IIC_0_BASEADDR
 
 /*
  * The Starting address in the IIC EEPROM on which this test is performed.

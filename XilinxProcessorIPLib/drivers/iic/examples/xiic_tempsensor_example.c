@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2006 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2006 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +35,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 3.10  gm   07/09/23 Added SDT support.
 * </pre>
 *
 *****************************************************************************/
@@ -42,9 +44,18 @@
 
 #include "xparameters.h"
 #include "xiic.h"
-#include "xintc.h"
+#ifndef SDT
+#ifdef XPAR_INTC_0_DEVICE_ID
+ #include "xintc.h"
+#else
+ #include "xscugic.h"
+#endif
+#endif
 #include "xil_exception.h"
 #include "xil_printf.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -53,10 +64,25 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define IIC_DEVICE_ID		XPAR_IIC_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
-#define INTC_IIC_INTERRUPT_ID	XPAR_INTC_0_IIC_0_VEC_ID
+#else
+#define	XIIC_BASEADDRESS	XPAR_XIIC_0_BASEADDR
+#endif
 
+#ifndef SDT
+#ifdef XPAR_INTC_0_DEVICE_ID
+ #define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+ #define IIC_INTR_ID	XPAR_INTC_0_IIC_0_VEC_ID
+ #define INTC			XIntc
+ #define INTC_HANDLER	XIntc_InterruptHandler
+#else
+ #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+ #define IIC_INTR_ID		XPAR_FABRIC_IIC_0_VEC_ID
+ #define INTC			 	XScuGic
+ #define INTC_HANDLER		XScuGic_InterruptHandler
+#endif
+#endif
 
 /*
  * The following constant defines the address of the IIC
@@ -71,11 +97,15 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ****************************/
-
+#ifndef SDT
 int TempSensorExample(u16 IicDeviceId, u8 TempSensorAddress,
 						  u8 *TemperaturePtr);
 
 static int SetupInterruptSystem(XIic *IicPtr);
+#else
+int TempSensorExample(UINTPTR BaseAddress, u8 TempSensorAddress,
+                                                  u8 *TemperaturePtr);
+#endif
 
 static void RecvHandler(void *CallbackRef, int ByteCount);
 
@@ -85,8 +115,9 @@ static void StatusHandler(void *CallbackRef, int Status);
 /************************** Variable Definitions **************************/
 
 XIic Iic;		  /* The instance of the IIC device */
-
-XIntc InterruptController;  /* The instance of the Interrupt controller */
+#ifndef SDT
+INTC Intc; 	/* The instance of the Interrupt Controller Driver */
+#endif
 
 /*
  * The following structure contains fields that are used with the callbacks
@@ -121,8 +152,13 @@ int main(void)
 	/*
 	 * Call the TempSensorExample.
 	 */
+#ifndef SDT
 	Status =  TempSensorExample(IIC_DEVICE_ID, TEMP_SENSOR_ADDRESS,
 							&TemperaturePtr);
+#else
+	 Status =  TempSensorExample(XIIC_BASEADDRESS, TEMP_SENSOR_ADDRESS,
+                                                        &TemperaturePtr);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("IIC tempsensor Example Failed\r\n");
 		return XST_FAILURE;
@@ -153,7 +189,11 @@ int main(void)
 * @note		None.
 *
 *******************************************************************************/
+#ifndef SDT
 int TempSensorExample(u16 IicDeviceId, u8 TempSensorAddress, u8 *TemperaturePtr)
+#else
+int TempSensorExample(UINTPTR BaseAddress, u8 TempSensorAddress, u8 *TemperaturePtr)
+#endif
 {
 	int Status;
 	static int Initialized = FALSE;
@@ -165,7 +205,11 @@ int TempSensorExample(u16 IicDeviceId, u8 TempSensorAddress, u8 *TemperaturePtr)
 		/*
 		 * Initialize the IIC driver so that it is ready to use.
 		 */
+#ifndef SDT
 		ConfigPtr = XIic_LookupConfig(IicDeviceId);
+#else
+		ConfigPtr = XIic_LookupConfig(BaseAddress);
+#endif
 		if (ConfigPtr == NULL) {
 			return XST_FAILURE;
 		}
@@ -189,7 +233,13 @@ int TempSensorExample(u16 IicDeviceId, u8 TempSensorAddress, u8 *TemperaturePtr)
 		/*
 		 * Connect the ISR to the interrupt and enable interrupts.
 		 */
+#ifndef SDT
 		Status = SetupInterruptSystem(&Iic);
+#else
+		Status = XSetupInterruptSystem(&Iic, &XIic_InterruptHandler,
+						ConfigPtr->IntrId, ConfigPtr->IntrParent,
+						XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -250,6 +300,7 @@ int TempSensorExample(u16 IicDeviceId, u8 TempSensorAddress, u8 *TemperaturePtr)
 	return Status;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -271,32 +322,34 @@ static int SetupInterruptSystem(XIic *IicPtr)
 {
 	int Status;
 
-	/*
-	 * Initialize the interrupt controller driver so that it's ready to use,
-	 * specify the device ID that is generated in xparameters.h
-	 */
-	Status = XIntc_Initialize(&InterruptController, INTC_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
+#ifdef XPAR_INTC_0_DEVICE_ID
 
 	/*
-	 * Connect a device driver handler that will be called when an interrupt
-	 * for the device occurs, the device driver handler performs the
-	 * specific interrupt processing for the device
+	 * Initialize the interrupt controller driver so that it's ready to use.
 	 */
-	Status = XIntc_Connect(&InterruptController, INTC_IIC_INTERRUPT_ID,
-					XIic_InterruptHandler, IicPtr);
+	Status = XIntc_Initialize(&Intc, INTC_DEVICE_ID);
+
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	/*
-	 * Start the interrupt controller such that interrupts are recognized
-	 * and handled by the processor.
+	 * Connect the device driver handler that will be called when an
+	 * interrupt for the device occurs, the handler defined above performs
+	 * the specific interrupt processing for the device.
 	 */
-	Status = XIntc_Start(&InterruptController, XIN_REAL_MODE);
+	Status = XIntc_Connect(&Intc, IIC_INTR_ID,
+				   (XInterruptHandler) XIic_InterruptHandler,
+				   IicPtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Start the interrupt controller so interrupts are enabled for all
+	 * devices that cause interrupts.
+	 */
+	Status = XIntc_Start(&Intc, XIN_REAL_MODE);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -304,7 +357,47 @@ static int SetupInterruptSystem(XIic *IicPtr)
 	/*
 	 * Enable the interrupts for the IIC device.
 	 */
-	XIntc_Enable(&InterruptController, INTC_IIC_INTERRUPT_ID);
+	XIntc_Enable(&Intc, IIC_INTR_ID);
+
+#else
+
+	XScuGic_Config *IntcConfig;
+
+	/*
+	 * Initialize the interrupt controller driver so that it is ready to
+	 * use.
+	 */
+	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	if (NULL == IntcConfig) {
+		return XST_FAILURE;
+	}
+
+	Status = XScuGic_CfgInitialize(&Intc, IntcConfig,
+					IntcConfig->CpuBaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	XScuGic_SetPriorityTriggerType(&Intc, IIC_INTR_ID,
+					0xA0, 0x3);
+
+	/*
+	 * Connect the interrupt handler that will be called when an
+	 * interrupt occurs for the device.
+	 */
+	Status = XScuGic_Connect(&Intc, IIC_INTR_ID,
+				 (Xil_InterruptHandler)XIic_InterruptHandler,
+				 IicPtr);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+
+	/*
+	 * Enable the interrupt for the IIC device.
+	 */
+	XScuGic_Enable(&Intc, IIC_INTR_ID);
+
+#endif
 
 	/*
 	 * Initialize the exception table.
@@ -315,8 +408,8 @@ static int SetupInterruptSystem(XIic *IicPtr)
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				 (Xil_ExceptionHandler) XIntc_InterruptHandler,
-				 &InterruptController);
+				 (Xil_ExceptionHandler) INTC_HANDLER,
+				 &Intc);
 
 	/*
 	 * Enable non-critical exceptions.
@@ -326,7 +419,7 @@ static int SetupInterruptSystem(XIic *IicPtr)
 	return XST_SUCCESS;
 
 }
-
+#endif
 
 /*****************************************************************************/
 /**
