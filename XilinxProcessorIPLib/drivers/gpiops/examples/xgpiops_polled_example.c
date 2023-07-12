@@ -194,7 +194,7 @@ int GpioPolledExample(UINTPTR BaseAddress, u32 *DataRead)
 	}
 
 	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr,
-					ConfigPtr->BaseAddr);
+				       ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
