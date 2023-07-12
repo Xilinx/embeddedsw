@@ -46,9 +46,9 @@
 #include "xiic.h"
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
- #include "xintc.h"
+#include "xintc.h"
 #else
- #include "xscugic.h"
+#include "xscugic.h"
 #endif
 #endif
 #include "xil_exception.h"
@@ -72,15 +72,15 @@
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
- #define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
- #define IIC_INTR_ID	XPAR_INTC_0_IIC_0_VEC_ID
- #define INTC			XIntc
- #define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#define IIC_INTR_ID	XPAR_INTC_0_IIC_0_VEC_ID
+#define INTC			XIntc
+#define INTC_HANDLER	XIntc_InterruptHandler
 #else
- #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
- #define IIC_INTR_ID		XPAR_FABRIC_IIC_0_VEC_ID
- #define INTC			 	XScuGic
- #define INTC_HANDLER		XScuGic_InterruptHandler
+#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define IIC_INTR_ID		XPAR_FABRIC_IIC_0_VEC_ID
+#define INTC			 	XScuGic
+#define INTC_HANDLER		XScuGic_InterruptHandler
 #endif
 #endif
 
@@ -99,12 +99,12 @@
 /************************** Function Prototypes ****************************/
 #ifndef SDT
 int TempSensorExample(u16 IicDeviceId, u8 TempSensorAddress,
-						  u8 *TemperaturePtr);
+		      u8 *TemperaturePtr);
 
 static int SetupInterruptSystem(XIic *IicPtr);
 #else
 int TempSensorExample(UINTPTR BaseAddress, u8 TempSensorAddress,
-                                                  u8 *TemperaturePtr);
+		      u8 *TemperaturePtr);
 #endif
 
 static void RecvHandler(void *CallbackRef, int ByteCount);
@@ -154,10 +154,10 @@ int main(void)
 	 */
 #ifndef SDT
 	Status =  TempSensorExample(IIC_DEVICE_ID, TEMP_SENSOR_ADDRESS,
-							&TemperaturePtr);
+				    &TemperaturePtr);
 #else
-	 Status =  TempSensorExample(XIIC_BASEADDRESS, TEMP_SENSOR_ADDRESS,
-                                                        &TemperaturePtr);
+	Status =  TempSensorExample(XIIC_BASEADDRESS, TEMP_SENSOR_ADDRESS,
+				    &TemperaturePtr);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("IIC tempsensor Example Failed\r\n");
@@ -215,7 +215,7 @@ int TempSensorExample(UINTPTR BaseAddress, u8 TempSensorAddress, u8 *Temperature
 		}
 
 		Status = XIic_CfgInitialize(&Iic, ConfigPtr,
-						ConfigPtr->BaseAddress);
+					    ConfigPtr->BaseAddress);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -228,7 +228,7 @@ int TempSensorExample(UINTPTR BaseAddress, u8 TempSensorAddress, u8 *Temperature
 		 */
 		XIic_SetRecvHandler(&Iic, (void *)&HandlerInfo, RecvHandler);
 		XIic_SetStatusHandler(&Iic, (void *)&HandlerInfo,
-						StatusHandler);
+				      StatusHandler);
 
 		/*
 		 * Connect the ISR to the interrupt and enable interrupts.
@@ -237,8 +237,8 @@ int TempSensorExample(UINTPTR BaseAddress, u8 TempSensorAddress, u8 *Temperature
 		Status = SetupInterruptSystem(&Iic);
 #else
 		Status = XSetupInterruptSystem(&Iic, &XIic_InterruptHandler,
-						ConfigPtr->IntrId, ConfigPtr->IntrParent,
-						XINTERRUPT_DEFAULT_PRIORITY);
+					       ConfigPtr->IntrId, ConfigPtr->IntrParent,
+					       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -274,8 +274,8 @@ int TempSensorExample(UINTPTR BaseAddress, u8 TempSensorAddress, u8 *Temperature
 	 * wait for it to complete by polling the information that is
 	 * updated asynchronously by interrupt processing
 	 */
-	while(1) {
-		if(HandlerInfo.RecvBytesUpdated == TRUE) {
+	while (1) {
+		if (HandlerInfo.RecvBytesUpdated == TRUE) {
 			/*
 			 * The device information has been updated for receive
 			 * processing,if all bytes received (1), indicate
@@ -339,8 +339,8 @@ static int SetupInterruptSystem(XIic *IicPtr)
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XIntc_Connect(&Intc, IIC_INTR_ID,
-				   (XInterruptHandler) XIic_InterruptHandler,
-				   IicPtr);
+			       (XInterruptHandler) XIic_InterruptHandler,
+			       IicPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -373,13 +373,13 @@ static int SetupInterruptSystem(XIic *IicPtr)
 	}
 
 	Status = XScuGic_CfgInitialize(&Intc, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	XScuGic_SetPriorityTriggerType(&Intc, IIC_INTR_ID,
-					0xA0, 0x3);
+				       0xA0, 0x3);
 
 	/*
 	 * Connect the interrupt handler that will be called when an
@@ -408,8 +408,8 @@ static int SetupInterruptSystem(XIic *IicPtr)
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				 (Xil_ExceptionHandler) INTC_HANDLER,
-				 &Intc);
+				     (Xil_ExceptionHandler) INTC_HANDLER,
+				     &Intc);
 
 	/*
 	 * Enable non-critical exceptions.

@@ -247,8 +247,8 @@ int IicLowLevelEeprom(void)
 	 * amount of data can be read.
 	*/
 	BytesRead = EepromReadByte(EEPROM_TEST_START_ADDRESS,
-					ReadBufferAll,
-					PAGE_SIZE * 4);
+				   ReadBufferAll,
+				   PAGE_SIZE * 4);
 	if (BytesRead != PAGE_SIZE * 4) {
 		ErrorCount++;
 	}
@@ -309,8 +309,7 @@ int ReadWriteVerify(AddressType Address)
 	/*
 	 * Verify the data read against the data written.
 	 */
-	for (Index = 0; Index < PAGE_SIZE; Index++)
-	{
+	for (Index = 0; Index < PAGE_SIZE; Index++) {
 		if (ReadBuffer[Index] != WriteBuffer[Index]) {
 			return XST_FAILURE;
 		}
@@ -320,10 +319,9 @@ int ReadWriteVerify(AddressType Address)
 	/*
 	 * Read each byte one at a time and verify.
 	 */
-	for (Index = 0; Index < PAGE_SIZE; Index++)
-	{
+	for (Index = 0; Index < PAGE_SIZE; Index++) {
 		BytesRead = EepromReadByte(Address + Index,
-				&ReadBuffer[Index], 1);
+					   &ReadBuffer[Index], 1);
 		if (BytesRead != 1) {
 			return XST_FAILURE;
 		}
@@ -388,18 +386,18 @@ unsigned EepromWriteByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 	 */
 	do {
 		SentByteCount = XIic_Send(IIC_BASE_ADDRESS,
-					EepromIicAddr,
-					(u8 *)&Address, sizeof(Address),
-					XIIC_STOP);
+					  EepromIicAddr,
+					  (u8 *)&Address, sizeof(Address),
+					  XIIC_STOP);
 		if (SentByteCount != sizeof(Address)) {
 
 			/* Send is aborted so reset Tx FIFO */
 			CntlReg = XIic_ReadReg(IIC_BASE_ADDRESS,
-						XIIC_CR_REG_OFFSET);
+					       XIIC_CR_REG_OFFSET);
 			XIic_WriteReg(IIC_BASE_ADDRESS, XIIC_CR_REG_OFFSET,
-					CntlReg | XIIC_CR_TX_FIFO_RESET_MASK);
+				      CntlReg | XIIC_CR_TX_FIFO_RESET_MASK);
 			XIic_WriteReg(IIC_BASE_ADDRESS, XIIC_CR_REG_OFFSET,
-					XIIC_CR_ENABLE_DEVICE_MASK);
+				      XIIC_CR_ENABLE_DEVICE_MASK);
 		}
 
 	} while (SentByteCount != sizeof(Address));
@@ -417,17 +415,17 @@ unsigned EepromWriteByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 	 */
 	do {
 		AckByteCount = XIic_Send(IIC_BASE_ADDRESS, EepromIicAddr,
-					(u8 *)&Address, sizeof(Address),
-					XIIC_STOP);
+					 (u8 *)&Address, sizeof(Address),
+					 XIIC_STOP);
 		if (AckByteCount != sizeof(Address)) {
 
 			/* Send is aborted so reset Tx FIFO */
 			CntlReg = XIic_ReadReg(IIC_BASE_ADDRESS,
-					XIIC_CR_REG_OFFSET);
+					       XIIC_CR_REG_OFFSET);
 			XIic_WriteReg(IIC_BASE_ADDRESS, XIIC_CR_REG_OFFSET,
-					CntlReg | XIIC_CR_TX_FIFO_RESET_MASK);
+				      CntlReg | XIIC_CR_TX_FIFO_RESET_MASK);
 			XIic_WriteReg(IIC_BASE_ADDRESS, XIIC_CR_REG_OFFSET,
-					XIIC_CR_ENABLE_DEVICE_MASK);
+				      XIIC_CR_ENABLE_DEVICE_MASK);
 		}
 
 	} while (AckByteCount != sizeof(Address));
@@ -470,23 +468,23 @@ unsigned EepromReadByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 	 */
 	do {
 		StatusReg = XIic_ReadReg(IIC_BASE_ADDRESS, XIIC_SR_REG_OFFSET);
-		if(!(StatusReg & XIIC_SR_BUS_BUSY_MASK)) {
+		if (!(StatusReg & XIIC_SR_BUS_BUSY_MASK)) {
 			ReceivedByteCount = XIic_Send(IIC_BASE_ADDRESS,
-							EepromIicAddr,
-							(u8 *)&Address,
-							sizeof(Address),
-							XIIC_STOP);
+						      EepromIicAddr,
+						      (u8 *)&Address,
+						      sizeof(Address),
+						      XIIC_STOP);
 
 			if (ReceivedByteCount != sizeof(Address)) {
 
 				/* Send is aborted so reset Tx FIFO */
 				CntlReg = XIic_ReadReg(IIC_BASE_ADDRESS,
-							XIIC_CR_REG_OFFSET);
+						       XIIC_CR_REG_OFFSET);
 				XIic_WriteReg(IIC_BASE_ADDRESS, XIIC_CR_REG_OFFSET,
-						CntlReg | XIIC_CR_TX_FIFO_RESET_MASK);
+					      CntlReg | XIIC_CR_TX_FIFO_RESET_MASK);
 				XIic_WriteReg(IIC_BASE_ADDRESS,
-						XIIC_CR_REG_OFFSET,
-						XIIC_CR_ENABLE_DEVICE_MASK);
+					      XIIC_CR_REG_OFFSET,
+					      XIIC_CR_ENABLE_DEVICE_MASK);
 			}
 		}
 
@@ -496,7 +494,7 @@ unsigned EepromReadByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 	 * Read the number of bytes at the specified address from the EEPROM.
 	 */
 	ReceivedByteCount = XIic_Recv(IIC_BASE_ADDRESS, EepromIicAddr,
-					BufferPtr, ByteCount, XIIC_STOP);
+				      BufferPtr, ByteCount, XIIC_STOP);
 
 	/*
 	 * Return the number of bytes read from the EEPROM.
