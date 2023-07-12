@@ -112,7 +112,7 @@
  * Please refer the User Guide's of the respective boards for further
  * information about the IIC slave address of IIC EEPROM's.
  */
- #define EEPROM_ADDRESS		0x50
+#define EEPROM_ADDRESS		0x50
 
 /*
  * The page size determines how much data should be written at a time.
@@ -210,12 +210,12 @@ int IicLowLevelDynEeprom()
 	 * Make sure all the Fifo's are cleared and Bus is Not busy.
 	 */
 	while (((StatusReg = XIic_ReadReg(IIC_BASE_ADDRESS,
-				XIIC_SR_REG_OFFSET)) &
-				(XIIC_SR_RX_FIFO_EMPTY_MASK |
-				XIIC_SR_TX_FIFO_EMPTY_MASK |
-				XIIC_SR_BUS_BUSY_MASK)) !=
-				(XIIC_SR_RX_FIFO_EMPTY_MASK |
-				XIIC_SR_TX_FIFO_EMPTY_MASK)) {
+					  XIIC_SR_REG_OFFSET)) &
+		(XIIC_SR_RX_FIFO_EMPTY_MASK |
+		 XIIC_SR_TX_FIFO_EMPTY_MASK |
+		 XIIC_SR_BUS_BUSY_MASK)) !=
+	       (XIIC_SR_RX_FIFO_EMPTY_MASK |
+		XIIC_SR_TX_FIFO_EMPTY_MASK)) {
 
 	}
 
@@ -303,8 +303,8 @@ u8 EepromWriteByte(u8 *BufferPtr, u8 ByteCount)
 	 * Write a page of data at the specified address to the EEPROM.
 	 */
 	SentByteCount = XIic_DynSend(IIC_BASE_ADDRESS, EepromIicAddr,
-				WriteBuffer, sizeof(Address) + PAGE_SIZE,
-				XIIC_STOP);
+				     WriteBuffer, sizeof(Address) + PAGE_SIZE,
+				     XIIC_STOP);
 
 	/*
 	 * Return the number of bytes written to the EEPROM.
@@ -343,10 +343,10 @@ u8 EepromReadByte(u8 *BufferPtr, u8 ByteCount)
 		StatusReg = XIic_ReadReg(IIC_BASE_ADDRESS, XIIC_SR_REG_OFFSET);
 		if (!(StatusReg & XIIC_SR_BUS_BUSY_MASK)) {
 			SentByteCount = XIic_DynSend(IIC_BASE_ADDRESS,
-							EepromIicAddr,
-							(u8 *) &Address,
-							sizeof(Address),
-							XIIC_STOP);
+						     EepromIicAddr,
+						     (u8 *) &Address,
+						     sizeof(Address),
+						     XIIC_STOP);
 		}
 
 	} while (SentByteCount != sizeof(Address));

@@ -52,9 +52,9 @@
 #include "xiic.h"
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
- #include "xintc.h"
+#include "xintc.h"
 #else
- #include "xscugic.h"
+#include "xscugic.h"
 #endif
 #endif
 #include "xil_exception.h"
@@ -78,15 +78,15 @@
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
- #define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
- #define IIC_INTR_ID	XPAR_INTC_0_IIC_0_VEC_ID
- #define INTC			XIntc
- #define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#define IIC_INTR_ID	XPAR_INTC_0_IIC_0_VEC_ID
+#define INTC			XIntc
+#define INTC_HANDLER	XIntc_InterruptHandler
 #else
- #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
- #define IIC_INTR_ID		XPAR_FABRIC_IIC_0_VEC_ID
- #define INTC			 	XScuGic
- #define INTC_HANDLER		XScuGic_InterruptHandler
+#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define IIC_INTR_ID		XPAR_FABRIC_IIC_0_VEC_ID
+#define INTC			 	XScuGic
+#define INTC_HANDLER		XScuGic_InterruptHandler
 #endif
 #endif
 
@@ -195,7 +195,7 @@ int IicRepeatedStartExample(void)
 	}
 
 	Status = XIic_CfgInitialize(&IicInstance, ConfigPtr,
-					ConfigPtr->BaseAddress);
+				    ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -207,8 +207,8 @@ int IicRepeatedStartExample(void)
 	Status = SetupInterruptSystem(&IicInstance);
 #else
 	Status = XSetupInterruptSystem(&IicInstance, &XIic_InterruptHandler,
-					ConfigPtr->IntrId, ConfigPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       ConfigPtr->IntrId, ConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -218,11 +218,11 @@ int IicRepeatedStartExample(void)
 	 * Set the Transmit, Receive and Status handlers.
 	 */
 	XIic_SetSendHandler(&IicInstance, &IicInstance,
-				(XIic_Handler) SendHandler);
+			    (XIic_Handler) SendHandler);
 	XIic_SetRecvHandler(&IicInstance, &IicInstance,
-				(XIic_Handler) ReceiveHandler);
+			    (XIic_Handler) ReceiveHandler);
 	XIic_SetStatusHandler(&IicInstance, &IicInstance,
-				  (XIic_StatusHandler) StatusHandler);
+			      (XIic_StatusHandler) StatusHandler);
 
 	/*
 	 * Set the Address of the Slave.
@@ -458,8 +458,8 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XIntc_Connect(&Intc, IIC_INTR_ID,
-				   (XInterruptHandler) XIic_InterruptHandler,
-				   IicInstPtr);
+			       (XInterruptHandler) XIic_InterruptHandler,
+			       IicInstPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -492,13 +492,13 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 	}
 
 	Status = XScuGic_CfgInitialize(&Intc, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	XScuGic_SetPriorityTriggerType(&Intc, IIC_INTR_ID,
-					0xA0, 0x3);
+				       0xA0, 0x3);
 
 	/*
 	 * Connect the interrupt handler that will be called when an
@@ -527,8 +527,8 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				 (Xil_ExceptionHandler) INTC_HANDLER,
-				 &Intc);
+				     (Xil_ExceptionHandler) INTC_HANDLER,
+				     &Intc);
 
 	/*
 	 * Enable non-critical exceptions.

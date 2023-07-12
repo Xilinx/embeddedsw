@@ -69,8 +69,8 @@
 /************************** Function Prototypes ******************************/
 
 int LowLevelTempSensorExample(u32 IicBaseAddress,
-				u8 TempSensorAddress,
-				u8 *TemperaturePtr);
+			      u8 TempSensorAddress,
+			      u8 *TemperaturePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -98,8 +98,8 @@ int main(void)
 	 * xparameters.h
 	 */
 	LowLevelTempSensorExample(IIC_BASE_ADDRESS,
-					TEMP_SENSOR_ONCHIP_ADDRESS,
-					&TemperaturePtr);
+				  TEMP_SENSOR_ONCHIP_ADDRESS,
+				  &TemperaturePtr);
 	return 0;
 }
 
@@ -121,13 +121,13 @@ int main(void)
 *
 ****************************************************************************/
 int LowLevelTempSensorExample(u32 IicBaseAddress,
-				u8  TempSensorAddress,
-				u8 *TemperaturePtr)
+			      u8  TempSensorAddress,
+			      u8 *TemperaturePtr)
 {
 	int ByteCount;
 
 	ByteCount = XIic_Recv(IicBaseAddress, TempSensorAddress,
-				TemperaturePtr, 1, XIIC_STOP);
+			      TemperaturePtr, 1, XIIC_STOP);
 
 
 
