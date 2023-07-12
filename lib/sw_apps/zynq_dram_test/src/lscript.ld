@@ -1,6 +1,7 @@
 /*******************************************************************/
 /*                                                                 */
 /* (c) Copyright 2012-2013 Xilinx, Inc. All rights reserved			*/
+/* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.	*/
 /*                                                                 */
 /* Description : FSBL Linker Script                          		*/
 /*                                                                 */
