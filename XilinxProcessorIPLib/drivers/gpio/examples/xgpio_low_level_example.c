@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,7 +29,8 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
-*4.5    sne  06/12/19 Fixed IAR compiler warning.
+* 4.5   sne  06/12/19 Fixed IAR compiler warning.
+* 4.10  gm   07/11/23 Added SDT support.
 *
 * </pre>
 *
@@ -49,7 +51,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define GPIO_REG_BASEADDR	XPAR_GPIO_0_BASEADDR
+#define GPIO_REG_BASEADDR	XPAR_AXI_GPIO_0_BASEADDR
 
 /*
  * The following constant is used to wait after an LED is turned on to make
