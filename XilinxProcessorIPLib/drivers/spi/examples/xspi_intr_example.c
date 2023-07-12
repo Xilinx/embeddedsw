@@ -51,9 +51,9 @@
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
- #include "xintc.h"
+#include "xintc.h"
 #else
- #include "xscugic.h"
+#include "xscugic.h"
 #endif
 #else
 #include "xinterrupt_wrap.h"
@@ -74,11 +74,11 @@
 #endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
- #define INTC           XIntc
- #define INTC_HANDLER   XIntc_InterruptHandler
+#define INTC           XIntc
+#define INTC_HANDLER   XIntc_InterruptHandler
 #else
- #define INTC           XScuGic
- #define INTC_HANDLER   XScuGic_InterruptHandler
+#define INTC           XScuGic
+#define INTC_HANDLER   XScuGic_InterruptHandler
 #endif
 #endif
 
@@ -104,8 +104,8 @@ typedef u8 DataBuffer[BUFFER_SIZE];
 
 #ifndef SDT
 int SpiIntrExample(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
-					u16 SpiDeviceId, u16
-					SpiIntrId);
+		   u16 SpiDeviceId, u16
+		   SpiIntrId);
 #else
 int SpiIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress);
 #endif
@@ -114,7 +114,7 @@ void SpiIntrHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount);
 
 #ifndef SDT
 static int SpiSetupIntrSystem(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
-					u16 SpiIntrId);
+			      u16 SpiIntrId);
 
 static void SpiDisableIntrSystem(INTC *IntcInstancePtr, u16 SpiIntrId);
 #endif
@@ -218,7 +218,7 @@ int main(void)
 ******************************************************************************/
 #ifndef SDT
 int SpiIntrExample(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
-			u16 SpiDeviceId, u16 SpiIntrId)
+		   u16 SpiDeviceId, u16 SpiIntrId)
 #else
 int SpiIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 #endif
@@ -234,14 +234,14 @@ int SpiIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 #ifndef SDT
 	ConfigPtr = XSpi_LookupConfig(SpiDeviceId);
 #else
-	 ConfigPtr = XSpi_LookupConfig(BaseAddress);
+	ConfigPtr = XSpi_LookupConfig(BaseAddress);
 #endif
 	if (ConfigPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}
 
 	Status = XSpi_CfgInitialize(SpiInstancePtr, ConfigPtr,
-				  ConfigPtr->BaseAddress);
+				    ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -267,8 +267,8 @@ int SpiIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 	 */
 #ifndef SDT
 	Status = SpiSetupIntrSystem(IntcInstancePtr,
-					SpiInstancePtr,
-				 	SpiIntrId);
+				    SpiInstancePtr,
+				    SpiIntrId);
 #else
 	Status = XSetupInterruptSystem(SpiInstancePtr, &XSpi_InterruptHandler,
 				       ConfigPtr->IntrId,
@@ -286,13 +286,13 @@ int SpiIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 	 * access the instance data.
 	 */
 	XSpi_SetStatusHandler(SpiInstancePtr, SpiInstancePtr,
-		 		(XSpi_StatusHandler) SpiIntrHandler);
+			      (XSpi_StatusHandler) SpiIntrHandler);
 
 	/*
 	 * Set the Spi device as a master and in loopback mode.
 	 */
 	Status = XSpi_SetOptions(SpiInstancePtr, XSP_MASTER_OPTION |
- 					XSP_LOOPBACK_OPTION);
+				 XSP_LOOPBACK_OPTION);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -410,7 +410,7 @@ void SpiIntrHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount)
 ******************************************************************************/
 #ifndef SDT
 static int SpiSetupIntrSystem(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
-					 u16 SpiIntrId)
+			      u16 SpiIntrId)
 {
 	int Status;
 
@@ -432,8 +432,8 @@ static int SpiSetupIntrSystem(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 	 * specific interrupt processing for the device.
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, SpiIntrId,
-	 			(XInterruptHandler) XSpi_InterruptHandler,
-				(void *)SpiInstancePtr);
+			       (XInterruptHandler) XSpi_InterruptHandler,
+			       (void *)SpiInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -446,7 +446,7 @@ static int SpiSetupIntrSystem(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 	 */
 	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
 	if (Status != XST_SUCCESS) {
- 	   return XST_FAILURE;
+		return XST_FAILURE;
 	}
 #endif
 
@@ -469,12 +469,12 @@ static int SpiSetupIntrSystem(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-				IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #endif
-	
+
 	XScuGic_SetPriorityTriggerType(IntcInstancePtr, SpiIntrId, 0xA0, 0x3);
 
 	/*
@@ -483,8 +483,8 @@ static int SpiSetupIntrSystem(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, SpiIntrId,
-				(Xil_InterruptHandler)XSpi_InterruptHandler,
-				SpiInstancePtr);
+				 (Xil_InterruptHandler)XSpi_InterruptHandler,
+				 SpiInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -495,12 +495,12 @@ static int SpiSetupIntrSystem(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 #ifndef TESTAPP_GEN
 
 
-	
+
 	/* Enable interrupts from the hardware */
 	Xil_ExceptionInit();
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-		(Xil_ExceptionHandler)INTC_HANDLER,
-		(void *)IntcInstancePtr);
+				     (Xil_ExceptionHandler)INTC_HANDLER,
+				     (void *)IntcInstancePtr);
 
 	Xil_ExceptionEnable();
 
@@ -540,6 +540,6 @@ static void SpiDisableIntrSystem(INTC *IntcInstancePtr, u16 SpiIntrId)
 	XScuGic_Disconnect(IntcInstancePtr, SpiIntrId);
 #endif
 
-	
+
 }
 #endif

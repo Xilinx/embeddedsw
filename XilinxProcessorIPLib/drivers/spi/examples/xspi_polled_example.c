@@ -179,7 +179,7 @@ int SpiPolledExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 	}
 
 	Status = XSpi_CfgInitialize(SpiInstancePtr, ConfigPtr,
-				  ConfigPtr->BaseAddress);
+				    ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -203,7 +203,7 @@ int SpiPolledExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 	 * Set the Spi device as a master and in loopback mode.
 	 */
 	Status = XSpi_SetOptions(SpiInstancePtr, XSP_MASTER_OPTION |
- 					XSP_LOOPBACK_OPTION);
+				 XSP_LOOPBACK_OPTION);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

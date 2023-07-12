@@ -185,7 +185,7 @@ static int SpiSlavePolledExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 		return XST_FAILURE;
 	}
 	Status = XSpi_CfgInitialize(SpiInstancePtr, ConfigPtr,
-				ConfigPtr->BaseAddress);
+				    ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

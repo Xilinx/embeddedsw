@@ -226,7 +226,7 @@ int main(void)
 		return XST_DEVICE_NOT_FOUND;
 	}
 	Status = XSpi_CfgInitialize(&Spi, ConfigPtr,
-				  ConfigPtr->BaseAddress);
+				    ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -238,10 +238,10 @@ int main(void)
 #ifndef SDT
 	Status = SetupInterruptSystem(&Spi);
 #else
-        Status = XSetupInterruptSystem(&Spi, &XSpi_InterruptHandler,
-                                       ConfigPtr->IntrId,
-                                       ConfigPtr->IntrParent,
-                                       XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(&Spi, &XSpi_InterruptHandler,
+				       ConfigPtr->IntrId,
+				       ConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -261,7 +261,7 @@ int main(void)
 	 * transfer, this must be done before the slave select is set
 	 */
 	Status = XSpi_SetOptions(&Spi, XSP_MASTER_OPTION |
-					XSP_MANUAL_SSELECT_OPTION);
+				 XSP_MANUAL_SSELECT_OPTION);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -287,9 +287,9 @@ int main(void)
 	 * changed in a debug environment to guarantee
 	 */
 	for (UniqueValue = 10, Count = 0; Count < MAX_DATA;
-					Count++, UniqueValue++) {
+	     Count++, UniqueValue++) {
 		WriteBuffer[WRITE_DATA_OFFSET + Count] =
-					(u8)(UniqueValue + Test);
+			(u8)(UniqueValue + Test);
 		ReadBuffer[READ_DATA_OFFSET + Count] = 0;
 	}
 
@@ -299,7 +299,7 @@ int main(void)
 	 */
 	for (Page = 0; Page < PAGE_COUNT; Page++) {
 		EepromWrite(&Spi, Page * PAGE_SIZE, PAGE_SIZE,
-				&WriteBuffer[Page * PAGE_SIZE]);
+			    &WriteBuffer[Page * PAGE_SIZE]);
 	}
 
 	/*
@@ -316,7 +316,7 @@ int main(void)
 	BufferPtr = &ReadBuffer[READ_DATA_OFFSET];
 
 	for (UniqueValue = 10, Count = 0; Count < MAX_DATA;
-					Count++, UniqueValue++) {
+	     Count++, UniqueValue++) {
 		if (BufferPtr[Count] != (u8)(UniqueValue + Test)) {
 			return XST_FAILURE;
 		}
@@ -397,7 +397,7 @@ void EepromRead(XSpi *SpiPtr, u16 Address, int ByteCount, EepromBuffer Buffer)
 	TransferInProgress = TRUE;
 
 	XSpi_Transfer(SpiPtr, Buffer, &Buffer[DATA_OFFSET],
-				ByteCount + OVERHEAD_SIZE);
+		      ByteCount + OVERHEAD_SIZE);
 
 	/*
 	 * Wait for the transfer on the SPI bus to be complete before proceeding
@@ -487,7 +487,7 @@ void EepromWrite(XSpi *SpiPtr, u16 Address, u8 ByteCount, EepromBuffer Buffer)
 		TransferInProgress = TRUE;
 
 		XSpi_Transfer(SpiPtr, ReadStatusCmd, EepromStatus,
-					sizeof(ReadStatusCmd));
+			      sizeof(ReadStatusCmd));
 
 		/*
 		 * Wait for the transfer on the SPI bus to be complete before
@@ -549,9 +549,9 @@ static int SetupInterruptSystem(XSpi *SpiPtr)
 	 * specific interrupt processing for the device
 	 */
 	Status = XIntc_Connect(&InterruptController,
-			   SPI_INTR_ID,
-			   (XInterruptHandler)XSpi_InterruptHandler,
-			   (void *)SpiPtr);
+			       SPI_INTR_ID,
+			       (XInterruptHandler)XSpi_InterruptHandler,
+			       (void *)SpiPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -582,8 +582,8 @@ static int SetupInterruptSystem(XSpi *SpiPtr)
 	 * Register the interrupt controller handler with the exception table
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			 (Xil_ExceptionHandler)XIntc_InterruptHandler,
-			 &InterruptController);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     &InterruptController);
 
 	/*
 	 * Enable non-critical exceptions

@@ -213,7 +213,7 @@ static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 	}
 
 	Status = XSpi_CfgInitialize(SpiInstancePtr, ConfigPtr,
-			ConfigPtr->BaseAddress);
+				    ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -225,10 +225,10 @@ static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 #ifndef SDT
 	Status = SetupInterruptSystem(SpiInstancePtr);
 #else
-        Status = XSetupInterruptSystem(SpiInstancePtr, &XSpi_InterruptHandler,
-                                       ConfigPtr->IntrId,
-                                       ConfigPtr->IntrParent,
-                                       XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(SpiInstancePtr, &XSpi_InterruptHandler,
+				       ConfigPtr->IntrId,
+				       ConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -240,7 +240,7 @@ static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 	 * driver instance as the callback reference so the handler is able to
 	 * access the instance data.
 	 */
-	XSpi_SetStatusHandler(SpiInstancePtr,SpiInstancePtr,(XSpi_StatusHandler)
+	XSpi_SetStatusHandler(SpiInstancePtr, SpiInstancePtr, (XSpi_StatusHandler)
 			      SpiHandler);
 
 	/*
@@ -282,7 +282,7 @@ static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 	 */
 	TransferInProgress = TRUE;
 	Status = XSpi_Transfer(SpiInstancePtr, WriteBuffer, ReadBuffer,
-				BUFFER_SIZE);
+			       BUFFER_SIZE);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -342,9 +342,9 @@ static int SetupInterruptSystem(XSpi *SpiInstance)
 	 * specific interrupt processing for the device.
 	 */
 	Status = XIntc_Connect(&IntcInstance,
-				SPI_IRPT_INTR,
-				(XInterruptHandler)XSpi_InterruptHandler,
-				(void *)SpiInstance);
+			       SPI_IRPT_INTR,
+			       (XInterruptHandler)XSpi_InterruptHandler,
+			       (void *)SpiInstance);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -374,8 +374,8 @@ static int SetupInterruptSystem(XSpi *SpiInstance)
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XIntc_InterruptHandler,
-				&IntcInstance);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     &IntcInstance);
 
 	/*
 	 * Enable non-critical exceptions.
