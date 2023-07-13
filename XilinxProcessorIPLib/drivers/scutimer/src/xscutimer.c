@@ -21,6 +21,7 @@
 * ----- --- -------- ---------------------------------------------
 * 1.00a nm  03/10/10 First release
 * 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
+* 2.5   dp   07/11/23 Add Support for system device tree flow
 * </pre>
 *
 ******************************************************************************/
@@ -75,7 +76,9 @@ s32 XScuTimer_CfgInitialize(XScuTimer *InstancePtr,
 		/*
 		 * Copy configuration into the instance structure.
 		 */
+#ifndef SDT
 		InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 
 		/*
 		 * Save the base address pointer such that the registers of the block

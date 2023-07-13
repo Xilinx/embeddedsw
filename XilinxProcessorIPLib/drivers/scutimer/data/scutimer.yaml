@@ -1,0 +1,43 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for scutimer controller driver
+
+maintainers:
+  - Mubin Usman Sayyed <mubin.sayyed@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - arm,cortex-a9-twd-timer
+  reg:
+    description: Physical base address and size of the scutimer controller map
+
+config:
+    - XScuTimer_Config
+
+required:
+    - compatible
+    - reg
+    - interrupts
+    - interrupt-parent
+
+examples:
+   xscutimer_polled_example.c:
+      - reg
+   xscutimer_intr_example.c:
+      - interrupts
+
+tapp:
+   xscutimer_polled_example.c:
+      declaration: ScuTimerPolledExample
+   xscutimer_intr_example.c:
+      declaration: ScuTimerIntrExample
+      hwproperties:
+         - interrupts
