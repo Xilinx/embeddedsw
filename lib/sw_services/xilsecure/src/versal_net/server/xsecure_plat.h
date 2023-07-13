@@ -57,6 +57,8 @@ extern "C" {
 
 #define XSECURE_DISABLE_BYTE_SWAP	(0x0U)  /**< Disables data swap in AES */
 
+#define XSECURE_AES_ECB_OFFSET		  (0x20U) /**< AES ECB offset */
+
 /***************************** Type Definitions******************************/
 /*
  * Sources to be selected to configure secure stream switch.

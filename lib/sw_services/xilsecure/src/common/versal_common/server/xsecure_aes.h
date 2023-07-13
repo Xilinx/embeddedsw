@@ -107,6 +107,8 @@ extern "C" {
 #define XSECURE_AES_KEY_SEL_USR_KEY_5			(0xBD858220U)
 #define XSECURE_AES_KEY_SEL_USR_KEY_6			(0xBD858240U)
 #define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280U)
+#define XSECURE_ENABLE_BYTE_SWAP		(0x1U)	/**< Enables data swap in AES */
+#define XSECURE_DISABLE_BYTE_SWAP		(0x0U)	/**< Disables data swap in AES */
 
 /** @}
  * @endcond
@@ -164,10 +166,38 @@ typedef struct {
 	XSecure_AesKeySrc KeySrc;  /**< Key Source */
 	u32 NextBlkLen;		   /**< Next Block Length */
 	u32 IsGmacEn;          /**< GMAC enable or disable */
+#ifdef VERSAL_NET
+	u32 IsEcbEn;           /**< ECB mode enable or disable */
+#endif
 } XSecure_Aes;
 /** @}
  * @endcond
  */
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns AES ECB mode status
+ *
+ * @param	InstancePtr Pointer to the XSecure_Aes instance
+ *
+ * @return
+ *			- TRUE  - If ECB mode is enabled
+ *			- FALSE - If ECB mode is not supported/disabled
+ *
+ *****************************************************************************/
+static INLINE u32 XSecure_AesIsEcbModeEn(const XSecure_Aes *InstancePtr)
+{
+	u32 IsEcbModeEn = (u32)FALSE;
+
+#ifdef VERSAL_NET
+	IsEcbModeEn = InstancePtr->IsEcbEn;
+#else
+	(void)InstancePtr;
+#endif
+
+	return IsEcbModeEn;
+}
+
 /************************** Function Prototypes ******************************/
 int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr);
 

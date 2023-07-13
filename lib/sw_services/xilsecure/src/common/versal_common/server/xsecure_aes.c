@@ -82,6 +82,7 @@
 *                       XSecure_AesPmcDmaCfgAndXfer function
 *       skg  10/13/2022 Added Encrypt/Decrypt update error handling check
 * 5.2   yog  07/10/2023 Added support of unaligned data sizes for Versal Net
+*       kpt  07/09/2023 Added AES ECB mode support for versalnet
 *
 * </pre>
 *
@@ -138,6 +139,7 @@ static int XSecure_AesPmcDmaCfgAndXfer(const XSecure_Aes *InstancePtr,
 	XSecure_AesDmaCfg *AesDmaCfg, u32 Size);
 static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u64 OutDataAddr, u32 Size, u8 IsLastChunk);
+static int XSecure_AesIvXfer(const XSecure_Aes *InstancePtr, u64 IvAddr);
 
 /************************** Variable Definitions *****************************/
 static const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
@@ -400,6 +402,9 @@ int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 	InstancePtr->PmcDmaPtr = PmcDmaPtr;
 	InstancePtr->NextBlkLen = 0U;
 	InstancePtr->IsGmacEn = FALSE;
+#ifdef VERSAL_NET
+	InstancePtr->IsEcbEn = (u32)FALSE;
+#endif
 
 	/* Clear all key zeroization register */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -629,6 +634,11 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 		goto END;
 	}
 
+	if (XSecure_AesIsEcbModeEn(InstancePtr) != FALSE) {
+		Status = (int)XSECURE_AES_INVALID_MODE;
+		goto END;
+	}
+
 #ifndef VERSAL_NET
 	/* Validate Aad Size for versal*/
 	if ((AadSize % XSECURE_QWORD_SIZE) != 0x00U) {
@@ -855,7 +865,7 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	}
 
 	if ((KeySrc >= XSECURE_MAX_KEY_SOURCES) ||
-		(KeySrc < XSECURE_AES_BBRAM_KEY) || (IvAddr == 0x00U)) {
+		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END_RST;
 	}
@@ -972,6 +982,14 @@ int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 
 	Status = XSecureAesUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
+	if (Status != XST_SUCCESS) {
+		goto END_RST;
+	}
+
+	if ((XSecure_AesIsEcbModeEn(InstancePtr) == TRUE) && (IsLastChunk == TRUE)) {
+		/* Wait for AES Done for last chunk in ECB mode */
+		Status = XSecure_AesWaitForDone(InstancePtr);
+	}
 
 END_RST:
 	if (Status != XST_SUCCESS) {
@@ -1017,6 +1035,11 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (XSecure_AesIsEcbModeEn(InstancePtr) != FALSE) {
+		Status = (int)XSECURE_AES_INVALID_MODE;
 		goto END;
 	}
 
@@ -1134,6 +1157,11 @@ int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
+	if (XSecure_AesIsEcbModeEn(InstancePtr) != FALSE) {
+		Status = (int)XSECURE_AES_INVALID_MODE;
+		goto END;
+	}
+
 	if (GcmTagAddr == 0x00U) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1191,7 +1219,7 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	}
 
 	if ((KeySrc >= XSECURE_MAX_KEY_SOURCES) ||
-		(KeySrc < XSECURE_AES_BBRAM_KEY) || (IvAddr == 0x00U)) {
+		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END_RST;
 	}
@@ -1298,6 +1326,14 @@ int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
 
 	Status = XSecureAesUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
+	if (Status != XST_SUCCESS) {
+		goto END_RST;
+	}
+
+	if ((XSecure_AesIsEcbModeEn(InstancePtr) == TRUE) && (IsLastChunk == TRUE)) {
+		/* Wait for AES Done for last chunk in ECB mode */
+		Status = XSecure_AesWaitForDone(InstancePtr);
+	}
 
 END_RST:
 	if (Status != XST_SUCCESS) {
@@ -1334,6 +1370,11 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (XSecure_AesIsEcbModeEn(InstancePtr) != FALSE) {
+		Status = (int)XSECURE_AES_INVALID_MODE;
 		goto END;
 	}
 
@@ -1422,6 +1463,11 @@ int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (XSecure_AesIsEcbModeEn(InstancePtr) != FALSE) {
+		Status = (int)XSECURE_AES_INVALID_MODE;
 		goto END;
 	}
 
@@ -1932,7 +1978,6 @@ static int XSecure_AesOpInit(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	Status = XSecure_AesKeyLoad(InstancePtr, KeySrc, KeySize);
 	if (Status != XST_SUCCESS) {
@@ -1946,6 +1991,37 @@ static int XSecure_AesOpInit(const XSecure_Aes *InstancePtr,
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
+
+	if (XSecure_AesIsEcbModeEn(InstancePtr) == FALSE) {
+		Status = XSecure_AesIvXfer(InstancePtr, IvAddr);
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function transfers IV to AES engine
+ *
+ * @param	InstancePtr	- Pointer to the XSecure_Aes instance
+ * @param	IvAddr		- Address to the buffer holding IV
+ *
+ * @return
+ *	-	XST_SUCCESS - On successful transfer
+ *	-	ErrorCode -   On failure
+ *
+ ******************************************************************************/
+static int XSecure_AesIvXfer(const XSecure_Aes *InstancePtr, u64 IvAddr)
+{
+	volatile int Status = XST_FAILURE;
+	XSecure_AesDmaCfg AesDmaCfg = {0U};
+
+	/* Validate the input arguments */
+	if (IvAddr == 0x00U) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
 
 	AesDmaCfg.SrcChannelCfg = TRUE;
 	AesDmaCfg.SrcDataAddr = IvAddr;
