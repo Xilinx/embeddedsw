@@ -109,6 +109,7 @@
 *	              fails, when AUTH_JTAG_LOCK_DIS eFuse is programmed
 *       am   06/19/23 Added KAT error code for failure cases
 *       sk   07/06/23 Added Jtag DAP config support for Non-Secure Debug
+*       am   07/03/23 Added authentication optimization support
 *
 * </pre>
 *
@@ -3816,6 +3817,8 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	volatile int StatusTmp = XST_FAILURE;
 	XLoader_AuthCertificate *AcPtr=
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
+	XilPdi_PrtnHashInfo* PrtnHashData = NULL;
+	XilPdi_PrtnHashInfo* PrtnHashDataTmp = NULL;
 
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		goto END;
@@ -3866,13 +3869,27 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 
 	/** Verify the hash */
 	if (SecurePtr->BlockNum == 0x00U) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DataAuth, SecurePtr,
-			BlkHash.Hash, (u8 *)SecurePtr->AcPtr->ImgSignature);
-		if ((Status != XST_SUCCESS) ||
-			(StatusTmp != XST_SUCCESS)) {
+		PrtnHashData = XilPdi_IsPrtnHashPresent(SecurePtr->PdiPtr->PrtnNum,
+			SecurePtr->PdiPtr->MetaHdr.DigestTableSize);
+		PrtnHashDataTmp = XilPdi_IsPrtnHashPresent(SecurePtr->PdiPtr->PrtnNum,
+			SecurePtr->PdiPtr->MetaHdr.DigestTableSize);
+		if((PrtnHashData == NULL) || (PrtnHashDataTmp == NULL)){
+			 /** Authenticate the signature, if same keys are not used. */
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DataAuth, SecurePtr,
+				BlkHash.Hash, (u8 *)SecurePtr->AcPtr->ImgSignature);
+		}
+		else{
+			/**
+			 * Skip sign verification, compare the hash of respective partition Id
+			 * which uses same keys.
+			 */
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT, PrtnHashData->PrtnHash,
+			XLOADER_SHA3_LEN, BlkHash.Hash, XLOADER_SHA3_LEN,
+			XLOADER_SHA3_LEN);
+		}
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status |= StatusTmp;
-			Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_PRTN_AUTH_FAIL, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_AUTH_FAIL, Status);
 			goto END;
 		}
 	}

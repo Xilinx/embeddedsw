@@ -84,6 +84,8 @@
 * 1.10  bm   05/22/2023 Update current CDO command offset in GSW Error Status
 *       nb   06/28/2023 Add ERR2 trigger and status macros for SMON9
 *       bm   07/06/2023 Refactored Proc logic to more generic logic
+*       am   07/11/2023 Reduced the trace event buffer length to accomodate
+*                       IHT OP data store address
 *
 * </pre>
 *
@@ -662,7 +664,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 /* Trace Buffer default address and length */
 #define XPLMI_TRACE_LOG_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x1D000U)
-#define XPLMI_TRACE_LOG_BUFFER_LEN	(0xD00U)	/* 3.25KB */
+#define XPLMI_TRACE_LOG_BUFFER_LEN	(0x200U)	/* 512B */
 
 /* Image Info Table related macros */
 #define XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x1DD00U)

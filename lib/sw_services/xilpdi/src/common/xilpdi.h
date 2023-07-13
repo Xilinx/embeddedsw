@@ -62,8 +62,10 @@
 *                       XilPdi_ValidateChecksum
 *       kal  01/05/2023 Added PcrInfo attribute in XilPdi_ImgHdr
 *       sk   02/22/2023 Added Bit MASK for EoPDI SYNC logic
-*		dd   03/16/2023 Misra-C violation Rule 17.8 fixed
+*	dd   03/16/2023 Misra-C violation Rule 17.8 fixed
 *       sk   05/18/2023 Deprecate copy to memory feature
+*       am   07/03/2023 Added macros related to IHT OP data
+*
 * </pre>
 *
 * @note
@@ -203,6 +205,9 @@ extern "C" {
 #define XILPDI_ERR_NO_OF_IMGS		(0x7)
 #define XILPDI_ERR_IH_CHECKSUM		(0x40)
 #define XILPDI_ERR_PH_CHECKSUM		(0x80)
+#define XILPDI_ERR_OPTIONAL_DATA_CHECKSUM_FAILED	(0x70)
+#define XILPDI_ERR_NO_VALID_OPTIONAL_DATA	(0x71)
+#define XILPDI_ERR_INVALID_DIGEST_TABLE_SIZE	(0x72)
 
 /**
  * Image Header Attributes
@@ -226,6 +231,26 @@ extern "C" {
  * Invert checksum
  */
 #define XILPDI_INVERT_CHECKSUM					(0xFFFFFFFFU)
+
+/**
+ * Partition hash data Id
+ */
+#define XILPDI_PARTITION_HASH_DATA_ID	(3U)
+
+/**
+ * Common address of storing partition hashes for both versal and versal_net
+ */
+#define XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR	(0xF201D200U)
+
+/**
+ * Optional data attributes
+ */
+#define XILPDI_OPTIONAL_DATA_WORD_LEN	(4U)
+#define XILPDI_OPTIONAL_DATA_DOUBLE_WORD_LEN	(2U * XILPDI_OPTIONAL_DATA_WORD_LEN)
+#define XIH_OPT_DATA_HDR_ID_MASK	(0xFFFFU)
+#define XIH_OPT_DATA_HDR_LEN_MASK	(0xFFFF0000U)
+#define XIH_OPT_DATA_LEN_SHIFT	(16U)
+#define XIPLDI_SHA3_HASH_SIZE_IN_BYTES (48U)
 
 /**************************** Type Definitions *******************************/
 
@@ -319,6 +344,7 @@ typedef struct {
 	u32 MetaHdrOfst; /**< Offset to the start of meta header */
 	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length,
 			u32 Flags); /**< Function pointer for device copy */
+	u32 DigestTableSize; /**< Digest table size in bytes */
 } XilPdi_MetaHdr __attribute__ ((aligned(16U)));
 
 /**
@@ -336,10 +362,16 @@ typedef struct {
 	char MagicValue[4U]; /**< 32 bit magic string */
 	u32 NumEntries; /**< Number of Entries */
 	XilPdi_PrtnEntry Entry[XILPDI_MAX_ENTRIES_FOR_ATF]; /**< Structure
-														corresponding to each
-														entry */
-
+							corresponding to each entry */
 } XilPdi_ATFHandoffParams __attribute__ ((aligned(16U)));
+
+/**
+ * Partition hash entry information
+ */
+typedef struct {
+	u32 PrtnNum; /**< Partition Number */
+	u8 PrtnHash[XIPLDI_SHA3_HASH_SIZE_IN_BYTES]; /**< Partition hash */
+}XilPdi_PrtnHashInfo __attribute__ ((aligned(16U)));
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef XILPDI_DEBUG
@@ -583,6 +615,8 @@ int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ValidateChecksum(const void *Buffer, u32 Length);
+XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent(u32 PrtnNum, u32 Size);
+int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr);
 
 /** @} */
 #ifdef __cplusplus

@@ -25,6 +25,8 @@
 *       ng   11/23/2022 Fixed doxygen file name error
 *       sk   01/11/2023 Added macro for Image Store as SBD
 * 1.02  ng   04/27/2023 Added support for cluster flags in ATF handoff params
+*       sk   07/09/2023 Added defines for TCM Boot Enable Bit, Mask
+*       am   07/10/2023 Moved IHT OP data macros to common xilpdi.h file
 *
 * </pre>
 *
@@ -152,9 +154,6 @@ extern "C" {
 
 /* Optional Data related defines */
 #define XIH_OPTIONAL_DATA_LEN_OFFSET	(0x58U)
-#define XIH_OPT_DATA_HDR_ID_MASK	(0xFFFFU)
-#define XIH_OPT_DATA_HDR_LEN_MASK	(0xFFFF0000U)
-#define XIH_OPT_DATA_LEN_SHIFT	(16U)
 #define XIH_OPT_DATA_NON_DATA_LEN	(8U)
 
 #define XIH_OPT_DATA_STRUCT_INFO_ID	(2U)
