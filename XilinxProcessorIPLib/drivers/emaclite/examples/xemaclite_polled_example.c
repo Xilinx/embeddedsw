@@ -78,12 +78,10 @@ static int EmacLiteRecvFrame(u32 PayloadSize);
  * Set up valid local and remote MAC addresses. This loop back test uses the
  * LocalAddress both as a source and destination MAC address.
  */
-static u8 LocalAddress[XEL_MAC_ADDR_SIZE] =
-{
+static u8 LocalAddress[XEL_MAC_ADDR_SIZE] = {
 	0x00, 0x0A, 0x35, 0x01, 0x02, 0x03
 };
-static u8 RemoteAddress[XEL_MAC_ADDR_SIZE] =
-{
+static u8 RemoteAddress[XEL_MAC_ADDR_SIZE] = {
 	0x00, 0x10, 0xa4, 0xb6, 0xfd, 0x09
 };
 
@@ -166,8 +164,8 @@ int EmacLitePolledExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 	Status = XEmacLite_CfgInitialize(EmacLiteInstPtr,
-					ConfigPtr,
-					ConfigPtr->BaseAddress);
+					 ConfigPtr,
+					 ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -195,7 +193,7 @@ int EmacLitePolledExample(u16 DeviceId)
 		 */
 		PhyAddress = EmacLitePhyDetect(EmacLiteInstPtr);
 		Status = EmacLiteEnablePhyLoopBack(EmacLiteInstPtr,
-							 PhyAddress);
+						   PhyAddress);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -217,7 +215,7 @@ int EmacLitePolledExample(u16 DeviceId)
 			 * Disable the MAC Loop back in the PHY.
 			 */
 			EmacLiteDisablePhyLoopBack(EmacLiteInstPtr,
-							 PhyAddress);
+						   PhyAddress);
 			return XST_FAILURE;
 		}
 	}
@@ -236,7 +234,7 @@ int EmacLitePolledExample(u16 DeviceId)
 	 */
 	while ((volatile u32)RecvFrameLength == 0)  {
 		RecvFrameLength = XEmacLite_Recv(EmacLiteInstPtr,
-						(u8 *)RxFrame);
+						 (u8 *)RxFrame);
 	}
 
 	/*
@@ -319,7 +317,7 @@ static int EmacLiteSendFrame(XEmacLite *InstancePtr, u32 PayloadSize)
 	/*
 	 * Set up the type/length field - be sure its in network order.
 	 */
-    *((u16 *)FramePtr) = Xil_Htons(PayloadSize);
+	*((u16 *)FramePtr) = Xil_Htons(PayloadSize);
 	FramePtr++;
 	FramePtr++;
 
@@ -335,7 +333,7 @@ static int EmacLiteSendFrame(XEmacLite *InstancePtr, u32 PayloadSize)
 	 * Now send the frame.
 	 */
 	return XEmacLite_Send(InstancePtr, (u8 *)TxFrame,
-				PayloadSize + XEL_HEADER_SIZE);
+			      PayloadSize + XEL_HEADER_SIZE);
 
 }
 
@@ -368,8 +366,8 @@ static int EmacLiteRecvFrame(u32 PayloadSize)
 		/*
 		 * Verify length, which should be the payload size.
 		 */
-		if ((RecvFrameLength- (XEL_HEADER_SIZE + XEL_FCS_SIZE)) !=
-				PayloadSize) {
+		if ((RecvFrameLength - (XEL_HEADER_SIZE + XEL_FCS_SIZE)) !=
+		    PayloadSize) {
 			return XST_LOOPBACK_ERROR;
 		}
 

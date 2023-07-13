@@ -135,8 +135,8 @@ int EMACLiteSelfTestExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 	Status = XEmacLite_CfgInitialize(InstancePtr,
-					ConfigPtr,
-					ConfigPtr->BaseAddress);
+					 ConfigPtr,
+					 ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

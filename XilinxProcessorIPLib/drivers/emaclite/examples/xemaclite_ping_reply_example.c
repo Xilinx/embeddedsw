@@ -144,8 +144,7 @@ static u16 CheckSumCalculation(u16 *RxFramePtr, int StartLoc, int Length);
 /*
  * Set up a local MAC address.
  */
-static u8 LocalMacAddr[XEL_MAC_ADDR_SIZE] =
-{
+static u8 LocalMacAddr[XEL_MAC_ADDR_SIZE] = {
 	0x00, 0x0A, 0x35, 0x02, 0x22, 0x5E
 };
 
@@ -153,8 +152,7 @@ static u8 LocalMacAddr[XEL_MAC_ADDR_SIZE] =
  * The IP address was set to 172.16.63.121. User need to set a free IP address
  * based on the network on which this example is to be run.
  */
-static u8 LocalIpAddr[IP_ADDR_SIZE] =
-{
+static u8 LocalIpAddr[IP_ADDR_SIZE] = {
 	172, 16, 63, 121
 };
 
@@ -251,8 +249,8 @@ int EmacLitePingReplyExample(u16 DeviceId)
 	}
 
 	Status = XEmacLite_CfgInitialize(EmacLiteInstPtr,
-					ConfigPtr,
-					ConfigPtr->BaseAddress);
+					 ConfigPtr,
+					 ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -274,7 +272,7 @@ int EmacLitePingReplyExample(u16 DeviceId)
 		 */
 		while (RecvFrameLength == 0) {
 			RecvFrameLength = XEmacLite_Recv(EmacLiteInstPtr,
-								(u8 *)RxFrame);
+							 (u8 *)RxFrame);
 		}
 
 		/*
@@ -333,10 +331,10 @@ static void ProcessRecvFrame(XEmacLite *InstancePtr)
 	TempPtr = (u16 *)LocalMacAddr;
 	while (Index--) {
 		if (Xil_Ntohs((*(RxFramePtr + Index)) == BROADCAST_ADDR) &&
-					(PacketType != MAC_MATCHED_PACKET)) {
+		    (PacketType != MAC_MATCHED_PACKET)) {
 			PacketType = BROADCAST_PACKET;
 		} else if (Xil_Ntohs((*(RxFramePtr + Index)) == *(TempPtr + Index)) &&
-					(PacketType != BROADCAST_PACKET)) {
+			   (PacketType != BROADCAST_PACKET)) {
 			PacketType = MAC_MATCHED_PACKET;
 		} else {
 			PacketType = 0;
@@ -353,7 +351,7 @@ static void ProcessRecvFrame(XEmacLite *InstancePtr)
 		 * Check for an ARP Packet if so generate a reply.
 		 */
 		if (Xil_Ntohs(*(RxFramePtr + ETHER_PROTO_TYPE_LOC)) ==
-				XEL_ETHER_PROTO_TYPE_ARP) {
+		    XEL_ETHER_PROTO_TYPE_ARP) {
 
 			/*
 			 * IP address of the local machine.
@@ -365,14 +363,14 @@ static void ProcessRecvFrame(XEmacLite *InstancePtr)
 			 * local IP address.
 			 */
 			if (
-			((*(RxFramePtr + ARP_REQ_DEST_IP_LOC_1)) == *TempPtr++) &&
-			((*(RxFramePtr + ARP_REQ_DEST_IP_LOC_2)) == *TempPtr++)) {
+				((*(RxFramePtr + ARP_REQ_DEST_IP_LOC_1)) == *TempPtr++) &&
+				((*(RxFramePtr + ARP_REQ_DEST_IP_LOC_2)) == *TempPtr++)) {
 
 				/*
 				 * Check ARP packet type(request/reply).
 				 */
 				if (Xil_Ntohs(*(RxFramePtr + ARP_REQ_STATUS_LOC)) ==
-								ARP_REQUEST) {
+				    ARP_REQUEST) {
 
 					/*
 					 * Add destination MAC address
@@ -464,7 +462,7 @@ static void ProcessRecvFrame(XEmacLite *InstancePtr)
 					while (Index < (ARP_REQ_SRC_IP_LOC +
 							IP_ADDR_LEN)) {
 						*TxFramePtr++ =
-								*(RxFramePtr + Index);
+							*(RxFramePtr + Index);
 						Index++;
 					}
 
@@ -481,8 +479,8 @@ static void ProcessRecvFrame(XEmacLite *InstancePtr)
 					 * Transmit the Reply Packet.
 					 */
 					XEmacLite_Send(InstancePtr,
-							(u8 *)&TxFrame,
-							ARP_PACKET_SIZE);
+						       (u8 *)&TxFrame,
+						       ARP_PACKET_SIZE);
 				}
 			}
 		}
@@ -497,22 +495,22 @@ static void ProcessRecvFrame(XEmacLite *InstancePtr)
 		 * Check ICMP packet.
 		 */
 		if (Xil_Ntohs(*(RxFramePtr + ETHER_PROTO_TYPE_LOC)) ==
-						XEL_ETHER_PROTO_TYPE_IP) {
+		    XEL_ETHER_PROTO_TYPE_IP) {
 
 			/*
 			 * Check the IP header checksum.
 			 */
 			CheckSum = CheckSumCalculation(RxFramePtr,
-						IP_HDR_START_LOC,
-						IP_HDR_LEN);
+						       IP_HDR_START_LOC,
+						       IP_HDR_LEN);
 
 			/*
 			 * Check the Data field checksum.
 			 */
 			if (CheckSum == CORRECT_CKSUM_VALUE) {
 				CheckSum = CheckSumCalculation(RxFramePtr,
-						ICMP_DATA_START_LOC,
-						ICMP_DATA_FIELD_LEN);
+							       ICMP_DATA_START_LOC,
+							       ICMP_DATA_FIELD_LEN);
 				if (CheckSum == CORRECT_CKSUM_VALUE) {
 
 					/*
@@ -606,12 +604,12 @@ static void ProcessRecvFrame(XEmacLite *InstancePtr)
 					 * add it in the appropriate field.
 					 */
 					CheckSum = CheckSumCalculation(
-							(u16 *)TxFrame,
-							IP_HDR_START_LOC,
-							IP_HDR_LEN);
+							   (u16 *)TxFrame,
+							   IP_HDR_START_LOC,
+							   IP_HDR_LEN);
 					CheckSum = ~CheckSum;
 					*(TxFramePtr - IP_CSUM_LOC_BACK) =
-								Xil_Htons(CheckSum);
+						Xil_Htons(CheckSum);
 
 					/*
 					 * Echo reply status & checksum.
@@ -631,7 +629,7 @@ static void ProcessRecvFrame(XEmacLite *InstancePtr)
 					while (Index < (ICMP_DATA_LOC +
 							ICMP_DATA_LEN)) {
 						*TxFramePtr++ =
-								(*(RxFramePtr + Index));
+							(*(RxFramePtr + Index));
 						Index++;
 					}
 
@@ -640,19 +638,19 @@ static void ProcessRecvFrame(XEmacLite *InstancePtr)
 					 * add it in the appropriate field.
 					 */
 					CheckSum = CheckSumCalculation(
-							(u16 *)TxFrame,
-							ICMP_DATA_START_LOC,
-							ICMP_DATA_FIELD_LEN);
+							   (u16 *)TxFrame,
+							   ICMP_DATA_START_LOC,
+							   ICMP_DATA_FIELD_LEN);
 					CheckSum = ~CheckSum;
 					*(TxFramePtr - ICMP_DATA_CSUM_LOC_BACK)
-								= Xil_Htons(CheckSum);
+						= Xil_Htons(CheckSum);
 
 					/*
 					 * Transmit the frame.
 					 */
 					XEmacLite_Send(InstancePtr,
-							(u8 *)&TxFrame,
-							ICMP_PACKET_SIZE);
+						       (u8 *)&TxFrame,
+						       ICMP_PACKET_SIZE);
 
 					/*
 					 * Increment the number of
