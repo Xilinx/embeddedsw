@@ -24,6 +24,7 @@
 *       sk   03/17/2023 Renamed Kekstatus to DecKeyMask
 *       sk   06/12/2023 Renamed XLoader_UpdateKekSrc to XLoader_GetKekSrc
 *       am   06/19/2023 Added KAT error codes
+* 1.9   kpt  07/13/2023 Added mask generation function
 *
 * </pre>
 *
@@ -163,6 +164,8 @@ u32 XLoader_GetKekSrc(void);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr);
 #ifndef XSECURE_RSA_EXCLUDE
 int XLoader_RsaKat(XPmcDma *PmcDmaPtr);
+int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
+	u8 * Out, u32 OutLen, u8 *Input);
 #endif
 
 /************************** Variable Definitions *****************************/
