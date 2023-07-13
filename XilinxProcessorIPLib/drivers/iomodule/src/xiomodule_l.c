@@ -143,7 +143,11 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 	XIOModule_VectorTableEntry *TablePtr;
 
 	/* Get the configuration data using the device ID */
+#ifndef SDT
 	CfgPtr = &XIOModule_ConfigTable[(UINTPTR) DeviceId];
+#else
+	CfgPtr = XIOModule_LookupConfig((UINTPTR) DeviceId);
+#endif
 
 	/* Get the interrupts that are waiting to be serviced
 	 */
