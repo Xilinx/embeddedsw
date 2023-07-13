@@ -1,0 +1,50 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for AXI ETHERNETLITE controller
+
+maintainers:
+  - Harini Katakam <harini.katakam@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-ethernetlite-3.0
+          - xlnx,xps-ethernetlite-1.00.a
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,tx-ping-pong:
+    description: If set tx pong buffer is enabled in the hardware
+  xlnx,rx-ping-pong:
+    description: If set rx pong buffer is enabled in the hardware
+  xlnx,include-mdio:
+    description: If set MDIO bus is enabled in the hardware
+  xlnx,include-internal-loopback:
+    description: If set internal loopback is enabled in the hardware
+
+config:
+    - XEmacLite_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,tx-ping-pong
+    - xlnx,rx-ping-pong
+    - xlnx,include-mdio
+    - xlnx,include-internal-loopback
+    - interrupts
+    - interrupt-parent
+
+examples:
+    xemaclite_internal_loopback_example.c:
+        - interrupts
+    xemaclite_phy_loopback_example.c:
+        - interrupts
+    xemaclite_intr_example.c:
+        - interrupts
+...

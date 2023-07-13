@@ -30,7 +30,9 @@
 
 /***************************** Include Files *********************************/
 
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xemaclite.h"
 
 /************************** Constant Definitions *****************************/
@@ -59,6 +61,23 @@ extern XEmacLite_Config XEmacLite_ConfigTable[];
 * @note		None.
 *
 ******************************************************************************/
+#ifdef SDT
+XEmacLite_Config *XEmacLite_LookupConfig(UINTPTR BaseAddress)
+{
+	XEmacLite_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = (u32)0x0; XEmacLite_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XEmacLite_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XEmacLite_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#else
 XEmacLite_Config *XEmacLite_LookupConfig(u16 DeviceId)
 {
 	XEmacLite_Config *CfgPtr = NULL;
@@ -73,7 +92,7 @@ XEmacLite_Config *XEmacLite_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
-
+#endif
 
 /*****************************************************************************/
 /**
@@ -98,7 +117,11 @@ XEmacLite_Config *XEmacLite_LookupConfig(u16 DeviceId)
 * @note		None
 *
 ******************************************************************************/
+#ifdef SDT
+int XEmacLite_Initialize(XEmacLite *InstancePtr, UINTPTR BaseAddress)
+#else
 int XEmacLite_Initialize(XEmacLite *InstancePtr, u16 DeviceId)
+#endif
 {
 	int Status;
 	XEmacLite_Config *EmacLiteConfigPtr;/* Pointer to Configuration data. */
@@ -112,7 +135,11 @@ int XEmacLite_Initialize(XEmacLite *InstancePtr, u16 DeviceId)
 	 * Lookup the device configuration in the configuration table. Use this
 	 * configuration info down below when initializing this driver.
 	 */
+#ifdef SDT
+	EmacLiteConfigPtr = XEmacLite_LookupConfig(BaseAddress);
+#else
 	EmacLiteConfigPtr = XEmacLite_LookupConfig(DeviceId);
+#endif
 	if (EmacLiteConfigPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}

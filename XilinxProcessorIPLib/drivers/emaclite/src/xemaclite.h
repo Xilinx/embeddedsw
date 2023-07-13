@@ -222,12 +222,20 @@ extern "C" {
  * This typedef contains configuration information for a device.
  */
 typedef struct {
+#ifdef SDT
+	char *Name;
+#else
 	u16 DeviceId;	 /**< Unique ID  of device */
+#endif
 	UINTPTR BaseAddress; /**< Device base address */
 	u8 TxPingPong;	 /**< 1 if TX Pong buffer configured, 0 otherwise */
 	u8 RxPingPong;	 /**< 1 if RX Pong buffer configured, 0 otherwise */
 	u8 MdioInclude;  /**< 1 if MDIO is enabled, 0 otherwise */
 	u8 Loopback;     /**< 1 if internal loopback is enabled, 0 otherwise */
+#ifdef SDT
+	u16 IntrId;
+	UINTPTR IntrParent;
+#endif
 } XEmacLite_Config;
 
 
@@ -368,8 +376,13 @@ void XEmacLite_DisableLoopBack(XEmacLite *InstancePtr);
 /*
  * Initialization functions in xemaclite_sinit.c
  */
+#ifdef SDT
+XEmacLite_Config *XEmacLite_LookupConfig(UINTPTR BaseAddress);
+int XEmacLite_Initialize(XEmacLite *InstancePtr, UINTPTR BaseAddress);
+#else
 XEmacLite_Config *XEmacLite_LookupConfig(u16 DeviceId);
 int XEmacLite_Initialize(XEmacLite *InstancePtr, u16 DeviceId);
+#endif
 
 /*
  * Interrupt driven functions in xemaclite_intr.c
