@@ -114,8 +114,8 @@ if(${lwip213_tcp_keepalive})
     set(LWIP_TCP_KEEPALIVE " ")
 endif()
 
-if(${sgmii_fixed_link} EQUAL 1)
-    set(SGMII_FIXED_LINK   ${sgmii_fixed_link})
+if(${sgmii_fixed_link})
+    set(SGMII_FIXED_LINK   " ")
 endif()
 
 set(MEM_SIZE ${lwip213_mem_size})
