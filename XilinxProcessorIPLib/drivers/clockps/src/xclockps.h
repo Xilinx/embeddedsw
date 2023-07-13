@@ -65,9 +65,9 @@ extern "C" {
 /* Fixed clock rate definitions */
 #define XCLOCK_FIX_RATE_VIDEO_CLK    (27000000U)
 #define XCLOCK_FIX_RATE_PSS_ALT_REF_CLK \
-				     (0U)
+	(0U)
 #define XCLOCK_FIX_RATE_GT_CRX_REF_CLK \
-				     (108000000U)
+	(108000000U)
 #define XCLOCK_FIX_RATE_AUX_REF_CLK  (27000000U)
 #define XCLOCK_FIX_RATE_DP_ACLK      (100000000U)
 
@@ -105,7 +105,7 @@ extern "C" {
  * Not to be used with signed types
  */
 #define XCLOCK_MAX_VALUE_UNSIGNED_TYPE(type) \
-				(type)(~0)
+	(type)(~0)
 
 /**
  * Parent ID for node parents.
@@ -114,15 +114,15 @@ extern "C" {
  * the node index in nodes database
  */
 #define XCLOCK_GENERATE_PARENT_ID(type, idx) \
-				((u16)((u16)(type << 8) | (u8)(idx)))
+	((u16)((u16)(type << 8) | (u8)(idx)))
 
 /* Parse parent to fetch out parent type */
 #define XCLOCK_FETCH_PARENT_TYPE(parent) \
-				((parent & XCLOCK_PARENT_TYPE_MASK) >> 8)
+	((parent & XCLOCK_PARENT_TYPE_MASK) >> 8)
 
 /* Parse parent to fetch out parent database index */
 #define XCLOCK_FETCH_PARENT_INDEX(parent) \
-				(parent & XCLOCK_PARENT_IDX_MASK)
+	(parent & XCLOCK_PARENT_IDX_MASK)
 
 /* Limits the value within min and max */
 #define XCLOCK_LIMIT_VALUE(val, min, max) \
@@ -165,7 +165,7 @@ extern "C" {
 	do { \
 		if (MAX_##type < index) { \
 			xil_printf("Warning: Index %d out of bound for %s\n", \
-								index, #type); \
+				   index, #type); \
 			return; \
 		} \
 	} while (0)
@@ -585,8 +585,8 @@ static inline XStatus XClock_WriteReg(u32 RegAddr, u32 Value)
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar RegValue;
 	RegValue = Xil_Smc(MMIO_WRITE_SMC_FID,
-			(u64)(RegAddr) | ((u64)(0xFFFFFFFF) << 32),
-						(u64)Value, 0, 0, 0, 0, 0);
+			   (u64)(RegAddr) | ((u64)(0xFFFFFFFF) << 32),
+			   (u64)Value, 0, 0, 0, 0, 0);
 	if (0x00 == (RegValue.Arg0 & 0xFFFFFFFF)) {
 		return XST_SUCCESS;
 	}
@@ -622,17 +622,17 @@ extern XClock_FetchRateFuncPtr XClock_NodeGetRate[XCLOCK_TYPE_MAX];
 
 /* Function pointer holding Set Rate functions for nodes */
 typedef XStatus (*XClock_SetRateFuncPtr)(u8 NodeIdx, XClockRate ParentRate,
-			XClockRate Rate, XClockRate *SetRate, u8 DryRun);
+		XClockRate Rate, XClockRate *SetRate, u8 DryRun);
 extern XClock_SetRateFuncPtr XClock_NodeSetRate[XCLOCK_TYPE_MAX];
 
 /* Function pointer holding parent fetch functions for nodes */
 typedef XStatus (*XClock_FetchParentFuncPtr)(XClock_Types *NodeType,
-								u8 *NodeIdx);
+		u8 *NodeIdx);
 extern XClock_FetchParentFuncPtr XClock_NodeFetchParent[XCLOCK_TYPE_MAX];
 
 /* Function pointer holding database index fetch functions for nodes */
 typedef XStatus (*XClock_FetchIdxFuncPtr)(XClock_OutputClks ClockId,
-								u8 *NodeIdx);
+		u8 *NodeIdx);
 extern XClock_FetchIdxFuncPtr XClock_NodeFetchIdx[XCLOCK_TYPE_MAX];
 
 /* Function pointer holding disable functions for nodes */
@@ -668,12 +668,12 @@ XStatus XClock_CfgInitialize(XClock *InstancePtr, XClockPs_Config *ConfigPtr);
 XStatus XClock_EnableClock(XClock_OutputClks ClockId);
 XStatus XClock_DisableClock(XClock_OutputClks ClockId);
 XStatus XClock_GetParent(XClock_OutputClks ClockId,
-					XClock_Types *NodeType, u8 *NodeIdx);
+			 XClock_Types *NodeType, u8 *NodeIdx);
 XStatus XClock_GetRate(XClock_OutputClks ClockId, XClockRate *Rate);
 XStatus XClock_SetParent(XClock_OutputClks ClockId, u8 MuxIdx,
-							u8 SetParentIdx);
+			 u8 SetParentIdx);
 XStatus XClock_SetRate(XClock_OutputClks ClockId, XClockRate Rate,
-							XClockRate *SetRate);
+		       XClockRate *SetRate);
 
 #ifdef __cplusplus
 }

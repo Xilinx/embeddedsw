@@ -288,7 +288,7 @@ static void XClock_GateEnableSet(u8 GateIndex)
 
 	if (XST_SUCCESS != XClock_GateIsEnabled(GateIndex, &GateState)) {
 		xil_printf("Warning: Gate state fetch failed for %d\n",
-								GateIndex);
+			   GateIndex);
 		return;
 	}
 
@@ -329,7 +329,7 @@ static void XClock_GateDisableSet(u8 GateIndex)
 
 	if (XST_SUCCESS != XClock_GateIsEnabled(GateIndex, &GateState)) {
 		xil_printf("Warning: Gate state fetch failed for %d\n",
-								GateIndex);
+			   GateIndex);
 		return;
 	}
 
@@ -343,7 +343,7 @@ static void XClock_GateDisableSet(u8 GateIndex)
 	}
 
 	Value &= ~(1 << Gates[GateIndex].BitIndex);
-	if(XST_SUCCESS != XClock_WriteReg(Gates[GateIndex].CtrlReg, Value)) {
+	if (XST_SUCCESS != XClock_WriteReg(Gates[GateIndex].CtrlReg, Value)) {
 		xil_printf("Warning: Gate disable failed for %d\n", GateIndex);
 	}
 }

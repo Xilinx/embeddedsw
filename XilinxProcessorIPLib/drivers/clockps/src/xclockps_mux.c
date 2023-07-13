@@ -397,32 +397,32 @@ static XClock_TypeMux Muxes[] = {
 *
 ******************************************************************************/
 static void XClock_AllocPeriphMuxParents(u16 *ParentGroup, u8 GroupType,
-						u8 Par1, u8 Par2, u8 Par3)
+		u8 Par1, u8 Par2, u8 Par3)
 {
 	if (GroupType & BIT(0)) {
 		ParentGroup[0] = XCLOCK_GENERATE_PARENT_ID(XCLOCK_TYPE_MUX,
-									Par1);
+				 Par1);
 	} else {
 		ParentGroup[0] = XCLOCK_GENERATE_PARENT_ID(XCLOCK_TYPE_DIVIDER,
-									Par1);
+				 Par1);
 	}
 
 	ParentGroup[1] = XCLOCK_INVALID_PARENT;
 
 	if (GroupType & BIT(1)) {
 		ParentGroup[2] = XCLOCK_GENERATE_PARENT_ID(XCLOCK_TYPE_MUX,
-									Par2);
+				 Par2);
 	} else {
 		ParentGroup[2] = XCLOCK_GENERATE_PARENT_ID(XCLOCK_TYPE_DIVIDER,
-									Par2);
+				 Par2);
 	}
 
 	if (GroupType & BIT(2)) {
 		ParentGroup[3] = XCLOCK_GENERATE_PARENT_ID(XCLOCK_TYPE_MUX,
-									Par3);
+				 Par3);
 	} else {
 		ParentGroup[3] = XCLOCK_GENERATE_PARENT_ID(XCLOCK_TYPE_DIVIDER,
-									Par3);
+				 Par3);
 	}
 }
 
@@ -524,28 +524,28 @@ static void XClock_AllocMuxParents(void)
 
 	/* Allocate PLL Source parents */
 	PllSrcParents[0] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_IP, PSS_REF_CLK);
+			   (XCLOCK_TYPE_IP, PSS_REF_CLK);
 	PllSrcParents[1] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_IP, PSS_REF_CLK);
+			   (XCLOCK_TYPE_IP, PSS_REF_CLK);
 	PllSrcParents[2] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_IP, PSS_REF_CLK);
+			   (XCLOCK_TYPE_IP, PSS_REF_CLK);
 	PllSrcParents[3] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_IP, PSS_REF_CLK);
+			   (XCLOCK_TYPE_IP, PSS_REF_CLK);
 	PllSrcParents[4] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_IP, VIDEO_CLK);
+			   (XCLOCK_TYPE_IP, VIDEO_CLK);
 	PllSrcParents[5] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_IP, PSS_ALT_REF_CLK);
+			   (XCLOCK_TYPE_IP, PSS_ALT_REF_CLK);
 	PllSrcParents[6] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_IP, AUX_REF_CLK);
+			   (XCLOCK_TYPE_IP, AUX_REF_CLK);
 	PllSrcParents[7] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_IP, GT_CRX_REF_CLK);
+			   (XCLOCK_TYPE_IP, GT_CRX_REF_CLK);
 
 	/* Allocate PLL mux parents */
 	for (Idx = 0; Idx < XCLOCK_NUM_PLL; Idx++) {
 		PllIntMuxParents[Idx][0] = XCLOCK_GENERATE_PARENT_ID
-		(XCLOCK_TYPE_PLL, IOPLL_INT_PLL + Idx);
+					   (XCLOCK_TYPE_PLL, IOPLL_INT_PLL + Idx);
 		PllIntMuxParents[Idx][1] = XCLOCK_GENERATE_PARENT_ID
-		(XCLOCK_TYPE_FIXEDFACTOR, IOPLL_INT_HALF_FF + Idx);
+					   (XCLOCK_TYPE_FIXEDFACTOR, IOPLL_INT_HALF_FF + Idx);
 
 		/* Set default parent */
 		NodeIdx = IOPLL_INT_MUX + (Idx * XCLOCK_PLL_NXT_REG_OFFSET);
@@ -553,11 +553,11 @@ static void XClock_AllocMuxParents(void)
 			XClock_MuxFetchDefaultParent(NodeIdx);
 
 		PllParents[Idx][0] = XCLOCK_GENERATE_PARENT_ID
-				(XCLOCK_TYPE_MUX, IOPLL_INT_MUX +
-				(XCLOCK_PLL_NXT_REG_OFFSET * Idx));
+				     (XCLOCK_TYPE_MUX, IOPLL_INT_MUX +
+				      (XCLOCK_PLL_NXT_REG_OFFSET * Idx));
 		PllParents[Idx][1] = XCLOCK_GENERATE_PARENT_ID
-				(XCLOCK_TYPE_MUX, IOPLL_POST_SRC_MUX +
-				(XCLOCK_PLL_NXT_REG_OFFSET * Idx));
+				     (XCLOCK_TYPE_MUX, IOPLL_POST_SRC_MUX +
+				      (XCLOCK_PLL_NXT_REG_OFFSET * Idx));
 
 		/* Set default parent */
 		NodeIdx = IOPLL_MUX + (Idx * XCLOCK_PLL_NXT_REG_OFFSET);
@@ -567,55 +567,55 @@ static void XClock_AllocMuxParents(void)
 
 	/* Allocate DDR parents */
 	DdrParents[0] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_MUX, DPLL_INT_MUX);
+			(XCLOCK_TYPE_MUX, DPLL_INT_MUX);
 	DdrParents[1] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_PLL, VPLL_INT_MUX);
+			(XCLOCK_TYPE_PLL, VPLL_INT_MUX);
 
 	/* Allocate watchdog parents */
 	WdtParents[0] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_GATE, TOPSW_LSBUS_GATE);
+			(XCLOCK_TYPE_GATE, TOPSW_LSBUS_GATE);
 	WdtParents[1] = XCLOCK_PARENT_EXTERNAL;
 
 	/* Allocate timestamp mux parents */
 	TstmpParents[0] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_MUX, IOPLL_INT_MUX);
+			  (XCLOCK_TYPE_MUX, IOPLL_INT_MUX);
 	TstmpParents[1] = XCLOCK_INVALID_PARENT;
 	TstmpParents[2] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_MUX, RPLL_INT_MUX);
+			  (XCLOCK_TYPE_MUX, RPLL_INT_MUX);
 	TstmpParents[3] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_DIVIDER, DPLL_TO_LPD_DIV0);
+			  (XCLOCK_TYPE_DIVIDER, DPLL_TO_LPD_DIV0);
 	TstmpParents[4] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_IP, PSS_REF_CLK);
+			  (XCLOCK_TYPE_IP, PSS_REF_CLK);
 	TstmpParents[5] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_IP, PSS_REF_CLK);
+			  (XCLOCK_TYPE_IP, PSS_REF_CLK);
 	TstmpParents[6] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_IP, PSS_REF_CLK);
+			  (XCLOCK_TYPE_IP, PSS_REF_CLK);
 	TstmpParents[7] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_IP, PSS_REF_CLK);
+			  (XCLOCK_TYPE_IP, PSS_REF_CLK);
 
 	/* Allocate gem parents */
 	for (Idx = 0; Idx < XCLOCK_NUM_GEM; Idx++) {
 		GemParents[Idx][0] = XCLOCK_GENERATE_PARENT_ID
-				(XCLOCK_TYPE_DIVIDER, (GEM0_REF_DIV1 +
-				(XCLOCK_GEM_NXT_REG_OFFSET * Idx)));
+				     (XCLOCK_TYPE_DIVIDER, (GEM0_REF_DIV1 +
+						     (XCLOCK_GEM_NXT_REG_OFFSET * Idx)));
 		GemParents[Idx][1] = XCLOCK_PARENT_EXTERNAL;
 	}
 
 	/* Allocate gem tsu parents */
 	GemTsuParents[0] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_GATE, GEM_TSU_REF_GATE);
+			   (XCLOCK_TYPE_GATE, GEM_TSU_REF_GATE);
 	GemTsuParents[1] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_GATE, GEM_TSU_REF_GATE);
+			   (XCLOCK_TYPE_GATE, GEM_TSU_REF_GATE);
 	GemTsuParents[2] = XCLOCK_PARENT_EXTERNAL;
 	GemTsuParents[3] = XCLOCK_PARENT_EXTERNAL;
 
 	/* Allocate can parents  */
 	for (Idx = 0; Idx < XCLOCK_NUM_CAN; Idx++) {
 		CanParents[Idx][0] = XCLOCK_GENERATE_PARENT_ID
-				(XCLOCK_TYPE_GATE, (CAN0_REF_GATE + Idx));
+				     (XCLOCK_TYPE_GATE, (CAN0_REF_GATE + Idx));
 		CanParents[Idx][1] = XCLOCK_GENERATE_PARENT_ID
-				(XCLOCK_TYPE_MUX, (CAN0_MIO_MUX +
-				XCLOCK_CAN_NXT_REG_OFFSET));
+				     (XCLOCK_TYPE_MUX, (CAN0_MIO_MUX +
+							XCLOCK_CAN_NXT_REG_OFFSET));
 	}
 
 	/* Allocate can mio parents */
@@ -625,107 +625,107 @@ static void XClock_AllocMuxParents(void)
 
 	/* Allocate dll ref parents */
 	DllRefParents[0] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_MUX, IOPLL_INT_MUX);
+			   (XCLOCK_TYPE_MUX, IOPLL_INT_MUX);
 	DllRefParents[1] = XCLOCK_GENERATE_PARENT_ID
-					(XCLOCK_TYPE_MUX, RPLL_INT_MUX);
+			   (XCLOCK_TYPE_MUX, RPLL_INT_MUX);
 
 	/* Allocate Peripheral parents */
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_PL],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_ACPU],
-				XCLOCK_PARENT_ALL_MUXS,    APLL_INT_MUX,
-				DPLL_INT_MUX,     VPLL_INT_MUX);
+				     XCLOCK_PARENT_ALL_MUXS,    APLL_INT_MUX,
+				     DPLL_INT_MUX,     VPLL_INT_MUX);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_DBG_FPD],
-				XCLOCK_PARENT_DIV_MUXS,    IOPLL_TO_FPD_DIV0,
-				DPLL_INT_MUX,     APLL_INT_MUX);
+				     XCLOCK_PARENT_DIV_MUXS,    IOPLL_TO_FPD_DIV0,
+				     DPLL_INT_MUX,     APLL_INT_MUX);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_DBG_LPD],
-				XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
-				IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
+				     IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_DP],
-				XCLOCK_PARENT_MUXS_DIV,    VPLL_INT_MUX,
-				DPLL_INT_MUX,     RPLL_TO_FPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    VPLL_INT_MUX,
+				     DPLL_INT_MUX,     RPLL_TO_FPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_GPU_REF],
-				XCLOCK_PARENT_DIV_MUXS,    IOPLL_TO_FPD_DIV0,
-				VPLL_INT_MUX,     DPLL_INT_MUX);
+				     XCLOCK_PARENT_DIV_MUXS,    IOPLL_TO_FPD_DIV0,
+				     VPLL_INT_MUX,     DPLL_INT_MUX);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_SATA_REF],
-				XCLOCK_PARENT_DIV_MUXS,    IOPLL_TO_FPD_DIV0,
-				APLL_INT_MUX,     DPLL_INT_MUX);
+				     XCLOCK_PARENT_DIV_MUXS,    IOPLL_TO_FPD_DIV0,
+				     APLL_INT_MUX,     DPLL_INT_MUX);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_PCIE_REF],
-				XCLOCK_PARENT_DIVS_MUX,    IOPLL_TO_FPD_DIV0,
-				RPLL_TO_FPD_DIV0,  DPLL_INT_MUX);
+				     XCLOCK_PARENT_DIVS_MUX,    IOPLL_TO_FPD_DIV0,
+				     RPLL_TO_FPD_DIV0,  DPLL_INT_MUX);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_DMA_REF],
-				XCLOCK_PARENT_ALL_MUXS,    APLL_INT_MUX,
-				VPLL_INT_MUX,     DPLL_INT_MUX);
+				     XCLOCK_PARENT_ALL_MUXS,    APLL_INT_MUX,
+				     VPLL_INT_MUX,     DPLL_INT_MUX);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_TOPSW_MAIN],
-				XCLOCK_PARENT_ALL_MUXS,    APLL_INT_MUX,
-				VPLL_INT_MUX,     DPLL_INT_MUX);
+				     XCLOCK_PARENT_ALL_MUXS,    APLL_INT_MUX,
+				     VPLL_INT_MUX,     DPLL_INT_MUX);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_TOPSW_LSBUS],
-				XCLOCK_PARENT_MUX_DIV_MUX, APLL_INT_MUX,
-				IOPLL_TO_FPD_DIV0, DPLL_INT_MUX);
+				     XCLOCK_PARENT_MUX_DIV_MUX, APLL_INT_MUX,
+				     IOPLL_TO_FPD_DIV0, DPLL_INT_MUX);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_GTG_REF],
-				XCLOCK_PARENT_DIV_MUXS,    IOPLL_TO_FPD_DIV0,
-				APLL_INT_MUX,     DPLL_INT_MUX);
+				     XCLOCK_PARENT_DIV_MUXS,    IOPLL_TO_FPD_DIV0,
+				     APLL_INT_MUX,     DPLL_INT_MUX);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_USB3_DUAL_REF],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_USB0_BUS_REF],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_USB1_BUS_REF],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				APLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     APLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_GEM_REF],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_QSPI_REF],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_SDIO_REF],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     VPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     VPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_UART_REF],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_SPI_REF],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_CAN_REF],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_CPU_R5],
-				XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
-				IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
+				     IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_IOU_SWITCH],
-				XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
-				IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
+				     IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_CSU_PLL],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_PCAP],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_LPD_SWITCH],
-				XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
-				IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
+				     IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_LPD_LSBUS],
-				XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
-				IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
+				     IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_NAND_REF],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_ADMA_REF],
-				XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
-				IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
+				     IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_GEM_TSU_REF],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_AMS_REF],
-				XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
-				IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    RPLL_INT_MUX,
+				     IOPLL_INT_MUX,    DPLL_TO_LPD_DIV0);
 	XClock_AllocPeriphMuxParents(PeriParents[IDX_I2C_REF],
-				XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
-				RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
+				     XCLOCK_PARENT_MUXS_DIV,    IOPLL_INT_MUX,
+				     RPLL_INT_MUX,     DPLL_TO_LPD_DIV0);
 
 	return;
 };
@@ -772,7 +772,7 @@ static XStatus XClock_MuxSetActiveParent(u8 MuxIndex, u8 SetParentIdx)
 		ParentIdx = XCLOCK_FETCH_PARENT_INDEX(ParentPtr[SetParentIdx]);
 
 		if (XST_SUCCESS !=
-				XClock_EnableClkNode((XClock_Types)ParentType, ParentIdx)) {
+		    XClock_EnableClkNode((XClock_Types)ParentType, ParentIdx)) {
 			return XST_FAILURE;
 		}
 	}
@@ -783,10 +783,10 @@ static XStatus XClock_MuxSetActiveParent(u8 MuxIndex, u8 SetParentIdx)
 	}
 
 	ParentMask = ((1 << Muxes[MuxIndex].Width) - 1) <<
-							Muxes[MuxIndex].Shift;
+		     Muxes[MuxIndex].Shift;
 	Value &= ~(ParentMask);
 	Value |= (SetParentIdx << Muxes[MuxIndex].Shift);
-	if(XST_SUCCESS != XClock_WriteReg(Muxes[MuxIndex].CtrlReg, Value)) {
+	if (XST_SUCCESS != XClock_WriteReg(Muxes[MuxIndex].CtrlReg, Value)) {
 		return XST_FAILURE;
 	}
 
@@ -872,7 +872,7 @@ static XStatus XClock_MuxEnable(u8 MuxIndex)
 
 		/* Enable parent node */
 		if (XST_SUCCESS !=
-				XClock_EnableClkNode((XClock_Types)ParentType, ParentIdx)) {
+		    XClock_EnableClkNode((XClock_Types)ParentType, ParentIdx)) {
 			return XST_FAILURE;
 		}
 	}
@@ -927,7 +927,7 @@ static XStatus XClock_MuxDisable(u8 MuxIndex)
 
 		/* Disable parent node */
 		if (XST_SUCCESS !=
-				XClock_DisableClkNode((XClock_Types)ParentType, ParentIdx)) {
+		    XClock_DisableClkNode((XClock_Types)ParentType, ParentIdx)) {
 			return XST_FAILURE;
 		}
 	}
