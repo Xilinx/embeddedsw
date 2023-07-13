@@ -75,10 +75,10 @@ s32 XScuTimer_SelfTest(XScuTimer *InstancePtr)
 	 * Save the contents of the Control Register and stop the timer.
 	 */
 	CtrlOrig = XScuTimer_ReadReg(InstancePtr->Config.BaseAddr,
-				  XSCUTIMER_CONTROL_OFFSET);
+				     XSCUTIMER_CONTROL_OFFSET);
 	Register = CtrlOrig & (u32)(~XSCUTIMER_CONTROL_ENABLE_MASK);
 	XScuTimer_WriteReg(InstancePtr->Config.BaseAddr,
-			XSCUTIMER_CONTROL_OFFSET, Register);
+			   XSCUTIMER_CONTROL_OFFSET, Register);
 
 	/*
 	 * Save the contents of the Load Register.
@@ -86,17 +86,17 @@ s32 XScuTimer_SelfTest(XScuTimer *InstancePtr)
 	 * compare it with the written value.
 	 */
 	LoadOrig = XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr,
-				  XSCUTIMER_LOAD_OFFSET);
+				     XSCUTIMER_LOAD_OFFSET);
 	XScuTimer_LoadTimer(InstancePtr, XSCUTIMER_SELFTEST_VALUE);
 	Register = XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr,
-				  XSCUTIMER_LOAD_OFFSET);
+				     XSCUTIMER_LOAD_OFFSET);
 
 	/*
 	 * Restore the contents of the Load Register and Control Register.
 	 */
 	XScuTimer_LoadTimer(InstancePtr, LoadOrig);
 	XScuTimer_WriteReg(InstancePtr->Config.BaseAddr,
-			XSCUTIMER_CONTROL_OFFSET, CtrlOrig);
+			   XSCUTIMER_CONTROL_OFFSET, CtrlOrig);
 
 	/*
 	 * Return a Failure if the contents of the Load Register do not
@@ -104,8 +104,7 @@ s32 XScuTimer_SelfTest(XScuTimer *InstancePtr)
 	 */
 	if (Register != XSCUTIMER_SELFTEST_VALUE) {
 		Status = (s32)XST_FAILURE;
-	}
-	else {
+	} else {
 		Status = (s32)XST_SUCCESS;
 	}
 

@@ -151,9 +151,9 @@ typedef struct {
 ******************************************************************************/
 #define XScuTimer_IsExpired(InstancePtr) \
 	((XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr, \
-				XSCUTIMER_ISR_OFFSET) & \
-				XSCUTIMER_ISR_EVENT_FLAG_MASK) == \
-				XSCUTIMER_ISR_EVENT_FLAG_MASK)
+			    XSCUTIMER_ISR_OFFSET) & \
+	  XSCUTIMER_ISR_EVENT_FLAG_MASK) == \
+	 XSCUTIMER_ISR_EVENT_FLAG_MASK)
 
 /****************************************************************************/
 /**
@@ -171,8 +171,8 @@ typedef struct {
 ******************************************************************************/
 #define XScuTimer_RestartTimer(InstancePtr)				\
 	XScuTimer_LoadTimer((InstancePtr),				\
-		XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr, \
-					XSCUTIMER_LOAD_OFFSET))
+			    XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr, \
+					      XSCUTIMER_LOAD_OFFSET))
 
 /****************************************************************************/
 /**
@@ -192,7 +192,7 @@ typedef struct {
 ******************************************************************************/
 #define XScuTimer_LoadTimer(InstancePtr, Value)				\
 	XScuTimer_WriteReg((InstancePtr)->Config.BaseAddr,		\
-			XSCUTIMER_LOAD_OFFSET, (Value))
+			   XSCUTIMER_LOAD_OFFSET, (Value))
 
 /****************************************************************************/
 /**
@@ -210,7 +210,7 @@ typedef struct {
 ******************************************************************************/
 #define XScuTimer_GetCounterValue(InstancePtr)				\
 	XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr,		\
-				XSCUTIMER_COUNTER_OFFSET)
+			  XSCUTIMER_COUNTER_OFFSET)
 
 /****************************************************************************/
 /**
@@ -227,10 +227,10 @@ typedef struct {
 ******************************************************************************/
 #define XScuTimer_EnableAutoReload(InstancePtr)				\
 	XScuTimer_WriteReg((InstancePtr)->Config.BaseAddr,		\
-			XSCUTIMER_CONTROL_OFFSET,			\
-			(XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr, \
-				XSCUTIMER_CONTROL_OFFSET) |		 \
-				XSCUTIMER_CONTROL_AUTO_RELOAD_MASK))
+			   XSCUTIMER_CONTROL_OFFSET,			\
+			   (XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr, \
+					      XSCUTIMER_CONTROL_OFFSET) |		 \
+			    XSCUTIMER_CONTROL_AUTO_RELOAD_MASK))
 
 /****************************************************************************/
 /**
@@ -247,10 +247,10 @@ typedef struct {
 ******************************************************************************/
 #define XScuTimer_DisableAutoReload(InstancePtr)			\
 	XScuTimer_WriteReg((InstancePtr)->Config.BaseAddr,		\
-			XSCUTIMER_CONTROL_OFFSET,			\
-			(XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr, \
-				XSCUTIMER_CONTROL_OFFSET) &		\
-				~(XSCUTIMER_CONTROL_AUTO_RELOAD_MASK)))
+			   XSCUTIMER_CONTROL_OFFSET,			\
+			   (XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr, \
+					      XSCUTIMER_CONTROL_OFFSET) &		\
+			    ~(XSCUTIMER_CONTROL_AUTO_RELOAD_MASK)))
 
 /****************************************************************************/
 /**
@@ -267,10 +267,10 @@ typedef struct {
 ******************************************************************************/
 #define XScuTimer_EnableInterrupt(InstancePtr)				\
 	XScuTimer_WriteReg((InstancePtr)->Config.BaseAddr,		\
-			XSCUTIMER_CONTROL_OFFSET,			\
-			(XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr, \
-					XSCUTIMER_CONTROL_OFFSET) |	\
-					XSCUTIMER_CONTROL_IRQ_ENABLE_MASK))
+			   XSCUTIMER_CONTROL_OFFSET,			\
+			   (XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr, \
+					      XSCUTIMER_CONTROL_OFFSET) |	\
+			    XSCUTIMER_CONTROL_IRQ_ENABLE_MASK))
 
 /****************************************************************************/
 /**
@@ -287,10 +287,10 @@ typedef struct {
 ******************************************************************************/
 #define XScuTimer_DisableInterrupt(InstancePtr)				\
 	XScuTimer_WriteReg((InstancePtr)->Config.BaseAddr,		\
-			XSCUTIMER_CONTROL_OFFSET,			\
-			(XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr, \
-				XSCUTIMER_CONTROL_OFFSET) &		\
-				~(XSCUTIMER_CONTROL_IRQ_ENABLE_MASK)))
+			   XSCUTIMER_CONTROL_OFFSET,			\
+			   (XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr, \
+					      XSCUTIMER_CONTROL_OFFSET) &		\
+			    ~(XSCUTIMER_CONTROL_IRQ_ENABLE_MASK)))
 
 /*****************************************************************************/
 /**
@@ -307,7 +307,7 @@ typedef struct {
 ******************************************************************************/
 #define XScuTimer_GetInterruptStatus(InstancePtr)			\
 	XScuTimer_ReadReg((InstancePtr)->Config.BaseAddr,		\
-			XSCUTIMER_ISR_OFFSET)
+			  XSCUTIMER_ISR_OFFSET)
 
 /*****************************************************************************/
 /**
@@ -324,7 +324,7 @@ typedef struct {
 ******************************************************************************/
 #define XScuTimer_ClearInterruptStatus(InstancePtr)			\
 	XScuTimer_WriteReg((InstancePtr)->Config.BaseAddr,		\
-		XSCUTIMER_ISR_OFFSET, XSCUTIMER_ISR_EVENT_FLAG_MASK)
+			   XSCUTIMER_ISR_OFFSET, XSCUTIMER_ISR_EVENT_FLAG_MASK)
 
 /************************** Function Prototypes ******************************/
 
