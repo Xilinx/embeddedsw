@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,15 +41,22 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifdef SDT
+#define EMACLITE_BASEADDR	XPAR_XEMACLITE_0_BASEADDR
+#else
 #define EMAC_DEVICE_ID			XPAR_EMACLITE_0_DEVICE_ID
+#endif
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+#ifdef SDT
+int EMACLiteSelfTestExample(UINTPTR BaseAddress);
+#else
 int EMACLiteSelfTestExample(u16 DeviceId);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -77,7 +85,11 @@ int main(void)
 	 * Run the EmacLite Self test example, specify the Device ID that is
 	 * generated in xparameters.h
 	 */
+#ifdef SDT
+	Status = EMACLiteSelfTestExample(EMACLITE_BASEADDR);
+#else
 	Status = EMACLiteSelfTestExample(EMAC_DEVICE_ID);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Emaclite selftest Example Failed\r\n");
 		return XST_FAILURE;
@@ -101,7 +113,11 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifdef SDT
+int EMACLiteSelfTestExample(UINTPTR BaseAddress)
+#else
 int EMACLiteSelfTestExample(u16 DeviceId)
+#endif
 {
 	int Status;
 	XEmacLite_Config *ConfigPtr;
@@ -110,7 +126,11 @@ int EMACLiteSelfTestExample(u16 DeviceId)
 	/*
 	 * Initialize the EmacLite device.
 	 */
+#ifdef SDT
+	ConfigPtr = XEmacLite_LookupConfig(BaseAddress);
+#else
 	ConfigPtr = XEmacLite_LookupConfig(DeviceId);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}

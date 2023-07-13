@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2003 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2003 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,7 +46,11 @@
 /***************************** Include Files *********************************/
 
 #include "xemaclite_example.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#else
 #include "xintc.h"
+#endif
 #include "xil_exception.h"
 #include "xil_io.h"
 #include "xil_printf.h"
@@ -57,8 +62,10 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #define INTC_EMACLITE_ID	XPAR_INTC_0_EMACLITE_0_VEC_ID
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -66,20 +73,28 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifdef SDT
+int EmacLiteIntrLoopbackExample(UINTPTR BaseAddr);
+#else
 int EmacLiteIntrLoopbackExample(u16 DeviceId);
+#endif
 
 static int EmacLiteSendFrame(XEmacLite *InstancePtr, u32 PayloadSize);
 static int EmacLiteRecvFrame(u32 PayloadSize);
 static void EmacLiteRecvHandler(void *CallBackRef);
 static void EmacLiteSendHandler(void *CallBackRef);
+#ifndef SDT
 static void EmacLiteDisableIntrSystem(XIntc *IntcInstancePtr,
 						u16 EmacLiteIntrId);
 static int EmacLiteSetupIntrSystem(XIntc *IntcInstancePtr,
 			 XEmacLite *EmacLiteInstPtr, u16 EmacLiteIntrId);
+#endif
 
 /************************** Variable Definitions ****************************/
 
+#ifndef SDT
 XIntc IntcInstance;		/* Instance of the Interrupt Controller */
+#endif
 
 /*
  * Set up valid local MAC addresses. This loop back test uses the LocalAddress
@@ -110,7 +125,11 @@ int main()
 	 * Run the EmacLite example , specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
+#ifdef SDT
+	Status = EmacLiteIntrLoopbackExample(EMACLITE_BASEADDR);
+#else
 	Status = EmacLiteIntrLoopbackExample(EMAC_DEVICE_ID);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Emaclite internal loopback Example Failed\r\n");
 		return XST_FAILURE;
@@ -135,22 +154,34 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
+#ifdef SDT
+int EmacLiteIntrLoopbackExample(UINTPTR BaseAddr)
+#else
 int EmacLiteIntrLoopbackExample(u16 DeviceId)
+#endif
 {
 	int Status;
+#ifndef SDT
 	XIntc *IntcInstancePtr;
+#endif
 	XEmacLite *EmacLiteInstPtr;
 	u32 TxLength;
 	XEmacLite_Config *ConfigPtr;
 
 	RecvFrameLength = 0;
+#ifndef SDT
 	IntcInstancePtr = &IntcInstance;
+#endif
 	EmacLiteInstPtr =&EmacLiteInstance;
 
 	/*
 	 * Initialize the EmacLite device.
 	 */
+#ifdef SDT
+	ConfigPtr = XEmacLite_LookupConfig(BaseAddr);
+#else
 	ConfigPtr = XEmacLite_LookupConfig(DeviceId);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -168,8 +199,15 @@ int EmacLiteIntrLoopbackExample(u16 DeviceId)
 	/*
 	 * Set up the interrupt infrastructure.
 	 */
+#ifdef SDT
+	Status = XSetupInterruptSystem(EmacLiteInstPtr, &XEmacLite_InterruptHandler,
+						EmacLiteInstPtr->EmacLiteConfig.IntrId,
+						EmacLiteInstPtr->EmacLiteConfig.IntrParent,
+						XINTERRUPT_DEFAULT_PRIORITY);
+#else
 	Status = EmacLiteSetupIntrSystem(IntcInstancePtr, EmacLiteInstPtr,
 						INTC_EMACLITE_ID);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -243,8 +281,13 @@ int EmacLiteIntrLoopbackExample(u16 DeviceId)
 			 * Disable and disconnect the EmacLite Interrupts.
 			 */
 			XEmacLite_DisableInterrupts(EmacLiteInstPtr);
+#ifdef SDT
+			XDisconnectInterruptCntrl(EmacLiteInstPtr->EmacLiteConfig.IntrId,
+									EmacLiteInstPtr->EmacLiteConfig.IntrParent);
+#else
 			EmacLiteDisableIntrSystem(IntcInstancePtr,
 							 INTC_EMACLITE_ID);
+#endif
 			return XST_FAILURE;
 		}
 	}
@@ -258,7 +301,12 @@ int EmacLiteIntrLoopbackExample(u16 DeviceId)
 	 * Disable and disconnect the EmacLite Interrupts.
 	 */
 	XEmacLite_DisableInterrupts(EmacLiteInstPtr);
+#ifdef SDT
+	XDisconnectInterruptCntrl(EmacLiteInstPtr->EmacLiteConfig.IntrId,
+							EmacLiteInstPtr->EmacLiteConfig.IntrParent);
+#else
 	EmacLiteDisableIntrSystem(IntcInstancePtr, INTC_EMACLITE_ID);
+#endif
 
 	return XST_SUCCESS;
 }
@@ -444,6 +492,7 @@ static void EmacLiteSendHandler(void *CallBackRef)
 
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -559,3 +608,4 @@ static void EmacLiteDisableIntrSystem(XIntc *IntcInstancePtr,
 	XIntc_Disconnect(IntcInstancePtr, EmacLiteIntrId);
 
 }
+#endif
