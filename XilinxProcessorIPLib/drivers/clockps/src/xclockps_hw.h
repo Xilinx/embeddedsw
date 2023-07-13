@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,10 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* CRL APB register defines */
+#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ		33330000U
+#define XPAR_PSU_CRL_APB_S_AXI_BASEADDR		0xFF5E0000
+#define XPAR_PSU_IOUSLCR_0_S_AXI_BASEADDR	0xFF180000
+#define XPAR_PSU_CRF_APB_S_AXI_BASEADDR		0xFD1A0000
 #define CRL_APB_BASE_ADDR    XPAR_PSU_CRL_APB_S_AXI_BASEADDR
 #define IOPLL_CTRL           (u32)(CRL_APB_BASE_ADDR + 0x20)
 #define RPLL_CTRL            (u32)(CRL_APB_BASE_ADDR + 0x30)

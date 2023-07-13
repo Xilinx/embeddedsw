@@ -1,0 +1,28 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for clockps driver
+
+maintainers:
+  - Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+      - const: xlnx,psu-crl-apb-1.0
+
+config:
+    - XClockPs_Config
+
+required:
+    - compatible
+    - reg
+
+examples:
+    xclockps_i2c_example.c:
+        - reg
+
+...

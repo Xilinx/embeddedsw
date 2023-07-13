@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 1.1	aru    03/20/19 Fix IAR issue by changing "XCLOCK_ABS_DIFF" to a
 *			function named "XClock_Absolute_Difference".
 * 1.2   sd     02/13/20 Rename ARRAY_SIZE
+* 1.5   sd     07/10/23 Added SDT support
 * </pre>
 *
 ******************************************************************************/
@@ -103,7 +104,11 @@ XStatus XClock_CfgInitialize(XClock *InstancePtr, XClockPs_Config *ConfigPtr)
 	XCLOCK_VALIDATE_PTR(ConfigPtr);
 
 	/* Copying instance */
+#ifdef SDT
+	InstancePtr->Config.BaseAddress = ConfigPtr->BaseAddress;
+#else
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 
 	/* Setup clock modules */
 	XClock_SetupClockModules();
