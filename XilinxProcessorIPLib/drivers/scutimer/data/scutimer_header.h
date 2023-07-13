@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,8 +11,13 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifndef SDT
 int ScuTimerPolledExample(u16 DeviceId);
 int ScuTimerIntrExample(XScuGic *IntcInstancePtr, XScuTimer *TimerInstancePtr,
 			u16 TimerDeviceId, u16 TimerIntrId);
+#else
+int ScuTimerPolledExample(UINTPTR BaseAddress);
+int ScuTimerIntrExample(XScuTimer *TimerInstancePtr, UINTPTR BaseAddress);
+#endif
 
 #endif

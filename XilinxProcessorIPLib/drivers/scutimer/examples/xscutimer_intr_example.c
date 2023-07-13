@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------
 * 1.00a nm   03/10/10 First release
+* 2.5   dp   07/11/23 Add Support for system device tree flow
 * </pre>
 *
 ******************************************************************************/
@@ -28,7 +30,11 @@
 
 #include "xparameters.h"
 #include "xscutimer.h"
+#ifndef SDT
 #include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 #include "xil_exception.h"
 #include "xil_printf.h"
 
@@ -39,10 +45,12 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #ifndef TESTAPP_GEN
 #define TIMER_DEVICE_ID		XPAR_XSCUTIMER_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define TIMER_IRPT_INTR		XPAR_SCUTIMER_INTR
+#endif
 #endif
 
 #define TIMER_LOAD_VALUE	0xFFFF
@@ -53,21 +61,29 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int ScuTimerIntrExample(XScuGic *IntcInstancePtr, XScuTimer *TimerInstancePtr,
 			u16 TimerDeviceId, u16 TimerIntrId);
+#else
+int ScuTimerIntrExample(XScuTimer *TimerInstancePtr, UINTPTR BaseAddress);
+#endif
 
 static void TimerIntrHandler(void *CallBackRef);
 
+#ifndef SDT
 static int TimerSetupIntrSystem(XScuGic *IntcInstancePtr,
 				XScuTimer *TimerInstancePtr, u16 TimerIntrId);
 
 static void TimerDisableIntrSystem(XScuGic *IntcInstancePtr, u16 TimerIntrId);
+#endif
 
 /************************** Variable Definitions *****************************/
 
 #ifndef TESTAPP_GEN
 XScuTimer TimerInstance;	/* Cortex A9 Scu Private Timer Instance */
+#ifndef SDT
 XScuGic IntcInstance;		/* Interrupt Controller Instance */
+#endif
 #endif
 
 /*
@@ -98,8 +114,12 @@ int main(void)
 	 * Call the interrupt example, specify the parameters generated in
 	 * xparameters.h
 	 */
+#ifndef SDT
 	Status = ScuTimerIntrExample(&IntcInstance, &TimerInstance,
 				TIMER_DEVICE_ID, TIMER_IRPT_INTR);
+#else
+	Status = ScuTimerIntrExample(&TimerInstance, XPAR_SCUTIMER_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("SCU Timer Interrupt Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -127,8 +147,12 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int ScuTimerIntrExample(XScuGic *IntcInstancePtr, XScuTimer * TimerInstancePtr,
 			u16 TimerDeviceId, u16 TimerIntrId)
+#else
+int ScuTimerIntrExample(XScuTimer * TimerInstancePtr,	UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	int LastTimerExpired = 0;
@@ -137,8 +161,11 @@ int ScuTimerIntrExample(XScuGic *IntcInstancePtr, XScuTimer * TimerInstancePtr,
 	/*
 	 * Initialize the Scu Private Timer driver.
 	 */
+#ifndef SDT
 	ConfigPtr = XScuTimer_LookupConfig(TimerDeviceId);
-
+#else
+	ConfigPtr = XScuTimer_LookupConfig(BaseAddress);
+#endif
 	/*
 	 * This is where the virtual address would be used, this example
 	 * uses physical address.
@@ -161,8 +188,20 @@ int ScuTimerIntrExample(XScuGic *IntcInstancePtr, XScuTimer * TimerInstancePtr,
 	 * Connect the device to interrupt subsystem so that interrupts
 	 * can occur.
 	 */
+#ifndef SDT
 	Status = TimerSetupIntrSystem(IntcInstancePtr,
 					TimerInstancePtr, TimerIntrId);
+#else
+   Status = XSetupInterruptSystem(TimerInstancePtr, &TimerIntrHandler,
+                                    TimerInstancePtr->Config.IntrId,
+                                    TimerInstancePtr->Config.IntrParent,
+                                    XINTERRUPT_DEFAULT_PRIORITY);
+	/*
+	 * Enable the timer interrupts for timer mode.
+	 */
+	XScuTimer_EnableInterrupt(TimerInstancePtr);
+
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -204,11 +243,15 @@ int ScuTimerIntrExample(XScuGic *IntcInstancePtr, XScuTimer * TimerInstancePtr,
 	/*
 	 * Disable and disconnect the interrupt system.
 	 */
+#ifndef SDT
 	TimerDisableIntrSystem(IntcInstancePtr, TimerIntrId);
-
+#else
+   XDisconnectInterruptCntrl(TimerInstancePtr->Config.IntrId, TimerInstancePtr->Config.IntrParent);
+#endif
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -293,6 +336,7 @@ static int TimerSetupIntrSystem(XScuGic *IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -328,6 +372,7 @@ static void TimerIntrHandler(void *CallBackRef)
 	}
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -349,3 +394,4 @@ static void TimerDisableIntrSystem(XScuGic *IntcInstancePtr, u16 TimerIntrId)
 	 */
 	XScuGic_Disconnect(IntcInstancePtr, TimerIntrId);
 }
+#endif

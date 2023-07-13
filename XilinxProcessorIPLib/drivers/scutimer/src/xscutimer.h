@@ -83,6 +83,7 @@
 * 2.3   mus 08/31/20 Updated makefile to support parallel make and
 *                    incremental builds, it would help to reduce compilation
 *                    time.
+* 2.5   dp   07/11/23 Add support for system device tree flow
 * </pre>
 *
 ******************************************************************************/
@@ -107,7 +108,11 @@ extern "C" {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;	/**< Unique ID of device */
+#else
+	char *Name;
+#endif
 	u32 BaseAddr;	/**< Base address of the device */
 #ifdef XIL_INTERRUPT
 	u32 IntrId;
@@ -326,7 +331,11 @@ typedef struct {
 /*
  * Lookup configuration in xscutimer_sinit.c
  */
+#ifndef SDT
 XScuTimer_Config *XScuTimer_LookupConfig(u16 DeviceId);
+#else
+XScuTimer_Config *XScuTimer_LookupConfig(UINTPTR BaseAddr);
+#endif
 
 /*
  * Selftest function in xscutimer_selftest.c
