@@ -303,7 +303,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
 int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
-
+int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *CmdPtr);
 /************************** Variable Definitions *****************************/
 
 #ifdef __cplusplus

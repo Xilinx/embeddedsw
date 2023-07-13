@@ -307,6 +307,7 @@ void XLoader_PerformInternalPOR(void);
 XLoader_ImageStore* XLoader_GetPdiList(void);
 int Xloader_SsitEoPdiSync(XilPdi *PdiPtr);
 XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
+#define XLoader_MbPmcI2cHandshake (NULL)
 
 /************************** Variable Definitions *****************************/
 

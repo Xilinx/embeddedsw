@@ -129,6 +129,7 @@
 #define XLOADER_CMD_ID_WRITE_IMAGESTORE_PDI   	(13U)
 #define XLOADER_CMD_ID_CONFIG_JTAG_STATE  	    (14U)
 #define XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS (15U)
+#define XLOADER_CMD_ID_I2C_HANDSHAKE (16U)
 
 /**************************** Type Definitions *******************************/
 
@@ -1183,7 +1184,8 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_CframeDataClearCheck),
 	XPLMI_MODULE_COMMAND(XLoader_WriteImageStorePdi),
 	XPLMI_MODULE_COMMAND(XLoader_ConfigureJtagState),
-	XPLMI_MODULE_COMMAND(XLoader_ReadDdrCryptoPerfCounters)
+	XPLMI_MODULE_COMMAND(XLoader_ReadDdrCryptoPerfCounters),
+        XPLMI_MODULE_COMMAND(XLoader_MbPmcI2cHandshake)
 };
 
 /*****************************************************************************/
@@ -1213,9 +1215,11 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CONFIG_JTAG_STATE),
 #endif
 #ifdef VERSAL_NET
-	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS)
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS),
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_I2C_HANDSHAKE)
 #else
-	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS)
+	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS),
+	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_I2C_HANDSHAKE)
 #endif
 };
 
