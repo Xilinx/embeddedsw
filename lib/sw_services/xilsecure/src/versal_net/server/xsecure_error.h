@@ -147,6 +147,7 @@ typedef enum {
 	XSECURE_RSA_OAEP_DATA_CPY_ERROR,              /**< 0x73 - RSA OAEP data copy failed */
 	XSECURE_RSA_OAEP_DATA_CMP_ERROR,              /**< 0x74 - RSA OAEP data compare failed */
 	XSECURE_RSA_OAEP_BYTE_MISMATCH_ERROR,         /**< 0x75 - RSA OAEP data byte mismatch error */
+	XSECURE_RSA_PWCT_MEM_CMP_FAILED_ERROR,        /**< 0x76 - RSA PWCT failed */
 
 	XSECURE_RSA_KAT_INIT_ERROR = 0x80,	/**< 0x80 - RSA KAT intialization failure */
 
