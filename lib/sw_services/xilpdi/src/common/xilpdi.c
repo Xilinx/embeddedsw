@@ -51,6 +51,8 @@
         ng   03/30/2023 Updated algorithm and return values in doxygen comments
 	sk   05/31/2023 Updated Xilpdi_ReadImgHdrTbl to use MetaHdrOfst from
                         MetaHdr structure
+*       am   07/03/2023 Updated XilPdi_ReadIhtAndOptionalData to store partition hashes
+*
 * </pre>
 *
 * @note
@@ -70,6 +72,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static u32 XilPdi_SearchOptionalData(u32 StartAddress, u32 EndAddress, u32 DataId);
 
 /************************** Variable Definitions *****************************/
 
@@ -364,6 +367,151 @@ int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr)
 
 END:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function stores digest table for given data Id.
+*
+* @param	MetaHdrPtr is pointer to MetaHeader table.
+*
+* @return
+* 			- XST_SUCCESS on successful read.
+* 			- XST_FAILURE on unsuccessful copy.
+*
+*****************************************************************************/
+int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr)
+{
+	int Status = XST_FAILURE;
+	int StatusTmp = XST_FAILURE;
+	u32 OptionalDataStartAddr;
+	u32 OptionalDataEndAddr;
+	u32 OptionalDataLen;
+	u32 Offset;
+
+	OptionalDataStartAddr = XILPDI_PMCRAM_IHT_DATA_ADDR;
+	OptionalDataEndAddr = OptionalDataStartAddr + (MetaHdrPtr->ImgHdrTbl.OptionalDataLen << XILPDI_WORD_LEN_SHIFT);
+
+	Offset = XilPdi_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr,
+		XILPDI_PARTITION_HASH_DATA_ID);
+	if (Offset < OptionalDataEndAddr) {
+		OptionalDataLen = ((Xil_In32(Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >>
+			XIH_OPT_DATA_LEN_SHIFT) << XIH_PRTN_WORD_LEN_SHIFT;
+		/** IHT Optional data is in mentioned below format:
+		*
+		*	-------------------------------------------------------------------------
+		*	|    0x00    |		Size (31:16)                  | Data Id (15:0)  |
+		*	-------------------------------------------------------------------------
+		*	|    0x04    |		Data (Size in words)				|
+		*	-------------------------------------------------------------------------
+		*	|    Last    |		Checksum (Sum of previous words in DS)		|
+		*	-------------------------------------------------------------------------
+		*  DigestTableSize is size of Data except first(0x00) and last word(Last)
+		*/
+		MetaHdrPtr->DigestTableSize = OptionalDataLen - XILPDI_OPTIONAL_DATA_DOUBLE_WORD_LEN;
+		if (MetaHdrPtr->DigestTableSize % sizeof(XilPdi_PrtnHashInfo) != 0U) {
+			Status = XILPDI_ERR_INVALID_DIGEST_TABLE_SIZE;
+			XilPdi_Printf("Invalid digest table size \n\r");
+			goto END;
+		}
+
+		if (OptionalDataLen > XILPDI_OPTIONAL_DATA_WORD_LEN) {
+			/** Verify checksum of data structure info */
+			XSECURE_REDUNDANT_CALL(Status, StatusTmp, XilPdi_ValidateChecksum, (void *)Offset,
+					OptionalDataLen);
+			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+				Status = XILPDI_ERR_OPTIONAL_DATA_CHECKSUM_FAILED;
+				XilPdi_Printf("optional data Checksum failed \n\r");
+				goto END;
+			}
+		}
+		else {
+			Status = XILPDI_ERR_NO_VALID_OPTIONAL_DATA;
+			goto END;
+		}
+		/** Copy only data part */
+		Status = Xil_SMemCpy((u8 *)(UINTPTR)XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR,
+			MetaHdrPtr->DigestTableSize, (u8 *)(UINTPTR)(Offset
+			+ XILPDI_OPTIONAL_DATA_WORD_LEN), MetaHdrPtr->DigestTableSize,
+			MetaHdrPtr->DigestTableSize);
+		if (Status != XST_SUCCESS) {
+			XilPdi_Printf("Partition data memcpy failed\n\r");
+			goto END;
+		}
+		/** Partition number count */
+		MetaHdrPtr->DigestTableSize /= sizeof(XilPdi_PrtnHashInfo);
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function search offset of optional data address
+*
+* @param	StartAddress is start address of IHT optional data
+* @param	EndAddress is end address of IHT optional data
+* @param	DataId is to identify type of data in data structure
+*
+* @return
+*		Offset - On getting successful optional data offset address
+*               for given data Id
+*
+*****************************************************************************/
+static u32 XilPdi_SearchOptionalData(u32 StartAddress, u32 EndAddress, u32 DataId)
+{
+	u32 Offset = StartAddress;
+
+	while (Offset < EndAddress) {
+		if ((Xil_In32(Offset) & XIH_OPT_DATA_HDR_ID_MASK) !=
+				DataId) {
+			Offset += ((Xil_In32(Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >>
+				XIH_OPT_DATA_LEN_SHIFT) << XILPDI_WORD_LEN_SHIFT;
+		}
+		else {
+			break;
+		}
+	}
+
+	return Offset;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function checks if partition hash is present.
+*
+* @param	PrtnNum - PrtnNum to check partition hash is present or not
+*
+* @param	HashTableSize - Size of hash table
+*
+* @return
+*		HashEntry - Offset of partition hash to skip authentication.
+*		NULL - To authenticate the signature as regular flow.
+*
+*****************************************************************************/
+XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent(u32 PrtnNum, u32 HashTableSize)
+{
+	XilPdi_PrtnHashInfo *HashEntry = NULL;
+	XilPdi_PrtnHashInfo *HashTbl = (XilPdi_PrtnHashInfo *)(UINTPTR)XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR;
+	u32 Index = 0U;
+
+	/** Bootgen will place Digest table in the following format-
+	 *
+	 *   -------------------------------------------------------------------------
+	 *   |    Partition index (32 bits)     |    Partition Digest(384 bits)      |
+	 *   -------------------------------------------------------------------------
+	 */
+
+	for (Index = 0; Index < HashTableSize; Index++) {
+		if (HashTbl[Index].PrtnNum == PrtnNum) {
+			HashEntry = &HashTbl[Index];
+			break;
+		}
+	}
+
+	return HashEntry;
 }
 
 /****************************************************************************/

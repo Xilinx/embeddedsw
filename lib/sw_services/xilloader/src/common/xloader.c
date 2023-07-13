@@ -156,6 +156,8 @@
 *                       based on PDI ID
 *       sk   05/18/2023 Deprecate copy to memory feature,Added function to save
 *                       BootPDI info, Definition for XLoader_GetPdiInstance
+*       am   07/07/2023 Added error code for Read IHT optional data
+*
 * </pre>
 *
 * @note
@@ -635,6 +637,12 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		SecureTempParams->SecureEn = (u8)TRUE;
 		Status = XilPdi_ReadIhtAndOptionalData(&PdiPtr->MetaHdr);
 		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_READ_IHT_OPTIONAL_DATA, Status);
+			goto END;
+		}
+		Status = XilPdi_StoreDigestTable(&PdiPtr->MetaHdr);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_STORE_DIGEST_TABLE, Status);
 			goto END;
 		}
 	}

@@ -113,6 +113,7 @@
 * 1.09  bm   06/13/2023 Add API to just log PLM error
 *       bm   06/23/2023 Added error codes for ipi access filtering
 *       bm   07/06/2023 Added XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS error code
+*       am   07/07/2023 Added error code for Read IHT optional data
 *
 * </pre>
 *
@@ -759,9 +760,13 @@ typedef enum {
 		/**< 0x634 Failed to verify checksum of partition headers */
 	XLOADER_ERR_SECURE_CLEAR_FAIL,
 		/**< 0x635 Failed to place either AES,RSA,SHA3 engine in reset */
+	XLOADER_ERR_READ_IHT_OPTIONAL_DATA,
+		/**< 0x636 Error while reading IHT optional data */
+	XLOADER_ERR_STORE_DIGEST_TABLE,
+		/**< 0x637 Error while storing digest table */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
-	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED,
+	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED = 0x6A0,
 	    /**< 0x6A0 Additional PPks are not enabled*/
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
