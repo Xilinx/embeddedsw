@@ -21,6 +21,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 5.0   kpt  07/15/2022 Initial release
+* 5.2   kpt  07/12/2023 Add pairwise consistency for RSA
 *
 * </pre>
 *
@@ -39,6 +40,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xsecure_kat.h"
 #include "xsecure_trng.h"
+#include "xsecure_plat_rsa.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -49,6 +51,9 @@ int XSecure_HmacKat(XSecure_Sha3 *SecureSha3);
 int XSecure_TrngDRBGKat(XSecure_TrngInstance *InstancePtr);
 int XSecure_TrngPreOperationalSelfTests(XSecure_TrngInstance *InstancePtr);
 int XSecure_Sha384Kat(void);
+#ifndef PLM_RSA_EXCLUDE
+int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype);
+#endif
 
 #ifdef __cplusplus
 }

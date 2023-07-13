@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 5.0   kpt  07/15/2022 Initial release
+* 5.2   kpt  07/12/2023 Added pairwise consistency test for RSA
 *
 * </pre>
 *
@@ -338,3 +339,69 @@ int XSecure_Sha384Kat(void)
 END:
 	return Status;
 }
+#ifndef PLM_RSA_EXCLUDE
+
+/*****************************************************************************/
+/**
+ * This function performs pairwise consistency test for generated RSA key pair using
+ * OAEP encrypt and decrypt operation.
+ *
+ * @param PrivKey Pointer to the private key
+ * @param PubKey  Pointer to the public key
+ * @param ShaInstancePtr Pointer to the SHA instance used during OAEP encoding for MGF
+ * @param Shatype is SHA algorithm type used for MGF
+ *
+ * @return
+ *        XST_SUCCESS - On Success
+ *        ErrorCode   - On Failure
+ *
+ *****************************************************************************/
+int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype)
+{
+	volatile int Status = XST_FAILURE;
+	XSecure_Rsa RsaInstance = {0U};
+	u8 *Message = XSecure_GetKatMessage();
+	XSecure_RsaOaepParam OaepParam = {0U};
+	u8 EncOutput[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];
+	u8 DecOutput[XSECURE_KAT_MSG_LEN_IN_BYTES];
+
+	Status = XSecure_RsaInitialize(&RsaInstance, PubKey->Modulus, PubKey->ModExt, PubKey->Exponent);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	OaepParam.InputDataAddr = (u64)(UINTPTR)Message;
+	OaepParam.InputDataSize = XSECURE_KAT_MSG_LEN_IN_BYTES;
+	OaepParam.OutputDataAddr = (u64)(UINTPTR)EncOutput;
+	OaepParam.ShaInstancePtr = (void*)ShaInstancePtr;
+	OaepParam.ShaType = Shatype;
+	Status = XSecure_RsaOaepEncrypt(&RsaInstance, &OaepParam);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_RsaInitialize(&RsaInstance, PrivKey->Modulus, PrivKey->ModExt, PrivKey->Exponent);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	OaepParam.InputDataAddr = (u64)(UINTPTR)EncOutput;
+	OaepParam.OutputDataAddr = (u64)(UINTPTR)DecOutput;
+	OaepParam.ShaInstancePtr = (void*)ShaInstancePtr;
+	OaepParam.ShaType = Shatype;
+	Status = XSecure_RsaOaepDecrypt(&RsaInstance, &OaepParam);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+	Status = Xil_SMemCmp(DecOutput, OaepParam.OutputDataSize, Message, XSECURE_KAT_MSG_LEN_IN_BYTES,
+				XSECURE_KAT_MSG_LEN_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_PWCT_MEM_CMP_FAILED_ERROR;
+	}
+
+END:
+	return Status;
+}
+#endif
