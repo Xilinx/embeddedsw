@@ -310,7 +310,8 @@ proc xgen_opts_file {libhandle} {
 		close $file_handle
 	}
 
-	if {$proc_type == "psxl_pmc"} {
+	if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc" || $proc_type == "psxl_cortexa78" ||
+		$proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52"} {
 		set file_handle [hsi::utils::open_include_file "xparameters.h"]
 		puts $file_handle "\n/* Xilinx Secure library TRNG User Settings */"
 		set value [common::get_property CONFIG.seedlife $libhandle]
@@ -325,5 +326,16 @@ proc xgen_opts_file {libhandle} {
 		set value [common::get_property CONFIG.repcounttestcutoff $libhandle]
 		puts $file_handle "\n/* TRNG repetitive prop test cutoff value*/"
 		puts $file_handle [format %s%d%s "#define XSECURE_TRNG_REP_TEST_CUTOFF " [expr $value]  "U"]
+		set value [common::get_property CONFIG.xsecure_rsa_key_size $libhandle]
+		puts $file_handle "\n/* RSA Key size for key pair generation */"
+		if {$value == "RSA_2048_KEY_SIZE"} {
+			set keysize 256
+		} elseif {$value == "RSA_3072_KEY_SIZE"} {
+			set keysize 384
+		} elseif {$value == "RSA_4096_KEY_SIZE"} {
+			set keysize 512
+		}
+		puts $file_handle [format %s%d%s "#define XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES " [expr $keysize] "U"]
+		close $file_handle
 	}
 }

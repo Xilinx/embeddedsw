@@ -35,6 +35,7 @@
  *       kpt  07/24/2022 Added error codes for KAT
  * 5.1   har  01/02/2023 Added error code for SHA2
  * 5.2   am   06/22/2023 Added KAT error code
+ *       kpt  07/09/2023 Added error codes for RSA OAEP
  *
  * </pre>
  *
@@ -138,6 +139,13 @@ typedef enum {
 	XSECURE_AES_ZERO_PUF_KEY_NOT_ALLOWED,	/**< 0x5B - Error when PUF Key is selected as key source and PUF key is zeroized */
 	XSECURE_AES_UNALIGNED_SIZE_ERROR,      /**< 0x5C - Error when data is unaligned*/
 	XSECURE_AES_INVALID_MODE,             /**< 0x5D - Error when invalid mode is used for AES operation */
+
+	XSECURE_RSA_OAEP_INVALID_PARAM = 0x70,        /**< 0x70 - RSA OAEP Invalid param */
+	XSECURE_RSA_OAEP_INVALID_MSG_LEN,             /**< 0x71 - RSA OAEP Invalid Msg length */
+	XSECURE_RSA_OAEP_DB_MISMATCH_ERROR,           /**< 0x72 - RSA OAEP DB mismatch error */
+	XSECURE_RSA_OAEP_DATA_CPY_ERROR,              /**< 0x73 - RSA OAEP data copy failed */
+	XSECURE_RSA_OAEP_DATA_CMP_ERROR,              /**< 0x74 - RSA OAEP data compare failed */
+	XSECURE_RSA_OAEP_BYTE_MISMATCH_ERROR,         /**< 0x75 - RSA OAEP data byte mismatch error */
 
 	XSECURE_RSA_KAT_INIT_ERROR = 0x80,	/**< 0x80 - RSA KAT intialization failure */
 
