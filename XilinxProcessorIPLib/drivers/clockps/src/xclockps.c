@@ -41,9 +41,9 @@ static inline u32 XClock_Absolute_Difference(XClockRate Rate, XClockRate CurrRat
 /***************** Macros (Inline Functions) Definitions *********************/
 /* Assign structure elements for input clocks */
 #define XCLOCK_ASSIGN_IP(RateVal) \
-{ \
-	.Rate = RateVal, \
-}
+	{ \
+		.Rate = RateVal, \
+	}
 
 /**************************** Type Definitions *******************************/
 /* This typedef holds information for input clock */
@@ -167,7 +167,7 @@ static void XClock_EnableInitClocks(void)
 	for (Idx = 0; Idx < CLK_ARRAY_SIZE(InitClks); Idx++) {
 		if (XST_SUCCESS != XClock_EnableClock(InitClks[Idx])) {
 			xil_printf("Warning: Failed to enable clock at "
-							"index %d\n\r", Idx);
+				   "index %d\n\r", Idx);
 		}
 	}
 }
@@ -271,7 +271,7 @@ XStatus XClock_DisableClkNode(XClock_Types NodeType, u8 NodeIdx)
 *
 ******************************************************************************/
 static XStatus XClock_FetchClockInfo(XClock_OutputClks ClockId,
-					XClock_Types *NodeType, u8 *NodeIdx)
+				     XClock_Types *NodeType, u8 *NodeIdx)
 {
 	u8      Idx;
 	XStatus Status;
@@ -313,8 +313,8 @@ static XStatus XClock_FetchClockInfo(XClock_OutputClks ClockId,
 *
 ******************************************************************************/
 static XStatus XClock_GetConfigNodeInfo(XClock_OutputClks ClockId,
-		u8 *PllIndex, u8 *DivIndex, XClockRate *PllParentRate,
-						XClockRate *DivParentRate)
+					u8 *PllIndex, u8 *DivIndex, XClockRate *PllParentRate,
+					XClockRate *DivParentRate)
 {
 	u8           NodeIdx;
 	u8           FetchDivRate = FALSE;
@@ -350,7 +350,7 @@ static XStatus XClock_GetConfigNodeInfo(XClock_OutputClks ClockId,
 		/* Fetch Node parent */
 		if (NULL != XClock_NodeFetchParent[NodeType]) {
 			Status = XClock_NodeFetchParent[NodeType](&NodeType,
-								&NodeIdx);
+					&NodeIdx);
 			if (Status) {
 				return Status;
 			}
@@ -394,7 +394,7 @@ static XStatus XClock_GetConfigNodeInfo(XClock_OutputClks ClockId,
 *
 ******************************************************************************/
 static XStatus XClock_ConfigDivs(u8 *DivIdx, XClockRate ParRate,
-					XClockRate Rate, XClockRate *SetRate)
+				 XClockRate Rate, XClockRate *SetRate)
 {
 	u8         CurrDiv;
 	u8         MinDiv;
@@ -425,7 +425,7 @@ static XStatus XClock_ConfigDivs(u8 *DivIdx, XClockRate ParRate,
 	if (ExpDiv > MaxDiv) {
 		AchRate = Rate;
 		Status = XClock_NodeSetRate[NodeType](DivIdx[0], ParRate, Rate,
-								&DivRate, 0);
+						      &DivRate, 0);
 		if (XST_SUCCESS != Status) {
 			return Status;
 		}
@@ -433,7 +433,7 @@ static XStatus XClock_ConfigDivs(u8 *DivIdx, XClockRate ParRate,
 		if (DivIdx[1] != XCLOCK_INVALID_DIV_INDEX) {
 			AchRate = DivRate / XCLOCK_MAX_DIV_VAL;
 			Status = XClock_NodeSetRate[NodeType](DivIdx[1],
-						DivRate, AchRate, &DivRate, 0);
+							      DivRate, AchRate, &DivRate, 0);
 			if (XST_SUCCESS != Status) {
 				return Status;
 			}
@@ -448,7 +448,7 @@ static XStatus XClock_ConfigDivs(u8 *DivIdx, XClockRate ParRate,
 	if (ExpDiv <= XCLOCK_MAX_DIV_VAL) {
 		AchRate = Rate;
 		Status = XClock_NodeSetRate[NodeType](DivIdx[0],
-				ParRate, AchRate, &DivRate, 0);
+						      ParRate, AchRate, &DivRate, 0);
 		if (XST_SUCCESS != Status) {
 			return Status;
 		}
@@ -456,7 +456,7 @@ static XStatus XClock_ConfigDivs(u8 *DivIdx, XClockRate ParRate,
 		/* Clear second divisor if available */
 		if (DivIdx[1] != XCLOCK_INVALID_DIV_INDEX) {
 			Status = XClock_NodeSetRate[NodeType](DivIdx[1],
-					DivRate, DivRate, &DivRate, 0);
+							      DivRate, DivRate, &DivRate, 0);
 			if (XST_SUCCESS != Status) {
 				return Status;
 			}
@@ -494,13 +494,13 @@ static XStatus XClock_ConfigDivs(u8 *DivIdx, XClockRate ParRate,
 
 	/* Dry run to calculate achievable rate */
 	Status = XClock_NodeSetRate[NodeType](DivIdx[0], ParRate,
-			(ParRate / Div[1]), &DivRate, 0);
+					      (ParRate / Div[1]), &DivRate, 0);
 	if (Status) {
 		return Status;
 	}
 
 	Status = XClock_NodeSetRate[NodeType](DivIdx[1], DivRate,
-			(DivRate / Div[0]), &DivRate, 0);
+					      (DivRate / Div[0]), &DivRate, 0);
 	if (Status) {
 		return Status;
 	}
@@ -526,7 +526,7 @@ static XStatus XClock_ConfigDivs(u8 *DivIdx, XClockRate ParRate,
 *
 ******************************************************************************/
 static XStatus XClock_ConfigPlls(u8 *PllIdx, XClockRate ParRate,
-					XClockRate Rate, XClockRate *SetRate)
+				 XClockRate Rate, XClockRate *SetRate)
 {
 	XStatus    Status;
 	XClockRate CurrRate;
@@ -543,15 +543,15 @@ static XStatus XClock_ConfigPlls(u8 *PllIdx, XClockRate ParRate,
 
 	/* Dry run to get achievable rate */
 	Status = XClock_NodeSetRate[XCLOCK_TYPE_PLL](*PllIdx, ParRate, Rate,
-								SetRate, 1);
+			SetRate, 1);
 	if (XST_SUCCESS != Status) {
 		return Status;
 	}
 
 	if (XClock_Absolute_Difference(Rate, CurrRate) >
-			XClock_Absolute_Difference(Rate, *SetRate)) {
+	    XClock_Absolute_Difference(Rate, *SetRate)) {
 		Status = XClock_NodeSetRate[XCLOCK_TYPE_PLL](*PllIdx, ParRate,
-							Rate, SetRate, 0);
+				Rate, SetRate, 0);
 		if (XST_SUCCESS != Status) {
 			return Status;
 		}
@@ -615,7 +615,7 @@ void XClock_UpdateTopologyRates(XClock_Types MatchType, u8 MatchIdx)
 	for (Idx = 0; Idx < MAX_OP; Idx++) {
 		/* Fetch output clock information */
 		if (XST_SUCCESS !=
-			XClock_FetchClockInfo((XClock_OutputClks)Idx, &ClockType, &ClockIdx)) {
+		    XClock_FetchClockInfo((XClock_OutputClks)Idx, &ClockType, &ClockIdx)) {
 			return;
 		}
 
@@ -624,7 +624,7 @@ void XClock_UpdateTopologyRates(XClock_Types MatchType, u8 MatchIdx)
 
 		do {
 			if (MatchType == NodeType &&
-					MatchIdx == NodeIdx) {
+			    MatchIdx == NodeIdx) {
 				/* Update rates for the topology */
 				XClock_UpdateRate(ClockType, ClockIdx);
 				break;
@@ -637,7 +637,7 @@ void XClock_UpdateTopologyRates(XClock_Types MatchType, u8 MatchIdx)
 
 			/* Get node parent for further lookup */
 			if (XST_SUCCESS != XClock_NodeFetchParent[NodeType]
-							(&NodeType, &NodeIdx)) {
+			    (&NodeType, &NodeIdx)) {
 				break;
 			}
 		} while (XCLOCK_TYPE_IP != NodeType);
@@ -713,7 +713,7 @@ XClockRate XClock_FetchRate(XClock_Types NodeType, u8 NodeIdx)
 *
 ******************************************************************************/
 XStatus XClock_GetParent(XClock_OutputClks ClockId,
-					XClock_Types *NodeType, u8 *NodeIdx)
+			 XClock_Types *NodeType, u8 *NodeIdx)
 {
 	XStatus Status;
 
@@ -753,7 +753,7 @@ XStatus XClock_GetParent(XClock_OutputClks ClockId,
 *
 ******************************************************************************/
 XStatus XClock_SetParent(XClock_OutputClks ClockId, u8 MuxIdx,
-								u8 SetParentIdx)
+			 u8 SetParentIdx)
 {
 	u8           LookupDone;
 	u8           NodeIdx;
@@ -780,7 +780,7 @@ XStatus XClock_SetParent(XClock_OutputClks ClockId, u8 MuxIdx,
 	do {
 		if (NULL != XClock_NodeFetchParent[NodeType]) {
 			Status =
-			XClock_NodeFetchParent[NodeType](&NodeType, &NodeIdx);
+				XClock_NodeFetchParent[NodeType](&NodeType, &NodeIdx);
 			if (XST_SUCCESS != Status) {
 				return Status;
 			}
@@ -788,7 +788,7 @@ XStatus XClock_SetParent(XClock_OutputClks ClockId, u8 MuxIdx,
 			if (XCLOCK_TYPE_MUX == NodeType && MuxIdx == NodeIdx) {
 				/* Set mux parent */
 				Status =
-				XClock_MuxSetParent(NodeIdx, SetParentIdx);
+					XClock_MuxSetParent(NodeIdx, SetParentIdx);
 				if (XST_SUCCESS != Status) {
 					return Status;
 				}
@@ -854,12 +854,13 @@ XStatus XClock_GetRate(XClock_OutputClks ClockId, XClockRate *Rate)
 *
 ******************************************************************************/
 XStatus XClock_SetRate(XClock_OutputClks ClockId, XClockRate Rate,
-							XClockRate *SetRate)
+		       XClockRate *SetRate)
 {
 	u8           ClockIdx;
 	u8           PllIndex = XCLOCK_INVALID_PLL_INDEX;
 	u8           DivIndex[2] = {XCLOCK_INVALID_DIV_INDEX,
-					XCLOCK_INVALID_DIV_INDEX};
+				    XCLOCK_INVALID_DIV_INDEX
+				   };
 	XStatus      Status;
 	XClockRate   DivParentRate = XCLOCK_INVALID_RATE;
 	XClockRate   PllParentRate = XCLOCK_INVALID_RATE;
@@ -889,16 +890,16 @@ XStatus XClock_SetRate(XClock_OutputClks ClockId, XClockRate Rate,
 
 	/* Get configurable node information */
 	Status = XClock_GetConfigNodeInfo(ClockId, &PllIndex, DivIndex,
-						&PllParentRate, &DivParentRate);
+					  &PllParentRate, &DivParentRate);
 	if (XST_SUCCESS != Status) {
 		return Status;
 	}
 
 	/* Configure Divisors */
 	if ((XCLOCK_INVALID_DIV_INDEX != DivIndex[0]) &&
-						(Rate < DivParentRate)) {
+	    (Rate < DivParentRate)) {
 		Status = XClock_ConfigDivs(DivIndex, DivParentRate, Rate,
-								SetRate);
+					   SetRate);
 		if (XST_SUCCESS == Status) {
 			/* Update rates for the topology */
 			XClock_UpdateRate(ClockType, ClockIdx);
@@ -910,7 +911,7 @@ XStatus XClock_SetRate(XClock_OutputClks ClockId, XClockRate Rate,
 	/* Configure Plls */
 	if ((XCLOCK_INVALID_PLL_INDEX != PllIndex) && (Rate > PllParentRate)) {
 		Status = XClock_ConfigPlls(&PllIndex, PllParentRate, Rate,
-								SetRate);
+					   SetRate);
 		if (XST_SUCCESS == Status) {
 			if (*SetRate != XCLOCK_INVALID_RATE) {
 				/*
@@ -918,7 +919,7 @@ XStatus XClock_SetRate(XClock_OutputClks ClockId, XClockRate Rate,
 				 * topologies using this PLL
 				 */
 				XClock_UpdateTopologyRates(XCLOCK_TYPE_PLL,
-								PllIndex);
+							   PllIndex);
 			}
 
 			return Status;
@@ -1006,14 +1007,15 @@ XStatus XClock_DisableClock(XClock_OutputClks ClockId)
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XClock_Absolute_Difference(XClockRate Rate, XClockRate CurrRate) {
-		u32 AbsDiff;
-		if (Rate < CurrRate) {
-			AbsDiff = (u32)(CurrRate - Rate);
-		} else {
-			AbsDiff = (u32)(Rate - CurrRate);
-		}
-		return AbsDiff;
+static inline u32 XClock_Absolute_Difference(XClockRate Rate, XClockRate CurrRate)
+{
+	u32 AbsDiff;
+	if (Rate < CurrRate) {
+		AbsDiff = (u32)(CurrRate - Rate);
+	} else {
+		AbsDiff = (u32)(Rate - CurrRate);
 	}
+	return AbsDiff;
+}
 
 /** @} */

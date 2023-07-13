@@ -281,7 +281,7 @@ static XClock_TypeDiv Dividers[] = {
 *
 ******************************************************************************/
 static XStatus XClock_DivRecalcRate(u8 DivIndex, XClockRate ParentRate,
-							XClockRate *Rate)
+				    XClockRate *Rate)
 {
 	u32 Value;
 
@@ -329,15 +329,15 @@ static void XClock_DivInit(u8 DivIndex)
 	if (!Dividers[DivIndex].IsInit) {
 		/* Init parent */
 		ParentType = XCLOCK_FETCH_PARENT_TYPE
-						(Dividers[DivIndex].Parent);
+			     (Dividers[DivIndex].Parent);
 		ParentIdx = XCLOCK_FETCH_PARENT_INDEX
-						(Dividers[DivIndex].Parent);
+			    (Dividers[DivIndex].Parent);
 		XClock_InitClk((XClock_Types)ParentType, ParentIdx);
 
 		/* Set rate */
 		ParentRate = XClock_FetchRate((XClock_Types)ParentType, ParentIdx);
 		if (XST_SUCCESS !=
-			XClock_DivRecalcRate(DivIndex, ParentRate, &Rate)) {
+		    XClock_DivRecalcRate(DivIndex, ParentRate, &Rate)) {
 			return;
 		}
 
@@ -505,7 +505,7 @@ static XStatus XClock_DivFetchParent(XClock_Types *NodeType, u8 *DivIndex)
 *
 ******************************************************************************/
 static XStatus XClock_DivSetRate(u8 DivIndex, XClockRate ParentRate,
-			XClockRate Rate, XClockRate *SetRate, u8 DryRun)
+				 XClockRate Rate, XClockRate *SetRate, u8 DryRun)
 {
 	u8  Div;
 	u32 Value;
@@ -526,15 +526,15 @@ static XStatus XClock_DivSetRate(u8 DivIndex, XClockRate ParentRate,
 
 	if (!DryRun) {
 		if (XST_SUCCESS !=
-			XClock_ReadReg(Dividers[DivIndex].CtrlReg, &Value)) {
+		    XClock_ReadReg(Dividers[DivIndex].CtrlReg, &Value)) {
 			return XST_FAILURE;
 		}
 
 		Value &= ~(XCLOCK_VALUE_MASK(XCLOCK_DIVIDERS_BITWIDTH) <<
-						Dividers[DivIndex].Shift);
+			   Dividers[DivIndex].Shift);
 		Value |= Div << (Dividers[DivIndex].Shift);
 		if (XST_SUCCESS !=
-			XClock_WriteReg(Dividers[DivIndex].CtrlReg, Value)) {
+		    XClock_WriteReg(Dividers[DivIndex].CtrlReg, Value)) {
 			*SetRate = XCLOCK_INVALID_RATE;
 			return XST_FAILURE;
 		}

@@ -78,7 +78,7 @@ static XClock_TypeFixedFactor FixedFactors[] = {
 *
 ******************************************************************************/
 static XStatus XClock_FixedFactorRecalcRate(u8 FixFactIndex,
-					XClockRate ParentRate, XClockRate *Rate)
+		XClockRate ParentRate, XClockRate *Rate)
 {
 	/* Validate Index */
 	XCLOCK_VALIDATE_INDEX(FIXEDFACTOR, FixFactIndex);
@@ -115,17 +115,17 @@ static void XClock_FixedFactorInit(u8 FixFactIndex)
 	if (!FixedFactors[FixFactIndex].IsInit) {
 		/* Init parent */
 		ParentType = XCLOCK_FETCH_PARENT_TYPE
-					(FixedFactors[FixFactIndex].Parent);
+			     (FixedFactors[FixFactIndex].Parent);
 		ParentIdx = XCLOCK_FETCH_PARENT_INDEX
-					(FixedFactors[FixFactIndex].Parent);
+			    (FixedFactors[FixFactIndex].Parent);
 		XClock_InitClk((XClock_Types)ParentType, ParentIdx);
 
 		/* Set rate */
 		ParentRate = XClock_FetchRate((XClock_Types)ParentType, ParentIdx);
 		if (XST_SUCCESS !=
-		XClock_FixedFactorRecalcRate(FixFactIndex, ParentRate, &Rate)) {
+		    XClock_FixedFactorRecalcRate(FixFactIndex, ParentRate, &Rate)) {
 			xil_printf("Warning: Failed to Recalculate rate for "
-				"Fixedfactor at index %d", FixFactIndex);
+				   "Fixedfactor at index %d", FixFactIndex);
 			return;
 		}
 
@@ -158,9 +158,9 @@ static XStatus XClock_FixedFactorEnable(u8 FixFactIndex)
 
 	/* Fetch parent information */
 	ParentType = XCLOCK_FETCH_PARENT_TYPE
-					(FixedFactors[FixFactIndex].Parent);
+		     (FixedFactors[FixFactIndex].Parent);
 	ParentIdx = XCLOCK_FETCH_PARENT_INDEX
-					(FixedFactors[FixFactIndex].Parent);
+		    (FixedFactors[FixFactIndex].Parent);
 
 	/* Enable parent node */
 	if (XST_SUCCESS != XClock_EnableClkNode((XClock_Types)ParentType, ParentIdx)) {
@@ -201,9 +201,9 @@ static XStatus XClock_FixedFactorDisable(u8 FixFactIndex)
 
 	/* Fetch parent information */
 	ParentType = XCLOCK_FETCH_PARENT_TYPE
-					(FixedFactors[FixFactIndex].Parent);
+		     (FixedFactors[FixFactIndex].Parent);
 	ParentIdx = XCLOCK_FETCH_PARENT_INDEX
-					(FixedFactors[FixFactIndex].Parent);
+		    (FixedFactors[FixFactIndex].Parent);
 
 	/* Disable parent node */
 	if (XST_SUCCESS != XClock_DisableClkNode((XClock_Types)ParentType, ParentIdx)) {
@@ -231,7 +231,7 @@ static XStatus XClock_FixedFactorDisable(u8 FixFactIndex)
 *
 ******************************************************************************/
 static XStatus XClock_FixedFactorFetchParent(XClock_Types *NodeType,
-							u8 *FixFactIndex)
+		u8 *FixFactIndex)
 {
 	/* Validate Args */
 	XCLOCK_VALIDATE_PTR(NodeType);
@@ -239,9 +239,9 @@ static XStatus XClock_FixedFactorFetchParent(XClock_Types *NodeType,
 	XCLOCK_VALIDATE_INDEX(FIXEDFACTOR, *FixFactIndex);
 
 	*NodeType = (XClock_Types)XCLOCK_FETCH_PARENT_TYPE
-					(FixedFactors[*FixFactIndex].Parent);
+		    (FixedFactors[*FixFactIndex].Parent);
 	*FixFactIndex = XCLOCK_FETCH_PARENT_INDEX
-					(FixedFactors[*FixFactIndex].Parent);
+			(FixedFactors[*FixFactIndex].Parent);
 
 	return XST_SUCCESS;
 }
@@ -296,17 +296,17 @@ static void XClock_FixedFactorUpdateRate(u8 FixFactIndex)
 
 	/* Fetch parent */
 	ParentType = XCLOCK_FETCH_PARENT_TYPE
-					(FixedFactors[FixFactIndex].Parent);
+		     (FixedFactors[FixFactIndex].Parent);
 	ParentIdx = XCLOCK_FETCH_PARENT_INDEX
-					(FixedFactors[FixFactIndex].Parent);
+		    (FixedFactors[FixFactIndex].Parent);
 	XClock_UpdateRate((XClock_Types)ParentType, ParentIdx);
 
 	/* Set rate */
 	ParentRate = XClock_FetchRate((XClock_Types)ParentType, ParentIdx);
 	if (XST_SUCCESS !=
-		XClock_FixedFactorRecalcRate(FixFactIndex, ParentRate, &Rate)) {
+	    XClock_FixedFactorRecalcRate(FixFactIndex, ParentRate, &Rate)) {
 		xil_printf("Warning: Failed to Recalculate rate for "
-				"Fixedfactor at index %d", FixFactIndex);
+			   "Fixedfactor at index %d", FixFactIndex);
 		return;
 	}
 
@@ -329,17 +329,17 @@ void XClock_FixedFactorRegisterFuncs(void)
 {
 	/* Register functions */
 	XClock_NodeInit[XCLOCK_TYPE_FIXEDFACTOR]        =
-						&XClock_FixedFactorInit;
+		&XClock_FixedFactorInit;
 	XClock_NodeEnable[XCLOCK_TYPE_FIXEDFACTOR]      =
-						&XClock_FixedFactorEnable;
+		&XClock_FixedFactorEnable;
 	XClock_NodeDisable[XCLOCK_TYPE_FIXEDFACTOR]     =
-						&XClock_FixedFactorDisable;
+		&XClock_FixedFactorDisable;
 	XClock_NodeFetchParent[XCLOCK_TYPE_FIXEDFACTOR] =
-						&XClock_FixedFactorFetchParent;
+		&XClock_FixedFactorFetchParent;
 	XClock_NodeGetRate[XCLOCK_TYPE_FIXEDFACTOR]     =
-						&XClock_FixedFactorGetRate;
+		&XClock_FixedFactorGetRate;
 	XClock_NodeUpdateRate[XCLOCK_TYPE_FIXEDFACTOR]  =
-						&XClock_FixedFactorUpdateRate;
+		&XClock_FixedFactorUpdateRate;
 }
 /*****************************************************************************/
 /*
