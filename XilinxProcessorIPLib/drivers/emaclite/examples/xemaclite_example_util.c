@@ -91,11 +91,11 @@ u32 EmacLitePhyDetect(XEmacLite *InstancePtr)
 	 */
 	for (PhyAddr = 31; PhyAddr >= 0; PhyAddr--) {
 		XEmacLite_PhyRead(InstancePtr, PhyAddr, PHY_REG1_OFFSET,
-				 &PhyData);
+				  &PhyData);
 
 		if (PhyData != 0xFFFF) {
 			if ((PhyData & PHY_REG1_DETECT_MASK) ==
-			PHY_REG1_DETECT_MASK) {
+			    PHY_REG1_DETECT_MASK) {
 				return PhyAddr;	/* Found a valid PHY device */
 			}
 		}
@@ -131,7 +131,7 @@ int EmacLiteEnablePhyLoopBack(XEmacLite *InstancePtr, u32 PhyAddress)
 	 */
 	PhyData |= PHY_REG0_SPD_100_MASK;
 	Status = XEmacLite_PhyWrite(InstancePtr, PhyAddress, PHY_REG0_OFFSET,
-			PhyData | PHY_REG0_RESET_MASK);
+				    PhyData | PHY_REG0_RESET_MASK);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -145,7 +145,7 @@ int EmacLiteEnablePhyLoopBack(XEmacLite *InstancePtr, u32 PhyAddress)
 	 * Set the PHY in loop back.
 	 */
 	XEmacLite_PhyWrite(InstancePtr, PhyAddress, PHY_REG0_OFFSET,
-			PhyData | PHY_REG0_LOOPBACK_MASK);
+			   PhyData | PHY_REG0_LOOPBACK_MASK);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -182,13 +182,13 @@ int EmacLiteDisablePhyLoopBack(XEmacLite *InstancePtr, u32 PhyAddress)
 	 * Disable loop back through PHY register using MDIO support.
 	 */
 	Status = XEmacLite_PhyRead(InstancePtr, PhyAddress, PHY_REG0_OFFSET,
-					&PhyData);
+				   &PhyData);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	Status = XEmacLite_PhyWrite(InstancePtr,PhyAddress, PHY_REG0_OFFSET,
-					PhyData & ~(PHY_REG0_LOOPBACK_MASK));
+	Status = XEmacLite_PhyWrite(InstancePtr, PhyAddress, PHY_REG0_OFFSET,
+				    PhyData & ~(PHY_REG0_LOOPBACK_MASK));
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
