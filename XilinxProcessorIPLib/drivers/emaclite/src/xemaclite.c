@@ -112,11 +112,18 @@ int XEmacLite_CfgInitialize(XEmacLite *InstancePtr,
 	 * is ready to use until everything has been initialized successfully.
 	 */
 	InstancePtr->EmacLiteConfig.BaseAddress = EffectiveAddr;
+#ifndef SDT
 	InstancePtr->EmacLiteConfig.DeviceId = EmacLiteConfigPtr->DeviceId;
+#endif
 	InstancePtr->EmacLiteConfig.TxPingPong = EmacLiteConfigPtr->TxPingPong;
 	InstancePtr->EmacLiteConfig.RxPingPong = EmacLiteConfigPtr->RxPingPong;
 	InstancePtr->EmacLiteConfig.MdioInclude = EmacLiteConfigPtr->MdioInclude;
 	InstancePtr->EmacLiteConfig.Loopback = EmacLiteConfigPtr->Loopback;
+
+#ifdef SDT
+	InstancePtr->EmacLiteConfig.IntrId = EmacLiteConfigPtr->IntrId;
+	InstancePtr->EmacLiteConfig.IntrParent = EmacLiteConfigPtr->IntrParent;
+#endif
 
 	InstancePtr->NextTxBufferToUse = 0x0;
 	InstancePtr->NextRxBufferToUse = 0x0;
