@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,7 +58,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifdef SDT
+#define EMACLITE_BASEADDR	XPAR_XEMACLITE_0_BASEADDR
+#else
 #define EMAC_DEVICE_ID		  XPAR_EMACLITE_0_DEVICE_ID
+#endif
 
 /*
  * Change this parameter to limit the number of ping replies sent by this
@@ -124,7 +129,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifdef SDT
+static int EmacLitePingReplyExample(UINTPTR BaseAddress);
+#else
 static int EmacLitePingReplyExample(u16 DeviceId);
+#endif
 
 static void ProcessRecvFrame(XEmacLite *InstancePtr);
 
@@ -190,7 +199,11 @@ int main()
 	/*
 	 * Run the EmacLite Ping reply example.
 	 */
+#ifdef SDT
+	Status = EmacLitePingReplyExample(EMACLITE_BASEADDR);
+#else
 	Status = EmacLitePingReplyExample(EMAC_DEVICE_ID);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Emaclite ping reply Example Failed\r\n");
 		return XST_FAILURE;
@@ -214,7 +227,11 @@ int main()
 *		ping replies as defined by MAX_PING_REPLIES.
 *
 ******************************************************************************/
+#ifdef SDT
+static int EmacLitePingReplyExample(UINTPTR BaseAddress)
+#else
 int EmacLitePingReplyExample(u16 DeviceId)
+#endif
 {
 	int Status;
 	XEmacLite *EmacLiteInstPtr = &EmacLiteInstance;
@@ -224,7 +241,11 @@ int EmacLitePingReplyExample(u16 DeviceId)
 	/*
 	 * Initialize the EmacLite device.
 	 */
+#ifdef SDT
+	ConfigPtr = XEmacLite_LookupConfig(BaseAddress);
+#else
 	ConfigPtr = XEmacLite_LookupConfig(DeviceId);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}

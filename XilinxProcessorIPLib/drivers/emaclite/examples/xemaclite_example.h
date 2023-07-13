@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,7 +65,11 @@ extern "C" {
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifdef SDT
+#define EMACLITE_BASEADDR	XPAR_XEMACLITE_0_BASEADDR
+#else
 #define EMAC_DEVICE_ID		XPAR_EMACLITE_0_DEVICE_ID
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

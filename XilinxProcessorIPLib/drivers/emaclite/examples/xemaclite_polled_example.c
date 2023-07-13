@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,7 +62,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifdef SDT
+int EmacLitePolledExample(UINTPTR BaseAddress);
+#else
 int EmacLitePolledExample(u16 DeviceId);
+#endif
 
 static int EmacLiteSendFrame(XEmacLite *InstancePtr, u32 PayloadSize);
 
@@ -103,7 +108,11 @@ int main()
 	 * Run the EmacLite Polled example, specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
+#ifdef SDT
+	Status = EmacLitePolledExample(EMACLITE_BASEADDR);
+#else
 	Status = EmacLitePolledExample(EMAC_DEVICE_ID);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Emaclite polled Example Failed\r\n");
 		return XST_FAILURE;
@@ -133,7 +142,11 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
+#ifdef SDT
+int EmacLitePolledExample(UINTPTR BaseAddress)
+#else
 int EmacLitePolledExample(u16 DeviceId)
+#endif
 {
 	int Status;
 	XEmacLite *EmacLiteInstPtr = &EmacLiteInstance;
@@ -144,7 +157,11 @@ int EmacLitePolledExample(u16 DeviceId)
 	/*
 	 * Initialize the EmacLite device.
 	 */
+#ifdef SDT
+	ConfigPtr = XEmacLite_LookupConfig(BaseAddress);
+#else
 	ConfigPtr = XEmacLite_LookupConfig(DeviceId);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
