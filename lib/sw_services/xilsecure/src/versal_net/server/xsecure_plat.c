@@ -18,6 +18,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 5.0   bm      07/06/22 Initial release
 * 5.2   yog     07/10/23 Added support of unaligned data sizes for Versal Net
+*       kpt     07/09/23 Added XSecure_GetRandomNum function
 *
 * </pre>
 *
@@ -27,6 +28,8 @@
 #include "xsecure_sha_hw.h"
 #include "xsecure_sss.h"
 #include "xsecure_sha.h"
+#include "xsecure_trng.h"
+#include "xsecure_plat_kat.h"
 #ifdef VERSALNET_PLM
 #include "xplmi_plat.h"
 #endif
@@ -224,6 +227,7 @@ static void XSecure_UpdateEcdsaCryptoStatus(u32 Op)
 	(void)Op;
 #endif
 }
+
 /*****************************************************************************/
 /**
  *
@@ -540,4 +544,56 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 	ConfigValues.EndianType = EndianType;
 	/* Updates the PmcDma's channel with XPmcDma_Configure structure values */
 	XPmcDma_SetConfig(InstancePtr, Channel, &ConfigValues);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function generates Random number of given size
+ *
+ * @param Output is pointer to the output buffer
+ * @param Size is the number of random bytes to be read
+ *
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *  -   XST_FAILURE - On Failure
+ *
+ *****************************************************************************/
+int XSecure_GetRandomNum(u8 *Output, u32 Size)
+{
+	volatile int Status = XST_FAILURE;
+	u8 *RandBufPtr = Output;
+	u32 TotalSize = Size;
+	u32 RandBufSize = XSECURE_TRNG_SEC_STRENGTH_IN_BYTES;
+	u32 Index = 0U;
+	u32 NoOfGenerates = (Size + XSECURE_TRNG_SEC_STRENGTH_IN_BYTES - 1U) >> 5U;
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+
+	if ((TrngInstance->UserCfg.Mode != XSECURE_TRNG_HRNG_MODE) ||
+		(TrngInstance->State == XSECURE_TRNG_UNINITIALIZED_STATE)) {
+			if (TrngInstance->ErrorState != XSECURE_TRNG_HEALTHY) {
+				Status = XSecure_TrngPreOperationalSelfTests(TrngInstance);
+				if (Status != XST_SUCCESS) {
+					goto END;
+				}
+			}
+		Status = XSecure_TrngInitNCfgHrngMode();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	for (Index = 0U; Index < NoOfGenerates; Index++) {
+		if (Index == (NoOfGenerates - 1U)) {
+			RandBufSize = TotalSize;
+		}
+		Status = XSecure_TrngGenerate(TrngInstance, RandBufPtr, RandBufSize);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		RandBufPtr += RandBufSize;
+		TotalSize -= RandBufSize;
+	}
+
+END:
+	return Status;
 }

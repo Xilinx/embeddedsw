@@ -21,6 +21,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   bm   07/06/22 Initial release
 * 5.2   yog  07/10/23 Added support of unaligned data sizes for Versal Net
+*       kpt  07/09/23 Added XSecure_GetRandomNum function
 *
 * </pre>
 *
@@ -95,6 +96,7 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDm
 void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
        XPmcDma_Channel Channel, u8 EndianType);
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
+int XSecure_GetRandomNum(u8 *Output, u32 Size);
 
 /***************************** Variable Prototypes  ***************************/
 

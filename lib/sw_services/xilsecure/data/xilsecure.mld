@@ -58,6 +58,7 @@ BEGIN LIBRARY xilsecure
   PARAM name = repcounttestcutoff, desc = " Cutoff value to run repetitive health tests", type = int, default = 66;
   PARAM name = xsecure_elliptic_endianness, desc = "Data endianness selection for elliptic curve APIs \n of Versal and Versal Net\n this selection is applicable only for server mode", type = enum, values = (xsecure_ecc_endianess = "littleendian", xsecure_ecc_endianess = "bigendian"), default = "littleendian";
   PARAM name = ecc_support_nist_p256, desc = "Enables/Disables P-256 curve support", type = enum, values = (ecc_support_nist_p256 = "true", ecc_support_nist_p256 = "false"), default = "false";
+  PARAM name = xsecure_rsa_key_size, desc = "RSA key size for key generation \n this selection is only applicable for Versal Net", type = enum, values = (xsecure_rsa_key_size = "RSA_2048_KEY_SIZE",xsecure_rsa_key_size = "RSA_3072_KEY_SIZE", xsecure_rsa_key_size = "RSA_4096_KEY_SIZE"), default = "RSA_3072_KEY_SIZE";
   #deprecated parameters
   PARAM name = nonsecure_ipi_access, state = DEPRECATED, desc = "Deprecated in 2023.2 release", type = bool, default = false;
 END LIBRARY
