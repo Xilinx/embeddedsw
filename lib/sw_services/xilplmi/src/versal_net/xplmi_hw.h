@@ -878,6 +878,16 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_PMC_WDT_DEVICE_ID		XPAR_WDTTB_6_DEVICE_ID
 #endif
 
+#if ((defined(XPAR_IICPS_0_BASEADDR) &&\
+		  (XPAR_IICPS_0_BASEADDR == 0xF1000000U)) ||\
+	(defined(XPAR_IICPS_1_BASEADDR) &&\
+				(XPAR_IICPS_1_BASEADDR == 0xF1000000U)) ||\
+	(defined(XPAR_IICPS_2_BASEADDR) &&\
+			 (XPAR_IICPS_2_BASEADDR == 0xF1000000U)))
+#define XLOADER_PMC_IIC
+
+#endif
+
 /*
  * Definitions required from crp.h
  */

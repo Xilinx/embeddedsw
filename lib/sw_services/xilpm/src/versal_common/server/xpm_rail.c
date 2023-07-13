@@ -27,7 +27,12 @@
 
 static XIicPs IicInstance;
 
-static XStatus I2CInitialize(XIicPs *Iic)
+XIicPs *XPmRail_GetIicInstance(void)
+{
+        return &IicInstance;
+}
+
+XStatus I2CInitialize(XIicPs *Iic)
 {
 	XStatus Status = XST_FAILURE;
 	XIicPs_Config *Config;
