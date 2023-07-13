@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *                       function named "XClock_Absolute_Difference".
 * 1.2   sd     02/13/20 Rename ARRAY_SIZE
 * 1.4   sd     12/02/21 Fix compilation warnings reported with "-Wundef" flag.
+* 1.5   sd     07/10/23 Added SDT support
 * </pre>
 *
 ******************************************************************************/
@@ -187,7 +188,12 @@ typedef u32 XClockRate;
 
 /* This typedef contains configuration information for the device */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;                    /**< Unique ID of device */
+#else
+	char *Name;
+	u32 BaseAddress;
+#endif
 } XClockPs_Config;
 
 /**
@@ -653,7 +659,11 @@ void XClock_UpdateRate(XClock_Types NodeType, u8 NodeIdx);
 XClockRate XClock_FetchRate(XClock_Types NodeType, u8 NodeIdx);
 
 /* APIs */
+#ifndef SDT
 XClockPs_Config *XClock_LookupConfig(u16 DeviceId);
+#else
+XClockPs_Config *XClock_LookupConfig(u32 BaseAddress);
+#endif
 XStatus XClock_CfgInitialize(XClock *InstancePtr, XClockPs_Config *ConfigPtr);
 XStatus XClock_EnableClock(XClock_OutputClks ClockId);
 XStatus XClock_DisableClock(XClock_OutputClks ClockId);
