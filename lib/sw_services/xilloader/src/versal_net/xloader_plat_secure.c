@@ -28,6 +28,7 @@
 *		dd	 03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       sk   06/12/2023 Renamed XLoader_UpdateKekSrc to XLoader_GetKekSrc
+* 1.9   kpt  07/12/2023 Added mask generation function
 *
 * </pre>
 *
@@ -48,6 +49,7 @@
 #ifndef PLM_SECURE_EXCLUDE
 #include "xsecure_init.h"
 #include "xsecure_error.h"
+#include "xsecure_mgf.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_EFUSE_OBFUS_KEY		(0xA5C3C5A7U) /**< eFuse obfuscated key */
@@ -351,8 +353,37 @@ END:
 
 	return Status;
 }
-#endif
 
+/*****************************************************************************/
+/**
+ * @brief	Mask generation function with SHA3.
+ *
+ * @param	Sha3InstancePtr is pointer to the XSecure_Sha3 instance.
+ * @param	Out is pointer in which output of this function will be stored.
+ * @param	OutLen specifies the required length.
+ * @param	Input is pointer which holds the input data for	which mask should
+ * 			be calculated which should be 48 bytes length.
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- Errorcode on failure.
+ *
+ ******************************************************************************/
+int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
+	u8 * Out, u32 OutLen, u8 *Input)
+{
+	int Status = XST_FAILURE;
+	XSecure_MgfInput MgfInput;
+
+	MgfInput.Seed = Input;
+	MgfInput.SeedLen = XLOADER_SHA3_LEN;
+	MgfInput.Output = Out;
+	MgfInput.OutputLen = OutLen;
+	Status = XSecure_MaskGenFunc(XSECURE_SHA3_384, Sha3InstancePtr, &MgfInput);
+
+	return Status;
+}
+#endif
 
 /*****************************************************************************/
 /**
