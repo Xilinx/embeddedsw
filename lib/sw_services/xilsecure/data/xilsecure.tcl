@@ -23,7 +23,8 @@
 # 5.0   bm   07/06/22 Refactor versal and versal_net code
 #       am   07/24/22 Added support for a78 and r52 processors of VersalNet
 # 5.1   vns  02/09/23 Modified secure_environment to xsecure_environment
-# 5.2   bm  06/23/23  Deprecated nonsecure_ipi_access parameter
+# 5.2   bm   06/23/23 Deprecated nonsecure_ipi_access parameter
+#       kpt  07/13/23 Added mld param for keywrap rsa key size
 #
 ##############################################################################
 
@@ -120,6 +121,8 @@ proc secure_drc {libhandle} {
 						file delete -force ./src/xsecure_plat_ipihandler.h
 						file delete -force ./src/xsecure_sha384.c
 						file delete -force ./src/xsecure_sha384.h
+						file delete -force ./src/xsecure_keyunwrap.c
+						file delete -force ./src/xsecure_keyunwrap.h
 					}
 				}
 			}
@@ -326,7 +329,7 @@ proc xgen_opts_file {libhandle} {
 		set value [common::get_property CONFIG.repcounttestcutoff $libhandle]
 		puts $file_handle "\n/* TRNG repetitive prop test cutoff value*/"
 		puts $file_handle [format %s%d%s "#define XSECURE_TRNG_REP_TEST_CUTOFF " [expr $value]  "U"]
-		set value [common::get_property CONFIG.xsecure_rsa_key_size $libhandle]
+		set value [common::get_property CONFIG.xsecure_rsa_key_size_keywrap $libhandle]
 		puts $file_handle "\n/* RSA Key size for key pair generation */"
 		if {$value == "RSA_2048_KEY_SIZE"} {
 			set keysize 256

@@ -21,6 +21,7 @@
 *       dc   08/26/22 Removed gaps in between the API IDs
 * 5.1   kpt  01/04/22 Add macros related to KAT for external modules
 * 5.2   vns  07/06/23 Added separate IPI commands for Crypto Status and KAT status updates
+*       kpt  07/09/23 Added Key wrap and unwrap structures and macros
 *
 * </pre>
 * @note
@@ -47,6 +48,8 @@ extern "C" {
 
 #define XSECURE_WORD_LEN		(4U) /**< Word length */
 #define XSECURE_ADDR_HIGH_SHIFT		(32U) /**< Shift for getting higher address*/
+
+#define XSECURE_KEY_ID_LEN_IN_BYTES (128U) /**< Key id length in bytes */
 
 /************************** Variable Definitions *****************************/
 
@@ -87,7 +90,9 @@ typedef enum {
 	XSECURE_API_UPDATE_PCIDE_KAT_STATUS,	/**< 31U */
 	XSECURE_API_UPDATE_PKI_KAT_STATUS,	/**< 32U */
 	XSECURE_API_GEN_SHARED_SECRET,		/**< 33U */
-	XSECURE_API_MAX,			/**< 34U */
+	XSECURE_API_GET_KEY_WRAP_RSA_PUBLIC_KEY,	/**< 34U */
+	XSECURE_API_KEY_UNWRAP,                 	/**< 35U */
+	XSECURE_API_MAX,							/**< 36U */
 } XSecure_ApiId;
 
 /**< XilSecure KAT ids */
@@ -258,6 +263,28 @@ typedef enum {
 	XSECURE_CRYPTO_STATUS_SET = 0U, /**< 0U */
 	XSECURE_CRYPTO_STATUS_CLEAR, /**< 1U */
 }XSecure_CryptoStatusOp;
+
+typedef enum {
+	XSECURE_ENC_OP = 0U,	/**< Encryption operation */
+	XSECURE_DEC_OP,			/**< Decryption operation */
+} XSecure_KeyOp;
+
+typedef struct {
+	XSecure_KeyOp KeyOp; /**< Key Operation */
+	u32 AesKeySize;      /**< AES Key size */
+	u8 KeyId[XSECURE_KEY_ID_LEN_IN_BYTES];      /**< Unique ID to identify key */
+} XSecure_KeyMetaData;
+
+typedef struct {
+	XSecure_KeyMetaData KeyMetaData; /**< Key Meta data */
+	u64 KeyWrapAddr;	/**< Key Wrap address */
+	u32 TotalWrappedKeySize; /**< Total Wrapped key size */
+} XSecure_KeyWrapData;
+
+typedef struct {
+	u64 ModulusAddr;	/**< Modulus address */
+	u64 ExponentAddr;	/**< Exponent address */
+} XSecure_RsaPubKeyAddr;
 
 #ifdef __cplusplus
 }

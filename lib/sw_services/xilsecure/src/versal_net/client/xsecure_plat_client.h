@@ -19,7 +19,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.1   kpt  01/14/23 Initial release
-* 5.2   vns  07/07/2023 Added separate IPI commands for Crypto Status update
+* 5.2   vns  07/07/23 Added separate IPI commands for Crypto Status update
+*       kpt  07/09/23 Added APIs related to Key wrap and unwrap
 *
 * </pre>
 * @note
@@ -45,6 +46,7 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
+
 int XSecure_UpdateHnicCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp,
 	 u32 CryptoMask);
 int XSecure_UpdateCpm5NCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp,
@@ -53,6 +55,9 @@ int XSecure_UpdatePkiCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_C
 	 u32 CryptoMask);
 int XSecure_UpdatePcideCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp,
 	 u32 CryptoMask);
+int XSecure_GetRsaPublicKeyForKeyWrap(XSecure_ClientInstance *InstancePtr, XSecure_RsaPubKeyAddr *PubKey);
+int XSecure_KeyUnwrap(XSecure_ClientInstance *InstancePtr, XSecure_KeyWrapData *KeyWrapData);
+
 #ifdef __cplusplus
 }
 #endif

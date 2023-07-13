@@ -33,12 +33,18 @@
 #include "xil_util.h"
 #include "xplmi_plat.h"
 #include "xsecure_plat_ipihandler.h"
+#include "xsecure_keyunwrap.h"
+#include "xsecure_plat_rsa.h"
 
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes *****************************/
 
 static int XSecure_UpdateCryptoMask(XSecure_CryptoStatusOp CryptoOp, u32 CryptoMask, u32 CryptoVal);
+#ifndef PLM_RSA_EXCLUDE
+static int XSecure_GetRsaPublicKeyIpi(u32 PubKeyAddrHigh, u32 PubKeyAddrLow);
+static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrHigh, u32 KeyWrapAddrLow);
+#endif
 
 /*****************************************************************************/
 /**
@@ -55,7 +61,7 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
-	u32 CryptoMask;
+	u32 CryptoMask = 0U;
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_UPDATE_HNIC_CRYPTO_STATUS):
@@ -70,6 +76,14 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_UPDATE_PKI_CRYPTO_STATUS):
 		CryptoMask = XPLMI_SECURE_PKI_CRYPTO_MASK;
 		break;
+#ifndef PLM_RSA_EXCLUDE
+	case XSECURE_API(XSECURE_API_GET_KEY_WRAP_RSA_PUBLIC_KEY):
+		Status = XSecure_GetRsaPublicKeyIpi(Pload[0U], Pload[1U]);
+		break;
+	case XSECURE_API(XSECURE_API_KEY_UNWRAP):
+		Status = XSecure_KeyUnwrapIpi(Pload[0U], Pload[1U]);
+		break;
+#endif
 	default:
 		CryptoMask = 0U;
 		break;
@@ -117,3 +131,79 @@ static int XSecure_UpdateCryptoMask(XSecure_CryptoStatusOp CryptoOp, u32 CryptoM
 END:
 	return Status;
 }
+
+#ifndef PLM_RSA_EXCLUDE
+
+/*****************************************************************************/
+/**
+ * @brief   The function returns the public key of RSA key pair generated for
+ *          Key Wrap/Unwrap operation.
+ *
+ * @param   PubKeyAddrHigh   - Higher address of the RsaPubKeyAddr structure.
+ * @param   PubKeyAddrLow    - Lower address of the RsaPubKeyAddr structure.
+ *
+ * @return
+	-	XST_SUCCESS - On Success
+ *	-	ErrorCode - On failure
+ *
+ ******************************************************************************/
+ int XSecure_GetRsaPublicKeyIpi(u32 PubKeyAddrHigh, u32 PubKeyAddrLow)
+{
+	volatile int Status = XST_FAILURE;
+	u64 PubKeyAddr = ((u64)PubKeyAddrHigh << 32U) | (u64)PubKeyAddrLow;
+	XSecure_RsaKey *RsaPubKey =  XSecure_GetRsaPublicKey();
+	XSecure_RsaPubKeyAddr RsaPubKeyAddr = {0U};
+	u32 PubExp = 0U;
+
+	if (RsaPubKey == NULL) {
+		goto END;
+	}
+
+	/**< TODO- Need to check whether public key is generated */
+
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&RsaPubKeyAddr, PubKeyAddr, sizeof(XSecure_RsaPubKeyAddr));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XPlmi_MemCpy64(RsaPubKeyAddr.ModulusAddr, (u64)(UINTPTR)RsaPubKey->Modulus, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	PubExp = Xil_In32((u32)(UINTPTR)RsaPubKey->Exponent);
+	XPlmi_Out64(RsaPubKeyAddr.ExponentAddr, PubExp);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function unwraps the input wrapped key and copies to secure shell.
+ *
+ * @param   KeyWrapAddrHigh   - Higher address of the XSecure_KeyWrapData structure.
+ * @param   KeyWrapAddrLow    - Lower address of the XSecure_KeyWrapData structure.
+ *
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *	-	ErrorCode - On failure
+ *
+ ******************************************************************************/
+static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrHigh, u32 KeyWrapAddrLow)
+{
+	volatile int Status = XST_FAILURE;
+	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(0U);
+	u64 KeyWrapAddr = ((u64)KeyWrapAddrHigh << 32U) | (u64)KeyWrapAddrLow;
+	XSecure_KeyWrapData KeyWrapData = {0U};
+
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&KeyWrapData, KeyWrapAddr, sizeof(XSecure_KeyWrapData));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_KeyUnwrap(&KeyWrapData, PmcDmaPtr);
+END:
+	return Status;
+}
+
+#endif

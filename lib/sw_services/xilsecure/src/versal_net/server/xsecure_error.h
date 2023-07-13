@@ -36,6 +36,7 @@
  * 5.1   har  01/02/2023 Added error code for SHA2
  * 5.2   am   06/22/2023 Added KAT error code
  *       kpt  07/09/2023 Added error codes for RSA OAEP
+ *       kpt  07/10/2023 Added error code for key unwrap
  *
  * </pre>
  *
@@ -228,6 +229,11 @@ typedef enum {
 	XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_64BIT_ERROR, /**< 0xD4 - Generate Signature error for KAT */
 	XSECURE_ELLIPTIC_KAT_64BIT_SIGN_VERIFY_ERROR,	/**< 0xD5 - Signature verify error for KAT */
 
+	/* Error codes related to key unwrap */
+	XSECURE_ERR_KEY_STORE_SIZE = 0xE0,         /**< 0xE0 - Key store size error */
+	XSECURE_ERR_NO_FREE_KEY_SLOT,              /**< 0xE1 - No free key slot available to store the key */
+	XSECURE_ERR_KEY_WRAP_SIZE_MISMATCH,        /**< 0xE2 - Key size mismatch between wrap and unwrap */
+	XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED,    /**< 0xE3 - AES key size is not supported */
 	XSECURE_ERR_CODE_RESERVED = 0xF0,	/**< 0xF0 -
 	                    Till 2022.1 - No tamper response when tamper interrupt is detected
 	                    From 2022.2 - Reserved */
