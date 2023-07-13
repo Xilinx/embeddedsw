@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    2/20/18 First release
+* 1.5   sd     07/10/23 Added SDT support
 * </pre>
 *
 ******************************************************************************/
@@ -29,7 +31,9 @@
 #include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
+#ifndef SDT
 #define CLOCK_DEVICE_ID              (XPAR_XCLOCKPS_DEVICE_ID)
+#endif
 #define XCLOCK_I2C0_REF_RATE1        (1428428)
 #define XCLOCK_I2C0_REF_RATE2        (33330000)
 
@@ -38,7 +42,11 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 static XStatus ClockPsExample(XClock *ClockInstancePtr, u16 ClockDevId);
+#else
+static XStatus ClockPsExample(XClock *ClockInstancePtr, u32 BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 XClock ClockInstance;		/* Instance of clock Controller */
@@ -62,7 +70,11 @@ int main(void)
 	xil_printf("Clock Example Test\r\n");
 
 	/* Execute clock operations */
+#ifndef SDT
 	Status = ClockPsExample(&ClockInstance, CLOCK_DEVICE_ID);
+#else
+	Status = ClockPsExample(&ClockInstance, XPAR_PSU_CRL_APB_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Clock Test Failed\r\n");
 		return XST_FAILURE;
@@ -87,13 +99,21 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 static XStatus ClockPsExample(XClock *ClockInstancePtr, u16 ClockDeviceId)
+#else
+static XStatus ClockPsExample(XClock *ClockInstancePtr, u32 BaseAddress)
+#endif
 {
 	XStatus    Status;
 	XClockRate Rate;
 
 	/* Lookup clock configurations */
+#ifndef SDT
 	ConfigPtr = XClock_LookupConfig(ClockDeviceId);
+#else
+	ConfigPtr = XClock_LookupConfig(BaseAddress);
+#endif
 
 	/* Initialize the Clock controller driver */
 	Status = XClock_CfgInitialize(ClockInstancePtr, ConfigPtr);
