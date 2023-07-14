@@ -522,8 +522,11 @@ static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress)
 {
 	XScuGic_Config *CfgPtr = NULL;
 	u32 Index;
-
-	for (Index = 0U; Index < XPAR_SCUGIC_NUM_INSTANCES; Index++) {
+#ifndef SDT
+        for (Index = 0U; Index < XPAR_SCUGIC_NUM_INSTANCES; Index++) {
+#else
+        for (Index = 0U; XScuGic_ConfigTable[Index].Name != NULL; Index++) {
+#endif
 		if (XScuGic_ConfigTable[Index].CpuBaseAddress ==
 				CpuBaseAddress) {
 			CfgPtr = &XScuGic_ConfigTable[Index];
