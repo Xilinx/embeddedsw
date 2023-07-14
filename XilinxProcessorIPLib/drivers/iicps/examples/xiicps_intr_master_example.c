@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.00a jz  01/30/10 First release
+ * 3.18  gm  07/14/23 Added SDT support.
  *
  * </pre>
  *
@@ -31,6 +32,9 @@
 #include "xscugic.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions ******************************/
 
@@ -39,9 +43,13 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define IIC_INT_VEC_ID		XPAR_XIICPS_0_INTR
+#else
+#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR
+#endif
 
 /*
  * The slave address to send to and receive from.
@@ -61,15 +69,21 @@
 
 /************************** Function Prototypes *******************************/
 
+#ifndef SDT
 int IicPsMasterIntrExample(u16 DeviceId);
 static int SetupInterruptSystem(XIicPs *IicPsPtr);
+#else
+int IicPsMasterIntrExample(UINTPTR BaseAddress);
+#endif
 
 void Handler(void *CallBackRef, u32 Event);
 
 /************************** Variable Definitions ******************************/
 
 XIicPs Iic;			/* Instance of the IIC Device */
+#ifndef SDT
 XScuGic InterruptController;	/* Instance of the Interrupt Controller */
+#endif
 
 /*
  * The following buffers are used in this example to send and receive data
@@ -107,7 +121,11 @@ int main(void)
 	 * Run the Iic Master Interrupt example , specify the Device ID that is
 	 * generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = IicPsMasterIntrExample(IIC_DEVICE_ID);
+#else
+	Status = IicPsMasterIntrExample(XIICPS_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("IIC Master Interrupt Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -140,7 +158,11 @@ int main(void)
 * working it may never return.
 *
 *******************************************************************************/
+#ifndef SDT
 int IicPsMasterIntrExample(u16 DeviceId)
+#else
+int IicPsMasterIntrExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XIicPs_Config *Config;
@@ -153,7 +175,11 @@ int IicPsMasterIntrExample(u16 DeviceId)
 	 * Initialize the IIC driver so that it's ready to use
 	 * Look up the configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Config = XIicPs_LookupConfig(DeviceId);
+#else
+	Config = XIicPs_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
@@ -175,7 +201,14 @@ int IicPsMasterIntrExample(u16 DeviceId)
 	 * Connect the IIC to the interrupt subsystem such that interrupts can
 	 * occur. This function is application specific.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(&Iic);
+#else
+	Status = XSetupInterruptSystem(&Iic, XIicPs_MasterInterruptHandler,
+					Config->IntrId,
+					Config->IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -305,6 +338,7 @@ void Handler(void *CallBackRef, u32 Event)
 	}
 }
 
+#ifndef SDT
 /******************************************************************************/
 /**
 *
@@ -378,3 +412,4 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr)
 
 	return XST_SUCCESS;
 }
+#endif

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
  * ----- --- -------- 	-----------------------------------------------
  * 1.00a sdm 05/30/11 	First release
  * 3.13  rna 02/05/21   Changed XIicPs global variable name
+ * 3.18  gm  07/14/23   Added SDT support.
  *
  * </pre>
  *
@@ -35,14 +36,22 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID
+#else
+#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR
+#endif
 
 
 /**************************** Type Definitions ********************************/
 
 /************************** Function Prototypes *******************************/
 
+#ifndef SDT
 int IicPsSelfTestExample(u16 DeviceId);
+#else
+int IicPsSelfTestExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions ******************************/
 
@@ -70,7 +79,11 @@ int main(void)
 	 * Run the Iic Self Test example, specify the Device ID that is
 	 * generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = IicPsSelfTestExample(IIC_DEVICE_ID);
+#else
+	Status = IicPsSelfTestExample(XIICPS_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("IIC Self Test Failed\r\n");
 		return XST_FAILURE;
@@ -98,7 +111,11 @@ int main(void)
 *
 *
 *******************************************************************************/
+#ifndef SDT
 int IicPsSelfTestExample(u16 DeviceId)
+#else
+int IicPsSelfTestExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XIicPs_Config *Config;
@@ -107,7 +124,11 @@ int IicPsSelfTestExample(u16 DeviceId)
 	 * Initialize the IIC driver so that it's ready to use
 	 * Look up the configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Config = XIicPs_LookupConfig(DeviceId);
+#else
+	Config = XIicPs_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.00a jz  01/30/10 First release
+ * 3.18  gm  07/14/23 Added SDT support.
  *
  * </pre>
  *
@@ -31,6 +32,9 @@
 #include "xscugic.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions ******************************/
 
@@ -39,8 +43,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-
+#ifndef SDT
 #define INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
+#endif
 
 #define IIC_SCLK_RATE		100000
 #define SLV_MON_LOOP_COUNT 0x000FFFFF	/**< Slave Monitor Loop Count*/
@@ -52,15 +57,22 @@
 int IicPsSlaveMonitorExample();
 
 static void Handler(void *CallBackRef, u32 Event);
+#ifndef SDT
 static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id);
 static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id);
 static int IicPsConfig(u16 DeviceId, u32 Int_Id);
+#else
+static int IicPsSlaveMonitor(u16 Address, UINTPTR BaseAddress);
+static int IicPsConfig(UINTPTR BaseAddress);
+#endif
 static int IicPsFindDevice(u16 Addr);
 
 /************************** Variable Definitions ******************************/
 
 XIicPs	Iic;			/* Instance of the IIC Device */
+#ifndef SDT
 XScuGic InterruptController;	/* Instance of the Interrupt Controller */
+#endif
 
 /*
  * The following counters are used to determine when the entire buffer has
@@ -75,6 +87,10 @@ volatile u32 SlaveResponse;		/**< Slave Response Flag */
  * their own slave Address in the below array list**/
 u16 SlvAddr[] = {0x54,0x55,0x74,0};
 XIicPs IicInstance;		/* The instance of the IIC device. */
+#ifdef SDT
+extern XIicPs_Config XIicPs_ConfigTable[XPAR_XIICPS_NUM_INSTANCES];
+#endif
+
 /******************************************************************************/
 /**
 *
@@ -117,7 +133,11 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 static int IicPsConfig(u16 DeviceId, u32 Int_Id)
+#else
+static int IicPsConfig(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XIicPs_Config *ConfigPtr;	/* Pointer to configuration data */
@@ -125,7 +145,11 @@ static int IicPsConfig(u16 DeviceId, u32 Int_Id)
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
+#ifndef SDT
 	ConfigPtr = XIicPs_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XIicPs_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -139,7 +163,14 @@ static int IicPsConfig(u16 DeviceId, u32 Int_Id)
 	/*
 	 * Setup the Interrupt System.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(&IicInstance, Int_Id);
+#else
+	Status = XSetupInterruptSystem(&IicInstance, XIicPs_MasterInterruptHandler,
+					ConfigPtr->IntrId,
+					ConfigPtr->IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -196,7 +227,11 @@ int IicPsSlaveMonitorExample(void)
 * @note 	None.
 *
 *******************************************************************************/
+#ifndef SDT
 static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id)
+#else
+static int IicPsSlaveMonitor(u16 Address, UINTPTR BaseAddress)
+#endif
 {
 	u32 Index;
 	int Status;
@@ -205,7 +240,11 @@ static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id)
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
+#ifndef SDT
 	Status = IicPsConfig(DeviceId,Int_Id);
+#else
+	Status = IicPsConfig(BaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -261,7 +300,11 @@ static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id)
 static int IicPsFindDevice(u16 Addr)
 {
 	int Status;
+#ifdef SDT
+	u32 BaseAddress;
+#endif
 
+#ifndef SDT
 	Status = IicPsSlaveMonitor(Addr,0,XPAR_XIICPS_0_INTR);
 	if (Status == XST_SUCCESS) {
 		return XST_SUCCESS;
@@ -278,8 +321,22 @@ static int IicPsFindDevice(u16 Addr)
 	if (Status == XST_SUCCESS) {
 		return XST_SUCCESS;
 	}
+#else
+	BaseAddress = XIicPs_ConfigTable[0].BaseAddress;
+	Status = IicPsSlaveMonitor(Addr, BaseAddress);
+	if (Status == XST_SUCCESS) {
+		return XST_SUCCESS;
+	}
+	BaseAddress = XIicPs_ConfigTable[1].BaseAddress;
+	Status = IicPsSlaveMonitor(Addr, BaseAddress);
+	if (Status == XST_SUCCESS) {
+		return XST_SUCCESS;
+	}
+#endif
 	return XST_FAILURE;
 }
+
+#ifndef SDT
 /******************************************************************************/
 /**
 *
@@ -350,6 +407,7 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id)
 
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.00  gm  05/10/22 First release
+ * 3.18  gm  07/14/23 Added SDT support.
  *
  * </pre>
  *
@@ -34,7 +35,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID
+#else
+#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR
+#endif
 
 /* The slave address to send to and receive from.
  */
@@ -51,7 +56,11 @@
 
 /************************** Function Prototypes *******************************/
 
+#ifndef SDT
 int IicPsSmbusSlavePolledExample(u16 DeviceId);
+#else
+int IicPsSmbusSlavePolledExample(UINTPTR BaseAddress);
+#endif
 int XIicPsSmbusPolledWriteBlockData(XIicPs *InstancePtr, u8 *Command, u8 ByteCount, u8 *SendBufferPtr);
 int XIicPsSmbusPolledReadBlockData(XIicPs *InstancePtr, u8 *Command, u8 *ByteCount, u8 *RecvBufferPtr);
 
@@ -93,7 +102,11 @@ int main(void)
 	 * Run the Iic polled slave example , specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
+#ifndef SDT
 	Status = IicPsSmbusSlavePolledExample(IIC_DEVICE_ID);
+#else
+	Status = IicPsSmbusSlavePolledExample(XIICPS_BASEADDRESS);
+#endif
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("IIC SMBus Slave Polled Example Test Failed\r\n");
@@ -135,7 +148,11 @@ int main(void)
 * @note		None.
 *
 *******************************************************************************/
+#ifndef SDT
 int IicPsSmbusSlavePolledExample(u16 DeviceId)
+#else
+int IicPsSmbusSlavePolledExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XIicPs_Config *Config;
@@ -146,7 +163,11 @@ int IicPsSmbusSlavePolledExample(u16 DeviceId)
 	 * Look up the configuration in the config table,
 	 * then initialize it.
 	 */
+#ifndef SDT
 	Config = XIicPs_LookupConfig(DeviceId);
+#else
+	Config = XIicPs_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
