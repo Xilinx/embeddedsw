@@ -2,25 +2,23 @@
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
-title: Bindings for ARMv8 cpu
+title: Bindings for cortexr52 cpu
 
 maintainers:
   - Mubin Sayyed <mubin.usman.sayyed@xilinx.com>
 
 config:
-    - XARMv8_Config
+    - XCortexr52_Config
 
 properties:
   compatible:
     OneOf:
       - items:
         - enum:
-          - arm,cortex-a53
-          - arm,cortex-a72
-          - arm,cortex-a78
+          - arm,cortex-r52
 
 required:
-    - stamp-frequency
+    - xlnx,timestamp-clk-freq
     - cpu-frequency
     - reg
 ...
