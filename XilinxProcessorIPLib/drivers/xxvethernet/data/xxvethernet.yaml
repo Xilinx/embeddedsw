@@ -36,4 +36,6 @@ required:
 examples:
     xxxvethernet_example_intr_mcdma.c:
         - axistream-connected: 3
+    xxxvethernet_usxgmii_example_intr_mcdma.c:
+        - axistream-connected: 3
 ...
