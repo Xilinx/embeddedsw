@@ -100,8 +100,12 @@ extern "C" {
 * associated.
 */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< DeviceId is the unique ID of the AXI4-
 				  *  Stream Switch core */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 				  *  of the core's registers */
 	u8 MaxNumSI;		/**< Maximum number of Slave interfaces */
@@ -163,7 +167,11 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xaxis_switch_sinit.c */
+#ifndef SDT
 XAxis_Switch_Config *XAxisScr_LookupConfig(u16 DeviceId);
+#else
+XAxis_Switch_Config *XAxisScr_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /* Initialization and control functions in xaxis_switch.c */
 s32 XAxisScr_CfgInitialize(XAxis_Switch *InstancePtr,

@@ -1,0 +1,37 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: GPL-2.0
+%YAML 1.2
+---
+title: Bindings for axis switch controller
+
+maintainers:
+  - Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axis-switch-1.1
+  reg:
+    description: Physical base addreiss and size of the controller register map
+  xlnx,num-si-slots:
+    description: Maximum number of Slave interfaces.
+  xlnx,num-mi-slots:
+    description: Maximum number of Master interfaces.
+
+config:
+    - XAxis_Switch_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,num-si-slots
+    - xlnx,num-mi-slots
+
+examples:
+    xaxis_switch_example.c:
+        - reg
+...
