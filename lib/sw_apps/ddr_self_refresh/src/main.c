@@ -64,8 +64,9 @@ XStatus IpiConfigure(XIpiPsu *const IpiInst)
 	static bool initialized = false;
 
 	/* If IPI is already initialized return success */
-	if (initialized)
+	if (initialized) {
 		return XST_SUCCESS;
+	}
 
 	/* Look Up the config data */
 #ifndef SDT
@@ -108,13 +109,15 @@ static s32 GicSetupInterruptSystem(XScuGic *GicInst)
 
 	XScuGic_Config *GicCfgPtr = XScuGic_LookupConfig(INTC_DEVICE_ID);
 
-	if (NULL == GicCfgPtr)
+	if (NULL == GicCfgPtr) {
 		return XST_FAILURE;
+	}
 
 	status = XScuGic_CfgInitialize(GicInst, GicCfgPtr,
 				       GicCfgPtr->CpuBaseAddress);
-	if (XST_SUCCESS != status)
+	if (XST_SUCCESS != status) {
 		return status;
+	}
 
 	/*
 	 * Connect the interrupt controller interrupt Handler to the
@@ -124,8 +127,9 @@ static s32 GicSetupInterruptSystem(XScuGic *GicInst)
 				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
 				     GicInst);
 
-	if (XST_SUCCESS != status)
+	if (XST_SUCCESS != status) {
 		return status;
+	}
 
 	Xil_ExceptionEnable();
 
@@ -152,13 +156,13 @@ static XStatus PmInit(XIpiPsu *const IpiInst)
 	status = GicSetupInterruptSystem(GicInst);
 
 	if (XST_SUCCESS != status) {
-                xil_printf("GIC setup failed.\n");
-                return status;
-        }
+		xil_printf("GIC setup failed.\n");
+		return status;
+	}
 
 #else
 	status = XConfigInterruptCntrl(IpiInst->Config.IntrParent);
-        XRegisterInterruptHandler(NULL, IpiInst->Config.IntrParent);
+	XRegisterInterruptHandler(NULL, IpiInst->Config.IntrParent);
 
 	if (XST_SUCCESS != status) {
 		xil_printf("Interrupt setup failed.\n");
@@ -210,7 +214,7 @@ int main(void)
 	}
 
 	/* Request DDR */
-	status = XPm_RequestNode(NODE_DDR,PM_CAP_ACCESS, 100, 1);
+	status = XPm_RequestNode(NODE_DDR, PM_CAP_ACCESS, 100, 1);
 	if (XST_SUCCESS != status) {
 		xil_printf("Failed to request DDR node\n");
 		return status;
