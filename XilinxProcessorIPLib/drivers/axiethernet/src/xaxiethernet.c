@@ -102,6 +102,17 @@ int XAxiEthernet_CfgInitialize(XAxiEthernet *InstancePtr,
 
 	/* Reset the hardware and set default options */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+#ifndef SDT
+	InstancePtr->PhyMode = CfgPtr->PhyType;
+#else
+	InstancePtr->PhyMode = XAxiEthernet_Get_Phy_Interface(InstancePtr);
+	InstancePtr->Config.IntrId = CfgPtr->IntrId;
+	InstancePtr->Config.IntrParent = CfgPtr->IntrParent;
+	InstancePtr->AxiDevType = CfgPtr->AxiDevBaseAddress &
+					XAE_AXIDEVTYPE_MASK;
+	InstancePtr->AxiDevBaseAddress = CfgPtr->AxiDevBaseAddress &
+					XAE_AXIBASEADDR_MASK;
+#endif
 
 	XAxiEthernet_Reset(InstancePtr);
 
@@ -154,7 +165,14 @@ int XAxiEthernet_Initialize(XAxiEthernet *InstancePtr,
 
 	/* Set device base address */
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
-
+#ifdef SDT
+	InstancePtr->Config.IntrId = CfgPtr->IntrId;
+	InstancePtr->Config.IntrParent = CfgPtr->IntrParent;
+	InstancePtr->AxiDevType = CfgPtr->AxiDevBaseAddress &
+					XAE_AXIDEVTYPE_MASK;
+	InstancePtr->AxiDevBaseAddress = CfgPtr->AxiDevBaseAddress &
+					XAE_AXIBASEADDR_MASK;
+#endif
 	/* Set default options */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
@@ -1394,7 +1412,9 @@ u16 XAxiEthernet_GetOperatingSpeed(XAxiEthernet *InstancePtr)
 int XAxiEthernet_SetOperatingSpeed(XAxiEthernet *InstancePtr, u16 Speed)
 {
 	u32 EmmcReg;
+#ifndef SDT
 	u8  TemacType;
+#endif
 	u8  PhyType;
 	u8  SetSpeed = TRUE;
 
@@ -1405,10 +1425,13 @@ int XAxiEthernet_SetOperatingSpeed(XAxiEthernet *InstancePtr, u16 Speed)
 	xdbg_printf(XDBG_DEBUG_GENERAL,
 	"XAxiEthernet_SetOperatingSpeed: setting speed to:%d (0x%0x)\n",
 								Speed, Speed);
-
+#ifndef SDT
 	TemacType = XAxiEthernet_GetTemacType(InstancePtr);
 	PhyType = XAxiEthernet_GetPhysicalInterface(InstancePtr);
 	(void) (TemacType);
+#else
+	PhyType = XAxiEthernet_Get_Phy_Interface(InstancePtr);
+#endif
 
 	/*
 	 * The following code checks for all allowable speed conditions before
@@ -1808,4 +1831,45 @@ void XAxiEthernet_PhyWrite(XAxiEthernet *InstancePtr, u32 PhyAddress,
 	}
 
 }
+
+#ifdef SDT
+/*****************************************************************************/
+/**
+*
+* XAxiEthernet_Get_Phy_Interface returns the type of PHY interface being
+* used by the given instance, specified by <i>InstancePtr</i>.
+*
+* @param        InstancePtr is a pointer to the Axi Ethernet instance to be
+*               worked on.
+*
+* @return       The Physical Interface type which is one of XAE_PHY_TYPE_x
+*               where x is MII, GMII, RGMII_1_3, RGMII_2_0, SGMII, or
+*               1000BASE_X (defined in xaxiethernet.h).
+*
+* @note         C-style signature:
+*               int XAxiEthernet_Get_Phy_Interface(XAxiEthernet
+*                                                       *InstancePtr)
+*
+******************************************************************************/
+u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr) {
+	char *phymode = InstancePtr->Config.PhyType;
+
+	if (!strcmp(phymode, "mii"))
+		InstancePtr->PhyMode = XAE_PHY_TYPE_MII;
+	else if (!(strcmp(phymode, "gmii")))
+		InstancePtr->PhyMode = XAE_PHY_TYPE_GMII;
+	else if (!(strcmp(phymode, "sgmii")))
+		InstancePtr->PhyMode = XAE_PHY_TYPE_SGMII;
+	else if (!(strcmp(phymode, "rgmii")))
+		InstancePtr->PhyMode = XAE_PHY_TYPE_RGMII_1_3;
+	else if (!(strcmp(phymode, "rgmii-id")))
+		InstancePtr->PhyMode = XAE_PHY_TYPE_RGMII_2_0;
+	else if (!(strcmp(phymode, "1000base-x")))
+		InstancePtr->PhyMode = XAE_PHY_TYPE_1000BASE_X;
+	else
+		InstancePtr->PhyMode = XAE_PHY_INTERFACE_MODE_NA;
+
+	return InstancePtr->PhyMode;
+}
+#endif
 /** @} */

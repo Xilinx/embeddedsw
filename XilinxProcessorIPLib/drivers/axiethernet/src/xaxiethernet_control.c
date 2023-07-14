@@ -466,7 +466,11 @@ int XAxiEthernet_GetSgmiiStatus(XAxiEthernet *InstancePtr, u16 *SpeedPtr)
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_GetSgmiiStatus\n");
 
 	/* Make sure PHY is SGMII */
+#ifndef SDT
 	PhyType = XAxiEthernet_GetPhysicalInterface(InstancePtr);
+#else
+	PhyType = XAxiEthernet_Get_Phy_Interface(InstancePtr);
+#endif
 	if (PhyType != XAE_PHY_TYPE_SGMII) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
 		"XAxiEthernet_GetSgmiiStatus: returning NO_FEATURE\n");
@@ -543,7 +547,11 @@ int XAxiEthernet_GetRgmiiStatus(XAxiEthernet *InstancePtr, u16 *SpeedPtr,
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_GetRgmiiStatus\n");
 
 	/* Make sure PHY is RGMII */
+#ifndef SDT
 	PhyType = XAxiEthernet_GetPhysicalInterface(InstancePtr);
+#else
+	PhyType = XAxiEthernet_Get_Phy_Interface(InstancePtr);
+#endif
 	if ((PhyType != XAE_PHY_TYPE_RGMII_1_3) &&
 		(PhyType != XAE_PHY_TYPE_RGMII_2_0)) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,

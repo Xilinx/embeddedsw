@@ -1,0 +1,118 @@
+# Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for AXI ETHERNET controller
+
+maintainers:
+    - Srinivas Neeli <srinivas.neeli@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-ethernet-1.00.a
+          - xlnx,axi-ethernet-7.1
+          - xlnx,axi-ethernet-7.2
+        - enum:
+          - xlnx,axi-2_5-gig-ethernet-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,txcsum:
+    description: AXI ETHERNET controller transmit checksum mode (Full, Partial and None)
+  xlnx,rxcsum:
+    description: AXI ETHERNET controller receive checksum mode (Full, Partial and None)
+  phy-mode:
+    description: Describes phy device type(GMII, RGMII, SGMII, 1000Base-x)
+  xlnx,txvlan-tran:
+    description: AXI ETHERNET controller is configured with transmit vlan translation enabled
+  xlnx,rxvlan-tran:
+    description: AXI ETHERNET controller is configured with receive vlan translation enabled
+  xlnx,txvlan-tag:
+    description: AXI ETHERNET controller is configured with transmit vlan tagging enabled
+  xlnx,rxvlan-tag:
+    description: AXI ETHERNET controller is configured with receive vlan tagging enabled
+  xlnx,txvlan-strp:
+    description: AXI ETHERNET controller is configured with transmit vlan stripping enabled
+  xlnx,rxvlan-strp:
+    description: AXI ETHERNET controller is configured with receive vlan stripping enabled
+  xlnx,mcast-extend:
+    description: AXI ETHERNET controller is configured with RX extended multicast address filtering
+  xlnx,statistics-counters:
+    description: AXI ETHERNET controller is configured with statistics counters enabled
+  xlnx,enable-avb:
+    description: AXI ETHERNET controller is configured with AVB
+  xlnx,enable-lvds:
+    description: AXI ETHERNET controller is configured with lvds(low voltage differential signaling)
+  xlnx,enable-1588:
+    description: AXI ETHERNET controller is configured with 1588 timestamping support
+  xlnx,speed-1-2p5:
+    description: Data rate of the controller (1G or 2.5G)
+  xlnx,number-of-table-entries:
+    description: Number of table entries
+  xlnx,phyaddr:
+    description: PHY address
+  axistream-connected:
+    description: Connected Stream IP Type (1-AXI_FIFO 2-AXI_DMA 3-AXI_MCDMA)
+
+config:
+    - XAxiEthernet_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,txcsum
+    - xlnx,rxcsum
+    - phy-mode
+    - xlnx,txvlan-tran
+    - xlnx,rxvlan-tran
+    - xlnx,txvlan-tag
+    - xlnx,rxvlan-tag
+    - xlnx,txvlan-strp
+    - xlnx,rxvlan-strp
+    - xlnx,mcast-extend
+    - xlnx,statistics-counters
+    - xlnx,enable-avb
+    - xlnx,enable-lvds
+    - xlnx,enable-1588
+    - xlnx,speed-1-2p5
+    - xlnx,number-of-table-entries
+    - xlnx,phyaddr
+    - interrupts
+    - interrupt-parent
+    - axistream-connected: phandle
+
+examples:
+    xaxiethernet_example_polled.c:
+        - axistream-connected: 1
+
+    xaxiethernet_example_intr_fifo.c:
+        - axistream-connected: 1
+        - interrupts
+
+    xaxiethernet_example_intr_sgdma.c:
+        - axistream-connected: 2
+        - interrupts
+
+    xaxiethernet_example_extmulticast.c:
+        - axistream-connected: 2
+        - interrupts
+
+    xaxiethernet_example_extvlan.c:
+        - axistream-connected: 2
+        - interrupts
+
+    xaxiethernet_example_intr_mcdma.c:
+        - axistream-connected: 3
+        - interrupts
+
+    xaxiethernet_example_mcdma_poll.c:
+        - axistream-connected: 3
+
+    xaxiethernet_mcdma_ping_req_example.c:
+        - axistream-connected: 3
+...
