@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -13,16 +14,26 @@
 
 #include <sleep.h>
 #include <xil_cache.h>
-#include <xscugic.h>
 #include "pm_api_sys.h"
 #include "pm_client.h"
 #include "pm_defs.h"
+#ifndef SDT
+#include <xscugic.h>
+#else
+#include "xinterrupt_wrap.h"
+#endif
 
+#ifndef SDT
 static XScuGic GicInst;
+#endif
 static XIpiPsu IpiInst;
 
+#ifndef SDT
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define PMU_IPI_CHANNEL_ID	XPAR_XIPIPSU_0_DEVICE_ID
+#else
+#define PMU_IPI_CHANNEL_BASE_ADDRESS	XPAR_XIPIPSU_0_BASEADDR
+#endif
 
 #define DDR_STATE_OFF	0U
 #define DDR_STATE_RET	1U
@@ -42,7 +53,11 @@ static XIpiPsu IpiInst;
  *		function can be called safely multiple times, the IPI will be
  *		effectively configured only the first time when a call is made.
  */
+#ifndef SDT
 XStatus IpiConfigure(XScuGic *const GicInst, XIpiPsu *const IpiInst)
+#else
+XStatus IpiConfigure(XIpiPsu *const IpiInst)
+#endif
 {
 	XStatus status;
 	XIpiPsu_Config *IpiCfgPtr;
@@ -53,7 +68,11 @@ XStatus IpiConfigure(XScuGic *const GicInst, XIpiPsu *const IpiInst)
 		return XST_SUCCESS;
 
 	/* Look Up the config data */
+#ifndef SDT
 	IpiCfgPtr = XIpiPsu_LookupConfig(PMU_IPI_CHANNEL_ID);
+#else
+	IpiCfgPtr = XIpiPsu_LookupConfig(PMU_IPI_CHANNEL_BASE_ADDRESS);
+#endif
 	if (NULL == IpiCfgPtr) {
 		status = XST_FAILURE;
 		xil_printf("%s ERROR in getting CfgPtr\n", __func__);
@@ -73,6 +92,7 @@ XStatus IpiConfigure(XScuGic *const GicInst, XIpiPsu *const IpiInst)
 	return status;
 }
 
+#ifndef SDT
 /**
  * GicSetupInterruptSystem() - configure the system to receive peripheral
  *			       interrupt
@@ -111,6 +131,7 @@ static s32 GicSetupInterruptSystem(XScuGic *GicInst)
 
 	return XST_SUCCESS;
 }
+#endif
 
 /**
  * PmInit - Initialize GIC, IPIs, and Xilpm
@@ -119,17 +140,38 @@ static s32 GicSetupInterruptSystem(XScuGic *GicInst)
  *
  * @return	Status of PM initialization
  */
+#ifndef SDT
 static XStatus PmInit(XScuGic *const GicInst, XIpiPsu *const IpiInst)
+#else
+static XStatus PmInit(XIpiPsu *const IpiInst)
+#endif
 {
 	XStatus status;
 
+#ifndef SDT
 	status = GicSetupInterruptSystem(GicInst);
+
 	if (XST_SUCCESS != status) {
-		xil_printf("GIC setup failed.\n");
+                xil_printf("GIC setup failed.\n");
+                return status;
+        }
+
+#else
+	status = XConfigInterruptCntrl(IpiInst->Config.IntrParent);
+        XRegisterInterruptHandler(NULL, IpiInst->Config.IntrParent);
+
+	if (XST_SUCCESS != status) {
+		xil_printf("Interrupt setup failed.\n");
 		return status;
 	}
+#endif
 
+#ifndef SDT
 	status  = IpiConfigure(GicInst, IpiInst);
+#else
+	status  = IpiConfigure(IpiInst);
+#endif
+
 	if (XST_SUCCESS != status) {
 		xil_printf("IPI configuration failed.\n");
 		return status;
@@ -157,7 +199,11 @@ int main(void)
 	XPm_NodeStatus nodestatus;
 
 	/* Initialize GIC, IPIs, and Xilpm */
+#ifndef SDT
 	status = PmInit(&GicInst, &IpiInst);
+#else
+	status = PmInit(&IpiInst);
+#endif
 	if (XST_SUCCESS != status) {
 		xil_printf("PM initialization failed\n");
 		return status;

@@ -1,0 +1,23 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: DDR self refresh
+
+maintainers:
+  - Harini T <harini.t@amd.com>
+
+type: apps
+
+description: This DDR self refresh application provides a simple demonstration of how to enter to/exit from DDR self refresh mode. This application runs on R5 out of TCM.
+
+depends_libs:
+    xilpm: {}
+    xiltimer: {}
+
+supported_processors:
+  - psu_cortexr5
+
+supported_os:
+  - standalone
+...
