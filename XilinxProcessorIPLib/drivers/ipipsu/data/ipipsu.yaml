@@ -5,8 +5,8 @@
 title: Bindings for IPI controller available in the zynqMP and Versal platform
 
 maintainers:
-  - Shubhrajyoti Datta <shubhrajyoti.datta@xilinx.com>
-  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+  - Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+  - Harini T <harini.t@amd.com>
 
 type: driver
 
@@ -41,4 +41,8 @@ required:
     - child,required:
         - xlnx,ipi-bitmask
         - xlnx,ipi-buf-index
+
+examples:
+        xipipsu_self_test_example.c:
+                - interrupts
 ...
