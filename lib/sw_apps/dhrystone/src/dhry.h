@@ -426,8 +426,10 @@
 #include "xparameters.h"
 #if !defined (SDT)
 #include "platform_config.h"
+#else
+#include "xiltimer.h"
 #endif
-#if !defined (__MICROBLAZE__) && !defined (__riscv)
+#if !defined (__MICROBLAZE__) && !defined (__riscv) && !defined (SDT)
 #include "xtime_l.h"
 #include "xpseudo_asm.h"
 #endif
@@ -453,6 +455,10 @@ typedef u64 XTime;
 
 #define structassign(d, s)			d = s
 
+#ifdef SDT
+#define CLOCKS_PER_SEC XPAR_CPU_CORE_CLOCK_FREQ_HZ
+#define COUNTS_PER_SECOND XSLEEPTIMER_FREQ
+#else
 #if !defined (__MICROBLAZE__) && !defined (__riscv)
 #if defined (__aarch64__) && !defined (ARMR5)
 #if !defined (versal)
@@ -475,9 +481,6 @@ typedef u64 XTime;
 #endif
 #else
 #define CLOCKS_PER_SEC XPAR_CPU_CORE_CLOCK_FREQ_HZ
-#if defined (SDT)
-#define COUNTS_PER_SECOND XPAR_XTMRCTR_0_CLOCK_FREQUENCY_0
-#else
 #define COUNTS_PER_SECOND XPAR_TMRCTR_0_CLOCK_FREQ_HZ
 #endif
 #endif
