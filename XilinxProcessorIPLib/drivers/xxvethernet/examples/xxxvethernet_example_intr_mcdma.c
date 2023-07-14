@@ -174,11 +174,11 @@ int XxvEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 				u16 AxiMcDmaDeviceId);
 #endif
 int XxvEthernetSgDmaIntrSingleFrameExample(XXxvEthernet *XxvEthernetInstancePtr,
-					   XMcdma *DmaInstancePtr, u8 ChanId);
+		XMcdma *DmaInstancePtr, u8 ChanId);
 static int RxBdSetup(XMcdma *McDmaInstPtr, XXxvEthernet *XxvEthernetInstancePtr,
-		XXxvEthernet_Config *MacCfgPtr);
+		     XXxvEthernet_Config *MacCfgPtr);
 static int TxBdSetup(XMcdma *McDmaInstPtr, XXxvEthernet *XxvEthernetInstancePtr,
-		XXxvEthernet_Config *MacCfgPtr);
+		     XXxvEthernet_Config *MacCfgPtr);
 static void DoneHandler(void *CallBackRef, u32 Chan_id);
 static void ErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask);
 static void TxDoneHandler(void *CallBackRef, u32 Chan_id);
@@ -287,7 +287,7 @@ int XxvEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 {
 	int Status;
 	XXxvEthernet_Config *MacCfgPtr;
-	XMcdma_Config* DmaConfig;
+	XMcdma_Config *DmaConfig;
 	u8 ChanId;
 
 	/*************************************/
@@ -325,7 +325,7 @@ int XxvEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 	 * would ensure a reset of XxvEthernet.
 	 */
 	Status = XMcDma_CfgInitialize(DmaInstancePtr, DmaConfig);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		XxvEthernetUtilErrorTrap("Error initializing DMA\r\n");
 		return XST_FAILURE;
 	}
@@ -334,7 +334,7 @@ int XxvEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 	 * Initialize XxvEthernet hardware.
 	 */
 	Status = XXxvEthernet_CfgInitialize(XxvEthernetInstancePtr, MacCfgPtr,
-					MacCfgPtr->BaseAddress);
+					    MacCfgPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		XxvEthernetUtilErrorTrap("Error in initialize");
 		return XST_FAILURE;
@@ -371,7 +371,7 @@ int XxvEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 		 */
 
 		Status = XxvEthernetSgDmaIntrSingleFrameExample(XxvEthernetInstancePtr,
-							  DmaInstancePtr, ChanId);
+				DmaInstancePtr, ChanId);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -386,7 +386,7 @@ int XxvEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 }
 
 static int RxBdSetup(XMcdma *McDmaInstPtr, XXxvEthernet *XxvEthernetInstancePtr,
-					 XXxvEthernet_Config *MacCfgPtr)
+		     XXxvEthernet_Config *MacCfgPtr)
 {
 	XMcdma_ChanCtrl *Rx_Chan;
 	u8 ChanId;
@@ -412,9 +412,9 @@ static int RxBdSetup(XMcdma *McDmaInstPtr, XXxvEthernet *XxvEthernetInstancePtr,
 		RxBdSpacePtr += (RXBD_CNT * sizeof(XMcdma_Bd));
 		/* Setup Interrupt System and register callbacks */
 		XMcdma_SetCallBack(McDmaInstPtr, XMCDMA_HANDLER_DONE,
-		                          (void *)DoneHandler, McDmaInstPtr);
+				   (void *)DoneHandler, McDmaInstPtr);
 		XMcdma_SetCallBack(McDmaInstPtr, XMCDMA_HANDLER_ERROR,
-		                          (void *)ErrorHandler, McDmaInstPtr);
+				   (void *)ErrorHandler, McDmaInstPtr);
 
 #ifdef SDT
 		/*
@@ -423,26 +423,26 @@ static int RxBdSetup(XMcdma *McDmaInstPtr, XXxvEthernet *XxvEthernetInstancePtr,
 		 * may be <=16, in which case Interrupt ID array is padded at the end.
 		 */
 		Status = XSetupInterruptSystem(McDmaInstPtr, &XMcdma_IntrHandler,
-							McDmaInstPtr->Config.IntrId[ChanId - 1 + McDmaInstPtr->Config.TxNumChannels],
-							McDmaInstPtr->Config.IntrParent,
-						    XINTERRUPT_DEFAULT_PRIORITY);
+					       McDmaInstPtr->Config.IntrId[ChanId - 1 + McDmaInstPtr->Config.TxNumChannels],
+					       McDmaInstPtr->Config.IntrParent,
+					       XINTERRUPT_DEFAULT_PRIORITY);
 #else
 		Status = XxvEthernetSetupIntrSystem(&IntcInstance,
 						    McDmaInstPtr,
-							ChanIntr_Id(Rx_Chan, ChanId),
+						    ChanIntr_Id(Rx_Chan, ChanId),
 						    XMCDMA_MEM_TO_DEV);
 #endif
 		if (Status != XST_SUCCESS) {
-		      xil_printf("Failed RX interrupt setup %d\r\n", ChanId);
-		      return XST_FAILURE;
+			xil_printf("Failed RX interrupt setup %d\r\n", ChanId);
+			return XST_FAILURE;
 		}
-	 }
+	}
 
 	return XST_SUCCESS;
 }
 
 static int TxBdSetup(XMcdma *McDmaInstPtr, XXxvEthernet *XxvEthernetInstancePtr,
-					 XXxvEthernet_Config *MacCfgPtr)
+		     XXxvEthernet_Config *MacCfgPtr)
 {
 	XMcdma_ChanCtrl  *Tx_Chan;
 	u8 ChanId;
@@ -472,18 +472,18 @@ static int TxBdSetup(XMcdma *McDmaInstPtr, XXxvEthernet *XxvEthernetInstancePtr,
 
 #ifdef SDT
 		Status = XSetupInterruptSystem(McDmaInstPtr, &XMcdma_TxIntrHandler,
-							McDmaInstPtr->Config.IntrId[ChanId-1],
-							McDmaInstPtr->Config.IntrParent,
-						    XINTERRUPT_DEFAULT_PRIORITY);
+					       McDmaInstPtr->Config.IntrId[ChanId - 1],
+					       McDmaInstPtr->Config.IntrParent,
+					       XINTERRUPT_DEFAULT_PRIORITY);
 #else
 		Status = XxvEthernetSetupIntrSystem(&IntcInstance,
 						    McDmaInstPtr,
-							ChanIntr_Id(Tx_Chan, ChanId),
+						    ChanIntr_Id(Tx_Chan, ChanId),
 						    XMCDMA_DEV_TO_MEM);
 #endif
 		if (Status != XST_SUCCESS) {
-		      xil_printf("Failed TX interrupt setup %d\r\n", ChanId);
-		      return XST_FAILURE;
+			xil_printf("Failed TX interrupt setup %d\r\n", ChanId);
+			return XST_FAILURE;
 		}
 	}
 
@@ -496,63 +496,64 @@ void AxiEthernetSetMAC(char *MacAddr, u8 ChanTdest)
 
 	for (i = 0 ; i < XXE_MAC_ADDR_SIZE ; i++) {
 		MacAddr[i] = DestAddr[i];
-		if (i == 1)
+		if (i == 1) {
 			MacAddr[i] = ChanTdest;
+		}
 	}
 }
 
 static int inline AxiEnetMapper(u8 ChanId)
 {
 
-	switch(ChanId) {
-	case 1:
-		AxiEthernetSetMAC(MacAddr, 0x00);
-		return XST_SUCCESS;
-	case 2:
-		AxiEthernetSetMAC(MacAddr, 0x0f);
-		return XST_SUCCESS;
-	case 3:
-		AxiEthernetSetMAC(MacAddr, 0x10);
-		return XST_SUCCESS;
-	case 4:
-		AxiEthernetSetMAC(MacAddr, 0x18);
-		return XST_SUCCESS;
-	case 5:
-		AxiEthernetSetMAC(MacAddr, 0x20);
-		return XST_SUCCESS;
-	case 6:
-		AxiEthernetSetMAC(MacAddr, 0x28);
-		return XST_SUCCESS;
-	case 7:
-		AxiEthernetSetMAC(MacAddr, 0x30);
-		return XST_SUCCESS;
-	case 8:
-		AxiEthernetSetMAC(MacAddr, 0x38);
-		return XST_SUCCESS;
-	case 9:
-		AxiEthernetSetMAC(MacAddr, 0x40);
-		return XST_SUCCESS;
-	case 10:
-		AxiEthernetSetMAC(MacAddr, 0x48);
-		return XST_SUCCESS;
-	case 11:
-		AxiEthernetSetMAC(MacAddr, 0x50);
-		return XST_SUCCESS;
-	case 12:
-		AxiEthernetSetMAC(MacAddr, 0x58);
-		return XST_SUCCESS;
-	case 13:
-		AxiEthernetSetMAC(MacAddr, 0x60);
-		return XST_SUCCESS;
-	case 14:
-		AxiEthernetSetMAC(MacAddr, 0x68);
-		return XST_SUCCESS;
-	case 15:
-		AxiEthernetSetMAC(MacAddr, 0x70);
-		return XST_SUCCESS;
-	case 16:
-		AxiEthernetSetMAC(MacAddr, 0x78);
-		return XST_SUCCESS;
+	switch (ChanId) {
+		case 1:
+			AxiEthernetSetMAC(MacAddr, 0x00);
+			return XST_SUCCESS;
+		case 2:
+			AxiEthernetSetMAC(MacAddr, 0x0f);
+			return XST_SUCCESS;
+		case 3:
+			AxiEthernetSetMAC(MacAddr, 0x10);
+			return XST_SUCCESS;
+		case 4:
+			AxiEthernetSetMAC(MacAddr, 0x18);
+			return XST_SUCCESS;
+		case 5:
+			AxiEthernetSetMAC(MacAddr, 0x20);
+			return XST_SUCCESS;
+		case 6:
+			AxiEthernetSetMAC(MacAddr, 0x28);
+			return XST_SUCCESS;
+		case 7:
+			AxiEthernetSetMAC(MacAddr, 0x30);
+			return XST_SUCCESS;
+		case 8:
+			AxiEthernetSetMAC(MacAddr, 0x38);
+			return XST_SUCCESS;
+		case 9:
+			AxiEthernetSetMAC(MacAddr, 0x40);
+			return XST_SUCCESS;
+		case 10:
+			AxiEthernetSetMAC(MacAddr, 0x48);
+			return XST_SUCCESS;
+		case 11:
+			AxiEthernetSetMAC(MacAddr, 0x50);
+			return XST_SUCCESS;
+		case 12:
+			AxiEthernetSetMAC(MacAddr, 0x58);
+			return XST_SUCCESS;
+		case 13:
+			AxiEthernetSetMAC(MacAddr, 0x60);
+			return XST_SUCCESS;
+		case 14:
+			AxiEthernetSetMAC(MacAddr, 0x68);
+			return XST_SUCCESS;
+		case 15:
+			AxiEthernetSetMAC(MacAddr, 0x70);
+			return XST_SUCCESS;
+		case 16:
+			AxiEthernetSetMAC(MacAddr, 0x78);
+			return XST_SUCCESS;
 	}
 
 	return XST_FAILURE;
@@ -599,7 +600,7 @@ static void TxErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask)
 *
 ******************************************************************************/
 int XxvEthernetSgDmaIntrSingleFrameExample(XXxvEthernet *XxvEthernetInstancePtr,
-										   XMcdma *DmaInstancePtr, u8 ChanId)
+		XMcdma *DmaInstancePtr, u8 ChanId)
 {
 	int Status;
 	u32 TxFrameLength;
@@ -616,8 +617,8 @@ int XxvEthernetSgDmaIntrSingleFrameExample(XXxvEthernet *XxvEthernetInstancePtr,
 	FramesRx = 0;
 	FramesTx = 0;
 	DeviceErrors = 0;
-	memset(RxFrame,0,sizeof(RxFrame));
-	memset(TxFrame,0,sizeof(TxFrame));
+	memset(RxFrame, 0, sizeof(RxFrame));
+	memset(TxFrame, 0, sizeof(TxFrame));
 
 	Rx_Chan = XMcdma_GetMcdmaRxChan(DmaInstancePtr, ChanId);
 	Tx_Chan = XMcdma_GetMcdmaTxChan(DmaInstancePtr, ChanId);
@@ -630,7 +631,7 @@ int XxvEthernetSgDmaIntrSingleFrameExample(XXxvEthernet *XxvEthernetInstancePtr,
 	AxiEnetMapper(ChanId);
 
 	xil_printf("ChanId %d, MacAddr: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x \n\r", ChanId,
-			MacAddr[0], MacAddr[1], MacAddr[2], MacAddr[3], MacAddr[4], MacAddr[5]);
+		   MacAddr[0], MacAddr[1], MacAddr[2], MacAddr[3], MacAddr[4], MacAddr[5]);
 
 	/*
 	 * Setup packet to be transmitted
@@ -676,8 +677,8 @@ int XxvEthernetSgDmaIntrSingleFrameExample(XXxvEthernet *XxvEthernetInstancePtr,
 
 	Status = XMcDma_ChanToHw(Rx_Chan);
 	if (Status != XST_SUCCESS) {
-			xil_printf("XMcDma_ChanToHw failed\n\r");
-			return XST_FAILURE;
+		xil_printf("XMcDma_ChanToHw failed\n\r");
+		return XST_FAILURE;
 	}
 
 	/*
@@ -690,13 +691,15 @@ int XxvEthernetSgDmaIntrSingleFrameExample(XXxvEthernet *XxvEthernetInstancePtr,
 	for (i = 0 ; i < 2 ; i++) {
 		CrBits = 0;
 
-		if (i == 0)
+		if (i == 0) {
 			len = 64;
-		if (i == 1)
+		}
+		if (i == 1) {
 			len = TxFrameLength - 64;
+		}
 
 		Status = XMcDma_ChanSubmit(Tx_Chan, TxBufPtr,
-								   len);
+					   len);
 		if (Status != XST_SUCCESS) {
 			xil_printf("ChanSubmit failed\n\r");
 			return XST_FAILURE;
@@ -766,13 +769,12 @@ int XxvEthernetSgDmaIntrSingleFrameExample(XXxvEthernet *XxvEthernetInstancePtr,
 	BdCurPtr = Bd1Ptr;
 	BdSts = XMcDma_BdGetSts(BdCurPtr);
 	if ((BdSts & XMCDMA_BD_STS_ALL_ERR_MASK) ||
-		(!(BdSts & XMCDMA_BD_STS_COMPLETE_MASK))) {
-			XxvEthernetUtilErrorTrap("Rx Error");
-			return XST_FAILURE;
-	}
-	else {
+	    (!(BdSts & XMCDMA_BD_STS_COMPLETE_MASK))) {
+		XxvEthernetUtilErrorTrap("Rx Error");
+		return XST_FAILURE;
+	} else {
 		RxFrameLength =  XMcdma_BdRead64((BdCurPtr), XMCDMA_BD_STS_OFFSET)
-							& 0x007FFFFF;
+				 & 0x007FFFFF;
 	}
 
 	if (RxFrameLength != TxFrameLength) {
@@ -886,7 +888,7 @@ static int XxvEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -902,12 +904,12 @@ static int XxvEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 	 */
 	if (Direction == XMCDMA_DEV_TO_MEM)
 		Status = XScuGic_Connect(IntcInstancePtr, McdmaIntrId,
-					(Xil_InterruptHandler)XMcdma_TxIntrHandler,
-					DmaInstancePtr);
+					 (Xil_InterruptHandler)XMcdma_TxIntrHandler,
+					 DmaInstancePtr);
 	else
 		Status = XScuGic_Connect(IntcInstancePtr, McdmaIntrId,
-					(Xil_InterruptHandler)XMcdma_IntrHandler,
-					DmaInstancePtr);
+					 (Xil_InterruptHandler)XMcdma_IntrHandler,
+					 DmaInstancePtr);
 
 	if (Status != XST_SUCCESS) {
 		return Status;
@@ -920,8 +922,8 @@ static int XxvEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 	Xil_ExceptionInit();
 
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)INTC_HANDLER,
-			(void *)(IntcInstancePtr));
+				     (Xil_ExceptionHandler)INTC_HANDLER,
+				     (void *)(IntcInstancePtr));
 
 	Xil_ExceptionEnable();
 
@@ -951,169 +953,169 @@ static int ChanIntr_Id(XMcdma_ChanCtrl *Chan, int ChanId)
 {
 
 
-	switch(ChanId) {
-	case 1:
-		if(!(Chan->IsRxChan)) {
+	switch (ChanId) {
+		case 1:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH1_INTROUT_VEC_ID
-			return TX_INTR_ID(1);
+				return TX_INTR_ID(1);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH1_INTROUT_VEC_ID
-			return RX_INTR_ID(1);
+				return RX_INTR_ID(1);
 #endif
-		}
-	case 2:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 2:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH2_INTROUT_VEC_ID
-			return TX_INTR_ID(2);
+				return TX_INTR_ID(2);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH2_INTROUT_VEC_ID
-			return RX_INTR_ID(2);
+				return RX_INTR_ID(2);
 #endif
-		}
-	case 3:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 3:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH3_INTROUT_VEC_ID
-			return TX_INTR_ID(3);
+				return TX_INTR_ID(3);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH3_INTROUT_VEC_ID
-			return RX_INTR_ID(3);
+				return RX_INTR_ID(3);
 #endif
-		}
-	case 4:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 4:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH4_INTROUT_VEC_ID
-			return TX_INTR_ID(4);
+				return TX_INTR_ID(4);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH4_INTROUT_VEC_ID
-			return RX_INTR_ID(4);
+				return RX_INTR_ID(4);
 #endif
-		}
-	case 5:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 5:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH5_INTROUT_VEC_ID
-			return TX_INTR_ID(5);
+				return TX_INTR_ID(5);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH5_INTROUT_VEC_ID
-			return RX_INTR_ID(5);
+				return RX_INTR_ID(5);
 #endif
-		}
-	case 6:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 6:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH6_INTROUT_VEC_ID
-			return TX_INTR_ID(6);
+				return TX_INTR_ID(6);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH6_INTROUT_VEC_ID
-			return RX_INTR_ID(6);
+				return RX_INTR_ID(6);
 #endif
-		}
-	case 7:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 7:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH7_INTROUT_VEC_ID
-			return TX_INTR_ID(7);
+				return TX_INTR_ID(7);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH7_INTROUT_VEC_ID
-			return RX_INTR_ID(7);
+				return RX_INTR_ID(7);
 #endif
-		}
-	case 8:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 8:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH8_INTROUT_VEC_ID
-			return TX_INTR_ID(8);
+				return TX_INTR_ID(8);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH8_INTROUT_VEC_ID
-			return RX_INTR_ID(8);
+				return RX_INTR_ID(8);
 #endif
-		}
-	case 9:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 9:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH9_INTROUT_VEC_ID
-			return TX_INTR_ID(9);
+				return TX_INTR_ID(9);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH9_INTROUT_VEC_ID
-			return RX_INTR_ID(9);
+				return RX_INTR_ID(9);
 #endif
-		}
-	case 10:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 10:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH10_INTROUT_VEC_ID
-			return TX_INTR_ID(10);
+				return TX_INTR_ID(10);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH10_INTROUT_VEC_ID
-			return RX_INTR_ID(10);
+				return RX_INTR_ID(10);
 #endif
-		}
-	case 11:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 11:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH11_INTROUT_VEC_ID
-			return TX_INTR_ID(11);
+				return TX_INTR_ID(11);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH11_INTROUT_VEC_ID
-			return RX_INTR_ID(11);
+				return RX_INTR_ID(11);
 #endif
-		}
-	case 12:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 12:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH12_INTROUT_VEC_ID
-			return TX_INTR_ID(12);
+				return TX_INTR_ID(12);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH12_INTROUT_VEC_ID
-			return RX_INTR_ID(12);
+				return RX_INTR_ID(12);
 #endif
-		}
-	case 13:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 13:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH13_INTROUT_VEC_ID
-			return TX_INTR_ID(13);
+				return TX_INTR_ID(13);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH13_INTROUT_VEC_ID
-			return RX_INTR_ID(13);
+				return RX_INTR_ID(13);
 #endif
-		}
-	case 14:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 14:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH14_INTROUT_VEC_ID
-			return TX_INTR_ID(14);
+				return TX_INTR_ID(14);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH14_INTROUT_VEC_ID
-			return RX_INTR_ID(14);
+				return RX_INTR_ID(14);
 #endif
-		}
-	case 15:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 15:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH15_INTROUT_VEC_ID
-			return TX_INTR_ID(15);
+				return TX_INTR_ID(15);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH15_INTROUT_VEC_ID
-			return RX_INTR_ID(15);
+				return RX_INTR_ID(15);
 #endif
-		}
-	case 16:
-		if(!(Chan->IsRxChan)) {
+			}
+		case 16:
+			if (!(Chan->IsRxChan)) {
 #ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH16_INTROUT_VEC_ID
-			return TX_INTR_ID(16);
+				return TX_INTR_ID(16);
 #endif
-		} else {
+			} else {
 #ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH16_INTROUT_VEC_ID
-			return RX_INTR_ID(16);
+				return RX_INTR_ID(16);
 #endif
-		}
-	default:
-		break;
+			}
+		default:
+			break;
 	}
 
 	return XST_FAILURE;
