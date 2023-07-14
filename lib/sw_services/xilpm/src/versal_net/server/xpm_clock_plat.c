@@ -14,7 +14,6 @@ XStatus XPmClock_SaveClockNode(XPm_ClockNode* ClockNodeData, u32** SavedData)
 	SaveStruct(Status, done, ((u32)((ClockNodeData->ParentIdx)<<16U)|(ClockNodeData->UseCount)));
 	SaveStruct(Status, done, ClockNodeData->ClkRate);
 	END_SAVE_STRUCT((*SavedData));
-
 	Status = XST_SUCCESS;
 done:
 	XPM_UPDATE_THROW_IF_ERROR(Status, ClockNodeData);
@@ -31,7 +30,7 @@ XStatus XPmClock_RestoreClockNode(u32* SavedData, XPm_ClockNode* ThisData, u32**
 	}
 	u32 tmp;
 	RestoreStruct((*NextSavedData), tmp);
-	ThisData->ParentIdx = (((u16)tmp >> 16) & 0xFFFFU);
+	ThisData->ParentIdx = (u16)((tmp >> 16) & 0xFFFFU);
 	ThisData->UseCount = (tmp) & 0xFFU;
 	RestoreStruct((*NextSavedData), ThisData->ClkRate);
 done:
