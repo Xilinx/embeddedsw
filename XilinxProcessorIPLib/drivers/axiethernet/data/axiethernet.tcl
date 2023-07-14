@@ -37,6 +37,8 @@
 # 08/18/20 rsp Add versal support.
 # 10/08/20 rsp In versal for PMC and PSM processor generate dummy interrupt IDs.
 # 02/08/23 sne Updated tcl script to support ila connected designs.
+# 01/07/23 sne Updated tcl script to support opensource "phy_interface_t"
+#	       enum macro values.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -1017,15 +1019,19 @@ proc get_checksum {value} {
 
 proc get_phytype {value} {
 	if {[string compare -nocase $value "MII"] == 0} {
-		set value 0
+		set value 2
 	} elseif {[string compare -nocase $value "GMII"] == 0} {
-		set value 1
-	} elseif {[string compare -nocase $value "RGMII"] == 0} {
 		set value 3
+	} elseif {[string compare -nocase $value "RGMII"] == 0} {
+		set value 9
 	} elseif {[string compare -nocase $value "SGMII"] == 0} {
 		set value 4
+	} elseif {[string compare -nocase $value "1000BaseX"] == 0} {
+		set value 21
+	} elseif {[string compare -nocase $value "base-r"] == 0} {
+		set value 26
 	} else {
-		set value 5
+		set value 0
 	}
 
 	return $value
