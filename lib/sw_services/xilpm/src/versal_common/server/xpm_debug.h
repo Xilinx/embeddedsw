@@ -736,6 +736,8 @@ extern "C" {
 #define XPM_UPDATE_ID_MISMATCH		0x6004U
 /* Error when PendingReq is NULL */
 #define XPM_UPDATE_PENDREQ_NULL		0x6005U
+/* Error when number of requirements is too large */
+#define XPM_UPDATE_MAX_NUM_REQM		0x6006U
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 

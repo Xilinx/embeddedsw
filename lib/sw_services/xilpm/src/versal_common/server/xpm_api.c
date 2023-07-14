@@ -157,7 +157,6 @@ static XPlmi_Module XPlmi_Pm =
 	NULL,
 	XPlmi_PmAccessPermBuff,
 #ifdef VERSAL_NET
-	NULL,
 	XPm_UpdateHandler
 #else
 	NULL

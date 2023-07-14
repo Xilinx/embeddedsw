@@ -23,27 +23,149 @@ static XPm_Requirement *FindReqm(const XPm_Device *Device, const XPm_Subsystem *
 
 	return Reqm;
 }
+static u32 IsReqmModified(XPm_Requirement* Reqm)
+{
+	if (
+		(Reqm->Allocated == 1) \
+		|| (Reqm->Curr.Capabilities != XPM_MIN_CAPABILITY) \
+		|| (Reqm->Curr.Latency != XPM_MAX_LATENCY) \
+		|| (Reqm->Curr.QoS != XPM_MAX_QOS) \
+		|| (Reqm->Next.Capabilities != XPM_MIN_CAPABILITY) \
+		|| (Reqm->Next.Latency != XPM_MAX_LATENCY) \
+		|| (Reqm->Next.QoS != XPM_MAX_QOS))
+	{
+		return 1;
+	}
+	return 0;
+
+}
+
+static XStatus XPmDevice_SaveReqm(XPm_Requirement* Reqm)
+{
+	XStatus Status = XST_FAILURE;
+	/* Save Subsystem Id and Node Id*/
+	SaveStruct(Status, done, Reqm->Subsystem->Id);
+	SaveStruct(Status, done, Reqm->Device->Node.Id);
+
+	/* Save Curr's Capabilities and Lattency */
+	u32 SaveCap = (Reqm->Curr.Capabilities) & BITMASK(REQ_INFO_CAPS_BIT_FIELD_SIZE);
+	u32 SaveLat = (Reqm->Curr.Latency) & BITMASK(REQ_INFO_LATENCY_BIT_FIELD_SIZE);
+	SaveStruct(Status, done, (SaveLat << REQ_INFO_CAPS_BIT_FIELD_SIZE)| SaveCap);
+
+	/* Save Next's Capabilities and Lattency */
+	SaveCap = (Reqm->Next.Capabilities) & BITMASK(REQ_INFO_CAPS_BIT_FIELD_SIZE);
+	SaveLat = (Reqm->Next.Latency) & BITMASK(REQ_INFO_LATENCY_BIT_FIELD_SIZE);
+	SaveStruct(Status, done, (SaveLat << REQ_INFO_CAPS_BIT_FIELD_SIZE)| SaveCap);
+
+	/* Save Next's QoS*/
+	SaveStruct(Status, done, Reqm->Next.QoS);
+
+	/* Save Allocated */
+	SaveStruct(Status, done, Reqm->Allocated);
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+static XStatus GetReqmFromIds(u32 SubsystemId, u32 DeviceId, XPm_Requirement** Reqm)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem* Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem)
+	{
+		PmErr("ERR:Subsystem 0x%x Not Found!", SubsystemId);
+		goto done;
+	}
+	XPm_Device* Device = XPmDevice_GetById(DeviceId);
+	if (NULL == Device)
+	{
+		PmErr("ERR:Device 0x%x Not Found!", DeviceId);
+		goto done;
+	}
+	*Reqm = FindReqm(Device , Subsystem);
+	if (NULL == (*Reqm))
+	{
+		Status = XPM_UPDATE_PENDREQ_NULL;
+		PmErr("ERR:Requirement of Device 0x%x and Subsystem 0x%x Not Found!", DeviceId, SubsystemId);
+		goto done;
+	}
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+static XStatus XPmDevice_RestoreReqm(u32** NextSavedData)
+{
+	XStatus Status = XST_FAILURE;
+	u32 SubsystemId,NodeId,tmp = 0U;
+
+	/* Restore Subsystem and Device Node */
+	RestoreStruct((*NextSavedData), SubsystemId);
+	RestoreStruct((*NextSavedData), NodeId);
+
+	/* Restored Requirements */
+	XPm_Requirement* Reqm;
+	Status = GetReqmFromIds(SubsystemId, NodeId, &Reqm);
+	if (XST_SUCCESS != Status)
+	{
+		goto done;
+	}
+
+	/* Restored Curr's Capabilities and Latency */
+	RestoreStruct((*NextSavedData), tmp);
+	Reqm->Curr.Capabilities = tmp & BITMASK(REQ_INFO_CAPS_BIT_FIELD_SIZE);
+	Reqm->Curr.Latency	=  (tmp >> REQ_INFO_CAPS_BIT_FIELD_SIZE) &  BITMASK(REQ_INFO_LATENCY_BIT_FIELD_SIZE);
+
+	/* Restored Next's Capabilities and Latency */
+	RestoreStruct((*NextSavedData), tmp);
+	Reqm->Next.Capabilities = tmp & BITMASK(REQ_INFO_CAPS_BIT_FIELD_SIZE);
+	Reqm->Next.Latency	=  (tmp >> REQ_INFO_CAPS_BIT_FIELD_SIZE) &  BITMASK(REQ_INFO_LATENCY_BIT_FIELD_SIZE);
+
+	/* Restored Next's QoS */
+	RestoreStruct((*NextSavedData),Reqm->Next.QoS);
+
+	/* Restored Allocated */
+	RestoreStruct((*NextSavedData),Reqm->Allocated);
+	Status = XST_SUCCESS;
+done:
+	return Status;
+
+}
 
 XStatus XPmDevice_SaveDevice(XPm_Device* ThisData, u32** SavedData)
 {
 	XStatus Status = XST_FAILURE;
 
 	BEGIN_SAVE_STRUCT((*SavedData), XPmNode_SaveNode, ((XPm_Node*)ThisData));
+
+	u32 *SavedReqmInfo = (u32*)XPmUpdate_DynAllocBytes(sizeof(u32));
+	u32 NumSavedReqm = 0U, HasPending = 0U;
 	SaveStruct(Status, done, (ThisData->WfDealloc << 8) | (ThisData->WfPwrUseCnt) );
-	/* TODO: need to save all requirements */
-	/* Saving  Pending Requirement */
+
+	for (XPm_Requirement* curReqm = ThisData->Requirements; curReqm != NULL; curReqm= curReqm->NextSubsystem){
+		if (IsReqmModified(curReqm))
+		{
+			Status = XPmDevice_SaveReqm(curReqm);
+			if (XST_SUCCESS != Status)
+			{
+				goto done;
+			}
+			NumSavedReqm++;
+			if (NumSavedReqm >= 0xFFFFU)
+			{
+				Status = XPM_UPDATE_MAX_NUM_REQM;
+			}
+		}
+	}
+
 	if (((ThisData->PendingReqm ) != NULL)  && ((ThisData->PendingReqm->Subsystem)!= NULL) && ((ThisData->PendingReqm->Device)!= NULL))
 	{
 		SaveStruct(Status, done, ThisData->PendingReqm->Subsystem->Id);
 		SaveStruct(Status, done, ThisData->PendingReqm->Device->Node.Id);
-		u32 SaveCap = (ThisData->PendingReqm->Curr.Capabilities) & BITMASK(REQ_INFO_CAPS_BIT_FIELD_SIZE);
-		u32 SaveLat = (ThisData->PendingReqm->Curr.Latency) & BITMASK(REQ_INFO_LATENCY_BIT_FIELD_SIZE);
-		SaveStruct(Status, done, (SaveLat << REQ_INFO_CAPS_BIT_FIELD_SIZE)| SaveCap);
-		SaveCap = (ThisData->PendingReqm->Next.Capabilities) & BITMASK(REQ_INFO_CAPS_BIT_FIELD_SIZE);
-		SaveLat = (ThisData->PendingReqm->Next.Latency) & BITMASK(REQ_INFO_LATENCY_BIT_FIELD_SIZE);
-		SaveStruct(Status, done, (SaveLat << REQ_INFO_CAPS_BIT_FIELD_SIZE)| SaveCap);
-		SaveStruct(Status, done, ThisData->PendingReqm->Next.QoS);
+		HasPending = 1;
 	}
+	*SavedReqmInfo = ((HasPending << 16) | (NumSavedReqm & 0xFFFFU));
 	END_SAVE_STRUCT((*SavedData));
 
 	Status = XST_SUCCESS;
@@ -58,34 +180,36 @@ XStatus XPmDevice_RestoreDevice(u32* SavedData, XPm_Device* ThisData, u32** Next
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-	u32 tmp;
+
+	u32 tmp = 0U ,NumSavedReqm = 0U, HasPending = 0U;
+	RestoreStruct((*NextSavedData), tmp);
+	NumSavedReqm = (tmp & 0xFFFFU);
+	HasPending = (tmp >> 16) & 0x1U;
+
 	RestoreStruct((*NextSavedData), tmp);
 	ThisData->WfPwrUseCnt = (tmp & 0xFFU);
 	ThisData->WfDealloc = ((tmp >> 8) & 0xFFU);
-	/* TODO: need to restore all requirements */
-	/* Restoring Pending Requirement */
-	if (SAVED_DATA_GET_SIZE(SavedData) > 5)
-	{
-		u32 SubsystemId;
-		RestoreStruct((*NextSavedData), SubsystemId);
-		ThisData->PendingReqm->Subsystem = XPmSubsystem_GetById(SubsystemId);
-		u32 NodeId;
-		RestoreStruct((*NextSavedData), NodeId);
-		ThisData->PendingReqm->Device = XPmDevice_GetById(NodeId);
-		ThisData->PendingReqm = FindReqm(ThisData->PendingReqm->Device , ThisData->PendingReqm->Subsystem);
-		if (ThisData->PendingReqm == NULL)
+
+	for(u32 i = 0U; i < NumSavedReqm; i++){
+		Status = XPmDevice_RestoreReqm(NextSavedData);
+		if (XST_SUCCESS != Status)
 		{
-			Status = XPM_UPDATE_PENDREQ_NULL;
 			goto done;
 		}
-		RestoreStruct((*NextSavedData), tmp);
-		ThisData->PendingReqm->Curr.Capabilities = tmp & BITMASK(REQ_INFO_CAPS_BIT_FIELD_SIZE);
-		ThisData->PendingReqm->Curr.Latency	=  (tmp >> REQ_INFO_CAPS_BIT_FIELD_SIZE) &  BITMASK(REQ_INFO_LATENCY_BIT_FIELD_SIZE);
-		RestoreStruct((*NextSavedData), tmp);
-		ThisData->PendingReqm->Next.Capabilities = tmp & BITMASK(REQ_INFO_CAPS_BIT_FIELD_SIZE);
-		ThisData->PendingReqm->Next.Latency	=  (tmp >> REQ_INFO_CAPS_BIT_FIELD_SIZE) &  BITMASK(REQ_INFO_LATENCY_BIT_FIELD_SIZE);
-		RestoreStruct((*NextSavedData),ThisData->PendingReqm->Next.QoS);
 	}
+
+	if (1U == HasPending)
+	{
+		u32 SubsystemId,NodeId;
+		RestoreStruct((*NextSavedData), SubsystemId);
+		RestoreStruct((*NextSavedData), NodeId);
+		Status = GetReqmFromIds(SubsystemId, NodeId, &(ThisData->PendingReqm));
+		if (XST_SUCCESS != Status)
+		{
+			goto done;
+		}
+	}
+
 done:
 	XPM_UPDATE_THROW_IF_ERROR(Status, ThisData);
 	return Status;
