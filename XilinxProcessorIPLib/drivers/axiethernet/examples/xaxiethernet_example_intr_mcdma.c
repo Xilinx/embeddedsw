@@ -53,6 +53,7 @@
 
 /***************************** Include Files *********************************/
 
+#include "xparameters.h"
 #include "xaxiethernet_example.h"
 #include "xmcdma.h"
 #include "xil_cache.h"
@@ -60,6 +61,7 @@
 #include "stdio.h"		/* stdio */
 #include "stdlib.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
@@ -68,6 +70,14 @@
 
 #ifdef XPAR_XUARTNS550_NUM_INSTANCES
 #include "xuartns550_l.h"
+#endif
+#else
+#include "xinterrupt_wrap.h"
+
+#if defined(XPAR_STDIN_IS_UARTNS550)
+#include "xuartns550_l.h"
+#endif
+#define XAXIETHERNET_BASEADDRESS XPAR_XAXIETHERNET_0_BASEADDR
 #endif
 
 #if defined __aarch64__
@@ -80,6 +90,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #ifndef TESTAPP_GEN
 #define AXIETHERNET_DEVICE_ID	XPAR_AXIETHERNET_0_DEVICE_ID
 #define AXIMCDMA_DEVICE_ID	XPAR_MCDMA_0_DEVICE_ID
@@ -96,7 +107,7 @@
 #else
 #define INTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif
-
+#endif
 
 #define RXBD_CNT			1024	/* Number of RxBDs to use */
 #define TXBD_CNT			1024	/* Number of TxBDs to use */
@@ -208,6 +219,7 @@ volatile int Padding;	/* For 1588 Packets we need to pad 8 bytes time stamp valu
 volatile int ExternalLoopback; /* Variable for External loopback */
 volatile int Hascsum;	/* Tells whether h/w is capable of CSUM or not */
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define INTC_HANDLER	XIntc_InterruptHandler
@@ -218,18 +230,25 @@ volatile int Hascsum;	/* Tells whether h/w is capable of CSUM or not */
 
 
 static INTC IntcInstance;
+#endif
 
 /*************************** Function Prototypes *****************************/
 
 /*
  * Examples
  */
+#ifndef SDT
 int AxiEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 				XAxiEthernet *AxiEthernetInstancePtr,
 				XMcdma *DmaInstancePtr,
 				u16 AxiEthernetDeviceId,
 				u16 AxiMcDmaDeviceId,
 				u16 AxiEthernetIntrId);
+#else
+int AxiEthernetSgDmaIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
+				XMcdma *DmaInstancePtr,
+				UINTPTR AxiEthernetBaseAddress);
+#endif
 int AxiEthernetSgDmaIntrSingleFrameExample(XAxiEthernet *AxiEthernetInstancePtr,
 					   XMcdma *DmaInstancePtr, u8 ChanId);
 int AxiEthernetSgDmaIntrMultiFrameExample(XAxiEthernet *AxiEthernetInstancePtr,
@@ -239,14 +258,23 @@ int AxiEthernetSgDmaPartialChecksumOffloadExample(XAxiEthernet *AxiEthernetInsta
 int AxiEthernetSgDmaFullChecksumOffloadExample(XAxiEthernet *AxiEthernetInstancePtr,
 					       XMcdma *DmaInstancePtr, u8 ChanId);
 static int RxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr,
+#ifndef SDT
 		XAxiEthernet_Config *MacCfgPtr, u16 AxiEthernetIntrId);
+#else
+		XAxiEthernet_Config *MacCfgPtr);
+#endif
 static int TxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr,
+#ifndef SDT
 		XAxiEthernet_Config *MacCfgPtr, u16 AxiEthernetIntrId);
+#else
+		XAxiEthernet_Config *MacCfgPtr);
+#endif
 static void DoneHandler(void *CallBackRef, u32 Chan_id);
 static void ErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask);
 static void TxDoneHandler(void *CallBackRef, u32 Chan_id);
 static void TxErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask);
 
+#ifndef SDT
 /*
  * Interrupt setup and Callbacks for examples
  */
@@ -256,6 +284,8 @@ static int AxiEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 				      u8 McdmaIntrId,
 				      u16 AxiEnetIntrId,
 				      u8 Direction);
+#endif
+static void AxiEthernetErrorHandler(XAxiEthernet *AxiEthernet);
 
 void AxiEthernetPHYRegistersDump(XAxiEthernet * AxiEthernetInstancePtr);
 
@@ -285,12 +315,18 @@ int main(void)
 	 * Call the Axi Ethernet MCDMA interrupt example , specify the
 	 * parameters generated in xparameters.h.
 	 */
+#ifndef SDT
 	Status = AxiEthernetSgDmaIntrExample(&IntcInstance,
 					     &AxiEthernetInstance,
 					     &DmaInstance,
 					     AXIETHERNET_DEVICE_ID,
 					     AXIMCDMA_DEVICE_ID,
 					     AXIETHERNET_IRPT_INTR);
+#else
+	Status = AxiEthernetSgDmaIntrExample(&AxiEthernetInstance,
+					     &DmaInstance,
+					     XAXIETHERNET_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		AxiEthernetUtilErrorTrap("Failed test intr mcdma");
 		AxiEthernetUtilErrorTrap("--- Exiting main() ---");
@@ -336,18 +372,28 @@ int main(void)
 *		initialization would reset AxiEthernet.
 *
 ******************************************************************************/
+#ifndef SDT
 int AxiEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 				XAxiEthernet *AxiEthernetInstancePtr,
 				XMcdma *DmaInstancePtr,
 				u16 AxiEthernetDeviceId,
 				u16 AxiMcDmaDeviceId,
 				u16 AxiEthernetIntrId)
+#else
+int AxiEthernetSgDmaIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
+				XMcdma *DmaInstancePtr,
+				UINTPTR AxiEthernetBaseAddress)
+#endif
 {
 	int Status;
 	int LoopbackSpeed;
 	XAxiEthernet_Config *MacCfgPtr;
 	XMcdma_Config* DmaConfig;
 	u8 ChanId;
+#ifdef SDT
+	int AxiDevType;
+	UINTPTR AxiMCDmaBaseAddress;
+#endif
 
 	/*************************************/
 	/* Setup device for first-time usage */
@@ -356,18 +402,34 @@ int AxiEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 	/*
 	 *  Get the configuration of AxiEthernet hardware.
 	 */
+#ifndef SDT
 	MacCfgPtr = XAxiEthernet_LookupConfig(AxiEthernetDeviceId);
+#else
+	MacCfgPtr = XAxiEthernet_LookupConfig(AxiEthernetBaseAddress);
+	AxiDevType = MacCfgPtr->AxiDevBaseAddress &
+					XAE_AXIDEVTYPE_MASK;
+	AxiMCDmaBaseAddress = MacCfgPtr->AxiDevBaseAddress &
+					XAE_AXIBASEADDR_MASK;
+#endif
 
 	/*
 	 * Check whether MCDMA is present or not
 	 */
+#ifndef SDT
 	if(MacCfgPtr->AxiDevType != XPAR_AXI_MCDMA) {
+#else
+	if(AxiDevType != XPAR_AXI_MCDMA) {
+#endif
 		AxiEthernetUtilErrorTrap
 			("Device HW not configured for MCDMA mode\r\n");
 		return XST_FAILURE;
 	}
 
+#ifndef SDT
 	DmaConfig = XMcdma_LookupConfig(AxiMcDmaDeviceId);
+#else
+	DmaConfig = XMcdma_LookupConfig(AxiMCDmaBaseAddress);
+#endif
 
 	/*
 	 * Initialize AXIMCDMA engine. AXIMCDMA engine must be initialized before
@@ -404,14 +466,22 @@ int AxiEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 	Xil_SetTlbAttributes((UINTPTR)RxBdSpace + BLOCK_SIZE_2MB, NORM_NONCACHE | INNER_SHAREABLE);
 #endif
 
+#ifndef SDT
 	RxBdSetup(DmaInstancePtr, AxiEthernetInstancePtr, MacCfgPtr, AxiEthernetIntrId);
 	TxBdSetup(DmaInstancePtr, AxiEthernetInstancePtr, MacCfgPtr, AxiEthernetIntrId);
-
+#else
+	RxBdSetup(DmaInstancePtr, AxiEthernetInstancePtr, MacCfgPtr);
+	TxBdSetup(DmaInstancePtr, AxiEthernetInstancePtr, MacCfgPtr);
+#endif
 	/*
 	 * Set PHY to loopback, speed depends on phy type.
 	 * MII is 100 and all others are 1000.
 	 */
+#ifndef SDT
 	if (XAxiEthernet_GetPhysicalInterface(AxiEthernetInstancePtr) ==
+#else
+	if (XAxiEthernet_Get_Phy_Interface(AxiEthernetInstancePtr) ==
+#endif
 	                                      XAE_PHY_TYPE_MII) {
 	        LoopbackSpeed = AXIETHERNET_LOOPBACK_SPEED;
 	} else if (MacCfgPtr->Speed == 2500){
@@ -445,8 +515,11 @@ int AxiEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 	/****************************/
 	/* Run through the examples */
 	/****************************/
-
+#ifndef SDT
 	 for (ChanId = 1 ; ChanId <= AxiEthernetInstancePtr->Config.AxiMcDmaChan_Cnt; ChanId++) {
+#else
+	 for (ChanId = 1 ; ChanId <= DmaInstancePtr->Config.RxNumChannels; ChanId++) {
+#endif
 		/*
 		 * Run the AxiEthernet DMA Single Frame Interrupt example
 		 */
@@ -540,18 +613,30 @@ int AxiEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 *
 ******************************************************************************/
 static int RxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr,
+#ifndef SDT
 		     XAxiEthernet_Config *MacCfgPtr, u16 AxiEthernetIntrId)
+#else
+		     XAxiEthernet_Config *MacCfgPtr)
+#endif
 {
 	XMcdma_ChanCtrl *Rx_Chan;
 	u8 ChanId;
 	int BdCount = RXBD_CNT;
 	int Status;
 	UINTPTR RxBdSpacePtr;
+#ifdef SDT
+	int Num_channels;
+
+	Num_channels = McDmaInstPtr->Config.RxNumChannels;
+#endif
 
 
 	RxBdSpacePtr = (UINTPTR)&RxBdSpace;
-
+#ifndef SDT
 	for (ChanId = 1; ChanId <= AxiEthernetInstancePtr->Config.AxiMcDmaChan_Cnt; ChanId++) {
+#else
+	for (ChanId = 1; ChanId <= McDmaInstPtr->Config.RxNumChannels; ChanId++) {
+#endif
 		Rx_Chan = XMcdma_GetMcdmaRxChan(McDmaInstPtr, ChanId);
 
 		/* Disable all interrupts */
@@ -569,12 +654,26 @@ static int RxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr,
 		                          (void *)DoneHandler, McDmaInstPtr);
 		XMcdma_SetCallBack(McDmaInstPtr, XMCDMA_HANDLER_ERROR,
 		                          (void *)ErrorHandler, McDmaInstPtr);
-
+#ifndef SDT
 		Status = AxiEthernetSetupIntrSystem(&IntcInstance, AxiEthernetInstancePtr,
 						    McDmaInstPtr,
 							MacCfgPtr->AxiMcDmaRxIntr[ChanId - 1],
 						    AxiEthernetIntrId,
 						    XMCDMA_MEM_TO_DEV);
+#else
+		Status = XSetupInterruptSystem(AxiEthernetInstancePtr, &AxiEthernetErrorHandler,
+					       AxiEthernetInstancePtr->Config.IntrId,
+					       AxiEthernetInstancePtr->Config.IntrParent,
+					       XINTERRUPT_DEFAULT_PRIORITY);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Status = XSetupInterruptSystem(McDmaInstPtr, &XMcdma_IntrHandler,
+					       McDmaInstPtr->Config.IntrId[Num_channels+(ChanId - 1)],
+					       McDmaInstPtr->Config.IntrParent,
+					       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 		if (Status != XST_SUCCESS) {
 		      xil_printf("Failed RX interrupt setup %d\r\n", ChanId);
 		      return XST_FAILURE;
@@ -602,7 +701,11 @@ static int RxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr,
 *
 ******************************************************************************/
 static int TxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr,
+#ifndef SDT
 		     XAxiEthernet_Config *MacCfgPtr, u16 AxiEthernetIntrId)
+#else
+		     XAxiEthernet_Config *MacCfgPtr)
+#endif
 {
 	XMcdma_ChanCtrl  *Tx_Chan;
 	u8 ChanId;
@@ -612,7 +715,11 @@ static int TxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr,
 
 	TxBdSpacePtr = (UINTPTR)&TxBdSpace;
 
+#ifndef SDT
 	for (ChanId = 1; ChanId <= AxiEthernetInstancePtr->Config.AxiMcDmaChan_Cnt; ChanId++) {
+#else
+	for (ChanId = 1; ChanId <= McDmaInstPtr->Config.TxNumChannels; ChanId++) {
+#endif
 		Tx_Chan = XMcdma_GetMcdmaTxChan(McDmaInstPtr, ChanId);
 
 		XMcdma_IntrDisable(Tx_Chan, XMCDMA_IRQ_ALL_MASK);
@@ -629,12 +736,26 @@ static int TxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr,
 				   (void *)TxDoneHandler, McDmaInstPtr);
 		XMcdma_SetCallBack(McDmaInstPtr, XMCDMA_TX_HANDLER_ERROR,
 				   (void *)TxErrorHandler, McDmaInstPtr);
-
+#ifndef SDT
 		Status = AxiEthernetSetupIntrSystem(&IntcInstance, AxiEthernetInstancePtr,
 						    McDmaInstPtr,
 							MacCfgPtr->AxiMcDmaTxIntr[ChanId - 1],
 						    AxiEthernetIntrId,
 						    XMCDMA_DEV_TO_MEM);
+#else
+		Status = XSetupInterruptSystem(AxiEthernetInstancePtr, &AxiEthernetErrorHandler,
+					       AxiEthernetInstancePtr->Config.IntrId,
+					       AxiEthernetInstancePtr->Config.IntrParent,
+					       XINTERRUPT_DEFAULT_PRIORITY);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		Status = XSetupInterruptSystem(McDmaInstPtr, &XMcdma_IntrHandler,
+					       McDmaInstPtr->Config.IntrId[ChanId - 1],
+					       McDmaInstPtr->Config.IntrParent,
+					       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 		if (Status != XST_SUCCESS) {
 		      xil_printf("Failed TX interrupt setup %d\r\n", ChanId);
 		      return XST_FAILURE;
@@ -1858,7 +1979,7 @@ int AxiEthernetSgDmaFullChecksumOffloadExample(XAxiEthernet *AxiEthernetInstance
 
 }
 
-
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -2001,3 +2122,4 @@ static int AxiEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
+#endif
