@@ -170,7 +170,13 @@ u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
 	if (InstancePtr->SimpleOnlyBuild && CfgPtr->IsLite) {
 		InstancePtr->MaxTransLen = InstancePtr->WordLength *
 					   CfgPtr->BurstLen;
-	} else {
+	}
+#ifdef SDT
+	else if ((strcmp(CfgPtr->Name, "xlnx,axi-cdma-4.1")) >= 0) {
+		InstancePtr->MaxTransLen = XAXICDMA_4_1_MAX_TRANSFER_LEN;
+	}
+#endif
+ else {
 		InstancePtr->MaxTransLen = XAXICDMA_MAX_TRANSFER_LEN;
 	}
 
@@ -285,7 +291,11 @@ int XAxiCdma_SelectKeyHole(XAxiCdma *InstancePtr, u32 Direction, u32 Select)
 				 XAXICDMA_CR_OFFSET);
 
 	if (Select) {
+#ifndef SDT
 		if (XPAR_AXICDMA_0_M_AXI_MAX_BURST_LEN == 16) {
+#else
+		if (InstancePtr->BurstLen == 16) {
+#endif
 			if (Direction == XAXICDMA_KEYHOLE_WRITE) {
 				Value |= XAXICDMA_CR_KHOLE_WR_MASK;
 			} else {
