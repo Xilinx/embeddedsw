@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +17,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- --------------------------------------------------
 * 1.00  sha 01/28/15 Initial release.
+* 1.6   sd  07/14/23 Added SDT support.
 * </pre>
 *
 ******************************************************************************/
@@ -32,7 +34,9 @@
 * xparameters.h file. They are defined here such that a user can easily
 * change all the needed parameters in one place.
 */
+#ifndef SDT
 #define XAXIS_SWITCH_DEVICE_ID		XPAR_AXIS_SWITCH_0_DEVICE_ID
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -42,7 +46,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int AxisSwitch_Example(u16 DeviceId);
+#else
+int AxisSwitch_Example(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -69,7 +77,11 @@ int main()
 	int Status;
 
 	/* Call the AXI4-Stream Switch example */
+#ifndef SDT
 	Status = AxisSwitch_Example(XAXIS_SWITCH_DEVICE_ID);
+#else
+	Status = AxisSwitch_Example(XPAR_AXIS_SWITCH_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("AXI4-Stream Switch driver example failed.\r\n");
 		return XST_FAILURE;
@@ -95,7 +107,11 @@ int main()
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int AxisSwitch_Example(u16 DeviceId)
+#else
+int AxisSwitch_Example(UINTPTR BaseAddress)
+#endif
 {
 	XAxis_Switch_Config *Config;
 	int Status;
@@ -106,7 +122,11 @@ int AxisSwitch_Example(u16 DeviceId)
 	 * use look up configuration in the config table, then
 	 * initialize it.
 	 */
+#ifndef SDT
 	Config = XAxisScr_LookupConfig(DeviceId);
+#else
+	Config = XAxisScr_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
