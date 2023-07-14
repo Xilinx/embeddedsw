@@ -85,7 +85,7 @@ volatile u32 SlaveResponse;		/**< Slave Response Flag */
 
 /**Searching for the required Slave Address and user can also add
  * their own slave Address in the below array list**/
-u16 SlvAddr[] = {0x54,0x55,0x74,0};
+u16 SlvAddr[] = {0x54, 0x55, 0x74, 0};
 XIicPs IicInstance;		/* The instance of the IIC device. */
 #ifdef SDT
 extern XIicPs_Config XIicPs_ConfigTable[XPAR_XIICPS_NUM_INSTANCES];
@@ -155,7 +155,7 @@ static int IicPsConfig(UINTPTR BaseAddress)
 	}
 
 	Status = XIicPs_CfgInitialize(&IicInstance, ConfigPtr,
-					ConfigPtr->BaseAddress);
+				      ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -167,9 +167,9 @@ static int IicPsConfig(UINTPTR BaseAddress)
 	Status = SetupInterruptSystem(&IicInstance, Int_Id);
 #else
 	Status = XSetupInterruptSystem(&IicInstance, XIicPs_MasterInterruptHandler,
-					ConfigPtr->IntrId,
-					ConfigPtr->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       ConfigPtr->IntrId,
+				       ConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -206,7 +206,7 @@ int IicPsSlaveMonitorExample(void)
 	int Status;
 	int Index;
 
-	for(Index = 0;SlvAddr[Index] != 0;Index++) {
+	for (Index = 0; SlvAddr[Index] != 0; Index++) {
 		Status = IicPsFindDevice(SlvAddr[Index]);
 		if (Status == XST_SUCCESS) {
 			return XST_SUCCESS;
@@ -241,7 +241,7 @@ static int IicPsSlaveMonitor(u16 Address, UINTPTR BaseAddress)
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
 #ifndef SDT
-	Status = IicPsConfig(DeviceId,Int_Id);
+	Status = IicPsConfig(DeviceId, Int_Id);
 #else
 	Status = IicPsConfig(BaseAddress);
 #endif
@@ -305,19 +305,19 @@ static int IicPsFindDevice(u16 Addr)
 #endif
 
 #ifndef SDT
-	Status = IicPsSlaveMonitor(Addr,0,XPAR_XIICPS_0_INTR);
+	Status = IicPsSlaveMonitor(Addr, 0, XPAR_XIICPS_0_INTR);
 	if (Status == XST_SUCCESS) {
 		return XST_SUCCESS;
 	}
-	Status = IicPsSlaveMonitor(Addr,1,XPAR_XIICPS_1_INTR);
+	Status = IicPsSlaveMonitor(Addr, 1, XPAR_XIICPS_1_INTR);
 	if (Status == XST_SUCCESS) {
 		return XST_SUCCESS;
 	}
-	Status = IicPsSlaveMonitor(Addr,0,XPAR_XIICPS_1_INTR);
+	Status = IicPsSlaveMonitor(Addr, 0, XPAR_XIICPS_1_INTR);
 	if (Status == XST_SUCCESS) {
 		return XST_SUCCESS;
 	}
-	Status = IicPsSlaveMonitor(Addr,1,XPAR_XIICPS_0_INTR);
+	Status = IicPsSlaveMonitor(Addr, 1, XPAR_XIICPS_0_INTR);
 	if (Status == XST_SUCCESS) {
 		return XST_SUCCESS;
 	}
@@ -368,7 +368,7 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id)
 	}
 
 	Status = XScuGic_CfgInitialize(&InterruptController, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -379,8 +379,8 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id)
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				&InterruptController);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     &InterruptController);
 
 	/*
 	 * Connect the device driver handler that will be called when an
@@ -388,8 +388,8 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id)
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(&InterruptController, Int_Id,
-			(Xil_InterruptHandler)XIicPs_MasterInterruptHandler,
-			(void *)IicPsPtr);
+				 (Xil_InterruptHandler)XIicPs_MasterInterruptHandler,
+				 (void *)IicPsPtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -436,11 +436,11 @@ void Handler(void *CallBackRef, u32 Event)
 
 	if (0 != (Event & XIICPS_EVENT_COMPLETE_SEND)) {
 		TransmitComplete = TRUE;
-	} else if (0 != (Event & XIICPS_EVENT_COMPLETE_RECV)){
+	} else if (0 != (Event & XIICPS_EVENT_COMPLETE_RECV)) {
 		ReceiveComplete = TRUE;
 	} else if (0 != (Event & XIICPS_EVENT_SLAVE_RDY)) {
 		SlaveResponse = TRUE;
-	} else if (0 != (Event & XIICPS_EVENT_ERROR)){
+	} else if (0 != (Event & XIICPS_EVENT_ERROR)) {
 		TotalErrorCount++;
 	}
 }

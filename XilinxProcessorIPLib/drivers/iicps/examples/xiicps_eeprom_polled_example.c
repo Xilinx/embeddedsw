@@ -129,8 +129,8 @@ u8 ReadBuffer[MAX_SIZE];	/* Read buffer for reading a page. */
 
 /**Searching for the required EEPROM Address and user can also add
  * their own EEPROM Address in the below array list**/
-u16 EepromAddr[] = {0x54,0x55,0};
-u16 MuxAddr[] = {0x74,0};
+u16 EepromAddr[] = {0x54, 0x55, 0};
+u16 MuxAddr[] = {0x74, 0};
 u16 EepromSlvAddr;
 u32 PageSize;
 #ifdef SDT
@@ -189,7 +189,7 @@ s32 IicPsEepromPolledExample(void)
 	u32 WrBfrOffset;
 
 
-	Status = IicPsFindEeprom(&EepromSlvAddr,&PageSize);
+	Status = IicPsFindEeprom(&EepromSlvAddr, &PageSize);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -303,7 +303,7 @@ static s32 EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
 	 */
 
 	Status = XIicPs_MasterSendPolled(IicInstance, WriteBuffer,
-					  ByteCount, EepromSlvAddr);
+					 ByteCount, EepromSlvAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -361,9 +361,9 @@ static s32 EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount)
 	 */
 
 	Status = XIicPs_MasterRecvPolled(IicInstance, BufferPtr,
-						  ByteCount, EepromSlvAddr);
+					 ByteCount, EepromSlvAddr);
 	if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
+		return XST_FAILURE;
 	}
 	/*
 	 * Wait until bus is idle to start another transfer.
@@ -398,8 +398,8 @@ static s32 MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer)
 	/*
 	 * Send the Data.
 	 */
-	Status = XIicPs_MasterSendPolled(&IicInstance, &WriteBuffer,1,
-					MuxIicAddr);
+	Status = XIicPs_MasterSendPolled(&IicInstance, &WriteBuffer, 1,
+					 MuxIicAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -412,7 +412,7 @@ static s32 MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer)
 	/*
 	 * Receive the Data.
 	 */
-	Status = XIicPs_MasterRecvPolled(&IicInstance, &Buffer,1, MuxIicAddr);
+	Status = XIicPs_MasterRecvPolled(&IicInstance, &Buffer, 1, MuxIicAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -451,14 +451,14 @@ static s32 IicPsConfig(UINTPTR BaseAddress)
 #ifndef SDT
 	ConfigPtr = XIicPs_LookupConfig(DeviceId);
 #else
-       ConfigPtr = XIicPs_LookupConfig(BaseAddress);
+	ConfigPtr = XIicPs_LookupConfig(BaseAddress);
 #endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
 
 	Status = XIicPs_CfgInitialize(&IicInstance, ConfigPtr,
-					ConfigPtr->BaseAddress);
+				      ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -493,7 +493,7 @@ static s32 IicPsFindDevice(u16 addr, UINTPTR BaseAddress)
 #ifndef SDT
 	Status = IicPsSlaveMonitor(addr, DeviceId);
 #else
-       Status = IicPsSlaveMonitor(addr, BaseAddress);
+	Status = IicPsSlaveMonitor(addr, BaseAddress);
 #endif
 	if (Status == XST_SUCCESS) {
 		return XST_SUCCESS;
@@ -512,10 +512,10 @@ static s32 IicPsFindDevice(u16 addr, UINTPTR BaseAddress)
 * @note		None.
 *
 ******************************************************************************/
-static s32 IicPsFindEeprom(u16 *Eeprom_Addr,u32 *PageSize)
+static s32 IicPsFindEeprom(u16 *Eeprom_Addr, u32 *PageSize)
 {
 	s32 Status;
-	u32 MuxIndex,Index;
+	u32 MuxIndex, Index;
 	u8 MuxChannel;
 	u16 DeviceId;
 #ifdef SDT
@@ -523,7 +523,7 @@ static s32 IicPsFindEeprom(u16 *Eeprom_Addr,u32 *PageSize)
 #endif
 
 	for (DeviceId = 0; DeviceId < XPAR_XIICPS_NUM_INSTANCES; DeviceId++) {
-		for(MuxIndex=0;MuxAddr[MuxIndex] != 0;MuxIndex++){
+		for (MuxIndex = 0; MuxAddr[MuxIndex] != 0; MuxIndex++) {
 #ifndef SDT
 			Status = IicPsFindDevice(MuxAddr[MuxIndex], DeviceId);
 #else
@@ -531,8 +531,8 @@ static s32 IicPsFindEeprom(u16 *Eeprom_Addr,u32 *PageSize)
 			Status = IicPsFindDevice(MuxAddr[MuxIndex], BaseAddress);
 #endif
 			if (Status == XST_SUCCESS) {
-				for(Index=0;EepromAddr[Index] != 0;Index++) {
-					for(MuxChannel = MAX_CHANNELS; MuxChannel > 0x0; MuxChannel = MuxChannel >> 1) {
+				for (Index = 0; EepromAddr[Index] != 0; Index++) {
+					for (MuxChannel = MAX_CHANNELS; MuxChannel > 0x0; MuxChannel = MuxChannel >> 1) {
 						Status = MuxInitChannel(MuxAddr[MuxIndex], MuxChannel);
 						if (Status != XST_SUCCESS) {
 							xil_printf("Failed to enable the MUX channel\r\n");
@@ -541,19 +541,19 @@ static s32 IicPsFindEeprom(u16 *Eeprom_Addr,u32 *PageSize)
 						Status = FindEepromDevice(EepromAddr[Index]);
 						if (Status == XST_SUCCESS) {
 							*Eeprom_Addr = EepromAddr[Index];
-						Status = FindEepromPageSize(EepromAddr[Index], PageSize);
-						if (Status != XST_SUCCESS) {
-							xil_printf("Failed to find the page size of 0X%X EEPROM\r\n", EepromAddr[Index]);
-							return XST_FAILURE;
-						}
-						xil_printf("Page size %d\r\n", *PageSize);
-						return XST_SUCCESS;
+							Status = FindEepromPageSize(EepromAddr[Index], PageSize);
+							if (Status != XST_SUCCESS) {
+								xil_printf("Failed to find the page size of 0X%X EEPROM\r\n", EepromAddr[Index]);
+								return XST_FAILURE;
+							}
+							xil_printf("Page size %d\r\n", *PageSize);
+							return XST_SUCCESS;
 						}
 					}
 				}
 			}
 		}
-		for(Index=0;EepromAddr[Index] != 0;Index++) {
+		for (Index = 0; EepromAddr[Index] != 0; Index++) {
 #ifndef SDT
 			Status = IicPsFindDevice(EepromAddr[Index], DeviceId);
 #else
@@ -582,7 +582,7 @@ static s32 IicPsFindEeprom(u16 *Eeprom_Addr,u32 *PageSize)
 *******************************************************************************/
 static s32 FindEepromDevice(u16 Address)
 {
-	u32 Index,IntrStatusReg;
+	u32 Index, IntrStatusReg;
 	XIicPs *IicPtr = &IicInstance;
 
 
@@ -598,7 +598,7 @@ static s32 FindEepromDevice(u16 Address)
 		 * Read the Interrupt status register.
 		 */
 		IntrStatusReg = XIicPs_ReadReg(IicPtr->Config.BaseAddress,
-						 (u32)XIICPS_ISR_OFFSET);
+					       (u32)XIICPS_ISR_OFFSET);
 		if (0U != (IntrStatusReg & XIICPS_IXR_SLV_RDY_MASK)) {
 			XIicPs_DisableSlaveMonitor(&IicInstance);
 			XIicPs_WriteReg(IicPtr->Config.BaseAddress,
@@ -634,8 +634,7 @@ static int FindEepromPageSize(u16 EepromAddr, u32 *PageSize_ptr)
 	u32 ps[3] = {64, 32, 16};
 	u32 PageSize_test, count;
 
-	for (i = 0; i < 3; i++)
-	{
+	for (i = 0; i < 3; i++) {
 		count = 0;
 		PageSize_test = ps[i];
 		*PageSize_ptr = PageSize_test;
@@ -680,8 +679,7 @@ static int FindEepromPageSize(u16 EepromAddr, u32 *PageSize_ptr)
 				count++;
 			}
 		}
-		if (count == PageSize_test)
-		{
+		if (count == PageSize_test) {
 			return XST_SUCCESS;
 		}
 	}
@@ -707,7 +705,7 @@ static s32 IicPsSlaveMonitor(u16 Address, u16 DeviceId)
 static s32 IicPsSlaveMonitor(u16 Address, UINTPTR BaseAddress)
 #endif
 {
-	u32 Index,IntrStatusReg;
+	u32 Index, IntrStatusReg;
 	s32 Status;
 	XIicPs *IicPtr;
 
@@ -736,7 +734,7 @@ static s32 IicPsSlaveMonitor(u16 Address, UINTPTR BaseAddress)
 		 * Read the Interrupt status register.
 		 */
 		IntrStatusReg = XIicPs_ReadReg(IicPtr->Config.BaseAddress,
-						 (u32)XIICPS_ISR_OFFSET);
+					       (u32)XIICPS_ISR_OFFSET);
 		if (0U != (IntrStatusReg & XIICPS_IXR_SLV_RDY_MASK)) {
 			XIicPs_DisableSlaveMonitor(&IicInstance);
 			XIicPs_WriteReg(IicPtr->Config.BaseAddress,

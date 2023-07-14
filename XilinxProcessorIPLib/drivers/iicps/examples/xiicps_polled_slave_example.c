@@ -182,7 +182,7 @@ int IicPsSlavePolledExample(UINTPTR BaseAddress)
 	 * as the return value since we are using it in interrupt mode.
 	 */
 	Status = XIicPs_SlaveSendPolled(&Iic, SendBuffer,
-				TEST_BUFFER_SIZE);
+					TEST_BUFFER_SIZE);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -192,7 +192,7 @@ int IicPsSlavePolledExample(UINTPTR BaseAddress)
 	}
 
 	Status = XIicPs_SlaveRecvPolled(&Iic, RecvBuffer,
-				TEST_BUFFER_SIZE);
+					TEST_BUFFER_SIZE);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -200,7 +200,7 @@ int IicPsSlavePolledExample(UINTPTR BaseAddress)
 	/*
 	 * Verify received data is correct.
 	 */
-	for(Index = 0; Index < TEST_BUFFER_SIZE; Index ++) {
+	for (Index = 0; Index < TEST_BUFFER_SIZE; Index ++) {
 		if (RecvBuffer[Index] != Index % TEST_BUFFER_SIZE) {
 			return XST_FAILURE;
 		}

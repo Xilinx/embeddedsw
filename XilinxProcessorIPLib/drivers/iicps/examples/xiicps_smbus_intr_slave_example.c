@@ -94,7 +94,7 @@ u8 RecvBuffer[BUFFER_SIZE];	/* Buffer for Receiving Data */
 
 u8 RecvCmd;			/* Received command */
 u8 Cmd;				/* Command received during Send operation */
-u8 RecvByteCount=0;
+u8 RecvByteCount = 0;
 
 /*
  * The following counters are used to determine when the entire buffer has
@@ -120,7 +120,7 @@ volatile u32 TotalErrorCount;
 int main(void)
 {
 	int Status;
-	int Index=0;
+	int Index = 0;
 
 	xil_printf("SMBus Slave Interrupt Example Test \r\n");
 
@@ -147,7 +147,7 @@ int main(void)
 	xil_printf("SMBus Slave : receive operation : command = 0x%x \r\n", RecvCmd);
 	xil_printf("SMBus Slave : Byte count = 0x%x \r\n", RecvByteCount);
 
-	for(Index=0; Index<BUFFER_SIZE; Index++){
+	for (Index = 0; Index < BUFFER_SIZE; Index++) {
 		xil_printf("SMBus Slave : Data: RecvBuffer[%d] = 0x%x \r\n", Index, RecvBuffer[Index] );
 	}
 
@@ -225,9 +225,9 @@ int IicPsSmbusSlaveIntrExample(UINTPTR BaseAddress)
 	Status = SetupInterruptSystem(&Iic);
 #else
 	Status = XSetupInterruptSystem(&Iic, XIicPs_MasterInterruptHandler,
-			Config->IntrId,
-			Config->IntrParent,
-			XINTERRUPT_DEFAULT_PRIORITY);
+				       Config->IntrId,
+				       Config->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -250,14 +250,14 @@ int IicPsSmbusSlaveIntrExample(UINTPTR BaseAddress)
 	/*
 	 * SMBus Slave Receive operation
 	 */
-	XIicPsSmbusReadBlockData(&Iic, &RecvCmd ,&RecvByteCount, RecvBuffer);
+	XIicPsSmbusReadBlockData(&Iic, &RecvCmd, &RecvByteCount, RecvBuffer);
 
 	/*
 	 * SMBus Slave Send operation
 	 */
 
-	for(Index=0;Index<BUFFER_SIZE; Index++){
-		SendBuffer[Index]=Index;
+	for (Index = 0; Index < BUFFER_SIZE; Index++) {
+		SendBuffer[Index] = Index;
 	}
 
 	XIicPsSmbusWriteBlockData(&Iic, &Cmd, BUFFER_SIZE, SendBuffer);
@@ -267,10 +267,10 @@ int IicPsSmbusSlaveIntrExample(UINTPTR BaseAddress)
 
 int XIicPsSmbusWriteBlockData(XIicPs *InstancePtr, u8 *Command, u8 ByteCount, u8 *SendBufferPtr)
 {
-	u8 Cmmd=0;
+	u8 Cmmd = 0;
 	u32 Index;
 	u32 BufferIndex;
-	static u8 SmbusSendBuffer[BUFFER_SIZE+1];
+	static u8 SmbusSendBuffer[BUFFER_SIZE + 1];
 
 	InstancePtr->RecvBufferPtr = &Cmmd;
 
@@ -278,7 +278,7 @@ int XIicPsSmbusWriteBlockData(XIicPs *InstancePtr, u8 *Command, u8 ByteCount, u8
 	 * Command Receive part
 	 */
 
-	while ((XIicPs_RxDataValidStatus(InstancePtr)) != 0x20U){
+	while ((XIicPs_RxDataValidStatus(InstancePtr)) != 0x20U) {
 		/* NOP */
 	}
 
@@ -294,7 +294,7 @@ int XIicPsSmbusWriteBlockData(XIicPs *InstancePtr, u8 *Command, u8 ByteCount, u8
 	 */
 	SmbusSendBuffer[0] = ByteCount;
 
-	for (Index = 1, BufferIndex=0; Index < (BUFFER_SIZE+1); Index++, BufferIndex++){
+	for (Index = 1, BufferIndex = 0; Index < (BUFFER_SIZE + 1); Index++, BufferIndex++) {
 		SmbusSendBuffer[Index] = SendBufferPtr[BufferIndex];
 	}
 
@@ -306,7 +306,7 @@ int XIicPsSmbusWriteBlockData(XIicPs *InstancePtr, u8 *Command, u8 ByteCount, u8
 	 * In case of error, the interrupt handler will inform us through event
 	 * flag.
 	 */
-	XIicPs_SlaveSend(&Iic, SmbusSendBuffer, BUFFER_SIZE+1);
+	XIicPs_SlaveSend(&Iic, SmbusSendBuffer, BUFFER_SIZE + 1);
 
 	/*
 	 * Wait for the entire buffer to be sent, let the interrupt
@@ -333,23 +333,23 @@ int XIicPsSmbusReadBlockData(XIicPs *InstancePtr, u8 *Command, u8 *ByteCount, u8
 {
 	u32 Index;
 	u32 BufferIndex;
-	static u8 SmbusRecvBuffer[BUFFER_SIZE+2];
+	static u8 SmbusRecvBuffer[BUFFER_SIZE + 2];
 
 	/*
 	 * Receive data from master.
 	 * Receive errors will be signaled through event flag.
 	 */
 
-	for(Index=0;Index<BUFFER_SIZE;Index++){
-		SmbusRecvBuffer[Index]=0;
-		RecvBufferPtr[Index]=0;
+	for (Index = 0; Index < BUFFER_SIZE; Index++) {
+		SmbusRecvBuffer[Index] = 0;
+		RecvBufferPtr[Index] = 0;
 	}
 
 	*Command = 0;
 	*ByteCount = 0;
 
 	RecvComplete = FALSE;
-	XIicPs_SlaveRecv(&Iic, SmbusRecvBuffer,0);
+	XIicPs_SlaveRecv(&Iic, SmbusRecvBuffer, 0);
 
 	while (!RecvComplete) {
 		if (0 != TotalErrorCount) {
@@ -360,7 +360,7 @@ int XIicPsSmbusReadBlockData(XIicPs *InstancePtr, u8 *Command, u8 *ByteCount, u8
 	*Command = SmbusRecvBuffer[0];
 	*ByteCount = SmbusRecvBuffer[1];
 
-	for(BufferIndex=0, Index = 2; Index < (BUFFER_SIZE+2); BufferIndex++, Index ++) {
+	for (BufferIndex = 0, Index = 2; Index < (BUFFER_SIZE + 2); BufferIndex++, Index ++) {
 		RecvBufferPtr[BufferIndex] = SmbusRecvBuffer[Index];
 	}
 
@@ -391,13 +391,11 @@ void Handler(void *CallBackRef, u32 Event)
 	/*
 	 * Data transfer finishes.
 	 */
-	if (0 != (Event & XIICPS_EVENT_COMPLETE_RECV)){
+	if (0 != (Event & XIICPS_EVENT_COMPLETE_RECV)) {
 		RecvComplete = TRUE;
-	}
-	else if (0 != (Event & XIICPS_EVENT_COMPLETE_SEND)) {
+	} else if (0 != (Event & XIICPS_EVENT_COMPLETE_SEND)) {
 		SendComplete = TRUE;
-	}
-	else {
+	} else {
 
 		/*
 		 * Data was received with an error.
@@ -442,7 +440,7 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr)
 	}
 
 	Status = XScuGic_CfgInitialize(&InterruptController, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -452,8 +450,8 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr)
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				&InterruptController);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     &InterruptController);
 
 	/*
 	 * Connect the device driver handler that will be called when an
@@ -461,8 +459,8 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr)
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(&InterruptController, IIC_INT_VEC_ID,
-			(Xil_InterruptHandler)XIicPs_SlaveInterruptHandler,
-			(void *)IicPsPtr);
+				 (Xil_InterruptHandler)XIicPs_SlaveInterruptHandler,
+				 (void *)IicPsPtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}

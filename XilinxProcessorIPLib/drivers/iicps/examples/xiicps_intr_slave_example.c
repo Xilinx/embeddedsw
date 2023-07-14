@@ -207,9 +207,9 @@ int IicPsSlaveIntrExample(UINTPTR BaseAddress)
 	Status = SetupInterruptSystem(&Iic);
 #else
 	Status = XSetupInterruptSystem(&Iic, XIicPs_SlaveInterruptHandler,
-					Config->IntrId,
-					Config->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       Config->IntrId,
+				       Config->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -283,7 +283,7 @@ int IicPsSlaveIntrExample(UINTPTR BaseAddress)
 	/*
 	 * Verify received data.
 	 */
-	for(Index = 0; Index < TEST_BUFFER_SIZE; Index ++) {
+	for (Index = 0; Index < TEST_BUFFER_SIZE; Index ++) {
 		if (RecvBuffer[Index] != Index) {
 			return XST_FAILURE;
 		}
@@ -314,10 +314,9 @@ void Handler(void *CallBackRef, u32 Event)
 	/*
 	 * Data transfer finishes.
 	 */
-	if (0 != (Event & XIICPS_EVENT_COMPLETE_RECV)){
+	if (0 != (Event & XIICPS_EVENT_COMPLETE_RECV)) {
 		RecvComplete = TRUE;
-	}
-	else if (0 != (Event & XIICPS_EVENT_COMPLETE_SEND)) {
+	} else if (0 != (Event & XIICPS_EVENT_COMPLETE_SEND)) {
 		SendComplete = TRUE;
 	} else {
 
@@ -364,7 +363,7 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr)
 	}
 
 	Status = XScuGic_CfgInitialize(&InterruptController, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -375,8 +374,8 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr)
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				&InterruptController);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     &InterruptController);
 
 	/*
 	 * Connect the device driver handler that will be called when an
@@ -384,8 +383,8 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr)
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(&InterruptController, IIC_INT_VEC_ID,
-			(Xil_InterruptHandler)XIicPs_SlaveInterruptHandler,
-			(void *)IicPsPtr);
+				 (Xil_InterruptHandler)XIicPs_SlaveInterruptHandler,
+				 (void *)IicPsPtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
