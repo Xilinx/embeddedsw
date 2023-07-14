@@ -290,6 +290,7 @@
 *       cog    01/07/23 Added VOP support for DC coupled DACs and removed VOP
 *                       support for ES1 Parts.
 * 12.1  cog    07/04/23 Add support for SDT.
+*       cog    07/14/23 Fix issues with SDT flow.
 *
 * </pre>
 *
@@ -829,7 +830,9 @@ typedef struct {
 #define XRFDC_CONFIG_DATA_SIZE sizeof(XRFdc_Config)
 #else
 #define XRFDC_BUS_NAME "generic"
+#ifndef SDT
 #define XRFDC_DEV_NAME XPAR_XRFDC_0_DEV_NAME
+#endif
 #endif
 #define XRFDC_REGION_SIZE 0x40000U
 #define XRFDC_IP_BASE 0x0U
