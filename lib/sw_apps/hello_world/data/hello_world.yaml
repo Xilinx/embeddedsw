@@ -19,8 +19,8 @@ supported_processors:
   - psu_cortexr5
   - psv_cortexa72
   - psv_cortexr5
-  - psxl_cortexa78
-  - psxl_cortexr52
+  - psx_cortexa78
+  - psx_cortexr52
   - ps7_cortexa9
   - microblaze
 
