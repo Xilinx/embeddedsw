@@ -26,7 +26,9 @@
 
 /***************************** Include Files *********************************/
 
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xxxvethernet.h"
 
 /************************** Constant Definitions *****************************/
@@ -56,6 +58,25 @@
 *		- NULL if no match is found.
 *
 ******************************************************************************/
+#ifdef SDT
+XXxvEthernet_Config *XXxvEthernet_LookupConfig(UINTPTR BaseAddress)
+{
+	extern XXxvEthernet_Config XXxvEthernet_ConfigTable[];
+	XXxvEthernet_Config *CfgPtr = NULL;
+	int Index;
+
+	for (Index = 0x0; XXxvEthernet_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XXxvEthernet_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XXxvEthernet_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (CfgPtr);
+}
+#else
+
 XXxvEthernet_Config *XXxvEthernet_LookupConfig(u16 DeviceId)
 {
 	extern XXxvEthernet_Config XXxvEthernet_ConfigTable[];
@@ -71,7 +92,7 @@ XXxvEthernet_Config *XXxvEthernet_LookupConfig(u16 DeviceId)
 
 	return (CfgPtr);
 }
-
+#endif
 /*****************************************************************************/
 /**
 * XXxvEthernet_LookupConfigBaseAddr returns a reference to an
@@ -88,6 +109,24 @@ XXxvEthernet_Config *XXxvEthernet_LookupConfig(u16 DeviceId)
 *		- NULL if no match is found.
 *
 ******************************************************************************/
+#ifdef SDT
+XXxvEthernet_Config *XXxvEthernet_LookupConfigBaseAddr(UINTPTR BaseAddress)
+{
+	extern XXxvEthernet_Config XXxvEthernet_ConfigTable[];
+	XXxvEthernet_Config *CfgPtr = NULL;
+	int Index;
+
+	for (Index = 0x0; XXxvEthernet_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XXxvEthernet_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XXxvEthernet_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (CfgPtr);
+}
+#else
 XXxvEthernet_Config *XXxvEthernet_LookupConfigBaseAddr(UINTPTR Baseaddr)
 {
 	extern XXxvEthernet_Config XXxvEthernet_ConfigTable[];
@@ -103,4 +142,5 @@ XXxvEthernet_Config *XXxvEthernet_LookupConfigBaseAddr(UINTPTR Baseaddr)
 
 	return (CfgPtr);
 }
+#endif
 /** @} */
