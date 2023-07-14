@@ -46,12 +46,16 @@ if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "pmu_microblaze"))
    collect (PROJECT_LIB_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../xmicroblaze_g.c)
 endif()
-if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53-32") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "aarch64") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72"))
+if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53-32") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "aarch64") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78"))
 	collect (PROJECT_LIB_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../xarmv8_g.c)
 endif()
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "arm"))
    collect (PROJECT_LIB_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../xcortexr5_g.c)
+endif()
+
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52")
+   collect (PROJECT_LIB_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../xcortexr52_g.c)
 endif()
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9")
@@ -60,4 +64,8 @@ endif()
 
 if("${CMAKE_MACHINE}" STREQUAL "Versal")
 add_subdirectory(versal)
+endif()
+
+if("${CMAKE_MACHINE}" STREQUAL "VersalNet")
+add_subdirectory(versal_net)
 endif()
