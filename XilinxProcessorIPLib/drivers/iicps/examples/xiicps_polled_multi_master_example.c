@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.00a sg  03/09/19 First release
+ * 3.18  gm  07/14/23 Added SDT support.
  *
  * </pre>
  *
@@ -44,7 +45,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID
+#else
+#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR
+#endif
 
 /*
  * The slave address to send to and receive from.
@@ -63,7 +68,11 @@
 
 /************************** Function Prototypes *******************************/
 
+#ifndef SDT
 s32 IicPsMultiMasterPolledExample(u16 DeviceId);
+#else
+s32 IicPsMultiMasterPolledExample(UINTPTR BaseAddress);
+#endif
 /************************** Variable Definitions ******************************/
 
 XIicPs Iic;		/**< Instance of the IIC Device */
@@ -97,7 +106,11 @@ s32 main(void)
 	 * Run the Iic polled example in master mode, specify the Device
 	 * ID that is specified in xparameters.h.
 	 */
+#ifndef SDT
 	Status = IicPsMultiMasterPolledExample(IIC_DEVICE_ID);
+#else
+	Status = IicPsMultiMasterPolledExample(XIICPS_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("IIC MultiMaster Polled Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -125,7 +138,11 @@ s32 main(void)
 * @note		None.
 *
 *******************************************************************************/
+#ifndef SDT
 s32 IicPsMultiMasterPolledExample(u16 DeviceId)
+#else
+s32 IicPsMultiMasterPolledExample(UINTPTR BaseAddress)
+#endif
 {
 	s32 Status;
 	XIicPs_Config *Config;
@@ -136,7 +153,11 @@ s32 IicPsMultiMasterPolledExample(u16 DeviceId)
 	 * Look up the configuration in the config table,
 	 * then initialize it.
 	 */
+#ifndef SDT
 	Config = XIicPs_LookupConfig(DeviceId);
+#else
+	Config = XIicPs_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
