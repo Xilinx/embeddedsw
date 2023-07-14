@@ -40,6 +40,7 @@
 * 11.1  cog    11/16/21 Upversion.
 *       cog    02/24/22 Fixed memory leak.
 * 12.1  cog    07/04/23 Add support for SDT.
+*       cog    07/14/23 Fix issues with SDT flow.
 *
 * </pre>
 *
@@ -192,10 +193,14 @@ s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId)
 * @note     None.
 *
 ******************************************************************************/
+#ifdef __BAREMETAL__
 #ifndef SDT
 XRFdc_Config *XRFdc_LookupConfig(u16 DeviceId)
 #else
 XRFdc_Config *XRFdc_LookupConfig(metal_phys_addr_t BaseAddr)
+#endif
+#else
+XRFdc_Config *XRFdc_LookupConfig(u16 DeviceId)
 #endif
 {
 	XRFdc_Config *CfgPtr = NULL;
@@ -252,7 +257,7 @@ RETURN_PATH2:
 	}
 #else
 	for (Index = (u32)0x0; XRFdc_ConfigTable[Index].Name != NULL; Index++) {
-		if ((XRFdc_ConfigTable[Index].BaseAddress == BaseAddr) || !BaseAddr) {
+		if ((XRFdc_ConfigTable[Index].BaseAddr == BaseAddr) || !BaseAddr) {
 			CfgPtr = &XRFdc_ConfigTable[Index];
 			break;
 		}
@@ -294,7 +299,11 @@ u32 XRFdc_RegisterMetal(XRFdc *InstancePtr, u16 DeviceId, struct metal_device **
 		metal_log(METAL_LOG_ERROR, "\n Failed to register device");
 		goto RETURN_PATH;
 	}
+#ifndef SDT
 	Status = metal_device_open(XRFDC_BUS_NAME, XRFDC_DEV_NAME, DevicePtr);
+#else
+	Status = metal_device_open(XRFDC_BUS_NAME, (*DevicePtr)->name, DevicePtr);
+#endif
 	if (Status != XRFDC_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Failed to open device usp_rf_data_converter");
 		goto RETURN_PATH;
