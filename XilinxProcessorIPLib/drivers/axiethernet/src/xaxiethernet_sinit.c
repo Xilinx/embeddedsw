@@ -25,8 +25,10 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
 #include "xaxiethernet.h"
+#ifndef SDT
+#include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -56,6 +58,7 @@
 *		- NULL if no match is found.
 *
 ******************************************************************************/
+#ifndef SDT
 XAxiEthernet_Config *XAxiEthernet_LookupConfig(u16 DeviceId)
 {
 	extern XAxiEthernet_Config XAxiEthernet_ConfigTable[];
@@ -71,4 +74,23 @@ XAxiEthernet_Config *XAxiEthernet_LookupConfig(u16 DeviceId)
 
 	return (CfgPtr);
 }
+#else
+XAxiEthernet_Config *XAxiEthernet_LookupConfig(UINTPTR BaseAddress)
+{
+	extern XAxiEthernet_Config XAxiEthernet_ConfigTable[];
+	XAxiEthernet_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0x0; XAxiEthernet_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XAxiEthernet_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		     !BaseAddress) {
+			CfgPtr = &XAxiEthernet_ConfigTable[Index];
+			break;
+		}
+	}
+
+
+	return (CfgPtr);
+}
+#endif
 /** @} */

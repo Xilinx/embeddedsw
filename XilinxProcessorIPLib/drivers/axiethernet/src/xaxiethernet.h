@@ -485,6 +485,9 @@
 *          01/11/18 Fixed CR#976392 Use UINTPTR for DMA base address.
 * 5.14 adk 31/01/22 Fix interrupt controller name in SMP designs, Changes are
 * 		    made in the interrupt app tcl file.
+* 5.16 sne 01/07/23 Updated axienet driver to SDT and non-SDT flows.
+*		    Updated phy related macros with opensource ""phy_interface_t"
+*		    enum macro values.
 * </pre>
 *
 ******************************************************************************/
@@ -677,12 +680,18 @@ extern "C" {
  * Constant values returned by XAxiEthernet_GetPhysicalInterface(). Note that
  * these values match design parameters from the Axi Ethernet spec.
  */
-#define XAE_PHY_TYPE_MII		0
-#define XAE_PHY_TYPE_GMII		1
-#define XAE_PHY_TYPE_RGMII_1_3		2
-#define XAE_PHY_TYPE_RGMII_2_0		3
+#define XAE_PHY_TYPE_RGMII		9
+#define XAE_PHY_TYPE_RGMII_ID		10
+#define XAE_PHY_TYPE_RGMII_RXID		11
+#define XAE_PHY_TYPE_RGMII_TXID		12
+
+#define XAE_PHY_INTERFACE_MODE_NA	0
+#define XAE_PHY_TYPE_MII		2
+#define XAE_PHY_TYPE_GMII		3
 #define XAE_PHY_TYPE_SGMII		4
-#define XAE_PHY_TYPE_1000BASE_X		5
+#define XAE_PHY_TYPE_RGMII_1_3		XAE_PHY_TYPE_RGMII
+#define XAE_PHY_TYPE_RGMII_2_0		XAE_PHY_TYPE_RGMII_RXID
+#define XAE_PHY_TYPE_1000BASE_X		21
 
 #define XAE_TPID_MAX_ENTRIES		4 /* Number of storable TPIDs in
 					   * Table
@@ -719,6 +728,17 @@ extern "C" {
 #define XAE_SOFT_TEMAC_10_100_1000_MBPS	1
 #define XAE_HARD_TEMC			2
 
+#ifdef SDT
+/* AxiEthernet TYPE Enumerations */
+#define XPAR_AXI_FIFO    1U
+#define XPAR_AXI_DMA     2U
+#define XPAR_AXI_MCDMA   3U
+
+/* Axi Ethernet Dev Type Masks */
+#define XAE_AXIDEVTYPE_MASK 	0xF
+#define XAE_AXIBASEADDR_MASK	0xFFFFFFFFFFFFFFF0
+#endif
+
 /**************************** Type Definitions *******************************/
 
 
@@ -726,23 +746,33 @@ extern "C" {
  * This typedef contains configuration information for a Axi Ethernet device.
  */
 typedef struct XAxiEthernet_Config {
+#ifndef SDT
 	u16 DeviceId;	/**< DeviceId is the unique ID  of the device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;/**< BaseAddress is the physical base address of the
 			  *  device's registers
 			  */
+#ifndef SDT
 	u8 TemacType;   /**< Temac Type can have 3 possible values. They are
 			  *  0 for SoftTemac at 10/100 Mbps, 1 for SoftTemac
 			  *  at 10/100/1000 Mbps and 2 for Vitex6 Hard Temac
 			  */
+#endif
 	u8 TxCsum;	/**< TxCsum indicates that the device has checksum
 			  *  offload on the Tx channel or not.
 			  */
 	u8 RxCsum;	/**< RxCsum indicates that the device has checksum
 			  *  offload on the Rx channel or not.
 			  */
+#ifndef SDT
 	u8 PhyType;	/**< PhyType indicates which type of PHY interface is
 			  *  used (MII, GMII, RGMII, etc.
 			  */
+#else
+	char *PhyType;
+#endif
 	u8 TxVlanTran;  /**< TX VLAN Translation indication */
 	u8 RxVlanTran;  /**< RX VLAN Translation indication */
 	u8 TxVlanTag;   /**< TX VLAN tagging indication */
@@ -756,7 +786,17 @@ typedef struct XAxiEthernet_Config {
 	u8 Enable_1588;	/**< Enable 1588 option */
 	u32 Speed;	/**< Tells whether MAC is 1G or 2p5G */
 	u8 NumTableEntries;	/**< Number of table entries */
-
+#ifdef SDT
+	u32 PhyAddr;
+	u16 IntrId; /** Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	UINTPTR AxiDevBaseAddress; /**< Bit[3:0] AxiDevType is the type of device attached to the
+				 * Axi Ethernet's AXI4-Stream interface
+				 * Bit[64/32:4] AxiDevBaseAddress is the base address of
+                                 *  the device attached to the Axi Ethernet's
+                                 *  AXI4-Stream interface.
+                                 */
+#else
 	u8 TemacIntr;	/**< Axi Ethernet interrupt ID */
 
 	int AxiDevType;  /**< AxiDevType is the type of device attached to the
@@ -772,6 +812,7 @@ typedef struct XAxiEthernet_Config {
 	u8 AxiMcDmaChan_Cnt;  /**< Axi MCDMA Channel Count */
 	u8 AxiMcDmaRxIntr[16]; /**< Axi MCDMA Rx interrupt ID (unused if AXI DMA or FIFO) */
 	u8 AxiMcDmaTxIntr[16]; /**< AXI MCDMA TX interrupt ID (unused if AXIX DMA or FIFO) */
+#endif
 } XAxiEthernet_Config;
 
 
@@ -787,6 +828,15 @@ typedef struct XAxiEthernet {
 	u32 IsReady;		 /**< Device is initialized and ready */
 	u32 Options;		 /**< Current options word */
 	u32 Flags;		 /**< Internal driver flags */
+#ifdef SDT
+	int AxiDevType;	/**< AxiDevType is the type of device attached to the
+			         *   Axi Ethernet's AXI4-Stream interface.
+			         */
+	UINTPTR AxiDevBaseAddress;
+#endif
+	u8 PhyMode;		 /**< Phymode indicates which type of PHY interface
+				   *  is used(MII, GMII, RGMII, 1000BaseX, etc.
+				   */
 } XAxiEthernet;
 
 
@@ -830,9 +880,13 @@ typedef struct XAxiEthernet {
 * 		u32 XAxiEthernet_IsDma(XAxiEthernet *InstancePtr)
 *
 ******************************************************************************/
+#ifndef SDT
 #define XAxiEthernet_IsDma(InstancePtr) \
 	(((InstancePtr)->Config.AxiDevType == XPAR_AXI_DMA) ? TRUE: FALSE)
-
+#else
+#define XAxiEthernet_IsDma(InstancePtr) \
+	(((InstancePtr)->AxiDevType == XPAR_AXI_DMA) ? TRUE: FALSE)
+#endif
 /*****************************************************************************/
 /**
 *
@@ -850,9 +904,13 @@ typedef struct XAxiEthernet {
 * 		u32 XAxiEthernet_IsFifo(XAxiEthernet *InstancePtr)
 *
 ******************************************************************************/
+#ifndef SDT
 #define XAxiEthernet_IsFifo(InstancePtr) \
 	(((InstancePtr)->Config.AxiDevType == XPAR_AXI_FIFO) ? TRUE: FALSE)
-
+#else
+#define XAxiEthernet_IsFifo(InstancePtr) \
+	(((InstancePtr)->AxiDevType == XPAR_AXI_FIFO) ? TRUE: FALSE)
+#endif
 /*****************************************************************************/
 /**
 *
@@ -868,9 +926,13 @@ typedef struct XAxiEthernet {
 * 		u32 XAxiEthernet_IsMcDma(XAxiEthernet *InstancePtr)
 *
 ******************************************************************************/
+#ifndef SDT
 #define XAxiEthernet_IsMcDma(InstancePtr) \
 	(((InstancePtr)->Config.AxiDevType == XPAR_AXI_MCDMA) ? TRUE: FALSE)
-
+#else
+#define XAxiEthernet_IsMcDma(InstancePtr) \
+	(((InstancePtr)->AxiDevType == XPAR_AXI_MCDMA) ? TRUE: FALSE)
+#endif
 /*****************************************************************************/
 /**
 *
@@ -1016,9 +1078,13 @@ typedef struct XAxiEthernet {
 *							*InstancePtr)
 *
 ******************************************************************************/
+#ifndef SDT
 #define XAxiEthernet_GetPhysicalInterface(InstancePtr)	   \
 	((InstancePtr)->Config.PhyType)
 
+#else
+u8 XAxiEthernet_Get_Phy_Interface(XAxiEthernet *InstancePtr);
+#endif
 /****************************************************************************/
 /**
 *
@@ -1449,7 +1515,11 @@ void XAxiEthernet_Reset(XAxiEthernet *InstancePtr);
 /*
  * Initialization functions in xaxitemac_sinit.c
  */
+#ifndef SDT
 XAxiEthernet_Config *XAxiEthernet_LookupConfig(u16 DeviceId);
+#else
+XAxiEthernet_Config *XAxiEthernet_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * MAC configuration/control functions in xaxitemac_control.c
