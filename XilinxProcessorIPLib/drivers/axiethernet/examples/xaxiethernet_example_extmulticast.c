@@ -51,11 +51,13 @@
 
 /***************************** Include Files *********************************/
 
+#include "xparameters.h"
 #include "xaxiethernet_example.h"
 #include "xaxidma.h"
 #include "xil_cache.h"
 #include "xil_exception.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
@@ -64,6 +66,14 @@
 
 #ifdef XPAR_XUARTNS550_NUM_INSTANCES
 #include "xuartns550_l.h"
+#endif
+#else
+#include "xinterrupt_wrap.h"
+
+#if defined(XPAR_STDIN_IS_UARTNS550)
+#include "xuartns550_l.h"
+#endif
+#define XAXIETHERNET_BASEADDRESS XPAR_XAXIETHERNET_0_BASEADDR
 #endif
 
 /*************************** Constant Definitions ****************************/
@@ -76,6 +86,7 @@
 #ifndef TESTAPP_GEN
 #define AXIETHERNET_DEVICE_ID	XPAR_AXIETHERNET_0_DEVICE_ID
 #define AXIDMA_DEVICE_ID	XPAR_AXIDMA_0_DEVICE_ID
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #define AXIETHERNET_IRPT_INTR	XPAR_INTC_0_AXIETHERNET_0_VEC_ID
@@ -86,6 +97,7 @@
 #define AXIETHERNET_IRPT_INTR	XPAR_FABRIC_AXIETHERNET_0_VEC_ID
 #define DMA_RX_IRPT_INTR	XPAR_FABRIC_AXIDMA_0_S2MM_INTROUT_VEC_ID
 #define DMA_TX_IRPT_INTR	XPAR_FABRIC_AXIDMA_0_MM2S_INTROUT_VEC_ID
+#endif
 #endif
 #endif
 
@@ -112,6 +124,7 @@ static EthernetFrame RxFrame;	/* Receive buffer */
 XAxiEthernet AxiEthernetInstance;
 XAxiDma DmaInstance;
 
+#ifndef SDT
 #if XPAR_INTC_0_HAS_FAST == 1
 
 /* Variables for Fast Interrupt Handlers */
@@ -134,6 +147,11 @@ static void RxIntrHandler(XAxiDma_BdRing *RxRingPtr);
 static void TxIntrHandler(XAxiDma_BdRing *TxRingPtr);
 
 #endif
+#else
+static void AxiEthernetErrorHandler(XAxiEthernet *AxiEthernet);
+static void RxIntrHandler(XAxiDma_BdRing *RxRingPtr);
+static void TxIntrHandler(XAxiDma_BdRing *TxRingPtr);
+#endif
 
 /*
  * Aligned memory segments to be used for buffer descriptors
@@ -151,6 +169,7 @@ static volatile int DeviceErrors; /* Num of errors detected in the device */
 volatile int Padding;	/* For 1588 Packets we need to pad 8 bytes time stamp value */
 volatile int ExternalLoopback; /* Variable for External loopback */
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define INTC_HANDLER	XIntc_InterruptHandler
@@ -162,7 +181,7 @@ volatile int ExternalLoopback; /* Variable for External loopback */
 #ifndef TESTAPP_GEN
 static INTC IntcInstance;
 #endif
-
+#endif
 /*
  * Multicast MAC address
  */
@@ -180,6 +199,7 @@ u32 McastAddressTable[(MAX_MULTICAST_ADDR>>3)/sizeof(u32)];
 /*
  * Examples
  */
+#ifndef SDT
 int AxiEthernetMcastExample(INTC *IntcInstancePtr,
 				XAxiEthernet *AxiEthernetInstancePtr,
 				XAxiDma *DmaInstancePtr,
@@ -188,10 +208,16 @@ int AxiEthernetMcastExample(INTC *IntcInstancePtr,
 				u16 AxiEthernetIntrId,
 				u16 DmaRxIntrId,
 				u16 DmaTxIntrId);
+#else
+int AxiEthernetMcastExample(XAxiEthernet *AxiEthernetInstancePtr,
+			    XAxiDma *DmaInstancePtr,
+			    UINTPTR AxiEthernetBaseAddress);
+#endif
 
 int AxiEthernetSgDmaIntrExtMulticastExample(XAxiEthernet
 			*AxiEthernetInstancePtr, XAxiDma *DmaInstancePtr);
 
+#ifndef SDT
 /*
  * Interrupt setup and Callbacks for examples
  */
@@ -205,6 +231,7 @@ static int AxiEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 static void AxiEthernetDisableIntrSystem(INTC *IntcInstancePtr,
 				   u16 AxiEthernetIntrId,
 				   u16 DmaRxIntrId, u16 DmaTxIntrId);
+#endif
 
 /*
  * Manage functions for Multicast table in RAM
@@ -233,11 +260,18 @@ int main(void)
 {
 	int Status;
 
+#ifndef SDT
 #ifdef XPAR_XUARTNS550_NUM_INSTANCES
 	XUartNs550_SetBaud(STDIN_BASEADDRESS, XPAR_XUARTNS550_CLOCK_HZ, 9600);
 	XUartNs550_SetLineControlReg(STDIN_BASEADDRESS, XUN_LCR_8_DATA_BITS);
 #endif
+#else
+#if defined(XPAR_STDIN_IS_UARTNS550)
+	XUartNs550_SetLineControlReg(STDIN_BASEADDRESS, XUN_LCR_8_DATA_BITS);
+#endif
+#endif
 
+#ifndef SDT
 #if XPAR_MICROBLAZE_USE_ICACHE
 	Xil_ICacheInvalidate();
 	Xil_ICacheEnable();
@@ -247,6 +281,14 @@ int main(void)
 	Xil_DCacheInvalidate();
 	Xil_DCacheEnable();
 #endif
+#else
+#if defined (__MICROBLAZE__)
+	Xil_ICacheInvalidate();
+	Xil_ICacheEnable();
+	Xil_DCacheInvalidate();
+	Xil_DCacheEnable();
+#endif
+#endif
 
 	AxiEthernetUtilErrorTrap("\r\n--- Enter main() ---");
 	AxiEthernetUtilErrorTrap("This test may take several minutes to finish");
@@ -254,6 +296,7 @@ int main(void)
 	/*
 	 * Call the Axi Ethernet multicast example.
 	 */
+#ifndef SDT
 	Status = AxiEthernetMcastExample(&IntcInstance,
 						&AxiEthernetInstance,
 						&DmaInstance,
@@ -262,6 +305,11 @@ int main(void)
 						AXIETHERNET_IRPT_INTR,
 						DMA_RX_IRPT_INTR,
 						DMA_TX_IRPT_INTR);
+#else
+	Status = AxiEthernetMcastExample(&AxiEthernetInstance,
+					 &DmaInstance,
+					 XAXIETHERNET_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		AxiEthernetUtilErrorTrap("Axiethernet extmulticast Example Failed\r\n");
 		AxiEthernetUtilErrorTrap("--- Exiting main() ---");
@@ -314,6 +362,7 @@ int main(void)
 *		initialization would reset AxiEthernet.
 *
 ******************************************************************************/
+#ifndef SDT
 int AxiEthernetMcastExample(INTC *IntcInstancePtr,
 				XAxiEthernet *AxiEthernetInstancePtr,
 				XAxiDma *DmaInstancePtr,
@@ -322,6 +371,11 @@ int AxiEthernetMcastExample(INTC *IntcInstancePtr,
 				u16 AxiEthernetIntrId,
 				u16 DmaRxIntrId,
 				u16 DmaTxIntrId)
+#else
+int AxiEthernetMcastExample(XAxiEthernet *AxiEthernetInstancePtr,
+			    XAxiDma *DmaInstancePtr,
+			    UINTPTR AxiEthernetBaseAddress)
+#endif
 {
 	int Status;
 	int LoopbackSpeed;
@@ -330,6 +384,10 @@ int AxiEthernetMcastExample(INTC *IntcInstancePtr,
 	XAxiDma_BdRing *RxRingPtr = XAxiDma_GetRxRing(DmaInstancePtr);
 	XAxiDma_BdRing *TxRingPtr = XAxiDma_GetTxRing(DmaInstancePtr);
 	XAxiDma_Bd BdTemplate;
+#ifdef SDT
+	int AxiDevType;
+	UINTPTR AxiDmaBaseAddress;
+#endif
 
 	/*************************************/
 	/* Setup device for first-time usage */
@@ -338,18 +396,33 @@ int AxiEthernetMcastExample(INTC *IntcInstancePtr,
 	/*
 	 *  Get the configuration of AxiEthernet hardware.
 	 */
+#ifndef SDT
 	MacCfgPtr = XAxiEthernet_LookupConfig(AxiEthernetDeviceId);
-
+#else
+	MacCfgPtr = XAxiEthernet_LookupConfig(AxiEthernetBaseAddress);
+	AxiDevType = MacCfgPtr->AxiDevBaseAddress &
+					XAE_AXIDEVTYPE_MASK;
+	AxiDmaBaseAddress = MacCfgPtr->AxiDevBaseAddress &
+					XAE_AXIBASEADDR_MASK;
+#endif
 	/*
 	 * Check if DMA is present or not.
 	 */
+#ifndef SDT
 	if(MacCfgPtr->AxiDevType != XPAR_AXI_DMA) {
+#else
+	if(AxiDevType != XPAR_AXI_DMA) {
+#endif
 		AxiEthernetUtilErrorTrap
 			("Device HW not configured for DMA mode\r\n");
 		return XST_FAILURE;
 	}
 
+#ifndef SDT
 	DmaConfig = XAxiDma_LookupConfig(AxiDmaDeviceId);
+#else
+	DmaConfig = XAxiDma_LookupConfig(AxiDmaBaseAddress);
+#endif
 	/*
 	 * Initialize AXIDMA engine. AXIDMA engine must be initialized before
 	 * AxiEthernet. During AXIDMA engine initialization, AXIDMA hardware is
@@ -446,7 +519,11 @@ int AxiEthernetMcastExample(INTC *IntcInstancePtr,
 	 * Set PHY to loopback, speed depends on phy type.
 	 * MII is 100 and all others are 1000.
 	 */
+#ifndef SDT
 	if (XAxiEthernet_GetPhysicalInterface(AxiEthernetInstancePtr)
+#else
+	if (XAxiEthernet_Get_Phy_Interface(AxiEthernetInstancePtr)
+#endif
 				== XAE_PHY_TYPE_MII) {
 		LoopbackSpeed = AXIETHERNET_LOOPBACK_SPEED;
 	} else {
@@ -474,9 +551,35 @@ int AxiEthernetMcastExample(INTC *IntcInstancePtr,
 	/*
 	 * Connect to the interrupt controller and enable interrupts
 	 */
+#ifndef SDT
 	Status = AxiEthernetSetupIntrSystem(IntcInstancePtr,
 			AxiEthernetInstancePtr, DmaInstancePtr,
 			AxiEthernetIntrId, DmaRxIntrId, DmaTxIntrId);
+#else
+	Status = XSetupInterruptSystem(AxiEthernetInstancePtr, &AxiEthernetErrorHandler,
+				       AxiEthernetInstancePtr->Config.IntrId,
+				       AxiEthernetInstancePtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	Status = XSetupInterruptSystem(TxRingPtr, &TxIntrHandler,
+				       DmaConfig->IntrId[0],
+				       DmaConfig->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	Status = XSetupInterruptSystem(RxRingPtr, &RxIntrHandler,
+				       DmaConfig->IntrId[1],
+				       DmaConfig->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
 
 
 	/****************************/
@@ -495,9 +598,17 @@ int AxiEthernetMcastExample(INTC *IntcInstancePtr,
 	/*
 	 * Disable the interrupts for the Axi Ethernet device
 	 */
+#ifndef SDT
 	AxiEthernetDisableIntrSystem(IntcInstancePtr, AxiEthernetIntrId,
 						DmaRxIntrId, DmaTxIntrId);
-
+#else
+	XDisconnectInterruptCntrl(AxiEthernetInstancePtr->Config.IntrId,
+				  AxiEthernetInstancePtr->Config.IntrParent);
+	XDisconnectInterruptCntrl(DmaConfig->IntrId[0],
+				  DmaConfig->IntrParent);
+	XDisconnectInterruptCntrl(DmaConfig->IntrId[1],
+				  DmaConfig->IntrParent);
+#endif
 	/*
 	 * Stop the device
 	 */
@@ -689,8 +800,13 @@ int AxiEthernetSgDmaIntrExtMulticastExample(XAxiEthernet *AxiEthernetInstancePtr
 	 * Setup the Rx BD.
 	 */
 	XAxiDma_BdSetBufAddr(BdPtr, (u32)&RxFrame);
+#ifndef SDT
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
 	XAxiDma_BdSetLength(BdPtr, sizeof(RxFrame));
+#else
+	XAxiDma_BdSetLength(BdPtr, sizeof(RxFrame),
+				RxRingPtr->MaxTransferLen);
+#endif
 #else
 	XAxiDma_BdSetLength(BdPtr, sizeof(RxFrame),
 				RxRingPtr->MaxTransferLen);
@@ -732,9 +848,13 @@ int AxiEthernetSgDmaIntrExtMulticastExample(XAxiEthernet *AxiEthernetInstancePtr
 	 * Setup the TxBD
 	 */
 	XAxiDma_BdSetBufAddr(BdPtr, (u32)&TxFrame);
-
+#ifndef SDT
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
 	XAxiDma_BdSetLength(BdPtr, TxFrameLength);
+#else
+	XAxiDma_BdSetLength(BdPtr, TxFrameLength,
+				TxRingPtr->MaxTransferLen);
+#endif
 #else
 	XAxiDma_BdSetLength(BdPtr, TxFrameLength,
 				TxRingPtr->MaxTransferLen);
@@ -1293,7 +1413,7 @@ static void AxiEthernetErrorHandler(XAxiEthernet *AxiEthernet)
 }
 
 
-
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -1564,4 +1684,5 @@ void RxIntrFastHandler(void)
 	RxIntrHandler((XAxiDma_BdRing *)RxRingPtr_Fast);
 }
 
+#endif
 #endif

@@ -556,13 +556,20 @@ int AxiEthernetUtilEnterLoopback(XAxiEthernet *AxiEthernetInstancePtr,
 			   of Marvell 88E1116R PHY */
 
 	/* Get the Phy Interface */
+#ifndef SDT
 	PhyType = XAxiEthernet_GetPhysicalInterface(AxiEthernetInstancePtr);
-
+#else
+	PhyType = XAxiEthernet_Get_Phy_Interface(AxiEthernetInstancePtr);
+#endif
 	/* Detect the PHY address */
 	if (PhyType != XAE_PHY_TYPE_1000BASE_X) {
 		PhyAddr = AxiEthernetDetectPHY(AxiEthernetInstancePtr);
 	} else {
+#ifndef SDT
 		PhyAddr = XPAR_AXIETHERNET_0_PHYADDR;
+#else
+		PhyAddr = AxiEthernetInstancePtr->Config.PhyAddr;
+#endif
 	}
 
 	XAxiEthernet_PhyRead(AxiEthernetInstancePtr, PhyAddr,
@@ -727,6 +734,7 @@ void AxiEthernetUtilErrorTrap(char *Message)
 ******************************************************************************/
 void AxiEthernetUtilPhyDelay(unsigned int Seconds)
 {
+#ifndef SDT
 #if defined (__MICROBLAZE__) || defined(__PPC__)
 	static int WarningFlag = 0;
 
@@ -749,6 +757,9 @@ void AxiEthernetUtilPhyDelay(unsigned int Seconds)
 			"bneid %1, 1b     \n\t"
 			"addik %1, %1, -1 \n\t"
 			:: "i"(ITERS_PER_SEC), "d" (Seconds));
+#else
+    sleep(Seconds);
+#endif
 #else
     sleep(Seconds);
 #endif
@@ -776,7 +787,11 @@ int AxiEthernetUtilConfigureInternalPhy(XAxiEthernet *AxiEthernetInstancePtr,
 	u16 PhyReg0;
 	signed int PhyAddr;
 
+#ifndef SDT
 	PhyAddr = XPAR_AXIETHERNET_0_PHYADDR;
+#else
+	PhyAddr = AxiEthernetInstancePtr->Config.PhyAddr;
+#endif
 
 	/* Clear the PHY of any existing bits by zeroing this out */
 	PhyReg0 = 0;
