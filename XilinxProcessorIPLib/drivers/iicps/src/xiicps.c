@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 * 3.3   kvn		05/05/16 Modified latest code for MISRA-C:2012 Compliance.
 * 3.11  sd	02/06/20 Added clocking support.
 * 3.11  rna	02/11/20 Moved XIicPs_Reset to xiicps_hw.c
+* 3.18  gm	07/14/23 Added SDT support.
 *
 * </pre>
 *
@@ -96,7 +97,9 @@ s32 XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 	/*
 	 * Set some default values.
 	 */
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 #if defined  (XCLOCKING)
