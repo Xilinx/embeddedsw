@@ -233,7 +233,11 @@ typedef struct {
 } XMcdma_ChanCtrl;
 
 typedef struct {
+#ifndef SDT
 	u32 DeviceId;
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;
 	int AddrWidth;
 	int Has_SingleIntr;
@@ -250,6 +254,10 @@ typedef struct {
 	int HasRxLength;
 	u8 IsTxCacheCoherent; /**< Describes whether Cache Coherent or not */
 	u8 IsRxCacheCoherent; /**< Describes whether Cache Coherent or not */
+#ifdef SDT
+	u16 IntrId[32]; /** Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XMcdma_Config;
 
 typedef struct {
@@ -581,8 +589,12 @@ typedef struct {
 /*@}*/
 
 /************************ Prototypes of functions **************************/
+#ifndef SDT
 XMcdma_Config *XMcdma_LookupConfig(u16 DeviceId);
 XMcdma_Config *XMcdma_LookupConfigBaseAddr(UINTPTR Baseaddr);
+#else
+XMcdma_Config *XMcdma_LookupConfig(UINTPTR BaseAddress);
+#endif
 s32 XMcDma_CfgInitialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr);
 s32 XMcDma_Initialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr);
 void XMcDma_Reset(XMcdma *InstancePtr);

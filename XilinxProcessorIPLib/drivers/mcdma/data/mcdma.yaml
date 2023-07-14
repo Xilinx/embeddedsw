@@ -1,0 +1,77 @@
+# Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for AXI MCDMA controller
+
+maintainers:
+  - Abin Joseph <abin.joseph@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,eth-mcdma
+          - xlnx,axi-mcdma-1.00.a
+          - xlnx,axi-mcdma-1.1
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,addrwidth:
+    description: Address width of the MCDMA AXI MCDMA controller
+  xlnx,include-mm2s:
+    description: AXI MCDMA controller is configured with MM2S channel enabled
+  xlnx,include-mm2s-dre:
+    description: AXI MCDMA controller MM2S channel is configured with DRE enabled
+  xlnx,num-mm2s-channels:
+    description: AXI MCDMA controller number of MM2S channels configured
+  xlnx,include-s2mm:
+    description: AXI MCDMA controller is configured with S2MM channel enabled
+  xlnx,include-s2mm-dre:
+    description: AXI MCDMA controller is S2MM channel is configured with DRE enabled
+  xlnx,num-s2mm-channels:
+    description: AXI MCDMA controller number of S2MM channels configured
+  xlnx,mm2s-data-width:
+    description: AXI MCDMA controller MM2S Channel data width
+  xlnx,s2mm-data-width:
+    description: AXI MCDMA controller S2MM Channel data width
+  xlnx,sg-length-width:
+    description: AXI MCDMA controller max transfer length
+  xlnx,sg-include-stscntrl-strm:
+    description: AXI MCDMA controller is configured with Status Control stream enabled
+  xlnx,sg-use-stsapp-length:
+    description: When enabled S2MM SG descriptor recv length can be calculated from app word
+
+config:
+    - XMcdma_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,addrwidth
+    - xlnx,enable-single-intr
+    - xlnx,include-mm2s
+    - xlnx,include-mm2s-dre
+    - xlnx,num-mm2s-channels
+    - xlnx,include-s2mm
+    - xlnx,include-s2mm-dre
+    - xlnx,num-s2mm-channels
+    - xlnx,mm2s-data-width
+    - xlnx,s2mm-data-width
+    - xlnx,sg-length-width
+    - xlnx,sg-include-stscntrl-strm
+    - xlnx,sg-use-stsapp-length
+    - dma-coherent
+    - dma-coherent
+    - interrupts: 32
+    - interrupt-parent
+
+examples:
+        xmcdma_interrupt_example.c:
+                - interrupts
+        xmcdma_polled_example.c:
+                - reg
+...
