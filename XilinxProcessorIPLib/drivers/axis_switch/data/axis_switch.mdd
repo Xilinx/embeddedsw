@@ -1,5 +1,6 @@
 ##############################################################################
 # Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##
 #############################################################################
@@ -10,6 +11,6 @@ BEGIN driver axis_switch
     OPTION supported_peripherals = (axis_switch);
     OPTION driver_state = ACTIVE;
     OPTION copyfiles = all;
-    OPTION VERSION = 1.5;
+    OPTION VERSION = 1.6;
     OPTION NAME = axis_switch;
 END driver
