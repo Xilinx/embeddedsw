@@ -1,0 +1,84 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for IICPS controller
+
+maintainers:
+  - Manikanta Guntupalli <manikanta.guntupalli@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - cdns,i2c-r1p14
+          - cdns,i2c-r1p10
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,clock-freq:
+    description: Input clock frequency
+
+config:
+    - XIicPs_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,clock-freq
+    - interrupts
+    - interrupt-parent
+    - ref-clk
+
+examples:
+    xiicps_eeprom_intr_example.c:
+        - interrupts
+
+    xiicps_eeprom_polled_example.c:
+        - reg
+
+    xiicps_eeprom_intr_example.c:
+        - interrupts
+
+    xiicps_intr_master_example.c:
+        - interrupts
+
+    xiicps_intr_multi_master_example.c:
+        - interrupts
+
+    xiicps_intr_slave_example.c:
+        - interrupts
+
+    xiicps_polled_master_example.c:
+        - reg
+
+    xiicps_polled_multi_master_example.c:
+        - reg
+
+    xiicps_polled_slave_example.c:
+        - reg
+
+    xiicps_repeated_start_example.c:
+        - reg
+
+    xiicps_selftest_example.c:
+        - reg
+
+    xiicps_slave_monitor_example.c:
+        - interrupts
+
+    xiicps_smbus_intr_master_example.c:
+        - interrupts
+
+    xiicps_smbus_intr_slave_example.c:
+        - interrupts
+
+    xiicps_smbus_polled_master_example.c:
+        - reg
+
+    xiicps_smbus_polled_slave_example.c:
+        - reg
+...

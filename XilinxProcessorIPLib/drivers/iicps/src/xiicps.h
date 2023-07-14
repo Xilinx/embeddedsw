@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -175,6 +175,8 @@
 * 3.13  rna  05/24/21 Fixed Misra-c violations
 * 3.16  gm   05/10/22 Added support to get the status of receive valid data.
 * 		      Added support for clock stretching and timeout support.
+* 3.18  gm   07/14/23 Added SDT support.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -265,9 +267,20 @@ typedef void (*XIicPs_IntrHandler) (void *CallBackRef, u32 StatusEvent);
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;     /**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;  /**< Base address of the device */
 	u32 InputClockHz; /**< Input clock frequency */
+#ifdef SDT
+	u16 IntrId;		/**< Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags */
+	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
+
 #if defined  (XCLOCKING)
 	u32 RefClk;	  /**< Input clocks */
 #endif
@@ -375,7 +388,11 @@ static INLINE u32 XIicPs_RxDataValidStatus(XIicPs *InstancePtr)
 /**
  * Function for configuration lookup, in xiicps_sinit.c
  */
+#ifndef SDT
 XIicPs_Config *XIicPs_LookupConfig(u16 DeviceId);
+#else
+XIicPs_Config *XIicPs_LookupConfig(u32 BaseAddress);
+#endif
 
 /**
  * Functions for general setup, in xiicps.c

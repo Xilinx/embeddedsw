@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,7 +20,9 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------
 * 1.00a drg/jz 01/30/10 First release
-* 3.00	sk	   01/31/15	Modified the code according to MISRAC 2012 Compliant.
+* 3.00	sk     01/31/15	Modified the code according to MISRAC 2012 Compliant.
+* 3.18  gm     07/14/23 Added SDT support.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -28,7 +30,9 @@
 /***************************** Include Files *********************************/
 
 #include "xstatus.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xiicps.h"
 
 /************************** Constant Definitions *****************************/
@@ -60,6 +64,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XIicPs_Config *XIicPs_LookupConfig(u16 DeviceId)
 {
 	XIicPs_Config *CfgPtr = NULL;
@@ -74,4 +79,21 @@ XIicPs_Config *XIicPs_LookupConfig(u16 DeviceId)
 
 	return (XIicPs_Config *)CfgPtr;
 }
+#else
+XIicPs_Config *XIicPs_LookupConfig(u32 BaseAddress)
+{
+	XIicPs_Config *CfgPtr = NULL;
+	s32 Index;
+
+	for (Index = 0; XIicPs_ConfigTable[Index].Name != NULL; Index++) {
+		if (XIicPs_ConfigTable[Index].BaseAddress == BaseAddress ||
+		    !BaseAddress) {
+			CfgPtr = &XIicPs_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XIicPs_Config *)CfgPtr;
+}
+#endif
 /** @} */

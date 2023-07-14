@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -11,7 +11,7 @@ BEGIN driver iicps
   OPTION supported_peripherals = (ps7_i2c psu_i2c psv_i2c psv_pmc_i2c psxl_i2c psxl_pmc_i2c psx_i2c psx_pmc_i2c);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.17;
+  OPTION VERSION = 3.18;
   OPTION NAME = iicps;
 
 END driver
