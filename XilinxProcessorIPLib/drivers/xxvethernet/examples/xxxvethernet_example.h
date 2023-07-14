@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +41,11 @@
 #include "stdio.h"		/* stdio */
 
 /************************** Constant Definitions ****************************/
+#ifdef SDT
+#define XXV_AXIDEVTYPE_MASK	0xF
+#define XXV_AXIDMA			0x2
+#define XXV_MCDMA			0x3
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
