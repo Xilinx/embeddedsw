@@ -70,6 +70,7 @@
 * 9.0  mus  07/04/23  Add support to initialize TCM A, B and C for CortexR52
 *                     based on _TCM_A_REGION, _TCM_B_REGION and _TCM_C_REGION
 *                     variables exported by linker script.
+* 9.0  mus  07/12/23  Added SDT flow support for CortexR52 BSP.
 * </pre>
 *
 ******************************************************************************/
@@ -120,7 +121,11 @@
 .set fault_log_enable,	0x101
 
 #if defined (ARMR52)
+#ifndef SDT
 .set counterfreq,       XPAR_CPU_CORTEXR52_0_TIMESTAMP_CLK_FREQ
+#else
+.global XCortexr52_ConfigTable
+#endif
 #endif
 
 /*
@@ -163,7 +168,12 @@ OKToRun:
 
 #if defined (ARMR52)
 /* Set counter frequency, CNTFRQ: RW from EL2 RO from EL1 */
-    ldr     r0,=counterfreq              /* 800 KHZ TODO: change it based on HW design through XPARS */
+#ifndef SDT
+	ldr     r0,=counterfreq              /* 800 KHZ TODO: change it based on HW design through XPARS */
+#else
+	ldr	r1,=XCortexr52_ConfigTable
+	ldr     r0,[r1]
+#endif
     mcr     15,0,r0,c14,c0,0        /* Write CNTFRQ */
 
 /* Change EL1 exception base address */
