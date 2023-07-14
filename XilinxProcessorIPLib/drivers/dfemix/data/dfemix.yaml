@@ -58,4 +58,7 @@ required:
 
 examples:
 
+depends_libs:
+    libmetal: {}
+
 ...

@@ -12,7 +12,7 @@ type: driver
 properties:
   compatible:
       items:
-          - const: lnx,usp-rf-data-converter-2.6
+          - const: xlnx,usp-rf-data-converter-2.6
   reg:
     description: physical base address and size of the controller register map
   xlnx,high-speed-adc:
@@ -83,6 +83,7 @@ required:
     - xlnx,silicon-revision
     - child,required:
         - nosub
+        - split: 3
         - xlnx,enable
         - xlnx,pll-enable
         - xlnx,sampling-rate
@@ -95,6 +96,7 @@ required:
         - xlnx,link-coupling
         - child,required:
             - nosub
+            - split: 3
             - xlnx,slice-enable
             - xlnx,invsinc-ctrl
             - xlnx,mixer-mode
@@ -108,5 +110,12 @@ required:
             - xlnx,mixer-type
 
 examples:
+    xrfdc_selftest_example.c:
+        - reg
+    xrfdc_read_write_example.c:
+        - reg
+
+depends_libs:
+    libmetal: {}
 
 ...
