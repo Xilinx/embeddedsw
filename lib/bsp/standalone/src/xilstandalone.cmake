@@ -3,6 +3,7 @@
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/common/StandaloneExample.cmake NO_POLICY_SCOPE)
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72")
+        OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78")
         OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53")
         OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53-32")
         OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "aarch64"))
@@ -24,7 +25,8 @@ elseif("${CMAKE_MACHINE}" STREQUAL "Zynq")
     set(PLATFORM_ZYNQ " ")
 endif()
 
-if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5"))
+if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
+    OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52"))
     set(XPAR_PS_INCLUDE "#include \"xparameters_ps.h\"")
     set(EL3 " ")
 endif()
