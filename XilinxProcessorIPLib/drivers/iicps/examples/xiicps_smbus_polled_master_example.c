@@ -76,7 +76,7 @@ u8 SendBuffer[TEST_BUFFER_SIZE];    /**< Buffer for Transmitting Data */
 u8 RecvBuffer[TEST_BUFFER_SIZE];    /**< Buffer for Receiving Data */
 
 u8 Cmd = 0x11;								/* Send Command */
-u8 RecvByteCount=0;
+u8 RecvByteCount = 0;
 
 /******************************************************************************/
 /**
@@ -116,7 +116,7 @@ int main(void)
 
 	xil_printf("SMBus Master : Byte count = 0x%x \r\n", RecvByteCount);
 
-	for(Index=0; Index<TEST_BUFFER_SIZE; Index++){
+	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {
 		xil_printf("SMBus Master : Data: RecvBuffer[%d] = 0x%x \r\n", Index, RecvBuffer[Index]);
 	}
 
@@ -232,7 +232,7 @@ int XIicPsSmbusPolledMasterWriteBlockData(XIicPs *InstancePtr, u8 Command, u8 By
 	int Status;
 	u32 Index;
 	u32 BufferIndex;
-	static u8 SmbusSendBuffer[TEST_BUFFER_SIZE+2];
+	static u8 SmbusSendBuffer[TEST_BUFFER_SIZE + 2];
 
 	while (XIicPs_BusIsBusy(&Iic)) {
 		/* NOP */
@@ -245,7 +245,7 @@ int XIicPsSmbusPolledMasterWriteBlockData(XIicPs *InstancePtr, u8 Command, u8 By
 	SmbusSendBuffer[0] = Command;
 	SmbusSendBuffer[1] = ByteCount;
 
-	for (Index = 2, BufferIndex=0; Index < (TEST_BUFFER_SIZE+2); Index++, BufferIndex++){
+	for (Index = 2, BufferIndex = 0; Index < (TEST_BUFFER_SIZE + 2); Index++, BufferIndex++) {
 		SmbusSendBuffer[Index] = SendBufferPtr[BufferIndex];
 	}
 
@@ -253,7 +253,7 @@ int XIicPsSmbusPolledMasterWriteBlockData(XIicPs *InstancePtr, u8 Command, u8 By
 	 * Send the buffer using the IIC and ignore the number of bytes sent
 	 * as the return value since we are using it in interrupt mode.
 	 */
-	Status = XIicPs_MasterSendPolled(&Iic, SmbusSendBuffer, ByteCount+2, IIC_SLAVE_ADDR);
+	Status = XIicPs_MasterSendPolled(&Iic, SmbusSendBuffer, ByteCount + 2, IIC_SLAVE_ADDR);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -287,7 +287,7 @@ int XIicPsSmbusPolledMasterReadBlockData(XIicPs *InstancePtr, u8 Command, u8 Byt
 	int Status;
 	u32 Index;
 	u32 BufferIndex;
-	static u8 SmbusRecvBuffer[TEST_BUFFER_SIZE+1];
+	static u8 SmbusRecvBuffer[TEST_BUFFER_SIZE + 1];
 
 	/*
 	 * Command Part
@@ -315,14 +315,14 @@ int XIicPsSmbusPolledMasterReadBlockData(XIicPs *InstancePtr, u8 Command, u8 Byt
 
 	RecvByteCount = 0;
 
-	for(Index=0;Index<TEST_BUFFER_SIZE;Index++){
-		SmbusRecvBuffer[Index]=0;
-		RecvBufferPtr[Index]=0;
+	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {
+		SmbusRecvBuffer[Index] = 0;
+		RecvBufferPtr[Index] = 0;
 	}
-	SmbusRecvBuffer[Index]=0;
+	SmbusRecvBuffer[Index] = 0;
 
 	Status = XIicPs_MasterRecvPolled(&Iic, SmbusRecvBuffer,
-									 ByteCount+1, IIC_SLAVE_ADDR);
+					 ByteCount + 1, IIC_SLAVE_ADDR);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -334,7 +334,7 @@ int XIicPsSmbusPolledMasterReadBlockData(XIicPs *InstancePtr, u8 Command, u8 Byt
 
 	RecvByteCount = SmbusRecvBuffer[0];
 
-	for(BufferIndex=0, Index = 1; Index < (TEST_BUFFER_SIZE+1); BufferIndex++, Index++) {
+	for (BufferIndex = 0, Index = 1; Index < (TEST_BUFFER_SIZE + 1); BufferIndex++, Index++) {
 		RecvBufferPtr[BufferIndex] = SmbusRecvBuffer[Index];
 	}
 

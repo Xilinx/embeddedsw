@@ -203,7 +203,7 @@ s32 IicPsMultiMasterPolledExample(UINTPTR BaseAddress)
 		 * as the return value since we are using it in interrupt mode.
 		 */
 		Status = XIicPs_MasterSendPolled(&Iic, SendBuffer,
-		TEST_BUFFER_SIZE, IIC_SLAVE_ADDR);
+						 TEST_BUFFER_SIZE, IIC_SLAVE_ADDR);
 	} while (Status == XST_IIC_ARB_LOST);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -218,7 +218,7 @@ s32 IicPsMultiMasterPolledExample(UINTPTR BaseAddress)
 		}
 
 		Status = XIicPs_MasterRecvPolled(&Iic, RecvBuffer,
-		TEST_BUFFER_SIZE, IIC_SLAVE_ADDR);
+						 TEST_BUFFER_SIZE, IIC_SLAVE_ADDR);
 	} while (Status == XST_IIC_ARB_LOST);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -227,7 +227,7 @@ s32 IicPsMultiMasterPolledExample(UINTPTR BaseAddress)
 	/*
 	 * Verify received data is correct.
 	 */
-	 for(Index = 0; Index < TEST_BUFFER_SIZE; Index ++) {
+	for (Index = 0; Index < TEST_BUFFER_SIZE; Index ++) {
 
 		/* Aardvark as slave can only set 64 bytes for output */
 		if (RecvBuffer[Index] != Index % 64) {

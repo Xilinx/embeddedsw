@@ -76,7 +76,7 @@ XIicPs Iic;				/* Instance of the IIC Device */
 u8 SendBuffer[BUFFER_SIZE];	/* Buffer for Transmitting Data */
 u8 RecvBuffer[BUFFER_SIZE];	/* Buffer for Receiving Data */
 
-u8 RecvByteCount=0;
+u8 RecvByteCount = 0;
 u8 RecvCmd;			/* Received command */
 u8 Cmd;				/* Command received during Send operation */
 
@@ -113,19 +113,19 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-    /*
-     * Print receive operation data
-     */
+	/*
+	 * Print receive operation data
+	 */
 
 	xil_printf("SMBus Slave : Receive operation : Command = 0x%x \r\n", RecvCmd);
 	xil_printf("SMBus Slave : Byte count: RecvByteCount = 0x%x \r\n", RecvByteCount);
-	for(Index=0; Index<BUFFER_SIZE; Index++){
+	for (Index = 0; Index < BUFFER_SIZE; Index++) {
 		xil_printf("SMBus Slave : Data: RecvBuffer[%d] = 0x%x \r\n", Index, RecvBuffer[Index] );
 	}
 
-    /*
-     * Print send operation data
-     */
+	/*
+	 * Print send operation data
+	 */
 
 	xil_printf("SMBus Slave : Send operation : Command = 0x%x \r\n", Cmd);
 
@@ -156,7 +156,7 @@ int IicPsSmbusSlavePolledExample(UINTPTR BaseAddress)
 {
 	int Status;
 	XIicPs_Config *Config;
-	int Index=0;
+	int Index = 0;
 
 	/*
 	 * Initialize the IIC driver so that it's ready to use
@@ -197,14 +197,14 @@ int IicPsSmbusSlavePolledExample(UINTPTR BaseAddress)
 	 * SMBus Slave Receive operation
 	 */
 
-	XIicPsSmbusPolledReadBlockData(&Iic, &RecvCmd ,&RecvByteCount, RecvBuffer);
+	XIicPsSmbusPolledReadBlockData(&Iic, &RecvCmd, &RecvByteCount, RecvBuffer);
 
 	/*
 	 * SMBus Slave Send operation
 	 */
 
-	for(Index=0;Index<BUFFER_SIZE; Index++){
-		SendBuffer[Index]=Index;
+	for (Index = 0; Index < BUFFER_SIZE; Index++) {
+		SendBuffer[Index] = Index;
 	}
 	XIicPsSmbusPolledWriteBlockData(&Iic, &Cmd, BUFFER_SIZE, SendBuffer);
 
@@ -214,10 +214,10 @@ int IicPsSmbusSlavePolledExample(UINTPTR BaseAddress)
 int XIicPsSmbusPolledWriteBlockData(XIicPs *InstancePtr, u8 *Command, u8 ByteCount, u8 *SendBufferPtr)
 {
 	int Status;
-	u8 Cmmd=0;
+	u8 Cmmd = 0;
 	u32 Index;
 	u32 BufferIndex;
-	static u8 SmbusSendBuffer[BUFFER_SIZE+1];
+	static u8 SmbusSendBuffer[BUFFER_SIZE + 1];
 
 	InstancePtr->RecvBufferPtr = &Cmmd;
 
@@ -225,7 +225,7 @@ int XIicPsSmbusPolledWriteBlockData(XIicPs *InstancePtr, u8 *Command, u8 ByteCou
 	 * Command Recv part
 	 */
 
-	while ((XIicPs_RxDataValidStatus(InstancePtr)) != 0x20U){
+	while ((XIicPs_RxDataValidStatus(InstancePtr)) != 0x20U) {
 		/* NOP */
 	}
 
@@ -241,11 +241,11 @@ int XIicPsSmbusPolledWriteBlockData(XIicPs *InstancePtr, u8 *Command, u8 ByteCou
 	 */
 	SmbusSendBuffer[0] = ByteCount;
 
-	for (Index = 1, BufferIndex=0; Index < (BUFFER_SIZE+1); Index++, BufferIndex++){
+	for (Index = 1, BufferIndex = 0; Index < (BUFFER_SIZE + 1); Index++, BufferIndex++) {
 		SmbusSendBuffer[Index] = SendBufferPtr[BufferIndex];
 	}
 
-	Status = XIicPs_SlaveSendPolled(&Iic, SmbusSendBuffer, BUFFER_SIZE+1);
+	Status = XIicPs_SlaveSendPolled(&Iic, SmbusSendBuffer, BUFFER_SIZE + 1);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -265,16 +265,16 @@ int XIicPsSmbusPolledReadBlockData(XIicPs *InstancePtr, u8 *Command, u8 *ByteCou
 	int Status;
 	u32 Index;
 	u32 BufferIndex;
-	static u8 SmbusRecvBuffer[BUFFER_SIZE+2];
+	static u8 SmbusRecvBuffer[BUFFER_SIZE + 2];
 
 	/*
 	 * Receive data from master.
 	 * Receive errors will be signaled through event flag.
 	 */
 
-	for(Index=0;Index<BUFFER_SIZE;Index++){
-		SmbusRecvBuffer[Index]=0;
-		RecvBufferPtr[Index]=0;
+	for (Index = 0; Index < BUFFER_SIZE; Index++) {
+		SmbusRecvBuffer[Index] = 0;
+		RecvBufferPtr[Index] = 0;
 	}
 
 	Status = XIicPs_SlaveRecvPolled(&Iic, SmbusRecvBuffer, 0);
@@ -285,7 +285,7 @@ int XIicPsSmbusPolledReadBlockData(XIicPs *InstancePtr, u8 *Command, u8 *ByteCou
 	*Command = SmbusRecvBuffer[0];
 	*ByteCount = SmbusRecvBuffer[1];
 
-	for(BufferIndex=0, Index = 2; Index < (BUFFER_SIZE+2); BufferIndex++, Index ++) {
+	for (BufferIndex = 0, Index = 2; Index < (BUFFER_SIZE + 2); BufferIndex++, Index ++) {
 		RecvBufferPtr[BufferIndex] = SmbusRecvBuffer[Index];
 	}
 

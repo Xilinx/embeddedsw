@@ -177,7 +177,8 @@ s32 IicPsMultiMasterIntrExample(UINTPTR BaseAddress)
 	s32 Index;
 	s32 tmp;
 	s32 BufferSizes[NUMBER_OF_SIZES] = {1, 2, 19, 31, 32, 33, 62, 63, 64,
-	65, 66, 94, 95, 96, 97, 98, 99, 250};
+					    65, 66, 94, 95, 96, 97, 98, 99, 250
+					   };
 
 	/*
 	 * Initialize the IIC driver so that it's ready to use
@@ -213,9 +214,9 @@ s32 IicPsMultiMasterIntrExample(UINTPTR BaseAddress)
 	Status = SetupInterruptSystem(&Iic);
 #else
 	Status = XSetupInterruptSystem(&Iic, XIicPs_MasterInterruptHandler,
-					Config->IntrId,
-					Config->IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
+				       Config->IntrId,
+				       Config->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -244,7 +245,7 @@ s32 IicPsMultiMasterIntrExample(UINTPTR BaseAddress)
 		RecvBuffer[Index] = 0;
 	}
 
-	for(Index = 0; Index < NUMBER_OF_SIZES; Index++) {
+	for (Index = 0; Index < NUMBER_OF_SIZES; Index++) {
 
 		/* Wait for bus to become idle
 		 */
@@ -258,7 +259,7 @@ s32 IicPsMultiMasterIntrExample(UINTPTR BaseAddress)
 		 * Send the buffer, errors are reported by TotalErrorCount.
 		 */
 		XIicPs_MasterSend(&Iic, SendBuffer, BufferSizes[Index],
-				IIC_SLAVE_ADDR);
+				  IIC_SLAVE_ADDR);
 
 		/*
 		 * Wait for the entire buffer to be sent, letting the interrupt
@@ -267,66 +268,66 @@ s32 IicPsMultiMasterIntrExample(UINTPTR BaseAddress)
 		 * correctly.
 		 */
 		while (!SendComplete) {
-				if (ArbitrationLost) {
+			if (ArbitrationLost) {
 
-					/* Wait for bus to become idle
-					 */
-					while (XIicPs_BusIsBusy(&Iic)) {
-						/* NOP */
-					}
-
-					ArbitrationLost = FALSE;
-					/*
-					 * Re-send the buffer if there any arbitration lost and
-					 * errors are reported by TotalErrorCount.
-					 */
-					XIicPs_MasterSend(&Iic, SendBuffer, BufferSizes[Index],
-					IIC_SLAVE_ADDR);
-
-				} else if (0 != TotalErrorCount) {
-					return XST_FAILURE;
+				/* Wait for bus to become idle
+				 */
+				while (XIicPs_BusIsBusy(&Iic)) {
+					/* NOP */
 				}
+
+				ArbitrationLost = FALSE;
+				/*
+				 * Re-send the buffer if there any arbitration lost and
+				 * errors are reported by TotalErrorCount.
+				 */
+				XIicPs_MasterSend(&Iic, SendBuffer, BufferSizes[Index],
+						  IIC_SLAVE_ADDR);
+
+			} else if (0 != TotalErrorCount) {
+				return XST_FAILURE;
 			}
+		}
 
-			/*
-			 * Wait bus activities to finish.
-			 */
-			while (XIicPs_BusIsBusy(&Iic)) {
-				/* NOP */
-			}
+		/*
+		 * Wait bus activities to finish.
+		 */
+		while (XIicPs_BusIsBusy(&Iic)) {
+			/* NOP */
+		}
 
-			/*
-			 * Receive data from slave, errors are reported through
-			 * TotalErrorCount.
-			 */
-			RecvComplete = FALSE;
-			XIicPs_MasterRecv(&Iic, RecvBuffer, BufferSizes[Index],
-			IIC_SLAVE_ADDR);
+		/*
+		 * Receive data from slave, errors are reported through
+		 * TotalErrorCount.
+		 */
+		RecvComplete = FALSE;
+		XIicPs_MasterRecv(&Iic, RecvBuffer, BufferSizes[Index],
+				  IIC_SLAVE_ADDR);
 
-			while (!RecvComplete) {
-				if (ArbitrationLost) {
+		while (!RecvComplete) {
+			if (ArbitrationLost) {
 
-					/* Wait for bus to become idle
-					 */
-					while (XIicPs_BusIsBusy(&Iic)) {
-						/* NOP */
-					}
-
-					ArbitrationLost = FALSE;
-					/*
-					 * Retry buffer read if there any arbitration lost and
-					 * errors are reported by TotalErrorCount.
-					 */
-					XIicPs_MasterRecv(&Iic, RecvBuffer, BufferSizes[Index],
-					IIC_SLAVE_ADDR);
-				} else if (0 != TotalErrorCount) {
-					return XST_FAILURE;
+				/* Wait for bus to become idle
+				 */
+				while (XIicPs_BusIsBusy(&Iic)) {
+					/* NOP */
 				}
+
+				ArbitrationLost = FALSE;
+				/*
+				 * Retry buffer read if there any arbitration lost and
+				 * errors are reported by TotalErrorCount.
+				 */
+				XIicPs_MasterRecv(&Iic, RecvBuffer, BufferSizes[Index],
+						  IIC_SLAVE_ADDR);
+			} else if (0 != TotalErrorCount) {
+				return XST_FAILURE;
 			}
+		}
 
 		/* Check for received data.
 		 */
-		for(tmp = 0; tmp < BufferSizes[Index]; tmp ++) {
+		for (tmp = 0; tmp < BufferSizes[Index]; tmp ++) {
 
 			/*
 			 * Aardvark as slave can only set up to 64 bytes for
@@ -363,13 +364,13 @@ void Handler(void *CallBackRef, u32 Event)
 	/*
 	 * All of the data transfer has been finished.
 	 */
-	if (0 != (Event & XIICPS_EVENT_COMPLETE_RECV)){
+	if (0 != (Event & XIICPS_EVENT_COMPLETE_RECV)) {
 		RecvComplete = TRUE;
 	} else if (0 != (Event & XIICPS_EVENT_COMPLETE_SEND)) {
 		SendComplete = TRUE;
 	} else if (0 != (Event & XIICPS_EVENT_ARB_LOST)) {
 		ArbitrationLost = TRUE;
-	} else if (0 == (Event & XIICPS_EVENT_SLAVE_RDY)){
+	} else if (0 == (Event & XIICPS_EVENT_SLAVE_RDY)) {
 		/*
 		 * If it is other interrupt but not slave ready interrupt, it is
 		 * an error.
@@ -414,7 +415,7 @@ static s32 SetupInterruptSystem(XIicPs *IicPsPtr)
 	}
 
 	Status = XScuGic_CfgInitialize(&InterruptController, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -425,8 +426,8 @@ static s32 SetupInterruptSystem(XIicPs *IicPsPtr)
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				&InterruptController);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     &InterruptController);
 
 	/*
 	 * Connect the device driver handler that will be called when an
@@ -434,8 +435,8 @@ static s32 SetupInterruptSystem(XIicPs *IicPsPtr)
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(&InterruptController, IIC_INT_VEC_ID,
-			(Xil_InterruptHandler)XIicPs_MasterInterruptHandler,
-			(void *)IicPsPtr);
+				 (Xil_InterruptHandler)XIicPs_MasterInterruptHandler,
+				 (void *)IicPsPtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
