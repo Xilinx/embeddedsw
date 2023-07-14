@@ -127,7 +127,9 @@ s32 XMcDma_Initialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 	memset(InstancePtr, 0, sizeof(XMcdma));
 
 	InstancePtr->Config.BaseAddress = CfgPtr->BaseAddress;
+#ifndef SDT
 	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
+#endif
 	InstancePtr->Config.AddrWidth = CfgPtr->AddrWidth;
 	InstancePtr->Config.Has_SingleIntr = CfgPtr->Has_SingleIntr;
 	InstancePtr->Config.HasMM2S = CfgPtr->HasMM2S;
@@ -137,6 +139,9 @@ s32 XMcDma_Initialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 	InstancePtr->Config.HasRxLength = CfgPtr->HasRxLength;
 	InstancePtr->Config.IsTxCacheCoherent = CfgPtr->IsTxCacheCoherent;
 	InstancePtr->Config.IsRxCacheCoherent = CfgPtr->IsRxCacheCoherent;
+#ifdef SDT
+	InstancePtr->Config.IntrParent = CfgPtr->IntrParent;
+#endif
 
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
@@ -156,6 +161,9 @@ s32 XMcDma_Initialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 			if (InstancePtr->Config.AddrWidth > 32) {
 				InstancePtr->Tx_Chan[i].ext_addr = 1;
 			}
+			#ifdef SDT
+			InstancePtr->Config.IntrId[i-1]= CfgPtr->IntrId[i-1];
+			#endif
 		}
 	}
 
@@ -179,6 +187,10 @@ s32 XMcDma_Initialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr)
 			if (InstancePtr->Config.AddrWidth > 32) {
 				InstancePtr->Rx_Chan[i].ext_addr = 1;
 			}
+#ifdef SDT
+			InstancePtr->Config.IntrId[InstancePtr->Config.TxNumChannels + (i - 1)] =
+			CfgPtr->IntrId[InstancePtr->Config.TxNumChannels + (i - 1)];
+#endif
 		}
 	}
 
