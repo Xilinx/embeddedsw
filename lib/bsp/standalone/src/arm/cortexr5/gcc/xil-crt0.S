@@ -41,6 +41,8 @@
 * 9.0   asa  07/07/23 Made changes to ensure that XTime_StartTimer is
 *                     called for the scenario where xiltimer is not
 *                     enabled for freertos r52 bsp.
+* 9.0   mus  07/12/23 Fix SDT flow for CortexR52. Code related to CortexR5 has
+*                     been moved to CortexR5 related flag.
 * </pre>
 *
 ******************************************************************************/
@@ -93,6 +95,7 @@ _startup:
 	 /* if warm reset, skip the clearing of BSS and SBSS */
 	bne .Lenclbss
 #else
+#ifndef SDT
 #if (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK)
 	mrc	p15, 0, r0,  c0,  c0, 5	/* Read MPIDR register */
 	ands	r0, r0, #MPIDR_AFF0	/* Get affinity level 0 */
@@ -109,31 +112,31 @@ test_boot_status:
 
 	/* if warm reset, skip the clearing of BSS and SBSS */
 	bne	.Lenclbss
-#endif
-#endif
-
-#ifdef SDT
+#endif /* if (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK) */
+#else /* #ifndef SDT */
 	ldr     r0,=XCortexr5_ConfigTable
-	ands	r0, r0, #RPU_TZ_MASK
-	TST 	r0, #1
-	bne	noaccess
-	mrc	p15, 0, r0,  c0,  c0, 5	/* Read MPIDR register */
-	ands	r0, r0, #MPIDR_AFF0	/* Get affinity level 0 */
-	bne	core1
-	ldr	r10, =RPU_0_PWRCTL	/* Load PWRCTRL address for core 0 */
-	b	test_boot_status
+	ands    r0, r0, #RPU_TZ_MASK
+	TST     r0, #1
+	bne     noaccess
+	mrc     p15, 0, r0,  c0,  c0, 5 /* Read MPIDR register */
+	ands    r0, r0, #MPIDR_AFF0     /* Get affinity level 0 */
+	bne     core1
+	ldr     r10, =RPU_0_PWRCTL      /* Load PWRCTRL address for core 0 */
+	b       test_boot_status
 
 core1:
-	ldr	r10, =RPU_1_PWRCTL	/* Load PWRCTRL address for core 1 */
+	ldr     r10, =RPU_1_PWRCTL      /* Load PWRCTRL address for core 1 */
 
 test_boot_status:
-	ldr	r11, [r10]		/* Read PWRCTRL register */
-	ands	r11, r11, #PWRCTL_MASK	/* Extract and test core's PWRCTRL */
+	ldr     r11, [r10]              /* Read PWRCTRL register */
+	ands    r11, r11, #PWRCTL_MASK  /* Extract and test core's PWRCTRL */
 
 	/* if warm reset, skip the clearing of BSS and SBSS */
-	bne	.Lenclbss
+	bne     .Lenclbss
 noaccess:
-#endif
+
+#endif /* #ifndef SDT */
+#endif /* #if defined (ARMR52) */
 	mov	r0, #0
 
 	/* clear sbss */
