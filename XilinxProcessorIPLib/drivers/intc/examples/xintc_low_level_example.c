@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -167,8 +168,8 @@ int IntcLowLevelExample(u32 IntcBaseAddress)
 	 * specific interrupt processing for the device.
 	 */
 	XIntc_RegisterHandler(IntcBaseAddress, INTC_DEVICE_INTR_ID,
-				(XInterruptHandler)DeviceDriverHandler,
-				(void *)0);
+			      (XInterruptHandler)DeviceDriverHandler,
+			      (void *)0);
 
 	/*
 	 * Enable interrupts for all devices that cause interrupts, and enable
@@ -201,8 +202,7 @@ int IntcLowLevelExample(u32 IntcBaseAddress)
 	 * Wait for the interrupt to be processed, if the interrupt does not
 	 * occur this loop will wait forever.
 	 */
-	while (1)
-	{
+	while (1) {
 		/*
 		 * If the interrupt occurred which is indicated by the global
 		 * variable which is set in the device driver handler, then
@@ -244,12 +244,12 @@ void SetupInterruptSystem()
 	 */
 #ifndef SDT
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)XIntc_DeviceInterruptHandler,
-			INTC_DEVICE_ID);
+				     (Xil_ExceptionHandler)XIntc_DeviceInterruptHandler,
+				     INTC_DEVICE_ID);
 #else
-	 Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-                        (Xil_ExceptionHandler)XIntc_DeviceInterruptHandler,
-                        INTC_BASEADDR);
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+				     (Xil_ExceptionHandler)XIntc_DeviceInterruptHandler,
+				     INTC_BASEADDR);
 #endif
 
 	/*

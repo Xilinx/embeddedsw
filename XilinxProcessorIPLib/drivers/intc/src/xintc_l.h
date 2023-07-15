@@ -188,7 +188,7 @@ typedef void (*XFastInterruptHandler) (void);
 *****************************************************************************/
 #define XIntc_MasterEnable(BaseAddress) \
 	XIntc_Out32((BaseAddress) + XIN_MER_OFFSET, \
-	XIN_INT_MASTER_ENABLE_MASK | XIN_INT_HARDWARE_ENABLE_MASK)
+		    XIN_INT_MASTER_ENABLE_MASK | XIN_INT_HARDWARE_ENABLE_MASK)
 
 /****************************************************************************/
 /**
@@ -287,7 +287,7 @@ typedef void (*XFastInterruptHandler) (void);
 *****************************************************************************/
 #define XIntc_GetIntrStatus(BaseAddress) \
 	(XIntc_In32((BaseAddress) + XIN_ISR_OFFSET) & \
-	XIntc_In32((BaseAddress) + XIN_IER_OFFSET))
+	 XIntc_In32((BaseAddress) + XIN_IER_OFFSET))
 
 /************************** Function Prototypes ******************************/
 
@@ -305,7 +305,7 @@ void XIntc_RegisterHandler(UINTPTR BaseAddress, int InterruptId,
 			   XInterruptHandler Handler, void *CallBackRef);
 
 void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
-					XFastInterruptHandler FastHandler);
+			       XFastInterruptHandler FastHandler);
 
 /************************** Variable Definitions *****************************/
 

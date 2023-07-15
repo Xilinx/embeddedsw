@@ -74,7 +74,7 @@
 * @note		None.
 *
 ******************************************************************************/
-int XIntc_SelfTest(XIntc * InstancePtr)
+int XIntc_SelfTest(XIntc *InstancePtr)
 {
 	u32 CurrentISR;
 	u32 Temp;
@@ -160,7 +160,7 @@ int XIntc_SelfTest(XIntc * InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XIntc_SimulateIntr(XIntc * InstancePtr, u8 Id)
+int XIntc_SimulateIntr(XIntc *InstancePtr, u8 Id)
 {
 	u32 Mask;
 	u32 MasterEnable;
@@ -189,14 +189,14 @@ int XIntc_SimulateIntr(XIntc * InstancePtr, u8 Id)
 
 	if (Id > 31) {
 
-		DeviceId = Id/32;
+		DeviceId = Id / 32;
 
-		CfgPtr = XIntc_LookupConfig(Id/32);
+		CfgPtr = XIntc_LookupConfig(Id / 32);
 		if (CfgPtr == NULL) {
 			return XST_FAILURE;
 		}
 
-		Mask = XIntc_BitPosMask[Id%32];
+		Mask = XIntc_BitPosMask[Id % 32];
 		XIntc_Out32(CfgPtr->BaseAddress + XIN_ISR_OFFSET, Mask);
 
 		/* Generate interrupt for 31 by writing to Interrupt Status
@@ -204,17 +204,15 @@ int XIntc_SimulateIntr(XIntc * InstancePtr, u8 Id)
 		 * will be written last in the loop
 		 */
 		Mask = XIntc_BitPosMask[31];
-		for (Index = DeviceId - 1; Index >= 0; Index--)
-		{
+		for (Index = DeviceId - 1; Index >= 0; Index--) {
 			CfgPtr = XIntc_LookupConfig(Index);
 			if (CfgPtr == NULL) {
 				return XST_FAILURE;
 			}
 			XIntc_Out32(CfgPtr->BaseAddress + XIN_ISR_OFFSET,
-									Mask);
+				    Mask);
 		}
-	}
-	else {
+	} else {
 		/*
 		 * The Id is used to create the appropriate mask for the
 		 * desired bit position.

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -226,8 +227,7 @@ int IntcExample(UINTPTR BaseAddr)
 	 * Wait for the interrupt to be processed, if the interrupt does not
 	 * occur this loop will wait forever.
 	 */
-	while (1)
-	{
+	while (1) {
 		/*
 		 * If the interrupt occurred which is indicated by the global
 		 * variable which is set in the device driver handler, then
@@ -268,8 +268,8 @@ int SetUpInterruptSystem(XIntc *XIntcInstancePtr)
 	 * specific interrupt processing for the device.
 	 */
 	Status = XIntc_Connect(XIntcInstancePtr, INTC_DEVICE_INT_ID,
-				   (XInterruptHandler)DeviceDriverHandler,
-				   (void *)0);
+			       (XInterruptHandler)DeviceDriverHandler,
+			       (void *)0);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -302,8 +302,8 @@ int SetUpInterruptSystem(XIntc *XIntcInstancePtr)
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XIntc_InterruptHandler,
-				XIntcInstancePtr);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     XIntcInstancePtr);
 
 	/*
 	 * Enable exceptions.
