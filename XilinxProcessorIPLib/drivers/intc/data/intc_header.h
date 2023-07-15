@@ -10,7 +10,12 @@
 #include "xil_types.h"
 #include "xstatus.h"
 
+#ifndef SDT
 int IntcSelfTestExample(u16 DeviceId);
 int IntcInterruptSetup(XIntc *IntcInstancePtr, u16 DeviceId);
+#else
+int IntcSelfTestExample(UINTPTR BaseAddr);
+int IntcInterruptSetup(XIntc *IntcInstancePtr, UINTPTR BaseAddr);
+#endif
 
 #endif
