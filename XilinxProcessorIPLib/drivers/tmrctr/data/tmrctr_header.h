@@ -12,12 +12,11 @@
 #include "xstatus.h"
 
 #ifndef SDT
-int TmrCtrSelfTestExample(u16 DeviceId, u8 TmrCtrNumber);
+int TmrCtrSelfTestExample(u16 DeviceId);
 #else
-int TmrCtrSelfTestExample(UINTPTR BaseAddr, u8 TmrCtrNumber);
+int TmrCtrSelfTestExample(UINTPTR BaseAddr);
 int TmrCtrIntrExample(XTmrCtr *InstancePtr,
-		        UINTPTR BaseAddr,
-                        u8 TmrCtrNumber);
+		      UINTPTR BaseAddr);
 #endif
 
 #endif

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,16 +32,14 @@
 int TmrCtrIntrExample(XIntc* IntcInstancePtr,
                           XTmrCtr* InstancePtr,
                           u16 DeviceId,
-                          u16 IntrId,
-                          u8 TmrCtrNumber);
+                          u16 IntrId);
 #else
 #include "xscugic.h"
 
 int TmrCtrIntrExample(XScuGic* IntcInstancePtr,
                           XTmrCtr* InstancePtr,
                           u16 DeviceId,
-                          u16 IntrId,
-                          u8 TmrCtrNumber);
+                          u16 IntrId);
 #endif
 #endif
 

@@ -130,7 +130,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    {
       int status;
                         
-      status = TmrCtrSelfTestExample(${deviceid}, 0x0);
+      status = TmrCtrSelfTestExample(${deviceid});
 
    }"
   
@@ -151,7 +151,7 @@ proc gen_testfunc_call {swproj mhsinst} {
       int Status;
       Status = TmrCtrIntrExample(&${intcvar}, &${ipname}_Timer, \\
                                  ${deviceid}, \\
-                                 ${intr_id}, 0);
+                                 ${intr_id});
    }"
 
 	}
@@ -166,7 +166,7 @@ proc gen_testfunc_call {swproj mhsinst} {
       
       print(\"\\r\\n Running TmrCtrSelfTestExample() for ${ipname}...\\r\\n\");
       
-      status = TmrCtrSelfTestExample(${deviceid}, 0x0);
+      status = TmrCtrSelfTestExample(${deviceid});
       
       if (status == 0) {
          print(\"TmrCtrSelfTestExample PASSED\\r\\n\");
@@ -199,7 +199,7 @@ proc gen_testfunc_call {swproj mhsinst} {
       
       Status = TmrCtrIntrExample(&${intcvar}, &${ipname}_Timer, \\
                                  ${deviceid}, \\
-                                 ${intr_id}, 0);
+                                 ${intr_id});
 	
       if (Status == 0) {
          print(\"Timer Interrupt Test PASSED\\r\\n\");
