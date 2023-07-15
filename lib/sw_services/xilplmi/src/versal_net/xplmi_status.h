@@ -429,8 +429,7 @@ typedef enum {
 	XLOADER_ERR_IMG_ID_NOT_FOUND,	/**< 0x320 - Error when Image ID is
 					  not found in subsystem while reloading
 					  image */
-	XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, /**< 0x321 - Error while loading to
-					    TCM and if address is out of range*/
+	XLOADER_ERR_RESERVED5,		/**< 0x321 - XLoader Reserved Error 5 */
 	XLOADER_ERR_CFRAME_LOOKUP,	/**< 0x322 - Error when CFRAME driver
 					  look up fails */
 	XLOADER_ERR_CFRAME_CFG,		/**< 0x323 - Error when CFRAME driver

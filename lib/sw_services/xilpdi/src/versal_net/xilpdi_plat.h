@@ -91,6 +91,7 @@ extern "C" {
 #define XIH_PH_ATTRB_CLUSTER_LOCKSTEP_MASK	(0x0030U)
 #define XIH_PH_ATTRB_A78_EXEC_ST_MASK		(0x0008U)
 #define XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT		(6U)
+#define XIH_PH_ATTRB_TCM_BOOT_MASK		(0x180000U)
 
 /**
  *  Prtn Attribute Values
@@ -121,6 +122,7 @@ extern "C" {
 #define XIH_PH_ATTRB_DSTN_CPU_R52_0				(0x500U)
 #define XIH_PH_ATTRB_DSTN_CPU_R52_1				(0x600U)
 #define XIH_PH_ATTRB_DSTN_CPU_PSM				(0x800U)
+#define XIH_PH_ATTRB_TCM_BOOT_ENABLED				(0x180000U)
 
 /**
  * Below is the bit mapping of fields in the ATF Handoff parameters
