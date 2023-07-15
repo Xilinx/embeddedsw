@@ -86,11 +86,19 @@ int XIntc_SetOptions(XIntc * InstancePtr, u32 Options)
 		/* If Cascade mode set the option for all Slaves */
 		if (InstancePtr->CfgPtr->IntcType != XIN_INTC_NOCASCADE) {
 			int Index;
+#ifndef SDT
 			for (Index = 1; Index <= XPAR_XINTC_NUM_INSTANCES - 1;
 								Index++) {
 				CfgPtr = XIntc_LookupConfig(Index);
 				CfgPtr->Options = Options;
 			}
+#else
+			for (Index = 1; XIntc_ConfigTable[Index].Name != NULL;
+								Index++) {
+				CfgPtr = XIntc_LookupConfig(XIntc_ConfigTable[Index].BaseAddress);
+				CfgPtr->Options = Options;
+			}
+#endif
 		}
 		return XST_SUCCESS;
 	}
