@@ -10,7 +10,7 @@ list(APPEND defs "#ifndef XCOMMON_DRV_CONFIG_H_\n")
 list(APPEND defs "#define XCOMMON_DRV_CONFIG_H_\n\n")
 if ((EXISTS "${INTC_DIR}/INTCConfig.cmake") AND
     DRIVER_INSTANCES)
-    list(APPEND defs "#define AXI_INTC\n")
+    list(APPEND defs "#define XPAR_AXI_INTC\n")
 endif()
 
 find_package(SCUGIC QUIET)
