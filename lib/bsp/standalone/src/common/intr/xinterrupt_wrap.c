@@ -132,7 +132,8 @@ int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, U
 	#endif
 	} else {
 	#if defined (XPAR_AXI_INTC)
-		Status = XIntc_Connect(&XIntcInstance, IntrId, \
+		u16 IntrNum = XGet_IntrId(IntrId);
+		Status = XIntc_Connect(&XIntcInstance, IntrNum, \
 			(XInterruptHandler)IntrHandler, CallBackRef);
 		return Status;
 	#else
@@ -170,7 +171,8 @@ int XDisconnectInterruptCntrl(u32 IntrId, UINTPTR IntcParent)
 	#endif
 	} else {
 	#if defined (XPAR_AXI_INTC)
-		XIntc_Disconnect(&XIntcInstance, IntrId);
+		u16 IntrNum = XGet_IntrId(IntrId);
+		XIntc_Disconnect(&XIntcInstance, IntrNum);
 	#else
 		return XST_FAILURE;
 	#endif
@@ -247,7 +249,8 @@ void XEnableIntrId( u32 IntrId, UINTPTR IntcParent)
 
 	} else {
 	#if defined (XPAR_AXI_INTC)
-		XIntc_Enable(&XIntcInstance, IntrId);
+		u16 IntrNum = XGet_IntrId(IntrId);
+		XIntc_Enable(&XIntcInstance, IntrNum);
 	#endif
 	}
 
