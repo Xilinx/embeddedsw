@@ -51,19 +51,20 @@ static XIntc XIntcInstance ;
 * @note     None.
 *
 ******************************************************************************/
-int XConfigInterruptCntrl(UINTPTR IntcParent) {
+int XConfigInterruptCntrl(UINTPTR IntcParent)
+{
 	int Status = XST_FAILURE;
 	UINTPTR BaseAddr = XGet_BaseAddr(IntcParent);
 
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
-	#if defined (XPAR_SCUGIC)
+#if defined (XPAR_SCUGIC)
 		XScuGic_Config *CfgPtr = NULL;
 		if (XScuGicInstance.IsReady != XIL_COMPONENT_IS_READY) {
-			#if defined(SDT)
-				CfgPtr = XScuGic_LookupConfig(BaseAddr);
-			#else
-				CfgPtr = XScuGic_LookupConfigBaseAddr(BaseAddr);
-			#endif
+#if defined(SDT)
+			CfgPtr = XScuGic_LookupConfig(BaseAddr);
+#else
+			CfgPtr = XScuGic_LookupConfigBaseAddr(BaseAddr);
+#endif
 			if (!ScuGicInitialized) {
 				Status = XScuGic_CfgInitialize(&XScuGicInstance, CfgPtr, 0);
 			} else {
@@ -73,19 +74,20 @@ int XConfigInterruptCntrl(UINTPTR IntcParent) {
 			Status = XST_SUCCESS;
 		}
 		return Status;
-	#else
+#else
 		return XST_FAILURE;
-	#endif
+#endif
 	} else {
-	#if defined (XPAR_AXI_INTC)
-		if (XIntcInstance.IsStarted != XIL_COMPONENT_IS_STARTED)
+#if defined (XPAR_AXI_INTC)
+		if (XIntcInstance.IsStarted != XIL_COMPONENT_IS_STARTED) {
 			Status = XIntc_Initialize(&XIntcInstance, BaseAddr);
-		else
+		} else {
 			Status = XST_SUCCESS;
+		}
 		return Status;
-	#else
+#else
 		return XST_FAILURE;
-	#endif
+#endif
 	}
 }
 
@@ -110,35 +112,34 @@ int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, U
 	int Status;
 	int Doconnect = FALSE;
 
-	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC)
-	{
-	#if defined (XPAR_SCUGIC)
+	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
+#if defined (XPAR_SCUGIC)
 		if (ScuGicInitialized) {
 			Doconnect = 1;
 		}
-                if (Doconnect) {
+		if (Doconnect) {
 			u16 IntrNum = XGet_IntrId(IntrId);
 			u16 Offset = XGet_IntrOffset(IntrId);
 
 			IntrNum += Offset;
 			Status = XScuGic_Connect(&XScuGicInstance, IntrNum,  \
-			(Xil_ExceptionHandler) IntrHandler, CallBackRef);
+						 (Xil_ExceptionHandler) IntrHandler, CallBackRef);
 			return Status;
 		} else {
 			return XST_SUCCESS;
 		}
-	#else
+#else
 		return XST_FAILURE;
-	#endif
+#endif
 	} else {
-	#if defined (XPAR_AXI_INTC)
+#if defined (XPAR_AXI_INTC)
 		u16 IntrNum = XGet_IntrId(IntrId);
 		Status = XIntc_Connect(&XIntcInstance, IntrNum, \
-			(XInterruptHandler)IntrHandler, CallBackRef);
+				       (XInterruptHandler)IntrHandler, CallBackRef);
 		return Status;
-	#else
+#else
 		return XST_FAILURE;
-	#endif
+#endif
 
 	}
 }
@@ -160,22 +161,22 @@ int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, U
 int XDisconnectInterruptCntrl(u32 IntrId, UINTPTR IntcParent)
 {
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
-        #if defined (XPAR_SCUGIC)
+#if defined (XPAR_SCUGIC)
 		u16 IntrNum = XGet_IntrId(IntrId);
 		u16 Offset = XGet_IntrOffset(IntrId);
 
 		IntrNum += Offset;
 		XScuGic_Disconnect(&XScuGicInstance, IntrNum);
-	#else
+#else
 		return XST_FAILURE;
-	#endif
+#endif
 	} else {
-	#if defined (XPAR_AXI_INTC)
+#if defined (XPAR_AXI_INTC)
 		u16 IntrNum = XGet_IntrId(IntrId);
 		XIntc_Disconnect(&XIntcInstance, IntrNum);
-	#else
+#else
 		return XST_FAILURE;
-	#endif
+#endif
 	}
 	return XST_SUCCESS;
 }
@@ -201,8 +202,7 @@ int XStartInterruptCntrl(u32 Mode, UINTPTR IntcParent)
 #else
 	(void) Mode;
 #endif
-	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC)
-	{
+	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
 		/*
 		 * For XPAR_SCUGIC, XConfigInterruptCntrl starts controller
 		 * hence returning without doing anything
@@ -210,10 +210,11 @@ int XStartInterruptCntrl(u32 Mode, UINTPTR IntcParent)
 		return 0;
 	} else  {
 #if defined (XPAR_AXI_INTC)
-		if (XIntcInstance.IsStarted != XIL_COMPONENT_IS_STARTED)
+		if (XIntcInstance.IsStarted != XIL_COMPONENT_IS_STARTED) {
 			Status = XIntc_Start(&XIntcInstance, Mode);
-		else
+		} else {
 			Status = XST_SUCCESS;
+		}
 		return Status;
 #else
 		return XST_FAILURE;
@@ -238,20 +239,19 @@ int XStartInterruptCntrl(u32 Mode, UINTPTR IntcParent)
 ******************************************************************************/
 void XEnableIntrId( u32 IntrId, UINTPTR IntcParent)
 {
-	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC)
-	{
-	#if defined (XPAR_SCUGIC)
+	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
+#if defined (XPAR_SCUGIC)
 		u16 IntrNum = XGet_IntrId(IntrId);
 		u16 Offset = XGet_IntrOffset(IntrId);
 		IntrNum += Offset;
 		XScuGic_Enable(&XScuGicInstance, IntrNum);
-	#endif
+#endif
 
 	} else {
-	#if defined (XPAR_AXI_INTC)
+#if defined (XPAR_AXI_INTC)
 		u16 IntrNum = XGet_IntrId(IntrId);
 		XIntc_Enable(&XIntcInstance, IntrNum);
-	#endif
+#endif
 	}
 
 }
@@ -272,17 +272,17 @@ void XEnableIntrId( u32 IntrId, UINTPTR IntcParent)
 void XDisableIntrId( u32 IntrId, UINTPTR IntcParent)
 {
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
-	#if defined (XPAR_SCUGIC)
+#if defined (XPAR_SCUGIC)
 		u16 IntrNum = XGet_IntrId(IntrId);
 		u16 Offset = XGet_IntrOffset(IntrId);
 
 		IntrNum += Offset;
 		XScuGic_Disable(&XScuGicInstance, IntrNum);
-	#endif
+#endif
 	} else {
-	#if defined (XPAR_AXI_INTC)
+#if defined (XPAR_AXI_INTC)
 		XIntc_Disable(&XIntcInstance, IntrId);
-	#endif
+#endif
 	}
 }
 
@@ -304,8 +304,8 @@ void XSetPriorityTriggerType( u32 IntrId, u8 Priority, UINTPTR IntcParent)
 {
 #if defined (XPAR_SCUGIC)
 	u8 Trigger = (((XGet_TriggerType(IntrId) == 1) ||
-		      (XGet_TriggerType(IntrId) == 2)) ? XINTR_IS_EDGE_TRIGGERED
-                      : XINTR_IS_LEVEL_TRIGGERED);
+		       (XGet_TriggerType(IntrId) == 2)) ? XINTR_IS_EDGE_TRIGGERED
+		      : XINTR_IS_LEVEL_TRIGGERED);
 	u16 IntrNum = XGet_IntrId(IntrId);
 	u16 Offset = XGet_IntrOffset(IntrId);
 
@@ -334,9 +334,9 @@ void XSetPriorityTriggerType( u32 IntrId, u8 Priority, UINTPTR IntcParent)
 void XGetPriorityTriggerType( u32 IntrId, u8 *Priority, u8 *Trigger,  UINTPTR IntcParent)
 {
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
-	#if defined (XPAR_SCUGIC)
+#if defined (XPAR_SCUGIC)
 		XScuGic_GetPriorityTriggerType(&XScuGicInstance, IntrId, Priority, Trigger);
-	#endif
+#endif
 	}
 }
 
@@ -355,13 +355,13 @@ void XGetPriorityTriggerType( u32 IntrId, u8 *Priority, u8 *Trigger,  UINTPTR In
 void XStopInterruptCntrl( UINTPTR IntcParent)
 {
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
-	#if defined (XPAR_SCUGIC)
+#if defined (XPAR_SCUGIC)
 		XScuGic_Stop(&XScuGicInstance);
-	#endif
+#endif
 	} else {
-	#if defined (XPAR_AXI_INTC)
+#if defined (XPAR_AXI_INTC)
 		XIntc_Stop(&XIntcInstance);
-	#endif
+#endif
 	}
 
 }
@@ -382,30 +382,30 @@ void XStopInterruptCntrl( UINTPTR IntcParent)
 void XRegisterInterruptHandler(void *IntrHandler,  UINTPTR IntcParent)
 {
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
-	#if defined (XPAR_SCUGIC)
+#if defined (XPAR_SCUGIC)
 		if (IntrHandler == NULL) {
 			Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT, \
-			(Xil_ExceptionHandler) XScuGic_InterruptHandler,
-			&XScuGicInstance);
+						     (Xil_ExceptionHandler) XScuGic_InterruptHandler,
+						     &XScuGicInstance);
 		} else {
 			Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT, \
-				(Xil_ExceptionHandler) IntrHandler,
-				&XScuGicInstance);
+						     (Xil_ExceptionHandler) IntrHandler,
+						     &XScuGicInstance);
 
 		}
-	#endif
+#endif
 	} else {
-	#if defined (XPAR_AXI_INTC)
+#if defined (XPAR_AXI_INTC)
 		if (IntrHandler == NULL) {
 			Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT, \
-				(Xil_ExceptionHandler) XIntc_InterruptHandler,
-				&XIntcInstance);
+						     (Xil_ExceptionHandler) XIntc_InterruptHandler,
+						     &XIntcInstance);
 		} else {
 			Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT, \
-				(Xil_ExceptionHandler) IntrHandler,
-				&XIntcInstance);
+						     (Xil_ExceptionHandler) IntrHandler,
+						     &XIntcInstance);
 		}
-	#endif
+#endif
 	}
 }
 
@@ -431,16 +431,18 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 	int Status;
 
 	Status = XConfigInterruptCntrl(IntcParent);
-	if (Status != XST_SUCCESS)
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 #if defined (XPAR_SCUGIC)
 	ScuGicInitialized = TRUE;
 #endif
 	XSetPriorityTriggerType( IntrId, Priority, IntcParent);
 	Status = XConnectToInterruptCntrl( IntrId, (Xil_ExceptionHandler) IntrHandler, \
-				DriverInstance, IntcParent);
-	if (Status != XST_SUCCESS)
+					   DriverInstance, IntcParent);
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 #if defined (XPAR_AXI_INTC)
 	XStartInterruptCntrl(XIN_REAL_MODE, IntcParent);
 #endif
