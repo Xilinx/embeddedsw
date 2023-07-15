@@ -173,7 +173,7 @@ extern u8 XTmrCtr_Offsets[];
 ******************************************************************************/
 #define XTmrCtr_ReadReg(BaseAddress, TmrCtrNumber, RegOffset)	\
 	Xil_In32((BaseAddress) + XTmrCtr_Offsets[(TmrCtrNumber)] + \
-			(RegOffset))
+		 (RegOffset))
 
 #ifndef XTimerCtr_ReadReg
 #define XTimerCtr_ReadReg XTmrCtr_ReadReg
@@ -196,7 +196,7 @@ extern u8 XTmrCtr_Offsets[];
 ******************************************************************************/
 #define XTmrCtr_WriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)\
 	Xil_Out32(((BaseAddress) + XTmrCtr_Offsets[(TmrCtrNumber)] +	\
-			   (RegOffset)), (ValueToWrite))
+		   (RegOffset)), (ValueToWrite))
 
 /****************************************************************************/
 /**
@@ -216,7 +216,7 @@ extern u8 XTmrCtr_Offsets[];
 *****************************************************************************/
 #define XTmrCtr_SetControlStatusReg(BaseAddress, TmrCtrNumber, RegisterValue)\
 	XTmrCtr_WriteReg((BaseAddress), (TmrCtrNumber), XTC_TCSR_OFFSET,     \
-					   (RegisterValue))
+			 (RegisterValue))
 
 /****************************************************************************/
 /**
@@ -272,7 +272,7 @@ extern u8 XTmrCtr_Offsets[];
 *****************************************************************************/
 #define XTmrCtr_SetLoadReg(BaseAddress, TmrCtrNumber, RegisterValue)	 \
 	XTmrCtr_WriteReg((BaseAddress), (TmrCtrNumber), XTC_TLR_OFFSET, \
-					   (RegisterValue))
+			 (RegisterValue))
 
 /****************************************************************************/
 /**
@@ -289,7 +289,7 @@ extern u8 XTmrCtr_Offsets[];
 * 		u32 XTmrCtr_GetLoadReg(u32 BaseAddress, u8 TmrCtrNumber);
 *****************************************************************************/
 #define XTmrCtr_GetLoadReg(BaseAddress, TmrCtrNumber)	\
-XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber), XTC_TLR_OFFSET)
+	XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber), XTC_TLR_OFFSET)
 
 /****************************************************************************/
 /**
@@ -307,8 +307,8 @@ XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber), XTC_TLR_OFFSET)
 *****************************************************************************/
 #define XTmrCtr_Enable(BaseAddress, TmrCtrNumber)			    \
 	XTmrCtr_WriteReg((BaseAddress), (TmrCtrNumber), XTC_TCSR_OFFSET,   \
-			(XTmrCtr_ReadReg((BaseAddress), ( TmrCtrNumber), \
-			XTC_TCSR_OFFSET) | XTC_CSR_ENABLE_TMR_MASK))
+			 (XTmrCtr_ReadReg((BaseAddress), ( TmrCtrNumber), \
+					  XTC_TCSR_OFFSET) | XTC_CSR_ENABLE_TMR_MASK))
 
 /****************************************************************************/
 /**
@@ -326,8 +326,8 @@ XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber), XTC_TLR_OFFSET)
 *****************************************************************************/
 #define XTmrCtr_Disable(BaseAddress, TmrCtrNumber)			  \
 	XTmrCtr_WriteReg((BaseAddress), (TmrCtrNumber), XTC_TCSR_OFFSET, \
-			(XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber),\
-			XTC_TCSR_OFFSET) & ~ XTC_CSR_ENABLE_TMR_MASK))
+			 (XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber),\
+					  XTC_TCSR_OFFSET) & ~ XTC_CSR_ENABLE_TMR_MASK))
 
 /****************************************************************************/
 /**
@@ -345,8 +345,8 @@ XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber), XTC_TLR_OFFSET)
 *****************************************************************************/
 #define XTmrCtr_EnableIntr(BaseAddress, TmrCtrNumber)			    \
 	XTmrCtr_WriteReg((BaseAddress), (TmrCtrNumber), XTC_TCSR_OFFSET,   \
-			(XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber),  \
-			XTC_TCSR_OFFSET) | XTC_CSR_ENABLE_INT_MASK))
+			 (XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber),  \
+					  XTC_TCSR_OFFSET) | XTC_CSR_ENABLE_INT_MASK))
 
 /****************************************************************************/
 /**
@@ -364,9 +364,9 @@ XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber), XTC_TLR_OFFSET)
 *****************************************************************************/
 #define XTmrCtr_DisableIntr(BaseAddress, TmrCtrNumber)			   \
 	XTmrCtr_WriteReg((BaseAddress), (TmrCtrNumber), XTC_TCSR_OFFSET,  \
-	(XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber),		   \
-		XTC_TCSR_OFFSET) & ~ (XTC_CSR_ENABLE_INT_MASK \
-         | XTC_CSR_INT_OCCURED_MASK)))
+			 (XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber),		   \
+					  XTC_TCSR_OFFSET) & ~ (XTC_CSR_ENABLE_INT_MASK \
+							  | XTC_CSR_INT_OCCURED_MASK)))
 
 /****************************************************************************/
 /**
@@ -386,8 +386,8 @@ XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber), XTC_TLR_OFFSET)
 *****************************************************************************/
 #define XTmrCtr_LoadTimerCounterReg(BaseAddress, TmrCtrNumber)		  \
 	XTmrCtr_WriteReg((BaseAddress), (TmrCtrNumber), XTC_TCSR_OFFSET, \
-			(XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber),\
-			XTC_TCSR_OFFSET) | XTC_CSR_LOAD_MASK))
+			 (XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber),\
+					  XTC_TCSR_OFFSET) | XTC_CSR_LOAD_MASK))
 
 /****************************************************************************/
 /**
@@ -403,9 +403,9 @@ XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber), XTC_TLR_OFFSET)
 * 		int XTmrCtr_HasEventOccurred(u32 BaseAddress, u8 TmrCtrNumber);
 *****************************************************************************/
 #define XTmrCtr_HasEventOccurred(BaseAddress, TmrCtrNumber)		\
-		((XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber),	\
-		XTC_TCSR_OFFSET) & XTC_CSR_INT_OCCURED_MASK) ==		\
-		XTC_CSR_INT_OCCURED_MASK)
+	((XTmrCtr_ReadReg((BaseAddress), (TmrCtrNumber),	\
+			  XTC_TCSR_OFFSET) & XTC_CSR_INT_OCCURED_MASK) ==		\
+	 XTC_CSR_INT_OCCURED_MASK)
 
 /************************** Function Prototypes ******************************/
 /************************** Variable Definitions *****************************/

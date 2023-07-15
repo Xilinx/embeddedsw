@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,7 +59,7 @@
 * @note		None.
 *
 ******************************************************************************/
-void XTmrCtr_GetStats(XTmrCtr * InstancePtr, XTmrCtrStats * StatsPtr)
+void XTmrCtr_GetStats(XTmrCtr *InstancePtr, XTmrCtrStats *StatsPtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(StatsPtr != NULL);
@@ -80,7 +80,7 @@ void XTmrCtr_GetStats(XTmrCtr * InstancePtr, XTmrCtrStats * StatsPtr)
 * @note		None.
 *
 ******************************************************************************/
-void XTmrCtr_ClearStats(XTmrCtr * InstancePtr)
+void XTmrCtr_ClearStats(XTmrCtr *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);

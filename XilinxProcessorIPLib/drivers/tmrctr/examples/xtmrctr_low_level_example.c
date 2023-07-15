@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -133,7 +134,7 @@ int TmrCtrLowLevelExample(UINTPTR TmrCtrBaseAddress, u8 TmrCtrNumber)
 	/*
 	 * Clear the Control Status Register
 	 */
-	XTmrCtr_SetControlStatusReg(TmrCtrBaseAddress, TmrCtrNumber,0x0);
+	XTmrCtr_SetControlStatusReg(TmrCtrBaseAddress, TmrCtrNumber, 0x0);
 
 	/*
 	 * Set the value that is loaded into the timer counter and cause it to
@@ -146,9 +147,9 @@ int TmrCtrLowLevelExample(UINTPTR TmrCtrBaseAddress, u8 TmrCtrNumber)
 	 * Clear the Load Timer bit in the Control Status Register
 	 */
 	ControlStatus = XTmrCtr_GetControlStatusReg(TmrCtrBaseAddress,
-						 TmrCtrNumber);
+			TmrCtrNumber);
 	XTmrCtr_SetControlStatusReg(TmrCtrBaseAddress, TmrCtrNumber,
-				 ControlStatus & (~XTC_CSR_LOAD_MASK));
+				    ControlStatus & (~XTC_CSR_LOAD_MASK));
 
 	/*
 	 * Get a snapshot of the timer counter value before it's started

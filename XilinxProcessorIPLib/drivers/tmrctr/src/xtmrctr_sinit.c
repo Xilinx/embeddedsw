@@ -97,7 +97,7 @@ XTmrCtr_Config *XTmrCtr_LookupConfig(UINTPTR BaseAddress)
 		 * instance of AXI timer.
 		 */
 		if ((XTmrCtr_ConfigTable[Index].BaseAddress == BaseAddress) ||
-		  !BaseAddress)  {
+		    !BaseAddress)  {
 			CfgPtr = &XTmrCtr_ConfigTable[Index];
 			break;
 		}

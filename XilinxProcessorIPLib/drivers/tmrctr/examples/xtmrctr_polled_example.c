@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -94,11 +95,11 @@ int main(void)
 	/*
 	 * Run the Timer Counter - Polled Example
 	 */
-	#ifndef SDT
+#ifndef SDT
 	Status = TmrCtrPolledExample(TMRCTR_DEVICE_ID, TIMER_COUNTER_0);
-	#else
+#else
 	Status = TmrCtrPolledExample(XTMRCTR_BASEADDRESS, TIMER_COUNTER_0);
-	#endif
+#endif
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("Tmrctr polled Example Failed\r\n");
@@ -150,11 +151,11 @@ int TmrCtrPolledExample(UINTPTR BaseAddr, u8 TmrCtrNumber)
 	 * Initialize the timer counter so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h
 	 */
-	#ifndef SDT
+#ifndef SDT
 	Status = XTmrCtr_Initialize(TmrCtrInstancePtr, DeviceId);
-	#else
+#else
 	Status = XTmrCtr_Initialize(TmrCtrInstancePtr, BaseAddr);
-	#endif
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -173,7 +174,7 @@ int TmrCtrPolledExample(UINTPTR BaseAddr, u8 TmrCtrNumber)
 	 * Enable the Autoreload mode of the timer counters.
 	 */
 	XTmrCtr_SetOptions(TmrCtrInstancePtr, TmrCtrNumber,
-				XTC_AUTO_RELOAD_OPTION);
+			   XTC_AUTO_RELOAD_OPTION);
 
 	/*
 	 * Get a snapshot of the timer counter value before it's started
