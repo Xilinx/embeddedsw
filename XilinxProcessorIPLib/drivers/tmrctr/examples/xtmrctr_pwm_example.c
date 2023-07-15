@@ -31,15 +31,21 @@
 
 /***************************** Include Files *********************************/
 #include "xtmrctr.h"
-#include "xparameters.h"
+#include <stdio.h>
+#include "xil_printf.h"
 #include "xil_exception.h"
+#include "xparameters.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
-#include <stdio.h>
 #else
 #include "xscugic.h"
-#include "xil_printf.h"
+#endif
+#else
+#include "xinterrupt_wrap.h"
+
+#define XTMRCTR_BASEADDRESS     XPAR_XTMRCTR_0_BASEADDR
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -48,6 +54,7 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define TMRCTR_DEVICE_ID        XPAR_TMRCTR_0_DEVICE_ID
 
 #ifdef __MICROBLAZE__
@@ -65,6 +72,7 @@
 #define INTC                    XScuGic
 #define INTC_HANDLER            XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
+#endif
 
 #define PWM_PERIOD              500000000    /* PWM period in (500 ms) */
 #define TMRCTR_0                0            /* Timer 0 ID */
@@ -79,23 +87,33 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 int TmrCtrPwmExample(INTC *IntcInstancePtr, XTmrCtr *InstancePtr, u16 DeviceId,
 								u16 IntrId);
-static void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber);
 static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr, XTmrCtr *InstancePtr,
 						u16 DeviceId, u16 IntrId);
 static void TmrCtrDisableIntr(INTC *IntcInstancePtr, u16 IntrId);
+#else
+int TmrCtrPwmExample(XTmrCtr *InstancePtr, UINTPTR BaseAddr);
+static void TmrCtrDisableIntr(XTmrCtr *InstancePtr);
+#endif
+
+static void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber);
+
 
 /************************** Variable Definitions *****************************/
+#ifndef SDT
 INTC InterruptController;  /* The instance of the Interrupt Controller */
+#endif
+
 XTmrCtr TimerCounterInst;  /* The instance of the Timer Counter */
 
 /*
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
-static int   PeriodTimerHit = FALSE;
-static int   HighTimerHit = FALSE;
+static volatile int   PeriodTimerHit = FALSE;
+static volatile int   HighTimerHit = FALSE;
 
 /*****************************************************************************/
 /**
@@ -114,8 +132,13 @@ int main(void)
 	int Status;
 
 	/* Run the Timer Counter PWM example */
+	#ifndef SDT
 	Status = TmrCtrPwmExample(&InterruptController, &TimerCounterInst,
 				  TMRCTR_DEVICE_ID, TMRCTR_INTERRUPT_ID);
+	#else
+	Status = TmrCtrPwmExample(&TimerCounterInst, XTMRCTR_BASEADDRESS);
+	#endif
+
 	if (Status != XST_SUCCESS) {
 		xil_printf("Tmrctr PWM Example Failed\r\n");
 		return XST_FAILURE;
@@ -142,8 +165,12 @@ int main(void)
 * @note		none.
 *
 *****************************************************************************/
+#ifndef SDT
 int TmrCtrPwmExample(INTC *IntcInstancePtr, XTmrCtr *TmrCtrInstancePtr,
 						u16 DeviceId, u16 IntrId)
+#else
+int TmrCtrPwmExample(XTmrCtr *TmrCtrInstancePtr, UINTPTR BaseAddr)
+#endif
 {
 	u8  DutyCycle;
 	u8  NoOfCycles;
@@ -157,7 +184,12 @@ int TmrCtrPwmExample(INTC *IntcInstancePtr, XTmrCtr *TmrCtrInstancePtr,
 	 * Initialize the timer counter so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h
 	 */
+	#ifndef SDT
 	Status = XTmrCtr_Initialize(TmrCtrInstancePtr, DeviceId);
+	#else
+	Status = XTmrCtr_Initialize(TmrCtrInstancePtr, BaseAddr);
+	#endif
+
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -175,8 +207,15 @@ int TmrCtrPwmExample(INTC *IntcInstancePtr, XTmrCtr *TmrCtrInstancePtr,
 	 * Connect the timer counter to the interrupt subsystem such that
 	 * interrupts can occur
 	 */
+	#ifndef SDT
 	Status = TmrCtrSetupIntrSystem(IntcInstancePtr, TmrCtrInstancePtr,
 							DeviceId, IntrId);
+	#else
+	Status = XSetupInterruptSystem(TmrCtrInstancePtr, (XInterruptHandler)XTmrCtr_InterruptHandler, \
+	  TmrCtrInstancePtr->Config.IntrId, TmrCtrInstancePtr->Config.IntrParent, \
+	 XINTERRUPT_DEFAULT_PRIORITY);
+	#endif
+
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -249,7 +288,11 @@ err:
 	XTmrCtr_PwmDisable(TmrCtrInstancePtr);
 
 	/* Disable interrupts */
+#ifndef SDT
 	TmrCtrDisableIntr(IntcInstancePtr, DeviceId);
+#else
+	TmrCtrDisableIntr(TmrCtrInstancePtr);
+#endif
 
 	return Status;
 }
@@ -281,6 +324,7 @@ static void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber)
 	}
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 * This function setups the interrupt system such that interrupts can occur
@@ -393,6 +437,7 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
+#endif
 
 /******************************************************************************/
 /**
@@ -409,12 +454,20 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 void TmrCtrDisableIntr(INTC *IntcInstancePtr, u16 IntrId)
+#else
+void TmrCtrDisableIntr(XTmrCtr *TmrCtrInstancePtr)
+#endif
 {
+#ifndef SDT
 	/* Disconnect the interrupt for the timer counter */
 #ifdef XPAR_INTC_0_DEVICE_ID
 	XIntc_Disconnect(IntcInstancePtr, IntrId);
 #else
 	XScuGic_Disconnect(IntcInstancePtr, IntrId);
+#endif
+#else
+	XDisableIntrId(TmrCtrInstancePtr->Config.IntrId, TmrCtrInstancePtr->Config.IntrParent);
 #endif
 }

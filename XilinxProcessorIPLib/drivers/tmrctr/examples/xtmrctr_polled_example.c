@@ -43,7 +43,11 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define TMRCTR_DEVICE_ID	XPAR_TMRCTR_0_DEVICE_ID
+#else
+#define XTMRCTR_BASEADDRESS	XPAR_XTMRCTR_0_BASEADDR
+#endif
 
 
 /*
@@ -60,9 +64,11 @@
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int TmrCtrPolledExample(u16 DeviceId, u8 TmrCtrNumber);
-
+#else
+int TmrCtrPolledExample(UINTPTR BaseAddr, u8 TmrCtrNumber);
+#endif
 /************************** Variable Definitions *****************************/
 
 XTmrCtr TimerCounter; /* The instance of the Tmrctr Device */
@@ -88,7 +94,12 @@ int main(void)
 	/*
 	 * Run the Timer Counter - Polled Example
 	 */
+	#ifndef SDT
 	Status = TmrCtrPolledExample(TMRCTR_DEVICE_ID, TIMER_COUNTER_0);
+	#else
+	Status = TmrCtrPolledExample(XTMRCTR_BASEADDRESS, TIMER_COUNTER_0);
+	#endif
+
 	if (Status != XST_SUCCESS) {
 		xil_printf("Tmrctr polled Example Failed\r\n");
 		return XST_FAILURE;
@@ -124,7 +135,11 @@ int main(void)
 * return.
 *
 ****************************************************************************/
+#ifndef SDT
 int TmrCtrPolledExample(u16 DeviceId, u8 TmrCtrNumber)
+#else
+int TmrCtrPolledExample(UINTPTR BaseAddr, u8 TmrCtrNumber)
+#endif
 {
 	int Status;
 	u32 Value1;
@@ -135,7 +150,11 @@ int TmrCtrPolledExample(u16 DeviceId, u8 TmrCtrNumber)
 	 * Initialize the timer counter so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h
 	 */
+	#ifndef SDT
 	Status = XTmrCtr_Initialize(TmrCtrInstancePtr, DeviceId);
+	#else
+	Status = XTmrCtr_Initialize(TmrCtrInstancePtr, BaseAddr);
+	#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

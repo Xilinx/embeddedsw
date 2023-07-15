@@ -30,3 +30,30 @@ required:
     - clock-frequency
     - interrupts
     - interrupt-parent
+
+examples:
+    xtmrctr_selftest_example.c:
+        - reg
+    xtmrctr_polled_example.c:
+        - reg
+    xtmrctr_low_level_example.c:
+        - reg
+    xtmrctr_intr_example.c:
+        - interrupts
+    xtmrctr_fast_intr_example.c:
+        - interrupts
+    xtmrctr_intr_64bit_example.c:
+        - interrupts
+    xtmrctr_pwm_example.c:
+        - interrupts
+
+tapp:
+    xtmrctr_selftest_example.c:
+        declaration: TmrCtrSelfTestExample
+        hwproperties:
+            - reg
+    xtmrctr_intr_example.c:
+        declaration: TmrCtrIntrExample
+        hwproperties:
+            - reg
+            - interrupt
