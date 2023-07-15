@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -124,23 +125,23 @@
 /************************** Function Prototypes ******************************/
 #ifndef SDT
 int TmrCtrIntrExample(INTC *IntcInstancePtr,
-			XTmrCtr *InstancePtr,
-			u16 DeviceId,
-			u16 IntrId,
-			u8 TmrCtrNumber);
+		      XTmrCtr *InstancePtr,
+		      u16 DeviceId,
+		      u16 IntrId,
+		      u8 TmrCtrNumber);
 
 static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
-				XTmrCtr *InstancePtr,
-				u16 DeviceId,
-				u16 IntrId,
-				u8 TmrCtrNumber);
+				 XTmrCtr *InstancePtr,
+				 u16 DeviceId,
+				 u16 IntrId,
+				 u8 TmrCtrNumber);
 
 
 static void TmrCtrDisableIntr(INTC *IntcInstancePtr, u16 IntrId);
 #else
 int TmrCtrIntrExample(XTmrCtr *InstancePtr,
-			UINTPTR BaseAddr,
-                        u8 TmrCtrNumber);
+		      UINTPTR BaseAddr,
+		      u8 TmrCtrNumber);
 
 
 static void TmrCtrDisableIntr( u16 IntrId, UINTPTR IntrParent);
@@ -183,17 +184,17 @@ int main(void)
 	/*
 	 * Run the Timer Counter - Interrupt example.
 	 */
-	#ifndef SDT
+#ifndef SDT
 	Status = TmrCtrIntrExample(&InterruptController,
-				  &TimerCounterInst,
-				  TMRCTR_DEVICE_ID,
-				  TMRCTR_INTERRUPT_ID,
-				  TIMER_CNTR_0);
-	#else
-        Status = TmrCtrIntrExample(&TimerCounterInst,
-				  XTMRCTR_BASEADDRESS,
-                                  TIMER_CNTR_0);
-	#endif
+				   &TimerCounterInst,
+				   TMRCTR_DEVICE_ID,
+				   TMRCTR_INTERRUPT_ID,
+				   TIMER_CNTR_0);
+#else
+	Status = TmrCtrIntrExample(&TimerCounterInst,
+				   XTMRCTR_BASEADDRESS,
+				   TIMER_CNTR_0);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Tmrctr interrupt Example Failed\r\n");
 		return XST_FAILURE;
@@ -232,14 +233,14 @@ int main(void)
 *****************************************************************************/
 #ifndef SDT
 int TmrCtrIntrExample(INTC *IntcInstancePtr,
-			XTmrCtr *TmrCtrInstancePtr,
-			u16 DeviceId,
-			u16 IntrId,
-			u8 TmrCtrNumber)
+		      XTmrCtr *TmrCtrInstancePtr,
+		      u16 DeviceId,
+		      u16 IntrId,
+		      u8 TmrCtrNumber)
 #else
 int TmrCtrIntrExample(XTmrCtr *TmrCtrInstancePtr,
-			UINTPTR BaseAddr,
-                        u8 TmrCtrNumber)
+		      UINTPTR BaseAddr,
+		      u8 TmrCtrNumber)
 #endif
 {
 	int Status;
@@ -249,11 +250,11 @@ int TmrCtrIntrExample(XTmrCtr *TmrCtrInstancePtr,
 	 * Initialize the timer counter so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h
 	 */
-	#ifndef SDT
+#ifndef SDT
 	Status = XTmrCtr_Initialize(TmrCtrInstancePtr, DeviceId);
-	#else
+#else
 	Status = XTmrCtr_Initialize(TmrCtrInstancePtr, BaseAddr);
-	#endif
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -271,17 +272,17 @@ int TmrCtrIntrExample(XTmrCtr *TmrCtrInstancePtr,
 	 * Connect the timer counter to the interrupt subsystem such that
 	 * interrupts can occur.  This function is application specific.
 	 */
-	#ifndef SDT
+#ifndef SDT
 	Status = TmrCtrSetupIntrSystem(IntcInstancePtr,
-					TmrCtrInstancePtr,
-					DeviceId,
-					IntrId,
-					TmrCtrNumber);
-	#else
+				       TmrCtrInstancePtr,
+				       DeviceId,
+				       IntrId,
+				       TmrCtrNumber);
+#else
 	Status = XSetupInterruptSystem(TmrCtrInstancePtr, (XInterruptHandler)XTmrCtr_InterruptHandler, \
-		TmrCtrInstancePtr->Config.IntrId, TmrCtrInstancePtr->Config.IntrParent, \
-		XINTERRUPT_DEFAULT_PRIORITY);
-	#endif
+				       TmrCtrInstancePtr->Config.IntrId, TmrCtrInstancePtr->Config.IntrParent, \
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -294,7 +295,7 @@ int TmrCtrIntrExample(XTmrCtr *TmrCtrInstancePtr,
 	 * handler is able to access the instance data
 	 */
 	XTmrCtr_SetHandler(TmrCtrInstancePtr, TimerCounterHandler,
-					   TmrCtrInstancePtr);
+			   TmrCtrInstancePtr);
 
 	/*
 	 * Enable the interrupt of the timer counter so interrupts will occur
@@ -303,7 +304,7 @@ int TmrCtrIntrExample(XTmrCtr *TmrCtrInstancePtr,
 	 * it would expire once only
 	 */
 	XTmrCtr_SetOptions(TmrCtrInstancePtr, TmrCtrNumber,
-				XTC_INT_MODE_OPTION | XTC_AUTO_RELOAD_OPTION);
+			   XTC_INT_MODE_OPTION | XTC_AUTO_RELOAD_OPTION);
 
 	/*
 	 * Set a reset value for the timer counter such that it will expire
@@ -339,11 +340,11 @@ int TmrCtrIntrExample(XTmrCtr *TmrCtrInstancePtr,
 			break;
 		}
 	}
-	#ifndef SDT
+#ifndef SDT
 	TmrCtrDisableIntr(IntcInstancePtr, IntrId);
-	#else
+#else
 	TmrCtrDisableIntr(TmrCtrInstancePtr->Config.IntrId, TmrCtrInstancePtr->Config.IntrParent);
-	#endif
+#endif
 
 	return XST_SUCCESS;
 }
@@ -417,7 +418,7 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 				 u16 IntrId,
 				 u8 TmrCtrNumber)
 {
-	 int Status;
+	int Status;
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #ifndef TESTAPP_GEN
@@ -427,8 +428,9 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 	 * xparameters.h
 	 */
 	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
-	if (Status != XST_SUCCESS)
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 #endif
 	/*
 	 * Connect a device driver handler that will be called when an interrupt
@@ -436,8 +438,8 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 	 * specific interrupt processing for the device
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, IntrId,
-				(XInterruptHandler)XTmrCtr_InterruptHandler,
-				(void *)TmrCtrInstancePtr);
+			       (XInterruptHandler)XTmrCtr_InterruptHandler,
+			       (void *)TmrCtrInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -474,14 +476,14 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #endif /* TESTAPP_GEN */
 
 	XScuGic_SetPriorityTriggerType(IntcInstancePtr, IntrId,
-					0xA0, 0x3);
+				       0xA0, 0x3);
 
 	/*
 	 * Connect the interrupt handler that will be called when an
@@ -511,9 +513,9 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-					(Xil_ExceptionHandler)
-					INTC_HANDLER,
-					IntcInstancePtr);
+				     (Xil_ExceptionHandler)
+				     INTC_HANDLER,
+				     IntcInstancePtr);
 
 	/*
 	 * Enable non-critical exceptions.

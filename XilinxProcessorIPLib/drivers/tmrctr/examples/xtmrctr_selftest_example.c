@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -136,11 +137,11 @@ int TmrCtrSelfTestExample(UINTPTR BaseAddr, u8 TmrCtrNumber)
 	/*
 	 * Initialize the TmrCtr driver so that it iss ready to use
 	 */
-	#ifndef SDT
+#ifndef SDT
 	Status = XTmrCtr_Initialize(TmrCtrInstancePtr, DeviceId);
-	#else
+#else
 	Status = XTmrCtr_Initialize(TmrCtrInstancePtr, BaseAddr);
-	#endif
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

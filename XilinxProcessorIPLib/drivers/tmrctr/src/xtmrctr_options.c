@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,8 +64,10 @@ static Mapping OptionsTable[] = {
 	{XTC_CASCADE_MODE_OPTION, XTC_CSR_CASC_MASK},
 	{XTC_ENABLE_ALL_OPTION, XTC_CSR_ENABLE_ALL_MASK},
 	{XTC_DOWN_COUNT_OPTION, XTC_CSR_DOWN_COUNT_MASK},
-	{XTC_CAPTURE_MODE_OPTION, XTC_CSR_CAPTURE_MODE_MASK |
-	 XTC_CSR_EXT_CAPTURE_MASK},
+	{
+		XTC_CAPTURE_MODE_OPTION, XTC_CSR_CAPTURE_MODE_MASK |
+		XTC_CSR_EXT_CAPTURE_MASK
+	},
 	{XTC_INT_MODE_OPTION, XTC_CSR_ENABLE_INT_MASK},
 	{XTC_AUTO_RELOAD_OPTION, XTC_CSR_AUTO_RELOAD_MASK},
 	{XTC_EXT_COMPARE_OPTION, XTC_CSR_EXT_GENERATE_MASK}
@@ -100,7 +102,7 @@ static Mapping OptionsTable[] = {
 * @note		None.
 *
 ******************************************************************************/
-void XTmrCtr_SetOptions(XTmrCtr * InstancePtr, u8 TmrCtrNumber, u32 Options)
+void XTmrCtr_SetOptions(XTmrCtr *InstancePtr, u8 TmrCtrNumber, u32 Options)
 {
 	u32 CounterControlReg = 0;
 	u32 Index;
@@ -121,8 +123,7 @@ void XTmrCtr_SetOptions(XTmrCtr * InstancePtr, u8 TmrCtrNumber, u32 Options)
 			 * Turn the option on
 			 */
 			CounterControlReg |= OptionsTable[Index].Mask;
-		}
-		else {
+		} else {
 			/*
 			 * Turn the option off
 			 */
@@ -134,7 +135,7 @@ void XTmrCtr_SetOptions(XTmrCtr * InstancePtr, u8 TmrCtrNumber, u32 Options)
 	 * Write out the updated value to the actual register
 	 */
 	XTmrCtr_WriteReg(InstancePtr->BaseAddress, TmrCtrNumber,
-			  XTC_TCSR_OFFSET, CounterControlReg);
+			 XTC_TCSR_OFFSET, CounterControlReg);
 }
 
 /*****************************************************************************/
@@ -157,7 +158,7 @@ void XTmrCtr_SetOptions(XTmrCtr * InstancePtr, u8 TmrCtrNumber, u32 Options)
 * @note		None.
 *
 ******************************************************************************/
-u32 XTmrCtr_GetOptions(XTmrCtr * InstancePtr, u8 TmrCtrNumber)
+u32 XTmrCtr_GetOptions(XTmrCtr *InstancePtr, u8 TmrCtrNumber)
 {
 
 	u32 Options = 0;
@@ -173,7 +174,7 @@ u32 XTmrCtr_GetOptions(XTmrCtr * InstancePtr, u8 TmrCtrNumber)
 	 * the current options to be determined
 	 */
 	CounterControlReg = XTmrCtr_ReadReg(InstancePtr->BaseAddress,
-					       TmrCtrNumber, XTC_TCSR_OFFSET);
+					    TmrCtrNumber, XTC_TCSR_OFFSET);
 	/*
 	 * Loop through the Options table, turning the enable on or off
 	 * depending on whether the bit is set in the current register settings.
@@ -181,8 +182,7 @@ u32 XTmrCtr_GetOptions(XTmrCtr * InstancePtr, u8 TmrCtrNumber)
 	for (Index = 0; Index < XTC_NUM_OPTIONS; Index++) {
 		if (CounterControlReg & OptionsTable[Index].Mask) {
 			Options |= OptionsTable[Index].Option;	/* turn it on */
-		}
-		else {
+		} else {
 			Options &= ~OptionsTable[Index].Option;	/* turn it off */
 		}
 	}

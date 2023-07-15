@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -71,7 +71,7 @@
 * to continue.
 *
 ******************************************************************************/
-void XTmrCtr_SetHandler(XTmrCtr * InstancePtr, XTmrCtr_Handler FuncPtr,
+void XTmrCtr_SetHandler(XTmrCtr *InstancePtr, XTmrCtr_Handler FuncPtr,
 			void *CallBackRef)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -118,7 +118,7 @@ void XTmrCtr_InterruptHandler(void *InstancePtr)
 	 * function for each timer which has caused an interrupt
 	 */
 	for (TmrCtrNumber = 0;
-		TmrCtrNumber < XTC_DEVICE_TIMER_COUNT; TmrCtrNumber++) {
+	     TmrCtrNumber < XTC_DEVICE_TIMER_COUNT; TmrCtrNumber++) {
 
 		ControlStatusReg = XTmrCtr_ReadReg(TmrCtrPtr->BaseAddress,
 						   TmrCtrNumber,
@@ -145,8 +145,8 @@ void XTmrCtr_InterruptHandler(void *InstancePtr)
 				 */
 				ControlStatusReg =
 					XTmrCtr_ReadReg(TmrCtrPtr->BaseAddress,
-								TmrCtrNumber,
-								XTC_TCSR_OFFSET);
+							TmrCtrNumber,
+							XTC_TCSR_OFFSET);
 				/*
 				 * If in compare mode and a single shot rather
 				 * than auto reload mode then disable the timer
@@ -155,37 +155,37 @@ void XTmrCtr_InterruptHandler(void *InstancePtr)
 				 * till the hardware is fixed
 				 */
 				if (((ControlStatusReg &
-					XTC_CSR_AUTO_RELOAD_MASK) == 0) &&
-					((ControlStatusReg &
-					  XTC_CSR_CAPTURE_MODE_MASK)== 0)) {
-						/*
-						 * Disable the timer counter and
-						 * reset it such that the timer
-						 * counter is loaded with the
-						 * reset value allowing the
-						 * interrupt to be acknowledged
-						 */
-						ControlStatusReg &=
-							(u32)~XTC_CSR_ENABLE_TMR_MASK;
+				      XTC_CSR_AUTO_RELOAD_MASK) == 0) &&
+				    ((ControlStatusReg &
+				      XTC_CSR_CAPTURE_MODE_MASK) == 0)) {
+					/*
+					 * Disable the timer counter and
+					 * reset it such that the timer
+					 * counter is loaded with the
+					 * reset value allowing the
+					 * interrupt to be acknowledged
+					 */
+					ControlStatusReg &=
+						(u32)~XTC_CSR_ENABLE_TMR_MASK;
 
-						XTmrCtr_WriteReg(
-							TmrCtrPtr->BaseAddress,
-							TmrCtrNumber,
-							XTC_TCSR_OFFSET,
-							ControlStatusReg |
-							XTC_CSR_LOAD_MASK);
+					XTmrCtr_WriteReg(
+						TmrCtrPtr->BaseAddress,
+						TmrCtrNumber,
+						XTC_TCSR_OFFSET,
+						ControlStatusReg |
+						XTC_CSR_LOAD_MASK);
 
-						/*
-						 * Clear the reset condition,
-						 * the reset bit must be
-						 * manually cleared by a 2nd write
-						 * to the register
-						 */
-						XTmrCtr_WriteReg(
-							TmrCtrPtr->BaseAddress,
-							TmrCtrNumber,
-							XTC_TCSR_OFFSET,
-							ControlStatusReg);
+					/*
+					 * Clear the reset condition,
+					 * the reset bit must be
+					 * manually cleared by a 2nd write
+					 * to the register
+					 */
+					XTmrCtr_WriteReg(
+						TmrCtrPtr->BaseAddress,
+						TmrCtrNumber,
+						XTC_TCSR_OFFSET,
+						ControlStatusReg);
 				}
 
 				/*
