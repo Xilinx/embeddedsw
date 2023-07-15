@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -71,5 +72,14 @@ void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId)
 	} else {
 		*Rpu0 = PM_DEV_RPU_B_0;
 		*Rpu1 = PM_DEV_RPU_B_1;
+	}
+}
+
+void XPmRpuCore_SetTcmBoot(const u32 DeviceId, const u8 TcmBootFlag){
+	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+	if(1U == TcmBootFlag){
+		PmRmw32(RpuCore->RpuBaseAddr + XPM_CORE_CFG0_OFFSET, XPM_RPU_TCMBOOT_MASK, XPM_RPU_TCMBOOT_MASK);
+	} else {
+		PmRmw32(RpuCore->RpuBaseAddr + XPM_CORE_CFG0_OFFSET, XPM_RPU_TCMBOOT_MASK, ~XPM_RPU_TCMBOOT_MASK);
 	}
 }
