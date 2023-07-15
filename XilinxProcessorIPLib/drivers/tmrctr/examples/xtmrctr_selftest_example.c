@@ -62,9 +62,9 @@
 
 /************************** Function Prototypes ****************************/
 #ifndef SDT
-int TmrCtrSelfTestExample(u16 DeviceId, u8 TmrCtrNumber);
+int TmrCtrSelfTestExample(u16 DeviceId);
 #else
-int TmrCtrSelfTestExample(UINTPTR BaseAddr, u8 TmrCtrNumber);
+int TmrCtrSelfTestExample(UINTPTR BaseAddr);
 #endif
 
 /************************** Variable Definitions **************************/
@@ -90,9 +90,9 @@ int main(void)
 {
 	int Status;
 #ifndef SDT
-	Status = TmrCtrSelfTestExample(TMRCTR_DEVICE_ID, TIMER_COUNTER_0);
+	Status = TmrCtrSelfTestExample(TMRCTR_DEVICE_ID);
 #else
-	Status = TmrCtrSelfTestExample(XTMRCTR_BASEADDRESS, TIMER_COUNTER_0);
+	Status = TmrCtrSelfTestExample(XTMRCTR_BASEADDRESS);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Tmrctr selftest Example Failed\r\n");
@@ -126,12 +126,13 @@ int main(void)
 *
 ****************************************************************************/
 #ifndef SDT
-int TmrCtrSelfTestExample(u16 DeviceId, u8 TmrCtrNumber)
+int TmrCtrSelfTestExample(u16 DeviceId)
 #else
-int TmrCtrSelfTestExample(UINTPTR BaseAddr, u8 TmrCtrNumber)
+int TmrCtrSelfTestExample(UINTPTR BaseAddr)
 #endif
 {
 	int Status;
+	u8 TmrCtrNumber = TIMER_COUNTER_0;
 	XTmrCtr *TmrCtrInstancePtr = &TimerCounter;
 
 	/*

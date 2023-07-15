@@ -127,8 +127,7 @@
 int TmrCtrIntrExample(INTC *IntcInstancePtr,
 		      XTmrCtr *InstancePtr,
 		      u16 DeviceId,
-		      u16 IntrId,
-		      u8 TmrCtrNumber);
+		      u16 IntrId);
 
 static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 				 XTmrCtr *InstancePtr,
@@ -140,8 +139,7 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 static void TmrCtrDisableIntr(INTC *IntcInstancePtr, u16 IntrId);
 #else
 int TmrCtrIntrExample(XTmrCtr *InstancePtr,
-		      UINTPTR BaseAddr,
-		      u8 TmrCtrNumber);
+		      UINTPTR BaseAddr);
 
 
 static void TmrCtrDisableIntr( u16 IntrId, UINTPTR IntrParent);
@@ -188,12 +186,10 @@ int main(void)
 	Status = TmrCtrIntrExample(&InterruptController,
 				   &TimerCounterInst,
 				   TMRCTR_DEVICE_ID,
-				   TMRCTR_INTERRUPT_ID,
-				   TIMER_CNTR_0);
+				   TMRCTR_INTERRUPT_ID);
 #else
 	Status = TmrCtrIntrExample(&TimerCounterInst,
-				   XTMRCTR_BASEADDRESS,
-				   TIMER_CNTR_0);
+				   XTMRCTR_BASEADDRESS);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Tmrctr interrupt Example Failed\r\n");
@@ -235,16 +231,15 @@ int main(void)
 int TmrCtrIntrExample(INTC *IntcInstancePtr,
 		      XTmrCtr *TmrCtrInstancePtr,
 		      u16 DeviceId,
-		      u16 IntrId,
-		      u8 TmrCtrNumber)
+		      u16 IntrId)
 #else
 int TmrCtrIntrExample(XTmrCtr *TmrCtrInstancePtr,
-		      UINTPTR BaseAddr,
-		      u8 TmrCtrNumber)
+		      UINTPTR BaseAddr)
 #endif
 {
 	int Status;
 	int LastTimerExpired = 0;
+	u8 TmrCtrNumber = TIMER_CNTR_0;
 
 	/*
 	 * Initialize the timer counter so that it's ready to use,
