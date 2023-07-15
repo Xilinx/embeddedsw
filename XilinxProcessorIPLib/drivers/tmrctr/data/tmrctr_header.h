@@ -10,7 +10,14 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifndef SDT
 int TmrCtrSelfTestExample(u16 DeviceId, u8 TmrCtrNumber);
+#else
+int TmrCtrSelfTestExample(UINTPTR BaseAddr, u8 TmrCtrNumber);
+int TmrCtrIntrExample(XTmrCtr *InstancePtr,
+		        UINTPTR BaseAddr,
+                        u8 TmrCtrNumber);
+#endif
 
 #endif
 
