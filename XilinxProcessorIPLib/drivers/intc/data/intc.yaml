@@ -1,0 +1,49 @@
+# SPDX-License-Identifier: GPL-2.0
+%YAML 1.2
+---
+title: Bindings for AXI INTC controller
+
+maintainers:
+  - Mubin Sayyed <mubin.sayyed@amd.com>
+
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-intc-4.1
+          - xlnx,xps-intc-1.00.a
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,kind-of-intr:
+    description: A 32 bit value specifying the interrupt type for each possible interrupt (1 = edge, 0 = level)
+  xlnx,is-fast:
+    description: A 32 bit value specifying the interrupt configuration for each possible interrupt (1 = fast, 0 = normal)
+  xlnx,intr-vec-addr:
+    description: Vector address location
+  xlnx,num-intr-inputs:
+    description: Number of interrupt sources connected to the interrupt controller
+  xlnx,addr-width:
+    description: Vector address width supported by controller
+  options:
+    description: Options to be enabled
+  xlnx,intctype:
+    description:0 Normal, no cascade mode. 1 - Primary/Master controller, 2- secondary instance, 3-last instance
+
+config:
+    - XIntc_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,kind-of-intr
+    - xlnx,is-fast
+    - xlnx,ivar-rst-val
+    - xlnx,num-intr-inputs
+    - xlnx,addr-width
+    - options
+    - xlnx,intctype
+    - interrupts
+    - interrupt-parent
+    - Handler-table

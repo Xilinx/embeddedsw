@@ -13,6 +13,7 @@
 # 3.16    mus    10/04/22  Updated driver source code to fix warnings
 #                          generated with "-Wundef" compiler flag.It fixes
 #                          CR#1142085.
+# 3.17    mus    07/15/23  Added support for SDT flow.
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_M
@@ -36,7 +37,7 @@ OPTION DRC = intc_drc;
 OPTION supported_peripherals = (axi_intc);
 OPTION driver_state = ACTIVE;
 OPTION copyfiles = all;
-OPTION VERSION = 3.16;
+OPTION VERSION = 3.17;
 OPTION NAME = intc;
 OPTION INTC_TYPE = XIntc;
 

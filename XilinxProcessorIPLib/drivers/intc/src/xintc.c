@@ -117,7 +117,11 @@ static void XIntc_InitializeSlaves(XIntc * InstancePtr);
 *	        initialize Slave Interrupt controllers.
 *
 ******************************************************************************/
+#ifndef SDT
 int XIntc_Initialize(XIntc * InstancePtr, u16 DeviceId)
+#else
+int XIntc_Initialize(XIntc * InstancePtr, UINTPTR BaseAddr)
+#endif
 {
 	u8 Id;
 	XIntc_Config *CfgPtr;
@@ -138,7 +142,11 @@ int XIntc_Initialize(XIntc * InstancePtr, u16 DeviceId)
 	 * Lookup the device configuration in the CROM table. Use this
 	 * configuration info down below when initializing this component.
 	 */
+#ifndef SDT
 	CfgPtr = XIntc_LookupConfig(DeviceId);
+#else
+	CfgPtr = XIntc_LookupConfig(BaseAddr);
+#endif
 	if (CfgPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}
@@ -314,7 +322,11 @@ int XIntc_Start(XIntc * InstancePtr, u8 Mode)
 
 	/* Start the Slaves for Cascade Mode */
 	if (InstancePtr->CfgPtr->IntcType != XIN_INTC_NOCASCADE) {
+#ifndef SDT
 		for (Index = 1; Index <= XPAR_XINTC_NUM_INSTANCES - 1; Index++)
+#else
+		for (Index = 1; XIntc_ConfigTable[Index].Name != NULL; Index++)
+#endif
 		{
 			CfgPtr = XIntc_LookupConfig(Index);
 			XIntc_Out32(CfgPtr->BaseAddress + XIN_MER_OFFSET,
@@ -729,6 +741,7 @@ static void StubHandler(void *CallBackRef)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XIntc_Config *XIntc_LookupConfig(u16 DeviceId)
 {
 	XIntc_Config *CfgPtr = NULL;
@@ -746,7 +759,33 @@ XIntc_Config *XIntc_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XIntc_Config *XIntc_LookupConfig(UINTPTR BaseAddr)
+{
+	XIntc_Config *CfgPtr = NULL;
+	int Index;
 
+	for (Index = 0; XIntc_ConfigTable[Index].Name != NULL; Index++) {
+		/*
+		 * If BaseAddress is 0, return Configuration for 0th instance of
+		 * AXI INTC device.
+		 * As AXI INTC instance base address varies based on designs,
+		 * driver examples can pass base address as 0 , to use available
+		 * instance of AXI INTC.
+		 */
+		if ((XIntc_ConfigTable[Index].BaseAddress == BaseAddr) ||
+		!BaseAddr) {
+			CfgPtr = &XIntc_ConfigTable[Index];
+			if (CfgPtr == NULL) {
+				return NULL;
+			}
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /*****************************************************************************/
 /**
 *
@@ -1081,8 +1120,13 @@ static void XIntc_InitializeSlaves(XIntc * InstancePtr)
 	 */
 	XIntc_Out32(InstancePtr->CfgPtr->BaseAddress + XIN_IER_OFFSET, Mask);
 
+#ifndef SDT
 	for (Index = 1; Index <= XPAR_XINTC_NUM_INSTANCES - 1; Index++) {
 		CfgPtr = XIntc_LookupConfig(Index);
+#else
+	for (Index = 1; XIntc_ConfigTable[Index].Name != NULL; Index++) {
+		CfgPtr = XIntc_LookupConfig(XIntc_ConfigTable[Index].BaseAddress);
+#endif
 		if (CfgPtr == NULL) {
 			return;
 		}

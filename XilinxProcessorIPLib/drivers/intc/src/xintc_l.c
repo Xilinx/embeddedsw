@@ -68,10 +68,12 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xintc.h"
+#ifndef SDT
+#include "xparameters.h"
+#endif
 #include "xintc_i.h"
 
 /************************** Constant Definitions *****************************/
@@ -84,7 +86,7 @@
 
 /************************** Function Prototypes ******************************/
 
-static XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress);
+XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress);
 
 #if XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE
 static void XIntc_CascadeHandler(void *DeviceId);
@@ -175,8 +177,12 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 	XIntc_Config *CfgPtr;
 	u32 Imr;
 
+#if defined(SDT)
+	CfgPtr = LookupConfigByBaseAddress((UINTPTR)DeviceId);
+#else
 	/* Get the configuration data using the device ID */
 	CfgPtr = &XIntc_ConfigTable[(UINTPTR)DeviceId];
+#endif
 
 #if defined (XPAR_INTC_0_INTC_TYPE) && (XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE)
 	if (CfgPtr->IntcType != XIN_INTC_NOCASCADE) {
@@ -349,11 +355,19 @@ void XIntc_SetIntrSvcOption(UINTPTR BaseAddress, int Option)
 		/* If Cascade mode set the option for all Slaves */
 		if (CfgPtr->IntcType != XIN_INTC_NOCASCADE) {
 			int Index;
+#ifndef SDT
 			for (Index = 1; Index <= XPAR_XINTC_NUM_INSTANCES - 1;
 					Index++) {
 				CfgPtr = XIntc_LookupConfig(Index);
 				CfgPtr->Options = Option;
 			}
+#else
+			for (Index = 1;  XIntc_ConfigTable[Index].Name != NULL;
+					Index++) {
+				CfgPtr = XIntc_LookupConfig(XIntc_ConfigTable[Index].BaseAddress);
+				CfgPtr->Options = Option;
+			}
+#endif
 		}
 	}
 }
@@ -441,12 +455,16 @@ void XIntc_RegisterHandler(UINTPTR BaseAddress, int InterruptId,
 * @note		None.
 *
 ******************************************************************************/
-static XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
+XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
 {
 	XIntc_Config *CfgPtr = NULL;
 	int Index;
 
+#ifndef SDT
 	for (Index = 0; Index < XPAR_XINTC_NUM_INSTANCES; Index++) {
+#else
+	for (Index = 0; XIntc_ConfigTable[Index].Name != NULL; Index++) {
+#endif
 		if (XIntc_ConfigTable[Index].BaseAddress == BaseAddress) {
 			CfgPtr = &XIntc_ConfigTable[Index];
 			if (CfgPtr == NULL) {
