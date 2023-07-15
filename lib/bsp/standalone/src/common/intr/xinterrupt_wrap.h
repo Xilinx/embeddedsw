@@ -77,7 +77,8 @@ extern void XSetPriorityTriggerType( u32 IntrId, u8 Priority, UINTPTR IntcParent
 extern void XGetPriorityTriggerType( u32 IntrId, u8 *Priority, u8 *Trigger, UINTPTR IntcParent);
 extern void XStopInterruptCntrl( UINTPTR IntcParent);
 extern void XRegisterInterruptHandler( void *IntrHandler, UINTPTR IntcParent);
-extern int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  UINTPTR IntcParent, u16 Priority);
+extern int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  UINTPTR IntcParent,
+				 u16 Priority);
 #endif
 
 #endif  /* end of protection macro */
