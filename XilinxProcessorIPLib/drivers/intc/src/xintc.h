@@ -304,7 +304,7 @@ typedef struct {
 				               2 - secondary instance
 				               3 - last instance */
 
-/** Static vector table of interrupt handlers */
+	/** Static vector table of interrupt handlers */
 #if XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE
 	XIntc_VectorTableEntry HandlerTable[XIN_CONTROLLER_MAX_INTRS];
 #else
@@ -335,22 +335,22 @@ typedef struct {
  * Required functions in xintc.c
  */
 #ifndef SDT
-int XIntc_Initialize(XIntc * InstancePtr, u16 DeviceId);
+int XIntc_Initialize(XIntc *InstancePtr, u16 DeviceId);
 #else
-int XIntc_Initialize(XIntc * InstancePtr, UINTPTR BaseAddr);
+int XIntc_Initialize(XIntc *InstancePtr, UINTPTR BaseAddr);
 #endif
 
-int XIntc_Start(XIntc * InstancePtr, u8 Mode);
-void XIntc_Stop(XIntc * InstancePtr);
+int XIntc_Start(XIntc *InstancePtr, u8 Mode);
+void XIntc_Stop(XIntc *InstancePtr);
 
-int XIntc_Connect(XIntc * InstancePtr, u8 Id,
+int XIntc_Connect(XIntc *InstancePtr, u8 Id,
 		  XInterruptHandler Handler, void *CallBackRef);
-void XIntc_Disconnect(XIntc * InstancePtr, u8 Id);
+void XIntc_Disconnect(XIntc *InstancePtr, u8 Id);
 
-void XIntc_Enable(XIntc * InstancePtr, u8 Id);
-void XIntc_Disable(XIntc * InstancePtr, u8 Id);
+void XIntc_Enable(XIntc *InstancePtr, u8 Id);
+void XIntc_Disable(XIntc *InstancePtr, u8 Id);
 
-void XIntc_Acknowledge(XIntc * InstancePtr, u8 Id);
+void XIntc_Acknowledge(XIntc *InstancePtr, u8 Id);
 
 #ifndef SDT
 XIntc_Config *XIntc_LookupConfig(u16 DeviceId);
@@ -361,27 +361,27 @@ XIntc_Config *XIntc_LookupConfig(UINTPTR BaseAddr);
 extern XIntc_Config XIntc_ConfigTable[];
 
 int XIntc_ConnectFastHandler(XIntc *InstancePtr, u8 Id,
-				XFastInterruptHandler Handler);
+			     XFastInterruptHandler Handler);
 void XIntc_SetNormalIntrMode(XIntc *InstancePtr, u8 Id);
 
-int XIntc_TriggerSwIntr(XIntc * InstancePtr, u8 Id);
+int XIntc_TriggerSwIntr(XIntc *InstancePtr, u8 Id);
 /*
  * Interrupt functions in xintr_intr.c
  */
 void XIntc_VoidInterruptHandler(void);
-void XIntc_InterruptHandler(XIntc * InstancePtr);
+void XIntc_InterruptHandler(XIntc *InstancePtr);
 
 /*
  * Options functions in xintc_options.c
  */
-int XIntc_SetOptions(XIntc * InstancePtr, u32 Options);
-u32 XIntc_GetOptions(XIntc * InstancePtr);
+int XIntc_SetOptions(XIntc *InstancePtr, u32 Options);
+u32 XIntc_GetOptions(XIntc *InstancePtr);
 
 /*
  * Self-test functions in xintc_selftest.c
  */
-int XIntc_SelfTest(XIntc * InstancePtr);
-int XIntc_SimulateIntr(XIntc * InstancePtr, u8 Id);
+int XIntc_SelfTest(XIntc *InstancePtr);
+int XIntc_SimulateIntr(XIntc *InstancePtr, u8 Id);
 
 #ifdef __cplusplus
 }

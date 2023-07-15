@@ -140,7 +140,7 @@ void XIntc_VoidInterruptHandler(void)
 * @note		None.
 *
 ******************************************************************************/
-void XIntc_InterruptHandler(XIntc * InstancePtr)
+void XIntc_InterruptHandler(XIntc *InstancePtr)
 {
 	/* Assert that the pointer to the instance is valid
 	 */

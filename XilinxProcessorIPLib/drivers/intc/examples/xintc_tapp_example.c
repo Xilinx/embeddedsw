@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -236,8 +237,8 @@ int IntcInterruptSetup(XIntc *IntcInstancePtr, UINTPTR BaseAddr)
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)XIntc_DeviceInterruptHandler,
-			(void*) 0);
+				     (Xil_ExceptionHandler)XIntc_DeviceInterruptHandler,
+				     (void *) 0);
 
 	/*
 	 * Enable exceptions.
