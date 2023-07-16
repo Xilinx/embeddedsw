@@ -25,7 +25,7 @@
 * 5.1   skg  12/16/22 Added XSecure_AesAllParams
 *       yog  05/03/23 Fixed MISRA C violation of Rule 12.2
 * 5.2   yog  06/07/23 Added support for P-256 Curve
-*
+*       vss  07/14/23 Added enum for resource availability and also ipi mask macro
 * </pre>
 * @note
 *
@@ -86,6 +86,8 @@ extern "C" {
 										XPLMI_ERR_CDO_CMD_MASK)))
 				/**< Xilsecure KAT major error for client APIs */
 #define XSECURE_ADDR_HIGH_SHIFT			(32U)
+#define XSECURE_IPI_MASK_DEF_VAL           (0xFFFFFFFFU)
+				/**< Default IPI mask value */
 
 /************************** Variable Definitions *****************************/
 
@@ -163,6 +165,11 @@ typedef enum {
 	XSECURE_API_KAT_SET = 0U,				/**< 0U */
 	XSECURE_API_KAT_CLEAR					/**< 1U */
 } XSecure_KatOp;
+
+typedef enum {
+	XSECURE_RESOURCE_FREE = 0U,  /**< When Resource is free */
+	XSECURE_RESOURCE_BUSY = 0xFFFFFFFFU /**< When Resource is busy */
+} XSecure_ResourceAvailability;
 
 #ifdef __cplusplus
 }

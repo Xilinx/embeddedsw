@@ -50,6 +50,7 @@
 *       kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_kat.c
 *       dc   08/26/22 Changed u8 to u32 type for size optimization
 * 5.1	mmd  07/09/23 Included header file for crypto algorithm information
+*		vss	 07/14/23 Added IsResourceBusy and IpiMask variables in Xsecure_Sha instance
 *
 * </pre>
 *
@@ -128,6 +129,8 @@ typedef struct {
 	XSecure_Sss SssInstance; /**< SSS Instance */
 	XSecure_Sha3State Sha3State; /**< SHA engine state */
 	const XSecure_Sha3Config *Sha3Config;
+	u32 IsResourceBusy;   /**< Flag to check whether resource is busy or not */
+	u32 IpiMask;		/**< Used to store Ipimask value */
 } XSecure_Sha3;
 
 /**

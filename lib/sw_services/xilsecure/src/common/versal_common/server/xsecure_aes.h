@@ -41,6 +41,7 @@
 *       vss  05/16/2023 Fixed coverity warning NO_EFFECT
 * 5.2   yog  07/10/2023 Added support of unaligned data sizes for Versal Net
 *       mmd  07/11/2023 Included header file for crypto algorithm information
+*       vss  07/14/2023 Added IsResourceBusy flag and IpiMask variable in Xsecure_Aes instance
 *
 * </pre>
 *
@@ -167,6 +168,8 @@ typedef struct {
 	XSecure_AesKeySrc KeySrc;  /**< Key Source */
 	u32 NextBlkLen;		   /**< Next Block Length */
 	u32 IsGmacEn;          /**< GMAC enable or disable */
+	u32 IsResourceBusy;   /**< Flag to check whether resource is busy or not */
+	u32 IpiMask;               /**< Used to store Ipimask value */
 #ifdef VERSAL_NET
 	u32 IsEcbEn;           /**< ECB mode enable or disable */
 #endif

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kal   03/04/2021 Initial release
+* 5.2   vss	  07/15/23 Added prototype for XSecure_MakeSha3Free()
 *
 * </pre>
 *
@@ -38,6 +40,7 @@ extern "c" {
 
 /************************** Constant Definitions *****************************/
 int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd);
+void XSecure_MakeSha3Free(void);
 
 #ifdef __cplusplus
 }
