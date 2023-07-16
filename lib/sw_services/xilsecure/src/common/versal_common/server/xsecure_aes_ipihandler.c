@@ -35,6 +35,7 @@
 *       kpt   08/19/2022 Added GMAC support
 * 5.1   skg   12/16/2022 Added XSecure_AesEncrypt/DecryptInitUpdateFinal
 *	yog   05/03/2023 Fixed MISRA C violation of Rule 10.3
+*       vss	  07/14/2023 Added support for IpiChannel check
 *
 * </pre>
 *
@@ -97,6 +98,24 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+
+	/**
+	 * Storing the Ipimask value when a request for the resource comes and
+	 * if the resource is free
+	 */
+	if (XSecureAesInstPtr->IsResourceBusy == (u32)XSECURE_RESOURCE_FREE) {
+		XSecureAesInstPtr->IpiMask = Cmd->IpiMask;
+	}
+	else {
+		/**
+		 * Check if request comes from same IPI channel or not
+		 */
+		if (XSecureAesInstPtr->IpiMask != Cmd->IpiMask) {
+			Status = XST_DEVICE_BUSY;
+			goto END;
+		}
+	}
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_AES_INIT):
@@ -144,6 +163,7 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	}
 
+END:
 	return Status;
 }
 
@@ -170,6 +190,9 @@ static int XSecure_AesInit(void)
 	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
 
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_MakeAesFree();
+	}
 	return Status;
 }
 
@@ -194,6 +217,7 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_AesInitOps AesParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+	XSecureAesInstPtr->IsResourceBusy = (u32)XSECURE_RESOURCE_BUSY;
 
 	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
 	if (Status != XST_SUCCESS) {
@@ -230,6 +254,9 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	}
 
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_MakeAesFree();
+	}
 	return Status;
 }
 
@@ -263,6 +290,9 @@ static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size, u32 I
 	Status = XSecure_AesUpdateAad(XSecureAesInstPtr, Addr, Size);
 
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_MakeAesFree();
+	}
 	return Status;
 }
 
@@ -303,6 +333,9 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 				DstAddr, InParams.Size, (u8)InParams.IsLast);
 
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_MakeAesFree();
+	}
 	return Status;
 }
 
@@ -328,6 +361,7 @@ static int XSecure_AesEncFinal(u32 DstAddrLow, u32 DstAddrHigh)
 
 	Status = XSecure_AesEncryptFinal(XSecureAesInstPtr, Addr);
 
+	XSecure_MakeAesFree();
 	return Status;
 }
 
@@ -368,6 +402,9 @@ static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 				DstAddr, InParams.Size, (u8)InParams.IsLast);
 
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_MakeAesFree();
+	}
 	return Status;
 }
 
@@ -391,6 +428,7 @@ static int XSecure_AesDecFinal(u32 SrcAddrLow, u32 SrcAddrHigh)
 
 	Status = XSecure_AesDecryptFinal(XSecureAesInstPtr, Addr);
 
+	XSecure_MakeAesFree();
 	return Status;
 }
 
@@ -422,6 +460,9 @@ static int XSecure_AesKeyZeroize(u32 KeySrc)
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 	}
 
+	if (Status != XST_SUCCESS) {
+		XSecure_MakeAesFree();
+	}
 	return Status;
 }
 
@@ -463,6 +504,9 @@ static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 				(XSecure_AesKeySize)KeySize, KeyAddr);
 
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_MakeAesFree();
+	}
 	return Status;
 }
 
@@ -506,6 +550,9 @@ static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
 				IvAddr, KeySize);
 
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_MakeAesFree();
+	}
 	return Status;
 }
 
@@ -532,6 +579,9 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
 
 	Status = XSecure_AesSetDpaCm(XSecureAesInstPtr, DpaCmCfg);
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_MakeAesFree();
+	}
 	return Status;
 }
 /*****************************************************************************/
@@ -605,6 +655,9 @@ static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
 	}
 
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_MakeAesFree();
+	}
 	return Status;
 }
 
@@ -638,3 +691,15 @@ END:
 
 	return Status;
  }
+/*****************************************************************************/
+/**
+ * @brief       This function is used to mark the resource as free
+ *
+ ******************************************************************************/
+void XSecure_MakeAesFree(void)
+{
+	XSecure_Aes *InstancePtr = XSecure_GetAesInstance();
+
+	InstancePtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
+	InstancePtr->IpiMask = XSECURE_IPI_MASK_DEF_VAL;
+}

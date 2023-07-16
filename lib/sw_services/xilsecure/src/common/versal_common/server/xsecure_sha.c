@@ -46,7 +46,7 @@
 * 5.0   bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_kat.c
 *       dc   08/26/22 Optimization of size, changed type of variables u8 to u32
-*
+*	vss  07/15/23 Removed check for sha3state in  XSecure_Sha3Initialize()
 * </pre>
 * @note
 *

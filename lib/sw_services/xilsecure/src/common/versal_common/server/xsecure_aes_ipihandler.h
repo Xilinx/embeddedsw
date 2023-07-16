@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0  kal   03/23/21 Initial release
+* 5.2  vss	 07/15/23 Added prototype for XSecure_MakeAesFree()
+
 *
 * </pre>
 *
@@ -42,7 +45,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd);
-
+void XSecure_MakeAesFree(void);
 #ifdef __cplusplus
 }
 #endif

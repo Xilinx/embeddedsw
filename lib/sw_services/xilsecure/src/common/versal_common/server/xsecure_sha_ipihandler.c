@@ -27,6 +27,7 @@
 *       gm    07/16/2021 Added support for 64-bit address
 * 5.0   kpt   07/24/2022 Moved XSecure_ShaKat into xsecure_kat_plat_ipihandler.c
 * 5.1   yog   05/03/2023 Fixed MISRA C violation of Rule 10.3
+* 		vss	  07/14/2023 Added support for IpiChannel check
 *
 * </pre>
 *
@@ -75,6 +76,24 @@ static int XSecure_ShaOperation(XPlmi_Cmd *Cmd);
 int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
+	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
+
+	/**
+	 * Storing the Ipimask value when a request for the resource comes and
+	 * if the resource is free
+	 */
+	if (XSecureSha3InstPtr->IsResourceBusy == (u32)XSECURE_RESOURCE_FREE) {
+		XSecureSha3InstPtr->IpiMask = Cmd->IpiMask;
+	}
+	else {
+		/**
+		 * Check if request comes from same IPI channel or not
+		 */
+		if (XSecureSha3InstPtr->IpiMask != Cmd->IpiMask) {
+			Status = XST_DEVICE_BUSY;
+			goto END;
+		}
+	}
 
 	if ((Cmd->CmdId & XSECURE_API_ID_MASK) ==
 		XSECURE_API(XSECURE_API_SHA3_UPDATE)) {
@@ -84,6 +103,7 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 		Status = XST_INVALID_PARAM;
 	}
 
+END:
 	return Status;
 }
 
@@ -169,6 +189,7 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 		Status = XSecure_Sha3Finish(XSecureSha3InstPtr,
 				(XSecure_Sha3Hash *)&Hash);
 		if (XST_SUCCESS == Status) {
+			XSecure_MakeSha3Free();
 			Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
 				XSECURE_HASH_SIZE_IN_BYTES, XPLMI_PMCDMA_0);
 		}
@@ -201,6 +222,7 @@ static int XSecure_ShaOperation(XPlmi_Cmd *Cmd)
 	u64 DataAddr = ((u64)Pload[1U] << XSECURE_ADDR_HIGH_SHIFT) | (u64)Pload[0U];
 	u64 DstAddr = ((u64)Pload[4U] << XSECURE_ADDR_HIGH_SHIFT) | (u64)Pload[3U];
 	XSecure_Sha3Hash Hash = {0U};
+	XSecureSha3InstPtr->IsResourceBusy = (u32)XSECURE_RESOURCE_BUSY;
 
 	if (((InputSize & XSECURE_IPI_FIRST_PACKET_MASK) != 0U) &&
 		((InputSize & XSECURE_IPI_CONTINUE_MASK) == 0U)){
@@ -222,6 +244,7 @@ static int XSecure_ShaOperation(XPlmi_Cmd *Cmd)
 		Status = XSecure_Sha3Digest(XSecureSha3InstPtr, (UINTPTR)DataAddr, InputSize,
 				(XSecure_Sha3Hash *)&Hash);
 		if (XST_SUCCESS == Status) {
+			XSecure_MakeSha3Free();
 			Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
 				XSECURE_HASH_SIZE_IN_BYTES, XPLMI_PMCDMA_0);
 		}
@@ -232,5 +255,20 @@ static int XSecure_ShaOperation(XPlmi_Cmd *Cmd)
 	}
 
 END:
+	if (Status != XST_SUCCESS) {
+		XSecure_MakeSha3Free();
+	}
 	return Status;
+}
+/*****************************************************************************/
+/**
+ * @brief       This function is used to mark the resource as free
+ *
+ ******************************************************************************/
+void XSecure_MakeSha3Free(void)
+{
+	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
+
+	XSecureSha3InstPtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
+	XSecureSha3InstPtr->IpiMask = XSECURE_IPI_MASK_DEF_VAL;
 }
