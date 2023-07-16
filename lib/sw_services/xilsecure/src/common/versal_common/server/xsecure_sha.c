@@ -143,11 +143,6 @@ int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 		}
 	}
 
-	if ((InstancePtr->Sha3State != XSECURE_SHA3_INITIALIZED) &&
-		(InstancePtr->Sha3State != XSECURE_SHA3_LOOKUP_CONFIG)) {
-		goto END;
-	}
-
 	InstancePtr->Sha3Len = 0U;
 	InstancePtr->DmaPtr = DmaPtr;
 	InstancePtr->IsLastUpdate = FALSE;
