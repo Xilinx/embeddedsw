@@ -11,7 +11,11 @@
 #include "xil_types.h"
 #include "xstatus.h"
 
+#ifndef SDT
 int MutexExample(u16 MutexDeviceID);
+#else
+int MutexExample (XMutex *MutexInstPtr, UINTPTR BaseAddress);
+#endif
 
 #endif
 
