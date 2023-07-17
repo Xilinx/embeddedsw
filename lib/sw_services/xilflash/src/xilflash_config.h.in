@@ -1,0 +1,14 @@
+/******************************************************************************
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef XILFLASH_CONFIG_H
+#define XILFLASH_CONFIG_H
+
+#include "xparameters.h"
+
+#cmakedefine XPAR_XFL_DEVICE_FAMILY_INTEL @XPAR_XFL_DEVICE_FAMILY_INTEL@
+#cmakedefine XPAR_XFL_DEVICE_FAMILY_AMD @XPAR_XFL_DEVICE_FAMILY_AMD@
+
+#endif /* XILFLASH_CONFIG_H */

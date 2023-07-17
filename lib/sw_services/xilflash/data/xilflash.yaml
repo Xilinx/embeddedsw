@@ -1,0 +1,24 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for xilflash library.
+
+maintainers:
+  - Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+
+type: library
+
+version: 4.10
+
+description: |-
+  Xilinx Flash library for Intel/AMD CFI compliant parallel flash.
+
+supported_processors:
+  - ps7_cortexa9
+  - microblaze
+
+supported_os:
+  - standalone
+  - freertos10_xilinx
+...

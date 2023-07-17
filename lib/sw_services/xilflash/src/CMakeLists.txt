@@ -1,0 +1,30 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+cmake_minimum_required(VERSION 3.3)
+project(xilflash)
+
+find_package(common)
+include(${CMAKE_CURRENT_SOURCE_DIR}/xilflash.cmake NO_POLICY_SCOPE)
+collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
+collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
+include_directories(${CMAKE_BINARY_DIR}/include)
+
+enable_language(C ASM)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/include)
+collect (PROJECT_LIB_SOURCES xilflash.c)
+collect (PROJECT_LIB_SOURCES xilflash_amd.c)
+collect (PROJECT_LIB_SOURCES xilflash_cfi.c)
+collect (PROJECT_LIB_SOURCES xilflash_intel.c)
+collector_list (_sources PROJECT_LIB_SOURCES)
+collector_list (_headers PROJECT_LIB_HEADERS)
+file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
+if (${NON_YOCTO})
+file(COPY ${CMAKE_BINARY_DIR}/include/xilflash_config.h DESTINATION ${CMAKE_INCLUDE_PATH}/)
+endif()
+add_library(xilflash STATIC ${_sources})
+set_target_properties(xilflash PROPERTIES LINKER_LANGUAGE C)
+get_headers(${_headers})
+set_target_properties(xilflash PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilflash.a;${CMAKE_INCLUDE_PATH}/xilflash_config.h;${clean_headers}")
+install(TARGETS xilflash LIBRARY DESTINATION ${CMAKE_LIBRARY_PATH} ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})
+install(DIRECTORY ${CMAKE_BINARY_DIR}/include DESTINATION ${CMAKE_INCLUDE_PATH}/..)
