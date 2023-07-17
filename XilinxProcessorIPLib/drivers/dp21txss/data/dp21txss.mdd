@@ -12,6 +12,6 @@ BEGIN driver dp21txss
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (dual_splitter_v1_0 vtc_v7_2 hdcp22_tx_dp hdcp1x hdcp22_cipher_dp hdcp22_rng hdcp22_common);
 	OPTION copyfiles = all;
-	OPTION VERSION = 2.0;
+	OPTION VERSION = 2.1;
 	OPTION NAME = dp21txss;
 END driver
