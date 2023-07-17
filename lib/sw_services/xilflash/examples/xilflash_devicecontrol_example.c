@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2007 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2007 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +25,7 @@
 * 3.00a sdm  03/03/11 Updated to pass BaseAddress and Flash Width to _Initialize
 *		      API, as required by the new version of the library
 * 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
+* 4.10	akm  07/14/23 Added support for system device-tree flow.
 *</pre>
 ******************************************************************************/
 
@@ -41,8 +43,11 @@
  * They are defined here such that a user can easily change all the needed
  * parameters in one place.
  */
-#define FLASH_BASE_ADDRESS	XPAR_EMC_0_MEM0_BASEADDR
-
+#ifndef SDT
+#define FLASH_BASE_ADDRESS	XPAR_EMC_0_S_AXI_MEM0_BASEADDR
+#else
+#define FLASH_BASE_ADDRESS	XPAR_AXI_EMC_0_BASEADDR
+#endif
 /*
  * The following constant defines the total byte width of the flash memory. The
  * user needs to update this width based on the flash width in the design/board.
@@ -92,11 +97,13 @@ int main(void)
 {
 	int Status = XST_FAILURE;
 
+	xil_printf(" Flash device control Test \r\n");
 	Status = FlashDeviceControlExample();
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Flash device control Test \r\n");
 	return XST_SUCCESS;
 }
 
