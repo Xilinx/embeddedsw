@@ -1,0 +1,33 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for xilffs library.
+
+maintainers:
+  - Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+
+type: library
+
+version: 5.0
+
+description: Generic Fat File System Library.
+
+supported_processors:
+  - psu_cortexa53
+  - psu_cortexr5
+  - psv_cortexa72
+  - psv_cortexr5
+  - psu_pmu
+  - psv_pmc
+  - psv_psm
+
+supported_os:
+  - standalone
+  - freertos10_xilinx
+
+examples:
+        xilffs_polled_example.c:
+                - supported_platforms:
+                        - ZynqMP
+                        - Versal
