@@ -47,6 +47,7 @@ XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName)
 
 	PinFunc = XPmPinFunc_GetById(FuncId);
 	if (NULL == PinFunc) {
+		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
