@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +36,7 @@
 *                       dependencies. The previous example including clocking
 *                       will be in supplemental example(s).
 *       cog    07/03/20 The metal_phys parameter is baremetal only.
+* 12.1  cog    07/14/23 Modified for SDT flow
 *
 * </pre>
 *
@@ -57,13 +59,15 @@
  * change all the needed parameters in one place.
  */
 #ifdef __BAREMETAL__
+#ifndef SDT
 #define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
-#define I2CBUS	1
 #define XRFDC_BASE_ADDR		XPAR_XRFDC_0_BASEADDR
 #define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME
 #else
+#define RFDC_DEVICE_ID 0
+#endif
+#else
 #define RFDC_DEVICE_ID 	0
-#define I2CBUS	12
 #endif
 
 /**************************** Type Definitions ******************************/
@@ -75,7 +79,7 @@
 #endif
 /************************** Function Prototypes *****************************/
 
-static int SelfTestExample(u16 SysMonDeviceId);
+static int XRFdc_SelfTestExample(u16 SysMonDeviceId);
 static int CompareFabricRate(u32 SetFabricRate, u32 GetFabricRate);
 
 /************************** Variable Definitions ****************************/
@@ -84,15 +88,13 @@ static XRFdc RFdcInst;      /* RFdc driver instance */
 struct metal_device *deviceptr = NULL;
 
 #ifdef __BAREMETAL__
-metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR;
+metal_phys_addr_t metal_phys;
 static struct metal_device CustomDev = {
 	/* RFdc device */
-	.name = RFDC_DEV_NAME,
 	.bus = NULL,
 	.num_regions = 1,
 	.regions = {
 		{
-			.virt = (void *)XRFDC_BASE_ADDR,
 			.physmap = &metal_phys,
 			.size = 0x40000,
 			.page_shift = (unsigned)(-1),
@@ -131,7 +133,7 @@ int main(void)
 	 * Run the RFdc fabric rate example, specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
-	Status = SelfTestExample(RFDC_DEVICE_ID);
+	Status = XRFdc_SelfTestExample(RFDC_DEVICE_ID);
 	if (Status != XRFDC_SUCCESS) {
 		printf(" Selftest Example Test failed\r\n");
 		return XRFDC_FAILURE;
@@ -162,7 +164,7 @@ int main(void)
 * @note   	None
 *
 ****************************************************************************/
-int SelfTestExample(u16 RFdcDeviceId)
+int XRFdc_SelfTestExample(u16 RFdcDeviceId)
 {
 
 	int Status;
@@ -189,6 +191,15 @@ int SelfTestExample(u16 RFdcDeviceId)
 
 	/* Register & MAP RFDC to Libmetal */
 #ifdef __BAREMETAL__
+#ifndef SDT
+	metal_phys = XRFDC_BASE_ADDR;
+	CustomDev.name = RFDC_DEV_NAME;
+	CustomDev.regions->virt = (void *)XRFDC_BASE_ADDR;
+#else
+	metal_phys = ConfigPtr->BaseAddr;
+	CustomDev.name = ConfigPtr->Name;
+	CustomDev.regions->virt = (void *)ConfigPtr->BaseAddr;
+#endif
 	deviceptr = &CustomDev;
 #endif
 
