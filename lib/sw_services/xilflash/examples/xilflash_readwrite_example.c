@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2007 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2007 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +45,7 @@
 *                     Modified FLASH_BASE_ADDRESS to canonical name.
 * 4.2   nsk  01/27/16 Added check to unlock the Micron G18 Flash.
 * 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
+* 4.10	akm  07/14/23 Added support for system device-tree flow.
 *
 *</pre>
 ******************************************************************************/
@@ -61,7 +63,11 @@
  * They are defined here such that a user can easily change all the needed
  * parameters in one place.
  */
+#ifndef SDT
 #define FLASH_BASE_ADDRESS	XPAR_EMC_0_S_AXI_MEM0_BASEADDR
+#else
+#define FLASH_BASE_ADDRESS	XPAR_AXI_EMC_0_BASEADDR
+#endif
 
 /*
  * The following constant defines the total byte width of the flash memory. The
@@ -131,12 +137,13 @@ int main(void)
 {
 	int Status = XST_FAILURE;
 
+	xil_printf("Flash Read/Write Test \r\n");
 	Status = FlashReadWriteExample();
 	if(Status != XST_SUCCESS) {
 		xil_printf("Flash Read/Write Test Fail\n\r");
 		return XST_FAILURE;
 	}
-	xil_printf("Flash Read/Write Test Pass\n\r");
+	xil_printf("Successfully ran Flash Read/Write Test\n\r");
 
 	return XST_SUCCESS;
 }
