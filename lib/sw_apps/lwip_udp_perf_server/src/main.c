@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2017 - 2019 Xilinx, Inc.
+ * Copyright (C) 2017 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -64,7 +65,7 @@ int ProgramSfpPhy(void);
 #endif
 
 #ifdef XPS_BOARD_ZCU102
-#ifdef XPAR_XIICPS_0_DEVICE_ID
+#if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)
 int IicPhyReset(void);
 #endif
 #endif
@@ -144,8 +145,10 @@ int main(void)
 	}
 	netif_set_default(netif);
 
+#ifndef SDT
 	/* now enable interrupts */
 	platform_enable_interrupts();
+#endif
 
 	/* specify that the network if is up */
 	netif_set_up(netif);
