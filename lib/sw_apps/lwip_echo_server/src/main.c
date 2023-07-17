@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2009 - 2019 Xilinx, Inc.
+ * Copyright (C) 2009 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -76,27 +77,25 @@ void print_ip6(char *msg, ip_addr_t *ip)
 {
 	print(msg);
 	xil_printf(" %x:%x:%x:%x:%x:%x:%x:%x\n\r",
-			IP6_ADDR_BLOCK1(&ip->u_addr.ip6),
-			IP6_ADDR_BLOCK2(&ip->u_addr.ip6),
-			IP6_ADDR_BLOCK3(&ip->u_addr.ip6),
-			IP6_ADDR_BLOCK4(&ip->u_addr.ip6),
-			IP6_ADDR_BLOCK5(&ip->u_addr.ip6),
-			IP6_ADDR_BLOCK6(&ip->u_addr.ip6),
-			IP6_ADDR_BLOCK7(&ip->u_addr.ip6),
-			IP6_ADDR_BLOCK8(&ip->u_addr.ip6));
+		   IP6_ADDR_BLOCK1(&ip->u_addr.ip6),
+		   IP6_ADDR_BLOCK2(&ip->u_addr.ip6),
+		   IP6_ADDR_BLOCK3(&ip->u_addr.ip6),
+		   IP6_ADDR_BLOCK4(&ip->u_addr.ip6),
+		   IP6_ADDR_BLOCK5(&ip->u_addr.ip6),
+		   IP6_ADDR_BLOCK6(&ip->u_addr.ip6),
+		   IP6_ADDR_BLOCK7(&ip->u_addr.ip6),
+		   IP6_ADDR_BLOCK8(&ip->u_addr.ip6));
 
 }
 #else
-void
-print_ip(char *msg, ip_addr_t *ip)
+void print_ip(char *msg, ip_addr_t *ip)
 {
 	print(msg);
 	xil_printf("%d.%d.%d.%d\n\r", ip4_addr1(ip), ip4_addr2(ip),
-			ip4_addr3(ip), ip4_addr4(ip));
+		   ip4_addr3(ip), ip4_addr4(ip));
 }
 
-void
-print_ip_settings(ip_addr_t *ip, ip_addr_t *mask, ip_addr_t *gw)
+void print_ip_settings(ip_addr_t *ip, ip_addr_t *mask, ip_addr_t *gw)
 {
 
 	print_ip("Board IP: ", ip);
@@ -113,7 +112,7 @@ int ProgramSfpPhy(void);
 #endif
 
 #ifdef XPS_BOARD_ZCU102
-#ifdef XPAR_XIICPS_0_DEVICE_ID
+#if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)
 int IicPhyReset(void);
 #endif
 #endif
@@ -136,9 +135,9 @@ int main()
 #endif
 #endif
 
-/* Define this board specific macro in order perform PHY reset on ZCU102 */
+	/* Define this board specific macro in order perform PHY reset on ZCU102 */
 #ifdef XPS_BOARD_ZCU102
-	if(IicPhyReset()) {
+	if (IicPhyReset()) {
 		xil_printf("Error performing PHY reset \n\r");
 		return -1;
 	}
@@ -148,7 +147,7 @@ int main()
 
 #if LWIP_IPV6==0
 #if LWIP_DHCP==1
-    ipaddr.addr = 0;
+	ipaddr.addr = 0;
 	gw.addr = 0;
 	netmask.addr = 0;
 #else
@@ -165,15 +164,15 @@ int main()
 #if (LWIP_IPV6 == 0)
 	/* Add network interface to the netif_list, and set it as default */
 	if (!xemac_add(echo_netif, &ipaddr, &netmask,
-						&gw, mac_ethernet_address,
-						PLATFORM_EMAC_BASEADDR)) {
+		       &gw, mac_ethernet_address,
+		       PLATFORM_EMAC_BASEADDR)) {
 		xil_printf("Error adding N/W interface\n\r");
 		return -1;
 	}
 #else
 	/* Add network interface to the netif_list, and set it as default */
 	if (!xemac_add(echo_netif, NULL, NULL, NULL, mac_ethernet_address,
-						PLATFORM_EMAC_BASEADDR)) {
+		       PLATFORM_EMAC_BASEADDR)) {
 		xil_printf("Error adding N/W interface\n\r");
 		return -1;
 	}
@@ -187,8 +186,10 @@ int main()
 #endif
 	netif_set_default(echo_netif);
 
+#ifndef SDT
 	/* now enable interrupts */
 	platform_enable_interrupts();
+#endif
 
 	/* specify that the network if is up */
 	netif_set_up(echo_netif);
@@ -202,8 +203,9 @@ int main()
 	dhcp_start(echo_netif);
 	dhcp_timoutcntr = 24;
 
-	while(((echo_netif->ip_addr.addr) == 0) && (dhcp_timoutcntr > 0))
+	while (((echo_netif->ip_addr.addr) == 0) && (dhcp_timoutcntr > 0)) {
 		xemacif_input(echo_netif);
+	}
 
 	if (dhcp_timoutcntr <= 0) {
 		if ((echo_netif->ip_addr.addr) == 0) {
