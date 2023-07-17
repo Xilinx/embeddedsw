@@ -280,7 +280,8 @@ typedef struct {
 #pragma data_alignment = 32
 } XSdPs_Adma2Descriptor32;
 #else
-}  __attribute__((__packed__))XSdPs_Adma2Descriptor32;
+}
+__attribute__((__packed__))XSdPs_Adma2Descriptor32;
 #endif
 
 /**
@@ -372,7 +373,7 @@ XSdPs_Config *XSdPs_LookupConfig(u16 DeviceId);
 XSdPs_Config *XSdPs_LookupConfig(u32 BaseAddress);
 #endif
 s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
-				u32 EffectiveAddr);
+			u32 EffectiveAddr);
 s32 XSdPs_CardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff);
 s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff);
