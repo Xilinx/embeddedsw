@@ -24,6 +24,10 @@
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.02  bm   07/17/2023 Updated logic to not throw error during restoring DS
+*                       if DS is not found. Also Disabled exceptions before
+*                       requesting for update so that stack limit regisers are
+*                       updated properly after the update
 *
 * </pre>
 *
@@ -393,8 +397,6 @@ END:
  * 			not matching with the size of updated PLM.
  * 			- XPLMI_ERR_DB_ENDADDR_INVALID if the DB end address calculated
  * 			is not in a valid range that is accepted by updated PLM.
- * 			- XPLMI_ERR_PLM_UPDATE_NO_DS_FOUND if no Data Structure is found
- * 			whose structure ID and module ID are matching while restoring of
  * 			Data Structures during InPlace PLM Update.
  * 			- XPLMI_ERR_INVALID_RESTORE_DS_HANDLER if invalid Data Structure
  * 			Handler used in restoring of Data Structures during InPlace PLM
@@ -405,6 +407,7 @@ int XPlmi_RestoreDataBackup(void)
 {
 	int Status = XST_FAILURE;
 	XPlmi_DsEntry *DsEntry = NULL;
+	XPlmi_DsHdr *DsHdr = NULL;
 	XPlmi_DbHdr *DbHdr = (XPlmi_DbHdr *)XPLMI_PLM_UPDATE_DS_START_ADDR;
 	u64 DsAddr;
 	u64 EndAddr;
@@ -430,20 +433,19 @@ int XPlmi_RestoreDataBackup(void)
 	while (DsAddr < EndAddr) {
 		DsEntry = XPlmi_GetDsEntry(__data_struct_start, XPLMI_DS_CNT,
 				(XPlmi_DsVer *)(UINTPTR)DsAddr);
-		if (DsEntry == NULL) {
-			Status = XPLMI_ERR_PLM_UPDATE_NO_DS_FOUND;
-			break;
+		if (DsEntry != NULL) {
+			if (DsEntry->Handler == NULL) {
+				Status = XPLMI_ERR_INVALID_RESTORE_DS_HANDLER;
+				break;
+			}
+			Status = DsEntry->Handler(XPLMI_RESTORE_DATABASE,
+					DsAddr, DsEntry);
+			if (Status != XST_SUCCESS) {
+				break;
+			}
 		}
-		if (DsEntry->Handler == NULL) {
-			Status = XPLMI_ERR_INVALID_RESTORE_DS_HANDLER;
-			break;
-		}
-		Status = DsEntry->Handler(XPLMI_RESTORE_DATABASE,
-				DsAddr, DsEntry);
-		if (Status != XST_SUCCESS) {
-			break;
-		}
-		DsAddr += XPLMI_DS_HDR_SIZE + DsEntry->DsHdr.Len;
+		DsHdr = (XPlmi_DsHdr *)(UINTPTR)DsAddr;
+		DsAddr += XPLMI_DS_HDR_SIZE + DsHdr->Len;
 	}
 
 END:
@@ -706,6 +708,10 @@ static int XPlmi_PlmUpdateTask(void *Arg)
 	}
 
 	PlmUpdateState &= (u8)~XPLMI_UPDATE_IN_PROGRESS;
+
+	/* Disable exceptions */
+	microblaze_disable_exceptions();
+
 	/* Jump to relocated PLM Update Manager */
 	Status = XPlmi_RelocatedFn();
 	if (Status != XST_SUCCESS) {

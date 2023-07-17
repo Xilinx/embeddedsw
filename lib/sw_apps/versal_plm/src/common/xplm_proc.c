@@ -30,6 +30,7 @@
 * 1.05  ma   01/17/2022 Trigger SW Error when exception occurs
 * 1.06  ng   11/11/2022 Updated doxygen comments
 *       kpt  02/21/2023 Removed check for XLoader_SecureClear
+* 1.07  bm   07/17/2023 Removed XPlm_InitProc function
 *
 * </pre>
 *
@@ -50,7 +51,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XPlm_ExceptionInit(void);
 static void XPlm_ExceptionHandler(void *Data);
 
 /************************** Variable Definitions *****************************/
@@ -65,7 +65,7 @@ extern u32 _stack_end;
  * @return	None
  *
  *****************************************************************************/
-static void XPlm_ExceptionInit(void)
+void XPlm_ExceptionInit(void)
 {
 	int Status = XST_FAILURE;
 	u16 Index;
@@ -137,22 +137,4 @@ static void XPlm_ExceptionHandler(void *Data)
 	while (TRUE) {
 		;
 	}
-}
-
-/*****************************************************************************/
-/**
- * @brief This function initializes the processor, enables exceptions and start
- * timer
- *
- * @return	Status as defined in xplmi_status.h
- *
- *****************************************************************************/
-int XPlm_InitProc(void)
-{
-	int Status = XST_FAILURE;
-
-	XPlm_ExceptionInit();
-	Status = XPlmi_StartTimer();
-
-	return Status;
 }
