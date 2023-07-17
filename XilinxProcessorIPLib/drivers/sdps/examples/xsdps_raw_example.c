@@ -25,6 +25,7 @@
 * ----- --- -------- ---------------------------------------------
 * 3.9 	mn  12/02/19 First release
 * 3.10	mn  09/17/20 Fix sector offset issue with Non-HCS SD cards
+* 4.2   ro     06/12/23 Added support for system device-tree flow.
 *
 *</pre>
 *
@@ -121,7 +122,11 @@ static int SdpsRawTest(void)
 	/*
 	 * Initialize the host controller
 	 */
+#ifndef SDT
 	SdConfig = XSdPs_LookupConfig(XPAR_XSDPS_0_DEVICE_ID);
+#else
+	SdConfig = XSdPs_LookupConfig(XPAR_XSDPS_0_BASEADDR);
+#endif
 	if (NULL == SdConfig) {
 		return XST_FAILURE;
 	}
