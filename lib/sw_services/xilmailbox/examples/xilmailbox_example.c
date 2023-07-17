@@ -38,7 +38,9 @@
 
 #include <stdlib.h>
 #include "xparameters.h"
+#ifndef SDT
 #include "xscugic.h"
+#endif
 #include "xilmailbox.h"
 #include "xdebug.h"
 #ifdef SDT
@@ -49,7 +51,7 @@
 /************************* Test Configuration ********************************/
 /* IPI device ID to use for this test */
 #ifdef SDT
-#define TEST_CHANNEL_ID         XMAILBOX_IPI_BASEADDRESS
+#define TEST_CHANNEL_BASEADDRESS         XMAILBOX_IPI_BASEADDRESS
 #define REMOTE_CHANNEL_ID       XMAILBOX_IPI_CHANNEL_ID
 #else
 #define TEST_CHANNEL_ID	XPAR_XIPIPSU_0_DEVICE_ID
@@ -66,7 +68,11 @@ volatile static int ErrorStatus = 0;	/**< Error Status flag*/
 static u32 ReqBuffer[TEST_MSG_LEN];
 static u32 RespBuffer[TEST_MSG_LEN];
 
+#ifndef SDT
 int XMailbox_Example(XMailbox *InstancePtr, u32 DeviceId);
+#else
+int XMailbox_Example(XMailbox *InstancePtr, UINTPTR BaseAddress);
+#endif
 static void DoneHandler(void *CallBackRefPtr);
 static void ErrorHandler(void *CallBackRefPtr, u32 Mask);
 
@@ -75,7 +81,11 @@ int main(void)
 	int Status;
 
 	xil_printf("Inside XMailbox Example\r\n");
+#ifndef SDT
 	Status = XMailbox_Example(&XMboxInstance, TEST_CHANNEL_ID);
+#else
+	Status = XMailbox_Example(&XMboxInstance, TEST_CHANNEL_BASEADDRESS);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("XMailbox Example Failed\n\r");
 		return XST_FAILURE;
@@ -85,13 +95,21 @@ int main(void)
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 int XMailbox_Example(XMailbox *InstancePtr, u32 DeviceId)
+#else
+int XMailbox_Example(XMailbox *InstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	u32 Index;
 	u32 Status;
 	u32 TmpBufPtr[TEST_MSG_LEN];
 
+#ifndef SDT
 	Status = XMailbox_Initialize(InstancePtr, DeviceId);
+#else
+	Status = XMailbox_Initialize(InstancePtr, BaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		goto Done;
 	}
