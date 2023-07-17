@@ -198,6 +198,7 @@
 *                     in write operation(CR-1029074).
 * 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * 4.8	sne  04/23/21 Fixed doxygen warnings.
+* 4.10	akm  07/14/23 Added support for system device-tree flow.
 * </pre>
 *
 ***************************************************************************/

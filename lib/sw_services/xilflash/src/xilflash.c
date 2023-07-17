@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2007 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2007 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +40,7 @@
 *		      CR 662317 Description - Xilinx Platform Flash on ML605
 *		      fails to work.
 * 4.4   ms   08/03/17 Added tags and modified comment lines style for doxygen.
+* 4.10	akm  07/14/23 Added support for system device-tree flow.
 * </pre>
 *
 *
@@ -48,6 +50,10 @@
 
 #include "include/xilflash.h"
 #include "include/xilflash_cfi.h"
+#include "xstatus.h"
+#ifdef SDT
+#include "xilflash_config.h"
+#endif
 #ifdef XPAR_XFL_DEVICE_FAMILY_INTEL
 #include "include/xilflash_intel.h"	/* Intel specific header file */
 #endif /* XPAR_XFL_DEVICE_FAMILY_INTEL */

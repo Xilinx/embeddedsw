@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2007 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2007 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +58,7 @@
 * 4.7	akm  07/10/19 Updated XFlashAmd_Write() to use adjusted base address
 *		      in write operation(CR-1029074).
 * 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
+* 4.10	akm  07/14/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -64,6 +66,10 @@
 /***************************** Include Files *********************************/
 
 #include "include/xilflash.h"
+#include "xstatus.h"
+#ifdef SDT
+#include "xilflash_config.h"
+#endif
 
 #ifdef XPAR_XFL_DEVICE_FAMILY_AMD
 #include "include/xilflash_amd.h"
