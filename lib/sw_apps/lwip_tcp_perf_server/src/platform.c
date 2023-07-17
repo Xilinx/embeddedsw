@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2009 - 2019 Xilinx, Inc.
+ * Copyright (C) 2009 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -25,13 +26,12 @@
  * OF SUCH DAMAGE.
  *
  */
-#if __MICROBLAZE__
+#if defined(SDT) || __MICROBLAZE__
 #include "arch/cc.h"
 #include "platform.h"
 #include "platform_config.h"
 #include "xil_cache.h"
 #include "xparameters.h"
-#include "xintc.h"
 #include "xil_exception.h"
 #include "lwip/tcp.h"
 #ifdef STDOUT_IS_16550
@@ -46,12 +46,18 @@ void dhcp_fine_tmr();
 void dhcp_coarse_tmr();
 #endif
 
+#ifdef SDT
+#include "xiltimer.h"
+#include "xinterrupt_wrap.h"
+#else
+#include "xintc.h"
+#endif
+
 volatile int TcpFastTmrFlag = 0;
 volatile int TcpSlowTmrFlag = 0;
 
 volatile u64_t tickcntr = 0;
-void
-timer_callback()
+void timer_callback()
 {
 	/* we need to call tcp_fasttmr & tcp_slowtmr at intervals specified
 	 * by lwIP.
@@ -62,7 +68,7 @@ timer_callback()
 	static int dhcp_timer = 0;
 #endif
 	tickcntr++;
-	if(tickcntr % 25 == 0){
+	if (tickcntr % 25 == 0) {
 		TcpFastTmrFlag = 1;
 
 		odd = !odd;
@@ -81,6 +87,7 @@ timer_callback()
 	}
 }
 
+#ifndef SDT
 static XIntc intc;
 
 void platform_setup_interrupts()
@@ -104,9 +111,9 @@ void platform_setup_interrupts()
 	/* Enable timer and EMAC interrupts in the interrupt controller */
 	XIntc_EnableIntr(XPAR_INTC_0_BASEADDR,
 #ifdef __MICROBLAZE__
-			PLATFORM_TIMER_INTERRUPT_MASK |
+			 PLATFORM_TIMER_INTERRUPT_MASK |
 #endif
-			XPAR_ETHERNET_MAC_IP2INTC_IRPT_MASK);
+			 XPAR_ETHERNET_MAC_IP2INTC_IRPT_MASK);
 #endif
 
 
@@ -133,9 +140,9 @@ void platform_setup_interrupts()
 
 
 }
+#endif
 
-void
-enable_caches()
+void enable_caches()
 {
 #ifdef __MICROBLAZE__
 #ifdef XPAR_MICROBLAZE_USE_ICACHE
@@ -147,8 +154,7 @@ enable_caches()
 #endif
 }
 
-void
-disable_caches()
+void disable_caches()
 {
 	Xil_DCacheDisable();
 	Xil_ICacheDisable();
@@ -163,7 +169,24 @@ void init_platform()
 	XUartNs550_SetLineControlReg(STDOUT_BASEADDR, XUN_LCR_8_DATA_BITS);
 #endif
 
+#ifndef SDT
 	platform_setup_interrupts();
+#else
+	init_timer();
+#endif
+
+}
+
+void TimerCounterHandler(void *CallBackRef, u32_t TmrCtrNumber)
+{
+	timer_callback();
+}
+
+void init_timer()
+{
+	/* Calibrate the platform timer for 250 ms */
+	XTimer_SetInterval(250);
+	XTimer_SetHandler(TimerCounterHandler, 0, XINTERRUPT_DEFAULT_PRIORITY);
 }
 
 void cleanup_platform()
