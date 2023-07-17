@@ -6,7 +6,7 @@
 title: Bindings for xilmailbox library application
 
 maintainers:
-  - Appana Durga Kedareswara Rao <appana.durga.kedareswara.rao@amd.com>
+  - Harini T <harini.t@amd.com>
 
 type: library
 
@@ -38,4 +38,8 @@ depends:
     ipipsu:
         - reg
         - xlnx,ipi-bitmask
+        - interrupts
+
+examples:
+        xilmailbox_example.c: []
 ...
