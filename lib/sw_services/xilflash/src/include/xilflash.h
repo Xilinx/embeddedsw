@@ -336,7 +336,7 @@ extern "C" {
 #define XFL_DEVCTL_PROTECTION_STATUS	10	/**< Check block protection
 						 * status */
 #ifdef XPAR_XFL_DEVICE_FAMILY_INTEL
- #define XFL_DEVCTL_SET_CONFIG_REG	11	/**< Set config register value*/
+#define XFL_DEVCTL_SET_CONFIG_REG	11	/**< Set config register value*/
 #endif /* XPAR_XFL_DEVICE_FAMILY_INTEL */
 
 /**
@@ -356,13 +356,13 @@ extern "C" {
 #define XFL_AMD_MAX_ERASE_REGIONS	10
 
 #ifdef XPAR_XFL_DEVICE_FAMILY_INTEL
- #define XFL_MAX_ERASE_REGIONS		XFL_INTEL_MAX_ERASE_REGIONS
- #define XFL_MAX_VENDOR_DATA_LENGTH	20	/* Number of 32-bit integers
+#define XFL_MAX_ERASE_REGIONS		XFL_INTEL_MAX_ERASE_REGIONS
+#define XFL_MAX_VENDOR_DATA_LENGTH	20	/* Number of 32-bit integers
 						 * reserved for vendor data
 						 */
 #else
- #define XFL_MAX_ERASE_REGIONS		XFL_AMD_MAX_ERASE_REGIONS
- #define XFL_MAX_VENDOR_DATA_LENGTH	10	/* Number of 32-bit integers
+#define XFL_MAX_ERASE_REGIONS		XFL_AMD_MAX_ERASE_REGIONS
+#define XFL_MAX_VENDOR_DATA_LENGTH	10	/* Number of 32-bit integers
 						 * reserved for vendor data
 						 */
 #endif /* XPAR_XFL_DEVICE_FAMILY_INTEL */
@@ -395,7 +395,7 @@ typedef struct {
 		u32 AbsoluteOffset; /**< Offset within part where
 				     * region begins */
 		u16 AbsoluteBlock;
-				/**< Block number where region begins */
+		/**< Block number where region begins */
 		u16 Number;	/**< Number of blocks in this region */
 		u32 Size;	/**< Size of the block in bytes */
 	} EraseRegion[XFL_MAX_ERASE_REGIONS + 1];
@@ -458,29 +458,29 @@ typedef struct XFlashTag {
 
 
 	struct {
-		int (*Read) (struct XFlashTag * InstancePtr, u32 Offset,
-				u32 Bytes, void *DestPtr);
+		int (*Read) (struct XFlashTag *InstancePtr, u32 Offset,
+			     u32 Bytes, void *DestPtr);
 
-		int (*Write) (struct XFlashTag * InstancePtr, u32 Offset,
-				u32 Bytes, void *SrcPtr);
+		int (*Write) (struct XFlashTag *InstancePtr, u32 Offset,
+			      u32 Bytes, void *SrcPtr);
 
-		int (*Erase) (struct XFlashTag * InstancePtr, u32 Offset,
-				u32 Bytes);
+		int (*Erase) (struct XFlashTag *InstancePtr, u32 Offset,
+			      u32 Bytes);
 
-		int (*Lock) (struct XFlashTag * InstancePtr, u32 Offset, u32
-									Bytes);
+		int (*Lock) (struct XFlashTag *InstancePtr, u32 Offset, u32
+			     Bytes);
 
-		int (*Unlock) (struct XFlashTag * InstancePtr, u32 Offset, u32
-									Bytes);
+		int (*Unlock) (struct XFlashTag *InstancePtr, u32 Offset, u32
+			       Bytes);
 
-		int (*EraseChip) (struct XFlashTag * InstancePtr);
+		int (*EraseChip) (struct XFlashTag *InstancePtr);
 
-		int (*Initialize) (struct XFlashTag * Initialize);
+		int (*Initialize) (struct XFlashTag *Initialize);
 
-		int (*Reset) (struct XFlashTag * InstancePtr);
-		int (*DeviceControl) (struct XFlashTag * InstancePtr,
-					u32 Command, DeviceCtrlParam
-					*Parameters);
+		int (*Reset) (struct XFlashTag *InstancePtr);
+		int (*DeviceControl) (struct XFlashTag *InstancePtr,
+				      u32 Command, DeviceCtrlParam
+				      *Parameters);
 	} VTable;
 	XFlashCommandSet Command;	/* Flash Specific Commands */
 } XFlash;
@@ -533,13 +533,13 @@ typedef struct XFlashTag {
 *
 *****************************************************************************/
 #define XFL_GEOMETRY_INCREMENT(GeometryPtr, Region, Block)		\
-{									\
-	if ((GeometryPtr)->EraseRegion[Region].Number <= ++(Block))	\
-	{								\
-		(Region)++; 						\
-		(Block) = 0;						\
-	}								\
-}
+	{									\
+		if ((GeometryPtr)->EraseRegion[Region].Number <= ++(Block))	\
+		{								\
+			(Region)++; 						\
+			(Block) = 0;						\
+		}								\
+	}
 
 /*****************************************************************************/
 /**
@@ -558,10 +558,10 @@ typedef struct XFlashTag {
 *
 *****************************************************************************/
 #define XFL_GEOMETRY_BLOCK_DIFF(GeometryPtr, StartRegion, StartBlock, \
-							EndRegion,EndBlock) \
-	(((GeometryPtr)->EraseRegion[EndRegion].AbsoluteBlock + (EndBlock)) - \
-	((GeometryPtr)->EraseRegion[StartRegion].AbsoluteBlock + 	      \
-	(StartBlock)) + 1)
+				EndRegion,EndBlock) \
+(((GeometryPtr)->EraseRegion[EndRegion].AbsoluteBlock + (EndBlock)) - \
+ ((GeometryPtr)->EraseRegion[StartRegion].AbsoluteBlock + 	      \
+  (StartBlock)) + 1)
 
 /*****************************************************************************/
 /**
@@ -602,8 +602,8 @@ typedef struct XFlashTag {
 *****************************************************************************/
 #define XFL_GEOMETRY_IS_BLOCK_VALID(GeometryPtr, Region, Block, BlockOffset) \
 	(((Region) < ( GeometryPtr)->NumEraseRegions) &&		     \
-	((Block) < (GeometryPtr)->EraseRegion[Region].Number) &&	     \
-	((BlockOffset) < (GeometryPtr)->EraseRegion[Region].Size))
+	 ((Block) < (GeometryPtr)->EraseRegion[Region].Number) &&	     \
+	 ((BlockOffset) < (GeometryPtr)->EraseRegion[Region].Size))
 
 /**
 @}
@@ -614,17 +614,17 @@ typedef struct XFlashTag {
 /*
  * Initialization, configuration, & control Functions.
  */
-int XFlash_Initialize(XFlash * InstancePtr, u32 BaseAddress, u8 BusWidth,
+int XFlash_Initialize(XFlash *InstancePtr, u32 BaseAddress, u8 BusWidth,
 		      int IsPlatformFlash);
-int XFlash_Reset(XFlash * InstancePtr);
-int XFlash_DeviceControl(XFlash * InstancePtr, u32 Command,
-						DeviceCtrlParam *Parameters);
-int XFlash_Read(XFlash * InstancePtr, u32 Offset, u32 Bytes, void *DestPtr);
-int XFlash_Write(XFlash * InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr);
-int XFlash_Erase(XFlash * InstancePtr, u32 Offset, u32 Bytes);
-int XFlash_Lock(XFlash * InstancePtr, u32 Offset, u32 Bytes);
-int XFlash_Unlock(XFlash * InstancePtr, u32 Offset, u32 Bytes);
-int XFlash_IsReady(XFlash * InstancePtr);
+int XFlash_Reset(XFlash *InstancePtr);
+int XFlash_DeviceControl(XFlash *InstancePtr, u32 Command,
+			 DeviceCtrlParam *Parameters);
+int XFlash_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr);
+int XFlash_Write(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr);
+int XFlash_Erase(XFlash *InstancePtr, u32 Offset, u32 Bytes);
+int XFlash_Lock(XFlash *InstancePtr, u32 Offset, u32 Bytes);
+int XFlash_Unlock(XFlash *InstancePtr, u32 Offset, u32 Bytes);
+int XFlash_IsReady(XFlash *InstancePtr);
 
 #ifdef __cplusplus
 }

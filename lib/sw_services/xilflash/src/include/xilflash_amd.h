@@ -129,23 +129,23 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-int XFlashAmd_Initialize(XFlash * InstancePtr);
-int XFlashAmd_Reset(XFlash * InstancePtr);
+int XFlashAmd_Initialize(XFlash *InstancePtr);
+int XFlashAmd_Reset(XFlash *InstancePtr);
 
-int XFlashAmd_DeviceControl(XFlash * InstancePtr, u32 Command,
+int XFlashAmd_DeviceControl(XFlash *InstancePtr, u32 Command,
 			    DeviceCtrlParam *Parameters);
 
-int XFlashAmd_Read(XFlash * InstancePtr, u32 Offset, u32 Bytes,
+int XFlashAmd_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes,
 		   void *DestPtr);
 
-int XFlashAmd_Write(XFlash * InstancePtr, u32 Offset, u32 Bytes,
+int XFlashAmd_Write(XFlash *InstancePtr, u32 Offset, u32 Bytes,
 		    void *SrcPtr);
 
-int XFlashAmd_Erase(XFlash * InstancePtr, u32 Offset, u32 Bytes);
+int XFlashAmd_Erase(XFlash *InstancePtr, u32 Offset, u32 Bytes);
 
-int XFlashAmd_Lock(XFlash * InstancePtr, u32 Offset, u32 Bytes);
-int XFlashAmd_Unlock(XFlash * InstancePtr, u32 Offset, u32 Bytes);
-int XFlashAmd_EraseChip(struct XFlashTag * InstancePtr);
+int XFlashAmd_Lock(XFlash *InstancePtr, u32 Offset, u32 Bytes);
+int XFlashAmd_Unlock(XFlash *InstancePtr, u32 Offset, u32 Bytes);
+int XFlashAmd_EraseChip(struct XFlashTag *InstancePtr);
 
 #endif /* XPAR_XFL_DEVICE_FAMILY_AMD */
 

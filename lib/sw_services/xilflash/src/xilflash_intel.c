@@ -174,7 +174,7 @@ static int GetStatus32(XFlash *InstancePtr, u32 Offset);
 static int GetStatus64(XFlash *InstancePtr, u32 Offset);
 
 static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
-			 void *SrcPtr, u32 Bytes);
+			void *SrcPtr, u32 Bytes);
 static int WriteBuffer16(XFlash *InstancePtr, void *DestPtr,
 			 void *SrcPtr, u32 Bytes);
 static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
@@ -191,15 +191,15 @@ static int SetRYBY(XFlash *InstancePtr, u32 Mode);
 static void GetPartID(XFlash *InstancePtr);
 static int XFlashIntel_ResetBank(XFlash *InstancePtr, u32 Offset, u32 Bytes);
 static u16 EnqueueEraseBlocks(XFlash *InstancePtr, u16 *RegionPtr,
-				u16 *BlockPtr, u16 MaxBlocks);
+			      u16 *BlockPtr, u16 MaxBlocks);
 
 extern int XFlashGeometry_ToBlock(XFlashGeometry *InstancePtr,
-				u32 AbsoluteOffset,
-				u16 *Region, u16 *Block, u32 *BlockOffset);
+				  u32 AbsoluteOffset,
+				  u16 *Region, u16 *Block, u32 *BlockOffset);
 extern int XFlashGeometry_ToAbsolute(XFlashGeometry *InstancePtr,
-				u16 Region,
-				u16 Block,
-				u32 BlockOffset, u32 *AbsoluteOffsetPtr);
+				     u16 Region,
+				     u16 Block,
+				     u32 BlockOffset, u32 *AbsoluteOffsetPtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -233,7 +233,7 @@ int XFlashIntel_Initialize(XFlash *InstancePtr)
 	/*
 	 * Verify inputs are valid
 	 */
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -314,8 +314,8 @@ int XFlashIntel_Initialize(XFlash *InstancePtr)
 	BusWidthBytes = (Layout & XFL_LAYOUT_NUM_PARTS_MASK) *
 			((Layout & XFL_LAYOUT_PART_MODE_MASK) >> 8);
 	DevDataPtr->WriteBufferWordCount =
-			(InstancePtr->Properties.ProgCap.WriteBufferSize /
-							BusWidthBytes) - 1;
+		(InstancePtr->Properties.ProgCap.WriteBufferSize /
+		 BusWidthBytes) - 1;
 
 	/*
 	 * Get part ID.
@@ -361,11 +361,11 @@ int XFlashIntel_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 	/*
 	 * Verify inputs are valid.
 	 */
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	if(DestPtr == NULL) {
+	if (DestPtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -379,7 +379,7 @@ int XFlashIntel_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 	/*
 	 * Reset the bank(s) so that it returns to the read mode.
 	 */
-	if (XFlashIntel_ResetBank(InstancePtr, Offset, Bytes)!= XST_SUCCESS) {
+	if (XFlashIntel_ResetBank(InstancePtr, Offset, Bytes) != XST_SUCCESS) {
 		return (XST_FAILURE);
 	}
 
@@ -387,7 +387,7 @@ int XFlashIntel_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 	 * Perform copy to the user buffer from the buffer.
 	 */
 	memcpy(DestPtr,	(void *) (InstancePtr->Geometry.BaseAddress + Offset),
-									Bytes);
+	       Bytes);
 
 	return (XST_SUCCESS);
 }
@@ -424,11 +424,11 @@ int XFlashIntel_Write(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)
 	/*
 	 * Verify inputs are valid.
 	 */
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	if(SrcPtr == NULL) {
+	if (SrcPtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -443,8 +443,8 @@ int XFlashIntel_Write(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)
 	 * Verify the address range is within the part.
 	 */
 	if (!XFL_GEOMETRY_IS_ABSOLUTE_VALID(&InstancePtr->Geometry, Offset) ||
-		!XFL_GEOMETRY_IS_ABSOLUTE_VALID(&InstancePtr->Geometry,
-						Offset + Bytes - 1)) {
+	    !XFL_GEOMETRY_IS_ABSOLUTE_VALID(&InstancePtr->Geometry,
+					    Offset + Bytes - 1)) {
 		return (XFLASH_ADDRESS_ERROR);
 	}
 
@@ -495,7 +495,7 @@ int XFlashIntel_Erase(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 	/*
 	 * Verify inputs are valid.
 	 */
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -594,7 +594,7 @@ int XFlashIntel_Lock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 	/*
 	 * Verify inputs are valid.
 	 */
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -643,7 +643,7 @@ int XFlashIntel_Lock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 	 */
 	DevDataPtr->SendCmd(BaseAddress, Offset, XFL_INTEL_CMD_READ_STATUS_REG);
 	StatusReg = READ_FLASH_16(BaseAddress + Offset);
-	while(!(StatusReg & XFL_INTEL_SR_WSM_READY)) {
+	while (!(StatusReg & XFL_INTEL_SR_WSM_READY)) {
 		StatusReg = READ_FLASH_8(BaseAddress + Offset);
 	}
 
@@ -673,14 +673,14 @@ int XFlashIntel_Lock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 		 * Check if the Locking is done and device is ready.
 		 */
 		StatusReg = READ_FLASH_16(BaseAddress + BlockAddress);
-		while(!(StatusReg & XFL_INTEL_SR_WSM_READY)) {
+		while (!(StatusReg & XFL_INTEL_SR_WSM_READY)) {
 			StatusReg = READ_FLASH_16(BaseAddress + BlockAddress);
 		}
 
 		/*
 		 * Check if any Lock error has occurred.
 		 */
-		if(StatusReg & XFL_INTEL_SR_PROG_OR_LOCK_ERROR) {
+		if (StatusReg & XFL_INTEL_SR_PROG_OR_LOCK_ERROR) {
 			return XST_FAILURE;
 		}
 
@@ -739,7 +739,7 @@ int XFlashIntel_Unlock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 	/*
 	 * Verify inputs are valid.
 	 */
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -761,7 +761,7 @@ int XFlashIntel_Unlock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 	 * the starting address is within the instance's address space.
 	 */
 	Status = XFlashGeometry_ToBlock(GeomPtr, Offset, &StartRegion,
-							&StartBlock, &Dummy);
+					&StartBlock, &Dummy);
 	if (Status != XST_SUCCESS) {
 		return (XFLASH_ADDRESS_ERROR);
 	}
@@ -771,7 +771,7 @@ int XFlashIntel_Unlock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 	 * the ending address is within the instance's address space.
 	 */
 	Status = XFlashGeometry_ToBlock(GeomPtr, Offset + Bytes - 1,
-						&EndRegion, &EndBlock, &Dummy);
+					&EndRegion, &EndBlock, &Dummy);
 	if (Status != XST_SUCCESS) {
 		return (XFLASH_ADDRESS_ERROR);
 	}
@@ -788,7 +788,7 @@ int XFlashIntel_Unlock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 	 */
 	DevDataPtr->SendCmd(BaseAddress, Offset, XFL_INTEL_CMD_READ_STATUS_REG);
 	StatusReg = READ_FLASH_16(BaseAddress + Offset);
-	while(!(StatusReg & XFL_INTEL_SR_WSM_READY)) {
+	while (!(StatusReg & XFL_INTEL_SR_WSM_READY)) {
 		StatusReg = READ_FLASH_8(BaseAddress + Offset);
 	}
 
@@ -819,14 +819,14 @@ int XFlashIntel_Unlock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 		 * Check if the Unlocking is done and device is ready.
 		 */
 		StatusReg = READ_FLASH_16(BaseAddress + BlockAddress);
-		while(!(StatusReg & XFL_INTEL_SR_WSM_READY)) {
+		while (!(StatusReg & XFL_INTEL_SR_WSM_READY)) {
 			StatusReg = READ_FLASH_16(BaseAddress + BlockAddress);
 		}
 
 		/*
 		 * Check if any Unlock error has occurred.
 		 */
-		if(StatusReg & XFL_INTEL_SR_ERASE_OR_UNLOCK_ERROR) {
+		if (StatusReg & XFL_INTEL_SR_ERASE_OR_UNLOCK_ERROR) {
 			return XST_FAILURE;
 		}
 
@@ -872,7 +872,7 @@ int XFlashIntel_Reset(XFlash *InstancePtr)
 	/*
 	 * Verify inputs are valid.
 	 */
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -880,7 +880,7 @@ int XFlashIntel_Reset(XFlash *InstancePtr)
 	 * Send reset for all region/bank(s) in the device.
 	 */
 	return (XFlashIntel_ResetBank(InstancePtr, 0,
-				InstancePtr->Geometry.DeviceSize));
+				      InstancePtr->Geometry.DeviceSize));
 
 }
 
@@ -915,7 +915,7 @@ static int XFlashIntel_ResetBank(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 	/*
 	 * Verify inputs are valid.
 	 */
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -935,7 +935,7 @@ static int XFlashIntel_ResetBank(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 	 * the starting address is within the instance's address space.
 	 */
 	Status = XFlashGeometry_ToBlock(GeomPtr, Offset, &Region,
-							&Block, &Dummy);
+					&Block, &Dummy);
 	if (Status != XST_SUCCESS) {
 		return (XFLASH_ADDRESS_ERROR);
 	}
@@ -943,7 +943,7 @@ static int XFlashIntel_ResetBank(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 
 	while ((GeomPtr->EraseRegion[Region].AbsoluteOffset <=
 		(Offset + Bytes - 1)) &&
-		(Region < InstancePtr->Geometry.NumEraseRegions)) {
+	       (Region < InstancePtr->Geometry.NumEraseRegions)) {
 		/*
 		 * Send the clear status register command. Use the max write
 		 * width to notify parts of all layouts.
@@ -960,7 +960,7 @@ static int XFlashIntel_ResetBank(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 		 * read-array mode.
 		 */
 		Status = DevDataPtr->GetStatus(InstancePtr,
-				GeomPtr->EraseRegion[Region].AbsoluteOffset);
+					       GeomPtr->EraseRegion[Region].AbsoluteOffset);
 
 		/*
 		 * Some Intel CFI chips support 0xF0 command instead of 0xFF as
@@ -979,8 +979,7 @@ static int XFlashIntel_ResetBank(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 		if (Status != XFLASH_READY) {
 			if (Status != XFLASH_BUSY) {
 				return (XFLASH_ERROR);
-			}
-			else {
+			} else {
 				return (XFLASH_BUSY);
 			}
 		}
@@ -1022,7 +1021,7 @@ int XFlashIntel_DeviceControl(XFlash *InstancePtr, u32 Command,
 	/*
 	 * Verify inputs are valid.
 	 */
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -1031,27 +1030,27 @@ int XFlashIntel_DeviceControl(XFlash *InstancePtr, u32 Command,
 	switch (Command) {
 		case XFL_DEVCTL_GET_LAST_ERROR:
 			Parameters->LastErrorParam.Error =
-						DevDataPtr->SR_LastError.Mask32;
+				DevDataPtr->SR_LastError.Mask32;
 			return (XST_SUCCESS);
 
 		case XFL_DEVCTL_GET_GEOMETRY:
 			Parameters->GeometryParam.GeometryPtr =
-					&InstancePtr->Geometry;
+				&InstancePtr->Geometry;
 			return XST_SUCCESS;
 
 		case XFL_DEVCTL_GET_PROPERTIES:
 			Parameters->PropertiesParam.PropertiesPtr =
-					&InstancePtr->Properties;
+				&InstancePtr->Properties;
 			return XST_SUCCESS;
 
 		case XFL_DEVCTL_SET_RYBY:
 			if (InstancePtr->Properties.PartID.CommandSet !=
-						XFL_CMDSET_INTEL_EXTENDED) {
+			    XFL_CMDSET_INTEL_EXTENDED) {
 				return (XFLASH_NOT_SUPPORTED);
 			}
 
 			Status = SetRYBY(InstancePtr,
-						Parameters->RyByParam.Param);
+					 Parameters->RyByParam.Param);
 			return (Status);
 
 		case XFL_DEVCTL_SET_CONFIG_REG:
@@ -1272,10 +1271,10 @@ static int GetStatus64(XFlash *InstancePtr, u32 Offset)
 	 */
 	if (((XUINT64_MSW(RegData) & DevDataPtr->SR_WsmReady.Mask32) !=
 	     DevDataPtr->SR_WsmReady.Mask32) && ((XUINT64_LSW(RegData)
-						  & DevDataPtr->SR_WsmReady.
-						  Mask32) !=
-						 DevDataPtr->SR_WsmReady.
-						 Mask32)) {
+			     & DevDataPtr->SR_WsmReady.
+			     Mask32) !=
+			     DevDataPtr->SR_WsmReady.
+			     Mask32)) {
 		return (XFLASH_BUSY);
 	}
 
@@ -1329,8 +1328,7 @@ static int PollSR8(XFlash *InstancePtr, u32 Offset)
 	if (StatusReg != ReadyMask) {
 		DevDataPtr->SR_LastError.Mask8 = StatusReg;
 		return (XFLASH_ERROR);
-	}
-	else {
+	} else {
 		return (XFLASH_READY);
 	}
 }
@@ -1375,8 +1373,7 @@ static int PollSR16(XFlash *InstancePtr, u32 Offset)
 	if (StatusReg != ReadyMask) {
 		DevDataPtr->SR_LastError.Mask16 = StatusReg;
 		return (XFLASH_ERROR);
-	}
-	else {
+	} else {
 		return (XFLASH_READY);
 	}
 }
@@ -1421,8 +1418,7 @@ static int PollSR32(XFlash *InstancePtr, u32 Offset)
 	if (StatusReg != ReadyMask) {
 		DevDataPtr->SR_LastError.Mask32 = StatusReg;
 		return (XFLASH_ERROR);
-	}
-	else {
+	} else {
 		return (XFLASH_READY);
 	}
 }
@@ -1457,7 +1453,7 @@ static int PollSR64(XFlash *InstancePtr, u32 Offset)
 	ReadyMask = DevDataPtr->SR_WsmReady.Mask32;
 	READ_FLASH_64(InstancePtr->Geometry.BaseAddress + Offset, StatusReg);
 	while (((XUINT64_MSW(StatusReg) & ReadyMask) != ReadyMask) ||
-		((XUINT64_LSW(StatusReg) & ReadyMask) != ReadyMask)) {
+	       ((XUINT64_LSW(StatusReg) & ReadyMask) != ReadyMask)) {
 		READ_FLASH_64(InstancePtr->Geometry.BaseAddress + Offset,
 			      StatusReg);
 	}
@@ -1472,8 +1468,7 @@ static int PollSR64(XFlash *InstancePtr, u32 Offset)
 		XUINT64_LSW(DevDataPtr->SR_LastError.Mask64) =
 			XUINT64_LSW(StatusReg);
 		return (XFLASH_ERROR);
-	}
-	else {
+	} else {
 		return (XFLASH_READY);
 	}
 }
@@ -1679,11 +1674,11 @@ static void SendCmdSeq64(u32 BaseAddress, u32 Offset, u32 Cmd1, u32 Cmd2)
 *
 ******************************************************************************/
 static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
-			 void *SrcPtr, u32 Bytes)
+			void *SrcPtr, u32 Bytes)
 {
 	XFlashVendorData_Intel *DevDataPtr;
-	u8 *SrcWordPtr = (u8*)SrcPtr;
-	u8 *DestWordPtr = (u8*)DestPtr;
+	u8 *SrcWordPtr = (u8 *)SrcPtr;
+	u8 *DestWordPtr = (u8 *)DestPtr;
 	u8 StatusReg;
 	u8 ReadyMask;
 	u32 BytesLeft = Bytes;
@@ -1701,7 +1696,7 @@ static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
 	 * Determine if a partial first buffer must be programmed.
 	 */
 	PartialBytes = (u32) DestWordPtr &
-		InstancePtr->Properties.ProgCap.WriteBufferAlignmentMask;
+		       InstancePtr->Properties.ProgCap.WriteBufferAlignmentMask;
 
 	/*
 	 * This write cycle programs the first partial write buffer.
@@ -1712,7 +1707,7 @@ static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
 		 * Count is the number of write cycles left after pre-filling
 		 * the write buffer with 0xFFFF.
 		 */
-		DestWordPtr = (u8*)((u32) DestWordPtr - PartialBytes);
+		DestWordPtr = (u8 *)((u32) DestWordPtr - PartialBytes);
 		Count = InstancePtr->Properties.ProgCap.WriteBufferSize;
 
 		/*
@@ -1721,7 +1716,7 @@ static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
 		 * maximum).
 		 */
 		WRITE_FLASH_8(DestWordPtr,
-			InstancePtr->Command.WriteBufferCommand);
+			      InstancePtr->Command.WriteBufferCommand);
 
 		StatusReg = READ_FLASH_8(DestWordPtr);
 		while ((StatusReg & ReadyMask) != ReadyMask) {
@@ -1751,7 +1746,7 @@ static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
 			 */
 			if (BytesLeft >= 1) {
 				WRITE_FLASH_8(&DestWordPtr[Index],
-						SrcWordPtr[Index]);
+					      SrcWordPtr[Index]);
 				BytesLeft -= 1;
 			}
 
@@ -1795,7 +1790,7 @@ static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
 		 * maximum).
 		 */
 		WRITE_FLASH_8(DestWordPtr,
-			InstancePtr->Command.WriteBufferCommand);
+			      InstancePtr->Command.WriteBufferCommand);
 		StatusReg = READ_FLASH_8(DestWordPtr);
 		while ((StatusReg & ReadyMask) != ReadyMask) {
 			StatusReg = READ_FLASH_8(DestWordPtr);
@@ -1837,7 +1832,7 @@ static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
 		 * maximum).
 		 */
 		WRITE_FLASH_8(DestWordPtr,
-			InstancePtr->Command.WriteBufferCommand);
+			      InstancePtr->Command.WriteBufferCommand);
 
 		StatusReg = READ_FLASH_8(DestWordPtr);
 		while ((StatusReg & ReadyMask) != ReadyMask) {
@@ -1856,7 +1851,7 @@ static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
 			 */
 			if (BytesLeft >= 1) {
 				WRITE_FLASH_8(&DestWordPtr[Index],
-							SrcWordPtr[Index]);
+					      SrcWordPtr[Index]);
 				BytesLeft -= 1;
 			}
 
@@ -1922,11 +1917,11 @@ static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
 *
 ******************************************************************************/
 static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
-			 void *SrcPtr, u32 Bytes)
+					void *SrcPtr, u32 Bytes)
 {
 	XFlashVendorData_Intel *DevDataPtr;
-	u16 *SrcWordPtr = (u16*)SrcPtr;
-	u16 *DestWordPtr = (u16*)DestPtr;
+	u16 *SrcWordPtr = (u16 *)SrcPtr;
+	u16 *DestWordPtr = (u16 *)DestPtr;
 	u32 BaseAddress;
 	u32 BytesLeft = Bytes;
 	u32 PartialBytes;
@@ -1948,7 +1943,7 @@ static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
 	 * Determine if a partial first buffer must be programmed.
 	 */
 	PartialBytes = (u32) DestWordPtr &
-		InstancePtr->Properties.ProgCap.WriteBufferAlignmentMask;
+		       InstancePtr->Properties.ProgCap.WriteBufferAlignmentMask;
 
 	/*
 	 * This write cycle programs the first partial write buffer.
@@ -1959,7 +1954,7 @@ static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
 		 * Count is the number of write cycles left after pre-filling
 		 * the write buffer with 0xFFFF.
 		 */
-		DestWordPtr = (u16*)((u32) DestWordPtr - PartialBytes);
+		DestWordPtr = (u16 *)((u32) DestWordPtr - PartialBytes);
 		Count = InstancePtr->Properties.ProgCap.WriteBufferSize >> 1;
 
 		/*
@@ -1967,7 +1962,7 @@ static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
 		 * be written (always the maximum).
 		 */
 		WRITE_FLASH_16(DestWordPtr,
-			InstancePtr->Command.WriteBufferCommand);
+			       InstancePtr->Command.WriteBufferCommand);
 
 		WRITE_FLASH_16(DestWordPtr, DevDataPtr->WriteBufferWordCount);
 
@@ -1989,7 +1984,7 @@ static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
 			/* Full word */
 			if (BytesLeft > 1) {
 				WRITE_FLASH_16(&DestWordPtr[Index],
-						SrcWordPtr[Index]);
+					       SrcWordPtr[Index]);
 				BytesLeft -= 2;
 			}
 
@@ -2000,13 +1995,13 @@ static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
 
 			/* Partial word */
 			else {	/* BytesLeft == 1 */
-				#ifdef XPAR_AXI_EMC
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_16(&DestWordPtr[Index],
 					       0xFF00 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_16(&DestWordPtr[Index],
 					       0x00FF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft--;
 			}
 			Index++;
@@ -2043,7 +2038,7 @@ static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
 		 * be written (always the maximum).
 		 */
 		WRITE_FLASH_16(DestWordPtr,
-			InstancePtr->Command.WriteBufferCommand);
+			       InstancePtr->Command.WriteBufferCommand);
 
 		WRITE_FLASH_16(DestWordPtr, DevDataPtr->WriteBufferWordCount);
 
@@ -2082,7 +2077,7 @@ static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
 		 * be written (always the maximum).
 		 */
 		WRITE_FLASH_16(DestWordPtr,
-			InstancePtr->Command.WriteBufferCommand);
+			       InstancePtr->Command.WriteBufferCommand);
 
 		WRITE_FLASH_16(DestWordPtr, DevDataPtr->WriteBufferWordCount);
 
@@ -2096,7 +2091,7 @@ static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
 			 */
 			if (BytesLeft > 1) {
 				WRITE_FLASH_16(&DestWordPtr[Index],
-							SrcWordPtr[Index]);
+					       SrcWordPtr[Index]);
 				BytesLeft -= 2;
 			}
 
@@ -2107,13 +2102,13 @@ static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
 			/* Partial word */
 			else {	/* BytesLeft == 1 */
 
-				#ifdef XPAR_AXI_EMC
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_16(&DestWordPtr[Index],
 					       0xFF00 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_16(&DestWordPtr[Index],
 					       0x00FF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft--;
 			}
 			Index++;
@@ -2173,11 +2168,11 @@ static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
 *
 ******************************************************************************/
 static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
-			 void *SrcPtr, u32 Bytes)
+				       void *SrcPtr, u32 Bytes)
 {
 	XFlashVendorData_Intel *DevDataPtr;
-	u16 *SrcWordPtr = (u16*)SrcPtr;
-	u16 *DestWordPtr = (u16*)DestPtr;
+	u16 *SrcWordPtr = (u16 *)SrcPtr;
+	u16 *DestWordPtr = (u16 *)DestPtr;
 	u16 StatusReg;
 	u16 ReadyMask;
 	u32 BaseAddress;
@@ -2202,7 +2197,7 @@ static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 	 * Determine if a partial first buffer must be programmed.
 	 */
 	PartialBytes = (u32) DestWordPtr &
-		InstancePtr->Properties.ProgCap.WriteBufferAlignmentMask;
+		       InstancePtr->Properties.ProgCap.WriteBufferAlignmentMask;
 
 	/*
 	 * This write cycle programs the first partial write buffer.
@@ -2213,7 +2208,7 @@ static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 		 * Count is the number of write cycles left after pre-filling
 		 * the write buffer with 0xFFFF.
 		 */
-		DestWordPtr = (u16*)((u32) DestWordPtr - PartialBytes);
+		DestWordPtr = (u16 *)((u32) DestWordPtr - PartialBytes);
 		Count = InstancePtr->Properties.ProgCap.WriteBufferSize >> 1;
 
 		/*
@@ -2222,7 +2217,7 @@ static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 		 * maximum).
 		 */
 		WRITE_FLASH_16(DestWordPtr,
-			InstancePtr->Command.WriteBufferCommand);
+			       InstancePtr->Command.WriteBufferCommand);
 
 		StatusReg = READ_FLASH_16(DestWordPtr);
 		while ((StatusReg & ReadyMask) != ReadyMask) {
@@ -2250,7 +2245,7 @@ static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 			/* Full word */
 			if (BytesLeft > 1) {
 				WRITE_FLASH_16(&DestWordPtr[Index],
-						SrcWordPtr[Index]);
+					       SrcWordPtr[Index]);
 				BytesLeft -= 2;
 			}
 
@@ -2261,13 +2256,13 @@ static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 
 			/* Partial word */
 			else {	/* BytesLeft == 1 */
-				#ifdef XPAR_AXI_EMC
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_16(&DestWordPtr[Index],
 					       0xFF00 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_16(&DestWordPtr[Index],
 					       0x00FF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft--;
 			}
 			Index++;
@@ -2305,7 +2300,7 @@ static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 		 * maximum).
 		 */
 		WRITE_FLASH_16(DestWordPtr,
-			InstancePtr->Command.WriteBufferCommand);
+			       InstancePtr->Command.WriteBufferCommand);
 		StatusReg = READ_FLASH_16(DestWordPtr);
 		while ((StatusReg & ReadyMask) != ReadyMask) {
 			StatusReg = READ_FLASH_16(DestWordPtr);
@@ -2348,7 +2343,7 @@ static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 		 * maximum).
 		 */
 		WRITE_FLASH_16(DestWordPtr,
-			InstancePtr->Command.WriteBufferCommand);
+			       InstancePtr->Command.WriteBufferCommand);
 
 		StatusReg = READ_FLASH_16(DestWordPtr);
 		while ((StatusReg & ReadyMask) != ReadyMask) {
@@ -2367,7 +2362,7 @@ static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 			 */
 			if (BytesLeft > 1) {
 				WRITE_FLASH_16(&DestWordPtr[Index],
-							SrcWordPtr[Index]);
+					       SrcWordPtr[Index]);
 				BytesLeft -= 2;
 			}
 
@@ -2378,13 +2373,13 @@ static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 			/* Partial word */
 			else {	/* BytesLeft == 1 */
 
-				#ifdef XPAR_AXI_EMC
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_16(&DestWordPtr[Index],
 					       0xFF00 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_16(&DestWordPtr[Index],
 					       0x00FF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft--;
 			}
 			Index++;
@@ -2436,10 +2431,10 @@ static int WriteBuffer16(XFlash *InstancePtr, void *DestPtr,
 	u32 Status = (u32)XST_FAILURE;
 	if (InstancePtr->Properties.PartID.DeviceID == 0x01) {
 		Status = WriteBufferStrataFlashDevice(InstancePtr, DestPtr,
-							SrcPtr, Bytes);
+						      SrcPtr, Bytes);
 	} else {
 		Status = WriteBufferIntelFlashDevice(InstancePtr, DestPtr,
-							SrcPtr, Bytes);
+						     SrcPtr, Bytes);
 	}
 	return Status;
 }
@@ -2486,8 +2481,8 @@ static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
 			 void *SrcPtr, u32 Bytes)
 {
 	XFlashVendorData_Intel *DevDataPtr;
-	u32 *SrcWordPtr = (u32*)SrcPtr;
-	u32 *DestWordPtr = (u32*)DestPtr;
+	u32 *SrcWordPtr = (u32 *)SrcPtr;
+	u32 *DestWordPtr = (u32 *)DestPtr;
 	u32 StatusReg;
 	u32 ReadyMask;
 	u32 BaseAddress;
@@ -2512,7 +2507,7 @@ static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
 	 * Determine if a partial first buffer must be programmed.
 	 */
 	PartialBytes = (u32) DestWordPtr &
-		InstancePtr->Properties.ProgCap.WriteBufferAlignmentMask;
+		       InstancePtr->Properties.ProgCap.WriteBufferAlignmentMask;
 
 	/*
 	 * This write cycle programs the first partial write buffer.
@@ -2524,7 +2519,7 @@ static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
 		 * Count is the number of write cycles left after pre-filling
 		 * the write buffer with 0xFFFF.
 		 */
-		DestWordPtr = (u32*)((u32) DestWordPtr - PartialBytes);
+		DestWordPtr = (u32 *)((u32) DestWordPtr - PartialBytes);
 		Count = InstancePtr->Properties.ProgCap.WriteBufferSize >> 2;
 
 		/*
@@ -2533,7 +2528,7 @@ static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
 		 * Write number of words to be written (always the maximum).
 		 */
 		WRITE_FLASH_32(DestWordPtr,
-			InstancePtr->Command.WriteBufferCommand);
+			       InstancePtr->Command.WriteBufferCommand);
 		StatusReg = READ_FLASH_32(DestWordPtr);
 		while ((StatusReg & ReadyMask) != ReadyMask) {
 			StatusReg = READ_FLASH_32(DestWordPtr);
@@ -2558,7 +2553,7 @@ static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
 			/* Full word */
 			if (BytesLeft > 3) {
 				WRITE_FLASH_32(&DestWordPtr[Index],
-							SrcWordPtr[Index]);
+					       SrcWordPtr[Index]);
 				BytesLeft -= 4;
 			}
 
@@ -2569,33 +2564,31 @@ static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
 
 			/* Partial word */
 			else if (BytesLeft == 1) {
-				#ifdef XPAR_AXI_EMC
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0xFFFFFF00 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0x00FFFFFF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft--;
-			}
-			else if (BytesLeft == 2) {
-				#ifdef XPAR_AXI_EMC
+			} else if (BytesLeft == 2) {
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0xFFFF0000 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0x0000FFFF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft -= 2;
-			}
-			else {	/* BytesLeft == 3 */
-				#ifdef XPAR_AXI_EMC
+			} else {	/* BytesLeft == 3 */
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0xFF000000 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0x000000FF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft -= 3;
 			}
 			Index++;
@@ -2633,7 +2626,7 @@ static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
 		 * Write number of words to be written (always the maximum).
 		 */
 		WRITE_FLASH_32(DestWordPtr,
-			InstancePtr->Command.WriteBufferCommand);
+			       InstancePtr->Command.WriteBufferCommand);
 		StatusReg = READ_FLASH_32(DestWordPtr);
 		while ((StatusReg & ReadyMask) != ReadyMask) {
 			StatusReg = READ_FLASH_32(DestWordPtr);
@@ -2676,7 +2669,7 @@ static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
 		 * Write number of words to be written (always the maximum).
 		 */
 		WRITE_FLASH_32(DestWordPtr,
-			InstancePtr->Command.WriteBufferCommand);
+			       InstancePtr->Command.WriteBufferCommand);
 		StatusReg = READ_FLASH_32(DestWordPtr);
 		while ((StatusReg & ReadyMask) != ReadyMask) {
 			StatusReg = READ_FLASH_32(DestWordPtr);
@@ -2693,7 +2686,7 @@ static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
 			 */
 			if (BytesLeft > 3) {
 				WRITE_FLASH_32(&DestWordPtr[Index],
-							SrcWordPtr[Index]);
+					       SrcWordPtr[Index]);
 				BytesLeft -= 4;
 			}
 
@@ -2704,34 +2697,32 @@ static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
 
 			/* Partial word */
 			else if (BytesLeft == 1) {
-				#ifdef XPAR_AXI_EMC
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0xFFFFFF00 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0x00FFFFFF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft--;
-			}
-			else if (BytesLeft == 2) {
-				#ifdef XPAR_AXI_EMC
+			} else if (BytesLeft == 2) {
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0xFFFF0000 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0x0000FFFF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft -= 2;
-			}
-			else {	/* BytesLeft == 3 */
+			} else {	/* BytesLeft == 3 */
 
-				#ifdef XPAR_AXI_EMC
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0xFF000000 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0x000000FF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft -= 3;
 			}
 			Index++;
@@ -2795,8 +2786,8 @@ static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
 			 void *SrcPtr, u32 Bytes)
 {
 	XFlashVendorData_Intel *DevDataPtr;
-	u32 *SrcWordPtr = (u32*)SrcPtr;
-	u32 *DestWordPtr = (u32*)DestPtr;
+	u32 *SrcWordPtr = (u32 *)SrcPtr;
+	u32 *DestWordPtr = (u32 *)DestPtr;
 	Xuint64 StatusReg;
 	u32 BaseAddress;
 	u32 ReadyMask;
@@ -2824,7 +2815,7 @@ static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
 	 * Determine if a partial first buffer must be programmed.
 	 */
 	PartialBytes = (u32) DestWordPtr &
-		InstancePtr->Properties.ProgCap.WriteBufferAlignmentMask;
+		       InstancePtr->Properties.ProgCap.WriteBufferAlignmentMask;
 
 	/*
 	 * This write cycle programs the first partial write buffer.
@@ -2835,7 +2826,7 @@ static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
 		 * Count is the number of write cycles left after pre-filling
 		 * the write buffer with 0xFFFF.
 		 */
-		DestWordPtr = (u32*)((u32) DestWordPtr - PartialBytes);
+		DestWordPtr = (u32 *)((u32) DestWordPtr - PartialBytes);
 		Count = InstancePtr->Properties.ProgCap.WriteBufferSize >> 2;
 
 		/*
@@ -2844,8 +2835,8 @@ static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
 		 * Write number of words to be written (always the maximum)
 		 */
 		WRITE_FLASH_64x2(DestWordPtr,
-				InstancePtr->Command.WriteBufferCommand,
-				InstancePtr->Command.WriteBufferCommand);
+				 InstancePtr->Command.WriteBufferCommand,
+				 InstancePtr->Command.WriteBufferCommand);
 		READ_FLASH_64(DestWordPtr, StatusReg);
 		while (((XUINT64_MSW(StatusReg) & ReadyMask) != ReadyMask) ||
 		       ((XUINT64_LSW(StatusReg) & ReadyMask) != ReadyMask)) {
@@ -2872,7 +2863,7 @@ static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
 			/* Full word */
 			if (BytesLeft > 3) {
 				WRITE_FLASH_32(&DestWordPtr[Index],
-				SrcWordPtr[Index]);
+					       SrcWordPtr[Index]);
 				BytesLeft -= 4;
 			}
 
@@ -2883,34 +2874,32 @@ static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
 
 			/* Partial word */
 			else if (BytesLeft == 1) {
-				#ifdef XPAR_AXI_EMC
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0xFFFFFF00 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0x00FFFFFF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft--;
-			}
-			else if (BytesLeft == 2) {
-				#ifdef XPAR_AXI_EMC
+			} else if (BytesLeft == 2) {
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0xFFFF0000 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0x0000FFFF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft -= 2;
-			}
-			else {	/* BytesLeft == 3 */
+			} else {	/* BytesLeft == 3 */
 
-				#ifdef XPAR_AXI_EMC
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0xFF000000 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0x000000FF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft -= 3;
 			}
 			Index++;
@@ -2949,12 +2938,12 @@ static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
 		 * Write number of words to be written (always the maximum)
 		 */
 		WRITE_FLASH_64x2(DestWordPtr,
-				InstancePtr->Command.WriteBufferCommand,
-				InstancePtr->Command.WriteBufferCommand);
+				 InstancePtr->Command.WriteBufferCommand,
+				 InstancePtr->Command.WriteBufferCommand);
 
 		READ_FLASH_64(DestWordPtr, StatusReg);
 		while (((XUINT64_MSW(StatusReg) & ReadyMask) != ReadyMask) ||
-			((XUINT64_LSW(StatusReg) & ReadyMask) != ReadyMask)) {
+		       ((XUINT64_LSW(StatusReg) & ReadyMask) != ReadyMask)) {
 			READ_FLASH_64(DestWordPtr, StatusReg);
 		}
 		WRITE_FLASH_64x2(DestWordPtr, DevDataPtr->WriteBufferWordCount,
@@ -2996,8 +2985,8 @@ static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
 		 * Write number of words to be written (always the maximum).
 		 */
 		WRITE_FLASH_64x2(DestWordPtr,
-				InstancePtr->Command.WriteBufferCommand,
-				InstancePtr->Command.WriteBufferCommand);
+				 InstancePtr->Command.WriteBufferCommand,
+				 InstancePtr->Command.WriteBufferCommand);
 
 		while (((XUINT64_MSW(StatusReg) & ReadyMask) != ReadyMask) ||
 		       ((XUINT64_LSW(StatusReg) & ReadyMask) != ReadyMask)) {
@@ -3016,7 +3005,7 @@ static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
 			 */
 			if (BytesLeft > 3) {
 				WRITE_FLASH_32(&DestWordPtr[Index],
-							SrcWordPtr[Index]);
+					       SrcWordPtr[Index]);
 				BytesLeft -= 4;
 			}
 
@@ -3027,34 +3016,32 @@ static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
 
 			/* Partial word. */
 			else if (BytesLeft == 1) {
-				#ifdef XPAR_AXI_EMC
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0xFFFFFF00 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0x00FFFFFF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft--;
-			}
-			else if (BytesLeft == 2) {
-				#ifdef XPAR_AXI_EMC
+			} else if (BytesLeft == 2) {
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0xFFFF0000 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0x0000FFFF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft -= 2;
-			}
-			else {	/* BytesLeft == 3. */
+			} else {	/* BytesLeft == 3. */
 
-				#ifdef XPAR_AXI_EMC
+#ifdef XPAR_AXI_EMC
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0xFF000000 | SrcWordPtr[Index]);
-				#else
+#else
 				WRITE_FLASH_32(&DestWordPtr[Index],
 					       0x000000FF | SrcWordPtr[Index]);
-				#endif
+#endif
 				BytesLeft -= 3;
 			}
 			Index++;
@@ -3102,7 +3089,7 @@ static void GetPartID(XFlash *InstancePtr)
 	Interleave = (InstancePtr->Geometry.MemoryLayout &
 		      XFL_LAYOUT_CFI_INTERL_MASK) >> 24;
 	Mode = (InstancePtr->Geometry.MemoryLayout &
-		      XFL_LAYOUT_PART_MODE_MASK) >> 8;
+		XFL_LAYOUT_PART_MODE_MASK) >> 8;
 
 	/*
 	 * Send Read id codes command.
@@ -3115,14 +3102,14 @@ static void GetPartID(XFlash *InstancePtr)
 	 */
 	XFL_CFI_POSITION_PTR(Ptr, CmdAddress, Interleave, 0);
 	InstancePtr->Properties.PartID.ManufacturerID =
-		XFlashCFI_Read8((u8*)Ptr, Interleave, Mode);
+		XFlashCFI_Read8((u8 *)Ptr, Interleave, Mode);
 
 	/*
 	 * Retrieve Device Code located at word offset 1.
 	 */
 	XFL_CFI_ADVANCE_PTR8(Ptr, Interleave);
 	InstancePtr->Properties.PartID.DeviceID =
-		XFlashCFI_Read8((u8*)Ptr, Interleave, Mode);
+		XFlashCFI_Read8((u8 *)Ptr, Interleave, Mode);
 
 	/*
 	 * Place device(s) back into read-array mode.
@@ -3157,24 +3144,24 @@ static int SetRYBY(XFlash *InstancePtr, u32 Mode)
 	 * Determine which command code to use.
 	 */
 	switch (Mode) {
-	case XFL_INTEL_RYBY_PULSE_OFF:
-		Cmd = XFL_INTEL_CONFIG_RYBY_LEVEL;
-		break;
+		case XFL_INTEL_RYBY_PULSE_OFF:
+			Cmd = XFL_INTEL_CONFIG_RYBY_LEVEL;
+			break;
 
-	case XFL_INTEL_RYBY_PULSE_ON_ERASE:
-		Cmd = XFL_INTEL_CONFIG_RYBY_PULSE_ERASE;
-		break;
+		case XFL_INTEL_RYBY_PULSE_ON_ERASE:
+			Cmd = XFL_INTEL_CONFIG_RYBY_PULSE_ERASE;
+			break;
 
-	case XFL_INTEL_RYBY_PULSE_ON_PROG:
-		Cmd = XFL_INTEL_CONFIG_RYBY_PULSE_WRITE;
-		break;
+		case XFL_INTEL_RYBY_PULSE_ON_PROG:
+			Cmd = XFL_INTEL_CONFIG_RYBY_PULSE_WRITE;
+			break;
 
-	case XFL_INTEL_RYBY_PULSE_ON_ERASE_PROG:
-		Cmd = XFL_INTEL_CONFIG_RYBY_PULSE_ALL;
-		break;
+		case XFL_INTEL_RYBY_PULSE_ON_ERASE_PROG:
+			Cmd = XFL_INTEL_CONFIG_RYBY_PULSE_ALL;
+			break;
 
-	default:
-		return (XFLASH_NOT_SUPPORTED);
+		default:
+			return (XFLASH_NOT_SUPPORTED);
 	}
 
 	/*
@@ -3228,8 +3215,8 @@ static u16 EnqueueEraseBlocks(XFlash *InstancePtr, u16 *Region,
 	(void) XFlashGeometry_ToAbsolute(GeomPtr, *Region, *Block, 0,
 					 &BlockAddress);
 	DevDataPtr->SendCmdSeq(GeomPtr->BaseAddress, BlockAddress,
-				XFL_INTEL_CMD_BLOCK_ERASE,
-				XFL_INTEL_CMD_CONFIRM);
+			       XFL_INTEL_CMD_BLOCK_ERASE,
+			       XFL_INTEL_CMD_CONFIRM);
 
 	/*
 	 * Increment Region/Block.
