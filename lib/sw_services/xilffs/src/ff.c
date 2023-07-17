@@ -31,8 +31,15 @@
 *       mn   04/23/20 Add partition 0 for supporting default partition
 * 4.7   sk   11/11/21 Add DCache invalidate for last unaligned byte count
 *                     (< 512 bytes) in f_read().
+* 5.1   ro   06/12/23 Added support for system device-tree flow.
 ******************************************************************************/
 #include "xparameters.h"
+#include "xstatus.h"
+
+#ifdef SDT
+#include "xilffs_config.h"
+#endif
+
 #if (defined FILE_SYSTEM_INTERFACE_SD) || (defined FILE_SYSTEM_INTERFACE_RAM)
 #include "ff.h"			/* Declarations of FatFs API */
 #include "diskio.h"		/* Declarations of device I/O functions */

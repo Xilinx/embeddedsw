@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------*/
-/* Low level disk I/O module skeleton for FatFs     (C)ChaN, 2016        */
+/* Low level disk I/O module skeleton for FatFs Copyright (C)ChaN, 2016  */
 /*-----------------------------------------------------------------------*/
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
@@ -67,6 +67,7 @@
 * 4.5   sk   03/31/21 Maintain discrete global variables for each controller.
 * 4.6   sk   07/20/21 Fixed compilation warning in RAM interface.
 * 4.8   sk   05/05/22 Replace standard lib functions with Xilinx functions.
+* 5.1   ro   06/12/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -76,6 +77,11 @@
 #include "diskio.h"
 #include "ff.h"
 #include "xil_types.h"
+#include "xstatus.h"
+
+#ifdef SDT
+#include "xilffs_config.h"
+#endif
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
 #include "xsdps.h"		/* SD device driver */
@@ -151,7 +157,14 @@ DSTATUS disk_status (
 		if (SdInstance[pdrv].Config.BaseAddress == (u32)0) {
 				XSdPs_Config *SdConfig;
 
+#ifndef SDT
 				SdConfig = XSdPs_LookupConfig((u16)pdrv);
+#else
+				if (pdrv < XPAR_XSDPS_NUM_INSTANCES)
+					SdConfig = XSdPs_LookupConfig(XSdPs_ConfigTable[pdrv].BaseAddress);
+				else
+					SdConfig = NULL;
+#endif
 				if (NULL == SdConfig) {
 					s |= STA_NOINIT;
 					return s;

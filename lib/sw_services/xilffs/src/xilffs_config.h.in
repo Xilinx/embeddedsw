@@ -1,0 +1,29 @@
+/******************************************************************************
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef XILFFS_CONFIG_H
+#define XILFFS_CONFIG_H
+
+#include "xparameters.h"
+
+#if (defined XPAR_XSDPS_0_BASEADDR)
+#cmakedefine FILE_SYSTEM_INTERFACE_SD @FILE_SYSTEM_INTERFACE_SD@
+#endif
+
+#cmakedefine FILE_SYSTEM_INTERFACE_RAM @FILE_SYSTEM_INTERFACE_RAM@
+#cmakedefine RAMFS_SIZE @RAMFS_SIZE@
+#cmakedefine RAMFS_START_ADDR @RAMFS_START_ADDR@
+
+#cmakedefine FILE_SYSTEM_READ_ONLY @FILE_SYSTEM_READ_ONLY@
+#cmakedefine FILE_SYSTEM_FS_EXFAT @FILE_SYSTEM_FS_EXFAT@
+#cmakedefine FILE_SYSTEM_USE_LFN @FILE_SYSTEM_USE_LFN@
+#cmakedefine FILE_SYSTEM_USE_MKFS @FILE_SYSTEM_USE_MKFS@
+#cmakedefine FILE_SYSTEM_MULTI_PARTITION @FILE_SYSTEM_MULTI_PARTITION@
+#cmakedefine FILE_SYSTEM_USE_CHMOD @FILE_SYSTEM_USE_CHMOD@
+#cmakedefine FILE_SYSTEM_NUM_LOGIC_VOL @FILE_SYSTEM_NUM_LOGIC_VOL@
+#cmakedefine FILE_SYSTEM_WORD_ACCESS @FILE_SYSTEM_WORD_ACCESS@
+#cmakedefine01 FILE_SYSTEM_USE_STRFUNC @FILE_SYSTEM_USE_STRFUNC@
+#cmakedefine01 FILE_SYSTEM_SET_FS_RPATH @FILE_SYSTEM_SET_FS_RPATH@
+
+#endif /* XILFFS_CONFIG_H */
