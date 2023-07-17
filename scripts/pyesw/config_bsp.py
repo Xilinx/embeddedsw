@@ -139,7 +139,10 @@ def configure_bsp(args):
             else:
                 prop_data = entries.split(":")
                 component_name = prop_data[0]
-                component_path = prop_data[1]
+                if os.name == "nt":
+                    component_path = str(prop_data[1] + ":" + prop_data[2])
+                else:
+                    component_path = prop_data[1]
                 # Update the .repo.yaml and the bsp.yaml paths
                 repo_metadata = utils.load_yaml(repo_yaml)
                 # Get the index
