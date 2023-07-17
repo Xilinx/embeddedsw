@@ -82,14 +82,14 @@ extern "C" {
 								     * internal
 								     * reference
 								     */
-#define XDPTXSS_LINK_BW_SET_SW_20GBPS	0x22			   /**< 20
+#define XDPTXSS_LINK_BW_SET_SW_20GBPS	0x24			   /**< 20
 								     *  Gbps
 								     * link
 								     * rate.
 								     * internal
 								     * reference
 								     */
-#define XDPTXSS_LINK_BW_SET_SW_135GBPS	0x24			   /**< 13.5
+#define XDPTXSS_LINK_BW_SET_SW_135GBPS	0x22			   /**< 13.5
 								     *  Gbps
 								     * link
 								     * rate.
