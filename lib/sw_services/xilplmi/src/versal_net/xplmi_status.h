@@ -40,6 +40,7 @@
 *       bm   07/06/2023 Added XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS error code
 *       sk   07/10/2023 Removed XLOADER_ERR_TCM_ADDR_OUTOF_RANGE error code
 *       am   07/07/2023 Added error code for Read IHT optional data
+*       bm   07/17/2023 Removed XPLMI_ERR_PLM_UPDATE_NO_DS_FOUND error code
 *
 * </pre>
 *
@@ -268,9 +269,7 @@ typedef enum {
 						in storing of Data Structures during InPlace PLM Update */
 	XPLMI_ERR_INVALID_RESTORE_DS_HANDLER, /**< 0x1A4 - Error due to invalid Data Structure Handler used
 						in restoring of Data Structures during InPlace PLM Update */
-	XPLMI_ERR_PLM_UPDATE_NO_DS_FOUND, /**< 0x1A5 - Error when no Data Structure is found whose structure ID
-						and module ID are matching while restoring of Data Structures
-						during InPlace PLM Update */
+	XPLMI_ERR_PLAT_RESERVED0, /**< 0x1A5 - Platform specific Reserved Error 0 */
 	XPLMI_ERR_INVALID_DS_ENTRY, 	/**< 0x1A6 - Error when a invalid Data Structure entry is passed
 						to the PLM Db Update Handler */
 	XPLMI_ERR_DS_ALIGNMENT_INCORRECT, /**< 0x1A7 - Error when the alignment of Data Structure used during

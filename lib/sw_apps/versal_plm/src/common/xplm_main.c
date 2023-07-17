@@ -40,6 +40,7 @@
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 * 1.07  ng   11/11/2022 Updated doxygen comments
+* 1.08  bm   07/17/2023 Moved Exception Init early in the code flow
 * </pre>
 *
 * @note
@@ -122,10 +123,8 @@ static int XPlm_Init(void)
 {
 	int Status = XST_FAILURE;
 
-	Status = XPlmi_UpdateInit(XPlm_CompatibilityCheck);
-	if (Status != XST_SUCCESS) {
-		XPlmi_ErrMgr(Status);
-	}
+	/** Initialize PLM exceptions */
+	XPlm_ExceptionInit();
 
 	/**
 	 * Disable CFRAME isolation for VCCRAM for Versal ES1 Silicon
@@ -138,13 +137,22 @@ static int XPlm_Init(void)
 	 */
 	XPlmi_PpuWakeUpDis();
 
+	/**
+	 * Initialize PLM Update related handlers and perform
+	 * DS restoring. This is applicable only for Versal Net
+	 */
+	Status = XPlmi_UpdateInit(XPlm_CompatibilityCheck);
+	if (Status != XST_SUCCESS) {
+		XPlmi_ErrMgr(Status);
+	}
+
 	/** Initialize debug log buffer structure */
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
 		XPlmi_InitDebugLogBuffer();
 	}
 
-	/** Initialize the processor, enable exceptions */
-	Status = XPlm_InitProc();
+	/** Initialize timers */
+	Status = XPlmi_StartTimer();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

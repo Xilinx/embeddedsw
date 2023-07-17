@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   03/27/2018 Initial release
 * 1.01  kc   03/23/2020 Minor code cleanup
+* 1.02  bm   07/17/2023 Removed XPlm_InitProc prototype, Added XPlm_ExceptionInit
+*                       prototype
 *
 * </pre>
 *
@@ -40,7 +43,7 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlm_InitProc(void);
+void XPlm_ExceptionInit(void);
 
 #ifdef __cplusplus
 }
