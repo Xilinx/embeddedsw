@@ -60,6 +60,7 @@ def create_app(args):
     """
     obj = App(args)
 
+    domain_data = utils.fetch_yaml_data(obj.domain_config_file, "domain")
     # Copy the application src directory from embeddedsw to app src folder.
     esw_app_dir = obj.get_comp_dir(obj.template)
     srcdir = os.path.join(esw_app_dir, "src")
@@ -78,6 +79,17 @@ def create_app(args):
             src_cmake,
             f'APP_NAME {obj.template}',
             f'set(APP_NAME {obj.app_name})',
+        )
+
+    # in case of library update link libraries
+    if domain_data['lib_info']:
+        src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")
+        lib_list = list(domain_data['lib_info'].keys())
+        cmake_lib_list = ';'.join(lib_list)
+        utils.replace_line(
+            src_cmake,
+            f'PROJECT_LIB_DEPS xiltimer',
+            f'collect(PROJECT_LIB_DEPS {cmake_lib_list})\n',
         )
 
     # Checks if the app depends on any driver, if yest, generates the corresponding metadata

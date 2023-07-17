@@ -91,7 +91,7 @@ def create_example(args):
         f'set(APP_NAME {obj.app_name.replace(".c", "")})',
     )
     # in case of library update link libraries
-    if obj.name in domain_data['lib_info']:
+    if domain_data['lib_info']:
         lib_list = list(domain_data['lib_info'].keys())
         cmake_lib_list = ';'.join(lib_list)
         utils.replace_line(
