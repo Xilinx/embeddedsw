@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,6 +62,7 @@
 *                       for Gen 1/2 devices.
 *       cog    09/21/20 Fixed case where partial reconfiguration was being
 *                       implemented.
+* 12.1  cog    07/14/23 Modified for SDT flow
 *
 * </pre>
 *
@@ -68,7 +70,9 @@
 
 /***************************** Include Files ********************************/
 #ifdef __BAREMETAL__
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #endif
 #include "xrfdc.h"
 #ifdef XPS_BOARD_ZCU111
@@ -83,10 +87,15 @@
  * change all the needed parameters in one place.
  */
 #ifdef __BAREMETAL__
+#ifndef SDT
 #define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
 #define I2CBUS	1
 #define XRFDC_BASE_ADDR		XPAR_XRFDC_0_BASEADDR
 #define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME
+#else
+#define RFDC_DEVICE_ID 	0
+#define I2CBUS	1
+#endif
 #else
 #define RFDC_DEVICE_ID 	0
 #define I2CBUS	12
@@ -129,15 +138,13 @@ unsigned int LMK04208_CKin[1][26] = {
 #endif
 
 #ifdef __BAREMETAL__
-metal_phys_addr_t metal_phys = XRFDC_BASE_ADDR;
+metal_phys_addr_t metal_phys;
 static struct metal_device CustomDev = {
 	/* RFdc device */
-	.name = RFDC_DEV_NAME,
 	.bus = NULL,
 	.num_regions = 1,
 	.regions = {
 		{
-			.virt = (void *)XRFDC_BASE_ADDR,
 			.physmap = &metal_phys,
 			.size = 0x40000,
 			.page_shift = (unsigned)(-1),
@@ -260,6 +267,15 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 
 	/* Register & MAP RFDC to Libmetal */
 #ifdef __BAREMETAL__
+#ifndef SDT
+	metal_phys = XRFDC_BASE_ADDR;
+	CustomDev.name = RFDC_DEV_NAME;
+	CustomDev.regions->virt = (void *)XRFDC_BASE_ADDR;
+#else
+	metal_phys = ConfigPtr->BaseAddr;
+	CustomDev.name = ConfigPtr->Name;
+	CustomDev.regions->virt = (void *)ConfigPtr->BaseAddr;
+#endif
 	deviceptr = &CustomDev;
 #endif
 
