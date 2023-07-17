@@ -1,0 +1,50 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for SDPS controller
+
+maintainers:
+    - Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,zynqmp-8.9a
+          - arasan,sdhci-8.9a
+        - enum:
+          - xlnx,versal-8.9a
+          - arasan,sdhci-8.9a
+  reg:
+    description: Physical base address and size of the controller register map
+  clock-frequency:
+    description: Input clock frequency
+  xlnx,mio-bank: The value will be 0/1/2 depending on MIO bank selection
+  xlnx,has-cd: Indicates Card Detect pin
+  xlnx,has-wp: Write Protect for the device
+  xlnx,has-emio: Indicates if device is connected to EMIO
+  xlnx,slot-type: Indicates SD slot type depending on Slot type selection
+
+config:
+    - XSdPs_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,sdio-clk-freq-hz
+    - xlnx,has-cd
+    - xlnx,has-wp
+    - xlnx,bus-width
+    - xlnx,mio-bank
+    - xlnx,has-emio
+    - xlnx,slot-type
+    - xlnx,is-cache-coherent
+    - clocks
+examples:
+    xsdps_raw_example.c:
+        - reg
+...
