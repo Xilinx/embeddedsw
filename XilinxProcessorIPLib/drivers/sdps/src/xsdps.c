@@ -90,6 +90,7 @@
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
 *       sk     04/07/22 Add support to read custom tap delay values from design
 *                       for SD/eMMC.
+* 4.2   ro     06/12/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -157,7 +158,9 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	}
 
 	/* Set some default values. */
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 	InstancePtr->Config.CardDetect =  ConfigPtr->CardDetect;

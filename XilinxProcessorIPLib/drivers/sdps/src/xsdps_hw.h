@@ -45,6 +45,7 @@
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
 *       sk     04/07/22 Fix typo in 'XSDPS_MMC_1_BIT_BUS_ARG' macro definition.
 * 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
+* 4.2   ro     06/12/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -63,8 +64,8 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xil_io.h"
+#include "bspconfig.h"
 #include "xparameters.h"
-
 /************************** Constant Definitions *****************************/
 
 /** @name Register Map
