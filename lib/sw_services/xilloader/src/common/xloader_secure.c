@@ -121,6 +121,7 @@
 *       kpt  02/21/23 Fixed bug in XLoader_SecureClear
 *       ng   03/30/23 Updated algorithm and return values in doxygen comments
 *       sk   05/18/2023 Deprecate copy to memory feature
+*	yog  07/17/23 Added check for returning glitch error for XLoader_ChecksumInit API
 *
 * </pre>
 *
@@ -240,6 +241,9 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	Status = XLoader_ChecksumInit(SecurePtr, PrtnHdr);
 #ifndef PLM_SECURE_EXCLUDE
 	if (Status != XST_SUCCESS) {
+		if (Status == XST_SUCCESS) {
+			Status = (int)XST_GLITCH_ERROR;
+		}
 		goto END;
 	}
 
