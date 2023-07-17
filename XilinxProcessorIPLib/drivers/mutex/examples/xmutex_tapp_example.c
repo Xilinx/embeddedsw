@@ -89,7 +89,7 @@ XMutex Mutex;	/* Mutex instance */
 #ifndef SDT
 int MutexExample (u16 MutexDeviceID);
 #else
-int MutexExample (UINTPTR BaseAddress);
+int MutexExample (XMutex *MutexInstPtr, UINTPTR BaseAddress);
 #endif
 
 /*****************************************************************************/
@@ -113,7 +113,7 @@ int main(void)
 #ifndef SDT
 	if (MutexExample (MUTEX_DEVICE_ID) != XST_SUCCESS) {
 #else
-	if (MutexExample (XPAR_MUTEX_0_BASEADDR) != XST_SUCCESS) {
+	if (MutexExample (&Mutex, XPAR_MUTEX_0_BASEADDR) != XST_SUCCESS) {
 #endif
 		xil_printf ("MutexExample :\tMutex tapp Example Failed.\r\n");
 		xil_printf ("MutexExample :\tEnds.\r\n");
@@ -148,7 +148,7 @@ int main(void)
 #ifndef SDT
 int MutexExample(u16 MutexDeviceID)
 #else
-int MutexExample (UINTPTR BaseAddress)
+int MutexExample (XMutex *MutexInstPtr, UINTPTR BaseAddress)
 #endif
 {
 	XMutex_Config *ConfigPtr;
