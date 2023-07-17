@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2009 - 2019 Xilinx, Inc.
+ * Copyright (C) 2009 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -31,6 +32,8 @@
 
 void init_platform();
 void cleanup_platform();
+void TimerCounterHandler(void *CallBackRef, u32_t TmrCtrNumber);
+void init_timer();
 #ifdef __MICROBLAZE__
 void timer_callback();
 #endif

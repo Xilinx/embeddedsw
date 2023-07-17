@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2009 - 2019 Xilinx, Inc.
+ * Copyright (C) 2009 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -25,13 +26,12 @@
  * OF SUCH DAMAGE.
  *
  */
-#if __MICROBLAZE__
+#if defined(SDT) || __MICROBLAZE__
 #include "arch/cc.h"
 #include "platform.h"
 #include "platform_config.h"
 #include "xil_cache.h"
 #include "xparameters.h"
-#include "xintc.h"
 #include "xil_exception.h"
 #include "lwip/tcp.h"
 #ifdef STDOUT_IS_16550
@@ -39,6 +39,14 @@
 #endif
 
 #include "lwip/tcp.h"
+#include "xil_printf.h"
+
+#ifdef SDT
+#include "xiltimer.h"
+#include "xinterrupt_wrap.h"
+#else
+#include "xintc.h"
+#endif
 
 #if LWIP_DHCP==1
 volatile int dhcp_timoutcntr = 24;
@@ -81,6 +89,7 @@ timer_callback()
 	}
 }
 
+#ifndef SDT
 static XIntc intc;
 
 void platform_setup_interrupts()
@@ -133,6 +142,7 @@ void platform_setup_interrupts()
 
 
 }
+#endif
 
 void
 enable_caches()
@@ -163,7 +173,23 @@ void init_platform()
 	XUartNs550_SetLineControlReg(STDOUT_BASEADDR, XUN_LCR_8_DATA_BITS);
 #endif
 
+#ifndef SDT
 	platform_setup_interrupts();
+#else
+	init_timer();
+#endif
+
+}
+
+void TimerCounterHandler(void *CallBackRef, u32_t TmrCtrNumber)
+{
+	timer_callback();
+}
+void init_timer()
+{
+	/* Calibrate the platform timer for 250 ms */
+	XTimer_SetInterval(250);
+	XTimer_SetHandler(TimerCounterHandler, 0, XINTERRUPT_DEFAULT_PRIORITY);
 }
 
 void cleanup_platform()
