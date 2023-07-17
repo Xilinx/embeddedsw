@@ -355,6 +355,10 @@ class Library(Repo):
         _, src_dir, dst_dir = self.copy_lib_src(lib)
         lopper_cmd = f"lopper -O {dst_dir} -f {self.sdt} --  bmcmake_metadata_xlnx {self.proc} {src_dir} hwcmake_metadata {self.repo_yaml_path}"
         utils.runcmd(lopper_cmd, cwd = dst_dir)
+        if ("xilpm" in lib) and ("ZynqMP" in self.domain_data['family']):
+            dstdir = os.path.join(self.libsrc_folder, lib, "src", "zynqmp", "client", "common")
+            lopper_cmd = f"lopper -O {dstdir} -f {self.sdt} --  generate_config_object pm_cfg_obj.c {self.proc}"
+            utils.runcmd(lopper_cmd, cwd = dst_dir)
 
     def modify_cmake_subdirs(self, lib_list, action="add"):
         cmake_file = os.path.join(self.domain_path, "CMakeLists.txt")
