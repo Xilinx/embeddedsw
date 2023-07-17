@@ -146,7 +146,7 @@ static u8 HostCntrlrVer[XSDPS_NUM_INSTANCES];
 *
 ******************************************************************************/
 DSTATUS disk_status (
-		BYTE pdrv	/* Drive number (0) */
+	BYTE pdrv	/* Drive number (0) */
 )
 {
 	DSTATUS s = Stat[pdrv];
@@ -154,75 +154,80 @@ DSTATUS disk_status (
 	u32 StatusReg;
 	u32 DelayCount = 0;
 
-		if (SdInstance[pdrv].Config.BaseAddress == (u32)0) {
-				XSdPs_Config *SdConfig;
+	if (SdInstance[pdrv].Config.BaseAddress == (u32)0) {
+		XSdPs_Config *SdConfig;
 
 #ifndef SDT
-				SdConfig = XSdPs_LookupConfig((u16)pdrv);
+		SdConfig = XSdPs_LookupConfig((u16)pdrv);
 #else
-				if (pdrv < XPAR_XSDPS_NUM_INSTANCES)
-					SdConfig = XSdPs_LookupConfig(XSdPs_ConfigTable[pdrv].BaseAddress);
-				else
-					SdConfig = NULL;
+		if (pdrv < XPAR_XSDPS_NUM_INSTANCES) {
+			SdConfig = XSdPs_LookupConfig(XSdPs_ConfigTable[pdrv].BaseAddress);
+		}
+		else {
+			SdConfig = NULL;
+		}
 #endif
-				if (NULL == SdConfig) {
-					s |= STA_NOINIT;
-					return s;
-				}
-
-				BaseAddress[pdrv] = SdConfig->BaseAddress;
-				CardDetect[pdrv] = SdConfig->CardDetect;
-				WriteProtect[pdrv] = SdConfig->WriteProtect;
-
-				HostCntrlrVer[pdrv] = (u8)(XSdPs_ReadReg16(BaseAddress[pdrv],
-						XSDPS_HOST_CTRL_VER_OFFSET) & XSDPS_HC_SPEC_VER_MASK);
-				if (HostCntrlrVer[pdrv] == XSDPS_HC_SPEC_V3) {
-					SlotType[pdrv] = XSdPs_ReadReg(BaseAddress[pdrv],
-							XSDPS_CAPS_OFFSET) & XSDPS_CAPS_SLOT_TYPE_MASK;
-				} else {
-					SlotType[pdrv] = 0;
-				}
-		}
-
-		/* If SD is not powered up then mark it as not initialized */
-		if ((XSdPs_ReadReg8((u32)BaseAddress[pdrv], XSDPS_POWER_CTRL_OFFSET) &
-			XSDPS_PC_BUS_PWR_MASK) == 0U) {
+		if (NULL == SdConfig) {
 			s |= STA_NOINIT;
+			return s;
 		}
 
-		StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress[pdrv]);
-		if (SlotType[pdrv] != XSDPS_CAPS_EMB_SLOT) {
-			if (CardDetect[pdrv]) {
-				while ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
-					if (DelayCount == 500U) {
-						s = STA_NODISK | STA_NOINIT;
-						goto Label;
-					} else {
-						/* Wait for 10 msec */
-						usleep(SD_CD_DELAY);
-						DelayCount++;
-						StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress[pdrv]);
-					}
+		BaseAddress[pdrv] = SdConfig->BaseAddress;
+		CardDetect[pdrv] = SdConfig->CardDetect;
+		WriteProtect[pdrv] = SdConfig->WriteProtect;
+
+		HostCntrlrVer[pdrv] = (u8)(XSdPs_ReadReg16(BaseAddress[pdrv],
+					   XSDPS_HOST_CTRL_VER_OFFSET) & XSDPS_HC_SPEC_VER_MASK);
+		if (HostCntrlrVer[pdrv] == XSDPS_HC_SPEC_V3) {
+			SlotType[pdrv] = XSdPs_ReadReg(BaseAddress[pdrv],
+						       XSDPS_CAPS_OFFSET) & XSDPS_CAPS_SLOT_TYPE_MASK;
+		}
+		else {
+			SlotType[pdrv] = 0;
+		}
+	}
+
+	/* If SD is not powered up then mark it as not initialized */
+	if ((XSdPs_ReadReg8((u32)BaseAddress[pdrv], XSDPS_POWER_CTRL_OFFSET) &
+	     XSDPS_PC_BUS_PWR_MASK) == 0U) {
+		s |= STA_NOINIT;
+	}
+
+	StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress[pdrv]);
+	if (SlotType[pdrv] != XSDPS_CAPS_EMB_SLOT) {
+		if (CardDetect[pdrv]) {
+			while ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
+				if (DelayCount == 500U) {
+					s = STA_NODISK | STA_NOINIT;
+					goto Label;
+				}
+				else {
+					/* Wait for 10 msec */
+					usleep(SD_CD_DELAY);
+					DelayCount++;
+					StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress[pdrv]);
 				}
 			}
-			s &= ~STA_NODISK;
-			if (WriteProtect[pdrv]) {
-					if ((StatusReg & XSDPS_PSR_WPS_PL_MASK) == 0U){
-						s |= STA_PROTECT;
-						goto Label;
-					}
-			}
-			s &= ~STA_PROTECT;
-		} else {
-			s &= ~STA_NODISK & ~STA_PROTECT;
 		}
+		s &= ~STA_NODISK;
+		if (WriteProtect[pdrv]) {
+			if ((StatusReg & XSDPS_PSR_WPS_PL_MASK) == 0U) {
+				s |= STA_PROTECT;
+				goto Label;
+			}
+		}
+		s &= ~STA_PROTECT;
+	}
+	else {
+		s &= ~STA_NODISK & ~STA_PROTECT;
+	}
 
 
 Label:
-		Stat[pdrv] = s;
+	Stat[pdrv] = s;
 #endif
 
-		return s;
+	return s;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -248,7 +253,7 @@ Label:
 *
 ******************************************************************************/
 DSTATUS disk_initialize (
-		BYTE pdrv	/* Physical drive number (0) */
+	BYTE pdrv	/* Physical drive number (0) */
 )
 {
 	DSTATUS s;
@@ -269,17 +274,17 @@ DSTATUS disk_initialize (
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
 	if (CardDetect[pdrv]) {
-			/*
-			 * Card detection check
-			 * If the HC detects the No Card State, power will be cleared
-			 */
-			while(!((XSDPS_PSR_CARD_DPL_MASK |
-					XSDPS_PSR_CARD_STABLE_MASK |
-					XSDPS_PSR_CARD_INSRT_MASK) ==
-					(XSdPs_GetPresentStatusReg((u32)BaseAddress[pdrv]) &
-					(XSDPS_PSR_CARD_DPL_MASK |
-					XSDPS_PSR_CARD_STABLE_MASK |
-					XSDPS_PSR_CARD_INSRT_MASK))));
+		/*
+		 * Card detection check
+		 * If the HC detects the No Card State, power will be cleared
+		 */
+		while (!((XSDPS_PSR_CARD_DPL_MASK |
+			  XSDPS_PSR_CARD_STABLE_MASK |
+			  XSDPS_PSR_CARD_INSRT_MASK) ==
+			 (XSdPs_GetPresentStatusReg((u32)BaseAddress[pdrv]) &
+			  (XSDPS_PSR_CARD_DPL_MASK |
+			   XSDPS_PSR_CARD_STABLE_MASK |
+			   XSDPS_PSR_CARD_INSRT_MASK))));
 	}
 
 	/*
@@ -294,7 +299,7 @@ DSTATUS disk_initialize (
 	SdInstance[pdrv].IsReady = 0U;
 
 	Status = XSdPs_CfgInitialize(&SdInstance[pdrv], SdConfig,
-					SdConfig->BaseAddress);
+				     SdConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		s |= STA_NOINIT;
 		return s;
@@ -387,7 +392,7 @@ DRESULT disk_read (
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
 	Xil_SMemCpy(buff, count * SECTORSIZE, dataramfs + (sector * SECTORSIZE),
-			count * SECTORSIZE, count * SECTORSIZE);
+		    count * SECTORSIZE, count * SECTORSIZE);
 #endif
 
 #if !defined(FILE_SYSTEM_INTERFACE_SD) && !defined(FILE_SYSTEM_INTERFACE_RAM)
@@ -395,7 +400,7 @@ DRESULT disk_read (
 	(void)sector;
 #endif
 
-    return RES_OK;
+	return RES_OK;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -449,24 +454,24 @@ DRESULT disk_ioctl (
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
 	switch (cmd) {
-	case (BYTE)CTRL_SYNC:
-		res = RES_OK;
-		break;
-	case (BYTE)GET_BLOCK_SIZE:
-		*(WORD *)buff = BLOCKSIZE;
-		res = RES_OK;
-		break;
-	case (BYTE)GET_SECTOR_SIZE:
-		*(WORD *)buff = SECTORSIZE;
-		res = RES_OK;
-		break;
-	case (BYTE)GET_SECTOR_COUNT:
-		*(DWORD *)buff = SECTORCNT;
-		res = RES_OK;
-		break;
-	default:
-		res = RES_PARERR;
-		break;
+		case (BYTE)CTRL_SYNC:
+			res = RES_OK;
+			break;
+		case (BYTE)GET_BLOCK_SIZE:
+			*(WORD *)buff = BLOCKSIZE;
+			res = RES_OK;
+			break;
+		case (BYTE)GET_SECTOR_SIZE:
+			*(WORD *)buff = SECTORSIZE;
+			res = RES_OK;
+			break;
+		case (BYTE)GET_SECTOR_COUNT:
+			*(DWORD *)buff = SECTORCNT;
+			res = RES_OK;
+			break;
+		default:
+			res = RES_PARERR;
+			break;
 	}
 
 	(void)pdrv;
@@ -558,7 +563,7 @@ DRESULT disk_write (
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
 	Xil_SMemCpy(dataramfs + (sector * SECTORSIZE), count * SECTORSIZE, buff,
-				count * SECTORSIZE, count * SECTORSIZE);
+		    count * SECTORSIZE, count * SECTORSIZE);
 #endif
 
 #if !defined(FILE_SYSTEM_INTERFACE_SD) && !defined(FILE_SYSTEM_INTERFACE_RAM)
