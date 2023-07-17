@@ -69,7 +69,7 @@
 
 /************************** Function Prototypes ******************************/
 
-static int SetVTable(XFlash * InstancePtr);
+static int SetVTable(XFlash *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -111,7 +111,7 @@ static int SetVTable(XFlash * InstancePtr);
 *		8-bit mode, then BusWidth should be (8 / 8) = 1.
 *
 ******************************************************************************/
-int XFlash_Initialize(XFlash * InstancePtr, u32 BaseAddress, u8 BusWidth,
+int XFlash_Initialize(XFlash *InstancePtr, u32 BaseAddress, u8 BusWidth,
 		      int IsPlatformFlash)
 {
 	int Status = XST_FAILURE;
@@ -119,7 +119,7 @@ int XFlash_Initialize(XFlash * InstancePtr, u32 BaseAddress, u8 BusWidth,
 	/*
 	 * Validate parameters.
 	 */
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -137,11 +137,11 @@ int XFlash_Initialize(XFlash * InstancePtr, u32 BaseAddress, u8 BusWidth,
 		 * Set Async mode for platform flash
 		 */
 		WRITE_FLASH_16(InstancePtr->Geometry.BaseAddress +
-				XFL_INTEL_CMD_CONFIG_REG_ASYNC_ADDR,
-				XFL_INTEL_CMD_CONFIG_REG_SETUP);
+			       XFL_INTEL_CMD_CONFIG_REG_ASYNC_ADDR,
+			       XFL_INTEL_CMD_CONFIG_REG_SETUP);
 		WRITE_FLASH_16(InstancePtr->Geometry.BaseAddress +
-				XFL_INTEL_CMD_CONFIG_REG_ASYNC_ADDR,
-				XFL_INTEL_CMD_CONFIG_REG_CONFIRM);
+			       XFL_INTEL_CMD_CONFIG_REG_ASYNC_ADDR,
+			       XFL_INTEL_CMD_CONFIG_REG_CONFIRM);
 	}
 #endif /* XPAR_XFL_DEVICE_FAMILY_INTEL */
 
@@ -200,13 +200,13 @@ int XFlash_Initialize(XFlash * InstancePtr, u32 BaseAddress, u8 BusWidth,
 *		undefined.
 *
 ******************************************************************************/
-int XFlash_Read(XFlash * InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
+int XFlash_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 {
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	if(InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
+	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
 		return XST_FAILURE;
 	}
 
@@ -248,13 +248,13 @@ int XFlash_Read(XFlash * InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 * @note		None.
 *
 ******************************************************************************/
-int XFlash_Write(XFlash * InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)
+int XFlash_Write(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)
 {
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	if(InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
+	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
 		return XST_FAILURE;
 	}
 
@@ -286,13 +286,13 @@ int XFlash_Write(XFlash * InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)
 *		boundaries.
 *
 ******************************************************************************/
-int XFlash_Erase(XFlash * InstancePtr, u32 Offset, u32 Bytes)
+int XFlash_Erase(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 {
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	if(InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
+	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
 		return XST_FAILURE;
 	}
 
@@ -326,13 +326,13 @@ int XFlash_Erase(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 *		boundaries.
 *
 ******************************************************************************/
-int XFlash_Lock(XFlash * InstancePtr, u32 Offset, u32 Bytes)
+int XFlash_Lock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 {
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	if(InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
+	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
 		return XST_FAILURE;
 	}
 
@@ -364,13 +364,13 @@ int XFlash_Lock(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 * @note		None.
 *
 ******************************************************************************/
-int XFlash_Unlock(XFlash * InstancePtr, u32 Offset, u32 Bytes)
+int XFlash_Unlock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 {
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	if(InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
+	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
 		return XST_FAILURE;
 	}
 
@@ -396,13 +396,13 @@ int XFlash_Unlock(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 * @note		None.
 *
 ******************************************************************************/
-int XFlash_Reset(XFlash * InstancePtr)
+int XFlash_Reset(XFlash *InstancePtr)
 {
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	if(InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
+	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
 		return XST_FAILURE;
 	}
 
@@ -428,19 +428,19 @@ int XFlash_Reset(XFlash * InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XFlash_DeviceControl(XFlash * InstancePtr, u32 Command,
-						DeviceCtrlParam *Parameters)
+int XFlash_DeviceControl(XFlash *InstancePtr, u32 Command,
+			 DeviceCtrlParam *Parameters)
 {
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	if(InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
+	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
 		return XST_FAILURE;
 	}
 
 	return (InstancePtr->VTable.DeviceControl(InstancePtr, Command,
-								Parameters));
+			Parameters));
 }
 
 /*****************************************************************************/
@@ -457,9 +457,9 @@ int XFlash_DeviceControl(XFlash * InstancePtr, u32 Command,
 * @note		None.
 *
 ******************************************************************************/
-int XFlash_IsReady(XFlash * InstancePtr)
+int XFlash_IsReady(XFlash *InstancePtr)
 {
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -488,18 +488,18 @@ int XFlash_IsReady(XFlash * InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XFlashGeometry_ToAbsolute(XFlashGeometry * InstancePtr,
-					u16 Region, u16 Block,u32 BlockOffset,
-					u32 *AbsoluteOffsetPtr)
+int XFlashGeometry_ToAbsolute(XFlashGeometry *InstancePtr,
+			      u16 Region, u16 Block, u32 BlockOffset,
+			      u32 *AbsoluteOffsetPtr)
 {
 	/*
 	 * Verify inputs are valid.
 	 */
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	if(AbsoluteOffsetPtr == NULL) {
+	if (AbsoluteOffsetPtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -515,7 +515,7 @@ int XFlashGeometry_ToAbsolute(XFlashGeometry * InstancePtr,
 	 * Calculate offset.
 	 */
 	*AbsoluteOffsetPtr = InstancePtr->EraseRegion[Region].AbsoluteOffset +
-		(InstancePtr->EraseRegion[Region].Size * Block) + BlockOffset;
+			     (InstancePtr->EraseRegion[Region].Size * Block) + BlockOffset;
 
 	return (XST_SUCCESS);
 }
@@ -543,7 +543,7 @@ int XFlashGeometry_ToAbsolute(XFlashGeometry * InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-int XFlashGeometry_ToBlock(XFlashGeometry * InstancePtr,
+int XFlashGeometry_ToBlock(XFlashGeometry *InstancePtr,
 			   u32 AbsoluteOffset, u16 *RegionPtr,
 			   u16 *BlockPtr, u32 *BlockOffsetPtr)
 {
@@ -553,19 +553,19 @@ int XFlashGeometry_ToBlock(XFlashGeometry * InstancePtr,
 	/*
 	 * Verify inputs are valid.
 	 */
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	if(RegionPtr == NULL) {
+	if (RegionPtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	if(BlockPtr == NULL) {
+	if (BlockPtr == NULL) {
 		return XST_FAILURE;
 	}
 
-	if(BlockOffsetPtr == NULL) {
+	if (BlockOffsetPtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -582,7 +582,7 @@ int XFlashGeometry_ToBlock(XFlashGeometry * InstancePtr,
 	 */
 	for (Index = 1; Index < XFL_MAX_ERASE_REGIONS; Index++) {
 		if (AbsoluteOffset <
-			InstancePtr->EraseRegion[Index].AbsoluteOffset) {
+		    InstancePtr->EraseRegion[Index].AbsoluteOffset) {
 			break;
 		}
 	}
@@ -594,7 +594,7 @@ int XFlashGeometry_ToBlock(XFlashGeometry * InstancePtr,
 	 * are calculated.
 	 */
 	RemainderOffset = AbsoluteOffset -
-				InstancePtr->EraseRegion[Index].AbsoluteOffset;
+			  InstancePtr->EraseRegion[Index].AbsoluteOffset;
 
 	/*
 	 * Calculate block & offset, assign return values and return.
@@ -602,7 +602,7 @@ int XFlashGeometry_ToBlock(XFlashGeometry * InstancePtr,
 	*RegionPtr = Index;
 	*BlockPtr = RemainderOffset / InstancePtr->EraseRegion[Index].Size;
 	*BlockOffsetPtr = RemainderOffset -
-			(*BlockPtr * InstancePtr->EraseRegion[Index].Size);
+			  (*BlockPtr * InstancePtr->EraseRegion[Index].Size);
 
 	return (XST_SUCCESS);
 }
@@ -622,7 +622,7 @@ int XFlashGeometry_ToBlock(XFlashGeometry * InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-static int SetVTable(XFlash * InstancePtr)
+static int SetVTable(XFlash *InstancePtr)
 {
 
 
@@ -640,7 +640,7 @@ static int SetVTable(XFlash * InstancePtr)
 			InstancePtr->VTable.Initialize = XFlashIntel_Initialize;
 			InstancePtr->VTable.Reset = XFlashIntel_Reset;
 			InstancePtr->VTable.DeviceControl =
-						XFlashIntel_DeviceControl;
+				XFlashIntel_DeviceControl;
 			break;
 #endif /* XPAR_XFL_DEVICE_FAMILY_INTEL */
 
@@ -656,7 +656,7 @@ static int SetVTable(XFlash * InstancePtr)
 			InstancePtr->VTable.Initialize = XFlashAmd_Initialize;
 			InstancePtr->VTable.Reset = XFlashAmd_Reset;
 			InstancePtr->VTable.DeviceControl =
-						XFlashAmd_DeviceControl;
+				XFlashAmd_DeviceControl;
 			break;
 #endif /* XPAR_XFL_DEVICE_FAMILY_AMD */
 

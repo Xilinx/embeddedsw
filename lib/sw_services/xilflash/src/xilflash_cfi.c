@@ -136,7 +136,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 	u32 SizeBlockInBank;
 	XFlashGeometry *GeomPtr;
 
-	if(InstancePtr == NULL) {
+	if (InstancePtr == NULL) {
 		return XST_FAILURE;
 	}
 
@@ -156,7 +156,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 				Layout = XFLASH_PART_NOT_SUPPORTED;
 			}
 
-		break;
+			break;
 
 		case 2:
 			/* Check for one 16 bit flash in x16 mode */
@@ -171,7 +171,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 				Layout = XFLASH_PART_NOT_SUPPORTED;
 			}
 
-		break;
+			break;
 
 		case 4:
 			/* Check for two 16 bit flash devices in x32 mode */
@@ -186,10 +186,10 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 				Layout = XFLASH_PART_NOT_SUPPORTED;
 			}
 
-		break;
+			break;
 
 		case 8:
-		/* Check for four 16 bit flash devices in x64 mode */
+			/* Check for four 16 bit flash devices in x64 mode */
 			CfiQryAddr <<= 3;
 			WRITE_FLASH_64x2(BaseAddress + 0xAA,
 					 0x00FF00FF, 0x00FF00FF);
@@ -204,10 +204,10 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 				Layout = XFLASH_PART_NOT_SUPPORTED;
 			}
 
-		break;
+			break;
 
 		default:
-		Layout = XFLASH_PART_NOT_SUPPORTED;
+			Layout = XFLASH_PART_NOT_SUPPORTED;
 	}
 
 	if (Layout == XFLASH_PART_NOT_SUPPORTED) {
@@ -225,7 +225,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 	 * by the device multiplied by the number of devices (SizeMultiplier).
 	 */
 	Interleave = (InstancePtr->Geometry.MemoryLayout &
-			XFL_LAYOUT_CFI_INTERL_MASK) >> 24;
+		      XFL_LAYOUT_CFI_INTERL_MASK) >> 24;
 	SizeMultiplier = (InstancePtr->Geometry.MemoryLayout &
 			  XFL_LAYOUT_NUM_PARTS_MASK);
 	Mode = (InstancePtr->Geometry.MemoryLayout &
@@ -241,24 +241,23 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 	 */
 	XFL_CFI_POSITION_PTR(DataPtr, BaseAddress, Interleave, 0x10);
 
-	DataQRY[0] = XFlashCFI_Read8((u8*)DataPtr, Interleave, Mode);
+	DataQRY[0] = XFlashCFI_Read8((u8 *)DataPtr, Interleave, Mode);
 	XFL_CFI_ADVANCE_PTR8(DataPtr, Interleave);
-	DataQRY[1] = XFlashCFI_Read8((u8*)DataPtr, Interleave, Mode);
+	DataQRY[1] = XFlashCFI_Read8((u8 *)DataPtr, Interleave, Mode);
 	XFL_CFI_ADVANCE_PTR8(DataPtr, Interleave);
-	DataQRY[2] = XFlashCFI_Read8((u8*)DataPtr, Interleave, Mode);
+	DataQRY[2] = XFlashCFI_Read8((u8 *)DataPtr, Interleave, Mode);
 
 	if ((DataQRY[0] != 'Q') || (DataQRY[1] != 'R') || (DataQRY[2] != 'Y')) {
 		Status = XFLASH_CFI_QUERY_ERROR;
-	}
-	else {
+	} else {
 		/*
 		 * 13h-14h : Primary vender command set.
 		 */
 		XFL_CFI_POSITION_PTR(DataPtr, BaseAddress, Interleave, 0x13);
 		InstancePtr->Properties.PartID.CommandSet =
-			XFlashCFI_Read16((u8*)DataPtr, Interleave, Mode);
+			XFlashCFI_Read16((u8 *)DataPtr, Interleave, Mode);
 		InstancePtr->CommandSet =
-				InstancePtr->Properties.PartID.CommandSet;
+			InstancePtr->Properties.PartID.CommandSet;
 
 #ifdef XPAR_XFL_DEVICE_FAMILY_INTEL
 		/* Support for Micron G18. This flash is partially compatible
@@ -266,15 +265,14 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		   from the other Intel Flash Devices */
 		if (InstancePtr->CommandSet == XFL_CMDSET_INTEL_G18) {
 			InstancePtr->Command.WriteBufferCommand =
-					XFL_INTEL_G18_CMD_WRITE_BUFFER;
+				XFL_INTEL_G18_CMD_WRITE_BUFFER;
 			InstancePtr->Command.ProgramCommand =
-					XFL_INTEL_G18_CMD_PROGRAM;
-		}
-		else {
+				XFL_INTEL_G18_CMD_PROGRAM;
+		} else {
 			InstancePtr->Command.WriteBufferCommand =
-					XFL_INTEL_CMD_WRITE_BUFFER;
+				XFL_INTEL_CMD_WRITE_BUFFER;
 			InstancePtr->Command.ProgramCommand =
-					XFL_INTEL_CMD_PROGRAM;
+				XFL_INTEL_CMD_PROGRAM;
 		}
 #endif
 
@@ -283,7 +281,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 */
 		XFL_CFI_ADVANCE_PTR16(DataPtr, Interleave);
 		ExtendedQueryTblOffset =
-			XFlashCFI_Read16((u8*)DataPtr, Interleave, Mode);
+			XFlashCFI_Read16((u8 *)DataPtr, Interleave, Mode);
 
 		/*
 		 * 17h-1Ah : Vendor data to be interpreted by part (ignored
@@ -295,10 +293,10 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 * 		(2^N Us).
 		 */
 		XFL_CFI_POSITION_PTR(DataPtr, BaseAddress, Interleave, 0x1F);
-		Data8 = XFlashCFI_Read8((u8*)DataPtr, Interleave, Mode);
+		Data8 = XFlashCFI_Read8((u8 *)DataPtr, Interleave, Mode);
 		if (Data8 != 0) {
 			InstancePtr->Properties.TimeTypical.WriteSingle_Us =
-								1 << Data8;
+				1 << Data8;
 		}
 
 		XFL_CFI_ADVANCE_PTR8(DataPtr, Interleave);
@@ -308,10 +306,10 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 * = 0 if not supported.
 		 */
 
-		Data8 = XFlashCFI_Read8((u8*)DataPtr, Interleave, Mode);
+		Data8 = XFlashCFI_Read8((u8 *)DataPtr, Interleave, Mode);
 		if (Data8 != 0) {
 			InstancePtr->Properties.TimeTypical.WriteBuffer_Us =
-								1 << Data8;
+				1 << Data8;
 		}
 
 		XFL_CFI_ADVANCE_PTR8(DataPtr, Interleave);
@@ -319,10 +317,10 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		/*
 		 * 21h : Typical timeout for single block erase (2^N Ms).
 		 */
-		Data8 = XFlashCFI_Read8((u8*)DataPtr, Interleave, Mode);
+		Data8 = XFlashCFI_Read8((u8 *)DataPtr, Interleave, Mode);
 		if (Data8 != 0) {
 			InstancePtr->Properties.TimeTypical.EraseBlock_Ms =
-								1 << Data8;
+				1 << Data8;
 		}
 
 		XFL_CFI_ADVANCE_PTR8(DataPtr, Interleave);
@@ -331,10 +329,10 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 * 22h : Typical timeout for full chip erase (2^N Ms)
 		 * = 0 if not supported.
 		 */
-		Data8 = XFlashCFI_Read8((u8*)DataPtr, Interleave, Mode);
+		Data8 = XFlashCFI_Read8((u8 *)DataPtr, Interleave, Mode);
 		if (Data8 != 0) {
 			InstancePtr->Properties.TimeTypical.EraseChip_Ms =
-								1 << Data8;
+				1 << Data8;
 		}
 
 		XFL_CFI_ADVANCE_PTR8(DataPtr, Interleave);
@@ -343,10 +341,10 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 * 23h : Maximum timeout for single byte/word program cycle
 		 *	(2^N * typical time).
 		 */
-		Data8 = XFlashCFI_Read8((u8*)DataPtr, Interleave, Mode);
+		Data8 = XFlashCFI_Read8((u8 *)DataPtr, Interleave, Mode);
 		InstancePtr->Properties.TimeMax.WriteSingle_Us =
 			InstancePtr->Properties.TimeTypical.WriteSingle_Us *
-								(1 << Data8);
+			(1 << Data8);
 		XFL_CFI_ADVANCE_PTR8(DataPtr, Interleave);
 
 		/*
@@ -354,7 +352,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 *	(2^N * typical time)
 		 *	= 0 if not supported.
 		 */
-		Data8 = XFlashCFI_Read8((u8*)DataPtr, Interleave, Mode);
+		Data8 = XFlashCFI_Read8((u8 *)DataPtr, Interleave, Mode);
 		InstancePtr->Properties.TimeMax.WriteBuffer_Us =
 			InstancePtr->Properties.TimeTypical.WriteBuffer_Us *
 			(1 << Data8);
@@ -364,10 +362,10 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 * 25h : Maximum timeout for single block erase
 		 *	(2^N * typical time).
 		 */
-		Data8 = XFlashCFI_Read8((u8*)DataPtr, Interleave, Mode);
+		Data8 = XFlashCFI_Read8((u8 *)DataPtr, Interleave, Mode);
 		InstancePtr->Properties.TimeMax.EraseBlock_Ms =
 			InstancePtr->Properties.TimeTypical.EraseBlock_Ms *
-								(1 << Data8);
+			(1 << Data8);
 		XFL_CFI_ADVANCE_PTR8(DataPtr, Interleave);
 
 		/*
@@ -375,19 +373,19 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 *	(2^N * typical time)
 		 *	= 0 if not supported.
 		 */
-		Data8 = XFlashCFI_Read8((u8*)DataPtr, Interleave, Mode);
+		Data8 = XFlashCFI_Read8((u8 *)DataPtr, Interleave, Mode);
 		InstancePtr->Properties.TimeMax.EraseChip_Ms =
 			InstancePtr->Properties.TimeTypical.EraseChip_Ms *
-								(1 << Data8);
+			(1 << Data8);
 		XFL_CFI_ADVANCE_PTR8(DataPtr, Interleave);
 
 		/*
 		 * 27h : Device size in bytes
 		 *	= 2^N bytes * (Number of parts).
 		 */
-		Data8 = XFlashCFI_Read8((u8*)DataPtr, Interleave, Mode);
+		Data8 = XFlashCFI_Read8((u8 *)DataPtr, Interleave, Mode);
 		InstancePtr->Geometry.DeviceSize = (1 << Data8) *
-								SizeMultiplier;
+						   SizeMultiplier;
 		XFL_CFI_ADVANCE_PTR8(DataPtr, Interleave);
 
 		/*
@@ -399,10 +397,10 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 * 2Ah-2Bh : Maximum number of bytes in write buffer
 		 *		= 2^N bytes * (Number of parts).
 		 */
-		Data16 = XFlashCFI_Read16((u8*)DataPtr, Interleave, Mode);
+		Data16 = XFlashCFI_Read16((u8 *)DataPtr, Interleave, Mode);
 		if (Data16 != 0) {
 			InstancePtr->Properties.ProgCap.WriteBufferSize =
-						(1 << Data16) * SizeMultiplier;
+				(1 << Data16) * SizeMultiplier;
 		}
 
 		XFL_CFI_ADVANCE_PTR16(DataPtr, Interleave);
@@ -414,9 +412,9 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 * on the Geometry.EraseRegion array.
 		 */
 		InstancePtr->Geometry.NumEraseRegions = XFlashCFI_Read8(
-								(u8*)DataPtr,
-								Interleave,
-								Mode);
+				(u8 *)DataPtr,
+				Interleave,
+				Mode);
 		if ((InstancePtr->CommandSet == XFL_CMDSET_AMD_STANDARD) ||
 		    (InstancePtr->CommandSet == XFL_CMDSET_AMD_EXTENDED)) {
 			if (InstancePtr->Geometry.NumEraseRegions >
@@ -447,10 +445,10 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 			 * Offset 0-1 : Number of blocks in the region
 			 *		= N + 1.
 			 */
-			Data16 = XFlashCFI_Read16((u8*)DataPtr, Interleave,
-							Mode);
+			Data16 = XFlashCFI_Read16((u8 *)DataPtr, Interleave,
+						  Mode);
 			InstancePtr->Geometry.EraseRegion[Index].Number = Data16
-									+ 1;
+					+ 1;
 			InstancePtr->Geometry.NumBlocks +=
 				InstancePtr->Geometry.EraseRegion[Index].Number;
 			XFL_CFI_ADVANCE_PTR16(DataPtr, Interleave);
@@ -459,26 +457,26 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 			 * Offset 2-3 : Size of erase blocks in the region
 			 * = N * 256 * (Number of parts).
 			 */
-			Data16 = XFlashCFI_Read16((u8*)DataPtr, Interleave,
-						Mode);
+			Data16 = XFlashCFI_Read16((u8 *)DataPtr, Interleave,
+						  Mode);
 			InstancePtr->Geometry.EraseRegion[Index].Size =
-						Data16 * 256 * SizeMultiplier;
+				Data16 * 256 * SizeMultiplier;
 			XFL_CFI_ADVANCE_PTR16(DataPtr, Interleave);
 
 			/*
 			 * Calculate the part offset where this region begins.
 			 */
 			InstancePtr->Geometry.EraseRegion[Index].AbsoluteOffset
-							= CurrentAbsoluteOffset;
+				= CurrentAbsoluteOffset;
 			InstancePtr->Geometry.EraseRegion[Index].AbsoluteBlock =
-							CurrentAbsoluteBlock;
+				CurrentAbsoluteBlock;
 
 			/*
 			 * Increment absolute counters.
 			 */
 			CurrentAbsoluteOffset +=
-			(InstancePtr->Geometry.EraseRegion[Index].Size *
-			InstancePtr->Geometry.EraseRegion[Index].Number);
+				(InstancePtr->Geometry.EraseRegion[Index].Size *
+				 InstancePtr->Geometry.EraseRegion[Index].Number);
 			CurrentAbsoluteBlock +=
 				InstancePtr->Geometry.EraseRegion[Index].Number;
 		}
@@ -492,9 +490,9 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 * left as zero.
 		 */
 		InstancePtr->Geometry.EraseRegion[Index].AbsoluteOffset =
-							CurrentAbsoluteOffset;
+			CurrentAbsoluteOffset;
 		InstancePtr->Geometry.EraseRegion[Index].AbsoluteBlock =
-							CurrentAbsoluteBlock;
+			CurrentAbsoluteBlock;
 
 		/*
 		 * This ends the query. The following summarizes what attributes
@@ -536,7 +534,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 			XFL_CFI_POSITION_PTR(DataPtr, BaseAddress, Interleave,
 					     (ExtendedQueryTblOffset + 0x0F));
 			InstancePtr->Geometry.BootMode =
-				XFlashCFI_Read8((u8*)DataPtr, Interleave, Mode);
+				XFlashCFI_Read8((u8 *)DataPtr, Interleave, Mode);
 		}
 
 		/*
@@ -546,7 +544,7 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 		 * platform flash, library treats each bank as separate region.
 		 */
 		if (((InstancePtr->CommandSet == XFL_CMDSET_INTEL_STANDARD) ||
-		    (InstancePtr->CommandSet == XFL_CMDSET_INTEL_EXTENDED)) &&
+		     (InstancePtr->CommandSet == XFL_CMDSET_INTEL_EXTENDED)) &&
 		    (InstancePtr->IsPlatformFlash == 1)) {
 
 			Index = 0;
@@ -562,10 +560,10 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 				 * Number of banks in  region.
 				 */
 				XFL_CFI_POSITION_PTR(DataPtr, BaseAddress,
-					Interleave, (ExtendedQueryTblOffset +
-					0x24 + (Index * 0x0E)));
-				NumBanks = XFlashCFI_Read16((u8*)DataPtr,
-						Interleave, Mode);
+						     Interleave, (ExtendedQueryTblOffset +
+								  0x24 + (Index * 0x0E)));
+				NumBanks = XFlashCFI_Read16((u8 *)DataPtr,
+							    Interleave, Mode);
 				/*
 				 * Ignore the information about multiple
 				 * operation in bank and region as it is not
@@ -580,8 +578,8 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 				 * Types of erase block in the bank
 				 */
 				TypesEraseBlock =
-					XFlashCFI_Read8((u8*)DataPtr,
-						Interleave, Mode);
+					XFlashCFI_Read8((u8 *)DataPtr,
+							Interleave, Mode);
 
 				XFL_CFI_ADVANCE_PTR8(DataPtr, Interleave);
 				while (TypesEraseBlock--) {
@@ -589,50 +587,50 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 					 * Number of erase block in bank
 					 */
 					NumBlockInBank =
-						XFlashCFI_Read16((u8*)DataPtr,
-							Interleave, Mode);
+						XFlashCFI_Read16((u8 *)DataPtr,
+								 Interleave, Mode);
 					NumBlockInBank += 1;
 					XFL_CFI_ADVANCE_PTR16(DataPtr,
-						Interleave);
+							      Interleave);
 					/*
 					 * Size of each erase block in bank
 					 */
 					SizeBlockInBank =
-						XFlashCFI_Read16((u8*)DataPtr,
-							Interleave, Mode);
+						XFlashCFI_Read16((u8 *)DataPtr,
+								 Interleave, Mode);
 					SizeBlockInBank *= 256;
 					/*
 					 * Update flash instance structure
 					 */
 					GeomPtr->NumEraseRegions += NumBanks;
-					while (Bank < GeomPtr->NumEraseRegions){
+					while (Bank < GeomPtr->NumEraseRegions) {
 						GeomPtr->EraseRegion[Bank].
-							Number = NumBlockInBank;
+						Number = NumBlockInBank;
 						GeomPtr->EraseRegion[Bank].Size
 							= SizeBlockInBank;
 						GeomPtr->EraseRegion[Bank].
-							AbsoluteOffset =
+						AbsoluteOffset =
 							CurrentAbsoluteOffset;
 						GeomPtr->EraseRegion[Bank].
-							AbsoluteBlock =
+						AbsoluteBlock =
 							CurrentAbsoluteBlock;
 
 						CurrentAbsoluteOffset +=
 							(GeomPtr->EraseRegion
-							[Bank].Size *
-							GeomPtr->EraseRegion
-							[Bank].Number);
+							 [Bank].Size *
+							 GeomPtr->EraseRegion
+							 [Bank].Number);
 						CurrentAbsoluteBlock +=
 							GeomPtr->EraseRegion
 							[Bank].Number;
 						Bank++;
 					}
 					XFL_CFI_ADVANCE_PTR16(DataPtr,
-						Interleave);
+							      Interleave);
 					XFL_CFI_ADVANCE_PTR16(DataPtr,
-						Interleave);
+							      Interleave);
 					XFL_CFI_ADVANCE_PTR16(DataPtr,
-						Interleave);
+							      Interleave);
 				}
 				Index++;
 			}
@@ -663,10 +661,10 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 				 * Number of banks in  region.
 				 */
 				XFL_CFI_POSITION_PTR(DataPtr, BaseAddress,
-					Interleave, (ExtendedQueryTblOffset +
-					0x25));
-				NumBanks = XFlashCFI_Read8((u8*)DataPtr,
-						Interleave, Mode);
+						     Interleave, (ExtendedQueryTblOffset +
+								  0x25));
+				NumBanks = XFlashCFI_Read8((u8 *)DataPtr,
+							   Interleave, Mode);
 
 				XFL_CFI_ADVANCE_PTR16(DataPtr, Interleave);
 				XFL_CFI_ADVANCE_PTR16(DataPtr, Interleave);
@@ -677,8 +675,8 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 				 * Types of erase block in the bank
 				 */
 				TypesEraseBlock =
-					XFlashCFI_Read8((u8*)DataPtr,
-						Interleave, Mode);
+					XFlashCFI_Read8((u8 *)DataPtr,
+							Interleave, Mode);
 
 				XFL_CFI_ADVANCE_PTR8(DataPtr, Interleave);
 				while (TypesEraseBlock--) {
@@ -686,40 +684,40 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 					 * Number of erase block in bank
 					 */
 					NumBlockInBank =
-						XFlashCFI_Read16((u8*)DataPtr,
-							Interleave, Mode);
+						XFlashCFI_Read16((u8 *)DataPtr,
+								 Interleave, Mode);
 					NumBlockInBank += 1;
 					XFL_CFI_ADVANCE_PTR16(DataPtr,
-						Interleave);
+							      Interleave);
 					/*
 					 * Size of each erase block in bank
 					 */
 					SizeBlockInBank =
-						XFlashCFI_Read16((u8*)DataPtr,
-							Interleave, Mode);
+						XFlashCFI_Read16((u8 *)DataPtr,
+								 Interleave, Mode);
 					SizeBlockInBank *= 256;
 
 					/*
 					 * Update flash instance structure
 					 */
 					GeomPtr->NumEraseRegions += NumBanks;
-					while (Bank < GeomPtr->NumEraseRegions){
+					while (Bank < GeomPtr->NumEraseRegions) {
 						GeomPtr->EraseRegion[Bank].
-							Number = NumBlockInBank;
+						Number = NumBlockInBank;
 						GeomPtr->EraseRegion[Bank].Size
 							= SizeBlockInBank;
 						GeomPtr->EraseRegion[Bank].
-							AbsoluteOffset =
+						AbsoluteOffset =
 							CurrentAbsoluteOffset;
 						GeomPtr->EraseRegion[Bank].
-							AbsoluteBlock =
+						AbsoluteBlock =
 							CurrentAbsoluteBlock;
 
 						CurrentAbsoluteOffset +=
 							(GeomPtr->EraseRegion
-							[Bank].Size *
-							GeomPtr->EraseRegion
-							[Bank].Number);
+							 [Bank].Size *
+							 GeomPtr->EraseRegion
+							 [Bank].Number);
 						CurrentAbsoluteBlock +=
 							GeomPtr->EraseRegion
 							[Bank].Number;
@@ -743,16 +741,16 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 
 		case XFL_LAYOUT_X16_X16_X1:
 			WRITE_FLASH_16(BaseAddress + 0xAA, 0xFF);
-		break;
+			break;
 
 		case XFL_LAYOUT_X16_X16_X2:
 			WRITE_FLASH_32(BaseAddress + 0xAA, 0x00FF00FF);
-		break;
+			break;
 
 		case XFL_LAYOUT_X16_X16_X4:
 			WRITE_FLASH_64x2(BaseAddress + 0xAA,
 					 0x00FF00FF, 0x00FF00FF);
-		break;
+			break;
 	}
 
 	return (Status);
@@ -795,9 +793,9 @@ int XFlashCFI_Read16(u8 *Ptr, u8 Interleave, u8 Mode)
 	int Data = 0;
 	(void) Mode;
 
-	(Data) = (u8)READ_FLASH_8((u8*)(Ptr) + Interleave);
+	(Data) = (u8)READ_FLASH_8((u8 *)(Ptr) + Interleave);
 	(Data) <<= 8;
-	(Data) |= (u8)READ_FLASH_8((u8*)(Ptr));
+	(Data) |= (u8)READ_FLASH_8((u8 *)(Ptr));
 
 	return Data;
 }
@@ -841,14 +839,13 @@ int XFlashCFI_Read16(u8 *Ptr, u8 Interleave, u8 Mode)
 	int Data = 0;
 
 	if (Mode == (u8)1) {
-		(Data) = (u8)READ_FLASH_8((u8*)(Ptr) + Interleave);
+		(Data) = (u8)READ_FLASH_8((u8 *)(Ptr) + Interleave);
 		(Data) <<= 8;
-		(Data) |= (u8)READ_FLASH_8((u8*)(Ptr));
-	}
-	else if (Mode == (u8)2) {
-		(Data) = (u16)READ_FLASH_8((u8*)(Ptr) + ((Interleave) * 2) - 1);
+		(Data) |= (u8)READ_FLASH_8((u8 *)(Ptr));
+	} else if (Mode == (u8)2) {
+		(Data) = (u16)READ_FLASH_8((u8 *)(Ptr) + ((Interleave) * 2) - 1);
 		(Data) <<= 8;
-		(Data) |= (u16)READ_FLASH_8((u8*)(Ptr) + (Interleave) - 1);
+		(Data) |= (u16)READ_FLASH_8((u8 *)(Ptr) + (Interleave) - 1);
 	}
 
 	return Data;

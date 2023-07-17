@@ -228,23 +228,23 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 
-int XFlashIntel_Initialize(XFlash * InstancePtr);
-int XFlashIntel_Reset(XFlash * InstancePtr);
+int XFlashIntel_Initialize(XFlash *InstancePtr);
+int XFlashIntel_Reset(XFlash *InstancePtr);
 
-int XFlashIntel_DeviceControl(XFlash * InstancePtr, u32 Command,
+int XFlashIntel_DeviceControl(XFlash *InstancePtr, u32 Command,
 			      DeviceCtrlParam *Parameters);
 
-int XFlashIntel_Read(XFlash * InstancePtr, u32 Offset, u32 Bytes,
+int XFlashIntel_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes,
 		     void *DestPtr);
 
-int XFlashIntel_Write(XFlash * InstancePtr, u32 Offset, u32 Bytes,
+int XFlashIntel_Write(XFlash *InstancePtr, u32 Offset, u32 Bytes,
 		      void *SrcPtr);
 
-int XFlashIntel_Erase(XFlash * InstancePtr, u32 Offset, u32 Bytes);
+int XFlashIntel_Erase(XFlash *InstancePtr, u32 Offset, u32 Bytes);
 
-int XFlashIntel_Lock(XFlash * InstancePtr, u32 Offset, u32 Bytes);
-int XFlashIntel_Unlock(XFlash * InstancePtr, u32 Offset, u32 Bytes);
-int XFlashIntel_GetStatus(XFlash * InstancePtr, u32 Offset);
+int XFlashIntel_Lock(XFlash *InstancePtr, u32 Offset, u32 Bytes);
+int XFlashIntel_Unlock(XFlash *InstancePtr, u32 Offset, u32 Bytes);
+int XFlashIntel_GetStatus(XFlash *InstancePtr, u32 Offset);
 
 #endif /* XPAR_XFL_DEVICE_FAMILY_INTEL */
 

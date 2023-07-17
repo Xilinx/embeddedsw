@@ -38,10 +38,10 @@ extern "C" {
 #include "xilflash.h"
 #include "xilflash_properties.h"
 #ifdef XPAR_XFL_DEVICE_FAMILY_INTEL
- #include "xilflash_intel.h"
+#include "xilflash_intel.h"
 #endif /* XPAR_XFL_DEVICE_FAMILY_INTEL */
 #ifdef XPAR_XFL_DEVICE_FAMILY_AMD
- #include "xilflash_amd.h"
+#include "xilflash_amd.h"
 #endif /* XPAR_XFL_DEVICE_FAMILY_AMD */
 /************************** Constant Definitions *****************************/
 
@@ -89,10 +89,10 @@ extern "C" {
 *
 *****************************************************************************/
 #define XFL_CFI_POSITION_PTR(Ptr, BaseAddr, Interleave, ByteAddr) 	\
-(								  	\
-	Ptr = (void*)((u32)BaseAddr + ((u32)Interleave *	  	\
-						(u32)ByteAddr))	  	\
-)
+	(								  	\
+			Ptr = (void*)((u32)BaseAddr + ((u32)Interleave *	  	\
+					(u32)ByteAddr))	  	\
+	)
 
 /*****************************************************************************/
 /**
