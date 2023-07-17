@@ -121,6 +121,8 @@
 *		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.10  bm   06/13/2023 Add API to just log PLM error
+*       bm   07/17/2023 Removed Error Action from Error Table while disabling error
+*
 * </pre>
 *
 * @note
@@ -933,6 +935,8 @@ int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask)
 {
 	int Status = XPLMI_ERROR_ACTION_NOT_DISABLED;
 	u32 ErrorNodeType = XPlmi_EventNodeType(ErrorNodeId);
+	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
+	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
 	u32 Index;
 
 	switch (XPlmi_GetEventIndex(ErrorNodeType)) {
@@ -967,6 +971,12 @@ int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask)
 			"Invalid ErrType 0x%x for Error Mask: 0x%0x\n\r",
 			ErrorNodeId, RegMask);
 		break;
+	}
+
+	/* Remove error action */
+	if ((Status == XST_SUCCESS) &&
+		(ErrorTable[ErrorId].Action != XPLMI_EM_ACTION_INVALID)) {
+		ErrorTable[ErrorId].Action = XPLMI_EM_ACTION_NONE;
 	}
 
 	return Status;
