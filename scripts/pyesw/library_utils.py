@@ -174,7 +174,7 @@ class Library(Repo):
                         param_value = (
                             line_entries[line_index]
                             .split(":")[1]
-                            .split("=")[1]
+                            .split("=", 1)[1]
                             .rstrip("\n")
                         )
                         if param_type == "BOOL":
