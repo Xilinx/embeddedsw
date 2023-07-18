@@ -100,6 +100,7 @@ extern void xil_printf(const char *format, ...);
 #ifdef XPAR_MEM0_BASEADDRESS
 #define MEMORY_BASE             XPAR_MEM0_BASEADDRESS
 #endif
+#define AXICDMA_BASE_ADDR       XPAR_XAXICDMA_0_BASEADDR
 #endif
 
 #ifndef MEMORY_BASE
@@ -143,7 +144,7 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length);
 #ifndef SDT
 int XAxiCdma_SgPollExample(u16 DeviceId);
 #else
-int XAxiCdma_SgPollExample(UINTPTR BaseAddress);
+int XAxiCdma_SgPollExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -189,7 +190,11 @@ int main()
 
 	/* Run the interrupt example for simple transfer
 	 */
+#ifndef SDT
 	Status = XAxiCdma_SgPollExample(DMA_CTRL_DEVICE_ID);
+#else
+	Status = XAxiCdma_SgPollExample(&AxiCdmaInstance, AXICDMA_BASE_ADDR);
+#endif
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("XAxiCdma_SgPoll Example Failed\r\n");
@@ -512,7 +517,7 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 #ifndef SDT
 int XAxiCdma_SgPollExample(u16 DeviceId)
 #else
-int XAxiCdma_SgPollExample(UINTPTR BaseAddress)
+int XAxiCdma_SgPollExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	XAxiCdma_Config *CfgPtr;

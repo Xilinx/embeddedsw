@@ -102,6 +102,8 @@
 #define DMA_CTRL_IRPT_INTR	XPAR_FABRIC_AXICDMA_0_VEC_ID
 #endif
 #endif
+#else
+#define AXICDMA_BASE_ADDR       XPAR_XAXICDMA_0_BASEADDR
 #endif
 
 #define BUFFER_BYTESIZE		64	/* Length of the buffers for DMA
@@ -202,7 +204,7 @@ int main()
 	Status = XAxiCdma_SimpleIntrExample(&IntcController, &AxiCdmaInstance,
 					    DMA_CTRL_DEVICE_ID, DMA_CTRL_IRPT_INTR);
 #else
-	Status = XAxiCdma_SimpleIntrExample(&AxiCdmaInstance, XAXICDMA_BASEADDRESS);
+	Status = XAxiCdma_SimpleIntrExample(&AxiCdmaInstance, AXICDMA_BASE_ADDR);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("XAxiCdma_SimpleIntr Example Failed\r\n");

@@ -103,6 +103,7 @@ extern void xil_printf(const char *format, ...);
 #ifdef XPAR_MEM0_BASEADDRESS
 #define MEMORY_BASE		XPAR_MEM0_BASEADDRESS
 #endif
+#define AXICDMA_BASE_ADDR       XPAR_XAXICDMA_0_BASEADDR
 #endif
 
 #ifndef MEMORY_BASE
@@ -207,7 +208,7 @@ int main()
 #ifndef SDT
 	Status = XAxiCdma_HybridPollExample(DMA_CTRL_DEVICE_ID);
 #else
-	Status = XAxiCdma_HybridPollExample(XAXICDMA_BASEADDRESS);
+	Status = XAxiCdma_HybridPollExample(AXICDMA_BASE_ADDR);
 #endif
 
 	if (Status != (XST_SUCCESS)) {
