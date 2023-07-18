@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +35,7 @@
 *       dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 * 1.3   dc     03/21/22 Add prefix to global variables
+* 1.6   cog    07/18/23 Modify example for SDT flow
 *
 * </pre>
 *
@@ -55,12 +57,11 @@ extern int XDfeMix_MultiAddCCExample();
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
 metal_phys_addr_t XDfeMix_metal_phys[XDFEMIX_MAX_NUM_INSTANCES] = {
-	XPAR_XDFEMIX_0_S_AXI_BASEADDR,
+	XDFEMIX_NODE_BASE,
 };
 
 struct metal_device XDfeMix_CustomDevice[XDFEMIX_MAX_NUM_INSTANCES] = {
-	XDFEMIX_CUSTOM_DEV(XPAR_XDFEMIX_0_DEV_NAME,
-			   XPAR_XDFEMIX_0_S_AXI_BASEADDR, 0)
+	XDFEMIX_CUSTOM_DEV(XDFEMIX_NODE_NAME, XDFEMIX_NODE_BASE, 0)
 };
 #endif
 

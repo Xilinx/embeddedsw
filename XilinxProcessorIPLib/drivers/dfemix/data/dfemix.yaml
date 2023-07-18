@@ -57,6 +57,13 @@ required:
     - xlnx,tuser-width
 
 examples:
+    xdfemix_examples.c:
+        - dependency_files:
+            - xdfemix_examples.h
+            - xdfemix_multiAddCC_pass_through_example.c
+            - xdfemix_one_instance_initialization_example.c
+            - xdfemix_pass_through_example.c
+            - xdfesi570_mgt.c
 
 depends_libs:
     libmetal: {}
