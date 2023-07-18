@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -98,6 +99,12 @@ typedef enum {
     XHDMIPHY1_DIR_TX,
     XHDMIPHY1_DIR_NONE
 } XHdmiphy1_DirectionType;
+
+/* This typedef enumerates is used to specify MMCM/PLL Clock Primitive information. */
+typedef enum {
+    XHDMIPHY1_MMCM = 0,
+    XHDMIPHY1_PLL = 1,
+} XHdmiphy1_ClkPrimitive;
 
 /**
  * This typedef enumerates the list of available interrupt handler types. The
@@ -684,6 +691,8 @@ typedef struct {
     u8  UseGtAsTxTmdsClk;   /**< Use 4th GT channel as TX TMDS clock */
     u8  RxMaxRate;          /**< Max rate of RX */
     u8  TxMaxRate;          /**< Max rate of TX */
+    XHdmiphy1_ClkPrimitive TxClkPrimitive; /* TX Clock Primitive */
+    XHdmiphy1_ClkPrimitive RxClkPrimitive; /* RX Clock Primitive */
 } XHdmiphy1_Config;
 
 /* Forward declaration. */
