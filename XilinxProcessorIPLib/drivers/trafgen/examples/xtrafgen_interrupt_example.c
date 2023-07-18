@@ -36,6 +36,7 @@
  *                     CR-965028.
  *       ms   04/05/17 Added tabspace for return statements in functions for
  *                     proper documentation while generating doxygen.
+ * 4.5   sd   07/18/23 Fix the disable interrupt
  * </pre>
  *
  * ***************************************************************************
@@ -58,7 +59,9 @@
 #endif
 #endif
 
+#ifdef SDT
 #include "xinterrupt_wrap.h"
+#endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -426,10 +429,14 @@ int XTrafGenInterruptExample(XTrafGen *InstancePtr, UINTPTR BaseAddress)
 		}
 	}
 
+#ifndef SDT
+	DisableIntrSystem(&Intc, CMP_INTR_ID, ERR_INTR_ID);
+#else
 	XDisconnectInterruptCntrl(InstancePtr->Config.IntId[0],
 				       InstancePtr->Config.IntrParent);
 	XDisconnectInterruptCntrl(InstancePtr->Config.IntId[1],
 				       InstancePtr->Config.IntrParent);
+#endif
 	return Status;
 }
 
