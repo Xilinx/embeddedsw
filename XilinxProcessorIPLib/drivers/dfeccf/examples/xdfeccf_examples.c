@@ -36,6 +36,7 @@
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 * 1.3   dc     03/21/22 Add prefix to global variables
 * 1.5   dc     10/28/22 Switching Uplink/Downlink support
+* 1.6   cog    07/18/23 Modify example for SDT flow
 *
 * </pre>
 *
@@ -58,13 +59,13 @@ extern int XDfeCcf_multiAddCC_1xNR100_3xNR20_Example();
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
 metal_phys_addr_t XDfeCcf_metal_phys[XDFECCF_MAX_NUM_INSTANCES] = {
-	XPAR_XDFECCF_0_BASEADDR,
-	XPAR_XDFECCF_1_BASEADDR,
+	XDFECCF_NODE1_BASE,
+	XDFECCF_NODE2_BASE,
 };
 
 struct metal_device XDfeCcf_CustomDevice[XDFECCF_MAX_NUM_INSTANCES] = {
-	XDFECCF_CUSTOM_DEV(XPAR_XDFECCF_0_DEV_NAME, XPAR_XDFECCF_0_BASEADDR, 0),
-	XDFECCF_CUSTOM_DEV(XPAR_XDFECCF_1_DEV_NAME, XPAR_XDFECCF_1_BASEADDR, 1),
+	XDFECCF_CUSTOM_DEV(XDFECCF_NODE1_NAME, XDFECCF_NODE1_BASE, 0),
+	XDFECCF_CUSTOM_DEV(XDFECCF_NODE2_NAME, XDFECCF_NODE2_BASE, 1),
 };
 #endif
 
