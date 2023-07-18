@@ -45,6 +45,8 @@
  * 6.2  Nava  12/13/21  Replaced library specific utility functions and standard
  *			lib functions with Xilinx maintained functions.
  * 6.3  Nava  08/05/22  Added doxygen tags.
+ * 6.5  Nava  07/17/23  Fixed compiler optimization issues relevant to the function
+ *                      pointer validation checks.
  * </pre>
  *
  * @note
@@ -91,6 +93,7 @@ u32 (*const Write_To_Pl)(struct XFpgatag *InstancePtr) = XFpga_WriteToPl;
 u32 XFpga_Initialize(XFpga *InstancePtr)
 {
 	u32 Status = XFPGA_INVALID_PARAM;
+	u32 (*volatile WriteToPl)(struct XFpgatag *InstancePtr) = XFpga_WriteToPl;
 
 	/* Validate the input arguments */
 	if (InstancePtr != NULL) {
@@ -100,10 +103,10 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
 			goto END;
 		}
 
-		InstancePtr->XFpga_WriteToPl = XFpga_WriteToPl;
+		InstancePtr->XFpga_WriteToPl = WriteToPl;
 
 		/* Check the pointer was assigned correctly. */
-		if (InstancePtr->XFpga_WriteToPl == Write_To_Pl) {
+		if (InstancePtr->XFpga_WriteToPl == WriteToPl) {
 			Status = XFPGA_SUCCESS;
 		}
 	}
