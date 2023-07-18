@@ -25,6 +25,7 @@
  *       ssc  08/25/22 Updates based on Security best practices, error handling fix in
  * 					XTrngpsv_Generate, moved Xil_SecureRMW32 to BSP.
  * 1.3   kpt  01/31/23 Fixed RGRG sequence
+ * 1.4   ng   06/30/23 Added support for system device-tree flow
  *
  * </pre>
  *
@@ -125,7 +126,11 @@ s32 XTrngpsv_CfgInitialize(XTrngpsv *InstancePtr, const XTrngpsv_Config *CfgPtr,
 	}
 
 	/* Populate Config parameters */
+	#ifndef SDT
 	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
+	#else
+	InstancePtr->Config.Name = CfgPtr->Name;
+	#endif
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
 	InstancePtr->State = XTRNGPSV_UNINITIALIZED;

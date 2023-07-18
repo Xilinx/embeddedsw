@@ -1,5 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -18,6 +19,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
+ * 1.01  ng   06/30/23 Added support for system device-tree flow
  *
  * </pre>
  *
@@ -26,7 +28,9 @@
 /***************************** Include Files *****************************************************/
 
 #include "xtrngpsv.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************************ Constant Definitions ***************************************/
 
@@ -52,6 +56,7 @@
  * 		table (in xtrngpsv.c) corresponding to DeviceId, or NULL if no match is found.
  *
  **************************************************************************************************/
+#ifndef SDT
 XTrngpsv_Config *XTrngpsv_LookupConfig(u16 DeviceId)
 {
 	XTrngpsv_Config *CfgPtr = NULL;
@@ -69,4 +74,22 @@ XTrngpsv_Config *XTrngpsv_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XTrngpsv_Config *XTrngpsv_LookupConfig(UINTPTR BaseAddress)
+{
+	XTrngpsv_Config *CfgPtr = NULL;
+	u32 Index;
+
+	/* Checks all the instances */
+	for (Index = 0U; XTrngpsv_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XTrngpsv_ConfigTable[Index].BaseAddress == BaseAddress) ||
+			 !BaseAddress) {
+			CfgPtr = &XTrngpsv_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XTrngpsv_Config *)CfgPtr;
+}
+#endif
 /** @} */

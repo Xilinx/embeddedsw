@@ -1,6 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -73,7 +73,7 @@
  * 1.00  ssc  09/05/21 First release
  * 1.1   ssc  03/24/22 New error code XTRNGPSV_ERROR_GLITCH and doxygen fixes
  * 1.4   mmd  07/10/23 Included header file for crypto algorithm information
- *
+ *       ng   06/30/23 Added support for system device-tree flow
  * </pre>
  *
  ******************************************************************************/
@@ -196,8 +196,14 @@ typedef enum {
 
 /* This typedef contains configuration information for the device */
 typedef struct {
-	u16 DeviceId; /**< Unique ID of the device */
-	UINTPTR BaseAddress; /**< Base address of the device */
+#ifndef SDT
+	u16 DeviceId;		/**< DeviceId is the unique ID of the
+					*  device */
+#else
+	char *Name;
+#endif
+	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
+					*  of the device's registers */
 } XTrngpsv_Config;
 
 /* This typedef contains config information for the device, which is used during Instantiation */
@@ -263,7 +269,12 @@ extern XTrngpsv_Config XTrngpsv_ConfigTable[];
 /************************************ Function Prototypes ****************************************/
 
 /* Required functions in xtrngpsv.c */
+#ifndef SDT
 XTrngpsv_Config *XTrngpsv_LookupConfig(u16 DeviceId);
+#else
+XTrngpsv_Config *XTrngpsv_LookupConfig(UINTPTR BaseAddress);
+#endif
+
 s32 XTrngpsv_CfgInitialize(XTrngpsv *InstancePtr, const XTrngpsv_Config *CfgPtr,
 		UINTPTR EffectiveAddr);
 s32 XTrngpsv_Instantiate(XTrngpsv *InstancePtr, const XTrngpsv_UsrCfg *ConfigurValues);
