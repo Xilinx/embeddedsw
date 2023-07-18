@@ -301,19 +301,42 @@ endif()
 #endif()
 
 list(LENGTH TTCPS_NUM_DRIVER_INSTANCES CONFIG_TTCPS)
-if (${CONFIG_TTCPS})
-    set(index 0)
-    LIST_INDEX(${index} ${freertos_timer_select} "${TTCPS_NUM_DRIVER_INSTANCES}")
-    list(GET TOTAL_TTCPS_PROP_LIST ${index} reg)
-    set(reg1 ${${reg}})
-    set(index1 0)
-    list(GET reg1 ${index1} reg2)
-    set(configTIMER_BASEADDR ${reg2})
-    set(configTIMER_SELECT_CNTR ${freertos_timer_select_counter})
-else()
-    message(FATAL_ERROR "A53, R5 or A72 FreeRTOS need a TTC in the system \
-    without it cannot work")
+if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR
+   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
+   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
+   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9")
+  )
 
+    list(LENGTH TTCPS_NUM_DRIVER_INSTANCES CONFIG_TTCPS)
+    if (${CONFIG_TTCPS})
+        set(index 0)
+        LIST_INDEX(${index} ${freertos_timer_select} "${TTCPS_NUM_DRIVER_INSTANCES}")
+        list(GET TOTAL_TTCPS_PROP_LIST ${index} reg)
+        set(reg1 ${${reg}})
+        set(index1 0)
+        list(GET reg1 ${index1} reg2)
+        set(configTIMER_BASEADDR ${reg2})
+        set(configTIMER_SELECT_CNTR ${freertos_timer_select_counter})
+    else()
+        message(FATAL_ERROR "A53, R5 or A72 FreeRTOS need a TTC in the system \
+        without it cannot work")
+
+    endif()
+elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze")
+    list(LENGTH TMRCTR_NUM_DRIVER_INSTANCES CONFIG_TMRCTR)
+    if (${CONFIG_TMRCTR})
+        set(index 0)
+        LIST_INDEX(${index} ${freertos_timer_select} "${TMRCTR_NUM_DRIVER_INSTANCES}")
+	list(GET TOTAL_TMRCTR_PROP_LIST ${index} reg)
+        set(reg1 ${${reg}})
+        set(index1 0)
+        list(GET reg1 ${index1} reg2)
+        set(configTIMER_BASEADDR ${reg2})
+        set(configTIMER_SELECT_CNTR ${freertos_timer_select_counter})
+    else()
+	    message(FATAL_ERROR "Microblaze needs a AXI TIMER in the system \
+        without it cannot work")
+    endif()
 endif()
 
 
@@ -337,6 +360,10 @@ if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR
 elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
     set(configINTERRUPT_CONTROLLER_BASE_ADDRESS 0xf9000000)
     set(configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET 0x1000)
+elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze")
+    set(index2 0)
+    list(GET INTC0_PROP_LIST ${index2} reg3)
+    set(configINTERRUPT_CONTROLLER_BASE_ADDRESS ${reg3})
 endif()
 
 set(SETUP_TICK_FUN "")
@@ -354,8 +381,8 @@ set(INSTALL_EXCEPTION_HANDLERS "")
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze")
     set(APPLICATION_ASSERT_FUN_LINE1 "#ifndef __ASSEMBLER__\n")
     set(APPLICATION_ASSERT_FUN_LINE2
-    "void vApplicationAssert( const char *pcFile, uint32_t ulLine );")
-    set(APPLICATION_ASSERT_FUN_LINE1 "#endif\n")
+    "void vApplicationAssert( const char *pcFile, uint32_t ulLine );\n")
+    set(APPLICATION_ASSERT_FUN_LINE3 "#endif\n")
     string(CONCAT APPLICATION_ASSERT_FUN "${APPLICATION_ASSERT_FUN_LINE1}"
                                          "${APPLICATION_ASSERT_FUN_LINE2}"
                                          "${APPLICATION_ASSERT_FUN_LINE3}")

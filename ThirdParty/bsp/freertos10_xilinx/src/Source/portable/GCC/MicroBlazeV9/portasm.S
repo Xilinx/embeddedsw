@@ -312,7 +312,11 @@ _interrupt_handler:
 	LI r1, r0, pulISRStack
 
 	/* The parameter to the interrupt handler. */
+#ifdef SDT
+	ORI r5, r0, configINTERRUPT_CONTROLLER_BASE_ADDRESS
+#else
 	ORI r5, r0, configINTERRUPT_CONTROLLER_TO_USE
+#endif
 
 	/* Execute any pending interrupts. */
 	BRALID r15, XIntc_DeviceInterruptHandler

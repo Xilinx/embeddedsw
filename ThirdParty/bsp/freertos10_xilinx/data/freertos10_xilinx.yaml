@@ -16,13 +16,14 @@ properties:
     description: Physical base address and size of the controller register map
 
 depends_libs:
-    xiltimer:
-        XILTIMER_en_interval_timer: ON
+    xiltimer: {}
 
 depends:
     ttcps:
         - reg
     scugic:
+        - reg
+    intc:
         - reg
     tmrctr:
         - reg
