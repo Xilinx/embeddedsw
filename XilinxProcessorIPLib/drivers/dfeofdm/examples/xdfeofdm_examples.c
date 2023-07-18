@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   dc     11/21/22 Initial version
+* 1.1   cog    07/18/23 Modify example for SDT flow
 *
 * </pre>
 *
@@ -44,11 +45,11 @@ extern int XDfeOfdm_MultiAddCCExample();
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
 metal_phys_addr_t XDfeOfdm_metal_phys[XDFEOFDM_MAX_NUM_INSTANCES] = {
-	XPAR_XDFEOFDM_0_BASEADDR,
+	XDFEOFDM_NODE1_BASE,
 };
 
 struct metal_device XDfeOfdm_CustomDevice[XDFEOFDM_MAX_NUM_INSTANCES] = {
-	XDFEOFDM_CUSTOM_DEV(XPAR_XDFEOFDM_0_DEV_NAME, XPAR_XDFEOFDM_0_BASEADDR,
+	XDFEOFDM_CUSTOM_DEV(XDFEOFDM_NODE1_NAME, XDFEOFDM_NODE1_BASE,
 			    0),
 };
 #endif

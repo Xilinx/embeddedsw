@@ -36,6 +36,12 @@ required:
     - xlnx,phase-compensation
 
 examples:
+    xdfeofdm_examples.c:
+        - dependency_files:
+            - xdfeofdm_examples.h
+            - xdfeofdm_AddCC_example.c
+            - xdfeofdm_multiAddCC_example.c
+            - xdfesi570_mgt.c
 
 depends_libs:
     libmetal: {}
