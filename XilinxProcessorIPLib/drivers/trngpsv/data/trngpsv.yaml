@@ -1,0 +1,40 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: Bindings for trngpsv controller
+
+maintainers:
+  - Savitala, Sarat Chand <sarat.chand.savitala@amd.com>
+  - Kundanala, Praveen Teja <praveen.teja.kundanala@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+      - const: xlnx,trngpsv-1.0
+
+config:
+  - XTrngpsv_Config
+
+required:
+  - compatible
+  - reg
+
+examples:
+  xtrngpsv_drng_df_example.c:
+    - reg
+  xtrngpsv_drng_example.c:
+    - reg
+  xtrngpsv_hrng_df_example.c:
+    - reg
+  xtrngpsv_hrng_example.c:
+    - reg
+  xtrngpsv_ptrng_df_example.c:
+    - reg
+  xtrngpsv_ptrng_example.c:
+    - reg
+
+...

@@ -1,5 +1,6 @@
 /***************************************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -20,13 +21,15 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
-
+ * 1.01  ng   06/30/23 Added support for system device-tree flow
+ *
  *</pre>
  **************************************************************************************************/
 
 /*************************************** Include Files *******************************************/
-
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xtrngpsv.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -36,8 +39,11 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define TRNGPSV_DEVICE_ID	XPAR_XTRNGPSV_0_DEVICE_ID
-
+#ifndef SDT
+#define TRNGPSV_DEVICE	XPAR_XTRNGPSV_0_DEVICE_ID
+#else
+#define TRNGPSV_DEVICE	XPAR_XTRNGPSV_0_BASEADDR
+#endif
 
 /************************************** Type Definitions *****************************************/
 
@@ -45,7 +51,11 @@
 
 /************************************ Function Prototypes ****************************************/
 
+#ifndef SDT
 static int Trngpsv_Ptrng_Example(u16 DeviceId);
+#else
+static int Trngpsv_Ptrng_Example(UINTPTR BaseAddr);
+#endif
 static void Trngpsv_PrintBytes(u8 *Src, u32 Size);
 
 /************************************ Variable Definitions ***************************************/
@@ -69,7 +79,7 @@ int main(void)
 
 	/* Call the example , specify the device ID that is generated in xparameters.h. */
 	xil_printf("****** TRNGPSV example in PTRNG mode *******\n\r");
-	Status = Trngpsv_Ptrng_Example(TRNGPSV_DEVICE_ID);
+	Status = Trngpsv_Ptrng_Example(TRNGPSV_DEVICE);
 	if (Status != XST_SUCCESS) {
 		xil_printf("TRNGPSV PTRNG example failed\n\r");
 		return XST_FAILURE;
@@ -93,7 +103,11 @@ int main(void)
  *		- XST_FAILURE otherwise.
  *
  **************************************************************************************************/
+#ifndef SDT
 int Trngpsv_Ptrng_Example(u16 DeviceId)
+#else
+int Trngpsv_Ptrng_Example(UINTPTR BaseAddr)
+#endif
 {
 	int Status = XST_SUCCESS;
 	XTrngpsv_Config *Config;
@@ -111,7 +125,11 @@ int Trngpsv_Ptrng_Example(u16 DeviceId)
 	 * Initialize the TRNGPSV driver so that it's ready to use look up
 	 * configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Config = XTrngpsv_LookupConfig(DeviceId);
+#else
+	Config = XTrngpsv_LookupConfig(BaseAddr);
+#endif
 	if (NULL == Config) {
 		xil_printf("LookupConfig Failed \n\r");
 		goto END;
