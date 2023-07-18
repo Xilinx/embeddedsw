@@ -39,6 +39,12 @@ required:
     - xlnx,tuser-width
 
 examples:
+    xdfeequ_examples.c:
+        - dependency_files:
+            - xdfeequ_examples.h
+            - xdfeequ_one_instance_initialization_example.c
+            - xdfeequ_pass_through_example.c
+            - xdfesi570_mgt.c
 
 depends_libs:
     libmetal: {}

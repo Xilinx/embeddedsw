@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,7 @@
 * 1.1   dc     07/13/21 Update to common latency requirements
 *       dc     07/21/21 Add and reorganise examples
 * 1.3   dc     03/21/22 Add prefix to global variables
+* 1.5   cog    07/18/23 Modify example for SDT flow
 *
 * </pre>
 *
@@ -51,11 +53,11 @@ extern int XDfeEqu_PassThroughExample();
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
 metal_phys_addr_t XDfeEqu_metal_phys[XDFEEQU_MAX_NUM_INSTANCES] = {
-	XPAR_XDFEEQU_0_BASEADDR,
+	XDFEEQU_NODE_BASE,
 };
 
 struct metal_device XDfeEqu_CustomDevice[XDFEEQU_MAX_NUM_INSTANCES] = {
-	XDFEEQU_CUSTOM_DEV(XPAR_XDFEEQU_0_DEV_NAME, XPAR_XDFEEQU_0_BASEADDR, 0),
+	XDFEEQU_CUSTOM_DEV(XDFEEQU_NODE_NAME, XDFEEQU_NODE_BASE, 0),
 };
 #endif
 
