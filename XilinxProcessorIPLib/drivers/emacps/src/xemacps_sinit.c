@@ -74,6 +74,7 @@ XEmacPs_Config *XEmacPs_LookupConfig(UINTPTR BaseAddress)
 			break;
 		}
 	}
+	return (XEmacPs_Config *)(CfgPtr);
 }
 #else
 XEmacPs_Config *XEmacPs_LookupConfig(u16 DeviceId)
