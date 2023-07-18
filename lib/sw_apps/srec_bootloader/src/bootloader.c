@@ -92,11 +92,11 @@ static uint8 *flbuf;
 
 #ifdef VERBOSE
 static int8 *errors[] = {
-    "",
-    "Error while copying executable image into RAM",
-    "Error while reading an SREC line from flash",
-    "SREC line is corrupted",
-    "SREC has invalid checksum."
+	"",
+	"Error while copying executable image into RAM",
+	"Error while reading an SREC line from flash",
+	"SREC line is corrupted",
+	"SREC has invalid checksum."
 };
 #endif
 
@@ -111,116 +111,119 @@ void _hw_exception_handler () {}
 
 int main()
 {
-    uint8 ret;
+	uint8 ret;
 
-    init_stdout();
-
-#ifdef VERBOSE
-    print ("\r\nSREC Bootloader\r\n");
-    print ("Loading SREC image from flash @ address: ");
-    putnum (FLASH_IMAGE_BASEADDR);
-    print ("\r\n");
-#endif
-
-    flbuf = (uint8*)FLASH_IMAGE_BASEADDR;
-    ret = load_exec ();
-
-    /* If we reach here, we are in error */
+	init_stdout();
 
 #ifdef VERBOSE
-    if (ret > LD_SREC_LINE_ERROR) {
-        print ("ERROR in SREC line: ");
-        putnum (srec_line);
-        print (errors[ret]);
-    } else {
-        print ("ERROR: ");
-        print (errors[ret]);
-    }
+	print ("\r\nSREC Bootloader\r\n");
+	print ("Loading SREC image from flash @ address: ");
+	putnum (FLASH_IMAGE_BASEADDR);
+	print ("\r\n");
 #endif
 
-    return ret;
+	flbuf = (uint8 *)FLASH_IMAGE_BASEADDR;
+	ret = load_exec ();
+
+	/* If we reach here, we are in error */
+
+#ifdef VERBOSE
+	if (ret > LD_SREC_LINE_ERROR) {
+		print ("ERROR in SREC line: ");
+		putnum (srec_line);
+		print (errors[ret]);
+	} else {
+		print ("ERROR: ");
+		print (errors[ret]);
+	}
+#endif
+
+	return ret;
 }
 
 #ifdef VERBOSE
 static void display_progress (uint32 count)
 {
-    /* Send carriage return */
-    outbyte (CR);
-    print  ("Bootloader: Processed (0x)");
-    putnum (count);
-    print (" S-records");
+	/* Send carriage return */
+	outbyte (CR);
+	print  ("Bootloader: Processed (0x)");
+	putnum (count);
+	print (" S-records");
 }
 #endif
 
 static uint8 load_exec ()
 {
-    uint8 ret;
-    void (*laddr)();
-    int8 done = 0;
+	uint8 ret;
+	void (*laddr)();
+	int8 done = 0;
 
-    srinfo.sr_data = sr_data_buf;
+	srinfo.sr_data = sr_data_buf;
 
-    while (!done) {
-        if ((ret = flash_get_srec_line (sr_buf)) != 0)
-            return ret;
+	while (!done) {
+		if ((ret = flash_get_srec_line (sr_buf)) != 0) {
+			return ret;
+		}
 
-        if ((ret = decode_srec_line (sr_buf, &srinfo)) != 0)
-            return ret;
-
-#ifdef VERBOSE
-        display_progress (srec_line);
-#endif
-        switch (srinfo.type) {
-            case SREC_TYPE_0:
-                break;
-            case SREC_TYPE_1:
-            case SREC_TYPE_2:
-            case SREC_TYPE_3:
-                memcpy ((void*)srinfo.addr, (void*)srinfo.sr_data, srinfo.dlen);
-                break;
-            case SREC_TYPE_5:
-                break;
-            case SREC_TYPE_7:
-            case SREC_TYPE_8:
-            case SREC_TYPE_9:
-                laddr = (void (*)())srinfo.addr;
-                done = 1;
-                ret = 0;
-                break;
-        }
-    }
+		if ((ret = decode_srec_line (sr_buf, &srinfo)) != 0) {
+			return ret;
+		}
 
 #ifdef VERBOSE
-    print ("\r\nExecuting program starting at address: ");
-    putnum ((uint32)laddr);
-    print ("\r\n");
+		display_progress (srec_line);
+#endif
+		switch (srinfo.type) {
+			case SREC_TYPE_0:
+				break;
+			case SREC_TYPE_1:
+			case SREC_TYPE_2:
+			case SREC_TYPE_3:
+				memcpy ((void *)srinfo.addr, (void *)srinfo.sr_data, srinfo.dlen);
+				break;
+			case SREC_TYPE_5:
+				break;
+			case SREC_TYPE_7:
+			case SREC_TYPE_8:
+			case SREC_TYPE_9:
+				laddr = (void (*)())srinfo.addr;
+				done = 1;
+				ret = 0;
+				break;
+		}
+	}
+
+#ifdef VERBOSE
+	print ("\r\nExecuting program starting at address: ");
+	putnum ((uint32)laddr);
+	print ("\r\n");
 #endif
 
-    (*laddr)();
+	(*laddr)();
 
-    /* We will be dead at this point */
-    return 0;
+	/* We will be dead at this point */
+	return 0;
 }
 
 
 static uint8 flash_get_srec_line (uint8 *buf)
 {
-    uint8 c;
-    int count = 0;
+	uint8 c;
+	int count = 0;
 
-    while (1) {
-        c  = *flbuf++;
-        if (c == 0xD) {
-            /* Eat up the 0xA too */
-            c = *flbuf++;
-            return 0;
-        }
+	while (1) {
+		c  = *flbuf++;
+		if (c == 0xD) {
+			/* Eat up the 0xA too */
+			c = *flbuf++;
+			return 0;
+		}
 
-        *buf++ = c;
-        count++;
-        if (count > SREC_MAX_BYTES)
-            return LD_SREC_LINE_ERROR;
-    }
+		*buf++ = c;
+		count++;
+		if (count > SREC_MAX_BYTES) {
+			return LD_SREC_LINE_ERROR;
+		}
+	}
 }
 
 #ifdef __PPC__
@@ -231,6 +234,6 @@ static uint8 flash_get_srec_line (uint8 *buf)
    by defining a minimal exit */
 void exit (int ret)
 {
-    _exit (ret);
+	_exit (ret);
 }
 #endif
