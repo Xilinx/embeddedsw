@@ -61,7 +61,8 @@ int XHdcp_LoadKeys(void *IicPtr,
 		u8 *Hdcp14KeyA, u32 Hdcp14KeyASize, u8 *Hdcp14KeyB, u32 Hdcp14KeyBSize);
 int XHdcp_KeyManagerInit(u32 BaseAddress, u8 *Hdcp14Key);
 
-#if defined (XPS_BOARD_VEK280_ES) || (XPS_BOARD_VEK280_ES_REVB)
+#if defined (XPS_BOARD_VEK280_ES) || \
+	defined (XPS_BOARD_VEK280_ES_REVB)
 #define XPS_BOARD_VEK280
 #endif
 

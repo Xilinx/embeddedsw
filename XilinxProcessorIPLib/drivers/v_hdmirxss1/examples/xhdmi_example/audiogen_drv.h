@@ -31,7 +31,8 @@
 #include "xil_io.h"
 #include "sleep.h"
 
-#if defined (XPS_BOARD_VEK280_ES) || (XPS_BOARD_VEK280_ES_REVB)
+#if defined (XPS_BOARD_VEK280_ES) || \
+	defined (XPS_BOARD_VEK280_ES_REVB)
 #define XPS_BOARD_VEK280
 #endif
 
