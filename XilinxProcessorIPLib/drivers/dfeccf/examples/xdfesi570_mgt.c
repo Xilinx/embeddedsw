@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     01/04/21 Initial version
 *       dc     11/19/21 Update doxygen documentation
+* 1.6   cog    07/18/23 Modify example for SDT flow
 * </pre>
 *
 ******************************************************************************/
@@ -91,6 +93,14 @@ int fd_device;
 #define XDFESI570_FREEZE_DCO 0x10U /* Freeze oscillator */
 #define XDFESI570_UNFREEZE_DCO 0U /* Un-freeze oscillator */
 
+#ifdef __BAREMETAL__
+#ifndef SDT
+#define XDFESI570_IICPS_INST 1U
+#else
+#define XDFESI570_IICPS_INST 0
+#endif
+#endif
+
 /****************************************************************************/
 /**
 *
@@ -113,7 +123,7 @@ int XDfeSi570_InitI2C(void)
 	u32 ClkRate = 100000U;
 
 	/* I2C1 */
-	Config_iic = XIicPs_LookupConfig(1);
+	Config_iic = XIicPs_LookupConfig(XDFESI570_IICPS_INST);
 	if (NULL == Config_iic) {
 		return XST_FAILURE;
 	}

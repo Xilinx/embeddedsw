@@ -39,6 +39,13 @@ required:
     - xlnx,switchable
 
 examples:
+    xdfeccf_examples.c:
+        - dependency_files:
+            - xdfeccf_examples.h
+            - xdfeccf_multi_instance_initialization_example.c
+            - xdfeccf_multiAddCC_1xNR100_3xNR20_example.c
+            - xdfeccf_pass_through_example.c
+            - xdfesi570_mgt.c
 
 depends_libs:
     libmetal: {}
