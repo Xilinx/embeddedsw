@@ -23,9 +23,10 @@ static XStatus SaveSubsystem(XPm_Subsystem* ThisData)
 
 	SAVED_DATA_SET_ID(SavedData, ThisData->Id);
 	u32* StartDataAddr = (u32*)XPmUpdate_GetDynFreeBytes();
-	SaveStruct(Status, done, ThisData->State);
+	SaveStruct(Status, done, (ThisData->State << 8U) | (ThisData->Flags));
 	SaveStruct(Status, done, ThisData->PendCb);
 	SaveStruct(Status, done, ThisData->FrcPwrDwnReq);
+	SaveStruct(Status, done, ThisData->IpiMask);
 	SAVED_DATA_SET_SIZE(SavedData,((((u32)XPmUpdate_GetDynFreeBytes()) - (u32)StartDataAddr)>>2));
 
 	Status = XST_SUCCESS;
@@ -59,9 +60,13 @@ static XStatus RestoreSubsystem(u32* SavedData, XPm_Subsystem* ThisData)
 	}
 
 	DataAddr = &(SavedData[XPM_SAVED_DATA_RETORE_OFFSET]);
-	RestoreStruct(DataAddr, ThisData->State);
+	u32 tmp = 0U;
+	RestoreStruct(DataAddr, tmp);
+	ThisData->State = (u8)((tmp >> 8U) & 0xFFU);
+	ThisData->Flags = (u8)((tmp) & 0xFFU);
 	RestoreStruct(DataAddr, ThisData->PendCb);
 	RestoreStruct(DataAddr, ThisData->FrcPwrDwnReq);
+	RestoreStruct(DataAddr, ThisData->IpiMask);
 
 	Status = XST_SUCCESS;
 done:
