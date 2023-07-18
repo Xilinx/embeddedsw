@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -128,6 +129,12 @@ typedef enum {
 	XVPHY_DIR_RX = 0,
 	XVPHY_DIR_TX
 } XVphy_DirectionType;
+
+/* This typedef enumerates is used to specify MMCM/PLL Clock Primitive information. */
+typedef enum {
+	XVPHY_MMCM = 0,
+	XVPHY_PLL = 1,
+} XVphy_ClkPrimitive;
 
 /**
  * This typedef enumerates the list of available interrupt handler types. The
@@ -677,6 +684,8 @@ typedef struct {
 	u8  UseGtAsTxTmdsClk;	/**< Use 4th GT channel as TX TMDS clock */
 	u8  DpTxProtocol;       /* DP TX protocol */
 	u8  DpRxProtocol;       /* DP RX protocol */
+	XVphy_ClkPrimitive TxClkPrimitive; /* TX Clock Primitive */
+	XVphy_ClkPrimitive RxClkPrimitive; /* RX Clock Primitive */
 } XVphy_Config;
 
 /* Forward declaration. */

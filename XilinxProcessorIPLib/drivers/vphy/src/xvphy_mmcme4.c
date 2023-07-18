@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -463,7 +464,12 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 		return XST_FAILURE;
 	}
 	/* Write Power Register Value */
-	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x27, 0xFFFF);
+	if ((InstancePtr->Config.RxClkPrimitive == 0) ||
+			(InstancePtr->Config.TxClkPrimitive == 0)) {
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x27, 0xFFFF);
+	} else {
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x27, 0x4401);
+	}
 
 	/* Write CLKFBOUT Reg1 & Reg2 Values */
 	DrpVal32 = XVphy_Mmcme4DividerEncoding(MMCM_CLKFBOUT_MULT_F,
