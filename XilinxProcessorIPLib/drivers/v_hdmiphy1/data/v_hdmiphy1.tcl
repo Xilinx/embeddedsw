@@ -1,5 +1,6 @@
 ##******************************************************************************
-# Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -12,12 +13,13 @@
 # -------- ------ -------- ----------------------------------------------------
 # 1.0      gm     10/12/18 Initial release.
 # 1.1      ku     24/07/20 Added RX and TX Max Rate param
+# 1.2      ssh    17/07/23 Added Clock Primitive
 ###############################################################################
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XHDMIPHY1" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI" "C_SPEEDGRADE" "Rx_Max_GT_Line_Rate" "Tx_Max_GT_Line_Rate"
-    xdefine_config_file $drv_handle "xhdmiphy1_g.c" "XHdmiphy1" "DEVICE_ID" "C_BASEADDR" "TRANSCEIVER" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI" "Rx_Max_GT_Line_Rate" "Tx_Max_GT_Line_Rate"
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "HDMIPHY1" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI" "C_SPEEDGRADE" "Rx_Max_GT_Line_Rate" "Tx_Max_GT_Line_Rate"
+    xdefine_include_file $drv_handle "xparameters.h" "XHDMIPHY1" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI" "C_SPEEDGRADE" "Rx_Max_GT_Line_Rate" "Tx_Max_GT_Line_Rate" "C_Tx_Clk_Primitive" "C_Rx_Clk_Primitive"
+    xdefine_config_file $drv_handle "xhdmiphy1_g.c" "XHdmiphy1" "DEVICE_ID" "C_BASEADDR" "TRANSCEIVER" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI" "Rx_Max_GT_Line_Rate" "Tx_Max_GT_Line_Rate" "C_Tx_Clk_Primitive" "C_Rx_Clk_Primitive"
+    xdefine_canonical_xpars $drv_handle "xparameters.h" "HDMIPHY1" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_FRL_REFCLK_SEL" "C_RX_FRL_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ" "DRPCLK_FREQ" "C_Use_GT_CH4_HDMI" "C_SPEEDGRADE" "Rx_Max_GT_Line_Rate" "Tx_Max_GT_Line_Rate" "C_Tx_Clk_Primitive" "C_Rx_Clk_Primitive"
 }
 
 # -----------------------------------------------------------------------------
@@ -69,6 +71,10 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
                 puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XHdmiphy1_PllRefClkSelType)" [::hsi::utils::get_ip_param_name $periph $arg]]
             } elseif {[string compare -nocase "C_INPUT_PIXELS_PER_CLOCK" $arg] == 0} {
                 puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XVidC_PixelsPerClock)" [::hsi::utils::get_ip_param_name $periph $arg]]
+            } elseif {[string compare -nocase "C_Tx_Clk_Primitive" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XHdmiphy1_ClkPrimitive)" [::hsi::utils::get_ip_param_name $periph $arg]]
+            } elseif {[string compare -nocase "C_Rx_Clk_Primitive" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XHdmiphy1_ClkPrimitive)" [::hsi::utils::get_ip_param_name $periph $arg]]
             } else {
 				puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
 			}
