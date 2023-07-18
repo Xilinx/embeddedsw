@@ -77,6 +77,8 @@ extern void xil_printf(const char *format, ...);
 #ifndef TESTAPP_GEN
 #define DMA_CTRL_DEVICE_ID	XPAR_AXICDMA_0_DEVICE_ID
 #endif
+#else
+#define AXICDMA_BASE_ADDR       XPAR_XAXICDMA_0_BASEADDR
 #endif
 
 #define BUFFER_BYTESIZE		64	/* Length of the buffers for DMA
@@ -106,7 +108,7 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length);
 #ifndef SDT
 int XAxiCdma_SimplePollExample(u16 DeviceId);
 #else
-int XAxiCdma_SimplePollExample(UINTPTR BaseAddress);
+int XAxiCdma_SimplePollExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -149,7 +151,7 @@ int main()
 #ifndef SDT
 	Status = XAxiCdma_SimplePollExample(DMA_CTRL_DEVICE_ID);
 #else
-	Status = XAxiCdma_SimplePollExample(XAXICDMA_BASEADDRESS);
+	Status = XAxiCdma_SimplePollExample(&AxiCdmaInstance, AXICDMA_BASE_ADDR);
 #endif
 
 	if (Status != XST_SUCCESS) {
@@ -185,7 +187,7 @@ int main()
 #ifndef SDT
 int XAxiCdma_SimplePollExample(u16 DeviceId)
 #else
-int XAxiCdma_SimplePollExample(UINTPTR BaseAddress)
+int XAxiCdma_SimplePollExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	XAxiCdma_Config *CfgPtr;

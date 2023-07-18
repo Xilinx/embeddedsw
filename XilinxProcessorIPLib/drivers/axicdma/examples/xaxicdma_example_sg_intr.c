@@ -128,6 +128,7 @@ extern void xil_printf(const char *format, ...);
 #ifdef XPAR_MEM0_BASEADDRESS
 #define MEMORY_BASE		XPAR_MEM0_BASEADDRESS
 #endif
+#define AXICDMA_BASE_ADDR       XPAR_XAXICDMA_0_BASEADDR
 #endif
 
 #ifndef MEMORY_BASE
@@ -257,7 +258,7 @@ int main()
 	Status = XAxiCdma_SgIntrExample(&IntcController, &Engine,
 					DMA_CTRL_DEVICE_ID, DMA_CTRL_IRPT_INTR);
 #else
-	Status = XAxiCdma_SgIntrExample(&Engine, XAXICDMA_BASEADDRESS);
+	Status = XAxiCdma_SgIntrExample(&Engine, AXICDMA_BASE_ADDR);
 #endif
 
 	if (Status != XST_SUCCESS) {

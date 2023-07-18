@@ -11,15 +11,11 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
-#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 int XAxiCdma_SgIntrExample(XIntc *IntcInstancePtr, XAxiCdma *InstancePtr,
 				u16 DeviceId,u32 IntrId);
 #else
 int XAxiCdma_SgIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 				u16 DeviceId,u32 IntrId);
-#endif
-#else
-int XAxiCdma_SgIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress);
 #endif
 #endif
