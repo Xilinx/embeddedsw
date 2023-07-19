@@ -98,6 +98,7 @@ XMcdma_Config *XMcdma_LookupConfig(UINTPTR BaseAddress)
 			break;
 		}
 	}
+	return (XMcdma_Config *)(CfgPtr);
 }
 #endif
 
