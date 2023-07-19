@@ -219,6 +219,7 @@
 * 19.0   vns 03/18/22   Fixed CR#1125470, added FsblPrintArray() prototype
 * 20.0   ng  12/08/22   Updated SDK release version
 * 21.0   skd 02/10/22   SDK release version updated
+* 21.1   ng  07/13/23   Add SDT support
 *
 * </pre>
 *
@@ -307,7 +308,11 @@ extern "C" {
 #include "fsbl_debug.h"
 #include "ps7_init.h"
 #ifdef FSBL_PERF
+#ifndef SDT
 #include "xtime_l.h"
+#else
+#include "xiltimer.h"
+#endif
 #include <stdio.h>
 #endif
 

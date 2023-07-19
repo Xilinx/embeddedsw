@@ -1,5 +1,6 @@
 /*****************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,6 +60,7 @@
 * 											In pcap.c, check pl power
 * 											through MCTRL register for
 * 											3.0 and later versions of silicon.
+* 21.1   ng  07/13/23   Add SDT support
 * </pre>
 *
 * @note
@@ -75,8 +77,11 @@
 #include "xil_exception.h"
 #include "xdevcfg.h"
 #include "sleep.h"
+#ifndef SDT
 #include "xtime_l.h"
-
+#else
+#include "xiltimer.h"
+#endif
 #ifdef XPAR_XWDTPS_0_BASEADDR
 #include "xwdtps.h"
 #endif
@@ -87,7 +92,11 @@
  * change all the needed parameters in one place.
  */
 
+#ifndef SDT
 #define DCFG_DEVICE_ID		XPAR_XDCFG_0_DEVICE_ID
+#else
+#define DCFG_DEVICE_ID		XPAR_XDEVCFG_0_BASEADDR
+#endif
 
 /**************************** Type Definitions *******************************/
 

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -82,6 +83,8 @@
 * 											of failure.
 * 16.00a bsv 03/26/18	Fix for CR# 996973  Add code under JTAG_ENABLE_LEVEL_SHIFTERS macro
 * 											to enable level shifters in jtag boot mode.
+* 21.1   ng  07/13/23   Add SDT support
+*
 * </pre>
 *
 * @note
@@ -112,7 +115,11 @@
 #include "xil_exception.h"
 #include "xstatus.h"
 #include "fsbl_hooks.h"
+#ifndef SDT
 #include "xtime_l.h"
+#else
+#include "xiltimer.h"
+#endif
 
 #ifdef XPAR_XWDTPS_0_BASEADDR
 #include "xwdtps.h"
