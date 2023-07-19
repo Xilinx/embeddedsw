@@ -90,13 +90,12 @@
 *                     to ICC_IGRPEN0_EL1 is resulting into sync abort.
 *                     It fixes CR#1152445.
 * 5.1   mus  02/15/23 Added support for VERSAL_NET APU and RPU GIC.
-<<<<<<< ours
 * 5.1   mus  03/07/23 Fix XScuGic_InterruptMapFromCpuByDistAddr and
 *                     XScuGic_InterruptUnmapFromCpuByDistAddr for GICv3.
 *
-=======
 * 5.2   ml   03/02/23 Remove few comments to fix doxygen warnings.
->>>>>>> theirs
+* 5.2   mus  07/19/23 Updated XScuGic_DeviceInterruptHandler to support SDT
+*                     flow.
 * </pre>
 *
 ******************************************************************************/
@@ -402,7 +401,11 @@ void XScuGic_DeviceInterruptHandler(void *DeviceId)
 	XScuGic_VectorTableEntry *TablePtr;
 	XScuGic_Config *CfgPtr;
 
+#ifndef SDT
 	CfgPtr = &XScuGic_ConfigTable[(INTPTR)DeviceId];
+#else
+	CfgPtr = LookupConfigByBaseAddress((u32)DeviceId);
+#endif
 
 #if defined (GICv3)
 	InterruptID = XScuGic_get_IntID();
