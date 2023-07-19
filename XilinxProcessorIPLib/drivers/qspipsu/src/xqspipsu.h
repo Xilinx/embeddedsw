@@ -174,6 +174,7 @@
  * 1.18 sb  06/07/23 Added support for system device-tree flow.
  * 1.18 sb  06/19/23 Add memory barrier instruction and convert IsBusy varible
  *                   to volatile.
+ * 1.18 ht  07/18/23 Fixed GCC warnings.
  *
  * </pre>
  *
@@ -250,10 +251,12 @@ typedef struct {
 	u8  ConnectionMode;	/**< Single, Stacked and Parallel mode */
 	u8  BusWidth;		/**< Bus width available on board */
 	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
+#ifdef SDT
 	u16 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
                                 * trigger type and level flags */
 	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
                                 * Parent base address */
+#endif
 #if defined  (XCLOCKING) || defined (SDT)
 	u32 RefClk;		/**< Input clocks */
 #endif
