@@ -11,6 +11,6 @@ BEGIN driver mipicsiss
 	OPTION supported_peripherals = (mipi_csi2_rx_subsystem);
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.9;
+	OPTION VERSION = 1.10;
 	OPTION NAME = mipicsiss;
 END driver
