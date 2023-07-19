@@ -1,5 +1,6 @@
 ###############################################################################
-# Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##############################################################################
 
@@ -297,7 +298,7 @@ proc convert_ipi_mask_to_txt { ipi_mask } {
 #=============================================================================#
 proc get_ipi_mask_txt { master } {
 
-	if { [is_ipi_defined $master] == 1 } {
+	if { ([lsearch $pmufw::master_list $master] != -1) && [is_ipi_defined $master] } {
 		return "PM_CONFIG_IPI_[string toupper $master]_MASK"
 	} else {
 		return ""
@@ -937,7 +938,10 @@ proc get_power_domain_perm_mask_txt { pwr_domain } {
 
 	if { ((("NODE_APU" == $pwr_domain) || ("NODE_FPD" == $pwr_domain)) &&
 	      ([llength $macro_list] == 0)) } {
-		lappend macro_list [get_ipi_mask_txt "psu_cortexr5_0"]
+		set macro [get_ipi_mask_txt "psu_cortexr5_0"]
+		if { $macro != "" } {
+			lappend macro_list $macro
+		}
 	}
 
 	#Return the ORed macro list
