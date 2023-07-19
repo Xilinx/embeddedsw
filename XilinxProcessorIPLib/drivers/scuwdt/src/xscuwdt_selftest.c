@@ -8,7 +8,7 @@
 /**
 *
 * @file xscuwdt_selftest.c
-* @addtogroup scuwdt_v2_4
+* @addtogroup Overview
 * @{
 *
 * Contains diagnostic self-test functions for the XScuWdt driver.
