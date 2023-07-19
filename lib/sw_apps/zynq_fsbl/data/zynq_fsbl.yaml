@@ -1,0 +1,27 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: Zynq FSBL
+
+maintainers:
+  - Kundella, Sreedhar <Sreedhar.Kundella@amd.com>
+  - Mulagondla, Bharath <bharath.mulagondla@amd.com>
+
+type: apps
+
+description: |-
+  First Stage Bootloader (FSBL) for Zynq. The FSBL configures the FPGA with HW bit stream (if it exists) and loads the Operating System (OS) Image or Standalone (SA) Image or 2nd Stage Boot Loader image from the non-volatile memory (NAND/NOR/QSPI) to RAM (DDR) and starts executing it.  It supports multiple partitions, and each partition can be a code image or a bit stream.
+
+supported_processors:
+  - ps7_cortexa9
+
+supported_os:
+  - standalone
+
+depends_libs:
+  xiltimer: {}
+  xilffs: {}
+  xilrsa: {}
+...

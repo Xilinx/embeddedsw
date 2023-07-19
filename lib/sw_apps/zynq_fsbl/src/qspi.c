@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +38,7 @@
 *					 					 instead of hard coded read
 *					 					 command (0x6B).
 * 15.0 bsv 09/04/20  Add support for 2Gb flash parts
+* 21.1   ng  07/13/23   Add SDT support
 * </pre>
 *
 * @note
@@ -59,7 +61,15 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define QSPI_DEVICE_ID		XPAR_XQSPIPS_0_DEVICE_ID
+#define QSPI_CONNECTION_MODE (XPAR_XQSPIPS_0_QSPI_MODE)
+#define QSPI_BUS_WIDTH (XPAR_XQSPIPS_0_QSPI_BUS_WIDTH)
+#else
+#define QSPI_DEVICE_ID		XPAR_XQSPIPS_0_BASEADDR
+#define QSPI_CONNECTION_MODE (XPAR_XQSPIPS_0_CONNECTION_MODE)
+#define QSPI_BUS_WIDTH (XPAR_XQSPIPS_0_BUS_WIDTH)
+#endif
 
 /*
  * The following constants define the commands which may be sent to the FLASH
@@ -243,7 +253,7 @@ u32 InitQspi(void)
 		return XST_FAILURE;
 	}
 
-	if (XPAR_XQSPIPS_0_QSPI_MODE == SINGLE_FLASH_CONNECTION) {
+	if (QSPI_CONNECTION_MODE == SINGLE_FLASH_CONNECTION) {
 
 		fsbl_printf(DEBUG_INFO,"QSPI is in single flash connection\r\n");
 		/*
@@ -258,7 +268,7 @@ u32 InitQspi(void)
 			XQspiPs_SetOptions(QspiInstancePtr,  XQSPIPS_LQSPI_MODE_OPTION |
 					XQSPIPS_HOLD_B_DRIVE_OPTION);
 
-			switch (XPAR_XQSPIPS_0_QSPI_BUS_WIDTH) {
+			switch (QSPI_BUS_WIDTH) {
 
 				case QSPI_BUSWIDTH_ONE:
 				{
@@ -294,7 +304,7 @@ u32 InitQspi(void)
 			XQspiPs_Enable(QspiInstancePtr);
 		} else {
 
-			switch (XPAR_XQSPIPS_0_QSPI_BUS_WIDTH) {
+			switch (QSPI_BUS_WIDTH) {
 
 				case QSPI_BUSWIDTH_ONE:
 				{
@@ -330,7 +340,7 @@ u32 InitQspi(void)
 		}
 	}
 
-	if (XPAR_XQSPIPS_0_QSPI_MODE == DUAL_PARALLEL_CONNECTION) {
+	if (QSPI_CONNECTION_MODE == DUAL_PARALLEL_CONNECTION) {
 
 		fsbl_printf(DEBUG_INFO,"QSPI is in Dual Parallel connection\r\n");
 		/*
@@ -379,7 +389,7 @@ u32 InitQspi(void)
 	/*
 	 * It is expected to same flash size for both chip selection
 	 */
-	if (XPAR_XQSPIPS_0_QSPI_MODE == DUAL_STACK_CONNECTION) {
+	if (QSPI_CONNECTION_MODE == DUAL_STACK_CONNECTION) {
 
 		fsbl_printf(DEBUG_INFO,"QSPI is in Dual Stack connection\r\n");
 
@@ -388,7 +398,7 @@ u32 InitQspi(void)
 		/*
 		 * Enable two flash memories on separate buses
 		 */
-		switch (XPAR_XQSPIPS_0_QSPI_BUS_WIDTH) {
+		switch (QSPI_BUS_WIDTH) {
 
 			case QSPI_BUSWIDTH_ONE:
 			{
@@ -606,7 +616,7 @@ u32 QspiAccess( u32 SourceAddress, u32 DestinationAddress, u32 LengthBytes)
 		/*
 		 * Dual parallel connection actual flash is half
 		 */
-		if (XPAR_XQSPIPS_0_QSPI_MODE == DUAL_PARALLEL_CONNECTION) {
+		if (QSPI_CONNECTION_MODE == DUAL_PARALLEL_CONNECTION) {
 			SourceAddress = SourceAddress/2;
 		}
 
@@ -623,7 +633,7 @@ u32 QspiAccess( u32 SourceAddress, u32 DestinationAddress, u32 LengthBytes)
 			/*
 			 * Dual stack connection
 			 */
-			if (XPAR_XQSPIPS_0_QSPI_MODE == DUAL_STACK_CONNECTION) {
+			if (QSPI_CONNECTION_MODE == DUAL_STACK_CONNECTION) {
 				/*
 				 * Get the current LQSPI configuration value
 				 */
@@ -674,7 +684,7 @@ u32 QspiAccess( u32 SourceAddress, u32 DestinationAddress, u32 LengthBytes)
 			 * If data to be read spans beyond the current bank, then
 			 * calculate length in current bank else no change in length
 			 */
-			if (XPAR_XQSPIPS_0_QSPI_MODE == DUAL_PARALLEL_CONNECTION) {
+			if (QSPI_CONNECTION_MODE == DUAL_PARALLEL_CONNECTION) {
 				/*
 				 * In dual parallel mode, check should be for half
 				 * the length.
@@ -715,7 +725,7 @@ u32 QspiAccess( u32 SourceAddress, u32 DestinationAddress, u32 LengthBytes)
 			/*
 			 * For Dual parallel connection address increment should be half
 			 */
-			if (XPAR_XQSPIPS_0_QSPI_MODE == DUAL_PARALLEL_CONNECTION) {
+			if (QSPI_CONNECTION_MODE == DUAL_PARALLEL_CONNECTION) {
 				SourceAddress += Length/2;
 			} else {
 				SourceAddress += Length;
@@ -733,7 +743,7 @@ u32 QspiAccess( u32 SourceAddress, u32 DestinationAddress, u32 LengthBytes)
 			return XST_FAILURE;
 		}
 
-		if (XPAR_XQSPIPS_0_QSPI_MODE == DUAL_STACK_CONNECTION) {
+		if (QSPI_CONNECTION_MODE == DUAL_STACK_CONNECTION) {
 
 			/*
 			 * Reset selection to L_PAGE
