@@ -1,0 +1,32 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: Zynq MP FSBL
+
+maintainers:
+  - Kundella, Sreedhar <Sreedhar.Kundella@amd.com>
+  - Mulagondla, Bharath <bharath.mulagondla@amd.com>
+
+type: apps
+
+description: |-
+  First Stage Bootloader (FSBL) for Zynq Ultrascale+ MPSoC. The FSBL configures the FPGA with HW bit stream (if it exists) and loads the Operating System (OS) Image or Standalone (SA) Image or 2nd Stage Boot Loader image from the non-volatile memory (NAND/SD/QSPI) to RAM (DDR) and takes A53/R5 out of reset. It supports multiple partitions, and each partition can be a code image or a bit stream.
+
+supported_processors:
+  - psu_cortexa53
+  - psu_cortexr5
+
+supported_os:
+  - standalone
+
+depends_libs:
+    xiltimer: {}
+    xilffs:
+      XILFFS_read_only: ON
+      XILFFS_use_mkfs : OFF
+    xilsecure:
+      XILSECURE_tpm_support: ON
+    xilpm: {}
+...
