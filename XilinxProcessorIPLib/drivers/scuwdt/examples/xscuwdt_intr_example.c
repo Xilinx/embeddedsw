@@ -64,17 +64,17 @@
 
 /************************** Function Prototypes ******************************/
 #ifndef SDT
-int ScuWdtIntrExample(XScuGic *IntcInstancePtr, XScuWdt * WdtInstancePtr,
-		   u16 WdtDeviceId, u16 WdtIntrId);
+int ScuWdtIntrExample(XScuGic *IntcInstancePtr, XScuWdt *WdtInstancePtr,
+		      u16 WdtDeviceId, u16 WdtIntrId);
 #else
-int ScuWdtIntrExample(XScuWdt * WdtInstancePtr,UINTPTR BaseAddress);
+int ScuWdtIntrExample(XScuWdt *WdtInstancePtr, UINTPTR BaseAddress);
 #endif
 
 static void WdtIntrHandler(void *CallBackRef);
 
 #ifndef SDT
 static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
-			      XScuWdt * WdtInstancePtr, u16 WdtIntrId);
+			      XScuWdt *WdtInstancePtr, u16 WdtIntrId);
 
 static void WdtDisableIntrSystem(XScuGic *IntcInstancePtr, u16 WdtIntrId);
 #endif
@@ -111,9 +111,9 @@ int main(void)
 
 #ifndef SDT
 	Status = ScuWdtIntrExample(&IntcInstance, &WdtInstance,
-				WDT_DEVICE_ID, WDT_IRPT_INTR);
+				   WDT_DEVICE_ID, WDT_IRPT_INTR);
 #else
-    Status = ScuWdtIntrExample(&WdtInstance, SCUWDT_BASEADDRESS);
+	Status = ScuWdtIntrExample(&WdtInstance, SCUWDT_BASEADDRESS);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("SCU WDT Interrupt Example Test Failed\r\n");
@@ -145,10 +145,10 @@ int main(void)
 *
 ******************************************************************************/
 #ifndef SDT
-int ScuWdtIntrExample(XScuGic *IntcInstancePtr, XScuWdt * WdtInstancePtr,
-		   u16 WdtDeviceId, u16 WdtIntrId)
+int ScuWdtIntrExample(XScuGic *IntcInstancePtr, XScuWdt *WdtInstancePtr,
+		      u16 WdtDeviceId, u16 WdtIntrId)
 #else
-int ScuWdtIntrExample(XScuWdt * WdtInstancePtr, UINTPTR BaseAddress)
+int ScuWdtIntrExample(XScuWdt *WdtInstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	int Status;
@@ -172,7 +172,7 @@ int ScuWdtIntrExample(XScuWdt * WdtInstancePtr, UINTPTR BaseAddress)
 	 * uses physical address.
 	 */
 	Status = XScuWdt_CfgInitialize(WdtInstancePtr, ConfigPtr,
-				      ConfigPtr->BaseAddr);
+				       ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -225,7 +225,7 @@ int ScuWdtIntrExample(XScuWdt * WdtInstancePtr, UINTPTR BaseAddress)
 #ifndef SDT
 	Status = WdtSetupIntrSystem(IntcInstancePtr, WdtInstancePtr, WdtIntrId);
 #else
-	Status = XSetupInterruptSystem(WdtInstancePtr,&WdtIntrHandler,
+	Status = XSetupInterruptSystem(WdtInstancePtr, &WdtIntrHandler,
 				       ConfigPtr->IntrId,
 				       ConfigPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
@@ -234,7 +234,7 @@ int ScuWdtIntrExample(XScuWdt * WdtInstancePtr, UINTPTR BaseAddress)
 	 */
 	Reg = XScuWdt_GetControlReg(WdtInstancePtr);
 	XScuWdt_SetControlReg(WdtInstancePtr,
-				Reg | XSCUWDT_CONTROL_IT_ENABLE_MASK);
+			      Reg | XSCUWDT_CONTROL_IT_ENABLE_MASK);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -308,7 +308,7 @@ int ScuWdtIntrExample(XScuWdt * WdtInstancePtr, UINTPTR BaseAddress)
 #ifndef SDT
 			WdtDisableIntrSystem(IntcInstancePtr, WdtIntrId);
 #else
-		XDisconnectInterruptCntrl(ConfigPtr->IntrId, ConfigPtr->IntrParent);
+			XDisconnectInterruptCntrl(ConfigPtr->IntrId, ConfigPtr->IntrParent);
 #endif
 			return XST_FAILURE;
 		}
@@ -320,7 +320,7 @@ int ScuWdtIntrExample(XScuWdt * WdtInstancePtr, UINTPTR BaseAddress)
 #ifndef SDT
 	WdtDisableIntrSystem(IntcInstancePtr, WdtIntrId);
 #else
-    XDisconnectInterruptCntrl(ConfigPtr->IntrId, ConfigPtr->IntrParent);
+	XDisconnectInterruptCntrl(ConfigPtr->IntrId, ConfigPtr->IntrParent);
 #endif
 	return XST_SUCCESS;
 }
@@ -360,7 +360,7 @@ static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -372,9 +372,9 @@ static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				    (Xil_ExceptionHandler)
-				    XScuGic_InterruptHandler,
-				    IntcInstancePtr);
+				     (Xil_ExceptionHandler)
+				     XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 #endif
 	/*
 	 * Connect the device driver handler that will be called when an
@@ -382,8 +382,8 @@ static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, WdtIntrId,
-				(Xil_ExceptionHandler)WdtIntrHandler,
-				(void *)WdtInstancePtr);
+				 (Xil_ExceptionHandler)WdtIntrHandler,
+				 (void *)WdtInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -393,7 +393,7 @@ static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 */
 	Reg = XScuWdt_GetControlReg(WdtInstancePtr);
 	XScuWdt_SetControlReg(WdtInstancePtr,
-				Reg | XSCUWDT_CONTROL_IT_ENABLE_MASK);
+			      Reg | XSCUWDT_CONTROL_IT_ENABLE_MASK);
 
 	/*
 	 * Enable the interrupt for the device.

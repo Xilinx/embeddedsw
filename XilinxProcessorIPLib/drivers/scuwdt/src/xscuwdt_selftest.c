@@ -96,8 +96,7 @@ s32 XScuWdt_SelfTest(XScuWdt *InstancePtr)
 
 	if (Register == 0xFFFFFFFFU) {
 		SelfTestStatus = (s32)XST_FAILURE;
-	}
-	else {
+	} else {
 		SelfTestStatus = (s32)XST_SUCCESS;
 	}
 

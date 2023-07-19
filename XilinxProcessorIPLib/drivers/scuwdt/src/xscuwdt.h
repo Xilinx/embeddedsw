@@ -181,7 +181,7 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 #define XScuWdt_IsWdtExpired(InstancePtr)				\
 	((XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,		\
 			  XSCUWDT_RST_STS_OFFSET) &			\
-	 XSCUWDT_RST_STS_RESET_FLAG_MASK) == XSCUWDT_RST_STS_RESET_FLAG_MASK)
+	  XSCUWDT_RST_STS_RESET_FLAG_MASK) == XSCUWDT_RST_STS_RESET_FLAG_MASK)
 
 /****************************************************************************/
 /**
@@ -202,7 +202,7 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 #define XScuWdt_IsTimerExpired(InstancePtr)				\
 	((XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,		\
 			  XSCUWDT_ISR_OFFSET) &				\
-	 XSCUWDT_ISR_EVENT_FLAG_MASK) == XSCUWDT_ISR_EVENT_FLAG_MASK)
+	  XSCUWDT_ISR_EVENT_FLAG_MASK) == XSCUWDT_ISR_EVENT_FLAG_MASK)
 
 /****************************************************************************/
 /**
@@ -243,7 +243,7 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 ******************************************************************************/
 #define XScuWdt_LoadWdt(InstancePtr, Value)				\
 	XScuWdt_WriteReg((InstancePtr)->Config.BaseAddr,		\
-			XSCUWDT_LOAD_OFFSET, (Value))
+			 XSCUWDT_LOAD_OFFSET, (Value))
 
 /****************************************************************************/
 /**
@@ -263,7 +263,7 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 	XScuWdt_WriteReg((InstancePtr)->Config.BaseAddr,		  \
 			 XSCUWDT_CONTROL_OFFSET,			  \
 			 (XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr, \
-			  XSCUWDT_CONTROL_OFFSET) |			  \
+					  XSCUWDT_CONTROL_OFFSET) |			  \
 			  (XSCUWDT_CONTROL_WD_MODE_MASK)))
 
 /****************************************************************************/
@@ -284,14 +284,14 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 *
 ******************************************************************************/
 #define XScuWdt_SetTimerMode(InstancePtr)				\
-{									\
-	XScuWdt_WriteReg((InstancePtr)->Config.BaseAddr,		\
-			XSCUWDT_DISABLE_OFFSET,				\
-			XSCUWDT_DISABLE_VALUE1);			\
-	XScuWdt_WriteReg((InstancePtr)->Config.BaseAddr,		\
-			XSCUWDT_DISABLE_OFFSET,				\
-			XSCUWDT_DISABLE_VALUE2);			\
-}
+	{									\
+		XScuWdt_WriteReg((InstancePtr)->Config.BaseAddr,		\
+				 XSCUWDT_DISABLE_OFFSET,				\
+				 XSCUWDT_DISABLE_VALUE1);			\
+		XScuWdt_WriteReg((InstancePtr)->Config.BaseAddr,		\
+				 XSCUWDT_DISABLE_OFFSET,				\
+				 XSCUWDT_DISABLE_VALUE2);			\
+	}
 
 /****************************************************************************/
 /**
@@ -345,7 +345,7 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 #define XScuWdt_EnableAutoReload(InstancePtr)				\
 	XScuWdt_SetControlReg((InstancePtr),				\
 			      (XScuWdt_GetControlReg(InstancePtr) |	\
-			      XSCUWDT_CONTROL_AUTO_RELOAD_MASK))
+			       XSCUWDT_CONTROL_AUTO_RELOAD_MASK))
 
 /************************** Function Prototypes ******************************/
 
