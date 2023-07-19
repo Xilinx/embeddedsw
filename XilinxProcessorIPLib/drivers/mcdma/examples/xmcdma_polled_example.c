@@ -112,7 +112,7 @@
 
 #ifndef DDR_BASE_ADDR
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
-			DEFAULT SET TO 0x01000000
+DEFAULT SET TO 0x01000000
 #define MEM_BASE_ADDR		0x01000000
 #else
 #define MEM_BASE_ADDR		(DDR_BASE_ADDR + 0x10000000)
@@ -126,7 +126,7 @@
 #define NUMBER_OF_BDS_PER_PKT		10
 #define NUMBER_OF_PKTS_TO_TRANSFER 	100
 #define NUMBER_OF_BDS_TO_TRANSFER	(NUMBER_OF_PKTS_TO_TRANSFER * \
-						NUMBER_OF_BDS_PER_PKT)
+		NUMBER_OF_BDS_PER_PKT)
 
 #define MAX_PKT_LEN		1024
 #define BLOCK_SIZE_2MB 0x200000U
@@ -152,8 +152,8 @@ static int RxSetup(XMcdma *McDmaInstPtr);
 static int TxSetup(XMcdma *McDmaInstPtr);
 static int SendPacket(XMcdma *McDmaInstPtr);
 static int CheckData(u8 *RxPacket, int ByteCount, u32 ChanId);
-static int CheckDmaResult(XMcdma * McDmaInstPtr, u32 Chan_id);
-static void Mcdma_Poll(XMcdma * McDmaInstPtr);
+static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id);
+static void Mcdma_Poll(XMcdma *McDmaInstPtr);
 
 /************************** Variable Definitions *****************************/
 /*
@@ -215,9 +215,9 @@ int main(void)
 #ifndef SDT
 	Mcdma_Config = XMcdma_LookupConfig(MCDMA_DEV_ID);
 	if (!Mcdma_Config) {
-			xil_printf("No config found for %d\r\n", MCDMA_DEV_ID);
+		xil_printf("No config found for %d\r\n", MCDMA_DEV_ID);
 
-			return XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 #else
@@ -236,7 +236,6 @@ int main(void)
 
 	/* Read numbers of channels from IP config */
 	num_channels = Mcdma_Config->RxNumChannels;
-
 	Status = TxSetup(&AxiMcdma);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -258,15 +257,15 @@ int main(void)
 	/* Wait for transfer to complete or 1usec * 10^6 iterations of timeout occurs */
 	while (TimeOut) {
 		Mcdma_Poll(&AxiMcdma);
-		if (RxDone >= NUMBER_OF_BDS_TO_TRANSFER * num_channels)
+		if (RxDone >= NUMBER_OF_BDS_TO_TRANSFER * num_channels) {
 			break;
+		}
 		TimeOut--;
 		usleep(1U);
 	}
 
-
 	xil_printf("AXI MCDMA SG Polling Test %s\r\n",
-		(Status == XST_SUCCESS)? "passed":"failed");
+		   (Status == XST_SUCCESS) ? "passed" : "failed");
 
 	xil_printf("--- Exiting main() --- \r\n");
 
@@ -328,14 +327,16 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 				/* Clear the receive buffer, so we can verify data */
 				memset((void *)RxBufferPtr, 0, MAX_PKT_LEN);
 
-				if(!McDmaInstPtr->Config.IsRxCacheCoherent)
+				if (!McDmaInstPtr->Config.IsRxCacheCoherent) {
 					Xil_DCacheInvalidateRange(RxBufferPtr, MAX_PKT_LEN);
+				}
 
 				RxBufferPtr += MAX_PKT_LEN;
 				if (!Rx_Chan->Has_Rxdre) {
 					buf_align = RxBufferPtr % 64;
-					if (buf_align > 0)
+					if (buf_align > 0) {
 						buf_align = 64 - buf_align;
+					}
 					RxBufferPtr += buf_align;
 				}
 			}
@@ -343,20 +344,21 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 
 		Status = XMcDma_ChanToHw(Rx_Chan);
 		if (Status != XST_SUCCESS) {
-				xil_printf("XMcDma_ChanToHw failed\n\r");
-				return XST_FAILURE;
+			xil_printf("XMcDma_ChanToHw failed\n\r");
+			return XST_FAILURE;
 		}
 
 		RxBufferPtr += MAX_PKT_LEN;
 		if (!Rx_Chan->Has_Rxdre) {
 			buf_align = RxBufferPtr % 64;
-			if (buf_align > 0)
+			if (buf_align > 0) {
 				buf_align = 64 - buf_align;
+			}
 			RxBufferPtr += buf_align;
 		}
 		RxBdSpacePtr += BdCount * Rx_Chan->Separation;
 		XMcdma_IntrEnable(Rx_Chan, XMCDMA_IRQ_ALL_MASK);
-	 }
+	}
 
 	return XST_SUCCESS;
 }
@@ -403,7 +405,7 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 		for (j = 0 ; j < NUMBER_OF_PKTS_TO_TRANSFER; j++) {
 			for (i = 0 ; i < NUMBER_OF_BDS_PER_PKT; i++) {
 				Status = XMcDma_ChanSubmit(Tx_Chan, TxBufferPtr,
-							  MAX_PKT_LEN);
+							   MAX_PKT_LEN);
 				if (Status != XST_SUCCESS) {
 					xil_printf("ChanSubmit failed\n\r");
 					return XST_FAILURE;
@@ -412,9 +414,10 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 				TxBufferPtr += MAX_PKT_LEN;
 				if (!Tx_Chan->Has_Txdre) {
 					buf_align = TxBufferPtr % 64;
-					if (buf_align > 0)
+					if (buf_align > 0) {
 						buf_align = 64 - buf_align;
-				    TxBufferPtr += buf_align;
+					}
+					TxBufferPtr += buf_align;
 				}
 
 				/* Clear the receive buffer, so we can verify data */
@@ -426,14 +429,15 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 		TxBufferPtr += MAX_PKT_LEN;
 		if (!Tx_Chan->Has_Txdre) {
 			buf_align = TxBufferPtr % 64;
-			if (buf_align > 0)
+			if (buf_align > 0) {
 				buf_align = 64 - buf_align;
-		    TxBufferPtr += buf_align;
+			}
+			TxBufferPtr += buf_align;
 		}
 
 		TxBdSpacePtr += BdCount * Tx_Chan->Separation;
 		XMcdma_IntrEnable(Tx_Chan, XMCDMA_IRQ_ALL_MASK);
-	 }
+	}
 
 
 	return XST_SUCCESS;
@@ -462,11 +466,11 @@ static int CheckData(u8 *RxPacket, int ByteCount, u32 ChanId)
 
 	Value = TestStartValue[ChanId] + RxPattern[ChanId]++;
 
-	for(Index = 0; Index < ByteCount; Index++) {
+	for (Index = 0; Index < ByteCount; Index++) {
 		if (RxPacket[Index] != Value) {
 			xil_printf("Data error : %x/%x\r\n",
-						(unsigned int)RxPacket[Index],
-						(unsigned int)Value);
+				   (unsigned int)RxPacket[Index],
+				   (unsigned int)Value);
 			return XST_FAILURE;
 			break;
 		}
@@ -494,58 +498,61 @@ static int CheckData(u8 *RxPacket, int ByteCount, u32 ChanId)
 ******************************************************************************/
 static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
 {
-        XMcdma_ChanCtrl *Rx_Chan = 0, *Tx_Chan = 0;
-        XMcdma_Bd *BdPtr1;
-        u8 *RxPacket;
-        int ProcessedBdCount, i;
-        int MaxTransferBytes;
-        int RxPacketLength;
+	XMcdma_ChanCtrl *Rx_Chan = 0, *Tx_Chan = 0;
+	XMcdma_Bd *BdPtr1;
+	u8 *RxPacket;
+	int ProcessedBdCount, i;
+	int MaxTransferBytes;
+	int RxPacketLength;
 
-        Tx_Chan = XMcdma_GetMcdmaTxChan(McDmaInstPtr, Chan_id);
-        ProcessedBdCount = XMcdma_BdChainFromHW(Tx_Chan,
-                                                0xFFFF,
-                                                &BdPtr1);
-        TxDone += ProcessedBdCount;
+	Tx_Chan = XMcdma_GetMcdmaTxChan(McDmaInstPtr, Chan_id);
+	ProcessedBdCount = XMcdma_BdChainFromHW(Tx_Chan,
+						0xFFFF,
+						&BdPtr1);
+	TxDone += ProcessedBdCount;
 
-        Rx_Chan = XMcdma_GetMcdmaRxChan(McDmaInstPtr, Chan_id);
-        ProcessedBdCount = XMcdma_BdChainFromHW(Rx_Chan,
-                                                        0xFFFF,
-                                                        &BdPtr1);
-        RxDone += ProcessedBdCount;
-        MaxTransferBytes = MAX_TRANSFER_LEN(McDmaInstPtr->Config.MaxTransferlen - 1);
+	Rx_Chan = XMcdma_GetMcdmaRxChan(McDmaInstPtr, Chan_id);
+	ProcessedBdCount = XMcdma_BdChainFromHW(Rx_Chan,
+						0xFFFF,
+						&BdPtr1);
+	RxDone += ProcessedBdCount;
+	MaxTransferBytes = MAX_TRANSFER_LEN(McDmaInstPtr->Config.MaxTransferlen - 1);
 
-        /* Check received data */
-        for (i = 0; i < ProcessedBdCount; i++) {
+	/* Check received data */
+	for (i = 0; i < ProcessedBdCount; i++) {
 		RxPacket = (void *)XMcdma_BdRead64(BdPtr1, XMCDMA_BD_BUFA_OFFSET);
 		RxPacketLength = XMcDma_BdGetActualLength(BdPtr1, MaxTransferBytes);
 		/* Invalidate the DestBuffer before receiving the data,
 		 * in case the data cache is enabled
 		 */
-		if (!McDmaInstPtr->Config.IsRxCacheCoherent)
+		if (!McDmaInstPtr->Config.IsRxCacheCoherent) {
 			Xil_DCacheInvalidateRange((UINTPTR)RxPacket, RxPacketLength);
+		}
 
 		if (CheckData((u8 *) RxPacket, RxPacketLength, Chan_id) != XST_SUCCESS) {
-                        xil_printf("Data check failed for the Chan %x\n\r", Chan_id);
-                        return XST_FAILURE;
-                }
-                BdPtr1 = (XMcdma_Bd *) XMcdma_BdRead64(BdPtr1, XMCDMA_BD_NDESC_OFFSET);
-        }
+			xil_printf("Data check failed for the Chan %x\n\r", Chan_id);
+			return XST_FAILURE;
+		}
+		BdPtr1 = (XMcdma_Bd *) XMcdma_BdRead64(BdPtr1, XMCDMA_BD_NDESC_OFFSET);
+	}
 
-        return XST_SUCCESS;
+	return XST_SUCCESS;
 }
 
 
-static void Mcdma_Poll(XMcdma * McDmaInstPtr) {
-        u16 Chan_id = 1;
-        u32 i;
-        u32 Chan_SerMask;
+static void Mcdma_Poll(XMcdma *McDmaInstPtr)
+{
+	u16 Chan_id = 1;
+	u32 i;
+	u32 Chan_SerMask;
 
-        Chan_SerMask = XMcdma_ReadReg(McDmaInstPtr->Config.BaseAddress,
-                                      XMCDMA_RX_OFFSET + XMCDMA_RXCH_SER_OFFSET);
+	Chan_SerMask = XMcdma_ReadReg(McDmaInstPtr->Config.BaseAddress,
+				      XMCDMA_RX_OFFSET + XMCDMA_RXCH_SER_OFFSET);
 
-        for (i = 1, Chan_id = 1; i != 0 && i <= Chan_SerMask; i <<= 1, Chan_id++)
-             if (Chan_SerMask & i)
-                 CheckDmaResult(&AxiMcdma, Chan_id);
+	for (i = 1, Chan_id = 1; i != 0 && i <= Chan_SerMask; i <<= 1, Chan_id++)
+		if (Chan_SerMask & i) {
+			CheckDmaResult(&AxiMcdma, Chan_id);
+		}
 }
 
 
@@ -563,13 +570,13 @@ static int SendPacket(XMcdma *McDmaInstPtr)
 		Tx_Chan = XMcdma_GetMcdmaTxChan(McDmaInstPtr, ChanId);
 
 		BdCurPtr = XMcdma_GetChanCurBd(Tx_Chan);
-		for(Index = 0; Index < NUMBER_OF_PKTS_TO_TRANSFER; Index++) {
-			for(Pkts = 0; Pkts < NUMBER_OF_BDS_PER_PKT; Pkts++) {
+		for (Index = 0; Index < NUMBER_OF_PKTS_TO_TRANSFER; Index++) {
+			for (Pkts = 0; Pkts < NUMBER_OF_BDS_PER_PKT; Pkts++) {
 				u32 CrBits = 0;
 
 				Value = TestStartValue[ChanId] + TxPattern[ChanId]++;
 				TxPacket = (u8 *)XMcdma_BdRead64(BdCurPtr, XMCDMA_BD_BUFA_OFFSET);
-				for(Index1 = 0; Index1 < MAX_PKT_LEN; Index1++) {
+				for (Index1 = 0; Index1 < MAX_PKT_LEN; Index1++) {
 					TxPacket[Index1] = Value;
 
 					Value = (Value + 1) & 0xFF;
