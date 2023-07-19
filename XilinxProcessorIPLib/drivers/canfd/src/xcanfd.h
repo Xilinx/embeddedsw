@@ -259,7 +259,7 @@ exclusion
 * 2.7	sne  04/26/22 Corrected Return value of XCanFd_GetFreeBuffer().
 * 2.8	ht   06/19/23 Added support for system device-tree flow.
 * 2.8	gm   06/22/23 Add XCanFd_stop to support release node.
-*
+* 2.8	ht   07/18/23 Fixed GCC warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -348,9 +348,10 @@ typedef struct {
 	u32 NumofTxBuf;         /**< Number of TxBuffers */
 #ifndef SDT
 	u32 IsPl;		/**< IsPl, 1= AXI CANFD instance,0= CANFD instance */
-#endif
+#else
 	u16 IntrId; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
 	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XCanFd_Config;
 
 /************************** Variable Definitions *****************************/
