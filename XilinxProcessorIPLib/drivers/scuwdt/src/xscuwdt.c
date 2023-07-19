@@ -60,7 +60,7 @@
 *
 ******************************************************************************/
 s32 XScuWdt_CfgInitialize(XScuWdt *InstancePtr,
-			 XScuWdt_Config *ConfigPtr, u32 EffectiveAddress)
+			  XScuWdt_Config *ConfigPtr, u32 EffectiveAddress)
 {
 	s32 CfgStatus;
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -75,8 +75,7 @@ s32 XScuWdt_CfgInitialize(XScuWdt *InstancePtr,
 	 */
 	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
 		CfgStatus = (s32)XST_DEVICE_IS_STARTED;
-	}
-	else {
+	} else {
 		/*
 		 * Copy configuration into instance.
 		 */
@@ -101,7 +100,7 @@ s32 XScuWdt_CfgInitialize(XScuWdt *InstancePtr,
 		 */
 		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
-		CfgStatus =(s32)XST_SUCCESS;
+		CfgStatus = (s32)XST_SUCCESS;
 	}
 	return CfgStatus;
 }
@@ -132,7 +131,7 @@ void XScuWdt_Start(XScuWdt *InstancePtr)
 	 * Read the contents of the Control register.
 	 */
 	Register = XScuWdt_ReadReg(InstancePtr->Config.BaseAddr,
-				  XSCUWDT_CONTROL_OFFSET);
+				   XSCUWDT_CONTROL_OFFSET);
 
 	/*
 	 * Set the 'watchdog enable' bit in the register.
@@ -143,7 +142,7 @@ void XScuWdt_Start(XScuWdt *InstancePtr)
 	 * Update the Control register with the new value.
 	 */
 	XScuWdt_WriteReg(InstancePtr->Config.BaseAddr,
-			XSCUWDT_CONTROL_OFFSET, Register);
+			 XSCUWDT_CONTROL_OFFSET, Register);
 
 	/*
 	 * Indicate that the device is started.
@@ -174,7 +173,7 @@ void XScuWdt_Stop(XScuWdt *InstancePtr)
 	 * Read the contents of the Control register.
 	 */
 	Register = XScuWdt_ReadReg(InstancePtr->Config.BaseAddr,
-				  XSCUWDT_CONTROL_OFFSET);
+				   XSCUWDT_CONTROL_OFFSET);
 
 	/*
 	 * Clear the 'watchdog enable' bit in the register.
@@ -185,7 +184,7 @@ void XScuWdt_Stop(XScuWdt *InstancePtr)
 	 * Update the Control register with the new value.
 	 */
 	XScuWdt_WriteReg(InstancePtr->Config.BaseAddr,
-			XSCUWDT_CONTROL_OFFSET, Register);
+			 XSCUWDT_CONTROL_OFFSET, Register);
 
 	/*
 	 * Indicate that the device is stopped.

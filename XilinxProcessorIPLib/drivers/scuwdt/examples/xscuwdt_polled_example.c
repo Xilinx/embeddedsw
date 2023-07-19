@@ -55,9 +55,9 @@
 /************************** Function Prototypes ******************************/
 
 #ifndef SDT
-int ScuWdtPolledExample(XScuWdt * WdtInstancePtr, u16 DeviceId);
+int ScuWdtPolledExample(XScuWdt *WdtInstancePtr, u16 DeviceId);
 #else
-int ScuWdtPolledExample(XScuWdt * WdtInstancePtr, UINTPTR BaseAddress);
+int ScuWdtPolledExample(XScuWdt *WdtInstancePtr, UINTPTR BaseAddress);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -115,9 +115,9 @@ int main(void)
 *
 ****************************************************************************/
 #ifndef SDT
-int ScuWdtPolledExample(XScuWdt * WdtInstancePtr, u16 DeviceId)
+int ScuWdtPolledExample(XScuWdt *WdtInstancePtr, u16 DeviceId)
 #else
-int ScuWdtPolledExample(XScuWdt * WdtInstancePtr, UINTPTR BaseAddress)
+int ScuWdtPolledExample(XScuWdt *WdtInstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	int Status;
@@ -138,7 +138,7 @@ int ScuWdtPolledExample(XScuWdt * WdtInstancePtr, UINTPTR BaseAddress)
 	 * uses physical address.
 	 */
 	Status = XScuWdt_CfgInitialize(WdtInstancePtr, ConfigPtr,
-					ConfigPtr->BaseAddr);
+				       ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
