@@ -35,9 +35,14 @@ void init_platform()
 {
 	enable_caches();
 	/* if we have a uart 16550, then that needs to be initialized */
-#if defined (STDOUT_IS_16550) || ( defined (SDT) && defined (XPAR_STDIN_IS_UARTNS550))
+#if defined (STDOUT_IS_16550) || defined (XPAR_STDIN_IS_UARTNS550)
+#if defined (SDT)
+	XUartNs550_SetBaud(STDOUT_BASEADDRESS, XPAR_XUARTNS550_0_CLOCK_FREQ, 9600);
+	XUartNs550_SetLineControlReg(STDOUT_BASEADDRESS, XUN_LCR_8_DATA_BITS);
+#else
 	XUartNs550_SetBaud(STDOUT_BASEADDR, XPAR_XUARTNS550_CLOCK_HZ, 9600);
 	XUartNs550_SetLineControlReg(STDOUT_BASEADDR, XUN_LCR_8_DATA_BITS);
+#endif
 #endif
 }
 
