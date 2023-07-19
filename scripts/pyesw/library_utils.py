@@ -343,6 +343,8 @@ class Library(Repo):
                                         example_dict.update({ex:dep_file_list[0]['dependency_files']})
                                     else:
                                         example_dict.update({ex:[]})
+                            elif dep_file_list:
+                                example_dict.update({ex:dep_file_list[0]['dependency_files']})
                         else:
                             example_dict.update({ex:[]})
                     self.lib_info[lib].update({"examples":example_dict})
