@@ -8,7 +8,7 @@
 /**
 *
 * @file xscuwdt_sinit.c
-* @addtogroup scuwdt_v2_4
+* @addtogroup Overview
 * @{
 *
 * This file contains method for static initialization (compile-time) of the

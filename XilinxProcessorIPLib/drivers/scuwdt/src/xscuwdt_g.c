@@ -8,7 +8,7 @@
 /**
 *
 * @file xscuwdt_g.c
-* @addtogroup scuwdt_v2_4
+* @addtogroup Overview
 * @{
 *
 * This file contains a table that specifies the configuration of the SCU
