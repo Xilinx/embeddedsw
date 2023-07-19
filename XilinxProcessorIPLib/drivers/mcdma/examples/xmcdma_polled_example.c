@@ -57,6 +57,8 @@
  * 1.7   sa   08/12/22  Updated the example to use latest MIG cannoical define
  * 		        i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
  * 1.8   sa   09/29/22  Fix infinite loops in the example.
+ * 1.9	 aj   07/19/23   Updated the example to support the system device tree
+ * 			 flow
  * </pre>
  *
  * ***************************************************************************
@@ -79,6 +81,7 @@
  * Device hardware build related constants.
  */
 
+#ifndef SDT
 #define MCDMA_DEV_ID	XPAR_MCDMA_0_DEVICE_ID
 
 #ifdef XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
@@ -97,6 +100,14 @@
 
 #ifdef XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR
 #define DDR_BASE_ADDR	XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR
+#endif
+
+#else
+
+#ifdef XPAR_MEM0_BASEADDRESS
+#define DDR_BASE_ADDR		XPAR_MEM0_BASEADDRESS
+#endif
+#define MCDMA_BASE_ADDR		XPAR_XMCDMA_0_BASEADDR
 #endif
 
 #ifndef DDR_BASE_ADDR
@@ -201,6 +212,7 @@ int main(void)
 #endif
 
 
+#ifndef SDT
 	Mcdma_Config = XMcdma_LookupConfig(MCDMA_DEV_ID);
 	if (!Mcdma_Config) {
 			xil_printf("No config found for %d\r\n", MCDMA_DEV_ID);
@@ -208,6 +220,13 @@ int main(void)
 			return XST_FAILURE;
 	}
 
+#else
+	Mcdma_Config = XMcdma_LookupConfig(MCDMA_BASE_ADDR);
+	if (!Mcdma_Config) {
+		xil_printf("No config found for %llx\r\n", MCDMA_BASE_ADDR);
+		return XST_FAILURE;
+	}
+#endif
 
 	Status = XMcDma_CfgInitialize(&AxiMcdma, Mcdma_Config);
 	if (Status != XST_SUCCESS) {

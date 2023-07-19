@@ -40,6 +40,7 @@
  * 1.7   sa   08/12/22  Updated the example to use latest MIG cannoical define
  * 		        i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
  * 1.8	 sa   09/29/22  Fix infinite loops in the example.
+ * 1.9   aj   19/07/23  Updated the example to support SDT flow.
  * </pre>
  *
  * ***************************************************************************
@@ -50,15 +51,20 @@
 #include "xdebug.h"
 #include "xmcdma_hw.h"
 #include "xil_util.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 #ifdef __aarch64__
 #include "xil_mmu.h"
 #endif
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
  #include "xintc.h"
 #else
  #include "xscugic.h"
+#endif
 #endif
 
 /******************** Constant Definitions **********************************/
@@ -67,6 +73,7 @@
  * Device hardware build related constants.
  */
 
+#ifndef SDT
 #define MCDMA_DEV_ID	XPAR_AXI_MCDMA_0_DEVICE_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -101,6 +108,14 @@
 #define DDR_BASE_ADDR	XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR
 #endif
 
+#else
+
+#ifdef XPAR_MEM0_BASEADDRESS
+#define DDR_BASE_ADDR		XPAR_MEM0_BASEADDRESS
+#endif
+#define MCDMA_BASE_ADDR         XPAR_XMCDMA_0_BASEADDR
+#endif
+
 #ifndef DDR_BASE_ADDR
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
 			DEFAULT SET TO 0x01000000
@@ -125,12 +140,14 @@
 
 #define TEST_START_VALUE	0xC
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
  #define INTC		XIntc
  #define INTC_HANDLER	XIntc_InterruptHandler
 #else
  #define INTC		XScuGic
  #define INTC_HANDLER	XScuGic_InterruptHandler
+#endif
 #endif
 
 #define POLL_TIMEOUT_COUNTER     1000000U
@@ -139,7 +156,9 @@
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifndef SDT
 static INTC Intc;	/* Instance of the Interrupt Controller */
+#endif
 
 
 /************************** Function Prototypes ******************************/
@@ -147,12 +166,16 @@ static int RxSetup(XMcdma *McDmaInstPtr);
 static int TxSetup(XMcdma *McDmaInstPtr);
 static int SendPacket(XMcdma *McDmaInstPtr);
 static int CheckData(u8 *RxPacket, int ByteCount);
+#ifndef SDT
 static int SetupIntrSystem(INTC * IntcInstancePtr, XMcdma *McDmaInstPtr, u16 IntrId, u8 Direction);
+#endif
 static void TxDoneHandler(void *CallBackRef, u32 Chan_id);
 static void TxErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask);
 static void DoneHandler(void *CallBackRef, u32 Chan_id);
 static void ErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask);
+#ifndef SDT
 static int ChanIntr_Id(XMcdma_ChanCtrl *Chan, int ChanId);
+#endif
 
 /************************** Variable Definitions *****************************/
 /*
@@ -211,13 +234,21 @@ int main(void)
 #endif
 
 
+#ifndef SDT
 	Mcdma_Config = XMcdma_LookupConfig(MCDMA_DEV_ID);
 	if (!Mcdma_Config) {
 			xil_printf("No config found for %d\r\n", MCDMA_DEV_ID);
 
 			return XST_FAILURE;
 	}
+#else
+	Mcdma_Config = XMcdma_LookupConfig(MCDMA_BASE_ADDR);
+	if (!Mcdma_Config) {
+		xil_printf("No config found for %llx\r\n", MCDMA_BASE_ADDR);
 
+		return XST_FAILURE;
+	}
+#endif
 
 	Status = XMcDma_CfgInitialize(&AxiMcdma, Mcdma_Config);
 	if (Status != XST_SUCCESS) {
@@ -369,8 +400,15 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 		XMcdma_SetCallBack(McDmaInstPtr, XMCDMA_HANDLER_ERROR,
 		                          (void *)ErrorHandler, McDmaInstPtr);
 
+#ifndef SDT
 		Status = SetupIntrSystem(&Intc, McDmaInstPtr, ChanIntr_Id(Rx_Chan, ChanId),
 					 XMCDMA_MEM_TO_DEV);
+#else
+		Status = XSetupInterruptSystem(McDmaInstPtr, &XMcdma_IntrHandler,
+					       McDmaInstPtr->Config.IntrId[num_channels + (ChanId - 1)],
+					       McDmaInstPtr->Config.IntrParent,
+					       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 		if (Status != XST_SUCCESS) {
 		      xil_printf("Failed RX interrupt setup %d\r\n", ChanId);
 		      return XST_FAILURE;
@@ -461,8 +499,15 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 		XMcdma_SetCallBack(McDmaInstPtr, XMCDMA_TX_HANDLER_ERROR,
                              (void *)TxErrorHandler, McDmaInstPtr);
 
+#ifndef SDT
 		Status = SetupIntrSystem(&Intc, McDmaInstPtr, ChanIntr_Id(Tx_Chan, ChanId),
 					XMCDMA_DEV_TO_MEM);
+#else
+		Status = XSetupInterruptSystem(McDmaInstPtr, &XMcdma_TxIntrHandler,
+					       McDmaInstPtr->Config.IntrId[ChanId - 1],
+					       McDmaInstPtr->Config.IntrParent,
+					       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 		if (Status != XST_SUCCESS) {
 		      xil_printf("Failed Tx interrupt setup %d\r\n", ChanId);
 		      return XST_FAILURE;
@@ -626,6 +671,7 @@ static void TxErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask)
 	Error = 1;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /*
 *
@@ -915,3 +961,4 @@ static int ChanIntr_Id(XMcdma_ChanCtrl *Chan, int ChanId)
 
 	return XST_FAILURE;
 }
+#endif
