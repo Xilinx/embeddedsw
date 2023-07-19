@@ -28,7 +28,6 @@ endif()
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
     OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52"))
     set(XPAR_PS_INCLUDE "#include \"xparameters_ps.h\"")
-    set(EL3 " ")
 endif()
 
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9"))

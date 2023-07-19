@@ -182,8 +182,10 @@ set(configTIMER_TASK_STACK_DEPTH ${freertos_timer_task_stack_depth})
 set(configUNIQUE_INTERRUPT_PRIORITIES "")
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
+   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9") OR
-   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
+   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
+   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52")
    )
     set(configUNIQUE_INTERRUPT_PRIORITIES 32)
 endif()
@@ -205,11 +207,13 @@ set(INCLUDE_xTimerPendFunctionCall 1)
 set(INCLUDE_pcTaskGetTaskName 1)
 
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR
-    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72")
+    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
+    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78")
   )
 
     set(portPOINTER_SIZE_TYPE uint64_t)
 elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
+       ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52") OR
        ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9") OR
        ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze")
       )
@@ -218,11 +222,14 @@ endif()
 
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
+   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze")
    )
     set(portTICK_TYPE_IS_ATOMIC 0x1)
-elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
+elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
+	("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52")
+      )
     set(portTICK_TYPE_IS_ATOMIC 0x0)
 endif()
 
@@ -303,7 +310,9 @@ endif()
 list(LENGTH TTCPS_NUM_DRIVER_INSTANCES CONFIG_TTCPS)
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
+   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
+   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9")
   )
 
@@ -342,6 +351,7 @@ endif()
 
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
+   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78") OR
  # ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9")
   )
@@ -350,7 +360,8 @@ if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR
     set(configINTERRUPT_CONTROLLER_BASE_ADDRESS ${reg3})
     if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53")
         set(configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET 0x10000)
-    elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72")
+elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
+	("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78"))
         set(configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET 0x10000)
    # elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
        # set(configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET 0x1000)
@@ -359,6 +370,9 @@ if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR
     endif()
 elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
     set(configINTERRUPT_CONTROLLER_BASE_ADDRESS 0xf9000000)
+    set(configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET 0x1000)
+elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52")
+	set(configINTERRUPT_CONTROLLER_BASE_ADDRESS 0xE2000000)
     set(configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET 0x1000)
 elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze")
     set(index2 0)
@@ -397,6 +411,8 @@ else()
     "#define portCLEAR_INTERRUPT_MASK_FROM_ISR(x) vPortClearInterruptMask(x)")
     if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR
        ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
+       ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78") OR
+       ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52") OR
        ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
       )
         set(CMD_INT_MAX_OUTPUT_SIZE
@@ -404,7 +420,8 @@ else()
         set(RECMU_CNTRL_TASK_PRIORITY
         "#define recmuCONTROLLING_TASK_PRIORITY ( configMAX_PRIORITIES - 2 )")
         if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR
-           ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72")
+	   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
+           ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78")
           )
 
             set(FABS_FUN "#define fabs( x ) __builtin_fabs( x )")

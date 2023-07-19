@@ -48,8 +48,9 @@
 ******************************************************************************/
 #ifndef SDT
 #include "xparameters.h"
-#include "bspconfig.h"
 #endif
+#include "bspconfig.h"
+
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
 	.align	2
