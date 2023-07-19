@@ -47,7 +47,7 @@ extern "C" {
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
 	defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES)
+	defined (XPS_BOARD_VEK280_ES_REVB)
 #include "xiicps.h"
 #include "xiic.h"
 

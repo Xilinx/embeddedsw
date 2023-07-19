@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
 * Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file si5344drv.c
+* @file rc21008adrv.c
 *
 * This file contains the Xilinx Menu implementation as used
 * in the HDMI example design. Please see xhdmi_menu.h for more details.
@@ -18,15 +18,16 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- --------------------------------------------------
 * X.X   ..   DD-MM-YYYY ..
-* 1.0        23-07-2019 Initial version
+* 1.0   ssh  25-01-2023 Initial version
 *
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "si5344drv.h"
+#include "rc21008adrv.h"
 
+#if defined (XPS_BOARD_VEK280_ES_REVB)
 /************************** Constant Definitions *****************************/
 #define IDT_8T49N24X_ADV_FUNC_EN 0 /* Enable unused APIs */
 #if defined (XPS_BOARD_ZCU102) || \
@@ -49,7 +50,7 @@
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-static unsigned SI5344_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
+static unsigned RC21008A_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 							unsigned ByteCount, u8 Option);
 
 /*****************************************************************************/
@@ -72,7 +73,7 @@ static unsigned SI5344_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 * @note   None.
 *
 ******************************************************************************/
-static unsigned SI5344_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
+static unsigned RC21008A_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 							   unsigned ByteCount, u8 Option)
 {
 #if defined (XPS_BOARD_ZCU102) || \
@@ -138,50 +139,44 @@ static unsigned SI5344_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 * @note None.
 *
 ******************************************************************************/
-int SI5344_Init(void *IicPtr, u8 I2CSlaveAddress)
+int RC21008A_Init(void *IicPtr, u8 I2CSlaveAddress)
 {
 	u32 Status = XST_SUCCESS;
 	u8 ByteCount = 0;
-	u8 Page[2];
-	u8 Buffer[2];
+	u8 ByteCount_RC = 0;
+	u8 Buffer[17];
 	u8 Retry = 0;
-	for (int i = 0; i < SI5344_REVD_CONFIG_NUM_REGS; i++)
+	for (int i = 0; i < RC21008A_REVD_CONFIG_NUM_REGS; i++)
 	{
 		/* Write data */
-		Page[0] = 0x01; // Page register
-		Page[1] = si5344_revd_registers[i].address >> 8; // Set Page
-		Buffer[0] = si5344_revd_registers[i].address & 0xff; // Register
-		Buffer[1] = si5344_revd_registers[i].value; // Value
-		if (i == 3) {
-			usleep(300000);
-		}
+		ByteCount_RC = rc21008a_revd_registers[i].bytecount; // ByteCount
+		Buffer[0] = rc21008a_revd_registers[i].address; // Register
+		Buffer[1] = rc21008a_revd_registers[i].value; // Value
+		Buffer[2] = rc21008a_revd_registers[i].value1; // Value
+		Buffer[3] = rc21008a_revd_registers[i].value2; // Value
+		Buffer[4] = rc21008a_revd_registers[i].value3; // Value
+		Buffer[5] = rc21008a_revd_registers[i].value4; // Value
+		Buffer[6] = rc21008a_revd_registers[i].value5; // Value
+		Buffer[7] = rc21008a_revd_registers[i].value6; // Value
+		Buffer[8] = rc21008a_revd_registers[i].value7; // Value
+		Buffer[9] = rc21008a_revd_registers[i].value8; // Value
+		Buffer[10] = rc21008a_revd_registers[i].value9; // Value
+		Buffer[11] = rc21008a_revd_registers[i].value10; // Value
+		Buffer[12] = rc21008a_revd_registers[i].value11; // Value
+		Buffer[13] = rc21008a_revd_registers[i].value12; // Value
+		Buffer[14] = rc21008a_revd_registers[i].value13; // Value
+		Buffer[15] = rc21008a_revd_registers[i].value14; // Value
+		Buffer[16] = rc21008a_revd_registers[i].value15; // Value
+
 		do {
-			ByteCount = SI5344_I2cSend(IicPtr, I2CSlaveAddress, (u8*)Page,
-								2, I2C_STOP);
-			if (ByteCount != 2) {
+			ByteCount = RC21008A_I2cSend(IicPtr, I2CSlaveAddress, (u8*)Buffer,
+							(ByteCount_RC + 1), I2C_STOP);
+			if (ByteCount != (ByteCount_RC + 1)) {
 				Retry++;
 
 				/* Maximum retries */
 				if (Retry == 255) {
-					xil_printf("SI5344_Init Error!\r\n");
-					return XST_FAILURE;
-				}
-			}
-			else {
-				break;
-			}
-
-		} while (Retry < 255);
-
-		do {
-			ByteCount = SI5344_I2cSend(IicPtr, I2CSlaveAddress, (u8*)Buffer,
-								2, I2C_STOP);
-			if (ByteCount != 2) {
-				Retry++;
-
-				/* Maximum retries */
-				if (Retry == 255) {
-					xil_printf("SI5344_Init Error!\r\n");
+					xil_printf("RC21008A_Init Error!\r\n");
 					return XST_FAILURE;
 				}
 			}
@@ -195,4 +190,5 @@ int SI5344_Init(void *IicPtr, u8 I2CSlaveAddress)
 	return Status;
 }
 
+#endif
 /** @} */

@@ -37,7 +37,7 @@
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES))
+	defined (XPS_BOARD_VEK280_ES_REVB))
 #include "xiicps.h"
 #else
 #include "xiic.h"
@@ -49,6 +49,7 @@
 #include "onsemi_nb7nq621m.h"
 #include "ti_tmds1204.h"
 #include "si5344drv.h"
+#include "rc21008adrv.h"
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == 6) /*GTYE4*/
 #define XPS_BOARD_VCU118
 #else

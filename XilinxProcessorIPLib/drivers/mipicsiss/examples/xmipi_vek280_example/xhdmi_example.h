@@ -35,14 +35,15 @@ extern "C" {
 #include <stdlib.h>
 #include "platform.h"
 
-#if ! (defined (XPS_BOARD_ZCU102) || \
+#if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU106) || \
-    defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES))
+    defined (XPS_BOARD_VCK190)
 #include "xiicps.h"
 #else
 #include "xiic.h"
 #include "xiicps.h"
+#define I2C_REPEATED_START 0x01
+#define I2C_STOP 0x00
 #endif
 
 #include "xil_io.h"
@@ -193,7 +194,7 @@ typedef enum {
 /* TCA9528 (U34) Definitions */
 #define VCK190_U135_MUX_I2C_ADDR	0x75
 #define VCK190_U135_MUX_SEL_HPC0	0x02
-#elif defined (XPS_BOARD_VEK280_ES)
+#elif defined (XPS_BOARD_VEK280_ES_REVB)
 /* TCA9528 (U34) Definitions */
 #define VEK280_ES_U34_MUX_I2C_ADDR		0x74
 #define VEK280_ES_U34_MUX_SEL_NONE		0x80
@@ -225,6 +226,7 @@ typedef enum {
 #define CNMVRR     1
 #define EDID_INIT  1 // 0 - Default, 1- 2.1 VRR EDID, 2 - AMD FreeSync EDID, 3 - HDMI 2.1 VRR TMDS
 
+#define RC21008A_ADDR   0x09 /**<I2C RC21008A Address */
 
 //#define  VTEM2FSYNC 1 // Enable When RX is VRR and TX is Fsync
 /* Defining constants for colors in printing */
@@ -327,11 +329,14 @@ extern XTpg_PatternId Pattern;
 #endif /* XPAR_XV_HDMITXSS1_NUM_INSTANCES */
 
 extern u8 AuxFifoStartFlag;
-
-
+#define PS_IIC_CLK 100000
 #define TX_RX_RATE 0
 
+extern XIicPs Ps_Iic0, Iic1;
+extern XIic Iic;
+
 extern XHdmi_Exdes xhdmi_exdes_ctrlr;
+
 
 /************************** Function Prototypes ******************************/
 #if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
