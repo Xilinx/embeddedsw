@@ -2160,7 +2160,7 @@ static unsigned ONSEMI_NB7NQ621M_I2cSend(void *IicPtr,
     defined (XPS_BOARD_ZCU104) || \
     defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES)
+	defined (XPS_BOARD_VEK280_ES_REVB)
     XIicPs *Iic_Ptr = IicPtr;
     u32 Status;
 
@@ -2228,7 +2228,7 @@ static unsigned TI_TMDS1204_I2cSend(void *IicPtr,
     defined (XPS_BOARD_ZCU104) || \
     defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES))
+	defined (XPS_BOARD_VEK280_ES_REVB))
     XIicPs *Iic_Ptr = IicPtr;
     u32 Status;
 
@@ -2296,7 +2296,7 @@ static unsigned ONSEMI_NB7NQ621M_I2cRecv(void *IicPtr,
     defined (XPS_BOARD_ZCU104) || \
     defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES)
+	defined (XPS_BOARD_VEK280_ES_REVB)
     XIicPs *Iic_Ptr = IicPtr;
     u32 Status;
 
@@ -2359,7 +2359,7 @@ static unsigned TI_TMDS1204_I2cRecv(void *IicPtr,
     defined (XPS_BOARD_ZCU104) || \
     defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES))
+	defined (XPS_BOARD_VEK280_ES_REVB))
     XIicPs *Iic_Ptr = IicPtr;
     u32 Status;
 

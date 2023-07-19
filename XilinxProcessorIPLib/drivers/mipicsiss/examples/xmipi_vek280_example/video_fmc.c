@@ -34,7 +34,7 @@
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES)
+	defined (XPS_BOARD_VEK280_ES_REVB)
 #define I2C_REPEATED_START 0x01
 #define I2C_STOP 0x00
 #else
@@ -48,6 +48,7 @@
 #define VFMC_I2C_IOEXP_0_ADDR 	0x64 /**< I2C IO Expander 0 address */
 #define VFMC_I2C_LMK03318_ADDR  0x51 /**< I2C TI LMK03318 Address */
 #define VFMC_I2C_SI5344_ADDR    0x68 /**< I2C SI5344 Address */
+#define RC21008A_ADDR   		0x09 /**<PS I2C RC21008A Address */
 
 /* MEZZANINE CARD I2C ADDRESSES */
 #define VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR   0x5B  /**< I2C Address NB7NQ621M*/
@@ -86,7 +87,7 @@ static unsigned Vfmc_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES))
+	defined (XPS_BOARD_VEK280_ES_REVB))
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
@@ -122,6 +123,45 @@ static unsigned Vfmc_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 #endif
 }
 
+#if (defined XPS_BOARD_VEK280_ES_REVB)
+
+unsigned Vfmc_I2cSend_RC(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
+		unsigned ByteCount, u8 Option)
+{
+#if defined (XPS_BOARD_ZCU102) || \
+	defined (XPS_BOARD_ZCU104) || \
+	defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190) || \
+	defined (XPS_BOARD_VEK280_ES_REVB)
+	XIicPs *Iic_Ptr = IicPtr;
+	u32 Status;
+
+	XIicPs_SetOptions(Iic_Ptr, XIICPS_7_BIT_ADDR_OPTION);
+	XIicPs_ClearOptions(Iic_Ptr, XIICPS_10_BIT_ADDR_OPTION);
+	if (Option == I2C_REPEATED_START) {
+		XIicPs_SetOptions(Iic_Ptr, XIICPS_REP_START_OPTION);
+	} else {
+		XIicPs_ClearOptions(Iic_Ptr, XIICPS_REP_START_OPTION);
+	}
+
+	Status = XIicPs_MasterSendPolled(Iic_Ptr, MsgPtr, ByteCount,
+			SlaveAddr);
+
+	/*
+	 * Wait until bus is idle to start another transfer.
+	 */
+	if (!(Iic_Ptr->IsRepeatedStart)) {
+		while (XIicPs_BusIsBusy(Iic_Ptr));
+	}
+
+	if (Status == XST_SUCCESS) {
+		return ByteCount;
+	} else {
+		return 0;
+	}
+#endif
+}
+#endif
 /*****************************************************************************/
 /**
 *
@@ -149,7 +189,7 @@ static unsigned Vfmc_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES))
+	defined (XPS_BOARD_VEK280_ES_REVB))
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
@@ -302,7 +342,7 @@ int Vfmc_I2cMuxSelect(XVfmc *VfmcPtr)
 	Status = Vfmc_I2cSend(IicPtr, 0x74,
 					   (u8 *)&Buffer, 1, (I2C_STOP));
 
-#elif defined (XPS_BOARD_VEK280_ES)
+#elif defined (XPS_BOARD_VEK280_ES_REVB)
 	/* Set TCA9548 U135 to select port 0 or 1 (HPC0/1)*/
 	if (Loc == VFMC_HPC0) {
 		Buffer = 0x02;
@@ -363,7 +403,7 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-    defined (XPS_BOARD_VEK280_ES))
+    defined (XPS_BOARD_VEK280_ES_REVB))
 	XIicPs *Iic_Ptr = IicPtr;
 #else
 	XIic *Iic_Ptr = IicPtr;
@@ -446,6 +486,24 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 		xil_printf("Failed to initialize IDT 8T49N241.\r\n");
 		return XST_FAILURE;
 	}
+
+#if defined (XPS_BOARD_VEK280_ES_REVB)
+
+#else
+
+	Status = TI_LMK03318_Init(Iic_Ptr, VFMC_I2C_LMK03318_ADDR);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Failed to initialize TI LMK03318.\r\n");
+		return XST_FAILURE;
+	}
+
+	/*SI5344 Initialization */
+	Status = SI5344_Init(Iic_Ptr, VFMC_I2C_SI5344_ADDR);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Failed to initialize SI5344.\r\n");
+		return XST_FAILURE;
+	}
+#endif
 
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	/* Check if mezzanine card is with an active device */
