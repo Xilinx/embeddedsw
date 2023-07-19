@@ -39,5 +39,5 @@ examples:
     - reg
 tapp:
    xwdtps_selftest_example.c:
-        declaration: xwdtps_selftest_example
+        declaration: WdtPsSelfTestExample
 ...
