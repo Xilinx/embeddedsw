@@ -107,6 +107,8 @@
 *                    time.
 * 2.3	sne 09/16/20 Fixed MISRA-C violations.
 * 2.4	sne 02/04/21 Fixed Doxygen warnings.
+* 2.5   asa 07/18/23 Added support for system device tree based workflow
+*                    decoupling flow.
 * </pre>
 *
 ******************************************************************************/
@@ -130,8 +132,18 @@ extern "C" {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID of device */
-	u32 BaseAddr;		/**< Base address of the device */
+#else
+	char *Name;		/**< Unique name of the device */
+#endif
+	UINTPTR BaseAddr;	/**< Register base address */
+#ifdef SDT
+	u32 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+				  * trigger type and level flags */
+	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+				  * Parent base address */
+#endif
 } XScuWdt_Config;
 
 /**
@@ -340,7 +352,11 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 /*
  * Lookup configuration in xscuwdt_sinit.c.
  */
+#ifndef SDT
 XScuWdt_Config *XScuWdt_LookupConfig(u16 DeviceId);
+#else
+XScuWdt_Config *XScuWdt_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * Selftest function in xscuwdt_selftest.c

@@ -21,6 +21,7 @@
 * ----- --- -------- ---------------------------------------------
 * 1.00a sdm 01/15/10 First release
 * 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
+* 2.5   asa 07/18/23 Made updates for workflow decoupling flow.
 * </pre>
 *
 ******************************************************************************/
@@ -79,7 +80,9 @@ s32 XScuWdt_CfgInitialize(XScuWdt *InstancePtr,
 		/*
 		 * Copy configuration into instance.
 		 */
+#ifndef SDT
 		InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 
 		/*
 		 * Save the base address pointer such that the registers of the block

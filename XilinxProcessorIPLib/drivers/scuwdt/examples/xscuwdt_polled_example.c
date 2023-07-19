@@ -21,6 +21,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------
 * 1.00a sdm  01/15/10 First release
+* 2.5   asa  07/18/23 Added support for workflow decouplig flow.
+*                     Interrupt wrapper support has also been added.
 *</pre>
 ******************************************************************************/
 
@@ -29,7 +31,7 @@
 #include "xparameters.h"
 #include "xscuwdt.h"
 #include "xil_printf.h"
-#include <sleep.h>
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -38,7 +40,11 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define WDT_DEVICE_ID		XPAR_SCUWDT_0_DEVICE_ID
+#else
+#define SCUWDT_BASEADDRESS  XPAR_XSCUWDT_0_BASEADDR
+#endif
 
 #define WDT_LOAD_VALUE		0xFFFF0000
 
@@ -48,7 +54,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int ScuWdtPolledExample(XScuWdt * WdtInstancePtr, u16 DeviceId);
+#else
+int ScuWdtPolledExample(XScuWdt * WdtInstancePtr, UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -75,7 +85,13 @@ int main(void)
 	 * Call the example , specify the device ID that is generated in
 	 * xparameters.h.
 	 */
+#ifndef SDT
 	Status = ScuWdtPolledExample(&Watchdog, WDT_DEVICE_ID);
+#else
+	Status = ScuWdtPolledExample(&Watchdog, SCUWDT_BASEADDRESS);
+
+#endif
+
 	if (Status != XST_SUCCESS) {
 		xil_printf("SCU WDT Polled Mode Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -98,7 +114,11 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int ScuWdtPolledExample(XScuWdt * WdtInstancePtr, u16 DeviceId)
+#else
+int ScuWdtPolledExample(XScuWdt * WdtInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XScuWdt_Config *ConfigPtr;
@@ -107,7 +127,11 @@ int ScuWdtPolledExample(XScuWdt * WdtInstancePtr, u16 DeviceId)
 	/*
 	 * Initialize the SCU Private Wdt driver so that it is ready to use.
 	 */
+#ifndef SDT
 	ConfigPtr = XScuWdt_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XScuWdt_LookupConfig(BaseAddress);
+#endif
 
 	/*
 	 * This is where the virtual address would be used, this example

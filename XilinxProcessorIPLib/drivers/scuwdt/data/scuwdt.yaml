@@ -1,0 +1,42 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+---
+title: Bindings for ScuWdt controller
+
+maintainers:
+  - Anirudha Sarangi <anirudha.sarangi@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+        -   const: xlnx,ps7-scuwdt-1.00.a
+
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XScuWdt_Config
+
+required:
+    - compatible
+    - reg
+    - interrupts
+    - interrupt-parent
+
+examples:
+        xscuwdt_intr_example.c:
+                - interrupts
+        xscuwdt_polled_example.c:
+                - reg
+
+tapp:
+        xscuwdt_intr_example.c:
+                declaration: ScuWdtIntrExample
+                hwproperties:
+                        - interrupts
+        xscuwdt_polled_example:
+                declaration: ScuWdtPolledExample
+
+...
