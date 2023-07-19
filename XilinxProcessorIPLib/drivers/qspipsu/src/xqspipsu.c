@@ -80,6 +80,7 @@
  * 1.17 akm 01/07/23 Fixed hang issue while reading large data chuncks.
  * 1.18 sb  06/19/23 Add memory barrier instruction and convert IsBusy varible
  *                   to volatile.
+ * 1.18 ht  07/18/23 Fixed GCC warnings.
  *
  * </pre>
  *
@@ -818,7 +819,9 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 					  (u32)XQSPIPSU_IER_RXNEMPTY_MASK |
 					  (u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
 					  (u32)XQSPIPSU_IER_RXEMPTY_MASK);
+#if ! defined (__MICROBLAZE__)
 			dmb();
+#endif
 			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 				XQspiPsu_WriteReg(BaseAddr,
 						  XQSPIPSU_QSPIDMA_DST_I_DIS_OFFSET,
