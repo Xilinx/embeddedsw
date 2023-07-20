@@ -16,5 +16,5 @@ supported_os:
 
 depends_libs:
     libmetal: {}
-    open-amp: {}
+    openamp: {}
 ...

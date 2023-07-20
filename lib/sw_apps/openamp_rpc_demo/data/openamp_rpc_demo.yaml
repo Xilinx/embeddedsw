@@ -16,6 +16,6 @@ supported_os:
 
 depends_libs:
     libmetal: {}
-    open-amp:
-        OPEN-AMP_WITH_PROXY: ON
+    openamp:
+        OPENAMP_WITH_PROXY: ON
 ...
