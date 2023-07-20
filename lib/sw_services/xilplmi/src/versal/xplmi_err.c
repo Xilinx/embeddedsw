@@ -24,6 +24,7 @@
 *       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       dd   03/28/2023 Updated doxygen comments
+* 1.02  rama 07/19/2023 Updated ErrorTable to support STL errors
 *
 * </pre>
 *
@@ -371,6 +372,8 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_CRAM_UE] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_NPI_UE] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_STL_UE] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
 
