@@ -22,6 +22,7 @@
 *       vns  01/10/2023   Adds logic to generate the DEVA on subsystem based.
 * 1.2   har  02/24/2023   Added macro XOCP_INVALID_USR_CFG_INDEX
 *       vns  07/06/2023   Added DEVAK regenerate support and Data clear before shutdown
+*       am   07/20/2023   Added macro XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK
 *
 * </pre>
 *
@@ -52,6 +53,7 @@ extern "C" {
 #define XOCP_TIMEOUT_MAX				(0x1FFFFU)
 
 #define XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_MASK	(0x00000001U)
+#define XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK	(0x00000000U)
 #define XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK	(0x00000002U)
 #define XOCP_PMC_GLOBAL_ZEROIZE_STATUS_DONE_MASK	(0x00000001U)
 
