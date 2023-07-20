@@ -1,5 +1,6 @@
 /******************************************************************************
  * Copyright (C) 2018 - 2021 Xilinx, Inc.	All rights reserved.
+ * Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xv_tpg_intr.c
- * @addtogroup v_tpg_v8_4
+ * @addtogroup v_tpg Overview
  * @{
  *
  * The functions in this file provides interrupt handler and associated
