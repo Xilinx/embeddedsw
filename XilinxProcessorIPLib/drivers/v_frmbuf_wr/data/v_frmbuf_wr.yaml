@@ -1,0 +1,157 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for V_FRMBUF_WR Driver
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-frmbuf-wr-2.5
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,samples-per-clock:
+    description: Samples Per Clock
+  xlnx,max-cols:
+    description: Maximum columns supported by core instance
+  xlnx,max-rows:
+    description: Maximum rows supported by core instance
+  xlnx,max-data-width:
+    description: Maximum Data width of each channel
+  xlnx,aximm-data-width:
+    description: AXI-MM data width
+  xlnx,aximm-addr-width:
+    description: AXI-MM address width
+  xlnx,has-rgbx8:
+    description: rgbx8 support
+  xlnx,has-yuvx8:
+    description: yuvx8 support
+  xlnx,has-yuyv8:
+    description: yuyv8 support
+  xlnx,has-rgba8:
+    description: rgba8 support
+  xlnx,has-yuva8:
+    description: yuva8 support
+  xlnx,has-rgbx10:
+    description: rgbx10 support
+  xlnx,has-yuvx10:
+    description: yuvx10 support
+  xlnx,has-y-uv8:
+    description: y-uv8 support
+  xlnx,has-y-uv8-420:
+    description: y-uv8-420 support
+  xlnx,has-rgb8:
+    description: rgb8 support
+  xlnx,has-yuv8:
+    description: yuv8 support
+  xlnx,has-y-uv10:
+    description: y-uv10 support
+  xlnx,has-y-uv10-420:
+    description: y-uv10-420 support
+  xlnx,has-y8:
+    description: y8 support
+  xlnx,has-y10:
+    description: y10 support
+  xlnx,has-bgra8:
+    description: bgra8 support
+  xlnx,has-bgrx8:
+    description: bgrx8 support
+  xlnx,has-uyvy8:
+    description: uyvy8 support
+  xlnx,has-bgr8:
+    description: bgr8 support
+  xlnx,has-rgbx12:
+    description: rgbx12 support
+  xlnx,has-rgb16:
+    description: rgb16 support
+  xlnx,has-yuvx12:
+    description: yuvx12 support
+  xlnx,has-y-uv12:
+    description: y-uv12 support
+  xlnx,has-y-uv12-420:
+    description: y-uv12-420 support
+  xlnx,has-y12:
+    description: y12 support
+  xlnx,has-yuv16:
+    description: yuv16 support
+  xlnx,has-y-uv16:
+    description: y-uv16 support
+  xlnx,has-y-uv16-420:
+    description: y-uv16-420 support
+  xlnx,has-y16:
+    description: y16 support
+  xlnx,has-y-u-v8:
+    description: y-u-v8 3 planar support
+  xlnx,has-y-u-v10:
+    description: y-u-v10 3 planar support
+  xlnx,has-y-u-v8-420:
+    description: y-u-v8-420 3 planar support
+  xlnx,has-interlaced:
+    description: Interlaced support
+  interrupts:
+    description: Interrupt number
+  interrupt-parent:
+    description: Parent interrupt
+
+required:
+    - compatible
+    - reg
+    - xlnx,samples-per-clock
+    - xlnx,max-cols
+    - xlnx,max-rows
+    - xlnx,max-data-width
+    - xlnx,aximm-data-width
+    - xlnx,aximm-addr-width
+    - xlnx,has-rgbx8
+    - xlnx,has-yuvx8
+    - xlnx,has-yuyv8
+    - xlnx,has-rgbx10
+    - xlnx,has-yuvx10
+    - xlnx,has-y-uv8
+    - xlnx,has-y-uv8-420
+    - xlnx,has-rgb8
+    - xlnx,has-yuv8
+    - xlnx,has-y-uv10
+    - xlnx,has-y-uv10-420
+    - xlnx,has-y8
+    - xlnx,has-y10
+    - xlnx,has-bgrx8
+    - xlnx,has-uyvy8
+    - xlnx,has-bgr8
+    - xlnx,has-rgbx12
+    - xlnx,has-rgb16
+    - xlnx,has-yuvx12
+    - xlnx,has-y-uv12
+    - xlnx,has-y-uv12-420
+    - xlnx,has-y12
+    - xlnx,has-yuv16
+    - xlnx,has-y-uv16
+    - xlnx,has-y-uv16-420
+    - xlnx,has-y16
+    - xlnx,has-y-u-v8
+    - xlnx,has-y-u-v10
+    - xlnx,has-y-u-v8-420
+    - xlnx,has-interlaced
+    - interrupts
+    - interrupt-parent
+
+config:
+    - XV_frmbufwr_Config
+
+depends:
+    video_common: []
+
+examples:
+    xv_frmbufwr_example.c:
+        - interrupts
+	- dependency_files:
+	    - platform.c
+	    - platform.h
+...
