@@ -15,9 +15,17 @@ collector_list (_deps PROJECT_LIB_DEPS)
 
 find_library(OPENAMP_LIB NAMES open_amp HINTS "${OPENAMP_DIR}/lib")
 
-set (_app rpc_demo)
+get_property (APP_NAME GLOBAL PROPERTY APP_NAME)
+if(APP_NAME STREQUAL "rpc_demo")
+  set(_app rpc_demo)
+elseif(APP_NAME STREQUAL "echo")
+  set (_app rpmsg-echo)
+elseif(APP_NAME STREQUAL "matrix_multiply")
+  set (_app matrix_multiply)
+endif()
+
 collector_list (_sources APP_COMMON_SOURCES)
-list (APPEND _sources "${CMAKE_CURRENT_SOURCE_DIR}/rpc_demo.c")
+list (APPEND _sources "${CMAKE_CURRENT_SOURCE_DIR}/${_app}.c")
 add_executable (${_app}.out ${_sources})
 set_source_files_properties(${_sources} PROPERTIES COMPILE_FLAGS "${_cflags}")
 
