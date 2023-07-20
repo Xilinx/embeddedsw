@@ -1,5 +1,6 @@
 // ==============================================================
 // Copyright (c) 2015 - 2021 Xilinx Inc. All rights reserved.
+// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -18,6 +19,10 @@ int XV_tpg_CfgInitialize(XV_tpg *InstancePtr,
     /* Setup the instance */
     InstancePtr->Config = *ConfigPtr;
     InstancePtr->Config.BaseAddress = EffectiveAddr;
+#ifdef SDT
+    InstancePtr->Config.IntrId = ConfigPtr->IntrId;
+    InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
+#endif
 
     /* Set the flag to indicate the driver is ready */
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
