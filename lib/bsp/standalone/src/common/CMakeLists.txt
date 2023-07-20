@@ -31,6 +31,7 @@ collect (PROJECT_LIB_HEADERS xstatus.h)
 collect (PROJECT_LIB_SOURCES outbyte.c)
 collect (PROJECT_LIB_SOURCES inbyte.c)
 collect (PROJECT_LIB_HEADERS xmem_config.h)
+collect (PROJECT_LIB_HEADERS xil_cryptoalginfo.h)
 if(("${CMAKE_MACHINE}" STREQUAL "Versal") OR
    ("${CMAKE_MACHINE}" STREQUAL "VersalNet") OR
    ("${CMAKE_MACHINE}" STREQUAL "ZynqMP"))
