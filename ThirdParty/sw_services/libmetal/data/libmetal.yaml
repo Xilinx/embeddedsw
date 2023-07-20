@@ -4,6 +4,8 @@
 ---
 title: Bindings for Libmetal library
 
+description: Provide runtime primitives APIs across heterogenous processors.
+
 maintainers:
   - Ben Levinsky <ben.levinsky@amd.com>
 

@@ -4,6 +4,8 @@
 ---
 title: Bindings for OpenAMP library
 
+description: Enable IPC and lifecycle management across heterogeneous processors.
+
 maintainers:
   - Ben Levinsky <ben.levinsky@amd.com>
 
