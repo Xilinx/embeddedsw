@@ -21,6 +21,7 @@
 *       vns  01/10/23 Adds logic to generate the DEVAK on subsystem based.
 * 1.2   har  02/24/23 Added logic to get index of usr cfg for requested subsystem ID
 *       vns  07/06/23 Added DEVAK regenerate support and Data clear before shutdown
+*       am   07/20/23 Cleared DICE_CDI seed
 *
 * </pre>
 * @note
@@ -624,6 +625,9 @@ int XOcp_DataZeroize(XPlmi_ModuleOp Op)
 			/* Zeroize DEVIK */
 			Status = XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_CTRL,
 				(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_STATUS);
+				/* Zeroize DICE CDI SEED irrespective of DEVIK Zeroize status */
+			Status |= XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DICE_CDI_SEED_ZEROIZE_CTRL,
+				(UINTPTR)XOCP_PMC_GLOBAL_DICE_CDI_SEED_ZEROIZE_STATUS);
 		}
 		else {
 			Status = XST_SUCCESS;
@@ -664,8 +668,8 @@ static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg)
 	XPlmi_Out32(CtrlReg, XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_MASK);
 
 	Status = (int)Xil_WaitForEvent(StatusReg,
-			XOCP_PMC_GLOBAL_ZEROIZE_STATUS_DONE_MASK,
-			XOCP_PMC_GLOBAL_ZEROIZE_STATUS_DONE_MASK,
+			XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK,
+			XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK,
 			XOCP_TIMEOUT_MAX);
 	if (Status == XST_SUCCESS) {
 		ReadReg = XPlmi_In32(StatusReg) &
@@ -674,6 +678,9 @@ static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg)
 			Status = XST_FAILURE;
 		}
 	}
+
+	/* Clearing Zeroize Control register */
+	XPlmi_Out32(CtrlReg, XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK);
 
 	return Status;
 }
