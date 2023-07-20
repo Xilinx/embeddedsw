@@ -25,6 +25,7 @@
 * 1.1   kpt     01/13/22 Added support for PL microblaze
 *       kpt     03/16/22 Removed IPI related code and added mailbox support
 * 3.1   skg     10/04/22 Added API to set SlrIndex
+* 3.2   ng      07/05/23 added support for system device tree flow
 *
 * </pre>
 *
@@ -162,7 +163,11 @@ int main(void)
 		Xil_DCacheDisable();
 	#endif
 
+	#ifndef SDT
 	Status = XMailbox_Initialize(&MailboxInstance, 0U);
+	#else
+	Status = XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
+	#endif
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

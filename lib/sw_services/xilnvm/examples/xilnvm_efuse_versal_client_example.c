@@ -65,6 +65,7 @@
  *       kpt   03/16/2022 Removed IPI related code and added mailbox support
  * 3.1   skg   10/04/2022 Added API to set SlrIndex
  *       skg   12/07/2022 Added Additional PPKs support
+ * 3.2   ng    07/05/2023 added support for system device tree flow
  *
  * </pre>
  *
@@ -197,7 +198,11 @@ int main(void)
 		Xil_DCacheDisable();
 	#endif
 
+	#ifndef SDT
 	Status = XMailbox_Initialize(&MailboxInstance, 0U);
+	#else
+	Status = XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
+	#endif
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

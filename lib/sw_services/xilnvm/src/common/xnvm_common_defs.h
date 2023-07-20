@@ -20,6 +20,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  01/05/22 Initial release
+* 3.2   ng   06/30/23 Added support for system device tree flow
 *
 * </pre>
 * @note
@@ -36,6 +37,10 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+
+#ifdef SDT
+#include "xilnvm_bsp_config.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 /**@cond xnvm_internal
