@@ -38,6 +38,7 @@
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 * 1.07  bm   01/03/2023 Remove usage of double data type
 * 1.08  bm   04/28/2023 Update Trim related macros
+* 1.09  ng   07/06/2023 Added support for SDT flow
 *
 * </pre>
 *
@@ -63,7 +64,6 @@ extern "C" {
  */
 
 /************************** Constant Definitions *****************************/
-#define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U)
 
 /* PMC IRO Frequency related macros */

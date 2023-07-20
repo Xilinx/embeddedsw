@@ -41,6 +41,7 @@
 * 1.08  bm   07/06/2022 Refactor versal and versal_net code
 * 1.09  sk   11/09/2022 Added Timeout settings info for JTAG_SBI Bootmode
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.10  ng   07/06/2023 Added support for SDT flow
 *
 * </pre>
 *
@@ -119,8 +120,11 @@ int XPlmi_InitUart(void)
 	XUartPsv UartPsvIns;
 	XUartPsv_Config *Config;
 
+#ifndef SDT
 	for (Index = 0U; Index < (u8)XPLMI_UART_NUM_INSTANCES; Index++) {
-
+#else
+	for (Index = 0U; XUartPsv_ConfigTable[Index].Name != NULL; Index++) {
+#endif
 		Status = XPlmi_MemSetBytes(&UartPsvIns, sizeof(XUartPsv),
 				0U, sizeof(XUartPsv));
 		if (Status != XST_SUCCESS) {
@@ -129,7 +133,11 @@ int XPlmi_InitUart(void)
 		}
 
 		/** - Read the UART config. */
+	#ifndef SDT
 		Config = XUartPsv_LookupConfig(Index);
+	#else
+		Config = XUartPsv_LookupConfig(XUartPsv_ConfigTable[Index].BaseAddress);
+	#endif
 		if (NULL == Config) {
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_LOOKUP, (int)Index);
 			goto END;

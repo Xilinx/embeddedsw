@@ -51,6 +51,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.10  bm   04/28/2023 Use XPlmi_GetRomIroFreq API to get IRO frequency used
 *                       during ROM
+*       ng   06/21/2023 Added support for system device-tree flow
 *
 * </pre>
 *
@@ -65,6 +66,7 @@
 #include "xplmi_debug.h"
 #include "xplmi_err_common.h"
 #include "xplmi_plat.h"
+#include "xplmi_config.h"
 
 /**@cond xplmi_internal
  * @{
@@ -301,7 +303,7 @@ int XPlmi_StartTimer(void)
 	 * - Initialize the IO Module so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h
 	 */
-	Status = XIOModule_Initialize(&IOModule, IOMODULE_DEVICE_ID);
+	Status = XIOModule_Initialize(&IOModule, IOMODULE_DEVICE);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_INIT, Status);
 		goto END;
@@ -383,7 +385,7 @@ int XPlmi_SetUpInterruptSystem(void)
 		++IntrNum;
 	}
 	++IntrNum;
-	while (IntrNum < XPAR_IOMODULE_INTC_MAX_INTR_SIZE) {
+	while (IntrNum < XILPLMI_IOMODULE_INTC_MAX_INTR_SIZE) {
 		Status = XIOModule_Connect(&IOModule, IntrNum,
 			(XInterruptHandler)XPlmi_IntrHandler,
 			(void *)(u32)IntrNum);
@@ -406,8 +408,7 @@ int XPlmi_SetUpInterruptSystem(void)
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 		(Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
-		(void*) IOMODULE_DEVICE_ID);
-
+		(void*) IOMODULE_DEVICE);
 	/**
 	 * - Enable interrupts
 	 */

@@ -47,6 +47,7 @@
 * 1.08  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
 *       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.09  ng   07/06/2023 Added support for SDT flow
 *
 * </pre>
 *
@@ -72,7 +73,11 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId);
+#else
+static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 BaseAddress);
+#endif
 static void XPlmi_SSSCfgDmaDma(u32 Flags);
 static void XPlmi_SSSCfgDmaPzm(u32 Flags);
 static void XPlmi_SSSCfgSbiDma(u32 Flags);
@@ -101,7 +106,11 @@ static XPmcDma_Configure DmaCtrl = {0x40U, 0U, 0U, 0U, 0xFFEU, 0x80U,
  * 			- XPLMI_ERR_DMA_SELFTEST if DMA driver self test fails.
  *
 *****************************************************************************/
+#ifndef SDT
 static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId)
+#else
+static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 BaseAddress)
+#endif
 {
 	int Status = XST_FAILURE;
 	XPmcDma_Config *Config;
@@ -111,7 +120,11 @@ static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId)
 	 * look up the configuration in the config table,
 	 * then initialize it.
 	 */
+	#ifndef SDT
 	Config = XPmcDma_LookupConfig((u16)DeviceId);
+	#else
+	Config = XPmcDma_LookupConfig(BaseAddress);
+	#endif
 	if (NULL == Config) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_DMA_LOOKUP, 0);
 		goto END;
@@ -153,12 +166,12 @@ int XPlmi_DmaInit(void)
 {
 	int Status = XST_FAILURE;
 	/** - Initialise PMC_DMA0 & PMC_DMA1. */
-	Status = XPlmi_DmaDrvInit(&PmcDma0, PMCDMA_0_DEVICE_ID);
+	Status = XPlmi_DmaDrvInit(&PmcDma0, PMCDMA_0_DEVICE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XPlmi_DmaDrvInit(&PmcDma1, PMCDMA_1_DEVICE_ID);
+	Status = XPlmi_DmaDrvInit(&PmcDma1, PMCDMA_1_DEVICE);
 
 END:
 	return Status;
@@ -174,6 +187,7 @@ END:
  * 			- PMC DMA instance pointer.
  *
  *****************************************************************************/
+#ifndef SDT
 XPmcDma *XPlmi_GetDmaInstance(u32 DeviceId)
 {
 	XPmcDma *PmcDmaPtr = NULL;
@@ -181,11 +195,11 @@ XPmcDma *XPlmi_GetDmaInstance(u32 DeviceId)
 	 * - Return the PMC_DMA0 or PMC_DMA1 instance pointer based on the device
 	 *   ID only if they are ready. Otherwise, return NULL.
 	 */
-	if (DeviceId == (u32)PMCDMA_0_DEVICE_ID) {
+	if (DeviceId == PMCDMA_0_DEVICE) {
 		if (PmcDma0.IsReady != (u32)FALSE) {
 			PmcDmaPtr = &PmcDma0;
 		}
-	} else if (DeviceId == (u32)PMCDMA_1_DEVICE_ID) {
+	} else if (DeviceId == PMCDMA_1_DEVICE) {
 		if (PmcDma1.IsReady != (u32)FALSE) {
 			PmcDmaPtr = &PmcDma1;
 		}
@@ -195,6 +209,29 @@ XPmcDma *XPlmi_GetDmaInstance(u32 DeviceId)
 
 	return PmcDmaPtr;
 }
+#else
+XPmcDma *XPlmi_GetDmaInstance(UINTPTR BaseAddress)
+{
+	XPmcDma *PmcDmaPtr = NULL;
+	/**
+	 * - Return the PMC_DMA0 or PMC_DMA1 instance pointer based on the device
+	 *   ID only if they are ready. Otherwise, return NULL.
+	 */
+	if (BaseAddress == PMCDMA_0_DEVICE) {
+		if (PmcDma0.IsReady != (u32)FALSE) {
+			PmcDmaPtr = &PmcDma0;
+		}
+	} else if (BaseAddress == PMCDMA_1_DEVICE) {
+		if (PmcDma1.IsReady != (u32)FALSE) {
+			PmcDmaPtr = &PmcDma1;
+		}
+	} else {
+		/* Do nothing */
+	}
+
+	return PmcDmaPtr;
+}
+#endif
 
 /*****************************************************************************/
 /**

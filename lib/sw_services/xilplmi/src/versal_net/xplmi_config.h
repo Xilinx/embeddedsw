@@ -26,6 +26,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       dc   07/17/2022 Added PLM_OCP configuration
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+* 1.02  ng   06/21/2023 Added support for system device-tree flow
 *
 * </pre>
 *
@@ -41,6 +42,10 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
+
+#ifdef SDT
+#include "xplmi_bsp_config.h"
+#endif
 
 /**@cond xplmi_internal
  * @{

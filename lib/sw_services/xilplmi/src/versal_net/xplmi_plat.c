@@ -33,6 +33,7 @@
 *       dd   05/24/2023 Updated doxygen comments
 *       ng   05/31/2023 Initialised IsKatRan state to False
 *       bm   07/06/2023 Initialize address buffer list
+*       ng   06/26/2023 Added support for system device-tree flow
 *
 * </pre>
 *
@@ -46,7 +47,7 @@
 #include "xplmi_ipi.h"
 #include "xplmi_proc.h"
 #include "xplmi_task.h"
-#include "microblaze_sleep.h"
+#include "mb_interface.h"
 #include "xplmi_hw.h"
 #include "xplmi_err_common.h"
 #include "xplmi_wdt.h"
@@ -693,7 +694,7 @@ int XPlmi_GetPitResetValues(u32 *Pit1ResetValue, u32 *Pit2ResetValue)
 	XIOModule_Config *CfgPtr;
 
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
-		CfgPtr = XIOModule_LookupConfig(IOMODULE_DEVICE_ID);
+		CfgPtr = XIOModule_LookupConfig(IOMODULE_DEVICE);
 		if (CfgPtr == NULL) {
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_INIT, 0U);
 			goto END;
