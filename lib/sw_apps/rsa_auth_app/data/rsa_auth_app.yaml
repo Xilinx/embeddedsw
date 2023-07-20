@@ -1,0 +1,27 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: RSA Authentication App
+
+maintainers:
+  - Akula, Kalyani <kalyani.akula@amd.com>
+  - Challa, Durga <durga.challa@amd.com>
+  - Harsha, Harsha <harsha.harsha@amd.com>
+  - Kundanala, Praveen Teja <praveen.teja.kundanala@amd.com>
+
+type: apps
+
+description: Used to RSA authenticate a user application.
+
+supported_processors:
+  - ps7_cortexa9
+
+supported_os:
+  - standalone
+
+depends_libs:
+  xiltimer: {}
+  xilrsa: {}
+...
