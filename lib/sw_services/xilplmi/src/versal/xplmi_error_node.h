@@ -30,6 +30,8 @@
 *                       notification
 *       bm   07/06/2022 Refactor versal and versal_net code
 * 1.07  ng   11/11/2022 Fixed doxygen file name error
+* 1.08  rama 07/19/2023 Added STL error ID to support software event
+*                       notification
 *
 * </pre>
 *
@@ -205,7 +207,10 @@ typedef enum {
 #define XPLMI_ERROR_CRAM_UE			(0x86U)
 #define XPLMI_ERROR_NPI_UE			(0x87U)
 
-#define XPLMI_ERROR_SW_ERR_MAX		(0x88U)
+/* STL UE errors */
+#define XPLMI_ERROR_STL_UE			(0x88U)
+
+#define XPLMI_ERROR_SW_ERR_MAX		(0x89U)
 
 #define XPLMI_ERROR_PSMERR_MAX		XPLMI_ERROR_PSMERR2_MAX
 #define XPLMI_ERROR_PMCERR_MAX		XPLMI_ERROR_PMCERR2_MAX
