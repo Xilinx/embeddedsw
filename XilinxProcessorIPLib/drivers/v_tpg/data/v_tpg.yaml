@@ -1,0 +1,78 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for video tpg Driver
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-tpg-8.2
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,axi4s-slave:
+    description: Axi4s Slave capability indicator
+  xlnx,samples-per-clock:
+    description: Samples Per Clock supported by core instance
+  xlnx,num-video-components:
+    description: Number of Video Components
+  xlnx,max-columns:
+    description: Maximum columns supported by core instance
+  xlnx,max-rows:
+    description: Maximum rows supported by core instance
+  xlnx,max-data-width:
+    description: Maximum Data width of each channel
+  xlnx,solid-color:
+    description: Axi4s Slave capability indicator
+  xlnx,ramp:
+    description: Axi4s Slave capability indicator
+  xlnx,color-bar:
+    description: Axi4s Slave capability indicator
+  xlnx,display-port:
+    description: Axi4s Slave capability indicator
+  xlnx,color-sweep:
+    description: Axi4s Slave capability indicator
+  xlnx,zone-plate:
+    description: Axi4s Slave capability indicator
+  xlnx,foreground:
+    description: Axi4s Slave capability indicator
+  interrupts:
+    description: Interrupt number
+  interrupt-parent:
+    description: Parent interrupt
+
+required:
+    - compatible
+    - reg
+    - xlnx,axi4s-slave
+    - xlnx,samples-per-clock
+    - xlnx,num-video-components
+    - xlnx,max-columns
+    - xlnx,max-rows
+    - xlnx,max-data-width
+    - xlnx,solid-color
+    - xlnx,ramp
+    - xlnx,color-bar
+    - xlnx,display-port
+    - xlnx,color-sweep
+    - xlnx,zone-plate
+    - xlnx,foreground
+    - interrupts
+    - interrupt-parent
+
+config:
+    - XV_tpg_Config
+
+depends:
+    video_common: []
+
+examples:
+    main.c
+...
