@@ -124,11 +124,10 @@ void Xil_ExceptionRegisterHandler(u32 Id, Xil_ExceptionHandler Handler,
 {
 	if (Id >= XIL_INTERRUPT_ID_FIRST) {
 		RISCV_InterruptVectorTable[Id - XIL_INTERRUPT_ID_FIRST].
-			Handler = Handler;
+		Handler = Handler;
 		RISCV_InterruptVectorTable[Id - XIL_INTERRUPT_ID_FIRST].
-			CallBackRef = Data;
-	}
-	else {
+		CallBackRef = Data;
+	} else {
 		RISCV_ExceptionVectorTable[Id].Handler = Handler;
 		RISCV_ExceptionVectorTable[Id].CallBackRef = Data;
 	}
@@ -149,11 +148,10 @@ void Xil_ExceptionRemoveHandler(u32 Id)
 {
 	if (Id >= XIL_INTERRUPT_ID_FIRST) {
 		RISCV_InterruptVectorTable[Id - XIL_INTERRUPT_ID_FIRST].
-			Handler = Xil_ExceptionNullHandler;
+		Handler = Xil_ExceptionNullHandler;
 		RISCV_InterruptVectorTable[Id - XIL_EXCEPTION_ID_FIRST].
-			CallBackRef = NULL;
-	}
-	else {
+		CallBackRef = NULL;
+	} else {
 		RISCV_ExceptionVectorTable[Id].Handler =
 			Xil_ExceptionNullHandler;
 		RISCV_ExceptionVectorTable[Id].CallBackRef = NULL;
