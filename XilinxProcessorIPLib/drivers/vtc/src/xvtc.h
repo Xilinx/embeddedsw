@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xvtc.h
-* @addtogroup vtc_v8_4
+* @addtogroup vtc Overview
 * @{
 * @details
 *
@@ -346,10 +347,17 @@ extern "C" {
  * Each VTC device should have a configuration structure associated
  */
 typedef struct {
-	u16 DeviceId;		/**< DeviceId is the unique ID of the VTC
-				  *  core */
+#ifndef SDT
+	u16 DeviceId;		/**< DeviceId is the unique ID of the VTC core */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 				  *  of the core's registers */
+#ifdef SDT
+    u16 IntrId; 		    /**< Interrupt ID */
+    UINTPTR IntrParent; 	/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XVtc_Config;
 
 /**
@@ -920,7 +928,11 @@ void XVtc_GetDetectorHoriOffset(XVtc *InstancePtr,
 u32 XVtc_GetVersion(XVtc *InstancePtr);
 
 /* Initialization functions in xvtc_sinit.c */
+#ifndef SDT
 XVtc_Config *XVtc_LookupConfig(u16 DeviceId);
+#else
+XVtc_Config *XVtc_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * Interrupt related function(s) in xvtc_intr.c
