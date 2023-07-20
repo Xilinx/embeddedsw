@@ -5,7 +5,7 @@
 title: Bindings for CSUDMA controller
 
 maintainers:
-  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+  - Abin Joseph <abin.joseph@amd.com>
 
 type: driver
 
@@ -47,5 +47,4 @@ tapp:
         declaration: XCsuDma_IntrExample
         hwproperties:
             - interrupts
-...
 ...
