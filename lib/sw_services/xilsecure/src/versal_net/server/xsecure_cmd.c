@@ -30,6 +30,7 @@
 *       bm   07/05/2023 Added crypto check in features command
 *       vns  07/07/2023 Added separate IPI commands for Crypto Status and KAT status updates
 *       kpt  07/10/2023 Added support for key wrap and unwrap
+*       ng   07/13/2023 Added support for system device tree flow
 *
 * </pre>
 *
@@ -56,6 +57,10 @@
 #include "xplmi.h"
 #include "xplmi_tamper.h"
 #include "xsecure_cryptochk.h"
+
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 
 /************************** Function Prototypes ******************************/
 

@@ -49,6 +49,7 @@
 * 5.1   dc   03/30/23 Added support to accept the data in either big/little endian.
 * 5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
 *       yog  06/07/23 Added support for P-256 Curve
+*       ng   07/05/23 Added support for system device tree flow
 *
 * </pre>
 *
@@ -66,6 +67,10 @@
 #include "xsecure_utils.h"
 #include "xil_util.h"
 #include "xsecure_cryptochk.h"
+
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 

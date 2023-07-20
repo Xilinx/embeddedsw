@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -58,6 +59,7 @@
 * 4.7   am  11/26/21 Resolved doxygen warnings
 *       am  12/14/21 Fixed input validation of InstancePtr in
 *                    XSecure_AesChunkDecrypt function
+* 5.2   ng  07/05/23 Added support for system device tree flow
 *
 * </pre>
 *
@@ -1119,7 +1121,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 			 * source
 			 */
 			Status = (s32)XSecure_SssPcap(&InstancePtr->SssInstance,
-				InstancePtr->CsuDmaPtr->Config.DeviceId);
+				(u16)InstancePtr->CsuDmaPtr->Config.DmaType);
 			if (Status != (u32)XST_SUCCESS){
 				goto END;
 			}

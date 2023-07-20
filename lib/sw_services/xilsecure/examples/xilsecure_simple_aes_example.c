@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +24,7 @@
 * 2.2   vns    07/06/16 Added doxygen tags
 * 4.0   vns    03/26/19 Fixed compilation errors on IAR
 * 4.3   har    10/12/20 Addressed security review comments
+* 5.2   ng     07/05/23 Added support for system device tree flow
 *
 * </pre>
 ******************************************************************************/
@@ -49,7 +51,11 @@
 #define XSECURE_IV_SIZE		(12)
 #define XSECURE_KEY_SIZE	(32)
 
-#define XSECURE_CSUDMA_DEVICEID	XPAR_XCSUDMA_0_DEVICE_ID
+#ifndef SDT
+#define XSECURE_CSUDMA_DEVICE	XPAR_XCSUDMA_0_DEVICE_ID
+#else
+#define XSECURE_CSUDMA_DEVICE	XPAR_XCSUDMA_0_BASEADDR
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -153,7 +159,7 @@ static s32 SecureAesExample(void)
 	XSecure_Aes Secure_Aes;
 
 	/* Initialize CSU DMA driver */
-	Config = XCsuDma_LookupConfig(XSECURE_CSUDMA_DEVICEID);
+	Config = XCsuDma_LookupConfig(XSECURE_CSUDMA_DEVICE);
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}

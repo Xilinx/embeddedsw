@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,8 +36,9 @@
 *                     return XSECURE_IMAGE_HEADER_SIZE_ERR.
 *       ana  04/03/20 Removed support of storing key in global array
 *       rpo  04/09/20 Aligned buffers used by DMA to 64 bytes
-*	rpo  09/10/20 Added a new error for RSA input validation parameter
+*       rpo  09/10/20 Added a new error for RSA input validation parameter
 * 4.7   am   11/26/21 Resolved doxygen warnings
+* 5.2   ng   07/13/23 Added SDT support
 *
 * </pre>
 *
@@ -57,6 +59,10 @@ extern "C" {
 #include "xsecure_aes.h"
 #include "xsecure_rsa.h"
 #include "xsecure_sha.h"
+
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 

@@ -28,6 +28,7 @@
 * 5.0   kpt   07/24/2022 Moved XSecure_ShaKat into xsecure_kat_plat_ipihandler.c
 * 5.1   yog   05/03/2023 Fixed MISRA C violation of Rule 10.3
 * 		vss	  07/14/2023 Added support for IpiChannel check
+* 5.2   ng    07/13/2023 Added SDT support
 *
 * </pre>
 *
@@ -120,7 +121,7 @@ static int XSecure_ShaInitialize(void)
 {
 	int Status = XST_FAILURE;
 	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(0U);
+	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 
 	if (NULL == PmcDmaInstPtr) {
 		goto END;
@@ -218,7 +219,7 @@ static int XSecure_ShaOperation(XPlmi_Cmd *Cmd)
 	u32 *Pload = Cmd->Payload;
 	u32 InputSize = Pload[2U];
 	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(0U);
+	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	u64 DataAddr = ((u64)Pload[1U] << XSECURE_ADDR_HIGH_SHIFT) | (u64)Pload[0U];
 	u64 DstAddr = ((u64)Pload[4U] << XSECURE_ADDR_HIGH_SHIFT) | (u64)Pload[3U];
 	XSecure_Sha3Hash Hash = {0U};

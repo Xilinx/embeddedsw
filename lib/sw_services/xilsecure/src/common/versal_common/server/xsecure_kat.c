@@ -24,6 +24,7 @@
 * 5.1   yog  05/03/2023 Fixed MISRA C violation of Rule 12.1
 * 5.2   am   06/22/2023 Added KAT error code for failure cases
 *       yog  07/06/2023 Added support for P-256
+*       ng   07/10/2023 Added support for system device tree flow
 *
 * </pre>
 *
@@ -39,6 +40,10 @@
 #endif
 #include "xsecure_kat.h"
 #include "xil_util.h"
+
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 

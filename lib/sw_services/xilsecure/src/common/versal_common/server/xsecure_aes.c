@@ -83,6 +83,7 @@
 *       skg  10/13/2022 Added Encrypt/Decrypt update error handling check
 * 5.2   yog  07/10/2023 Added support of unaligned data sizes for Versal Net
 *       kpt  07/09/2023 Added AES ECB mode support for versalnet
+*       ng   07/13/2023 Added SDT support
 *
 * </pre>
 *
@@ -2057,7 +2058,11 @@ static int XSecure_AesPmcDmaCfgAndXfer(const XSecure_Aes *InstancePtr,
 	int Status = XST_FAILURE;
 
 	/* Configure the SSS for AES. */
+#ifndef SDT
 	if (InstancePtr->PmcDmaPtr->Config.DeviceId == (u16)PMCDMA_0_DEVICE_ID) {
+#else
+	if (InstancePtr->PmcDmaPtr->Config.BaseAddress == PMCDMA_0_DEVICE_ID) {
+#endif
 		Status = XSecure_SssAes(&InstancePtr->SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
 	}

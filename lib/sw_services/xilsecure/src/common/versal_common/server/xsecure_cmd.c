@@ -30,6 +30,7 @@
 *       skg  12/16/2022 Added XSecure_InvalidCmdHandler to invalid cmd Handler
 * 5.2   bm   06/23/2023 Added access permissions for IPI commands
 *       bm   07/05/2023 Added crypto check in features command
+*       ng   07/05/2023 Added support for system device tree flow
 * </pre>
 *
 * @note
@@ -57,6 +58,10 @@
 #include "xsecure_cmd.h"
 #include "xplmi_ssit.h"
 #include "xsecure_cryptochk.h"
+
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 
 /************************** Function Prototypes ******************************/
 static int XSecure_InvalidCmdHandler(u32 *Payload, u32 *RespBuf);

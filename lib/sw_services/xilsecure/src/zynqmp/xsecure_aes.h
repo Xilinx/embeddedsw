@@ -71,6 +71,7 @@
 * 4.5   bsv  04/01/21 Added support to encrypt bitstream to memory in chunks
 *                     and then write to PCAP
 * 5.2	mmd  07/09/23 Included header file for crypto algorithm information
+*       ng   07/05/23 Added support for system device tree flow
 *
 * </pre>
 * @endcond
@@ -90,6 +91,10 @@ extern "C" {
 #include "xil_util.h"
 #include "xsecure_sss.h"
 #include "xsecure_aesalginfo.h"
+
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal

@@ -81,6 +81,7 @@
 *						 function from u32 to int
 * 1.9   bm      01/13/21 Update PmcDmaTransfer argument to u64
 * 1.14	ab	03/13/22 Add byte-wise transfer API for Versal-Net
+* 1.14  ng  07/13/23 Added macro to detect if dma type is invalid.
 *
 * </pre>
 *
@@ -112,6 +113,7 @@ extern "C" {
 #define XPMCDMA_SIZE_MAX 	XCSUDMA_SIZE_MAX /* Maximum allowed no of words */
 #define XPMCDMA_ADDR_LSB_MASK	XCSUDMA_ADDR_LSB_MASK
 
+#define XPMCDMA_DMATYPEIS_INVALID	XCSUDMA_DMATYPEIS_CSUDMA
 #define XPMCDMA_DMATYPEIS_DMA0	XCSUDMA_DMATYPEIS_PMCDMA0
 #define XPMCDMA_DMATYPEIS_DMA1	XCSUDMA_DMATYPEIS_PMCDMA1
 

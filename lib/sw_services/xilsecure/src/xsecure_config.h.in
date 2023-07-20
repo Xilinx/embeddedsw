@@ -1,0 +1,20 @@
+/******************************************************************************
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef XSECURE_CONFIG_H
+#define XSECURE_CONFIG_H
+
+#cmakedefine XSECURE_TRUSTED_ENVIRONMENT
+#cmakedefine XSECURE_TPM_ENABLE
+#cmakedefine XSECURE_NONSECURE_IPI_ACCESS
+#cmakedefine ECC_SUPPORT_NIST_P256
+#cmakedefine XSECURE_CACHE_DISABLE
+#cmakedefine XSECURE_ELLIPTIC_ENDIANNESS @XSECURE_ENDIANNESS@U
+
+#cmakedefine XSECURE_TRNG_USER_CFG_SEED_LIFE @XSECURE_TRNG_USER_CFG_SEED_LIFE@U
+#cmakedefine XSECURE_TRNG_USER_CFG_DF_LENGTH @XSECURE_TRNG_USER_CFG_DF_LENGTH@U
+#cmakedefine XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF @XSECURE_TRNG_ADAPT_TEST_CUTOFF@U
+#cmakedefine XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF @XSECURE_TRNG_REP_TEST_CUTOFF@U
+
+#endif /* XSECURE_CONFIG_H */

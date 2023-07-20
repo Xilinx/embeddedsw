@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * 4.2   har     03/26/20 Initial Release
 * 4.5   bsv     04/01/21 Added API to set SSS CFG register to PCAP
 * 4.6   am      09/17/21 Resolved compiler warnings
+* 5.2   ng      07/05/23 Added support for system device tree flow
 *
 * </pre>
 * @endcond
@@ -34,6 +36,10 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xparameters.h"
+
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal */

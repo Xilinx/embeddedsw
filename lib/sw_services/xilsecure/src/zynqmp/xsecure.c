@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,6 +63,7 @@
 * 4.7   am  11/26/21 Resolved doxygen warnings
 *       har 01/03/22 Updated Status as XSECURE_SHA3_INIT_FAIL in case of failure
 *                    in XSecure_Sha3Initialize()
+* 5.2   ng  07/05/23 add SDT support
 *
 * </pre>
 *
@@ -695,7 +697,7 @@ u32 XSecure_MemCopy(void * DestPtr, void * SrcPtr, u32 Size)
 	Xil_AssertNonvoid(Size != 0x0U);
 
 	XSecure_SssInitialize(&SssInstance);
-	Status = XSecure_SssDmaLoopBack(&SssInstance, CsuDma.Config.DeviceId);
+	Status = XSecure_SssDmaLoopBack(&SssInstance, CsuDma.Config.DmaType);
 	if(Status != (u32)XST_SUCCESS){
 		goto ENDF;
 	}
