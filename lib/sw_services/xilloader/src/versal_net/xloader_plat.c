@@ -39,6 +39,7 @@
 *       kpt  07/10/2023 Added IPI support to read DDR crypto status
 *       sk   07/09/2023 Enable TCM Boot based on PH Attribute
 *                       Removed XLoader_GetLoadAddr targeting TCM Memory
+*       ng   06/26/2023 Added support for system device tree flow
 *
 * </pre>
 *
@@ -1292,7 +1293,7 @@ static int XLoader_InitSha3Instance1(void)
 {
 	int Status = XLOADER_ERR_SHA3_1_INIT;
 #ifdef PLM_OCP
-	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(0U);
+	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	XSecure_Sha3 *Sha3Instance = XSecure_GetSha3Instance1();
 
 	Status = XSecure_Sha3LookupConfig(Sha3Instance, XLOADER_SHA3_1_DEVICE_ID);

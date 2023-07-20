@@ -1,0 +1,44 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for xilloader library.
+
+maintainers:
+  - Kundella, Sreedhar <Sreedhar.Kundella@amd.com>
+  - Mulagondla, Bharath <bharath.mulagondla@amd.com>
+
+type: library
+
+version: 1.9
+
+description: Xilinx Versal Platform Loader Library.
+
+supported_processors:
+  - psv_pmc
+  - psxl_pmc
+  - psx_pmc
+
+supported_os:
+  - standalone
+
+depends_libs:
+  xilstandalone: {}
+  xilplmi: {}
+  xilpm: {}
+  xilpdi: {}
+  xilffs: {}
+
+examples:
+  xilloader_add_image_store_pdi_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+  xilloader_load_pdi_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+  xilloader_update_multiboot.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet

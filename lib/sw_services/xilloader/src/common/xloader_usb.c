@@ -27,6 +27,7 @@
 * 1.04  bm   07/06/2022 Refactor versal and versal_net code
 * 1.05  ng   11/11/2022 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       ng   06/26/2023 Added support for system device tree flow
 *
 * </pre>
 *
@@ -47,7 +48,6 @@
 #include "xloader_plat.h"
 
 /************************** Constant Definitions ****************************/
-#define XLOADER_USB_DEVICE_ID		(XPAR_XUSBPSU_0_DEVICE_ID)
 #define XLOADER_USB2_REG_CTRL_OFFSET	(0x60U)
 
 /************************** Function Prototypes ******************************/
@@ -109,7 +109,7 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	UsbConfigPtr = XUsbPsu_LookupConfig(XLOADER_USB_DEVICE_ID);
+	UsbConfigPtr = XUsbPsu_LookupConfig(XLOADER_USB_DEVICE);
 	if (NULL == UsbConfigPtr) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_LOOKUP, Status);
 		goto END;

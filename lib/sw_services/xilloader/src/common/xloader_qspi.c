@@ -38,6 +38,7 @@
 * 1.07  bm   07/06/2022 Refactor versal and versal_net code
 * 1.08  ng   11/11/2022 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       ng   06/26/2023 Added support for system device-tree flow
 *
 * </pre>
 *
@@ -58,12 +59,6 @@
 #include "xloader_plat.h"
 
 /************************** Constant Definitions *****************************/
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
-#define XLOADER_QSPI_DEVICE_ID		XPAR_XQSPIPSU_0_DEVICE_ID
 
 /**************************** Type Definitions *******************************/
 
@@ -238,7 +233,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 	const XQspiPsu_Config *QspiConfig =
-		XQspiPsu_LookupConfig(XLOADER_QSPI_DEVICE_ID);
+		XQspiPsu_LookupConfig(XLOADER_QSPI_DEVICE);
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
@@ -302,7 +297,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 	XQspiPsu_SelectFlash(&QspiPsuInstance,
 		XQSPIPSU_SELECT_FLASH_CS_LOWER, XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 
-	QspiMode = (u8)XPAR_XQSPIPSU_0_QSPI_MODE;
+	QspiMode = (u8)XLOADER_QSPI_CONNECTION_MODE;
 	switch (QspiMode) {
 		case XQSPIPSU_CONNECTION_MODE_SINGLE:
 			XLoader_Printf(DEBUG_INFO,
@@ -324,7 +319,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	QspiBusWidth = (u8)XPAR_XQSPIPSU_0_QSPI_BUS_WIDTH;
+	QspiBusWidth = (u8)XLOADER_QSPI_BUS_WIDTH;
 	switch (QspiBusWidth) {
 		case XLOADER_QSPI_BUSWIDTH_ONE:
 			if (QspiBootMode == XLOADER_PDI_SRC_QSPI24) {

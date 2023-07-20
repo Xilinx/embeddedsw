@@ -120,8 +120,9 @@
 *       ng   11/23/22 Updated doxygen comments
 *       kpt  02/21/23 Fixed bug in XLoader_SecureClear
 *       ng   03/30/23 Updated algorithm and return values in doxygen comments
-*       sk   05/18/2023 Deprecate copy to memory feature
-*	yog  07/17/23 Added check for returning glitch error for XLoader_ChecksumInit API
+*       sk   05/18/23 Deprecate copy to memory feature
+*       yog  07/17/23 Added check for returning glitch error for XLoader_ChecksumInit API
+*       ng   07/10/23 Added support for system device-tree flow
 *
 * </pre>
 *
@@ -231,7 +232,7 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	SecurePtr->PrtnHdr = PrtnHdr;
 
 	/** - Get DMA instance */
-	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
+	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_INIT_GET_DMA, 0);
 		goto END;
