@@ -40,5 +40,8 @@ required:
 
 examples:
     xemacps_example_intr_dma.c:
+        - dependency_files:
+            - xemacps_example_util.c
+            - xemacps_example.h
         - interrupts
 ...
