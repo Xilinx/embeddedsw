@@ -1,0 +1,43 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for SYSMONPSU controller
+
+maintainers:
+    - Conall O Griofa <conall.ogriofa@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,zynqmp-ams
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,clock-freq:
+    description: Input clock frequency
+
+config:
+    - XSysMonPsu_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,clock-freq
+
+examples:
+    xsysmonpsu_intr_example.c:
+        - interrupts
+    xsysmonpsu_single_ch_intr_example.c:
+        - interrupts
+    xsysmonpsu_ams_example.c:
+        - interrupts
+    xsysmonpsu_low_level_example.c:
+        - reg
+    xsysmonpsu_polled_example.c:
+        - reg
+...

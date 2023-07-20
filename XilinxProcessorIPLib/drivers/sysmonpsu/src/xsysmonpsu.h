@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -157,6 +158,7 @@
 * 2.6   aad    11/18/19 Fixed typo in alarm macro comments
 * 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
 *       aad    17/12/20 Removed undefined function.
+* 2.9   cog    07/20/23 Added support for SDT flow.
 *
 * </pre>
 *
@@ -377,7 +379,11 @@ typedef void (*XSysMonPsu_Handler) (void *CallBackRef);
  * This typedef contains configuration information for a device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< Register base address */
 	u16 InputClockMHz;	/**< Input clock frequency */
 } XSysMonPsu_Config;
@@ -660,7 +666,11 @@ void XSysMonPsu_IntrClear(XSysMonPsu *InstancePtr, u64 Mask);
 s32 XSysMonPsu_SelfTest(XSysMonPsu *InstancePtr);
 
 /* Functions in xsysmonpsu_sinit.c */
+#ifndef SDT
 XSysMonPsu_Config *XSysMonPsu_LookupConfig(u16 DeviceId);
+#else
+XSysMonPsu_Config *XSysMonPsu_LookupConfig(u32 BaseAddress);
+#endif
 
 
 #ifdef __cplusplus

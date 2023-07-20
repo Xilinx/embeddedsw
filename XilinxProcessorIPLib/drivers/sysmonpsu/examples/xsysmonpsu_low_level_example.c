@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +31,7 @@
 *       mn     03/08/18 Update code to run at higher frequency
 *
 * 2.6   aad    11/21/19 Removed reading of AUX channels
+* 2.9   cog    07/20/23 Added support for SDT flow
 * </pre>
 *
 *****************************************************************************/
@@ -38,17 +40,22 @@
 
 #include "xsysmonpsu.h"
 #include "xsysmonpsu_hw.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xstatus.h"
 
 /************************** Constant Definitions ****************************/
-
+#ifndef SDT
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
 #define SYSMON_BASEADDR		XPAR_XSYSMONPSU_0_BASEADDR
+#else
+#define SYSMON_BASEADDR		0xffa50000
+#endif
 
 /**************************** Type Definitions ******************************/
 

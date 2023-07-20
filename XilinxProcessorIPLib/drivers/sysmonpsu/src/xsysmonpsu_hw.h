@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@
 * 2.0   vns    08/14/16  Added CFG_REG3, SEQ_INPUT_MODE2, SEQ_ACQ2,
 *                        SEQ_CH2 and SEQ_AVG2 offsets and bit masks
 * 2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
+* 2.9   cog    07/20/23 Added support for SDT flow.
 *
 * </pre>
 *
@@ -40,7 +42,9 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xil_io.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /**
  * XSysmonPsu Base Address

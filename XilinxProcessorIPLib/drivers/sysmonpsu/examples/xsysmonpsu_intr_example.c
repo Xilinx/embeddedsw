@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +44,7 @@
 *      mn      03/08/18 Update code to run at higher frequency
 * 2.6  aad     11/21/19 Removed reading of AUX channels
 *      aad     11/22/19 Added support for PL_EXAMPLE
+* 2.9   cog    07/20/23 Added support for SDT flow
 *
 * </pre>
 *
@@ -51,14 +53,16 @@
 /***************************** Include Files ********************************/
 
 #include "xsysmonpsu.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xstatus.h"
 #include "xil_exception.h"
 #include "xscugic.h"
 #include "xil_printf.h"
 
 /************************** Constant Definitions ****************************/
-
+#ifndef SDT
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
@@ -69,7 +73,11 @@
 /* SCUGIC Interrupt Controller */
 #define XSCUGIC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define INTR_ID			XPAR_XSYSMONPSU_INTR
-
+#else
+#define SYSMON_DEVICE_ID	0xffa50000
+#define XSCUGIC_DEVICE_ID	0
+#define INTR_ID	(56U + 32U)
+#endif
 /* User needs to define the macro PL_EXAMPLE to run the code on PL SYSMON.
  * By default the example will run on XSYSMON_PS
  */
@@ -103,7 +111,7 @@
 
 int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr,
 			XSysMonPsu* SysMonInstPtr,
-			u16 SysMonDeviceId,
+			u32 SysMonDeviceId,
 			u16 SysMonIntrId);
 
 
@@ -202,7 +210,7 @@ int main(void)
 *
 ****************************************************************************/
 int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr, XSysMonPsu* SysMonInstPtr,
-			u16 SysMonDeviceId, u16 SysMonIntrId)
+			u32 SysMonDeviceId, u16 SysMonIntrId)
 {
 	int Status;
 	XSysMonPsu_Config *ConfigPtr;

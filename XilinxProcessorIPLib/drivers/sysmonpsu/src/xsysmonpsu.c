@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,7 +44,8 @@
 * 2.5   mn     07/06/18 Fixed Cppcheck warnings
 *       mn     07/31/18 Modified code for MISRA-C:2012 Compliance.
 * 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
-* 2.8   cog    10/21/20 Fixed issues where ADCCLK divisor was not updated.
+* 2.8   cog    10/21/20 Fixed isues where ADCCLK divisor was not updated.
+* 2.9   cog    07/20/23 Added support for SDT flow.
 *
 * </pre>
 *
@@ -109,7 +111,9 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
 	/* Set the values read from the device config and the base address. */
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockMHz = ConfigPtr->InputClockMHz;
 
@@ -1914,7 +1918,9 @@ void XSysMonPsu_InitInstance(XSysMonPsu *InstancePtr,
 	Xil_AssertVoid(ConfigPtr != NULL);
 
 	/* Set the values read from the device config and the base address.*/
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->Config.BaseAddress = ConfigPtr->BaseAddress;
 
 	/* Indicate the instance is now ready to use */
