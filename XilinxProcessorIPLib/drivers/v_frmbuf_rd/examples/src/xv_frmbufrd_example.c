@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -37,14 +38,18 @@
 #include "xparameters.h"
 #include "platform.h"
 #include "sleep.h"
-#include "xv_frmbufrd_l2.h"
-#include "xvidc.h"
-#include "xvtc.h"
-#if defined (__MICROBLAZE__)
+#ifndef SDT
+#if defined(__MICROBLAZE__)
 #include "xintc.h"
 #else
 #include "xscugic.h"
 #endif
+#else
+#include "xinterrupt_wrap.h"
+#endif
+#include "xv_frmbufrd_l2.h"
+#include "xvidc.h"
+#include "xvtc.h"
 #include "xgpio.h"
 
 #if defined(__MICROBLAZE__)
@@ -53,20 +58,12 @@
 #define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
 #endif
 
-#if defined XPAR_PSU_ACPU_GIC_DEVICE_ID
-#define PS_ACPU_GIC_DEVICE_ID XPAR_PSU_ACPU_GIC_DEVICE_ID
-#elif defined XPAR_SCUGIC_0_DEVICE_ID
-#define PS_ACPU_GIC_DEVICE_ID XPAR_SCUGIC_0_DEVICE_ID
-#else
-#warning No GIC Device ID found
-#endif
-
 #define XVFRMBUFRD_BUFFER_BASEADDR (DDR_BASEADDR + (0x20000000))
 
 #define VIDEO_MONITOR_LOCK_TIMEOUT (1000000)
 
 #define NUM_TEST_MODES 4
-#define NUM_TEST_FORMATS 27
+#define NUM_TEST_FORMATS 29
 
 #define CHROMA_ADDR_OFFSET   (0x01000000U)
 #define V_CHROMA_ADDR_OFFSET (0x03000000U)
@@ -108,8 +105,10 @@ VideoFormats ColorFormats[NUM_TEST_FORMATS] =
   {XVIDC_CSF_MEM_Y12,        XVIDC_CSF_YONLY, 12},
   {XVIDC_CSF_MEM_Y16,        XVIDC_CSF_YONLY, 16},
   {XVIDC_CSF_MEM_Y_U_V8,     XVIDC_CSF_YCRCB_444, 8},
-  {XVIDC_CSF_MEM_Y_U_V10,    XVIDC_CSF_YCRCB_444, 10}
+  {XVIDC_CSF_MEM_Y_U_V10,    XVIDC_CSF_YCRCB_444, 10},
+  {XVIDC_CSF_MEM_Y_U_V8_420, XVIDC_CSF_YCRCB_420, 8}
 };
+
 XV_FrmbufRd_l2     frmbufrd;
 XV_frmbufrd_Config frmbufrd_cfg;
 XVtc       vtc;
@@ -150,6 +149,7 @@ static int ValidateTestCase(u16 PixPerClk,
                             VideoFormats Format);
 static int CheckVidoutLock(void);
 
+#ifndef SDT
 /*****************************************************************************/
 /**
  * This function initializes and configures the system interrupt controller
@@ -201,7 +201,7 @@ static int SetupInterrupts(void)
 
   /* Initialize the Interrupt controller */
   XScuGic_Config *IntcCfgPtr;
-  IntcCfgPtr = XScuGic_LookupConfig(PS_ACPU_GIC_DEVICE_ID);
+  IntcCfgPtr = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
   if (IntcCfgPtr == NULL)
   {
     print("ERR:: Interrupt Controller not found");
@@ -235,6 +235,7 @@ static int SetupInterrupts(void)
 
   return(XST_SUCCESS);
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -249,7 +250,11 @@ static int DriverInit(void)
   XVtc_Config *vtc_Config;
   XGpio_Config *GpioCfgPtr;
 
+#ifndef SDT
   vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);
+#else
+  vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_BASEADDR);
+#endif
   if (vtc_Config == NULL) {
     xil_printf("ERROR:: VTC device not found\r\n");
     return(XST_FAILURE);
@@ -261,14 +266,22 @@ static int DriverInit(void)
     return(XST_FAILURE);
   }
 
+#ifndef SDT
   Status = XVFrmbufRd_Initialize(&frmbufrd, XPAR_V_FRMBUF_RD_0_DEVICE_ID);
+#else
+  Status = XVFrmbufRd_Initialize(&frmbufrd, XPAR_V_FRMBUF_RD_0_BASEADDR);
+#endif
   if (Status != XST_SUCCESS) {
     xil_printf("ERROR:: Frame Buffer Read initialization failed\r\n");
     return(XST_FAILURE);
   }
 
   //Video Lock Monitor
+#ifndef SDT
   GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_DEVICE_ID);
+#else
+  GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_BASEADDR);
+#endif
   if (GpioCfgPtr == NULL) {
     xil_printf("ERROR:: Video Lock Monitor GPIO device not found\r\n");
     return(XST_FAILURE);
@@ -423,7 +436,8 @@ static int ConfigFrmbuf(u32 StrideInBytes,
   /* Set Chroma Buffer Address for semi-planar color formats */
   if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
       (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420) ||
-      (Cfmt == XVIDC_CSF_MEM_Y_U_V8) || (Cfmt == XVIDC_CSF_MEM_Y_U_V10)) {
+      (Cfmt == XVIDC_CSF_MEM_Y_U_V8) || (Cfmt == XVIDC_CSF_MEM_Y_U_V10) ||
+      (Cfmt == XVIDC_CSF_MEM_Y_U_V8_420)) {
 	  Status = XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
 	  if (Status != XST_SUCCESS) {
 		  xil_printf("ERROR:: Unable to configure Frame Buffer Read buffer address\r\n");
@@ -431,7 +445,7 @@ static int ConfigFrmbuf(u32 StrideInBytes,
 	  }
   }
 
-  if ((Cfmt == XVIDC_CSF_MEM_Y_U_V8) || (Cfmt == XVIDC_CSF_MEM_Y_U_V10)){
+  if ((Cfmt == XVIDC_CSF_MEM_Y_U_V8) || (Cfmt == XVIDC_CSF_MEM_Y_U_V10) || (Cfmt == XVIDC_CSF_MEM_Y_U_V8_420)) {
 	  Status = XVFrmbufRd_SetVChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR+V_CHROMA_ADDR_OFFSET);
 	  if (Status != XST_SUCCESS) {
 		  xil_printf("ERROR:: Unable to configure Frame Buffer Read buffer V address\r\n");
@@ -580,14 +594,6 @@ int main(void)
   /* Release reset line */
   *gpio_hlsIpReset = 1;
 
-  /* Initialize IRQ */
-  Status = SetupInterrupts();
-  if (Status == XST_FAILURE) {
-    xil_printf("ERROR:: Interrupt Setup Failed\r\n");
-    xil_printf("ERROR:: Test could not be completed\r\n");
-    return(1);
-  }
-
   /* Initialize VTC, Frame Buffers, GPIO */
   Status = DriverInit();
   if (Status != XST_SUCCESS) {
@@ -595,6 +601,26 @@ int main(void)
     xil_printf("ERROR:: Test could not be completed\r\n");
     return(1);
   }
+
+  /* Initialize IRQ */
+#ifndef SDT
+  Status = SetupInterrupts();
+  if (Status == XST_FAILURE) {
+    xil_printf("ERROR:: Interrupt Setup Failed\r\n");
+    xil_printf("ERROR:: Test could not be completed\r\n");
+    return(1);
+  }
+#else
+  Status = XSetupInterruptSystem(&frmbufrd,&XVFrmbufRd_InterruptHandler,
+				       frmbufrd.FrmbufRd.Config.IntrId,
+				       frmbufrd.FrmbufRd.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+  if (Status == XST_FAILURE) {
+    xil_printf("ERROR:: frmbufrd Interrupt Setup Failed\r\n");
+    xil_printf("ERROR:: Test could not be completed\r\n");
+    return(1);
+  }
+#endif
 
   /* Enable exceptions. */
   Xil_ExceptionEnable();
