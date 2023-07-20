@@ -567,6 +567,18 @@ proc generate {os_handle} {
 		puts $file_handle "#endif"
 		puts $file_handle ""
 	}
+
+	if {[llength $is_versal_net] > 0} {
+		puts $file_handle "#ifndef versal"
+		puts $file_handle "#define versal"
+		puts $file_handle "#endif"
+		puts $file_handle ""
+
+		puts $file_handle "#ifndef VERSAL_NET"
+		puts $file_handle "#define VERSAL_NET"
+		puts $file_handle "#endif"
+	}
+
         set interrupt_wrap_supported [common::get_property CONFIG.xil_interrupt $os_handle ]
         if {$interrupt_wrap_supported == true} {
 	   puts $file_handle " "
