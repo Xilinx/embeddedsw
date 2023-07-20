@@ -73,16 +73,16 @@ class Domain(Repo):
         template app passed over command line are valid or not for the
         sdt input.
         """
+        cpu_list_file = os.path.join(self.domain_dir, "cpulist.yaml")
+        if not utils.is_file(cpu_list_file):
+            utils.runcmd(
+                f"lopper --werror -f -O {self.domain_dir} -i {self.lops_dir}/lop-cpulist.dts {self.sdt} > nul",
+                cwd = self.domain_dir
+            )
         if os.environ.get("VALIDATE_ARGS"):
-            cpu_list_file = os.path.join(self.domain_dir, "cpulist.yaml")
             app_list_file = os.path.join(self.domain_dir, "app_list.yaml")
             lib_list_file = os.path.join(self.domain_dir, "lib_list.yaml")
 
-            if not utils.is_file(cpu_list_file):
-                utils.runcmd(
-                    f"lopper --werror -f -O {self.domain_dir} -i {self.lops_dir}/lop-cpulist.dts {self.sdt} > nul",
-                    cwd = self.domain_dir
-                )
             avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
             if self.proc not in avail_cpu_data.keys():
                 utils.remove(self.domain_dir)

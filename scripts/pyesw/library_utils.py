@@ -248,6 +248,24 @@ class Library(Repo):
                 return False
         return True
 
+    def is_valid_lib(self, comp_name):
+        comp_dir = self.get_comp_dir(comp_name)
+        yaml_file = os.path.join(comp_dir, "data", f"{comp_name}.yaml")
+        schema = utils.load_yaml(yaml_file)
+        cpu_list_file = os.path.join(self.domain_path, "cpulist.yaml")
+        avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
+        if schema.get("supported_processors"):
+            proc_list = schema.get("supported_processors")
+            proc_ip_name = avail_cpu_data[self.proc]
+            if proc_ip_name in proc_list:
+                return True
+            else:
+                print(
+                    f"[WARNING]: {comp_name} Library is not valid for the given processor: {self.proc}"
+                )
+                return False
+        return True
+
     def add_lib_for_apps(self, app_name):
         """
         Adds library to the bsp. Creates metadata if needed for the library,
@@ -272,6 +290,8 @@ class Library(Repo):
         if schema and schema.get("depends_libs", {}):
             # If the passed template has any lib dependency, add those dependencies.
             for name, props in schema["depends_libs"].items():
+                if not self.is_valid_lib(name):
+                    continue
                 lib_list += [name]
                 _, _, _ = self.copy_lib_src(name)
                 if props:
@@ -322,6 +342,8 @@ class Library(Repo):
                 # Add the modified lib param values in yaml configuration dict
                 if schema.get("depends_libs", {}):
                     for name, props in schema["depends_libs"].items():
+                        if not self.is_valid_lib(name):
+                            continue
                         if props:
                             for key, value in props.items():
                                 lib_config[name][key]["value"] = str(value)
