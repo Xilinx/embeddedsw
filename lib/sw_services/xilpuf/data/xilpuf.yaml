@@ -1,0 +1,58 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: Bindings for xilpuf library.
+
+maintainers:
+  - Harsha, Harsha <harsha.harsha@amd.com>
+  - Akula, Kalyani <kalyani.akula@amd.com>
+  - Challa, Durga <durga.challa@amd.com>
+  - Kundanala, Praveen Teja <praveen.teja.kundanala@amd.com>
+
+type: library
+
+version: 2.2
+
+description: Xilinx PUF Library provides interface for registration and regeneration.
+
+supported_processors:
+  - psv_cortexa72
+  - psv_cortexr5
+  - psv_pmc
+  - microblaze
+  - psxl_pmc
+  - psxl_cortexa78
+  - psxl_cortexr52
+  - psx_cortexa78
+  - psx_cortexr52
+
+supported_os:
+  - standalone
+
+depends_libs:
+  xilplmi: {}
+  xilmailbox: {}
+
+examples:
+  xilpuf_enc_dec_data_example.c: []
+  xilpuf_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+    - dependency_files:
+      - xilpuf_example.h
+  xilpuf_enc_dec_data_client_example.c: []
+  xilpuf_client_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+    - dependency_files:
+      - xilpuf_example.h
+  xilpuf_versal_net_example.c:
+    - dependency_files:
+      - xilpuf_versal_net_example.h
+    - supported_platforms:
+      - VersalNet
+...
