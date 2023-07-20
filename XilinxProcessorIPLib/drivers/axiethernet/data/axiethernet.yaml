@@ -88,29 +88,50 @@ required:
 
 examples:
     xaxiethernet_example_polled.c:
+        - dependency_files:
+            - xaxiethernet_example_util.c
+            - xaxiethernet_example.h
         - axistream-connected: 1
 
     xaxiethernet_example_intr_fifo.c:
+        - dependency_files:
+            - xaxiethernet_example_util.c
+            - xaxiethernet_example.h
         - axistream-connected: 1
         - interrupts
 
     xaxiethernet_example_intr_sgdma.c:
+        - dependency_files:
+            - xaxiethernet_example_util.c
+            - xaxiethernet_example.h
         - axistream-connected: 2
         - interrupts
 
     xaxiethernet_example_extmulticast.c:
+        - dependency_files:
+            - xaxiethernet_example_util.c
+            - xaxiethernet_example.h
         - axistream-connected: 2
         - interrupts
 
     xaxiethernet_example_extvlan.c:
+        - dependency_files:
+            - xaxiethernet_example_util.c
+            - xaxiethernet_example.h
         - axistream-connected: 2
         - interrupts
 
     xaxiethernet_example_intr_mcdma.c:
+        - dependency_files:
+            - xaxiethernet_example_util.c
+            - xaxiethernet_example.h
         - axistream-connected: 3
         - interrupts
 
     xaxiethernet_example_mcdma_poll.c:
+        - dependency_files:
+            - xaxiethernet_example_util.c
+            - xaxiethernet_example.h
         - axistream-connected: 3
 
     xaxiethernet_mcdma_ping_req_example.c:
