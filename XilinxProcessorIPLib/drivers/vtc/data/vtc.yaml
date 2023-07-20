@@ -1,0 +1,28 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for vtc Driver
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-tc-6.2
+  reg:
+    description: Physical base address and size of the controller register map
+
+required:
+    - compatible
+    - reg
+
+depends:
+    video_common: []
+
+...
