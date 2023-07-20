@@ -46,6 +46,7 @@
 *       ma   05/24/2022 Added PLM_ENABLE_PLM_TO_PLM_COMM macro for SSIT
 *                       PLM to PLM communication
 * 1.09  ng   11/11/2022 Fixed doxygen file name error
+* 1.10  ng   06/21/2023 Added support for system device-tree flow
 * </pre>
 *
 * @note
@@ -60,6 +61,10 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
+
+#ifdef SDT
+#include "xplmi_bsp_config.h"
+#endif
 
 /**@cond xplmi_internal
  * @{

@@ -31,6 +31,7 @@
 *		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.02  bm   04/28/2023 Update Trim related macros
+*       ng   07/05/2023 added system device tree support
 *
 * </pre>
 *
@@ -46,7 +47,7 @@
 #include "xcfupmc.h"
 #include "xplmi_gic_interrupts.h"
 #include "xplmi_plat.h"
-#include "microblaze_sleep.h"
+#include "sleep.h"
 #include "xplmi_err_common.h"
 #include "xplmi_generic.h"
 

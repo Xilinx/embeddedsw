@@ -1,0 +1,35 @@
+/******************************************************************************
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef XPLMI_BSP_CONFIG_H
+#define XPLMI_BSP_CONFIG_H
+
+#include "xparameters.h"
+
+#cmakedefine    PLM_PRINT_NO_UART
+#cmakedefine    PLM_PRINT
+#cmakedefine    PLM_DEBUG
+#cmakedefine    PLM_DEBUG_INFO
+#cmakedefine    PLM_DEBUG_DETAILED
+#cmakedefine    PLM_DEBUG_MODE
+#cmakedefine    PLM_PRINT_PERF
+#cmakedefine    PLM_QSPI_EXCLUDE
+#cmakedefine    PLM_SD_EXCLUDE
+#cmakedefine    PLM_OSPI_EXCLUDE
+#cmakedefine    PLM_SEM_EXCLUDE
+#cmakedefine    PLM_SECURE_EXCLUDE
+#cmakedefine    PLM_USB_EXCLUDE
+#cmakedefine    PLM_NVM_EXCLUDE
+#cmakedefine    PLM_PUF_EXCLUDE
+#cmakedefine    PLM_ENABLE_STL
+#cmakedefine    PLM_OCP_EXCLUDE
+#cmakedefine    PLM_ECDSA_EXCLUDE
+#cmakedefine    PLM_RSA_EXCLUDE
+#cmakedefine    PLM_EN_ADD_PPKS
+
+#if ((defined(NUMBER_OF_SLRS)) && (NUMBER_OF_SLRS > 1))
+#cmakedefine    PLM_ENABLE_PLM_TO_PLM_COMM
+#endif
+
+#endif /* XPLMI_BSP_CONFIG_H */

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +29,7 @@
 *       bsv  08/13/2021 Code clean up to reduce elf size
 * 1.05  bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
+* 1.09  ng   07/06/2023 Added support for SDT flow
 *
 * </pre>
 *
@@ -86,11 +88,23 @@ extern "C" {
 /* Type Definition of XPlmi_WaitForDmaDone */
 typedef int (*XPlmi_WaitForDmaDone_t)(XPmcDma *DmaPtr, XPmcDma_Channel Channel);
 
+#ifndef SDT
+#define PMCDMA_0_DEVICE ((u32)PMCDMA_0_DEVICE_ID)
+#define PMCDMA_1_DEVICE ((u32)PMCDMA_1_DEVICE_ID)
+#else
+#define PMCDMA_0_DEVICE PMCDMA_0_DEVICE_ID
+#define PMCDMA_1_DEVICE PMCDMA_1_DEVICE_ID
+#endif
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 int XPlmi_DmaInit(void);
+#ifndef SDT
 XPmcDma *XPlmi_GetDmaInstance(u32 DeviceId);
+#else
+XPmcDma *XPlmi_GetDmaInstance(UINTPTR BaseAddress);
+#endif
 int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags);
 int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags);
 int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags);
