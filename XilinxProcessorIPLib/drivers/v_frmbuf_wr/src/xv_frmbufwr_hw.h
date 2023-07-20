@@ -1,5 +1,6 @@
 // ==============================================================
 // Copyright (c) 1986 - 2021 Xilinx Inc. All rights reserved.
+// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 #ifndef XV_FRMBUFWR_HW_H_  /* prevent circular inclusions */
@@ -60,6 +61,10 @@ extern "C" {
 //        bit 0  - HwReg_field_id[0] (Read)
 //        others - reserved
 // 0x4c : reserved
+// 0x54 : Data signal of HwReg_frm_buffer3_V
+//        bit 31~0 - HwReg_frm_buffer3_V[31:0] (Read/Write)
+// 0x58 : Data signal of HwReg_frm_buffer3_V
+//        bit 31~0 - HwReg_frm_buffer3_V[63:32] (Read/Write)
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
 #define XV_FRMBUFWR_CTRL_ADDR_AP_CTRL                  0x00
