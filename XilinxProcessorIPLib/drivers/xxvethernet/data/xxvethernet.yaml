@@ -35,7 +35,13 @@ required:
 
 examples:
     xxxvethernet_example_intr_mcdma.c:
+        - dependency_files:
+            - xxxvethernet_example_util.c
+            - xxxvethernet_example.h
         - axistream-connected: 3
     xxxvethernet_usxgmii_example_intr_mcdma.c:
+        - dependency_files:
+            - xxxvethernet_example_util.c
+            - xxxvethernet_example.h
         - axistream-connected: 3
 ...
