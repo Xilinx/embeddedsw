@@ -18,6 +18,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 9.0   sa   08/27/22 Initial release
+* 9.0   sa   07/20/23 Update Xil_ExceptionInit to access MEDELEG and MIDELEG
+*                     CSRs only when supervisory mode is implemented.
 *
 * </pre>
 *
@@ -31,6 +33,11 @@
 #include "xil_exception.h"
 
 #include "xpseudo_asm.h"
+#include "xparameters.h"
+
+#ifndef XPAR_MICROBLAZE_RISCV_USE_MMU
+#define XPAR_MICROBLAZE_RISCV_USE_MMU 0
+#endif
 
 extern void _trap_handler(void);
 
@@ -62,8 +69,10 @@ static void Xil_ExceptionNullHandler(void *Data)
 void Xil_ExceptionInit(void)
 {
 	csrwi(XREG_MIE, 0);
+#if XPAR_MICROBLAZE_RISCV_USE_MMU > 1
 	csrwi(XREG_MEDELEG, 0);
 	csrwi(XREG_MIDELEG, 0);
+#endif
 	csrw(XREG_MTVEC, &_trap_handler);
 }
 
