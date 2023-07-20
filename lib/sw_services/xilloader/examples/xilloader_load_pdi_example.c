@@ -19,6 +19,7 @@
  * 1.0   bsv  06/23/2022   Initial release
  *       bsv  06/28/2022   Rename and reorganize functions
  * 1.1   sk   04/18/2023   Added support for versalnet
+ *       ng   06/21/2023   Added support for system device-tree flow
  * </pre>
  *
  * @note
@@ -53,6 +54,12 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#ifdef SDT
+#define IOMODULE_DEVICE (XPAR_XIOMODULE_0_BASEADDR)
+#else
+#define IOMODULE_DEVICE (XPAR_IOMODULE_0_DEVICE_ID)
+#endif
+
 /************************** Function Prototypes ******************************/
 static int XilLoaderLoadPdiTest(void);
 
@@ -72,7 +79,7 @@ static int IpiInit(void)
 	XIpiPsu_Config *IpiCfgPtr;
 
 	/* Look Up the config data */
-	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
+	IpiCfgPtr = XIpiPsu_LookupConfig(IOMODULE_DEVICE);
 	if (NULL == IpiCfgPtr) {
 		goto END;
 	}

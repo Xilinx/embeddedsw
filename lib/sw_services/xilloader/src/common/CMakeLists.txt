@@ -1,0 +1,28 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+collect (PROJECT_LIB_HEADERS xloader.h)
+collect (PROJECT_LIB_HEADERS xloader_auth_enc.h)
+collect (PROJECT_LIB_HEADERS xloader_ddr.h)
+collect (PROJECT_LIB_HEADERS xloader_dfu_util.h)
+collect (PROJECT_LIB_HEADERS xloader_ospi.h)
+collect (PROJECT_LIB_HEADERS xloader_qspi.h)
+collect (PROJECT_LIB_HEADERS xloader_sbi.h)
+collect (PROJECT_LIB_HEADERS xloader_sd.h)
+collect (PROJECT_LIB_HEADERS xloader_secure.h)
+collect (PROJECT_LIB_HEADERS xloader_usb.h)
+
+collect (PROJECT_LIB_SOURCES xloader.c)
+collect (PROJECT_LIB_SOURCES xloader_auth_enc.c)
+collect (PROJECT_LIB_SOURCES xloader_cfi.c)
+collect (PROJECT_LIB_SOURCES xloader_cmd.c)
+collect (PROJECT_LIB_SOURCES xloader_ddr.c)
+collect (PROJECT_LIB_SOURCES xloader_dfu_util.c)
+collect (PROJECT_LIB_SOURCES xloader_intr.c)
+collect (PROJECT_LIB_SOURCES xloader_ospi.c)
+collect (PROJECT_LIB_SOURCES xloader_prtn_load.c)
+collect (PROJECT_LIB_SOURCES xloader_qspi.c)
+collect (PROJECT_LIB_SOURCES xloader_sbi.c)
+collect (PROJECT_LIB_SOURCES xloader_sd.c)
+collect (PROJECT_LIB_SOURCES xloader_secure.c)
+collect (PROJECT_LIB_SOURCES xloader_usb.c)

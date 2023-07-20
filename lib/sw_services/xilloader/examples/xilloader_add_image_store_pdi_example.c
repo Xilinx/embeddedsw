@@ -20,12 +20,19 @@
  *       bsv  08/18/2022   Fix typo in CmdId
  * 1.1   sk   03/10/2023   Updated changes to command format
  *       sk   04/18/2023   Added support for versalnet
+ * 1.9   ng   06/21/2023   Added support for system device-tree flow
  */
 #include <stdio.h>
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xipipsu.h"
 #include "xil_cache.h"
+
+#ifdef SDT
+#define IOMODULE_DEVICE (XPAR_XIOMODULE_0_BASEADDR)
+#else
+#define IOMODULE_DEVICE (XPAR_IOMODULE_0_DEVICE_ID)
+#endif
 
 #if defined(VERSAL_NET)
 #define TARGET_IPI_INT_MASK	XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK
@@ -82,7 +89,7 @@ static int DoIpiTest(void)
 	Xil_DCacheDisable();
 
 	/* Look Up the config data */
-	IpiCfgPtr = XIpiPsu_LookupConfig(0U);
+	IpiCfgPtr = XIpiPsu_LookupConfig(IOMODULE_DEVICE);
 	if (NULL == IpiCfgPtr) {
 		goto END;
 	}

@@ -110,6 +110,7 @@
 *       am   06/19/23 Added KAT error code for failure cases
 *       sk   07/06/23 Added Jtag DAP config support for Non-Secure Debug
 *       am   07/03/23 Added authentication optimization support
+*       ng   07/13/23 Added support for system device tree flow
 *
 * </pre>
 *
@@ -135,6 +136,7 @@
 #include "xsecure_init.h"
 #include "xloader_plat_secure.h"
 #include "xloader_plat.h"
+#include "xplmi_config.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -668,7 +670,7 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 	SecurePtr->AcPtr = AuthCert;
 
 	/** - Get DMA instance */
-	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
+	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_GET_DMA, 0);
 		goto END;
@@ -790,7 +792,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	XPlmi_Printf(DEBUG_INFO,
 		"Loading secure image headers and partition headers\n\r");
 	/* Get DMA instance */
-	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
+	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_GET_DMA, 0);
 		goto ERR_END;
@@ -3218,7 +3220,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 		goto END;
 	}
 
-	SecureParams.PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
+	SecureParams.PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	if (SecureParams.PmcDmaInstPtr == NULL) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_GET_DMA, 0);
 		goto END;

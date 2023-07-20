@@ -39,9 +39,9 @@
 *       ng    03/12/2023 Fixed Coverity warnings
 *       sk    03/14/2023 Added Glitch detect for status check in
 *                        XLoader_CframeDataClearCheck
-*		dd    03/28/2023 Updated doxygen comments
+*       dd    03/28/2023 Updated doxygen comments
 *       ng    03/30/2023 Updated algorithm and return values in doxygen comments
-*
+* 1.10  ng    06/26/2023 Added support for system device tree flow
 * </pre>
 *
 * @note
@@ -54,6 +54,7 @@
 #include "xloader.h"
 #include "xcframe.h"
 #include "xplmi_util.h"
+#include "xplmi_config.h"
 
 /************************** Constant Definitions *****************************/
 /* CFRAM related register defines */
@@ -110,7 +111,7 @@ int XLoader_CframeInit(void)
 	 * look up the configuration in the config table, and
 	 * then initialize it.
 	 */
-	Config = XCframe_LookupConfig((u16)XPAR_XCFRAME_0_DEVICE_ID);
+	Config = XCframe_LookupConfig(XCFRAME_DEVICE);
 	if (NULL == Config) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_CFRAME_LOOKUP, 0);
 		goto END;
