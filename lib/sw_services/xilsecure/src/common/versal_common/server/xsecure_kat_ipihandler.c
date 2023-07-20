@@ -22,6 +22,7 @@
 * 1.01  kpt  12/13/2022 Added Trng initialization in XSecure_EllipticSignGenKat
 * 1.02  ng   05/10/2023 Removed XSecure_PerformKatOperation and implemented
 *                       redundant call for XPlmi_ClearKatMask
+* 5.2   ng   07/13/2023 Added SDT support
 *
 * </pre>
 *
@@ -40,7 +41,7 @@
 #include "xsecure_init.h"
 
 /************************** Constant Definitions *****************************/
-#define XSECURE_PMCDMA_DEVICEID		PMCDMA_0_DEVICE_ID
+#define XSECURE_PMCDMA_DEVICEID		PMCDMA_0_DEVICE
 			/**< PMCDMA device id */
 
 /************************** Function Prototypes *****************************/

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -51,6 +52,7 @@
 * 4.6   kal  08/11/21 Added EXPORT CONTROL eFuse check in Sha3Initialize
 *       am   09/17/21 Resolved compiler warnings
 * 4.7   am   11/26/21 Resolved doxygen warnings
+* 5.2   ng   07/05/23 add SDT support
 *
 * @note
 *
@@ -534,7 +536,7 @@ static u32 XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
 
 	/* Configure the SSS for SHA3 hashing. */
 	Status = XSecure_SssSha(&(InstancePtr->SssInstance),
-				InstancePtr->CsuDmaPtr->Config.DeviceId);
+								InstancePtr->CsuDmaPtr->Config.DmaType);
 	if (Status != (u32)XST_SUCCESS){
 		goto ENDF;
 	}

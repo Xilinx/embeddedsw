@@ -1,0 +1,98 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: Bindings for xilsecure library.
+
+maintainers:
+  - Akula, Kalyani <kalyani.akula@amd.com>
+  - Challa, Durga <durga.challa@amd.com>
+  - Harsha, Harsha <harsha.harsha@amd.com>
+  - Kundanala, Praveen Teja <praveen.teja.kundanala@amd.com>
+
+type: library
+
+version: 5.2
+
+description: Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc and Versal.
+
+supported_processors:
+  - microblaze
+  - psu_pmu
+  - psu_cortexr5
+  - psu_cortexa53
+  - psv_pmc
+  - psv_cortexa72
+  - psv_cortexr5
+  - psxl_pmc
+  - psxl_cortexa78
+  - psxl_cortexr52
+  - psx_pmc
+  - psx_cortexa78
+  - psx_cortexr52
+
+supported_os:
+  - standalone
+  - freertos10_xilinx
+
+depends_libs:
+  xilplmi: {}
+  xilmailbox: {}
+
+examples:
+  xilsecure_aes_example.c:
+    - supported_platforms:
+      - ZynqMP
+  xilsecure_rsa_example.c:
+    - supported_platforms:
+      - ZynqMP
+  xilsecure_rsa_generic_example.c:
+    - supported_platforms:
+      - ZynqMP
+  xilsecure_sha_example.c:
+    - supported_platforms:
+      - ZynqMP
+  xilsecure_simple_aes_example.c:
+    - supported_platforms:
+      - ZynqMP
+
+  xilsecure_versal_aes_client_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+  xilsecure_versal_aes_server_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+  xilsecure_versal_ecdsa_client_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+  xilsecure_versal_ecdsa_server_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+  xilsecure_versal_net_trng_client_example.c:
+    - supported_platforms:
+      - VersalNet
+  xilsecure_versal_net_ecdh_client_example.c:
+    - supported_platforms:
+      - VersalNet
+  xilsecure_versal_rsa_client_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+  xilsecure_versal_rsa_server_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+  xilsecure_versal_sha_client_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+  xilsecure_versal_sha_server_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+...

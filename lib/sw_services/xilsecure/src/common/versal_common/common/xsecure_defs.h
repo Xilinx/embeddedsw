@@ -26,6 +26,7 @@
 *       yog  05/03/23 Fixed MISRA C violation of Rule 12.2
 * 5.2   yog  06/07/23 Added support for P-256 Curve
 *       vss  07/14/23 Added enum for resource availability and also ipi mask macro
+*       ng   07/15/23 Added support for system device tree flow
 * </pre>
 * @note
 *
@@ -43,6 +44,10 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_cache.h"
 #include "xsecure_plat_defs.h"
+
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 /**

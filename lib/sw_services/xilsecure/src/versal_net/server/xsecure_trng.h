@@ -24,6 +24,7 @@
 * 5.0   kpt  05/05/22 Initial release
 *       dc   07/12/22 Corrected comments
 *       kpt  07/24/22 Moved KAT related code to xsecure_kat_plat.c
+* 5.2   ng   07/05/23 Added support for system device tree flow
 *
 * </pre>
 *
@@ -38,6 +39,10 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_TRNG_DEFAULT_SEED_LIFE		256U	/**< Default seed life */

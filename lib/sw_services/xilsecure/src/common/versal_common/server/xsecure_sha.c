@@ -46,7 +46,8 @@
 * 5.0   bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_kat.c
 *       dc   08/26/22 Optimization of size, changed type of variables u8 to u32
-*	vss  07/15/23 Removed check for sha3state in  XSecure_Sha3Initialize()
+* 5.2   vss  07/15/23 Removed check for sha3state in  XSecure_Sha3Initialize()
+*       ng   07/15/23 Added support for system device tree flow
 * </pre>
 * @note
 *
@@ -71,6 +72,7 @@
 						/**< Nist Start padding masks */
 #define XSECURE_SHA3_END_NIST_PADDING_MASK		(0x80U)
 						/**< Nist End padding masks */
+#define XSECURE_TYPE_PMC_DMA0	(1U) /** DMA0 type */
 
 /**************************** Type Definitions *******************************/
 
@@ -130,6 +132,12 @@ int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) || (DmaPtr == NULL) ||
 		(DmaPtr->IsReady != (u32)XIL_COMPONENT_IS_READY)) {
+		Status = (int)XSECURE_SHA3_INVALID_PARAM;
+		goto END;
+	}
+
+	if (DmaPtr->Config.DmaType == XPMCDMA_DMATYPEIS_INVALID) {
+		/* error out if the dma type is invalid. */
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
 	}
@@ -602,8 +610,8 @@ static int XSecure_Sha3DmaTransfer(const XSecure_Sha3 *InstancePtr,
 
 	/* Configure the SSS for SHA3 hashing. */
 	Status = XSecure_SssSha(&(InstancePtr->SssInstance),
-				InstancePtr->DmaPtr->Config.DeviceId,
-				InstancePtr->Sha3Config->SssShaCfg);
+					(u16)(InstancePtr->DmaPtr->Config.DmaType - XSECURE_TYPE_PMC_DMA0),
+					InstancePtr->Sha3Config->SssShaCfg);
 	if (Status != XST_SUCCESS) {
 		goto ENDF;
 	}
