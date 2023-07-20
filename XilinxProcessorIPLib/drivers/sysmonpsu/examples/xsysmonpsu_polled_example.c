@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +31,7 @@
 *       mn    03/08/18 Update code to run at higher frequency and remove sleep
 * 2.6   aad   11/21/19 Removed reading of AUX channels
 *       aad   11/22/19 Added support for XSYSMON_PL
+* 2.9   cog    07/20/23 Added support for SDT flow
 * </pre>
 *
 *****************************************************************************/
@@ -37,19 +39,23 @@
 /***************************** Include Files ********************************/
 
 #include "xsysmonpsu.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xstatus.h"
 #include "stdio.h"
 
 /************************** Constant Definitions ****************************/
-
+#ifndef SDT
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
 #define SYSMON_DEVICE_ID 	XPAR_XSYSMONPSU_0_DEVICE_ID
-
+#else
+#define SYSMON_DEVICE_ID 	0xffa50000
+#endif
 
 /**************************** Type Definitions ******************************/
 
@@ -69,7 +75,7 @@
 
 /************************** Function Prototypes *****************************/
 
-int SysMonPsuPolledPrintfExample(u16 SysMonDeviceId);
+int SysMonPsuPolledPrintfExample(u32 SysMonDeviceId);
 static int SysMonPsuFractionToInt(float FloatNum);
 
 /************************** Variable Definitions ****************************/
@@ -138,7 +144,7 @@ int main(void)
 * @note   	None
 *
 ****************************************************************************/
-int SysMonPsuPolledPrintfExample(u16 SysMonDeviceId)
+int SysMonPsuPolledPrintfExample(u32 SysMonDeviceId)
 {
 	int Status;
 	XSysMonPsu_Config *ConfigPtr;

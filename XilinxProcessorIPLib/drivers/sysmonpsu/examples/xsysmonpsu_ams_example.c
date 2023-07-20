@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,7 @@
 * 2.4   mn     04/26/18 Remove usleeps from AMS CTRL example
 * 2.5   aad    08/26/19 Added local timeout poll function for IAR compiler
 *			support
+* 2.9   cog    07/20/23 Added support for SDT flow.
 *
 * </pre>
 *
@@ -39,7 +41,9 @@
 /***************************** Include Files ********************************/
 
 #include "xsysmonpsu.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xstatus.h"
 #include "xscugic.h"
 #include "xil_exception.h"
@@ -48,7 +52,7 @@
 
 
 /************************** Constant Definitions ****************************/
-
+#ifndef SDT
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
@@ -58,6 +62,11 @@
 #define SYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
 #define SCUGIC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define INTR_ID			XPAR_XSYSMONPSU_INTR
+#else
+#define SYSMON_DEVICE_ID	0xffa50000
+#define SCUGIC_DEVICE_ID	0
+#define INTR_ID	(56U + 32U)
+#endif
 #define EOC_POLLING_TIMEOUT 1000000
 
 
@@ -69,7 +78,7 @@
 
 int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 			XSysMonPsu* SysMonInstPtr,
-			u16 SysMonDeviceId,
+			u32 SysMonDeviceId,
 			u16 SysMonIntrId);
 static int SysMonPsuFractionToInt(float FloatNum);
 static s32 XSysmonPsu_Poll_timeout(u32 Addr, u64 *Value, u32 Conditon, u64 TimeOutUs);
@@ -197,7 +206,7 @@ static s32 XSysmonPsu_Poll_timeout(u32 Addr, u64 *Val, u32 Condition, u64 TimeOu
 ****************************************************************************/
 int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
 					XSysMonPsu* SysMonInstPtr,
-					u16 SysMonDeviceId,
+					u32 SysMonDeviceId,
 					u16 SysMonIntrId)
 {
 	int Status;
