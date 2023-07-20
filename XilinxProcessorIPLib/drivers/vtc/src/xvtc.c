@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xvtc.c
-* @addtogroup vtc_v8_4
+* @addtogroup vtc Overview
 * @{
 *
 * This is main code of Xilinx MVI Video Timing Controller (VTC) device driver.
@@ -228,6 +229,10 @@ int XVtc_CfgInitialize(XVtc *InstancePtr, XVtc_Config *CfgPtr,
 	memcpy((void *)&(InstancePtr->Config), (const void *)CfgPtr,
 			   sizeof(XVtc_Config));
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
+#ifdef SDT
+    InstancePtr->Config.IntrId = CfgPtr->IntrId;
+    InstancePtr->Config.IntrParent = CfgPtr->IntrParent;
+#endif
 
 	/* Set all handlers to stub values, let user configure this data later */
 	InstancePtr->FrameSyncCallBack = (XVtc_CallBack) StubCallBack;

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xvtc_hw.h
-* @addtogroup vtc_v8_4
+* @addtogroup vtc Overview
 * @{
 *
 * This header file contains identifiers and register-level core functions (or

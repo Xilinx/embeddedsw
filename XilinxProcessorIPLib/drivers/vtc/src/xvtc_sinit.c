@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xvtc_sinit.c
-* @addtogroup vtc_v8_4
+* @addtogroup vtc Overview
 * @{
 *
 * This file contains static initialization methods for Xilinx VTC core.
@@ -36,7 +37,9 @@
 /***************************** Include Files *********************************/
 
 #include "xvtc.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -75,6 +78,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XVtc_Config *XVtc_LookupConfig(u16 DeviceId)
 {
 	extern XVtc_Config XVtc_ConfigTable[];
@@ -94,4 +98,23 @@ XVtc_Config *XVtc_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XVtc_Config *XVtc_LookupConfig(UINTPTR BaseAddress)
+{
+	extern XVtc_Config XVtc_ConfigTable[];
+	XVtc_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0U; XVtc_ConfigTable[Index].Name != NULL; Index++) {
+            if ((XVtc_ConfigTable[Index].BaseAddress == BaseAddress) ||
+                             !BaseAddress) {
+
+                      CfgPtr = &XVtc_ConfigTable[Index];
+                break;
+           }
+        }
+
+	return CfgPtr;
+}
+#endif
 /** @} */
