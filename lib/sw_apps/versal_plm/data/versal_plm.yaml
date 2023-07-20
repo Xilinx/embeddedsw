@@ -1,0 +1,40 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: Versal PLM
+
+maintainers:
+  - Kundella, Sreedhar <Sreedhar.Kundella@amd.com>
+  - Mulagondla, Bharath <bharath.mulagondla@amd.com>
+
+type: apps
+
+description: Platform Loader and Manager for versal.
+
+supported_processors:
+  - psv_pmc
+  - psx_pmc
+  - psxl_pmc
+
+supported_os:
+  - standalone
+
+depends_libs:
+    xiltimer: {}
+    xilffs:
+      XILFFS_read_only: ON
+      XILFFS_use_mkfs : OFF
+      XILFFS_word_access : OFF
+      XILFFS_enable_multi_partition : ON
+      XILFFS_num_logical_vol : 10
+    xilpdi: {}
+    xilplmi: {}
+    xilloader: {}
+    xilpm: {}
+    xilsecure: {}
+    xilsem: {}
+    xilpuf: {}
+    xilnvm: {}
+...
