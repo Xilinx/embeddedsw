@@ -9,9 +9,12 @@
 #define XPAR_XILTIMER_ENABLED
 @XPAR_PS_INCLUDE@
 
+#if defined (__aarch64__)
 #cmakedefine01 EL3 @EL3@
 #cmakedefine01 EL1_NONSECURE @EL1_NONSECURE@
 #cmakedefine01 HYP_GUEST @HYP_GUEST@
+#endif
+
 #cmakedefine versal @versal@
 #cmakedefine PSU_PMU @PSU_PMU@
 #cmakedefine PLATFORM_ZYNQMP @PLATFORM_ZYNQMP@
