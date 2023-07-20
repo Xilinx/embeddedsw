@@ -112,13 +112,18 @@ class Library(Repo):
         """
         libdir = self.get_comp_dir(lib)
         srcdir = os.path.join(libdir, "src")
-        if lib in ['libmetal', 'open-amp']:
+        if lib in ['libmetal', 'openamp']:
             srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
-            srcdir = os.path.join(srcdir, lib)
+            if lib == 'openamp':
+                # cached library name differs from directory name in repo.
+                srcdir = os.path.join(srcdir, 'open-amp')
+            else: # no workaround needed for libmetal
+                srcdir = os.path.join(srcdir, lib)
+
 
         dstdir = os.path.join(self.libsrc_folder, lib, "src")
         utils.copy_directory(srcdir, dstdir)
-        if lib in ['libmetal', 'open-amp']:
+        if lib in ['libmetal', 'openamp']:
             open_amp_copy_lib_src(libdir, dstdir)
 
         self.lib_info[lib] = {'path': libdir}
