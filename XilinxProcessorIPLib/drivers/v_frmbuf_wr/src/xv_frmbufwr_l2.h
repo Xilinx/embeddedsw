@@ -8,7 +8,7 @@
 /**
 *
 * @file xv_frmbufwr_l2.h
-* @addtogroup v_frmbuf_wr_v4_7
+* @addtogroup v_frmbuf_wr Overview
 * @{
 * @details
 *
@@ -626,7 +626,11 @@ typedef struct {
                                      ((InstancePtr)->FrmbufWr.Config.Interlaced)
 
 /**************************** Function Prototypes *****************************/
+#ifndef SDT
 int XVFrmbufWr_Initialize(XV_FrmbufWr_l2 *InstancePtr, u16 DeviceId);
+#else
+int XVFrmbufWr_Initialize(XV_FrmbufWr_l2 *InstancePtr, UINTPTR BaseAddress);
+#endif
 void XVFrmbufWr_Start(XV_FrmbufWr_l2 *InstancePtr);
 int XVFrmbufWr_Stop(XV_FrmbufWr_l2 *InstancePtr);
 int XVFrmbufWr_WaitForIdle(XV_FrmbufWr_l2 *InstancePtr);
