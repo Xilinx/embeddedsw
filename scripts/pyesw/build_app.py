@@ -80,6 +80,7 @@ def build_app(args):
         args['ws_dir'] = obj.app_dir
         app_obj = App(args)
         esw_app_dir = app_obj.get_comp_dir(app_name)
+        obj.template = app_name
         openamp_app_configure_common(obj, esw_app_dir, enable_lopper)
 
     utils.runcmd(f'cmake -G "Unix Makefiles" {obj.app_src_dir} {obj.cmake_paths_append} -DNON_YOCTO=ON', cwd=obj.app_build_dir)
