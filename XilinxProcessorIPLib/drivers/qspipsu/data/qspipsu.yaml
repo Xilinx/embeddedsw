@@ -40,9 +40,15 @@ required:
 
 examples:
    xqspipsu_polldata_polltimeout_interrupt_example.c:
+    - dependency_files:
+        - xqspipsu_flash_config.h
     - interrupts
    xqspipsu_generic_flash_interrupt_example.c:
+    - dependency_files:
+        - xqspipsu_flash_config.h
     - interrupts
    xqspipsu_write_protect_example.c:
+    - dependency_files:
+        - xqspipsu_flash_config.h
     - interrupts
 ...
