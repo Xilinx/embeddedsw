@@ -1,0 +1,58 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: Bindings for xilnvm library.
+
+maintainers:
+  - Harsha, Harsha <harsha.harsha@amd.com>
+  - Akula, Kalyani <kalyani.akula@amd.com>
+  - Challa, Durga <durga.challa@amd.com>
+  - Kundanala, Praveen Teja <praveen.teja.kundanala@amd.com>
+
+type: library
+
+version: 3.2
+
+description: Xilinx NVM Library provides interface to accessing eFUSE and BBRAM of Versal.
+
+supported_processors:
+  - psv_pmc
+  - psv_cortexa72
+  - psv_cortexr5
+  - microblaze
+  - psxl_pmc
+  - psxl_cortexa78
+  - psxl_cortexr52
+  - psx_pmc
+  - psx_cortexa78
+  - psx_cortexr52
+
+supported_os:
+  - standalone
+
+depends_libs:
+  xiltimer: {}
+  xilplmi: {}
+  xilmailbox: {}
+
+examples:
+  xilnvm_bbram_versal_client_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+  xilnvm_bbram_versal_server_example.c:
+    - supported_platforms:
+      - Versal
+  xilnvm_efuse_versal_client_example.c:
+    - supported_platforms:
+      - Versal
+    - dependency_files:
+      - xilnvm_efuse_versal_input.h
+  xilnvm_efuse_versal_server_example.c:
+    - supported_platforms:
+      - Versal
+    - dependency_files:
+      - xilnvm_efuse_versal_input.h
+...

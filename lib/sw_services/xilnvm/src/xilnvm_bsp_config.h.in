@@ -1,0 +1,15 @@
+/******************************************************************************
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef XILNVM_BSP_CONFIG_H
+#define XILNVM_BSP_CONFIG_H
+
+#cmakedefine XNVM_ACCESS_PUF_USER_DATA
+#cmakedefine XNVM_CACHE_DISABLE
+
+/* Enable Additional PPKs for M50 design */
+#cmakedefine XNVM_EN_ADD_PPKS
+
+
+#endif /* XILNVM_BSP_CONFIG_H */
