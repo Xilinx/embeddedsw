@@ -31,8 +31,8 @@ extern "C" {
 #include "xil_util.h"
 
 /**************************** Constant Definitions ****************************/
-#define XTRNGPSX_MAJOR_VERSION	2023
-#define XTRNGPSX_MINOR_VERSION	2
+#define XTRNGPSX_MAJOR_VERSION	1
+#define XTRNGPSX_MINOR_VERSION	1
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
