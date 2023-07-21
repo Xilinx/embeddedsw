@@ -53,6 +53,7 @@
 *                         general purpose fuses
 *       kpt      05/21/21 Added print before programming PPK hash into non-zero
 *                         PPK efuses
+* 7.5   ng       07/13/23 Added support for system device tree flow
 *
 * </pre>
 *
@@ -61,6 +62,10 @@
 /***************************** Include Files *********************************/
 #include "xilskey_efuseps_zynqmp_input.h"
 #include "xil_printf.h"
+
+#ifdef SDT
+#include "xilskey_config.h"
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSK_EFUSEPS_AES_KEY_STRING_LEN			(64)

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -169,6 +170,7 @@
 * 6.7   psl     03/20/19 Added BBRAM key write support for SSIT devices.
 *       psl     03/29/19 Added Support for user configurable GPIO for
 *                        jtag control.
+* 7.5   ng      07/13/23 added SDT support
 * </pre>
 *
 ******************************************************************************/
@@ -203,7 +205,11 @@ extern "C" {
  * channel numbers for GPIO pins
  */
 /* GPIO device ID */
+#ifndef SDT
 #define XSK_BBRAM_AXI_GPIO_DEVICE_ID	XPAR_AXI_GPIO_0_DEVICE_ID
+#else
+#define XSK_BBRAM_AXI_GPIO_DEVICE_ID	XPAR_XGPIOPS_0_BASEADDR
+#endif
 
 #define	XSK_BBRAM_AXI_GPIO_JTAG_TDO	(0)	/**< MASTER JTAG GPIO
 						  *  pin for TDO */

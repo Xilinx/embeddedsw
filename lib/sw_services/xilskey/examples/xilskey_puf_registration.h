@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -97,6 +98,7 @@
 *                     XSK_PUF_IF_CONTRACT_MANUFATURER to
 *                     XSK_PUF_IF_CONTRACT_MANUFACTURER
 * 6.8   psl  06/07/19 Added doxygen tags
+* 7.5   ng   07/13/23 added SDT support
 * </pre>
 *
 *
@@ -116,7 +118,11 @@ extern "C" {
 /************************** Constant Definitions ****************************/
 
 #ifdef	XSK_ZYNQ_ULTRA_MP_PLATFORM
-#define XSK_CSUDMA_DEVICE_ID		XPAR_XCSUDMA_0_DEVICE_ID
+#ifndef SDT
+#define XSK_CSUDMA_DEVICE_ID				XPAR_XCSUDMA_0_DEVICE_ID
+#else
+#define XSK_CSUDMA_DEVICE_ID				XPAR_XCSUDMA_0_BASEADDR
+#endif
 #endif
 
 #define 	XSK_PUF_MODE4K		(0U)

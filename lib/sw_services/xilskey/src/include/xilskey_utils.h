@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,7 +76,7 @@
 *       kpt     05/21/21 Added Error Codes
 *                        XSK_EFUSEPS_ERROR_PPK0_BIT_CANT_REVERT
 *                        XSK_EFUSEPS_ERROR_PPK1_BIT_CANT_REVERT
-*
+* 7.5   ng      07/13/23 Added support for system device tree flow
 * </pre>
 *
  *****************************************************************************/
@@ -102,6 +103,13 @@ extern "C" {
 #endif
 #include "xstatus.h"
 #include "xil_util.h"
+
+#ifdef SDT
+#include "xilskey_bsp_config.h"
+#define XSKEY_CPU_CORE_CLK_FREQ XPAR_CPU_CORE_CLOCK_FREQ_HZ
+#else
+#define XSKEY_CPU_CORE_CLK_FREQ XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ
+#endif
 
 /************************** Constant Definitions ****************************/
 /**************************** Type Definitions ******************************/
@@ -141,20 +149,33 @@ extern "C" {
  * change all the needed parameters in one place.
  */
 #ifdef XSK_ZYNQ_PLATFORM
-#define XADC_DEVICE_ID 		XPAR_XADCPS_0_DEVICE_ID
+#ifndef SDT
+#define XADC_DEVICE     XPAR_XADCPS_0_DEVICE_ID
+#else
+#define XADC_DEVICE     XPAR_XXADCPS_0_BASEADDR
+#endif
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-#define XSYSMON_PSU_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
+#ifndef SDT
+#define XSYSMON_PSU_DEVICE      XPAR_XSYSMONPSU_0_DEVICE_ID
+#else
+#define XSYSMON_PSU_DEVICE      XPAR_XSYSMONPSU_0_BASEADDR
+#endif
 
 /* ZynqMp efusePs ps Ref Clk frequency */
 #define XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ	XPAR_PSU_PSS_REF_CLK_FREQ_HZ
 #endif
 
 #ifdef XSK_MICROBLAZE_PLATFORM
-#define XTMRCTR_DEVICE_ID		(XPAR_TMRCTR_0_DEVICE_ID)
-#define XSK_EFUSEPL_CLCK_FREQ_ULTRA	(XPAR_AXI_TIMER_0_CLOCK_FREQ_HZ)
-#define XSK_TMRCTR_NUM			(0U)
+#ifndef SDT
+    #define XTMRCTR_DEVICE              ((u16)XPAR_TMRCTR_0_DEVICE_ID)
+    #define XSK_EFUSEPL_CLCK_FREQ_ULTRA (XPAR_AXI_TIMER_0_CLOCK_FREQ_HZ)
+#else
+    #define XTMRCTR_DEVICE              (XPAR_XTMRCTR_0_BASEADDR)
+    #define XSK_EFUSEPL_CLCK_FREQ_ULTRA (XPAR_XTMRCTR_0_CLOCK_FREQUENCY)
+#endif
+    #define XSK_TMRCTR_NUM			(0U)
 #endif
 
 #define REVERSE_POLYNOMIAL	(0x82F63B78U)

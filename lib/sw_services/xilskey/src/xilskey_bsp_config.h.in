@@ -1,0 +1,25 @@
+/******************************************************************************
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef XILSKEY_BSP_CONFIG_H
+#define XILSKEY_BSP_CONFIG_H
+
+#cmakedefine XPAR_XSK_MICROBLAZE_PLATFORM @XPAR_XSK_MICROBLAZE_PLATFORM@
+#cmakedefine XPAR_XSK_MICROBLAZE_ULTRA_PLUS @XPAR_XSK_MICROBLAZE_ULTRA_PLUS@
+#cmakedefine XPAR_XSK_MICROBLAZE_ULTRA  @XPAR_XSK_MICROBLAZE_ULTRA@
+#cmakedefine XPAR_XSK_ARM_PLATFORM  @XPAR_XSK_ARM_PLATFORM@
+
+#cmakedefine XSK_OVERRIDE_SYSMON_CFG
+#cmakedefine XSK_ACCESS_SECURE_CRITICAL_EFUSE
+#cmakedefine XSK_ACCESS_USER_EFUSE
+#cmakedefine XSK_ACCESS_KEY_MANAGE_EFUSE
+#cmakedefine XSK_ACCESS_PUF_USER_EFUSE
+
+#cmakedefine XSK_USER_DEVICE_SERIES @XSK_USER_DEVICE_SERIES@
+#cmakedefine XSK_USER_DEVICE_ID @XSK_USER_DEVICE_ID@
+#cmakedefine XSK_USER_DEVICE_IRLEN  @XSK_USER_DEVICE_IRLEN@
+#cmakedefine XSK_USER_DEVICE_NUMSLR @XSK_USER_DEVICE_NUMSLR@
+#cmakedefine XSK_USER_DEVICE_MASTER_SLR @XSK_USER_DEVICE_MASTER_SLR@
+
+#endif /* XILSKEY_BSP_CONFIG_H */
