@@ -102,6 +102,8 @@ def resolve_paths(repo_paths):
             comp_name = utils.get_base_name(dir_path)
             comp_name =  re.sub("_v(\d+)_(\d+)", "", comp_name)
             yaml_data = utils.load_yaml(entries)
+            if yaml_data is None:
+                continue
 
             if not path_dict[yaml_data['type']].get(comp_name):
                 path_dict[yaml_data['type']][comp_name] = {"path" : [dir_path]}
