@@ -99,7 +99,6 @@
 #define FDRO_BASEADDR              (0xF12C2000U)
 #define FSR_TILE_END               (95U)
 #define HALF_FSR_START             (48U)
-#define FRAME_BLOCK_TYPE_6		   (6U)
 
 typedef struct XPm_NidbEfuseGrpInfo {
 	u8 RdnCntl;

@@ -18,6 +18,8 @@
 #include "sleep.h"
 #include "xpm_rail.h"
 
+#include "xplmi_ssit.h"
+
 #define XPM_NODEIDX_DEV_GT_MIN		XPM_NODEIDX_DEV_GT_0
 /* Modify value of MAX_DEV_GT if we run out */
 #define MAX_DEV_GT		52U
@@ -36,6 +38,12 @@
 /* If TRIM_CRAM[31:0]=0 (FUSE not programmed),
  * Use Dynamic read voltage and 4 Legs setting for keeper Bias */
 #define CRAM_TRIM_RW_READ_VOLTAGE	0x08000B80U
+
+/* Laguna housecleaning macros */
+#define LAGUNA_WIDTH				117U
+#define LAGUNA_HORIZONTAL_INTER_SLR_WIDTH	20U
+#define SSIT_TOP_SLR_1 1U
+#define SSIT_TOP_SLR_2 2U
 
 static XCframe CframeIns={0}; /* CFRAME Driver Instance */
 static XCfupmc CfupmcIns={0}; /* CFU Driver Instance */
@@ -1037,6 +1045,117 @@ done:
 	return Status;
 }
 
+/*
+ * The top 2 SLRs on xcvp1902 require Laguna housecleaning which initializes
+ * type-6 CLR to all one.
+ * Each SLR has 6 CFRAME rows
+ * Each CFRAME column has 96 CLE tiles (32 bit words), and 4 RCLK tiles.
+ * Each CFRAME row has 117 Laguna columns
+ */
+static XStatus LagunaHouseclean(void)
+{
+	XStatus Status = XST_FAILURE;
+	u32 FrameData[100U];
+	u32 FrameAddr;
+	u32 CframeRow;
+	u32 CFrameAddr;
+	u32 FdriAddr;
+	u32 Idx;
+	const XPm_PlDomain *Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
+
+	if (NULL == Pld) {
+		goto done;
+	}
+
+	/*
+	 * The first 33 frame tiles are non inter-SLR Laguna tiles.
+	 * These tiles should be unaffected, so write 0
+	 */
+	for (Idx = 0U; Idx < 33U; Idx++) {
+		FrameData[Idx] = 0U;
+	}
+
+	/*
+	 * Remaining Laguna tiles below RCLK are inter-SLR vertical Laguna
+	 * tiles, write 1 to all.
+	 */
+	for (; Idx < 48U; Idx++) {
+		FrameData[Idx] = 0xFFFFFFFFU;
+	}
+
+	/* There are 4 RCLK tiles, tiles 48 - 51, set to default 0 */
+	for (; Idx < 52U; Idx++) {
+		FrameData[Idx] = 0U;
+	}
+
+	/* All remaining tiles above RCLK are inter-SLR vertical Laguna tiles */
+	for (; Idx < 100U; Idx++) {
+		FrameData[Idx] = 0xFFFFFFFFU;
+	}
+
+	/* Configure Frame address */
+	FrameAddr = (u32)FRAME_BLOCK_TYPE_6 << (u32)CFRAME0_REG_FAR_BLOCKTYPE_SHIFT;
+	/* Get CFRAME top row number */
+	CframeRow = (XPm_In32(Pld->CfuApbBaseAddr + CFU_APB_CFU_ROW_RANGE_OFFSET) &
+		     (u32)CFU_APB_CFU_ROW_RANGE_NUM_MASK) - 1U;
+
+	/* Get CFRAME Address */
+	CFrameAddr = Pld->Cframe0RegBaseAddr + (XCFRAME_FRAME_OFFSET * CframeRow);
+
+	/* Enable CFRAME Row */
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x0U, CFRAME_REG_CMD_ROWON);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x4U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x8U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0xCU, 0x0U);
+
+	/* nop delay */
+	XPm_Wait(300U);
+
+	/* Enable write configuration data */
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x0U, CFRAME_REG_CMD_WCFG);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x4U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0x8U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_CMD_OFFSET) + 0xCU, 0x0U);
+
+	/* nop delay */
+	XPm_Wait(200U);
+
+	/* Set Frame address register */
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0x0U, FrameAddr);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0x4U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0x8U, 0x0U);
+	XPm_Out32((CFrameAddr + CFRAME_REG_FAR_OFFSET) + 0xCU, 0x0U);
+
+	FdriAddr = CFRAME0_FDRI_BASEADDR + (XCFRAME_FRAME_OFFSET * CframeRow);
+
+	/* Write 100 words of Frame data */
+	for (Idx = 0U; Idx < 100U; Idx++) {
+		XPm_Out32(FdriAddr, FrameData[Idx]);
+		FdriAddr += 0x4U;
+	}
+
+	/*
+	 * Use multi-frame write to set the remaining type-6 frames without
+	 * resending data.
+	 * NOTE: May need to make generic depending
+	 */
+	for (Idx = 1U; Idx < ((u32)LAGUNA_WIDTH - (u32)LAGUNA_HORIZONTAL_INTER_SLR_WIDTH); Idx++) {
+		++FrameAddr;
+		XPm_Out32((CFrameAddr + CFRAME_REG_FAR_MFW_OFFSET) + 0x0U, FrameAddr);
+		XPm_Out32((CFrameAddr + CFRAME_REG_FAR_MFW_OFFSET) + 0x4U, 0x0U);
+		XPm_Out32((CFrameAddr + CFRAME_REG_FAR_MFW_OFFSET) + 0x8U, 0x0U);
+		XPm_Out32((CFrameAddr + CFRAME_REG_FAR_MFW_OFFSET) + 0xCU, 0x0U);
+
+		/* nop delay */
+		XPm_Wait(30U);
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 static XStatus PlHouseCleanEarlyBoot(u16 *DbgErr)
 {
 	XStatus Status = XST_FAILURE;
@@ -1092,6 +1211,17 @@ static XStatus PlHouseCleanEarlyBoot(u16 *DbgErr)
 
 	/* HCLEAN type 0,1,2 */
 	XCframe_WriteCmd(&CframeIns, XCFRAME_FRAME_BCAST, XCFRAME_CMD_REG_HCLEAN);
+
+	/* Laguna housecleaning for xcvp1902 device on top 2 SLRs */
+	if (PMC_TAP_IDCODE_DEV_SBFMLY_VP1902 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+		/* Laguna Housecleaning sequence only applies to the top SLRs (SLR1 and SLR2) */
+		if ((SSIT_TOP_SLR_1 == XPlmi_GetSlrIndex()) || (SSIT_TOP_SLR_2 == XPlmi_GetSlrIndex())) {
+			Status = LagunaHouseclean();
+			if (XST_SUCCESS != Status) {
+				*DbgErr = XPM_INT_ERR_LAGUNA_HOUSECLEAN;
+			}
+		}
+	}
 
 done:
 	return Status;
