@@ -59,8 +59,6 @@ properties:
     description: word width of FIFO
   xlnx,interpolation-mode:
     description: (DAC only) the interpolation rate
-  xlnx,interpolation-mode:
-    description: (DAC only) the interpolation rate
   xlnx,decimation-mode:
     description: (ADC only) the decimation rate
   xlnx,fifo-enable:
