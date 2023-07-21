@@ -181,6 +181,7 @@ void init_platform()
 
 }
 
+#ifdef SDT
 void TimerCounterHandler(void *CallBackRef, u32_t TmrCtrNumber)
 {
 	timer_callback();
@@ -191,6 +192,7 @@ void init_timer()
 	XTimer_SetInterval(250);
 	XTimer_SetHandler(TimerCounterHandler, 0, XINTERRUPT_DEFAULT_PRIORITY);
 }
+#endif
 
 void cleanup_platform()
 {
