@@ -33,7 +33,6 @@
 *       bsv  05/03/22 Replace memcpy with Xil_MemCpy to avoid non-word aligned
 *                     access to memory
 *       dd   13/01/23 Added Gigadevice flash support
-* 7.1   ng   07/13/23 Added SDT support
 *
 * </pre>
 *
@@ -55,13 +54,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#ifndef SDT
 #define QSPI_DEVICE_ID		XPAR_XQSPIPSU_0_DEVICE_ID
-#define XLOADER_QSPI_CONNECTION_MODE (XPAR_PSU_QSPI_0_QSPI_MODE)
-#else
-#define QSPI_DEVICE_ID		XPAR_XQSPIPSU_0_BASEADDR
-#define XLOADER_QSPI_CONNECTION_MODE (XPAR_XQSPIPSU_0_CONNECTION_MODE)
-#endif
 #define XFSBL_SIXTY_FOUR_BYTE_MASK	(0x3FU)
 #define XFSBL_SIXTY_FOUR_BYTE_VAL	(64U)
 
@@ -288,7 +281,7 @@ u32 XFsbl_Qspi24Init(u32 DeviceFlags)
 	 * TBD: XIP Support
 	 */
 
-	switch ((u32)(XLOADER_QSPI_CONNECTION_MODE)) {
+	switch ((u32)(XPAR_PSU_QSPI_0_QSPI_MODE)) {
 
 		case XQSPIPSU_CONNECTION_MODE_SINGLE:
 		{
@@ -995,7 +988,7 @@ u32 XFsbl_Qspi32Init(u32 DeviceFlags)
 	 * TBD
 	 */
 
-	switch ((u32)XLOADER_QSPI_CONNECTION_MODE) {
+	switch ((u32)XPAR_PSU_QSPI_0_QSPI_MODE) {
 
 		case XQSPIPSU_CONNECTION_MODE_SINGLE:
 		{

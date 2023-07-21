@@ -1,6 +1,5 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,7 +27,6 @@
 * 5.0   bsv  04/12/21 Removed unwanted I2C writes to TCA6416A
 *                     for ZCU208 and ZCU216 boards
 * 6.0   bsv  01/05/22 Added support for ZCU670 board
-* 6.1   ng   07/13/23 Added SDT support
 *
 * </pre>
 *
@@ -41,7 +39,6 @@
 		|| defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111) \
 		|| defined(XPS_BOARD_ZCU216) || defined(XPS_BOARD_ZCU208) \
 		|| defined(XPS_BOARD_ZCU670)
-#if defined(XPAR_XIICPS_0_BASEADDR)
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -603,11 +600,7 @@ static u32 XFsbl_BoardConfig(void)
 #endif
 
 	/* Initialize the IIC0 driver so that it is ready to use */
-#ifndef SDT
 	I2c0CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
-#else
-	I2c0CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_BASEADDR);
-#endif
 	if (I2c0CfgPtr == NULL) {
 		UStatus = XFSBL_ERROR_I2C_INIT;
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
@@ -625,11 +618,7 @@ static u32 XFsbl_BoardConfig(void)
 #if defined(XPS_BOARD_ZCU216) || defined(XPS_BOARD_ZCU208) || \
 	defined(XPS_BOARD_ZCU670)
 	/* Initialize the IIC1 driver so that it is ready to use */
-#ifndef SDT
 	I2c1CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
-#else
-	I2c1CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_BASEADDR);
-#endif
 	if (I2c1CfgPtr == NULL) {
 		UStatus = XFSBL_ERROR_I2C_INIT;
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_I2C_INIT\r\n");
@@ -761,7 +750,6 @@ END:
 	return UStatus;
 
 }
-#endif
 
 #if defined(XPS_BOARD_ZCU102)
 /*****************************************************************************/
@@ -832,12 +820,10 @@ u32 XFsbl_BoardInit(void)
 		|| defined(XPS_BOARD_ZCU216) || defined(XPS_BOARD_ZCU208) \
 		|| defined(XPS_BOARD_ZCU670)
 	/* Program I2C to configure GT lanes */
-#if defined(XPAR_XIICPS_0_BASEADDR)
 	Status = XFsbl_BoardConfig();
 	if (Status != XFSBL_SUCCESS) {
 		goto END;
 	}
-#endif
 
 #if defined(XPS_BOARD_ZCU102)
 	XFsbl_PcieReset();

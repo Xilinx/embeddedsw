@@ -26,7 +26,6 @@
 *                     multiboot offset
 * 5.00  ng   12/08/22 Updated SDK release version
 * 6.00  skd  02/10/22 SDK release version updated
-* 6.1   ng   07/13/23 Added SDT support
 *
 * </pre>
 *
@@ -46,11 +45,7 @@ extern "C" {
 #include "xfsbl_misc_drivers.h"
 #include "xfsbl_hw.h"
 #include "xplatform_info.h"
-#ifndef SDT
 #include "xtime_l.h"
-#else
-#include "xiltimer.h"
-#endif
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/

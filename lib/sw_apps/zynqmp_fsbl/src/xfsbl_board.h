@@ -1,6 +1,5 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +23,6 @@
 * 4.0   bsv  11/12/19 Added support for ZCU216 board
 *       bsv  02/05/20 Added support for ZCU208 board
 * 5.0   bsv  01/05/22 Added support for ZCU670 board
-* 6.1   ng   07/13/23 Added SDT support
 *
 * </pre>
 *
@@ -45,9 +43,7 @@ extern "C" {
 		|| defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111) \
 		|| defined(XPS_BOARD_ZCU216) || defined(XPS_BOARD_ZCU208) \
 		|| defined(XPS_BOARD_ZCU670)
-#if defined(XPAR_XIICPS_0_BASEADDR)
 #include "xiicps.h"
-#endif
 /************************** Constant Definitions *****************************/
 #define GPIO_MIO31_MASK	0x00000020U
 

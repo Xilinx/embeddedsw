@@ -1,6 +1,5 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -55,7 +54,6 @@
 *                     instance pointer
 * 9.0   bsv  10/15/21 Fixed bug to support secondary boot with non-zero
 *                     multiboot offset
-* 9.1   ng   07/13/23 Added SDT support
 *
 * </pre>
 *
@@ -798,7 +796,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	}
 
 #ifdef XFSBL_PS_DDR
-#if defined(XPAR_DYNAMIC_DDR_ENABLED)
+#ifdef XPAR_DYNAMIC_DDR_ENABLED
 	/*
 	 * This function is used for all the ZynqMP boards.
 	 * This function initialize the DDR by fetching the SPD data from
@@ -1988,7 +1986,7 @@ static void XFsbl_ClearPendingInterrupts(void)
  *****************************************************************************/
 void XFsbl_MarkDdrAsReserved(u8 Cond)
 {
-#if (defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) || defined (XPAR_PSU_DDR_0_BASEADDRESS)) && !defined (ARMR5)
+#if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
 	u32 Attrib = ATTRIB_MEMORY_A53_64;
 	u64 BlockNum;
 
