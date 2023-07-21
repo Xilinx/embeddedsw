@@ -108,8 +108,10 @@ static int XLoader_InitSha3Instance1(void);
 static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams,
 	XSecure_Sha3Hash* Sha3Hash);
 static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrNo, u32 DigestIndex, u32 PdiType);
-static int XLoader_ExtendSpkId(u32 SpkId, u32 PcrInfo, u32 DigestIndex, u32 PdiType);
-static int XLoader_ExtendEncRevokeId(u32 EncRevokeId, u32 PcrInfo, u32 DigestIndex, u32 PdiType);
+static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash);
+static int XLoader_ExtendSpkId(XSecure_Sha3Hash* SpkIdHash, u32 PcrInfo, u32 DigestIndex, u32 PdiType);
+static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash);
+static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrInfo, u32 DigestIndex, u32 PdiType);
 #endif
 #ifdef PLM_OCP
 static int XLoader_GenSubSysDevAk(u32 SubsystemID, u64 InHash);
@@ -1352,17 +1354,24 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 		}
 		MeasureIdx = MeasureIdx + 1U;
 
-		Status = XLoader_ExtendSpkId(SecurePtr->AcPtr->SpkId, PcrNo, MeasureIdx, PdiType);
+		Status = XLoader_SpkIdMeasurement(SecurePtr, &Sha3Hash);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-
+		Status = XLoader_ExtendSpkId(&Sha3Hash, PcrNo, MeasureIdx, PdiType);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		MeasureIdx = MeasureIdx + 1;
+
 	}
 	if (IsEncrypted == (u8)TRUE) {
 		if (IsAuthenticated != (u8)TRUE) {
-			Status = XLoader_ExtendEncRevokeId(
-				SecurePtr->PrtnHdr->EncRevokeID, PcrNo, MeasureIdx, PdiType);
+			Status = XLoader_EncRevokeIdMeasurement(SecurePtr, &Sha3Hash);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			Status = XLoader_ExtendEncRevokeId(&Sha3Hash, PcrNo, MeasureIdx, PdiType);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -1461,10 +1470,36 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function measures the SPK ID by calculating SHA3 hash.
+ *
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+ * @param	Sha3Hash  is pointer to the XSecure_Sha3Hash.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash)
+{
+	int Status = XST_FAILURE;
+	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
+
+	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_Sha3Digest(Sha3InstPtr, (UINTPTR)&SecurePtr->AcPtr->SpkId,
+			sizeof(SecurePtr->AcPtr->SpkId), Sha3Hash);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function extends the Partition AC SPK ID into specified
  * 		PCR.
  *
- * @param	SpkId Partition AC SPK ID
+ * @param	SpkIdHash Partition AC SPK ID Hash
  * @param	PcrInfo provides the PCR number and Measurement Index
  * 		to be extended.
  * @param	DigestIndex Digest index in PCR log, applicable to SW PCR only
@@ -1473,17 +1508,43 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_ExtendSpkId(u32 SpkId, u32 PcrNo, u32 DigestIndex, u32 PdiType)
+static int XLoader_ExtendSpkId(XSecure_Sha3Hash* SpkIdHash, u32 PcrNo, u32 DigestIndex, u32 PdiType)
 {
 	int Status = XST_FAILURE;
 
-	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&SpkId, sizeof(SpkId));
+	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&SpkIdHash->Hash, XLOADER_SHA3_LEN);
 	if (Status != XST_SUCCESS) {
                 goto END;
         }
 
         Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
-				(u64)(UINTPTR)&SpkId, sizeof(SpkId), PdiType);
+				(u64)(UINTPTR)&SpkIdHash->Hash, XLOADER_SHA3_LEN, PdiType);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function measures the Encryption Revoke ID by calculating SHA3 hash.
+ *
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+ * @param	Sha3Hash  is pointer to the XSecure_Sha3Hash.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash)
+{
+	int Status = XST_FAILURE;
+	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
+
+	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_Sha3Digest(Sha3InstPtr, (UINTPTR)&SecurePtr->PrtnHdr->EncRevokeID,
+			sizeof(SecurePtr->PrtnHdr->EncRevokeID), Sha3Hash);
 END:
 	return Status;
 }
@@ -1493,7 +1554,7 @@ END:
  * @brief	This function extends the Partition Header Revoke ID into
  * 		specified PCR.
  *
- * @param	SpkId Partition Header Revocation ID
+ * @param	RevokeIdHash Partition Header Revocation ID Hash
  * @param	PcrInfo provides the PCR number and Measurement Index
  * 		to be extended.
  * @param	DigestIndex Digest index in PCR log, applicable to SW PCR only
@@ -1502,17 +1563,17 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_ExtendEncRevokeId(u32 EncRevokeId, u32 PcrNo, u32 DigestIndex, u32 PdiType)
+static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrNo, u32 DigestIndex, u32 PdiType)
 {
 	int Status = XST_FAILURE;
 
-	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&EncRevokeId, sizeof(EncRevokeId));
+	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&RevokeIdHash->Hash, XLOADER_SHA3_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
-			(u64)(UINTPTR)&EncRevokeId, sizeof(EncRevokeId), PdiType);
+			(u64)(UINTPTR)&RevokeIdHash->Hash, XLOADER_SHA3_LEN, PdiType);
 
 END:
 	return Status;
