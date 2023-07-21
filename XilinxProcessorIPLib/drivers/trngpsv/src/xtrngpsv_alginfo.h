@@ -30,8 +30,8 @@ extern "C" {
 #include "xil_cryptoalginfo.h"
 
 /**************************** Constant Definitions ****************************/
-#define XTRNGPSV_MAJOR_VERSION	2023
-#define XTRNGPSV_MINOR_VERSION	2
+#define XTRNGPSV_MAJOR_VERSION	1
+#define XTRNGPSV_MINOR_VERSION	4
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
