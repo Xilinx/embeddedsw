@@ -36,9 +36,11 @@
 #define ETH_LINK_DETECT_INTERVAL 4
 
 void init_platform();
-void init_timer();
 void cleanup_platform();
+#ifdef SDT
+void init_timer();
 void TimerCounterHandler(void *CallBackRef, u32_t TmrCtrNumber);
+#endif
 #ifdef __MICROBLAZE__
 void timer_callback();
 #endif
