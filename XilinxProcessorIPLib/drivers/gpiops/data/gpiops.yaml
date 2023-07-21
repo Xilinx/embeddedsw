@@ -14,7 +14,9 @@ properties:
   compatible:
     OneOf:
       - items:
-        - const: xlnx,zynqmp-gpio-1.0
+        - enum:
+          - xlnx,zynqmp-gpio-1.0
+          - xlnx,zynq-gpio-1.0
   reg:
     description: Physical base address and size of the controller register map
 
