@@ -30,7 +30,7 @@ extern "C" {
 #include "xil_util.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_MAJOR_VERSION	2023
+#define XSECURE_MAJOR_VERSION	5
 #define XSECURE_MINOR_VERSION	2
 
 /****************** Macros (Inline Functions) Definitions *********************/
