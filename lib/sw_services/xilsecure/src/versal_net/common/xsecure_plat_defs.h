@@ -22,6 +22,7 @@
 * 5.1   kpt  01/04/22 Add macros related to KAT for external modules
 * 5.2   vns  07/06/23 Added separate IPI commands for Crypto Status and KAT status updates
 *       kpt  07/09/23 Added Key wrap and unwrap structures and macros
+*       mmd  07/20/23 Added reading FIPS info for HMAC and SHA2
 *
 * </pre>
 * @note
@@ -34,6 +35,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include "xil_cryptoalginfo.h"
+#include "xil_util.h"
 
 /***************************** Include Files *********************************/
 
@@ -285,6 +289,50 @@ typedef struct {
 	u64 ModulusAddr;	/**< Modulus address */
 	u64 ExponentAddr;	/**< Exponent address */
 } XSecure_RsaPubKeyAddr;
+
+
+/**************************** Constant Definitions ****************************/
+#define XSECURE_HMAC_MAJOR_VERSION	5
+#define XSECURE_HMAC_MINOR_VERSION	2
+
+#define XSECURE_SHA2_MAJOR_VERSION	5
+#define XSECURE_SHA2_MINOR_VERSION	2
+
+/****************** Macros (Inline Functions) Definitions *********************/
+
+/******************************************************************************/
+/**
+ *
+ * This function returns the HMAC crypto algorithm information.
+ *
+ * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+static __attribute__((always_inline)) inline
+void XSecure_HmacGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
+{
+	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_HMAC_MAJOR_VERSION, XSECURE_HMAC_MINOR_VERSION);
+	AlgInfo->NistStatus = NIST_COMPLIANT;
+}
+
+/******************************************************************************/
+/**
+ *
+ * This function returns the SHA2 crypto algorithm information.
+ *
+ * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+static __attribute__((always_inline)) inline
+void XSecure_Sha2GetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
+{
+	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_SHA2_MAJOR_VERSION, XSECURE_SHA2_MINOR_VERSION);
+	AlgInfo->NistStatus = NIST_COMPLIANT;
+}
 
 #ifdef __cplusplus
 }
