@@ -155,7 +155,7 @@ depends:
 examples:
     xv_frmbufrd_example.c:
         - interrupts
-	- dependency_files:
-	    - platform.c
-	    - platform.h
+        - dependency_files:
+            - platform.c
+            - platform.h
 ...
