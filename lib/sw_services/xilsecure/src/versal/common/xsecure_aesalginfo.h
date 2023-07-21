@@ -31,7 +31,7 @@ extern "C" {
 #include "xil_util.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_AES_MAJOR_VERSION	2023
+#define XSECURE_AES_MAJOR_VERSION	5
 #define XSECURE_AES_MINOR_VERSION	2
 
 /****************** Macros (Inline Functions) Definitions *********************/
