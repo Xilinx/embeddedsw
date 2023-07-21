@@ -1,0 +1,64 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: Bindings for xilskey library.
+
+maintainers:
+  - Akula, Kalyani <kalyani.akula@amd.com>
+  - Challa, Durga <durga.challa@amd.com>
+  - Harsha, Harsha <harsha.harsha@amd.com>
+  - Kundanala, Praveen Teja <praveen.teja.kundanala@amd.com>
+
+type: library
+
+version: 7.5
+
+description: Xilinx Secure Key Library supports programming efuse and bbram.
+
+supported_processors:
+  - ps7_cortexa9
+  - psu_pmu
+  - psu_cortexa53
+  - psu_cortexr5
+  - microblaze
+
+supported_os:
+  - standalone
+  - freertos10_xilinx
+
+examples:
+  xilskey_bbram_example.c:
+    - dependency_files:
+      - xilskey_input.h
+    - supported_platforms:
+      - Zynq
+  xilskey_efuse_example.c:
+    - dependency_files:
+      - xilskey_input.h
+    - supported_platforms:
+      - Zynq
+      - ZynqMP
+  xilskey_efuseps_zynqmp_example.c:
+    - dependency_files:
+      - xilskey_efuseps_zynqmp_input.h
+    - supported_platforms:
+      - ZynqMP
+  xilskey_bbramps_zynqmp_example.c:
+    - supported_platforms:
+      - ZynqMP
+  xilskey_bbram_ultrascale_example.c:
+    - dependency_files:
+      - xilskey_bbram_ultrascale_input.h
+    - supported_platforms:
+      - ZynqMP
+  xilskey_puf_registration_example.c:
+    - dependency_files:
+      - xilskey_puf_registration.h
+    - supported_platforms:
+      - ZynqMP
+  xilskey_puf_regeneration_example.c:
+    - supported_platforms:
+      - ZynqMP
+...

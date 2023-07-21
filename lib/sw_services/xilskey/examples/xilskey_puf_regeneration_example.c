@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020  Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -20,6 +21,7 @@
  *       vns  03/21/19 Updated XilSKey_Efuse_ConvertStringToHexBE with bits
  * 7.0   kpt  09/02/20 Added successfully ran print to the example in case of
  *                     success
+ * 7.5   ng      07/13/23 added SDT support
  *
  * </pre>
  *
@@ -56,7 +58,11 @@
 /************************** Constant Definitions ****************************/
 
 #ifdef	XSK_ZYNQ_ULTRA_MP_PLATFORM
-#define XSK_CSUDMA_DEVICE_ID					XPAR_XCSUDMA_0_DEVICE_ID
+#ifndef SDT
+#define XSK_CSUDMA_DEVICE_ID				XPAR_XCSUDMA_0_DEVICE_ID
+#else
+#define XSK_CSUDMA_DEVICE_ID				XPAR_XCSUDMA_0_BASEADDR
+#endif
 #endif
 #define XSK_IV_LENGTH_IN_BITS					(96)
 #define XSK_PUF_DEVICE_KEY					(1U)

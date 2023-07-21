@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,6 +68,7 @@
 * 7.1   kpt     04/08/21 Ignored product version of user defined IDCODE when comparing
 *                        with the tap code read from Jtag
 * 7.2   am      07/13/21 Fixed doxygen warnings
+* 7.5   ng      07/13/23 added SDT support
 *
 * </pre>
 *
@@ -95,7 +97,9 @@ typedef long ssize_t;
 #endif
 
 #include "xilskey_bbram.h"
+#ifndef SDT
 #include "xilskey_config.h"
+#endif
 
 XilSKey_JtagSlr XilSKeyJtag; /**< JTAG Tap Instance */
 

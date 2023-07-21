@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,6 +65,7 @@
 *       kpt     03/17/21 Corrected error code when VCCINT levels are out of
 *                        range in XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks
 * 7.2   am      07/13/21 Fixed doxygen warnings
+* 7.5   ng      07/13/23 added SDT support
 *
 * </pre>
 *
@@ -82,7 +84,6 @@
 /************************** Variable Definitions ****************************/
 #ifdef XSK_ZYNQ_PLATFORM
 static XAdcPs XAdcInst;     /**< XADC driver instance */
-u16 XAdcDevId;	/**< XADC Device ID */
 #endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 XTmrCtr XTmrCtrInst;
@@ -90,7 +91,6 @@ XTmrCtr XTmrCtrInst;
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 static XSysMonPsu XSysmonInst; /* Sysmon PSU instance */
-static u16 XSysmonDevId; /* Sysmon PSU device ID */
 #endif
 
 static u32 TimerTicksfor100ns; /**< Global static Variable to store ticks/100ns*/
@@ -133,15 +133,9 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	XAdcPs *XAdcInstPtr = &XAdcInst;
 
 	/**
-	 * specify the Device ID that is
-	 * generated in xparameters.h
-	 */
-	XAdcDevId = XADC_DEVICE_ID;
-
-	/**
 	 * Initialize the XAdc driver.
 	 */
-	ConfigPtr = XAdcPs_LookupConfig(XAdcDevId);
+	ConfigPtr = XAdcPs_LookupConfig(XADC_DEVICE);
 	if (NULL == ConfigPtr) {
 		Status = (u32)XSK_EFUSEPS_ERROR_XADC_CONFIG;
 		goto END;
@@ -175,15 +169,9 @@ u32 XilSKey_EfusePs_XAdcInit (void)
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 
 	/**
-	 * specify the Device ID that is
-	 * generated in xparameters.h
-	 */
-	XSysmonDevId = (u16)XSYSMON_PSU_DEVICE_ID;
-
-	/**
 	 * Initialize the XAdc driver.
 	 */
-	ConfigPtr = XSysMonPsu_LookupConfig(XSysmonDevId);
+	ConfigPtr = XSysMonPsu_LookupConfig(XSYSMON_PSU_DEVICE);
 	if (NULL == ConfigPtr) {
 		Status = (u32)XSK_EFUSEPS_ERROR_XADC_CONFIG;
 		goto END;
@@ -1116,8 +1104,7 @@ u32 XilSKey_Timer_Intialise(void)
 		/**
 		 * Initialize the variables
 		 */
-	RefClk = ((XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ * ArmClkDivisor)/
-					ArmPllFdiv);
+	RefClk = ((XSKEY_CPU_CORE_CLK_FREQ * ArmClkDivisor)/ArmPllFdiv);
 	/**
 	 * Calculate the Timer ticks per 100ns
 	 */
@@ -1130,7 +1117,7 @@ u32 XilSKey_Timer_Intialise(void)
 
 	RefClk = XSK_EFUSEPL_CLCK_FREQ_ULTRA;
 
-	Status = (u32)XTmrCtr_Initialize(&XTmrCtrInst, (u16)XTMRCTR_DEVICE_ID);
+	Status = (u32)XTmrCtr_Initialize(&XTmrCtrInst, XTMRCTR_DEVICE);
 	if (Status == (u32)XST_FAILURE) {
 		return (u32)XST_FAILURE;
 	}
@@ -1481,15 +1468,9 @@ u32 XilSKey_EfusePs_XAdcCfgValidate (void)
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 
 	/**
-	 * specify the Device ID that is
-	 * generated in xparameters.h
-	 */
-	XSysmonDevId = (u16)XSYSMON_PSU_DEVICE_ID;
-
-	/**
 	 * Initialize the XAdc driver.
 	 */
-	ConfigPtr = XSysMonPsu_LookupConfig(XSysmonDevId);
+	ConfigPtr = XSysMonPsu_LookupConfig(XSYSMON_PSU_DEVICE);
 	if (NULL == ConfigPtr) {
 		Status = (u32)XSK_EFUSEPS_ERROR_XADC_CONFIG;
 		goto END;
