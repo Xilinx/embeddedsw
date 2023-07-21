@@ -21,6 +21,7 @@ supported_processors:
   - psu_pmu
   - psv_pmc
   - psv_psm
+  - ps7_cortexa9
 
 supported_os:
   - standalone
@@ -31,3 +32,4 @@ examples:
                 - supported_platforms:
                         - ZynqMP
                         - Versal
+                        - Zynq
