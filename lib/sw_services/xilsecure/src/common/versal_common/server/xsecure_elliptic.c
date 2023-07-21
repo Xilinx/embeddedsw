@@ -78,10 +78,6 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XSECURE_ECDSA_P521_ALIGN_BYTES	2U
-				/**< Size of NIST P-521 curve is 66 bytes. This macro is used
-				to make the address word aligned */
-
 /************************** Function Prototypes ******************************/
 EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp);
 

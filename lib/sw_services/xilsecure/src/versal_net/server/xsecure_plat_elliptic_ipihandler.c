@@ -75,7 +75,7 @@ int XSecure_PlatEllipticIpiHandler(XPlmi_Cmd *Cmd)
 
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_PerformEcdh server API to
+ * @brief	This function handler calls XSecure_EcdhGetSecret server API to
  * 		generate the shared secret using ECDH.
  *
  * @param	CrvType - Type of elliptic curve
@@ -99,7 +99,7 @@ static int XSecure_GenSharedSecret(u32 CrvType, u32 PrvtKeyAddrLow, u32 PrvtKeyA
 	u64 PubKeyAddr = ((u64)PubKeyAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)PubKeyAddrLow;
 	u64 SharedSecretAddr = ((u64)SharedSecretAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)SharedSecretAddrLow;
 
-	Status = XSecure_PerformEcdh((XSecure_EllipticCrvTyp)CrvType, PrvtKeyAddr, PubKeyAddr,
+	Status = XSecure_EcdhGetSecret((XSecure_EllipticCrvTyp)CrvType, PrvtKeyAddr, PubKeyAddr,
 		SharedSecretAddr);
 
 	return Status;

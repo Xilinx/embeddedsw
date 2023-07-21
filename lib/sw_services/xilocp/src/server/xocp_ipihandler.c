@@ -436,7 +436,7 @@ static int XOcp_GetSwPcrDataIpi(u32 AddrLow, u32 AddrHigh)
 #ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_PerformEcdh server API to
+ * @brief	This function handler calls XSecure_EcdhGetSecret server API to
  * 		generate the shared secret using ECDH.
  *
  * @param	SubSystemId - ID of the subsystem from where the command is
@@ -470,7 +470,7 @@ static int XOcp_GenSharedSecretwithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, 
 		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES * 2U,
 			(u64)(UINTPTR)PubKeyTmp, PubKeyAddr);
 
-		Status = XSecure_PerformEcdh(XSECURE_ECC_NIST_P384, PrvtKeyAddr,
+		Status = XSecure_EcdhGetSecret(XSECURE_ECC_NIST_P384, PrvtKeyAddr,
 			(u64)(UINTPTR)PubKeyTmp, (u64)(UINTPTR)SharedSecretTmp);
 
 		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES * 2U, SharedSecretAddr,

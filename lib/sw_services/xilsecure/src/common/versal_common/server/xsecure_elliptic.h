@@ -62,6 +62,10 @@ extern "C" {
 #define XSECURE_ECC_P256_SIZE_IN_BYTES	(32U)
 									/**< Size of NIST P-256 curve in bytes */
 
+#define XSECURE_ECDSA_P521_ALIGN_BYTES	(2U)
+				/**< Size of NIST P-521 curve is 66 bytes. This macro is used
+				to make the address word aligned */
+
 #define XSECURE_ELLIPTIC_LITTLE_ENDIAN	(0U)
 									/**< Operates APIs on little endian format */
 

@@ -42,6 +42,8 @@
 #include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_error.h"
 #include "xil_util.h"
+#include "xsecure_init.h"
+#include "xsecure_cryptochk.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_ECC_TRNG_DF_LENGTH			(2U) /**< Default length of xilsecure ecc true random number generator*/
@@ -333,20 +335,98 @@ END:
  * 		on public key and private key provided as input.
 
  ******************************************************************************/
-int XSecure_PerformEcdh(XSecure_EllipticCrvTyp CrvType, u64 PrvtKeyAddr, u64 PubKeyAddr,
+int XSecure_EcdhGetSecret(XSecure_EllipticCrvTyp CrvType, u64 PrvtKeyAddr, u64 PubKeyAddr,
 	u64 SharedSecretAddr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int ClearStatus = XST_FAILURE;
+	volatile int ClearStatusTmp = XST_FAILURE;
+	u8 SharedSecret[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	u8 PrivKey[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	u8 PubKey[XSECURE_ECC_P521_SIZE_IN_BYTES +
+		XSECURE_ECDSA_P521_ALIGN_BYTES +
+		XSECURE_ECC_P521_SIZE_IN_BYTES];
+	EcdsaCrvInfo *Crv = NULL;
+	u32 SharedSecretLen = 0;
+	XSecure_EllipticKeyAddr KeyAddr;
+	EcdsaKey Key;
+	u32 Size = 0U;
+	u32 OffSet = 0U;
 
-	(void)CrvType;
-	(void)PrvtKeyAddr;
-	(void)PubKeyAddr;
-	(void)SharedSecretAddr;
+	Status = XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((CrvType != XSECURE_ECC_NIST_P384) &&
+		(CrvType != XSECURE_ECC_NIST_P521) &&
+		(CrvType != XSECURE_ECC_NIST_P256)) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
+	if (CrvType == XSECURE_ECC_NIST_P384) {
+		Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
+		OffSet = Size;
+	}
+	else if(CrvType == XSECURE_ECC_NIST_P521){
+		Size = XSECURE_ECC_P521_SIZE_IN_BYTES;
+		OffSet = Size + XSECURE_ECDSA_P521_ALIGN_BYTES;
+	}
+	else{
+		Size = XSECURE_ECC_P256_SIZE_IN_BYTES;
+		OffSet = Size;
+	}
+
+	Status = XSecure_TrngInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	KeyAddr.Qx = PubKeyAddr;
+	KeyAddr.Qy = PubKeyAddr + (u64)OffSet;
+
+	XSecure_PutData(Size, PrivKey, PrvtKeyAddr);
+	XSecure_PutData(Size, (u8 *)PubKey, KeyAddr.Qx);
+	XSecure_PutData(Size, (u8 *)(PubKey + OffSet), KeyAddr.Qy);
+
+	Key.Qx = (u8 *)(UINTPTR)PubKey;
+	Key.Qy = (u8 *)(UINTPTR)(PubKey + OffSet);
+
+	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR, XSECURE_ECDSA_RSA_RESET_OFFSET);
+
+	Status = XST_FAILURE;
+	Crv = XSecure_EllipticGetCrvData(CrvType);
+	if(Crv != NULL) {
+		XSECURE_TEMPORAL_CHECK(END, Status, Ecdh_GetSecret, Crv, PrivKey, (EcdsaKey *)&Key,
+			SharedSecret, XSECURE_ECC_P521_SIZE_IN_BYTES, &SharedSecretLen);
+
+		XSecure_GetData(SharedSecretLen, SharedSecret, SharedSecretAddr);
+	}
+	else{
+		Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	}
+
+END:
+	/**
+	 * Zeroize local copy of key
+	 */
+	ClearStatus = Xil_SecureZeroize((u8*)PrivKey, XSECURE_ECC_P521_SIZE_IN_BYTES);
+	ClearStatusTmp = Xil_SecureZeroize((u8*)PrivKey, XSECURE_ECC_P521_SIZE_IN_BYTES);
+	if (Status == XST_SUCCESS) {
+		Status = ClearStatusTmp | ClearStatus;
+	}
 
 	/**
-	 * Call IPCores API to calculate shared secret
+	 * Zeroize local copy of shared secret
 	 */
+	ClearStatus = Xil_SecureZeroize((u8*)SharedSecret, XSECURE_ECC_P521_SIZE_IN_BYTES);
+	ClearStatusTmp = Xil_SecureZeroize((u8*)SharedSecret, XSECURE_ECC_P521_SIZE_IN_BYTES);
+	if (Status == XST_SUCCESS) {
+		Status = ClearStatusTmp | ClearStatus;
+	}
 
+	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR, XSECURE_ECDSA_RSA_RESET_OFFSET);
 	return Status;
 }
 #endif
