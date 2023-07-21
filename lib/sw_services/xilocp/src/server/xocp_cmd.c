@@ -21,6 +21,7 @@
 * 1.2   har  02/24/23 Updated the code to support modified command for GetUsrCfg
 *       kal  05/28/23 Added SW PCR extend and logging functions
 *       bm   06/23/23 Added access permissions for IPI commands
+*       har  07/21/23 Add access permission for XOCP_API_GEN_SHARED_SECRET
 *
 * </pre>
 *
@@ -62,6 +63,7 @@ static XPlmi_AccessPerm_t XOcp_AccessPermBuff[XOCP_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GET_SWPCR),
 	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GET_SWPCRLOG),
 	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GET_SWPCRDATA),
+	XPLMI_ALL_IPI_FULL_ACCESS(XOCP_API_GEN_SHARED_SECRET),
 };
 
 static XPlmi_Module XPlmi_Ocp =
