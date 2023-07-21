@@ -348,6 +348,8 @@ extern "C" {
 #define XPM_INT_ERR_HSC_BISR_REPAIR		0x3720U
 /* Timeout for PL house cleaning completion*/
 #define XPM_INT_ERR_PL_HC_COMPLETE_TIMEOUT	0x3721U
+/* Error during Laguna housecleaning sequence */
+#define XPM_INT_ERR_LAGUNA_HOUSECLEAN		0x3722U
 
 /************************** NPD specific Errors ******************************/
 /************************** (0x3800) - (0x38FF) ******************************/
