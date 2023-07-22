@@ -60,6 +60,8 @@
 *       ma   08/08/2022 Handle EAM errors at task level
 * 1.09  bsv  09/30/2022 Make XPlmi_SoftResetHandler non-static so that
 *                       it can be used in Image Selector
+* 1.10  sk   07/18/2023 Added error codes for invalid address and
+*                       LPD not initialized
 *
 * </pre>
 *
@@ -111,6 +113,8 @@ extern "C" {
 #define XPLMI_INVALID_NODE_ID			(7)
 #define XPLMI_ERROR_ACTION_NOT_DISABLED		(8)
 #define XPLMI_ERROR_ACTION_NOT_ENABLED		(9)
+#define XPLMI_ERROR_INVALID_ADDRESS		(10U)
+#define XPLMI_ERROR_LPD_NOT_INITIALIZED		(11U)
 
 /* Error Register mask */
 #define XPLMI_MAX_ERR_BITS			(32U)

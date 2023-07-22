@@ -34,6 +34,7 @@
 *       ng   05/31/2023 Initialised IsKatRan state to False
 *       bm   07/06/2023 Initialize address buffer list
 *       ng   06/26/2023 Added support for system device-tree flow
+*       sk   07/18/2023 Updated error codes in VerifyAddrRange function
 *
 * </pre>
 *
@@ -731,6 +732,7 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 	int Status = XST_FAILURE;
 
 	if (EndAddr < StartAddr) {
+		Status = XPLMI_ERROR_INVALID_ADDRESS;
 		goto END;
 	}
 
@@ -757,14 +759,17 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 		}
 		else {
 			/* Rest of the Addr range is treated as invalid */
+			Status = XPLMI_ERROR_INVALID_ADDRESS;
 		}
+	} else {
+			Status = XPLMI_ERROR_LPD_NOT_INITIALIZED;
 	}
 
 	if ((EndAddr <= (u64)XPLMI_OCM_HIGH_ADDR) ||
 		(StartAddr > (u64)XPLMI_4GB_END_ADDR)) {
 		if ((StartAddr >= (u64)XPLMI_RSVD_BASE_ADDR) &&
 			(EndAddr <= (u64)XPLMI_RSVD_HIGH_ADDR)) {
-			Status = XST_FAILURE;
+			Status = XPLMI_ERROR_INVALID_ADDRESS;
 		}
 		else {
 			/* Addr range less than OCM high addr or greater

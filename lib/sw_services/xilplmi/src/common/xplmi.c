@@ -53,6 +53,7 @@
 *       kpt  01/04/2023 Added XPlmi_SetFipsKatMask command
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *       bm   03/11/2023 Added status check for XPlmi_PreInit
+* 1.08  sk   07/18/2023 Warn out for uart init fail
 *
 * </pre>
 *
@@ -194,7 +195,8 @@ void XPlmi_LpdInit(void)
 #ifdef DEBUG_UART_PS
 	Status = XPlmi_InitUart();
 	if (Status != XST_SUCCESS) {
-		goto END;
+		Status |=  XPLMI_WARNING_MAJOR_MASK;
+		XPlmi_LogPlmErr(Status);
 	}
 #endif
 	/* For versal, PLM Update is not applicable, and this API returns FALSE */

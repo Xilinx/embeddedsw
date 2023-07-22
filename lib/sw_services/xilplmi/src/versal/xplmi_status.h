@@ -114,6 +114,7 @@
 *       bm   06/23/2023 Added error codes for ipi access filtering
 *       bm   07/06/2023 Added XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS error code
 *       am   07/07/2023 Added error code for Read IHT optional data
+*       sk   07/20/2023 Corrected XPLMI_WARNING_MAJOR_MASK define
 *
 * </pre>
 *
@@ -155,7 +156,7 @@ extern "C" {
  * between error and warning. Note that this bit will be cleared before
  * printing or writing to the FW_ERR register.
  */
-#define XPLMI_WARNING_MAJOR_MASK	0x4000, /**< To set warning in major error code */
+#define XPLMI_WARNING_MAJOR_MASK	0x4000 /**< To set warning in major error code */
 #define XPLMI_WARNING_MINOR_MASK	0x40000000 /**< To set warning in minor error code */
 
 /*
