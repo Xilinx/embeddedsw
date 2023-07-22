@@ -49,6 +49,7 @@
 *		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.07  bm   06/23/2023 Added SSIT Msg Event access permissions validation
+*       sk   07/18/2023 Added NULL check in SsitCreateTask
 *
 * </pre>
 *
@@ -210,9 +211,12 @@ static XPlmi_TaskNode *XPlmi_SsitCreateTask(u8 SlrIndex)
 	if (Task == NULL) {
 		/* Create task if it is not already created */
 		Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0, XPlmi_SsitEventHandler, (void *)(u32)SlrIndex);
+		if (Task == NULL) {
+			goto END;
+		}
 		Task->IntrId = XPLMI_INVALID_INTR_ID;
 	}
-
+END:
 	return Task;
 }
 
