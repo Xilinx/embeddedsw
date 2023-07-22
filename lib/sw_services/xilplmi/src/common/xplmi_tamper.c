@@ -25,6 +25,7 @@
 *       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 * 1.02  skd  04/10/2023 Fix third party review comments
+* 1.03  sk   07/18/2023 Added NULL check in RegisterTamperIntrHandler
 *
 * </pre>
 *
@@ -232,6 +233,10 @@ int XPlmi_RegisterTamperIntrHandler(void)
 		/* Create task if it is not already created */
 		TamperTask = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_CRITICAL,
 				XPlmi_ProcessTamperResponse, NULL);
+		if (TamperTask == NULL) {
+			Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
+			goto END;
+		}
 		TamperTask->IntrId = XPLMI_INVALID_INTR_ID;
 	}
 
