@@ -1,7 +1,7 @@
 # Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
-if(NOT ${XSK_ACCESS_PUF_USER_EFUSE})
+if(NOT ${XILSKEY_use_puf_hd_as_user_efuse})
   collect (PROJECT_LIB_HEADERS xilskey_eps_zynqmp_puf.h)
 endif()
 
