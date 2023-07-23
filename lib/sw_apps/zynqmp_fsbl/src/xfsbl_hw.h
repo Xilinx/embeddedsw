@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +29,7 @@
 *       bsv  05/03/21 Add provision to load bitstream from OCM with DDR
 *                     present in design
 * 6.0   bsv  08/03/22 Fix ECC error count for R5 FSBL
+* 6.1   ng   07/13/23 Added SDT support
 *
 * </pre>
 *
@@ -47,6 +49,7 @@ extern "C" {
 #include "xparameters.h"
 #include "xil_types.h"
 #include "sleep.h"
+#include "xstatus.h"
 
 #include "xfsbl_config.h"
 #include "xfsbl_debug.h"
@@ -818,15 +821,24 @@ extern "C" {
 /**
  * Definition for WDT to be included
  */
-#if (!defined(FSBL_WDT_EXCLUDE) && defined(XPAR_PSU_WDT_0_DEVICE_ID))
-#define XFSBL_WDT_PRESENT
-#define XFSBL_WDT_DEVICE_ID	XPAR_PSU_WDT_0_DEVICE_ID
-#define XFSBL_WDT_MASK		PMU_GLOBAL_ERROR_SRST_EN_1_LPD_SWDT_MASK
-#elif (!defined(FSBL_WDT_EXCLUDE) && defined(XPAR_PSU_WDT_1_DEVICE_ID))
-#define XFSBL_WDT_PRESENT
-#define XFSBL_WDT_DEVICE_ID	XPAR_PSU_WDT_1_DEVICE_ID
-#define XFSBL_WDT_MASK		PMU_GLOBAL_ERROR_SRST_EN_1_FPD_SWDT_MASK
+#ifndef SDT
+	#if (!defined(FSBL_WDT_EXCLUDE) && defined(XPAR_PSU_WDT_0_DEVICE_ID))
+		#define XFSBL_WDT_PRESENT
+		#define XFSBL_WDT_DEVICE_ID	XPAR_PSU_WDT_0_DEVICE_ID
+	#elif (!defined(FSBL_WDT_EXCLUDE) && defined(XPAR_PSU_WDT_1_DEVICE_ID))
+		#define XFSBL_WDT_PRESENT
+		#define XFSBL_WDT_DEVICE_ID	XPAR_PSU_WDT_1_DEVICE_ID
+	#endif
+#else
+	#if (!defined(FSBL_WDT_EXCLUDE) && defined(XPAR_XWDTPS_0_BASEADDR))
+		#define XFSBL_WDT_PRESENT
+		#define XFSBL_WDT_DEVICE_ID	XPAR_XWDTPS_0_BASEADDR
+	#elif (!defined(FSBL_WDT_EXCLUDE) && defined(XPAR_XWDTPS_1_BASEADDR))
+		#define XFSBL_WDT_PRESENT
+		#define XFSBL_WDT_DEVICE_ID	XPAR_XWDTPS_1_BASEADDR
+	#endif
 #endif
+#define XFSBL_WDT_MASK		PMU_GLOBAL_ERROR_SRST_EN_1_FPD_SWDT_MASK
 
 /**
  * Definitions for SD to be included
@@ -843,9 +855,9 @@ extern "C" {
 /**
  * Definition for QSPI to be included
  */
-#if (!defined(FSBL_QSPI_EXCLUDE) && defined(XPAR_XQSPIPSU_0_DEVICE_ID))
+#if (!defined(FSBL_QSPI_EXCLUDE) && defined(XPAR_XQSPIPSU_0_BASEADDR))
 #define XFSBL_QSPI
-#define XFSBL_QSPI_BASEADDRESS	XPAR_XQSPIPS_0_BASEADDR
+#define XFSBL_QSPI_BASEADDRESS	XPAR_XQSPIPSU_0_BASEADDR
 #define XFSBL_QSPI_BUSWIDTH_ONE			0U
 #define XFSBL_QSPI_BUSWIDTH_TWO			1U
 #define XFSBL_QSPI_BUSWIDTH_FOUR		2U
@@ -854,7 +866,7 @@ extern "C" {
 /**
  * Definition for NAND to be included
  */
-#if (!defined(FSBL_NAND_EXCLUDE) && defined(XPAR_XNANDPSU_0_DEVICE_ID))
+#if (!defined(FSBL_NAND_EXCLUDE) && defined(XPAR_XNANDPSU_0_BASEADDR))
 #define XFSBL_NAND
 #endif
 
@@ -906,7 +918,8 @@ extern "C" {
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_END		(0xDFFFFFFFU)
 
 #if defined(XPAR_PSU_DDR_0_S_AXI_BASEADDR) 	\
-		|| defined(XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR)
+		|| defined(XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR) \
+		|| defined(XPAR_PSU_DDR_0_BASEADDRESS)
 #define XFSBL_PS_DDR
 #endif
 
@@ -916,13 +929,17 @@ extern "C" {
 #define XFSBL_PL_LOAD_FROM_OCM
 #endif
 
-#if (!defined(FSBL_USB_EXCLUDE) && defined(XPAR_XUSBPSU_0_DEVICE_ID) && (XPAR_XUSBPSU_0_BASEADDR == 0xFE200000) && defined(XFSBL_PS_DDR))
+#if (!defined(FSBL_USB_EXCLUDE) && defined(XPAR_XUSBPSU_0_BASEADDR) && (XPAR_XUSBPSU_0_BASEADDR == 0xFE200000) && defined(XFSBL_PS_DDR))
 #define XFSBL_USB
 #endif
 
-#if (!defined(FSBL_TPM_EXCLUDE) && defined(XPAR_XSPIPS_0_DEVICE_ID)\
+#if (!defined(FSBL_TPM_EXCLUDE) && defined(XPAR_XSPIPS_0_BASEADDR)\
 	&& defined(XFSBL_PS_DDR) && (!defined(XFSBL_TPM)))
-#define XFSBL_SPI_DEVICE_ID	XPAR_XSPIPS_0_DEVICE_ID
+#ifndef SDT
+	#define XFSBL_SPI_DEVICE_ID	XPAR_XSPIPS_0_DEVICE_ID
+#else
+	#define XFSBL_SPI_DEVICE_ID	XPAR_XSPIPS_0_BASEADDR
+#endif
 #define XFSBL_TPM
 #endif
 
@@ -931,24 +948,34 @@ extern "C" {
 #endif
 
 #define XFSBL_PS_DDR_INIT_START_ADDRESS XFSBL_PS_DDR_START_ADDRESS
-#ifdef ARMR5
-#if defined(XPAR_PSU_R5_DDR_1_S_AXI_BASEADDR)
-#define XFSBL_PS_HI_DDR_START_ADDRESS	XPAR_PSU_R5_DDR_1_S_AXI_BASEADDR
-#define XFSBL_PS_HI_DDR_END_ADDRESS XPAR_PSU_R5_DDR_1_S_AXI_HIGHADDR
-#endif
+#ifndef SDT
+	#ifdef ARMR5
+		#if defined(XPAR_PSU_R5_DDR_1_S_AXI_BASEADDR)
+			#define XFSBL_PS_HI_DDR_START_ADDRESS	XPAR_PSU_R5_DDR_1_S_AXI_BASEADDR
+			#define XFSBL_PS_HI_DDR_END_ADDRESS XPAR_PSU_R5_DDR_1_S_AXI_HIGHADDR
+		#endif
+	#else
+		#if defined(XPAR_PSU_DDR_1_S_AXI_BASEADDR)
+			#define XFSBL_PS_HI_DDR_START_ADDRESS	XPAR_PSU_DDR_1_S_AXI_BASEADDR
+			#define XFSBL_PS_HI_DDR_END_ADDRESS XPAR_PSU_DDR_1_S_AXI_HIGHADDR
+		#endif
+	#endif
 #else
-#if defined(XPAR_PSU_DDR_1_S_AXI_BASEADDR)
-#define XFSBL_PS_HI_DDR_START_ADDRESS	XPAR_PSU_DDR_1_S_AXI_BASEADDR
-#define XFSBL_PS_HI_DDR_END_ADDRESS XPAR_PSU_DDR_1_S_AXI_HIGHADDR
+	#if defined(XPAR_PSU_DDR_1_BASEADDRESS)
+		#define XFSBL_PS_HI_DDR_START_ADDRESS	XPAR_PSU_DDR_1_BASEADDRESS
+		#define XFSBL_PS_HI_DDR_END_ADDRESS		XPAR_PSU_DDR_1_HIGHADDRESS
+	#endif
 #endif
-#endif
-
 #ifdef XFSBL_PS_DDR
-#ifdef ARMR5
-#define XFSBL_PS_DDR_END_ADDRESS		(XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR)
-#else
-#define XFSBL_PS_DDR_END_ADDRESS		(XPAR_PSU_DDR_0_S_AXI_HIGHADDR)
-#endif
+	#ifndef SDT
+		#ifdef ARMR5
+			#define XFSBL_PS_DDR_END_ADDRESS		(XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR)
+		#else
+			#define XFSBL_PS_DDR_END_ADDRESS		(XPAR_PSU_DDR_0_S_AXI_HIGHADDR)
+		#endif
+	#else
+		#define XFSBL_PS_DDR_END_ADDRESS		(XPAR_PSU_DDR_0_HIGHADDRESS)
+	#endif
 #endif
 
 #ifdef XFSBL_ENABLE_DDR_SR
@@ -1003,6 +1030,35 @@ extern "C" {
 
 /* AMS PS Sysmon ANALOG_BUS value */
 #define PS_SYSMON_ANALOG_BUS_VAL 0X00003210U
+
+/* Dynamic DDR define for SDT flow */
+#ifdef SDT
+	#if XPAR_XDDRCPSU_0_DDRC_DYNAMIC_DDR_CONFIG_ENABLED
+		#define XPAR_DYNAMIC_DDR_ENABLED
+	#endif
+#endif
+
+/* CLK FREQ for perf prints */
+#ifndef SDT
+	#if !defined(ARMR5)
+		#define XFSBL_CPU_CLK_FREQ	XPAR_CPU_CORTEXA53_0_CPU_CLK_FREQ_HZ
+	#else
+		#define XFSBL_CPU_CLK_FREQ	XPAR_PSU_CORTEXR5_0_CPU_CLK_FREQ_HZ
+	#endif
+	#define XFSBL_QSPI_CLK_FREQ		XPAR_XQSPIPSU_0_QSPI_CLK_FREQ_HZ
+	#define XFSBL_NAND_CLK_FREQ		XPAR_XNANDPSU_0_NAND_CLK_FREQ_HZ
+#else
+	#define XFSBL_CPU_CLK_FREQ		XPAR_CPU_CORE_CLOCK_FREQ_HZ
+	#define XFSBL_QSPI_CLK_FREQ		XPAR_XQSPIPSU_0_CLOCK_FREQ
+	#if defined(XPAR_XNANDPSU_0_CLOCK_FREQ)
+		#define XFSBL_NAND_CLK_FREQ		XPAR_XNANDPSU_0_CLOCK_FREQ
+	#endif
+#endif
+
+/* Enable the PM logic */
+#ifdef SDT
+	#define XPAR_XILPM_ENABLED
+#endif
 
 /****************************************************************************/
 /**

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -31,6 +32,7 @@
  *       mn   12/24/19 Enable Address Mirroring based on SPD data
  *       bsv  02/05/20 Added support for ZCU208 board
  * 4.0   mn   10/28/21 Added support for ZCU670 board
+ * 6.1   ng   07/13/23 Added SDT support
  *
  * </pre>
  *
@@ -42,7 +44,7 @@
 #include "xfsbl_hw.h"
 
 #ifdef XFSBL_PS_DDR
-#ifdef XPAR_DYNAMIC_DDR_ENABLED
+#if defined(XPAR_DYNAMIC_DDR_ENABLED)
 
 #include "xiicps.h"
 #include "xfsbl_ddr_init.h"
@@ -183,6 +185,15 @@
 
 #define XFSBL_DDRPHY_BASE_ADDR		0xFD080000U
 
+#ifdef SDT
+#define XFSBL_DBI_INFO			XPAR_XDDRCPSU_0_DDRC_DATA_MASK_AND_DBI
+
+#define XFSBL_VIDEOBUF			XPAR_XDDRCPSU_0_VIDEO_BUF_SIZE
+
+#define XFSBL_BRCMAPPING		XPAR_XDDRCPSU_0_BRC_MAPPING
+
+#define XFSBL_DDR4ADDRMAPPING		XPAR_XDDRCPSU_0_ADDR_MAPPING
+#else
 #define XFSBL_DBI_INFO			XPAR_PSU_DDRC_0_DDR_DATA_MASK_AND_DBI
 
 #define XFSBL_VIDEOBUF			XPAR_PSU_DDRC_0_VIDEO_BUFFER_SIZE
@@ -190,6 +201,7 @@
 #define XFSBL_BRCMAPPING		XPAR_PSU_DDRC_0_BRC_MAPPING
 
 #define XFSBL_DDR4ADDRMAPPING		XPAR_PSU_DDRC_0_DDR4_ADDR_MAPPING
+#endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -6331,6 +6343,18 @@ static void XFsbl_InitilizeDdrParams(struct DdrcInitData *DdrDataPtr)
 	PDimmPtr->WrDbi = 0U;
 #endif
 
+#ifdef SDT
+	PDimmPtr->Ecc = XPAR_XDDRCPSU_0_HAS_ECC;
+	PDimmPtr->En2ndClk = XPAR_XDDRCPSU_0_DDRC_2ND_CLOCK;
+	PDimmPtr->Parity = XPAR_XDDRCPSU_0_DDRC_PARITY;
+	PDimmPtr->PwrDnEn = XPAR_XDDRCPSU_0_DDRC_POWER_DOWN_ENABLE;
+	PDimmPtr->ClockStopEn = XPAR_XDDRCPSU_0_DDRC_CLOCK_STOP;
+	PDimmPtr->LpAsr = XPAR_XDDRCPSU_0_DDRC_LOW_POWER_AUTO_SELF_REFRESH;
+	PDimmPtr->TRefMode = XPAR_XDDRCPSU_0_DDRC_TEMP_CONTROLLED_REFRESH;
+	PDimmPtr->TRefRange = XPAR_XDDRCPSU_0_DDRC_MAX_OPERATING_TEMPARATURE;
+	PDimmPtr->Fgrm = XPAR_XDDRCPSU_0_DDRC_FINE_GRANULARITY_REFRESH_MODE;
+	PDimmPtr->SelfRefAbort = XPAR_XDDRCPSU_0_DDRC_SELF_REFRESH_ABORT;
+#else
 	PDimmPtr->Ecc = XPAR_PSU_DDRC_0_HAS_ECC;
 	PDimmPtr->En2ndClk = XPAR_PSU_DDRC_0_DDR_2ND_CLOCK;
 	PDimmPtr->Parity = XPAR_PSU_DDRC_0_DDR_PARITY;
@@ -6341,6 +6365,7 @@ static void XFsbl_InitilizeDdrParams(struct DdrcInitData *DdrDataPtr)
 	PDimmPtr->TRefRange = XPAR_PSU_DDRC_0_DDR_MAX_OPERATING_TEMPARATURE;
 	PDimmPtr->Fgrm = XPAR_PSU_DDRC_0_DDR_FINE_GRANULARITY_REFRESH_MODE;
 	PDimmPtr->SelfRefAbort = XPAR_PSU_DDRC_0_DDR_SELF_REFRESH_ABORT;
+#endif
 
 	if (((PDimmPtr->MemType == SPD_MEMTYPE_DDR4) ||
 				(PDimmPtr->MemType == SPD_MEMTYPE_LPDDR4)) &&
@@ -6624,7 +6649,11 @@ static u32 XFsbl_IicReadSpdEeprom(u8 *SpdData)
 	u32 Regval = 0U;
 
 	/* Lookup for I2C-1U device */
+#ifdef SDT
+	ConfigIic = XIicPs_LookupConfig(XPAR_I2C1_BASEADDR);
+#else
 	ConfigIic = XIicPs_LookupConfig(XPAR_PSU_I2C_1_DEVICE_ID);
+#endif
 	if (!ConfigIic) {
 		UStatus = XFSBL_FAILURE;
 		goto END;
