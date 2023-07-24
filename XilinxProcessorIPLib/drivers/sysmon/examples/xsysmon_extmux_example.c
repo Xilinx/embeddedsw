@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +36,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 7.8   cog  07/20/23 Added support for SDT flow
 * </pre>
 *
 *****************************************************************************/
@@ -42,15 +44,18 @@
 /***************************** Include Files ********************************/
 
 #include "xsysmon.h"
-#include "xparameters.h"
 #include "xstatus.h"
+#ifndef SDT
 #include "xintc.h"
+#else
+#include "xscugic.h"
+#endif
 #include "stdio.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
 
 /************************** Constant Definitions ****************************/
-
+#ifndef SDT
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
@@ -59,7 +64,19 @@
 #define SYSMON_DEVICE_ID	XPAR_SYSMON_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #define INTR_ID			XPAR_INTC_0_SYSMON_0_VEC_ID
-
+#define INTC		XIntc
+#define INTC_HANDLER	XIntc_InterruptHandler
+#else
+#define SYSMON_DEVICE_ID	0
+#define INTC_DEVICE_ID		0
+#define INTC		XScuGic
+#define INTC_HANDLER	XScuGic_InterruptHandler
+#if (XSM_IP_TYPE == XADC)
+#define INTR_ID			(32U + 29U)
+#else
+#define INTR_ID			(32U + 89U)
+#endif
+#endif
 #define printf xil_printf 	/* Small foot-print printf function */
 
 /**************************** Type Definitions ******************************/
@@ -68,7 +85,7 @@
 
 /************************** Function Prototypes *****************************/
 
-static int SysMonIntrExample(XIntc* IntcInstPtr,
+static int SysMonIntrExample(INTC* IntcInstPtr,
 			XSysMon* SysMonInstPtr,
 			u16 SysMonDeviceId,
 			u16 SysMonIntrId);
@@ -76,14 +93,14 @@ static int SysMonIntrExample(XIntc* IntcInstPtr,
 
 static void SysMonInterruptHandler(void *CallBackRef);
 
-static int SysMonSetupInterruptSystem(XIntc* IntcInstPtr,
+static int SysMonSetupInterruptSystem(INTC* IntcInstancePtr,
 				      XSysMon *SysMonPtr,
 				      u16 IntrId );
 
 /************************** Variable Definitions ****************************/
 
 static XSysMon SysMonInst;		/* System Monitor driver instance */
-static XIntc IntcInst;			/* Instance of the XIntc driver */
+static INTC InterruptController;			/* Instance of the XIntc/SCUGIC driver */
 
 volatile static int EosFlag = FALSE;	/* EOS interrupt */
 
@@ -110,7 +127,7 @@ int main(void)
 	 * Run the SysMonitor interrupt example, specify the parameters that
 	 * are generated in xparameters.h.
 	 */
-	Status = SysMonIntrExample(&IntcInst, &SysMonInst,
+	Status = SysMonIntrExample(&InterruptController, &SysMonInst,
 				   SYSMON_DEVICE_ID, INTR_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sysmon extmux Example Failed\r\n");
@@ -155,7 +172,7 @@ int main(void)
 * @note		This function may never return if no interrupt occurs.
 *
 ****************************************************************************/
-static int SysMonIntrExample(XIntc* IntcInstPtr, XSysMon* SysMonInstPtr,
+static int SysMonIntrExample(INTC* IntcInstPtr, XSysMon* SysMonInstPtr,
 			     u16 SysMonDeviceId, u16 SysMonIntrId)
 {
 	int Status;
@@ -350,11 +367,12 @@ static void SysMonInterruptHandler(void *CallBackRef)
 *
 *
 ****************************************************************************/
-static int SysMonSetupInterruptSystem(XIntc* IntcInstPtr, XSysMon *SysMonPtr,
+static int SysMonSetupInterruptSystem(INTC* IntcInstPtr, XSysMon *SysMonPtr,
 				      u16 IntrId )
 {
 	int Status;
 
+#ifndef SDT
 	/*
 	 * Initialize the interrupt controller driver so that it's ready to use.
 	 */
@@ -391,7 +409,44 @@ static int SysMonSetupInterruptSystem(XIntc* IntcInstPtr, XSysMon *SysMonPtr,
 	 * Enable the interrupt for the System Monitor/ADC device.
 	 */
 	XIntc_Enable(IntcInstPtr, IntrId);
+#else /* SCUGIC */
 
+	XScuGic_Config *IntcConfig;
+
+	/*
+	 * Initialize the interrupt controller driver so that it is ready to
+	 * use.
+	 */
+	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	if (NULL == IntcConfig) {
+		return XST_FAILURE;
+	}
+
+	Status = XScuGic_CfgInitialize(IntcInstPtr, IntcConfig,
+					IntcConfig->CpuBaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	XScuGic_SetPriorityTriggerType(IntcInstPtr, IntrId,
+					0xA0, 0x3);
+
+	/*
+	 * Connect the interrupt handler that will be called when an
+	 * interrupt occurs for the device.
+	 */
+	Status = XScuGic_Connect(IntcInstPtr, IntrId,
+				 (Xil_ExceptionHandler)SysMonInterruptHandler,
+				 SysMonPtr);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+
+	/*
+	 * Enable the interrupt for the Sysmon device.
+	 */
+	XScuGic_Enable(IntcInstPtr, IntrId);
+#endif
 
 	/*
 	 * Initialize the exception table.
@@ -402,7 +457,7 @@ static int SysMonSetupInterruptSystem(XIntc* IntcInstPtr, XSysMon *SysMonPtr,
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler) XIntc_InterruptHandler,
+				(Xil_ExceptionHandler) INTC_HANDLER,
 				IntcInstPtr);
 
 	/*
