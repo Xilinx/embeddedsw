@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,27 +31,29 @@
 *       ms     04/05/17 Modified Comment lines in functions to
 *                       recognize it as documentation block for doxygen
 *                       generation.
+* 2.7   cog    07/24/23 Added support for SDT flow
 * </pre>
 *
 *****************************************************************************/
 
 /***************************** Include Files ********************************/
 
-#include "xparameters.h"
 #include "xadcps.h"
 #include "xstatus.h"
 #include "stdio.h"
 #include "xil_printf.h"
 
 /************************** Constant Definitions ****************************/
-
+#ifndef SDT
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
 #define XADC_DEVICE_ID 		XPAR_XADCPS_0_DEVICE_ID
-
+#else
+#define XADC_DEVICE_ID 		0
+#endif
 
 /**************************** Type Definitions ******************************/
 

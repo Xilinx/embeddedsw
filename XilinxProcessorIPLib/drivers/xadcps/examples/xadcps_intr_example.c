@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,19 +33,19 @@
 *                       ensure that "Successfully ran" and "Failed" strings
 *                       are available in all examples. This is a fix for
 *                       CR-965028.
+* 2.7   cog    07/24/23 Added support for SDT flow
 * </pre>
 *
 *****************************************************************************/
 
 /***************************** Include Files ********************************/
 
-#include "xparameters.h"
 #include "xadcps.h"
 #include "xscugic.h"
 #include "xil_exception.h"
 
 /************************** Constant Definitions ****************************/
-
+#ifndef SDT
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
@@ -54,9 +55,13 @@
 #define XADC_DEVICE_ID		XPAR_XADCPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define INTR_ID				XPAR_XADCPS_INT_ID
-#define printf				xil_printf
 #endif
-
+#else
+#define XADC_DEVICE_ID		0
+#define INTC_DEVICE_ID		0
+#define INTR_ID				(32U + 7U)
+#endif
+#define printf				xil_printf
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/

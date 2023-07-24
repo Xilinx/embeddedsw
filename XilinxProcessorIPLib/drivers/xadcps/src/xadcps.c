@@ -34,6 +34,8 @@
 *						(CR#854437).
 * 2.3   mn     07/09/18 Fix Doxygen warning
 * 2.6   aad    11/02/20 Fix MISRAC Mandatory and Advisory errors.
+* 2.7   cog    07/24/23 Added support for SDT flow
+*
 *
 * </pre>
 *
@@ -95,11 +97,13 @@ int XAdcPs_CfgInitialize(XAdcPs *InstancePtr, XAdcPs_Config *ConfigPtr,
 	/*
 	 * Set the values read from the device config and the base address.
 	 */
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
 	/* Write Unlock value to Device Config Unlock register */
-	XAdcPs_WriteReg(XPAR_XDCFG_0_BASEADDR,
+	XAdcPs_WriteReg((InstancePtr)->Config.BaseAddress,
 				XADCPS_UNLK_OFFSET, XADCPS_UNLK_VALUE);
 
 	/* Enable the PS access of xadc and set FIFO thresholds */
