@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +46,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 7.8   cog  07/20/23 Added support for SDT flow
 * </pre>
 *
 *****************************************************************************/
@@ -52,7 +54,6 @@
 /***************************** Include Files ********************************/
 
 #include "xsysmon.h"
-#include "xparameters.h"
 #include "xstatus.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
@@ -63,6 +64,7 @@
 #include "xscugic.h"
 #endif
 
+
 /************************** Constant Definitions ****************************/
 
 /*
@@ -71,6 +73,7 @@
  * change all the needed parameters in one place.
  */
 #ifndef TESTAPP_GEN
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define SYSMON_DEVICE_ID	XPAR_SYSMON_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
@@ -79,6 +82,15 @@
 #define SYSMON_DEVICE_ID	XPAR_SYSMON_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define INTR_ID			XPAR_FABRIC_SYSTEM_MANAGEMENT_WIZ_0_IP2INTC_IRPT_INTR
+#endif
+#else
+#define SYSMON_DEVICE_ID	0
+#define INTC_DEVICE_ID		0
+#if (XSM_IP_TYPE == XADC)
+#define INTR_ID			(32U + 29U)
+#else
+#define INTR_ID			(32U + 89U)
+#endif
 #endif
 #endif
 
@@ -98,7 +110,7 @@
 int SysMonIntrExample(INTC* IntcInstancePtr,
 			XSysMon* SysMonInstPtr,
 			u16 SysMonDeviceId,
-			u16 SysMonIntrId,
+			u32 SysMonIntrId,
 			int *Temp);
 
 static void SysMonInterruptHandler(void *CallBackRef);
@@ -198,7 +210,7 @@ int main(void)
 *
 ****************************************************************************/
 int SysMonIntrExample(INTC* IntcInstancePtr, XSysMon* SysMonInstPtr,
-			u16 SysMonDeviceId, u16 SysMonIntrId, int *Temp)
+			u16 SysMonDeviceId, u32 SysMonIntrId, int *Temp)
 {
 	int Status;
 	XSysMon_Config *ConfigPtr;

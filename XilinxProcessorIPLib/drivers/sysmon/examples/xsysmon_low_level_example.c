@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +42,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 7.8   cog  07/20/23 Added support for SDT flow
 * </pre>
 *
 *****************************************************************************/
@@ -48,7 +50,6 @@
 /***************************** Include Files ********************************/
 
 #include "xsysmon_hw.h"
-#include "xparameters.h"
 #include "xstatus.h"
 #include "xil_printf.h"
 

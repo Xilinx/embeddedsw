@@ -200,6 +200,7 @@
 * 7.4  ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                    definitions of sysmon in xparameters.h
 * 7.6  aad  03/23/20 Aligned Macros to the documentation
+* 7.8  cog  07/20/23 Added support for SDT flow
 *
 * </pre>
 *
@@ -214,8 +215,6 @@ extern "C" {
 
 /***************************** Include Files ********************************/
 
-#include "xil_types.h"
-#include "xil_assert.h"
 #include "xstatus.h"
 #include "xsysmon_hw.h"
 
@@ -362,7 +361,6 @@ extern "C" {
 #define XSM_ATR_BRAM_UPPER	XSM_ATR_VBRAM_UPPER
 #define XSM_ATR_BRAM_LOWER	XSM_ATR_VBRAM_LOWER
 
-
 /**************************** Type Definitions ******************************/
 
 /**
@@ -370,7 +368,11 @@ extern "C" {
  * device.
  */
 typedef struct {
+#ifndef SDT
 	u16  DeviceId;		/**< Unique ID of device */
+#else
+	char *Name;
+#endif
 	UINTPTR  BaseAddress;	/**< Device base address */
 	int  IncludeInterrupt; 	/**< Supports Interrupt driven mode */
 	u8   IpType;		/**< 1 - System Management */
@@ -467,7 +469,7 @@ typedef struct {
 *		float XSysMon_RawToTemperature(u32 AdcData);
 *
 *****************************************************************************/
-#if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
+#if XSM_IP_TYPE == SYSTEM_MANAGEMENT
 
 #define XSysMon_RawToTemperature(AdcData)				\
 	((((float)(AdcData)/65536.0f)/0.00199451786f ) - 273.67f)
@@ -508,7 +510,7 @@ typedef struct {
 *		int XSysMon_TemperatureToRaw(float Temperature);
 *
 *****************************************************************************/
-#if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
+#if XSM_IP_TYPE == SYSTEM_MANAGEMENT
 
 #define XSysMon_TemperatureToRaw(Temperature)				\
 	((int)(((Temperature) + 273.67f)*65536.0f*0.00199451786f))
@@ -542,7 +544,11 @@ typedef struct {
 /**
  * Functions in xsysmon_sinit.c
  */
+#ifndef SDT
 XSysMon_Config *XSysMon_LookupConfig(u16 DeviceId);
+#else
+XSysMon_Config *XSysMon_LookupConfig(u32 BaseAddress);
+#endif
 
 /**
  * Functions in xsysmon.c

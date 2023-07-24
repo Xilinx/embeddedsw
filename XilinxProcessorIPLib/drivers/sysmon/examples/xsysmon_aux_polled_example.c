@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 7.5   mn     09/12/18 First release
+* 7.8   cog    07/20/23 Added support for SDT flow
 * </pre>
 *
 *****************************************************************************/
@@ -27,24 +29,26 @@
 /***************************** Include Files ********************************/
 
 #include "xsysmon.h"
-#include "xparameters.h"
 #include "xstatus.h"
 #include "xil_printf.h"
 
 /************************** Constant Definitions ****************************/
-
+#ifndef SDT
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
 #define SYSMON_DEVICE_ID 	XPAR_SYSMON_0_DEVICE_ID
-
+#else
+#define SYSMON_DEVICE_ID	0
+#endif
 /* Use four External Channels for this Example */
 #define XSM_SEQ_CH_AUX_MASK	XSM_SEQ_CH_AUX00 | \
 				XSM_SEQ_CH_AUX01 | \
 				XSM_SEQ_CH_AUX02 | \
 				XSM_SEQ_CH_AUX03
+
 
 
 /**************************** Type Definitions ******************************/

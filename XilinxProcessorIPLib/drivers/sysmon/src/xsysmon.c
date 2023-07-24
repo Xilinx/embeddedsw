@@ -53,6 +53,7 @@
 *           only for Ultrascale. Changes were made in APIs XSysMon_SetAlarmEnables
 *           and XSysMon_GetAlarmEnables. This is to fix CR#910905.
 * 7.5	mn    07/06/18  Fixed Doxygen warnings
+* 7.8   cog   07/20/23 Added support for SDT flow
 * </pre>
 *
 *****************************************************************************/
@@ -105,7 +106,9 @@ int XSysMon_CfgInitialize(XSysMon *InstancePtr, XSysMon_Config *ConfigPtr,
 	/*
 	 * Set the values read from the device config and the base address.
 	 */
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.IncludeInterrupt = ConfigPtr->IncludeInterrupt;
 
@@ -719,7 +722,7 @@ void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u32 AlmEnableMask)
 	XSysMon_WriteReg(InstancePtr->Config.BaseAddress, XSM_CFR1_OFFSET,
 			 RegValue);
 
-#if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
+#if XSM_IP_TYPE == SYSTEM_MANAGEMENT
 	/*
 	 * Enable/disables the alarm enables for the specified alarm bits in the
 	 * Configuration Register 3.
@@ -762,7 +765,7 @@ void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u32 AlmEnableMask)
 u32 XSysMon_GetAlarmEnables(XSysMon *InstancePtr)
 {
 	u32 RegValue1;
-#if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
+#if XSM_IP_TYPE == SYSTEM_MANAGEMENT
 	u32 RegValue2;
 #endif
 	/*
@@ -779,7 +782,7 @@ u32 XSysMon_GetAlarmEnables(XSysMon *InstancePtr)
 			XSM_CFR1_OFFSET) & XSM_CFR1_ALM_ALL_MASK;
 	RegValue1 = (~RegValue1 & XSM_CFR1_ALM_ALL_MASK);
 
-#if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
+#if XSM_IP_TYPE == SYSTEM_MANAGEMENT
 	/*
 	* Read the status of alarm output enables from the Configuration
 	* Register 3.
