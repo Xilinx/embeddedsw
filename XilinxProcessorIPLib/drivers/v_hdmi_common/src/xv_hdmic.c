@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xhdmic.c
- * @addtogroup hdmi_common_v1_6
+ * @addtogroup hdmi_common Overview
  * @{
  *
  * Contains common utility functions that are typically used by hdmi-related

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.	All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xv_multi_scaler_l2.c
-* @addtogroup v_multi_scaler_v1_4
+* @addtogroup v_multi_scaler Overview
 * @{
 *
 * The Multi Scaler Layer-2 Driver.

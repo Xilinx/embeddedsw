@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xdp.c
- * @addtogroup dp_v7_2
+ * @addtogroup dp Overview
  * @{
  *
  * Contains a minimal set of functions for the XDp driver that allow access to

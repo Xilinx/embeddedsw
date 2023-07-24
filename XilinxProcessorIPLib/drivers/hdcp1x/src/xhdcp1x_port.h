@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
 * @file xhdcp1x_port.h
-* @addtogroup hdcp1x_v4_6
+* @addtogroup hdcp1x Overview
 * @{
 *
 * This header file contains the external declarations associated with the

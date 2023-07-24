@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xcsi2tx_hw.h
-* @addtogroup csi2tx_v1_3
+* @addtogroup csi2tx Overview
 * @{
 *
 * Hardware register & masks definition file. It defines the register interface.

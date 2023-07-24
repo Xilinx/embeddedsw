@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx_sinit.c
-* @addtogroup hdcp22_rx_v3_1
+* @addtogroup hdcp22_rx Overview
 * @{
 * @details
 *

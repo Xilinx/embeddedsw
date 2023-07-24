@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C)2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xcsi_selftest.c
-* @addtogroup csi_v1_5
+* @addtogroup csi Overview
 * @{
 *
 * Contains diagnostic/self-test functions for the CSI Rx Controller core.

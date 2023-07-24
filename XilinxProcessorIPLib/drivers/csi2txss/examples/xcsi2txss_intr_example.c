@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xcsi2txss_intr_example.c
-* @addtogroup csi2txss_v1_0
+* @addtogroup csi2txss Overview
 * @{
 *
 * This file contains a design example using XCsi2TxSs driver with interrupts.

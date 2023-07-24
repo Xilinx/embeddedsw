@@ -8,7 +8,7 @@
 /**
  *
  * @file xdp_mst.c
- * @addtogroup dp_v7_6
+ * @addtogroup dp Overview
  * @{
  *
  * <pre>

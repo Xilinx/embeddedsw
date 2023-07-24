@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xdeint_i.h
-* @addtogroup deinterlacer_v3_4
+* @addtogroup deinterlacer Overview
 * @{
 *
 * This code contains internal functions of the Xilinx Video Deinterlacer core.

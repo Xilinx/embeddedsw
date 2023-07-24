@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C)2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xv_sdirx_selftest.c
-* @addtogroup xv_sdirx_v2_3
+* @addtogroup v_sdirx Overview
 * @{
 *
 * Contains diagnostic/self-test functions for the SDI Rx Controller core.

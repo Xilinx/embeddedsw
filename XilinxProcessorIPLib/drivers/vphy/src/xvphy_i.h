@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved..
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -33,7 +34,7 @@
  *                           Moved XVphy_SetRxLpm to xvphy.c/.h
  * </pre>
  *
- * @addtogroup xvphy_v1_11
+ * @addtogroup xvphy Overview
  * @{
 *******************************************************************************/
 

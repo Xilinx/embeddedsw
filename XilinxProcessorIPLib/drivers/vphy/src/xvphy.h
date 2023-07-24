@@ -8,7 +8,7 @@
 /**
  *
  * @file xvphy.h
- * @addtogroup xvphy_v1_11
+ * @addtogroup vphy Overview
  * @{
  * @details
  * This is main header file of the Xilinx Video PHY Controller driver

@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xvidc.c
- * @addtogroup video_common_v4_13
+ * @addtogroup video_common Overview
  * @{
  *
  * Contains common utility functions that are typically used by video-related

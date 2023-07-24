@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xi2stx_debug.h
- * @addtogroup i2stx_v2_2
+ * @addtogroup i2stx Overview
  * @{
  *
  * This file contains defintions of data structures used in debugging and

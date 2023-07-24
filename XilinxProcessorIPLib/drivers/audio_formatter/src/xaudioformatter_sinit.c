@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +9,7 @@
 /**
 *
 * @file xaudioformatter_sinit.c
-* @addtogroup audio_formatter_v1_2
+* @addtogroup audio_formatter Overview
 * @{
 *
 * This file contains static initialization methods for Xilinx audio formatter

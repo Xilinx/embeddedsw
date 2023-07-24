@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -24,7 +25,7 @@
  * 1.1   ku   17/05/20 Adding uniquification to avoid clash with vphy
  * </pre>
  *
- * @addtogroup xhdmiphy1_v2_4
+ * @addtogroup xhdmiphy1 Overview
  * @{
 *******************************************************************************/
 

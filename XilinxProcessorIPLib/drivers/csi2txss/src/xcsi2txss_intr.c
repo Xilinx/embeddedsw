@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xcsi2txss_intr.c
-* @addtogroup csi2txss_v1_5
+* @addtogroup csi2txss Overview
 * @{
 *
 * This is the interrupt handling part of the Xilinx MIPI CSI2 Tx Subsystem

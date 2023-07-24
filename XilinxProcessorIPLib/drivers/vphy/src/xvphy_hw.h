@@ -28,7 +28,7 @@
  * 1.7   gm   13/09/17 Added GTYE4 support
  * </pre>
  *
- * @addtogroup xvphy_v1_11
+ * @addtogroup vphy Overview
  * @{
 *******************************************************************************/
 
