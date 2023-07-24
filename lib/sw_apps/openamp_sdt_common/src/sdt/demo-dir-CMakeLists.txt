@@ -21,7 +21,7 @@ if(APP_NAME STREQUAL "rpc_demo")
 elseif(APP_NAME STREQUAL "echo")
   set (_app rpmsg-echo)
 elseif(APP_NAME STREQUAL "matrix_multiply")
-  set (_app matrix_multiply)
+  set (_app matrix_multiplyd)
 endif()
 
 collector_list (_sources APP_COMMON_SOURCES)
