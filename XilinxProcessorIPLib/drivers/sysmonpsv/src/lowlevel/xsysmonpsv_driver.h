@@ -32,6 +32,7 @@
 *                       arch64 architecture
 * 4.0   se     10/04/22 Update return value definitions
 *		se	   11/10/22 Secure and Non-Secure mode integration
+* 4.1   cog    07/18/23 Add support for SDT flow
 * </pre>
 *
 ******************************************************************************/
@@ -45,7 +46,9 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xil_assert.h"
 #include "xsysmonpsv_supplylist.h"
 

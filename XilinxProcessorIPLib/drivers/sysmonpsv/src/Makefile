@@ -1,4 +1,5 @@
-DRIVER_LIB_VERSION = 4.0
+# Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+DRIVER_LIB_VERSION = 4.1
 COMPILER=
 ARCHIVER=
 CP=cp
