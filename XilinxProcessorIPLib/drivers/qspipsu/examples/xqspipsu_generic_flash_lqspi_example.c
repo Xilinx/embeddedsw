@@ -71,6 +71,7 @@
 * 1.18  sb  05/19/23 Update number of sector calculation logic
 *           in flash erase API.
 * 1.18  sb  06/07/23 Added support for system device-tree flow.
+* 1.18  sb  07/24/23 Fix wrong init sequence for spansion byte ID.
 *
 *</pre>
 *
@@ -1768,10 +1769,10 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 			FlashMsg[0].ByteCount = 1;
 			FlashMsg[1].TxBfrPtr = &WriteBuffer[1];
-			FlashMsg[2].RxBfrPtr = NULL;
-			FlashMsg[2].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-			FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_TX;
-			FlashMsg[2].ByteCount = 1;
+			FlashMsg[1].RxBfrPtr = NULL;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_TX;
+			FlashMsg[1].ByteCount = 1;
 
 			TransferDone = FALSE;
 			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
