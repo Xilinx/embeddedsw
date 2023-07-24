@@ -40,6 +40,7 @@
 * 1.09  bm   06/23/2023 Added support for Access permission buffer
 *       bm   07/06/2023 Added command id for run_proc command
 *       bm   07/06/2023 Added list command ids
+*       bm   07/24/2023 Type cast IPI Access macros properly
 *
 * </pre>
 *
@@ -120,10 +121,10 @@ typedef struct {
 }
 
 /* Macros of IPI Access Permissions */
-#define XPLMI_NO_IPI_ACCESS		(u32)(0x0U)
-#define XPLMI_SECURE_IPI_ACCESS		(u32)(0x1U)
-#define XPLMI_NON_SECURE_IPI_ACCESS	(u32)(0x2U)
-#define XPLMI_FULL_IPI_ACCESS		(u32)(0x3U)
+#define XPLMI_NO_IPI_ACCESS		(u16)(0x0U)
+#define XPLMI_SECURE_IPI_ACCESS		(u16)(0x1U)
+#define XPLMI_NON_SECURE_IPI_ACCESS	(u16)(0x2U)
+#define XPLMI_FULL_IPI_ACCESS		(u16)(0x3U)
 
 #define XPLMI_GET_ALL_IPI_MASK(Mask)	((Mask) | ((Mask) << 2U) | \
 					((Mask) << 4U) | ((Mask) << 6U) | \
