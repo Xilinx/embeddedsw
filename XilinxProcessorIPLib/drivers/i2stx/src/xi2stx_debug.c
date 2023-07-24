@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xi2stx_debug.c
- * @addtogroup i2stx_v2_2
+ * @addtogroup i2stx Overview
  * @{
  *
  * This file contains functions to debug i2s_transmitter driver, and log the

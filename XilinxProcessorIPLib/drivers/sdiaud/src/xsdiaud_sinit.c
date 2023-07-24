@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xsdiaud_sinit.c
- * @addtogroup sdiaud_v2_2
+ * @addtogroup sdiaud Overview
  * @{
  *
  * <pre>

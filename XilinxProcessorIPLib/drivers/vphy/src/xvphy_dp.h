@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,7 +23,7 @@
  * 1.7   gm   09/01/18 Added 8.1 Gbps support
  * </pre>
  *
- * @addtogroup xvphy_v1_11
+ * @addtogroup vphy Overview
  * @{
 *******************************************************************************/
 

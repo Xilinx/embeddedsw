@@ -8,7 +8,7 @@
 /**
  *
  * @file xhdmiphy1.h
- * @addtogroup xhdmiphy1_v2_4
+ * @addtogroup xhdmiphy1 Overview
  * @{
  * @details
  * This is main header file of the Xilinx HDMI PHY Controller driver

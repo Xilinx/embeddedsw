@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +9,7 @@
 *
 * @file xdphy.h
 *
-* @addtogroup dphy_v1_5
+* @addtogroup dphy Overview
 * @{
 * @details
 *

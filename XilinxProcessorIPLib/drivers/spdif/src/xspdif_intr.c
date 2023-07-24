@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xspdif_intr.c
- * @addtogroup spdif_v1_1
+ * @addtogroup spdif Overview
  * @{
  * ...
  *

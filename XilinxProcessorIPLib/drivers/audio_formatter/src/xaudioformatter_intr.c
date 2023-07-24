@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +9,7 @@
 /**
 *
 * @file xaudioformatter_intr.c
-* @addtogroup audioformatter_v1_2
+* @addtogroup audioformatter Overview
 * @{
 *
 * This file contains interrupt related functions of Xilinx Audio Formatter core.

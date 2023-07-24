@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +9,7 @@
 /**
 *
 * @file xcsi2tx_example_selftest.c
-* @addtogroup csi2tx_v1_0
+* @addtogroup csi2tx Overview
 * @{
 *
 * This file contains a design example using the XCsi2TxSs driver. It performs a

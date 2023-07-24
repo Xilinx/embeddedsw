@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xhdcp22_cipher_dp.h
-* @addtogroup hdcp22_cipher_dp_v2_0
+* @addtogroup hdcp22_cipher_dp Overview
 * @{
 * @details
 *

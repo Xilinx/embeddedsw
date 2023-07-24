@@ -1,6 +1,7 @@
 /******************************************************************************
 *
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 
 *******************************************************************************/
@@ -9,7 +10,7 @@
 /**
 *
 * @file xv_sdirx_example_selftest.c
-* @addtogroup v_sdirx_v1_0
+* @addtogroup v_sdirx Overview
 * @{
 *
 * This file contains a design example using the XV_SdiRx driver. It performs a
