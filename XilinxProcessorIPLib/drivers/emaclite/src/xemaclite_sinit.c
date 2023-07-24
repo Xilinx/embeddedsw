@@ -7,8 +7,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xemaclite Overview
-* @addtogroup emaclite_v4_7
+* @file xemaclite_sinit.c
+* @addtogroup emaclite Overview
 * @{
 *
 * This file contains the implementation of the XEmacLite driver's static
