@@ -158,6 +158,8 @@
 * 2.6   aad    11/02/20 Fix MISRAC Mandatory and Advisory errors.
 *       aad    12/17/20 Added missing function declarations and removed
 *			functions with no definitions.
+* 2.7   cog    07/24/23 Added support for SDT flow
+*
 *
 * </pre>
 *
@@ -301,7 +303,11 @@ extern "C" {
  * device.
  */
 typedef struct {
+#ifndef SDT
 	u16  DeviceId;		/**< Unique ID of device */
+#else
+	char *Name;
+#endif
 	u32  BaseAddress;	/**< Device base address */
 } XAdcPs_Config;
 
@@ -473,7 +479,11 @@ typedef struct {
 /**
  * Functions in xadcps_sinit.c
  */
+#ifndef SDT
 XAdcPs_Config *XAdcPs_LookupConfig(u16 DeviceId);
+#else
+XAdcPs_Config *XAdcPs_LookupConfig(u32 BaseAddress);
+#endif
 
 /**
  * Functions in xadcps.c

@@ -1,0 +1,31 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for XADCPS controller
+
+maintainers:
+  - Conall O Griofa <conall.ogriofa@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+      - const: xlnx,zynq-xadc-1.00.a
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XAdcPs_Config
+
+required:
+    - compatible
+    - reg
+examples:
+    xadcps_intr_example.c:
+        - interrupts
+    xadcps_polled_printf_example.c:
+        - reg
+...
