@@ -1,0 +1,38 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for Versal Sysmon controller
+
+maintainers:
+  - Conall O Griofa <conall.ogriofa@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,sysmon-psv-1.0
+          - xlnx,versal-sysmon
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XSysMonPsv_Config
+
+required:
+    - reg
+    - child,required:
+        - reg
+
+optional:
+    - child,required:
+        - xlnx,name
+
+examples:
+   xsysmonpsv_intr_example.c:
+    - interrupts
+...
