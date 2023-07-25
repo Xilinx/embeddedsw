@@ -112,6 +112,10 @@ if (("${XILTIMER_sleep_timer}" STREQUAL "Default") OR
 	set(XSLEEPTIMER_FREQ XPAR_CPU_CORE_CLOCK_FREQ_HZ/64)
     endif()
 
+    if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9"))
+        set(XSLEEPTIMER_FREQ XPAR_CPU_CORE_CLOCK_FREQ_HZ/2)
+    endif()
+
     if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR
        ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblazeel") OR
        ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze") OR
