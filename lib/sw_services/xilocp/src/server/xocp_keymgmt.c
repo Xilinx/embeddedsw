@@ -806,12 +806,6 @@ END:
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}
-	ClrStatus = Xil_SMemSet(PersString,
-				XSECURE_TRNG_PERS_STRING_LEN_IN_BYTES,
-				0U, XSECURE_TRNG_PERS_STRING_LEN_IN_BYTES);
-	if (ClrStatus != XST_SUCCESS) {
-		Status |= ClrStatus;
-	}
 
 	return Status;
 }
