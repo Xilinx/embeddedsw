@@ -167,8 +167,8 @@ typedef enum {
 } XSecure_Cpm5nKatId;
 
 typedef enum {
-	XSECURE_PCIDE_AES_GCM_ENC_KAT = 16U,	/**< 16U */
-	XSECURE_PCIDE_AES_GCM_DEC_KAT			/**< 17U */
+	XSECURE_PCIDE_AES_ENC_KAT = 16U,	/**< 16U */
+	XSECURE_PCIDE_AES_DEC_KAT			/**< 17U */
 } XSecure_PciIdeKatId;
 
 typedef enum {
