@@ -37,6 +37,7 @@ required:
 
 additionalProperties:
     - xlnx,qspi-mode
+    - xlnx,qspi-bus-width
 
 examples:
    xqspips_flash_intr_example.c:
