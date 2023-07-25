@@ -166,7 +166,7 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp,
 			XSecure_EllipticPwct, (XSecure_EllipticCrvTyp)CurveType,
 			SrcAddr, (XSecure_EllipticKeyAddr *)&KeyAddr);
-		if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
+		if ((Status == XST_SUCCESS) && (StatusTmp == XST_SUCCESS)) {
 			XPlmi_SetKatMask(XPLMI_SECURE_ECC_PWCT_KAT_MASK);
 		}
 	}
