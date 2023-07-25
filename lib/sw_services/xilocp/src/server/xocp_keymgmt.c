@@ -22,6 +22,7 @@
 * 1.2   har  02/24/23 Added logic to get index of usr cfg for requested subsystem ID
 *       vns  07/06/23 Added DEVAK regenerate support and Data clear before shutdown
 *       am   07/20/23 Cleared DICE_CDI seed
+*       kpt  07/25/23 Add redundancy for key generation APIs
 *
 * </pre>
 * @note
@@ -177,10 +178,8 @@ int XOcp_KeyInit(void)
 	}
 
 	/* Generate private and public key pair for ECC */
-	Status = XOcp_KeyGenerateDevIk();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XOcp_KeyGenerateDevIk);
+
 	XOcp_Printf(DEBUG_INFO, "Generated DEV IK\n\r");
 
 	KeyInstPtr->IsDevKeyReady = TRUE;
@@ -231,10 +230,7 @@ int XOcp_RegenSubSysDevAk(void)
 					goto END;
 				}
 
-				Status = XOcp_GenerateDevAk(DevAkData->SubSystemId);
-				if (Status != XST_SUCCESS) {
-					goto END;
-				}
+				XSECURE_TEMPORAL_CHECK(END, Status, XOcp_GenerateDevAk, DevAkData->SubSystemId);
 				break;
 			}
 		}
@@ -334,13 +330,9 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 
 	DevAkData = DevAkData + DevAkIndex;
 	DevAkData->IsDevAkKeyReady = (u32)FALSE;
-	Status = XOcp_KeyGenDevAkSeed(XOCP_PMC_GLOBAL_DICE_CDI_SEED_0,
-				XOCP_CDI_SIZE_IN_BYTES, (u32)DevAkData->SubSysHash,
-				XSECURE_HASH_SIZE_IN_BYTES,
-				(XSecure_HmacRes *)Seed);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XOcp_KeyGenDevAkSeed, XOCP_PMC_GLOBAL_DICE_CDI_SEED_0,
+						   XOCP_CDI_SIZE_IN_BYTES, (u32)DevAkData->SubSysHash, XSECURE_HASH_SIZE_IN_BYTES,
+						   (XSecure_HmacRes *)Seed);
 
 #ifndef PLM_ECDSA_EXCLUDE
 	/* Generate the DEV AK public and private keys */
@@ -348,18 +340,14 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 	KeyGenParams.SeedLength = XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES;
 	KeyGenParams.PerStringAddr = (u32)DevAkData->PerString;
 	KeyGenParams.KeyOutPutAddr = (u32)DevAkData->EccPrvtKey;
-	Status = XSecure_EllipticPrvtKeyGenerate(XSECURE_ECC_NIST_P384, &KeyGenParams);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_EllipticPrvtKeyGenerate, XSECURE_ECC_NIST_P384,
+						   &KeyGenParams);
 
 	PubKeyAddr.Qx = (UINTPTR)(u8*)EccX;
 	PubKeyAddr.Qy = (UINTPTR)(u8*)EccY;
-	Status = XSecure_EllipticGenerateKey_64Bit(XSECURE_ECC_NIST_P384,
-			(u64)(UINTPTR)DevAkData->EccPrvtKey, &PubKeyAddr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_EllipticGenerateKey_64Bit, XSECURE_ECC_NIST_P384,
+						   (u64)(UINTPTR)DevAkData->EccPrvtKey, &PubKeyAddr);
+
 	CryptoKatEn = XPlmi_IsCryptoKatEn();
 	CryptoKatEnTmp = CryptoKatEn;
 	if ((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
@@ -712,13 +700,9 @@ static int XOcp_KeyGenerateDevIk(void)
 	volatile u8 CryptoKatEnTmp = TRUE;
 
 	/* Copy CDI from PMC global registers to Seed buffer */
-	Status = Xil_SMemCpy((void *)Seed, XOCP_CDI_SIZE_IN_BYTES,
-				(const void *)XOCP_PMC_GLOBAL_DICE_CDI_SEED_0,
-				XOCP_CDI_SIZE_IN_BYTES,
-				XOCP_CDI_SIZE_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, (void *)Seed, XOCP_CDI_SIZE_IN_BYTES,
+						   (const void *)XOCP_PMC_GLOBAL_DICE_CDI_SEED_0, XOCP_CDI_SIZE_IN_BYTES,
+						   XOCP_CDI_SIZE_IN_BYTES);
 
 	/*
 	 * Copy Personalized string to buffer, here the input string is DNA
@@ -746,19 +730,13 @@ static int XOcp_KeyGenerateDevIk(void)
 	KeyGenParams.SeedLength = XOCP_CDI_SIZE_IN_BYTES;
 	KeyGenParams.PerStringAddr = (u32)PersString;
 	KeyGenParams.KeyOutPutAddr = (u32)EccPrvtKey;
-	Status = XSecure_EllipticPrvtKeyGenerate(XSECURE_ECC_NIST_P384,
-				&KeyGenParams);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_EllipticPrvtKeyGenerate, XSECURE_ECC_NIST_P384,
+						   &KeyGenParams);
 
 	PubKeyAddr.Qx = (UINTPTR)(u8*)EccX;
 	PubKeyAddr.Qy = (UINTPTR)(u8*)EccY;
-	Status = XSecure_EllipticGenerateKey_64Bit(XSECURE_ECC_NIST_P384,
-			(u64)(UINTPTR)EccPrvtKey, &PubKeyAddr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_EllipticGenerateKey_64Bit, XSECURE_ECC_NIST_P384,
+						   (u64)(UINTPTR)EccPrvtKey, &PubKeyAddr);
 
 	CryptoKatEn = XPlmi_IsCryptoKatEn();
 	CryptoKatEnTmp = CryptoKatEn;
@@ -773,12 +751,10 @@ static int XOcp_KeyGenerateDevIk(void)
 	}
 
 	/* Copy Private key to PMC global registers */
-	Status = Xil_SMemCpy((void *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0,
-				XOCP_ECC_P384_SIZE_BYTES, (const void *)EccPrvtKey,
-				XOCP_ECC_P384_SIZE_BYTES, XOCP_ECC_P384_SIZE_BYTES);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, (void *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0,
+						   XOCP_ECC_P384_SIZE_BYTES, (const void *)EccPrvtKey,
+						   XOCP_ECC_P384_SIZE_BYTES, XOCP_ECC_P384_SIZE_BYTES);
+
 	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
 				(u64)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0,
 						(u64)(UINTPTR)EccX);
