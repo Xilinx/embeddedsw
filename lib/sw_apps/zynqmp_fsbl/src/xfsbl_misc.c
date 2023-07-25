@@ -1,6 +1,5 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,7 +19,6 @@
 * 1.00  kc   10/21/13 Initial release
 * 2.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
 *       vns  01/29/17 Added API XFsbl_AdmaCopy to transfer data using ADMA
-* 6.1   ng   07/13/23 Added SDT support
 *
 * </pre>
 *
@@ -60,7 +58,7 @@ static void XFsbl_FiqHandler (void);
  */
 static s32 XFsbl_Strcmp(const char* Str1Ptr,  const char* Str2Ptr);
 /************************** Variable Definitions *****************************/
-#if (defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) || defined(XPAR_PSU_DDR_0_BASEADDRESS)) && !defined (ARMR5)
+#if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
 #ifdef ARMA53_64
 extern void MMUTableL1(void);
 extern void MMUTableL2(void);
@@ -355,7 +353,7 @@ u32 XFsbl_GetDrvNumSD(u32 DeviceFlags)
 	 * If design has both SD0 and SD1, select drive number based on bootmode
 	 * If design has ONLY SD0 or ONLY SD1, drive number should be "0"
 	 */
-#if defined(XPAR_XSDPS_1_BASEADDR)
+#ifdef XPAR_XSDPS_1_DEVICE_ID
 	if ((DeviceFlags == XFSBL_SD0_BOOT_MODE) ||
 			(DeviceFlags == XFSBL_EMMC_BOOT_MODE)) {
 		DrvNum = XFSBL_SD_DRV_NUM_0;
@@ -600,7 +598,7 @@ u32 XFsbl_IsolationRestore(u32 IsolationMask)
 	return Status;
 }
 
-#if (defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) || defined(XPAR_PSU_DDR_0_BASEADDRESS)) && !defined (ARMR5)
+#if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
 /*****************************************************************************
 *
 * Set the memory attributes for a section, in the translation table.

@@ -1,6 +1,5 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -53,7 +52,6 @@
 *       bsv     05/03/21 Add provision to load bitstream from OCM with DDR
 *                        present in design
 * 7.0   bsv     07/23/21 Reset SHA engine in failure cases
-* 7.1   ng   07/13/23 Added SDT support
 *
 * </pre>
 *
@@ -62,11 +60,7 @@
 /***************************** Include Files *********************************/
 
 #include "xfsbl_plpartition_valid.h"
-#ifndef SDT
 #include "xtime_l.h"
-#else
-#include "xiltimer.h"
-#endif
 
 /************************** Constant Definitions ****************************/
 

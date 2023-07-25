@@ -1,6 +1,5 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -55,7 +54,6 @@
 *                     instance pointer
 * 9.0   bsv  10/15/21 Fixed bug to support secondary boot with non-zero
 *                     multiboot offset
-* 9.1   ng   07/13/23 Added SDT support
 *
 * </pre>
 *
@@ -635,7 +633,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 #if !defined(ARMR5)
 	if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_A53_0) {
 		XFsbl_Printf(DEBUG_PRINT_ALWAYS, "Proc: A53-0 Freq: %d Hz",
-				XFSBL_CPU_CLK_FREQ);
+				XPAR_CPU_CORTEXA53_0_CPU_CLK_FREQ_HZ);
 
 		if (FsblInstancePtr->A53ExecState == XIH_PH_ATTRB_A53_EXEC_ST_AA32) {
 			XFsbl_Printf(DEBUG_PRINT_ALWAYS, " Arch: 32 \r\n");
@@ -648,11 +646,11 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 #else
 	if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_R5_0) {
 		XFsbl_Printf(DEBUG_PRINT_ALWAYS, "Proc: R5-0 Freq: %d Hz \r\n",
-				XFSBL_CPU_CLK_FREQ)
+				XPAR_PSU_CORTEXR5_0_CPU_CLK_FREQ_HZ)
 	}
 	else if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_R5_L) {
 		XFsbl_Printf(DEBUG_PRINT_ALWAYS, "Proc: R5-Lockstep "
-			"Freq: %d Hz \r\n", XFSBL_CPU_CLK_FREQ);
+			"Freq: %d Hz \r\n", XPAR_PSU_CORTEXR5_0_CPU_CLK_FREQ_HZ);
 	}
 #endif
 
@@ -798,7 +796,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	}
 
 #ifdef XFSBL_PS_DDR
-#if defined(XPAR_DYNAMIC_DDR_ENABLED)
+#ifdef XPAR_DYNAMIC_DDR_ENABLED
 	/*
 	 * This function is used for all the ZynqMP boards.
 	 * This function initialize the DDR by fetching the SPD data from
@@ -1095,16 +1093,16 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 #ifdef XFSBL_PERF
 	if (BootMode == XFSBL_QSPI24_BOOT_MODE || BootMode == XFSBL_QSPI32_BOOT_MODE)
 	{
-#if defined (XFSBL_QSPI_CLK_FREQ)
+#if defined (XPAR_XQSPIPSU_0_QSPI_CLK_FREQ_HZ)
 		XFsbl_Printf(DEBUG_PRINT_ALWAYS, "Qspi, Freq: %0d Hz\r\n"
-				, XFSBL_QSPI_CLK_FREQ);
+				, XPAR_XQSPIPSU_0_QSPI_CLK_FREQ_HZ);
 #endif
 	}
 	else if (BootMode == XFSBL_NAND_BOOT_MODE)
 	{
-#if defined (XFSBL_NAND_CLK_FREQ)
+#if defined (XPAR_XNANDPSU_0_NAND_CLK_FREQ_HZ)
 		XFsbl_Printf(DEBUG_PRINT_ALWAYS, "Nand, Freq: %0d Hz\r\n"
-						, XFSBL_NAND_CLK_FREQ);
+						, XPAR_XNANDPSU_0_NAND_CLK_FREQ_HZ);
 #endif
 	}
 	else if (BootMode == XFSBL_SD0_BOOT_MODE || BootMode == XFSBL_SD1_BOOT_MODE
@@ -1720,7 +1718,7 @@ END:
 static u32 XFsbl_DdrEccInit(void)
 {
 	u32 Status;
-#if ( defined(XPAR_PSU_DDRC_0_HAS_ECC) || defined(XPAR_XDDRCPSU_0_HAS_ECC) )
+#if XPAR_PSU_DDRC_0_HAS_ECC
 	u64 LengthBytes =
 			(XFSBL_PS_DDR_END_ADDRESS - XFSBL_PS_DDR_INIT_START_ADDRESS) + 1;
 	u64 DestAddr = XFSBL_PS_DDR_INIT_START_ADDRESS;
@@ -1988,7 +1986,7 @@ static void XFsbl_ClearPendingInterrupts(void)
  *****************************************************************************/
 void XFsbl_MarkDdrAsReserved(u8 Cond)
 {
-#if (defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) || defined (XPAR_PSU_DDR_0_BASEADDRESS)) && !defined (ARMR5)
+#if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
 	u32 Attrib = ATTRIB_MEMORY_A53_64;
 	u64 BlockNum;
 

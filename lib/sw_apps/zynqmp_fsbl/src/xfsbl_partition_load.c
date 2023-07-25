@@ -1,6 +1,5 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,7 +50,6 @@
 *       bsv  05/15/21 Support to ensure authenticated images boot as
 *                     non-secure when RSA_EN is not programmed and boot header
 *                     is not authenticated is disabled by default
-* 6.1   ng   07/13/23 Added SDT support
 *
 * </pre>
 *
@@ -1971,7 +1969,11 @@ static void XFsbl_PollForDDRSrExit(void)
 {
 	u32 RegValue;
 	/* Timeout count for around 1 second */
-	u32 TimeOut = XFSBL_CPU_CLK_FREQ;
+#ifdef ARMR5
+	u32 TimeOut = XPAR_PSU_CORTEXR5_0_CPU_CLK_FREQ_HZ;
+#else
+	u32 TimeOut = XPAR_PSU_CORTEXA53_0_CPU_CLK_FREQ_HZ;
+#endif
 
 	/* Wait for DDR exit from self refresh mode within 1 second */
 	while (TimeOut > 0) {

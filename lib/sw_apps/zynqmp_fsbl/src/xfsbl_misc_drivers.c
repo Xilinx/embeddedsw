@@ -1,6 +1,5 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +23,6 @@
 *                     SYSCFG is enabled and sending PM_SET_CONFIGURATION API
 *                     to the PMU
 * 3.0  bv    08/04/18 Call XWdts_Stop only when WDT timer is in ready state
-* 6.1   ng   07/13/23 Added SDT support
 *
 * </pre>
 *
@@ -47,8 +45,8 @@
 /**
  * Include IPI driver only if IPI device is present
  */
-#if defined(XPAR_XIPIPSU_0_DEVICE_ID) || defined(XPAR_XIPIPSU_0_BASEADDR)
-	#include "xipipsu.h"
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#include "xipipsu.h"
 #endif
 
 #ifdef XPAR_XILPM_ENABLED
@@ -62,17 +60,12 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#if defined(XPAR_XIPIPSU_0_DEVICE_ID) || defined(XPAR_XIPIPSU_0_BASEADDR)
-	#ifndef SDT
-		#define IPI_DEVICE_ID			XPAR_XIPIPSU_0_DEVICE_ID
-		#define IPI_PMU_PM_INT_MASK		XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
-	#else
-		#define IPI_DEVICE_ID			XPAR_XIPIPSU_0_BASEADDR
-		#define IPI_PMU_PM_INT_MASK		(0x00010000U)
-	#endif
-	#define PM_INIT		(21U)
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#define IPI_DEVICE_ID			XPAR_XIPIPSU_0_DEVICE_ID
+#define IPI_PMU_PM_INT_MASK		XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
+#define PM_INIT				21U
 #endif
-#define PM_INIT_COMPLETED_KEY		(0x5A5A5A5AU)
+#define PM_INIT_COMPLETED_KEY		0x5A5A5A5AU
 /************************** Function Prototypes ******************************/
 #ifdef XFSBL_WDT_PRESENT
 static u32 XFsbl_ConvertTime_WdtCounter(u32 seconds);
@@ -212,7 +205,6 @@ static u32 XFsbl_ConvertTime_WdtCounter(u32 seconds)
 	{
 		PrescalerValue = 0U;
 	}
-
 	time = (double)(PrescalerValue) / (double)XPAR_XWDTPS_0_WDT_CLK_FREQ_HZ;
 
 	CounterValue = seconds / time;
@@ -283,7 +275,7 @@ u32 XFsbl_PmInit(void)
 	u32 UStatus;
 /* Proceed only if SYSCFG is enabled */
 #ifdef XPAR_XILPM_ENABLED
-#if defined(IPI_DEVICE_ID)
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	s32 Status ;
 	XIpiPsu IpiInstance;
 	XIpiPsu_Config *Config;
@@ -307,7 +299,7 @@ u32 XFsbl_PmInit(void)
 		UStatus = XFSBL_SUCCESS;
 		goto END;
 	}
-#ifndef IPI_DEVICE_ID
+#ifndef XPAR_XIPIPSU_0_DEVICE_ID
 	else {
 		UStatus = XFSBL_ERROR_PM_INIT;
 		XFsbl_Printf(DEBUG_GENERAL,
@@ -316,7 +308,7 @@ u32 XFsbl_PmInit(void)
 	}
 #endif
 
-#if defined(IPI_DEVICE_ID)
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
 	/* Initialize IPI peripheral */
 	Config = XIpiPsu_LookupConfig(IPI_DEVICE_ID);
 	if (Config == NULL) {

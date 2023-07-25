@@ -1,6 +1,6 @@
 /******************************************************************************
+*
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -284,14 +284,6 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _UNDEF_STACK_SIZE;
    . = ALIGN(16);
    __undef_stack = .;
-} > psu_ram_0_S_AXI_BASEADDR
-
-.drvcfg_sec : {
-    . = ALIGN(8);
-     __drvcfgsecdata_start = .;
-    KEEP (*(.drvcfg_sec))
-    __drvcfgsecdata_end = .;
-    __drvcfgsecdata_size = __drvcfgsecdata_end - __drvcfgsecdata_start;
 } > psu_ram_0_S_AXI_BASEADDR
 
 .dup_data : {
