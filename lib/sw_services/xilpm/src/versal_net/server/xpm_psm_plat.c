@@ -79,6 +79,17 @@ XStatus XPmPsm_SendPowerDownReq(XPm_Power *Power)
 		goto done;
 	}
 
+	/*power down APU/RPU core only if it is running*/
+	if(1U == IsCorePowerNode(Power)){
+		u32 CoreIdx = (u32)XPM_NODEIDX_DEV_ACPU_0_0 + (NODEINDEX(Power->Node.Id) -
+			 XPM_NODEIDX_POWER_ACPU_0_0);
+		XPm_Core *Core = (XPm_Core *)XPmDevice_GetByIndex(CoreIdx);
+		if((NULL != Core) && (0U == Core->isCoreUp)){
+			Status = XST_SUCCESS;
+			goto done;
+		}
+	}
+
 	PmOut32(Psm->PsmGlobalBaseAddr + Power->PwrDwnEnOffset + REQ_PWRDWN_INT_TRIG_OFFSET, Power->PwrDwnMask);
 	PmOut32(Psm->PsmGlobalBaseAddr + Power->PwrDwnEnOffset, Power->PwrDwnMask);
 	Status = XPm_PollForZero(Psm->PsmGlobalBaseAddr + Power->PwrStatOffset, Power->PwrStatMask,
