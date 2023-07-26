@@ -63,6 +63,7 @@
 *       cog    09/21/20 Fixed case where partial reconfiguration was being
 *                       implemented.
 * 12.1  cog    07/14/23 Modified for SDT flow
+*       cog    07/25/23 Remove dead code
 *
 * </pre>
 *
@@ -587,14 +588,6 @@ printf("\n Configuring the Clock \r\n");
 
 			/* Check if the ADC block is enabled */
 			if (XRFdc_IsADCBlockEnabled(RFdcInstPtr, Tile, Block)) {
-				if (RFdcInstPtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
-					if ((Block == 2) || (Block == 3))
-						continue;
-					else if (Block == 1) {
-						if (XRFdc_IsADCBlockEnabled(RFdcInstPtr, Tile, 2) == 0)
-							continue;
-					}
-				}
 				/* Set ADC fabric rate */
 				SetFabricRate = 2;
 				Status = XRFdc_SetFabRdVldWords(RFdcInstPtr, Tile, Block, SetFabricRate);
