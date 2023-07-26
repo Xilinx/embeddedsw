@@ -191,6 +191,10 @@ extern "C" {
 #define RPU_B_CLUSTER_CFG			(RPU_B_BASEADDR)
 #define RPU_CLUSTER_CFG_SLSPLIT_MASK		(0x00000001U)
 
+#define LPX_SLCR_RPU_PCIL_CORE_IEN_OFFSET (-0x4)
+#define LPX_SLCR_RPU_PCIL_CORE_ISR_OFFSET (-0xC)
+#define LPX_SLCR_RPU_PCIL_PWRDWN_OFFSET (0x38U)
+
 #ifdef __cplusplus
 }
 #endif

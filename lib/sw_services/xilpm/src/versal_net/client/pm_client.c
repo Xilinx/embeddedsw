@@ -372,7 +372,6 @@ void XPm_ClientSuspend(const struct XPm_Proc *const Proc)
 	PwrDwnReg = XPm_Read(Proc->PwrCtrl);
 	PwrDwnReg |= Proc->PwrDwnMask;
 	XPm_Write(Proc->PwrCtrl, PwrDwnReg);
-	XPm_RMW32(Proc->PwrCtrl + LPX_SLCR_RPU_PCIL_CORE_IEN_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
 #else
 	u64 Val;
 	Val = mfcp(S3_0_C15_C2_7);
@@ -396,7 +395,6 @@ void XPm_ClientWakeUp(const struct XPm_Proc *const Proc)
 		Val = XPm_Read(Proc->PwrCtrl);
 		Val &= ~Proc->PwrDwnMask;
 		XPm_Write(Proc->PwrCtrl, Val);
-		XPm_RMW32(Proc->PwrCtrl + LPX_SLCR_RPU_PCIL_CORE_IDS_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
 	}
 #else
 	u64 Val;

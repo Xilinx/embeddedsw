@@ -1454,7 +1454,17 @@ done:
 
 static XStatus XPsmFwRPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
-	/*TBD:poll for pactive[1] bit to go low */
+	XStatus Status = XST_FAILURE;
+
+	/*clear PwrDwn En bit*/
+	XPsmFw_Write32(Args->CorePactive + LPX_SLCR_RPU_PCIL_PWRDWN_OFFSET, 0U);
+
+	/*poll for PACTIVE to go low*/
+	Status = XPsmFw_UtilPollForZero(Args->CorePactive, Args->CorePactiveMask, RPU_PACTIVE_TIMEOUT);
+	if(XST_SUCCESS != Status){
+		XPsmFw_Printf(DEBUG_ERROR,"Pactive bit is low\n");
+		goto done;
+	}
 
 	/* set pstate bit */
 	XPsmFw_RMW32(Args->CorePstate,Args->CorePstateMask,Args->CorePstateMask);
@@ -1462,7 +1472,12 @@ static XStatus XPsmFwRPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* set preq field to request power state change */
 	XPsmFw_RMW32(Args->CorePreq,Args->CorePreqMask,Args->CorePreqMask);
 
-	/*TBD: poll for paccept bit */
+	/*poll for PACCEPT*/
+	Status = XPsmFw_UtilPollForMask(Args->CorePactive, Args->CorePacceptMask, RPU_PACTIVE_TIMEOUT);
+	if(XST_SUCCESS != Status){
+		XPsmFw_Printf(DEBUG_ERROR,"Paccept bit is not set\n");
+		goto done;
+	}
 
 	/*TBD: check if it emulated pwr dwn, if so skip below 4 instructions*/
 	/* Enable isolation */
@@ -1479,13 +1494,30 @@ static XStatus XPsmFwRPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Power gate the RPU core cache RAMs */
 	XPsmFw_RMW32(PSMX_LOCAL_REG_RPU_CACHE_PWR_CNTRL,Args->PwrStateMask >> 16,~(Args->PwrStateMask >> 16));
 
+	/*unmask wakeup interrupt*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_EN,Args->PwrStateMask >> PSMX_GLOBAL_REG_WAKEUP1_IRQ_RPU_X_COREX_SHIFT,
+		 (Args->PwrStateMask >> PSMX_GLOBAL_REG_WAKEUP1_IRQ_RPU_X_COREX_SHIFT));
+
+	/*clear ISR*/
+	XPsmFw_Write32(Args->IntrDisableAddr + LPX_SLCR_RPU_PCIL_CORE_ISR_OFFSET, Args->IntrDisableMask);
+
+	/*mask pwr down interrupt*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_DIS, Args->PwrStateMask << PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_RPU_X_COREX_SHIFT,
+		 Args->PwrStateMask << PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_RPU_X_COREX_SHIFT);
+
+	/*clear pwr ctrl ISR*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS, Args->PwrStateMask << PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_RPU_X_COREX_SHIFT,
+		 Args->PwrStateMask << PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_RPU_X_COREX_SHIFT);
+
 	/* Unmask the RPU PCIL Interrupt */
-	XPsmFw_Write32(Args->IntrDisableAddr,Args->IntrDisableMask);
+	XPsmFw_Write32(Args->IntrDisableAddr + LPX_SLCR_RPU_PCIL_CORE_IEN_OFFSET, Args->IntrDisableMask);
+
 
 	/*Mark RPUx powered down in LOCAL_PWR_STATE register */
 	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0,Args->PwrStateMask,~Args->PwrStateMask);
 
-	return XST_SUCCESS;
+done:
+	return Status;
 
 }
 
