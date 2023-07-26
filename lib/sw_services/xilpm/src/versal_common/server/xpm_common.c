@@ -19,7 +19,7 @@
 #define MAX_BYTEBUFFER_SIZE	(52U * 1024U)
 #elif defined(VERSAL_NET)
 /* TODO: should be same ideally, need to optimize */
-#define MAX_BYTEBUFFER_SIZE	(40U * 1024U)
+#define MAX_BYTEBUFFER_SIZE	(42U * 1024U)
 #else
 #define MAX_BYTEBUFFER_SIZE	(32U * 1024U)
 #endif
