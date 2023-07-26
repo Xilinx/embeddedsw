@@ -16,7 +16,6 @@ properties:
       - items:
         - enum:
           - arm,pl330
-          - arm,primecell
   reg:
     description: Physical base address and size of the controller register map
 
