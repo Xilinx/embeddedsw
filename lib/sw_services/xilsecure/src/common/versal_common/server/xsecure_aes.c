@@ -84,6 +84,7 @@
 * 5.2   yog  07/10/2023 Added support of unaligned data sizes for Versal Net
 *       kpt  07/09/2023 Added AES ECB mode support for versalnet
 *       ng   07/13/2023 Added SDT support
+*       kpt  07/20/2023 Added volatile keyword for SStatus variable in XSecure_AesDecryptFinal
 *
 * </pre>
 *
@@ -1028,7 +1029,7 @@ END:
 int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
-	int SStatus = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	volatile u32 RegVal;
 	volatile u32 RegValTmp;
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
@@ -1107,7 +1108,7 @@ END_RST:
 		InstancePtr->NextBlkLen = 0U;
 		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_KEY);
 		if (Status == XST_SUCCESS) {
-		Status = SStatus;
+			Status = SStatus;
 		}
 
 		SStatus = XST_FAILURE;
