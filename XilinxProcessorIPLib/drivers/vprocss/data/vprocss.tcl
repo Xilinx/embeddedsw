@@ -1,5 +1,6 @@
 ##############################################################################
 # Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -462,7 +463,8 @@ proc GetSubcoreInstanceName {subsys_inst instance_list} {
 
     set ip_inst_name "Unknown"
     foreach ip_inst $instance_list {
-        if {[string first $subsys_inst $ip_inst] == 0} {
+	set subsys [concat $subsys_inst\_]
+	if {[regexp $subsys $ip_inst]} {
             set ip_inst_name $ip_inst
             break
         }
