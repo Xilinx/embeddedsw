@@ -51,7 +51,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
+#define GPIO_REG_BASEADDR	XPAR_GPIO_0_BASEADDR
+#else
 #define GPIO_REG_BASEADDR	XPAR_AXI_GPIO_0_BASEADDR
+#endif
 
 /*
  * The following constant is used to wait after an LED is turned on to make
