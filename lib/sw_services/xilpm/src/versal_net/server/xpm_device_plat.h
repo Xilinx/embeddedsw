@@ -19,7 +19,7 @@ extern "C" {
 
 /** PSM RAM Base address */
 #define XPM_PSM_RAM_BASE_ADDR		(0xEBC00000U)
-#define XPM_PSM_RAM_SIZE		(0x40000U)
+#define XPM_PSM_RAM_SIZE		(0x28000U)
 
 #define IS_DEV_AIE(ID)			(0U != 0U)
 
