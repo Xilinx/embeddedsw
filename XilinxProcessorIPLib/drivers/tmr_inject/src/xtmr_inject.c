@@ -24,6 +24,8 @@
 *                     64 bit fault address.
 * 1.4   adk  02/24/22 While updating the IIR offset apply the mask.
 * 1.6   sa   01/05/23 Added support for Microblaze RISC-V.
+* 1.6   asa  07/27/23 Updated to fix compilation error while
+*                     initializing xtmr_inject_addr.
 *
 * </pre>
 *
@@ -44,8 +46,7 @@
 /************************** Variable Definitions ****************************/
 
 extern UINTPTR xtmr_inject_instr;
-static UINTPTR xtmr_inject_addr = (UINTPTR)&xtmr_inject_instr;
-
+static UINTPTR xtmr_inject_addr;
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
@@ -129,6 +130,7 @@ int XTMR_Inject_CfgInitialize(XTMR_Inject *InstancePtr,
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	xtmr_inject_addr = (UINTPTR)&xtmr_inject_instr;
 	/*
 	 * Set some default values.
 	 */
