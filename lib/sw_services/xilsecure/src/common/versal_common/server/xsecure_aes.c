@@ -86,6 +86,7 @@
 *       ng   07/13/2023 Added SDT support
 *       kpt  07/20/2023 Added volatile keyword for SStatus variable in XSecure_AesDecryptFinal
 *       kpt  07/20/2023 Renamed XSecure_AesDpaCmDecryptKat to XSecure_AesDpaCmDecryptData
+*	kpt  07/27/2023 Initialize KeySizeInWords to zero to avoid invalid value incase of glitch
 *
 * </pre>
 *
@@ -526,13 +527,13 @@ END:
 int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 KeyAddr)
 {
-	volatile int Status = XST_FAILURE;
+	volatile int Status = XST_GLITCH_ERROR;
 	volatile int ClearStatus = XST_FAILURE;
 	volatile int ClearStatusTmp = XST_FAILURE;
 	u32 Offset;
-	u32 Index = 0U;
+	volatile u32 Index = 0U;
 	u32 Key[XSECURE_AES_KEY_SIZE_256BIT_WORDS];
-	u32 KeySizeInWords;
+	u32 KeySizeInWords = 0U;
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -593,7 +594,9 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 					Xil_Htonl(Key[Index]));
 		Offset = Offset - XSECURE_WORD_SIZE;
 	}
-	Status = XST_SUCCESS;
+	if ((Index == KeySizeInWords) && (KeySizeInWords != 0U)) {
+		Status = XST_SUCCESS;
+	}
 
 END:
 	ClearStatus = Xil_SecureZeroize((u8*)Key, XSECURE_AES_KEY_SIZE_256BIT_BYTES);
