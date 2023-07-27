@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
  *
  * @file xilmailbox_ipips.h
- * @addtogroup Overview
+ * @addtogroup xilmailbox Overview
  * @{
  * @details
  *
@@ -20,6 +20,7 @@
  * 1.0   adk  12/02/19    Initial Release
  * 1.3   sd   03/03/21    Doxygen Fixes
  * 1.6   sd   28/02/21    Add support for microblaze
+ * 1.8   ht   07/24/23    Restructure the code for more modularity
  *</pre>
  *
  *@note
