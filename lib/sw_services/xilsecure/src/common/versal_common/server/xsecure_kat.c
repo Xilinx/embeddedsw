@@ -25,6 +25,7 @@
 * 5.2   am   06/22/2023 Added KAT error code for failure cases
 *       yog  07/06/2023 Added support for P-256
 *       ng   07/10/2023 Added support for system device tree flow
+*       kpt  07/20/2023 Renamed XSecure_AesDpaCmDecryptKat to XSecure_AesDpaCmDecryptData
 *
 * </pre>
 *
@@ -681,14 +682,14 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 	}
 
 	/* Test 1 */
-	Status = XSecure_AesDpaCmDecryptKat(AesInstance, Key0, Data0, Output0);
+	Status = XSecure_AesDpaCmDecryptData(AesInstance, Key0, Data0, Output0);
 	if (Status != XST_SUCCESS) {
 		goto END_CLR;
 	}
 
 	Status = XST_FAILURE;
 
-	Status = XSecure_AesDpaCmDecryptKat(AesInstance, Key1, Data1, Output1);
+	Status = XSecure_AesDpaCmDecryptData(AesInstance, Key1, Data1, Output1);
 	if (Status != XST_SUCCESS) {
 		goto END_CLR;
 	}

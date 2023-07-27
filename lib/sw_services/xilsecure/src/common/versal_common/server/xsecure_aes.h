@@ -42,6 +42,7 @@
 * 5.2   yog  07/10/2023 Added support of unaligned data sizes for Versal Net
 *       mmd  07/11/2023 Included header file for crypto algorithm information
 *       vss  07/14/2023 Added IsResourceBusy flag and IpiMask variable in Xsecure_Aes instance
+*       kpt  07/20/2023 Renamed XSecure_AesDpaCmDecryptKat to XSecure_AesDpaCmDecryptData
 *
 * </pre>
 *
@@ -111,6 +112,9 @@ extern "C" {
 #define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280U)
 #define XSECURE_ENABLE_BYTE_SWAP		(0x1U)	/**< Enables data swap in AES */
 #define XSECURE_DISABLE_BYTE_SWAP		(0x0U)	/**< Disables data swap in AES */
+
+#define XSecure_AesDpaCmDecryptKat 		XSecure_AesDpaCmDecryptData
+						/**< XSecure_AesDpaCmDecryptKat is deprecated to XSecure_AesDpaCmDecryptData */
 
 /** @}
  * @endcond
@@ -244,7 +248,7 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize);
 
 int XSecure_AesGmacCfg(XSecure_Aes *InstancePtr, u32 IsGmacEn);
 
-int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
+int XSecure_AesDpaCmDecryptData(const XSecure_Aes *AesInstance,
 	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr);
 
 #ifdef __cplusplus

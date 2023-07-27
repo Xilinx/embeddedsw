@@ -85,6 +85,7 @@
 *       kpt  07/09/2023 Added AES ECB mode support for versalnet
 *       ng   07/13/2023 Added SDT support
 *       kpt  07/20/2023 Added volatile keyword for SStatus variable in XSecure_AesDecryptFinal
+*       kpt  07/20/2023 Renamed XSecure_AesDpaCmDecryptKat to XSecure_AesDpaCmDecryptData
 *
 * </pre>
 *
@@ -1676,7 +1677,8 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function performs KAT on AES core with DPACM enabled
+ * @brief	This function updates data and key to the AES core in split mode
+ *              with DPACM enabled
  *
  * @param 	AesInstance	InstancePtr Pointer to the XSecure_Aes instance
  * @param 	KeyPtr		Key Pointer
@@ -1695,8 +1697,12 @@ END:
  * 	-	XSECURE_AESDPACM_KAT_FAILED_ERROR - Error when AESDPACM KAT fails
  * 	-	XST_FAILURE - On failure
  *
+ * @note
+ *             This function is used during DPACM KAT where key and data are
+ *             updated in split mode with DPACM enabled
+ *
  *****************************************************************************/
-int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
+int XSecure_AesDpaCmDecryptData(const XSecure_Aes *AesInstance,
 	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr)
 {
 	volatile int Status = XST_FAILURE;
