@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xvprocss_sinit.c
-* @addtogroup vprocss_v2_11
+* @addtogroup vprocss Overview
 * @{
 * @details
 *
