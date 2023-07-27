@@ -98,6 +98,7 @@
  * 2.14 adk 04/14/23 Added support for system device-tree flow.
  * 2.14 adk 05/22/23 Added IPI Mask's for referring to processor IPI Targets
  * 		     in system device-tree flow.
+ * 2.14 sd 07/27/23  Update the target count.
  * </pre>
  *
  *****************************************************************************/

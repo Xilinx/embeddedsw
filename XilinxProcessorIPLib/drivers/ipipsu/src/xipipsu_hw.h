@@ -24,6 +24,7 @@
 * 2.11  ma   01/17/22 Added XIPIPSU_BASE_ADDR macro
 * 2.12  sd   02/24/22 Added support for VERSAL NET
 *       sd   05/05/22 Added xparameters.h
+* 2.14  sd   07/27/23 Update the target count
 *
 * </pre>
 *
@@ -31,17 +32,13 @@
 #ifndef XIPIPSU_HW_H_	/**< prevent circular inclusions */
 #define XIPIPSU_HW_H_	/**< by using protection macros */
 
-#include "bspconfig.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
 
-#ifndef SDT
 #include "xparameters.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 /* Message RAM related params */
@@ -61,10 +58,10 @@ extern "C" {
 #define XIPIPSU_BUFFER_OFFSET_RESPONSE		(32U) /**< Buffer offset for response */
 
 /* Number of IPI slots enabled on the device */
-#if defined (versal)
-#define XIPIPSU_MAX_TARGETS    10U /**< Maximum number of targets */
+#ifndef SDT
+#define XIPIPSU_MAX_TARGETS    XPAR_XIPIPSU_NUM_TARGETS /**< Maximum number of targets */
 #else
-#define XIPIPSU_MAX_TARGETS    7U /**< Maximum number of targets */
+#define XIPIPSU_MAX_TARGETS    XPAR_XIPIPSU_0_IPI_TARGET_COUNT /**< Maximum number of targets */
 #endif
 
 /* Register Offsets for each member  of IPI Register Set */
