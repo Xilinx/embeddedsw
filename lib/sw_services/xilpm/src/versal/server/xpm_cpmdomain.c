@@ -202,6 +202,11 @@ static XStatus Cpm5ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
+	if (NULL == PwrDomain) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		goto done;
+	}
+
 	/* Unlock PCSR */
 	XPm_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
 
