@@ -19,6 +19,7 @@
  * 1.0   bsv  04/17/2022   Initial release
  * 1.1   sk   04/18/2023   Added support for versalnet
  *       ng   06/21/2023   Added support for system device-tree flow
+ *       sk   07/26/2023   Updated IPI device ID
  */
 #include <stdio.h>
 #include "xil_printf.h"
@@ -26,10 +27,11 @@
 #include "xipipsu.h"
 #include "xil_cache.h"
 
+
 #ifdef SDT
-#define IOMODULE_DEVICE (XPAR_XIOMODULE_0_BASEADDR)
+#define IPI_DEVICE (XPAR_XIPIPSU_0_BASEADDR)
 #else
-#define IOMODULE_DEVICE (XPAR_IOMODULE_0_DEVICE_ID)
+#define IPI_DEVICE (XPAR_XIPIPSU_0_DEVICE_ID)
 #endif
 
 #if defined(VERSAL_NET)
@@ -74,7 +76,7 @@ static int DoIpiTest(void)
 	Xil_DCacheDisable();
 
 	/* Look Up the config data */
-	IpiCfgPtr = XIpiPsu_LookupConfig(IOMODULE_DEVICE);
+	IpiCfgPtr = XIpiPsu_LookupConfig(IPI_DEVICE);
 	if (NULL == IpiCfgPtr) {
 		goto END;
 	}

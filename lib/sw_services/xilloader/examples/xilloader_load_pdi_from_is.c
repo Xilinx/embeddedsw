@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
  *
- * @file xilloader_load_pdi_example.c
+ * @file xilloader_load_pdi_from_is.c
  *
  * This file illustrates loading partial pdi via IPI command.
  *
@@ -19,8 +19,7 @@
  * 1.0   bsv  06/23/2022   Initial release
  *       bsv  06/28/2022   Rename and reorganize functions
  * 1.1   sk   04/18/2023   Added support for versalnet
- *       ng   06/21/2023   Added support for system device-tree flow
- *       sk   07/26/2023   Updated IPI device ID
+ *       sk   07/27/2023   Added support for system device-tree flow
  * </pre>
  *
  * @note
@@ -41,15 +40,16 @@
 #define TARGET_IPI_INT_MASK	XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
 #endif
 
-
+#define PDI_ID 		(0x3U)
 #define IPI_TIMEOUT		(0xFFFFFFFFU)
-#define PDI_SRC_ADDR_LOW	(0x1000000U)
+#define PDI_SRC_ADDR_LOW	(PDI_ID) /* Update with the required Image Store PDI Id to load */
 #define PDI_SRC_ADDR_HIGH	(0U)
-#define XLOADER_PDI_SRC_DDR	(0xFU)
+#define XLOADER_PDI_SRC_IS	(0x10U) /* PDI Source is Image Store */
 #define HEADER(Len, ModuleId, CmdId)	((Len << 16U) | (ModuleId << 8U) | CmdId)
 #define LOAD_PDI_CMD_PAYLOAD_LEN	(3U)
 #define XILLOADER_MODULE_ID		(7U)
 #define XILLOADER_LOAD_PPDI_CMD_ID	(1U)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -58,7 +58,6 @@
 #else
 #define IPI_DEVICE (XPAR_XIPIPSU_0_DEVICE_ID)
 #endif
-
 /************************** Function Prototypes ******************************/
 static int XilLoaderLoadPdiTest(void);
 
@@ -141,14 +140,14 @@ static int XilLoaderLoadPdiTest(void)
 *
 *	Command: Load Partial Pdi
 *	Reserved[31:25]=0	Security Flag[24]	Length[23:16]=3	XilLoader=7	CMD_XILLOADER_LOAD_PPDI=1
-*	PdiSrc - 0x1 for QSPI24, 0x2 for QSPI32, 0x8 for OSPI, 0xF for DDR
-*	High PDI Address
-*       Low PDI Address
-*       Pdi should be placed at the PDI address in the PDI source before running this example.
+*	PdiSrc - 0x1 for QSPI24, 0x2 for QSPI32, 0x8 for OSPI, 0xF for DDR,0x10 for Image Store
+*	High PDI Address / 0x00 if Source is Image Store
+*       Low PDI Address / PDI Id if Source is Image Store
+*       Pdi should be placed in the PDI source before running this example.
 *
 */
 	u32 Payload[] = {HEADER(LOAD_PDI_CMD_PAYLOAD_LEN, XILLOADER_MODULE_ID,
-		XILLOADER_LOAD_PPDI_CMD_ID), XLOADER_PDI_SRC_DDR,
+		XILLOADER_LOAD_PPDI_CMD_ID), XLOADER_PDI_SRC_IS,
 		PDI_SRC_ADDR_HIGH, PDI_SRC_ADDR_LOW};
 
 	 /* Check if there is any pending IPI in progress */

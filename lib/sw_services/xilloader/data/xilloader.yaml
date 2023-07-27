@@ -28,17 +28,3 @@ depends_libs:
   xilpm: {}
   xilpdi: {}
   xilffs: {}
-
-examples:
-  xilloader_add_image_store_pdi_example.c:
-    - supported_platforms:
-      - Versal
-      - VersalNet
-  xilloader_load_pdi_example.c:
-    - supported_platforms:
-      - Versal
-      - VersalNet
-  xilloader_update_multiboot.c:
-    - supported_platforms:
-      - Versal
-      - VersalNet
