@@ -73,6 +73,7 @@ extern "C" {
 #endif
 
 
+#define XV_HDMITXSS1_DDC_EDID_LENGTH	256
 
 /****************************** Type Definitions ******************************/
 #define ANSI_COLOR_RED     "\x1b[31m"
@@ -518,7 +519,7 @@ int XV_HdmiTxSs1_SetLogCallback(XV_HdmiTxSs1 *InstancePtr,
 	u64 *CallbackFunc,
 	void *CallbackRef);
 int XV_HdmiTxSs1_SendCvtemAuxPackets(XV_HdmiTxSs1 *InstancePtr, XHdmiC_Aux *DscAuxFifo);
-int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *BufferPtr);
+int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *BufferPtr, u32 BufferSize);
 int XV_HdmiTxSs1_ReadEdidSegment(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u8 segment);
 void XV_HdmiTxSs1_ShowEdid(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_SetScrambler(XV_HdmiTxSs1 *InstancePtr, u8 Enable);

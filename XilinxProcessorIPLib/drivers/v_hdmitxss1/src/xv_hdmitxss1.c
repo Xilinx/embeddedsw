@@ -1738,9 +1738,15 @@ int XV_HdmiTxSs1_SendCvtemAuxPackets(XV_HdmiTxSs1 *InstancePtr, XHdmiC_Aux *DscA
 * @note   None.
 *
 ******************************************************************************/
-int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer)
+int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u32 BufferSize)
 {
-    u32 Status;
+    u32 Status, Index;
+    u8 ExtensionFlag = 0;
+    u8 Segment = 1;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid((BufferSize >= XV_HDMITXSS1_DDC_EDID_LENGTH) &&
+			  (BufferSize %XV_HDMITXSS1_DDC_EDID_LENGTH == 0));
 
     /* Default*/
     Status = (XST_FAILURE);
@@ -1758,7 +1764,29 @@ int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer)
         Status = XV_HdmiTx1_DdcRead(InstancePtr->HdmiTx1Ptr, 0x50, 256, Buffer,
             (TRUE));
       }
-    }
+
+	/* Read if more than 2 Blocks of EDID present */
+	if (Status == (XST_SUCCESS)) {
+		ExtensionFlag = Buffer[126];
+		ExtensionFlag = ExtensionFlag >> 1;
+		if ((BufferSize / XV_HDMITXSS1_DDC_EDID_LENGTH) <
+		    (ExtensionFlag + 1)) {
+			xil_printf(ANSI_COLOR_YELLOW "Buffer size is small. Pass input buffer of size %d\r\n",
+				   (ExtensionFlag + 1) *
+				    XV_HDMITXSS1_DDC_EDID_LENGTH,
+				   ANSI_COLOR_RESET);
+			return XST_FAILURE;
+		}
+		while (Segment <= ExtensionFlag) {
+			Index = (XV_HDMITXSS1_DDC_EDID_LENGTH +(Segment-1) *
+				 XV_HDMITXSS1_DDC_EDID_LENGTH);
+			Status = XV_HdmiTxSs1_ReadEdidSegment(InstancePtr,
+							      &Buffer[Index],
+							      Segment);
+							      Segment++;
+		}
+	}
+	}
   return Status;
 }
 
