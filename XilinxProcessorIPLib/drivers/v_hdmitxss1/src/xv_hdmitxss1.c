@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1740,54 +1741,52 @@ int XV_HdmiTxSs1_SendCvtemAuxPackets(XV_HdmiTxSs1 *InstancePtr, XHdmiC_Aux *DscA
 ******************************************************************************/
 int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u32 BufferSize)
 {
-    u32 Status, Index;
-    u8 ExtensionFlag = 0;
-    u8 Segment = 1;
+	u32 Status, Index;
+	u8 ExtensionFlag = 0;
+	u8 Segment = 1;
 
 	/* Verify argument. */
 	Xil_AssertNonvoid((BufferSize >= XV_HDMITXSS1_DDC_EDID_LENGTH) &&
 			  (BufferSize %XV_HDMITXSS1_DDC_EDID_LENGTH == 0));
 
-    /* Default*/
-    Status = (XST_FAILURE);
+	/* Default*/
+	Status = (XST_FAILURE);
 
-    /* Check if a sink is connected*/
-    if (InstancePtr->IsStreamConnected == (TRUE)) {
-
-      *Buffer = 0x00;   /* Offset zero*/
-      Status = XV_HdmiTx1_DdcWrite(InstancePtr->HdmiTx1Ptr, 0x50, 1, Buffer,
-        (FALSE));
-
-      /* Check if write was successful*/
-      if (Status == (XST_SUCCESS)) {
-        /* Read edid*/
-        Status = XV_HdmiTx1_DdcRead(InstancePtr->HdmiTx1Ptr, 0x50, 256, Buffer,
-            (TRUE));
-      }
-
-	/* Read if more than 2 Blocks of EDID present */
-	if (Status == (XST_SUCCESS)) {
-		ExtensionFlag = Buffer[126];
-		ExtensionFlag = ExtensionFlag >> 1;
-		if ((BufferSize / XV_HDMITXSS1_DDC_EDID_LENGTH) <
-		    (ExtensionFlag + 1)) {
-			xil_printf(ANSI_COLOR_YELLOW "Buffer size is small. Pass input buffer of size %d\r\n",
-				   (ExtensionFlag + 1) *
-				    XV_HDMITXSS1_DDC_EDID_LENGTH,
-				   ANSI_COLOR_RESET);
-			return XST_FAILURE;
+	/* Check if a sink is connected*/
+	if (InstancePtr->IsStreamConnected == (TRUE)) {
+		*Buffer = 0x00;   /* Offset zero*/
+		Status = XV_HdmiTx1_DdcWrite(InstancePtr->HdmiTx1Ptr, 0x50, 1,
+					     Buffer, (FALSE));
+		/* Check if write was successful*/
+		if (Status == (XST_SUCCESS)) {
+			/* Read edid*/
+			Status = XV_HdmiTx1_DdcRead(InstancePtr->HdmiTx1Ptr,
+						    0x50, 256, Buffer, (TRUE));
 		}
-		while (Segment <= ExtensionFlag) {
-			Index = (XV_HDMITXSS1_DDC_EDID_LENGTH +(Segment-1) *
-				 XV_HDMITXSS1_DDC_EDID_LENGTH);
-			Status = XV_HdmiTxSs1_ReadEdidSegment(InstancePtr,
-							      &Buffer[Index],
-							      Segment);
-							      Segment++;
+
+		/* Read if more than 2 Blocks of EDID present */
+		if (Status == (XST_SUCCESS)) {
+			ExtensionFlag = Buffer[126];
+			ExtensionFlag = ExtensionFlag >> 1;
+			if ((BufferSize / XV_HDMITXSS1_DDC_EDID_LENGTH) <
+			    (ExtensionFlag + 1)) {
+				xil_printf(ANSI_COLOR_YELLOW "Buffer size is small. Pass input buffer of size %d\r\n",
+					   (ExtensionFlag + 1) *
+					   XV_HDMITXSS1_DDC_EDID_LENGTH,
+					   ANSI_COLOR_RESET);
+				return XST_FAILURE;
+			}
+			while (Segment <= ExtensionFlag) {
+				Index = (XV_HDMITXSS1_DDC_EDID_LENGTH + (Segment-1) *
+				XV_HDMITXSS1_DDC_EDID_LENGTH);
+				Status = XV_HdmiTxSs1_ReadEdidSegment(InstancePtr,
+								      &Buffer[Index],
+								      Segment);
+								      Segment++;
+			}
 		}
 	}
-	}
-  return Status;
+	return Status;
 }
 
 /*****************************************************************************/
