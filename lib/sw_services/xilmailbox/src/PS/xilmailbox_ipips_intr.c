@@ -44,28 +44,27 @@
 /****************************************************************************/
 u32 XIpiPs_PollforDone(XMailbox *InstancePtr)
 {
-        XMailbox_Agent *DataPtr = &InstancePtr->Agent;
-        XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
-        u32 Timeout = XIPI_DONE_TIMEOUT_VAL;
-        u32 Status = XST_SUCCESS;
-        u32 Flag;
+	XMailbox_Agent *DataPtr = &InstancePtr->Agent;
+	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
+	u32 Timeout = XIPI_DONE_TIMEOUT_VAL;
+	u32 Status = XST_SUCCESS;
+	u32 Flag;
 
-        do {
-                Flag = (XIpiPsu_ReadReg(IpiInstancePtr->Config.BaseAddress,
-                                        XIPIPSU_OBS_OFFSET)) & (DataPtr->RemoteId);
-                if (Flag == 0U) {
-                        break;
-                }
-                usleep(XIPI_IPI_DONE_BIT_SLEEP_IN_US);
-                Timeout--;
-        }
-        while (Timeout != 0U);
+	do {
+		Flag = (XIpiPsu_ReadReg(IpiInstancePtr->Config.BaseAddress,
+					XIPIPSU_OBS_OFFSET)) & (DataPtr->RemoteId);
+		if (Flag == 0U) {
+			break;
+		}
+		usleep(XIPI_IPI_DONE_BIT_SLEEP_IN_US);
+		Timeout--;
+	} while (Timeout != 0U);
 
-        if (Timeout == 0U) {
-                Status = XST_FAILURE;
-        }
+	if (Timeout == 0U) {
+		Status = XST_FAILURE;
+	}
 
-        return Status;
+	return Status;
 }
 
 #ifndef __MICROBLAZE__
@@ -83,92 +82,92 @@ u32 XIpiPs_PollforDone(XMailbox *InstancePtr)
  *
  ****************************************************************************/
 XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
-                                  XMailbox *InstancePtr,
-                                  u32 IpiIntrId)
+			   XMailbox *InstancePtr,
+			   u32 IpiIntrId)
 {
 #ifndef SDT
-        s32 Status = (s32)XST_FAILURE;
-        XScuGic_Config *IntcConfigPtr;
+	s32 Status = (s32)XST_FAILURE;
+	XScuGic_Config *IntcConfigPtr;
 
-        /* Initialize the interrupt controller driver */
-        IntcConfigPtr = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
-        if (NULL == IntcConfigPtr) {
-                return (s32)XST_FAILURE;
-        }
+	/* Initialize the interrupt controller driver */
+	IntcConfigPtr = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
+	if (NULL == IntcConfigPtr) {
+		return (s32)XST_FAILURE;
+	}
 
-        /* Check if the GIC is already setup by this time */
-        if (XScuGic_IsInitialized(XPAR_SCUGIC_0_DEVICE_ID) == 1U) {
-                /*
-                 * GIC is already initialized, just register handlers using the
-                 * interrupt Ids and return success.
-                 */
-                XScuGic_RegisterHandler(IntcConfigPtr->CpuBaseAddress,
-                                        IpiIntrId,
-                                        (Xil_InterruptHandler)XIpiPs_IntrHandler,
-                                        (void *)InstancePtr);
+	/* Check if the GIC is already setup by this time */
+	if (XScuGic_IsInitialized(XPAR_SCUGIC_0_DEVICE_ID) == 1U) {
+		/*
+		 * GIC is already initialized, just register handlers using the
+		 * interrupt Ids and return success.
+		 */
+		XScuGic_RegisterHandler(IntcConfigPtr->CpuBaseAddress,
+					IpiIntrId,
+					(Xil_InterruptHandler)XIpiPs_IntrHandler,
+					(void *)InstancePtr);
 
-                XScuGic_RegisterHandler(IntcConfigPtr->CpuBaseAddress,
-                                        XMAILBOX_INTR_ID,
-                                        (Xil_InterruptHandler)XIpiPs_ErrorIntrHandler,
-                                        (void *)InstancePtr);
-                /* Enable the interrupt for the device */
-                XScuGic_EnableIntr(IntcConfigPtr->DistBaseAddress, IpiIntrId);
-                XScuGic_EnableIntr(IntcConfigPtr->DistBaseAddress, XMAILBOX_INTR_ID);
+		XScuGic_RegisterHandler(IntcConfigPtr->CpuBaseAddress,
+					XMAILBOX_INTR_ID,
+					(Xil_InterruptHandler)XIpiPs_ErrorIntrHandler,
+					(void *)InstancePtr);
+		/* Enable the interrupt for the device */
+		XScuGic_EnableIntr(IntcConfigPtr->DistBaseAddress, IpiIntrId);
+		XScuGic_EnableIntr(IntcConfigPtr->DistBaseAddress, XMAILBOX_INTR_ID);
 
-                return (s32)XST_SUCCESS;
-        }
+		return (s32)XST_SUCCESS;
+	}
 
-        Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfigPtr,
-                                       IntcConfigPtr->CpuBaseAddress);
-        if (Status != XST_SUCCESS) {
-                return (s32)XST_FAILURE;
-        }
+	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfigPtr,
+				       IntcConfigPtr->CpuBaseAddress);
+	if (Status != XST_SUCCESS) {
+		return (s32)XST_FAILURE;
+	}
 
-        /*
-         * Connect the interrupt controller interrupt handler to the
-         * hardware interrupt handling logic in the processor.
-         */
-        Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-                                     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
-                                     IntcInstancePtr);
+	/*
+	 * Connect the interrupt controller interrupt handler to the
+	 * hardware interrupt handling logic in the processor.
+	 */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 
-        Status = XScuGic_Connect(IntcInstancePtr, IpiIntrId,
-                                 (Xil_InterruptHandler) XIpiPs_IntrHandler,
-                                 (void *)InstancePtr);
-        if (Status != XST_SUCCESS) {
-                return (s32)XST_FAILURE;
+	Status = XScuGic_Connect(IntcInstancePtr, IpiIntrId,
+				 (Xil_InterruptHandler) XIpiPs_IntrHandler,
+				 (void *)InstancePtr);
+	if (Status != XST_SUCCESS) {
+		return (s32)XST_FAILURE;
 
-        }
+	}
 
-        Status = XScuGic_Connect(IntcInstancePtr, XMAILBOX_INTR_ID,
-                                 (Xil_InterruptHandler) XIpiPs_ErrorIntrHandler,
-                                 (void *)InstancePtr);
-        if (Status != XST_SUCCESS) {
-                return (s32)XST_FAILURE;
-        }
+	Status = XScuGic_Connect(IntcInstancePtr, XMAILBOX_INTR_ID,
+				 (Xil_InterruptHandler) XIpiPs_ErrorIntrHandler,
+				 (void *)InstancePtr);
+	if (Status != XST_SUCCESS) {
+		return (s32)XST_FAILURE;
+	}
 
 
-        /* Enable the interrupt for the device */
-        XScuGic_Enable(IntcInstancePtr, IpiIntrId);
-        XScuGic_Enable(IntcInstancePtr, XMAILBOX_INTR_ID);
+	/* Enable the interrupt for the device */
+	XScuGic_Enable(IntcInstancePtr, IpiIntrId);
+	XScuGic_Enable(IntcInstancePtr, XMAILBOX_INTR_ID);
 
-        /* Enable interrupts */
-        Xil_ExceptionEnable();
+	/* Enable interrupts */
+	Xil_ExceptionEnable();
 
-        return Status;
+	return Status;
 
 #else
-        XMailbox_Agent *DataPtr = &InstancePtr->Agent;
-        XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
+	XMailbox_Agent *DataPtr = &InstancePtr->Agent;
+	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 
-        XSetupInterruptSystem(InstancePtr, (Xil_InterruptHandler)
-                              XIpiPs_IntrHandler, IpiIntrId, IpiInstancePtr->Config.IntrParent,
-                              XINTERRUPT_DEFAULT_PRIORITY);
+	XSetupInterruptSystem(InstancePtr, (Xil_InterruptHandler)
+			      XIpiPs_IntrHandler, IpiIntrId, IpiInstancePtr->Config.IntrParent,
+			      XINTERRUPT_DEFAULT_PRIORITY);
 
-        XSetupInterruptSystem(InstancePtr, (Xil_InterruptHandler)
-                              XIpiPs_IntrHandler, XMAILBOX_INTR_ID, IpiInstancePtr->Config.IntrParent,
-                              XINTERRUPT_DEFAULT_PRIORITY);
-        return XST_SUCCESS;
+	XSetupInterruptSystem(InstancePtr, (Xil_InterruptHandler)
+			      XIpiPs_IntrHandler, XMAILBOX_INTR_ID, IpiInstancePtr->Config.IntrParent,
+			      XINTERRUPT_DEFAULT_PRIORITY);
+	return XST_SUCCESS;
 #endif
 }
 #endif

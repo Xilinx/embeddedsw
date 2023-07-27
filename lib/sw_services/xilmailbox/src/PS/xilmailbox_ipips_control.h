@@ -55,16 +55,16 @@ u32 XIpiPs_Init(XMailbox *InstancePtr, UINTPTR BaseAddress);
 #endif
 u32 XIpiPs_Send(XMailbox *InstancePtr, u8 Is_Blocking);
 u32 XIpiPs_SendData(XMailbox *InstancePtr, void *MsgBufferPtr,
-                           u32 MsgLen, u8 BufferType, u8 Is_Blocking);
+		    u32 MsgLen, u8 BufferType, u8 Is_Blocking);
 u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
-                           u32 MsgLen, u8 BufferType);
+		    u32 MsgLen, u8 BufferType);
 u32 XIpiPs_PollforDone(XMailbox *InstancePtr);
 #ifndef __MICROBLAZE__
 void XIpiPs_ErrorIntrHandler(void *XMailboxPtr);
 void XIpiPs_IntrHandler(void *XMailboxPtr);
 XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
-                                  XMailbox *InstancePtr,
-                                  u32 IpiIntrId);
+			   XMailbox *InstancePtr,
+			   u32 IpiIntrId);
 #endif
 
 
