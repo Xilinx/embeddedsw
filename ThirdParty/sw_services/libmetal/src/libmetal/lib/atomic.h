@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2015, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2015-2022, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -26,6 +27,12 @@
 # include <atomic>
 using std::atomic_flag;
 using std::memory_order;
+using std::memory_order_relaxed;
+using std::memory_order_consume;
+using std::memory_order_acquire;
+using std::memory_order_release;
+using std::memory_order_acq_rel;
+using std::memory_order_seq_cst;
 
 using std::atomic_bool;
 using std::atomic_char;
