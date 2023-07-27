@@ -23,7 +23,7 @@ extern "C" {
 
 /** PSM RAM Base address */
 #define XPM_PSM_RAM_BASE_ADDR		(0xFFC00000U)
-#define XPM_PSM_RAM_SIZE		(0x40000U)
+#define XPM_PSM_RAM_SIZE		(0x20000U)
 
 #define DDRMC_DEVID(IDX)	NODEID((u32)XPM_NODECLASS_DEVICE, \
 				       (u32)XPM_NODESUBCL_DEV_MEM_CTRLR, \
