@@ -21,11 +21,7 @@ foreach (source ${_sources})
     list(APPEND src_ext ${ext})
 endforeach()
 
-if (".cpp" IN_LIST src_ext)
-    set(PROJECT_TYPE "c++")
-else()
-    set(PROJECT_TYPE "c")
-endif()
+find_project_type ("${src_ext}" PROJECT_TYPE)
 
 if("${PROJECT_TYPE}" STREQUAL "c++")
 collect(PROJECT_LIB_DEPS stdc++)
