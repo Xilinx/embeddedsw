@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##############################################################################
 
@@ -146,6 +147,13 @@ proc xgen_opts_file {libhandle} {
 
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	puts $file_handle "\#define XPAR_XILPM_ENABLED"
+	set part [::hsi::get_current_part]
+	set part_name [string range $part 0 [expr {[string first "-" $part] - 1}]]
+
+	# Add macro for enabling P80 related code
+	if { [string match -nocase "xcvp1902" $part_name] } {
+		puts $file_handle "\#define XCVP1902"
+	}
 	close $file_handle
 
 	# Copy the include files to the include directory
