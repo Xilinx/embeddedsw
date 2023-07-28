@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -80,7 +81,6 @@ static XStatus XPm_SlvSlrNidbCfg(u32 NidbAddr);
 static XStatus XPm_SlvSlrBootNocCfg(u32 NirAddr, u32 RelNpsAddr, u32 PmcNsuID,
 				u32 MstPmcNmuID, u32 SsitType);
 static XStatus XPm_NocSwitchConfig(u32 SlrType);
-static XStatus XPm_NoCHWConfig(void);
 
 XStatus XPm_NoCConfig(void)
 {
@@ -121,7 +121,7 @@ END:
 	return Status;
 }
 
-static XStatus XPm_NoCHWConfig(void)
+XStatus XPm_NoCHWConfig(void)
 {
 	/**
 	 * Check the power supply for SoC (NoC)

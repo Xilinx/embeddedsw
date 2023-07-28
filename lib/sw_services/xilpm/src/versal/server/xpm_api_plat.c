@@ -400,6 +400,7 @@ XStatus XPm_PlatInit(void)
 	u32 i;
 	u32 Platform = 0;
 	u32 PmcVersion;
+	u32 IdCode = XPm_GetIdCode();
 
 	const u32 IsolationIdx[] = {
 		(u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM,
@@ -429,7 +430,15 @@ XStatus XPm_PlatInit(void)
 	}
 
 	/* Add repair NoC which is reset by NoC POR above*/
-	Status = XPm_NoCConfig();
+        if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+            (PMC_TAP_IDCODE_DEV_SBFMLY_VP1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
+#ifdef XCVP1902
+		/* VP1902 device */
+		Status = XPm_NocConfig_vp1902();
+#endif
+	} else {
+		Status = XPm_NoCConfig();
+	}
 
 	/* For some boards, vccaux workaround is implemented using gpio to control vccram supply.
 	During system reset, when gpio goes low, delay is required for system controller to process
