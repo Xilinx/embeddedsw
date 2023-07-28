@@ -28,6 +28,7 @@
 *                       if DS is not found. Also Disabled exceptions before
 *                       requesting for update so that stack limit regisers are
 *                       updated properly after the update
+*       sk   07/26/2023 Added redundant write of PdiAddr in XPlmi_PlmUpdateTask
 *
 * </pre>
 *
@@ -693,7 +694,7 @@ static int XPlmi_PlmUpdateTask(void *Arg)
 	}
 
 	/* Update the new PLM location in Memory */
-	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE5, *PdiAddr);
+	XSECURE_REDUNDANT_IMPL(XPlmi_Out32, PMC_GLOBAL_GLOBAL_GEN_STORAGE5, *PdiAddr);
 
 	/* Clear Previous Done Bits */
 	XPlmi_Out32(PMC_GLOBAL_ROM_INT_REASON, XPLMI_ROM_INT_REASON_CLEAR);
