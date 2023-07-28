@@ -42,6 +42,10 @@
 #include "xinterrupt_wrap.h"
 #endif
 
+#if !defined(XPAR_XILTIMER_ENABLED) && defined(XPM_SUPPORT)
+#include "xttcps.h"
+#endif
+
 #ifndef configINTERRUPT_CONTROLLER_BASE_ADDRESS
     #error configINTERRUPT_CONTROLLER_BASE_ADDRESS must be defined.  Refer to Cortex-A equivalent: http: /*www.FreeRTOS.org/Using-FreeRTOS-on-Cortex-A-Embedded-Processors.html */
 #endif
@@ -203,6 +207,9 @@ volatile uint32_t ulCriticalNesting = 9999UL;
  */
 #if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 extern XScuGic xInterruptController;
+#if !defined(XPAR_XILTIMER_ENABLED) && defined(XPM_SUPPORT)
+extern XTtcPs xTimerInstance;
+#endif
 #else
 uintptr_t IntrControllerAddr = configINTERRUPT_CONTROLLER_BASE_ADDRESS;
 #endif
@@ -577,9 +584,20 @@ uint32_t ulBpr;
 
 void vPortEndScheduler( void )
 {
-	/* Not implemented in ports where there is nothing to return to.
-	Artificially force an assert. */
+	/* Not implemented in ports where there is nothing to return to. */
+	/* Release ticktimer, so timer is left in its original condition */
+#if defined (XPM_SUPPORT)
+#if !defined (XPAR_XILTIMER_ENABLED)
+	XTtcPs_Release(&xTimerInstance);
+#else
+	XTimer_ReleaseTickTimer();
+#endif
+#endif
+	/* Artificially force an assert. */
 	configASSERT( ulCriticalNesting == 1000UL );
+
+	/*TODO: vPortEndScheduler should release all the resources allocated
+	 * by the kernel.*/
 }
 /*-----------------------------------------------------------*/
 

@@ -72,7 +72,7 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer,
 
 #if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 /* Timer used to generate the tick interrupt. */
-static XTtcPs xTimerInstance;
+XTtcPs xTimerInstance;
 XScuGic xInterruptController;
 #else
 extern uintptr_t IntrControllerAddr;
