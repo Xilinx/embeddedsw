@@ -22,6 +22,8 @@
  *  	 adk   07/02/22 Updated the IntrHandler as per XTimer_SetHandler() API
  *  	 	        and removed the unneeded XTickTimer_SetPriority() API.
  * 1.1   adk   08/08/22 Added doxygen tags.
+ * 1.3   gm    21/07/23 Added Timer Release Callback function support.
+ *
  *</pre>
  *
  *@note
@@ -48,6 +50,9 @@ static void XTimer_TtcTickInterval(XTimer *InstancePtr, u32 Delay);
 static void XTimer_TtcSetIntrHandler(XTimer *InstancePtr, u8 Priority);
 static void XTickTimer_TtcStop(XTimer *InstancePtr);
 static void XTickTimer_ClearTtcInterrupt(XTimer *InstancePtr);
+#if defined  (XPM_SUPPORT)
+static void XTickTimer_ReleaseTickTimer(XTimer *InstancePtr);
+#endif
 #endif
 
 #ifdef XSLEEPTIMER_IS_TTCPS
@@ -84,6 +89,9 @@ u32 XilTickTimer_Init(XTimer *InstancePtr)
 	InstancePtr->XTimer_TickInterval = XTimer_TtcTickInterval;
 	InstancePtr->XTickTimer_Stop = XTickTimer_TtcStop;
 	InstancePtr->XTickTimer_ClearInterrupt = XTickTimer_ClearTtcInterrupt;
+#if defined  (XPM_SUPPORT)
+	InstancePtr->XTickTimer_ReleaseTickTimer = XTickTimer_ReleaseTickTimer;
+#endif
 	return XST_SUCCESS;
 }
 #endif
@@ -221,6 +229,24 @@ static void XTickTimer_TtcStop(XTimer *InstancePtr)
 
 	XTtcPs_Stop(TtcPsInstPtr);
 }
+
+#if defined  (XPM_SUPPORT)
+/*****************************************************************************/
+/**
+ * This function implements the release functionality for the tick timer
+ *
+ * @param  InstancePtr is Pointer to the XTimer instance
+ *
+ * @return      None
+ *
+ ****************************************************************************/
+static void XTickTimer_ReleaseTickTimer(XTimer *InstancePtr)
+{
+	XTtcPs *TtcPsInstPtr = &InstancePtr->TtcPs_TickInst;
+
+	XTtcPs_Release(TtcPsInstPtr);
+}
+#endif
 
 /*****************************************************************************/
 /**

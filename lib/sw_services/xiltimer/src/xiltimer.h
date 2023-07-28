@@ -24,6 +24,8 @@
 *  1.1	adk      08/08/22 Added support for versal net.
 *  	adk      08/08/22 Added doxygen tags.
 *  1.2  adk	 22/12/22 Fixed doxygen style and indentation issues.
+*  1.3  gm      21/07/23 Added Timer Release Callback function.
+*
 * </pre>
 ******************************************************************************/
 #ifndef XILTIMER_H
@@ -97,6 +99,10 @@ typedef struct XTimerTag {
 	                                    /**< Clears the Tick timer interrupt status */
 	XTimer_TickHandler Handler;         /**< Callback function */
 	void *CallBackRef;                  /**< Callback reference for handler */
+#ifdef  XPM_SUPPORT
+	void (*XTickTimer_ReleaseTickTimer)(struct XTimerTag *InstancePtr);
+					/**< Timer Release Callback function */
+#endif
 #ifdef XSLEEPTIMER_IS_AXITIMER
 	XTmrCtr AxiTimer_SleepInst;
 #endif
