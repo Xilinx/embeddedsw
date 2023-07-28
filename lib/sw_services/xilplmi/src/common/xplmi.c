@@ -54,6 +54,7 @@
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *       bm   03/11/2023 Added status check for XPlmi_PreInit
 * 1.08  sk   07/18/2023 Warn out for uart init fail
+*       sk   07/26/2023 Added redundant check for XPlmi_IsPlmUpdateDone
 *
 * </pre>
 *
@@ -123,7 +124,7 @@ int XPlmi_RunTimeConfigInit(void)
 	u32 DevSecureState = XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2);
 
 	/* In-Place PLM Update is applicable only for versalnet */
-	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+	if ((XPlmi_IsPlmUpdateDone() == (u8)TRUE) || (XPlmi_IsPlmUpdateDoneTmp() == (u8)TRUE)) {
 		XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_ADDR, DevSecureState);
 		Status = XST_SUCCESS;
 		goto END;

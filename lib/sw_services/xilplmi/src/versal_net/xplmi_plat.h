@@ -40,6 +40,7 @@
 *       bm   07/06/2023 Added XPlmi_RunProc prototype
 *                       Refactored Proc logic to more generic logic
 *                       Added list commands prototypes
+*       sk   07/28/2023 Added ptototype for XPlmi_IsPlmUpdateDoneTmp
 *
 * </pre>
 *
@@ -479,6 +480,7 @@ u32 *XPlmi_GetLpdInitialized(void);
 int XPlmi_PreInit(void);
 void XPlmi_RtcaPlatInit(void);
 u8 XPlmi_IsPlmUpdateDone(void);
+u8 XPlmi_IsPlmUpdateDoneTmp(void);
 u8 XPlmi_IsPlmUpdateInProgress(void);
 void XPlmi_SssMask(u32 InputSrc, u32 OutputSrc);
 XPlmi_CircularBuffer *XPlmi_GetTraceLogInst(void);
