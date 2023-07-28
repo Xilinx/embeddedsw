@@ -65,6 +65,8 @@ properties:
     description: FIFO enable status
   xlnx,mixer-type:
     description: coarse or fine mixer
+  xlnx,nco-freq:
+    description: The NCO frequency
 
 config:
     - XRFdc_Config
@@ -108,6 +110,7 @@ required:
             - xlnx,fifo-enable
             - xlnx,adder-enable
             - xlnx,mixer-type
+            - xlnx,nco-freq
 
 examples:
     xrfdc_selftest_example.c:
