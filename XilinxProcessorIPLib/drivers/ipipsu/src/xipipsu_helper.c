@@ -20,6 +20,7 @@
 * Ver	Who	Date	 Changes
 * ----- ------ --------  ----------------------------------------------
 * 2.14	ht	06/13/23 Restructured the code for more modularity
+*       ht	07/28/23 Fix MISRA-C warnings
 *
 * </pre>
 *
@@ -31,11 +32,13 @@
 #include "xipipsu_buf.h"
 
 /************************** Constant Definitions *****************************/
+#ifdef ENABLE_IPI_CRC
 #define POLYNOM					0x8005U /**< Polynomial */
 #define INITIAL_CRC_VAL			0x4F4EU		/**< Initial crc value */
 #define CRC16_MASK				0xFFFFU /**< CRC mask */
 #define CRC16_HIGH_BIT_MASK		0x8000U		/**< CRC high bit mask */
 #define NUM_BITS_IN_BYTE		0x8U		/**< 8 bits in a byte */
+#endif
 
 /************************** Variable Definitions *****************************/
 
