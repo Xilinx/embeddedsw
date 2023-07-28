@@ -27,6 +27,8 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       sk   06/12/2023 Renamed XLoader_UpdateKekSrc to XLoader_GetKekSrc
 * 1.9   kpt  07/12/2023 Added mask generation function
+*       sk   07/26/2023 Made status redundant variable volatile in
+*                       XLoader_IsAdditionalPpkValid
 *
 * </pre>
 *
@@ -265,9 +267,9 @@ END:
 *
 ******************************************************************************/
 int XLoader_IsAdditionalPpkValid(const u8 *PpkHash) {
-	int Status = XST_FAILURE;
 #ifdef PLM_EN_ADD_PPKS
-	int StatusTmp = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 
 	/** - Read Additional PPks enable bits*/
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsAdditionalPpkFeatureEnabled);
@@ -290,6 +292,7 @@ int XLoader_IsAdditionalPpkValid(const u8 *PpkHash) {
 	}
 	Status |= StatusTmp;
 #else
+	int Status = XST_FAILURE;
 	(void)PpkHash;
 #endif
 
