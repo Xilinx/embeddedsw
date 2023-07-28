@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,7 @@
 * 3.10 aru    05/30/19 Updated the example to use XTtcPs_InterruptHandler().
 * 3.16 adk    04/19/22 Fix infinite loop in the example by adding polled
 * 		       timeout loop.
+* 3.18 gm     07/17/23 Invoke XTtcPs_Release to release ttc node.
 *</pre>
 ******************************************************************************/
 
@@ -185,6 +187,8 @@ static int TmrRtcInterruptExample(void)
 	 * Stop the counters
 	 */
 	XTtcPs_Stop(&TtcPsInst);
+
+	XTtcPs_Release(&TtcPsInst);
 
 	return XST_SUCCESS;
 }
