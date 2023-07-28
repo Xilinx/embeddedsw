@@ -100,6 +100,19 @@
 #define FSR_TILE_END               (95U)
 #define HALF_FSR_START             (48U)
 
+#ifdef XCVP1902
+/* Repair register unlock value, 0x1 to lock */
+#define NIDB_REPAIR_UNLOCK_VAL			(0xE6172839U)
+#define NIDB_REPAIR_LOCK_VAL			(0x1U)
+
+/* Base address bit position */
+#define NPI_BASE_ADDRESS_OFFSET         	(16U)
+
+#define EFUSE_CACHE_NIDB_0 (EFUSE_CACHE_BASEADDR + EFUSE_CACHE_NIDB_0_OFFSET)
+#define EFUSE_CACHE_NIDB_1 (EFUSE_CACHE_BASEADDR + EFUSE_CACHE_NIDB_1_OFFSET)
+#define EFUSE_CACHE_NIDB_2 (EFUSE_CACHE_BASEADDR + EFUSE_CACHE_NIDB_2_OFFSET)
+#endif
+
 typedef struct XPm_NidbEfuseGrpInfo {
 	u8 RdnCntl;
 	u16 NpiBase;
@@ -1302,6 +1315,293 @@ static XStatus XPmBisr_NidbRepairLane(u32 RepairLeftMostNIDBOnly)
 done:
 	return Status;
 }
+
+#ifdef XCVP1902
+/*****************************************************************************
+ * @brief	This function repairs Lanes in NIDB based on efuse data.
+ *
+ * @param	NidbAddress NIDB address
+ *
+ * @return
+ *		- XST_SUCCESS if successful,
+ *		- XST_FAILURE if unsuccessful.
+ ****************************************************************************/
+static XStatus XPm_NidbRepairLanes_vp1902(const u32 NidbAddress) {
+	volatile XStatus Status = XST_FAILURE;
+	volatile u32 Tmp = 0U;
+	volatile u32 Index = 0U;
+
+	volatile u32 eFUSENPIBaseAddress[MAX_NIDB_EFUSE_GROUPS] = {0};
+	volatile u32 eFUSERepairOffset[MAX_NIDB_EFUSE_GROUPS] = {0};
+	volatile u32 eFUSERdnCtrl[MAX_NIDB_EFUSE_GROUPS] = {0};
+	volatile u32 Address = 0U;
+
+	/* Initialize 1st NIDB Group */
+	eFUSERepairOffset[0] =
+		((Xil_In32(EFUSE_CACHE_NIDB_0) & EFUSE_CACHE_NIDB_0_NPI_OFFSET_0_MASK) >>
+			EFUSE_CACHE_NIDB_0_NPI_OFFSET_0_SHIFT);
+
+	eFUSENPIBaseAddress[0] =
+		((Xil_In32(EFUSE_CACHE_NIDB_0) & EFUSE_CACHE_NIDB_0_NPI_BASE_0_MASK) >>
+			EFUSE_CACHE_NIDB_0_NPI_BASE_0_SHIFT);
+
+	eFUSERdnCtrl[0] =
+		((Xil_In32(EFUSE_CACHE_NIDB_0) & EFUSE_CACHE_NIDB_0_RDN_CNTRL_0_MASK) >>
+			EFUSE_CACHE_NIDB_0_RDN_CNTRL_0_SHIFT);
+
+	/* Initialize 2nd NIDB Group */
+	eFUSERepairOffset[1] =
+		((Xil_In32(EFUSE_CACHE_NIDB_0) & EFUSE_CACHE_NIDB_0_NPI_OFFSET_1_MASK) >>
+			EFUSE_CACHE_NIDB_0_NPI_OFFSET_1_SHIFT);
+
+	eFUSENPIBaseAddress[1] =
+		((Xil_In32(EFUSE_CACHE_NIDB_0) & EFUSE_CACHE_NIDB_0_NPI_BASE_1_MASK) >>
+			EFUSE_CACHE_NIDB_0_NPI_BASE_1_SHIFT);
+
+	eFUSERdnCtrl[1] =
+		((Xil_In32(EFUSE_CACHE_NIDB_1) & EFUSE_CACHE_NIDB_1_RDN_CNTRL_1_MASK) >>
+			EFUSE_CACHE_NIDB_1_RDN_CNTRL_1_SHIFT);
+
+	/* Initialize 3rd NIDB Group */
+	eFUSERepairOffset[2] =
+		((Xil_In32(EFUSE_CACHE_NIDB_1) & EFUSE_CACHE_NIDB_1_NPI_OFFSET_2_MASK) >>
+			EFUSE_CACHE_NIDB_1_NPI_OFFSET_2_SHIFT);
+
+	eFUSENPIBaseAddress[2] =
+		((Xil_In32(EFUSE_CACHE_NIDB_1) & EFUSE_CACHE_NIDB_1_NPI_BASE_2_MASK) >>
+			EFUSE_CACHE_NIDB_1_NPI_BASE_2_SHIFT);
+
+	eFUSERdnCtrl[2] =
+		((Xil_In32(EFUSE_CACHE_NIDB_1) & EFUSE_CACHE_NIDB_1_RDN_CNTL_2_MASK) >>
+			EFUSE_CACHE_NIDB_1_RDN_CNTL_2_SHIFT);
+
+	/* Initialize 4th NIDB Group */
+	eFUSERepairOffset[3] =
+		((Xil_In32(EFUSE_CACHE_NIDB_1) & EFUSE_CACHE_NIDB_1_NPI_OFFSET_3_MASK) >>
+			EFUSE_CACHE_NIDB_1_NPI_OFFSET_3_SHIFT);
+
+	/*NPI_BASE_3[2:0]*/
+	eFUSENPIBaseAddress[3] =
+		((Xil_In32(EFUSE_CACHE_NIDB_1) & EFUSE_CACHE_NIDB_1_NPI_BASE_3_MASK) >>
+			EFUSE_CACHE_NIDB_1_NPI_BASE_3_SHIFT);
+	/*NPI_BASE_3[8:3] << 3U*/
+	Tmp = ((Xil_In32(EFUSE_CACHE_NIDB_2) & EFUSE_CACHE_NIDB_2_NPI_BASE_3_MASK)
+		<< 3U);
+
+	eFUSENPIBaseAddress[3] |= Tmp;
+
+	eFUSERdnCtrl[3] =
+		((Xil_In32(EFUSE_CACHE_NIDB_2) & EFUSE_CACHE_NIDB_2_RDN_CNTL_3_MASK) >>
+			EFUSE_CACHE_NIDB_2_RDN_CNTL_3_SHIFT);
+
+	/* Initialize 5th NIDB Group */
+	eFUSERepairOffset[4] =
+		((Xil_In32(EFUSE_CACHE_NIDB_2) & EFUSE_CACHE_NIDB_2_NPI_OFFSET_4_MASK) >>
+			EFUSE_CACHE_NIDB_2_NPI_OFFSET_4_SHIFT);
+
+	eFUSENPIBaseAddress[4] =
+		((Xil_In32(EFUSE_CACHE_NIDB_2) & EFUSE_CACHE_NIDB_2_NPI_BASE_4_MASK) >>
+			EFUSE_CACHE_NIDB_2_NPI_BASE_4_SHIFT);
+	eFUSERdnCtrl[4] =
+		((Xil_In32(EFUSE_CACHE_NIDB_2) & EFUSE_CACHE_NIDB_2_RDN_CNTRL_4_MASK) >>
+			EFUSE_CACHE_NIDB_2_RDN_CNTRL_4_SHIFT);
+
+	/****************************************************************/
+
+	/**
+	 * unlock PCSR 1st and then do the lane repair unlocking
+	 */
+	XPm_UnlockPcsr(NidbAddress);
+
+	/**
+	 * Unlock lane repair registers
+	 */
+	Xil_Out32(NidbAddress + NIDB_REG_REPAIR_LOCK_OFFSET, NIDB_REPAIR_UNLOCK_VAL);
+
+	/**
+	 * Search through all the 5 repair vectors
+	 */
+	for (Index = 0U; Index < MAX_NIDB_EFUSE_GROUPS; Index++) {
+		/**
+		 * NPI_BASE address = 0xF6000000U
+		 * base Address for NIDB_0 = 0xF6620000U, so offset =
+		 * NIDB_0 address - NPI_BASE address = 0x00620000U >> 16U = 0x0062U
+		 * base Address for NIDB_8 = 0xF6F10000U, so offset =
+		 * NIDB_8 address - NPI_BASE address = 0x00F10000U >> 16U = 0x00F1U
+		 * Value expected from eFUSE in eFUSENPIBaseAddress[] (9 bits)
+		 * field should be 0x62U for NIDB_0
+		 * Value expected from eFUSE in eFUSENPIBaseAddress[] (9 bits)
+		 * field should be 0xF1U for NIDB_8
+		 */
+		if (eFUSENPIBaseAddress[Index] ==
+			((NidbAddress - NPI_ROOT_BASEADDR) >> NPI_BASE_ADDRESS_OFFSET)) {
+			/**
+			 * Make sure that the repair data is non-zero
+			 */
+			if (0U != eFUSERdnCtrl[Index]) {
+
+				/**
+				 * Calculate the Repair Address
+				 * Address (0x620000 + (Offset from eFUSE<<2) + 0x10) NIDB_0 for SLR2
+				 * Address (0xF10000 + (Offset from eFUSE<<2) + 0x10) NIDB_8 for SLR1 &
+				 * SLR3
+				 */
+				Address = (NidbAddress + (eFUSERepairOffset[Index] << 2U) +
+					NIDB_REG_RX_REPAIR_LN_0_OFFSET);
+
+				/**
+				 * Read the repair data from eFUSE and push
+				 */
+				Xil_Out32(Address, eFUSERdnCtrl[Index]);
+				Xil_Out32(Address, eFUSERdnCtrl[Index]);
+			}
+		}
+	}
+
+	if (MAX_NIDB_EFUSE_GROUPS != Index) {
+		goto done;
+	}
+
+	/* Lock lane repair registers */
+	Xil_Out32(NidbAddress + NIDB_REG_REPAIR_LOCK_OFFSET, NIDB_REPAIR_LOCK_VAL);
+	Xil_Out32(NidbAddress + NIDB_REG_REPAIR_LOCK_OFFSET, NIDB_REPAIR_LOCK_VAL);
+
+	/* ODISABLE*/
+	XPm_PcsrWrite(NidbAddress, NIDB_REG_PCSR_MASK_ODISABLE_MASK, 0U);
+
+	Status = XST_SUCCESS;
+
+done:
+	/**
+	 * even if secure write fails we come here, so we have to lock the
+	 * register in case we skipped that instruction there
+	 *
+	 * Lock lane repair registers
+	 */
+	Xil_Out32(NidbAddress + NIDB_REG_REPAIR_LOCK_OFFSET, NIDB_REPAIR_LOCK_VAL);
+	Xil_Out32(NidbAddress + NIDB_REG_REPAIR_LOCK_OFFSET, NIDB_REPAIR_LOCK_VAL);
+
+	/**
+	 * Lock PCSR
+	 */
+	XPm_LockPcsr(NidbAddress);
+	XPm_LockPcsr(NidbAddress);
+
+	return Status;
+}
+
+/*****************************************************************************
+ * @brief	This function moves NIDB to functional state.
+ *
+ * @param	NidbAddress NPS base address
+ *
+ * @return
+ *		- XST_SUCCESS if successful,
+ *		- XST_FAILURE if unsuccessful.
+ *
+ ****************************************************************************/
+XStatus XPm_NidbStartup_vp1902(const u32 NidbAddress) {
+	volatile XStatus Status = XST_FAILURE;
+
+	/**
+	 * Unlock Change
+	 */
+	XPm_UnlockPcsr(NidbAddress);
+
+	/**
+	 * This is to de-asert odisable field
+	 */
+	XSECURE_TEMPORAL_CHECK(done, Status, Xil_SecureOut32,
+			(NidbAddress + NIDB_REG_PCSR_MASK_OFFSET),
+		(NIDB_REG_PCSR_MASK_ODISABLE_MASK & NIDB_REG_PCSR_MASK_ODISABLE_MASK));
+
+	Xil_Out32((NidbAddress + NIDB_REG_PCSR_CONTROL_OFFSET),0);
+
+	/**
+	 * Set the PCOMPLETE
+	 */
+	XPm_PcsrWrite(NidbAddress, NIDB_REG_PCSR_MASK_PCOMPLETE_MASK, NIDB_REG_PCSR_CONTROL_PCOMPLETE_MASK);
+
+	Xil_Out32((NidbAddress + NIDB_REG_PCSR_CONTROL_OFFSET),
+			(NIDB_REG_PCSR_MASK_PCOMPLETE_MASK & NIDB_REG_PCSR_CONTROL_PCOMPLETE_MASK));
+
+done:
+	/**
+	 * Lock PCSR. instead of blind writes, writing twice
+	 */
+	XPm_LockPcsr(NidbAddress);
+	XPm_LockPcsr(NidbAddress);
+	return Status;
+}
+
+/*****************************************************************************
+ * @brief	This function decides which NIDB needs to be repaired based
+ * 		on SlrType
+ *
+ * @param	SlrType if the current SLR is 1, 2 or 3
+ *
+ * @return
+ *		- XST_SUCCESS if successful,
+ *		- XST_FAILURE if unsuccessful.
+ ****************************************************************************/
+XStatus XPm_RepairNidb_vp1902(u32 SlrType) {
+	volatile XStatus Status = XST_FAILURE;
+
+	if ((SLR_TYPE_MONOLITHIC_DEV == SlrType) ||
+		(SLR_TYPE_SSIT_DEV_MASTER_SLR == SlrType)) {
+		/* For Master SLR or Non SSIT device,
+		 * shouldn't have come into config.*/
+		goto done;
+	}
+
+	/**
+	 * For Slave SLR1 -> Program/repair only NIDB8
+	 * (Vertical path coming from SLR0)
+	 *
+	 * For Slave SLR2 -> Program/repair only NIDB0
+	 * (Horizontal path coming from SLR1)
+	 *
+	 * For Slave SLR3 -> Program/repair only NIDB8
+	 * (Vertical path coming from SLR2)
+	 */
+
+	switch (SlrType) {
+		case SLR_TYPE_SSIT_DEV_SLAVE_3_SLR_TOP:
+		{
+			XSECURE_TEMPORAL_CHECK(done, Status,
+					XPm_NidbRepairLanes_vp1902,
+					NIDB_8_BASE_ADDRESS);
+			break;
+		}
+		case SLR_TYPE_SSIT_DEV_SLAVE_2_SLR_NTOP:
+		{
+			XSECURE_TEMPORAL_CHECK(done, Status,
+					XPm_NidbRepairLanes_vp1902,
+					NIDB_0_BASE_ADDRESS);
+			break;
+		}
+		case SLR_TYPE_SSIT_DEV_SLAVE_1_SLR_NTOP:
+		{
+			XSECURE_TEMPORAL_CHECK(done, Status,
+					XPm_NidbRepairLanes_vp1902,
+					NIDB_8_BASE_ADDRESS);
+			break;
+		}
+		default:
+		{
+			/**
+			 * Something is seriously wrong, we
+			 * shouldn't get this
+			 */
+			break;
+		}
+	}
+
+done:
+	return Status;
+}
+#endif
+
 XStatus XPmBisr_NidbLeftMostLaneRepair(void){
 	return XPmBisr_NidbRepairLane(1U);
 }
