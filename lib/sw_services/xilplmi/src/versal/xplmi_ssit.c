@@ -46,11 +46,13 @@
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       bm   03/11/2023 Use XPLMI_BIT macro for getting bit position mask
 *       bm   03/11/2023 Added redundancy on SSIT Event Trigger register write
-*		dd   03/28/2023 Updated doxygen comments
+*       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.07  bm   06/23/2023 Added SSIT Msg Event access permissions validation
 *       sk   07/18/2023 Added NULL check in SsitCreateTask
 *       sk   07/26/2023 Added SlrType check redundancy in XPlmi_SsitEventsInit
+*       sk   07/26/2023 Added temporal check for Sld Notification
+*                       in XPlmi_SsitErrHandler
 *
 * </pre>
 *
@@ -1154,6 +1156,8 @@ void XPlmi_SsitErrHandler(void *Data)
 {
 	XPlmi_TaskNode *Task = NULL;
 	u32 Id = (u32)(UINTPTR)Data;
+	volatile u32 SldNotification;
+	volatile u32 SldNotificationTmp;
 
 	XPlmi_PlmIntrClear(Id);
 	if (SsitEvents->IsIntrEnabled != (u8)TRUE) {
@@ -1184,7 +1188,8 @@ void XPlmi_SsitErrHandler(void *Data)
 		}
 	} else if (SsitEvents->SlrIndex != XPLMI_SSIT_INVALID_SLR_INDEX) {
 		/** - For Slave SLRs, detect SLD notification if it's a long pulse */
-		if (XPlmi_IsSldNotification() == TRUE) {
+		XSECURE_TEMPORAL_IMPL(SldNotification, SldNotificationTmp, XPlmi_IsSldNotification);
+		if ((SldNotification == (u32)TRUE) || (SldNotificationTmp == (u32)TRUE)){
 			XPlmi_TriggerTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK,
 				XPLMI_TRIGGER_TAMPER_TASK);
 			goto END;
