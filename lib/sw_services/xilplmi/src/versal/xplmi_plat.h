@@ -40,6 +40,7 @@
 *       bm   07/06/2023 Added XPlmi_RunProc macro
 *                       Refactored Proc logic to more generic logic
 *                       Added list commands
+*       sk   07/28/2023 Added redundant func XPlmi_IsPlmUpdateDoneTmp
 * </pre>
 *
 * @note
@@ -310,6 +311,18 @@ static inline u8 XPlmi_IsPlmUpdateDone(void)
 	return (u8)FALSE;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function checks if the update is Done
+ *
+ * @return 	FALSE
+ *
+ *****************************************************************************/
+static inline u8 XPlmi_IsPlmUpdateDoneTmp(void)
+{
+	/* Not Applicable for versal */
+	return (u8)FALSE;
+}
 /*****************************************************************************/
 /**
  * @brief	This function checks if the update is in progress

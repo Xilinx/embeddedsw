@@ -29,6 +29,7 @@
 *                       requesting for update so that stack limit regisers are
 *                       updated properly after the update
 *       sk   07/26/2023 Added redundant write of PdiAddr in XPlmi_PlmUpdateTask
+*       sk   07/28/2023 Added redundant func XPlmi_IsPlmUpdateDoneTmp
 *
 * </pre>
 *
@@ -85,6 +86,7 @@ extern u32 __update_mgr_b_start[];
 extern u8 __update_mgr_a_fn_start[];
 extern u8 __update_mgr_a_fn_end[];
 static u8 PlmUpdateState;
+static u8 PlmUpdateStateTmp;
 static u32 UpdatePdiAddr = XPLMI_INVALID_UPDATE_ADDR;
 static u32 PlmUpdateIpiMask __attribute__ ((aligned(4U)));
 EXPORT_GENERIC_DS(PlmUpdateIpiMask, XPLMI_UPDATE_IPIMASK_DS_ID,
@@ -120,6 +122,7 @@ int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler)
 	if ((XPlmi_In32(PMC_GLOBAL_ROM_INT_REASON) & PMX_PLM_UPDATE_REASON_MASK) ==
 		PMX_PLM_UPDATE_REASON_MASK) {
 		PlmUpdateState |= XPLMI_UPDATE_DONE;
+		PlmUpdateStateTmp |= XPLMI_UPDATE_DONE;
 	}
 
 	Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_1, XPlmi_PlmUpdateTask,
@@ -245,6 +248,18 @@ u8 XPlmi_IsPlmUpdateDone(void)
 			(u8)TRUE : (u8)FALSE);
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function checks if Inplace PLM update occurs or not.
+ *
+ * @return	TRUE if Inplace PLM Update and FALSE otherwise
+ *
+ *****************************************************************************/
+u8 XPlmi_IsPlmUpdateDoneTmp(void)
+{
+	return (((PlmUpdateStateTmp & XPLMI_UPDATE_DONE) == XPLMI_UPDATE_DONE) ?
+			(u8)TRUE : (u8)FALSE);
+}
 /*****************************************************************************/
 /**
  * @brief	This function checks if Inplace PLM update is in progress or not
@@ -591,6 +606,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	}
 
 	PlmUpdateState |= XPLMI_UPDATE_IN_PROGRESS;
+	PlmUpdateStateTmp |= XPLMI_UPDATE_IN_PROGRESS;
 	/* Initiate Shutdown of Modules */
 	Op.Mode = XPLMI_MODULE_SHUTDOWN_INITIATE;
 	Status = XPlmi_ShutdownModules(Op);
@@ -617,6 +633,7 @@ END:
 	if (Status != XST_SUCCESS) {
 		if (XPlmi_IsPlmUpdateInProgress() == (u8)TRUE) {
 			PlmUpdateState &= (u8)~XPLMI_UPDATE_IN_PROGRESS;
+			PlmUpdateStateTmp &= (u8)~XPLMI_UPDATE_IN_PROGRESS;
 		}
 		if (Op.Mode != XPLMI_MODULE_NO_OPERATION) {
 			Op.Mode = XPLMI_MODULE_SHUTDOWN_ABORT;
@@ -709,6 +726,7 @@ static int XPlmi_PlmUpdateTask(void *Arg)
 	}
 
 	PlmUpdateState &= (u8)~XPLMI_UPDATE_IN_PROGRESS;
+	PlmUpdateStateTmp &= (u8)~XPLMI_UPDATE_IN_PROGRESS;
 
 	/* Disable exceptions */
 	microblaze_disable_exceptions();
