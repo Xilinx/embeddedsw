@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,5 +29,9 @@
 #include "xil_util.h"
 
 XStatus XPm_NoCConfig(void);
+XStatus XPm_NoCHWConfig(void);
+#ifdef XCVP1902
+XStatus XPm_NocConfig_vp1902(void);
+#endif
 
 #endif /* SRC_XPMCR_NOC_H_ */
