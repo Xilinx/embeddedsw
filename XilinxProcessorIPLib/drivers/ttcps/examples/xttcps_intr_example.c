@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +42,8 @@
 *                       CR#1069191.
 * 3.16 adk    04/19/22 Fix infinite loop in the example by adding polled
 * 		       timeout loop.
+* 3.18 gm     07/25/23 Invoke XTtcPs_Release to release ttc node.
+*
 *</pre>
 ******************************************************************************/
 
@@ -74,8 +77,13 @@
  *         e.g. If intended device IDs are 3 and 4, then SettingsTable[3]
  *              and SettingsTable[4] should be set properly.
  */
-#define TTC_TICK_DEVICE_ID	XPAR_XTTCPS_1_DEVICE_ID
-#define TTC_TICK_INTR_ID	XPAR_XTTCPS_1_INTR
+#if !defined (XPM_SUPPORT)
+#define TTC_TICK_DEVICE_ID     XPAR_XTTCPS_1_DEVICE_ID
+#define TTC_TICK_INTR_ID       XPAR_XTTCPS_1_INTR
+#else
+#define TTC_TICK_DEVICE_ID     XPAR_XTTCPS_3_DEVICE_ID
+#define TTC_TICK_INTR_ID       XPAR_XTTCPS_3_INTR
+#endif
 
 #define TTC_PWM_DEVICE_ID	XPAR_XTTCPS_0_DEVICE_ID
 #define TTC_PWM_INTR_ID		XPAR_XTTCPS_0_INTR
@@ -128,6 +136,10 @@ static void PWMHandler(void *CallBackRef, u32 StatusEvent);
 static XTtcPs TtcPsInst[NUM_DEVICES];	/* Number of available timer counters */
 
 static TmrCntrSetup SettingsTable[NUM_DEVICES] = {
+	{200, 0, 0, 0}, /* PWM timer counter initial setup, only output freq */
+	{100, 0, 0, 0},	/* Ticker timer counter initial setup, only output freq */
+	{200, 0, 0, 0}, /* PWM timer counter initial setup, only output freq */
+	{100, 0, 0, 0},	/* Ticker timer counter initial setup, only output freq */
 	{200, 0, 0, 0}, /* PWM timer counter initial setup, only output freq */
 	{100, 0, 0, 0},	/* Ticker timer counter initial setup, only output freq */
 };
@@ -234,7 +246,11 @@ static int TmrInterruptExample(void)
 	 */
 	XTtcPs_Stop(&(TtcPsInst[TTC_TICK_DEVICE_ID]));
 
+	XTtcPs_Release(&(TtcPsInst[TTC_TICK_DEVICE_ID]));
+
 	XTtcPs_Stop(&(TtcPsInst[TTC_PWM_DEVICE_ID]));
+
+	XTtcPs_Release(&(TtcPsInst[TTC_PWM_DEVICE_ID]));
 
 	return XST_SUCCESS;
 }

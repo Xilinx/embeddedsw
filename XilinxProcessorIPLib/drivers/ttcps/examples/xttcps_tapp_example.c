@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +37,7 @@
 * 		       Xil_WaitForEventSet() API.
 *      adk    20/04/22 Update the Xil_WaitForEventSet() API arguments as
 *      		       per latest API.
+* 3.18 gm     07/25/23 Invoke XTtcPs_Release to release ttc node.
 *</pre>
 ******************************************************************************/
 
@@ -200,7 +202,10 @@ int TmrInterruptExample(XTtcPs *TtcPsInst,u16 DeviceID,u16 TtcTickIntrID,
 		 * Stop the counter
 		 */
 		XTtcPs_Stop(TtcPsInst);
+
+		XTtcPs_Release(TtcPsInst);
 	}
+
 
 
 	return XST_SUCCESS;
