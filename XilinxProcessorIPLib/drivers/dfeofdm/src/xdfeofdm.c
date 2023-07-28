@@ -21,6 +21,7 @@
 *       dc     06/20/23 Depricate obsolete APIs
 *       dc     06/28/23 Add phase compensation calculation
 *       cog    07/04/23 Add support for SDT
+*       dc     07/27/23 Output delay in ccid slots
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -781,6 +782,51 @@ static void XDfeOfdm_SetPhaseCompensation(const XDfeOfdm *InstancePtr,
 	}
 }
 
+/****************************************************************************/
+/**
+*
+* Sets output delay for CCID.
+*
+* @param    CCCfg CC configuration container.
+* @param    CCID CC ID.
+* @param    OutputDelay Delay which should be written for this CCID
+*
+****************************************************************************/
+static void XDfeOfdm_SetOutputDelay(XDfeOfdm_CCCfg *CCCfg, const s32 CCID,
+				    const u32 OutputDelay)
+{
+	u32 Index;
+	for (Index = 0; Index < XDFEOFDM_CC_SEQ_LENGTH_MAX; Index++) {
+		if (CCCfg->CCSequence.CCID[Index] == CCID) {
+			CCCfg->CarrierCfg[Index].OutputDelay = OutputDelay;
+		}
+	}
+}
+
+/****************************************************************************/
+/**
+*
+* Gets output delay allocated for CCID.
+*
+* @param    CCCfg CC configuration container.
+* @param    CCID CC ID.
+
+* @return   Output delay allocated for this CCID, 0 if not allocated.
+*
+****************************************************************************/
+static u32 XDfeOfdm_GetOutputDelay(const XDfeOfdm_CCCfg *CCCfg, s32 CCID)
+{
+	u32 Index;
+	for (Index = 0; Index < XDFEOFDM_CC_SEQ_LENGTH_MAX; Index++) {
+		if (CCCfg->CCSequence.CCID[Index] == CCID) {
+			return CCCfg->CarrierCfg[Index].OutputDelay;
+		}
+	}
+	metal_log(METAL_LOG_ERROR, "Error, CCID=%d is in sequence: %s\n", CCID,
+		  __func__);
+	return 0;
+}
+
 /**
 * @endcond
 */
@@ -1377,7 +1423,7 @@ u32 XDfeOfdm_AddCCtoCCCfg(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg,
 		CCCfg->CarrierCfg[CCID].ScaleFactor = CarrierCfg->ScaleFactor;
 		CCCfg->CarrierCfg[CCID].CommsStandard =
 			CarrierCfg->CommsStandard;
-		CCCfg->CarrierCfg[CCID].OutputDelay = CarrierCfg->OutputDelay;
+		XDfeOfdm_SetOutputDelay(CCCfg, CCID, CarrierCfg->OutputDelay);
 		memcpy(CCCfg->CarrierCfg[CCID].PhaseCompensation,
 		       CarrierCfg->PhaseCompensation,
 		       sizeof(u32) * XDFEOFDM_PHASE_COMPENSATION_MAX);
@@ -1457,7 +1503,7 @@ void XDfeOfdm_GetCarrierCfg(const XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg,
 	CarrierCfg->NumSubcarriers = CCCfg->CarrierCfg[CCID].NumSubcarriers;
 	CarrierCfg->ScaleFactor = CCCfg->CarrierCfg[CCID].ScaleFactor;
 	CarrierCfg->CommsStandard = CCCfg->CarrierCfg[CCID].CommsStandard;
-	CarrierCfg->OutputDelay = CCCfg->CarrierCfg[CCID].OutputDelay;
+	CarrierCfg->OutputDelay = XDfeOfdm_GetOutputDelay(CCCfg, CCID);
 
 	*CCSeqBitmap = 0;
 	for (Index = 0; Index < CCCfg->CCSequence.Length; Index++) {
@@ -1569,7 +1615,8 @@ u32 XDfeOfdm_UpdateCCinCCCfg(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg,
 	CCCfg->CarrierCfg[CCID].NumSubcarriers = CarrierCfg->NumSubcarriers;
 	CCCfg->CarrierCfg[CCID].ScaleFactor = CarrierCfg->ScaleFactor;
 	CCCfg->CarrierCfg[CCID].CommsStandard = CarrierCfg->CommsStandard;
-	CCCfg->CarrierCfg[CCID].OutputDelay = CarrierCfg->OutputDelay;
+	XDfeOfdm_SetOutputDelay(CCCfg, CCID, CarrierCfg->OutputDelay);
+
 	memcpy(CCCfg->CarrierCfg[CCID].PhaseCompensation,
 	       CarrierCfg->PhaseCompensation,
 	       sizeof(u32) * XDFEOFDM_PHASE_COMPENSATION_MAX);

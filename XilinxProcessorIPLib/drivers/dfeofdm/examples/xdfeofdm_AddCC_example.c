@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   dc     11/21/22 Initial version
+* 1.1   dc     07/27/23 Output delay in ccid slots
 *
 * </pre>
 * @addtogroup dfeofdm Overview
@@ -66,7 +67,7 @@ int XDfeOfdm_AddCCExample()
 	u32 CCID;
 	u32 BitSequence;
 	XDfeOfdm_TriggerCfg TriggerCfg;
-	XDfeOfdm_CarrierCfg CarrierCfg;
+	XDfeOfdm_CarrierCfg CarrierCfg = {};
 	XDfeOfdm_Status Status;
 	XDfeOfdm_FTSequence FTSeq;
 	u32 Return;
@@ -80,7 +81,7 @@ int XDfeOfdm_AddCCExample()
 		(void)printf("ERROR: Failed to run metal initialization\r\n");
 		return XST_FAILURE;
 	}
-
+	memset(&FTSeq, 0, sizeof(FTSeq));
 	/* Initialize the instance of OFDM driver */
 	InstancePtr = XDfeOfdm_InstanceInit(XDFEOFDM_NODE1_NAME);
 
