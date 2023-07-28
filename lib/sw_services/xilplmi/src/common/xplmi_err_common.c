@@ -121,6 +121,7 @@
 *		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.10  bm   06/13/2023 Add API to just log PLM error
+*       sk   07/26/2023 Added redundant call for XPlmi_DetectSlaveSlrTamper
 * </pre>
 *
 * @note
@@ -615,7 +616,7 @@ static void XPlmi_DetectAndHandleTamper(void)
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 	/** For SSIT devices, Handle Tamper condition triggered by slave SLRs */
-	XPlmi_DetectSlaveSlrTamper();
+	XSECURE_REDUNDANT_IMPL(XPlmi_DetectSlaveSlrTamper);
 #endif
 }
 
