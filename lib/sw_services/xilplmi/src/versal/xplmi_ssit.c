@@ -50,6 +50,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.07  bm   06/23/2023 Added SSIT Msg Event access permissions validation
 *       sk   07/18/2023 Added NULL check in SsitCreateTask
+*       sk   07/26/2023 Added SlrType check redundancy in XPlmi_SsitEventsInit
 *
 * </pre>
 *
@@ -233,9 +234,10 @@ END:
 ****************************************************************************/
 int XPlmi_SsitEventsInit(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Idx;
-	u32 SlrType;
+	volatile u32 SlrType;
+	volatile u32 SlrTypeTmp;
 
 	/** - Initialize all the SsitEvents structure members */
 	for (Idx = 0U; Idx < XPLMI_SSIT_MAX_EVENTS; Idx++) {
@@ -251,10 +253,11 @@ int XPlmi_SsitEventsInit(void)
 	SsitEvents->SlavesMask = 0U;
 	SsitEvents->IsIntrEnabled = (u8)FALSE;
 	/** - Read SLR Type */
-	SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK);
+	SlrType = (u32)(XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK);
+	SlrTypeTmp = (u32)(XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK);
 
 	/** - SSIT events are not supported on Monolithic devices */
-	if (SlrType == XPLMI_SSIT_MONOLITIC) {
+	if ((SlrType == XPLMI_SSIT_MONOLITIC) || (SlrTypeTmp == XPLMI_SSIT_MONOLITIC)) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
@@ -325,6 +328,7 @@ int XPlmi_SsitEventsInit(void)
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	/** - Register Message Event */
 	Status = XPlmi_SsitRegisterEvent(XPLMI_SLRS_MESSAGE_EVENT_INDEX,
 			XPlmi_SsitMsgEventHandler, XPLMI_SSIT_MASTER_SLR_MASK);
@@ -332,6 +336,7 @@ int XPlmi_SsitEventsInit(void)
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	/** - Register Single EAM Event (SEE) */
 	Status = XPlmi_SsitRegisterEvent(XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX,
 			XPlmi_SsitSingleEamEventHandler, XPLMI_SSIT_ALL_SLAVE_SLRS_MASK);
