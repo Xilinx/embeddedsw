@@ -41,7 +41,8 @@
 * 3.10  aru    05/06/19 Added assert check for driver instance and freq
 *			parameter in  XTtcPs_CalcIntervalFromFreq().
 * 3.10  aru    05/30/19 Added interrupt handler to clear ISR
-* 3.18  gm    06/26/23	Added PM Request/Release node support.
+* 3.18  gm    06/26/23	Added PM Request node support.
+* 3.18  gm    07/17/23	Added PM Release node support.
 * </pre>
 *
 ******************************************************************************/
@@ -52,6 +53,7 @@
 #if defined  (XPM_SUPPORT)
 #include "pm_defs.h"
 #include "pm_api_sys.h"
+#include "xil_types.h"
 #include "pm_client.h"
 #include "xpm_init.h"
 #include "xdebug.h"
@@ -68,6 +70,20 @@ static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent);
 /************************** Variable Definitions *****************************/
 
 #if defined  (XPM_SUPPORT)
+/*
+ * Instance - counters list
+ * Ttc0     - 0 to 2
+ * Ttc1     - 3 to 5
+ * Ttc2     - 6 to 8
+ * Ttc3     - 9 to 11
+ *
+ * TtcNodeState is an array which holds the present state of the counter
+ * in it's corresponding index value. Index value will be incremented
+ * during ttc counter request node and decremented during release node.
+ *
+ */
+static u32 TtcNodeState[XPAR_XTTCPS_NUM_INSTANCES];
+
 extern XTtcPs_Config XTtcPs_ConfigTable[XPAR_XTTCPS_NUM_INSTANCES];
 
 static u32 GetTtcNodeAddress(u16 DeviceId)
@@ -151,6 +167,8 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 		xdbg_printf(XDBG_DEBUG_ERROR, "Ttc: XPm_ResetAssert() ERROR=0x%x \r\n", Status);
 		return Status;
 	}
+
+	TtcNodeState[ConfigPtr->DeviceId]++;
 #endif
 
 	/*
@@ -220,6 +238,84 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 		XTtcPs_ResetCounterValue(InstancePtr);
 		Status = XST_SUCCESS;
 	}
+	return Status;
+}
+
+#if defined  (XPM_SUPPORT)
+static u32 CheckTtcNodeState(u16 TtcNodeId)
+{
+	u8 IdOffset;
+	u16 TtcBaseNodeId;
+	u32 State = FALSE;
+
+	TtcBaseNodeId = ((TtcNodeId/3)*3);
+
+	for(IdOffset = TtcBaseNodeId; IdOffset < (TtcBaseNodeId+3); IdOffset++) {
+		if(TtcNodeState[IdOffset] == 0) {
+			continue;
+		}
+		else {
+			if(IdOffset == TtcNodeId) {
+				if((TtcNodeState[IdOffset] - 1) == 0) {
+					continue;
+				}
+			}
+			State = TRUE;
+			break;
+		}
+	}
+	return State;
+}
+#endif
+
+/*****************************************************************************/
+/**
+*
+* This routine releases resources of XTtcPs instance/driver.
+*
+* @param	None
+* @return	- XST_SUCCESS if node release was successful
+*		- XST_FAILURE if node release was fail, Node won't be released
+*		  if any other counter/counters in that TTC in use.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XTtcPs_Release(XTtcPs *InstancePtr)
+{
+	u32 Status = XST_SUCCESS;
+#if defined (XPM_SUPPORT)
+	u32 TtcNodeAddr;
+#endif
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+#if defined (XPM_SUPPORT)
+	if (InstancePtr->Config.DeviceId >= XPAR_XTTCPS_NUM_INSTANCES) {
+		Status = XST_FAILURE;
+	}
+	else{
+		/* Stop ttc */
+		XTtcPs_Stop(InstancePtr);
+
+		/* Clear interrupt status */
+		XTtcPs_ClearInterruptStatus(InstancePtr,
+					    XTtcPs_GetInterruptStatus(InstancePtr));
+
+		/* Disable interrupts */
+		XTtcPs_DisableInterrupts(InstancePtr, XTTCPS_IXR_ALL_MASK);
+
+		/* Release node, if no other counter in use under that ttc node */
+		if (TRUE == CheckTtcNodeState(InstancePtr->Config.DeviceId)) {
+			Status = XST_FAILURE;
+		}
+		else {
+			TtcNodeAddr = GetTtcNodeAddress((InstancePtr->Config.DeviceId/3)*3);
+			Status = XPm_ReleaseNode(XpmGetNodeId((UINTPTR)TtcNodeAddr));
+			TtcNodeState[InstancePtr->Config.DeviceId]--;
+		}
+	}
+#endif
 	return Status;
 }
 
