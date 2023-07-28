@@ -27,6 +27,8 @@
 *  1.2  adk	 22/12/22 Fixed doxygen style and indentation issues.
 *  1.3  mus	 07/18/23 Added checks in xtimerinit to fix compilation
 *                         failures when sleep timer uses default timer.
+*  1.3  gm	 21/07/23 Added Timer Release Callback function.
+*
 * </pre>
 ******************************************************************************/
 
@@ -118,7 +120,8 @@ void XilTimer_Sleep(unsigned long delay, XTimer_DelayType DelayType) {
 *****************************************************************************/
 void __attribute__ ((constructor)) xtimerinit()
 {
-#if defined (XSLEEPTIMER_BASEADDRESS)
+#if (( defined (SDT) && defined (XSLEEPTIMER_BASEADDRESS)) \
+		|| ( ! defined (SDT) && defined (XSLEEPTIMER_DEVICEID)))
     XilSleepTimer_Init(&TimerInst);
 #endif
     XilTickTimer_Init(&TimerInst);
@@ -151,6 +154,29 @@ void XTimer_SetHandler(XTimer_TickHandler FuncPtr, void *CallBackRef,
 		InstancePtr->XTimer_TickIntrHandler(InstancePtr, Priority);
 	}
 }
+
+#if defined  (XPM_SUPPORT)
+/****************************************************************************/
+/**
+*
+* This API releases the timer instance.
+*
+* @param            none
+*
+* @return           none
+*
+* @note             none
+*
+*****************************************************************************/
+void XTimer_ReleaseTickTimer(void)
+{
+	XTimer *InstancePtr;
+
+	InstancePtr = &TimerInst;
+	if (InstancePtr->XTickTimer_ReleaseTickTimer)
+		InstancePtr->XTickTimer_ReleaseTickTimer(InstancePtr);
+}
+#endif
 
 /****************************************************************************/
 /**
