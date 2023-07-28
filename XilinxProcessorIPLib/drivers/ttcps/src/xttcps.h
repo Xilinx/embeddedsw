@@ -508,6 +508,7 @@ XTtcPs_Config *XTtcPs_LookupConfig(u32 BaseAddress);
 s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr,
          XTtcPs_Config * ConfigPtr, u32 EffectiveAddr);
 
+u32 XTtcPs_Release(XTtcPs *InstancePtr);
 void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, XMatchRegValue Value);
 XMatchRegValue XTtcPs_GetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex);
 
