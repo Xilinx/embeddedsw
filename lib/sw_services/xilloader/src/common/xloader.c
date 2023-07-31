@@ -157,6 +157,7 @@
 *       sk   05/18/2023 Deprecate copy to memory feature,Added function to save
 *                       BootPDI info, Definition for XLoader_GetPdiInstance
 *       am   07/07/2023 Added error code for Read IHT optional data
+*       sk   07/31/2023 Updated error codes in XLoader_IsPdiAddrLookup
 *
 * </pre>
 *
@@ -1930,7 +1931,7 @@ int XLoader_IsPdiAddrLookup(u32 PdiId, u64 *PdiAddr)
 	}
 
 	if (PdiList->Count == 0U) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_EMPTY, 0U);
+		Status = (int)XLOADER_ERR_PDI_LIST_EMPTY;
 		goto END;
 	}
 
@@ -1942,7 +1943,7 @@ int XLoader_IsPdiAddrLookup(u32 PdiId, u64 *PdiAddr)
 	}
 
 	if (Index < 0) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_ADDR_NOT_FOUND, 0U);
+		Status = (int)XLOADER_ERR_PDI_ADDR_NOT_FOUND;
 		XPlmi_Printf(DEBUG_GENERAL, "Image Store PdiId:0x%x Not Found\n\r",PdiId);
 		goto END;
 	}

@@ -41,6 +41,7 @@
 *       sk   07/10/2023 Removed XLOADER_ERR_TCM_ADDR_OUTOF_RANGE error code
 *       am   07/07/2023 Added error code for Read IHT optional data
 *       bm   07/17/2023 Removed XPLMI_ERR_PLM_UPDATE_NO_DS_FOUND error code
+*       sk   07/31/2023 Moved Image Store error codes to plat header
 *
 * </pre>
 *
@@ -555,14 +556,10 @@ typedef enum {
 	XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC,	/**< 0x362 - Error when
 						unsupported PdiSrc is used for
 						subsystem load */
-	XLOADER_ERR_PDI_IMG_STORE_FULL,		/**< 0x363 - Error when PdiList is full and user
-							is trying to add a new PdiAddr */
-	XLOADER_ERR_PDI_ADDR_EXISTS,		/**< 0x364 - Error when PdiAddr that is being
-							added already exists in the PdiList */
-	XLOADER_ERR_PDI_LIST_EMPTY,		/**< 0x365 - Error when PdiList is empty and user
-							is trying to remove a PdiAddr */
-	XLOADER_ERR_PDI_ADDR_NOT_FOUND,		/**< 0x366 - Error when the PdiAddr that is being tried
-							to remove does not exist in the PdiList */
+	XLOADER_ERR_RESERVED6,		/**< 0x363 - XLoader Reserved Error 6 */
+	XLOADER_ERR_RESERVED7,		/**< 0x364 - XLoader Reserved Error 7 */
+	XLOADER_ERR_RESERVED8,		/**< 0x365 - XLoader Reserved Error 8 */
+	XLOADER_ERR_RESERVED9,		/**< 0x366 - XLoader Reserved Error 9 */
 	XLOADER_ERR_RELEASE_PM_DEV_DDR_0,	/**< 0x367 - Failed to XPM Release Device for
 							PM_DEV_DDR_0 */
 	XLOADER_ERR_REQUEST_BOOT_DEVICE,	/**< 0x368 - Failed to Request Boot Device */
@@ -578,7 +575,7 @@ typedef enum {
 	XLOADER_CFRAME_CRC_CHECK_FAILED, /**< 0x370 - CFRAME CRC check failed */
 	XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, /**< 0x371 - Skip processing rest of the partitions
 						as secure lockdown has been triggered */
-	XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET, /**< 0x372 - Image Store configuration is not enabled/error */
+	XLOADER_ERR_RESERVED10, /**< 0x372 - XLoader Reserver Error 10 */
 	XLOADER_ERR_ECDSA_NOT_ENABLED, /**< 0x373 - ECDSA code is excluded */
 	XLOADER_ERR_RSA_NOT_ENABLED, /**< 0x374 - RSA code is excluded */
 

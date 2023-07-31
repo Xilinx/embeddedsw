@@ -76,6 +76,7 @@
 *       bm   07/06/2023 Refactored Proc logic to more generic logic
 *       sk   07/06/2023 Added new IPI command to support Unlock Jtag request
 *       kpt  07/10/2023 Added new IPI command to read DDR crypto status
+*       sk   07/31/2023 Updated Image Store Error Codes
 *
 * </pre>
 *
@@ -671,7 +672,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 
 	if(PdiList->PdiImgStrSize == XLOADER_IMG_STORE_INVALID_SIZE) {
 		XPlmi_Printf(DEBUG_INFO,"Image Store Configuration not Set\n\r");
-		Status = XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET;
+		Status = (int)XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET;
 		goto END;
 	}
 
@@ -682,7 +683,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 	 * that are maintained in PLM.
 	 */
 	if (PdiList->Count >= XLOADER_MAX_PDI_LIST) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_IMG_STORE_FULL, 0);
+		Status = (int)XLOADER_ERR_PDI_IMG_STORE_FULL;
 		goto END;
 	}
 
@@ -700,7 +701,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 		FreeImgStoreSpace += (u32)(PdiList->ImgList[Index + 1U].PdiAddr - PdiList->ImgList[Index].PdiAddr);
 		/* Check if free space to accomodate new PDI */
 		if ((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_IMG_STORE_FULL, 0);
+			Status = (int)XLOADER_ERR_PDI_IMG_STORE_FULL;
 			goto END;
 		} else {
 			BufferList.BufferCount = PdiList->Count;
@@ -716,7 +717,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 	} else {
 
 		if((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_IMG_STORE_FULL, 0);
+			Status = (int)XLOADER_ERR_PDI_IMG_STORE_FULL;
 			goto END;
 		}
 	}
@@ -778,7 +779,7 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 
 	if(PdiList->PdiImgStrSize == XLOADER_IMG_STORE_INVALID_SIZE) {
 		XPlmi_Printf(DEBUG_INFO,"Image Store Configuration not Set\n\r");
-		Status = XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET;
+		Status = (int)XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET;
 		goto END;
 	}
 
@@ -790,7 +791,7 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 		 * that are maintained in PLM.
 		 */
 		if (PdiList->Count >= XLOADER_MAX_PDI_LIST) {
-			Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
+			Status = (int)XLOADER_ERR_PDI_IMG_STORE_FULL;
 			goto END;
 		}
 
@@ -805,7 +806,7 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 			XPlmi_Printf(DEBUG_DETAILED, "%s:PdiId:0x%x exists... updating\n\r", __func__,PdiId);
 			FreeImgStoreSpace += (u32)(PdiList->ImgList[Index + 1U].PdiAddr - PdiList->ImgList[Index].PdiAddr);
 			if ((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
-				Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
+				Status = (int)XLOADER_ERR_PDI_IMG_STORE_FULL;
 				goto END;
 			} else {
 				BufferList.BufferCount = PdiList->Count;
@@ -820,7 +821,7 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 			}
 		} else {
 			if((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
-				Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
+				Status = (int)XLOADER_ERR_PDI_IMG_STORE_FULL;
 				goto END;
 			}
 		}
@@ -882,7 +883,7 @@ static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
 	XPlmi_BufferList BufferList;
 
 	if (PdiList->Count == 0U) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_EMPTY, 0);
+		Status = (int)XLOADER_ERR_PDI_LIST_EMPTY;
 		goto END;
 	}
 
@@ -902,8 +903,7 @@ static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
 	}
 
 	if (Index == PdiList->Count) {
-		Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_PDI_ADDR_NOT_FOUND, 0);
+		Status = (int)XLOADER_ERR_PDI_ADDR_NOT_FOUND;
 		goto END;
 	}
 

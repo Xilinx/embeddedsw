@@ -32,6 +32,7 @@
 *                       Added error codes for Invalid JTAG Config Request
 *       kpt  07/10/2023 Added IPI support to read DDR crypto status
 *       sk   07/10/2023 Removed TCM Address, Offset defines
+*       sk   07/31/2023 Added error code for Image Store feature
 *
 * </pre>
 *
@@ -136,6 +137,13 @@ extern "C" {
 #define XLOADER_ERR_EXT_ID_SI		(0x16U) /**< Invalid combination of
 						* EXTENDED IDCODE - Device
 						*/
+
+#define XLOADER_ERR_PDI_LIST_EMPTY		(0x17U) /**< Error when PdiList is empty*/
+#define XLOADER_ERR_PDI_ADDR_NOT_FOUND		(0x18U) /**< Error when the PdiAddr that is being tried
+							to remove does not exist in the PdiList */
+#define XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET	(0x19U) /**< Image Store configuration is not enabled/error */
+#define XLOADER_ERR_PDI_IMG_STORE_FULL		(0x1AU) /**< Error when PdiList is full and user
+							is trying to add a new Pdi */
 
 /* Platform specific Minor Error Codes start from 0x100 */
 
