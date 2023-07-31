@@ -18,6 +18,7 @@
 * ----- --- -------- -------------------------------------------------------
 * 5.0   vns 05/30/22 Initial release
 *       kpt 07/24/22 Moved XSecure_HmacKat into xsecure_kat_plat.c
+* 5.2   kpt 07/27/23 Fix security review comments
 *
 * </pre>
 *
@@ -103,15 +104,18 @@ int XSecure_HmacInit(XSecure_Hmac *InstancePtr,
 					XSECURE_SHA3_BLOCK_LEN);
 END:
 	if (Status != XST_SUCCESS) {
-		(void)memset((void *)InstancePtr->IPadRes, 0U, XSECURE_SHA3_BLOCK_LEN);
-		(void)memset((void *)InstancePtr->OPadRes, 0U, XSECURE_SHA3_BLOCK_LEN);
+		Status |= Xil_SMemSet((void *)InstancePtr->IPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
+								XSECURE_SHA3_BLOCK_LEN);
+		Status |= Xil_SMemSet((void *)InstancePtr->OPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
+								XSECURE_SHA3_BLOCK_LEN);
 		/* Set SHA under reset */
 		XSecure_SetReset(Sha3InstancePtr->BaseAddress,
 					XSECURE_SHA3_RESET_OFFSET);
 	}
-	(void)memset((void *)K0, (u32)0U, XSECURE_SHA3_BLOCK_LEN);
-RET:
+	Status |= Xil_SMemSet((void *)K0, XSECURE_SHA3_BLOCK_LEN, 0U,
+							XSECURE_SHA3_BLOCK_LEN);
 
+RET:
 	return Status;
 }
 
@@ -145,8 +149,10 @@ int XSecure_HmacUpdate(XSecure_Hmac *InstancePtr, u64 DataAddr, u32 Len)
 		(UINTPTR)DataAddr, Len);
 
 	if (Status != XST_SUCCESS) {
-		(void)memset((void *)InstancePtr->IPadRes, 0U, XSECURE_SHA3_BLOCK_LEN);
-		(void)memset((void *)InstancePtr->OPadRes, 0U, XSECURE_SHA3_BLOCK_LEN);
+		Status |= Xil_SMemSet((void *)InstancePtr->IPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
+								XSECURE_SHA3_BLOCK_LEN);
+		Status |= Xil_SMemSet((void *)InstancePtr->OPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
+								XSECURE_SHA3_BLOCK_LEN);
 		/* Set SHA under reset */
 		XSecure_SetReset(InstancePtr->Sha3InstPtr->BaseAddress,
 			XSECURE_SHA3_RESET_OFFSET);
@@ -214,9 +220,12 @@ END:
 		XSecure_SetReset(InstancePtr->Sha3InstPtr->BaseAddress,
 			XSECURE_SHA3_RESET_OFFSET);
 	}
-	(void)memset((void *)InstancePtr->IPadRes, 0U, XSECURE_SHA3_BLOCK_LEN);
-	(void)memset((void *)InstancePtr->OPadRes, 0U, XSECURE_SHA3_BLOCK_LEN);
-	(void)memset((void *)IntHash, 0U, XSECURE_HASH_SIZE_IN_BYTES);
+	Status |= Xil_SMemSet((void *)InstancePtr->IPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
+								XSECURE_SHA3_BLOCK_LEN);
+	Status |= Xil_SMemSet((void *)InstancePtr->OPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
+							XSECURE_SHA3_BLOCK_LEN);
+	Status |= Xil_SMemSet((void *)IntHash, XSECURE_HASH_SIZE_IN_BYTES, 0U, XSECURE_HASH_SIZE_IN_BYTES);
+
 RET:
 	return Status;
 }
@@ -256,9 +265,8 @@ static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,
 					 Index++) {
 			K0Ptr[Index] = InKey[Index];
 		}
-		(void)memset((void *)&K0[KeyLen], (u32)0,
-			XSECURE_SHA3_BLOCK_LEN - KeyLen);
-
+		Status = Xil_SMemSet((void *)&K0[KeyLen], XSECURE_SHA3_BLOCK_LEN - KeyLen, 0U,
+							  XSECURE_SHA3_BLOCK_LEN - KeyLen);
 	}
 	else if (KeyLen > XSECURE_SHA3_BLOCK_LEN) {
 		/*
@@ -266,22 +274,22 @@ static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,
 		 * Calculate hash on key and append with zero to
 		 * make K0 to the length of SHA3 Block length
 		 */
-		 Status = XSecure_Sha3Digest(InstancePtr->Sha3InstPtr,
+		Status = XSecure_Sha3Digest(InstancePtr->Sha3InstPtr,
 			(UINTPTR)KeyAddr, KeyLen, (XSecure_Sha3Hash *)K0);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		(void)memset((void *)&K0[XSECURE_HASH_SIZE_IN_BYTES], (u32)0,
-			XSECURE_SHA3_BLOCK_LEN - XSECURE_HASH_SIZE_IN_BYTES);
 
+		Status = XST_FAILURE;
+		Status = Xil_SMemSet((void *)&K0[XSECURE_HASH_SIZE_IN_BYTES],
+							  XSECURE_SHA3_BLOCK_LEN - XSECURE_HASH_SIZE_IN_BYTES, 0U,
+							  XSECURE_SHA3_BLOCK_LEN - XSECURE_HASH_SIZE_IN_BYTES);
 	}
 	else {
 		/* if Key provided is of SHA 3 block length */
-		(void)memcpy((void *)K0, (const void *)(UINTPTR)KeyAddr,
-			XSECURE_SHA3_BLOCK_LEN);
+		Status = Xil_SMemCpy((void *)K0, XSECURE_SHA3_BLOCK_LEN, (const void *)(UINTPTR)KeyAddr,
+							  XSECURE_SHA3_BLOCK_LEN, XSECURE_SHA3_BLOCK_LEN);
 	}
-
-	Status = XST_SUCCESS;
 
 END:
 	return Status;
