@@ -36,6 +36,7 @@
 #include "xplmi_plat.h"
 #include "xplmi_ipi.h"
 #include "xplmi.h"
+#include "xpm_psm_api.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -91,6 +92,10 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 			goto END;
 		}
 		Status = XPmUpdate_RestoreAllNodes();
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
+		Status = XPm_GetPsmToPlmEventAddr();
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
