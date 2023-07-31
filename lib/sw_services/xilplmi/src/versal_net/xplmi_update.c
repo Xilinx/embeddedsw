@@ -30,6 +30,7 @@
 *                       updated properly after the update
 *       sk   07/26/2023 Added redundant write of PdiAddr in XPlmi_PlmUpdateTask
 *       sk   07/28/2023 Added redundant func XPlmi_IsPlmUpdateDoneTmp
+*       sk   07/31/2023 Added redundant check for boot error in XPlmi_PlmUpdateMgr
 *
 * </pre>
 *
@@ -193,7 +194,8 @@ static int XPlmi_PlmUpdateMgr(void)
 {
 	int Status = XST_FAILURE;
 	u32 RegVal;
-	u32 PmcBootErr;
+	volatile u32 PmcBootErr = MASK32_ALL_HIGH;
+	volatile u32 PmcBootErrTmp = MASK32_ALL_HIGH;
 	u32 RomIntReason;
 	u32 Index;
 	void (*XPlmi_ResetVector)(void) = (void (*)(void))XPLMI_RESET_VECTOR;
@@ -214,8 +216,9 @@ static int XPlmi_PlmUpdateMgr(void)
 	}
 	/* Check for the Boot Errors */
 	PmcBootErr = XPlmi_In32(PMC_GLOBAL_PMC_BOOT_ERR);
+	PmcBootErrTmp = XPlmi_In32(PMC_GLOBAL_PMC_BOOT_ERR);
 	/* No Boot Errors and Plm Update is Done, execute new PLM */
-	if ((PmcBootErr == 0x0U) && (Index < PLM_UPDATE_DONE_POLL_TIMEOUT)) {
+	if (((PmcBootErr == 0x0U) || (PmcBootErrTmp == 0x0U)) && (Index < PLM_UPDATE_DONE_POLL_TIMEOUT)) {
 		/* Jump to Reset Vector location to execute new PLM */
 		XPlmi_ResetVector();
 		/* End */
