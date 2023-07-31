@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +22,9 @@
 * Ver   Who  Date	 Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.0   sa   04/05/17 First release
+* 1.6   asa  07/31/23 Update the macro TMRINJECT_BASEADDR to correct define
+*                     from xparameters.h. Previously it was defined as
+*                     XPAR_TMRINJECT_0_BASEADDR.
 * </pre>
 ******************************************************************************/
 
@@ -38,7 +42,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define TMRINJECT_BASEADDR	   XPAR_TMRINJECT_0_BASEADDR
+#define TMRINJECT_BASEADDR	   XPAR_TMR_INJECT_0_BASEADDR
 
 
 /**************************** Type Definitions *******************************/
