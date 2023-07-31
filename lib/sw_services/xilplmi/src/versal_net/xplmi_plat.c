@@ -35,6 +35,7 @@
 *       bm   07/06/2023 Initialize address buffer list
 *       ng   06/26/2023 Added support for system device-tree flow
 *       sk   07/18/2023 Updated error codes in VerifyAddrRange function
+*       sk   07/31/2023 Added redundant write for SSS Config
 *
 * </pre>
 *
@@ -309,7 +310,7 @@ void XPlmi_SssMask(u32 InputSrc, u32 OutputSrc)
 	}
 
 	RegVal &= ~Mask;
-	XPlmi_Out32(PMC_GLOBAL_PMC_SSS_CFG, RegVal);
+	XSECURE_REDUNDANT_IMPL(XPlmi_Out32, PMC_GLOBAL_PMC_SSS_CFG, RegVal);
 }
 
 /*****************************************************************************/
