@@ -18,10 +18,11 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     11/21/22 Initial version
 * 1.1   dc     05/22/23 State and status upgrades
-*       dc     06/20/23 Depricate obsolete APIs
+*       dc     06/20/23 Deprecate obsolete APIs
 *       dc     06/28/23 Add phase compensation calculation
 *       cog    07/04/23 Add support for SDT
 *       dc     07/27/23 Output delay in ccid slots
+*       dc     07/31/23 Antenna interleave delay reorder
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -272,8 +273,8 @@ static u32 XDfeOfdm_CountOnesInBitmap(const XDfeOfdm *InstancePtr,
 /**
 *
 * Adds the specified CCID, to the CC sequence. The sequence is defined with
-* CCSeqBitmap where bit0 coresponds to CC[0], bit1 to CC[1], bit2 to CC[2], and
-* so on.
+* CCSeqBitmap where bit0 corresponds to CC[0], bit1 to CC[1], bit2 to CC[2],
+* and so on.
 *
 * Sequence data that is returned in the CCIDSequence is not the same as what is
 * written in the registers. The translation is:
@@ -645,7 +646,7 @@ static void XDfeOfdm_DisableLowPowerTrigger(const XDfeOfdm *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Gets PhaseCompensationRates and allocate it in coresponding CCID position
+* Gets PhaseCompensationRates and allocate it in corresponding CCID position
 * in XDfeOfdm_InternalCarrierCfg.
 *
 * @param    InstancePtr Pointer to the Ofdm instance.
@@ -787,18 +788,41 @@ static void XDfeOfdm_SetPhaseCompensation(const XDfeOfdm *InstancePtr,
 *
 * Sets output delay for CCID.
 *
+* @param    InstancePtr Pointer to the Ofdm instance.
 * @param    CCCfg CC configuration container.
 * @param    CCID CC ID.
 * @param    OutputDelay Delay which should be written for this CCID
 *
 ****************************************************************************/
-static void XDfeOfdm_SetOutputDelay(XDfeOfdm_CCCfg *CCCfg, const s32 CCID,
+static void XDfeOfdm_SetOutputDelay(const XDfeOfdm *InstancePtr,
+				    XDfeOfdm_CCCfg *CCCfg, const s32 CCID,
 				    const u32 OutputDelay)
 {
+	Xil_AssertVoid((InstancePtr->Config.AntennaInterleave == 1U) ||
+		       (InstancePtr->Config.AntennaInterleave == 2U) ||
+		       (InstancePtr->Config.AntennaInterleave == 4U));
+	u32 Ail = InstancePtr->Config.AntennaInterleave;
 	u32 Index;
-	for (Index = 0; Index < XDFEOFDM_CC_SEQ_LENGTH_MAX; Index++) {
+	for (Index = 0; Index < XDFEOFDM_CC_SEQ_LENGTH_MAX / Ail; Index++) {
 		if (CCCfg->CCSequence.CCID[Index] == CCID) {
-			CCCfg->CarrierCfg[Index].OutputDelay = OutputDelay;
+			if (Ail == 1U) {
+				CCCfg->CarrierCfg[Index].OutputDelay =
+					OutputDelay;
+			} else if (Ail == 2U) {
+				CCCfg->CarrierCfg[Index * 2].OutputDelay =
+					OutputDelay;
+				CCCfg->CarrierCfg[Index * 2 + 1].OutputDelay =
+					OutputDelay;
+			} else if (Ail == 4U) {
+				CCCfg->CarrierCfg[Index * 4].OutputDelay =
+					OutputDelay;
+				CCCfg->CarrierCfg[Index * 4 + 1].OutputDelay =
+					OutputDelay;
+				CCCfg->CarrierCfg[Index * 4 + 2].OutputDelay =
+					OutputDelay;
+				CCCfg->CarrierCfg[Index * 4 + 3].OutputDelay =
+					OutputDelay;
+			}
 		}
 	}
 }
@@ -808,18 +832,30 @@ static void XDfeOfdm_SetOutputDelay(XDfeOfdm_CCCfg *CCCfg, const s32 CCID,
 *
 * Gets output delay allocated for CCID.
 *
+* @param    InstancePtr Pointer to the Ofdm instance.
 * @param    CCCfg CC configuration container.
 * @param    CCID CC ID.
 
 * @return   Output delay allocated for this CCID, 0 if not allocated.
 *
 ****************************************************************************/
-static u32 XDfeOfdm_GetOutputDelay(const XDfeOfdm_CCCfg *CCCfg, s32 CCID)
+static u32 XDfeOfdm_GetOutputDelay(const XDfeOfdm *InstancePtr,
+				   const XDfeOfdm_CCCfg *CCCfg, s32 CCID)
 {
+	Xil_AssertVoid((InstancePtr->Config.AntennaInterleave == 1U) ||
+		       (InstancePtr->Config.AntennaInterleave == 2U) ||
+		       (InstancePtr->Config.AntennaInterleave == 4U));
+	u32 Ail = InstancePtr->Config.AntennaInterleave;
 	u32 Index;
 	for (Index = 0; Index < XDFEOFDM_CC_SEQ_LENGTH_MAX; Index++) {
 		if (CCCfg->CCSequence.CCID[Index] == CCID) {
-			return CCCfg->CarrierCfg[Index].OutputDelay;
+			if (Ail == 1U) {
+				return CCCfg->CarrierCfg[Index].OutputDelay;
+			} else if (Ail == 2U) {
+				return CCCfg->CarrierCfg[Index * 2].OutputDelay;
+			} else if (Ail == 4U) {
+				return CCCfg->CarrierCfg[Index * 4].OutputDelay;
+			}
 		}
 	}
 	metal_log(METAL_LOG_ERROR, "Error, CCID=%d is in sequence: %s\n", CCID,
@@ -1293,7 +1329,7 @@ void XDfeOfdm_GetCurrentCCCfg(const XDfeOfdm *InstancePtr,
 		}
 	}
 
-	/* Read PhaseCompensationRates and allocate it in coresponding CCID
+	/* Read PhaseCompensationRates and allocate it in corresponding CCID
 	   position in XDfeOfdm_InternalCarrierCfg */
 	XDfeOfdm_GetPhaseCompensation(InstancePtr, CurrCCCfg);
 }
@@ -1349,7 +1385,7 @@ void XDfeOfdm_GetEmptyCCCfg(const XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg)
 * an error.
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
-* The returned CCCfg.CCSequence is transleted as there is no explicite indication that
+* The returned CCCfg.CCSequence is transleted as there is no explicit indication that
 * SEQUENCE[i] is not used - 0 can define the slot as either used or not used.
 * Sequence data that is returned in the CCIDSequence is not the same as what is
 * written in the registers. The translation is:
@@ -1423,7 +1459,8 @@ u32 XDfeOfdm_AddCCtoCCCfg(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg,
 		CCCfg->CarrierCfg[CCID].ScaleFactor = CarrierCfg->ScaleFactor;
 		CCCfg->CarrierCfg[CCID].CommsStandard =
 			CarrierCfg->CommsStandard;
-		XDfeOfdm_SetOutputDelay(CCCfg, CCID, CarrierCfg->OutputDelay);
+		XDfeOfdm_SetOutputDelay(InstancePtr, CCCfg, CCID,
+					CarrierCfg->OutputDelay);
 		memcpy(CCCfg->CarrierCfg[CCID].PhaseCompensation,
 		       CarrierCfg->PhaseCompensation,
 		       sizeof(u32) * XDFEOFDM_PHASE_COMPENSATION_MAX);
@@ -1503,7 +1540,8 @@ void XDfeOfdm_GetCarrierCfg(const XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg,
 	CarrierCfg->NumSubcarriers = CCCfg->CarrierCfg[CCID].NumSubcarriers;
 	CarrierCfg->ScaleFactor = CCCfg->CarrierCfg[CCID].ScaleFactor;
 	CarrierCfg->CommsStandard = CCCfg->CarrierCfg[CCID].CommsStandard;
-	CarrierCfg->OutputDelay = XDfeOfdm_GetOutputDelay(CCCfg, CCID);
+	CarrierCfg->OutputDelay =
+		XDfeOfdm_GetOutputDelay(InstancePtr, CCCfg, CCID);
 
 	*CCSeqBitmap = 0;
 	for (Index = 0; Index < CCCfg->CCSequence.Length; Index++) {
@@ -1615,7 +1653,8 @@ u32 XDfeOfdm_UpdateCCinCCCfg(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg,
 	CCCfg->CarrierCfg[CCID].NumSubcarriers = CarrierCfg->NumSubcarriers;
 	CCCfg->CarrierCfg[CCID].ScaleFactor = CarrierCfg->ScaleFactor;
 	CCCfg->CarrierCfg[CCID].CommsStandard = CarrierCfg->CommsStandard;
-	XDfeOfdm_SetOutputDelay(CCCfg, CCID, CarrierCfg->OutputDelay);
+	XDfeOfdm_SetOutputDelay(InstancePtr, CCCfg, CCID,
+				CarrierCfg->OutputDelay);
 
 	memcpy(CCCfg->CarrierCfg[CCID].PhaseCompensation,
 	       CarrierCfg->PhaseCompensation,
@@ -1718,7 +1757,7 @@ void XDfeOfdm_SetNextCCCfg(const XDfeOfdm *InstancePtr,
 			NextCCCfg->CarrierCfg[Index].OutputDelay);
 	}
 
-	/* Set PhaseCompensationRates and allocate it in coresponding CCID
+	/* Set PhaseCompensationRates and allocate it in corresponding CCID
 	   position in PHASE_COMPENSATION_WEIGHTS */
 	XDfeOfdm_SetPhaseCompensation(InstancePtr, NextCCCfg);
 
