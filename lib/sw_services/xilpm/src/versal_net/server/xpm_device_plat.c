@@ -60,8 +60,12 @@ static XStatus XPmDevice_SaveReqm(XPm_Requirement* Reqm)
 	/* Save Next's QoS*/
 	SaveStruct(Status, done, Reqm->Next.QoS);
 
-	/* Save Allocated */
-	SaveStruct(Status, done, Reqm->Allocated);
+	/* Save Allocated and Flags */
+	SaveStruct(Status, done, ((Reqm->Flags) << 16U) | Reqm->Allocated);
+
+	/* Save SetLatReq, PreallocCaps, AttrCaps*/
+	SaveStruct(Status, done, ((Reqm->SetLatReq) << 16U) | (Reqm->PreallocCaps << 8) | (Reqm->AttrCaps));
+
 
 	Status = XST_SUCCESS;
 done:
@@ -126,7 +130,17 @@ static XStatus XPmDevice_RestoreReqm(u32** NextSavedData)
 	RestoreStruct((*NextSavedData),Reqm->Next.QoS);
 
 	/* Restored Allocated */
-	RestoreStruct((*NextSavedData),Reqm->Allocated);
+
+	RestoreStruct((*NextSavedData), tmp);
+	Reqm->Flags = (u16)((tmp >> 16) & 0xFFFF);
+	Reqm->Allocated = tmp & 0xFF;
+
+	/* Save SetLatReq, PreallocCaps, AttrCaps*/
+	RestoreStruct((*NextSavedData), tmp);
+	Reqm->AttrCaps = tmp & 0xFF;
+	Reqm->PreallocCaps = (tmp >> 8) & 0xFF;
+	Reqm->SetLatReq = (tmp >> 16) & 0xFF;
+
 	Status = XST_SUCCESS;
 done:
 	return Status;
