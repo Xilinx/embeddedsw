@@ -27,6 +27,9 @@
 * 5.2   yog  06/07/23 Added support for P-256 Curve
 *       vss  07/14/23 Added enum for resource availability and also ipi mask macro
 *       ng   07/15/23 Added support for system device tree flow
+*       har  07/26/23 Renamed members of XSecure_EccCrvClass and added macros for
+*                     backward compatibilty
+*
 * </pre>
 * @note
 *
@@ -91,8 +94,13 @@ extern "C" {
 										XPLMI_ERR_CDO_CMD_MASK)))
 				/**< Xilsecure KAT major error for client APIs */
 #define XSECURE_ADDR_HIGH_SHIFT			(32U)
+				/**< Shift to get higher address */
 #define XSECURE_IPI_MASK_DEF_VAL           (0xFFFFFFFFU)
 				/**< Default IPI mask value */
+#define XSECURE_ECDSA_PRIME		(XSECURE_ECC_PRIME)
+	/**< This macro is for backward compatibilty. For ECC Prime curves, use XSECURE_ECC_PRIME */
+#define XSecure_EllipticCrvClass	XSecure_EccCrvClass
+	/**< Alias for XSecure_EccCrvClass enum for backward compatibility */
 
 /************************** Variable Definitions *****************************/
 
@@ -162,8 +170,8 @@ typedef enum {
 } XSecure_EllipticCrvTyp;
 
 typedef enum {
-	XSECURE_ECDSA_PRIME = 0,	/**< Prime curve */
-	XSECURE_ECDSA_BINARY = 1,	/**< Binary curve */
+	XSECURE_ECC_PRIME = 0,	/**< Prime curve */
+	XSECURE_ECC_BINARY = 1,	/**< Binary curve */
 } XSecure_EccCrvClass;
 
 typedef enum {
