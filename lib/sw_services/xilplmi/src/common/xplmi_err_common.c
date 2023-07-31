@@ -122,6 +122,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.10  bm   06/13/2023 Add API to just log PLM error
 *       sk   07/26/2023 Added redundant call for XPlmi_DetectSlaveSlrTamper
+*       sk   07/26/2023 Added redundant check in XPlmi_DetectAndHandleTamper
 * </pre>
 *
 * @note
@@ -593,15 +594,18 @@ static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask)
  *****************************************************************************/
 static void XPlmi_DetectAndHandleTamper(void)
 {
-	u32 PmcErr2Status;
+	volatile u32 PmcErr2Status;
+	volatile u32 PmcErr2StatusTmp;
 	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
 
 	/** Handle Tamper condition triggered by ROM */
 	if (ErrorTable[XPLMI_ERROR_PMCAPB].Handler != NULL) {
 		PmcErr2Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
+		PmcErr2StatusTmp = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
 		PmcErr2Status &= XIL_EVENT_ERROR_MASK_PMCAPB;
+		PmcErr2StatusTmp &= XIL_EVENT_ERROR_MASK_PMCAPB;
 		/** Check if PMC APB error is set */
-		if (PmcErr2Status) {
+		if (PmcErr2Status || PmcErr2StatusTmp) {
 			/** Disable PMC APB Error */
 			(void)XPlmi_EmDisable(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
 					XIL_EVENT_ERROR_MASK_PMCAPB);
