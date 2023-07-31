@@ -24,6 +24,7 @@
 *                     macros
 * 4.6   har  07/14/21 Fixed doxygen warnings
 * 5.2   yog  06/07/23 Added support for P-256 Curve
+*       har  07/31/23 Redefined XSecure_EllipticCrvClass enum and moved to xsecure_defs.h
 *
 * </pre>
 *
@@ -59,12 +60,6 @@ extern "C" {
 /** @} */
 
 /***************************** Type Definitions ******************************/
-
-typedef enum {
-	XSECURE_ECC_PRIME = 0,		/**< Prime curve value in Ecdsa.h */
-	XSECURE_ECC_BINARY = 1,		/**< Binary curve value in Ecdsa.h */
-} XSecure_EllipticCrvClass;
-
 extern EcdsaCrvInfo XSecure_EllipticCrvsDb[];
 
 /***************************** Function Prototypes ***************************/
