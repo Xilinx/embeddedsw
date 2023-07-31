@@ -27,6 +27,10 @@ SECTIONS
    *(.boot)
 } > psu_r5_0_atcm_MEM_0
 
+.bootdata : {
+   *(.bootdata)
+} > psu_r5_0_atcm_MEM_0
+
 .text : {
    *(.text)
    *(.text.*)
