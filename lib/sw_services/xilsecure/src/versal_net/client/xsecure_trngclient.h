@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -20,6 +21,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   am   06/13/22 Initial release
 *       kpt  07/24/22 moved XSecure_TrngKat into xsecure_katclient_plat.c
+* 5.2   am   07/31/23 Fixed typo for XSecure_TrngGenerareRandNum function
 *
 * </pre>
 *
@@ -45,7 +47,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-int XSecure_TrngGenerareRandNum(XSecure_ClientInstance *InstancePtr, u64 RandBufAddr, u32 Size);
+int XSecure_TrngGenerateRandNum(XSecure_ClientInstance *InstancePtr, u64 RandBufAddr, u32 Size);
 
 /************************** Variable Definitions *****************************/
 

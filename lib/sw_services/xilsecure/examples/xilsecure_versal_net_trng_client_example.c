@@ -53,6 +53,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.0   am     06/13/22 Initial release
+* 5.2   am     07/31/23 Fixed compilation error
 *
 * </pre>
 ******************************************************************************/
@@ -75,7 +76,7 @@ static void XSecure_TrngPrintRandomNum(const u8 *Randnum);
 
 /************************** Variable Definitions *****************************/
 
-static const u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__((aligned (64U)) __attribute__ ((section (".data.RandBuf")));
+static const u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__((aligned(64U))) __attribute__((section(".data.RandBuf")));
 
 /*****************************************************************************/
 /**
@@ -118,7 +119,7 @@ int main(void)
 
 	xil_printf("KAT Passed Successfully\n\r");
 
-	Status = XSecure_TrngGenerareRandNum(&SecureClientInstance, RandBufAddr,
+	Status = XSecure_TrngGenerateRandNum(&SecureClientInstance, RandBufAddr,
 			XSECURE_TRNG_SEC_STRENGTH_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Generate Failed, Status: 0x%02x\n\r", Status);
