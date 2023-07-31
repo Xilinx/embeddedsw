@@ -58,6 +58,7 @@
 * 1.08  bm   05/22/2023 Update current CDO command offset in GSW Error Status
 *       bm   06/13/2023 Log PLM error before deferring
 *       bm   07/06/2023 Added Check for recursive CDO processing
+*       sk   07/31/2023 Added Redundant call for Sldstate check
 *
 * </pre>
 *
@@ -415,6 +416,8 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	u32 BufLen = CdoPtr->BufLen;
 	u32 RemainingLen;
 	static u32 CdoLevel = 0U;
+	volatile u32 SldState;
+	volatile u32 SldStateTmp;
 
 	/*
 	 * Check for Maximum recursive CDO processing allowed.
@@ -507,7 +510,9 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 			 * and continue executing the proc further without exiting the loop.
 			 * Otherwise, exit the loop.
 			 */
-			if (XPlmi_SldState() == XPLMI_SLD_IN_PROGRESS) {
+			XSECURE_REDUNDANT_CALL(SldState, SldStateTmp, XPlmi_SldState);
+			if ((SldState == XPLMI_SLD_IN_PROGRESS) ||
+					(SldStateTmp == XPLMI_SLD_IN_PROGRESS)) {
 				XPlmi_LogPlmErr(Status);
 			} else {
 				goto END;
