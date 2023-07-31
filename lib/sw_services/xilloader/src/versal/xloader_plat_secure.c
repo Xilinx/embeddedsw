@@ -29,6 +29,7 @@
 * 1.9   kpt  07/12/2023 Added mask generation function
 *       sk   07/26/2023 Made status redundant variable volatile in
 *                       XLoader_IsAdditionalPpkValid
+*       sk   07/31/2023 Removed Additional PPK check in XLoader_CheckSecureStateAuth
 *
 * </pre>
 *
@@ -362,11 +363,6 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 	volatile u8 IsBhdrAuthTmp;
 
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroPpk);
-#ifdef PLM_EN_ADD_PPKS
-	if((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)){
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroAdditionalPpk);
-	}
-#endif
 	IsBhdrAuth = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
 			XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
 			XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
