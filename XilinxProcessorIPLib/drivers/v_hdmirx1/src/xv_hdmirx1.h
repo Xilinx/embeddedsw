@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -462,6 +463,7 @@ typedef struct {
 #define TIME_10MS	(XPAR_XV_HDMIRX1_0_AXI_LITE_FREQ_HZ/100)
 #define TIME_200MS	(XPAR_XV_HDMIRX1_0_AXI_LITE_FREQ_HZ/5)
 #define TIME_16MS	((XPAR_XV_HDMIRX1_0_AXI_LITE_FREQ_HZ*10)/625)
+#define TIME_500MS	(XPAR_XV_HDMIRX1_0_AXI_LITE_FREQ_HZ / 2)
 
 /*****************************************************************************/
 /**
