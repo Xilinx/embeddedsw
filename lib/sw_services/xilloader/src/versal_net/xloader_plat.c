@@ -79,12 +79,6 @@
 #define XLOADER_ATF_HANDOFF_PARAMS_LCVERSION 	(1U) /**< ATF handoff parameters lowest compatible version */
 #define XLOADER_BOOTPDI_INFO_PARAMS_VERSION 	(2U) /**< BootPDI info version */
 #define XLOADER_BOOTPDI_INFO_PARAMS_LCVERSION 	(2U) /**< BootPDI info lowest compatible version */
-#define XLOADER_TCM_A_0 (0U) /**< TCM_A 0 */
-#define XLOADER_TCM_A_1 (1U) /**< TCM_A 1 */
-#define XLOADER_TCM_B_0 (2U) /**< TCM_B 0 */
-#define XLOADER_TCM_B_1 (3U) /**< TCM_B 1 */
-#define XLOADER_RPU_CLUSTER_A (0U) /**< RPU cluster A */
-#define XLOADER_RPU_CLUSTER_B (1U) /**< RPU cluster B */
 #define XLOADER_CMD_GET_DDR_DEVICE_ID (0U) /**< DDR device id */
 #define XLOADER_DDR_CRYPTO_MAIN_OFFSET   (0X40000U) /**< DDR crypto block offset from ub */
 #define XLOADER_DDR_PERF_MON_CNT0_OFFSET (0X868U)   /**< Counter 0 offset */
@@ -525,130 +519,6 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 
 /*****************************************************************************/
 /**
- * @brief	This function requests TCM depending upon input param and R52-0
- * 			and R52-1 cores as required for TCMs.
- *
- * @param	TcmId denotes TCM_A or TCM_B or TCM_C
- *
- * @return
- * 			- XST_SUCCESS on success.
- * 			- XLOADER_ERR_PM_DEV_TCM_0_A if device request for TCM_A_0A or
- * 			TCM_A_0B or TCM_A_0C is failed.
- * 			- XLOADER_ERR_PM_DEV_TCM_0_B if device request for TCM_B_0A or
- * 			TCM_B_0B or TCM_B_0C is failed.
- * 			- XLOADER_ERR_PM_DEV_TCM_1_A if device request for TCM_A_1A or
- * 			TCM_A_1B or TCM_A_1C is failed.
- * 			- XLOADER_ERR_PM_DEV_TCM_1_B if device request for TCM_B_1A or
- * 			TCM_B_1B or TCM_B_1C is failed.
- *
- *****************************************************************************/
-static int XLoader_RequestTCM(u8 TcmId)
-{
-	int Status = XST_FAILURE;
-	u32 CapAccess = (u32)PM_CAP_ACCESS;
-	u32 CapContext = (u32)PM_CAP_CONTEXT;
-	u32 ErrorCode;
-
-	if (XLOADER_TCM_A_0 == TcmId) {
-
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_A_0A,
-			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (XST_SUCCESS != Status) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_A;
-			goto END;
-		}
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_A_0B,
-			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (XST_SUCCESS != Status) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_A;
-			goto END;
-		}
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_A_0C,
-			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (XST_SUCCESS != Status) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_A;
-			goto END;
-		}
-	}else if (XLOADER_TCM_A_1 == TcmId) {
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_A_1A,
-			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (XST_SUCCESS != Status) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_1_A;
-			goto END;
-		}
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_A_1B,
-			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (XST_SUCCESS != Status) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_1_A;
-			goto END;
-		}
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_A_1C,
-			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (XST_SUCCESS != Status) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_1_A;
-			goto END;
-		}
-	}else if (XLOADER_TCM_B_0 == TcmId) {
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_B_0A,
-			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (XST_SUCCESS != Status) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_B;
-			goto END;
-		}
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_B_0B,
-			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (XST_SUCCESS != Status) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_B;
-			goto END;
-		}
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_B_0C,
-			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (XST_SUCCESS != Status) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_B;
-			goto END;
-		}
-	}else if (XLOADER_TCM_B_1 == TcmId) {
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_B_1A,
-			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (XST_SUCCESS != Status) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_1_B;
-			goto END;
-		}
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_B_1B,
-			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (XST_SUCCESS != Status) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_1_B;
-			goto END;
-		}
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_B_1C,
-			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (XST_SUCCESS != Status) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_1_B;
-			goto END;
-		}
-	}
-
-END:
-	if (XST_SUCCESS != Status) {
-		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, 0);
-	}
-	return Status;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function copies the elf partitions to specified destinations.
  *
  * @param	PdiPtr is pointer to XilPdi instance
@@ -800,22 +670,6 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			break;
 	}
 
-	if ((XIH_PH_ATTRB_DSTN_CPU_A78_3 < PrtnParams->DstnCpu) &&
-		(XIH_PH_ATTRB_DSTN_CPU_PSM > PrtnParams->DstnCpu)) {
-		if (((XIH_PH_ATTRB_DSTN_CPU_R52_0 == PrtnParams->DstnCpu) ||
-			(XPM_RPU_MODE_LOCKSTEP == Mode)) && (XLOADER_RPU_CLUSTER_A == DstnCluster)) {
-			Status = XLoader_RequestTCM(XLOADER_TCM_A_0);
-		}else if ((XIH_PH_ATTRB_DSTN_CPU_R52_1 == PrtnParams->DstnCpu) &&
-			(XLOADER_RPU_CLUSTER_A == DstnCluster)) {
-			Status = XLoader_RequestTCM(XLOADER_TCM_A_1);
-		}else if (((XIH_PH_ATTRB_DSTN_CPU_R52_0 == PrtnParams->DstnCpu) ||
-			(XPM_RPU_MODE_LOCKSTEP == Mode)) && (XLOADER_RPU_CLUSTER_B == DstnCluster)) {
-			Status = XLoader_RequestTCM(XLOADER_TCM_B_0);
-		}else if ((XIH_PH_ATTRB_DSTN_CPU_R52_1 == PrtnParams->DstnCpu) &&
-			(XLOADER_RPU_CLUSTER_B == DstnCluster)) {
-			Status = XLoader_RequestTCM(XLOADER_TCM_B_1);
-		}
-	}
 	if (XST_SUCCESS != Status) {
 		goto END;
 	}
