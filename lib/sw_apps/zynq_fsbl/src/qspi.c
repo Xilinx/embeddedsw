@@ -38,7 +38,8 @@
 *					 					 instead of hard coded read
 *					 					 command (0x6B).
 * 15.0 bsv 09/04/20  Add support for 2Gb flash parts
-* 21.1   ng  07/13/23   Add SDT support
+* 21.1  ng 07/13/23  Add SDT support
+* 21.2  ng 07/25/23  Updated QSPI address support in SDT flow
 * </pre>
 *
 * @note
@@ -50,7 +51,7 @@
 #include "qspi.h"
 #include "image_mover.h"
 
-#ifdef XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR
+#if defined(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR) || defined(XPAR_PS7_QSPI_LINEAR_0_BASEADDR)
 #include "xqspips_hw.h"
 #include "xqspips.h"
 
@@ -68,7 +69,7 @@
 #else
 #define QSPI_DEVICE_ID		XPAR_XQSPIPS_0_BASEADDR
 #define QSPI_CONNECTION_MODE (XPAR_XQSPIPS_0_CONNECTION_MODE)
-#define QSPI_BUS_WIDTH (XPAR_XQSPIPS_0_BUS_WIDTH)
+#define QSPI_BUS_WIDTH (XPAR_XQSPIPS_0_QSPI_BUS_WIDTH)
 #endif
 
 /*
