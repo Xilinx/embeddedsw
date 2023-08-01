@@ -80,8 +80,8 @@
 #define RX_INTR_ID		XPAR_INTC_0_MCDMA_0_VEC_ID
 #define TX_INTR_ID		XPAR_INTC_0_MCDMA_0_VEC_ID
 #else
-#define TX_INTR_ID(ChanId) XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH##ChanId##_INTROUT_INTR
-#define RX_INTR_ID(ChanId) XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH##ChanId##_INTROUT_INTR
+#define TX_INTR_ID(ChanId) XPAR_FABRIC_MCDMA_0_MM2S_CH##ChanId##_INTROUT_VEC_ID
+#define RX_INTR_ID(ChanId) XPAR_FABRIC_MCDMA_0_S2MM_CH##ChanId##_INTROUT_VEC_ID
 #endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -806,161 +806,161 @@ static int ChanIntr_Id(XMcdma_ChanCtrl *Chan, int ChanId)
 	switch (ChanId) {
 		case 1:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH1_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH1_INTROUT_VEC_ID
 				return TX_INTR_ID(1);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH1_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH1_INTROUT_VEC_ID
 				return RX_INTR_ID(1);
 #endif
 			}
 		case 2:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH2_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH2_INTROUT_VEC_ID
 				return TX_INTR_ID(2);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH2_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH2_INTROUT_VEC_ID
 				return RX_INTR_ID(2);
 #endif
 			}
 		case 3:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH3_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH3_INTROUT_VEC_ID
 				return TX_INTR_ID(3);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH3_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH3_INTROUT_VEC_ID
 				return RX_INTR_ID(3);
 #endif
 			}
 		case 4:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH4_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH4_INTROUT_VEC_ID
 				return TX_INTR_ID(4);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH4_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH4_INTROUT_VEC_ID
 				return RX_INTR_ID(4);
 #endif
 			}
 		case 5:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH5_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH5_INTROUT_VEC_ID
 				return TX_INTR_ID(5);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH5_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH5_INTROUT_VEC_ID
 				return RX_INTR_ID(5);
 #endif
 			}
 		case 6:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH6_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH6_INTROUT_VEC_ID
 				return TX_INTR_ID(6);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH6_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH6_INTROUT_VEC_ID
 				return RX_INTR_ID(6);
 #endif
 			}
 		case 7:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH7_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH7_INTROUT_VEC_ID
 				return TX_INTR_ID(7);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH7_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH7_INTROUT_VEC_ID
 				return RX_INTR_ID(7);
 #endif
 			}
 		case 8:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH8_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH8_INTROUT_VEC_ID
 				return TX_INTR_ID(8);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH8_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH8_INTROUT_VEC_ID
 				return RX_INTR_ID(8);
 #endif
 			}
 		case 9:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH9_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH9_INTROUT_VEC_ID
 				return TX_INTR_ID(9);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH9_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH9_INTROUT_VEC_ID
 				return RX_INTR_ID(9);
 #endif
 			}
 		case 10:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH10_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH10_INTROUT_VEC_ID
 				return TX_INTR_ID(10);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH10_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH10_INTROUT_VEC_ID
 				return RX_INTR_ID(10);
 #endif
 			}
 		case 11:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH11_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH11_INTROUT_VEC_ID
 				return TX_INTR_ID(11);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH11_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH11_INTROUT_VEC_ID
 				return RX_INTR_ID(11);
 #endif
 			}
 		case 12:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH12_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH12_INTROUT_VEC_ID
 				return TX_INTR_ID(12);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH12_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH12_INTROUT_VEC_ID
 				return RX_INTR_ID(12);
 #endif
 			}
 		case 13:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH13_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH13_INTROUT_VEC_ID
 				return TX_INTR_ID(13);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH13_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH13_INTROUT_VEC_ID
 				return RX_INTR_ID(13);
 #endif
 			}
 		case 14:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH14_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH14_INTROUT_VEC_ID
 				return TX_INTR_ID(14);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH14_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH14_INTROUT_VEC_ID
 				return RX_INTR_ID(14);
 #endif
 			}
 		case 15:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH15_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH15_INTROUT_VEC_ID
 				return TX_INTR_ID(15);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH15_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH15_INTROUT_VEC_ID
 				return RX_INTR_ID(15);
 #endif
 			}
 		case 16:
 			if (!(Chan->IsRxChan)) {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_MM2S_CH16_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_MM2S_CH16_INTROUT_VEC_ID
 				return TX_INTR_ID(16);
 #endif
 			} else {
-#ifdef XPAR_FABRIC_AXI_MCDMA_0_S2MM_CH16_INTROUT_INTR
+#ifdef XPAR_FABRIC_MCDMA_0_S2MM_CH16_INTROUT_VEC_ID
 				return RX_INTR_ID(16);
 #endif
 			}
