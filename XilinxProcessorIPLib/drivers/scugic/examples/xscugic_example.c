@@ -34,6 +34,7 @@
 *      		      per latest API.
 * 5.1   mus  02/13/23 Support example for each core of APU/RPU clusters in
 *                     VERSAL_NET SoC.
+* 5.2   mus  07/27/23 Removed dependency on XPAR_CPU_ID.
 * </pre>
 ******************************************************************************/
 
@@ -49,9 +50,7 @@
 #include "xil_types.h"
 #include "xscugic.h"
 #include "xil_util.h"
-#if defined (VERSAL_NET)
 #include "xplatform_info.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -63,7 +62,6 @@
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 #define INTC_DEVICE_INT_ID	0x0E
 
-#define XSCUGIC_SPI_CPU_MASK	(XSCUGIC_SPI_CPU0_MASK << XPAR_CPU_ID)
 #define XSCUGIC_SW_TIMEOUT_VAL	10000000U /* Wait for 10 sec */
 
 /**************************** Type Definitions *******************************/
@@ -154,8 +152,9 @@ int main(void)
 int ScuGicExample(u16 DeviceId)
 {
 	int Status;
+	u32 CoreId;
 	#if defined (VERSAL_NET)
-	u32 CoreId, ClusterId;
+	u32 ClusterId;
 	#endif
 
 	/*
@@ -214,9 +213,8 @@ int ScuGicExample(u16 DeviceId)
 	/*
 	 *  Simulate the Interrupt
 	 */
-#if defined (VERSAL_NET)
-
 	CoreId = XGetCoreId();
+#if defined (VERSAL_NET)
 	ClusterId = XGetClusterId();
 
 	#if defined (ARMR52)
@@ -229,7 +227,7 @@ int ScuGicExample(u16 DeviceId)
 #else
 	Status = XScuGic_SoftwareIntr(&InterruptController,
 					INTC_DEVICE_INT_ID,
-					XSCUGIC_SPI_CPU_MASK);
+					(XSCUGIC_SPI_CPU0_MASK << CoreId));
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
