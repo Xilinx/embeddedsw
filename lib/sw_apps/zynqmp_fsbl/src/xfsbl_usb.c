@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@
 *                         clear SHA and AES nibbles and avoid DMA corrupting
 *                         destination data
 * 4.0   bvikram  06/09/21 Added support for delayed enumeration of DFU devices
+* 6.1   ng       07/13/23 Added SDT support
 *
 * </pre>
 *
@@ -40,8 +42,12 @@
 #include "xfsbl_dfu_util.h"
 
 /************************** Constant Definitions ****************************/
+#ifndef SDT
+#define XFSBL_USB_DEVICE		XPAR_XUSBPSU_0_DEVICE_ID
+#else
+#define XFSBL_USB_DEVICE		XPAR_XUSBPSU_0_BASEADDR
+#endif
 
-#define XFSBL_USB_DEVICE_ID		XPAR_XUSBPSU_0_DEVICE_ID
 #define XFSBL_REQ_REPLY_LEN		256U	/**< Max size of reply buffer. */
 #define XFSBL_DOWNLOAD_COMPLETE		3U
 
@@ -87,7 +93,7 @@ u32 XFsbl_UsbInit(u32 DeviceFlags)
 	(void)memset(&UsbPrivateData, 0, sizeof(struct XUsbPsu));
 	(void)memset(&DfuObj, 0, sizeof(DfuObj));
 
-	UsbConfigPtr = XUsbPsu_LookupConfig(XFSBL_USB_DEVICE_ID);
+	UsbConfigPtr = XUsbPsu_LookupConfig(XFSBL_USB_DEVICE);
 	if (NULL == UsbConfigPtr) {
 		Status = XFSBL_FAILURE;
 		goto END;
