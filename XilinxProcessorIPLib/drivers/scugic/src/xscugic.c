@@ -167,6 +167,9 @@
 * 5.2   ml   03/02/23 Add description to fix Doxygen warnings.
 * 5.2   mus  04/26/23 Update DoDistributorInit to initialize priority of SGI and
 *                     PPI interrupts. It was missing for GICv3 based controllers.
+* 5.2   mus  07/27/23 Removed dependency on XPAR_CPU_ID by changic logic to get
+*                     CPU ID, it will be read from affinity register of processor
+*                     who is caling SCUGIC driver API's.
 * </pre>
 *
 ******************************************************************************/
@@ -189,11 +192,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
-#ifndef SDT
-static u32 CpuId = XPAR_CPU_ID; /**< CPU Core identifier */
-#else
 static u32 CpuId; /**< CPU Core identifier */
-#endif
 
 /************************** Function Prototypes ******************************/
 
@@ -440,12 +439,15 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
+
+	CpuId = XGetCoreId();
+
 	/*
 	 * Check Zynq-7000 base silicon configuration.
 	 * If it is single CPU configuration then invoke assert for CPU ID 1.
 	 */
 #ifdef ARMA9
-	if (XPAR_CPU_ID == 0x01) {
+	if (CpuId == 0x01) {
 		Xil_AssertNonvoid((Xil_In32(XPS_EFUSE_BASEADDR
 			+ EFUSE_STATUS_OFFSET) & EFUSE_STATUS_CPU_MASK) == 0);
 	}
