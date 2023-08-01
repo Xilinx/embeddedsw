@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -26,6 +27,7 @@
  * 3.0   bsv  11/12/19 Added support for ZCU216 board
  *       mn   12/24/19 Enable Address Mirroring based on SPD data
  *       bsv  02/05/20 Added support for ZCU208 board
+ * 6.1   ng   07/13/23 Added SDT support
  *
  * </pre>
  *
@@ -38,8 +40,11 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include "xfsbl_hw.h"
+
 #ifdef XFSBL_PS_DDR
-#ifdef XPAR_DYNAMIC_DDR_ENABLED
+#if defined(XPAR_DYNAMIC_DDR_ENABLED)
 /***************************** Include Files *********************************/
 #include "psu_init.h"
 

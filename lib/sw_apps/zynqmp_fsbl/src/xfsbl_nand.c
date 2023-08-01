@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   04/21/14 Initial release
+* 6.01  ng   07/31/23 Added SDT support
 *
 * </pre>
 *
@@ -36,7 +38,11 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define NAND_DEVICE_ID          0
+#ifndef SDT
+#define NAND_DEVICE_ID         0
+#else
+#define NAND_DEVICE_ID         XPAR_XNANDPSU_0_BASEADDR
+#endif
 #define XFSBL_IMAGE_SEARCH_OFFSET 	0x8000
 
 /************************** Function Prototypes ******************************/
