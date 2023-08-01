@@ -105,17 +105,17 @@ u32 XGet_Zynq_UltraMp_Platform_info(void)
 {
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar reg;
-    /*
+	/*
 	 * This SMC call will return,
-     *  idcode - upper 32 bits of reg.Arg0
-     *  version - lower 32 bits of reg.Arg1
+	 *  idcode - upper 32 bits of reg.Arg0
+	 *  version - lower 32 bits of reg.Arg1
 	 */
-	reg = Xil_Smc(GET_CHIPID_SMC_FID,0,0, 0, 0, 0, 0, 0);
+	reg = Xil_Smc(GET_CHIPID_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
 	return (u32)((reg.Arg1 >> XPLAT_INFO_SHIFT) & XPLAT_INFO_MASK);
 #else
 	u32 reg;
 	reg = ((Xil_In32(XPLAT_PS_VERSION_ADDRESS) >> XPLAT_INFO_SHIFT )
-		& XPLAT_INFO_MASK);
+	       & XPLAT_INFO_MASK);
 	return reg;
 #endif
 }
@@ -133,19 +133,19 @@ u32 XGet_Zynq_UltraMp_Platform_info(void)
 u32 XGetPSVersion_Info(void)
 {
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
-        /*
-         * This SMC call will return,
-         *  idcode - upper 32 bits of reg.Arg0
-         *  version - lower 32 bits of reg.Arg1
-         */
-        XSmc_OutVar reg;
-        reg = Xil_Smc(GET_CHIPID_SMC_FID,0,0, 0, 0, 0, 0, 0);
-        return (u32)((reg.Arg1 &  XPS_VERSION_INFO_MASK) >>
-		XPS_VERSION_INFO_SHIFT);
+	/*
+	 * This SMC call will return,
+	 *  idcode - upper 32 bits of reg.Arg0
+	 *  version - lower 32 bits of reg.Arg1
+	 */
+	XSmc_OutVar reg;
+	reg = Xil_Smc(GET_CHIPID_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
+	return (u32)((reg.Arg1 &  XPS_VERSION_INFO_MASK) >>
+		     XPS_VERSION_INFO_SHIFT);
 #else
 	u32 reg;
 	reg = (Xil_In32(XPLAT_PS_VERSION_ADDRESS)
-			& XPS_VERSION_INFO_MASK);
+	       & XPS_VERSION_INFO_MASK);
 	return (reg >> XPS_VERSION_INFO_SHIFT);
 #endif
 }
@@ -163,36 +163,38 @@ u32 XGetPSVersion_Info(void)
 ******************************************************************************/
 u8 XGetCoreId(void)
 {
-        u64 CoreId;
+	u64 CoreId;
 
 #if (defined (__aarch64__) && ! defined (VERSAL_NET))
 	/* CortexA53 and CortexA72 */
 	CoreId = (mfcp(MPIDR_EL1) & XREG_MPIDR_MASK);
-        CoreId = ((CoreId & XREG_MPIDR_AFFINITY0_MASK) >> \
-                        XREG_MPIDR_AFFINITY0_SHIFT);
+	CoreId = ((CoreId & XREG_MPIDR_AFFINITY0_MASK) >> \
+		  XREG_MPIDR_AFFINITY0_SHIFT);
 #elif (defined (__aarch64__) && defined (VERSAL_NET))
 	/* CortexA78 */
-        CoreId = (mfcp(MPIDR_EL1) & XREG_MPIDR_MASK);
-        CoreId = ((CoreId & XREG_MPIDR_AFFINITY0_MASK) >> \
-                        XREG_MPIDR_AFFINITY0_SHIFT);
+	CoreId = (mfcp(MPIDR_EL1) & XREG_MPIDR_MASK);
+	CoreId = ((CoreId & XREG_MPIDR_AFFINITY0_MASK) >> \
+		  XREG_MPIDR_AFFINITY0_SHIFT);
 #else
 	/* CortexA9, CortexR5 and CortexR52 */
-	#ifdef __GNUC__
+#ifdef __GNUC__
 	CoreId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & XREG_MPIDR_MASK);
-	#elif defined (__ICCARM__)
+#elif defined (__ICCARM__)
 	mfcp(XREG_CP15_MULTI_PROC_AFFINITY, CoreId);
 	CoreId &= XREG_MPIDR_MASK;
-        #else
-	{ register u32 C15Reg __asm(XREG_CP15_MULTI_PROC_AFFINITY);
-		CoreId = C15Reg; }
+#else
+	{
+		register u32 C15Reg __asm(XREG_CP15_MULTI_PROC_AFFINITY);
+		CoreId = C15Reg;
+	}
 	CoreId &= XREG_MPIDR_MASK;
-	#endif
-
-	CoreId = ((CoreId & XREG_MPIDR_AFFINITY0_MASK) >> \
-		XREG_MPIDR_AFFINITY0_SHIFT);
 #endif
 
-        return (u8)CoreId;
+	CoreId = ((CoreId & XREG_MPIDR_AFFINITY0_MASK) >> \
+		  XREG_MPIDR_AFFINITY0_SHIFT);
+#endif
+
+	return (u8)CoreId;
 }
 #endif
 
@@ -213,11 +215,11 @@ u8 XGetClusterId(void)
 #if defined (ARMR52)
 	ClusterId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & XREG_MPIDR_MASK);
 	ClusterId = ((ClusterId & XREG_MPIDR_AFFINITY1_MASK) >> \
-			XREG_MPIDR_AFFINITY1_SHIFT);
+		     XREG_MPIDR_AFFINITY1_SHIFT);
 #else
 	ClusterId = (mfcp(MPIDR_EL1) & XREG_MPIDR_MASK);
 	ClusterId = ((ClusterId & XREG_MPIDR_AFFINITY2_MASK) >> \
-                        XREG_MPIDR_AFFINITY2_SHIFT);
+		     XREG_MPIDR_AFFINITY2_SHIFT);
 #endif
 
 	return (u8)ClusterId;
@@ -239,7 +241,7 @@ u8 XGetBootStatus(void)
 	UINTPTR Addr;
 
 #if (__aarch64__)
-        u8 CpuNum;
+	u8 CpuNum;
 
 	CpuNum = XGetClusterId();
 	CpuNum *= XPS_NUM_OF_CORES_PER_CLUSTER;
@@ -248,7 +250,7 @@ u8 XGetBootStatus(void)
 	Addr = XPS_CORE_X_PWRDWN_BASEADDR + (CpuNum * XPS_CORE_X_PWRDWN_OFFSET);
 	Status = Xil_In32(Addr);
 
-        return (Status & XPS_CORE_X_PWRDWN_EN_MASK);
+	return (Status & XPS_CORE_X_PWRDWN_EN_MASK);
 #else
 	Addr = (XPS_RPU_PCIL_CLUSTER_OFFSET * XGetClusterId()) + XPS_RPU_PCIL_A0_PWRDWN;
 	Addr += (XGetCoreId() * XPS_RPU_PCIL_CORE_OFFSET);
