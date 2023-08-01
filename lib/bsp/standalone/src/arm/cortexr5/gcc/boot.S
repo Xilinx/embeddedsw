@@ -71,6 +71,8 @@
 *                     based on _TCM_A_REGION, _TCM_B_REGION and _TCM_C_REGION
 *                     variables exported by linker script.
 * 9.0  mus  07/12/23  Added SDT flow support for CortexR52 BSP.
+* 9.0  mus  07/27/23  Removed dependency on XPAR_CPU_ID, updated logic to use
+*                     CPU affinity register to read CPU ID.
 * </pre>
 *
 ******************************************************************************/
@@ -437,20 +439,32 @@ init:
 	and	r0, r0, r1
 	mcr	p15, 0, r0, c1, c0, 0
 
+
 /* Check if processor is having access to RPU address space */
-#if (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK)
-/* Clear VINITHI to enable LOVEC on reset */
-#if XPAR_CPU_ID == 0
-	ldr r0, =RPU_0_CFG
-#else
-	ldr r0, =RPU_1_CFG
+#if defined (SDT)
+        ldr     r0,=XCortexr5_ConfigTable
+        ands    r0, r0, #RPU_TZ_MASK
+        TST     r0, #1
+        bne     nocfgaccess
 #endif
+
+#if (defined(SDT)|| (! defined(SDT) && (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK)))
+/* Clear VINITHI to enable LOVEC on reset */
+        mrc     p15, 0, r0,  c0,  c0, 5 /* Read MPIDR register */
+        ands    r0, r0, #0xFF	        /* Get affinity level 0 */
+        bne     cpu1
+	ldr r0, =RPU_0_CFG
+	b	rpucfg
+cpu1:
+	ldr r0, =RPU_1_CFG
+rpucfg:
 	ldr r1, [r0]
 	bic r1, r1, #(0x1 << 2)
 	str r1, [r0]
 #endif
 #endif
 #endif
+nocfgaccess:
 /* enable asynchronous abort exception */
 	mrs	r0, cpsr
 	bic	r0, r0, #0x100

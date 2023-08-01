@@ -38,6 +38,7 @@
 *                      they are supported only for VERSAL_NET APU and RPU.
 * 9.0    mus 03/28/23 Added new API XGetBootStatus for VERSAL_NET. It can be
 *                     used to identify type of boot (cold/warm).
+* 9.0    mus 07/27/23 Updated XGetCoreId API to support A9, R5 and A53 processor
 * </pre>
 *
 ******************************************************************************/
@@ -125,6 +126,9 @@ extern "C" {
 
 
 u32 XGetPlatform_Info(void);
+#if ! defined(__microblaze__) && ! defined(__riscv)
+u8 XGetCoreId(void);
+#endif
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32) || defined (PSU_PMU) || defined (versal)
 u32 XGetPSVersion_Info(void);

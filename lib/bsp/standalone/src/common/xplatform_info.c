@@ -45,6 +45,7 @@
 *                     they are supported only for VERSAL_NET APU and RPU.
 * 9.0    mus 03/28/23 Added new API XGetBootStatus for VERSAL_NET. It can be
 *                     used to identify type of boot (cold/warm).
+* 9.0    mus 07/27/23 Updated XGetCoreId API to support A9, R5 and A53 processor.
 * </pre>
 *
 ******************************************************************************/
@@ -150,6 +151,51 @@ u32 XGetPSVersion_Info(void)
 }
 #endif
 
+#if ! defined(__microblaze__) && ! defined(__riscv)
+/*****************************************************************************/
+/**
+*
+* @brief    This API is used to provide infomation about core id of the
+*           CPU core from which it is executed.
+*
+* @return   Core id of the core on which API is executed.
+*
+******************************************************************************/
+u8 XGetCoreId(void)
+{
+        u64 CoreId;
+
+#if (defined (__aarch64__) && ! defined (VERSAL_NET))
+	/* CortexA53 and CortexA72 */
+	CoreId = (mfcp(MPIDR_EL1) & XREG_MPIDR_MASK);
+        CoreId = ((CoreId & XREG_MPIDR_AFFINITY0_MASK) >> \
+                        XREG_MPIDR_AFFINITY0_SHIFT);
+#elif (defined (__aarch64__) && defined (VERSAL_NET))
+	/* CortexA78 */
+        CoreId = (mfcp(MPIDR_EL1) & XREG_MPIDR_MASK);
+        CoreId = ((CoreId & XREG_MPIDR_AFFINITY0_MASK) >> \
+                        XREG_MPIDR_AFFINITY0_SHIFT);
+#else
+	/* CortexA9, CortexR5 and CortexR52 */
+	#ifdef __GNUC__
+	CoreId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & XREG_MPIDR_MASK);
+	#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_MULTI_PROC_AFFINITY, CoreId);
+	CoreId &= XREG_MPIDR_MASK;
+        #else
+	{ register u32 C15Reg __asm(XREG_CP15_MULTI_PROC_AFFINITY);
+		CoreId = C15Reg; }
+	CoreId &= XREG_MPIDR_MASK;
+	#endif
+
+	CoreId = ((CoreId & XREG_MPIDR_AFFINITY0_MASK) >> \
+		XREG_MPIDR_AFFINITY0_SHIFT);
+#endif
+
+        return (u8)CoreId;
+}
+#endif
+
 #if (defined (__aarch64__) && defined (VERSAL_NET)) || defined (ARMR52)
 /*****************************************************************************/
 /**
@@ -175,32 +221,6 @@ u8 XGetClusterId(void)
 #endif
 
 	return (u8)ClusterId;
-}
-
-/*****************************************************************************/
-/**
-*
-* @brief    This API is used to provide infomation about core id of the
-*           CPU core from which it is executed.
-*
-* @return   Core id of the core on which API is executed.
-*
-******************************************************************************/
-u8 XGetCoreId(void)
-{
-	u64 CoreId;
-
-#if defined (ARMR52)
-	CoreId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & XREG_MPIDR_MASK);
-	CoreId = ((CoreId & XREG_MPIDR_AFFINITY0_MASK) >> \
-                        XREG_MPIDR_AFFINITY0_SHIFT);
-#else
-	CoreId = (mfcp(MPIDR_EL1) & XREG_MPIDR_MASK);
-	CoreId = ((CoreId & XREG_MPIDR_AFFINITY1_MASK) >> \
-			XREG_MPIDR_AFFINITY1_SHIFT);
-#endif
-
-	return (u8)CoreId;
 }
 
 /*****************************************************************************/
