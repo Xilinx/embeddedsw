@@ -158,8 +158,6 @@ static XPlmi_Module XPlmi_Pm =
 	XPlmi_PmAccessPermBuff,
 #ifdef VERSAL_NET
 	XPm_UpdateHandler
-#else
-	NULL
 #endif
 };
 static int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
