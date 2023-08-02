@@ -623,7 +623,7 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld)
 {
 	volatile XStatus Status = XPM_ERR_HC_PL;
 	volatile XStatus StatusTmp = XPM_ERR_HC_PL;
-	u32 i;
+	volatile u32 i;
 	u32 GtyAddrs[MAX_DEV_GT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	(void)Pld;
