@@ -1188,8 +1188,10 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 			Mult = Mult * 2;
 		}
 
-		if ((InstancePtr->Config.RxClkPrimitive == 0) ||
-				(InstancePtr->Config.TxClkPrimitive == 0)) {
+		if (((Dir == XHDMIPHY1_DIR_RX) &&
+				(InstancePtr->Config.RxClkPrimitive == 0)) ||
+				((Dir == XHDMIPHY1_DIR_TX) &&
+						(InstancePtr->Config.TxClkPrimitive == 0))) {
 
 		Valid = (FALSE);
 		do {
