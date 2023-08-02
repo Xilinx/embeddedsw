@@ -2262,11 +2262,15 @@ static void XV_Rx_HdmiRx_EnterStatePhyReset(XV_Rx *InstancePtr)
 						FALSE);
 	}
 #else
-	XHdmiphy1_ResetGtTxRx (InstancePtr->VidPhy,
-					0,
-					XHDMIPHY1_CHANNEL_ID_CHA,
-					XHDMIPHY1_DIR_RX,
-					FALSE);
+	if((InstancePtr->HdmiRxSs->HdmiRx1Ptr->Stream.IsFrl != TRUE) ) {
+		XHdmiphy1_ClkDetFreqReset(InstancePtr->VidPhy, 0, XHDMIPHY1_DIR_RX);
+	} else {
+		XHdmiphy1_ResetGtTxRx (InstancePtr->VidPhy,
+				0,
+				XHDMIPHY1_CHANNEL_ID_CHA,
+				XHDMIPHY1_DIR_RX,
+				FALSE);
+	}
 #endif
 
 }
@@ -2477,7 +2481,7 @@ static void XV_Rx_HdmiRx_EnterStateTmdsConfig(XV_Rx *InstancePtr)
 
 	InstancePtr->RxClkSrcConfig(InstancePtr->RxClkSrcConfigCallbackRef);
 
-#ifdef XPS_BOARD_VCU118
+#if defined(XPS_BOARD_VCU118) || defined(XPS_BOARD_ZCU106)
 	//Set GT in LPM Mode for TMDS
 	XHdmiphy1_SetRxLpm(&Hdmiphy1, 0,
 	XHDMIPHY1_CHANNEL_ID_CHA, XHDMIPHY1_DIR_RX, 1);
