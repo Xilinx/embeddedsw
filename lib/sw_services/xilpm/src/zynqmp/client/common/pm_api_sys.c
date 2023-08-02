@@ -1822,46 +1822,6 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  Call this function to set rate of a clock
- *
- * @param  clk  Identifier of the target clock
- * @param  rate   Clock frequency (rate) to be set
- *
- * @return Status of performing the operation as returned by the PMU-FW
- *
- * @note   If the action isn't permitted this function returns an error code.
- *
- ****************************************************************************/
-XStatus XPm_ClockSetRate(const enum XPmClock clk, const u32 rate)
-{
-	(void)clk;
-	(void)rate;
-	pm_dbg("%s(%u, %u) not supported\n", __func__, clk, rate);
-
-	return (XStatus)XST_NO_FEATURE;
-}
-
-/****************************************************************************/
-/**
- * @brief  Call this function to get rate of a clock
- *
- * @param  clk  Identifier of the target clock
- * @param  rate   Location where the rate should be stored
- *
- * @return Status of performing the operation as returned by the PMU-FW
- *
- ****************************************************************************/
-XStatus XPm_ClockGetRate(const enum XPmClock clk, u32 *const rate)
-{
-	(void)clk;
-	(void)rate;
-	pm_dbg("%s(%u, %u) not supported\n", __func__, clk, rate);
-
-	return (XStatus)XST_NO_FEATURE;
-}
-
-/****************************************************************************/
-/**
  * @brief  Call this function to set a PLL parameter
  *
  * @param  node      PLL node identifier

@@ -200,9 +200,6 @@ XStatus XPm_ClockSetParent(const enum XPmClock clk,
 XStatus XPm_ClockGetParent(const enum XPmClock clk,
 			   enum XPmClock *const parent);
 
-XStatus XPm_ClockSetRate(const enum XPmClock clk, const u32 rate);
-XStatus XPm_ClockGetRate(const enum XPmClock clk, u32 *const rate);
-
 /* PLL API */
 XStatus XPm_PllSetParameter(const enum XPmNodeId node,
 			    const enum XPmPllParam parameter,
