@@ -77,10 +77,6 @@
  * | PM_CLOCK_GETSTATE		| 0x26	| Both		| 1	 | The API is used to read the clock state				     |
  * | PM_CLOCK_SETDIVIDER	| 0x27	| Both		| 1	 | The API is used to set the divider value of the clock		     |
  * | PM_CLOCK_GETDIVIDER	| 0x28	| Both		| 1	 | The API is used to read the clock divider				     |
- * | PM_CLOCK_SETRATE		| 0x29	| Versal	| 1	 | The API is used to set the rate of the clock				     |
- * | ^				| ^	| ^		| ^	 | Note: Not supported in ZynqMP but supported in Versal		     |
- * | PM_CLOCK_GETRATE		| 0x2A	| Versal	| 1	 | The API is used to get the rate of the clock				     |
- * | ^				| ^	| ^		| ^	 | Note: Not supported in ZynqMP but supported in Versal		     |
  * | PM_CLOCK_SETPARENT		| 0x2B	| Both		| 1	 | The API is used to set the parent of the clock			     |
  * | PM_CLOCK_GETPARENT		| 0x2C	| Both		| 1	 | The API is used to read the clock parent				     |
  * | PM_PLL_SET_PARAM		| 0x30	| Both		| 1	 | The API is used to set the parameter of PLL clock			     |
