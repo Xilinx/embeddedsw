@@ -464,8 +464,8 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 		return XST_FAILURE;
 	}
 	/* Write Power Register Value */
-	if ((InstancePtr->Config.RxClkPrimitive == 0) ||
-			(InstancePtr->Config.TxClkPrimitive == 0)) {
+	if (((Dir == XVPHY_DIR_RX) && (InstancePtr->Config.RxClkPrimitive == 0)) ||
+			((Dir == XVPHY_DIR_TX) && (InstancePtr->Config.TxClkPrimitive == 0))) {
 		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x27, 0xFFFF);
 	} else {
 		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x27, 0x4401);
