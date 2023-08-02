@@ -1199,68 +1199,6 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function is used to get rate of specified clock
- *
- * @param  ClockId	Clock ID
- * @param  Rate		Pointer to store the rate clock
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- ****************************************************************************/
-XStatus XPm_ClockGetRate(const u32 ClockId, u32 *const Rate)
-{
-	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
-
-	PACK_PAYLOAD1(Payload, PM_CLOCK_GETRATE, ClockId);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, Rate, NULL, NULL);
-
-done:
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function is used to set the rate of specified clock
- *
- * @param  ClockId	Clock ID
- * @param  Rate		Clock rate
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- ****************************************************************************/
-XStatus XPm_ClockSetRate(const u32 ClockId, const u32 Rate)
-{
-	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
-
-	PACK_PAYLOAD2(Payload, PM_CLOCK_SETRATE, ClockId, Rate);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-
-done:
-	return Status;
-}
-
-/****************************************************************************/
-/**
  * @brief  This function is used to set the parameters for specified PLL clock
  *
  * @param  ClockId		Clock ID

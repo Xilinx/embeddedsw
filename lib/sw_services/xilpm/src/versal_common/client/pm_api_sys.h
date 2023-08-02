@@ -156,8 +156,6 @@ void XPm_NotifyCb(const u32 Node, const u32 Event, const u32 Oppoint);
 void XPm_InitSuspendCb(const enum XPmSuspendReason Reason,
 		       const u32 Latency, const u32 State, const u32 Timeout);
 void XPm_AcknowledgeCb(const u32 Node, const XStatus Status, const u32 Oppoint);
-XStatus XPm_ClockSetRate(const u32 ClockId, const u32 Rate);
-XStatus XPm_ClockGetRate(const u32 ClockId, u32 *const Rate);
 XStatus XPm_FeatureCheck(const u32 FeatureId, u32 *Version);
 
 /** @cond INTERNAL */
