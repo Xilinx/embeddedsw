@@ -1206,8 +1206,10 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 			Mult = Mult * 2;
 		}
 
-		if ((InstancePtr->Config.RxClkPrimitive == 0) ||
-				(InstancePtr->Config.TxClkPrimitive == 0)) {
+		if (((Dir == XVPHY_DIR_RX) &&
+				(InstancePtr->Config.RxClkPrimitive == 0)) ||
+				((Dir == XVPHY_DIR_TX) &&
+						(InstancePtr->Config.TxClkPrimitive == 0))) {
 
 		Valid = (FALSE);
 		do {
