@@ -548,14 +548,10 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 	    ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId)) &&
 	    ((u32)XPM_NODEIDX_POWER_MAX > NODEINDEX(NodeId))) {
 		Status = PwrDomainInitNode(NodeId, Function, Args, NumArgs);
-		/*TODO: remove this asap*/
-		Status = XST_SUCCESS;
 	} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
 		  ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(NodeId)) &&
 		  ((u32)XPM_NODEIDX_DEV_PLD_MAX > NODEINDEX(NodeId))) {
 		Status = PldInitNode(NodeId, Function, Args, NumArgs);
-		/* TODO: remove this asap*/
-		Status = XST_SUCCESS;
 	} else {
 		Status = XPM_PM_INVALID_NODE;
 		DbgErr = XPM_INT_ERR_INITNODE;
