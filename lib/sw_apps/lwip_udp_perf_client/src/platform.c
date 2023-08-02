@@ -57,8 +57,7 @@ volatile int TcpFastTmrFlag = 0;
 volatile int TcpSlowTmrFlag = 0;
 
 volatile u64_t tickcntr = 0;
-void
-timer_callback()
+void timer_callback()
 {
 	/* we need to call tcp_fasttmr & tcp_slowtmr at intervals specified
 	 * by lwIP.
@@ -69,7 +68,7 @@ timer_callback()
 	static int dhcp_timer = 0;
 #endif
 	tickcntr++;
-	if(tickcntr % 25 == 0){
+	if (tickcntr % 25 == 0) {
 		TcpFastTmrFlag = 1;
 
 		odd = !odd;
@@ -115,9 +114,9 @@ void platform_setup_interrupts()
 	/* Enable timer and EMAC interrupts in the interrupt controller */
 	XIntc_EnableIntr(XPAR_INTC_0_BASEADDR,
 #ifdef __MICROBLAZE__
-			PLATFORM_TIMER_INTERRUPT_MASK |
+			 PLATFORM_TIMER_INTERRUPT_MASK |
 #endif
-			XPAR_ETHERNET_MAC_IP2INTC_IRPT_MASK);
+			 XPAR_ETHERNET_MAC_IP2INTC_IRPT_MASK);
 #endif
 
 
@@ -146,8 +145,7 @@ void platform_setup_interrupts()
 }
 #endif
 
-void
-enable_caches()
+void enable_caches()
 {
 #ifdef __MICROBLAZE__
 #ifdef XPAR_MICROBLAZE_USE_ICACHE
@@ -159,8 +157,7 @@ enable_caches()
 #endif
 }
 
-void
-disable_caches()
+void disable_caches()
 {
 	Xil_DCacheDisable();
 	Xil_ICacheDisable();
@@ -176,9 +173,9 @@ void init_platform()
 #endif
 
 #ifndef SDT
-       platform_setup_interrupts();
+	platform_setup_interrupts();
 #else
-       init_timer();
+	init_timer();
 #endif
 
 }
@@ -186,25 +183,29 @@ void init_platform()
 #ifdef SDT
 void TimerCounterHandler(void *CallBackRef, u32_t TmrCtrNumber)
 {
-       timer_callback();
+	timer_callback();
 }
 
 void init_timer()
 {
-       /* Calibrate the platform timer for 250 ms */
-       XTimer_SetInterval(250);
-       XTimer_SetHandler(TimerCounterHandler, 0, XINTERRUPT_DEFAULT_PRIORITY);
+	/* Calibrate the platform timer for 1 ms */
+	XTimer_SetInterval(1);
+	XTimer_SetHandler(TimerCounterHandler, 0, XINTERRUPT_DEFAULT_PRIORITY);
 }
-#endif
-
-void cleanup_platform()
+/* Timer ticking for SDT Flow */
+u64_t get_time_ms()
 {
-	disable_caches();
+	return tickcntr ;
 }
-
+#else
+/* Timer ticking for Microblaze */
 u64_t get_time_ms()
 {
 	return tickcntr * 10;
 }
-
+#endif
+void cleanup_platform()
+{
+	disable_caches();
+}
 #endif
