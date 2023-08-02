@@ -185,20 +185,25 @@ void TimerCounterHandler(void *CallBackRef, u32_t TmrCtrNumber)
 
 void init_timer()
 {
-	/* Calibrate the platform timer for 250 ms */
-	XTimer_SetInterval(250);
+	/* Calibrate the platform timer for 1 ms */
+	XTimer_SetInterval(1);
 	XTimer_SetHandler(TimerCounterHandler, 0, XINTERRUPT_DEFAULT_PRIORITY);
 }
-#endif
-
-void cleanup_platform()
+/* Timer ticking for SDT flow */
+u64_t get_time_ms()
 {
-	disable_caches();
+	return tickcntr;
 }
-
+#else
+/* Timer tocking for Microblaze flow */
 u64_t get_time_ms()
 {
 	return tickcntr * 10;
+}
+#endif
+void cleanup_platform()
+{
+	disable_caches();
 }
 
 #endif
