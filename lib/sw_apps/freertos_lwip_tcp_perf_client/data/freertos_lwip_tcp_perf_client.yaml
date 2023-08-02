@@ -23,7 +23,14 @@ depends_libs:
     lwip213_dhcp_does_arp_check: true
     lwip213_dhcp: true
     lwip213_ipv6_enable: false
-    lwip213_pbuf_pool_size: 2048
+    lwip213_mem_size: 524288
+    lwip213_memp_n_pbuf: 1024
+    lwip213_memp_n_tcp_seg: 1024
+    lwip213_n_rx_descriptors: 512
+    lwip213_n_tx_descriptors: 512
+    lwip213_pbuf_pool_size: 16384
+    lwip213_tcp_snd_buf: 65535
+    lwip213_tcp_wnd: 65535
   xiltimer:
     XILTIMER_en_interval_timer: true
 supported_processors:
