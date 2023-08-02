@@ -32,10 +32,14 @@ depends_libs:
     lwip213_dhcp_does_arp_check: true
     lwip213_dhcp: true
     lwip213_ipv6_enable: false
-    lwip213_pbuf_pool_size: 16384
-    lwip213_temac_n_rx_descriptors: 512
-    lwip213_memp_n_pbuf: 1024
+    lwip213_n_rx_descriptors: 512
     lwip213_mem_size: 524288
+    lwip213_memp_n_pbuf: 1024
+    lwip213_memp_num_netbuf: 4096
+    lwip213_tcpip_mbox_size: 4096
+    lwip213_default_udp_recvmbox_size: 4096
+    lwip213_lwip_tcpip_core_locking_input: true
+    lwip213_pbuf_pool_size: 20480
   xiltimer:
     XILTIMER_en_interval_timer: true
 depends:

@@ -23,9 +23,9 @@ depends_libs:
     lwip213_dhcp: true
     lwip213_ipv6_enable: false
     lwip213_pbuf_pool_size: 16384
-    lwip213_temac_n_tx_descriptors: 512
     lwip213_memp_n_pbuf: 1024
     lwip213_mem_size: 524288
+    lwip213_n_tx_descriptors: 512
   xiltimer:
     XILTIMER_en_interval_timer: true
 supported_processors:
