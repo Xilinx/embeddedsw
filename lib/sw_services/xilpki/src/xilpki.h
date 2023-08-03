@@ -32,6 +32,8 @@
  * ----- ----  --------  -------------------------------------------------------
  * 1.0   Nava  12/05/22  Initial Release
  * 2.0   Nava  06/21/23  Added PKI multi-queue support for ECC operations.
+ * 2.0   Nava  08/02/23  Added a new API XPki_GetVersion() to access the library
+ *			 version info.
  *
  * </pre>
  *
@@ -171,6 +173,10 @@ extern "C" {
 #define PKI_QUEUE_2_SLOT_SIZE_BYTES	512U
 #define PKI_QUEUE_3_SLOT_SIZE_BYTES	512U
 
+/* Library version info */
+#define XPKI_MAJOR_VERSION		2U
+#define XPKI_MINOR_VERSION		0U
+
 /**************************** Type Definitions *******************************/
 typedef enum {
 	PKI_QUEUE_ID_0 = 0,
@@ -255,4 +261,5 @@ int XilPki_EnQueue(XPki_Instance *InstancePtr, XPki_Request_Info *Request_InfoPt
 int XilPki_DeQueue(XPki_Instance *InstancePtr, XPki_Request_Info *Request_InfoPtr,
 		   u32 RequestID);
 void XPki_Close(void);
+int XPki_GetVersion(u32 *Version);
 #endif  /* XILPKI_H */
