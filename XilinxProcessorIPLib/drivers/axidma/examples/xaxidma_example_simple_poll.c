@@ -161,7 +161,7 @@ int main()
 #ifndef SDT
 	Status = XAxiDma_SimplePollExample(DMA_DEV_ID);
 #else
-	Status = XAxiDma_SimplePollExample(XPAR_AXI_DMA_BASEADDR);
+	Status = XAxiDma_SimplePollExample(XPAR_XAXIDMA_0_BASEADDR);
 #endif
 
 	if (Status != XST_SUCCESS) {

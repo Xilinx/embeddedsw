@@ -268,7 +268,7 @@ int main(void)
 #else
 	Config = XAxiDma_LookupConfig(XPAR_AXI_DMA_BASEADDR);
 	if (!Config) {
-		xil_printf("No config found for %d\r\n", XPAR_AXI_DMA_BASEADDR);
+		xil_printf("No config found for %d\r\n", XPAR_XAXIDMA_0_BASEADDR);
 
 		return XST_FAILURE;
 	}

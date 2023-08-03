@@ -90,7 +90,7 @@ int main()
 #ifndef SDT
 	Status = AxiDMASelfTestExample(DMA_DEV_ID);
 #else
-	Status = AxiDMASelfTestExample(XPAR_AXI_DMA_BASEADDR);
+	Status = AxiDMASelfTestExample(XPAR_XAXIDMA_0_BASEADDR);
 #endif
 
 	if (Status != XST_SUCCESS) {
