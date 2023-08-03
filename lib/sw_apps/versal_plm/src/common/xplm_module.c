@@ -48,6 +48,7 @@
 *       dc   07/13/2022 Added OCP init calls
 * 1.08  ng   11/11/2022 Updated doxygen comments
 *       am   12/21/2022 Added module support for XilOcp
+*		kpt  08/03/2023 Added temporal check for XOcp_KeyInit
 *
 * </pre>
 *
@@ -178,10 +179,7 @@ int XPlm_ModuleInit(void *Arg)
 #endif
 /* OCP module is applicable only for Versalnet */
 #ifdef PLM_OCP
-	Status = XOcp_KeyInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XOcp_KeyInit);
 	/**
 	 * Init function for OCP module for handler registration to server
 	 */
