@@ -75,7 +75,7 @@
 #define GPIO_INPUT_DEVICE_ID	XPAR_GPIO_0_DEVICE_ID
 #endif /* TESTAPP_GEN */
 #else
-#define	XGPIO_BASEADDRESS	XPAR_AXI_GPIO_0_BASEADDR
+#define	XGPIO_BASEADDRESS	XPAR_XGPIO_0_BASEADDR
 #endif
 
 /**************************** Type Definitions ******************************/
