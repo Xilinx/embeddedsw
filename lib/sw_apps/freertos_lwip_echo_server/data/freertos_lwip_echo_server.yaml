@@ -34,6 +34,9 @@ supported_processors:
   - ps7_cortexa9
   - microblaze
 supported_os: [freertos10_xilinx]
+linker_constraints:
+    stack: 0xA000
+    heap: 0xA000
 depends:
   emaclite: [reg, interrupts]
   axiethernet: [reg, interrupts]

@@ -40,3 +40,6 @@ depends_libs:
     lwip213_pbuf_pool_size: 2048
   xiltimer:
     XILTIMER_en_interval_timer: true
+linker_constraints:
+    stack: 0xA000
+    heap: 0xA000
