@@ -331,11 +331,11 @@ typedef struct {
 	u8  IsTuningDone;	/**< Flag to indicate HS200 tuning complete */
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-	XSdPs_Adma2Descriptor32 Adma2_DescrTbl32[32];
-	XSdPs_Adma2Descriptor64 Adma2_DescrTbl64[32];
+	XSdPs_Adma2Descriptor32 Adma2_DescrTbl32[32];		/**< ADMA descriptor table 32 Bit */
+	XSdPs_Adma2Descriptor64 Adma2_DescrTbl64[32];		/**< ADMA descriptor table 64 Bit */
 #else
-	XSdPs_Adma2Descriptor32 Adma2_DescrTbl32[32] __attribute__ ((aligned(32)));
-	XSdPs_Adma2Descriptor64 Adma2_DescrTbl64[32] __attribute__ ((aligned(32)));
+	XSdPs_Adma2Descriptor32 Adma2_DescrTbl32[32] __attribute__ ((aligned(32)));	/**< ADMA descriptor table 32 Bit */
+	XSdPs_Adma2Descriptor64 Adma2_DescrTbl64[32] __attribute__ ((aligned(32)));	/**< ADMA descriptor table 64 Bit */
 #endif
 } XSdPs;
 
