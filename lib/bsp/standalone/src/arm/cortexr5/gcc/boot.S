@@ -73,6 +73,7 @@
 * 9.0  mus  07/12/23  Added SDT flow support for CortexR52 BSP.
 * 9.0  mus  07/27/23  Removed dependency on XPAR_CPU_ID, updated logic to use
 *                     CPU affinity register to read CPU ID.
+* 9.0  mus  08/01/23  Enable low latency peripheral port for CortexR52.
 * </pre>
 *
 ******************************************************************************/
@@ -181,6 +182,10 @@ OKToRun:
 /* Change EL1 exception base address */
     ldr r0, =_vector_table
     mcr p15, 0, r0, c12, c0, 0      /* Write VBAR */
+
+    mrc     p15, 4, r1, c1, c0, 1   /* Read HACTLR */
+    orr     r1, r1, #(0x1 << 8)     /* Enable access to IMP_PERIPHPREGIONR at EL1 */
+    mcr     p15, 4, r1, c1, c0, 1   /* Write HACTLR */
 
 /* Switch to EL1 SVC mode */
     mrs r0, cpsr
@@ -324,6 +329,9 @@ InitTCMC:
 	beq InitTCMDone
 	mcr p15, 0, r1, c9, c1, 2  /* Write r1 to IMP_CTCMREGIONR */
 InitTCMDone:
+	mrc     p15, 0, r1, c15, c0, 0   /* Read IMP_PERIPHPREGIONR */
+	orr     r1, r1, #(0x3)           /* Enable peripheral port at EL2 and EL1 and EL0 */
+	mcr     p15, 0, r1, c15, c0, 0   /* Write IMP_PERIPHPREGIONR */
 
 /* Disable branch prediction */
 	mrc p15, 1, r0, c9, c1, 1			/* Read IMP_BPCTLR */
