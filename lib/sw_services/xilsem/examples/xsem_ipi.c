@@ -14,6 +14,7 @@
 * Ver   Who  Date         Changes
 * ====  ==== ==========   ====================================================
 * 0.1   gm   03/19/2021   Initial version of IPI configure
+* 0.2  rama  08/03/2023   Added support for system device-tree flow
 *
 * </pre>
 *
@@ -27,8 +28,13 @@
 #include "xsem_ipi.h"
 #include "xsem_gic_setup.h"
 
-#define IPI_INT_ID		(XPAR_XIPIPSU_0_INT_ID)
-#define IPI_TEST_CHANNEL_ID	(XPAR_XIPIPSU_0_DEVICE_ID)
+#ifndef SDT
+	#define IPI_INT_ID		(XPAR_XIPIPSU_0_INT_ID)
+	#define IPI_TEST_CHANNEL_ID	(XPAR_XIPIPSU_0_DEVICE_ID)
+#else
+	#define IPI_INT_ID		(XPAR_XIPIPSU_0_INTERRUPTS)
+	#define IPI_TEST_CHANNEL_ID	(XPAR_XIPIPSU_0_BASEADDR)
+#endif
 
 /* Allocate one callback pointer for each bit in the register */
 static IpiCallback IpiCallbacks[11];

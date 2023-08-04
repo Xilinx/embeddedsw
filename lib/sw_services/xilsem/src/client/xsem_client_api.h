@@ -47,6 +47,7 @@
 * 2.3	hv   08/08/2022   Fixed Misra C violations
 * 2.4	hv   02/14/2023   Removed XSEM_SSIT_MAX_SLR_CNT macro as this is
 *                         available in xparameters.h
+* 2.5   rama 08/03/2023   Added support for system device-tree flow
 * </pre>
 *
 * @note
@@ -60,6 +61,10 @@
 
 #ifdef __cplusplus
 extern "C" {
+#endif
+
+#ifdef SDT
+#include "xilsem_config.h"
 #endif
 
 /* Note: For SSIT support enable XILSEM_ENABLE_SSIT flag in bsp settings */
