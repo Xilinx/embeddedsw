@@ -77,6 +77,11 @@ int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
 
+#if defined(SDT) && defined(versal) && !defined(QDMA_PCIE_BRIDGE) && !defined(XDMA_PCIE_BRIDGE)
+	InstancePtr->Config.BaseAddress= InstancePtr->Config.Ecam;
+	InstancePtr->Config.Ecam= EffectiveAddress;
+#endif
+
 	if (InstancePtr->Config.Ecam == InstancePtr->Config.NpMemBaseAddr)
 		InstancePtr->Config.NpMemBaseAddr += XDMAPCIE_ECAM_MEMSIZE;
 
