@@ -1,0 +1,78 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for xilsem library.
+
+maintainers:
+  - Veggalam, Rama Devi <rama.devi.veggalam@amd.com>
+
+type: library
+
+version: 1.8
+
+description: Xilinx Versal Soft Error Mitigation Library.
+
+supported_processors:
+  - psv_cortexr5
+  - psxl_cortexr52
+  - psx_cortexr52
+  - psv_cortexa72
+  - microblaze
+  - psv_pmc
+  - psx_pmc
+  - psxl_pmc
+
+supported_os:
+  - standalone
+  - freertos10_xilinx
+
+examples:
+  xsem_cram_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+    - dependency_files:
+      - xsem_gic_setup.c
+      - xsem_gic_setup.h
+      - xsem_ipi.c
+      - xsem_ipi.h
+  xsem_cram_ssit_example.c:
+    - supported_platforms:
+      - Versal
+    - dependency_files:
+      - xsem_gic_setup.c
+      - xsem_gic_setup.h
+      - xsem_ipi.c
+      - xsem_ipi.h
+  xsem_npi_example.c:
+    - supported_platforms:
+      - Versal
+      - VersalNet
+    - dependency_files:
+      - xsem_gic_setup.c
+      - xsem_gic_setup.h
+      - xsem_ipi.c
+      - xsem_ipi.h
+  xsem_npi_ssit_example.c:
+    - supported_platforms:
+      - Versal
+    - dependency_files:
+      - xsem_gic_setup.c
+      - xsem_gic_setup.h
+      - xsem_ipi.c
+      - xsem_ipi.h
+  xsem_cram_example_pl_mb.c:
+    - supported_platforms:
+      - Versal
+  xsem_npi_example_pl_mb.c:
+    - supported_platforms:
+      - Versal
+  xsem_ebd_example.c:
+    - supported_platforms:
+      - Versal
+    - dependency_files:
+      - xsem_ebd_search.c
+      - xsem_ebd_search.h
+      - xsem_ebdgoldendata.c
+...

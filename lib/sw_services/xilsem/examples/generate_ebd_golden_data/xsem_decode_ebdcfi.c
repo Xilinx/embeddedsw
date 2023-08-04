@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -40,7 +41,7 @@ int main( )
 	int BlockType[] = {0, 3, 4, 5};
 	/**
 	 * Below 2-d array is initialized with last frame address in each row of a block
-	 * Here we have initialised for S80. The last frame address may vary from device
+	 * Here we have initialised for vc1902. The last frame address may vary from device
 	 * to device.
 	 */
 	int LFAddr[4][4] = 	{{0x0000853F, 0x00009662, 0x00009662, 0x00009662},

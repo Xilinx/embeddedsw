@@ -14,7 +14,7 @@
 # 1.04  rb   03/09/21 Update SEM parameters as per CIPS 3.0
 # 1.05  rb   03/16/21 Created server directory and handling
 # 1.06  rb   03/16/21 Created R5 client directory and handling
-# 1.07	hv   06/06/22 Added support for P80
+# 1.07	hv   06/06/22 Added support for vp1902
 # 1.08  gm   11/22/22 Added support for A72
 # 1.09	hv   11/16/22 Added support for PL microblaze
 # 1.10	hv   02/14/23 Added support to get number of SLRs from the design
