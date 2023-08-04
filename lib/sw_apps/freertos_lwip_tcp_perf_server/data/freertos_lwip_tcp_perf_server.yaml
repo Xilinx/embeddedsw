@@ -47,6 +47,9 @@ depends_libs:
     lwip213_tcp_wnd : 65535
   xiltimer:
     XILTIMER_en_interval_timer: true
+linker_constraints:
+    stack: 0xA000
+    heap: 0xA000
 depends:
   emaclite: [reg, interrupts]
   axiethernet: [reg, interrupts]
