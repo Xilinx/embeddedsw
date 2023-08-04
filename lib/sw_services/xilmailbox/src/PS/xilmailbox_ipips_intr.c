@@ -102,12 +102,12 @@ XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 		 * interrupt Ids and return success.
 		 */
 		XScuGic_RegisterHandler(IntcConfigPtr->CpuBaseAddress,
-					IpiIntrId,
+					(s32)IpiIntrId,
 					(Xil_InterruptHandler)XIpiPs_IntrHandler,
 					(void *)InstancePtr);
 
 		XScuGic_RegisterHandler(IntcConfigPtr->CpuBaseAddress,
-					XMAILBOX_INTR_ID,
+					(s32)XMAILBOX_INTR_ID,
 					(Xil_InterruptHandler)XIpiPs_ErrorIntrHandler,
 					(void *)InstancePtr);
 		/* Enable the interrupt for the device */
