@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,7 +39,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XV_SDIRX_REGISTER_SIZE					27
+#define XV_SDIRX_REGISTER_SIZE					35
 #define XV_SDIRX_BASE						(0*64)
 #define XV_SDIRX_RST_CTRL_OFFSET				((XV_SDIRX_BASE)+(0*4))
 #define XV_SDIRX_MDL_CTRL_OFFSET				((XV_SDIRX_BASE)+(1*4))
