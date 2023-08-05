@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xdptxss_dbg.c
-* @addtogroup dptxss_v6_7
+* @addtogroup dptxss Overview
 * @{
 *
 * This file contains functions to report debug information of DisplayPort TX

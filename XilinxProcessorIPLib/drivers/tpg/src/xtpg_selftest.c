@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xtpg_selftest.c
-* @addtogroup tpg_v3_3
+* @addtogroup tpg Overview
 * @{
 *
 * This file contains the self-test functions for the TPG driver.

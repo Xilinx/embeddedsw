@@ -1,6 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
 * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +9,7 @@
 /**
 *
 * @file xdptxss.c
-* @addtogroup dptxss_v6_7
+* @addtogroup dptxss Overview
 * @{
 *
 * This is the main file for Xilinx DisplayPort Transmitter Subsystem driver.
