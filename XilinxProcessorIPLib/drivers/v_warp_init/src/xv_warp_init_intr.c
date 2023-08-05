@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xv_warp_init_intr.c
- * @addtogroup v_warp_init_v1_3
+ * @addtogroup v_warp_init Overview
  * @{
  *
  * The functions in this file provides interrupt handler and associated

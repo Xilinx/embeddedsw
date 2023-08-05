@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  * ****************************************************************************/
 
 /*****************************************************************************/
 /*
  * @file xi2srx_chsts.h
- * @addtogroup i2srx_v2_2
+ * @addtogroup i2srx Overview
  * @{
  * Format status related offsets & masks definitions related to the channel
  * status format.For formats/line protocols check the AES standard

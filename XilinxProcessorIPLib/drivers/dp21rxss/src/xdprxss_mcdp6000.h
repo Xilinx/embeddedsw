@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file mcdp6000.c
-* @addtogroup dprxss_v8_0
+* @addtogroup dprxss Overview
 * @{
 *
 * This is the header file contains macros, enum, structure and function

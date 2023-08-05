@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xi2srx.h
- * @addtogroup i2srx_v2_2
+ * @addtogroup i2srx Overview
  * @{
  *
  * <pre>
