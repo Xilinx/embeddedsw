@@ -37,7 +37,7 @@
 *       am   07/11/2023 Reduced the trace event buffer length to accomodate
 *                       IHT OP data store address
 *       ng   07/13/2023 Added support for system device-tree flow
-*
+*       ro   08/03/2023 Updated XPAR_XIICPS_0_BASEADDR macro
 * </pre>
 *
 * @note
@@ -926,12 +926,12 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 	#endif
 #endif
 
-#if ((defined(XPAR_IICPS_0_BASEADDR) &&\
-		  (XPAR_IICPS_0_BASEADDR == 0xF1000000U)) ||\
-	(defined(XPAR_IICPS_1_BASEADDR) &&\
-				(XPAR_IICPS_1_BASEADDR == 0xF1000000U)) ||\
-	(defined(XPAR_IICPS_2_BASEADDR) &&\
-			 (XPAR_IICPS_2_BASEADDR == 0xF1000000U)))
+#if ((defined(XPAR_XIICPS_0_BASEADDR) &&\
+                 (XPAR_XIICPS_0_BASEADDR == 0xF1000000U)) ||\
+       (defined(XPAR_XIICPS_1_BASEADDR) &&\
+                               (XPAR_XIICPS_1_BASEADDR == 0xF1000000U)) ||\
+       (defined(XPAR_XIICPS_2_BASEADDR) &&\
+                        (XPAR_XIICPS_2_BASEADDR == 0xF1000000U)))
 #define XLOADER_PMC_IIC
 
 #endif
