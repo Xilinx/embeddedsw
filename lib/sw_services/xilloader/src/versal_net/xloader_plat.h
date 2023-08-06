@@ -33,6 +33,7 @@
 *       kpt  07/10/2023 Added IPI support to read DDR crypto status
 *       sk   07/10/2023 Removed TCM Address, Offset defines
 *       sk   07/31/2023 Added error code for Image Store feature
+*	ro   08/01/2023 Added error codes for DDR initialization
 *
 * </pre>
 *
@@ -131,6 +132,12 @@ extern "C" {
 							command */
 #define XLOADER_ERR_INVALID_METAHEADER_OFFSET	(0x13U) /**< Error when the metaheader offset provided
 							in full PDI is not present in DDR */
+#define XLOADER_ERR_MAX_BASE_ADDR	(0x14U) /**< Error when Max ddr base addr */
+#define XLOADER_ERR_HS_TIMEOUT		(0x17U) /**< Handshake process timeout */
+#define XLOADER_ERR_I2C_TRANSACTION	(0x18U) /**< I2c transaction error */
+#define XLOADER_ERR_I2C_INIT		(0x19U) /**< I2c initialization error */
+#define XLOADER_ERR_I2C_BUS_BUSY	(0x20U) /**< I2c bus busy error */
+
 /* Minor Error codes for Major Error code: XLOADER_ERR_GEN_IDCODE */
 #define XLOADER_ERR_IDCODE		(0x14U) /**< IDCODE mismatch */
 #define XLOADER_ERR_EXT_IDCODE		(0x15U) /**< EXTENDED IDCODE mismatch */
@@ -300,7 +307,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
 int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
-int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *CmdPtr);
+int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd);
 /************************** Variable Definitions *****************************/
 
 #ifdef __cplusplus

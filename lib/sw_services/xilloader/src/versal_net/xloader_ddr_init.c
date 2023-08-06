@@ -17,6 +17,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ro   05/24/2023 Initial release
+ * 1.1   ro   08/1/2023  Handle i2c handshake across CDO Chunk boundary
  * </pre>
  *
  * @note
@@ -36,13 +37,13 @@
 #include "xiicps.h"
 
 /************************** Constant Definitions ******************************/
-
+#define XLOADER_MAX_BASE_ADDR_QUEUE (8U)
 /************************** Variable Definitions ******************************/
 typedef struct {
 	u32 NumBaseAddr;
 	u32 CmdTimeout;
 	u32 CtrlRegOff;
-	u32 BaseAddressQueue[8];
+	u32 BaseAddressQueue[XLOADER_MAX_BASE_ADDR_QUEUE];
 } XLoader_I2cHsCmd;
 
 static u64 TimeStart;
@@ -69,14 +70,16 @@ static u64 TimeoutNs;
 #define XPLMI_REQ_BIT_CLEAR                  0X00000000U
 #define XPLMI_DATA_OFFSET_INDEX              4U
 #define XPLMI_MAX_DATA_SIZE                  30U
-#define  TRUE                                1U
-#define  FALSE                               0U
+#define XPLMI_BIT_LEN                        1U
+#define XPLMI_SHORT_WORD_LEN                 2U
+#define XPLMI_BYTE                           0xFFU
+
 /************************** Function Prototypes *******************************/
-void XLoader_PmcI2cParseHandshakeCmd (XLoader_I2cHsCmd *I2cHsPtr,
-				     XPlmi_Cmd *CmdPtr);
-int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
-				     u32 DataBuffOffset, u32 CtrlReg);
-u32 Xloader_CheckForTimeout(u64 TimerStart, u64 TimeOutNs);
+static int XLoader_PmcI2cParseHandshakeCmd (XLoader_I2cHsCmd *I2cHsPtr,
+		XPlmi_Cmd *Cmd);
+static int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
+		u32 DataBuffOffset, u32 CtrlReg);
+static u32 Xloader_CheckForTimeout(void);
 /*****************************************************************************/
 /**
  * This function parse the handshake command request coming from MB and
@@ -89,7 +92,7 @@ u32 Xloader_CheckForTimeout(u64 TimerStart, u64 TimeOutNs);
  * @note		None.
  *
  *******************************************************************************/
-int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *CmdPtr)
+int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 HsTimeoutStatus = TRUE;
@@ -97,44 +100,49 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *CmdPtr)
 	u32 HsDoneStatus = 0U;
 	u32 CtrlRegAddr = 0U;
 	u32 CtrlReg = 0U;
-	XLoader_I2cHsCmd Xloader_I2cHsCmd;
+	static XLoader_I2cHsCmd I2cHsCmd;
 	XIicPs *IicInstance; /**< Instance of the IicInstance Device */
-
-	XPlmi_MemSetBytes(&Xloader_I2cHsCmd, sizeof(Xloader_I2cHsCmd), 0,
-			  sizeof(Xloader_I2cHsCmd));
 
 	IicInstance = XPmRail_GetIicInstance();
 
 	if (IicInstance->IsReady != (u32) XIL_COMPONENT_IS_READY) {
 		Status = I2CInitialize(IicInstance);
 		if (Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_INFO, "I2c initialization failed..\n\r");
+			Status = (int)XLOADER_ERR_I2C_TRANSACTION;
 			goto END;
 		}
 	}
 
 	/* Parse the PLM-UB handshake command */
-	XLoader_PmcI2cParseHandshakeCmd (&Xloader_I2cHsCmd, CmdPtr);
+	Status = XLoader_PmcI2cParseHandshakeCmd(&I2cHsCmd, Cmd);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
-	TimeoutNs = ((u64) Xloader_I2cHsCmd.CmdTimeout * XPLMI_MEGA);
+
+	TimeoutNs = ((u64) I2cHsCmd.CmdTimeout * XPLMI_MEGA);
 	TimeStart = XPlmi_GetTimerValue();
 
-	while (HsDoneStatus != (u32) ((1 << Xloader_I2cHsCmd.NumBaseAddr) - 1)) {
+	while (HsDoneStatus != (XPLMI_BIT(I2cHsCmd.NumBaseAddr) - 1U)) {
 		/*Check handshake timeout status*/
-		HsTimeoutStatus = Xloader_CheckForTimeout(TimeStart, TimeoutNs);
+		HsTimeoutStatus = Xloader_CheckForTimeout();
 		if (HsTimeoutStatus != TRUE) {
+			Status = (int)XLOADER_ERR_HS_TIMEOUT;
 			break;
 		}
-		/*Read the control register */
-		CtrlRegAddr = Xloader_I2cHsCmd.BaseAddressQueue[Index]
-			      + Xloader_I2cHsCmd.CtrlRegOff;
-		CtrlReg = XPlmi_In32(CtrlRegAddr);
+
 		if ((HsDoneStatus & XPLMI_BIT(Index)) == XPLMI_BIT(Index)) {
 			goto UPDATE_INDEX;
 		}
+
+		/*Read the control register */
+		CtrlRegAddr = I2cHsCmd.BaseAddressQueue[Index]
+			      + I2cHsCmd.CtrlRegOff;
+		CtrlReg = XPlmi_In32(CtrlRegAddr);
+
 		if ((CtrlReg & XPLMI_HANDSHAKE_BIT_MASK) == XPLMI_HANDSHAKE_BIT_MASK) {
 			/*block the current controller handshake process by masking HsDoneStatus variable */
-			HsDoneStatus |= 1U << Index;
+			HsDoneStatus |= XPLMI_BIT(Index);
 			/* Update handshake done bit (0x0) in control register */
 			XPlmi_UtilRMW(CtrlRegAddr, XPLMI_HANDSHAKE_BIT_CLEAR_MASK,
 				      XPLMI_HANDSHAKE_BIT_CLEAR);
@@ -144,7 +152,7 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *CmdPtr)
 		if ((CtrlReg & XPLMI_REQ_BIT_MASK) == XPLMI_REQ_BIT_MASK) {
 			/* Process the read/write i2c transaction request raised from MB*/
 			Status = XLoader_MbPmcI2cHandshakeProcess(IicInstance,
-					Xloader_I2cHsCmd.BaseAddressQueue[Index],
+					I2cHsCmd.BaseAddressQueue[Index],
 					CtrlRegAddr + XPLMI_DATA_OFFSET_INDEX, CtrlReg);
 			/* Clear Request bit and update in control register */
 			XPlmi_UtilRMW(CtrlRegAddr, XPLMI_REQ_BIT_CLEAR_MASK,
@@ -153,16 +161,17 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *CmdPtr)
 				/* Updated status error bit(0x1) in control register */
 				XPlmi_UtilRMW(CtrlRegAddr, XPLMI_STATUS_ERR_MASK,
 					      XPLMI_STATUS_ERR);
-				XPlmi_Printf(DEBUG_INFO, "I2c transaction error!!\n\r");
+				Status = (int)XLOADER_ERR_I2C_TRANSACTION;
 				break;
 			}
 		}
-		if (((CtrlReg & XPLMI_MORE_BIT_MASK) == XPLMI_MORE_BIT_MASK)) {
+		if (((CtrlReg & XPLMI_MORE_BIT_MASK) == XPLMI_MORE_BIT_MASK) ||
+		    ((CtrlReg & XPLMI_REPSTART_BIT_MASK) == XPLMI_REPSTART_BIT_MASK)) {
 			continue;
 		}
 UPDATE_INDEX:
 		/* Update index for round robin scheduling*/
-		if (Index == Xloader_I2cHsCmd.NumBaseAddr - 1) {
+		if (Index == (I2cHsCmd.NumBaseAddr - XPLMI_BIT_LEN)) {
 			Index = 0;
 		}
 		else {
@@ -171,8 +180,8 @@ UPDATE_INDEX:
 
 	}
 
-	if ((HsDoneStatus == (u32) ((1 << Xloader_I2cHsCmd.NumBaseAddr) - 1))
-	    && (HsTimeoutStatus != XST_FAILURE)) {
+	if ((HsDoneStatus == (XPLMI_BIT(I2cHsCmd.NumBaseAddr) - 1U))
+	    && (HsTimeoutStatus != FALSE)) {
 		Status = XST_SUCCESS;
 	}
 
@@ -194,8 +203,8 @@ END:
  * @note		None.
  *
  *******************************************************************************/
-int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
-				     u32 DataBuffOffset, u32 CtrlReg)
+static int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
+		u32 DataBuffOffset, u32 CtrlReg)
 {
 	int Status = XST_FAILURE;
 	u32 ReadData = 0U;
@@ -205,22 +214,30 @@ int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
 	u32 RecvData = 0U;
 
 	/* Size validation  */
-	if (((ReadData & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT) < XPLMI_MAX_DATA_SIZE) {
+	if (((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT) < (u32)XPLMI_MAX_DATA_SIZE) {
 		/* Read the data buffer offset */
 		DataBufAddr = XPlmi_In32(DataBuffOffset);
 		for (Index = 0;
 		     Index < ((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT);
 		     Index++) {
-			ReadData = XPlmi_In32((BaseAddress + DataBufAddr) + (Index * 4));
-			DataBuff[Index] = ReadData & 0xff;
+			ReadData = XPlmi_In32((BaseAddress + DataBufAddr) + (Index * XPLMI_WORD_LEN));
+			DataBuff[Index] = (u8)(ReadData & XPLMI_BYTE);
 		}
 
 		/*Check for repeated start bit*/
 		if ((CtrlReg & XPLMI_REPSTART_BIT_MASK) == XPLMI_REPSTART_BIT_MASK) {
-			XIicPs_SetOptions(Iic, XIICPS_REP_START_OPTION);
+			Status = XIicPs_SetOptions(Iic, XIICPS_REP_START_OPTION);
+			if (Status != XST_SUCCESS) {
+				Status = (int)XLOADER_ERR_I2C_TRANSACTION;
+				goto END;
+			}
 		}
 		else {
-			XIicPs_ClearOptions(Iic, XIICPS_REP_START_OPTION);
+			Status = XIicPs_ClearOptions(Iic, XIICPS_REP_START_OPTION);
+			if (Status != XST_SUCCESS) {
+				Status = (int)XLOADER_ERR_I2C_TRANSACTION;
+				goto END;
+			}
 		}
 
 		if ((CtrlReg & XPLMI_TRANS_MASK) == XPLMI_WR_TRANS) {
@@ -229,21 +246,21 @@ int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
 			 * write data offset, data size, slave address.
 			 */
 			Status = XIicPs_MasterSendPolled(Iic, DataBuff,
-							 (((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT)),
-							 ((CtrlReg & XPLMI_SLAVE_ADDR_MASK)
-							  >> XPLMI_SLAVE_ADDR_SHIFT));
+							 ((s32)((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT)),
+							 ((u16)((CtrlReg & XPLMI_SLAVE_ADDR_MASK)
+								>> XPLMI_SLAVE_ADDR_SHIFT)));
 		}
 		else {
 			/*
 			 * Receiving data from DIMM card as per the read request.
 			 */
 			Status = XIicPs_MasterRecvPolled(Iic, DataBuff,
-							 ((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT),
-							 ((CtrlReg & XPLMI_SLAVE_ADDR_MASK)
-							  >> XPLMI_SLAVE_ADDR_SHIFT));
+							 ((s32)((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT)),
+							 ((u16)((CtrlReg & XPLMI_SLAVE_ADDR_MASK)
+								>> XPLMI_SLAVE_ADDR_SHIFT)));
 		}
 		if (Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_INFO, "I2c transaction error..\n\r");
+			Status = (int)XLOADER_ERR_I2C_TRANSACTION;
 			goto END;
 		}
 		if (!((CtrlReg & XPLMI_REPSTART_BIT_MASK) == XPLMI_REPSTART_BIT_MASK)) {
@@ -251,8 +268,8 @@ int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
 			/* Wait 1 second until bus is idle to start another transfer */
 			while (XIicPs_BusIsBusy(Iic)) {
 				/* Check the timeout status */
-				if (FALSE == Xloader_CheckForTimeout(TimeStart, TimeoutNs)) {
-					XPlmi_Printf(DEBUG_INFO, "I2c bus busy failure..\n\r");
+				if (FALSE == Xloader_CheckForTimeout()) {
+					Status = (int)XLOADER_ERR_I2C_BUS_BUSY;
 					goto END;
 				}
 			}
@@ -262,8 +279,8 @@ int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
 			     Index
 			     < ((CtrlReg & XPLMI_SIZE_MASK)
 				>> XPLMI_SIZE_SHIFT); Index++) {
-				RecvData = DataBuff[Index] & 0xFF;
-				XPlmi_Out32(((BaseAddress + DataBufAddr) + (Index * 4)),
+				RecvData = (u8)(DataBuff[Index] & XPLMI_BYTE);
+				XPlmi_Out32(((BaseAddress + DataBufAddr) + (Index * XPLMI_WORD_LEN)),
 					    RecvData);
 			}
 		}
@@ -279,7 +296,7 @@ END:
  * Microblaze and updates the handshake command parameter structure.
  *
  * @param    I2cHsPtr is i2c handshake command structure pointer.
- * @param    CmdPtr is pointer to the command structure.
+ * @param    Cmd is pointer to the command structure.
  *
  * @return	None
  *
@@ -287,34 +304,59 @@ END:
  *
  *******************************************************************************/
 
-void XLoader_PmcI2cParseHandshakeCmd (XLoader_I2cHsCmd *I2cHsPtr,
-				     XPlmi_Cmd *CmdPtr)
+static int XLoader_PmcI2cParseHandshakeCmd (XLoader_I2cHsCmd *I2cHsPtr,
+		XPlmi_Cmd *Cmd)
 {
-	u8 Index = 0;
+	int Status = XST_FAILURE;
+	u32 Index = 0U;
+	const u32 *AddrPayload = NULL;
 
-	I2cHsPtr->NumBaseAddr = ((CmdPtr->Payload[0] & XPLMI_NUMBASE_ADDR_MASK)
-				 >> XPLMI_NUMBASE_ADDR_SHIFT);
+	if (Cmd->ProcessedLen == 0U) {
+		Status = XPlmi_MemSetBytes(I2cHsPtr, sizeof(XLoader_I2cHsCmd), 0,
+					   sizeof(XLoader_I2cHsCmd));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		I2cHsPtr->NumBaseAddr = ((Cmd->Payload[0U] & XPLMI_NUMBASE_ADDR_MASK)
+					 >> XPLMI_NUMBASE_ADDR_SHIFT);
 
-	I2cHsPtr->CmdTimeout =
-		((CmdPtr->Payload[0] & XPLMI_HANDSHAKE_TIMEOUT_MASK));
+		I2cHsPtr->CmdTimeout =
+			((Cmd->Payload[0U] & XPLMI_HANDSHAKE_TIMEOUT_MASK));
 
-	I2cHsPtr->CtrlRegOff = CmdPtr->Payload[1];
+		I2cHsPtr->CtrlRegOff = Cmd->Payload[1U];
+		Cmd->ResumeData[0U] = Cmd->PayloadLen - XPLMI_SHORT_WORD_LEN;
+		AddrPayload = &Cmd->Payload[2U];
+
+		XPlmi_Printf(DEBUG_INFO, "Num of base address count = %u\n\r",
+			     I2cHsPtr->NumBaseAddr);
+		XPlmi_Printf(DEBUG_INFO, "Handshake cmd timeout = %u\n\r",
+			     I2cHsPtr->CmdTimeout);
+		XPlmi_Printf(DEBUG_INFO, "Control register offset= 0x%x\n\r",
+			     I2cHsPtr->CtrlRegOff);
+	}
+	else {
+		Index = Cmd->ResumeData[0U];
+		Cmd->ResumeData[0U] += Cmd->PayloadLen;
+		AddrPayload = Cmd->Payload;
+	}
+
+	if (Cmd->ResumeData[0U] > XLOADER_MAX_BASE_ADDR_QUEUE) {
+		Status = (int)XLOADER_ERR_MAX_BASE_ADDR;
+		goto END;
+	}
 
 	/* copy all the requested base addresses from MB into the base address buffer */
-	for (Index = 0; Index <= I2cHsPtr->NumBaseAddr; Index++) {
-		I2cHsPtr->BaseAddressQueue[Index] = CmdPtr->Payload[Index + 2];
+	while (Index < Cmd->ResumeData[0U]) {
+		I2cHsPtr->BaseAddressQueue[Index] = AddrPayload[Index];
+		XPlmi_Printf(DEBUG_INFO, "DDRMC %u Base address offset= 0x%x\n\r",
+			     Index, AddrPayload[Index]);
+		Index++;
 	}
 
-	XPlmi_Printf(DEBUG_INFO, "Num of base address count = %d\n\r",
-		     I2cHsPtr->NumBaseAddr);
-	XPlmi_Printf(DEBUG_INFO, "Handshake cmd timeout = %d\n\r",
-		     I2cHsPtr->CmdTimeout);
-	XPlmi_Printf(DEBUG_INFO, "Control register offset= 0x%x\n\r",
-		     I2cHsPtr->CtrlRegOff);
-	for (Index = 0; Index < I2cHsPtr->NumBaseAddr; Index++) {
-		XPlmi_Printf(DEBUG_INFO, "Base address offset= 0x%x\n\r",
-			     I2cHsPtr->BaseAddressQueue[Index]);
-	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -322,25 +364,24 @@ void XLoader_PmcI2cParseHandshakeCmd (XLoader_I2cHsCmd *I2cHsPtr,
  *
  * This function is to check the timeout.
  *
- * @param    TimeStart is the start time.
- * @param    TimeOutNs is the timeout in ns.
+ * @param    None.
  *
  * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
  *
  * @note		None.
  *
  *******************************************************************************/
-u32 Xloader_CheckForTimeout(u64 TimerStart, u64 TimeOutNs)
+static u32 Xloader_CheckForTimeout(void)
 {
 	u32 Status = FALSE;
-	u32 *PmcIroFreq = XPlmi_GetPmcIroFreq();
+	const u32 *PmcIroFreq = XPlmi_GetPmcIroFreq();
 	u32 PmcIroFreqMHz = *PmcIroFreq / XPLMI_MEGA;
 	u64 TimeOutTicksReq = 0U;
 	u64 TimeDiffReq = 0U;
 
-	TimeOutTicksReq = ((TimeOutNs * PmcIroFreqMHz) + XPLMI_KILO - 1U)
+	TimeOutTicksReq = ((TimeoutNs * PmcIroFreqMHz) + XPLMI_KILO - 1U)
 			  / XPLMI_KILO;
-	TimeDiffReq = TimerStart - XPlmi_GetTimerValue();
+	TimeDiffReq = TimeStart - XPlmi_GetTimerValue();
 
 	if (TimeDiffReq >= TimeOutTicksReq) {
 		XPlmi_Printf(DEBUG_INFO, "Timeout!!\n\r");
@@ -352,9 +393,9 @@ END:
 }
 
 #else
-int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *CmdPtr)
+int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 {
-	(void) CmdPtr ;
+	(void) Cmd;
 	return XST_FAILURE;
 }
 #endif
