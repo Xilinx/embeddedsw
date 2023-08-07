@@ -434,6 +434,13 @@ static XStatus PldInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArg
 			goto done;
 		}
 		break;
+	case (u32)FUNC_MEM_CTRLR_MAP:
+		if (NULL == PlDevice->Ops->MemCtrlrMap) {
+			DbgErr = XPM_INT_ERR_NO_FEATURE;
+			goto done;
+		}
+		Status = PlDevice->Ops->MemCtrlrMap(PlDevice, Args, NumArgs);
+		break;
 	default:
 		DbgErr = XPM_INT_ERR_INVALID_FUNC;
 		break;

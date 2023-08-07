@@ -714,6 +714,17 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 
 	/* Lookup DDRMC device based on provided address in args */
 	for (u32 i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
+	/*
+	 * - This block expands the base address check to new DDRMC nodes,
+	 *   skipping device nodes with type other than XPM_NODETYPE_DEV_DDR.
+	 * - To add more DDRMC nodes, define new min and max macros for those
+	 *   nodes and add a block similar to the one below.
+	 */
+#ifdef XPM_NODEIDX_DEV_DDRMC_MAX_INT_1
+		if (XPM_NODEIDX_DEV_DDRMC_MAX_INT_1 + 1 == i) {
+			i = XPM_NODEIDX_DEV_DDRMC_MIN_INT_2;
+		}
+#endif
 		MCDev = (XPm_MemCtrlrDevice *)XPmDevice_GetById(DDRMC_DEVID(i));
 		if ((NULL != MCDev) &&
 		    (Args[0U] == MCDev->Device.Node.BaseAddress)) {
