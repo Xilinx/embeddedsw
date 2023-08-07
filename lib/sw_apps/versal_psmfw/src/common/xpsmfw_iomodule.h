@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +17,7 @@
 * Ver	Who		Date		Changes
 * ---- ---- -------- ------------------------------
 * 1.00  ma   04/09/2018 Initial release
+* 1.01  rama 08/07/2023 Made IOModule as extern variable for STL support
 *
 * </pre>
 *
@@ -38,6 +40,8 @@ extern "C" {
  * PSM_IOMODULE_BASEADDR
  */
 #define PSM_IOMODULE_BASEADDR			(IOMODULE_BASEADDR)
+
+extern XIOModule IOModule;
 
 /*
  * PSM_IOMODULE_IRQ_STATUS

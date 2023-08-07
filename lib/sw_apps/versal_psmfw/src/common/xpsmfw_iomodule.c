@@ -17,6 +17,7 @@
 * Ver	Who		Date		Changes
 * ---- ---- -------- ------------------------------
 * 1.00  ma   04/09/2018 Initial release
+* 1.01  rama 08/07/2023 Made IOModule as global variable for STL support
 *
 * </pre>
 *
@@ -32,7 +33,7 @@
 
 #define XPSMFW_MB_MSR_BIP_MASK		(0x8U)
 
-static XIOModule IOModule;
+XIOModule IOModule;
 
 static void XPsmFw_InterruptIpiHandler(void)
 {
