@@ -81,6 +81,7 @@
  * 1.18 sb  06/19/23 Add memory barrier instruction and convert IsBusy varible
  *                   to volatile.
  * 1.18 ht  07/18/23 Fixed GCC warnings.
+ * 1.18 sb  08/01/23 Added support for Feed back clock
  *
  * </pre>
  *
@@ -162,6 +163,7 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
 #endif
 		InstancePtr->Config.IsCacheCoherent =
 			ConfigPtr->IsCacheCoherent;
+		InstancePtr->Config.IsFbClock = ConfigPtr->IsFbClock;
 		/* Other instance variable initializations */
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;

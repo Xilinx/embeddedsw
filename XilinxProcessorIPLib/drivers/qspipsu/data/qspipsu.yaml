@@ -37,6 +37,7 @@ required:
     - interrupts
     - interrupt-parent
     - ref-clk
+    - qspi-fbclk
 
 examples:
    xqspipsu_polldata_polltimeout_interrupt_example.c:

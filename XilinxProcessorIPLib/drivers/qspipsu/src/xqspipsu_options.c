@@ -48,6 +48,7 @@
 * 1.13 akm 01/04/21 Fix MISRA-C violations.
 * 1.15 akm 03/03/22 Enable tapdelay settings for applications on Microblaze
 * 		     platform.
+* 1.18 sb  08/01/23 Added support for Feed back clock
 *
 * </pre>
 *
@@ -313,6 +314,8 @@ u32 XQspiPsu_GetOptions(const XQspiPsu *InstancePtr)
 *		- XST_DEVICE_IS_STARTED if the device is already started.
 *		- XST_DEVICE_BUSY if the device is currently transferring data.
 *		It must be stopped to re-initialize.
+*		- XST_FAILURE if Prescaler value is less than FreqDiv when
+*		feedback clock is not enabled.
 *
 * @note		None.
 *
@@ -321,6 +324,7 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 {
 	u32 ConfigReg;
 	s32 Status;
+	u32 FreqDiv, Divider;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -333,6 +337,18 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 	if (InstancePtr->IsBusy == (u32)TRUE) {
 		Status = (s32)XST_DEVICE_BUSY;
 	} else {
+
+#if defined (versal) ||  defined(VERSAL_NET)
+		Divider = (u32)1U << (Prescaler+1U);
+
+		FreqDiv = (InstancePtr->Config.InputClockHz)/Divider;
+		if(!(InstancePtr->Config.IsFbClock)){
+			if(FreqDiv > XQSPIPSU_FREQ_37_5MHZ){
+				Status = (s32)XST_FAILURE;
+				goto END;
+			}
+		}
+#endif
 		/*
 		 * Read the configuration register, mask out the relevant bits, and set
 		 * them with the shifted value passed into the function. Write the
@@ -354,6 +370,7 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 		Status = (s32)XST_SUCCESS;
 #endif
 	}
+END:
 	return Status;
 }
 
