@@ -614,6 +614,12 @@ endforeach()
         os_config = lib_obj.get_default_lib_params(build_metadata, ["standalone"])
     proc_config = lib_obj.get_default_lib_params(build_metadata,[obj.proc])
 
+    if lib_obj.os_config:
+        props = lib_obj.os_config.items()
+        if props:
+            for key, value in props:
+                if os_config[obj.os].get(key, {}):
+                    os_config[obj.os][key]['value'] = value
     utils.update_yaml(obj.domain_config_file, "domain", "os_config", os_config)
     utils.update_yaml(obj.domain_config_file, "domain", "proc_config", proc_config)
     utils.update_yaml(obj.domain_config_file, "domain", "os_info", obj.os_info)
