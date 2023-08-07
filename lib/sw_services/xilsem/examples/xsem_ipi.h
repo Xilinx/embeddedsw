@@ -15,6 +15,7 @@
 * 0.1   gm   03/19/2021   Initial creation
 * 0.2   ga   05/19/2023   Fixed IPI instance for versal net
 * 0.3  rama  08/03/2023   Added support for system device-tree flow
+* 0.4  gam   08/07/2023   Corrected XSEM_SSIT_MAX_SLR_CNT macro definition
 *
 * </pre>
 *
@@ -39,9 +40,7 @@ extern "C" {
 #define SRC_IPI_MASK	(XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK)
 #endif
 
-#ifndef SDT
-	#define XSEM_SSIT_MAX_SLR_CNT	NUM_OF_SLRS
-#else
+#ifdef SDT
 	#define XSEM_SSIT_MAX_SLR_CNT	NUMBER_OF_SLRS
 #endif
 
