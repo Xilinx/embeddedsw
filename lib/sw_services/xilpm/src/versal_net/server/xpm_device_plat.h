@@ -43,6 +43,7 @@ maybe_unused static u8 XPmDevice_IsRequestable(u32 NodeId)
 	case (u32)XPM_NODESUBCL_DEV_MEM:
 	case (u32)XPM_NODESUBCL_DEV_PL:
 	case (u32)XPM_NODESUBCL_DEV_AIE:
+	case (u32)XPM_NODESUBCL_DEV_MEM_CTRLR:
 		Requestable = 1U;
 		break;
 	default:
