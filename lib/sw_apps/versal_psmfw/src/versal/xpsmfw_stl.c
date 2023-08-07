@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 #include "xpsmfw_stl.h"
@@ -7,7 +8,7 @@
 
 #ifdef PSM_ENABLE_STL
 #include "xstl_psminterface.h"
-
+#include "xpsmfw_iomodule.h"
 static void XPsmfw_NotifyStlErrEvent(u32 StlId);
 
 /****************************************************************************/
@@ -40,14 +41,31 @@ XStatus XPsmFw_PeriodicStlHook(void)
 	XStatus Status = XST_FAILURE;
 	u32 StlIdx = 0U;
 
-	/* Execute Periodic STLs */
+	/* Execute Periodic STLs, If any failure reported by the STL, the return
+	 * value contains the STL ID, else it will be XST_SUCCESS
+	 */
 	Status = XStl_PsmPeriodicTask();
 	if (XST_SUCCESS != Status) {
+		goto END;
+	}
+	/* Disable interrupts */
+	XIOModule_Disable(&IOModule, PSM_IOMODULE_IRQ_STATUS_WAKE_UP_REQ_SHIFT);
+	XIOModule_Disable(&IOModule, PSM_IOMODULE_IRQ_STATUS_GICP_INT_SHIFT);
+
+	/* Execute STL interrupt injection */
+	Status = XStl_PsmIntrInjHook();
+
+	/* Enable interrupts */
+	XIOModule_Enable(&IOModule, PSM_IOMODULE_IRQ_STATUS_WAKE_UP_REQ_SHIFT);
+	XIOModule_Enable(&IOModule, PSM_IOMODULE_IRQ_STATUS_GICP_INT_SHIFT);
+END:
+	if (XST_SUCCESS != Status) {
 		/* Get STL ID from the status */
-		StlIdx = (Status >> 4U);
+		StlIdx = ((u32)Status >> 4U);
 		XPsmfw_NotifyStlErrEvent(StlIdx);
 		Status = XST_FAILURE;
 	}
+
 	return Status;
 }
 
