@@ -70,6 +70,7 @@
 *           in flash erase API.
 * 1.18  sb  06/07/23 Added support for system device-tree flow.
 * 1.18  sb  07/24/23 Fix wrong init sequence for spansion byte ID.
+* 1.18  sb  08/02/23 Add status check for XQspiPsu_SetClkPrescaler API.
 *
 *</pre>
 *
@@ -345,7 +346,10 @@ int QspiPsuInterruptFlashExample(XQspiPsu *QspiPsuInstancePtr, UINTPTR BaseAddre
 	/*
 	 * Set the prescaler for QSPIPSU clock
 	 */
-	XQspiPsu_SetClkPrescaler(QspiPsuInstancePtr, XQSPIPSU_CLK_PRESCALE_8);
+	Status = XQspiPsu_SetClkPrescaler(QspiPsuInstancePtr, XQSPIPSU_CLK_PRESCALE_8);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	XQspiPsu_SelectFlash(QspiPsuInstancePtr,
 			     XQSPIPSU_SELECT_FLASH_CS_LOWER,
