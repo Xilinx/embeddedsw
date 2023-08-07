@@ -40,6 +40,7 @@ class Library(Repo):
         self.bsp_lib_config.update(self.domain_data["os_config"])
         self.bsp_lib_config.update(self.domain_data["proc_config"])
         self.lib_info = self.domain_data["lib_info"]
+        self.os_config = None
 
     def validate_lib_name(self, lib):
         """
@@ -297,6 +298,14 @@ class Library(Repo):
                 if props:
                     # If the template needs specific config param of the lib.
                     for key, value in props.items():
+                        cmake_cmd_append += f" -D{key}={value}"
+        if schema and schema.get("os_config", {}):
+            if schema.get("os_config", {})[self.os]:
+                self.os_config = schema.get("os_config", {})[self.os]
+                props = schema.get("os_config", {})[self.os].items()
+                if props:
+                    # If the template needs specific config param of the os.
+                    for key, value in props:
                         cmake_cmd_append += f" -D{key}={value}"
 
         return lib_list, cmake_cmd_append
