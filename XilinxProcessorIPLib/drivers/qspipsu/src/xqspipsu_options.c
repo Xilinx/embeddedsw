@@ -137,7 +137,7 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 		Status = (s32)XST_DEVICE_BUSY;
 	} else {
 		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-					      XQSPIPSU_CFG_OFFSET);
+					     XQSPIPSU_CFG_OFFSET);
 #if !defined (versal)
 		QspiPsuOptions = OptionsVal & XQSPIPSU_LQSPI_MODE_OPTION;
 		OptionsVal &= (~XQSPIPSU_LQSPI_MODE_OPTION);
@@ -148,7 +148,7 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 		 */
 		for (Index = 0U; Index < XQSPIPSU_NUM_OPTIONS; Index++) {
 			if ((OptionsVal & OptionsTable[Index].Option) ==
-					OptionsTable[Index].Option) {
+			    OptionsTable[Index].Option) {
 				/* Turn it on */
 				ConfigReg |= OptionsTable[Index].Mask;
 			} else {
@@ -161,7 +161,7 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 		 * to restart the device.
 		 */
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
-				 ConfigReg);
+				  ConfigReg);
 
 		if ((OptionsVal & XQSPIPSU_MANUAL_START_OPTION) != (u32)FALSE) {
 			InstancePtr->IsManualstart = (u8)TRUE;
@@ -169,20 +169,20 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 #if !defined (versal)
 		if ((QspiPsuOptions & XQSPIPSU_LQSPI_MODE_OPTION) != (u32)FALSE) {
 			if ((Options & XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB) != (u32)FALSE) {
-				XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET,XQSPIPS_LQSPI_CR_RST_STATE);
+				XQspiPsu_WriteReg(XQSPIPS_BASEADDR, XQSPIPSU_LQSPI_CR_OFFSET, XQSPIPS_LQSPI_CR_RST_STATE);
 			} else {
-				XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET,XQSPIPS_LQSPI_CR_4_BYTE_STATE);
+				XQspiPsu_WriteReg(XQSPIPS_BASEADDR, XQSPIPSU_LQSPI_CR_OFFSET, XQSPIPS_LQSPI_CR_4_BYTE_STATE);
 			}
-			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_CFG_OFFSET,XQSPIPS_LQSPI_CFG_RST_STATE);
+			XQspiPsu_WriteReg(XQSPIPS_BASEADDR, XQSPIPSU_CFG_OFFSET, XQSPIPS_LQSPI_CFG_RST_STATE);
 			/* Enable the QSPI controller */
-			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_EN_OFFSET,XQSPIPSU_EN_MASK);
+			XQspiPsu_WriteReg(XQSPIPS_BASEADDR, XQSPIPSU_EN_OFFSET, XQSPIPSU_EN_MASK);
 		} else {
 			/*
 			 * Check for the LQSPI configuration options.
 			 */
-			ConfigReg = XQspiPsu_ReadReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET);
+			ConfigReg = XQspiPsu_ReadReg(XQSPIPS_BASEADDR, XQSPIPSU_LQSPI_CR_OFFSET);
 			ConfigReg &= ~(XQSPIPSU_LQSPI_CR_LINEAR_MASK);
-			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET, ConfigReg);
+			XQspiPsu_WriteReg(XQSPIPS_BASEADDR, XQSPIPSU_LQSPI_CR_OFFSET, ConfigReg);
 		}
 #endif
 		Status = (s32)XST_SUCCESS;
@@ -231,7 +231,7 @@ s32 XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options)
 	} else {
 
 		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-					      XQSPIPSU_CFG_OFFSET);
+					     XQSPIPSU_CFG_OFFSET);
 
 		/*
 		 * Loop through the options table, turning the option on
@@ -248,7 +248,7 @@ s32 XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options)
 		 * to restart the device.
 		 */
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
-				 ConfigReg);
+				  ConfigReg);
 
 		if ((Options & XQSPIPSU_MANUAL_START_OPTION) != (u32)FALSE) {
 			InstancePtr->IsManualstart = (u8)FALSE;
@@ -292,7 +292,7 @@ u32 XQspiPsu_GetOptions(const XQspiPsu *InstancePtr)
 		 * Get the current options from QSPIPSU configuration register.
 		 */
 		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-						      XQSPIPSU_CFG_OFFSET);
+					     XQSPIPSU_CFG_OFFSET);
 		if ((ConfigReg & OptionsTable[Index].Mask) != (u32)FALSE) {
 			OptionsFlag |= OptionsTable[Index].Option;
 		}
@@ -339,11 +339,11 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 	} else {
 
 #if defined (versal) ||  defined(VERSAL_NET)
-		Divider = (u32)1U << (Prescaler+1U);
+		Divider = (u32)1U << (Prescaler + 1U);
 
-		FreqDiv = (InstancePtr->Config.InputClockHz)/Divider;
-		if(!(InstancePtr->Config.IsFbClock)){
-			if(FreqDiv > XQSPIPSU_FREQ_37_5MHZ){
+		FreqDiv = (InstancePtr->Config.InputClockHz) / Divider;
+		if (!(InstancePtr->Config.IsFbClock)) {
+			if (FreqDiv > XQSPIPSU_FREQ_37_5MHZ) {
 				Status = (s32)XST_FAILURE;
 				goto END;
 			}
@@ -355,17 +355,17 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 		 * results back to the configuration register.
 		 */
 		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-					      XQSPIPSU_CFG_OFFSET);
+					     XQSPIPSU_CFG_OFFSET);
 
 		ConfigReg &= ~(u32)XQSPIPSU_CFG_BAUD_RATE_DIV_MASK;
 		ConfigReg |= (u32) ((u32)Prescaler & (u32)XQSPIPSU_CR_PRESC_MAXIMUM) <<
-				    XQSPIPSU_CFG_BAUD_RATE_DIV_SHIFT;
+			     XQSPIPSU_CFG_BAUD_RATE_DIV_SHIFT;
 
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
-				ConfigReg);
+				  ConfigReg);
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__)
-		Status = XQspipsu_Calculate_Tapdelay(InstancePtr,Prescaler);
+		Status = XQspipsu_Calculate_Tapdelay(InstancePtr, Prescaler);
 #else
 		Status = (s32)XST_SUCCESS;
 #endif
@@ -416,7 +416,7 @@ void XQspiPsu_SelectFlash(XQspiPsu *InstancePtr, u8 FlashCS, u8 FlashBus)
 	switch (FlashCS) {
 		case XQSPIPSU_SELECT_FLASH_CS_BOTH:
 			InstancePtr->GenFifoCS = (u32)XQSPIPSU_GENFIFO_CS_LOWER |
-						(u32)XQSPIPSU_GENFIFO_CS_UPPER;
+						 (u32)XQSPIPSU_GENFIFO_CS_UPPER;
 			break;
 		case XQSPIPSU_SELECT_FLASH_CS_UPPER:
 			InstancePtr->GenFifoCS = XQSPIPSU_GENFIFO_CS_UPPER;
@@ -433,7 +433,7 @@ void XQspiPsu_SelectFlash(XQspiPsu *InstancePtr, u8 FlashCS, u8 FlashBus)
 	switch (FlashBus) {
 		case XQSPIPSU_SELECT_FLASH_BUS_BOTH:
 			InstancePtr->GenFifoBus = (u32)XQSPIPSU_GENFIFO_BUS_LOWER |
-						(u32)XQSPIPSU_GENFIFO_BUS_UPPER;
+						  (u32)XQSPIPSU_GENFIFO_BUS_UPPER;
 			break;
 		case XQSPIPSU_SELECT_FLASH_BUS_UPPER:
 			InstancePtr->GenFifoBus = XQSPIPSU_GENFIFO_BUS_UPPER;
@@ -447,7 +447,7 @@ void XQspiPsu_SelectFlash(XQspiPsu *InstancePtr, u8 FlashCS, u8 FlashBus)
 	}
 #ifdef DEBUG
 	xil_printf("\nGenFifoCS is %08x and GenFifoBus is %08x\r\n",
-				InstancePtr->GenFifoCS, InstancePtr->GenFifoBus);
+		   InstancePtr->GenFifoCS, InstancePtr->GenFifoBus);
 #endif
 
 }
@@ -496,7 +496,7 @@ s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode)
 		InstancePtr->ReadMode = Mode;
 
 		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-					      XQSPIPSU_CFG_OFFSET);
+					     XQSPIPSU_CFG_OFFSET);
 
 		if (Mode == XQSPIPSU_READMODE_DMA) {
 			ConfigReg &= ~XQSPIPSU_CFG_MODE_EN_MASK;
@@ -506,7 +506,7 @@ s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode)
 		}
 
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
-				 ConfigReg);
+				  ConfigReg);
 
 		Status = (s32)XST_SUCCESS;
 	}
@@ -542,9 +542,9 @@ void XQspiPsu_SetWP(const XQspiPsu *InstancePtr, u8 Value)
 	Xil_AssertVoid(InstancePtr->IsBusy != TRUE);
 
 	ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-			XQSPIPSU_CFG_OFFSET);
+				     XQSPIPSU_CFG_OFFSET);
 	ConfigReg |= (u32)((u32)Value << XQSPIPSU_CFG_WP_HOLD_SHIFT);
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
-					ConfigReg);
+			  ConfigReg);
 }
 /** @} */
