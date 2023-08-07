@@ -20,7 +20,7 @@ proc generate {drv_handle} {
     "DEVICE_ID" \
     "C_BASEADDR" \
     "C_HIGHADDR" \
-	"C_INCLUDE_ADV_FEATURES" \
+	"C_PIXELS_PER_CLOCK" \
 	"C_LINE_RATE" \
 	"C_INCLUDE_EDH" \
 	"C_VIDEO_INTF" \
@@ -32,7 +32,7 @@ proc generate {drv_handle} {
     "XV_SdiTxSs" \
     "DEVICE_ID" \
     "C_BASEADDR" \
-	"C_INCLUDE_ADV_FEATURES" \
+	"C_PIXELS_PER_CLOCK" \
 	"C_LINE_RATE" \
 	"C_TX_INSERT_C_STR_ST352" \
 	"C_BPP"
@@ -41,7 +41,7 @@ proc generate {drv_handle} {
 	"DEVICE_ID" \
 	"C_BASEADDR" \
 	"C_HIGHADDR" \
-	"C_INCLUDE_ADV_FEATURES" \
+	"C_PIXELS_PER_CLOCK" \
 	"C_LINE_RATE" \
 	"C_INCLUDE_EDH" \
 	"C_VIDEO_INTF" \
@@ -84,7 +84,7 @@ proc hier_ip_define_include_file {drv_handle file_name drv_string args} {
             if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
                 set value $device_id
                 incr device_id
-			} elseif {[string compare -nocase "C_INCLUDE_ADV_FEATURES" $arg] == 0} {
+			} elseif {[string compare -nocase "C_PIXELS_PER_CLOCK" $arg] == 0} {
                 set value [string toupper [common::get_property CONFIG.$arg $periph]]
 	} elseif {[string compare -nocase "C_INCLUDE_EDH" $arg] ==0} {
 		set value [string toupper [common::get_property CONFIG.$arg $periph]]
@@ -179,14 +179,9 @@ proc hier_ip_define_canonical_xpars {drv_handle file_name drv_string args} {
                 set lvalue [::hsi::utils::get_driver_param_name $canonical_name $arg]
 			if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
 				set rvalue $i
-			} elseif {[string compare -nocase "C_INCLUDE_ADV_FEATURES" $arg] == 0} {
+			} elseif {[string compare -nocase "C_PIXELS_PER_CLOCK" $arg] == 0} {
 				set value [string toupper [common::get_property CONFIG.$arg $periph]]
-				puts $value
-				if {[string compare -nocase "TRUE" $value] == 0} {
-					set rvalue 1
-				} elseif {[string compare -nocase "FALSE" $value] == 0} {
-					set rvalue 0
-				}
+				set rvalue $value
 			} elseif {[string compare -nocase "C_INCLUDE_EDH" $arg] ==0} {
 				set value [string toupper [common::get_property CONFIG.$arg $periph]]
 				puts $value
