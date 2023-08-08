@@ -75,6 +75,7 @@ XScuWdt Watchdog;		/* Cortex SCU Private WatchDog Timer Instance */
 * @note		None.
 *
 ******************************************************************************/
+#ifndef TESTAPP_GEN
 int main(void)
 {
 	int Status;
@@ -100,6 +101,7 @@ int main(void)
 	xil_printf("Successfully ran SCU WDT Polled Mode Example Test\r\n");
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**

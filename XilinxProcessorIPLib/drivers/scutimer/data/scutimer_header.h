@@ -13,11 +13,12 @@
 
 #ifndef SDT
 int ScuTimerPolledExample(u16 DeviceId);
+#ifdef XPAR_SCUGIC_0_DEVICE_ID
 int ScuTimerIntrExample(XScuGic *IntcInstancePtr, XScuTimer *TimerInstancePtr,
 			u16 TimerDeviceId, u16 TimerIntrId);
+#endif
 #else
-int ScuTimerPolledExample(UINTPTR BaseAddress);
+int ScuTimerPolledExample(XScuTimer *TimerInstancePtr, UINTPTR BaseAddress);
 int ScuTimerIntrExample(XScuTimer *TimerInstancePtr, UINTPTR BaseAddress);
 #endif
-
 #endif
