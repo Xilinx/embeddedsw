@@ -3369,11 +3369,11 @@ TxInputSourceType Exdes_DetermineTxSrc()
 void CloneTxEdid(void)
 {
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
-	u8 Buffer[256];
+	u8 Buffer[512];
 	u32 Status;
 
 	/* Read TX edid */
-	Status = XV_HdmiTxSs1_ReadEdid(&HdmiTxSs, (u8*)&Buffer);
+	Status = XV_HdmiTxSs1_ReadEdid(&HdmiTxSs, (u8*)&Buffer, sizeof(Buffer));
 
 	/* Check if read was successful */
 	if (Status == (XST_SUCCESS)) {
