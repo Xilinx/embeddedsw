@@ -32,11 +32,11 @@ examples:
                 - reg
 
 tapp:
-        xscuwdt_intr_example.c:
-                declaration: ScuWdtIntrExample
-                hwproperties:
-                        - interrupts
-        xscuwdt_polled_example:
-                declaration: ScuWdtPolledExample
+   xscuwdt_intr_example.c:
+        declaration: ScuWdtIntrExample
+        hwproperties:
+            - interrupts
+   xscuwdt_polled_example.c:
+        declaration: ScuWdtPolledExample
 
 ...

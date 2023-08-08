@@ -11,8 +11,11 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifndef SDT
 int ScuWdtIntrExample(XScuGic *IntcInstancePtr, XScuWdt *WdtInstancePtr,
 		   u16 WdtDeviceId, u16 WdtIntrId);
-
-
+#else
+int ScuWdtIntrExample(XScuWdt *WdtInstancePtr, UINTPTR BaseAddress);
+int ScuWdtPolledExample(XScuWdt *WdtInstancePtr, UINTPTR BaseAddress);
+#endif
 #endif

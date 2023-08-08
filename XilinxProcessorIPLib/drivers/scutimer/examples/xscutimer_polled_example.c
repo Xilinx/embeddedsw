@@ -50,7 +50,7 @@
 #ifndef SDT
 int ScuTimerPolledExample(u16 DeviceId);
 #else
-int ScuTimerPolledExample(UINTPTR BaseAddress);
+int ScuTimerPolledExample(XScuTimer *TimerInstancePtr, UINTPTR BaseAddress);
 #endif
 /************************** Variable Definitions *****************************/
 
@@ -82,7 +82,7 @@ int main(void)
 #ifndef SDT
    Status = ScuTimerPolledExample(TIMER_DEVICE_ID);
 #else
-	Status = ScuTimerPolledExample(XPAR_SCUTIMER_BASEADDR);
+	Status = ScuTimerPolledExample(&Timer, XPAR_SCUTIMER_BASEADDR);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("SCU Timer Polled Mode Example Test Failed\r\n");
@@ -110,14 +110,16 @@ int main(void)
 #ifndef SDT
 int ScuTimerPolledExample(u16 DeviceId)
 #else
-int ScuTimerPolledExample(UINTPTR BaseAddress)
+int ScuTimerPolledExample(XScuTimer *TimerInstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	int Status;
 	volatile u32 CntValue1 = 0;
 	volatile u32 CntValue2 = 0;
 	XScuTimer_Config *ConfigPtr;
+#ifndef SDT
 	XScuTimer *TimerInstancePtr = &Timer;
+#endif
 
 	/*
 	 * Initialize the Scu Private Timer so that it is ready to use.
