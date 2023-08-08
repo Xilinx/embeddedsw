@@ -1,0 +1,42 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for DDRPSU controller available in the ZynqMP platform
+
+maintainers:
+  - Harini T <harini.t@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+      - const: xlnx,zynqmp-ddrc-2.40a
+  reg:
+    description: Standard reg property
+
+required:
+    - compatible
+    - reg
+    - xlnx,has-ecc
+    - xlnx,ddrc-clk-freq-hz
+    - xlnx,addr-mapping
+    - xlnx,ddr-freq
+    - xlnx,video-buf-size
+    - xlnx,brc-mapping
+    - xlnx,ddrc-dynamic-ddr-config-enabled
+    - xlnx,ddrc-memory-type
+    - xlnx,ddrc-memory-address-map
+    - xlnx,ddrc-data-mask-and-dbi
+    - xlnx,ddrc-address-mirroring
+    - xlnx,ddrc-2nd-clock
+    - xlnx,ddrc-parity
+    - xlnx,ddrc-power-down-enable
+    - xlnx,ddrc-clock-stop
+    - xlnx,ddrc-low-power-auto-self-refresh
+    - xlnx,ddrc-temp-controlled-refresh
+    - xlnx,ddrc-fine-granularity-refresh-mode
+    - xlnx,ddrc-self-refresh-abort
+    - xlnx,ddrc-max-operating-temparature
+...
