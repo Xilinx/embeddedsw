@@ -46,34 +46,34 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 typedef struct {
-        char *Name;
-        UINTPTR BaseAddress;
-        u8 HasEccEn;
-        u32 InputClockFreq;
-        u8 AddrMapping;
-        u32 DdrFreq; /* DDR Freq in Hz */
-        u32 VideoBufSize;
-        u32 BrcMapping;
-        u8 HasDynamicDDrEn;
-        u8 Memtype;
-        u8 MemAddrMap;
-        u32 DataMask_Dbi;
-        u32 AddressMirror;
-        u32 Secondclk;
-        u32 Parity;
-        u32 PwrDnEn;
-        u32 ClockStopEn;
-        u32 LpAsr;
-        u32 TRefMode;
-        u32 Fgrm;
-        u32 SelfRefAbort;
-        u32 TRefRange;
+	char *Name;
+	UINTPTR BaseAddress;
+	u8 HasEccEn;
+	u32 InputClockFreq;
+	u8 AddrMapping;
+	u32 DdrFreq; /* DDR Freq in Hz */
+	u32 VideoBufSize;
+	u32 BrcMapping;
+	u8 HasDynamicDDrEn;
+	u8 Memtype;
+	u8 MemAddrMap;
+	u32 DataMask_Dbi;
+	u32 AddressMirror;
+	u32 Secondclk;
+	u32 Parity;
+	u32 PwrDnEn;
+	u32 ClockStopEn;
+	u32 LpAsr;
+	u32 TRefMode;
+	u32 Fgrm;
+	u32 SelfRefAbort;
+	u32 TRefRange;
 } XDdrcpsu_Config;
 
 
 typedef struct {
-        XDdrcpsu_Config Config; /**< Configuration structure */
-        u32 IsReady;            /**< Device is initialized and ready */
+	XDdrcpsu_Config Config; /**< Configuration structure */
+	u32 IsReady;            /**< Device is initialized and ready */
 } XDdrcPsu;
 
 /************************** Function Prototypes ******************************/
