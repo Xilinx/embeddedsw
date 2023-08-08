@@ -1322,7 +1322,7 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    /* Read TX edid */
 	    xil_printf("\r\n");
 
-	    Status = XV_HdmiTxSs1_ReadEdid(&HdmiTxSs, (u8*)&Buffer);
+	    Status = XV_HdmiTxSs1_ReadEdid(&HdmiTxSs, (u8*)&Buffer, sizeof(Buffer));
 	    /* Only Parse the EDID when the Read EDID success */
 	    if (Status == XST_SUCCESS) {
 		XV_VidC_parse_edid((u8*)&Buffer,
