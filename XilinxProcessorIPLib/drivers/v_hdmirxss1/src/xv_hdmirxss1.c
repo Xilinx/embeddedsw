@@ -1,5 +1,6 @@
 /******************************************************************************
 # Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -920,10 +921,12 @@ static void XV_HdmiRxSs1_AuxCallback(void *CallbackRef)
 	  XV_HdmiC_ParseAVIInfoFrame(AuxPtr, AviInfoFramePtr);
 	  HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.Video.ColorFormatId =
 				XV_HdmiRx1_GetAviColorSpace(HdmiRxSs1Ptr->HdmiRx1Ptr);
-	  HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.Vic =
-				XV_HdmiRx1_GetAviVic(HdmiRxSs1Ptr->HdmiRx1Ptr);
+	  if (AviInfoFramePtr->VIC) {
+		  HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.Vic =
+				  XV_HdmiRx1_GetAviVic(HdmiRxSs1Ptr->HdmiRx1Ptr);
+	  }
 	  HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.Video.AspectRatio =
-				XV_HdmiC_IFAspectRatio_To_XVidC(HdmiRxSs1Ptr->AVIInfoframe.PicAspectRatio);
+		XV_HdmiC_IFAspectRatio_To_XVidC(HdmiRxSs1Ptr->AVIInfoframe.PicAspectRatio);
   } else if (AuxPtr->Header.Byte[0] == AUX_GENERAL_CONTROL_PACKET_TYPE) {
 	  /* Reset General Control Packet*/
 	  (void)memset((void *)GeneralControlPacketPtr, 0, sizeof(XHdmiC_GeneralControlPacket));
