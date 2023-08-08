@@ -75,8 +75,8 @@ s32 XDdrcPsu_CfgInitialize(XDdrcPsu *InstancePtr, XDdrcpsu_Config *CfgPtr)
 	Xil_AssertNonvoid(CfgPtr != NULL);
 
 	/* Setup the instance */
-	(void)memcpy((void *)&(InstancePtr->Config), (const void *)CfgPtr,
-						sizeof(XDdrcpsu_Config));
+	(void)memcpy((void *) & (InstancePtr->Config), (const void *)CfgPtr,
+		     sizeof(XDdrcpsu_Config));
 
 
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);

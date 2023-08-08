@@ -87,13 +87,13 @@ XDdrcpsu_Config *XDdrcPsu_LookupConfig(UINTPTR BaseAddress)
 	u32 Index;
 
 	/* Checks all the instances */
-        for (Index = (u32)0x0; XDdrcpsu_ConfigTable[Index].Name != NULL; Index++) {
-                if ((XDdrcpsu_ConfigTable[Index].BaseAddress == BaseAddress) ||
-                     !BaseAddress) {
-                        CfgPtr = &XDdrcpsu_ConfigTable[Index];
-                        break;
-                }
-        }
+	for (Index = (u32)0x0; XDdrcpsu_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XDdrcpsu_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XDdrcpsu_ConfigTable[Index];
+			break;
+		}
+	}
 
 	return (XDdrcpsu_Config *)CfgPtr;
 }
