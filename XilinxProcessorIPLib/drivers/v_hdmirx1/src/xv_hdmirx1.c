@@ -1823,6 +1823,7 @@ XVidC_VideoMode XV_HdmiRx1_LookupVmId(u8 Vic)
 int XV_HdmiRx1_GetVideoProperties(XV_HdmiRx1 *InstancePtr)
 {
 	u32 Status;
+	u32 Vic;
 
 	/* Read AUX peripheral status register*/
 	Status =  XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
@@ -1835,7 +1836,9 @@ int XV_HdmiRx1_GetVideoProperties(XV_HdmiRx1 *InstancePtr)
 				XV_HdmiRx1_GetAviColorSpace(InstancePtr);
 
 		/* Get AVI Vic*/
-		InstancePtr->Stream.Vic = XV_HdmiRx1_GetAviVic(InstancePtr);
+		Vic = XV_HdmiRx1_GetAviVic(InstancePtr);
+		if (Vic)
+			InstancePtr->Stream.Vic = Vic;
 
 		/* Get GCP colordepth*/
 		/* In HDMI the colordepth in YUV422 is always 12 bits
