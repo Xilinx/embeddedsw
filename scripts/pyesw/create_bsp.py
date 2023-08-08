@@ -640,7 +640,7 @@ endforeach()
     '''
     clangd_ignore_content = f'''
 CompileFlags:
-    Add: -Wno-unknown-warning-option
+    Add: [-Wno-unknown-warning-option, -U__linux__, -U__clang__]
     Remove: [-m*, -f*]
 '''
     clangd_ignore_file = os.path.join(obj.libsrc_folder, ".clangd")
