@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -88,6 +89,7 @@
 #                     get_connected_intr_cntrl to handle utility vector logic and
 #                     return proper interrupt controller.
 # 5.0   mus  22/02/22 Added support for VERSAL NET.
+# 5.2   mus  08/08/22 Support PL to PS interrupts for VERSAL NET.
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -903,6 +905,47 @@ proc get_psv_interrupt_id { sink_pin } {
 
 ###################################################################
 #
+# Get interrupt ID for VERSAL NET pl-ps interrupts
+#
+###################################################################
+proc get_psx_interrupt_id { sink_pin } {
+    if {[string compare -nocase "$sink_pin" "pl_psx_irq0"] == 0 } {
+        return 104
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq1"] == 0 } {
+        return 105
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq2"] == 0 } {
+        return 106
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq3"] == 0 } {
+        return 107
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq4"] == 0 } {
+        return 108
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq5"] == 0 } {
+        return 109
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq6"] == 0 } {
+        return 110
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq7"] == 0 } {
+        return 111
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq8"] == 0 } {
+        return 112
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq9"] == 0 } {
+        return 113
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq10"] == 0 } {
+        return 114
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq11"] == 0 } {
+        return 115
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq12"] == 0 } {
+        return 116
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq13"] == 0 } {
+        return 117
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq14"] == 0 } {
+        return 118
+    } elseif {[string compare -nocase "$sink_pin" "pl_psx_irq15"] == 0 } {
+        return 119
+    }
+}
+
+###################################################################
+#
 # Get interrupt ID for zynqmpsoc
 #
 ###################################################################
@@ -922,6 +965,8 @@ proc get_psu_interrupt_id { ip_name port_name } {
     variable traversed_ip_name
     variable traversed_ports_count
     set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
+    set is_versal_net [hsi::get_cells -hier -filter {IP_NAME=="psx_cortexa78"}]
+
 
     if { [llength $port_name] == 0 } {
         return $ret
@@ -965,6 +1010,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
             }
         }
     }
+
     if { [llength $intc_periph]  ==  0 } {
         return $ret
     }
@@ -1055,16 +1101,21 @@ proc get_psu_interrupt_id { ip_name port_name } {
 	}
 
     }
-    if {[llength $is_versal] == 0} {
-        set irq0_base 89
-        set irq1_base 104
-        set intr_list_irq0 [list 89 90 91 92 93 94 95 96]
-        set intr_list_irq1 [list 104 105 106 107 108 109 110 111]
-    } else {
-        set irq0_base 84
+    if {[llength $is_versal] != 0} {
+	set irq0_base 84
         set irq1_base 92
         set intr_list_irq0 [list 84 85 86 87 88 89 90 91]
         set intr_list_irq1 [list 92 93 94 95 96 97 98 99]
+    }  elseif {[llength $is_versal_net] != 0} {
+        set irq0_base 104
+        set irq1_base 112
+        set intr_list_irq0 [list 104 105 106 107 108 109 110 111]
+        set intr_list_irq1 [list 112 113 114 115 116 117 118 119]
+    } else {
+	set irq0_base 89
+        set irq1_base 104
+        set intr_list_irq0 [list 89 90 91 92 93 94 95 96]
+        set intr_list_irq1 [list 104 105 106 107 108 109 110 111]
     }
     set sink_pins [::hsi::utils::get_sink_pins $intr_pin]
     if { [llength $sink_pins] == 0 } {
@@ -1127,8 +1178,13 @@ proc get_psu_interrupt_id { ip_name port_name } {
 				set traveresing_details 1
 				incr traversed_ports_count
 			}
-		} elseif {[llength $is_versal] != 0 } {
-			set port_intr_id [get_psv_interrupt_id $sink_pin]
+		} elseif {[llength $is_versal] != 0 || [llength $is_versal_net] != 0} {
+			if {[llength $is_versal] != 0 } {
+				set port_intr_id [get_psv_interrupt_id $sink_pin]
+			} else {
+				set port_intr_id [get_psx_interrupt_id $sink_pin]
+			}
+
 			if {[llength $port_intr_id] != 0} {
 				if { $check_duplication == 1 } {
 					set traversed_ip_name($traversed_ports_count) $sink_pin
@@ -1260,9 +1316,13 @@ proc get_psu_interrupt_id { ip_name port_name } {
 				set is_pl_ps_irq0 1
 			} elseif {[string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
 				set is_pl_ps_irq1 1
-			} elseif {[llength $is_versal] != 0} {
+			} elseif {[llength $is_versal] != 0 || [llength $is_versal_net] != 0} {
 				set port_intr_id ""
-				set port_intr_id_temp [get_psv_interrupt_id $sink_pin]
+				if {[llength $is_versal] != 0 } {
+					set port_intr_id_temp [get_psv_interrupt_id $sink_pin]
+				} else {
+					set port_intr_id_temp [get_psx_interrupt_id $sink_pin]
+				}
 				if {[llength $port_intr_id_temp] != 0} {
 					if { $traveresing_details == 1 } {
 						incr traversed_ports_count
@@ -1507,7 +1567,6 @@ proc get_connected_intr_cntrl { periph_name intr_pin_name } {
     if { [llength $intr_pin_name] == 0 } {
         return $intr_cntrl
     }
-
     if { [llength $periph_name] != 0 } {
         #This is the case where IP pin is interrupting
         set periph [::hsi::get_cells -hier -filter "NAME==$periph_name"]
@@ -1550,7 +1609,6 @@ proc get_connected_intr_cntrl { periph_name intr_pin_name } {
         } elseif { [llength $sink_periph] && [string match -nocase [common::get_property IP_NAME $sink_periph] "util_vector_logic"] } {
             set intr_cntrl [list {*}$intr_cntrl {*}[::hsi::utils::get_connected_intr_cntrl $sink_periph "Res"]]
         }
-
     }
     return $intr_cntrl
 }
