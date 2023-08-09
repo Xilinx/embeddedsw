@@ -43,6 +43,9 @@ supported_processors:
   - ps7_cortexa9
   - microblaze
 supported_os: [freertos10_xilinx]
+os_config:
+  freertos:
+    freertos_total_heap_size: 262140
 linker_constraints:
     stack: 0xA000
     heap: 0xA000
