@@ -1,6 +1,35 @@
 Changes for 2023.2
 ===============================
 
+axicdma_v4_12:
+Added support for system device tree flow for drivers and examples
+
+axidma_v9_17:
+Added support for system device tree flow for drivers and examples
+Set axidma compatible string, replace (not append) axidma compatible string
+with xlnx,eth-dma so that linux dma engine driver is not invoked.
+
+axivdma_v6_14:
+Added support for system device tree flow for drivers and examples
+
+csudma_v1_14:
+Added support for system device tree flow for drivers and examples
+
+dmaps_v2_9:
+Added support for system device tree flow in drivers and examples
+
+emaclite_v4_8:
+Added support for system device tree flow in drivers and examples
+
+mcdma_v1_9:
+Added support for system device tree flow in drivers and examples
+Fixed interrupt ids in interrupt example (replaced with cannonical values)
+
+xxvethernet_v1_8:
+Added support for system device tree flow in drivers and examples
+
+zdma_v1_17:
+Added support for system device tree flow in drivers and example
 
 
 
