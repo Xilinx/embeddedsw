@@ -23,13 +23,11 @@ extern "C" {
 
 #define NODE_IDLE_DONE			(0x4U)
 
-typedef struct XPm_Node XPm_Node;
-
 /**
  * The node class.  This is the base class for all the power, clock, pin and
  * reset node classes.
  */
-struct XPm_Node {
+typedef struct XPm_Node {
 	u32 Id;	/**< Node ID: For XilPM clock and pin APIs */
 	u32 BaseAddress; /**< Base address: Specify to node type */
 	u16 LatencyMarg; /**< lowest latency requirement - powerup latency */
@@ -38,7 +36,7 @@ struct XPm_Node {
 #ifdef VERSAL_NET
 	SaveRestoreHandler_t SaveRestoreHandler;
 #endif
-};
+} XPm_Node;
 
 /************************** Function Prototypes ******************************/
 #ifdef VERSAL_NET
@@ -733,9 +731,9 @@ typedef enum {
 	XPM_NODEIDX_RST_ECO_0_R0_SECO = 0x77,
 	XPM_NODEIDX_RST_USB1_PHY = 0x78,
 	XPM_NODEIDX_RST_WWDT = 0x79,
-	XPM_NODEIDX_RST_SYS_1 = 0x7A,
-	XPM_NODEIDX_RST_SYS_3 = 0x7B,
-	XPM_NODEIDX_RST_SYS_2 = 0x7C,
+	XPM_NODEIDX_RST_RESERVED_1 = 0x7A,
+	XPM_NODEIDX_RST_RESERVED_2 = 0x7B,
+	XPM_NODEIDX_RST_RESERVED_3 = 0x7C,
 	XPM_NODEIDX_RST_PMC_SRST = 0x7D,
 	XPM_NODEIDX_RST_SYSMON_CFG_CPM5N = 0x7E,
 	XPM_NODEIDX_RST_SYSMON_CFG_PMC = 0x7F,
@@ -1330,8 +1328,8 @@ typedef enum {
 
 /* Memory region device node index */
 typedef enum {
-    XPM_NODEIDX_DEV_MEM_REGN_MIN = 0x0,
-    XPM_NODEIDX_DEV_MEM_REGN_MAX = 0x20
+	XPM_NODEIDX_DEV_MEM_REGN_MIN = 0x0,
+	XPM_NODEIDX_DEV_MEM_REGN_MAX = 0x20
 } XPm_MemRegnDeviceNodeIdx;
 
 /* Virtual device node index */
