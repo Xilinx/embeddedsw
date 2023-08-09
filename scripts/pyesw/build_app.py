@@ -83,6 +83,17 @@ def build_app(args):
         obj.template = app_name
         openamp_app_configure_common(obj, esw_app_dir, enable_lopper)
 
+    domain_data = utils.fetch_yaml_data(obj.domain_config_file, "domain")
+    # in case of library update link libraries
+    if domain_data['lib_info']:
+        src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")
+        lib_list = list(domain_data['lib_info'].keys())
+        cmake_lib_list = ';'.join(lib_list)
+        utils.replace_line(
+            src_cmake,
+            'xiltimer',
+            f'collect(PROJECT_LIB_DEPS {cmake_lib_list})\n',
+        )
     utils.runcmd(f'cmake -G "Unix Makefiles" {obj.app_src_dir} {obj.cmake_paths_append} -DNON_YOCTO=ON', cwd=obj.app_build_dir)
     utils.copy_file(f"{obj.app_build_dir}/compile_commands.json", obj.app_src_dir, silent_discard=True)
     utils.runcmd("make -j22", cwd=obj.app_build_dir)
