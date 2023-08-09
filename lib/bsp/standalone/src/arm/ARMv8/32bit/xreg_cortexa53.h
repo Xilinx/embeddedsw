@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 5.2	pkp  	 28/05/15 First release
+* 9.0	mus  	 08/09/23 Added #defines related to MPIDR register
 * </pre>
 *
 ******************************************************************************/
@@ -307,6 +309,11 @@ extern "C" {
 #define XREG_CP15_MAIN_TLB_PA			"p15, 5, %0, c15,  c6, 2"
 
 #define XREG_CP15_MAIN_TLB_ATTR			"p15, 5, %0, c15,  c7, 2"
+
+/* Affinity register bits */
+#define XREG_MPIDR_MASK				0xFFFFFFFFU
+#define XREG_MPIDR_AFFINITY0_MASK		0x3U
+#define XREG_MPIDR_AFFINITY0_SHIFT		0x0U
 
 /* MPE register definitions */
 #define XREG_FPSID				c0
