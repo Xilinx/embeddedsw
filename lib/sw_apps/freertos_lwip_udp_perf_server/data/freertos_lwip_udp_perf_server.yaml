@@ -26,6 +26,9 @@ supported_processors:
   - ps7_cortexa9
   - microblaze
 supported_os: [freertos10_xilinx]
+os_config:
+  freertos:
+    freertos_total_heap_size: 262140
 depends_libs:
   lwip213:
     lwip213_api_mode: SOCKET_API
