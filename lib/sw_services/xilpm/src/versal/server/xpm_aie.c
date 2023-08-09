@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1736,23 +1736,27 @@ static XStatus Aie1_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColE
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u64 BaseAddress;
+	u32 RowStart = AieDomain->Array.StartRow;
+	u32 RowEnd = AieDomain->Array.NumRows;
 	u64 Addr;
-	u32 Col;
+	u32 Col, Row;
 
 	/* write 0 to program memory 16KB from 0x20000 for every core module
 	 * of every column of the partition */
 	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_PROG_MEM_ZEROIZATION) & Ops)) {
 		for (Col = ColStart; Col <= ColEnd; Col++) {
-			/* BaseAddress for AIE1 column */
-			BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
-			/* Address of Program memory for AIE1 column */
-			Addr = BaseAddress + AIE_PROGRAM_MEM_OFFSET;
+			for (Row = RowStart; Row <= RowEnd; Row++) {
+				/* BaseAddress for AIE1 column */
+				BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, Row);
+				/* Address of Program memory for AIE1 column */
+				Addr = BaseAddress + AIE_PROGRAM_MEM_OFFSET;
 
-			/* Initialize program memory with 0 */
-			Status = XPlmi_EccInit(Addr, AIE1_PROG_MEM_SIZE);
-			if (XST_SUCCESS != Status) {
-				DbgErr = XPM_INT_ERR_AIE_PROG_MEM_ZEROISATION;
-				goto done;
+				/* Initialize program memory with 0 */
+				Status = XPlmi_MemSet((u64)Addr, 0U, AIE1_PROG_MEM_SIZE / XPLMI_WORD_LEN);
+				if (XST_SUCCESS != Status) {
+					DbgErr = XPM_INT_ERR_AIE_PROG_MEM_ZEROISATION;
+					goto done;
+				}
 			}
 		}
 	}
@@ -1761,16 +1765,18 @@ static XStatus Aie1_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColE
 	 * every column of the partition */
 	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_DATA_MEM_ZEROIZATION)	& Ops)) {
 		for (Col = ColStart; Col <= ColEnd; Col++) {
-			/* BaseAddress for AIE1 column */
-			BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
-			/* Address of Data memory for AIE1 column */
-			Addr = BaseAddress + AIE_DATA_MEM_OFFSET;
+			for (Row = RowStart; Row <= RowEnd; Row++) {
+				/* BaseAddress for AIE1 column */
+				BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, Row);
+				/* Address of Data memory for AIE1 column */
+				Addr = BaseAddress + AIE_DATA_MEM_OFFSET;
 
-			/* Initialize data memory with 0 */
-			Status = XPlmi_EccInit(Addr, AIE1_DATA_MEM_SIZE);
-			if (XST_SUCCESS != Status) {
-				DbgErr = XPM_INT_ERR_AIE_DATA_MEM_ZEROISATION;
-				goto done;
+				/* Initialize data memory with 0 */
+				Status = XPlmi_MemSet((u64)Addr, 0U, AIE1_DATA_MEM_SIZE / XPLMI_WORD_LEN);
+				if (XST_SUCCESS != Status) {
+					DbgErr = XPM_INT_ERR_AIE_DATA_MEM_ZEROISATION;
+					goto done;
+				}
 			}
 		}
 	}
