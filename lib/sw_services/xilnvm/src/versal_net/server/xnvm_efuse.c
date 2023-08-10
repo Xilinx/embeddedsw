@@ -23,6 +23,7 @@
 * 3.2   har  02/22/2023 Added API to program ROM Rsvd eFUSEs.
 *       vss  03/14/2023 Fixed compilation warining
 *       kum  04/11/2023 Added Env monitor before efuse programming
+*	kpt  07/26/2023 Removed XNvm_EfuseReadCacheRange
 *
 * </pre>
 *
@@ -2338,31 +2339,6 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 	}
 
 END:
-	return Status;
-}
-
-/******************************************************************************/
-/**
- * @brief	This function reads 32-bit rows from eFUSE cache.
- *
- * @param	StartOffset  - Start Cache Offset of the eFuse.
- * @param	RowCount - Number of 32 bit Rows to be read.
- * @param	RowData  - Pointer to memory location where read 32-bit row data(s)
- *					   is to be stored.
- *
- * @return	- XST_SUCCESS	- On successful Read.
- *		- XNVM_EFUSE_ERR_CACHE_PARITY - Parity Error exist in cache.
- *
- ******************************************************************************/
-int XNvm_EfuseReadCacheRange(u32 StartOffset, u8 RegCount, u32* Data)
-{
-	volatile int Status = XST_FAILURE;
-	u32 RegAddress = XNVM_EFUSE_CACHE_BASEADDR + StartOffset;
-	u32 NumOfBytes = RegCount * XNVM_WORD_LEN;
-
-	Status = Xil_SMemCpy((void *)Data, NumOfBytes,
-			(const void *)RegAddress, NumOfBytes, NumOfBytes);
-
 	return Status;
 }
 
