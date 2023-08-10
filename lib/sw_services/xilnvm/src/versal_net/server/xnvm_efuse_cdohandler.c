@@ -18,9 +18,10 @@
 * ----- ---- -------- -------------------------------------------------------
 * 3.0  kal   07/12/2022 Initial release
 * 3.1  skg   10/25/2022 Added in body comments for APIs
-* 3.2   har  02/21/23 Added support for writing ROM Rsvd bits
+* 3.2  har   02/21/2023 Added support for writing ROM Rsvd bits
 *      kum   05/03/2023 Added support to handle cdo chunk boundary before efuse writing
-* 	   vek   05/31/2023  Added support for Programming PUF secure control bits
+*      vek   05/31/2023 Added support for Programming PUF secure control bits
+*      kpt   07/26/2023 Clear AES keys
 *
 * </pre>
 *
@@ -469,6 +470,8 @@ static int XNvm_EfuseWriteIvFromCdoPload(u32 EnvDisFlag, XNvm_IvType IvType, XNv
 static int XNvm_EfuseWriteAesKeys(u32 EnvDisFlag, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int ClearStatus = XST_FAILURE;
+	volatile int ClearStatusTmp = XST_FAILURE;
 	XNvm_AesKey AesKeys __attribute__ ((aligned (32U))) = {0U};
 	u64 AesKeyAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 
@@ -480,6 +483,12 @@ static int XNvm_EfuseWriteAesKeys(u32 EnvDisFlag, XNvm_AesKeyType KeyType, u32 A
 	Status = XNvm_EfuseWriteAesKey(EnvDisFlag, KeyType, &AesKeys);
 
 END:
+	ClearStatus = XNvm_ZeroizeAndVerify((u8*)&AesKeys, sizeof(AesKeys));
+	ClearStatusTmp = XNvm_ZeroizeAndVerify((u8*)&AesKeys, sizeof(AesKeys));
+	if (Status == XST_SUCCESS) {
+		Status |= (ClearStatus | ClearStatusTmp);
+	}
+
 	return Status;
 }
 
