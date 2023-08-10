@@ -89,6 +89,8 @@
 #       mus  20/04/23 MPU related files for CortexR5 and CortexR52 have been
 #                     separated out to make code readable. Update tcl file
 #                     copy appropriate files based on processor and SoC.
+# 9.1   ml   10/08/23 Updated tcl not to set coresight as stdout/stdin for
+#                     non ARM based processors.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -753,6 +755,9 @@ proc generate {os_handle} {
             handle_stdin_parameter $os_handle
     } elseif { $stdin == "" || $stdin == "none" } {
             handle_stdin_parameter $os_handle
+    } elseif { (($proctype == "psx_psm" || $proctype == "psv_psm" || $proctype == "psu_pmu"  || $proctype == "microblaze") && ([string match "*coresight*" $stdin_ipname]))} {
+       common::set_property CONFIG.stdin "none" $os_handle
+       handle_stdin_parameter $os_handle
     } else {
             ::hsi::utils::handle_stdin $os_handle
     }
@@ -770,6 +775,9 @@ proc generate {os_handle} {
                 handle_stdout_parameter $os_handle
     } elseif { $stdout == "" || $stdout == "none" } {
                 handle_stdout_parameter $os_handle
+    } elseif { (($proctype == "psx_psm" || $proctype == "psv_psm" || $proctype == "psu_pmu"  || $proctype == "microblaze") && ([string match "*coresight*" $stdout_ipname]))} {
+       common::set_property CONFIG.stdout "none" $os_handle
+       handle_stdout_parameter $os_handle
     } else {
                 ::hsi::utils::handle_stdout $os_handle
     }
