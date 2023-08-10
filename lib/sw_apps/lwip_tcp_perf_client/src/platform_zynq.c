@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2010 - 2019 Xilinx, Inc.
+ * Copyright (C) 2010 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -45,6 +46,7 @@
 * </pre>
  */
 
+#ifndef SDT
 #ifdef __arm__
 
 #include "platform_config.h"
@@ -231,3 +233,4 @@ u64_t get_time_ms()
 
 #endif
 #endif
+#endif /* NOT SDT */

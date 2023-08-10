@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2010 - 2019 Xilinx, Inc.
+ * Copyright (C) 2010 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -31,6 +32,7 @@
  * MicroBlaze platform specific functions.
  */
 
+#ifndef SDT
 #ifdef __MICROBLAZE__
 
 #include "platform.h"
@@ -91,3 +93,4 @@ void platform_enable_interrupts()
 	microblaze_enable_interrupts();
 }
 #endif
+#endif /* NOT SDT */

@@ -35,6 +35,7 @@
 * </pre>
  */
 
+#ifndef SDT
 #if defined (__arm__) || defined (__aarch64__)
 
 #include "platform_config.h"
@@ -207,3 +208,4 @@ u64_t get_time_ms()
 
 #endif
 #endif
+#endif /* NOT SDT */
