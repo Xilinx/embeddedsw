@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xdualsplitter_hw.h
-* @addtogroup dual_splitter_v1_2
+* @addtogroup dual_splitter Overview
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xrgb2ycrcb.h
-* @addtogroup rgb2ycrcb_v7_2
+* @addtogroup rgb2ycrcb Overview
 * @{
 * @details
 *
