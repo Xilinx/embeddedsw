@@ -24,6 +24,7 @@
 *       vss  03/14/2023 Fixed compilation warining
 *       kum  04/11/2023 Added Env monitor before efuse programming
 *	kpt  07/26/2023 Removed XNvm_EfuseReadCacheRange
+*	kpt  07/26/2023 Fix security review comments
 *
 * </pre>
 *
@@ -3477,14 +3478,22 @@ static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col, u32 SkipVerify)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	volatile u32 SkipVerifyTmp = SkipVerify;
 
-	Status = XNvm_EfusePgmBit(Page, Row, Col);
-	if(XST_SUCCESS == Status) {
-		if (SkipVerify == 0U) {
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmBit, Page, Row, Col);
+	if((Status == XST_SUCCESS) || (StatusTmp == XST_SUCCESS)) {
+		if ((SkipVerify == XNVM_EFUSE_PROGRAM_VERIFY) || (SkipVerifyTmp == XNVM_EFUSE_PROGRAM_VERIFY)) {
+			/* Return XST_GLITCH_ERROR in case of glitch */
+			if (SkipVerify != SkipVerifyTmp) {
+				Status = XST_GLITCH_ERROR;
+				goto END;
+			}
 			Status = XST_FAILURE;
 			Status = XNvm_EfuseVerifyBit(Page, Row, Col);
 		}
 	}
 
+END:
 	return Status;
 }
