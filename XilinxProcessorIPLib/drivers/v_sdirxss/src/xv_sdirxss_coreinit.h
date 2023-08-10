@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xv_sdirxss_coreinit.h
-* @addtogroup v_sdirxss_v3_3
+* @addtogroup v_sdirxss Overview
 * @{
 *
 * This header file contains the sdi rx subsystem sub-cores

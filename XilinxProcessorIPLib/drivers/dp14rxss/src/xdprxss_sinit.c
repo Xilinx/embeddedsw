@@ -8,7 +8,7 @@
 /**
 *
 * @file xdprxss_sinit.c
-* @addtogroup dprxss_v8_2
+* @addtogroup dprxss Overview
 * @{
 *
 * This file contains static initialization method for Xilinx DisplayPort

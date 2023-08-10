@@ -1,5 +1,6 @@
 /******************************************************************************
 # Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xv_hdmirxss1_sinit.c
-* @addtogroup v_hdmirxss1_v3_1
+* @addtogroup v_hdmirxss1 Overview
 * @{
 * @details
 *

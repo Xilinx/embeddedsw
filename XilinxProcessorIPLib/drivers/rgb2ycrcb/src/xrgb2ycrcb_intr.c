@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xrgb2ycrcb_intr.c
-* @addtogroup rgb2ycrcb_v7_2
+* @addtogroup rgb2ycrcb Overview
 * @{
 *
 * This file contains interrupt related functions for the RGB2YCRCB core.

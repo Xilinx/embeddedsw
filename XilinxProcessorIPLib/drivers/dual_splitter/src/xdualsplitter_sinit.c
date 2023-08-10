@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xdualsplitter_sinit.c
-* @addtogroup dual_splitter_v1_2
+* @addtogroup dual_splitter Overview
 * @{
 *
 * This file contains static initialization function for Xilinx Dual Splitter

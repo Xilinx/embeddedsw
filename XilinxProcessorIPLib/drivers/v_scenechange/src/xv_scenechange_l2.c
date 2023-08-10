@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2022 Xilinx, Inc.	All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xv_scenechange_l2.c
- * @addtogroup v_scenechange_v1_4
+ * @addtogroup v_scenechange Overview
  * @{
  *
  * The SceneChange Layer-2 Driver.

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xycrcb2rgb_sinit.c
-* @addtogroup ycrcb2rgb_v7_2
+* @addtogroup ycrcb2rgb Overview
 * @{
 *
 * This file contains static initialization methods for Xilinx YCRCB2RGB core.

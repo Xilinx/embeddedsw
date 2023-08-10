@@ -8,7 +8,7 @@
 /**
 *
 * @file xdprxss_intr.c
-* @addtogroup dprxss_v8_2
+* @addtogroup dprxss Overview
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort RX

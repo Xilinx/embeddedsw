@@ -8,7 +8,7 @@
 /**
 *
 * @file xdprxss.h
-* @addtogroup dprxss_v8_2
+* @addtogroup dprxss Overview
 * @{
 * @details
 *
