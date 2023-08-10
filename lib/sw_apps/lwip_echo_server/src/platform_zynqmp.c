@@ -35,6 +35,7 @@
 * </pre>
  */
 
+#ifndef SDT
 #if defined (__arm__) || defined (__aarch64__)
 
 #include "xparameters.h"
@@ -198,3 +199,4 @@ void cleanup_platform()
 }
 #endif
 #endif
+#endif /* NOT SDT */
