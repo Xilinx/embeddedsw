@@ -1,11 +1,13 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 
 #include "xil_types.h"
 #include "pm_defs.h"
+#include "pm_cfg_obj.h"
 
 #define PM_CONFIG_MASTER_SECTION_ID	0x101U
 #define PM_CONFIG_SLAVE_SECTION_ID	0x102U
