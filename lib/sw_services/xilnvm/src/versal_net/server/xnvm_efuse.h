@@ -19,6 +19,7 @@
  * ----- ---- ---------- -------------------------------------------------------
  * 3.0   kal  07/12/2022 Initial release
  * 3.2   har  02/21/2023 Added support for writing ROM Rsvd bits
+ *	 kpt  07/26/2023 Removed XNvm_EfuseReadCacheRange
  *
  * </pre>
  *
@@ -45,7 +46,6 @@ int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *
 int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *EfuseHash);
 int XNvm_EfuseWriteIv(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *EfuseIv);
 int XNvm_EfuseCacheLoadNPrgmProtectionBits(void);
-int XNvm_EfuseReadCacheRange(u32 StartOffset, u8 RegCount, u32* Data);
 int XNvm_EfuseWriteGlitchConfigBits(u32 EnvDisFlag, u32 GlitchConfig);
 int XNvm_EfuseWriteDecOnly(u32 EnvDisFlag);
 int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum);
