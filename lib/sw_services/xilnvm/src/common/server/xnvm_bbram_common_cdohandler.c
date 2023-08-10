@@ -26,6 +26,7 @@
 * 3.0   dc    08/29/2022 Removed initialization
 * 3.1   skg   10/23/2022 Added In body comments for APIs
 *       kal   03/08/2023 Make status as volatile in XNvm_BbramKeyWrite
+* 3.2   kpt   07/31/2023 Assign key clear status only when status is XST_SUCCESS
 *
 * </pre>
 *
@@ -143,7 +144,7 @@ static int XNvm_BbramKeyWrite(u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh)
 END:
 	ClearStatus = XNvm_ZeroizeAndVerify((u8 *)Key, Size);
 	ClearStatusTmp = XNvm_ZeroizeAndVerify((u8 *)Key, Size);
-	if ((ClearStatus != XST_SUCCESS) || (ClearStatusTmp != XST_SUCCESS)) {
+	if (Status == XST_SUCCESS) {
 		Status |= (ClearStatus | ClearStatusTmp);
 	}
 
