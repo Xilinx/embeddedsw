@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +28,8 @@
  * 3.0   ma   09/09/19 Update FSBL proc info reporting to PMU
  * 4.0   bsv  03/05/19 Restore value of SD_CDN_CTRL register before
  *                     handoff in FSBL
+ * 5.0   sd   08/09/23 Added DEBUG_HANDOFF macro to fix uart console
+ *                     prints issue
  *
  * </pre>
  *
@@ -550,7 +553,7 @@ void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 	RegVal |= XFSBL_EXEC_COMPLETED;
 	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, RegVal);
 
-	XFsbl_Printf(DEBUG_GENERAL,"Exit from FSBL \n\r");
+	XFsbl_Printf(DEBUG_HANDOFF,"Exit from FSBL \n\r");
 
 	/**
 	 * Exit to handoff address
@@ -754,7 +757,7 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 		goto END;
 	}
 
-	XFsbl_Printf(DEBUG_GENERAL, "Protection configuration applied\r\n");
+	XFsbl_Printf(DEBUG_HANDOFF, "Protection configuration applied\r\n");
 
 	}
 

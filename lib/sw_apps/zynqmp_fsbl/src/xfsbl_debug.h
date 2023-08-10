@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 *****************************************************************************/
 
@@ -16,8 +17,10 @@
 *
 * Ver	Who	Date		Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00a kc	11/05/13 Initial release
+* 1.0   kc   11/05/13 Initial release
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
+* 3.0   sd   08/09/23 Added DEBUG_HANDOFF macro to fix uart console
+*                     prints issue
 *
 * </pre>
 *
@@ -53,6 +56,17 @@ extern "C" {
 #define DEBUG_GENERAL	      (0x00000002U)    /* general debug  messages */
 #define DEBUG_INFO	      (0x00000004U)    /* More debug information */
 #define DEBUG_DETAILED	      (0x00000008U)    /* More debug information */
+
+/**
+ * DEBUG_HANDOFF macro is added to resolve junk characters printed on uart
+ * console whenever FSBL_DEBUG flag is enabled and if design has single uart
+ * instance which forces all the components to use same uart.
+ */
+#if (XPAR_XUARTPS_NUM_INSTANCES > 1)
+#define DEBUG_HANDOFF    DEBUG_GENERAL
+#else
+#define DEBUG_HANDOFF    (0x0U)
+#endif
 
 #if defined (FSBL_DEBUG_DETAILED)
 #define XFsblDbgCurrentTypes ((DEBUG_DETAILED) | (DEBUG_INFO) | \
