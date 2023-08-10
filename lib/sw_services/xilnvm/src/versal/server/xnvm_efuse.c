@@ -90,6 +90,7 @@
 *       kal  03/07/2023 Added volatile keyword to avoid compiler optimization in
 *                       XNvm_EfuseWriteSecMisc1Fuses
 * 3.2   kum 04/11/2023  Moved common code to xnvm_efuse_common.c
+*	kpt 07/26/2023  Add missing else check in XNvm_EfuseReadPpkHash
 *
 * </pre>
 *
@@ -1666,7 +1667,7 @@ END:
 int XNvm_EfuseReadPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType)
 {
 	int Status = XST_FAILURE;
-	u32 PpkRow;
+	u32 PpkRow = XNVM_EFUSE_PPK_0_HASH_START_ROW;
 
     /**
 	 *  validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
@@ -1676,26 +1677,25 @@ int XNvm_EfuseReadPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType)
 		goto END;
 	}
 
-	if(PpkType < XNVM_EFUSE_PPK_READ_START || PpkType > XNVM_EFUSE_PPK_READ_END){
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
-				goto END;
-	}
-
 	if (PpkType == XNVM_EFUSE_PPK0) {
 		PpkRow = XNVM_EFUSE_PPK_0_HASH_START_ROW;
 	} else if (PpkType == XNVM_EFUSE_PPK1) {
 		PpkRow = XNVM_EFUSE_PPK_1_HASH_START_ROW;
-	} else if (PpkType == XNVM_EFUSE_PPK2){
+	} else if (PpkType == XNVM_EFUSE_PPK2) {
 		PpkRow = XNVM_EFUSE_PPK_2_HASH_START_ROW;
 	}
 #ifdef XNVM_EN_ADD_PPKS
-	else if (PpkType == XNVM_EFUSE_PPK3){
+	else if (PpkType == XNVM_EFUSE_PPK3) {
 		PpkRow = XNVM_EFUSE_PPK_3_HASH_START_ROW;
 	}
-	else {
+	else if (PpkType == XNVM_EFUSE_PPK4) {
 		PpkRow = XNVM_EFUSE_PPK_4_HASH_START_ROW;
 	}
 #endif
+	else {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
 
      /**
 	  *  Read directly from cache offset of the mentioned ppk type to fill the ppk hash array. Return XST_SUCCESS if read success
