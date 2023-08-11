@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@
 * 						Fabric Initialization sequence is modified to check
 * 						the PL power before sequence starts and checking INIT_B
 * 						reset status twice in case of failure.
+* 21.2  ng 07/13/23  Add SDT support
 * </pre>
 *
 * @note
@@ -38,6 +40,11 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xdevcfg.h"
 
+#ifndef SDT
+#include "xtime_l.h"
+#else
+#include "xiltimer.h"
+#endif
 /************************** Function Prototypes ******************************/
 
 
