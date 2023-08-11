@@ -65,6 +65,7 @@
 *	dd   03/16/2023 Misra-C violation Rule 17.8 fixed
 *       sk   05/18/2023 Deprecate copy to memory feature
 *       am   07/03/2023 Added macros related to IHT OP data
+*       dd   08/11/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -615,7 +616,7 @@ int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ValidateChecksum(const void *Buffer, u32 Length);
-XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent(u32 PrtnNum, u32 Size);
+XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent(u32 PrtnNum, u32 HashTableSize);
 int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr);
 
 /** @} */
