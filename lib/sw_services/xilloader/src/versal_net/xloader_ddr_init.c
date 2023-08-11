@@ -18,6 +18,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ro   05/24/2023 Initial release
  * 1.1   ro   08/1/2023  Handle i2c handshake across CDO Chunk boundary
+ *       dd   08/11/2023 Updated doxygen comments
  * </pre>
  *
  * @note
@@ -393,6 +394,17 @@ END:
 }
 
 #else
+/*****************************************************************************/
+/**
+ * This function parse the handshake command request coming from MB and
+ * calls the function for handshake process.
+ *
+ * @param   Cmd is pointer to the command structure.
+ *
+ * @return
+ *			 - XST_FAILURE  Always.
+ *
+ *******************************************************************************/
 int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 {
 	(void) Cmd;

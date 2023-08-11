@@ -40,6 +40,7 @@
 *       sk   07/09/2023 Enable TCM Boot based on PH Attribute
 *                       Removed XLoader_GetLoadAddr targeting TCM Memory
 *       ng   06/26/2023 Added support for system device tree flow
+*       dd   08/11/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -87,9 +88,10 @@
 #define XLOADER_DDR_PERF_MON_CNT3_OFFSET (0X874U)   /**< Counter 3 offset */
 #ifndef PLM_SECURE_EXCLUDE
 #define XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_INDEX	(0U)
-#define XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_MASK		(0x03U)
-#define XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE		(0x03U)
-#define XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE		(0x00U)
+        /**< Index in the Payload of ConfigureJtagState command where JTAG state flag is present */
+#define XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_MASK		(0x03U) /**< Mask for JTAG state flag */
+#define XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE		(0x03U) /**< Value of JTAG state flag if enabled */
+#define XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE		(0x00U) /**< Value of JTAG state flag if disabled */
 #endif
 /**************************** Type Definitions *******************************/
 

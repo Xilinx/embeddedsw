@@ -26,6 +26,7 @@
 *       sk   07/07/2023 Added define for Config Jtag State
 *                       Moved minor error codes to plat headers
 *       sk   07/31/2023 Added error code for Image Store feature
+*       dd   08/11/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -102,7 +103,7 @@ extern "C" {
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
 
 #define XLoader_ConfigureJtagState	NULL /**< Configure JTAG State */
-
+#define XLoader_MbPmcI2cHandshake (NULL) /**< DDRMB - PMC I2C Handshake */
 /* Minor Error Codes */
 #define XLOADER_ERR_INVALID_IMGID		(0x2U) /**< Invalid ImgID passed in Command */
 #define XLOADER_ERR_NO_VALID_IMG_FOUND		(0x3U) /**< No Valid Image Found in the Image Info Table */
@@ -315,7 +316,7 @@ void XLoader_PerformInternalPOR(void);
 XLoader_ImageStore* XLoader_GetPdiList(void);
 int Xloader_SsitEoPdiSync(XilPdi *PdiPtr);
 XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
-#define XLoader_MbPmcI2cHandshake (NULL)
+
 
 /************************** Variable Definitions *****************************/
 
