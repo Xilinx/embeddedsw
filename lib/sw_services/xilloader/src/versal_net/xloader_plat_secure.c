@@ -29,6 +29,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       sk   06/12/2023 Renamed XLoader_UpdateKekSrc to XLoader_GetKekSrc
 * 1.9   kpt  07/12/2023 Added mask generation function
+*       dd   08/11/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -72,9 +73,8 @@ static int XLoader_RsaPssSignVeirfyKat(XPmcDma *PmcDmaPtr);
  * @brief	This function updates KEK red key availability status from
  * boot header.
  *
- * @param	PdiPtr is pointer to the XilPdi instance.
- *
- * @return	None.
+ * @return
+ *			 - Decryption Key source status.
  *
  ******************************************************************************/
 u32 XLoader_GetKekSrc(void)

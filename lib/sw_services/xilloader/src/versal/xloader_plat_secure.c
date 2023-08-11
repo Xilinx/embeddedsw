@@ -30,6 +30,7 @@
 *       sk   07/26/2023 Made status redundant variable volatile in
 *                       XLoader_IsAdditionalPpkValid
 *       sk   07/31/2023 Removed Additional PPK check in XLoader_CheckSecureStateAuth
+*       dd   08/11/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -77,10 +78,8 @@ static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert);
  * @brief	This function updates KEK red key availability status from
  * 			boot header.
  *
- * @param	PdiPtr is pointer to the XilPdi instance.
- *
  * @return
- * 			- None.
+ *			 - Decryption Key source status.
  *
  ******************************************************************************/
 u32 XLoader_GetKekSrc(void)

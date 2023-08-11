@@ -56,6 +56,7 @@
 *       sk   02/08/23 Renamed XLoader_UpdateKatStatus to XLoader_ClearKatOnPPDI
 *       dd   03/28/23 Updated doxygen comments
 *       sk   07/06/23 Corrected DAP Config Mask's
+*       dd   08/11/23 Updated doxygen comments
 *
 * </pre>
 *
@@ -320,11 +321,11 @@ extern "C" {
 #define XLOADER_ENABLE_AUTH_JTAG_SIGNATURE_SIZE		(226U)
 			/**< Authenticated JTAG signature size */
 #define XLOADER_CONFIG_DAP_STATE_SECURE_DBG		(0x01U)
-			/** < DAP State enable secure Debug */
+			/**< DAP State enable secure Debug */
 #define XLOADER_CONFIG_DAP_STATE_NONSECURE_DBG		(0x02U)
-			/** < DAP State enable non-secure Debug */
+			/**< DAP State enable non-secure Debug */
 #define XLOADER_CONFIG_DAP_STATE_ALL_DBG		(0x03U)
-			/** < DAP State enable all Debug modes */
+			/**< DAP State enable all Debug modes */
 #define XLOADER_DAP_SECURITY_GATE_DISABLE_MASK		(0xFFFFFFFFU)
 			/**< MAsk to disable DAP security gate */
 #define XLOADER_DAP_CFG_SPNIDEN_MASK			(0x8U)
