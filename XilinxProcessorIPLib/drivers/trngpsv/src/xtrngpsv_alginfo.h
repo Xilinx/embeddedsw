@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.4   mmd     07/04/23 Initial Release
+*       dd      08/07/23 Updated doxygen comments
 * </pre>
 *
 ******************************************************************************/
@@ -30,8 +31,8 @@ extern "C" {
 #include "xil_cryptoalginfo.h"
 
 /**************************** Constant Definitions ****************************/
-#define XTRNGPSV_MAJOR_VERSION	1
-#define XTRNGPSV_MINOR_VERSION	4
+#define XTRNGPSV_MAJOR_VERSION	1 /**< Major version of Trngpsv driver */
+#define XTRNGPSV_MINOR_VERSION	4 /**< Minor version of Trngpsv driver */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
@@ -41,8 +42,6 @@ extern "C" {
  * This function returns the TRNG crypto algorithm information.
  *
  * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
- *
- * @return	None
  *
  ******************************************************************************/
 static __attribute__((always_inline)) inline
