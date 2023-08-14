@@ -30,6 +30,11 @@ SECTIONS
    *(.boot)
 } > psu_r5_0_atcm_MEM_0
 
+.resource_table _rsc_table : {
+. = ALIGN(4);
+*(.resource_table)
+} > psu_ddr_0
+
 .text : {
    *(.text)
    *(.text.*)
@@ -244,10 +249,6 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
 
 /* Generate Stack and Heap definitions */
 
-.resource_table 0x3ed20000 : {
-. = ALIGN(4);
-*(.resource_table)
-} > psu_ddr_0
 
 .heap (NOLOAD) : {
    . = ALIGN(16);

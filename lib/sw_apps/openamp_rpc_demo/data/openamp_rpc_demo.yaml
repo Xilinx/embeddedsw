@@ -9,12 +9,13 @@ type: apps
 supported_processors:
   - psu_cortexr5
   - psv_cortexr5
+  - psx_cortexr52
 
 supported_os:
   - standalone
-  - freertos10_xilinx
 
 depends_libs:
+    xiltimer: {}
     libmetal: {}
     openamp:
         OPENAMP_WITH_PROXY: ON
