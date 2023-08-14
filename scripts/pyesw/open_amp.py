@@ -93,6 +93,13 @@ def openamp_app_configure_common(obj, esw_app_dir, enable_generated_header=False
     utils.copy_file(cmake_file, obj.app_src_dir)
 
     new_cmake_toolchain_file = os.path.join(obj.app_src_dir, APP_CMAKE_FILE)
+
+     # set OS for application project
+    app_os = 'FreeRTOS' if obj.os == 'freertos' else 'Generic'
+    f = open(new_cmake_toolchain_file, "a")
+    f.write('set (CMAKE_SYSTEM_NAME "' + app_os + '"             CACHE STRING "")')
+    f.close()
+
     new_cmake_toolchain_file = '-DCMAKE_TOOLCHAIN_FILE=' + new_cmake_toolchain_file
 
     toolchain_file_path = re.search(r'-DCMAKE_TOOLCHAIN_FILE=\S*', obj.cmake_paths_append).group()
@@ -186,12 +193,13 @@ def create_libmetal_app(obj, esw_app_dir):
         None
     """
 
+    app_os = obj.os if obj.os == 'freertos' else 'generic'
     common_mappings = {
         'top-CMakeLists.txt'         : ['CMakeLists.txt'],
-        'app-CMakeLists.txt'         : ['examples', 'system', 'generic', 'zynqmp_r5',
+        'app-CMakeLists.txt'         : ['examples', 'system', app_os, 'zynqmp_r5',
                                         'zynqmp_amp_demo', 'CMakeLists.txt'],
-        'app-list-CMakeLists.txt'    : ['examples', 'system' ,'generic', 'zynqmp_r5', 'CMakeLists.txt'],
-        'lscript.ld'                 : ['examples', 'system', 'generic', 'zynqmp_r5',
+        'app-list-CMakeLists.txt'    : ['examples', 'system' , app_os, 'zynqmp_r5', 'CMakeLists.txt'],
+        'lscript.ld'                 : ['examples', 'system', app_os, 'zynqmp_r5',
                                         'zynqmp_amp_demo', 'lscript.ld']
     }
 
