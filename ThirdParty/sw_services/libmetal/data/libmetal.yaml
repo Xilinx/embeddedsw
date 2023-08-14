@@ -15,13 +15,17 @@ version: 1.0
 
 supported_processors:
   - psu_cortexa53
+  - psv_cortexa72
   - psu_cortexr5
   - psv_cortexr5
+  - psx_cortexa78
+  - psx_cortexr52
 
 supported_os:
   - standalone
   - freertos10_xilinx
 
 depends:
+    xiltimer: {}
     ipipsu: []
 ...
