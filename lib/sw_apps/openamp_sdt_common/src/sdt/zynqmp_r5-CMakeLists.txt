@@ -5,7 +5,7 @@ collect (APP_COMMON_SOURCES helper.c)
 
 # If not provided, add default value for resource table
 if(NOT DEFINED ${RSC_TABLE})
-  set(RSC_TABLE 0x3ed20000 CACHE STRING "")
+  set(RSC_TABLE 0x3ed00000 CACHE STRING "")
 endif(NOT DEFINED ${RSC_TABLE})
 
 set (_linker_script "${CMAKE_CURRENT_SOURCE_DIR}/linker_remote.ld")
@@ -33,7 +33,13 @@ if(PM_FOUND)
   endif(VERSION_2_PM_CLIENT)
 endif(PM_FOUND)
 
+find_library(FIND_FREERTOS freertos)
+if (FIND_FREERTOS)
+  collect(PROJECT_LIB_DEPS freertos)
+endif()
+
 collect(PROJECT_LIB_DEPS xilstandalone)
+collect(PROJECT_LIB_DEPS xiltimer)
 collect(PROJECT_LIB_DEPS xil)
 collect(PROJECT_LIB_DEPS c)
 collect(PROJECT_LIB_DEPS m)
