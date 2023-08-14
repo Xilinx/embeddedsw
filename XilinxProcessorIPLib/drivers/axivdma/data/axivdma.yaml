@@ -123,6 +123,9 @@ examples:
         - xlnx,include-sg: 0
         - interrupts
 
+    xaxivdma_example_selftest.c:
+        - reg
+
 tapp:
     xaxivdma_example_selftest.c:
         declaration: AxiVDMASelfTestExample
