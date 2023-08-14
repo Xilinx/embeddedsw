@@ -22,6 +22,7 @@
   * 1.0   har  06/24/22 Initial release
   * 2.1   am   04/13/23 Fix PUF auxiliary convergence error
   * 2.2   am   05/03/23 Added KAT before crypto usage
+  *       mb   08/09/23 Declare variables that are passed to server in data section
   *
   *@note
   *
@@ -81,6 +82,10 @@ typedef struct{
 /* shared memory allocation */
 static u8 SharedMem[XPUF_IV_LEN_IN_BYTES + XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
 				__attribute__ ((section (".data.Data")));
+static XPuf_EncryptedData EncData __attribute__((aligned(64U))) __attribute__ ((section (".data.EncData")));
+
+static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.Iv")));
+static u8 InputData[XPUF_DME_PRIV_KEY_LEN_IN_BYTES] __attribute__ ((section (".data.InputData")));
 
 /************************** Function Prototypes ******************************/
 static int XPuf_GeneratePufKekAndId();
@@ -267,8 +272,7 @@ static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr)
 	int Status = XST_FAILURE;
 	XSecure_ClientInstance SecureClientInstance;
 	XPuf_EncryptOption EncOption;
-	XPuf_EncryptedData *EncryptedData = NULL;
-	u8 Iv[XPUF_IV_LEN_IN_BYTES];
+	XPuf_EncryptedData *EncryptedData = &EncData;
 	u8 UpdatedIv[XPUF_IV_LEN_IN_BYTES];
 
 	EncOption.EncRedKey = XPUF_ENCRYPT_RED_KEY;
@@ -457,7 +461,6 @@ END:
  ******************************************************************************/
 static int XPuf_EncryptData(XSecure_ClientInstance *SecureClientInstance, char* Data, u32 DataLen, u8* Iv, u8* OutputData)
 {
-	u8 InputData[DataLen];
 	u8 GcmTag[XPUF_GCM_TAG_SIZE];
 	int Status = XST_FAILURE;
 
