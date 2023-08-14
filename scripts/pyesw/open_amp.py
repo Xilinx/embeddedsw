@@ -21,7 +21,7 @@ APP_NAMES = {
     'openamp_rpc_demo': 'rpc_demo'
 }
 
-def open_amp_copy_lib_src(libdir, dstdir):
+def open_amp_copy_lib_src(libdir, dstdir, lib):
     """
     Copies the src directory of the passed library from the respective path
     of OpenAMP or Libmetal to the libsrc folder of bsp.
@@ -39,6 +39,10 @@ def open_amp_copy_lib_src(libdir, dstdir):
 
     top_dstdir = os.path.join(dstdir, 'CMakeLists.txt')
     utils.copy_file(top_srcdir, top_dstdir)
+
+    if lib == 'openamp':
+        new_depends_cmake = os.path.join(libdir, "src", "sdt", "depends.cmake")
+        utils.copy_file(new_depends_cmake, os.path.join(dstdir, "cmake", "depends.cmake"))
 
     lib_cmakelist = os.path.join(dstdir, 'lib')
     lib_cmakelist = os.path.join(lib_cmakelist, 'CMakeLists.txt')
