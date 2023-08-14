@@ -467,14 +467,21 @@ static int XOcp_GenSharedSecretwithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, 
 
 	if (DevAkData->IsDevAkKeyReady == TRUE) {
 		PrvtKeyAddr = (u64)(UINTPTR)DevAkData->EccPrvtKey;
-		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES * 2U,
+
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
 			(u64)(UINTPTR)PubKeyTmp, PubKeyAddr);
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+			(u64)(UINTPTR)(PubKeyTmp + XSECURE_ECC_P384_SIZE_IN_BYTES),
+			PubKeyAddr + XSECURE_ECC_P384_SIZE_IN_BYTES);
 
 		Status = XSecure_EcdhGetSecret(XSECURE_ECC_NIST_P384, PrvtKeyAddr,
 			(u64)(UINTPTR)PubKeyTmp, (u64)(UINTPTR)SharedSecretTmp);
 
-		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES * 2U, SharedSecretAddr,
-		(u64)(UINTPTR)SharedSecretTmp);
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+			SharedSecretAddr, (u64)(UINTPTR)SharedSecretTmp);
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+			SharedSecretAddr + XSECURE_ECC_P384_SIZE_IN_BYTES,
+			(u64)(UINTPTR)(SharedSecretTmp + XSECURE_ECC_P384_SIZE_IN_BYTES));
 	}
 	else {
 		Status = XOCP_ERR_DEVAK_NOT_READY;
