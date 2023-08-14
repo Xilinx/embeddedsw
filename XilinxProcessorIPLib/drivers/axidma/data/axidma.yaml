@@ -98,7 +98,7 @@ examples:
                 - xlnx,include-sg: 1
 
         xaxidma_example_selftest.c:
-                - xlnx,include-sg: 0
+                - reg
 
 tapp:
     xaxidma_example_selftest.c:
