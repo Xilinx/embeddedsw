@@ -1,6 +1,5 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +18,6 @@
 * 1.00a ecm	01/10/10 Initial release
 * 2.00a mb	30/05/12 added the flag XPAR_PS7_NAND_0_BASEADDR
 * 10.00a kc 08/04/14 Fix for CR#809336 - Removed smc.h
-* 21.2  ng  07/25/23 Add SDT support
 * </pre>
 *
 * @note
@@ -36,7 +34,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 
-#if defined(XPAR_PS7_NAND_0_BASEADDR) || defined(XPAR_XNANDPS_0_FLASHBASE)
+#ifdef XPAR_PS7_NAND_0_BASEADDR
 
 #include "xnandps.h"
 #include "xnandps_bbm.h"
