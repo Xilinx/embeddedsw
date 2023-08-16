@@ -50,12 +50,4 @@ examples:
         - reg
     xuartlite_selftest_example.c:
         - reg
-
-tapp:
-   xuartlite_selftest_example.c:
-        declaration: UartLiteSelfTestExample
-   xuartlite_intr_tapp_example.c:
-        declaration: UartLiteIntrExample
-        hwproperties:
-            - interrupts
 ...
