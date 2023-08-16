@@ -44,7 +44,7 @@
 #endif
 #include "xil_cache.h"
 #include <stdio.h>
-#ifndef SDT
+#ifdef SDT
 #include "xinterrupt_wrap.h"
 #endif
 
