@@ -16,10 +16,8 @@ depends_libs:
     xiltimer: {}
 
 depends:
-    axi_quad_spi:
-        - reg
-    axi_spi:
-        - reg
+        spi:
+                - reg
 
 supported_processors:
   - microblaze
