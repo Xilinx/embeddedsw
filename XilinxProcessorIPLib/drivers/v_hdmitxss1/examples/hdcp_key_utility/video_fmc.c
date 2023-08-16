@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,7 +47,10 @@
 #else
 #define I2C_REPEATED_START XIIC_REPEATED_START
 #define I2C_STOP XIIC_STOP
+#if defined (XPS_BOARD_VEK280)
+#else
 #define XPS_BOARD_VCU118
+#endif
 #endif
 
 #define VFMC_I2C_IDT8N49_ADDR   0x7C /**< I2C IDT 8N49N241 Address */
