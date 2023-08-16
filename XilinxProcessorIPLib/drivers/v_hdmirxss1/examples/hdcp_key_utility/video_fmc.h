@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +38,11 @@
 #define VFMC_GPIO_TX_CH4_DATASRC_SEL_MASK	0x00000004
 
 #define VFMC_GPIO_RX_CH4_DATASRC_SEL_MASK	0x00040000
+
+#if defined (XPS_BOARD_VEK280_ES) || \
+	defined (XPS_BOARD_VEK280_ES_REVB)
+#define XPS_BOARD_VEK280
+#endif
 
 typedef enum {
 	VFMC_GPIO_TX_LED0 	    = 0x00000001,
