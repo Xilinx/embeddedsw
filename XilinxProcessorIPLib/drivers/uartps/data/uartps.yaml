@@ -51,12 +51,4 @@ examples:
         - reg
     xuartps_selftest_example.c:
         - reg
-
-tapp:
-   xuartps_polled_example.c:
-        declaration: UartPsPolledExample
-   xuartps_intr_example.c:
-        declaration: UartPsIntrExample
-        hwproperties:
-            - interrupts
 ...
