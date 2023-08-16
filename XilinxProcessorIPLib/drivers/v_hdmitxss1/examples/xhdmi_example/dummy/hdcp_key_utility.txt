@@ -1,0 +1,15 @@
+BLOCK ATTRIBUTES
+----------------
+
+CONTENTS OF THIS FILE
+---------------------
+
+ * Introduction
+
+1. INTRODUCTION
+------------
+
+This example application is built to load the HDCP keys into
+the EEPROM.
+
+For details, see hdcp_key_utility.c.

@@ -1,6 +1,7 @@
 /******************************************************************************
 
-Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
+Copyright (C) 2018 - 2022 Xilinx, Inc. All rights reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +9,11 @@ SPDX-License-Identifier: MIT
 #include <string.h>
 #include "platform.h"
 #include "xparameters.h"
-#if defined(__arm__) || (__aarch64__)
+#if defined (XPS_BOARD_VEK280_ES) || \
+	defined (XPS_BOARD_VEK280_ES_REVB)
+#define XPS_BOARD_VEK280
+#endif
+#if defined(__arm__) || (__aarch64__)  && (!defined XPS_BOARD_VEK280)
 #include "xiicps.h"
 #else
 #include "xiic.h"
@@ -18,7 +23,9 @@ SPDX-License-Identifier: MIT
 #include "aes256.h"
 #include "xhdcp22_common.h"
 
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
+#if defined (XPAR_XUARTPSV_NUM_INSTANCES)
+#include "xuartpsv.h"
+#elif defined (XPAR_XUARTLITE_NUM_INSTANCES)
 #include "xuartlite_l.h"
 #else
 #include "xuartps.h"
@@ -26,10 +33,16 @@ SPDX-License-Identifier: MIT
 #include "video_fmc.h"
 
 /************************** Constant Definitions *****************************/
+#if defined (XPS_BOARD_VEK280)
+#define EEPROM_ADDRESS				0x50	 /* 0xA0 as an 8 bit number */
+#else
 #define EEPROM_ADDRESS				0x53	 /* 0xA0 as an 8 bit number */
+#endif
 #define PAGE_SIZE					16
 
-#if defined (XPAR_XUARTLITE_NUM_INSTANCES)
+#if defined (XPAR_XUARTPSV_NUM_INSTANCES )
+#define UART_BASE_ADDRESS XPAR_XUARTPSV_0_BASEADDR
+#elif defined (XPAR_XUARTLITE_NUM_INSTANCES)
 #define UART_BASE_ADDRESS XPAR_MB_SS_0_AXI_UARTLITE_BASEADDR
 #else
 #define UART_BASE_ADDRESS XPAR_XUARTPS_0_BASEADDR
@@ -43,7 +56,7 @@ SPDX-License-Identifier: MIT
 
 #define IIC_SCLK_RATE		100000
 
-#if defined(__arm__) || (__aarch64__)
+#if defined(__arm__) || (__aarch64__)  && (!defined XPS_BOARD_VEK280)
 #define I2C_REPEATED_START 0x01
 #define I2C_STOP 0x00
 #else
@@ -69,7 +82,7 @@ unsigned EepromWriteByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount
 unsigned EepromReadByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount);
 
 /************************** Variable Definitions **************************/
-#if defined(__arm__) || (__aarch64__)
+#if defined(__arm__) || (__aarch64__) && (!defined XPS_BOARD_VEK280)
 XIicPs Ps_Iic0, Iic;
 #define PS_IIC_CLK 100000
 #else
@@ -248,7 +261,7 @@ int main()
     u8 CipherBuffer[1024];
     u8 Password[32];
     u8 Key[32];
-#if defined(__arm__) || (__aarch64__)
+#if defined(__arm__) || (__aarch64__)  && (!defined XPS_BOARD_VEK280)
 	XIicPs_Config *XIic0Ps_ConfigPtr;
 	XIicPs_Config *XIic1Ps_ConfigPtr;
 #else
@@ -258,7 +271,7 @@ int main()
 
     init_platform();
 
-#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104)
+#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104) && (!defined XPS_BOARD_VEK280)
 	/* Initialize PS IIC0 */
 	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
 	if (NULL == XIic0Ps_ConfigPtr) {
@@ -293,10 +306,15 @@ int main()
 	 */
 	XIicPs_SetSClk(&Iic, PS_IIC_CLK);
 #else
+#if defined (XPS_BOARD_VEK280)
+	XIic_ConfigPtr = XIic_LookupConfig(XPAR_CIPS_SS_0_AXI_IIC_0_DEVICE_ID);
+	if (!XIic_ConfigPtr)
+		return XST_FAILURE;
+#else
 	XIic_ConfigPtr = XIic_LookupConfig(XPAR_MB_SS_0_FMCH_AXI_IIC_DEVICE_ID);
 	if (!XIic_ConfigPtr)
 		return XST_FAILURE;
-
+#endif
 	Status = XIic_CfgInitialize(&Iic, XIic_ConfigPtr, XIic_ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
@@ -432,7 +450,7 @@ int main()
 static unsigned XHdcp_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 							unsigned ByteCount, u8 Option)
 {
-#if defined(__arm__) || (__aarch64__)
+#if defined(__arm__) || (__aarch64__)  && (!defined XPS_BOARD_VEK280)
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
@@ -494,7 +512,7 @@ static unsigned XHdcp_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 static unsigned XHdcp_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
 							unsigned ByteCount, u8 Option)
 {
-#if defined(__arm__) || (__aarch64__)
+#if defined(__arm__) || (__aarch64__)  && (!defined XPS_BOARD_VEK280)
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
@@ -545,7 +563,11 @@ u8 EnterPassword (u8 *Password)
 	i = 0;
 	while (1) {
 		/* Check if the UART has any data */
-
+#if defined (XPS_BOARD_VEK280)
+		if (XUartPsv_IsReceiveData(UART_BASE_ADDRESS)) {
+			Data = XUartPsv_RecvByte(UART_BASE_ADDRESS);
+			XUartPsv_SendByte(UART_BASE_ADDRESS, '.');
+#else
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
 		if (!XUartLite_IsReceiveEmpty(UART_BASE_ADDRESS)) {
 			/* Read data from uart */
@@ -560,6 +582,7 @@ u8 EnterPassword (u8 *Password)
 
 			/* Send response to user */
 			XUartPs_SendByte(UART_BASE_ADDRESS, '.');
+#endif
 #endif
 
 			/* Execute */
@@ -775,7 +798,7 @@ u16 Verify (void *IicPtr, u16 Address, u8 *BufferPtr, u16 Length, u8 *Key, u8 En
 ****************************************************************************/
 unsigned EepromWriteByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount)
 {
-#if !(defined(__arm__) || (__aarch64__))
+#if !(defined(__arm__) || (__aarch64__)) || (defined XPS_BOARD_VEK280)
 	XIic *Iic_Ptr = IicPtr;
 #endif
 	volatile unsigned SentByteCount;
@@ -811,7 +834,7 @@ unsigned EepromWriteByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount
 								I2C_STOP);
 		if (SentByteCount != sizeof(Address)) {
 
-#if defined(__arm__) || (__aarch64__)
+#if defined(__arm__) || (__aarch64__)  && (!defined XPS_BOARD_VEK280)
 				XIicPs_Abort(IicPtr);
 #else
 				/* Send is aborted so reset Tx FIFO */
@@ -843,7 +866,7 @@ unsigned EepromWriteByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount
 								I2C_STOP);
 		if (AckByteCount != sizeof(Address)) {
 
-#if defined(__arm__) || (__aarch64__)
+#if defined(__arm__) || (__aarch64__)  && (!defined XPS_BOARD_VEK280)
 				XIicPs_Abort(IicPtr);
 #else
 				/* Send is aborted so reset Tx FIFO */
@@ -884,7 +907,7 @@ unsigned EepromWriteByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount
 ****************************************************************************/
 unsigned EepromReadByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount)
 {
-#if !(defined(__arm__) || (__aarch64__))
+#if !(defined(__arm__) || (__aarch64__)) || (defined XPS_BOARD_VEK280)
 	XIic *Iic_Ptr = IicPtr;
 #endif
 
@@ -902,7 +925,7 @@ unsigned EepromReadByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount)
 	 * will not ack until that write is complete.
 	 */
 	do {
-#if defined(__arm__) || (__aarch64__)
+#if defined(__arm__) || (__aarch64__)  && (!defined XPS_BOARD_VEK280)
 		if(!(XIicPs_BusIsBusy(IicPtr))) {
 #else
 		StatusReg = XIic_ReadReg(Iic_Ptr->BaseAddress, XIIC_SR_REG_OFFSET);
@@ -914,7 +937,7 @@ unsigned EepromReadByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount)
 
 			if (ReceivedByteCount != sizeof(Address)) {
 
-#if defined(__arm__) || (__aarch64__)
+#if defined(__arm__) || (__aarch64__)  && (!defined XPS_BOARD_VEK280)
 				XIicPs_Abort(IicPtr);
 #else
 				/* Send is aborted so reset Tx FIFO */
