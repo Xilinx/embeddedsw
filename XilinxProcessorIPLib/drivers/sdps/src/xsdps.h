@@ -162,6 +162,7 @@
 * 4.1	sa     12/19/22 Enable eMMC HS400 mode for Versal Net.
 * 	sa     01/25/23	Use instance structure to store DMA descriptor tables.
 * 4.2   ro     06/12/23 Added support for system device-tree flow.
+* 4.2   ap     08/09/23 Reordered XSdPs_FrameCmd XSdPs_Identify_UhsMode functions
 *
 * </pre>
 *

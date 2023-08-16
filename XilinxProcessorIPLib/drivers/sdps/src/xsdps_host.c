@@ -39,6 +39,7 @@
 * 	sa     01/04/23	Update register bit polling logic to use Xil_WaitForEvent/
 * 			Xil_WaitForEvents API.
 * 	sa     01/25/23 Use instance structure to store DMA descriptor tables.
+* 4.2   ap     08/09/23 Restructured XSdPs_FrameCmd API
 * </pre>
 *
 ******************************************************************************/
@@ -62,6 +63,104 @@ void XSdps_Smc(XSdPs *InstancePtr, u32 RegOffset, u32 Mask, u32 Val)
 			(u64)Val, 0, 0, 0, 0, 0);
 }
 #endif
+
+/*****************************************************************************/
+/**
+* @brief
+* This function set the tap delay for SDR104 uhs mode.
+*
+* @param        InstancePtr is a pointer to the instance to be worked on.
+*
+* @return       None
+*
+*******************************************************************************/
+void XSdPs_SetTapDelay_SDR104(XSdPs *InstancePtr)
+{
+	if (InstancePtr->Config.OTapDly_SDR_Clk200) {
+		InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk200;
+	} else if (InstancePtr->Config.BankNumber == 2U) {
+		InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B2;
+	} else {
+		InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B0;
+	}
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function set the tap delay for SDR50 uhs mode.
+*
+* @param        InstancePtr is a pointer to the instance to be worked on.
+*
+* @return       None
+*
+*******************************************************************************/
+void XSdPs_SetTapDelay_SDR50(XSdPs *InstancePtr)
+{
+	if (InstancePtr->Config.OTapDly_SDR_Clk100) {
+		InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk100;
+	} else {
+		InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD50;
+	}
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function set the tap delay for DDR50 uhs mode.
+*
+* @param        InstancePtr is a pointer to the instance to be worked on.
+*
+* @return       None
+*
+*******************************************************************************/
+void XSdPs_SetTapDelay_DDR50(XSdPs *InstancePtr)
+{
+	if (InstancePtr->Config.OTapDly_DDR_Clk50 &&
+		InstancePtr->Config.ITapDly_DDR_Clk50) {
+		InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_DDR_Clk50;
+		InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_DDR_Clk50;
+		if ((InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) &&
+			(InstancePtr->ITapDelay == SD_ITAPDLYSEL_SD_DDR50)) {
+			InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_DDR50;
+		}
+	} else if (InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) {
+		InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_DDR50;
+		InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_DDR50;
+	} else {
+		InstancePtr->ITapDelay = SD_ITAPDLYSEL_SD_DDR50;
+		InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_DDR50;
+	}
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function set the tap delay for SDR25 uhs mode.
+*
+* @param        InstancePtr is a pointer to the instance to be worked on.
+*
+* @return       None
+*
+*******************************************************************************/
+void XSdPs_SetTapDelay_SDR25(XSdPs *InstancePtr)
+{
+	if (InstancePtr->Config.OTapDly_SDR_Clk50 &&
+		InstancePtr->Config.ITapDly_SDR_Clk50) {
+		InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk50;
+		InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_SDR_Clk50;
+		if ((InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) &&
+			(InstancePtr->ITapDelay == SD_ITAPDLYSEL_HSD)) {
+			InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_SDR25;
+		}
+	} else if (InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) {
+		InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_SDR25;
+		InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_HSD;
+	} else {
+		InstancePtr->ITapDelay = SD_ITAPDLYSEL_HSD;
+		InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_HSD;
+	}
+}
 
 /*****************************************************************************/
 /**
@@ -1630,12 +1729,15 @@ u32 XSdPs_FrameCmd(XSdPs *InstancePtr, u32 Cmd)
 
 	switch(Cmd) {
 	case CMD0:
+	case CMD4:
 		RetVal |= RESP_NONE;
 		break;
 	case CMD1:
+	case ACMD41:
 		RetVal |= RESP_R3;
 		break;
 	case CMD2:
+	case CMD9:
 		RetVal |= RESP_R2;
 		break;
 	case CMD3:
@@ -1645,10 +1747,8 @@ u32 XSdPs_FrameCmd(XSdPs *InstancePtr, u32 Cmd)
 			RetVal |= RESP_R1;
 		}
 		break;
-	case CMD4:
-		RetVal |= RESP_NONE;
-		break;
 	case CMD5:
+	case CMD38:
 		RetVal |= RESP_R1B;
 		break;
 	case CMD6:
@@ -1659,9 +1759,18 @@ u32 XSdPs_FrameCmd(XSdPs *InstancePtr, u32 Cmd)
 		}
 		break;
 	case ACMD6:
-		RetVal |= RESP_R1;
-		break;
 	case CMD7:
+	case CMD10:
+	case CMD11:
+	case CMD12:
+	case CMD16:
+	case CMD32:
+	case CMD33:
+	case CMD35:
+	case CMD36:
+	case ACMD42:
+	case CMD52:
+	case CMD55:
 		RetVal |= RESP_R1;
 		break;
 	case CMD8:
@@ -1671,53 +1780,17 @@ u32 XSdPs_FrameCmd(XSdPs *InstancePtr, u32 Cmd)
 			RetVal |= RESP_R1 | (u32)XSDPS_DAT_PRESENT_SEL_MASK;
 		}
 		break;
-	case CMD9:
-		RetVal |= RESP_R2;
-		break;
-	case CMD11:
-	case CMD10:
-	case CMD12:
-		RetVal |= RESP_R1;
-		break;
 	case ACMD13:
-		RetVal |= RESP_R1 | (u32)XSDPS_DAT_PRESENT_SEL_MASK;
-		break;
-	case CMD16:
-		RetVal |= RESP_R1;
-		break;
 	case CMD17:
 	case CMD18:
 	case CMD19:
 	case CMD21:
-		RetVal |= RESP_R1 | (u32)XSDPS_DAT_PRESENT_SEL_MASK;
-		break;
 	case CMD23:
 	case ACMD23:
 	case CMD24:
 	case CMD25:
-		RetVal |= RESP_R1 | (u32)XSDPS_DAT_PRESENT_SEL_MASK;
-		break;
-	case CMD32:
-	case CMD33:
-	case CMD35:
-	case CMD36:
-		RetVal |= RESP_R1;
-		break;
-	case CMD38:
-		RetVal |= RESP_R1B;
-		break;
-	case ACMD41:
-		RetVal |= RESP_R3;
-		break;
-	case ACMD42:
-		RetVal |= RESP_R1;
-		break;
 	case ACMD51:
 		RetVal |= RESP_R1 | (u32)XSDPS_DAT_PRESENT_SEL_MASK;
-		break;
-	case CMD52:
-	case CMD55:
-		RetVal |= RESP_R1;
 		break;
 	case CMD58:
 		break;

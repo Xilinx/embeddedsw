@@ -38,6 +38,7 @@
 * 	sa     01/04/23 Update register bit polling logic to use Xil_WaitForEvent/
 * 			Xil_WaitForEvents API.
 * 	sa     01/25/23 Use instance structure to store DMA descriptor tables.
+* 4.2   ap     08/09/23 reordered function XSdPs_Identify_UhsMode.
 * </pre>
 *
 ******************************************************************************/
@@ -953,57 +954,19 @@ void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
 	if (((ReadBuff[13] & UHS_SDR104_SUPPORT) != 0U) &&
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_INPUT_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR104;
-		if (InstancePtr->Config.OTapDly_SDR_Clk200) {
-			InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk200;
-		} else if (InstancePtr->Config.BankNumber == 2U) {
-			InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B2;
-		} else {
-			InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B0;
-		}
+		XSdPs_SetTapDelay_SDR104(InstancePtr);
 	} else if (((ReadBuff[13] & UHS_SDR50_SUPPORT) != 0U) &&
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_SDR50_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR50;
-		if (InstancePtr->Config.OTapDly_SDR_Clk100) {
-			InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk100;
-		} else {
-			InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD50;
-		}
+		XSdPs_SetTapDelay_SDR50(InstancePtr);
 	} else if (((ReadBuff[13] & UHS_DDR50_SUPPORT) != 0U) &&
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_DDR50_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_DDR50;
-		if (InstancePtr->Config.OTapDly_DDR_Clk50 &&
-			InstancePtr->Config.ITapDly_DDR_Clk50) {
-			InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_DDR_Clk50;
-			InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_DDR_Clk50;
-			if ((InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) &&
-				(InstancePtr->ITapDelay == SD_ITAPDLYSEL_SD_DDR50)) {
-				InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_DDR50;
-			}
-		} else if (InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) {
-			InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_DDR50;
-			InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_DDR50;
-		} else {
-			InstancePtr->ITapDelay = SD_ITAPDLYSEL_SD_DDR50;
-			InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_DDR50;
-		}
+		XSdPs_SetTapDelay_DDR50(InstancePtr);
 	} else if (((ReadBuff[13] & UHS_SDR25_SUPPORT) != 0U) &&
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_SDR25_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR25;
-		if (InstancePtr->Config.OTapDly_SDR_Clk50 &&
-			InstancePtr->Config.ITapDly_SDR_Clk50) {
-			InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk50;
-			InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_SDR_Clk50;
-			if ((InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) &&
-				(InstancePtr->ITapDelay == SD_ITAPDLYSEL_HSD)) {
-				InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_SDR25;
-			}
-		} else if (InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) {
-			InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_SDR25;
-			InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_HSD;
-		} else {
-			InstancePtr->ITapDelay = SD_ITAPDLYSEL_HSD;
-			InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_HSD;
-		}
+		XSdPs_SetTapDelay_SDR25(InstancePtr);
 	} else {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR12;
 	}

@@ -27,6 +27,7 @@
 *       mn     11/28/21 Fix MISRA-C violations.
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
 * 4.1   sa     01/06/23 Include xil_util.h in this file.
+* 4.2   ap     08/09/23 Add XSdPs_SetTapDelay APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -110,6 +111,10 @@ void XSdPs_ConfigInterrupt(XSdPs *InstancePtr);
 s32 XSdPs_SendErase(XSdPs *InstancePtr);
 s32 XSdPs_SetEndAddr(XSdPs *InstancePtr, u32 EndAddr);
 s32 XSdPs_SetStartAddr(XSdPs *InstancePtr, u32 StartAddr);
+void XSdPs_SetTapDelay_SDR104(XSdPs *InstancePtr);
+void XSdPs_SetTapDelay_SDR50(XSdPs *InstancePtr);
+void XSdPs_SetTapDelay_DDR50(XSdPs *InstancePtr);
+void XSdPs_SetTapDelay_SDR25(XSdPs *InstancePtr);
 #ifdef VERSAL_NET
 u32 XSdPs_Select_HS400(XSdPs *InstancePtr);
 #endif
