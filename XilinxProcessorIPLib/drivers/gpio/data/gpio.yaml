@@ -43,4 +43,19 @@ examples:
   xgpio_tapp_example.c:
     - reg
 
+tapp:
+   xgpio_example.c:
+        hwproperties:
+            - reg
+   xgpio_intr_tapp_example.c:
+        declaration: GpioIntrExample
+        hwproperties:
+            - interrupts
+   xgpio_low_level_example.c:
+        hwproperties:
+            - reg
+   xgpio_tapp_example.c:
+        declaration: GpioOutputExample
+        hwproperties:
+            - reg
 ...
