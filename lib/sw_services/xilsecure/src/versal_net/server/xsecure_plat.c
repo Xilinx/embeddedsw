@@ -19,6 +19,7 @@
 * 5.0   bm      07/06/22 Initial release
 * 5.2   yog     07/10/23 Added support of unaligned data sizes for Versal Net
 *       kpt     07/09/23 Added XSecure_GetRandomNum function
+*       yog     08/07/23 Moved functions from xsecure_trng.c to xsecure_plat.c
 *
 * </pre>
 *
@@ -28,11 +29,8 @@
 #include "xsecure_sha_hw.h"
 #include "xsecure_sss.h"
 #include "xsecure_sha.h"
-#include "xsecure_trng.h"
 #include "xsecure_plat_kat.h"
-#ifdef VERSALNET_PLM
-#include "xplmi_plat.h"
-#endif
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -563,15 +561,15 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	volatile int Status = XST_FAILURE;
 	u8 *RandBufPtr = Output;
 	u32 TotalSize = Size;
-	u32 RandBufSize = XSECURE_TRNG_SEC_STRENGTH_IN_BYTES;
+	u32 RandBufSize = XTRNGPSX_SEC_STRENGTH_IN_BYTES;
 	u32 Index = 0U;
-	u32 NoOfGenerates = (Size + XSECURE_TRNG_SEC_STRENGTH_IN_BYTES - 1U) >> 5U;
-	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+	u32 NoOfGenerates = (Size + XTRNGPSX_SEC_STRENGTH_IN_BYTES - 1U) >> 5U;
+	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
 
-	if ((TrngInstance->UserCfg.Mode != XSECURE_TRNG_HRNG_MODE) ||
-		(TrngInstance->State == XSECURE_TRNG_UNINITIALIZED_STATE)) {
-			if (TrngInstance->ErrorState != XSECURE_TRNG_HEALTHY) {
-				Status = XSecure_TrngPreOperationalSelfTests(TrngInstance);
+	if ((TrngInstance->UserCfg.Mode != XTRNGPSX_HRNG_MODE) ||
+		(TrngInstance->State == XTRNGPSX_UNINITIALIZED_STATE )) {
+			if (TrngInstance->ErrorState != XTRNGPSX_HEALTHY) {
+				Status = XTrngpsx_PreOperationalSelfTests(TrngInstance);
 				if (Status != XST_SUCCESS) {
 					goto END;
 				}
@@ -586,14 +584,107 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 		if (Index == (NoOfGenerates - 1U)) {
 			RandBufSize = TotalSize;
 		}
-		Status = XSecure_TrngGenerate(TrngInstance, RandBufPtr, RandBufSize);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+
+		XSECURE_TEMPORAL_CHECK(END, Status, XTrngpsx_Generate, TrngInstance,
+					RandBufPtr, RandBufSize, FALSE);
 		RandBufPtr += RandBufSize;
 		TotalSize -= RandBufSize;
 	}
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the trng in HRNG mode if it is not initialized
+ *          and it is applicable only for VersalNet
+ *
+ * @return
+ *		- XST_SUCCESS On Successful initialization
+ *      - XST_FAILURE On Failure
+ *
+ *****************************************************************************/
+int XSecure_ECCRandInit(void)
+{
+	int Status = XST_FAILURE;
+	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
+
+	if ((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK) != TRUE) ||
+		(TrngInstance->ErrorState != XTRNGPSX_HEALTHY)) {
+		Status = XTrngpsx_PreOperationalSelfTests(TrngInstance);
+		if (Status != XST_SUCCESS) {
+			XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
+			goto END;
+		}
+		else {
+			XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
+		}
+	}
+	if ((TrngInstance->UserCfg.Mode != XTRNGPSX_HRNG_MODE) ||
+		(TrngInstance->State == XTRNGPSX_UNINITIALIZED_STATE )) {
+		Status = XSecure_TrngInitNCfgHrngMode();
+		if(Status != XST_SUCCESS)
+		{
+			goto END;
+		}
+	}
+	Status = XST_SUCCESS;
+END:
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initialize and configures the TRNG into HRNG mode of operation.
+ *
+ * @return
+ *			- XST_SUCCESS upon success.
+ *			- Error code on failure.
+ *
+ *****************************************************************************/
+int XSecure_TrngInitNCfgHrngMode(void)
+{
+	int Status = XST_FAILURE;
+	XTrngpsx_UserConfig UsrCfg;
+	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
+
+	if (TrngInstance->State != XTRNGPSX_UNINITIALIZED_STATE ) {
+		Status = XTrngpsx_Uninstantiate(TrngInstance);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
+	}
+	/* Initiate TRNG */
+	UsrCfg.Mode = XTRNGPSX_HRNG_MODE;
+	UsrCfg.AdaptPropTestCutoff = XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF;
+	UsrCfg.RepCountTestCutoff = XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF;
+	UsrCfg.DFLength = XSECURE_TRNG_USER_CFG_DF_LENGTH ;
+	UsrCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE ;
+	Status = XTrngpsx_Instantiate(TrngInstance, NULL, 0U, NULL, &UsrCfg);
+	if (Status != XST_SUCCESS) {
+		(void)XTrngpsx_Uninstantiate(TrngInstance);
+		XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
+		goto END;
+	}
+	XSecure_UpdateTrngCryptoStatus(XSECURE_SET_BIT);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides the pointer to the common trng instance
+ *
+ * @return	Pointer to the XSecure_TrngInstance instance
+ *
+ *****************************************************************************/
+XTrngpsx_Instance *XSecure_GetTrngInstance(void)
+{
+	static XTrngpsx_Instance TrngInstance = {0U};
+
+	return &TrngInstance;
 }

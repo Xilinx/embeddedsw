@@ -21,6 +21,7 @@
 *                     XOcp_GenerateDmeResponse().
 * 1.2   kpt  06/02/23 Fixed circular buffer issues during HWPCR logging
 *       kal  06/02/23 Added SW PCR extend and logging functions
+*       yog  08/07/23 Replaced trng API calls using trngpsx driver
 *
 * </pre>
 * @note
@@ -657,7 +658,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	XOcp_DmeResponse *DmeResPtr = (XOcp_DmeResponse *)(UINTPTR)DmeStructResAddr;
 	XOcp_Dme Dme;
 	XOcp_Dme *DmePtr = &Dme;
-	XSecure_TrngInstance *TrngInstance = NULL;
+	XTrngpsx_Instance *TrngInstance = NULL;
 
 	/* Zeorizing the DME structure */
 	Status = Xil_SMemSet((void *)DmePtr,
@@ -758,13 +759,14 @@ RET:
 	 * so that PLM can re-initialize during runtime requests.
 	 */
 	TrngInstance = XSecure_GetTrngInstance();
-	if (TrngInstance->State != XSECURE_TRNG_UNINITIALIZED_STATE){
-		SStatus = XSecure_TrngUninstantiate(TrngInstance);
+	if (TrngInstance->State != XTRNGPSX_UNINITIALIZED_STATE){
+		SStatus = XTrngpsx_Uninstantiate(TrngInstance);
 		if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 			if(SStatus != XST_SUCCESS) {
 				Status = SStatus | XOCP_DME_ERR;
 			}
 		}
+		XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
 	}
 
 	return Status;

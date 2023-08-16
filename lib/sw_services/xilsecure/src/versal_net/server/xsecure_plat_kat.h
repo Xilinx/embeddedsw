@@ -39,7 +39,6 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xsecure_kat.h"
-#include "xsecure_trng.h"
 #include "xsecure_plat_rsa.h"
 
 /************************** Constant Definitions *****************************/
@@ -48,8 +47,6 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XSecure_HmacKat(XSecure_Sha3 *SecureSha3);
-int XSecure_TrngDRBGKat(XSecure_TrngInstance *InstancePtr);
-int XSecure_TrngPreOperationalSelfTests(XSecure_TrngInstance *InstancePtr);
 int XSecure_Sha384Kat(void);
 #ifndef PLM_RSA_EXCLUDE
 int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype);

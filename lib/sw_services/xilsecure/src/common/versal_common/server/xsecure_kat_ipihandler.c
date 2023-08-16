@@ -23,7 +23,8 @@
 * 1.02  ng   05/10/2023 Removed XSecure_PerformKatOperation and implemented
 *                       redundant call for XPlmi_ClearKatMask
 * 5.2   ng   07/13/2023 Added SDT support
-*
+*       yog  08/07/2023 Removed trng init call in XSecure_EllipticSignGenKat API
+*                       since trng is being initialised in server API's
 * </pre>
 *
 * @note
@@ -298,18 +299,8 @@ static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass)
 {
 	volatile int Status = XST_FAILURE;
 
-   /*
-	* Initialize TRNG if it is not initialized as VersalNet ECC library internally
-	* uses TRNG API to generate random mask.
-	*/
-	Status = XSecure_TrngInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	Status = XSecure_EllipticSignGenerateKat((XSecure_EllipticCrvClass)CurveClass);
 
-END:
 	/* Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK);

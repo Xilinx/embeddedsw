@@ -23,6 +23,8 @@
 * 5.0  kpt   07/24/2022 Moved XSecure_EllipticExecuteKat in to xsecure_kat_plat_ipihandler.c
 * 5.1  yog   05/03/2023 Fixed MISRA C violation of Rule 10.3
 * 5.2  yog   06/07/2023 Added support for P-256 Curve
+*      yog   08/07/2023 Removed trng init call in XSecure_EllipticIpiHandler API
+*                       since trng is being initialised in server API's
 *
 * </pre>
 *
@@ -75,15 +77,6 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
-	/*
-	 * For VersalNet, To generate random mask, ECC library internally uses TRNG hardware.
-	 * if TNRG hardware is not initialized then XSecure_TrngInit API initializes it to HRNG mode
-	 */
-	Status = XSecure_TrngInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):
 		Status = XSecure_EllipticGenKey(Pload[0], Pload[1], Pload[2],
@@ -106,7 +99,6 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	}
 
-END:
 	return Status;
 }
 

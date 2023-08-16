@@ -23,6 +23,7 @@
 *       dc   09/04/22 set TRNG to HRNG mode after Private key ECC mod order
 * 5.1   har  01/06/23 Add support to generate ephemeral key
 * 5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
+*       yog  08/07/23 Replaced trng API calls using trngpsx driver
 *
 * </pre>
 *
@@ -76,8 +77,8 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 {
 	volatile int Status = XSECURE_ECC_PRVT_KEY_GEN_ERR;
 	volatile int ClearStatus = XST_FAILURE;
-	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
-	XSecure_TrngUserConfig TrngUserCfg;
+	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
+	XTrngpsx_UserConfig TrngUserCfg;
 	/* The random ephimeral/Private key should be between 1 to ecc order
 	 * of the curve. EK can be obtained by using mod operation over
 	 * 384-bits random number. However to reduce bias associated with mod
@@ -102,38 +103,38 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 		goto RET;
 	}
 
-	Status = Xil_SMemSet(&TrngUserCfg, sizeof(XSecure_TrngUserConfig), 0U,
-					sizeof(XSecure_TrngUserConfig));
+	Status = Xil_SMemSet(&TrngUserCfg, sizeof(XTrngpsx_UserConfig), 0U,
+					sizeof(XTrngpsx_UserConfig));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if (TrngInstance->State != XSECURE_TRNG_UNINITIALIZED_STATE) {
-		Status = XSecure_TrngUninstantiate(TrngInstance);
+	if (TrngInstance->State != XTRNGPSX_UNINITIALIZED_STATE) {
+		Status = XTrngpsx_Uninstantiate(TrngInstance);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 
-	TrngUserCfg.Mode = XSECURE_TRNG_DRNG_MODE;
+	TrngUserCfg.Mode = XTRNGPSX_DRNG_MODE;
 	TrngUserCfg.DFLength = XSECURE_ECC_TRNG_DF_LENGTH;
-	TrngUserCfg.SeedLife = XSECURE_TRNG_DEFAULT_SEED_LIFE;
-	Status = XSecure_TrngInstantiate(TrngInstance,
+	TrngUserCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE;
+	Status = XTrngpsx_Instantiate(TrngInstance,
 			(u8 *)(UINTPTR)PrivateKey->SeedAddr, PrivateKey->SeedLength,
 			(u8 *)(UINTPTR)PrivateKey->PerStringAddr, &TrngUserCfg);
 	if (Status  != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_TrngGenerate(TrngInstance, RandBuf,
-			XSECURE_TRNG_SEC_STRENGTH_IN_BYTES);
+	Status = XTrngpsx_Generate(TrngInstance, RandBuf,
+			XTRNGPSX_SEC_STRENGTH_IN_BYTES, FALSE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XSecure_TrngGenerate(TrngInstance,
-			RandBuf + XSECURE_TRNG_SEC_STRENGTH_IN_BYTES,
+	Status = XTrngpsx_Generate(TrngInstance,
+			RandBuf + XTRNGPSX_SEC_STRENGTH_IN_BYTES,
 			XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN -
-			XSECURE_TRNG_SEC_STRENGTH_IN_BYTES);
+			XTRNGPSX_SEC_STRENGTH_IN_BYTES, FALSE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -156,15 +157,11 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	XSecure_GetData(XSECURE_ECC_P384_SIZE_IN_BYTES, (u8*)PrvtKey, PrivateKey->KeyOutPutAddr);
 
 END:
-	ClearStatus = XSecure_TrngUninstantiate(TrngInstance);
-	ClearStatus |= XSecure_TrngInitNCfgHrngMode();
-	if (Status == XST_SUCCESS) {
-		Status = ClearStatus;
-	}
-
+	ClearStatus = XTrngpsx_Uninstantiate(TrngInstance);
+	XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
 	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
 				XSECURE_ECDSA_RSA_RESET_OFFSET);
-	ClearStatus = Xil_SMemSet((void *)RandBuf,
+	ClearStatus |= Xil_SMemSet((void *)RandBuf,
 				 XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN,
 				0U, XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN);
 	if (Status == XST_SUCCESS) {
@@ -194,8 +191,6 @@ int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 {
 	volatile int Status = XSECURE_ECC_PRVT_KEY_GEN_ERR;
 	volatile int ClearStatus = XST_FAILURE;
-	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
-	XSecure_TrngUserConfig TrngUserCfg;
 
 	u8 RandBuf[XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN] = {0x00};
 	u32 EphimeralKey[XSECURE_ECC_P384_SIZE_IN_BYTES];
@@ -206,25 +201,7 @@ int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 		goto RET;
 	}
 
-	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemSet, &TrngUserCfg, sizeof(XSecure_TrngUserConfig), 0U,
-		sizeof(XSecure_TrngUserConfig));
-
-	if (TrngInstance->State != XSECURE_TRNG_UNINITIALIZED_STATE) {
-		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngUninstantiate, TrngInstance);
-	}
-
-	TrngUserCfg.Mode = XSECURE_TRNG_HRNG_MODE;
-	TrngUserCfg.AdaptPropTestCutoff = XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF;
-	TrngUserCfg.RepCountTestCutoff = XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF;
-	TrngUserCfg.DFLength = XSECURE_TRNG_USER_CFG_DF_LENGTH;
-	TrngUserCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE;
-
-	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngInstantiate, TrngInstance, NULL, 0U, NULL, &TrngUserCfg);
-
-	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngGenerate, TrngInstance, RandBuf, XSECURE_TRNG_SEC_STRENGTH_IN_BYTES);
-
-	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngGenerate, TrngInstance, RandBuf + XSECURE_TRNG_SEC_STRENGTH_IN_BYTES,
-		XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN - XSECURE_TRNG_SEC_STRENGTH_IN_BYTES);
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_GetRandomNum, RandBuf, XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN);
 
 	/* Take ECDSA core out if reset */
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
@@ -278,13 +255,6 @@ int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
 	if ((CrvType == XSECURE_ECC_NIST_P521) ||
 			(HashLen != XSECURE_ECC_P384_SIZE_IN_BYTES)) {
 		Status = XSECURE_ELLIPTIC_INVALID_PARAM;
-		goto END;
-	}
-	/**
-	 * Initialize TRNG to generate Ephemeral Key
-	 */
-	Status = XSecure_TrngInitNCfgHrngMode();
-	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -378,7 +348,7 @@ int XSecure_EcdhGetSecret(XSecure_EllipticCrvTyp CrvType, u64 PrvtKeyAddr, u64 P
 		OffSet = Size;
 	}
 
-	Status = XSecure_TrngInit();
+	Status = XSecure_ECCRandInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

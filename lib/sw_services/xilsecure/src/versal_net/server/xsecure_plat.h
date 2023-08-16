@@ -41,6 +41,8 @@ extern "C" {
 #include "xpmcdma.h"
 #include "xsecure_aes_core_hw.h"
 #include "xsecure_error.h"
+#include "xtrngpsx.h"
+#include "xsecure_trng.h"
 
 /************************** Constant Definitions ****************************/
 #define XSECURE_SSS_MAX_SRCS	(8U)	/**< Maximum resources */
@@ -59,6 +61,22 @@ extern "C" {
 #define XSECURE_DISABLE_BYTE_SWAP	(0x0U)  /**< Disables data swap in AES */
 
 #define XSECURE_AES_ECB_OFFSET		  (0x20U) /**< AES ECB offset */
+
+#if !defined(XSECURE_TRNG_USER_CFG_SEED_LIFE)
+#define XSECURE_TRNG_USER_CFG_SEED_LIFE XTRNGPSX_USER_CFG_SEED_LIFE
+#endif
+
+#if !defined(XSECURE_TRNG_USER_CFG_DF_LENGTH)
+#define XSECURE_TRNG_USER_CFG_DF_LENGTH XTRNGPSX_USER_CFG_DF_LENGTH
+#endif
+
+#if !defined(XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF)
+#define XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF
+#endif
+
+#if !defined(XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF)
+#define XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF XTRNGPSX_USER_CFG_REP_TEST_CUTOFF
+#endif
 
 /***************************** Type Definitions******************************/
 /*
@@ -96,7 +114,9 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDm
 void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
        XPmcDma_Channel Channel, u8 EndianType);
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
-int XSecure_GetRandomNum(u8 *Output, u32 Size);
+int XSecure_ECCRandInit(void);
+int XSecure_TrngInitNCfgHrngMode(void);
+XTrngpsx_Instance *XSecure_GetTrngInstance(void);
 
 /***************************** Variable Prototypes  ***************************/
 

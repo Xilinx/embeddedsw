@@ -20,6 +20,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   kpt  05/15/2022 Initial release
 *       kpt  07/24/2022 Moved XSecure_TrngKat to xsecure_kat_plat.c
+* 5.2   yog  08/07/2023 Added a single function call using XSecure_GetRandomNum API
+*                       to generate random number
 *
 * </pre>
 *
@@ -87,24 +89,11 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
 {
 	volatile int Status = XST_FAILURE;
 	u64 RandAddr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
-	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
-	u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] = {0U};
+	u8 RandBuf[XTRNGPSX_SEC_STRENGTH_IN_BYTES] = {0U};
 
-	if ((TrngInstance->State == XSECURE_TRNG_UNINITIALIZED_STATE) ||
-		(TrngInstance->UserCfg.Mode != XSECURE_TRNG_HRNG_MODE)) {
-		Status = XSecure_TrngInitNCfgHrngMode();
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
-
-	Status = XSecure_TrngGenerate(TrngInstance, RandBuf, Size);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_GetRandomNum, &(RandBuf[0]), Size);
 
 	Status = XPlmi_DmaXfr((u64)(UINTPTR)&RandBuf, RandAddr, Size, XPLMI_PMCDMA_0);
-
 END:
 	return Status;
 }

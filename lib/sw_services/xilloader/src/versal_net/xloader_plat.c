@@ -70,6 +70,7 @@
 #include "xplmi_scheduler.h"
 #include "xplmi_plat.h"
 #include "xplmi_hw.h"
+#include "xtrngpsx.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U) /**< Image version information */
@@ -101,6 +102,7 @@
 static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu,
 	const u32 DstnCluster);
 static int XLoader_InitSha3Instance1(void);
+static int XLoader_InitTrngInstance(void);
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams,
 	XSecure_Sha3Hash* Sha3Hash);
@@ -969,7 +971,12 @@ int XLoader_PlatInit(void)
 	int Status = XST_FAILURE;
 
 	Status = XLoader_InitSha3Instance1();
+	if(Status != XST_SUCCESS){
+		goto END;
+	}
+	Status = XLoader_InitTrngInstance();
 
+END:
 	return Status;
 }
 
@@ -1513,5 +1520,36 @@ END:
 	Status = XLOADER_ERR_INVALID_JTAG_OPERATION;
 	(void)Cmd;
 #endif
+	return Status;
+}
+
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the Trng instance.
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_TRNG_INIT_FAIL if TRNG initialization fails.
+ *
+ *****************************************************************************/
+static int XLoader_InitTrngInstance(void)
+{
+	int Status = XST_FAILURE;
+	XTrngpsx_Instance  *TrngInstance = XSecure_GetTrngInstance();
+	XTrngpsx_Config *CfgPtr = NULL;
+
+	CfgPtr = XTrngpsx_LookupConfig(0);
+	if (CfgPtr == NULL) {
+		Status = XLOADER_TRNG_INIT_FAIL;
+		goto END;
+	}
+
+	Status = XTrngpsx_CfgInitialize(TrngInstance, CfgPtr, CfgPtr->BaseAddress);
+	if(Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
 	return Status;
 }

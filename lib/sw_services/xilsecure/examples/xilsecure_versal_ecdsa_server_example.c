@@ -28,6 +28,7 @@
 * 5.0   dc   09/04/22 Initialized TRNG for Versal Net
 * 5.2   yog  06/07/23 Added support for P-256 Curve
 *       yog  07/28/23 Added support to handle endianness
+*       yog  08/07/23 Removed trng initialisation
 *
 * </pre>
 *
@@ -39,7 +40,6 @@
 #include "xstatus.h"
 #include "xil_printf.h"
 #if defined (VERSAL_NET)
-#include "xsecure_trng.h"
 #include "xsecure_plat_kat.h"
 #endif
 
@@ -62,22 +62,7 @@ static int XSecure_TestP256();
  int main()
 {
 	int Status = XST_FAILURE;
-#if defined (VERSAL_NET)
-	XSecure_TrngInstance *TrngInstancePtr = XSecure_GetTrngInstance();
 
-	Status = XSecure_TrngUninstantiate(TrngInstancePtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = XSecure_TrngPreOperationalSelfTests(TrngInstancePtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = XSecure_TrngInitNCfgHrngMode();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-#endif
 #ifdef TEST_NIST_P384
 	xil_printf("Test P-384 curve started \r\n");
 	Status = XSecure_TestP384();

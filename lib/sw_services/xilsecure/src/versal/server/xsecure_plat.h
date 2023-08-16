@@ -108,6 +108,16 @@ static inline void XSecure_SetRsaCryptoStatus(void)
 	/* Not applicable for versal */
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function is not applicable for versal
+ *
+ *****************************************************************************/
+static inline int XSecure_ECCRandInit(void)
+{
+	/* Not supported for versal */
+	return XST_SUCCESS;
+}
 /***************************** Variable Prototypes  ***************************/
 
 #ifdef __cplusplus

@@ -41,7 +41,6 @@ extern "C" {
 #include "xocp.h"
 #include "xocp_common.h"
 #include "xsecure_sha.h"
-#include "xsecure_trng.h"
 
 /************************** Constant Definitions *****************************/
 #define XOCP_EFUSE_DEVICE_DNA_CACHE			(0xF1250020U)
@@ -89,7 +88,7 @@ typedef struct {
  */
 typedef struct {
 	u32 SubSystemId;	/**< Corresponding Sub system ID */
-	u8 PerString[XSECURE_TRNG_PERS_STRING_LEN_IN_BYTES];/**< Personalised string */
+	u8 PerString[XTRNGPSX_PERS_STRING_LEN_IN_BYTES];/**< Personalised string */
 	u8 SubSysHash[XSECURE_HASH_SIZE_IN_BYTES]; /**< Hash of the subsystem */
 	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES]; /**< ECC DEV AK private key */
 	u8 EccX[XOCP_ECC_P384_SIZE_BYTES];	/**< ECC DEVAK publick key X */

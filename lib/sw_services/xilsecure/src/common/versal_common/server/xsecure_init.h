@@ -53,7 +53,6 @@ XSecure_Aes *XSecure_GetAesInstance(void);
 #ifndef PLM_RSA_EXCLUDE
 XSecure_Rsa *XSecure_GetRsaInstance(void);
 #endif
-int XSecure_TrngInit(void);
 XSecure_Sha3 *XSecure_GetSha3Instance1(void);
 
 #ifdef __cplusplus
