@@ -54,6 +54,8 @@
 * ----- ------ -------- -------------------------------------------------
 * 1.0   am     06/13/22 Initial release
 * 5.2   am     07/31/23 Fixed compilation error
+*       yog    08/07/23 Added Xil_DCacheInvalidateRange before
+*                       XSecure_TrngGenerareRandNum function call
 *
 * </pre>
 ******************************************************************************/
@@ -119,6 +121,7 @@ int main(void)
 
 	xil_printf("KAT Passed Successfully\n\r");
 
+	Xil_DCacheInvalidateRange(RandBufAddr, XSECURE_TRNG_SEC_STRENGTH_IN_BYTES);
 	Status = XSecure_TrngGenerateRandNum(&SecureClientInstance, RandBufAddr,
 			XSECURE_TRNG_SEC_STRENGTH_IN_BYTES);
 	if (Status != XST_SUCCESS) {

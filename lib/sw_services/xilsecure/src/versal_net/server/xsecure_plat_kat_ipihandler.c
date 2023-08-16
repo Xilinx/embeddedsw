@@ -23,6 +23,8 @@
 * 1.02  ng   05/10/2023 Removed XSecure_PerformKatOperation and implemented
 *                       redundant call for XPlmi_ClearKatMask
 * 5.2   vns  07/06/2023 Separated the IPI commands of Update Kat Status
+*       yog  08/07/2023 Replaced trng instance using trngpsx driver
+*
 * </pre>
 *
 * @note
@@ -94,9 +96,9 @@ int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 static int XSecure_TrngKat(void)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
 
-	Status = XSecure_TrngPreOperationalSelfTests(TrngInstance);
+	Status = XTrngpsx_PreOperationalSelfTests(TrngInstance);
 	/* Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_TRNG_KAT_MASK);

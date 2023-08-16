@@ -1594,6 +1594,15 @@
 
 /******************************************************************/
 
+/* Definitions for driver trngpsx */
+#define XPAR_XTRNGPSX_NUM_INSTANCES 1
+
+/* Definitions for peripheral PSX_WIZARD_0_PSXL_0_PSX_PMC_TRNG */
+#define XPAR_PSX_WIZARD_0_PSXL_0_PSX_PMC_TRNG_DEVICE_ID 0
+#define XPAR_PSX_WIZARD_0_PSXL_0_PSX_PMC_TRNG_BASEADDR 0xF1230000
+
+/******************************************************************/
+
 #define XPAR_PSV_ADMA_0_IS_CACHE_COHERENT 0
 #define XPAR_PSV_ADMA_1_IS_CACHE_COHERENT 0
 #define XPAR_PSV_ADMA_2_IS_CACHE_COHERENT 0

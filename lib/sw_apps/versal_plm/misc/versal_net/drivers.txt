@@ -20,3 +20,4 @@ uartpsv
 usbpsu
 wdttb
 zdma
+trngpsx

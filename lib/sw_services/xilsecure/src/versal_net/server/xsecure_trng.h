@@ -8,12 +8,11 @@
 /**
 *
 * @file xsecure_trng.h
-* This file contains trng core hardware definitions of VersalNet.
+* This file contains function declaration to get random number.
 * @addtogroup Overview
 * @{
 *
-* This header file contains structure definitions, function declarations and macros
-* to define TRNG Hardware state
+* This header file contains function declaration to get random number.
 *
 *
 * <pre>
@@ -25,6 +24,7 @@
 *       dc   07/12/22 Corrected comments
 *       kpt  07/24/22 Moved KAT related code to xsecure_kat_plat.c
 * 5.2   ng   07/05/23 Added support for system device tree flow
+*       yog  08/07/23 Removed trng driver in xilsecure library
 *
 * </pre>
 *
@@ -40,81 +40,12 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 
-#ifdef SDT
-#include "xsecure_config.h"
-#endif
-
 /************************** Constant Definitions *****************************/
-#define XSECURE_TRNG_DEFAULT_SEED_LIFE		256U	/**< Default seed life */
-#define XSECURE_TRNG_PERS_STRING_LEN_IN_WORDS	12U	/**< Personalization string length in words */
-#define XSECURE_TRNG_PERS_STRING_LEN_IN_BYTES	48U	/**< Personalization string length in bytes */
-#define XSECURE_TRNG_SEC_STRENGTH_IN_BYTES	32U	/**< security strength in Bytes */
-
-#if !defined(XSECURE_TRNG_USER_CFG_SEED_LIFE)
-#define XSECURE_TRNG_USER_CFG_SEED_LIFE 256U
-#endif
-
-#if !defined(XSECURE_TRNG_USER_CFG_DF_LENGTH)
-#define XSECURE_TRNG_USER_CFG_DF_LENGTH 7U
-#endif
-
-#if !defined(XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF)
-#define XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF 612U
-#endif
-
-#if !defined(XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF)
-#define XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF 33U
-#endif
 
 /**************************** Type Definitions *******************************/
-typedef enum {
-	XSECURE_TRNG_DRNG_MODE = 1,
-	XSECURE_TRNG_PTRNG_MODE,
-	XSECURE_TRNG_HRNG_MODE
-} XSecure_TrngMode;
 
-typedef struct {
-	XSecure_TrngMode Mode;
-	u8 DFLength;
-	u16 AdaptPropTestCutoff;
-	u16 RepCountTestCutoff;
-	u32 SeedLife;
-} XSecure_TrngUserConfig;
-
-typedef struct {
-	u32 ElapsedSeedLife;
-} XSecure_TrngStatus;
-
-typedef enum {
-	XSECURE_TRNG_UNHEALTHY = 0,
-	XSECURE_TRNG_HEALTHY,
-	XSECURE_TRNG_CATASTROPHIC,
-	XSECURE_TRNG_ERROR,
-	XSECURE_TRNG_STARTUP_TEST
-} XSecure_TrngErrorState;
-
-typedef enum {
-	XSECURE_TRNG_UNINITIALIZED_STATE = 0,	/**< Default state */
-	XSECURE_TRNG_INSTANTIATE_STATE,		/**< Instantiate state */
-	XSECURE_TRNG_RESEED_STATE,		/**< Reseed state */
-	XSECURE_TRNG_GENERATE_STATE		/**< Generate state */
-} XSecure_TrngTrngState;
-
-typedef struct {
-	XSecure_TrngUserConfig UserCfg;
-	XSecure_TrngStatus TrngStats;
-	XSecure_TrngErrorState ErrorState;
-	XSecure_TrngTrngState State;
-} XSecure_TrngInstance;
-
-/************************** Function Prototypes ******************************/
-int XSecure_TrngInstantiate(XSecure_TrngInstance *InstancePtr, const u8 *Seed, u32 SeedLength, const u8 *PersStr,
-			const XSecure_TrngUserConfig *UserCfg);
-int XSecure_TrngReseed(XSecure_TrngInstance *InstancePtr, const u8 *Seed, u8 DLen);
-int XSecure_TrngGenerate(XSecure_TrngInstance *InstancePtr, u8 *RandBuf, u32 RandBufSize);
-int XSecure_TrngUninstantiate(XSecure_TrngInstance *InstancePtr);
-XSecure_TrngInstance *XSecure_GetTrngInstance(void);
-int XSecure_TrngInitNCfgHrngMode(void);
+/**************************** Function Prototypes ****************************/
+int XSecure_GetRandomNum(u8 *Output, u32 Size);
 
 #ifdef __cplusplus
 }

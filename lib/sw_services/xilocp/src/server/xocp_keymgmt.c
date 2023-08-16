@@ -23,6 +23,7 @@
 *       vns  07/06/23 Added DEVAK regenerate support and Data clear before shutdown
 *       am   07/20/23 Cleared DICE_CDI seed
 *       kpt  07/25/23 Add redundancy for key generation APIs
+*       yog  08/07/23 Replaced trng API calls using trngpsx driver
 *
 * </pre>
 * @note
@@ -145,7 +146,7 @@ int XOcp_KeyInit(void)
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	u32 CdiParity = 0U;
-	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
 
 	KeyInstPtr->IsDevKeyReady = FALSE;
@@ -167,9 +168,9 @@ int XOcp_KeyInit(void)
 	}
 
 	if ((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK) != TRUE) ||
-		(TrngInstance->ErrorState != XSECURE_TRNG_HEALTHY)) {
+		(TrngInstance->ErrorState != XTRNGPSX_HEALTHY)) {
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status,
-			StatusTmp, XSecure_TrngPreOperationalSelfTests, TrngInstance);
+			StatusTmp, XTrngpsx_PreOperationalSelfTests, TrngInstance);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
 			goto END;
@@ -280,7 +281,7 @@ int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString)
 
 	Status = XPlmi_MemCpy64(
 			(UINTPTR)DevAkData[KeyMgmtInstance->DevAkInputIndex].PerString,
-			(UINTPTR)PerString, XSECURE_TRNG_PERS_STRING_LEN_IN_BYTES);
+			(UINTPTR)PerString, XTRNGPSX_PERS_STRING_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -687,7 +688,7 @@ static int XOcp_KeyGenerateDevIk(void)
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	u8 Seed[XOCP_CDI_SIZE_IN_BYTES];
-	u8 PersString[XSECURE_TRNG_PERS_STRING_LEN_IN_BYTES];
+	u8 PersString[XTRNGPSX_PERS_STRING_LEN_IN_BYTES];
 #ifndef PLM_ECDSA_EXCLUDE
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
 	XSecure_EllipticKeyAddr PubKeyAddr;
@@ -709,8 +710,8 @@ static int XOcp_KeyGenerateDevIk(void)
 	 * which is of size 16 bytes where as TRNG requires 48 bytes of data as
 	 * personalized so the remaining bytes are set to zero.
 	 */
-	 Status = Xil_SMemSet(PersString, XSECURE_TRNG_PERS_STRING_LEN_IN_BYTES,
-			0U, XSECURE_TRNG_PERS_STRING_LEN_IN_BYTES);
+	 Status = Xil_SMemSet(PersString, XTRNGPSX_PERS_STRING_LEN_IN_BYTES,
+			0U, XTRNGPSX_PERS_STRING_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

@@ -50,6 +50,7 @@
 * 5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
 *       yog  06/07/23 Added support for P-256 Curve
 *       ng   07/05/23 Added support for system device tree flow
+*       yog  08/07/23 Initialised trng before calling IpCores functions
 *
 * </pre>
 *
@@ -67,7 +68,7 @@
 #include "xsecure_utils.h"
 #include "xil_util.h"
 #include "xsecure_cryptochk.h"
-
+#include "xsecure_plat.h"
 #ifdef SDT
 #include "xsecure_config.h"
 #endif
@@ -139,6 +140,11 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	else{
 		Size = XSECURE_ECC_P256_SIZE_IN_BYTES;
 		OffSet = Size;
+	}
+
+	Status = XSecure_ECCRandInit();
+	if(Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	/* Store Priv key to local buffer */
@@ -262,6 +268,11 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 			(CrvType != XSECURE_ECC_NIST_P521) &&
 			(CrvType != XSECURE_ECC_NIST_P256)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XSecure_ECCRandInit();
+	if(Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -448,6 +459,11 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	else{
 		Size = XSECURE_ECC_P256_SIZE_IN_BYTES;
 		OffSet = Size;
+	}
+
+	Status = XSecure_ECCRandInit();
+	if(Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	/* Store Pub key(Qx,Qy) to local buffer */

@@ -42,6 +42,7 @@
 *       am   07/07/2023 Added error code for Read IHT optional data
 *       bm   07/17/2023 Removed XPLMI_ERR_PLM_UPDATE_NO_DS_FOUND error code
 *       sk   07/31/2023 Moved Image Store error codes to plat header
+*       yog  08/07/2023 Added error code for trng driver init fail
 *
 * </pre>
 *
@@ -777,7 +778,9 @@ typedef enum {
 		/**< 0x6C9 User configuration not found for provided Subsystem Id*/
 	XOCP_ERR_X509_GET_SIGN,
 		/**< 0x6CA Failed to get the signature stored */
-
+	XLOADER_TRNG_INIT_FAIL,
+		/**< 0x6CB Error when TRNG driver look
+			up or cfg fails*/
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
 		 * [12:8] contains Module ID, [7:0] contains API ID.

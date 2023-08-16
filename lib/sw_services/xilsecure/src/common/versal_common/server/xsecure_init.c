@@ -27,6 +27,7 @@
 * 4.6   har 07/14/2021 Fixed doxygen warnings
 * 4.7   ma  07/08/2022 Added support for secure lockdown
 * 5.1   dc  12/27/2022 Added SHA1 instance
+* 5.2   yog 08/07/2023 Moved Trng init API to xsecure_plat.c
 *
 * </pre>
 *
@@ -143,43 +144,3 @@ XSecure_Rsa *XSecure_GetRsaInstance(void)
 	return &RsaInstance;
 }
 #endif
-
-/*****************************************************************************/
-/**
- * @brief	This function initializes the trng in HRNG mode if it is not initialized
- *          and it is applicable only for VersalNet
- *
- * @return
- *		- XST_SUCCESS On Successful initialization
- *      - XST_FAILURE On Failure
- *
- *****************************************************************************/
-int XSecure_TrngInit(void)
-{
-	int Status = XST_FAILURE;
-#if defined(VERSAL_NET)
-	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
-
-	if ((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK) != TRUE) ||
-		(TrngInstance->ErrorState != XSECURE_TRNG_HEALTHY)) {
-		Status = XSecure_TrngPreOperationalSelfTests(TrngInstance);
-		if (Status != XST_SUCCESS) {
-			XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
-			goto END;
-		}
-		else {
-			XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
-		}
-	}
-	if ((TrngInstance->UserCfg.Mode != XSECURE_TRNG_HRNG_MODE) ||
-		(TrngInstance->State == XSECURE_TRNG_UNINITIALIZED_STATE)) {
-		Status = XSecure_TrngInitNCfgHrngMode();
-	}
-	Status = XST_SUCCESS;
-END:
-#else
-	Status = XST_SUCCESS;
-#endif
-
-	return Status;
-}
