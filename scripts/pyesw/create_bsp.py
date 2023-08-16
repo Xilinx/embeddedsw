@@ -620,6 +620,13 @@ endforeach()
             for key, value in props:
                 if os_config[obj.os].get(key, {}):
                     os_config[obj.os][key]['value'] = value
+
+    if "microblaze" in obj.proc:
+        cmake_config = lib_obj.get_default_lib_params(build_metadata, ["cmake"])
+        if cmake_config['cmake'].get('CMAKE_MACHINE', {}):
+            obj.family = cmake_config['cmake']['CMAKE_MACHINE']['value']
+            utils.update_yaml(obj.domain_config_file, "domain", "family", obj.family)
+
     utils.update_yaml(obj.domain_config_file, "domain", "os_config", os_config)
     utils.update_yaml(obj.domain_config_file, "domain", "proc_config", proc_config)
     utils.update_yaml(obj.domain_config_file, "domain", "os_info", obj.os_info)
