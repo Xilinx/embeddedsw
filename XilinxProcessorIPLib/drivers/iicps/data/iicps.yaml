@@ -81,8 +81,4 @@ examples:
 
     xiicps_smbus_polled_slave_example.c:
         - reg
-
-tapp:
-   xiicps_selftest_example.c:
-        declaration: IicPsSelfTestExample
 ...
