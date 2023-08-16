@@ -127,7 +127,7 @@ s32 XSdPs_Write(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 		xil_printf("Max transfer length supported is 2MB\n");
 #endif
 		return XST_FAILURE;
-        }
+	}
 
 	XSdPs_SetupWriteDma(InstancePtr, (u16)BlkCnt, (u16)InstancePtr->BlkSize, Buff);
 
@@ -175,12 +175,12 @@ s32 XSdPs_CheckTransferComplete(XSdPs *InstancePtr)
 	 * Check for transfer complete
 	 */
 	StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-				XSDPS_NORM_INTR_STS_OFFSET);
+				    XSDPS_NORM_INTR_STS_OFFSET);
 	if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0U) {
 		/* Write to clear error bits */
 		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-				XSDPS_ERR_INTR_STS_OFFSET,
-				XSDPS_ERROR_INTR_ALL_MASK);
+				 XSDPS_ERR_INTR_STS_OFFSET,
+				 XSDPS_ERROR_INTR_ALL_MASK);
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -192,7 +192,7 @@ s32 XSdPs_CheckTransferComplete(XSdPs *InstancePtr)
 
 	/* Write to clear bit */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+			 XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
 
 	InstancePtr->IsBusy = FALSE;
 
@@ -217,8 +217,8 @@ s32 XSdPs_IdentifyCard(XSdPs *InstancePtr)
 	s32 Status;
 
 	if ((InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) &&
-			((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK)
-			== XSDPS_CAPS_EMB_SLOT)) {
+	    ((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK)
+	     == XSDPS_CAPS_EMB_SLOT)) {
 		InstancePtr->CardType = XSDPS_CHIP_EMMC;
 		Status = XST_SUCCESS;
 		goto RETURN_PATH;
@@ -236,7 +236,7 @@ s32 XSdPs_IdentifyCard(XSdPs *InstancePtr)
 
 	/* Host High Capacity support & High voltage window */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD1,
-			XSDPS_ACMD41_HCS | XSDPS_CMD1_HIGH_VOL, 0U);
+				   XSDPS_ACMD41_HCS | XSDPS_CMD1_HIGH_VOL, 0U);
 	if (Status != XST_SUCCESS) {
 		InstancePtr->CardType = XSDPS_CARD_SD;
 	} else {
@@ -244,9 +244,9 @@ s32 XSdPs_IdentifyCard(XSdPs *InstancePtr)
 	}
 
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_NORM_INTR_ALL_MASK);
+			 XSDPS_NORM_INTR_STS_OFFSET, XSDPS_NORM_INTR_ALL_MASK);
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_ERR_INTR_STS_OFFSET, XSDPS_ERROR_INTR_ALL_MASK);
+			 XSDPS_ERR_INTR_STS_OFFSET, XSDPS_ERROR_INTR_ALL_MASK);
 
 	Status = XSdPs_Reset(InstancePtr, XSDPS_SWRST_CMD_LINE_MASK);
 	if (Status != XST_SUCCESS) {
@@ -348,8 +348,8 @@ s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr)
 	}
 
 	if (((InstancePtr->CardType == XSDPS_CARD_MMC) &&
-				(InstancePtr->Card_Version > CSD_SPEC_VER_3)) &&
-				(InstancePtr->HC_Version == XSDPS_HC_SPEC_V2)) {
+	     (InstancePtr->Card_Version > CSD_SPEC_VER_3)) &&
+	    (InstancePtr->HC_Version == XSDPS_HC_SPEC_V2)) {
 		Status = XSdPs_MmcModeInit(InstancePtr);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
@@ -375,7 +375,7 @@ s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr)
 		}
 	} else {
 		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-				XSDPS_BLK_SIZE_OFFSET, XSDPS_BLK_SIZE_512_MASK);
+				 XSDPS_BLK_SIZE_OFFSET, XSDPS_BLK_SIZE_512_MASK);
 		InstancePtr->BlkSize = XSDPS_BLK_SIZE_512_MASK;
 	}
 
@@ -401,19 +401,19 @@ s32 XSdPs_CheckCardDetect(XSdPs *InstancePtr)
 	s32 Status;
 
 	if ((InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) &&
-				((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK)
-				== XSDPS_CAPS_EMB_SLOT)) {
+	    ((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK)
+	     == XSDPS_CAPS_EMB_SLOT)) {
 		Status = XST_SUCCESS;
 		goto RETURN_PATH;
 	}
 
-	if(InstancePtr->Config.CardDetect != 0U) {
+	if (InstancePtr->Config.CardDetect != 0U) {
 		/*
 		 * Check the present state register to make sure
 		 * card is inserted and detected by host controller
 		 */
 		PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XSDPS_PRES_STATE_OFFSET);
+						XSDPS_PRES_STATE_OFFSET);
 		if ((PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U)	{
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
@@ -469,7 +469,7 @@ s32 XSdPs_CardIfCond(XSdPs *InstancePtr)
 	 * 0x1AA - Supply Voltage 2.7 - 3.6V and AA is pattern
 	 */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD8,
-			XSDPS_CMD8_VOL_PATTERN, 0U);
+				   XSDPS_CMD8_VOL_PATTERN, 0U);
 	if ((Status != XST_SUCCESS) && (Status != XSDPS_CT_ERROR)) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
@@ -484,7 +484,7 @@ s32 XSdPs_CardIfCond(XSdPs *InstancePtr)
 	}
 
 	RespOCR = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-						XSDPS_RESP0_OFFSET);
+				XSDPS_RESP0_OFFSET);
 	if (RespOCR != XSDPS_CMD8_VOL_PATTERN) {
 		InstancePtr->Card_Version = XSDPS_SD_VER_1_0;
 	} else {
@@ -525,17 +525,17 @@ s32 XSdPs_CardOpCond(XSdPs *InstancePtr)
 
 			Arg = XSDPS_ACMD41_HCS | XSDPS_ACMD41_3V3 | (0x1FFU << 15U);
 			if ((InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) &&
-				(InstancePtr->Config.BusWidth == XSDPS_WIDTH_8)) {
+			    (InstancePtr->Config.BusWidth == XSDPS_WIDTH_8)) {
 				Arg |= XSDPS_OCR_S18;
 			}
 
 			/* 0x40300000 - Host High Capacity support & 3.3V window */
 			Status = XSdPs_CmdTransfer(InstancePtr, ACMD41,
-					Arg, 0U);
+						   Arg, 0U);
 		} else {
 			/* Send CMD1 while card is still busy with power up */
 			Status = XSdPs_CmdTransfer(InstancePtr, CMD1,
-					XSDPS_ACMD41_HCS | XSDPS_CMD1_HIGH_VOL, 0U);
+						   XSDPS_ACMD41_HCS | XSDPS_CMD1_HIGH_VOL, 0U);
 		}
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
@@ -543,7 +543,8 @@ s32 XSdPs_CardOpCond(XSdPs *InstancePtr)
 		}
 
 		/* Response with card capacity */
-		Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_RESP0_OFFSET, XSDPS_RESPOCR_READY, XSDPS_RESPOCR_READY, 1U);
+		Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_RESP0_OFFSET, XSDPS_RESPOCR_READY,
+					  XSDPS_RESPOCR_READY, 1U);
 		if (Status == XST_SUCCESS) {
 			RespOCR = XSdPs_ReadReg(InstancePtr->Config.BaseAddress, XSDPS_RESP0_OFFSET);
 			break;
@@ -599,19 +600,19 @@ s32 XSdPs_GetCardId(XSdPs *InstancePtr)
 	}
 
 	InstancePtr->CardID[0] =
-			XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_RESP0_OFFSET);
+		XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+			      XSDPS_RESP0_OFFSET);
 	InstancePtr->CardID[1] =
-			XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_RESP1_OFFSET);
+		XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+			      XSDPS_RESP1_OFFSET);
 	InstancePtr->CardID[2] =
-			XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_RESP2_OFFSET);
+		XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+			      XSDPS_RESP2_OFFSET);
 	InstancePtr->CardID[3] =
-			XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_RESP3_OFFSET);
+		XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+			      XSDPS_RESP3_OFFSET);
 
-	if(InstancePtr->CardType == XSDPS_CARD_SD) {
+	if (InstancePtr->CardType == XSDPS_CARD_SD) {
 		do {
 			Status = XSdPs_CmdTransfer(InstancePtr, CMD3, 0U, 0U);
 			if (Status != XST_SUCCESS) {
@@ -626,7 +627,7 @@ s32 XSdPs_GetCardId(XSdPs *InstancePtr)
 			Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_RESP0_OFFSET, 0xFFFF0000, 0U, 1U);
 			if (Status != XST_SUCCESS) {
 				InstancePtr->RelCardAddr = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-						XSDPS_RESP0_OFFSET) & 0xFFFF0000U;
+							   XSDPS_RESP0_OFFSET) & 0xFFFF0000U;
 				break;
 			}
 			Count = Count - 1U;
@@ -680,13 +681,13 @@ s32 XSdPs_GetCsd(XSdPs *InstancePtr)
 	 * Currently not used for any operation.
 	 */
 	CSD[0] = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_RESP0_OFFSET);
+			       XSDPS_RESP0_OFFSET);
 	CSD[1] = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_RESP1_OFFSET);
+			       XSDPS_RESP1_OFFSET);
 	CSD[2] = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_RESP2_OFFSET);
+			       XSDPS_RESP2_OFFSET);
 	CSD[3] = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-			XSDPS_RESP3_OFFSET);
+			       XSDPS_RESP3_OFFSET);
 
 	InstancePtr->CardSpecData[0] = CSD[0];
 	InstancePtr->CardSpecData[1] = CSD[1];
@@ -694,7 +695,7 @@ s32 XSdPs_GetCsd(XSdPs *InstancePtr)
 	InstancePtr->CardSpecData[3] = CSD[3];
 
 	if (InstancePtr->CardType != XSDPS_CARD_SD) {
-		InstancePtr->Card_Version = (u8)((u32)(CSD[3] & CSD_SPEC_VER_MASK) >>18U);
+		InstancePtr->Card_Version = (u8)((u32)(CSD[3] & CSD_SPEC_VER_MASK) >> 18U);
 		Status = XST_SUCCESS;
 		goto RETURN_PATH;
 	}
@@ -706,10 +707,10 @@ s32 XSdPs_GetCsd(XSdPs *InstancePtr)
 		DeviceSize |= (CSD[2] & C_SIZE_UPPER_MASK) << 10U;
 		DeviceSize = (DeviceSize + 1U) * Mult;
 		DeviceSize =  DeviceSize * BlkLen;
-		InstancePtr->SectorCount = (DeviceSize/XSDPS_BLK_SIZE_512_MASK);
+		InstancePtr->SectorCount = (DeviceSize / XSDPS_BLK_SIZE_512_MASK);
 	} else if (((CSD[3] & CSD_STRUCT_MASK) >> 22U) == 1U) {
 		InstancePtr->SectorCount = (((CSD[1] & CSD_V2_C_SIZE_MASK) >> 8U) +
-										1U) * 1024U;
+					    1U) * 1024U;
 	} else {
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
@@ -739,10 +740,10 @@ s32 XSdPs_CardSetVoltage18(XSdPs *InstancePtr)
 
 	/* Stop the clock */
 	CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET);
+				  XSDPS_CLK_CTRL_OFFSET);
 	CtrlReg &= (u16)(~(XSDPS_CC_SD_CLK_EN_MASK | XSDPS_CC_INT_CLK_EN_MASK));
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_CLK_CTRL_OFFSET,
-			CtrlReg);
+			 CtrlReg);
 
 	/* Check for 1.8V signal enable bit is cleared by Host */
 	Status = XSdPs_SetVoltage18(InstancePtr);
@@ -752,7 +753,7 @@ s32 XSdPs_CardSetVoltage18(XSdPs *InstancePtr)
 	}
 
 	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-				XSDPS_CLK_CTRL_OFFSET);
+				   XSDPS_CLK_CTRL_OFFSET);
 	/* Enable the clock in the controller */
 	Status = XSdPs_EnableClock(InstancePtr, ClockReg);
 	if (Status != XST_SUCCESS) {
@@ -787,11 +788,12 @@ s32 XSdPs_ResetConfig(XSdPs *InstancePtr)
 
 #ifdef versal
 	if ((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK)
-			!= XSDPS_CAPS_EMB_SLOT) {
+	    != XSDPS_CAPS_EMB_SLOT) {
 		u32 Timeout = 200000U;
 
 		/* Check for SD Bus Lines low */
-		Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_PRES_STATE_OFFSET, XSDPS_PSR_DAT30_SG_LVL_MASK, 0U, Timeout);
+		Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_PRES_STATE_OFFSET, XSDPS_PSR_DAT30_SG_LVL_MASK, 0U,
+					  Timeout);
 	}
 #endif
 
@@ -830,11 +832,11 @@ void XSdPs_HostConfig(XSdPs *InstancePtr)
 	 * DMA enabled, block count enabled, data direction card to host(read)
 	 */
 	InstancePtr->TransferMode = XSDPS_TM_DMA_EN_MASK | XSDPS_TM_BLK_CNT_EN_MASK |
-			XSDPS_TM_DAT_DIR_SEL_MASK;
+				    XSDPS_TM_DAT_DIR_SEL_MASK;
 
 	/* Set block size to 512 by default */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_BLK_SIZE_OFFSET, XSDPS_BLK_SIZE_512_MASK);
+			 XSDPS_BLK_SIZE_OFFSET, XSDPS_BLK_SIZE_512_MASK);
 }
 
 /*****************************************************************************/
@@ -856,7 +858,7 @@ s32 XSdPs_CheckResetDone(XSdPs *InstancePtr, u8 Value)
 	/* Proceed with initialization only after reset is complete */
 	/* Using XSDPS_CLK_CTRL_OFFSET(0x2C) in place of XSDPS_SW_RST_OFFSET(0x2F) for 32bit address aligned reading */
 	Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_CLK_CTRL_OFFSET,
-			Value << 24, 0U, Timeout);
+				  Value << 24, 0U, Timeout);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH ;
@@ -892,7 +894,7 @@ s32 XSdPs_SetupVoltageSwitch(XSdPs *InstancePtr)
 
 	/* Wait for CMD and DATA line to go low */
 	Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_PRES_STATE_OFFSET,
-			XSDPS_PSR_CMD_SG_LVL_MASK | XSDPS_PSR_DAT30_SG_LVL_MASK, 0U, Timeout);
+				  XSDPS_PSR_CMD_SG_LVL_MASK | XSDPS_PSR_DAT30_SG_LVL_MASK, 0U, Timeout);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH ;
@@ -919,8 +921,8 @@ s32 XSdPs_CheckBusHigh(XSdPs *InstancePtr)
 
 	/* Wait for CMD and DATA line to go high */
 	Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_PRES_STATE_OFFSET,
-			XSDPS_PSR_CMD_SG_LVL_MASK | XSDPS_PSR_DAT30_SG_LVL_MASK,
-			XSDPS_PSR_CMD_SG_LVL_MASK | XSDPS_PSR_DAT30_SG_LVL_MASK, Timeout);
+				  XSDPS_PSR_CMD_SG_LVL_MASK | XSDPS_PSR_DAT30_SG_LVL_MASK,
+				  XSDPS_PSR_CMD_SG_LVL_MASK | XSDPS_PSR_DAT30_SG_LVL_MASK, Timeout);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH ;
@@ -952,19 +954,19 @@ RETURN_PATH:
 void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
 {
 	if (((ReadBuff[13] & UHS_SDR104_SUPPORT) != 0U) &&
-		(InstancePtr->Config.InputClockHz >= XSDPS_SD_INPUT_MAX_CLK)) {
+	    (InstancePtr->Config.InputClockHz >= XSDPS_SD_INPUT_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR104;
 		XSdPs_SetTapDelay_SDR104(InstancePtr);
 	} else if (((ReadBuff[13] & UHS_SDR50_SUPPORT) != 0U) &&
-		(InstancePtr->Config.InputClockHz >= XSDPS_SD_SDR50_MAX_CLK)) {
+		   (InstancePtr->Config.InputClockHz >= XSDPS_SD_SDR50_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR50;
 		XSdPs_SetTapDelay_SDR50(InstancePtr);
 	} else if (((ReadBuff[13] & UHS_DDR50_SUPPORT) != 0U) &&
-		(InstancePtr->Config.InputClockHz >= XSDPS_SD_DDR50_MAX_CLK)) {
+		   (InstancePtr->Config.InputClockHz >= XSDPS_SD_DDR50_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_DDR50;
 		XSdPs_SetTapDelay_DDR50(InstancePtr);
 	} else if (((ReadBuff[13] & UHS_SDR25_SUPPORT) != 0U) &&
-		(InstancePtr->Config.InputClockHz >= XSDPS_SD_SDR25_MAX_CLK)) {
+		   (InstancePtr->Config.InputClockHz >= XSDPS_SD_SDR25_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR25;
 		XSdPs_SetTapDelay_SDR25(InstancePtr);
 	} else {
@@ -989,7 +991,7 @@ void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
 void XSdPs_SetTapDelay(XSdPs *InstancePtr)
 {
 	if ((InstancePtr->Mode == XSDPS_DEFAULT_SPEED_MODE) ||
-		(InstancePtr->Mode == XSDPS_UHS_SPEED_MODE_SDR12)) {
+	    (InstancePtr->Mode == XSDPS_UHS_SPEED_MODE_SDR12)) {
 		return;
 	}
 
@@ -1053,11 +1055,11 @@ s32 XSdPs_Change_SdBusSpeed(XSdPs *InstancePtr)
 	if (InstancePtr->Switch1v8 != 0U) {
 		/* Set UHS mode in controller */
 		CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-				XSDPS_HOST_CTRL2_OFFSET);
+					  XSDPS_HOST_CTRL2_OFFSET);
 		CtrlReg &= (~(u16)XSDPS_HC2_UHS_MODE_MASK);
 		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-						XSDPS_HOST_CTRL2_OFFSET,
-						CtrlReg | (u16)InstancePtr->Mode);
+				 XSDPS_HOST_CTRL2_OFFSET,
+				 CtrlReg | (u16)InstancePtr->Mode);
 	}
 
 	Status = XST_SUCCESS;
@@ -1123,13 +1125,12 @@ s32 XSdPs_AutoTuning(XSdPs *InstancePtr)
 	u8 TuningCount;
 
 	BlkSize = XSDPS_TUNING_CMD_BLKSIZE;
-	if(InstancePtr->BusWidth == XSDPS_8_BIT_WIDTH)
-	{
-		BlkSize = BlkSize*2U;
+	if (InstancePtr->BusWidth == XSDPS_8_BIT_WIDTH) {
+		BlkSize = BlkSize * 2U;
 	}
 	BlkSize &= XSDPS_BLK_SIZE_MASK;
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_BLK_SIZE_OFFSET,
-			BlkSize);
+			 BlkSize);
 
 	InstancePtr->TransferMode = XSDPS_TM_DAT_DIR_SEL_MASK;
 
@@ -1155,13 +1156,13 @@ s32 XSdPs_AutoTuning(XSdPs *InstancePtr)
 		}
 
 		if ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-				XSDPS_HOST_CTRL2_OFFSET) & XSDPS_HC2_EXEC_TNG_MASK) == 0U) {
+				     XSDPS_HOST_CTRL2_OFFSET) & XSDPS_HC2_EXEC_TNG_MASK) == 0U) {
 			break;
 		}
 	}
 
 	if ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_HOST_CTRL2_OFFSET) & XSDPS_HC2_SAMP_CLK_SEL_MASK) == 0U) {
+			     XSDPS_HOST_CTRL2_OFFSET) & XSDPS_HC2_SAMP_CLK_SEL_MASK) == 0U) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1223,16 +1224,16 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 
 	/* Setup ADMA2 - Write descriptor table and point ADMA SAR to it */
 	BlkSize = (u32)XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-					XSDPS_BLK_SIZE_OFFSET) &
-					XSDPS_BLK_SIZE_MASK;
+				       XSDPS_BLK_SIZE_OFFSET) &
+		  XSDPS_BLK_SIZE_MASK;
 
-	if((BlkCnt*BlkSize) < XSDPS_DESC_MAX_LENGTH) {
+	if ((BlkCnt * BlkSize) < XSDPS_DESC_MAX_LENGTH) {
 
 		TotalDescLines = 1U;
 
 	} else {
 
-		TotalDescLines = ((BlkCnt*BlkSize) / XSDPS_DESC_MAX_LENGTH);
+		TotalDescLines = ((BlkCnt * BlkSize) / XSDPS_DESC_MAX_LENGTH);
 		if (((BlkCnt * BlkSize) % XSDPS_DESC_MAX_LENGTH) != 0U) {
 			TotalDescLines += 1U;
 		}
@@ -1241,29 +1242,29 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 
 	for (DescNum = 0U; DescNum < (TotalDescLines - 1U); DescNum++) {
 		InstancePtr->Adma2_DescrTbl64[DescNum].Address =
-				InstancePtr->Dma64BitAddr +
-				((u64)DescNum*XSDPS_DESC_MAX_LENGTH);
+			InstancePtr->Dma64BitAddr +
+			((u64)DescNum * XSDPS_DESC_MAX_LENGTH);
 		InstancePtr->Adma2_DescrTbl64[DescNum].Attribute =
-				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
+			XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
 		InstancePtr->Adma2_DescrTbl64[DescNum].Length = 0U;
 	}
 
 	InstancePtr->Adma2_DescrTbl64[TotalDescLines - 1U].Address =
-				InstancePtr->Dma64BitAddr +
-				((u64)DescNum*XSDPS_DESC_MAX_LENGTH);
+		InstancePtr->Dma64BitAddr +
+		((u64)DescNum * XSDPS_DESC_MAX_LENGTH);
 
 	InstancePtr->Adma2_DescrTbl64[TotalDescLines - 1U].Attribute =
-			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
+		XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
 
 	InstancePtr->Adma2_DescrTbl64[TotalDescLines - 1U].Length =
-			(u16)((BlkCnt*BlkSize) - (u32)(DescNum*XSDPS_DESC_MAX_LENGTH));
+		(u16)((BlkCnt * BlkSize) - (u32)(DescNum * XSDPS_DESC_MAX_LENGTH));
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
-			(u32)((UINTPTR)&(InstancePtr->Adma2_DescrTbl64[0]) & ~(u32)0x0U));
+		       (u32)((UINTPTR) & (InstancePtr->Adma2_DescrTbl64[0]) & ~(u32)0x0U));
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
-		Xil_DCacheFlushRange((INTPTR)&(InstancePtr->Adma2_DescrTbl64[0]),
-			(INTPTR)sizeof(XSdPs_Adma2Descriptor64) * (INTPTR)32U);
+		Xil_DCacheFlushRange((INTPTR) & (InstancePtr->Adma2_DescrTbl64[0]),
+				     (INTPTR)sizeof(XSdPs_Adma2Descriptor64) * (INTPTR)32U);
 	}
 
 	/* Clear the 64-Bit Address variable */
@@ -1292,10 +1293,10 @@ s32 XSdPs_DllReset(XSdPs *InstancePtr)
 
 	/* Disable clock */
 	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET);
+				   XSDPS_CLK_CTRL_OFFSET);
 	ClockReg &= ~XSDPS_CC_SD_CLK_EN_MASK;
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET, (u16)ClockReg);
+			 XSDPS_CLK_CTRL_OFFSET, (u16)ClockReg);
 
 	/* Issue DLL Reset to load zero tap values */
 	XSdPs_DllRstCtrl(InstancePtr, 1U);
@@ -1306,7 +1307,7 @@ s32 XSdPs_DllReset(XSdPs *InstancePtr)
 	XSdPs_DllRstCtrl(InstancePtr, 0U);
 
 	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-				XSDPS_CLK_CTRL_OFFSET);
+				   XSDPS_CLK_CTRL_OFFSET);
 	/* Enable the clock in the controller */
 	Status = XSdPs_EnableClock(InstancePtr, (u16)ClockReg);
 	if (Status != XST_SUCCESS) {
@@ -1335,16 +1336,16 @@ void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd)
 		/* Check for card supported speed */
 #if defined (VERSAL_NET) && defined (ENABLE_HS400_MODE)
 		if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
-				(EXT_CSD_DEVICE_TYPE_DDR_1V8_HS400 |
-				EXT_CSD_DEVICE_TYPE_DDR_1V2_HS400)) != 0U) {
+		     (EXT_CSD_DEVICE_TYPE_DDR_1V8_HS400 |
+		      EXT_CSD_DEVICE_TYPE_DDR_1V2_HS400)) != 0U) {
 			InstancePtr->Mode = XSDPS_HS400_MODE;
 			InstancePtr->IsTuningDone = 0U;
 			InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B0;
 		} else {
 #endif
 			if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
-					(EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200 |
-					EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200)) != 0U) {
+			     (EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200 |
+			      EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200)) != 0U) {
 				InstancePtr->Mode = XSDPS_HS200_MODE;
 				if (InstancePtr->Config.OTapDly_SDR_Clk200) {
 					InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk200;
@@ -1354,11 +1355,11 @@ void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd)
 					InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B0;
 				}
 			} else if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
-					(EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED |
-					EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED)) != 0U) {
+				    (EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED |
+				     EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED)) != 0U) {
 				InstancePtr->Mode = XSDPS_DDR52_MODE;
 				if (InstancePtr->Config.OTapDly_DDR_Clk50 &&
-					InstancePtr->Config.ITapDly_DDR_Clk50) {
+				    InstancePtr->Config.ITapDly_DDR_Clk50) {
 					InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_DDR_Clk50;
 					InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_DDR_Clk50;
 				} else {
@@ -1366,10 +1367,10 @@ void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd)
 					InstancePtr->ITapDelay = SD_ITAPDLYSEL_EMMC_DDR50;
 				}
 			} else if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
-					EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) {
+				    EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) {
 				InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
 				if (InstancePtr->Config.OTapDly_SDR_Clk50 &&
-					InstancePtr->Config.ITapDly_SDR_Clk50) {
+				    InstancePtr->Config.ITapDly_SDR_Clk50) {
 					InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk50;
 					InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_SDR_Clk50;
 				} else {
@@ -1420,7 +1421,7 @@ s32 XSdPs_CheckEmmcTiming(XSdPs *InstancePtr, u8 *ExtCsd)
 				goto RETURN_PATH;
 			}
 		} else if ((InstancePtr->Mode == XSDPS_HIGH_SPEED_MODE) ||
-				(InstancePtr->Mode == XSDPS_DDR52_MODE)) {
+			   (InstancePtr->Mode == XSDPS_DDR52_MODE)) {
 			if (ExtCsd[EXT_CSD_HS_TIMING_BYTE] != EXT_CSD_HS_TIMING_HIGH) {
 				Status = XST_FAILURE;
 				goto RETURN_PATH;
@@ -1456,7 +1457,7 @@ s32 XSdPs_SetClock(XSdPs *InstancePtr, u32 SelFreq)
 
 	/* Disable clock */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET, 0U);
+			 XSDPS_CLK_CTRL_OFFSET, 0U);
 
 	/* If selected frequency is zero, return from here */
 	if (SelFreq == 0U) {
@@ -1467,30 +1468,30 @@ s32 XSdPs_SetClock(XSdPs *InstancePtr, u32 SelFreq)
 #ifdef VERSAL_NET
 	if (InstancePtr->CardType == XSDPS_CHIP_EMMC) {
 		Reg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-					XSDPS_PHYCTRLREG2_OFFSET);
+				    XSDPS_PHYCTRLREG2_OFFSET);
 		Reg &= ~XSDPS_PHYREG2_DLL_EN_MASK;
 		if ((InstancePtr->Mode != XSDPS_DEFAULT_SPEED_MODE) &&
-			(SelFreq > XSDPD_MIN_DLL_MODE_CLK)) {
+		    (SelFreq > XSDPD_MIN_DLL_MODE_CLK)) {
 			XSdPs_WriteReg(InstancePtr->Config.BaseAddress,
-					XSDPS_PHYCTRLREG2_OFFSET, Reg);
+				       XSDPS_PHYCTRLREG2_OFFSET, Reg);
 			Reg &= ~XSDPS_PHYREG2_FREQ_SEL_MASK;
 			Reg &= ~XSDPS_PHYREG2_TRIM_ICP_MASK;
 			Reg &= ~XSDPS_PHYREG2_DLYTX_SEL_MASK;
 			Reg &= ~XSDPS_PHYREG2_DLYRX_SEL_MASK;
 			Reg |= (XSDPS_PHYREG2_TRIM_ICP_DEF_VAL <<
-					XSDPS_PHYREG2_TRIM_ICP_SHIFT);
+				XSDPS_PHYREG2_TRIM_ICP_SHIFT);
 			if (SelFreq == XSDPS_MMC_DDR_MAX_CLK) {
 				Reg |= (XSDPS_FREQ_SEL_50MHZ_79MHz <<
-							XSDPS_PHYREG2_FREQ_SEL_SHIFT);
+					XSDPS_PHYREG2_FREQ_SEL_SHIFT);
 			}
 
 			XSdPs_WriteReg(InstancePtr->Config.BaseAddress,
-					XSDPS_PHYCTRLREG2_OFFSET, Reg);
+				       XSDPS_PHYCTRLREG2_OFFSET, Reg);
 		} else {
 			Reg |= XSDPS_PHYREG2_DLYTX_SEL_MASK;
 			Reg |= XSDPS_PHYREG2_DLYRX_SEL_MASK;
 			XSdPs_WriteReg(InstancePtr->Config.BaseAddress,
-					XSDPS_PHYCTRLREG2_OFFSET, Reg);
+				       XSDPS_PHYCTRLREG2_OFFSET, Reg);
 		}
 	}
 #endif
@@ -1506,17 +1507,17 @@ s32 XSdPs_SetClock(XSdPs *InstancePtr, u32 SelFreq)
 
 #ifdef VERSAL_NET
 	if ((InstancePtr->CardType == XSDPS_CHIP_EMMC) &&
-		(InstancePtr->Mode != XSDPS_DEFAULT_SPEED_MODE) &&
-			(SelFreq > XSDPD_MIN_DLL_MODE_CLK)) {
+	    (InstancePtr->Mode != XSDPS_DEFAULT_SPEED_MODE) &&
+	    (SelFreq > XSDPD_MIN_DLL_MODE_CLK)) {
 		Reg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-					XSDPS_PHYCTRLREG2_OFFSET);
+				    XSDPS_PHYCTRLREG2_OFFSET);
 		Reg |= XSDPS_PHYREG2_DLL_EN_MASK;
 		XSdPs_WriteReg(InstancePtr->Config.BaseAddress,
-					XSDPS_PHYCTRLREG2_OFFSET, Reg);
+			       XSDPS_PHYCTRLREG2_OFFSET, Reg);
 
 		/* Wait for 1000 micro sec for DLL READY */
 		Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_PHYCTRLREG2_OFFSET,
-				XSDPS_PHYREG2_DLL_RDY_MASK, XSDPS_PHYREG2_DLL_RDY_MASK, Timeout);
+					  XSDPS_PHYREG2_DLL_RDY_MASK, XSDPS_PHYREG2_DLL_RDY_MASK, Timeout);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
 			goto RETURN_PATH ;
@@ -1548,7 +1549,7 @@ s32 XSdPs_CheckVoltage18(XSdPs *InstancePtr)
 	u32 Status;
 
 	if ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_HOST_CTRL2_OFFSET) & XSDPS_HC2_1V8_EN_MASK) == 0U) {
+			     XSDPS_HOST_CTRL2_OFFSET) & XSDPS_HC2_1V8_EN_MASK) == 0U) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -1588,19 +1589,19 @@ s32 XSdPs_SetupCmd(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt)
 
 	/* Write block count register */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_BLK_CNT_OFFSET, (u16)BlkCnt);
+			 XSDPS_BLK_CNT_OFFSET, (u16)BlkCnt);
 
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 			XSDPS_TIMEOUT_CTRL_OFFSET, 0xEU);
 
 	/* Write argument register */
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XSDPS_ARGMT_OFFSET, Arg);
+		       XSDPS_ARGMT_OFFSET, Arg);
 
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_NORM_INTR_ALL_MASK);
+			 XSDPS_NORM_INTR_STS_OFFSET, XSDPS_NORM_INTR_ALL_MASK);
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_ERR_INTR_STS_OFFSET, XSDPS_ERROR_INTR_ALL_MASK);
+			 XSDPS_ERR_INTR_STS_OFFSET, XSDPS_ERROR_INTR_ALL_MASK);
 
 	Status = XST_SUCCESS;
 
@@ -1643,16 +1644,16 @@ s32 XSdPs_SendCmd(XSdPs *InstancePtr, u32 Cmd)
 	 */
 	if ((Cmd != CMD21) && (Cmd != CMD19)) {
 		PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XSDPS_PRES_STATE_OFFSET);
+						XSDPS_PRES_STATE_OFFSET);
 		if (((PresentStateReg & XSDPS_PSR_INHIBIT_DAT_MASK) != 0U) &&
-				((CommandReg & XSDPS_DAT_PRESENT_SEL_MASK) != 0U)) {
+		    ((CommandReg & XSDPS_DAT_PRESENT_SEL_MASK) != 0U)) {
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
 	}
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_XFER_MODE_OFFSET,
-			(CommandReg << 16) | InstancePtr->TransferMode);
+		       (CommandReg << 16) | InstancePtr->TransferMode);
 
 	Status = XST_SUCCESS;
 
