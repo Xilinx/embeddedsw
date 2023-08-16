@@ -44,8 +44,4 @@ examples:
         - reg
     xuartpsv_selftest_example.c:
         - reg
-
-tapp:
-   xuartpsv_polled_example.c:
-        declaration: UartPsvPolledExample
 ...
