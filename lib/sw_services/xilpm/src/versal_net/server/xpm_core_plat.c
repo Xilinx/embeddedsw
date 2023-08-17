@@ -61,10 +61,18 @@ done:
 XStatus XPm_PlatSendDirectPowerDown(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
-
+	u32 SubsystemId = XPmDevice_GetSubsystemIdOfCore(&(Core->Device));
+	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
 	/* If parent is on, then only send sleep request */
+	/*In case of rpu core force power down then wakeup and suspend resume we will not reload the partition and
+		TCM might be in use. So, skip direct power down and keep the core in halt state.
+		But in case of subsystem restart we will release TCMs by assuming only rpu is using the TCMs.
+		So, execute direct power down for rpu.
+	*/
 	if ((Core->Device.Power->Parent->Node.State == (u8)XPM_POWER_STATE_ON) &&
-	    ((u32)XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(Core->Device.Node.Id))) {
+	    ((((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Core->Device.Node.Id)) &&
+		((PENDING_POWER_OFF == Subsystem->State) || (PENDING_RESTART == Subsystem->State))) ||
+		((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Core->Device.Node.Id)))) {
 		/* Power down the core */
 		Status = XPm_DirectPwrDwn(Core->Device.Node.Id);
 	} else {
