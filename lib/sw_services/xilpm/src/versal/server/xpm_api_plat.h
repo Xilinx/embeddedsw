@@ -55,6 +55,7 @@ maybe_unused static inline void XPm_ClearScanClear(void)
 XStatus XPm_EnableDdrSr(const u32 SubsystemId);
 XStatus XPm_DisableDdrSr(const u32 SubsystemId);
 XStatus XPm_ForceHouseClean(u32 NodeId);
+void XPmPlDevice_SetStlInitFinishCb(void (*Handler)(void));
 
 #ifdef __cplusplus
 }
