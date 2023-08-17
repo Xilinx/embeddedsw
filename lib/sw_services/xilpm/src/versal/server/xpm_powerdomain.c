@@ -1696,7 +1696,6 @@ static u32 XPmPowerDomain_SkipOp(const XPm_PowerDomain *PwrDomain,
 XStatus XPmPowerDomain_SecureEfuseTransfer(const u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;
-	volatile u32 BypassState = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	volatile u32 RegVal;
 
@@ -1711,10 +1710,6 @@ XStatus XPmPowerDomain_SecureEfuseTransfer(const u32 NodeId)
 	XPm_UnlockPcsr(AmsRoot->Node.BaseAddress);
 
 	if ((PM_POWER_PLD == NodeId) || (PM_POWER_NOC == NodeId)) {
-		/* Store the current state of bypass */
-		BypassState = XPm_In32(AmsRoot->Node.BaseAddress +
-				       AMS_ROOT_TOKEN_MNGR_OFFSET) &
-				       AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK;
 		/* Enable the SSC interface to PL satellite */
 		PmRmw32(AmsRoot->Node.BaseAddress + AMS_ROOT_TOKEN_MNGR_OFFSET,
 			AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK, 0U);
@@ -1724,7 +1719,7 @@ XStatus XPmPowerDomain_SecureEfuseTransfer(const u32 NodeId)
 			       0U, Status);
 		if (XPM_REG_WRITE_FAILED == Status) {
 			DbgErr = XPM_INT_ERR_DISABLE_PL_SSC_INTERFACE;
-			goto restore_bypass_state;
+			goto lock;
 		}
 	}
 
@@ -1737,7 +1732,7 @@ XStatus XPmPowerDomain_SecureEfuseTransfer(const u32 NodeId)
 		       AMS_ROOT_SECURE_EFUSE_START_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_SECURE_EFUSE_START_PCSR_MASK;
-		goto restore_bypass_state;
+		goto lock;
 	}
 
 	PmRmw32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_CONTROL_OFFSET,
@@ -1783,27 +1778,13 @@ deassert_start_bit:
 		       AMS_ROOT_SECURE_EFUSE_START_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		DbgErr = XPM_INT_ERR_DE_ASSERT_SECURE_EFUSE_START_PCSR_MASK;
-		goto restore_bypass_state;
+		goto lock;
 	}
 
 	PmRmw32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_CONTROL_OFFSET,
 		AMS_ROOT_SECURE_EFUSE_START_MASK, 0U);
 
-restore_bypass_state:
-	if ((PM_POWER_NOC == NodeId) || (PM_POWER_PLD == NodeId)) {
-		/* Restore the current state of bypass */
-		PmRmw32(AmsRoot->Node.BaseAddress + AMS_ROOT_TOKEN_MNGR_OFFSET,
-			AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK,
-			BypassState);
-		PmChkRegMask32(AmsRoot->Node.BaseAddress +
-			       AMS_ROOT_TOKEN_MNGR_OFFSET,
-			       AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK,
-			       BypassState, Status);
-		if (XPM_REG_WRITE_FAILED == Status) {
-			DbgErr = XPM_INT_ERR_RESTORE_BYPASS_STATE;
-		}
-	}
-
+lock:
 	/* Lock configuration and system registers */
 	XPm_LockPcsr(AmsRoot->Node.BaseAddress);
 

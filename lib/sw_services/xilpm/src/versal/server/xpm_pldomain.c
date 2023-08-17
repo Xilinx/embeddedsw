@@ -391,6 +391,18 @@ static XStatus VduHouseClean(void)
 		}
 	}
 
+	/*
+	 * In ES2, GT_NCR bit is set immediately after ScanClear/MemClear is
+	 * is triggered and cannot be masked, see EDT-1040224. As workaround,
+	 * clear the GT_NCR error bit in PMC.
+	 */
+	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+	    (PLATFORM_VERSION_SILICON_ES2 == XPm_GetPlatformVersion()) &&
+	    (XPM_PMC_TAP_IDCODE_SBFMLY_SV == (XPm_GetIdCode() & PMC_TAP_IDCODE_SBFMLY_MASK))) {
+		/* Clear PMC GT NCR error bit */
+		XPm_Out32((PMC_GLOBAL_BASEADDR + PMC_GLOBAL_ERR1_STATUS_OFFSET), PMC_GLOBAL_ERR1_STATUS_GT_NCR_MASK);
+	}
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
