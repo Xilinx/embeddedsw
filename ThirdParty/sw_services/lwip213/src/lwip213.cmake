@@ -118,6 +118,17 @@ if(${sgmii_fixed_link})
     set(SGMII_FIXED_LINK   " ")
 endif()
 
+if(("${CMAKE_SYSTEM_NAME}" STREQUAL "FreeRTOS") AND
+    ("${lwip213_api_mode}" STREQUAL RAW_API))
+    message(FATAL_ERROR "FreeRTOS is not compatible with RAW_API mode")
+endif()
+
+
+if(("${CMAKE_SYSTEM_NAME}" STREQUAL "Generic") AND
+    ("${lwip213_api_mode}" STREQUAL SOCKET_API))
+    message(FATAL_ERROR "Standalone is not compatible with SOCKET_API mode")
+endif()
+
 set(MEM_SIZE ${lwip213_mem_size})
 set(MEMP_NUM_PBUF ${lwip213_memp_n_pbuf})
 set(MEMP_NUM_UDP_PCB ${lwip213_memp_n_udp_pcb})
@@ -377,6 +388,7 @@ if(("${CMAKE_SYSTEM_NAME}" STREQUAL "FreeRTOS") AND
         set(LWIP_TCPIP_CORE_LOCKING_INPUT 1)
     endif()
 endif()
+
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/contrib/ports/xilinx/include/lwipopts.h.in ${CMAKE_BINARY_DIR}/include/lwipopts.h)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/contrib/ports/xilinx/include/xlwipconfig.h.in ${CMAKE_BINARY_DIR}/include/xlwipconfig.h)
