@@ -124,6 +124,9 @@ static u8 ExtendHash[XOCP_EXTENDED_HASH_SIZE_IN_BYTES]__attribute__ ((section ("
 						0x5d,0x49,0x68,0xa3,0x50,0x75,
 						0x06,0xbb,0x0b,0x9b,0x03,0x7d,
 						0xd5,0x93,0x76,0x50,0xdb,0xd4};
+static XOcp_SwPcrExtendParams ExtendParams __attribute__ ((section (".data.ExtendParams")));
+static XOcp_SwPcrLogReadData LogParams __attribute__ ((section (".data.LogParams")));
+static XOcp_SwPcrReadData DataParams __attribute__ ((section (".data.DataParams")));
 
 /*****************************************************************************/
 /**
@@ -263,9 +266,6 @@ static int XOcp_SwPcrExample(XOcp_ClientInstance *ClientInstancePtr)
 	u32 PcrNum = (u32)XOCP_SELECT_PCR_NUM;
 	u32 PcrMask = (u32)XOCP_READ_PCR_MASK;
 	u32 MeasurementIdx = 0U;
-	XOcp_SwPcrExtendParams ExtendParams = {0U};
-	XOcp_SwPcrLogReadData LogParams = {0U};
-	XOcp_SwPcrReadData DataParams = {0U};
 	u8 Index;
 
 	ExtendParams.PcrNum = PcrNum;
@@ -301,7 +301,7 @@ static int XOcp_SwPcrExample(XOcp_ClientInstance *ClientInstancePtr)
 	}
 
 	xil_printf("Requested SW PCR Data:\n\r");
-        XOcp_PrintData((const u8*)(u64)(UINTPTR)DataParams.BufAddr, DataParams.ReturnedBytes);
+        XOcp_PrintData((const u8*)(UINTPTR)DataParams.BufAddr, DataParams.ReturnedBytes);
 
 	LogParams.PcrNum = PcrNum;
 	LogParams.LogSize = sizeof(SwPcrMeasurement);
