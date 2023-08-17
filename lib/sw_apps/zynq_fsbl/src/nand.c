@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * 2.00a  mb	25/05/12 fsbl changes for standalone bsp based
 * 3.00a sgd	30/01/13 Code cleanup
 * 5.00a sgd	17/05/13 Support for Multi Boot
+* 21.2  ng  07/25/23 Add SDT support
 * </pre>
 *
 * @note
@@ -29,14 +31,17 @@
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "fsbl.h"
-#ifdef XPAR_PS7_NAND_0_BASEADDR
+#if defined(XPAR_PS7_NAND_0_BASEADDR) || defined(XPAR_XNANDPS_0_FLASHBASE)
 #include "nand.h"
 #include "xnandps_bbm.h"
 
 
 /************************** Constant Definitions *****************************/
-
-#define NAND_DEVICE_ID		XPAR_XNANDPS_0_DEVICE_ID
+#ifndef SDT
+	#define NAND_DEVICE		XPAR_XNANDPS_0_DEVICE_ID
+#else
+	#define NAND_DEVICE		XPAR_XNANDPS_0_BASEADDR
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -83,7 +88,7 @@ u32 InitNand(void)
 	/*
 	 * Initialize the flash driver.
 	 */
-	ConfigPtr = XNandPs_LookupConfig(NAND_DEVICE_ID);
+	ConfigPtr = XNandPs_LookupConfig(NAND_DEVICE);
 
 	if (ConfigPtr == NULL) {
 		fsbl_printf(DEBUG_GENERAL,"Nand Driver failed \n \r");
