@@ -39,6 +39,7 @@
 * 1.08  ng   11/11/2022 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       ng   06/26/2023 Added support for system device-tree flow
+*       ng   08/09/2023 Removed redundant windbond flash size macro
 *
 * </pre>
 *
@@ -165,8 +166,7 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 		XLoader_Printf(DEBUG_INFO, "64M Bits\r\n");
 	}
 	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_128M)
-		|| (ReadBuffer[2U] ==
-			XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_128M)) {
+		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_128M)) {
 		QspiFlashSize = XLOADER_FLASH_SIZE_128M;
 		XLoader_Printf(DEBUG_INFO, "128M Bits\r\n");
 	}
@@ -176,23 +176,19 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 	}
 	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_512M)
 		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_SIZE_ID_512M)
-		|| (ReadBuffer[2U] ==
-			XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_512M)){
+		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_512M)){
 		QspiFlashSize = XLOADER_FLASH_SIZE_512M;
 		XLoader_Printf(DEBUG_INFO, "512M Bits\r\n");
 	}
 	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_1G)
 		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_SIZE_ID_1G)
-		|| (ReadBuffer[2U] ==
-			XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_1G)){
+		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_1G)){
 		QspiFlashSize = XLOADER_FLASH_SIZE_1G;
 		XLoader_Printf(DEBUG_INFO, "1G Bits\r\n");
 	}
 	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_2G)
 		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_SIZE_ID_2G)
-		|| (ReadBuffer[2U] ==
-			XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_2G)
-		|| (ReadBuffer[2U] == XLOADER_WINBOND_FLASH_SIZE_ID_2G)) {
+		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_2G)) {
 		QspiFlashSize = XLOADER_FLASH_SIZE_2G;
 		XLoader_Printf(DEBUG_INFO, "2G Bits\r\n");
 	}
