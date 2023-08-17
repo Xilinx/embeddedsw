@@ -96,6 +96,9 @@
 * 9.0   adk  04/17/23 Updated translation table to support system device-tree
 *		      flow.
 *	adk  04/26/23 Fixed overriding of the DDR_*_REG variable.
+*       mus  08/17/23 Updated translation table for VersalNet SoC, to configure
+*                     DDR regions as normal memory if DDR is mapped to given
+*                     DDR region in HW design. It fixes CR#1162903.
 *
 ******************************************************************************/
 #include "bspconfig.h"
@@ -112,6 +115,7 @@
 
 	.set UNDEF_START, 0
 
+#ifndef VERSAL_NET
 	/* Base addresses for all DDR regions in Versal SoC */
 	.set DDR_LOW_0_REGION_START_ADDR, 0x0000000000		/* 0x0000_0000_0000 */
 	.set DDR_LOW_1_REGION_START_ADDR, 0x800000000		/* 0x0008_0000_0000 */
@@ -120,6 +124,20 @@
 	.set DDR_CH_1_REGION_START_ADDR, 0x50000000000		/* 0x0500_0000_0000 */
 	.set DDR_CH_2_REGION_START_ADDR, 0x60000000000		/* 0x0600_0000_0000 */
 	.set DDR_CH_3_REGION_START_ADDR, 0x70000000000		/* 0x0700_0000_0000 */
+#else
+        /* Base addresses for all DDR regions in VersalNet SoC */
+        .set DDRMC0_REGION0_START_ADDR, 0x0000000000          /* 0x0000_0000_0000 */
+        .set DDRMC0_REGION1_START_ADDR, 0x800000000          /* 0x0000_0000_0000 */
+        .set DDRMC0_REGION2_START_ADDR, 0xC000000000          /* 0x0000_0000_0000 */
+        .set DDRMC0_REGION3_START_ADDR, 0x10000000000          /* 0x0000_0000_0000 */
+        .set DDRMC1_START_ADDR, 0x50000000000          /* 0x0000_0000_0000 */
+        .set DDRMC2_START_ADDR, 0x60000000000          /* 0x0000_0000_0000 */
+        .set DDRMC3_START_ADDR, 0x70000000000          /* 0x0000_0000_0000 */
+        .set DDRMC4_START_ADDR, 0x180000000000          /* 0x0000_0000_0000 */
+        .set DDRMC5_START_ADDR, 0x188000000000          /* 0x0000_0000_0000 */
+        .set DDRMC6_START_ADDR, 0x190000000000          /* 0x0000_0000_0000 */
+        .set DDRMC7_START_ADDR, 0x198000000000          /* 0x0000_0000_0000 */
+#endif
 
 	.set reserved,	0x0 					/* Fault*/
 	.set Memory_NonCacheable,	0x401 		/* normal non-cacheable */
@@ -180,46 +198,129 @@ MMUTableL1:
 .set SECT, SECT + 0x40000000
 .endr
 
-/* TODO: Mark DDR_CH0_MED as normal memory based on HW design */
-.rept	0x20			/* 0x8_0000_0000 - 0xF_FFFF_FFFF */
-.8byte	SECT + reserved		/* 32GB DDR_CH0_MED marked as reserved for now */
+.set UNDEF_START, 0
+#ifdef XPAR_AXI_NOC_DDR_LOW_1_BASEADDR
+.set DDR_START, XPAR_AXI_NOC_DDR_LOW_1_BASEADDR
+.set DDR_END, XPAR_AXI_NOC_DDR_LOW_1_HIGHADDR
+
+.if DDR_START > DDRMC0_REGION1_START_ADDR
+.set UNDEF_START, (DDR_START - DDRMC0_REGION1_START_ADDR)
+.set UNDEF_START, (UNDEF_START)/0x40000000
+.endif
+
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.if DDR_SIZE > 0x800000000
+/* If DDR size is larger than 32 GB, truncate to 32GB */
+.set DDR_REG, 0x20
+.else
+.set DDR_REG, DDR_SIZE/0x40000000
+.endif
+#else
+.set DDR_REG, 0
+#warning "There's no DDRMC0_REGION1 in the HW design. MMU translation table marks 32 GB DDR address space as undefined"
+#endif
+
+.set UNDEF_REG, (0x20 - DDR_REG - UNDEF_START)
+
+.rept	UNDEF_START				/* reserved for region where ddr is absent */
+.8byte	SECT + reserved
+.set	SECT, SECT+0x40000000
+.endr
+
+.rept	DDR_REG		/*  DDR based on size in xsa 0x8_0000_0000 - 0xF_FFFF_FFFF */
+.8byte	SECT + Memory		/* Maximum DDR region size - 32GB */
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x40			/* 0x10_0000_0000 - 0x1F_FFFF_FFFF */
-.8byte	SECT + reserved		/* 64GB Reserved */
+.rept	UNDEF_REG		/* reserved for region where ddr is absent */
+.8byte	SECT + reserved
+.set	SECT, SECT+0x40000000
+.endr
+
+.rept	0x2C0			/* 0x10_0000_0000 - 0xBF_FFFF_FFFF */
+.8byte	SECT + reserved		/* 704GB Reserved */
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x80			/* 0x20_0000_0000 - 0x3F_FFFF_FFFF */
-.8byte	SECT + Device		/* 128GB C2C_MED */
+#ifdef XPAR_AXI_NOC2_DDR_LOW_2_BASEADDR
+.set DDR_START, XPAR_AXI_NOC2_DDR_LOW_2_BASEADDR
+.set DDR_END, XPAR_AXI_NOC_DDR_LOW_2_HIGHADDR
+
+.if DDR_START > DDRMC0_REGION2_START_ADDR
+.set UNDEF_START, (DDR_START - DDRMC0_REGION2_START_ADDR)
+.set UNDEF_START, (UNDEF_START)/0x40000000
+.endif
+
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.if DDR_SIZE > 0x4000000000
+/* If DDR size is larger than 256GB, truncate to 256GB */
+.set DDR_REG, 0x100
+.else
+.set DDR_REG, DDR_SIZE/0x40000000
+.endif
+#else
+.set DDR_REG, 0
+#warning "There's no DDRMC0_REGION2 in the HW design. MMU translation table marks 256GB DDR address space as undefined"
+#endif
+
+.set UNDEF_REG, (0x100 - DDR_REG - UNDEF_START)
+
+.rept   UNDEF_START                             /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+.rept   DDR_REG         /*  DDR based on size in xsa 0xC0_0000_0000 - 0xFF_FFFF_FFFF */
+.8byte  SECT + Memory           /* Maximum DDR region size - 256GB */
 .set SECT, SECT + 0x40000000
 .endr
 
-/* TODO: Mark HBM regions as normal memory based on the HW design */
-.rept	0x100			/* 0x40_0000_0000 - 0x7F_FFFF_FFFF */
-.8byte	SECT + reserved		/* 256GB device */
+.rept   UNDEF_REG               /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+
+#ifdef XPAR_AXI_NOC_DDR_LOW_3_BASEADDR
+.set DDR_START, XPAR_AXI_NOC_DDR_LOW_3_BASEADDR
+.set DDR_END, XPAR_AXI_NOC_DDR_LOW_3_HIGHADDR
+
+.if DDR_START > DDRMC0_REGION3_START_ADDR
+.set UNDEF_START, (DDR_START - DDRMC0_REGION3_START_ADDR)
+.set UNDEF_START, (UNDEF_START)/0x40000000
+.endif
+
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.if DDR_SIZE > 0xB780000000
+/* If DDR size is larger than 734GB, truncate to 734GB */
+.set DDR_REG, 0x2DE
+.else
+.set DDR_REG, DDR_SIZE/0x40000000
+.endif
+#else
+.set DDR_REG, 0
+#warning "There's no DDRMC0_REGION3 in the HW design. MMU translation table marks 734GB DDR address space as undefined"
+#endif
+
+.set UNDEF_REG, (0x2DE - DDR_REG - UNDEF_START)
+
+.rept   UNDEF_START                             /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+.rept   DDR_REG         /*  DDR based on size in xsa 0x100_0000_0000 - 0x1B&_7FFF_FFFF */
+.8byte  SECT + Memory           /* Maximum DDR region size - 734GB */
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x100			/* 0x80_0000_0000 - 0xBF_FFFF_FFFF */
-.8byte	SECT + reserved		/* 256GB reserved */
-.set SECT, SECT + 0x40000000
-.endr
-
-/* TODO: Mark this region as normal memory based on HW design */
-.rept	0x100			/* 0xC0_0000_0000 - 0xFF_FFFF_FFFF */
-.8byte	SECT + reserved		/* 256GB DDR (DDR_CH0_HIGH_0: 256GB + DDR_CH0_HIGH_1: 734GB) */
-.set SECT, SECT + 0x40000000
-.endr
-
-.rept   0x2DE                   /* 0x100_0000_0000 - 0x1B7_7FFF_FFFF */
-.8byte  SECT + reserved         /* 790GB DDR (DDR_CH0_HIGH_1) */
-.set SECT, SECT + 0x40000000
+.rept   UNDEF_REG               /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
 .endr
 
 .rept   0x122                   /* 0x1B8_0000_0000 - 0x1FF_FFFF_FFFF */
-.8byte  SECT + reserved         /* 290GB DDR */
+.8byte  SECT + reserved         /* 290GB reserved */
 .set SECT, SECT + 0x40000000
 .endr
 
@@ -256,10 +357,119 @@ MMUTableL1:
 .set SECT, SECT + 0x40000000
 .endr
 
-/* TODO: Mark this region as normal memory based on the HW design */
-.rept	0xc00			/* 0x500_0000_0000 - 0x7FF_FFFF_FFFF */
-.8byte	SECT + reserved		/* 3TB DDR: DDR_CH1, DDr_CH2 and DDR_CH3 each with 1TB */
+#ifdef XPAR_AXI_NOC2_DDR_CH_1_BASEADDR
+.set DDR_START, XPAR_AXI_NOC2_DDR_CH_1_BASEADDR
+.set DDR_END, XPAR_AXI_NOC2_DDR_CH_1_HIGHADDR
+
+.if DDR_START > DDRMC1_START_ADDR
+.set UNDEF_START, (DDR_START - DDRMC1_START_ADDR)
+.set UNDEF_START, (UNDEF_START)/0x40000000
+.endif
+
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.if DDR_SIZE > 0x10000000000
+/* If DDR size is larger than 1TB, truncate to 1TB */
+.set DDR_REG, 0x400
+.else
+.set DDR_REG, DDR_SIZE/0x40000000
+.endif
+#else
+.set DDR_REG, 0
+#warning "There's no DDRMC1_mem in the HW design. MMU translation table marks 1TB DDR address space as undefined"
+#endif
+
+.set UNDEF_REG, (0x400 - DDR_REG - UNDEF_START)
+
+.rept   UNDEF_START                             /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+.rept   DDR_REG         /*  DDR based on size in xsa 0x500_0000_0000 - 0x5FF_FFFF_FFFF */
+.8byte  SECT + Memory           /* Maximum DDR region size - 1TB */
 .set SECT, SECT + 0x40000000
+.endr
+
+.rept   UNDEF_REG               /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+#ifdef XPAR_AXI_NOC2_DDR_CH_1A_BASEADDR
+.set DDR_START, XPAR_AXI_NOC2_DDR_CH_1A_BASEADDR
+.set DDR_END, XPAR_AXI_NOC2_DDR_CH_1A_HIGHADDR
+
+.if DDR_START > DDRMC2_START_ADDR
+.set UNDEF_START, (DDR_START - DDRMC2_START_ADDR)
+.set UNDEF_START, (UNDEF_START)/0x40000000
+.endif
+
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.if DDR_SIZE > 0x10000000000
+/* If DDR size is larger than 1TB, truncate to 1TB */
+.set DDR_REG, 0x400
+.else
+.set DDR_REG, DDR_SIZE/0x40000000
+.endif
+#else
+.set DDR_REG, 0
+#warning "There's no DDRMC2_mem in the HW design. MMU translation table marks 1TB DDR address space as undefined"
+#endif
+
+.set UNDEF_REG, (0x400 - DDR_REG - UNDEF_START)
+
+.rept   UNDEF_START                             /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+.rept   DDR_REG         /*  DDR based on size in xsa 0x600_0000_0000 - 0x6FF_FFFF_FFFF */
+.8byte  SECT + Memory           /* Maximum DDR region size - 1TB */
+.set SECT, SECT + 0x40000000
+.endr
+
+.rept   UNDEF_REG               /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+
+#ifdef XPAR_AXI_NOC2_DDR_CH_2_BASEADDR
+.set DDR_START, XPAR_AXI_NOC2_DDR_CH_2_BASEADDR
+.set DDR_END, XPAR_AXI_NOC2_DDR_CH_2_HIGHADDR
+
+.if DDR_START > DDRMC3_START_ADDR
+.set UNDEF_START, (DDR_START - DDRMC3_START_ADDR)
+.set UNDEF_START, (UNDEF_START)/0x40000000
+.endif
+
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.if DDR_SIZE > 0x10000000000
+/* If DDR size is larger than 1TB, truncate to 1TB */
+.set DDR_REG, 0x400
+.else
+.set DDR_REG, DDR_SIZE/0x40000000
+.endif
+#else
+.set DDR_REG, 0
+#warning "There's no DDRMC3_mem in the HW design. MMU translation table marks 1TB DDR address space as undefined"
+#endif
+
+.set UNDEF_REG, (0x400 - DDR_REG - UNDEF_START)
+
+.rept   UNDEF_START                             /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+.rept   DDR_REG         /*  DDR based on size in xsa 0x600_0000_0000 - 0x6FF_FFFF_FFFF */
+.8byte  SECT + Memory           /* Maximum DDR region size - 1TB */
+.set SECT, SECT + 0x40000000
+.endr
+
+.rept   UNDEF_REG               /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
 .endr
 
 .rept	0x2000			/* 0x800_0000_0000 - 0xFFF_FFFF_FFFF */
@@ -267,18 +477,164 @@ MMUTableL1:
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x2000			/* 0x800_0000_0000 - 0xFFF_FFFF_FFFF */
+.rept	0x2000			/* 0x1000_0000_0000 - 0x17FF_FFFF_FFFF */
 .8byte	SECT + Device		/* 8TB CPM_CDX_DPU_HIGH */
 .set SECT, SECT + 0x40000000
 .endr
 
-/* TODO: Mark this region as normal memory based on the HW design */
-.rept	0x1800			/* 0x400_0000_0000 - 0x4FF_FFFF_FFFF */
-.8byte	SECT + reserved		/* 6TB DDR: 12 DDR regions (DDR_CH4 to DDR_CH15) each of size 512GB */
+#ifdef XPAR_AXI_NOC2_DDR_CH_2A_BASEADDR
+.set DDR_START, XPAR_AXI_NOC2_DDR_CH_2A_BASEADDR
+.set DDR_END, XPAR_AXI_NOC2_DDR_CH_2A_HIGHADDR
+
+.if DDR_START > DDRMC4_START_ADDR
+.set UNDEF_START, (DDR_START - DDRMC4_START_ADDR)
+.set UNDEF_START, (UNDEF_START)/0x40000000
+.endif
+
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.if DDR_SIZE > 0x4000000000
+/* If DDR size is larger than 512GB, truncate to 512GB */
+.set DDR_REG, 0x200
+.else
+.set DDR_REG, DDR_SIZE/0x40000000
+.endif
+#else
+.set DDR_REG, 0
+#warning "There's no DDRMC4_mem in the HW design. MMU translation table marks 512GB DDR address space as undefined"
+#endif
+
+.set UNDEF_REG, (0x200 - DDR_REG - UNDEF_START)
+
+.rept   UNDEF_START                             /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+.rept   DDR_REG         /*  DDR based on size in xsa 0x1800_0000_0000 - 0x187F_FFFF_FFFF */
+.8byte  SECT + Memory           /* Maximum DDR region size - 512GB */
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x800			/* 0x800_0000_0000 - 0xFFF_FFFF_FFFF */
+.rept   UNDEF_REG               /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+#ifdef XPAR_AXI_NOC2_DDR_CH_3_BASEADDR
+.set DDR_START, XPAR_AXI_NOC2_DDR_CH_3_BASEADDR
+.set DDR_END, XPAR_AXI_NOC2_DDR_CH_3_HIGHADDR
+
+.if DDR_START > DDRMC5_START_ADDR
+.set UNDEF_START, (DDR_START - DDRMC5_START_ADDR)
+.set UNDEF_START, (UNDEF_START)/0x40000000
+.endif
+
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.if DDR_SIZE > 0x4000000000
+/* If DDR size is larger than 512GB, truncate to 512GB */
+.set DDR_REG, 0x200
+.else
+.set DDR_REG, DDR_SIZE/0x40000000
+.endif
+#else
+.set DDR_REG, 0
+#warning "There's no DDRMC5_mem in the HW design. MMU translation table marks 512GB DDR address space as undefined"
+#endif
+
+.set UNDEF_REG, (0x200 - DDR_REG - UNDEF_START)
+
+.rept   UNDEF_START                             /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+.rept   DDR_REG         /*  DDR based on size in xsa 0x1880_0000_0000 - 0x18FF_FFFF_FFFF */
+.8byte  SECT + Memory           /* Maximum DDR region size - 512GB */
+.set SECT, SECT + 0x40000000
+.endr
+
+.rept   UNDEF_REG               /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+#ifdef XPAR_AXI_NOC2_DDR_CH_3A_BASEADDR
+.set DDR_START, XPAR_AXI_NOC2_DDR_CH_3A_BASEADDR
+.set DDR_END, XPAR_AXI_NOC2_DDR_CH_3A_HIGHADDR
+
+.if DDR_START > DDRMC6_START_ADDR
+.set UNDEF_START, (DDR_START - DDRMC6_START_ADDR)
+.set UNDEF_START, (UNDEF_START)/0x40000000
+.endif
+
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.if DDR_SIZE > 0x4000000000
+/* If DDR size is larger than 512GB, truncate to 512GB */
+.set DDR_REG, 0x200
+.else
+.set DDR_REG, DDR_SIZE/0x40000000
+.endif
+#else
+.set DDR_REG, 0
+#warning "There's no DDRMC6_mem in the HW design. MMU translation table marks 512GB DDR address space as undefined"
+#endif
+
+.set UNDEF_REG, (0x200 - DDR_REG - UNDEF_START)
+
+.rept   UNDEF_START                             /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+.rept   DDR_REG         /*  DDR based on size in xsa 0x1900_0000_0000 - 0x197F_FFFF_FFFF */
+.8byte  SECT + Memory           /* Maximum DDR region size - 512GB */
+.set SECT, SECT + 0x40000000
+.endr
+
+.rept   UNDEF_REG               /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+#ifdef XPAR_AXI_NOC2_DDR_CH_4_BASEADDR
+.set DDR_START, XPAR_AXI_NOC2_DDR_CH_4_BASEADDR
+.set DDR_END, XPAR_AXI_NOC2_DDR_CH_4_HIGHADDR
+
+.if DDR_START > DDRMC7_START_ADDR
+.set UNDEF_START, (DDR_START - DDRMC7_START_ADDR)
+.set UNDEF_START, (UNDEF_START)/0x40000000
+.endif
+
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.if DDR_SIZE > 0x4000000000
+/* If DDR size is larger than 512GB, truncate to 512GB */
+.set DDR_REG, 0x200
+.else
+.set DDR_REG, DDR_SIZE/0x40000000
+.endif
+#else
+.set DDR_REG, 0
+#warning "There's no DDRMC7_mem in the HW design. MMU translation table marks 512GB DDR address space as undefined"
+#endif
+
+.set UNDEF_REG, (0x200 - DDR_REG - UNDEF_START)
+
+.rept   UNDEF_START                             /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+.rept   DDR_REG         /*  DDR based on size in xsa 0x1980_0000_0000 - 0x19FF_FFFF_FFFF */
+.8byte  SECT + Memory           /* Maximum DDR region size - 512GB */
+.set SECT, SECT + 0x40000000
+.endr
+
+.rept   UNDEF_REG               /* reserved for region where ddr is absent */
+.8byte  SECT + reserved
+.set    SECT, SECT+0x40000000
+.endr
+
+.rept	0x800			/* 0x1200_0000_0000 - 0x13FF_FFFF_FFFF */
 .8byte	SECT + reserved		/* 2TB reserved */
 .set SECT, SECT + 0x40000000
 .endr
@@ -304,10 +660,42 @@ MMUTableL1:
 MMUTableL2:
 
 .set SECT, 0
+.set UNDEF_START, 0
+#ifdef XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR
+.set DDR_0_START, XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR
+.set DDR_0_END, XPAR_AXI_NOC2_DDR_LOW_0_HIGHADDR
 
-/* TODO: Configure this region as normal memory/reserved based on HW design */
-.rept	0x400			/* 2GB DDR 0x0 - 0x80000000 */
+.if DDR_0_START > DDRMC0_REGION0_START_ADDR
+.set UNDEF_START, (DDR_0_START - DDRMC0_REGION0_START_ADDR)
+.set UNDEF_START, (UNDEF_START)/0x200000
+.endif
+
+.set DDR_0_SIZE, (DDR_0_END - DDR_0_START)+1
+.if DDR_0_SIZE > 0x80000000
+/* If DDR size is larger than 2GB, truncate to 2GB */
+.set DDR_0_REG, 0x400
+.else
+.set DDR_0_REG, DDR_0_SIZE/0x200000
+.endif
+#else
+.set DDR_0_REG, 0
+#warning "There's no DDR_0 in the HW design. MMU translation table marks 2 GB DDR address space as undefined"
+#endif
+
+.set UNDEF_0_REG, (0x400 - DDR_0_REG - UNDEF_START)
+
+.rept	UNDEF_START				/* reserved for region where ddr is absent */
+.8byte	SECT + reserved
+.set	SECT, SECT+0x200000
+.endr
+
+.rept	DDR_0_REG			/* DDR based on size in hdf*/
 .8byte	SECT + Memory
+.set	SECT, SECT+0x200000
+.endr
+
+.rept	UNDEF_0_REG		/* reserved for region where ddr is absent */
+.8byte	SECT + reserved
 .set	SECT, SECT+0x200000
 .endr
 
