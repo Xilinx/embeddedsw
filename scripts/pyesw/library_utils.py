@@ -289,6 +289,8 @@ class Library(Repo):
         lib_config = {}
 
         if schema and schema.get("depends_libs", {}):
+            # cmake syntax is using 'ON/OFF' option, 'True/False' is lagacy entry.
+            bool_match = {True: "ON", False: "OFF"}
             # If the passed template has any lib dependency, add those dependencies.
             for name, props in schema["depends_libs"].items():
                 if not self.is_valid_lib(name):
@@ -298,6 +300,8 @@ class Library(Repo):
                 if props:
                     # If the template needs specific config param of the lib.
                     for key, value in props.items():
+                        if value in bool_match:
+                            value = bool_match[value]
                         cmake_cmd_append += f" -D{key}={value}"
         if schema and schema.get("os_config", {}):
             if schema.get("os_config", {})[self.os]:
@@ -324,10 +328,14 @@ class Library(Repo):
                 # BSP_LIBSRC_SUBDIRS needs to be modified to avoid checking dependency chain
                 # during regen_bsp
                 self.modify_cmake_subdirs(lib_list, action='add')
-                utils.runcmd(
-                    f'cmake -G "Unix Makefiles" {self.domain_path} {self.cmake_paths_append} -DNON_YOCTO=ON -DSUBDIR_LIST="{cmake_lib_list}" -LH > cmake_lib_configs.txt',
-                    cwd = build_metadata
-                )
+                if is_app:
+                    cmake_cmd_append = cmake_cmd_append.replace('\\', '/')
+                    utils.runcmd(f'cmake -G "Unix Makefiles" {self.domain_path} {self.cmake_paths_append} -DNON_YOCTO=ON -DSUBDIR_LIST="{cmake_lib_list}" {cmake_cmd_append} -LH > cmake_lib_configs.txt', cwd = build_metadata)
+                else:
+                    utils.runcmd(
+                        f'cmake -G "Unix Makefiles" {self.domain_path} {self.cmake_paths_append} -DNON_YOCTO=ON -DSUBDIR_LIST="{cmake_lib_list}" -LH > cmake_lib_configs.txt',
+                        cwd = build_metadata
+                    )
             except:
                 ignore_lib = True
                 lib_path = os.path.join(self.libsrc_folder, comp_name)
@@ -345,9 +353,6 @@ class Library(Repo):
                 comp_dir = self.get_comp_dir(comp_name)
                 yaml_file = os.path.join(comp_dir, "data", f"{comp_name}.yaml")
                 schema = utils.load_yaml(yaml_file)
-                cmake_cmd_append = cmake_cmd_append.replace('\\', '/')
-                # Re-run cmake with modified lib entries
-                utils.runcmd(f'cmake -G "Unix Makefiles" {self.domain_path} {self.cmake_paths_append} -DNON_YOCTO=ON -DSUBDIR_LIST="{cmake_lib_list}" {cmake_cmd_append}', cwd = build_metadata)
                 # Add the modified lib param values in yaml configuration dict
                 if schema.get("depends_libs", {}):
                     for name, props in schema["depends_libs"].items():
