@@ -27,6 +27,7 @@
 #       kpt  07/13/23 Added mld param for keywrap rsa key size
 #       yog  07/19/23 Added support to enable/disable P256 curve
 #       am   08/14/23 Errored out disallowed CPU modes
+#	vss  08/17/23 Fixed XilSecure doesn't work for Versal Client microblaze
 #
 ##############################################################################
 
@@ -127,6 +128,24 @@ proc secure_drc {libhandle} {
 			}
 			foreach entry [glob -nocomplain -types f [file join "$versal/client" *]] {
 				file copy -force $entry "./src"
+			}
+			set is_versal_net [hsi::get_cells -hier -filter {IP_NAME=="psxl_cortexr52" || IP_NAME=="psx_cortexr52" ||
+				IP_NAME=="psxl_cortexa78" || IP_NAME=="psx_cortexa78"}]
+	                if {$proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
+			    $proc_type == "psx_cortexr52" || ($proc_type == "microblaze" && [llength $is_versal_net] > 0)} {
+				foreach entry [glob -nocomplain -types f [file join "$versal_net/client" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_net/common" *]] {
+					file copy -force $entry "./src"
+				}
+			} else {
+				foreach entry [glob -nocomplain -types f [file join "$versal/client" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal/common" *]] {
+					file copy -force $entry "./src"
+				}
 			}
 			file delete -force ./src/xsecure_rsa.c
 			file delete -force ./src/xsecure_rsa.h
