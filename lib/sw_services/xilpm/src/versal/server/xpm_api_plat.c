@@ -96,6 +96,43 @@
 	(1ULL << (u64)IOCTL_GET_QOS) | \
 	(1ULL << (u64)IOCTL_PREPARE_DDR_SHUTDOWN))
 
+#ifdef PLM_ENABLE_STL
+static void (*StlCbInitFinishHandler)(void);
+static inline void XPmPlDevice_TriggerStlHandler(void)
+{
+	if (NULL != StlCbInitFinishHandler) {
+		StlCbInitFinishHandler();
+	}
+}
+/****************************************************************************/
+/**
+ * @brief  Set XilStl callback handler to execute STLs at the end of PLD init
+ * finish command processing
+ *
+ * @param  Handler: Pointer to XilStl callback handler
+ *
+ * @return None
+ *
+ * @note None
+ *
+ ****************************************************************************/
+void XPmPlDevice_SetStlInitFinishCb(void (*Handler)(void))
+{
+	if (NULL == StlCbInitFinishHandler) {
+		StlCbInitFinishHandler = Handler;
+	}
+}
+#else
+static inline void XPmPlDevice_TriggerStlHandler(void)
+{
+	return;
+}
+void XPmPlDevice_SetStlInitFinishCb(void (*Handler)(void))
+{
+	(void)Handler;
+}
+#endif /* PLM_ENABLE_STL */
+
 /****************************************************************************/
 /**
  * @brief  This function adds the Healthy boot monitor node through software.
@@ -943,6 +980,9 @@ static XStatus PldInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArg
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_DOMAIN_ISO;
 			goto done;
+		}
+		if (XPM_DEVSTATE_RUNNING == PlDevice->Device.Node.State) {
+			XPmPlDevice_TriggerStlHandler();
 		}
 		break;
 	case (u32)FUNC_MEM_CTRLR_MAP:
