@@ -44,10 +44,22 @@
 #include "netif/xadapter.h"
 #include "netif/xaxiemacif.h"
 
+#ifndef SDT
 #if XLWIP_CONFIG_INCLUDE_AXIETH_ON_ZYNQ == 1
 #include "xscugic.h"
 #else
 #include "xintc_l.h"
+#endif
+#else
+#include "xinterrupt_wrap.h"
+#ifndef XCACHE_FLUSH_DCACHE_RANGE
+#define XCACHE_FLUSH_DCACHE_RANGE(data, length)	\
+		Xil_DCacheFlushRange((UINTPTR)data, length)
+#endif
+#ifndef XCACHE_INVALIDATE_DCACHE_RANGE
+#define XCACHE_INVALIDATE_DCACHE_RANGE(data, length)	\
+		Xil_DCacheInvalidateRange((u32)data, length)
+#endif
 #endif
 
 #include "xstatus.h"
@@ -690,8 +702,13 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 		return ERR_IF;
 	}
 	/* initialize DMA */
+#ifndef SDT
 	baseaddr = xaxiemacif->axi_ethernet.Config.AxiDevBaseAddress;
 	dmaconfig = XAxiDma_LookupConfigBaseAddr(baseaddr);
+#else
+	baseaddr = xaxiemacif->axi_ethernet.AxiDevBaseAddress;
+	dmaconfig = XAxiDma_LookupConfig(baseaddr);
+#endif
 	XAxiDma_CfgInitialize(&xaxiemacif->axidma, dmaconfig);
 
 	rxringptr = XAxiDma_GetRxRing(&xaxiemacif->axidma);
@@ -804,6 +821,7 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	XAxiDma_BdRingIntEnable(txringptr, XAXIDMA_IRQ_ALL_MASK);
 	XAxiDma_BdRingIntEnable(rxringptr, XAXIDMA_IRQ_ALL_MASK);
 
+#ifndef SDT
 #if XLWIP_CONFIG_INCLUDE_AXIETH_ON_ZYNQ == 1
 	XScuGic_RegisterHandler(xtopologyp->scugic_baseaddr,
 			xaxiemacif->axi_ethernet.Config.TemacIntr,
@@ -935,9 +953,25 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	} while (0);
 #endif
 #endif
+#else
+	XSetupInterruptSystem(&xaxiemacif->axi_ethernet, &xaxiemac_error_handler,
+			      xaxiemacif->axi_ethernet.Config.IntrId,
+			      xaxiemacif->axi_ethernet.Config.IntrParent,
+			      XINTERRUPT_DEFAULT_PRIORITY);
+	XSetupInterruptSystem(xemac, &axidma_send_handler,
+			      dmaconfig->IntrId[0],
+			      dmaconfig->IntrParent,
+			      XINTERRUPT_DEFAULT_PRIORITY);
+	XSetupInterruptSystem(xemac, &axidma_recv_handler,
+			      dmaconfig->IntrId[1],
+			      dmaconfig->IntrParent,
+			      XINTERRUPT_DEFAULT_PRIORITY);
+
+#endif
 	return 0;
 }
 
+#ifndef SDT
 #if XPAR_INTC_0_HAS_FAST == 1
 /****************************** Fast receive Handler *************************/
 static void axidma_recvfast_handler(void)
@@ -956,4 +990,5 @@ static void xaxiemac_errorfast_handler(void)
 {
 	xaxiemac_error_handler(&xaxiemacif_fast->axi_ethernet);
 }
+#endif
 #endif
