@@ -44,6 +44,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 * 1.08  ng   11/11/2022 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       ng   08/16/2023 Fixed status overwrite in SdRelease
 *
 * </pre>
 *
@@ -396,6 +397,7 @@ END:
  int XLoader_SdRelease(void)
  {
 	int Status = XST_FAILURE;
+	int PmStatus = XST_FAILURE;
 	FRESULT Rc;
 
 	/** - Close PDI file. */
@@ -418,8 +420,11 @@ END:
 
 END:
 	/** - Release the device and restore the value of IOU_SLCR_CDN register. */
-	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, SdDeviceNode,
+	PmStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, SdDeviceNode,
 		XPLMI_CMD_SECURE);
+	if (Rc == FR_OK) {
+		Status = PmStatus;
+	}
 	XPlmi_Out32(SdCdnReg, SdCdnVal);
 	return Status;
  }
