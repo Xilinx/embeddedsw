@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,7 +55,7 @@ static XStatus XPmRpuCore_PwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmRpuCore_Halt((XPm_Device *)Core);
+	Status = XPm_PlatRpucoreHalt(Core);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
