@@ -220,6 +220,7 @@
 * 20.0   ng  12/08/22   Updated SDK release version
 * 21.0   skd 02/10/22   SDK release version updated
 * 21.1   ng  07/13/23   Add SDT support
+* 21.2   ng  07/25/23   Fixed DDR address support in SDT
 *
 * </pre>
 *
@@ -448,18 +449,27 @@ extern "C" {
 #define SILICON_VERSION_3_1 3
 
 /*
- * DDR start address for storing the data temporarily(1M)
- * Need to finalize correct logic
- */
-#ifdef XPAR_PS7_DDR_0_S_AXI_BASEADDR
-#define DDR_START_ADDR 	XPAR_PS7_DDR_0_S_AXI_BASEADDR
-#define DDR_END_ADDR	XPAR_PS7_DDR_0_S_AXI_HIGHADDR
+* In case of PL DDR, this macros defined based PL DDR address
+*/
+#if !defined(XPAR_PS7_DDR_0_S_AXI_BASEADDR) && !defined(XPAR_PS7_DDR_0_BASEADDRESS)
+	#define DDR_START_ADDR 	0x00
+	#define DDR_END_ADDR	0x00
 #else
-/*
- * In case of PL DDR, this macros defined based PL DDR address
- */
-#define DDR_START_ADDR 	0x00
-#define DDR_END_ADDR	0x00
+	/*
+	* DDR start address for storing the data temporarily(1M)
+	* Need to finalize correct logic
+	*/
+	#ifndef SDT
+		#if defined(XPAR_PS7_DDR_0_S_AXI_BASEADDR)
+			#define DDR_START_ADDR 	XPAR_PS7_DDR_0_S_AXI_BASEADDR
+			#define DDR_END_ADDR	XPAR_PS7_DDR_0_S_AXI_HIGHADDR
+		#endif
+	#else
+		#if defined(XPAR_PS7_DDR_0_BASEADDRESS)
+			#define DDR_START_ADDR 	XPAR_PS7_DDR_0_BASEADDRESS
+			#define DDR_END_ADDR	XPAR_PS7_DDR_0_HIGHADDRESS
+		#endif
+	#endif
 #endif
 
 #define DDR_TEMP_START_ADDR 	DDR_START_ADDR
