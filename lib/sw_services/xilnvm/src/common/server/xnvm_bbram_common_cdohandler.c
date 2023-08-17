@@ -27,6 +27,7 @@
 * 3.1   skg   10/23/2022 Added In body comments for APIs
 *       kal   03/08/2023 Make status as volatile in XNvm_BbramKeyWrite
 * 3.2   kpt   07/31/2023 Assign key clear status only when status is XST_SUCCESS
+*	kpt   08/17/2023 Remove oring the Status with error code in XNvm_BbramKeyWrite
 *
 * </pre>
 *
@@ -134,7 +135,7 @@ static int XNvm_BbramKeyWrite(u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh)
 	Status = XPlmi_DmaXfr(Addr, (UINTPTR)Key, Size / XNVM_WORD_LEN,
 			XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
-		Status |= XNVM_BBRAM_ERROR_IN_DMA_XFER;
+		Status = XNVM_BBRAM_ERROR_IN_DMA_XFER;
 		goto END;
 	}
 
