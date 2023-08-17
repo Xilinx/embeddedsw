@@ -58,11 +58,15 @@
 
 #include "xlwipconfig.h"
 #include "xparameters.h"
+#ifndef SDT
 #if XLWIP_CONFIG_INCLUDE_EMACLITE_ON_ZYNQ == 1
 #include "xscugic.h"
 #define INTC_DIST_BASE_ADDR	XPAR_SCUGIC_DIST_BASEADDR
 #else
 #include "xintc.h"
+#endif
+#else
+#include "xinterrupt_wrap.h"
 #endif
 
 /* Define those to better describe your network interface. */
@@ -536,7 +540,7 @@ static err_t low_level_init(struct netif *netif)
 	/* initialize the mac */
 	XEmacLite_Initialize(xemaclitep, config->DeviceId);
 	xemaclitep->NextRxBufferToUse = 0;
-
+#ifndef SDT
 #if XLWIP_CONFIG_INCLUDE_EMACLITE_ON_ZYNQ == 1
 	XScuGic_RegisterHandler(xtopologyp->scugic_baseaddr,
 				xtopologyp->intc_emac_intr,
@@ -580,6 +584,12 @@ static err_t low_level_init(struct netif *netif)
 				XIN_IER_OFFSET) | (1 << xtopologyp->intc_emac_intr));
 #endif
 #endif
+#endif
+#else
+	XSetupInterruptSystem(xemaclitep, &XEmacLite_InterruptHandler,
+			      config->IntrId,
+			      config->IntrParent,
+			      XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 
 	/* set mac address */
