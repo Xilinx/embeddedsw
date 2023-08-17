@@ -34,6 +34,8 @@ required:
     - interrupt-parent
 
 examples:
+   xwdttb_selftest_example.c:
+    - reg
    xwdttb_gwdt_selftest_example.c:
     - compatible : xlnx,versal-wwdt-1.0
    xwdttb_gwdt_example.c:
@@ -60,9 +62,6 @@ examples:
     - compatible : xlnx,axi-timebase-wdt-3.0
     - interrupts
    xwdttb_winwdt_example.c:
-    - xlnx,enable-window-wdt : 1
-    - compatible : xlnx,axi-timebase-wdt-3.0
-   xwdttb_selftest_example.c:
     - xlnx,enable-window-wdt : 1
     - compatible : xlnx,axi-timebase-wdt-3.0
    xwdttb_winwdt_intr_example.c:
