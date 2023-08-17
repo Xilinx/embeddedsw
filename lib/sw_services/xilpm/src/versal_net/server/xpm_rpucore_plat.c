@@ -6,6 +6,7 @@
 
 #include "xpm_rpucore.h"
 #include "xpm_regs.h"
+#include "xpm_psm.h"
 
 void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u32 *BaseAddress)
 {
@@ -82,4 +83,25 @@ void XPmRpuCore_SetTcmBoot(const u32 DeviceId, const u8 TcmBootFlag){
 	} else {
 		PmRmw32(RpuCore->RpuBaseAddr + XPM_CORE_CFG0_OFFSET, XPM_RPU_TCMBOOT_MASK, ~XPM_RPU_TCMBOOT_MASK);
 	}
+}
+
+XStatus XPm_PlatRpucoreHalt(XPm_Core *Core){
+	XStatus Status = XST_FAILURE;
+	const XPm_Psm *Psm;
+	u32 Reg;
+
+	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+	if (NULL == Psm) {
+		goto done;
+	}
+
+	/*skip halt if the core is powered down*/
+	PmIn32(Psm->PsmGlobalBaseAddr + Core->Device.Power->PwrStatOffset, Reg);
+	if (0U == (Reg & Core->Device.Power->PwrStatMask)) {
+		Status = XST_SUCCESS;
+	} else{
+		Status = XPmRpuCore_Halt((XPm_Device *)Core);
+	}
+done:
+	return Status;
 }

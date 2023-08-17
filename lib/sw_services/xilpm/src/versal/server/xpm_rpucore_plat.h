@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +37,7 @@ void XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u
 XStatus XPm_PlatRpuBootAddrConfig(const struct XPm_RpuCore *RpuCore, const u32 BootAddr);
 u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore);
 void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId);
+XStatus XPm_PlatRpucoreHalt(XPm_Core *Core);
 
 #ifdef __cplusplus
 }
