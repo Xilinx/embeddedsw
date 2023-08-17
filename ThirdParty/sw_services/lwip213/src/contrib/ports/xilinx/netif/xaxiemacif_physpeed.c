@@ -90,20 +90,16 @@
 #define RESET_TIMEOUT							0xFFFF
 #define AUTO_NEG_TIMEOUT 						0x00FFFFFF
 
-#if XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1 || \
-	XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1
-#define PCM_PMA_CORE_PRESENT
-#else
-#undef PCM_PMA_CORE_PRESENT
-#endif
-
-#ifdef PCM_PMA_CORE_PRESENT
 #define IEEE_CTRL_RESET                         0x9140
 #define IEEE_CTRL_ISOLATE_DISABLE               0xFBFF
-#endif
 
 #define PHY_XILINX_PCS_PMA_ID1			0x0174
 #define PHY_XILINX_PCS_PMA_ID2			0x0C00
+
+#ifdef SDT
+#define XPAR_AXIETHERNET_0_PHYADDR	XPAR_XAXIETHERNET_0_PHYADDR
+#define XPAR_AXIETHERNET_0_BASEADDR	XPAR_XAXIETHERNET_0_BASEADDR
+#endif
 
 extern u32_t phyaddrforemac;
 
@@ -156,6 +152,23 @@ static int detect_phy(XAxiEthernet *xaxiemacp)
 	return 0;
 }
 
+static int isphy_pcspma(XAxiEthernet *xaxiemacp, u32 phy_addr)
+{
+	u16 phy_id;
+
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, PHY_IDENTIFIER_1_REG,
+			    &phy_id);
+	if (phy_id == PHY_XILINX_PCS_PMA_ID1) {
+		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, PHY_IDENTIFIER_2_REG,
+				&phy_id);
+		if (phy_id == PHY_XILINX_PCS_PMA_ID2) {
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
 void XAxiEthernet_PhyReadExtended(XAxiEthernet *InstancePtr, u32 PhyAddress,
 		u32 RegisterNum, u16 *PhyDataPtr)
 {
@@ -199,11 +212,8 @@ unsigned int get_phy_negotiated_speed (XAxiEthernet *xaxiemacp, u32 phy_addr)
 	u16 phylinkspeed;
 	u16 temp;
 
-#ifdef XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT
-	phy_addr = XPAR_PCSPMA_1000BASEX_PHYADDR;
-#elif XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT
-	phy_addr = XPAR_PCSPMA_SGMII_PHYADDR;
-#endif
+
+	phy_addr = detect_phy(xaxiemacp);
 
 	xil_printf("Start PHY autonegotiation \r\n");
 	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET,
@@ -211,61 +221,71 @@ unsigned int get_phy_negotiated_speed (XAxiEthernet *xaxiemacp, u32 phy_addr)
 
 	control |= IEEE_CTRL_AUTONEGOTIATE_ENABLE;
 	control |= IEEE_STAT_AUTONEGOTIATE_RESTART;
-#ifdef PCM_PMA_CORE_PRESENT
-    control &= IEEE_CTRL_ISOLATE_DISABLE;
-#endif
+
+	if (isphy_pcspma(xaxiemacp, phy_addr)) {
+	    control &= IEEE_CTRL_ISOLATE_DISABLE;
+	}
 
 	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET,
 														control);
-#ifdef PCM_PMA_CORE_PRESENT
-	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-	xil_printf("Waiting for PHY to  complete autonegotiation \r\n");
-	while ( !(status & IEEE_STAT_AUTONEGOTIATE_COMPLETE) ) {
-		AxiEthernetUtilPhyDelay(1);
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_STATUS_REG_OFFSET,
+	if (isphy_pcspma(xaxiemacp, phy_addr)) {
+		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
+		xil_printf("Waiting for PHY to  complete autonegotiation \r\n");
+		while ( !(status & IEEE_STAT_AUTONEGOTIATE_COMPLETE) ) {
+			AxiEthernetUtilPhyDelay(1);
+			XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_STATUS_REG_OFFSET,
 									&status);
 
-	}
+		}
 
-	xil_printf("Autonegotiation complete \r\n");
+		xil_printf("Autonegotiation complete \r\n");
 
-	if (xaxiemacp->Config.Speed == XAE_SPEED_2500_MBPS)
-		return XAE_SPEED_2500_MBPS;
+		if (xaxiemacp->Config.Speed == XAE_SPEED_2500_MBPS)
+			return XAE_SPEED_2500_MBPS;
 
-#if XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1
-	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 1);
-	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
-	if ((temp & 0x0020) == 0x0020) {
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 0);
-		return 1000;
-	}
-	else {
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 0);
-		xil_printf("Link error, temp = %x\r\n", temp);
-		return 0;
-	}
-#elif XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1
-	xil_printf("Waiting for Link to be up; Polling for SGMII core Reg \r\n");
-	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
-	while(!(temp & 0x8000)) {
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
-	}
-	if((temp & 0x0C00) == 0x0800) {
-		return 1000;
-	}
-	else if((temp & 0x0C00) == 0x0400) {
-		return 100;
-	}
-	else if((temp & 0x0C00) == 0x0000) {
-		return 10;
-	} else {
-		xil_printf("get_IEEE_phy_speed(): Invalid speed bit value, Defaulting to Speed = 10 Mbps\r\n");
-		XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, &temp);
-		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, 0x0100);
-		return 10;
-	}
+#ifndef SDT
+		if (XAxiEthernet_GetPhysicalInterface(xaxiemacp) == XAE_PHY_TYPE_1000BASE_X) {
+#else
+		if (XAxiEthernet_Get_Phy_Interface(xaxiemacp) == XAE_PHY_TYPE_1000BASE_X) {
 #endif
+			XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 1);
+			XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
+			if ((temp & 0x0020) == 0x0020) {
+				XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 0);
+				return 1000;
+			}
+			else {
+				XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 0);
+				xil_printf("Link error, temp = %x\r\n", temp);
+				return 0;
+			}
+#ifndef SDT
+		} else if(XAxiEthernet_GetPhysicalInterface(xaxiemacp) == XAE_PHY_TYPE_SGMII) {
+#else
+		} else if(XAxiEthernet_Get_Phy_Interface(xaxiemacp) == XAE_PHY_TYPE_SGMII) {
+
 #endif
+			xil_printf("Waiting for Link to be up; Polling for SGMII core Reg \r\n");
+			XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
+			while(!(temp & 0x8000)) {
+				XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
+			}
+			if((temp & 0x0C00) == 0x0800) {
+				return 1000;
+			}
+			else if((temp & 0x0C00) == 0x0400) {
+				return 100;
+			}
+			else if((temp & 0x0C00) == 0x0000) {
+				return 10;
+			} else {
+				xil_printf("get_IEEE_phy_speed(): Invalid speed bit value, Defaulting to Speed = 10 Mbps\r\n");
+				XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, &temp);
+				XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET, 0x0100);
+				return 10;
+			}
+		}
+	}
 
 	/* Read PHY control and status registers is successful. */
 	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET,
@@ -520,8 +540,12 @@ unsigned int get_phy_speed_88E1111 (XAxiEthernet *xaxiemacp, u32 phy_addr)
 	int TimeOut;
 	u16 phy_val;
 
+#ifndef SDT
 	if (XAxiEthernet_GetPhysicalInterface(xaxiemacp) ==
-											XAE_PHY_TYPE_RGMII_2_0) {
+#else
+	if (XAxiEthernet_Get_Phy_Interface(xaxiemacp) ==
+#endif
+							XAE_PHY_TYPE_RGMII_2_0) {
 		XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
 						IEEE_EXT_PHY_SPECIFIC_CONTROL_REG, &phy_val);
 		phy_val |= PHY_88E1111_RGMII_RX_CLOCK_DELAYED_MASK;
@@ -581,8 +605,11 @@ unsigned get_IEEE_phy_speed(XAxiEthernet *xaxiemacp)
 		}
 	} else if (phy_identifier == TI_PHY_IDENTIFIER) {
 		phy_model = phy_model & TI_PHY_DP83867_MODEL;
+#ifndef SDT
 		phytype = XAxiEthernet_GetPhysicalInterface(xaxiemacp);
-
+#else
+		phytype = XAxiEthernet_Get_Phy_Interface(xaxiemacp);
+#endif
 		if (phy_model == TI_PHY_DP83867_MODEL && phytype == XAE_PHY_TYPE_SGMII) {
 			return get_phy_speed_TI_DP83867_SGMII(xaxiemacp, phy_addr);
 		}
@@ -595,9 +622,9 @@ unsigned get_IEEE_phy_speed(XAxiEthernet *xaxiemacp)
 	    LWIP_DEBUGF(NETIF_DEBUG, ("XAxiEthernet get_IEEE_phy_speed: Detected PHY with unknown identifier/model.\r\n"));
 	}
 #endif
-#ifdef PCM_PMA_CORE_PRESENT
-	return get_phy_negotiated_speed(xaxiemacp, phy_addr);
-#endif
+	if (isphy_pcspma(xaxiemacp, phy_addr)) {
+		return get_phy_negotiated_speed(xaxiemacp, phy_addr);
+	}
 }
 
 unsigned configure_IEEE_phy_speed(XAxiEthernet *xaxiemacp, unsigned speed)
@@ -606,7 +633,11 @@ unsigned configure_IEEE_phy_speed(XAxiEthernet *xaxiemacp, unsigned speed)
 	u32 phy_addr = detect_phy(xaxiemacp);
 	u16 phy_val;
 
+#ifndef SDT
 	if (XAxiEthernet_GetPhysicalInterface(xaxiemacp) ==
+#else
+	if (XAxiEthernet_Get_Phy_Interface(xaxiemacp) ==
+#endif
 				XAE_PHY_TYPE_RGMII_2_0) {
 		/* Setting Tx and Rx Delays for RGMII mode */
 		XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 0x2);
@@ -657,7 +688,11 @@ unsigned configure_IEEE_phy_speed(XAxiEthernet *xaxiemacp, unsigned speed)
 				IEEE_CONTROL_REG_OFFSET,
 				control | IEEE_CTRL_RESET_MASK);
 
+#ifndef SDT
 	if (XAxiEthernet_GetPhysicalInterface(xaxiemacp) ==
+#else
+	if (XAxiEthernet_Get_Phy_Interface(xaxiemacp) ==
+#endif
 			XAE_PHY_TYPE_SGMII) {
 		control &= (~PHY_R0_ISOLATE);
 		XAxiEthernet_PhyWrite(xaxiemacp,
@@ -678,13 +713,25 @@ unsigned phy_setup_axiemac (XAxiEthernet *xaxiemacp)
 {
 	unsigned link_speed = 1000;
 
+#ifndef SDT
 	if (XAxiEthernet_GetPhysicalInterface(xaxiemacp) ==
+#else
+	if (XAxiEthernet_Get_Phy_Interface(xaxiemacp) ==
+#endif
 						XAE_PHY_TYPE_RGMII_1_3) {
 		; /* Add PHY initialization code for RGMII 1.3 */
+#ifndef SDT
 	} else if (XAxiEthernet_GetPhysicalInterface(xaxiemacp) ==
+#else
+	} else if (XAxiEthernet_Get_Phy_Interface(xaxiemacp) ==
+#endif
 						XAE_PHY_TYPE_RGMII_2_0) {
 		; /* Add PHY initialization code for RGMII 2.0 */
+#ifndef SDT
 	} else if (XAxiEthernet_GetPhysicalInterface(xaxiemacp) ==
+#else
+	} else if (XAxiEthernet_Get_Phy_Interface(xaxiemacp) ==
+#endif
 						XAE_PHY_TYPE_SGMII) {
 #ifdef  CONFIG_LINKSPEED_AUTODETECT
 		u32 phy_wr_data = IEEE_CTRL_AUTONEGOTIATE_ENABLE |
@@ -696,7 +743,11 @@ unsigned phy_setup_axiemac (XAxiEthernet *xaxiemacp)
 				IEEE_CONTROL_REG_OFFSET,
 				phy_wr_data);
 #endif
+#ifndef SDT
 	} else if (XAxiEthernet_GetPhysicalInterface(xaxiemacp) ==
+#else
+	} else if (XAxiEthernet_Get_Phy_Interface(xaxiemacp) ==
+#endif
 						XAE_PHY_TYPE_1000BASE_X) {
 		; /* Add PHY initialization code for 1000 Base-X */
 	}
@@ -763,8 +814,11 @@ void enable_sgmii_clock(XAxiEthernet *xaxiemacp)
 
 	if (phy_identifier == TI_PHY_IDENTIFIER) {
 		phy_model = phy_model & TI_PHY_DP83867_MODEL;
+#ifndef SDT
 		phytype = XAxiEthernet_GetPhysicalInterface(xaxiemacp);
-
+#else
+		phytype = XAxiEthernet_Get_Phy_Interface(xaxiemacp);
+#endif
 		if (phy_model == TI_PHY_DP83867_MODEL && phytype == XAE_PHY_TYPE_SGMII) {
 			/* Enable SGMII Clock by switching to 6-wire mode */
 			XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_REGCR,
