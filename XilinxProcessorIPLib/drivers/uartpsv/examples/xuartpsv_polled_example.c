@@ -60,7 +60,7 @@
 #ifndef SDT
 int UartPsvPolledExample(u16 DeviceId);
 #else
-int UartPsvPolledExample(UINTPTR BaseAddress);
+int UartPsvPolledExample(XUartPsv *UartInstPtr, UINTPTR BaseAddress);
 #endif
 
 /************************** Variable Definitions ***************************/
@@ -95,7 +95,7 @@ int main(void)
 #ifndef SDT
 	Status = UartPsvPolledExample(UARTPSV_DEVICE_ID);
 #else
-	Status = UartPsvPolledExample(XUARTPSV_BASEADDRESS);
+	Status = UartPsvPolledExample(&UartPsv, XUARTPSV_BASEADDRESS);
 #endif
 
 	if (Status != XST_SUCCESS) {
@@ -133,7 +133,7 @@ int main(void)
 #ifndef SDT
 int UartPsvPolledExample(u16 DeviceId)
 #else
-int UartPsvPolledExample(UINTPTR BaseAddress)
+int UartPsvPolledExample(XUartPsv *UartInstPtr, UINTPTR BaseAddress)
 #endif
 {
 	int Status;
@@ -141,6 +141,10 @@ int UartPsvPolledExample(UINTPTR BaseAddress)
 	int Index;
 	int BadByteCount = 0;
 	unsigned int TotalSentCount, ReceivedCount;
+
+#ifdef SDT
+	(void)UartInstPtr;
+#endif
 
 	/*
 	 * Initialize the UART driver so that it's ready to use.
