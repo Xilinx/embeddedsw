@@ -1,8 +1,7 @@
 ##******************************************************************************
 # Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
-#
-#
 ##*****************************************************************************/
 
 OPTION psf_version = 2.1;
@@ -11,6 +10,6 @@ BEGIN driver video_common
 	OPTION supported_peripherals = ();
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 4.13;
+	OPTION VERSION = 4.14;
 	OPTION NAME = video_common;
 END driver

@@ -8,7 +8,7 @@
 /**
 *
 * @file xvprocss_router.h
-* @addtogroup vprocss overview
+* @addtogroup vprocss Overview
 * @{
 * @details
 *
