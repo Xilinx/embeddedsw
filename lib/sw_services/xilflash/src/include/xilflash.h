@@ -218,6 +218,10 @@ extern "C" {
 #include "xilflash_properties.h"
 #include "xparameters.h"
 #include <string.h>
+#ifdef SDT
+#include "xilflash_config.h"
+#endif
+
 
 /************************** Constant Definitions *****************************/
 
