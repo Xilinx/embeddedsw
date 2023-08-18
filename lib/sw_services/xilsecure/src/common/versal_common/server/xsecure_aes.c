@@ -101,6 +101,7 @@
 #include "xil_util.h"
 #include "xsecure_error.h"
 #include "xsecure_cryptochk.h"
+#include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_MAX_KEY_SOURCES			XSECURE_AES_EXPANDED_KEYS
@@ -2185,4 +2186,22 @@ static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 				XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 
 	return Status;
+}
+/*****************************************************************************/
+/**
+ * @brief	This function is used to set the Data context bit
+ * 		of the corresponding IPI channel if the previous data context is lost.
+ *
+ * @param	InstancePtr		Pointer to the XSecure_Aes instance
+ *
+ *
+ ******************************************************************************/
+void XSecure_AesSetDataContext(XSecure_Aes *InstancePtr) {
+
+	if (InstancePtr->IsResourceBusy == XSECURE_RESOURCE_BUSY) {
+		InstancePtr->DataContextLost = 1<<(InstancePtr->IpiMask);
+		InstancePtr->IsResourceBusy = XSECURE_RESOURCE_FREE;
+		InstancePtr->PreviousAesIpiMask = InstancePtr->IpiMask;
+		InstancePtr->IpiMask = XSECURE_CLEAR_IPI_MASK;
+	}
 }

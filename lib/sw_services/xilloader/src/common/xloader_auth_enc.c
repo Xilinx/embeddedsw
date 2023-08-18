@@ -2839,6 +2839,9 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 	/* Update KAT status based on the user configuration */
 	XLoader_ClearKatOnPPDI(SecurePtr, XPLMI_SECURE_AES_CMKAT_MASK);
 
+	/* Set the data context of previous AES operation */
+	XSecure_AesSetDataContext(SecurePtr->AesInstPtr);
+
 	/*
 	 * Skip running the KAT for AES DPACM or AES if it is already run
 	 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
@@ -3990,6 +3993,9 @@ static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr) {
 
 	/* Update KAT status */
 	XLoader_ClearKatOnPPDI(SecurePtr, XPLMI_SECURE_SHA3_KAT_MASK);
+
+	/* Set the data context of previous SHA operation */
+	XSecure_Sha3SetDataContext(Sha3InstPtr);
 
 	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_SECURE_SHA3_KAT_MASK) == 0U) {
 		/*

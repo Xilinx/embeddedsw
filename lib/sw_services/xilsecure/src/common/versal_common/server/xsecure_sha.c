@@ -61,6 +61,7 @@
 #include "xil_util.h"
 #include "xsecure_cryptochk.h"
 #include "xsecure_plat.h"
+#include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_SHA3_HASH_LENGTH_IN_BITS		(384U)
@@ -149,6 +150,13 @@ int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 			Status = (int)XSECURE_SHA3_INVALID_PARAM;
 			goto END;
 		}
+	}
+
+	/**
+	 *  Clear previous sha data context flag
+	 */
+	if (InstancePtr->PreviousShaIpiMask == InstancePtr->IpiMask) {
+		InstancePtr->DataContextLost = XSECURE_DATA_CONTEXT_AVAILABLE;
 	}
 
 	InstancePtr->Sha3Len = 0U;
@@ -754,4 +762,22 @@ int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u32 DeviceId) {
 	Status = XST_SUCCESS;
 END:
 	return Status;
+}
+/*****************************************************************************/
+/**
+ * @brief	This function is used to set the Data context bit
+ * 		of the corresponding IPI channel if the previous data context is lost.
+ *
+ * @param	InstancePtr		Pointer to the XSecure_Sha3 instance
+ *
+ *
+ ******************************************************************************/
+void XSecure_Sha3SetDataContext(XSecure_Sha3 *InstancePtr) {
+
+	if (InstancePtr->IsResourceBusy == XSECURE_RESOURCE_BUSY) {
+		InstancePtr->DataContextLost = 1<<(InstancePtr->IpiMask);
+		InstancePtr->IsResourceBusy = XSECURE_RESOURCE_FREE;
+		InstancePtr->PreviousShaIpiMask = InstancePtr->IpiMask;
+		InstancePtr->IpiMask = XSECURE_CLEAR_IPI_MASK;
+	}
 }
