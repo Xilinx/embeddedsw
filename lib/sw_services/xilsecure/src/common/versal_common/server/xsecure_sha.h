@@ -131,6 +131,9 @@ typedef struct {
 	const XSecure_Sha3Config *Sha3Config;
 	u32 IsResourceBusy;   /**< Flag to check whether resource is busy or not */
 	u32 IpiMask;		/**< Used to store Ipimask value */
+	u32 DataContextLost;	/**< If data context is lost for an IPI channel
+					it's corresponding bit position is set */
+	u32 PreviousShaIpiMask; /**< Used to store the Ipi mask of previous sha operation */
 } XSecure_Sha3;
 
 /**
@@ -163,6 +166,7 @@ int XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 
 int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u32 DeviceId);
 
+void XSecure_Sha3SetDataContext(XSecure_Sha3 *InstancePtr);
 /***************************** Variable Prototypes ***************************/
 extern const XSecure_Sha3Config Sha3ConfigTable[XSECURE_SHA3_NUM_OF_INSTANCES];
 

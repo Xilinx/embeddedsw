@@ -101,7 +101,8 @@ extern "C" {
 	/**< This macro is for backward compatibilty. For ECC Prime curves, use XSECURE_ECC_PRIME */
 #define XSecure_EllipticCrvClass	XSecure_EccCrvClass
 	/**< Alias for XSecure_EccCrvClass enum for backward compatibility */
-
+#define XSECURE_CLEAR_IPI_MASK 		(0U)
+				/**< Clear the Ipi mask value */
 /************************** Variable Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -183,6 +184,11 @@ typedef enum {
 	XSECURE_RESOURCE_FREE = 0U,  /**< When Resource is free */
 	XSECURE_RESOURCE_BUSY = 0xFFFFFFFFU /**< When Resource is busy */
 } XSecure_ResourceAvailability;
+
+typedef enum {
+	XSECURE_DATA_CONTEXT_AVAILABLE = 0U,  /**< Data context available for requested operation*/
+	XSECURE_DATA_CONTEXT_LOST = 0xFFFFFFFFU /**< Data context lost for requested operation */
+} XSecure_DataContextAvailability;
 
 #ifdef __cplusplus
 }

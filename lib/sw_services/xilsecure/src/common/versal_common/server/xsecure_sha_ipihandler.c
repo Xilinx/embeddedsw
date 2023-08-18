@@ -60,6 +60,7 @@ static int XSecure_ShaInitialize(void);
 static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	u32 DstAddrLow, u32 DstAddrHigh);
 static int XSecure_ShaOperation(XPlmi_Cmd *Cmd);
+static int XSecure_ShaIsDataContextLost(void);
 
 /*************************** Function Definitions *****************************/
 
@@ -173,6 +174,15 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	u64 DstAddr = ((u64)DstAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)DstAddrLow;
 	XSecure_Sha3Hash Hash = {0U};
 
+	/**
+	 *  Check whether requested operation context is lost
+	 */
+	Status = XSecure_ShaIsDataContextLost();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+
 	if ((InputSize & XSECURE_IPI_FIRST_PACKET_MASK) != 0x0U) {
 		Status = XSecure_ShaInitialize();
 		if (Status != XST_SUCCESS) {
@@ -272,4 +282,26 @@ void XSecure_MakeSha3Free(void)
 
 	XSecureSha3InstPtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
 	XSecureSha3InstPtr->IpiMask = XSECURE_IPI_MASK_DEF_VAL;
+}
+/*****************************************************************************/
+/**
+ * @brief       This function is used to check whether any previous data
+ * 		context is lost for the corresponding ipi channel or not
+ *  @return
+ *      -       XST_SUCCESS - If the context is available
+ *      -       XST_DATA_LOST - If the context is lost
+
+******************************************************************************/
+ static int XSecure_ShaIsDataContextLost(void)
+{
+	XSecure_Sha3 *InstancePtr = XSecure_GetSha3Instance();
+	int Status = XST_SUCCESS;
+
+	if (InstancePtr->PreviousShaIpiMask == InstancePtr->IpiMask) {
+		if (InstancePtr->DataContextLost != XSECURE_DATA_CONTEXT_AVAILABLE) {
+			Status = XST_DATA_LOST;
+		}
+	}
+
+	return Status;
 }

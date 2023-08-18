@@ -174,6 +174,9 @@ typedef struct {
 	u32 IsGmacEn;          /**< GMAC enable or disable */
 	u32 IsResourceBusy;   /**< Flag to check whether resource is busy or not */
 	u32 IpiMask;               /**< Used to store Ipimask value */
+	u32 DataContextLost;  /**< If data context is lost for an IPI channel
+					it's corresponding bit position is set */
+	u32 PreviousAesIpiMask; /**< Used to store the Ipi mask of previous aes operation */
 #ifdef VERSAL_NET
 	u32 IsEcbEn;           /**< ECB mode enable or disable */
 #endif
@@ -251,6 +254,7 @@ int XSecure_AesGmacCfg(XSecure_Aes *InstancePtr, u32 IsGmacEn);
 int XSecure_AesDpaCmDecryptData(const XSecure_Aes *AesInstance,
 	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr);
 
+void XSecure_AesSetDataContext(XSecure_Aes *InstancePtr);
 #ifdef __cplusplus
 }
 #endif

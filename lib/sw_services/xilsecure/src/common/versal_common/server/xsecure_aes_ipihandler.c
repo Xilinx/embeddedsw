@@ -82,6 +82,7 @@ static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh);
 static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg);
 static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh);
 static int XSecure_IsKeySrcValid(u32 KeySrc);
+static int XSecure_AesIsDataContextLost(void);
 
 /*****************************************************************************/
 /**
@@ -219,6 +220,11 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 	XSecureAesInstPtr->IsResourceBusy = (u32)XSECURE_RESOURCE_BUSY;
 
+	/* Clear previous aes data context flag */
+	if(XSecureAesInstPtr->PreviousAesIpiMask == XSecureAesInstPtr->IpiMask) {
+		XSecureAesInstPtr->DataContextLost = XSECURE_DATA_CONTEXT_AVAILABLE;
+	}
+
 	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -329,6 +335,11 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	}
 
 	Status = XST_FAILURE;
+	Status = XSecure_AesIsDataContextLost();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XSecure_AesEncryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
 				DstAddr, InParams.Size, (u8)InParams.IsLast);
 
@@ -359,9 +370,15 @@ static int XSecure_AesEncFinal(u32 DstAddrLow, u32 DstAddrHigh)
 	u64 Addr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	Status = XSecure_AesIsDataContextLost();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XSecure_AesEncryptFinal(XSecureAesInstPtr, Addr);
 
 	XSecure_MakeAesFree();
+END:
 	return Status;
 }
 
@@ -398,6 +415,11 @@ static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	}
 
 	Status = XST_FAILURE;
+	Status = XSecure_AesIsDataContextLost();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XSecure_AesDecryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
 				DstAddr, InParams.Size, (u8)InParams.IsLast);
 
@@ -426,9 +448,15 @@ static int XSecure_AesDecFinal(u32 SrcAddrLow, u32 SrcAddrHigh)
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	Status = XSecure_AesIsDataContextLost();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XSecure_AesDecryptFinal(XSecureAesInstPtr, Addr);
 
 	XSecure_MakeAesFree();
+END:
 	return Status;
 }
 
@@ -702,4 +730,24 @@ void XSecure_MakeAesFree(void)
 
 	InstancePtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
 	InstancePtr->IpiMask = XSECURE_IPI_MASK_DEF_VAL;
+}
+/*****************************************************************************/
+/**
+ * @brief       This function is used to check whether any previous data
+ * 		context is lost for the corresponding ipi channel or
+ * @return
+ *      -       XST_SUCCESS - If the context is available
+ *      -       XST_DATA_LOST - If the context is lost
+ *
+ ******************************************************************************/
+static int XSecure_AesIsDataContextLost(void)
+{
+	XSecure_Aes *InstancePtr = XSecure_GetAesInstance();
+	int Status = XST_SUCCESS;
+	if (InstancePtr->PreviousAesIpiMask == InstancePtr->IpiMask) {
+		if (InstancePtr->DataContextLost != XSECURE_DATA_CONTEXT_AVAILABLE) {
+			Status = XST_DATA_LOST;
+		}
+	}
+	return Status;
 }
