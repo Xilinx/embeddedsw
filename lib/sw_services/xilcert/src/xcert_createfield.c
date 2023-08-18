@@ -115,15 +115,18 @@ END:
  * @param	DataBuf is the pointer to the buffer where the encoded data
 		needs to be updated
  * @param	BitStringVal is the value of the ASN.1 BitString
- * @param	BitStringLen is the length of the value of the ASN.1 BitString
+ * @param	BitStringLen is the length of the value of the ASN.1 BitString in bytes
+ * @param	IsLastByteFull is the flag to check if the last byte is full or not
+ * 			- FALSE for Key Usage
+ * 			- TRUE for Public Key
  * @param	FieldLen is the total length of the encoded ASN.1 BitString
  *
  * @note	ASN.1 tag for BitString is 0x03
  *
  ******************************************************************************/
-void XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32* FieldLen)
+void XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32 IsLastByteFull, u32* FieldLen)
 {
-	u32 NumofTrailingZeroes;
+	u32 NumofTrailingZeroes = 0U;
 	u8* Curr = DataBuf;
 	u8* BitStringLenIdx;
 	u8* BitStringValIdx;
@@ -136,7 +139,9 @@ void XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen
 	 * The first byte of the value of the BITSTRING is used to show the number
 	 * of unused bits in the last byte of the BITSTRING.
 	 */
-	NumofTrailingZeroes = XCert_GetTrailingZeroesCount(*(BitStringVal + BitStringLen - 1U));
+	if (IsLastByteFull == FALSE) {
+		NumofTrailingZeroes = XCert_GetTrailingZeroesCount(*(BitStringVal + BitStringLen - 1U));
+	}
 	*(Curr++) = NumofTrailingZeroes;
 
 	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)BitStringVal, BitStringLen);
