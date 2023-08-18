@@ -38,6 +38,10 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
+#ifdef SDT
+#include "xilflash_config.h"
+#endif
+
 #ifdef XPAR_XFL_DEVICE_FAMILY_AMD
 #include "xilflash.h"
 

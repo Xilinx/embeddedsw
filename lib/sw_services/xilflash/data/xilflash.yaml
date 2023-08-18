@@ -21,4 +21,14 @@ supported_processors:
 supported_os:
   - standalone
   - freertos10_xilinx
+
+depends:
+    emc:
+        - reg
+
+examples:
+        xilflash_devicecontrol_example.c: []
+        xilflash_platform_flash_example.c: []
+        xilflash_protection_example.c: []
+        xilflash_readwrite_example.c: []
 ...
