@@ -7,6 +7,7 @@
 #include "xpm_common.h"
 #include "xpm_notifier_plat.h"
 #include "xplmi_err_common.h"
+#include "xpm_subsystem.h"
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 
@@ -79,7 +80,7 @@ XStatus XPmNotifier_PlatHandleSsit(u32 SubsystemId, u32 NodeId, u32 Event, u32 E
 		if (0U != Enable) {
 			/* Registration: enable action */
 			Status = XPlmi_EmSetAction(NodeId, Event, XPLMI_EM_ACTION_CUSTOM,
-						   XPmNotifier_SingleEamEventHandler);
+						   XPmNotifier_SingleEamEventHandler, INVALID_SUBSYSID);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}

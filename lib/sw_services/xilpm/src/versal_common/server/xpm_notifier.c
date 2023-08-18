@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -127,7 +128,7 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 	 */
 	if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
 		Status = XPlmi_EmSetAction(NodeId, Event, XPLMI_EM_ACTION_CUSTOM,
-					   XPmNotifier_Event);
+					   XPmNotifier_Event, INVALID_SUBSYSID);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}

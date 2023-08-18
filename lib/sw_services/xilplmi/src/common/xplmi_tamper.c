@@ -26,6 +26,7 @@
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 * 1.02  skd  04/10/2023 Fix third party review comments
 * 1.03  sk   07/18/2023 Added NULL check in RegisterTamperIntrHandler
+*       sk   08/17/2023 Updated XPlmi_EmSetAction arguments
 *
 * </pre>
 *
@@ -245,7 +246,7 @@ int XPlmi_RegisterTamperIntrHandler(void)
 	 */
 	Status = XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
 			XIL_EVENT_ERROR_MASK_PMCAPB, XPLMI_EM_ACTION_CUSTOM,
-			XPlmi_PmcApbErrorHandler);
+			XPlmi_PmcApbErrorHandler, XPLMI_INVALID_SUBSYSTEM_ID);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -320,7 +321,7 @@ static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 	 */
 	(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
 			XIL_EVENT_ERROR_MASK_PMCAPB, XPLMI_EM_ACTION_CUSTOM,
-			XPlmi_PmcApbErrorHandler);
+			XPlmi_PmcApbErrorHandler, XPLMI_INVALID_SUBSYSTEM_ID);
 }
 
 /******************************************************************************/

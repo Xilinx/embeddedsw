@@ -25,6 +25,7 @@
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       dd   03/28/2023 Updated doxygen comments
 * 1.02  rama 07/19/2023 Updated ErrorTable to support STL errors
+*       sk   08/17/2023 Updated XPlmi_EmSetAction arguments
 *
 * </pre>
 *
@@ -855,13 +856,13 @@ void XPlmi_EnableSsitErrors(void)
 		XPlmi_RegisterSsitErrHandlers(XPLMI_IOMODULE_SSIT_ERR2);
 		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1,
 			XIL_EVENT_ERROR_MASK_SSIT3, XPLMI_EM_ACTION_CUSTOM,
-			XPlmi_HandleSsitErr2);
+			XPlmi_HandleSsitErr2, XPLMI_INVALID_SUBSYSTEM_ID);
 		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1,
 			XIL_EVENT_ERROR_MASK_SSIT4, XPLMI_EM_ACTION_CUSTOM,
-			XPlmi_HandleSsitErr2);
+			XPlmi_HandleSsitErr2, XPLMI_INVALID_SUBSYSTEM_ID);
 		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1,
 			XIL_EVENT_ERROR_MASK_SSIT5, XPLMI_EM_ACTION_CUSTOM,
-			XPlmi_HandleSsitErr2);
+			XPlmi_HandleSsitErr2, XPLMI_INVALID_SUBSYSTEM_ID);
 	} else if (SlrIndex == XPLMI_SSIT_SLAVE0_SLR_INDEX) {
 		XPlmi_RegisterSsitErrHandlers(XPLMI_IOMODULE_SSIT_ERR0);
 	} else if (SlrIndex == XPLMI_SSIT_SLAVE1_SLR_INDEX) {

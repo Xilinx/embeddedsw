@@ -123,6 +123,7 @@
 * 1.10  bm   06/13/2023 Add API to just log PLM error
 *       sk   07/26/2023 Added redundant call for XPlmi_DetectSlaveSlrTamper
 *       sk   07/26/2023 Added redundant check in XPlmi_DetectAndHandleTamper
+*       sk   08/17/2023 Updated logic to handle SubsystemId for EM actions
 * </pre>
 *
 * @note
@@ -1079,13 +1080,14 @@ END:
  * 		  	can be SRST/POR/ERR OUT/INT
  * @param	ErrorHandler If INT is defined as response, handler should be
  * 		  	defined.
+ * @param       SubsystemId
  *
  * @return
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
-		XPlmi_ErrorHandler_t ErrorHandler)
+		XPlmi_ErrorHandler_t ErrorHandler, const u32 SubsystemId)
 {
 	int Status = XST_FAILURE;
 	u32 RegMask = XPlmi_ErrRegMask(ErrorId);
@@ -1103,7 +1105,7 @@ int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
 	}
 	else if ((ActionId == XPLMI_EM_ACTION_SUBSYS_SHUTDN) ||
 		(ActionId == XPLMI_EM_ACTION_SUBSYS_RESTART)) {
-		ErrorTable[ErrorId].SubsystemId = EmSubsystemId;
+		ErrorTable[ErrorId].SubsystemId = SubsystemId;
 		ErrorTable[ErrorId].Handler = XPlmi_ErrIntrSubTypeHandler;
 	}
 
@@ -1130,7 +1132,7 @@ int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
  * 		  	can be SRST/POR/ERR OUT/INT
  * @param	ErrorHandler If INT is defined as response, handler should be
  * 		  	defined.
- *
+ * @param       SubsystemId
  * @return
  * 			- XST_SUCCESS on success.
  * 			- XPLMI_INVALID_NODE_ID on invalid node ID.
@@ -1139,7 +1141,7 @@ int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
  *
  *****************************************************************************/
 int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
-		XPlmi_ErrorHandler_t ErrorHandler)
+		XPlmi_ErrorHandler_t ErrorHandler, const u32 SubsystemId)
 {
 	int Status = XST_FAILURE;
 	u32 NodeType =  XPlmi_EventNodeType(ErrorNodeId);
@@ -1204,7 +1206,7 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 		/**
 		 * - Configure the Error Action to given Error Id.
 		 */
-		Status = XPlmi_EmConfig(NodeType, ErrorId, ActionId, ErrorHandler);
+		Status = XPlmi_EmConfig(NodeType, ErrorId, ActionId, ErrorHandler, SubsystemId);
 
 END:
 		++ErrorId;
@@ -1303,7 +1305,7 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 			Status = XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
 					(ErrIndex * XPLMI_EVENT_ERROR_OFFSET),
 					RegMask, ErrorTable[Index].Action,
-					ErrorTable[Index].Handler);
+					ErrorTable[Index].Handler, ErrorTable[Index].SubsystemId);
 			if (Status != XST_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL,
 					"Warning: XPlmi_EmInit: Failed to "
@@ -1371,7 +1373,7 @@ int XPlmi_PsEmInit(void)
 				if (XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PSM_ERR1 +
 					(ErrIndex * XPLMI_EVENT_ERROR_OFFSET),
 					RegMask, ErrorTable[Index].Action,
-					ErrorTable[Index].Handler) != XST_SUCCESS) {
+					ErrorTable[Index].Handler, ErrorTable[Index].SubsystemId) != XST_SUCCESS) {
 					XPlmi_Printf(DEBUG_GENERAL,
 						"Warning: XPlmi_PsEmInit: Failed to "
 						"set action for PSM ERR%d: %u\r\n",
@@ -1481,6 +1483,18 @@ void XPlmi_SetEmSubsystemId(const u32 *Id)
 	EmSubsystemId = *Id;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function returns EmSubsystemId
+ *
+ * @return
+ * 			- EmSubsystemId
+ *
+ *****************************************************************************/
+u32 XPlmi_GetEmSubsystemId(void)
+{
+	return EmSubsystemId;
+}
 /*****************************************************************************/
 /**
  * @brief	This function updates NumErrOuts and returns number of error outs

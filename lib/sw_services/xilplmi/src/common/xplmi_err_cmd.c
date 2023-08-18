@@ -39,6 +39,9 @@
 * 1.07  skg  10/17/2022 Added Null to invalid cmd handler of xplmi_ErrModule
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       bm   06/23/2023 Added access permissions for IPI commands
+*       sk   08/17/2023 Updated EMSetAction function to update subsystemid
+*                       while processing IPI request,
+*                       Enable EMSetAction process via IPI
 *
 * </pre>
 *
@@ -152,13 +155,21 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	u32 PmcPsmCrErrVal = ErrorMasks & PmcPsmCrErrMask;
 	u32 PmcPsmNCrErrVal = ErrorMasks & PmcPsmNCrErrMask;
 	u32 FwErrVal = ErrorMasks & FwErrMask;
+	u32 SubsystemId;
 
 	XPLMI_EXPORT_CMD(XPLMI_CMD_ID_EM_SET_ACTION, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
 
+	/* Check if it is an IPI or CDO request*/
+	if (Cmd->IpiMask != 0U) {
+		SubsystemId = Cmd->SubsystemId;
+	} else {
+		SubsystemId = XPlmi_GetEmSubsystemId();
+	}
+
 	XPlmi_Printf(DEBUG_DETAILED,
-		"%s: NodeId: 0x%0x,  ErrorAction: 0x%0x, ErrorMasks: 0x%0x\n\r",
-		 __func__, Cmd->Payload[0U], ErrorAction, ErrorMasks);
+		"%s: NodeId: 0x%0x,  ErrorAction: 0x%0x, ErrorMasks: 0x%0x, SubsystemId: 0x%0x\n\r",
+		 __func__, Cmd->Payload[0U], ErrorAction, ErrorMasks, SubsystemId);
 
 	/* Do not allow CUSTOM error action as it is not supported */
 	if ((XPLMI_EM_ACTION_CUSTOM == ErrorAction) ||
@@ -225,7 +236,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
-	Status = XPlmi_EmSetAction(Cmd->Payload[0U], ErrorMasks, (u8)ErrorAction, NULL);
+	Status = XPlmi_EmSetAction(Cmd->Payload[0U], ErrorMasks, (u8)ErrorAction, NULL, SubsystemId);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -261,8 +272,8 @@ static const XPlmi_ModuleCmd XPlmi_ErrCmds[] =
  *****************************************************************************/
 static XPlmi_AccessPerm_t XPlmi_ErrAccessPermBuff[XPLMI_ARRAY_SIZE(XPlmi_ErrCmds)] =
 {
-	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_EM_FEATURES),
-	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_EM_SET_ACTION),
+	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_EM_FEATURES),
+	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_EM_SET_ACTION),
 };
 
 /*****************************************************************************/
