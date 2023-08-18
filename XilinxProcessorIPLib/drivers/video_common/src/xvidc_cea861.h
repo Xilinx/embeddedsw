@@ -80,6 +80,7 @@ enum xvidc_cea861_extended_tag_type_data_block {
     XVIDC_CEA861_EXT_TAG_TYPE_ROOM_CONFIGURATION,
     XVIDC_CEA861_EXT_TAG_TYPE_SPEAKER_LOCATION,
     XVIDC_CEA861_EXT_TAG_TYPE_INFOFRAME = 32,
+    XVIDC_CEA861_EXT_TAG_TYPE_HDMI_FORUM_SINK_CAPABILITY = 121,
 /* Can be extend to 255, refer table 46 cea data block tag codes cea-861-f */
 };
 
@@ -516,6 +517,64 @@ struct _Pragma ("pack()") xvidc_cea861_hdmi_hf_vendor_specific_data_block {
     unsigned max_frl_rate              : 4;
 
     u8  reserved[];
+};
+
+#if defined(__GNUC__)
+struct __attribute__ (( packed )) xvidc_cea861_hdmi_hf_sink_capability_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_hdmi_hf_sink_capability_data_block {
+#endif
+    struct xvidc_cea861_data_block_header header;
+    /* Extended Tag Code = 121 (0x79) */
+    u8 Extended_tag_code;
+    u8 reserved1[2];
+    /* PB1 */
+    u8 version;
+    /* PB2 */
+    u8  max_tmds_char_rate;
+    /* PB3 */
+    unsigned osd_disparity_3d				: 1;
+    unsigned dual_view_3d				: 1;
+    unsigned independent_view_3d			: 1;
+    unsigned lte_340mcsc_scramble			: 1;
+    unsigned ccbpci					: 1;
+    unsigned cable_status				: 1;
+    unsigned rr_capable					: 1;
+    unsigned scdc_present				: 1;
+    /* PB4 */
+    unsigned dc_30bit_yuv420				: 1;
+    unsigned dc_36bit_yuv420				: 1;
+    unsigned dc_48bit_yuv420				: 1;
+    unsigned uhd_vic					: 1;
+    unsigned max_frl_rate				: 4;
+    /* PB5 */
+    unsigned fapa_start_location			: 1;
+    unsigned allm					: 1;
+    unsigned fva					: 1;
+    unsigned neg_mvrr					: 1;
+    unsigned						: 1;
+    unsigned m_delta					: 1;
+    unsigned qms					: 1;
+    unsigned fapa_end_extended				: 1;
+    /* PB6 - PB7 */
+    unsigned vrr_min					: 6;
+    unsigned vrr_max					: 10;
+    /* PB8 */
+    unsigned dsc_10bpc					: 1;
+    unsigned dsc_12bpc					: 1;
+    unsigned dsc_16bpc					: 1;
+    unsigned dsc_all_bpp				: 1;
+    unsigned qms_tfr_min				: 1;
+    unsigned dsc_native_420				: 1;
+    unsigned dsc_1p2					: 1;
+    /* PB9 */
+    unsigned dsc_maxslices				: 4;
+    unsigned dsc_max_frl_rate				: 4;
+    /* PB10*/
+    unsigned dsc_total_chunk_bytes			: 6;
+    unsigned						: 2;
+    /* PB11 - PB28 */
+    u8  reserved[18];
 };
 
 #endif
