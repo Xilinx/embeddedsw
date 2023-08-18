@@ -123,6 +123,8 @@
 *       sk   05/18/23 Deprecate copy to memory feature
 *       yog  07/17/23 Added check for returning glitch error for XLoader_ChecksumInit API
 *       ng   07/10/23 Added support for system device-tree flow
+*       yog  08/17/23 Added a check to return error when secure is excluded
+*                     and trying to do secure boot
 *
 * </pre>
 *
@@ -253,6 +255,10 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 
 	/** - Initialize the encryption. */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SecureEncInit, SecurePtr, PrtnHdr);
+#else
+	if ((PrtnHdr->AuthCertificateOfst != 0x00U) || (PrtnHdr->EncStatus != 0x00U)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_NOT_ENABLED, 0U);
+	}
 #endif
 
 END:
