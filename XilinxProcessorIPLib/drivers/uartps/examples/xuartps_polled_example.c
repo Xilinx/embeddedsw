@@ -59,7 +59,7 @@
 #ifndef SDT
 int UartPsPolledExample(u16 DeviceId);
 #else
-int UartPsPolledExample(UINTPTR BaseAddress);
+int UartPsPolledExample(XUartPs *UartInstPtr, UINTPTR BaseAddress);
 #endif
 /************************** Variable Definitions *****************************/
 
@@ -97,7 +97,7 @@ int main(void)
 #ifndef SDT
 	Status = UartPsPolledExample(UART_DEVICE_ID);
 #else
-	Status = UartPsPolledExample(XUARTPS_BASEADDRESS);
+	Status = UartPsPolledExample(&Uart_PS, XUARTPS_BASEADDRESS);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("UART Polled Mode Example Test Failed\r\n");
@@ -129,7 +129,7 @@ int main(void)
 #ifndef SDT
 int UartPsPolledExample(u16 DeviceId)
 #else
-int UartPsPolledExample(UINTPTR BaseAddress)
+int UartPsPolledExample(XUartPs *UartInstPtr, UINTPTR BaseAddress)
 #endif
 {
 	int Status;
@@ -138,6 +138,10 @@ int UartPsPolledExample(UINTPTR BaseAddress)
 	unsigned int ReceivedCount;
 	u16 Index;
 	u32 LoopCount = 0;
+
+#ifdef SDT
+	(void)UartInstPtr;
+#endif
 
 	/*
 	 * Initialize the UART driver so that it's ready to use.
