@@ -373,6 +373,7 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 		ImageMeasureInfo.DataAddr = DeviceCopy->DestAddr;
 		ImageMeasureInfo.DataSize = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
 		ImageMeasureInfo.PcrInfo = PcrInfo;
+		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 		ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
 		/* Update the data for measurement, only VersalNet */
 		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
@@ -572,6 +573,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			ImageMeasureInfo.DataAddr = (u64)(UINTPTR)Cdo.BufPtr;
 			ImageMeasureInfo.DataSize = ChunkLenTemp;
 			ImageMeasureInfo.PcrInfo = PcrInfo;
+			ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
 			/* Update the data for measurement, only VersalNet */
 			Status = XLoader_DataMeasurement(&ImageMeasureInfo);
