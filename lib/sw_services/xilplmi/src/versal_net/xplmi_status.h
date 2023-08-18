@@ -43,6 +43,7 @@
 *       bm   07/17/2023 Removed XPLMI_ERR_PLM_UPDATE_NO_DS_FOUND error code
 *       sk   07/31/2023 Moved Image Store error codes to plat header
 *       yog  08/07/2023 Added error code for trng driver init fail
+*       yog  08/18/2023 Added error XLOADER_ERR_PLM_MH_SEC_MISMATCH error code
 *
 * </pre>
 *
@@ -730,6 +731,8 @@ typedef enum {
 		/**< 0x636 Error while reading IHT optional data */
 	XLOADER_ERR_STORE_DIGEST_TABLE,
 		/**< 0x637 Error while storing digest table */
+	XLOADER_ERR_PLM_MH_SEC_MISMATCH,
+		/**< 0x638 PLM and Metaheader authentication or encryption status is not in sync*/
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XOCP_PCR_ERR_PCR_SELECT	= 0x6A0, /**< 0x6A0 Error in PCR selection */
