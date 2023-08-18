@@ -68,6 +68,10 @@ elseif (${_len} EQUAL 1)
         list(GET TOTAL_TIMER_INSTANCES 0 tick_timer)
 	set(sleep_timer "Default")
         set(XTIMER_IS_DEFAULT_TIMER 1)
+    elseif((${XILTIMER_en_interval_timer}) AND
+           (XILTIMER_tick_timer IN_LIST TOTAL_TIMER_INSTANCES))
+        set(sleep_timer "Default")
+        set(XTIMER_IS_DEFAULT_TIMER 1)
     elseif((NOT ("${XILTIMER_sleep_timer}" STREQUAL "Default")) AND
 	   (NOT (${XILTIMER_en_interval_timer})))
         set(XTIMER_NO_TICK_TIMER 1)
