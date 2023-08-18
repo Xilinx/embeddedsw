@@ -53,7 +53,7 @@ XSecure_Aes *XSecure_GetAesInstance(void);
 #ifndef PLM_RSA_EXCLUDE
 XSecure_Rsa *XSecure_GetRsaInstance(void);
 #endif
-XSecure_Sha3 *XSecure_GetSha3Instance1(void);
+XSecure_Sha3 *XLoader_GetSha3Engine1Instance(void);
 
 #ifdef __cplusplus
 }
