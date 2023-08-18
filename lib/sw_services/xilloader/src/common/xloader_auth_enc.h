@@ -559,7 +559,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 		u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature);
 #endif
-void XLoader_ClearKatOnPPDI(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
+void XLoader_ClearKatOnPPDI(XilPdi *PdiPtr, u32 PlmKatMask);
 int XLoader_CheckAuthJtagIntStatus(void *Arg);
 int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash);
 int XLoader_IsAdditionalPpkValid(const u8 *PpkHash);

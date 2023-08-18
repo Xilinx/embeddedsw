@@ -616,7 +616,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		PdiPtr->PlmKatStatus |= BootPdiInfo->PlmKatStatus;
 		PdiPtr->DecKeySrc |= BootPdiInfo->DecKeySrc;
 		/* Update KAT status */
-		XLoader_ClearKatOnPPDI(&SecureParams, 0U);
+		XLoader_ClearKatOnPPDI(PdiPtr, 0U);
 	}
 
 	/**
