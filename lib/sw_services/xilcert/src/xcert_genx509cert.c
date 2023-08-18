@@ -867,7 +867,7 @@ static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey, u32
 		goto END;
 	}
 
-	XCert_CreateBitString(Curr, UncompressedPublicKey, KeyLen + 1U, &Len);
+	XCert_CreateBitString(Curr, UncompressedPublicKey, KeyLen + 1U, TRUE, &Len);
 	Curr = Curr + Len;
 
 	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
@@ -1261,7 +1261,7 @@ static void XCert_GenKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *KeyUs
 		KeyUsageValLen = XCERT_MAX_LEN_OF_KEYUSAGE_VAL;
 	}
 
-	XCert_CreateBitString(Curr, KeyUsageVal, KeyUsageValLen, &FieldLen);
+	XCert_CreateBitString(Curr, KeyUsageVal, KeyUsageValLen, FALSE, &FieldLen);
 	Curr = Curr + FieldLen;
 
 	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
