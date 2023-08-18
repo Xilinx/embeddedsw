@@ -25,8 +25,6 @@
 *  1.1	adk      08/08/22 Added support for versal net.
 *  	adk      08/08/22 Added doxygen tags.
 *  1.2  adk	 22/12/22 Fixed doxygen style and indentation issues.
-*  1.3  mus	 07/18/23 Added checks in xtimerinit to fix compilation
-*                         failures when sleep timer uses default timer.
 *  1.3  gm	 21/07/23 Added Timer Release Callback function.
 *
 * </pre>
@@ -120,10 +118,7 @@ void XilTimer_Sleep(unsigned long delay, XTimer_DelayType DelayType) {
 *****************************************************************************/
 void __attribute__ ((constructor)) xtimerinit()
 {
-#if (( defined (SDT) && defined (XSLEEPTIMER_BASEADDRESS)) \
-		|| ( ! defined (SDT) && defined (XSLEEPTIMER_DEVICEID)))
     XilSleepTimer_Init(&TimerInst);
-#endif
     XilTickTimer_Init(&TimerInst);
 }
 
