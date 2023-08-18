@@ -19,6 +19,7 @@
 * 2.0   har  07/04/2022 Initial release
 *       kpt  08/31/2022 Fixed logical error in XPuf_CheckGlobalVariationFilter
 * 2.1   am   02/13/2023 Fixed MISRA C violations
+* 2.2   kpt  08/14/2023 Renamed XPuf_IsRegistrationEnabled to XPuf_IsRegistrationDisabled
 *
 * </pre>
 *
@@ -105,29 +106,22 @@ void XPuf_SetRoSwap(const XPuf_Data *PufData)
 /*****************************************************************************/
 /**
  *
- * @brief	This function checks if registration is enabled or not.
+ * @brief	This function returns PUF registration disable status.
  *
- * @return	XST_SUCCESS - Registration is enabled
- * 		XPUF_ERROR_REGISTRATION_INVALID - Registration is disabled
+ * @return	XPUF_PUF_REGIS_DIS  - When PUF registration is disabled.
+ *		FALSE - When PUF registration is enabled or not supported incase of versal.
  *
  *****************************************************************************/
-int XPuf_IsRegistrationEnabled(u32 PufEccCtrlValue)
+u32 XPuf_IsRegistrationDisabled(void)
 {
-	int Status = XST_FAILURE;
+	u32 PufEccCtrlValue = FALSE;
 
 #if defined (VERSAL_NET)
-	if ((PufEccCtrlValue & XPUF_PUF_REGIS_DIS) == XPUF_PUF_REGIS_DIS) {
-		Status = XST_FAILURE;
-	}
-	else {
-		Status = XST_SUCCESS;
-	}
-#else
-	(void)PufEccCtrlValue;
-	Status = XST_SUCCESS;
+	PufEccCtrlValue = XPuf_ReadReg(XPUF_EFUSE_CACHE_BASEADDR,
+					XPUF_PUF_ECC_PUF_CTRL_OFFSET) & XPUF_PUF_REGIS_DIS;
 #endif
 
-	return Status;
+	return PufEccCtrlValue;
 }
 
 /*****************************************************************************/

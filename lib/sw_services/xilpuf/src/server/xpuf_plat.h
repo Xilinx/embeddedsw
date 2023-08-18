@@ -20,6 +20,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 2.0   har  07/04/2022 Initial release
 * 2.1   am   02/13/2023 Fixed MISRA C violations
+* 2.2   kpt  08/14/2023 Renamed XPuf_IsRegistrationEnabled to XPuf_IsRegistrationDisabled
 *
 * </pre>
 *
@@ -66,7 +67,7 @@ typedef struct _XPuf_Data XPuf_Data;
 /*************************** Function Prototypes ******************************/
 int XPuf_CheckGlobalVariationFilter(const XPuf_Data *PufData);
 void XPuf_SetRoSwap(const XPuf_Data *PufData);
-int XPuf_IsRegistrationEnabled(u32 PufEccCtrlValue);
+u32 XPuf_IsRegistrationDisabled(void);
 u32 XPuf_IsIroFreqChangeReqd(void);
 
 /** @}
