@@ -43,4 +43,8 @@ examples:
         - reg
     xuartns550_selftest_example.c:
         - reg
+
+tapp:
+   xuartns550_selftest_example.c:
+        declaration: UartNs550SelfTestExample
 ...
