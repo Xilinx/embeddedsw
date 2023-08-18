@@ -207,7 +207,7 @@ static int XLoader_AuthJtag(u32 *TimeOut);
 static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last);
 static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
-static void XLoader_ClearKatStatusOnCfg(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
+static void XLoader_ClearKatStatusOnCfg(XilPdi *PdiPtr, u32 PlmKatMask);
 static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
 static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr);
 
@@ -2837,7 +2837,7 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 	u32 PlmDpacmKatStatus;
 
 	/* Update KAT status based on the user configuration */
-	XLoader_ClearKatOnPPDI(SecurePtr, XPLMI_SECURE_AES_CMKAT_MASK);
+	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_SECURE_AES_CMKAT_MASK);
 
 	/* Set the data context of previous AES operation */
 	XSecure_AesSetDataContext(SecurePtr->AesInstPtr);
@@ -2866,7 +2866,7 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 	}
 
 	/* Update KAT status based on the user configuration */
-	XLoader_ClearKatOnPPDI(SecurePtr, XPLMI_SECURE_AES_DEC_KAT_MASK);
+	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_SECURE_AES_DEC_KAT_MASK);
 
 	if((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_SECURE_AES_DEC_KAT_MASK) == 0U) {
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
@@ -3481,16 +3481,14 @@ int XLoader_AuthEncClear(void)
 /**
  * @brief	This function updates the KAT status
  *
- * @param	SecurePtr is pointer to the XLoader_SecureParams instance
+ * @param	PdiPtr is pointer to the XilPdi instance
  * @param	PlmKatMask is the mask of the KAT that is going to run
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
-void XLoader_ClearKatOnPPDI(XLoader_SecureParams *SecurePtr, u32 PlmKatMask) {
-	if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
-		XLoader_ClearKatStatusOnCfg(SecurePtr, PlmKatMask);
+void XLoader_ClearKatOnPPDI(XilPdi *PdiPtr, u32 PlmKatMask)
+{
+	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
+		XLoader_ClearKatStatusOnCfg(PdiPtr, PlmKatMask);
 	}
 }
 
@@ -3499,30 +3497,27 @@ void XLoader_ClearKatOnPPDI(XLoader_SecureParams *SecurePtr, u32 PlmKatMask) {
  * @brief	This function masks the KAT status based on KatOnConfig value
  *			when PDI type is partial pdi
  *
- * @param	SecurePtr is pointer to the XLoader_SecureParams instance
+ * @param	PdiPtr is pointer to the XilPdi instance
  * @param	PlmKatMask is the mask of the KAT that is going to run
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
-static void XLoader_ClearKatStatusOnCfg(XLoader_SecureParams *SecurePtr, u32 PlmKatMask)
+static void XLoader_ClearKatStatusOnCfg(XilPdi *PdiPtr, u32 PlmKatMask)
 {
 	u8 KatOnConfig = (u8)(XPlmi_In32(XPLMI_RTCFG_SECURE_CTRL_ADDR) &
 						XLOADER_PPDI_KAT_MASK);
 
 	if (KatOnConfig != 0U) {
 		if (PlmKatMask != 0U) {
-			SecurePtr->PdiPtr->PpdiKatStatus &= SecurePtr->PdiPtr->PlmKatStatus;
-			if ((SecurePtr->PdiPtr->PpdiKatStatus & PlmKatMask) != PlmKatMask) {
+			PdiPtr->PpdiKatStatus &= PdiPtr->PlmKatStatus;
+			if ((PdiPtr->PpdiKatStatus & PlmKatMask) != PlmKatMask) {
 				/* Update RTC area before running KAT */
-				SecurePtr->PdiPtr->PlmKatStatus &= ~PlmKatMask;
-				XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
-				SecurePtr->PdiPtr->PpdiKatStatus |= PlmKatMask;
+				PdiPtr->PlmKatStatus &= ~PlmKatMask;
+				XPlmi_UpdateKatStatus(PdiPtr->PlmKatStatus);
+				PdiPtr->PpdiKatStatus |= PlmKatMask;
 			}
 		}
 		else {
-			SecurePtr->PdiPtr->PpdiKatStatus = 0U;
+			PdiPtr->PpdiKatStatus = 0U;
 		}
 	}
 }
@@ -3918,7 +3913,7 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 	}
 
 	/** Update KAT status based on the user configuration. */
-	XLoader_ClearKatOnPPDI(SecurePtr, AuthKatMask);
+	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, AuthKatMask);
 
 	/**
 	 * Skip running the KAT for ECDSA or RSA if it is already run.
@@ -3992,7 +3987,7 @@ static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr) {
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 
 	/* Update KAT status */
-	XLoader_ClearKatOnPPDI(SecurePtr, XPLMI_SECURE_SHA3_KAT_MASK);
+	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_SECURE_SHA3_KAT_MASK);
 
 	/* Set the data context of previous SHA operation */
 	XSecure_Sha3SetDataContext(Sha3InstPtr);
