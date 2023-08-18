@@ -46,6 +46,7 @@
 *       sk   02/22/2023 Added EoPDI SYNC logic to handle Slave PDI load errors
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       sk   05/18/2023 Deprecate copy to memory feature,removed SubsystemPdiIns
+*       sk   08/18/2023 Fixed security review comments
 *
 * </pre>
 *
@@ -166,7 +167,7 @@ static int XLoader_SbiLoadPdi(void *Data)
 	PdiAddr = 0U;
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 	PdiPtr->IpiMask = 0U;
-	if (PdiPtr->ValidHeader == (u8)FALSE) {
+	if (PdiPtr->DiscardUartLogs == (u8)TRUE) {
 		DebugLog->LogLevel &= XLOADER_LOG_LEVEL_MASK;
 	}
 	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Started\n\r");
@@ -184,7 +185,7 @@ END:
 	if (Status != XST_SUCCESS) {
 		/* Update the error code */
 		XPlmi_ErrMgr(Status);
-		PdiPtr->ValidHeader = (u8)FALSE;
+		PdiPtr->DiscardUartLogs = (u8)TRUE;
 		DebugLog->LogLevel |= (DebugLog->LogLevel >> XPLMI_LOG_LEVEL_SHIFT);
 		XPlmi_SetPlmLiveStatus();
 		usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
