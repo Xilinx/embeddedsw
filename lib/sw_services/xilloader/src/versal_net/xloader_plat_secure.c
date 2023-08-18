@@ -30,6 +30,7 @@
 *       sk   06/12/2023 Renamed XLoader_UpdateKekSrc to XLoader_GetKekSrc
 * 1.9   kpt  07/12/2023 Added mask generation function
 *       dd   08/11/2023 Updated doxygen comments
+*	kpt  07/31/2023 Removed dead code in XLoader_CheckSecureStateAuth
 *
 * </pre>
 *
@@ -441,8 +442,8 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	volatile u8 IsSignedImg;
-	volatile u8 IsSignedImgTmp;
+	volatile u8 IsSignedImg = XIH_BH_IMG_ATTRB_SIGNED_IMG_VALUE;
+	volatile u8 IsSignedImgTmp = XIH_BH_IMG_ATTRB_SIGNED_IMG_VALUE;
 
 	IsSignedImg = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
 		XIH_BH_IMG_ATTRB_SIGNED_IMG_MASK) >> XIH_BH_IMG_ATTRB_SIGNED_IMG_SHIFT);
@@ -458,13 +459,13 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
 			" Asymmetric HWRoT\r\n");
 	}
-	else if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+	else {
 		if ((IsSignedImg == XIH_BH_IMG_ATTRB_SIGNED_IMG_VALUE) ||
 			(IsSignedImgTmp == XIH_BH_IMG_ATTRB_SIGNED_IMG_VALUE)) {
 			/**
-			 * If PPK hash is not programmed in eFUSEs and PLM is authenticated then Secure State of boot is
-			 * emulated A-HWRoT
-			 */
+			* If PPK hash is not programmed in eFUSEs and PLM is authenticated then Secure State of boot is
+			* emulated A-HWRoT
+			*/
 			*AHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT;
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
 			" Emulated Asymmetric HWRoT\r\n");
@@ -473,9 +474,6 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 			*AHWRoT = XPLMI_RTCFG_SECURESTATE_NONSECURE;
 		}
 		Status = XST_SUCCESS;
-	}
-	else {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
 	}
 
 	return Status;
