@@ -22,7 +22,8 @@
 *       am   02/18/22 Fixed COMF code complexity violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 2.1   skg  11/07/22 Added In Body comments
-*       am   02/17/2023 Fixed HIS_COMF violations
+*       am   02/17/23 Fixed HIS_COMF violations
+*	kpt  08/03/23 Fix security review comments
 *
 * </pre>
 *
@@ -32,6 +33,7 @@
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xil_util.h"
 #include "xpuf_mailbox.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -63,8 +65,8 @@
  ****************************************************************************/
 int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 {
-	int Status = XST_FAILURE;
-	u32 Response[RESPONSE_ARG_CNT];
+	volatile int Status = XST_FAILURE;
+	u32 Response[RESPONSE_ARG_CNT] = {0xFFFFFFFFU};
 
 	/**
 	 *  Send CDO to PLM through IPI. Return XST_FAILURE if sending data failed
@@ -72,6 +74,7 @@ int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	Status = (int)XMailbox_SendData(MailboxPtr, XPUF_TARGET_IPI_INT_MASK, MsgPtr, MsgLen,
 				XILMBOX_MSG_TYPE_REQ, TRUE);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -82,9 +85,11 @@ int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	Status = (int)XMailbox_Recv(MailboxPtr, XPUF_TARGET_IPI_INT_MASK, Response, RESPONSE_ARG_CNT,
 				XILMBOX_MSG_TYPE_RESP);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = (int)Response[0];
 
 END:
