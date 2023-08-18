@@ -68,4 +68,8 @@ examples:
 
     xiic_tenbitaddr_example.c:
         - interrupts
+
+tapp:
+   xiic_selftest_example.c:
+        declaration: IicSelfTestExample
 ...
