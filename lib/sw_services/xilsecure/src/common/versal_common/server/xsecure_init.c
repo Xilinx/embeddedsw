@@ -99,7 +99,7 @@ XSecure_Sha3 *XSecure_GetSha3Instance(void)
  * @note	This is applicable only for Versal Net
  *
  ******************************************************************************/
-XSecure_Sha3 *XSecure_GetSha3Instance1(void)
+XSecure_Sha3 *XLoader_GetSha3Engine1Instance(void)
 {
 	XSecure_Sha3 *Sha3Ptr = NULL;
 #if defined (VERSAL_NET)

@@ -115,6 +115,9 @@ static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrInfo
 #ifdef PLM_OCP
 static int XLoader_GenSubSysDevAk(u32 SubsystemID, u64 InHash);
 #endif
+#ifndef PLM_SECURE_EXCLUDE
+static int XLoader_RunSha3Engine1Kat(XilPdi* PdiPtr);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -1075,11 +1078,15 @@ END:
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 {
 	int Status = XLOADER_ERR_DATA_MEASUREMENT;
+
 #ifdef PLM_OCP
-	XSecure_Sha3 *Sha3Instance = XSecure_GetSha3Instance1();
+	XSecure_Sha3 *Sha3Instance = XLoader_GetSha3Engine1Instance();
 	XSecure_Sha3Hash Sha3Hash;
 	u32 PcrNo;
 	u32 DevAkIndex = XOcp_GetSubSysReqDevAkIndex(ImageInfo->SubsystemID);
+#ifndef PLM_SECURE_EXCLUDE
+	XilPdi* PdiPtr = XLoader_GetPdiInstance();
+#endif
 
 	if ((ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) &&
 			(DevAkIndex == XOCP_INVALID_DEVAK_INDEX)) {
@@ -1087,6 +1094,13 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		goto END;
 	}
 	PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
+
+#ifndef PLM_SECURE_EXCLUDE
+	Status = XLoader_RunSha3Engine1Kat(PdiPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
 
 	switch(ImageInfo->Flags) {
 	case XLOADER_MEASURE_START:
@@ -1157,7 +1171,7 @@ static int XLoader_InitSha3Instance1(void)
 	int Status = XLOADER_ERR_SHA3_1_INIT;
 #ifdef PLM_OCP
 	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
-	XSecure_Sha3 *Sha3Instance = XSecure_GetSha3Instance1();
+	XSecure_Sha3 *Sha3Instance = XLoader_GetSha3Engine1Instance();
 
 	Status = XSecure_Sha3LookupConfig(Sha3Instance, XLOADER_SHA3_1_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
@@ -1523,7 +1537,6 @@ END:
 	return Status;
 }
 
-
 /*****************************************************************************/
 /**
  * @brief	This function initializes the Trng instance.
@@ -1553,3 +1566,45 @@ static int XLoader_InitTrngInstance(void)
 END:
 	return Status;
 }
+
+#ifndef PLM_SECURE_EXCLUDE
+/*****************************************************************************/
+/**
+ * @brief	This Function does the following:
+ *		- It clears KAT Status before loading PPDI
+ *		- It runs KAT for SHA3 Instance 1 if it is not already run.
+ *		- It updates KAT status in PdiPtr and also RTCA.
+ *
+ * @param	PdiPtr is PDI Instance pointer
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure
+ *
+*****************************************************************************/
+int XLoader_RunSha3Engine1Kat(XilPdi* PdiPtr)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	XSecure_Sha3 *Sha3Instance = XLoader_GetSha3Engine1Instance();
+
+	XLoader_ClearKatOnPPDI(PdiPtr, XPLMI_SECURE_SHA3_1_KAT_MASK);
+
+	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_1_KAT_MASK) != (u8)TRUE) {
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
+			XSecure_Sha3Kat, Sha3Instance);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			goto END;
+		}
+
+		XPlmi_SetKatMask(XPLMI_SECURE_SHA3_1_KAT_MASK);
+		PdiPtr->PlmKatStatus |= XPLMI_SECURE_SHA3_KAT_MASK;
+
+		/* Update KAT status */
+		XPlmi_UpdateKatStatus(PdiPtr->PlmKatStatus);
+	}
+
+END:
+	return Status;
+}
+#endif
