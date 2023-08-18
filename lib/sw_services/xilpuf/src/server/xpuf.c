@@ -56,6 +56,8 @@
 *       am   02/13/2023 Fixed MISRA C violations
 *       am   02/17/2023 Fixed HIS_COMF violation
 *       vss  02/21/2023 Fixed PUF aux shift issue
+* 2.2	kpt  08/03/2023 Fix passing efuse cache value and changed XPuf_IsRegistrationEnabled to
+*                       XPuf_IsRegistrationDisabled
 *
 * </pre>
 *
@@ -615,10 +617,10 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
 				 */
 				Status = XPUF_ERROR_REGISTRATION_INVALID;
 			}
-			else if (XPuf_IsRegistrationEnabled(PufEccCtrlValue) != XST_SUCCESS) {
+			else if (XPuf_IsRegistrationDisabled() != FALSE) {
 				/**
 				 * Return XPUF_ERROR_REGISTRATION_INVALID as error code,
-				 * if PUF is disabled for Versal Net device.
+				 * if PUF registration is disabled for Versal Net device.
 				 */
 				Status = XPUF_ERROR_REGISTRATION_INVALID;
 			}
