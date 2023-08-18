@@ -38,6 +38,8 @@
 #include "xplmi_status.h"
 #include "xplmi_tamper.h"
 #include "xsecure_plat_kat.h"
+#include "xsecure_init.h"
+#include "xplmi_dma.h"
 
 /************************** Constant Definitions *****************************/
 /** @name Object IDs
@@ -905,7 +907,6 @@ END:
 static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicKey, u32 *SubjectKeyIdentifierLen)
 {
 	int Status = XST_FAILURE;
-	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
 	u8* Curr = TBSCertBuf;
 	u8* SequenceLenIdx;
 	u8* SequenceValIdx;
@@ -913,6 +914,9 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicK
 	u8* OctetStrValIdx;
 	u32 OidLen;
 	u32 FieldLen;
+	XSecure_Sha3 *ShaInstancePtr = XSecure_GetSha3Instance();
+	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
+	XSecure_Sha3Hash Sha3Hash;
 
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
 	SequenceLenIdx = Curr++;
@@ -922,7 +926,12 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicK
 		&OidLen);
 	Curr = Curr + OidLen;
 
-	Status = XSecure_Sha384Digest(SubjectPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, Hash);
+	Status = XSecure_Sha3Initialize(ShaInstancePtr, PmcDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_Sha3Digest(ShaInstancePtr, (UINTPTR)SubjectPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, &Sha3Hash);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -931,7 +940,7 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicK
 	OctetStrLenIdx = Curr++;
 	OctetStrValIdx = Curr;
 
-	XCert_CreateOctetString(Curr, Hash, XCERT_SUB_KEY_ID_VAL_LEN, &FieldLen);
+	XCert_CreateOctetString(Curr, Sha3Hash.Hash, XCERT_SUB_KEY_ID_VAL_LEN, &FieldLen);
 	Curr = Curr + FieldLen;
 
 	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
@@ -973,7 +982,6 @@ END:
 static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublicKey, u32 *AuthorityKeyIdentifierLen)
 {
 	int Status = XST_FAILURE;
-	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
 	u8* Curr = TBSCertBuf;
 	u8* SequenceLenIdx;
 	u8* SequenceValIdx;
@@ -983,6 +991,9 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublic
 	u8* KeyIdSequenceValIdx;
 	u32 OidLen;
 	u32 FieldLen;
+	XSecure_Sha3 *ShaInstancePtr = XSecure_GetSha3Instance();
+	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
+	XSecure_Sha3Hash Sha3Hash;
 
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
 	SequenceLenIdx = Curr++;
@@ -992,7 +1003,12 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublic
 		&OidLen);
 	Curr = Curr + OidLen;
 
-	Status = XSecure_Sha384Digest(IssuerPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, Hash);
+	Status = XSecure_Sha3Initialize(ShaInstancePtr, PmcDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_Sha3Digest(ShaInstancePtr, (UINTPTR)IssuerPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, &Sha3Hash);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1006,7 +1022,7 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublic
 	KeyIdSequenceLenIdx = Curr++;
 	KeyIdSequenceValIdx = Curr;
 
-	XCert_CreateOctetString(Curr, Hash, XCERT_AUTH_KEY_ID_VAL_LEN, &FieldLen);
+	XCert_CreateOctetString(Curr, Sha3Hash.Hash, XCERT_AUTH_KEY_ID_VAL_LEN, &FieldLen);
 	Curr = Curr + FieldLen;
 
 	/**
