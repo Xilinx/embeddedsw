@@ -84,13 +84,25 @@ typedef enum {
 	XNVM_EFUSE_ERR_DME_MODE_SET = 0xA700, /**< 0xA700
 						* Error in DME_MODE
 						* programming */
-	XNVM_EFUSE_ERR_WRITE_CRC_SALT = 0xA800, /**< 0xA800
+	XNVM_EFUSE_ERR_WRITE_DME_KEY_0 = 0xA800, /**< 0xA800
+						* Error in DME_KEY_0
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_DME_KEY_1 = 0xA900, /**< 0xA900
+						* Error in DME_KEY_1
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_DME_KEY_2 = 0xAA00, /**< 0xAA00
+						* Error in DME_KEY_2
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_DME_KEY_3 = 0xAB00, /**< 0xAB00
+						* Error in DME_KEY_3
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_CRC_SALT = 0xAC00, /**< 0xAC00
 						 * Error in CRC_SALT
 						 * programming */
-	XNVM_EFUSE_ERR_WRITE_CRC = 0xA900, /**< 0xA900
+	XNVM_EFUSE_ERR_WRITE_CRC = 0xAD00, /**< 0xAD00
 						* Error in CRC
 						* programming */
-	XNVM_EFUSE_ERR_WRITE_ROM_RSVD_BITS = 0xAA00, /**< 0xAA00
+	XNVM_EFUSE_ERR_WRITE_ROM_RSVD_BITS = 0xAE00, /**< 0xAE00
 						* Error in ROM Rsvd bits
 						* programming */
 	XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_CTRL_0_PROT = 0xC300, /**< 0xC300

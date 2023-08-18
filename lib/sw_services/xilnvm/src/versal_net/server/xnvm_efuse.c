@@ -76,6 +76,7 @@ static int XNvm_UdsCrcCalc(const u32 *Uds);
 static int XNvm_EfuseCacheReloadAndProtectionChecks(void);
 static int XNvm_EfusePrgmProtectionBits(void);
 static int XNvm_EfuseProtectionChecks(void);
+static int XNvm_EfuseChangeEndianness(u8 *Dest, u8 *Src, u32 Size);
 
 /************************** Constant Definitions *****************************/
 #define XNVM_EFUSE_ERROR_BYTE_SHIFT	(8U)
@@ -93,6 +94,8 @@ static int XNvm_EfuseProtectionChecks(void);
 #define XNVM_EFUSE_PUF_CTRL_PUF_REGEN_DIS_MASK   0x80000000U
 #define XNVM_EFUSE_PUF_CTRL_PUF_HD_INVLD_MASK    0x40000000U
 #define XNVM_EFUSE_PUF_CTRL_PUF_REGIS_DIS_MASK   0x20000000U
+#define XNVM_EFUSE_DME_KEY_SIZE_IN_BYTES	 (48U)
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*************************** Function Prototypes ******************************/
@@ -2300,6 +2303,7 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 {
 	volatile int Status = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
+	u32 Key[XNVM_DME_USER_KEY_SIZE_IN_WORDS] = {0U};
 
 	if (KeyType == XNVM_EFUSE_DME_USER_KEY_0) {
 		EfusePrgmInfo.StartRow = XNVM_EFUSE_DME_USER_KEY_0_START_ROW;
@@ -2334,9 +2338,17 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 		goto END;
 	}
 
-	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, EfuseKey->Key);
+	Status = XNvm_EfuseChangeEndianness((u8 *)Key, (u8 *)EfuseKey->Key, sizeof(Key));
 	if (Status != XST_SUCCESS) {
-		Status = (Status | XNVM_EFUSE_ERR_WRITE_AES_KEY);
+		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+		goto END;
+	}
+
+	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, Key);
+	if (Status != XST_SUCCESS) {
+		Status = (Status |
+				(XNVM_EFUSE_ERR_WRITE_DME_KEY_0 +
+				(KeyType << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
 	}
 
 END:
@@ -3494,6 +3506,41 @@ static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col, u32 
 		}
 	}
 
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief       This function changes the endianness of Data of given size
+ *
+ * @param	Dest    Pointer to the destination buffer
+ * @param	Src	Pointer to the source buffer
+ * @param	Size	Size of the Data
+ *
+ * @return
+ *	-	XST_SUCCESS on successful conversion
+ *	-	Error code on failure
+ *
+ ******************************************************************************/
+static int XNvm_EfuseChangeEndianness(u8 *Dest, u8 *Src, u32 Size)
+{
+	int Status = XST_FAILURE;
+	volatile u32 Index;
+
+	if ((Size % XNVM_WORD_LEN) != 0U) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	for (Index = 0U; Index < Size; Index++) {
+		Dest[Size - 1U - Index] = Src[Index];
+	}
+
+	if (Index == Size) {
+		Status = XST_SUCCESS;
+	}
 END:
 	return Status;
 }
