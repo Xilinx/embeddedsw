@@ -114,6 +114,7 @@
 *                       function declaration
 *       sk   07/06/2023 Added prototype for Enable and Disable Jtag functions
 *                       Moved minor error codes to plat headers
+*       sk   08/18/2023 Renamed ValidHeader member to DiscardUartLogs in XilPdi
 * </pre>
 *
 * @note
@@ -288,7 +289,7 @@ typedef struct {
  */
 typedef struct {
 	u8 PdiType; /**< Indicates PDI Type, full PDI, partial PDI */
-	u8 ValidHeader; /**< Indicates if Image header table is valid or not */
+	u8 DiscardUartLogs; /**< Used to control uart logs */
 	u8 PdiIndex; /**< Index in DeviceOps array */
 	u8 SlrType; /**< SLR Type */
 	u32 PdiSrc;

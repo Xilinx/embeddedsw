@@ -84,7 +84,7 @@ int XPlm_LoadBootPdi(void)
 
 	PdiInstPtr->PdiType = XLOADER_PDI_TYPE_FULL;
 	PdiInstPtr->IpiMask = 0U;
-	PdiInstPtr->ValidHeader = (u8)TRUE;
+	PdiInstPtr->DiscardUartLogs = (u8)FALSE;
 	Status = XLoader_LoadPdi(PdiInstPtr, BootMode, 0U);
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;

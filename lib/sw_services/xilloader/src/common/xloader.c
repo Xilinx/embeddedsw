@@ -158,6 +158,7 @@
 *                       BootPDI info, Definition for XLoader_GetPdiInstance
 *       am   07/07/2023 Added error code for Read IHT optional data
 *       sk   07/31/2023 Updated error codes in XLoader_IsPdiAddrLookup
+*       sk   08/18/2023 Fixed security review comments
 *
 * </pre>
 *
@@ -268,8 +269,8 @@ int XLoader_Init(void)
 	volatile int Status = XST_FAILURE;
 	XilPdi *PdiPtr = XLoader_GetPdiInstance();
 
-	/** - Initialize the Valid Header */
-	PdiPtr->ValidHeader = (u8)TRUE;
+	/** - Initialize the Uart Logs Config */
+	PdiPtr->DiscardUartLogs = (u8)FALSE;
 
 	/** - Initialize the loader commands */
 	XLoader_CmdsInit();
@@ -585,14 +586,14 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 	if ((Status != XST_SUCCESS) || (StatusTemp != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Image Header Table Validation "
 					"failed\n\r");
-		PdiPtr->ValidHeader = (u8)FALSE;
+		PdiPtr->DiscardUartLogs = (u8)TRUE;
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, Status);
 		StatusTemp = Xil_SecureZeroize((u8 *)&(PdiPtr->MetaHdr.ImgHdrTbl),
 			sizeof(PdiPtr->MetaHdr.ImgHdrTbl));
 		goto END;
 	}
-	if (PdiPtr->ValidHeader == (u8)FALSE) {
-		PdiPtr->ValidHeader = (u8)TRUE;
+	if (PdiPtr->DiscardUartLogs == (u8)TRUE) {
+		PdiPtr->DiscardUartLogs = (u8)FALSE;
 		DebugLog->LogLevel |= (DebugLog->LogLevel >> XPLMI_LOG_LEVEL_SHIFT);
 	}
 #ifndef PLM_SECURE_EXCLUDE
@@ -1521,7 +1522,7 @@ END1:
 		goto END;
 	}
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
-	PdiPtr->ValidHeader = (u8)TRUE;
+	PdiPtr->DiscardUartLogs = (u8)FALSE;
 	XPlmi_Printf(DEBUG_GENERAL, "Loading from BootPdi\n\r");
 	Status = XLoader_PdiInit(PdiPtr, BootPdiInfo->PdiSrc , 0U);
 	if (Status != XST_SUCCESS) {
