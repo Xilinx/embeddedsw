@@ -28,6 +28,7 @@
 *       rama 01/19/2023 Updated ErrorTable to support XilSem errors
 *       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.02  sk   08/17/2023 Updated XPlmi_EmConfig arguments
 *
 * </pre>
 *
@@ -525,7 +526,7 @@ void XPlmi_ReconfigErrActions(void)
 			((ErrIndex / XPLMI_MAX_ERR_BITS) * XPLMI_EVENT_ERROR_OFFSET);
 		NodeType = XPlmi_EventNodeType(ErrorNodeId);
 		if (XPlmi_EmConfig(NodeType, ErrIndex, ErrorTable[ErrIndex].Action,
-			ErrorTable[ErrIndex].Handler) != XST_SUCCESS) {
+			ErrorTable[ErrIndex].Handler, ErrorTable[ErrIndex].SubsystemId) != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL,
 				"Warning: XPlmi_ReconfigErrActions: Failed to "
 				"restore action for ERR index %d\n\r",

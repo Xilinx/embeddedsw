@@ -62,6 +62,8 @@
 *                       it can be used in Image Selector
 * 1.10  sk   07/18/2023 Added error codes for invalid address and
 *                       LPD not initialized
+*       sk   08/17/2023 Added declaration for XPlmi_GetEmSubsystemId,
+*                       define for Invalid Subsystem
 *
 * </pre>
 *
@@ -139,6 +141,8 @@ extern "C" {
 #define XPLMI_NODETYPE_EVENT_PSM_INDEX		(0x1U)
 #define XPLMI_NODETYPE_EVENT_SW_INDEX		(0x2U)
 #define XPLMI_NODETYPE_EVENT_INVALID_INDEX	(0x3U)
+
+#define XPLMI_INVALID_SUBSYSTEM_ID		(0xFFFFFFFFU)
 
 /**************************** Type Definitions *******************************/
 /* Pointer to Error Handler Function */
@@ -218,13 +222,14 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 		  XPlmi_RestartHandler_t SubsystemRestart);
 int XPlmi_PsEmInit(void);
 int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
-		XPlmi_ErrorHandler_t ErrorHandler);
+		XPlmi_ErrorHandler_t ErrorHandler, const u32 SubsystemId);
 void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId, u32 ErrorMasks,
 		u32 SubsystemId);
 int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask);
 void XPlmi_ErrIntrHandler(void *CallbackRef);
 void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask);
 void XPlmi_SetEmSubsystemId(const u32 *Id);
+u32 XPlmi_GetEmSubsystemId(void);
 int XPlmi_CheckNpiErrors(void);
 int XPlmi_ClearNpiErrors(void);
 void XPlmi_TriggerFwNcrError(void);
@@ -234,7 +239,7 @@ u32 XPlmi_GetErrorId(u32 ErrorNodeId, u32 RegMask);
 int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask);
 int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask);
 int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
-		XPlmi_ErrorHandler_t ErrorHandler);
+		XPlmi_ErrorHandler_t ErrorHandler, const u32 SubsystemId);
 u32 EmDisableErrAction(u32 ErrMaskRegAddr, u32 RegMask);
 int XPlmi_ErrorTaskHandler(void *Data);
 void XPlmi_SoftResetHandler(void);
