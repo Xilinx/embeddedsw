@@ -124,6 +124,7 @@
 *       sk   07/26/2023 Added redundant call for XPlmi_DetectSlaveSlrTamper
 *       sk   07/26/2023 Added redundant check in XPlmi_DetectAndHandleTamper
 *       sk   08/17/2023 Updated logic to handle SubsystemId for EM actions
+*       sk   08/18/2023 Added redundant call for XPlmi_TriggerSLDOnHaltBoot
 * </pre>
 *
 * @note
@@ -265,7 +266,7 @@ void XPlmi_ErrMgr(int ErrStatus)
 			* The function will not return if eFuses are blown.
 			* If Halt Boot eFuses are not blown, update multiboot register and trigger FW NCR.
 			*/
-			XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_IMMEDIATE);
+			XSECURE_REDUNDANT_IMPL(XPlmi_TriggerSLDOnHaltBoot, XPLMI_TRIGGER_TAMPER_IMMEDIATE);
 
 			/**
 			 * - Update Multiboot register and perform SRST.
