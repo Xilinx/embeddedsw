@@ -60,7 +60,7 @@
 					/**< Length of byte in bits */
 
 /************************** Function Prototypes ******************************/
-static u8 XCert_GetTrailingZeroesCount(u8 Data);
+static u32 XCert_GetTrailingZeroesCount(u8 Data);
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -123,7 +123,7 @@ END:
  ******************************************************************************/
 void XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32* FieldLen)
 {
-	u8 NumofTrailingZeroes;
+	u32 NumofTrailingZeroes;
 	u8* Curr = DataBuf;
 	u8* BitStringLenIdx;
 	u8* BitStringValIdx;
@@ -168,42 +168,6 @@ void XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStr
 	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)OctetStringVal, OctetStringLen);
 	Curr = Curr + OctetStringLen;
 	*FieldLen = (u8)(Curr - DataBuf);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function takes DER encoded data as input in form of string and
- *			updates it in the provided buffer.
- *
- * @param	DataBuf is the pointer to the buffer where the encoded data
-			needs to be updated
- * @param	RawData is the DER encoded value as string to be updated in buffer
- * @param	RawDataLen is the length of the DER encoded value
- *
- * @return
- *			- XST_SUCCESS - If update is successful
- *			- XST_FAILURE - Upon any failure
- *
- ******************************************************************************/
-int XCert_CreateRawDataFromStr(u8* DataBuf, const char* RawData, u32* RawDataLen)
-{
-	int Status = XST_FAILURE;
-	u8* Curr = DataBuf;
-	u8 FieldVal[XCERT_MAX_FIELD_VAL_LENGTH] = {0U};
-	u32 Len = Xil_Strnlen(RawData, XCERT_MAX_FIELD_VAL_LENGTH);
-
-	Status =  (int)Xil_ConvertStringToHexBE(RawData, FieldVal,
-		Xil_Strnlen(RawData, XCERT_MAX_FIELD_VAL_LENGTH) * 4U);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)FieldVal, Len / 2U);
-	Curr = Curr + Len / 2U;
-	*RawDataLen = (u8)(Curr - DataBuf);
-
-END:
-	return Status;
 }
 
 /*****************************************************************************/
@@ -328,9 +292,9 @@ END:
  *		Number of trailing zeroes
  *
  ******************************************************************************/
-static u8 XCert_GetTrailingZeroesCount(u8 Data)
+static u32 XCert_GetTrailingZeroesCount(u8 Data)
 {
-	u8 Count = 0;
+	u32 Count = 0;
 
 	while ((Data & 0x1U) == 0x0U) {
 		Data = Data >> 0x1U;
