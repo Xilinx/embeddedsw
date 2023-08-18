@@ -89,6 +89,12 @@ xvidc_disp_cea861_extended_data(
                   XV_VidC_Verbose VerboseEn);
 
 static void
+xvidc_disp_cea861_hf_sink_capability_data(
+		const struct xvidc_cea861_extended_data_block * const edb,
+		XV_VidC_EdidCntrlParam *EdidCtrlParam,
+		XV_VidC_Verbose VerboseEn);
+
+static void
 xvidc_disp_cea861_vendor_data(
                   const struct xvidc_cea861_vendor_specific_data_block * vsdb,
                   XV_VidC_EdidCntrlParam *EdidCtrlParam,
@@ -759,6 +765,12 @@ xvidc_disp_cea861_extended_data(
             }
         break;
 #endif
+        case XVIDC_CEA861_EXT_TAG_TYPE_HDMI_FORUM_SINK_CAPABILITY:
+            if (VerboseEn) {
+                xil_printf("  HDMI Forum Sink Capability Data Block\r\n");
+            }
+            xvidc_disp_cea861_hf_sink_capability_data(edb, EdidCtrlParam, VerboseEn);
+            break;
         case XVIDC_CEA861_EXT_TAG_TYPE_YCBCR420_VIDEO:
 #if XVIDC_EDID_VERBOSITY > 1
             if (VerboseEn) {
@@ -932,6 +944,195 @@ xvidc_disp_cea861_video_data(
     }
 }
 #endif
+
+/*****************************************************************************/
+/**
+*
+* This function parse EDID on CEA 861 Vendor Specific Data
+*
+* @param    data is a pointer to the EDID array.
+* @param    EdidCtrlParam is a pointer the EDID Control parameter
+* @param    VerboseEn is a pointer to the XV_HdmiTxSs core instance.
+*
+* @return None
+*
+* @note   None.
+*
+******************************************************************************/
+static void
+xvidc_disp_cea861_hf_sink_capability_data(
+					const struct xvidc_cea861_extended_data_block * const edb,
+					XV_VidC_EdidCntrlParam *EdidCtrlParam,
+					XV_VidC_Verbose VerboseEn) {
+
+	/* During Verbosity 0, VerboseEn won't be used */
+	/* To avoid compilation warnings */
+	VerboseEn = VerboseEn;
+	const struct xvidc_cea861_hdmi_hf_sink_capability_data_block * const hdmi =
+			(struct xvidc_cea861_extended_data_block *) edb;
+
+#if XVIDC_EDID_VERBOSITY > 0
+    if (VerboseEn) {
+        xil_printf("HF - Sink Capability Data block (SCDB)\r\n");
+        xil_printf("Cea Extended Tag: %d\r\n",edb->Extended_tag_code);
+    }
+#endif
+
+#if XVIDC_EDID_VERBOSITY > 0
+            if (VerboseEn) {
+                xil_printf("  Version.................. %d\r\n",hdmi->version);
+            }
+#endif
+            if (hdmi->max_tmds_char_rate) {
+#if XVIDC_EDID_VERBOSITY > 0
+                if (VerboseEn) {
+                    xil_printf("  Maximum TMDS clock....... %uMHz\r\n",
+                           hdmi->max_tmds_char_rate * 5);
+                }
+#endif
+                    EdidCtrlParam->MaxTmdsMhz = (hdmi->max_tmds_char_rate * 5);
+                } else {
+#if XVIDC_EDID_VERBOSITY > 0
+                    if (VerboseEn) {
+                        xil_printf("  Max. Supp. TMDS clock (<=340MHz)\r\n");
+                    }
+#endif
+                }
+
+            EdidCtrlParam->Is3dOsdDisparitySupp = hdmi->osd_disparity_3d;
+            EdidCtrlParam->IsDualViewSupp = hdmi->dual_view_3d;
+            EdidCtrlParam->IsIndependentViewSupp = hdmi->independent_view_3d;
+            EdidCtrlParam->IsLte340McscScamble = hdmi->lte_340mcsc_scramble;
+            if(!hdmi->scdc_present) {
+		EdidCtrlParam->IsLte340McscScamble = 0;
+            }
+
+            EdidCtrlParam->IsCCBPCISupp = hdmi->ccbpci;
+            EdidCtrlParam->IsCableAssemblyStatusSupp = hdmi->cable_status;
+
+            EdidCtrlParam->IsSCDCReadRequestReady = hdmi->rr_capable;
+            EdidCtrlParam->IsSCDCPresent = hdmi->scdc_present;
+            EdidCtrlParam->IsYCbCr420dc30bppSupp = hdmi->dc_30bit_yuv420;
+            EdidCtrlParam->IsYCbCr420dc36bppSupp = hdmi->dc_36bit_yuv420;
+            EdidCtrlParam->IsYCbCr420dc48bppSupp = hdmi->dc_48bit_yuv420;
+
+            switch (hdmi->max_frl_rate) {
+            case XVIDC_MAXFRLRATE_NOT_SUPPORTED:
+                EdidCtrlParam->MaxFrlLanesSupp = 0;
+                EdidCtrlParam->MaxFrlLineRateSupp = 0;
+                break;
+
+            case XVIDC_MAXFRLRATE_3X3GBITSPS:
+                EdidCtrlParam->MaxFrlLanesSupp = 3;
+                EdidCtrlParam->MaxFrlLineRateSupp = 3;
+                break;
+
+            case XVIDC_MAXFRLRATE_3X6GBITSPS:
+                EdidCtrlParam->MaxFrlLanesSupp = 3;
+                EdidCtrlParam->MaxFrlLineRateSupp = 6;
+                break;
+
+            case XVIDC_MAXFRLRATE_4X6GBITSPS:
+                EdidCtrlParam->MaxFrlLanesSupp = 4;
+                EdidCtrlParam->MaxFrlLineRateSupp = 6;
+                break;
+
+            case XVIDC_MAXFRLRATE_4X8GBITSPS:
+                EdidCtrlParam->MaxFrlLanesSupp = 4;
+                EdidCtrlParam->MaxFrlLineRateSupp = 8;
+                break;
+
+            case XVIDC_MAXFRLRATE_4X10GBITSPS:
+                EdidCtrlParam->MaxFrlLanesSupp = 4;
+                EdidCtrlParam->MaxFrlLineRateSupp = 10;
+                break;
+
+            case XVIDC_MAXFRLRATE_4X12GBITSPS:
+                EdidCtrlParam->MaxFrlLanesSupp = 4;
+                EdidCtrlParam->MaxFrlLineRateSupp = 12;
+                break;
+
+            default:
+                EdidCtrlParam->MaxFrlLanesSupp = 0;
+                EdidCtrlParam->MaxFrlLineRateSupp = 0;
+                break;
+            }
+
+            EdidCtrlParam->MaxFrlRateSupp = hdmi->max_frl_rate;
+
+            if (hdmi->header.length >= HDMI_VSDB_EXTENSION_FLAGS_OFFSET) {
+#if XVIDC_EDID_VERBOSITY > 0
+                if (VerboseEn) {
+#if XVIDC_EDID_VERBOSITY > 1
+                    xil_printf("  RRC Capable Support...... %s\r\n",
+                            hdmi->rr_capable ? "Yes" : "No");
+                    xil_printf("  SCDC Present............. %s\r\n",
+                            hdmi->scdc_present ? "Yes" : "No");
+                    xil_printf("  HDMI1.4 Scramble Support. %s\r\n",
+                            hdmi->lte_340mcsc_scramble ? "Yes" : "No");
+#endif
+                    xil_printf("  YUV 420 Deep.C. Support..\r\n");
+                    xil_printf("    Supports 48bpp......... %s\r\n",
+                            hdmi->dc_48bit_yuv420 ? "Yes" : "No");
+                    xil_printf("    Supports 36bpp......... %s\r\n",
+                            hdmi->dc_36bit_yuv420 ? "Yes" : "No");
+                    xil_printf("    Supports 30bpp......... %s\r\n",
+                            hdmi->dc_30bit_yuv420 ? "Yes" : "No");
+
+                    xil_printf("    Supports 3D_OSD_Disparity......... %s\r\n",
+                            hdmi->osd_disparity_3d ? "Yes" : "No");
+                    xil_printf("    Supports Dual_Video......... %s\r\n",
+                            hdmi->dual_view_3d ? "Yes" : "No");
+                    xil_printf("    Supports Independent_view......... %s\r\n",
+                            hdmi->independent_view_3d ? "Yes" : "No");
+                    xil_printf("    Supports Independent_view......... %s\r\n",
+                            hdmi->independent_view_3d ? "Yes" : "No");
+                    xil_printf("    Supports CCBPCI......... %s\r\n",
+                            hdmi->ccbpci ? "Yes" : "No");
+                    xil_printf("    Supports cable_status......... %s\r\n",
+                            hdmi->cable_status ? "Yes" : "No");
+
+                    xil_printf("    Supports Auto Low-Latency Mode......... %s\r\n",
+                            hdmi->allm ? "Yes" : "No");
+                    xil_printf("    Supports Fast VActive........ %s\r\n",
+                            hdmi->fva ? "Yes" : "No");
+                    xil_printf("    Supports QMS-VRR........ %s\r\n",
+                            hdmi->qms ? "Yes" : "No");
+
+                    xil_printf("  Compressed Video Transport Support..\r\n");
+                    xil_printf("    Supports DSC 10bpc........ %s\r\n",
+                            hdmi->dsc_10bpc ? "Yes" : "No");
+                    xil_printf("    Supports DSC 12bpc........ %s\r\n",
+                            hdmi->dsc_12bpc ? "Yes" : "No");
+
+
+                    xil_printf("    Max FRL Rate Support... %u\r\n",
+                            EdidCtrlParam->MaxFrlRateSupp);
+                    xil_printf("    FRL Lanes Support...... %u\r\n",
+                            EdidCtrlParam->MaxFrlLanesSupp);
+                    xil_printf("    Max FRL Line Rate Support. %u\r\n",
+                            EdidCtrlParam->MaxFrlLineRateSupp);
+                }
+#endif
+                EdidCtrlParam->IsFapaStartLocationSupp = hdmi->fapa_start_location;
+                EdidCtrlParam->IsAllmSupp = hdmi->allm;
+                EdidCtrlParam->IsfavSupp = hdmi->fva;
+                EdidCtrlParam->IsQmsVrrSupp = hdmi->qms;
+
+                EdidCtrlParam->IsDsc10bpcSupp = hdmi->dsc_10bpc;
+                EdidCtrlParam->IsDsc12bpcSupp = hdmi->dsc_12bpc;
+                EdidCtrlParam->IsDsc16bpcSupp = hdmi->dsc_16bpc;
+                EdidCtrlParam->IsFapaEndExtended = hdmi->fapa_end_extended;
+                EdidCtrlParam->IsDscNativeYCbCr420Supp = hdmi->dsc_native_420;
+                EdidCtrlParam->IsVesaDsc12aSupp = hdmi->dsc_1p2;
+                EdidCtrlParam->DscTotalChunkBytes = (1024 * (hdmi->dsc_total_chunk_bytes +1));
+            }
+            #if XVIDC_EDID_VERBOSITY > 0
+            if (VerboseEn) {
+		xil_printf("\r\n");
+            }
+            #endif
+}
 
 /*****************************************************************************/
 /**
