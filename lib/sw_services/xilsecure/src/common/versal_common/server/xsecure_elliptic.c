@@ -461,11 +461,6 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 		OffSet = Size;
 	}
 
-	Status = XSecure_ECCRandInit();
-	if(Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	/* Store Pub key(Qx,Qy) to local buffer */
 	XSecure_PutData(Size, (u8 *)PubKey, KeyAddr->Qx);
 	XSecure_PutData(Size, (u8 *)(PubKey + OffSet), KeyAddr->Qy);
