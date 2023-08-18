@@ -32,10 +32,12 @@
 extern "C" {
 #endif
 
-/***************************** Include Files *********************************/
 /** @cond xsecure_internal
  * @{
  */
+/***************************** Include Files *********************************/
+#include "xil_types.h"
+
 /************************** Constant Definitions ****************************/
 
 #define XSECURE_HASH_SIZE_IN_BYTES		(48U)
