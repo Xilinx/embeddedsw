@@ -663,6 +663,23 @@ typedef struct {
     u8             SuppCeaVIC[32];
 	/*VESA Sink Preffered Timing Support*/
     XV_VidC_TimingParam PreferedTiming[4];
+    XV_VidC_Supp	Is3dOsdDisparitySupp;
+    XV_VidC_Supp	IsDualViewSupp;
+    XV_VidC_Supp	IsIndependentViewSupp;
+    XV_VidC_Supp	IsLte340McscScamble;
+    XV_VidC_Supp	IsCCBPCISupp;
+    XV_VidC_Supp	IsCableAssemblyStatusSupp;
+    XV_VidC_Supp	IsFapaStartLocationSupp;
+    XV_VidC_Supp	IsAllmSupp;
+    XV_VidC_Supp	IsfavSupp;
+    XV_VidC_Supp	IsQmsVrrSupp;
+    XV_VidC_Supp	IsDsc10bpcSupp;
+    XV_VidC_Supp	IsDsc12bpcSupp;
+    XV_VidC_Supp	IsDsc16bpcSupp;
+    XV_VidC_Supp	IsFapaEndExtended;
+    XV_VidC_Supp	IsDscNativeYCbCr420Supp;
+    XV_VidC_Supp	IsVesaDsc12aSupp;
+    u8			DscTotalChunkBytes;
 } XV_VidC_EdidCntrlParam;
 
 
