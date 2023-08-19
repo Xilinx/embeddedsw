@@ -34,6 +34,7 @@
 * 5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
 *       yog  06/07/23 Added support for P-256 Curve
 *       mmd  07/09/23 Included header file for crypto algorithm information
+*       am   08/18/23 Added XSecure_EllipticGetCrvSize() prototype
 *
 * </pre>
 *
@@ -119,6 +120,7 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr);
 void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr);
 void XSecure_FixEndiannessNCopy(const u32 Size, u64 DstAddr, const u64 SrcAddr);
+u32 XSecure_EllipticGetCrvSize(XSecure_EllipticCrvTyp CrvType);
 #endif
 
 #ifdef __cplusplus
