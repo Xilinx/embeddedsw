@@ -27,7 +27,7 @@
 * ------------------------------------------------------------------------------------------------------------
 * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
 * any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
-* which is acccessible to both client and server.
+* which is accessible to both client and server.
 *
 * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
 *
@@ -55,6 +55,7 @@
 * 		   static const u8 Hash_P384[] __attribute__ ((section (".sharedmemory.Hash_P384")))
 *
 * To keep things simple, by default the cache is disabled for this example
+* Maximum supported Hash length for each curve is same as the curve size.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -71,6 +72,7 @@
 * 5.2   am   05/03/2023 Added KAT before crypto usage
 *       yog  06/07/2023 Added support for P-256 Curve
 *       yog  07/28/2023 Added support to handle endianness
+*       am   08/18/2023 Updated Hash size to 48bytes for P521 curve
 *
 * </pre>
 *
@@ -146,15 +148,12 @@ static const u8 K_P384[] __attribute__ ((section (".data.K_P384"))) = {
 
 #ifdef TEST_NIST_P521
 static const u8 Hash_P521[] __attribute__ ((section (".data.Hash_P521"))) = {
-		0x32U, 0xF9U, 0xE1U, 0x0BU, 0xE6U, 0x1DU, 0xF7U, 0xB6U,
-		0xA8U, 0x67U, 0x17U, 0x58U, 0x8EU, 0x6DU, 0xD6U, 0xC0U,
-		0x72U, 0x91U, 0xCDU, 0xDDU, 0x6CU, 0xBDU, 0xBEU, 0x2FU,
-		0x13U, 0xFAU, 0x02U, 0x5BU, 0x02U, 0x90U, 0xAFU, 0x32U,
-		0x5DU, 0x20U, 0x09U, 0xA7U, 0x1CU, 0x2CU, 0x58U, 0x94U,
-		0x9FU, 0xBBU, 0x75U, 0xDCU, 0xE1U, 0x8DU, 0x36U, 0xD7U,
-		0xCEU, 0xB1U, 0xB6U, 0x7CU, 0x7FU, 0xB7U, 0x25U, 0xF9U,
-		0x00U, 0x1EU, 0xA3U, 0xEDU, 0xDEU, 0xE1U, 0xF0U, 0x9BU,
-		0x00U, 0x00U,
+	0x89U, 0x1EU, 0x78U, 0x0AU, 0x0EU, 0xF7U, 0x8AU, 0x2BU,
+	0xCBU, 0xD6U, 0x30U, 0x6CU, 0x9DU, 0x14U, 0x11U, 0x74U,
+	0x5AU, 0x8BU, 0x3FU, 0x0BU, 0x5EU, 0x9FU, 0x52U, 0xC9U,
+	0x99U, 0x02U, 0xEEU, 0x49U, 0x70U, 0xBCU, 0xDBU, 0x6AU,
+	0x6CU, 0x83U, 0x6DU, 0x12U, 0x20U, 0x7DU, 0x05U, 0x35U,
+	0x1BU, 0x6EU, 0x4FU, 0x1CU, 0x7DU, 0x18U, 0xEAU, 0x5AU,
 };
 
 static const u8 D_P521[] __attribute__ ((section (".data.D_P521"))) = {
@@ -235,15 +234,12 @@ static const u8 K_P384[] __attribute__ ((section (".data.K_P384"))) = {
 #endif
 #ifdef TEST_NIST_P521
 static const u8 Hash_P521[] __attribute__ ((section (".data.Hash_P521"))) = {
-		0x00U, 0x00U, 0x9BU, 0xF0U, 0xE1U, 0xDEU, 0xEDU, 0xA3U,
-		0x1EU, 0x00U, 0xF9U, 0x25U, 0xB7U, 0x7FU, 0x7CU, 0xB6U,
-		0xB1U, 0xCEU, 0xD7U, 0x36U, 0x8DU, 0xE1U, 0xDCU, 0x75U,
-		0xBBU, 0x9FU, 0x94U, 0x58U, 0x2CU, 0x1CU, 0xA7U, 0x09U,
-		0x20U, 0x5DU, 0x32U, 0xAFU, 0x90U, 0x02U, 0x5BU, 0x02U,
-		0xFAU, 0x13U, 0x2FU, 0xBEU, 0xBDU, 0x6CU, 0xDDU, 0xCDU,
-		0x91U, 0x72U, 0xC0U, 0xD6U, 0x6DU, 0x8EU, 0x58U, 0x17U,
-		0x67U, 0xA8U, 0xB6U, 0xF7U, 0x1DU, 0xE6U, 0x0BU, 0xE1U,
-		0xF9U, 0x32U,
+	0x5AU, 0xEAU, 0x18U, 0x7DU, 0x1CU, 0x4FU, 0x6EU, 0x1BU,
+	0x35U, 0x05U, 0x7DU, 0x20U, 0x12U, 0x6DU, 0x83U, 0x6CU,
+	0x6AU, 0xDBU, 0xBCU, 0x70U, 0x49U, 0xEEU, 0x02U, 0x99U,
+	0xC9U, 0x52U, 0x9FU, 0x5EU, 0x0BU, 0x3FU, 0x8BU, 0x5AU,
+	0x74U, 0x11U, 0x14U, 0x9DU, 0x6CU, 0x30U, 0xD6U, 0xCBU,
+	0x2BU, 0x8AU, 0xF7U, 0x0EU, 0x0AU, 0x78U, 0x1EU, 0x89U,
 };
 
 static const u8 D_P521[] __attribute__ ((section (".data.D_P521"))) = {
@@ -444,7 +440,7 @@ int XSecure_TestP384(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R)
 			XSECURE_ECC_P384_SIZE_IN_BYTES);
 
 	xil_printf("Hash : \r\n");
-	XSecure_ShowData(Hash_P384, XSECURE_ECC_P384_SIZE_IN_BYTES);
+	XSecure_ShowData(Hash_P384, sizeof(Hash_P384));
 	xil_printf("Generated Key\r\n");
 	xil_printf("Qx :");
 	XSecure_ShowData(Q, XSECURE_ECC_P384_SIZE_IN_BYTES);
@@ -458,7 +454,7 @@ int XSecure_TestP384(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R)
 				XSECURE_ECC_P384_SIZE_IN_BYTES);
 
 	Status = XSecure_EllipticGenerateSign(InstancePtr, XSECURE_ECC_NIST_P384, (UINTPTR)&Hash_P384,
-		XSECURE_ECC_P384_SIZE_IN_BYTES, (UINTPTR)&D_P384, (UINTPTR)&K_P384, (UINTPTR)R);
+		sizeof(Hash_P384), (UINTPTR)&D_P384, (UINTPTR)&K_P384, (UINTPTR)R);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign generation failed for P-384 curve, Status = %x \r\n", Status);
 		goto END;
@@ -482,7 +478,7 @@ int XSecure_TestP384(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R)
 	}
 
 	Status = XSecure_EllipticVerifySign(InstancePtr, XSECURE_ECC_NIST_P384, (UINTPTR)&Hash_P384,
-		XSECURE_ECC_P384_SIZE_IN_BYTES, (UINTPTR)Q, (UINTPTR)R);
+		sizeof(Hash_P384), (UINTPTR)Q, (UINTPTR)R);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign verification failed for P-384 curve, Status = %x \r\n", Status);
 	}
@@ -533,7 +529,7 @@ int XSecure_TestP521(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R)
 					XSECURE_ECC_P521_SIZE_IN_BYTES);
 
 	xil_printf("Hash : \r\n");
-	XSecure_ShowData(Hash_P521, XSECURE_ECC_P521_SIZE_IN_BYTES);
+	XSecure_ShowData(Hash_P521, sizeof(Hash_P521));
 	xil_printf("Generated Key \r\n");
 	xil_printf("Qx :");
 	XSecure_ShowData(Q, XSECURE_ECC_P521_SIZE_IN_BYTES);
@@ -548,7 +544,7 @@ int XSecure_TestP521(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R)
 					XSECURE_ECC_P521_SIZE_IN_BYTES);
 
 	Status = XSecure_EllipticGenerateSign(InstancePtr, XSECURE_ECC_NIST_P521, (UINTPTR)&Hash_P521,
-                XSECURE_ECC_P521_SIZE_IN_BYTES, (UINTPTR)&D_P521, (UINTPTR)&K_P521, (UINTPTR)R);
+                sizeof(Hash_P521), (UINTPTR)&D_P521, (UINTPTR)&K_P521, (UINTPTR)R);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign generation failed for P-521 curve, Status = %x \r\n", Status);
 		goto END;
@@ -574,7 +570,7 @@ int XSecure_TestP521(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R)
 	}
 
 	Status = XSecure_EllipticVerifySign(InstancePtr, XSECURE_ECC_NIST_P521, (UINTPTR)&Hash_P521,
-                XSECURE_ECC_P521_SIZE_IN_BYTES, (UINTPTR)Q, (UINTPTR)R);
+                sizeof(Hash_P521), (UINTPTR)Q, (UINTPTR)R);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign verification failed for P-521 curve, Status = %x \r\n", Status);
 	}
