@@ -44,7 +44,6 @@
 *       sk   07/31/2023 Moved Image Store error codes to plat header
 *       yog  08/07/2023 Added error code for trng driver init fail
 *       yog  08/18/2023 Added error XLOADER_ERR_PLM_MH_SEC_MISMATCH error code
-*       am   08/18/2023 Moved run time error codes to respective libraries
 *
 * </pre>
 *
@@ -736,16 +735,52 @@ typedef enum {
 		/**< 0x638 PLM and Metaheader authentication or encryption status is not in sync*/
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
-	XOCP_PCR_ERR_SWPCR_DUP_CONFIG = 0x6A0, /**< 0x6A0 Duplicate Pcr configuration provided */
-	XOCP_PCR_ERR_IN_SWPCR_CONFIG, /**< 0x6A1 Error in SwPcr configuration */
+	XOCP_PCR_ERR_PCR_SELECT	= 0x6A0, /**< 0x6A0 Error in PCR selection */
+	XOCP_PCR_ERR_NOT_COMPLETED,	/**< 0x6A1 PCR operation not completed */
+	XOCP_PCR_ERR_OPERATION,		/**< 0x6A2 PCR operation error */
+	XOCP_PCR_ERR_IN_UPDATE_LOG,	/**< 0x6A3 PCR log update error */
+	XOCP_PCR_ERR_IN_GET_PCR,	/**< 0x6A4 Error in GetPcr */
+	XOCP_PCR_ERR_IN_GET_PCR_LOG,	/**< 0x6A5 Error in GetPcrLog*/
+	XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST,
+					/**< 0x6A6 PCR log read request is invalid */
+	XOCP_PCR_ERR_MEASURE_IDX_SELECT,/**< 0x6A7 SwPcr measurement index is invalid */
+	XOCP_PCR_ERR_IN_SWPCR_CONFIG, /**< 0x6A8 Error in SwPcr configuration */
+	XOCP_PCR_ERR_SWPCR_CONFIG_NOT_RECEIVED, /**< 0x6A9 SwPcr configuration is not done */
+	XOCP_PCR_ERR_INSUFFICIENT_BUF_MEM, /**< 0x6AA Pcr insufficient buffer size provided */
+	XOCP_PCR_ERR_SWPCR_DUP_CONFIG, /**< 0x6AB Duplicate Pcr configuration provided */
+	XOCP_PCR_ERR_SWPCR_DUP_EXTEND, /**< 0x6AC Duplicate Pcr extend request received */
 
-	XOCP_DEVAK_MAX_COUNT_EXCEED = 0x6B0,	/**< 0x6B0 DEVAK MAX count exceeded */
+	XOCP_DICE_CDI_PARITY_ERROR,	/**< 0x6AD CDI parity error */
+	XOCP_DEVAK_MAX_COUNT_EXCEED,	/**< 0x6AE DEVAK MAX count exceeded */
+	XOCP_ECDSA_NOT_ENABLED_ERR,	/**< 0x6AF ECDSA code is diabled */
+
+	XOCP_DME_ERR = 0x6B0,		/**< 0x6B0 DME signing error */
+	XOCP_DME_ROM_ERROR,		/**< 0x6B1 DME error in ROM */
+	XOCP_ERR_DEVIK_NOT_READY,	/**< 0x6B2 DEVIK key not ready */
+	XOCP_ERR_DEVAK_NOT_READY,	/**< 0x6B3 DEVAK key not ready */
+	XOCP_ERR_INVALID_DEVAK_REQ,	/**< 0x6B4 Error when there is a invalid DEVAK request */
 
 	XOCP_ERR_KAT_FAILED = 0x6C0, /**< 0x6C0 Error when KAT fails */
-
+	XOCP_ERR_X509_GEN_TBSCERT_SIGN_ALGO_FIELD,
+		/**< 0x6C1 TBS certificate signed algorithm field */
+	XOCP_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD,
+		/**< 0x6C2 TBS certificate public key info field */
+	XOCP_ERR_X509_GEN_SIGN_ALGO_FIELD,
+		/**< 0x6C3 Signed algorithm field */
+	XOCP_ERR_X509_GEN_TBSCERT_DIGEST,
+		/**< 0x6C4 TBS certificate Digest */
+	XOCP_ERR_X509_CALC_SIGN,
+		/**< 0x6C5 Calculate sign */
+	XOCP_ERR_X509_UPDATE_ENCODED_LEN,
+		/**< 0x6C6 Update encoded length */
 	XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED,
-		/**< 0x6C1 Storing user configuration for more than 4 subsystems is not allowed */
-
+		/**< 0x6C7 Storing user configuration for more than 4 subsystems is not allowed */
+	XOCP_ERR_X509_INVALID_USER_CFG,
+		/**< 0x6C8 Stored user configuration is all zeroes */
+	XOCP_ERR_X509_USR_CFG_NOT_FOUND,
+		/**< 0x6C9 User configuration not found for provided Subsystem Id*/
+	XOCP_ERR_X509_GET_SIGN,
+		/**< 0x6CA Failed to get the signature stored */
 	XLOADER_TRNG_INIT_FAIL,
 		/**< 0x6CB Error when TRNG driver look
 			up or cfg fails*/

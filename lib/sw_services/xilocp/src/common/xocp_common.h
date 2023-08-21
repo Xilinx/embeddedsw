@@ -22,7 +22,6 @@
 * 1.1   am   01/10/2023 Added XOCP_DME_DEVICE_ID_SIZE_BYTES macro for dme
 * 1.2   kpt  06/02/2023 Added XOcp_HwPcrLogInfo structure
 *       kal  06/02/2023 Added SW PCR related structures and macros
-*       am   08/18/2023 Added XOcp_OcpErrorStatus enum
 *
 * </pre>
 *
@@ -188,29 +187,6 @@ typedef struct {
 	u32 Reserved;
 	u32 HashLen;
 } XOcp_Attest;
-
-typedef enum {
-	XOCP_PCR_ERR_PCR_SELECT	= 0x02, /**< 0x02 Error in PCR selection */
-	XOCP_PCR_ERR_NOT_COMPLETED,	/**< 0x03 PCR operation not completed */
-	XOCP_PCR_ERR_OPERATION,		/**< 0x04 PCR operation error */
-	XOCP_PCR_ERR_IN_UPDATE_LOG,	/**< 0x05 PCR log update error */
-	XOCP_PCR_ERR_IN_GET_PCR,	/**< 0x06 Error in GetPcr */
-	XOCP_PCR_ERR_IN_GET_PCR_LOG,	/**< 0x07 Error in GetPcrLog*/
-	XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST,
-					/**< 0x08 PCR log read request is invalid */
-	XOCP_PCR_ERR_MEASURE_IDX_SELECT,/**< 0x09 SwPcr measurement index is invalid */
-	XOCP_PCR_ERR_SWPCR_CONFIG_NOT_RECEIVED, /**< 0x0A SwPcr configuration is not done */
-	XOCP_PCR_ERR_INSUFFICIENT_BUF_MEM, /**< 0x0B Pcr insufficient buffer size provided */
-	XOCP_PCR_ERR_SWPCR_DUP_EXTEND, /**< 0x0C Duplicate Pcr extend request received */
-
-	XOCP_DICE_CDI_PARITY_ERROR = 0x20,	/**< 0x20 CDI parity error */
-	XOCP_ECDSA_NOT_ENABLED_ERR,	/**< 0x21 ECDSA code is diabled */
-	XOCP_DME_ERR,		/**< 0x22 DME signing error */
-	XOCP_DME_ROM_ERROR,		/**< 0x23 DME error in ROM */
-	XOCP_ERR_DEVIK_NOT_READY,	/**< 0x24 DEVIK key not ready */
-	XOCP_ERR_DEVAK_NOT_READY,	/**< 0x25 DEVAK key not ready */
-	XOCP_ERR_INVALID_DEVAK_REQ,	/**< 0x26 Error when there is a invalid DEVAK request */
-}XOcp_OcpErrorStatus;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
