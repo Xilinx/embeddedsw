@@ -90,6 +90,8 @@
 *                     the last cache line will not get invalidated under certain
 *                     scenarios. Changes are made to fix the same.
 * 9.0    ml  03/03/23 Added description to fix doxygen warnings.
+*        mus 09/21/23 Fix infinite loop in Xil_DCacheInvalidateRange when
+*                     USE_AMP=1.
 * </pre>
 *
 ******************************************************************************/
@@ -352,14 +354,14 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 
 		tempadr = adr;
 
-		while (tempadr < endaddr) {
 #ifndef USE_AMP
+		while (tempadr < endaddr) {
 			/* Invalidate L2 cache line */
 			*L2CCOffset = tempadr;
 			Xil_L2CacheSync();
 			tempadr += cacheline;
-#endif
 		}
+#endif
 
 		while (adr < endaddr) {
 	/* Invalidate L1 Data cache line */
