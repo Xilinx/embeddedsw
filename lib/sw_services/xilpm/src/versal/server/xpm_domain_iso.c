@@ -364,6 +364,7 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 				((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
 				((u8)XPM_POWER_STATE_INITIALIZING != Device->Node.State)) {
 				Status = XST_FAILURE;
+				goto done;
 			}
 		} else {
 			Status = XST_FAILURE;
@@ -651,6 +652,13 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress,
 					  Mask, 0U);
 			}
+
+			if ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE == IsoIdx) {
+				/* Select AXI lite clock from PL */
+				XPm_RMW32(XRAM_SLCR_BASEADDR + XRAM_SLCR_APB_CLK_OFFSET,
+					  XRAM_SLCR_APB_CLK_SRC_AXI_LITE_CLK_MASK,
+					  XRAM_SLCR_APB_CLK_SRC_AXI_LITE_CLK_MASK);
+			}
 		} else {
 			if (((u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0 <= IsoIdx) &&
 			    ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE >= IsoIdx)) {
@@ -697,12 +705,6 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				XPm_Out32(CPM5_DMA1_ATTR_WPROTP, WprotReg);
 			}
 
-			if ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE == IsoIdx) {
-				/* Select AXI lite clock from PL */
-				XPm_RMW32(XRAM_SLCR_BASEADDR + XRAM_SLCR_APB_CLK_OFFSET,
-					  XRAM_SLCR_APB_CLK_SRC_AXI_LITE_CLK_MASK,
-					  XRAM_SLCR_APB_CLK_SRC_AXI_LITE_CLK_MASK);
-			}
 		}
 
 		if ((u32)XPM_NODEIDX_ISO_XRAM_PL_MAIN_CLK == IsoIdx) {
@@ -735,16 +737,33 @@ XStatus XPmDomainIso_ProcessPending(void)
 	XStatus Status = XST_FAILURE;
 	u32 i;
 
-
 	for(i=0; i< ARRAY_SIZE(XPmDomainIso_List); i++)
 	{
+		/*
+		 * XRAM designs require AXILITE to be the last XRAM related
+		 * isolation to be removed. Skip and remove at the end.
+		 */
+		if ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE == i) {
+			continue;
+		}
+
 		if (XPmDomainIso_List[i].Node.State == (u8)PM_ISOLATION_REMOVE_PENDING) {
 			Status = XPmDomainIso_Control(i, FALSE_VALUE);
+			if ((XST_SUCCESS != Status) && (XST_DEVICE_NOT_FOUND != Status)){
+				/* if device is not found, we still scan through the list of iso node*/
+				goto done;
+			}
 		} else {
 			Status = XST_SUCCESS;
 		}
 	}
 
+	/* Remove AXILITE isolation last if it is pending */
+	if (XPmDomainIso_List[XPM_NODEIDX_ISO_XRAM_PL_AXILITE].Node.State == (u8)PM_ISOLATION_REMOVE_PENDING) {
+		Status = XPmDomainIso_Control(XPM_NODEIDX_ISO_XRAM_PL_AXILITE, FALSE_VALUE);
+	}
+
+done:
 	return Status;
 }
 
