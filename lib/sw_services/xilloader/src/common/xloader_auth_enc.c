@@ -113,6 +113,9 @@
 *       ng   07/13/23 Added support for system device tree flow
 *       yog  08/18/23 Added a check to return error when metaheader secure state
 *                     doesnot match with plm secure state
+*	kpt  08/20/23 Updated check to place ECDSA in reset and clear RAM memory when
+*			PLM_ECDSA_EXCLUDE is not defined
+*
 * </pre>
 *
 * @note
@@ -163,7 +166,7 @@ typedef struct {
 					/**< AES Reset value */
 #define XLOADER_AES_RESET_REG			(0xF11E0010U)
 					/**< AES Reset register address */
-#ifndef PLM_RSA_EXCLUDE
+#if !defined(PLM_RSA_EXCLUDE) || !defined(PLM_ECDSA_EXCLUDE)
 #define XLOADER_ECDSA_RSA_RESET_REG     (0xF1200040U)
                     /**< ECDSA RSA Reset register address */
 #define XLOADER_ECDSA_RSA_RESET_VAL			(0x1U)
@@ -3486,9 +3489,6 @@ int XLoader_AuthEncClear(void)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
-#ifndef PLM_RSA_EXCLUDE
-	XSecure_Rsa *RsaInstPtr = XSecure_GetRsaInstance();
-#endif
 
 	/*
 	 * To ensure reliable initialization of AES state
@@ -3509,22 +3509,18 @@ int XLoader_AuthEncClear(void)
 				XLOADER_AES_RESET_VAL);
 	Status |= Xil_SMemSet(AesInstPtr, sizeof(XSecure_Aes), 0U,
 				sizeof(XSecure_Aes));
-#ifndef PLM_RSA_EXCLUDE
-	/** - Hardcoded RSA base address */
-	RsaInstPtr->BaseAddress = XSECURE_ECDSA_RSA_BASEADDR;
+#if !defined(PLM_RSA_EXCLUDE) || !defined(PLM_ECDSA_EXCLUDE)
 
 	/** - Release RSA from reset */
-	XSecure_ReleaseReset(RsaInstPtr->BaseAddress,
+	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 			XSECURE_ECDSA_RSA_RESET_OFFSET);
 
-	/** - Clear Rsa memory */
-	SStatus = XSecure_RsaZeroize(RsaInstPtr);
+	/** - Clear RSA or ECDSA memory */
+	SStatus = XSecure_RsaEcdsaZeroizeAndVerifyRam(XSECURE_ECDSA_RSA_BASEADDR);
 
-	/** - Place RSA in reset and clear RSA instance */
+	/** - Place RSA or ECDSA in reset */
 	SStatus |= Xil_SecureOut32(XLOADER_ECDSA_RSA_RESET_REG,
 				XLOADER_ECDSA_RSA_RESET_VAL);
-	SStatus |= Xil_SMemSet(RsaInstPtr, sizeof(XSecure_Rsa), 0U,
-				sizeof(XSecure_Rsa));
 #else
 	SStatus = XST_SUCCESS;
 #endif

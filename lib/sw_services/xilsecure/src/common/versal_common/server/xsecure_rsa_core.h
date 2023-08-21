@@ -32,6 +32,7 @@
 * 4.6   har  07/14/21 Fixed doxygen warnings
 *       gm   07/16/21 Added 64-bit address support
 * 5.0   kpt  07/24/21 Moved XSecure_RsaPublicEncrypt KAT into xsecure_kat.c
+* 5.2   kpt  08/20/23 Added prototype XSecure_RsaEcdsaZeroizeAndVerifyRam
 *
 * </pre>
 *
@@ -47,19 +48,24 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
-#ifndef PLM_RSA_EXCLUDE
 #include "xsecure_utils.h"
 /************************** Constant Definitions ****************************/
-#define XSECURE_RSA_DATA_VALUE_ERROR	(0x2U) /**< for RSA private decryption
-						* data should be lesser than
-						* modulus */
-#define XSECURE_RSA_ZEROIZE_ERROR	(0x80U) /**< for RSA zeroization Error*/
+#if !defined(PLM_RSA_EXCLUDE) || !defined(PLM_ECDSA_EXCLUDE)
+#define XSECURE_RSA_ECDSA_ZEROIZE_ERROR	(0x80U) /**< for RSA zeroization Error*/
 
-#define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
-#define XSECURE_FSBL_SIG_SIZE		(512U)/**< FSBL signature size */
 #define XSECURE_RSA_MAX_BUFF		(6U) /**< RSA RAM Write Buffers */
 #define XSECURE_RSA_MAX_RD_WR_CNT	(22U) /**< No of writes or reads to RSA RAM buffers */
 
+#define XSECURE_RSA_RAM_RES_Q		(5U) /**< bit for RSA RAM Result(Q) */
+#endif
+
+#ifndef PLM_RSA_EXCLUDE
+#define XSECURE_RSA_DATA_VALUE_ERROR	(0x2U) /**< for RSA private decryption
+						* data should be lesser than
+						* modulus */
+
+#define XSECURE_HASH_TYPE_SHA3		(48U) /**< SHA-3 hash size */
+#define XSECURE_FSBL_SIG_SIZE		(512U)/**< FSBL signature size */
 /* Key size in bytes */
 #define XSECURE_RSA_2048_KEY_SIZE	(2048U/8U) /**< RSA 2048 key size */
 #define XSECURE_RSA_3072_KEY_SIZE	(3072U/8U) /**< RSA 3072 key size */
@@ -74,7 +80,6 @@ extern "C" {
 #define XSECURE_RSA_RAM_MOD		(1U) /**< bit for RSA RAM modulus */
 #define XSECURE_RSA_RAM_DIGEST		(2U) /**< bit for RSA RAM Digest */
 #define XSECURE_RSA_RAM_RES_Y		(4U) /**< bit for RSA RAM Result(Y) */
-#define XSECURE_RSA_RAM_RES_Q		(5U) /**< bit for RSA RAM Result(Q) */
 
 /** @name Control Register
  *
@@ -154,6 +159,9 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
 /* Versal specific function for selection of PKCS padding */
 u8* XSecure_RsaGetTPadding(void);
 int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr);
+#endif
+#if !defined(PLM_RSA_EXCLUDE) || !defined(PLM_ECDSA_EXCLUDE)
+int XSecure_RsaEcdsaZeroizeAndVerifyRam(u32 BaseAddress);
 #endif
 
 #ifdef __cplusplus

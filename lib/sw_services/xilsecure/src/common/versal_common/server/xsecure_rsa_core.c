@@ -44,6 +44,7 @@
 *       kpt  08/03/22 Added volatile keyword to avoid compiler optimization of
 *                     loop redundancy check
 *       dc   08/26/22 Optimization of size by changing u8 to u32
+* 5.2   kpt  08/20/23 Added XSecure_RsaEcdsaZeroizeAndVerifyRam
 *
 * </pre>
 *
@@ -53,10 +54,11 @@
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
-#ifndef PLM_RSA_EXCLUDE
+#include "xsecure_rsa_core.h"
 #include "xsecure_ecdsa_rsa_hw.h"
-#include "xsecure_rsa.h"
 #include "xil_util.h"
+#ifndef PLM_RSA_EXCLUDE
+#include "xsecure_rsa.h"
 #include "xsecure_error.h"
 #include "xsecure_cryptochk.h"
 #include "xsecure_plat.h"
@@ -81,7 +83,6 @@ static const u8 XSecure_Silicon2_TPadSha3[] =
 /************************** Function Prototypes ******************************/
 
 static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr);
-static int XSecure_RsaZeroizeVerify(const XSecure_Rsa *InstancePtr);
 static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
 	u64 WrDataAddr, u8 RamOffset);
 static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr);
@@ -497,8 +498,6 @@ int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr)
 {
 
 	int Status = XST_FAILURE;
-	u32 RamOffset = (u32)XSECURE_RSA_RAM_EXPO;
-	u32 DataOffset;
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -506,82 +505,10 @@ int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr)
 		goto END;
 	}
 
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-		XSECURE_ECDSA_RSA_CTRL_OFFSET,
-		XSECURE_ECDSA_RSA_CTRL_CLR_DATA_BUF_MASK);
-	do {
-
-		for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
-			DataOffset++) {
-
-			XSecure_WriteReg(InstancePtr->BaseAddress,
-				XSECURE_ECDSA_RSA_CTRL_OFFSET,
-				XSECURE_ECDSA_RSA_CTRL_CLR_DATA_BUF_MASK);
-			XSecure_WriteReg(InstancePtr->BaseAddress,
-				XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET,
-				((RamOffset * (u8)XSECURE_RSA_MAX_RD_WR_CNT) +
-				DataOffset) | XSECURE_ECDSA_RSA_RAM_ADDR_WRRD_B_MASK);
-		}
-
-		RamOffset++;
-	} while (RamOffset <= XSECURE_RSA_RAM_RES_Q);
-
-	Status = XSecure_RsaZeroizeVerify(InstancePtr);
+	Status = XSecure_RsaEcdsaZeroizeAndVerifyRam(InstancePtr->BaseAddress);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_ECDSA_RSA_MINV_OFFSET, 0U);
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function verifies the Zeroization of RSA memory space
- *
- * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
- *
- * @return
- *	-	XST_SUCCESS - On Success
- *	-	XSECURE_RSA_ZEROIZE_ERROR - On Zeroize Verify Failure
- *
- *****************************************************************************/
-static int XSecure_RsaZeroizeVerify(const XSecure_Rsa *InstancePtr)
-{
-	int Status = XST_FAILURE;
-	u32 RamOffset = (u32)XSECURE_RSA_RAM_EXPO;
-	u32 DataOffset;
-	u32 Index;
-	u32 Data = 0U;
-
-	/* Assert validates the input arguments */
-	XSecure_AssertNonvoid(InstancePtr != NULL);
-
-	do {
-
-		for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
-			DataOffset++) {
-			XSecure_WriteReg(InstancePtr->BaseAddress,
-				XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET,
-				((RamOffset * (u8)XSECURE_RSA_MAX_RD_WR_CNT) +
-				DataOffset));
-			for (Index = 0U; Index < XSECURE_RSA_MAX_BUFF; Index++) {
-				Data |= XSecure_ReadReg(InstancePtr->BaseAddress,
-						XSECURE_ECDSA_RSA_RAM_DATA_OFFSET);
-			}
-			if (Data != 0U) {
-				Status = (int)XSECURE_RSA_ZEROIZE_ERROR;
-				goto END;
-			}
-		}
-
-		RamOffset++;
-	} while (RamOffset <= XSECURE_RSA_RAM_RES_Q);
-
-	if(((RamOffset - 1U) == XSECURE_RSA_RAM_RES_Q) &&
-		(DataOffset == XSECURE_RSA_MAX_RD_WR_CNT)) {
-		Status = XST_SUCCESS;
-	}
 
 END:
 	return Status;
@@ -629,6 +556,87 @@ static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0,
 u8* XSecure_RsaGetTPadding(void)
 {
 	return (u8 *)XSecure_Silicon2_TPadSha3;
+}
+#endif
+
+#if !defined(PLM_RSA_EXCLUDE) || !defined(PLM_ECDSA_EXCLUDE)
+
+/*****************************************************************************/
+/**
+ * @brief	This function verifies whole RSA or ECDSA memory space.
+ *
+ * @param	BaseAddress	- BaseAddress of RSA or ECDSA controller.
+ *
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *	-	XSECURE_RSA_ECDSA_ZEROIZE_ERROR - On Zeroization Failure
+ *
+ *****************************************************************************/
+static int XSecure_RsaEcdsaZeroizeVerify(u32 BaseAddress)
+{
+	volatile int Status = XST_FAILURE;
+	volatile u32 RamOffset = 0U;
+	volatile u32 DataOffset;
+	u32 Index;
+	u32 Data = 0U;
+
+	do {
+		for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT; DataOffset++) {
+			XSecure_WriteReg(BaseAddress, XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET,
+				((RamOffset * (u8)XSECURE_RSA_MAX_RD_WR_CNT) + DataOffset));
+			for (Index = 0U; Index < XSECURE_RSA_MAX_BUFF; Index++) {
+				Data |= XSecure_ReadReg(BaseAddress,
+						XSECURE_ECDSA_RSA_RAM_DATA_OFFSET);
+			}
+			if (Data != 0U) {
+				Status = (int)XSECURE_RSA_ECDSA_ZEROIZE_ERROR;
+				goto END;
+			}
+		}
+		RamOffset++;
+	} while (RamOffset <= XSECURE_RSA_RAM_RES_Q);
+
+	if(((RamOffset - 1U) == XSECURE_RSA_RAM_RES_Q) &&
+		(DataOffset == XSECURE_RSA_MAX_RD_WR_CNT)) {
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears and verifies whole RSA or ECDSA memory space.
+ *
+ * @param	BaseAddress	- BaseAddress of ECDSA or RSA controller.
+ *
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *	-	XSECURE_RSA_ECDSA_ZEROIZE_ERROR - On Zeroization Failure
+ *
+ *****************************************************************************/
+int XSecure_RsaEcdsaZeroizeAndVerifyRam(u32 BaseAddress)
+{
+	volatile u32 RamOffset = 0U;
+	volatile u32 DataOffset;
+	volatile int Status = XST_FAILURE;
+
+	do {
+		for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT; DataOffset++) {
+			XSecure_WriteReg(BaseAddress, XSECURE_ECDSA_RSA_CTRL_OFFSET,
+				XSECURE_ECDSA_RSA_CTRL_CLR_DATA_BUF_MASK);
+			XSecure_WriteReg(BaseAddress,
+				XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET,
+				((RamOffset * (u8)XSECURE_RSA_MAX_RD_WR_CNT) + DataOffset) |
+				XSECURE_ECDSA_RSA_RAM_ADDR_WRRD_B_MASK);
+		}
+		RamOffset++;
+	} while (RamOffset <= XSECURE_RSA_RAM_RES_Q);
+
+	Status = XSecure_RsaEcdsaZeroizeVerify(BaseAddress);
+
+	return Status;
 }
 
 #endif
