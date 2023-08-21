@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -38,7 +39,11 @@
 
 /* The unique device ID of the DisplayPort TX core instance to be used with the
  * examples. */
+#ifndef SDT
 #define DPPSU_DEVICE_ID XPAR_PSU_DP_DEVICE_ID
+#else
+#define DPPSU_BASEADDR XPAR_XDPPSU_0_BASEADDR
+#endif
 
 /* The link rate setting to begin link training with. Valid values are:
  * XDPPSU_LINK_BW_SET_540GBPS, XDPPSU_LINK_BW_SET_270GBPS, and
@@ -63,12 +68,16 @@ extern u32 DpPsu_StreamSrcSync(XDpPsu *InstancePtr);
 extern u32 DpPsu_StreamSrcSetup(XDpPsu *InstancePtr);
 extern u32 DpPsu_StreamSrcConfigure(XDpPsu *InstancePtr);
 
+#ifndef SDT
 u32 DpPsu_SetupExample(XDpPsu *InstancePtr, u16 DeviceId);
+#else
+u32 DpPsu_SetupExample(XDpPsu *InstancePtr, u32 BaseAddress);
+#endif
 u32 DpPsu_StartLink(XDpPsu *InstancePtr);
 u32 DpPsu_Run(XDpPsu *InstancePtr);
 
 /*************************** Variable Declarations ****************************/
 
-XDpPsu DpPsuInstance;
+extern XDpPsu DpPsuInstance;
 
 #endif /* XDPPSU_COMMON_EXAMPLE_H_ */

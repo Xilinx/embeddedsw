@@ -1,0 +1,66 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for DPPSU controller
+
+maintainers:
+  - Vishal Sagar <vishal.sagar@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+      - const: xlnx,zynqmp-dpsub-1.7
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,clock-freq:
+    description: Input clock frequency
+
+config:
+    - XDpPsu_Config
+
+required:
+    - compatible
+    - reg
+    - interrupts
+    - interrupt-parent
+
+examples:
+    xdppsu_intr_example.c:
+        - dependency_files:
+            - xdppsu_common_example.h
+            - xdppsu_common_example.c
+        - interrupts
+    xdppsu_poll_example.c:
+        - dependency_files:
+            - xdppsu_common_example.h
+            - xdppsu_common_example.c
+        - reg
+    xdppsu_selftest_example.c:
+        - dependency_files:
+            - xdppsu_common_example.h
+            - xdppsu_common_example.c
+        - reg
+
+tapp:
+    xdppsu_selftest_example.c:
+        declaration: DpPsu_SelfTestExample
+    xdppsu_intr_example.c:
+        declaration: DpPsu_IntrExample
+        hwproperties:
+            - interrupts
+    xdppsu_poll_example.c:
+        declaration: DpPsu_PollExample
+        hwproperties:
+            - reg
+    xdppsu_common_example.c:
+        declaration: DpPsu_SetupExample
+        hwproperties:
+            - interrupts
+
+depends:
+    avbuf: []
+    video_common: []
+...
