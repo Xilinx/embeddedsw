@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1350,7 +1351,11 @@ void XDpPsu_CfgInitialize(XDpPsu *InstancePtr, XDpPsu_Config *ConfigPtr,
 	Xil_AssertVoid(ConfigPtr != NULL);
 	Xil_AssertVoid(EffectiveAddr != 0x0);
 
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
+	(void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
+						sizeof(XDpPsu_Config));
 	InstancePtr->Config.BaseAddr = EffectiveAddr;
 	/* TODO: Read from the clock framework */
 	InstancePtr->SAxiClkHz = XDPPSU_0_S_AXI_ACLK;

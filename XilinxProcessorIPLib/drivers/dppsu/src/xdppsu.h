@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -53,9 +54,19 @@ extern "C" {
  */
 
 typedef struct {
-
+#ifndef SDT
 	u16 DeviceId;		/**< Device instance ID. */
+#else
+	char *Name;
+#endif
+
 	u32 BaseAddr;		/**< The base address of the core instance. */
+#ifdef SDT
+    u32 IntrId;     /** Bits[11:0] Interrupt-id Bits[15:12]
+                   * trigger type and level flags */
+    UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+                   * Parent base address */
+#endif
 } XDpPsu_Config;
 /**
  * This typedef contains configuration information about the RX device.
@@ -322,7 +333,11 @@ void XDpPsu_HpdInterruptHandler(XDpPsu *InstancePtr);
 u32 XDpPsu_SelfTest(XDpPsu *InstancePtr);
 
 /* xdppsu_sinit.c: Configuration extraction function.*/
+#ifndef SDT
 XDpPsu_Config *XDpPsu_LookupConfig(u16 DeviceId);
+#else
+XDpPsu_Config *XDpPsu_LookupConfig(u32 BaseAddress);
+#endif
 
 /* xdppsu_edid.c: EDID utility functions. */
 u32 XDpPsu_GetEdid(XDpPsu *InstancePtr, u8 *Edid);

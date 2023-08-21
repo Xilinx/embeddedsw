@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -82,13 +83,21 @@ u32 DpPsu_Run(XDpPsu *InstancePtr)
  * @note	None.
  *
 *******************************************************************************/
+#ifndef SDT
 u32 DpPsu_SetupExample(XDpPsu *InstancePtr, u16 DeviceId)
+#else
+u32 DpPsu_SetupExample(XDpPsu *InstancePtr, u32 BaseAddress)
+#endif
 {
 	XDpPsu_Config *ConfigPtr;
 	u32 Status;
 
 	/* Obtain the device configuration for the DisplayPort TX core. */
+#ifndef SDT
 	ConfigPtr = XDpPsu_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XDpPsu_LookupConfig(BaseAddress);
+#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
