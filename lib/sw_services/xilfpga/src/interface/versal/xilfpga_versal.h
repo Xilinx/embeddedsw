@@ -8,11 +8,12 @@
 /**
  *
  * @file xilfpga_versal.h
- * @addtogroup xilfpga_versal XilFPGA APIs for Versal ACAPs
+ * @addtogroup xilfpga_versal XilFPGA APIs for Versal Adaptive SoCs
  * @{
  * @details
  *
- * The XILFPGA library for Versal provides the interface to the application to
+ * <pre>
+ * The XILFPGA library for AMD Versal Adaptive SoCs provides the interface to the application to
  * configure the programmable logic (PL) though the PS.
  *
  * - Supported Features:
@@ -33,9 +34,7 @@
  * Use the u32 XFpga_PL_BitSream_Load(); function to initialize the driver
  * and load the Bitstream.
  *
- * @{
- * @cond xilfpga_internal
- * <pre>
+ *
  * MODIFICATION HISTORY:
  *
  * Ver   Who  Date        Changes
@@ -53,6 +52,7 @@
  *                     Size(Bitstream size).
  * 6.0  Nava 05/17/21  Removed unused structure definition.
  * 6.3  Nava 08/05/22  Added doxygen tags.
+ * 6.5  Nava 08/18/23  Resolved the doxygen issues.
  * </pre>
  *
  * @note
@@ -75,9 +75,9 @@ extern "C" {
  *
  * @param BitstreamAddr	Bitstream image base address for Normal PDI LOAD.
  *			Image Id for Deferred PDI LOAD.
- * @param KeyAddr	Unused.
- * @param Size		Unused.
- * @param Flags		Flags are used to specify the type of Bitstream file.
+ * @param KeyAddr	Unused
+ * @param Size		Unused
+ * @param Flags		Flags are used to specify the type of Bitstream file
  *			* BIT(0) - Bitstream type
  *                                     * 0 - Normal PDI Load
  *                                     * 1 - Deferred PDI Load

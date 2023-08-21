@@ -8,7 +8,7 @@
 /**
  *
  * @file xilfpga.c
- * @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal ACAPs and Zynq UltraScale+ MPSoCs
+ * @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
  * This file contains the definitions of Bitstream loading functions.
  *
  * @{
@@ -73,9 +73,9 @@
  *                      to provide the access to the xilfpga library to get the
  *                      xilfpga version and supported feature list info.
  * 6.3 Nava   08/05/22  Added doxygen tags.
- *</pre>
+ * 6.5 Nava   08/18/23  Resolved the doxygen issues.
+ * </pre>
  *
- *@note
  *****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xilfpga.h"
@@ -90,11 +90,12 @@ static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
 #endif
 /************************** Variable Definitions *****************************/
 
-/*****************************************************************************/
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+ @{ */
 /**The API is used to load the bitstream file into the PL region.
- * It supports the Vivado-generated bitstream(*.bit, *.bin) and
- * Bootgen-generated bitstream(*.bin) loading, Passing valid
- * bitstream size(Size) information is mandatory for Vivado-generated
+ * It supports AMD Vivadoâ„¢ Design Suite generated bitstream (*.bit, *.bin) and
+ * Bootgen-generated bitstream (*.bin) loading, Passing valid
+ * bitstream size(Size) information is mandatory for Vivado Design Suite generated
  * bitstream, For Bootgen-generated bitstreams bitstream size is taken
  * from the bitstream header.
  *
@@ -102,7 +103,7 @@ static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
  *
  *@param BitstreamImageAddr  Linear memory bitstream image base address
  *
- *@param KeyAddr Aes key address which is used for decryption.
+ *@param KeyAddr AES key address which is used for decryption.
  *
  *@param Size Used to store size of bitstream image.
  *
@@ -196,7 +197,8 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+ @{ */
 /**
  * This function is used to validate the bitstream image.
  *
@@ -266,7 +268,8 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+ @{ */
 /**This function prepares the FPGA to receive configuration data.
  *
  * @param InstancePtr is the pointer to the XFpga.
@@ -299,7 +302,8 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+ @{ */
 /**This function writes the count bytes of configuration data into the PL.
  *
  * @param InstancePtr Pointer to the XFpga structure
@@ -368,6 +372,8 @@ END:
 	return Status;
 }
 
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+ @{ */
 /*****************************************************************************/
 /** This function sets the FPGA to the operating state after writing.
  *
@@ -403,6 +409,8 @@ END:
 }
 
 #ifndef versal
+/** @addtogroup xilfpga_zynqMP XilFPGA APIs for Zynq UltraScale+ MPSoC
+ @{ */
 /*****************************************************************************/
 /**
  * This function provides functionality to read back the PL configuration data
@@ -448,6 +456,8 @@ END:
 	return Status;
 }
 
+/** @addtogroup xilfpga_zynqMP XilFPGA APIs for Zynq UltraScale+ MPSoC
+ @{ */
 /*****************************************************************************/
 /**
  * This function provides PL specific configuration register values
@@ -507,7 +517,8 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 END:
 	return Status;
 }
-
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+ @{ */
 /*****************************************************************************/
 /** This function provides the status of the PL programming interface
  *
@@ -541,17 +552,17 @@ END:
 }
 
 #ifdef XFPGA_GET_VERSION_INFO
-/****************************************************************************/
-/**This function is used to read xilfpga library version info.
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+ @{ */
+/** This function is used to read xilfpga library version info.
  *
- * @Version xilfpga library version to read
+ * @param Version xilfpga library version to read
  *
  * @return
  *      - XFPGA_SUCCESS if, successful
  *      - XFPGA_FAILURE if, unsuccessful
  *      - XFPGA_OPS_NOT_IMPLEMENTED, if implementation not exists.
- * @note
- *      - This API is not supported for the Versal platform.
+ * @note This API is not supported for the Versal platform.
  *
  ****************************************************************************/
 u32 XFpga_GetVersion(u32 *Version)
@@ -572,8 +583,10 @@ END:
 #endif
 
 #ifdef XFPGA_GET_FEATURE_LIST
-/****************************************************************************/
-/**This function is used to Get xilfpga component supported feature list
+/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+ @{ */
+/**
+ * This function is used to Get xilfpga component supported feature list
  *
  * @param InstancePtr Pointer to the XFpga structure
  *
