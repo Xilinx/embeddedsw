@@ -126,6 +126,7 @@
  * 6.3 Nava  06/22/22  Skip eFUSE checks to allow xilfpga to load non-secure
  *                     bitstream in secure boot platform.
  * 6.3 Nava  08/05/22  Added doxygen tags.
+ * 6.5 Nava  08/18/23  Resolved the doxygen issues.
  *
  * </pre>
  *
@@ -334,7 +335,7 @@ END:
 	return Status;
 }
 
-/*  @cond nocomments */
+
 
 /*****************************************************************************/
 /**
@@ -663,7 +664,7 @@ static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
  * @param Flags Provides information about Crypto operation needs
  *        to be performed on the given Image (or) Data.
  *
- *@return Returns Status
+ * @return Returns Status
  *		- XFPGA_SUCCESS on success
  *		- Error code on failure
  *
@@ -791,7 +792,7 @@ static u32 XFpga_PcapWaitForidle(void)
  * with Image crypto flags.
  *
  * @param ImageInfo Pointer to XSecure_ImageInfo structure.
- * @param Flags It provides the information about Crypto operation needs
+ * @param Flags Provides the information about Crypto operation needs
  *        to be performed on the given Image (or) Data.
  *
  * @return Returns Status
@@ -1000,7 +1001,7 @@ END:
 }
 
 /*****************************************************************************/
-/* This function authenticates the Bitstream by using on-chip/external memory.
+/** This function authenticates the Bitstream by using on-chip/external memory.
  * Sends the data to PCAP in blocks via AES engine if encryption
  * exists or directly to PCAP by CSUDMA if an encryption is not enabled.
  *
@@ -1379,9 +1380,9 @@ END:
 /**
  * This API decrypts the chunks of data
  *
- * @param PartitionParams is a pointer to XFpgaPs_PlPartition
- * @param ChunkAdrs holds the address of chunk address
- * @param ChunkSize holds the size of chunk
+ * @param PartitionParams Pointer to XFpgaPs_PlPartition
+ * @param ChunkAdrs Holds the address of chunk address
+ * @param ChunkSize Holds the size of chunk
  *
  * @return
  *	Error code on failure

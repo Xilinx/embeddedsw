@@ -8,11 +8,12 @@
 /**
  *
  * @file xilfpga.h
- * @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal ACAPs and Zynq UltraScale+ MPSoCs
+ * @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
  *
  * @{
  * @details
  *
+ * <pre>
  * Xilfpga Error format:
  * Lower level Errors + Interface specific Errors + Xilfpga top layer Errors
  *----------------------------------------------------------------------------
@@ -37,9 +38,6 @@
  *	This layer is responsible for providing the Error related  to the lower
  * level drivers used by Interface layer.
  *
- * @{
- * @cond xilfpga_internal
- * <pre>
  * MODIFICATION HISTORY:
  *
  * Ver   Who  Date        Changes
@@ -86,10 +84,9 @@
  *                      xilfpga version and supported feature list info.
  * 6.2  Nava  03/11/22  Fixed an "implicit declaration of function" warning.
  * 6.3  Nava  08/05/22  Added doxygen tags.
- *
+ * 6.5  Nava  08/18/23  Resolved the doxygen issues.
  * </pre>
  *
- * @note
  *
  ******************************************************************************/
 #ifndef XILFPGA_H
@@ -150,6 +147,11 @@ typedef struct XFpgatag{
 }XFpga;
 /************************** Variable Definitions *****************************/
 /***************** Macros (Inline Functions) Definitions *********************/
+/*
+@cond internal
+
+*/
+
 #define XFPGA_SUCCESS			(0x0U)
 #define XFPGA_FAILURE			(0x1U)
 #define XFPGA_VALIDATE_ERROR		(0x2U)
@@ -242,6 +244,8 @@ typedef struct XFpgatag{
 
 /** @endcond*/
 /************************** Function Prototypes ******************************/
+
+
 #ifdef XFPGA_GET_FEATURE_LIST
 u32 XFpga_GetFeatureList(XFpga *InstancePtr, u32 *FeatureList);
 #endif
@@ -250,7 +254,7 @@ u32 XFpga_GetFeatureList(XFpga *InstancePtr, u32 *FeatureList);
 u32 XFpga_GetVersion(u32 *Version);
 #endif
 
-u32 XFpga_Initialize(XFpga *InstancePtr);
+u32 XFpga_Initialize(XFpga *InstancePtr); /* This API, when called, initializes the XFPGA interface with default settings.*/
 u32 XFpga_ValidateImage(XFpga *InstancePtr,
 			UINTPTR BitstreamImageAddr,
 			UINTPTR KeyAddr, u32 Size, u32 Flags);
