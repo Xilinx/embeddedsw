@@ -2378,7 +2378,7 @@
 #define XDP_RX_CDS_SEQ_COUNT_VAL	0x1648	/**< The time till which the DUT
 						 * waits to achieve CDS_DONE in 128/132b.
 						 */
-#define XDP_RX_TPS1_SCORE	0x1648	/**< The time till which the DUT
+#define XDP_RX_TPS1_SCORE	0x164c	/**< The time till which the DUT
 					 * waits to achieve TPS1 in 128/132b.
 					 */
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
