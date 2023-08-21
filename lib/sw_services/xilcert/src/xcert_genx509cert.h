@@ -18,6 +18,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   har  01/09/2023 Initial release
+* 1.1   am   08/18/2023 Added XCert_ErrorStatus enum
 *
 * </pre>
 *
@@ -95,6 +96,25 @@ typedef struct {
 	XCert_UserCfg *UserCfg;		/**< Configuration from User */
 	XCert_AppCfg AppCfg;	/**< Configuration from application */
 }XCert_Config;
+
+typedef enum {
+	XCERT_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD = 0x40,
+		/**< 0x40 TBS certificate public key info field */
+	XCERT_ERR_X509_GEN_TBSCERT_DIGEST,
+		/**< 0x41 TBS certificate Digest */
+	XCERT_ERR_X509_CALC_SIGN,
+		/**< 0x42 Calculate sign */
+	XCERT_ERR_X509_UPDATE_ENCODED_LEN,
+		/**< 0x43 Update encoded length */
+	XCERT_ERR_X509_INVALID_USER_CFG,
+		/**< 0x44 Stored user configuration is all zeroes */
+	XCERT_ERR_X509_USR_CFG_NOT_FOUND,
+		/**< 0x45 User configuration not found for provided Subsystem Id*/
+	XCERT_ERR_X509_GET_SIGN,
+		/**< 0x46 Failed to get the signature stored */
+	XCERT_ERR_X509_KAT_FAILED,
+		/**< 0x47 KAT failure error */
+}XCert_ErrorStatus;
 
 /************************** Function Prototypes ******************************/
 int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config *Cfg);

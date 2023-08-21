@@ -19,6 +19,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   har  01/09/2023 Initial release
+* 1.1   am   08/18/2023 Renamed error codes which starts with XOCP with XCERT
 *
 * </pre>
 * @note
@@ -119,7 +120,7 @@ typedef enum {
 	XCERT_NONREPUDIATION,	/**< Non Repudiation */
 	XCERT_KEYENCIPHERMENT,	/**< Key Encipherment */
 	XCERT_DATAENCIPHERMENT,	/**< Data Encipherment */
-	XCERT_KEYAGREEMENT,	/**< Key Agreeement */
+	XCERT_KEYAGREEMENT,	/**< Key Agreement */
 	XCERT_KEYCERTSIGN,	/**< Key Certificate Sign */
 	XCERT_CRLSIGN,		/**< CRL Sign */
 	XCERT_ENCIPHERONLY,	/**< Encipher Only */
@@ -168,7 +169,7 @@ static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Cert
  * @note	InfoStore DB is used to store the user configurable fields of
  * 		X.509 certificate, hash and signature of the TBS Ceritificate
  * 		for different subsystems.
- *		Each entry in the DB wil have following fields:
+ *		Each entry in the DB will have following fields:
  *		- Subsystem Id
  *		- Issuer
  *		- Subject
@@ -269,21 +270,21 @@ static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg)
 			Status = XCert_IsBufferNonZero(CertDB[Idx].UserCfg.Issuer,
 				CertDB[Idx].UserCfg.IssuerLen);
 			if (Status != XST_SUCCESS) {
-				Status = (int)XOCP_ERR_X509_INVALID_USER_CFG;
+				Status = (int)XCERT_ERR_X509_INVALID_USER_CFG;
 				goto END;
 			}
 
 			Status = XCert_IsBufferNonZero(CertDB[Idx].UserCfg.Subject,
 				CertDB[Idx].UserCfg.SubjectLen);
 			if (Status != XST_SUCCESS) {
-				Status = (int)XOCP_ERR_X509_INVALID_USER_CFG;
+				Status = (int)XCERT_ERR_X509_INVALID_USER_CFG;
 				goto END;
 			}
 
 			Status = XCert_IsBufferNonZero(CertDB[Idx].UserCfg.Validity,
 				CertDB[Idx].UserCfg.ValidityLen);
 			if (Status != XST_SUCCESS) {
-				Status = (int)XOCP_ERR_X509_INVALID_USER_CFG;
+				Status = (int)XCERT_ERR_X509_INVALID_USER_CFG;
 				goto END;
 			}
 			*UserCfg = &CertDB[Idx].UserCfg;
@@ -293,7 +294,7 @@ static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg)
 	}
 
 	if (Idx == *NumOfEntriesInUserCfgDB) {
-		Status = (int)XOCP_ERR_X509_USR_CFG_NOT_FOUND;
+		Status = (int)XCERT_ERR_X509_USR_CFG_NOT_FOUND;
 		goto END;
 	}
 
@@ -425,7 +426,7 @@ END:
  * @param	Cfg is structure which includes configuration for the X.509 Certificate.
  *
  * @return
- *		 - XST_SUCCESS  Sucessfully generated X.509 certificate/CSR
+ *		 - XST_SUCCESS  Successfully generated X.509 certificate/CSR
  *		 - Error code  In case of failure
  *
  * @note	Certificate  ::=  SEQUENCE  {
@@ -496,7 +497,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	 */
 	Status = XSecure_Sha384Digest(TbsCertStart, DataLen, HashTmp);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_X509_GEN_TBSCERT_DIGEST;
+		Status = (int)XCERT_ERR_X509_GEN_TBSCERT_DIGEST;
 		goto END;
 	}
 #ifndef PLM_ECDSA_EXCLUDE
@@ -506,7 +507,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	 */
 	Status = XCert_GetSignStored(Cfg->SubSystemId, &SignStore);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_X509_GET_SIGN;
+		Status = (int)XCERT_ERR_X509_GET_SIGN;
 		goto END;
 	}
 	/**
@@ -530,7 +531,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	}
 
 	/**
-	 * If the Signature is not available or Hash comparision from above fails,
+	 * If the Signature is not available or Hash comparison from above fails,
 	 * regenerate the signature.
 	 */
 	if ((SignStore->IsSignAvailable != XCERT_SIGN_AVAILABLE) || (HashCmpStatus != XST_SUCCESS)) {
@@ -543,7 +544,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 		Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384, (const u8 *)Hash, sizeof(Hash),
 				Cfg->AppCfg.IssuerPrvtKey, SignTmp);
 		if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_X509_CALC_SIGN;
+		Status = (int)XCERT_ERR_X509_CALC_SIGN;
 			goto END;
 		}
 		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
@@ -581,7 +582,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	 */
 	Status = XCert_UpdateEncodedLength(SequenceLenIdx, (u32)(Curr - SequenceValIdx), SequenceValIdx);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_X509_UPDATE_ENCODED_LEN;
+		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
 	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
@@ -633,7 +634,7 @@ static void XCert_GenVersionField(u8* TBSCertBuf, XCert_Config *Cfg, u32 *Versio
  * @param	SerialLen is the length of the Serial field
  *
  * @return
- *		 - XST_SUCCESS  Sucessfully generated Serial field
+ *		 - XST_SUCCESS  Successfully generated Serial field
  *		 - Error code  In case of failure
  *
  * @note	CertificateSerialNumber  ::=  INTEGER
@@ -654,7 +655,7 @@ static int XCert_GenSerialField(u8* TBSCertBuf, u8* DataHash, u32 *SerialLen)
 	 * The value of serial field must be 20 bytes. If the most significant
 	 * bit in the first byte of Serial is set, then the value shall be
 	 * prepended with 0x00 after DER encoding.
-	 * So if MSB is set then 00 followed by 19 bytes of hash wil be the serial
+	 * So if MSB is set then 00 followed by 19 bytes of hash will be the serial
 	 * value. If not set then 20 bytes of hash will be used as serial value.
 	 */
 	if ((*DataHash & XCERT_BIT7_MASK) == XCERT_BIT7_MASK) {
@@ -834,7 +835,7 @@ static void XCert_GenPubKeyAlgIdentifierField(u8* TBSCertBuf, u32 *Len)
  * @param	PubKeyInfoLen is the length of the Public Key Info field.
  *
  * @return
- *		 - XST_SUCCESS  Sucessfully generated Public Key Info field
+ *		 - XST_SUCCESS  Successfully generated Public Key Info field
  *		 - Error code  In case of failure
  *
  * @note	SubjectPublicKeyInfo  ::=  SEQUENCE  {
@@ -892,7 +893,7 @@ END:
  * @param	SubjectKeyIdentifierLen is the length of the Subject Key Identifier field.
  *
  * @return
- *		 - XST_SUCCESS  Sucessfully generated Subject Key Identifier field
+ *		 - XST_SUCCESS  Successfully generated Subject Key Identifier field
  *		 - Error code  In case of failure
  *
  * @note	SubjectKeyIdentifierExtension  ::=  SEQUENCE  {
@@ -963,7 +964,7 @@ END:
  * @param	AuthorityKeyIdentifierLen is the length of the Authority Key Identifier field.
  *
  * @return
- *		 - XST_SUCCESS  Sucessfully generated Authority Key Identifier field
+ *		 - XST_SUCCESS  Successfully generated Authority Key Identifier field
  *		 - Error code  In case of failure
  * @note
  * 		id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
@@ -1356,7 +1357,7 @@ static void XCert_GenExtKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Ek
  * @param	ExtensionsLen is the length of the X.509 V3 Extensions field.
  *
  * @return
- *		 - XST_SUCCESS  Sucessfully generated X.509 V3 Extensions field
+ *		 - XST_SUCCESS  Successfully generated X.509 V3 Extensions field
  *		 - Error code  In case of failure
  *
  * @note	Extensions  ::=  SEQUENCE SIZE (1..MAX) OF Extension
@@ -1430,14 +1431,14 @@ static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u3
 
 	Status =  XCert_UpdateEncodedLength(SequenceLenIdx, (u32)(Curr - SequenceValIdx), SequenceValIdx);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_X509_UPDATE_ENCODED_LEN;
+		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
 	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
 
 	Status =  XCert_UpdateEncodedLength(OptionalTagLenIdx, (u32)(Curr - OptionalTagValIdx), OptionalTagValIdx);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_X509_UPDATE_ENCODED_LEN;
+		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
 	Curr = Curr + ((*OptionalTagLenIdx) & XCERT_LOWER_NIBBLE_MASK);
@@ -1576,7 +1577,7 @@ static void XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *E
  * @param	TBSCertLen is the length of the TBS Certificate
  *
  * @return
- *		 - XST_SUCCESS  Sucessfully generated TBS Certificate
+ *		 - XST_SUCCESS  Successfully generated TBS Certificate
  *		 - Error code  In case of failure
  *
  * @note	TBSCertificate  ::=  SEQUENCE  {
@@ -1655,7 +1656,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	 */
 	Status = XCert_GenPublicKeyInfoField(Curr, Cfg->AppCfg.SubjectPublicKey, &Len);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD;
+		Status = (int)XCERT_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD;
 		goto END;
 	}
 	else {
@@ -1679,7 +1680,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	}
 
 	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != (u8)TRUE) {
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_Sha384Kat);
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XCERT_ERR_X509_KAT_FAILED, Status, StatusTmp, XSecure_Sha384Kat);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			goto END;
 		}
@@ -1689,7 +1690,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	/**
 	 * Calculate SHA2 Hash for all fields in the TBS certificate except Version and Serial
 	 * Please note that currently SerialStartIdx points to the field after Serial.
-	 * Hence this is the start pointer for calcualting the hash.
+	 * Hence this is the start pointer for calculating the hash.
 	 */
 	Status = XSecure_Sha384Digest((u8* )SerialStartIdx, (u32)(Curr - SerialStartIdx), Hash);
 	if (Status != XST_SUCCESS) {
@@ -1709,7 +1710,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	 */
 	Status =  XCert_UpdateEncodedLength(SequenceLenIdx, (u32)(Curr - SequenceValIdx), SequenceValIdx);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_X509_UPDATE_ENCODED_LEN;
+		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
 	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
@@ -1729,7 +1730,7 @@ END:
  * @param	CertReqInfoLen is the length of the Certification Request Info
  *
  * @return
- *		 - XST_SUCCESS  Sucessfully generated Certification Request Info
+ *		 - XST_SUCCESS  Successfully generated Certification Request Info
  *		 - Error code  In case of failure
  *
  ******************************************************************************/
@@ -1764,7 +1765,7 @@ static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Cert
 	 */
 	Status = XCert_GenPublicKeyInfoField(Curr, Cfg->AppCfg.SubjectPublicKey, &Len);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD;
+		Status = (int)XCERT_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD;
 		goto END;
 	}
 	else {
@@ -1780,7 +1781,7 @@ static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Cert
 
 	Status =  XCert_UpdateEncodedLength(SequenceLenIdx, (u32)(Curr - SequenceValIdx), SequenceValIdx);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XOCP_ERR_X509_UPDATE_ENCODED_LEN;
+		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
 	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
@@ -1802,7 +1803,7 @@ END:
  * @param	SignLen is the length of the Signature field
  *
  * @return
- *		 - XST_SUCCESS  Sucessfully generated Sign field
+ *		 - XST_SUCCESS  Successfully generated Sign field
  *		 - Error code  In case of failure
  *
  * @note	Th signature value is encoded as a BIT STRING and included in the
