@@ -1,0 +1,10 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for avbuf driver
+
+maintainers:
+  - Vishal Sagar <vishal.sagar@amd.com>
+
+type: driver
