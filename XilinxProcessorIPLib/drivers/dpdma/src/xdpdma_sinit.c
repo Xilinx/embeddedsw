@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -27,7 +28,9 @@
 /******************************* Include Files ********************************/
 
 #include "xdpdma.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /**************************** Function Definitions ****************************/
 
@@ -45,6 +48,7 @@
  * @note	None.
  *
 *******************************************************************************/
+#ifndef SDT
 XDpDma_Config *XDpDma_LookupConfig(u16 DeviceId)
 {
 	XDpDma_Config *CfgPtr = NULL;
@@ -59,4 +63,20 @@ XDpDma_Config *XDpDma_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XDpDma_Config *XDpDma_LookupConfig(u32 BaseAddress)
+{
+	XDpDma_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0; XDpDma_ConfigTable[Index].Name != NULL; Index++) {
+		if (XDpDma_ConfigTable[Index].BaseAddr == BaseAddress) {
+			CfgPtr = &XDpDma_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /** @} */
