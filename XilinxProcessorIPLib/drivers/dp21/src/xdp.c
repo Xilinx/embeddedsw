@@ -2213,9 +2213,6 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate)
 	) {
 		Valid = 0;
 	}
-	else if (LinkRate > InstancePtr->Config.MaxLinkRate) {
-		Valid = 0;
-	}
 	else {
 		Valid = 1;
 	}
