@@ -1,0 +1,46 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for DPDMA controller
+
+maintainers:
+  - Vishal Sagar <vishal.sagar@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - const: xlnx,zynqmp-dpdma
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XDpDma_Config
+
+required:
+    - compatible
+    - reg
+    - interrupts
+    - interrupt-parent
+
+examples:
+    xdpdma_video_example.c:
+        - dependency_files:
+            - xdpdma_video_example.h
+            - xdppsu_interrupt.c
+        - interrupts
+
+tapp:
+    xdpdma_video_example.c:
+        declaration: DpdmaVideoExample
+        hwproperties:
+            - interrupts
+
+
+depends:
+    video_common: []
+    avbuf: []
+...

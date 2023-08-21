@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -35,16 +36,23 @@
 #include "xdpdma_video_example.h"
 
 /************************** Constant Definitions *****************************/
+#ifndef SDT
 #define DPPSU_DEVICE_ID		XPAR_PSU_DP_DEVICE_ID
 #define AVBUF_DEVICE_ID		XPAR_PSU_DP_DEVICE_ID
 #define DPDMA_DEVICE_ID		XPAR_XDPDMA_0_DEVICE_ID
+#define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 #define DPPSU_INTR_ID		151
 #define DPDMA_INTR_ID		154
-#define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 
 #define DPPSU_BASEADDR		XPAR_PSU_DP_BASEADDR
 #define AVBUF_BASEADDR		XPAR_PSU_DP_BASEADDR
 #define DPDMA_BASEADDR		XPAR_PSU_DPDMA_BASEADDR
+#else
+#define DPPSU_BASEADDR		XPAR_XDPPSU_0_BASEADDR
+#define AVBUF_BASEADDR		XPAR_XDPPSU_0_BASEADDR
+#define DPDMA_BASEADDR		XPAR_XDPDMA_0_BASEADDR
+#define INTC_BASEADDR       XPAR_XSCUGIC_0_BASEADDR
+#endif
 
 #define BUFFERSIZE			1920 * 1080 * 4		/* HTotal * VTotal * BPP */
 #define LINESIZE			1920 * 4			/* HTotal * BPP */
@@ -186,13 +194,25 @@ int InitDpDmaSubsystem(Run_Config *RunCfgPtr)
 
 
 	/* Initialize DisplayPort driver. */
+#ifndef SDT
 	DpPsuCfgPtr = XDpPsu_LookupConfig(DPPSU_DEVICE_ID);
+#else
+	DpPsuCfgPtr = XDpPsu_LookupConfig(DPPSU_BASEADDR);
+#endif
 	XDpPsu_CfgInitialize(DpPsuPtr, DpPsuCfgPtr, DpPsuCfgPtr->BaseAddr);
 	/* Initialize Video Pipeline driver */
+#ifndef SDT
 	XAVBuf_CfgInitialize(AVBufPtr, DpPsuPtr->Config.BaseAddr, AVBUF_DEVICE_ID);
+#else
+	XAVBuf_CfgInitialize(AVBufPtr, DpPsuPtr->Config.BaseAddr);
+#endif
 
 	/* Initialize the DPDMA driver */
+#ifndef SDT
 	DpDmaCfgPtr = XDpDma_LookupConfig(DPDMA_DEVICE_ID);
+#else
+	DpDmaCfgPtr = XDpDma_LookupConfig(DPDMA_BASEADDR);
+#endif
 	XDpDma_CfgInitialize(DpDmaPtr,DpDmaCfgPtr);
 
 	/* Initialize the DisplayPort TX core. */
@@ -266,6 +286,7 @@ void SetupInterrupts(Run_Config *RunCfgPtr)
 	XDpPsu_SetHpdEventHandler(DpPsuPtr, DpPsu_IsrHpdEvent, RunCfgPtr);
 	XDpPsu_SetHpdPulseHandler(DpPsuPtr, DpPsu_IsrHpdPulse, RunCfgPtr);
 
+#ifndef SDT
 	/* Initialize interrupt controller driver. */
 	IntrCfgPtr = XScuGic_LookupConfig(INTC_DEVICE_ID);
 	XScuGic_CfgInitialize(IntrPtr, IntrCfgPtr, IntrCfgPtr->CpuBaseAddress);
@@ -299,7 +320,14 @@ void SetupInterrupts(Run_Config *RunCfgPtr)
 	/* Enable DPDMA Interrupts */
 	XScuGic_Enable(IntrPtr, DPDMA_INTR_ID);
 	XDpDma_InterruptEnable(RunCfgPtr->DpDmaPtr, XDPDMA_IEN_VSYNC_INT_MASK);
-
+#else
+    XSetupInterruptSystem(RunCfgPtr->DpPsuPtr, &XDpPsu_HpdInterruptHandler, RunCfgPtr->DpPsuPtr->Config.IntrId,
+            RunCfgPtr->DpPsuPtr->Config.IntrParent, XINTERRUPT_DEFAULT_PRIORITY);
+	XDpPsu_WriteReg(DpPsuPtr->Config.BaseAddr, XDPPSU_INTR_EN, IntrMask);
+    XSetupInterruptSystem(RunCfgPtr->DpDmaPtr, &XDpDma_InterruptHandler, RunCfgPtr->DpDmaPtr->Config.IntrId,
+            RunCfgPtr->DpDmaPtr->Config.IntrParent, XINTERRUPT_DEFAULT_PRIORITY);
+	XDpDma_InterruptEnable(RunCfgPtr->DpDmaPtr, XDPDMA_IEN_VSYNC_INT_MASK);
+#endif
 }
 /*****************************************************************************/
 /**

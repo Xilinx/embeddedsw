@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -34,7 +35,11 @@
 
 #include "xparameters.h"	/* SDK generated parameters */
 #include "xdpdma.h"			/* DPDMA device driver */
+#ifndef SDT
 #include "xscugic.h"		/* Interrupt controller device driver */
+#else
+#include "xinterrupt_wrap.h"
+#endif
 #include "xdppsu.h"			/* DP controller device driver */
 #include "xavbuf.h"    		/* AVBUF is the video pipeline driver */
 #include "xavbuf_clk.h"		/* Clock Driver for Video(VPLL) and Audio(RPLL) clocks */
