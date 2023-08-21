@@ -31,6 +31,8 @@
 *                       XLoader_IsAdditionalPpkValid
 *       sk   07/31/2023 Removed Additional PPK check in XLoader_CheckSecureStateAuth
 *       dd   08/11/2023 Updated doxygen comments
+*	kpt  08/20/2023 Fix compilation warning by placing XLoader_I2Osp prototype under
+*			PLM_SECURE_EXCLUDE
 *
 * </pre>
 *
@@ -66,11 +68,12 @@
 static int XLoader_IsAdditionalPpkFeatureEnabled(void);
 static int XLoader_CheckNonZeroAdditionalPpk(void);
 #endif
+
+#ifndef PLM_SECURE_EXCLUDE
 #ifndef PLM_RSA_EXCLUDE
 static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert);
 #endif
 
-#ifndef PLM_SECURE_EXCLUDE
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
