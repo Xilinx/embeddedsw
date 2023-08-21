@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -102,8 +103,18 @@ typedef struct {
  * This typedef contains configuration information for the DPDMA.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;			/**< Device ID */
+#else
+	char *Name;
+#endif
 	u32 BaseAddr;			/**< Base Address */
+#ifdef SDT
+    u32 IntrId;     /** Bits[11:0] Interrupt-id Bits[15:12]
+                   * trigger type and level flags */
+    UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+                   * Parent base address */
+#endif
 } XDpDma_Config;
 
 /**
@@ -229,7 +240,11 @@ typedef struct {
 } XDpDma;
 
 void XDpDma_CfgInitialize(XDpDma *InstancePtr, XDpDma_Config *CfgPtr);
+#ifndef SDT
 XDpDma_Config *XDpDma_LookupConfig(u16 DeviceId);
+#else
+XDpDma_Config *XDpDma_LookupConfig(u32 BaseAddress);
+#endif
 int XDpDma_SetChannelState(XDpDma *InstancePtr, XDpDma_ChannelType Channel,
 					XDpDma_ChannelState ChannelState);
 void XDpDma_SetQOS(XDpDma *InstancePtr, u8 QOS);
@@ -260,7 +275,11 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
  * A table of configuration structures containing the configuration information
  * for each DisplayPort TX core in the system.
  */
+#ifndef SDT
 extern XDpDma_Config XDpDma_ConfigTable[XPAR_XDPDMA_NUM_INSTANCES];
+#else
+extern XDpDma_Config XDpDma_ConfigTable[];
+#endif
 
 #ifdef __cplusplus
 }
