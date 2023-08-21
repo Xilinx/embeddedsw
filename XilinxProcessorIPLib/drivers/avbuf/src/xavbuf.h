@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -198,8 +199,18 @@ typedef struct {
  * This typedef stores the AVBuf Configuration information.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;
+#else
+	char *Name;
+#endif
 	u32 BaseAddr;
+#ifdef SDT
+    u32 IntrId;     /** Bits[11:0] Interrupt-id Bits[15:12]
+                   * trigger type and level flags */
+    UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+                   * Parent base address */
+#endif
 } XAVBuf_Config;
 
 /**
@@ -227,7 +238,11 @@ typedef struct {
 /**************************** Function Prototypes *****************************/
 
 /* xavbuf.c: Setup and initialization functions. */
+#ifndef SDT
 void XAVBuf_CfgInitialize(XAVBuf *InstancePtr, u32 BaseAddr, u16 DeviceId);
+#else
+void XAVBuf_CfgInitialize(XAVBuf *InstancePtr, u32 BaseAddr);
+#endif
 
 /* xavbuf.c: Functions to setup the Input Video and Audio sources */
 void XAVBuf_InputVideoSelect(XAVBuf *InstancePtr, XAVBuf_VideoStream VidStream,
