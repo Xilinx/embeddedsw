@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -363,11 +364,17 @@ static int XAVBuf_ConfigureVideo(XAVBuf *InstancePtr, u8 VideoSrc)
  * @note	Base address and DeviceId is same as the DP Core driver.
  *
 *******************************************************************************/
+#ifndef SDT
 void XAVBuf_CfgInitialize(XAVBuf *InstancePtr, u32 BaseAddr, u16 DeviceId)
+#else
+void XAVBuf_CfgInitialize(XAVBuf *InstancePtr, u32 BaseAddr)
+#endif
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
+#ifndef SDT
 	InstancePtr->Config.DeviceId = DeviceId;
+#endif
 	InstancePtr->Config.BaseAddr = BaseAddr;
 }
 
