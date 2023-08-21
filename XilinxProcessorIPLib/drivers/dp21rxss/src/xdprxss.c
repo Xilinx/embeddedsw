@@ -348,7 +348,8 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 				StubTp2Callback, (void *)InstancePtr);
 		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_UNPLUG,
 				StubUnplugCallback, (void *)InstancePtr);
-		if (InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		if ((InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4)
+		   || (InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1)) {
 			XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_TP4,
 					StubTp2Callback, (void *)InstancePtr);
 			XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_ACCESS_LANE_SET,
@@ -625,18 +626,20 @@ u32 XDpRxSs_SetLinkRate(XDpRxSs *InstancePtr, u8 LinkRate)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((LinkRate == (XDPRXSS_LINK_BW_SET_162GBPS)) ||
-			(LinkRate == (XDPRXSS_LINK_BW_SET_270GBPS)) ||
-			(LinkRate == (XDPRXSS_LINK_BW_SET_540GBPS)) ||
-			(LinkRate == (XDPRXSS_LINK_BW_SET_810GBPS)));
+	if (InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		Xil_AssertNonvoid((LinkRate == (XDPRXSS_LINK_BW_SET_162GBPS)) ||
+				(LinkRate == (XDPRXSS_LINK_BW_SET_270GBPS)) ||
+				(LinkRate == (XDPRXSS_LINK_BW_SET_540GBPS)) ||
+				(LinkRate == (XDPRXSS_LINK_BW_SET_810GBPS)));
 
-	/* Check for maximum supported link rate */
-	if (LinkRate > InstancePtr->DpPtr->Config.MaxLinkRate) {
-		xdbg_printf((XDBG_DEBUG_GENERAL),"SS info: This link rate is "
+		/* Check for maximum supported link rate */
+		if (LinkRate > InstancePtr->DpPtr->Config.MaxLinkRate) {
+			xdbg_printf((XDBG_DEBUG_GENERAL),"SS info: This link rate is "
 			"not supported by Source/Sink.\n\rMax Supported link "
 			"rate is 0x%x.\n\rSetting maximum supported link "
 			"rate.\n\r", InstancePtr->DpPtr->Config.MaxLinkRate);
-		LinkRate = InstancePtr->DpPtr->Config.MaxLinkRate;
+			LinkRate = InstancePtr->DpPtr->Config.MaxLinkRate;
+		}
 	}
 
 	/* Set link rate */
