@@ -222,12 +222,15 @@ Example for X.509 request and attestation
 
 xilsem_v1_7:
 Added XilSEM client support for PL MB and A72 bare metal application users.
+Added A72 linux client support
 Added API ID feature check
-Added Run-time check for number of SLRs present in a device instead of using a fixed macro
+Added Sysfs interface for XIlSEM scan operations (Scan init,start, stop, error
+injection, read frame ECC, config,status)
+Added Run-time check for number of SLRs present in a device
+instead of using a fixed macro
 Support for tandem designs
-Support for new SSIT (H20, H40, H20_H4, H30_H8) devices
+Support for new SSIT (VP1502, VP1702, VH1542, VH1782) devices
 Support for new mono (VM1502.& VM1402) devices
-Added Sysfs interface for XIlSEM scan operations (Scan init, start, stop, error injection, read frame ECC, config, status) for Linux Users
 
 xiltimer_v1_2:
 Fixed  Doxygen style issues
