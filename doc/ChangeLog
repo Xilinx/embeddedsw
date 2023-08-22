@@ -31,6 +31,101 @@ Added support for system device tree flow in drivers and examples
 zdma_v1_17:
 Added support for system device tree flow in drivers and example
 
+i3cpsx_v1_2:
+Add support for the resume bit
+Remove device hard code
+
+ipipsu_v2_14:
+Add support for system device-tree flow
+Add IPI Mask's for referring to processor IPI Targets
+Restructure the code for more modularity
+Add example support in SDT flow
+Update the target count
+
+mbox_v4_6:
+Add support for system device-tree flow for driver and examples
+
+pmonpsv_v2_3:
+Driver is going to be deprecated as IP feature is not part of Versal TRM
+
+qspips_v3_11:
+Added support for system device tree flow for drivers and examples.
+
+qspipsu_v1_18:
+ Update sector calculation logic
+Added support for system device tree flow for drivers and examples.
+Fix interrupt transfer fail issue
+
+resetps_v1_6:
+Add support for system device-tree flow for driver and examples
+
+rtcpsu_v1_13:
+Add support for system device-tree flow for driver and examples
+
+sdps_v4_2:
+Add support for system device-tree flow
+Add example support in SDT flow
+
+spi_v4_11:
+Added support for system device tree flow for drivers and examples
+
+tft_v6_4:
+Add support for system device-tree flow for driver and examples
+
+trafgen_v4_5:
+Add support for system device-tree flow for driver and examples
+Fix the disable interrupt
+
+wdtps_v3_6:
+Added support for system device tree flow in drivers and examples
+
+wdttb_v5_7:
+ Correct the interrupt ID for Versal-net platform
+Added support for system device tree flow in drivers and examples
+
+xilffs_v5_1:
+Add support for system device-tree flow.
+Add example support in SDT flow.
+Added Zynq platform support in xilffs.yaml file.
+
+xilmailbox_v1_8:
+Add common payload length macros
+Updated XIpiPs_PollforDone logic to improve AES client performance
+Add support for system device-tree flow
+Add support for Microblaze
+Add example support in SDT flow
+
+xilpm_v5_1:
+Added support for system device tree flow.
+Add bitmask functionality for get_op_char API.
+Move the EEMI API IDs enum table to the commonplace so there is no scope for conflicts across the platforms.
+Added a new API to get the MIO PIN attribute details.
+Remove PM_CLOCK_SETRATE and PM_CLOCK_GETRATE APIs from the client.
+Bump up the version of PM_SELF_SUSPEND, PM_FORCE_POWERDOWN, PM_REQUEST_NODE and PM_RELEASE_NODE EEMI APIs.
+Remove the CDO commands from the feature check functionality.
+Added a check for reason argument in XPm_AbortSuspend().
+Added support of zeroization of AIE data and program memory separately.
+
+xilsem_v1_8:
+XilSEM Client: Added Support for FreeRTOS, R5-Split mode
+Added support for Versal-Net device
+Added support for In place PLM update (Versal-net device only)
+Added IPI message filtering for XilSEM commands.
+
+PMUFW:
+Add bitmask functionality for get_op_char API.
+Move the EEMI API IDs enum table to the commonplace so there is no scope for conflicts across the platforms.
+Bypass SMMU during suspend and re-enable during resume from the firmware. The change is under build macro, the user needs to pass the ENABLE_SMMU build flag during the PMUFW compilation.
+Added a check to avoid exceptions while reading A53_DBG_0_EDRCR_REG register from the secure boot mode.
+Bump up the version of PmPinCtrlSetParam API.
+
+
+
+
+
+
+
+
 
 
 Changes for 2023.1
