@@ -22,6 +22,7 @@
 *       kpt  07/24/2022 Moved XSecure_TrngKat to xsecure_kat_plat.c
 * 5.2   yog  08/07/2023 Added a single function call using XSecure_GetRandomNum API
 *                       to generate random number
+*       am   08/23/2023 Replaced XPlmi_DmaXfr with XPlmi_MemCpy64
 *
 * </pre>
 *
@@ -91,9 +92,15 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
 	u64 RandAddr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	u8 RandBuf[XTRNGPSX_SEC_STRENGTH_IN_BYTES] = {0U};
 
-	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_GetRandomNum, &(RandBuf[0]), Size);
+	if (Size > XTRNGPSX_SEC_STRENGTH_IN_BYTES) {
+		Status = (int)XSECURE_TRNG_INVALID_BUF_SIZE;
+		goto END;
+	}
 
-	Status = XPlmi_DmaXfr((u64)(UINTPTR)&RandBuf, RandAddr, Size, XPLMI_PMCDMA_0);
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_GetRandomNum, RandBuf, XTRNGPSX_SEC_STRENGTH_IN_BYTES);
+
+	Status = XPlmi_MemCpy64(RandAddr, (u64)(UINTPTR)RandBuf, Size);
+
 END:
 	return Status;
 }

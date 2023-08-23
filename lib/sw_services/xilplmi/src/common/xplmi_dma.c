@@ -48,6 +48,7 @@
 *       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.09  ng   07/06/2023 Added support for SDT flow
+*       am   08/23/2023 Fixed doxygen comment for XPlmi_DmaXfr Len in words
 *
 * </pre>
 *
@@ -368,7 +369,7 @@ static void XPlmi_SSSCfgDmaSbi(u32 Flags)
  * @brief	This function is used transfer the data on SRC or DST channel.
  *
  * @param 	Addr is address to which data has to be stored
- * @param	Len is length of the data in bytes
+ * @param	Len is length of the data in words
  * @param	Channel is SRC/DST channel selection
  * @param	Flags to select PMC DMA and DMA Burst type
  *
@@ -673,7 +674,7 @@ int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags)
  *
  * @param	SrcAddr for SRC channel to fetch data from
  * @param	DestAddr for DST channel to store the data
- * @param	Len of the data in bytes
+ * @param	Len of the data in words
  * @param	Flags to select PMC DMA and DMA Burst type
  *
  * @return
@@ -767,7 +768,7 @@ END:
  *
  * @param	SrcAddr is address for SRC channel to fetch data from
  * @param	DestAddr is address for DST channel to store the data
- * @param	Len is length of the data in bytes
+ * @param	Len is length of the data in words
  * @param	Flags to select PMC DMA and DMA Burst type
  * @param	DmaPtrAddr is to store address to PmcDmaInstance
  *
