@@ -85,6 +85,8 @@ def create_app(args):
     if domain_data['lib_info']:
         src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")
         lib_list = list(domain_data['lib_info'].keys())
+        # Special handling for libmetal
+        lib_list = [lib.replace('libmetal', 'metal') for lib in lib_list]
         cmake_lib_list = ';'.join(lib_list)
         utils.replace_line(
             src_cmake,
