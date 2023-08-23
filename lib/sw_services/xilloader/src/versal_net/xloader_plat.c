@@ -1604,6 +1604,8 @@ int XLoader_RunSha3Engine1Kat(XilPdi* PdiPtr)
 		XPlmi_UpdateKatStatus(PdiPtr->PlmKatStatus);
 	}
 
+	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }
