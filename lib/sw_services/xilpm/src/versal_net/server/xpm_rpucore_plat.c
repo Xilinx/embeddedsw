@@ -7,27 +7,33 @@
 #include "xpm_rpucore.h"
 #include "xpm_regs.h"
 #include "xpm_psm.h"
+#include "xpm_pslpdomain.h"
 
 void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u32 *BaseAddress)
 {
 	RpuCore->RpuBaseAddr = BaseAddress[0];
 	RpuCore->ClusterBaseAddr = BaseAddress[1];
+	const XPm_PsLpDomain *PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	if (PM_DEV_RPU_A_0 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = XPM_RPU_A_0_PWR_CTRL_MASK;
 		RpuCore->Core.WakeUpMask = XPM_RPU_A_0_WAKEUP_MASK;
+		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + LPX_SLCR_RPU_PCIL_A0_ISR_OFFSET;
 	} else if (PM_DEV_RPU_A_1 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = XPM_RPU_A_1_PWR_CTRL_MASK;
 		RpuCore->Core.WakeUpMask = XPM_RPU_A_1_WAKEUP_MASK;
+		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + LPX_SLCR_RPU_PCIL_A1_ISR_OFFSET;
 	} else if (PM_DEV_RPU_B_0 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = XPM_RPU_B_0_PWR_CTRL_MASK;
 		RpuCore->Core.WakeUpMask = XPM_RPU_B_0_WAKEUP_MASK;
+		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + LPX_SLCR_RPU_PCIL_B0_ISR_OFFSET;
 	} else if (PM_DEV_RPU_B_1 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = XPM_RPU_B_1_PWR_CTRL_MASK;
 		RpuCore->Core.WakeUpMask = XPM_RPU_B_1_WAKEUP_MASK;
+		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + LPX_SLCR_RPU_PCIL_B1_ISR_OFFSET;
 	}
 }
 
@@ -87,21 +93,19 @@ void XPmRpuCore_SetTcmBoot(const u32 DeviceId, const u8 TcmBootFlag){
 
 XStatus XPm_PlatRpucoreHalt(XPm_Core *Core){
 	XStatus Status = XST_FAILURE;
-	const XPm_Psm *Psm;
-	u32 Reg;
+	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
 
-	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
-	if (NULL == Psm) {
-		goto done;
-	}
+	if((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State){
+		/* Put RPU in  halt state */
+		/*don't do reset release because it is setting up PCIL ISR and we are enabling wake interrupt.
+		 *So, it will trigger wake interrupt directly after reset release.
+		 */
+		XPM_RPU_CORE_HALT(RpuCore->ResumeCfg);
 
-	/*skip halt if the core is powered down*/
-	PmIn32(Psm->PsmGlobalBaseAddr + Core->Device.Power->PwrStatOffset, Reg);
-	if (0U == (Reg & Core->Device.Power->PwrStatMask)) {
 		Status = XST_SUCCESS;
 	} else{
 		Status = XPmRpuCore_Halt((XPm_Device *)Core);
 	}
-done:
+
 	return Status;
 }
