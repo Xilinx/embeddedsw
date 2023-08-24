@@ -119,7 +119,13 @@ void DisableWake(const struct XPm_Core *Core)
 	if ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Core->Device.Node.Id)) {
 		DISABLE_WAKE0(Core->WakeUpMask);
 	} else if ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Core->Device.Node.Id)) {
+		const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
 		DISABLE_WAKE1(Core->WakeUpMask);
+		/*Clear PWRDWN EN and Pwr Ctrl Status as direct power down will not execute in forcepower down case*/
+		/*example: for RPU A0 this RpuCore->PcilIsr + LPX_SLCR_RPU_PCIL_X_PWRDWN_OFFSET = 0xEB4200C0*/
+		PmOut32(RpuCore->PcilIsr + LPX_SLCR_RPU_PCIL_X_PWRDWN_OFFSET, 0x0U);
+		CLEAR_PWRCTRL1(Core->SleepMask);
+		PmOut32(RpuCore->PcilIsr + LPX_SLCR_RPU_PCIL_X_IDS_OFFSET, 0x1U);
 	} else {
 		/* Required for MISRA */
 	}
