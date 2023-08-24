@@ -463,6 +463,9 @@ XStatus XPmBisr_Repair2(u32 TagId)
 				 */
 				EfuseNextAddr += 4U;
 				break;
+			case DDRMC5_CRYPTO_TAG_ID:
+				Status = XPmRepair_Ddrmc5_Crypto(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
+				break;
 			case CPM5N_TAG_ID:
 				Status = XPmRepair_Cpm5n(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
 				break;
@@ -474,6 +477,9 @@ XStatus XPmBisr_Repair2(u32 TagId)
 				break;
 			case HNICX_NTHUB_TAG_ID:
 				Status = XPmRepair_Hnicx_Nthub(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
+				break;
+			case DDRMC5_MAIN_TAG_ID:
+				Status = XPmRepair_Ddrmc5_Main(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
 				break;
 			default:
 				XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);
@@ -506,10 +512,12 @@ XStatus XPmBisr_TagSupportCheck2(u32 TagId)
 	switch(TagId) {
 	case VDU_TAG_ID:
 	case BFRB_TAG_ID:
+	case DDRMC5_CRYPTO_TAG_ID:
 	case CPM5N_TAG_ID:
 	case LPX_TAG_ID:
 	case FPX_TAG_ID:
 	case HNICX_NTHUB_TAG_ID:
+	case DDRMC5_MAIN_TAG_ID:
 		Status = XST_SUCCESS;
 		break;
 	default:

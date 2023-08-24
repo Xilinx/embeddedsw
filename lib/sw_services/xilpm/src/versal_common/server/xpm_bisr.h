@@ -38,10 +38,12 @@ extern "C" {
 #define GTYP_TAG_ID	0x18
 #define GTM_TAG_ID	0x19
 #define BFRB_TAG_ID 	0x1B
+#define DDRMC5_CRYPTO_TAG_ID   0x1C
 #define CPM5N_TAG_ID    0x1D
 #define LPX_TAG_ID	0x20
 #define FPX_TAG_ID	0x21
 #define HNICX_NTHUB_TAG_ID	0x22
+#define DDRMC5_MAIN_TAG_ID   0x26
 
 
 #define PMC_EFUSE_BISR_EXIT_CODE                        (0U)
