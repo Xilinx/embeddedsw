@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@ struct XPm_RpuCore {
 	u32 ResumeCfg;
 	u32 RpuBaseAddr; /**< Base address of RPU module */
 	u32 ClusterBaseAddr; /**< Base address of RPU module */
+	u32 PcilIsr; /*pcil isr register*/
 };
 
 /************************** Function Prototypes ******************************/

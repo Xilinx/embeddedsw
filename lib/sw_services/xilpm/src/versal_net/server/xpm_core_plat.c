@@ -7,6 +7,7 @@
 #include "xpm_core.h"
 #include "xpm_notifier.h"
 #include "xpm_psm.h"
+#include "xpm_rpucore.h"
 
 XStatus XPmCore_PwrDwn(XPm_Core *Core)
 {
@@ -45,6 +46,7 @@ XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 	 * sequence so enable wakeup interrupt here.
 	 */
 	if ((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
+		ClearPcilIsr(Core);
 		EnableWake(Core);
 	}
 
@@ -122,6 +124,18 @@ void DisableWake(const struct XPm_Core *Core)
 		/* Required for MISRA */
 	}
 };
+
+void ClearPcilIsr(const struct XPm_Core *Core)
+{
+	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
+	/*configure PCIL registers as direct power down will not execute in suspend resume case*/
+	PmOut32(RpuCore->PcilIsr + LPX_SLCR_RPU_PCIL_X_PS_OFFSET, 0x1U);
+	PmOut32(RpuCore->PcilIsr + LPX_SLCR_RPU_PCIL_X_PR_OFFSET, 0x1U);
+	/*Clear PCIL ISR*/
+	PmOut32(RpuCore->PcilIsr, 0x1U);
+	/*Enable interrupts*/
+	PmOut32(RpuCore->PcilIsr + LPX_SLCR_RPU_PCIL_X_IEN_OFFSET, 0x1U);
+}
 
 void EnableWake(const struct XPm_Core *Core)
 {
