@@ -117,6 +117,7 @@
 *       sk   07/20/2023 Corrected XPLMI_WARNING_MAJOR_MASK define
 *       sk   07/31/2023 Moved Image Store error codes to plat header
 *       yog  08/18/2023 Added error XLOADER_ERR_PLM_MH_SEC_MISMATCH error code
+*       yog  08/25/2023 Removed XLOADER_ERR_PLM_MH_SEC_MISMATCH error code
 *
 * </pre>
 *
@@ -763,8 +764,6 @@ typedef enum {
 		/**< 0x636 Error while reading IHT optional data */
 	XLOADER_ERR_STORE_DIGEST_TABLE,
 		/**< 0x637 Error while storing digest table */
-	XLOADER_ERR_PLM_MH_SEC_MISMATCH,
-		/**< 0x638 PLM and Metaheader authentication or encryption status is not in sync*/
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED = 0x6A0,
