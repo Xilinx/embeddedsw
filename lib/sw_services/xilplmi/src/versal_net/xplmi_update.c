@@ -31,6 +31,7 @@
 *       sk   07/26/2023 Added redundant write of PdiAddr in XPlmi_PlmUpdateTask
 *       sk   07/28/2023 Added redundant func XPlmi_IsPlmUpdateDoneTmp
 *       sk   07/31/2023 Added redundant check for boot error in XPlmi_PlmUpdateMgr
+*       sk   08/24/2023 Added redundant check for plm update efuse check
 *
 * </pre>
 *
@@ -577,9 +578,11 @@ static int XPlmi_ShutdownModules(XPlmi_ModuleOp Op)
 int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int RetStatus = XST_GLITCH_ERROR;
 	XPlmi_ModuleOp Op;
 	XPlmi_TaskNode *Task = NULL;
-	u32 RomRsvd;
+	volatile u32 RomRsvd;
+	volatile u32 RomRsvdTmp;
 
 	Op.Mode = XPLMI_MODULE_NO_OPERATION;
 
@@ -594,8 +597,12 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 			"from PDI Address: 0x%x\n\r", UpdatePdiAddr);
 
 	/* Check if PLM Update is enabled in ROM_RSVD efuse */
-	RomRsvd = XPlmi_In32(EFUSE_CACHE_ROM_RSVD);
-	if ((RomRsvd & EFUSE_PLM_UPDATE_MASK) == EFUSE_PLM_UPDATE_MASK) {
+	RomRsvd = XPlmi_In32(EFUSE_CACHE_ROM_RSVD) &
+			EFUSE_PLM_UPDATE_MASK;
+	RomRsvdTmp = XPlmi_In32(EFUSE_CACHE_ROM_RSVD) &
+			EFUSE_PLM_UPDATE_MASK;
+	if ((RomRsvd == EFUSE_PLM_UPDATE_MASK) ||
+		(RomRsvdTmp == EFUSE_PLM_UPDATE_MASK)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Update Disabled\n\r");
 		Status = (int)XPLMI_ERR_PLM_UPDATE_DISABLED;
 		goto END;
@@ -608,6 +615,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	PlmUpdateState |= XPLMI_UPDATE_IN_PROGRESS;
 	PlmUpdateStateTmp |= XPLMI_UPDATE_IN_PROGRESS;
 	/* Initiate Shutdown of Modules */
@@ -631,9 +639,10 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 
 	/* Add the 2nd stage of PLM Update to the end of Normal Priority Queue */
 	XPlmi_TaskTriggerNow(Task);
-
+	Status =  XST_SUCCESS;
+	RetStatus = XST_SUCCESS;
 END:
-	if (Status != XST_SUCCESS) {
+	if ((Status != XST_SUCCESS) && (RetStatus != XST_SUCCESS)) {
 		if (XPlmi_IsPlmUpdateInProgress() == (u8)TRUE) {
 			PlmUpdateState &= (u8)~XPLMI_UPDATE_IN_PROGRESS;
 			PlmUpdateStateTmp &= (u8)~XPLMI_UPDATE_IN_PROGRESS;
@@ -644,8 +653,10 @@ END:
 				XPlmi_Printf(DEBUG_GENERAL, "Shutdown Abort Failed\n\r");
 			}
 		}
+		RetStatus = Status;
 	}
-	return Status;
+
+	return RetStatus;
 }
 
 /*****************************************************************************/
