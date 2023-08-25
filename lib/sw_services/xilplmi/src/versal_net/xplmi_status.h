@@ -45,6 +45,7 @@
 *       yog  08/07/2023 Added error code for trng driver init fail
 *       yog  08/18/2023 Added error XLOADER_ERR_PLM_MH_SEC_MISMATCH error code
 *       am   08/18/2023 Moved run time error codes to respective libraries
+*       yog  08/25/2023 Removed XLOADER_ERR_PLM_MH_SEC_MISMATCH error code
 *
 * </pre>
 *
@@ -732,8 +733,6 @@ typedef enum {
 		/**< 0x636 Error while reading IHT optional data */
 	XLOADER_ERR_STORE_DIGEST_TABLE,
 		/**< 0x637 Error while storing digest table */
-	XLOADER_ERR_PLM_MH_SEC_MISMATCH,
-		/**< 0x638 PLM and Metaheader authentication or encryption status is not in sync*/
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XOCP_PCR_ERR_SWPCR_DUP_CONFIG = 0x6A0, /**< 0x6A0 Duplicate Pcr configuration provided */

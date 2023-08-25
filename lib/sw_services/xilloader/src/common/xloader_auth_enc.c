@@ -115,6 +115,8 @@
 *                     doesnot match with plm secure state
 *	kpt  08/20/23 Updated check to place ECDSA in reset and clear RAM memory when
 *			PLM_ECDSA_EXCLUDE is not defined
+*       yog  08/25/23 Removed check to return error code when MH secure state doesn't
+*			match with plm secure
 *
 * </pre>
 *
@@ -172,50 +174,6 @@ typedef struct {
 #define XLOADER_ECDSA_RSA_RESET_VAL			(0x1U)
 					/**< ECDSA RSA Reset value */
 #endif
-
-/*****************************************************************************/
-/**
- * @brief	This function gets the PLM encryption status.
- *
- * @param       EncStatus - Value of Encryption Key Source in BootHdrPtr
- *
- * @return
- *              - TRUE : Encryption enabled
- *              - FALSE : Encryption disabled
- *
- *****************************************************************************/
-static inline u8 XLoader_GetPlmEncStatus(u32 EncStatus)
-{
-	u8 Flag = (u8)FALSE;
-
-	if (EncStatus != 0U) {
-		Flag = (u8)TRUE;
-	}
-
-	return Flag;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function gets the PLM authentication status.
- *
- * @param       AuthStatus - Value in XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR register
- *
- * @return
- *              - TRUE : Authentication enabled
- *              - FALSE : Authentication disabled
- *
- *****************************************************************************/
-static inline u8 XLoader_GetPlmAuthStatus(u32 AuthStatus)
-{
-	u8 Flag = (u8)FALSE;
-
-	if (AuthStatus != XPLMI_RTCFG_SECURESTATE_NONSECURE) {
-		Flag = (u8)TRUE;
-	}
-
-	return Flag;
-}
 
 /************************** Function Prototypes ******************************/
 
@@ -486,8 +444,6 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 	volatile int Status = XST_FAILURE;
 	u32 ReadAuthReg;
 	u32 ReadEncReg;
-	u8 PlmEncStatus;
-	u8 PlmAuthStatus;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 	u32 MetaHeaderKeySrc = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc;
@@ -599,13 +555,6 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 		}
 	}
 
-	PlmEncStatus = XLoader_GetPlmEncStatus(SecurePtr->PdiPtr->MetaHdr.BootHdrPtr->EncStatus);
-	PlmAuthStatus = XLoader_GetPlmAuthStatus(ReadAuthReg);
-	if (((SecurePtr->IsEncrypted ^ PlmEncStatus) == (u8)TRUE) ||
-		(((SecurePtr->IsAuthenticated ^ PlmAuthStatus) == (u8)TRUE))) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_PLM_MH_SEC_MISMATCH, 0U);
-		goto END;
-	}
 
 	/**
 	 * - Verify if Metaheader encryption key source for FPDI/PPDI is same as
