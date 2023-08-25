@@ -119,11 +119,49 @@ Bypass SMMU during suspend and re-enable during resume from the firmware. The ch
 Added a check to avoid exceptions while reading A53_DBG_0_EDRCR_REG register from the secure boot mode.
 Bump up the version of PmPinCtrlSetParam API.
 
+bram_v4_9:
+Added support for system device tree flow for drivers and examples
 
+can_v3_7:
+Add support for system device-tree flow for driver and examples
+Add support for peripheral tests in SDT flow
 
+canfd_v2_8:
+Add support for system device-tree flow for driver and examples
+Invoke XCanFd_stop function to release canfd node
+Add support for request/release node
 
+canps_v3_7:
+Add support for system device-tree flow for driver and examples
+Add support for peripheral tests in SDT flow
 
+clk_wiz_v1_6:
+Added support for system device tree flow for drivers and examples
 
+clockps_v1_5:
+Added support for system device tree flow for drivers and examples
+
+coresightps_dcc_v1_9:
+Add support for system device-tree flow
+Fix code formatting issues with checkpatch
+Add option of coresight uart in bsp settings.
+Add support for Zynq and VersalNet in SDT flow
+
+gpiops_v3_12:
+Add support for system device-tree
+Add support for system device-tree flow for gpiops example
+Fix code formatting issues
+Add support zynq platform in sdt flow
+
+nandps_v2_8:
+Added support for system device tree flow in drivers and examples
+
+nandpsu_v1_12:
+Added support for system device tree flow in drivers and examples
+
+ospipsv_v1_9:
+Upadate address calculation logic in DAC read and write API's
+Added support for system device tree flow in drivers and examples
 
 
 
