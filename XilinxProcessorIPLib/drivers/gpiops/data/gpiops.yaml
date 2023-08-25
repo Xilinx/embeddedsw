@@ -17,6 +17,8 @@ properties:
         - enum:
           - xlnx,zynqmp-gpio-1.0
           - xlnx,zynq-gpio-1.0
+          - xlnx,versal-gpio-1.0
+          - xlnx,pmc-gpio-1.0
   reg:
     description: Physical base address and size of the controller register map
 
