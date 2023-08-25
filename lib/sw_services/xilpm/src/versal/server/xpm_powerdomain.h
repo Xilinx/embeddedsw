@@ -18,7 +18,11 @@ extern "C" {
 
 typedef struct XPm_PowerDomain XPm_PowerDomain;
 
+#ifdef CPPUTEST
+#define XPM_POLL_TIMEOUT			(0X100U)
+#else
 #define XPM_POLL_TIMEOUT			(0X1000000U)
+#endif
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
 #define MAX_POWERDOMAINS			6U
 #define MAX_DOMAIN_CONTROL_MODES	2U
