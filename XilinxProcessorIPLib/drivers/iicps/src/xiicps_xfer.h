@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,9 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- --------------------------------------------
 * 3.11  rna     12/10/19 First release
+* 3.18  gm      08/25/23 Added function prototypes for XIicPs_MasterPolledRead,
+* 			 XIicPs_MasterIntrSend, XIicPs_MasterIntrRead and
+* 			 XIicPs_MasterRead.
 * </pre>
 *
 ******************************************************************************/
@@ -92,6 +95,27 @@ s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role);
  * This function handles continuation of sending data.
  */
 void MasterSendData(XIicPs *InstancePtr);
+/*
+ * This function handles polled mode receive in master mode.
+ */
+void XIicPs_MasterPolledRead(XIicPs *InstancePtr, s32 IsHold, s32 ByteCountVar);
+
+/*
+ * This function handles interrupt-driven send in master mode.
+ */
+void XIicPs_MasterIntrSend(XIicPs *InstancePtr, u32 IntrStatusReg,
+			    u32 *StatusEventPtr);
+
+/*
+ * This function handles interrupt-driven receive in master mode.
+ */
+void XIicPs_MasterIntrRead(XIicPs *InstancePtr, u32 *IntrStatusRegPtr,
+					      s32 IsHold);
+/*
+ * This function handles interrupt-driven send in master mode.
+ */
+void XIicPs_MasterRead(XIicPs *InstancePtr, s32 IsHold, s32 *ByteCntPtr);
+
 /*
  * This function handles continuation of receiving data.
  */
