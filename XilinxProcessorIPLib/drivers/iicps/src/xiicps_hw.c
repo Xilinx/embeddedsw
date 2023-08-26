@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 3.0	sk		11/03/14 Modified TimeOut Register value to 0xFF
 *				01/31/15 Modified the code according to MISRAC 2012 Compliant.
 * 3.11  rna	02/11/20 Moved XIicPs_Reset function from xiicps.c
+* 3.18  gm	08/25/23 Added XIicPs_MasterRead function.
 * </pre>
 *
 ******************************************************************************/
@@ -29,6 +30,7 @@
 /***************************** Include Files *********************************/
 
 #include "xiicps.h"
+#include "xiicps_xfer.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -125,6 +127,57 @@ void XIicPs_Reset(XIicPs *InstancePtr)
         XIicPs_WriteReg(InstancePtr->Config.BaseAddress, XIICPS_IDR_OFFSET,
                           XIICPS_IXR_ALL_INTR_MASK);
 
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function receives data byte by byte till Rx data is valid in interrupt
+* master mode.
+*
+* @param        InstancePtr is a pointer to the XIicPs instance.
+* @param        IsHold is the Hold status.
+* @param        ByteCntPtr is a pointer to the byte count.
+*
+* @return       None.
+*
+* @note         None.
+*
+ ****************************************************************************/
+
+void XIicPs_MasterRead(XIicPs *InstancePtr, s32 IsHold, s32 *ByteCntPtr)
+{
+	u32 Platform;
+	UINTPTR BaseAddr;
+
+	Platform = XGetPlatform_Info();
+	BaseAddr = InstancePtr->Config.BaseAddress;
+
+	while ((XIicPs_RxDataValid(InstancePtr)) != 0U) {
+
+			XIicPs_RecvByte(InstancePtr);
+			(*ByteCntPtr)--;
+
+			/* Clear hold bit when not required */
+			if ((InstancePtr->RecvByteCount <=
+					XIICPS_DATA_INTR_DEPTH) && (IsHold != 0)
+					&& (InstancePtr->IsRepeatedStart == 0)
+					&& (InstancePtr->UpdateTxSize == 0)) {
+				IsHold = 0;
+				XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
+						XIicPs_ReadReg(BaseAddr,
+						XIICPS_CR_OFFSET) &
+						(~XIICPS_CR_HOLD_MASK));
+			}
+
+			if (Platform == (u32)XPLAT_ZYNQ) {
+			    if ((InstancePtr->UpdateTxSize != 0) &&
+				    ((*ByteCntPtr) == (XIICPS_FIFO_DEPTH + 1))) {
+				    break;
+				}
+			}
+	}
+	InstancePtr->CurrByteCount = *ByteCntPtr;
 }
 
 /** @} */
