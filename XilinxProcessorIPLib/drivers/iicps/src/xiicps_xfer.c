@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,8 @@
 * ----- ------  -------- --------------------------------------------
 * 3.11  rna     12/10/19 First release
 *		02/18/20 Modified latest code for MISRA-C:2012 Compliance.
+* 3.18  gm      08/25/23 Added XIicPs_MasterPolledRead, XIicPs_MasterIntrSend
+*			 and XIicPs_MasterIntrRead functions.
 * </pre>
 *
 ******************************************************************************/
@@ -27,6 +29,7 @@
 /***************************** Include Files *********************************/
 
 #include "xiicps.h"
+#include "xiicps_hw.h"
 #include "xiicps_xfer.h"
 
 /************************** Constant Definitions *****************************/
@@ -129,6 +132,228 @@ void MasterSendData(XIicPs *InstancePtr)
 	}
 
 	return;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function handles polled mode receive in master mode.
+*
+* @param        InstancePtr is a pointer to the XIicPs instance.
+* @param        IsHold is the Hold status.
+* @param        ByteCountVar is the ByteCount.
+*
+* @return       None.
+*
+* @note         None.
+*
+ ****************************************************************************/
+
+void XIicPs_MasterPolledRead(XIicPs *InstancePtr, s32 IsHold, s32 ByteCountVar)
+{
+	u32 Platform;
+	u16 SlaveAddr;
+	UINTPTR BaseAddr;
+	u32 IntrStatusReg;
+
+	Platform = XGetPlatform_Info();
+	BaseAddr = InstancePtr->Config.BaseAddress;
+	SlaveAddr = (u16)XIicPs_ReadReg(BaseAddr, (u32)XIICPS_ADDR_OFFSET);
+	IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
+
+	while ((InstancePtr->RecvByteCount > 0) &&
+			(((IntrStatusReg) & ((u32)XIICPS_IXR_ARB_LOST_MASK |
+					     (u32)XIICPS_IXR_RX_OVR_MASK |
+					     (u32)XIICPS_IXR_RX_UNF_MASK |
+					     (u32)XIICPS_IXR_NACK_MASK)) == 0U)) {
+
+		XIicPs_MasterRead(InstancePtr, IsHold, &ByteCountVar);
+
+		if (Platform == (u32)XPLAT_ZYNQ) {
+			if ((InstancePtr->UpdateTxSize != 0) &&
+				(ByteCountVar == (XIICPS_FIFO_DEPTH + 1))) {
+			    /*  wait while fifo is full */
+			while (XIicPs_RxFIFOFull(InstancePtr,
+						 ByteCountVar) != 0U) { ;
+				}
+				if ((InstancePtr->RecvByteCount - XIICPS_FIFO_DEPTH) >
+					(s32)XIICPS_MAX_TRANSFER_SIZE) {
+
+					XIicPs_WriteReg(BaseAddr,
+						XIICPS_TRANS_SIZE_OFFSET,
+						XIICPS_MAX_TRANSFER_SIZE);
+				    ByteCountVar = (s32)XIICPS_MAX_TRANSFER_SIZE +
+							XIICPS_FIFO_DEPTH;
+				} else {
+					XIicPs_WriteReg(BaseAddr,
+						XIICPS_TRANS_SIZE_OFFSET,
+						InstancePtr->RecvByteCount -
+						XIICPS_FIFO_DEPTH);
+					InstancePtr->UpdateTxSize = 0;
+					ByteCountVar = InstancePtr->RecvByteCount;
+				}
+			}
+		} else {
+		    if ((InstancePtr->RecvByteCount > 0) && (ByteCountVar == 0)) {
+				/*
+				 * Clear the interrupt status register before use it to
+				 * monitor.
+				 */
+				IntrStatusReg = XIicPs_ReadReg(BaseAddr,
+								   XIICPS_ISR_OFFSET);
+				XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET,
+						IntrStatusReg);
+
+				XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET,
+						SlaveAddr);
+
+				if ((InstancePtr->RecvByteCount) >
+					(s32)XIICPS_MAX_TRANSFER_SIZE) {
+
+					XIicPs_WriteReg(BaseAddr,
+							XIICPS_TRANS_SIZE_OFFSET,
+							XIICPS_MAX_TRANSFER_SIZE);
+				    ByteCountVar = (s32)XIICPS_MAX_TRANSFER_SIZE;
+				} else {
+					XIicPs_WriteReg(BaseAddr,
+							XIICPS_TRANS_SIZE_OFFSET,
+							InstancePtr->RecvByteCount);
+					InstancePtr->UpdateTxSize = 0;
+					ByteCountVar = InstancePtr->RecvByteCount;
+				}
+			}
+		}
+
+		IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
+	}
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function handles interrupt-driven send in master mode.
+*
+* @param        InstancePtr is a pointer to the XIicPs instance.
+* @param        IntrStatusReg is the value of interrupt status register.
+* @param        StatusEventPtr is the pointer to the StatusEvent.
+*
+* @return       None.
+*
+* @note         None.
+*
+ ****************************************************************************/
+
+void XIicPs_MasterIntrSend(XIicPs *InstancePtr, u32 IntrStatusReg,
+			    u32 *StatusEventPtr)
+{
+	if (((InstancePtr->IsSend) != 0) &&
+		((u32)0U != (IntrStatusReg & (u32)XIICPS_IXR_COMP_MASK))) {
+		if (InstancePtr->SendByteCount > 0) {
+			MasterSendData(InstancePtr);
+		} else {
+			*StatusEventPtr |= XIICPS_EVENT_COMPLETE_SEND;
+		}
+	}
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function handles interrupt-driven receive in master mode.
+*
+* @param        InstancePtr is a pointer to the XIicPs instance.
+* @param        IntrStatusReg is the interrupt status register.
+* @param        IsHold is the Hold status.
+*
+* @return       None.
+*
+* @note         None.
+*
+ ****************************************************************************/
+
+void XIicPs_MasterIntrRead(XIicPs *InstancePtr, u32 *IntrStatusRegPtr,
+					      s32 IsHold)
+{
+	s32 ByteCnt;
+	u32 Platform;
+	u16 SlaveAddr;
+	UINTPTR BaseAddr;
+
+	Platform = XGetPlatform_Info();
+	ByteCnt = InstancePtr->CurrByteCount;
+	BaseAddr = InstancePtr->Config.BaseAddress;
+
+	if ((InstancePtr->IsSend == 0) &&
+		((0U != (*IntrStatusRegPtr & (u32)XIICPS_IXR_DATA_MASK)) ||
+		 (0U != (*IntrStatusRegPtr & (u32)XIICPS_IXR_COMP_MASK)))){
+
+		XIicPs_MasterRead(InstancePtr, IsHold, &ByteCnt);
+
+		if (Platform == (u32)XPLAT_ZYNQ) {
+			if ((InstancePtr->UpdateTxSize != 0) &&
+				(ByteCnt == (XIICPS_FIFO_DEPTH + 1))) {
+
+				/* wait while fifo is full */
+				while (XIicPs_RxFIFOFull(InstancePtr,
+							 ByteCnt) != 0U) { ;
+				}
+
+				if ((InstancePtr->RecvByteCount - XIICPS_FIFO_DEPTH) >
+					(s32)XIICPS_MAX_TRANSFER_SIZE) {
+
+					XIicPs_WriteReg(BaseAddr,
+						XIICPS_TRANS_SIZE_OFFSET,
+						XIICPS_MAX_TRANSFER_SIZE);
+					ByteCnt = (s32)XIICPS_MAX_TRANSFER_SIZE +
+							XIICPS_FIFO_DEPTH;
+				} else {
+					XIicPs_WriteReg(BaseAddr,
+						XIICPS_TRANS_SIZE_OFFSET,
+						InstancePtr->RecvByteCount -
+						XIICPS_FIFO_DEPTH);
+					InstancePtr->UpdateTxSize = 0;
+					ByteCnt = InstancePtr->RecvByteCount;
+				}
+			}
+		} else {
+			if ((InstancePtr->RecvByteCount > 0) && (ByteCnt == 0)) {
+				/*
+				 * Clear the interrupt status register before use it to
+				 * monitor.
+				 */
+				*IntrStatusRegPtr = XIicPs_ReadReg(BaseAddr,
+								   XIICPS_ISR_OFFSET);
+				XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET,
+						*IntrStatusRegPtr);
+
+				SlaveAddr = (u16)XIicPs_ReadReg(BaseAddr,
+								(u32)XIICPS_ADDR_OFFSET);
+				XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, SlaveAddr);
+
+				if ((InstancePtr->RecvByteCount) >
+					(s32)XIICPS_MAX_TRANSFER_SIZE) {
+
+					XIicPs_WriteReg(BaseAddr,
+						XIICPS_TRANS_SIZE_OFFSET,
+						XIICPS_MAX_TRANSFER_SIZE);
+					ByteCnt = (s32)XIICPS_MAX_TRANSFER_SIZE;
+				} else {
+					XIicPs_WriteReg(BaseAddr,
+						XIICPS_TRANS_SIZE_OFFSET,
+						InstancePtr->RecvByteCount);
+					InstancePtr->UpdateTxSize = 0;
+					ByteCnt = InstancePtr->RecvByteCount;
+				}
+				XIicPs_EnableInterrupts(BaseAddr,
+					(u32)XIICPS_IXR_NACK_MASK |
+					(u32)XIICPS_IXR_DATA_MASK |
+					(u32)XIICPS_IXR_RX_OVR_MASK |
+					(u32)XIICPS_IXR_COMP_MASK |
+					(u32)XIICPS_IXR_ARB_LOST_MASK);
+			}
+		}
+		InstancePtr->CurrByteCount = ByteCnt;
+	}
 }
 
 /*****************************************************************************/
