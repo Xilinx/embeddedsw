@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,7 @@
 *		      boards, scanning for eeprom until found on all I2C
 *		      instances
 *        rna  03/26/20 Eeprom page size detection support is added.
+* 3.18   gm   08/26/23 Added SDT support.
 * </pre>
 *
 ******************************************************************************/
@@ -57,6 +58,9 @@
 #include "xil_exception.h"
 #include "xil_printf.h"
 #include "xplatform_info.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -66,7 +70,9 @@
  * change all the needed parameters in one place.
  */
 
+#ifndef SDT
 #define INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
+#endif
 
 /*
  * The following constant defines the address of the IIC Slave device on the
@@ -109,13 +115,19 @@ int IicPsEepromIntrExample(void);
 static int EepromWriteData(XIicPs *IicInstance, u16 ByteCount);
 static int EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount);
 static void Handler(void *CallBackRef, u32 Event);
+#ifndef SDT
 static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id);
 static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id);
+static int IicPsConfig(u16 DeviceId, u32 Int_Id);
+static int IicPsFindDevice(u16 addr, u16 DeviceId);
+#else
+static int IicPsSlaveMonitor(u16 Address, UINTPTR BaseAddress);
+static int IicPsConfig(UINTPTR BaseAddress);
+static int IicPsFindDevice(u16 addr, UINTPTR BaseAddress);
+#endif
 static int MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer);
 static int FindEepromDevice(u16 Address);
 static int IicPsFindEeprom(u16 *Eeprom_Addr, u32 *PageSize);
-static int IicPsConfig(u16 DeviceId, u32 Int_Id);
-static int IicPsFindDevice(u16 addr, u16 DeviceId);
 static int FindEepromPageSize(u16 EepromAddr, u32 *PageSize_ptr);
 /************************** Variable Definitions *****************************/
 #ifndef TESTAPP_GEN
@@ -142,6 +154,9 @@ u16 EepromAddr[] = {0x54,0x55,0};
 u16 MuxAddr[] = {0x74,0};
 u16 EepromSlvAddr;
 u32 PageSize;
+#ifdef SDT
+extern XIicPs_Config XIicPs_ConfigTable[XPAR_XIICPS_NUM_INSTANCES];
+#endif
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -391,6 +406,7 @@ static int EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount)
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 /******************************************************************************/
 /**
 *
@@ -461,6 +477,7 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id)
 
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -560,7 +577,11 @@ static int MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 static int IicPsConfig(u16 DeviceId, u32 Int_Id)
+#else
+static int IicPsConfig(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XIicPs_Config *ConfigPtr;	/* Pointer to configuration data */
@@ -568,7 +589,11 @@ static int IicPsConfig(u16 DeviceId, u32 Int_Id)
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
+#ifndef SDT
 	ConfigPtr = XIicPs_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XIicPs_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -582,7 +607,14 @@ static int IicPsConfig(u16 DeviceId, u32 Int_Id)
 	/*
 	 * Setup the Interrupt System.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(&IicInstance, Int_Id);
+#else
+	Status = XSetupInterruptSystem(&IicInstance, XIicPs_MasterInterruptHandler,
+			ConfigPtr->IntrId,
+			ConfigPtr->IntrParent,
+			XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -602,10 +634,15 @@ static int IicPsConfig(u16 DeviceId, u32 Int_Id)
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 static int IicPsFindDevice(u16 addr, u16 DeviceId)
+#else
+static int IicPsFindDevice(u16 addr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 
+#ifndef SDT
 	if (DeviceId == 0){
 		Status = IicPsSlaveMonitor(addr,DeviceId,XPAR_XIICPS_0_INTR);
 		if (Status == XST_SUCCESS) {
@@ -618,6 +655,12 @@ static int IicPsFindDevice(u16 addr, u16 DeviceId)
 			return XST_SUCCESS;
 		}
 	}
+#else
+	Status = IicPsSlaveMonitor(addr, BaseAddress);
+	if (Status == XST_SUCCESS) {
+		return XST_SUCCESS;
+	}
+#endif
 	return XST_FAILURE;
 }
 /*****************************************************************************/
@@ -640,10 +683,18 @@ static int IicPsFindEeprom(u16 *Eeprom_Addr,u32 *PageSize)
 	u16 DeviceId;
 	int MuxIndex,Index;
 	u8 MuxChannel;
+#ifdef SDT
+	u32 BaseAddress;
+#endif
 
 	for (DeviceId = 0; DeviceId < XPAR_XIICPS_NUM_INSTANCES; DeviceId++) {
 		for(MuxIndex=0;MuxAddr[MuxIndex] != 0;MuxIndex++){
+#ifndef SDT
 			Status = IicPsFindDevice(MuxAddr[MuxIndex], DeviceId);
+#else
+			BaseAddress = XIicPs_ConfigTable[DeviceId].BaseAddress;
+			Status = IicPsFindDevice(MuxAddr[MuxIndex], BaseAddress);
+#endif
 			if (Status == XST_SUCCESS) {
 				for(Index=0;EepromAddr[Index] != 0;Index++) {
 					for(MuxChannel = 0x01; MuxChannel <= MAX_CHANNELS; MuxChannel = MuxChannel << 1) {
@@ -669,7 +720,11 @@ static int IicPsFindEeprom(u16 *Eeprom_Addr,u32 *PageSize)
 			}
 		}
 		for(Index=0;EepromAddr[Index] != 0;Index++) {
+#ifndef SDT
 			Status = IicPsFindDevice(EepromAddr[Index], DeviceId);
+#else
+			Status = IicPsFindDevice(EepromAddr[Index], BaseAddress);
+#endif
 			if (Status == XST_SUCCESS) {
 				*Eeprom_Addr = EepromAddr[Index];
 				*PageSize = PAGE_SIZE_32;
@@ -810,7 +865,11 @@ static int FindEepromPageSize(u16 EepromAddr, u32 *PageSize_ptr)
 * @note 	None.
 *
 *******************************************************************************/
+#ifndef SDT
 static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id)
+#else
+static int IicPsSlaveMonitor(u16 Address, UINTPTR BaseAddress)
+#endif
 {
 	u32 Index;
 	int Status;
@@ -820,7 +879,11 @@ static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id)
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
+#ifndef SDT
 	Status = IicPsConfig(DeviceId,Int_Id);
+#else
+	Status = IicPsConfig(BaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
