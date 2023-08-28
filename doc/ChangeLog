@@ -1,6 +1,19 @@
 Changes for 2023.2
 ===============================
 
+axiethernet_v5_16:
+Update axiethernet.tcl  script to support opensource macro values
+Added support for system device tree flow for drivers and examples
+
+xilflash_v4_10:
+Add support for system device-tree flow.
+Add example support in SDT flow.
+Handle emc use case in SDT flow
+
+lwip213_v1_1:
+Updated lwip code to support system device tree flow support for
+axiethernet ,dma and emaclite
+
 axicdma_v4_12:
 Added support for system device tree flow for drivers and examples
 
