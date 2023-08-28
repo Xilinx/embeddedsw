@@ -45,7 +45,9 @@
 *                       XPLMI_IPI_DEVICE_ID
 * 1.07  ng   11/11/2022 Updated doxygen comments
 *       sk   01/11/2023 Added Image Store Config init function
-*		dd	 03/16/2023 Misra-C violation Rule 17.7 fixed
+*       dd   03/16/2023 Misra-C violation Rule 17.7 fixed
+*       sk   08/28/2023 Added EAM error's check after processing
+*                       of PMC cdo
 *
 * </pre>
 *
@@ -61,6 +63,7 @@
 #include "xplm_hooks.h"
 #include "xplmi_task.h"
 #include "xplm_plat.h"
+#include "xplmi_err_common.h"
 #ifdef XPLM_SEM
 #include "xplm_sem_init.h"
 #endif
@@ -231,6 +234,9 @@ static int XPlm_PreBootTasks(void* Arg)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	/* Check for any EAM errors after Processing PMC CDO*/
+	(void)XPlmi_ErrorTaskHandler(NULL);
 
 	if (XPlmi_IsPlmUpdateDone() == (u8)FALSE) {
 		(void) XLoader_ReadImageStoreCfg();
