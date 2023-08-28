@@ -36,6 +36,7 @@
 *       ng   06/26/2023 Added support for system device-tree flow
 *       sk   07/18/2023 Updated error codes in VerifyAddrRange function
 *       sk   07/31/2023 Added redundant write for SSS Config
+*       kpt  08/28/2023 Reread from efuse cache to enhance security
 *
 * </pre>
 *
@@ -934,11 +935,11 @@ void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)
 	volatile u8 FipsModeEnTmp = TRUE;
 
 	CryptoKatEn = XPlmi_IsCryptoKatEn();
-	CryptoKatEnTmp = CryptoKatEn;
+	CryptoKatEnTmp = XPlmi_IsCryptoKatEn();
 	if((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
 		*PlmKatStatus = XPlmi_GetKatStatus();
 		FipsModeEn = XPlmi_IsFipsModeEn();
-		FipsModeEnTmp = FipsModeEn;
+		FipsModeEnTmp = XPlmi_IsFipsModeEn();
 		if ((FipsModeEn != TRUE) && (FipsModeEnTmp != TRUE)) {
 			*PlmKatStatus |= XPlmi_GetRomKatStatus();
 			XPlmi_UpdateKatStatus(*PlmKatStatus);
