@@ -20,6 +20,7 @@
 * 5.2   yog     07/10/23 Added support of unaligned data sizes for Versal Net
 *       kpt     07/09/23 Added XSecure_GetRandomNum function
 *       yog     08/07/23 Moved functions from xsecure_trng.c to xsecure_plat.c
+*       kpt     08/29/23 Added volatile keyword to avoid compiler optimization
 *
 * </pre>
 *
@@ -607,7 +608,7 @@ END:
  *****************************************************************************/
 int XSecure_ECCRandInit(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
 
 	if ((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK) != TRUE) ||
@@ -646,7 +647,7 @@ END:
  *****************************************************************************/
 int XSecure_TrngInitNCfgHrngMode(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	XTrngpsx_UserConfig UsrCfg;
 	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
 
