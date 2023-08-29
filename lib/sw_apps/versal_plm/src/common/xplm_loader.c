@@ -49,6 +49,7 @@
 *       sk   06/12/2023 Read Kek src & Plmkat status after In-Place PLM update
 *       vns  07/06/2023 Added regeneration of DEVAK post in place PLM update
 *       sk   08/18/2023 Fixed security review comments
+*       sk   08/28/2023 Added redundant call for XLoader_GetKekSrc
 *
 * </pre>
 *
@@ -92,6 +93,9 @@ int XPlm_LoadBootPdi(void *Arg)
 	PdiSrc_t BootMode = XLOADER_PDI_SRC_INVALID;
 	XilPdi *PdiInstPtr = XLoader_GetPdiInstance();
 	XilBootPdiInfo *BootPdiInfo = XLoader_GetBootPdiInfo();
+	#ifndef PLM_SECURE_EXCLUDE
+	volatile u32 DecKeySrcTmp;
+	#endif
 
 	(void )Arg;
 
@@ -107,7 +111,11 @@ int XPlm_LoadBootPdi(void *Arg)
 		 * Black key
 		 */
 	#ifndef PLM_SECURE_EXCLUDE
-		BootPdiInfo->DecKeySrc = XLoader_GetKekSrc();
+		XSECURE_REDUNDANT_CALL(BootPdiInfo->DecKeySrc, DecKeySrcTmp, XLoader_GetKekSrc);
+		if (BootPdiInfo->DecKeySrc != DecKeySrcTmp) {
+			Status = XST_GLITCH_ERROR;
+			goto ERR_END;
+		}
 		XPlmi_GetBootKatStatus((volatile u32*)&BootPdiInfo->PlmKatStatus);
 	#endif
 		/* Regenerate DEVAK keys of the sub-systems */

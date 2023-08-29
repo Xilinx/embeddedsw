@@ -159,6 +159,7 @@
 *       am   07/07/2023 Added error code for Read IHT optional data
 *       sk   07/31/2023 Updated error codes in XLoader_IsPdiAddrLookup
 *       sk   08/18/2023 Fixed security review comments
+*       sk   08/28/2023 Added redundant call for XLoader_GetKekSrc
 *
 * </pre>
 *
@@ -474,6 +475,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTemp =  XST_FAILURE;
 	XLoader_SecureParams SecureParams = {0U};
+	volatile u32 DecKeySrcTmp;
 #ifdef PLM_SECURE_EXCLUDE
 	u8 IsEncrypted;
 	u8 IsAuthenticated;
@@ -610,7 +612,11 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		 * Update KEK red key availability status if PLM is encrypted with
 		 * Black key
 		 */
-		PdiPtr->DecKeySrc = XLoader_GetKekSrc();
+		XSECURE_REDUNDANT_CALL(PdiPtr->DecKeySrc, DecKeySrcTmp, XLoader_GetKekSrc);
+		if (PdiPtr->DecKeySrc != DecKeySrcTmp) {
+			Status = XST_GLITCH_ERROR;
+			goto END;
+		}
 	}
 	else {
 		PdiPtr->PlmKatStatus |= BootPdiInfo->PlmKatStatus;
