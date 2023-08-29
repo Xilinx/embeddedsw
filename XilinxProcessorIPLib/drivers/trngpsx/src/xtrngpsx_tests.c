@@ -18,7 +18,8 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
- * 1.00  kpt  01/04/24 First release
+ * 1.0   kpt  01/04/23 First release
+ * 1.1   kpt  08/29/23 Removed dead code
  *
  * </pre>
  *
@@ -154,9 +155,6 @@ int XTrngpsx_DRBGKat(XTrngpsx_Instance *InstancePtr) {
 	}
 
 	Status = XTrngpsx_Uninstantiate(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 END:
 	return Status;
@@ -190,9 +188,6 @@ int XTrngpsx_HealthTest(XTrngpsx_Instance *InstancePtr) {
 	}
 
 	Status = XTrngpsx_Uninstantiate(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 END:
 	return Status;
@@ -225,11 +220,6 @@ int XTrngpsx_PreOperationalSelfTests(XTrngpsx_Instance *InstancePtr) {
 	}
 
 	Status = XTrngpsx_HealthTest(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XST_SUCCESS;
 
 END:
 	return Status;
