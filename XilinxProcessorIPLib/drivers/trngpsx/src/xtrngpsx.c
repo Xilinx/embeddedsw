@@ -20,6 +20,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/03/23 Initial release
 *       kpt  05/18/23 Fix passing invalid DF length in HRNG mode
+* 1.1   kpt  08/29/23 Add volatile keyword to avoid compiler optimization
 *
 * </pre>
 *
@@ -982,7 +983,7 @@ END:
  *
  **************************************************************************************************/
 static int XTrngpsx_WriteSeed(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u8 DLen) {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 SeedLen = (DLen + 1U) * XTRNGPSX_BLOCK_LEN_IN_BYTES;
 	volatile u32 Idx = 0U;
 	u8 Cnt = 0U;
