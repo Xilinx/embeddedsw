@@ -100,6 +100,8 @@
 *       sk   05/18/2023 Deprecate copy to memory feature
 *       bm   05/22/2023 Update current CDO command offset in GSW Error Status
 *       bm   07/06/2023 Remove XPlmi_ClearEndStack call
+*       rama 08/10/2023 Changed partition ID print to DEBUG_ALWAYS for
+*                       debug level_0 option
 *
 * </pre>
 *
@@ -162,7 +164,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 	XPlmi_PerfTime PerfTime;
 
 	if (PdiPtr->DelayLoad == (u8)FALSE) {
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 			"+++Loading Image#: 0x%0x, Name: %s, Id: 0x%08x\n\r",
 			PdiPtr->ImageNum,
 			(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
@@ -194,7 +196,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		}
 
 		if (PdiPtr->DelayLoad == (u8)FALSE) {
-			XPlmi_Printf(DEBUG_GENERAL, "---Loading Partition#: 0x%0x, "
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "---Loading Partition#: 0x%0x, "
 					"Id: 0x%0x\r\n", PdiPtr->PrtnNum,
 					PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].PrtnId);
 		}

@@ -29,6 +29,8 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       sk   05/31/2023 Addded function to get Bootpdiinfo storage
 *       sk   06/12/2023 Removed XLoader_GetPdiInstance function definition
+*       rama 08/10/2023 Changed DDRMC register dump prints to DEBUG_ALWAYS for
+*                       debug level_0 option
 *
 * </pre>
 *
@@ -997,11 +999,11 @@ static int XLoader_DumpDdrmcRegisters(void)
 	u32 BaseAddr;
 	XPm_DeviceStatus DevStatus;
 
-	XPlmi_Printf(DEBUG_GENERAL,"====DDRMC Register Dump Start======\n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS,"====DDRMC Register Dump Start======\n\r");
 
 	Status = XLoader_DdrInit(XLOADER_PDI_SRC_DDR);
 	if (XST_SUCCESS != Status) {
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 				"Error  0x%0x in requesting DDR.\n\r", Status);
 		goto END;
 	}
@@ -1020,13 +1022,13 @@ static int XLoader_DumpDdrmcRegisters(void)
 		}
 		Status = XPm_GetDeviceBaseAddr(DevId, &BaseAddr);
 		if (XST_SUCCESS != Status) {
-			XPlmi_Printf(DEBUG_GENERAL,
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 				"Error 0x%0x in getting DDRMC_%u addr\n",
 				Status, Ub);
 			goto END;
 		}
 
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 				"DDRMC_%u (UB 0x%08x)\n\r", Ub, BaseAddr);
 
 		/** Read PCSR Control */
@@ -1034,7 +1036,7 @@ static int XLoader_DumpDdrmcRegisters(void)
 
 		/** Skip DDRMC dump if PComplete is zero */
 		if (0U == (PcsrCtrl & DDRMC_PCSR_CONTROL_PCOMPLETE_MASK)) {
-			XPlmi_Printf(DEBUG_GENERAL, "PComplete not set\n\r");
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PComplete not set\n\r");
 			++Ub;
 			continue;
 		}
@@ -1056,28 +1058,28 @@ static int XLoader_DumpDdrmcRegisters(void)
 		CalibStage = XPlmi_In32(BaseAddr +
 				DDRMC_OFFSET_CALIB_STAGE_PTR);
 
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 				"PCSR Control: 0x%0x\n\r", PcsrCtrl);
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 				"PCSR Status: 0x%0x\n\r", PcsrStatus);
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 				"Calibration Error: 0x%0x\n\r", CalibErr);
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 				"Nibble Location 1: 0x%0x\n\r",
 				CalibErrNibble1);
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 				"Nibble Location 2: 0x%0x\n\r",
 				CalibErrNibble2);
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 				"Nibble Location 3: 0x%0x\n\r",
 				CalibErrNibble3);
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 				"Calibration Stage: 0x%0x\n\r", CalibStage);
 		++Ub;
 	}
-	XPlmi_Printf(DEBUG_GENERAL, "PMC Interrupt Status : 0x%0x\n\r",
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC Interrupt Status : 0x%0x\n\r",
 			XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "====DDRMC Register Dump End======\n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "====DDRMC Register Dump End======\n\r");
 
 END:
 	return Status;
