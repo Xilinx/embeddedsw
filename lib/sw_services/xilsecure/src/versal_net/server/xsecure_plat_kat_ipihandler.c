@@ -24,6 +24,7 @@
 *                       redundant call for XPlmi_ClearKatMask
 * 5.2   vns  07/06/2023 Separated the IPI commands of Update Kat Status
 *       yog  08/07/2023 Replaced trng instance using trngpsx driver
+*       kpt  08/30/2023 Fix updating KAT mask for external modules
 *
 * </pre>
 *
@@ -45,9 +46,10 @@
 
 /************************** Constant Definitions *****************************/
 
-#define XSECURE_KAT_MAX_CMD_LEN		(5U)	/**< Maximum command length*/
+#define XSECURE_KAT_MAX_CMD_LEN		(4U)	/**< Maximum command length*/
 #define XSECURE_DDR_KAT_MASK_MUL	(4U)	/**< Multiplier to get DDR KAT mask */
 #define XSECURE_DDR_MAX_SUPPORT		(7U)	/**< Maximum supported DDR */
+#define XSECURE_DEF_KAT_MASK		(0xFFFFFFFFU) /**< KAT mask */
 
 /************************** Function Prototypes *****************************/
 #ifndef PLM_SECURE_EXCLUDE
@@ -131,32 +133,36 @@ int XSecure_UpdateKatStatusIpiHandler(XPlmi_Cmd *Cmd)
 	u32 *Pload = Cmd->Payload;
 	u32 KatOp = Pload[0U];
 	u32 *UserKatMask = &Pload[1U];
-	u32 KatMask;
+	u32 KatMask = XSECURE_DEF_KAT_MASK;
 
 	if ((KatOp != (u32)XSECURE_API_KAT_CLEAR) && (KatOp != (u32)XSECURE_API_KAT_SET)) {
-			goto END;
+		Status = XST_INVALID_PARAM;
+		goto END;
 	}
 
 	if ((Cmd->Len <= XSECURE_KAT_HDR_LEN) || (Cmd->Len > XSECURE_KAT_MAX_CMD_LEN)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
 	KatMaskLen = Cmd->Len - XSECURE_KAT_HDR_LEN;
 	if (KatMaskLen == 0U) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_UPDATE_DDR_KAT_STATUS):
-		if (Pload[2] > XSECURE_DDR_MAX_SUPPORT) {
+		if (Pload[2U] > XSECURE_DDR_MAX_SUPPORT) {
 			Status = XST_INVALID_PARAM;
 			goto END;
 		}
 		KatAddr = XPLMI_RTCFG_SECURE_DDR_KAT_ADDR;
-		KatMask = XPLMI_DDR_0_KAT_MASK << (XSECURE_DDR_KAT_MASK_MUL * Pload[2]);
+		KatMask = XPLMI_DDR_0_KAT_MASK << (XSECURE_DDR_KAT_MASK_MUL * Pload[2U]);
 		break;
 	case XSECURE_API(XSECURE_API_UPDATE_HNIC_KAT_STATUS):
 		KatAddr = XPLMI_RTCFG_SECURE_HNIC_CPM5N_PCIDE_KAT_ADDR;
-		KatMask =  XPLMI_HNIC_KAT_MASK;
+		KatMask = XPLMI_HNIC_KAT_MASK;
 		break;
 	case XSECURE_API(XSECURE_API_UPDATE_CPM5N_KAT_STATUS):
 		KatAddr = XPLMI_RTCFG_SECURE_HNIC_CPM5N_PCIDE_KAT_ADDR;
@@ -169,7 +175,8 @@ int XSecure_UpdateKatStatusIpiHandler(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_UPDATE_PKI_KAT_STATUS):
 		if (KatMaskLen == XSECURE_MAX_KAT_MASK_LEN) {
 			KatAddr = XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_0;
-			KatMask = XPLMI_PKI_KAT_MASK;
+			KatVal[1U] = UserKatMask[1U];
+			KatVal[2U] = UserKatMask[2U] & XPLMI_PKI_KAT_MASK;
 		}
 		else {
 			Status = XST_FAILURE;
@@ -184,31 +191,28 @@ int XSecure_UpdateKatStatusIpiHandler(XPlmi_Cmd *Cmd)
 	}
 
 	if (KatAddr != 0U) {
-		if (KatOp != (u32)XSECURE_API_KAT_CLEAR) {
-			KatVal[0U] = UserKatMask[0U] & KatMask;
+		if (KatOp != (u32)XSECURE_API_KAT_SET) {
+			KatVal[0U] = ~(UserKatMask[0U] & KatMask);
 			if (KatAddr == XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_0) {
-				KatVal[1U] = UserKatMask[1U] & KatMask;
-				KatVal[2U] = UserKatMask[2U] & KatMask;
+				KatVal[1U] = ~UserKatMask[1U];
+				KatVal[2U] = ~(UserKatMask[2U] & XPLMI_PKI_KAT_MASK);
 			}
 		}
 		else {
-			KatVal[0U] = ~(UserKatMask[0U] & KatMask);
-			if (KatAddr == XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_0) {
-				KatVal[1U] = ~(UserKatMask[1U] & KatMask);
-				KatVal[2U] = ~(UserKatMask[2U] & KatMask);
-			}
+			KatVal[0U] = UserKatMask[0U] & KatMask;
 		}
 
-		Status = Xil_SecureRMW32(KatAddr, KatMask, KatVal[0U]);
+		Status = Xil_SecureRMW32(KatAddr, (UserKatMask[0U] & KatMask), KatVal[0U]);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+
 		if (KatAddr == XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_0) {
-			Status = Xil_SecureRMW32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_1, KatMask, KatVal[1U]);
+			Status = Xil_SecureRMW32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_1, UserKatMask[1U], KatVal[1U]);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			Status = Xil_SecureRMW32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_2, KatMask, KatVal[2U]);
+			Status = Xil_SecureRMW32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_2, (UserKatMask[2U] & XPLMI_PKI_KAT_MASK), KatVal[2U]);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
