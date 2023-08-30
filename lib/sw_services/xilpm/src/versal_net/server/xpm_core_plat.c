@@ -46,7 +46,9 @@ XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 	 * sequence so enable wakeup interrupt here.
 	 */
 	if ((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
-		ClearPcilIsr(Core);
+		if ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Core->Device.Node.Id)) {
+			ClearPcilIsr(Core);
+		}
 		EnableWake(Core);
 	}
 
