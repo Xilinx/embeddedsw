@@ -8,10 +8,15 @@
 #include "xparameters.h"
 
 #cmakedefine    PLM_PRINT_NO_UART
-#cmakedefine    PLM_PRINT
+#cmakedefine 	PLM_SEM_PRINT_OVERRIDE
+#cmakedefine    PLM_PRINT_LEVEL_0
+#if ((((defined(XSEM_CFRSCAN_EN)) || (defined(XSEM_NPISCAN_EN))) && (defined(PLM_SEM_PRINT_OVERRIDE))) || (defined(PLM_PRINT_LEVEL_0)))
+#define PLM_PRINT
+#else
 #cmakedefine    PLM_DEBUG
 #cmakedefine    PLM_DEBUG_INFO
 #cmakedefine    PLM_DEBUG_DETAILED
+#endif
 #cmakedefine    PLM_DEBUG_MODE
 #cmakedefine    PLM_PRINT_PERF
 #cmakedefine    PLM_QSPI_EXCLUDE
