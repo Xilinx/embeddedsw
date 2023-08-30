@@ -25,6 +25,7 @@
 *       kum  04/11/2023 Added Env monitor before efuse programming
 *	kpt  07/26/2023 Removed XNvm_EfuseReadCacheRange
 *	kpt  07/26/2023 Fix security review comments
+*       kpt  08/28/2023 Fix SW-BP-REDUNDANCY while assigning Status to CloseStatus
 *
 * </pre>
 *
@@ -113,7 +114,7 @@ static int XNvm_EfuseChangeEndianness(u8 *Dest, u8 *Src, u32 Size);
  * 				and temparature limits.
  * @param	KeyType - Type of key to be programmed
  * 			(AesKey/UserKey0/UserKey1)
- * @param	EfuseKey - Pointer to the XNvm_AesKey struture, which holds
+ * @param	EfuseKey - Pointer to the XNvm_AesKey structure, which holds
  * 			Aes key to be programmed to eFuse.
  *
  * @return	- XST_SUCCESS - On Successful Write.
@@ -190,7 +191,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -278,7 +279,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -297,7 +298,7 @@ END:
  * 				when set to true it will not check for voltage
  * 				and temparature limits.
  * @param	IvType - Type of IV eFuses to be programmmed
- * @param	EfuseIv - Pointer to the XNvm_EfuseIvs struture which holds IV
+ * @param	EfuseIv - Pointer to the XNvm_EfuseIvs structure which holds IV
  * 			to be programmed to eFuse.
  *
  * @return	- XST_SUCCESS - On Successful Write.
@@ -375,7 +376,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -476,7 +477,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -556,7 +557,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -643,7 +644,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -722,7 +723,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -802,7 +803,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 	return Status;
 }
@@ -880,7 +881,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -959,7 +960,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -1039,7 +1040,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -1121,7 +1122,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -1270,7 +1271,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -1357,7 +1358,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -1474,7 +1475,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -1537,7 +1538,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -1607,7 +1608,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -1675,7 +1676,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -1768,7 +1769,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -1901,7 +1902,7 @@ END :
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -2116,7 +2117,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 	return Status;
 }
@@ -2409,7 +2410,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 	return Status;
 }
@@ -2831,7 +2832,7 @@ END:
  *		XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV
  *
  * @param	IvType - Type of IV eFuses to be programmmed
- * @param	Ivs - Pointer to the XNvm_EfuseIvs struture which holds IV
+ * @param	Ivs - Pointer to the XNvm_EfuseIvs structure which holds IV
  * 			to be programmed to eFuse.
  *
  * @return	- XST_SUCCESS - On Successful Programming.
@@ -2988,7 +2989,7 @@ END:
  *
  * @param	KeyType - Type of key to be programmed
  * 			(AesKey/UserKey0/UserKey1)
- * @param	EfuseKey - Pointer to the XNvm_AesKey struture, which holds
+ * @param	EfuseKey - Pointer to the XNvm_AesKey structure, which holds
  * 			Aes key to be programmed to eFuse.
  *
  * @return	- XST_SUCCESS - On Successful Programming.
@@ -3222,7 +3223,7 @@ END:
 	 */
 	CloseStatus = XNvm_EfuseCloseController();
 	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
+		Status |= CloseStatus;
 	}
 
 	return Status;
@@ -3421,7 +3422,7 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
  * @return	- XST_SUCCESS - Specified bit set in eFUSE.
  *		- XNVM_EFUSE_ERR_PGM_VERIFY  - Verification failed, specified bit
  *						   is not set.
- *		- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occured.
+ *		- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occurred.
  *		- XST_FAILURE                - Unexpected error.
  *
  ******************************************************************************/
