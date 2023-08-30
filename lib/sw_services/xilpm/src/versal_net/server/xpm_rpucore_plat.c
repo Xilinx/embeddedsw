@@ -94,7 +94,14 @@ void XPmRpuCore_SetTcmBoot(const u32 DeviceId, const u8 TcmBootFlag){
 XStatus XPm_PlatRpucoreHalt(XPm_Core *Core){
 	XStatus Status = XST_FAILURE;
 	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
+	const XPm_Psm *Psm;
+	u32 Reg;
+	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+	if (NULL == Psm) {
+		goto done;
+	}
 
+	PmIn32(Psm->PsmGlobalBaseAddr + Core->Device.Power->PwrStatOffset, Reg);
 	if((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State){
 		/* Put RPU in  halt state */
 		/*don't do reset release because it is setting up PCIL ISR and we are enabling wake interrupt.
@@ -103,9 +110,13 @@ XStatus XPm_PlatRpucoreHalt(XPm_Core *Core){
 		XPM_RPU_CORE_HALT(RpuCore->ResumeCfg);
 
 		Status = XST_SUCCESS;
-	} else{
+	} else if (0U == (Reg & Core->Device.Power->PwrStatMask)) {
+		/*skip halt if the core is powered down*/
+		Status = XST_SUCCESS;
+	} else {
 		Status = XPmRpuCore_Halt((XPm_Device *)Core);
 	}
 
+done:
 	return Status;
 }
