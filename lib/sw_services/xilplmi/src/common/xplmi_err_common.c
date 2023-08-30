@@ -125,6 +125,7 @@
 *       sk   07/26/2023 Added redundant check in XPlmi_DetectAndHandleTamper
 *       sk   08/17/2023 Updated logic to handle SubsystemId for EM actions
 *       sk   08/18/2023 Added redundant call for XPlmi_TriggerSLDOnHaltBoot
+*       rama 08/30/2023 Changed EAM prints to DEBUG_ALWAYS for debug level_0 option
 * </pre>
 *
 * @note
@@ -506,7 +507,7 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 	(void)ErrorNodeId;
 	(void)RegMask;
 
-	XPlmi_Printf(DEBUG_GENERAL, "PSM EAM Interrupt: ");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PSM EAM Interrupt: ");
 	for (Index = 0U; Index < XPLMI_PSM_MAX_ERR_CNT; Index++) {
 		ErrStatus[Index] = XPlmi_In32(PSM_GLOBAL_REG_PSM_ERR1_STATUS +
 					(Index * PSM_GLOBAL_REG_PSM_ERR_OFFSET));
@@ -515,10 +516,10 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 		ErrNcrMask[Index] = XPlmi_In32(PSM_GLOBAL_REG_PSM_NCR_ERR1_MASK +
 					(Index * PMC_GLOBAL_PSM_ERR_ACTION_OFFSET));
 		ErrMask[Index] = ErrCrMask[Index] & ErrNcrMask[Index];
-		XPlmi_Printf_WoTS(DEBUG_GENERAL, "ERR%d: 0x%0x ", (Index + 1U),
+		XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "ERR%d: 0x%0x ", (Index + 1U),
 					ErrStatus[Index]);
 	}
-	XPlmi_Printf_WoTS(DEBUG_GENERAL, "\n\r");
+	XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "\n\r");
 
 	for (ErrIndex = 0U; ErrIndex < XPLMI_PSM_MAX_ERR_CNT; ErrIndex++) {
 		if (ErrStatus[ErrIndex] == 0U) {
@@ -694,7 +695,7 @@ int XPlmi_ErrorTaskHandler(void *Data)
 					(Index * PMC_GLOBAL_REG_PMC_ERR_OFFSET));
 		ErrIrqMask[Index] = XPlmi_In32(GET_PMC_IRQ_MASK(GET_PMC_ERR_ACTION_OFFSET(Index)));
 		if ((ErrStatus[Index] & ~ErrIrqMask[Index]) != 0x0U) {
-			XPlmi_Printf(DEBUG_GENERAL, "PMC EAM ERR%d: 0x%0x\r\n", (Index + 1U),
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC EAM ERR%d: 0x%0x\r\n", (Index + 1U),
 					ErrStatus[Index]);
 		}
 	}
@@ -766,7 +767,7 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
 
 	/** - Print NodeId, Mask and Error ID information of the error received. */
-	XPlmi_Printf(DEBUG_GENERAL, "Received EAM error. ErrorNodeId: 0x%x,"
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received EAM error. ErrorNodeId: 0x%x,"
 			" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
 			ErrorNodeId, RegMask, ErrorId);
 }
@@ -1399,31 +1400,31 @@ int XPlmi_PsEmInit(void)
  *****************************************************************************/
 static void XPlmi_DumpRegisters(void)
 {
-	XPlmi_Printf(DEBUG_GENERAL, "============Register Dump============\n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "============Register Dump============\n\r");
 
-	XPlmi_Printf(DEBUG_GENERAL, "PMC_TAP_IDCODE: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC_TAP_IDCODE: 0x%08x\n\r",
 		XPlmi_In32(PMC_TAP_IDCODE));
-	XPlmi_Printf(DEBUG_GENERAL, "EFUSE_CACHE_IP_DISABLE_0(EXTENDED IDCODE): "
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "EFUSE_CACHE_IP_DISABLE_0(EXTENDED IDCODE): "
 			"0x%08x\n\r",
 		XPlmi_In32(EFUSE_CACHE_IP_DISABLE_0));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC_TAP_VERSION: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC_TAP_VERSION: 0x%08x\n\r",
 		XPlmi_In32(PMC_TAP_VERSION));
-	XPlmi_Printf(DEBUG_GENERAL, "CRP_BOOT_MODE_USER: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "CRP_BOOT_MODE_USER: 0x%08x\n\r",
 		XPlmi_In32(CRP_BOOT_MODE_USER));
-	XPlmi_Printf(DEBUG_GENERAL, "CRP_BOOT_MODE_POR: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "CRP_BOOT_MODE_POR: 0x%08x\n\r",
 		XPlmi_In32(CRP_BOOT_MODE_POR));
-	XPlmi_Printf(DEBUG_GENERAL, "CRP_RESET_REASON: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "CRP_RESET_REASON: 0x%08x\n\r",
 		XPlmi_In32(CRP_RESET_REASON));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_MULTI_BOOT: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC_GLOBAL_PMC_MULTI_BOOT: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PWR_STATUS: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC_GLOBAL_PWR_STATUS: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_PWR_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_GSW_ERR: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC_GLOBAL_PMC_GSW_ERR: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_PMC_GSW_ERR));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PLM_ERR: 0x%08x\n\r",
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC_GLOBAL_PLM_ERR: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_PLM_ERR));
 	XPlmi_DumpErrNGicStatus();
-	XPlmi_Printf(DEBUG_GENERAL, "============Register Dump============\n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "============Register Dump============\n\r");
 }
 
 /*****************************************************************************/
@@ -1543,7 +1544,7 @@ int XPlmi_CheckNpiErrors(void)
 	ErrVal =  IsrVal & NPI_NIR_REG_ISR_ERR_MASK;
 	ErrVal |= ErrTypeVal & NPI_NIR_ERR_TYPE_ERR_MASK;
 	if (ErrVal != 0U) {
-		XPlmi_Printf(DEBUG_GENERAL, "NPI_NIR_ISR: 0x%08x\n\r"
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "NPI_NIR_ISR: 0x%08x\n\r"
 			"NPI_NIR_ERR_TYPE: 0x%08x\n\r"
 			"NPI_NIR_ERR_LOG_P0_INFO_0: 0x%08x\n\r"
 			"NPI_NIR_ERR_LOG_P0_INFO_1: 0x%08x\n\r",
