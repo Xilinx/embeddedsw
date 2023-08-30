@@ -31,6 +31,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 4.10  gm   07/11/23 Added SDT support.
+* 4.10  gm   08/28/23 Update example to support peripheral tests.
 *
 * </pre>
 *
@@ -88,10 +89,9 @@
 
 #ifndef SDT
 int GpioOutputExample(u16 DeviceId, u32 GpioWidth);
-
 int GpioInputExample(u16 DeviceId, u32 *DataRead);
 #else
-int GpioOutputExample(UINTPTR BaseAddress, u32 GpioWidth);
+int GpioOutputExample(XGpio *GpioOutputPtr, UINTPTR BaseAddress);
 int GpioInputExample(UINTPTR BaseAddress, u32 *DataRead);
 #endif
 
@@ -129,7 +129,7 @@ int main(void)
 #ifndef SDT
 	Status = GpioOutputExample(GPIO_OUTPUT_DEVICE_ID, GPIO_BITWIDTH);
 #else
-	Status = GpioOutputExample(XGPIO_BASEADDRESS, GPIO_BITWIDTH);
+	Status = GpioOutputExample(&GpioOutput, XGPIO_BASEADDRESS);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Gpio tapp Example Failed\r\n");
@@ -175,13 +175,21 @@ int main(void)
 #ifndef SDT
 int GpioOutputExample(u16 DeviceId, u32 GpioWidth)
 #else
-int GpioOutputExample(UINTPTR BaseAddress, u32 GpioWidth)
+int GpioOutputExample(XGpio *GpioOutputPtr, UINTPTR BaseAddress)
 #endif
 {
 	volatile int Delay;
+#ifdef SDT
+	XGpio_Config *CfgPtr;
+	u32 GpioWidth;
+#endif
 	u32 LedBit;
 	u32 LedLoop;
 	int Status;
+
+#ifdef SDT
+	(void)GpioOutputPtr;
+#endif
 
 	/*
 	 * Initialize the GPIO driver so that it's ready to use,
@@ -190,6 +198,7 @@ int GpioOutputExample(UINTPTR BaseAddress, u32 GpioWidth)
 #ifndef SDT
 	Status = XGpio_Initialize(&GpioOutput, DeviceId);
 #else
+	CfgPtr = XGpio_LookupConfig(BaseAddress);
 	Status = XGpio_Initialize(&GpioOutput, BaseAddress);
 #endif
 	if (Status != XST_SUCCESS)  {
@@ -201,6 +210,10 @@ int GpioOutputExample(UINTPTR BaseAddress, u32 GpioWidth)
 
 	/* Set the GPIO outputs to low */
 	XGpio_DiscreteWrite(&GpioOutput, LED_CHANNEL, 0x0);
+
+#ifdef SDT
+	GpioWidth = CfgPtr->Width;
+#endif
 
 	for (LedBit = 0x0; LedBit < GpioWidth; LedBit++)  {
 

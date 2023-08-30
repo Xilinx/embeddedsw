@@ -15,8 +15,7 @@
 int GpioOutputExample(u16 DeviceId, u32 GpioWidth);
 int GpioInputExample(u16 DeviceId, u32 *DataRead);
 #else
-int GpioOutputExample(UINTPTR BaseAddress, u32 GpioWidth);
-int GpioInputExample(UINTPTR BaseAddress, u32 *DataRead);
+int GpioOutputExample(XGpio *GpioOutputPtr, UINTPTR BaseAddress);
 #endif
 #endif
 
