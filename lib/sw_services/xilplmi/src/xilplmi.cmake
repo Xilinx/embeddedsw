@@ -8,8 +8,14 @@ endif()
 
 set(XILPLMI_plm_dbg_lvl "level1" CACHE STRING "Selects the debug logs level")
 set_property(CACHE XILPLMI_plm_dbg_lvl PROPERTY STRINGS "level0" "level1" "level2" "level3")
+
+Option(XILPLMI_sem_override_dbg_lvl "Override debug log level to 0 if Xilsem is present" ON)
+if(XILPLMI_sem_override_dbg_lvl)
+  set(PLM_SEM_PRINT_OVERRIDE " ")
+endif()
+
 if("${XILPLMI_plm_dbg_lvl}" STREQUAL "level0")
-  set(PLM_PRINT " ")
+  set(PLM_PRINT_LEVEL0 " ")
 elseif("${XILPLMI_plm_dbg_lvl}" STREQUAL "level1")
   set(PLM_DEBUG " ")
 elseif("${XILPLMI_plm_dbg_lvl}" STREQUAL "level2")
