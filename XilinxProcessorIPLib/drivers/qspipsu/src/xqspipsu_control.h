@@ -29,6 +29,9 @@
  * 1.13   akm  01/04/21 Fix MISRA-C violations.
  * 1.15   akm  03/03/22 Enable tapdelay settings for applications on
  * 			 Microblaze platform.
+ * 1.18   sb   08/29/23 Added function prototypes for XQspiPsu_PolledMessageTransfer, XQspiPsu_PolledRecvData
+ *                      XQspiPsu_PolledSendData, XQspiPsu_IntrDataTransfer, XQspiPsu_IntrSendData,
+ *                      XQspiPsu_IntrRecvData and XQspiPsu_IntrDummyDataTransfer.
  *
  * </pre>
  *
@@ -86,6 +89,20 @@ u32 XQspiPsu_SelectSpiMode(u8 SpiMode);
 void XQspiPsu_SetDefaultConfig(XQspiPsu *InstancePtr);
 void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 Size);
 void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,	XQspiPsu_Msg *Msg, s32 Size);
+s32 XQspiPsu_PolledMessageTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
+		u32 NumMsg);
+s32 XQspiPsu_PolledRecvData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
+		s32 Index, u32 *IOPending);
+s32 XQspiPsu_PolledSendData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
+		s32 Index);
+void XQspiPsu_IntrDataTransfer(XQspiPsu* InstancePtr,
+		u32 *QspiPsuStatusReg, u8* DeltaMsgCnt);
+void XQspiPsu_IntrSendData(XQspiPsu* InstancePtr,
+		u32 QspiPsuStatusReg, u8* DeltaMsgCnt);
+void XQspiPsu_IntrRecvData(XQspiPsu* InstancePtr,
+		u32 QspiPsuStatusReg, u32 DmaIntrStatusReg, u8* DeltaMsgCnt);
+void XQspiPsu_IntrDummyDataTransfer(XQspiPsu* InstancePtr, u32 QspiPsuStatusReg,
+		u8 DeltaMsgCnt);
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__)
 s32 XQspipsu_Set_TapDelay(const XQspiPsu *InstancePtr, u32 TapdelayBypass,
