@@ -23,6 +23,7 @@
 * 5.2   vns  07/06/23 Added separate IPI commands for Crypto Status and KAT status updates
 *       kpt  07/09/23 Added Key wrap and unwrap structures and macros
 *       mmd  07/20/23 Added reading FIPS info for HMAC and SHA2
+*       kpt  08/30/23 Updated XSECURE_KAT_HDR_LEN
 *
 * </pre>
 * @note
@@ -46,7 +47,7 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**< KAT macros */
-#define XSECURE_KAT_HDR_LEN		(2U) /**< Header Length*/
+#define XSECURE_KAT_HDR_LEN		(1U) /**< Header Length*/
 #define XSECURE_MAX_KAT_MASK_LEN	(3U) /**< Maximum mask length*/
 #define XSECURE_MIN_KAT_MASK_LEN	(1U) /**< Minimum mask length*/
 
