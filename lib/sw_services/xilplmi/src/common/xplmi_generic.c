@@ -100,6 +100,7 @@
 *       bm   07/06/2023 Updated Begin offset Stack logic
 *       bm   07/06/2023 Refactored Proc logic to more generic logic
 *       bm   07/06/2023 Added list commands
+*       sk   08/30/2023 Added Address range check for PSM Buff List
 *
 * </pre>
 *
@@ -1719,14 +1720,21 @@ int XPlmi_SetBufferList(u32 Address, u16 Size)
 {
 	int Status = XST_FAILURE;
 	XPlmi_BufferList *BufferList = XPlmi_GetBufferList(XPLMI_PSM_BUFFER_LIST);
+	u32 StartAddr;
+	u32 EndAddr;
 
 	/**
 	 * - Validate the allocated memory address range.
 	 *   Otherwise return an error.
 	 */
-	Status = XPlmi_VerifyAddrRange((u64)Address,
-			(u64)(Address + (u32)Size - 1U));
-	if (Status != XST_SUCCESS) {
+	StartAddr = Address;
+	EndAddr = (Address + (u32)Size - 1U);
+	if ((StartAddr >= (u32)XPLMI_PSM_RAM_BASE_ADDR) &&
+		(EndAddr <= (u32)XPLMI_PSM_RAM_HIGH_ADDR)) {
+		/* PSM RAM is valid */
+		Status = XST_SUCCESS;
+	}
+	else {
 		Status = (int)XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE;
 		goto END;
 	}
