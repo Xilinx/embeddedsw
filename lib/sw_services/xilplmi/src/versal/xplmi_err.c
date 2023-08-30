@@ -26,6 +26,8 @@
 *       dd   03/28/2023 Updated doxygen comments
 * 1.02  rama 07/19/2023 Updated ErrorTable to support STL errors
 *       sk   08/17/2023 Updated XPlmi_EmSetAction arguments
+*       rama 08/30/2023 Changed XMPU & XPPU error prints to DEBUG_ALWAYS for
+*                       debug level_0 option
 *
 * </pre>
 *
@@ -596,7 +598,7 @@ static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
 	 * ERR_ST2 is the Master ID (i.e. SMID) of the violated transaction
 	 * ISR is the interrupt status and clear for access violations
 	 */
-	XPlmi_Printf(DEBUG_GENERAL, "%s: ERR_ST1: 0x%08x, ERR_ST2: 0x%08x, ISR: 0x%08x\r\n",
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s: ERR_ST1: 0x%08x, ERR_ST2: 0x%08x, ISR: 0x%08x\r\n",
 			ProtUnitStr, XppuErrStatus1, XppuErrStatus2, XppuErrors);
 }
 
@@ -627,7 +629,7 @@ static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
 	 * ERR_ST2 is Master ID (i.e. SMID) of the failed transaction
 	 * ISR is the interrupt status and clear for access violations
 	 */
-	XPlmi_Printf(DEBUG_GENERAL,
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 			"%s: ERR_ST1_LO: 0x%08x, ERR_ST1_HI: 0x%08x, ERR_ST2: 0x%08x, ISR: 0x%08x\r\n",
 			ProtUnitStr, XmpuErr1lo, XmpuErr1hi, XmpuErrStatus2, XmpuErrors);
 }
