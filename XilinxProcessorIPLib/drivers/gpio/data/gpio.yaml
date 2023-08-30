@@ -32,6 +32,7 @@ required:
     - xlnx,is-dual
     - interrupts
     - interrupt-parent
+    - xlnx,gpio-width
 
 examples:
   xgpio_example.c:
@@ -43,4 +44,7 @@ examples:
   xgpio_tapp_example.c:
     - reg
 
+tapp:
+   xgpio_tapp_example.c:
+        declaration: GpioOutputExample
 ...

@@ -100,6 +100,7 @@
 * 4.7   sne  08/28/20 Modify Makefile to support parallel make execution.
 * 4.8	sne  02/10/21 Fixed doxygen warnings.
 * 4.10  gm   07/11/23 Added SDT support.
+* 4.10  gm   08/28/23 Added Width member to XGpio_Config in SDT flow.
 *
 * </pre>
 *****************************************************************************/
@@ -137,6 +138,7 @@ typedef struct {
 #ifdef SDT
 	u16 IntrId; /** Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
 	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u16 Width;  /** Gpio width */
 #endif
 } XGpio_Config;
 
