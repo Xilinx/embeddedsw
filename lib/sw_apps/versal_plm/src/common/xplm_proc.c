@@ -31,6 +31,8 @@
 * 1.06  ng   11/11/2022 Updated doxygen comments
 *       kpt  02/21/2023 Removed check for XLoader_SecureClear
 * 1.07  bm   07/17/2023 Removed XPlm_InitProc function
+*       rama 08/10/2023 Changed exception handler print to DEBUG_ALWAYS for
+*                       debug level_0 option
 *
 * </pre>
 *
@@ -102,7 +104,7 @@ static void XPlm_ExceptionHandler(void *Data)
 	u8 SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
 			PMC_TAP_SLR_TYPE_VAL_MASK);
 
-	XPlmi_Printf(DEBUG_GENERAL, "Received Exception \n\r"
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received Exception \n\r"
 		"MSR: 0x%08x, EAR: 0x%08x, EDR: 0x%08x, ESR: 0x%08x, \n\r"
 		"R14: 0x%08x, R15: 0x%08x, R16: 0x%08x, R17: 0x%08x \n\r",
 		mfmsr(), mfear(), mfedr(), mfesr(),
