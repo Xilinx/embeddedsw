@@ -15,6 +15,8 @@
 #       ma   8/10/2022 Changed ssit_plm_to_plm_comm_en default value to true
 # 1.8   skg  12/07/2022 Added plm_add_ppks_en user configuration
 # 1.9   har  02/15/23 Updated library version for 2023.2
+#       rama 08/08/2023 Added option sem_override_dbg_lvl for overriding
+#                       plm_dbg_lvl to 0 for XilSEM enabled designs
 #
 ##############################################################################
 
@@ -47,4 +49,5 @@ BEGIN LIBRARY xilplmi
   PARAM name = ssit_plm_to_plm_comm_en, desc = "Enables or Disables SSIT PLM to PLM communication (valid only for Versal)", type = bool, default = true;
   PARAM name = plm_ecdsa_en, desc = "Enables or Disables ECDSA handlers", type = bool, default = true;
   PARAM name = plm_rsa_en, desc = "Enables or Disables RSA handlers", type = bool, default = true;
+  PARAM name = sem_override_dbg_lvl, desc = "Overrides plm_dbg_lvl as 0 for XilSEM designs if enabled (1) ", type = bool, default = true;
 END LIBRARY

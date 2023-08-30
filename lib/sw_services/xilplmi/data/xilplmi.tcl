@@ -16,6 +16,8 @@
 #       ma   08/10/22 Enable SSIT PLM to PLM communication feature based on
 #                     user option and Number of SLRs from the design
 # 1.8   skg  12/07/2022 Added plm_add_ppks_en user configuration
+# 1.9   rama 08/08/2023 Added logic for overriding plm_dbg_lvl to 0
+#                      for XilSEM enabled designs
 #
 ##############################################################################
 
@@ -75,6 +77,37 @@ proc execs_generate {libhandle} {
 
 }
 
+proc getCIPSProperty { cips_prop } {
+  set pspmcCell [::hsi::get_cells -hier -filter "IP_NAME==pspmc"]
+  if {$pspmcCell eq ""} {
+	set pspmcCell [::hsi::get_cells -hier -filter "IP_NAME==pmcps"]
+  }
+  if {$pspmcCell eq ""} {
+	set pspmcCell [::hsi::get_cells -hier -filter "IP_NAME==psxl"]
+  }
+  if {$pspmcCell ne ""} {
+    return [common::get_property $cips_prop $pspmcCell]
+  } else {
+    set cipsCell [::hsi::get_cells -hier -filter "IP_NAME==versal_cips"]
+    if {$cipsCell ne ""} {
+      set isHierIp [common::get_property IS_HIERARCHICAL $cipsCell]
+      if {$isHierIp} {
+        set ps_pmc_config [common::get_property CONFIG.PS_PMC_CONFIG $cipsCell]
+        set prop_exists [dict get $ps_pmc_config $cips_prop]
+        if {$prop_exists} {
+          return [dict get $ps_pmc_config $cips_prop]
+        } else {
+          return 0
+        }
+      } else {
+        return [common::get_property $cips_prop $cipsCell]
+      }
+    }
+    return 0
+  }
+  return 0
+}
+
 proc xgen_opts_file {libhandle} {
 
 	# Copy the include files to the include directory
@@ -112,8 +145,14 @@ proc xgen_opts_file {libhandle} {
 
 	# Get plm_dbg_lvl value set by user, by default it is general
 	set value [common::get_property CONFIG.plm_dbg_lvl $libhandle]
+	set sem_print_flag [common::get_property CONFIG.sem_override_dbg_lvl $libhandle]
+	set sem_cfrscan_en [getCIPSProperty CONFIG.SEM_MEM_SCAN]
+	set sem_npiscan_en [getCIPSProperty CONFIG.SEM_NPI_SCAN]
 	puts $file_handle "\n/* Debug level option */"
-	if {$value == "level0"} {
+	if {((($sem_cfrscan_en == 1) || ($sem_npiscan_en == 1)) && ($sem_print_flag == true))} {
+		puts "Level_0 is selected"
+		puts $file_handle "#define PLM_PRINT"
+	} elseif {$value == "level0"} {
 		puts $file_handle "#define PLM_PRINT"
 	} elseif {$value == "level1"} {
 		puts $file_handle "#define PLM_DEBUG"
