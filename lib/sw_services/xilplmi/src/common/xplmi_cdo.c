@@ -59,6 +59,8 @@
 *       bm   06/13/2023 Log PLM error before deferring
 *       bm   07/06/2023 Added Check for recursive CDO processing
 *       sk   07/31/2023 Added Redundant call for Sldstate check
+*       rama 08/10/2023 Changed CDO cmd execute failure prints to DEBUG_ALWAYS
+*                       for debug level_0 option
 *
 * </pre>
 *
@@ -372,7 +374,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	}
 	Status = XPlmi_CmdExecute(CmdPtr);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 			"CMD: 0x%08x execute failed, Processed Cdo Length 0x%0x\n\r",
 			CmdPtr->CmdId, (CdoPtr->ProcessedCdoLen + XPLMI_CDO_HDR_LEN) * XPLMI_WORD_LEN);
 		PrintLen = CmdPtr->PayloadLen;

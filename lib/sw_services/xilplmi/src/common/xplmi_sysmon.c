@@ -37,6 +37,8 @@
  *       bm   07/24/2022 Set PlmLiveStatus during boot time
  * 1.07  ng   11/11/2022 Updated doxygen comments
  *       dd   03/28/2023 Updated doxygen comments
+ * 1.08  rama 08/10/2023 Changed OT print to DEBUG_ALWAYS for
+ *                       debug level_0 option
  *
  * </pre>
  *
@@ -198,7 +200,7 @@ void XPlmi_SysMonOTDetect(u32 WaitInMSec)
 		XPlmi_SetPlmLiveStatus();
 		Count--;
 		if (0U == Count) {
-			XPlmi_Printf(DEBUG_GENERAL,
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 				"Warning: Over-temperature condition!\r\n");
 			Count = 1000U;
 		}

@@ -668,7 +668,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	if (XST_SUCCESS == Status) {
 		Cmd->ResumeHandler = NULL;
 	} else {
-		PmErr("Error 0x%x while processing command 0x%x\r\n",
+		PmAlert("Error 0x%x while processing command 0x%x\r\n",
 				Status, Cmd->CmdId);
 		PmDbg("Command payload: 0x%x, 0x%x, 0x%x, 0x%x\r\n",
 			Pload[0], Pload[1], Pload[2], Pload[3]);
@@ -678,7 +678,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	Cmd->Response[0] = (u32)Status;
 	Status = Xil_SMemCpy(&Cmd->Response[1], CopySize, ApiResponse, CopySize, CopySize);
 	if (XST_SUCCESS != Status) {
-		PmErr("Error 0x%x while copying the Cmd 0x%x return payload\r\n",
+		PmAlert("Error 0x%x while copying the Cmd 0x%x return payload\r\n",
 				Status, Cmd->CmdId);
 		goto done;
 	}
@@ -688,7 +688,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 
 done:
 	if (XST_SUCCESS != Status) {
-		PmErr("Err Code: 0x%x\r\n", Status);
+		PmAlert("Err Code: 0x%x\r\n", Status);
 	}
 	return Status;
 }

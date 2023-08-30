@@ -53,6 +53,8 @@
 *       sk   07/26/2023 Added SlrType check redundancy in XPlmi_SsitEventsInit
 *       sk   07/26/2023 Added temporal check for Sld Notification
 *                       in XPlmi_SsitErrHandler
+*       rama 08/10/2023 Changed SSIT sync error prints to DEBUG_ALWAYS for
+*                       debug level_0 option
 *
 * </pre>
 *
@@ -1020,7 +1022,7 @@ static int XPlmi_SsitEventHandler(void *Data)
 					/* Call the handler if the event is pending */
 					Status = SsitEvents->Events[Idx].EventHandler(Data);
 					if (Status != XST_SUCCESS) {
-						XPlmi_Printf(DEBUG_GENERAL, "Error 0x%x while executing "
+						XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Error 0x%x while executing "
 								"event 0x%x\r\n", Status, Idx);
 					}
 				}
@@ -1284,7 +1286,7 @@ static int XPlmi_SsitSyncEventHandler(u32 SlavesMask, u32 TimeOut, u8 IsWait)
 			 * Return error in case the sync event is not received
 			 * from Slave SLRs
 			 */
-			XPlmi_Printf(DEBUG_GENERAL, "Slaves did not initiate sync. "
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Slaves did not initiate sync. "
 					"SSIT Sync/Wait Slaves event timed out in Master\r\n");
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
 		}
@@ -1797,7 +1799,7 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
 
 	/** - If the timeout is exceeded, return an error code. */
 	if (0x0U == TimeOut) {
-		XPlmi_Printf(DEBUG_GENERAL, "Slaves did not initiate sync. "
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Slaves did not initiate sync. "
 				"SSIT Sync Slaves command timed out in Master\r\n");
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
 		goto END;
@@ -1869,7 +1871,7 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
 
 	/** - If the timeout is exceeded, return an error code. */
 	if (TimeOut == 0x0U) {
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 			"Received error from Slave SLR or Timed out\r\n");
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
 		goto END;

@@ -160,6 +160,8 @@
 *       sk   07/31/2023 Updated error codes in XLoader_IsPdiAddrLookup
 *       sk   08/18/2023 Fixed security review comments
 *       sk   08/28/2023 Added redundant call for XLoader_GetKekSrc
+*       rama 08/30/2023 Changed PDI source type print to DEBUG_ALWAYS for
+*                       debug level_0 option
 *
 * </pre>
 *
@@ -395,7 +397,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	/**
 	 * - Print the PDI source type.
 	*/
-	XPlmi_Printf(DEBUG_GENERAL, "Loading PDI from %s%s\n\r",
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Loading PDI from %s%s\n\r",
 		PdiSourceMap[DeviceFlags].Name, RawString);
 
 	/*
