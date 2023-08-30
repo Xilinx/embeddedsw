@@ -70,43 +70,43 @@ extern "C" {
 void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg);
 u32 XQspiPsu_SetIOMode(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg);
 void XQspiPsu_IORead(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
-		u32 StatusReg);
+		     u32 StatusReg);
 void XQspiPsu_PollDataConfig(XQspiPsu *InstancePtr, XQspiPsu_Msg *FlashMsg);
 void XQspiPsu_TXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg);
 void XQspiPsu_SetupRxDma(const XQspiPsu *InstancePtr,
-					XQspiPsu_Msg *Msg);
+			 XQspiPsu_Msg *Msg);
 void XQspiPsu_Setup64BRxDma(const XQspiPsu *InstancePtr,
-					XQspiPsu_Msg *Msg);
+			    XQspiPsu_Msg *Msg);
 void XQspiPsu_RXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg);
 void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
-					u32 *GenFifoEntry);
+			u32 *GenFifoEntry);
 void XQspiPsu_GenFifoEntryDataLen(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
-		u32 *GenFifoEntry);
+				  u32 *GenFifoEntry);
 u32 XQspiPsu_CreatePollDataConfig(const XQspiPsu *InstancePtr,
-		const XQspiPsu_Msg *FlashMsg);
+				  const XQspiPsu_Msg *FlashMsg);
 void XQspiPsu_PollDataHandler(XQspiPsu *InstancePtr, u32 StatusReg);
 u32 XQspiPsu_SelectSpiMode(u8 SpiMode);
 void XQspiPsu_SetDefaultConfig(XQspiPsu *InstancePtr);
 void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 Size);
 void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,	XQspiPsu_Msg *Msg, s32 Size);
 s32 XQspiPsu_PolledMessageTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
-		u32 NumMsg);
+				   u32 NumMsg);
 s32 XQspiPsu_PolledRecvData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
-		s32 Index, u32 *IOPending);
+			    s32 Index, u32 *IOPending);
 s32 XQspiPsu_PolledSendData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
-		s32 Index);
-void XQspiPsu_IntrDataTransfer(XQspiPsu* InstancePtr,
-		u32 *QspiPsuStatusReg, u8* DeltaMsgCnt);
-void XQspiPsu_IntrSendData(XQspiPsu* InstancePtr,
-		u32 QspiPsuStatusReg, u8* DeltaMsgCnt);
-void XQspiPsu_IntrRecvData(XQspiPsu* InstancePtr,
-		u32 QspiPsuStatusReg, u32 DmaIntrStatusReg, u8* DeltaMsgCnt);
-void XQspiPsu_IntrDummyDataTransfer(XQspiPsu* InstancePtr, u32 QspiPsuStatusReg,
-		u8 DeltaMsgCnt);
+			    s32 Index);
+void XQspiPsu_IntrDataTransfer(XQspiPsu *InstancePtr,
+			       u32 *QspiPsuStatusReg, u8 *DeltaMsgCnt);
+void XQspiPsu_IntrSendData(XQspiPsu *InstancePtr,
+			   u32 QspiPsuStatusReg, u8 *DeltaMsgCnt);
+void XQspiPsu_IntrRecvData(XQspiPsu *InstancePtr,
+			   u32 QspiPsuStatusReg, u32 DmaIntrStatusReg, u8 *DeltaMsgCnt);
+void XQspiPsu_IntrDummyDataTransfer(XQspiPsu *InstancePtr, u32 QspiPsuStatusReg,
+				    u8 DeltaMsgCnt);
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__)
 s32 XQspipsu_Set_TapDelay(const XQspiPsu *InstancePtr, u32 TapdelayBypass,
-						u32 LPBKDelay, u32 Datadelay);
+			  u32 LPBKDelay, u32 Datadelay);
 s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler);
 #endif
 
