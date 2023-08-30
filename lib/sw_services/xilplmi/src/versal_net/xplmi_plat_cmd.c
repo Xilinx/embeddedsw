@@ -32,6 +32,7 @@
 *       bm   07/06/2023 Added XPlmi_RunProc command
 *       bm   07/06/2023 Refactored Proc logic to more generic logic
 *       bm   07/06/2023 Added List commands
+*       sk   08/29/2023 Updated IPI Timeout to ~5sec to avoid any DoS issue
 *
 * </pre>
 *
@@ -59,8 +60,8 @@
 #define XPLMI_BUFFER_PSM_SEND_END_ADDR_IDX	(2U) /**< End address index */
 #define XPLMI_BUFFER_PAYLOAD_ARG_CNT		(8U) /**< Payload argument count */
 
-/* IPI Max Timeout */
-#define IPI_MAX_TIMEOUT			(~0U) /**< IPI Max timeout */
+/* IPI Max Timeout calculated based on 460MHz core freq*/
+#define IPI_MAX_TIMEOUT			(0x2DB267AAU) /**< IPI Max timeout ~5sec*/
 
 /* Command related macros */
 #define XPLMI_SCATTER_WRITE_PAYLOAD_LEN			(2U) /**< Scatter write payload length */
