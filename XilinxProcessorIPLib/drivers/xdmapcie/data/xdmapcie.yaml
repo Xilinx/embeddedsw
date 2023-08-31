@@ -31,7 +31,7 @@ required:
     - xlnx,num-of-bars
     - xlnx,include-baroffset-reg
     - xlnx,port-type
-    - xlnx,csr-slcr
+    - xlnx,csr-slcr : 2
     - ranges: 2
 
 examples:
