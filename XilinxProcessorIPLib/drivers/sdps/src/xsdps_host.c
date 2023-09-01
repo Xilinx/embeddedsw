@@ -76,7 +76,7 @@ void XSdps_Smc(XSdPs *InstancePtr, u32 RegOffset, u32 Mask, u32 Val)
 *******************************************************************************/
 void XSdPs_SetTapDelay_SDR104(XSdPs *InstancePtr)
 {
-	if (InstancePtr->Config.OTapDly_SDR_Clk200) {
+	if (InstancePtr->Config.OTapDly_SDR_Clk200 != 0U) {
 		InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk200;
 	} else if (InstancePtr->Config.BankNumber == 2U) {
 		InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B2;
@@ -97,7 +97,7 @@ void XSdPs_SetTapDelay_SDR104(XSdPs *InstancePtr)
 *******************************************************************************/
 void XSdPs_SetTapDelay_SDR50(XSdPs *InstancePtr)
 {
-	if (InstancePtr->Config.OTapDly_SDR_Clk100) {
+	if (InstancePtr->Config.OTapDly_SDR_Clk100 != 0U) {
 		InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk100;
 	} else {
 		InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD50;
@@ -116,8 +116,8 @@ void XSdPs_SetTapDelay_SDR50(XSdPs *InstancePtr)
 *******************************************************************************/
 void XSdPs_SetTapDelay_DDR50(XSdPs *InstancePtr)
 {
-	if (InstancePtr->Config.OTapDly_DDR_Clk50 &&
-	    InstancePtr->Config.ITapDly_DDR_Clk50) {
+	if ((InstancePtr->Config.OTapDly_DDR_Clk50 != 0U) &&
+	    (InstancePtr->Config.ITapDly_DDR_Clk50 != 0U)) {
 		InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_DDR_Clk50;
 		InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_DDR_Clk50;
 		if ((InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) &&
@@ -145,8 +145,8 @@ void XSdPs_SetTapDelay_DDR50(XSdPs *InstancePtr)
 *******************************************************************************/
 void XSdPs_SetTapDelay_SDR25(XSdPs *InstancePtr)
 {
-	if (InstancePtr->Config.OTapDly_SDR_Clk50 &&
-	    InstancePtr->Config.ITapDly_SDR_Clk50) {
+	if ((InstancePtr->Config.OTapDly_SDR_Clk50 != 0U) &&
+	    (InstancePtr->Config.ITapDly_SDR_Clk50 != 0U)) {
 		InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk50;
 		InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_SDR_Clk50;
 		if ((InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) &&

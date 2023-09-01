@@ -1350,7 +1350,7 @@ void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd)
 			     (EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200 |
 			      EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200)) != 0U) {
 				InstancePtr->Mode = XSDPS_HS200_MODE;
-				if (InstancePtr->Config.OTapDly_SDR_Clk200) {
+				if (InstancePtr->Config.OTapDly_SDR_Clk200 != 0U) {
 					InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk200;
 				} else if (InstancePtr->Config.BankNumber == 2U) {
 					InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B2;
