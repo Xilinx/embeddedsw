@@ -367,7 +367,7 @@ s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr)
 
 	}
 
-	if (InstancePtr->Mode != XSDPS_DDR52_MODE && InstancePtr->Mode != XSDPS_HS400_MODE) {
+	if ((InstancePtr->Mode != XSDPS_DDR52_MODE) && (InstancePtr->Mode != XSDPS_HS400_MODE)) {
 		Status = XSdPs_SetBlkSize(InstancePtr, XSDPS_BLK_SIZE_512_MASK);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
