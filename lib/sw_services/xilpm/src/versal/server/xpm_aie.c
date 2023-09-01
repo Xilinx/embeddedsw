@@ -1802,6 +1802,8 @@ static XStatus Aie2_ColRst(const XPm_Device *AieDev, const u32 ColStart, const u
 		  ((ColEnd & ME_PROT_REG_CTRL_WE_COL_ID_MASK) <<
 		    ME_PROT_REG_CTRL_WE_COL_ID_LAST_SHIFT));
 	XPm_Out32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET, RegVal);
+	/* Dummy read NPI register to assure above write operation is completed */
+	(void)XPm_In32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET);
 
 	for (Col = ColStart; Col <= ColEnd; Col++) {
 		/* BaseAddress for AIE2 column */
@@ -1885,6 +1887,8 @@ static XStatus Aie2_EnbColClkBuff(const XPm_Device *AieDev, u32 ColStart, u32 Co
 		  ((ColEnd & ME_PROT_REG_CTRL_WE_COL_ID_MASK) <<
 		    ME_PROT_REG_CTRL_WE_COL_ID_LAST_SHIFT));
 	XPm_Out32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET, RegVal);
+	/* Dummy read NPI register to assure above write operation is completed */
+	(void)XPm_In32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET);
 
 	for (Col = ColStart; Col <= ColEnd; Col++) {
 		/* BaseAddress for AIE2 column */
@@ -1917,6 +1921,8 @@ static XStatus Aie2_DisColClkBuff(const XPm_Device *AieDev, u32 ColStart, u32 Co
 		  ((ColEnd & ME_PROT_REG_CTRL_WE_COL_ID_MASK) <<
 		    ME_PROT_REG_CTRL_WE_COL_ID_LAST_SHIFT));
 	XPm_Out32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET, RegVal);
+	/* Dummy read NPI register to assure above write operation is completed */
+	(void)XPm_In32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET);
 
 	for (Col = ColStart; Col <= ColEnd; Col++) {
 		/* BaseAddress for AIE2 column */
@@ -1973,6 +1979,8 @@ static XStatus Aie2_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColE
 		  ((ColEnd & ME_PROT_REG_CTRL_WE_COL_ID_MASK) <<
 		    ME_PROT_REG_CTRL_WE_COL_ID_LAST_SHIFT));
 	XPm_Out32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET, RegVal);
+	/* Dummy read NPI register to assure above write operation is completed */
+	(void)XPm_In32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET);
 
 	/* Enable zeroization for program memory of core module. */
 	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_PROG_MEM_ZEROIZATION)	& Ops)) {
@@ -2083,6 +2091,8 @@ static XStatus Aie2_EnbAxiMmErrEvent(const XPm_Device *AieDev, u32 ColStart, u32
 		  ((ColEnd & ME_PROT_REG_CTRL_WE_COL_ID_MASK) <<
 		    ME_PROT_REG_CTRL_WE_COL_ID_LAST_SHIFT));
 	XPm_Out32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET, RegVal);
+	/* Dummy read NPI register to assure above write operation is completed */
+	(void)XPm_In32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET);
 
 	for (Col = ColStart; Col <= ColEnd; Col++) {
 		/* Skip if it's not an NOC Tile */
@@ -2122,6 +2132,8 @@ static XStatus Aie2_SetL2CtrlNpiIntr(const XPm_Device *AieDev, u32 ColStart, u32
 		  ((ColEnd & ME_PROT_REG_CTRL_WE_COL_ID_MASK) <<
 		    ME_PROT_REG_CTRL_WE_COL_ID_LAST_SHIFT));
 	XPm_Out32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET, RegVal);
+	/* Dummy read NPI register to assure above write operation is completed */
+	(void)XPm_In32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET);
 
 	for (Col = ColStart; Col <= ColEnd; Col++) {
 		/* Skip if it's not an NOC Tile */
