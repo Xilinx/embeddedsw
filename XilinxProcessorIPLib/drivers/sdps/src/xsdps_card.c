@@ -1361,8 +1361,8 @@ void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd)
 				    (EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED |
 				     EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED)) != 0U) {
 				InstancePtr->Mode = XSDPS_DDR52_MODE;
-				if (InstancePtr->Config.OTapDly_DDR_Clk50 &&
-				    InstancePtr->Config.ITapDly_DDR_Clk50) {
+				if ((InstancePtr->Config.OTapDly_DDR_Clk50 != 0U) &&
+				    (InstancePtr->Config.ITapDly_DDR_Clk50 != 0U)) {
 					InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_DDR_Clk50;
 					InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_DDR_Clk50;
 				} else {
@@ -1372,8 +1372,8 @@ void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd)
 			} else if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				    EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) {
 				InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
-				if (InstancePtr->Config.OTapDly_SDR_Clk50 &&
-				    InstancePtr->Config.ITapDly_SDR_Clk50) {
+				if ((InstancePtr->Config.OTapDly_SDR_Clk50 != 0U) &&
+				    (InstancePtr->Config.ITapDly_SDR_Clk50 != 0U)) {
 					InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk50;
 					InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_SDR_Clk50;
 				} else {
