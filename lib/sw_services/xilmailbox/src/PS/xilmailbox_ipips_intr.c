@@ -44,12 +44,14 @@
 /****************************************************************************/
 u32 XIpiPs_PollforDone(XMailbox *InstancePtr)
 {
+	/* Initialize the agent to store IPI channel information */
 	XMailbox_Agent *DataPtr = &InstancePtr->Agent;
 	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 	u32 Timeout = XIPI_DONE_TIMEOUT_VAL;
 	u32 Status = XST_SUCCESS;
 	u32 Flag;
 
+	/* Poll for an acknowledgment using Observation register */
 	do {
 		Flag = (XIpiPsu_ReadReg(IpiInstancePtr->Config.BaseAddress,
 					XIPIPSU_OBS_OFFSET)) & (DataPtr->RemoteId);

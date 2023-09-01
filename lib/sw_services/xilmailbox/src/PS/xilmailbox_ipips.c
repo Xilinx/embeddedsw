@@ -69,6 +69,7 @@ u32 XMailbox_Initialize(XMailbox *InstancePtr, UINTPTR BaseAddress)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	/* Wrapper function to memset function */
 	Status = (u32) Xil_SMemSet((void *)InstancePtr, (u32)sizeof(XMailbox), 0, sizeof(XMailbox));
 	if (Status != XST_SUCCESS) {
 		return Status;
@@ -78,6 +79,7 @@ u32 XMailbox_Initialize(XMailbox *InstancePtr, UINTPTR BaseAddress)
 	InstancePtr->XMbox_IPI_Send = XIpiPs_Send;
 	InstancePtr->XMbox_IPI_Recv = XIpiPs_RecvData;
 
+	/* Initialize the InstancePtr */
 #ifndef SDT
 	Status = XIpiPs_Init(InstancePtr, DeviceId);
 #else
