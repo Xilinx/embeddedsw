@@ -1341,7 +1341,7 @@ extern "C" {
 * @return	The value read from the register.
 *
 * @note		C-Style signature:
-*		u32 XSdPs_ReadReg(u32 BaseAddress. int RegOffset)
+*		u32 XSdPs_ReadReg(UINTPTR BaseAddress. int RegOffset)
 *
 ******************************************************************************/
 #define XSdPs_ReadReg(BaseAddress, RegOffset) \
@@ -1359,7 +1359,7 @@ extern "C" {
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XSdPs_WriteReg(u32 BaseAddress, int RegOffset,
+*		void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
 *		u32 RegisterValue)
 *
 ******************************************************************************/
@@ -1377,10 +1377,10 @@ extern "C" {
 * @return	The value read from the register.
 *
 * @note		C-Style signature:
-*		u16 XSdPs_ReadReg(u32 BaseAddress. int RegOffset)
+*		u16 XSdPs_ReadReg(UINTPTR BaseAddress. int RegOffset)
 *
 ******************************************************************************/
-static INLINE u16 XSdPs_ReadReg16(u32 BaseAddress, u8 RegOffset)
+static INLINE u16 XSdPs_ReadReg16(UINTPTR BaseAddress, u8 RegOffset)
 {
 #if defined (__MICROBLAZE__)
 	u32 Reg;
@@ -1405,12 +1405,12 @@ static INLINE u16 XSdPs_ReadReg16(u32 BaseAddress, u8 RegOffset)
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XSdPs_WriteReg(u32 BaseAddress, int RegOffset,
+*		void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
 *		u16 RegisterValue)
 *
 ******************************************************************************/
 
-static INLINE void XSdPs_WriteReg16(u32 BaseAddress, u8 RegOffset, u16 RegisterValue)
+static INLINE void XSdPs_WriteReg16(UINTPTR BaseAddress, u8 RegOffset, u16 RegisterValue)
 {
 #if defined (__MICROBLAZE__)
 	u32 Reg;
@@ -1435,10 +1435,10 @@ static INLINE void XSdPs_WriteReg16(u32 BaseAddress, u8 RegOffset, u16 RegisterV
 * @return	The value read from the register.
 *
 * @note		C-Style signature:
-*		u8 XSdPs_ReadReg(u32 BaseAddress. int RegOffset)
+*		u8 XSdPs_ReadReg(UINTPTR BaseAddress. int RegOffset)
 *
 ******************************************************************************/
-static INLINE u8 XSdPs_ReadReg8(u32 BaseAddress, u8 RegOffset)
+static INLINE u8 XSdPs_ReadReg8(UINTPTR BaseAddress, u8 RegOffset)
 {
 #if defined (__MICROBLAZE__)
 	u32 Reg;
@@ -1462,11 +1462,11 @@ static INLINE u8 XSdPs_ReadReg8(u32 BaseAddress, u8 RegOffset)
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XSdPs_WriteReg(u32 BaseAddress, int RegOffset,
+*		void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
 *		u8 RegisterValue)
 *
 ******************************************************************************/
-static INLINE void XSdPs_WriteReg8(u32 BaseAddress, u8 RegOffset, u8 RegisterValue)
+static INLINE void XSdPs_WriteReg8(UINTPTR BaseAddress, u8 RegOffset, u8 RegisterValue)
 {
 #if defined (__MICROBLAZE__)
 	u32 Reg;
@@ -1488,7 +1488,7 @@ static INLINE void XSdPs_WriteReg8(u32 BaseAddress, u8 RegOffset, u8 RegisterVal
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XSdPs_WriteReg(u32 BaseAddress, int RegOffset,
+*		void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
 *		u8 RegisterValue)
 *
 ******************************************************************************/
