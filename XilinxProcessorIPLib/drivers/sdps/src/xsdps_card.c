@@ -794,6 +794,9 @@ s32 XSdPs_ResetConfig(XSdPs *InstancePtr)
 		/* Check for SD Bus Lines low */
 		Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_PRES_STATE_OFFSET, XSDPS_PSR_DAT30_SG_LVL_MASK, 0U,
 					  Timeout);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+		}
 	}
 #endif
 
