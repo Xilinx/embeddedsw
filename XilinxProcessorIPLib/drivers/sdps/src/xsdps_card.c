@@ -861,7 +861,7 @@ s32 XSdPs_CheckResetDone(XSdPs *InstancePtr, u8 Value)
 	/* Proceed with initialization only after reset is complete */
 	/* Using XSDPS_CLK_CTRL_OFFSET(0x2C) in place of XSDPS_SW_RST_OFFSET(0x2F) for 32bit address aligned reading */
 	Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_CLK_CTRL_OFFSET,
-				  Value << 24, 0U, Timeout);
+				  ((u32)Value) << 24, 0U, Timeout);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH ;
