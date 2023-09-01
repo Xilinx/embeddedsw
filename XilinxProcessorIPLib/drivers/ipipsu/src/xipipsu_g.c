@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,8 +12,7 @@
 * The configuration table for devices
 */
 
-XIpiPsu_Config XIpiPsu_ConfigTable[] =
-{
+XIpiPsu_Config XIpiPsu_ConfigTable[] = {
 
 	{
 		XPAR_XIPIPSU_0_DEVICE_ID,
