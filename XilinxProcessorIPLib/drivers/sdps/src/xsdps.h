@@ -361,6 +361,11 @@ typedef struct {
  * Enable eMMC HS400 mode for Versal Net platform
  */
 #define ENABLE_HS400_MODE
+
+/************************** Variable Definitions *****************************/
+/**
+ * XSdPs Configuration Table
+ */
 #ifndef SDT
 extern XSdPs_Config XSdPs_ConfigTable[XPAR_XSDPS_NUM_INSTANCES];
 #else
