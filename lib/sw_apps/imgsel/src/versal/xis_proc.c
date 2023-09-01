@@ -26,6 +26,7 @@
 
 /***************************** Include Files *********************************/
 #include "xis_proc.h"
+#include "xis_debug.h"
 #include "xplmi_err_common.h"
 #include "xplmi.h"
 
@@ -85,7 +86,7 @@ static void XPlm_ExceptionInit(void)
 static void XPlm_ExceptionHandler(void *Data)
 {
 
-	XPlmi_Printf(DEBUG_GENERAL, "Received Exception \n\r"
+	XIs_Printf(XIS_DEBUG_PRINT_ALWAYS, "Received Exception \n\r"
 		"MSR: 0x%08x, EAR: 0x%08x, EDR: 0x%08x, ESR: 0x%08x, \n\r"
 		"R14: 0x%08x, R15: 0x%08x, R16: 0x%08x, R17: 0x%08x \n\r",
 		mfmsr(), mfear(), mfedr(), mfesr(),

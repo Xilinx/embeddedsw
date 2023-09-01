@@ -39,6 +39,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XIS_MAX_BOARDS 				(5U)
 #define XIS_BOARDNAME_SIZE 			(6U)
+#define XIS_BOARDNAME_OFFSET		(22U)
 
 /************************** Function Prototypes ******************************/
 static void XIs_UpdateMultiBootValue(u32 Offset);
@@ -46,9 +47,9 @@ static void XIs_UpdateMultiBootValue(u32 Offset);
 /************************** Variable Definitions *****************************/
 Boards_List Board[XIS_MAX_BOARDS] = {
 	{"VPK120" , 1200},
-	{"VPK180" , 1800},
+	{"VMK180" , 1800},
 	{"VCK190" , 1900},
-	{"VMK180" , 1801},
+	{"VPK180" , 1810},
 	{"VEK280" , 2800}
 };
 
@@ -97,7 +98,7 @@ int XIs_GetBoardName(u16 ReadAddress, u16 *Offset,u32 WrBfrOffset)
 	}
 
 	for(BoardIndex = 0U; BoardIndex < XIS_MAX_BOARDS; BoardIndex++) {
-		if(strncmp((char *)(ReadBuffer + 0x16U), Board[BoardIndex].Name,
+		if(strncmp((char *)(ReadBuffer + XIS_BOARDNAME_OFFSET), Board[BoardIndex].Name,
 				XIS_BOARDNAME_SIZE) == 0U) {
 			*Offset = Board[BoardIndex].Offset;
 			goto END;
@@ -130,21 +131,28 @@ int XIs_ImageSelBoardParam(void)
 		goto END;
 	}
 
+	sleep(1);
+	XIs_Printf(XIS_DEBUG_PRINT_ALWAYS, "***********Versal Image Selector***********\n\r");
+
 	Status = XIs_GetBoardName(XIS_EEPROM_BOARD_ADDR_OFFSET,
 					&BoardOffset, XIS_EEPROM_OFFSET_1_WRITE_BYTES);
 	if(Status != XST_SUCCESS) {
 		Status = XIs_GetBoardName(XIS_EEPROM_BOARD_ADDR_OFFSET,
 					&BoardOffset, XIS_EEPROM_OFFSET_2_WRITE_BYTES);
 		if(Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "Board not found\r\n");
+			XIs_Printf(XIS_DEBUG_PRINT_ALWAYS, "Board name not found\r\n");
 			goto END;
 		}
 	}
 
-	XIs_UpdateMultiBootValue(BoardOffset);
+	ReadBuffer[XIS_BOARDNAME_SIZE + 1U] = '\0';
+	XIs_Printf(XIS_DEBUG_PRINT_ALWAYS, "Board name: %s\n\r", &ReadBuffer[XIS_BOARDNAME_OFFSET]);
 
-	XPlmi_Printf(DEBUG_GENERAL, "Board found with imge multiboot offset at %x\r\n ",BoardOffset);
+	XIs_Printf(XIS_DEBUG_PRINT_ALWAYS, "Board offset: %x\r\n", BoardOffset);
+	XIs_Printf(XIS_DEBUG_PRINT_ALWAYS, "*******************************************\n\r");
 	sleep(1);
+
+	XIs_UpdateMultiBootValue(BoardOffset);
 
 	if (Status == XST_SUCCESS) {
 		XPlmi_SoftResetHandler();
