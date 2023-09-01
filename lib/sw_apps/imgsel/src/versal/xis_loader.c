@@ -90,8 +90,6 @@ int XPlm_LoadBootPdi(void)
 		goto ERR_END;
 	}
 
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS,"***********Versal Image Selector***********\n\r");
-
 END:
 	/* This is used to identify PLM has completed boot PDI */
 	XPlmi_SetBootPdiDone();
