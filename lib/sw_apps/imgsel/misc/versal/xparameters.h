@@ -1825,7 +1825,7 @@
 /* PLM/XilPLMI configuration */
 
 /* Debug level option */
-#define PLM_DEBUG
+//#define PLM_DEBUG
 
 /* Boot time measurement enable */
 //#define PLM_PRINT_PERF

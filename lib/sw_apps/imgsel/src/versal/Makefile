@@ -19,11 +19,11 @@ LSCRIPT := -Tlscript.ld
 
 CURRENT_DIR = $(shell pwd)
 DEPFILES := $(patsubst %.o, %.d, $(OBJS))
-LIBS := ../../misc/vck190/imgsel_bsp/psv_pmc_0/lib/libxil.a
+LIBS := ../../misc/versal/imgsel_bsp/psv_pmc_0/lib/libxil.a
 EXEC := imgsel.elf
 
-INCLUDEPATH := -I../../misc/vck190/imgsel_bsp/psv_pmc_0/include -I.
-LIBPATH := -L../../misc/vck190/imgsel_bsp/psv_pmc_0/lib
+INCLUDEPATH := -I../../misc/versal/imgsel_bsp/psv_pmc_0/include -I.
+LIBPATH := -L../../misc/versal/imgsel_bsp/psv_pmc_0/lib
 
 all: $(EXEC)
 
@@ -32,13 +32,13 @@ $(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
 
 $(LIBS):
 	echo "Copying BSP files"
-	../../misc/vck190/copy_bsp.sh
+	../../misc/versal/copy_bsp.sh
 	echo "Compiling bsp"
-	$(MAKE) -C ../../misc/vck190/imgsel_bsp
+	$(MAKE) -C ../../misc/versal/imgsel_bsp
 
 %.o:%.c
 	$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 clean:
 	rm -rf $(OBJS) $(LIBS) $(EXEC) *.o *.d
-	rm -rf ../../misc/vck190/imgsel_bsp
+	rm -rf ../../misc/versal/imgsel_bsp
