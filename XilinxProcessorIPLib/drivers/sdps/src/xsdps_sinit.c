@@ -41,14 +41,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-/**
- * XSdPs Configuration Table
- */
-#ifndef SDT
-extern XSdPs_Config XSdPs_ConfigTable[XPAR_XSDPS_NUM_INSTANCES];
-#else
-extern XSdPs_Config XSdPs_ConfigTable[];
-#endif
+
 /*****************************************************************************/
 /**
 *
