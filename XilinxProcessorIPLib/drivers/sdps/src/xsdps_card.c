@@ -79,22 +79,23 @@ s32 XSdPs_Read(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 #ifdef XSDPS_DEBUG
 		xil_printf("Max transfer length supported is 2MB\n");
 #endif
-		return XST_FAILURE;
-	}
-
-	XSdPs_SetupReadDma(InstancePtr, (u16)BlkCnt, (u16)InstancePtr->BlkSize, Buff);
-
-	if (BlkCnt == 1U) {
-		/* Send single block read command */
-		Status = XSdPs_CmdTransfer(InstancePtr, CMD17, Arg, BlkCnt);
-		if (Status != XST_SUCCESS) {
-			Status = XST_FAILURE;
-		}
+		Status = XST_FAILURE;
 	} else {
-		/* Send multiple blocks read command */
-		Status = XSdPs_CmdTransfer(InstancePtr, CMD18, Arg, BlkCnt);
-		if (Status != XST_SUCCESS) {
-			Status = XST_FAILURE;
+
+		XSdPs_SetupReadDma(InstancePtr, (u16)BlkCnt, (u16)InstancePtr->BlkSize, Buff);
+
+		if (BlkCnt == 1U) {
+			/* Send single block read command */
+			Status = XSdPs_CmdTransfer(InstancePtr, CMD17, Arg, BlkCnt);
+			if (Status != XST_SUCCESS) {
+				Status = XST_FAILURE;
+			}
+		} else {
+			/* Send multiple blocks read command */
+			Status = XSdPs_CmdTransfer(InstancePtr, CMD18, Arg, BlkCnt);
+			if (Status != XST_SUCCESS) {
+				Status = XST_FAILURE;
+			}
 		}
 	}
 
@@ -126,22 +127,23 @@ s32 XSdPs_Write(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 #ifdef XSDPS_DEBUG
 		xil_printf("Max transfer length supported is 2MB\n");
 #endif
-		return XST_FAILURE;
-	}
-
-	XSdPs_SetupWriteDma(InstancePtr, (u16)BlkCnt, (u16)InstancePtr->BlkSize, Buff);
-
-	if (BlkCnt == 1U) {
-		/* Send single block write command */
-		Status = XSdPs_CmdTransfer(InstancePtr, CMD24, Arg, BlkCnt);
-		if (Status != XST_SUCCESS) {
-			Status = XST_FAILURE;
-		}
+		Status = XST_FAILURE;
 	} else {
-		/* Send multiple blocks write command */
-		Status = XSdPs_CmdTransfer(InstancePtr, CMD25, Arg, BlkCnt);
-		if (Status != XST_SUCCESS) {
-			Status = XST_FAILURE;
+
+		XSdPs_SetupWriteDma(InstancePtr, (u16)BlkCnt, (u16)InstancePtr->BlkSize, Buff);
+
+		if (BlkCnt == 1U) {
+			/* Send single block write command */
+			Status = XSdPs_CmdTransfer(InstancePtr, CMD24, Arg, BlkCnt);
+			if (Status != XST_SUCCESS) {
+				Status = XST_FAILURE;
+			}
+		} else {
+			/* Send multiple blocks write command */
+			Status = XSdPs_CmdTransfer(InstancePtr, CMD25, Arg, BlkCnt);
+			if (Status != XST_SUCCESS) {
+				Status = XST_FAILURE;
+			}
 		}
 	}
 
