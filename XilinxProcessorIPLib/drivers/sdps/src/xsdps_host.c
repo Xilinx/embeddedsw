@@ -1595,7 +1595,7 @@ s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt)
 		goto RETURN_PATH;
 	}
 
-	if (((Cmd == CMD21) || (Cmd == CMD19)) && (StatusReg & XSDPS_INTR_BRR_MASK)) {
+	if (((Cmd == CMD21) || (Cmd == CMD19)) && (StatusReg & XSDPS_INTR_BRR_MASK) != 0U) {
 		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 				 XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_BRR_MASK);
 	}
