@@ -55,6 +55,7 @@ XIpiPsu_Config *XIpiPsu_LookupConfig(u32 DeviceId)
 	XIpiPsu_Config *CfgPtr = NULL;
 	u32 Index;
 
+	/* Checks all the instances */
 	for (Index = 0U; Index < XPAR_XIPIPSU_NUM_INSTANCES; Index++) {
 		if (XIpiPsu_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XIpiPsu_ConfigTable[Index];
@@ -62,6 +63,7 @@ XIpiPsu_Config *XIpiPsu_LookupConfig(u32 DeviceId)
 		}
 	}
 
+	/* Returns reference to config record if found, else NULL*/
 	return (XIpiPsu_Config *) CfgPtr;
 }
 #else
@@ -72,7 +74,7 @@ XIpiPsu_Config *XIpiPsu_LookupConfig(u32 BaseAddress)
 
 	for (Index = 0U; XIpiPsu_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XIpiPsu_ConfigTable[Index].BaseAddress == BaseAddress) ||
-                    !BaseAddress) {
+		    !BaseAddress) {
 			CfgPtr = &XIpiPsu_ConfigTable[Index];
 			break;
 		}
