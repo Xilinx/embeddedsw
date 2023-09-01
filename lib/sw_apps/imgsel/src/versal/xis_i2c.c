@@ -335,7 +335,7 @@ int XIs_IicPsMuxInit(void)
 
 	Status = XIs_MuxInitChannel(XIS_MUX_ADDR, XIS_I2C_MUX_INDEX);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_INFO,"Failed to enable MUX channel, this expected for VEK280\r\n");
+		XIs_Printf(XIS_DEBUG_PRINT_ALWAYS,"Ignore this error only for VEK280\r\n");
 		Status = XST_SUCCESS;
 	}
 
