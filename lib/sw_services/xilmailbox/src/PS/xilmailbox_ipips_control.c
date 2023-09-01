@@ -101,6 +101,7 @@ u32 XIpiPs_Send(XMailbox *InstancePtr, u8 Is_Blocking)
 	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 	u32 Status = XST_SUCCESS;
 
+	/* Trigger IPI to destination CPU */
 	Status = (u32)XIpiPsu_TriggerIpi(IpiInstancePtr, DataPtr->RemoteId);
 	if (Status != (u32)XST_SUCCESS) {
 		return XST_FAILURE;
@@ -135,12 +136,14 @@ u32 XIpiPs_SendData(XMailbox *InstancePtr, void *MsgBufferPtr,
 	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 	u32 Status = XST_SUCCESS;
 
+	/* Send a Message to Destination */
 	Status = (u32)XIpiPsu_WriteMessage(IpiInstancePtr, DataPtr->RemoteId,
 					   (u32 *)MsgBufferPtr, MsgLen, BufferType);
 	if (Status != (u32)XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
+	/* Trigger IPI to destination CPU */
 	Status = (u32)XIpiPsu_TriggerIpi(IpiInstancePtr, DataPtr->RemoteId);
 	if (Status != (u32)XST_SUCCESS) {
 		return XST_FAILURE;
@@ -197,6 +200,7 @@ void XIpiPs_IntrHandler(void *XMailboxPtr)
 	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 	u32 IntrStatus;
 
+	/* Get the Status Register of the current IPI instance.*/
 	IntrStatus = XIpiPsu_GetInterruptStatus(IpiInstancePtr);
 	XIpiPsu_ClearInterruptStatus(IpiInstancePtr, IntrStatus);
 	if (InstancePtr->RecvHandler != NULL) {
@@ -218,6 +222,7 @@ void XIpiPs_ErrorIntrHandler(void *XMailboxPtr)
 	const XMailbox *InstancePtr = (XMailbox *)((void *)XMailboxPtr);
 	u32 Status = XST_FAILURE;
 
+	/* Get the Status Register of the current IPI instance.*/
 	Status = XIpiPsu_ReadReg(IPI_BASEADDRESS, XIPIPSU_ISR_OFFSET);
 	XIpiPsu_WriteReg(IPI_BASEADDRESS, XIPIPSU_ISR_OFFSET,
 			 Status);

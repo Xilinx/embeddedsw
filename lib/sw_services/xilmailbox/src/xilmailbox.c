@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,7 +51,7 @@ u32 XMailbox_Send(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking)
 {
 	u32 Status = XST_FAILURE;
 
-	/* Verify arguments. */
+	/* Validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	InstancePtr->Agent.RemoteId = RemoteId;
@@ -81,17 +81,21 @@ u32 XMailbox_SendData(XMailbox *InstancePtr, u32 RemoteId, void *BufferPtr,
 {
 	u32 Status = XST_FAILURE;
 
-	/* Verify arguments. */
+	/* Validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(BufferPtr != NULL);
 	Xil_AssertNonvoid(MsgLen <= XMAILBOX_MAX_MSG_LEN);
 	Xil_AssertNonvoid((BufferType == XILMBOX_MSG_TYPE_REQ) ||
 			  (BufferType == XILMBOX_MSG_TYPE_RESP));
 
+	/* Initialize the destination CPU */
 	InstancePtr->Agent.RemoteId = RemoteId;
+
+	/* Send IPI message to a destination CPU */
 	Status = InstancePtr->XMbox_IPI_SendData(InstancePtr, BufferPtr,
-						 MsgLen, BufferType,
-						 Is_Blocking);
+			MsgLen, BufferType,
+			Is_Blocking);
+	/* Return statement */
 	return Status;
 }
 
@@ -117,19 +121,25 @@ u32 XMailbox_Recv(XMailbox *InstancePtr, u32 SourceId, void *BufferPtr,
 {
 	u32 Status = XST_FAILURE;
 
-	/* Verify arguments. */
+	/* Validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(BufferPtr != NULL);
 	Xil_AssertNonvoid(MsgLen <= XMAILBOX_MAX_MSG_LEN);
 	Xil_AssertNonvoid((BufferType == XILMBOX_MSG_TYPE_REQ) ||
 			  (BufferType == XILMBOX_MSG_TYPE_RESP));
 
+	/* Initialize the source CPU */
 	InstancePtr->Agent.SourceId = SourceId;
+
+	/* Read IPI message from the buffer */
 	Status = InstancePtr->XMbox_IPI_Recv(InstancePtr, BufferPtr, MsgLen,
 					     BufferType);
+
+	/* Check if there is any error while receiving message */
 	if (Status != (u32)XST_SUCCESS) {
 		xil_printf("Error while receiving message %s", __func__);
 	}
+	/* Return statement */
 	return Status;
 }
 
@@ -164,7 +174,7 @@ u32 XMailbox_Recv(XMailbox *InstancePtr, u32 SourceId, void *BufferPtr,
 s32 XMailbox_SetCallBack(XMailbox *InstancePtr, XMailbox_Handler HandlerType,
 			 void *CallBackFuncPtr, void *CallBackRefPtr)
 {
-	/* Verify arguments. */
+	/* Validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CallBackFuncPtr != NULL);
 	Xil_AssertNonvoid(CallBackRefPtr != NULL);
@@ -176,15 +186,18 @@ s32 XMailbox_SetCallBack(XMailbox *InstancePtr, XMailbox_Handler HandlerType,
 	 * the handler type
 	 */
 	if (HandlerType == XMAILBOX_RECV_HANDLER) {
+		/* Call Recv handler */
 		InstancePtr->RecvHandler =
 			(XMailbox_RecvHandler)((void *)CallBackFuncPtr);
 		InstancePtr->RecvRefPtr = CallBackRefPtr;
 	} else {
+		/* Call Error handler */
 		InstancePtr->ErrorHandler =
 			(XMailbox_ErrorHandler)((void *)CallBackFuncPtr);
 		InstancePtr->ErrorRefPtr = CallBackRefPtr;
 	}
 
+	/* Return statement */
 	return (s32)XST_SUCCESS;
 }
 
@@ -206,6 +219,7 @@ u32 XMailbox_SetSharedMem(XMailbox *InstancePtr, u64 Address, u32 Size)
 {
 	u32 Status = XST_FAILURE;
 
+	/* Set the shared memory segment */
 	if (InstancePtr != NULL) {
 		if (InstancePtr->SharedMem.SharedMemState != XMAILBOX_SHARED_MEM_INITIALIZED) {
 			InstancePtr->SharedMem.Address = Address;
@@ -235,9 +249,10 @@ u32 XMailbox_GetSharedMem(XMailbox *InstancePtr, u64 **Address)
 {
 	u32 Size = 0U;
 
+	/* Get the size of shared memory location */
 	if (InstancePtr != NULL) {
 		if (InstancePtr->SharedMem.SharedMemState == XMAILBOX_SHARED_MEM_INITIALIZED) {
-			*Address = (u64*)(UINTPTR)InstancePtr->SharedMem.Address;
+			*Address = (u64 *)(UINTPTR)InstancePtr->SharedMem.Address;
 			Size = InstancePtr->SharedMem.Size;
 		}
 	}
@@ -259,6 +274,7 @@ int XMailbox_ReleaseSharedMem(XMailbox *InstancePtr)
 {
 	int Status = XST_FAILURE;
 
+	/* Release the shared memory */
 	if (InstancePtr != NULL) {
 		InstancePtr->SharedMem.Address = 0U;
 		InstancePtr->SharedMem.Size = 0U;
