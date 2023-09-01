@@ -140,7 +140,7 @@
 *
 ******************************************************************************/
 s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
-			u32 EffectiveAddr)
+			UINTPTR EffectiveAddr)
 {
 	s32 Status;
 
