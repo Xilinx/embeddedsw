@@ -77,6 +77,7 @@
 *                        XSK_EFUSEPS_ERROR_PPK0_BIT_CANT_REVERT
 *                        XSK_EFUSEPS_ERROR_PPK1_BIT_CANT_REVERT
 * 7.5   ng      07/13/23 Added support for system device tree flow
+*       vss     09/02/23 Removed redundant function declaration of XilSKey_Efuse_ValidateKey
 * </pre>
 *
  *****************************************************************************/
@@ -1133,7 +1134,6 @@ u8 XilSKey_Efuse_IsTimerExpired(u64 t);
 void XilSKey_Efuse_ConvertBitsToBytes(const u8 * Bits, u8 * Bytes, u32 Len);
 void XilSKey_EfusePs_ConvertBytesToBits(const u8 * Bytes, u8 * Bits, u32 Len);
 void XilSKey_EfusePs_ConvertBytesBeToLe(const u8 *Be, u8 *Le, u32 Len);
-u32 XilSKey_Efuse_ValidateKey(const char *Key, u32 Len);
 u32 XilSKey_Efuse_IsValidChar(const char *c);
 u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 /**
