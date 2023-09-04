@@ -126,6 +126,8 @@
 *       sk   08/17/2023 Updated logic to handle SubsystemId for EM actions
 *       sk   08/18/2023 Added redundant call for XPlmi_TriggerSLDOnHaltBoot
 *       rama 08/30/2023 Changed EAM prints to DEBUG_ALWAYS for debug level_0 option
+*       mss  09/04/2023 Added Null Check for EmInit
+*
 * </pre>
 *
 * @note
@@ -1242,6 +1244,12 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 	u32 ErrIndex;
 	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
 	XPlmi_TaskNode *Task = NULL;
+
+	/** Checking both Arguments for NULL, If any one of it found to be NULL Major Error Code will be returned */
+	if (SystemShutdown == NULL || SubsystemRestart == NULL) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_EMINIT_INVALID_PARAM, Status);
+		goto END;
+	}
 
 	/* Check if the task is already created */
 	Task = XPlmi_GetTaskInstance(XPlmi_ErrorTaskHandler, NULL,
