@@ -981,7 +981,7 @@ static XStatus PldInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArg
 			DbgErr = XPM_INT_ERR_DOMAIN_ISO;
 			goto done;
 		}
-		if (XPM_DEVSTATE_RUNNING == PlDevice->Device.Node.State) {
+		if ((u8)XPM_DEVSTATE_RUNNING == PlDevice->Device.Node.State) {
 			XPmPlDevice_TriggerStlHandler();
 		}
 		break;
