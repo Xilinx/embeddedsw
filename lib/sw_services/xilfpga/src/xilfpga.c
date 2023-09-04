@@ -74,6 +74,7 @@
  *                      xilfpga version and supported feature list info.
  * 6.3 Nava   08/05/22  Added doxygen tags.
  * 6.5 Nava   08/18/23  Resolved the doxygen issues.
+ * 6.5 Nava   09/04/23  Added proper ifdef platform checks for user-accessible APIs.
  * </pre>
  *
  *****************************************************************************/
@@ -517,7 +518,7 @@ u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 END:
 	return Status;
 }
-/** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+/** @addtogroup xilfpga_zynqMP XilFPGA APIs for Zynq UltraScale+ MPSoC
  @{ */
 /*****************************************************************************/
 /** This function provides the status of the PL programming interface
@@ -550,6 +551,7 @@ u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
 END:
 	return RegVal;
 }
+#endif
 
 #ifdef XFPGA_GET_VERSION_INFO
 /** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
@@ -628,6 +630,7 @@ END:
 }
 #endif
 
+#ifndef versal
 /*****************************************************************************/
 /**
  * @cond nocomments
