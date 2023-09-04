@@ -86,6 +86,7 @@
  * 6.3  Nava  08/05/22  Added doxygen tags.
  * 6.5  Nava  08/18/23  Resolved the doxygen issues.
  * 6.5  Nava  08/02/23  Updated version info macro to align with the library mld version.
+ * 6.5  Nava  09/04/23  Added proper ifdef platform checks for user-accessible APIs.
  * </pre>
  *
  *
@@ -177,11 +178,13 @@ typedef struct XFpgatag{
 
 /* FPGA invalid interface status */
 #define XFPGA_INVALID_INTERFACE_STATUS		(0xFFFFFFFFU)
+#endif
 
 /* XILFPGA Component version info */
 #define XFPGA_MAJOR_VERSION		6U
 #define XFPGA_MINOR_VERSION		5U
 
+#ifndef versal
 #define XFPGA_SECURE_FLAGS	(				\
 				XFPGA_AUTHENTICATION_DDR_EN	\
 				| XFPGA_AUTHENTICATION_OCM_EN	\
