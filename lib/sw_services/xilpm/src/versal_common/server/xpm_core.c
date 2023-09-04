@@ -302,6 +302,7 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 	const XPm_Requirement *Reqm;
 	XPm_Subsystem *Subsystem;
 	const XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	const XPm_ApuCore *ApuCore;
 	u32 Ack = 0U;
 	u32 IpiMask = 0U;
 	u32 NodeState = 0U;
@@ -318,7 +319,7 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 
 	/*clear pwr dwn status. this will make boot status as initial boot*/
 	if(XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)){
-		XPm_ApuCore *ApuCore = (XPm_ApuCore *)Core;
+		ApuCore = (XPm_ApuCore *)Core;
 		XPm_RMW32(ApuCore->PcilPwrDwnReg,ApuCore->Core.PwrDwnMask,
 			~ApuCore->Core.PwrDwnMask);
 	}
