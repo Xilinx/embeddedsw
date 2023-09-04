@@ -46,6 +46,7 @@
 *       yog  08/18/2023 Added error XLOADER_ERR_PLM_MH_SEC_MISMATCH error code
 *       am   08/18/2023 Moved run time error codes to respective libraries
 *       yog  08/25/2023 Removed XLOADER_ERR_PLM_MH_SEC_MISMATCH error code
+*       mss  09/04/2023 Added error code for Null Check of EmInit params
 *
 * </pre>
 *
@@ -262,6 +263,7 @@ typedef enum {
 	XPLMI_ERR_PRE_INIT,	/**< 0x142 - Error PLMI pre initialization failed */
 	XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS, /**< 0x143 - Error when max recursive CDO processing
 						has been occured */
+	XPLMI_ERR_EMINIT_INVALID_PARAM, /**< 0x144 Error if Params are Invalid */
 
 	/** Platform specific Status codes used in PLMI from 0x1A0 to 0x1FF */
 	XPLMI_ERR_PLM_UPDATE_COMPATIBILITY = 0x1A0, /**< 0x1A0 - Error in compatibility check
