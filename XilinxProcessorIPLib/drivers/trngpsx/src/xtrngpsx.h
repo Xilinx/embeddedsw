@@ -24,6 +24,7 @@
 * 1.0   kpt  01/04/23 Initial release
 *       kpt  05/18/23 Updated adapttestcutoff and reptestcutoff default values
 * 1.1   mmd  07/09/23 Included header file for crypto algorithm information
+*       ng   09/04/23 Added SDT support
 *
 * </pre>
 *
@@ -73,8 +74,12 @@ typedef enum {
 
 /* This typedef contains configuration information for the device */
 typedef struct {
-	u16 DeviceId; /**< Unique ID of the device */
-	UINTPTR BaseAddress; /**< Base address of the device */
+#ifndef SDT
+	u16 DeviceId;	/**< DeviceId is the unique ID of the device */
+#else
+	char *Name;
+#endif
+	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address of the device's registers */
 } XTrngpsx_Config;
 
 /* This typedef contains user configuration related to TRNG */
@@ -156,7 +161,11 @@ typedef enum {
 extern XTrngpsx_Config XTrngpsx_ConfigTable[];
 
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 XTrngpsx_Config *XTrngpsx_LookupConfig(u16 DeviceId);
+#else
+XTrngpsx_Config *XTrngpsx_LookupConfig(UINTPTR BaseAddress);
+#endif
 int XTrngpsx_CfgInitialize(XTrngpsx_Instance *InstancePtr, const XTrngpsx_Config *CfgPtr,
 		UINTPTR EffectiveAddr);
 int XTrngpsx_Instantiate(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u32 SeedLength, const u8 *PersStr,
