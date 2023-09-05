@@ -19,6 +19,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  kpt  01/04/23 First release
+ * 1.01  ng   09/04/23 Added SDT support
  *
  * </pre>
  *
@@ -53,6 +54,7 @@
  * 		table (in xtrngpsx.c) corresponding to DeviceId, or NULL if no match is found.
  *
  **************************************************************************************************/
+#ifndef SDT
 XTrngpsx_Config *XTrngpsx_LookupConfig(u16 DeviceId)
 {
 	XTrngpsx_Config *CfgPtr = NULL;
@@ -70,4 +72,21 @@ XTrngpsx_Config *XTrngpsx_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XTrngpsx_Config *XTrngpsx_LookupConfig(UINTPTR BaseAddress)
+{
+	XTrngpsx_Config *CfgPtr = NULL;
+	u32 Index;
+
+	/* Checks all the instances */
+	for (Index = 0U; XTrngpsx_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XTrngpsx_ConfigTable[Index].BaseAddress == BaseAddress) || !BaseAddress) {
+			CfgPtr = &XTrngpsx_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /** @} */
