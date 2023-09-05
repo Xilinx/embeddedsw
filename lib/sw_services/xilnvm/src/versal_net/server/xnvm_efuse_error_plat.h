@@ -105,6 +105,10 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_ROM_RSVD_BITS = 0xAE00, /**< 0xAE00
 						* Error in ROM Rsvd bits
 						* programming */
+	XNVM_ERR_DME_KEY_ALREADY_PROGRAMMED = 0xAF00, /**< 0xAF00
+						* DME_KEY is already
+						* programmed */
+
 	XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_CTRL_0_PROT = 0xC300, /**< 0xC300
 								* Error in SEC_CTRL_0_PROT
 								* programming */
