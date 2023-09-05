@@ -44,22 +44,6 @@ examples:
             - xdppsu_common_example.c
         - reg
 
-tapp:
-    xdppsu_selftest_example.c:
-        declaration: DpPsu_SelfTestExample
-    xdppsu_intr_example.c:
-        declaration: DpPsu_IntrExample
-        hwproperties:
-            - interrupts
-    xdppsu_poll_example.c:
-        declaration: DpPsu_PollExample
-        hwproperties:
-            - reg
-    xdppsu_common_example.c:
-        declaration: DpPsu_SetupExample
-        hwproperties:
-            - interrupts
-
 depends:
     avbuf: []
     video_common: []
