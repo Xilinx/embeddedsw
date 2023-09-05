@@ -78,6 +78,7 @@ static int XNvm_EfuseCacheReloadAndProtectionChecks(void);
 static int XNvm_EfusePrgmProtectionBits(void);
 static int XNvm_EfuseProtectionChecks(void);
 static int XNvm_EfuseChangeEndianness(u8 *Dest, u8 *Src, u32 Size);
+static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32 *RegData);
 
 /************************** Constant Definitions *****************************/
 #define XNVM_EFUSE_ERROR_BYTE_SHIFT	(8U)
@@ -1324,7 +1325,7 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 		}
 	}
 
-    /**
+	/**
 	 *  Read directly from cache offset of the dme fips to fill the DmeModeCacheVal structure
 	 */
 	DmeModeCacheVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
@@ -2305,6 +2306,8 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 	volatile int Status = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 Key[XNVM_DME_USER_KEY_SIZE_IN_WORDS] = {0U};
+	u32 RegData = 0x00U;
+	u32 Row;
 
 	if (KeyType == XNVM_EFUSE_DME_USER_KEY_0) {
 		EfusePrgmInfo.StartRow = XNVM_EFUSE_DME_USER_KEY_0_START_ROW;
@@ -2337,6 +2340,19 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 	else {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
+	}
+
+	/* Check DME key eFuse if they are already programmed */
+	for (Row = EfusePrgmInfo.StartRow;
+		Row < (EfusePrgmInfo.StartRow + EfusePrgmInfo.NumOfRows); Row++) {
+		Status = XNvm_EfuseReadRow(EfusePrgmInfo.EfuseType, Row, &RegData);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		if (RegData != 0x00U) {
+			Status = (int)XNVM_ERR_DME_KEY_ALREADY_PROGRAMMED;
+			goto END;
+		}
 	}
 
 	Status = XNvm_EfuseChangeEndianness((u8 *)Key, (u8 *)EfuseKey->Key, sizeof(Key));
@@ -3413,24 +3429,20 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 
 /******************************************************************************/
 /**
- * @brief	This function verify the specified bit set in the eFUSE.
+ * @brief	This function reads eFuse row.
  *
  * @param	Page - It is an enum variable of type XNvm_EfuseType.
  * @param	Row - It is an 32-bit Row number (0-based addressing).
- * @param	Col - It is an 32-bit Col number (0-based addressing).
+ * @param	RegData - Pointer to the row data to be read.
  *
- * @return	- XST_SUCCESS - Specified bit set in eFUSE.
- *		- XNVM_EFUSE_ERR_PGM_VERIFY  - Verification failed, specified bit
- *						   is not set.
- *		- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occurred.
- *		- XST_FAILURE                - Unexpected error.
+ * @return	- XST_SUCCESS - Specified eFuse row is read.
+ *		- XST_TIMEOUT - Specified eFuse row read is timed out.
  *
  ******************************************************************************/
-static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
+static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32 *RegData)
 {
 	int Status = XST_FAILURE;
 	u32 RdAddr;
-	volatile u32 RegData = 0x00U;
 	u32 EventMask = 0x00U;
 
 	RdAddr = ((u32)Page << XNVM_EFUSE_ADDR_PAGE_SHIFT) |
@@ -3445,20 +3457,47 @@ static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 		XNVM_EFUSE_ISR_RD_DONE,
 		XNVM_EFUSE_RD_TIMEOUT_VAL,
 		&EventMask);
-
 	if (XST_TIMEOUT == Status) {
 		Status = (int)XNVM_EFUSE_ERR_RD_TIMEOUT;
+		goto END;
 	}
-	else if ((EventMask & XNVM_EFUSE_ISR_RD_DONE)
-					== XNVM_EFUSE_ISR_RD_DONE) {
-		RegData = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+
+	if ((EventMask & XNVM_EFUSE_ISR_RD_DONE) == XNVM_EFUSE_ISR_RD_DONE) {
+		*RegData = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_RD_DATA_REG_OFFSET);
-		if ((RegData & (((u32)0x01U) << Col)) != 0U) {
-			Status = XST_SUCCESS;
-		}
-		else {
-			Status = XST_FAILURE;
-		}
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function verify the specified bit set in the eFUSE.
+ *
+ * @param	Page - It is an enum variable of type XNvm_EfuseType.
+ * @param	Row - It is an 32-bit Row number (0-based addressing).
+ * @param	Col - It is an 32-bit Col number (0-based addressing).
+ *
+ * @return	- XST_SUCCESS - Specified bit set in eFUSE.
+ *		- XNVM_EFUSE_ERR_PGM_VERIFY  - Verification failed, specified bit
+ *						   is not set.
+ *		- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occured.
+ *		- XST_FAILURE                - Unexpected error.
+ *
+ ******************************************************************************/
+static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
+{
+	int Status = XST_FAILURE;
+	volatile u32 RegData = 0x00U;
+
+	Status = XNvm_EfuseReadRow(Page, Row, (u32 *)&RegData);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((RegData & (((u32)0x01U) << Col)) != 0U) {
+		Status = XST_SUCCESS;
 	}
 	else {
 		Status = (int)XNVM_EFUSE_ERR_PGM_VERIFY;
@@ -3467,6 +3506,7 @@ static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_ISR_REG_OFFSET,
 			XNVM_EFUSE_ISR_RD_DONE);
+END:
 	return Status;
 }
 
