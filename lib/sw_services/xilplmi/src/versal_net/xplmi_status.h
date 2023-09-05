@@ -751,6 +751,8 @@ typedef enum {
 	XLOADER_TRNG_INIT_FAIL,
 		/**< 0x6CB Error when TRNG driver look
 			up or cfg fails*/
+	XOCP_ERR_INVALID_XPPU_CONFIGURATION,
+		/**< 0x6CC Invalid XPPU configuration */
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
 		 * [12:8] contains Module ID, [7:0] contains API ID.
