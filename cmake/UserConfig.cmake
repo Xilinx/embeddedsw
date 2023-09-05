@@ -69,8 +69,8 @@ set(USER_COMPILE_DEBUG_OTHER_FLAGS )
 
 # -----------------------------------------
 
-# Enable Profiling (-pg)
-set(USER_COMPILE_PROFILING_ENABLE )
+# Enable Profiling (-pg) (This feature is not supported currently)
+# set(USER_COMPILE_PROFILING_ENABLE )
 
 # -----------------------------------------
 
