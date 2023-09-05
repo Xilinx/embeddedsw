@@ -23,6 +23,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.00  kpt  01/10/23 First release
  *       yog  08/04/23 Removed support for PKI instances
+ * 1.01  ng   09/04/23 Added SDT support
  *
  *</pre>
  **************************************************************************************************/
@@ -40,7 +41,11 @@
 #define XTRNGPSX_EXAMPLE_RESEED_DFLENMUL	3U
 #define XTRNGPSX_ENTROPY_SIZE               80U
 #define XTRNGPSX_RESEED_ENTROPY_SIZE        64U
-#define XTRNGPSX_PMC_DEVICEID 		    0U /**< Device Id for PMC*/
+#ifndef SDT
+#define XTRNGPSX_PMC_DEVICE		0U /**< Device Id for PMC*/
+#else
+#define XTRNGPSX_PMC_DEVICE		XPAR_XTRNGPSX_0_BASEADDR /**< Device Id for PMC*/
+#endif
 
 const u8 InitEntropy[XTRNGPSX_ENTROPY_SIZE] = {
 		0x3AU, 0xBBU, 0xABU, 0x42U, 0x7AU, 0x3AU, 0x57U, 0x63U,
@@ -149,7 +154,7 @@ int Trngpsx_Example()
 	 * Initialize the TRNGPSX driver so that it's ready to use look up
 	 * configuration in the config table, then initialize it.
 	 */
-	Config = XTrngpsx_LookupConfig(XTRNGPSX_PMC_DEVICEID);
+	Config = XTrngpsx_LookupConfig(XTRNGPSX_PMC_DEVICE);
 	if (NULL == Config) {
 		xil_printf("LookupConfig Failed \n\r");
 		goto END;

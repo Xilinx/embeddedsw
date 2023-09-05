@@ -21,6 +21,7 @@
 * 1.0   kpt  01/03/23 Initial release
 *       kpt  05/18/23 Fix passing invalid DF length in HRNG mode
 * 1.1   kpt  08/29/23 Add volatile keyword to avoid compiler optimization
+*       ng   09/04/23 Added SDT support
 *
 * </pre>
 *
@@ -353,7 +354,11 @@ int XTrngpsx_CfgInitialize(XTrngpsx_Instance *InstancePtr, const XTrngpsx_Config
 	}
 
 	/* Populate Config parameters */
+	#ifndef SDT
 	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
+	#else
+	InstancePtr->Config.Name = CfgPtr->Name;
+	#endif
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
 	InstancePtr->State = XTRNGPSX_UNINITIALIZED_STATE;
