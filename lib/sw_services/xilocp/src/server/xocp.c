@@ -57,13 +57,56 @@
 #define XOCP_SINGLE_BYTE_SHIFT		(8U)
 #define XOCP_PAYLOAD_START_INDEX	(1U)
 #define XOCP_DOUBLE_NUM_OF_WORDS	(2U)
+#define XOCP_XPPU_MAX_APERTURES		(19U)
+#define XOCP_XPPU_ENABLED		(0xFFFFFFFFU)
+#define XOCP_XPPU_MASTER_ID_0		(17U)
+#define XOCP_XPPU_MASTER_ID_1		(18U)
 
 /**************************** Type Definitions *******************************/
+static XOcp_DmeXppuCfg XOcp_DmeXppuCfgTable[XOCP_XPPU_MAX_APERTURES] =
+{
+	{PMC_XPPU_APERPERM_017, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* PMC Global register space */
+	{PMC_XPPU_APERPERM_018, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* PMC Global register space */
+	{PMC_XPPU_APERPERM_019, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* PMC Global register space */
+	{PMC_XPPU_APERPERM_020, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* PMC Global register space */
+	{PMC_XPPU_APERPERM_021, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* PMC TAP */
+	{PMC_XPPU_APERPERM_026, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* PMC TAP */
+	{PMC_XPPU_APERPERM_027, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* PMC DMA0 */
+	{PMC_XPPU_APERPERM_028, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* AES */
+	{PMC_XPPU_APERPERM_030, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* ECDSA RSA */
+	{PMC_XPPU_APERPERM_032, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* SHA0 */
+	{PMC_XPPU_APERPERM_033, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* TRNG */
+	{PMC_XPPU_APERPERM_035, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* EFUSE CACHE */
+	{PMC_XPPU_APERPERM_037, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* CRP */
+	{PMC_XPPU_APERPERM_038, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* PPU1 RAM */
+	{PMC_XPPU_APERPERM_386, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* Configure [23:16] bits of Aperture_049 address */
+	{PMC_XPPU_DYNAMIC_RECONFIG_APER_ADDR, XOCP_XPPU_DYNAMIC_RECONFIG_APER_SET_VALUE, 0U, 0U},
+	/* Configure PPU0 to enable reconfiguration and PPU1 to configure XPPU registers after DME opertaion */
+	{PMC_XPPU_DYNAMIC_RECONFIG_APER_PERM, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL, 0U, 0U},
+	/* MASTER ID 00 */
+	{PMC_XPPU_MASTER_ID00, XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL, 0U, 0U},
+	/* MASTER ID 01 */
+	{PMC_XPPU_MASTER_ID01, XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL, 0U, 0U},
+};
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XOcp_DmeXppuConfig(void);
 static int XOcp_UpdateHwPcrLog(u8 PcrNum, u64 ExtHashAddr, u32 DataSize);
 static u32 XOcp_CountNumOfOnesInWord(u32 Num);
 static int XOcp_DataMeasurement(u32 DigestIdx, u8 *Hash);
@@ -76,6 +119,8 @@ static int XOcp_DigestMeasurementAndUpdateLog(u32 PcrNum);
 static int XOcp_StoreNoOfDigestPerPcr(u32 PcrNum, u32 NumOfDigests);
 static int XOcp_StoreEventIdConfig(u32 *Pload, u32 CurrIdx, u32 DigestCount, u32 Len);
 static int XOcp_ClearDigestData(u32 PcrNum);
+static void XOcp_DmeStoreXppuDefaultConfig(void);
+static void XOcp_DmeRestoreXppuDefaultConfig(void);
 
 /************************** Variable Definitions *****************************/
 /**< HW PCR log struture */
@@ -635,11 +680,13 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function generates the response to DME challenge request.
+ * @brief	This function generates the response to DME challenge request and
+ *		configures the XPPU for requesting DME service
+ *		to ROM.
  *
- * @param	NonceAddr holds the address of 48 bytes buffer Nonce,
+ * @param	NonceAddr holds the address of 32 bytes buffer Nonce,
  *		which shall be used to fill one of the member of DME structure
- * @param	DmeStructResAddr is the address to the 224 bytes buffer,
+ * @param	DmeStructResAddsr is the address to the 224 bytes buffer,
  *		which is used to store the response to DME challenge request of
  *		type XOcp_DmeResponse.
  *
@@ -655,10 +702,21 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	int ClearStatus = XST_FAILURE;
 	u32 *DevIkPubKey = (u32 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
 	u8 Sha3Hash[XOCP_SHA3_LEN_IN_BYTES];
-	XOcp_DmeResponse *DmeResPtr = (XOcp_DmeResponse *)(UINTPTR)DmeStructResAddr;
-	XOcp_Dme Dme;
-	XOcp_Dme *DmePtr = &Dme;
+	XOcp_DmeResponse DmeResponse = {0U};
+	XOcp_Dme *DmePtr = &DmeResponse.Dme;
 	XTrngpsx_Instance *TrngInstance = NULL;
+	u32 XppuEnabled = 0U;
+	u32 Index;
+
+	/*
+	 * Check if XPPU_LOCK is enabled.
+	 * Check if Dynamic reconfiguration is enabled by default.
+	 */
+	if ((Xil_In32(PMC_XPPU_LOCK) != PMC_XPPU_LOCK_DEFVAL) ||
+		(Xil_In32(PMC_XPPU_DYNAMIC_RECONFIG_EN) != PMC_XPPU_DYNAMIC_RECONFIG_EN_DEFVAL)) {
+		Status = XOCP_ERR_INVALID_XPPU_CONFIGURATION;
+		goto RET;
+	}
 
 	/* Zeorizing the DME structure */
 	Status = Xil_SMemSet((void *)DmePtr,
@@ -685,46 +743,62 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	}
 
 	/* Fill the DME structure with Nonce */
-	Status = Xil_SMemCpy((void *)DmePtr->Nonce,
-			 XOCP_DME_NONCE_SIZE_BYTES,
-			(const void *)(UINTPTR)NonceAddr,
-			XOCP_DME_NONCE_SIZE_BYTES,
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)DmePtr->Nonce, NonceAddr,
 			XOCP_DME_NONCE_SIZE_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto RET;
 	}
 
+	/* Store the XPPU registers initial configuration */
+	XOcp_DmeStoreXppuDefaultConfig();
+
+	for (Index = 0U; Index < XOCP_XPPU_MAX_APERTURES; Index++) {
+		if (Index == XOCP_XPPU_MASTER_ID_0) {
+			if (XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL == Xil_In32(PMC_XPPU_MASTER_ID00)) {
+				XOcp_DmeXppuCfgTable[Index].IsModified = FALSE;
+			}
+		}
+		else if (Index == XOCP_XPPU_MASTER_ID_1) {
+			if (XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL == Xil_In32(PMC_XPPU_MASTER_ID01)) {
+				XOcp_DmeXppuCfgTable[Index].IsModified = FALSE;
+			}
+		} else {
+			Xil_Out32(XOcp_DmeXppuCfgTable[Index].IsModified, TRUE);
+		}
+		/* Configure the XPPU Apertures with configuration */
+		Xil_Out32(XOcp_DmeXppuCfgTable[Index].XppuAperAddr,
+				XOcp_DmeXppuCfgTable[Index].XppuAperWriteCfgVal);
+	}
+
+	/* Enabling Dynamic Reconfiguration */
+	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_EN, PMC_XPPU_DYNAMIC_RECONFIG_EN_DEFVAL);
+	/* XPPU */
+	Xil_Out32(PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
+
+	/* If XPPU is not enabled, enable XPPU */
+	if (((Xil_In32(PMC_XPPU_CTRL) & PMC_XPPU_CTRL_ENABLE_MASK)) == 0U) {
+		Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
+			XOCP_PMC_XPPU_CTRL_ENABLE_VAL);
+		XppuEnabled = XOCP_XPPU_ENABLED;
+	}
 
 	/* Mention the Address and Size of DME structure for ROM service */
 	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE5, (u32)DmePtr);
 	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE6, sizeof(XOcp_Dme));
-	XOcp_DmeXppuConfig();
 
 	Status = XPlmi_RomISR(XPLMI_DME_CHL_SIGN_GEN);
 	if (Status != XST_SUCCESS) {
-		goto RET;
+		goto END;
 	}
-	/* Disabling XPPU */
-	Xil_Out32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_DEFVAL);
 
 	/* Check if any ROM error occurred during DME request */
 	Status = Xil_In32(PMC_GLOBAL_PMC_BOOT_ERR);
 	if (Status != 0x0U) {
 		Status = XOCP_DME_ROM_ERROR;
-		goto RET;
-	}
-
-	/* Copy the contents to user DME response structure */
-	Status = Xil_SMemCpy(&DmeResPtr->Dme,
-				sizeof(XOcp_Dme),
-				&Dme,
-				sizeof(XOcp_Dme),
-				sizeof(XOcp_Dme));
-	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-	Status = Xil_SMemCpy(DmeResPtr->DmeSignatureR,
+	/* Copy the contents to user DME response structure */
+	Status = Xil_SMemCpy(DmeResponse.DmeSignatureR,
 			XOCP_ECC_P384_SIZE_BYTES,
 			(const void *)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_R_0,
 			XOCP_ECC_P384_SIZE_BYTES,
@@ -733,26 +807,38 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 		goto END;
 	}
 
-	Status = Xil_SMemCpy(DmeResPtr->DmeSignatureS,
+	Status = Xil_SMemCpy(DmeResponse.DmeSignatureS,
 			XOCP_ECC_P384_SIZE_BYTES,
 			(const void *)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_S_0,
 			XOCP_ECC_P384_SIZE_BYTES,
 			XOCP_ECC_P384_SIZE_BYTES);
 
 END:
+	XOcp_DmeRestoreXppuDefaultConfig();
+
+	if (XppuEnabled == XOCP_XPPU_ENABLED) {
+		Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
+				XOCP_PMC_XPPU_CTRL_DISABLE_VAL);
+	}
+
+	if (Status == XST_SUCCESS) {
+		Status = XPlmi_MemCpy64(DmeStructResAddr, (u64)(UINTPTR)&DmeResponse,
+			sizeof(DmeResponse));
+		if (Status != XST_SUCCESS) {
+			Status = Status | XOCP_DME_ERR;
+		}
+	}
+RET:
 	if (Status != XST_SUCCESS) {
-		/* Upon any failure whole response structure is cleared */
-		ClearStatus = Xil_SMemSet((void *)DmeResPtr,
-			sizeof(XOcp_DmeResponse), 0U, sizeof(XOcp_DmeResponse));
+		ClearStatus = XPlmi_MemSet((u64)(UINTPTR)&DmeResponse, 0U, sizeof(XOcp_DmeResponse));
 		if (ClearStatus != XST_SUCCESS) {
 			Status = Status | XLOADER_SEC_BUF_CLEAR_ERR;
 		}
 		else {
 			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
 		}
-		Status = Status | XOCP_DME_ERR;
 	}
-RET:
+
 	/*
 	 * ROM uses TRNG for DME service and resets the core after the usage
 	 * in this case TRNG state should be set to uninitialized state
@@ -770,6 +856,43 @@ RET:
 	}
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function stores default XPPU aperture configuration
+ *		before DME operation.
+ *
+ ******************************************************************************/
+static void XOcp_DmeStoreXppuDefaultConfig(void)
+{
+	volatile u32 Index;
+
+	for (Index = 0U; Index < XOCP_XPPU_MAX_APERTURES; Index++) {
+		XOcp_DmeXppuCfgTable[Index].XppuAperReadCfgVal =
+			Xil_In32(XOcp_DmeXppuCfgTable[Index].XppuAperAddr);
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function restores default XPPU aperture configuration
+ *		after DME operation.
+ *
+ ******************************************************************************/
+static void XOcp_DmeRestoreXppuDefaultConfig(void)
+{
+	volatile u32 Index;
+
+	/* Restore XPPU registers to their previous state */
+	for (Index = 0U; Index < XOCP_XPPU_MAX_APERTURES; Index++) {
+		if (XOcp_DmeXppuCfgTable[Index].IsModified == TRUE) {
+			Xil_Out32(XOcp_DmeXppuCfgTable[Index].XppuAperAddr,
+				XOcp_DmeXppuCfgTable[Index].XppuAperReadCfgVal);
+		}
+	}
+	Xil_Out32(PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
+	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_EN, 0x00);
 }
 
 /*****************************************************************************/
@@ -1223,37 +1346,7 @@ static u32 XOcp_GetPcrOffsetInLog(u32 PcrNum)
  *
  * @return	None.
  ******************************************************************************/
-static void XOcp_DmeXppuConfig(void)
-{
-	Xil_Out32(PMC_XPPU_MASTER_ID00, XOCP_XPPU_MASTER_ID0_CONFIG_VAL);
-	Xil_Out32(PMC_XPPU_APERPERM_032, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
-	Xil_Out32(PMC_XPPU_APERPERM_035, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
-	Xil_Out32( PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
 
-	Xil_Out32( PMC_XPPU_APERPERM_028, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
-	Xil_Out32( PMC_XPPU_APERPERM_030, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
-	Xil_Out32( PMC_XPPU_APERPERM_037, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
-	Xil_Out32( PMC_XPPU_APERPERM_038, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
-	Xil_Out32(PMC_XPPU_APERPERM_386, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
-
-	Xil_Out32(PMC_XPPU_MASTER_ID01, XOCP_XPPU_MASTER_ID1_CONFIG_VAL);
-	Xil_Out32(PMC_XPPU_APERPERM_017, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
-	Xil_Out32(PMC_XPPU_APERPERM_018, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
-	Xil_Out32(PMC_XPPU_APERPERM_019, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
-	Xil_Out32(PMC_XPPU_APERPERM_020, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
-	Xil_Out32(PMC_XPPU_APERPERM_021, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
-
-	Xil_Out32(PMC_XPPU_APERPERM_146, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
-	Xil_Out32(PMC_XPPU_APERPERM_147, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
-
-	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_APER_ADDR,
-				XOCP_XPPU_DYNAMIC_RECONFIG_APER_SET_VALUE);
-	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_APER_PERM,
-		XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
-	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_EN, PMC_XPPU_DYNAMIC_RECONFIG_EN_DEFVAL);
-
-	Xil_Out32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK);
-}
 
 /*****************************************************************************/
 /**

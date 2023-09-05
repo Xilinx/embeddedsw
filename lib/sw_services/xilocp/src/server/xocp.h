@@ -40,13 +40,15 @@ extern "C" {
 #include "xplmi_debug.h"
 
 /************************** Constant Definitions *****************************/
-#define XOCP_XPPU_MASTER_ID0_CONFIG_VAL			(0x03FF0246U)
+#define XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL		(0x03FF0246U)
 							/**< PPU0 SMID */
-#define XOCP_XPPU_MASTER_ID1_CONFIG_VAL			(0x03FF0247U)
+#define XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL		(0x03FF0247U)
 							/**< PPU1 SMID */
 #define XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL		(0x10000001U)
 #define XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL	(0x00000003U)
 #define XOCP_XPPU_DYNAMIC_RECONFIG_APER_SET_VALUE	(0x31U)
+#define XOCP_PMC_XPPU_CTRL_ENABLE_VAL			(0x1U)
+#define XOCP_PMC_XPPU_CTRL_DISABLE_VAL			(0x0U)
 #define XOcp_MemCopy								XPlmi_DmaXfr
 #define XOcp_Printf								XPlmi_Printf
 #define XOCP_WORD_LEN					(0x4U)
@@ -84,6 +86,16 @@ typedef struct {
 	XOcp_SwPcrData Data[XOCP_MAX_NUM_OF_SWPCRS];	/**< SW PCR log store with max no of events */
 	u8 CountPerPcr[XOCP_NUM_OF_SWPCRS];		/**< Number of digests extended for each SW PCR */
 } XOcp_SwPcrStore;
+
+/*
+ * Dme XPPU config
+ */
+typedef struct {
+	u32 XppuAperAddr; /**< XPPU MASTER IDs and Aperture address */
+	u32 XppuAperWriteCfgVal; /**< Required configurations */
+	u32 XppuAperReadCfgVal; /**< Initial values of Apertures and Master IDs */
+	u32 IsModified; /**< Is XPPU Configuration modified */
+}XOcp_DmeXppuCfg;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
