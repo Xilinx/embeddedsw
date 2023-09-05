@@ -319,6 +319,27 @@ def replace_line(File: str, search_string: str, add_line: str) -> None:
         err_msg = f"No such file exists: {File}"
         raise FileNotFoundError(err_msg)
 
+def replace_string(File, search_string: str, replace_string: str) -> None:
+    """
+    Replace an existing string that matches the passed string.
+
+    Args:
+        | File: file path which needs to be modified.
+        | search_string: the string that needs to be searched.
+        | replace_string: the string that needs to be replaced.
+    """
+    if is_file(File):
+        with open(File, "r+") as fd:
+            filedata = fd.read()
+            filedata = re.sub(search_string, replace_string, filedata)
+            fd.seek(0)
+            fd.write(filedata)
+            fd.truncate()
+    else:
+        err_msg = f"No such file exists: {File}"
+        raise FileNotFoundError(err_msg)
+
+
 def runcmd(cmd, cwd=None, logfile=None) -> bool:
     """
     Run the shell commands.
