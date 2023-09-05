@@ -43,6 +43,11 @@ elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
     set(PLATFORM_MB " ")
 endif()
 
+if(("${CMAKE_MACHINE}" STREQUAL "VersalNet") AND
+   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze"))
+    set(VERSALNET_PLM " ")
+endif()
+
 string(FIND "${CMAKE_C_FLAGS}" "-flto" has_flto)
 if (${has_flto} EQUAL -1)
     set(XIL_INTERRUPT " ")
