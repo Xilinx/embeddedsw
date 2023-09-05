@@ -135,6 +135,11 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
+	if (KeyAddr == NULL) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
 	Size = OffSet;
 	if (CrvType == XSECURE_ECC_NIST_P521) {
 		OffSet += XSECURE_ECDSA_P521_ALIGN_BYTES;
@@ -198,11 +203,27 @@ END:
 int XSecure_EllipticGenerateKey(XSecure_EllipticCrvTyp CrvType, const u8* D,
 	XSecure_EllipticKey *Key)
 {
+	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	if ((CrvType != XSECURE_ECC_NIST_P384) &&
+		(CrvType != XSECURE_ECC_NIST_P521) &&
+		(CrvType != XSECURE_ECC_NIST_P256)) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((D == NULL) || (Key == NULL)) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
 	XSecure_EllipticKeyAddr KeyAddr = { (u64)(UINTPTR)Key->Qx,
 		(u64)(UINTPTR)Key->Qy};
 
-	return XSecure_EllipticGenerateKey_64Bit(CrvType, (u64)(UINTPTR)D,
+	Status = XSecure_EllipticGenerateKey_64Bit(CrvType, (u64)(UINTPTR)D,
 			(XSecure_EllipticKeyAddr *) &KeyAddr);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -256,6 +277,11 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 
 	Status = XSecure_CryptoCheck();
 	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((HashInfo == NULL) || (SignAddr == NULL)) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
 
@@ -377,16 +403,37 @@ int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType,
 	const u8* Hash, const u32 HashLen, const u8* D,
 	const u8* K, XSecure_EllipticSign *Sign)
 {
+	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	if ((CrvType != XSECURE_ECC_NIST_P384) &&
+		(CrvType != XSECURE_ECC_NIST_P521) &&
+		(CrvType != XSECURE_ECC_NIST_P256)) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((Hash == NULL) || (D == NULL) || (K == NULL) || (Sign == NULL)) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
+	if (HashLen > XSECURE_ECC_P521_SIZE_IN_BYTES) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
 	XSecure_EllipticSignAddr SignAddr = {(u64)(UINTPTR)Sign->SignR,
 		(u64)(UINTPTR)Sign->SignS};
 
 	XSecure_EllipticHashData HashInfo = {(u64)(UINTPTR)Hash, HashLen};
 
-	return XSecure_EllipticGenerateSignature_64Bit(CrvType,
+	Status = XSecure_EllipticGenerateSignature_64Bit(CrvType,
 			(XSecure_EllipticHashData *) &HashInfo,
 			(u64)(UINTPTR)D,
 			(u64)(UINTPTR)K,
 			(XSecure_EllipticSignAddr *) &SignAddr);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -428,6 +475,11 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	OffSet = XSecure_EllipticValidateAndGetCrvInfo(CrvType, &Crv);
 	if ((OffSet == 0U) || (Crv == NULL)) {
 		Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+		goto END;
+	}
+
+	if (KeyAddr == NULL) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
 
@@ -494,11 +546,27 @@ END:
 int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
 	XSecure_EllipticKey *Key)
 {
+	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	if ((CrvType != XSECURE_ECC_NIST_P384) &&
+		(CrvType != XSECURE_ECC_NIST_P521) &&
+		(CrvType != XSECURE_ECC_NIST_P256)) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
+	if (Key == NULL) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
 	XSecure_EllipticKeyAddr KeyAddr = {(u64)(UINTPTR)Key->Qx,
 		(u64)(UINTPTR)Key->Qy};
 
-	return XSecure_EllipticValidateKey_64Bit(CrvType,
+	Status = XSecure_EllipticValidateKey_64Bit(CrvType,
 			(XSecure_EllipticKeyAddr *) &KeyAddr);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -553,6 +621,11 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	HashLenTmp = HashInfo->Len;
 	if ((HashInfo->Len > XSECURE_ECC_P521_SIZE_IN_BYTES) ||
 		(HashLenTmp > XSECURE_ECC_P521_SIZE_IN_BYTES)) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((HashInfo == NULL) || (KeyAddr == NULL) || (SignAddr == NULL)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
@@ -664,6 +737,24 @@ END:
 int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
 	const u32 HashLen, XSecure_EllipticKey *Key, XSecure_EllipticSign *Sign)
 {
+	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	if ((CrvType != XSECURE_ECC_NIST_P384) &&
+		(CrvType != XSECURE_ECC_NIST_P521) &&
+		(CrvType != XSECURE_ECC_NIST_P256)) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((Hash == NULL) || (Key == NULL) || (Sign == NULL)) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
+	if (HashLen > XSECURE_ECC_P521_SIZE_IN_BYTES) {
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+
 	XSecure_EllipticSignAddr SignAddr = {(u64)(UINTPTR)Sign->SignR,
 		(u64)(UINTPTR)Sign->SignS};
 
@@ -672,10 +763,13 @@ int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
 
 	XSecure_EllipticHashData HashInfo = {(u64)(UINTPTR)Hash, HashLen};
 
-	return XSecure_EllipticVerifySign_64Bit(CrvType,
+	Status = XSecure_EllipticVerifySign_64Bit(CrvType,
 			(XSecure_EllipticHashData *) &HashInfo,
 			(XSecure_EllipticKeyAddr *) &KeyAddr,
 			(XSecure_EllipticSignAddr *) &SignAddr);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -694,13 +788,20 @@ EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp)
 	EcdsaCrvInfo *Crv = NULL;
 	u32 TotalCurves = XSecure_EllipticCrvsGetCount();
 
-	for(Index = 0U; Index < TotalCurves; Index++) {
+	if ((CrvTyp != XSECURE_ECC_NIST_P384) &&
+		(CrvTyp != XSECURE_ECC_NIST_P521) &&
+		(CrvTyp != XSECURE_ECC_NIST_P256)) {
+		goto END;
+	}
+
+	for (Index = 0U; Index < TotalCurves; Index++) {
 		if (XSecure_EllipticCrvsDb[Index].CrvType == (EcdsaCrvTyp)CrvTyp) {
 			Crv = &XSecure_EllipticCrvsDb[Index];
 			break;
 		}
 	}
 
+END:
 	return Crv;
 }
 
