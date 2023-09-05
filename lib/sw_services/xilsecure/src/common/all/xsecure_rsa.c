@@ -68,8 +68,10 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSECURE_RSA_PUBLIC_EXPO_SIZE	(4U)	/**< Size of public key expo */
 
 /************************** Function Prototypes ******************************/
+static int XSecure_IsNonZeroBuffer(u8 *Data, const u32 Size);
 
 /************************** Variable Definitions *****************************/
 
@@ -311,6 +313,7 @@ int XSecure_RsaPublicEncrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 	u32 Size, u64 Result)
 {
 	int Status = XST_FAILURE;
+	u64 ModExpoAddr;
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) || (Result == 0x00U) || (Input == 0x00U) ||
@@ -325,9 +328,21 @@ int XSecure_RsaPublicEncrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 	}
 
 #ifdef versal
+	ModExpoAddr = InstancePtr->ModExpoAddr;
+	Status = XSecure_IsNonZeroBuffer((u8 *)(UINTPTR)ModExpoAddr, XSECURE_RSA_PUBLIC_EXPO_SIZE);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
 	Status = XSecure_RsaOperation(InstancePtr, Input, Result,
 			XSECURE_RSA_SIGN_ENC, Size);
 #else
+	ModExpoAddr = (u64)(UINTPTR)(InstancePtr->ModExpo);
+	Status = XSecure_IsNonZeroBuffer((u8 *)(UINTPTR)ModExpoAddr, XSECURE_RSA_PUBLIC_EXPO_SIZE);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
 	Status = (int)XSecure_RsaOperation(InstancePtr, (u8 *)(UINTPTR)Input,
 			(u8 *)(UINTPTR)Result, XSECURE_RSA_SIGN_ENC, Size);
 #endif
@@ -406,6 +421,7 @@ int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 	u32 InputData;
 	u32 ModData;
 	u64 ModAddr;
+	u64 ModExpoAddr;
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) || (Result == 0x00U) || (Input == 0x00U) ||
@@ -421,10 +437,17 @@ int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 
 #ifdef versal
 	ModAddr = InstancePtr->ModAddr;
+	ModExpoAddr = InstancePtr->ModExpoAddr;
 #else
 	ModAddr = (u64)(UINTPTR)(InstancePtr->Mod);
+	ModExpoAddr = (u64)(UINTPTR)(InstancePtr->ModExpo);
 #endif
 
+	Status = XSecure_IsNonZeroBuffer((u8 *)(UINTPTR)ModExpoAddr, Size);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
 	/*
 	 * Input data should always be smaller than modulus
 	 * One byte is being checked at a time to make sure the input data
@@ -488,5 +511,32 @@ int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 {
 	return XSecure_RsaPrivateDecrypt_64Bit(InstancePtr, (u64)(UINTPTR)Input,
 			Size, (u64)(UINTPTR)Result);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks if the data in the provided buffer is non-zero
+ *
+ * @param	Pointer to the buffer
+ * @param	Size of the buffer
+ *
+ * @return
+ *		 - XST_SUCCESS  In case of non-zero buffer
+ *		 - XST_FAILURE  In case the buffer is all zeroes
+ *
+ *****************************************************************************/
+static int XSecure_IsNonZeroBuffer(u8 *Data, const u32 Size)
+{
+	int Status = XST_FAILURE;
+	u32 Index;
+
+	for (Index = 0U; Index < Size; Index++) {
+		if (Data[Index] != 0x00U) {
+			Status = XST_SUCCESS;
+			break;
+		}
+	}
+
+	return Status;
 }
 #endif
