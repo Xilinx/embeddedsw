@@ -280,19 +280,6 @@ class Domain(Repo):
                 toolchain_file,
                 f'set( CMAKE_ASM_FLAGS "${{TOOLCHAIN_ASM_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} {compiler_flags} -I${{CMAKE_INCLUDE_PATH}}")',
             )
-        elif "r5" or "a9" in proc:
-            utils.add_newline(
-                toolchain_file,
-                f'set( CMAKE_C_FLAGS "${{TOOLCHAIN_C_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} ${{TOOLCHAIN_EXTRA_C_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} -I${{CMAKE_INCLUDE_PATH}}" CACHE STRING "CFLAGS")',
-            )
-            utils.add_newline(
-                toolchain_file,
-                f'set( CMAKE_CXX_FLAGS "${{TOOLCHAIN_CXX_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} ${{TOOLCHAIN_EXTRA_C_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} -I${{CMAKE_INCLUDE_PATH}}" CACHE STRING "CXXFLAGS")',
-            )
-            utils.add_newline(
-                toolchain_file,
-                f'set( CMAKE_ASM_FLAGS "${{TOOLCHAIN_ASM_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} ${{TOOLCHAIN_EXTRA_C_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} -I${{CMAKE_INCLUDE_PATH}}" CACHE STRING "ASMFLAGS")',
-            )
         else:
             utils.add_newline(
                 toolchain_file,
@@ -567,9 +554,7 @@ if(CMAKE_EXPORT_COMPILE_COMMANDS)
     set(CMAKE_C_STANDARD_INCLUDE_DIRECTORIES ${{CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES}})
 endif()
 
-set(CMAKE_C_FLAGS "${{CMAKE_C_FLAGS}} -c ${{proc_extra_compiler_flags}}" CACHE STRING "CFLAGS" FORCE)
-set(CMAKE_CXX_FLAGS "${{CMAKE_CXX_FLAGS}} -c ${{proc_extra_compiler_flags}}" CACHE STRING "CXXFLAGS" FORCE)
-set(CMAKE_ASM_FLAGS "${{CMAKE_ASM_FLAGS}} -c ${{proc_extra_compiler_flags}}" CACHE STRING "ASMFLAGS" FORCE)
+ADD_DEFINITIONS(-c ${{proc_extra_compiler_flags}})
 include_directories(${{CMAKE_BINARY_DIR}}/include)
 
 if (EXISTS ${{metal_BINARY_DIR}})
