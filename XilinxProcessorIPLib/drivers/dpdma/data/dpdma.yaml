@@ -33,13 +33,6 @@ examples:
             - xdppsu_interrupt.c
         - interrupts
 
-tapp:
-    xdpdma_video_example.c:
-        declaration: DpdmaVideoExample
-        hwproperties:
-            - interrupts
-
-
 depends:
     video_common: []
     avbuf: []
