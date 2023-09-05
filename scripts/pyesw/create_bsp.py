@@ -183,6 +183,17 @@ class Domain(Repo):
                 utils.copy_file(specs_file, specs_copy_file)
                 break
 
+        if self.proc == "psx_pmc_0" or self.proc == "psx_psm_0":
+            utils.replace_line(
+                toolchain_file_copy,
+                'CMAKE_MACHINE "Versal',
+                f'set( CMAKE_MACHINE "VersalNet" CACHE STRING "cmake machine" FORCE)',
+            )
+            utils.replace_string(
+                toolchain_file_copy,
+                "-mcpu=v10.0",
+                "-mcpu=v11.0")
+
         if "r5" in self.proc:
             utils.replace_line(
                 toolchain_file_copy,
