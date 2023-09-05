@@ -86,6 +86,7 @@ static XPuf_EncryptedData EncData __attribute__((aligned(64U))) __attribute__ ((
 
 static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.Iv")));
 static u8 InputData[XPUF_DME_PRIV_KEY_LEN_IN_BYTES] __attribute__ ((section (".data.InputData")));
+static u8 UpdatedIv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.UpdatedIv")));
 
 /************************** Function Prototypes ******************************/
 static int XPuf_GeneratePufKekAndId();
@@ -273,7 +274,6 @@ static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr)
 	XSecure_ClientInstance SecureClientInstance;
 	XPuf_EncryptOption EncOption;
 	XPuf_EncryptedData *EncryptedData = &EncData;
-	u8 UpdatedIv[XPUF_IV_LEN_IN_BYTES];
 
 	EncOption.EncRedKey = XPUF_ENCRYPT_RED_KEY;
 	EncOption.EncUds = XPUF_ENCRYPT_UDS;
