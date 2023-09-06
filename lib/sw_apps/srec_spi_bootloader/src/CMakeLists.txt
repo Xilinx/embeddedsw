@@ -4,6 +4,7 @@
 cmake_minimum_required(VERSION 3.14.7)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/Srec_spi_bootloaderExample.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/srec_spi_bootloader.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/UserConfig.cmake)
 set(APP_NAME srec_spi_bootloader)
 project(${APP_NAME})
