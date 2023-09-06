@@ -969,7 +969,7 @@ xvidc_disp_cea861_hf_sink_capability_data(
 	/* To avoid compilation warnings */
 	VerboseEn = VerboseEn;
 	const struct xvidc_cea861_hdmi_hf_sink_capability_data_block * const hdmi =
-			(struct xvidc_cea861_extended_data_block *) edb;
+			(struct xvidc_cea861_hdmi_hf_sink_capability_data_block *) edb;
 
 #if XVIDC_EDID_VERBOSITY > 0
     if (VerboseEn) {
