@@ -4832,6 +4832,12 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 	XV_Tx *XV_TxInst = (XV_Tx *)InstancePtr;
 	u64 TxLineRate;
 	u8 TxDiffSwingVal;
+#if defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCU118) || \
+	defined (XPS_BOARD_ZCU102)
+	u8 TxprecursorVal;
+	u8 TxpostcursorVal;
+#endif
 
 	TxLineRate = XV_Tx_GetLineRate(XV_TxInst);
 
@@ -4853,9 +4859,66 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 
 #if defined (XPS_BOARD_ZCU106) || \
 	defined (XPS_BOARD_VCU118) || \
-	defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280)
+	defined (XPS_BOARD_ZCU102)
+			/* Adjust GT TX Diff Swing based on Line rate */
+			if (Vfmc[0].TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R0 &&
+				Vfmc[0].TxMezzType <  VFMC_MEZZ_INVALID) {
+				/*Convert Line Rate to Mbps */
+				TxLineRate = (u32)((u64) TxLineRate / 1000000);
+
+				/* HDMI 2.0 */
+				if ((TxLineRate >= 3400) &&
+				    (TxLineRate < 6000)) {
+					if (Vfmc[0].TxMezzType ==
+						VFMC_MEZZ_HDMI_ONSEMI_R0) {
+						/* Set Tx Diff Swing to
+						 * 963 mV */
+						TxDiffSwingVal = 0xE;
+                        TxprecursorVal = 0x5;
+                        TxpostcursorVal = 0x5;
+					}
+					else if (Vfmc[0].TxMezzType >=
+						VFMC_MEZZ_HDMI_ONSEMI_R1) {
+						/* Set Tx Diff Swing to
+						 * 1000 mV */
+						TxDiffSwingVal = 0xF;
+                        TxprecursorVal = 0x5;
+                        TxpostcursorVal = 0x5;
+					}
+				}
+				/* HDMI 1.4 1.65-3.4 Gbps */
+				else if ((TxLineRate >= 1650) &&
+				         (TxLineRate < 3400)) {
+					/* Set Tx Diff Swing to 1000 mV */
+					TxDiffSwingVal = 0xF;
+                    TxprecursorVal = 0x5;
+                    TxpostcursorVal = 0x5;
+				}
+				/* HDMI 1.4 0.25-1.65 Gbps */
+				else {
+					/* Set Tx Diff Swing to 822 mV */
+					TxDiffSwingVal = 0x1;
+                    TxprecursorVal = 0x1;
+                    TxpostcursorVal = 0x1;
+				}
+
+				for (int ChId=1; ChId <= 4; ChId++) {
+					XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1,
+								0,
+								ChId,
+								TxDiffSwingVal);
+					XHdmiphy1_SetTxPreEmphasis(&Hdmiphy1,
+								0,
+								ChId,
+								TxprecursorVal);
+					XHdmiphy1_SetTxPostCursor(&Hdmiphy1,
+								0,
+								ChId,
+								TxpostcursorVal);
+				}
+			}
+#elif defined (XPS_BOARD_VCK190) || \
+	  defined (XPS_BOARD_VEK280)
 			/* Adjust GT TX Diff Swing based on Line rate */
 			if (Vfmc[0].TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R0 &&
 				Vfmc[0].TxMezzType <  VFMC_MEZZ_INVALID) {
@@ -4995,11 +5058,11 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 #endif
 		} else if (Vfmc[0].TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R2) {
 #if defined (XPS_BOARD_ZCU106)
-//			if ((ChId == 2) || (ChId == 3)) {
-				Data = 0xD;
-//			} else {
-//				Data = 0xA;
-//			}
+			if (ChId == 2) {
+				Data = 0xC;
+			} else {
+				Data = 0x9;
+			}
 #elif defined (XPS_BOARD_VCU118)
 			Data = 0xD; //0x1F;
 #elif defined (XPS_BOARD_ZCU102)
