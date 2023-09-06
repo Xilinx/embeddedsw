@@ -23,6 +23,8 @@
 * 5.2   yog  08/07/2023 Added a single function call using XSecure_GetRandomNum API
 *                       to generate random number
 *       am   08/23/2023 Replaced XPlmi_DmaXfr with XPlmi_MemCpy64
+*       yog  09/04/2023 Replaced error code XSECURE_TRNG_INVALID_BUF_SIZE with
+*                       XTRNGPSX_INVALID_BUF_SIZE
 *
 * </pre>
 *
@@ -93,7 +95,7 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
 	u8 RandBuf[XTRNGPSX_SEC_STRENGTH_IN_BYTES] = {0U};
 
 	if (Size > XTRNGPSX_SEC_STRENGTH_IN_BYTES) {
-		Status = (int)XSECURE_TRNG_INVALID_BUF_SIZE;
+		Status = (int)XTRNGPSX_INVALID_BUF_SIZE;
 		goto END;
 	}
 

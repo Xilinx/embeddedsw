@@ -37,6 +37,7 @@
  * 5.2   am   06/22/2023 Added KAT error code
  *       kpt  07/09/2023 Added error codes for RSA OAEP
  *       kpt  07/10/2023 Added error code for key unwrap
+ *       yog  09/04/2023 Removed TRNG error codes
  *
  * </pre>
  *
@@ -169,37 +170,6 @@ typedef enum {
 	XSECURE_HMAC_KAT_FINAL_ERROR,			/**< 0x92 - HMAC final failure */
 	XSECURE_HMAC_KAT_ERROR,				/**< 0x93 - HMAC KAT error */
 	XSECURE_HMAC_INVALID_PARAM,			/**< 0x94 - HMAC invalid parameter */
-
-	XSECURE_TRNG_INVALID_PARAM = 0xA0,	/**< 0xA0 - Invalid argument */
-	XSECURE_TRNG_INVALID_MODE,		/**< 0xA1 - Error when TRNG operation mode is
-						   invalid */
-	XSECURE_TRNG_INVALID_DF_LENGTH,		/**< 0xA2 - Error when DF length is invalid */
-	XSECURE_TRNG_INVALID_SEED_LIFE,		/**< 0xA3 - Error when seed life is invalid */
-	XSECURE_TRNG_INVALID_SEED_VALUE,	/**< 0xA4 - Error when seed is NULL */
-	XSECURE_TRNG_INVALID_SEED_LENGTH,	/**< 0xA5 - Error when input seed length doesn't
-						   match with df length */
-	XSECURE_TRNG_INVALID_STATE,		/**< 0xA6 - Error when TRNG state is
-						   invalid */
-	XSECURE_TRNG_INVALID_ADAPTPROPTEST_CUTOFF_VALUE, /**< 0xA7 - Invalid adaptive proptest
-							   cutoff value */
-	XSECURE_TRNG_INVALID_REPCOUNTTEST_CUTOFF_VALUE,	 /**< 0xA8 - Invalid repitive count test
-							    cutoff value */
-	XSECURE_TRNG_USER_CFG_COPY_ERROR,		 /**< 0xA9 - Error during memcpy of
-							    UserConfig structure */
-	XSECURE_TRNG_UNHEALTHY_STATE,			 /**< 0xAA - Error when device fails KAT or
-							    health tests */
-	XSECURE_TRNG_INVALID_BUF_SIZE,			 /**< 0xAB - Error invalid buffer size */
-	XSECURE_TRNG_RESEED_REQUIRED_ERROR,		 /**< 0xAC - Error seed life expired and
-							    reseed required in DRBG mode */
-	XSECURE_TRNG_MEMSET_UNINSTANTIATE_ERROR,	 /**< 0xAD - Error during memset */
-	XSECURE_TRNG_TIMEOUT_ERROR,			 /**< 0xAE - Timeout while waiting for
-							    done bit during reseed or generate*/
-	XSECURE_TRNG_CATASTROPHIC_CTF_ERROR,		 /**< 0xAF - CTF error during reseed */
-	XSECURE_TRNG_CATASTROPHIC_DTF_ERROR,		 /**< 0xB0 - DTF error during generate */
-	XSECURE_TRNG_KAT_FAILED_ERROR,			 /**< 0xB1 - Error when resultant TRNG o/p
-							    doesn't match with expected o/p */
-	XSECURE_TRNG_WRITE_ERROR,			 /**< 0xB2 - Error occurred while writing in
-							    to the register */
 
 	XSECURE_ECC_PRVT_KEY_GEN_ERR = 0xBF, /**< = 0xBF - ECC private key generation error */
 	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR = 0xC0,   /**< 0xC0 -ECC key is not valid */
