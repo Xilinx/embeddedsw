@@ -20,7 +20,9 @@
 #include "xplmi_scheduler.h"
 
 #if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
-    defined (XPAR_XIICPS_2_DEVICE_ID)
+    defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
+    defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)
+
 #include "xiicps.h"
 
 #define IIC_SCLK_RATE		400000

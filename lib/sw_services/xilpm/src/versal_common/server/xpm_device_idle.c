@@ -113,10 +113,12 @@ XStatus NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
 	XOspiPsv_Config *ConfigPtr;
 	XOspiPsv OspiInst = {0};
 
-	/* Warning Fix */
-	(void)(BaseAddress);
-
+#ifndef SDT
 	ConfigPtr = XOspiPsv_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XOspiPsv_LookupConfig(BaseAddress);
+#endif
+
 	if (NULL == ConfigPtr) {
 		goto done;
 	}
@@ -179,7 +181,6 @@ XStatus NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
 	XStatus Status = XST_FAILURE;
 	XUsbPsu_Config *ConfigPtr;
 	static struct XUsbPsu UsbInst;
-
 #ifndef SDT
 	ConfigPtr = XUsbPsu_LookupConfig(DeviceId);
 #else
