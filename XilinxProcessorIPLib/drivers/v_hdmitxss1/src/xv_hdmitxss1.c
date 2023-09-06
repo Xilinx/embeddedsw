@@ -3625,6 +3625,34 @@ void XV_HdmiTxSs1_SetVrrIf(XV_HdmiTxSs1 *InstancePtr,
 
 /*****************************************************************************/
 /**
+*
+* This function allows setting Custom VRR meta in core
+*
+* @param	InstancePtr is a pointer to the XV_HdmiTxSs1 instance.
+* @param	VrrIF is a pointer to the XV_HdmiC_VrrInfoFrame structure
+* @param	Value of sync in Vrr packet
+* @param	Value of data set length
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XV_HdmiTxSs1_SetCustomVrrIf(XV_HdmiTxSs1 *InstancePtr,
+				 XV_HdmiC_VrrInfoFrame *VrrIF, u16 Sync,
+				 u16 DataSetLen)
+{
+	if (VrrIF->VrrIfType == XV_HDMIC_VRRINFO_TYPE_VTEM) {
+		XV_HdmiTx1_GenerateCustomVideoTimingExtMetaIF(
+			InstancePtr->HdmiTx1Ptr, &VrrIF->VidTimingExtMeta, Sync,
+			DataSetLen);
+	} else {
+		xil_printf("No valid VRR infoframe type\n");
+	}
+}
+
+/*****************************************************************************/
+/**
 * This function will Stop the FRL stream
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
