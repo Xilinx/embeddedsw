@@ -31,6 +31,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.9   gm   07/08/23 Added SDT support
+* 3.9   gm   09/05/23 Corrected SDT support checks.
 * </pre>
 ******************************************************************************/
 
@@ -39,17 +40,15 @@
 #include "xparameters.h"
 #include "xuartlite.h"
 #include "xil_exception.h"
-
-#ifdef XPAR_INTC_0_DEVICE_ID
-#ifndef SDT
-#include "xintc.h"
-#endif
 #include <stdio.h>
+#include "xil_printf.h"
+#ifndef SDT
+#ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
 #else
 #include "xscugic.h"
-#include "xil_printf.h"
 #endif
-#ifdef SDT
+#else
 #include "xinterrupt_wrap.h"
 #endif
 
@@ -63,12 +62,13 @@
 #ifndef SDT
 #ifndef TESTAPP_GEN
 #define UARTLITE_DEVICE_ID	  XPAR_UARTLITE_0_DEVICE_ID
-#define UARTLITE_IRPT_INTR	  XPAR_FABRIC_UARTLITE_0_VEC_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define UARTLITE_IRPT_INTR	  XPAR_INTC_0_UARTLITE_0_VEC_ID
 #else
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define UARTLITE_IRPT_INTR	  XPAR_FABRIC_UARTLITE_0_VEC_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif /* TESTAPP_GEN */
 #else
@@ -84,6 +84,7 @@
 
 /**************************** Type Definitions *******************************/
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define INTC_HANDLER	XIntc_InterruptHandler
@@ -91,6 +92,7 @@
 #define INTC		XScuGic
 #define INTC_HANDLER	XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -114,10 +116,10 @@ static void UartLiteRecvHandler(void *CallBackRef, unsigned int EventData);
 static int UartLiteSetupIntrSystem(INTC *IntcInstancePtr,
 				   XUartLite *UartLiteInstancePtr,
 				   u16 UartLiteIntrId);
-#endif
 
 static void UartLiteDisableIntrSystem(INTC *IntrInstancePtr,
 				      u16 UartLiteIntrId);
+#endif
 
 
 /************************** Variable Definitions *****************************/
