@@ -50,6 +50,7 @@
 *       dc     08/06/23 Support dynamic and static modes of operation
 *       dc     06/20/23 Depricate obsolete APIs
 *       cog    07/04/23 Add support for SDT
+*       dc     30/28/23 Remove immediate trigger
 * </pre>
 * @addtogroup dfeprach Overview
 * @{
@@ -547,8 +548,11 @@ static void XDfePrach_SetNextCCCfg(const XDfePrach *InstancePtr,
 
 	/* Sequence Length should remain the same, so copy the sequence length
 	   from CURRENT to NEXT */
-	SeqLength = XDfePrach_ReadReg(
-		InstancePtr, XDFEPRACH_CC_SEQUENCE_LENGTH_CURRENT(BandId));
+	if (InstancePtr->SequenceLength[BandId] == 0) {
+		SeqLength = 0U;
+	} else {
+		SeqLength = InstancePtr->SequenceLength[BandId] - 1U;
+	}
 	XDfePrach_WriteReg(InstancePtr,
 			   XDFEPRACH_CC_SEQUENCE_LENGTH_NEXT(BandId),
 			   SeqLength);
@@ -1875,11 +1879,6 @@ configure_exit_tag:
 ****************************************************************************/
 void XDfePrach_Initialize(XDfePrach *InstancePtr, XDfePrach_Init *Init)
 {
-	XDfePrach_Trigger RachUpdate;
-	u32 Data;
-	s32 Index;
-	u32 Offset;
-	u32 SequenceLength;
 	u32 BandId;
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1891,31 +1890,6 @@ void XDfePrach_Initialize(XDfePrach *InstancePtr, XDfePrach_Init *Init)
 		InstancePtr->NotUsedCCID[BandId] = 0;
 		InstancePtr->SequenceLength[BandId] =
 			Init->Sequence[BandId].Length;
-		if (Init->Sequence[BandId].Length == 0U) {
-			SequenceLength = 0U;
-		} else {
-			SequenceLength = Init->Sequence[BandId].Length - 1U;
-		}
-		XDfePrach_WriteReg(InstancePtr,
-				   XDFEPRACH_CC_SEQUENCE_LENGTH_NEXT(BandId),
-				   SequenceLength);
-		/* Set NULL sequence and ensure all CCs are disabled. Not all
-		  registers will be cleared by reset as they are implemented
-		  using DRAM. This step sets all RACH_CONFIGURATION.
-		  CC_MAPPING.NEXT[*].ENABLE to 0 ensuring the Hardblock will
-		  remain disabled following the first call to
-		  XDfePrach_Activate. */
-		for (Index = 0U; Index < XDFEPRACH_CC_NUM_MAX; Index++) {
-			Offset = XDFEPRACH_CC_SEQUENCE_NEXT(BandId, Index);
-			XDfePrach_WriteReg(InstancePtr, Offset,
-					   XDFEPRACH_SEQUENCE_ENTRY_DEFAULT);
-			Init->Sequence[BandId].CCID[Index] =
-				XDFEPRACH_SEQUENCE_ENTRY_NULL;
-		}
-		for (Index = 0U; Index < XDFEPRACH_CC_NUM_MAX; Index++) {
-			Offset = XDFEPRACH_CC_MAPPING_NEXT(BandId, Index);
-			XDfePrach_WriteReg(InstancePtr, Offset, 0U);
-		}
 	}
 
 	/* Write EnableStaticSchedule to RCID_SCHEDULE.STATIC_SCHEDULE */
@@ -1937,42 +1911,6 @@ void XDfePrach_Initialize(XDfePrach *InstancePtr, XDfePrach_Init *Init)
 		XDfePrach_WriteReg(InstancePtr, XDFEPRACH_CORE_SETTINGS,
 				   XDFEPRACH_USE_FREQ_OFFSET_DISABLE);
 	}
-
-	/* Clear RACH data */
-	for (Index = 0U; Index < XDFEPRACH_CC_NUM_MAX; Index++) {
-		Offset = Index * sizeof(u32);
-		XDfePrach_WriteReg(InstancePtr,
-				   XDFEPRACH_RCID_MAPPING_CHANNEL_NEXT + Offset,
-				   0U);
-		XDfePrach_WriteReg(InstancePtr,
-				   XDFEPRACH_RCID_MAPPING_SOURCE_NEXT + Offset,
-				   0U);
-		XDfePrach_WriteReg(
-			InstancePtr,
-			XDFEPRACH_RCID_SCHEDULE_LOCATION_NEXT + Offset, 0U);
-		XDfePrach_WriteReg(InstancePtr,
-				   XDFEPRACH_RCID_SCHEDULE_LENGTH_NEXT + Offset,
-				   0U);
-	}
-
-	/* Trigger RACH_UPDATE immediately using Register source to update
-	   CURRENT from NEXT */
-	RachUpdate.TriggerEnable = XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_ENABLED;
-	RachUpdate.Mode = XDFEPRACH_TRIGGERS_MODE_IMMEDIATE;
-	RachUpdate.StateOutput = XDFEPRACH_TRIGGERS_STATE_OUTPUT_ENABLED;
-	Data = XDfePrach_ReadReg(InstancePtr,
-				 XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET);
-	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_STATE_OUTPUT_WIDTH,
-				    XDFEPRACH_TRIGGERS_STATE_OUTPUT_OFFSET,
-				    Data, RachUpdate.StateOutput);
-	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
-				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
-				    Data, RachUpdate.TriggerEnable);
-	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_MODE_WIDTH,
-				    XDFEPRACH_TRIGGERS_MODE_OFFSET, Data,
-				    RachUpdate.Mode);
-	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET,
-			   Data);
 
 	InstancePtr->StateId = XDFEPRACH_STATE_INITIALISED;
 }
@@ -2079,7 +2017,6 @@ static void XDfePrach_GetCurrentCCCfgLocal(const XDfePrach *InstancePtr,
 					   XDfePrach_CCCfg *CurrCCCfg,
 					   const u32 BandId)
 {
-	u32 SeqLen;
 	u32 Index;
 	u32 Data;
 	u32 Offset;
@@ -2092,14 +2029,8 @@ static void XDfePrach_GetCurrentCCCfgLocal(const XDfePrach *InstancePtr,
 	}
 
 	/* Read sequence length */
-	SeqLen = XDfePrach_ReadReg(
-		InstancePtr, XDFEPRACH_CC_SEQUENCE_LENGTH_CURRENT(BandId));
-	if (SeqLen == 0U) {
-		CurrCCCfg->Sequence[BandId].Length =
-			InstancePtr->SequenceLength[BandId];
-	} else {
-		CurrCCCfg->Sequence[BandId].Length = SeqLen + 1U;
-	}
+	CurrCCCfg->Sequence[BandId].Length =
+		InstancePtr->SequenceLength[BandId];
 
 	/* Convert not used CC to -1 */
 	for (Index = 0; Index < XDFEPRACH_CC_NUM_MAX; Index++) {
@@ -2166,7 +2097,6 @@ void XDfePrach_GetEmptyCCCfg(const XDfePrach *InstancePtr,
 			     XDfePrach_CCCfg *CCCfg)
 {
 	u32 Index;
-	u32 SeqLen;
 	u32 BandId;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
@@ -2180,15 +2110,8 @@ void XDfePrach_GetEmptyCCCfg(const XDfePrach *InstancePtr,
 				XDFEPRACH_SEQUENCE_ENTRY_NULL;
 		}
 		/* Read sequence length */
-		SeqLen = XDfePrach_ReadReg(
-			InstancePtr,
-			XDFEPRACH_CC_SEQUENCE_LENGTH_CURRENT(BandId));
-		if (SeqLen == 0U) {
-			CCCfg->Sequence[BandId].Length =
-				InstancePtr->SequenceLength[BandId];
-		} else {
-			CCCfg->Sequence[BandId].Length = SeqLen + 1U;
-		}
+		CCCfg->Sequence[BandId].Length =
+			InstancePtr->SequenceLength[BandId];
 	}
 }
 
@@ -2954,7 +2877,7 @@ u32 XDfePrach_AddRCtoRCCfgMBDynamic(const XDfePrach *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr->Config.HasAxisCtrl ==
 			  XDFEPRACH_MODEL_PARAM_HAS_AXIS_CTRL_ON);
 	Tmp = XDfePrach_ReadReg(InstancePtr,
-				    XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE);
+				XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE);
 	Xil_AssertNonvoid(Tmp == XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE_OFF);
 
 	/* Check  RachChan" is not in use. */
@@ -3073,7 +2996,7 @@ u32 XDfePrach_AddRCtoRCCfgDynamic(const XDfePrach *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr->Config.HasAxisCtrl ==
 			  XDFEPRACH_MODEL_PARAM_HAS_AXIS_CTRL_ON);
 	Tmp = XDfePrach_ReadReg(InstancePtr,
-				    XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE);
+				XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE);
 	Xil_AssertNonvoid(Tmp == XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE_OFF);
 
 	return XDfePrach_AddRCtoRCCfgMBDynamic(InstancePtr, CurrentRCCfg, CCID,
