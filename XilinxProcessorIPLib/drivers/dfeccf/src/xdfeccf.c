@@ -54,6 +54,7 @@
 * 1.6   dc     06/15/23 Function comment update
 *       dc     06/20/23 Depricate obsolete APIs
 *       cog    07/04/23 Add support for SDT
+*       dc     08/29/23 Remove immediate trigger
 * </pre>
 * @addtogroup dfeccf Overview
 * @{
@@ -472,8 +473,11 @@ static void XDfeCcf_SetNextCCCfg(const XDfeCcf *InstancePtr,
 	   from CURRENT to NEXT, does not take from NextCCCfg. The reason
 	   is that NextCCCfg->Sequence.SeqLength can be 0 or 1 for the value 0
 	   in the CURRENT seqLength register */
-	SeqLength =
-		XDfeCcf_ReadReg(InstancePtr, XDFECCF_SEQUENCE_LENGTH_CURRENT);
+	if (InstancePtr->SequenceLength == 0) {
+		SeqLength = 0U;
+	} else {
+		SeqLength = InstancePtr->SequenceLength - 1U;
+	}
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_SEQUENCE_LENGTH_NEXT, SeqLength);
 
 	/* Write CCID sequence and carrier configurations */
@@ -980,12 +984,6 @@ void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)
 ****************************************************************************/
 void XDfeCcf_Initialize(XDfeCcf *InstancePtr, XDfeCcf_Init *Init)
 {
-	XDfeCcf_Trigger CCUpdate;
-	u32 Data;
-	u32 Index;
-	u32 Offset;
-	u32 SequenceLength;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_CONFIGURED);
 	Xil_AssertVoid(Init != NULL);
@@ -1014,71 +1012,6 @@ void XDfeCcf_Initialize(XDfeCcf *InstancePtr, XDfeCcf_Init *Init)
 	   the exact sequence length value as register sequence length value 0
 	   can be understod as length 0 or 1 */
 	InstancePtr->SequenceLength = Init->Sequence.Length;
-	if (Init->Sequence.Length == 0) {
-		SequenceLength = 0U;
-	} else {
-		SequenceLength = Init->Sequence.Length - 1U;
-	}
-	XDfeCcf_WriteReg(InstancePtr, XDFECCF_SEQUENCE_LENGTH_NEXT,
-			 SequenceLength);
-	if (InstancePtr->Config.Switchable == XDFECCF_SWITCHABLE_YES) {
-		/* Set default sequence and ensure all CCs are disabled for UPLINK. */
-		XDfeCcf_SetRegBank(InstancePtr, XDFECCF_REG_BANK_UPLINK);
-		for (Index = 0; Index < XDFECCF_SEQ_LENGTH_MAX; Index++) {
-			Offset = XDFECCF_SEQUENCE_NEXT + (sizeof(u32) * Index);
-			XDfeCcf_WriteReg(InstancePtr, Offset,
-					 XDFECCF_SEQUENCE_ENTRY_DEFAULT);
-			Init->Sequence.CCID[Index] =
-				XDFECCF_SEQUENCE_ENTRY_NULL;
-		}
-		for (Index = 0; Index < XDFECCF_CC_NUM; Index++) {
-			Offset = XDFECCF_CARRIER_CONFIGURATION_NEXT +
-				 (sizeof(u32) * Index);
-			XDfeCcf_WrRegBitField(InstancePtr, Offset,
-					      XDFECCF_ENABLE_WIDTH,
-					      XDFECCF_ENABLE_OFFSET,
-					      XDFECCF_ENABLE_DISABLED);
-		}
-
-		/* Set default sequence and ensure all CCs are disabled for DOWNLINK. */
-		XDfeCcf_SetRegBank(InstancePtr, XDFECCF_REG_BANK_DOWNLINK);
-	}
-	/* Set default sequence and ensure all CCs are disabled. Not all
-	   registers will be cleared by reset as they are implemented using
-	   DRAM. This step sets all CC_CONFIGURATION.CARRIER_CONFIGURATION.
-	   CURRENT[*]. ENABLE to 0 ensuring the Hardblock will remain disabled
-	   following the first call to XDFECCFilterActivate. */
-	for (Index = 0; Index < XDFECCF_SEQ_LENGTH_MAX; Index++) {
-		Offset = XDFECCF_SEQUENCE_NEXT + (sizeof(u32) * Index);
-		XDfeCcf_WriteReg(InstancePtr, Offset,
-				 XDFECCF_SEQUENCE_ENTRY_DEFAULT);
-		Init->Sequence.CCID[Index] = XDFECCF_SEQUENCE_ENTRY_NULL;
-	}
-	for (Index = 0; Index < XDFECCF_CC_NUM; Index++) {
-		Offset = XDFECCF_CARRIER_CONFIGURATION_NEXT +
-			 (sizeof(u32) * Index);
-		XDfeCcf_WrRegBitField(InstancePtr, Offset, XDFECCF_ENABLE_WIDTH,
-				      XDFECCF_ENABLE_OFFSET,
-				      XDFECCF_ENABLE_DISABLED);
-	}
-
-	/* Trigger CC_UPDATE immediately using Register source to update
-	   CURRENT from NEXT */
-	CCUpdate.TriggerEnable = XDFECCF_TRIGGERS_TRIGGER_ENABLE_ENABLED;
-	CCUpdate.Mode = XDFECCF_TRIGGERS_MODE_IMMEDIATE;
-	CCUpdate.StateOutput = XDFECCF_TRIGGERS_STATE_OUTPUT_ENABLED;
-	Data = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_CC_UPDATE_OFFSET);
-	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_STATE_OUTPUT_WIDTH,
-				  XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Data,
-				  CCUpdate.StateOutput);
-	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
-				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
-				  CCUpdate.TriggerEnable);
-	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_MODE_WIDTH,
-				  XDFECCF_TRIGGERS_MODE_OFFSET, Data,
-				  CCUpdate.Mode);
-	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_CC_UPDATE_OFFSET, Data);
-
 	InstancePtr->StateId = XDFECCF_STATE_INITIALISED;
 }
 
@@ -1222,7 +1155,6 @@ void XDfeCcf_GetCurrentCCCfg(const XDfeCcf *InstancePtr,
 static void XDfeCcf_GetCurrentCCCfgLocal(const XDfeCcf *InstancePtr,
 					 XDfeCcf_CCCfg *CurrCCCfg)
 {
-	u32 SeqLen;
 	u32 AntennaCfg = 0U;
 	u32 Index;
 
@@ -1236,12 +1168,7 @@ static void XDfeCcf_GetCurrentCCCfgLocal(const XDfeCcf *InstancePtr,
 	}
 
 	/* Read sequence length */
-	SeqLen = XDfeCcf_ReadReg(InstancePtr, XDFECCF_SEQUENCE_LENGTH_CURRENT);
-	if (SeqLen == 0U) {
-		CurrCCCfg->Sequence.Length = InstancePtr->SequenceLength;
-	} else {
-		CurrCCCfg->Sequence.Length = SeqLen + 1U;
-	}
+	CurrCCCfg->Sequence.Length = InstancePtr->SequenceLength;
 
 	/* Convert not used CC to -1 */
 	for (Index = 0U; Index < XDFECCF_CC_NUM; Index++) {
@@ -1325,7 +1252,6 @@ void XDfeCcf_GetCurrentCCCfgSwitchable(const XDfeCcf *InstancePtr,
 void XDfeCcf_GetEmptyCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg)
 {
 	u32 Index;
-	u32 SeqLen;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
 
@@ -1336,12 +1262,7 @@ void XDfeCcf_GetEmptyCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg)
 		CCCfg->Sequence.CCID[Index] = XDFECCF_SEQUENCE_ENTRY_NULL;
 	}
 	/* Read sequence length */
-	SeqLen = XDfeCcf_ReadReg(InstancePtr, XDFECCF_SEQUENCE_LENGTH_CURRENT);
-	if (SeqLen == 0U) {
-		CCCfg->Sequence.Length = InstancePtr->SequenceLength;
-	} else {
-		CCCfg->Sequence.Length = SeqLen + 1U;
-	}
+	CCCfg->Sequence.Length = InstancePtr->SequenceLength;
 }
 
 /****************************************************************************/
@@ -2212,7 +2133,7 @@ void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive)
 	}
 
 	/* Read all coefficient sets in use and update IsActive */
-	SeqLen = XDfeCcf_ReadReg(InstancePtr, XDFECCF_SEQUENCE_LENGTH_CURRENT);
+	SeqLen = InstancePtr->SequenceLength;
 	for (Index = 0; Index < SeqLen; Index++) {
 		Offset = XDFECCF_CARRIER_CONFIGURATION_CURRENT +
 			 (sizeof(u32) * Index);
