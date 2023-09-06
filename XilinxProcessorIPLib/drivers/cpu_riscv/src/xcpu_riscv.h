@@ -7,7 +7,7 @@
 /**
 *
 * @file xcpu_riscv.h
-* @addtogroup cpu_riscv_v1_0
+* @addtogroup cpu_riscv Overview
 * @{
 * @details
 *
