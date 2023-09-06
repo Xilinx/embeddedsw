@@ -56,6 +56,8 @@
 * 5.2   am     07/31/23 Fixed compilation error
 *       yog    08/07/23 Added Xil_DCacheInvalidateRange before
 *                       XSecure_TrngGenerareRandNum function call
+*       yog    09/05/23 Added Xil_DCacheInvalidateRange before
+*                       XSecure_TrngPrintRandomNum functon call
 *
 * </pre>
 ******************************************************************************/
@@ -129,6 +131,7 @@ int main(void)
 		goto END;
 	}
 
+	Xil_DCacheInvalidateRange(RandBufAddr, XSECURE_TRNG_SEC_STRENGTH_IN_BYTES);
 	xil_printf("\r\n Generated random number:");
 	XSecure_TrngPrintRandomNum((const u8*)RandBuf);
 	xil_printf("\r\n Successfully ran TRNG example");
