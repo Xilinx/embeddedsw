@@ -60,6 +60,7 @@
 * 1.6   dc     06/15/23 Correct comment about gain
 *       dc     06/20/23 Depricate obsolete APIs
 *       cog    07/04/23 Add support for SDT
+*       dc     08/28/23 Remove immediate trigger
 * </pre>
 * @addtogroup dfemix Overview
 * @{
@@ -1042,12 +1043,16 @@ static void XDfeMix_SetNextCCCfg(const XDfeMix *InstancePtr,
 		}
 	}
 
-	/* Sequence Length should remain the same, so copy the sequence length
-	   from CURRENT to NEXT, does not take from NextCCCfg. The reason
-	   is that NextCCCfg->Sequence.SeqLength can be 0 or 1 for the value 0
-	   in the CURRENT seqLength register */
-	SeqLength =
-		XDfeMix_ReadReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_CURRENT);
+	/* Sequence Length should remain the same, so take the sequence length
+	   from InstancePtr->SequenceLength and decrement for 1. The following
+	   if statement is to distinguish how to calculate length in case
+	   InstancePtr->SequenceLength = 0 or 1 whih both will put 0 in the
+	   CURRENT seqLength register */
+	if (InstancePtr->SequenceLength == 0) {
+		SeqLength = 0U;
+	} else {
+		SeqLength = InstancePtr->SequenceLength - 1U;
+	}
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_NEXT, SeqLength);
 
 	/* Write CCID sequence and carrier configurations */
@@ -1980,42 +1985,6 @@ void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg)
 	InstancePtr->StateId = XDFEMIX_STATE_CONFIGURED;
 }
 
-/**
-* @cond nocomments
-*/
-/****************************************************************************/
-/**
-*
-* Cleaning CC and AUX NEXT registers.
-*
-* @param    InstancePtr Pointer to the Mixer instance.
-*
-****************************************************************************/
-static void XDfeMix_CleanNextReg(XDfeMix *InstancePtr, u32 SequenceLength)
-{
-	u32 Index;
-	u32 Offset;
-
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_NEXT,
-			 SequenceLength);
-	for (Index = 0; Index < XDFEMIX_SEQ_LENGTH_MAX; Index++) {
-		Offset = XDFEMIX_SEQUENCE_NEXT + (sizeof(u32) * Index);
-		XDfeMix_WriteReg(InstancePtr, Offset,
-				 XDFEMIX_SEQUENCE_ENTRY_DEFAULT);
-	}
-	for (Index = 0; Index < XDFEMIX_CC_NUM; Index++) {
-		Offset = XDFEMIX_CC_CONFIG_NEXT + (sizeof(u32) * Index);
-		XDfeMix_WriteReg(InstancePtr, Offset, 0U);
-	}
-	for (Index = 0; Index < XDFEMIX_AUX_NCO_MAX; Index++) {
-		Offset = XDFEMIX_AUXILIARY_ENABLE_NEXT + (sizeof(u32) * Index);
-		XDfeMix_WriteReg(InstancePtr, Offset, 0U);
-	}
-}
-/**
-* @endcond
-*/
-
 /****************************************************************************/
 /**
 *
@@ -2029,10 +1998,6 @@ static void XDfeMix_CleanNextReg(XDfeMix *InstancePtr, u32 SequenceLength)
 ****************************************************************************/
 void XDfeMix_Initialize(XDfeMix *InstancePtr, XDfeMix_Init *Init)
 {
-	XDfeMix_Trigger CCUpdate;
-	u32 Data;
-	u32 SequenceLength;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_CONFIGURED);
 	Xil_AssertVoid(Init != NULL);
@@ -2071,51 +2036,6 @@ void XDfeMix_Initialize(XDfeMix *InstancePtr, XDfeMix_Init *Init)
 	   the exact sequence length value as register sequence length value 0
 	   can be understod as length 0 or 1 */
 	InstancePtr->SequenceLength = Init->Sequence.Length;
-	if (Init->Sequence.Length == 0) {
-		SequenceLength = 0U;
-	} else {
-		SequenceLength = Init->Sequence.Length - 1U;
-	}
-	XDfeMix_CleanNextReg(InstancePtr, SequenceLength);
-
-	/* Write to second bank if switchable */
-	if (InstancePtr->Config.Mode == XDFEMIX_MODEL_PARAM_1_SWITCHABLE) {
-		/* Set default sequence and ensure all CCs are disabled for UPLINK. */
-		XDfeMix_SetRegBank(InstancePtr, XDFEMIX_SWITCHABLE_UPLINK);
-		XDfeMix_CleanNextReg(InstancePtr, SequenceLength);
-
-		/* Set default sequence and ensure all CCs are disabled for DOWNLINK. */
-		XDfeMix_SetRegBank(InstancePtr, XDFEMIX_SWITCHABLE_DOWNLINK);
-	}
-
-	/* Trigger CC_UPDATE immediately using Register source to update
-	   CURRENT from NEXT */
-	CCUpdate.TriggerEnable = XDFEMIX_TRIGGERS_TRIGGER_ENABLE_ENABLED;
-	CCUpdate.Mode = XDFEMIX_TRIGGERS_MODE_IMMEDIATE;
-	CCUpdate.StateOutput = XDFEMIX_TRIGGERS_STATE_OUTPUT_ENABLED;
-	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_STATE_OUTPUT_WIDTH,
-				  XDFEMIX_TRIGGERS_STATE_OUTPUT_OFFSET, Data,
-				  CCUpdate.StateOutput);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
-				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
-				  CCUpdate.TriggerEnable);
-	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_MODE_WIDTH,
-				  XDFEMIX_TRIGGERS_MODE_OFFSET, Data,
-				  CCUpdate.Mode);
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_CC_UPDATE_OFFSET, Data);
-
-	XDfeMix_CleanNextReg(InstancePtr, SequenceLength);
-
-	/* Write to second bank if switchable */
-	if (InstancePtr->Config.Mode == XDFEMIX_MODEL_PARAM_1_SWITCHABLE) {
-		/* Set default sequence and ensure all CCs are disabled for UPLINK. */
-		XDfeMix_SetRegBank(InstancePtr, XDFEMIX_SWITCHABLE_UPLINK);
-
-		XDfeMix_CleanNextReg(InstancePtr, SequenceLength);
-		/* Set default sequence and ensure all CCs are disabled for DOWNLINK. */
-		XDfeMix_SetRegBank(InstancePtr, XDFEMIX_SWITCHABLE_DOWNLINK);
-	}
 	InstancePtr->StateId = XDFEMIX_STATE_INITIALISED;
 }
 
@@ -2256,7 +2176,6 @@ void XDfeMix_GetCurrentCCCfg(const XDfeMix *InstancePtr,
 static void XDfeMix_GetCurrentCCCfgLocal(const XDfeMix *InstancePtr,
 					 XDfeMix_CCCfg *CurrCCCfg)
 {
-	u32 SeqLen;
 	u32 AntennaCfg = 0U;
 	u32 Data;
 	u32 Offset;
@@ -2270,12 +2189,7 @@ static void XDfeMix_GetCurrentCCCfgLocal(const XDfeMix *InstancePtr,
 	}
 
 	/* Read sequence length */
-	SeqLen = XDfeMix_ReadReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_CURRENT);
-	if (SeqLen == 0U) {
-		CurrCCCfg->Sequence.Length = InstancePtr->SequenceLength;
-	} else {
-		CurrCCCfg->Sequence.Length = SeqLen + 1U;
-	}
+	CurrCCCfg->Sequence.Length = InstancePtr->SequenceLength;
 
 	/* Convert not used CC to -1 */
 	for (Index = 0; Index < XDFEMIX_CC_NUM; Index++) {
@@ -2414,7 +2328,6 @@ void XDfeMix_GetCurrentCCCfgSwitchable(const XDfeMix *InstancePtr,
 void XDfeMix_GetEmptyCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg)
 {
 	u32 Index;
-	u32 SeqLen;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
 
@@ -2425,12 +2338,7 @@ void XDfeMix_GetEmptyCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg)
 		CCCfg->Sequence.CCID[Index] = XDFEMIX_SEQUENCE_ENTRY_NULL;
 	}
 	/* Read sequence length */
-	SeqLen = XDfeMix_ReadReg(InstancePtr, XDFEMIX_SEQUENCE_LENGTH_CURRENT);
-	if (SeqLen == 0U) {
-		CCCfg->Sequence.Length = InstancePtr->SequenceLength;
-	} else {
-		CCCfg->Sequence.Length = SeqLen + 1U;
-	}
+	CCCfg->Sequence.Length = InstancePtr->SequenceLength;
 }
 
 /****************************************************************************/
