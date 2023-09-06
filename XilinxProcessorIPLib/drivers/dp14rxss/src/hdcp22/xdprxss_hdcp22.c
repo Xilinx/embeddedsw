@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -738,7 +739,6 @@ int XDpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 		} else {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
 				"DPRXSS ERR:: HDCP22 keys have not loaded\n\r");
-			return XST_FAILURE;
 		}
 	}
 
