@@ -23,6 +23,7 @@
 *       cog    07/04/23 Add support for SDT
 *       dc     07/27/23 Output delay in ccid slots
 *       dc     07/31/23 Antenna interleave delay reorder
+*       dc     08/28/23 Remove immediate trigger
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -1102,11 +1103,6 @@ void XDfeOfdm_Configure(XDfeOfdm *InstancePtr, XDfeOfdm_Cfg *Cfg)
 ****************************************************************************/
 void XDfeOfdm_Initialize(XDfeOfdm *InstancePtr, XDfeOfdm_Init *Init)
 {
-	XDfeOfdm_Trigger CCUpdate;
-	u32 Data;
-	u32 Index;
-	u32 CCSequenceLength;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEOFDM_STATE_CONFIGURED);
 	Xil_AssertVoid(Init != NULL);
@@ -1120,65 +1116,10 @@ void XDfeOfdm_Initialize(XDfeOfdm *InstancePtr, XDfeOfdm_Init *Init)
 	   can be understood as length 0 or 1 */
 	InstancePtr->NotUsedCCID = 0;
 	InstancePtr->CCSequenceLength = Init->CCSequenceLength;
-	if (Init->CCSequenceLength == 0) {
-		CCSequenceLength = 0U;
-	} else {
-		CCSequenceLength = Init->CCSequenceLength - 1U;
-	}
-	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_CC_SEQUENCE_LENGTH_NEXT_OFFSET,
-			  CCSequenceLength);
 
 	/* Write 0 to FT Sequence length */
 	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_FT_SEQUENCE_LENGTH_NEXT_OFFSET,
 			  0);
-
-	/* Set default sequence and ensure all CCs are disabled. Not all
-	   registers will be cleared by reset as they are implemented using
-	   DRAM. This step sets all CC_CONFIGURATION.CARRIER_CONFIGURATION.
-	   CURRENT[*]. ENABLE to 0 ensuring the Hardblock will remain disabled
-	   following the first call to XDFEOfdm_Activate. */
-	for (Index = 0; Index < XDFEOFDM_CC_SEQ_LENGTH_MAX; Index++) {
-		XDfeOfdm_WriteReg(InstancePtr,
-				  XDFEOFDM_CC_SEQUENCE_NEXT_OFFSET(Index),
-				  XDFEOFDM_SEQUENCE_ENTRY_DEFAULT);
-	}
-
-	for (Index = 0; Index < XDFEOFDM_FT_SEQ_LENGTH_MAX; Index++) {
-		XDfeOfdm_WriteReg(InstancePtr,
-				  XDFEOFDM_FT_SEQUENCE_NEXT_OFFSET(Index),
-				  XDFEOFDM_SEQUENCE_ENTRY_DEFAULT);
-	}
-
-	/* Set all CC_CONFIGURATION.CARRIER_CONFIGURATION.CURRENT[*]. ENABLE
-	   to 0 ensuring the Hardblock will remain disabled following the first
-	   call to XDFEOfdm_Activate. */
-	for (Index = 0; Index < XDFEOFDM_CC_NUM; Index++) {
-		XDfeOfdm_WrRegBitField(
-			InstancePtr,
-			XDFEOFDM_CARRIER_CONFIGURATION1_NEXT_OFFSET(Index),
-			XDFEOFDM_CARRIER_CONFIGURATION1_ENABLE_WIDTH,
-			XDFEOFDM_CARRIER_CONFIGURATION1_ENABLE_OFFSET,
-			XDFEOFDM_CARRIER_CONFIGURATION1_ENABLE_DISABLED);
-	}
-
-	/* Trigger CC_UPDATE immediately using Register source to update
-	   CURRENT from NEXT */
-	CCUpdate.TriggerEnable = XDFEOFDM_TRIGGERS_TRIGGER_ENABLE_ENABLED;
-	CCUpdate.Mode = XDFEOFDM_TRIGGERS_MODE_IMMEDIATE;
-	CCUpdate.StateOutput = XDFEOFDM_TRIGGERS_STATE_OUTPUT_ENABLED;
-	Data = XDfeOfdm_ReadReg(InstancePtr,
-				XDFEOFDM_TRIGGERS_CC_UPDATE_OFFSET);
-	Data = XDfeOfdm_WrBitField(XDFEOFDM_TRIGGERS_STATE_OUTPUT_WIDTH,
-				   XDFEOFDM_TRIGGERS_STATE_OUTPUT_OFFSET, Data,
-				   CCUpdate.StateOutput);
-	Data = XDfeOfdm_WrBitField(XDFEOFDM_TRIGGERS_TRIGGER_ENABLE_WIDTH,
-				   XDFEOFDM_TRIGGERS_TRIGGER_ENABLE_OFFSET,
-				   Data, CCUpdate.TriggerEnable);
-	Data = XDfeOfdm_WrBitField(XDFEOFDM_TRIGGERS_MODE_WIDTH,
-				   XDFEOFDM_TRIGGERS_MODE_OFFSET, Data,
-				   CCUpdate.Mode);
-	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_TRIGGERS_CC_UPDATE_OFFSET,
-			  Data);
 
 	InstancePtr->StateId = XDFEOFDM_STATE_INITIALISED;
 }
@@ -1308,13 +1249,7 @@ void XDfeOfdm_GetCurrentCCCfg(const XDfeOfdm *InstancePtr,
 	}
 
 	/* Read sequence length */
-	SeqLen = XDfeOfdm_ReadReg(InstancePtr,
-				  XDFEOFDM_CC_SEQUENCE_LENGTH_CURRENT_OFFSET);
-	if (SeqLen == 0U) {
-		CurrCCCfg->CCSequence.Length = InstancePtr->CCSequenceLength;
-	} else {
-		CurrCCCfg->CCSequence.Length = SeqLen + 1U;
-	}
+	CurrCCCfg->CCSequence.Length = InstancePtr->CCSequenceLength;
 	SeqLen = XDfeOfdm_ReadReg(InstancePtr,
 				  XDFEOFDM_FT_SEQUENCE_LENGTH_CURRENT_OFFSET);
 	CurrCCCfg->FTSequence.Length = SeqLen + 1U;
@@ -1348,7 +1283,6 @@ void XDfeOfdm_GetCurrentCCCfg(const XDfeOfdm *InstancePtr,
 void XDfeOfdm_GetEmptyCCCfg(const XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg)
 {
 	u32 Index;
-	u32 SeqLen;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
 
@@ -1357,23 +1291,11 @@ void XDfeOfdm_GetEmptyCCCfg(const XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg)
 	/* Convert CC to -1 meaning not used */
 	for (Index = 0U; Index < XDFEOFDM_CC_NUM; Index++) {
 		CCCfg->CCSequence.CCID[Index] = XDFEOFDM_SEQUENCE_ENTRY_NULL;
-		CCCfg->FTSequence.CCID[Index] = XDFEOFDM_SEQUENCE_ENTRY_NULL;
+		CCCfg->FTSequence.CCID[Index] = 0;
 	}
 	/* Read sequence length */
-	SeqLen = XDfeOfdm_ReadReg(InstancePtr,
-				  XDFEOFDM_CC_SEQUENCE_LENGTH_CURRENT_OFFSET);
-	if (SeqLen == 0U) {
-		CCCfg->CCSequence.Length = InstancePtr->CCSequenceLength;
-	} else {
-		CCCfg->CCSequence.Length = SeqLen + 1U;
-	}
-	SeqLen = XDfeOfdm_ReadReg(InstancePtr,
-				  XDFEOFDM_FT_SEQUENCE_LENGTH_CURRENT_OFFSET);
-	if (SeqLen == 0U) {
-		CCCfg->FTSequence.Length = InstancePtr->CCSequenceLength;
-	} else {
-		CCCfg->FTSequence.Length = SeqLen + 1U;
-	}
+	CCCfg->CCSequence.Length = InstancePtr->CCSequenceLength;
+	CCCfg->FTSequence.Length = 0;
 }
 
 /****************************************************************************/
@@ -1694,12 +1616,16 @@ void XDfeOfdm_SetNextCCCfg(const XDfeOfdm *InstancePtr,
 	XDfeOfdm_TranslateSeq(InstancePtr, NextCCCfg->CCSequence.CCID,
 			      NextCCID);
 
-	/* Sequence Length should remain the same, so copy the sequence length
-	   from CURRENT to NEXT, does not take from NextCCCfg. The reason
-	   is that NextCCCfg->CCSequence.SeqLength can be 0 or 1 for the value 0
-	   in the CURRENT seqLength register */
-	SeqLength = XDfeOfdm_ReadReg(
-		InstancePtr, XDFEOFDM_CC_SEQUENCE_LENGTH_CURRENT_OFFSET);
+	/* Sequence Length should remain the same, so take the sequence length
+	   from InstancePtr->SequenceLength and decrement for 1. The following
+	   if statement is to distinguish how to calculate length in case
+	   InstancePtr->SequenceLength = 0 or 1 whih both will put 0 in the
+	   CURRENT seqLength register */
+	if (InstancePtr->CCSequenceLength == 0) {
+		SeqLength = 0U;
+	} else {
+		SeqLength = InstancePtr->CCSequenceLength - 1U;
+	}
 	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_CC_SEQUENCE_LENGTH_NEXT_OFFSET,
 			  SeqLength);
 
