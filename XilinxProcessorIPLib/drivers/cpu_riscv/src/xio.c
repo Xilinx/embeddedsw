@@ -6,7 +6,7 @@
 /**
 *
 * @file xio.c
-* @addtogroup cpu_riscv_v1_0
+* @addtogroup cpu_riscv Overview
 * @{
 *
 * Contains I/O functions for memory-mapped or non-memory-mapped I/O
