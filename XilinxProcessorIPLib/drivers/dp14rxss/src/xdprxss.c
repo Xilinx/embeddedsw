@@ -1443,7 +1443,9 @@ static void DpRxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber)
 	XDpRxSsPtr->TmrCtrResetDone = 1;
 
 	/* Call HDCP22 Timer handler */
-	XHdcp22Rx_Dp_TimerHandler((void *)XDpRxSsPtr->Hdcp22Ptr, TmrCtrNumber);
+	if (XDpRxSsPtr->Hdcp22Ptr)
+		XHdcp22Rx_Dp_TimerHandler((void *)XDpRxSsPtr->Hdcp22Ptr,
+					  TmrCtrNumber);
 
 }
 
