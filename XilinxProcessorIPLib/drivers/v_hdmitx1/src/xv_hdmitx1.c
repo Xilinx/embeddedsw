@@ -2977,6 +2977,62 @@ void XV_HdmiTx1_GenerateVideoTimingExtMetaIF(XV_HdmiTx1 *InstancePtr,
 			XV_HdmiC_VideoTimingExtMeta *ExtMeta)
 {
 	u32 Data = 0;
+	u32 RegVal = 0;
+
+	XV_HdmiC_VideoTimingExtMeta *Tx1ExtMeta;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Tx1ExtMeta = XV_HdmiTx1_GetVidTimingExtMeta(InstancePtr);
+	/* Only for info/debugging, no functional usage */
+	memcpy(Tx1ExtMeta, ExtMeta, sizeof(XV_HdmiC_VideoTimingExtMeta));
+
+	if (ExtMeta->QMSEnabled)
+	{
+		Data |= ExtMeta->QMSEnabled << XV_HDMITX1_AUX_VTEM_QMS_EN_SHIFT;
+		Data |= ExtMeta->MConstEnabled <<
+			XV_HDMITX1_AUX_VTEM_M_CONST_SHIFT;
+		Data |= ExtMeta->NextTransferRate <<
+			XV_HDMITX1_AUX_VTEM_NEXT_TFR_SHIFT;
+	} else {
+		Data |= ExtMeta->VRREnabled;
+		Data |= ExtMeta->FVAFactorMinus1 <<
+			XV_HDMITX1_AUX_VTEM_FVA_FACT_M1_SHIFT;
+	}
+	Data |= ExtMeta->BaseVFront << XV_HDMITX1_AUX_VTEM_BASE_VFRONT_SHIFT;
+	Data |= ExtMeta->BaseRefreshRate <<
+		XV_HDMITX1_AUX_VTEM_BASE_REFRESH_RATE_SHIFT;
+	Data |= ExtMeta->RBEnabled << XV_HDMITX1_AUX_VTEM_RB_SHIFT;
+
+	RegVal = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+				    XV_HDMITX1_AUX_CTRL_OFFSET);
+	if (Data == 0) {
+		/* Write datddaset len as 0 */
+		RegVal &= ~XV_HDMITX1_AUX_CTRL_DATASET_LEN_EN_MASK;
+	} else {
+		/* Write dataset len as 1 */
+		RegVal |= XV_HDMITX1_AUX_CTRL_DATASET_LEN_EN_MASK;
+	}
+
+	if (ExtMeta->QMSEnabled) {
+		/* Write sync as 1 */
+		RegVal |= XV_HDMITX1_AUX_CTRL_SYNC_EN_MASK;
+	} else {
+		/* Write dataset len as 0 */
+		RegVal &= ~XV_HDMITX1_AUX_CTRL_SYNC_EN_MASK;
+	}
+
+	XV_HdmiTx1_WriteReg(InstancePtr->Config.BaseAddress,
+			    XV_HDMITX1_AUX_CTRL_OFFSET, RegVal);
+	XV_HdmiTx1_WriteReg(InstancePtr->Config.BaseAddress,
+			    XV_HDMITX1_AUX_VTEM_OFFSET, Data);
+}
+
+void XV_HdmiTx1_GenerateCustomVideoTimingExtMetaIF(XV_HdmiTx1 *InstancePtr,
+				XV_HdmiC_VideoTimingExtMeta *ExtMeta, u16 Sync,
+				u16 DataSetLen)
+{
+	u32 Data = 0;
 	XV_HdmiC_VideoTimingExtMeta *Tx1ExtMeta;
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -3004,6 +3060,17 @@ void XV_HdmiTx1_GenerateVideoTimingExtMetaIF(XV_HdmiTx1 *InstancePtr,
 
 	XV_HdmiTx1_WriteReg(InstancePtr->Config.BaseAddress,
 			XV_HDMITX1_AUX_VTEM_OFFSET, Data);
+
+	Data = XV_HdmiTx1_ReadReg(InstancePtr->Config.BaseAddress,
+			XV_HDMITX1_AUX_CTRL_OFFSET);
+
+	Data = ((Data & ~XV_HDMITX1_AUX_CTRL_SYNC_EN_MASK) |
+			(Sync << XV_HDMITX1_AUX_CTRL_SYNC_EN_SHIFT));
+	Data = ((Data & ~XV_HDMITX1_AUX_CTRL_DATASET_LEN_EN_MASK) |
+			(DataSetLen << XV_HDMITX1_AUX_CTRL_DATASET_LEN_EN_SHIFT));
+
+	XV_HdmiTx1_WriteReg(InstancePtr->Config.BaseAddress,
+			XV_HDMITX1_AUX_CTRL_OFFSET, Data);
 }
 
 XV_HdmiC_SrcProdDescIF *XV_HdmiTx1_GetSrcProdDescIF(
