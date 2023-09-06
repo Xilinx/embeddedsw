@@ -18,7 +18,6 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   bm   07/06/22 Initial release
 * 5.2   yog  07/10/23 Added support of unaligned data sizes for Versal Net
-*       yog  08/07/23 Added XSecure_ECCRandInit API
 *
 * </pre>
 *
