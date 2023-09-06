@@ -21,6 +21,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   bm   07/06/22 Initial release
 * 5.2   yog  07/10/23 Added support of unaligned data sizes for Versal Net
+*       yog  09/04/23 Removed XSecure_ECCRandInit API definition
 *
 * </pre>
 *
@@ -108,16 +109,6 @@ static inline void XSecure_SetRsaCryptoStatus(void)
 	/* Not applicable for versal */
 }
 
-/*****************************************************************************/
-/**
- * @brief	This function is not applicable for versal
- *
- *****************************************************************************/
-static inline int XSecure_ECCRandInit(void)
-{
-	/* Not supported for versal */
-	return XST_SUCCESS;
-}
 /***************************** Variable Prototypes  ***************************/
 
 #ifdef __cplusplus
