@@ -16,12 +16,15 @@ depends_libs:
     xiltimer: {}
 
 depends:
-        spi:
-                - reg
+    spi:
+      - reg
 
 supported_processors:
   - microblaze
 
 supported_os:
   - standalone
+
+linker_constraints:
+    heap: 0x0
 ...
