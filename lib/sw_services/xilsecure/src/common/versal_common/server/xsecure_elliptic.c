@@ -53,6 +53,7 @@
 *       yog  08/07/23 Initialised trng before calling IpCores functions
 *       am   08/18/23 Added XSecure_EllipticValidateAndGetCrvInfo and
 *                     XSecure_EllipticGetCrvSize functions
+*       yog  09/04/23 Restricted XSecure_ECCRandInit API support to VersalNet
 *
 * </pre>
 *
@@ -139,11 +140,13 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 		OffSet += XSECURE_ECDSA_P521_ALIGN_BYTES;
 	}
 
+#ifdef VERSAL_NET
 	Status = XST_FAILURE;
 	Status = XSecure_ECCRandInit();
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
+#endif
 
 	/* Store Priv key to local buffer */
 	XSecure_PutData(Size, (u8*)D, DAddr);
@@ -154,6 +157,7 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
+	Status = XST_FAILURE;
 	Status = Ecdsa_GeneratePublicKey(Crv, D, (EcdsaKey *)&Key);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_ELLIPTIC_GEN_KEY_ERR;
@@ -262,11 +266,13 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
+#ifdef VERSAL_NET
 	Status = XST_FAILURE;
 	Status = XSecure_ECCRandInit();
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
+#endif
 
 	OffSet = XSecure_EllipticValidateAndGetCrvInfo(CrvType, &Crv);
 	if ((OffSet == 0U) || (Crv == NULL)) {
