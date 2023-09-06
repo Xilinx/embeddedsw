@@ -22,11 +22,11 @@ collect (PROJECT_LIB_SOURCES xilskey_utils.c)
 collect (PROJECT_LIB_HEADERS xilskey_bbramps_zynqmp_hw.h)
 
 if(NOT ${XILSKEY_use_puf_hd_as_user_efuse})
-collect (PROJECT_LIB_SOURCES xilskey_eps_zynqmp_puf.c)
+  collect (PROJECT_LIB_SOURCES xilskey_eps_zynqmp_puf.c)
 endif()
 
 if(NOT("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "pmu_microblaze"))
-collect (PROJECT_LIB_SOURCES xilskey_bbramps_zynqmp.c)
+  collect (PROJECT_LIB_SOURCES xilskey_bbramps_zynqmp.c)
 endif()
 
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
