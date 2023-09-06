@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1584,6 +1585,9 @@ XV_HdmiC_SrcProdDescIF *XV_HdmiTx1_GetSrcProdDescIF(
 		XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_GenerateVideoTimingExtMetaIF(XV_HdmiTx1 *InstancePtr,
 			XV_HdmiC_VideoTimingExtMeta *ExtMeta);
+void XV_HdmiTx1_GenerateCustomVideoTimingExtMetaIF(XV_HdmiTx1 *InstancePtr,
+				XV_HdmiC_VideoTimingExtMeta *ExtMeta, u16 Sync,
+				u16 DataSetLen);
 void XV_HdmiTx1_GenerateSrcProdDescInfoframe(XV_HdmiTx1 *InstancePtr,
 			XV_HdmiC_SrcProdDescIF *SpdIfPtr);
 

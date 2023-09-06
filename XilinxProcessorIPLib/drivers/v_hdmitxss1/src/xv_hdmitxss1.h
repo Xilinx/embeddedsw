@@ -586,6 +586,9 @@ void XV_HdmiTxSS1_SetVrrVfpStretch(XV_HdmiTxSs1 *InstancePtr,
 void XV_HdmiTxSS1_DisableVrr(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_SetVrrIf(XV_HdmiTxSs1 *InstancePtr,
 			XV_HdmiC_VrrInfoFrame *VrrIF);
+void XV_HdmiTxSs1_SetCustomVrrIf(XV_HdmiTxSs1 *InstancePtr,
+				 XV_HdmiC_VrrInfoFrame *VrrIF, u16 Sync,
+				 u16 DataSetLen);
 
 /* Dynamic HDR related APIs */
 void XV_HdmiTxSs1_DynHdr_Control(XV_HdmiTxSs1 *InstancePtr, u8 Flag);

@@ -309,7 +309,12 @@ extern "C" {
 #define XV_HDMITX1_AUX_CTRL_DYNHDR_GOF_VAL_MASK	(1 << 6)  /**< AUX Control Graphic Overlay Flag value mask */
 #define XV_HDMITX1_AUX_CTRL_DYNHDR_FAPA_LOC_MASK	(1 << 7)  /**< AUX Control FAPA Location value mask */
 #define XV_HDMITX1_AUX_CTRL_DSC_EN_MASK      (1<<8)  /**< AUX Control DSC En mask */
+#define XV_HDMITX1_AUX_CTRL_SYNC_EN_MASK      (1<<9)  /**< AUX Control SYNC En mask */
+#define XV_HDMITX1_AUX_CTRL_DATASET_LEN_EN_MASK      (1<<10)  /**< AUX Control Data Set Length En mask */
 
+/* Auxiliary peripheral Control register shifts */
+#define XV_HDMITX1_AUX_CTRL_SYNC_EN_SHIFT		9
+#define XV_HDMITX1_AUX_CTRL_DATASET_LEN_EN_SHIFT	10
 
 /* Auxiliary peripheral Status register masks and shift*/
 #define XV_HDMITX1_AUX_STA_IRQ_MASK          (1<<0)  /**< AUX Status Interrupt
