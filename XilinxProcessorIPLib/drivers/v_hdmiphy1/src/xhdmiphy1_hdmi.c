@@ -750,10 +750,10 @@ u32 XHdmiphy1_ClkDetGetRefClkFreqHz(XHdmiphy1 *InstancePtr,
 	if (Dir == XHDMIPHY1_DIR_TX) {
 		if (InstancePtr->TxHdmi21Cfg.IsEnabled == 1) {
 			if (InstancePtr->Config.TxFrlRefClkSel ==
-					InstancePtr->Config.DruRefClkSel) {
-				RegOffset = XHDMIPHY1_CLKDET_FREQ_DRU_REG;
-			} else {
+					InstancePtr->Config.TxRefClkSel) {
 				RegOffset = XHDMIPHY1_CLKDET_FREQ_TX_REG;
+			} else {
+				RegOffset = XHDMIPHY1_CLKDET_FREQ_TX_FRL_REG;
 			}
 		} else {
 			RegOffset = XHDMIPHY1_CLKDET_FREQ_TX_REG;
@@ -762,10 +762,10 @@ u32 XHdmiphy1_ClkDetGetRefClkFreqHz(XHdmiphy1 *InstancePtr,
 	else {
 		if (InstancePtr->RxHdmi21Cfg.IsEnabled == 1) {
 			if (InstancePtr->Config.RxFrlRefClkSel ==
-					InstancePtr->Config.DruRefClkSel) {
-				RegOffset = XHDMIPHY1_CLKDET_FREQ_DRU_REG;
-			} else {
+					InstancePtr->Config.RxRefClkSel) {
 				RegOffset = XHDMIPHY1_CLKDET_FREQ_RX_REG;
+			} else {
+				RegOffset = XHDMIPHY1_CLKDET_FREQ_RX_FRL_REG;
 			}
 		} else {
 			RegOffset = XHDMIPHY1_CLKDET_FREQ_RX_REG;
