@@ -20,4 +20,7 @@ supported_processors:
 
 supported_os:
   - standalone
+
+linker_constraints:
+    heap: 0x0
 ...
