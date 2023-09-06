@@ -78,6 +78,8 @@
 *                        XSK_EFUSEPS_ERROR_PPK1_BIT_CANT_REVERT
 * 7.5   ng      07/13/23 Added support for system device tree flow
 *       vss     09/02/23 Removed redundant function declaration of XilSKey_Efuse_ValidateKey
+*       ng      09/06/23 Added SDT support for examples
+*
 * </pre>
 *
  *****************************************************************************/
@@ -90,6 +92,14 @@ extern "C" {
 #endif
 
 /***************************** Include Files ********************************/
+#ifdef SDT
+#include "bspconfig.h"
+#include "xilskey_bsp_config.h"
+#define XSKEY_CPU_CORE_CLK_FREQ XPAR_CPU_CORE_CLOCK_FREQ_HZ
+#else
+#define XSKEY_CPU_CORE_CLK_FREQ XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ
+#endif
+
 #include "xparameters.h"
 #ifdef XPAR_XSK_MICROBLAZE_PLATFORM
 #include "xsysmon.h"
@@ -105,12 +115,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xil_util.h"
 
-#ifdef SDT
-#include "xilskey_bsp_config.h"
-#define XSKEY_CPU_CORE_CLK_FREQ XPAR_CPU_CORE_CLOCK_FREQ_HZ
-#else
-#define XSKEY_CPU_CORE_CLK_FREQ XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ
-#endif
+
 
 /************************** Constant Definitions ****************************/
 /**************************** Type Definitions ******************************/

@@ -171,6 +171,7 @@
 *       psl     03/29/19 Added Support for user configurable GPIO for
 *                        jtag control.
 * 7.5   ng      07/13/23 added SDT support
+*       ng      09/02/23 fixed gpio macro in SDT flow
 * </pre>
 *
 ******************************************************************************/
@@ -208,7 +209,7 @@ extern "C" {
 #ifndef SDT
 #define XSK_BBRAM_AXI_GPIO_DEVICE_ID	XPAR_AXI_GPIO_0_DEVICE_ID
 #else
-#define XSK_BBRAM_AXI_GPIO_DEVICE_ID	XPAR_XGPIOPS_0_BASEADDR
+#define XSK_BBRAM_AXI_GPIO_DEVICE_ID	XPAR_XGPIO_0_BASEADDR
 #endif
 
 #define	XSK_BBRAM_AXI_GPIO_JTAG_TDO	(0)	/**< MASTER JTAG GPIO

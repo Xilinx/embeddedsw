@@ -37,9 +37,6 @@ examples:
   xilskey_efuse_example.c:
     - dependency_files:
       - xilskey_input.h
-    - supported_platforms:
-      - Zynq
-      - ZynqMP
   xilskey_efuseps_zynqmp_example.c:
     - dependency_files:
       - xilskey_efuseps_zynqmp_input.h
@@ -51,8 +48,6 @@ examples:
   xilskey_bbram_ultrascale_example.c:
     - dependency_files:
       - xilskey_bbram_ultrascale_input.h
-    - supported_platforms:
-      - ZynqMP
   xilskey_puf_registration_example.c:
     - dependency_files:
       - xilskey_puf_registration.h
