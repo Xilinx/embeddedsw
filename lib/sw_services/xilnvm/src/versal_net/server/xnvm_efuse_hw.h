@@ -40,13 +40,19 @@ extern "C" {
 /****************************** Include Files *********************************/
 
 /*************************** Constant Definitions *****************************/
-/**< EFUSE row count numbers */
+/** @name eFuse row count numbers
+ * @{
+ */
+/**< eFuse row count numbers */
 #define XNVM_EFUSE_PPK_HASH_NUM_OF_CACHE_ROWS		(8U)
 #define XNVM_EFUSE_TOTAL_PPK_HASH_ROWS			(XNVM_EFUSE_PPK_HASH_NUM_OF_CACHE_ROWS * 3U)
 #define XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS			(3U)
 /** @} */
 
-/**< EFUSE Row numbers */
+/** @name  eFuse Row numbers
+ * @{
+ */
+/**< eFuse Row numbers */
 #define XNVM_EFUSE_TBITS_XILINX_CTRL_ROW		(0U)
 #define XNVM_EFUSE_PUF_RO_SWAP_EN_ROW                   (1U)
 #define XNVM_EFUSE_BLACK_IV_START_ROW			(4U)
@@ -103,8 +109,12 @@ extern "C" {
 #define XNVM_EFUSE_CRC_ROW				(188U)
 #define XNVM_EFUSE_PAGE_0_PUF_SYN_DATA_ROW		(192U)
 #define XNVM_EFUSE_PAGE_1_PUF_SYN_DATA_ROW		(192U)
+/** @} */
 
-/**< EFUSE column numbers */
+/** @name eFuse column numbers
+ * @{
+ */
+/**< eFuse column numbers */
 #define XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_0_COL_NUM	(2U)
 #define XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_1_COL_NUM	(25U)
 #define XNVM_EFUSE_ROW_0_SEC_MISC0_PROT_1_COL_NUM	(24U)
@@ -213,8 +223,12 @@ extern "C" {
 #define XNVM_EFUSE_CRC_SALT_END_COL_NUM			(31U)
 #define XNVM_EFUSE_ROM_RSVD_START_COL			(24U)
 #define XNVM_EFUSE_ROM_RSVD_END_COL			(31U)
+/** @} */
 
-/**< EFUSE number of rows */
+/** @name eFuse number of rows
+ * @{
+ */
+/**< eFuse number of rows */
 #define XNVM_EFUSE_AES_KEY_0_TO_127_NUM_OF_ROWS		(16U)
 #define XNVM_EFUSE_AES_KEY_128_TO_255_NUM_OF_ROWS	(16U)
 #define XNVM_EFUSE_USER_KEY0_0_TO_63_NUM_OF_ROWS	(8U)
@@ -250,8 +264,12 @@ extern "C" {
 #define XNVM_EFUSE_CRC_NUM_OF_ROWS			(4U)
 #define XNVM_EFUSE_CRC_SALT_NUM_OF_ROWS			(1U)
 #define XNVM_EFUSE_ROM_RSVD_NUM_OF_ROWS			(4U)
+/** @} */
 
-/**< offset constants*/
+/** @name eFuse Cache offset constants
+ * @{
+ */
+/**< Offsets of the different registers in EFUSE_CACHE module*/
 #define XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET	(0x00000180U)
 #define XNVM_EFUSE_CACHE_BLACK_IV_OFFSET		(0x000001D0U)
 #define XNVM_EFUSE_CACHE_PLM_IV_RANGE_OFFSET		(0x000001DCU)
@@ -274,8 +292,12 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_TBITS0_SVD_OFFSET		(0x00000000U)
 #define XNVM_EFUSE_CACHE_ME_ID_CODE_OFFSET		(0x000000FCU)
 #define XNVM_EFUSE_CACHE_ROM_RSVD_OFFSET		(0x00000090U)
+/** @} */
 
-/**< Security controls masks*/
+/** @name Masks for the bits in SECURITY_CONTROL REGISTER in EFUSE_CACHE module
+ * @{
+ */
+/**< Masks for the bits in  SECURITY_CONTROL REGISTER in EFUSE_CACHE module */
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_REG_INIT_DIS_1_0_MASK	(0xc0000000U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_BOOT_ENV_WR_LK_MASK	(0x10000000U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_LOCK_DBG_DIS_MASK	(0x00600000U)
@@ -296,18 +318,24 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROUT_DIS_MASK	(0x00000002U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK		(0x00000001U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_UDS_WR_LK_MASK	(0x00000010U)
+/** @} */
 
-/**< Uds masks*/
+/** @name Masks for bits related to UDS in STATUS register in EFUSE_CTRL module
+ * @{
+ */
+/**< Masks for bits related to UDS in STATUS register in EFUSE_CTRL module*/
 #define XNVM_EFUSE_CTRL_STATUS_UDS_DICE_CRC_PASS_MASK    	(0x00002000U)
 #define XNVM_EFUSE_CTRL_STATUS_UDS_DICE_CRC_DONE_MASK    	(0x00001000U)
 #define XNVM_EFUSE_CTRL_UDS_DICE_CRC_OFFSET            		(0x00000070U)
+/** @} */
 
-/**< Dme mode mask*/
-#define XNVM_EFUSE_CACHE_DME_FIPS_DME_MODE_MASK			(0x0000000FU)
-/**< gitch config data mask*/
-#define XNVM_EFUSE_GLITCH_CONFIG_DATA_MASK			(0x7FFFFFFFU)
+#define XNVM_EFUSE_CACHE_DME_FIPS_DME_MODE_MASK			(0x0000000FU) /**< DME mode mask*/
+#define XNVM_EFUSE_GLITCH_CONFIG_DATA_MASK			(0x7FFFFFFFU) /**< Glitch config data mask*/
 
-/**< Tbits masks*/
+/** @name TBITS masks
+ * @{
+ */
+/**< TBITS masks*/
 #define XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_3_MASK    		(0x08000000U)
 #define XNVM_EFUSE_CACHE_TBITS0_SVD_ANCHOR_2_MASK    		(0x04000000U)
 #define XNVM_EFUSE_CACHE_TBITS0_SVD_CRC_PROT_MASK    		(0x00300000U)
@@ -319,17 +347,21 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_TBITS0_SVD_SEC_MISC0_PROT_MASK 	(0x01000008U)
 #define XNVM_EFUSE_CACHE_TBITS0_SVD_PPK_HASH_PROT_MASK		(0x00810000U)
 #define XNVM_EFUSE_CACHE_TBITS0_SVD_META_HEADER_EXPORT_PROT_MASK	(0x00420000U)
+/** @} */
 
-/**< Crc salt mask*/
-#define XNVM_EFUSE_CACHE_ME_ID_CODE_CRC_SALT_MASK		(0xFF000000U)
+#define XNVM_EFUSE_CACHE_ME_ID_CODE_CRC_SALT_MASK		(0xFF000000U) /**< CRC salt mask*/
 
-/**< ROM Rsvd mask and shift*/
+/** @name Masks and shifts for bits in ROM_RSVD register in EFUSE_CACHE module
+ * @{
+ */
+/**< Masks and shifts for bits in ROM_RSVD register in EFUSE_CACHE module */
 #define XNVM_EFUSE_ROM_RSVD_ROW_1_MASK				(0x0000F800U)
 #define XNVM_EFUSE_ROM_RSVD_ROW_2_MASK				(0x00FF0000U)
 #define XNVM_EFUSE_ROM_RSVD_ROW_3_MASK				(0xFF000000U)
 #define XNVM_EFUSE_ROM_RSVD_ROW_1_SHIFT				(11)
 #define XNVM_EFUSE_ROM_RSVD_ROW_2_SHIFT				(16)
 #define XNVM_EFUSE_ROM_RSVD_ROW_3_SHIFT				(24)
+/** @} */
 
 #ifdef __cplusplus
 }
