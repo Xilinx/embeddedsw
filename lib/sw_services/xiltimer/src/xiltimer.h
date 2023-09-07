@@ -142,6 +142,10 @@ void XTimer_SetInterval(unsigned long delay);
 void XTimer_SetHandler(XTimer_TickHandler FuncPtr, void *CallBackRef,
 		       u8 Priority);
 void XTimer_ClearTickInterrupt( void );
+#ifdef XTIMER_DEFAULT_TIMER_IS_MB
+u32 Xil_GetMBFrequency(void);
+u32 Xil_SetMBFrequency(u32 Val);
+#endif
 
 #ifdef __cplusplus
 }
