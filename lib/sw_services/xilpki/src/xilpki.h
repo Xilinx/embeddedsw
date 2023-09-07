@@ -34,6 +34,8 @@
  * 2.0   Nava  06/21/23  Added PKI multi-queue support for ECC operations.
  * 2.0   Nava  08/02/23  Added a new API XPki_GetVersion() to access the library
  *			 version info.
+ * 2.0   Nava  09/06/23  Updated the XPki_GetVersion() API prototype to inline with
+ *                       other secure library version info API's.
  *
  * </pre>
  *
@@ -237,6 +239,22 @@ typedef struct {
 	u32 RQCount;
 } XPki_Instance;
 
+/****************** Macros (Inline Functions) Definitions *********************/
+
+/******************************************************************************/
+/**
+ *
+ * This function returns the version number of xilpki library.
+ *
+ * @return	32-bit version number
+ *
+ ******************************************************************************/
+static __attribute__((always_inline)) inline
+u32 XPki_GetLibVersion (void)
+{
+	return (XIL_BUILD_VERSION(XPKI_MAJOR_VERSION, XPKI_MINOR_VERSION));
+}
+
 /************************** Function Prototypes ******************************/
 void XPki_Reset(void);
 void XPki_SoftReset(void);
@@ -261,5 +279,5 @@ int XilPki_EnQueue(XPki_Instance *InstancePtr, XPki_Request_Info *Request_InfoPt
 int XilPki_DeQueue(XPki_Instance *InstancePtr, XPki_Request_Info *Request_InfoPtr,
 		   u32 RequestID);
 void XPki_Close(void);
-int XPki_GetVersion(u32 *Version);
+
 #endif  /* XILPKI_H */
