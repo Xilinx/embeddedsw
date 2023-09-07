@@ -43,6 +43,7 @@
 *       mmd  07/11/2023 Included header file for crypto algorithm information
 *       vss  07/14/2023 Added IsResourceBusy flag and IpiMask variable in Xsecure_Aes instance
 *       kpt  07/20/2023 Renamed XSecure_AesDpaCmDecryptKat to XSecure_AesDpaCmDecryptData
+*	vss  09/07/2023 Reverted the fix for NO_EFFECT coverity warning
 *
 * </pre>
 *
@@ -122,7 +123,6 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 typedef enum {
-	XSECURE_AES_IGNORE = -1,		/**< AES Ignore */
 	XSECURE_AES_BBRAM_KEY = 0,		/**< BBRAM Key */
 	XSECURE_AES_BBRAM_RED_KEY,		/**< BBRAM Red Key */
 	XSECURE_AES_BH_KEY,			/**< BH Key */
