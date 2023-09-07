@@ -71,7 +71,7 @@ static u32 XDpDma_GetPendingTransaction(XDpDma *InstancePtr, u32 ChannelNum)
 	u32 RegVal;
 	RegVal = XDpDma_ReadReg(InstancePtr->Config.BaseAddr,
 				XDPDMA_CH0_STATUS +
-				XDPDMA_CH_OFFSET * ChannelNum);
+				(XDPDMA_CH_OFFSET * ChannelNum));
 	return (RegVal & XDPDMA_CH_STATUS_OTRAN_CNT_MASK);
 }
 
@@ -177,8 +177,8 @@ static int XDpDma_ConfigChannelState(XDpDma *InstancePtr, u8 ChannelNum,
 			break;
 	}
 	XDpDma_ReadModifyWrite(InstancePtr->Config.BaseAddr,
-			       XDPDMA_CH0_CNTL + XDPDMA_CH_OFFSET *
-			       (u32)ChannelNum, RegVal, Mask);
+			       XDPDMA_CH0_CNTL + (XDPDMA_CH_OFFSET *
+			       (u32)ChannelNum), RegVal, Mask);
 	return RetVal;
 }
 
@@ -500,7 +500,7 @@ void XDpDma_SetQOS(XDpDma *InstancePtr, u8 QOS)
 	u8 Index;
 	u32 RegVal = 0;
 
-	Xil_AssertVoid(QOS >= XDPDMA_QOS_MIN && QOS <= XDPDMA_QOS_MAX);
+	Xil_AssertVoid((QOS >= XDPDMA_QOS_MIN) && (QOS <= XDPDMA_QOS_MAX));
 
 	RegVal = (((u32)QOS << XDPDMA_CH_CNTL_QOS_DATA_RD_SHIFT) |
 		   ((u32)QOS << XDPDMA_CH_CNTL_QOS_DSCR_RD_SHIFT) |
@@ -668,7 +668,7 @@ void XDpDma_InitVideoDescriptor(XDpDma_Descriptor *CurrDesc,
 {
 	Xil_AssertVoid(CurrDesc != NULL);
 	Xil_AssertVoid(FrameBuffer != NULL);
-	Xil_AssertVoid((FrameBuffer->Stride) % XDPDMA_DESCRIPTOR_ALIGN == 0U);
+	Xil_AssertVoid(((FrameBuffer->Stride) % XDPDMA_DESCRIPTOR_ALIGN) == 0U);
 	u64 DescAddr = (UINTPTR) CurrDesc;
 	CurrDesc->Control = XDPDMA_DESC_PREAMBLE | XDPDMA_DESC_IGNR_DONE |
 			    XDPDMA_DESC_LAST_FRAME;
@@ -708,8 +708,8 @@ void XDpDma_InitAudioDescriptor(XDpDma_AudioChannel *Channel,
 	Xil_AssertVoid((Channel->Current == &Channel->Descriptor0) ||
 		       (Channel->Current == &Channel->Descriptor4));
 	Xil_AssertVoid(AudioBuffer != NULL);
-	Xil_AssertVoid((AudioBuffer->Size) % XDPDMA_AUDIO_ALIGNMENT == 0U);
-	Xil_AssertVoid((AudioBuffer->Address) % XDPDMA_AUDIO_ALIGNMENT == 0U);
+	Xil_AssertVoid(((AudioBuffer->Size) % XDPDMA_AUDIO_ALIGNMENT) == 0U);
+	Xil_AssertVoid(((AudioBuffer->Address) % XDPDMA_AUDIO_ALIGNMENT) == 0U);
 
 	Size = AudioBuffer->Size / 4U;
 	Address = AudioBuffer->Address;
@@ -864,8 +864,8 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Buffer != NULL);
 	Xil_AssertNonvoid(Buffer->Size >= 512U);
-	Xil_AssertNonvoid(Buffer->Size % 128U == 0U);
-	Xil_AssertNonvoid(Buffer->Address % 128U == 0U);
+	Xil_AssertNonvoid((Buffer->Size % 128U) == 0U);
+	Xil_AssertNonvoid((Buffer->Address % 128U) == 0U);
 
 	Channel = &InstancePtr->Audio[ChannelNum];
 	Channel->Buffer = Buffer;
