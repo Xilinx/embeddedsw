@@ -41,6 +41,8 @@
 *                       Refactored Proc logic to more generic logic
 *                       Added list commands prototypes
 *       sk   07/28/2023 Added ptototype for XPlmi_IsPlmUpdateDoneTmp
+*       bm   09/04/2023 Added support to use DDR region for backup of PLM data
+*                       structures during In-Place PLM Update
 *
 * </pre>
 *
@@ -83,6 +85,11 @@ extern "C" {
 #define XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_0			(XPLMI_RTCFG_BASEADDR + 0x29CU) /**< Secure PKI KAT address 0 */
 #define XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_1			(XPLMI_RTCFG_BASEADDR + 0x2A0U) /**< Secure PKI KAT address 1 */
 #define XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_2			(XPLMI_RTCFG_BASEADDR + 0x2A4U) /**< Secure PKI KAT address 2 */
+#define XPLMI_RTCFG_PLM_RSVD_DDR_ADDR				(XPLMI_RTCFG_BASEADDR + 0x2A8U) /**< Baseadress of DDR region reserved for PLM */
+#define XPLMI_RTCFG_PLM_RSVD_DDR_SIZE				(XPLMI_RTCFG_BASEADDR + 0x2ACU) /**< Size of DDR region reserved for PLM */
+
+#define XPLMI_INVALID_PLM_RSVD_DDR_ADDR				(0x0U)
+#define XPLMI_INVALID_PLM_RSVD_DDR_SIZE				(0U)
 
 #define XPLMI_ROM_SERVICE_TIMEOUT			(1000000U) /**< ROM service timeout */
 
@@ -90,7 +97,6 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /* Minor Error Codes */
-/* Add any platform specific minor error codes from 0xA0 */
 enum {
 	XPLMI_ERR_CURRENT_UART_INVALID = 0x2, /**< 0x2 - Error when current uart
 						selected has invalid base address */
@@ -124,6 +130,13 @@ enum {
 	XPLMI_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS, /**< 0x10 - Error if the Api Id received during IPI request only
 						   supports secure request */
 	XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE, /**< 0x11 - Error if Buffer memory is not available for storing */
+
+	/* Platform specific error codes start at 0x200 */
+	XPLMI_ERR_INVALID_RSVD_DDR_REGION_UPDATE = 0x200, /**< 0x200 - Invalid/No DDR region reserved for PLM.
+							    This is checked before the update */
+	XPLMI_ERR_INVALID_RSVD_DDR_REGION_RESTORE, /**< 0x201 - Invalid/No DDR region reserved for
+							     PLM during restore operation after the update */
+	XPLMI_ERR_INSUFFICIENT_PLM_RSVD_DDR_REGION, /**< 0x202 - Insufficient DDR region reserved for PLM */
 };
 
 typedef struct {
