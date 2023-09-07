@@ -60,6 +60,9 @@ extern "C" {
 #include "xplmi_dma.h"
 #include "xplmi_event_logging.h"
 #include "xplmi_cmd.h"
+#ifdef SDT
+#include "xiltimer.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_PLM_BANNER	"Xilinx Versal Platform Loader and Manager \n\r" /**< PLM banner */
