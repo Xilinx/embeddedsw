@@ -259,7 +259,7 @@ typedef struct {
 	u32 HasEMIO;			/**< If SD is connected to EMIO */
 	u8 SlotType;			/**< Slot type */
 	u8 IsCacheCoherent; 		/**< If SD is Cache Coherent or not */
-#if defined  (XCLOCKING)
+#if defined  (XCLOCKING) || defined (SDT)
 	u32 RefClk;			/**< Input clocks */
 #endif
 	u32 ITapDly_SDR_Clk50;	/**< Input Tap delay for HSD/SDR25 modes */

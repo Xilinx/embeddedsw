@@ -44,6 +44,12 @@ required:
     - xlnx,slot-type
     - xlnx,is-cache-coherent
     - clocks
+    - xlnx,clk-50-sdr-itap-dly
+    - xlnx,clk-50-sdr-otap-dly
+    - xlnx,clk-50-ddr-itap-dly
+    - xlnx,clk-50-ddr-otap-dly
+    - xlnx,clk-100-sdr-otap-dly
+    - xlnx,clk-200-sdr-otap-dly
 examples:
     xsdps_raw_example.c:
         - reg
