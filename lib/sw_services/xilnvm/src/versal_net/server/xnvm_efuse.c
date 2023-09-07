@@ -45,12 +45,12 @@
 #include "xplmi_sysmon.h"
 /**************************** Type Definitions *******************************/
 typedef struct {
-	u32 StartRow;
-	u32 ColStart;
-	u32 ColEnd;
-	u32 NumOfRows;
-	u32 SkipVerify;
-	XNvm_EfuseType EfuseType;
+	u32 StartRow; /**< Start row number of eFuse */
+	u32 ColStart; /**< Start column number of eFuse */
+	u32 ColEnd; /**< End column number of eFuse */
+	u32 NumOfRows; /**< Number of rows of eFuse  */
+	u32 SkipVerify; /**< Flag to check if eFuse bit should be verified after programming */
+	XNvm_EfuseType EfuseType; /**< Efuse page number */
 }XNvm_EfusePrgmInfo;
 
 /************************** Function Prototypes ******************************/
@@ -58,7 +58,7 @@ static int XNvm_EfusePrgmIv(XNvm_IvType IvType, XNvm_Iv *EfuseIv);
 static int XNvm_EfusePrgmPpkHash(XNvm_PpkType PpkType, XNvm_PpkHash *EfuseHash);
 static int XNvm_EfusePrgmAesKey(XNvm_AesKeyType KeyType, XNvm_AesKey *EfuseKey);
 static int XNvm_EfuseComputeProgrammableBits(const u32 *ReqData, u32 *PrgmData,
-		u32 StartAddr, u32 EndAddr);
+		u32 StartOffset, u32 EndOffset);
 static int XNvm_EfusePgmAndVerifyData(XNvm_EfusePrgmInfo *EfusePrgmInfo,
 		const u32* RowData);
 static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col);
@@ -81,23 +81,30 @@ static int XNvm_EfuseChangeEndianness(u8 *Dest, u8 *Src, u32 Size);
 static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32 *RegData);
 
 /************************** Constant Definitions *****************************/
-#define XNVM_EFUSE_ERROR_BYTE_SHIFT	(8U)
-#define XNVM_EFUSE_ERROR_NIBBLE_SHIFT	(4U)
-#define XNVM_EFUSE_MAX_FIPS_VERSION	(7U)
-#define XNVM_EFUSE_MAX_FIPS_MODE	(0xFFU)
-#define XNVM_EFUSE_BITS_IN_A_BYTE	(8U)
+#define XNVM_EFUSE_ERROR_BYTE_SHIFT	(8U) /**< Byte shift used in error code */
+#define XNVM_EFUSE_ERROR_NIBBLE_SHIFT	(4U) /**< Nibble shift used in error code */
+#define XNVM_EFUSE_MAX_FIPS_VERSION	(7U) /**< Max Value of FIPS version */
+#define XNVM_EFUSE_MAX_FIPS_MODE	(0xFFU) /**< Max value of FIPS mode */
+#define XNVM_EFUSE_BITS_IN_A_BYTE	(8U) /**< Number of bits in a byte */
 #define XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET	(0xFFFFFFFFU)
+						 /**< Secure Default Value for a register */
 #define REVERSE_POLYNOMIAL			(0x82F63B78U)
+						/**< Value used in CRC calculation to reverse a polynomial */
 #define XNVM_EFUSE_SKIP_VERIFY			(1U)
-#define XNVM_EFUSE_PROGRAM_VERIFY		(0U)
-#define XNVM_EFUSE_CRC_SALT			(0x000000FFU)
-#define XNVM_EFUSE_REVOKE_ID_127	(127U)
+						/**< Skip verification of eFuses after programming */
+#define XNVM_EFUSE_PROGRAM_VERIFY		(0U) /**< Verify eFuses after programming */
+#define XNVM_EFUSE_CRC_SALT			(0x000000FFU) /**< CRC salt value */
+#define XNVM_EFUSE_REVOKE_ID_127	(127U) /**< Efuse revoke ID */
 #define XNVM_EFUSE_PUF_SEC_CTRL_INVLD_MASK       0xE0000000U
+		/**< Mask for PUF control bits in PUF_ECC_PUF_CTRL register in EFUSE_CACHE module*/
 #define XNVM_EFUSE_PUF_CTRL_PUF_REGEN_DIS_MASK   0x80000000U
+		/**< Mask for PUF_REGEN_DISABLE */
 #define XNVM_EFUSE_PUF_CTRL_PUF_HD_INVLD_MASK    0x40000000U
+		/**< Mask for PUF_HD_INVLD */
 #define XNVM_EFUSE_PUF_CTRL_PUF_REGIS_DIS_MASK   0x20000000U
+		/**< Mask for PUF_REGIS_DIS */
 #define XNVM_EFUSE_DME_KEY_SIZE_IN_BYTES	 (48U)
-
+			/**< DME key size in bytes */
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*************************** Function Prototypes ******************************/
@@ -1913,7 +1920,7 @@ END :
 /**
  * @brief	This function calculates CRC of UDS.
  *
- * @param	Key - Pointer to the key for which CRC has to be calculated.
+ * @param	Uds - Pointer to buffer which contains UDS
  *
  * @return	CRC of UDS.
  *
@@ -2848,7 +2855,7 @@ END:
  *		XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV
  *
  * @param	IvType - Type of IV eFuses to be programmmed
- * @param	Ivs - Pointer to the XNvm_EfuseIvs structure which holds IV
+ * @param	EfuseIv - Pointer to the XNvm_Iv structure which holds IV
  * 			to be programmed to eFuse.
  *
  * @return	- XST_SUCCESS - On Successful Programming.
@@ -3309,9 +3316,8 @@ END:
  * @brief	This function sets and then verifies the specified bits
  *		in the eFUSE.
  *
- * @param	StartRow  - Starting Row number (0-based addressing).
- * @param	RowCount  - Number of Rows to be written.
- * @param	EfuseType - It is an enum object of type XNvm_EfuseType.
+ * @param	EfusePrgmInfo - Pointer to XNvm_EfusePrgmInfo structure
+ * 				stores the info required to program the eFuses
  * @param	RowData   - Pointer to memory location where bitmap to be
  * 			written is stored. Only bit set are used for programming
  * 			eFUSE.
@@ -3429,14 +3435,17 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 
 /******************************************************************************/
 /**
- * @brief	This function reads eFuse row.
+ * @brief	This function verify the specified bit set in the eFUSE.
  *
  * @param	Page - It is an enum variable of type XNvm_EfuseType.
  * @param	Row - It is an 32-bit Row number (0-based addressing).
- * @param	RegData - Pointer to the row data to be read.
+ * @param	Col - It is an 32-bit Col number (0-based addressing).
  *
- * @return	- XST_SUCCESS - Specified eFuse row is read.
- *		- XST_TIMEOUT - Specified eFuse row read is timed out.
+ * @return	- XST_SUCCESS - Specified bit set in eFUSE.
+ *		- XNVM_EFUSE_ERR_PGM_VERIFY  - Verification failed, specified bit
+ *						   is not set.
+ *		- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occurred.
+ *		- XST_FAILURE                - Unexpected error.
  *
  ******************************************************************************/
 static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32 *RegData)

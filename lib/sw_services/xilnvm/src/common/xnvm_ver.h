@@ -30,8 +30,8 @@ extern "C" {
 #include "xil_util.h"
 
 /**************************** Constant Definitions ****************************/
-#define XNVM_MAJOR_VERSION	3
-#define XNVM_MINOR_VERSION	2
+#define XNVM_MAJOR_VERSION	3 /**< Major Version of XilNvm */
+#define XNVM_MINOR_VERSION	2 /**< Minor version of XilNvm */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
