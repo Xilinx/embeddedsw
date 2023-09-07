@@ -32,6 +32,8 @@
 *       sk   07/28/2023 Added redundant func XPlmi_IsPlmUpdateDoneTmp
 *       sk   07/31/2023 Added redundant check for boot error in XPlmi_PlmUpdateMgr
 *       sk   08/24/2023 Added redundant check for plm update efuse check
+*       bm   09/04/2023 Added support to use DDR region for backup of PLM data
+*                       structures during In-Place PLM Update
 *
 * </pre>
 *
@@ -53,10 +55,6 @@
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_RESET_VECTOR		(0xF0200000U) /**< Reset vector */
-#define XPLMI_PLM_UPDATE_PMCRAM_LEN	(0x4000U) /**< PLM update PMC RAM length */
-#define XPLMI_PLM_UPDATE_DS_START_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x10000U) /**< PLM update data structure start address */
-#define XPLMI_PLM_UPDATE_DS_ENDADDR	(XPLMI_PLM_UPDATE_DS_START_ADDR + \
-						XPLMI_PLM_UPDATE_PMCRAM_LEN - 1U) /**< PLM update data structure end address */
 #define XPLMI_ROM_PLM_UPDATE_REQ	(0x08U) /**< ROM PLM update request */
 #define PMX_PLM_UPDATE_REASON_MASK	(0x00000008U) /**< PMX PLM update reason mask */
 #define XPLMI_ROM_INT_REASON_CLEAR	(0x0000000FU) /**< ROM initialize reason clear */
@@ -64,8 +62,8 @@
 #define XPLMI_UPDATE_DB_VERSION		(1U) /**< DB version update */
 #define XPLMI_DS_HDR_SIZE		(sizeof(XPlmi_DsHdr)) /**< Data structure header size */
 #define XPLMI_DS_CNT			(u32)(__data_struct_end - __data_struct_start) /**< Data structure count */
-#define XPLMI_UPDATE_IPIMASK_VER 	(1U) /**< IPI mask version update */
-#define XPLMI_UPDATE_IPIMASK_LCVER 	(1U) /**< IPI mask LC version update */
+#define XPLMI_UPDATE_IPIMASK_VER 	(2U) /**< IPI mask version update */
+#define XPLMI_UPDATE_IPIMASK_LCVER 	(2U) /**< IPI mask LC version update */
 #define XPLMI_UPDATE_TASK_ID		(0x120U) /**< Task Id update */
 
 /**************************** Type Definitions *******************************/
@@ -94,6 +92,8 @@ static u32 PlmUpdateIpiMask __attribute__ ((aligned(4U)));
 EXPORT_GENERIC_DS(PlmUpdateIpiMask, XPLMI_UPDATE_IPIMASK_DS_ID,
 	XPLMI_UPDATE_IPIMASK_VER, XPLMI_UPDATE_IPIMASK_LCVER,
 	sizeof(PlmUpdateIpiMask), (u32)(UINTPTR)&PlmUpdateIpiMask);
+static u32 DbStartAddr; /** Db Start Address */
+static u32 DbEndAddr; /** Db End Address */
 
 /*****************************************************************************/
 
@@ -118,6 +118,8 @@ int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler)
 	volatile int SStatus = XST_FAILURE;
 	XPlmi_TaskNode *Task = NULL;
 	u32 ResponseBuffer[XPLMI_CMD_RESP_SIZE];
+	u32 DdrRsvdAddr;
+	u32 DdrRsvdSize;
 
 	XPlmi_CompatibilityCheck = CompatibilityHandler;
 
@@ -138,6 +140,18 @@ int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler)
 	Task->IntrId = XPLMI_UPDATE_TASK_ID;
 
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		DdrRsvdAddr = XPlmi_In32(XPLMI_RTCFG_PLM_RSVD_DDR_ADDR);
+		DdrRsvdSize = XPlmi_In32(XPLMI_RTCFG_PLM_RSVD_DDR_SIZE);
+		/* Check if DDR reserved area is valid */
+		if ((DdrRsvdAddr == XPLMI_INVALID_PLM_RSVD_DDR_ADDR) ||
+			(DdrRsvdSize == XPLMI_INVALID_PLM_RSVD_DDR_SIZE) ||
+			(((u64)DdrRsvdAddr + DdrRsvdSize) > (u64)XPLMI_2GB_END_ADDR)) {
+			Status = (int)XPLMI_ERR_INVALID_RSVD_DDR_REGION_RESTORE;
+			goto END;
+		}
+		DbStartAddr = DdrRsvdAddr;
+		DbEndAddr = DdrRsvdAddr + DdrRsvdSize - 1U;
+
 		Status = XPlmi_RestoreDataBackup();
 		if (XPlmi_RomSwdtUsage() == (u8)TRUE) {
 			XPlmi_KickWdt(XPLMI_WDT_INTERNAL);
@@ -320,8 +334,7 @@ int XPlmi_DsOps(u32 Op, u64 Addr, void *Data)
 		goto END;
 	}
 
-	if ((Addr + XPLMI_DS_HDR_SIZE + DsEntry->DsHdr.Len) >
-			XPLMI_PLM_UPDATE_DS_ENDADDR) {
+	if ((Addr + XPLMI_DS_HDR_SIZE + DsEntry->DsHdr.Len) > DbEndAddr) {
 		Status = XPLMI_ERR_PLM_UPDATE_DB_OVERFLOW;
 		goto END;
 	}
@@ -428,7 +441,7 @@ int XPlmi_RestoreDataBackup(void)
 	int Status = XST_FAILURE;
 	XPlmi_DsEntry *DsEntry = NULL;
 	XPlmi_DsHdr *DsHdr = NULL;
-	XPlmi_DbHdr *DbHdr = (XPlmi_DbHdr *)XPLMI_PLM_UPDATE_DS_START_ADDR;
+	XPlmi_DbHdr *DbHdr = (XPlmi_DbHdr *)DbStartAddr ;
 	u64 DsAddr;
 	u64 EndAddr;
 
@@ -442,10 +455,10 @@ int XPlmi_RestoreDataBackup(void)
 		goto END;
 	}
 
-	DsAddr = XPLMI_PLM_UPDATE_DS_START_ADDR + DbHdr->HdrSize;
+	DsAddr = DbStartAddr + DbHdr->HdrSize;
 	EndAddr = DsAddr + (DbHdr->DbSize * XPLMI_WORD_LEN);
 
-	if (EndAddr > XPLMI_PLM_UPDATE_DS_ENDADDR) {
+	if (EndAddr > DbEndAddr) {
 		Status = XPLMI_ERR_DB_ENDADDR_INVALID;
 		goto END;
 	}
@@ -490,7 +503,7 @@ static int XPlmi_StoreDataBackup(void)
 {
 	int Status = XST_FAILURE;
 	XPlmi_DsEntry *DsEntry = __data_struct_start;
-	XPlmi_DbHdr * volatile DbHdr = (XPlmi_DbHdr *)XPLMI_PLM_UPDATE_DS_START_ADDR;
+	XPlmi_DbHdr * volatile DbHdr = (XPlmi_DbHdr *)DbStartAddr;
 	u64 DsAddr;
 	u32 DsCnt;
 	u32 Index;
@@ -505,7 +518,7 @@ static int XPlmi_StoreDataBackup(void)
 	DsCnt = XPLMI_DS_CNT;
 	DbHdr->HdrVersion = XPLMI_UPDATE_DB_VERSION;
 	DbHdr->HdrSize = sizeof(XPlmi_DbHdr);
-	DsAddr = XPLMI_PLM_UPDATE_DS_START_ADDR + DbHdr->HdrSize;
+	DsAddr = DbStartAddr + DbHdr->HdrSize;
 
 	for (Index = 0; Index < DsCnt; Index++) {
 		if (DsEntry[Index].Handler == NULL) {
@@ -520,8 +533,8 @@ static int XPlmi_StoreDataBackup(void)
 		DsAddr += XPLMI_DS_HDR_SIZE + DsEntry[Index].DsHdr.Len;
 	}
 	if (Index == DsCnt) {
-		DbHdr->DbSize = (u32)(DsAddr - (u64)XPLMI_PLM_UPDATE_DS_START_ADDR -
-					(u32)DbHdr->HdrSize) / XPLMI_WORD_LEN;
+		DbHdr->DbSize = (u32)(DsAddr - (u64)DbStartAddr -
+				(u32)DbHdr->HdrSize) / XPLMI_WORD_LEN;
 	}
 
 END:
@@ -560,6 +573,28 @@ static int XPlmi_ShutdownModules(XPlmi_ModuleOp Op)
 
 /*****************************************************************************/
 /**
+ * @brief	This function provides the PLM Database Size which has to be
+ *		stored and restored during the update
+ *
+ * @return	Size of PLM Database
+ *
+ *****************************************************************************/
+static inline u32 XPlmi_GetPlmDbSize(void)
+{
+	XPlmi_DsEntry *DsEntry = __data_struct_start;
+	u32 DsCnt = XPLMI_DS_CNT;
+	u32 Index = 0U;
+	u32 Size = sizeof(XPlmi_DbHdr);
+
+	for (Index = 0U; Index < DsCnt; Index++) {
+		Size += XPLMI_DS_HDR_SIZE + DsEntry[Index].DsHdr.Len;
+	}
+
+	return Size;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function does In-Place PLM Update
  *
  * @param	Cmd is the command pointer of in place update command
@@ -583,8 +618,29 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	XPlmi_TaskNode *Task = NULL;
 	volatile u32 RomRsvd;
 	volatile u32 RomRsvdTmp;
+	u32 DdrRsvdAddr;
+	u32 DdrRsvdSize;
 
 	Op.Mode = XPLMI_MODULE_NO_OPERATION;
+
+	DdrRsvdAddr = XPlmi_In32(XPLMI_RTCFG_PLM_RSVD_DDR_ADDR);
+	DdrRsvdSize = XPlmi_In32(XPLMI_RTCFG_PLM_RSVD_DDR_SIZE);
+	/* Check if Ddr Reserved Area is valid */
+	if ((DdrRsvdAddr == XPLMI_INVALID_PLM_RSVD_DDR_ADDR) ||
+		(DdrRsvdSize == XPLMI_INVALID_PLM_RSVD_DDR_SIZE) ||
+		(((u64)DdrRsvdAddr + DdrRsvdSize) > (u64)XPLMI_2GB_END_ADDR)) {
+		Status = (int)XPLMI_ERR_INVALID_RSVD_DDR_REGION_UPDATE;
+		goto END;
+	}
+
+	/* Check if Ddr Reserved Area is sufficient */
+	if (DdrRsvdSize < XPlmi_GetPlmDbSize()) {
+		Status = (int)XPLMI_ERR_INSUFFICIENT_PLM_RSVD_DDR_REGION;
+		goto END;
+	}
+
+	DbStartAddr = DdrRsvdAddr;
+	DbEndAddr = DdrRsvdAddr + DdrRsvdSize - 1U;
 
 	if (XPlmi_IsPlmUpdateInProgress() == (u8)TRUE) {
 		XPlmi_Printf(DEBUG_GENERAL, "Update in Progress\n\r");
