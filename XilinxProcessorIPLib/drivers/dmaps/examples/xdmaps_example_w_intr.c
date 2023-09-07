@@ -178,7 +178,9 @@ int XDmaPs_Example_W_Intr(XDmaPs *DmapsInstPtr, UINTPTR BaseAddress)
 	int TimeOutCnt;
 	volatile int Checked[XDMAPS_CHANNELS_PER_DEV];
 	XDmaPs_Config *DmaCfg;
-	XDmaPs *DmaInst = &DmaInstance;
+#ifndef SDT
+	XDmaPs *DmapsInstPtr = &DmaInstance;
+#endif
 	XDmaPs_Cmd DmaCmd;
 
 	memset(&DmaCmd, 0, sizeof(XDmaPs_Cmd));
@@ -206,7 +208,7 @@ int XDmaPs_Example_W_Intr(XDmaPs *DmapsInstPtr, UINTPTR BaseAddress)
 		return XST_FAILURE;
 	}
 
-	Status = XDmaPs_CfgInitialize(DmaInst,
+	Status = XDmaPs_CfgInitialize(DmapsInstPtr,
 				      DmaCfg,
 				      DmaCfg->BaseAddress);
 	if (Status != XST_SUCCESS) {
@@ -218,7 +220,7 @@ int XDmaPs_Example_W_Intr(XDmaPs *DmapsInstPtr, UINTPTR BaseAddress)
 	 * Setup the interrupt system.
 	 */
 #ifndef SDT
-	Status = SetupInterruptSystem(GicPtr, DmaInst);
+	Status = SetupInterruptSystem(GicPtr, DmapsInstPtr);
 #else
 	Status = XSetupInterruptSystem(DmapsInstPtr, &XDmaPs_FaultISR,
 				       DmapsInstPtr->Config.IntrId[0],
@@ -290,12 +292,12 @@ int XDmaPs_Example_W_Intr(XDmaPs *DmapsInstPtr, UINTPTR BaseAddress)
 			Checked[Channel] = 0;
 
 			/* Set the Done interrupt handler */
-			XDmaPs_SetDoneHandler(DmaInst,
+			XDmaPs_SetDoneHandler(DmapsInstPtr,
 					      Channel,
 					      DmaDoneHandler,
 					      (void *)Checked);
 
-			Status = XDmaPs_Start(DmaInst, Channel, &DmaCmd, 0);
+			Status = XDmaPs_Start(DmapsInstPtr, Channel, &DmaCmd, 0);
 			if (Status != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
