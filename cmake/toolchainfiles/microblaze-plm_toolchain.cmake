@@ -17,7 +17,7 @@ set( CMAKE_BUILD_TYPE Release)
 set( CMAKE_SYSTEM_NAME "Generic" )
 set( CMAKE_SPECS_FILE "$ENV{ESW_REPO}/scripts/specs/microblaze/Xilinx.spec" CACHE STRING "Specs file path for using CMAKE toolchain files" )
 # FIXME: Use generic microblaze toolchain file for pmc microblaze processor as well.
-set( TOOLCHAIN_PLM_C_FLAGS " -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mxl-reorder -mno-xl-soft-mul -mxl-multiply-high -mno-xl-soft-div -Os -flto -ffat-lto-objects  -DVERSAL_PLM=1 -mcpu=v10.0")
+set( TOOLCHAIN_PLM_C_FLAGS " -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mxl-reorder -mno-xl-soft-mul -mxl-multiply-high -mno-xl-soft-div -Os -flto -ffat-lto-objects -mcpu=v10.0")
 set( TOOLCHAIN_C_FLAGS " -O2 ${TOOLCHAIN_PLM_C_FLAGS} -DSDT" CACHE STRING "CFLAGS" )
 set( TOOLCHAIN_CXX_FLAGS " -O2 ${TOOLCHAIN_PLM_C_FLAGS} -DSDT" CACHE STRING "CXXFLAGS" )
 set( TOOLCHAIN_ASM_FLAGS " -O2 ${TOOLCHAIN_PLM_C_FLAGS} -DSDT" CACHE STRING "ASM FLAGS" )
