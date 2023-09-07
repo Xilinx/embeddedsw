@@ -40,8 +40,6 @@
 /************************** Function Prototypes ******************************/
 static void XMicroblaze_ModifyInterval(XTimer *InstancePtr, u32 delay,
 				       XTimer_DelayType DelayType);
-u32 Xil_GetMBFrequency(void);
-u32 Xil_SetMBFrequency(u32 Val);
 static u32 MBFreq;
 /****************************************************************************/
 /**
@@ -105,6 +103,7 @@ static void XMicroblaze_ModifyInterval(XTimer *InstancePtr, u32 delay,
 	);
 }
 
+#ifdef SDT
 /*****************************************************************************/
 /**
 * @brief	Sets variable which stores Microblaze frequency value
@@ -136,6 +135,7 @@ u32 Xil_GetMBFrequency(void)
 {
 	return MBFreq;
 }
+#endif
 #endif
 
 #ifdef XTIMER_NO_TICK_TIMER

@@ -128,6 +128,7 @@ if (("${XILTIMER_sleep_timer}" STREQUAL "Default") OR
        ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze") OR
        ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "pmu_microblaze"))
 	set(XSLEEPTIMER_FREQ XPAR_CPU_CORE_CLOCK_FREQ_HZ/4)
+	set(XTIMER_DEFAULT_TIMER_IS_MB " ")
     endif()
 
 endif()
