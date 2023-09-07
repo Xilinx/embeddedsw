@@ -12,7 +12,7 @@ set( CMAKE_ASM_COMPILER mb-gcc )
 set( CMAKE_AR mb-ar CACHE FILEPATH "Archiver" )
 set( CMAKE_SIZE mb-size CACHE FILEPATH "Size" )
 set( CMAKE_SYSTEM_PROCESSOR "microblaze" )
-set( CMAKE_MACHINE "Versal" )
+set( CMAKE_MACHINE "Versal" CACHE STRING "cmake machine" FORCE)
 set( CMAKE_SYSTEM_NAME "Generic" )
 set( CMAKE_SPECS_FILE "$ENV{ESW_REPO}/scripts/specs/microblaze/Xilinx.spec" CACHE STRING "Specs file path for using CMAKE toolchain files" )
 # FIXME: Use generic microblaze toolchain file for psm microblaze processor as well.
