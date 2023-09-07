@@ -19,6 +19,8 @@ properties:
         - enum:
           - xlnx,versal-8.9a
           - arasan,sdhci-8.9a
+        - enum:
+          - xlnx,versal-net-emmc
   reg:
     description: Physical base address and size of the controller register map
   clock-frequency:
