@@ -25,6 +25,8 @@
  * 2.0   Nava  06/21/23  Added PKI multi-queue support for ECC operations.
  * 2.0   Nava  08/02/23  Added a new API XPki_GetVersion() to access the library
  *                       version info.
+ * 2.0   Nava  09/06/23  Updated the XPki_GetVersion() API prototype to inline with
+ *                       other secure library version info API's.
  *
  *</pre>
  *
@@ -2103,29 +2105,4 @@ static void XPki_IntrCallbackHandler(XPki_Instance *InstancePtr, XPki_QueueID Id
 			Xil_Out32(CQAddr + i + 4, 0U);
 		}
 	}
-}
-
-/****************************************************************************/
-/**This function is used to read xilpki library version info.
- *
- * @Version xilpki library version to read
- *
- * @return
- *	- XST_SUCCESS if, successful
- *	- XPKI_INVALID_PARAM - On invalid argument
- *
- ****************************************************************************/
-int XPki_GetVersion(u32 *Version)
-{
-	volatile int Status = XPKI_INVALID_PARAM;
-
-	/* Validate the input arguments */
-	if (Version == NULL) {
-		goto END;
-	}
-
-	*Version = (XPKI_MAJOR_VERSION << 16) | XPKI_MINOR_VERSION;
-	Status = XST_SUCCESS;
-END:
-	return Status;
 }
