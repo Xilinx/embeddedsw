@@ -37,6 +37,8 @@
 *       sk   07/18/2023 Updated error codes in VerifyAddrRange function
 *       sk   07/31/2023 Added redundant write for SSS Config
 *       kpt  08/28/2023 Reread from efuse cache to enhance security
+*       sk   09/07/2023 Added redundancy check in XPlmi_SetPmcIroFreq
+*                       for updating the MB Freq
 *
 * </pre>
 *
@@ -120,6 +122,7 @@ static void XPlmi_HwIntrHandler(void *CallbackRef);
 static u32 XPlmi_GetIoIntrMask(void);
 static void XPlmi_SetIoIntrMask(u32 Value);
 static int XPlmi_UpdateFipsState(void);
+static u32 XPlmi_IsHpPart(void);
 
 /************************** Variable Definitions *****************************/
 /* Structure for Top level interrupt table */
@@ -583,6 +586,30 @@ u32 XPlmi_GetRomIroFreq(void)
 	return RomIroFreq;
 }
 
+
+/*****************************************************************************/
+/**
+* @brief	This function provides check if its hp part
+*
+* @return	- TRUE
+*		- FALSE
+*
+*****************************************************************************/
+static u32 XPlmi_IsHpPart(void) {
+
+	volatile u32 RawVoltage;
+	u32 IsHpPart = (u32)FALSE;
+
+	RawVoltage = Xil_In32(XPLMI_SYSMON_SUPPLY0_ADDR);
+	RawVoltage &= XPLMI_SYSMON_SUPPLYX_MASK;
+
+	if (RawVoltage >= XPlmi_GetRawVoltage(XPLMI_VCC_PMC_HP_MIN)) {
+		IsHpPart = (u32)TRUE;
+	}
+
+	return IsHpPart;
+}
+
 /*****************************************************************************/
 /**
 * @brief	This functions sets the PMC IRO frequency.
@@ -594,7 +621,6 @@ u32 XPlmi_GetRomIroFreq(void)
 int XPlmi_SetPmcIroFreq(void)
 {
 	int Status = XST_FAILURE;
-	u32 RawVoltage;
 	u32 *PmcIroFreq = XPlmi_GetPmcIroFreq();
 
 	/** Set PMC IRO Frequency to the value used during ROM phase */
@@ -605,17 +631,15 @@ int XPlmi_SetPmcIroFreq(void)
 		goto END;
 	}
 	/** Set PMC IRO frequency to be used during PLM phase */
-	RawVoltage = Xil_In32(XPLMI_SYSMON_SUPPLY0_ADDR);
-	RawVoltage &= XPLMI_SYSMON_SUPPLYX_MASK;
-
 	/** Update IR0 frequency to 400MHz for HP parts */
-	XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_UNLOCK_VAL);
-	if (RawVoltage >= XPlmi_GetRawVoltage(XPLMI_VCC_PMC_HP_MIN)) {
+	/** Added redundacy to make it single glitch immune */
+	if((XPlmi_IsHpPart() == (u32)TRUE) && (XPlmi_IsHpPart() == (u32)TRUE)) {
+		XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_UNLOCK_VAL);
 		*PmcIroFreq = XPLMI_PMC_IRO_FREQ_400_MHZ;
 		XPlmi_Out32(EFUSE_CTRL_ANLG_OSC_SW_1LP,
 			XPLMI_EFUSE_IRO_TRIM_FAST);
+		XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_LOCK_VAL);
 	}
-	XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_LOCK_VAL);
 
 END:
 	/** Update PPU1 MB frequency used in BSP for timing calculations */
