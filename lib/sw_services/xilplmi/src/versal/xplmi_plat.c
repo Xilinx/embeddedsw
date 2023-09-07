@@ -33,6 +33,7 @@
 * 1.02  bm   04/28/2023 Update Trim related macros
 *       ng   07/05/2023 added system device tree support
 * 1.03  sk   07/18/2023 Updated error codes in VerifyAddrRange function
+*       bm   09/07/2023 Allow loading of ELFs into XRAM
 *
 * </pre>
 *
@@ -116,6 +117,18 @@ static XInterruptHandler g_TopLevelInterruptTable[] = {
 	XPlmi_IntrHandler,
 	XPlmi_ErrIntrHandler,
 };
+static u8 XRamAvailable = (u8)FALSE; /** Flag to indicate XRAM is available */
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets XRAM Available Flag
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_SetXRamAvailable(void) {
+	XRamAvailable = (u8)TRUE;
+}
 
 /*****************************************************************************/
 /**
@@ -580,6 +593,13 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 				(EndAddr <= (u64)XPLMI_OCM_HIGH_ADDR)) {
 				/* OCM is valid */
 				Status = XST_SUCCESS;
+			}
+			else if ((StartAddr >= (u64)XPLMI_XRAM_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_XRAM_HIGH_ADDR)) {
+				/* If XRAM is available, it is valid */
+				if (XRamAvailable == (u8)TRUE) {
+					Status = XST_SUCCESS;
+				}
 			}
 			else {
 				/* Rest of the Addr range is treated as invalid */
