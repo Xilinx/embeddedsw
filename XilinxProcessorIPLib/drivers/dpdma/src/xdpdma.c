@@ -97,7 +97,7 @@ static int XDpDma_WaitPendingTransaction(XDpDma *InstancePtr, u8 ChannelNum)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ChannelNum <= XDPDMA_AUDIO_CHANNEL1);
-
+	int RetVal = (int)XST_SUCCESS;
 	u32 Timeout = 0;
 	u32 Count;
 	do {
@@ -106,10 +106,10 @@ static int XDpDma_WaitPendingTransaction(XDpDma *InstancePtr, u8 ChannelNum)
 	} while ((Timeout != XDPDMA_WAIT_TIMEOUT) && (Count != 0U));
 
 	if(Timeout ==  XDPDMA_WAIT_TIMEOUT) {
-		return (int)XST_FAILURE;
+		RetVal = (int)XST_FAILURE;
 	}
 
-	return (int)XST_SUCCESS;
+	return RetVal;
 }
 
 /*************************************************************************/
@@ -133,6 +133,7 @@ static int XDpDma_ConfigChannelState(XDpDma *InstancePtr, u8 ChannelNum,
 {
 	u32 Mask = 0;
 	u32 RegVal = 0;
+	int RetVal = (int)XST_SUCCESS;
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ChannelNum <= XDPDMA_AUDIO_CHANNEL1);
@@ -147,22 +148,23 @@ static int XDpDma_ConfigChannelState(XDpDma *InstancePtr, u8 ChannelNum,
 			if (XDpDma_ConfigChannelState(InstancePtr, ChannelNum,
 						      XDPDMA_PAUSE) ==
 						      XST_FAILURE) {
-				return (int)XST_FAILURE;
+				RetVal = (int)XST_FAILURE;
 			}
 			if (XDpDma_WaitPendingTransaction(InstancePtr,
 							  ChannelNum) ==
 							  XST_FAILURE) {
-				return (int)XST_FAILURE;
+				RetVal = (int)XST_FAILURE;
 			}
-
-			RegVal = (u32)XDPDMA_DISABLE;
-			Mask = XDPDMA_CH_CNTL_EN_MASK;
+			if (RetVal != (int)XST_FAILURE) {
+				RegVal = (u32)XDPDMA_DISABLE;
+				Mask = XDPDMA_CH_CNTL_EN_MASK;
+			}
 			break;
 		case XDPDMA_IDLE:
 			if (XDpDma_ConfigChannelState(InstancePtr, ChannelNum,
 						      XDPDMA_DISABLE) ==
 						      XST_FAILURE) {
-				return (int)XST_FAILURE;
+				RetVal = (int)XST_FAILURE;
 			}
 
 			RegVal = 0U;
@@ -177,7 +179,7 @@ static int XDpDma_ConfigChannelState(XDpDma *InstancePtr, u8 ChannelNum,
 	XDpDma_ReadModifyWrite(InstancePtr->Config.BaseAddr,
 			       XDPDMA_CH0_CNTL + XDPDMA_CH_OFFSET *
 			       (u32)ChannelNum, RegVal, Mask);
-	return (int)XST_SUCCESS;
+	return RetVal;
 }
 
 /*************************************************************************/
@@ -373,6 +375,7 @@ int XDpDma_SetChannelState(XDpDma *InstancePtr, XDpDma_ChannelType Channel,
 {
 	u8 Index = 0;
 	u8 NumPlanes = 0;
+	int RetVal = (int)XST_SUCCESS;
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ChannelState <= XDPDMA_PAUSE);
@@ -380,23 +383,23 @@ int XDpDma_SetChannelState(XDpDma *InstancePtr, XDpDma_ChannelType Channel,
 	switch(Channel) {
 	case VideoChan:
 		if(InstancePtr->Video.VideoInfo == NULL) {
-			return (int)XST_FAILURE;
+			RetVal = (int)XST_FAILURE;
 		}
 		else {
 			NumPlanes = (u8)InstancePtr->Video.VideoInfo->Mode;
-			for(Index = 0; Index <= NumPlanes; Index++) {
+			for(Index = 0; Index <= NumPlanes && RetVal != (int)XST_FAILURE; Index++) {
 				if (XDpDma_ConfigChannelState(InstancePtr,
 							      Index,
 							      ChannelState) ==
 							      XST_FAILURE) {
-					return (int)XST_FAILURE;
+					RetVal = (int)XST_FAILURE;
 				}
 			}
 		}
 		break;
 	case GraphicsChan:
 		if(InstancePtr->Gfx.VideoInfo == NULL) {
-			return (int)XST_FAILURE;
+			RetVal = (int)XST_FAILURE;
 		}
 		else {
 			return	XDpDma_ConfigChannelState(InstancePtr,
@@ -415,11 +418,11 @@ int XDpDma_SetChannelState(XDpDma *InstancePtr, XDpDma_ChannelType Channel,
 						 ChannelState);
 		break;
 	default:
-		return (int)XST_FAILURE;
+		RetVal = (int)XST_FAILURE;
 		break;
 	}
 
-	return (int)XST_SUCCESS;
+	return RetVal;
 }
 
 /*************************************************************************/
@@ -439,15 +442,16 @@ int XDpDma_SetChannelState(XDpDma *InstancePtr, XDpDma_ChannelType Channel,
  * **************************************************************************/
 int XDpDma_SetVideoFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format)
 {
+	int RetVal = (int)XST_SUCCESS;
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	InstancePtr->Video.VideoInfo = XAVBuf_GetNLiveVideoAttribute(Format);
 	if(InstancePtr->Video.VideoInfo == NULL) {
-		return (int)XST_FAILURE;
+		RetVal = (int)XST_FAILURE;
 	}
 
-	return (int)XST_SUCCESS;
+	return RetVal;
 }
 
 /*************************************************************************/
@@ -466,16 +470,16 @@ int XDpDma_SetVideoFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format)
  * **************************************************************************/
 int XDpDma_SetGraphicsFormat(XDpDma *InstancePtr, XAVBuf_VideoFormat Format)
 {
-
+	int RetVal = (int)XST_SUCCESS;
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	InstancePtr->Gfx.VideoInfo = XAVBuf_GetNLGraphicsAttribute(Format);
 	if(InstancePtr->Gfx.VideoInfo == NULL) {
-		return (int)XST_FAILURE;
+		RetVal = (int)XST_FAILURE;
 	}
 
-	return (int)XST_SUCCESS;
+	return RetVal;
 }
 
 /*************************************************************************/
@@ -535,6 +539,7 @@ int XDpDma_Trigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 	u32 Trigger = 0;
 	u8 Index = 0;
 	u8 NumPlanes = 0;
+	int RetVal = (int)XST_SUCCESS;
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Channel <= AudioChan1);
@@ -542,7 +547,7 @@ int XDpDma_Trigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 	switch(Channel) {
 	case VideoChan:
 		if(InstancePtr->Video.VideoInfo == NULL) {
-			return (int)XST_FAILURE;
+			RetVal = (int)XST_FAILURE;
 		}
 		else {
 			NumPlanes = (u8)InstancePtr->Video.VideoInfo->Mode;
@@ -556,7 +561,7 @@ int XDpDma_Trigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 		break;
 	case GraphicsChan:
 		if(InstancePtr->Gfx.VideoInfo == NULL) {
-			return (int)XST_FAILURE;
+			RetVal = (int)XST_FAILURE;
 		}
 		Trigger = XDPDMA_GBL_TRG_CH3_MASK;
 		InstancePtr->Gfx.TriggerStatus = XDPDMA_TRIGGER_DONE;
@@ -575,7 +580,7 @@ int XDpDma_Trigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 	}
 	XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_GBL, Trigger);
 
-	return (int)XST_SUCCESS;
+	return RetVal;
 
 }
 
@@ -600,6 +605,7 @@ int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 	u32 Trigger = 0;
 	u8 NumPlanes;
 	u8 Index;
+	int RetVal = (int)XST_SUCCESS;
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Channel <= AudioChan1);
@@ -607,7 +613,7 @@ int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 	switch(Channel) {
 	case VideoChan:
 		if(InstancePtr->Video.VideoInfo == NULL) {
-			return (int)XST_FAILURE;
+			RetVal = (int)XST_FAILURE;
 		}
 		else {
 			NumPlanes = (u8)InstancePtr->Video.VideoInfo->Mode;
@@ -621,7 +627,7 @@ int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 		break;
 	case GraphicsChan:
 		if(InstancePtr->Gfx.VideoInfo == NULL) {
-			return (int)XST_FAILURE;
+			RetVal = (int)XST_FAILURE;
 		}
 		Trigger = XDPDMA_GBL_RTRG_CH3_MASK;
 		InstancePtr->Gfx.TriggerStatus = XDPDMA_RETRIGGER_DONE;
@@ -640,7 +646,7 @@ int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 	}
 	XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_GBL, Trigger);
 
-	return (int)XST_SUCCESS;
+	return RetVal;
 }
 
 /*************************************************************************/
@@ -854,6 +860,7 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 {
 	XDpDma_AudioChannel *Channel;
 	u64 DescAddr;
+	int RetVal = (int)XST_SUCCESS;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Buffer != NULL);
 	Xil_AssertNonvoid(Buffer->Size >= 512U);
@@ -874,7 +881,7 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 		if ((Channel->Descriptor1.MSB_Timestamp >>
 		     XDPDMA_DESC_DONE_SHIFT) != 0U) {
 			Channel->Current = NULL;
-			return (int)XST_FAILURE;
+			RetVal = (int)XST_FAILURE;
 		} else if (((Channel->Descriptor7.MSB_Timestamp >>
 			     XDPDMA_DESC_DONE_SHIFT) == 1U) ||
 			     (Channel->Used == 0U)) {
@@ -892,7 +899,7 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 			XDpDma_InitAudioDescriptor(Channel, Buffer);
 		}
 		else {
-			return (int)XST_FAILURE;
+			RetVal = (int)XST_FAILURE;
 		}
 	}
 
@@ -901,7 +908,7 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 		if ((Channel->Descriptor5.MSB_Timestamp >>
 		   XDPDMA_DESC_DONE_SHIFT) != 0U) {
 			Channel->Current = NULL;
-			return (int)XST_FAILURE;
+			RetVal = (int)XST_FAILURE;
 		} else if ((Channel->Descriptor3.MSB_Timestamp >>
 			XDPDMA_DESC_DONE_SHIFT) != 0U) {
 			DescAddr = (UINTPTR) &Channel->Descriptor0;
@@ -917,14 +924,14 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 			XDpDma_InitAudioDescriptor(Channel, Buffer);
 		}
 		else {
-			return (int)XST_FAILURE;
+			RetVal = (int)XST_FAILURE;
 		}
 	} else {
 		/* This should never occurs for audio channel */
-		return (int)XST_FAILURE;
+		RetVal = (int)XST_FAILURE;
 	}
 
-	return (int)XST_SUCCESS;
+	return RetVal;
 
 }
 /*************************************************************************/
