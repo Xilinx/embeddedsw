@@ -26,6 +26,7 @@
 * 1.04  skd  04/20/2022 Misra-C violation Rule 2.7 fixed
 * 1.05  ng   11/11/2022 Fixed doxygen file name error
 * 1.06  rama 04/28/2023 Added start-up STL invocation after PMC CDO is done
+*       bm   09/07/2023 Allow loading of ELFs into XRAM
 *
 * </pre>
 *
@@ -39,6 +40,10 @@
 #ifdef PLM_ENABLE_STL
 #include "xstl_plminterface.h"
 #endif
+#include "xpm_device.h"
+#include "xpm_nodeid.h"
+#include "xplmi_plat.h"
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -87,6 +92,11 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 	Status = XPm_HookAfterPlmCdo();
 	if (Status != XST_SUCCESS) {
 		goto END;
+	}
+
+	/* Check if XRAM is available in the device */
+	if (XPmDevice_GetById(PM_DEV_XRAM_0) != NULL) {
+		XPlmi_SetXRamAvailable();
 	}
 
 #ifdef PLM_ENABLE_STL
