@@ -92,11 +92,13 @@ extern "C" {
 #define XNVM_MAX_REVOKE_ID_FUSES			(XNVM_NUM_OF_REVOKE_ID_FUSES	\
 											* XNVM_EFUSE_MAX_BITS_IN_ROW) /**< Maximum eFuses in a row*/
 
-#define XNVM_EFUSE_PPK_READ_START XNVM_EFUSE_PPK0
+#define XNVM_EFUSE_PPK_READ_START XNVM_EFUSE_PPK0  /**< Start value of eFuse PPK read */
 #ifdef XNVM_EN_ADD_PPKS
 #define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK4
+			/**< End PPK row number or offset */
 #else
 #define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK2
+			/**< End PPK row number or offset */
 #endif
 /**
 * @}

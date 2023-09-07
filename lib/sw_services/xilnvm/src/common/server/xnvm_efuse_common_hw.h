@@ -137,6 +137,7 @@ extern "C" {
 /** @} */
 
 #define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET			(0x00000094U)
+						/**< eFuse cache boot env control offset*/
 /**
  * @name Register: EFUSE_CACHE_PUF_ECC_CTRL
  *  @{
