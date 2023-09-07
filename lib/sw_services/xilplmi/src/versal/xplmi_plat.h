@@ -41,6 +41,7 @@
 *                       Refactored Proc logic to more generic logic
 *                       Added list commands
 *       sk   07/28/2023 Added redundant func XPlmi_IsPlmUpdateDoneTmp
+*       bm   09/07/2023 Allow loading of ELFs into XRAM
 * </pre>
 *
 * @note
@@ -443,6 +444,7 @@ u32 *XPlmi_GetUartBaseAddr(void);
 void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus);
 void XPlmi_NotifySldSlaveSlrs(void);
 void XPlmi_InterSlrSldHandshake(void);
+void XPlmi_SetXRamAvailable(void);
 
 /************************** Variable Definitions *****************************/
 

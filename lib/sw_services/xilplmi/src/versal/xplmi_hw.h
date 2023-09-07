@@ -87,6 +87,7 @@
 *       am   07/11/2023 Reduced the trace event buffer length to accomodate
 *                       IHT OP data store address
 *       ng   07/13/2023 Added support for system device-tree flow
+*       bm   09/07/2023 Allow loading of ELFs into XRAM
 *
 * </pre>
 *
@@ -1141,6 +1142,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_OCM_HIGH_ADDR		(0xFFFFFFFFU)
 #define XPLMI_2GB_END_ADDR		(0x7FFFFFFFU)
 #define XPLMI_4GB_END_ADDR		(0xFFFFFFFFU)
+#define XPLMI_XRAM_BASE_ADDR		(0xFE800000U)
+#define XPLMI_XRAM_HIGH_ADDR		(0xFEBFFFFFU)
 
 #ifdef SDT
 #define XCFRAME_DEVICE  (XPAR_XCFRAME_0_BASEADDR)
