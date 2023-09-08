@@ -244,6 +244,7 @@ void XTMR_Inject_Disable(XTMR_Inject *InstancePtr)
 *****************************************************************************/
 u32 XTMR_Inject_InjectBit(XTMR_Inject *InstancePtr, u32 Value, u8 Bit)
 {
+	(void)InstancePtr;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(Bit < 32);
@@ -278,6 +279,7 @@ u32 XTMR_Inject_InjectBit(XTMR_Inject *InstancePtr, u32 Value, u8 Bit)
 *****************************************************************************/
 u32 XTMR_Inject_InjectMask(XTMR_Inject *InstancePtr, u32 Value, u32 Mask)
 {
+	(void)InstancePtr;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
