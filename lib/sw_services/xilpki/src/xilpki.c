@@ -27,6 +27,7 @@
  *                       version info.
  * 2.0   Nava  09/06/23  Updated the XPki_GetVersion() API prototype to inline with
  *                       other secure library version info API's.
+ * 2.0   Nava  09/07/23  Fixed issues with IRQ signal.
  *
  *</pre>
  *
@@ -2090,8 +2091,15 @@ static void XPki_IntrHandler(XPki_Instance *InstancePtr)
 static void XPki_IntrCallbackHandler(XPki_Instance *InstancePtr, XPki_QueueID Id)
 {
 	UINTPTR CQAddr =  InstancePtr->MultiQinfo[Id].CQAddr;
-	u32 SlotID, i, j;
+	u32 RegOffset = Id * XPKI_INDEX_2_VAL;
 	u32 RequestID, Status;
+	u32 SlotID, i, j;
+
+	/* Check for pending requests */
+	if (Xil_In32(FPD_PKI_CTL_PENDING_REQS + RegOffset) == 0U) {
+		/* Reset IRQ signal */
+		Xil_Out64(FPD_PKI_IRQ_RESET, (1 << Id));
+	}
 
 	for (j = 0, i = 0; j < XPKI_MAX_CQ_REQ; j++, i += 8) {
 		RequestID = Xil_In32(CQAddr + i + 4) & XPKI_RID_MASK;
