@@ -27,7 +27,7 @@
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 
-#if defined (XPS_BOARD_VEK280_ES_REVB)
+#if defined (XPS_BOARD_VEK280)
 #ifndef RC21008A_H
 /**  prevent circular inclusions by using protection macros */
 #define RC21008A_H
@@ -40,7 +40,7 @@
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB)
+	defined (XPS_BOARD_VEK280)
 #include "xiicps.h"
 #else
 #include "xiic.h"
