@@ -24,6 +24,7 @@ config:
 required:
     - compatible
     - reg
+    - xlnx,magic
     - xlnx,cpu-id
     - xlnx,lmb-awidth
 ...

@@ -57,6 +57,7 @@
 * 1.4   adk  02/24/22 While updating the IIR offset apply the mask.
 * 1.5   adk  27/12/22 Updated addtogroup tag.
 * 1.6   adk  03/07/23 Added support for system device-tree flow.
+* 1.6   adk  08/09/23 Fixed the -Wunused-parameter warning in the driver.
 * </pre>
 *
 *****************************************************************************/

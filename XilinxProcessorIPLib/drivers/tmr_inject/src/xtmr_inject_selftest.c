@@ -68,6 +68,7 @@
 ******************************************************************************/
 int XTMR_Inject_SelfTest(XTMR_Inject *InstancePtr)
 {
+	(void)InstancePtr;
 	/*
 	 * Assert validates the input arguments
 	 */
