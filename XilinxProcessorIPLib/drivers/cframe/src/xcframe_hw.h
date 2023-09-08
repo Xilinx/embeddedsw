@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,7 +23,7 @@
 * 1.1   bsv 05/29/2019    Macros declared for CFRM_ISR_OFFSET,
 *			  CFRM_IER_OFFSET and STATUS_OFFSET
 * 1.2   bsv 07/23/2021    Fix doxygen warnings
-*
+* 1.5   mss 09/04/2023    Added XCFRAME_MASK_DEFVAL macro for a contant integer
 * </pre>
 *
 ******************************************************************************/
@@ -68,6 +69,8 @@ extern "C" {
 #define XCFRAME_CFRM_IER_OFFSET			(0x170U)
 #define XCFRAME_CFRM_IDR_OFFSET			(0x180U)
 #define XCFRAME_STATUS_OFFSET			(0x240U)
+
+#define XCFRAME_MASK_DEFVAL             (0xFFFFFFFFU)
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XCframe_In32		Xil_In32	/**< Input operation */
