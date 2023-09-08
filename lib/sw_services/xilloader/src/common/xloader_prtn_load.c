@@ -716,9 +716,13 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
 	 * called only for the first partition of an image.
 	 */
 	if ((Status == XST_SUCCESS) && (PrtnIndex == 0x00U)) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureConfigMeasurement,
-					&SecureParams, PcrInfo, &PdiPtr->DigestIndex,
-					PdiPtr->PdiType);
+		if (PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureConfigMeasurement,
+					&SecureParams, PcrInfo, &PdiPtr->DigestIndex, TRUE);
+		} else {
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureConfigMeasurement,
+					&SecureParams, PcrInfo, &PdiPtr->DigestIndex, FALSE);
+		}
 		if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
 			Status |= StatusTmp;
 		}
