@@ -22,6 +22,7 @@
 * 1.02  bsv  17/02/2020 XCframe_SafetyWriteReg API added
 * 1.03  bsv  07/15/2021 Fix doxygen warnings
 * 1.04  ng   06/30/23   Added support for system device tree flow
+* 1.5   mss  09/04/2023 Fixed MISRA-C violation 4.6
 *
 * </pre>
 *
@@ -168,7 +169,7 @@ void XCframe_SetReadParam(XCframe *InstancePtr,
 void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
 			XCframe_FrameNo FrameNo, u32* ValPtr);
 void XCframe_ClearCframeErr(XCframe *InstancePtr);
-int XCframe_SafetyWriteReg(XCframe *InstancePtr, u32 AddrOffset,
+s32 XCframe_SafetyWriteReg(XCframe *InstancePtr, u32 AddrOffset,
 		XCframe_FrameNo FrameNo, Xuint128 *Val);
 #ifdef __cplusplus
 }
