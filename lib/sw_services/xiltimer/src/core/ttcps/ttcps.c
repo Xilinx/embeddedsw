@@ -23,6 +23,8 @@
  *  	 	        and removed the unneeded XTickTimer_SetPriority() API.
  * 1.1   adk   08/08/22 Added doxygen tags.
  * 1.3   gm    21/07/23 Added Timer Release Callback function support.
+ * 1.3   asa   08/09/23 Added macros to ensure that for Zynq/CortexA9
+ *                      16 bit TTC counters are used.
  *
  *</pre>
  *
@@ -34,6 +36,15 @@
 #include "xinterrupt_wrap.h"
 
 /**************************** Type Definitions *******************************/
+
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
+#define REG_SHIFT  				32U
+#define XCntrVal 			    u32
+#else
+#define REG_SHIFT  16U
+#define XCntrVal 			    u16
+#endif
+
 
 /************************** Function Prototypes ******************************/
 static u32 XTimer_TtcInit(UINTPTR BaseAddress,
@@ -284,9 +295,9 @@ static void XTimer_TtcModifyInterval(XTimer *InstancePtr, u32 delay,
 	XTtcPs *TtcPsInstPtr = &InstancePtr->TtcPs_SleepInst;
 	u64 tEnd = 0U;
 	u64 tCur = 0U;
-	u32 TimeHighVal = 0U;
-	u32 TimeLowVal1 = 0U;
-	u32 TimeLowVal2 = 0U;
+	XCntrVal TimeHighVal = 0U;
+	XCntrVal TimeLowVal1 = 0U;
+	XCntrVal TimeLowVal2 = 0U;
 	static u32 IsSleepTimerStarted = FALSE;
 
 	if (FALSE == IsSleepTimerStarted) {
@@ -309,7 +320,7 @@ static void XTimer_TtcModifyInterval(XTimer *InstancePtr, u32 delay,
 			TimeHighVal++;
 		}
 		TimeLowVal1 = TimeLowVal2;
-		tCur = (((u64) TimeHighVal) << 32U) | (u64)TimeLowVal2;
+		tCur = (((u64) TimeHighVal) << REG_SHIFT) | (u64)TimeLowVal2;
 	} while (tCur < tEnd);
 }
 
