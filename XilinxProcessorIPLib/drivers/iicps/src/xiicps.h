@@ -176,6 +176,7 @@
 * 3.16  gm   05/10/22 Added support to get the status of receive valid data.
 * 		      Added support for clock stretching and timeout support.
 * 3.18  gm   07/14/23 Added SDT support.
+* 	sd   09/06/23 Compile refclk for SDT
 *
 * </pre>
 *
@@ -281,7 +282,7 @@ typedef struct {
 				 * Parent base address */
 #endif
 
-#if defined  (XCLOCKING)
+#if defined  (XCLOCKING) || defined (SDT)
 	u32 RefClk;	  /**< Input clocks */
 #endif
 } XIicPs_Config;
