@@ -359,7 +359,7 @@ static int XOcp_ExtendSwPcrIpi(u32 ExtParamsAddrLow, u32 ExtParamsAddrHigh)
 	}
 
 	Status = XOcp_ExtendSwPcr(ExtendParams.PcrNum, ExtendParams.MeasurementIdx,
-		ExtendParams.DataAddr, ExtendParams.DataSize, ExtendParams.PdiType);
+		ExtendParams.DataAddr, ExtendParams.DataSize, ExtendParams.OverWrite);
 END:
 	return Status;
 }
