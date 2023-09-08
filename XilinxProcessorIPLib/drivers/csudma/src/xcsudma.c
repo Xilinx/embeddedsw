@@ -99,6 +99,7 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 		     sizeof(XCsuDma_Config));
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
+	/* Verify the DMA type  */
 	if (InstancePtr->Config.DmaType == (u8)XCSUDMA_DMATYPEIS_CSUDMA) {
 		/* Reset CSUDMA */
 		XCsuDma_Reset();
@@ -106,6 +107,7 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
+	/* Return status after Initializing DMA configuration */
 	return (s32)(XST_SUCCESS);
 
 }
@@ -160,6 +162,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	DataSize = Size;
 #endif
 
+	/* Cache flush/invalidate */
 #if defined(ARMR52)
 	if (((Addr >> XCSUDMA_MSB_ADDR_SHIFT) == 0U) && (Channel == (XCSUDMA_DST_CHANNEL))) {
 		Xil_DCacheInvalidateRange((INTPTR)Addr, DataSize << XCSUDMA_SIZE_SHIFT);
@@ -184,7 +187,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 					  (INTPTR)(DataSize << XCSUDMA_SIZE_SHIFT));
 	}
 #endif
-
+	/* Set the starting address of the data to be tansferred from/to memory */
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 			 ((u32)(XCSUDMA_ADDR_OFFSET) +
 			  ((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
@@ -196,6 +199,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 			 ((u32)((Addr & ULONG64_HI_MASK) >> XCSUDMA_MSB_ADDR_SHIFT) &
 			  (u32)(XCSUDMA_MSB_ADDR_MASK)));
 
+	/* Check and inform DMA if this is the last word(end of data) */
 	if (EnDataLast == (u8)1U) {
 		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 				 ((u32)(XCSUDMA_SIZE_OFFSET) +
@@ -226,9 +230,9 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 * @param	AddrLow is a 32 bit variable which holds the starting lower address of
 * 		data which needs to write into the memory(DST) (or read	from
 * 		the memory(SRC)).
-* @param    AddrHigh is a 32 bit variable which holds the higher address of data
-* 			which needs to write into the memory(DST) (or read from
-* 			the memoroy(SRC)).
+* @param    	AddrHigh is a 32 bit variable which holds the higher address of data
+* 		which needs to write into the memory(DST) (or read from
+* 		the memoroy(SRC)).
 * @param	Size is a 32 bit variable which represents the number of 4 byte
 * 		words needs to be transferred from starting address.
 * @param	EnDataLast is to trigger an end of message. It will enable or
@@ -263,6 +267,7 @@ void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 #else
 	DataSize = Size;
 #endif
+	/* Set the starting address of the data to be transferred from/to the memory */
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 			 ((u32)(XCSUDMA_ADDR_OFFSET) +
 			  ((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
@@ -273,6 +278,7 @@ void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 			  ((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))),
 			 (AddrHigh & XCSUDMA_MSB_ADDR_MASK));
 
+	/* Check and inform DMA if this is the last word(end of data) */
 	if (EnDataLast == (u8)1U) {
 		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 				 ((u32)(XCSUDMA_SIZE_OFFSET) +
@@ -326,6 +332,7 @@ u64 XCsuDma_GetAddr(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 						((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF)))) <<
 			  (u64)(XCSUDMA_MSB_ADDR_SHIFT));
 
+	/* Return current address where data has to be read/written  */
 	return FullAddr;
 }
 
@@ -360,6 +367,7 @@ u32 XCsuDma_GetSize(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 				((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF)))) >>
 	       (u32)(XCSUDMA_SIZE_SHIFT);
 
+	/* Return size in bytes to be transferred */
 	return Size;
 }
 
@@ -400,7 +408,7 @@ void XCsuDma_Pause(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 		       (Channel == (XCSUDMA_DST_CHANNEL)));
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 
-	/* Pause Memory Read/Write/Stream operations */
+	/* Pause Memory Read/Write operations */
 	if (Type == (XCSUDMA_PAUSE_MEMORY)) {
 		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 				 ((XCSUDMA_CTRL_OFFSET) +
@@ -410,6 +418,7 @@ void XCsuDma_Pause(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 						   (u32)(CsuDmaChannel * XCSUDMA_OFFSET_DIFF))) |
 				  (u32)(XCSUDMA_CTRL_PAUSE_MEM_MASK)));
 	}
+	/* Pause Stream operation */
 	if (Type == (XCSUDMA_PAUSE_STREAM)) {
 		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 				 (XCSUDMA_CTRL_OFFSET +
@@ -482,6 +491,7 @@ s32 XCsuDma_IsPaused(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 		}
 	}
 
+	/* Return status on whether DMA is paused or not */
 	return (s32)PauseState;
 
 }
@@ -528,6 +538,7 @@ void XCsuDma_Resume(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 			       ((u32)(XCSUDMA_CTRL_OFFSET) +
 				((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))));
 
+	/* To Resume the channel if it is in paused state */
 	if (Type == (XCSUDMA_PAUSE_MEMORY)) {
 		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 				 ((u32)(XCSUDMA_CTRL_OFFSET) +
@@ -571,6 +582,7 @@ u32 XCsuDma_GetCheckSum(XCsuDma *InstancePtr)
 	ChkSum = XCsuDma_ReadReg(InstancePtr->Config.BaseAddress,
 				 (u32)(XCSUDMA_CRC_OFFSET));
 
+	/* Return checksum */
 	return ChkSum;
 
 }
@@ -621,6 +633,7 @@ u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 	UINTPTR Addr;
 	u32 TimeoutFlag = (u32)XST_FAILURE;
 
+	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
 			  (Channel == (XCSUDMA_DST_CHANNEL)));
@@ -629,6 +642,7 @@ u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 	       (u32)XCSUDMA_I_STS_OFFSET +
 	       ((u32)Channel * (u32)XCSUDMA_OFFSET_DIFF);
 
+	/* Verify completion of data transfer or timeout */
 	TimeoutFlag = Xil_WaitForEvent(Addr, XCSUDMA_IXR_DONE_MASK,
 				       XCSUDMA_IXR_DONE_MASK, XCSUDMA_DONE_TIMEOUT_VAL);
 
@@ -738,6 +752,8 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 		(((u32)(ConfigurValues->FifoThresh) <<
 		  (u32)(XCSUDMA_CTRL_FIFO_THRESH_SHIFT)) &
 		 (u32)(XCSUDMA_CTRL_FIFO_THRESH_MASK)));
+
+	/* Set Config for Destination channel */
 	if (Channel == XCSUDMA_DST_CHANNEL) {
 		Data = Data | (u32)(((u32)(ConfigurValues->SssFifoThesh) <<
 				     (u32)(XCSUDMA_CTRL_SSS_FIFOTHRESH_SHIFT)) &
@@ -862,12 +878,15 @@ void XCsuDma_GetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 			       ((u32)(XCSUDMA_CTRL_OFFSET) +
 				((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF))));
 
+	/* Get Config for Destination channel */
 	if (Channel == (XCSUDMA_DST_CHANNEL)) {
 		ConfigurValues->SssFifoThesh =
 			(u8)((Data &
 			      (u32)(XCSUDMA_CTRL_SSS_FIFOTHRESH_MASK)) >>
 			     (u32)(XCSUDMA_CTRL_SSS_FIFOTHRESH_SHIFT));
 	}
+
+	/* Update config structure members with configured values of CSUDMA channel*/
 	ConfigurValues->ApbErr =
 		(u8)((Data & (u32)(XCSUDMA_CTRL_APB_ERR_MASK)) >>
 		     (u32)(XCSUDMA_CTRL_APB_ERR_SHIFT));
