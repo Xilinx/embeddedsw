@@ -384,7 +384,7 @@ void microblaze_enable_icache(void) {
 #endif
 }
 
-void Xil_L1DCacheFlushRange(Addr, Len) {
+void Xil_L1DCacheFlushRange(UINTPTR Addr,u32 Len) {
 #ifndef VERSAL_PLM
 	XMicroblaze_Config *CfgPtr = XGet_CpuCfgPtr();
 	if (CfgPtr->DcacheUseWriteback) {
@@ -395,7 +395,7 @@ void Xil_L1DCacheFlushRange(Addr, Len) {
 #endif
 }
 
-void Xil_L1DCacheFlush() {
+void Xil_L1DCacheFlush(void) {
 #ifndef VERSAL_PLM
 	XMicroblaze_Config *CfgPtr = XGet_CpuCfgPtr();
 	if (CfgPtr->DcacheUseWriteback) {
