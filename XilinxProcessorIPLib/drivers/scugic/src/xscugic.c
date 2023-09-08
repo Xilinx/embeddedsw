@@ -173,6 +173,7 @@
 * 5.2   ml   09/07/23 Typecasting with u32 to fix MISRA-C_RULE_10.3 violation.
 * 5.2   ml   09/07/23 Compared with zero to fix MISRA-C_RULE_14.4 violation.
 * 5.2   ml   09/07/23 Added comments to fix HIS COMF violations.
+* 5.2   ml   09/07/23 Include xplatform_info.h  for all processors.
 * </pre>
 *
 ******************************************************************************/
@@ -182,9 +183,7 @@
 #include "xil_assert.h"
 #include "xscugic.h"
 
-#if defined (VERSAL_NET)
 #include "xplatform_info.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 
