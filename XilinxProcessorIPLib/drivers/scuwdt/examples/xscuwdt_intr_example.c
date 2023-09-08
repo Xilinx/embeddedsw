@@ -24,6 +24,7 @@
 * 2.5   asa  07/18/23 Added support for system device tree based
 *                     workflow decouplig flow.
 *					  Interrupt wrapper support has also been added.
+* 2.5   dp   09/08/23 Update example to stop wdt at end of the test
 * </pre>
 *
 ******************************************************************************/
@@ -322,6 +323,9 @@ int ScuWdtIntrExample(XScuWdt *WdtInstancePtr, UINTPTR BaseAddress)
 #else
 	XDisconnectInterruptCntrl(ConfigPtr->IntrId, ConfigPtr->IntrParent);
 #endif
+
+   XScuWdt_Stop(WdtInstancePtr);
+
 	return XST_SUCCESS;
 }
 
