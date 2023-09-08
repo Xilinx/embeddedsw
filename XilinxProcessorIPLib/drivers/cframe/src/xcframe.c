@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +22,7 @@
 * 1.02  bsv  11/06/2019 XCframe_ClearCframeErr API added
 * 1.03  bsv  02/17/2020 XCframe_SafetyWriteReg API added
 * 1.04  bsv  07/15/2021 Fix doxygen warnings
+* 1.5   mss  09/04/2023 Fixed MISRA-C violation 10.1
 *
 * </pre>
 *
@@ -100,16 +102,16 @@ void XCframe_WriteReg(XCframe *InstancePtr, u32 AddrOffset,
 {
 	/* TODO check if we need to disable interrupts */
 	XCframe_WriteReg32(InstancePtr->Config.BaseAddress +
-			(FrameNo*XCFRAME_FRAME_OFFSET),
+			((u32)FrameNo*XCFRAME_FRAME_OFFSET),
 			AddrOffset, Val->Word0);
 	XCframe_WriteReg32(InstancePtr->Config.BaseAddress +
-			(FrameNo*XCFRAME_FRAME_OFFSET) ,
+			((u32)FrameNo*XCFRAME_FRAME_OFFSET) ,
 			AddrOffset+4, Val->Word1);
 	XCframe_WriteReg32(InstancePtr->Config.BaseAddress +
-			(FrameNo*XCFRAME_FRAME_OFFSET),
+			((u32)FrameNo*XCFRAME_FRAME_OFFSET),
 			AddrOffset+8, Val->Word2);
 	XCframe_WriteReg32(InstancePtr->Config.BaseAddress +
-			(FrameNo*XCFRAME_FRAME_OFFSET),
+			((u32)FrameNo*XCFRAME_FRAME_OFFSET),
 			AddrOffset+12, Val->Word3);
 }
 
@@ -129,13 +131,13 @@ void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
                 XCframe_FrameNo FrameNo, u32* ValPtr)
 {
         ValPtr[0] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
-                        (FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset);
+                        ((u32)FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset);
         ValPtr[1] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
-                        (FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+4);
+                        ((u32)FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+4);
         ValPtr[2] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
-                        (FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+8);
+                        ((u32)FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+8);
         ValPtr[3] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
-                        (FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+12);
+                        ((u32)FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+12);
 }
 
 /*****************************************************************************/
