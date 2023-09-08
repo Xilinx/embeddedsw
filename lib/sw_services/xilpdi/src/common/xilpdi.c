@@ -52,6 +52,7 @@
 	sk   05/31/2023 Updated Xilpdi_ReadImgHdrTbl to use MetaHdrOfst from
                         MetaHdr structure
 *       am   07/03/2023 Updated XilPdi_ReadIhtAndOptionalData to store partition hashes
+*       dd   09/08/2023 Misra-C violation Rule 12.1 fixed
 *
 * </pre>
 *
@@ -409,7 +410,7 @@ int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr)
 		*  DigestTableSize is size of Data except first(0x00) and last word(Last)
 		*/
 		MetaHdrPtr->DigestTableSize = OptionalDataLen - XILPDI_OPTIONAL_DATA_DOUBLE_WORD_LEN;
-		if (MetaHdrPtr->DigestTableSize % sizeof(XilPdi_PrtnHashInfo) != 0U) {
+		if ((MetaHdrPtr->DigestTableSize % sizeof(XilPdi_PrtnHashInfo)) != 0U) {
 			Status = XILPDI_ERR_INVALID_DIGEST_TABLE_SIZE;
 			XilPdi_Printf("Invalid digest table size \n\r");
 			goto END;
