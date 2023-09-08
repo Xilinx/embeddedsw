@@ -26,7 +26,7 @@
 * 4.6	sk   08/05/21 Remove XScuGic_Config variable definition to fix
 * 		      misrac violation.
 * 5.2   ml   03/03/23 Add description to fix Doxygen warnings.
-*
+* 5.2   ml   09/07/23 Added comments to fix HIS COMF violations.
 * </pre>
 *
 ******************************************************************************/
@@ -73,13 +73,17 @@ XScuGic_Config *XScuGic_LookupConfig(u16 DeviceId)
 	XScuGic_Config *CfgPtr = NULL;
 	u32 Index;
 
+	/*
+	 * checks the device Id in configuration table
+	 * whether it matches or not
+	 */
 	for (Index = 0U; Index < (u32)XPAR_SCUGIC_NUM_INSTANCES; Index++) {
 		if (XScuGic_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XScuGic_ConfigTable[Index];
 			break;
 		}
 	}
-
+	/* Return statement */
 	return (XScuGic_Config *)CfgPtr;
 }
 /*****************************************************************************/
@@ -103,12 +107,17 @@ XScuGic_Config *XScuGic_LookupConfigBaseAddr(UINTPTR BaseAddress)
         XScuGic_Config *CfgPtr = NULL;
         u32 Index;
 
+        /*
+         * checks the BaseAddress in configuration table
+		 * whether it matches or not
+		 */
         for (Index = 0U; Index < (u32)XPAR_SCUGIC_NUM_INSTANCES; Index++) {
                 if (XScuGic_ConfigTable[Index].DistBaseAddress == BaseAddress) {
                         CfgPtr = &XScuGic_ConfigTable[Index];
                         break;
                 }
         }
+        /* Return statement */
         return (XScuGic_Config *)CfgPtr;
 }
 #else
@@ -117,13 +126,16 @@ XScuGic_Config *XScuGic_LookupConfig(UINTPTR BaseAddress)
 	XScuGic_Config *CfgPtr = NULL;
 	u32 Index;
 
+		/* checks the BaseAddress in configuration table
+	     * whether it matches or not
+	     */
 	for (Index = 0U; XScuGic_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XScuGic_ConfigTable[Index].DistBaseAddress == BaseAddress) || !BaseAddress) {
 			CfgPtr = &XScuGic_ConfigTable[Index];
 			break;
 		}
 	}
-
+	/* Return statement */
 	return (XScuGic_Config *)CfgPtr;
 }
 #endif
