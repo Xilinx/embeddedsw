@@ -74,7 +74,6 @@ typedef struct {
 typedef struct {
 	XOcp_PcrMeasurement Measurement;		/**< XOcp_PcrMeasurement structure */
 	u32 IsReqExtended;				/**< Is request extended */
-	u32 DataLength;					/**< Data length */
 	u64 DataAddr;					/**< Address of the data buffer */
 	u8 DataToExtend[XOCP_PCR_SIZE_BYTES];		/**< Data to extend */
 } XOcp_SwPcrData;

@@ -271,7 +271,7 @@ static int XOcp_SwPcrExample(XOcp_ClientInstance *ClientInstancePtr)
 	ExtendParams.PcrNum = PcrNum;
 	ExtendParams.MeasurementIdx = MeasurementIdx;
 	ExtendParams.DataSize = sizeof(ExtendHash);
-	ExtendParams.PdiType = XOCP_PDI_TYPE_FULL;
+	ExtendParams.OverWrite = FALSE;
 	ExtendParams.DataAddr = (u64)(UINTPTR)ExtendHash;
 	Status = XOcp_ExtendSwPcr(ClientInstancePtr, &ExtendParams);
 	if (Status != XST_SUCCESS) {
@@ -318,6 +318,7 @@ static int XOcp_SwPcrExample(XOcp_ClientInstance *ClientInstancePtr)
 		XOcp_PrintData((const u8*)&SwPcrMeasurement[Index].EventId, XOCP_EVENT_ID_NUM_OF_BYTES);
 		xil_printf("Version: ");
 		XOcp_PrintData((const u8*)&SwPcrMeasurement[Index].Version, XOCP_VERSION_NUM_OF_BYTES);
+		xil_printf("DataLength: %x\r\n", SwPcrMeasurement[Index].DataLength);
 		xil_printf("Hash Of Data:\n\r");
 		XOcp_PrintData((const u8*)SwPcrMeasurement[Index].HashOfData,
 				XOCP_PCR_SIZE_BYTES);
