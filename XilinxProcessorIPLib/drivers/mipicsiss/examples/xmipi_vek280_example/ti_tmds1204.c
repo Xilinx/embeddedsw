@@ -29,7 +29,7 @@
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB))
+	defined (XPS_BOARD_VEK280))
 #define I2C_REPEATED_START 0x01
 #define I2C_STOP 0x00
 #else
@@ -502,7 +502,7 @@ static unsigned TI_TMDS1204_I2cSend(void *IicPtr, u16 SlaveAddr,
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB))
+	defined (XPS_BOARD_VEK280))
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
@@ -567,7 +567,7 @@ static unsigned TI_TMDS1204_I2cRecv(void *IicPtr, u16 SlaveAddr,
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB))
+	defined (XPS_BOARD_VEK280))
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 

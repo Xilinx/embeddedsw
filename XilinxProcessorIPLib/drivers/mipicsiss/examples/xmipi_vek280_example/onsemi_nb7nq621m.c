@@ -32,7 +32,7 @@
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB)
+	defined (XPS_BOARD_VEK280)
 #define I2C_REPEATED_START 0x01
 #define I2C_STOP 0x00
 #else
@@ -310,7 +310,7 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
 	{TX_R2_FRL, 0x0E, 0x0A}, /* Onsemi 0x2A}, */
 	{TX_R2_FRL, 0x0F, 0x31}, /* Onsemi 0x02}, */
 	{TX_R2_FRL, 0x10, 0x00},
-#elif defined XPS_BOARD_VEK280_ES_REVB
+#elif defined XPS_BOARD_VEK280
 	{TX_R2_FRL, 0x0D, 0x00}, /* Onsemi 0x10}, */
 	{TX_R2_FRL, 0x0E, 0x0A}, /* Onsemi 0x2A}, */
 	{TX_R2_FRL, 0x0F, 0x31}, /* Onsemi 0x02}, */
@@ -463,7 +463,7 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
 	{TX_R3_FRL, 0x0E, 0x0A}, /*Onsemi 0x2A},*/
 	{TX_R3_FRL, 0x0F, 0x31}, /*Onsemi 0x02},*/
 	{TX_R3_FRL, 0x10, 0x00},
-#elif defined XPS_BOARD_VEK280_ES_REVB
+#elif defined XPS_BOARD_VEK280
 	{TX_R3_FRL, 0x0D, 0x31}, /*Onsemi 0x10},*/
 	{TX_R3_FRL, 0x0E, 0x0A}, /*Onsemi 0x2A},*/
 	{TX_R3_FRL, 0x0F, 0x31}, /*Onsemi 0x02},*/
@@ -630,7 +630,7 @@ static unsigned ONSEMI_NB7NQ621M_I2cSend(void *IicPtr, u16 SlaveAddr,
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB))
+	defined (XPS_BOARD_VEK280))
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
@@ -695,7 +695,7 @@ static unsigned ONSEMI_NB7NQ621M_I2cRecv(void *IicPtr, u16 SlaveAddr,
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB))
+	defined (XPS_BOARD_VEK280))
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
