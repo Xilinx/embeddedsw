@@ -104,21 +104,21 @@ XScuGic_Config *XScuGic_LookupConfig(u16 DeviceId)
 ******************************************************************************/
 XScuGic_Config *XScuGic_LookupConfigBaseAddr(UINTPTR BaseAddress)
 {
-        XScuGic_Config *CfgPtr = NULL;
-        u32 Index;
+	XScuGic_Config *CfgPtr = NULL;
+	u32 Index;
 
-        /*
-         * checks the BaseAddress in configuration table
+	/*
+	 * checks the BaseAddress in configuration table
 		 * whether it matches or not
 		 */
-        for (Index = 0U; Index < (u32)XPAR_SCUGIC_NUM_INSTANCES; Index++) {
-                if (XScuGic_ConfigTable[Index].DistBaseAddress == BaseAddress) {
-                        CfgPtr = &XScuGic_ConfigTable[Index];
-                        break;
-                }
-        }
-        /* Return statement */
-        return (XScuGic_Config *)CfgPtr;
+	for (Index = 0U; Index < (u32)XPAR_SCUGIC_NUM_INSTANCES; Index++) {
+		if (XScuGic_ConfigTable[Index].DistBaseAddress == BaseAddress) {
+			CfgPtr = &XScuGic_ConfigTable[Index];
+			break;
+		}
+	}
+	/* Return statement */
+	return (XScuGic_Config *)CfgPtr;
 }
 #else
 XScuGic_Config *XScuGic_LookupConfig(UINTPTR BaseAddress)
@@ -126,9 +126,9 @@ XScuGic_Config *XScuGic_LookupConfig(UINTPTR BaseAddress)
 	XScuGic_Config *CfgPtr = NULL;
 	u32 Index;
 
-		/* checks the BaseAddress in configuration table
-	     * whether it matches or not
-	     */
+	/* checks the BaseAddress in configuration table
+	* whether it matches or not
+	*/
 	for (Index = 0U; XScuGic_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XScuGic_ConfigTable[Index].DistBaseAddress == BaseAddress) || !BaseAddress) {
 			CfgPtr = &XScuGic_ConfigTable[Index];
