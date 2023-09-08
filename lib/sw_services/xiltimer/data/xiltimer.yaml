@@ -43,4 +43,6 @@ depends:
     ttcps:
         - reg
         - xlnx,clock-freq
+    scutimer:
+        - reg
 ...
