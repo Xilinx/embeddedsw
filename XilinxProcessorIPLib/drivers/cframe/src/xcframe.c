@@ -23,7 +23,7 @@
 * 1.03  bsv  02/17/2020 XCframe_SafetyWriteReg API added
 * 1.04  bsv  07/15/2021 Fix doxygen warnings
 * 1.5   mss  09/04/2023 Fixed MISRA-C violation 10.1
-*
+*       mss  09/04/2023 Fixed MISRA-C violation 10.4
 * </pre>
 *
 * @note
@@ -106,13 +106,13 @@ void XCframe_WriteReg(XCframe *InstancePtr, u32 AddrOffset,
 			AddrOffset, Val->Word0);
 	XCframe_WriteReg32(InstancePtr->Config.BaseAddress +
 			((u32)FrameNo*XCFRAME_FRAME_OFFSET) ,
-			AddrOffset+4, Val->Word1);
+			AddrOffset+4U, Val->Word1);
 	XCframe_WriteReg32(InstancePtr->Config.BaseAddress +
 			((u32)FrameNo*XCFRAME_FRAME_OFFSET),
-			AddrOffset+8, Val->Word2);
+			AddrOffset+8U, Val->Word2);
 	XCframe_WriteReg32(InstancePtr->Config.BaseAddress +
 			((u32)FrameNo*XCFRAME_FRAME_OFFSET),
-			AddrOffset+12, Val->Word3);
+			AddrOffset+12U, Val->Word3);
 }
 
 /*****************************************************************************/
@@ -133,11 +133,11 @@ void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
         ValPtr[0] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
                         ((u32)FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset);
         ValPtr[1] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
-                        ((u32)FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+4);
+                        ((u32)FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+4U);
         ValPtr[2] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
-                        ((u32)FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+8);
+                        ((u32)FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+8U);
         ValPtr[3] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
-                        ((u32)FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+12);
+                        ((u32)FrameNo*XCFRAME_FRAME_OFFSET), AddrOffset+12U);
 }
 
 /*****************************************************************************/
@@ -313,7 +313,7 @@ void XCframe_SetReadParam(XCframe *InstancePtr,
 	XCframe_WriteCmd(InstancePtr, CframeNo,	XCFRAME_CMD_REG_RCFG);
 	XCframe_WriteReg(InstancePtr, XCFRAME_FAR_OFFSET, CframeNo, &Value128);
 
-	Value128.Word0=CframeLen/4;
+	Value128.Word0=CframeLen/4U;
 	XCframe_WriteReg(InstancePtr, XCFRAME_FRCNT_OFFSET, CframeNo, &Value128);
 }
 
