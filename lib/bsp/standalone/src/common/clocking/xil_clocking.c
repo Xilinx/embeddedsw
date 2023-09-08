@@ -27,8 +27,7 @@
 #include "xil_clocking.h"
 /************************** Variable Definitions *****************************/
 
-#if defined  (XPAR_XCRPSU_0_DEVICE_ID) && defined (XCLOCKING)
-
+#if (defined  (XPAR_XCRPSU_0_DEVICE_ID) || defined(XPAR_PSU_CRL_APB_BASEADDR)) && defined (XCLOCKING)
 XClock ClockInstance;		/* Instance of clock Controller */
 XClockPs_Config *ConfigPtr;
 
@@ -49,7 +48,11 @@ XStatus Xil_ClockInit(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Lookup clock configurations */
+#ifndef SDT
 	ConfigPtr = XClock_LookupConfig(XPAR_XCLOCKPS_DEVICE_ID);
+#else
+	ConfigPtr = XClock_LookupConfig(XPAR_PSU_CRL_APB_BASEADDR);
+#endif
 
 	/* Initialize the Clock controller driver */
 	Status = XClock_CfgInitialize(&ClockInstance, ConfigPtr);
@@ -131,7 +134,7 @@ XStatus Xil_ClockGetRate(XClock_OutputClks ClockId, XClockRate *Rate)
 *
 * @param 	ClockId is the identifier for output clock.
 * @param 	Rate is the clock rate to set.
-* @param 	SetRate is a pointer to varible holding rate that is set.
+* @param 	SetRate is a pointer to variable holding rate that is set.
 *
 * @return	Status to indicate success/failure.
 *
@@ -184,7 +187,7 @@ XStatus Xil_ClockGetRate(XClock_OutputClks ClockId, XClockRate *Rate)
 *
 * @param 	ClockId is the identifier for output clock.
 * @param 	Rate is the clock rate to set.
-* @param 	SetRate is a pointer to varible holding rate that is set.
+* @param 	SetRate is a pointer to variable holding rate that is set.
 *
 * @return	XST_FAILURE to indicate failure.
 *
