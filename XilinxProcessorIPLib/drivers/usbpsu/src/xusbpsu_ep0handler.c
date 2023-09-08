@@ -19,6 +19,7 @@
 * 1.0   pm  03/03/20 First release
 * 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
 * 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
+* 1.14	pm  09/09/23 Fixed MISRA C-2012 Rule 10.3 violation
 * </pre>
 *
 *****************************************************************************/
@@ -82,7 +83,7 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 	if (InstancePtr->ConfigPtr->IsCacheCoherent == (u8)0U) {
 		Xil_DCacheFlushRange((INTPTR)TrbPtr,
 				     sizeof(struct XUsbPsu_Trb));
-		Xil_DCacheFlushRange((UINTPTR)&InstancePtr->SetupData,
+		Xil_DCacheFlushRange((INTPTR)&InstancePtr->SetupData,
 				     sizeof(SetupPacket));
 	}
 
