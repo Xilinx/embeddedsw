@@ -22,6 +22,11 @@
  *  	 adk   07/02/22 Updated the IntrHandler as per XTimer_SetHandler() API
  *  	 	        and removed the unneeded XTickTimer_SetPriority() API.
  *  1.1	 adk   08/08/22 Added doxygen tags.
+ *  1.3  asa   08/09/23 Fixed the incorrect logic in XTimer_ScutimerModifyInterval
+ *                      to account for the fact that scutimer counter is always
+ *                      a decrementing counter.
+ *                      Update XTimer_ScutimerTickInterval to add support for SDT
+ *                      flow.
  *</pre>
  *
  *@note
@@ -32,6 +37,8 @@
 #include "xinterrupt_wrap.h"
 
 /**************************** Type Definitions *******************************/
+
+#define MAX_COUNT 0xFFFFFFFFU
 
 /************************** Function Prototypes ******************************/
 static u32 XTimer_ScutimerInit(XTimer *InstancePtr, UINTPTR BaseAddress,
@@ -155,11 +162,20 @@ static void XTimer_ScutimerTickInterval(XTimer *InstancePtr, u32 Delay)
 	XScuTimer *ScuTimerInstPtr = &InstancePtr->ScuTimer_TickInst;
 	u32 Freq;
 	static u32 IsTickTimerStarted = FALSE;
+#ifdef SDT
+	u32 ScuTimerFreq = XSLEEPTIMER_FREQ;
+#else
 	u32 ScuTimerFreq = XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ  / 2U;
+#endif
 
 	if (FALSE == IsTickTimerStarted) {
+#ifdef SDT
+		XTimer_ScutimerInit(InstancePtr, XTICKTIMER_BASEADDRESS,
+				    &InstancePtr->ScuTimer_TickInst);
+#else
 		XTimer_ScutimerInit(InstancePtr, XTICKTIMER_DEVICEID,
 				    &InstancePtr->ScuTimer_TickInst);
+#endif
 		IsTickTimerStarted = TRUE;
 	}
 	Freq = XTIMER_DELAY_MSEC/Delay;
@@ -240,31 +256,63 @@ static void XTimer_ScutimerModifyInterval(XTimer *InstancePtr, u32 delay,
 				     XTimer_DelayType DelayType)
 {
 	XScuTimer *ScuTimerInstPtr = &InstancePtr->ScuTimer_SleepInst;
-	u64 tEnd = 0U;
-	u64 tCur = 0U;
-	u32 TimeHighVal = 0U;
-	u32 TimeLowVal1 = 0U;
-	u32 TimeLowVal2 = 0U;
-	static u32 IsSleepTimerStarted = FALSE;
+    static u32 IsSleepTimerStarted = FALSE;
+    volatile u32 TimerCntrValLast;
+    volatile u32 TimerCntrVal;
+    u32 FullCycleCntr = 0U;
+	u64 TempDelay;
+    u32 tEnd;
+
+#ifdef SDT
+	u32 ScuTimerFreq = XSLEEPTIMER_FREQ;
+#else
 	u32 ScuTimerFreq = XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ / 2U;
+#endif
 
 	if (FALSE == IsSleepTimerStarted) {
+#ifdef SDT
+		XTimer_ScutimerInit(InstancePtr, XSLEEPTIMER_BASEADDRESS,
+				    &InstancePtr->ScuTimer_SleepInst);
+#else
 		XTimer_ScutimerInit(InstancePtr, XSLEEPTIMER_DEVICEID,
 				    &InstancePtr->ScuTimer_SleepInst);
+#endif
 		IsSleepTimerStarted = TRUE;
 	}
+	XScuTimer_Stop(ScuTimerInstPtr);
+	XScuTimer_SetPrescaler(ScuTimerInstPtr, 0U);
+	XScuTimer_LoadTimer(ScuTimerInstPtr, MAX_COUNT);
 
-	TimeLowVal1 = XScuTimer_GetCounterValue(ScuTimerInstPtr);
-	tEnd = (u64)TimeLowVal1 + ((u64)(delay) *
-                                   ScuTimerFreq / (DelayType));
-	do {
-		TimeLowVal2 = XScuTimer_GetCounterValue(ScuTimerInstPtr);
-		if (TimeLowVal2 < TimeLowVal1) {
-			TimeHighVal++;
+	TempDelay = ((u64)(delay) * ScuTimerFreq / (DelayType));
+
+	if (TempDelay > MAX_COUNT) {
+			FullCycleCntr = (u32) (TempDelay / MAX_COUNT);
+			tEnd =  MAX_COUNT - (TempDelay % MAX_COUNT);
+
+	} else {
+		tEnd =  MAX_COUNT - TempDelay;
+	}
+
+	XScuTimer_Start(ScuTimerInstPtr);
+    TimerCntrVal = XScuTimer_GetCounterValue(ScuTimerInstPtr);
+    TimerCntrValLast = TimerCntrVal;
+
+	while (1) {
+		TimerCntrVal = XScuTimer_GetCounterValue(ScuTimerInstPtr);
+
+		if (TimerCntrVal <= tEnd) {
+			if (FullCycleCntr == 0U) {
+				break;
+			}
 		}
-		TimeLowVal1 = TimeLowVal2;
-		tCur = (((u64) TimeHighVal) << 32U) | (u64)TimeLowVal2;
-	} while (tCur < tEnd);
+
+        if (FullCycleCntr > 0U) {
+            if (TimerCntrVal > TimerCntrValLast ) {
+                FullCycleCntr--;
+            }
+        }
+        TimerCntrValLast = TimerCntrVal;
+	}
 }
 
 /*****************************************************************************/
@@ -302,8 +350,13 @@ void XTime_GetTime(XTime *Xtime_Global)
 	static u32 IsSleepTimerStarted = FALSE;
 
 	if (FALSE == IsSleepTimerStarted) {
+#ifdef SDT
+		XTimer_ScutimerInit(InstancePtr, XSLEEPTIMER_BASEADDRESS,
+				    &InstancePtr->ScuTimer_SleepInst);
+#else
 		XTimer_ScutimerInit(InstancePtr, XSLEEPTIMER_DEVICEID,
 				    &InstancePtr->ScuTimer_SleepInst);
+#endif
 		IsSleepTimerStarted = TRUE;
 	}
 
