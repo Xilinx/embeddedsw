@@ -25,7 +25,7 @@ required:
     - compatible
     - reg
     - xlnx,brk-delay-rst-value
-    - xlnx,mask-rst-value
+    - xlnx,mask-rst-value: 2
     - xlnx,magic1
     - xlnx,magic2
     - xlnx,ue-is-fatal
