@@ -262,7 +262,7 @@ void XIicPs_MasterIntrSend(XIicPs *InstancePtr, u32 IntrStatusReg,
 * This function handles interrupt-driven receive in master mode.
 *
 * @param        InstancePtr is a pointer to the XIicPs instance.
-* @param        IntrStatusReg is the interrupt status register.
+* @param        IntrStatusRegPtr is a pointer to the interrupt status register.
 * @param        IsHold is the Hold status.
 *
 * @return       None.
