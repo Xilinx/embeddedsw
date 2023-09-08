@@ -40,7 +40,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xparameters.h"
 #include "xstatus.h"
-#if defined  (XPAR_XCRPSU_0_DEVICE_ID)
+#if defined  (XPAR_XCRPSU_0_DEVICE_ID) || defined(XPAR_PSU_CRL_APB_BASEADDR)
 #include "xclockps.h"
 #else
 typedef u32 XClock_OutputClks;
