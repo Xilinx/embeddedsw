@@ -1639,7 +1639,7 @@ int I2cMuxSel(void *IicPtr, XOnBoard_IicDev Dev)
 #if ! (defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB))
+	defined (XPS_BOARD_VEK280))
 	XIicPs *Iic_Ptr = IicPtr;
 
 	/* Set operation to 7-bit mode */
@@ -1663,7 +1663,7 @@ int I2cMuxSel(void *IicPtr, XOnBoard_IicDev Dev)
 		Iic_Mux_Addr = VCK190_U34_MUX_I2C_ADDR;
 		Buffer = VCK190_U34_MUX_SEL_SI570;
 	}
-#elif defined (XPS_BOARD_VEK280_ES_REVB)
+#elif defined (XPS_BOARD_VEK280)
 	if (Dev == VEK280_ES_MGT_SI570) {
 		Iic_Mux_Addr = VEK280_ES_U34_MUX_I2C_ADDR;
 		Buffer = VEK280_ES_U34_MUX_SEL_SI570;
@@ -1693,7 +1693,7 @@ int I2cMuxSel(void *IicPtr, XOnBoard_IicDev Dev)
 		Buffer = VCU118_U80_MUX_SEL_FMCP;
 	}
 
-#elif defined (XPS_BOARD_VEK280_ES_REVB)
+#elif defined (XPS_BOARD_VEK280)
 	if (Dev ==VEK280_ES_MGT_SI570) {
 				Iic_Mux_Addr = VEK280_ES_U34_MUX_I2C_ADDR;
 				Buffer = VEK280_ES_U135_MUX_I2C_ADDR;
@@ -2347,7 +2347,7 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 	defined (XPS_BOARD_VCU118) || \
 	defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB)
+	defined (XPS_BOARD_VEK280)
 			/* Adjust GT TX Diff Swing based on Line rate */
 			if (Vfmc[0].TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R0 &&
 				Vfmc[0].TxMezzType <  VFMC_MEZZ_INVALID) {
@@ -2469,7 +2469,7 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU106) || \
 	defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB)
+	defined (XPS_BOARD_VEK280)
 			Data = 0xD;
 #elif defined (XPS_BOARD_VCU118)
 			Data = ChId==4 ? 0x1C : 0x1A;
@@ -2484,7 +2484,7 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 			Data = 0xD;
 #elif defined (XPS_BOARD_VCK190)
 			Data = 0xD;
-#elif defined (XPS_BOARD_VEK280_ES_REVB)
+#elif defined (XPS_BOARD_VEK280)
 			Data = 0xD;
 #endif
 		} else if (Vfmc[0].TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R2) {
@@ -2496,7 +2496,7 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 			Data = 0xD;
 #elif defined (XPS_BOARD_VCK190)
 			Data = 0xD;
-#elif defined (XPS_BOARD_VEK280_ES_REVB)
+#elif defined (XPS_BOARD_VEK280)
 			Data = 0xD;
 #endif
 		}
@@ -2504,7 +2504,7 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 	defined (XPS_BOARD_VCU118) || \
 	defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB)
+	defined (XPS_BOARD_VEK280)
 		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, Data);
 #endif
 	}
@@ -2841,11 +2841,11 @@ u32 Exdes_SetupClkSrc(u32 ps_iic0_deviceid, u32 ps_iic1_deviceid)
 	I2cMuxSel(&Iic, ZCU106_MGT_SI570);
 #elif (defined XPS_BOARD_VCK190)
 	I2cMuxSel(&Ps_Iic0, VCK190_MGT_SI570);
-#elif (defined XPS_BOARD_VEK280_ES_REVB)
+#elif (defined XPS_BOARD_VEK280)
 	I2cMuxSel(&Ps_Iic0, VEK280_ES_MGT_SI570);
 #endif
 
-#elif defined(XPS_BOARD_VEK280_ES_REVB) /* VEK280*/
+#elif defined(XPS_BOARD_VEK280) /* VEK280*/
 	XIicPs_Config *XIic0Ps_ConfigPtr;
 	/* Initialize IIC */
 	/* Initialize PS IIC0 */
@@ -3274,7 +3274,7 @@ int config_hdmi()
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x3);/*1, A */
 			XHdmiphy1_SetTxPostCursor(&Hdmiphy1, 0, ChId,
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x3);/*1, B */
-#elif defined (XPS_BOARD_VEK280_ES_REVB)
+#elif defined (XPS_BOARD_VEK280)
 			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId,
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0xC : 0xD);/*0xc 0xb */
 			XHdmiphy1_SetTxPreEmphasis(&Hdmiphy1, 0, ChId,

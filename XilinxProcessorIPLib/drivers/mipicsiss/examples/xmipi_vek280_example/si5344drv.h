@@ -39,7 +39,7 @@
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB)
+	defined (XPS_BOARD_VEK280)
 #include "xiicps.h"
 #else
 #include "xiic.h"
