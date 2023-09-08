@@ -24,6 +24,7 @@
 * 1.04  bsv  07/15/2021 Fix doxygen warnings
 * 1.5   mss  09/04/2023 Fixed MISRA-C violation 10.1
 *       mss  09/04/2023 Fixed MISRA-C violation 10.4
+*       mss  09/04/2023 Fixed MISRA-C violation 7.2
 * </pre>
 *
 * @note
@@ -203,9 +204,9 @@ void XCframe_VggTrim(XCframe *InstancePtr, Xuint128 *TrimVal)
 {
 	Xuint128 MaskVal={0};
 
-        MaskVal.Word0 = 0xFFFFFFFF;
-        MaskVal.Word1 = 0xFFFFFFFF;
-        MaskVal.Word2 = 0xFFFFFFFF;
+        MaskVal.Word0 = XCFRAME_MASK_DEFVAL;
+        MaskVal.Word1 = XCFRAME_MASK_DEFVAL;
+        MaskVal.Word2 = XCFRAME_MASK_DEFVAL;
         XCframe_WriteReg(InstancePtr, XCFRAME_MASK_OFFSET,
                         XCFRAME_FRAME_BCAST, &MaskVal);
 
@@ -228,7 +229,7 @@ void XCframe_CramTrim(XCframe *InstancePtr, u32 TrimValue)
 	Xuint128 TrimVal={0};
 	Xuint128 MaskVal={0};
 
-	MaskVal.Word0 = 0xFFFFFFFF;
+	MaskVal.Word0 = XCFRAME_MASK_DEFVAL;
 	XCframe_WriteReg(InstancePtr, XCFRAME_MASK_OFFSET,
 			XCFRAME_FRAME_BCAST, &MaskVal);
 
@@ -252,8 +253,8 @@ void XCframe_BramTrim(XCframe *InstancePtr, u32 TrimValue)
 	Xuint128 TrimVal={0};
 	Xuint128 MaskVal={0};
 
-	MaskVal.Word0 = 0xFFFFFFFF;
-	MaskVal.Word1 = 0xFFFFFFFF;
+	MaskVal.Word0 = XCFRAME_MASK_DEFVAL;
+	MaskVal.Word1 = XCFRAME_MASK_DEFVAL;
 	XCframe_WriteReg(InstancePtr, XCFRAME_MASK_OFFSET,
 			XCFRAME_FRAME_BCAST, &MaskVal);
 
@@ -279,8 +280,8 @@ void XCframe_UramTrim(XCframe *InstancePtr, u32 TrimValue)
 	Xuint128 TrimVal={0};
 	Xuint128 MaskVal={0};
 
-        MaskVal.Word0 = 0xFFFFFFFF;
-        MaskVal.Word1 = 0xFFFFFFFF;
+        MaskVal.Word0 = XCFRAME_MASK_DEFVAL;
+        MaskVal.Word1 = XCFRAME_MASK_DEFVAL;
         XCframe_WriteReg(InstancePtr, XCFRAME_MASK_OFFSET,
                         XCFRAME_FRAME_BCAST, &MaskVal);
 
