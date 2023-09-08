@@ -21,6 +21,7 @@
 * ----- ---- -------- ---------------------------------------------
 * 1.00a nm   03/10/10 First release
 * 2.5   dp   07/11/23 Add Support for system device tree flow
+* 2.5   dp   09/08/23 Update example to stop timer at the end of the test
 *</pre>
 ******************************************************************************/
 
@@ -167,5 +168,8 @@ int ScuTimerPolledExample(XScuTimer *TimerInstancePtr, UINTPTR BaseAddress)
 			break;
 		}
 	}
+
+   XScuTimer_Stop(TimerInstancePtr);
+
 	return XST_SUCCESS;
 }
