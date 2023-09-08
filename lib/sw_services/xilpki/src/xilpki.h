@@ -36,6 +36,7 @@
  *			 version info.
  * 2.0   Nava  09/06/23  Updated the XPki_GetVersion() API prototype to inline with
  *                       other secure library version info API's.
+ * 2.0   Nava  09/07/23  Fixed issues with IRQ signal.
  *
  * </pre>
  *
@@ -126,6 +127,9 @@ extern "C" {
 /*PKI: IRQ_ENABLE */
 #define FPD_PKI_IRQ_ENABLE			( ( FPD_PKI_CRYPTO_BASEADDR ) + 0x00000090U )
 
+/* PKI: IRQ_RESET */
+#define FPD_PKI_IRQ_RESET			( ( FPD_PKI_CRYPTO_BASEADDR ) + 0x000000A0U )
+
 /* PKI RQ_CFG_PAGE_ADDR */
 #define FPD_PKI_RQ_CFG_PAGE_ADDR_INPUT		( ( FPD_PKI_CRYPTO_BASEADDR ) + 0x00000100U )
 #define FPD_PKI_RQ_CFG_PAGE_ADDR_OUTPUT		( ( FPD_PKI_CRYPTO_BASEADDR ) + 0x00000108U )
@@ -154,6 +158,9 @@ extern "C" {
 
 /*PKI: RQ_CTL_NEW_REQUEST_00 */
 #define FPD_PKI_RQ_CTL_NEW_REQUEST		( ( FPD_PKI_CRYPTO_BASEADDR ) + 0x00002000U )
+
+/* PKI: RQ_CTL_PENDING_REQS_00 */
+#define FPD_PKI_CTL_PENDING_REQS		( ( FPD_PKI_CRYPTO_BASEADDR ) + 0x00002018U )
 
 /*PKI: CQ_CTL_TRIGPOS_00 */
 #define FPD_PKI_CQ_CTL_TRIGPOS			( ( FPD_PKI_CRYPTO_BASEADDR ) + 0x00002028U )
