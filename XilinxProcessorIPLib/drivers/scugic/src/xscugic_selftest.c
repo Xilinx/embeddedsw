@@ -80,8 +80,8 @@ s32  XScuGic_SelfTest(XScuGic *InstancePtr)
 	 */
 	for (Index = 0U; Index <= 3U; Index++) {
 		RegValue1 |= XScuGic_DistReadReg(InstancePtr,
-			((u32)XSCUGIC_PCELLID_OFFSET + (Index * 4U))) <<
-			(Index * 8U);
+						 ((u32)XSCUGIC_PCELLID_OFFSET + (Index * 4U))) <<
+			     (Index * 8U);
 	}
 
 	if (XSCUGIC_PCELL_ID != RegValue1) {
