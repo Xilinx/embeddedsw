@@ -25,6 +25,7 @@
 * 1.5   mss  09/04/2023 Fixed MISRA-C violation 10.1
 *       mss  09/04/2023 Fixed MISRA-C violation 10.4
 *       mss  09/04/2023 Fixed MISRA-C violation 7.2
+*       mss  09/04/2023 Fixed MISRA-C violation 4.6
 * </pre>
 *
 * @note
@@ -154,10 +155,10 @@ void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
  * @return	Success or Failure
  *
  ******************************************************************************/
-int XCframe_SafetyWriteReg(XCframe *InstancePtr, u32 AddrOffset,
+s32 XCframe_SafetyWriteReg(XCframe *InstancePtr, u32 AddrOffset,
 		XCframe_FrameNo FrameNo, Xuint128 *Val)
 {
-	int Status = XST_FAILURE;
+	s32 Status = XST_FAILURE;
 	u32 ReadVal[4U];
 
 	XCframe_WriteReg(InstancePtr, AddrOffset, FrameNo, Val);
