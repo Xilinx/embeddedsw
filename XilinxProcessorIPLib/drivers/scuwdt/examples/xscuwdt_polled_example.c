@@ -23,6 +23,7 @@
 * 1.00a sdm  01/15/10 First release
 * 2.5   asa  07/18/23 Added support for workflow decouplig flow.
 *                     Interrupt wrapper support has also been added.
+* 2.5   dp   09/08/23 Update example to stop wdt at end of the test
 *</pre>
 ******************************************************************************/
 
@@ -174,6 +175,8 @@ int ScuWdtPolledExample(XScuWdt *WdtInstancePtr, UINTPTR BaseAddress)
 		Count++;
 		XScuWdt_RestartWdt(WdtInstancePtr);
 	}
+
+   XScuWdt_Stop(WdtInstancePtr);
 
 	return XST_SUCCESS;
 }
