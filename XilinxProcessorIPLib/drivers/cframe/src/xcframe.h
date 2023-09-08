@@ -23,6 +23,7 @@
 * 1.03  bsv  07/15/2021 Fix doxygen warnings
 * 1.04  ng   06/30/23   Added support for system device tree flow
 * 1.5   mss  09/04/2023 Fixed MISRA-C violation 4.6
+*       mss  09/04/2023 Fixed MISRA-C violation 8.13
 *
 * </pre>
 *
@@ -154,23 +155,23 @@ XCframe_Config *XCframe_LookupConfig(u16 DeviceId);
 XCframe_Config *XCframe_LookupConfig(UINTPTR BaseAddress);
 #endif
 
-s32 XCframe_CfgInitialize(XCframe *InstancePtr, XCframe_Config *CfgPtr,
+s32 XCframe_CfgInitialize(XCframe *InstancePtr,const XCframe_Config *CfgPtr,
 			u32 EffectiveAddr);
-s32 XCframe_SelfTest(XCframe *InstancePtr);
-void XCframe_WriteReg(XCframe *InstancePtr, u32 AddrOffset,
-		XCframe_FrameNo FrameNo, Xuint128 *Val);
-void XCframe_WriteCmd(XCframe *InstancePtr,	XCframe_FrameNo CframeNo, u32 Cmd);
-void XCframe_VggTrim(XCframe *InstancePtr,	Xuint128 *TrimVal);
-void XCframe_CramTrim(XCframe *InstancePtr,	u32 TrimValue);
-void XCframe_BramTrim(XCframe *InstancePtr, u32 TrimValue);
-void XCframe_UramTrim(XCframe *InstancePtr, u32 TrimValue);
-void XCframe_SetReadParam(XCframe *InstancePtr,
+s32 XCframe_SelfTest(const XCframe *InstancePtr);
+void XCframe_WriteReg(const XCframe *InstancePtr, u32 AddrOffset,
+		XCframe_FrameNo FrameNo,const Xuint128 *Val);
+void XCframe_WriteCmd(const XCframe *InstancePtr,	XCframe_FrameNo CframeNo, u32 Cmd);
+void XCframe_VggTrim(const XCframe *InstancePtr,const Xuint128 *TrimVal);
+void XCframe_CramTrim(const XCframe *InstancePtr,	u32 TrimValue);
+void XCframe_BramTrim(const XCframe *InstancePtr, u32 TrimValue);
+void XCframe_UramTrim(const XCframe *InstancePtr, u32 TrimValue);
+void XCframe_SetReadParam(const XCframe *InstancePtr,
 			XCframe_FrameNo CframeNo, u32 CframeLen);
-void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
+void XCframe_ReadReg(const XCframe *InstancePtr, u32 AddrOffset,
 			XCframe_FrameNo FrameNo, u32* ValPtr);
-void XCframe_ClearCframeErr(XCframe *InstancePtr);
-s32 XCframe_SafetyWriteReg(XCframe *InstancePtr, u32 AddrOffset,
-		XCframe_FrameNo FrameNo, Xuint128 *Val);
+void XCframe_ClearCframeErr(const XCframe *InstancePtr);
+s32 XCframe_SafetyWriteReg(const XCframe *InstancePtr, u32 AddrOffset,
+		XCframe_FrameNo FrameNo,const Xuint128 *Val);
 #ifdef __cplusplus
 }
 #endif
