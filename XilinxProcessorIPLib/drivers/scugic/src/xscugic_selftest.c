@@ -22,7 +22,7 @@
 * 3.10  mus  07/17/18 Updated file to fix the various coding style issues
 *                     reported by checkpatch. It fixes CR#1006344.
 * 5.2   ml   03/02/23 Add description to fix Doxygen warnings.
-*
+* 5.2   ml   09/07/23 Added comments to fix HIS COMF violations.
 * </pre>
 *
 ******************************************************************************/
@@ -70,7 +70,7 @@ s32  XScuGic_SelfTest(XScuGic *InstancePtr)
 	s32 Status;
 
 	/*
-	 * Assert the arguments
+	 * Validate the input arguments
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -89,6 +89,7 @@ s32  XScuGic_SelfTest(XScuGic *InstancePtr)
 	} else {
 		Status = XST_SUCCESS;
 	}
+	/* Return statement */
 	return Status;
 }
 /** @} */
