@@ -61,9 +61,6 @@ extern "C" {
 #define XOCP_SHA3_LEN_IN_BYTES          	(48U)
 #define XOCP_MAX_NUM_OF_SWPCRS			(0x40U)
 #define XOCP_NUM_OF_SWPCRS			(0x8U)
-#define XOCP_PDI_TYPE_FULL			(1U)
-#define XOCP_PDI_TYPE_PARTIAL			(2U)
-#define XOCP_PDI_TYPE_RESTORE			(3U)
 #define XOCP_EVENT_ID_NUM_OF_BYTES		(4U)
 #define XOCP_VERSION_NUM_OF_BYTES		(1U)
 
@@ -138,7 +135,7 @@ typedef struct {
 	u32 PcrNum;		/**< SW PCR number */
 	u32 MeasurementIdx;	/**< Measurement index */
 	u32 DataSize;		/**< Data size */
-	u32 PdiType;		/**< Pdi type full/partial/restore */
+	u32 OverWrite;		/**< Digest to overwrite or not */
 	u64 DataAddr;		/**< Address of the data to be extended */
 } XOcp_SwPcrExtendParams;
 
@@ -160,6 +157,7 @@ typedef struct {
 typedef struct {
 	u32 EventId;					/**< Event Id */
 	u32 Version;					/**< Version */
+	u32 DataLength;                                 /**< Data length */
 	u8 HashOfData[XOCP_PCR_SIZE_BYTES];		/**< Hash of the data */
 	u8 MeasuredData[XOCP_PCR_SIZE_BYTES];		/**< PCR measurement with N-1 digest */
 } XOcp_PcrMeasurement;

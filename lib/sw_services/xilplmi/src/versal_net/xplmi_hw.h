@@ -1257,6 +1257,10 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  * Register: PMC_GLOBAL_ROM_VALIDATION_DIGEST_0
  */
 #define PMC_GLOBAL_ROM_VALIDATION_DIGEST_0    (PMC_GLOBAL_BASEADDR + 0X00000704U)
+/*
+ * Register: PMC_GLOBAL_PMC_FW_HASH_0
+ */
+#define PMC_GLOBAL_PMC_FW_HASH_0	(PMC_GLOBAL_BASEADDR + 0X00000750U)
 
 /*
  * Definitions required for PMC, PS GPIO
