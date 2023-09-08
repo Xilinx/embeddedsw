@@ -125,9 +125,9 @@ static u32 XTimer_TtcInit(UINTPTR BaseAddress,
 	XTtcPs_Config *ConfigPtr;
 
 	ConfigPtr = XTtcPs_LookupConfig(BaseAddress);
-        if (!ConfigPtr) {
-                return Status;
-        }
+	if (!ConfigPtr) {
+		return Status;
+	}
 
 	Status = XTtcPs_CfgInitialize(TtcPsInstPtr, ConfigPtr,
 				      ConfigPtr->BaseAddress);
@@ -182,21 +182,21 @@ static void XTimer_TtcTickInterval(XTimer *InstancePtr, u32 Delay)
 	if (FALSE == IsTickTimerStarted) {
 #ifdef SDT
 		XTimer_TtcInit(XTICKTIMER_BASEADDRESS,
-				&InstancePtr->TtcPs_TickInst);
+			       &InstancePtr->TtcPs_TickInst);
 #else
 		XTimer_TtcInit(XTICKTIMER_DEVICEID,
-				&InstancePtr->TtcPs_TickInst);
+			       &InstancePtr->TtcPs_TickInst);
 #endif
 		IsTickTimerStarted = TRUE;
 	}
-	Freq = XTIMER_DELAY_MSEC/Delay;
+	Freq = XTIMER_DELAY_MSEC / Delay;
 	XTtcPs_SetOptions(TtcPsInstPtr, XTTCPS_OPTION_INTERVAL_MODE |
-			XTTCPS_OPTION_WAVE_DISABLE);
+			  XTTCPS_OPTION_WAVE_DISABLE);
 	XTtcPs_CalcIntervalFromFreq(TtcPsInstPtr, Freq, &Interval, &Prescaler);
 	XTtcPs_SetInterval(TtcPsInstPtr, Interval);
 	XTtcPs_SetPrescaler(TtcPsInstPtr, Prescaler);
 	XTtcPs_EnableInterrupts(TtcPsInstPtr, XTTCPS_IXR_INTERVAL_MASK);
-        XTtcPs_Start(TtcPsInstPtr);
+	XTtcPs_Start(TtcPsInstPtr);
 }
 
 /*****************************************************************************/
@@ -214,7 +214,7 @@ static void XTimer_TtcSetIntrHandler(XTimer *InstancePtr, u8 Priority)
 	XTtcPs *TtcPsInstPtr = &InstancePtr->TtcPs_TickInst;
 
 	XTtcPs_SetStatusHandler(TtcPsInstPtr, InstancePtr,
-		              (XTtcPs_StatusHandler)XTtc_CallbackHandler);
+				(XTtcPs_StatusHandler)XTtc_CallbackHandler);
 	XSetupInterruptSystem(TtcPsInstPtr, XTtcPs_InterruptHandler,
 #ifndef SDT
 			      TtcPsInstPtr->Config.IntrId,
@@ -303,17 +303,17 @@ static void XTimer_TtcModifyInterval(XTimer *InstancePtr, u32 delay,
 	if (FALSE == IsSleepTimerStarted) {
 #ifdef SDT
 		XTimer_TtcInit(XSLEEPTIMER_BASEADDRESS,
-				&InstancePtr->TtcPs_SleepInst);
+			       &InstancePtr->TtcPs_SleepInst);
 #else
 		XTimer_TtcInit(XSLEEPTIMER_DEVICEID,
-				&InstancePtr->TtcPs_SleepInst);
+			       &InstancePtr->TtcPs_SleepInst);
 #endif
 		IsSleepTimerStarted = TRUE;
 	}
 
 	TimeLowVal1 = XTtcPs_GetCounterValue(TtcPsInstPtr);
 	tEnd = (u64)TimeLowVal1 + ((u64)(delay) *
-                                   TtcPsInstPtr->Config.InputClockHz / (DelayType));
+				   TtcPsInstPtr->Config.InputClockHz / (DelayType));
 	do {
 		TimeLowVal2 = XTtcPs_GetCounterValue(TtcPsInstPtr);
 		if (TimeLowVal2 < TimeLowVal1) {
@@ -361,10 +361,10 @@ void XTime_GetTime(XTime *Xtime_Global)
 	if (FALSE == IsSleepTimerStarted) {
 #ifdef SDT
 		XTimer_TtcInit(XSLEEPTIMER_BASEADDRESS,
-				&InstancePtr->TtcPs_SleepInst);
+			       &InstancePtr->TtcPs_SleepInst);
 #else
 		XTimer_TtcInit(XSLEEPTIMER_DEVICEID,
-				&InstancePtr->TtcPs_SleepInst);
+			       &InstancePtr->TtcPs_SleepInst);
 #endif
 		IsSleepTimerStarted = TRUE;
 	}
