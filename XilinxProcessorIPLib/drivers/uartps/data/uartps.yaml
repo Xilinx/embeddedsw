@@ -36,7 +36,7 @@ required:
     - reg
     - xlnx,clock-freq
     - cts-override
-    - ref-clk
+    - clocks
     - interrupts
     - interrupt-parent
 
