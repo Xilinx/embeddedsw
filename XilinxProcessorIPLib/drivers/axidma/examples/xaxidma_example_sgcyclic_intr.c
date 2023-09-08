@@ -374,21 +374,16 @@ int main(void)
 	}
 
 	/*
-	 * Wait for TX done to complete transfer for all the BDs or timeout
-	 */
-	Status = Xil_WaitForEvent((UINTPTR)&TxDone, NUMBER_OF_BDS_TO_TRANSFER, NUMBER_OF_BDS_TO_TRANSFER, POLL_TIMEOUT_COUNTER);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Transmit failed %d\r\n", Status);
-		goto Done;
-	}
-
-	/*
+	 * Wait for TX done to complete transfer for all the BDs or timeout and
 	 * Wait for RX done to be received for all the BDs or timeout
 	 */
-	Status = Xil_WaitForEvent((UINTPTR)&RxDone, NUMBER_OF_BDS_TO_TRANSFER, NUMBER_OF_BDS_TO_TRANSFER, POLL_TIMEOUT_COUNTER);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Receive failed %d\r\n", Status);
-		goto Done;
+
+	while (1) {
+		if (((RxDone >= NUMBER_OF_BDS_TO_TRANSFER * NUMBER_OF_CYCLIC_TRANSFERS) &&
+		     (TxDone >= NUMBER_OF_BDS_TO_TRANSFER * NUMBER_OF_CYCLIC_TRANSFERS))
+		    && !Error) {
+			break;
+		}
 	}
 
 	XAxiDma_Reset(&AxiDma);
@@ -511,6 +506,15 @@ static void TxCallBack(XAxiDma_BdRing *TxRingPtr)
 	/* Get all processed BDs from hardware */
 	BdCount = XAxiDma_BdRingFromHw(TxRingPtr, XAXIDMA_ALL_BDS, &BdPtr);
 	TxDone += BdCount;
+
+	/* When in cyclic mode, DMA processes BDs irrespective of ownership bit.
+	 * This results in continuous interrupts. Disable TX interrupts once the
+	 * required count of BDs are processed for this example, so that main
+	 * non-interrupt thread can execute.
+	 */
+	if ((TxDone >= NUMBER_OF_BDS_TO_TRANSFER * NUMBER_OF_CYCLIC_TRANSFERS) && !Error) {
+		XAxiDma_BdRingIntDisable(TxRingPtr, XAXIDMA_IRQ_ALL_MASK);
+	}
 }
 
 /*****************************************************************************/
@@ -608,6 +612,15 @@ static void RxCallBack(XAxiDma_BdRing *RxRingPtr)
 	/* Get finished BDs from hardware */
 	BdCount = XAxiDma_BdRingFromHw(RxRingPtr, XAXIDMA_ALL_BDS, &BdPtr);
 	RxDone += BdCount;
+
+	/* When in cyclic mode, DMA processes BDs irrespective of ownership bit.
+         * This results in continuous interrupts. Disable RX interrupts once the
+         * required count of BDs are processed for this example, so that main
+         * non-interrupt thread can execute.
+         */
+	if ((RxDone >= NUMBER_OF_BDS_TO_TRANSFER * NUMBER_OF_CYCLIC_TRANSFERS) && !Error) {
+		XAxiDma_BdRingIntDisable(RxRingPtr, XAXIDMA_IRQ_ALL_MASK);
+	}
 }
 
 /*****************************************************************************/
