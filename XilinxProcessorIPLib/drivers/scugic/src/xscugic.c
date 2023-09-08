@@ -170,6 +170,7 @@
 * 5.2   mus  07/27/23 Removed dependency on XPAR_CPU_ID by changic logic to get
 *                     CPU ID, it will be read from affinity register of processor
 *                     who is caling SCUGIC driver API's.
+* 5.2   ml   09/07/23 Typecasting with u32 to fix MISRA-C_RULE_10.3 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -178,6 +179,7 @@
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xscugic.h"
+
 #if defined (VERSAL_NET)
 #include "xplatform_info.h"
 #endif
@@ -440,7 +442,7 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
-	CpuId = XGetCoreId();
+	CpuId = (u32) XGetCoreId();
 
 	/*
 	 * Check Zynq-7000 base silicon configuration.
