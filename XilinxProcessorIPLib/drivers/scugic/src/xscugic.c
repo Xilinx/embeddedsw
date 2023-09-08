@@ -171,6 +171,7 @@
 *                     CPU ID, it will be read from affinity register of processor
 *                     who is caling SCUGIC driver API's.
 * 5.2   ml   09/07/23 Typecasting with u32 to fix MISRA-C_RULE_10.3 violation.
+* 5.2   ml   09/07/23 Compared with zero to fix MISRA-C_RULE_14.4 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -1482,7 +1483,7 @@ u8 XScuGic_IsInitialized(u32 BaseAddress)
 #endif
 	if (CfgPtr != NULL) {
 		RegVal = XScuGic_ReadReg(CfgPtr->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET);
-		if (RegVal & XSCUGIC_EN_INT_MASK) {
+		if ((RegVal & XSCUGIC_EN_INT_MASK) != 0U) {
 			Device_Initilaized = 1U;
 		}
 	}
