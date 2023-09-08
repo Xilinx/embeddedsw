@@ -29,7 +29,7 @@ required:
     - compatible
     - reg
     - dma-coherent
-    - ref-clk
+    - clocks
 
 examples:
         xnandpsu_example.c:
