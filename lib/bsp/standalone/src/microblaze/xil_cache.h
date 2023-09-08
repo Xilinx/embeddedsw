@@ -143,7 +143,9 @@ extern "C" {
 #   define Xil_L1DCacheFlushRange(Addr, Len) \
 		microblaze_invalidate_dcache_range((Addr), (Len))
 #endif /* XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK */
-#endif
+#else
+void Xil_L1DCacheFlushRange(UINTPTR Addr,u32 Len);
+#endif /* #ifndef SDT */
 /****************************************************************************/
 /**
 * @brief    Flush the L2 data cache for the given address range.
@@ -175,7 +177,9 @@ extern "C" {
 #else
 #   define Xil_L1DCacheFlush() microblaze_invalidate_dcache()
 #endif /* XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK */
-#endif
+#else
+void Xil_L1DCacheFlush(void);
+#endif /* #ifndef SDT */
 
 /****************************************************************************/
 /**
