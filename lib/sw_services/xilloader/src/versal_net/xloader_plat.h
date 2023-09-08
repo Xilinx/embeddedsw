@@ -303,7 +303,7 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op);
 int XLoader_PlatInit(void);
 int XLoader_HdrMeasurement(XilPdi* PdiPtr);
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
-int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo, u32 *DigestIndex, u32 PdiType);
+int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo, u32 *DigestIndex, u32 OverWrite);
 XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
 int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);

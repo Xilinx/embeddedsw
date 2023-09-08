@@ -1395,7 +1395,12 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
 	ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 	ImageMeasureInfo.DigestIndex = &PdiPtr->DigestIndex;
-	ImageMeasureInfo.PdiType = PdiPtr->PdiType;
+	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
+		ImageMeasureInfo.OverWrite = TRUE;
+	}
+	else {
+		ImageMeasureInfo.OverWrite = FALSE;
+	}
 	/* This is applicable only for Versal Net */
 	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 	if (Status != XST_SUCCESS) {

@@ -367,7 +367,7 @@ typedef struct {
 	u32 *DigestIndex;
 	u32 Flags;
 	u32 SubsystemID;
-	u32 PdiType;
+	u32 OverWrite;
 } XLoader_ImageMeasureInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/
