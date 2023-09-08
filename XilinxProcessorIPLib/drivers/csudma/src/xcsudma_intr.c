@@ -71,6 +71,7 @@ u32 XCsuDma_IntrGetStatus(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 				(u32)(XCSUDMA_I_STS_OFFSET) +
 			((u32)Channel * (u32)(XCSUDMA_OFFSET_DIFF)));
 
+	/* Return interrupt status */
 	return Data;
 
 }
@@ -104,6 +105,7 @@ void XCsuDma_IntrClear(XCsuDma *InstancePtr, XCsuDma_Channel Channel, u32 Mask)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
 				(Channel == (XCSUDMA_DST_CHANNEL)));
+	/* Clears Interrupt in SRC/DST channels */
 	if (Channel == (XCSUDMA_SRC_CHANNEL)) {
 		XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
 			(u32)(XCSUDMA_I_STS_OFFSET),
