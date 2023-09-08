@@ -365,7 +365,11 @@ XStatus AddAieDeviceNode(void)
 		if (NULL != AieDev) {
 			/* Aie partition node already present so exit */
 			Status = XST_SUCCESS;
-			goto done;
+			/* Even if AIE partition node exists, AIE device
+			 * dependency needs to be updated.
+			 * This is workaround until pm_init_node command
+			 * is added for AIE partition in CDO */
+			goto finish;
 		}
 		Temp++;
 		NodeIdx++;
@@ -385,7 +389,8 @@ XStatus AddAieDeviceNode(void)
 		goto done;
 	}
 
-	AieDev = (XPm_AieDevice *)XPmDevice_GetById(Args[0]);
+finish:
+	AieDev = (XPm_AieDevice *)XPmDevice_GetById(NodeId);
 	if (NULL == AieDev) {
 		Status = XPM_PM_INVALID_NODE;
 		goto done;
