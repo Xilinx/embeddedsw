@@ -172,6 +172,7 @@
 *                     who is caling SCUGIC driver API's.
 * 5.2   ml   09/07/23 Typecasting with u32 to fix MISRA-C_RULE_10.3 violation.
 * 5.2   ml   09/07/23 Compared with zero to fix MISRA-C_RULE_14.4 violation.
+* 5.2   ml   09/07/23 Added comments to fix HIS COMF violations.
 * </pre>
 *
 ******************************************************************************/
@@ -184,6 +185,7 @@
 #if defined (VERSAL_NET)
 #include "xplatform_info.h"
 #endif
+
 /************************** Constant Definitions *****************************/
 
 #define DEFAULT_PRIORITY    0xa0a0a0a0U /**< Default value for priority_level
@@ -440,6 +442,9 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 	u32 Int_Id;
 	(void) EffectiveAddr;
 
+	/*
+	 * Validate the input arguments
+	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
@@ -551,7 +556,7 @@ s32  XScuGic_Connect(XScuGic *InstancePtr, u32 Int_Id,
 		     Xil_InterruptHandler Handler, void *CallBackRef)
 {
 	/*
-	 * Assert the arguments
+	 * Validate the input arguments
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
@@ -563,8 +568,14 @@ s32  XScuGic_Connect(XScuGic *InstancePtr, u32 Int_Id,
 	 * handler
 	 */
 	InstancePtr->Config->HandlerTable[Int_Id].Handler = (Xil_InterruptHandler)Handler;
+
+	/*
+	 * The Int_Id is used as an index into the table to select the proper
+	 * CallBackRef
+	 */
 	InstancePtr->Config->HandlerTable[Int_Id].CallBackRef = CallBackRef;
 
+	/* Return statement */
 	return XST_SUCCESS;
 }
 
@@ -1048,7 +1059,9 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 				    u8 *Priority, u8 *Trigger)
 {
 	u32 RegValue;
-
+	/*
+	 * Validate the input arguments
+	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
@@ -1075,6 +1088,11 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	 * register
 	 */
 	RegValue = RegValue >> ((Int_Id % 4U) * 8U);
+	/*
+	 * Priority is expected to hold a value where only
+	 * the bits set in both RegValue and XSCUGIC_PRIORITY_MASK
+	 * are preserved.
+	 */
 	*Priority = (u8)(RegValue & XSCUGIC_PRIORITY_MASK);
 
 	/*
@@ -1089,6 +1107,11 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	 */
 	RegValue = RegValue >> ((Int_Id % 16U) * 2U);
 
+	/*
+	 * Trigger is expected to hold a value where only
+	 * the bits set in both RegValue and XSCUGIC_INT_CFG_MASK
+	 * are preserved.
+	 */
 	*Trigger = (u8)(RegValue & XSCUGIC_INT_CFG_MASK);
 }
 /****************************************************************************/
@@ -1143,6 +1166,9 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_
 		 */
 		XIL_SPINLOCK();
 
+		/*
+		 * Determine the register to read to using the Int_Id.
+		 */
 		RegValue = XScuGic_DistReadReg(InstancePtr,
 					       XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
@@ -1186,6 +1212,9 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 
 
 	if (Int_Id >= XSCUGIC_SPI_INT_ID_START) {
 #if defined (GICv3)
+		/*
+		 * Validate the input arguments
+		 */
 		Xil_AssertVoid(InstancePtr != NULL);
 
 		RegValue = XScuGic_DistReadReg(InstancePtr,
@@ -1209,6 +1238,10 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 
 #else
 		u32 Cpu_CoreId;
 		u32 Offset;
+
+		/*
+		 * Validate the input arguments
+		 */
 		Xil_AssertVoid(InstancePtr != NULL);
 
 		/*
@@ -1437,6 +1470,9 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 *****************************************************************************/
 void XScuGic_SetCpuID(u32 CpuCoreId)
 {
+	/*
+	 * Validate the input arguments
+	 */
 	Xil_AssertVoid(CpuCoreId <= 1U);
 
 	CpuId = CpuCoreId;
@@ -1477,8 +1513,16 @@ u8 XScuGic_IsInitialized(u32 BaseAddress)
 	XScuGic_Config *CfgPtr;
 	u32 RegVal;
 #ifndef SDT
+	/*
+	 * Looks up the device configuration based
+	 * on the unique device ID.
+	 */
 	CfgPtr = XScuGic_LookupConfig(DeviceId);
 #else
+	/*
+	 * Looks up the device configuration based on the CPU interface
+	 * base address of the device.
+	 */
 	CfgPtr = XScuGic_LookupConfig(BaseAddress);
 #endif
 	if (CfgPtr != NULL) {
@@ -1487,7 +1531,7 @@ u8 XScuGic_IsInitialized(u32 BaseAddress)
 			Device_Initilaized = 1U;
 		}
 	}
-
+	/* Return statement */
 	return Device_Initilaized;
 }
 #if defined (GICv3)

@@ -96,6 +96,7 @@
 * 5.2   ml   03/02/23 Remove few comments to fix doxygen warnings.
 * 5.2   mus  07/19/23 Updated XScuGic_DeviceInterruptHandler to support SDT
 *                     flow.
+* 5.2   ml   09/07/23 Added comments to fix HIS COMF violations.
 * </pre>
 *
 ******************************************************************************/
@@ -345,13 +346,15 @@ static void CPUInit(const XScuGic_Config *Config)
 s32 XScuGic_DeviceInitialize(u32 DeviceId)
 {
 	XScuGic_Config *Config;
-
+	/*
+	 *  assigning configTable element by using device Id
+	 */
 	Config = &XScuGic_ConfigTable[(u32)DeviceId];
 	DistInit(Config);
 #if !defined (GICv3)
 	CPUInit(Config);
 #endif
-
+	/* Return statement */
 	return XST_SUCCESS;
 }
 #else
@@ -359,6 +362,10 @@ s32 XScuGic_DeviceInitialize(u32 DistBaseAddr)
 {
         XScuGic_Config *Config;
 
+		/*
+		* Looks up the device configuration based on the Distributor
+		* interface base address of the device.
+		*/
         Config = XScuGic_LookupConfig(DistBaseAddr);
 	if ( Config == NULL ) {
 		return XST_FAILURE;
@@ -367,7 +374,7 @@ s32 XScuGic_DeviceInitialize(u32 DistBaseAddr)
 #if !defined (GICv3)
         CPUInit(Config);
 #endif
-
+        /* Return statement */
         return XST_SUCCESS;
 }
 #endif
@@ -492,13 +499,20 @@ void XScuGic_RegisterHandler(u32 BaseAddress, s32 InterruptID,
 		Xil_InterruptHandler IntrHandler, void *CallBackRef)
 {
 	XScuGic_Config *CfgPtr;
+
+	/*
+	 * Looks up the device configuration based on the CPU interface
+	 * base address of the device.
+	 */
 	CfgPtr = LookupConfigByBaseAddress(BaseAddress);
 
+	/* checks whether cfgptr is NULL or not */
 	if (CfgPtr != NULL) {
 		if (IntrHandler != NULL) {
 			CfgPtr->HandlerTable[InterruptID].Handler =
 					(Xil_InterruptHandler)IntrHandler;
 		}
+	/* checks whether callBackRef is NULL or not */
 		if (CallBackRef != NULL) {
 			CfgPtr->HandlerTable[InterruptID].CallBackRef =
 				CallBackRef;
@@ -530,13 +544,17 @@ static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress)
 #else
         for (Index = 0U; XScuGic_ConfigTable[Index].Name != NULL; Index++) {
 #endif
-		if (XScuGic_ConfigTable[Index].CpuBaseAddress ==
+		/*
+		 * checks the CpuBaseAddress in configuration table
+		 * whether it matches or not
+		 */
+			if (XScuGic_ConfigTable[Index].CpuBaseAddress ==
 				CpuBaseAddress) {
 			CfgPtr = &XScuGic_ConfigTable[Index];
 			break;
 		}
 	}
-
+        /* Return statement */
 	return (XScuGic_Config *)CfgPtr;
 }
 
@@ -746,7 +764,7 @@ void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 	u32 Offset;
 	u8 Cpu_CoreId;
 #endif
-
+	/* Validate the input arguments */
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 
 if (Int_Id >= XSCUGIC_SPI_INT_ID_START) {
@@ -820,7 +838,7 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 	u32 Offset;
 	u32 Cpu_CoreId;
 #endif
-
+	/* Validate the input arguments */
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 
 if (Int_Id >= XSCUGIC_SPI_INT_ID_START) {
