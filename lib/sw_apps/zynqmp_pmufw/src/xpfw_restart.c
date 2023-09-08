@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -69,7 +70,7 @@ FSBL_Store_Restore_Info_Struct FSBL_Store_Restore_Info = {0U};
 #define WDT_CLK_PER_SEC ((XPMU_FPDWDT_WDT_CLK) / (WDT_PRESCALER))
 
 #define TTC_PRESCALER			15U
-#define TTC_COUNT_PER_SEC		(XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ / 65535U)
+#define TTC_COUNT_PER_SEC_DIV_CONST	    65535U
 #define TTC_DEFAULT_NOTIFY_TIMEOUT_SEC	0U
 
 /* FPD WDT driver instance used within this file */
@@ -211,7 +212,8 @@ static void XPfw_TimerSetIntervalMode(XTtcPs *TtcInstancePtr, u32 PeriodInSec)
 
 	/* Set Interval mode */
 	XTtcPs_SetOptions(TtcInstancePtr, XTTCPS_OPTION_INTERVAL_MODE);
-	XTtcPs_SetInterval(TtcInstancePtr, (PeriodInSec * TTC_COUNT_PER_SEC));
+	XTtcPs_SetInterval(TtcInstancePtr, (PeriodInSec *
+			(TtcInstancePtr->Config.InputClockHz/TTC_COUNT_PER_SEC_DIV_CONST)));
 	XTtcPs_ResetCounterValue(TtcInstancePtr);
 	XTtcPs_SetPrescaler(TtcInstancePtr, TTC_PRESCALER);
 END:
