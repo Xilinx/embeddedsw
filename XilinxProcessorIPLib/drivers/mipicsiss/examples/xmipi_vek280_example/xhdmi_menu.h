@@ -75,7 +75,7 @@ extern "C" {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB)
+	defined (XPS_BOARD_VEK280)
 #include "xiicps.h"
 #else
 #include "xiic.h"
@@ -101,7 +101,7 @@ extern u8 Edid[];
 #if ! (defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190) || \
-	defined (XPS_BOARD_VEK280_ES_REVB))
+	defined (XPS_BOARD_VEK280))
 extern XIicPs Ps_Iic0, Iic;
 #else
 extern XIicPs Ps_Iic0, Iic1;

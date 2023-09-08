@@ -2330,7 +2330,7 @@ void XV_Tx_HdmiTx_EnterStateStreamOn(XV_Tx *InstancePtr)
 						XHDMIPHY1_CHANNEL_ID_CMN1);
 	}
 
-#elif defined (XPS_BOARD_VEK280_ES_REVB)
+#elif defined (XPS_BOARD_VEK280)
 
 	if ((TxPllType == XHDMIPHY1_PLL_TYPE_LCPLL)) {
 		TxLineRate = XHdmiphy1_GetLineRateHz(XV_Tx_Hdmiphy1Ptr, 0,

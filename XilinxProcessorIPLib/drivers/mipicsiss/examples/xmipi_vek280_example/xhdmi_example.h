@@ -194,7 +194,7 @@ typedef enum {
 /* TCA9528 (U34) Definitions */
 #define VCK190_U135_MUX_I2C_ADDR	0x75
 #define VCK190_U135_MUX_SEL_HPC0	0x02
-#elif defined (XPS_BOARD_VEK280_ES_REVB)
+#elif defined (XPS_BOARD_VEK280)
 /* TCA9528 (U34) Definitions */
 #define VEK280_ES_U34_MUX_I2C_ADDR		0x74
 #define VEK280_ES_U34_MUX_SEL_NONE		0x80
