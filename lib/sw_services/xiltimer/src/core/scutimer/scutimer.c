@@ -45,7 +45,7 @@ static u32 XTimer_ScutimerInit(XTimer *InstancePtr, UINTPTR BaseAddress,
 			       XScuTimer *ScuTimerInstPtr);
 #ifdef XSLEEPTIMER_IS_SCUTIMER
 static void XTimer_ScutimerModifyInterval(XTimer *InstancePtr, u32 delay,
-				     XTimer_DelayType DelayType);
+		XTimer_DelayType DelayType);
 static void XSleepTimer_ScutimerStop(XTimer *InstancePtr);
 #endif
 
@@ -116,9 +116,9 @@ static u32 XTimer_ScutimerInit(XTimer *InstancePtr, UINTPTR BaseAddress,
 	(void) InstancePtr;
 
 	ConfigPtr = XScuTimer_LookupConfig(BaseAddress);
-        if (!ConfigPtr) {
-                return Status;
-        }
+	if (!ConfigPtr) {
+		return Status;
+	}
 
 	Status = XScuTimer_CfgInitialize(ScuTimerInstPtr, ConfigPtr,
 					 ConfigPtr->BaseAddr);
@@ -178,11 +178,11 @@ static void XTimer_ScutimerTickInterval(XTimer *InstancePtr, u32 Delay)
 #endif
 		IsTickTimerStarted = TRUE;
 	}
-	Freq = XTIMER_DELAY_MSEC/Delay;
+	Freq = XTIMER_DELAY_MSEC / Delay;
 	XScuTimer_Stop(ScuTimerInstPtr);
 	XScuTimer_EnableAutoReload(ScuTimerInstPtr);
 	XScuTimer_SetPrescaler(ScuTimerInstPtr, 0);
-	XScuTimer_LoadTimer(ScuTimerInstPtr, ScuTimerFreq/Freq);
+	XScuTimer_LoadTimer(ScuTimerInstPtr, ScuTimerFreq / Freq);
 	XScuTimer_EnableInterrupt(ScuTimerInstPtr);
 	XScuTimer_Start(ScuTimerInstPtr);
 }
@@ -253,15 +253,15 @@ static void XTickTimer_ClearScutimerInterrupt(XTimer *InstancePtr)
  *
  ****************************************************************************/
 static void XTimer_ScutimerModifyInterval(XTimer *InstancePtr, u32 delay,
-				     XTimer_DelayType DelayType)
+		XTimer_DelayType DelayType)
 {
 	XScuTimer *ScuTimerInstPtr = &InstancePtr->ScuTimer_SleepInst;
-    static u32 IsSleepTimerStarted = FALSE;
-    volatile u32 TimerCntrValLast;
-    volatile u32 TimerCntrVal;
-    u32 FullCycleCntr = 0U;
+	static u32 IsSleepTimerStarted = FALSE;
+	volatile u32 TimerCntrValLast;
+	volatile u32 TimerCntrVal;
+	u32 FullCycleCntr = 0U;
 	u64 TempDelay;
-    u32 tEnd;
+	u32 tEnd;
 
 #ifdef SDT
 	u32 ScuTimerFreq = XSLEEPTIMER_FREQ;
@@ -286,16 +286,16 @@ static void XTimer_ScutimerModifyInterval(XTimer *InstancePtr, u32 delay,
 	TempDelay = ((u64)(delay) * ScuTimerFreq / (DelayType));
 
 	if (TempDelay > MAX_COUNT) {
-			FullCycleCntr = (u32) (TempDelay / MAX_COUNT);
-			tEnd =  MAX_COUNT - (TempDelay % MAX_COUNT);
+		FullCycleCntr = (u32) (TempDelay / MAX_COUNT);
+		tEnd =  MAX_COUNT - (TempDelay % MAX_COUNT);
 
 	} else {
 		tEnd =  MAX_COUNT - TempDelay;
 	}
 
 	XScuTimer_Start(ScuTimerInstPtr);
-    TimerCntrVal = XScuTimer_GetCounterValue(ScuTimerInstPtr);
-    TimerCntrValLast = TimerCntrVal;
+	TimerCntrVal = XScuTimer_GetCounterValue(ScuTimerInstPtr);
+	TimerCntrValLast = TimerCntrVal;
 
 	while (1) {
 		TimerCntrVal = XScuTimer_GetCounterValue(ScuTimerInstPtr);
@@ -306,12 +306,12 @@ static void XTimer_ScutimerModifyInterval(XTimer *InstancePtr, u32 delay,
 			}
 		}
 
-        if (FullCycleCntr > 0U) {
-            if (TimerCntrVal > TimerCntrValLast ) {
-                FullCycleCntr--;
-            }
-        }
-        TimerCntrValLast = TimerCntrVal;
+		if (FullCycleCntr > 0U) {
+			if (TimerCntrVal > TimerCntrValLast ) {
+				FullCycleCntr--;
+			}
+		}
+		TimerCntrValLast = TimerCntrVal;
 	}
 }
 
