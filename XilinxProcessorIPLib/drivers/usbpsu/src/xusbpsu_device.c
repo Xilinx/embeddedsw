@@ -23,6 +23,8 @@
 *	pm    24/08/20 Fixed MISRA-C and Coverity warnings
 * 1.12	pm    10/08/22 Update doxygen tag and addtogroup version
 * 1.13	pm    04/01/23 Use Xil_WaitForEvent() API for register bit polling
+* 1.14	pm    09/09/23 Fixed HIS_VOCF metric violation - created common
+*		       functions for set and clear register bits.
 *
 * </pre>
 *
@@ -98,6 +100,48 @@ s32 XUsbPsu_WaitSetTimeout(struct XUsbPsu *InstancePtr, u32 Offset,
 
 /*****************************************************************************/
 /**
+* Set the register bits with the bit mask value
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on
+* @param	Offset is register offset.
+* @param	BitMask is bit mask of required bit to be checked.
+*
+* @return  None
+*
+******************************************************************************/
+static INLINE void XUsbPsu_SetRegVal(struct XUsbPsu *InstancePtr, u32 Offset,
+				     u32 BitMask)
+{
+	u32             RegVal;
+
+	RegVal = XUsbPsu_ReadReg(InstancePtr, Offset);
+	RegVal |= BitMask;
+	XUsbPsu_WriteReg(InstancePtr, Offset, RegVal);
+}
+
+/*****************************************************************************/
+/**
+* Clear the register bits with the bit mask value
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on
+* @param	Offset is register offset.
+* @param	BitMask is bit mask of required bit to be checked.
+*
+* @return  None
+*
+******************************************************************************/
+static INLINE void XUsbPsu_ClearRegVal(struct XUsbPsu *InstancePtr, u32 Offset,
+				       u32 BitMask)
+{
+	u32             RegVal;
+
+	RegVal = XUsbPsu_ReadReg(InstancePtr, Offset);
+	RegVal &= ~BitMask;
+	XUsbPsu_WriteReg(InstancePtr, Offset, RegVal);
+}
+
+/*****************************************************************************/
+/**
 * Resets Event buffer Registers to zero so that events are not written by Core.
 *
 * @param    InstancePtr is a pointer to the XUsbPsu instance to be worked on.
@@ -155,41 +199,33 @@ u32 XUsbPsu_ReadHwParams(struct XUsbPsu *InstancePtr, u8 RegIndex)
 ******************************************************************************/
 void XUsbPsu_PhyReset(struct XUsbPsu *InstancePtr)
 {
-	u32             RegVal;
-
 	/* Before Resetting PHY, put Core in Reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GCTL);
-	RegVal |= XUSBPSU_GCTL_CORESOFTRESET;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GCTL, RegVal);
+	XUsbPsu_SetRegVal(InstancePtr, XUSBPSU_GCTL,
+			  XUSBPSU_GCTL_CORESOFTRESET);
 
 	/* Assert USB3 PHY reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U));
-	RegVal |= XUSBPSU_GUSB3PIPECTL_PHYSOFTRST;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U), RegVal);
+	XUsbPsu_SetRegVal(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U),
+			  XUSBPSU_GUSB3PIPECTL_PHYSOFTRST);
 
 	/* Assert USB2 PHY reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U));
-	RegVal |= XUSBPSU_GUSB2PHYCFG_PHYSOFTRST;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U), RegVal);
+	XUsbPsu_SetRegVal(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U),
+			  XUSBPSU_GUSB2PHYCFG_PHYSOFTRST);
 
 	XUsbPsu_Sleep(XUSBPSU_PHY_TIMEOUT);
 
 	/* Clear USB3 PHY reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U));
-	RegVal &= ~XUSBPSU_GUSB3PIPECTL_PHYSOFTRST;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U), RegVal);
+	XUsbPsu_ClearRegVal(InstancePtr, XUSBPSU_GUSB3PIPECTL(0U),
+			    XUSBPSU_GUSB3PIPECTL_PHYSOFTRST);
 
 	/* Clear USB2 PHY reset */
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U));
-	RegVal &= ~XUSBPSU_GUSB2PHYCFG_PHYSOFTRST;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U), RegVal);
+	XUsbPsu_ClearRegVal(InstancePtr, XUSBPSU_GUSB2PHYCFG(0U),
+			    XUSBPSU_GUSB2PHYCFG_PHYSOFTRST);
 
 	XUsbPsu_Sleep(XUSBPSU_PHY_TIMEOUT);
 
 	/* Take Core out of reset state after PHYS are stable*/
-	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_GCTL);
-	RegVal &= ~XUSBPSU_GCTL_CORESOFTRESET;
-	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_GCTL, RegVal);
+	XUsbPsu_ClearRegVal(InstancePtr, XUSBPSU_GCTL,
+			    XUSBPSU_GCTL_CORESOFTRESET);
 }
 
 /****************************************************************************/
