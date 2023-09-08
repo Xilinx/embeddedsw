@@ -26,6 +26,8 @@
 *       mss  09/04/2023 Fixed MISRA-C violation 10.4
 *       mss  09/04/2023 Fixed MISRA-C violation 7.2
 *       mss  09/04/2023 Fixed MISRA-C violation 4.6
+*       mss  09/04/2023 Fixed MISRA-C violation 8.13
+*
 * </pre>
 *
 * @note
@@ -69,7 +71,7 @@
 * @note		None.
 *
 ******************************************************************************/
-s32 XCframe_CfgInitialize(XCframe *InstancePtr, XCframe_Config *CfgPtr,
+s32 XCframe_CfgInitialize(XCframe *InstancePtr,const XCframe_Config *CfgPtr,
 			u32 EffectiveAddr)
 {
 	/* Verify arguments. */
@@ -99,8 +101,8 @@ s32 XCframe_CfgInitialize(XCframe *InstancePtr, XCframe_Config *CfgPtr,
  * @return	None
  *
  ******************************************************************************/
-void XCframe_WriteReg(XCframe *InstancePtr, u32 AddrOffset,
-		XCframe_FrameNo FrameNo, Xuint128 *Val)
+void XCframe_WriteReg(const XCframe *InstancePtr, u32 AddrOffset,
+		XCframe_FrameNo FrameNo,const Xuint128 *Val)
 {
 	/* TODO check if we need to disable interrupts */
 	XCframe_WriteReg32(InstancePtr->Config.BaseAddress +
@@ -129,7 +131,7 @@ void XCframe_WriteReg(XCframe *InstancePtr, u32 AddrOffset,
  * @return      None
  *
  ******************************************************************************/
-void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
+void XCframe_ReadReg(const XCframe *InstancePtr, u32 AddrOffset,
                 XCframe_FrameNo FrameNo, u32* ValPtr)
 {
         ValPtr[0] = XCframe_ReadReg32(InstancePtr->Config.BaseAddress +
@@ -155,8 +157,8 @@ void XCframe_ReadReg(XCframe *InstancePtr, u32 AddrOffset,
  * @return	Success or Failure
  *
  ******************************************************************************/
-s32 XCframe_SafetyWriteReg(XCframe *InstancePtr, u32 AddrOffset,
-		XCframe_FrameNo FrameNo, Xuint128 *Val)
+s32 XCframe_SafetyWriteReg(const XCframe *InstancePtr, u32 AddrOffset,
+		XCframe_FrameNo FrameNo,const Xuint128 *Val)
 {
 	s32 Status = XST_FAILURE;
 	u32 ReadVal[4U];
@@ -181,7 +183,7 @@ s32 XCframe_SafetyWriteReg(XCframe *InstancePtr, u32 AddrOffset,
  * @return	None
  *
  ******************************************************************************/
-void XCframe_WriteCmd(XCframe *InstancePtr, XCframe_FrameNo CframeNo, u32 Cmd)
+void XCframe_WriteCmd(const XCframe *InstancePtr, XCframe_FrameNo CframeNo, u32 Cmd)
 {
 	Xuint128 CfrCmd={0};
 
@@ -201,7 +203,7 @@ void XCframe_WriteCmd(XCframe *InstancePtr, XCframe_FrameNo CframeNo, u32 Cmd)
  * @return	None
  *
  ******************************************************************************/
-void XCframe_VggTrim(XCframe *InstancePtr, Xuint128 *TrimVal)
+void XCframe_VggTrim(const XCframe *InstancePtr,const Xuint128 *TrimVal)
 {
 	Xuint128 MaskVal={0};
 
@@ -225,7 +227,7 @@ void XCframe_VggTrim(XCframe *InstancePtr, Xuint128 *TrimVal)
  * @return	None
  *
  ******************************************************************************/
-void XCframe_CramTrim(XCframe *InstancePtr, u32 TrimValue)
+void XCframe_CramTrim(const XCframe *InstancePtr, u32 TrimValue)
 {
 	Xuint128 TrimVal={0};
 	Xuint128 MaskVal={0};
@@ -249,7 +251,7 @@ void XCframe_CramTrim(XCframe *InstancePtr, u32 TrimValue)
  * @return	None
  *
  ******************************************************************************/
-void XCframe_BramTrim(XCframe *InstancePtr, u32 TrimValue)
+void XCframe_BramTrim(const XCframe *InstancePtr, u32 TrimValue)
 {
 	Xuint128 TrimVal={0};
 	Xuint128 MaskVal={0};
@@ -276,7 +278,7 @@ void XCframe_BramTrim(XCframe *InstancePtr, u32 TrimValue)
  * @return	None
  *
  ******************************************************************************/
-void XCframe_UramTrim(XCframe *InstancePtr, u32 TrimValue)
+void XCframe_UramTrim(const XCframe *InstancePtr, u32 TrimValue)
 {
 	Xuint128 TrimVal={0};
 	Xuint128 MaskVal={0};
@@ -305,7 +307,7 @@ void XCframe_UramTrim(XCframe *InstancePtr, u32 TrimValue)
  * @return	None
  *
  ******************************************************************************/
-void XCframe_SetReadParam(XCframe *InstancePtr,
+void XCframe_SetReadParam(const XCframe *InstancePtr,
 		XCframe_FrameNo CframeNo, u32 CframeLen)
 {
 	Xuint128 Value128={0};
@@ -328,7 +330,7 @@ void XCframe_SetReadParam(XCframe *InstancePtr,
  * @return	None
  *
  ******************************************************************************/
-void XCframe_ClearCframeErr(XCframe *InstancePtr)
+void XCframe_ClearCframeErr(const XCframe *InstancePtr)
 {
 	Xuint128 Value128={0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU};
 	Xil_AssertVoid(InstancePtr != NULL);
