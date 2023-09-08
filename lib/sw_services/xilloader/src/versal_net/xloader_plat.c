@@ -1050,8 +1050,8 @@ int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 	ImageInfo.Flags = XLOADER_MEASURE_FINISH;
 	Status = XLoader_DataMeasurement(&ImageInfo);
 
-	XPlmi_Printf(DEBUG_GENERAL, "INFO: Measurement may not be accurate when"
-		" CDO is enabled with key whole write\n\r");
+	XPlmi_Printf(DEBUG_INFO, "INFO: Measurement may not be accurate when"
+		" CDO is enabled with key hole write\n\r");
 END:
 	if (Status != XST_SUCCESS) {
 		XPlmi_UpdateStatus(XLOADER_ERR_HDR_MEASUREMENT, Status);
@@ -1141,7 +1141,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 			/* Extend SW PCR */
 			Status = XOcp_ExtendSwPcr(PcrNo, *(u32 *)(ImageInfo->DigestIndex),
 				(u64)(UINTPTR)Sha3Hash.Hash, XLOADER_SHA3_LEN,
-				ImageInfo->PdiType);
+				ImageInfo->OverWrite);
 		}
 	}
 
@@ -1198,7 +1198,7 @@ END:
  * @param	PcrInfo provides the PCR number and Measurement Index
  * 			to be extended.
  * @param	DigestIndex is pointer to the DigestIndex across the PCR
- * @param	PdiType	Full or Partial or Restore PDI
+ * @param	OverWrite TRUE or FALSE to overwrite the extended digest or not
  *
  * @return
  * 		- XST_SUCCESS on success.
@@ -1206,7 +1206,7 @@ END:
  * 		measurement.
  *
  *****************************************************************************/
-int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo, u32 *DigestIndex, u32 PdiType)
+int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo, u32 *DigestIndex, u32 OverWrite)
 {
 	int Status = XLOADER_ERR_SECURE_CONFIG_MEASUREMENT;
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
@@ -1226,7 +1226,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XLoader_ExtendSpkHash(&Sha3Hash, PcrNo, MeasureIdx, PdiType);
+		Status = XLoader_ExtendSpkHash(&Sha3Hash, PcrNo, MeasureIdx, OverWrite);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -1236,7 +1236,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XLoader_ExtendSpkId(&Sha3Hash, PcrNo, MeasureIdx, PdiType);
+		Status = XLoader_ExtendSpkId(&Sha3Hash, PcrNo, MeasureIdx, OverWrite);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -1249,7 +1249,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			Status = XLoader_ExtendEncRevokeId(&Sha3Hash, PcrNo, MeasureIdx, PdiType);
+			Status = XLoader_ExtendEncRevokeId(&Sha3Hash, PcrNo, MeasureIdx, OverWrite);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -1268,7 +1268,7 @@ END:
 	(void)SecurePtr;
 	(void)PcrInfo;
 	(void)DigestIndex;
-	(void)PdiType;
+	(void)OverWrite;
 	Status = XST_SUCCESS;
 #endif
 	return Status;
