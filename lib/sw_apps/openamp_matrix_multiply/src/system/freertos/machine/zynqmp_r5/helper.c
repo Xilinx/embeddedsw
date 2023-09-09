@@ -3,6 +3,7 @@
  * All rights reserved.
  *
  * Copyright (c) 2021 Xilinx, Inc. All rights reserved.
+ * Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -18,7 +19,18 @@
 #include <metal/irq.h>
 #include "platform_info.h"
 
-/* Interrupt Controller setup */
+/*
+ * app_gic_initialize - Interrupt Controller setup
+ *
+ * Interrupt IPI_IRQ_VECT_ID can also be enabled via call to
+ * vPortEnableInterrupt() which will call XScuGic_Enable().
+ *
+ * vPortEnableInterrupt() is not needed for this demo as the
+ * interrupt is enabled via call to metal_irq_enable() in
+ * zynqmp_r5_a53_rproc.c::zynqmp_r5_a53_proc_init().
+ *
+ * return 0.
+ */
 static int app_gic_initialize(void)
 {
 	/*
@@ -28,12 +40,6 @@ static int app_gic_initialize(void)
 	xPortInstallInterruptHandler(IPI_IRQ_VECT_ID,
 				     (Xil_ExceptionHandler)metal_xlnx_irq_isr,
 				     (void *)IPI_IRQ_VECT_ID);
-	/*
-	 * Enable interrupt for IPI_IRQ_VECT_ID.
-	 * This calls XScuGic_InterruptMaptoCpu() via XScuGic_Enable()
-	 */
-	vPortEnableInterrupt(IPI_IRQ_VECT_ID);
-
 	return 0;
 }
 
