@@ -809,6 +809,7 @@ static int XOcp_KeyGenDevAkSeed(u32 KeyAddr, u32 KeyLen, u32 DataAddr,
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
+	volatile int RetStatus = XST_GLITCH_ERROR;
 	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(0U);
 	XSecure_Sha3 Sha3Instance = {0U};
 	XSecure_Hmac HmacInstance;
@@ -836,18 +837,28 @@ static int XOcp_KeyGenDevAkSeed(u32 KeyAddr, u32 KeyLen, u32 DataAddr,
 		XPlmi_SetKatMask(XPLMI_SECURE_HMAC_KAT_MASK);
 	}
 
+	Status = XST_FAILURE;
 	Status = XSecure_HmacInit(&HmacInstance, &Sha3Instance, KeyAddr, KeyLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	Status = XST_FAILURE;
 	Status = XSecure_HmacUpdate(&HmacInstance, (u64)DataAddr, DataLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	Status = XST_FAILURE;
 	Status = XSecure_HmacFinal(&HmacInstance, Out);
+	RetStatus = Status;
 
 END:
-	return Status;
+	if ((RetStatus != XST_SUCCESS) && (Status != XST_SUCCESS)) {
+		RetStatus = Status;
+	}
+
+	return RetStatus;
 }
 
 /*****************************************************************************/
