@@ -31,6 +31,7 @@
 *       sk   06/12/2023 Removed XLoader_GetPdiInstance function definition
 *       rama 08/10/2023 Changed DDRMC register dump prints to DEBUG_ALWAYS for
 *                       debug level_0 option
+*       dd   09/11/2023 MISRA-C violation Directive 4.5 fixed
 *
 * </pre>
 *
@@ -932,10 +933,10 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 			(Address < (XLOADER_R5_TCMB_LOAD_ADDRESS +
 				XLOADER_R5_TCM_BANK_LENGTH))))) {
 		if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) {
-			Offset = XLOADER_R5_0_TCMA_BASE_ADDR;
+			Offset = XLOADER_R5_0_TCM_A_BASE_ADDR;
 		}
 		else if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
-			Offset = XLOADER_R5_1_TCMA_BASE_ADDR;
+			Offset = XLOADER_R5_1_TCM_A_BASE_ADDR;
 		}
 		else {
 			/* MISRA-C compliance */
@@ -962,7 +963,7 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
 			goto END;
 		}
-		Offset = XLOADER_R5_0_TCMA_BASE_ADDR;
+		Offset = XLOADER_R5_0_TCM_A_BASE_ADDR;
 	}
 
 	/**

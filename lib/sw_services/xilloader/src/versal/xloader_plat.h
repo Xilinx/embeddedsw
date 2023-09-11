@@ -27,6 +27,7 @@
 *                       Moved minor error codes to plat headers
 *       sk   07/31/2023 Added error code for Image Store feature
 *       dd   08/11/2023 Updated doxygen comments
+*       dd   09/11/2023 MISRA-C violation Directive 4.5 fixed
 *
 * </pre>
 *
@@ -67,9 +68,6 @@ extern "C" {
 #define XLOADER_PDI_SRC_IS		(0x10U) /**< PDI source Image Store */
 #define XLOADER_PDI_SRC_DDR		(0xFU) /**< PDI source DDR */
 #define XLOADER_PDI_SRC_INVALID		(0xFFU) /**< PDI source invalid */
-
-#define XLOADER_R5_0_TCMA_BASE_ADDR	(0xFFE00000U) /**< R5_0 TCMA base address */
-#define XLOADER_R5_1_TCMA_BASE_ADDR	(0xFFE90000U) /**< R5_1 TCMA base address */
 
 /*
  * TCM address for R5
