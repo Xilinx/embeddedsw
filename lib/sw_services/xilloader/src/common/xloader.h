@@ -115,6 +115,8 @@
 *       sk   07/06/2023 Added prototype for Enable and Disable Jtag functions
 *                       Moved minor error codes to plat headers
 *       sk   08/18/2023 Renamed ValidHeader member to DiscardUartLogs in XilPdi
+*       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
+*
 * </pre>
 *
 * @note
@@ -409,7 +411,7 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
 XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID);
 int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
-int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
+int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr);
 int XLoader_ReadImageStoreCfg(void);
 int XLoader_IsPdiAddrLookup(u32 PdiId, u64 *PdiAddr);
 
