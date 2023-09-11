@@ -21,6 +21,7 @@
 * 2.0   har  07/04/2022 Initial release
 * 2.1   am   02/13/2023 Fixed MISRA C violations
 * 2.2   kpt  08/14/2023 Renamed XPuf_IsRegistrationEnabled to XPuf_IsRegistrationDisabled
+*	vss  09/07/2023	Fixed MISRA-C Rule 2.5 violation
 *
 * </pre>
 *
@@ -51,6 +52,10 @@ extern "C" {
 #if defined (VERSAL_NET)
 #define XPUF_EFUSE_SYN_ADD_INIT				(0xF1250300U)
 		/**< Reset value of PUF_SYN_ADDR register - Versal Net*/
+#define XPUF_EFUSE_CACHE_ROM_RSVD_OFFSET	(0x00000090U)
+					/**< Offset of ROM_RSVD register in EFUSE_CACHE module*/
+#define XPUF_IRO_SWAP				((u32)1U << 8U)
+					/**< To enable the IRO switch to 400MHz feature for MP/HP devices*/
 #else
 #define XPUF_EFUSE_SYN_ADD_INIT				(0xF1250A04U)
 		/**< Reset value of PUF_SYN_ADDR register - Versal*/
