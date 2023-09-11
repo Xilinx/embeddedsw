@@ -34,6 +34,7 @@
 *       sk   08/24/2023 Added redundant check for plm update efuse check
 *       bm   09/04/2023 Added support to use DDR region for backup of PLM data
 *                       structures during In-Place PLM Update
+*       sk   09/07/2023 Removed redundant code in XPlmi_PlmUpdate
 *
 * </pre>
 *
@@ -695,8 +696,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 
 	/* Add the 2nd stage of PLM Update to the end of Normal Priority Queue */
 	XPlmi_TaskTriggerNow(Task);
-	Status =  XST_SUCCESS;
-	RetStatus = XST_SUCCESS;
+	RetStatus = Status;
 END:
 	if ((Status != XST_SUCCESS) && (RetStatus != XST_SUCCESS)) {
 		if (XPlmi_IsPlmUpdateInProgress() == (u8)TRUE) {
