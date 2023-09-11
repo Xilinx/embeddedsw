@@ -31,6 +31,7 @@
 * 1.4   har  07/09/2021 Fixed doxygen warnings
 * 1.5   har  03/21/2022 Added offset for GLOBAL_CNTRL register
 *       kpt  03/24/2021 Added macro XPUF_IRO_TRIM_FUSE_SEL_BIT
+* 2.2	vss  09/07/2023	Fixed MISRA-C Rule 2.5 violation
 *
 * </pre>
 *
@@ -129,7 +130,6 @@ extern "C" {
 /**< EFUSE_CACHE register offsets. */
 #define XPUF_PUF_ECC_PUF_CTRL_OFFSET		(0x000000A4U)
 #define XPUF_EFUSE_CACHE_SECURITY_CONTROL	(0x000000ACU)
-#define XPUF_EFUSE_CACHE_ROM_RSVD_OFFSET	(0x00000090U)
 
 /* EFUSE_CACHE PUF_ECC_PUF_CTRL register definition */
 #define XPUF_PUF_REGEN_DIS			((u32)1U << 31U)
@@ -138,8 +138,6 @@ extern "C" {
 /* EFUSE_CACHE SECURITY_CONTROL register definition */
 #define XPUF_PUF_DIS				((u32)1U << 18U)
 
-/* EFUSE_CACHE ROM_RSVD register definition */
-#define XPUF_IRO_SWAP				((u32)1U << 8U)
 /** @} */
 
 #define XPUF_EFUSE_CTRL_BASEADDR		(0xF1240000U)
