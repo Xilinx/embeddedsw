@@ -492,3 +492,54 @@ XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  IOCTL read secondary SLR temperature data
+ *
+ * @param  DeviceId: Device Id (Sysmon node ID + SLR number)
+ * @param  IoctlId: IOCTL Id
+ * @param  Offset: Local sysmon min/max temperature register offset
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note None
+ *
+ ****************************************************************************/
+XStatus XPm_GetSsitTemp(u32 DeviceId, pm_ioctl_id IoctlId,
+			u32 Offset, u32 *const Response)
+{
+	XStatus Status = XST_FAILURE;
+	u32 DataIn = 0U;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	u32 NumArgs = 3U;
+	u32 ArgBuf[3];
+	ArgBuf[0] = DeviceId;
+	ArgBuf[1] = (u32)IoctlId;
+	ArgBuf[2] = Offset;
+
+	/* Forward message event to secondary SLR if required */
+	Status = XPm_SsitForwardApi(PM_IOCTL, ArgBuf, NumArgs, (u32)NO_HEADER_CMDTYPE, Response);
+	if (XST_DEVICE_NOT_FOUND != Status) {
+		/* API is forwarded, nothing else to be done */
+		goto done;
+	}
+
+	/* Check if offset is valid */
+	if ((PMC_SYSMON_DEVICE_TEMP_MIN_OFFSET != Offset) &&
+	    (PMC_SYSMON_DEVICE_TEMP_MAX_OFFSET != Offset)) {
+		DbgErr = XPM_INT_ERR_INVALID_ADDR;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Read temperature data */
+	DataIn = XPm_In32(PMC_SYSMON_BASEADDR + Offset);
+	*Response = DataIn;
+
+	Status = XST_SUCCESS;
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}

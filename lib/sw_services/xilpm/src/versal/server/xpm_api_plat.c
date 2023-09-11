@@ -94,7 +94,8 @@
 	(1ULL << (u64)IOCTL_MASK_WRITE_REG) | \
 	(1ULL << (u64)IOCTL_AIE_OPS) | \
 	(1ULL << (u64)IOCTL_GET_QOS) | \
-	(1ULL << (u64)IOCTL_PREPARE_DDR_SHUTDOWN))
+	(1ULL << (u64)IOCTL_PREPARE_DDR_SHUTDOWN)) | \
+	(1ULL << (u64)IOCTL_GET_SSIT_TEMP)
 
 #ifdef PLM_ENABLE_STL
 static void (*StlCbInitFinishHandler)(void);

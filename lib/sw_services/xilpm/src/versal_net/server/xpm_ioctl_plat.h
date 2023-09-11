@@ -132,6 +132,17 @@ maybe_unused static inline XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 S
 
 	return XST_SUCCESS;
 }
+
+maybe_unused static inline XStatus XPm_GetSsitTemp(u32 DeviceId,
+			pm_ioctl_id IoctlId, u32 Offset, u32 *const Response)
+{
+	(void)DeviceId;
+	(void)IoctlId;
+	(void)Offset;
+	(void)Response;
+
+	return XST_SUCCESS;
+}
 #ifdef __cplusplus
 }
 #endif
