@@ -33,6 +33,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       is   09/12/2022 Remove PM_CAP_SECURE capability when requesting DDR_0
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
 *
 * </pre>
 *
@@ -109,17 +110,18 @@ END:
  * @param	DestAddr is the address of the destination where the data needs
  *			to be copied.
  * @param	Length of the bytes to be copied
- * @param	Flags that denote blocking / non-blocking dma
+ * @param	FlagsVal that denote blocking / non-blocking dma
  *
  * @return
  * 			- XST_SUCCESS on success.
  * 			- XLOADER_DDR_COPY_UNSUPPORTED_PARAMS on invalid params passed.
  *
  *****************************************************************************/
-int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
+int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 FlagsVal)
 {
 	int Status = XST_FAILURE;
 	u32 DmaFlags;
+	u32 Flags = FlagsVal;
 
 	/**
 	 * - Validate the source address, destination address and length of the
