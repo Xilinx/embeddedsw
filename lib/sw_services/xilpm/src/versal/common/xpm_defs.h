@@ -380,6 +380,7 @@ typedef enum {
 	IOCTL_GET_APU_OPER_MODE,			/**< Get APU operation mode */
 	IOCTL_SET_APU_OPER_MODE,			/**< Set APU operation mode */
 	IOCTL_PREPARE_DDR_SHUTDOWN,			/**< Prepare DDR for shut down */
+	IOCTL_GET_SSIT_TEMP,				/**< Read secondary SLR temperature */
 } pm_ioctl_id;
 /** @endcond */
 

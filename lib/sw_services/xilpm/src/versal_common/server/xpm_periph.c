@@ -299,13 +299,9 @@ static int XPmPeriph_TempPropTask(void *data)
 		++SlrCount;
 		NodeId = PM_DEV_AMS_ROOT | (SlrCount << NODE_SLR_IDX_SHIFT);
 
-		/*
-		 * TODO: Once IOCTL_READ_REG supports "count" argument only one
-		 * XPm_DevIoctl call needs to be made
-		 */
 		/* Get Max temp from secondary SLR */
-		Status = XPm_DevIoctl(PM_SUBSYS_DEFAULT, NodeId, IOCTL_READ_REG,
-				      PMC_SYSMON_DEVICE_TEMP_MAX_OFFSET, 0, 0, Response, XPLMI_CMD_SECURE);
+		Status = XPm_DevIoctl(PM_SUBSYS_DEFAULT, NodeId, IOCTL_GET_SSIT_TEMP,
+				      PMC_SYSMON_DEVICE_TEMP_MAX_OFFSET, 0U, 0U, Response, XPLMI_CMD_SECURE);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -317,8 +313,8 @@ static int XPmPeriph_TempPropTask(void *data)
 		}
 
 		/* Get Min temp from secondary SLR */
-		Status = XPm_DevIoctl(PM_SUBSYS_DEFAULT, NodeId, IOCTL_READ_REG,
-				      PMC_SYSMON_DEVICE_TEMP_MIN_OFFSET, 0, 0, Response, XPLMI_CMD_SECURE);
+		Status = XPm_DevIoctl(PM_SUBSYS_DEFAULT, NodeId, IOCTL_GET_SSIT_TEMP,
+				      PMC_SYSMON_DEVICE_TEMP_MIN_OFFSET, 0U, 0U, Response, XPLMI_CMD_SECURE);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -333,8 +329,8 @@ static int XPmPeriph_TempPropTask(void *data)
 	XPm_UnlockPcsr(PMC_SYSMON_BASEADDR);
 
 	/* Store Min and Max temperatures in local registers */
-	XPm_Out32(PMC_SYSMON_TEST_ANA_CTRL0, Max);
-	XPm_Out32(PMC_SYSMON_TEST_ANA_CTRL1, Min);
+	XPm_Out32(PMC_SYSMON_TEST_ANA_CTRL0, (u32)Max);
+	XPm_Out32(PMC_SYSMON_TEST_ANA_CTRL1, (u32)Min);
 
 	XPm_LockPcsr(PMC_SYSMON_BASEADDR);
 
