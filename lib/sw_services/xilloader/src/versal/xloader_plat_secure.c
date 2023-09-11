@@ -34,6 +34,7 @@
 *	kpt  08/20/2023 Fix compilation warning by placing XLoader_I2Osp prototype under
 *			PLM_SECURE_EXCLUDE
 *       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
+*       dd	 09/11/2023 MISRA-C violation Rule 12.1 fixed
 *
 * </pre>
 *
@@ -203,8 +204,8 @@ int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	u32 Size = XLOADER_SHA3_LEN;
 	u8 *OutTmp;
 
-	if (Sha3InstancePtr == NULL || Out == NULL ||
-		Input == NULL) {
+	if ((Sha3InstancePtr == NULL) || (Out == NULL) ||
+		(Input == NULL)) {
 		goto END;
 	}
 
