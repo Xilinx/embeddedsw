@@ -47,6 +47,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       sk   05/18/2023 Deprecate copy to memory feature,removed SubsystemPdiIns
 *       sk   08/18/2023 Fixed security review comments
+*       dd	 09/11/2023 MISRA-C violation Rule 17.7 fixed
 *
 * </pre>
 *
@@ -194,7 +195,7 @@ END:
 	 * - Clear SBI RDY interrupt.
 	*/
 	XLoader_ClearIntrSbiDataRdy();
-	Xloader_SsitEoPdiSync(PdiPtr);
+	(void)Xloader_SsitEoPdiSync(PdiPtr);
 END1:
 	return XST_SUCCESS;
 }
