@@ -117,6 +117,7 @@
 *			PLM_ECDSA_EXCLUDE is not defined
 *       yog  08/25/23 Removed check to return error code when MH secure state doesn't
 *			match with plm secure
+*       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -1304,7 +1305,7 @@ int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 	u32 PpkOffset;
 	u32 InvalidMask;
 
-	switch ((u32)PpkSelect) {
+	switch (PpkSelect) {
 		case XLOADER_PPK_SEL_0:
 			InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK0_INVLD;
 			PpkOffset = XLOADER_EFUSE_PPK0_START_OFFSET;
@@ -2292,7 +2293,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 	}
 
 	if ((KeyDetails->PdiKeySrc != PdiKeySrcTmp) || (*KeySrc == XSECURE_AES_INVALID_KEY)) {
-		Status  = XLoader_UpdateMinorErr(XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0U);
+		Status  = XLoader_UpdateMinorErr(XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0);
 		goto END;
 	}
 
@@ -2927,7 +2928,7 @@ END:
 ******************************************************************************/
 static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr)
 {
-	int Status = XLOADER_SEC_IV_METAHDR_RANGE_ERROR;
+	int Status = (int)XLOADER_SEC_IV_METAHDR_RANGE_ERROR;
 	volatile u32 IHPtr_0U = IHPtr[0U];
 	volatile u32 IHPtrTmp_0U = IHPtr[0U];
 	volatile u32 IHPtr_1U = IHPtr[1U];
