@@ -46,6 +46,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       ng   08/16/2023 Fixed status overwrite in SdRelease
 *       dd	 09/11/2023 MISRA-C violation Rule 10.3 fixed
+*       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
 *
 * </pre>
 *
@@ -75,7 +76,7 @@
 #define XLOADER_SD_SRC_FILENAME_SIZE2		(13U)
 
 /************************** Function Prototypes ******************************/
-static int XLoader_MakeSdFileName(u32 MultiBootOffset);
+static int XLoader_MakeSdFileName(u32 MultiBootOffsetVal);
 static u8 XLoader_GetDrvNumSD(u8 DeviceFlags);
 
 /************************** Variable Definitions *****************************/
@@ -91,7 +92,7 @@ static u32 SdDeviceNode;
  * @brief	This function creates the Boot image name for file system devices
  * 			based on the multiboot register.
  *
- * @param	MultiBootOffset is the value of the multiboot register that
+ * @param	MultiBootOffsetVal is the value of the multiboot register that
  *			would be suffixed to the filename
  *
  * @return
@@ -100,12 +101,12 @@ static u32 SdDeviceNode;
  * 			crosses max limit.
  *
  ******************************************************************************/
-static int XLoader_MakeSdFileName(u32 MultiBootOffset)
+static int XLoader_MakeSdFileName(u32 MultiBootOffsetVal)
 {
 	int Status = XST_FAILURE;
 	u8 Index = 10U;
 	u8 Value;
-
+	u32 MultiBootOffset = MultiBootOffsetVal;
     /**
      * - Verify that multiboot offset is within the files limits.
      */
@@ -182,7 +183,7 @@ static u8 XLoader_GetDrvNumSD(u8 DeviceFlags)
 /**
  * @brief	This function is used to initialize the sd controller and driver.
  *
- * @param	DeviceFlags have the bootmode information.
+ * @param	DeviceFlagsVal have the bootmode information.
  *
  * @return
  * 			- XST_SUCCESS on success.
@@ -193,11 +194,12 @@ static u8 XLoader_GetDrvNumSD(u8 DeviceFlags)
  * 			- XLOADER_ERR_SD_F_OPEN if file is not present or read fails.
  *
  *****************************************************************************/
-int XLoader_SdInit(u32 DeviceFlags)
+int XLoader_SdInit(u32 DeviceFlagsVal)
 {
 	int Status = XST_FAILURE;
 	FRESULT Rc;
 	u32 MultiBootOffset;
+	u32 DeviceFlags = DeviceFlagsVal;
 	u8 PdiSrc = (u8)(DeviceFlags & XLOADER_PDISRC_FLAGS_MASK);
 	u8 DrvNum = XLoader_GetDrvNumSD(PdiSrc);
 	static FATFS FatFileSystem;
@@ -297,7 +299,7 @@ END:
  *			start from
  * @param 	DestAddr is the address of the destination where it
  * 			should copy to
- * @param	Length of the bytes to be copied
+ * @param	Len of the bytes to be copied
  * @param	Flags are unused and only passed to maintain compatibility without
  *			the copy functions of other boot modes
  *
@@ -308,13 +310,14 @@ END:
  * 			- XLOADER_ERR_DMA_XFER if DMA transfer fails.
  *
  *****************************************************************************/
-int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
+int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	FRESULT Rc; /* Result code */
 	UINT Br = 0U;
 	u32 TrfLen;
 	u64 DestOffset = 0U;
+	u32 Length = Len;
 
 	if (Flags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
 		Status = XST_SUCCESS;
@@ -561,11 +564,11 @@ END:
  * @brief	This function is used to copy the data from SD/eMMC to
  * 			destination address in raw boot mode only.
  *
- * @param	SrcAddr is the address of the SD flash where copy should
+ * @param	SrcAddress is the address of the SD flash where copy should
  * 			start from
- * @param	DestAddr is the address of the destination where it
+ * @param	DestAddress is the address of the destination where it
  * 			should copy to
- * @param	Length of the bytes to be copied
+ * @param	Len of the bytes to be copied
  * @param	Flags param is unused and is only included for compliance with
  * 			other device boot modes
  *
@@ -573,9 +576,12 @@ END:
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_RawCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
+int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Len, u32 Flags)
 {
 	int Status = XST_FAILURE;
+	u64 SrcAddr = SrcAddress;
+	u64 DestAddr = DestAddress;
+	u32 Length = Len;
 	u8 ReadBuffer[XLOADER_SD_RAW_BLK_SIZE];
 	u8* ReadBuffPtr;
 	u16 DestOffset = (u16)(SrcAddr % XLOADER_SD_RAW_BLK_SIZE);
