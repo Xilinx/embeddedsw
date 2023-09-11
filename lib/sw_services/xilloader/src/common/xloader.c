@@ -163,6 +163,7 @@
 *       rama 08/30/2023 Changed PDI source type print to DEBUG_ALWAYS for
 *                       debug level_0 option
 *       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
+*       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
 * </pre>
 *
 * @note
@@ -322,15 +323,16 @@ END:
  * 			and read the meta header.
  *
  * @param	PdiPtr is instance pointer pointing to PDI details
- * @param	PdiSrc is source of PDI. It can be any boot Device or DDR
+ * @param	PdiSource is source of PDI. It can be any boot Device or DDR
  * @param	PdiAddr is the address at which PDI is located in the PDI source
  *
  * @return
  * 			- XST_SUCCESS on success.
  * 			- XLOADER_UNSUPPORTED_BOOT_MODE on unsupported boot mode.
  *****************************************************************************/
-int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
+int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr)
 {
+	PdiSrc_t PdiSrc = PdiSource;
 	volatile int Status = XST_FAILURE;
 	u32 RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
 	u64 PdiInitTime = XPlmi_GetTimerValue();
@@ -453,7 +455,7 @@ END:
  * @brief	This function reads bootheader and metaheader and validates them.
  *
  * @param	PdiPtr is instance pointer pointing to PDI details
- * @param	RegVal is the value of the Multiboot register
+ * @param	RegValue is the value of the Multiboot register
  *
  * @return
  * 			- XST_SUCCESS on success.
@@ -472,12 +474,13 @@ END:
  * 			- XLOADER_ERR_SECURE_METAHDR if secure metaheader validation fails.
  *
  *****************************************************************************/
-static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
+static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTemp =  XST_FAILURE;
 	XLoader_SecureParams SecureParams = {0U};
 	volatile u32 DecKeySrcTmp;
+	u32 RegVal = RegValue;
 #ifdef PLM_SECURE_EXCLUDE
 	u8 IsEncrypted;
 	u8 IsAuthenticated;

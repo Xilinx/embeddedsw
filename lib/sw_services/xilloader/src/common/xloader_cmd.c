@@ -78,6 +78,7 @@
 *       kpt  07/10/2023 Added new IPI command to read DDR crypto status
 *       sk   07/31/2023 Updated Image Store Error Codes
 *       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
+*       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
 *
 * </pre>
 *
@@ -926,18 +927,19 @@ END:
  * @brief	This function zeroizes non-exportable fields of a buffer
  *
  * @param	Buffer is the pointer to the metaheader buffer
- * @param	Mask is the exportable mask which is used to zeroise the
+ * @param	MaskVal is the exportable mask which is used to zeroise the
  * 			non-exportable fields of the buffer
- * @param	Size is the size of the buffer in bytes
+ * @param	SizeVal is the size of the buffer in bytes
  *
  * @return
  * 			- None
  *
  *****************************************************************************/
-static void XLoader_GetExportableBuffer(u32 *Buffer, u32 Mask, u32 Size)
+static void XLoader_GetExportableBuffer(u32 *Buffer, u32 MaskVal, u32 SizeVal)
 {
 	u32 Index;
-
+	u32 Mask = MaskVal;
+	u32 Size = SizeVal;
 	Size >>= XPLMI_WORD_LEN_SHIFT;
 	for (Index = 0U; Index < Size; Index++) {
 		if ((Mask & 0x1U) == 0U) {

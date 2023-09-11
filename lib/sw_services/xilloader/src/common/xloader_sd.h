@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +35,7 @@
 *       bsv  10/13/2020 Code clean up
 * 1.04  bm   12/15/2020 Removed XLOADER_SD_MAX_BOOT_FILES_LIMIT macro
 * 1.05  bsv  08/31/2021 Code clean up
+*       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
 *
 * </pre>
 *
@@ -71,11 +73,11 @@ extern "C" {
 #define XLOADER_NUM_SECTORS		(0x1000U)
 
 /************************** Function Prototypes ******************************/
-int XLoader_SdInit(u32 DeviceFlags);
-int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
+int XLoader_SdInit(u32 DeviceFlagsVal);
+int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags);
 int XLoader_SdRelease(void);
 int XLoader_RawInit(u32 DeviceFlags);
-int XLoader_RawCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
+int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Len, u32 Flags);
 int XLoader_RawRelease(void);
 
 /************************** Variable Definitions *****************************/
