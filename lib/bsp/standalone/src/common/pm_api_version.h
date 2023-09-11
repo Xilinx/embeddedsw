@@ -138,6 +138,7 @@
  * | IOCTL_GET_APU_OPER_MODE		| 35	| Versal	| Get APU operation mode		|
  * | IOCTL_SET_APU_OPER_MODE		| 36	| Versal	| Set APU operation mode		|
  * | IOCTL_PREPARE_DDR_SHUTDOWN		| 37	| Versal	| Prepare DDR for shut down		|
+ * | IOCTL_GET_SSIT_TEMP		| 38	| Versal	| Get secondary SLR min/max temperature |
  *
  *****************************************************************************/
 

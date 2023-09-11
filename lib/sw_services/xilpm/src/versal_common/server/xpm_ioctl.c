@@ -666,6 +666,9 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		Status = XPmDevice_SetRequirement(SubsystemId, DeviceId,
 					(u32)PM_CAP_CONTEXT, 0U);
 		break;
+	case IOCTL_GET_SSIT_TEMP:
+		Status = XPm_GetSsitTemp(DeviceId, IoctlId, Arg1, Response);
+		break;
 	case IOCTL_SET_SGMII_MODE:
 	case IOCTL_ULPI_RESET:
 	case IOCTL_AFI:

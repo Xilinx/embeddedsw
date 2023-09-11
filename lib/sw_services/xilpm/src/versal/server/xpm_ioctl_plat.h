@@ -68,6 +68,7 @@ XStatus XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 				  u32 *const Response, u8 Write);
 XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
 		const u32 *Perms, u32 Type, u32 CmdType);
+XStatus XPm_GetSsitTemp(u32 DeviceId, pm_ioctl_id IoctlId, u32 Offset, u32 *const Response);
 maybe_unused static inline XStatus XPm_ApuGetOperMode(const u32 DeviceId, u32 *Mode)
 {
 	(void)DeviceId;
