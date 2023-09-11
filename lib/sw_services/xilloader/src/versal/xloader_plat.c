@@ -32,6 +32,7 @@
 *       rama 08/10/2023 Changed DDRMC register dump prints to DEBUG_ALWAYS for
 *                       debug level_0 option
 *       dd   09/11/2023 MISRA-C violation Directive 4.5 fixed
+*       dd	 09/11/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -206,7 +207,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				/* APU Core configuration */
 				XLoader_A72Config(CpuId, ExecState, VInitHi);
 				DeviceId = PM_DEV_ACPU_0;
-				ErrorCode = XLOADER_ERR_WAKEUP_A72_0;
+				ErrorCode = (u32)XLOADER_ERR_WAKEUP_A72_0;
 				XLoader_Printf(DEBUG_INFO, "Request APU0 "
 						"wakeup\r\n");
 				break;
@@ -214,13 +215,13 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				/* APU Core configuration */
 				XLoader_A72Config(CpuId, ExecState, VInitHi);
 				DeviceId = PM_DEV_ACPU_1;
-				ErrorCode = XLOADER_ERR_WAKEUP_A72_1;
+				ErrorCode = (u32)XLOADER_ERR_WAKEUP_A72_1;
 				XLoader_Printf(DEBUG_INFO, "Request APU1"
 						"wakeup\r\n");
 				break;
 			case XIH_PH_ATTRB_DSTN_CPU_R5_0:
 				DeviceId = PM_DEV_RPU0_0;
-				ErrorCode = XLOADER_ERR_WAKEUP_R5_0;
+				ErrorCode = (u32)XLOADER_ERR_WAKEUP_R5_0;
 				XLoader_Printf(DEBUG_INFO, "Request RPU 0 "
 						"wakeup\r\n");
 				break;
@@ -232,13 +233,13 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				break;
 			case XIH_PH_ATTRB_DSTN_CPU_R5_L:
 				DeviceId = PM_DEV_RPU0_0;
-				ErrorCode = XLOADER_ERR_WAKEUP_R5_L;
+				ErrorCode = (u32)XLOADER_ERR_WAKEUP_R5_L;
 				XLoader_Printf(DEBUG_INFO, "Request RPU "
 						"wakeup\r\n");
 				break;
 			case XIH_PH_ATTRB_DSTN_CPU_PSM:
 				DeviceId = PM_DEV_PSM_PROC;
-				ErrorCode = XLOADER_ERR_WAKEUP_PSM;
+				ErrorCode = (u32)XLOADER_ERR_WAKEUP_PSM;
 				SetAddress = 0U;
 				XLoader_Printf(DEBUG_INFO, "Request PSM wakeup\r\n");
 				break;
@@ -632,7 +633,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_SPLIT, 0U, 0U, &Mode,
 			XPLMI_CMD_SECURE);
-		ErrorCode = XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT;
+		ErrorCode = (u32)XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT;
 	}
 	else if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) {
 		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
@@ -646,7 +647,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_LOCKSTEP, 0U, 0U,
 			&Mode, XPLMI_CMD_SECURE);
-		ErrorCode = XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP;
+		ErrorCode = (u32)XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP;
 	}
 	else {
 		/* MISRA-C compliance */
@@ -786,20 +787,20 @@ static int XLoader_RequestTCM(u8 TcmId)
 			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
 			XPLMI_CMD_SECURE);
 		if (Status != XST_SUCCESS) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_A;
+			ErrorCode = (u32)XLOADER_ERR_PM_DEV_TCM_0_A;
 			goto END;
 		}
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_0_B,
 			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
 			XPLMI_CMD_SECURE);
-		ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_B;
+		ErrorCode = (u32)XLOADER_ERR_PM_DEV_TCM_0_B;
 	}
 	else if (TcmId == XLOADER_TCM_1) {
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_A,
 			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
 			XPLMI_CMD_SECURE);
 		if (Status != XST_SUCCESS) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_1_A;
+			ErrorCode = (u32)XLOADER_ERR_PM_DEV_TCM_1_A;
 			goto END;
 		}
 
@@ -1010,7 +1011,7 @@ static int XLoader_DumpDdrmcRegisters(void)
 	}
 
 	for (DevId = PM_DEV_DDRMC_0; DevId <= PM_DEV_DDRMC_3; DevId++) {
-		DevStatus.Status = XPM_DEVSTATE_UNUSED;
+		DevStatus.Status = (u32)XPM_DEVSTATE_UNUSED;
 		/** Get DDRMC UB Base address */
 		Status = XPm_GetDeviceStatus(PM_SUBSYS_PMC, DevId, &DevStatus);
 		if (Status != XST_SUCCESS) {

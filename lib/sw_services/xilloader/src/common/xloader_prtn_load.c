@@ -102,6 +102,7 @@
 *       bm   07/06/2023 Remove XPlmi_ClearEndStack call
 *       rama 08/10/2023 Changed partition ID print to DEBUG_ALWAYS for
 *                       debug level_0 option
+*       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -246,7 +247,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		 * is triggered.
 		 */
 		if (XPlmi_SldState() != XPLMI_SLD_NOT_TRIGGERED) {
-			Status = XPlmi_UpdateStatus(XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, 0U);
+			Status = XPlmi_UpdateStatus(XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, 0);
 			goto END1;
 		}
 

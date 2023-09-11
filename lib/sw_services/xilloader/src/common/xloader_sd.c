@@ -45,6 +45,7 @@
 * 1.08  ng   11/11/2022 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       ng   08/16/2023 Fixed status overwrite in SdRelease
+*       dd	 09/11/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -219,7 +220,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	else {
 		SdDeviceNode = PM_DEV_SDIO_1;
 		SdCdnReg = PMC_IOU_SLCR_SD1_CDN_CTRL;
-		ErrorCode = XLOADER_ERR_PM_DEV_SDIO_1;
+		ErrorCode =  (u32)XLOADER_ERR_PM_DEV_SDIO_1;
 	}
 
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, SdDeviceNode,
@@ -477,7 +478,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	else {
 		SdDeviceNode = PM_DEV_SDIO_1;
 		SdCdnReg = PMC_IOU_SLCR_SD1_CDN_CTRL;
-		ErrorCode = XLOADER_ERR_PM_DEV_SDIO_1;
+		ErrorCode =  (u32)XLOADER_ERR_PM_DEV_SDIO_1;
 	}
 
 	/** - Request the usage of SD device. */

@@ -162,7 +162,7 @@
 *       sk   08/28/2023 Added redundant call for XLoader_GetKekSrc
 *       rama 08/30/2023 Changed PDI source type print to DEBUG_ALWAYS for
 *                       debug level_0 option
-*
+*       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
 * </pre>
 *
 * @note
@@ -1730,7 +1730,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 	 */
 	if ((IsExtIdCodeZero == (u8)TRUE) &&
 			(IsVC1902Es1 == (u8)FALSE)) {
-		Status = XLOADER_ERR_EXT_ID_SI;
+		Status = (int)XLOADER_ERR_EXT_ID_SI;
 		goto END;
 	}
 	else {
@@ -1742,14 +1742,14 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 
 		/* Do the actual IDCODE check */
 		if (IdCodeIHT != IdCodeRd) {
-			Status = XLOADER_ERR_IDCODE;
+			Status = (int)XLOADER_ERR_IDCODE;
 			goto END;
 		}
 
 		/* Do the actual Extended IDCODE check */
 		if ((u8)FALSE == IsExtIdCodeZero) {
 			if (ExtIdCodeIHT != ExtIdCodeRd) {
-				Status = XLOADER_ERR_EXT_IDCODE;
+				Status = (int)XLOADER_ERR_EXT_IDCODE;
 				goto END;
 			}
 		}
@@ -1902,7 +1902,7 @@ int XLoader_ReadImageStoreCfg(void)
 	/**
 	 * - Validate if address is unaligned.
 	 */
-	Unaligned = PdiList->PdiImgStrAddr % XPLMI_WORD_LEN;
+	Unaligned = (u32)(PdiList->PdiImgStrAddr % XPLMI_WORD_LEN);
 
 	if((PdiList->PdiImgStrAddr == XLOADER_IMG_STORE_INVALID_ADDR) ||
 			(PdiList->PdiImgStrSize == XLOADER_IMG_STORE_INVALID_SIZE) || Unaligned) {
