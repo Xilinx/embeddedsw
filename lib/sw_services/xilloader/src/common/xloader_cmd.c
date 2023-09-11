@@ -77,6 +77,7 @@
 *       sk   07/06/2023 Added new IPI command to support Unlock Jtag request
 *       kpt  07/10/2023 Added new IPI command to read DDR crypto status
 *       sk   07/31/2023 Updated Image Store Error Codes
+*       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -376,12 +377,12 @@ static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
 	ImageInfo = XLoader_GetImageInfoEntry(
 		Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX]);
 	if (ImageInfo == NULL) {
-		Status = XLOADER_ERR_NO_VALID_IMG_FOUND;
+		Status = (int)XLOADER_ERR_NO_VALID_IMG_FOUND;
 		goto END;
 	}
 	if ((ImageInfo->ImgID != Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX])
 		|| (ImageInfo->ImgID == XLOADER_INVALID_IMG_ID)) {
-		Status = XLOADER_ERR_NO_VALID_IMG_FOUND;
+		Status = (int)XLOADER_ERR_NO_VALID_IMG_FOUND;
 		XPlmi_Printf(DEBUG_GENERAL, "No Valid Image Entry Found\n\r");
 		goto END;
 	}
@@ -1002,7 +1003,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL_METAHEADER;
 		}
 		else {
-			Status = XLOADER_ERR_INVALID_PDI_INPUT;
+			Status = (int)XLOADER_ERR_INVALID_PDI_INPUT;
 			goto END;
 		}
 	}
@@ -1040,7 +1041,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	DataSize = (PdiPtr->MetaHdr.ImgHdrTbl.TotalHdrLen * XPLMI_WORD_LEN) +
 			XIH_IHT_LEN;
 	if (DestSize < DataSize) {
-		Status = XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE;
+		Status = (int)XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE;
 		goto END;
 	}
 
