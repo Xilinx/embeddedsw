@@ -33,6 +33,7 @@
 *       dd   08/11/2023 Updated doxygen comments
 *	kpt  08/20/2023 Fix compilation warning by placing XLoader_I2Osp prototype under
 *			PLM_SECURE_EXCLUDE
+*       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -131,7 +132,7 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr)
 	(void)DecKeyMask;
 
 	/* Obfuscated Key is not supported in Versal */
-	return XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC, 0U);
+	return XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC, 0);
 }
 
 #ifndef PLM_RSA_EXCLUDE
