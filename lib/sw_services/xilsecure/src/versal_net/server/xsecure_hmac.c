@@ -98,8 +98,11 @@ int XSecure_HmacInit(XSecure_Hmac *InstancePtr,
 
 	Status = XSecure_Sha3Start(Sha3InstancePtr);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
+
+	Status = XST_FAILURE;
 	Status = XSecure_Sha3Update(Sha3InstancePtr, (UINTPTR)InstancePtr->IPadRes,
 					XSECURE_SHA3_BLOCK_LEN);
 END:
@@ -181,6 +184,7 @@ END:
 int XSecure_HmacFinal(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int RetStatus = XST_GLITCH_ERROR;
 	XSecure_Sha3 *Sha3InstancePtr;
 	u8 IntHash[XSECURE_HASH_SIZE_IN_BYTES];
 
@@ -203,31 +207,41 @@ int XSecure_HmacFinal(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	Status = XST_FAILURE;
 	Status = XSecure_Sha3Update(Sha3InstancePtr, (UINTPTR)InstancePtr->OPadRes,
 			XSECURE_SHA3_BLOCK_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	Status = XST_FAILURE;
 	Status = XSecure_Sha3Update(Sha3InstancePtr, (UINTPTR)IntHash,
 			XSECURE_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	Status = XST_FAILURE;
 	Status = XSecure_Sha3Finish(InstancePtr->Sha3InstPtr,
 			(XSecure_Sha3Hash *)Hmac->Hash);
+	RetStatus = Status;
 END:
-	if (Status != XST_SUCCESS) {
-		XSecure_SetReset(InstancePtr->Sha3InstPtr->BaseAddress,
-			XSECURE_SHA3_RESET_OFFSET);
+	if ((Status != XST_SUCCESS) && (RetStatus != XST_SUCCESS)) {
+		RetStatus = Status;
 	}
-	Status |= Xil_SMemSet((void *)InstancePtr->IPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
+
+	XSecure_SetReset(InstancePtr->Sha3InstPtr->BaseAddress,
+			XSECURE_SHA3_RESET_OFFSET);
+
+	RetStatus |= Xil_SMemSet((void *)InstancePtr->IPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
 								XSECURE_SHA3_BLOCK_LEN);
-	Status |= Xil_SMemSet((void *)InstancePtr->OPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
+	RetStatus |= Xil_SMemSet((void *)InstancePtr->OPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
 							XSECURE_SHA3_BLOCK_LEN);
-	Status |= Xil_SMemSet((void *)IntHash, XSECURE_HASH_SIZE_IN_BYTES, 0U, XSECURE_HASH_SIZE_IN_BYTES);
+	RetStatus |= Xil_SMemSet((void *)IntHash, XSECURE_HASH_SIZE_IN_BYTES, 0U, XSECURE_HASH_SIZE_IN_BYTES);
 
 RET:
-	return Status;
+	return RetStatus;
 }
 
 /*****************************************************************************/
