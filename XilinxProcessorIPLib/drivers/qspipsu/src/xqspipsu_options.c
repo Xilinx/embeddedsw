@@ -49,6 +49,7 @@
 * 1.15 akm 03/03/22 Enable tapdelay settings for applications on Microblaze
 * 		     platform.
 * 1.18 sb  08/01/23 Added support for Feed back clock
+* 1.18 sb  09/11/23 Fix MISRA-C violation 10.1.
 *
 * </pre>
 *
@@ -342,7 +343,7 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 		Divider = (u32)1U << (Prescaler + 1U);
 
 		FreqDiv = (InstancePtr->Config.InputClockHz) / Divider;
-		if (!(InstancePtr->Config.IsFbClock)) {
+		if (InstancePtr->Config.IsFbClock == 0U) {
 			if (FreqDiv > XQSPIPSU_FREQ_37_5MHZ) {
 				Status = (s32)XST_FAILURE;
 				goto END;
