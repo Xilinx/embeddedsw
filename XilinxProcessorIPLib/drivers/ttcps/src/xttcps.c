@@ -50,6 +50,7 @@
 * 3.18  ml    09/07/23  Removed XTtcPs_ClearInterruptStatus function call to avoid the
 *                       the same operation for 2 times.
 * 3.18  ml    09/07/23  Added U to numerical to fix MISRA-C violation for Rule 10.4
+* 3.18  ml    09/08/23  Typecast with u32 to fix MISRA-C violation for Rule 12.2 and 10.7
 * </pre>
 *
 ******************************************************************************/
@@ -585,7 +586,7 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 
 	for (TmpPrescaler = 0U; TmpPrescaler < XTTCPS_CLK_CNTRL_PS_DISABLE;
 	     TmpPrescaler++) {
-		TempValue =	InputClock/ (Freq * (1U << (TmpPrescaler + 1U)));
+		TempValue =	InputClock/ (Freq * ((u32)1U << (TmpPrescaler + 1U)));
 
 		/*
 		 * The first value less than 2^16 is the best bet
