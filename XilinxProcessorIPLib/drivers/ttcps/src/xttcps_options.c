@@ -23,6 +23,7 @@
 *                         compilation warnings.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.10  aru    05/16/19 Removed the redudant code from XTtcPs_SetOptions().
+* 3.18  ml     09/08/23 Updated code to fix MISRA-C violation for Rule 14.3
 * </pre>
 *
 ******************************************************************************/
@@ -100,7 +101,6 @@ s32 XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 	u32 CountReg;
 	u32 ClockReg;
 	u32 Index;
-	s32 Status = XST_SUCCESS;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -134,14 +134,12 @@ s32 XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 	 * Now write the registers. Leave it to the upper layers to restart the
 	 * device.
 	 */
-	if (Status != (s32)XST_FAILURE ) {
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
 				  XTTCPS_CLK_CNTRL_OFFSET, ClockReg);
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
 				  XTTCPS_CNT_CNTRL_OFFSET, CountReg);
-	}
 
-	return Status;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
