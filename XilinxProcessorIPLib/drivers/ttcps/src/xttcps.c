@@ -45,6 +45,8 @@
 * 3.18  gm    07/17/23	Added PM Release node support.
 * 3.18  ml    09/08/23  Updated code by using ternary operator
 *                       to fix MISRA-C violation for Rule 10.3
+* 3.18  ml    09/08/23  Replaced TRUE with Numerical value to fix
+*                       MISRA-C violation for Rule 10.5
 * </pre>
 *
 ******************************************************************************/
@@ -199,7 +201,7 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 	 * If the timer counter has already started, return an error
 	 * Device should be stopped first.
 	 */
-	if(IsStartResult == (u32)TRUE) {
+	if(IsStartResult == 1U) {
 		Status = XST_DEVICE_IS_STARTED;
 	} else {
 
