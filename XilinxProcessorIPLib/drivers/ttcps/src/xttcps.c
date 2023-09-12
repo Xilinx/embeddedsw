@@ -47,6 +47,8 @@
 *                       to fix MISRA-C violation for Rule 10.3
 * 3.18  ml    09/08/23  Replaced TRUE with Numerical value to fix
 *                       MISRA-C violation for Rule 10.5
+* 3.18  ml    09/07/23  Removed XTtcPs_ClearInterruptStatus function call to avoid the
+*                       the same operation for 2 times.
 * </pre>
 *
 ******************************************************************************/
@@ -627,7 +629,6 @@ u32 XTtcPs_InterruptHandler(XTtcPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	XTtcPsStatusReg = XTtcPs_GetInterruptStatus(InstancePtr);
-	XTtcPs_ClearInterruptStatus(InstancePtr, XTtcPsStatusReg);
 	InstancePtr->StatusHandler(InstancePtr->StatusRef,
 			                                XTtcPsStatusReg);
 	return XST_SUCCESS;
