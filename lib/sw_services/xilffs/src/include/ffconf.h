@@ -8,7 +8,11 @@
 extern "C" {
 #endif
 
+#ifdef SDT
+#include "xilffs_config.h"
+#else
 #include "xparameters.h"
+#endif
 
 /*---------------------------------------------------------------------------/
 / Function Configurations
