@@ -6,15 +6,10 @@
 /*****************************************************************************/
 /**
  * @file xilpki.c
- * @addtogroup xilpki Overview
+ * <pre>
+ *
  * This file contains the implementation of the interface functions for the
  * PKI ECDSA hardware module.
- *
- *
- * @{
- * @details
- *
- * <pre>
  * MODIFICATION HISTORY:
  *
  * Ver   Who   Date      Changes
@@ -28,6 +23,7 @@
  * 2.0   Nava  09/06/23  Updated the XPki_GetVersion() API prototype to inline with
  *                       other secure library version info API's.
  * 2.0   Nava  09/07/23  Fixed issues with IRQ signal.
+ * 2.0   Nava  09/11/23  Fixed doxygen warnings.
  *
  *</pre>
  *
@@ -123,15 +119,15 @@
 
 /**************************** Type Definitions *******************************/
 typedef struct {
-	u32 Size;
-	u32 OpsCmd;
-	u32 InPutSize;
-	u32 OutPutSize;
-	Xpki_OpsType OpsType;
+    u32 Size;  /**< Crypto Operation required total size */
+    u32 OpsCmd; /**< Crypto Operation Command */
+    u32 InPutSize; /**< Crypto Operation Input size */
+    u32 OutPutSize; /**< Crypto Operation Output size */
+    Xpki_OpsType OpsType; /**< Crypto Operation Type */
 } XPki_OpsInfo;
 
 /************************** Variable Definitions *****************************/
-static XScuGic InterruptController;    /* The instance of the Interrupt Controller. */
+static XScuGic InterruptController;    /** The instance of the Interrupt Controller. */
 static u8 PkiMemory[0x200000] __attribute__((aligned(0x200000)));
 static XPki_OpsInfo OpsInfo[] = {
 	[PKI_ECC_NIST_P192_SIGN] = {
@@ -435,11 +431,11 @@ void XPki_SoftReset(void)
  * @param	InstancePtr	Pointer to the XPki instance
  *
  * @return
- *	-	XST_SUCCESS 			- On success
- *	-	XPKI_INVALID_PARAM		- On invalid argument
- *	-	XPKI_ERROR_UNALIGN_ADDR		- On Request/Completion queue
+ *	-	XST_SUCCESS - On success
+ *	-	XPKI_INVALID_PARAM - On invalid argument
+ *	-	XPKI_ERROR_UNALIGN_ADDR - On Request/Completion queue
  *						  Address are not Word aligned.
- *	-	XST_FAILURE			- On failure
+ *	-	XST_FAILURE - On failure
 ******************************************************************************/
 int XPki_Initialize(XPki_Instance *InstancePtr)
 {
@@ -512,8 +508,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to enable the PKI Module write protection.
- *		(fpd slcr write protection)
+ * @brief	This function is used to disable access to the PKI Hardware.
  *
 ******************************************************************************/
 void XPki_Close(void)
@@ -533,7 +528,7 @@ void XPki_Close(void)
 /**
  * @brief	This function is used to get the TRNG Instance.
  *
- * @return	returns NULL or Pointer to the TRNG Instance.
+ * @return	NULL or Pointer to the TRNG Instance.
  *
  *****************************************************************************/
 static XTrngpsx_Instance *XPki_Get_Trng_InstancePtr(u8 DeviceId)
@@ -548,10 +543,10 @@ static XTrngpsx_Instance *XPki_Get_Trng_InstancePtr(u8 DeviceId)
 
 /*****************************************************************************/
 /**
- * @brief       This function is used to initialize the TRNG driver
+ * @brief       This function is used to initialize the TRNG driver.
  *
- * @return      returns the error code on any error
- *              returns XST_SUCCESS on success
+ * @return      Error code on any error
+ *              XST_SUCCESS on success
  *
  *****************************************************************************/
 static int XPki_TrngInit(void)
@@ -600,12 +595,12 @@ END:
 /**
  * @brief	This function is used to generate the Random number for the give
  *		size.
- * @param       GenSize - Required Random Number length in Bytes.
- * @Param	RandBuf - Pointer to store the Random Number.
+ * @param   GenSize Required Random Number length in bytes.
+ * @param	RandBuf Pointer to store the Random Number.
  *
  * @return
- *      -       XST_SUCCESS                     - On success
- *      -       XST_FAILURE                     - On failure
+ *      -       XST_SUCCESS - On success
+ *      -       XST_FAILURE - On failure
 ******************************************************************************/
 int XPki_TrngGenerateRandomNum(u8 GenSize, u8 *RandBuf)
 {
@@ -653,13 +648,11 @@ static inline void XilPki_Queue_MapPageAddr(XPki_Instance *InstancePtr)
  * @param	QueueID		Queue ID(PKI_QUEUE_ID_0/1/2/3).
  *
  * @return
- *      -       XST_SUCCESS                     - On success
- *      -       XPKI_INVALID_PARAM              - On invalid argument
- *      -       XPKI_ERROR_UNALIGN_ADDR         - On Request/Completion queue
- *                                                Address are not Word aligned.
- *	-	XPKI_INVALID_QUEUE_ID		- If the provided QueueID is
- *						  Invalid.
- *      -       XST_FAILURE                     - On failure
+ *      -XST_SUCCESS - On success
+ *      -XPKI_INVALID_PARAM - On invalid argument
+ *      -XPKI_ERROR_UNALIGN_ADDR - On Request/Completion queue Address are not Word aligned.
+ *		-XPKI_INVALID_QUEUE_ID - If the provided QueueID is Invalid.
+ *      -XST_FAILURE - On failure
 ******************************************************************************/
 
 static int XilPki_Queue_Init(XPki_Instance *InstancePtr, XPki_QueueID QueueID)
@@ -746,19 +739,19 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function is used to submit the crypto operation to the PKI
+ * @brief      This function is used to submit the crypto operation to the PKI
  *		Queue.
  *
- * @param       InstancePtr     Pointer to the XPki instance
- * @param       Request_InfoPtr	Pointer to the queue info structure.
- * @param	RequestID	pointer to the RequestID. if the request is
- *				successfully submitted it filled with unique id.
+ * @param   InstancePtr     Pointer to the XPki instance
+ * @param   Request_InfoPtr	Pointer to the queue info structure
+ * @param	RequestID	Pointer to the RequestID. if the request is
+ *				successfully submitted it filled with unique id
  * @return
- *      -       XST_SUCCESS                     - On success
- *      -       XPKI_INVALID_PARAM              - On invalid argument
- *      -       XPKI_UNSUPPORTED_OPS		- If the requested operation is
+ *      -       XST_SUCCESS - On success
+ *      -       XPKI_INVALID_PARAM - On invalid argument
+ *      -       XPKI_UNSUPPORTED_OPS - If the requested operation is
  *						  not supported.
- *      -       XST_FAILURE                     - On failure
+ *      -       XST_FAILURE - On failure
 ******************************************************************************/
 int XilPki_EnQueue(XPki_Instance *InstancePtr, XPki_Request_Info *Request_InfoPtr,
 		   u32 *RequestID)
@@ -822,18 +815,17 @@ END:
 /*****************************************************************************/
 /**
  * @brief       This function is used to get the crypto operation results from
- *		the PKI Queue.
+ * the PKI Queue.
  *
  * @param       InstancePtr     Pointer to the XPki instance
- * @param       Request_InfoPtr   Pointer to the queue info structure.
+ * @param       Request_InfoPtr   Pointer to the queue info structure
  * @param       RequestID       Unique request ID Filled by the XilPki_EnQueue()
  *				API.
  * @return
- *      -       XST_SUCCESS                     - On success
- *      -       XPKI_INVALID_PARAM              - On invalid argument
- *      -       XPKI_UNSUPPORTED_OPS            - If the requested operation is
- *                                                not supported.
- *      -       XST_FAILURE                     - On failure
+ *		- XST_SUCCESS - On success
+ *		- XPKI_INVALID_PARAM - On invalid argument
+ *		- XPKI_UNSUPPORTED_OPS - If the requested operation is not supported.
+ *		- XST_FAILURE - On failure
 ******************************************************************************/
 int XilPki_DeQueue(XPki_Instance *InstancePtr, XPki_Request_Info *Request_InfoPtr,
 		   u32 RequestID)
@@ -862,9 +854,9 @@ END:
  * @brief	This function copy the ecdsa generated signature data into the
  *		user-pointed buffer.
  *
- * @param	CrvType - Type of ECC curve(NIST-P192, NIST-P256, P384 and P521)
- * @param	Addr - Pointer to the Request queue out address.
- * @param	XPki_EcdsaSign   - Pointer to the XPki_EcdsaSign.
+ * @param	CrvType  Type of ECC curve(NIST-P192, NIST-P256, P384 and P521)
+ * @param	Addr  Pointer to the Request queue out address.
+ * @param	SignPtr    Pointer to the XPki_EcdsaSign.
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -900,9 +892,9 @@ END:
  * @brief       This function copy the ecdsa generated signature data into the
  *              user-pointed buffer.
  *
- * @param       CrvType - Type of ECC curve(NIST-P192, NIST-P256, P384 and P521)
- * @param       Addr - Pointer to the Request queue out address.
- * @param	PubKey	- Pointer to the pulic-key buffer.
+ * @param CrvType  Type of ECC curve(NIST-P192, NIST-P256, P384 and P521)
+ * @param  Addr  Pointer to the Request queue out address
+ * @param PubKey  Pointer to the pulic-key buffer
  *
  * @return
  *      -       XST_SUCCESS - On success
@@ -939,9 +931,9 @@ END:
  * @brief       This function copy the ecdsa generated signature data into the
  *              user-pointed buffer.
  *
- * @param       CrvType - Type of ECC curve(NIST-P192, NIST-P256, P384 and P521)
- * @param       Addr - Pointer to the Request queue out address.
- * @param	PrivKey - Pointer to the Private-key buffer.
+ * @param   CrvType  Type of ECC curve(NIST-P192, NIST-P256, P384 and P521)
+ * @param   Addr  Pointer to the Request queue out address
+ * @param	PrivKey Pointer to the Private-key buffer
  *
  * @return
  *      -       XST_SUCCESS - On success
@@ -972,14 +964,14 @@ END:
  *              the PKI Queue.
  *
  * @param       InstancePtr     Pointer to the XPki instance
- * @param       Request_InfoPtr   Pointer to the queue info structure.
+ * @param       Request_InfoPtr  Pointer to the queue info structure
  * @param       RequestID       Unique request ID Filled by the XilPki_EnQueue()
- *                              API.
+ *                              API
  * @return
- *      -       XST_SUCCESS                     - On success
- *      -       XPKI_UNSUPPORTED_OPS            - If the requested operation is
- *                                                not supported.
- *      -       XST_FAILURE                     - On failure
+ *      -       XST_SUCCESS - On success
+ *      -       XPKI_UNSUPPORTED_OPS - If the requested operation is
+ *                                                not supported
+ *      -       XST_FAILURE - On failure
 ******************************************************************************/
 static int XPki_DeQueueData(XPki_Instance *InstancePtr,
 			    XPki_Request_Info *Request_InfoPtr,  u32 RequestID)
@@ -1040,9 +1032,9 @@ END:
  * @brief	This function is used to initialize and trigger the
  *		PKI Operations.
  *
- * @param       QueueID         Queue ID(PKI_QUEUE_ID_0/1/2/3).
- * @Param	TrigVal		RQ page offset value which points to Crypto OP
- *				descriptor buffer.
+ * @param   QueueID  Queue ID(PKI_QUEUE_ID_0/1/2/3)
+ * @param	TrigVal  RQ page offset value which points to Crypto OP
+ *				descriptor buffer
  *
  ******************************************************************************/
 static inline void XPki_TrigQueueOps(XPki_QueueID QueueID, u64 TrigVal)
@@ -1058,10 +1050,10 @@ static inline void XPki_TrigQueueOps(XPki_QueueID QueueID, u64 TrigVal)
  * @brief       This function load the user-pointed crypto data (inputs) into
  *		the Request queue buffer (as per the PKI Spec).
  *
- * @param       InstancePtr     Pointer to the XPki instance
- * @param       Request_InfoPtr   Pointer to the queue info structure.
+ * @param   InstancePtr     Pointer to the XPki instance
+ * @param   Request_InfoPtr   Pointer to the queue info structure.
  * @param	QDescPtr	Pointer to the descriptor buffer
- * @param       TrigVal		Pointer to the Descriptor offset.
+ * @param   TrigVal		Pointer to the Descriptor offset.
  * @return
  *      -       XST_SUCCESS                     - On success
  *      -       XPKI_UNSUPPORTED_OPS            - If the requested operation is
@@ -1158,11 +1150,10 @@ END:
  *		-Data Hash
  *		-Signature Descriptor Data
  *
- * @param	InstancePtr - Pointer to the XPki instance
- * @param	SignParams - Pointer to the XPki_EcdsaSignInputData
- * @param       Addr - Pointer to the Request queue input address.
- * @param       QDescPtr - Pointer to the descriptor buffer
- * @param	EcdsaReqVal - Pointer to the Generate Signature Descriptor Data offset
+ * @param	SignParams  Pointer to the XPki_EcdsaSignInputData
+ * @param   Addr  Pointer to the Request queue input address
+ * @param   DescPtr Pointer to the descriptor buffer
+ * @param	EcdsaReqVal Pointer to the Generate Signature Descriptor Data offset
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -1237,11 +1228,10 @@ END:
  *		-Data Hash
  *		-Verify Signature Descriptor Data
  *
- * @param	InstancePtr - Pointer to the XPki instance
- * @param	VerifyParams - Pointer to the XPki_EcdsaVerifyInputData
- * @param       Addr - Pointer to the Request queue input address.
- * @param       QDescPtr - Pointer to the descriptor buffer
- * @param	EcdsaReqVal - Pointer to the Verify Signature Descriptor Data offset
+ * @param	VerifyParams  Pointer to the XPki_EcdsaVerifyInputData
+ * @param   Addr  Pointer to the Request queue input address
+ * @param   DescPtr  Pointer to the descriptor buffer
+ * @param	EcdsaReqVal Pointer to the Verify Signature Descriptor Data offset
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -1320,18 +1310,17 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function  copy the user-pointed data into the Request queue
- *		buffer in the below order(as per the PKI Spec) to To perform
+ *		buffer in the below order(as per the PKI Spec) to perform
  *		modulus addition.
  *		- Curve Order
  *		- TRGN Generated Random value(A)
  *		- Value B = 1 -fixed
  *		- Modular addition Descriptor Data
  *
- * @param	InstancePtr - Pointer to the XPki instance
- * @param	ModAddParams - Pointer to the XPki_ModAddInputData
- * @param       Addr - Pointer to the Request queue input address.
- * @param       QDescPtr - Pointer to the descriptor buffer
- * @param	EcdsaReqVal - Pointer to the modular addition Descriptor Data offset
+ * @param	ModAddParams  Pointer to the XPki_ModAddInputData
+ * @param   Addr  Pointer to the Request queue input address
+ * @param   DescPtr  Pointer to the descriptor buffer
+ * @param	EcdsaReqVal  Pointer to the modular addition Descriptor Data offset
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -1395,11 +1384,10 @@ END:
  *		-Generator points(Gx, Gy)
  *		-Point Multiplication Descriptor Data
  *
- * @param	InstancePtr - Pointer to the XPki instance
- * @param	PointMultiParams - Pointer to the XPki_EcdsaPointMultiInputData
- * @param       Addr - Pointer to the Request queue input address.
- * @param       QDescPtr - Pointer to the descriptor buffer
- * @param	EcdsaReqVal - Pointer to the Point-Multiplication Descriptor Data offset
+ * @param	PointMultiParams  Pointer to the XPki_EcdsaPointMultiInputData
+ * @param   Addr  Pointer to the request queue input address
+ * @param   DescPtr  Pointer to the descriptor buffer
+ * @param	EcdsaReqVal  Pointer to the Point-Multiplication Descriptor Data offset
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -1458,10 +1446,10 @@ END:
  * @brief       This function is used to fill the RQ to generate the
  *		Private key for the request curve.
  *
- * @param       CrvType - Type of ECC curve (NIST-P192, P256, P384 and P521)
- * @param       Addr - Pointer to the Request queue input address.
- * @param       QDescPtr - Pointer to the descriptor buffer
- * @param       EcdsaReqVal - Pointer to the Point-Multiplication Descriptor Data offset.
+ * @param       CrvType  Type of ECC curve (NIST-P192, P256, P384, and P521)
+ * @param       Addr  Pointer to the Request queue input address
+ * @param       DescPtr  Pointer to the descriptor buffer
+ * @param       EcdsaReqVal Pointer to the Point-Multiplication Descriptor Data offset
  *
  * @return
  *      -       XST_SUCCESS - On success
@@ -1469,7 +1457,7 @@ END:
  *
  *****************************************************************************/
 static int XPki_GenEccPrivateKey(XPki_EcdsaCrvType CrvType, UINTPTR Addr,
-				 u32 *DescPtr, u64 *EcdsaReqVa)
+				 u32 *DescPtr, u64 *EcdsaReqVal)
 {
 	volatile int Status = XST_FAILURE;
 	XPki_ModAddInputData ModAddParams = {0U};
@@ -1493,7 +1481,7 @@ static int XPki_GenEccPrivateKey(XPki_EcdsaCrvType CrvType, UINTPTR Addr,
 	ModAddParams.Dlen = Size;
 	ModAddParams.D = Priv;
 
-	Status = XPki_LoadInputData_ModulusAdd(&ModAddParams, Addr, DescPtr, EcdsaReqVa);
+	Status = XPki_LoadInputData_ModulusAdd(&ModAddParams, Addr, DescPtr, EcdsaReqVal);
 
 END:
 	return Status;
@@ -1504,15 +1492,15 @@ END:
  * @brief       This function is used to fill the RQ to generate the
  *              Public key for the request curve.
  *
- * @param       CrvType - Type of ECC curve (NIST-P192, P256, P384 and P521)
- * @Param	PrivKey - Pointer to the private-key buffer
- * @param       Addr - Pointer to the Request queue input address.
- * @param       QDescPtr - Pointer to the descriptor buffer
- * @param       EcdsaReqVal - Pointer to the Point-Multiplication Descriptor Data offset.
+ * @param       CrvType Type of ECC curve (NIST-P192, P256, P384, and P521)
+ * @param	    PrivKey Pointer to the private-key buffer
+ * @param       Addr  Pointer to the Request queue input address
+ * @param       DescPtr  Pointer to the descriptor buffer
+ * @param       EcdsaReqVa  Pointer to the Point-Multiplication Descriptor Data offset
  *
  * @return
- *      -       XST_SUCCESS - On success
- *      -       XST_FAILURE - On failure
+ *		- XST_SUCCESS - On success
+ * 		- XST_FAILURE - On failure
  *
  *****************************************************************************/
 static int XPki_EcdsaGenPubKey(XPki_EcdsaCrvType CrvType, u8 *PrivKey, UINTPTR Addr,
@@ -1546,7 +1534,7 @@ END:
 /**
  * @brief	This function is used the get the ECC curve Order
  *
- * @param	CrvType - Type of ECC curve (NIST-P192, P256, P384 and P521)
+ * @param	CrvType Type of ECC curve (NIST-P192, P256, P384, and P521)
  *
  * @return
  *		ECC Curve Order.
@@ -1574,10 +1562,10 @@ static const u8 *XPki_GetEccCurveOrder(XPki_EcdsaCrvType CrvType)
 /*****************************************************************************/
 /**
  * @brief       This function is used the get the ECC curve type for the
- *		given operation
+ *		given operation.
  *
- * @param	OpsType - Crypto Operation type.
- * @param       CrvType - Type of ECC curve (NIST-P192, P256, P384 and P521)
+ * @param	OpsType Crypto Operation type
+ * @param   CrvType Type of ECC curve (NIST-P192, P256, P384, and P521)
  *
  * @return
  *      -       XST_SUCCESS - On success
@@ -1630,7 +1618,7 @@ static int XPki_GetEccCurveType(Xpki_OpsType OpsType, XPki_EcdsaCrvType *CrvType
 /**
  * @brief	This function is used to get the ECC curve generator points.
  *
- * @param	CrvType - Type of ECC curve (NIST-P192, P256, P384 and P521)
+ * @param	CrvType  Type of ECC curve (NIST-P192, P256, P384, and P521)
  *
  * @return
  *		ECC Generator Points(Gx, Gy)
@@ -1673,8 +1661,7 @@ static XPki_EcdsaGpoint *XPki_GetEccGpoint(XPki_EcdsaCrvType CrvType)
  * @brief	This function is used to validate the elliptic curve signature
  *		generation input parameters.
  *
- * @param	InstancePtr - Pointer to the XPki instance
- * @param	SignParams - Pointer to the XPki_EcdsaSignInputData
+ * @param	SignParams  Pointer to the XPki_EcdsaSignInputData
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -1709,8 +1696,7 @@ END:
  * @brief	This function is used to validate the elliptic curve signature
  *		verification input parameters.
  *
- * @param	InstancePtr - Pointer to the XPki instance
- * @param	VerifyParams - Pointer to the XPki_EcdsaVerifyInputData
+ * @param	VerifyParams Pointer to the XPki_EcdsaVerifyInputData
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -1749,7 +1735,7 @@ END:
 /**
  * @brief	This function is used the get the ECC curve length.
  *
- * @param	CrvType - Type of ECC curve (NIST-P192, 256,P384 and P521)
+ * @param	CrvType  Type of ECC curve (NIST-P192, 256, P384, and P521)
  *
  * @return
  *		ECC Curve lenth.
@@ -1780,13 +1766,13 @@ static u8 XPki_GetEccCurveLen(XPki_EcdsaCrvType CrvType)
  *		requests.
  *
  * @param       InstancePtr     Pointer to the XPki instance
- * @param       Request_InfoPtr   Pointer to the queue info structure.
- * @param       RequestID       Request ID for the EnQueued request.
- *                              API.
+ * @param       Request_InfoPtr  Pointer to the queue info structure
+ * @param       RequestID       Request ID for the EnQueued request API
+ *
  * @return
  *      -       XST_SUCCESS                     - On success
  *      -       XPKI_UNSUPPORTED_OPS            - If the requested operation is
- *                                                not supported.
+ *                                                not supported
  *      -       XST_FAILURE                     - On failure
 ******************************************************************************/
 static inline void XPki_UpdateQueueInfo(XPki_Instance *InstancePtr,
@@ -1808,9 +1794,8 @@ static inline void XPki_UpdateQueueInfo(XPki_Instance *InstancePtr,
  *              requests.
  *
  * @param       InstancePtr     Pointer to the XPki instance
- * @param       Request_InfoPtr   Pointer to the queue info structure.
- * @param       RequestID       Request ID for the DeQueued request.
- *                              API.
+ * @param       RequestID       Request ID for the DeQueued request API
+ *
  * @return
  *      -       XST_SUCCESS                     - On success
  *      -       XST_FAILURE                     - On failure
@@ -1848,10 +1833,10 @@ END:
  * @brief       This function is used to prepare the descriptor data for the
  *		requested crypto opration.
  *
- * @param       InstancePtr - Pointer to the XPki instance
- * @param       Ops - Type of the crypto operation
- * @param       RequestID -  Unique ID.
- * @param       QDescPtr - Pointer to the descriptor buffer
+ * @param       InstancePtr  Pointer to the XPki instance
+ * @param       Ops  Type of the crypto operation
+ * @param       RequestID  Unique ID
+ * @param       QDescPtr  Pointer to the descriptor buffer
  *
  ******************************************************************************/
 
@@ -1878,7 +1863,7 @@ static void XPki_PrepDescriptor(XPki_Instance *InstancePtr, Xpki_OpsType Ops,
  * @brief       This function is used to get the free slot ID from the request
  *		QueueID.
  *
- * @param       InstancePtr     Pointer to the XPki instance
+ * @param       InstancePtr Pointer to the XPki instance
  * @param       QueueID		QueueID(0/1/2/3)
  * @param       FreeIndex	Pointer to the free slot index.
  *
@@ -1909,9 +1894,9 @@ static inline int XPki_GetFreeSlot(XPki_Instance *InstancePtr,
 /**
  * @brief       This function is used to get the Queue ID.
  *
- * @param       InstancePtr     Pointer to the XPki instance
- * @param	OpSize		Crypto Opration size.
- * @param       QueueID         Pointer to the QueueID(0/1/2/3)
+ * @param   InstancePtr   Pointer to the XPki instance
+ * @param	OpSize Crypto Opration size.
+ * @param    QueueID  Pointer to the QueueID(0/1/2/3)
  *
  * @return
  *      -       XST_SUCCESS                     - On success
@@ -1940,10 +1925,10 @@ static inline int XPki_GetQueueID(XPki_Instance *InstancePtr,
 /*****************************************************************************/
 /**
  * @brief       This function is used to validate the given request ID against
-		with submitted request ID's.
+		with submitted request IDs.
  *
  * @param       InstancePtr     Pointer to the XPki instance
- * @param       RequestID	Unique ID provided by user.
+ * @param       RequestID	Unique ID provided by user
  *
  * @return
  *      -       XST_SUCCESS                     - On success
@@ -1984,12 +1969,11 @@ END:
 * This function setups the interrupt system such that interrupts can occur
 * for the PKI.
 *
-* @param        InstancePtr contains a pointer to the instance of the PKI
+* @param        InstancePtr Pointer to the instance of the PKI
 *               which is going to be connected to the interrupt controller.
 *
 * @return       XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note         None.
 *
 *******************************************************************************/
 static int XPki_SetupInterruptSystem(XPki_Instance *InstancePtr)
@@ -2085,7 +2069,7 @@ static void XPki_IntrHandler(XPki_Instance *InstancePtr)
 * This function is use to notify the user if the submited request completed.
 *
 * @param	InstancePtr	Pointer to the XPki instance
-* @param	ID		Queue ID(0/1/2/3).
+* @param	Id Queue ID(0/1/2/3)
 *
 *******************************************************************************/
 static void XPki_IntrCallbackHandler(XPki_Instance *InstancePtr, XPki_QueueID Id)
