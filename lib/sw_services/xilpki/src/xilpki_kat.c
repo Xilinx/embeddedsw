@@ -6,7 +6,7 @@
 /**
  *
  * @file xilpki_kat.c
- * @addtogroup xilpki Overview
+ * @addtogroup xilpki-api XilPKI Library APIs
  * This file contains the definitions of known answer test(KAT) functions.
  *
  * @{
@@ -21,6 +21,7 @@
  * ----- ----  --------  ------------------------------------------------------
  * 1.0   Nava  12/05/22  Initial Release
  * 2.0   Nava  06/21/23  Added PKI multi-queue support for ECC operations.
+ * 2.0   Nava  09/11/23  Fixed doxygen warnings.
  *
  *</pre>
  *
@@ -30,8 +31,10 @@
 #include "xilpki.h"
 
 /***************** Macros (Inline Functions) Definitions ********************/
+/*
+@cond internal
+*/
 #define ECC_MAX_BUF_LEN_BYTES		66U
-
 #define XPKI_REQ_SUBMITTED		0U
 #define XPKI_REQ_COMPLETED		1U
 #define XPKI_MAX_WAIT_COUNT		1000000U
@@ -42,7 +45,7 @@ static void XPki_SignVerify_CompletionCallBack(u32 RequestID, u32 Status);
 static void XPki_PrivKeyGen_CompletionCallBack(u32 RequestID, u32 Status);
 static void XPki_PubKeyGen_CompletionCallBack(u32 RequestID, u32 Status);
 /************************** Variable Definitions *****************************/
-/* Public key used for signature verification */
+/** Public key used for signature verification */
 static const u8 PubkeyQx_P192[] = {
 	0xA2, 0xA9, 0x06, 0xF6, 0x63, 0x21, 0xC6, 0xBC,
 	0xBA, 0x87, 0x12, 0x0A, 0x5A, 0xCD, 0xB8, 0x4E,
@@ -281,6 +284,9 @@ static const u8 H_P521[] = {
 	0x8A, 0xCB, 0xF5, 0x35, 0x1F, 0xC0, 0x5A, 0xFB, 0x88,
 	0xEF, 0x00, 0x00
 };
+/** @endcond*/
+
+/** @cond xilpki_internal */
 
 static volatile u32 RQ_SignGen_Status;
 static volatile u32 RQ_SignGen_State;
@@ -298,12 +304,13 @@ static volatile u32 RQ_PubKeyGen_Status;
 static volatile u32 RQ_PubKeyGen_State;
 static volatile u32 RQ_PubKeyGenCallBack_Rid;
 
+/**  @endcond */
 /*****************************************************************************/
 /**
  * @brief	This function returns ECC public key to perform KAT
  *
- * @param       CrvClass - Type of ECC curve class either prime or binary class
- *              and curve type(NIST-P192,P256,P384 and P521)
+ * @param  CrvInfo Type of ECC curve class either prime or binary class
+ *              and curve type(NIST-P192,P256,P384, and P521)
  *
  * @return
  *		ECC public key
@@ -337,8 +344,8 @@ static XPki_EcdsaKey *XPki_GetKatEccPublicKey(XPki_EcdsaCrvInfo *CrvInfo)
 /**
  * @brief	This function returns ECC expected signature to perform KAT
  *
- * @param       CrvClass - Type of ECC curve class either prime or binary class
- *              and curve type(NIST-P192,P256,P384 and P521)
+ * @param       CrvInfo  Type of ECC curve class either prime or binary class
+ *              and curve type(NIST-P192,P256,P384, and P521)
  *
  * @return
  *		ECC expected signature
@@ -372,8 +379,8 @@ static XPki_EcdsaSign *XPki_GetKatEccExpSign(XPki_EcdsaCrvInfo *CrvInfo)
 /**
  * @brief	This function returns ECC private key to perform KAT
  *
- * @param       CrvClass - Type of ECC curve class either prime or binary class
- *              and curve type(NIST-P192,P256,P384 and P521)
+ * @param       CrvInfo  Type of ECC curve class either prime or binary class
+ *              and curve type(NIST-P192,P256,P384, and P521)
  *
  * @return
  *		ECC private key
@@ -400,13 +407,13 @@ static const u8 *XPki_GetKatEccPrivateKey(XPki_EcdsaCrvInfo *CrvInfo)
 
 /*****************************************************************************/
 /**
- * @brief	This function returns ECC ehimeral key to perform KAT
+ * @brief	This function returns ECC ephemeral key to perform KAT
  *
- * @param       CrvClass - Type of ECC curve class either prime or binary class
- *              and curve type(NIST-P192,P256,P384 and P521)
+ * @param   CrvInfo Type of ECC curve class either prime or binary class
+ *              and curve type(NIST-P192,P256,P384, and P521)
  *
  * @return
- *		ECC ehimeral key
+ *		ECC ephemeral key
  *
  *****************************************************************************/
 static const u8 *XPki_GetKatEccEphimeralKey(XPki_EcdsaCrvInfo *CrvInfo)
@@ -432,8 +439,8 @@ static const u8 *XPki_GetKatEccEphimeralKey(XPki_EcdsaCrvInfo *CrvInfo)
 /**
  * @brief       This function returns ECC Data hash to perform KAT
  *
- * @param       CrvClass - Type of ECC curve class either prime or binary class
- *              and curve type(NIST-P192,P256,P384 and P521)
+ * @param       CrvInfo Type of ECC curve class either prime or binary class
+ *              and curve type(NIST-P192,P256,P384, and P521)
  *
  * @return
  *              ECC Data hash
@@ -462,8 +469,8 @@ static const u8 *XPki_GetKatEccDataHash(XPki_EcdsaCrvInfo *CrvInfo)
 /**
  * @brief       This function returns ECC Data length to perform KAT
  *
- * @param       CrvClass - Type of ECC curve class either prime or binary class
- *              and curve type(NIST-P192,P256,P384 and P521)
+ * @param       CrvInfo Type of ECC curve class either prime or binary class
+ *              and curve type(NIST-P192,P256,P384, and P521)
  *
  * @return
  *              ECC Data length
@@ -492,13 +499,13 @@ static u8 XPki_GetKatEccCurveLen(XPki_EcdsaCrvInfo *CrvInfo)
 /**
  * @brief	This function performs ECC sign verify known answer test(KAT)
  *
- * @param       InstancePtr - Pointer to the XPki instance
- * @param	CrvClass - Type of ECC curve class either prime/binary curve
- *		and curve type(NIST-P192,P256,P384 and P521)
+ * @param   InstancePtr  Pointer to the XPki instance
+ * @param	CrvInfo  Type of ECC curve class either prime/binary curve
+ *		and curve type(NIST-P192,P256,P384, and P521)
  *
  * @return
- *      -       XST_SUCCESS - when KAT passes
- *      -       Errorcode       - when KAT fails
+ *		- XST_SUCCESS - when KAT passes
+ *		- Errorcode - when KAT fails
  *
  *****************************************************************************/
 int XPki_EcdsaVerifySignKat(XPki_Instance *InstancePtr, XPki_EcdsaCrvInfo *CrvInfo)
@@ -563,14 +570,14 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       It's a callback API for Signature Verification Request.
+ * @brief It is a callback API for Signature Verification Request.
  *
- * @param       RequestID       Unique ID for the submited request.
- * @param       Status          Status of the Request.
+ * @param  RequestID  Unique ID for the submited request
+ * @param   Status  Status of the request
  *
  * @return
- *      -       XST_SUCCESS                     - On success
- *      -       XST_FAILURE                     - On failure
+ * 		- XST_SUCCESS - On success
+ * 		- XST_FAILURE  - On failure
  *
 ******************************************************************************/
 static void XPki_SignVerify_CompletionCallBack(u32 RequestID, u32 Status)
@@ -584,13 +591,13 @@ static void XPki_SignVerify_CompletionCallBack(u32 RequestID, u32 Status)
 /**
  * @brief	This function performs ECC sign generate known answer test(KAT)
  *
- * @param       InstancePtr - Pointer to the XPki instance
- * @param	CrvClass - Type of ECC curve class either prime or binary class
- *		and curve type(NIST-P192,P256,P384 and P521)
+ * @param  InstancePtr  Pointer to the XPki instance
+ * @param	CrvInfo  Type of ECC curve class either prime or binary class
+ *		and curve type(NIST-P192,P256,P384, and P521)
  *
  * @return
  *	-	XST_SUCCESS - when KAT passes
- *	-	Errorcode 	- when KAT fails
+ *	-	Errorcode - when KAT fails
  *
  *****************************************************************************/
 int XPki_EcdsaSignGenerateKat(XPki_Instance *InstancePtr, XPki_EcdsaCrvInfo *CrvInfo)
@@ -677,14 +684,14 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	It's a callback API for Signature Generation Request.
+ * @brief	It is a callback API for Signature Generation Request.
  *
- * @param       RequestID	Unique ID for the submited request.
- * @param	Status		Status of the Request.
+ * @param  RequestID  Unique ID for the submited request
+ * @param  Status  Status of the request
  *
  * @return
- *      -       XST_SUCCESS                     - On success
- *      -       XST_FAILURE                     - On failure
+ *		- XST_SUCCESS - On success
+ *		- XST_FAILURE - On failure
  *
 ******************************************************************************/
 static void XPki_SignGenearte_CompletionCallBack(u32 RequestID, u32 Status)
@@ -699,19 +706,18 @@ static void XPki_SignGenearte_CompletionCallBack(u32 RequestID, u32 Status)
  * @brief       This function performs ECC pairwise consistency test on
  *		ECC Curves
  *
- * @param       InstancePtr - Pointer to the XPki instance
- * @param       CrvClass - Type of ECC curve class either prime or binary class
- *              and curve type(NIST-P192,P256,P384 and P521)
- * @param       D - ECC private key
- * @param       PubKey - ECC public key
+ * @param       InstancePtr  Pointer to the XPki instance
+ * @param       CrvInfo  Type of ECC curve class either prime or binary class
+ *              and curve type(NIST-P192,P256,P384, and P521)
+ * @param       PubKey  ECC public key
+ * @param       PrivKey  ECC private key
  *
  * @return
- *      -       XST_SUCCESS - when KAT passes
- *      -       Errorcode - when KAT fails
+ *		- XST_SUCCESS - when KAT passes
+ *		- Errorcode - when KAT fails
  *
  *****************************************************************************/
-int XPki_EcdsaPwct(XPki_Instance *InstancePtr, XPki_EcdsaCrvInfo *CrvInfo,
-		   XPki_EcdsaKey *PubKey, u8 *PrivKey)
+int XPki_EcdsaPwct(XPki_Instance *InstancePtr, XPki_EcdsaCrvInfo *CrvInfo, XPki_EcdsaKey *PubKey, u8 *PrivKey)
 {
 	u8 const *K = XPki_GetKatEccEphimeralKey(CrvInfo);
 	u8 const *Hash = XPki_GetKatEccDataHash(CrvInfo);
@@ -823,20 +829,20 @@ END:
 /*****************************************************************************/
 /**
  * @brief       This function Generate key pairs for the ECC curves NIST-P192,
- *              P256, P384 and P521.
+ *              P256, P384, and P521.
  *
- * @param       InstancePtr - Pointer to the XPki instance
- * @param       CrvType - Type of ECC curve(NIST-P192,P256,P384 and P521).
- * @param       PubKey  - Pointer to the pulic-key buffer
- * @param       PrivKey - Pointer to the Private-key buffer
+ * @param       InstancePtr	Pointer to the XPki instance
+ * @param       CrvType		Type of ECC curve(NIST-P192,P256,P384, and P521)
+ * @param       PubKey		Pointer to the pulic-key buffer
+ * @param       PrivKey		Pointer to the private-key buffer
  *
  * @return
- *      -       XST_SUCCESS - when passes
- *      -       Errorcode       - when fails
+ *		- XST_SUCCESS - when passes
+ *		- Errorcode - when fails
  *
  *****************************************************************************/
 int XPki_EcdsaGenerateKeyPair(XPki_Instance *InstancePtr, XPki_EcdsaCrvType CrvType,
-			      XPki_EcdsaKey *PubKey, u8 *PrivKey)
+				XPki_EcdsaKey *PubKey, u8 *PrivKey)
 {
 	XPki_Request_Info Request_Info = {0};
 	volatile int Status = XST_FAILURE;
@@ -927,16 +933,15 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       It's a completion callback API for Private-key Generation
+ * @brief       It is a completion callback API for Private-key generation
  *		Request.
  *
- * @param       RequestID       Unique ID for the submited request.
- * @param       Status          Status of the Request.
+ * @param       RequestID       Unique ID for the submited request
+ * @param       Status          Status of the Request
  *
  * @return
- *      -       XST_SUCCESS                     - On success
- *      -       XST_FAILURE                     - On failure
- *
+ *		- XST_SUCCESS - On success
+ *		- -XST_FAILURE  - On failure *
 ******************************************************************************/
 static void XPki_PrivKeyGen_CompletionCallBack(u32 RequestID, u32 Status)
 {
@@ -947,15 +952,15 @@ static void XPki_PrivKeyGen_CompletionCallBack(u32 RequestID, u32 Status)
 
 /*****************************************************************************/
 /**
- * @brief       It's a completion callback API for Public-key Generation
- *              Request.
+ * @brief       It is a completion callback API for Public-key generation
+ *              request.
  *
- * @param       RequestID       Unique ID for the submited request.
- * @param       Status          Status of the Request.
+ * @param RequestID  Unique ID for the submited request
+ * @param Status  Status of the request
  *
  * @return
- *      -       XST_SUCCESS                     - On success
- *      -       XST_FAILURE                     - On failure
+ *		- XST_SUCCESS - On success
+*		- XST_FAILURE - On failure
  *
 ******************************************************************************/
 static void XPki_PubKeyGen_CompletionCallBack(u32 RequestID, u32 Status)
@@ -964,3 +969,4 @@ static void XPki_PubKeyGen_CompletionCallBack(u32 RequestID, u32 Status)
 	RQ_PubKeyGenCallBack_Rid = RequestID;
 	RQ_PubKeyGen_Status = Status;
 }
+/**@}*/
