@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -76,11 +76,10 @@ s32 XTtcPs_SelfTest(XTtcPs *InstancePtr)
 	 * All the TTC registers should be in their default state right now.
 	 */
 	TempReg = XTtcPs_ReadReg(InstancePtr->Config.BaseAddress,
-				   XTTCPS_CNT_CNTRL_OFFSET);
+				 XTTCPS_CNT_CNTRL_OFFSET);
 	if (XTTCPS_CNT_CNTRL_RESET_VALUE != (u32)TempReg) {
 		Status = XST_FAILURE;
-	}
-	else {
+	} else {
 		Status = XST_SUCCESS;
 	}
 	return Status;
