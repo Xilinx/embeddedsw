@@ -21,6 +21,7 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00a drg/jz 01/21/10 First release
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.18  ml     09/08/23 Added comments to fix HIS COMF violations.
 * </pre>
 *
 ******************************************************************************/
@@ -65,6 +66,9 @@ s32 XTtcPs_SelfTest(XTtcPs *InstancePtr)
 	s32 Status;
 	u32 TempReg;
 
+	/*
+	 * Validate input arguments and in case of error conditions assert.
+	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
