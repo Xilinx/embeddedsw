@@ -145,7 +145,7 @@ static u32 GetTtcNodeAddress(u16 DeviceId)
 *
 ******************************************************************************/
 s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
-			      u32 EffectiveAddr)
+			 u32 EffectiveAddr)
 {
 	s32 Status;
 	u32 IsStartResult;
@@ -163,7 +163,7 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
 #if defined  (XPM_SUPPORT)
-	TtcNodeAddr = GetTtcNodeAddress((ConfigPtr->DeviceId/3)*3);
+	TtcNodeAddr = GetTtcNodeAddress((ConfigPtr->DeviceId / 3) * 3);
 
 	Status = XPm_RequestNode(XpmGetNodeId((UINTPTR)TtcNodeAddr), PM_CAP_ACCESS, MAX_QOS, REQUEST_ACK_BLOCKING);
 	if (XST_SUCCESS != Status) {
@@ -195,18 +195,18 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 #endif
 
 #ifdef SDT
-	for (Count=0; Count<XTTCPS_NUM_COUNTERS; Count++) {
+	for (Count = 0; Count < XTTCPS_NUM_COUNTERS; Count++) {
 		InstancePtr->Config.IntrId[Count] = ConfigPtr->IntrId[Count];
 	}
 	InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
 #endif
 
-	IsStartResult = XTtcPs_IsStarted(InstancePtr)? 1U: 0U;
+	IsStartResult = XTtcPs_IsStarted(InstancePtr) ? 1U : 0U;
 	/*
 	 * If the timer counter has already started, return an error
 	 * Device should be stopped first.
 	 */
-	if(IsStartResult == 1U) {
+	if (IsStartResult == 1U) {
 		Status = XST_DEVICE_IS_STARTED;
 	} else {
 
@@ -218,26 +218,26 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 		 * Reset the count control register to it's default value.
 		 */
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XTTCPS_CNT_CNTRL_OFFSET,
-				  XTTCPS_CNT_CNTRL_RESET_VALUE);
+				XTTCPS_CNT_CNTRL_OFFSET,
+				XTTCPS_CNT_CNTRL_RESET_VALUE);
 
 		/*
 		 * Reset the rest of the registers to the default values.
 		 */
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XTTCPS_CLK_CNTRL_OFFSET, 0x00U);
+				XTTCPS_CLK_CNTRL_OFFSET, 0x00U);
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XTTCPS_INTERVAL_VAL_OFFSET, 0x00U);
+				XTTCPS_INTERVAL_VAL_OFFSET, 0x00U);
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XTTCPS_MATCH_0_OFFSET, 0x00U);
+				XTTCPS_MATCH_0_OFFSET, 0x00U);
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XTTCPS_MATCH_1_OFFSET, 0x00U);
+				XTTCPS_MATCH_1_OFFSET, 0x00U);
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XTTCPS_MATCH_2_OFFSET, 0x00U);
+				XTTCPS_MATCH_2_OFFSET, 0x00U);
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XTTCPS_IER_OFFSET, 0x00U);
+				XTTCPS_IER_OFFSET, 0x00U);
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XTTCPS_ISR_OFFSET, XTTCPS_IXR_ALL_MASK);
+				XTTCPS_ISR_OFFSET, XTTCPS_IXR_ALL_MASK);
 
 		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
@@ -257,15 +257,14 @@ static u32 CheckTtcNodeState(u16 TtcNodeId)
 	u16 TtcBaseNodeId;
 	u32 State = FALSE;
 
-	TtcBaseNodeId = ((TtcNodeId/3)*3);
+	TtcBaseNodeId = ((TtcNodeId / 3) * 3);
 
-	for(IdOffset = TtcBaseNodeId; IdOffset < (TtcBaseNodeId+3); IdOffset++) {
-		if(TtcNodeState[IdOffset] == 0) {
+	for (IdOffset = TtcBaseNodeId; IdOffset < (TtcBaseNodeId + 3); IdOffset++) {
+		if (TtcNodeState[IdOffset] == 0) {
 			continue;
-		}
-		else {
-			if(IdOffset == TtcNodeId) {
-				if((TtcNodeState[IdOffset] - 1) == 0) {
+		} else {
+			if (IdOffset == TtcNodeId) {
+				if ((TtcNodeState[IdOffset] - 1) == 0) {
 					continue;
 				}
 			}
@@ -302,8 +301,7 @@ u32 XTtcPs_Release(XTtcPs *InstancePtr)
 #if defined (XPM_SUPPORT)
 	if (InstancePtr->Config.DeviceId >= XPAR_XTTCPS_NUM_INSTANCES) {
 		Status = XST_FAILURE;
-	}
-	else{
+	} else {
 		/* Stop ttc */
 		XTtcPs_Stop(InstancePtr);
 
@@ -317,9 +315,8 @@ u32 XTtcPs_Release(XTtcPs *InstancePtr)
 		/* Release node, if no other counter in use under that ttc node */
 		if (TRUE == CheckTtcNodeState(InstancePtr->Config.DeviceId)) {
 			Status = XST_FAILURE;
-		}
-		else {
-			TtcNodeAddr = GetTtcNodeAddress((InstancePtr->Config.DeviceId/3)*3);
+		} else {
+			TtcNodeAddr = GetTtcNodeAddress((InstancePtr->Config.DeviceId / 3) * 3);
 			Status = XPm_ReleaseNode(XpmGetNodeId((UINTPTR)TtcNodeAddr));
 			TtcNodeState[InstancePtr->Config.DeviceId]--;
 		}
@@ -366,7 +363,7 @@ void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, XMatchRegValue Val
 	 * Write the value to the correct match register with MatchIndex
 	 */
 	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XTtcPs_Match_N_Offset(MatchIndex), Value);
+			XTtcPs_Match_N_Offset(MatchIndex), Value);
 }
 
 /*****************************************************************************/
@@ -397,7 +394,7 @@ XMatchRegValue XTtcPs_GetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex)
 	Xil_AssertNonvoid(MatchIndex < XTTCPS_NUM_MATCH_REG);
 
 	MatchReg = XTtcPs_ReadReg(InstancePtr->Config.BaseAddress,
-			    XTtcPs_Match_N_Offset(MatchIndex));
+				  XTtcPs_Match_N_Offset(MatchIndex));
 
 	return (XMatchRegValue) MatchReg;
 }
@@ -438,7 +435,7 @@ void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue)
 	 * Read the clock control register
 	 */
 	ClockReg = XTtcPs_ReadReg(InstancePtr->Config.BaseAddress,
-			   XTTCPS_CLK_CNTRL_OFFSET);
+				  XTTCPS_CLK_CNTRL_OFFSET);
 
 	/*
 	 * Clear all of the prescaler control bits in the register
@@ -451,7 +448,7 @@ void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue)
 		 * Set the prescaler value and enable prescaler
 		 */
 		ClockReg |= (u32)(((u32)PrescalerValue << (u32)XTTCPS_CLK_CNTRL_PS_VAL_SHIFT) &
-			(u32)XTTCPS_CLK_CNTRL_PS_VAL_MASK);
+				  (u32)XTTCPS_CLK_CNTRL_PS_VAL_MASK);
 		ClockReg |= (u32)XTTCPS_CLK_CNTRL_PS_EN_MASK;
 	}
 
@@ -459,7 +456,7 @@ void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue)
 	 * Write the register with the new values.
 	 */
 	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-			  XTTCPS_CLK_CNTRL_OFFSET, ClockReg);
+			XTTCPS_CLK_CNTRL_OFFSET, ClockReg);
 }
 
 /*****************************************************************************/
@@ -501,18 +498,17 @@ u8 XTtcPs_GetPrescaler(XTtcPs *InstancePtr)
 	 * Read the clock control register
 	 */
 	ClockReg = XTtcPs_ReadReg(InstancePtr->Config.BaseAddress,
-				    XTTCPS_CLK_CNTRL_OFFSET);
+				  XTTCPS_CLK_CNTRL_OFFSET);
 
 	if (0U == (ClockReg & XTTCPS_CLK_CNTRL_PS_EN_MASK)) {
 		/*
 		 * Prescaler is disabled. Return the correct flag value
 		 */
 		Status = (u8)XTTCPS_CLK_CNTRL_PS_DISABLE;
-	}
-	else {
+	} else {
 
 		Status = (u8)((ClockReg & (u32)XTTCPS_CLK_CNTRL_PS_VAL_MASK) >>
-			(u32)XTTCPS_CLK_CNTRL_PS_VAL_SHIFT);
+			      (u32)XTTCPS_CLK_CNTRL_PS_VAL_SHIFT);
 	}
 	return Status;
 }
@@ -542,17 +538,17 @@ u8 XTtcPs_GetPrescaler(XTtcPs *InstancePtr)
 *
 ****************************************************************************/
 void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
-        XInterval *Interval, u8 *Prescaler)
+				 XInterval *Interval, u8 *Prescaler)
 {
 	u8 TmpPrescaler;
 	UINTPTR TempValue;
 	u32 InputClock;
 
 	/*
-         * Assert to validate input arguments.
-         */
+	 * Assert to validate input arguments.
+	 */
 	Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(Freq > 0U);
+	Xil_AssertVoid(Freq > 0U);
 
 	InputClock = InstancePtr->Config.InputClockHz;
 	/*
@@ -560,7 +556,7 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 	 * smaller the prescaler, the larger the count and the more accurate the
 	 *  PWM setting.
 	 */
-	TempValue = InputClock/ Freq;
+	TempValue = InputClock / Freq;
 
 	if (TempValue < 4U) {
 		/*
@@ -587,7 +583,7 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 
 	for (TmpPrescaler = 0U; TmpPrescaler < XTTCPS_CLK_CNTRL_PS_DISABLE;
 	     TmpPrescaler++) {
-		TempValue =	InputClock/ (Freq * ((u32)1U << (TmpPrescaler + 1U)));
+		TempValue =	InputClock / (Freq * ((u32)1U << (TmpPrescaler + 1U)));
 
 		/*
 		 * The first value less than 2^16 is the best bet
@@ -631,7 +627,7 @@ u32 XTtcPs_InterruptHandler(XTtcPs *InstancePtr)
 
 	XTtcPsStatusReg = XTtcPs_GetInterruptStatus(InstancePtr);
 	InstancePtr->StatusHandler(InstancePtr->StatusRef,
-			                                XTtcPsStatusReg);
+				   XTtcPsStatusReg);
 	return XST_SUCCESS;
 }
 
@@ -659,7 +655,7 @@ u32 XTtcPs_InterruptHandler(XTtcPs *InstancePtr)
  *
  ******************************************************************************/
 void XTtcPs_SetStatusHandler(XTtcPs *InstancePtr, void *CallBackRef,
-		XTtcPs_StatusHandler FuncPointer)
+			     XTtcPs_StatusHandler FuncPointer)
 {
 	/*
 	 * Validate input arguments and in case of error conditions assert.

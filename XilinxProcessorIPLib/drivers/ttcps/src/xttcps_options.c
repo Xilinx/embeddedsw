@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,24 +59,38 @@ typedef struct {
 } OptionsMap;
 
 static OptionsMap TmrCtrOptionsTable[] = {
-	{XTTCPS_OPTION_EXTERNAL_CLK, XTTCPS_CLK_CNTRL_SRC_MASK,
-	 XTTCPS_CLK_CNTRL_OFFSET},
-	{XTTCPS_OPTION_CLK_EDGE_NEG, XTTCPS_CLK_CNTRL_EXT_EDGE_MASK,
-	 XTTCPS_CLK_CNTRL_OFFSET},
-	{XTTCPS_OPTION_INTERVAL_MODE, XTTCPS_CNT_CNTRL_INT_MASK,
-	 XTTCPS_CNT_CNTRL_OFFSET},
-	{XTTCPS_OPTION_DECREMENT, XTTCPS_CNT_CNTRL_DECR_MASK,
-	 XTTCPS_CNT_CNTRL_OFFSET},
-	{XTTCPS_OPTION_MATCH_MODE, XTTCPS_CNT_CNTRL_MATCH_MASK,
-	 XTTCPS_CNT_CNTRL_OFFSET},
-	{XTTCPS_OPTION_WAVE_DISABLE, XTTCPS_CNT_CNTRL_EN_WAVE_MASK,
-	 XTTCPS_CNT_CNTRL_OFFSET},
-	{XTTCPS_OPTION_WAVE_POLARITY, XTTCPS_CNT_CNTRL_POL_WAVE_MASK,
-	 XTTCPS_CNT_CNTRL_OFFSET},
+	{
+		XTTCPS_OPTION_EXTERNAL_CLK, XTTCPS_CLK_CNTRL_SRC_MASK,
+		XTTCPS_CLK_CNTRL_OFFSET
+	},
+	{
+		XTTCPS_OPTION_CLK_EDGE_NEG, XTTCPS_CLK_CNTRL_EXT_EDGE_MASK,
+		XTTCPS_CLK_CNTRL_OFFSET
+	},
+	{
+		XTTCPS_OPTION_INTERVAL_MODE, XTTCPS_CNT_CNTRL_INT_MASK,
+		XTTCPS_CNT_CNTRL_OFFSET
+	},
+	{
+		XTTCPS_OPTION_DECREMENT, XTTCPS_CNT_CNTRL_DECR_MASK,
+		XTTCPS_CNT_CNTRL_OFFSET
+	},
+	{
+		XTTCPS_OPTION_MATCH_MODE, XTTCPS_CNT_CNTRL_MATCH_MASK,
+		XTTCPS_CNT_CNTRL_OFFSET
+	},
+	{
+		XTTCPS_OPTION_WAVE_DISABLE, XTTCPS_CNT_CNTRL_EN_WAVE_MASK,
+		XTTCPS_CNT_CNTRL_OFFSET
+	},
+	{
+		XTTCPS_OPTION_WAVE_POLARITY, XTTCPS_CNT_CNTRL_POL_WAVE_MASK,
+		XTTCPS_CNT_CNTRL_OFFSET
+	},
 };
 
 #define XTTCPS_NUM_TMRCTR_OPTIONS (sizeof(TmrCtrOptionsTable) / \
-				sizeof(OptionsMap))
+				   sizeof(OptionsMap))
 
 /*****************************************************************************/
 /**
@@ -108,22 +122,22 @@ s32 XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	ClockReg = XTtcPs_ReadReg(InstancePtr->Config.BaseAddress,
-				    XTTCPS_CLK_CNTRL_OFFSET);
+				  XTTCPS_CLK_CNTRL_OFFSET);
 	CountReg = XTtcPs_ReadReg(InstancePtr->Config.BaseAddress,
-				    XTTCPS_CNT_CNTRL_OFFSET);
+				  XTTCPS_CNT_CNTRL_OFFSET);
 	/*
 	 * Loop through the options table, turning the option on or off
 	 * depending on whether the bit is set in the incoming options flag.
 	 */
 	for (Index = 0U; Index < XTTCPS_NUM_TMRCTR_OPTIONS; Index++) {
 		if ((Options & TmrCtrOptionsTable[Index].Option) != (u32)0) {
-			if(TmrCtrOptionsTable[Index].Register == XTTCPS_CLK_CNTRL_OFFSET) {
+			if (TmrCtrOptionsTable[Index].Register == XTTCPS_CLK_CNTRL_OFFSET) {
 				ClockReg |= TmrCtrOptionsTable[Index].Mask;
 			} else {
 				CountReg |= TmrCtrOptionsTable[Index].Mask;
 			}
 		} else {
-			if(TmrCtrOptionsTable[Index].Register == XTTCPS_CLK_CNTRL_OFFSET) {
+			if (TmrCtrOptionsTable[Index].Register == XTTCPS_CLK_CNTRL_OFFSET) {
 				ClockReg &= ~TmrCtrOptionsTable[Index].Mask;
 			} else {
 				CountReg &= ~TmrCtrOptionsTable[Index].Mask;
@@ -134,10 +148,10 @@ s32 XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 	 * Now write the registers. Leave it to the upper layers to restart the
 	 * device.
 	 */
-		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XTTCPS_CLK_CNTRL_OFFSET, ClockReg);
-		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
-				  XTTCPS_CNT_CNTRL_OFFSET, CountReg);
+	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
+			XTTCPS_CLK_CNTRL_OFFSET, ClockReg);
+	XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
+			XTTCPS_CNT_CNTRL_OFFSET, CountReg);
 	return XST_SUCCESS;
 }
 
@@ -164,9 +178,9 @@ u32 XTtcPs_GetOptions(XTtcPs *InstancePtr)
 	u32 Register;
 	u32 Index;
 
-        /*
-         * Validate input arguments and in case of error conditions assert.
-         */
+	/*
+	 * Validate input arguments and in case of error conditions assert.
+	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
@@ -180,8 +194,8 @@ u32 XTtcPs_GetOptions(XTtcPs *InstancePtr)
 		 * currently set.
 		 */
 		Register = XTtcPs_ReadReg(InstancePtr->Config.BaseAddress,
-					      TmrCtrOptionsTable[Index].
-					      Register);
+					  TmrCtrOptionsTable[Index].
+					  Register);
 
 		if ((Register & TmrCtrOptionsTable[Index].Mask) != (u32)0) {
 			OptionsFlag |= TmrCtrOptionsTable[Index].Option;
