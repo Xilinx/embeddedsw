@@ -1,6 +1,282 @@
 Changes for 2023.2
 ===============================
 
+cpu_v2_18:
+Fix doxygen warnings
+
+cpu_cortexa53_v2_1:
+Fix doxygen warnings
+
+cpu_cortexa72_v1_4:
+Fix doxygen warnings
+
+cpu_cortexa78_v1_2:
+Fix doxygen warnings
+
+cpu_cortexr5_v2_1:
+Fix doxygen warnings
+
+cpu_cortexr52_v1_1:
+Fix doxygen warnings
+
+devcfg_v3_8:
+Added support for system device-tree flow
+
+dfxasm_v1_2:
+Added support for system device-tree flow
+Fix code formatting issues with checkpatch
+
+intc_v3_17:
+Added support for SDT flow
+
+iomodule_v2_15:
+Added support for SDT flow
+Fixed MISRA-C violations
+
+prc_v2_2:
+Add support for system device-tree flow
+Fix code formatting issues with checkpatch
+
+prd_v2_2:
+Add support for system device-tree flow
+Fix code formatting issues with checkpatch
+
+scugic_v5_2:
+Configure all CortexR52 interrupts as group1 interrupts , they will be triggered as IRQ. Earlier they were configured as group0 interrupts , to trigger FIQ.
+Added support for SDT flow.
+Initialize priority of SGI and PPI interrupts during driver initialization
+
+scutimer_v2_5:
+Added support for SDT flow
+
+scuwdt_v2_5:
+Added support for SDT flow
+
+tmr_inject_v1_6:
+Add support for system device-tree flow for driver
+
+tmr_manager_v1_5:
+Add support for system device-tree flow for drive
+
+tmrctr_v4_11:
+Added support for SDT flow
+
+ttcps_v3_18:
+Added support for SDT flow
+Added support for request and release calls to support PM
+
+usb_v5_6:
+Added support for system device tree flow for drivers and examples
+
+usbps_v2_8:
+Added support for system device tree flow for drivers and examples
+
+usbpsu_v1_14:
+Added support for system device tree flow for drivers and examples
+
+xilcert_v1_1:
+Fixed PLM build failure due to PLM_ECDSA_EXCLUDE flag
+Made enhancements to library to store multiple subsystems user configuration, modified prototypes of library to take address of certificate instead of u8 *, used PMC subsystem ID to receive DEVIK user configurations.
+Added KAT for SHA384
+Fixed endianness
+Store the signature of TBS certificate
+Added support to create ASN.1 structures
+Added support for X.509 extensions
+Fixed issues related to openSSL parsing
+Added support for certificate signing Request(CSR)
+Fixed issue in encoding of Bitstring
+Use SHA3-384 as hash algo in extensions instead of SHA384
+Moved runtime error codes to library
+
+xilfpga_v6_5:
+Add the VersalNet support
+Add support for system device-tree flow
+Add example meta-data
+Update supported_processors list for a9 and VersalNet
+Avoid compiler optimization for function pointer validation check
+Fix for doxygen issues
+Update version info macros
+xilfpga Add proper ifdef platform checks
+
+xilloader_v1_9:
+Extended Load Partial PDI command to support Image Store as Pdi Source
+Add support for cluster flags in ATF handoff params
+Fix for compilation error when PLM_SECURE_EXCLUDE enabled
+Deprecate copy to memory option
+Log CDO command offset in GSW register
+Log PLM error code before deferring the error
+Add specific error codes for KAT failure cases
+Add IPI Access permissions for Loader module
+IPI Command to support Jtag Unlock for secure debug of Non-Secure elements in Versal Net
+SWPCR support added in xilloader library for Versal Net
+Add IPI support to read DDR crypto counters Versal Net
+Measure SPK ID and Encryption Revoke ID before PCR extend for Versal Net
+Enable TCM Boot based on PH Attribute for Versal Net
+Add MC uB and PMC handshake support
+Add support for system device-tree flow
+Add example for LoadPDI from Image Store
+Doxygen fixes
+Place ECDSA in reset and clear RAM when PLM_ECDSA_EXCLUDE is not defined
+Change prototype of XLoader_ClearKatOnPPDI
+
+xilnvm_v3_2:
+Added support for system device tree flow in drivers and examples
+Temp and voltage monitoring before efuse programming for Versal Net
+Fixed GCC warnings
+Added user option to write Puf secure control bits
+Added comments in examples to indicate device families supported
+Added support to read HWTSTBITS_DIS and PMC_SC_EN bits
+Added IPI access permission for NVM module
+Added versioning to the library
+Removed gaps in NVM API IDs
+Cleared AES keys on stack
+Added missing else check in XNvm_EfuseReadPpkHash
+Assigned key clear status only when status is SUCCESS
+Removed XNvm_EfuseReadCacheRange
+Added redundancy for XNvm_EfusePgmAndVerifyBit
+Remove oring the Status with error code
+Convert Endianness of DME user key before eFuse write
+
+xilocp_v1_2:
+PLM build fail when using PLM_ECDSA_EXCLUDE flag
+Corrected X509 inputs for DEVAK Certificate
+Corrected DME Device ID calculation by calling SHA2-384
+Fix circular buffer issues during HWPCR logging
+Add SWPCR support in OCP library
+Key generation and attestation endianness fix
+Fixed doxygen comments
+Add IPI Access permissions for OCP module
+Support to generate shared secret using DEV AK private key
+Handled device key generation during in place PLM update
+Cleared DICE CDI seed before performing in place PLM update
+Move run time error codes to respective library
+
+xilpdi_v1_8:
+Implement optional Authentication time optimization to support PCIe link training within 100ms
+Add support for system device-tree flow
+Doxygen fixes
+
+xilpki_v2_0:
+Fix issues with pki mux selection/deselection logic
+Add PKI multi-queue support for ECC operations
+Implemented new API to get the library version info
+
+xilplmi_v1_9:
+Add support for system device-tree flow
+Doxygen fixes
+Fix PMC IRO frequency logic in Versal Net
+Update default WDT timeout for Versal Net
+Add SWPCR related error codes for Versal Net
+Add Run Proc command for Versal Net
+Initialised IsKatRan state to false
+Add unique error code support for mask poll
+Slave slr Temperature propagation in versal SSIT devices
+Add IPI access filtering support
+Add SSIT Msg event access validation
+Add IPI Access permissions for Error module
+Refactor Proc logic to make it generic
+
+xilpuf_v2_2:
+Fix HIS_COMF violation
+Store PUF AUX after shifting
+Fixed compilation issue for xilpuf_client_example
+Fixed coverity warning
+Move payload size macros to common place
+Add glitch detection check for Status
+Doxygen warning fixes
+Fix PUF auxiliary convergence error
+Fix bugs in xilpuf examples
+Add comment in examples
+Check if IRO frequency update is required
+Add KAT in examples
+Add support for Programming PUF secure control bits
+Add IPI Access permissions for PUF module
+Added Versioning to library
+Fix passing efuse cache value
+Moved few local variables in Versal Net example to data section
+
+xilrsa_v1_7:
+Added support for system device tree flow
+
+xilsecure_v5_2:
+ Placed ECDSA in reset when PLM_ECDSA_EXCLUDE is not defined
+ Fix wrong Hash length input validation
+ Fix ECDSA boot failure on qemu
+Remove TRNG driver from xilsecure library in server mode only client is available
+Intimate user if data context is lost
+ Error out disallowed CPU modes
+ Remove duplicate code
+ Handling endianness in ECDSA examples
+ Initialize KeySizeInWords to avoid invalid value incase of glitch
+ Rename XSecure_AesDpaCmDecryptKat to XSecure_AesDpaCmDecryptData
+ Add volatile keyword for SStatus variable
+ Fix HMAC security review comments
+ Check StatusTmp instead of Status
+ Updated PCIE IDE KAT macro names
+ Update version number of crypto alg for versal_net
+ Update version number of crypto alg for versal
+ Update version number of crypto alg for zynqmp
+ Updated version number of secure libraries
+ Added support for calculation of shared secret
+ Update the xilsecure library to support vitisng flow.
+ Loading partial PDI when SHA core is busy
+ Throw an error when AES/SHA is already in use
+ Add RSA pairwise consistency test
+ Add key unwrap support
+ Add OAEP padding support
+ Add mask generate function
+ Add AES ECB support
+ Added FIPS required info to VersalNet crypto algo
+ Added FIPS required info to Versal crypto algo
+ Added FIPS required info to ZynqMP crypto alg
+ Added code for versioning of secure lib
+ Added support for non-word aligned data transfer in AES for Versal Net
+ Separated IPI calls for modules
+ Added pwct support for P-256
+ Added example for ECDH
+ Added wrapper API for ECDH
+ Added crypto check in features command
+ Add IPI Access permissions for Secure module
+ In client added specific error codes for failure cases
+ In server added specific error codes for KAT failure cases
+ Fixed doxygen warnings
+ xilsecure:Support for P-256
+ Add Sha2-384 start, update and finish support
+ Add KAT in client examples
+ Fix HIS COMF Violations
+ Fixed NO_EFFECT coverity warning
+ Removed XSecure_PerformKatOperation
+ Added support for BE mode
+ Add comment in examples
+ Add SHA384 KAT
+ Fixed MISRAC violations
+
+xilskey_v7_5:
+Added support for system device-tree flow
+Fixed MISRAC 8.5 violation
+
+xiltimer_v1_3:
+Added support for system device-tree flow
+
+standalone_v9_0:
+Added initial support for Microblaze RISC-V
+Updated Cortex R52 BSP to skip bss clearing logic in case of warm boot.
+Update Cortex R52  BSP to use IRQ for interrupts.
+Added support for system device-tree flow
+Updated arm/cortexr5/, to have separate copies of xil_mpu.c/.h files for R5 and R52.  Similar way, changes have been made to have separate copies of mpu.c for Versal and VersalNet.
+
+versal_plm:
+Call restore all node right after PMC loaded for Versal Net
+Fix In-Place Update Failures for Versal Net
+Add support for system device-tree flow
+Add EAM Error Check After PMC CDO
+Change exception print to DEBUG_PRINT_ALWAYS
+freertos10_xilinx_v1_14:
+Added support for SDT flow
+Update CortexR52 port to use IRQ instead of FIQ.
+Update CortexR5/r52 port to
+invoke XTimer_ReleaseTickTimer from vPortEndScheduler to release tick
+
 axiethernet_v5_16:
 Update axiethernet.tcl  script to support opensource macro values
 Added support for system device tree flow for drivers and examples
