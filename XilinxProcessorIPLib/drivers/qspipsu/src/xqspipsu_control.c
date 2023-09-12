@@ -27,6 +27,7 @@
  * 			 Microblaze platform.
  * 1.18   sb   08/29/23 Added XQspiPsu_PolledMessageTransfer, XQspiPsu_IntrDataTransfer and
  *                      XQspiPsu_IntrDummyDataTransfer functions.
+ * 1.18   sb   09/11/23 Fix MISRA-C violation 8.13.
  * </pre>
  *
  ******************************************************************************/
@@ -376,7 +377,7 @@ void XQspiPsu_IntrDataTransfer(XQspiPsu *InstancePtr,
 			       u32 *QspiPsuStatusReg, u8 *DeltaMsgCnt)
 {
 	u32 DmaIntrStatusReg = 0;
-	XQspiPsu_Msg *Msg = InstancePtr->Msg;;
+	const XQspiPsu_Msg *Msg = InstancePtr->Msg;
 	s32 NumMsg = InstancePtr->NumMsg;
 	s32 MsgCnt = InstancePtr->MsgCnt;
 	u32 TxRxFlag = Msg[MsgCnt].Flags;
