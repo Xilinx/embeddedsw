@@ -83,6 +83,7 @@
  * 1.18 ht  07/18/23 Fixed GCC warnings.
  * 1.18 sb  08/01/23 Added support for Feed back clock
  * 1.18 sb  08/29/23 Updated PolledTransfer and InterruptHandler functions as modular.
+ * 1.18 sb  09/11/23 Fix MISRA-C violation 8.13.
  *
  * </pre>
  *
@@ -605,7 +606,7 @@ END:
 s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 {
 	u32 QspiPsuStatusReg;
-	XQspiPsu_Msg *Msg;
+	const XQspiPsu_Msg *Msg;
 	s32 NumMsg;
 	s32 MsgCnt;
 	u8 DeltaMsgCnt = 0;
