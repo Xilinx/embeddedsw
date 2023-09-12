@@ -49,6 +49,7 @@
 *                       MISRA-C violation for Rule 10.5
 * 3.18  ml    09/07/23  Removed XTtcPs_ClearInterruptStatus function call to avoid the
 *                       the same operation for 2 times.
+* 3.18  ml    09/07/23  Added U to numerical to fix MISRA-C violation for Rule 10.4
 * </pre>
 *
 ******************************************************************************/
@@ -500,7 +501,7 @@ u8 XTtcPs_GetPrescaler(XTtcPs *InstancePtr)
 	ClockReg = XTtcPs_ReadReg(InstancePtr->Config.BaseAddress,
 				    XTTCPS_CLK_CNTRL_OFFSET);
 
-	if (0 == (ClockReg & XTTCPS_CLK_CNTRL_PS_EN_MASK)) {
+	if (0U == (ClockReg & XTTCPS_CLK_CNTRL_PS_EN_MASK)) {
 		/*
 		 * Prescaler is disabled. Return the correct flag value
 		 */
