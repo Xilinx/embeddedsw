@@ -50,6 +50,7 @@
 * 		     platform.
 * 1.18 sb  08/01/23 Added support for Feed back clock
 * 1.18 sb  09/11/23 Fix MISRA-C violation 10.1.
+* 1.18 sb  09/11/23 Fix MISRA-C violation 2.2 and 2.6.
 *
 * </pre>
 *
@@ -325,7 +326,9 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 {
 	u32 ConfigReg;
 	s32 Status;
+#if defined (versal) || defined (VERSAL_NET)
 	u32 FreqDiv, Divider;
+#endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -339,7 +342,7 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 		Status = (s32)XST_DEVICE_BUSY;
 	} else {
 
-#if defined (versal) ||  defined(VERSAL_NET)
+#if defined (versal) || defined (VERSAL_NET)
 		Divider = (u32)1U << (Prescaler + 1U);
 
 		FreqDiv = (InstancePtr->Config.InputClockHz) / Divider;
@@ -371,7 +374,9 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 		Status = (s32)XST_SUCCESS;
 #endif
 	}
+#if defined (versal) || defined (VERSAL_NET)
 END:
+#endif
 	return Status;
 }
 
