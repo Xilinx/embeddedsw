@@ -14,11 +14,8 @@ type: library
 version: 1.0
 
 supported_processors:
-  - psv_cortexa72
-  - psu_cortexa53
   - psu_cortexr5
   - psv_cortexr5
-  - psx_cortexa78
   - psx_cortexr52
 
 supported_os:
