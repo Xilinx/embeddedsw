@@ -24,6 +24,7 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.10  aru    05/16/19 Removed the redudant code from XTtcPs_SetOptions().
 * 3.18  ml     09/08/23 Updated code to fix MISRA-C violation for Rule 14.3
+* 3.18  ml     09/08/23 Added comments to fix HIS COMF violations.
 * </pre>
 *
 ******************************************************************************/
@@ -101,15 +102,15 @@ s32 XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 	u32 CountReg;
 	u32 ClockReg;
 	u32 Index;
-
+	/*
+	 * Validate input arguments and in case of error conditions assert.
+	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
 	ClockReg = XTtcPs_ReadReg(InstancePtr->Config.BaseAddress,
 				    XTTCPS_CLK_CNTRL_OFFSET);
 	CountReg = XTtcPs_ReadReg(InstancePtr->Config.BaseAddress,
 				    XTTCPS_CNT_CNTRL_OFFSET);
-
 	/*
 	 * Loop through the options table, turning the option on or off
 	 * depending on whether the bit is set in the incoming options flag.
@@ -129,7 +130,6 @@ s32 XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 			}
 		}
 	}
-
 	/*
 	 * Now write the registers. Leave it to the upper layers to restart the
 	 * device.
@@ -138,7 +138,6 @@ s32 XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 				  XTTCPS_CLK_CNTRL_OFFSET, ClockReg);
 		XTtcPs_WriteReg(InstancePtr->Config.BaseAddress,
 				  XTTCPS_CNT_CNTRL_OFFSET, CountReg);
-
 	return XST_SUCCESS;
 }
 
@@ -165,6 +164,9 @@ u32 XTtcPs_GetOptions(XTtcPs *InstancePtr)
 	u32 Register;
 	u32 Index;
 
+        /*
+         * Validate input arguments and in case of error conditions assert.
+         */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
@@ -185,7 +187,6 @@ u32 XTtcPs_GetOptions(XTtcPs *InstancePtr)
 			OptionsFlag |= TmrCtrOptionsTable[Index].Option;
 		}
 	}
-
 	return OptionsFlag;
 }
 /** @} */
