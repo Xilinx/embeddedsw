@@ -25,6 +25,7 @@
 * 1.13	pm    04/01/23 Use Xil_WaitForEvent() API for register bit polling
 * 1.14	pm    09/09/23 Fixed HIS_VOCF metric violation - created common
 *		       functions for set and clear register bits.
+* 1.14	pm    12/09/23 Fixed HIS RETURN Violations
 *
 * </pre>
 *
@@ -65,12 +66,14 @@ void XUsbPsu_PhyReset(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_WaitClearTimeout(struct XUsbPsu *InstancePtr, u32 Offset,
 			     u32 BitMask, u32 Timeout)
 {
+	s32 Status = (s32)XST_SUCCESS;
+
 	if (Xil_WaitForEvent(InstancePtr->ConfigPtr->BaseAddress + Offset,
 			     BitMask, 0x00U, Timeout) != (u32)XST_SUCCESS) {
-		return (s32)XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	}
 
-	return (s32)XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -90,12 +93,14 @@ s32 XUsbPsu_WaitClearTimeout(struct XUsbPsu *InstancePtr, u32 Offset,
 s32 XUsbPsu_WaitSetTimeout(struct XUsbPsu *InstancePtr, u32 Offset,
 			   u32 BitMask, u32 Timeout)
 {
+	s32 Status = (s32)XST_SUCCESS;
+
 	if (Xil_WaitForEvent(InstancePtr->ConfigPtr->BaseAddress + Offset,
 			     BitMask, BitMask, Timeout) != (u32)XST_SUCCESS) {
-		return (s32)XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	}
 
-	return (s32)XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
