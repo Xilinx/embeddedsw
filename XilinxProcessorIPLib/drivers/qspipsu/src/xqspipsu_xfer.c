@@ -20,6 +20,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.18   sb  08/29/2023 Restructured the code for more modularity
+ * 1.18   sb  08/29/2023 Upadte XQspiPsu_PolledRecvData api to fix MISRA-C warnings.
  *
  * </pre>
  ******************************************************************************/
@@ -129,10 +130,6 @@ s32 XQspiPsu_PolledRecvData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 
 			*IOPending = XQspiPsu_SetIOMode(InstancePtr, &Msg[Index]);
 			InstancePtr->RxBytes = 0;
-			if (*IOPending == (u32)TRUE) {
-				Status = (s32)TRUE;
-				goto END;
-			}
 		}
 	} else {
 		QspiPsuStatusReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_ISR_OFFSET);
