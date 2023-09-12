@@ -28,6 +28,7 @@
  * 1.18   sb   08/29/23 Added XQspiPsu_PolledMessageTransfer, XQspiPsu_IntrDataTransfer and
  *                      XQspiPsu_IntrDummyDataTransfer functions.
  * 1.18   sb   09/11/23 Fix MISRA-C violation 8.13.
+ * 1.18   sb   09/11/23 Update XQspiPsu_PolledMessageTransfer api to fix MISRA-C warnings.
  * </pre>
  *
  ******************************************************************************/
@@ -326,9 +327,10 @@ s32 XQspiPsu_PolledMessageTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			}
 			if ((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE) {
 				Status = XQspiPsu_PolledRecvData(InstancePtr, Msg, Index, &IOPending);
-				if (Status == (s32)XST_FAILURE) {
+				if (Status != (s32)XST_SUCCESS) {
 					goto END;
-				} else if (Status == (s32)TRUE) {
+				}
+				if (IOPending == (u32)TRUE) {
 					break;
 				}
 			}
