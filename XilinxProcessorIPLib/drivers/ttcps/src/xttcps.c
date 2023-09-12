@@ -43,6 +43,8 @@
 * 3.10  aru    05/30/19 Added interrupt handler to clear ISR
 * 3.18  gm    06/26/23	Added PM Request node support.
 * 3.18  gm    07/17/23	Added PM Release node support.
+* 3.18  ml    09/08/23  Updated code by using ternary operator
+*                       to fix MISRA-C violation for Rule 10.3
 * </pre>
 *
 ******************************************************************************/
@@ -192,7 +194,7 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 	InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
 #endif
 
-	IsStartResult = XTtcPs_IsStarted(InstancePtr);
+	IsStartResult = XTtcPs_IsStarted(InstancePtr)? 1U: 0U;
 	/*
 	 * If the timer counter has already started, return an error
 	 * Device should be stopped first.
