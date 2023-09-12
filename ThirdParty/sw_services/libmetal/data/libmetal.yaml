@@ -20,6 +20,8 @@ supported_processors:
   - psv_cortexr5
   - psx_cortexa78
   - psx_cortexr52
+  - psu_pmu
+  - psv_pmc
 
 supported_os:
   - standalone
