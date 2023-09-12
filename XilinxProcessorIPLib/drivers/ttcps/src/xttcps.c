@@ -51,6 +51,7 @@
 *                       the same operation for 2 times.
 * 3.18  ml    09/07/23  Added U to numerical to fix MISRA-C violation for Rule 10.4
 * 3.18  ml    09/08/23  Typecast with u32 to fix MISRA-C violation for Rule 12.2 and 10.7
+* 3.18  ml     09/08/23 Added comments to fix HIS COMF violations.
 * </pre>
 *
 ******************************************************************************/
@@ -355,7 +356,7 @@ u32 XTtcPs_Release(XTtcPs *InstancePtr)
 void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, XMatchRegValue Value)
 {
 	/*
-	 * Assert to validate input arguments.
+	 * Validate input arguments and in case of error conditions assert.
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -389,7 +390,7 @@ XMatchRegValue XTtcPs_GetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex)
 	u32 MatchReg;
 
 	/*
-	 * Assert to validate input arguments.
+	 * Validate input arguments and in case of error conditions assert.
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -628,15 +629,10 @@ u32 XTtcPs_InterruptHandler(XTtcPs *InstancePtr)
 {
 	u32 XTtcPsStatusReg;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
 	XTtcPsStatusReg = XTtcPs_GetInterruptStatus(InstancePtr);
 	InstancePtr->StatusHandler(InstancePtr->StatusRef,
 			                                XTtcPsStatusReg);
 	return XST_SUCCESS;
-
-
-
 }
 
 /*****************************************************************************/
@@ -665,10 +661,12 @@ u32 XTtcPs_InterruptHandler(XTtcPs *InstancePtr)
 void XTtcPs_SetStatusHandler(XTtcPs *InstancePtr, void *CallBackRef,
 		XTtcPs_StatusHandler FuncPointer)
 {
+	/*
+	 * Validate input arguments and in case of error conditions assert.
+	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(FuncPointer != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
 	InstancePtr->StatusHandler = FuncPointer;
 	InstancePtr->StatusRef = CallBackRef;
 }
