@@ -64,6 +64,7 @@
 *                       LPD not initialized
 *       sk   08/17/2023 Added declaration for XPlmi_GetEmSubsystemId,
 *                       define for Invalid Subsystem
+*       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -238,7 +239,7 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask);
 u32 XPlmi_GetErrorId(u32 ErrorNodeId, u32 RegMask);
 int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask);
 int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask);
-int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
+int XPlmi_EmConfig(XPlmi_EventType NodeType, u32 ErrorId, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler, const u32 SubsystemId);
 u32 EmDisableErrAction(u32 ErrMaskRegAddr, u32 RegMask);
 int XPlmi_ErrorTaskHandler(void *Data);
