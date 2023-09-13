@@ -41,28 +41,28 @@ extern "C" {
 #include "xstatus.h"
 
 /************************** Constant Definitions *****************************/
-#define XOCP_PCR_SIZE_WORDS			(12U)
-#define XOCP_PCR_SIZE_BYTES			(48U)
+#define XOCP_PCR_SIZE_WORDS			(12U) /**< PCR size in words */
+#define XOCP_PCR_SIZE_BYTES			(48U) /**< PCR size in bytes */
 
-#define XOCP_DME_DEVICE_ID_SIZE_WORDS		(12U)
-#define XOCP_DME_DEVICE_ID_SIZE_BYTES		(XOCP_DME_DEVICE_ID_SIZE_WORDS << 2U)
+#define XOCP_DME_DEVICE_ID_SIZE_WORDS		(12U) /**< Device id size in words */
+#define XOCP_DME_DEVICE_ID_SIZE_BYTES		(XOCP_DME_DEVICE_ID_SIZE_WORDS << 2U) /**< Device id size in bytes */
 
-#define XOCP_DME_NONCE_SIZE_WORDS		(8U)
-#define XOCP_DME_NONCE_SIZE_BYTES		(XOCP_DME_NONCE_SIZE_WORDS << 2U)
+#define XOCP_DME_NONCE_SIZE_WORDS		(8U) /**< Nonce size in words */
+#define XOCP_DME_NONCE_SIZE_BYTES		(XOCP_DME_NONCE_SIZE_WORDS << 2U) /**< Nonce size in bytes */
 
-#define XOCP_DME_MEASURE_SIZE_WORDS		(12U)
-#define XOCP_DME_MEASURE_SIZE_BYTES		(XOCP_DME_MEASURE_SIZE_WORDS << 2U)
+#define XOCP_DME_MEASURE_SIZE_WORDS		(12U) /**< Measurement size in words */
+#define XOCP_DME_MEASURE_SIZE_BYTES		(XOCP_DME_MEASURE_SIZE_WORDS << 2U) /**< Measurement size in bytes */
 
-#define XOCP_ECC_P384_SIZE_WORDS		(12U)
-#define XOCP_ECC_P384_SIZE_BYTES		(48U)
-#define XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES	(96U)
+#define XOCP_ECC_P384_SIZE_WORDS		(12U) /**< Curve P384 size in words */
+#define XOCP_ECC_P384_SIZE_BYTES		(48U) /**< Curve P384 size in bytes */
+#define XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES	(96U) /**< Size of P384 public key in bytes */
 
-#define XOCP_MAX_NUM_OF_HWPCR_EVENTS		(32U)
-#define XOCP_SHA3_LEN_IN_BYTES          	(48U)
-#define XOCP_MAX_NUM_OF_SWPCRS			(0x40U)
-#define XOCP_NUM_OF_SWPCRS			(0x8U)
-#define XOCP_EVENT_ID_NUM_OF_BYTES		(4U)
-#define XOCP_VERSION_NUM_OF_BYTES		(1U)
+#define XOCP_MAX_NUM_OF_HWPCR_EVENTS		(32U) /**< Maximum number of hardware pcr events */
+#define XOCP_SHA3_LEN_IN_BYTES          	(48U) /**< Lenght of sha3 hash in bytes */
+#define XOCP_MAX_NUM_OF_SWPCRS			(0x40U) /**< Maximum number of software pcrs */
+#define XOCP_NUM_OF_SWPCRS			(0x8U) /**< Number of software pcrs */
+#define XOCP_EVENT_ID_NUM_OF_BYTES		(4U) /**< Number of bytes of pcr event ID*/
+#define XOCP_VERSION_NUM_OF_BYTES		(1U) /**< Number of bytes of ocp version */
 
 /**************************** Type Definitions *******************************/
 
@@ -123,10 +123,10 @@ typedef struct {
 } XOcp_HwPcrLogInfo;
 
 typedef struct {
-	XOcp_HwPcrEvent Buffer[XOCP_MAX_NUM_OF_HWPCR_EVENTS];
-	XOcp_HwPcrLogInfo LogInfo;
-	u32 HeadIndex;
-	u32 TailIndex;
+	XOcp_HwPcrEvent Buffer[XOCP_MAX_NUM_OF_HWPCR_EVENTS]; /**< Stores hardware pcr events */
+	XOcp_HwPcrLogInfo LogInfo; /**< Log information of hardware pcr */
+	u32 HeadIndex; /**< Starting index of hardware pcr event */
+	u32 TailIndex; /**< Last index of hardware pcr event */
 } XOcp_HwPcrLog;
 /*
  * SW PCR extend params
@@ -181,10 +181,10 @@ typedef struct {
 } XOcp_X509Cert;
 
 typedef struct {
-	u64 HashAddr;
-	u64 SignatureAddr;
-	u32 Reserved;
-	u32 HashLen;
+	u64 HashAddr; /**< Address of the hash */
+	u64 SignatureAddr; /**< Address of the signature */
+	u32 Reserved; /**<  Reserved this field is not been used */
+	u32 HashLen; /**< Length of the hash */
 } XOcp_Attest;
 
 typedef enum {
