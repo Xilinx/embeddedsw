@@ -55,6 +55,7 @@
 *                       in XPlmi_SsitErrHandler
 *       rama 08/10/2023 Changed SSIT sync error prints to DEBUG_ALWAYS for
 *                       debug level_0 option
+*       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -1927,7 +1928,7 @@ END:
 #else
 	(void)Payload;
 	(void)RespBuf;
-	Status = XPLMI_SSIT_INTR_NOT_ENABLED;
+	Status = (int)XPLMI_SSIT_INTR_NOT_ENABLED;
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 	return Status;

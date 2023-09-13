@@ -34,6 +34,7 @@
 *       ng   07/05/2023 added system device tree support
 * 1.03  sk   07/18/2023 Updated error codes in VerifyAddrRange function
 *       bm   09/07/2023 Allow loading of ELFs into XRAM
+*       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -151,7 +152,7 @@ XInterruptHandler *XPlmi_GetTopLevelIntrTbl(void)
  *****************************************************************************/
 u8 XPlmi_GetTopLevelIntrTblSize(void)
 {
-	return XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable);
+	return (u8)XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable);
 }
 
 /*****************************************************************************/
@@ -556,7 +557,7 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 	volatile int Status = XST_FAILURE;
 
 	if (EndAddr < StartAddr) {
-		Status = XPLMI_ERROR_INVALID_ADDRESS;
+		Status = (int)XPLMI_ERROR_INVALID_ADDRESS;
 		goto END;
 	}
 
@@ -564,7 +565,7 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 		(StartAddr > (u64)XPLMI_4GB_END_ADDR)) {
 		if ((StartAddr >= (u64)XPLMI_RSVD_BASE_ADDR) &&
 			(EndAddr <= (u64)XPLMI_RSVD_HIGH_ADDR)) {
-			Status = XPLMI_ERROR_INVALID_ADDRESS;
+			Status = (int)XPLMI_ERROR_INVALID_ADDRESS;
 		}
 		else {
 			/* Addr range less than AXI FPD high addr or greater
@@ -603,11 +604,11 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 			}
 			else {
 				/* Rest of the Addr range is treated as invalid */
-				Status = XPLMI_ERROR_INVALID_ADDRESS;
+				Status = (int)XPLMI_ERROR_INVALID_ADDRESS;
 			}
 		}
 		else {
-			Status = XPLMI_ERROR_LPD_NOT_INITIALIZED;
+			Status = (int)XPLMI_ERROR_LPD_NOT_INITIALIZED;
 		}
 	}
 

@@ -29,6 +29,7 @@
 *       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.02  sk   08/17/2023 Updated XPlmi_EmConfig arguments
+*       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -510,7 +511,7 @@ void XPlmi_ReconfigErrActions(void)
 {
 	u8 ErrIndex;
 	u32 ErrorNodeId;
-	u32 NodeType;
+	XPlmi_EventType NodeType;
 
 	for (ErrIndex = 0U; ErrIndex < XPLMI_ARRAY_SIZE(ErrorTable); ErrIndex++) {
 		ErrorTable[ErrIndex].Handler = NULL;
@@ -524,7 +525,7 @@ void XPlmi_ReconfigErrActions(void)
 		}
 		ErrorNodeId = XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
 			((ErrIndex / XPLMI_MAX_ERR_BITS) * XPLMI_EVENT_ERROR_OFFSET);
-		NodeType = XPlmi_EventNodeType(ErrorNodeId);
+		NodeType = (XPlmi_EventType)XPlmi_EventNodeType(ErrorNodeId);
 		if (XPlmi_EmConfig(NodeType, ErrIndex, ErrorTable[ErrIndex].Action,
 			ErrorTable[ErrIndex].Handler, ErrorTable[ErrIndex].SubsystemId) != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL,
@@ -544,11 +545,11 @@ void XPlmi_ReconfigErrActions(void)
  * @return	Event Index
  *
  *****************************************************************************/
-u8 XPlmi_GetEventIndex(u32 ErrorNodeType)
+u8 XPlmi_GetEventIndex(XPlmi_EventType ErrorNodeType)
 {
 	u8 Index;
 
-	switch ((XPlmi_EventType)ErrorNodeType) {
+	switch (ErrorNodeType) {
 		case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		case XPLMI_NODETYPE_EVENT_PMC_ERR2:
 		case XPLMI_NODETYPE_EVENT_PMC_ERR3:
