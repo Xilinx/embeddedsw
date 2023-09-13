@@ -61,6 +61,7 @@
 *       sk   07/31/2023 Added Redundant call for Sldstate check
 *       rama 08/10/2023 Changed CDO cmd execute failure prints to DEBUG_ALWAYS
 *                       for debug level_0 option
+*       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -427,7 +428,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	 */
 	CdoLevel++;
 	if (CdoLevel > XPLMI_MAX_RECURSIVE_CDO_PROCESS) {
-		Status = XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS;
+		Status = (int)XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS;
 		goto END;
 	}
 
@@ -528,7 +529,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		/** - Handle the break command processed in current chunk */
 		if (CdoPtr->Cmd.BreakLength > 0U) {
 			if (CdoPtr->Cmd.BreakLength < CdoPtr->ProcessedCdoLen) {
-				Status = XPLMI_INVALID_BREAK_LENGTH;
+				Status = (int)XPLMI_INVALID_BREAK_LENGTH;
 				goto END;
 			}
 			if (BufLen > (Size + CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen)) {

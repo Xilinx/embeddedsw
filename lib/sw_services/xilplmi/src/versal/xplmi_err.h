@@ -24,6 +24,7 @@
 *       bm   01/03/2023 Remove Triggering of SSIT ERR2 from Slave SLR to
 *                       Master SLR
 *       dd   03/28/2023 Updated doxygen comments
+*       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -98,7 +99,7 @@ void XPlmi_SysmonClkSetIro(void);
 void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
 		u32 Cpm5DmaCsrIntDecReg, u32 ProcId);
 void XPlmi_DumpErrNGicStatus(void);
-u8 XPlmi_GetEventIndex(u32 ErrorNodeType);
+u8 XPlmi_GetEventIndex(XPlmi_EventType ErrorNodeType);
 void XPlmi_ClearSsitErrors(u32 *PmcErrStatus, u32 Index);
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 void XPlmi_DetectSlaveSlrTamper(void);

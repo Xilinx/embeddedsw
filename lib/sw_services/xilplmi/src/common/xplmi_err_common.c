@@ -127,7 +127,7 @@
 *       sk   08/18/2023 Added redundant call for XPlmi_TriggerSLDOnHaltBoot
 *       rama 08/30/2023 Changed EAM prints to DEBUG_ALWAYS for debug level_0 option
 *       mss  09/04/2023 Added Null Check for EmInit
-*
+*       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 * </pre>
 *
 * @note
@@ -179,7 +179,7 @@ static s32 (* PmSubsysRestart)(const u32 SubsystemId);
 static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask);
-static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId);
+static void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId);
 static void XPlmi_DumpRegisters(void);
 static void XPlmi_ErrOutNClearFwCR(u32 ErrorId);
 static u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType);
@@ -383,7 +383,7 @@ u32 XPlmi_GetErrorId(u32 ErrorNodeId, u32 RegMask)
 static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
 {
 	u32 ErrorId;
-	u32 ErrorNodeType = XPlmi_EventNodeType(ErrorNodeId);
+	XPlmi_EventType ErrorNodeType = (XPlmi_EventType)XPlmi_EventNodeType(ErrorNodeId);
 	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
 
 	ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
@@ -737,7 +737,7 @@ int XPlmi_ErrorTaskHandler(void *Data)
 					XPlmi_ErrPSMIntrHandler(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
 						(ErrIndex * XPLMI_EVENT_ERROR_OFFSET), RegMask);
 				}
-				XPlmi_EmClearError((u32)XPLMI_NODETYPE_EVENT_PMC_ERR1 + ErrIndex,
+				XPlmi_EmClearError((XPlmi_EventType)(XPLMI_NODETYPE_EVENT_PMC_ERR1 + ErrIndex),
 						Index);
 			}
 		}
@@ -785,7 +785,7 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
  * 			- None
  *
  *****************************************************************************/
-static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId)
+static void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId)
 {
 	u32 RegMask = XPlmi_ErrRegMask(ErrorId);
 	u32 Index;
@@ -793,13 +793,13 @@ static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId)
 
 	switch (XPlmi_GetEventIndex(ErrorNodeType)) {
 	case XPLMI_NODETYPE_EVENT_PMC_INDEX:
-		Index = ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PMC_ERR1;
+		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PMC_ERR1;
 		/* Clear previous errors */
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS +
 			(Index * PMC_GLOBAL_REG_PMC_ERR_OFFSET), RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_INDEX:
-		Index = ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PSM_ERR1;
+		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PSM_ERR1;
 		/* Clear previous errors */
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR1_STATUS +
 			(Index * PSM_GLOBAL_REG_PSM_ERR_OFFSET), RegMask);
@@ -942,21 +942,21 @@ int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask)
 int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask)
 {
 	int Status = XPLMI_ERROR_ACTION_NOT_DISABLED;
-	u32 ErrorNodeType = XPlmi_EventNodeType(ErrorNodeId);
+	XPlmi_EventType ErrorNodeType = (XPlmi_EventType)XPlmi_EventNodeType(ErrorNodeId);
 	u32 Index;
 
 	switch (XPlmi_GetEventIndex(ErrorNodeType)) {
 	case XPLMI_NODETYPE_EVENT_PMC_INDEX:
-		Index = ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PMC_ERR1;
+		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PMC_ERR1;
 		/**
-		 * - For XPLMI_NODETYPE_EVENT_PMC_INDEX - Disable POR, SRST,
+		 * - For XPLMI_NODETYPE_ErrorNodeTypeEVENT_PMC_INDEX - Disable POR, SRST,
 		 *   Interrupt and PS Error Out.
 		 */
 		Status = XPlmi_EmDisablePmcErrors(
 				GET_PMC_ERR_ACTION_OFFSET(Index), RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_INDEX:
-		Index = ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PSM_ERR1;
+		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PSM_ERR1;
 		/**
 		 * - For XPLMI_NODETYPE_EVENT_PSM_INDEX - Disable CR / NCR to PMC,
 		 *   Interrupt.
@@ -998,7 +998,7 @@ int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask)
  * 			- XPLMI_INVALID_ERROR_TYPE on invalid error type.
  *
  *****************************************************************************/
-static int XPlmi_EmEnableAction(u32 ErrorNodeType, u32 RegMask, u8 Action)
+static int XPlmi_EmEnableAction(XPlmi_EventType ErrorNodeType, u32 RegMask, u8 Action)
 {
 	int Status = XPLMI_ERROR_ACTION_NOT_ENABLED;
 	u32 Index;
@@ -1035,12 +1035,12 @@ static int XPlmi_EmEnableAction(u32 ErrorNodeType, u32 RegMask, u8 Action)
 	switch (XPlmi_GetEventIndex(ErrorNodeType)) {
 	case XPLMI_NODETYPE_EVENT_PMC_INDEX:
 		/* Enable error action for given PMC error mask */
-		Index = ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PMC_ERR1;
+		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PMC_ERR1;
 		Status = EmEnableErrAction(GET_PMC_ERR_ACTION_ADDR(PmcActionMask,
 					Index), RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_INDEX:
-		Index = ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PSM_ERR1;
+		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PSM_ERR1;
 		/*
 		 * If PMC PSM CR error action is POR or SRST or ERROUT, set
 		 * the error action for the given error as PSM CR to handle
@@ -1090,7 +1090,7 @@ END:
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
+int XPlmi_EmConfig(XPlmi_EventType NodeType, u32 ErrorId, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler, const u32 SubsystemId)
 {
 	int Status = XST_FAILURE;
@@ -1148,8 +1148,8 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler, const u32 SubsystemId)
 {
 	int Status = XST_FAILURE;
-	u32 NodeType =  XPlmi_EventNodeType(ErrorNodeId);
-	u32 ErrorId = NodeType * (u32)XPLMI_MAX_ERR_BITS;
+	XPlmi_EventType NodeType = (XPlmi_EventType)XPlmi_EventNodeType(ErrorNodeId);
+	u32 ErrorId = (u32)NodeType * (u32)XPLMI_MAX_ERR_BITS;
 	u32 RegMask;
 	u32 ErrMasks = ErrorMasks;
 	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();

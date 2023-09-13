@@ -28,6 +28,7 @@
 *       sk   08/17/2023 Updated XPlmi_EmSetAction arguments
 *       rama 08/30/2023 Changed XMPU & XPPU error prints to DEBUG_ALWAYS for
 *                       debug level_0 option
+*       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -415,11 +416,11 @@ u32 *XPlmi_GetPsmCrState(void)
  * @return	Event Index
  *
  *****************************************************************************/
-u8 XPlmi_GetEventIndex(u32 ErrorNodeType)
+u8 XPlmi_GetEventIndex(XPlmi_EventType ErrorNodeType)
 {
 	u8 Index;
 
-	switch ((XPlmi_EventType)ErrorNodeType) {
+	switch (ErrorNodeType) {
 		case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		case XPLMI_NODETYPE_EVENT_PMC_ERR2:
 			Index = XPLMI_NODETYPE_EVENT_PMC_INDEX;
