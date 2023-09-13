@@ -101,6 +101,7 @@
 *       bm   07/06/2023 Refactored Proc logic to more generic logic
 *       bm   07/06/2023 Added list commands
 *       sk   08/30/2023 Added Address range check for PSM Buff List
+*       dd   09/12/2023 MISRA-C violation Rule 14.4 fixed
 *
 * </pre>
 *
@@ -2333,7 +2334,7 @@ static int XPlmi_TamperTrigger(XPlmi_Cmd *Cmd)
 	/* Execute secure lockdown */
 	XPlmi_TriggerTamperResponse(TamperResp, XPLMI_TRIGGER_TAMPER_TASK);
 
-	if (Cmd->IpiMask) {
+	if (Cmd->IpiMask != 0) {
 		Status = XST_SUCCESS;
 	}
 
