@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2015 - 2021, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2015-2022 Xilinx, Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -40,7 +41,8 @@ struct metal_list {
 
 static inline void metal_list_init(struct metal_list *list)
 {
-	list->next = list->prev = list;
+	list->prev = list;
+	list->next = list->prev;
 }
 
 static inline void metal_list_add_before(struct metal_list *node,
@@ -82,7 +84,8 @@ static inline void metal_list_del(struct metal_list *node)
 {
 	node->next->prev = node->prev;
 	node->prev->next = node->next;
-	node->next = node->prev = node;
+	node->prev = node;
+	node->next = node->prev;
 }
 
 static inline struct metal_list *metal_list_first(struct metal_list *list)
