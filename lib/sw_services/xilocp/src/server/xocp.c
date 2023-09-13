@@ -47,26 +47,26 @@
 #include "xsecure_sha384.h"
 
 /************************** Constant Definitions *****************************/
-#define XOCP_SHA3_LEN_IN_BYTES		(48U)
-#define XOCP_PCR_IN_BYTE1_OF_PLOAD_MASK	(0x0000FF00U)
-#define XOCP_PCR_IN_BYTE3_OF_PLOAD_MASK	(0xFF000000U)
-#define XOCP_DIGESTS_IN_BYTE0_PLOAD_MASK (0x000000FFU)
-#define XOCP_DIGESTS_IN_BYTE2_PLOAD_MASK (0x00FF0000U)
-#define XOCP_MEASUREIDX_IN_PLOAD_MASK (0x000000FFU)
-#define XOCP_HALF_WORD_SHIFT_LEN	(16U)
-#define XOCP_SINGLE_BYTE_SHIFT		(8U)
-#define XOCP_PAYLOAD_START_INDEX	(1U)
-#define XOCP_DOUBLE_NUM_OF_WORDS	(2U)
-#define XOCP_XPPU_MAX_APERTURES		(19U)
-#define XOCP_XPPU_ENABLED		(0xFFFFFFFFU)
-#define XOCP_XPPU_MASTER_ID_0		(17U)
-#define XOCP_XPPU_MASTER_ID_1		(18U)
-#define XOCP_GET_ALL_PCR_MASK		(0x0000000FU) /**< All PCR read mask */
-#define XOCP_HW_PCR			(0x0U)	/**< HW PCR type */
-#define XOCP_SW_PCR			(0x1U)  /**< SW PCR type */
-#define XOCP_SW_PCR_NUM_FOR_ROM_DIGEST	(0U)	/**< SW PCR number to extend ROM digest */
-#define XOCP_SW_PCR_NUM_FOR_PLM_DIGEST	(1U)	/**< SW PCR number to extend PLM digest */
-#define XOCP_SW_PCR_MEASUREMENT_IDX_ROM_PLM	(0U) /**< Measurement index for ROM and PLM extension */
+#define XOCP_SHA3_LEN_IN_BYTES		(48U) /**< Length of Sha3 hash in bytes */
+#define XOCP_PCR_IN_BYTE1_OF_PLOAD_MASK	(0x0000FF00U) /**< Payload mask of PCR in byte 1 */
+#define XOCP_PCR_IN_BYTE3_OF_PLOAD_MASK	(0xFF000000U) /**< Payload mask of PCR in byte 3 */
+#define XOCP_DIGESTS_IN_BYTE0_PLOAD_MASK (0x000000FFU) /**< Payload mask of digests in byte 0 */
+#define XOCP_DIGESTS_IN_BYTE2_PLOAD_MASK (0x00FF0000U) /**< Payload mask of digests in byte 2 */
+#define XOCP_MEASUREIDX_IN_PLOAD_MASK (0x000000FFU) /**< Payload mask of measure id */
+#define XOCP_HALF_WORD_SHIFT_LEN	(16U) /**< Used in the extraction of data of half word */
+#define XOCP_SINGLE_BYTE_SHIFT		(8U) /**< To shift 8-bit */
+#define XOCP_PAYLOAD_START_INDEX	(1U) /**< Start index of payload */
+#define XOCP_DOUBLE_NUM_OF_WORDS	(2U) /**< To double number of words */
+#define XOCP_XPPU_MAX_APERTURES         (19U) /**< Maximum XPPU apertures */
+#define XOCP_XPPU_ENABLED               (0xFFFFFFFFU) /**< XPPU enabled */
+#define XOCP_XPPU_MASTER_ID_0           (17U) /**< XPPU master id 0 */
+#define XOCP_XPPU_MASTER_ID_1           (18U) /**< XPPU master id 1 */
+#define XOCP_GET_ALL_PCR_MASK           (0x0000000FU) /**< All PCR read mask */
+#define XOCP_HW_PCR                     (0x0U)  /**< HW PCR type */
+#define XOCP_SW_PCR                     (0x1U)  /**< SW PCR type */
+#define XOCP_SW_PCR_NUM_FOR_ROM_DIGEST  (0U)    /**< SW PCR number to extend ROM digest */
+#define XOCP_SW_PCR_NUM_FOR_PLM_DIGEST  (1U)    /**< SW PCR number to extend PLM digest */
+#define XOCP_SW_PCR_MEASUREMENT_IDX_ROM_PLM     (0U) /**< Measurement index for ROM and PLM extension */
 
 /**************************** Type Definitions *******************************/
 static XOcp_DmeXppuCfg XOcp_DmeXppuCfgTable[XOCP_XPPU_MAX_APERTURES] =
@@ -710,7 +710,7 @@ END:
  *
  * @param	NonceAddr holds the address of 32 bytes buffer Nonce,
  *		which shall be used to fill one of the member of DME structure
- * @param	DmeStructResAddsr is the address to the 224 bytes buffer,
+ * @param	DmeStructResAddr is the address to the 224 bytes buffer,
  *		which is used to store the response to DME challenge request of
  *		type XOcp_DmeResponse.
  *
