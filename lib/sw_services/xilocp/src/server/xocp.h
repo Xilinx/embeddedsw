@@ -45,17 +45,23 @@ extern "C" {
 #define XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL		(0x03FF0247U)
 							/**< PPU1 SMID */
 #define XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL		(0x10000001U)
+							/**< PPU0 configuration value */
 #define XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL	(0x00000003U)
+							/**< PPU1 configuration value */
 #define XOCP_XPPU_DYNAMIC_RECONFIG_APER_SET_VALUE	(0x31U)
-#define XOCP_PMC_XPPU_CTRL_ENABLE_VAL			(0x1U)
-#define XOCP_PMC_XPPU_CTRL_DISABLE_VAL			(0x0U)
+							  /**< Dynamic reconfiguration set value */
+#define XOCP_PMC_XPPU_CTRL_ENABLE_VAL			(0x1U) /**< XPPU enable value */
+#define XOCP_PMC_XPPU_CTRL_DISABLE_VAL			(0x0U) /**< XPPU disable value */
 #define XOcp_MemCopy								XPlmi_DmaXfr
+							/**< Data transfer through DMA */
 #define XOcp_Printf								XPlmi_Printf
-#define XOCP_WORD_LEN					(0x4U)
-#define XOCP_PCR_NUMBER_MASK 				(0x0000FFFFU)
+							/**< XILOCP print function */
+#define XOCP_WORD_LEN					(0x4U) /**< Word length */
+#define XOCP_PCR_NUMBER_MASK 				(0x0000FFFFU) /**< Number mask value */
 #define XOCP_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)
-#define XOCP_PCR_INVALID_VALUE 				(0xFFFFFFFFU)
-#define XOCP_PCR_HASH_SIZE_IN_BYTES			(48U)
+							 /**< Measurement index mask value */
+#define XOCP_PCR_INVALID_VALUE 				(0xFFFFFFFFU) /**< PCR invalid value */
+#define XOCP_PCR_HASH_SIZE_IN_BYTES			(48U) /**< Hash size in bytes */
 
 /**************************** Type Definitions *******************************/
 /*
