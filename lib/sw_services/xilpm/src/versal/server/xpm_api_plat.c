@@ -1427,7 +1427,7 @@ XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_API(PM_IOCTL):
 		Version[0] = XST_API_PM_IOCTL_VERSION;
 		Version[1] = (u32)(PM_IOCTL_FEATURE_BITMASK);
-		Version[2] = (u32)(PM_IOCTL_FEATURE_BITMASK >> 32);
+		Version[2] = (u32)((PM_IOCTL_FEATURE_BITMASK) >> 32);
 		Status = XST_SUCCESS;
 		break;
 	default:
