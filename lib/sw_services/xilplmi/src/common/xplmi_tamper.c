@@ -27,6 +27,7 @@
 * 1.02  skd  04/10/2023 Fix third party review comments
 * 1.03  sk   07/18/2023 Added NULL check in RegisterTamperIntrHandler
 *       sk   08/17/2023 Updated XPlmi_EmSetAction arguments
+*       dd   09/12/2023 MISRA-C violation Rule 17.7 fixed
 *
 * </pre>
 *
@@ -169,9 +170,9 @@ static int XPlmi_ProcessTamperResponse(void *Data)
 		/**
 		 * Disable PMC EAM interrupts
 		 */
-		XPlmi_EmDisablePmcErrors(XPLMI_PMC_PSM_ERR1_REG_OFFSET,
+		(void)XPlmi_EmDisablePmcErrors(XPLMI_PMC_PSM_ERR1_REG_OFFSET,
 			MASK32_ALL_HIGH);
-		XPlmi_EmDisablePmcErrors(XPLMI_PMC_PSM_ERR2_REG_OFFSET,
+		(void)XPlmi_EmDisablePmcErrors(XPLMI_PMC_PSM_ERR2_REG_OFFSET,
 			MASK32_ALL_HIGH);
 		/**
 		 * Reduce PL frequency by half

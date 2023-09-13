@@ -128,6 +128,7 @@
 *       rama 08/30/2023 Changed EAM prints to DEBUG_ALWAYS for debug level_0 option
 *       mss  09/04/2023 Added Null Check for EmInit
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
+*       dd   09/12/2023 MISRA-C violation Rule 17.7 fixed
 * </pre>
 *
 * @note
@@ -665,7 +666,7 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	 * at IOMODULE level
 	 */
 	XPlmi_TaskTriggerNow(Task);
-	XPlmi_PlmIntrDisable(XPLMI_IOMODULE_ERR_IRQ);
+	(void)XPlmi_PlmIntrDisable(XPLMI_IOMODULE_ERR_IRQ);
 
 END:
 	return;
@@ -746,7 +747,7 @@ int XPlmi_ErrorTaskHandler(void *Data)
 	/**
 	 * - Clear and enable EAM errors at IOMODULE level
 	 */
-	XPlmi_PlmIntrClear(XPLMI_IOMODULE_ERR_IRQ);
+	(void)XPlmi_PlmIntrClear(XPLMI_IOMODULE_ERR_IRQ);
 	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_ERR_IRQ);
 
 	return XST_SUCCESS;
