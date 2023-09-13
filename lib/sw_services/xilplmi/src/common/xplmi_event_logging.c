@@ -50,6 +50,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 * 1.07  ng   03/12/2023 Fixed Coverity warnings
 * 1.07  ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       dd   09/12/2023 MISRA-C violation Rule 10.8 fixed
 *
 * </pre>
 *
@@ -79,9 +80,9 @@
  * @{
  */
 
-#define XPLMI_DEBUG_LOG_BUFFER_HIGH_ADDR	((u64)XPLMI_DEBUG_LOG_BUFFER_ADDR + \
+#define XPLMI_DEBUG_LOG_BUFFER_HIGH_ADDR	(XPLMI_DEBUG_LOG_BUFFER_ADDR + \
 						XPLMI_DEBUG_LOG_BUFFER_LEN - 1U)
-#define XPLMI_TRACE_LOG_BUFFER_HIGH_ADDR	((u64)XPLMI_TRACE_LOG_BUFFER_ADDR + \
+#define XPLMI_TRACE_LOG_BUFFER_HIGH_ADDR	(XPLMI_TRACE_LOG_BUFFER_ADDR + \
 						XPLMI_TRACE_LOG_BUFFER_LEN - 1U)
 
 #define XPLMI_TRACE_LOG_BUFFER	(0U)
