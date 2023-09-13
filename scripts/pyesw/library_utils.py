@@ -316,7 +316,6 @@ class Library(Repo):
 
     def config_lib(self, comp_name, lib_list, cmake_cmd_append, is_app=False):
         lib_config = {}
-        ignore_lib = False
         if lib_list:
             # Run cmake configuration with all the default cache entries
             build_metadata = os.path.join(self.libsrc_folder, "build_configs/gen_bsp")
@@ -340,11 +339,11 @@ class Library(Repo):
                         cwd = build_metadata
                     )
             except:
-                ignore_lib = True
                 lib_path = os.path.join(self.libsrc_folder, comp_name)
                 # Remove library src folder from libsrc
                 utils.remove(lib_path)
                 self.modify_cmake_subdirs(lib_list, action='remove')
+                sys.exit(1)
 
             # Get the default cmake entries into yaml configuration file
             ignore_default_data_list = ["standalone", "freertos10_xilinx", "libsrc"]
@@ -392,10 +391,9 @@ class Library(Repo):
                         else:
                             example_dict.update({ex:[]})
                     self.lib_info[lib].update({"examples":example_dict})
-            if not ignore_lib:
-                # Update the yaml config file with new entries.
-                utils.update_yaml(self.domain_config_file, "domain", "lib_config", lib_config)
-                utils.update_yaml(self.domain_config_file, "domain", "lib_info", self.lib_info)
+            # Update the yaml config file with new entries.
+            utils.update_yaml(self.domain_config_file, "domain", "lib_config", lib_config)
+            utils.update_yaml(self.domain_config_file, "domain", "lib_info", self.lib_info)
 
     def gen_lib_metadata(self, lib):
         _, src_dir, dst_dir = self.copy_lib_src(lib)
