@@ -55,6 +55,7 @@
 *       bm   03/11/2023 Added status check for XPlmi_PreInit
 * 1.08  sk   07/18/2023 Warn out for uart init fail
 *       sk   07/26/2023 Added redundant check for XPlmi_IsPlmUpdateDone
+*       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -411,7 +412,7 @@ void XPlmi_ClearKatMask(u32 PlmKatMask)
  *****************************************************************************/
 u8 XPlmi_IsCryptoKatEn(void)
 {
-	u8 CryptoKatEn = ((XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
+	u8 CryptoKatEn = (u8)((XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
 						XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_MASK) >>
 						XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_SHIFT);
 

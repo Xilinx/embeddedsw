@@ -26,6 +26,7 @@
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/13/2023 CPM5N Link UP Event handler declaration
 *       dd   03/28/2023 Updated doxygen comments
+*       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -104,7 +105,7 @@ static inline void XPlmi_ClearSsitErrors(u32 *PmcErrStatus, u32 Index)
 
 /************************** Function Prototypes ******************************/
 XPlmi_Error_t *XPlmi_GetErrorTable(void);
-u8 XPlmi_GetEventIndex(u32 ErrorNodeType);
+u8 XPlmi_GetEventIndex(XPlmi_EventType ErrorNodeType);
 int XPlmi_RestrictErrActions(XPlmi_EventType NodeType, u32 RegMask, u32 ErrorAction);
 void XPlmi_DumpErrNGicStatus(void);
 void XPlmi_ReconfigErrActions(void);
