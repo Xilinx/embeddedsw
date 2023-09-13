@@ -43,25 +43,27 @@ extern "C" {
 #include "xsecure_sha.h"
 
 /************************** Constant Definitions *****************************/
-#define XOCP_EFUSE_DEVICE_DNA_CACHE			(0xF1250020U)
-#define XOCP_EFUSE_DEVICE_DNA_SIZE_WORDS		(4U)
-#define XOCP_EFUSE_DEVICE_DNA_SIZE_BYTES		(16U)
-#define XOCP_CDI_SIZE_IN_BYTES				(48U)
-#define XOCP_CDI_SIZE_IN_WORDS				(12U)
-#define XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES		(48U)
-#define XOCP_TIMEOUT_MAX				(0x1FFFFU)
+#define XOCP_EFUSE_DEVICE_DNA_CACHE			(0xF1250020U) /**< DNA cache */
+#define XOCP_EFUSE_DEVICE_DNA_SIZE_WORDS		(4U) /**< DNA size in words */
+#define XOCP_EFUSE_DEVICE_DNA_SIZE_BYTES		(16U) /**< DNA size in bytes */
+#define XOCP_CDI_SIZE_IN_BYTES				(48U) /**< CDI size in bytes */
+#define XOCP_CDI_SIZE_IN_WORDS				(12U) /**< CDI size in words */
+#define XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES		(48U) /**< Trng seed size in bytes */
+#define XOCP_TIMEOUT_MAX				(0x1FFFFU) /**< Maximum timeout */
 
-#define XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_MASK	(0x00000001U)
-#define XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK	(0x00000000U)
+#define XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_MASK	(0x00000001U) /**< Zeorize mask */
+#define XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK	(0x00000000U) /**< Zeorize clear mask */
 #define XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK	(0x00000002U)
+							/**< Zeorize status pass mask */
 #define XOCP_PMC_GLOBAL_ZEROIZE_STATUS_DONE_MASK	(0x00000001U)
+							/**< Zeorize status done mask */
 
-#define XOCP_MAX_DEVAK_SUPPORT				(3U)
+#define XOCP_MAX_DEVAK_SUPPORT				(3U) /**< Maximum DEVAK support */
 #define XOCP_INVALID_DEVAK_INDEX			(0xFFFFFFFFU)
+							/**< Invalid DEVAK index value*/
 #define XOCP_INVALID_USR_CFG_INDEX			(0xFFFFFFFFU)
-
-/* XilOCP Module Data Structure Ids*/
-#define XOCP_DEVAK_SUBSYS_HASH_DS_ID		(1U)
+							/**< Invalid user configuration index */
+#define XOCP_DEVAK_SUBSYS_HASH_DS_ID		(1U) /**< XilOCP Module Data Structure Ids */
 
 /**************************** Type Definitions *******************************/
 /**
