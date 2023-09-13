@@ -1,6 +1,107 @@
 Changes for 2023.2
 ===============================
 
+dp21txss_v2_1:
+Fixed macro definitions to support for 20Gbps and 13.5Gbps link rates.
+
+axipmon_v6_10:
+Add support for system device-tree flow for driver and examples
+
+cpu_cortexa9_v2_12:
+Fix doxygen warnings
+
+dfeccf_v1_6:
+Remove immediate trigger
+Add SDT support
+Deprecate obsolete APIs
+Function comment update
+
+dfeequ_v1_5:
+Add SDT support
+
+dfemix_v1_6:
+Remove immediate trigger
+Add SDT support
+Deprecate obsolete APIs
+Correct comment about gain
+
+dfeofdm_v1_1:
+Remove immediate trigger
+Add SDT support
+Deprecate obsolete APIs
+Antenna interleave delay reorder
+Output delay in ccid slots
+Add phase compensation calculation
+State and status upgrades
+Update documentation
+
+dfeprach_v1_6:
+Remove immediate trigger
+Add SDT support
+Deprecate obsolete APIs
+Configure all trigger parameters in examples
+Support dynamic and static modes of operation
+Dual and single mode calculation fix
+Set NCO config for RCId=0 fix
+
+emacps_v3_19:
+Added system device-tree flow support
+Minor bug fixes on some macros
+Formatted the code.
+
+v_frmbuf_rd_v4_7:
+Added support ofy_u_v8_420 3 planar in driver and example application.
+Ported driver and example application for decoupling flow.
+Added overview in addtogroups section
+
+v_frmbuf_wr_v4_7:
+Added support of y_u_v8_420 3 planar in driver and example application.
+Ported driver for decoupling flow.
+Added overview in addtogroups section.
+
+v_sditxss_v4_4:
+Corrected mismatch between config parameter and TCL parameter mapping.
+
+v_sdirx_v2_4:
+Updated Register read size to 35 to read continuous 36 registers during debug .
+
+v_tpg_v8_5:
+Ported driver and example application for decoupling flow.
+Added overview in addtogroups section.
+
+vprocss_v2_12:
+Updated vprocss.tcl file to correct parameter names in configtable.
+Ported driver and example application for decoupling flow.
+Added overview in addtogroups section.
+
+vtc_v8_5 :
+Ported driver for decoupling flow.
+Added overview in addtogroups section.
+
+video_common_v4_14:
+Ported driver for decoupling flow.
+Added overview in addtogroups section.
+
+axis_switch_v1_6:
+Added support for system device tree flow for drivers and examples
+
+dp21_v2_1:
+Added support for different Link rates.
+
+dp21rxss_v1_1:
+Added support for different Link rates.
+Enabled HDCP2x Timer handler calling function only when HDCP2X is configured.
+
+dp14rxss_v8_2:
+Added support for different Link rates
+Enabled HDCP2x Timer handler calling function only when HDCP2X is configured.
+
+v_hdmirxss1_v3_4:
+Fixed compliance issue by handling HDMI Rx data when there is delay between Rx clock and data.
+
+v_hdmitxss1_v3_4:
+Added support for Configurable VTEM Packet in HDMI 2.1 Tx
+
 cpu_v2_18:
 Fix doxygen warnings
 
@@ -271,6 +372,7 @@ Fix In-Place Update Failures for Versal Net
 Add support for system device-tree flow
 Add EAM Error Check After PMC CDO
 Change exception print to DEBUG_PRINT_ALWAYS
+
 freertos10_xilinx_v1_14:
 Added support for SDT flow
 Update CortexR52 port to use IRQ instead of FIQ.
@@ -287,8 +389,7 @@ Add example support in SDT flow.
 Handle emc use case in SDT flow
 
 lwip213_v1_1:
-Updated lwip code to support system device tree flow support for
-axiethernet ,dma and emaclite
+Updated lwip code to support system device tree flow support for emacps, axiethernet ,dma and emaclite
 
 axicdma_v4_12:
 Added support for system device tree flow for drivers and examples
