@@ -20,6 +20,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 5.0	sne  11/19/19 First release
+* 5.7	sb   09/13/23 Fix MISRA-C violation 10.4
 *
 * </pre>
 *
@@ -75,7 +76,7 @@ s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr)
 	RegValue1 = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_FCR_OFFSET)
 				& XWT_FCR_WM_MASK;
 	/* Basic Mode */
-	if (RegValue1 == 0x0) {
+	if (RegValue1 == 0x0U) {
 		/* Read enable status register and get second window value */
 		SecWindow = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
 				XWT_ESR_OFFSET) & XWT_ESR_WSW_MASK) >>
