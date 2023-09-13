@@ -47,6 +47,7 @@
 * 1.07  ng   11/11/2022 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.08  nb   06/28/2023 Move XPLMI_SCHED_TICK to header
+*       dd   09/12/2023 MISRA-C violation Rule 13.4 fixed
 *
 * </pre>
 *
@@ -279,9 +280,8 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_INVALID_TASK_PERIOD, 0);
 		goto END;
 	}
-
-	if ((Task = XPlmi_GetTaskInstance(CallbackFn, Data,
-		XPLMI_INVALID_INTR_ID)) != NULL) {
+    Task = XPlmi_GetTaskInstance(CallbackFn, Data, XPLMI_INVALID_INTR_ID);
+	if (Task != NULL) {
 		if (metal_list_is_empty(&Task->TaskNode) == (int)FALSE) {
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_TASK_EXISTS, 0);
 			goto END;
