@@ -729,7 +729,7 @@ void XWdtTb_IntrClear(const XWdtTb *InstancePtr)
 	/* Find if the WWDT is in Q&A mode */
 	RegValue1 = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_FCR_OFFSET)
 		    & XWT_FCR_WM_MASK;
-	if (RegValue1 == 0x0) { /* Only if in Basic mode, worry about WSW bit */
+	if (RegValue1 == 0x0U) { /* Only if in Basic mode, worry about WSW bit */
 		SecWindow = (RegValue & XWT_ESR_WSW_MASK) >> XWT_ESR_WSW_SHIFT;
 
 		/*
