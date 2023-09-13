@@ -77,6 +77,7 @@
 * 5.0  sne   02/27/20 Reorganize the driver source and Fixed doxygen warnings.
 * 5.0  sne   03/09/20 Fixed MISRA-C violations.
 * 5.7  sb    07/12/23 Added support for system device-tree flow.
+* 5.7  sb    09/13/23 Fix MISRA-C violation 12.1.
 *
 * </pre>
 *
@@ -1348,41 +1349,41 @@ u8 XWdtTb_GenAnswer(u8 TokenVal, u8 AnsByteCnt, u8 TokenFdbk)
 		Temp >>= 1U;
 	}
 	if (TokenFdbk == 0x00U) {
-		Val = ((Token[2] ^ AnsCnt[0]) << 7 |
-		       (Token[0] ^ AnsCnt[0]) << 6 |
-		       (Token[3] ^ AnsCnt[0]) << 5 |
-		       (Token[1] ^ AnsCnt[0]) << 4 |
-		       (Token[2] ^ AnsCnt[1] ^ Token[0] ^ Token[3]) << 3 |
-		       (Token[0] ^ AnsCnt[1] ^ Token[3] ^ Token[1]) << 2 |
-		       (Token[0] ^ AnsCnt[1] ^ Token[2] ^ Token[1]) << 1 |
-		       (Token[0] ^ AnsCnt[1] ^ Token[3]));
+		Val = (((Token[2] ^ AnsCnt[0]) << 7) |
+		       ((Token[0] ^ AnsCnt[0]) << 6) |
+		       ((Token[3] ^ AnsCnt[0]) << 5) |
+		       ((Token[1] ^ AnsCnt[0]) << 4) |
+		       ((Token[2] ^ AnsCnt[1] ^ Token[0] ^ Token[3]) << 3) |
+		       ((Token[0] ^ AnsCnt[1] ^ Token[3] ^ Token[1]) << 2) |
+		       ((Token[0] ^ AnsCnt[1] ^ Token[2] ^ Token[1]) << 1) |
+		       ((Token[0] ^ AnsCnt[1] ^ Token[3])));
 	} else if (TokenFdbk == 0x01U) {
-		Val = ((Token[0] ^ AnsCnt[0]) << 7 |
-		       (Token[1] ^ AnsCnt[0]) << 6 |
-		       (Token[0] ^ AnsCnt[0]) << 5 |
-		       (Token[0] ^ AnsCnt[0]) << 4 |
-		       (Token[0] ^ AnsCnt[1] ^ Token[1] ^ Token[3]) << 3 |
-		       (Token[1] ^ AnsCnt[1] ^ Token[0] ^ Token[1]) << 2 |
-		       (Token[1] ^ AnsCnt[1] ^ Token[0] ^ Token[1]) << 1 |
-		       (Token[0] ^ AnsCnt[1] ^ Token[1]));
+		Val = (((Token[0] ^ AnsCnt[0]) << 7) |
+		       ((Token[1] ^ AnsCnt[0]) << 6) |
+		       ((Token[0] ^ AnsCnt[0]) << 5) |
+		       ((Token[0] ^ AnsCnt[0]) << 4) |
+		       ((Token[0] ^ AnsCnt[1] ^ Token[1] ^ Token[3]) << 3) |
+		       ((Token[1] ^ AnsCnt[1] ^ Token[0] ^ Token[1]) << 2) |
+		       ((Token[1] ^ AnsCnt[1] ^ Token[0] ^ Token[1]) << 1) |
+		       ((Token[0] ^ AnsCnt[1] ^ Token[1])));
 	} else if (TokenFdbk == 0x02U) {
-		Val = ((Token[1] ^ AnsCnt[0]) << 7 |
-		       (Token[2] ^ AnsCnt[0]) << 6 |
-		       (Token[1] ^ AnsCnt[0]) << 5 |
-		       (Token[2] ^ AnsCnt[0]) << 4 |
-		       (Token[1] ^ AnsCnt[1] ^ Token[2] ^ Token[3]) << 3 |
-		       (Token[2] ^ AnsCnt[1] ^ Token[1] ^ Token[1]) << 2 |
-		       (Token[2] ^ AnsCnt[1] ^ Token[1] ^ Token[1]) << 1 |
-		       (Token[2] ^ AnsCnt[1] ^ Token[1]));
+		Val = (((Token[1] ^ AnsCnt[0]) << 7) |
+		       ((Token[2] ^ AnsCnt[0]) << 6) |
+		       ((Token[1] ^ AnsCnt[0]) << 5) |
+		       ((Token[2] ^ AnsCnt[0]) << 4) |
+		       ((Token[1] ^ AnsCnt[1] ^ Token[2] ^ Token[3]) << 3) |
+		       ((Token[2] ^ AnsCnt[1] ^ Token[1] ^ Token[1]) << 2) |
+		       ((Token[2] ^ AnsCnt[1] ^ Token[1] ^ Token[1]) << 1) |
+		       ((Token[2] ^ AnsCnt[1] ^ Token[1])));
 	} else {
-		Val = ((Token[2] ^ AnsCnt[0]) << 7 |
-		       (Token[3] ^ AnsCnt[0]) << 6 |
-		       (Token[2] ^ AnsCnt[0]) << 5 |
-		       (Token[3] ^ AnsCnt[0]) << 4 |
-		       (Token[3] ^ AnsCnt[1] ^ Token[3] ^ Token[3]) << 3 |
-		       (Token[3] ^ AnsCnt[1] ^ Token[2] ^ Token[1]) << 2 |
-		       (Token[3] ^ AnsCnt[1] ^ Token[3] ^ Token[1]) << 1 |
-		       (Token[3] ^ AnsCnt[1] ^ Token[2]));
+		Val = (((Token[2] ^ AnsCnt[0]) << 7) |
+		       ((Token[3] ^ AnsCnt[0]) << 6) |
+		       ((Token[2] ^ AnsCnt[0]) << 5) |
+		       ((Token[3] ^ AnsCnt[0]) << 4) |
+		       ((Token[3] ^ AnsCnt[1] ^ Token[3] ^ Token[3]) << 3) |
+		       ((Token[3] ^ AnsCnt[1] ^ Token[2] ^ Token[1]) << 2) |
+		       ((Token[3] ^ AnsCnt[1] ^ Token[3] ^ Token[1]) << 1) |
+		       ((Token[3] ^ AnsCnt[1] ^ Token[2])));
 	}
 	return Val;
 }
