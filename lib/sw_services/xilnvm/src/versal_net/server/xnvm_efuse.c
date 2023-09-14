@@ -23,9 +23,10 @@
 * 3.2   har  02/22/2023 Added API to program ROM Rsvd eFUSEs.
 *       vss  03/14/2023 Fixed compilation warining
 *       kum  04/11/2023 Added Env monitor before efuse programming
-*	kpt  07/26/2023 Removed XNvm_EfuseReadCacheRange
-*	kpt  07/26/2023 Fix security review comments
+*       kpt  07/26/2023 Removed XNvm_EfuseReadCacheRange
+*       kpt  07/26/2023 Fix security review comments
 *       kpt  08/28/2023 Fix SW-BP-REDUNDANCY while assigning Status to CloseStatus
+*       kpt  09/05/2023 Fix SW-BP-REDUNDANCY in XNvm_EfusePrgmIv and XNvm_EfuseWriteDmeRevoke
 *
 * </pre>
 *
@@ -1398,6 +1399,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 	u32 Row = 0U;
 	u32 Col_0_Num = 0U;
 	u32 Col_1_Num = 0U;
+	volatile XNvm_DmeRevoke RevokeNumTmp;
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
     /**
@@ -1432,27 +1434,36 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 	}
 
 	if (RevokeNum == XNVM_EFUSE_DME_REVOKE_0) {
+		RevokeNumTmp = XNVM_EFUSE_DME_REVOKE_0;
 		Row = XNVM_EFUSE_DME_REVOKE_0_AND_1_ROW;
 		Col_0_Num = XNVM_EFUSE_DME_REVOKE_0_0_COL_NUM;
 		Col_1_Num = XNVM_EFUSE_DME_REVOKE_0_1_COL_NUM;
 	}
 	else if (RevokeNum == XNVM_EFUSE_DME_REVOKE_1) {
+		RevokeNumTmp = XNVM_EFUSE_DME_REVOKE_1;
 		Row = XNVM_EFUSE_DME_REVOKE_0_AND_1_ROW;
 		Col_0_Num = XNVM_EFUSE_DME_REVOKE_1_0_COL_NUM;
 		Col_1_Num = XNVM_EFUSE_DME_REVOKE_1_1_COL_NUM;
 	}
 	else if (RevokeNum == XNVM_EFUSE_DME_REVOKE_2) {
+		RevokeNumTmp = XNVM_EFUSE_DME_REVOKE_2;
 		Row = XNVM_EFUSE_DME_REVOKE_2_AND_3_ROW;
 		Col_0_Num = XNVM_EFUSE_DME_REVOKE_2_0_COL_NUM;
 		Col_1_Num = XNVM_EFUSE_DME_REVOKE_2_1_COL_NUM;
 	}
 	else if (RevokeNum == XNVM_EFUSE_DME_REVOKE_3) {
+		RevokeNumTmp = XNVM_EFUSE_DME_REVOKE_3;
 		Row = XNVM_EFUSE_DME_REVOKE_2_AND_3_ROW;
 		Col_0_Num = XNVM_EFUSE_DME_REVOKE_3_0_COL_NUM;
 		Col_1_Num = XNVM_EFUSE_DME_REVOKE_3_1_COL_NUM;
 	}
 	else {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (RevokeNumTmp != RevokeNum) {
+		Status = XST_GLITCH_ERROR;
 		goto END;
 	}
 
@@ -2880,8 +2891,10 @@ static int XNvm_EfusePrgmIv(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	u32 StartColNum = 0U;
 	u32 EndColNum = 0U;
 	u32 NumOfRows = 0U;
+	volatile XNvm_IvType IvTypeTmp;
 
 	if (IvType == XNVM_EFUSE_META_HEADER_IV_RANGE) {
+		IvTypeTmp = XNVM_EFUSE_META_HEADER_IV_RANGE;
 		IvOffset = XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET;
 		Row = XNVM_EFUSE_META_HEADER_IV_START_ROW;
 		StartColNum = XNVM_EFUSE_METAHEADER_IV_RANGE_START_COL_NUM;
@@ -2889,6 +2902,7 @@ static int XNvm_EfusePrgmIv(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 		NumOfRows = XNVM_EFUSE_METAHEADER_IV_NUM_OF_ROWS;
 	}
 	else if (IvType == XNVM_EFUSE_BLACK_IV) {
+		IvTypeTmp = XNVM_EFUSE_BLACK_IV;
 		IvOffset = XNVM_EFUSE_CACHE_BLACK_IV_OFFSET;
 		Row = XNVM_EFUSE_BLACK_IV_START_ROW;
 		StartColNum = XNVM_EFUSE_BLACK_IV_START_COL_NUM;
@@ -2896,6 +2910,7 @@ static int XNvm_EfusePrgmIv(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 		NumOfRows = XNVM_EFUSE_BLACK_IV_NUM_OF_ROWS;
 	}
 	else if (IvType == XNVM_EFUSE_PLM_IV_RANGE) {
+		IvTypeTmp = XNVM_EFUSE_PLM_IV_RANGE;
 		IvOffset = XNVM_EFUSE_CACHE_PLM_IV_RANGE_OFFSET;
 		Row = XNVM_EFUSE_PLM_IV_START_ROW;
 		StartColNum = XNVM_EFUSE_PLM_IV_RANGE_START_COL_NUM;
@@ -2903,6 +2918,7 @@ static int XNvm_EfusePrgmIv(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 		NumOfRows = XNVM_EFUSE_PLM_IV_NUM_OF_ROWS;
 	}
 	else if (IvType == XNVM_EFUSE_DATA_PARTITION_IV_RANGE) {
+		IvTypeTmp = XNVM_EFUSE_DATA_PARTITION_IV_RANGE;
 		IvOffset = XNVM_EFUSE_CACHE_DATA_PARTITION_IV_OFFSET;
 		Row = XNVM_EFUSE_DATA_PARTITION_IV_START_ROW;
 		StartColNum = XNVM_EFUSE_DATA_PARTITION_IV_START_COL_NUM;
@@ -2911,6 +2927,11 @@ static int XNvm_EfusePrgmIv(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	}
 	else {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (IvTypeTmp != IvType) {
+		Status = XST_GLITCH_ERROR;
 		goto END;
 	}
 
