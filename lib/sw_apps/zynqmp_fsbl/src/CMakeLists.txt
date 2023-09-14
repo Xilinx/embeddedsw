@@ -44,6 +44,7 @@ endif()
 
 string(APPEND CMAKE_C_LINK_FLAGS ${USER_LINK_OPTIONS})
 
+set_source_files_properties(${_sources} OBJECT_DEPENDS "${CMAKE_LIBRARY_PATH}/*.a")
 add_executable(${APP_NAME}.elf ${S_SOURCES} ${_sources})
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53")

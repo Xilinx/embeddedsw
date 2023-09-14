@@ -40,6 +40,7 @@ endif()
 
 aux_source_directory(${CMAKE_SOURCE_DIR} _sources)
 string(APPEND CMAKE_C_LINK_FLAGS ${USER_LINK_OPTIONS})
+set_source_files_properties(${_sources} OBJECT_DEPENDS "${CMAKE_LIBRARY_PATH}/*.a")
 add_executable(${APP_NAME}.elf xpfw_start.S ${_sources})
 target_link_libraries(${APP_NAME}.elf -Wl,--no-relax -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v9.2 -mxl-soft-mul -Os -flto -ffat-lto-objects -Wl,--gc-sections -nostartfiles -T\"${CMAKE_SOURCE_DIR}/lscript.ld\" -L\"${CMAKE_LIBRARY_PATH}/\" -L\"${USER_LINK_DIRECTORIES}/\" -Wl,--start-group ${_deps} -Wl,--end-group)
 target_compile_definitions(${APP_NAME}.elf PUBLIC ${USER_COMPILE_DEFINITIONS})
