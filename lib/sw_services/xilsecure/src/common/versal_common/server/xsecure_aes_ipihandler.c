@@ -658,12 +658,11 @@ static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-
 		/**<AES Encrypt Data*/
 		Status = XSecure_AesEncryptData(XSecureAesInstPtr, AesParams.InDataAddr,
 					AesParams.OutDataAddr, AesParams.Size, AesParams.GcmTagAddr);
 	}
-    else {
+	else {
 		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_DEC_KAT_MASK) != TRUE) {
 			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
 			goto END;
@@ -674,9 +673,8 @@ static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
 			(XSecure_AesKeySize)AesParams.KeySize,
 			AesParams.IvAddr);
 		if (Status != XST_SUCCESS) {
-				goto END;
-			}
-
+			goto END;
+		}
 		/**<AES Decrypt Data*/
 		Status = XSecure_AesDecryptData(XSecureAesInstPtr, AesParams.InDataAddr,
 					AesParams.OutDataAddr, AesParams.Size, AesParams.GcmTagAddr);

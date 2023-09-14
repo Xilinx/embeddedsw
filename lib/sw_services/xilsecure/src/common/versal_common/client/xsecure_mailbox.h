@@ -31,6 +31,7 @@
 * 5.2   am   03/09/23 Moved payload length macros to xilmailbox.h file
 *       am   03/21/23 Match the shared memory size in secure library to reuse for customer
 * 	yog  05/03/23 Fixed MISRA C violation of Rule 12.2
+*       kal  09/14/23 Added XSecure_SetSlrIndex function
 *
 * </pre>
 * @note
@@ -81,12 +82,46 @@ typedef struct {
 	u32 SlrIndex;
 } XSecure_ClientInstance;
 
+/**< Enumeration constants for SlrIndex*/
+typedef enum{
+	XSECURE_SLR_INDEX_0 = 0,/**< SLR_INDEX_0 */
+	XSECURE_SLR_INDEX_1,	/**< SLR_INDEX_1 */
+	XSECURE_SLR_INDEX_2,	/**< SLR_INDEX_2 */
+	XSECURE_SLR_INDEX_3	/**< SLR_INDEX_3 */
+} XSecure_SlrIndex;
+
 /**
  * @}
  * @endcond
  */
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/******************************************************************************/
+/**
+ * @brief	This function sets slr index in the Secure client instance.
+ *
+ * @param	InstancePtr	Pointer to XSecure_ClientInstance
+ *
+ * @param	SlrIndex	Slr index to be set in instance
+ *
+ * @return	XST_SUCCESS	On valid input SlrIndex.
+ *		XST_FAILURE	On invalid SlrIndex.
+ *
+ * @Note	This function is applicable to only Versal
+ *
+ *******************************************************************************/
+static inline int XSecure_SetSlrIndex(XSecure_ClientInstance *InstancePtr, u32 SlrIndex)
+{
+	int Status = XST_FAILURE;
+
+	if (SlrIndex <= (u32)XSECURE_SLR_INDEX_3) {
+		/**< Validate SlrIndex and assign it to instance pointer */
+		InstancePtr->SlrIndex = SlrIndex;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
