@@ -94,35 +94,35 @@
 static const struct {
 	u64 size;
 	u32 encoding;
-}region_size[] = {
-        { 0x20U, REGION_32B },
-        { 0x40U, REGION_64B },
-        { 0x80U, REGION_128B },
-        { 0x100U, REGION_256B },
-        { 0x200U, REGION_512B },
-        { 0x400U, REGION_1K },
-        { 0x800U, REGION_2K },
-        { 0x1000U, REGION_4K },
-        { 0x2000U, REGION_8K },
-        { 0x4000U, REGION_16K },
-        { 0x8000U, REGION_32K },
-        { 0x10000U, REGION_64K },
-        { 0x20000U, REGION_128K },
-        { 0x40000U, REGION_256K },
-        { 0x80000U, REGION_512K },
-        { 0x100000U, REGION_1M },
-        { 0x200000U, REGION_2M },
-        { 0x400000U, REGION_4M },
-        { 0x800000U, REGION_8M },
-        { 0x1000000U, REGION_16M },
-        { 0x2000000U, REGION_32M },
-        { 0x4000000U, REGION_64M },
-        { 0x8000000U, REGION_128M },
-        { 0x10000000U, REGION_256M },
-        { 0x20000000U, REGION_512M },
-        { 0x40000000U, REGION_1G },
-        { 0x80000000U, REGION_2G },
-        { 0x100000000U, REGION_4G },
+} region_size[] = {
+	{ 0x20U, REGION_32B },
+	{ 0x40U, REGION_64B },
+	{ 0x80U, REGION_128B },
+	{ 0x100U, REGION_256B },
+	{ 0x200U, REGION_512B },
+	{ 0x400U, REGION_1K },
+	{ 0x800U, REGION_2K },
+	{ 0x1000U, REGION_4K },
+	{ 0x2000U, REGION_8K },
+	{ 0x4000U, REGION_16K },
+	{ 0x8000U, REGION_32K },
+	{ 0x10000U, REGION_64K },
+	{ 0x20000U, REGION_128K },
+	{ 0x40000U, REGION_256K },
+	{ 0x80000U, REGION_512K },
+	{ 0x100000U, REGION_1M },
+	{ 0x200000U, REGION_2M },
+	{ 0x400000U, REGION_4M },
+	{ 0x800000U, REGION_8M },
+	{ 0x1000000U, REGION_16M },
+	{ 0x2000000U, REGION_32M },
+	{ 0x4000000U, REGION_64M },
+	{ 0x8000000U, REGION_128M },
+	{ 0x10000000U, REGION_256M },
+	{ 0x20000000U, REGION_512M },
+	{ 0x40000000U, REGION_1G },
+	{ 0x80000000U, REGION_2G },
+	{ 0x100000000U, REGION_4G },
 };
 
 #if defined (__GNUC__)
@@ -138,14 +138,15 @@ static u32 DDRSizeIndex;
 #if defined (__GNUC__)
 void Init_MPU(void) __attribute__((__section__(".boot")));
 void Print_DDRSize_Warning(void) __attribute__((__section__(".boot")));
-static void Xil_SetAttribute(u32 addr, u32 reg_size,u32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
+static void Xil_SetAttribute(u32 addr, u32 reg_size, u32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
 static void Xil_DisableMPURegions(void) __attribute__((__section__(".boot")));
-static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum, u32 Attrib) __attribute__((__section__(".boot")));
+static inline void Update_MpuConfig_Array(u32 Addr, u32 RegSize, u32 RegNum,
+		u32 Attrib) __attribute__((__section__(".boot")));
 #elif defined (__ICCARM__)
 #pragma default_function_attributes = @ ".boot"
 void Init_MPU(void);
 void Print_DDRSize_Warning(void);
-static void Xil_SetAttribute(u32 addr, u32 reg_size,u32 reg_num, u32 attrib);
+static void Xil_SetAttribute(u32 addr, u32 reg_size, u32 reg_num, u32 attrib);
 static void Xil_DisableMPURegions(void);
 #endif
 
@@ -160,8 +161,8 @@ static void Xil_DisableMPURegions(void);
 *
 *
 ******************************************************************************/
-static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum,
-u32 Attrib)
+static inline void Update_MpuConfig_Array(u32 Addr, u32 RegSize, u32 RegNum,
+		u32 Attrib)
 {
 	Mpu_Config[RegNum].RegionStatus = MPU_REG_ENABLED;
 	Mpu_Config[RegNum].BaseAddress = Addr;
@@ -212,14 +213,14 @@ void Init_MPU(void)
 				}
 
 				if (region_size[i].size > (size + Offset + 1U)) {
-				/*
-				 * Set variables needed to print warning on console.
-				 * xil_printf would be called to print the warning after
-				 * MPU enablement from boot code. As application could
-				 * be running from OCM, printing after MPU enablement
-				 * ensures correct behavior
-				 *
-				 */
+					/*
+					 * Set variables needed to print warning on console.
+					 * xil_printf would be called to print the warning after
+					 * MPU enablement from boot code. As application could
+					 * be running from OCM, printing after MPU enablement
+					 * ensures correct behavior
+					 *
+					 */
 					DDRSizeWarning = 1;
 					DDRSizeIndex = i;
 				}
@@ -247,14 +248,14 @@ void Init_MPU(void)
 		 * regions.
 		 */
 		Attrib = NORM_NSHARED_WB_WA | PRIV_RW_USER_RW;
-		Xil_SetAttribute(0x0,REGION_256K,RegNum, Attrib);
-		Update_MpuConfig_Array(0x0,REGION_256K,RegNum, Attrib);
+		Xil_SetAttribute(0x0, REGION_256K, RegNum, Attrib);
+		Update_MpuConfig_Array(0x0, REGION_256K, RegNum, Attrib);
 		RegNum++;
 	}
 
 	Attrib = NORM_NSHARED_WB_WA | PRIV_RW_USER_RW;
-	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
-	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+	Xil_SetAttribute(Addr, RegSize, RegNum, Attrib);
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
 	/*
@@ -266,56 +267,56 @@ void Init_MPU(void)
 	Addr = 0x80000000;
 	RegSize = REGION_1G;
 	Attrib = STRONG_ORDERD_SHARED | PRIV_RW_USER_RW   ;
-	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
-	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+	Xil_SetAttribute(Addr, RegSize, RegNum, Attrib);
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
 	/* 512M of device memory from 0xC0000000 to 0xDFFFFFFF for QSPI */
 	Addr = 0xC0000000U;
 	RegSize = REGION_512M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
-	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+	Xil_SetAttribute(Addr, RegSize, RegNum, Attrib);
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
 	/* 256M of device memory from 0xE0000000 to 0xEFFFFFFF for PCIe Low */
 	Addr = 0xE0000000U;
 	RegSize = REGION_256M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
-	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+	Xil_SetAttribute(Addr, RegSize, RegNum, Attrib);
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
 	/* 16M of device memory from 0xF8000000 to 0xF8FFFFFF for STM_CORESIGHT */
 	Addr = 0xF8000000U;
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
-	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+	Xil_SetAttribute(Addr, RegSize, RegNum, Attrib);
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
 	/* 1M of device memory from 0xF9000000 to 0xF90FFFFF for RPU_A53_GIC */
 	Addr = 0xF9000000U;
 	RegSize = REGION_1M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
-	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+	Xil_SetAttribute(Addr, RegSize, RegNum, Attrib);
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
 	/* 16M of device memory from 0xFD000000 to 0xFDFFFFFF for FPS slaves */
 	Addr = 0xFD000000U;
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
-	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+	Xil_SetAttribute(Addr, RegSize, RegNum, Attrib);
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
 	/* 16M of device memory from 0xFE000000 to 0xFEFFFFFF for Upper LPS slaves */
 	Addr = 0xFE000000U;
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
-	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+	Xil_SetAttribute(Addr, RegSize, RegNum, Attrib);
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
 	/*
@@ -325,16 +326,16 @@ void Init_MPU(void)
 	Addr = 0xFF000000U;
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
-	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+	Xil_SetAttribute(Addr, RegSize, RegNum, Attrib);
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
 	/* 256K of OCM RAM from 0xFFFC0000 to 0xFFFFFFFF marked as normal memory */
 	Addr = 0xFFFC0000U;
 	RegSize = REGION_256K;
-	Attrib = NORM_NSHARED_WB_WA| PRIV_RW_USER_RW  ;
-	Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
-	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+	Attrib = NORM_NSHARED_WB_WA | PRIV_RW_USER_RW  ;
+	Xil_SetAttribute(Addr, RegSize, RegNum, Attrib);
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 
 	/* A total of 10 MPU regions are allocated with another 6 being free for users */
 }
@@ -349,14 +350,15 @@ void Init_MPU(void)
 *
 *
 ******************************************************************************/
-void Print_DDRSize_Warning(void) {
+void Print_DDRSize_Warning(void)
+{
 #ifdef XPAR_PSU_R5_DDR_0_LOW_ADDR
 	if (1U == DDRSizeWarning) {
 		xdbg_printf(XDBG_DEBUG_GENERAL, "WARNING: DDR size mapped to Cortexr5 processor is not \
 		in power of 2. As processor allocates MPU regions size \
             in power of 2, address range %llx to %x has been \
             incorrectly mapped as normal memory \n", \
-            region_size[DDRSizeIndex].size - 1, ((u32)XPAR_PSU_R5_DDR_0_HIGH_ADDR + 1));
+			    region_size[DDRSizeIndex].size - 1, ((u32)XPAR_PSU_R5_DDR_0_HIGH_ADDR + 1));
 	}
 #endif
 
@@ -377,18 +379,18 @@ void Print_DDRSize_Warning(void) {
 *
 *
 ******************************************************************************/
-static void Xil_SetAttribute(u32 addr, u32 reg_size,u32 reg_num, u32 attrib)
+static void Xil_SetAttribute(u32 addr, u32 reg_size, u32 reg_num, u32 attrib)
 {
 	u32 Local_reg_size = reg_size;
 
-	Local_reg_size = Local_reg_size<<1U;
+	Local_reg_size = Local_reg_size << 1U;
 	Local_reg_size |= REGION_EN;
 	dsb();
-	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,reg_num);
+	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER, reg_num);
 	isb();
-	mtcp(XREG_CP15_MPU_REG_BASEADDR,addr); 		/* Set base address of a region */
-	mtcp(XREG_CP15_MPU_REG_ACCESS_CTRL,attrib); 	/* Set the control attribute */
-	mtcp(XREG_CP15_MPU_REG_SIZE_EN,Local_reg_size);	/* set the region size and enable it*/
+	mtcp(XREG_CP15_MPU_REG_BASEADDR, addr); 		/* Set base address of a region */
+	mtcp(XREG_CP15_MPU_REG_ACCESS_CTRL, attrib); 	/* Set the control attribute */
+	mtcp(XREG_CP15_MPU_REG_SIZE_EN, Local_reg_size);	/* set the region size and enable it*/
 	dsb();
 	isb();						/* synchronize context on this processor */
 }
@@ -407,15 +409,15 @@ static void Xil_DisableMPURegions(void)
 	u32 Temp = 0U;
 	u32 Index = 0U;
 	for (Index = 0; Index <= 15U; Index++) {
-		mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,Index);
+		mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER, Index);
 #if defined (__GNUC__)
 		Temp = mfcp(XREG_CP15_MPU_REG_SIZE_EN);
 #elif defined (__ICCARM__)
-		mfcp(XREG_CP15_MPU_REG_SIZE_EN,Temp);
+		mfcp(XREG_CP15_MPU_REG_SIZE_EN, Temp);
 #endif
 		Temp &= (~REGION_EN);
 		dsb();
-		mtcp(XREG_CP15_MPU_REG_SIZE_EN,Temp);
+		mtcp(XREG_CP15_MPU_REG_SIZE_EN, Temp);
 		dsb();
 		isb();
 	}
