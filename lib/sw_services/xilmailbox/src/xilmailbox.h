@@ -48,6 +48,7 @@
  * 1.7   sd   10/11/22    Fix a typo
  * 1.8   am   09/03/23    Added payload length macros
  *	 ht   05/30/23	  Added support for system device-tree flow.
+ * 1.9   ht   09/12/23	  Added code for versioning of library.
  *
  *</pre>
  *
@@ -62,6 +63,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_io.h"
+#include "xil_util.h"
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xil_printf.h"
@@ -83,6 +85,10 @@ extern "C" {
 #define XMAILBOX_PAYLOAD_LEN_5U                (5U)	/**< Payload length of size 5byte */
 #define XMAILBOX_PAYLOAD_LEN_6U                (6U)	/**< Payload length of size 6byte */
 #define XMAILBOX_PAYLOAD_LEN_7U                (7U)	/**< Payload length of size 7byte */
+
+/* Library version info */
+#define XMAILBOX_MAJOR_VERSION	1U
+#define XMAILBOX_MINOR_VERSION	9U
 
 /**************************** Type Definitions *******************************/
 typedef void (*XMailbox_RecvHandler) (void *CallBackRefPtr); /**< Receive handler */
@@ -127,6 +133,22 @@ typedef enum {
 	XMAILBOX_RECV_HANDLER,     /**< For Recv Handler */
 	XMAILBOX_ERROR_HANDLER,    /**< For Error Handler */
 } XMailbox_Handler;
+
+/****************** Macros (Inline Functions) Definitions *********************/
+
+/*****************************************************************************/
+/**
+*
+* @brief	This function returns the version number of xilmailbox library.
+*
+* @return	32-bit version number
+*
+******************************************************************************/
+static __attribute__((always_inline)) INLINE
+u32 XMailbox_GetLibVersion(void)
+{
+	return (XIL_BUILD_VERSION(XMAILBOX_MAJOR_VERSION, XMAILBOX_MINOR_VERSION));
+}
 
 /************************** Function Prototypes ******************************/
 /**
