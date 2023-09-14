@@ -57,6 +57,7 @@ file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
 
 string(APPEND CMAKE_C_LINK_FLAGS ${USER_LINK_OPTIONS})
 
+set_source_files_properties(${_sources} OBJECT_DEPENDS "${CMAKE_LIBRARY_PATH}/*.a")
 add_executable(${APP_NAME}.elf ${_sources})
 
 target_link_libraries(${APP_NAME}.elf -Wl,-Map=versal_plm.map -Wl,--build-id=none -Wl,--gc-sections -T\"${CMAKE_SOURCE_DIR}/versal/lscript.ld\" -L\"${CMAKE_LIBRARY_PATH}/\" -L\"${USER_LINK_DIRECTORIES}/\" -Wl,--start-group ${_deps} -Wl,--end-group)
