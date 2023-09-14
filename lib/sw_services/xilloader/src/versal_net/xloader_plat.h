@@ -96,6 +96,7 @@ extern "C" {
 #define XLOADER_BOOTPDI_INFO_DS_ID       	(0x02U) /**< Boot PDI Info data structure Id */
 #define XLOADER_PDI_LIST_DS_ID			(0x03U) /**< PDI list data structure Id */
 #define XLOADER_ATF_HANDOFF_PARAMS_DS_ID	(0x04U) /**< ATF handoff parameters data structure Id */
+#define XLOADER_IMAGE_INFO_PTR_DS_ID		(0x05U) /**< Image information data structure Id */
 
 #define XLOADER_SHA3_1_DEVICE_ID	(1U) /**< SHA3_1 device Id */
 /* Data measurement flags */
