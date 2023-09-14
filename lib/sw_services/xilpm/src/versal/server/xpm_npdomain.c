@@ -327,6 +327,19 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
 
+	/* This block of code is removed during unit tests becuase there currently
+	   is no support for write-to-clear register simulation. */
+	#ifndef CPPUTEST
+	/*
+	 * During NoC ScanClear there is possibility that ScanClear will
+	 * trigger PMC error bits. Clear the error bits before checking the
+	 * status to clear any false errors.
+	 */
+	PmOut32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_ERR1_STATUS_OFFSET),
+		(PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
+		 PMC_GLOBAL_ERR1_STATUS_DDRMC_MC_NCR_MASK));
+	#endif
+
 	PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_ERR1_STATUS_OFFSET),
 	       RegValue);
 	if (0U != (RegValue & (PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
