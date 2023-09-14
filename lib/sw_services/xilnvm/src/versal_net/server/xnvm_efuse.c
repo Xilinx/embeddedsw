@@ -2402,8 +2402,8 @@ END:
  ******************************************************************************/
 int XNvm_EfuseCacheLoadNPrgmProtectionBits(void)
 {
-	int Status = XST_FAILURE;
-	int CloseStatus = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int CloseStatus = XST_FAILURE;
 
 	/**
 	 *  Unlock eFuse Controller. Return appropriate error code if not success
@@ -2417,6 +2417,7 @@ int XNvm_EfuseCacheLoadNPrgmProtectionBits(void)
     /**
 	 *  Reload Cache and check protection bits
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_EfuseCacheReloadAndProtectionChecks();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -2425,6 +2426,7 @@ int XNvm_EfuseCacheLoadNPrgmProtectionBits(void)
     /**
 	 *  Write protection bits inti eFuse. Return error code upon failure
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_EfusePrgmProtectionBits();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -2433,6 +2435,7 @@ int XNvm_EfuseCacheLoadNPrgmProtectionBits(void)
     /**
 	 *  Reload Cache and check protection bits
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_EfuseCacheReloadAndProtectionChecks();
 
 END:
@@ -2461,13 +2464,14 @@ END:
  ******************************************************************************/
 static int XNvm_EfuseCacheReloadAndProtectionChecks(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
 	Status = XNvm_EfuseCacheReload();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XNvm_EfuseProtectionChecks();
 
 END:
@@ -2667,7 +2671,7 @@ END:
  ******************************************************************************/
 static int XNvm_EfuseProtectionChecks(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	volatile u32 RegVal = 0U;
 	volatile u32 RegValTmp = 0U;
 	volatile u32 ProtVal = 0U;
@@ -3057,7 +3061,7 @@ END:
  ******************************************************************************/
 static int XNvm_EfusePrgmAesKey(XNvm_AesKeyType KeyType, XNvm_AesKey *EfuseKey)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	int CrcRegOffset = 0U;
 	int CrcDoneMask = 0U;
@@ -3187,6 +3191,7 @@ static int XNvm_EfusePrgmAesKey(XNvm_AesKeyType KeyType, XNvm_AesKey *EfuseKey)
 	}
 	Crc = XNvm_AesCrcCalc(EfuseKey->Key);
 
+	Status = XST_FAILURE;
 	Status = XNvm_EfuseCheckAesKeyCrc(CrcRegOffset, CrcDoneMask,
                         CrcPassMask, Crc);
 	if (Status != XST_SUCCESS) {
@@ -3303,10 +3308,10 @@ END:
 static int XNvm_EfuseComputeProgrammableBits(const u32 *ReqData, u32 *PrgmData,
 						u32 StartOffset, u32 EndOffset)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	int IsrStatus = XST_FAILURE;
 	u32 ReadReg = 0U;
-	u32 Offset = 0U;
+	volatile u32 Offset = 0U;
 	u32 Idx = 0U;
 
 	if ((ReqData == NULL) || (PrgmData == NULL)) {
@@ -3331,7 +3336,9 @@ static int XNvm_EfuseComputeProgrammableBits(const u32 *ReqData, u32 *PrgmData,
 		Offset = Offset + XNVM_WORD_LEN;
 	}
 
-	Status = XST_SUCCESS;
+	if (Offset == (EndOffset + XNVM_WORD_LEN)) {
+		Status = XST_SUCCESS;
+	}
 
 END:
 	return Status;
@@ -3425,7 +3432,7 @@ END:
  ******************************************************************************/
 static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 PgmAddr;
 	u32 EventMask = 0U;
 
@@ -3475,7 +3482,7 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
  ******************************************************************************/
 static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32 *RegData)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 RdAddr;
 	u32 EventMask = 0x00U;
 
