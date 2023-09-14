@@ -53,6 +53,8 @@
 *                     API prototype to fix MISRA-C violations for Rule 10.3.
 * 9.0   ml   09/13/23 Replaced numerical types (int) with proper typedefs(s32) to
 *                     fix MISRA-C violations for Rule 4.6
+* 9.0   ml   09/13/23 Assigned proper suffix to integer constants to fix MISRA-C
+*                     violations for Rule 7.2 and 10.4
 * </pre>
 *
 * @note
@@ -91,34 +93,34 @@ static const struct {
 	u64 size;
 	u32 encoding;
 }region_size[] = {
-	{ 0x20, REGION_32B },
-	{ 0x40, REGION_64B },
-	{ 0x80, REGION_128B },
-	{ 0x100, REGION_256B },
-	{ 0x200, REGION_512B },
-	{ 0x400, REGION_1K },
-	{ 0x800, REGION_2K },
-	{ 0x1000, REGION_4K },
-	{ 0x2000, REGION_8K },
-	{ 0x4000, REGION_16K },
-	{ 0x8000, REGION_32K },
-	{ 0x10000, REGION_64K },
-	{ 0x20000, REGION_128K },
-	{ 0x40000, REGION_256K },
-	{ 0x80000, REGION_512K },
-	{ 0x100000, REGION_1M },
-	{ 0x200000, REGION_2M },
-	{ 0x400000, REGION_4M },
-	{ 0x800000, REGION_8M },
-	{ 0x1000000, REGION_16M },
-	{ 0x2000000, REGION_32M },
-	{ 0x4000000, REGION_64M },
-	{ 0x8000000, REGION_128M },
-	{ 0x10000000, REGION_256M },
-	{ 0x20000000, REGION_512M },
-	{ 0x40000000, REGION_1G },
-	{ 0x80000000, REGION_2G },
-	{ 0x100000000, REGION_4G },
+        { 0x20U, REGION_32B },
+        { 0x40U, REGION_64B },
+        { 0x80U, REGION_128B },
+        { 0x100U, REGION_256B },
+        { 0x200U, REGION_512B },
+        { 0x400U, REGION_1K },
+        { 0x800U, REGION_2K },
+        { 0x1000U, REGION_4K },
+        { 0x2000U, REGION_8K },
+        { 0x4000U, REGION_16K },
+        { 0x8000U, REGION_32K },
+        { 0x10000U, REGION_64K },
+        { 0x20000U, REGION_128K },
+        { 0x40000U, REGION_256K },
+        { 0x80000U, REGION_512K },
+        { 0x100000U, REGION_1M },
+        { 0x200000U, REGION_2M },
+        { 0x400000U, REGION_4M },
+        { 0x800000U, REGION_8M },
+        { 0x1000000U, REGION_16M },
+        { 0x2000000U, REGION_32M },
+        { 0x4000000U, REGION_64M },
+        { 0x8000000U, REGION_128M },
+        { 0x10000000U, REGION_256M },
+        { 0x20000000U, REGION_512M },
+        { 0x40000000U, REGION_1G },
+        { 0x80000000U, REGION_2G },
+        { 0x100000000U, REGION_4G },
 };
 
 #if defined (__GNUC__)
@@ -207,7 +209,7 @@ void Init_MPU(void)
 					Offset = XPAR_PSU_R5_DDR_0_LOW_ADDR;
 				}
 
-				if (region_size[i].size > (size + Offset + 1)) {
+				if (region_size[i].size > (size + Offset + 1U)) {
 				/*
 				 * Set variables needed to print warning on console.
 				 * xil_printf would be called to print the warning after
@@ -230,7 +232,7 @@ void Init_MPU(void)
 	/* For DDRless system, configure region for TCM */
 	RegSize = REGION_256K;
 #endif
-	if (1 == CreateTCMRegion) {
+	if (1U == CreateTCMRegion) {
 		/*
 		 * DDR is not mapped at 0x0 in HW design, so
 		 * creating separate MPU region, as TCM and mapped
@@ -347,7 +349,7 @@ void Init_MPU(void)
 ******************************************************************************/
 void Print_DDRSize_Warning(void) {
 #ifdef XPAR_PSU_R5_DDR_0_LOW_ADDR
-	if (1 == DDRSizeWarning) {
+	if (1U == DDRSizeWarning) {
 		xdbg_printf(XDBG_DEBUG_GENERAL, "WARNING: DDR size mapped to Cortexr5 processor is not \
 		in power of 2. As processor allocates MPU regions size \
             in power of 2, address range %llx to %x has been \
@@ -402,7 +404,7 @@ static void Xil_DisableMPURegions(void)
 {
 	u32 Temp = 0U;
 	u32 Index = 0U;
-	for (Index = 0; Index <= 15; Index++) {
+	for (Index = 0; Index <= 15U; Index++) {
 		mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,Index);
 #if defined (__GNUC__)
 		Temp = mfcp(XREG_CP15_MPU_REG_SIZE_EN);

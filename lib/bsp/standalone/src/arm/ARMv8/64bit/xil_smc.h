@@ -26,7 +26,8 @@
 *                         platform
 * 7.1  mus       07/31/19 Added support for Versal
 * 9.0  ml        03/03/23 Added description to fix doxygen warnings.
-*
+* 9.0  ml        09/13/23 Assigned proper suffix to integer constants to fix
+*                         MISRA-C violation for Rule 7.2
 * </pre>
 *
 ******************************************************************************/
@@ -44,11 +45,11 @@ extern "C" {
 #endif
 #if EL1_NONSECURE
 /************************** Constant Definitions ****************************/
-#define SMC_FID_START	0xF2000000
-#define SMC_FID_END	0xFF00FFFF
+#define SMC_FID_START	0xF2000000U
+#define SMC_FID_END	0xFF00FFFFU
 
-#define XILSP_INIT_DONE 0xF2000000
-#define	ARITH_SMC_FID	0xF2000001
+#define XILSP_INIT_DONE 0xF2000000U
+#define	ARITH_SMC_FID	0xF2000001U
 
 #define PM_IOCTL_SMC_FID	0xC2000022U
 #define PM_IOCTL_OSPI_MUX_SELECT	0x15U
