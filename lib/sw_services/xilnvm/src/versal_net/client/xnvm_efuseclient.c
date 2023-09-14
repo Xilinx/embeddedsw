@@ -22,6 +22,7 @@
 * 3.2  har  02/21/23  Added support for writing Misc Ctrl bits and ROM Rsvd bits
 *      am   03/09/23  Replaced xnvm payload lengths with xmailbox payload lengths
 * 	   vek  05/31/23  Added support for Programming PUF secure control bits
+*      kpt  09/02/23  Avoid returning XST_SUCCESS incase of fault injection
 *
 * </pre>
 *
@@ -64,13 +65,14 @@ static void XNvm_EfuseCreateWritePufCmd(XNvm_PufWriteCdo* PufWrCdo, u32 AddrLow,
  * 				data to be programmed is stored
  *
  * @return	- XST_SUCCESS - If the eFUSE programming is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  *@section Implementation
  ******************************************************************************/
 int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int RetStatus = XST_GLITCH_ERROR;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_EfuseDataAddr *EfuseData = (XNvm_EfuseDataAddr *)DataAddr;
 	XNvm_EfuseAesKeys *AesKeys = (XNvm_EfuseAesKeys *)EfuseData->AesKeyAddr;
@@ -78,9 +80,10 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	XNvm_EfuseIvs *Ivs = (XNvm_EfuseIvs *)EfuseData->IvAddr;
 
     /**
-	 * 	Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 * 	Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -99,6 +102,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		XNvm_EfuseCreateWriteKeyCmd(KeyWrCdo, XNVM_EFUSE_AES_KEY,  (u32)(UINTPTR)(AesKeys->AesKey),
 			(u32)((UINTPTR)(AesKeys->AesKey) >> XNVM_ADDR_HIGH_SHIFT));
 
+		Status = XST_FAILURE;
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32*)KeyWrCdo, XMAILBOX_PAYLOAD_LEN_4U);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "AES Key write failed;"
@@ -108,6 +112,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	}
 
 	if (AesKeys->PrgmUserKey0 == TRUE) {
+		Status = XST_FAILURE;
 		Status = XNvm_EfuseValidateAesKeyWriteReq(XNVM_EFUSE_USER_KEY_0);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -117,6 +122,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		XNvm_EfuseCreateWriteKeyCmd(KeyWrCdo, XNVM_EFUSE_USER_KEY_0, (u32)(UINTPTR)(AesKeys->UserKey0),
 			(u32)((UINTPTR)(AesKeys->UserKey0) >> XNVM_ADDR_HIGH_SHIFT));
 
+		Status = XST_FAILURE;
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)KeyWrCdo, XMAILBOX_PAYLOAD_LEN_4U);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "USER Key0 write failed;"
@@ -126,6 +132,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	}
 
 	if (AesKeys->PrgmUserKey1 == TRUE) {
+		Status = XST_FAILURE;
 		Status = XNvm_EfuseValidateAesKeyWriteReq(XNVM_EFUSE_USER_KEY_1);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -135,6 +142,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		XNvm_EfuseCreateWriteKeyCmd(KeyWrCdo, XNVM_EFUSE_USER_KEY_1, (u32)(UINTPTR)(AesKeys->UserKey1),
 			(u32)((UINTPTR)(AesKeys->UserKey1) >> XNVM_ADDR_HIGH_SHIFT));
 
+		Status = XST_FAILURE;
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)KeyWrCdo, XMAILBOX_PAYLOAD_LEN_4U);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "User Key1 write failed;"
@@ -197,16 +205,24 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 	}
 
+	Status = XST_FAILURE;
 	Status = XNvm_EfuseWriteIVs(InstancePtr, (u64)(UINTPTR)Ivs, FALSE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	Status = XST_FAILURE;
+
 	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	RetStatus = Status;
 
 END:
-	return Status;
+	if ((RetStatus != XST_SUCCESS) && (Status != XST_SUCCESS)) {
+		RetStatus = Status;
+	}
+
+	return RetStatus;
 }
 
 /*****************************************************************************/
@@ -220,12 +236,13 @@ END:
  *                      and temparature limits.
  *
  * @return	- XST_SUCCESS - If the programming is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int RetStatus = XST_GLITCH_ERROR;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_EfuseIvs *Ivs = NULL;
 	u32 Size;
@@ -236,9 +253,10 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
         }
 
     /**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -247,7 +265,6 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	 *     Perform validation on the size of the shared memory, if size is less than the total size XST_FAILURE is returned
 	 */
 	Size = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&Ivs);
-
 	if ((Ivs == NULL) || (Size < TotalSize)) {
 		goto END;
 	}
@@ -269,6 +286,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
      *     Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
 	if (Ivs->PrgmMetaHeaderIv == TRUE) {
+		Status = XST_FAILURE;
 		Status = XNvm_EfuseValidateIvWriteReq(XNVM_EFUSE_META_HEADER_IV_RANGE, (XNvm_Iv*)(UINTPTR)(Ivs->MetaHeaderIv));
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -278,6 +296,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 		XNvm_EfuseCreateWriteIvCmd(IvWrCdo, XNVM_EFUSE_META_HEADER_IV_RANGE, (u32)(UINTPTR)(Ivs->MetaHeaderIv),
 			(u32)((UINTPTR)(Ivs->MetaHeaderIv) >> XNVM_ADDR_HIGH_SHIFT));
 
+		Status = XST_FAILURE;
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)IvWrCdo, XMAILBOX_PAYLOAD_LEN_4U);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "Metaheader IV write failed;"
@@ -287,6 +306,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	}
 
 	if (Ivs->PrgmBlkObfusIv == TRUE) {
+		Status = XST_FAILURE;
 		Status = XNvm_EfuseValidateIvWriteReq(XNVM_EFUSE_BLACK_IV, (XNvm_Iv*)(UINTPTR)(Ivs->BlkObfusIv));
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -296,6 +316,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 		XNvm_EfuseCreateWriteIvCmd(IvWrCdo, XNVM_EFUSE_BLACK_IV, (u32)(UINTPTR)(Ivs->BlkObfusIv),
 			(u32)((UINTPTR)(Ivs->BlkObfusIv) >> XNVM_ADDR_HIGH_SHIFT));
 
+		Status = XST_FAILURE;
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)IvWrCdo, XMAILBOX_PAYLOAD_LEN_4U);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "Black IV write failed;"
@@ -305,6 +326,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	}
 
 	if (Ivs->PrgmPlmIv == TRUE) {
+		Status = XST_FAILURE;
 		Status = XNvm_EfuseValidateIvWriteReq(XNVM_EFUSE_PLM_IV_RANGE, (XNvm_Iv*)(UINTPTR)(Ivs->PlmIv));
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -314,6 +336,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 		XNvm_EfuseCreateWriteIvCmd(IvWrCdo, XNVM_EFUSE_PLM_IV_RANGE, (u32)(UINTPTR)(Ivs->PlmIv),
 			(u32)((UINTPTR)(Ivs->PlmIv) >> XNVM_ADDR_HIGH_SHIFT));
 
+		Status = XST_FAILURE;
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)IvWrCdo, XMAILBOX_PAYLOAD_LEN_4U);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "PLM IV write failed;"
@@ -323,6 +346,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	}
 
 	if (Ivs->PrgmDataPartitionIv == TRUE) {
+		Status = XST_FAILURE;
 		Status = XNvm_EfuseValidateIvWriteReq(XNVM_EFUSE_DATA_PARTITION_IV_RANGE, (XNvm_Iv*)(UINTPTR)(Ivs->DataPartitionIv));
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -332,6 +356,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 		XNvm_EfuseCreateWriteIvCmd(IvWrCdo, XNVM_EFUSE_DATA_PARTITION_IV_RANGE, (u32)(UINTPTR)(Ivs->DataPartitionIv),
 			(u32)((UINTPTR)(Ivs->DataPartitionIv) >> XNVM_ADDR_HIGH_SHIFT));
 
+		Status = XST_FAILURE;
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)IvWrCdo, XMAILBOX_PAYLOAD_LEN_4U);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "Data Partition IV write failed;"
@@ -339,11 +364,18 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 		}
 	}
 
+	Status = XST_FAILURE;
+
 	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+	RetStatus = Status;
 
 END:
-	return Status;
+	if ((RetStatus != XST_SUCCESS) && (Status != XST_SUCCESS)) {
+		RetStatus = Status;
+	}
+
+	return RetStatus;
 }
 
 /*****************************************************************************/
@@ -355,14 +387,22 @@ END:
  * @param	SecCtrlBits	Value of Secure Control  Bits to be programmed
  *
  * @return	- XST_SUCCESS - If the programming is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_SecCtrlBitsWriteCdo *SecCtrlBitsWrCdo = (XNvm_SecCtrlBitsWriteCdo *)(UINTPTR)Payload;
+
+    /**
+     * Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
+     */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
 
 	SecCtrlBitsWrCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_SEC_CTRL_BITS);
 	SecCtrlBitsWrCdo->Pload.EnvMonitorDis = FALSE;
@@ -374,10 +414,13 @@ int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)SecCtrlBitsWrCdo, XMAILBOX_PAYLOAD_LEN_3U);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Secure Control Bits write failed;"
 			"Error Code = %x\r\n", Status);
 		goto END;
 	}
+
+	Status = XST_FAILURE;
 
 	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
@@ -395,14 +438,22 @@ END:
  * @param	PufCtrlBits	Value of Puf Control  Bits to be programmed
  *
  * @return	- XST_SUCCESS - If the programming is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_PufCtrlBitsWriteCdo *PufCtrlBitsWrCdo = (XNvm_PufCtrlBitsWriteCdo *)(UINTPTR)Payload;
+
+    /**
+     * Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
+     */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
 
 	PufCtrlBitsWrCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS);
 	PufCtrlBitsWrCdo->Pload.EnvMonitorDis = TRUE;
@@ -414,10 +465,13 @@ int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)PufCtrlBitsWrCdo, XMAILBOX_PAYLOAD_LEN_3U);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Puf Control Bits write failed;"
 			"Error Code = %x\r\n", Status);
 		goto END;
 	}
+
+	Status = XST_FAILURE;
 
 	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
@@ -435,14 +489,22 @@ END:
  * @param	MiscCtrlBits	Value of Misc Control Bits to be programmed
  *
  * @return	- XST_SUCCESS - If the programming is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBits)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_MiscCtrlBitsWriteCdo *MiscCtrlBitsWrCdo = (XNvm_MiscCtrlBitsWriteCdo *)(UINTPTR)Payload;
+
+    /**
+     * Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
+     */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
 
 	MiscCtrlBitsWrCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_MISC_CTRL_BITS);
 	MiscCtrlBitsWrCdo->Pload.EnvMonitorDis = FALSE;
@@ -455,10 +517,13 @@ int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBi
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)MiscCtrlBitsWrCdo,
 		XMAILBOX_PAYLOAD_LEN_3U);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Misc Control Bits write failed;"
 			"Error Code = %x\r\n", Status);
 		goto END;
 	}
+
+	Status = XST_FAILURE;
 
 	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
@@ -476,14 +541,22 @@ END:
  * @param	RomRsvdBits	Value of ROM Rsvd Bits to be programmed
  *
  * @return	- XST_SUCCESS - If the programming is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseWriteRomRsvdBits(XNvm_ClientInstance *InstancePtr, u32 RomRsvdBits)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RomRsvdBitsWriteCdo *RomRsvdBitsWriteCdo = (XNvm_RomRsvdBitsWriteCdo *)(UINTPTR)Payload;
+
+    /**
+     * Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
+     */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
 
 	RomRsvdBitsWriteCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_ROM_RSVD);
 	RomRsvdBitsWriteCdo->Pload.EnvMonitorDis = FALSE;
@@ -518,7 +591,7 @@ END:
  * 				where the user provided helper data to be programmed
  *
  * @return	- XST_SUCCESS - If the programming is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
@@ -528,9 +601,10 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 	XNvm_EfusePufHdAddr *EfusePuf = (XNvm_EfusePufHdAddr *)PufHdAddr;
 
     /**
-	 *	Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 *	Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -548,10 +622,13 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32*)PufWrCdo, XMAILBOX_PAYLOAD_LEN_3U);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Writing PUF data failed;"
 			"Error Code = %x\r\n", Status);
 		goto END;
 	}
+
+	Status = XST_FAILURE;
 
 	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
@@ -569,12 +646,13 @@ END:
  * 				where the user provided helper data to be programmed
  *
  * @return	- XST_SUCCESS - If the programming is successful
- * 			- XST_FAILURE - If there is a failure
+ * 			- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int RetStatus = XST_GLITCH_ERROR;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)(UINTPTR)Payload;
 	XNvm_EfusePufHdAddr *EfusePuf = (XNvm_EfusePufHdAddr *)PufHdAddr;
@@ -582,6 +660,14 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	u32 ReadChash = 0U;
 	u32 ReadAux = 0U;
 	u32 ReadRoSwap = 0U;
+
+    /**
+     * Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
+     */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
 
 	/**
      *	Read helper data
@@ -600,6 +686,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET, 1U, (u32)(UINTPTR)&ReadChash,
 		(u32)((UINTPTR)(&ReadChash) >> XNVM_ADDR_HIGH_SHIFT));
 
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XMAILBOX_PAYLOAD_LEN_4U);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -613,6 +700,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_ECC_CTRL_OFFSET, 1U, (u32)(UINTPTR)&ReadAux,
 		(u32)((UINTPTR)(&ReadAux) >> XNVM_ADDR_HIGH_SHIFT));
 
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XMAILBOX_PAYLOAD_LEN_4U);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -631,6 +719,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	 *     Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 *     If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XMAILBOX_PAYLOAD_LEN_4U);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -638,6 +727,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadRoSwap, XNVM_WORD_LEN);
 
+	Status = XST_FAILURE;
 	Status = Xil_SMemCpy(EfusePuf->EfuseSynData, XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS, ReadPufHd,
 		XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS, XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS);
 	if (Status != XST_SUCCESS) {
@@ -647,9 +737,14 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	EfusePuf->Chash = ReadChash;
 	EfusePuf->Aux = ReadAux & XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK;
 	EfusePuf->RoSwap = ReadRoSwap;
+	RetStatus = Status;
 
 END:
-	return Status;
+	if ((RetStatus != XST_SUCCESS) && (Status != XST_SUCCESS)) {
+		RetStatus = Status;
+	}
+
+	return RetStatus;
 }
 
 /*****************************************************************************/
@@ -663,21 +758,22 @@ END:
  * @param	IvType		Type of the IV to read out
  *
  * @return	- XST_SUCCESS - If the read is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 	const XNvm_IvType IvType)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo = (XNvm_RdCacheCdo*)(UINTPTR)Payload;
 	u16 StartOffset = 0U;
 
     /**
-     * Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+     * Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
      */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -728,21 +824,22 @@ END:
  * @param 	RevokeIdNum	Revocation ID to be read out
  *
  * @return	- XST_SUCCESS - If the read is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 RevokeIdAddr,
 			const XNvm_RevocationId RevokeIdNum)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)(UINTPTR)Payload;
 	u16 StartOffset = XNVM_EFUSE_CACHE_REVOCATION_ID_0_OFFSET + ((u16)RevokeIdNum * XNVM_WORD_LEN);
 
     /**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -770,21 +867,22 @@ END:
  * 				User eFuse data
  *
  * @return	- XST_SUCCESS - If the read is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)(UINTPTR)Payload;
 	XNvm_EfuseUserDataAddr *UserFuseData = (XNvm_EfuseUserDataAddr *)UserFuseAddr;
 	u16 StartOffset = XNVM_EFUSE_CACHE_USER_FUSE_START_OFFSET + UserFuseData->StartUserFuseNum * XNVM_WORD_LEN;
 
     /**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -812,21 +910,22 @@ END:
  * 				MiscCtrlBits eFuses data
  *
  * @return	- XST_SUCCESS - If the read is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscCtrlBits)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)(UINTPTR)Payload;
 	u32 ReadReg;
 	XNvm_EfuseMiscCtrlBits *MiscCtrlBitsData = (XNvm_EfuseMiscCtrlBits *)MiscCtrlBits;
 
     /**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -840,6 +939,7 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscC
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XMAILBOX_PAYLOAD_LEN_4U);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -898,21 +998,22 @@ END:
  * 				SecCtrlBits eFuses data
  *
  * @return	- XST_SUCCESS - If the read is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtrlBits)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)(UINTPTR)Payload;
 	u32 ReadReg;
 	XNvm_EfuseSecCtrlBits *SecCtrlBitsData = (XNvm_EfuseSecCtrlBits *)SecCtrlBits;
 
     /**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -926,6 +1027,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtr
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XMAILBOX_PAYLOAD_LEN_4U);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1015,21 +1117,22 @@ END:
  * 				SecMisc1Bits eFuses data
  *
  * @return	- XST_SUCCESS - If the read is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMisc1Bits)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)(UINTPTR)Payload;
 	u32 ReadReg;
 	XNvm_EfuseSecMisc1Bits *SecMisc1BitsData = (XNvm_EfuseSecMisc1Bits *)SecMisc1Bits;
 
     /**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1043,6 +1146,7 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMi
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XMAILBOX_PAYLOAD_LEN_4U);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1081,21 +1185,22 @@ END:
  * 				BootEnvCtrlBits eFuses data
  *
  * @return	- XST_SUCCESS - If the read is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 BootEnvCtrlBits)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)(UINTPTR)Payload;
 	u32 ReadReg;
 	XNvm_EfuseBootEnvCtrlBits *BootEnvCtrlBitsData = (XNvm_EfuseBootEnvCtrlBits *)BootEnvCtrlBits;
 
     /**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1109,6 +1214,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Bo
 	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XMAILBOX_PAYLOAD_LEN_4U);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1155,12 +1261,12 @@ END:
  * 				PufSecCtrlBits eFuses data
  *
  * @return	- XST_SUCCESS - If the read is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 PufSecCtrlBits)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)(UINTPTR)Payload;
 	u32 ReadSecurityCtrlReg;
@@ -1168,9 +1274,10 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	XNvm_EfusePufSecCtrlBits *PufSecCtrlBitsData = (XNvm_EfusePufSecCtrlBits *)PufSecCtrlBits;
 
     /**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1179,6 +1286,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XMAILBOX_PAYLOAD_LEN_4U);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1190,8 +1298,10 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	 *    Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 *    If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XMAILBOX_PAYLOAD_LEN_4U);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -1231,21 +1341,22 @@ END:
  * @param	OffChipIdNum	OffChip ID number to be read out
  *
  * @return	- XST_SUCCESS - If the read is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 OffChipIdAddr,
 	const XNvm_OffchipId OffChipIdNum)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)(UINTPTR)Payload;
 	u16 StartOffset = XNVM_EFUSE_CACHE_OFFCHIP_REVOKE_0_OFFSET + ((u16)OffChipIdNum * XNVM_WORD_LEN);
 
     /**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1273,20 +1384,21 @@ END:
  * @param 	PpkHashType	Type of the PpkHash to be read out
  *
  * @return	- XST_SUCCESS - If the read is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseReadPpkHash(XNvm_ClientInstance *InstancePtr, const u64 PpkHashAddr, const XNvm_PpkType PpkHashType)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)(UINTPTR)Payload;
 	u16 StartOffset = 0U;
 
     /**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1333,19 +1445,20 @@ END:
  * 				DecEfuseOnly eFuses data
  *
  * @return	- XST_SUCCESS - If the read is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAddr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)(UINTPTR)Payload;
 
     /**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1373,19 +1486,20 @@ END:
  * 				DNA eFuses data
  *
  * @return	- XST_SUCCESS - If the read is successful
- * 		- XST_FAILURE - If there is a failure
+ * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseReadDna(XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)(UINTPTR)Payload;
 
     /**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE If input parameters are invalid
+	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
