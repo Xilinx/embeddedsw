@@ -462,6 +462,7 @@ find_package(common)
     data = {
         "sdt": utils.get_rel_path(obj.sdt, obj.domain_dir),
         "family": obj.family,
+        "path": obj.domain_dir,
         "os": obj.os,
         "os_info": obj.os_info,
         "os_config": {},
