@@ -19,6 +19,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 3.0   har  07/21/2022 Initial release
 * 3.1   skg  10/28/2022 Added In body comments for APIs
+* 3.2   kpt  09/02/2023 Add volatile keyword to avoid compiler optimization
 *
 * </pre>
 *
@@ -67,7 +68,7 @@ static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvAddress);
  ******************************************************************************/
 int XNvm_EfuseValidateAesKeyWriteReq(XNvm_AesKeyType KeyType)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 SecCtrlBits = 0U;
 	u32 CrcRegOffset = 0U;
 	u32 CrcDoneMask = 0U;
@@ -218,7 +219,7 @@ END:
  ******************************************************************************/
 int XNvm_EfuseValidateIvWriteReq(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 IvOffset = 0U;
 
     /**
@@ -281,10 +282,10 @@ END:
  *******************************************************************************/
 static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvOffset)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 IvRowsRd;
 	u32 EndOffset = IvOffset + XNVM_EFUSE_IV_LEN_IN_WORDS * 4;
-	u32 Offset = IvOffset;
+	volatile u32 Offset = IvOffset;
 
 	while(Offset < EndOffset){
 		IvRowsRd = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, Offset);
@@ -297,7 +298,9 @@ static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvOffset)
 		Offset = Offset + XNVM_WORD_LEN;
 	}
 
-	Status = XST_SUCCESS;
+	if (Offset == EndOffset) {
+		Status = XST_SUCCESS;
+	}
 
 END:
 	return Status;
@@ -319,7 +322,7 @@ int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count)
 	volatile int Status = XST_FAILURE;
 	int IsrStatus = XST_FAILURE;
 	u32 EndOffset = CacheOffset + Count * XNVM_WORD_LEN;
-	u32 Offset = CacheOffset;
+	volatile u32 Offset = CacheOffset;
 	u32 CacheData = 0U;
 
     /**
@@ -344,7 +347,9 @@ int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count)
 		Offset = Offset + XNVM_WORD_LEN;
 	}
 
-	Status = XST_SUCCESS;
+	if (Offset ==  EndOffset) {
+		Status = XST_SUCCESS;
+	}
 
 END:
 	return Status;
@@ -366,7 +371,7 @@ END:
  ******************************************************************************/
 int XNvm_EfuseValidateDecOnlyRequest(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 SecurityMisc0 = 0U;
 
     /**
