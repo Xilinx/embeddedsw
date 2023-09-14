@@ -220,13 +220,6 @@ typedef enum {
 	XPUF_EFUSE_USER_1_KEY
 } XPuf_WriteBlackKeyOption;
 
-/**< Enumeration constants for SlrIndex*/
-typedef enum{
-	XPUF_SLR_INDEX_0 = 0,
-	XPUF_SLR_INDEX_1,
-	XPUF_SLR_INDEX_2,
-	XPUF_SLR_INDEX_3
-} XPuf_GetSlrIndex;
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #ifdef __cplusplus
