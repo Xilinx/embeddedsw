@@ -24,6 +24,7 @@
 *       am   07/20/23 Cleared DICE_CDI seed
 *       kpt  07/25/23 Add redundancy for key generation APIs
 *       yog  08/07/23 Replaced trng API calls using trngpsx driver
+*       am   09/04/23 Added XOcp_ValidateDiceCdi function
 *
 * </pre>
 * @note
@@ -70,6 +71,7 @@ static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg);
 static int XOcp_KeyGenerateDevIk(void);
 static XOcp_KeyMgmt *XOcp_GetKeyMgmtInstance(void);
 static XOcp_SubSysHash *XOcp_GetSubSysHash(void);
+static int XOcp_ValidateDiceCdi(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -145,7 +147,6 @@ int XOcp_KeyInit(void)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	u32 CdiParity = 0U;
 	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
 
@@ -159,12 +160,10 @@ int XOcp_KeyInit(void)
 		goto RET;
 	}
 
-	CdiParity = (XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY) &
-			XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY_ERROR_MASK) >>
-			XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY_ERROR_SHIFT;
-	if (CdiParity != 0x0U) {
-		Status = XOCP_DICE_CDI_PARITY_ERROR;
-		goto RET;
+	/* Read and validate whether, DICE CDI SEED is valid or not */
+	Status = XOcp_ValidateDiceCdi();
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	if ((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK) != TRUE) ||
@@ -331,6 +330,7 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 
 	DevAkData = DevAkData + DevAkIndex;
 	DevAkData->IsDevAkKeyReady = (u32)FALSE;
+
 	XSECURE_TEMPORAL_CHECK(END, Status, XOcp_KeyGenDevAkSeed, XOCP_PMC_GLOBAL_DICE_CDI_SEED_0,
 						   XOCP_CDI_SIZE_IN_BYTES, (u32)DevAkData->SubSysHash, XSECURE_HASH_SIZE_IN_BYTES,
 						   (XSecure_HmacRes *)Seed);
@@ -876,4 +876,51 @@ static XOcp_KeyMgmt *XOcp_GetKeyMgmtInstance(void)
 	static XOcp_KeyMgmt KeyMgmtInstance = {0U};
 
 	return &KeyMgmtInstance;
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function validates the DICE CDI stored in PMC global register.
+ *
+ * @return
+ *      -   XST_SUCCESS - On Successful read and validation of CDI Seed
+ *	-   Errorcode  - On failure
+ *
+ ******************************************************************************/
+static int XOcp_ValidateDiceCdi(void)
+{
+	volatile int Status = XOCP_DICE_CDI_SEED_ZERO;
+	volatile u32 Index;
+	volatile u32 CdiParity = 0U;
+	volatile u32 CdiParityTmp = 0U;
+
+	/** Upon DICE CDI SEED zeroize, if CDI valid bit is not cleared in Versal Net.
+	 *  Check whether DICE CDI SEED is non zero or not.
+	 */
+	for (Index = 0U; Index < XOCP_CDI_SIZE_IN_WORDS; Index++) {
+		if (XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_0 +
+			(Index * XSECURE_WORD_LEN)) != 0x0U) {
+			CdiParity = XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY) &
+				XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY_ERROR_MASK;
+			CdiParityTmp = XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY) &
+				XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY_ERROR_MASK;
+			if ((CdiParity != 0x0U) || (CdiParityTmp != 0x0U)) {
+				Status = XOCP_DICE_CDI_PARITY_ERROR;
+				goto END;
+			}
+			else {
+				Status = XST_SUCCESS;
+				break;
+			}
+		}
+	}
+	if (Index > XOCP_CDI_SIZE_IN_WORDS) {
+		Status = XOCP_ERR_GLITCH_DETECTED;
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
 }

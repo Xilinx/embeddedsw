@@ -23,6 +23,7 @@
 * 1.2   kpt  06/02/2023 Added XOcp_HwPcrLogInfo structure
 *       kal  06/02/2023 Added SW PCR related structures and macros
 *       am   08/18/2023 Added XOcp_OcpErrorStatus enum
+*       am   09/04/2023 Added XOCP_DICE_CDI_SEED_ZERO enum
 *
 * </pre>
 *
@@ -207,6 +208,8 @@ typedef enum {
 	XOCP_ERR_DEVIK_NOT_READY,	/**< 0x23 DEVIK key not ready */
 	XOCP_ERR_DEVAK_NOT_READY,	/**< 0x24 DEVAK key not ready */
 	XOCP_ERR_INVALID_DEVAK_REQ,	/**< 0x25 Error when there is a invalid DEVAK request */
+	XOCP_DICE_CDI_SEED_ZERO,	/**< 0x26 DICE CDI Seed is zero */
+	XOCP_ERR_GLITCH_DETECTED,	/**< 0x27 Error glitch detected */
 }XOcp_OcpErrorStatus;
 
 /***************** Macros (Inline Functions) Definitions *********************/
