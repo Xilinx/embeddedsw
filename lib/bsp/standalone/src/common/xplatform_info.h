@@ -39,6 +39,8 @@
 * 9.0    mus 03/28/23 Added new API XGetBootStatus for VERSAL_NET. It can be
 *                     used to identify type of boot (cold/warm).
 * 9.0    mus 07/27/23 Updated XGetCoreId API to support A9, R5 and A53 processor
+* 9.0    ml  09/14/23 Added U to numerical to fix MISRA-C violation for Rule
+*                     10.1 and 10.4
 * </pre>
 *
 ******************************************************************************/
@@ -87,7 +89,7 @@ extern "C" {
 #define XPS_VERSION_INFO_SHIFT 0x8U
 #define XPLAT_INFO_SHIFT 0x18U
 #else
-#define XPS_VERSION_INFO_MASK (0xF)
+#define XPS_VERSION_INFO_MASK  0xFU
 #define XPS_VERSION_INFO_SHIFT 0x0U
 #define XPLAT_INFO_SHIFT 0xCU
 #endif

@@ -28,6 +28,8 @@
 * 9.0   mus  07/04/23 Added weak definitions for _TCM_A_REGION, _TCM_B_REGION,
 *                     and _TCM_C_REGION  variables, to avoid compilation failure
 *                     in case they are not exported by linker script.
+* 9.0   ml   09/14/23 Added U to numericals to fix MISRA-C violation for Rule
+*                     10.1 and 10.4
 * </pre>
 *
 ******************************************************************************/
@@ -256,8 +258,8 @@ __attribute__((weak)) u32 _TCM_C_REGION  __attribute__((__section__(".bootdata")
 #define XREG_CP15_MPU_TYPE			"p15, 0, %0,  c0,  c0, 4"
 #define XREG_CP15_MULTI_PROC_AFFINITY		"p15, 0, %0,  c0,  c0, 5"
 
-#define XREG_MPIDR_MASK				0xFFFFFF
-#define XREG_MPIDR_AFFINITY0_MASK		0xFF
+#define XREG_MPIDR_MASK				0xFFFFFFU
+#define XREG_MPIDR_AFFINITY0_MASK		0xFFU
 #define XREG_MPIDR_AFFINITY1_MASK		0xFF00U
 #define XREG_MPIDR_AFFINITY0_SHIFT		0x0U
 #define XREG_MPIDR_AFFINITY1_SHIFT		0x8U
