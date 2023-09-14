@@ -2125,10 +2125,7 @@ END:
 				XNVM_EFUSE_PUF_AUX_ROW,
 				XNVM_EFUSE_PUF_REGEN_DIS_COL_NUM,
 				XNVM_EFUSE_PROGRAM_VERIFY);
-		goto END;
 	}
-
-	Status = XST_SUCCESS;
 
 END:
 	/**
@@ -2487,16 +2484,14 @@ END:
 static int XNvm_EfusePrgmProtectionBits(void)
 {
 	volatile int Status = XST_FAILURE;
-	u32 SecurityCtrlData;
-	u32 SecurityMisc0Data;
-	u32 SecurityMisc1Data;
-	u32 CrcSaltData;
-	u32 PufChashData;
+	volatile u32 RowData = 0U;
+	volatile u32 RowDataTmp = 0U;
 
-	SecurityCtrlData  = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+	RowData  = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 				XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET);
-
-	if (SecurityCtrlData != 0x00U) {
+	RowDataTmp =  XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+				XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET);
+	if ((RowData != 0x00U) || (RowDataTmp != 0x00U)) {
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
 				XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_0_COL_NUM,
@@ -2516,11 +2511,14 @@ static int XNvm_EfusePrgmProtectionBits(void)
 		}
 	}
 
-	SecurityMisc0Data = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-			XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET);
+	RowData = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET) &
+			XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK;
+	RowDataTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET) &
+			XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK;
 
-	if ((SecurityMisc0Data & XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK) !=
-			0x00U) {
+	if ((RowData != 0x00U) || (RowDataTmp != 0x00U)) {
 		Status = XST_FAILURE;
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
@@ -2587,10 +2585,15 @@ static int XNvm_EfusePrgmProtectionBits(void)
 		}
 	}
 
-	CrcSaltData = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_ME_ID_CODE_OFFSET);
+	RowData = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+				XNVM_EFUSE_CACHE_ME_ID_CODE_OFFSET) &
+				XNVM_EFUSE_CACHE_ME_ID_CODE_CRC_SALT_MASK;
+	RowDataTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+				XNVM_EFUSE_CACHE_ME_ID_CODE_OFFSET) &
+				XNVM_EFUSE_CACHE_ME_ID_CODE_CRC_SALT_MASK;
 
-	if ((CrcSaltData & XNVM_EFUSE_CACHE_ME_ID_CODE_CRC_SALT_MASK) != 0x00U) {
+	if ((RowData != 0x00U) || (RowDataTmp != 0x00U)) {
+		Status = XST_FAILURE;
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
 				XNVM_EFUSE_ROW_0_CRC_PROT_0_COL_NUM,
@@ -2611,9 +2614,11 @@ static int XNvm_EfusePrgmProtectionBits(void)
 		}
 	}
 
-	PufChashData = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+	RowData = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 					XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET);
-	if (PufChashData != 0x00U) {
+	RowDataTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+					XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET);
+	if ((RowData != 0x00U) || (RowDataTmp != 0x00U)) {
 		Status = XST_FAILURE;
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
@@ -2625,10 +2630,13 @@ static int XNvm_EfusePrgmProtectionBits(void)
 		}
 	}
 
-	SecurityMisc1Data = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-			XNVM_EFUSE_CACHE_SEC_MISC_1_OFFSET);
-	if ((SecurityMisc1Data &
-		XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK) != 0x00U) {
+	RowData = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_SEC_MISC_1_OFFSET) &
+			XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK;
+	RowDataTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_SEC_MISC_1_OFFSET) &
+			XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK;
+	if ((RowData != 0x00U) || (RowDataTmp != 0x00U)) {
 		Status = XST_FAILURE;
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
@@ -2662,10 +2670,10 @@ static int XNvm_EfuseProtectionChecks(void)
 	int Status = XST_FAILURE;
 	volatile u32 RegVal = 0U;
 	volatile u32 RegValTmp = 0U;
-	volatile u32 ProtVal;
-	volatile u32 ProtValTmp;
-	volatile u32 RowVal;
-	volatile u32 RowValTmp;
+	volatile u32 ProtVal = 0U;
+	volatile u32 ProtValTmp = 0U;
+	volatile u32 RowVal = 0U;
+	volatile u32 RowValTmp = 0U;
 	u32 Index;
 
 	RegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
@@ -2823,7 +2831,9 @@ static int XNvm_EfuseProtectionChecks(void)
 		}
 	}
 
-	Status = XST_SUCCESS;
+	if ((ProtVal == ProtValTmp) && (RowVal == RowValTmp)) {
+		Status = XST_SUCCESS;
+	}
 
 END:
 	return Status;
@@ -3182,10 +3192,7 @@ static int XNvm_EfusePrgmAesKey(XNvm_AesKeyType KeyType, XNvm_AesKey *EfuseKey)
 	if (Status != XST_SUCCESS) {
 		Status = (Status |
 			(XNVM_EFUSE_ERR_WRITE_AES_KEY + (KeyType << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
-		goto END;
 	}
-
-	Status = XST_SUCCESS;
 
 END:
 	return Status;
@@ -3349,7 +3356,7 @@ END:
  ******************************************************************************/
 static int XNvm_EfusePgmAndVerifyData(XNvm_EfusePrgmInfo *EfusePrgmInfo, const u32* RowData)
 {
-	volatile int Status = XST_FAILURE;
+	volatile int Status = XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 	const u32* DataPtr = RowData;
 	volatile u32 Row = EfusePrgmInfo->StartRow;
 	volatile u32 EndRow = EfusePrgmInfo->StartRow + EfusePrgmInfo->NumOfRows;
@@ -3397,9 +3404,6 @@ static int XNvm_EfusePgmAndVerifyData(XNvm_EfusePrgmInfo *EfusePrgmInfo, const u
 
 	if (Row != EndRow) {
 		Status = (int)XNVM_EFUSE_ERR_GLITCH_DETECTED;
-	}
-	else {
-		Status = XST_SUCCESS;
 	}
 
 END:
