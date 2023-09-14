@@ -18,6 +18,7 @@
  * ----- ---- ---------- -------------------------------------------------------
  * 3.0   kal  07/12/2022 Initial release
  * 3.2   har  02/22/2023 Added error code for ROM Rsvd bits
+ *       kpt  09/11/2023 Added error code XNVM_EFUSE_ERR_WRITE_PUF_SEC_CTRL_BITS
  *
  * </pre>
  *
@@ -105,7 +106,12 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_ROM_RSVD_BITS = 0xAE00, /**< 0xAE00
 						* Error in ROM Rsvd bits
 						* programming */
-	XNVM_ERR_DME_KEY_ALREADY_PROGRAMMED = 0xAF00, /**< 0xAF00
+
+	XNVM_EFUSE_ERR_WRITE_PUF_SEC_CTRL_BITS = 0xAF00, /**< 0xAF00
+					    * Error in PUF SEC CTRL bits
+						* programming */
+
+	XNVM_ERR_DME_KEY_ALREADY_PROGRAMMED = 0xBF00, /**< 0xBF00
 						* DME_KEY is already
 						* programmed */
 
