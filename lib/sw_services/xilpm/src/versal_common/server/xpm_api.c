@@ -2012,19 +2012,17 @@ static XStatus AddMemDevice(const u32 *Args, u32 PowerId)
 done:
 	return Status;
 }
-static XStatus AddPlDevice(const u32 *Args, u32 NumArgs, u32 PowerId)
+static XStatus AddPlDevice(const u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
 	u32 Index;
 	XPm_Power *Power;
-	u32 BaseAddr = 0;
+	u32 BaseAddr;
 	XPm_PlDevice *PlDevice;
 
 	DeviceId = Args[0];
-	if (NumArgs >= 3) {
-		BaseAddr = Args[2];
-	}
+	BaseAddr = Args[2];
 
 	Index = NODEINDEX(DeviceId);
 
@@ -2236,7 +2234,7 @@ static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 		Status = AddMemDevice(Args, PowerId);
 		break;
 	case (u32)XPM_NODESUBCL_DEV_PL:
-		Status = AddPlDevice(Args, NumArgs ,PowerId);
+		Status = AddPlDevice(Args, PowerId);
 		break;
 	case (u32)XPM_NODESUBCL_DEV_MEM_CTRLR:
 		Status = AddMemCtrlrDevice(Args, PowerId);
