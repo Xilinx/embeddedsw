@@ -87,7 +87,7 @@ static inline s32 XTrngpsv_WaitForEvent(UINTPTR BaseAddr, u32 RegOffset, u32 Eve
 static void XTrngpsv_ChangeEndianness(u32 *SrcBuf);
 static s32 XTrngpsv_CheckRandDataPattern(XTrngpsv *InstancePtr, u32 *RandBuf);
 static inline s32 __attribute__((always_inline))  XTrngpsv_WaitForData(const XTrngpsv *InstancePtr);
-static s32 __attribute__ ((noinline)) XTrngpsv_WaitAndCollectData(XTrngpsv *InstancePtr, u32 *RandBuf, u32 CtrlVal);
+static s32 __attribute__ ((noinline)) XTrngpsv_WaitAndCollectData(const XTrngpsv *InstancePtr, u32 *RandBuf, u32 CtrlVal);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -181,7 +181,7 @@ END:
 s32 XTrngpsv_Instantiate(XTrngpsv *InstancePtr, const XTrngpsv_UsrCfg *ConfigurValues)
 {
 	volatile s32 Status = XTRNGPSV_FAILURE;
-	u8 *SeedPtr;
+	const u8 *SeedPtr;
 	u8 *PersPtr;
 
 	/* Validate arguments. */
@@ -869,7 +869,7 @@ END:
  *		- XTRNGPSV_ERROR_GENERATE_TIMEOUT if timeout occurred waiting for QCNT to become 4.
  *
  *************************************************************************************************/
-static s32 __attribute__ ((noinline)) XTrngpsv_WaitAndCollectData(XTrngpsv *InstancePtr, u32 *RandBuf, u32 CtrlVal)
+static s32 __attribute__ ((noinline)) XTrngpsv_WaitAndCollectData(const XTrngpsv *InstancePtr, u32 *RandBuf, u32 CtrlVal)
 {
 	volatile s32 Status = XST_FAILURE;
 	u32 *RandGenBuf = RandBuf;
