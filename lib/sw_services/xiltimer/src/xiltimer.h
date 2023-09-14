@@ -25,6 +25,7 @@
 *  	adk      08/08/22 Added doxygen tags.
 *  1.2  adk	 22/12/22 Fixed doxygen style and indentation issues.
 *  1.3  gm      21/07/23 Added Timer Release Callback function.
+*  1.4  ht      09/12/23 Added code for versioning of library.
 *
 * </pre>
 ******************************************************************************/
@@ -39,6 +40,7 @@
 #include "xstatus.h"
 #include "bspconfig.h"
 #include "xparameters.h"
+#include "xil_util.h"
 #if defined(XSLEEPTIMER_IS_AXITIMER) || defined(XTICKTIMER_IS_AXITIMER)
 #include "xtmrctr.h"
 #endif
@@ -52,6 +54,12 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/************************** Constant Definitions *****************************/
+
+/* Library version info */
+#define XTIMER_MAJOR_VERSION	1U
+#define XTIMER_MINOR_VERSION	4U
 
 /**************************** Type Definitions *******************************/
 
@@ -125,6 +133,22 @@ typedef struct XTimerTag {
 
 typedef u64 XTime;
 extern XTimer TimerInst;
+
+/****************** Macros (Inline Functions) Definitions *********************/
+
+/*****************************************************************************/
+/**
+*
+* @brief	This function returns the version number of xiltimer library.
+*
+* @return	32-bit version number
+*
+******************************************************************************/
+static __attribute__((always_inline)) INLINE
+u32 XTimer_GetLibVersion(void)
+{
+	return (XIL_BUILD_VERSION(XTIMER_MAJOR_VERSION, XTIMER_MINOR_VERSION));
+}
 /************************** Function Prototypes ******************************/
 /**
  * This API is used for initializing sleep timer
