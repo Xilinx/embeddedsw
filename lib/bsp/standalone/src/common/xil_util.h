@@ -63,7 +63,8 @@
 *      sk        03/14/23 Added Status Check Glitch detect Macro
 * 9.0  ml        03/03/23 Add description to fix doxygen warnings.
 *      mmd       07/09/23 Added macro to build version
-*
+*      ml        09/13/23 Replaced numerical types (int) with proper typedefs(s32) to
+*                         fix MISRA-C violations for Rule 4.6
 * </pre>
 *
 *****************************************************************************/
@@ -264,59 +265,59 @@ u32 Xil_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 void Xil_UtilRMW32(u32 Addr, u32 Mask, u32 Value);
 
 /**< Copies source string to destination string */
-int Xil_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size);
+s32 Xil_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size);
 
 /**< Copies specified range from source string to destination string */
-int Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
+s32 Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
 	u32 MaxDstLen);
 
 /**< Appends string2 to string1 */
-int Xil_Strcat(char* Str1Ptr, const char* Str2Ptr, const u32 Size);
+s32 Xil_Strcat(char* Str1Ptr, const char* Str2Ptr, const u32 Size);
 
 /**< Copies Len bytes from source memory to destination memory */
-int Xil_SecureMemCpy(void * DestPtr, u32 DestPtrLen, const void * SrcPtr, u32 Len);
+s32 Xil_SecureMemCpy(void * DestPtr, u32 DestPtrLen, const void * SrcPtr, u32 Len);
 
 /**< Compares Len bytes from memory1 and memory2 */
-int Xil_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len);
+s32 Xil_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len);
 
 /**< Zeroizes the memory of given length */
-int Xil_SecureZeroize(u8 *DataPtr, const u32 Length);
+s32 Xil_SecureZeroize(u8 *DataPtr, const u32 Length);
 
 /**< Copies Len bytes from source memory to destination memory */
-int Xil_SMemCpy (void *Dest, const u32 DestSize,
+s32 Xil_SMemCpy (void *Dest, const u32 DestSize,
 	const void *Src, const u32 SrcSize, const u32 CopyLen);
 
 /**< Copies Len bytes from source memory to destination memory, allows
    overlapped memory between source and destination */
-int Xil_SMemMove(void *Dest, const u32 DestSize,
+s32 Xil_SMemMove(void *Dest, const u32 DestSize,
 	const void *Src, const u32 SrcSize, const u32 CopyLen);
 
 /**< Compares Len bytes between source and destination memory */
-int Xil_SMemCmp (const void *Src1, const u32 Src1Size,
+s32 Xil_SMemCmp (const void *Src1, const u32 Src1Size,
 	const void *Src2, const u32 Src2Size, const u32 CmpLen);
 
 /**< Compares Len bytes between source and destination memory with constant time */
-int Xil_SMemCmp_CT (const void *Src1, const u32 Src1Size,
+s32 Xil_SMemCmp_CT (const void *Src1, const u32 Src1Size,
 	const void *Src2, const u32 Src2Size, const u32 CmpLen);
 
 /**< Sets the destination memory of given length with given data */
-int Xil_SMemSet (void *Dest, const u32 DestSize,
+s32 Xil_SMemSet (void *Dest, const u32 DestSize,
 	const u8 Data, const u32 Len);
 
 /**< Copies source string to destination string */
-int Xil_SStrCpy (u8 *DestStr, const u32 DestSize,
+s32 Xil_SStrCpy (u8 *DestStr, const u32 DestSize,
 	const u8 *SrcStr, const u32 SrcSize);
 
 /**< Compares source string with destination string */
-int Xil_SStrCmp (const u8 *Str1, const u32 Str1Size,
+s32 Xil_SStrCmp (const u8 *Str1, const u32 Str1Size,
 	const u8 *Str2, const u32 Str2Size);
 
 /**< Compares source string with destination string with constant time */
-int Xil_SStrCmp_CT (const u8 *Str1, const u32 Str1Size,
+s32 Xil_SStrCmp_CT (const u8 *Str1, const u32 Str1Size,
 	const u8 *Str2, const u32 Str2Size);
 
 /**< Concatenates source string to destination string */
-int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
+s32 Xil_SStrCat (u8 *DestStr, const u32 DestSize,
 	const u8 *SrcStr, const u32 SrcSize);
 
 /**< Waits for event timeout */

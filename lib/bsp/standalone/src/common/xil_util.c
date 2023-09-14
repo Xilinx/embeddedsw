@@ -87,6 +87,8 @@
 * 8.1   akm      01/02/23 Added Xil_RegisterPlmHandler() & Xil_PlmStubHandler() APIs.
 * 9.0   ml       03/03/23 Add description to fix doxygen warnings.
 * 9.0   ml       04/26/23 Updated code to fix DC.STRING BUFFER and VARARGS coverity warnings.
+* 9.0   ml       09/13/23 Replaced numerical types (int) with proper typedefs(s32) to
+*                         fix MISRA-C violations for Rule 4.6
 * </pre>
 *
 *****************************************************************************/
@@ -629,7 +631,7 @@ void Xil_UtilRMW32(u32 Addr, u32 Mask, u32 Value)
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int Xil_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size)
+s32 Xil_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size)
 {
 	int Status = XST_FAILURE;
 	u32 Count;
@@ -669,7 +671,7 @@ END:
  * @note	None
  *
  ****************************************************************************/
-int Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
+s32 Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
 		    u32 MaxDstLen)
 {
 	int Status = XST_FAILURE;
@@ -720,7 +722,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int Xil_Strcat(char *Str1Ptr, const char *Str2Ptr, const u32 Size)
+s32 Xil_Strcat(char *Str1Ptr, const char *Str2Ptr, const u32 Size)
 {
 	int Status = XST_FAILURE;
 	u32 Count = 0U;
@@ -765,7 +767,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int Xil_SecureMemCpy(void *DestPtr, u32 DestPtrLen, const void *SrcPtr, u32 Len)
+s32 Xil_SecureMemCpy(void *DestPtr, u32 DestPtrLen, const void *SrcPtr, u32 Len)
 {
 	int Status = XST_FAILURE;
 	u8 *Dest = (u8 *)DestPtr;
@@ -811,7 +813,7 @@ END:
  * 			1 if first non-matching character is greater value in Buf1Ptr
  *
  ******************************************************************************/
-int Xil_MemCmp(const void *Buf1Ptr, const void *Buf2Ptr, u32 Len)
+s32 Xil_MemCmp(const void *Buf1Ptr, const void *Buf2Ptr, u32 Len)
 {
 	volatile int RetVal = 1;
 	const u8 *Buf1 = Buf1Ptr;
@@ -860,7 +862,7 @@ END:
  *		- XST_SUCCESS: If Zeroization is successful.
  *		- XST_FAILURE: If Zeroization is not successful.
  ********************************************************************************/
-int Xil_SecureZeroize(u8 *DataPtr, const u32 Length)
+s32 Xil_SecureZeroize(u8 *DataPtr, const u32 Length)
 {
 	u32 Index;
 	int Status = XST_FAILURE;
@@ -901,7 +903,7 @@ END:
  * 		XST_INVALID_PARAM - Invalid inputs
  *
  *****************************************************************************/
-int Xil_SMemCmp(const void *Src1, const u32 Src1Size,
+s32 Xil_SMemCmp(const void *Src1, const u32 Src1Size,
 		const void *Src2, const u32 Src2Size, const u32 CmpLen)
 {
 	int Status = XST_FAILURE;
@@ -943,7 +945,7 @@ int Xil_SMemCmp(const void *Src1, const u32 Src1Size,
  * 		XST_INVALID_PARAM - Invalid inputs
  *
  *****************************************************************************/
-int Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
+s32 Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
 		   const void *Src2, const u32 Src2Size, const u32 CmpLen)
 {
 	volatile int Status = XST_FAILURE;
@@ -1004,7 +1006,7 @@ int Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
  * 		XST_INVALID_PARAM - Invalid inputs
  *
  *****************************************************************************/
-int Xil_SMemCpy(void *Dest, const u32 DestSize,
+s32 Xil_SMemCpy(void *Dest, const u32 DestSize,
 		const void *Src, const u32 SrcSize, const u32 CopyLen)
 {
 	int Status = XST_FAILURE;
@@ -1051,7 +1053,7 @@ int Xil_SMemCpy(void *Dest, const u32 DestSize,
  * 		XST_INVALID_PARAM - Invalid inputs
  *
  *****************************************************************************/
-int Xil_SMemSet(void *Dest, const u32 DestSize,
+s32 Xil_SMemSet(void *Dest, const u32 DestSize,
 		const u8 Data, const u32 Len)
 {
 	int Status = XST_FAILURE;
@@ -1083,7 +1085,7 @@ int Xil_SMemSet(void *Dest, const u32 DestSize,
  * 		XST_INVALID_PARAM - Invalid inputs
  *
  *****************************************************************************/
-int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
+s32 Xil_SStrCat (u8 *DestStr, const u32 DestSize,
 		 const u8 *SrcStr, const u32 SrcSize)
 {
 	int Status = XST_FAILURE;
@@ -1132,7 +1134,7 @@ END:
  * 		XST_INVALID_PARAM - Invalid inputs
  *
  *****************************************************************************/
-int Xil_SStrCmp(const u8 *Str1, const u32 Str1Size,
+s32 Xil_SStrCmp(const u8 *Str1, const u32 Str1Size,
 		const u8 *Str2, const u32 Str2Size)
 {
 	int Status = XST_FAILURE;
@@ -1185,7 +1187,7 @@ END:
  * 		XST_INVALID_PARAM - Invalid inputs
  *
  *****************************************************************************/
-int Xil_SStrCmp_CT (const u8 *Str1, const u32 Str1Size,
+s32 Xil_SStrCmp_CT (const u8 *Str1, const u32 Str1Size,
 		    const u8 *Str2, const u32 Str2Size)
 {
 	int Status = XST_FAILURE;
@@ -1230,7 +1232,7 @@ END:
  * 		XST_INVALID_PARAM - Invalid inputs
  *
  *****************************************************************************/
-int Xil_SStrCpy(u8 *DestStr, const u32 DestSize,
+s32 Xil_SStrCpy(u8 *DestStr, const u32 DestSize,
 		const u8 *SrcStr, const u32 SrcSize)
 {
 	int Status = XST_FAILURE;
@@ -1271,7 +1273,7 @@ END:
  * 		XST_INVALID_PARAM - Invalid inputs
  *
  *****************************************************************************/
-int Xil_SMemMove(void *Dest, const u32 DestSize,
+s32 Xil_SMemMove(void *Dest, const u32 DestSize,
 		 const void *Src, const u32 SrcSize, const u32 CopyLen)
 {
 	volatile int Status = XST_FAILURE;
