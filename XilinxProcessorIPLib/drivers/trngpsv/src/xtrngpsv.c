@@ -1285,15 +1285,15 @@ static s32 XTrngpsv_WriteRegs(const XTrngpsv *InstancePtr, u32 StartRegOffset, u
 			RegVal = 0U;
 			for (Count = 0U; Count < XTRNGPSV_BYTES_PER_REG; ++Count) {
 				RegVal = (RegVal << 8U)
-						| InitBuf[Index * XTRNGPSV_BYTES_PER_REG + Count];
+						| (InitBuf[(Index * XTRNGPSV_BYTES_PER_REG) + Count]);
 			}
-			Offset = StartRegOffset
-				+ (XTRNGPSV_NUM_INIT_REGS - 1U - Index) * XTRNGPSV_BYTES_PER_REG;
+			Offset = (StartRegOffset
+				+ ((XTRNGPSV_NUM_INIT_REGS - 1U - Index) * XTRNGPSV_BYTES_PER_REG));
 			XTrngpsv_WriteReg(InstancePtr->Config.BaseAddress, Offset, RegVal);
 		}
 		else {
 			XTrngpsv_WriteReg(InstancePtr->Config.BaseAddress,
-					StartRegOffset + Index * XTRNGPSV_BYTES_PER_REG, 0U);
+					(StartRegOffset + (Index * XTRNGPSV_BYTES_PER_REG)), 0U);
 		}
 	}
 
