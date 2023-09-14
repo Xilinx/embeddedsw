@@ -123,8 +123,7 @@ static size_t strnlen (const char *StartPtr, size_t StrSize)
 	EndPtr = memchr(StartPtr, '\0', StrSize);
 	if (EndPtr == NULL) {
 		StrLen = StrSize;
-	}
-	else {
+	} else {
 		StrLen = (size_t) (EndPtr - StartPtr);
 	}
 
@@ -178,16 +177,13 @@ u32 Xil_ConvertCharToNibble(u8 InChar, u8 *Num)
 	if ((InChar >= (u8)'0') && (InChar <= (u8)'9')) {
 		*Num = InChar - (u8)'0';
 		Status = XST_SUCCESS;
-	}
-	else if ((InChar >= (u8)'a') && (InChar <= (u8)'f')) {
+	} else if ((InChar >= (u8)'a') && (InChar <= (u8)'f')) {
 		*Num = InChar - (u8)'a' + 10U;
 		Status = XST_SUCCESS;
-	}
-	else if ((InChar >= (u8)'A') && (InChar <= (u8)'F')) {
+	} else if ((InChar >= (u8)'A') && (InChar <= (u8)'F')) {
 		*Num = InChar - (u8)'A' + 10U;
 		Status = XST_SUCCESS;
-	}
-	else {
+	} else {
 		Status = XST_FAILURE;
 	}
 
@@ -349,8 +345,7 @@ u32 Xil_WaitForEvents(UINTPTR EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 		Xil_PlmStubHandler();
 #endif
 		usleep(1U);
-	}
-	while (PollCount > 0U);
+	} while (PollCount > 0U);
 
 	return Status;
 }
@@ -485,8 +480,7 @@ u32 Xil_ConvertStringToHexBE(const char *Str, u8 *Buf, u32 Len)
 			Buf[ConvertedLen / 2U] =
 				(UpperNibble << XIL_SIZE_OF_NIBBLE_IN_BITS) |
 				LowerNibble;
-		}
-		else {
+		} else {
 			Status = (u32)XST_INVALID_PARAM;
 			goto END;
 		}
@@ -550,8 +544,7 @@ u32 Xil_ConvertStringToHexLE(const char *Str, u8 *Buf, u32 Len)
 				(UpperNibble << XIL_SIZE_OF_NIBBLE_IN_BITS) |
 				LowerNibble;
 			StrIndex = StrIndex - 1U;
-		}
-		else {
+		} else {
 			Status = XST_INVALID_PARAM;
 			goto END;
 		}
@@ -830,12 +823,10 @@ s32 Xil_MemCmp(const void *Buf1Ptr, const void *Buf2Ptr, u32 Len)
 		if (*Buf1 > *Buf2) {
 			RetVal = 1;
 			goto END;
-		}
-		else if (*Buf1 < *Buf2) {
+		} else if (*Buf1 < *Buf2) {
 			RetVal = -1;
 			goto END;
-		}
-		else {
+		} else {
 			Buf1++;
 			Buf2++;
 			Size--;
@@ -910,11 +901,9 @@ s32 Xil_SMemCmp(const void *Src1, const u32 Src1Size,
 
 	if ((Src1 == NULL) || (Src2 == NULL)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else if ((CmpLen == 0U) || (Src1Size < CmpLen) || (Src2Size < CmpLen)) {
+	} else if ((CmpLen == 0U) || (Src1Size < CmpLen) || (Src2Size < CmpLen)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else {
+	} else {
 		Status = memcmp (Src1, Src2, CmpLen);
 		if (Status != 0) {
 			Status = XST_FAILURE;
@@ -959,11 +948,9 @@ s32 Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
 
 	if ((Src1 == NULL) || (Src2 == NULL)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else if ((CmpLen == 0U) || (Src1Size < CmpLen) || (Src2Size < CmpLen)) {
+	} else if ((CmpLen == 0U) || (Src1Size < CmpLen) || (Src2Size < CmpLen)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else {
+	} else {
 		while (Cnt >= sizeof(u32)) {
 			Data |= (*(const u32 *)Src_1 ^ * (const u32 *)Src_2);
 			DataRedundant &= ~Data;
@@ -1017,18 +1004,15 @@ s32 Xil_SMemCpy(void *Dest, const u32 DestSize,
 
 	if ((Dest == NULL) || (Src == NULL)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else if ((CopyLen == 0U) || (DestSize < CopyLen) || (SrcSize < CopyLen)) {
+	} else if ((CopyLen == 0U) || (DestSize < CopyLen) || (SrcSize < CopyLen)) {
 		Status =  XST_INVALID_PARAM;
 	}
 	/* Return error for overlap string */
 	else if ((Src8 < Dst8) && (&Src8[CopyLen - 1U] >= Dst8)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else if ((Dst8 < Src8) && (&Dst8[CopyLen - 1U] >= Src8)) {
+	} else if ((Dst8 < Src8) && (&Dst8[CopyLen - 1U] >= Src8)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else {
+	} else {
 		(void)memcpy(DestTemp, SrcTemp, CopyLen);
 		Status = XST_SUCCESS;
 	}
@@ -1060,8 +1044,7 @@ s32 Xil_SMemSet(void *Dest, const u32 DestSize,
 
 	if ((Dest == NULL) || (DestSize < Len) || (Len == 0U)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else {
+	} else {
 		(void)memset(Dest, (s32)Data, Len);
 		Status = XST_SUCCESS;
 	}
@@ -1104,11 +1087,9 @@ s32 Xil_SStrCat (u8 *DestStr, const u32 DestSize,
 
 	if ((DestSize <= DstLen) || (SrcSize <= SrcLen)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else if (DestSize <= Length) {
+	} else if (DestSize <= Length) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else {
+	} else {
 		(void)strncat((char *)DestStr, (const char *)SrcStr, Length);
 		Status = XST_SUCCESS;
 	}
@@ -1151,11 +1132,9 @@ s32 Xil_SStrCmp(const u8 *Str1, const u32 Str1Size,
 
 	if ((Str1Size <= Str1Len) || (Str2Size <= Str2Len)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else if ((Str1Len < Str2Len) || (Str1Len > Str2Len)) {
+	} else if ((Str1Len < Str2Len) || (Str1Len > Str2Len)) {
 		Status = XST_FAILURE;
-	}
-	else {
+	} else {
 		Status = memcmp(Str1, Str2, Str1Len);
 		if (Status != 0) {
 			Status = XST_FAILURE;
@@ -1204,11 +1183,9 @@ s32 Xil_SStrCmp_CT (const u8 *Str1, const u32 Str1Size,
 
 	if ((Str1Size <= Str1Len) || (Str2Size <= Str2Len)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else if (Str1Len != Str2Len) {
+	} else if (Str1Len != Str2Len) {
 		Status = XST_FAILURE;
-	}
-	else {
+	} else {
 		Status = Xil_SMemCmp_CT (Str1, Str1Size, Str2, Str2Size, Str1Len);
 	}
 
@@ -1247,8 +1224,7 @@ s32 Xil_SStrCpy(u8 *DestStr, const u32 DestSize,
 
 	if ((DestSize <= SrcLen) || (SrcSize <= SrcLen)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else {
+	} else {
 		(void)memcpy(DestStr, SrcStr, SrcLen + 1U);
 		Status = XST_SUCCESS;
 	}
@@ -1281,11 +1257,9 @@ s32 Xil_SMemMove(void *Dest, const u32 DestSize,
 
 	if ((Dest == NULL) || (Src == NULL)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else if ((CopyLen == 0U) || (DestSize < CopyLen) || (SrcSize < CopyLen)) {
+	} else if ((CopyLen == 0U) || (DestSize < CopyLen) || (SrcSize < CopyLen)) {
 		Status =  XST_INVALID_PARAM;
-	}
-	else {
+	} else {
 		Output = memmove(Dest, Src, CopyLen);
 		if (Output != NULL) {
 			Status = XST_SUCCESS;
