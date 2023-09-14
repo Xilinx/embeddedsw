@@ -49,6 +49,8 @@
 * 8.0   dp   03/31/22 Fix compilation warning in Print_DDRSize_Warning().
 *                     Fixes CR#1124773.
 * 9.0   ml   03/03/23 Add description and remove comments to fix doxygen warnings.
+* 9.0   ml   09/14/23 Updated Regnum argument data type from s32 to u32 in Xil_setattribute
+*                     API prototype to fix MISRA-C violations for Rule 10.3.
 * </pre>
 *
 * @note
@@ -130,14 +132,14 @@ static u32 DDRSizeIndex;
 #if defined (__GNUC__)
 void Init_MPU(void) __attribute__((__section__(".boot")));
 void Print_DDRSize_Warning(void) __attribute__((__section__(".boot")));
-static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
+static void Xil_SetAttribute(u32 addr, u32 reg_size,u32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
 static void Xil_DisableMPURegions(void) __attribute__((__section__(".boot")));
 static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum, u32 Attrib) __attribute__((__section__(".boot")));
 #elif defined (__ICCARM__)
 #pragma default_function_attributes = @ ".boot"
 void Init_MPU(void);
 void Print_DDRSize_Warning(void);
-static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib);
+static void Xil_SetAttribute(u32 addr, u32 reg_size,u32 reg_num, u32 attrib);
 static void Xil_DisableMPURegions(void);
 #endif
 
@@ -369,7 +371,7 @@ void Print_DDRSize_Warning(void) {
 *
 *
 ******************************************************************************/
-static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib)
+static void Xil_SetAttribute(u32 addr, u32 reg_size,u32 reg_num, u32 attrib)
 {
 	u32 Local_reg_size = reg_size;
 
