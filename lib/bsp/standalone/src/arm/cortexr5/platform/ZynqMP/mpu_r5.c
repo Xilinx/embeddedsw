@@ -55,6 +55,8 @@
 *                     fix MISRA-C violations for Rule 4.6
 * 9.0   ml   09/13/23 Assigned proper suffix to integer constants to fix MISRA-C
 *                     violations for Rule 7.2 and 10.4
+* 9.0   ml   09/13/23 Added parenthensis on sub-expression to fix MISRA-C
+*                     violations for Rule 12.1
 * </pre>
 *
 * @note
@@ -193,7 +195,7 @@ void Init_MPU(void)
 	size = (XPAR_PSU_R5_DDR_0_HIGH_ADDR - XPAR_PSU_R5_DDR_0_LOW_ADDR) + 1;
 	if (size < 0x80000000) {
 		/* Lookup the size.  */
-		for (i = 0; i < sizeof region_size / sizeof region_size[0]; i++) {
+		for (i = 0; i < (sizeof (region_size) / sizeof (region_size[0])); i++) {
 			if (size <= region_size[i].size) {
 				RegSize = region_size[i].encoding;
 
