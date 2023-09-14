@@ -76,7 +76,7 @@ XStatus XPmUpdate_RestoreAllNodes(void);
 
 #define XPM_UPDATE_THROW_IF_ERROR(Status, NodeData) { \
 	if (XST_SUCCESS != Status) { \
-		PmErr("Error:[%s %d] NodeId=0x%x Status = 0x%x\n\r", __func__, __LINE__,((XPm_Node*)NodeData)->Id, Status); \
+		PmErr("Error:[%s %d] NodeId=0x%x Status = 0x%x\n\r", __func__, __LINE__,NodeData?((XPm_Node*)NodeData)->Id:0, Status); \
 	} \
 }
 #ifdef __cplusplus

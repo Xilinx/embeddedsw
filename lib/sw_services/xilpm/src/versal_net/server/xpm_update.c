@@ -8,6 +8,7 @@
 #include "xpm_common.h"
 #include "xpm_node.h"
 #include "xpm_subsystem.h"
+#include "xpm_pldevice.h"
 
 int XPm_DsOps(u32 Op, u64 Addr, void *Data);
 #define XPM_DYN_BYTEBUFFER_ID 0x1
@@ -178,6 +179,27 @@ done:
 	return Status;
 }
 
+static XStatus AddMissingPlDevices(void) {
+	XStatus Status = XST_FAILURE;
+	for (DynByteBufferIter_t i = DynByteBuffer_Begin(); i !=DynByteBuffer_End(); i = DynByteBuffer_Next(i))
+	{
+		u32 NodeId = SAVED_DATA_ID(i);
+		if (NODECLASS(NodeId) == XPM_NODECLASS_DEVICE \
+			&&  NODESUBCLASS(NodeId) == XPM_NODESUBCL_DEV_PL) {
+			if (NULL == XPmDevice_GetById(NodeId)) {
+				u32 Args[1] = {NodeId};
+				Status = XPm_AddNode(Args, 1);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+			}
+		}
+	}
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
 /**
  * @brief Search all Nodes type in Byte Buffer and restore dynamic part of each node
  */
@@ -206,6 +228,11 @@ XStatus XPmUpdate_RestoreAllNodes(void)
 			FailedNode = (XPm_Node*)SubSystem;
 			goto done;
 		}
+	}
+
+	Status = AddMissingPlDevices();
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
 	/* Iterating through all Nodes */
