@@ -28,6 +28,8 @@ extern "C" {
 
 #include "xil_types.h"
 #include "ffconf.h"		/* FatFs configuration options */
+#include "xil_util.h"
+#include "xil_io.h"
 
 #if FF_DEFINED != FFCONF_DEF
 #error Wrong configuration file (ffconf.h).
@@ -109,6 +111,9 @@ typedef char TCHAR;
 #endif
 
 
+/* Library version info */
+#define XILFFS_MAJOR_VERSION	5U
+#define XILFFS_MINOR_VERSION	2U
 
 /* Definitions of volume management */
 
@@ -355,7 +360,7 @@ int f_puts (const TCHAR* str, FIL* cp);								/* Put a string to the file */
 int f_printf (FIL* fp, const TCHAR* str, ...);						/* Put a formatted string to the file */
 TCHAR* f_gets (TCHAR* buff, int len, FIL* fp);						/* Get a string from the file */
 
-/* Some API fucntions are implemented as macro */
+/* Some API functions are implemented as macro */
 
 #define f_eof(fp) ((int)((fp)->fptr == (fp)->obj.objsize))
 #define f_error(fp) ((fp)->err)
@@ -402,7 +407,21 @@ void ff_mutex_give (int vol);		/* Unlock sync object */
 #endif
 
 
+/****************** Macros (Inline Functions) Definitions *********************/
 
+/*****************************************************************************/
+/**
+*
+* @brief	This function returns the version number of xilffs library.
+*
+* @return	32-bit version number
+*
+******************************************************************************/
+static __attribute__((always_inline)) INLINE
+u32 Xilffs_GetLibVersion(void)
+{
+	return (XIL_BUILD_VERSION(XILFFS_MAJOR_VERSION, XILFFS_MINOR_VERSION));
+}
 
 /*--------------------------------------------------------------*/
 /* Flags and Offset Address                                     */
