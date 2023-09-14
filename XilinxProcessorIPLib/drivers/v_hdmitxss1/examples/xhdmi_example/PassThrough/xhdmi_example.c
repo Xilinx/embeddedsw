@@ -39,6 +39,7 @@
 * 1.09	ssh    02/04/22 Added param to support Tx to train at the same rate as Rx
 * 1.10  ssh    03/02/22 Added LCPLL and RPLL config for VCK190 Exdes
 * 1.11	ssh    01/25/23 Added support for VEK280
+* 1.12  ssh    09/14/23 Added Tx compliance values for UltrascalePlus
 *
 * </pre>
 *
@@ -4961,6 +4962,42 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 				}
 			}
 #endif
+		} else if (XV_HdmiTxSs1_GetTransportMode(XV_TxInst->HdmiTxSs) ==
+				TRUE) {
+			Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(&Vfmc[0],
+							     TRUE,
+							     TxLineRate, Lanes);
+#if defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_ZCU102)
+			TxDiffSwingVal = 0xD;
+            TxprecursorVal = 0x5;
+            TxpostcursorVal = 0x5;
+#elif defined (XPS_BOARD_VCU118)
+			TxDiffSwingVal = 0xD;
+            TxprecursorVal = 0x3;
+            TxpostcursorVal = 0x3;
+#elif defined (XPS_BOARD_VCK190) || \
+	  defined (XPS_BOARD_VEK280)
+			TxDiffSwingVal = 0xD;
+            TxprecursorVal = 0x1;
+            TxpostcursorVal = 0x2;
+#endif
+
+			for (int ChId=1; ChId <= 4; ChId++) {
+				XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1,
+							0,
+							ChId,
+							TxDiffSwingVal);
+				XHdmiphy1_SetTxPreEmphasis(&Hdmiphy1,
+							0,
+							ChId,
+							TxprecursorVal);
+				XHdmiphy1_SetTxPostCursor(&Hdmiphy1,
+							0,
+							ChId,
+							TxpostcursorVal);
+			}
+
 		}
 	}
 }
