@@ -1,5 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -23,6 +24,7 @@
  * ---- --- -------- -------------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
  * 1.1   ssc  03/24/22 Minor doxygen related fixes
+ *       mb   09/14/23 Fix MISRA-C vioaltion 2.5
  *
  * </pre>
  *
@@ -47,7 +49,6 @@ extern "C" {
 /* Register: TRNG_STATUS */
 #define TRNG_STATUS    0x00000004U
 
-#define TRNG_STATUS_QCNT_SHIFT   9U
 #define TRNG_STATUS_QCNT_MASK    0x00000e00U
 #define TRNG_STATUS_CERTF_MASK    0x00000008U
 #define TRNG_STATUS_DTF_MASK    0x00000002U
