@@ -20,6 +20,7 @@
 *       am   01/10/23 Added handler API for dme
 * 1.2   kpt  06/02/23 Updated XOcp_GetPcrLogIpi to XOcp_GetHwPcrLogIpi
 *       kal  06/02/23 Added handler API for SW PCR
+*       am   09/04/23 Cleared SharedSecretTmp array
 *
 * </pre>
 *
@@ -455,13 +456,20 @@ static int XOcp_GenSharedSecretwithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, 
 	u32 SharedSecretAddrLow, u32 SharedSecretAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int ClrStatus = XST_FAILURE;
 	u64 PubKeyAddr = ((u64)PubKeyAddrHigh << XOCP_ADDR_HIGH_SHIFT) | (u64)PubKeyAddrLow;
 	u64 SharedSecretAddr = ((u64)SharedSecretAddrHigh << XOCP_ADDR_HIGH_SHIFT) | (u64)SharedSecretAddrLow;
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
-	u32 DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
+	u32 DevAkIndex = XOCP_INVALID_DEVAK_INDEX;
 	u64 PrvtKeyAddr;
 	u8 PubKeyTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
 	u8 SharedSecretTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
+
+	DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
+	if (DevAkIndex == XOCP_INVALID_DEVAK_INDEX) {
+		Status = XOCP_ERR_INVALID_DEVAK_REQ;
+		goto END;
+	}
 
 	DevAkData = DevAkData + DevAkIndex;
 
@@ -485,6 +493,12 @@ static int XOcp_GenSharedSecretwithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, 
 	}
 	else {
 		Status = XOCP_ERR_DEVAK_NOT_READY;
+	}
+
+END:
+	ClrStatus = Xil_SecureZeroize(SharedSecretTmp, XSECURE_ECC_P384_SIZE_IN_BYTES * 2U);
+	if (ClrStatus != XST_SUCCESS) {
+		Status |= ClrStatus;
 	}
 
 	return Status;
