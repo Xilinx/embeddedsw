@@ -542,8 +542,7 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 		goto END;
 	}
 
-	if ((KeySrc < XSECURE_AES_BBRAM_KEY) ||
-		(KeySrc >= XSECURE_MAX_KEY_SOURCES)) {
+	if (KeySrc >= XSECURE_MAX_KEY_SOURCES) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
@@ -748,8 +747,7 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 		goto END_RST;
 	}
 
-	if ((DecKeySrc >= XSECURE_MAX_KEY_SOURCES) ||
-		(DecKeySrc < XSECURE_AES_BBRAM_KEY)) {
+	if (DecKeySrc >= XSECURE_MAX_KEY_SOURCES) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END_RST;
 	}
@@ -871,8 +869,7 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		goto END;
 	}
 
-	if ((KeySrc >= XSECURE_MAX_KEY_SOURCES) ||
-		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
+	if (KeySrc >= XSECURE_MAX_KEY_SOURCES) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END_RST;
 	}
@@ -1225,8 +1222,7 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		goto END;
 	}
 
-	if ((KeySrc >= XSECURE_MAX_KEY_SOURCES) ||
-		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
+	if (KeySrc >= XSECURE_MAX_KEY_SOURCES) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END_RST;
 	}
@@ -1627,8 +1623,7 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 		goto END;
 	}
 
-	if ((KeySrc > XSECURE_AES_ALL_KEYS) ||
-		(KeySrc < XSECURE_AES_BBRAM_KEY)) {
+	if (KeySrc > XSECURE_AES_ALL_KEYS) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END_CLR;
 	}
