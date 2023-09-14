@@ -108,7 +108,7 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 XSmc_OutVar Xil_Smc(u64 FunctionID, u64 Arg1, u64 Arg2, u64 Arg3, u64 Arg4,
-					u64 Arg5, u64 Arg6, u64 Arg7);
+		    u64 Arg5, u64 Arg6, u64 Arg7);
 #endif
 #ifdef __cplusplus
 }

@@ -121,12 +121,12 @@ extern "C" {
  *
  ******************************************************************************/
 #define XSECURE_TEMPORAL_IMPL(Var, VarTmp, Function, ...) \
-		{ \
-			Var = XST_FAILURE; \
-			VarTmp = XST_FAILURE; \
-			Var = Function(__VA_ARGS__); \
-			VarTmp = Var; \
-		}
+	{ \
+		Var = XST_FAILURE; \
+		VarTmp = XST_FAILURE; \
+		Var = Function(__VA_ARGS__); \
+		VarTmp = Var; \
+	}
 
 /******************************************************************************/
 /**
@@ -151,14 +151,14 @@ extern "C" {
 		volatile int StatusTmp; \
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Function, __VA_ARGS__); \
 		if ((Status != XST_SUCCESS) || \
-			(StatusTmp != XST_SUCCESS)) { \
+		    (StatusTmp != XST_SUCCESS)) { \
 			if (((Status) != (StatusTmp)) || \
-				(Status == XST_SUCCESS)) { \
+			    (Status == XST_SUCCESS)) { \
 				Status = XST_GLITCH_ERROR; \
 			}\
 			goto Label; \
 		} \
-	 }
+	}
 
 /******************************************************************************/
 /**
@@ -181,7 +181,7 @@ extern "C" {
 	{ \
 		Status = Function(__VA_ARGS__); \
 		StatusTmp = Function(__VA_ARGS__); \
-	 }
+	}
 
 /******************************************************************************/
 /**
@@ -200,7 +200,7 @@ extern "C" {
 	{ \
 		Function(__VA_ARGS__); \
 		Function(__VA_ARGS__); \
-	 }
+	}
 
 /******************************************************************************/
 /**
@@ -244,7 +244,7 @@ u32 Xil_WaitForEvent(UINTPTR RegAddr, u32 EventMask, u32 Event, u32 Timeout);
 
 /**< Waits for specified events */
 u32 Xil_WaitForEvents(UINTPTR EventsRegAddr, u32 EventsMask, u32 WaitEvents,
-			 u32 Timeout, u32* Events);
+		      u32 Timeout, u32 *Events);
 
 /**< Validate input hex character */
 u32 Xil_IsValidHexChar(const char *Ch);
@@ -259,7 +259,7 @@ u32 Xil_ConvertStringToHexLE(const char *Str, u8 *Buf, u32 Len);
 u32 Xil_Strnlen(const char *Str, u32 MaxLen);
 
 /**< Convert string to hex numbers in big endian format */
-u32 Xil_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
+u32 Xil_ConvertStringToHexBE(const char *Str, u8 *Buf, u32 Len);
 
 /**< Read, Modify and Write to an address*/
 void Xil_UtilRMW32(u32 Addr, u32 Mask, u32 Value);
@@ -269,56 +269,56 @@ s32 Xil_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size);
 
 /**< Copies specified range from source string to destination string */
 s32 Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
-	u32 MaxDstLen);
+		    u32 MaxDstLen);
 
 /**< Appends string2 to string1 */
-s32 Xil_Strcat(char* Str1Ptr, const char* Str2Ptr, const u32 Size);
+s32 Xil_Strcat(char *Str1Ptr, const char *Str2Ptr, const u32 Size);
 
 /**< Copies Len bytes from source memory to destination memory */
-s32 Xil_SecureMemCpy(void * DestPtr, u32 DestPtrLen, const void * SrcPtr, u32 Len);
+s32 Xil_SecureMemCpy(void *DestPtr, u32 DestPtrLen, const void *SrcPtr, u32 Len);
 
 /**< Compares Len bytes from memory1 and memory2 */
-s32 Xil_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len);
+s32 Xil_MemCmp(const void *Buf1Ptr, const void *Buf2Ptr, u32 Len);
 
 /**< Zeroizes the memory of given length */
 s32 Xil_SecureZeroize(u8 *DataPtr, const u32 Length);
 
 /**< Copies Len bytes from source memory to destination memory */
 s32 Xil_SMemCpy (void *Dest, const u32 DestSize,
-	const void *Src, const u32 SrcSize, const u32 CopyLen);
+		 const void *Src, const u32 SrcSize, const u32 CopyLen);
 
 /**< Copies Len bytes from source memory to destination memory, allows
    overlapped memory between source and destination */
 s32 Xil_SMemMove(void *Dest, const u32 DestSize,
-	const void *Src, const u32 SrcSize, const u32 CopyLen);
+		 const void *Src, const u32 SrcSize, const u32 CopyLen);
 
 /**< Compares Len bytes between source and destination memory */
 s32 Xil_SMemCmp (const void *Src1, const u32 Src1Size,
-	const void *Src2, const u32 Src2Size, const u32 CmpLen);
+		 const void *Src2, const u32 Src2Size, const u32 CmpLen);
 
 /**< Compares Len bytes between source and destination memory with constant time */
 s32 Xil_SMemCmp_CT (const void *Src1, const u32 Src1Size,
-	const void *Src2, const u32 Src2Size, const u32 CmpLen);
+		    const void *Src2, const u32 Src2Size, const u32 CmpLen);
 
 /**< Sets the destination memory of given length with given data */
 s32 Xil_SMemSet (void *Dest, const u32 DestSize,
-	const u8 Data, const u32 Len);
+		 const u8 Data, const u32 Len);
 
 /**< Copies source string to destination string */
 s32 Xil_SStrCpy (u8 *DestStr, const u32 DestSize,
-	const u8 *SrcStr, const u32 SrcSize);
+		 const u8 *SrcStr, const u32 SrcSize);
 
 /**< Compares source string with destination string */
 s32 Xil_SStrCmp (const u8 *Str1, const u32 Str1Size,
-	const u8 *Str2, const u32 Str2Size);
+		 const u8 *Str2, const u32 Str2Size);
 
 /**< Compares source string with destination string with constant time */
 s32 Xil_SStrCmp_CT (const u8 *Str1, const u32 Str1Size,
-	const u8 *Str2, const u32 Str2Size);
+		    const u8 *Str2, const u32 Str2Size);
 
 /**< Concatenates source string to destination string */
 s32 Xil_SStrCat (u8 *DestStr, const u32 DestSize,
-	const u8 *SrcStr, const u32 SrcSize);
+		 const u8 *SrcStr, const u32 SrcSize);
 
 /**< Waits for event timeout */
 u32 Xil_WaitForEventSet(u32 Timeout, u32 NumOfEvents, volatile u32 *EventAddr, ...);
