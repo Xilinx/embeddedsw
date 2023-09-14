@@ -163,7 +163,7 @@ u32 XGetPSVersion_Info(void)
 ******************************************************************************/
 u8 XGetCoreId(void)
 {
-	u64 CoreId;
+	UINTPTR CoreId;
 
 #if (defined (__aarch64__) && ! defined (VERSAL_NET))
 	/* CortexA53 and CortexA72 */
