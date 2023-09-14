@@ -51,6 +51,8 @@
 * 9.0   ml   03/03/23 Add description and remove comments to fix doxygen warnings.
 * 9.0   ml   09/14/23 Updated Regnum argument data type from s32 to u32 in Xil_setattribute
 *                     API prototype to fix MISRA-C violations for Rule 10.3.
+* 9.0   ml   09/13/23 Replaced numerical types (int) with proper typedefs(s32) to
+*                     fix MISRA-C violations for Rule 4.6
 * </pre>
 *
 * @note
@@ -87,7 +89,7 @@
 
 static const struct {
 	u64 size;
-	unsigned int encoding;
+	u32 encoding;
 }region_size[] = {
 	{ 0x20, REGION_32B },
 	{ 0x40, REGION_64B },
