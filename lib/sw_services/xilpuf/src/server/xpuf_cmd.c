@@ -103,6 +103,7 @@ static int XPuf_InvalidCmdHandler(u32 *Payload, u32 *RespBuf)
 
 	return Status;
 }
+
 /*****************************************************************************/
 /**
  * @brief	This function checks for the supported features based on the

@@ -26,6 +26,7 @@
 *       skg  10/28/22 Added comments for macros
 * 3.2   am   03/09/23 Moved payload length macros to xilmailbox.h file
 *       am   03/21/23 Match the shared memory size in secure library to reuse for customer
+*       kal  09/14/23 Added XNvm_SetSlrIndex function
 *
 * </pre>
 * @note
@@ -78,12 +79,47 @@ typedef struct {
 	u32 SlrIndex;         /**< Slr index to trigger the slave PLM*/
 } XNvm_ClientInstance;
 
+/**< Enumeration constants for SlrIndex*/
+typedef enum{
+	XNVM_SLR_INDEX_0 = 0,	/**< SLR_INDEX_0 */
+	XNVM_SLR_INDEX_1,	/**< SLR_INDEX_1 */
+	XNVM_SLR_INDEX_2,	/**< SLR_INDEX_2 */
+	XNVM_SLR_INDEX_3	/**< SLR_INDEX_3 */
+} XNvm_SlrIndex;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 static inline u32 Header(u32 Len, u32 ApiId)
 {
 	return ((Len << XNVM_PAYLOAD_LEN_SHIFT) |
 		XILNVM_MODULE_ID_MASK | (ApiId));
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function sets slr index in the NVM client instance.
+ *
+ * @param	InstancePtr	Pointer to XNvm_ClientInstance
+ *
+ * @param	SlrIndex	Slr index to be set in instance
+ *
+ * @return	XST_SUCCESS	On valid input SlrIndex.
+ *		XST_FAILURE	On invalid SlrIndex.
+ *
+ * @Note	This function is applicable to only Versal
+ *
+ *******************************************************************************/
+static inline int XNvm_SetSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrIndex)
+{
+	int Status = XST_FAILURE;
+
+	if (SlrIndex <= (u32)XNVM_SLR_INDEX_3) {
+		/**< Validate SlrIndex and assign it to instance pointer */
+		InstancePtr->SlrIndex = SlrIndex;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }
 
 /**
