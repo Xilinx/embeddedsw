@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
-title: OpenAMP Proxy Application
+title: OpenAMP RPC Demo
+description: OpenAMP rpc-demo application
 
 type: apps
 
