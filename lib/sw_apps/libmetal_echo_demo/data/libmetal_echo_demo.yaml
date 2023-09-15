@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
-title: Libmetal Echo Demo
+title: Libmetal AMP Demo
+description: Libmetal AMP Application
 
 type: apps
 
