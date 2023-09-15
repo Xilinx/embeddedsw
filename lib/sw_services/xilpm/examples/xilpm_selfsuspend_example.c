@@ -1,8 +1,8 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 
 /*
  *
@@ -37,8 +37,13 @@
 #include "pm_defs.h"
 #include "gic_setup.h"
 
-#define IPI_INT_ID	XPAR_XIPIPSU_0_INT_ID
-#define TEST_CHANNEL_ID	XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef SDT
+ #define IPI_INT_ID		XPAR_XIPIPSU_0_INTERRUPTS
+ #define TEST_CHANNEL_ID	XPAR_XIPIPSU_0_BASEADDR
+#else
+ #define IPI_INT_ID		XPAR_XIPIPSU_0_INT_ID
+ #define TEST_CHANNEL_ID	XPAR_XIPIPSU_0_DEVICE_ID
+#endif
 
 static XIpiPsu IpiInst;
 
@@ -162,36 +167,17 @@ static void PrepareSuspend(void)
 #if !defined(versal)
 	SaveContext();
 #endif
-/* usleep is used to prevents UART prints from overlapping */
+
 #ifdef __aarch64__
 	u64 vector_base = (u64)&_vector_table;
 
 	/* APU */
 	XPm_SelfSuspend(NODE_APU_0, MAX_LATENCY, 0, vector_base);
-	usleep(100000);
-	XPm_SetRequirement(NODE_OCM_BANK_0, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
-	usleep(100000);
-	XPm_SetRequirement(NODE_OCM_BANK_1, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
-	usleep(100000);
-	XPm_SetRequirement(NODE_OCM_BANK_2, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
-	usleep(100000);
-	XPm_SetRequirement(NODE_OCM_BANK_3, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
-	usleep(100000);
-
 #else
 	u32 vector_base = (u32)&_vector_table;
 
 	/* RPU */
 	XPm_SelfSuspend(NODE_RPU_0, MAX_LATENCY, 0, vector_base);
-	usleep(100000);
-	XPm_SetRequirement(NODE_TCM_0_A, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
-	usleep(100000);
-	XPm_SetRequirement(NODE_TCM_0_B, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
-	usleep(100000);
-	XPm_SetRequirement(NODE_TCM_1_A, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
-	usleep(100000);
-	XPm_SetRequirement(NODE_TCM_1_B, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
-	usleep(100000);
 #endif /* __aarch64__ */
 }
 
