@@ -1,6 +1,35 @@
 Changes for 2023.2
 ===============================
 
+uartlite_v3_9:
+Add support for system device-tree flow for uartlite
+Add support for system device-tree flow for uartlite examples
+Fix code formatting issues
+Add outbyte and inbyte in SDT flow
+Fix GCC warnings
+Use Canonical form for base address in uartlite examples
+Add support for peripheral test for uartlite in SDT flow
+
+uartns550_v3_9:
+Add support for system device-tree flow for uartns550
+Add SDT support for uartns550 examples
+Fix code formatting issues
+Add outbyte and inbyte in SDT flow
+Add support for peripheral test for uartns550 in SDT flow
+
+uartps_v3_13:
+Add support for system device tree flow.
+Add uartps examples list in yaml
+Add support for system device-tree flow for uartps examples
+Add support for peripheral tests in SDT flow
+
+uartpsv_v1_9:
+Add support for system device tree flow
+Add uartpsv examples list in yaml
+Add support for system device-tree flow for uartpsv example
+Fix code format issues
+Add support for peripheral test for uartpsv in SDT flow
+
 dp21txss_v2_1:
 Fixed macro definitions to support for 20Gbps and 13.5Gbps link rates.
 
