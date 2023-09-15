@@ -28,3 +28,14 @@ supported_processors:
 supported_os:
   - standalone
   - freertos10_xilinx
+
+examples:
+  xilpm_selfsuspend_example.c:
+    - supported_platforms:
+      - Versal
+      - ZynqMP
+    - dependency_files:
+      - timer.c
+      - timer.h
+      - gic_setup.c
+      - gic_setup.h

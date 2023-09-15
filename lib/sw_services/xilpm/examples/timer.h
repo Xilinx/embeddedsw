@@ -1,8 +1,8 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 
 /*********************************************************************
  * CONTENT
@@ -18,8 +18,14 @@
 extern "C" {
 #endif
 
-#define TTC0_0_DEVICE_ID	XPAR_XTTCPS_0_DEVICE_ID
-#define COUNT_PER_SEC		(XPAR_XTTCPS_0_CLOCK_HZ / 65535)
+#ifdef SDT
+ #define TTC0_0_DEVICE_ID	XPAR_XTTCPS_0_BASEADDR
+ #define COUNT_PER_SEC		(XPAR_XTTCPS_0_CLOCK_FREQ / 65535)
+#else
+ #define TTC0_0_DEVICE_ID	XPAR_XTTCPS_0_DEVICE_ID
+ #define COUNT_PER_SEC		(XPAR_XTTCPS_0_CLOCK_HZ / 65535)
+#endif
+
 #define TTC_INT_ID0		XPAR_XTTCPS_0_INTR
 
 #define TIMER_PERIOD		3
