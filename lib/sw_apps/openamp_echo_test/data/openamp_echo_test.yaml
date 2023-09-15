@@ -2,7 +2,8 @@
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
-title: OpenAMP Echo Test
+title: OpenAMP echo-test
+description: OpenAMP echo-test application
 
 type: apps
 
