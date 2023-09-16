@@ -1,6 +1,51 @@
 Changes for 2023.2
 ===============================
 
+pciepsu_v1_6:
+Ported driver and example application for decoupling flow
+
+dp14txss_v6_10:
+Added support to the hdcp app to work with different HDCP configurations.
+
+dsitxss_v2_3:
+Updated driver tcl file to support Compressed mode.
+Added overview in addtogroups section.
+
+xadcps_v2_7:
+Added support for SDT flow
+
+sysmon_v7_8:
+Added support for SDT flow
+
+sysmonpsu_v2_9:
+Added support for SDT flow
+
+sysmonpsv_v4_1:
+Added support for SDT flow
+
+xdmapcie_v1_7:
+Ported driver and example application for decoupling flow
+
+mipicsiss_v1_10:
+Removed linker script from dependency properties.
+Updated the dependency properties.
+Added Support for VEK280_REVB and RC programming.
+
+v_hdmiphy1_v2_7:
+Added new registers for HDMI PHY IP.
+Added support for clock primitive.
+Added direction for clock primitive.
+Added overview in addtogroups section.
+
+v_hdmirx1_v1_7:
+Fixed compliance issue by handling HDMI Rx data when there is delay between Rx clock and data.
+Fixed VIC ID when HDMI video format received with VIC ID.
+
+vphy_v1_14:
+Added support for clock primitive.
+Added direction for clock primitive.
+Added overview in addtogroups section.
+
 uartlite_v3_9:
 Add support for system device-tree flow for uartlite
 Add support for system device-tree flow for uartlite examples
