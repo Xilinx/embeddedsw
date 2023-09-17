@@ -31,8 +31,8 @@ extern "C" {
 #include "xil_util.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_RSA_MAJOR_VERSION	5
-#define XSECURE_RSA_MINOR_VERSION	2
+#define XSECURE_RSA_MAJOR_VERSION	5U
+#define XSECURE_RSA_MINOR_VERSION	2U
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
