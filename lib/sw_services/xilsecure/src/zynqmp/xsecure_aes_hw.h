@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,7 +38,7 @@ extern "C" {
 #include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
-#define XSECURE_CSU_AES_BASE				(0xFFCA1000 )
+#define XSECURE_CSU_AES_BASE				(0xFFCA1000U)
 						/**< CSU AES base address */
 #define XSECURE_CSU_PCAP_STATUS				(0xFFCA3010U)
 						/**< CSU PCAP Status reg. */
