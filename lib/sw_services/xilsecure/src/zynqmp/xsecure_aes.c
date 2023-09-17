@@ -1435,8 +1435,8 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	u32 CurrentImgLen = 0x0U;
 	u32 NextBlkLen = 0x0U;
 	u32 PrevBlkLen = 0x0U;
-	u8 *DestAddr= 0x0U;
-	u8 *SrcAddr = 0x0U;
+	u8 *DestAddr= NULL;
+	u8 *SrcAddr = NULL;
 	u8 *GcmTagAddr;
 	u32 BlockType;
 	u32 ImageLen = 0x0U;

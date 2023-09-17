@@ -1551,7 +1551,7 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 	u32 AesKupKey[XSECURE_KEY_LEN];
 
 	if (ImageHdrInfo->KeySrc == XSECURE_KEY_SRC_KUP) {
-		if (KupKey != 0x00) {
+		if (KupKey != NULL) {
 			/* Linux or U-boot stores Key in the form of String
 			 * So this conversion is required here.
 			 */
@@ -1573,7 +1573,7 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 		}
 	 }
 	else {
-		if (KupKey != 0x00) {
+		if (KupKey != NULL) {
 			Status = XSECURE_KUP_KEY_NOT_REQUIRED;
 			goto END;
 		}
@@ -1631,7 +1631,7 @@ static u32 XSecure_DecryptPartition(XSecure_ImageInfo *ImageHdrInfo,
 	XSecure_SetReset(SecureAes.BaseAddress, XSECURE_CSU_AES_RESET_OFFSET);
 
 END:
-	if (KupKey != 0x00) {
+	if (KupKey != NULL) {
 		/* Clear local user key */
 		(void)memset(AesKupKey, 0, XSECURE_KEY_LEN * XSECURE_WORD_LEN);
 	}
