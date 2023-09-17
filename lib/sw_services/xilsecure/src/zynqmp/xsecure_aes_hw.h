@@ -91,7 +91,9 @@ static inline void XSecure_PcapWaitForDone(void)
 {
 	while ((Xil_In32(XSECURE_CSU_PCAP_STATUS) &
 			XSECURE_CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK) !=
-			XSECURE_CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK);
+			XSECURE_CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK) {
+
+	}
 }
 
 /************************** Function Prototypes ******************************/
