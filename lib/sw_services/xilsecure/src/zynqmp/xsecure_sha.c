@@ -579,10 +579,12 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	u32 Status = (u32)XST_FAILURE;
 	u32 PrevPartialLen;
 	u8 *PartialData;
+	const u8 *DataPtr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
 
+	DataPtr = Data;
 	PrevPartialLen = InstancePtr->PartialLen;
         PartialData = InstancePtr->PartialData;
 
@@ -592,21 +594,21 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	{
 		/* Handle Partial data and non dword aligned data address */
 		if ((PrevPartialLen != 0U) ||
-		    (((UINTPTR)Data & XCSUDMA_ADDR_LSB_MASK) != 0U)) {
+		    (((UINTPTR)DataPtr & XCSUDMA_ADDR_LSB_MASK) != 0U)) {
 			XSecure_MemCpy((void *)&PartialData[PrevPartialLen],
-				(void *)Data,
+				(void *)DataPtr,
 				XSECURE_SHA3_BLOCK_LEN - PrevPartialLen);
 			DmableData = PartialData;
 			DmableDataLen = XSECURE_SHA3_BLOCK_LEN;
-			Data += XSECURE_SHA3_BLOCK_LEN - PrevPartialLen;
+			DataPtr += XSECURE_SHA3_BLOCK_LEN - PrevPartialLen;
 			RemainingDataLen = RemainingDataLen - DmableDataLen;
 		}
 		else {
 			/* Process data of size in multiple of dwords */
-			DmableData = Data;
+			DmableData = DataPtr;
 			DmableDataLen = RemainingDataLen -
 				(RemainingDataLen % XSECURE_SHA3_BLOCK_LEN);
-			Data += DmableDataLen;
+			DataPtr += DmableDataLen;
 			RemainingDataLen -= DmableDataLen;
 		}
 
@@ -627,7 +629,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	/* Handle remaining data during processing of next data chunk or during
 	   data padding */
 	if(RemainingDataLen > 0U) {
-		XSecure_MemCpy((void *)(PartialData + PrevPartialLen), (void *)Data,
+		XSecure_MemCpy((void *)(PartialData + PrevPartialLen), (void *)DataPtr,
 		                     (RemainingDataLen - PrevPartialLen));
 	}
 	InstancePtr->PartialLen = RemainingDataLen;
