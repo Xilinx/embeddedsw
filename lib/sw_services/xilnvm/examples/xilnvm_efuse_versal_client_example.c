@@ -66,6 +66,7 @@
  * 3.1   skg   10/04/2022 Added API to set SlrIndex
  *       skg   12/07/2022 Added Additional PPKs support
  * 3.2   ng    07/05/2023 added support for system device tree flow
+ *       vss   09/19/2023 Fixed MISRA-C Rule 2.5 violation
  *
  * </pre>
  *
@@ -115,6 +116,12 @@
 #endif
 
 #define XNVM_TOTAL_SHARED_MEM_SIZE	(XNVM_SHARED_BUF_TOTAL_SIZE + XNVM_SHARED_MEM_SIZE)
+#define XNVM_EFUSE_PPK_READ_START XNVM_EFUSE_PPK0
+#ifdef XNVM_EN_ADD_PPKS
+#define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK4
+#else
+#define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK2
+#endif
 
 /**************************** Type Definitions *******************************/
 XNvm_ClientInstance NvmClientInstance;

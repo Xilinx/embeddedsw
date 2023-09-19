@@ -50,7 +50,7 @@
  *                        XilNvm_EfuseInitSecCtrl
  * 3.1   skg   12/07/2022 Added Additional PPks support
  * 3.2   yog   09/13/2023 Added XilNvm_ShowData() API
- *
+ *       vss   09/19/23 Fixed MISRA-C Rule 2.5 violation
  * </pre>
  *
  ******************************************************************************/
@@ -73,6 +73,12 @@
 #define XNVM_EFUSE_DEC_EFUSE_ONLY_MASK			(0x0000ffffU)
 #define XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX			(3U)
 #define XNVM_EFUSE_VOLT_SOC_LIMIT			(1U)
+#define XNVM_EFUSE_PPK_READ_START XNVM_EFUSE_PPK0
+#ifdef XNVM_EN_ADD_PPKS
+#define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK4
+#else
+#define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK2
+#endif
 
 /**************************** Type Definitions *******************************/
 
