@@ -1,6 +1,72 @@
 Changes for 2023.2
 ===============================
 
+cframe_v1_5:
+Added support for system device-tree flow
+Fixed MISRA-C violations
+
+cfupmc_v1_6:
+Added support for system device-tree flow
+
+ddrcpsu_v1_5 :
+Added support for system device-tree flow
+
+ddrpsv_v1_5 :
+Added Support for Versal Net
+
+emc_v4_2:
+Added support for system device-tree flow
+
+gpio_v4_10:
+Added support for system device-tree flow
+Added support for system device-tree flow fot gpio examples
+Fix code formatting issues
+Disable peripheral test for gpio in system device-tree flow.
+
+hwicap_v11_6:
+Added support for system device-tree flow
+
+iic_v3_10:
+Added support for system device-tree flow
+Added support for system device-tree flow for iic examples
+Fix code formatting issues with checkpatch
+
+iicps_v3_18:
+Added support for system device-tree flow
+Added support for system device-tree flow for iicps examples
+Fix code formatting issues with checkpatch
+Added support for peripheral test for iicps in system device-tree flow
+
+rfdc_v12_1:
+Added support for system device-tree flow
+Added NCO frequency to config structures
+
+sd_fec_v1_3:
+Added support for system device-tree flow
+
+trngpsv_v1_4 :
+Added support for system device-tree flow
+Added API to get crypto algorithm information
+
+trngpsx_v1_1:
+Added support for system device-tree flow
+Added API to get crypto algorithm information
+Updated adapttestcutoff and reptestcutoff default values
+
+libmetal_v2_6:
+Added support for system device-tree flow
+
+openamp_v1_9 :
+Added support for system device-tree flow
+
+v_hdmitx1_v2_3:
+Added support for Configurable VTEM Packet in HDMI 2.1 Tx.
+Update HDMI DSC decoder error callback from state LTS2 to LTSP.
+
+vtc_v8_5:
+Ported driver for decoupling flow.
+Added overview in addtogroups section.
+
 pciepsu_v1_6:
 Ported driver and example application for decoupling flow
 
@@ -12,16 +78,16 @@ Updated driver tcl file to support Compressed mode.
 Added overview in addtogroups section.
 
 xadcps_v2_7:
-Added support for SDT flow
+Added support for system device-tree flow
 
 sysmon_v7_8:
-Added support for SDT flow
+Added support for system device-tree flow
 
 sysmonpsu_v2_9:
-Added support for SDT flow
+Added support for system device-tree flow
 
 sysmonpsv_v4_1:
-Added support for SDT flow
+Added support for system device-tree flow
 
 xdmapcie_v1_7:
 Ported driver and example application for decoupling flow
@@ -47,61 +113,61 @@ Added direction for clock primitive.
 Added overview in addtogroups section.
 
 uartlite_v3_9:
-Add support for system device-tree flow for uartlite
-Add support for system device-tree flow for uartlite examples
+Added support for system device-tree flow for uartlite
+Added support for system device-tree flow for uartlite examples
 Fix code formatting issues
-Add outbyte and inbyte in SDT flow
+Add outbyte and inbyte in system device-tree flow
 Fix GCC warnings
 Use Canonical form for base address in uartlite examples
-Add support for peripheral test for uartlite in SDT flow
+Add support for peripheral test for uartlite in system device-tree flow
 
 uartns550_v3_9:
-Add support for system device-tree flow for uartns550
-Add SDT support for uartns550 examples
+Added support for system device-tree flow for uartns550
+Add system device-tree support for uartns550 examples
 Fix code formatting issues
-Add outbyte and inbyte in SDT flow
-Add support for peripheral test for uartns550 in SDT flow
+Add outbyte and inbyte in system device-tree flow
+Add support for peripheral test for uartns550 in system device-tree flow
 
 uartps_v3_13:
-Add support for system device tree flow.
+Added support for system device tree flow.
 Add uartps examples list in yaml
-Add support for system device-tree flow for uartps examples
-Add support for peripheral tests in SDT flow
+Added support for system device-tree flow for uartps examples
+Add support for peripheral tests in system device-tree flow
 
 uartpsv_v1_9:
-Add support for system device tree flow
+Added support for system device tree flow
 Add uartpsv examples list in yaml
-Add support for system device-tree flow for uartpsv example
+Added support for system device-tree flow for uartpsv example
 Fix code format issues
-Add support for peripheral test for uartpsv in SDT flow
+Add support for peripheral test for uartpsv in system device-tree flow
 
 dp21txss_v2_1:
 Fixed macro definitions to support for 20Gbps and 13.5Gbps link rates.
 
 axipmon_v6_10:
-Add support for system device-tree flow for driver and examples
+Added support for system device-tree flow for driver and examples
 
 cpu_cortexa9_v2_12:
 Fix doxygen warnings
 
 dfeccf_v1_6:
 Remove immediate trigger
-Add SDT support
+Add system device-tree support
 Deprecate obsolete APIs
 Function comment update
 
 dfeequ_v1_5:
-Add SDT support
+Add system device-tree support
 
 dfemix_v1_6:
 Remove immediate trigger
-Add SDT support
+Add system device-tree support
 Deprecate obsolete APIs
 Correct comment about gain
 
 dfeofdm_v1_1:
 Remove immediate trigger
-Add SDT support
+Add system device-tree support
 Deprecate obsolete APIs
 Antenna interleave delay reorder
 Output delay in ccid slots
@@ -111,7 +177,7 @@ Update documentation
 
 dfeprach_v1_6:
 Remove immediate trigger
-Add SDT support
+Add system device-tree support
 Deprecate obsolete APIs
 Configure all trigger parameters in examples
 Support dynamic and static modes of operation
@@ -202,42 +268,42 @@ Added support for system device-tree flow
 Fix code formatting issues with checkpatch
 
 intc_v3_17:
-Added support for SDT flow
+Added support for system device-tree flow
 
 iomodule_v2_15:
-Added support for SDT flow
+Added support for system device-tree flow
 Fixed MISRA-C violations
 
 prc_v2_2:
-Add support for system device-tree flow
+Added support for system device-tree flow
 Fix code formatting issues with checkpatch
 
 prd_v2_2:
-Add support for system device-tree flow
+Added support for system device-tree flow
 Fix code formatting issues with checkpatch
 
 scugic_v5_2:
 Configure all CortexR52 interrupts as group1 interrupts , they will be triggered as IRQ. Earlier they were configured as group0 interrupts , to trigger FIQ.
-Added support for SDT flow.
+Added support for system device-tree flow.
 Initialize priority of SGI and PPI interrupts during driver initialization
 
 scutimer_v2_5:
-Added support for SDT flow
+Added support for system device-tree flow
 
 scuwdt_v2_5:
-Added support for SDT flow
+Added support for system device-tree flow
 
 tmr_inject_v1_6:
-Add support for system device-tree flow for driver
+Added support for system device-tree flow for driver
 
 tmr_manager_v1_5:
-Add support for system device-tree flow for drive
+Added support for system device-tree flow for drive
 
 tmrctr_v4_11:
-Added support for SDT flow
+Added support for system device-tree flow
 
 ttcps_v3_18:
-Added support for SDT flow
+Added support for system device-tree flow
 Added support for request and release calls to support PM
 
 usb_v5_6:
@@ -265,7 +331,7 @@ Moved runtime error codes to library
 
 xilfpga_v6_5:
 Add the VersalNet support
-Add support for system device-tree flow
+Added support for system device-tree flow
 Add example meta-data
 Update supported_processors list for a9 and VersalNet
 Avoid compiler optimization for function pointer validation check
@@ -288,7 +354,7 @@ Add IPI support to read DDR crypto counters Versal Net
 Measure SPK ID and Encryption Revoke ID before PCR extend for Versal Net
 Enable TCM Boot based on PH Attribute for Versal Net
 Add MC uB and PMC handshake support
-Add support for system device-tree flow
+Added support for system device-tree flow
 Add example for LoadPDI from Image Store
 Doxygen fixes
 Place ECDSA in reset and clear RAM when PLM_ECDSA_EXCLUDE is not defined
@@ -328,7 +394,7 @@ Move run time error codes to respective library
 
 xilpdi_v1_8:
 Implement optional Authentication time optimization to support PCIe link training within 100ms
-Add support for system device-tree flow
+Added support for system device-tree flow
 Doxygen fixes
 
 xilpki_v2_0:
@@ -337,7 +403,7 @@ Add PKI multi-queue support for ECC operations
 Implemented new API to get the library version info
 
 xilplmi_v1_9:
-Add support for system device-tree flow
+Added support for system device-tree flow
 Doxygen fixes
 Fix PMC IRO frequency logic in Versal Net
 Update default WDT timeout for Versal Net
@@ -443,12 +509,12 @@ Updated arm/cortexr5/, to have separate copies of xil_mpu.c/.h files for R5 and 
 versal_plm:
 Call restore all node right after PMC loaded for Versal Net
 Fix In-Place Update Failures for Versal Net
-Add support for system device-tree flow
+Added support for system device-tree flow
 Add EAM Error Check After PMC CDO
 Change exception print to DEBUG_PRINT_ALWAYS
 
 freertos10_xilinx_v1_14:
-Added support for SDT flow
+Added support for system device-tree flow
 Update CortexR52 port to use IRQ instead of FIQ.
 Update CortexR5/r52 port to
 invoke XTimer_ReleaseTickTimer from vPortEndScheduler to release tick
@@ -458,9 +524,9 @@ Update axiethernet.tcl  script to support opensource macro values
 Added support for system device tree flow for drivers and examples
 
 xilflash_v4_10:
-Add support for system device-tree flow.
-Add example support in SDT flow.
-Handle emc use case in SDT flow
+Added support for system device-tree flow.
+Add example support in system device-tree flow.
+Handle emc use case in system device-tree flow
 
 lwip213_v1_1:
 Updated lwip code to support system device tree flow support for emacps, axiethernet ,dma and emaclite
@@ -500,14 +566,14 @@ Add support for the resume bit
 Remove device hard code
 
 ipipsu_v2_14:
-Add support for system device-tree flow
+Added support for system device-tree flow
 Add IPI Mask's for referring to processor IPI Targets
 Restructure the code for more modularity
-Add example support in SDT flow
+Add example support in system device-tree flow
 Update the target count
 
 mbox_v4_6:
-Add support for system device-tree flow for driver and examples
+Added support for system device-tree flow for driver and examples
 
 pmonpsv_v2_3:
 Driver is going to be deprecated as IP feature is not part of Versal TRM
@@ -521,23 +587,23 @@ Added support for system device tree flow for drivers and examples.
 Fix interrupt transfer fail issue
 
 resetps_v1_6:
-Add support for system device-tree flow for driver and examples
+Added support for system device-tree flow for driver and examples
 
 rtcpsu_v1_13:
-Add support for system device-tree flow for driver and examples
+Added support for system device-tree flow for driver and examples
 
 sdps_v4_2:
-Add support for system device-tree flow
-Add example support in SDT flow
+Added support for system device-tree flow
+Add example support in system device-tree flow
 
 spi_v4_11:
 Added support for system device tree flow for drivers and examples
 
 tft_v6_4:
-Add support for system device-tree flow for driver and examples
+Added support for system device-tree flow for driver and examples
 
 trafgen_v4_5:
-Add support for system device-tree flow for driver and examples
+Added support for system device-tree flow for driver and examples
 Fix the disable interrupt
 
 wdtps_v3_6:
@@ -548,16 +614,16 @@ wdttb_v5_7:
 Added support for system device tree flow in drivers and examples
 
 xilffs_v5_1:
-Add support for system device-tree flow.
-Add example support in SDT flow.
+Added support for system device-tree flow.
+Add example support in system device-tree flow.
 Added Zynq platform support in xilffs.yaml file.
 
 xilmailbox_v1_8:
 Add common payload length macros
 Updated XIpiPs_PollforDone logic to improve AES client performance
-Add support for system device-tree flow
+Added support for system device-tree flow
 Add support for Microblaze
-Add example support in SDT flow
+Add example support in system device-tree flow
 
 xilpm_v5_1:
 Added support for system device tree flow.
@@ -587,17 +653,17 @@ bram_v4_9:
 Added support for system device tree flow for drivers and examples
 
 can_v3_7:
-Add support for system device-tree flow for driver and examples
-Add support for peripheral tests in SDT flow
+Added support for system device-tree flow for driver and examples
+Add support for peripheral tests in system device-tree flow
 
 canfd_v2_8:
-Add support for system device-tree flow for driver and examples
+Added support for system device-tree flow for driver and examples
 Invoke XCanFd_stop function to release canfd node
 Add support for request/release node
 
 canps_v3_7:
-Add support for system device-tree flow for driver and examples
-Add support for peripheral tests in SDT flow
+Added support for system device-tree flow for driver and examples
+Add support for peripheral tests in system device-tree flow
 
 clk_wiz_v1_6:
 Added support for system device tree flow for drivers and examples
@@ -606,16 +672,16 @@ clockps_v1_5:
 Added support for system device tree flow for drivers and examples
 
 coresightps_dcc_v1_9:
-Add support for system device-tree flow
+Added support for system device-tree flow
 Fix code formatting issues with checkpatch
 Add option of coresight uart in bsp settings.
-Add support for Zynq and VersalNet in SDT flow
+Add support for Zynq and VersalNet in system device-tree flow
 
 gpiops_v3_12:
-Add support for system device-tree
-Add support for system device-tree flow for gpiops example
+Added support for system device-tree
+Added support for system device-tree flow for gpiops example
 Fix code formatting issues
-Add support zynq platform in sdt flow
+Add support zynq platform in system device-tree flow
 
 nandps_v2_8:
 Added support for system device tree flow in drivers and examples
