@@ -27,6 +27,7 @@
 * 3.2   am   03/09/23 Moved payload length macros to xilmailbox.h file
 *       am   03/21/23 Match the shared memory size in secure library to reuse for customer
 *       kal  09/14/23 Added XNvm_SetSlrIndex function
+*       vss  09/19/23 Fixed MISRA-C 12.2 violation
 *
 * </pre>
 * @note
@@ -67,7 +68,7 @@ extern "C" {
 /**< Length shift mask*/
 #define XNVM_PAYLOAD_LEN_SHIFT		(16U)
 /**< Module id mask*/
-#define XILNVM_MODULE_ID_MASK		(XILNVM_MODULE_ID << XNVM_MODULE_ID_SHIFT)
+#define XILNVM_MODULE_ID_MASK		((u32)XILNVM_MODULE_ID << XNVM_MODULE_ID_SHIFT)
 
 /**< Max size of shared memory used to store the CDO command */
 #define XNVM_SHARED_MEM_SIZE		(160U)
