@@ -50,6 +50,7 @@
 * 3.1   skg  10/25/2022 Added comments for macros
 *       skg  12/07/2022 Added Additional PPKs related enums and macros
 * 3.2   kum  04/11/2023 Moved env common code to xnvm_efuse_common.h
+*       vss  09/19/2023 Fixed MISRA-C Rule 2.5 violation
 *
 * </pre>
 *
@@ -92,14 +93,6 @@ extern "C" {
 #define XNVM_MAX_REVOKE_ID_FUSES			(XNVM_NUM_OF_REVOKE_ID_FUSES	\
 											* XNVM_EFUSE_MAX_BITS_IN_ROW) /**< Maximum eFuses in a row*/
 
-#define XNVM_EFUSE_PPK_READ_START XNVM_EFUSE_PPK0  /**< Start value of eFuse PPK read */
-#ifdef XNVM_EN_ADD_PPKS
-#define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK4
-			/**< End PPK row number or offset */
-#else
-#define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK2
-			/**< End PPK row number or offset */
-#endif
 /**
 * @}
 */
