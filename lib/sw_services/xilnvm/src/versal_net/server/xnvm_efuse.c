@@ -28,6 +28,7 @@
 *       kpt  08/28/2023 Fix SW-BP-REDUNDANCY while assigning Status to CloseStatus
 *       kpt  09/05/2023 Fix SW-BP-REDUNDANCY in XNvm_EfusePrgmIv and XNvm_EfuseWriteDmeRevoke
 *       kpt  09/09/2023 Avoid returning XST_SUCCESS incase of glitch
+*       yog  09/13/2023 Used XNvm_IsDmeModeEn() API for reading DME Mode
 *
 * </pre>
 *
@@ -1327,7 +1328,6 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
-	u32 DmeModeCacheVal = 0U;
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
     /**
@@ -1359,12 +1359,8 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 	/**
 	 *  Read directly from cache offset of the dme fips to fill the DmeModeCacheVal structure
 	 */
-	DmeModeCacheVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_DME_FIPS_OFFSET) &
-				XNVM_EFUSE_CACHE_DME_FIPS_DME_MODE_MASK;
-	if (DmeModeCacheVal != 0U) {
-		Status = (XNVM_EFUSE_ERR_DME_MODE_SET |
-				XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+	Status = XNvm_IsDmeModeEn();
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
