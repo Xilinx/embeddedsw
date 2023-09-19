@@ -34,6 +34,7 @@
 * 3.1   skg  10/04/22 Added SlrIndex as part of payload based on user input
 *       skg  10/25/22 Added in body comments for APIs
 * 3.2   am   03/09/23 Replaced xnvm payload lengths with xmailbox payload lengths
+*	vss  09/19/23 Fixed MISRA-C 8.3 violation
 *
 * </pre>
 *
@@ -410,7 +411,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadIv(const XNvm_ClientInstance *InstancePtr, u64 IvAddr, const XNvm_IvType IvType)
+int XNvm_EfuseReadIv(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const XNvm_IvType IvType)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
@@ -490,7 +491,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadUserFuses(const XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
+int XNvm_EfuseReadUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 UserFuseAddr)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
