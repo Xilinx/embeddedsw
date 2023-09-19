@@ -25,6 +25,7 @@
 * 3.1   skg  10/25/2022 Added in body comments for APIs
 *       kal  03/07/2023 Added volatile keyword for Status variables
 * 3.2   kum  04/11/2023 Moved Env monitor API's from versal xnvm_efuse.c to make use for both versal and versalnet
+*	vss  09/19/2023	Fixed MISRA-C Rule 8.7 violation
 *
 * </pre>
 *
@@ -90,6 +91,8 @@
 /****************** Macros (Inline Functions) Definitions *********************/
 
 /*************************** Function Prototypes ******************************/
+static int XNvm_EfusePmcVoltageCheck(float Voltage);
+static int XNvm_EfuseTemparatureCheck(float Temparature);
 
 /*************************** Variable Definitions *****************************/
 
@@ -492,7 +495,7 @@ END :
  *		- XST_FAILURE - On Temparature not within thresholds.
  *
  ******************************************************************************/
-int XNvm_EfuseTemparatureCheck(float Temparature)
+static int XNvm_EfuseTemparatureCheck(float Temparature)
 {
 	int Status = XST_FAILURE;
 	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
@@ -568,7 +571,7 @@ END:
  *		- XST_FAILURE - On VCC_PMC not within thresholds.
  *
  ******************************************************************************/
-int XNvm_EfusePmcVoltageCheck(float Voltage)
+static int XNvm_EfusePmcVoltageCheck(float Voltage)
 {
 	int Status = XST_FAILURE;
 	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
