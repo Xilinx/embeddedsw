@@ -49,6 +49,7 @@
  *       kpt   01/07/2022 Added check to program RegInitDis in
  *                        XilNvm_EfuseInitSecCtrl
  * 3.1   skg   12/07/2022 Added Additional PPks support
+ * 3.2   yog   09/13/2023 Added XilNvm_ShowData() API
  *
  * </pre>
  *
@@ -119,6 +120,7 @@ static int XilNvm_ValidateIvString(const char *IvStr);
 static int XilNvm_ValidateHash(const char *Hash, u32 Len);
 static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
 static int XilNvm_ValidateRevokeIds(const char *RevokeIdStr);
+static void XilNvm_ShowData(const u8* Data, u32 Len);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 static int XilNvm_EfuseWritePufFuses(void);
 static int XilNvm_EfuseReadPufFuses(void);
@@ -360,12 +362,8 @@ static int XilNvm_EfuseReadFuses(void)
 			xil_printf("\n\rPPK%d:", Index);
 			XilNvm_FormatData((u8 *)EfusePpk.Hash, (u8 *)ReadPpk,
 					XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES);
-			for (Row = (XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS - 1U);
-							Row >= 0; Row--) {
-				xil_printf("%08x", ReadPpk[Row]);
-			}
+			XilNvm_ShowData((u8 *)ReadPpk, XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES);
 		}
-		xil_printf("\n\r");
 	}
 
 	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_META_HEADER_IV_RANGE);
@@ -375,10 +373,7 @@ static int XilNvm_EfuseReadFuses(void)
 	xil_printf("\n\rMetaheader IV:");
 
 	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYTES);
-	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
-		xil_printf("%08x", ReadIv[Row]);
-	}
-	xil_printf("\n\r");
+	XilNvm_ShowData((u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYTES);
 
 	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_BLACK_IV);
 	if (Status != XST_SUCCESS) {
@@ -387,10 +382,7 @@ static int XilNvm_EfuseReadFuses(void)
 	xil_printf("\n\rBlack Obfuscated IV:");
 
 	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYTES);
-	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
-		xil_printf("%08x", ReadIv[Row]);
-	}
-	xil_printf("\n\r");
+	XilNvm_ShowData((u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYTES);
 
 	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_PLM_IV_RANGE);
 	if (Status != XST_SUCCESS) {
@@ -398,10 +390,7 @@ static int XilNvm_EfuseReadFuses(void)
 	}
 	xil_printf("\n\rPlm IV:");
 
-	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
-		xil_printf("%08x", EfuseIv.Iv[Row]);
-	}
-	xil_printf("\n\r");
+	XilNvm_ShowData((u8 *)EfuseIv.Iv, XNVM_EFUSE_IV_LEN_IN_BYTES);
 
 	Status = XNvm_EfuseReadIv(&EfuseIv, XNVM_EFUSE_DATA_PARTITION_IV_RANGE);
 	if (Status != XST_SUCCESS) {
@@ -409,10 +398,7 @@ static int XilNvm_EfuseReadFuses(void)
 	}
 	xil_printf("\n\rData Partition IV:");
 
-	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
-		xil_printf("%08x", EfuseIv.Iv[Row]);
-	}
-	xil_printf("\n\r");
+	XilNvm_ShowData((u8 *)EfuseIv.Iv, XNVM_EFUSE_IV_LEN_IN_BYTES);
 
 	xil_printf("Revocation ids read from cache \n\r");
 	for (Row = 0; Row < (s8)XNVM_NUM_OF_REVOKE_ID_FUSES; Row++) {
@@ -2281,5 +2267,24 @@ END:
 	return Status;
 }
 #endif /* END OF XNVM_EN_ADD_PPKS*/
+
+/******************************************************************************/
+/**
+ * This function dispalys Data of specified length.
+ *
+ * @param	Data	Pointer to the data to be dispalyed
+ * @param	Len	Length of the data to be dispalyed
+ *
+ ******************************************************************************/
+static void XilNvm_ShowData(const u8* Data, u32 Len)
+{
+	u32 Index;
+
+	for (Index = Len; Index > 0; Index--) {
+		xil_printf("%02x", Data[Index-1]);
+	}
+	xil_printf("\r\n");
+
+}
 /** //! [XNvm eFuse example] */
 /**@}*/
