@@ -4833,12 +4833,8 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 	XV_Tx *XV_TxInst = (XV_Tx *)InstancePtr;
 	u64 TxLineRate;
 	u8 TxDiffSwingVal;
-#if defined (XPS_BOARD_ZCU106) || \
-	defined (XPS_BOARD_VCU118) || \
-	defined (XPS_BOARD_ZCU102)
 	u8 TxprecursorVal;
 	u8 TxpostcursorVal;
-#endif
 
 	TxLineRate = XV_Tx_GetLineRate(XV_TxInst);
 
