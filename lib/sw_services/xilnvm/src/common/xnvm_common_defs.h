@@ -21,6 +21,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  01/05/22 Initial release
 * 3.2   ng   06/30/23 Added support for system device tree flow
+*       yog  09/13/23 Fixed review comments
 *
 * </pre>
 * @note
@@ -52,7 +53,7 @@ extern "C" {
 #define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)
 #define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)
 #define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)
-#define XNVM_EFUSE_DNA_IN_WORDS				(4U)
+#define XNVM_EFUSE_DNA_LEN_IN_WORDS			(4U)
 #define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BITS			(256U)
 #define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS			(256U)
@@ -84,7 +85,7 @@ typedef struct {
 } XNvm_AesKey;
 
 typedef struct {
-	u32 Dna[XNVM_EFUSE_DNA_IN_WORDS];
+	u32 Dna[XNVM_EFUSE_DNA_LEN_IN_WORDS];
 } XNvm_Dna;
 
 typedef enum {

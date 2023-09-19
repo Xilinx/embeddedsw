@@ -437,7 +437,9 @@ typedef enum {
 	XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA = 0xF400,/**<0xF400 - Error
 						* before programming eFuse,
 						* new data is not available */
-
+	XNVM_EFUSE_ERROR_DME_MODE_SET = 0xF500,/**<0xF500 - Error
+						* occured when DME Mode is set and
+						* trying to read User fuses */
 	XNVM_EFUSE_ERR_GLITCH_DETECTED = 0x20000,/**<0x20000
 						 * Glitch detected, due to which
 						 * requested eFuses may be

@@ -20,6 +20,7 @@
 * 3.0   har  07/21/2022 Initial release
 * 3.1   skg  10/28/2022 Added In body comments for APIs
 * 3.2   kpt  09/02/2023 Add volatile keyword to avoid compiler optimization
+* 3.2   yog  09/13/2023 Added XNvm_IsDmeModeEn() API
 *
 * </pre>
 *
@@ -41,6 +42,7 @@
 static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvAddress);
 
 /************************** Constant Definitions *****************************/
+#define XNVM_EFUSE_CACHE_DME_FIPS_DME_MODE_MASK			(0x0000000FU) /**< DME mode mask*/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -459,6 +461,39 @@ int XNvm_EfuseValidateFipsInfo(u32 FipsMode, u32 FipsVersion)
 	if ((RdFipsMode & FipsMode) != RdFipsMode) {
 		Status = (XNVM_EFUSE_ERR_BEFORE_PROGRAMMING |
 					XNVM_EFUSE_ERR_BIT_CANT_REVERT);
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function checks DME Mode is enabled or disabled.
+ *
+ * @return	- XST_SUCCESS - if DME Mode is not set.
+ * 		- XNVM_EFUSE_ERROR_DME_MODE_SET | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING
+ * 			      - if DME Mdoe is set.
+ *
+ ******************************************************************************/
+int XNvm_IsDmeModeEn(void)
+{
+	int Status = XST_FAILURE;
+	u32 DmeMode;
+
+	/**
+	 * Read DME Mode from DME FIPS register and return error
+	 * if DME Mode is set
+	 */
+	DmeMode = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+				XNVM_EFUSE_CACHE_DME_FIPS_OFFSET) &
+				XNVM_EFUSE_CACHE_DME_FIPS_DME_MODE_MASK;
+	if (DmeMode != 0U) {
+		Status = (XNVM_EFUSE_ERROR_DME_MODE_SET |
+				XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
 		goto END;
 	}
 

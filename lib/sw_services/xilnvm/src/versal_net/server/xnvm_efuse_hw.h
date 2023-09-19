@@ -22,6 +22,8 @@
 * ----- ---- ---------- --------------------------------------------------------
 * 3.0   kal  07/12/2022 Initial release
 * 3.2   har  02/22/2023 Added macros related to ROM Rsvd bits
+*       yog  09/13/2023 Moved XNVM_EFUSE_CACHE_DME_FIPS_DME_MODE_MASK
+*                       macro to xnvm_validate.c
 *
 * </pre>
 *
@@ -329,7 +331,6 @@ extern "C" {
 #define XNVM_EFUSE_CTRL_UDS_DICE_CRC_OFFSET            		(0x00000070U)
 /** @} */
 
-#define XNVM_EFUSE_CACHE_DME_FIPS_DME_MODE_MASK			(0x0000000FU) /**< DME mode mask*/
 #define XNVM_EFUSE_GLITCH_CONFIG_DATA_MASK			(0x7FFFFFFFU) /**< Glitch config data mask*/
 
 /** @name TBITS masks

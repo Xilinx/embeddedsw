@@ -19,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 3.0   har  07/21/22 Initial release
+* 3.2   yog  09/13/23 Added XNvm_IsDmeModeEn() API
 *
 * </pre>
 * @note
@@ -51,6 +52,7 @@ int XNvm_EfuseValidateIvWriteReq(XNvm_IvType IvType, XNvm_Iv *EfuseIv);
 int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count);
 int XNvm_EfuseValidateDecOnlyRequest(void);
 int XNvm_EfuseValidateFipsInfo(u32 FipsMode, u32 FipsVersion);
+int XNvm_IsDmeModeEn(void);
 
 /**
  * @}
