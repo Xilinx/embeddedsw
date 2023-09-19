@@ -23,6 +23,7 @@
 * 3.0   kal  07/16/2022 Initial release
 * 3.1   skg  10/25/2022 Added comments for macros and enums
 * 3.2   kum  04/11/2023 Moved Voltage and Temp macros for LP,MP,HP ranges from versal xnvm_efuse.h
+*	vss  09/19/2023	Fixed MISRA-C Rule 8.7 violation
 *
 * </pre>
 *
@@ -138,8 +139,6 @@ int XNvm_EfuseResetReadMode(void);
 void XNvm_EfuseInitTimers(void);
 int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op, XNvm_EfuseRdMode RdMode);
 int XNvm_EfuseCheckForTBits(void);
-int XNvm_EfuseTemparatureCheck(float Temparature);
-int XNvm_EfusePmcVoltageCheck(float Voltage);
 u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr);
 int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr);
 
