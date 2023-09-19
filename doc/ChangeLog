@@ -1,6 +1,16 @@
 Changes for 2023.2
 ===============================
 
+avbuf_v2_6:
+Remove hard-coded magic numbers
+Added support for system device-tree flow
+
+dpdma_v1_5:
+Added support for system device-tree flow
+
+dppsu_v1_7 :
+Added support for system device-tree flow
+
 cframe_v1_5:
 Added support for system device-tree flow
 Fixed MISRA-C violations
