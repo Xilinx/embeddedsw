@@ -22,6 +22,7 @@
 *      kum   05/03/2023 Added support to handle cdo chunk boundary before efuse writing
 *      vek   05/31/2023 Added support for Programming PUF secure control bits
 *      kpt   07/26/2023 Clear AES keys
+*      yog   09/13/2023 Removed XNvm_EfuseMemCopy() API
 *
 * </pre>
 *
@@ -71,34 +72,11 @@ static int XNvm_EfuseWriteBootModeDis(u32 EnvDisFlag, u32 BootModeDisMask);
 static int XNvm_EfuseWritePufDataFromPload(XNvm_PufHDInfoDirectPload *PufData);
 static int XNvm_EfuseWritePufCtrlBitsFromPload(XNvm_PufCtrlDirectPload *PufSecCtrlBits);
 static int XNvm_EfuseWritePufData(u32 AddrLow, u32 AddrHigh);
-static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 static int XNvm_EfuseWriteCrcVal(u32 EnvDisFlag, u32 Crc);
 static int XNvm_EfuseWriteDmeModeVal(u32 EnvDisFlag, u32 EfuseDmeMode);
 static int XNvm_EfuseWriteRomRsvd(u32 EnvDisFlag, u32 RomRsvdBits);
 
 /*************************** Function Definitions *****************************/
-
-/*****************************************************************************/
-/**
- * @brief	This function copies word aligned or non word aligned data
- * 		from source address to destination address.
- *
- * @param 	SourceAddr 	From where the buffer data is read
- * @param 	DestAddr 	To which the buffer data is copied
- * @param 	Len 		Length of data to be copied in bytes
- *
- * @return	- XST_SUCCESS - If the copy is successful
- * 		- XST_FAILURE - If there is a failure
- *
- *****************************************************************************/
-static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
-{
-	int Status = XST_FAILURE;
-
-	Status = XPlmi_MemCpy64(DestAddr, SourceAddr, Len);
-
-	return Status;
-}
 
 /*****************************************************************************/
 /**
@@ -475,7 +453,7 @@ static int XNvm_EfuseWriteAesKeys(u32 EnvDisFlag, XNvm_AesKeyType KeyType, u32 A
 	XNvm_AesKey AesKeys __attribute__ ((aligned (32U))) = {0U};
 	u64 AesKeyAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 
-	Status = XNvm_EfuseMemCopy(AesKeyAddr, (u64)(UINTPTR)&AesKeys, sizeof(AesKeys));
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&AesKeys, AesKeyAddr, sizeof(AesKeys));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -601,7 +579,7 @@ static int XNvm_EfuseWritePpk(u32 EnvDisFlag, XNvm_PpkType PpkType, u32 AddrLow,
 	XNvm_PpkHash PpkHash __attribute__ ((aligned (32U))) = {0U};
 	u64 PpkHashAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 
-	Status = XNvm_EfuseMemCopy(PpkHashAddr, (u64)(UINTPTR)&PpkHash, sizeof(PpkHash));
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&PpkHash, PpkHashAddr, sizeof(PpkHash));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -677,7 +655,7 @@ static int XNvm_EfuseWriteIvs(u32 EnvDisFlag, XNvm_IvType IvType, u32 AddrLow, u
 	XNvm_Iv Iv __attribute__ ((aligned (32U))) = {0U};
 	u64 IvAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 
-	Status = XNvm_EfuseMemCopy(IvAddr, (u64)(UINTPTR)&Iv, sizeof(Iv));
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&Iv, IvAddr, sizeof(Iv));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1026,7 +1004,7 @@ static int XNvm_EfuseWritePufData(u32 AddrLow, u32 AddrHigh)
 	XNvm_EfusePufHdAddr PufData __attribute__ ((aligned (32U))) = {0U};
 	u64 PufDataAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 
-	Status = XNvm_EfuseMemCopy(PufDataAddr, (u64)(UINTPTR)&PufData, sizeof(PufData));
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&PufData, PufDataAddr, sizeof(PufData));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
