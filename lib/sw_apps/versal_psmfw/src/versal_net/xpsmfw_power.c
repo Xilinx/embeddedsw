@@ -1457,6 +1457,9 @@ static XStatus XPsmFwRPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	XStatus Status = XST_FAILURE;
 
 	/*TBD: check if it emulated pwr dwn, if so skip below 4 instructions*/
+	/* reset assert */
+	XPsmFw_RMW32(PSX_CRL_RST_RPU, Args->RstCtrlMask, Args->RstCtrlMask);
+
 	/* Enable isolation */
 	XPsmFw_RMW32(Args->PwrCtrlAddr,PSMX_LOCAL_REG_RPU_A_CORE0_PWR_CNTRL_ISOLATION_MASK,
 		PSMX_LOCAL_REG_RPU_A_CORE0_PWR_CNTRL_ISOLATION_MASK);
