@@ -352,7 +352,7 @@ static void XSecure_RsaGetData(const XSecure_Rsa *InstancePtr, u64 RdDataAddr)
 
 	TmpIndex = (int)(InstancePtr->SizeInWords) - 1;
 
-	/* Each of this loop will write 192 bits of data */
+	/** Read the data from RSA RAM buffer and store it in the destination address */
 	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
 			DataOffset++) {
 		XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -410,7 +410,7 @@ static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr)
 
 	Inv = ~Inv + 1U;
 
-	/* Put the value in MINV registers */
+	/** Store calculated MINV value in RSA registers */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_ECDSA_RSA_MINV_OFFSET, (Inv));
 }
@@ -437,16 +437,15 @@ static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
 	XSecure_AssertVoid(InstancePtr != NULL);
 	XSecure_AssertVoid(WrDataAddr != 0U);
 
-	/** Each of this loop will write 192 bits of data*/
 	for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT;
 			DataOffset++) {
 		for (Index = 0U; Index < XSECURE_RSA_MAX_BUFF; Index++) {
 			TmpIndex = (DataOffset * XSECURE_RSA_MAX_BUFF) + Index;
 
-			/**
-			* Exponent size is only 4 bytes
-			* and rest of the data needs to be 0
-			*/
+			/*
+			 * Exponent size is only 4 bytes
+			 * and rest of the data needs to be 0
+			 */
 			if((XSECURE_RSA_RAM_EXPO == RamOffset) &&
 			  (InstancePtr->EncDec == (u8)XSECURE_RSA_SIGN_ENC)) {
 				if(0U == TmpIndex ) {

@@ -77,35 +77,44 @@ int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
+	/** Call the respective API handler according to API ID */
 	switch (Pload[0U] & XSECURE_API_ID_MASK) {
 #ifndef PLM_SECURE_EXCLUDE
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_KAT):
+		/**   - @ref XSecure_AesDecKat */
 		Status = XSecure_AesDecKat();
 		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_CM_KAT):
+		/**   - @ref XSecure_AesDecCmKat */
 		Status = XSecure_AesDecCmKat();
 		break;
 	case XSECURE_API(XSECURE_API_AES_ENCRYPT_KAT):
+		/**   - @ref XSecure_AesEncKat */
 		Status = XSecure_AesEncKat();
 		break;
 #ifndef PLM_RSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_RSA_PUB_ENC_KAT):
+		/**   - @ref XSecure_RsaPubEncKat */
 		Status = XSecure_RsaPubEncKat();
 		break;
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DEC_KAT):
+		/**   - @ref XSecure_RsaPrivateDecKat */
 		Status = XSecure_RsaPrivateDecKat();
 		break;
 #endif
 #ifndef PLM_ECDSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT):
+		/**   - @ref XSecure_EllipticSignVerifyKat */
 		Status = XSecure_EllipticSignVerifyKat((XSecure_EccCrvClass)Pload[1U]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_SIGN_GEN_KAT):
+		/**   - @ref XSecure_EllipticSignGenKat */
 		Status = XSecure_EllipticSignGenKat((XSecure_EccCrvClass)Pload[1U]);
 		break;
 #endif
 #endif
 	case XSECURE_API(XSECURE_API_SHA3_KAT):
+		/**   - @ref XSecure_ShaKat */
 		Status = XSecure_ShaKat();
 		break;
 	default:

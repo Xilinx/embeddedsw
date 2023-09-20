@@ -184,6 +184,7 @@ int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId,
 	}
 
 	Status = XST_FAILURE;
+	/* configure the secure stream switch */
 	Status = XSecure_SssCfg(InstancePtr, Resource, InputSrc,
 			XSECURE_SSS_INVALID);
 

@@ -138,7 +138,7 @@ int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 	}
 
 	if (DmaPtr->Config.DmaType == XPMCDMA_DMATYPEIS_INVALID) {
-		/* error out if the dma type is invalid. */
+		/* Error out if the dma type is invalid. */
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
 	}
@@ -152,9 +152,7 @@ int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 		}
 	}
 
-	/**
-	 *  Clear previous sha data context flag
-	 */
+	/* Clear previous sha data context flag */
 	if (InstancePtr->PreviousShaIpiMask == InstancePtr->IpiMask) {
 		InstancePtr->DataContextLost = XSECURE_DATA_CONTEXT_AVAILABLE;
 	}

@@ -154,10 +154,12 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	Key.Qx = (u8 *)(UINTPTR)PubKey;
 	Key.Qy = (u8 *)(UINTPTR)(PubKey + OffSet);
 
+	/* Place the hardware core into the reset */
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
 	Status = XST_FAILURE;
+	/** Generate public key with provided private key and curve type */
 	Status = Ecdsa_GeneratePublicKey(Crv, D, (EcdsaKey *)&Key);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_ELLIPTIC_GEN_KEY_ERR;
@@ -303,6 +305,7 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
+	/** Generate signature with provided hash and curve type */
 	XSECURE_TEMPORAL_IMPL(GenStatus, GenStatusTmp, Ecdsa_GenerateSign,
 		Crv, PaddedHash, Crv->Bits, D, K, (EcdsaSign *)&Sign);
 
@@ -446,6 +449,7 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
+	/** Validate the public key for a given curve type */
 	XSECURE_TEMPORAL_IMPL(ValidateStatus, ValidateStatusTmp,
 		Ecdsa_ValidateKey, Crv, (EcdsaKey *)&Key);
 
@@ -596,6 +600,7 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
+	/** Verify signature with provided hash, key and curve type */
 	XSECURE_TEMPORAL_IMPL(VerifyStatus, VerifyStatusTmp, Ecdsa_VerifySign,
 		Crv, PaddedHash, Crv->Bits, (EcdsaKey *)&Key, (EcdsaSign *)&Sign);
 
