@@ -469,11 +469,11 @@ int XSecure_AesSetDpaCm(const XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 	if ((XSecure_In32(XSECURE_EFUSE_SECURITY_MISC1) &
 		XSECURE_EFUSE_DPA_CM_DIS_MASK) != XSECURE_EFUSE_DPA_CM_DIS_MASK) {
 
+		/** Set DPA counter measures as per the user input */
 		if ((DpaCmCfgEn != FALSE) || (DpaCmCfgEnTmp != FALSE)) {
 			DpaCmCfgEn = TRUE;
 			DpaCmCfgEnTmp = TRUE;
 		}
-		/* Disable/enable DPA CM inside AES engine */
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 						XSECURE_AES_CM_EN_OFFSET, (DpaCmCfgEn | DpaCmCfgEnTmp));
 
@@ -1080,7 +1080,6 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 
 	Status = XST_FAILURE;
 
-	/* Get the AES status to know if GCM check passed. */
 	RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
 			XSECURE_AES_STATUS_OFFSET);
 	RegValTmp = XSecure_ReadReg(InstancePtr->BaseAddress,
@@ -1254,7 +1253,6 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		goto END_RST;
 	}
 
-	/* Configure AES for Encryption */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_MODE_OFFSET, XSECURE_AES_MODE_ENC);
 
@@ -1723,7 +1721,7 @@ int XSecure_AesDpaCmDecryptData(const XSecure_Aes *AesInstance,
 	XSecure_WriteReg(AesInstance->BaseAddress,
 		XSECURE_AES_MODE_OFFSET, XSECURE_AES_MODE_ENC);
 
-	/* Configure AES in split mode */
+	/** Configure AES engine in split mode to update data and key to aes core */
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_SPLIT_CFG_OFFSET,
 		(XSECURE_AES_SPLIT_CFG_KEY_SPLIT |
 		XSECURE_AES_SPLIT_CFG_DATA_SPLIT));
@@ -1895,7 +1893,6 @@ static int XSecure_AesKeyLoad(const XSecure_Aes *InstancePtr,
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_SIZE_OFFSET,
 		(u32)KeySize);
 
-	/* AES key source selection */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_KEY_SEL_OFFSET,
 			AesKeyLookupTbl[KeySrc].KeySrcSelVal);

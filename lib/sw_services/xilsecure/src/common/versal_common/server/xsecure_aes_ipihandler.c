@@ -101,7 +101,7 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 	u32 *Pload = Cmd->Payload;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	/**
+	/*
 	 * Storing the Ipimask value when a request for the resource comes and
 	 * if the resource is free
 	 */
@@ -109,53 +109,64 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		XSecureAesInstPtr->IpiMask = Cmd->IpiMask;
 	}
 	else {
-		/**
-		 * Check if request comes from same IPI channel or not
-		 */
+		/* Check if request comes from same IPI channel or not */
 		if (XSecureAesInstPtr->IpiMask != Cmd->IpiMask) {
 			Status = XST_DEVICE_BUSY;
 			goto END;
 		}
 	}
 
+	/** Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_AES_INIT):
+		/**   - @ref XSecure_AesInit */
 		Status = XSecure_AesInit();
 		break;
 	case XSECURE_API(XSECURE_API_AES_OP_INIT):
+		/**   - @ref XSecure_AesOperationInit */
 		Status = XSecure_AesOperationInit(Pload[0], Pload[1]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_UPDATE_AAD):
+		/**   - @ref XSecure_AesAadUpdate */
 		Status = XSecure_AesAadUpdate(Pload[0], Pload[1], Pload[2], Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_ENCRYPT_UPDATE):
+		/**   - @ref XSecure_AesEncUpdate */
 		Status = XSecure_AesEncUpdate(Pload[0], Pload[1], Pload[2],
 				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_ENCRYPT_FINAL):
+		/**   - @ref XSecure_AesEncFinal */
 		Status = XSecure_AesEncFinal(Pload[0], Pload[1]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_UPDATE):
+		/**   - @ref XSecure_AesDecUpdate */
 		Status = XSecure_AesDecUpdate(Pload[0], Pload[1], Pload[2],
 				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_FINAL):
+		/**   - @ref XSecure_AesDecFinal */
 		Status = XSecure_AesDecFinal(Pload[0], Pload[1]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_KEY_ZERO):
+		/**   - @ref XSecure_AesKeyZeroize */
 		Status = XSecure_AesKeyZeroize(Pload[0]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_WRITE_KEY):
+		/**   - @ref XSecure_AesKeyWrite */
 		Status = XSecure_AesKeyWrite((u8)Pload[0], (u8)Pload[1], Pload[2],
 				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_KEK_DECRYPT):
+		/**   - @ref XSecure_AesDecryptKek */
 		Status = XSecure_AesDecryptKek(Pload[0], Pload[1], Pload[2]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
+		/**   - @ref XSecure_AesSetDpaCmConfig */
 		Status = XSecure_AesSetDpaCmConfig((u8)Pload[0]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
+		/**   - @ref XSecure_AesPerformOperation */
 		Status = XSecure_AesPerformOperation(Pload[0], Pload[1]);
 		break;
 	default:
@@ -230,12 +241,14 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
+	/* Validate Key source to allow only key source other than device keys */
 	Status = XSecure_IsKeySrcValid(AesParams.KeySrc);
 	if(Status != XST_SUCCESS){
 		goto END;
 	}
 
 	Status = XST_FAILURE;
+	/* Initialize AES engine for encryption/decryption */
 	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
 		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_ENC_KAT_MASK) != TRUE) {
 			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
@@ -287,6 +300,10 @@ static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size, u32 I
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	/**
+	 * Update GMAC configuration as per the user input and
+	 * calculate AAD if GMAC is enabled.
+	 */
 	Status = XSecure_AesGmacCfg(XSecureAesInstPtr, IsGmacEn);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -335,6 +352,7 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	}
 
 	Status = XST_FAILURE;
+	/** Ensure previous data context is not lost for the corresponding IPI channel */
 	Status = XSecure_AesIsDataContextLost();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -370,11 +388,13 @@ static int XSecure_AesEncFinal(u32 DstAddrLow, u32 DstAddrHigh)
 	u64 Addr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	/** Ensure previous data context is not lost for the corresponding IPI channel */
 	Status = XSecure_AesIsDataContextLost();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/* Generates GCM tag */
 	Status = XSecure_AesEncryptFinal(XSecureAesInstPtr, Addr);
 
 	XSecure_MakeAesFree();
@@ -420,6 +440,7 @@ static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 		goto END;
 	}
 
+	/** Update data in AES engine which needs to be decrypted */
 	Status = XSecure_AesDecryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
 				DstAddr, InParams.Size, (u8)InParams.IsLast);
 
@@ -453,6 +474,7 @@ static int XSecure_AesDecFinal(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
+	/** Verify the GCM tag provided for the data decrypted */
 	Status = XSecure_AesDecryptFinal(XSecureAesInstPtr, Addr);
 
 	XSecure_MakeAesFree();
@@ -476,6 +498,7 @@ static int XSecure_AesKeyZeroize(u32 KeySrc)
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	/* Validate key source to allow clearing of keysources other than device keys */
 	if ((KeySrc == (u32)XSECURE_AES_KUP_KEY) ||
 		(KeySrc == (u32)XSECURE_AES_EXPANDED_KEYS) ||
 		((KeySrc >= (u32)XSECURE_AES_USER_KEY_0) &&
@@ -515,6 +538,7 @@ static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 	u64 KeyAddr = ((u64)KeyAddrHigh << 32U) | (u64)KeyAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	/* User not allowed to write key in boot header */
 	if ((KeySrc == (u32)XSECURE_AES_BH_KEY) ||
 		(KeySrc == (u32)XSECURE_AES_BH_RED_KEY)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
@@ -561,6 +585,7 @@ static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
 	XSecure_AesKeySrc DecKeySrc = (XSecure_AesKeySrc)(KeyInfo &
 		XSECURE_AES_DEC_KEY_SRC_MASK);
 
+	/* Check for valid decryption key source */
 	if ((DecKeySrc != XSECURE_AES_EFUSE_USER_KEY_0) &&
 		(DecKeySrc != XSECURE_AES_EFUSE_USER_KEY_1)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;

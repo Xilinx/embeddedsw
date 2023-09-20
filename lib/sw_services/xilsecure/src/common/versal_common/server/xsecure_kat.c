@@ -681,7 +681,7 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	/* Test 1 */
+	/* Perform KAT on AES engine to know performance integrity */
 	Status = XSecure_AesDpaCmDecryptData(AesInstance, Key0, Data0, Output0);
 	if (Status != XST_SUCCESS) {
 		goto END_CLR;
@@ -737,6 +737,7 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 	Status = XST_SUCCESS;
 
 END_CLR:
+	/* Zeroize the AES key storage register */
 	SStatus = XSecure_AesKeyZero(AesInstance, XSECURE_AES_USER_KEY_7);
 	if((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
@@ -1043,6 +1044,7 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 		goto END;
 	}
 
+	/* Configure SSS and start SHA-3 engine */
 	Status = XSecure_Sha3Start(SecureSha3);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
@@ -1266,6 +1268,7 @@ int XSecure_EllipticVerifySignKat(XSecure_EllipticCrvClass CrvClass) {
 		goto END;
 	}
 
+	/** Verify the signature for the provided hash, key, and curve type */
 	Status = XSecure_EllipticValidateKey(XSECURE_ECC_NIST_P384, PubKey);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR;
@@ -1315,6 +1318,7 @@ int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass) {
 	GeneratedSign.SignR = &Sign[0U];
 	GeneratedSign.SignS = &Sign[Size];
 
+	/** Generate signature for the provided hash and curve type */
 	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P384, (u8*)&ExpEccSha3Hash[0U],
 				Size, D, K, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
