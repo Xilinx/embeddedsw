@@ -196,7 +196,7 @@ Set NCO config for RCId=0 fix
 
 emacps_v3_19:
 Added system device-tree flow support
-Minor bug fixes on some macros
+Minor bug fixes in example on GEM1 clock settings for Versal
 Formatted the code.
 
 v_frmbuf_rd_v4_7:
