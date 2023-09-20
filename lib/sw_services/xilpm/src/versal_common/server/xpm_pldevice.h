@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,7 +40,7 @@ struct XPm_PlDeviceNode {
 	XPm_PlDevice *NextPeer;         /**< Sibling/Peer of PLD */
 	XPm_PlDevice *Child;            /**< Child head PLD’s children */
 	XPm_PldInitNodeOps *Ops;	/**< Node Initialization Operations */
-	XPm_MemCtrlrDevice *MemCtrlr[4];	/**< Link to DDR Mem controllers */
+	XPm_MemCtrlrDevice *MemCtrlr[MAX_PLAT_DDRMC_COUNT];	/**< Link to DDR Mem controllers */
 	struct XPm_AieDeviceNode *AieDevice;       /**< Link to AIE Device */
 	u32 NocClockEnablement[MAX_NOC_CLOCK_ARRAY_SIZE];	/**< Bit array representing NoC clock enablement */
 };
