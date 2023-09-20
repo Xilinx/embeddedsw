@@ -129,7 +129,11 @@ XStatus XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 
 	Val = XPm_PlatRpuGetOperMode(RpuCore);
 
-	XPm_PlatRpuSetOperMode(RpuCore, Mode, &Val);
+	Status = XPm_PlatRpuSetOperMode(RpuCore, Mode, &Val);
+	if (XST_SUCCESS != Status)  {
+		PmErr("Error while setting operation mode\n");
+		goto done;
+	}
 
 	XPm_GetCoreId(&Rpu0, &Rpu1, DeviceId);
 

@@ -62,7 +62,7 @@ done:
 	return Status;
 }
 
-void XPm_PlatRpuSetOperMode(const XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val)
+XStatus XPm_PlatRpuSetOperMode(const XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val)
 {
 	if (Mode == XPM_RPU_MODE_SPLIT) {
 		*Val |= XPM_RPU_SLSPLIT_MASK;
@@ -76,6 +76,8 @@ void XPm_PlatRpuSetOperMode(const XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val
 		/* Required by MISRA */
 	}
 	PmOut32(RpuCore->RpuBaseAddr + RPU_GLBL_CNTL_OFFSET, *Val);
+
+	return XST_SUCCESS;
 }
 
 XStatus XPm_PlatRpuBootAddrConfig(const XPm_RpuCore *RpuCore, const u32 BootAddr)

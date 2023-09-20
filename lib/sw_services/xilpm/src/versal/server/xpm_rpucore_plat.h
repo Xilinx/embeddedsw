@@ -33,7 +33,7 @@ typedef struct XPm_RpuCore XPm_RpuCore;
 void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u32 *BaseAddress);
 XStatus XPm_RpuRstComparators(const u32 DeviceId);
 XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config);
-void XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val);
+XStatus XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val);
 XStatus XPm_PlatRpuBootAddrConfig(const struct XPm_RpuCore *RpuCore, const u32 BootAddr);
 u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore);
 void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId);
