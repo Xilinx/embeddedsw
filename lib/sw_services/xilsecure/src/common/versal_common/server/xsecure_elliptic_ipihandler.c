@@ -78,20 +78,25 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
+	/** Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):
+		/**   - @ref XSecure_EllipticGenKey */
 		Status = XSecure_EllipticGenKey(Pload[0], Pload[1], Pload[2],
 				Pload[3], Pload[4]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_SIGN):
+		/**   - @ref XSecure_EllipticGenSign */
 		Status = XSecure_EllipticGenSign(Pload[0], Pload[1], Pload[2],
 				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VALIDATE_KEY):
+		/**   - @ref XSecure_EllipticValidatePubKey */
 		Status = XSecure_EllipticValidatePubKey(Pload[0], Pload[1],
 				Pload[2]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
+		/**   - @ref XSecure_EllipticVerifySignature */
 		Status = XSecure_EllipticVerifySignature(Pload[0], Pload[1]);
 		break;
 	default:
@@ -304,6 +309,7 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 			(EcdsaParams.SignAddr + (u64)Size)};
 
 	Status = XST_FAILURE;
+	/** Verify the signature for the provided hash, key and curve type */
 	Status = XSecure_EllipticVerifySign_64Bit(
 			(XSecure_EllipticCrvTyp)EcdsaParams.CurveType,
 			(XSecure_EllipticHashData *) &HashInfo,

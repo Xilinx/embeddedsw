@@ -150,6 +150,10 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 {
 	int Status = XST_INVALID_PARAM;
 
+	/**
+	 * Verify if the provided API ID is supported based
+	 * on export control bit or not
+	 */
 	switch (ApiId) {
 	case XSECURE_API(XSECURE_API_SHA3_UPDATE):
 #ifndef PLM_SECURE_EXCLUDE
@@ -203,11 +207,14 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	volatile int StatusTmp = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
+	/** Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_FEATURES):
+		/**   - @ref XSecure_FeaturesCmd */
 		Status = XSecure_FeaturesCmd(Pload[0]);
 		break;
 	case XSECURE_API(XSECURE_API_SHA3_UPDATE):
+		/**    - @ref XSecure_Sha3IpiHandler */
 		Status = XSecure_Sha3IpiHandler(Cmd);
 		break;
 #ifndef PLM_SECURE_EXCLUDE
@@ -215,6 +222,7 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
 	case XSECURE_API(XSECURE_API_RSA_PUBLIC_ENCRYPT):
 	case XSECURE_API(XSECURE_API_RSA_SIGN_VERIFY):
+		/**   - @ref XSecure_RsaIpiHandler */
 		Status = XSecure_RsaIpiHandler(Cmd);
 		break;
 #endif
@@ -223,6 +231,7 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_SIGN):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VALIDATE_KEY):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
+		/**   - @ref XSecure_EllipticIpiHandler */
 		Status = XSecure_EllipticIpiHandler(Cmd);
 		break;
 #endif
@@ -238,10 +247,12 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_AES_KEK_DECRYPT):
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
+		/**   - @ref XSecure_AesIpiHandler */
 		Status = XSecure_AesIpiHandler(Cmd);
 		break;
 #endif
 	case XSECURE_API(XSECURE_API_KAT):
+		/**   - @ref XSecure_KatIpiHandler */
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp, XSecure_KatIpiHandler, Cmd)
 		break;
 	default:

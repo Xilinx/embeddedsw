@@ -112,6 +112,7 @@ int XSecure_RsaInitialize_64Bit(XSecure_Rsa *InstancePtr, u64 Mod, u64 ModExt,
 		goto END;
 	}
 
+	/* Stores the base address of RSA core registers */
 	Status = (int)XSecure_RsaCfgInitialize(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -208,9 +209,9 @@ int XSecure_RsaSignVerification_64Bit(const u64 Signature, const u64 Hash,
 
 	/*
 	 * Re-Create PKCS#1v1.5 Padding
-	* MSB  ------------------------------------------------------------LSB
-	* 0x0 || 0x1 || 0xFF(for 202 bytes) || 0x0 || T_padding || SHA384 Hash
-	*/
+	 * MSB  ------------------------------------------------------------LSB
+	 * 0x0 || 0x1 || 0xFF(for 202 bytes) || 0x0 || T_padding || SHA384 Hash
+	 */
 
 	if (XSECURE_RSA_BYTE_PAD1 != XSecure_InByte64(PadIndex)) {
 		goto ENDF;
@@ -409,8 +410,9 @@ int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input,
  *	-	XSECURE_RSA_STATE_MISMATCH_ERROR - If State mismatch is occurred
  *	-	XST_FAILURE - On RSA operation failure
  *
- * @note	The Size passed here needs to match the key size used in the
- *  		XSecure_RsaInitialize function
+ * @note
+ *	-	The Size passed here needs to match the key size used in the XSecure_RsaInitialize function
+ *	-	RSA private key decryption data should be lesser than modulus.
  *
 ******************************************************************************/
 int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
@@ -448,11 +450,6 @@ int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 		Status = (int)XSECURE_RSA_INVALID_PARAM;
 		goto END;
 	}
-	/*
-	 * Input data should always be smaller than modulus
-	 * One byte is being checked at a time to make sure the input data
-	 * is smaller than the modulus
-	 */
 	for (Idx = 0U; Idx < Size; Idx++) {
 		ModData = XSecure_InByte64((ModAddr + Idx));
 		InputData = XSecure_InByte64((Input + Idx));

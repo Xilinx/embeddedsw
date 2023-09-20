@@ -70,16 +70,20 @@ int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
+	/** Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
+		/**   - @ref XSecure_RsaDecrypt */
 		Status = XSecure_RsaDecrypt(Pload[0], Pload[1],
 						Pload[2], Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_RSA_PUBLIC_ENCRYPT):
+		/**   - @ref XSecure_RsaEncrypt */
 		Status = XSecure_RsaEncrypt(Pload[0], Pload[1],
 						Pload[2], Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_RSA_SIGN_VERIFY):
+		/**   - @ref XSecure_RsaSignVerify */
 		Status = XSecure_RsaSignVerify(Pload[0], Pload[1]);
 		break;
 	default:
