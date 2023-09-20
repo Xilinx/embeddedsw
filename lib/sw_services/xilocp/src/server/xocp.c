@@ -61,7 +61,7 @@
 #define XOCP_XPPU_ENABLED               (0xFFFFFFFFU) /**< XPPU enabled */
 #define XOCP_XPPU_MASTER_ID_0           (17U) /**< XPPU master id 0 */
 #define XOCP_XPPU_MASTER_ID_1           (18U) /**< XPPU master id 1 */
-#define XOCP_GET_ALL_PCR_MASK           (0x0000000FU) /**< All PCR read mask */
+#define XOCP_GET_ALL_PCR_MASK           (0x000000FFU) /**< All PCR read mask */
 #define XOCP_HW_PCR                     (0x0U)  /**< HW PCR type */
 #define XOCP_SW_PCR                     (0x1U)  /**< SW PCR type */
 #define XOCP_SW_PCR_NUM_FOR_ROM_DIGEST  (0U)    /**< SW PCR number to extend ROM digest */
