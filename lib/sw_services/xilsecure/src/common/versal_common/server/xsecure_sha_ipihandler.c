@@ -80,17 +80,11 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
 
-	/**
-	 * Storing the Ipimask value when a request for the resource comes and
-	 * if the resource is free
-	 */
+	/* Check for resource availability to store Ipimask value */
 	if (XSecureSha3InstPtr->IsResourceBusy == (u32)XSECURE_RESOURCE_FREE) {
 		XSecureSha3InstPtr->IpiMask = Cmd->IpiMask;
 	}
 	else {
-		/**
-		 * Check if request comes from same IPI channel or not
-		 */
 		if (XSecureSha3InstPtr->IpiMask != Cmd->IpiMask) {
 			Status = XST_DEVICE_BUSY;
 			goto END;
@@ -174,9 +168,7 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	u64 DstAddr = ((u64)DstAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)DstAddrLow;
 	XSecure_Sha3Hash Hash = {0U};
 
-	/**
-	 *  Check whether requested operation context is lost
-	 */
+	/* Check whether requested operation context is lost */
 	Status = XSecure_ShaIsDataContextLost();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -244,6 +236,7 @@ static int XSecure_ShaOperation(XPlmi_Cmd *Cmd)
 			Status = XSECURE_ERR_KAT_NOT_EXECUTED;
 			goto END;
 		}
+		/* Initializes a XSecure_Sha3 structure for operating the SHA3 engine */
 		Status = XSecure_Sha3Initialize(XSecureSha3InstPtr,
 				PmcDmaInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -252,10 +245,12 @@ static int XSecure_ShaOperation(XPlmi_Cmd *Cmd)
 
 		InputSize = InputSize & (~XSECURE_IPI_CONTINUE_MASK) &
 			(~XSECURE_IPI_FIRST_PACKET_MASK);
+		/** Calculate the SHA-3 digest on the given input data */
 		Status = XSecure_Sha3Digest(XSecureSha3InstPtr, (UINTPTR)DataAddr, InputSize,
 				(XSecure_Sha3Hash *)&Hash);
 		if (XST_SUCCESS == Status) {
 			XSecure_MakeSha3Free();
+			/* Initiate and complete the DMA to DMA transfer */
 			Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
 				XSECURE_HASH_SIZE_IN_BYTES, XPLMI_PMCDMA_0);
 		}

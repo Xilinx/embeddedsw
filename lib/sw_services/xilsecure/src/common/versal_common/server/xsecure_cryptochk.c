@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +56,10 @@ int XSecure_CryptoCheck(void)
 	u32 PsSrst = XSecure_In32(XSECURE_CRP_RST_PS) &
 		XSECURE_CRP_RST_PS_PS_SRST_MASK;
 
+	/**
+	 * Validate export efuse control bit is programmed, to confirm
+	 * crypto accelerator is enabled.
+	 */
 	if ((ExportControl == XSECURE_EFUSE_CACHE_IP_DISABLE0_EXPORT_MASK) &&
 		((CfuApbEos == XSECURE_CFU_APB_CFU_FGCR_EOS_MASK) || (PsSrst == 0U))) {
 		Status = (int)XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED;
