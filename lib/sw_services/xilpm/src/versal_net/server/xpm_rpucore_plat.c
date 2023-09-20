@@ -37,8 +37,9 @@ void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u
 	}
 }
 
-void XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val)
+XStatus XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val)
 {
+	XStatus Status = XST_FAILURE;
 	if (Mode == XPM_RPU_MODE_SPLIT) {
 		*Val |= XPM_RPU_SLSPLIT_MASK;
 	} else if (Mode == XPM_RPU_MODE_LOCKSTEP) {
@@ -46,7 +47,25 @@ void XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u
 	} else {
 		/* Required by MISRA */
 	}
-	PmOut32(RpuCore->ClusterBaseAddr + XPM_CLUSTER_CFG_OFFSET, *Val);
+
+	/*skip if the mode is already set*/
+	if (Mode != (Xil_In32(RpuCore->ClusterBaseAddr) & 0x1U)) {
+
+		/*assert reset before changing mode*/
+		Status = XPmDevice_Reset((XPm_Device *)RpuCore, PM_RESET_ACTION_ASSERT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		PmOut32(RpuCore->ClusterBaseAddr + XPM_CLUSTER_CFG_OFFSET, *Val);
+		Status = XPmDevice_Reset((XPm_Device *)RpuCore, PM_RESET_ACTION_RELEASE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 XStatus XPm_PlatRpuBootAddrConfig(const struct XPm_RpuCore *RpuCore, const u32 BootAddr)
