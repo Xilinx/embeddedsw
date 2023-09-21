@@ -22,6 +22,7 @@
 * 5.0   bm   07/06/22 Initial release
 * 5.2   yog  07/10/23 Added support of unaligned data sizes for Versal Net
 *       kpt  07/09/23 Added XSecure_GetRandomNum function
+*	vss  09/21/23 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -64,18 +65,22 @@ extern "C" {
 
 #if !defined(XSECURE_TRNG_USER_CFG_SEED_LIFE)
 #define XSECURE_TRNG_USER_CFG_SEED_LIFE XTRNGPSX_USER_CFG_SEED_LIFE
+								/**< User configuration seed life*/
 #endif
 
 #if !defined(XSECURE_TRNG_USER_CFG_DF_LENGTH)
 #define XSECURE_TRNG_USER_CFG_DF_LENGTH XTRNGPSX_USER_CFG_DF_LENGTH
+								/**< User configuration DF length */
 #endif
 
 #if !defined(XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF)
 #define XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF
+								/**< Adapt test cutoff */
 #endif
 
 #if !defined(XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF)
 #define XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF XTRNGPSX_USER_CFG_REP_TEST_CUTOFF
+								/**< Rep test cutoff */
 #endif
 
 /***************************** Type Definitions******************************/

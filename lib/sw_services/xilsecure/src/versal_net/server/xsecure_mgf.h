@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.2   kpt  06/28/23 Initial release
+*	vss  09/21/23 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -63,7 +64,7 @@ typedef struct {
 
 /***************************** Function Prototypes ***************************/
 
-int XSecure_MaskGenFunc(XSecure_ShaType Shatype,
+int XSecure_MaskGenFunc(XSecure_ShaType ShaType,
 			void *InstancePtr, XSecure_MgfInput *MgfInput);
 XSecure_HashAlgInfo *XSecure_GetHashInstance(XSecure_ShaType Shatype);
 
