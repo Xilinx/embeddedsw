@@ -1600,8 +1600,7 @@ int XLoader_RunSha3Engine1Kat(XilPdi* PdiPtr)
 			goto END;
 		}
 
-		XPlmi_SetKatMask(XPLMI_SECURE_SHA3_1_KAT_MASK);
-		PdiPtr->PlmKatStatus |= XPLMI_SECURE_SHA3_KAT_MASK;
+		PdiPtr->PlmKatStatus |= XPLMI_SECURE_SHA3_1_KAT_MASK;
 
 		/* Update KAT status */
 		XPlmi_UpdateKatStatus(PdiPtr->PlmKatStatus);
