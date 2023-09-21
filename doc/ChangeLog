@@ -641,10 +641,27 @@ Add bitmask functionality for get_op_char API.
 Move the EEMI API IDs enum table to the commonplace so there is no scope for conflicts across the platforms.
 Added a new API to get the MIO PIN attribute details.
 Remove PM_CLOCK_SETRATE and PM_CLOCK_GETRATE APIs from the client.
-Bump up the version of PM_SELF_SUSPEND, PM_FORCE_POWERDOWN, PM_REQUEST_NODE and PM_RELEASE_NODE EEMI APIs.
+Bump up the version of PM_SELF_SUSPEND, PM_FORCE_POWERDOWN, PM_REQUEST_NODE, and PM_RELEASE_NODE EEMI APIs.
 Remove the CDO commands from the feature check functionality.
 Added a check for reason argument in XPm_AbortSuspend().
-Added support of zeroization of AIE data and program memory separately.
+Added support for zeroization of AIE data and program memory separately.
+Added support of SRST for P80 device
+Added support of In-place PLM
+Added support for OSPI pins for versal-net
+Added support for CPM5N BISR for versal-net
+Added support for HNICx, FPDx, and LPDx BISR for versal and versal-net both
+Update SSIT temperature propagation
+Clear PCIL register for RPU only for versal-net
+Added support for DDRMC5 BISR for versal-net
+Add TCM and PMC_GPIO device into prealloc list for versal-net
+Added support for Laguna housecleaning
+Change IPI access permissions for PM API
+Enable TCN boot config option for versal-net
+Added support for device security, coherency, and virtual handling in versal-net
+Added support for DDRMC5c pre-config
+Add SMC support for Request Node, Resert Assert, and Release Node APIs
+Added support to set CKE low during memory device power-down
+Added support for DVS of power rail using GPIO
 
 xilsem_v1_8:
 XilSEM Client: Added Support for FreeRTOS, R5-Split mode
@@ -702,6 +719,16 @@ Added support for system device tree flow in drivers and examples
 ospipsv_v1_9:
 Upadate address calculation logic in DAC read and write API's
 Added support for system device tree flow in drivers and examples
+
+versal_psmfw:
+Added support for parallel build
+Added support for system device-tree flow
+Reduce the partition count
+Remove power up and wakeup interrupt enable from APU power down sequence as this is being taken care of in PLM
+Added support for enabling the TCB boot config option
+Remove the PCIL configuration from the requested power sequence
+Enable the interrupt during the power down after clearing the PCIL ISR register
+Update usage of XPsmFw_Write32 and XPsmFw_RMW32
 
 New Files Added for 2023.2:
 SPDX-License-Identifier:MIT
