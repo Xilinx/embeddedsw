@@ -43,6 +43,7 @@ else()
 endif()
 
 string(APPEND CMAKE_C_LINK_FLAGS ${USER_LINK_OPTIONS})
+string(APPEND CMAKE_CXX_LINK_FLAGS ${USER_LINK_OPTIONS})
 
 set_source_files_properties(${_sources} OBJECT_DEPENDS "${CMAKE_LIBRARY_PATH}/*.a")
 add_executable(${APP_NAME}.elf ${S_SOURCES} ${_sources})
