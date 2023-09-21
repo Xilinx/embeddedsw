@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 2.2  mmd     07/04/23 Initial Release
+*      vss     09/21/23 Fixed doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -30,8 +31,8 @@ extern "C" {
 #include "xil_util.h"
 
 /**************************** Constant Definitions ****************************/
-#define XPUF_MAJOR_VERSION	2
-#define XPUF_MINOR_VERSION	2
+#define XPUF_MAJOR_VERSION	2 /**< Major version of Xilpuf */
+#define XPUF_MINOR_VERSION	2 /**< Minor version of Xilpuf */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
