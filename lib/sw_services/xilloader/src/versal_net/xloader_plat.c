@@ -65,8 +65,8 @@
 #include "xocp.h"
 #include "xocp_keymgmt.h"
 #include "xsecure_sha.h"
-#endif
 #include "xsecure_init.h"
+#endif
 #include "xplmi_scheduler.h"
 #include "xplmi_plat.h"
 #include "xplmi_hw.h"
@@ -1082,15 +1082,21 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 {
 	int Status = XLOADER_ERR_DATA_MEASUREMENT;
 
+#ifdef PLM_OCP
 	XSecure_Sha3 *Sha3Instance = XLoader_GetSha3Engine1Instance();
 	XSecure_Sha3Hash Sha3Hash;
-#ifdef PLM_OCP
 	u32 PcrNo;
-	u32 DevAkIndex;
-#endif
+	u32 DevAkIndex = XOcp_GetSubSysReqDevAkIndex(ImageInfo->SubsystemID);
 #ifndef PLM_SECURE_EXCLUDE
 	XilPdi* PdiPtr = XLoader_GetPdiInstance();
 #endif
+
+	if ((ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) &&
+			(DevAkIndex == XOCP_INVALID_DEVAK_INDEX)) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+	PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
 
 #ifndef PLM_SECURE_EXCLUDE
 	Status = XLoader_RunSha3Engine1Kat(PdiPtr);
@@ -1118,15 +1124,6 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		goto END;
 	}
 
-#ifdef PLM_OCP
-	DevAkIndex = XOcp_GetSubSysReqDevAkIndex(ImageInfo->SubsystemID);
-
-	if ((ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) &&
-			(DevAkIndex == XOCP_INVALID_DEVAK_INDEX)) {
-		Status = XST_SUCCESS;
-		goto END;
-	}
-
 	if (ImageInfo->Flags == XLOADER_MEASURE_FINISH) {
 		if (DevAkIndex != XOCP_INVALID_DEVAK_INDEX) {
 			/* Generate DEVAK */
@@ -1138,8 +1135,6 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		}
 
 		if (ImageInfo->PcrInfo != XOCP_PCR_INVALID_VALUE) {
-			PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
-
 			/* Extend HW PCR */
 			Status = XOcp_ExtendHwPcr(PcrNo,(u64)(UINTPTR)&Sha3Hash.Hash,
 				XLOADER_SHA3_LEN);
@@ -1152,12 +1147,15 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 				ImageInfo->OverWrite);
 		}
 	}
-#endif
 
 END:
 	if (Status != XST_SUCCESS) {
 		XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
 	}
+#else
+	(void)ImageInfo;
+	Status = XST_SUCCESS;
+#endif
 
 	return Status;
 }
@@ -1174,7 +1172,7 @@ END:
 static int XLoader_InitSha3Instance1(void)
 {
 	int Status = XLOADER_ERR_SHA3_1_INIT;
-
+#ifdef PLM_OCP
 	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	XSecure_Sha3 *Sha3Instance = XLoader_GetSha3Engine1Instance();
 
@@ -1187,7 +1185,9 @@ END:
 	if (Status != XST_SUCCESS) {
 		Status = XLOADER_ERR_SHA3_1_INIT;
 	}
-
+#else
+	Status = XST_SUCCESS;
+#endif
 	return Status;
 }
 
@@ -1585,7 +1585,7 @@ END:
  * 		- Error code on failure
  *
 *****************************************************************************/
-static int XLoader_RunSha3Engine1Kat(XilPdi* PdiPtr)
+int XLoader_RunSha3Engine1Kat(XilPdi* PdiPtr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
