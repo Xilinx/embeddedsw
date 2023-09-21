@@ -26,6 +26,7 @@
 *                     into xsecure_katclient.c
 *       kpt  08/19/22 Added GMAC support
 * 5.2   mmd  07/09/23 Included header file for crypto algorithm information
+*	vss  09/21/23 Fixed doxygen warnings
 *
 * </pre>
 * @note
@@ -46,34 +47,37 @@ extern "C" {
 #include "xsecure_aesalginfo.h"
 
 /**************************** Type Definitions *******************************/
+/**
+ * For selecting the Key source to AES Core.
+ */
 typedef enum {
-	XSECURE_AES_BBRAM_KEY = 0,
-	XSECURE_AES_BBRAM_RED_KEY,
-	XSECURE_AES_BH_KEY,
-	XSECURE_AES_BH_RED_KEY,
-	XSECURE_AES_EFUSE_KEY,
-	XSECURE_AES_EFUSE_RED_KEY,
-	XSECURE_AES_EFUSE_USER_KEY_0,
-	XSECURE_AES_EFUSE_USER_KEY_1,
-	XSECURE_AES_EFUSE_USER_RED_KEY_0,
-	XSECURE_AES_EFUSE_USER_RED_KEY_1,
-	XSECURE_AES_KUP_KEY,
-	XSECURE_AES_PUF_KEY,
-	XSECURE_AES_USER_KEY_0,
-	XSECURE_AES_USER_KEY_1,
-	XSECURE_AES_USER_KEY_2,
-	XSECURE_AES_USER_KEY_3,
-	XSECURE_AES_USER_KEY_4,
-	XSECURE_AES_USER_KEY_5,
-	XSECURE_AES_USER_KEY_6,
-	XSECURE_AES_USER_KEY_7,
-	XSECURE_AES_EXPANDED_KEYS,
-	XSECURE_AES_ALL_KEYS,
+	XSECURE_AES_BBRAM_KEY = 0, /**< Bbram key */
+	XSECURE_AES_BBRAM_RED_KEY, /**< Bbram red key */
+	XSECURE_AES_BH_KEY, /**< Boot header key */
+	XSECURE_AES_BH_RED_KEY, /**< Boot header red key */
+	XSECURE_AES_EFUSE_KEY, /**< eFuse key */
+	XSECURE_AES_EFUSE_RED_KEY, /**< eFuse red key */
+	XSECURE_AES_EFUSE_USER_KEY_0, /**< eFuse user key 0 */
+	XSECURE_AES_EFUSE_USER_KEY_1, /**< eFuse user key 1 */
+	XSECURE_AES_EFUSE_USER_RED_KEY_0, /**< User red key 0 */
+	XSECURE_AES_EFUSE_USER_RED_KEY_1, /**< User red key 1 */
+	XSECURE_AES_KUP_KEY, /**< Kup key */
+	XSECURE_AES_PUF_KEY, /**< Puf key */
+	XSECURE_AES_USER_KEY_0, /**< User key 0 */
+	XSECURE_AES_USER_KEY_1, /**< User key 1 */
+	XSECURE_AES_USER_KEY_2, /**< User key 2 */
+	XSECURE_AES_USER_KEY_3, /**< User key 3 */
+	XSECURE_AES_USER_KEY_4, /**< User key 4 */
+	XSECURE_AES_USER_KEY_5, /**< User key 5 */
+	XSECURE_AES_USER_KEY_6, /**< User key 6 */
+	XSECURE_AES_USER_KEY_7, /**< User key 7 */
+	XSECURE_AES_EXPANDED_KEYS, /**< Expanded keys */
+	XSECURE_AES_ALL_KEYS, /**< All keys */
 } XSecure_AesKeySource;
 
 typedef enum {
-	XSECURE_AES_KEY_SIZE_128 = 0,   /**< Key Length = 32 bytes = 256 bits */
-	XSECURE_AES_KEY_SIZE_256 = 2,   /**< Key Length = 16 bytes = 128 bits */
+	XSECURE_AES_KEY_SIZE_128 = 0,  /**< Key Length = 16 bytes = 128 bits */
+	XSECURE_AES_KEY_SIZE_256 = 2,  /**< Key Length = 32 bytes = 256 bits */
 }XSecure_AesKeySize;
 
 /***************** Macros (Inline Functions) Definitions *********************/

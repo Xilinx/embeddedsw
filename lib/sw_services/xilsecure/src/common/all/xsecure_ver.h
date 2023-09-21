@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   mmd     07/04/23 Initial Release
+*	vss	09/21/23 Fixed doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -30,8 +31,8 @@ extern "C" {
 #include "xil_util.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_MAJOR_VERSION	5
-#define XSECURE_MINOR_VERSION	2
+#define XSECURE_MAJOR_VERSION	5 /**< Major version of Xilsecure */
+#define XSECURE_MINOR_VERSION	2 /**< Minor version of Xilsecure */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

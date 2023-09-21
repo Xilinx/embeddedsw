@@ -48,6 +48,7 @@
 *       dc   08/26/22 Optimization of size, changed type of variables u8 to u32
 * 5.2   vss  07/15/23 Removed check for sha3state in  XSecure_Sha3Initialize()
 *       ng   07/15/23 Added support for system device tree flow
+*	vss  09/21/23 Fixed doxygen warnings
 * </pre>
 * @note
 *
@@ -73,7 +74,7 @@
 						/**< Nist Start padding masks */
 #define XSECURE_SHA3_END_NIST_PADDING_MASK		(0x80U)
 						/**< Nist End padding masks */
-#define XSECURE_TYPE_PMC_DMA0	(1U) /** DMA0 type */
+#define XSECURE_TYPE_PMC_DMA0	(1U) /**< DMA0 type */
 
 /**************************** Type Definitions *******************************/
 
