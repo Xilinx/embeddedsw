@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   mmd     07/04/23 Initial Release
+*	vss	09/21/23 Fixed doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -31,8 +32,8 @@ extern "C" {
 #include "xil_util.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_SHA3_MAJOR_VERSION	5U
-#define XSECURE_SHA3_MINOR_VERSION	2U
+#define XSECURE_SHA3_MAJOR_VERSION	5U /**< Major version of SHA3 */
+#define XSECURE_SHA3_MINOR_VERSION	2U /**< Minor version of SHA3 */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
