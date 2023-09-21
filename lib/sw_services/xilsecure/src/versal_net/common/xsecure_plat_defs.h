@@ -24,6 +24,7 @@
 *       kpt  07/09/23 Added Key wrap and unwrap structures and macros
 *       mmd  07/20/23 Added reading FIPS info for HMAC and SHA2
 *       kpt  08/30/23 Updated XSECURE_KAT_HDR_LEN
+*	vss  09/21/23 Fixed doxygen warnings
 *
 * </pre>
 * @note
@@ -293,11 +294,11 @@ typedef struct {
 
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_HMAC_MAJOR_VERSION	5
-#define XSECURE_HMAC_MINOR_VERSION	2
+#define XSECURE_HMAC_MAJOR_VERSION	5 /**< Major version of HMAC */
+#define XSECURE_HMAC_MINOR_VERSION	2 /**< Minor version of HMAC */
 
-#define XSECURE_SHA2_MAJOR_VERSION	5
-#define XSECURE_SHA2_MINOR_VERSION	2
+#define XSECURE_SHA2_MAJOR_VERSION	5 /**< Major version of SHA2 */
+#define XSECURE_SHA2_MINOR_VERSION	2 /**< Minor version of SHA2 */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

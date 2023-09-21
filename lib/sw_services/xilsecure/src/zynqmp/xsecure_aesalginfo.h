@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   mmd     07/04/23 Initial Release
+*	vss	09/21/23 Fixed doxygen warnings
 * </pre>
 *
 ******************************************************************************/
@@ -31,8 +32,8 @@ extern "C" {
 #include "xil_util.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_AES_MAJOR_VERSION	5U
-#define XSECURE_AES_MINOR_VERSION	2U
+#define XSECURE_AES_MAJOR_VERSION	5U /**< Major version of AES */
+#define XSECURE_AES_MINOR_VERSION	2U /**< Minor version of AES */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
