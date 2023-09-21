@@ -28,6 +28,7 @@
 *       am   02/13/23 Fixed MISRA C violations
 *       am   02/17/23 Fixed HIS_COMF violations
 * 2.2   am   03/09/23 Replaced xpuf payload lengths with xmailbox payload lengths
+*	vss  09/21/23 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -39,9 +40,8 @@
 #include "xpuf_client.h"
 
 /************************** Constant Definitions *****************************/
-/**< Slr index shift constant*/
-#define XPUF_SLR_INDEX_SHIFT (6U)
-#define XPUF_ADDR_HIGH_SHIFT (32U)
+#define XPUF_SLR_INDEX_SHIFT (6U) /**< To shift puf SLR index */
+#define XPUF_ADDR_HIGH_SHIFT (32U) /**< Shift value to get higher 32 bit address */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

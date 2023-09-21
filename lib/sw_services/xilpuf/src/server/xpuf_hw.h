@@ -32,6 +32,7 @@
 * 1.5   har  03/21/2022 Added offset for GLOBAL_CNTRL register
 *       kpt  03/24/2021 Added macro XPUF_IRO_TRIM_FUSE_SEL_BIT
 * 2.2	vss  09/07/2023	Fixed MISRA-C Rule 2.5 violation
+*	vss  09/21/2023 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -149,8 +150,11 @@ extern "C" {
 #define XPUF_EFUSE_CTRL_IRO_TRIM_FAST		(0x1U)
 					/**< Trim IRO to fast frequency */
 #define XPUF_EFUSE_CTRL_WR_LOCK_OFFSET		(0x0U)
+					/**< Write lock offset */
 #define XPUF_EFUSE_CTRL_WR_UNLOCK_VAL		(0x0000DF0DU)
+					/**< Write unlock value */
 #define XPUF_EFUSE_CTRL_WR_LOCK_VAL		(0x1U)
+					/**< Write lock value */
 
 /** @} */
 /***************** Macros (Inline Functions) Definitions ********************/
