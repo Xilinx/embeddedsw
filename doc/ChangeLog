@@ -224,10 +224,6 @@ Updated vprocss.tcl file to correct parameter names in configtable.
 Ported driver and example application for decoupling flow.
 Added overview in addtogroups section.
 
-vtc_v8_5 :
-Ported driver for decoupling flow.
-Added overview in addtogroups section.
-
 video_common_v4_14:
 Ported driver for decoupling flow.
 Added overview in addtogroups section.
