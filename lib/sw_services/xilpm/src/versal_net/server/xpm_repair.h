@@ -27,6 +27,17 @@ maybe_unused static inline XStatus XPmRepair_Vdu(u32 EfuseTagAddr, u32 TagSize,
 	return XST_INVALID_PARAM;
 }
 
+maybe_unused static inline XStatus XPmRepair_Bfrb(u32 EfuseTagAddr, u32 TagSize,
+			u32 TagOptional, u32 *TagDataAddr)
+{
+	(void)EfuseTagAddr;
+	(void)TagSize;
+	(void)TagOptional;
+	(void)TagDataAddr;
+
+	return XST_INVALID_PARAM;
+}
+
 /************************** Function Prototypes ******************************/
 XStatus XPmRepair_Lpx(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
 XStatus XPmRepair_Fpx(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
