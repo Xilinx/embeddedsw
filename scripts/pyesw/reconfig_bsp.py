@@ -23,8 +23,12 @@ def reconfig_bsp(args):
     """
     obj = ReconfigBSP(args)
 
-    bsp_domain_path = utils.fetch_yaml_data(obj.domain_config_file, "path")["path"]
     build_metadata = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp")
+    if utils.fetch_yaml_data(obj.domain_config_file, "path").get('path', {}):
+        bsp_domain_path = utils.fetch_yaml_data(obj.domain_config_file, "path")["path"]
+    else:
+        bsp_domain_path = obj.domain_path
+        utils.remove(build_metadata)
     """
     Recreate the build folder and run cmake configuration for the below use cases
     1. Shared platform use case.
