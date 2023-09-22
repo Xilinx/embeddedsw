@@ -134,12 +134,12 @@ static int XCert_IsBufferNonZero(u8* Buffer, u32 BufferLen);
 static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg);
 static void XCert_GenVersionField(u8* TBSCertBuf, XCert_Config *Cfg, u32 *VersionLen);
 static int XCert_GenSerialField(u8* TBSCertBuf, u8* DataHash, u32 *SerialLen);
-static void XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen);
-static inline void XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, const u32 IssuerValLen, u32 *IssuerLen);
-static inline void XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, const u32 ValidityValLen, u32 *ValidityLen);
-static inline void XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, const u32 SubjectValLen, u32 *SubjectLen);
+static int XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen);
+static inline int XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, const u32 IssuerValLen, u32 *IssuerLen);
+static inline int XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, const u32 ValidityValLen, u32 *ValidityLen);
+static inline int XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, const u32 SubjectValLen, u32 *SubjectLen);
 #ifndef PLM_ECDSA_EXCLUDE
-static void XCert_GenPubKeyAlgIdentifierField(u8* TBSCertBuf, u32 *Len);
+static int XCert_GenPubKeyAlgIdentifierField(u8* TBSCertBuf, u32 *Len);
 static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey,u32 *PubKeyInfoLen);
 static int XCert_GenSignField(u8* X509CertBuf, u8* Signature, u32 *SignLen);
 static int XCert_GetSignStored(u32 SubsystemId, XCert_SignStore **SignStore);
@@ -148,14 +148,14 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 static void XCert_CopyCertificate(const u32 Size, const u8 *Src, const u64 DstAddr);
 static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicKey, u32 *SubjectKeyIdentifierLen);
 static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublicKey, u32 *AuthorityKeyIdentifierLen);
-static void XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TcbInfoExtnLen);
-static void XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen);
+static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TcbInfoExtnLen);
+static int XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen);
 static void XCert_UpdateKeyUsageVal(u8* KeyUsageVal, XCert_KeyUsageOption KeyUsageOption);
-static void XCert_GenKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *KeyUsageExtnLen);
-static void XCert_GenExtKeyUsageField(u8* TBSCertBuf,  XCert_Config* Cfg, u32 *EkuLen);
+static int XCert_GenKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *KeyUsageExtnLen);
+static int XCert_GenExtKeyUsageField(u8* TBSCertBuf,  XCert_Config* Cfg, u32 *EkuLen);
 static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u32 *ExtensionsLen);
-static void XCert_GenBasicConstraintsExtnField(u8* CertReqInfoBuf, u32 *Len);
-static void XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *ExtensionsLen);
+static int XCert_GenBasicConstraintsExtnField(u8* CertReqInfoBuf, u32 *Len);
+static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *ExtensionsLen);
 static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *CertReqInfoLen);
 
 /************************** Function Definitions *****************************/
@@ -489,7 +489,10 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	/**
 	 * Generate Sign Algorithm field
 	 */
-	XCert_GenSignAlgoField(Curr, &SignAlgoLen);
+	Status = XCert_GenSignAlgoField(Curr, &SignAlgoLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + SignAlgoLen;
 
 	/**
@@ -665,11 +668,15 @@ static int XCert_GenSerialField(u8* TBSCertBuf, u8* DataHash, u32 *SerialLen)
 		LenToBeCopied = XCERT_LEN_OF_VALUE_OF_SERIAL;
 	}
 
-	XSecure_MemCpy64((u64)(UINTPTR)Serial, (u64)(UINTPTR)DataHash,
-			LenToBeCopied);
+	Status  = Xil_SMemCpy(Serial, XCERT_LEN_OF_VALUE_OF_SERIAL, DataHash,
+		XCERT_LEN_OF_VALUE_OF_SERIAL, LenToBeCopied);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XCert_CreateInteger(TBSCertBuf, Serial, LenToBeCopied, SerialLen);
 
+END:
 	return Status;
 }
 
@@ -698,8 +705,9 @@ static int XCert_GenSerialField(u8* TBSCertBuf, u8* DataHash, u32 *SerialLen)
  *		The parameter field must be replaced with NULL.
  *
  ******************************************************************************/
-static void XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen)
+static int XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen)
 {
+	int Status = XST_FAILURE;
 	u8* Curr = CertBuf;
 	u32 OidLen;
 	u8* SequenceLenIdx;
@@ -709,7 +717,10 @@ static void XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen)
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	XCert_CreateRawDataFromByteArray(Curr, Oid_SignAlgo, sizeof(Oid_SignAlgo), &OidLen);
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_SignAlgo, sizeof(Oid_SignAlgo), &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + OidLen;
 
 	*(Curr++) = XCERT_ASN1_TAG_NULL;
@@ -717,6 +728,9 @@ static void XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen)
 
 	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
 	*SignAlgoLen = (u32)(Curr - CertBuf);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -733,9 +747,13 @@ static void XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen)
  *		encoded format and it will be updated in the TBS Certificate buffer.
  *
  ******************************************************************************/
-static inline void XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, const u32 IssuerValLen, u32 *IssuerLen)
+static inline int XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, const u32 IssuerValLen, u32 *IssuerLen)
 {
-	XCert_CreateRawDataFromByteArray(TBSCertBuf, Issuer, IssuerValLen, IssuerLen);
+	int Status = XST_FAILURE;
+
+	Status = XCert_CreateRawDataFromByteArray(TBSCertBuf, Issuer, IssuerValLen, IssuerLen);
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -752,9 +770,13 @@ static inline void XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, const u32 Is
  *		encoded format and it will be updated in the TBS Certificate buffer.
  *
  ******************************************************************************/
-static inline void XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, const u32 ValidityValLen, u32 *ValidityLen)
+static inline int XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, const u32 ValidityValLen, u32 *ValidityLen)
 {
-	XCert_CreateRawDataFromByteArray(TBSCertBuf, Validity, ValidityValLen, ValidityLen);
+	int Status = XST_FAILURE;
+
+	Status = XCert_CreateRawDataFromByteArray(TBSCertBuf, Validity, ValidityValLen, ValidityLen);
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -771,9 +793,13 @@ static inline void XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, const u3
  *		encoded format and it will be updated in the TBS Certificate buffer.
  *
  ******************************************************************************/
-static inline void XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, const u32 SubjectValLen, u32 *SubjectLen)
+static inline int XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, const u32 SubjectValLen, u32 *SubjectLen)
 {
-	XCert_CreateRawDataFromByteArray(TBSCertBuf, Subject, SubjectValLen, SubjectLen);
+	int Status = XST_FAILURE;
+
+	Status = XCert_CreateRawDataFromByteArray(TBSCertBuf, Subject, SubjectValLen, SubjectLen);
+
+	return Status;
 }
 
 #ifndef PLM_ECDSA_EXCLUDE
@@ -802,8 +828,9 @@ static inline void XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, const u32 
  *		two components: the OID id-ecPublicKey and OID secp384r1
  *
  ******************************************************************************/
-static void XCert_GenPubKeyAlgIdentifierField(u8* TBSCertBuf, u32 *Len)
+static int XCert_GenPubKeyAlgIdentifierField(u8* TBSCertBuf, u32 *Len)
 {
+	int Status = XST_FAILURE;
 	u8* Curr = TBSCertBuf;
 	u8* SequenceLenIdx;
 	u8* SequenceValIdx;
@@ -813,14 +840,23 @@ static void XCert_GenPubKeyAlgIdentifierField(u8* TBSCertBuf, u32 *Len)
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	XCert_CreateRawDataFromByteArray(Curr, Oid_EcPublicKey, sizeof(Oid_EcPublicKey), &OidLen);
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_EcPublicKey, sizeof(Oid_EcPublicKey), &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + OidLen;
 
-	XCert_CreateRawDataFromByteArray(Curr, Oid_P384, sizeof(Oid_P384), &OidLen);
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_P384, sizeof(Oid_P384), &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + OidLen;
 
 	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
 	*Len = (u32)(Curr - TBSCertBuf);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -857,7 +893,10 @@ static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey, u32
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	XCert_GenPubKeyAlgIdentifierField(Curr, &Len);
+	Status = XCert_GenPubKeyAlgIdentifierField(Curr, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + Len;
 
 	/**
@@ -870,7 +909,10 @@ static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey, u32
 		goto END;
 	}
 
-	XCert_CreateBitString(Curr, UncompressedPublicKey, KeyLen + 1U, TRUE, &Len);
+	Status = XCert_CreateBitString(Curr, UncompressedPublicKey, KeyLen + 1U, TRUE, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + Len;
 
 	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
@@ -923,8 +965,11 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicK
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	XCert_CreateRawDataFromByteArray(Curr, Oid_SubKeyIdentifier, sizeof(Oid_SubKeyIdentifier),
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_SubKeyIdentifier, sizeof(Oid_SubKeyIdentifier),
 		&OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + OidLen;
 
 	Status = XSecure_Sha3Initialize(ShaInstancePtr, PmcDmaInstPtr);
@@ -941,7 +986,10 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicK
 	OctetStrLenIdx = Curr++;
 	OctetStrValIdx = Curr;
 
-	XCert_CreateOctetString(Curr, Sha3Hash.Hash, XCERT_SUB_KEY_ID_VAL_LEN, &FieldLen);
+	Status = XCert_CreateOctetString(Curr, Sha3Hash.Hash, XCERT_SUB_KEY_ID_VAL_LEN, &FieldLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + FieldLen;
 
 	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
@@ -1000,8 +1048,11 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublic
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	XCert_CreateRawDataFromByteArray(Curr, Oid_AuthKeyIdentifier, sizeof(Oid_AuthKeyIdentifier),
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_AuthKeyIdentifier, sizeof(Oid_AuthKeyIdentifier),
 		&OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + OidLen;
 
 	Status = XSecure_Sha3Initialize(ShaInstancePtr, PmcDmaInstPtr);
@@ -1023,7 +1074,10 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublic
 	KeyIdSequenceLenIdx = Curr++;
 	KeyIdSequenceValIdx = Curr;
 
-	XCert_CreateOctetString(Curr, Sha3Hash.Hash, XCERT_AUTH_KEY_ID_VAL_LEN, &FieldLen);
+	Status = XCert_CreateOctetString(Curr, Sha3Hash.Hash, XCERT_AUTH_KEY_ID_VAL_LEN, &FieldLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + FieldLen;
 
 	/**
@@ -1077,8 +1131,9 @@ END:
  *		the application.
  *
  ******************************************************************************/
-static void XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TcbInfoExtnLen)
+static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TcbInfoExtnLen)
 {
+	int Status = XST_FAILURE;
 	u8* Curr = TBSCertBuf;
 	u8* SequenceLenIdx;
 	u8* SequenceValIdx;
@@ -1097,7 +1152,10 @@ static void XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Tc
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	XCert_CreateRawDataFromByteArray(Curr, Oid_TcbInfoExtn, sizeof(Oid_TcbInfoExtn), &OidLen);
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_TcbInfoExtn, sizeof(Oid_TcbInfoExtn), &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + OidLen;
 
 	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
@@ -1116,10 +1174,16 @@ static void XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Tc
 	FwIdSequenceLenIdx = Curr++;
 	FwIdSequenceValIdx = Curr;
 
-	XCert_CreateRawDataFromByteArray(Curr, Oid_Sha3_384, sizeof(Oid_Sha3_384), &OidLen);
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_Sha3_384, sizeof(Oid_Sha3_384), &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + OidLen;
 
-	XCert_CreateOctetString(Curr, Cfg->AppCfg.FwHash, XCERT_HASH_SIZE_IN_BYTES, &FieldLen);
+	Status = XCert_CreateOctetString(Curr, Cfg->AppCfg.FwHash, XCERT_HASH_SIZE_IN_BYTES, &FieldLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + FieldLen;
 
 	*FwIdSequenceLenIdx = (u8)(Curr - FwIdSequenceValIdx);
@@ -1128,6 +1192,9 @@ static void XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Tc
 	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
 	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
 	*TcbInfoExtnLen = (u32)(Curr - TBSCertBuf);
+
+END:
+	return Status;
 }
 
 /******************************************************************************/
@@ -1148,8 +1215,9 @@ static void XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Tc
  *		value of this extension.
  *
  ******************************************************************************/
-static void XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen)
+static int XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen)
 {
+	int Status = XST_FAILURE;
 	u8* Curr = TBSCertBuf;
 	u8* SequenceLenIdx;
 	u8* SequenceValIdx;
@@ -1169,7 +1237,10 @@ static void XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen)
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	XCert_CreateRawDataFromByteArray(Curr, Oid_UeidExtn, sizeof(Oid_UeidExtn), &OidLen);
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_UeidExtn, sizeof(Oid_UeidExtn), &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + OidLen;
 
 	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
@@ -1188,13 +1259,19 @@ static void XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen)
 		Dna[Idx] = Xil_EndianSwap32(Val);
 	}
 
-	XCert_CreateOctetString(Curr, (u8*)Dna, XCERT_DNA_LEN_IN_BYTES ,&FieldLen);
+	Status = XCert_CreateOctetString(Curr, (u8*)Dna, XCERT_DNA_LEN_IN_BYTES ,&FieldLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + FieldLen;
 
 	*UeidSequenceLenIdx = (u8)(Curr - UeidSequenceValIdx);
 	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
 	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
 	*UeidExnLen = (u32)(Curr - TBSCertBuf);
+
+END:
+	return Status;
 }
 
 
@@ -1241,8 +1318,9 @@ static void XCert_UpdateKeyUsageVal(u8* KeyUsageVal, XCert_KeyUsageOption KeyUsa
  *		}
  *
  ******************************************************************************/
-static void XCert_GenKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *KeyUsageExtnLen)
+static int XCert_GenKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *KeyUsageExtnLen)
 {
+	int Status = XST_FAILURE;
 	u8* Curr = TBSCertBuf;
 	u8* SequenceLenIdx;
 	u8* SequenceValIdx;
@@ -1257,7 +1335,10 @@ static void XCert_GenKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *KeyUs
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	XCert_CreateRawDataFromByteArray(Curr, Oid_KeyUsageExtn, sizeof(Oid_KeyUsageExtn), &OidLen);
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_KeyUsageExtn, sizeof(Oid_KeyUsageExtn), &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + OidLen;
 
 	XCert_CreateBoolean(Curr, (u8)TRUE, &FieldLen);
@@ -1282,12 +1363,18 @@ static void XCert_GenKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *KeyUs
 		KeyUsageValLen = XCERT_MAX_LEN_OF_KEYUSAGE_VAL;
 	}
 
-	XCert_CreateBitString(Curr, KeyUsageVal, KeyUsageValLen, FALSE, &FieldLen);
+	Status = XCert_CreateBitString(Curr, KeyUsageVal, KeyUsageValLen, FALSE, &FieldLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + FieldLen;
 
 	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
 	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
 	*KeyUsageExtnLen = (u32)(Curr - TBSCertBuf);
+
+END:
+	return Status;
 }
 
 /******************************************************************************/
@@ -1305,8 +1392,9 @@ static void XCert_GenKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *KeyUs
  *		KeyPurposeId ::= OBJECT IDENTIFIER
  *
  ******************************************************************************/
-static void XCert_GenExtKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *EkuLen)
+static int XCert_GenExtKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *EkuLen)
 {
+	int Status = XST_FAILURE;
 	u8* Curr = TBSCertBuf;
 	u8* SequenceLenIdx;
 	u8* SequenceValIdx;
@@ -1321,7 +1409,10 @@ static void XCert_GenExtKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Ek
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	XCert_CreateRawDataFromByteArray(Curr, Oid_EkuExtn, sizeof(Oid_EkuExtn), &OidLen);
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_EkuExtn, sizeof(Oid_EkuExtn), &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + OidLen;
 
 	XCert_CreateBoolean(Curr, (u8)TRUE, &FieldLen);
@@ -1336,11 +1427,17 @@ static void XCert_GenExtKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Ek
 	EkuSequenceLenIdx = Curr++;
 	EkuSequenceValIdx = Curr;
 
-	XCert_CreateRawDataFromByteArray(Curr, Oid_EkuClientAuth, sizeof(Oid_EkuClientAuth), &OidLen);
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_EkuClientAuth, sizeof(Oid_EkuClientAuth), &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + OidLen;
 
 	if (Cfg->AppCfg.IsCsr == TRUE) {
-		XCert_CreateRawDataFromByteArray(Curr, Oid_EkuHwType, sizeof(Oid_EkuHwType), &OidLen);
+		Status = XCert_CreateRawDataFromByteArray(Curr, Oid_EkuHwType, sizeof(Oid_EkuHwType), &OidLen);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		Curr = Curr + OidLen;
 	}
 
@@ -1348,6 +1445,9 @@ static void XCert_GenExtKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Ek
 	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
 	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
 	*EkuLen = (u32)(Curr - TBSCertBuf);
+
+END:
+	return Status;
 }
 
 /******************************************************************************/
@@ -1413,7 +1513,10 @@ static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u3
 		Curr = Curr + Len;
 	}
 
-	XCert_GenTcbInfoExtnField(Curr, Cfg, &Len);
+	Status = XCert_GenTcbInfoExtnField(Curr, Cfg, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + Len;
 
 	/**
@@ -1421,15 +1524,24 @@ static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u3
 	 * DevIK certificates only
 	 */
 	if (Cfg->AppCfg.IsSelfSigned == TRUE) {
-		XCert_GenUeidExnField(Curr, &Len);
+		Status = XCert_GenUeidExnField(Curr, &Len);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		Curr = Curr + Len;
 	}
 
-	XCert_GenKeyUsageField(Curr, Cfg, &Len);
+	Status =  XCert_GenKeyUsageField(Curr, Cfg, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + Len;
 
 	if (Cfg->AppCfg.IsSelfSigned == TRUE) {
-		XCert_GenExtKeyUsageField(Curr, Cfg, &Len);
+		Status = XCert_GenExtKeyUsageField(Curr, Cfg, &Len);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		Curr = Curr + Len;
 	}
 
@@ -1465,8 +1577,9 @@ END:
  * @note	This extension shall be part of the CSR only
  *
  ******************************************************************************/
-static void XCert_GenBasicConstraintsExtnField(u8* CertReqInfoBuf, u32 *Len)
+static int XCert_GenBasicConstraintsExtnField(u8* CertReqInfoBuf, u32 *Len)
 {
+	int Status = XST_FAILURE;
 	u8* Curr = CertReqInfoBuf;
 	u8* SequenceLenIdx;
 	u8* SequenceValIdx;
@@ -1481,8 +1594,11 @@ static void XCert_GenBasicConstraintsExtnField(u8* CertReqInfoBuf, u32 *Len)
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	XCert_CreateRawDataFromByteArray(Curr, Oid_BasicConstraintExtn,
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_BasicConstraintExtn,
 		sizeof(Oid_BasicConstraintExtn), &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + OidLen;
 
 	XCert_CreateBoolean(Curr, (u8)TRUE, &FieldLen);
@@ -1507,6 +1623,9 @@ static void XCert_GenBasicConstraintsExtnField(u8* CertReqInfoBuf, u32 *Len)
 	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
 	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
 	*Len = (u32)(Curr - CertReqInfoBuf);
+
+END:
+	return Status;
 }
 
 /******************************************************************************/
@@ -1520,8 +1639,9 @@ static void XCert_GenBasicConstraintsExtnField(u8* CertReqInfoBuf, u32 *Len)
  * @param	ExtensionsLen is the length of the Extensions field.
  *
  ******************************************************************************/
-static void XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *ExtensionsLen)
+static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *ExtensionsLen)
 {
+	int Status = XST_FAILURE;
 	u8* Curr = CertReqInfoBuf;
 	u8* SequenceLenIdx;
 	u8* SequenceValIdx;
@@ -1542,7 +1662,10 @@ static void XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *E
 	ExtnReqSeqLenIdx = Curr++;
 	ExtnReqSeqValIdx = Curr;
 
-	XCert_CreateRawDataFromByteArray(Curr, Oid_ExtnRequest, sizeof(Oid_ExtnRequest), &OidLen);
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_ExtnRequest, sizeof(Oid_ExtnRequest), &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + OidLen;
 
 	*(Curr++) = XCERT_ASN1_TAG_SET;
@@ -1553,16 +1676,25 @@ static void XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *E
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	XCert_GenKeyUsageField(Curr, Cfg, &Len);
+	Status =  XCert_GenKeyUsageField(Curr, Cfg, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + Len;
 
-	XCert_GenExtKeyUsageField(Curr, Cfg, &Len);
+	Status = XCert_GenExtKeyUsageField(Curr, Cfg, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + Len;
 
 	XCert_GenUeidExnField(Curr, &Len);
 	Curr = Curr + Len;
 
-	XCert_GenBasicConstraintsExtnField(Curr, &Len);
+	Status = XCert_GenBasicConstraintsExtnField(Curr, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + Len;
 
 	*SetLenIdx = (u8)(Curr - SetValIdx);
@@ -1570,6 +1702,9 @@ static void XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *E
 	*OptionalTagLenIdx = (u8)(Curr - OptionalTagValIdx);
 	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
 	*ExtensionsLen = (u32)(Curr - CertReqInfoBuf);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1633,25 +1768,37 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	/**
 	 * Generate Signature Algorithm field
 	 */
-	XCert_GenSignAlgoField(Curr, &Len);
+	Status = XCert_GenSignAlgoField(Curr, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + Len;
 
 	/**
 	 * Generate Issuer field
 	 */
-	XCert_GenIssuerField(Curr, Cfg->UserCfg->Issuer, Cfg->UserCfg->IssuerLen, &Len);
+	Status = XCert_GenIssuerField(Curr, Cfg->UserCfg->Issuer, Cfg->UserCfg->IssuerLen, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + Len;
 
 	/**
 	 * Generate Validity field
 	 */
-	XCert_GenValidityField(Curr, Cfg->UserCfg->Validity, Cfg->UserCfg->ValidityLen, &Len);
+	Status = XCert_GenValidityField(Curr, Cfg->UserCfg->Validity, Cfg->UserCfg->ValidityLen, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + Len;
 
 	/**
 	 * Generate Subject field
 	 */
-	XCert_GenSubjectField(Curr, Cfg->UserCfg->Subject, Cfg->UserCfg->SubjectLen, &Len);
+	Status = XCert_GenSubjectField(Curr, Cfg->UserCfg->Subject, Cfg->UserCfg->SubjectLen, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + Len;
 
 #ifndef PLM_ECDSA_EXCLUDE
