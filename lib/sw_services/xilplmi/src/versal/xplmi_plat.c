@@ -35,6 +35,7 @@
 * 1.03  sk   07/18/2023 Updated error codes in VerifyAddrRange function
 *       bm   09/07/2023 Allow loading of ELFs into XRAM
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
+*       ng   09/22/2023 Fixed missing header for microblaze sleep
 *
 * </pre>
 *
@@ -50,7 +51,11 @@
 #include "xcfupmc.h"
 #include "xplmi_gic_interrupts.h"
 #include "xplmi_plat.h"
-#include "sleep.h"
+#ifndef SDT
+	#include "microblaze_sleep.h"
+#else
+	#include "sleep.h"
+#endif
 #include "xplmi_err_common.h"
 #include "xplmi_generic.h"
 
