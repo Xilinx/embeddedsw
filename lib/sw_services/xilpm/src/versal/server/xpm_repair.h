@@ -80,8 +80,10 @@ maybe_unused static inline XStatus XPmRepair_Ddrmc5_Crypto(u32 EfuseTagAddr, u32
 
 	return XST_INVALID_PARAM;
 }
+
 /************************** Function Prototypes ******************************/
 XStatus XPmRepair_Vdu(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
+XStatus XPmRepair_Bfrb(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
 
 #ifdef __cplusplus
 }

@@ -365,14 +365,6 @@ done:
 	return TagDataAddr;
 }
 
-static XStatus XPmBisr_RepairBfrb(void)
-{
-	PmDbg("WARNING: BFRB BISR repair not implemented\r\n");
-
-	/* TODO: Synchronize repair with GOQ and move to xpm_repair.c */
-	return XST_SUCCESS;
-}
-
 XStatus XPmBisr_Repair2(u32 TagId)
 {
 	volatile XStatus Status = XST_FAILURE;
@@ -454,14 +446,7 @@ XStatus XPmBisr_Repair2(u32 TagId)
 				Status = XPmRepair_Vdu(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
 				break;
 			case BFRB_TAG_ID:
-				Status = XPmBisr_RepairBfrb();
-				/*
-				 * Temporary workaround until BFRB BISR is
-				 * implemented. Without incrementing the address
-				 * BISR repair sequence gets stuck in forever
-				 * loop calling XPmBisr_RepairBfrb
-				 */
-				EfuseNextAddr += 4U;
+				Status = XPmRepair_Bfrb(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
 				break;
 			case DDRMC5_CRYPTO_TAG_ID:
 				Status = XPmRepair_Ddrmc5_Crypto(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
