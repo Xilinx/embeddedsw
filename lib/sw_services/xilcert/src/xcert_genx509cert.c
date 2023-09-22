@@ -1162,6 +1162,8 @@ static void XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen)
 	u32 Dna[XCERT_DNA_LEN_IN_WORDS] = {0U};
 	u32 Offset;
 	u32 Address;
+	u32 Idx;
+	u32 Val;
 
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
 	SequenceLenIdx = Curr++;
@@ -1179,9 +1181,11 @@ static void XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen)
 	UeidSequenceLenIdx = Curr++;
 	UeidSequenceValIdx = Curr;
 
-	for (Offset = 0; Offset < XCERT_DNA_LEN_IN_WORDS; Offset++) {
+	for (Idx = 0U; Idx < XCERT_DNA_LEN_IN_WORDS; Idx++) {
+		Offset = XCERT_DNA_LEN_IN_WORDS - Idx - 1U;
 		Address = XCERT_DNA_0_ADDRESS + (Offset * XCERT_WORD_LEN);
-		Dna[Offset] = XCert_In32(Address);
+		Val = XCert_In32(Address);
+		Dna[Idx] = Xil_EndianSwap32(Val);
 	}
 
 	XCert_CreateOctetString(Curr, (u8*)Dna, XCERT_DNA_LEN_IN_BYTES ,&FieldLen);
