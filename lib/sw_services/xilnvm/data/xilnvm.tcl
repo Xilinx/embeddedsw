@@ -218,7 +218,9 @@ proc xgen_opts_file {libhandle} {
 	if {$value == true} {
 		#Open xparameters.h file
 		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
-			$proc_type == "psv_cortexr5" || $proc_type == "microblaze"} {
+                        $proc_type == "psv_cortexr5" || $proc_type == "microblaze" ||
+                        $proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" ||
+                        $proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52"} {
 			set file_handle [hsi::utils::open_include_file "xparameters.h"]
 			puts $file_handle "#define XNVM_CACHE_DISABLE\n"
 		}
