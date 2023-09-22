@@ -4,13 +4,14 @@
 set(XILPUF_Mode "client" CACHE STRING "Enables A72/R5 server and client mode support for XilPuf library")
 set_property(CACHE XILPUF_Mode PROPERTY STRINGS "client" "server")
 
-option(XILPUF_cache_disable "Enables/Disables Cache for XilPuf client library." OFF)
+option(XILPUF_cache_disable "Enables/Disables Cache for XilPuf client library." ON)
 if(XILPUF_cache_disable)
-  if("${CMAKE_MACHINE}" STREQUAL "Versal")
-    if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
-       ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5"))
-      set(XPUF_CACHE_DISABLE " ")
-    endif()
+  if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
+     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
+     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78") OR
+     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52") OR
+     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
+     set(XPUF_CACHE_DISABLE " ")
   endif()
 endif()
 
