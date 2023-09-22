@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +26,7 @@
 #ifdef DEBUG_MODE
 #include "xil_printf.h"
 #endif
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -80,12 +82,6 @@ struct XPm_Master *pm_get_master_by_node(const enum XPmNodeId nid);
 #define pm_dbg xil_printf
 #else
 	#define pm_dbg(...)	{}
-#endif
-
-#ifndef bool
-	#define bool	u8
-	#define true	1U
-	#define false	0U
 #endif
 
 void XPm_ClientSuspend(const struct XPm_Master *const master);
