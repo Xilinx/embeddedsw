@@ -1,5 +1,6 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -22,19 +23,7 @@ extern "C" {
 
 #include "xpfw_ipi_manager.h"
 #include "xpfw_mod_pm.h"
-
-/*********************************************************************
- * Typedefs (common use in PMU Power Management)
- ********************************************************************/
-/*
- * stdint.h is not available, and pmu-fw framework defined similar
- * macros but as 0 and 1 (signed). PM, as in general, uses unsigned.
- */
-#ifndef bool
-	typedef u8 bool;
-	#define true	(bool)1U
-	#define false	(bool)0U
-#endif
+#include <stdbool.h>
 
 typedef u32 (*const PmTranHandler)(void);
 
