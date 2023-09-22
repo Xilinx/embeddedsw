@@ -124,8 +124,9 @@ END:
  * @note	ASN.1 tag for BitString is 0x03
  *
  ******************************************************************************/
-void XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32 IsLastByteFull, u32* FieldLen)
+int XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32 IsLastByteFull, u32* FieldLen)
 {
+	int Status = XST_FAILURE;
 	u32 NumofTrailingZeroes = 0U;
 	u8* Curr = DataBuf;
 	u8* BitStringLenIdx;
@@ -144,11 +145,17 @@ void XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen
 	}
 	*(Curr++) = NumofTrailingZeroes;
 
-	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)BitStringVal, BitStringLen);
+	Status  = Xil_SMemCpy(Curr, BitStringLen, BitStringVal, BitStringLen, BitStringLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Curr = Curr + BitStringLen;
 	*BitStringLenIdx = (u8)(Curr - BitStringValIdx);
 	*FieldLen = (u8)(Curr - DataBuf);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -164,15 +171,24 @@ void XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen
  * @note	ASN.1 tag for OctetString is 0x04
  *
  ******************************************************************************/
-void XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStringLen, u32* FieldLen)
+int XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStringLen, u32* FieldLen)
 {
+	int Status = XST_FAILURE;
 	u8* Curr = DataBuf;
 
 	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
 	*(Curr++) = (u8)(OctetStringLen);
-	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)OctetStringVal, OctetStringLen);
+
+	Status  = Xil_SMemCpy(Curr, OctetStringLen, OctetStringVal, OctetStringLen, OctetStringLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Curr = Curr + OctetStringLen;
 	*FieldLen = (u8)(Curr - DataBuf);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -191,13 +207,21 @@ void XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStr
  *		- XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-void XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, const u32 LenOfRawDataVal, u32* RawDataFieldLen)
+int XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, const u32 LenOfRawDataVal, u32* RawDataFieldLen)
 {
+	int Status = XST_FAILURE;
 	u8* Curr = DataBuf;
 
-	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)RawData, LenOfRawDataVal);
+	Status = Xil_SMemCpy(Curr, LenOfRawDataVal, RawData, LenOfRawDataVal, LenOfRawDataVal);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Curr = Curr + LenOfRawDataVal;
 	*RawDataFieldLen = (u8)(Curr - DataBuf);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
