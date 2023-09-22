@@ -39,6 +39,7 @@
 *       kpt  08/28/2023 Reread from efuse cache to enhance security
 *       sk   09/07/2023 Added redundancy check in XPlmi_SetPmcIroFreq
 *                       for updating the MB Freq
+*       ng   09/22/2023 Fixed missing header for microblaze sleep
 *
 * </pre>
 *
@@ -52,7 +53,11 @@
 #include "xplmi_ipi.h"
 #include "xplmi_proc.h"
 #include "xplmi_task.h"
-#include "mb_interface.h"
+#ifndef SDT
+	#include "microblaze_sleep.h"
+#else
+	#include "sleep.h"
+#endif
 #include "xplmi_hw.h"
 #include "xplmi_err_common.h"
 #include "xplmi_wdt.h"
