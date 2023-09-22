@@ -75,10 +75,10 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XCert_CreateInteger(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32 *FieldLen);
-void XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32 IsLastByteFull, u32* FieldLen);
-void XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStringLen,
+int XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32 IsLastByteFull, u32* FieldLen);
+int XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStringLen,
 	u32* FieldLen);
-void XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, const u32 LenOfRawDataVal, u32* RawDataFieldLen);
+int XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, const u32 LenOfRawDataVal, u32* RawDataFieldLen);
 void XCert_CreateBoolean(u8* DataBuf, const u8 BooleanVal, u32* FieldLen);
 int XCert_UpdateEncodedLength(u8* LenIdx, u32 Len, u8* ValIdx);
 
