@@ -23,10 +23,12 @@ endif()
 
 option(XILSECURE_cache_disable "Enables/Disables cache" ON)
 if(XILSECURE_cache_disable)
-  if((("${CMAKE_MACHINE}" STREQUAL "Versal") AND (("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5"))) OR
-     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze")
-    )
-    set(XSECURE_CACHE_DISABLE " ")
+  if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
+     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
+     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78") OR
+     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52") OR
+     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
+      set(XSECURE_CACHE_DISABLE " ")
   endif()
 endif()
 

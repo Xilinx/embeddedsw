@@ -6,9 +6,15 @@ if(XILNVM_use_puf_hd_as_user_efuse)
   set(XNVM_ACCESS_PUF_USER_DATA " ")
 endif()
 
-option(XILNVM_cache_disable "Enables/Disables Cache for XilNvm client library." OFF)
+option(XILNVM_cache_disable "Enables/Disables Cache for XilNvm client library." ON)
 if(XILNVM_cache_disable)
-  set(XNVM_CACHE_DISABLE " ")
+  if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
+     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
+     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78") OR
+     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52") OR
+     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
+     set(XNVM_CACHE_DISABLE " ")
+  endif()
 endif()
 
 option(XILNVM_en_add_ppks "Enables or Disables additional PPKs" OFF)
