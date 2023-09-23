@@ -87,6 +87,7 @@
 *       kpt  07/20/2023 Added volatile keyword for SStatus variable in XSecure_AesDecryptFinal
 *       kpt  07/20/2023 Renamed XSecure_AesDpaCmDecryptKat to XSecure_AesDpaCmDecryptData
 *	kpt  07/27/2023 Initialize KeySizeInWords to zero to avoid invalid value incase of glitch
+*	vss  09/11/2023 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS and MISRA-C Rule 10.1 violation
 *
 * </pre>
 *
@@ -2191,7 +2192,7 @@ static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 void XSecure_AesSetDataContext(XSecure_Aes *InstancePtr) {
 
 	if (InstancePtr->IsResourceBusy == XSECURE_RESOURCE_BUSY) {
-		InstancePtr->DataContextLost = 1<<(InstancePtr->IpiMask);
+		InstancePtr->DataContextLost = XSECURE_SET_DATA_CONTEXT << InstancePtr->IpiMask;
 		InstancePtr->IsResourceBusy = XSECURE_RESOURCE_FREE;
 		InstancePtr->PreviousAesIpiMask = InstancePtr->IpiMask;
 		InstancePtr->IpiMask = XSECURE_CLEAR_IPI_MASK;

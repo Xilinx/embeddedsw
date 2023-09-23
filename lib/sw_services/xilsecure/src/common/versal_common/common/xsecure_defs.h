@@ -29,6 +29,7 @@
 *       ng   07/15/23 Added support for system device tree flow
 *       har  07/26/23 Renamed members of XSecure_EccCrvClass and added macros for
 *                     backward compatibilty
+*	vss  09/11/2023 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS
 *
 * </pre>
 * @note
@@ -103,6 +104,8 @@ extern "C" {
 	/**< Alias for XSecure_EccCrvClass enum for backward compatibility */
 #define XSECURE_CLEAR_IPI_MASK 		(0U)
 				/**< Clear the Ipi mask value */
+#define XSECURE_SET_DATA_CONTEXT	(1U)
+				/**< Set the data context*/
 /************************** Variable Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
