@@ -29,6 +29,7 @@
 * 5.1   yog   05/03/2023 Fixed MISRA C violation of Rule 10.3
 * 		vss	  07/14/2023 Added support for IpiChannel check
 * 5.2   ng    07/13/2023 Added SDT support
+*	vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
 *
 * </pre>
 *
@@ -59,7 +60,7 @@
 static int XSecure_ShaInitialize(void);
 static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	u32 DstAddrLow, u32 DstAddrHigh);
-static int XSecure_ShaOperation(XPlmi_Cmd *Cmd);
+static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd);
 static int XSecure_ShaIsDataContextLost(void);
 
 /*************************** Function Definitions *****************************/
@@ -215,10 +216,10 @@ END:
  *      -       ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_ShaOperation(XPlmi_Cmd *Cmd)
+static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	const u32 *Pload = Cmd->Payload;
 	u32 InputSize = Pload[2U];
 	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
@@ -289,7 +290,7 @@ void XSecure_MakeSha3Free(void)
 ******************************************************************************/
  static int XSecure_ShaIsDataContextLost(void)
 {
-	XSecure_Sha3 *InstancePtr = XSecure_GetSha3Instance();
+	const XSecure_Sha3 *InstancePtr = XSecure_GetSha3Instance();
 	int Status = XST_SUCCESS;
 
 	if (InstancePtr->PreviousShaIpiMask == InstancePtr->IpiMask) {

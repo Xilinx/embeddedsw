@@ -54,6 +54,7 @@
 *       am   08/18/23 Added XSecure_EllipticValidateAndGetCrvInfo and
 *                     XSecure_EllipticGetCrvSize functions
 *       yog  09/04/23 Restricted XSecure_ECCRandInit API support to VersalNet
+*	vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
 *
 * </pre>
 *
@@ -110,7 +111,7 @@ static u32 XSecure_EllipticValidateAndGetCrvInfo(XSecure_EllipticCrvTyp CrvType,
  *
  *****************************************************************************/
 int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
-	const u64 DAddr, XSecure_EllipticKeyAddr *KeyAddr)
+	const u64 DAddr, const XSecure_EllipticKeyAddr *KeyAddr)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	volatile int ClearStatus = XST_FAILURE;
@@ -203,7 +204,7 @@ END:
  *
  *****************************************************************************/
 int XSecure_EllipticGenerateKey(XSecure_EllipticCrvTyp CrvType, const u8* D,
-	XSecure_EllipticKey *Key)
+	const XSecure_EllipticKey *Key)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
@@ -256,8 +257,8 @@ END:
  *
  *****************************************************************************/
 int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
-	XSecure_EllipticHashData *HashInfo, const u64 DAddr,
-	const u64 KAddr, XSecure_EllipticSignAddr *SignAddr)
+	const XSecure_EllipticHashData *HashInfo, const u64 DAddr,
+	const u64 KAddr, const XSecure_EllipticSignAddr *SignAddr)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	volatile int GenStatus = XST_FAILURE;
@@ -404,7 +405,7 @@ END:
  *****************************************************************************/
 int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType,
 	const u8* Hash, const u32 HashLen, const u8* D,
-	const u8* K, XSecure_EllipticSign *Sign)
+	const u8* K, const XSecure_EllipticSign *Sign)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
@@ -457,7 +458,7 @@ END:
  *
  *****************************************************************************/
 int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
-		XSecure_EllipticKeyAddr *KeyAddr)
+		const XSecure_EllipticKeyAddr *KeyAddr)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	volatile int ValidateStatus = XST_FAILURE;
@@ -548,7 +549,7 @@ END:
  *
  *****************************************************************************/
 int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
-	XSecure_EllipticKey *Key)
+	const XSecure_EllipticKey *Key)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
@@ -597,8 +598,8 @@ END:
  *
  *****************************************************************************/
 int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
-	XSecure_EllipticHashData *HashInfo, XSecure_EllipticKeyAddr *KeyAddr,
-	XSecure_EllipticSignAddr *SignAddr)
+	const XSecure_EllipticHashData *HashInfo, const XSecure_EllipticKeyAddr *KeyAddr,
+	const XSecure_EllipticSignAddr *SignAddr)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	volatile int VerifyStatus = XST_FAILURE;
@@ -740,7 +741,7 @@ END:
  *
  *****************************************************************************/
 int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
-	const u32 HashLen, XSecure_EllipticKey *Key, XSecure_EllipticSign *Sign)
+	const u32 HashLen, const XSecure_EllipticKey *Key, const XSecure_EllipticSign *Sign)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
@@ -926,10 +927,10 @@ static u32 XSecure_EllipticValidateAndGetCrvInfo(XSecure_EllipticCrvTyp CrvType,
  *	-	CrvSize - Size of curve in bytes
  *
  *****************************************************************************/
-u32 XSecure_EllipticGetCrvSize(XSecure_EllipticCrvTyp CrvType)
+u32 XSecure_EllipticGetCrvSize(const XSecure_EllipticCrvTyp CrvType)
 {
 	u32 CrvSize = 0U;
-	EcdsaCrvInfo* CrvInfo = (EcdsaCrvInfo *)XSecure_EllipticGetCrvData(CrvType);
+	const EcdsaCrvInfo* CrvInfo = (EcdsaCrvInfo *)XSecure_EllipticGetCrvData(CrvType);
 
 	if (CrvInfo != NULL) {
 		CrvSize = (u32)CrvInfo->Bits / XSECURE_ECDSA_BITS_IN_BYTES;

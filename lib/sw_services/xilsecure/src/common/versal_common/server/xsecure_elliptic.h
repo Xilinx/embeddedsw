@@ -35,6 +35,7 @@
 *       yog  06/07/23 Added support for P-256 Curve
 *       mmd  07/09/23 Included header file for crypto algorithm information
 *       am   08/18/23 Added XSecure_EllipticGetCrvSize() prototype
+*	vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
 *
 * </pre>
 *
@@ -98,29 +99,29 @@ typedef struct {
 
 /***************************** Function Prototypes ***************************/
 int XSecure_EllipticGenerateKey(XSecure_EllipticCrvTyp CrvType, const u8* D,
-	XSecure_EllipticKey *Key);
+	const XSecure_EllipticKey *Key);
 int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType, const u8* Hash,
-	const u32 HashLen, const u8* D, const u8* K, XSecure_EllipticSign *Sign);
+	const u32 HashLen, const u8* D, const u8* K, const XSecure_EllipticSign *Sign);
 int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
-	XSecure_EllipticKey *Key);
+	const XSecure_EllipticKey *Key);
 int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
-	const u32 HashLen, XSecure_EllipticKey *Key, XSecure_EllipticSign *Sign);
+	const u32 HashLen, const XSecure_EllipticKey *Key, const XSecure_EllipticSign *Sign);
 
 /* 64 Bit address supported APIs */
 int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
-	const u64 DAddr, XSecure_EllipticKeyAddr *KeyAddr);
+	const u64 DAddr, const XSecure_EllipticKeyAddr *KeyAddr);
 int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
-	XSecure_EllipticHashData *HashInfo, const u64 DAddr,
-	const u64 KAddr, XSecure_EllipticSignAddr *SignAddr);
+	const XSecure_EllipticHashData *HashInfo, const u64 DAddr,
+	const u64 KAddr, const XSecure_EllipticSignAddr *SignAddr);
 int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
-	XSecure_EllipticKeyAddr *KeyAddr);
+	const XSecure_EllipticKeyAddr *KeyAddr);
 int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
-	XSecure_EllipticHashData *HashInfo, XSecure_EllipticKeyAddr *KeyAddr,
-	XSecure_EllipticSignAddr *SignAddr);
+	const XSecure_EllipticHashData *HashInfo, const XSecure_EllipticKeyAddr *KeyAddr,
+	const XSecure_EllipticSignAddr *SignAddr);
 void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr);
 void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr);
 void XSecure_FixEndiannessNCopy(const u32 Size, u64 DstAddr, const u64 SrcAddr);
-u32 XSecure_EllipticGetCrvSize(XSecure_EllipticCrvTyp CrvType);
+u32 XSecure_EllipticGetCrvSize(const XSecure_EllipticCrvTyp CrvType);
 #endif
 
 #ifdef __cplusplus
