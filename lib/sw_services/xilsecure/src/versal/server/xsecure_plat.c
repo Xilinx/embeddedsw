@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   bm   07/06/22 Initial release
 * 5.2   yog  07/10/23 Added support of unaligned data sizes for Versal Net
+*	vss  09/11/2023 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS
 *
 * </pre>
 *
@@ -27,6 +28,7 @@
 #include "xsecure_sss.h"
 #include "xsecure_sha_hw.h"
 #include "xsecure_sha.h"
+#include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -188,13 +190,13 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg 
 	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
 		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
 		XPmcDma_64BitTransfer(PmcDmaPtr, XPMCDMA_DST_CHANNEL,
-			(u32)AesDmaCfg->DestDataAddr, (u32)(AesDmaCfg->DestDataAddr >> 32U),
+			(u32)AesDmaCfg->DestDataAddr, (u32)(AesDmaCfg->DestDataAddr >> XSECURE_ADDR_HIGH_SHIFT),
 			Size / XSECURE_WORD_SIZE, AesDmaCfg->IsLastChunkDest);
 	}
 
 	if (AesDmaCfg->SrcChannelCfg == TRUE) {
 		XPmcDma_64BitTransfer(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-			(u32)AesDmaCfg->SrcDataAddr, (u32)(AesDmaCfg->SrcDataAddr >> 32U),
+			(u32)AesDmaCfg->SrcDataAddr, (u32)(AesDmaCfg->SrcDataAddr >> XSECURE_ADDR_HIGH_SHIFT),
 			Size / XSECURE_WORD_SIZE, AesDmaCfg->IsLastChunkSrc);
 	}
 

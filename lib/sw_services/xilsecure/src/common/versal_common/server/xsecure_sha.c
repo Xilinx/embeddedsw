@@ -48,6 +48,7 @@
 *       dc   08/26/22 Optimization of size, changed type of variables u8 to u32
 * 5.2   vss  07/15/23 Removed check for sha3state in  XSecure_Sha3Initialize()
 *       ng   07/15/23 Added support for system device tree flow
+*	vss  09/11/2023 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS and MISRA-C Rule 10.1 violation
 *	vss  09/21/23 Fixed doxygen warnings
 * </pre>
 * @note
@@ -774,7 +775,7 @@ END:
 void XSecure_Sha3SetDataContext(XSecure_Sha3 *InstancePtr) {
 
 	if (InstancePtr->IsResourceBusy == XSECURE_RESOURCE_BUSY) {
-		InstancePtr->DataContextLost = 1<<(InstancePtr->IpiMask);
+		InstancePtr->DataContextLost = XSECURE_SET_DATA_CONTEXT << InstancePtr->IpiMask;
 		InstancePtr->IsResourceBusy = XSECURE_RESOURCE_FREE;
 		InstancePtr->PreviousShaIpiMask = InstancePtr->IpiMask;
 		InstancePtr->IpiMask = XSECURE_CLEAR_IPI_MASK;
