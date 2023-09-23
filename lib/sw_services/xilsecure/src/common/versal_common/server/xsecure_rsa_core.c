@@ -45,6 +45,7 @@
 *                     loop redundancy check
 *       dc   08/26/22 Optimization of size by changing u8 to u32
 * 5.2   kpt  08/20/23 Added XSecure_RsaEcdsaZeroizeAndVerifyRam
+*	vss  09/18/23 Fixed compilation warning due to XSecure_RsaEcdsaZeroizeAndVerifyRam
 *
 * </pre>
 *
@@ -504,7 +505,7 @@ int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr)
 		goto END;
 	}
 
-	Status = XSecure_RsaEcdsaZeroizeAndVerifyRam(InstancePtr->BaseAddress);
+	Status = XSecure_RsaEcdsaZeroizeAndVerifyRam((u32)InstancePtr->BaseAddress);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_ECDSA_RSA_MINV_OFFSET, 0U);
