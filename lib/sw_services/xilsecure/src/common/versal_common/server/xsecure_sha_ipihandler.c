@@ -30,6 +30,7 @@
 * 		vss	  07/14/2023 Added support for IpiChannel check
 * 5.2   ng    07/13/2023 Added SDT support
 *	vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
+*	vss  09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
 *
 * </pre>
 *
@@ -294,7 +295,7 @@ void XSecure_MakeSha3Free(void)
 	int Status = XST_SUCCESS;
 
 	if (InstancePtr->PreviousShaIpiMask == InstancePtr->IpiMask) {
-		if (InstancePtr->DataContextLost != XSECURE_DATA_CONTEXT_AVAILABLE) {
+		if (InstancePtr->DataContextLost != (u32)XSECURE_DATA_CONTEXT_AVAILABLE) {
 			Status = XST_DATA_LOST;
 		}
 	}
