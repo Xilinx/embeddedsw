@@ -36,6 +36,7 @@
 * 5.1   skg   12/16/2022 Added XSecure_AesEncrypt/DecryptInitUpdateFinal
 *	yog   05/03/2023 Fixed MISRA C violation of Rule 10.3
 *       vss	  07/14/2023 Added support for IpiChannel check
+*       vss   09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
 *
 * </pre>
 *
@@ -233,7 +234,7 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 
 	/* Clear previous aes data context flag */
 	if(XSecureAesInstPtr->PreviousAesIpiMask == XSecureAesInstPtr->IpiMask) {
-		XSecureAesInstPtr->DataContextLost = XSECURE_DATA_CONTEXT_AVAILABLE;
+		 XSecureAesInstPtr->DataContextLost = (u32)XSECURE_DATA_CONTEXT_AVAILABLE;
 	}
 
 	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
@@ -768,7 +769,7 @@ static int XSecure_AesIsDataContextLost(void)
 	XSecure_Aes *InstancePtr = XSecure_GetAesInstance();
 	int Status = XST_SUCCESS;
 	if (InstancePtr->PreviousAesIpiMask == InstancePtr->IpiMask) {
-		if (InstancePtr->DataContextLost != XSECURE_DATA_CONTEXT_AVAILABLE) {
+		if (InstancePtr->DataContextLost != (u32)XSECURE_DATA_CONTEXT_AVAILABLE) {
 			Status = XST_DATA_LOST;
 		}
 	}
