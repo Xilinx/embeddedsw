@@ -50,6 +50,7 @@
 *       ng   07/15/23 Added support for system device tree flow
 *	vss  09/11/2023 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS and MISRA-C Rule 10.1 violation
 *	vss  09/21/23 Fixed doxygen warnings
+*	vss  09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
 * </pre>
 * @note
 *
@@ -774,9 +775,9 @@ END:
  ******************************************************************************/
 void XSecure_Sha3SetDataContext(XSecure_Sha3 *InstancePtr) {
 
-	if (InstancePtr->IsResourceBusy == XSECURE_RESOURCE_BUSY) {
+	if (InstancePtr->IsResourceBusy == (u32)XSECURE_RESOURCE_BUSY) {
 		InstancePtr->DataContextLost = XSECURE_SET_DATA_CONTEXT << InstancePtr->IpiMask;
-		InstancePtr->IsResourceBusy = XSECURE_RESOURCE_FREE;
+		InstancePtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
 		InstancePtr->PreviousShaIpiMask = InstancePtr->IpiMask;
 		InstancePtr->IpiMask = XSECURE_CLEAR_IPI_MASK;
 	}
