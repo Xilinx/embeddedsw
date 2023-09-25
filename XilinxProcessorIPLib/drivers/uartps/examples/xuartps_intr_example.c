@@ -50,12 +50,10 @@
 #include "xinterrupt_wrap.h"
 #endif
 
-#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
 #include "xscugic.h"
-#endif
 #endif
 /************************** Constant Definitions **************************/
 
@@ -70,7 +68,6 @@
 #define	XUARTPS_BASEADDRESS	XPAR_XUARTPS_0_BASEADDR
 #endif
 
-#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 
@@ -80,7 +77,6 @@
 #define INTC		XScuGic
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define UART_INT_IRQ_ID		XPAR_XUARTPS_1_INTR
-#endif
 #endif
 /*
  * The following constant controls the length of the buffers to be sent
@@ -112,9 +108,7 @@ void Handler(void *CallBackRef, u32 Event, unsigned int EventData);
 /************************** Variable Definitions ***************************/
 
 XUartPs UartPs	;		/* Instance of the UART Device */
-#ifndef SDT
 INTC InterruptController;	/* Instance of the Interrupt Controller */
-#endif
 
 /*
  * The following buffers are used in this example to send and receive data
