@@ -50,6 +50,7 @@
 *       vns  07/06/2023 Added regeneration of DEVAK post in place PLM update
 *       sk   08/18/2023 Fixed security review comments
 *       sk   08/28/2023 Added redundant call for XLoader_GetKekSrc
+* 1.10  bm   09/25/2023 Fix Error Handling after In-Place PLM Update
 *
 * </pre>
 *
@@ -105,7 +106,6 @@ int XPlm_LoadBootPdi(void *Arg)
 
 	/* In-Place PLM Update is applicable only for versalnet */
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
-		XPlmi_Printf(DEBUG_GENERAL, "In-Place PLM Update Done\n\r");
 		/**
 		 * Update KEK red key availability status if PLM is encrypted with
 		 * Black key
@@ -121,9 +121,14 @@ int XPlm_LoadBootPdi(void *Arg)
 		/* Regenerate DEVAK keys of the sub-systems */
 #ifdef PLM_OCP
 		Status = XOcp_RegenSubSysDevAk();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 #else
 		Status = XST_SUCCESS;
 #endif
+		XPlmi_SetBootPdiDone();
+		XPlmi_Printf(DEBUG_GENERAL, "In-Place PLM Update Done\n\r");
 		goto ERR_END;
 	}
 	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");

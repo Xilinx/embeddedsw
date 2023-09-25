@@ -129,6 +129,7 @@
 *       mss  09/04/2023 Added Null Check for EmInit
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *       dd   09/12/2023 MISRA-C violation Rule 17.7 fixed
+* 1.11  bm   09/25/2023 Fix Error Handling after In-Place PLM Update
 * </pre>
 *
 * @note
@@ -262,6 +263,13 @@ void XPlmi_ErrMgr(int ErrStatus)
 				}
 			}
 
+			/*
+			 * In case of errors after In-Place PLM Update, perform IPOR.
+			 * This is applicable only for Versal Net
+			 */
+			if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+				XPlmi_PORHandler();
+			}
 #ifndef PLM_DEBUG_MODE
 		   /**
 		    * - If Halt Boot eFuses are blown, then trigger secure lockdown.

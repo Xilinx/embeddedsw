@@ -35,6 +35,7 @@
 *       bm   09/04/2023 Added support to use DDR region for backup of PLM data
 *                       structures during In-Place PLM Update
 *       sk   09/07/2023 Removed redundant code in XPlmi_PlmUpdate
+* 1.11  bm   09/25/2023 Fix Error Handling after In-Place PLM Update
 *
 * </pre>
 *
@@ -216,6 +217,10 @@ static int XPlmi_PlmUpdateMgr(void)
 	u32 Index;
 	void (*XPlmi_ResetVector)(void) = (void (*)(void))XPLMI_RESET_VECTOR;
 
+	/* Clear FW_IS_PRESENT bit */
+	RegVal = XPlmi_In32(PMC_GLOBAL_GLOBAL_CNTRL);
+	XPlmi_Out32(PMC_GLOBAL_GLOBAL_CNTRL,
+		RegVal & (~PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK));
 	/* Send PLM update request to ROM */
 	XPlmi_Out32(PMC_GLOBAL_ROM_INT, XPLMI_ROM_PLM_UPDATE_REQ);
 
@@ -240,15 +245,15 @@ static int XPlmi_PlmUpdateMgr(void)
 		/* End */
 	} else {
 #ifndef PLM_DEBUG_MODE
-		/* Boot Errors, perform IPOR */
-		RegVal = XPlmi_In32(CRP_RST_PS);
-		XPlmi_Out32(CRP_RST_PS, RegVal | CRP_RST_PS_PMC_POR_MASK);
 		if ((XPlmi_In32(CRP_BOOT_MODE_USER) &
 			CRP_BOOT_MODE_USER_BOOT_MODE_MASK) == 0U)
 #endif
 		{
 			while(TRUE);
 		}
+		/* Boot Errors, perform IPOR */
+		RegVal = XPlmi_In32(CRP_RST_PS);
+		XPlmi_Out32(CRP_RST_PS, RegVal | CRP_RST_PS_PMC_POR_MASK);
 	}
 
 	return Status;
