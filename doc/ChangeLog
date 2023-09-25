@@ -8,7 +8,7 @@ Added support for system device-tree flow
 dpdma_v1_5:
 Added support for system device-tree flow
 
-dppsu_v1_7 :
+dppsu_v1_7:
 Added support for system device-tree flow
 
 cframe_v1_5:
@@ -18,10 +18,10 @@ Fixed MISRA-C violations
 cfupmc_v1_6:
 Added support for system device-tree flow
 
-ddrcpsu_v1_5 :
+ddrcpsu_v1_5:
 Added support for system device-tree flow
 
-ddrpsv_v1_5 :
+ddrpsv_v1_5:
 Added Support for Versal Net
 
 emc_v4_2:
@@ -54,7 +54,7 @@ Added NCO frequency to config structures
 sd_fec_v1_3:
 Added support for system device-tree flow
 
-trngpsv_v1_4 :
+trngpsv_v1_4:
 Added support for system device-tree flow
 Added API to get crypto algorithm information
 
@@ -66,7 +66,7 @@ Updated adapttestcutoff and reptestcutoff default values
 libmetal_v2_6:
 Added support for system device-tree flow
 
-openamp_v1_9 :
+openamp_v1_9:
 Added support for system device-tree flow
 
 v_hdmitx1_v2_3:
@@ -10776,7 +10776,7 @@ Fix for CR#910905. Remove incorrect use of configuration register 3
 for 7 series.
 Fixed compilation errors when sysmon is configured in Streaming mode (CR#940976)
 
-sysmonpsu_v1_0 :
+sysmonpsu_v1_0:
 Added new system monitor driver.
 Correct the assert function call.
 Modified interrupt examples.
