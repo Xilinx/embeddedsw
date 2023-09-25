@@ -243,7 +243,7 @@ class Library(Repo):
             Since sleep related implementation is part of xiltimer library
             it needs to be pulled irrespective of the hardware dependency.
             """
-            if valid_lib or re.search("xiltimer", comp_name):
+            if valid_lib or re.search("xiltimer", comp_name) or re.search("xilflash", comp_name):
                 return True
             else:
                 return False
