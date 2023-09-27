@@ -20,6 +20,6 @@ BEGIN LIBRARY libmetal
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lmetal,-lgcc,-lc,--end-group";
   OPTION DESC = "Libmetal Library";
-  OPTION VERSION = 2.6;
+  OPTION VERSION = 2.7;
   OPTION NAME = libmetal;
 END LIBRARY
