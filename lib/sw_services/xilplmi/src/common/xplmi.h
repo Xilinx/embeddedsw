@@ -59,6 +59,7 @@
 * 1.08  ng   12/08/2022 Updated SDK release version
 *       sk   01/13/2023 Added defines for Image Store
 * 1.09  skd  02/10/2023 SDK release version updated
+* 1.10  ma   09/27/2023 Add XPLMI_RTCFG_TAMPER_RESP_SLD_0_MASK macro
 * </pre>
 *
 * @note
@@ -193,6 +194,8 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 #define XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK	(0xCU)
 /* Mask for Tamper response Secure lockdown 1 */
 #define XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK		(0x8U)
+/* Mask for Tamper response Secure lockdown 0 */
+#define XPLMI_RTCFG_TAMPER_RESP_SLD_0_MASK		(0x4U)
 
 /* Shifts of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT	(0x10U)

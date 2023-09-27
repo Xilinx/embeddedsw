@@ -42,6 +42,7 @@
 *       sk   08/17/2023 Updated EMSetAction function to update subsystemid
 *                       while processing IPI request,
 *                       Enable EMSetAction process via IPI
+* 1.08  ma   09/27/2023 Add secure lockdown to EAM error actions list
 *
 * </pre>
 *
@@ -191,8 +192,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	if (NodeType == XPLMI_NODETYPE_EVENT_PMC_ERR1) {
 		/* Only allow HW error actions for PSM_CR error */
 		if (PmcPsmCrErrVal != 0U) {
-			if ((XPLMI_EM_ACTION_SUBSYS_SHUTDN == ErrorAction) ||
-				(XPLMI_EM_ACTION_SUBSYS_RESTART == ErrorAction)) {
+			if (ErrorAction >= XPLMI_EM_ACTION_SUBSYS_SHUTDN) {
 				XPlmi_Printf(DEBUG_GENERAL, "Error: "
 					"XPlmi_CmdEmSetAction: Invalid/unsupported"
 					" error action 0x%x received for "
