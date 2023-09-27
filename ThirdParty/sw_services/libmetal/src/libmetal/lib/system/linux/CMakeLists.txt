@@ -8,8 +8,6 @@ collect (PROJECT_LIB_HEADERS log.h)
 collect (PROJECT_LIB_HEADERS mutex.h)
 collect (PROJECT_LIB_HEADERS sleep.h)
 collect (PROJECT_LIB_HEADERS sys.h)
-collect (PROJECT_LIB_HEADERS vfio.h)
-collect (PROJECT_LIB_HEADERS device.h)
 
 collect (PROJECT_LIB_SOURCES condition.c)
 collect (PROJECT_LIB_SOURCES device.c)
@@ -18,10 +16,5 @@ collect (PROJECT_LIB_SOURCES irq.c)
 collect (PROJECT_LIB_SOURCES shmem.c)
 collect (PROJECT_LIB_SOURCES time.c)
 collect (PROJECT_LIB_SOURCES utilities.c)
-
-if (WITH_VFIO)
-  set_property (GLOBAL APPEND PROPERTY "PROJECT_EC_FLAGS" "-DHAVE_SMMU_H")
-  collect (PROJECT_LIB_SOURCES vfio.c)
-endif (WITH_VFIO)
 
 # vim: expandtab:ts=2:sw=2:smartindent
