@@ -25,7 +25,6 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <syslog.h>
-#include <string.h>
 #include <sys/file.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
@@ -35,6 +34,7 @@
 #include <unistd.h>
 
 #include <linux/futex.h>
+#include <sysfs/libsysfs.h>
 #ifdef HAVE_HUGETLBFS_H
 #include <hugetlbfs.h>
 #endif
@@ -77,6 +77,9 @@ struct metal_state {
 
 	/** system page shift. */
 	unsigned long		page_shift;
+
+	/** sysfs mount point. */
+	const char		*sysfs_path;
 
 	/** sysfs mount point. */
 	const char		*tmp_path;

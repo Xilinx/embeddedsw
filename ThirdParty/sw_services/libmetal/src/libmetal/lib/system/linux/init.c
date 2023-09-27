@@ -12,7 +12,6 @@
 #include <sys/types.h>
 
 #include <metal/sys.h>
-#include <metal/device.h>
 #include <metal/utilities.h>
 
 struct metal_state _metal;
@@ -110,10 +109,20 @@ static int metal_init_page_sizes(void)
 
 int metal_sys_init(const struct metal_init_params *params)
 {
+	static char sysfs_path[SYSFS_PATH_MAX];
 	const char *tmp_path;
 	unsigned int seed;
 	FILE *urandom;
 	int result;
+
+	/* Determine sysfs mount point. */
+	result = sysfs_get_mnt_path(sysfs_path, sizeof(sysfs_path));
+	if (result) {
+		metal_log(METAL_LOG_ERROR, "failed to get sysfs path (%s)\n",
+			  strerror(-result));
+		return result;
+	}
+	_metal.sysfs_path = sysfs_path;
 
 	/* Find the temporary directory location. */
 	tmp_path = getenv("TMPDIR");
@@ -153,12 +162,6 @@ int metal_sys_init(const struct metal_init_params *params)
 
 	/* Initialize IRQ handling */
 	metal_linux_irq_init();
-
-#ifdef HAVE_SMMU_H
-	/* Initialize iova allocator */
-	metal_iova_init();
-#endif
-
 	return 0;
 }
 
