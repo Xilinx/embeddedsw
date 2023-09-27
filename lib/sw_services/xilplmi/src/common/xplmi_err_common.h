@@ -65,6 +65,7 @@
 *       sk   08/17/2023 Added declaration for XPlmi_GetEmSubsystemId,
 *                       define for Invalid Subsystem
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
+* 1.11  ma   09/27/2023 Add secure lockdown to EAM error actions list
 *
 * </pre>
 *
@@ -100,8 +101,10 @@ extern "C" {
 #define XPLMI_EM_ACTION_SUBSYS_SHUTDN		(5U)
 #define XPLMI_EM_ACTION_SUBSYS_RESTART		(6U)
 #define XPLMI_EM_ACTION_PRINT_TO_LOG		(7U)
-#define XPLMI_EM_ACTION_NONE			(8U)
-#define XPLMI_EM_ACTION_MAX			(9U)
+#define XPLMI_EM_ACTION_SLD					(8U)
+#define XPLMI_EM_ACTION_SLD_WITH_IO_TRI		(9U)
+#define XPLMI_EM_ACTION_NONE			(10U)
+#define XPLMI_EM_ACTION_MAX			(11U)
 
 /* Subsystem shutdown/restart related macros */
 #define XPLMI_SUBSYS_SHUTDN_TYPE_SHUTDN		(0U)

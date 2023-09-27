@@ -130,6 +130,7 @@
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *       dd   09/12/2023 MISRA-C violation Rule 17.7 fixed
 * 1.11  bm   09/25/2023 Fix Error Handling after In-Place PLM Update
+*       ma   09/27/2023 Add secure lockdown to EAM error actions list
 * </pre>
 *
 * @note
@@ -380,6 +381,32 @@ u32 XPlmi_GetErrorId(u32 ErrorNodeId, u32 RegMask)
 
 /****************************************************************************/
 /**
+* @brief    This function triggers secure lockdown
+*
+* @param    ErrorNodeId is the node ID for the error event
+* @param    RegMask is the register mask of the error received
+*
+* @return
+* 			- None
+*
+****************************************************************************/
+static void XPlmi_TriggerSecureLockdown(u32 ErrorNodeId, u32 RegMask)
+{
+	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
+	u32 TamperResponse;
+	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
+
+	if (ErrorTable[ErrorId].Action == XPLMI_EM_ACTION_SLD) {
+		TamperResponse = XPLMI_RTCFG_TAMPER_RESP_SLD_0_MASK;
+	} else {
+		TamperResponse = XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK;
+	}
+	XPlmi_TriggerTamperResponse(TamperResponse,
+			XPLMI_TRIGGER_TAMPER_TASK);
+}
+
+/****************************************************************************/
+/**
 * @brief    This function handles the PSM error routed to PLM.
 *
 * @param    ErrorNodeId is the node ID for the error event
@@ -420,6 +447,8 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
 	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
 	case XPLMI_EM_ACTION_SUBSYS_RESTART:
 	case XPLMI_EM_ACTION_PRINT_TO_LOG:
+	case XPLMI_EM_ACTION_SLD:
+	case XPLMI_EM_ACTION_SLD_WITH_IO_TRI:
 		if (ErrorTable[ErrorId].Handler != NULL) {
 			ErrorTable[ErrorId].Handler(ErrorNodeId, RegMask);
 		}
@@ -473,6 +502,8 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
 		case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
 		case XPLMI_EM_ACTION_SUBSYS_RESTART:
 		case XPLMI_EM_ACTION_PRINT_TO_LOG:
+		case XPLMI_EM_ACTION_SLD:
+		case XPLMI_EM_ACTION_SLD_WITH_IO_TRI:
 			(void)XPlmi_EmDisable(ErrorNodeId, RegMask);
 			if (ErrorTable[ErrorId].Handler != NULL) {
 				ErrorTable[ErrorId].Handler(ErrorNodeId, RegMask);
@@ -1029,6 +1060,8 @@ static int XPlmi_EmEnableAction(XPlmi_EventType ErrorNodeType, u32 RegMask, u8 A
 	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
 	case XPLMI_EM_ACTION_SUBSYS_RESTART:
 	case XPLMI_EM_ACTION_PRINT_TO_LOG:
+	case XPLMI_EM_ACTION_SLD:
+	case XPLMI_EM_ACTION_SLD_WITH_IO_TRI:
 		PmcActionMask = PMC_GLOBAL_PMC_IRQ1_MASK;
 		IrqAction = (u8)TRUE;
 		break;
@@ -1120,6 +1153,10 @@ int XPlmi_EmConfig(XPlmi_EventType NodeType, u32 ErrorId, u8 ActionId,
 		(ActionId == XPLMI_EM_ACTION_SUBSYS_RESTART)) {
 		ErrorTable[ErrorId].SubsystemId = SubsystemId;
 		ErrorTable[ErrorId].Handler = XPlmi_ErrIntrSubTypeHandler;
+	}
+	else if ((ActionId == XPLMI_EM_ACTION_SLD) ||
+			(ActionId == XPLMI_EM_ACTION_SLD_WITH_IO_TRI)) {
+		ErrorTable[ErrorId].Handler = XPlmi_TriggerSecureLockdown;
 	}
 
 	/**
