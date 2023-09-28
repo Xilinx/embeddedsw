@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 if (NOT ("xilmailbox" IN_LIST BSP_LIBSRC_SUBDIRS))
-  message(FATAL_ERROR "This library requires xilmailbox library in the Board Support Package.")
+  message(WARNING "XilPuf library requires XilMailbox library in client mode.")
 endif()
 
 collect (PROJECT_LIB_HEADERS xpuf_client.h)
