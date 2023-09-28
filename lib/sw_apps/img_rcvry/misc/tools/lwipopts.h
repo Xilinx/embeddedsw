@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2001, 2002 Swedish Institute of Computer Science.
- * Copyright (C) 2007 - 2021 Xilinx, Inc.
+ * Copyright (C) 2007 - 2022 Xilinx, Inc.
+ * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -107,7 +108,7 @@
 #define IP_OPTIONS_ALLOWED 0
 #define TCP_OVERSIZE TCP_MSS
 
-#define LWIP_DHCP 0
+#define LWIP_DHCP 1
 #define DHCP_DOES_ARP_CHECK 0
 
 #define CONFIG_LINKSPEED_AUTODETECT 1
