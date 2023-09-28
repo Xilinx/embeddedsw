@@ -114,6 +114,8 @@ XStatus NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
 	XOspiPsv OspiInst = {0};
 
 #ifndef SDT
+	/* Warning Fix */
+	(void)(BaseAddress);
 	ConfigPtr = XOspiPsv_LookupConfig(DeviceId);
 #else
 	ConfigPtr = XOspiPsv_LookupConfig(BaseAddress);
