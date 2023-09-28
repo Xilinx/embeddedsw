@@ -3,6 +3,6 @@
 
 add_subdirectory(common)
 
-if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze") OR ("${XILSECURE_mode}" STREQUAL "server"))
+if("${XILSECURE_mode}" STREQUAL "server")
   add_subdirectory(server)
 endif()

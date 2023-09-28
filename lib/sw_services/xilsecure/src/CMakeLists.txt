@@ -13,10 +13,6 @@ collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 
 include_directories(${CMAKE_BINARY_DIR}/include)
 
-if(("${XILSECURE_mode}" STREQUAL "server") AND ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
-  message(FATAL_ERROR "XilSecure server library is not supported for microblaze")
-endif()
-
 add_subdirectory(common)
 if("${CMAKE_MACHINE}" STREQUAL "Versal")
   add_subdirectory(versal)
