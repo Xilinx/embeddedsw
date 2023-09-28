@@ -13,7 +13,7 @@ maintainers:
 
 type: library
 
-version: 3.2
+version: 3.3
 
 description: Xilinx NVM Library provides interface to accessing eFUSE and BBRAM of Versal.
 
