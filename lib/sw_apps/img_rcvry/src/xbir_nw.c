@@ -24,6 +24,10 @@
 #include "xbir_nw.h"
 #include "xbir_sys.h"
 
+#if LWIP_DHCP==1
+#include "lwip/dhcp.h"
+#endif
+
 /************************** Constant Definitions *****************************/
 /* TODO: Read MAC address from EEPROM and assign it */
 static const u8 Xbir_NwMacEthAddr[] = { 0x00U, 0x0AU, 0x35U, 0x00U, 0x01U, 0x02U };
@@ -73,12 +77,32 @@ int Xbir_NwCfgNetwork (struct netif *NetIf)
 	/* Specify that the network if(interface) is UP */
 	netif_set_up(NetIf);
 
+#if (LWIP_DHCP==1)
+	/* Create a new DHCP client for this interface.
+	 * Note: you must call dhcp_fine_tmr() and dhcp_coarse_tmr() at
+	 * the predefined regular intervals after starting the client.
+	 */
+	dhcp_start(NetIf);
+	(void)Xbir_dhcp_timoutcntr(INIT);
+	while (((NetIf->ip_addr.addr) == 0U) && (Xbir_dhcp_timoutcntr(GET) > 0U))
+		xemacif_input(NetIf);
+
+	if (Xbir_dhcp_timoutcntr(GET) <= 0U) {
+		if ((NetIf->ip_addr.addr) == 0U) {
+			xil_printf("ERROR: DHCP request timed out\r\n");
+			Xbir_NwSetDefaultIp(&(NetIf->ip_addr),
+					&(NetIf->netmask), &(NetIf->gw));
+		}
+	}
+
+	/* print IP address, netmask and gateway */
+#else
 	/* Assign default and fixed IP address, mask and gateway */
 	if (Xbir_NwSetDefaultIp(&NetIf->ip_addr, &NetIf->netmask,
 		&NetIf->gw) != XST_SUCCESS) {
 		goto END;
 	}
-
+#endif
 	Xbir_NwPrintIpCfg(&NetIf->ip_addr, &NetIf->netmask, &NetIf->gw);
 	Status = XST_SUCCESS;
 
