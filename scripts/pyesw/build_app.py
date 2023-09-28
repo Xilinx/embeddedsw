@@ -74,7 +74,6 @@ def build_app(args):
             else:
                 print('Domain YAML is NOT found. Generating with prebuilt OpenAMP Repo source.')
 
-        args['repo_info'] = '.repo.yaml'
         args['src_dir'] = bsp_obj.domain_path
         args['template'] = app_name
         args['ws_dir'] = obj.app_dir
@@ -132,6 +131,13 @@ if __name__ == "__main__":
         "--src_dir",
         action="store",
         help="Specify the App source directory "
+    )
+    parser.add_argument(
+        "-r",
+        "--repo_info",
+        action="store",
+        help="Specify the .repo.yaml absolute path to use the set repo info",
+        default='.repo.yaml',
     )
 
     args = vars(parser.parse_args())
