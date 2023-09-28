@@ -41,6 +41,11 @@ static XTtcPs TimerInstance = {0U};
 volatile u8 TcpFastTmrFlag = FALSE;
 volatile u8 TcpSlowTmrFlag = FALSE;
 
+#if LWIP_DHCP==1
+void dhcp_fine_tmr();
+void dhcp_coarse_tmr();
+#endif
+
 /*****************************************************************************/
 /**
  * @brief
@@ -57,11 +62,23 @@ void Xbir_Platform_TimerCallback (void)
 	 * by lwIP. It is not important that the timing is absoluetly accurate.
 	 */
 	static u8 Odd = 1U;
+#if LWIP_DHCP==1
+    static int dhcp_timer = 0U;
+#endif
 
 	TcpFastTmrFlag = TRUE;
 	Odd = ~Odd;
 	if (Odd > 0U) {
 		TcpSlowTmrFlag = 1U;
+#if LWIP_DHCP==1
+		dhcp_timer++;
+		(void)Xbir_dhcp_timoutcntr(DEC);
+		dhcp_fine_tmr();
+		if (dhcp_timer >= DHCP_TIMER_COUNT) {
+			dhcp_coarse_tmr();
+			dhcp_timer = 0U;
+		}
+#endif
 	}
 
 	Xbir_Platform_ClearInterrupt ();
@@ -209,3 +226,27 @@ int Xbir_Platform_Init (void)
 
 	return Status;
 }
+
+#if LWIP_DHCP==1
+/*****************************************************************************/
+/**
+ * @brief
+ * This function handles dhcp_timoutcntr variable
+ *
+ * @param	state variable takes INIT, GET, DEC to manipulate the variable
+ *
+ * @return	dhcp_timoutcntr value
+ *
+ *****************************************************************************/
+int Xbir_dhcp_timoutcntr(int state)
+{
+	static volatile int dhcp_timoutcntr = DHCP_TIMEOUT;
+
+	if(state == DEC){
+		dhcp_timoutcntr --;
+	}
+
+	return dhcp_timoutcntr;
+}
+
+#endif
