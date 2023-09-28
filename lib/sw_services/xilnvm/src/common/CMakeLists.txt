@@ -9,13 +9,7 @@ collect (PROJECT_LIB_HEADERS xnvm_ver.h)
 
 collect (PROJECT_LIB_SOURCES xnvm_utils.c)
 
-if((
-  ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
-  ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
-  ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze")
-  ) AND
-  ("${XILNVM_mode}" STREQUAL "client")
-  )
+if("${XILNVM_mode}" STREQUAL "client")
   add_subdirectory(client)
 else()
   add_subdirectory(server)
