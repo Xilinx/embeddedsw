@@ -13,7 +13,7 @@ maintainers:
 
 type: library
 
-version: 2.2
+version: 2.3
 
 description: Xilinx PUF Library provides interface for registration and regeneration.
 
