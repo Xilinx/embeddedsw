@@ -10,12 +10,6 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/xilnvm.cmake NO_POLICY_SCOPE)
 
 include_directories(${CMAKE_BINARY_DIR}/include)
 
-if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") AND
-   ("${XILNVM_mode}" STREQUAL "server")
-  )
-  message(FATAL_ERROR "XilNvm server library is not supported for microblaze.")
-endif()
-
 collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 
