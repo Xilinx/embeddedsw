@@ -27,7 +27,8 @@
 #       kpt  07/13/23 Added mld param for keywrap rsa key size
 #       yog  07/19/23 Added support to enable/disable P256 curve
 #       am   08/14/23 Errored out disallowed CPU modes
-#	vss  08/17/23 Fixed XilSecure doesn't work for Versal Client microblaze
+#       vss  08/17/23 Fixed XilSecure doesn't work for Versal Client microblaze
+# 5.3   ng   09/26/23 Removed dead code
 #
 ##############################################################################
 
@@ -48,9 +49,6 @@ proc secure_drc {libhandle} {
 	set versal_net "src/versal_net/"
 	set common_all "$common/all"
 	set versal_common "$common/versal_common"
-	set versal_client_dir "$versal/client"
-	set versal_server_dir "$versal/server"
-	set versal_common_dir "$versal/common"
 
 	foreach entry [glob -nocomplain -types f [file join $common_all *]] {
 			file copy -force $entry "./src"
@@ -126,13 +124,10 @@ proc secure_drc {libhandle} {
 			foreach entry [glob -nocomplain -types f [file join "$versal_common/client" *]] {
 				file copy -force $entry "./src"
 			}
-			foreach entry [glob -nocomplain -types f [file join "$versal/client" *]] {
-				file copy -force $entry "./src"
-			}
 			set is_versal_net [hsi::get_cells -hier -filter {IP_NAME=="psxl_cortexr52" || IP_NAME=="psx_cortexr52" ||
 				IP_NAME=="psxl_cortexa78" || IP_NAME=="psx_cortexa78"}]
-	                if {$proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
-			    $proc_type == "psx_cortexr52" || ($proc_type == "microblaze" && [llength $is_versal_net] > 0)} {
+			if {$proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
+				$proc_type == "psx_cortexr52" || ($proc_type == "microblaze" && [llength $is_versal_net] > 0)} {
 				foreach entry [glob -nocomplain -types f [file join "$versal_net/client" *]] {
 					file copy -force $entry "./src"
 				}
@@ -140,9 +135,6 @@ proc secure_drc {libhandle} {
 					file copy -force $entry "./src"
 				}
 			} else {
-				foreach entry [glob -nocomplain -types f [file join "$versal/client" *]] {
-					file copy -force $entry "./src"
-				}
 				foreach entry [glob -nocomplain -types f [file join "$versal/common" *]] {
 					file copy -force $entry "./src"
 				}
