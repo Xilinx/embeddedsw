@@ -13,16 +13,8 @@ collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 
 include_directories(${CMAKE_BINARY_DIR}/include)
 
-if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") AND
-   ("${XILPUF_Mode}" STREQUAL "server")
-  )
-  message(FATAL_ERROR "XilPuf server library is not supported on microblaze.")
-endif()
-
 add_subdirectory(common)
-if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze") OR
-   ("${XILPUF_Mode}" STREQUAL "server")
-  )
+if("${XILPUF_Mode}" STREQUAL "server")
   add_subdirectory(server)
 else()
   add_subdirectory(client)
