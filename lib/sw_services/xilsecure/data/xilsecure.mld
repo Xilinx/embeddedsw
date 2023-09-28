@@ -36,6 +36,7 @@
 #       bm  06/23/23  Deprecated nonsecure_ipi_access parameter
 #       kpt 07/12/23  Added xsecure_rsa_key_size_keywrap
 #       yog 07/19/23  Added xsecure_elliptic_p256_support parameter to enable/disable P256 curve
+# 5.3   ng  09/26/23  Updated library version for 2024.1
 #
 ##############################################################################
 
@@ -48,7 +49,7 @@ BEGIN LIBRARY xilsecure
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5 microblaze psxl_pmc psxl_cortexa78 psxl_cortexr52 psx_pmc psx_cortexa78 psx_cortexr52);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc and Versal";
-  OPTION VERSION = 5.2;
+  OPTION VERSION = 5.3;
   OPTION NAME = xilsecure;
   PARAM name = xsecure_environment, desc = "Enables trusted execution environment \nto allow device key usage(post boot) in ZynqMP \nfor IPI response/Linux/U-boot calls valid only \nfor PMUFW BSP", type = bool, default = false;
   PARAM name = tpm_support, desc = "Enables decryption of bitstream to memory and \nthen writes it to PCAP, allows calculation of \nsha on decrypted bitstream in chunks \nvalid only for ZynqMP FSBL BSP", type = bool, default = false;

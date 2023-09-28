@@ -13,7 +13,7 @@ maintainers:
 
 type: library
 
-version: 5.2
+version: 5.3
 
 description: Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc and Versal.
 
