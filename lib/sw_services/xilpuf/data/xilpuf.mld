@@ -10,6 +10,7 @@
 # 1.0   kal  08/01/19 Initial Release
 # 2.0   kpt  08/25/22  Changed user configurable parameter names
 # 2.2   har  02/15/23 Updated library version for 2023.2
+# 2.3   ng   09/27/23 Updated library version for 2024.1
 #
 ##############################################################################
 
@@ -22,7 +23,7 @@ BEGIN LIBRARY xilpuf
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpuf,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx PUF Library provides interface for registration and regeneration";
-  OPTION VERSION = 2.2;
+  OPTION VERSION = 2.3;
   OPTION NAME = xilpuf;
   PARAM name = xpuf_mode, desc = "Enables A72/R5 server and client mode support for XilPuf library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
   PARAM name = xpuf_cache_disable, desc = "Enables/Disables Cache for XilPuf client library", type = bool, default = true;
