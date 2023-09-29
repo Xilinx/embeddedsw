@@ -101,15 +101,15 @@ static void StubHandler(void *CallBackRef);
 *
 ******************************************************************************/
 #ifndef SDT
-s32 XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
+s32 XIOModule_Initialize(XIOModule *InstancePtr, u16 DeviceId)
 #else
-s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
+s32 XIOModule_Initialize(XIOModule *InstancePtr, u32 BaseAddress)
 #endif
 {
 	u8 Id;
 	XIOModule_Config *CfgPtr;
 	u32 NextBitMask = 1;
-        u32 i;
+	u32 i;
 	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -148,7 +148,7 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
 	/*
 	 * Initialize GPO value from INIT parameter
 	 */
-        for (i = 0; i < XGPO_DEVICE_COUNT; i++){
+	for (i = 0; i < XGPO_DEVICE_COUNT; i++) {
 		InstancePtr->GpoValue[i] = CfgPtr->GpoInit[i];
 	}
 	/*
@@ -209,17 +209,16 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
 
 		for (Id = 0; Id < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; Id++) {
 			if (InstancePtr->CfgPtr->VectorAddrWidth >
-				XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
-			{
-					XIomodule_Out64(InstancePtr->BaseAddress +
+			    XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH) {
+				XIomodule_Out64(InstancePtr->BaseAddress +
 						XIN_IVEAR_OFFSET + (Id * 8U),
 						(InstancePtr->CfgPtr->BaseVector &
-					0xFFFFFFFFFFFFFF80ULL) | 0x10U);
+						 0xFFFFFFFFFFFFFF80ULL) | 0x10U);
 			} else {
-					XIomodule_Out32(InstancePtr->BaseAddress +
+				XIomodule_Out32(InstancePtr->BaseAddress +
 						XIN_IVAR_OFFSET + (Id * 4U),
 						(InstancePtr->CfgPtr->BaseVector &
-						0xFFFFFF80U) | 0x10U);
+						 0xFFFFFF80U) | 0x10U);
 			}
 		}
 	}
@@ -228,16 +227,16 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
 	 * Initialize all Programmable Interrupt Timers
 	 */
 #ifndef SDT
-        XIOModule_Timer_Initialize(InstancePtr, DeviceId);
+	XIOModule_Timer_Initialize(InstancePtr, DeviceId);
 #else
-        XIOModule_Timer_Initialize(InstancePtr, BaseAddress);
+	XIOModule_Timer_Initialize(InstancePtr, BaseAddress);
 #endif
 
 	/*
 	 * Initialize all UART related status
 	 */
 	Status = XIOModule_CfgInitialize(InstancePtr, CfgPtr, 0U);
-	xdbg_printf(XDBG_DEBUG_GENERAL," XIOModule_CfgInitialize : %s", (Status == XST_SUCCESS)?"PASS":"FAIL");
+	xdbg_printf(XDBG_DEBUG_GENERAL, " XIOModule_CfgInitialize : %s", (Status == XST_SUCCESS) ? "PASS" : "FAIL");
 
 	/*
 	 * Save the IO Bus base address pointer such that the memory mapped
@@ -273,7 +272,7 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
 * @note 	Must be called after XIOModule initialization is completed.
 *
 ******************************************************************************/
-s32 XIOModule_Start(XIOModule * InstancePtr)
+s32 XIOModule_Start(XIOModule *InstancePtr)
 {
 	/*
 	 * Assert the arguments
@@ -304,7 +303,7 @@ s32 XIOModule_Start(XIOModule * InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void XIOModule_Stop(XIOModule * InstancePtr)
+void XIOModule_Stop(XIOModule *InstancePtr)
 {
 	/*
 	 * Assert the arguments
@@ -342,8 +341,8 @@ void XIOModule_Stop(XIOModule * InstancePtr)
 * that was previously connected.
 *
 ****************************************************************************/
-s32 XIOModule_Connect(XIOModule * InstancePtr, u8 Id,
-		  XInterruptHandler Handler, void *CallBackRef)
+s32 XIOModule_Connect(XIOModule *InstancePtr, u8 Id,
+		      XInterruptHandler Handler, void *CallBackRef)
 {
 	/*
 	 * Assert the arguments
@@ -380,7 +379,7 @@ s32 XIOModule_Connect(XIOModule * InstancePtr, u8 Id,
 * @note		None.
 *
 ****************************************************************************/
-void XIOModule_Disconnect(XIOModule * InstancePtr, u8 Id)
+void XIOModule_Disconnect(XIOModule *InstancePtr, u8 Id)
 {
 	u32 NewIER;
 	u32 Mask;
@@ -430,7 +429,7 @@ void XIOModule_Disconnect(XIOModule * InstancePtr, u8 Id)
 * @note		None.
 *
 ****************************************************************************/
-void XIOModule_Enable(XIOModule * InstancePtr, u8 Id)
+void XIOModule_Enable(XIOModule *InstancePtr, u8 Id)
 {
 	u32 NewIER;
 	u32 Mask;
@@ -476,7 +475,7 @@ void XIOModule_Enable(XIOModule * InstancePtr, u8 Id)
 * @note		None.
 *
 ****************************************************************************/
-void XIOModule_Disable(XIOModule * InstancePtr, u8 Id)
+void XIOModule_Disable(XIOModule *InstancePtr, u8 Id)
 {
 	u32 NewIER;
 	u32 Mask;
@@ -521,7 +520,7 @@ void XIOModule_Disable(XIOModule * InstancePtr, u8 Id)
 * @note		None.
 *
 ****************************************************************************/
-void XIOModule_Acknowledge(XIOModule * InstancePtr, u8 Id)
+void XIOModule_Acknowledge(XIOModule *InstancePtr, u8 Id)
 {
 	u32 Mask;
 
@@ -640,7 +639,7 @@ XIOModule_Config *XIOModule_LookupConfig(u32 BaseAddress)
 *
 ****************************************************************************/
 s32 XIOModule_ConnectFastHandler(XIOModule *InstancePtr, u8 Id,
-				    XFastInterruptHandler Handler)
+				 XFastInterruptHandler Handler)
 {
 	u32 CurrentIER, NewIMR;
 	u32 Mask;
@@ -676,13 +675,12 @@ s32 XIOModule_ConnectFastHandler(XIOModule *InstancePtr, u8 Id,
 	InstancePtr->CfgPtr->HandlerTable[Id].Handler = NULL;
 	InstancePtr->CfgPtr->HandlerTable[Id].CallBackRef = InstancePtr;
 
-	if (InstancePtr->CfgPtr->VectorAddrWidth > XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
-	{
+	if (InstancePtr->CfgPtr->VectorAddrWidth > XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH) {
 		XIomodule_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET + (Id * 8U),
-			(UINTPTR) Handler);
+				(UINTPTR) Handler);
 	} else {
 		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET + (Id * 4U),
-			(UINTPTR) Handler);
+				(UINTPTR) Handler);
 	}
 
 	/*
@@ -758,13 +756,12 @@ void XIOModule_SetNormalIntrMode(XIOModule *InstancePtr, u8 Id)
 	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IMR_OFFSET, NewIMR);
 	InstancePtr->CurrentIMR = NewIMR;
 
-	if (InstancePtr->CfgPtr->VectorAddrWidth > XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
-	{
+	if (InstancePtr->CfgPtr->VectorAddrWidth > XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH) {
 		XIomodule_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET + (Id * 8U),
-			(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80U) | 0x10U);
+				(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80U) | 0x10U);
 	} else {
 		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET + (Id * 4U),
-			(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80U) | 0x10U);
+				(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80U) | 0x10U);
 	}
 
 	/*
@@ -797,14 +794,14 @@ void XIOModule_SetNormalIntrMode(XIOModule *InstancePtr, u8 Id)
 * @return	Current copy of the discretes register.
 *
 *****************************************************************************/
-u32 XIOModule_DiscreteRead(XIOModule * InstancePtr, u32 Channel)
+u32 XIOModule_DiscreteRead(XIOModule *InstancePtr, u32 Channel)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((Channel >= 1U) && (Channel <= XGPI_DEVICE_COUNT));
 
 	return XIOModule_ReadReg(InstancePtr->BaseAddress,
-			((Channel - 1U) * XGPI_CHAN_OFFSET) + XGPI_DATA_OFFSET);
+				 ((Channel - 1U) * XGPI_CHAN_OFFSET) + XGPI_DATA_OFFSET);
 }
 
 /****************************************************************************/
@@ -820,7 +817,7 @@ u32 XIOModule_DiscreteRead(XIOModule * InstancePtr, u32 Channel)
 * @return	None.
 *
 *****************************************************************************/
-void XIOModule_DiscreteWrite(XIOModule * InstancePtr,
+void XIOModule_DiscreteWrite(XIOModule *InstancePtr,
 			     u32 Channel,
 			     u32 Data)
 {
@@ -829,8 +826,8 @@ void XIOModule_DiscreteWrite(XIOModule * InstancePtr,
 	Xil_AssertVoid((Channel >= 1U) && (Channel <= XGPO_DEVICE_COUNT));
 
 	XIOModule_WriteReg(InstancePtr->BaseAddress,
-			((Channel - 1U) * XGPO_CHAN_OFFSET) + XGPO_DATA_OFFSET,
-			Data);
+			   ((Channel - 1U) * XGPO_CHAN_OFFSET) + XGPO_DATA_OFFSET,
+			   Data);
 	InstancePtr->GpoValue[Channel - 1U] = Data;
 }
 
@@ -857,9 +854,9 @@ void XIOModule_DiscreteWrite(XIOModule * InstancePtr,
 *
 ******************************************************************************/
 #ifndef SDT
-s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u16 DeviceId)
+s32 XIOModule_Timer_Initialize(XIOModule *InstancePtr, u16 DeviceId)
 #else
-s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
+s32 XIOModule_Timer_Initialize(XIOModule *InstancePtr, u32 BaseAddress)
 #endif
 {
 	XIOModule_Config *IOModuleConfigPtr;
@@ -965,7 +962,7 @@ s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
 * @note		None.
 *
 ******************************************************************************/
-void XIOModule_Timer_Start(XIOModule * InstancePtr, u8 TimerNumber)
+void XIOModule_Timer_Start(XIOModule *InstancePtr, u8 TimerNumber)
 {
 	u32 NewControlStatus;
 	u32 TimerOffset = (u32) TimerNumber << XTC_TIMER_COUNTER_SHIFT;
@@ -1010,7 +1007,7 @@ void XIOModule_Timer_Start(XIOModule * InstancePtr, u8 TimerNumber)
 * @note		None.
 *
 ******************************************************************************/
-void XIOModule_Timer_Stop(XIOModule * InstancePtr, u8 TimerNumber)
+void XIOModule_Timer_Stop(XIOModule *InstancePtr, u8 TimerNumber)
 {
 	u32 NewControlStatus;
 	u32 TimerOffset = (u32) TimerNumber << XTC_TIMER_COUNTER_SHIFT;
@@ -1055,7 +1052,7 @@ void XIOModule_Timer_Stop(XIOModule * InstancePtr, u8 TimerNumber)
 * @note		None.
 *
 ******************************************************************************/
-u32 XIOModule_GetValue(XIOModule * InstancePtr, u8 TimerNumber)
+u32 XIOModule_GetValue(XIOModule *InstancePtr, u8 TimerNumber)
 {
 	u32 TimerOffset = (u32) TimerNumber << XTC_TIMER_COUNTER_SHIFT;
 
@@ -1087,7 +1084,7 @@ u32 XIOModule_GetValue(XIOModule * InstancePtr, u8 TimerNumber)
 * @note		None.
 *
 ******************************************************************************/
-void XIOModule_SetResetValue(XIOModule * InstancePtr, u8 TimerNumber,
+void XIOModule_SetResetValue(XIOModule *InstancePtr, u8 TimerNumber,
 			     u32 ResetValue)
 {
 	u32 TimerOffset = (u32) TimerNumber << XTC_TIMER_COUNTER_SHIFT;
@@ -1119,7 +1116,7 @@ void XIOModule_SetResetValue(XIOModule * InstancePtr, u8 TimerNumber,
 * @note		None.
 *
 *******************************************************************************/
-u32 XIOModule_GetCaptureValue(XIOModule * InstancePtr, u8 TimerNumber)
+u32 XIOModule_GetCaptureValue(XIOModule *InstancePtr, u8 TimerNumber)
 {
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1146,7 +1143,7 @@ u32 XIOModule_GetCaptureValue(XIOModule * InstancePtr, u8 TimerNumber)
 * @note		None.
 *
 ******************************************************************************/
-void XIOModule_Reset(XIOModule * InstancePtr, u8 TimerNumber)
+void XIOModule_Reset(XIOModule *InstancePtr, u8 TimerNumber)
 {
 	u32 CounterControlReg;
 	u32 NewCounterControl;
@@ -1196,7 +1193,7 @@ void XIOModule_Reset(XIOModule * InstancePtr, u8 TimerNumber)
 * @note		None.
 *
 ******************************************************************************/
-s32 XIOModule_IsExpired(XIOModule * InstancePtr, u8 TimerNumber)
+s32 XIOModule_IsExpired(XIOModule *InstancePtr, u8 TimerNumber)
 {
 	u32 CounterReg;
 	u32 TimerOffset = (u32) TimerNumber << XTC_TIMER_COUNTER_SHIFT;
@@ -1216,7 +1213,7 @@ s32 XIOModule_IsExpired(XIOModule * InstancePtr, u8 TimerNumber)
 					       TimerOffset + XTC_TCR_OFFSET);
 
 		if ((CounterReg & InstancePtr->CfgPtr->PitMask[TimerNumber]) ==
-				InstancePtr->CfgPtr->PitMask[TimerNumber]) {
+		    InstancePtr->CfgPtr->PitMask[TimerNumber]) {
 			return 1;
 		} else {
 			return 0;
@@ -1236,7 +1233,7 @@ s32 XIOModule_IsExpired(XIOModule * InstancePtr, u8 TimerNumber)
 * @return	Value read from the IO Bus - 32-bit word
 *
 *****************************************************************************/
-u32 XIOModule_IoReadWord(XIOModule * InstancePtr, u32 ByteOffset)
+u32 XIOModule_IoReadWord(XIOModule *InstancePtr, u32 ByteOffset)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1256,7 +1253,7 @@ u32 XIOModule_IoReadWord(XIOModule * InstancePtr, u32 ByteOffset)
 * @return	Value read from the IO Bus - 16-bit halfword
 *
 *****************************************************************************/
-u16 XIOModule_IoReadHalfword(XIOModule * InstancePtr, u32 ByteOffset)
+u16 XIOModule_IoReadHalfword(XIOModule *InstancePtr, u32 ByteOffset)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1276,7 +1273,7 @@ u16 XIOModule_IoReadHalfword(XIOModule * InstancePtr, u32 ByteOffset)
 * @return	Value read from the IO Bus - 8-bit byte
 *
 *****************************************************************************/
-u8 XIOModule_IoReadByte(XIOModule * InstancePtr, u32 ByteOffset)
+u8 XIOModule_IoReadByte(XIOModule *InstancePtr, u32 ByteOffset)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1297,7 +1294,7 @@ u8 XIOModule_IoReadByte(XIOModule * InstancePtr, u32 ByteOffset)
 * @return	None.
 *
 *****************************************************************************/
-void XIOModule_IoWriteWord(XIOModule * InstancePtr,
+void XIOModule_IoWriteWord(XIOModule *InstancePtr,
 			   u32 ByteOffset,
 			   u32 Data)
 {
@@ -1320,7 +1317,7 @@ void XIOModule_IoWriteWord(XIOModule * InstancePtr,
 * @return	None.
 *
 *****************************************************************************/
-void XIOModule_IoWriteHalfword(XIOModule * InstancePtr,
+void XIOModule_IoWriteHalfword(XIOModule *InstancePtr,
 			       u32 ByteOffset,
 			       u16 Data)
 {
@@ -1343,7 +1340,7 @@ void XIOModule_IoWriteHalfword(XIOModule * InstancePtr,
 * @return	None.
 *
 *****************************************************************************/
-void XIOModule_IoWriteByte(XIOModule * InstancePtr,
+void XIOModule_IoWriteByte(XIOModule *InstancePtr,
 			   u32 ByteOffset,
 			   u8 Data)
 {
