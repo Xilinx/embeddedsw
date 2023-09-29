@@ -20,6 +20,7 @@
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       dd   03/28/2023 Updated doxygen comments
 * 1.02  vns  07/06/2023 Added EXPORT_OCP_DS
+* 1.03  sk   09/26/2023 Added Support for In-Place Update from Image Store
 *
 * </pre>
 *
@@ -90,6 +91,7 @@ typedef struct {
 } XPlmi_DbHdr;
 
 typedef int (*XPlmi_CompatibilityCheck_t)(u32 PdiAddr);
+typedef int (*XPlmi_IsPdiAddrLookup_t)(u32 PdiId, u64 *PdiAddr);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -165,7 +167,8 @@ typedef int (*XPlmi_CompatibilityCheck_t)(u32 PdiAddr);
 int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd);
 int XPlmi_RestoreDataBackup(void);
 int XPlmi_DsOps(u32 Op, u64 Addr, void *Data);
-int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler);
+int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler,
+		XPlmi_IsPdiAddrLookup_t IsPdiAddLookUpHandler);
 XPlmi_DsEntry* XPlmi_GetDsEntry(XPlmi_DsEntry *DsList, u32 DsCnt, XPlmi_DsVer *DsVer);
 
 #ifdef __cplusplus

@@ -36,6 +36,7 @@
 *                       structures during In-Place PLM Update
 *       sk   09/07/2023 Removed redundant code in XPlmi_PlmUpdate
 * 1.11  bm   09/25/2023 Fix Error Handling after In-Place PLM Update
+*       sk   09/26/2023 Added Support for In-Place Update from Image Store
 *
 * </pre>
 *
@@ -67,6 +68,9 @@
 #define XPLMI_UPDATE_IPIMASK_VER 	(2U) /**< IPI mask version update */
 #define XPLMI_UPDATE_IPIMASK_LCVER 	(2U) /**< IPI mask LC version update */
 #define XPLMI_UPDATE_TASK_ID		(0x120U) /**< Task Id update */
+#define XPLMI_UPDATE_FLAG_MASK		(0x1U) /**< In-Place Update flag Mask */
+#define XPLMI_UPDATE_PAYLOAD_LEN	(0x2U) /**< In-Place Update payload len */
+#define XPLMI_UPDATE_USING_IMAGE_STORE	(0U) /**< In-Place Update using PDI in Image Store,1-DDR Location */
 
 /**************************** Type Definitions *******************************/
 
@@ -79,6 +83,7 @@
 /************************** Function Prototypes ******************************/
 static int XPlmi_PlmUpdateMgr(void) __attribute__((section(".update_mgr_a")));
 static XPlmi_CompatibilityCheck_t XPlmi_CompatibilityCheck;
+static XPlmi_IsPdiAddrLookup_t XPlmi_IsPdiAddrLookup;
 static int XPlmi_PlmUpdateTask(void *Arg);
 
 /************************** Variable Definitions *****************************/
@@ -114,7 +119,8 @@ static u32 DbEndAddr; /** Db End Address */
 * 			IPI response buffer used to ack the ipi after update.
 *
 ****************************************************************************/
-int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler)
+int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler,
+		XPlmi_IsPdiAddrLookup_t IsPdiAddrLookupHandler)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
@@ -124,6 +130,7 @@ int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler)
 	u32 DdrRsvdSize;
 
 	XPlmi_CompatibilityCheck = CompatibilityHandler;
+	XPlmi_IsPdiAddrLookup = IsPdiAddrLookupHandler;
 
 	if ((XPlmi_In32(PMC_GLOBAL_ROM_INT_REASON) & PMX_PLM_UPDATE_REASON_MASK) ==
 		PMX_PLM_UPDATE_REASON_MASK) {
@@ -614,6 +621,10 @@ static inline u32 XPlmi_GetPlmDbSize(void)
  * 			- XPLMI_ERR_PLM_UPDATE_SHUTDOWN_INIT if failed to shutdown
  * 			initiate of	modules during InPlace PLM Update.
  * 			- XPLMI_ERR_UPDATE_TASK_NOT_FOUND if PLM Update task is not found.
+ * 			- XPLMI_ERR_INPLACE_UPDATE_INVALID_PAYLOAD_LEN if Invalid Payload Len.
+ * 			- XPLMI_ERR_INPLACE_UPDATE_INVALID_SOURCE if Invalid Source.
+ * 			- XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE error during update from IS.
+ *
  *
  *****************************************************************************/
 int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
@@ -626,8 +637,23 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	volatile u32 RomRsvdTmp;
 	u32 DdrRsvdAddr;
 	u32 DdrRsvdSize;
+	u32 PdiId;
+	u32 Flag;
+	u64 PdiAddr;
 
 	Op.Mode = XPLMI_MODULE_NO_OPERATION;
+
+	if (Cmd->Len < XPLMI_UPDATE_PAYLOAD_LEN) {
+		XPlmi_Printf(DEBUG_GENERAL, "Invalid Payload Length\n\r");
+		Status = (int)XPLMI_ERR_INPLACE_UPDATE_INVALID_PAYLOAD_LEN;
+		goto END;
+	}
+
+	if (XPlmi_IsPlmUpdateInProgress() == (u8)TRUE) {
+		XPlmi_Printf(DEBUG_GENERAL, "Update in Progress\n\r");
+		Status = XPLMI_ERR_UPDATE_IN_PROGRESS;
+		goto END;
+	}
 
 	DdrRsvdAddr = XPlmi_In32(XPLMI_RTCFG_PLM_RSVD_DDR_ADDR);
 	DdrRsvdSize = XPlmi_In32(XPLMI_RTCFG_PLM_RSVD_DDR_SIZE);
@@ -648,13 +674,29 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	DbStartAddr = DdrRsvdAddr;
 	DbEndAddr = DdrRsvdAddr + DdrRsvdSize - 1U;
 
-	if (XPlmi_IsPlmUpdateInProgress() == (u8)TRUE) {
-		XPlmi_Printf(DEBUG_GENERAL, "Update in Progress\n\r");
-		Status = XPLMI_ERR_UPDATE_IN_PROGRESS;
-		goto END;
+	Flag = (Cmd->Payload[0U] & XPLMI_UPDATE_FLAG_MASK);
+
+	/* Check if Update via PDI Id in Image Store */
+	if (Flag == XPLMI_UPDATE_USING_IMAGE_STORE) {
+		if (XPlmi_In32(XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH) != 0U) {
+			Status = (int)XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE;
+			XPlmi_Printf(DEBUG_GENERAL, "Image Store not in lower 2GB range\n\r");
+			goto END;
+		}
+
+		PdiId = Cmd->Payload[1U];
+		Status = XPlmi_IsPdiAddrLookup(PdiId, (u64*)&PdiAddr );
+		if (Status != XST_SUCCESS) {
+			Status = (int)XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE;
+			goto END;
+		}
+
+		UpdatePdiAddr = (u32)PdiAddr;
+	} else {
+		/* Update from DDR location */
+		UpdatePdiAddr = Cmd->Payload[1U];
 	}
 
-	UpdatePdiAddr = Cmd->Payload[0U];
 	XPlmi_Printf(DEBUG_GENERAL, "In-Place PLM Update started with new PLM "
 			"from PDI Address: 0x%x\n\r", UpdatePdiAddr);
 

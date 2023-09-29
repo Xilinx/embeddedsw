@@ -43,7 +43,7 @@
 *       sk   07/28/2023 Added ptototype for XPlmi_IsPlmUpdateDoneTmp
 *       bm   09/04/2023 Added support to use DDR region for backup of PLM data
 *                       structures during In-Place PLM Update
-*
+* 1.05  sk   09/26/2023 Added Error Codes for In-Place Update from Image Store
 * </pre>
 *
 * @note
@@ -137,6 +137,9 @@ enum {
 	XPLMI_ERR_INVALID_RSVD_DDR_REGION_RESTORE, /**< 0x201 - Invalid/No DDR region reserved for
 							     PLM during restore operation after the update */
 	XPLMI_ERR_INSUFFICIENT_PLM_RSVD_DDR_REGION, /**< 0x202 - Insufficient DDR region reserved for PLM */
+	XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE, /**< 0x203 - Error while In-Place Update from Image Store */
+	XPLMI_ERR_INPLACE_UPDATE_INVALID_SOURCE, /**< 0x204 - Error while In-Place Update request other than IS or DDR */
+	XPLMI_ERR_INPLACE_UPDATE_INVALID_PAYLOAD_LEN, /**< 0x205 - Error while In-Place Update with Invalid Payload Len */
 };
 
 typedef struct {
