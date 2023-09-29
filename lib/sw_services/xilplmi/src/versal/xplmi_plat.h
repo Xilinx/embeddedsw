@@ -42,6 +42,7 @@
 *                       Added list commands
 *       sk   07/28/2023 Added redundant func XPlmi_IsPlmUpdateDoneTmp
 *       bm   09/07/2023 Allow loading of ELFs into XRAM
+* 1.03  sk   09/26/2023 Updated XPlmi_UpdateInit function definition
 * </pre>
 *
 * @note
@@ -350,9 +351,10 @@ static inline u8 XPlmi_IsPlmUpdateInProgress(void)
 * @return	XST_SUCCESS on success and error code on failure
 *
 ****************************************************************************/
-static inline int XPlmi_UpdateInit(void *CompatibilityHandler)
+static inline int XPlmi_UpdateInit(void *CompatibilityHandler, void *IsPdiAddrLookup)
 {
 	(void)CompatibilityHandler;
+	(void)IsPdiAddrLookup;
 	/* Not Applicable for Versal */
 	return XST_SUCCESS;
 }

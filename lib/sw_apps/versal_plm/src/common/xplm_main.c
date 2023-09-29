@@ -41,6 +41,7 @@
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 * 1.07  ng   11/11/2022 Updated doxygen comments
 * 1.08  bm   07/17/2023 Moved Exception Init early in the code flow
+* 1.09  sk   09/26/2023 Added Support for In-Place Update from Image Store
 * </pre>
 *
 * @note
@@ -141,7 +142,7 @@ static int XPlm_Init(void)
 	 * Initialize PLM Update related handlers and perform
 	 * DS restoring. This is applicable only for Versal Net
 	 */
-	Status = XPlmi_UpdateInit(XPlm_CompatibilityCheck);
+	Status = XPlmi_UpdateInit(XPlm_CompatibilityCheck, XLoader_IsPdiAddrLookup);
 	if (Status != XST_SUCCESS) {
 		XPlmi_ErrMgr(Status);
 	}
