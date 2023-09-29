@@ -34,6 +34,7 @@
 * 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
 * 2.15  ml   27/02/23 Update typecast,add U to Numerical and functions return
 *                     type to fix misra-c violations.
+* 2.16  ml   27/09/23 fixed compilation warnings for cpputest.
 * </pre>
 *
 ******************************************************************************/
@@ -164,12 +165,12 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
 		/*
 		 * Initialize the handler to point to a stub to handle an
 		 * interrupt which has not been connected to a handler. Only
-		 * initialize it if the handler is 0 or XNullHandler, which
+		 * initialize it if the handler is NULL or XNullHandler, which
 		 * means it was not initialized statically by the tools/user.
 		 * Set the callback reference to this instance so that
 		 * unhandled interrupts can be tracked.
 		 */
-		if ((InstancePtr->CfgPtr->HandlerTable[Id].Handler == 0U) ||
+		if ((InstancePtr->CfgPtr->HandlerTable[Id].Handler == NULL) ||
 		    (InstancePtr->CfgPtr->HandlerTable[Id].Handler ==
 		     XNullHandler)) {
 			InstancePtr->CfgPtr->HandlerTable[Id].Handler =
