@@ -18,7 +18,7 @@ BEGIN driver emc
 
  OPTION supported_peripherals = (axi_emc);
  OPTION driver_state = ACTIVE;
- OPTION VERSION = 4.2;
+ OPTION VERSION = 4.3;
  OPTION NAME = emc;
 
 END driver
