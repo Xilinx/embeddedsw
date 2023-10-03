@@ -122,7 +122,6 @@ static XPlmi_AccessPerm_t XPlmi_PmAccessPermBuff[PM_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(PM_CLOCK_SETDIVIDER),
 	XPLMI_ALL_IPI_FULL_ACCESS(PM_CLOCK_GETDIVIDER),
 	XPLMI_ALL_IPI_NO_ACCESS(PM_CLOCK_SETRATE),
-	XPLMI_ALL_IPI_NO_ACCESS(PM_CLOCK_GETRATE),
 	XPLMI_ALL_IPI_FULL_ACCESS(PM_CLOCK_SETPARENT),
 	XPLMI_ALL_IPI_FULL_ACCESS(PM_CLOCK_GETPARENT),
 	XPLMI_ALL_IPI_FULL_ACCESS(PM_PLL_SET_PARAMETER),
@@ -236,42 +235,6 @@ static XStatus XPm_SetClockRate(const u32 IpiMask, const u32 ClockId, const u32 
 	}
 
 	Status = XPmClock_SetRate(Clk, ClkRate);
-
-done:
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function gets the rate of the clock.
- *
- * @param ClockId	Clock node ID
- * @param ClkRate	Pointer to store clock rate.
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
- *
- ****************************************************************************/
-static XStatus XPm_GetClockRate(const u32 ClockId, u32 *ClkRate)
-{
-	XPM_EXPORT_CMD(PM_CLOCK_GETRATE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
-	XStatus Status = XST_SUCCESS;
-	const XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
-
-	if (NULL == Clk) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	/* Get rate is allowed only for ref clocks */
-	if (!ISREFCLK(ClockId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	Status = XPmClock_GetRate(Clk, ClkRate);
 
 done:
 	return Status;
@@ -549,9 +512,6 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		break;
 	case PM_API(PM_CLOCK_SETRATE):
 		Status = XPm_SetClockRate(Cmd->IpiMask, Pload[0], Pload[1]);
-		break;
-	case PM_API(PM_CLOCK_GETRATE):
-		Status = XPm_GetClockRate(Pload[0], ApiResponse);
 		break;
 	case PM_API(PM_CLOCK_SETPARENT):
 		Status = XPm_SetClockParent(SubsystemId, Pload[0], Pload[1]);
