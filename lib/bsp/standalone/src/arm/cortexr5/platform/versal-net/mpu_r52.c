@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 9.00 	mus  04/10/23 First release
+* 9.1 	mus  10/03/23 Added MPU region for HNIC region.
 * </pre>
 *
 * @note
@@ -137,6 +138,13 @@ void Init_MPU(void)
     Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
     RegNum++;
 
+      /* 8 MB HNIC */
+    Addr = 0xE6000000U;
+    RegSize = 0x7FFFFF;
+    Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
+    Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+    RegNum++;
+
     /* 16 MB FPD + 32 MB LPD */
     Addr = 0xEA000000U;
     RegSize = 0x2FFFFFF;
@@ -160,7 +168,7 @@ void Init_MPU(void)
     RegNum++;
 
     Xil_SetAttributeBasedOnConfig(Needsorting);
-    /* A total of 10 MPU regions are allocated with another 6 being free for users */
+    /* A total of 11 MPU regions are allocated with another 5 being free for users */
 }
 
 
