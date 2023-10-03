@@ -1125,13 +1125,6 @@ static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr)
 	volatile int ClearStatus = XST_FAILURE;
 
 	XPlmi_Printf(DEBUG_INFO, "Performing SPK verification\n\r");
-	/** Initialize sha3 instance */
-	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_SPK_HASH_CALCULATION_FAIL,
-			Status);
-		goto END;
-	}
 
 	Status = XSecure_Sha3Start(Sha3InstPtr);
 	if (Status != XST_SUCCESS) {
@@ -1266,9 +1259,9 @@ static int XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash)
 	volatile int HashStatus = XST_FAILURE;
 	volatile int HashStatusTmp = XST_FAILURE;
 
-	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_SMemCmp_CT, PpkHash,
-			XLOADER_EFUSE_PPK_HASH_LEN, (void *)EfusePpkOffset,
-			XLOADER_EFUSE_PPK_HASH_LEN, XLOADER_EFUSE_PPK_HASH_LEN);
+	HashStatus = Xil_SMemCmp_CT(PpkHash, XLOADER_EFUSE_PPK_HASH_LEN, (void *)EfusePpkOffset,
+								XLOADER_EFUSE_PPK_HASH_LEN, XLOADER_EFUSE_PPK_HASH_LEN);
+	HashStatusTmp = HashStatus;
 	if ((HashStatus != XST_SUCCESS) || (HashStatusTmp != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "Error: PPK Hash comparison failed\r\n");
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_COMPARE_FAIL, 0x0);
@@ -1389,13 +1382,6 @@ static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr)
 	}
 
 	/** - Calculate PPK hash */
-	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_CALCULATION_FAIL,
-			Status);
-		goto END;
-	}
-
 	Status = XSecure_Sha3Start(Sha3InstPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_CALCULATION_FAIL,
@@ -1870,7 +1856,6 @@ static int XLoader_DecryptSecureBlk(XLoader_SecureParams *SecurePtr,
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	volatile int SStatus = XST_FAILURE;
 
 	/** Configure AES engine to push Key and IV */
 	XPlmi_Printf(DEBUG_INFO, "Decrypting Secure header\n\r");
@@ -1916,10 +1901,10 @@ static int XLoader_DecryptSecureBlk(XLoader_SecureParams *SecurePtr,
 		SecurePtr->AesInstPtr->NextBlkLen);
 
 END:
-	SStatus = XSecure_AesCfgKupKeyNIv(SecurePtr->AesInstPtr, (u8)FALSE);
-	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
+	StatusTmp = XSecure_AesCfgKupKeyNIv(SecurePtr->AesInstPtr, (u8)FALSE);
+	if ((Status == XST_SUCCESS) && (StatusTmp != XST_SUCCESS)) {
 		Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_OPERATION_FAILED,
-			SStatus);
+			StatusTmp);
 	}
 	return Status;
 }
