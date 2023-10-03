@@ -113,11 +113,12 @@
 *       ng   07/13/23 Added support for system device tree flow
 *       yog  08/18/23 Added a check to return error when metaheader secure state
 *                     doesnot match with plm secure state
-*	kpt  08/20/23 Updated check to place ECDSA in reset and clear RAM memory when
+*       kpt  08/20/23 Updated check to place ECDSA in reset and clear RAM memory when
 *			PLM_ECDSA_EXCLUDE is not defined
 *       yog  08/25/23 Removed check to return error code when MH secure state doesn't
 *			match with plm secure
-*       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
+*       dd   09/11/23 MISRA-C violation Rule 10.3 fixed
+* 2.0   kpt  07/31/23 Run KAT everytime when AUTH JTAG request is made
 *
 * </pre>
 *
@@ -3237,6 +3238,19 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 		goto END;
 	}
 
+	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecureParams.PmcDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL,
+			 Status);
+		goto END;
+	}
+
+	XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp, XSecure_Sha3Kat, Sha3InstPtr);
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
+		goto END;
+	}
+
 	/** Verify PPK in the authenticated JTAG data. */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_PpkVerify, &SecureParams);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
@@ -3259,20 +3273,12 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	/** Calculate hash of the Authentication Header in the authenticated
 	 * JTAG data.
 	 */
-	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecureParams.PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL,
-			 Status);
-		goto END;
-	}
-
 	Status = XSecure_Sha3Start(Sha3InstPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL,
 						 Status);
 		goto END;
 	}
-
 
 	Status = XSecure_Sha3LastUpdate(Sha3InstPtr);
 	if (Status != XST_SUCCESS) {
@@ -3296,6 +3302,14 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(
 			XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL, Status);
+		goto END;
+	}
+
+	/* Run KAT before verifying AUTH JTAG message */
+	Status = XST_FAILURE;
+	Status = XLoader_AuthKat(&SecureParams);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 		goto END;
 	}
 
@@ -3884,13 +3898,20 @@ static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue)
 static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 	u32 AuthType;
 	u32 AuthKatMask;
+	u32 AuthKatStatus = 0U;
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 #ifndef PLM_ECDSA_EXCLUDE
 	XSecure_EllipticCrvClass CrvClass = XSECURE_ECC_PRIME;
 #endif
 	/** Get the Authentication type. */
-	AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
+	if (SecurePtr->AuthJtagMessagePtr != NULL) {
+		AuthType = XLoader_GetAuthPubAlgo(&(SecurePtr->AuthJtagMessagePtr->AuthHdr));
+	}
+	else {
+		AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
+	}
+
 	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
 		AuthKatMask = XPLMI_SECURE_RSA_KAT_MASK;
 	}
@@ -3913,15 +3934,19 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 		goto END;
 	}
 
-	/** Update KAT status based on the user configuration. */
-	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, AuthKatMask);
+	if (SecurePtr->AuthJtagMessagePtr == NULL) {
+		/** Update KAT status based on the user configuration. */
+		XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, AuthKatMask);
+		AuthKatStatus = SecurePtr->PdiPtr->PlmKatStatus & AuthKatMask;
+	}
 
 	/**
 	 * Skip running the KAT for ECDSA or RSA if it is already run.
 	 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set.
 	 * If KAT fails device will go into a secure lockdown state.
+         * For AUTH JTAG KAT will be run every time when request is made.
 	 */
-	if ((SecurePtr->PdiPtr->PlmKatStatus & AuthKatMask) == 0U) {
+	if (AuthKatStatus == 0U) {
 		if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
 #ifndef PLM_RSA_EXCLUDE
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
@@ -3960,10 +3985,11 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 			Status = XLoader_UpdateMinorErr(XLOADER_SEC_KAT_FAILED_ERROR, Status);
 			goto END;
 		}
-		SecurePtr->PdiPtr->PlmKatStatus |= AuthKatMask;
-
-		/* Update KAT status */
-		XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
+		if (SecurePtr->AuthJtagMessagePtr == NULL) {
+			SecurePtr->PdiPtr->PlmKatStatus |= AuthKatMask;
+			/* Update KAT status */
+			XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
+		}
 	}
 #if (defined(PLM_RSA_EXCLUDE) && defined(PLM_ECDSA_EXCLUDE))
 	(void)StatusTmp;
