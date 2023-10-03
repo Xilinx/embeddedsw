@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2013 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2013 - 2022 Xilinx, Inc. All Rights Reserved.
+* Copyright 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -11,12 +12,11 @@
 *     Header file for the Xilinx Inc. first-stage bootloader FS-BOOT.
 *
 *******************************************************************************/
-#include "auto-config.h"
 #include "xparameters.h"
 
-#ifdef CONFIG_UARTLITE
+#ifdef XPAR_XUARTLITE_NUM_INSTANCES
 #include "xuartlite_l.h"
-#elif CONFIG_UART16550
+#elif XPAR_XUARTNS550_NUM_INSTANCES
 #include "xuartns550_l.h"
 #endif
 
@@ -99,8 +99,21 @@ void __fs_bad_image(unsigned int reason) __attribute__((weak));
  */
 
 /*! Start address of UART device. */
-#define UART_BASEADDR CONFIG_STDINOUT_BASEADDR
-
+#ifdef XPAR_XUARTLITE_NUM_INSTANCES
+#define UART_BASEADDR XPAR_AXI_UARTLITE_0_BASEADDR
+#elif XPAR_XUARTNS550_NUM_INSTANCES
+#define UART_BASEADDR XPAR_UARTNS550_0_BASEADDR
+#endif
+/*! DDR Base address*/
+#ifndef SDT
+#define DDR_BASEADDR XPAR_MICROBLAZE_ICACHE_BASEADDR
+#else
+#ifdef XPAR_MIG_0_BASEADDRESS
+#define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
+#elif XPAR_DDR4_0_BASEADDRESS
+#define DDR_BASEADDR XPAR_DDR4_0_BASEADDRESS
+#endif
+#endif //SDT endif
 #ifndef CONFIG_NO_FLASH
 /*! Start address of FLASH device */
 #define FLASH_BASE      CONFIG_XILINX_FLASH_START
