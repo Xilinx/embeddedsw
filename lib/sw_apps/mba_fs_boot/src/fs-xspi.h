@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2013 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2013 - 2022 Xilinx, Inc. All Rights Reserved.
+* Copyright 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -10,12 +11,35 @@
 #define XSPI_H
 
 #include "xparameters.h"
-#include "auto-config.h"
 
-/* Xilinx SPI Macros */
-#define XSP_BASEADDR		CONFIG_PRIMARY_FLASH_SPI_BASEADDR
-#define XSP_SPI_MODE		CONFIG_FLASH_SPI_MODE
-#define XSP_SPI_FIFO_DEPTH	CONFIG_FLASH_SPI_FIFO_DEPTH
+/* Xilinx QUAD SPI address */
+#if defined(XPAR_AXI_QUAD_SPI_0_AXI_INTERFACE)
+#define XSP_BASEADDR		XPAR_AXI_QUAD_SPI_0_AXI4_ADDRESS
+#elif defined(XPAR_AXI_QUAD_SPI_0_BASEADDR)
+#define XSP_BASEADDR		XPAR_AXI_QUAD_SPI_0_BASEADDR
+#endif
+
+/* Xilinx SPI address */
+#if defined(XPAR_XSPI_0_AXI_INTERFACE)
+#define XSP_BASEADDR		XPAR_XSPI_0_AXI4_ADDRESS
+#elif defined(XPAR_XSPI_0_BASEADDR)
+#define XSP_BASEADDR		XPAR_XSPI_0_BASEADDR
+#endif
+
+/* Xilinx SPI mode */
+#if defined(XPAR_XSPI_0_SPI_MODE)
+#define XSP_SPI_MODE	        XPAR_XSPI_0_SPI_MODE
+#elif defined(XPAR_AXI_QUAD_SPI_0_SPI_MODE)
+#define XSP_SPI_MODE	        XPAR_AXI_QUAD_SPI_0_SPI_MODE
+#endif
+
+
+/* Xilinx SPI fifo width */
+#if defined(XPAR_AXI_QUAD_SPI_0_FIFO_SIZE)
+#define XSP_SPI_FIFO_DEPTH	XPAR_AXI_QUAD_SPI_0_FIFO_SIZE
+#elif defined(XPAR_XSPI_0_FIFO_SIZE)
+#define XSP_SPI_FIFO_DEPTH	XPAR_XSPI_0_FIFO_SIZE
+#endif
 
 #define XSP_SPI_QUAD_MODE	2
 #define XSP_SPI_DUAL_MODE	1
