@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2013 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -106,7 +107,7 @@ static void GO(unsigned long addr)
 #define BOOT_WRAPPER_SIZE 0x10C
 #define BOOT_WRAPPER_ADDROFFSET 0x100
 
-#ifdef CONFIG_UARTLITE
+#ifdef XPAR_XUARTLITE_NUM_INSTANCES
 #ifdef XUartLite_SetControlReg
 #define uartlite_set_controlreg(base,mask) \
 				XUartLite_SetControlReg(base, mask)
@@ -118,7 +119,7 @@ static void GO(unsigned long addr)
 #define uartlite_is_recv_empty(base) XUartLite_mIsReceiveEmpty(base)
 #define uartlite_is_trans_full(base) XUartLite_mIsTransmitFull(base)
 #endif
-#elif CONFIG_UART16550
+#elif XPAR_XUARTNS550_NUM_INSTANCES
 #ifdef XUartNs550_SetLineControlReg
 #define uartns550_set_linecontrolreg(base, mask) \
 				XUartNs550_SetLineControlReg(base, mask)
@@ -145,7 +146,7 @@ static void GO(unsigned long addr)
  *
  * @return  None.
  */
-#ifdef CONFIG_UARTLITE
+#ifdef XPAR_XUARTLITE_NUM_INSTANCES
 static void uart_init(void)
 {
 	/* All mode and baud setup is done in hardware level */
@@ -154,7 +155,7 @@ static void uart_init(void)
 						XUL_CR_FIFO_RX_RESET  |
 						XUL_CR_FIFO_TX_RESET));
 }
-#elif CONFIG_UART16550
+#elif XPAR_XUARTNS550_NUM_INSTANCES
 static void uart_init(void)
 {
 	XUartNs550_SetBaud(UART_BASEADDR, XPAR_UARTNS550_0_CLOCK_FREQ_HZ, 115200);
@@ -169,7 +170,7 @@ static void uart_init(void)
  *
  * @return  None.
  */
-#ifdef CONFIG_UARTLITE
+#ifdef XPAR_XUARTLITE_NUM_INSTANCES
 void put_ch(unsigned char data)
 {
 	while (uartlite_is_trans_full(UART_BASEADDR));
@@ -177,7 +178,7 @@ void put_ch(unsigned char data)
 
 	return;
 }
-#elif CONFIG_UART16550
+#elif XPAR_XUARTNS550_NUM_INSTANCES
 void put_ch (unsigned char data)
 {
 	XUartNs550_SendByte(UART_BASEADDR, data);
@@ -363,7 +364,6 @@ void fsprint(char *s)
 		s++;
 	}
 }
-
 /*---------------------------------------------------------------------------*/
 
 int main()
@@ -397,7 +397,7 @@ int main()
 		mb_sleep();
 
 		/* Jump to kernel */
-		GO(XPAR_MICROBLAZE_ICACHE_BASEADDR);
+		GO(DDR_BASEADDR);
 
 		/* Shouldn't return */
 		while(1)
