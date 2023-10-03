@@ -231,7 +231,8 @@ typedef enum {
 	PM_CLOCK_SETDIVIDER,				/**< 0x27 */
 	PM_CLOCK_GETDIVIDER,				/**< 0x28 */
 	PM_CLOCK_SETRATE,				/**< 0x29 */
-	PM_CLOCK_GETRATE,				/**< 0x2A */
+	/* PM_CLOCK_GETRATE API is deprecated */
+	PM_RESERVE_ID,					/**< 0x2A */
 	PM_CLOCK_SETPARENT,				/**< 0x2B */
 	PM_CLOCK_GETPARENT,				/**< 0x2C */
 	PM_SECURE_IMAGE,				/**< 0x2D */

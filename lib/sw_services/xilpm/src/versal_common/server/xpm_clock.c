@@ -1124,10 +1124,3 @@ XStatus XPmClock_SetRate(XPm_ClockNode *Clk, const u32 ClkRate)
 
 	return XST_SUCCESS;
 }
-
-XStatus XPmClock_GetRate(const XPm_ClockNode *Clk, u32 *ClkRate)
-{
-	*ClkRate = Clk->ClkRate;
-
-	return XST_SUCCESS;
-}
