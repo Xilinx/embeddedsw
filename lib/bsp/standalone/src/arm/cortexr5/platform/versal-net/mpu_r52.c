@@ -33,7 +33,8 @@
 #include "xparameters.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
-static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum, u32 Attrib) __attribute__((__section__(".boot")));
+static inline void Update_MpuConfig_Array(u32 Addr, u32 RegSize, u32 RegNum,
+		u32 Attrib) __attribute__((__section__(".boot")));
 /**************************** Type Definitions *******************************/
 
 /************************** Constant Definitions *****************************/
@@ -56,8 +57,8 @@ void Init_MPU(void) __attribute__((__section__(".boot")));
 *
 *
 ******************************************************************************/
-static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum,
-u32 Attrib)
+static inline void Update_MpuConfig_Array(u32 Addr, u32 RegSize, u32 RegNum,
+		u32 Attrib)
 {
 	Mpu_Config[RegNum].RegionStatus = MPU_REG_ENABLED;
 	Mpu_Config[RegNum].BaseAddress = (Addr & XMPU_PBAR_REG_BASEADDR_MASK);
@@ -89,86 +90,86 @@ void Init_MPU(void)
 
 	Xil_DisableMPURegions();
 
-    /* 2 GB DDR */
-    Addr = 0x00000000U;
-    RegSize = 0x7FFFFFFF;
-    Attrib = NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW;
-    Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
-    RegNum++;
+	/* 2 GB DDR */
+	Addr = 0x00000000U;
+	RegSize = 0x7FFFFFFF;
+	Attrib = NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW;
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
+	RegNum++;
 
-    /* 512 MB LPD to AFI fabric slave port */
-    Addr = 0x80000000U;
-    RegSize = 0x1FFFFFFF;
-    Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
-    Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
-    RegNum++;
+	/* 512 MB LPD to AFI fabric slave port */
+	Addr = 0x80000000U;
+	RegSize = 0x1FFFFFFF;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
+	RegNum++;
 
-    /* 256 MB PCIE region + 128 MB PS_FPD_AFI_FS */
-    Addr = 0xA0000000U;
-    RegSize = 0x17FFFFFF;
-    Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-    Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
-    RegNum++;
+	/* 256 MB PCIE region + 128 MB PS_FPD_AFI_FS */
+	Addr = 0xA0000000U;
+	RegSize = 0x17FFFFFF;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
+	RegNum++;
 
-    /* 1 MB OCM */
-    Addr = 0xBBF00000U;
-    RegSize = 0xFFFFF;
-    Attrib = NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW;
-    Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
-    RegNum++;
+	/* 1 MB OCM */
+	Addr = 0xBBF00000U;
+	RegSize = 0xFFFFF;
+	Attrib = NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW;
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
+	RegNum++;
 
-    /* 512 MB xSPI + 16 MB Coresight */
-    Addr = 0xC0000000U;
-    RegSize = 0x20FFFFFF;
-    Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
-    Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
-    RegNum++;
+	/* 512 MB xSPI + 16 MB Coresight */
+	Addr = 0xC0000000U;
+	RegSize = 0x20FFFFFF;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
+	RegNum++;
 
-    /* 2MB RPU GIC */
-    Addr = 0xE2000000U;
-    RegSize = 0x1FFFFF;
-    Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
-    Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
-    RegNum++;
+	/* 2MB RPU GIC */
+	Addr = 0xE2000000U;
+	RegSize = 0x1FFFFF;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
+	RegNum++;
 
-    /* 16 MB CPM */
-    Addr = 0xE4000000U;
-    RegSize = 0xFFFFFF;
-    Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
-    Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
-    RegNum++;
+	/* 16 MB CPM */
+	Addr = 0xE4000000U;
+	RegSize = 0xFFFFFF;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
+	RegNum++;
 
-      /* 8 MB HNIC */
-    Addr = 0xE6000000U;
-    RegSize = 0x7FFFFF;
-    Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
-    Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
-    RegNum++;
+	/* 8 MB HNIC */
+	Addr = 0xE6000000U;
+	RegSize = 0x7FFFFF;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
+	RegNum++;
 
-    /* 16 MB FPD + 32 MB LPD */
-    Addr = 0xEA000000U;
-    RegSize = 0x2FFFFFF;
-    Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
-    Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
-    RegNum++;
+	/* 16 MB FPD + 32 MB LPD */
+	Addr = 0xEA000000U;
+	RegSize = 0x2FFFFFF;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
+	RegNum++;
 
 
-    /* 128 MB PMC */
-    Addr = 0xF0000000U;
-    RegSize = 0x7FFFFFF;
-    Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-    Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
-    RegNum++;
+	/* 128 MB PMC */
+	Addr = 0xF0000000U;
+	RegSize = 0x7FFFFFF;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
+	RegNum++;
 
-    /* 64 MB PS_FPD_CMN */
-    Addr = 0xF8000000U;
-    RegSize = 0x3FFFFFF;
-    Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-    Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
-    RegNum++;
+	/* 64 MB PS_FPD_CMN */
+	Addr = 0xF8000000U;
+	RegSize = 0x3FFFFFF;
+	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
+	RegNum++;
 
-    Xil_SetAttributeBasedOnConfig(Needsorting);
-    /* A total of 11 MPU regions are allocated with another 5 being free for users */
+	Xil_SetAttributeBasedOnConfig(Needsorting);
+	/* A total of 11 MPU regions are allocated with another 5 being free for users */
 }
 
 
@@ -187,11 +188,11 @@ void Xil_DisableMPURegions(void)
 	u32 Temp = 0U;
 	u32 Index = 0U;
 	for (Index = 0; Index <= 15U; Index++) {
-		mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,Index);
+		mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER, Index);
 		Temp = mfcp(XREG_CP15_MPU_REG_SIZE_EN);
 		Temp &= (~REGION_EN);
 		dsb();
-		mtcp(XREG_CP15_MPU_REG_SIZE_EN,Temp);
+		mtcp(XREG_CP15_MPU_REG_SIZE_EN, Temp);
 		dsb();
 		isb();
 	}
