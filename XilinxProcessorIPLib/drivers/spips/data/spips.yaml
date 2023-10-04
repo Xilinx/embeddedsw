@@ -44,7 +44,7 @@ examples:
         - reg
     xspips_slave_polled_example.c:
         - reg
-    xpips_tpm_polled_example.c:
+    xspips_tpm_polled_example.c:
         - reg
 tapp:
    xspips_selftest_example.c:
