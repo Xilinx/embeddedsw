@@ -1295,30 +1295,6 @@ static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_RMW32(PSMX_GLOBAL_REG_SCAN_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
 	XPsmFw_RMW32(PSMX_GLOBAL_REG_MEM_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
 
-	/* TODO: Check for emulated power down */
-	/* Set the PSTATE field */
-	XPsmFw_Write32(Args->CorePstate, 0U);
-
-	/* APU core assert warm reset */
-	XPsmFw_RMW32(Args->RstAddr, Args->WarmRstMask, Args->WarmRstMask);
-
-	/*set PREQ field*/
-	XPsmFw_Write32(Args->CorePreq, Args->CorePreqMask);
-
-	/* APU core release warm reset */
-	XPsmFw_RMW32(Args->RstAddr, Args->WarmRstMask, ~Args->WarmRstMask);
-
-	/* poll for power state change */
-	/* TODO: Remove workaround to poll for power down state instead of PACCEPT */
-	Status = XPsmFw_UtilPollForMask(Args->CorePactive, 0x1U , ACPU_PACCEPT_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR,"A78 Core PACCEPT timeout..\n");
-		goto done;
-	}
-
-	/* Clear PREQ bit */
-	XPsmFw_Write32(Args->CorePreq, 0U);
-
 	Status = XPsmFwACPUxPwrDwn(Args);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -1329,34 +1305,6 @@ static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 
 	/* clear the Power dwn Interrupt */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS,Args->PwrStateMask);
-
-	u32 PwrState = XPsmFw_Read32(PSMX_LOCAL_REG_LOC_PWR_STATE0) & (0xFU <<
-				     (Args->ClusterId * 4U));
-	/* Power down cluster if all cores in cluster are powered off */
-	if (1U == __builtin_popcount(PwrState)) {
-		/* ACPU clock config */
-		XPsmFw_RMW32(Args->ClkCtrlAddr,Args->ClkCtrlMask,~Args->ClkCtrlMask);
-
-		/* Allow the clock to propagate */
-		XPsmFw_UtilWait(Args->ClkPropTime);
-
-		/* APU cluster release cold & warm reset */
-		XPsmFw_RMW32(Args->RstAddr,ACPU_CLUSTER_COLD_WARM_RST_MASK,ACPU_CLUSTER_COLD_WARM_RST_MASK);
-
-		XPsmFw_Write32(Args->ClusterPstate, 0U);
-		XPsmFw_Write32(Args->ClusterPreq, Args->ClusterPreqMask);
-
-		/* APU cluster release cold & warm reset */
-		XPsmFw_RMW32(Args->RstAddr,ACPU_CLUSTER_COLD_WARM_RST_MASK,0U);
-		Status =  XPsmFw_UtilPollForMask(Args->ClusterPactive, Args->ClusterPacceptMask, ACPU_PACCEPT_TIMEOUT);
-		if (XST_SUCCESS != Status) {
-			XPsmFw_Printf(DEBUG_ERROR, "A78 Cluster PACCEPT timeout..\n");
-			goto done;
-		}
-		/* Clear PREQ bit */
-		XPsmFw_Write32(Args->ClusterPreq, 0U);
-		ApuClusterState[Args->ClusterId] = 0U;
-	}
 
 	/*Mark ACPUx powered down in LOCAL_PWR_STATUS register */
 	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Args->PwrStateMask, ~Args->PwrStateMask);
