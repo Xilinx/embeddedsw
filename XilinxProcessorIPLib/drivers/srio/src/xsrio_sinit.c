@@ -7,7 +7,7 @@
 /**
 *
 * @file xsrio_sinit.c
-* @addtogroup srio_v1_4
+* @addtogroup srio Overview
 * @{
 * 
 * This file contains static Initialization functionality for Xilinx SRIO Gen2
