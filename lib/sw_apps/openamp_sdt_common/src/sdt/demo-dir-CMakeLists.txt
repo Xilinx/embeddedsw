@@ -15,12 +15,12 @@ collector_list (_deps PROJECT_LIB_DEPS)
 
 find_library(OPENAMP_LIB NAMES open_amp HINTS "${OPENAMP_DIR}/lib")
 
-get_property (APP_NAME GLOBAL PROPERTY APP_NAME)
-if(APP_NAME STREQUAL "rpc_demo")
+get_property (OPENAMP_APP_NAME GLOBAL PROPERTY OPENAMP_APP_NAME)
+if(OPENAMP_APP_NAME STREQUAL "rpc_demo")
   set(_app rpc_demo)
-elseif(APP_NAME STREQUAL "echo")
+elseif(OPENAMP_APP_NAME STREQUAL "echo")
   set (_app rpmsg-echo)
-elseif(APP_NAME STREQUAL "matrix_multiply")
+elseif(OPENAMP_APP_NAME STREQUAL "matrix_multiply")
   set (_app matrix_multiplyd)
 endif()
 
@@ -28,28 +28,26 @@ include(CheckSymbolExists)
 
 check_symbol_exists(versal "bspconfig.h" IS_VERSAL)
 check_symbol_exists(VERSAL_NET "xparameters_ps.h" IS_VERSAL_NET)
+
 if (IS_VERSAL)
     set (SOC_FAMILY "versal")
 elseif(IS_VERSAL_NET)
     set (SOC_FAMILY "versalnet")
+    add_definitions(-DIPI_IRQ_VECT_ID=90)
+    add_definitions(-DPOLL_BASE_ADDR=0xEB340000)
+    add_definitions(-DIPI_CHN_BITMASK=0x20)
 else()
     set (SOC_FAMILY "zynqmp")
     add_definitions(-DXPAR_XIPIPSU_0_INT_ID=65)
     add_definitions(-DXPAR_XIPIPSU_0_BASE_ADDRESS=0xff310000)
 endif()
 
-check_symbol_exists(VERSAL_NET "xparameters_ps.h" IS_VERSAL_NET)
-if (IS_VERSAL_NET)
-    add_definitions(-DIPI_IRQ_VECT_ID=90)
-    add_definitions(-DPOLL_BASE_ADDR=0xEB340000)
-    add_definitions(-DIPI_CHN_BITMASK=0x20)
-endif()
-
 collector_list (_sources APP_COMMON_SOURCES)
 list (APPEND _sources "${CMAKE_CURRENT_SOURCE_DIR}/${_app}.c")
-add_executable (${_app}.out ${_sources})
+
+set (executable_name ${CMAKE_PROJECT_NAME})
+
+add_executable (${executable_name}.elf ${_sources})
 set_source_files_properties(${_sources} PROPERTIES COMPILE_FLAGS "${_cflags}")
-
-target_link_libraries(${_app}.out -Wl,-Map=${_app}.map -Wl,--gc-sections ${_linker_opt} -Wl,--start-group ${OPENAMP_LIB} ${_deps} -Wl,--end-group)
-
-install (TARGETS ${_app}.out RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+target_link_libraries(${executable_name}.elf -Wl,-Map=${executable_name}.map -Wl,--gc-sections ${_linker_opt} -Wl,--start-group ${OPENAMP_LIB} ${_deps} -Wl,--end-group)
+install (TARGETS ${executable_name}.elf RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})

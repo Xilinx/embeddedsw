@@ -12,7 +12,7 @@ import os
 from build_bsp import BSP
 from repo import Repo
 from validate_bsp import Validation
-from open_amp import create_openamp_app
+from open_amp import create_openamp_app, open_amp_app_name
 from open_amp import create_libmetal_app
 
 
@@ -148,8 +148,24 @@ def create_app(args):
 
     if obj.template in ['openamp_echo_test', 'openamp_matrix_multiply', 'openamp_rpc_demo']:
         create_openamp_app(obj, esw_app_dir)
+        new_app_name = obj.app_name if obj.app_name else open_amp_app_name(obj.template)
+
+        # pass which of the 3 OpenAMP demos to the cmake project
+        obj.cmake_paths_append += " -DOPENAMP_APP_NAME=\"" + open_amp_app_name(obj.template) + "\""
+
+        src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")
+
+        # add Demo name to nested Cmake build for OpenAMP Apps
+        new_cmake_vars = f'project ({new_app_name} C)\n'
+        new_cmake_vars += f'set (OPENAMP_APP_NAME \"' + open_amp_app_name(obj.template) + '\" CACHE STRING "")\n'
+
+        utils.replace_line(src_cmake, f'project (open_amp_apps C)', new_cmake_vars)
     elif obj.template == 'libmetal_echo_demo':
         create_libmetal_app(obj, esw_app_dir)
+        if obj.app_name:
+            # add Demo name to nested Cmake build
+            src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")
+            utils.replace_line(src_cmake, f'project (libmetal_amp_demod C)', f'project ({obj.app_name} C)')
 
     # Add domain path entry in the app configuration file.
     data = {"domain_path": obj.domain_path,
