@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +10,7 @@
 * @file xsrio.c
 * @addtogroup srio Overview
 * @{
-* This file contains the required functions for the XSrio driver. See the 
+* This file contains the required functions for the XSrio driver. See the
 * xsrio.h header file for more details on this driver.
 *
 * <pre>
@@ -61,12 +62,12 @@ int XSrio_CfgInitialize(XSrio *InstancePtr,
 	memset(InstancePtr, 0, sizeof(XSrio));
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
 	InstancePtr->Config.DeviceId = Config->DeviceId;
-		
+
 	/* Port width for the Device */
 	Portwidth = XSrio_ReadReg(InstancePtr->Config.BaseAddress,
 				  XSRIO_PORT_N_CTL_CSR_OFFSET);
-	InstancePtr->PortWidth = ((Portwidth & XSRIO_PORT_N_CTL_CSR_PW_MASK) >> 
-					XSRIO_PORT_N_CTL_CSR_PW_SHIFT);
+	InstancePtr->PortWidth = ((Portwidth & XSRIO_PORT_N_CTL_CSR_PW_MASK) >>
+				  XSRIO_PORT_N_CTL_CSR_PW_SHIFT);
 
 	/* Initialization is successful */
 	InstancePtr->IsReady = 1;
@@ -76,14 +77,14 @@ int XSrio_CfgInitialize(XSrio *InstancePtr,
 
 /*****************************************************************************/
 /**
-* XSrio_GetPortStatus will check the status of the port and returns the status 
+* XSrio_GetPortStatus will check the status of the port and returns the status
 * of the port to the user
 *
 * @param	InstancePtr is the XSrio instance to operate on.
-* 
-* @return 
+*
+* @return
 * 		- XSRIO_PORT_OK Port is initialized with no errors.
-*	    	- XSRIO_PORT_UNINITIALIZED Port is not initialized. 
+*	    	- XSRIO_PORT_UNINITIALIZED Port is not initialized.
 *		  No Serial Rapidio link is present.
 *	    	- XSRIO_PORT_HAS_ERRORS Port is initialized but has errors.
 *
@@ -93,29 +94,30 @@ int XSrio_CfgInitialize(XSrio *InstancePtr,
 int XSrio_GetPortStatus(XSrio *InstancePtr)
 {
 	u32 Result;
-	
+
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	
+
 	Result = XSrio_ReadReg(InstancePtr->Config.BaseAddress,
-			XSRIO_PORT_N_ERR_STS_CSR_OFFSET);
-	if(Result & XSRIO_PORT_N_ERR_STS_CSR_POK_MASK)
+			       XSRIO_PORT_N_ERR_STS_CSR_OFFSET);
+	if (Result & XSRIO_PORT_N_ERR_STS_CSR_POK_MASK) {
 		Result = XSRIO_PORT_OK;
-	else if(Result & XSRIO_PORT_N_ERR_STS_CSR_PUINT_MASK)
+	} else if (Result & XSRIO_PORT_N_ERR_STS_CSR_PUINT_MASK) {
 		Result = XSRIO_PORT_UNINITIALIZED;
-	else if(Result & XSRIO_PORT_N_ERR_STS_CSR_PERR_MASK)
+	} else if (Result & XSRIO_PORT_N_ERR_STS_CSR_PERR_MASK) {
 		Result = XSRIO_PORT_HAS_ERRORS;
+	}
 
 	return Result;
-} 
- 
+}
+
 /*****************************************************************************/
 /**
-* XSrio_GetPEType API will check for the Processing Element type and 
+* XSrio_GetPEType API will check for the Processing Element type and
 * return the type of type of Processing Element
 *
 * @param	InstancePtr is the XSrio instance to operate on.
-* 
-* @return 
+*
+* @return
 *		- XSRIO_IS_MEMORY if the core is configured as a memory
 *	    	- XSRIO_IS_PROCESSOR if the core is configured as a processor
 *	    	- XSRIO_IS_BRIDGE if the core is configured as a bridge.
@@ -126,36 +128,37 @@ int XSrio_GetPortStatus(XSrio *InstancePtr)
 int XSrio_GetPEType(XSrio *InstancePtr)
 {
 	int Result;
-	
+
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	
+
 	Result = XSrio_ReadReg(InstancePtr->Config.BaseAddress,
-				XSRIO_PEF_CAR_OFFSET);
-	if(Result & XSRIO_PEF_CAR_MEMORY_MASK)
+			       XSRIO_PEF_CAR_OFFSET);
+	if (Result & XSRIO_PEF_CAR_MEMORY_MASK) {
 		Result = XSRIO_IS_MEMORY;
-	else if(Result & XSRIO_PEF_CAR_PROCESSOR_MASK)
+	} else if (Result & XSRIO_PEF_CAR_PROCESSOR_MASK) {
 		Result = XSRIO_IS_PROCESSOR;
-	else if(Result & XSRIO_PEF_CAR_BRIDGE_MASK)
+	} else if (Result & XSRIO_PEF_CAR_BRIDGE_MASK) {
 		Result = XSRIO_IS_BRIDGE;
+	}
 
 	return Result;
-} 
+}
 
 /*****************************************************************************/
 /**
 * XSrio_IsOperationSupported tells whether the operation is supported by the
 * SRIO Gen2 core or not.
 *
-* 
+*
 * @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
 *               worked on.
-* @param        Operation type is the operation type of the SRIO Packet 
-* @param	Direction type 
+* @param        Operation type is the operation type of the SRIO Packet
+* @param	Direction type
 *
-* @return       
+* @return
 *               - XST_SUCCESS if the operation is supported by the core.
 * 		- XST_FAILURE if the operation is not supported by the core.
-* 
+*
 * @note		None.
 *
 *****************************************************************************/
@@ -163,54 +166,61 @@ int XSrio_IsOperationSupported(XSrio *InstancePtr, u8 Operation, u8 Direction)
 {
 	u32 OperationCar;
 	u32 Status = XST_FAILURE;
-	
+
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	
+
 	if (Direction & XSRIO_DIR_TX) {
 		OperationCar = XSrio_ReadSrcOps(InstancePtr);
 	} else {
 		OperationCar = XSrio_ReadDstOps(InstancePtr);
 	}
-	
+
 	switch (Operation) {
 		case XSRIO_OP_MODE_NREAD:
-			if(OperationCar & XSRIO_SRCDST_OPS_CAR_READ_MASK) 
+			if (OperationCar & XSRIO_SRCDST_OPS_CAR_READ_MASK) {
 				Status = XST_SUCCESS;
+			}
 			break;
 		case XSRIO_OP_MODE_NWRITE:
-			if(OperationCar & XSRIO_SRCDST_OPS_CAR_WRITE_MASK)
+			if (OperationCar & XSRIO_SRCDST_OPS_CAR_WRITE_MASK) {
 				Status = XST_SUCCESS;
+			}
 			break;
 		case XSRIO_OP_MODE_SWRITE:
-			if(OperationCar & XSRIO_SRCDST_OPS_CAR_SWRITE_MASK)
+			if (OperationCar & XSRIO_SRCDST_OPS_CAR_SWRITE_MASK) {
 				Status = XST_SUCCESS;
+			}
 			break;
 		case XSRIO_OP_MODE_NWRITE_R:
-			if(OperationCar & XSRIO_SRCDST_OPS_CAR_WRITE_RESPONSE_MASK)
+			if (OperationCar & XSRIO_SRCDST_OPS_CAR_WRITE_RESPONSE_MASK) {
 				Status = XST_SUCCESS;
+			}
 			break;
 		case XSRIO_OP_MODE_DATA_MESSAGE:
-			if(OperationCar & XSRIO_SRCDST_OPS_CAR_DATA_MSG_MASK)
+			if (OperationCar & XSRIO_SRCDST_OPS_CAR_DATA_MSG_MASK) {
 				Status = XST_SUCCESS;
+			}
 			break;
 		case XSRIO_OP_MODE_DOORBELL:
-			if(OperationCar & XSRIO_SRCDST_OPS_CAR_DOORBELL_MASK)
+			if (OperationCar & XSRIO_SRCDST_OPS_CAR_DOORBELL_MASK) {
 				Status = XST_SUCCESS;
+			}
 			break;
 		case XSRIO_OP_MODE_ATOMIC:
-			if(OperationCar & XSRIO_SRCDST_OPS_CAR_ATOMIC_SET_MASK)
+			if (OperationCar & XSRIO_SRCDST_OPS_CAR_ATOMIC_SET_MASK) {
 				Status = XST_SUCCESS;
+			}
 			break;
 		default:
 			Status = XST_FAILURE;
-	} 
+	}
 	return Status;
 }
 
 /*****************************************************************************/
 /**
 * XSrio_SetWaterMark Configures the watermark to transfer a priority packet.
-* 
+*
 * @param        InstancePtr is a pointer to the SRIO Gen2 instance to be
 *               worked on.
 * @param        WaterMark0 is the water mark value to transfer a priority 0
@@ -220,44 +230,44 @@ int XSrio_IsOperationSupported(XSrio *InstancePtr, u8 Operation, u8 Direction)
 * @param 	WaterMark2 is the water mark value to transfer a priority 2
 *		packet.
 *
-* @return       None.              
-* 
+* @return       None.
+*
 * @note		None.
 *
 *****************************************************************************/
 void XSrio_SetWaterMark(XSrio *InstancePtr, u8 WaterMark0, u8 WaterMark1,
-					u8 WaterMark2)
+			u8 WaterMark2)
 {
 	int Regval;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(WaterMark0 > WaterMark1);
 	Xil_AssertVoid(WaterMark1 > WaterMark2);
 	Xil_AssertVoid(WaterMark2 > 0);
-	
+
 	Regval = XSrio_ReadReg(InstancePtr->Config.BaseAddress,
-				XSRIO_IMP_WCSR_OFFSET);
-				
+			       XSRIO_IMP_WCSR_OFFSET);
+
 	if (WaterMark0 > WaterMark1) {
-		Regval = ((Regval & ~XSRIO_IMP_WCSR_WM0_MASK) | 
-				(WaterMark0 & XSRIO_IMP_WCSR_WM0_MASK));
-		XSrio_WriteReg((InstancePtr)->Config.BaseAddress, 
-				XSRIO_IMP_WCSR_OFFSET, Regval);
-	} 
-	
-	if(WaterMark1 > WaterMark2) {
-		Regval = ((Regval & ~XSRIO_IMP_WCSR_WM1_MASK) | 
-			((WaterMark1 << XSRIO_IMP_WCSR_WM1_SHIFT) & 
-				XSRIO_IMP_WCSR_WM1_MASK));
-		XSrio_WriteReg((InstancePtr)->Config.BaseAddress, 
-				XSRIO_IMP_WCSR_OFFSET, Regval);
+		Regval = ((Regval & ~XSRIO_IMP_WCSR_WM0_MASK) |
+			  (WaterMark0 & XSRIO_IMP_WCSR_WM0_MASK));
+		XSrio_WriteReg((InstancePtr)->Config.BaseAddress,
+			       XSRIO_IMP_WCSR_OFFSET, Regval);
 	}
 
-	if(WaterMark2 > 0) {
-		Regval = ((Regval & ~XSRIO_IMP_WCSR_WM2_MASK) | 
-			((WaterMark2 << XSRIO_IMP_WCSR_WM2_SHIFT) & 
-				 XSRIO_IMP_WCSR_WM2_MASK));
-		XSrio_WriteReg((InstancePtr)->Config.BaseAddress, 
-				XSRIO_IMP_WCSR_OFFSET, Regval);
+	if (WaterMark1 > WaterMark2) {
+		Regval = ((Regval & ~XSRIO_IMP_WCSR_WM1_MASK) |
+			  ((WaterMark1 << XSRIO_IMP_WCSR_WM1_SHIFT) &
+			   XSRIO_IMP_WCSR_WM1_MASK));
+		XSrio_WriteReg((InstancePtr)->Config.BaseAddress,
+			       XSRIO_IMP_WCSR_OFFSET, Regval);
+	}
+
+	if (WaterMark2 > 0) {
+		Regval = ((Regval & ~XSRIO_IMP_WCSR_WM2_MASK) |
+			  ((WaterMark2 << XSRIO_IMP_WCSR_WM2_SHIFT) &
+			   XSRIO_IMP_WCSR_WM2_MASK));
+		XSrio_WriteReg((InstancePtr)->Config.BaseAddress,
+			       XSRIO_IMP_WCSR_OFFSET, Regval);
 	}
 }
 
@@ -272,26 +282,26 @@ void XSrio_SetWaterMark(XSrio *InstancePtr, u8 WaterMark0, u8 WaterMark1,
 *		back the water mark 1 value.
 * @param	WaterMark2 is a pointer to a variable where the driver will pass
 *		back the water mark 2 value.
-* 
+*
 * @return 	None.
 *
 * @note:        None.
 *
 *****************************************************************************/
 void XSrio_GetWaterMark(XSrio *InstancePtr, u8 *WaterMark0, u8 *WaterMark1,
-					u8 *WaterMark2)
+			u8 *WaterMark2)
 {
 	int Regval;
 	Xil_AssertVoid(InstancePtr != NULL);
-	
+
 	Regval = XSrio_ReadReg(InstancePtr->Config.BaseAddress,
-				XSRIO_IMP_WCSR_OFFSET);
-				
+			       XSRIO_IMP_WCSR_OFFSET);
+
 	*WaterMark0 = (Regval & XSRIO_IMP_WCSR_WM0_MASK);
-	*WaterMark1 = ((Regval & XSRIO_IMP_WCSR_WM1_MASK) >> 
-			XSRIO_IMP_WCSR_WM1_SHIFT);
-	*WaterMark2 = ((Regval & XSRIO_IMP_WCSR_WM2_MASK) >> 
-			XSRIO_IMP_WCSR_WM2_SHIFT);
+	*WaterMark1 = ((Regval & XSRIO_IMP_WCSR_WM1_MASK) >>
+		       XSRIO_IMP_WCSR_WM1_SHIFT);
+	*WaterMark2 = ((Regval & XSRIO_IMP_WCSR_WM2_MASK) >>
+		       XSRIO_IMP_WCSR_WM2_SHIFT);
 
 }
 /** @} */

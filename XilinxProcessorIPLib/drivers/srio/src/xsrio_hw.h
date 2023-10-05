@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,9 +20,9 @@
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
-* ----- ---- -------- --------------------------------------------------------- 
+* ----- ---- -------- ---------------------------------------------------------
 * 1.0   adk  16/04/14 Initial release.
-* 
+*
 ******************************************************************************/
 
 #ifndef XSRIO_HW_H /* prevent circular inclusions */
@@ -41,8 +42,8 @@ extern "C" {
 /** @name Device registers
  *  @{
  */
- 
-/** 
+
+/**
  *  Capability Address Register Space 0x00-0x3C Registers
  */
 #define XSRIO_DEV_ID_CAR_OFFSET     0x00    /**< Device Identity CAR */
@@ -100,14 +101,14 @@ extern "C" {
 						   * Features offset 
 						   */
 #define XSRIO_SL_HEADER_OFFSET            0x00    /**< Serial Lane Block Header */
-#define XSRIO_SLS0_CSR_OFFSET(n)	  (0x10 + n*0x20)   
-                                         	  /**< Serial Lane N 
-						   * Status 0 CSR 
-						   */   
-#define XSRIO_SLS1_CSR_OFFSET(n)	  (0x14 + n*0x20) 
-						  /**< Serial Lane N 
-						   * Status 1 CSR 
-						   */
+#define XSRIO_SLS0_CSR_OFFSET(n)	  (0x10 + n*0x20)
+/**< Serial Lane N
+ * Status 0 CSR
+ */
+#define XSRIO_SLS1_CSR_OFFSET(n)	  (0x14 + n*0x20)
+/**< Serial Lane N
+ * Status 1 CSR
+ */
 /**
  * Implementation Defined Space 0x010000 - 0xFFFFFC Registers
  */
@@ -185,7 +186,7 @@ extern "C" {
 /*@}*/
 
 /** @name Source Operations CAR  bit definitions.
- *  These bits are associated with the XSRIO_SRC_OPS_CAR_OFFSET 
+ *  These bits are associated with the XSRIO_SRC_OPS_CAR_OFFSET
  *  register and XSRIO_DST_OPS_CAR register.
  * @{
  */
@@ -292,7 +293,7 @@ extern "C" {
 							   * Shift
 							   */
 /*@}*/
- 
+
 /** @name Port response timeout  value CSR bit definitions.
  *  These bits are associated with the XSRIO_PORT_RESP_TOUT_CSR_OFFSET register.
  * @{
@@ -304,7 +305,7 @@ extern "C" {
 							   * Shift
 							   */
 /*@}*/
- 
+
 /** @name Port General Control CSR bit definitions.
  *  These bits are associated with the XSRIO_PORT_GEN_CTL_CSR_OFFSET register.
  * @{
@@ -497,7 +498,7 @@ extern "C" {
 							 */
 #define XSRIO_SLS0_CSR_RCVLANE_SYNC_MASK     0x00002000 /**< Receive Lane
 							 * Sync Mask
-							 */ 
+							 */
 #define XSRIO_SLS0_CSR_RCVLANE_RDY_MASK	     0x00001000 /**< Receive Lane
 							 * Ready Mask
 							 */
@@ -520,7 +521,7 @@ extern "C" {
  *  These bits are associated with the XSRIO_SLS1_CSR(x) register.
  * @{
  */
- 
+
 #define XSRIO_SLS1_CSR_SCRDSCR_EN_MASK   0x00008000 /**< Connected port
 						     * Scrambling/Descrambling 
 						     * Enabled Mask
@@ -582,11 +583,11 @@ extern "C" {
 #define XSRIO_IMP_BCSR_TXSIZE_MASK 	     0x07FF0000 /**< Tx size Mask */
 #define XSRIO_IMP_BCSR_FRX_FLOW_CNTL_MASK    0x00008000 /**< Force Rx flow
 							 * Control Mask 
-							 */ 
+							 */
 #define XSRIO_IMP_BCSR_RXSIZE_MASK           0x000000FF /**< Rx size Mask */
 #define XSRIO_IMP_BCSR_TXSIZE_SHIFT	     16		/**< Tx size shift */
 /*@}*/
- 
+
 /** @name Maintenance Request Information Register bit definitions.
  *  These bits are associated with the XSRIO_IMP_MRIR_OFFSET register.
  * @{
@@ -597,9 +598,9 @@ extern "C" {
 #define XSRIO_IMP_MRIR_REQ_DESTID_MASK  0x0000FFFF /**< Request Destination
 					            * ID Mask
 						    */
-#define XSRIO_IMP_MRIR_REQ_PRIO_SHIFT	   17 
-#define XSRIO_IMP_MRIR_REQ_CRF_SHIFT	   16  
-#define XSRIO_IMP_MRIR_REQ_TID_SHIFT	   24 
+#define XSRIO_IMP_MRIR_REQ_PRIO_SHIFT	   17
+#define XSRIO_IMP_MRIR_REQ_CRF_SHIFT	   16
+#define XSRIO_IMP_MRIR_REQ_TID_SHIFT	   24
 
 /*@}*/
 
@@ -618,7 +619,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XSrio_ReadReg(BaseAddress, RegOffset) \
-        Xil_In32((BaseAddress) + (RegOffset))
+	Xil_In32((BaseAddress) + (RegOffset))
 
 
 /*****************************************************************************/
@@ -637,7 +638,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XSrio_WriteReg(BaseAddress, RegOffset, Data) \
-        Xil_Out32((BaseAddress) + (RegOffset), (Data))
+	Xil_Out32((BaseAddress) + (RegOffset), (Data))
 /*************************** Variable Definitions ****************************/
 
 /*************************** Function Prototypes *****************************/
