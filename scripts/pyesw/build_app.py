@@ -58,21 +58,15 @@ def build_app(args):
     obj.app_build_dir = obj.app_build_dir.replace('\\', '/')
 
     app_name = utils.fetch_yaml_data(obj.app_config_file, "template")["template"]
-    enable_lopper = False
-    if app_name in ['openamp_echo_test', 'openamp_matrix_multiply', 'openamp_rpc_demo', 'libmetal_echo_demo']:
+    bsp_obj = BSP(args)
+    overlay_path = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'domain.yaml')
+    if app_name in ['openamp_echo_test', 'openamp_matrix_multiply', 'openamp_rpc_demo'] and is_file(overlay_path):
         bsp_obj = BSP(args)
 
-        # only applicable for openamp
-        if app_name != 'libmetal_echo_demo':
-            overlay_path = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'domain.yaml')
-
-            if is_file(overlay_path):
-                original_sdt = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'sdt.dts')
-                print('Domain YAML is found. Passing this in to a OpenAMP Lopper run to generate platform info header.')
-                enable_lopper = True
-                openamp_lopper_run(overlay_path, original_sdt, obj.app_src_dir)
-            else:
-                print('Domain YAML is NOT found. Generating with prebuilt OpenAMP Repo source.')
+        original_sdt = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'sdt.dts')
+        print('Domain YAML is found. Passing this in to a OpenAMP Lopper run to generate platform info header.')
+        enable_lopper = True
+        openamp_lopper_run(overlay_path, original_sdt, obj.app_src_dir)
 
         args['src_dir'] = bsp_obj.domain_path
         args['template'] = app_name
