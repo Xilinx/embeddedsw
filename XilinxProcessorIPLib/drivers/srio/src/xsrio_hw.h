@@ -7,7 +7,7 @@
 /**
 *
 * @file xsrio_hw.h
-* @addtogroup srio_v1_4
+* @addtogroup srio Overview
 * @{
 *
 * This header file contains identifiers and macros that can be used to access
