@@ -1,3 +1,3 @@
 # Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
-get_property (APP_NAME GLOBAL PROPERTY APP_NAME)
-add_subdirectory (${APP_NAME})
+get_property (OPENAMP_APP_NAME GLOBAL PROPERTY OPENAMP_APP_NAME)
+add_subdirectory (${OPENAMP_APP_NAME})
