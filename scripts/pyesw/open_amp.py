@@ -46,6 +46,10 @@ def open_amp_copy_lib_src(libdir, dstdir, lib):
     top_dstdir = os.path.join(dstdir, 'CMakeLists.txt')
     utils.copy_file(top_srcdir, top_dstdir)
 
+    # Add this file to specify cleanup properly of the library
+    new_lib_cmake = os.path.join(libdir, "src", "sdt", "lib-CMakeLists.txt")
+    utils.copy_file(new_lib_cmake, os.path.join(dstdir, "lib", "CMakeLists.txt"))
+
     if lib == 'openamp':
         new_depends_cmake = os.path.join(libdir, "src", "sdt", "depends.cmake")
         utils.copy_file(new_depends_cmake, os.path.join(dstdir, "cmake", "depends.cmake"))
