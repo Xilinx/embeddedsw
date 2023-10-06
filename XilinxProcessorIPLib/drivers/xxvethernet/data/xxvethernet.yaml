@@ -17,6 +17,7 @@ properties:
           - xlnx,xxv-ethernet-4.0
           - xlnx,xxv-ethernet-3.1
           - xlnx,xxv-ethernet-1.0
+          - xlnx,xxv-usxgmii-ethernet-1.0
   reg:
     description: Physical base address and size of the controller register map
   xlnx,statistics-counters:
@@ -39,9 +40,11 @@ examples:
             - xxxvethernet_example_util.c
             - xxxvethernet_example.h
         - axistream-connected: 3
+        - compatible : xlnx,xxv-ethernet-1.0
     xxxvethernet_usxgmii_example_intr_mcdma.c:
         - dependency_files:
             - xxxvethernet_example_util.c
             - xxxvethernet_example.h
         - axistream-connected: 3
+        - compatible : xlnx,xxv-usxgmii-ethernet-1.0
 ...
