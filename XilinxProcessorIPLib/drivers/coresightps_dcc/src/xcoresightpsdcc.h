@@ -34,6 +34,7 @@
 *                       for MB BSPs. Instead it throws up a warning. This
 *                       fixes the CR#953056.
 * 1.5   sne    01/19/19 Fixed MISRA-C Violations CR#1025101.
+* 1.10  mus    10/06/23 Fix compilation error for Microblaze RISC-V processor.
 *
 * </pre>
 *
@@ -42,7 +43,7 @@
 /***************************** Include Files *********************************/
 #ifndef XCORESIGHTPSDCC_H                /* prevent circular inclusions */
 #define XCORESIGHTPSDCC_H                /* by using protection macros */
-#ifndef __MICROBLAZE__
+#if ! defined(__MICROBLAZE__) && ! defined(__riscv)
 #include <xil_types.h>
 
 void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data);
