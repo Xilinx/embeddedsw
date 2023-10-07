@@ -12,7 +12,7 @@ struct memory_range_s {
     char8 *name;
     char8 *ip;
     UINTPTR base;
-    u32 size;
+    u64 size;
 };
 
 #define UPPER_4BYTES_MASK	0xFFFFFFFF00000000LL
