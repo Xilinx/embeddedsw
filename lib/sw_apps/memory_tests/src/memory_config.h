@@ -9,10 +9,10 @@
 
 #include "xil_types.h"
 struct memory_range_s {
-    char8 *name;
-    char8 *ip;
-    UINTPTR base;
-    u64 size;
+	char8 *name;
+	char8 *ip;
+	UINTPTR base;
+	u64 size;
 };
 
 #define UPPER_4BYTES_MASK	0xFFFFFFFF00000000LL
