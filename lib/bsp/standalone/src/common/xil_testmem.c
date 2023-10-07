@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +35,8 @@
 * 		      21_2 violation.
 * 7.7	sk   01/10/22 Remove arithematic operations on pointer varaible to fix
 * 		      misra_c_2012_rule_18_4 violation.
+* 9.0   ml   08/30/23 Update Memory tests API in BSP, to not to stress test by
+                      default.
 * </pre>
 *
 *****************************************************************************/
@@ -136,7 +139,7 @@ s32 Xil_TestMem8(u32 Addrlow, u32 Addrhigh, u32 Words, u8 Pattern, u8 Subtest)
 			Val++;
 		}
 	}
-
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
 	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_WALKONES)) {
 		/*
 		 * set up to cycle through all possible initial
@@ -274,7 +277,7 @@ s32 Xil_TestMem8(u32 Addrlow, u32 Addrhigh, u32 Words, u8 Pattern, u8 Subtest)
 			}
 		}
 	}
-
+#endif
 End_Label:
 	return Status;
 }
@@ -364,7 +367,7 @@ s32 Xil_TestMem16(u32 Addrlow,u32 Addrhigh, u32 Words, u16 Pattern, u8 Subtest)
 			I = I + NUM_OF_BYTES_IN_HW;
 		}
 	}
-
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
 	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_WALKONES)) {
 		/*
 		 * set up to cycle through all possible initial test
@@ -514,6 +517,7 @@ s32 Xil_TestMem16(u32 Addrlow,u32 Addrhigh, u32 Words, u16 Pattern, u8 Subtest)
 			I = I + NUM_OF_BYTES_IN_HW;
 		}
 	}
+#endif
 End_Label:
 	return Status;
 }
@@ -600,7 +604,7 @@ s32 Xil_TestMem32(u32 Addrlow, u32 Addrhigh, u32 Words, u32 Pattern, u8 Subtest)
 			I = I + NUM_OF_BYTES_IN_WORD;
 		}
 	}
-
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
 	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_WALKONES)) {
 		/*
 		 * set up to cycle through all possible initial
@@ -769,7 +773,7 @@ s32 Xil_TestMem32(u32 Addrlow, u32 Addrhigh, u32 Words, u32 Pattern, u8 Subtest)
 			I = I + NUM_OF_BYTES_IN_WORD;
 		}
 	}
-
+#endif
 End_Label:
 	return Status;
 }
@@ -855,7 +859,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 			Val++;
 		}
 	}
-
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
 	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_WALKONES)) {
 		/*
 		 * set up to cycle through all possible initial
@@ -1016,7 +1020,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 			}
 		}
 	}
-
+#endif
 End_Label:
 	return Status;
 }
@@ -1102,7 +1106,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 			Val++;
 		}
 	}
-
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
 	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_WALKONES)) {
 		/*
 		 * set up to cycle through all possible initial test
@@ -1246,7 +1250,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 			}
 		}
 	}
-
+#endif
 End_Label:
 	return Status;
 }
@@ -1333,7 +1337,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 			Val++;
 		}
 	}
-
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
 	if((Subtest == XIL_TESTMEM_ALLMEMTESTS) || (Subtest == XIL_TESTMEM_WALKONES)) {
 		/*
 		 * set up to cycle through all possible initial
@@ -1471,7 +1475,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 			}
 		}
 	}
-
+#endif
 End_Label:
 	return Status;
 }
