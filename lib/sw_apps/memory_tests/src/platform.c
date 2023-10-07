@@ -48,7 +48,7 @@ init_platform()
 {
     enable_caches();
 
-#ifdef __arm__
+#if defined (__arm__) || defined (__aarch64__)
     // For ARM, BSP enables caches by default. Disable them here.
     // See reason above for disabling D Cache
     Xil_DCacheDisable();
