@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.2   kpt  06/25/23 Initial release
+* 5.3   am   09/28/23 Added wrapper function prototypes for IPCore's RSA APIs
 *
 * </pre>
 *
@@ -28,7 +29,9 @@
 #define XSECURE_PLAT_RSA_H_
 
 #ifdef __cplusplus
-extern "C" {
+#define externC extern "C"
+#else
+#define externC extern
 #endif
 
 #ifndef PLM_RSA_EXCLUDE
@@ -38,12 +41,14 @@ extern "C" {
 #include "xil_types.h"
 #include "xsecure_rsa_core.h"
 #include "xsecure_mgf.h"
+#include "Rsa.h"
 
 /************************** Constant Definitions ****************************/
 
 #ifndef XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES
 #define XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES (XSECURE_RSA_3072_SIZE_WORDS * 4U) /**< RSA default key size in bytes */
 #endif
+#define XSECURE_ECDSA_RSA_SOFT_RESET		(0xF1200040U) /**< ECDSA/RSA soft reset address */
 
 /***************************** Type Definitions ******************************/
 
@@ -71,11 +76,21 @@ int XSecure_RsaOaepDecrypt(XSecure_Rsa *InstancePtr, XSecure_RsaOaepParam *OaepP
 XSecure_RsaKey *XSecure_GetRsaPrivateKey(void);
 XSecure_RsaKey *XSecure_GetRsaPublicKey(void);
 
-#endif
+/**
+ * @name Wrapper function prototypes for IPCores RSA quiet mode APIs
+ * @{
+ */
+/**< Wrapper prototype declarations for IPCores APIs for RSA "quiet" operations */
+int XSecure_RsaExpCRT(unsigned char *Hash, unsigned char *P, unsigned char *Q,
+	unsigned char *Dp, unsigned char *Dq, unsigned char *Qinv, unsigned char *Pub,
+	unsigned char *Mod, int Len, unsigned char *Res);
 
-#ifdef __cplusplus
-}
-#endif
+int XSecure_RsaExp(unsigned char *Hash, unsigned char *Exp, unsigned char *Mod,
+	unsigned char *P, unsigned char *Q, unsigned char *Pub, unsigned char *Tot,
+	int Len, unsigned char *Res);
+/** @} */
+
+#endif	/* PLM_RSA_EXCLUDE_H_ */
 
 #endif /* XSECURE_PLAT_RSA_H_ */
 /* @} */
