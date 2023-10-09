@@ -22,6 +22,7 @@
 *       kal  05/28/23 Added SW PCR extend and logging functions
 *       bm   06/23/23 Added access permissions for IPI commands
 *       har  07/21/23 Add access permission for XOCP_API_GEN_SHARED_SECRET
+* 1.3   tri  10/09/23 Added support to handle cdo chunk boundary
 *
 * </pre>
 *
@@ -220,7 +221,12 @@ static int XOcp_DevAkInput(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
-	Status = XOcp_DevAkInputStore(Pload[0], (u8 *)(UINTPTR)&Pload[1]);
+	if (Cmd->ProcessedLen != 0) {
+		Status = (int)XOCP_ERR_CHUNK_BOUNDARY_CROSSED;
+	}
+	else {
+		Status = XOcp_DevAkInputStore(Pload[0], (u8 *)(UINTPTR)&Pload[1]);
+	}
 
 	return Status;
 }
@@ -246,7 +252,12 @@ static int XOcp_GetCertUserCfg(XPlmi_Cmd *Cmd)
 				XOCP_CERT_USERIN_FIELD_SHIFT;
 	u8 LenInBytes = Pload[1] & XOCP_CERT_USERIN_LEN_MASK;
 
-	Status = XCert_StoreCertUserInput(SubsystemId, FieldType, (u8 *)(UINTPTR)&Pload[2], LenInBytes);
+	if (Cmd->ProcessedLen != 0) {
+		Status = (int)XOCP_ERR_CHUNK_BOUNDARY_CROSSED;
+	}
+	else {
+		Status = XCert_StoreCertUserInput(SubsystemId, FieldType, (u8 *)(UINTPTR)&Pload[2], LenInBytes);
+	}
 
 	return Status;
 }
