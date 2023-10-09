@@ -38,6 +38,7 @@
  *       kpt  07/09/2023 Added error codes for RSA OAEP
  *       kpt  07/10/2023 Added error code for key unwrap
  *       yog  09/04/2023 Removed TRNG error codes
+ * 5.3   am   09/28/2023 Added error code XSECURE_RSA_EXPONENT_INVALID_PARAM
  *
  * </pre>
  *
@@ -163,6 +164,7 @@ typedef enum {
 	XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR,	/**< 0x87 - RSA when decrypted data doesn't
 							match with plain text */
 	XSECURE_RSA_KAT_PSS_SIGN_VER_ERROR,		/**< 0x88 - RSA pss sign verification failed */
+	XSECURE_RSA_EXPONENT_INVALID_PARAM,		/**< 0x89 - RSA Exponent invalid parameter */
 
 	/* The error codes from 0x90 to 0xBF are reserved for Versal net platform */
 	XSECURE_HMAC_KAT_INIT_ERROR = 0x90,		/**< 0x90 - HMAC init failure */

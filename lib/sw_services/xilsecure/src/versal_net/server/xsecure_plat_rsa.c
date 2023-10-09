@@ -16,6 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   kpt     06/23/23 Initial release
+* 5.3   am      09/28/23 Added wrapper functions for IPCore's RSA APIs
 *
 * </pre>
 *
@@ -475,6 +476,93 @@ XSecure_RsaKey *XSecure_GetRsaPublicKey(void)
 #endif
 
 	return &RsaPubKey;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function performs the RSA exponentiation using the
+ *              Chinese remainder theorem(CRT).
+ *
+ * @param	Hash - is the Hash of the exponentiation.
+ * @param	P    - is first factor, a positive integer.
+ * @param	Q    - is second factor, a positive integer.
+ * @param	Dp   - is first factor's CRT exponent, a positive integer.
+ * @param	Dq   - is second factor's CRT exponent, a positive integer.
+ * @param	Qinv - is (first) CRT coefficient, a positive integer.
+ * @param	Pub  - is the public exponent to protect against the fault insertions.
+ * @param	Mod  - is the public modulus (p*q), if NULL, calculated internally.
+ * @param	Len  - is length of the full-length integer in bits.
+ * @param	Res  - is result of exponentiation r = (h^e) mod n.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+ ******************************************************************************/
+int XSecure_RsaExpCRT(unsigned char *Hash, unsigned char *P, unsigned char *Q,
+	unsigned char *Dp, unsigned char *Dq, unsigned char *Qinv, unsigned char *Pub,
+	unsigned char *Mod, int Len, unsigned char *Res)
+{
+	volatile int Status = XST_FAILURE;
+
+	if ((Hash == NULL) || (P == NULL) || (Q == NULL) || (Dp == NULL) ||
+		(Dq == NULL) || (Qinv == NULL) || (Res == NULL)) {
+		Status = XSECURE_RSA_EXPONENT_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Release the RSA engine from reset */
+	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 0U);
+
+	Status = RSA_ExpCrtQ(Hash, P, Q, Dp, Dq, Qinv, Pub, Mod, Len, Res);
+
+	/** Reset the RSA engine */
+	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 1U);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function perofrms the RSA exponentiation.
+ *
+ * @param	Hash - is Hash of the exponentiation.
+ * @param	Exp  - is exponent, a positive integer.
+ * @param	Mod  - is public modulus (p*q), if NULL, calculated internally.
+ * @param	P    - is first factor, a positive integer.
+ * @param	Q    - is second factor, a positive integer.
+ * @param	Pub  - is public exponent to protect against the fault insertions.
+ * @param	Tot  - is totient, a secret value equal to (p-1)*(q-1).
+ * @param	Len  - is length of the full-length integer in bits.
+ * @param	Res  - is result of exponentiation r = (h^e) mod n.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+ ******************************************************************************/
+int XSecure_RsaExp(unsigned char *Hash, unsigned char *Exp, unsigned char *Mod,
+	unsigned char *P, unsigned char *Q, unsigned char *Pub, unsigned char *Tot,
+	int Len, unsigned char *Res)
+{
+	volatile int Status = XST_FAILURE;
+
+	if ((Hash == NULL) || (Exp == NULL) || (Mod == NULL) || (Res == NULL)) {
+		Status = XSECURE_RSA_EXPONENT_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Release the RSA engine from reset */
+	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 0U);
+
+	Status = RSA_ExpQ(Hash, Exp, Mod, P, Q, Pub, Tot, Len, Res);
+
+	/** Reset the RSA engine */
+	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 1U);
+
+END:
+	return Status;
 }
 
 #endif
