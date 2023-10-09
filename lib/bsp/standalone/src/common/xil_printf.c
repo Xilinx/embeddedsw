@@ -275,11 +275,12 @@ void xil_vprintf(const char8 *ctrl1, va_list argp)
     s32 long_flag;
 #endif
     s32 dot_flag;
-
+    u32 width,index;
     params_t par;
 
     u8 ch;
     char8 *ctrl = (char8 *)ctrl1;
+    const char* string;
 
     while ((ctrl != NULL) && (*ctrl != (char8)0)) {
 
@@ -349,8 +350,18 @@ void xil_vprintf(const char8 *ctrl1, va_list argp)
                 break;
 
             case '.':
+		if ((*(ctrl + 1)== '*') && (*(ctrl + 2) == 's')) {
+	        width = va_arg(argp, u32);
+	        string = va_arg(argp, const char*);
+		for (index = 0; index < width && string[index] != '\0' ; index++){
+		outbyte(string[index]);
+		}
+		ctrl += 2;
+		}
+		else {
                 dot_flag = 1;
                 Check = 0;
+		}
                 break;
 
             case 'l':
