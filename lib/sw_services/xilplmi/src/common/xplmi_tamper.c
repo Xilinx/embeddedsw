@@ -28,6 +28,7 @@
 * 1.03  sk   07/18/2023 Added NULL check in RegisterTamperIntrHandler
 *       sk   08/17/2023 Updated XPlmi_EmSetAction arguments
 *       dd   09/12/2023 MISRA-C violation Rule 17.7 fixed
+* 1.04  ma   10/10/2023 Added redundancy to TAMPER_RESP_0 and TAMPER_TRIG writes
 *
 * </pre>
 *
@@ -196,13 +197,13 @@ static int XPlmi_ProcessTamperResponse(void *Data)
 	/**
 	 * Configure TAMPER_RESP_0 with the received response
 	 */
-	Xil_Out32(PMC_GLOBAL_TAMPER_RESP_0, TamperResponse);
+	XSECURE_REDUNDANT_IMPL(XPlmi_Out32, PMC_GLOBAL_TAMPER_RESP_0, TamperResponse);
 
 	/**
 	 * Trigger software tamper event to ROM to execute lockdown
 	 * for PMC
 	 */
-	Xil_Out32(PMC_GLOBAL_TAMPER_TRIG, PMC_GLOBAL_TAMPER_TRIG_VAL);
+	XSECURE_REDUNDANT_IMPL(XPlmi_Out32, PMC_GLOBAL_TAMPER_TRIG, PMC_GLOBAL_TAMPER_TRIG_VAL);
 
 	/**
 	 * Wait forever; ROM to complete secure lockdown
