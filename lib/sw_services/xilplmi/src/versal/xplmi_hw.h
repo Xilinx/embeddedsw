@@ -88,6 +88,7 @@
 *                       IHT OP data store address
 *       ng   07/13/2023 Added support for system device-tree flow
 *       bm   09/07/2023 Allow loading of ELFs into XRAM
+* 1.11  ma   10/10/2023 Enable Slave Error for PSM_GLOBAL
 *
 * </pre>
 *
@@ -875,6 +876,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  * Definitions required from psm_global_reg
  */
 #define PSM_GLOBAL_REG_BASEADDR			(0XFFC90000U)
+#define PSM_GLOBAL_REG_GLOBAL_CNTRL_SLVERR_ENABLE_MASK	(0x2U)
 #define PSM_GLOBAL_REG_PSM_CR_ERR1_DIS	(PSM_GLOBAL_REG_BASEADDR + 0X00001028U)
 #define PSM_GLOBAL_REG_PSM_NCR_ERR1_DIS	(PSM_GLOBAL_REG_BASEADDR + 0X00001048U)
 #define PSM_GLOBAL_REG_PSM_IRQ1_DIS	(PSM_GLOBAL_REG_BASEADDR + 0X00001068U)
