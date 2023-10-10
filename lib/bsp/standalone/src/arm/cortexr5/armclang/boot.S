@@ -1,5 +1,6 @@
 ;/******************************************************************************
-;* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+;* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+;* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ;* SPDX-License-Identifier: MIT
 ;******************************************************************************/
 ;/*****************************************************************************/
@@ -33,6 +34,11 @@
 ;* Ver   Who  Date     Changes
 ;* ----- ---- -------- ---------------------------------------------------
 ;* 7.3  dp  06/25/20   Initial version for armclang
+;* 9.1  mus 10/10/23   Fix stack initialization for IRQ, FIQ, supervisory,
+;*                     undefine, and abort mode. It is incorrectly pointing
+;*                     to start of stack address space, it should point to
+;*                     end of stack address space, since CortexR5 stack
+;*                     works in descending order. It fixes CR#1177971.
 ;* </pre>
 ;*
 ;******************************************************************************/
@@ -40,12 +46,12 @@
 
 	EXPORT _prestart
 	EXPORT _boot
-	IMPORT |Image$$ARM_LIB_STACK$$Base|
-	IMPORT |Image$$ARM_IRQ_STACK$$Base|
-	IMPORT |Image$$ARM_SV_STACK$$Base|
-	IMPORT |Image$$ARM_ABORT_STACK$$Base|
-	IMPORT |Image$$ARM_FIQ_STACK$$Base|
-	IMPORT |Image$$ARM_UNDEF_STACK$$Base|
+	IMPORT |Image$$ARM_LIB_STACK$$ZI$$Base|
+	IMPORT |Image$$ARM_IRQ_STACK$$ZI$$Limit|
+	IMPORT |Image$$ARM_SV_STACK$$ZI$$Limit|
+	IMPORT |Image$$ARM_ABORT_STACK$$ZI$$Limit|
+	IMPORT |Image$$ARM_FIQ_STACK$$ZI$$Limit|
+	IMPORT |Image$$ARM_UNDEF_STACK$$ZI$$Limit|
 	IMPORT Init_MPU
 	IMPORT _startup
 
@@ -99,7 +105,7 @@ OKToRun
 	and	r2, r1, r0
 	orr	r2, r2, #0x12			;IRQ mode
 	msr	cpsr_cxsf, r2
-	ldr	r13,=|Image$$ARM_IRQ_STACK$$Base|	;IRQ stack pointer
+	ldr	r13,=|Image$$ARM_IRQ_STACK$$ZI$$Limit|	;IRQ stack pointer
 	mov 	r14,#0
 
 	mrs	r0, cpsr			;get the current PSR
@@ -107,7 +113,7 @@ OKToRun
 	and	r2, r1, r0
 	orr	r2, r2, #0x13			;supervisor mode
 	msr	cpsr_cxsf, r2
-	ldr	r13,=|Image$$ARM_SV_STACK$$Base|	;Supervisor stack pointer
+	ldr	r13,=|Image$$ARM_SV_STACK$$ZI$$Limit|	;Supervisor stack pointer
 	mov 	r14,#0
 
 	mrs	r0, cpsr			;get the current PSR
@@ -115,7 +121,7 @@ OKToRun
 	and	r2, r1, r0
 	orr	r2, r2, #0x17			;Abort mode
 	msr	cpsr_cxsf, r2
-	ldr	r13,=|Image$$ARM_ABORT_STACK$$Base|	;Abort stack pointer
+	ldr	r13,=|Image$$ARM_ABORT_STACK$$ZI$$Limit|	;Abort stack pointer
 	mov 	r14,#0
 
 	mrs	r0, cpsr			;get the current PSR
@@ -128,7 +134,7 @@ OKToRun
 	mov 	r10, #0
 	mov 	r11, #0
 	mov 	r12, #0
-	ldr	r13,=|Image$$ARM_FIQ_STACK$$Base|	;FIQ stack pointer
+	ldr	r13,=|Image$$ARM_FIQ_STACK$$ZI$$Limit|	;FIQ stack pointer
 	mov 	r14,#0
 
 	mrs	r0, cpsr			;get the current PSR
@@ -136,7 +142,7 @@ OKToRun
 	and	r2, r1, r0
 	orr	r2, r2, #0x1b			;Undefine mode
 	msr	cpsr_cxsf, r2
-	ldr	r13,=|Image$$ARM_UNDEF_STACK$$Base|	;Undefine stack pointer
+	ldr	r13,=|Image$$ARM_UNDEF_STACK$$ZI$$Limit|	;Undefine stack pointer
 	mov 	r14,#0
 
 	mrs	r0, cpsr			;get the current PSR
@@ -144,7 +150,7 @@ OKToRun
 	and	r2, r1, r0
 	orr	r2, r2, #0x1F			;SYS mode
 	msr	cpsr_cxsf, r2
-	ldr	r13,=|Image$$ARM_LIB_STACK$$Base|	;SYS stack pointer
+	ldr	r13,=|Image$$ARM_LIB_STACK$$ZI$$Base|	;SYS stack pointer
 	mov 	r14,#0
 
 ;Enable access to VFP by enabling access to Coprocessors 10 and 11.
