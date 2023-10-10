@@ -56,6 +56,7 @@
 * 1.08  sk   07/18/2023 Warn out for uart init fail
 *       sk   07/26/2023 Added redundant check for XPlmi_IsPlmUpdateDone
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
+* 1.09  ma   10/10/2023 Enable Slave Error for PSM_GLOBAL
 *
 * </pre>
 *
@@ -208,6 +209,12 @@ void XPlmi_LpdInit(void)
 			goto END;
 		}
 		XPlmi_SetLpdInitialized(LPD_INITIALIZED);
+		/**
+		 * Enable Slave Error for PSM Global
+		 */
+		XPlmi_UtilRMW(PSM_GLOBAL_REG_BASEADDR,
+				PSM_GLOBAL_REG_GLOBAL_CNTRL_SLVERR_ENABLE_MASK,
+				PSM_GLOBAL_REG_GLOBAL_CNTRL_SLVERR_ENABLE_MASK);
 		XPlmi_PrintEarlyLog();
 	}
 
