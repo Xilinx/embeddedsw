@@ -1274,7 +1274,7 @@ extern "C" {
 #endif
 /** @} */
 
-#ifdef __MICROBLAZE__
+#if defined (__MICROBLAZE__) || defined (__riscv)
 #define XPS_SYS_CTRL_BASEADDR	0xFF180000U	/**< System controller Baseaddress */
 #endif
 
