@@ -68,7 +68,4 @@ examples:
     - xlnx,enable-window-wdt : 1
     - compatible : xlnx,axi-timebase-wdt-3.0
     - interrupts
-
-depends:
-   clockps: []
 ...
