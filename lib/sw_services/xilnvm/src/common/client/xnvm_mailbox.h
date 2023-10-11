@@ -28,6 +28,7 @@
 *       am   03/21/23 Match the shared memory size in secure library to reuse for customer
 *       kal  09/14/23 Added XNvm_SetSlrIndex function
 *       vss  09/19/23 Fixed MISRA-C 12.2 violation
+* 3.3   tri  10/10/23 Fixed MISRA-C 5.5 violation
 *
 * </pre>
 * @note
@@ -82,10 +83,10 @@ typedef struct {
 
 /**< Enumeration constants for SlrIndex*/
 typedef enum{
-	XNVM_SLR_INDEX_0 = 0,	/**< SLR_INDEX_0 */
-	XNVM_SLR_INDEX_1,	/**< SLR_INDEX_1 */
-	XNVM_SLR_INDEX_2,	/**< SLR_INDEX_2 */
-	XNVM_SLR_INDEX_3	/**< SLR_INDEX_3 */
+	XNVM_SLR_IDX_0 = 0,	/**< SLR_INDEX_0 */
+	XNVM_SLR_IDX_1,	/**< SLR_INDEX_1 */
+	XNVM_SLR_IDX_2,	/**< SLR_INDEX_2 */
+	XNVM_SLR_IDX_3	/**< SLR_INDEX_3 */
 } XNvm_SlrIndex;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -114,7 +115,7 @@ static inline int XNvm_SetSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrInde
 {
 	int Status = XST_FAILURE;
 
-	if (SlrIndex <= (u32)XNVM_SLR_INDEX_3) {
+	if (SlrIndex <= (u32)XNVM_SLR_IDX_3) {
 		/**< Validate SlrIndex and assign it to instance pointer */
 		InstancePtr->SlrIndex = SlrIndex;
 		Status = XST_SUCCESS;
