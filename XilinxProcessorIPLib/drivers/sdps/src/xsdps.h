@@ -163,6 +163,7 @@
 * 	sa     01/25/23	Use instance structure to store DMA descriptor tables.
 * 4.2   ro     06/12/23 Added support for system device-tree flow.
 * 4.2   ap     08/09/23 Reordered XSdPs_FrameCmd XSdPs_Identify_UhsMode functions
+* 4.3   ap     10/11/23 Resolved compilation errors with Microblaze RISC-V
 *
 * </pre>
 *
