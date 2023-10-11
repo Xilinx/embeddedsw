@@ -85,7 +85,7 @@ proc generate_cci_params {drv_handle file_name} {
 			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "REF_CLK"] $ref_tag"
 		}
 		if {$processor_type == "psv_cortexa72" || $processor_type == "psu_cortexa78" } {
-			set fbclk [get_property CONFIG.PMC_QSPI_FBCLK [get_cells -hier -filter {IP_NAME =~ "*pspmc*"}]]
+			set fbclk [get_property CONFIG.PMC_QSPI_FBCLK [get_cells -hier -filter {IP_NAME =~ "*pspmc*" || IP_NAME =~ "*pmcps*"}]]
 			if {[regexp "ENABLE 1" $fbclk matched]} {
 				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "QSPI_FBCLK"] 1$uSuffix"
 				set fbclk_status 1
