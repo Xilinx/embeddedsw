@@ -12,6 +12,7 @@
 # 4.1   hk    11/21/18 Add additional LFN options
 # 4.2   aru   07/10/19 Fix coverity warnings
 # 5.2   ht    09/12/23 Added code for versioning of library.
+# 5.2   ap    10/11/23 Add TRIM option for SDT flow.
 ##############################################################################
 
 OPTION psf_version = 2.1;
