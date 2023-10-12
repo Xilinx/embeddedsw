@@ -652,13 +652,6 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress,
 					  Mask, 0U);
 			}
-
-			if ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE == IsoIdx) {
-				/* Select AXI lite clock from PL */
-				XPm_RMW32(XRAM_SLCR_BASEADDR + XRAM_SLCR_APB_CLK_OFFSET,
-					  XRAM_SLCR_APB_CLK_SRC_AXI_LITE_CLK_MASK,
-					  XRAM_SLCR_APB_CLK_SRC_AXI_LITE_CLK_MASK);
-			}
 		} else {
 			if (((u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0 <= IsoIdx) &&
 			    ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE >= IsoIdx)) {
