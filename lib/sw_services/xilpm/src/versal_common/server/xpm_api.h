@@ -190,6 +190,8 @@ XStatus XPm_GetPinParameter(const u32 PinId,
 XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId);
 
 XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId);
+
+XStatus XPm_AddHbMonDevice(const u32 DeviceId);
 #ifdef __cplusplus
 }
 #endif

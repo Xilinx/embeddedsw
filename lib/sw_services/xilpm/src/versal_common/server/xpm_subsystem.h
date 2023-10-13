@@ -132,6 +132,7 @@ XStatus XPmSubsystem_AddPermission(const XPm_Subsystem *Host,
 XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId);
 XStatus XPmSubsystem_Destroy(u32 SubsystemId);
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType);
+XStatus XPmSubsystem_NotifyHealthyBoot(const u32 SubsystemId);
 
 #ifdef __cplusplus
 }

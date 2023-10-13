@@ -40,7 +40,6 @@ maybe_unused static XStatus IsDevExcluded(const u32 DevId)
 
 /************************** Function Prototypes ******************************/
 
-XStatus XPmSubsystem_NotifyHealthyBoot(const u32 SubsystemId);
 XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 					const u32 Operation, const u32 CmdType);
 

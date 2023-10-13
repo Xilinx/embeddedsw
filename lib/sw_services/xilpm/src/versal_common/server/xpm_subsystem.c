@@ -932,3 +932,36 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 done:
 	return Status;
 }
+
+/*
+ * Handle the healthy boot notification from the subsystem
+ */
+XStatus XPmSubsystem_NotifyHealthyBoot(const u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device;
+	const XPm_Requirement *Reqm;
+	u32 Idx;
+
+	for (Idx = (u32)XPM_NODEIDX_DEV_HB_MON_0;
+			Idx < (u32)XPM_NODEIDX_DEV_HB_MON_MAX; Idx++) {
+		/*
+		 * Iterate through available Healthy Boot Monitor nodes
+		 * and release it, if it is part of the given subsystem
+		 */
+		Device = XPmDevice_GetHbMonDeviceByIndex(Idx);
+		if (NULL != Device) {
+			Reqm = XPmDevice_FindRequirement(Device->Node.Id, SubsystemId);
+			if (NULL != Reqm) {
+				Status = XPmDevice_Release(SubsystemId, Device->Node.Id,
+							   XPLMI_CMD_SECURE);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+			}
+		}
+	}
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}

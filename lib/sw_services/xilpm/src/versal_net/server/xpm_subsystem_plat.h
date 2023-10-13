@@ -34,15 +34,6 @@ maybe_unused static XStatus IsDevExcluded(const u32 DevId)
 }
 
 /************************** Function Prototypes ******************************/
-/*
- * Handle the healthy boot notification from the subsystem
- */
-maybe_unused static inline XStatus XPmSubsystem_NotifyHealthyBoot(const u32 SubsystemId)
-{
-        (void)SubsystemId;
-
-        return XST_SUCCESS;
-}
 
 maybe_unused static inline XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
                                         const u32 Operation, const u32 CmdType)
