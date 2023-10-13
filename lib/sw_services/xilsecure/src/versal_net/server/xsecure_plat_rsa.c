@@ -17,7 +17,8 @@
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   kpt     06/23/23 Initial release
 * 5.3   am      09/28/23 Added wrapper functions for IPCore's RSA APIs
-*       dd   10/11/23 MISRA-C violation Rule 10.3 fixed
+*       dd      10/11/23 MISRA-C violation Rule 10.3 fixed
+*       dd      10/11/23 MISRA-C violation Rule 12.1 fixed
 *
 * </pre>
 *
@@ -293,7 +294,7 @@ static int XSecure_RsaOaepDecode(XSecure_RsaOaepParam *OaepParam, u64 InputDataA
 
 	Index = Index + 1U;
 	ActualMsgLen = (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES - HashPtr->HashLen - 1U) - Index;
-	if (ActualMsgLen > (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES - 2U * HashPtr->HashLen - 2U)) {
+	if (ActualMsgLen > (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES - (2U * HashPtr->HashLen) - 2U)) {
 		Status = (int)XSECURE_RSA_OAEP_INVALID_MSG_LEN;
 		goto END;
 	}
