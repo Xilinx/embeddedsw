@@ -119,6 +119,7 @@
 *			match with plm secure
 *       dd   09/11/23 MISRA-C violation Rule 10.3 fixed
 * 2.0   kpt  07/31/23 Run KAT everytime when AUTH JTAG request is made
+*       kpt  10/09/23 Fixed compilation warning when PLM_EN_ADD_PPKS macro is enabled
 *
 * </pre>
 *
@@ -1299,7 +1300,7 @@ int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 	u32 PpkOffset;
 	u32 InvalidMask;
 
-	switch (PpkSelect) {
+	switch ((u32)PpkSelect) {
 		case XLOADER_PPK_SEL_0:
 			InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK0_INVLD;
 			PpkOffset = XLOADER_EFUSE_PPK0_START_OFFSET;
