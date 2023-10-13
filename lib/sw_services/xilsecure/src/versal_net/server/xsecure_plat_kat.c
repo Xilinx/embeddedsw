@@ -20,6 +20,7 @@
 * 5.0   kpt  07/15/2022 Initial release
 * 5.2   kpt  07/12/2023 Added pairwise consistency test for RSA
 *       yog  08/07/2023 Removed trng kat functions
+*       dd   10/11/23 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -75,24 +76,24 @@ int XSecure_HmacKat(XSecure_Sha3 *SecureSha3)
 	Status = XSecure_HmacInit(&HmacInstance, SecureSha3,
 				(UINTPTR)HmacKey, XSECURE_KAT_KEY_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		Status = XSECURE_HMAC_KAT_INIT_ERROR;
+		Status = (int)XSECURE_HMAC_KAT_INIT_ERROR;
 		goto END;
 	}
 	Status = XSecure_HmacUpdate(&HmacInstance, (UINTPTR)HmacMsg,
 				XSECURE_KAT_MSG_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		Status = XSECURE_HMAC_KAT_UPDATE_ERROR;
+		Status = (int)XSECURE_HMAC_KAT_UPDATE_ERROR;
 		goto END;
 	}
 	Status = XSecure_HmacFinal(&HmacInstance, &Hmac);
 	if (Status != XST_SUCCESS) {
-		Status = XSECURE_HMAC_KAT_FINAL_ERROR;
+		Status = (int)XSECURE_HMAC_KAT_FINAL_ERROR;
 		goto END;
 	}
-	Status = XSECURE_HMAC_KAT_ERROR;
+	Status = (int)XSECURE_HMAC_KAT_ERROR;
 	for(Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
 		if (HmacExpected[Index] != Hmac.Hash[Index]) {
-			Status = XSECURE_HMAC_KAT_ERROR;
+			Status = (int)XSECURE_HMAC_KAT_ERROR;
 			goto END;
 		}
 	}
@@ -101,7 +102,7 @@ int XSecure_HmacKat(XSecure_Sha3 *SecureSha3)
 		Status = XST_SUCCESS;
 	}
 END:
-	(void)memset((void *)Hmac.Hash, (u32)0,
+	(void)memset((void *)Hmac.Hash, (s32)0,
 			XSECURE_HASH_SIZE_IN_BYTES);
 
 	return Status;

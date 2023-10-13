@@ -17,6 +17,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   kpt     06/23/23 Initial release
 * 5.3   am      09/28/23 Added wrapper functions for IPCore's RSA APIs
+*       dd   10/11/23 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -507,7 +508,7 @@ int XSecure_RsaExpCRT(unsigned char *Hash, unsigned char *P, unsigned char *Q,
 
 	if ((Hash == NULL) || (P == NULL) || (Q == NULL) || (Dp == NULL) ||
 		(Dq == NULL) || (Qinv == NULL) || (Res == NULL)) {
-		Status = XSECURE_RSA_EXPONENT_INVALID_PARAM;
+		Status = (int)XSECURE_RSA_EXPONENT_INVALID_PARAM;
 		goto END;
 	}
 
@@ -549,7 +550,7 @@ int XSecure_RsaExp(unsigned char *Hash, unsigned char *Exp, unsigned char *Mod,
 	volatile int Status = XST_FAILURE;
 
 	if ((Hash == NULL) || (Exp == NULL) || (Mod == NULL) || (Res == NULL)) {
-		Status = XSECURE_RSA_EXPONENT_INVALID_PARAM;
+		Status = (int)XSECURE_RSA_EXPONENT_INVALID_PARAM;
 		goto END;
 	}
 

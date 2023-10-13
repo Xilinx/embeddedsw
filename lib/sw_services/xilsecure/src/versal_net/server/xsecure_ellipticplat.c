@@ -24,6 +24,7 @@
 * 5.1   har  01/06/23 Add support to generate ephemeral key
 * 5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
 *       yog  08/07/23 Replaced trng API calls using trngpsx driver
+*       dd   10/11/23 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -75,7 +76,7 @@ extern EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp);
 int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ElliptcPrivateKeyGen *PrivateKey)
 {
-	volatile int Status = XSECURE_ECC_PRVT_KEY_GEN_ERR;
+	volatile int Status = (int)XSECURE_ECC_PRVT_KEY_GEN_ERR;
 	volatile int ClearStatus = XST_FAILURE;
 	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
 	XTrngpsx_UserConfig TrngUserCfg;
@@ -99,7 +100,7 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	EcdsaCrvInfo *Crv = NULL;
 
 	if ((CrvType == XSECURE_ECC_NIST_P521) || (PrivateKey == NULL)) {
-		Status = XSECURE_ELLIPTIC_INVALID_PARAM;
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto RET;
 	}
 
@@ -148,7 +149,7 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
-	RIndex = (XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN - 1);
+	RIndex = ((s32)XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN - 1);
 	for (Index = 0U; (Index < XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN) && (RIndex >= 0); Index++, RIndex--) {
 		XSecure_OutByte64((u64)(UINTPTR)(RandBufEndianChange + Index), (RandBuf[RIndex]));
 	}
@@ -189,7 +190,7 @@ RET:
 int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 	u32 EphemeralKeyAddr)
 {
-	volatile int Status = XSECURE_ECC_PRVT_KEY_GEN_ERR;
+	volatile int Status = (int)XSECURE_ECC_PRVT_KEY_GEN_ERR;
 	volatile int ClearStatus = XST_FAILURE;
 
 	u8 RandBuf[XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN] = {0x00};
@@ -197,7 +198,7 @@ int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 	EcdsaCrvInfo *Crv = NULL;
 
 	if (CrvType == XSECURE_ECC_NIST_P521) {
-		Status = XSECURE_ELLIPTIC_INVALID_PARAM;
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto RET;
 	}
 
@@ -254,7 +255,7 @@ int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
 
 	if ((CrvType == XSECURE_ECC_NIST_P521) ||
 			(HashLen != XSECURE_ECC_P384_SIZE_IN_BYTES)) {
-		Status = XSECURE_ELLIPTIC_INVALID_PARAM;
+		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
 
