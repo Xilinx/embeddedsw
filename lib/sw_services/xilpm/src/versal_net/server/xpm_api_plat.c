@@ -90,6 +90,14 @@ XStatus XPm_PlatAddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 	u32 PreallocCaps, PreallocQoS;
 	XPm_Device *Device = NULL;
 	u32 Flags = ReqFlags;
+	u32 DevType = NODETYPE(DeviceId);
+
+	if((u32)XPM_NODETYPE_DEV_HB_MON == DevType){
+		Status = XPm_AddHbMonDevice(DeviceId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
 
 	/* This is a general case for adding requirements */
 	if (6U > NumArgs) {

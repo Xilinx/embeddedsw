@@ -1918,6 +1918,44 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function adds the Healthy boot monitor node through software.
+ *
+ * @param  DeviceId 	Device Id
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_AddHbMonDevice(const u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device = NULL;
+
+	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(DeviceId)) &&
+			((u32)XPM_NODETYPE_DEV_HB_MON == NODETYPE(DeviceId))) {
+		Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
+		if (NULL == Device) {
+			/*
+			 * Add the device node if doesn't exist.
+			 * Assuming all the virtual devices will have
+			 * PM_POWER_PMC as power node.
+			 */
+			const u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
+			Status = XPm_AddNode(AddNodeArgs, ARRAY_SIZE(AddNodeArgs));
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+	}
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
 static XStatus AddMemDevice(const u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
