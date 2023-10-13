@@ -17,6 +17,7 @@
 # 1.9   har  02/15/23 Updated library version for 2023.2
 #       rama 08/08/2023 Added option sem_override_dbg_lvl for overriding
 #                       plm_dbg_lvl to 0 for XilSEM enabled designs
+# 2.0   kpt  10/09/2023 Updated library version for 2024.1
 #
 ##############################################################################
 
