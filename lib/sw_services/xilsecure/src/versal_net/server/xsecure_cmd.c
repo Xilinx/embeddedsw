@@ -32,6 +32,7 @@
 *       kpt  07/10/2023 Added support for key wrap and unwrap
 *       ng   07/13/2023 Added support for system device tree flow
 *       dd   10/11/23   MISRA-C violation Rule 10.4 fixed
+*       dd   10/11/23   MISRA-C violation Rule 8.13 fixed
 *
 * </pre>
 *
@@ -205,7 +206,7 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	const u32 *Pload = Cmd->Payload;
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_FEATURES):

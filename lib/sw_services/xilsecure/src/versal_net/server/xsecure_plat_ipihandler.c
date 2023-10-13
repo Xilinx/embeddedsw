@@ -21,6 +21,7 @@
 * 5.1  kpt   01/13/2023 Initial release
 * 5.2  vns   07/06/2023 Separated IPI commands of Update Crypto Status
 *       dd   10/11/23 MISRA-C violation Rule 8.8 fixed
+*       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
 *
 * </pre>
 *
@@ -61,7 +62,7 @@ static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrHigh, u32 KeyWrapAddrLow);
 int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	const u32 *Pload = Cmd->Payload;
 	u32 CryptoMask = 0U;
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
@@ -152,7 +153,7 @@ END:
 {
 	volatile int Status = XST_FAILURE;
 	u64 PubKeyAddr = ((u64)PubKeyAddrHigh << 32U) | (u64)PubKeyAddrLow;
-	XSecure_RsaKey *RsaPubKey =  XSecure_GetRsaPublicKey();
+	const XSecure_RsaKey *RsaPubKey =  XSecure_GetRsaPublicKey();
 	XSecure_RsaPubKeyAddr RsaPubKeyAddr = {0U};
 	u32 PubExp = 0U;
 

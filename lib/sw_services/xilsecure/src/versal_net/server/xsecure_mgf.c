@@ -17,6 +17,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   kpt     06/23/23 Initial release
 *       dd      10/11/23 MISRA-C violation Rule 12.1 fixed
+*       dd      10/11/23 MISRA-C violation Rule 8.13 fixed
 *
 * </pre>
 *
@@ -204,7 +205,7 @@ int XSecure_MaskGenFunc(XSecure_ShaType ShaType, void *InstancePtr, XSecure_MgfI
 	u32 Size = 0U;
 	u32 NoOfIterations = 0U;
 	u8 *OutputPtr;
-	XSecure_HashAlgInfo *HashFunList = XSecure_GetHashInstance(ShaType);
+	const XSecure_HashAlgInfo *HashFunList = XSecure_GetHashInstance(ShaType);
 
 	if ((InstancePtr == NULL) || (MgfInput == NULL)) {
 		Status = (int)XST_INVALID_PARAM;

@@ -19,6 +19,7 @@
 * 5.3   am      09/28/23 Added wrapper functions for IPCore's RSA APIs
 *       dd      10/11/23 MISRA-C violation Rule 10.3 fixed
 *       dd      10/11/23 MISRA-C violation Rule 12.1 fixed
+*       dd      10/11/23 MISRA-C violation Rule 8.13 fixed
 *
 * </pre>
 *
@@ -132,7 +133,7 @@ static int XSecure_RsaOaepEncode(XSecure_RsaOaepParam *OaepParam, u64 OutputAddr
 	u32 DiffHashLen = 0U;
 	u32 ActualMsgLen = 0U;
 	XSecure_MgfInput MgfParam;
-	XSecure_HashAlgInfo *HashPtr = XSecure_GetHashInstance(OaepParam->ShaType);
+	const XSecure_HashAlgInfo *HashPtr = XSecure_GetHashInstance(OaepParam->ShaType);
 
 	if (HashPtr == NULL) {
 		Status = (int)XSECURE_RSA_OAEP_INVALID_PARAM;
@@ -225,7 +226,7 @@ static int XSecure_RsaOaepDecode(XSecure_RsaOaepParam *OaepParam, u64 InputDataA
 	u32 Index = 0U;
 	u32 ActualMsgLen = 0U;
 	XSecure_MgfInput MgfParam;
-	XSecure_HashAlgInfo *HashPtr = XSecure_GetHashInstance(OaepParam->ShaType);
+	const XSecure_HashAlgInfo *HashPtr = XSecure_GetHashInstance(OaepParam->ShaType);
 
 	if (HashPtr == NULL) {
 		Status = (int)XSECURE_RSA_OAEP_INVALID_PARAM;

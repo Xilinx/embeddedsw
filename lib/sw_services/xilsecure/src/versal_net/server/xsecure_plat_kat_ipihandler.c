@@ -25,6 +25,7 @@
 * 5.2   vns  07/06/2023 Separated the IPI commands of Update Kat Status
 *       yog  08/07/2023 Replaced trng instance using trngpsx driver
 *       kpt  08/30/2023 Fix updating KAT mask for external modules
+*       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
 *
 * </pre>
 *
@@ -69,7 +70,7 @@ static int XSecure_TrngKat(void);
 int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	const u32 *Pload = Cmd->Payload;
 
 	switch (Pload[0U] & XSECURE_API_ID_MASK) {
 #ifndef PLM_SECURE_EXCLUDE
@@ -132,7 +133,7 @@ int XSecure_UpdateKatStatusIpiHandler(XPlmi_Cmd *Cmd)
 	u32 KatMaskLen = 0U;
 	u32 *Pload = Cmd->Payload;
 	u32 KatOp = Pload[0U];
-	u32 *UserKatMask = &Pload[1U];
+	const u32 *UserKatMask = &Pload[1U];
 	u32 KatMask = XSECURE_DEF_KAT_MASK;
 
 	if ((KatOp != (u32)XSECURE_API_KAT_CLEAR) && (KatOp != (u32)XSECURE_API_KAT_SET)) {

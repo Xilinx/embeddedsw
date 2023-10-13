@@ -19,6 +19,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- --------   -------------------------------------------------------
 * 521   har  06/20/2023 Initial release
+*       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
 *
 * </pre>
 *
@@ -57,7 +58,7 @@ static int XSecure_GenSharedSecret(u32 CrvType, u32 PrvtKeyAddrLow, u32 PrvtKeyA
 int XSecure_PlatEllipticIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	const u32 *Pload = Cmd->Payload;
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
