@@ -16,6 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   kpt     06/30/23 Initial release
+*       dd      10/11/23 MISRA-C violation Rule 10.4 fixed
 *
 * </pre>
 *
@@ -124,7 +125,7 @@ static void XSecure_MarkKeySlotOccupied(u32 KeySlotId,  u64 SharedKeyStoreAddr)
 {
 	u32 BitMap = XSecure_In64(SharedKeyStoreAddr + XSECURE_SHARED_KEY_STORE_BITMAP_OFFSET);
 
-	BitMap |= (1 << KeySlotId);
+	BitMap |= (1U << KeySlotId);
 	XSecure_Out64(SharedKeyStoreAddr + XSECURE_SHARED_KEY_STORE_BITMAP_OFFSET, BitMap);
 }
 

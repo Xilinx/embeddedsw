@@ -31,6 +31,7 @@
 *       vns  07/07/2023 Added separate IPI commands for Crypto Status and KAT status updates
 *       kpt  07/10/2023 Added support for key wrap and unwrap
 *       ng   07/13/2023 Added support for system device tree flow
+*       dd   10/11/23   MISRA-C violation Rule 10.4 fixed
 *
 * </pre>
 *
@@ -183,7 +184,7 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 #endif
 		Status = XSecure_CryptoCheck();
 		if (Status != XST_SUCCESS) {
-			Status |= XPLMI_WARNING_MINOR_MASK;
+			Status |= (int)XPLMI_WARNING_MINOR_MASK;
 		}
 		break;
 	default:
