@@ -19,6 +19,7 @@
 * 5.0   vns 05/30/22 Initial release
 *       kpt 07/24/22 Moved XSecure_HmacKat into xsecure_kat_plat.c
 * 5.2   kpt 07/27/23 Fix security review comments
+*       dd   10/11/23 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -73,12 +74,12 @@ int XSecure_HmacInit(XSecure_Hmac *InstancePtr,
 	u8 K0[XSECURE_SHA3_BLOCK_LEN];
 
 	if ((InstancePtr == NULL) || (KeyLen == 0x0U)) {
-		Status = XSECURE_HMAC_INVALID_PARAM;
+		Status = (int)XSECURE_HMAC_INVALID_PARAM;
 		goto RET;
 	}
 	if ((Sha3InstancePtr == NULL) ||
 			(Sha3InstancePtr->Sha3State == XSECURE_SHA3_UNINITIALIZED)) {
-		Status = XSECURE_HMAC_INVALID_PARAM;
+		Status = (int)XSECURE_HMAC_INVALID_PARAM;
 		goto RET;
 	}
 
@@ -144,7 +145,7 @@ int XSecure_HmacUpdate(XSecure_Hmac *InstancePtr, u64 DataAddr, u32 Len)
 
 	if ((InstancePtr == NULL) || (InstancePtr->Sha3InstPtr == NULL) ||
 			(Len == 0x0U)) {
-		Status = XSECURE_HMAC_INVALID_PARAM;
+		Status = (int)XSECURE_HMAC_INVALID_PARAM;
 		goto END;
 	}
 
@@ -190,7 +191,7 @@ int XSecure_HmacFinal(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac)
 
 	if ((InstancePtr == NULL) || (InstancePtr->Sha3InstPtr == NULL) ||
 			(Hmac == NULL)) {
-		Status = XSECURE_HMAC_INVALID_PARAM;
+		Status = (int)XSECURE_HMAC_INVALID_PARAM;
 		goto RET;
 	}
 
