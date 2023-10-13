@@ -116,6 +116,9 @@ proc xgen_opts_file {libhandle} {
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+	set part_list {vc1502 vc1702 vc1802 vc1902 vc2602 vc2802 ve1752 ve2202 ve2302 ve2602 ve2802
+				   vh1522 vh1542 vh1582 vh1742 vh1782 vp1102 vp1202 vp1402 vp1502 vp1552 vp1702 vp1802
+				   vp2502 vp2802 vm1102 vm1302 vm1402 vm1502 vm1802 vm2202 vm2302 vm2502 vm2902 vn3716}
 	set IsAddPpkEn false
 
 	# Create dstdir if it does not exist
@@ -266,9 +269,9 @@ proc xgen_opts_file {libhandle} {
 			puts $file_handle "#define PLM_ENABLE_PLM_TO_PLM_COMM"
 		}
 
-		#Enable Additional PPKs for M50 design
-		set PartName [string range $part 0 [expr {[string first "-" $part] - 1}]]
-		if { [string match -nocase "xcvp1052" $PartName] } {
+		#Enable Additional PPKs for M50 or later designs
+		set PartName [string range $part 2 [expr {[string first "-" $part] - 1}]]
+		if {[lsearch -exact $part_list $PartName] == -1} {
 			set IsAddPpkEn true
 		}
 	}

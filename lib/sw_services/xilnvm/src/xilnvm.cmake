@@ -24,7 +24,14 @@ if(XILNVM_mode STREQUAL "client")
 endif()
 
 option(XILNVM_en_add_ppks "Enables or Disables additional PPKs" OFF)
-if (XILNVM_en_add_ppks OR ("${DEVICE_ID}" STREQUAL "xcvp1052"))
+#Part list for which additional PPK support is not enabled by default
+set(part_list "vc1502" "vc1702" "vc1802" "vc1902" "vc2602" "vc2802" "ve1752" "ve2202" "ve2302" "ve2602" "ve2802"
+    "vh1522" "vh1542" "vh1582" "vh1742" "vh1782" "vp1102" "vp1202" "vp1402" "vp1502" "vp1552" "vp1702" "vp1802"
+    "vp2502" "vp2802" "vm1102" "vm1302" "vm1402" "vm1502" "vm1802" "vm2202" "vm2302" "vm2502" "vm2902" "vn3716")
+string(SUBSTRING "${DEVICE_ID}" 2 -1 PartName)
+list(FIND part_list "${PartName}" index)
+
+if (XILNVM_en_add_ppks OR (index EQUAL -1))
   set(PLM_EN_ADD_PPKS " ")
 endif()
 
