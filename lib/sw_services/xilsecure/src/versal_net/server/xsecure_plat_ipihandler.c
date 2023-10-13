@@ -20,6 +20,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.1  kpt   01/13/2023 Initial release
 * 5.2  vns   07/06/2023 Separated IPI commands of Update Crypto Status
+*       dd   10/11/23 MISRA-C violation Rule 8.8 fixed
 *
 * </pre>
 *
@@ -147,7 +148,7 @@ END:
  *	-	ErrorCode - On failure
  *
  ******************************************************************************/
- int XSecure_GetRsaPublicKeyIpi(u32 PubKeyAddrHigh, u32 PubKeyAddrLow)
+ static int XSecure_GetRsaPublicKeyIpi(u32 PubKeyAddrHigh, u32 PubKeyAddrLow)
 {
 	volatile int Status = XST_FAILURE;
 	u64 PubKeyAddr = ((u64)PubKeyAddrHigh << 32U) | (u64)PubKeyAddrLow;
