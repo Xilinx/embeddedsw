@@ -35,6 +35,7 @@
 *			PLM_SECURE_EXCLUDE
 *       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
 *       dd	 09/11/2023 MISRA-C violation Rule 12.1 fixed
+* 2.0   kpt  10/09/2023 Fixed compilation warning when PLM_EN_ADD_PPKS macro is enabled
 *
 * </pre>
 *
@@ -68,7 +69,6 @@
 
 #ifdef PLM_EN_ADD_PPKS
 static int XLoader_IsAdditionalPpkFeatureEnabled(void);
-static int XLoader_CheckNonZeroAdditionalPpk(void);
 #endif
 
 #ifndef PLM_SECURE_EXCLUDE
@@ -409,50 +409,6 @@ END:
 }
 
 #ifdef PLM_EN_ADD_PPKS
-/*****************************************************************************/
-/**
- * @brief	This function checks if Additional PPK is programmed.
- *
- * @return
- * 			- XST_SUCCESS on success.
- * 			- XLOADER_ERR_GLITCH_DETECTED if glitch is detected.
- *
- ******************************************************************************/
-static int XLoader_CheckNonZeroAdditionalPpk(void)
-{
-	volatile int Status = XST_FAILURE;
-	volatile u32 Index;
-
-	/** - Read Additional PPks enable bits*/
-	Status = XLoader_IsAdditionalPpkFeatureEnabled();
-	if(Status != XST_SUCCESS){
-		goto END;
-	}
-
-	for (Index = XLOADER_EFUSE_PPK3_START_OFFSET;
-		Index <= XLOADER_EFUSE_PPK4_END_OFFSET;
-		Index = Index + XIH_PRTN_WORD_LEN) {
-		/* Any bit of PPK hash are non-zero break and return success */
-		if (XPlmi_In32(Index) != 0x0U) {
-			Status = XST_SUCCESS;
-			break;
-		}
-	}
-	if (Index > (XLOADER_EFUSE_PPK4_END_OFFSET + XIH_PRTN_WORD_LEN)) {
-		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
-	}
-	else if (Index < XLOADER_EFUSE_PPK3_START_OFFSET) {
-		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
-	}
-	else if (Index <= XLOADER_EFUSE_PPK4_END_OFFSET) {
-		Status = XST_SUCCESS;
-	}
-	else {
-		Status = XST_FAILURE;
-	}
-END:
-	return Status;
-}
 
 /*****************************************************************************/
 /**
