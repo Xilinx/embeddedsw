@@ -21,6 +21,7 @@
 * 5.2   kpt  07/12/2023 Added pairwise consistency test for RSA
 *       yog  08/07/2023 Removed trng kat functions
 *       dd   10/11/23 MISRA-C violation Rule 10.3 fixed
+*       dd   10/11/23 MISRA-C violation Rule 17.7 fixed
 *
 * </pre>
 *
@@ -131,7 +132,10 @@ int XSecure_Sha384Kat(void)
 		0xF9U, 0x9CU, 0x90U, 0x10U, 0xF6U, 0x18U, 0xFFU, 0x95U
 	};
 
-	XSecure_Sha384Digest(Data, XSECURE_KAT_MSG_LEN_IN_BYTES, CalculatedHash);
+	Status = XSecure_Sha384Digest(Data, XSECURE_KAT_MSG_LEN_IN_BYTES, CalculatedHash);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	for (Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
 		if (CalculatedHash[Index] != ExpectedHash[Index]) {
