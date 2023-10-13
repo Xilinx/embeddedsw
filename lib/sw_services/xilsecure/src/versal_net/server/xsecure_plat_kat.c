@@ -22,6 +22,7 @@
 *       yog  08/07/2023 Removed trng kat functions
 *       dd   10/11/23 MISRA-C violation Rule 10.3 fixed
 *       dd   10/11/23 MISRA-C violation Rule 17.7 fixed
+*       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
 *
 * </pre>
 *
@@ -172,10 +173,10 @@ int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaKey *PubKey, void *ShaIn
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Rsa RsaInstance = {0U};
-	u8 *Message = XSecure_GetKatMessage();
+	const u8 *Message = XSecure_GetKatMessage();
 	XSecure_RsaOaepParam OaepParam = {0U};
-	u8 EncOutput[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];
-	u8 DecOutput[XSECURE_KAT_MSG_LEN_IN_BYTES];
+	const u8 EncOutput[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];
+	const u8 DecOutput[XSECURE_KAT_MSG_LEN_IN_BYTES];
 
 	Status = XSecure_RsaInitialize(&RsaInstance, PubKey->Modulus, PubKey->ModExt, PubKey->Exponent);
 	if (Status != XST_SUCCESS) {

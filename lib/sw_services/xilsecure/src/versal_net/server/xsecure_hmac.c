@@ -20,6 +20,7 @@
 *       kpt 07/24/22 Moved XSecure_HmacKat into xsecure_kat_plat.c
 * 5.2   kpt 07/27/23 Fix security review comments
 *       dd   10/11/23 MISRA-C violation Rule 10.3 fixed
+*       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
 *
 * </pre>
 *
@@ -268,7 +269,7 @@ static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,
 	volatile u8 Index;
 	u32 *K0Ptr = (u32 *)(UINTPTR)KeyOut;
 	u8 *K0 = (u8 *)K0Ptr;
-	u32 *InKey = (u32 *)(UINTPTR)KeyAddr;
+	const u32 *InKey = (u32 *)(UINTPTR)KeyAddr;
 
 	/* KDF uses this path, for UDS 48 bytes key in DICE */
 	if (KeyLen < XSECURE_SHA3_BLOCK_LEN) {

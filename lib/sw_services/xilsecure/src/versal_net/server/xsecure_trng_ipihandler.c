@@ -25,6 +25,7 @@
 *       am   08/23/2023 Replaced XPlmi_DmaXfr with XPlmi_MemCpy64
 *       yog  09/04/2023 Replaced error code XSECURE_TRNG_INVALID_BUF_SIZE with
 *                       XTRNGPSX_INVALID_BUF_SIZE
+*       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
 *
 * </pre>
 *
@@ -59,7 +60,7 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
 int XSecure_TrngIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	const u32 *Pload = Cmd->Payload;
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_TRNG_GENERATE):

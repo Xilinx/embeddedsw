@@ -17,6 +17,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   kpt     06/30/23 Initial release
 *       dd      10/11/23 MISRA-C violation Rule 10.4 fixed
+*       dd      10/11/23 MISRA-C violation Rule 8.13 fixed
 *
 * </pre>
 *
@@ -155,7 +156,7 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 	XSecure_Rsa *RsaInstancePtr = XSecure_GetRsaInstance();
 	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
 	XSecure_Sha3 *ShaInstancePtr = XSecure_GetSha3Instance();
-	XSecure_RsaKey *PrivKey = XSecure_GetRsaPrivateKey();
+	const XSecure_RsaKey *PrivKey = XSecure_GetRsaPrivateKey();
 	u64 SharedKeyStoreAddr = XSecure_GetKeyStoreAddr();
 	u8 EphAesKey[XSECURE_AES_KEY_SIZE_256BIT_BYTES];
 	u32 KeySlotVal = 0U;
