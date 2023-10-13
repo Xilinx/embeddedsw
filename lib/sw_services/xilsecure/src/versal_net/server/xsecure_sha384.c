@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   har  01/02/23 Initial release
 *       kal  19/05/23 Added Sha2 Start, Update and Finish APIs support
+*       dd   10/11/23 MISRA-C violation Rule 1.1 fixed
 *
 * </pre>
 * @note
@@ -33,7 +34,6 @@
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-typedef unsigned int SHA32;
 sha384_context ShaCtx;
 
 /************************** Function Prototypes ******************************/
