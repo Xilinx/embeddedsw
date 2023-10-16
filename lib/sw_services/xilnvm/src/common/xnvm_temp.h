@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 3.0   har  07/21/22 Initial release
+* 3.2   mb   10/03/23 Add DEC_ONLY Error checks
 *
 * </pre>
 * @note
@@ -105,6 +106,18 @@ typedef enum {
 
 	XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD = 0xD0,/**<0xD0 - Dec only eFuse
 						* is already programmed */
+
+	XNVM_EFUSE_ERR_DEC_ONLY_PLM_IV_MUST_BE_PRGMD = 0xF600,/**<0xF600 - Error
+						* PLM IV should be programmed for
+						* DEC_ONLY eFuse programming */
+
+	XNVM_EFUSE_ERR_DEC_ONLY_DATA_PARTITION_IV_MUST_BE_PRGMD = 0xF700,/**<0xF700 - Error
+						* DATA_PARTITION IV should be programmed for
+						* DEC_ONLY eFuse programming */
+
+	XNVM_EFUSE_ERR_DEC_ONLY_METAHEADER_IV_MUST_BE_PRGMD = 0xF800,/**<0xF800 - Error
+						* METAHEADER IV should be programmed for
+						* DEC_ONLY eFuse programming */
 
 	XNVM_EFUSE_ERR_BOOT_ENV_CTRL_ALREADY_PRGMD = 0xE0,/**<0xE0 - BootEnvCtrl
 						* is already programmed */
@@ -457,6 +470,9 @@ typedef enum {
 /**< EFUSE row count numbers */
 #define XNVM_EFUSE_PPK_HASH_NUM_OF_CACHE_ROWS		(8U) /**<Number of cache rows for efuse ppk hash*/
 #define XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS			(3U) /**<Number of cache rows for efuse IV*/
+#define XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS		(127U) /**<Number of cache rows for PUF Syndrome Data*/
+#define XNVM_EFUSE_PUF_CHASH_NUM_OF_ROWS		(1U) /**<Number of cache rows for PUF*/
+
 /** @} */
 
 /**< EFUSE Row numbers */
@@ -546,6 +562,9 @@ typedef enum {
 #define XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET		(0x000000E4U) /**< Security cache offset*/
 #define XNVM_EFUSE_CACHE_IP_DISABLE_OFFSET		(0x00000018U) /**< IP disable cache offset */
 #define XNVM_EFUSE_CACHE_DME_FIPS_OFFSET                (0x00000234U) /**< Dme fips cache offset */
+#define XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET			(0x000000A8U) /**< PUF cache offset */
+#define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_OFFSET	(0x000000A4U) /**< PUF control cache offset */
+#define XNVM_EFUSE_CACHE_PUF_SYN_DATA_OFFSET		(0x00000300U)/**< PUF Syndrome cache offset */
 /**
  * @name Register: EFUSE_CACHE_SECURITY_CONTROL_REG
  */
@@ -557,6 +576,7 @@ typedef enum {
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_DIS_MASK		(0x00040000U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_TEST2_DIS_MASK	(0x00020000U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_MASK	(0x00010000U)
+#define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK			(0x00ffffffU)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_WR_LK_MASK	(0x00008000U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_CRC_LK_MASK	(0x00004000U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_WR_LK_MASK	(0x00002000U)

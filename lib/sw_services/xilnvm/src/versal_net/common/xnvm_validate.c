@@ -21,6 +21,7 @@
 * 3.1   skg  10/28/2022 Added In body comments for APIs
 * 3.2   kpt  09/02/2023 Add volatile keyword to avoid compiler optimization
 * 3.2   yog  09/13/2023 Added XNvm_IsDmeModeEn() API
+* 3.2   mb   10/03/2023 Add XNvm_EfuseAreAllIvsProgrammed() API
 *
 * </pre>
 *
@@ -40,6 +41,7 @@
 
 /************************** Function Prototypes ******************************/
 static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvAddress);
+static int XNvm_EfuseAreAllIvsProgrammed(void);
 
 /************************** Constant Definitions *****************************/
 #define XNVM_EFUSE_CACHE_DME_FIPS_DME_MODE_MASK			(0x0000000FU) /**< DME mode mask*/
@@ -359,6 +361,102 @@ END:
 
 /******************************************************************************/
 /**
+ * @brief	This function checks whether PUF is already programmed or not.
+ *
+ * @return	- XST_SUCCESS - if all rows are zero.
+ * 		- XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD	 - Puf Syn data already
+ * 							programmed.
+ * 		- XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD - Puf chash already
+ * 							programmed.
+ * 		- XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD	 - Puf Aux is already
+ * 							programmed.
+ *
+ *******************************************************************************/
+int XNvm_EfuseIsPufHelperDataEmpty(void)
+{
+	int Status = XST_FAILURE;
+	u32 RowDataVal;
+
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET,
+					XNVM_EFUSE_PUF_CHASH_NUM_OF_ROWS);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD;
+		goto END;
+	}
+
+	RowDataVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_OFFSET);
+	if ((RowDataVal &
+		XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK) != 0x00U) {
+		Status = (int)XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD;
+		goto END;
+	}
+
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PUF_SYN_DATA_OFFSET,
+			XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD;
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief 	This function checks whether all IVs programmed or not.
+ *
+ * @return	- XST_SUCCESS - if all IVs are not programmed.
+ * 		- XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD- If BLACK_IV is not programmed.
+ * 		- XNVM_EFUSE_ERR_DEC_ONLY_PLM_IV_MUST_BE_PRGMD- If PLM IV is not programmed.
+ * 		- XNVM_EFUSE_ERR_DEC_ONLY_DATA_PARTITION_IV_MUST_BE_PRGMD-
+ * 						If DATA_PARTITION_IV is not programmed.
+ * 		- XNVM_EFUSE_ERR_DEC_ONLY_METAHEADER_IV_MUST_BE_PRGMD-
+ * 						If METAHEADER_IV is not programmed.
+ * 		- XST_FAILURE - if any of the IVs is already programmed.
+ *
+ *******************************************************************************/
+static int XNvm_EfuseAreAllIvsProgrammed(void)
+{
+	int Status = XST_FAILURE;
+
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_BLACK_IV_OFFSET,
+					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
+	if (Status == XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
+		goto END;
+	}
+
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PLM_IV_RANGE_OFFSET,
+					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
+	if (Status == XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_PLM_IV_MUST_BE_PRGMD;
+		goto END;
+	}
+
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_DATA_PARTITION_IV_OFFSET,
+					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
+	if (Status == XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_DATA_PARTITION_IV_MUST_BE_PRGMD;
+		goto END;
+	}
+
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET,
+					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
+	if (Status == XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_METAHEADER_IV_MUST_BE_PRGMD;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
  * @brief	This function validates DEC_ONLY eFuse programming request.
  *
  * @return	- XST_SUCCESS - if validation is successful.
@@ -367,8 +465,8 @@ END:
  *							 programmed for DEC_ONLY
  *							 eFuse programming.
  *		- XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD - Blk IV should be
- *  				 			 programmed for DEC_ONLY
- *				   			 eFuse programming.
+ *							 programmed for DEC_ONLY
+ *							 eFuse programming.
  *
  ******************************************************************************/
 int XNvm_EfuseValidateDecOnlyRequest(void)
@@ -376,8 +474,9 @@ int XNvm_EfuseValidateDecOnlyRequest(void)
 	volatile int Status = XST_FAILURE;
 	u32 SecurityMisc0 = 0U;
 
-    /**
-	 *  Read direct from cache at offset of SECURITY_MISC_0. Return XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD if decrypt only not enabled
+	/**
+	 * Read direct from cache at offset of SECURITY_MISC_0.
+	 * Return XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD if decrypt only not enabled
 	 */
 	SecurityMisc0 = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 				XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET);
@@ -392,23 +491,25 @@ int XNvm_EfuseValidateDecOnlyRequest(void)
 		}
 
 		/**
-		 *   Check Zeros at offset of EFUSE_IV_NUM. Return XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD if not success
+		 * Check Zeros at offset of all IVs. Return XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD if not success
 		 */
-		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_BLACK_IV_OFFSET,
-				XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
-		if (Status == XST_SUCCESS) {
-			Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
+
+		Status = XNvm_EfuseAreAllIvsProgrammed();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status =  XNvm_EfuseIsPufHelperDataEmpty();
+		if (Status != XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD;
 			goto END;
 		}
 	}
 	else {
 		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD;
-		goto END;
 	}
 
-	Status = XST_SUCCESS;
 END:
-
 	return Status;
 }
 
