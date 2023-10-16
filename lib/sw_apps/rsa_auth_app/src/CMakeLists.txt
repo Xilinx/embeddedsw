@@ -39,7 +39,10 @@ collector_list (_headers PROJECT_LIB_HEADERS)
 string(APPEND CMAKE_C_LINK_FLAGS ${USER_LINK_OPTIONS})
 string(APPEND CMAKE_CXX_LINK_FLAGS ${USER_LINK_OPTIONS})
 
-set_source_files_properties(${_sources} OBJECT_DEPENDS "${CMAKE_LIBRARY_PATH}/*.a")
+if (${NON_YOCTO})
+file(GLOB bsp_archives "${CMAKE_LIBRARY_PATH}/*.a")
+set_source_files_properties(${_sources} OBJECT_DEPENDS "${bsp_archives}")
+endif()
 add_executable(${APP_NAME}.elf ${_sources})
 set_target_properties(${APP_NAME}.elf PROPERTIES LINK_DEPENDS ${CMAKE_SOURCE_DIR}/lscript.ld)
 
