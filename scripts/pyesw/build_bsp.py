@@ -63,7 +63,7 @@ class BSP:
         self.domain_path = self.domain_path.replace('\\','/')
         self.cmake_paths_append = self.cmake_paths_append.replace('\\','/')
         build_libxil = build_libxil.replace('\\','/')
-        utils.runcmd(f'cmake -G "{self.cmake_generator}" {self.domain_path} -DNON_YOCTO=ON -DSUBDIR_LIST="ALL" {self.cmake_paths_append}', cwd=build_libxil)
+        utils.runcmd(f'cmake -G "{self.cmake_generator}" {self.domain_path} -DSUBDIR_LIST="ALL" {self.cmake_paths_append}', cwd=build_libxil)
         utils.runcmd("cmake --build . --parallel 22 --verbose", cwd = build_libxil)
         utils.runcmd("cmake --install .", cwd=build_libxil)
 

@@ -25,7 +25,7 @@ collector_list (_headers PROJECT_LIB_HEADERS)
 
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
 
-if (${NON_YOCTO})
+if (NOT ${YOCTO})
 file(COPY ${CMAKE_BINARY_DIR}/include/xplmi_bsp_config.h DESTINATION ${CMAKE_INCLUDE_PATH}/)
 endif()
 

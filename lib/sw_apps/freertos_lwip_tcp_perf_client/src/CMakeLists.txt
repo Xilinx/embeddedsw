@@ -34,16 +34,13 @@ string(APPEND CMAKE_C_FLAGS ${USER_COMPILE_OPTIONS})
 string(APPEND CMAKE_CXX_FLAGS ${USER_COMPILE_OPTIONS})
 string(APPEND CMAKE_C_LINK_FLAGS ${USER_LINK_OPTIONS})
 string(APPEND CMAKE_CXX_LINK_FLAGS ${USER_LINK_OPTIONS})
-if (${NON_YOCTO})
-file(GLOB bsp_archives "${CMAKE_LIBRARY_PATH}/*.a")
-set_source_files_properties(${_sources} OBJECT_DEPENDS "${bsp_archives}")
-endif()
+add_dependency_on_bsp(_sources)
 add_executable(${APP_NAME}.elf ${_sources})
 set_target_properties(${APP_NAME}.elf PROPERTIES LINK_DEPENDS ${CMAKE_SOURCE_DIR}/lscript.ld)
 target_link_libraries(${APP_NAME}.elf -Wl,-T -Wl,\"${CMAKE_SOURCE_DIR}/lscript.ld\" -L\"${CMAKE_SOURCE_DIR}/\" -L\"${CMAKE_LIBRARY_PATH}/\" -L\"${USER_LINK_DIRECTORIES}/\" -Wl,--start-group,-l${_deps} -Wl,--end-group)
 target_compile_definitions(${APP_NAME}.elf PUBLIC ${USER_COMPILE_DEFINITIONS})
 print_elf_size(CMAKE_SIZE ${APP_NAME})
-if (${NON_YOCTO})
+if (NOT ${YOCTO})
     set(INCLUDE_DIRS
         "${CMAKE_INCLUDE_PATH}/"
         "${CMAKE_INCLUDE_PATH}/include/"

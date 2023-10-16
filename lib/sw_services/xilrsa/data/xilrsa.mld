@@ -23,6 +23,6 @@ BEGIN LIBRARY xilrsa
   OPTION SUPPORTED_PERIPHERALS = (ps7_cortexa9);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lrsa,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx RSA Library to access RSA and SHA software algorithms on Zynq ";
-  OPTION VERSION = 1.7;
+  OPTION VERSION = 1.8;
   OPTION NAME = xilrsa;  
 END LIBRARY

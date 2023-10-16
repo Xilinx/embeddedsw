@@ -46,7 +46,7 @@ endif()
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52")
 file(RENAME ${CMAKE_BINARY_DIR}/include/xil_mpu_r52.h ${CMAKE_BINARY_DIR}/include/xil_mpu.h)
 endif()
-if (${NON_YOCTO})
+if (NOT ${YOCTO})
 file(COPY ${CMAKE_BINARY_DIR}/include/bspconfig.h DESTINATION ${CMAKE_INCLUDE_PATH}/)
 endif()
 
@@ -74,7 +74,7 @@ endif()
 else()
 add_library(xilstandalone STATIC ${_sources})
 endif()
-if (${NON_YOCTO}
+if (NOT ${YOCTO}
     AND ("${CMAKE_SYSTEM_NAME}" STREQUAL "FreeRTOS"))
     target_compile_definitions(xilstandalone PRIVATE FREERTOS_BSP)
 endif()

@@ -107,7 +107,7 @@ class RegenBSP(BSP, Library):
             self.lib_list.remove("freertos")
             self.lib_list.append("freertos10_xilinx")
         cmake_subdir_list = ";".join(self.lib_list)
-        utils.runcmd(f'cmake {self.domain_path} {self.cmake_paths_append} -DNON_YOCTO=ON -DSUBDIR_LIST="{cmake_subdir_list}" {cmake_cmd_append}', cwd=build_metadata)
+        utils.runcmd(f'cmake {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_subdir_list}" {cmake_cmd_append}', cwd=build_metadata)
 
         utils.update_yaml(self.domain_config_file, "domain", "lib_config", lib_config)
         utils.update_yaml(self.domain_config_file, "domain", "proc_config", proc_config)
