@@ -623,14 +623,14 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
-	HashLenTmp = HashInfo->Len;
-	if ((HashInfo->Len > XSECURE_ECC_P521_SIZE_IN_BYTES) ||
-		(HashLenTmp > XSECURE_ECC_P521_SIZE_IN_BYTES)) {
+	if ((HashInfo == NULL) || (KeyAddr == NULL) || (SignAddr == NULL)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((HashInfo == NULL) || (KeyAddr == NULL) || (SignAddr == NULL)) {
+	HashLenTmp = HashInfo->Len;
+	if ((HashInfo->Len > XSECURE_ECC_P521_SIZE_IN_BYTES) ||
+		(HashLenTmp > XSECURE_ECC_P521_SIZE_IN_BYTES)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
