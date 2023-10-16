@@ -37,6 +37,7 @@
 #include "xplmi_ipi.h"
 #include "xplmi.h"
 #include "xpm_psm_api.h"
+#include "xpm_update.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -88,6 +89,10 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 		XPlmi_LpdInit();
 		/* Call LibPM hook */
 		Status = XPm_HookAfterPlmCdo();
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
+		Status = XPmUpdate_RestoreAllNodes();
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
