@@ -9,6 +9,57 @@
 #include "xpm_common.h"
 #include "xpm_debug.h"
 #include "xplmi_ssit.h"
+#ifdef CPPUTEST
+#define MAX_BYTEBUFFER_SIZE	(52U * 1024U)
+#else
+#define MAX_BYTEBUFFER_SIZE	(32U * 1024U)
+#endif
+
+#ifdef CPPUTEST
+u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
+#else
+static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
+#endif
+static u8 *FreeBytes = ByteBuffer;
+
+void *XPm_AllocBytes(u32 SizeInBytes)
+{
+	void *Bytes = NULL;
+	u32 BytesLeft = (u32)ByteBuffer + MAX_BYTEBUFFER_SIZE - (u32)FreeBytes;
+	u32 i;
+	u32 NumWords;
+	u32 *Words;
+	u32 Size = SizeInBytes;
+
+	/* Round size to the next multiple of 4 */
+	Size += 3U;
+	Size &= ~0x3U;
+
+	if (Size > BytesLeft) {
+		goto done;
+	}
+
+	Bytes = FreeBytes;
+	FreeBytes += Size;
+
+	/* Zero the bytes */
+	NumWords = Size / 4U;
+	Words = (u32 *)Bytes;
+	for (i = 0; i < NumWords; i++) {
+		Words[i] = 0U;
+	}
+
+done:
+	return Bytes;
+}
+
+void XPm_DumpMemUsage(void)
+{
+	xil_printf("Total buffer size = %u bytes\n\r", MAX_BYTEBUFFER_SIZE);
+	xil_printf("Used = %u bytes\n\r", FreeBytes - ByteBuffer);
+	xil_printf("Free = %u bytes\n\r", MAX_BYTEBUFFER_SIZE - (u32)(FreeBytes - ByteBuffer));
+	xil_printf("\r\n");
+}
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 /* Check if given device is on secondary SLR, if so, return which SLR */

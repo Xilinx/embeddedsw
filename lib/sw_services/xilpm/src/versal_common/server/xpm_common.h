@@ -48,14 +48,6 @@ extern "C" {
 #define XPM_DEBUG_MASK	0x70U
 #define XPM_DEBUG_SHIFT	4U
 
-#ifdef VERSAL_NET
-#define SAVE_REGION(...) \
-union { \
-struct { __VA_ARGS__ } save; \
-struct { __VA_ARGS__ };};
-#else
-#define SAVE_REGION(...) __VA_ARGS__
-#endif
 /**
  * Common baseline macro to print debug logs
  */
@@ -507,6 +499,7 @@ u32 XPm_GetPmcVersion(void);
 u32 XPm_GetSlrType(void);
 u32 XPm_GetIdCode(void);
 u32 XPm_GetPlatformVersion(void);
+
 
 /**
  * Read Modify Write a register

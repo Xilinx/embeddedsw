@@ -59,6 +59,15 @@ static inline XStatus XPm_SsitForwardApi(XPm_ApiId ApiId, const u32 *ArgBuf,
 	return XST_DEVICE_NOT_FOUND;
 }
 
+#define SAVE_REGION(...) \
+union { \
+struct { __VA_ARGS__ } save; \
+struct { __VA_ARGS__};};
+
+u32 XPm_GetByteBufferOffset(void);
+u32 XPm_GetSavedByteBufferAddress(void);
+u32 XPm_GetPrevByteBufferAddress(void);
+u32 XPm_ConvertToSavedAddress(u32 InputAddress);
 #ifdef __cplusplus
 }
 #endif
