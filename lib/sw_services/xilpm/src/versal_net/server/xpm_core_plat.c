@@ -4,6 +4,7 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+
 #include "xpm_core.h"
 #include "xpm_notifier.h"
 #include "xpm_psm.h"
@@ -155,50 +156,3 @@ void EnableWake(const struct XPm_Core *Core)
 		/* Required for MISRA */
 	}
 };
-static XStatus XPmCore_SaveCore(XPm_Core* ThisData){
-	XStatus Status = XST_FAILURE;
-	u32* SavedData = NULL;
-
-	BEGIN_SAVE_STRUCT(SavedData, XPmDevice_SaveDevice, (&(ThisData->Device)));
-	SaveStruct(Status, done, (ThisData->isCoreUp<<8)|(ThisData->IsCoreIdleSupported));
-	SaveStruct(Status, done, ThisData->FrcPwrDwnReq);
-	END_SAVE_STRUCT(SavedData);
-
-	Status = XST_SUCCESS;
-done:
-	XPM_UPDATE_THROW_IF_ERROR(Status, ThisData);
-	return Status;
-}
-
-static XStatus XPmCore_RestoreCore(u32* SavedData, XPm_Core* ThisData) {
-	XStatus Status = XST_FAILURE;
-	u32* NextSavedData = NULL;
-	Status = XPmDevice_RestoreDevice(SavedData, &(ThisData->Device), &NextSavedData);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-	u32 tmp;
-	RestoreStruct(NextSavedData, tmp);
-	ThisData->isCoreUp = (tmp >> 8) & 0xFFU;
-	ThisData->IsCoreIdleSupported = (tmp) & 0xFFU;
-	RestoreStruct(NextSavedData, ThisData->FrcPwrDwnReq);
-	Status = XST_SUCCESS;
-done:
-	return Status;
-}
-
-XStatus XPmCore_DoSaveRestore(u32* SavedData, u32* ThisData, u32 Op)
-{
-	XStatus Status = XST_FAILURE;
-	if (XPLMI_STORE_DATABASE  == Op){
-		Status = XPmCore_SaveCore((XPm_Core*)ThisData);
-		goto done;
-	}
-	if (XPLMI_RESTORE_DATABASE == Op){
-		Status = XPmCore_RestoreCore(SavedData, (XPm_Core*)ThisData);
-		goto done;
-	}
-	Status = XPM_UPDATE_UNKNOWN_OP;
-done:
-	return Status;
-}

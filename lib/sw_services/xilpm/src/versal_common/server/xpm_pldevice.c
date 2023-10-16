@@ -837,9 +837,7 @@ XStatus XPmPlDevice_Init(XPm_PlDevice *PlDevice,
 	for (u32 i = 0U; i < MAX_NOC_CLOCK_ARRAY_SIZE; i++) {
 		PlDevice->NocClockEnablement[i] = 0U;
 	}
-#ifdef VERSAL_NET
-	PlDevice->Device.Node.SaveRestoreHandler = XPmPlDevice_DoSaveRestore;
-#endif
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;

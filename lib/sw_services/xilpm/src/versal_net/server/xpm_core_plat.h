@@ -26,7 +26,6 @@ maybe_unused static inline XStatus XPmCore_PlatClkReq(const XPm_ClockHandle *Clk
 	(void)ClkHandles;
 	return XST_SUCCESS;
 }
-XStatus XPmCore_DoSaveRestore(u32* SavedData, u32* ThisData, u32 Op);
 void ClearPcilIsr(const struct XPm_Core *Core);
 #ifdef __cplusplus
 }

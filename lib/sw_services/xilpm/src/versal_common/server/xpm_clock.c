@@ -99,11 +99,7 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	if (Subclass == (u32)XPM_NODETYPE_CLOCK_REF) {
-#ifdef VERSAL_NET
-		XPmNode_Init(&Clk->Node, Id, (u8)XPM_CLK_STATE_ON, 0, XPmClock_DoSaveRestore);
-#else
 		XPmNode_Init(&Clk->Node, Id, (u8)XPM_CLK_STATE_ON, 0);
-#endif
 	} else if (Subclass == (u32)XPM_NODETYPE_CLOCK_OUT) {
 		if (NumParents > MAX_MUX_PARENTS) {
 			DbgErr = XPM_INT_ERR_MAX_CLK_PARENTS;
@@ -111,11 +107,7 @@ static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 			goto done;
 		}
 		XPm_OutClockNode *OutClkPtr = (XPm_OutClockNode *)Clk;
-#ifdef VERSAL_NET
-		XPmNode_Init(&OutClkPtr->ClkNode.Node, Id, (u8)XPM_CLK_STATE_OFF, 0, XPmClock_DoSaveRestore);
-#else
 		XPmNode_Init(&OutClkPtr->ClkNode.Node, Id, (u8)XPM_CLK_STATE_OFF, 0);
-#endif
 		OutClkPtr->ClkNode.Node.BaseAddress = ControlReg;
 		OutClkPtr->ClkNode.ClkHandles = NULL;
 		OutClkPtr->ClkNode.UseCount = 0;

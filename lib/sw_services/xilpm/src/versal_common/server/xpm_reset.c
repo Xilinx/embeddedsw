@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -76,11 +76,8 @@ static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst)
 static void XPmReset_Init(XPm_ResetNode *Rst, u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetType, u8 NumParents, const u32* Parents)
 {
 	u32 i = 0;
-#ifdef VERSAL_NET
-	XPmNode_Init(&Rst->Node, Id, (u8)XPM_RST_STATE_ASSERTED, 0, XPmReset_SaveRestore);
-#else
+
 	XPmNode_Init(&Rst->Node, Id, (u8)XPM_RST_STATE_ASSERTED, 0);
-#endif
 
 	Rst->Node.BaseAddress = ControlReg;
 	Rst->Shift = Shift;

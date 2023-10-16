@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -80,50 +80,4 @@ XStatus XPmPower_SendIslandPowerUpReq(const XPm_Node *Node)
 XStatus XPmPower_SendIslandPowerDwnReq(const XPm_Node *Node)
 {
 	return XPmPsm_SendPowerDownReq((XPm_Power *)Node);
-}
-
-static XStatus SavePowerNode(XPm_Power* ThisData) {
-	XStatus Status = XST_FAILURE;
-	u32* SavedData = NULL;
-
-	BEGIN_SAVE_STRUCT(SavedData, XPmNode_SaveNode, ((XPm_Node*)ThisData));
-	SaveStruct(Status, done, ((ThisData->UseCount)<<8)|(ThisData->WfParentUseCnt));
-	END_SAVE_STRUCT(SavedData);
-
-	Status = XST_SUCCESS;
-done:
-	XPM_UPDATE_THROW_IF_ERROR(Status, ThisData);
-	return Status;
-}
-
-static XStatus RestorePowerNode(u32* SavedData, XPm_Power *ThisData){
-	u32* DataAddr = NULL;
-	XStatus Status = XPmNode_RestoreNode(SavedData, &(ThisData->Node), &DataAddr);
-	if (XST_SUCCESS != Status)
-	{
-		goto done;
-	}
-	u32 tmp = 0;
-	RestoreStruct(DataAddr, tmp);
-	ThisData->UseCount = (tmp >> 8) & 0xFF;
-	ThisData->WfParentUseCnt = (tmp) & 0xFF;
-	Status = XST_SUCCESS;
-done:
-	return Status;
-}
-
-XStatus XPmPower_DoSaveRestore(u32* SavedData, u32* ThisData, u32 Op){
-	XStatus Status = XST_FAILURE;
-	if (XPLMI_STORE_DATABASE  == Op){
-		Status = SavePowerNode((XPm_Power*)ThisData);
-		goto done;
-	}
-
-	if (XPLMI_RESTORE_DATABASE == Op){
-		Status = RestorePowerNode(SavedData, (XPm_Power*)ThisData);
-		goto done;
-	}
-	Status = XPM_UPDATE_UNKNOWN_OP;
-done:
-	return Status;
 }

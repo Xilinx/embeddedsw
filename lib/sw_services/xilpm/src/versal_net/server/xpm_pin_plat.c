@@ -108,80 +108,6 @@ static struct PmPinGroup PmPinGroups[XPM_NODEIDX_STMIC_MAX] = {
 	},
 };
 
-static XStatus SavePinNode(XPm_PinNode* ThisData) {
-	XStatus Status = XST_FAILURE;
-	u32* SavedData =  NULL;
-
-	BEGIN_SAVE_STRUCT(SavedData, XPmNode_SaveNode, ((XPm_Node*)ThisData));
-	SaveStruct(Status, done, ThisData->SubsysIdx);
-	SaveStruct(Status, done, (ThisData->Bank << 24) | (ThisData->BiasStatus << 16) | (ThisData->PullCtrl << 8) | (ThisData->TriState) );
-	if (ThisData->PinFunc != NULL){
-		SaveStruct(Status, done, ThisData->PinFunc->Id);
-	}
-	END_SAVE_STRUCT(SavedData);
-
-	Status = XST_SUCCESS;
-done:
-	XPM_UPDATE_THROW_IF_ERROR(Status, ThisData);
-	return Status;
-}
-
-static XStatus RestorePinNode(u32* SavedData, XPm_PinNode *ThisData){
-	u32* DataAddr = NULL;
-	XStatus Status = XPmNode_RestoreNode(SavedData, &(ThisData->Node), &DataAddr);
-	if (XST_SUCCESS != Status)
-	{
-		goto done;
-	}
-	RestoreStruct(DataAddr,  ThisData->SubsysIdx);
-	u32 tmp = 0;
-	RestoreStruct(DataAddr, tmp);
-	ThisData->Bank = ((tmp >> 24) & BITMASK(PIN_NODE_BANK_BIT_FIELD_SIZE));
-	ThisData->BiasStatus = ((tmp >> 16) & BITMASK(PIN_NODE_BIASSTATUS_BIT_FIELD_SIZE));
-	ThisData->PullCtrl = ((tmp >> 8) & BITMASK(PIN_NODE_PULLCTRL_BIT_FIELD_SIZE));
-	ThisData->TriState = ((tmp) & BITMASK(PIN_NODE_TRISTATE_BIT_FIELD_SIZE));
-	if (SAVED_DATA_GET_SIZE(SavedData) > 2){
-			u8 FuncId = 0;
-			RestoreStruct(DataAddr, FuncId);
-			XPm_PinFunc* PinFunc = XPmPinFunc_GetById(FuncId);
-			if (NULL != PinFunc)
-			{
-				Status = XPmPin_SetPinFunction(ThisData->Node.Id, FuncId);
-				if (XST_SUCCESS != Status)
-				{
-					if (XST_INVALID_PARAM != Status){
-						goto done;
-					} else {
-						/* TODO: Set pin function still error during this stage of PLM update
-						 * Ignore the error for now.
-						 */
-					}
-				}
-			} else {
-				/* Ignore when PinFunc is NULL */
-				/* noop */
-			}
-	}
-	Status = XST_SUCCESS;
-done:
-	return Status;
-}
-
-static XStatus DoSaveRestore(u32* SavedData, u32* ThisData, u32 Op){
-	XStatus Status = XST_FAILURE;
-	if (XPLMI_STORE_DATABASE  == Op){
-		Status = SavePinNode((XPm_PinNode*)ThisData);
-		goto done;
-	}
-	if (XPLMI_RESTORE_DATABASE == Op){
-		Status = RestorePinNode(SavedData, (XPm_PinNode*)ThisData);
-		goto done;
-	}
-	Status = XPM_UPDATE_UNKNOWN_OP;
-done:
-	return Status;
-}
-
 /****************************************************************************/
 /**
  * @brief  This function initializes the XPm_PinNode data staructure.
@@ -204,7 +130,7 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 		goto done;
 	}
 
-	XPmNode_Init(&Pin->Node, PinId, (u8)XPM_PINSTATE_UNUSED, BaseAddress, DoSaveRestore);
+	XPmNode_Init(&Pin->Node, PinId, (u8)XPM_PINSTATE_UNUSED, BaseAddress);
 
 	Pin->Groups = PmPinGroups[PinIdx].GroupList;
 	Pin->NumGroups = (u8)(PmPinGroups[PinIdx].GroupCount);

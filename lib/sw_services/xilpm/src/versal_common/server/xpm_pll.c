@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,11 +45,7 @@ XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 		Status = XST_BUFFER_TOO_SMALL;
 		goto done;
 	}
-#ifdef VERSAL_NET
-	XPmNode_Init(&PllClkPtr->ClkNode.Node, Id, (u8)PM_PLL_STATE_SUSPENDED, 0, XPmClockPll_DoSaveRestore);
-#else
 	XPmNode_Init(&PllClkPtr->ClkNode.Node, Id, (u8)PM_PLL_STATE_SUSPENDED, 0);
-#endif
 	PllClkPtr->ClkNode.Node.BaseAddress = ControlReg;
 	PllClkPtr->ClkNode.ClkHandles = NULL;
 	PllClkPtr->ClkNode.UseCount = 0;

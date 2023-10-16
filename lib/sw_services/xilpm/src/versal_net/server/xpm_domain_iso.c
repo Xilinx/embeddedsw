@@ -11,24 +11,6 @@
 #include "xpm_ipi.h"
 #include "xpm_psm.h"
 
-static XStatus DoSaveRestore(u32* SavedData, u32* ThisData, u32 Op)
-{
-	XStatus Status = XST_FAILURE;
-	u32* StartAddr = NULL;
-
-	if (XPLMI_STORE_DATABASE == Op){
-		Status = XPmNode_SaveNode((XPm_Node*)ThisData, &StartAddr);
-		goto done;
-	}
-	if (XPLMI_RESTORE_DATABASE == Op){
-		Status = XPmNode_RestoreNode(SavedData, (XPm_Node*)ThisData, &StartAddr);
-		goto done;
-	}
-	Status = XPM_UPDATE_UNKNOWN_OP;
-done:
-	return Status;
-}
-
 static XPm_Iso* XPmDomainIso_List[XPM_NODEIDX_ISO_MAX];
 
 #define IS_PSM_ISO(ISO_NODE) ((((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_LOW) || \
@@ -192,7 +174,7 @@ XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, u32 Format,
 		goto done;
 	}
 
-	XPmNode_Init(&IsoNode->Node, NodeId, (u8)PM_ISOLATION_ON, BaseAddress, DoSaveRestore);
+	XPmNode_Init(&IsoNode->Node, NodeId, (u8)PM_ISOLATION_ON, BaseAddress);
 	IsoNode->Format = Format;
 	IsoNode->Mask = Mask;
 	IsoNode->NumDependencies = NumDependencies;

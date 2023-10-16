@@ -55,7 +55,6 @@ maybe_unused static inline XStatus XPmSubsystem_IsOperationAllowed(const u32 Hos
 	return XST_SUCCESS;
 }
 
-XStatus XPmSubsystem_SaveRestore(u32* SavedData, u32* ThisData, u32 Op);
 #ifdef __cplusplus
 }
 #endif

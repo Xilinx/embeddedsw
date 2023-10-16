@@ -91,10 +91,6 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
-		Status = XPmUpdate_RestoreAllNodes();
-		if (XST_SUCCESS != Status) {
-			goto END;
-		}
 		Status = XPm_GetPsmToPlmEventAddr();
 		if (XST_SUCCESS != Status) {
 			goto END;

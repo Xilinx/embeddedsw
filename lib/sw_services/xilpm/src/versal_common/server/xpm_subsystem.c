@@ -625,10 +625,6 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
                 goto done;
         }
 
-#ifdef VERSAL_NET
-        Subsystem->SaveRestoreHandler = XPmSubsystem_SaveRestore;
-#endif
-
         Subsystem->NextSubsystem = PmSubsystems;
         Subsystem->Id = SubsystemId;
         Subsystem->PendCb.Reason = 0U;

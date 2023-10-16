@@ -10,9 +10,7 @@
 #include "xstatus.h"
 #include "xpm_power.h"
 #include "xpm_device.h"
-#ifdef VERSAL_NET
-#include "xpm_regulator_plat.h"
-#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif

@@ -14,9 +14,7 @@
 #include <xil_types.h>
 #include <xstatus.h>
 #include "xpm_nodeid.h"
-#ifdef VERSAL_NET
-#include "xpm_update.h"
-#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -33,21 +31,11 @@ typedef struct XPm_Node {
 	u16 LatencyMarg; /**< lowest latency requirement - powerup latency */
 	u8  State; /**< Node state: Specific to node type */
 	u8  Flags;
-#ifdef VERSAL_NET
-	SaveRestoreHandler_t SaveRestoreHandler;
-#endif
 } XPm_Node;
 
 /************************** Function Prototypes ******************************/
-#ifdef VERSAL_NET
-XPm_Node* XPmNode_GetNodeAt(u32 Index);
-u32 XPmNode_GetNumNodes(void);
-void XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress, SaveRestoreHandler_t Handler);
-XStatus XPmNode_SaveNode(XPm_Node* NodeData, u32** SavedData);
-XStatus XPmNode_RestoreNode(u32* SavedData, XPm_Node* NodeData, u32** NextSavedData);
-#else
 void XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress);
-#endif
+
 #define NODE_CLASS_SHIFT	26U
 #define NODE_SUBCLASS_SHIFT	20U
 #define NODE_TYPE_SHIFT		14U

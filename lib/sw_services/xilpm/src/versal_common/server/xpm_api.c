@@ -47,9 +47,6 @@
 #include "xpm_pldevice.h"
 #include "xpm_rail.h"
 #include "xpm_regulator.h"
-#ifdef VERSAL_NET
-#include "xpm_update.h"
-#endif
 
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)

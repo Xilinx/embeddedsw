@@ -61,6 +61,8 @@ typedef struct XPm_ClkTopology {
 	u16 MuxSources[MAX_MUX_PARENTS]; /**< Clock index of mux sources */
 }XPm_ClkTopology;
 
+typedef struct XPm_ClockNode XPm_ClockNode;
+typedef struct XPm_ClockHandle XPm_ClockHandle;
 
 /**
  * The clock class.	 This is the base class for all the clocks.
