@@ -2296,50 +2296,6 @@ static int XNvm_EfuseWriteRoSwapEn(u32 RoSwap)
 
 /******************************************************************************/
 /**
- * @brief	This function checks whether PUF is already programmed or not.
- *
- * @return	- XST_SUCCESS - if all rows are zero.
- * 		- XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD	 - Puf Syn data already
- * 							programmed.
- * 		- XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD - Puf chash already
- * 							programmed.
- * 		- XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD	 - Puf Aux is already
- * 							programmed.
- *
- *******************************************************************************/
-static int XNvm_EfuseIsPufHelperDataEmpty(void)
-{
-	int Status = XST_FAILURE;
-	u32 RowDataVal;
-
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET,
-					XNVM_EFUSE_PUF_CHASH_NUM_OF_ROWS);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD;
-		goto END;
-	}
-
-	RowDataVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-			XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_OFFSET);
-	if ((RowDataVal &
-		XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK) != 0x00U) {
-		Status = (int)XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD;
-		goto END;
-	}
-
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PUF_SYN_DATA_OFFSET,
-			XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD;
-		goto END;
-	}
-END :
-	return Status;
-
-}
-
-/******************************************************************************/
-/**
  * @brief	This function programs DME userkey eFuses.
  *
  * @param	KeyType - DME UserKey0/1/2/3.
