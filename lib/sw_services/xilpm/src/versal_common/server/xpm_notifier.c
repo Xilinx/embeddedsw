@@ -53,7 +53,7 @@ static u32 PendingEvent = (u32)NOT_PRESENT;
 static volatile u32 PosEmptySpace = 0U;
 
 typedef struct {
-	const XPm_Subsystem* Subsystem;
+	u32 SubsystemId;
 	u32 NodeId;
 	u32 EventMask;
 	u32 WakeMask;
@@ -90,7 +90,9 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 	u32 EmptyIdx = ARRAY_SIZE(PmNotifiers);
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
-		if (NULL == PmNotifiers[Idx].Subsystem) {
+		XPm_Subsystem *NotifierSubsystem = XPmSubsystem_GetById(PmNotifiers[Idx].SubsystemId);
+
+		if (NULL == Subsystem) {
 			/* Empty entry found in PmNotifiers array */
 			if (EmptyIdx > Idx) {
 				/* Remember only first found empty entry */
@@ -100,14 +102,14 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 		}
 
 		if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
-			if ((Subsystem == PmNotifiers[Idx].Subsystem) &&
+			if ((Subsystem == NotifierSubsystem) &&
 			    (NodeId == PmNotifiers[Idx].NodeId)) {
 				/* Drop empty index - existing entry found */
 				EmptyIdx = ARRAY_SIZE(PmNotifiers);
 				break;
 			}
 		} else {
-			if ((Subsystem == PmNotifiers[Idx].Subsystem) &&
+			if ((Subsystem == NotifierSubsystem) &&
 			    (Event == PmNotifiers[Idx].EventMask) &&
 			    (NodeId == PmNotifiers[Idx].NodeId)) {
 				Status = XST_SUCCESS;
@@ -136,7 +138,7 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 
 	if (EmptyIdx != ARRAY_SIZE(PmNotifiers)) {
 		/* Add new entry in empty place if no notifier found for given pair */
-		PmNotifiers[EmptyIdx].Subsystem = Subsystem;
+		PmNotifiers[EmptyIdx].SubsystemId = Subsystem->Id;
 		PmNotifiers[EmptyIdx].NodeId = NodeId;
 		PmNotifiers[EmptyIdx].IpiMask = IpiMask;
 		PmNotifiers[EmptyIdx].PendEvent = 0U;
@@ -300,7 +302,7 @@ static void XPmNotifier_SendPendingNotifyEvent(const XPm_Subsystem *SubSystem)
 	u32 Index = 0U;
 	u32 Idx = 0;
 	XPmNotifier* Notifier = NULL;
-	const XPm_Subsystem *TempSubSystem = NULL;
+	u32 TempSubSystemId ;
 
 	/* Check Subsystem is ready or not */
 	IpiAck = XPm_IpiPollForAck(SubSystem->IpiMask, XPM_NOTIFY_TIMEOUTCOUNT);
@@ -311,8 +313,8 @@ static void XPmNotifier_SendPendingNotifyEvent(const XPm_Subsystem *SubSystem)
 		while (Idx < PosEmptySpace) {
 			Index = ((u32)EventSeq[Idx] - 1U);
 			Notifier = &PmNotifiers[Index];
-			TempSubSystem = Notifier->Subsystem;
-			if ((SubSystem == TempSubSystem) &&
+			TempSubSystemId = Notifier->SubsystemId;
+			if ((SubSystem->Id == TempSubSystemId) &&
 			    (0U != Notifier->PendEventCnt)) {
 				break;
 			}
@@ -331,9 +333,10 @@ static void XPmNotifier_SendPendingNotifyEvent(const XPm_Subsystem *SubSystem)
 
 			NodeId = Payload[1];
 			Event = Payload[2];
-			if (((u8)ONLINE == Notifier->Subsystem->State) ||
-			    ((u8)PENDING_POWER_OFF ==  Notifier->Subsystem->State) ||
-			    ((u8)PENDING_RESTART == Notifier->Subsystem->State) ||
+			XPm_Subsystem* NotiferSubsystem = XPmSubsystem_GetById(Notifier->SubsystemId);
+			if (((u8)ONLINE ==NotiferSubsystem->State) ||
+			    ((u8)PENDING_POWER_OFF ==  NotiferSubsystem->State) ||
+			    ((u8)PENDING_RESTART == NotiferSubsystem->State) ||
 			    (0U != (Event & Notifier->WakeMask))) {
 				/* Send Notification */
 				(*PmRequestCb)(Notifier->IpiMask,
@@ -559,7 +562,8 @@ XStatus XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 	XStatus Status = XST_FAILURE;
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
-		if ((Subsystem == PmNotifiers[Idx].Subsystem) &&
+
+		if ((Subsystem->Id == PmNotifiers[Idx].SubsystemId) &&
 		    (Event == (Event & PmNotifiers[Idx].EventMask)) &&
 		    (NodeId == PmNotifiers[Idx].NodeId)) {
 			/* Entry for subsystem/NodeId pair found */
@@ -614,7 +618,7 @@ XStatus XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem)
 	XStatus Status = XST_FAILURE;
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
-		if (Subsystem == PmNotifiers[Idx].Subsystem) {
+		if (Subsystem->Id == PmNotifiers[Idx].SubsystemId) {
 			for (Pos = 0; Pos < XPM_NOTIFIERS_COUNT; Pos++ ) {
 				if ((Idx + 1U) == EventSeq[Pos]) {
 					XPmNotifier_RmvFromEventSeq(Pos);
@@ -705,7 +709,8 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 		 * If subsystem is OFFLINE then it should be notified about
 		 * the event only if it requested to be woken up.
 		 */
-		if (((u8)OFFLINE != Notifier->Subsystem->State) ||
+		XPm_Subsystem* NotiferSubsystem = XPmSubsystem_GetById(Notifier->SubsystemId);
+		if (((u8)OFFLINE != NotiferSubsystem->State) ||
 		    (0U != (Event & Notifier->WakeMask))) {
 			XPmNotifier_NotifyTarget(Notifier->IpiMask, Payload);
 		}
