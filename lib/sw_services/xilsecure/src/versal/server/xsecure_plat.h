@@ -22,6 +22,8 @@
 * 5.0   bm   07/06/22 Initial release
 * 5.2   yog  07/10/23 Added support of unaligned data sizes for Versal Net
 *       yog  09/04/23 Removed XSecure_ECCRandInit API definition
+* 5.3	vss  10/12/23 Removed XSECURE_SSS_IGNORE to fix MISRA-C Rule 18.1 violation
+		      and OVER_RUN coverity warning
 *
 * </pre>
 *
@@ -57,11 +59,8 @@ extern "C" {
 /***************************** Type Definitions******************************/
 /*
  * Sources to be selected to configure secure stream switch.
- * XSECURE_SSS__IGNORE is added to make enum type int
- * irrespective of compiler used.
  */
 typedef enum {
-	XSECURE_SSS_IGNORE = -1, /**< Ignore */
 	XSECURE_SSS_DMA0 = 0, /**< DMA0 */
 	XSECURE_SSS_DMA1, /**< DMA1 */
 	XSECURE_SSS_PTPI, /**< PTPI */
