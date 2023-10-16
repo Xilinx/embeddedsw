@@ -53,6 +53,7 @@ class BSP:
         self.drvlist = self.getdrv_list()
         self.lib_config = domain_data["lib_config"]
         self.template = domain_data["template"]
+        self.cmake_generator = utils.get_cmake_generator()
 
     def build_bsp(self):
         cmake_file = os.path.join(self.domain_path, "CMakeLists.txt")
@@ -62,9 +63,9 @@ class BSP:
         self.domain_path = self.domain_path.replace('\\','/')
         self.cmake_paths_append = self.cmake_paths_append.replace('\\','/')
         build_libxil = build_libxil.replace('\\','/')
-        utils.runcmd(f'cmake -G "Unix Makefiles" {self.domain_path} -DNON_YOCTO=ON -DSUBDIR_LIST="ALL" {self.cmake_paths_append}', cwd=build_libxil)
+        utils.runcmd(f'cmake -G "{self.cmake_generator}" {self.domain_path} -DNON_YOCTO=ON -DSUBDIR_LIST="ALL" {self.cmake_paths_append}', cwd=build_libxil)
         utils.runcmd("cmake --build . --parallel 22 --verbose", cwd = build_libxil)
-        utils.runcmd("make install", cwd=build_libxil)
+        utils.runcmd("cmake --install .", cwd=build_libxil)
 
     def getdrv_list(self):
         domain_data = utils.fetch_yaml_data(self.domain_config_file, "domain")

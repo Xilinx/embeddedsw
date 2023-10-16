@@ -75,11 +75,11 @@ project(bsp)
         cmake_file_cmds = cmake_file_cmds.replace('\\', '/')
         utils.write_into_file(cmake_file, cmake_file_cmds)
         utils.runcmd(
-            f'cmake -G "Unix Makefiles" {build_metadata} {self.cmake_paths_append}',
+            f'cmake -G "{self.cmake_generator}" {build_metadata} {self.cmake_paths_append}',
             cwd = build_metadata
         )
 
-        utils.runcmd("make -f CMakeFiles/Makefile2 -j22 > nul", cwd = build_metadata)
+        utils.runcmd("cmake --build . --parallel 22 --verbose > nul", cwd = build_metadata)
         for ip,data in domain_data['drv_info'].items():
             if data != "None":
                 driver = data['driver']

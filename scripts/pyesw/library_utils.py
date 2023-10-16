@@ -41,6 +41,7 @@ class Library(Repo):
         self.bsp_lib_config.update(self.domain_data["proc_config"])
         self.lib_info = self.domain_data["lib_info"]
         self.os_config = None
+        self.cmake_generator = utils.get_cmake_generator()
 
     def validate_lib_name(self, lib):
         """
@@ -332,10 +333,10 @@ class Library(Repo):
                 self.modify_cmake_subdirs(lib_list, action='add')
                 if is_app:
                     cmake_cmd_append = cmake_cmd_append.replace('\\', '/')
-                    utils.runcmd(f'cmake -G "Unix Makefiles" {self.domain_path} {self.cmake_paths_append} -DNON_YOCTO=ON -DSUBDIR_LIST="{cmake_lib_list}" {cmake_cmd_append} -LH > cmake_lib_configs.txt', cwd = build_metadata)
+                    utils.runcmd(f'cmake -G "{self.cmake_generator}" {self.domain_path} {self.cmake_paths_append} -DNON_YOCTO=ON -DSUBDIR_LIST="{cmake_lib_list}" {cmake_cmd_append} -LH > cmake_lib_configs.txt', cwd = build_metadata)
                 else:
                     utils.runcmd(
-                        f'cmake -G "Unix Makefiles" {self.domain_path} {self.cmake_paths_append} -DNON_YOCTO=ON -DSUBDIR_LIST="{cmake_lib_list}" -LH > cmake_lib_configs.txt',
+                        f'cmake -G "{self.cmake_generator}" {self.domain_path} {self.cmake_paths_append} -DNON_YOCTO=ON -DSUBDIR_LIST="{cmake_lib_list}" -LH > cmake_lib_configs.txt',
                         cwd = build_metadata
                     )
             except:
