@@ -766,7 +766,7 @@ static void XSecure_MakeAesFree(void)
  ******************************************************************************/
 static int XSecure_AesIsDataContextLost(void)
 {
-	XSecure_Aes *InstancePtr = XSecure_GetAesInstance();
+	const XSecure_Aes *InstancePtr = XSecure_GetAesInstance();
 	int Status = XST_SUCCESS;
 	if (InstancePtr->PreviousAesIpiMask == InstancePtr->IpiMask) {
 		if (InstancePtr->DataContextLost != (u32)XSECURE_DATA_CONTEXT_AVAILABLE) {
