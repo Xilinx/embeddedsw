@@ -54,7 +54,7 @@ def reconfig_bsp(args):
 
         utils.remove(build_metadata)
         utils.mkdir(build_metadata)
-        utils.runcmd(f'cmake -G "Unix Makefiles" {obj.domain_path} -DNON_YOCTO=ON -DSUBDIR_LIST="ALL" {obj.cmake_paths_append} {cmake_cmd_append}', cwd=build_metadata)
+        utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.domain_path} -DNON_YOCTO=ON -DSUBDIR_LIST="ALL" {obj.cmake_paths_append} {cmake_cmd_append}', cwd=build_metadata)
 
         utils.update_yaml(obj.domain_config_file, "path", "path", obj.domain_path, action="add")
 

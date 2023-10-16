@@ -467,6 +467,13 @@ def write_into_file(out_file, content):
     with open(out_file, 'w') as f:
         f.write(content)
 
+def get_cmake_generator():
+    if os.name == "nt":
+        cmake_generator = "Ninja"
+    else:
+        cmake_generator = "Unix Makefiles"
+    return cmake_generator
+
 def get_high_precedence_path(repo_paths_list, file_type, *argv):
     path = ""
     for entries in repo_paths_list:
