@@ -89,15 +89,12 @@ enum XPm_ReqSecurityFlags {
  * The requirement class.
  */
 struct XPm_Reqm {
-	struct XPm_Subsystem *Subsystem; /**< Subsystem imposing this requirement on the device */
-	XPm_Device *Device; /**< Device used by the subsystem */
-	XPm_Requirement *NextDevice; /**< Requirement on the next device from this subsystem */
-	XPm_Requirement *NextSubsystem; /**< Requirement from the next subsystem on this device */
+SAVE_REGION(
 	XPm_ReqmInfo Curr; /**< Current requirements */
 	XPm_ReqmInfo Next; /**< Pending requirements */
 	u32 PreallocQoS;  /**< Preallocated QoS value */
-	u16 Flags;	  /** Flags */
 	u8 Allocated; /**< Device has been allocated to the subsystem */
+	u16 Flags;	  /** Flags */
 	u8 SetLatReq; /**< Latency has been set from the subsystem */
 	u8 PreallocCaps;  /**< Preallocated capabilities */
 	u8 AttrCaps;	/**
@@ -105,6 +102,11 @@ struct XPm_Reqm {
 			 * This does not play any role for device state transition so
 			 * it is keep as a separate variable.
 			 */
+)
+	struct XPm_Subsystem *Subsystem; /**< Subsystem imposing this requirement on the device */
+	XPm_Device *Device; /**< Device used by the subsystem */
+	XPm_Requirement *NextDevice; /**< Requirement on the next device from this subsystem */
+	XPm_Requirement *NextSubsystem; /**< Requirement from the next subsystem on this device */
 };
 
 /************************** Function Prototypes ******************************/

@@ -101,6 +101,10 @@ typedef struct {
  */
 struct XPm_DeviceNode {
 	XPm_Node Node; /**< Node: Base class */
+	SAVE_REGION(
+	u8 WfDealloc; /**< Deallocation is pending */
+	u8 WfPwrUseCnt; /**< Pending power use count */
+	)
 	XPm_Power *Power; /**< Device power node */
 	XPm_ClockHandle *ClkHandles; /**< Head of the list of device clocks */
 	XPm_ResetHandle *RstHandles; /**< Head of the list device resets */
@@ -108,8 +112,6 @@ struct XPm_DeviceNode {
 		/**< Head of the list of requirements for all subsystems */
 
 	struct XPm_Reqm *PendingReqm; /**< Requirement being updated */
-	u8 WfDealloc; /**< Deallocation is pending */
-	u8 WfPwrUseCnt; /**< Pending power use count */
 	XPm_DeviceOps *DeviceOps; /**< Device operations */
 	XPm_DeviceAttr *DevAttr;  /**< Device attributes */
 	const XPm_DeviceFsm* DeviceFsm; /**< Device finite state machine */

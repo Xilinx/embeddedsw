@@ -22,6 +22,7 @@ struct XPm_ApuCore {
 	XPm_Core Core; /**< Processor core devices */
 	u32 FpdApuBaseAddr; /**< Base address of FPD_APU module */
 	u32 PcilPwrDwnReg; /*< Base Address of APU pwr dwn/ctrl reg*/
+	SAVE_REGION()
 };
 
 /************************** Function Prototypes ******************************/

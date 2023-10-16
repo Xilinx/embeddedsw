@@ -18,12 +18,13 @@ extern "C" {
  * The HNICX power domain node class.
  */
 typedef struct XPm_HnicxDomain {
-        XPm_PowerDomain Domain; /**< Power domain node base class */
+	XPm_PowerDomain Domain; /**< Power domain node base class */
+	SAVE_REGION()
 } XPm_HnicxDomain;
 
 /************************** Function Prototypes ******************************/
 XStatus XPmHnicxDomain_Init(XPm_HnicxDomain *Hnicxd, u32 Id, u32 BaseAddress,
-                         XPm_Power *Parent);
+			 XPm_Power *Parent);
 
 #ifdef __cplusplus
 }

@@ -28,10 +28,12 @@ struct XPm_PeriphOps {
  */
 struct XPm_Periph {
 	XPm_Device Device; /**< Device: Base class */
-	struct XPm_PeriphOps *PeriphOps; /**< Core operations */
 	u32 GicProxyMask; /**< GIC Proxy Mask */
 	u32 GicProxyGroup; /**< GIC Proxy Group */
+	SAVE_REGION(
 	u32 WakeProcId; /**< ID of processor which needs to wake on GIC interrupt */
+	)
+	struct XPm_PeriphOps *PeriphOps; /**< Core operations */
 };
 
 /************************** Function Prototypes ******************************/

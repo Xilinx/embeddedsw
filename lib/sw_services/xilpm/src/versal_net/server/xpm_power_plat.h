@@ -23,9 +23,10 @@ typedef struct XPm_Power XPm_Power;
  */
 struct XPm_Power {
 	XPm_Node Node; /**< Node: Node base class */
-	XPm_Power *Parent; /**< Parent: Parent node in the power topology */
+	SAVE_REGION(
 	u8 UseCount; /**< No. of devices currently using this power node */
 	u8 WfParentUseCnt; /**< Pending use count of the parent */
+	)
 	u16 PwrDnLatency; /**< Latency (in us) for transition to OFF state */
 	u16 PwrUpLatency; /**< Latency (in us) for transition to ON state */
 	u32 PwrUpEnOffset; /**< PSM request power up interrupt enable register offset */
@@ -34,6 +35,7 @@ struct XPm_Power {
 	u32 PwrDwnMask; /**< PSM request power down interrupt mask */
 	u32 PwrStatOffset; /**< PSM power state register offset */
 	u32 PwrStatMask; /**< PSM power state mask */
+	XPm_Power *Parent; /**< Parent: Parent node in the power topology */
 	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
 		/**< HandleEvent: Pointer to event handler */
 };

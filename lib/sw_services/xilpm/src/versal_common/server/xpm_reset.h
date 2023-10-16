@@ -70,9 +70,11 @@ struct XPm_ResetNode {
 	u16 Parents[MAX_RESET_PARENTS]; /**< List of Parent Reset Index */
 	uint8_t Shift;
 	uint8_t Width;
+	SAVE_REGION(
+	u32 AllowedSubsystems;
+	)
 	XPm_ResetOps *Ops;
 	XPm_ResetHandle *RstHandles; /**< Pointer to the reset/device pairs */
-	u32 AllowedSubsystems;
 };
 
 struct ResetCustomOps {

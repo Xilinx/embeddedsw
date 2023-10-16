@@ -31,11 +31,12 @@ struct XPm_PowerDomainOps {
 
 struct XPm_PowerDomain {
 	XPm_Power Power; /**< Power: Power node base class */
-	const struct XPm_PowerDomainOps *DomainOps; /**< house cleaning operations */
 	u32 Parents[MAX_POWERDOMAINS]; /**< List of Parent Rail Ids */
 	u32 Children[MAX_POWERDOMAINS]; /**< List of depedent children Ids */
 	u16 InitFlag; /**< Flag to indicate which Ops are performed */
 	u32 HcDisableMask; /**< Mask for skipping housecleaning operations */
+	SAVE_REGION()
+	const struct XPm_PowerDomainOps *DomainOps; /**< house cleaning operations */
 };
 
 /************************** Function Prototypes ******************************/

@@ -30,6 +30,7 @@ struct XPm_PsLpDomain {
 	u32 LpdSlcrBaseAddr; /**< LPD SLCR Base address */
 	u32 LpdSlcrSecureBaseAddr; /**< LPD SLCR Secure base address */
 	u8 LpdBisrFlags;
+	SAVE_REGION()
 };
 
 /************************** Function Prototypes ******************************/

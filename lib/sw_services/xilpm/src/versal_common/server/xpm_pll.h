@@ -58,9 +58,11 @@ struct XPm_PllClockNode {
 	u32 StatusReg;
 	u32 ConfigReg;
 	u32 FracConfigReg;
+	SAVE_REGION(
 	u8 PllMode;
-	struct XPm_PllTopology *Topology;
 	PmPllContext Context;
+	)
+	struct XPm_PllTopology *Topology;
 };
 
 #define ISPLL(id)	((NODECLASS(id) == (u32)XPM_NODECLASS_CLOCK) && \

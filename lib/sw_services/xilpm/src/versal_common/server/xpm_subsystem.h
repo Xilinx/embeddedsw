@@ -94,15 +94,17 @@ typedef struct XPm_Subsystem XPm_Subsystem;
  * The subsystem class.
  */
 struct XPm_Subsystem {
+SAVE_REGION(
 	u32 Id; /**< Subsystem ID */
 	u8 State; /**< Subsystem state */
 	u8 Flags; /**< Subsystem specific flags */
 	u32 IpiMask;
 	struct XPm_Permissions Perms;
 	struct XPm_PendSuspCb PendCb;
+	struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
+)
 	struct XPm_Reqm *Requirements;
 		/**< Head of the requirement list for all devices. */
-	struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
 	void (*NotifyCb)(u32 SubsystemId, const u32 EventId);
 	XPm_Subsystem *NextSubsystem;
 };

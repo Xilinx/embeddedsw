@@ -70,13 +70,15 @@ typedef struct XPm_ClockHandle XPm_ClockHandle;
 struct XPm_ClockNode {
 	XPm_Node Node;
 	char Name[MAX_NAME_BYTES];
-	u16 ParentIdx;
 	u8 NumParents;
 	u8 Flags;
+	SAVE_REGION(
+	u16 ParentIdx;
 	u8 UseCount;
+	u32 ClkRate;
+	)
 	XPm_ClockHandle *ClkHandles; /**< Pointer to the clock/device pairs */
 	XPm_Power *PwrDomain;
-	u32 ClkRate;
 };
 
 /**
@@ -92,6 +94,7 @@ struct XPm_ClockHandle {
 typedef struct XPm_OutClockNode {
 	XPm_ClockNode ClkNode;
 	XPm_ClkTopology Topology;
+	SAVE_REGION()
 }XPm_OutClockNode;
 
 /* Common topology definitions */

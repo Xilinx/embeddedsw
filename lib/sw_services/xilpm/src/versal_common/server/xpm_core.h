@@ -36,16 +36,18 @@ struct XPm_Core {
 	u32 ImageId; /**< ImageId: Image ID */
 	u16 PwrUpLatency;
 	u16 PwrDwnLatency;
-	struct XPm_CoreOps *CoreOps; /**< Core operations */
-	u8 DebugMode; /**< DebugMode: Debugger is connected */
 	u8 Ipi; /**< IPI channel */
 	u32 SleepMask;
 	u32 WakeUpMask;
 	u32 PwrDwnMask;
 	u8 PsmToPlmEvent_ProcIdx; /**< Processor index in the PsmToPlmEvent structure */
+	SAVE_REGION(
+	u8 DebugMode; /**< DebugMode: Debugger is connected */
 	u8 isCoreUp;
 	u8 IsCoreIdleSupported; /**< Flag for core idle is supported */
 	struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
+	)
+	struct XPm_CoreOps *CoreOps; /**< Core operations */
 };
 
 /************************** Function Prototypes ******************************/
