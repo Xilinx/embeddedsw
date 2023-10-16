@@ -45,7 +45,6 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd);
-void XSecure_MakeAesFree(void);
 #ifdef __cplusplus
 }
 #endif

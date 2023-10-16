@@ -40,7 +40,6 @@ extern "c" {
 
 /************************** Constant Definitions *****************************/
 int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd);
-void XSecure_MakeSha3Free(void);
 
 #ifdef __cplusplus
 }
