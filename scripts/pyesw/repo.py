@@ -97,6 +97,7 @@ def resolve_paths(repo_paths):
         else:
             continue
         files = glob.glob(abs_path + '/**/data/*.yaml', recursive=True)
+        files.sort(reverse=True)
         for entries in files:
             dir_path = utils.get_dir_path(utils.get_dir_path(entries))
             comp_name = utils.get_base_name(dir_path)
