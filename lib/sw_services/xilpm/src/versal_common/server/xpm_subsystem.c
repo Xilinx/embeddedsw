@@ -18,7 +18,9 @@
 #include "xpm_pin.h"
 #include "xpm_regs.h"
 #include "xpm_requirement.h"
-
+#ifdef VERSAL_NET
+#include "xpm_update.h"
+#endif
 static XPm_Subsystem *PmSubsystems;
 static u32 MaxSubsysIdx;
 
@@ -624,7 +626,9 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
                 Status = XST_BUFFER_TOO_SMALL;
                 goto done;
         }
-
+#ifdef VERSAL_NET
+        XPmUpdate_AllNodes_Add((XPm_Node*)Subsystem);
+#endif
         Subsystem->NextSubsystem = PmSubsystems;
         Subsystem->Id = SubsystemId;
         Subsystem->PendCb.Reason = 0U;

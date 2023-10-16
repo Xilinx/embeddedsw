@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,6 +8,10 @@
 #include "xpm_defs.h"
 #include "xpm_common.h"
 #include "xpm_node.h"
+#ifdef VERSAL_NET
+#include "xpm_update.h"
+#endif
+
 void XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress)
 {
 	PmDbg("Node Init: Type=%d, Id=%d, State=%d, BaseAddress=0x%08X\n\r",
@@ -17,4 +22,7 @@ void XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress)
 	Node->BaseAddress = BaseAddress;
 	Node->Flags = 0;
 	Node->LatencyMarg = XPM_MAX_LATENCY;
+#ifdef VERSAL_NET
+	XPmUpdate_AllNodes_Add(Node);
+#endif
 }
