@@ -27,7 +27,7 @@ BEGIN LIBRARY xilflash
   OPTION supported_peripherals = (opb_emc_v2_00_a plb_emc mch_opb_emc xps_mch_emc axi_emc);
   OPTION APP_LINKER_FLAGS = "-lxilflash";
   OPTION desc = "Xilinx Flash library for Intel/AMD CFI compliant parallel flash";
-  OPTION VERSION = 4.10;
+  OPTION VERSION = 4.11;
   OPTION NAME = xilflash;
   PARAM name = enable_intel, desc = "Enables support for Intel family devices", type = bool, default = true;
   PARAM name = enable_amd, desc = "Enables support for AMD family devices", type = bool, default = false;
