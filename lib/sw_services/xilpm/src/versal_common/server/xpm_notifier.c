@@ -66,6 +66,35 @@ static XPmNotifier PmNotifiers[XPM_NOTIFIERS_COUNT];
 
 static volatile u32 SchedulerTask = (u32)NOT_PRESENT;
 
+#ifdef VERSAL_NET
+#include "xpm_update.h"
+#include "xpm_update_data.h"
+EXPORT_DS(EventSeq, \
+	XPLMI_MODULE_XILPM_ID, XPM_EVENTSEQ_DS_ID, \
+	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \
+	sizeof(EventSeq), (u32)(UINTPTR)EventSeq);
+
+EXPORT_DS(PendingEvent, \
+	XPLMI_MODULE_XILPM_ID, XPM_PENDINGEVENT_DS_ID, \
+	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \
+	sizeof(PendingEvent), (u32)(UINTPTR)&PendingEvent);
+
+EXPORT_DS(PosEmptySpace, \
+	XPLMI_MODULE_XILPM_ID, XPM_POSEMPTYSPACE_DS_ID, \
+	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \
+	sizeof(PosEmptySpace), (u32)(UINTPTR)&PosEmptySpace);
+
+EXPORT_DS(PmNotifiers, \
+	XPLMI_MODULE_XILPM_ID, XPM_PMNOTIFIERS_DS_ID, \
+	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \
+	sizeof(PmNotifiers), (u32)(UINTPTR)PmNotifiers);
+
+EXPORT_DS(SchedulerTask, \
+	XPLMI_MODULE_XILPM_ID, XPM_SCHEDULERTASK_DS_ID, \
+	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \
+	sizeof(SchedulerTask), (u32)(UINTPTR)&SchedulerTask);
+#endif
+
 static int XPmNotifier_SchedulerTask(void *Arg);
 
 /****************************************************************************/

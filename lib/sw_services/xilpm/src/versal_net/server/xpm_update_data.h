@@ -18,7 +18,11 @@ extern "C" {
 #define XPM_BYTEBUFFER_ADDR_DS_ID 	2U
 #define XPM_ALLNODES_DS_ID 		3U
 #define XPM_NUMNODES_DS_ID 		4U
-
+#define XPM_EVENTSEQ_DS_ID 		5U
+#define XPM_PENDINGEVENT_DS_ID		6U
+#define XPM_POSEMPTYSPACE_DS_ID		7U
+#define XPM_PMNOTIFIERS_DS_ID		8U
+#define XPM_SCHEDULERTASK_DS_ID		9U
 #ifdef __cplusplus
 }
 #endif
