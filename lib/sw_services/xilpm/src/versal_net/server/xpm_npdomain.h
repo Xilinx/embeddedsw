@@ -21,6 +21,7 @@ extern "C" {
  */
 typedef struct XPm_NpDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
+	SAVE_REGION()
 } XPm_NpDomain;
 
 /************************** Function Prototypes ******************************/

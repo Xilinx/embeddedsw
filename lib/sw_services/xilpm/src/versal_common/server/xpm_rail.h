@@ -53,6 +53,7 @@ typedef struct {
 	XPm_RailType ControlType[MAX_MODES];
 	XPm_I2cCmd I2cModes[MAX_MODES];	  /** Modes information if parent regulator is controlled by I2C */
 	XPm_GPIOCmd GPIOModes[MAX_MODES]; /** Modes information if parent regulator is controlled by GPIO */
+	SAVE_REGION()
 	XPmRail_TempVoltAdj *TempVoltAdj;
 } XPm_Rail;
 

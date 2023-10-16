@@ -29,19 +29,23 @@ struct XPm_MemDevice {
 	XPm_Device Device;	/**< Device: Base class */
 	u32 StartAddress;
 	u32 EndAddress;
+	SAVE_REGION()
+};
+struct XPm_AddrRegion {
+	u64 Address;
+	u64 Size;
 };
 
 /* DDR Memory controller device */
 struct XPm_MemCtrlrDevice {
 	XPm_Device Device;	/**< Device: Base class */
-	struct XPm_AddrRegion {
-		u64 Address;
-		u64 Size;
-	} Region[2];		/**< DDRMC Address regions (max: 2) */
-	struct XPm_PlDeviceNode *PlDevice;	/**< Parent PL device */
+	SAVE_REGION(
+	struct XPm_AddrRegion Region[2];/**< DDRMC Address regions (max: 2) */
 	u8 RegionCount;		/**< DDRMC Address range count */
 	u8 IntlvSize;		/**< DDRMC Interleave size in bytes */
 	u8 IntlvIndex;		/**< DDRMC Interleave order index */
+	)
+	struct XPm_PlDeviceNode *PlDevice;	/**< Parent PL device */
 };
 
 /************************** Function Prototypes ******************************/

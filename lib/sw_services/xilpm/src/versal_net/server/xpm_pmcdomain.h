@@ -21,6 +21,7 @@ typedef struct XPm_PmcDomain XPm_PmcDomain;
  */
 struct XPm_PmcDomain {
 	XPm_PowerDomain Domain; /**< Power: Power domain base class */
+	SAVE_REGION()
 };
 
 /************************** Function Prototypes ******************************/

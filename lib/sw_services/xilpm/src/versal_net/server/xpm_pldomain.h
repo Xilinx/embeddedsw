@@ -26,6 +26,7 @@ typedef struct XPm_PlDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
 	u32 CfuApbBaseAddr; /**< CFU APB base address */
 	u32 Cframe0RegBaseAddr; /**< CFRAME0 Register base address */
+	SAVE_REGION()
 } XPm_PlDomain;
 
 /* TRIM Types */

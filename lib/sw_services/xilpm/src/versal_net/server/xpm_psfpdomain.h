@@ -24,6 +24,7 @@ typedef struct XPm_PsFpDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
 	u32 FpdSlcrBaseAddr; /**< FPD SLCR base address */
 	u32 FpdSlcrSecureBaseAddr; /**< FPD SLCR SECURE base address */
+	SAVE_REGION()
 } XPm_PsFpDomain;
 
 /************************** Function Prototypes ******************************/

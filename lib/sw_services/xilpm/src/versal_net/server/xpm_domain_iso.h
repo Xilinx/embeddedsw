@@ -38,6 +38,7 @@ typedef struct XPm_Iso {
 	u32 Format;
 	u32 NumDependencies;
 	u32 Dependencies[PM_ISO_MAX_NUM_DEPENDENCIES];
+	SAVE_REGION()
 }XPm_Iso;
 
 /* Polarity */

@@ -14,6 +14,7 @@
 #include <xil_types.h>
 #include <xstatus.h>
 #include "xpm_nodeid.h"
+#include "xpm_common.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,9 +29,11 @@ extern "C" {
 typedef struct XPm_Node {
 	u32 Id;	/**< Node ID: For XilPM clock and pin APIs */
 	u32 BaseAddress; /**< Base address: Specify to node type */
+	SAVE_REGION(
 	u16 LatencyMarg; /**< lowest latency requirement - powerup latency */
 	u8  State; /**< Node state: Specific to node type */
 	u8  Flags;
+	)
 } XPm_Node;
 
 /************************** Function Prototypes ******************************/

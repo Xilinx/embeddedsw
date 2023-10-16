@@ -24,6 +24,7 @@ struct XPm_Pmc {
 	u32 PmcIouSlcrBaseAddr; /**< PMC IOU SLCR register base address */
 	u32 PmcGlobalBaseAddr; /**< PMC GLOBAL register base address */
 	u32 PmcAnalogBaseAddr; /**< PMC Analog register base address */
+	SAVE_REGION()
 };
 
 /************************** Function Prototypes ******************************/

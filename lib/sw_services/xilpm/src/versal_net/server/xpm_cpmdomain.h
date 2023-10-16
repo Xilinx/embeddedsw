@@ -26,6 +26,7 @@ typedef struct XPm_CpmDomain {
 	u32 CpmSlcrSecureBaseAddr; /**< CPM SLCR Secure base address */
 	u32 CpmPcsrBaseAddr; /**< CPM PCSR Base address */
 	u32 CpmCrCpmBaseAddr; /**< CPM CRCPM Base address */
+	SAVE_REGION()
 } XPm_CpmDomain;
 
 /************************** Function Prototypes ******************************/
