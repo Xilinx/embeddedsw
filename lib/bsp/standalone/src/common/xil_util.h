@@ -101,7 +101,7 @@ extern "C" {
  * @return	32-bit version number
  *
  ******************************************************************************/
-#define XIL_BUILD_VERSION(Major, Minor)		(((Major) << 16U) | (Minor))
+#define XIL_BUILD_VERSION(Major, Minor)		((((u32)Major) << 16U) | (Minor))
 
 #ifdef __GNUC__
 /******************************************************************************/
