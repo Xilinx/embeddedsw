@@ -67,6 +67,7 @@ static u32 PmNumHbMonDevices;
 static u32 PmNumAieDevices;
 static u32 PmSysmonAddresses[(u32)XPM_NODEIDX_MONITOR_MAX];
 static u32 PmNumDevices;
+
 static const XPm_StateCap XPmGenericDeviceStates[] = {
 	{
 		.State = (u8)XPM_DEVSTATE_UNUSED,
@@ -1200,11 +1201,8 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		Status = XST_DEVICE_BUSY;
 		goto done;
 	}
-#ifdef VERSAL_NET
-	XPmNode_Init(&Device->Node, Id, (u8)XPM_DEVSTATE_UNUSED, BaseAddress, XPmDevice_DoSaveRestore);
-#else
+
 	XPmNode_Init(&Device->Node, Id, (u8)XPM_DEVSTATE_UNUSED, BaseAddress);
-#endif
 
 	/* Add requirement for each requestable device on PMC subsystem */
 	if (1U == XPmDevice_IsRequestable(Id)) {

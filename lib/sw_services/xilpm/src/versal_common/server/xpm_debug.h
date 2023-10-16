@@ -724,22 +724,7 @@ extern "C" {
 #define XPM_INT_ERR_BFRB_HC			0x5205U
 /* Error when asserting BFRB INITSTATE */
 #define XPM_INT_ERR_BFRB_INITSTATE_ASSERT	0x5206U
-/*************************** XilPm Update Specific Errors ****************************/
-/************************** (0x6000U) - (0x6FFFU) ******************************/
-/* Error code when Dynamic Buffer running out of space to stored Node data */
-#define XPM_UPDATE_BUFFER_TOO_SMALL	0x6000U
-/* Error encounter unknown operation opcode */
-#define XPM_UPDATE_UNKNOWN_OP		0x6001U
-/* Error when save data is NULL*/
-#define XPM_UPDATE_SAVED_DATA_NULL	0x6002U
-/* Error when node data is NULL*/
-#define XPM_UPDATE_NODE_DATA_NULL	0x6003U
-/* Error when IDs are not matched*/
-#define XPM_UPDATE_ID_MISMATCH		0x6004U
-/* Error when PendingReq is NULL */
-#define XPM_UPDATE_PENDREQ_NULL		0x6005U
-/* Error when number of requirements is too large */
-#define XPM_UPDATE_MAX_NUM_REQM		0x6006U
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 

@@ -29,9 +29,6 @@ extern "C" {
 			((idx) == (u32)XPM_NODEIDX_CLK_CPLL))
 #define CLK_DUMMY_PARENT		(-2)
 
-typedef struct XPm_ClockNode XPm_ClockNode;
-typedef struct XPm_ClockHandle XPm_ClockHandle;
-
 void XPmClock_SetPlClockAsReadOnly(void);
 
 #ifdef __cplusplus

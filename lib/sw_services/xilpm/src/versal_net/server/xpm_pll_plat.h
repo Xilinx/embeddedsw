@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,7 +17,7 @@ extern "C" {
 #endif
 void XPm_PllClearLockError(const XPm_PllClockNode* Pll);
 void XPmClockPll_PlatReset(XPm_PllClockNode* Pll);
-XStatus XPmClockPll_DoSaveRestore(u32* SavedData, u32* ThisData, u32 Op);
+
 #ifdef __cplusplus
 }
 #endif

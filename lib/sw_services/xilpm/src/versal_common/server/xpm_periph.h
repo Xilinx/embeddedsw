@@ -9,9 +9,7 @@
 #define XPM_PERIPH_H_
 
 #include "xpm_device.h"
-#ifdef VERSAL_NET
-#include "xpm_periph_plat.h"
-#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif

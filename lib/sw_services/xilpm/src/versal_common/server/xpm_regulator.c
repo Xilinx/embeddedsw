@@ -99,11 +99,7 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32
 	}
 
 	PmRegulators[NodeIndex] = Regulator;
-#ifdef VERSAL_NET
-	XPmNode_Init(&Regulator->Node, Id, (u8)XPM_POWER_STATE_ON, 0U, XPmRegulator_SaveRestore);
-#else
 	XPmNode_Init(&Regulator->Node, Id, (u8)XPM_POWER_STATE_ON, 0U);
-#endif
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);

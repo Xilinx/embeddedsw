@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,7 +44,7 @@ XStatus XPmPower_SendIslandPowerDwnReq(const XPm_Node *Node);
 XStatus XPmPower_SendIslandPowerUpReq(const XPm_Node *Node);
 XStatus XPmPower_PlatSendPowerUpReq(XPm_Node *Node);
 XStatus XPmPower_PlatSendPowerDownReq(const XPm_Node *Node);
-XStatus XPmPower_DoSaveRestore(u32* SavedData, u32* ThisData, u32 Op);
+
 #ifdef __cplusplus
 }
 #endif

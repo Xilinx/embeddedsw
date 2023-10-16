@@ -9,9 +9,6 @@
 
 #include "xpm_mem.h"
 #include "xpm_powerdomain.h"
-#ifdef VERSAL_NET
-#include "xpm_pldevice_plat.h"
-#endif
 
 #ifdef __cplusplus
 extern "C" {

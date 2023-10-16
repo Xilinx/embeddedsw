@@ -39,9 +39,7 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 	Core->isCoreUp = 0;
 	Core->IsCoreIdleSupported = 0U;
 	Core->PsmToPlmEvent_ProcIdx = (u8)PROC_DEV_MAX;
-#ifdef VERSAL_NET
-	Core->Device.Node.SaveRestoreHandler = XPmCore_DoSaveRestore;
-#endif
+
 	if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Id)) ||
 	    ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Id))) {
 		/* Find and store PsmToPlmEvent_ProcIdx in Core structure */

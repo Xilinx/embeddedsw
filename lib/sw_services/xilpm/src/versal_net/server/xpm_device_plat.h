@@ -103,9 +103,6 @@ maybe_unused static inline void PlatDevRequest(XPm_Device *Device,
 	(void)QoS;
 	(void)Status;
 }
-XStatus XPmDevice_SaveDevice(XPm_Device* ThisData, u32** SavedData);
-XStatus XPmDevice_RestoreDevice(u32* SavedData, XPm_Device* ThisData, u32** NextSavedData);
-XStatus XPmDevice_DoSaveRestore(u32* SavedData, u32* ThisData, u32 Op);
 
 #ifdef __cplusplus
 }

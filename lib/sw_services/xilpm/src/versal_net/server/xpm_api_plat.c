@@ -834,7 +834,6 @@ int XPm_UpdateHandler(XPlmi_ModuleOp Op)
 	if (Op.Mode == XPLMI_MODULE_SHUTDOWN_INITIATE) {
 		if (GenericHandlerState == XPLMI_MODULE_NORMAL_STATE) {
 			GenericHandlerState = XPLMI_MODULE_SHUTDOWN_INITIATED_STATE;
-			Status = XPmUpdate_SaveAllNodes();
 			Status = XST_SUCCESS;
 		}
 	}
