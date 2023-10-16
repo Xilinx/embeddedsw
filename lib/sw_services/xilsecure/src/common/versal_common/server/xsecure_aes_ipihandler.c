@@ -84,7 +84,7 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg);
 static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh);
 static int XSecure_IsKeySrcValid(u32 KeySrc);
 static int XSecure_AesIsDataContextLost(void);
-
+static void XSecure_MakeAesFree(void);
 /*****************************************************************************/
 /**
  * @brief       This function calls respective IPI handler based on the API_ID
@@ -748,7 +748,7 @@ END:
  * @brief       This function is used to mark the resource as free
  *
  ******************************************************************************/
-void XSecure_MakeAesFree(void)
+static void XSecure_MakeAesFree(void)
 {
 	XSecure_Aes *InstancePtr = XSecure_GetAesInstance();
 

@@ -63,6 +63,7 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	u32 DstAddrLow, u32 DstAddrHigh);
 static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd);
 static int XSecure_ShaIsDataContextLost(void);
+static void XSecure_MakeSha3Free(void);
 
 /*************************** Function Definitions *****************************/
 
@@ -273,7 +274,7 @@ END:
  * @brief       This function is used to mark the resource as free
  *
  ******************************************************************************/
-void XSecure_MakeSha3Free(void)
+static void XSecure_MakeSha3Free(void)
 {
 	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
 
