@@ -1,9 +1,14 @@
 # Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
-
+if (${NON_YOCTO})
 set(INTC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../../intc/src/")
 set(SCUGIC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../../scugic/src/")
+else()
+find_package(common)
+set(INTC_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+set(SCUGIC_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+endif()
 find_package(INTC QUIET)
 set(defs "")
 list(APPEND defs "#ifndef XCOMMON_DRV_CONFIG_H_\n")
@@ -23,3 +28,10 @@ file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/xcommon_drv_config.h ${defs})
 collect (PROJECT_LIB_SOURCES xinterrupt_wrap.c)
 collect (PROJECT_LIB_HEADERS xinterrupt_wrap.h)
 collect (PROJECT_LIB_HEADERS xcommon_drv_config.h)
+if (NOT ${NON_YOCTO})
+collector_list (_sources PROJECT_LIB_SOURCES)
+collector_list (_headers PROJECT_LIB_HEADERS)
+file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
+add_library(common STATIC ${_sources})
+set_target_properties(common PROPERTIES LINKER_LANGUAGE C)
+endif()

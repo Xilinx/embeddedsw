@@ -38,14 +38,17 @@ if(("${CMAKE_MACHINE}" STREQUAL "Versal") OR
 collect (PROJECT_LIB_HEADERS pm_api_version.h)
 endif()
 string(FIND "${CMAKE_C_FLAGS}" "-flto" has_flto)
-if ((${has_flto} EQUAL -1))
-if(("${CMAKE_MACHINE}" STREQUAL "ZynqMP"))
+if ((${has_flto} EQUAL -1) AND
+    ("${CMAKE_MACHINE}" STREQUAL "ZynqMP"))
+if (${NON_YOCTO})
 add_subdirectory(clocking)
 endif()
 endif()
+if (${NON_YOCTO})
 add_subdirectory(intr)
-if (NOT ${NON_YOCTO})
+else()
 collect (PROJECT_LIB_HEADERS sleep.h)
+collect (PROJECT_LIB_HEADERS xparameters.h)
 endif()
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblazeel") OR

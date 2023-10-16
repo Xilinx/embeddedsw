@@ -29,6 +29,5 @@ set_target_properties(xil PROPERTIES IMPORTED_LOCATION ${XIL_LIB} LINKER_LANGUAG
 install(DIRECTORY ${CMAKE_BINARY_DIR}/include DESTINATION ${CMAKE_INCLUDE_PATH}/..)
 else()
 include_directories(${CMAKE_BINARY_DIR}/include)
-file(COPY xparameters.h DESTINATION ${CMAKE_BINARY_DIR}/include)
 add_library(libxil INTERFACE)
 endif()
