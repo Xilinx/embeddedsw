@@ -144,6 +144,8 @@ extern "C" {
 #endif
 #endif
 
+/** Pass through (Empty) macros, since there's no save and restore in versal platform */
+#define SAVE_REGION(...) __VA_ARGS__
 
 /* NPI PCSR related general functions */
 XStatus XPm_PcsrWrite(u32 BaseAddress, u32 Mask, u32 Value);
