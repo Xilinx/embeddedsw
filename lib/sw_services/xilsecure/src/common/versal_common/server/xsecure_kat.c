@@ -804,7 +804,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 	volatile u32 Index;
-	u32 *AesExpPt = (u32*)XSecure_GetKatMessage();
+	const u32 *AesExpPt = (u32*)XSecure_GetKatMessage();
 	u32 DstVal[XSECURE_KAT_MSG_LEN_IN_WORDS];
 
 	if (AesInstance == NULL) {
@@ -915,7 +915,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 	volatile int SStatus = XST_FAILURE;
 	volatile u32 Index;
 	u8 *AesPt = (u8*)XSecure_GetKatMessage();
-	u32 *AesExpCt = (u32*)&AesCt[0U];
+	const u32 *AesExpCt = (u32*)&AesCt[0U];
 	u8 GcmTag[XSECURE_SECURE_GCM_TAG_SIZE];
 	u32 DstVal[XSECURE_KAT_MSG_LEN_IN_WORDS] ;
 
@@ -1259,8 +1259,8 @@ END:
  *****************************************************************************/
 int XSecure_EllipticVerifySignKat(XSecure_EllipticCrvClass CrvClass) {
 	volatile int Status = XST_FAILURE;
-	XSecure_EllipticKey *PubKey = XSecure_GetKatEccPublicKey(CrvClass);
-	XSecure_EllipticSign *ExpSign = XSecure_GetKatEccExpSign(CrvClass);
+	const XSecure_EllipticKey *PubKey = XSecure_GetKatEccPublicKey(CrvClass);
+	const XSecure_EllipticSign *ExpSign = XSecure_GetKatEccExpSign(CrvClass);
 
 	if ((PubKey->Qx == NULL) || (PubKey->Qy == NULL) || (ExpSign->SignR == NULL)
 		|| (ExpSign->SignS == NULL)) {
@@ -1304,9 +1304,9 @@ int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass) {
 	u8 Sign[XSECURE_ECC_P384_SIZE_IN_BYTES +
 				XSECURE_ECC_P384_SIZE_IN_BYTES];
 	XSecure_EllipticSign GeneratedSign;
-	XSecure_EllipticSign *ExpSign = XSecure_GetKatEccExpSign(CrvClass);
-	u8 *D = XSecure_GetKatEccPrivateKey(CrvClass);
-	u8 *K = XSecure_GetKatEccEphimeralKey(XSECURE_ECC_NIST_P384);
+	const XSecure_EllipticSign *ExpSign = XSecure_GetKatEccExpSign(CrvClass);
+	const u8 *D = XSecure_GetKatEccPrivateKey(CrvClass);
+	const u8 *K = XSecure_GetKatEccEphimeralKey(XSECURE_ECC_NIST_P384);
 	u32 Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
 
 	if ((ExpSign->SignR == NULL) || (ExpSign->SignS == NULL)
