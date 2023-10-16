@@ -243,7 +243,7 @@ class Domain(Repo):
         if self.sdt != out_dts_path:
             if utils.is_file(lops_file):
                 utils.runcmd(
-                    f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} {self.sdt} {out_dts_path}"
+                    f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
                 )
             else:
                 utils.runcmd(
@@ -306,37 +306,44 @@ class Domain(Repo):
             )
         return compiler_flags
 
-
-def cmake_add_target(comp_name, output_dir, sdt, cmd, output):
-    cmake_cmd = f"""
-add_custom_target(
-	{comp_name} ALL
-	COMMAND lopper -O {output_dir} {sdt} -- {cmd}
-	BYPRODUCTS {output}
-)
-"""
-    return cmake_cmd
-
-def cmake_drv_custom_target(proc, libsrc_folder, sdt, cmake_drv_name_list, cmake_drv_path_list):
-    cmake_cmd = f'''
-set(DRIVER_TARGETS {cmake_drv_name_list})
-set(DRIVER_LOCATIONS {cmake_drv_path_list})
-
-list(LENGTH DRIVER_TARGETS no_of_drivers)
-set(index 0)
-
-while(${{index}} LESS ${{no_of_drivers}})
-    list(GET DRIVER_TARGETS ${{index}} drv)
-    list(GET DRIVER_LOCATIONS ${{index}} drv_dir)
-    set(src_dir "${{drv_dir}}/src")
-    add_custom_target(
-        ${{drv}} ALL
-        COMMAND lopper -O {libsrc_folder}/${{drv}}/src {sdt} -- baremetalconfig_xlnx {proc} ${{src_dir}}
-        BYPRODUCTS x${{drv}}_g.c)
-    MATH(EXPR index "${{index}}+1")
-endwhile()
-'''
-    return cmake_cmd
+def lop_create_target(lop_cmds):
+    lop_file = f'''
+/dts-v1/;
+/ {{
+        compatible = "system-device-tree-v1,lop";
+        lops {{
+                lop_0 {{
+                        compatible = "system-device-tree-v1,lop,load";
+                        load = "assists/baremetalconfig_xlnx.py";
+                }};
+                lop_1 {{
+                        compatible = "system-device-tree-v1,lop,load";
+                        load = "assists/baremetal_bspconfig_xlnx";
+                }};
+                lop_2 {{
+                        compatible = "system-device-tree-v1,lop,load";
+                        load = "assists/bmcmake_metadata_xlnx.py";
+                }};
+                lop_3 {{
+                        compatible = "system-device-tree-v1,lop,load";
+                        load = "assists/baremetal_xparameters_xlnx.py";
+                }};
+    '''
+    for index,cmd in enumerate(lop_cmds, 4):
+        lop_file += f'''
+                lop_{index} {{
+                    compatible = "system-device-tree-v1,lop,assist-v1";
+                    node = "/";
+                    outdir = "{cmd[0]}";
+                    id = "{cmd[1]}";
+                 options = "{cmd[2]}";
+                }};
+        '''
+    lop_file += f'''
+        }};
+    }};
+    '''
+    return lop_file.replace('\\', '/')
 
 def create_domain(args):
     """
@@ -362,28 +369,20 @@ def create_domain(args):
             -DCMAKE_SPECS_FILE={obj.specs_file} \
             -DCMAKE_VERBOSE_MAKEFILE=ON"
 
-    # Create top level CMakeLists.txt inside domain dir
-    cmake_file = os.path.join(obj.domain_dir, "CMakeLists.txt")
 
     # Copy the standalone bsp src file.
     os_dir_path = obj.get_comp_dir("standalone")
     os_srcdir = os.path.join(os_dir_path, "src")
     bspsrc = os.path.join(obj.libsrc_folder, "standalone", "src")
+    bspcomsrc = os.path.join(obj.libsrc_folder, "standalone", "src", "common")
     utils.copy_directory(os_srcdir, bspsrc)
     obj.os_info['standalone'] = {'path': os_dir_path}
 
-    cmake_header = """
-cmake_minimum_required(VERSION 3.15)
-project(bsp)
-find_package(common)
-    """
-    cmake_file_cmds = cmake_header
-
-    cmd = f"baremetal_bspconfig_xlnx {obj.proc} {os_srcdir}"
-    cmake_file_cmds += cmake_add_target("xilstandalone_config", bspsrc, obj.sdt, cmd, "MemConfig.cmake")
-    bspcomsrc = os.path.join(obj.libsrc_folder, "standalone", "src", "common")
-    cmd = f"bmcmake_metadata_xlnx {obj.proc} {os_srcdir} hwcmake_metadata {obj.repo_yaml_path}"
-    cmake_file_cmds += cmake_add_target("xilstandalone_meta", bspcomsrc, obj.sdt, cmd, "StandaloneExample.cmake")
+    # Create lops file
+    config_lops_file = os.path.join(obj.domain_dir, "lop-config.dts")
+    lop_cmds = []
+    lop_cmds.append([bspsrc, "module,baremetal_bspconfig_xlnx", f"{obj.proc} {os_srcdir}"])
+    lop_cmds.append([bspcomsrc, "module,bmcmake_metadata_xlnx", f"{obj.proc} {os_srcdir} hwcmake_metadata {obj.repo_yaml_path}"])
 
     # Copy cmake file that contains cmake utility APIs to a common location.
     find_common_cmake_path = utils.get_high_precedence_path(
@@ -433,6 +432,7 @@ find_package(common)
             print(f"[ERROR]: Couldnt find the src directory for {drv}. {drv_path} doesnt exist.")
             sys.exit(1)
         cmake_drv_path_list += f"{drv_path};"
+        lop_cmds.append([drvsrc, "module,baremetalconfig_xlnx", f"{obj.proc} {drv_srcdir}"])
 
     ip_drv_map_file = os.path.join(obj.libsrc_folder, "ip_drv_map.yaml")
     ip_drv_map = utils.load_yaml(ip_drv_map_file)
@@ -449,10 +449,6 @@ find_package(common)
         else:
             obj.drv_info[ip] = "None"
 
-    cmake_drv_name_list += ';'.join(drv_list)
-    cmake_file_cmds += cmake_drv_custom_target(obj.proc, obj.libsrc_folder, obj.sdt, cmake_drv_name_list, cmake_drv_path_list)
-    cmd = f"baremetal_xparameters_xlnx {obj.proc} {obj.repo_yaml_path}"
-    cmake_file_cmds += cmake_add_target("xparam", obj.include_folder, obj.sdt, cmd, "xparameters.h")
 
     """
     Create a dictionary that will contain the current status of the domain.
@@ -521,35 +517,22 @@ find_package(common)
             lib_dir_path = obj.get_comp_dir(lib)
             srcdir = os.path.join(lib_dir_path, "src")
             dstdir = os.path.join(obj.libsrc_folder, f"{lib}/src")
-            cmd = f"bmcmake_metadata_xlnx {obj.proc} {srcdir} hwcmake_metadata {obj.repo_yaml_path}"
             outfile = f"{lib}Example.cmake"
-            cmake_file_cmds += cmake_add_target(lib, dstdir, obj.sdt, cmd, outfile)
+            lop_cmds.append([dstdir, "module,bmcmake_metadata_xlnx", f"{obj.proc} {srcdir} hwcmake_metadata {obj.repo_yaml_path}"])
             if ("xilpm" in lib) and ("ZynqMP" in obj.family):
-                dstdir = os.path.join(obj.libsrc_folder, f"{lib}/src/zynqmp/client/common/")
-                cmd = f"generate_config_object pm_cfg_obj.c {obj.proc}"
-                cmake_file_cmds += cmake_add_target("xilpm_cfg_obj", dstdir, obj.sdt, cmd, "pm_cfg_obj.c")
+                dstdir = os.path.join(obj.libsrc_folder, lib, "src", "zynqmp", "client", "common")
+                ori_sdt_path = os.path.join(obj.sdt_folder, "sdt.dts")
+                lopper_cmd = f"lopper -O {dstdir} -f {ori_sdt_path} --  generate_config_object pm_cfg_obj.c {obj.proc}"
+                utils.runcmd(lopper_cmd, cwd = dstdir)
 
-    cmake_file_cmds += f"\nadd_library(bsp INTERFACE)"
-    cmake_file_cmds = cmake_file_cmds.replace('\\', '/')
-    cmake_file_cmds += f"\nadd_dependencies(bsp xilstandalone_config xilstandalone_meta xparam {' '.join(lib_list)} {cmake_drv_name_list})"
-    utils.write_into_file(cmake_file, cmake_file_cmds)
-
-    # Create a build directory for cmake to generate all _g.c files.
     build_metadata = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp")
     utils.mkdir(build_metadata)
 
-    # Run cmake configure and build to generate _g.c files
-    obj.domain_dir = obj.domain_dir.replace('\\', '/')
-    obj.toolchain_file = obj.toolchain_file.replace('\\', '/')
-    cmake_paths_append = cmake_paths_append.replace('\\', '/')
-    build_metadata = build_metadata.replace('\\', '/')
+    lop_cmds.append([obj.include_folder, "module,baremetal_xparameters_xlnx", f"{obj.proc} {obj.repo_yaml_path}"])
+    utils.write_into_file(config_lops_file, lop_create_target(lop_cmds))
     utils.runcmd(
-        f'cmake -G "Unix Makefiles" {obj.domain_dir} {cmake_paths_append}',
-        cwd = build_metadata
+        f"lopper -i {config_lops_file} -f {obj.sdt}"
     )
-
-    utils.runcmd("make -f CMakeFiles/Makefile2 -j22 > nul", cwd = build_metadata)
-
     # Copy the actual drivers cmake file in the libsrc folder.
     # This is to compile all the available driver sources.
     libxil_cmake = utils.get_high_precedence_path(
@@ -560,7 +543,11 @@ find_package(common)
     bsp_libsrc_cmake_subdirs = "libsrc standalone " + " ".join(lib_list)
 
     # Create new CMakeLists.txt
-    cmake_file_cmds = f'''{cmake_header}
+    cmake_file = os.path.join(obj.domain_dir, "CMakeLists.txt")
+    cmake_file_cmds = f'''
+cmake_minimum_required(VERSION 3.15)
+project(bsp)
+find_package(common)
 if(CMAKE_EXPORT_COMPILE_COMMANDS)
     set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES ${{CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES}})
     set(CMAKE_C_STANDARD_INCLUDE_DIRECTORIES ${{CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES}})
@@ -630,6 +617,7 @@ endforeach()
     utils.update_yaml(obj.domain_config_file, "domain", "lib_info", lib_obj.lib_info)
 
     # Remove the metadata files that are no longer needed.
+    utils.remove(config_lops_file)
     utils.remove(drv_list_file)
     utils.remove(ip_drv_map_file)
     utils.remove(os.path.join(obj.libsrc_folder, "libxil.conf"))
