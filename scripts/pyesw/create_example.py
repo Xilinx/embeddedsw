@@ -88,7 +88,7 @@ def create_example(args):
     utils.replace_line(
         src_cmake,
         f'APP_NAME empty_application',
-        f'set(APP_NAME {obj.app_name.replace(".c", "")})',
+        f'set(APP_NAME {utils.get_base_name(obj.app_name).replace(".c","")})',
     )
     # in case of library update link libraries
     if domain_data['lib_info']:
