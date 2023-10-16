@@ -30,7 +30,7 @@ BEGIN LIBRARY xilsem
   OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc psxl_pmc psx_pmc psv_cortexr5 psxl_cortexr52 psx_cortexr52 psu_cortexa72 psv_cortexa72 microblaze);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsem,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Soft Error Mitigation Library";
-  OPTION VERSION = 1.8;
+  OPTION VERSION = 1.9;
   OPTION NAME = xilsem;
   BEGIN CATEGORY cfr_options
     PARAM name = SEM_MEM_SCAN, desc = "Defines if XilSEM CRAM scan is enabled(1) or disabled (0).", type = bool, default = false;

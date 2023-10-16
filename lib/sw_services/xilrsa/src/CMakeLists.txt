@@ -17,6 +17,6 @@ file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
 
 execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/librsa.a ${CMAKE_BINARY_DIR}/libxilrsa.a)
 
-if (${NON_YOCTO})
+if (NOT ${YOCTO})
   file(COPY ${CMAKE_BINARY_DIR}/libxilrsa.a DESTINATION ${CMAKE_LIBRARY_PATH} FOLLOW_SYMLINK_CHAIN)
 endif()

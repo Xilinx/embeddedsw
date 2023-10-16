@@ -1,7 +1,7 @@
 # Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
-option(NON_YOCTO "Non Yocto embeddedsw FLOW" OFF)
+option(YOCTO "Yocto based embeddedsw FLOW" OFF)
 set(CMAKE_POLICY_DEFAULT_CMP0140 OLD)
 
 set (CMAKE_INSTALL_LIBDIR "lib")
@@ -134,7 +134,7 @@ function (linker_gen path)
         if (NOT "${CUSTOM_LINKER_FILE}" STREQUAL "None")
             execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CUSTOM_LINKER_FILE} ${CMAKE_SOURCE_DIR}/)
         endif()
-        if (${NON_YOCTO})
+	if (NOT ${YOCTO})
             file (REMOVE_RECURSE ${path})
         endif()
     endif()
@@ -216,4 +216,11 @@ function(find_project_type src_ext PROJECT_TYPE)
     endif()
   endforeach()
   set(PROJECT_TYPE "c" PARENT_SCOPE)
+endfunction()
+
+function(add_dependency_on_bsp sources)
+  if (NOT ${YOCTO})
+    file(GLOB bsp_archives "${CMAKE_LIBRARY_PATH}/*.a")
+    set_source_files_properties(${${sources}} OBJECT_DEPENDS "${bsp_archives}")
+  endif()
 endfunction()

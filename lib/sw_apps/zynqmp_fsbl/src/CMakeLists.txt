@@ -45,10 +45,7 @@ endif()
 string(APPEND CMAKE_C_LINK_FLAGS ${USER_LINK_OPTIONS})
 string(APPEND CMAKE_CXX_LINK_FLAGS ${USER_LINK_OPTIONS})
 
-if (${NON_YOCTO})
-file(GLOB bsp_archives "${CMAKE_LIBRARY_PATH}/*.a")
-set_source_files_properties(${_sources} OBJECT_DEPENDS "${bsp_archives}")
-endif()
+add_dependency_on_bsp(_sources)
 add_executable(${APP_NAME}.elf ${S_SOURCES} ${_sources})
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53")

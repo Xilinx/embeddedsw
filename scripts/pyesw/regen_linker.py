@@ -68,7 +68,7 @@ linker_gen({linker_dir})
     cmake_file_cmds = cmake_file_cmds.replace('\\', '/')
     obj.cmake_paths_append = obj.cmake_paths_append.replace('\\', '/')
     utils.write_into_file(cmake_file, cmake_file_cmds)
-    utils.runcmd(f'cmake -G "{obj.cmake_generator}" {app_linker_build} {obj.cmake_paths_append} -DNON_YOCTO=ON', cwd=app_linker_build)
+    utils.runcmd(f'cmake -G "{obj.cmake_generator}" {app_linker_build} {obj.cmake_paths_append}', cwd=app_linker_build)
     utils.copy_file(os.path.join(app_linker_build, "lscript.ld"), obj.app_src_dir)
     utils.remove(app_linker_build)
 

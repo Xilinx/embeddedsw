@@ -99,7 +99,7 @@ def configure_bsp(args):
 
         # configure the lib build area with new params
         build_metadata = os.path.join(obj.libsrc_folder, "build_configs/gen_bsp")
-        utils.runcmd(f'cmake {obj.domain_path} {obj.cmake_paths_append} -DNON_YOCTO=ON -DSUBDIR_LIST="{lib_name}" {cmake_cmd_append}', cwd=build_metadata)
+        utils.runcmd(f'cmake {obj.domain_path} {obj.cmake_paths_append} -DSUBDIR_LIST="{lib_name}" {cmake_cmd_append}', cwd=build_metadata)
 
         # Update the lib config file
         if obj.proc in obj.bsp_lib_config.keys():
