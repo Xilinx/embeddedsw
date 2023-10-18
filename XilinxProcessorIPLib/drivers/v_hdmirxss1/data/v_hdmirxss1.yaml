@@ -1,0 +1,86 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for HDMI 2.1 Rx Subsystem Controller Driver
+
+maintainers:
+  - Gugulothu Rajesh <rajesh.gugulothu@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-hdmi-rxss1-1.2
+  reg:
+    description: Physical base addreiss and size of the controller register map
+  highaddr:
+    description: HighAddress is the physical MAX address of the subsystem address range
+  xlnx,input-pixels-per-clock:
+    description: Number of Pixels Per Clock processed by Subsystem
+  xlnx,max-bits-per-component:
+    description: Maxmimum supported color depth
+  xlnx,max-frl-rate:
+    description: Maximum FRL Rate supported
+  xlnx,dynamic-hdr:
+    description: Flag to indicate Dynamic HDR feature support
+  xlnx,dsc:
+    description: Flag to indicate display stream compression feature support
+  xlnx,axi-lite-freq-hz:
+    description: Axi lite clock frequency in Hz
+  xlnx,video-interface:
+    description: Video interface type supported
+  hdcptimer-present:
+    description: Sub-core instance presence
+  hdcptimer-connected:
+    description: Sub-core instance configuration
+  hdcp14-present:
+    description: Sub-core instance presence
+  hdcp14-connected:
+    description: Sub-core instance configuration
+  hdcp22-present:
+    description: Sub-core instance presence
+  hdcp22-connected:
+    description: Sub-core instance configuration
+  hdmirx1-present:
+    description: Sub-core instance presence
+  hdmirx1-connected:
+    description: Sub-core instance configuration
+  interrupts:
+    description: Interrupt number
+  interrupt-parent:
+    description: Parent interrupt
+
+required:
+    - compatible
+    - reg
+    - xlnx,highaddr
+    - xlnx,input-pixels-per-clock
+    - xlnx,max-bits-per-component
+    - xlnx,max-frl-rate
+    - xlnx,dynamic-hdr
+    - xlnx,dsc
+    - xlnx,axi-lite-freq-hz
+    - xlnx,video-interface
+    - hdcptimer-present
+    - hdcptimer-connected: phandle
+    - hdcp14-present
+    - hdcp14-connected: phandle
+    - hdcp22-present
+    - hdcp22-connected: phandle
+    - hdmirx1-present
+    - hdmirx1-connected: phandle
+    - interrupts
+    - interrupt-parent
+
+config:
+    - XV_HdmiRxSs1_Config
+
+depends:
+    video_common: []
+    v_hdmi_common: []
+
+...
