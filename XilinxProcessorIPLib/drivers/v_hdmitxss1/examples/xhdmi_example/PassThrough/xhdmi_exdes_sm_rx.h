@@ -271,10 +271,13 @@ extern XHdmiphy1 Hdmiphy1;
 extern XV_HdmiRxSs1 HdmiRxSs;
 
 /************************** Function Prototypes *****************************/
-
+#ifndef SDT
 u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 			  u32 VPhyDevId, XV_Rx_IntrVecId IntrVecIds);
-
+#else
+u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
+			  u32 VPhyBaseAddr);
+#endif
 void XV_Rx_SetDebugPrints(XV_Rx_Debug_Printf PrintFunc);
 void XV_Rx_SetDebugStateMachinePrints(XV_Rx_Debug_Printf PrintFunc);
 

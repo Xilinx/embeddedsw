@@ -268,8 +268,12 @@ typedef enum {
 typedef struct
 {
   u16 IsPresent;  /**< Flag to indicate if sub-core is present in the design*/
+#ifndef SDT
   u16 DeviceId;   /**< Device ID of the sub-core */
   UINTPTR AbsAddr; /**< Sub-core Absolute Base Address */
+#else
+  UINTPTR AbsAddr;
+#endif
 }XV_HdmiTxSs1_SubCore;
 
 /**
@@ -280,8 +284,12 @@ typedef struct
 
 typedef struct
 {
+#ifndef SDT
     u16 DeviceId;                     /**< DeviceId is the unique ID  of the
                                            device */
+#else
+   char *Name;
+#endif
     UINTPTR BaseAddress;              /**< BaseAddress is the physical base
                                            address of the subsystem address
                                            range */
@@ -302,6 +310,10 @@ typedef struct
     XV_HdmiTxSs1_SubCore Hdcp22;       /**< Sub-core instance configuration */
     XV_HdmiTxSs1_SubCore HdmiTx1;       /**< Sub-core instance configuration */
     XV_HdmiTxSs1_SubCore Vtc;          /**< Sub-core instance configuration */
+#ifdef SDT
+    u16 IntrId; 		    /**< Interrupt ID */
+    UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XV_HdmiTxSs1_Config;
 
 /**
@@ -490,7 +502,12 @@ typedef struct
   (InstancePtr)->HdcpIsReady
 #endif
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 XV_HdmiTxSs1_Config *XV_HdmiTxSs1_LookupConfig(u32 DeviceId);
+#else
+XV_HdmiTxSs1_Config *XV_HdmiTxSs1_LookupConfig(UINTPTR BaseAddress);
+u32 XV_HdmiTxSs1_GetDrvIndex(XV_HdmiTxSs1 *InstancePtr, UINTPTR BaseAddress);
+#endif
 void XV_HdmiTxSS1_SetHdmiFrlMode(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSS1_SetHdmiTmdsMode(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSS1_SetDviMode(XV_HdmiTxSs1 *InstancePtr);
