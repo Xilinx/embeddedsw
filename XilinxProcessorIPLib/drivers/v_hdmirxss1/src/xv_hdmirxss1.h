@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,7 +45,9 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xstatus.h"
 #include "xv_hdmirx1.h"
 #include "xv_hdmic_vsif.h"
@@ -279,8 +282,12 @@ typedef enum {
 typedef struct
 {
   u16 IsPresent;  /**< Flag to indicate if sub-core is present in the design*/
+#ifndef SDT
   u16 DeviceId;   /**< Device ID of the sub-core */
   UINTPTR AbsAddr; /**< Absolute Base Address of hte Sub-cores*/
+#else
+  UINTPTR AbsAddr;
+#endif
 }XV_HdmiRxSs1_SubCore;
 
 /**
@@ -291,7 +298,11 @@ typedef struct
 
 typedef struct
 {
+#ifndef SDT
   u16 DeviceId;     /**< DeviceId is the unique ID  of the device */
+#else
+  char *Name;
+#endif
   UINTPTR BaseAddress;  /**< BaseAddress is the physical base address of the
                         subsystem address range */
   UINTPTR HighAddress;  /**< HighAddress is the physical MAX address of the
@@ -307,6 +318,10 @@ typedef struct
   XV_HdmiRxSs1_SubCore Hdcp14;       /**< Sub-core instance configuration */
   XV_HdmiRxSs1_SubCore Hdcp22;       /**< Sub-core instance configuration */
   XV_HdmiRxSs1_SubCore HdmiRx1;       /**< Sub-core instance configuration */
+#ifdef SDT
+  u16 IntrId; 		    /**< Interrupt ID */
+  UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XV_HdmiRxSs1_Config;
 
 /**
@@ -523,7 +538,12 @@ typedef struct {
   (InstancePtr)->HdcpIsReady
 #endif
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 XV_HdmiRxSs1_Config* XV_HdmiRxSs1_LookupConfig(u32 DeviceId);
+#else
+XV_HdmiRxSs1_Config* XV_HdmiRxSs1_LookupConfig(UINTPTR BaseAddress);
+u32 XV_HdmiRxSs1_GetDrvIndex(XV_HdmiRxSs1 *InstancePtr, UINTPTR BaseAddress);
+#endif
 void XV_HdmiRxSs1_SetUserTimerHandler(XV_HdmiRxSs1 *InstancePtr,
 	XVidC_DelayHandler CallbackFunc, void *CallbackRef);
 void XV_HdmiRxSS1_HdmiRxIntrHandler(XV_HdmiRxSs1 *InstancePtr);

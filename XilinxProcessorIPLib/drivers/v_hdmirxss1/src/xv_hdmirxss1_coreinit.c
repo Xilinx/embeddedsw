@@ -74,7 +74,11 @@ int XV_HdmiRxSs1_SubcoreInitHdmiRx1(XV_HdmiRxSs1 *HdmiRxSs1Ptr)
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
     XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_HDMIRX1_INIT, 0);
 #endif
+#ifndef SDT
     ConfigPtr  = XV_HdmiRx1_LookupConfig(HdmiRxSs1Ptr->Config.HdmiRx1.DeviceId);
+#else
+    ConfigPtr  = XV_HdmiRx1_LookupConfig(HdmiRxSs1Ptr->Config.HdmiRx1.AbsAddr);
+#endif
     if (ConfigPtr == NULL)
     {
       xdbg_printf(XDBG_DEBUG_GENERAL,"HDMIRXSS1 ERR:: HDMI RX device not found\r\n");
