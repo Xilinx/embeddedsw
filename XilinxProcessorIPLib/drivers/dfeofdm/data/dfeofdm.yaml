@@ -14,7 +14,7 @@ properties:
     OneOf:
       - items:
         - enum:
-          - xlnx,xdfe-ofdm-1.1
+          - xlnx,xdfe-ofdm-2.0
 
   reg:
     description: Physical base address and size of the controller register map

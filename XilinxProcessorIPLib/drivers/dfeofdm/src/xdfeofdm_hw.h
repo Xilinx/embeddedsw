@@ -60,6 +60,7 @@
 * 1.1   dc     05/22/23 State and status upgrades
 *       dc     06/28/23 Add phase compensation calculation
 * 1.2   dc     10/16/23 Doxygen documenatation update
+*       dc     10/17/23 Support for FFT size 512
 * </pre>
 *
 ******************************************************************************/
@@ -253,9 +254,11 @@ extern "C" {
 #define XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_960kHz 6U
 #define XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_OFFSET 4U
 #define XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_WIDTH 4U
+#define XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_512 0x9U
 #define XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_1024 0xAU
 #define XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_2048 0xBU
 #define XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_4096 0xCU
+#define XDFEOFDM_FFT_SIZE_512 512U
 #define XDFEOFDM_FFT_SIZE_1024 1024U
 #define XDFEOFDM_FFT_SIZE_2048 2048U
 #define XDFEOFDM_FFT_SIZE_4096 4096U

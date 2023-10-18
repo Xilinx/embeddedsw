@@ -25,6 +25,7 @@
 *       dc     07/31/23 Antenna interleave delay reorder
 *       dc     08/28/23 Remove immediate trigger
 * 1.2   dc     10/16/23 Doxygen documenatation update
+*       dc     10/17/23 Support for FFT size 512
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -1345,7 +1346,8 @@ u32 XDfeOfdm_AddCCtoCCCfg(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg,
 	Xil_AssertNonvoid(FTSeq != NULL);
 	Xil_AssertNonvoid(CarrierCfg->Numerology <=
 			  XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_960kHz);
-	Xil_AssertNonvoid((CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_1024) ||
+	Xil_AssertNonvoid((CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_512) ||
+			  (CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_1024) ||
 			  (CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_2048) ||
 			  (CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_4096));
 	Xil_AssertNonvoid(
@@ -1549,7 +1551,8 @@ u32 XDfeOfdm_UpdateCCinCCCfg(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg,
 	Xil_AssertNonvoid(CarrierCfg != NULL);
 	Xil_AssertNonvoid(CarrierCfg->Numerology <=
 			  XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_960kHz);
-	Xil_AssertNonvoid((CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_1024) ||
+	Xil_AssertNonvoid((CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_512) ||
+			  (CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_1024) ||
 			  (CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_2048) ||
 			  (CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_4096));
 	Xil_AssertNonvoid(
@@ -1651,6 +1654,8 @@ void XDfeOfdm_SetNextCCCfg(const XDfeOfdm *InstancePtr,
 		if ((NextCCCfg->CarrierCfg[Index].Enable ==
 		     XDFEOFDM_CARRIER_CONFIGURATION1_ENABLE_ENABLED) &&
 		    ((NextCCCfg->CarrierCfg[Index].FftSize !=
+		      XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_512) &&
+		     (NextCCCfg->CarrierCfg[Index].FftSize !=
 		      XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_1024) &&
 		     (NextCCCfg->CarrierCfg[Index].FftSize !=
 		      XDFEOFDM_CARRIER_CONFIGURATION1_FFT_SIZE_2048) &&
@@ -1825,7 +1830,8 @@ u32 XDfeOfdm_AddCC(XDfeOfdm *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 	Xil_AssertNonvoid(CarrierCfg != NULL);
 	Xil_AssertNonvoid(CarrierCfg->Numerology <=
 			  XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_960kHz);
-	Xil_AssertNonvoid((CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_1024) ||
+	Xil_AssertNonvoid((CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_512) ||
+			  (CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_1024) ||
 			  (CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_2048) ||
 			  (CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_4096));
 	Xil_AssertNonvoid(
@@ -1990,7 +1996,8 @@ u32 XDfeOfdm_UpdateCC(XDfeOfdm *InstancePtr, s32 CCID,
 	Xil_AssertNonvoid(CarrierCfg != NULL);
 	Xil_AssertNonvoid(CarrierCfg->Numerology <=
 			  XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_960kHz);
-	Xil_AssertNonvoid((CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_1024) ||
+	Xil_AssertNonvoid((CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_512) ||
+			  (CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_1024) ||
 			  (CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_2048) ||
 			  (CarrierCfg->FftSize == XDFEOFDM_FFT_SIZE_4096));
 	Xil_AssertNonvoid(
