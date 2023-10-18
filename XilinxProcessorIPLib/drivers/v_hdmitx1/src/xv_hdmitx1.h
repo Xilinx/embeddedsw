@@ -227,8 +227,12 @@ typedef struct {
 * Each HDMI TX device should have a configuration structure associated.
 */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< DeviceId is the unique ID
 				  *  of the HDMI TX core */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;    /**< BaseAddress is the physical
 				  * base address of the core's registers */
 	u32 MaxFrlRate ;	/**< Maximum FRL Rate Supported */
@@ -1466,7 +1470,11 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xv_hdmitx1_sinit.c */
+#ifndef SDT
 XV_HdmiTx1_Config *XV_HdmiTx1_LookupConfig(u16 DeviceId);
+#else
+XV_HdmiTx1_Config *XV_HdmiTx1_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /* Initialization and control functions in xv_hdmitx1.c */
 int XV_HdmiTx1_CfgInitialize(XV_HdmiTx1 *InstancePtr,
