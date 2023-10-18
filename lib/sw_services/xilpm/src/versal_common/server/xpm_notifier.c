@@ -121,7 +121,7 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
 		XPm_Subsystem *NotifierSubsystem = XPmSubsystem_GetById(PmNotifiers[Idx].SubsystemId);
 
-		if (NULL == Subsystem) {
+		if (NULL == NotifierSubsystem) {
 			/* Empty entry found in PmNotifiers array */
 			if (EmptyIdx > Idx) {
 				/* Remember only first found empty entry */
