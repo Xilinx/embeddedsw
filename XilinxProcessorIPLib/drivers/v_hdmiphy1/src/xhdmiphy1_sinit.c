@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -40,7 +41,11 @@
  * A table of configuration structures containing the configuration information
  * for each Video PHY core in the system.
  */
+#ifndef SDT
 extern XHdmiphy1_Config XHdmiphy1_ConfigTable[XPAR_XHDMIPHY1_NUM_INSTANCES];
+#else
+extern XHdmiphy1_Config XHdmiphy1_ConfigTable[];
+#endif
 
 /**************************** Function Definitions ****************************/
 
@@ -58,6 +63,7 @@ extern XHdmiphy1_Config XHdmiphy1_ConfigTable[XPAR_XHDMIPHY1_NUM_INSTANCES];
  * @note	None.
  *
 *******************************************************************************/
+#ifndef SDT
 XHdmiphy1_Config *XHdmiphy1_LookupConfig(u16 DeviceId)
 {
 	XHdmiphy1_Config *CfgPtr = NULL;
@@ -72,3 +78,19 @@ XHdmiphy1_Config *XHdmiphy1_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XHdmiphy1_Config* XHdmiphy1_LookupConfig(UINTPTR BaseAddress)
+{
+  XHdmiphy1_Config *CfgPtr = NULL;
+  u32 Index;
+
+  for (Index = 0U; XHdmiphy1_ConfigTable[Index].Name != NULL; Index++) {
+    if ((XHdmiphy1_ConfigTable[Index].BaseAddr == BaseAddress) ||
+		     !BaseAddress) {
+      CfgPtr = &XHdmiphy1_ConfigTable[Index];
+      break;
+    }
+  }
+  return (CfgPtr);
+}
+#endif
