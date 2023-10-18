@@ -60,6 +60,7 @@
 *       am  12/14/21 Fixed input validation of InstancePtr in
 *                    XSecure_AesChunkDecrypt function
 * 5.2   ng  07/05/23 Added support for system device tree flow
+* 5.3	vss 10/18/23 Fixed INIT_TO_NULL coverity warning
 *
 * </pre>
 *
@@ -757,7 +758,7 @@ END:
 s32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u8 * DecData, u8 *EncData,
 		u32 Size, u8 * GcmTagAddr)
 {
-	s32 Status;
+	s32 Status = (s32)XST_FAILURE;
 
 	Status = (s32)XSecure_AesDecryptInit(InstancePtr, DecData, Size, GcmTagAddr);
 	if (Status != XST_SUCCESS) {
