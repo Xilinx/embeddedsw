@@ -24,6 +24,7 @@
 *       dc     07/27/23 Output delay in ccid slots
 *       dc     07/31/23 Antenna interleave delay reorder
 *       dc     08/28/23 Remove immediate trigger
+* 1.2   dc     10/16/23 Doxygen documenatation update
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -48,17 +49,19 @@
 #define XDFEOFDM_SEQUENCE_ENTRY_DEFAULT (0U) /**< Default sequence entry flag */
 #define XDFEOFDM_SEQUENCE_ENTRY_NULL (-1) /**< Null sequence entry flag */
 #define XDFEOFDM_NO_EMPTY_CCID_FLAG (0xFFFFU) /**< Not Empty CCID flag */
-#define XDFEOFDM_COEFF_LOAD_TIMEOUT (100U) /**< Units of 10us */
+#define XDFEOFDM_COEFF_LOAD_TIMEOUT (100U) /**< Units of 10 us */
 #define XDFEOFDM_COEFF_UNIT_SIZE (4U) /**< Coefficient unit size */
 #define XDFEOFDM_U32_NUM_BITS (32U) /**< Number of bits in register */
 /**
 * @endcond
 */
-#define XDFEOFDM_DRIVER_VERSION_MINOR (1U) /**< Driver's minor version number */
-#define XDFEOFDM_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
+#define XDFEOFDM_DRIVER_VERSION_MINOR                                          \
+	(1U) /**< Minor version number of driver */
+#define XDFEOFDM_DRIVER_VERSION_MAJOR                                          \
+	(2U) /**< Major version number of driver */
 
 #define XDFEOFDM_PHASE_COMPENSATION_REG_STEP                                   \
-	8U /** Address space step between
+	8U /**< Address space step between
 	space for phase compensation on one carrier */
 
 /************************** Function Prototypes *****************************/
@@ -87,9 +90,9 @@ extern void XDfeOfdm_CfgInitialize(XDfeOfdm *InstancePtr);
 /****************************************************************************/
 /**
 *
-* Writes a value to register in a Ofdm instance.
+* Writes a value to a register in an OFDM instance.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    AddrOffset Address offset relative to instance base address.
 * @param    Data Value to be written.
 *
@@ -103,9 +106,9 @@ void XDfeOfdm_WriteReg(const XDfeOfdm *InstancePtr, u32 AddrOffset, u32 Data)
 /****************************************************************************/
 /**
 *
-* Reads a value from register using a Ofdm instance.
+* Reads a value from a register using an OFDM instance.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    AddrOffset Address offset relative to instance base address.
 *
 * @return   Register value.
@@ -122,7 +125,7 @@ u32 XDfeOfdm_ReadReg(const XDfeOfdm *InstancePtr, u32 AddrOffset)
 *
 * Writes a bit field value to register.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    Offset Address offset relative to instance base address.
 * @param    FieldWidth Bit field width.
 * @param    FieldOffset Bit field offset.
@@ -150,7 +153,7 @@ void XDfeOfdm_WrRegBitField(const XDfeOfdm *InstancePtr, u32 Offset,
 *
 * Reads a bit field value from register.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    Offset Address offset relative to instance base address.
 * @param    FieldWidth Bit field width.
 * @param    FieldOffset Bit field offset.
@@ -247,10 +250,10 @@ static s32 XDfeOfdm_GetNotUsedCCID(XDfeOfdm_CCSequence *Sequence)
 /****************************************************************************/
 /**
 *
-* Count number of 1 in bitmap.
+* Counts the number of ones in the bitmap.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
-* @param    CCSeqBitmap maps the sequence.
+* @param    InstancePtr Pointer to the OFDM instance.
+* @param    CCSeqBitmap Maps the sequence.
 *
 * @return   Number of bits in CCSeqBitmap set to 1.
 *
@@ -273,17 +276,18 @@ static u32 XDfeOfdm_CountOnesInBitmap(const XDfeOfdm *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Adds the specified CCID, to the CC sequence. The sequence is defined with
+* Adds the specified CCID to the CC sequence. The sequence is defined with
 * CCSeqBitmap where bit0 corresponds to CC[0], bit1 to CC[1], bit2 to CC[2],
 * and so on.
 *
 * Sequence data that is returned in the CCIDSequence is not the same as what is
 * written in the registers. The translation is:
+*
 * - CCIDSequence.CCID[i] = -1    - if [i] is unused slot
 * - CCIDSequence.CCID[i] = CCID  - if [i] is used slot
-* - a returned CCIDSequence->Length = length in register + 1
+* - A returned CCIDSequence->Length = length in register + 1
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    CCID CC ID.
 * @param    CCSeqBitmap Maps the sequence.
 * @param    CCIDSequence CC sequence array.
@@ -353,9 +357,9 @@ static u32 XDfeOfdm_AddCCIDAndTranslateSeq(XDfeOfdm *InstancePtr, s32 CCID,
 /****************************************************************************/
 /**
 *
-* Translate the sequence back to SEQUENCE register format.
+* Translates the sequence back to SEQUENCE register format.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    CCIDSequence CC sequence array in CCCfg.
 * @param    NextCCID Returned CC sequence array.
 *
@@ -382,7 +386,7 @@ static void XDfeOfdm_TranslateSeq(const XDfeOfdm *InstancePtr,
 * Removes the specified CCID from the CC sequence and replaces the CCID
 * entries with null (-1).
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr ointer to the OFDM instance.
 * @param    CCID CC ID.
 * @param    CCIDSequence CC sequence array.
 *
@@ -487,7 +491,7 @@ static void XDfeOfdm_SetNextFTSequence(XDfeOfdm_CCCfg *CCCfg,
 /****************************************************************************/
 /**
 *
-* Checks is FT Sequence length as expected.
+* Checks if FT Sequence length is same as expected.
 *
 * @param    NextCCCfg Next CC configuration container.
 * @param    NewFTLength New, expected FT sequence length.
@@ -554,8 +558,8 @@ static u32 XDfeOfdm_CheckFTSequenceLength(XDfeOfdm_CCCfg *NextCCCfg,
 /****************************************************************************/
 /**
 *
-* Reads the Triggers and sets enable bit of LowPower trigger.
-* If Mode = IMMEDIATE, then trigger will be applied immediately.
+* Reads the triggers and sets the enable bit of LowPower trigger.
+* If Mode = IMMEDIATE, the trigger will be applied immediately.
 *
 * @param    InstancePtr Pointer to the OFDM instance.
 *
@@ -577,8 +581,8 @@ static void XDfeOfdm_EnableLowPowerTrigger(const XDfeOfdm *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Reads the Triggers, set enable bit of Activate trigger. If
-* Mode = IMMEDIATE, then trigger will be applied immediately.
+* Reads the triggers and sets enable bit of Activate trigger. If
+* Mode = IMMEDIATE, the trigger will be applied immediately.
 *
 * @param    InstancePtr Pointer to the OFDM instance.
 *
@@ -601,8 +605,8 @@ static void XDfeOfdm_EnableActivateTrigger(const XDfeOfdm *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Reads the Triggers, set disable bit of Activate trigger. If
-* Mode = IMMEDIATE, then trigger will be applied immediately.
+* Reads the triggers and sets the disable bit of Activate trigger. If
+* Mode = IMMEDIATE, the trigger will be applied immediately.
 *
 * @param    InstancePtr Pointer to the OFDM instance.
 *
@@ -625,7 +629,7 @@ static void XDfeOfdm_EnableDeactivateTrigger(const XDfeOfdm *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Reads the Triggers and resets enable a bit of LowPower trigger.
+* Reads the triggers and resets the enable bit of LowPower trigger.
 *
 * @param    InstancePtr Pointer to the OFDM instance.
 *
@@ -647,8 +651,8 @@ static void XDfeOfdm_DisableLowPowerTrigger(const XDfeOfdm *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Gets PhaseCompensationRates and allocate it in corresponding CCID position
-* in XDfeOfdm_InternalCarrierCfg.
+* Gets PhaseCompensationRates and allocates it to the corresponding CCID
+* position in XDfeOfdm_InternalCarrierCfg.
 *
 * @param    InstancePtr Pointer to the Ofdm instance.
 * @param    CCCfg CC configuration container.
@@ -721,7 +725,7 @@ static void XDfeOfdm_GetPhaseCompensation(const XDfeOfdm *InstancePtr,
 *
 * Sets PhaseCompensationRates.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    CCCfg CC configuration container.
 *
 ****************************************************************************/
@@ -873,12 +877,12 @@ static u32 XDfeOfdm_GetOutputDelay(const XDfeOfdm *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* Initialises one instance of a OFDM driver.
-* Traverses "/sys/bus/platform/device" directory (in Linux), to find registered
+* Initializes one instance of the OFDM driver and traverses the
+* "/sys/bus/platform/device" directory (in Linux) to find the registered
 * OFDM device with the name DeviceNodeName. The first available slot in
 * the instances array XDfeOfdm_Ofdm[] will be taken as a DeviceNodeName
-* object. On success it moves the state machine to a Ready state, while on
-* failure stays in a Not Ready state.
+* object. On success, it moves the state machine to a Ready state, while on
+* failure, it stays in a Not Ready state.
 *
 * @param    DeviceNodeName Device node name.
 *
@@ -901,7 +905,7 @@ XDfeOfdm *XDfeOfdm_InstanceInit(const char *DeviceNodeName)
 	Xil_AssertNonvoid(strlen(DeviceNodeName) <
 			  XDFEOFDM_NODE_NAME_MAX_LENGTH);
 
-	/* Is this first OFDM initialisation ever? */
+	/* Is this first OFDM initialization ever? */
 	if (0U == XDfeOfdm_DriverHasBeenRegisteredOnce) {
 		/* Set up environment to non-initialized */
 		for (Index = 0; XDFEOFDM_INSTANCE_EXISTS(Index); Index++) {
@@ -986,10 +990,10 @@ return_error:
 /*****************************************************************************/
 /**
 *
-* Closes the instances of a OFDM driver and moves the state
+* Closes the instances of the OFDM driver and moves the state
 * machine to a Not Ready state.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 *
 ******************************************************************************/
 void XDfeOfdm_InstanceClose(XDfeOfdm *InstancePtr)
@@ -1016,9 +1020,9 @@ void XDfeOfdm_InstanceClose(XDfeOfdm *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Resets OFDM and puts block into a reset state.
+* Resets the OFDM instance and puts block into a reset state.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 *
 ****************************************************************************/
 void XDfeOfdm_Reset(XDfeOfdm *InstancePtr)
@@ -1035,10 +1039,10 @@ void XDfeOfdm_Reset(XDfeOfdm *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Reads configuration from device tree/xparameters.h and IP registers.
-* Removes S/W reset and moves the state machine to a Configured state.
+* Reads configuration from device tree/xparameters.h and IP registers. Removes
+* the S/W reset and moves the state machine to a configured state.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    Cfg Configuration data container.
 *
 ****************************************************************************/
@@ -1094,11 +1098,12 @@ void XDfeOfdm_Configure(XDfeOfdm *InstancePtr, XDfeOfdm_Cfg *Cfg)
 /****************************************************************************/
 /**
 *
-* DFE Ofdm driver one time initialisation, also moves the state machine to
-* an Initialised state.
+* Initializes the OFDM driver and moves the state machine to an initialized
+* state.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
-* @param    Init Initialisation data container.
+*
+* @param    InstancePtr Pointer to the OFDM instance.
+* @param    Init Initialization data container.
 *
 ****************************************************************************/
 void XDfeOfdm_Initialize(XDfeOfdm *InstancePtr, XDfeOfdm_Init *Init)
@@ -1127,9 +1132,9 @@ void XDfeOfdm_Initialize(XDfeOfdm *InstancePtr, XDfeOfdm_Init *Init)
 /*****************************************************************************/
 /**
 *
-* Activates OFDM and moves the state machine to an Activated state.
+* Activates OFDM and moves the state machine to an activated state.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    EnableLowPower Flag indicating low power.
 *
 ******************************************************************************/
@@ -1166,9 +1171,9 @@ void XDfeOfdm_Activate(XDfeOfdm *InstancePtr, bool EnableLowPower)
 /*****************************************************************************/
 /**
 *
-* Deactivates OFDM and moves the state machine to Initialised state.
+* Deactivates OFDM and moves the state machine to an initialised state.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 *
 ******************************************************************************/
 void XDfeOfdm_Deactivate(XDfeOfdm *InstancePtr)
@@ -1201,9 +1206,9 @@ void XDfeOfdm_Deactivate(XDfeOfdm *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Gets a state machine state id.
+* Gets a state machine state ID.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 *
 * @return   State machine StateID
 *
@@ -1222,7 +1227,7 @@ XDfeOfdm_StateId XDfeOfdm_GetStateID(XDfeOfdm *InstancePtr)
 * Returns the current CC configuration. Not used slot ID in a sequence
 * (Sequence.CCID[Index]) are represented as (-1), not the value in registers.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    CurrCCCfg CC configuration container.
 *
 * @note     For a sequence conversion see XDfeOfdm_AddCCtoCCCfg() comment.
@@ -1276,7 +1281,7 @@ void XDfeOfdm_GetCurrentCCCfg(const XDfeOfdm *InstancePtr,
 * in XDfeOfdm_Configure(), array CCCfg->CCSequence.CCID[] members are set to not
 * used value (-1) and the other CCCfg members are set to 0.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    CCCfg CC configuration container.
 *
 ****************************************************************************/
@@ -1307,20 +1312,20 @@ void XDfeOfdm_GetEmptyCCCfg(const XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg)
 * an error.
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
-* The returned CCCfg.CCSequence is transleted as there is no explicit indication that
-* SEQUENCE[i] is not used - 0 can define the slot as either used or not used.
-* Sequence data that is returned in the CCIDSequence is not the same as what is
-* written in the registers. The translation is:
+* The returned CCCfg.CCSequence is translated as there is no explicit
+* indication that SEQUENCE[i] is not used - 0 can define the slot as either
+* used or not used. Sequence data that is returned in the CCIDSequence is not
+* the same as what is written in the registers. The translation is:
 * - CCIDSequence.CCID[i] = -1    - if [i] is unused slot
 * - CCIDSequence.CCID[i] = CCID  - if [i] is used slot
-* - a returned CCIDSequence->Length = length in register + 1
+* - A returned CCIDSequence->Length = length in register + 1
 *
 * @param    InstancePtr Pointer to the OFDM instance.
 * @param    CCCfg Component carrier (CC) configuration container.
 * @param    CCID CC ID.
 * @param    CCSeqBitmap CC slot position container.
 * @param    CarrierCfg CC configuration container.
-* @param    FTSeq
+* @param    FTSeq Fourier transform sequence container.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -1415,7 +1420,7 @@ u32 XDfeOfdm_AddCCtoCCCfg(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg,
 *
 * Returns the current CCID carrier configuration.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    CCCfg Component carrier (CC) configuration container.
 * @param    CCID CC ID.
 * @param    CCSeqBitmap CC slot position container.
@@ -1519,7 +1524,7 @@ u32 XDfeOfdm_RemoveCCfromCCCfg(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg,
 /****************************************************************************/
 /**
 *
-* Updates specified CCID, with specified configuration to a local CC
+* Updates a specified CCID with the specified configuration to a local CC
 * configuration structure.
 * If there is insufficient capacity for the new CC the function will return
 * an error.
@@ -1709,8 +1714,8 @@ void XDfeOfdm_SetNextCCCfg(const XDfeOfdm *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Reads the Triggers and sets enable bit of update trigger. If
-* Mode = IMMEDIATE, then trigger will be applied immediately.
+* Reads the triggers and sets the enable bit of Update trigger. If
+* Mode = IMMEDIATE, the trigger will be applied immediately.
 *
 * @param    InstancePtr Pointer to the OFDM instance.
 *
@@ -1751,7 +1756,7 @@ u32 XDfeOfdm_EnableCCUpdateTrigger(const XDfeOfdm *InstancePtr)
 * Writes local CC configuration to the shadow (NEXT) registers and triggers
 * copying from shadow to operational registers.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    CCCfg CC configuration container.
 *
 * @return
@@ -1773,20 +1778,21 @@ u32 XDfeOfdm_SetNextCCCfgAndTrigger(const XDfeOfdm *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Adds specified CCID, with specified configuration.
+* Adds a specified CCID with specified configuration.
 * If there is insufficient capacity for the new CC the function will return
 * an error.
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
 * @param    InstancePtr Pointer to the OFDM instance.
 * @param    CCID CC ID.
-* @param    CCSeqBitmap - up to 16 defined slots into which a CC can be
+* @param    CCSeqBitmap Up to 16 defined slots into which a CC can be
 *           allocated. The number of slots can be from 1 to 16 depending on
 *           system initialization. The number of slots is defined by the
 *           "sequence length" parameter which is provided during initialization.
 *           The Bit offset within the CCSeqBitmap indicates the equivalent
-*           Slot number to allocate. e.g. 0x0003  means the caller wants the
-*           passed component carrier (CC) to be allocated to slots 0 and 1.
+*           slot number to allocate. For example, 0x0003  means the caller
+*           wants the passed component carrier (CC) to be allocated to
+*           slots 0 and 1.
 * @param    CarrierCfg CC configuration container.
 * @param    FTSeq Fourier transform sequence container.
 *
@@ -1794,10 +1800,10 @@ u32 XDfeOfdm_SetNextCCCfgAndTrigger(const XDfeOfdm *InstancePtr,
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     Clear event status with XDfeOfdm_ClearEventStatus() before
+* @note     Clear the event status with XDfeOfdm_ClearEventStatus() before
 *           running this API.
 *
-* @attention:  This API is deprecated in the release 2023.2. Source code will
+* @attention   This API is deprecated in the release 2023.2. Source code will
 *              be removed from in the release 2024.1 release. The functionality
 *              of this API can be reproduced with the following API sequence:
 *                  XDfeOfdm_GetCurrentCCCfg(InstancePtr, CCCfg);
@@ -1890,7 +1896,7 @@ u32 XDfeOfdm_AddCC(XDfeOfdm *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 /****************************************************************************/
 /**
 *
-* Removes specified CCID.
+* Removes the specified CCID.
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
 * @param    InstancePtr Pointer to the OFDM instance.
@@ -1900,10 +1906,10 @@ u32 XDfeOfdm_AddCC(XDfeOfdm *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     Clear event status with XDfeOfdm_ClearEventStatus() before
+* @note     Clear the event status with XDfeOfdm_ClearEventStatus() before
 *           running this API.
 *
-* @attention:  This API is deprecated in the release 2023.2. Source code will
+* @attention  This API is deprecated in the release 2023.2. Source code will
 *              be removed from in the release 2024.1 release. The functionality
 *              of this API can be reproduced with the following API sequence:
 *                  XDfeOfdm_GetCurrentCCCfg(InstancePtr, CCCfg);
@@ -1948,7 +1954,7 @@ u32 XDfeOfdm_RemoveCC(XDfeOfdm *InstancePtr, s32 CCID,
 /****************************************************************************/
 /**
 *
-* Updates specified CCID carrier configuration; change gain or filter
+* Updates a specified CCID carrier configuration and changes the gain or filter
 * coefficients set.
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
@@ -1960,10 +1966,10 @@ u32 XDfeOfdm_RemoveCC(XDfeOfdm *InstancePtr, s32 CCID,
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     Clear event status with XDfeOfdm_ClearEventStatus() before
+* @note     Clear the event status with XDfeOfdm_ClearEventStatus() before
 *           running this API.
 *
-* @attention:  This API is deprecated in the release 2023.2. Source code will
+* @attention  This API is deprecated in the release 2023.2. Source code will
 *              be removed from in the release 2024.1 release. The functionality
 *              of this API can be reproduced with the following API sequence:
 *                  XDfeOfdm_GetCurrentCCCfg(InstancePtr, CCCfg);
@@ -2039,9 +2045,9 @@ u32 XDfeOfdm_UpdateCC(XDfeOfdm *InstancePtr, s32 CCID,
 /****************************************************************************/
 /**
 *
-* Returns current trigger configuration.
+* Returns the current trigger configuration.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    TriggerCfg Trigger configuration container.
 *
 ****************************************************************************/
@@ -2118,9 +2124,9 @@ void XDfeOfdm_GetTriggersCfg(const XDfeOfdm *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Sets trigger configuration.
+* Sets the trigger configuration.
 *
-* @param    InstancePtr Pointer to the Ofdm instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    TriggerCfg Trigger configuration container.
 *
 ****************************************************************************/
@@ -2212,14 +2218,14 @@ void XDfeOfdm_SetTriggersCfg(const XDfeOfdm *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Sets TUSER Framing bit Location register where bit location indicates which
-* bit to be used for sending framing information on DL_DOUT IF and
+* Sets the TUSER Framing bit location register where bit location indicates
+* which bit to be used for sending the framing information on DL_DOUT IF and
 * M_AXIS_TBASE IF.
 * TUSER bit width is fixed to its default value of 8. Therefore, legal values
 * of FRAME_BIT are 0 to 7.
 *
 * @param    InstancePtr Pointer to the OFDM instance.
-* @param    TuserOutFrameLocation Requested TUSER OutFrame Location.
+* @param    TuserOutFrameLocation Requested TUSER OutFrame location.
 *
 ****************************************************************************/
 void XDfeOfdm_SetTuserOutFrameLocation(const XDfeOfdm *InstancePtr,
@@ -2237,7 +2243,7 @@ void XDfeOfdm_SetTuserOutFrameLocation(const XDfeOfdm *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Gets TUSER Framing bit Location register where bit location indicates which
+* Gets the TUSER Framing bit location register where bit location indicates which
 * bit to be used for sending framing information on DL_DOUT IF and
 * M_AXIS_TBASE IF.
 * TUSER bit width is fixed to its default value of 8. Therefore, legal values
@@ -2261,7 +2267,7 @@ u32 XDfeOfdm_GetTuserOutFrameLocation(const XDfeOfdm *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Sets the delay, which will be added to TUSER and TLAST (delay matched
+* Sets the delay to be added to TUSER and TLAST (delay matched
 * through the IP).
 *
 * @param    InstancePtr Pointer to the OFDM instance.
@@ -2304,7 +2310,7 @@ u32 XDfeOfdm_GetTUserDelay(const XDfeOfdm *InstancePtr)
 *
 * @param    InstancePtr Pointer to the OFDM instance.
 *
-* @return   Returned Data latency.
+* @return   Returned data latency.
 *
 ****************************************************************************/
 u32 XDfeOfdm_GetDataLatency(const XDfeOfdm *InstancePtr)
@@ -2319,7 +2325,7 @@ u32 XDfeOfdm_GetDataLatency(const XDfeOfdm *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This API is used to get the driver version.
+* Gets the driver version.
 *
 * @param    SwVersion Driver version numbers.
 * @param    HwVersion HW version numbers.

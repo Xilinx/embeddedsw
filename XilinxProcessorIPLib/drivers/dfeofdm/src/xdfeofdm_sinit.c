@@ -8,8 +8,13 @@
 /**
 *
 * @file xdfeofdm_sinit.c
+*
+* @cond NOCOMMENTS
+*
 * The implementation of the XDfeOfdm component's static initialization
 * functionality.
+*
+* @endcond
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,6 +25,7 @@
 *       dc     02/20/23 Update hw version
 * 1.1   dc     05/22/23 State and status upgrades
 *       cog    07/04/23 Add support for SDT
+* 1.2   dc     10/16/23 Doxygen documenatation update
 *
 * </pre>
 * @addtogroup dfeofdm Overview
@@ -123,11 +129,11 @@ static s32 XDfeOfdm_Strrncmp(const char *Str1Ptr, const char *Str2Ptr,
 /*****************************************************************************/
 /**
 *
-* Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
+* Traverses the "/sys/bus/platform/device" directory (in Linux) to find a registered
 * device with the name DeviceNodeName.
-* If the match is found than check is the device compatible with the driver.
+* If the match is found, it checks if the device is compatible with the driver.
 *
-* @param    DeviceNamePtr Base address of char array, where device name
+* @param    DeviceNamePtr Base address of char array where device name
 *           will be stored
 * @param    DeviceNodeName Device node name
 *
@@ -222,17 +228,16 @@ static s32 XDfeOfdm_IsDeviceCompatible(char *DeviceNamePtr,
 *
 * Looks up the device configuration based on the unique device ID.
 *
-* @param    InstancePtr Pointer to the Orthogonal Division Multiplexing
-*                       instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 *
 * @return
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if device entry not found for given device id.
 *
 * @note
-*         - For BM a table contains the configuration info for each device
-*           in the system.
-*         - For Linux there will be just one config allocated and pointer to
+*         - For Bare-metal, a table contains the configuration information
+*           for each device in the system.
+*         - For Linux, there is a single config allocated and a pointer
 *           pointing to the config returned.
 *
 ******************************************************************************/
@@ -276,9 +281,9 @@ end_failure:
 /*****************************************************************************/
 /**
 *
-* Register/open the deviceand map OFDM to the IO region.
+* Registers/opens the device and maps OFDM to the I/O region.
 *
-* @param    InstancePtr Pointer to the Orthogonal Division Multiplexing instance.
+* @param    InstancePtr Pointer to the OFDM instance.
 * @param    DevicePtr Pointer to the metal device.
 * @param    DeviceNodeName Device node name,
 *
@@ -352,7 +357,7 @@ s32 XDfeOfdm_RegisterMetal(XDfeOfdm *InstancePtr,
 * @param    InstancePtr Pointer to the XDfeOfdm instance.
 *
 *
-* @note     The user needs to first call the XDfeOfdm_LookupConfig() API
+* @note     The user must first call the XDfeOfdm_LookupConfig() API
 *           which returns the Configuration structure pointer
 *           passed as a parameter to the XDfeOfdm_CfgInitialize() API.
 *

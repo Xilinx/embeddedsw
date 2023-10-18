@@ -8,8 +8,13 @@
 /**
 *
 * @file xdfeofdm_intr.c
+*
+* @cond NOCOMMENTS
+*
 * This file contains functions related to Orthogonal Frequency Division
 * Multiplexing interrupt status handling.
+*
+* @endcond
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -18,6 +23,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     11/21/22 Initial version
 * 1.1   dc     05/22/23 State and status upgrades
+* 1.2   dc     10/16/23 Doxygen documenatation update
 *
 * </pre>
 * @addtogroup dfeofdm Overview
@@ -86,12 +92,12 @@ void XDfeOfdm_GetEventStatus(const XDfeOfdm *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Clears events status.
+* Clears the event status.
 *
 * @param    InstancePtr Pointer to the OFDM instance.
 * @param    Status Clear event status container.
-*           - 0 - does not clear coresponding event status
-*           - 1 - clears coresponding event status
+*           - 0 - Does not clear the corresponding event status
+*           - 1 - Clears the corresponding event status
 *
 ****************************************************************************/
 void XDfeOfdm_ClearEventStatus(const XDfeOfdm *InstancePtr,
@@ -128,8 +134,8 @@ void XDfeOfdm_ClearEventStatus(const XDfeOfdm *InstancePtr,
 *
 * @param    InstancePtr Pointer to the OFDM instance.
 * @param    Mask Interrupt mask value.
-*           - 0 - does not mask coresponding interrupt
-*           - 1 - masks coresponding interrupt
+*           - 0 - Does not mask the corresponding interrupt
+*           - 1 - Masks the corresponding interrupt
 *
 ****************************************************************************/
 void XDfeOfdm_SetInterruptMask(const XDfeOfdm *InstancePtr,

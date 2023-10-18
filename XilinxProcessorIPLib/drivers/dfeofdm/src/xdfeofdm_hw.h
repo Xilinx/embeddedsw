@@ -11,6 +11,8 @@
 * @addtogroup dfeofdm Overview
 * @{
 *
+* @cond NOCOMMENTS
+*
 * Contains the register definitions for xdfeofdm.
 *
 * The general naming format is as follows:
@@ -47,6 +49,8 @@
 *      XDFEOFDM_TRIGGERS_<register>_OFFSET registers, hence
 *      the <register> specifier is removed.
 *
+* @endcond
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -55,6 +59,7 @@
 * 1.0   dc     11/21/22 Initial version
 * 1.1   dc     05/22/23 State and status upgrades
 *       dc     06/28/23 Add phase compensation calculation
+* 1.2   dc     10/16/23 Doxygen documenatation update
 * </pre>
 *
 ******************************************************************************/
@@ -64,6 +69,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**
+* @cond NOCOMMENTS
+*/
 
 /**************************** Definitions *******************************/
 /* CORE functionality */
