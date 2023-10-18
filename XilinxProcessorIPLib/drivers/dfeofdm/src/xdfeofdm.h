@@ -33,7 +33,7 @@
 * - Supports a maximum sampling rate of 491.52 MS/s
 * - Supports up to 8 CC both LTE and NR.
 * - Supports SCS spacing of 15 KHz and 30 KHz.
-* - Currently supports 1K, 2K and 4K FFT sizes.
+* - Currently supports 512, 1K, 2K and 4K FFT sizes.
 * - Supports up to 8 DL or UL paths (or antennas)
 * - Supports both TDD and FDD modes
 * - Using 16 or 18 bit data interface.
@@ -53,6 +53,7 @@
 *       dc     05/22/23 State and status upgrades
 *       dc     06/28/23 Add phase compensation calculation
 * 1.2   dc     10/16/23 Doxygen documenatation update
+*       dc     10/17/23 Support for FFT size 512
 *
 * </pre>
 * @endcond
@@ -294,8 +295,9 @@ typedef struct {
 		- 6 = 960 KHz
 
 		Numerology must be 0 for LTE. */
-	u32 FftSize; /**< [10,11,12] FFT size to be used for FFT of the CC.
+	u32 FftSize; /**< [9, 10,11,12] FFT size to be used for FFT of the CC.
 		Valid sizes are:
+		- 512 = 0x9
 		- 1024 = 0xA
 		- 2048 = 0xB
 		- 4096 = 0xC */
@@ -334,8 +336,9 @@ typedef struct {
 		- 6 = 960 KHz
 
 		Numerology must be 0 for LTE. */
-	u32 FftSize; /**< [10,11,12] FFT size to be used for FFT of the CC.
+	u32 FftSize; /**< [9,10,11,12] FFT size to be used for FFT of the CC.
 		Valid sizes are:
+		- 512 = 0x9
 		- 1024 = 0xA
 		- 2048 = 0xB
 		- 4096 = 0xC */
