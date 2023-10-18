@@ -1,0 +1,109 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for video HDMI 2.1 PHY Controller Driver
+
+maintainers:
+  - Gugulothu Rajesh <rajesh.gugulothu@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,hdmi-gt-controller-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,transceiver:
+    description: HDMI 2.1 PHY transceiver type
+  xlnx,tx-no-of-channels:
+    description: Number of active channels in TX
+  xlnx,rx-no-of-channels:
+    description: Number of active channels in RX
+  xlnx,tx-protocol:
+    description: Protocol which TX is used for
+  xlnx,rx-protocol:
+    description: Protocol which RX is used for
+  xlnx,tx-refclk-sel:
+    description: TX REFCLK selection
+  xlnx,rx-refclk-sel:
+    description: RX REFCLK selection
+  xlnx,tx-frl-refclk-sel:
+    description: TX FRL REFCLK selection
+  xlnx,rx-frl-refclk-sel:
+    description: RX FRL REFCLK selection
+  xlnx,tx-pll-selection:
+    description: TX SYSCLK selection
+  xlnx,rx-pll-selection:
+    description: RX SYSCLK selection
+  xlnx,nidru:
+    description: Flag to indicate data recovery unit (DRU) is enabled
+  xlnx,nidru-refclk-sel:
+    description: DRU REFCLK selection
+  xlnx,input-pixels-per-clock:
+    description: Number of input pixels per clock
+  xlnx,tx-buffer-bypass:
+    description: Flag to indicate TX buffer bypass is enabled
+  xlnx,hdmi-fast-switch:
+    description: Flag to indicate HDMI fast switching is enabled
+  xlnx,transceiver-width:
+    description: Transceiver width set in the design
+  xlnx,err-irq-en:
+    description: Flag to indicate error IRQ is enabled
+  xlnx,axi-lite-freq-hz:
+    description: AXI lite clock frequency in Hz
+  xlnx,drpclk-freq:
+    description: DRP clock frequency in Hz
+  xlnx,use-gt-ch4-hdmi:
+    description: Flag to indicate 4th GT channel as TX TMDS clock
+  xlnx,rx-max-gt-line-rate:
+    description: Maximum rate of RX GT
+  xlnx,tx-maxgt-line-rate:
+    description: Maximum rate of TX GT
+  interrupts:
+    description: Interrupt number
+  interrupt-parent:
+    description: Parent interrupt
+
+required:
+    - compatible
+    - reg
+    - xlnx,transceiver
+    - xlnx,tx-no-of-channels
+    - xlnx,rx-no-of-channels
+    - xlnx,tx-protocol
+    - xlnx,rx-protocol
+    - xlnx,tx-refclk-sel
+    - xlnx,rx-refclk-sel
+    - xlnx,tx-frl-refclk-sel
+    - xlnx,rx-frl-refclk-sel
+    - xlnx,tx-pll-selection
+    - xlnx,rx-pll-selection
+    - xlnx,nidru
+    - xlnx,nidru-refclk-sel
+    - xlnx,input-pixels-per-clock
+    - xlnx,tx-buffer-bypass
+    - xlnx,hdmi-fast-switch
+    - xlnx,transceiver-width
+    - xlnx,err-irq-en
+    - xlnx,axi-lite-freq-hz
+    - xlnx,drpclk-freq
+    - xlnx,use-gt-ch4-hdmi
+    - xlnx,rx-max-gt-line-rate
+    - xlnx,tx-max-gt-line-rate
+    - interrupts
+    - interrupt-parent
+
+config:
+    - XHdmiphy1_Config
+
+depends:
+    video_common: []
+
+examples:
+    main.c:
+
+...
