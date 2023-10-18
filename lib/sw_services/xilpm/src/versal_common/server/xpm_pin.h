@@ -50,6 +50,13 @@ typedef struct XPm_PinNode XPm_PinNode;
 #define PIN_NODE_PULLCTRL_BIT_FIELD_SIZE 	1
 #define PIN_NODE_TRISTATE_BIT_FIELD_SIZE 	1
 
+typedef struct PmPinGroup XPm_PinGroup;
+
+struct PmPinGroup {
+	u16 GroupCount;
+	u16 *GroupList;
+};
+
 /**
  * The Pin class.
  */
@@ -82,6 +89,7 @@ XStatus XPmPin_Release(const u32 SubsystemId, const u32 PinId);
 XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId);
 XStatus XPmPin_QueryAttributes(const u32 PinIndex, u32 *Resp);
 XPm_PinNode *XPmPin_GetByIndex(const u32 PinIndex);
+XPm_PinGroup *XPmPin_GetGroupByIdx(const u32 PinIndex);
 
 #ifdef __cplusplus
 }
