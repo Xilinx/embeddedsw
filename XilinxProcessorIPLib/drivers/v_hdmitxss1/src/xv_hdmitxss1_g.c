@@ -1,10 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xv_hdmitxss1.h"
 
 /*

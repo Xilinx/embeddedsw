@@ -62,7 +62,11 @@ int XV_HdmiTxSs1_SubcoreInitHdmiTx1(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 #ifdef XV_HDMITXSS1_LOG_ENABLE
     XV_HdmiTxSs1_LogWrite(HdmiTxSs1Ptr, XV_HDMITXSS1_LOG_EVT_HDMITX1_INIT, 0);
 #endif
+#ifndef SDT
     ConfigPtr  = XV_HdmiTx1_LookupConfig(HdmiTxSs1Ptr->Config.HdmiTx1.DeviceId);
+#else
+    ConfigPtr  = XV_HdmiTx1_LookupConfig(HdmiTxSs1Ptr->Config.HdmiTx1.AbsAddr);
+#endif
     if (ConfigPtr == NULL) {
       xdbg_printf(XDBG_DEBUG_GENERAL,
                   "HDMITXSS1 ERR:: HDMI TX device not found\r\n");
@@ -107,7 +111,11 @@ int XV_HdmiTxSs1_SubcoreInitVtc(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 #ifdef XV_HDMITXSS1_LOG_ENABLE
     XV_HdmiTxSs1_LogWrite(HdmiTxSs1Ptr, XV_HDMITXSS1_LOG_EVT_VTC_INIT, 0);
 #endif
+#ifndef SDT
     ConfigPtr  = XVtc_LookupConfig(HdmiTxSs1Ptr->Config.Vtc.DeviceId);
+#else
+    ConfigPtr  = XVtc_LookupConfig(HdmiTxSs1Ptr->Config.Vtc.AbsAddr);
+#endif
     if (ConfigPtr == NULL) {
       xdbg_printf(XDBG_DEBUG_GENERAL,"HDMITXSS1 ERR:: VTC device not found\r\n");
       return(XST_FAILURE);
