@@ -17,6 +17,7 @@ properties:
         - enum:
           - xlnx,axi-uartlite-2.0
           - xlnx,xps-uartlite-1.00.a
+          - xlnx,psv-pmc-ppu1-mdm-1.0
   reg:
     description: Physical base address and size of the controller register map.
   xlnx,use-parity:
