@@ -27,6 +27,7 @@
 * 5.00  ng   12/08/22 Updated SDK release version
 * 6.00  skd  02/10/22 SDK release version updated
 * 6.1   ng   07/13/23 Added SDT support
+* 6.2   dd  10/18/23   Updated SDK release year and SDK release quarter
 *
 * </pre>
 *
@@ -104,8 +105,8 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* SDK release version */
-#define SDK_RELEASE_YEAR	2023
-#define SDK_RELEASE_QUARTER	2
+#define SDK_RELEASE_YEAR	2024
+#define SDK_RELEASE_QUARTER	1
 
 #define XFSBL_RUNNING			(0xFFFFU)
 #define XFSBL_COMPLETED			(0x0U)

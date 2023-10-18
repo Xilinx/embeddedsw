@@ -60,6 +60,7 @@
 *       sk   01/13/2023 Added defines for Image Store
 * 1.09  skd  02/10/2023 SDK release version updated
 * 1.10  ma   09/27/2023 Add XPLMI_RTCFG_TAMPER_RESP_SLD_0_MASK macro
+* 1.11  dd   10/18/2023 Updated SDK release year and SDK release quarter
 * </pre>
 *
 * @note
@@ -78,8 +79,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* SDK release version */
-#define SDK_RELEASE_YEAR	"2023" /**< Specifies the SDK release year */
-#define SDK_RELEASE_QUARTER	"2"    /**< Specifies the SDK release quarter */
+#define SDK_RELEASE_YEAR	"2024" /**< Specifies the SDK release year */
+#define SDK_RELEASE_QUARTER	"1"    /**< Specifies the SDK release quarter */
 
 /*
  * Device Copy flag related macros
