@@ -1,0 +1,59 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for HDMI 2.1 Rx Controller Driver
+
+maintainers:
+  - Gugulothu Rajesh <rajesh.gugulothu@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-hdmi-rx1-1.0
+  reg:
+    description: Physical base addreiss and size of the controller register map
+  xlnx,axi-lite-freq-hz:
+    description: Axi lite clock frequency
+  xlnx,lnk-ref-clk:
+    description: FRL clock frequency in Hz
+  xlnx,vid-ref-clk:
+    description: Video clock frequency in Hz
+  xlnx,max-frl-rate:
+    description: Maximum FRL rate supported
+  xlnx,dynamic-hdr:
+    description: Flag to indicate Dynamic HDR feature supported
+  xlnx,dsc-en:
+    description: Flag to indicate DSC feature supported
+  xlnx,ddc-edid-size:
+    description: Edid Ram size
+  interrupts:
+    description: Interrupt number
+  interrupt-parent:
+    description: Parent interrupt
+
+required:
+    - compatible
+    - reg
+    - xlnx,axi-lite-freq-hz
+    - xlnx,lnk-ref-clk
+    - xlnx,vid-ref-clk
+    - xlnx,max-frl-rate
+    - xlnx,dynamic-hdr
+    - xlnx,dsc-en
+    - xlnx,ddc-edid-size
+    - interrupts
+    - interrupt-parent
+
+config:
+    - XV_HdmiRx1_Config
+
+depends:
+    video_common: []
+    v_hdmi_common: []
+
+...

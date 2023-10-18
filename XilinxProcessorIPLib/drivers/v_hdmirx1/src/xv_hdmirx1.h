@@ -115,6 +115,7 @@ extern "C" {
 #include "xvidc.h"
 #include "xv_hdmic.h"
 #include "xv_hdmirx1_frl.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -237,8 +238,12 @@ typedef enum {
 * Each HDMI RX device should have a configuration structure associated.
 */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< DeviceId is the unique ID of
 				  *  the HDMI RX core */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 				  *  of the core's registers */
 
@@ -1951,7 +1956,11 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xv_hdmirx1_sinit.c */
+#ifndef SDT
 XV_HdmiRx1_Config *XV_HdmiRx1_LookupConfig(u16 DeviceId);
+#else
+XV_HdmiRx1_Config *XV_HdmiRx1_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /* Initialization and control functions in xv_hdmirx1.c */
 int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr, \
