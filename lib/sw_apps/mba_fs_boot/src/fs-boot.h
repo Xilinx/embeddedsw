@@ -98,12 +98,6 @@ void __fs_bad_image(unsigned int reason) __attribute__((weak));
  * @{
  */
 
-/*! Start address of UART device. */
-#ifdef XPAR_XUARTLITE_NUM_INSTANCES
-#define UART_BASEADDR XPAR_AXI_UARTLITE_0_BASEADDR
-#elif XPAR_XUARTNS550_NUM_INSTANCES
-#define UART_BASEADDR XPAR_UARTNS550_0_BASEADDR
-#endif
 /*! DDR Base address*/
 #ifndef SDT
 #define DDR_BASEADDR XPAR_MICROBLAZE_ICACHE_BASEADDR
