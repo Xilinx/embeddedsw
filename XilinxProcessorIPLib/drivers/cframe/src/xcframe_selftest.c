@@ -9,7 +9,7 @@
 /**
 *
 * @file xcframe_selftest.c
-* @addtogroup cframe_v1_3
+* @addtogroup cframe Overview
 * @{
 *
 * This file contains a diagnostic self-test function for the CFU driver.
