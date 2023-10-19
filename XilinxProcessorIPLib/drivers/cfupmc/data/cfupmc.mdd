@@ -3,6 +3,12 @@
 # Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
+# Modification History
+#
+# Ver   Who  Date     Changes
+# ----- ---- -------- -----------------------------------------------
+# 1.7   mss  10/19/23 Updated driver version for 2024.1
+#
 ###############################################################################
 OPTION psf_version = 2.1;
 
@@ -11,7 +17,7 @@ BEGIN driver cfupmc
   OPTION supported_peripherals = (psv_pmc_cfu_apb pmc_cfu pmc_cfu_apb psxl_pmc_cfu_apb psx_pmc_cfu_apb);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.6;
+  OPTION VERSION = 1.7;
   OPTION NAME = cfupmc;
 
 END driver

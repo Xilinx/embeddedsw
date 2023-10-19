@@ -8,7 +8,7 @@
 /**
 *
 * @file xcfupmc_hw.h
-* @addtogroup cfupmc_v1_4
+* @addtogroup cfupmc Overview
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or
