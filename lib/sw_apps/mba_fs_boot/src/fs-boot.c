@@ -151,15 +151,15 @@ static void uart_init(void)
 {
 	/* All mode and baud setup is done in hardware level */
 	/* Reset FIFO and Enable Interrupt */
-	uartlite_set_controlreg(UART_BASEADDR, (XUL_CR_ENABLE_INTR    |
+	uartlite_set_controlreg(STDOUT_BASEADDRESS, (XUL_CR_ENABLE_INTR    |
 						XUL_CR_FIFO_RX_RESET  |
 						XUL_CR_FIFO_TX_RESET));
 }
 #elif XPAR_XUARTNS550_NUM_INSTANCES
 static void uart_init(void)
 {
-	XUartNs550_SetBaud(UART_BASEADDR, XPAR_UARTNS550_0_CLOCK_FREQ_HZ, 115200);
-	uartns550_set_linecontrolreg(UART_BASEADDR, XUN_LCR_8_DATA_BITS);
+	XUartNs550_SetBaud(STDOUT_BASEADDRESS, XPAR_UARTNS550_0_CLOCK_FREQ_HZ, 115200);
+	uartns550_set_linecontrolreg(STDOUT_BASEADDRESS, XUN_LCR_8_DATA_BITS);
 }
 #endif
 
@@ -173,15 +173,15 @@ static void uart_init(void)
 #ifdef XPAR_XUARTLITE_NUM_INSTANCES
 void put_ch(unsigned char data)
 {
-	while (uartlite_is_trans_full(UART_BASEADDR));
-	XUartLite_SendByte(UART_BASEADDR, data);
+	while (uartlite_is_trans_full(STDOUT_BASEADDRESS));
+	XUartLite_SendByte(STDOUT_BASEADDRESS, data);
 
 	return;
 }
 #elif XPAR_XUARTNS550_NUM_INSTANCES
 void put_ch (unsigned char data)
 {
-	XUartNs550_SendByte(UART_BASEADDR, data);
+	XUartNs550_SendByte(STDOUT_BASEADDRESS, data);
 	return;
 }
 #endif
