@@ -533,6 +533,10 @@ def create_domain(args):
     utils.runcmd(
         f"lopper -i {config_lops_file} -f {obj.sdt}"
     )
+
+    # Copy the common cmake meta-data file to domain directory so that other modules can consume it
+    cmake_metadata = os.path.join(obj.libsrc_folder, "standalone", "src", "common", "StandaloneExample.cmake")
+    utils.copy_file(cmake_metadata, f"{obj.domain_dir}/Findcommonmeta.cmake")
     # Copy the actual drivers cmake file in the libsrc folder.
     # This is to compile all the available driver sources.
     libxil_cmake = utils.get_high_precedence_path(
@@ -548,6 +552,7 @@ def create_domain(args):
 cmake_minimum_required(VERSION 3.15)
 project(bsp)
 find_package(common)
+find_package(commonmeta)
 if(CMAKE_EXPORT_COMPILE_COMMANDS)
     set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES ${{CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES}})
     set(CMAKE_C_STANDARD_INCLUDE_DIRECTORIES ${{CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES}})
