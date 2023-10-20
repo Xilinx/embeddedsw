@@ -72,6 +72,9 @@
 *       	      for configuring break delay.
 * 1.4   adk  27/12/22 Updated addtogroup tag.
 * 1.5   adk  03/07/23 Added support for system device-tree flow.
+* 1.6   adk  20/10/23 The function XTMR_Manager_InjectionTest was erroneously
+* 		      declared. It does not exist. Remove the
+* 		      XTMR_Manager_InjectionTest API declaration.
 * </pre>
 *
 *****************************************************************************/
@@ -237,11 +240,6 @@ void XTMR_Manager_DisableInterrupt(XTMR_Manager *InstancePtr);
 void XTMR_Manager_SetHandler(XTMR_Manager *InstancePtr,
 			     XTMR_Manager_Handler FuncPtr,
 			     void *CallBackRef);
-
-/*
- * Functions for fault-injection tests, in file xtmr_manager_inject.c
- */
-int XTMR_Manager_InjectionTest(XTMR_Manager *InstancePtr);
 
 /*
  * Functions for self-test, in file xtmr_manager_selftest.c
