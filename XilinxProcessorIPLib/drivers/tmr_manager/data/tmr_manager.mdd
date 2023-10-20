@@ -22,7 +22,7 @@ BEGIN driver tmr_manager
   OPTION supported_peripherals = (tmr_manager);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.5;
+  OPTION VERSION = 1.6;
   OPTION NAME = tmr_manager;
 
 END driver
