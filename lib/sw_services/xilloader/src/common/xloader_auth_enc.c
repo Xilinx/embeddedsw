@@ -120,6 +120,7 @@
 *       dd   09/11/23 MISRA-C violation Rule 10.3 fixed
 * 2.0   kpt  07/31/23 Run KAT everytime when AUTH JTAG request is made
 *       kpt  10/09/23 Fixed compilation warning when PLM_EN_ADD_PPKS macro is enabled
+* 2.1   sk   10/24/23 Added Redundancy in XLoader_EnableJtag
 *
 * </pre>
 *
@@ -3347,11 +3348,12 @@ END:
 * 			- None
 *
 ******************************************************************************/
-void XLoader_EnableJtag(u32 CfgState)
+void XLoader_EnableJtag(volatile u32 CfgState)
 {
-	u32 DapCfgMask;
+	volatile u32 DapCfgMask = 0U;
 
-	if (CfgState == XLOADER_CONFIG_DAP_STATE_ALL_DBG) {
+	if ((CfgState == XLOADER_CONFIG_DAP_STATE_ALL_DBG) ||
+			(CfgState == XLOADER_CONFIG_DAP_STATE_ALL_DBG)) {
 		/**
 		 * Enable secure/non-secure debug
 		 * Enabled invasive & non-invasive debug
