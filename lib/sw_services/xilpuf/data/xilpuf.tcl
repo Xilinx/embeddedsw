@@ -37,9 +37,12 @@ proc puf_drc {libhandle} {
 		return;
 	}
 
-	if {$proc_type == "microblaze" && $mode == "server"} {
-		error "ERROR: XilPuf server library is not supported on microblaze";
-		return;
+	if {$mode == "server"} {
+		if {$proc_type == "microblaze" || $proc_type == "psxl_cortexa78" || $proc_type == "psx_cortexa78" ||
+				$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexr52"} {
+			error "ERROR: XilPuf library is not supported for selected $proc_type processor in $mode mode.";
+			return;
+		}
 	}
 	foreach entry [glob -nocomplain -types f [file join $common *]] {
 			file copy -force $entry "./src"
@@ -64,9 +67,7 @@ proc puf_drc {libhandle} {
 
 	if {$mode == "server"} {
 		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
-		$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
-		$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
-                $proc_type == "psx_cortexr52"} {
+		$proc_type == "psv_cortexr5"} {
 			file delete -force ./src/xpuf_ipihandler.c
 			file delete -force ./src/xpuf_ipihandler.h
 			file delete -force ./src/xpuf_cmd.c
