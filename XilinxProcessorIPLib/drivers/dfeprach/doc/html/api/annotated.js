@@ -1,0 +1,25 @@
+var annotated =
+[
+    [ "XDfePrach", "struct_x_dfe_prach.html", "struct_x_dfe_prach" ],
+    [ "XDfePrach_CarrierCfg", "struct_x_dfe_prach___carrier_cfg.html", "struct_x_dfe_prach___carrier_cfg" ],
+    [ "XDfePrach_CCCfg", "struct_x_dfe_prach___c_c_cfg.html", "struct_x_dfe_prach___c_c_cfg" ],
+    [ "XDfePrach_CCSequence", "struct_x_dfe_prach___c_c_sequence.html", "struct_x_dfe_prach___c_c_sequence" ],
+    [ "XDfePrach_Cfg", "struct_x_dfe_prach___cfg.html", "struct_x_dfe_prach___cfg" ],
+    [ "XDfePrach_Config", "struct_x_dfe_prach___config.html", "struct_x_dfe_prach___config" ],
+    [ "XDfePrach_DDCCfg", "struct_x_dfe_prach___d_d_c_cfg.html", "struct_x_dfe_prach___d_d_c_cfg" ],
+    [ "XDfePrach_DecimatorStatusOverflow", "struct_x_dfe_prach___decimator_status_overflow.html", "struct_x_dfe_prach___decimator_status_overflow" ],
+    [ "XDfePrach_DecimatorStatusOverrun", "struct_x_dfe_prach___decimator_status_overrun.html", "struct_x_dfe_prach___decimator_status_overrun" ],
+    [ "XDfePrach_Init", "struct_x_dfe_prach___init.html", "struct_x_dfe_prach___init" ],
+    [ "XDfePrach_InternalCarrierCfg", "struct_x_dfe_prach___internal_carrier_cfg.html", "struct_x_dfe_prach___internal_carrier_cfg" ],
+    [ "XDfePrach_InternalChannelCfg", "struct_x_dfe_prach___internal_channel_cfg.html", "struct_x_dfe_prach___internal_channel_cfg" ],
+    [ "XDfePrach_MixerStatusOverflow", "struct_x_dfe_prach___mixer_status_overflow.html", "struct_x_dfe_prach___mixer_status_overflow" ],
+    [ "XDfePrach_MixerStatusOverrun", "struct_x_dfe_prach___mixer_status_overrun.html", "struct_x_dfe_prach___mixer_status_overrun" ],
+    [ "XDfePrach_ModelParameters", "struct_x_dfe_prach___model_parameters.html", "struct_x_dfe_prach___model_parameters" ],
+    [ "XDfePrach_NCO", "struct_x_dfe_prach___n_c_o.html", "struct_x_dfe_prach___n_c_o" ],
+    [ "XDfePrach_Schedule", "struct_x_dfe_prach___schedule.html", "struct_x_dfe_prach___schedule" ],
+    [ "XDfePrach_Status", "struct_x_dfe_prach___status.html", "struct_x_dfe_prach___status" ],
+    [ "XDfePrach_StatusMask", "struct_x_dfe_prach___status_mask.html", "struct_x_dfe_prach___status_mask" ],
+    [ "XDfePrach_Trigger", "struct_x_dfe_prach___trigger.html", "struct_x_dfe_prach___trigger" ],
+    [ "XDfePrach_TriggerCfg", "struct_x_dfe_prach___trigger_cfg.html", "struct_x_dfe_prach___trigger_cfg" ],
+    [ "XDfePrach_Version", "struct_x_dfe_prach___version.html", "struct_x_dfe_prach___version" ]
+];
