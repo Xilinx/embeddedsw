@@ -51,9 +51,12 @@ proc nvm_drc {libhandle} {
 		      PSU Cortexa72, PSV PMC, PSV Cortexa72, PSX PMC, PSX Cortexa78 and PSX Cortexr52.";
 	}
 
-	if {$proc_type == "microblaze" && $mode == "server"} {
-		error "ERROR: XilNvm server library is not supported for microblaze";
-		return;
+	if {$mode == "server"} {
+		if {$proc_type == "microblaze" || $proc_type == "psxl_cortexa78" || $proc_type == "psx_cortexa78" ||
+				$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexr52"} {
+			error "ERROR: XilNvm library is not supported for selected $proc_type processor in $mode mode.";
+			return;
+		}
 	}
 
 	if {$mode == "client" &&  ($proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
