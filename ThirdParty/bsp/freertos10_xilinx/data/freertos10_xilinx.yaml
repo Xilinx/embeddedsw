@@ -28,4 +28,14 @@ depends:
     tmrctr:
         - reg
         - interrupts
+    uartlite:
+        - reg
+    uartns550:
+        - reg
+    uartps:
+        - reg
+    uartpsv:
+        - reg
+    coresightps_dcc:
+        - reg
 ...
