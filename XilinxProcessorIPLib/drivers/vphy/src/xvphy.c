@@ -64,7 +64,7 @@
 *******************************************************************************/
 
 /******************************* Include Files ********************************/
-
+#include "xparameters.h"
 #include "xstatus.h"
 #include "xvphy.h"
 #include "xvphy_i.h"
@@ -304,7 +304,7 @@ void XVphy_WaitUs(XVphy *InstancePtr, u32 MicroSeconds)
 	}
 }
 
-#if defined (XPAR_XDP_0_DEVICE_ID)
+#if defined (XPAR_XDP_NUM_INSTANCES)
 /*****************************************************************************/
 /**
 * This function will initialize the clocking for a given channel.
@@ -396,7 +396,7 @@ u32 XVphy_CfgLineRate(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	return XST_SUCCESS;
 }
 
-#if defined (XPAR_XDP_0_DEVICE_ID)
+#if defined (XPAR_XDP_NUM_INSTANCES)
 /*****************************************************************************/
 /**
 * Configure the quad's reference clock frequency. This is a software only
@@ -516,7 +516,7 @@ u64 XVphy_GetLineRateHz(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		XVPHY_CHANNEL_ID_CH1].LineRateHz;
 }
 
-#if defined (XPAR_XDP_0_DEVICE_ID)
+#if defined (XPAR_XDP_NUM_INSTANCES)
 /*****************************************************************************/
 /**
 * This function will wait for a PMA reset done on the specified channel(s) or
@@ -1222,7 +1222,7 @@ void XVphy_MmcmPowerDown(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 ******************************************************************************/
 void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 {
-#if defined (XPAR_XDP_0_DEVICE_ID)
+#if defined (XPAR_XDP_NUM_INSTANCES)
 #if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
 	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_DP ||
 		InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP) {
@@ -1242,7 +1242,7 @@ void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 	XVphy_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
 #endif
 #if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
-#if defined (XPAR_XDP_0_DEVICE_ID)
+#if defined (XPAR_XDP_NUM_INSTANCES)
 	} else if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX) ||
 			   XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
 #endif
@@ -1273,7 +1273,7 @@ void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 
 	/* Unmask the MMCM Lock */
 	XVphy_MmcmLockedMaskEnable(InstancePtr, 0, Dir, FALSE);
-#if defined (XPAR_XDP_0_DEVICE_ID)
+#if defined (XPAR_XDP_NUM_INSTANCES)
 	}
 #endif
 #endif
@@ -1386,7 +1386,7 @@ void XVphy_Clkout1OBufTdsEnable(XVphy *InstancePtr, XVphy_DirectionType Dir,
 	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
 }
 
-#if defined (XPAR_XDP_0_DEVICE_ID)
+#if defined (XPAR_XDP_NUM_INSTANCES)
 /*****************************************************************************/
 /**
 * This function resets the BUFG_GT peripheral.

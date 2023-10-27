@@ -94,6 +94,9 @@ extern "C" {
 #define XV_VPHY_LOG_ENABLE
 #endif
 
+#ifdef SDT
+#define XPAR_VPHY_0_TRANSCEIVER XPAR_XVPHY_0_TRANSCEIVER_TYPE
+#endif
 /******************************* Include Files ********************************/
 
 #include "xil_assert.h"
@@ -656,7 +659,11 @@ typedef struct {
  * This typedef contains configuration information for the Video PHY core.
  */
 typedef struct {
-	u16 DeviceId;			/**< Device instance ID. */
+#ifndef SDT
+	u16 DeviceId;		/**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddr;		/**< The base address of the core
 						instance. */
 	XVphy_GtType XcvrType;		/**< VPHY Transceiver Type */
@@ -830,7 +837,7 @@ u32 XVphy_PllInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_PllRefClkSelType QpllRefClkSel,
 		XVphy_PllRefClkSelType CpllxRefClkSel,
 		XVphy_PllType TxPllSelect, XVphy_PllType RxPllSelect);
-#if defined (XPAR_XDP_0_DEVICE_ID)
+#if defined (XPAR_XDP_NUM_INSTANCES)
 u32 XVphy_ClkInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir);
 #endif
@@ -842,7 +849,7 @@ void XVphy_SetUserTimerHandler(XVphy *InstancePtr,
 /* xvphy.c: Channel configuration functions - setters. */
 u32 XVphy_CfgLineRate(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		u64 LineRateHz);
-#if defined (XPAR_XDP_0_DEVICE_ID)
+#if defined (XPAR_XDP_NUM_INSTANCES)
 u32 XVphy_CfgQuadRefClkFreq(XVphy *InstancePtr, u8 QuadId,
 	XVphy_PllRefClkSelType RefClkType, u32 FreqHz);
 #endif
@@ -853,7 +860,7 @@ XVphy_PllType XVphy_GetPllType(XVphy *InstancePtr, u8 QuadId,
 u64 XVphy_GetLineRateHz(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 
 /* xvphy.c: Reset functions. */
-#if defined (XPAR_XDP_0_DEVICE_ID)
+#if defined (XPAR_XDP_NUM_INSTANCES)
 u32 XVphy_WaitForPmaResetDone(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, XVphy_DirectionType Dir);
 u32 XVphy_WaitForResetDone(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
@@ -893,7 +900,7 @@ void XVphy_IBufDsEnable(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 		u8 Enable);
 void XVphy_Clkout1OBufTdsEnable(XVphy *InstancePtr, XVphy_DirectionType Dir,
 		u8 Enable);
-#if defined (XPAR_XDP_0_DEVICE_ID)
+#if defined (XPAR_XDP_NUM_INSTANCES)
 void XVphy_BufgGtReset(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Reset);
 
 /* xvphy.c Miscellaneous control. */
@@ -932,8 +939,11 @@ void XVphy_InterruptHandler(XVphy *InstancePtr);
 u32 XVphy_SelfTest(XVphy *InstancePtr);
 
 /* xvphy_sinit.c: Configuration extraction function. */
+#ifndef SDT
 XVphy_Config *XVphy_LookupConfig(u16 DeviceId);
-
+#else
+XVphy_Config *XVphy_LookupConfig(UINTPTR BaseAddress);
+#endif
 /* xvphy_dp.c, xvphy_hdmi.c, xvphy_hdmi_intr.c: Protocol specific functions. */
 u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 		XVphy_PllRefClkSelType CpllRefClkSel,
