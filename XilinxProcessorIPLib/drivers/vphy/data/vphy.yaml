@@ -1,0 +1,127 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for Xilinx Video PHY Controller driver
+
+maintainers:
+  - Lakshmi Prasanna Eachuri <lakshmi.prasanna.eachuri@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,vid-phy-controller-2.1
+          - xlnx,vid-phy-controller-2.2
+  reg:
+    description: Physical base address and Video Phy Controller register map
+
+  xlnx,transceiver-type:
+    description: VPHY Transceiver Type
+
+  xlnx,tx-no-of-channels:
+    description: Number of Active channels in TX
+
+  xlnx,rx-no-of-channels:
+    description: Number of Active channels in RX
+
+  xlnx,tx-protocol:
+    description: Protocol which TX is used for.
+
+  xlnx,rx-protocol:
+    description: Protocol which RX is used for.
+
+  xlnx,tx-refclk-sel:
+    description: TX REFCLK selection.
+
+  xlnx,rx-refclk-sel:
+    description: RX REFCLK selection.
+
+  xlnx,tx-pll-selection:
+    description: TX SYSCLK selection.
+
+  xlnx,rx-pll-selection:
+    description: RX SYSCLK selection.
+
+  xlnx,nidru:
+    description: 1 if a data recovery unit (DRU) exists in the design, 0 if not present
+
+  xlnx,nidru-refclk-sel:
+    description: DRU REFCLK selection
+
+  xlnx,input-pixels-per-clock:
+    description: Number of input pixels per clock
+
+  xlnx,tx-buffer-bypass:
+    description: 1 if TX Buffer Bypass is enabled in the design, 0 if not present
+
+  xlnx,hdmi-fast-switch:
+    description: 1 if HDMI fast switching is enables in the design, 0 if not present
+
+  xlnx,transceiver-width:
+    description: Transceiver width
+
+  xlnx,err-irq-en:
+    description: 1 if error IRQ is enabled in the design, 0 if not present
+
+  xlnx,axi-lite-frequency:
+    description: AXI Lite Clock Frequency in Hz
+
+  xlnx,drpclk-freq:
+    description: DRP Clock Frequency in Hz
+
+  xlnx,use-gt-ch4-hdmi:
+    description: Use 4th GT channel as TX TMDS clock
+
+  xlnx,tx-dp-protocol:
+    description: DP TX protocol type
+
+  xlnx,rx-dp-protocol:
+    description: DP RX protocol type
+
+  xlnx,tx-clk-primitive:
+    description: TX Clock Primitive
+
+  xlnx,rx-clk-primitive:
+    description: RX Clock Primitive
+
+
+config:
+    - XVphy_Config
+
+xparam_prefix: XVPHY
+
+required:
+    - compatible
+    - reg
+    - xlnx,transceiver-type
+    - xlnx,tx-no-of-channels
+    - xlnx,rx-no-of-channels
+    - xlnx,tx-protocol
+    - xlnx,rx-protocol
+    - xlnx,tx-refclk-sel
+    - xlnx,rx-refclk-sel
+    - xlnx,tx-pll-selection
+    - xlnx,rx-pll-selection
+    - xlnx,nidru
+    - xlnx,nidru-refclk-sel
+    - xlnx,input-pixels-per-clock
+    - xlnx,tx-buffer-bypass
+    - xlnx,hdmi-fast-switch
+    - xlnx,transceiver-width
+    - xlnx,err-irq-en
+    - xlnx,axi-lite-frequency
+    - xlnx,drpclk-freq
+    - xlnx,use-gt-ch4-hdmi
+    - xlnx,tx-dp-protocol
+    - xlnx,rx-dp-protocol
+    - xlnx,tx-clk-primitive
+    - xlnx,rx-clk-primitive
+
+depends:
+    video_common: []
+...
