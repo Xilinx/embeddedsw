@@ -2774,6 +2774,25 @@ END:
 /**
 * This function is used by PMUFW IPI call handler for programming eFUSE
 *
+* | Register  |  Read  |  Write  |  Size in bytes  |  Offset  |
+* | -------:  | ----:  | -----:  | -------------:  | ------:  |
+* |Version    |YES     |NO       |0x0              |0x4       |
+* |DNA	      |YES	   |NO	     |0xc	           |0xC       |
+* |User0	  |YES	   |YES	     |0x4	           |0x20      |
+* |User1	  |YES	   |YES	     |0x4	           |0x24      |
+* |User2	  |YES	   |YES	     |0x4	           |0x28      |
+* |User3	  |YES	   |YES	     |0x4	           |0x2c      |
+* |User4	  |YES	   |YES	     |0x4	           |0x30      |
+* |User5	  |YES	   |YES	     |0x4	           |0x34      |
+* |User6	  |YES	   |YES	     |0x4	           |0x38      |
+* |User7	  |YES	   |YES	     |0x4	           |0x3C      |
+* |Misc user  |YES	   |YES	     |0x4	           |0x40      |
+* |Secure control	|YES	|YES |0x4	           |0x58      |
+* |SPK ID	|YES	  |YES     	 |0x4	           |0x5C      |
+* |AES key	  |NO	   |YES	     |0x20	           |0x60      |
+* |PPK0 hash  |YES	   |YES	     |0x30	           |0xA0      |
+* |PPK1 hash  |YES	   |YES	     |0x30	           |0xD0      |
+*
 * @param	AddrHigh	Higher 32-bit address of the XilSKey_Efuse structure.
 * @param	AddrLow		Lower 32-bit address of the XilSKey_Efuse structure.
 *
