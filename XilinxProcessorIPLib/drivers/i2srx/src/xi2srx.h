@@ -96,7 +96,11 @@ typedef enum {
  * @brief This typedef contains configuration information for the XI2s Receiver.
  */
 	typedef struct {
-		u32 DeviceId;//!< DeviceId is the unique ID of the XI2s Receiver
+#ifndef SDT
+		u16 DeviceId;	  /**< Unique ID  of device */
+#else
+		char *Name;
+#endif
 		UINTPTR BaseAddress; /* BaseAddress is the physical base address
 				      * of the core's registers
 				      */
@@ -236,9 +240,12 @@ static inline void XI2s_Rx_LogDisable(XI2s_Rx *InstancePtr)
 
 /* Self-test function in xi2srx_selftest.c */
 int XI2s_Rx_SelfTest(XI2s_Rx *InstancePtr);
+#ifndef SDT
 /* Initialization function in XI2srx_sinit.c */
 XI2srx_Config *XI2s_Rx_LookupConfig(u16 DeviceId);
-
+#else
+XI2srx_Config *XI2s_Rx_LookupConfig(UINTPTR BaseAddress);
+#endif
 int XI2s_Rx_Initialize(XI2s_Rx *InstancePtr, u16 DeviceId);
 
 /* Initialization and control functions in XI2srx.c */

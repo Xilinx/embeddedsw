@@ -1,0 +1,26 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+cmake_minimum_required(VERSION 3.14.7)
+
+project(i2srx)
+
+find_package(common)
+collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
+collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
+include_directories(${CMAKE_BINARY_DIR}/include)
+collect (PROJECT_LIB_SOURCES xi2srx_chsts.c)
+collect (PROJECT_LIB_HEADERS xi2srx_chsts.h)
+collect (PROJECT_LIB_SOURCES xi2srx_debug.c)
+collect (PROJECT_LIB_HEADERS xi2srx_debug.h)
+collect (PROJECT_LIB_SOURCES xi2srx_g.c)
+collect (PROJECT_LIB_HEADERS xi2srx_hw.h)
+collect (PROJECT_LIB_SOURCES xi2srx_intr.c)
+collect (PROJECT_LIB_SOURCES xi2srx_selftest.c)
+collect (PROJECT_LIB_SOURCES xi2srx_sinit.c)
+collect (PROJECT_LIB_SOURCES xi2srx.c)
+collect (PROJECT_LIB_HEADERS xi2srx.h)
+collector_list (_sources PROJECT_LIB_SOURCES)
+collector_list (_headers PROJECT_LIB_HEADERS)
+file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
+add_library(i2srx STATIC ${_sources})
+set_target_properties(i2srx PROPERTIES LINKER_LANGUAGE C)
