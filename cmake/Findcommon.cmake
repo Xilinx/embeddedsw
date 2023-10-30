@@ -4,6 +4,10 @@
 option(YOCTO "Yocto based embeddedsw FLOW" OFF)
 set(CMAKE_POLICY_DEFAULT_CMP0140 OLD)
 
+if (YOCTO)
+find_package(commonmeta QUIET)
+endif()
+
 set (CMAKE_INSTALL_LIBDIR "lib")
 function (collector_create name base)
   set_property (GLOBAL PROPERTY "COLLECT_${name}_LIST")
