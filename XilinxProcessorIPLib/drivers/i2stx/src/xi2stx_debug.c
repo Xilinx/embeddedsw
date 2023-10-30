@@ -191,10 +191,13 @@ void XI2s_Tx_LogDisplay(XI2s_Tx *InstancePtr)
 
 			Count = 0;
 		}
-
+#ifndef SDT
 		xil_printf("I2S Transmitter %x: ",
 				InstancePtr->Config.DeviceId);
-
+#else
+		xil_printf("I2S Transmitter %x: ",
+				InstancePtr->Config.BaseAddress);
+#endif
 		switch (LogPtr->Event) {
 		case XI2S_TX_AES_BLKCMPLT_EVT:
 			xil_printf("AES Block Complete Detected.\n\r");
