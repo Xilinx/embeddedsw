@@ -29,6 +29,7 @@
 
 /***************************** Include Files *********************************/
 #include "xi2srx.h"
+#include "xparameters.h"
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xi2srx_hw.h"

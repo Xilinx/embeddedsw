@@ -164,7 +164,11 @@ void XI2s_Rx_LogDisplay(XI2s_Rx *InstancePtr)
 				xil_printf("..Repeats %d times..\n\r", Count);
 			Count = 0;
 		}
+#ifndef SDT
 		xil_printf("XI2S Receiver %x: ", InstancePtr->Config.DeviceId);
+#else
+		xil_printf("XI2S Receiver %x: ", InstancePtr->Config.BaseAddress);
+#endif
 		switch (LogPtr->Event) {
 		case XI2S_RX_AES_BLKCMPLT_EVT:
 			xil_printf("AES Block Complete Detected.\n\r");

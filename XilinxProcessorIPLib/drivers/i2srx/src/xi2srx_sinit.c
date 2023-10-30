@@ -56,6 +56,7 @@ extern XI2srx_Config XI2srx_ConfigTable[];
  * @note   None.
  *
  *****************************************************************************/
+#ifndef SDT
 XI2srx_Config *XI2s_Rx_LookupConfig(u16 DeviceId)
 {
 	XI2srx_Config *CfgPtr = NULL;
@@ -75,6 +76,28 @@ XI2srx_Config *XI2s_Rx_LookupConfig(u16 DeviceId)
 	}
 	return CfgPtr;
 }
+#else
+XI2srx_Config *XI2s_Rx_LookupConfig(UINTPTR BaseAddress)
+{
+	XI2srx_Config *CfgPtr = NULL;
+	u32 Index;
+
+	/* Checking for device id for which instance it is matching */
+	for (Index = 0; XI2srx_ConfigTable[Index].Name != NULL;
+			Index++) {
+
+		/* Assigning address of config table if both device ids
+		 * are matched
+		 */
+		if ( (XI2srx_ConfigTable[Index].BaseAddress == BaseAddress)
+        || (!BaseAddress)) {
+			CfgPtr = &XI2srx_ConfigTable[Index];
+			break;
+		}
+	}
+	return CfgPtr;
+}
+#endif
 /*****************************************************************************/
 /**
  *
