@@ -1,0 +1,56 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for I2S Transmitter
+
+maintainers:
+  - Lakshmi Prasanna Eachuri <lakshmi.prasanna.eachuri@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,i2s-transmitter-1.0
+          - xlnx,i2s-transmitter-1.0
+          - xlnx,i2s-transmitter-2.2
+  reg:
+    description: Physical base address and I2S Transmitter register map
+
+  xlnx,dwidth:
+    description: data width (16/24bit) of I2S Tx core
+
+  xlnx,is-master:
+    description: 1 if Master, else '0' for slave
+
+  xlnx,num-channels:
+    description: Maximum channels supported by I2S core
+
+  xlnx,32bit-lr:
+    description: 1 if the core is 32bit width, else '0'
+
+config:
+    - XI2stx_Config
+
+xparam_prefix: XI2STX
+
+required:
+    - compatible
+    - reg
+    - xlnx,dwidth
+    - xlnx,is-master
+    - xlnx,num-channels
+    - xlnx,32bit-lr
+
+examples:
+  xi2stx_selftest_example.c:
+    - reg
+
+  xi2stx_intr_example.c:
+    - interrupts
+
+...
