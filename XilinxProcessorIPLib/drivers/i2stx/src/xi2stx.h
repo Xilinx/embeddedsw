@@ -114,7 +114,11 @@ typedef void (*XI2s_Tx_Callback)(void *CallbackRef);
  * This typedef contains configuration information for the I2s Transmitter.
  */
 typedef struct {
-	u16 DeviceId; /**< DeviceId is unique ID of the I2s Tx */
+#ifndef SDT
+	u16 DeviceId;	  /**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress; /**< BaseAddress is physical address of registers*/
 	u8  DWidth;	    /**< Data Width (16/24bit) of I2s Tx core */
 	u8  IsMaster;	    /**< IsMaster(TRUE/FALSE) for I2s Tx core */
@@ -252,10 +256,14 @@ static inline void XI2s_Tx_LogDisable(XI2s_Tx *InstancePtr)
 /* Self-test function in xi2stx_selftest.c */
 int XI2s_Tx_SelfTest(XI2s_Tx *InstancePtr);
 
+#ifndef SDT
 /* Initialization function in xi2stx_sinit.c */
 XI2stx_Config *XI2s_Tx_LookupConfig(u16 DeviceId);
-
+#else
+/* Initialization function in xi2stx_sinit.c */
+XI2stx_Config *XI2s_Tx_LookupConfig(UINTPTR BaseAddresss);
 /* Initialization and control functions in xi2stx.c */
+#endif
 int XI2s_Tx_CfgInitialize(XI2s_Tx *InstancePtr,
 		XI2stx_Config *CfgPtr, UINTPTR EffectiveAddr);
 

@@ -31,6 +31,7 @@
 
 /***************************** Include Files *********************************/
 #include "xi2stx.h"
+#include "xparameters.h"
 #include "xil_types.h"
 #include "xil_assert.h"
 
