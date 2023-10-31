@@ -29,6 +29,7 @@
 *       sk   08/17/2023 Updated XPlmi_EmSetAction arguments
 *       dd   09/12/2023 MISRA-C violation Rule 17.7 fixed
 * 1.04  ma   10/10/2023 Added redundancy to TAMPER_RESP_0 and TAMPER_TRIG writes
+*       mss  10/31/2023 Added code to Trigger FW CR error in XPlmi_ProcessTamperResponse
 *
 * </pre>
 *
@@ -148,6 +149,10 @@ static int XPlmi_ProcessTamperResponse(void *Data)
 	u32 CfuRefCtrl;
 
 	(void)Data;
+
+	/** Trigger FW CR error by setting CR_Flag in FW_ERR register */
+	XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_CR_FLAG_MASK,
+			PMC_GLOBAL_PMC_FW_ERR_CR_FLAG_MASK);
 
 	if ((TamperResponse & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U) {
 		/**

@@ -89,6 +89,7 @@
 *       ng   07/13/2023 Added support for system device-tree flow
 *       bm   09/07/2023 Allow loading of ELFs into XRAM
 * 1.11  ma   10/10/2023 Enable Slave Error for PSM_GLOBAL
+*       mss  10/31/2023 Added PMC_GLOBAL_PMC_FW_ERR_CR_FLAG_MASK macro
 *
 * </pre>
 *
@@ -215,6 +216,7 @@ extern "C" {
  */
 #define PMC_GLOBAL_PMC_FW_ERR    (PMC_GLOBAL_BASEADDR + 0X00010100U)
 #define PMC_GLOBAL_PMC_FW_ERR_NCR_FLAG_MASK		(0x80000000U)
+#define PMC_GLOBAL_PMC_FW_ERR_CR_FLAG_MASK		(0x40000000U)
 #define PMC_GLOBAL_PMC_FW_ERR_DATA_MASK			(0x3FFFFFFFU)
 
 /*
