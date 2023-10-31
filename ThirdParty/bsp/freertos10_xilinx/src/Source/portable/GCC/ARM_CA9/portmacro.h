@@ -74,9 +74,9 @@ typedef uint32_t TickType_t;
 /* Task utilities. */
 
 /* Called at the end of an ISR that can cause a context switch. */
+extern volatile uint32_t ulPortYieldRequired;
 #define portEND_SWITCHING_ISR( xSwitchRequired )\
 {												\
-extern uint32_t ulPortYieldRequired;			\
 												\
 	if( xSwitchRequired != pdFALSE )			\
 	{											\
