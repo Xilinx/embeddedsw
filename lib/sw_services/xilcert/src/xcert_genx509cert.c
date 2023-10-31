@@ -20,6 +20,8 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   har  01/09/2023 Initial release
 * 1.1   am   08/18/2023 Renamed error codes which starts with XOCP with XCERT
+* 1.2   har  10/31/2023 Add support to use DevIk subject as DevAk Issuer if DevIk user config is
+*			available
 *
 * </pre>
 * @note
@@ -65,6 +67,10 @@ static const u8 Oid_ExtnRequest[]	= {0x06U, 0x09U, 0x2AU, 0x86U, 0x48U, 0x86U, 0
 static const u8 Oid_Sha3_384[]		= {0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U, 0x02U, 0x09U};
 /** @} */
 
+/************************** Macro Definitions *****************************/
+#define XCERT_PMC_SUBSYSTEM_ID				(0x1C000001U)
+			/**< PMC Subsystem ID*/
+
 #define XCERT_SERIAL_FIELD_LEN				(22U)
 			/**< Length of Serial Field */
 #define XCERT_BIT7_MASK 				(0x80U)
@@ -91,7 +97,7 @@ static const u8 Oid_Sha3_384[]		= {0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x6
 #define XCERT_LEN_OF_BYTE_IN_BITS			(8U)
 			/**< Length of byte in bits */
 #define XCERT_AUTH_KEY_ID_OPTIONAL_PARAM		(0x80U)
-		/**< Optional parameter in Authority Key Identifier field*/
+			/**< Optional parameter in Authority Key Identifier field*/
 
 /** @name Optional parameter tags
  * @{
@@ -132,6 +138,7 @@ static XCert_InfoStore *XCert_GetCertDB(void);
 static u32* XCert_GetNumOfEntriesInUserCfgDB(void);
 static int XCert_IsBufferNonZero(u8* Buffer, u32 BufferLen);
 static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg);
+static int XCert_UpdateUserCfg(XCert_Config *Cfg);
 static void XCert_GenVersionField(u8* TBSCertBuf, XCert_Config *Cfg, u32 *VersionLen);
 static int XCert_GenSerialField(u8* TBSCertBuf, u8* DataHash, u32 *SerialLen);
 static int XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen);
@@ -302,6 +309,60 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function updates the user configuration to be used for
+ * 		generating X.509 certificate.
+ * 		- For DevIK certificate and DevIK CSR, it gets the user
+ * 		configuration from the DB
+ * 		- For DevAK certificates, it gets the user cfg from DB. If DevIK
+ * 		user cfg is available in DB then DevIK Subject shall be used as
+ * 		Issuer in DevAK certificate.
+ *
+ * @param	Cfg - Pointer to the configuration to be used for generating
+ * 		certificate
+ *
+ * @return
+ *		 - XST_SUCCESS  User Cfg is successfully updated
+ *		 - Error Code  Upon any failure
+ *
+ ******************************************************************************/
+static int XCert_UpdateUserCfg(XCert_Config* Cfg)
+{
+	int Status = XST_FAILURE;
+	XCert_UserCfg* DevIKUserCfg;
+
+	Status = XCert_GetUserCfg(Cfg->SubSystemId, &Cfg->UserCfg);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (Cfg->AppCfg.IsSelfSigned == FALSE) {
+		Status = XCert_GetUserCfg(XCERT_PMC_SUBSYSTEM_ID, &DevIKUserCfg);
+		if (Status == XST_SUCCESS) {
+			Status = Xil_SMemSet(Cfg->UserCfg->Issuer, XCERT_ISSUER_MAX_SIZE, 0U,
+				Cfg->UserCfg->IssuerLen);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			Cfg->UserCfg->IssuerLen = 0U;
+
+			Status = Xil_SMemCpy(Cfg->UserCfg->Issuer, XCERT_ISSUER_MAX_SIZE,
+				DevIKUserCfg->Subject, XCERT_SUBJECT_MAX_SIZE,
+				DevIKUserCfg->SubjectLen);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			Cfg->UserCfg->IssuerLen = DevIKUserCfg->SubjectLen;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
 #ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
@@ -466,7 +527,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	Status = XCert_GetUserCfg(Cfg->SubSystemId, &(Cfg->UserCfg));
+	Status = XCert_UpdateUserCfg(Cfg);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
