@@ -32,6 +32,7 @@
 *		      u32 and usleep_MB parameter type from unsigned long to
 *		      ULONG to fix misra_c_2012_rule_4_6 violation.
 * 9.0   ml   03/03/23 Add description to fix doxygen warnings.
+* 9.1   mus  10/24/23 Add support for RISC-V.
 * </pre>
 *
 ******************************************************************************/
@@ -99,6 +100,8 @@ int usleep_A53(unsigned long useconds);
 unsigned sleep_A53(unsigned int seconds);
 int usleep_A9(unsigned long useconds);
 unsigned sleep_A9(unsigned int seconds);
+void sleep_riscv(u32 seconds);
+void usleep_riscv(ULONG useconds);
 
 /*****************************************************************************/
 

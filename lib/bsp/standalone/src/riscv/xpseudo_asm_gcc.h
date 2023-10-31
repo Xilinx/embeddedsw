@@ -17,6 +17,7 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 9.00  sa       10/24/22 First release
+* 9.1   mus      10/31/23 Added macro for rdtime pseudo instruction.
 * </pre>
 *
 ******************************************************************************/
@@ -83,6 +84,12 @@ extern "C" {
 #define cbo_inval()	__asm__ __volatile__("cbo.inval\n")
 
 #define ecall()		__asm__ __volatile__("ecall\n")
+
+#define rdtime()	({								\
+				register u32 rval;					\
+				__asm__ __volatile__ ( "rdtime %0" : "=r" (rval));	\
+				 rval;							\
+			})
 
 /************** Atomic Macros (Inline Functions) Definitions ****************/
 
