@@ -131,6 +131,8 @@
 *       dd   09/12/2023 MISRA-C violation Rule 17.7 fixed
 * 1.11  bm   09/25/2023 Fix Error Handling after In-Place PLM Update
 *       ma   09/27/2023 Add secure lockdown to EAM error actions list
+*       mss  10/31/2023 Added code to Trigger FW CR error in XPlmi_ErrMgr
+*
 * </pre>
 *
 * @note
@@ -247,6 +249,10 @@ void XPlmi_ErrMgr(int ErrStatus)
 		 * else just return, so that we receive next requests
 		 */
 		if (XPlmi_IsLoadBootPdiDone() == FALSE) {
+
+			/** Trigger FW CR error by setting CR_Flag in FW_ERR register */
+			XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_CR_FLAG_MASK,
+			PMC_GLOBAL_PMC_FW_ERR_CR_FLAG_MASK);
 
 			BootMode = XPlmi_In32(CRP_BOOT_MODE_USER) & CRP_BOOT_MODE_USER_BOOT_MODE_MASK;
 
