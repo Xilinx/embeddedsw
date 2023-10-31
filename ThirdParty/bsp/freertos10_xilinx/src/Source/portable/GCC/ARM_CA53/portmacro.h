@@ -88,9 +88,9 @@ typedef uint64_t TickType_t;
 /* Task utilities. */
 
 /* Called at the end of an ISR that can cause a context switch. */
+extern uint64_t ullPortYieldRequired;
 #define portEND_SWITCHING_ISR( xSwitchRequired )\
 {												\
-extern uint64_t ullPortYieldRequired;			\
 												\
 	if( xSwitchRequired != pdFALSE )			\
 	{											\
