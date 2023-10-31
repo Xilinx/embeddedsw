@@ -10,6 +10,7 @@
 # 1.0   har  01/11/23 Initial Release
 #       har  01/20/23 Removed dependency on XilOCP
 # 1.1   har  02/15/23 Updated library version for 2023.2
+# 1.2   har  10/31/23 Updated library version for 2024.1
 #
 ##############################################################################
 
@@ -22,6 +23,6 @@ BEGIN LIBRARY xilcert
   OPTION REQUIRES_OS = (standalone);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilcert,-lxilplmi,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx X.509 certificate generation library. Supported only for Versal Net";
-  OPTION VERSION = 1.1;
+  OPTION VERSION = 1.2;
   OPTION NAME = xilcert;
 END LIBRARY
