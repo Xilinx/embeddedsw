@@ -31,6 +31,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
 #include "xstatus.h"
 #include "sleep.h"
 #include "xil_printf.h"
@@ -45,7 +46,6 @@ extern "C" {
 
 #include "aes256.h"
 #include "sha256.h"
-#include "xparameters.h"
 #include <string.h>
 #if defined (XPAR_XUARTPSV_NUM_INSTANCES )
 #include "xuartpsv.h"
