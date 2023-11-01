@@ -1,0 +1,46 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for video hcresampler controller
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-hcresampler-1.1
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,samples-per-clock:
+    description: Samples Per Clock supported by core instance
+  xlnx,max-cols:
+    description: Maximum columns supported by core instance
+  xlnx,max-rows:
+    description: Maximum rows supported by core instance
+  xlnx,max-data-width:
+    description: Maximum Data width of each channel
+  xlnx,convert-type:
+    description: Resampling Method selected
+  xlnx,num-h-taps:
+    description: Number of filter taps
+
+required:
+    - compatible
+    - reg
+    - xlnx,samples-per-clock
+    - xlnx,max-cols
+    - xlnx,max-rows
+    - xlnx,max-data-width
+    - xlnx,convert-type
+    - xlnx,num-h-taps
+
+depends:
+    video_common: []
+
+...
