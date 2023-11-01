@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,7 +34,11 @@ int driverInit()
 {
     int status;
 
+#ifndef SDT
     vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);
+#else
+    vtc_Config = XVtc_LookupConfig(XPAR_XVTC_0_BASEADDR);
+#endif
     if(vtc_Config == NULL)
     {
         xil_printf("ERROR:: VTC device not found\r\n");
@@ -46,7 +51,11 @@ int driverInit()
         return(XST_FAILURE);
     }
 
+#ifndef SDT
     tpg_Config = XV_tpg_LookupConfig(XPAR_V_TPG_0_DEVICE_ID);
+#else
+    tpg_Config = XV_tpg_LookupConfig(XPAR_XV_TPG_0_BASEADDR);
+#endif
     if(tpg_Config == NULL)
     {
         xil_printf("ERROR:: TPG device not found\r\n");
@@ -59,7 +68,11 @@ int driverInit()
         return(XST_FAILURE);
     }
 
+#ifndef SDT
     demosaic_Config = XV_demosaic_LookupConfig(XPAR_V_DEMOSAIC_0_DEVICE_ID);
+#else
+    demosaic_Config = XV_demosaic_LookupConfig(XPAR_XV_DEMOSAIC_0_BASEADDR);
+#endif
     if(demosaic_Config == NULL)
     {
         xil_printf("ERROR:: Demosaic device not found\r\n");
@@ -90,7 +103,8 @@ void videoIpConfig(XVidC_VideoMode videoMode)
     XV_demosaic_Set_HwReg_width(&demosaic, timing->HActive);
     XV_demosaic_Set_HwReg_height(&demosaic, timing->VActive);
     XV_demosaic_Set_HwReg_bayer_phase(&demosaic, 0);
-    XV_demosaic_WriteReg(XPAR_XV_DEMOSAIC_0_S_AXI_CTRL_BASEADDR, XV_DEMOSAIC_CTRL_ADDR_AP_CTRL, 0x81);
+	XV_demosaic_EnableAutoRestart(&demosaic);
+    XV_demosaic_Start(&demosaic);
 
     PixelsPerClk = tpg.Config.PixPerClk;
 

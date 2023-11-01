@@ -1,8 +1,8 @@
 ##############################################################################
 # Copyright (C) 1986-2021 Xilinx, Inc. All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
-##
-#############################################################################
+##############################################################################
 
 proc generate {drv_handle} {
     xdefine_include_file $drv_handle "xparameters.h" "XV_demosaic" \
