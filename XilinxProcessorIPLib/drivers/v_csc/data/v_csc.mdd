@@ -1,7 +1,7 @@
-##############################################################################
+############################################################################
 # Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
-##
 #############################################################################
 
 OPTION psf_version = 2.1;
@@ -13,6 +13,6 @@ BEGIN driver v_csc
  OPTION DEPENDS = (video_common);
  OPTION copyfiles = all;
  OPTION name = v_csc;
- OPTION version = 2.5;
+ OPTION version = 2.6;
 
 END driver
