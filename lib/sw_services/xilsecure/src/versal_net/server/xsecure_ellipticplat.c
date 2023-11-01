@@ -25,6 +25,7 @@
 * 5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
 *       yog  08/07/23 Replaced trng API calls using trngpsx driver
 *       dd   10/11/23 MISRA-C violation Rule 10.3 fixed
+* 5.3   har  11/01/23 Updated core API for ECDH
 *
 * </pre>
 *
@@ -318,7 +319,6 @@ int XSecure_EcdhGetSecret(XSecure_EllipticCrvTyp CrvType, u64 PrvtKeyAddr, u64 P
 		XSECURE_ECDSA_P521_ALIGN_BYTES +
 		XSECURE_ECC_P521_SIZE_IN_BYTES];
 	EcdsaCrvInfo *Crv = NULL;
-	u32 SharedSecretLen = 0;
 	XSecure_EllipticKeyAddr KeyAddr;
 	EcdsaKey Key;
 	u32 Size = 0U;
@@ -369,10 +369,8 @@ int XSecure_EcdhGetSecret(XSecure_EllipticCrvTyp CrvType, u64 PrvtKeyAddr, u64 P
 	Status = XST_FAILURE;
 	Crv = XSecure_EllipticGetCrvData(CrvType);
 	if(Crv != NULL) {
-		XSECURE_TEMPORAL_CHECK(END, Status, Ecdh_GetSecret, Crv, PrivKey, (EcdsaKey *)&Key,
-			SharedSecret, XSECURE_ECC_P521_SIZE_IN_BYTES, &SharedSecretLen);
-
-		XSecure_GetData(SharedSecretLen, SharedSecret, SharedSecretAddr);
+		XSECURE_TEMPORAL_CHECK(END, Status, Ecdsa_CDH_Q, Crv, PrivKey, &Key, SharedSecret);
+		XSecure_GetData(Size, SharedSecret, SharedSecretAddr);
 	}
 	else{
 		Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;

@@ -94,6 +94,7 @@ typedef struct {
 	const u8* const d13;	/**< curve specific data field 13 */
 	const u8* const d14;	/**< curve specific data field 14 */
 	const u8* const d15;	/**< curve specific data field 15 */
+	const u8 d16;		/**< curve specific data field 16 */
 } EcdsaCrvInfo;
 /** @} */
 
@@ -165,9 +166,8 @@ externC void sdk_assert(int cond);
 
 externC s32 Ecdsa_ModEccOrder(const EcdsaCrvInfo* CrvInfo, const u8* In, u8* Out);
 
-externC s32 Ecdh_GetSecret(const EcdsaCrvInfo* CrvInfo, const u8* D, const EcdsaKey* Key,
-	u8* SecretBuff, u32 SecretBuffLen, u32* SecretLen);
-
+externC int Ecdsa_CDH_Q(EcdsaCrvInfo* CrvInfo, const unsigned char* Secret, const EcdsaKey* Public,
+	unsigned char* Result);
 void Ecdsa_ClearEccRam(void);
 /** @} */
 
