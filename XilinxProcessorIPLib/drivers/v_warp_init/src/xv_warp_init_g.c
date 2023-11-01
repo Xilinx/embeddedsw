@@ -6,6 +6,7 @@
 * DO NOT EDIT.
 *
 * Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 
 *
@@ -13,14 +14,16 @@
 *
 *******************************************************************/
 
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xv_warp_init.h"
 
 /*
 * The configuration table for devices
 */
 
-XV_warp_init_Config XV_warp_init_ConfigTable[XPAR_XV_WARP_INIT_NUM_INSTANCES] =
+XV_warp_init_Config XV_warp_init_ConfigTable[] =
 {
 	{
 		XPAR_V_WARP_INIT_0_DEVICE_ID,

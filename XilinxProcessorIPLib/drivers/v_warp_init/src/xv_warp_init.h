@@ -1,5 +1,6 @@
 // ==============================================================
 // Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
+// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 #ifndef XV_WARP_INIT_H
@@ -37,7 +38,11 @@ typedef uint32_t u32;
 typedef uint64_t u64;
 #else
 typedef struct {
-    u16 DeviceId;
+#ifndef SDT
+    u16 DeviceId;             /**< Unique ID of device */
+#else
+    char *Name;
+#endif
     UINTPTR Ctrl_BaseAddress;
     u16 max_width; 			/*Maximum width*/
     u16 max_height;			/*Maximum height*/
@@ -45,6 +50,10 @@ typedef struct {
     u16 axi_mm_data_width;	/*Axi MM port data width*/
     u16 bpc;				/*Max bits per component supported*/
     u16 max_control_pts;	/*Max supported control points for arbitary warp*/
+#ifdef SDT
+    u16 IntrId; 		    /**< Interrupt ID */
+    UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XV_warp_init_Config;
 #endif
 
@@ -88,8 +97,13 @@ typedef enum {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
+#ifndef SDT
 int XV_warp_init_Initialize(XV_warp_init *InstancePtr, u16 DeviceId);
 XV_warp_init_Config* XV_warp_init_LookupConfig(u16 DeviceId);
+#else
+int XV_warp_init_Initialize(XV_warp_init *InstancePtr, UINTPTR BaseAddress);
+XV_warp_init_Config* XV_warp_init_LookupConfig(UINTPTR BaseAddress);
+#endif
 int XV_warp_init_CfgInitialize(XV_warp_init *InstancePtr, XV_warp_init_Config *ConfigPtr);
 #else
 int XV_warp_init_Initialize(XV_warp_init *InstancePtr, const char* InstanceName);
