@@ -1,5 +1,6 @@
 // ==============================================================
 // Copyright (c) 1986 - 2021 Xilinx Inc. All rights reserved.
+// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -53,13 +54,21 @@ typedef enum {
 * Each core instance should have a configuration structure associated.
 */
 typedef struct {
+#ifndef SDT
   u16 DeviceId;             /**< Unique ID of device */
+#else
+  char *Name;
+#endif
   UINTPTR BaseAddress;      /**< The base address of the core instance. */
   u16 PixPerClk;            /**< Samples Per Clock */
   u16 MaxWidth;             /**< Maximum columns supported by core instance */
   u16 MaxHeight;            /**< Maximum rows supported by core instance */
   u16 MaxDataWidth;         /**< Maximum Data width of each channel */
   u16 Algorithm;            /**< Interpolation method */
+#ifdef SDT
+  u16 IntrId; 		    /**< Interrupt ID */
+  UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XV_demosaic_Config;
 #endif
 
@@ -100,8 +109,13 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
+#ifndef SDT
 int XV_demosaic_Initialize(XV_demosaic *InstancePtr, u16 DeviceId);
 XV_demosaic_Config* XV_demosaic_LookupConfig(u16 DeviceId);
+#else
+int XV_demosaic_Initialize(XV_demosaic *InstancePtr, UINTPTR BaseAddress);
+XV_demosaic_Config* XV_demosaic_LookupConfig(UINTPTR BaseAddress);
+#endif
 int XV_demosaic_CfgInitialize(XV_demosaic *InstancePtr,
                               XV_demosaic_Config *ConfigPtr,
                               UINTPTR EffectiveAddr);
