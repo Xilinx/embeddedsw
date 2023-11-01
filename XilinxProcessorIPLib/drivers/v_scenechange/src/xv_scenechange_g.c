@@ -1,17 +1,20 @@
 
 /*******************************************************************
 * Copyright (c) 2010-2022 Xilinx, Inc. All Rights Reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************/
 
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xv_scenechange.h"
 
 /*
 * The configuration table for devices
 */
 
-XV_scenechange_Config XV_scenechange_ConfigTable[XPAR_XV_SCENECHANGE_NUM_INSTANCES] =
+XV_scenechange_Config XV_scenechange_ConfigTable[] =
 {
 	{
 		XPAR_V_SCENECHANGE_0_DEVICE_ID,

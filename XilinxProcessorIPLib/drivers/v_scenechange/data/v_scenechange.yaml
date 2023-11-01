@@ -1,0 +1,62 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for v_scenechange Driver
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-scenechange-1.1
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,memory-based:
+    description: Samples Per Clock
+  xlnx,numstreams:
+    description: Maximum Data width of each channel
+  xlnx,histogram-bits:
+    description: Max Phase shift of colour convertions
+  xlnx,has-y8:
+    description: Scaling mode if applicable.
+  xlnx,has-y10:
+    description: Number of Taps to be used for colour conversion.
+  xlnx,max-cols:
+    description: Maximum columns supported by core instance
+  xlnx,max-rows:
+    description: Maximum rows supported by core instance
+  interrupts:
+    description: Interrupt number
+  interrupt-parent:
+    description: Parent interrupt
+
+required:
+    - compatible
+    - reg
+    - xlnx,memory-based
+    - xlnx,numstreams
+    - xlnx,histogram-bits
+    - xlnx,has-y8
+    - xlnx,has-y10
+    - xlnx,max-cols
+    - xlnx,max-rows
+    - interrupts
+    - interrupt-parent
+
+config:
+    - XV_scenechange_Config
+
+depends:
+    video_common: []
+
+examples:
+     xv_scenechange_stream_mode_ex.c:
+     - tpg-connected: phandle
+     - frmbuf-wr-connected: phandle
+...
