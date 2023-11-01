@@ -1,0 +1,37 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for video deinterlacer controller
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-deinterlacer-5.1
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,num-video-components:
+    description: Number of Video Components
+  xlnx,max-data-width:
+    description: Maximum Data width of each channel
+
+required:
+    - compatible
+    - reg
+    - xlnx,num-video-components
+    - xlnx,max-data-width
+
+config:
+    - XV_deinterlacer_Config
+
+depends:
+    video_common: []
+
+...

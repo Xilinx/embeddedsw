@@ -1,11 +1,15 @@
 /*******************************************************************
 * Copyright (C) 2010-2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-
 *******************************************************************************/
+
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xv_deinterlacer.h"
 
+#ifndef SDT
 /*
 * The configuration table for devices
 */
@@ -21,3 +25,16 @@ XV_deinterlacer_Config XV_deinterlacer_ConfigTable[] =
 #endif
 	}
 };
+#else
+XV_deinterlacer_Config XV_deinterlacer_ConfigTable[] __attribute__ ((section (".drvcfg_sec"))) = {
+	{
+		"xlnx,v-deinterlacer-5.1", /* compatible */
+		0x0, /* reg */
+		0x3, /* xlnx,num-video-components */
+		0xa /* xlnx,max-data-width */
+	},
+	 {
+		 NULL
+	}
+};
+#endif
