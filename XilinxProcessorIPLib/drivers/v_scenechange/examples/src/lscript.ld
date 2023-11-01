@@ -5,6 +5,7 @@
 /* Version: 2018.3.0                                               */
 /*                                                                 */
 /* Copyright (c) 2010-2016 Xilinx, Inc.  All rights reserved.      */
+/* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved. */
 /*                                                                 */
 /* Description : ARM v8 Linker Script                           */
 /*                                                                 */

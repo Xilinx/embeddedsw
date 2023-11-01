@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.      All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -28,7 +29,6 @@
 #include <stdio.h>
 #include "platform.h"
 #include "xil_printf.h"
-#include "xscugic.h"
 #include "xil_io.h"
 #include "xil_cache.h"
 #include "sleep.h"
@@ -38,6 +38,11 @@
 #include "xv_tpg.h"
 #include "xv_frmbufwr.h"
 #include "xv_frmbufwr_l2.h"
+#ifndef SDT
+#include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 
 /* Reset IPs in pipeline using IP_RESET_MASK*/
 #define IP_RESET_MASK		0xF
@@ -92,6 +97,7 @@ void ClearScreen(void)
 	xil_printf("%c\033[0;0H", 27);
 }
 
+#ifndef SDT
 static int SetupInterruptSystem(void)
 {
 	int Status;
@@ -120,6 +126,7 @@ static int SetupInterruptSystem(void)
 
 	return XST_SUCCESS;
 }
+#endif
 
 void SceneChangeDetectedCallback(void *CallbackRef)
 {
@@ -128,18 +135,26 @@ void SceneChangeDetectedCallback(void *CallbackRef)
 	is_detected = 1;
 }
 
-int XV_SceneChange_init(u16 DeviceId)
+int XV_SceneChange_init()
 {
 	XV_scenechange_Config *ScdConfig;
 	int Status;
 	u32 streams = SCD_STREAMS_ENABLE - 1;
 
-	ScdConfig = XV_scenechange_LookupConfig(DeviceId);
+#ifndef SDT
+	ScdConfig = XV_scenechange_LookupConfig(XPAR_XV_SCENECHANGE_0_DEVICE_ID);
+#else
+	ScdConfig = XV_scenechange_LookupConfig(XPAR_XV_SCENECHANGE_0_BASEADDR);
+#endif
 	if (ScdConfig == NULL)
 		return XST_FAILURE;
 
 	/* Initialize top level and all included sub-cores */
-	Status = XV_scenechange_Initialize(&ScdPtr, DeviceId);
+#ifndef SDT
+	Status = XV_scenechange_Initialize(&ScdPtr, XPAR_XV_SCENECHANGE_0_DEVICE_ID);
+#else
+	Status = XV_scenechange_Initialize(&ScdPtr, XPAR_XV_SCENECHANGE_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
@@ -164,9 +179,7 @@ int XV_SceneChange_init(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	XV_scenechange_SetCallback(&ScdPtr, SceneChangeDetectedCallback,
-			(void *) &ScdPtr);
-
+#ifndef SDT
 	Status |= XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_SCENECHANGE_0_VEC_ID,
 			(XInterruptHandler)XV_scenechange_InterruptHandler,
@@ -177,6 +190,19 @@ int XV_SceneChange_init(u16 DeviceId)
 		xil_printf("ERR:: Unable to register SD interrupt handler");
 		return XST_FAILURE;
 	}
+#else
+	Status = XSetupInterruptSystem(&ScdPtr,&XV_scenechange_InterruptHandler,
+				       ScdPtr.ScdConfig->IntrId,
+				       ScdPtr.ScdConfig->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("XSetupInterruptSystem() is Failed.\r\n");
+		return XST_FAILURE;
+	}
+#endif
+
+	XV_scenechange_SetCallback(&ScdPtr, SceneChangeDetectedCallback,
+			(void *) &ScdPtr);
 
 	XV_scenechange_InterruptGlobalEnable(&ScdPtr);
 	XV_scenechange_EnableInterrupts(&ScdPtr);
@@ -235,7 +261,11 @@ u32 scd_stream_mode_pipe_init(void)
 	u8 Status;
 
 	/* Initialize TPG IP */
+#ifndef SDT
 	Tpg_ConfigPtr = XV_tpg_LookupConfig(XPAR_XV_TPG_0_DEVICE_ID);
+#else
+	Tpg_ConfigPtr = XV_tpg_LookupConfig(XPAR_XV_TPG_0_BASEADDR);
+#endif
 
 	if (!Tpg_ConfigPtr) {
 		Tpg.IsReady = 0;
@@ -249,20 +279,30 @@ u32 scd_stream_mode_pipe_init(void)
 		xil_printf("ERR:: TPG Initialization failed %d\r\n", Status);
 		return (XST_FAILURE);
 	}
+
 	/* Initialize FrameBufWr IP */
+#ifndef SDT
 	FrmBufWr_ConfigPtr = XV_frmbufwr_LookupConfig(XPAR_V_FRMBUF_WR_0_DEVICE_ID);
+#else
+	FrmBufWr_ConfigPtr = XV_frmbufwr_LookupConfig(XPAR_V_FRMBUF_WR_0_BASEADDR);
+#endif
 
 	if (!FrmBufWr_ConfigPtr) {
 		xil_printf("FBWR - failed...\r\n");
 		return (XST_DEVICE_NOT_FOUND);
 	}
 
+#ifndef SDT
 	Status = XVFrmbufWr_Initialize(&Frmbufwr, XPAR_V_FRMBUF_WR_0_DEVICE_ID);
+#else
+	Status = XVFrmbufWr_Initialize(&Frmbufwr, XPAR_V_FRMBUF_WR_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:: FrmBufWr Initialization failed %d\r\n", Status);
 		return (XST_FAILURE);
 	}
 
+#ifndef SDT
 	Status |= XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_FRMBUF_WR_0_VEC_ID,
 			(XInterruptHandler)XVFrmbufWr_InterruptHandler,
@@ -273,6 +313,16 @@ u32 scd_stream_mode_pipe_init(void)
 		xil_printf("ERR:: Unable to register SD interrupt handler");
 		return XST_FAILURE;
 	}
+#else
+    Status = XSetupInterruptSystem(&Intc,&XVFrmbufWr_InterruptHandler,
+				       ScdPtr.ScdConfig->IntrId,
+				       ScdPtr.ScdConfig->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:: Unable to register SD interrupt handler.\r\n");
+		return XST_FAILURE;
+	}
+#endif
 
 	XV_frmbufwr_InterruptGlobalEnable(&Frmbufwr.FrmbufWr);
 	XV_frmbufwr_InterruptEnable(&Frmbufwr.FrmbufWr, XVFRMBUFWR_IRQ_DONE_MASK);
@@ -299,11 +349,13 @@ int main()
 	Xil_ExceptionDisable();
 	init_platform();
 
+#ifndef SDT
 	state = SetupInterruptSystem();
 	if (state != XST_SUCCESS) {
 		xil_printf("SetupInterrupt() is Failed.\r\n");
 		return XST_FAILURE;
 	}
+#endif
 
 	reset_pipe();
 
@@ -315,7 +367,7 @@ int main()
 	}
 	xil_printf("SceneChange initialization - Started\r\n");
 
-	state = XV_SceneChange_init(XPAR_XV_SCENECHANGE_0_DEVICE_ID);
+	state = XV_SceneChange_init();
 	if (state != XST_SUCCESS) {
 		xil_printf("SceneChange_init Failed.\n");
 		return XST_FAILURE;
