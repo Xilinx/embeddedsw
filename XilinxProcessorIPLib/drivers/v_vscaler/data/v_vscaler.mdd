@@ -1,7 +1,7 @@
 ##############################################################################
 # Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
-##
 #############################################################################
 
 OPTION psf_version = 2.1;
@@ -12,6 +12,6 @@ BEGIN driver v_vscaler
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION name = v_vscaler;
- OPTION version = 3.2;
+ OPTION version = 3.3;
 
 END driver
