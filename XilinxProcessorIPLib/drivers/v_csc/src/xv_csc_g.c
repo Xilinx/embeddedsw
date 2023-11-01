@@ -1,11 +1,16 @@
 /*******************************************************************
 * Copyright (C) 2010-2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 
 *******************************************************************************/
+
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xv_csc.h"
 
+#ifndef SDT
 /*
 * The configuration table for devices
 */
@@ -26,3 +31,21 @@ XV_csc_Config XV_csc_ConfigTable[] =
 #endif
 	}
 };
+#else
+XV_csc_Config XV_csc_ConfigTable[] __attribute__ ((section (".drvcfg_sec"))) = {
+	{
+		"xlnx,v-csc-1.1", /* compatible */
+		0x0, /* reg */
+		0x2, /* xlnx,samples-per-clock */
+		0xf00, /* xlnx,v-csc-max-width */
+		0x870, /* xlnx,v-csc-max-height */
+		0xa, /* xlnx,max-data-width */
+		0x1, /* xlnx,enable-422 */
+		0x1, /* xlnx,enable-420 */
+		0x1 /* xlnx,enable-window */
+	},
+	 {
+		 NULL
+	}
+};
+#endif

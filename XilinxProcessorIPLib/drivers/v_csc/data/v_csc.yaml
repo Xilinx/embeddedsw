@@ -1,0 +1,52 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for V_CSC controller
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-csc-1.1
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,samples-per-clk:
+    description: Samples Per Clock supported by core instance
+  xlnx,v-csc-max-width:
+    description: Maximum width supported by core instance
+  xlnx,v-csc-max-height:
+    description: Maximum height supported by core instance
+  xlnx,max-data-width:
+    description: Maximum Data width of each channel
+  xlnx,enable-422:
+    description: Color format YUV422 supported by instance
+  xlnx,enable-420:
+    description: Color format YUV420 supported by instance
+  xlnx,enable-window:
+    description: CSC demo window supported by core instance
+
+required:
+    - compatible
+    - reg
+    - xlnx,samples-per-clock
+    - xlnx,v-csc-max-width
+    - xlnx,v-csc-max-height
+    - xlnx,max-data-width
+    - xlnx,enable-422
+    - xlnx,enable-420
+    - xlnx,enable-window
+
+config:
+    - XV_csc_Config
+
+depends:
+    video_common: []
+
+...
