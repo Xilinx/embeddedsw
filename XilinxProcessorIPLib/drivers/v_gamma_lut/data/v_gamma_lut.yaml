@@ -1,0 +1,48 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for V_GAMMA_LUT Driver
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-gamma-lut-1.1
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,samples-per-clock:
+    description: Samples Per Clock
+  xlnx,max-cols:
+    description: Maximum pixel width supported by core instance
+  xlnx,max-rows:
+    description: Maximum pixel height supported by core instance
+  xlnx,max-data-width:
+    description: Maximum Pixel Data width of each channel
+
+required:
+    - compatible
+    - reg
+    - xlnx,samples-per-clock
+    - xlnx,max-cols
+    - xlnx,max-rows
+    - xlnx,max-data-width
+
+config:
+    - XV_gamma_lut_Config
+
+depends:
+    video_common: []
+
+examples:
+     main.c:
+     - vtc-connected: phandle
+     - v-tpg-connected: phandle
+     - gpio-connected: phandle
+...
