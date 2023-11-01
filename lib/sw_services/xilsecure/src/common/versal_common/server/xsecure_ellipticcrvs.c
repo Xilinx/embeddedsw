@@ -25,6 +25,7 @@
 * 5.0   am   07/23/22 Initialized EcdsaCrvInfo structure members(d14 and d15)
 *                     with NULL
 * 5.2   yog  06/07/23 Added support for P-256 Curve
+* 5.3   har  11/01/23 Added value of d16 parameter for all curves
 *
 * </pre>
 *
@@ -436,7 +437,8 @@ EcdsaCrvInfo XSecure_EllipticCrvsDb[] =
 		XSecure_EllipticNistP384_d13,
 #if defined (VERSAL_NET)
 		NULL,
-		NULL
+		NULL,
+		0U
 #endif
 	},
 #endif
@@ -462,7 +464,8 @@ EcdsaCrvInfo XSecure_EllipticCrvsDb[] =
 		XSecure_EllipticNistP521_d13,
 #if defined (VERSAL_NET)
 		NULL,
-		NULL
+		NULL,
+		0U
 #endif
 	},
 #endif
@@ -488,7 +491,8 @@ EcdsaCrvInfo XSecure_EllipticCrvsDb[] =
 		XSecure_EllipticNistP256_d13,
 #if defined (VERSAL_NET)
 		NULL,
-		NULL
+		NULL,
+		0U
 #endif
 	},
 #endif
