@@ -21,6 +21,8 @@ properties:
 required:
     - compatible
     - reg
+    - interrupts
+    - interrupt-parent
 
 depends:
     video_common: []
