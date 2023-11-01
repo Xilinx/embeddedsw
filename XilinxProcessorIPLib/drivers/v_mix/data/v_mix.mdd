@@ -1,9 +1,8 @@
-###############################################################################
+##############################################################################
 # Copyright (C) 1986 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
-#
-################################################################################
-
+##############################################################################
 
 OPTION psf_version = 2.1;
 
@@ -14,6 +13,6 @@ BEGIN driver v_mix
  OPTION DEPENDS = (video_common);
  OPTION copyfiles = all;
  OPTION name = v_mix;
- OPTION version = 6.4;
+ OPTION version = 6.5;
 
 END driver

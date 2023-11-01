@@ -1,8 +1,8 @@
 ##############################################################################
 # Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
-##
-#############################################################################
+##############################################################################
 
 proc generate {drv_handle} {
     xdefine_include_file $drv_handle "xparameters.h" "XV_mix" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_CTRL_BASEADDR" "C_S_AXI_CTRL_HIGHADDR" "SAMPLES_PER_CLOCK" "MAX_COLS" "MAX_ROWS" "MAX_DATA_WIDTH" "VIDEO_FORMAT" "NR_LAYERS" \

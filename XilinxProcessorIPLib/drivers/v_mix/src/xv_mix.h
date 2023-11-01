@@ -1,5 +1,6 @@
 // ==============================================================
 // Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
+// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -154,7 +155,11 @@ typedef struct {
 * Each core instance should have a configuration structure associated.
 */
 typedef struct {
+#ifndef SDT
   u16 DeviceId;          /**< Unique ID  of device */
+#else
+  char *Name;
+#endif
   UINTPTR BaseAddress;   /**< The base address of the core instance. */
   u16 PixPerClk;         /**< Samples Per Clock supported by core instance */
   u16 MaxWidth;          /**< Maximum columns supported by core instance */
@@ -188,6 +193,10 @@ typedef struct {
 	  XVMix_LayerColorFormat LyrColorFmt;
 	  u8 LayerColorFmt[XV_MIX_MAX_MEMORY_LAYERS];
   };
+#ifdef SDT
+  u16 IntrId; 		    /**< Interrupt ID */
+  UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XV_mix_Config;
 #endif
 
@@ -222,8 +231,13 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
+#ifndef SDT
 int XV_mix_Initialize(XV_mix *InstancePtr, u16 DeviceId);
 XV_mix_Config* XV_mix_LookupConfig(u16 DeviceId);
+#else
+int XV_mix_Initialize(XV_mix *InstancePtr, UINTPTR BaseAddress);
+XV_mix_Config* XV_mix_LookupConfig(UINTPTR BaseAddress);
+#endif
 int XV_mix_CfgInitialize(XV_mix *InstancePtr,
 		                 XV_mix_Config *ConfigPtr,
 						 UINTPTR EffectiveAddr);

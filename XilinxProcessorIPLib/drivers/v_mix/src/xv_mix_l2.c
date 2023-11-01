@@ -106,6 +106,7 @@ static int IsWindowValid(XVidC_VideoStream *Strm,
 *         XST_DEVICE_NOT_FOUND if device is not found
 *
 ******************************************************************************/
+#ifndef SDT
 int XVMix_Initialize(XV_Mix_l2 *InstancePtr, u16 DeviceId)
 {
   int Status;
@@ -120,6 +121,22 @@ int XVMix_Initialize(XV_Mix_l2 *InstancePtr, u16 DeviceId)
   }
   return(Status);
 }
+#else
+int XVMix_Initialize(XV_Mix_l2 *InstancePtr, UINTPTR BaseAddress)
+{
+  int Status;
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
+  /* Setup the instance */
+  memset(InstancePtr, 0, sizeof(XV_Mix_l2));
+  Status = XV_mix_Initialize(&InstancePtr->Mix, BaseAddress);
+
+  if(Status == XST_SUCCESS) {
+    SetPowerOnDefaultState(InstancePtr);
+  }
+  return(Status);
+}
+#endif
 
 /*****************************************************************************/
 /**
