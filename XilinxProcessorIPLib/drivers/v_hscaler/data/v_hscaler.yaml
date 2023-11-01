@@ -1,0 +1,64 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for hscaler controller
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-hscaler-1.1
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,samples-per-clock:
+    description: Samples Per Clock supported by core instance
+  xlnx,num-video-components:
+    description: Number of Video Components
+  xlnx,max-cols:
+    description: Maximum columns supported by core instance
+  xlnx,max-rows:
+    description: Maximum rows supported by core instance
+  xlnx,max-data-width:
+    description: Maximum Data width of each channel
+  xlnx,phase-shift:
+    description: Max num of phases (2^PhaseShift)
+  xlnx,scale-mode:
+    description: Scaling Algorithm Selected
+  xlnx,taps:
+    description: Number of taps
+  xlnx,enable-422:
+    description: Color format YUV422 supported by instance
+  xlnx,enable-420:
+    description: Color format YUV420 supported by instance
+  xlnx,enable-csc:
+    description: Color space conversion supported by instance
+
+required:
+    - compatible
+    - reg
+    - xlnx,samples-per-clock
+    - xlnx,num-video-components
+    - xlnx,max-cols
+    - xlnx,max-rows
+    - xlnx,max-data-width
+    - xlnx,phase-shift
+    - xlnx,scale-mode
+    - xlnx,taps
+    - xlnx,enable-422
+    - xlnx,enable-420
+    - xlnx,enable-csc
+
+config:
+    - XV_hscaler_Config
+
+depends:
+    video_common: []
+
+...
