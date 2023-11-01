@@ -1,0 +1,169 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for v_mix Driver
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-mix-5.2
+  reg:
+    description: Physical base address and size of the controller register map
+  samples-per-clock:
+    description: Samples Per Clock
+  max-cols:
+    description: Maximum columns supported by core instance
+  max-rows:
+    description: Maximum rows supported by core instance
+  max-data-width:
+    description: Maximum Data width of each channel
+  xlnx,video-format:
+    description: Input & Output supported video format
+  xlnx,num-layers:
+    description: Maximum Number of layers can be supported
+  xlnx,logo-layer:
+    description: Logo Layer enabled/disabled
+  xlnx,max-logo-cols:
+    description: Maximum columns supported by Logo Layer
+  xlnx,max-logo-rows:
+    description: Maximum columns supported by Logo Layer
+  xlnx,logo-transparency-color:
+    description: Logo Layer Transparency video colour format
+  xlnx,logo-pixel-alpha:
+    description: Logo Layer Alpha
+  xlnx,enable-csc-coefficient-registers:
+    description: Enable CSC Coeff registers.
+  xlnx,layer*-alpha:
+    description: Maximum Alpha value of Layer[n]
+  xlnx,layer*-upsample:
+    description: Maximum upsample value of Layer[n]
+  xlnx,layer*-max-width:
+    description: Maximum datawidth of Layer[n]
+  xlnx,layer*-intf-type:
+    description: Interface type of Layer[n]
+  xlnx,layer*-video-format:
+    description: Supported video format of Layer[n]
+  interrupts:
+    description: Interrupt number
+  interrupt-parent:
+    description: Parent interrupt
+
+required:
+    - compatible
+    - reg
+    - xlnx,samples-per-clock
+    - xlnx,max-cols
+    - xlnx,max-rows
+    - xlnx,max-data-width
+    - xlnx,video-format
+    - xlnx,num-layers
+    - xlnx,logo-layer
+    - xlnx,max-logo-cols
+    - xlnx,max-logo-rows
+    - xlnx,logo-transparency-color
+    - xlnx,logo-pixel-alpha
+    - xlnx,enable-csc-coefficient-registers
+    - xlnx,layer1-alpha
+    - xlnx,layer2-alpha
+    - xlnx,layer3-alpha
+    - xlnx,layer4-alpha
+    - xlnx,layer5-alpha
+    - xlnx,layer6-alpha
+    - xlnx,layer7-alpha
+    - xlnx,layer8-alpha
+    - xlnx,layer9-alpha
+    - xlnx,layer10-alpha
+    - xlnx,layer11-alpha
+    - xlnx,layer12-alpha
+    - xlnx,layer13-alpha
+    - xlnx,layer14-alpha
+    - xlnx,layer15-alpha
+    - xlnx,layer16-alpha
+    - xlnx,layer1-upsample
+    - xlnx,layer2-upsample
+    - xlnx,layer3-upsample
+    - xlnx,layer4-upsample
+    - xlnx,layer5-upsample
+    - xlnx,layer6-upsample
+    - xlnx,layer7-upsample
+    - xlnx,layer8-upsample
+    - xlnx,layer9-upsample
+    - xlnx,layer10-upsample
+    - xlnx,layer11-upsample
+    - xlnx,layer12-upsample
+    - xlnx,layer13-upsample
+    - xlnx,layer14-upsample
+    - xlnx,layer15-upsample
+    - xlnx,layer16-upsample
+    - xlnx,layer1-max-width
+    - xlnx,layer2-max-width
+    - xlnx,layer3-max-width
+    - xlnx,layer4-max-width
+    - xlnx,layer5-max-width
+    - xlnx,layer6-max-width
+    - xlnx,layer7-max-width
+    - xlnx,layer8-max-width
+    - xlnx,layer9-max-width
+    - xlnx,layer10-max-width
+    - xlnx,layer11-max-width
+    - xlnx,layer12-max-width
+    - xlnx,layer13-max-width
+    - xlnx,layer14-max-width
+    - xlnx,layer15-max-width
+    - xlnx,layer16-max-width
+    - xlnx,layer1-intf-type
+    - xlnx,layer2-intf-type
+    - xlnx,layer3-intf-type
+    - xlnx,layer4-intf-type
+    - xlnx,layer5-intf-type
+    - xlnx,layer6-intf-type
+    - xlnx,layer7-intf-type
+    - xlnx,layer8-intf-type
+    - xlnx,layer9-intf-type
+    - xlnx,layer10-intf-type
+    - xlnx,layer11-intf-type
+    - xlnx,layer12-intf-type
+    - xlnx,layer13-intf-type
+    - xlnx,layer14-intf-type
+    - xlnx,layer15-intf-type
+    - xlnx,layer16-intf-type
+    - xlnx,layer1-video-format
+    - xlnx,layer2-video-format
+    - xlnx,layer3-video-format
+    - xlnx,layer4-video-format
+    - xlnx,layer5-video-format
+    - xlnx,layer6-video-format
+    - xlnx,layer7-video-format
+    - xlnx,layer8-video-format
+    - xlnx,layer9-video-format
+    - xlnx,layer10-video-format
+    - xlnx,layer11-video-format
+    - xlnx,layer12-video-format
+    - xlnx,layer13-video-format
+    - xlnx,layer14-video-format
+    - xlnx,layer15-video-format
+    - xlnx,layer16-video-format
+    - interrupts
+    - interrupt-parent
+
+config:
+    - XV_mix_Config
+
+depends:
+    video_common: []
+
+examples:
+     xv_mix_example.c:
+     - vtc-connected: phandle
+     - gpio-connected: phandle
+     - remote-endpoint: phandle
+     - v-frmbuf-rd-connected: phandle
+...

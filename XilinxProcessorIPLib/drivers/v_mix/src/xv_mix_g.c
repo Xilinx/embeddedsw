@@ -1,17 +1,19 @@
 /*******************************************************************
-*
 * Copyright (C) 1986-2022 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-
 *******************************************************************************/
+
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xv_mix.h"
 
 /*
 * The configuration table for devices
 */
 
-XV_mix_Config XV_mix_ConfigTable[XPAR_XV_MIX_NUM_INSTANCES] =
+XV_mix_Config XV_mix_ConfigTable[] =
 {
 	{
 		XPAR_V_MIX_0_DEVICE_ID,

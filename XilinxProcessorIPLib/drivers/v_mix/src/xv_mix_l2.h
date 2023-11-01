@@ -471,7 +471,11 @@ typedef struct {
  ((InstancePtr)->Mix.Config.LayerIntrfType[LayerId-1] == XVMIX_LAYER_TYPE_STREAM)
 
 /**************************** Function Prototypes *****************************/
+#ifndef SDT
 int XVMix_Initialize(XV_Mix_l2 *InstancePtr, u16 DeviceId);
+#else
+int XVMix_Initialize(XV_Mix_l2 *InstancePtr, UINTPTR BaseAddress);
+#endif
 void XVMix_Start(XV_Mix_l2 *InstancePtr);
 void XV_mix_SetFlushbit(XV_mix *InstancePtr);
 u32 XV_mix_Get_FlushDone(XV_mix *InstancePtr);

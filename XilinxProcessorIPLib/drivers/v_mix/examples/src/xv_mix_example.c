@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -48,12 +49,17 @@
 #include "xv_mix_l2.h"
 #include "xvidc.h"
 #include "xvtc.h"
+#include "xgpio.h"
+
+#ifndef SDT
 #if defined (__MICROBLAZE__)
 #include "xintc.h"
 #else
 #include "xscugic.h"
 #endif
-#include "xgpio.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 
 #if defined(__MICROBLAZE__)
 #define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
@@ -148,7 +154,10 @@ static const XVidC_VideoWindow MixLayerConfig_4K[4] =
 
 void resetIp(void);
 static int DriverInit(void);
+#ifndef SDT
 static int SetupInterrupts(void);
+#endif
+
 static void ConfigTpg(XVidC_VideoStream *StreamPtr);
 static void ConfigMixer(XVidC_VideoStream *StreamPtr);
 #ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
@@ -165,6 +174,7 @@ static void ConfigVtc(XVidC_VideoStream *StreamPtr);
 static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr);
 static int CheckVidoutLock(void);
 
+#ifndef SDT
 /*****************************************************************************/
 /**
  * This function initializes and configures the system interrupt controller
@@ -250,6 +260,7 @@ static int SetupInterrupts(void)
 
   return(XST_SUCCESS);
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -264,7 +275,11 @@ static int DriverInit(void)
   XVtc_Config *vtc_Config;
   XGpio_Config *GpioCfgPtr;
 
+#ifndef SDT
   vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);
+#else
+  vtc_Config = XVtc_LookupConfig(XPAR_XVTC_0_BASEADDR);
+#endif
   if(vtc_Config == NULL) {
     xil_printf("ERROR:: VTC device not found\r\n");
     return(XST_FAILURE);
@@ -276,7 +291,11 @@ static int DriverInit(void)
     return(XST_FAILURE);
   }
 
+#ifndef SDT
   Status = XV_tpg_Initialize(&tpg, XPAR_V_TPG_0_DEVICE_ID);
+#else
+  Status = XV_tpg_Initialize(&tpg, XPAR_XV_TPG_0_BASEADDR);
+#endif
   if(Status != XST_SUCCESS) {
     xil_printf("ERROR:: TPG device not found\r\n");
     return(XST_FAILURE);
@@ -285,8 +304,12 @@ static int DriverInit(void)
 #ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
   for(int count=0; count < XPAR_XV_FRMBUFRD_NUM_INSTANCES; ++count)
   {
+#ifndef SDT
     FBLayer[count].DeviceId = XV_frmbufrd_ConfigTable[count].DeviceId;
     Status = XVFrmbufRd_Initialize(&FBLayer[count].Inst, FBLayer[count].DeviceId);
+#else
+    Status = XVFrmbufRd_Initialize(&FBLayer[count].Inst, FBLayer[count].BaseAddress);
+#endif
     if(Status != XST_SUCCESS) {
         xil_printf("ERROR:: Frame Buffer Read initialization failed\r\n");
     return(XST_FAILURE);
@@ -294,14 +317,22 @@ static int DriverInit(void)
   }
 #endif
 
+#ifndef SDT
   Status  = XVMix_Initialize(&mix, XPAR_V_MIX_0_DEVICE_ID);
+#else
+  Status  = XVMix_Initialize(&mix, XPAR_XV_MIX_0_BASEADDR);
+#endif
   if(Status != XST_SUCCESS) {
     xil_printf("ERROR:: Mixer device not found\r\n");
     return(XST_FAILURE);
   }
 
   //Video Lock Monitor
+#ifndef SDT
   GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_DEVICE_ID);
+#else
+  GpioCfgPtr = XGpio_LookupConfig(XPAR_XGPIO_0_BASEADDR);
+#endif
   if(GpioCfgPtr == NULL) {
     xil_printf("ERROR:: Video Lock Monitor GPIO device not found\r\n");
     return(XST_FAILURE);
@@ -679,10 +710,10 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
       xil_printf("   Layer Buffer Addr: 0x%X\r\n", baseaddr);
     }
     if(StreamPtr->VmId  <= XVIDC_VM_4096x2160_24_P ) {
-    Win = MixLayerConfig[layerIndex-1];
+        Win = MixLayerConfig[layerIndex-1];
     }
     else {
-	Win = MixLayerConfig_4K[layerIndex-1];
+	    Win = MixLayerConfig_4K[layerIndex-1];
     }
 
     XVMix_GetLayerColorFormat(MixerPtr, layerIndex, &Cfmt);
@@ -926,19 +957,28 @@ int main(void)
   //Release reset line
   *gpio_hlsIpReset = 1;
 
-  /* Initialize IRQ */
-  Status = SetupInterrupts();
-  if (Status == XST_FAILURE) {
-    xil_printf("ERROR:: Interrupt Setup Failed\r\n");
-    xil_printf("ERROR:: Test could not be completed\r\n");
-    while(1);
-  }
-
   Status = DriverInit();
   if(Status != XST_SUCCESS) {
     xil_printf("ERROR:: Driver Init. Failed\r\n");
     xil_printf("ERROR:: Test could not be completed\r\n");
-    while(1);
+    return(1);
+  }
+
+  /* Initialize IRQ */
+#ifndef SDT
+    Status = SetupInterrupts();
+#else
+    xil_printf("mix.Mix.Config.IntrId : 0x%x\r\n",mix.Mix.Config.IntrId);
+    xil_printf("mix.Mix.Config.Intrparent : 0x%x\r\n",mix.Mix.Config.IntrParent);
+  Status = XSetupInterruptSystem(&mix,&XVMix_InterruptHandler,
+				       mix.Mix.Config.IntrId,
+				       mix.Mix.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
+  if (Status == XST_FAILURE) {
+    xil_printf("ERROR:: Interrupt Setup Failed\r\n");
+    xil_printf("ERROR:: Test could not be completed\r\n");
+    return(1);
   }
 
   /* Enable exceptions. */
@@ -960,7 +1000,7 @@ int main(void)
   if(XVMonitor_IsVideoLocked(&vmon)) {
     xil_printf("ERROR:: Video should not be locked\r\n");
     xil_printf("ERROR:: Test could not be completed\r\n");
-    while(1);
+    return(1);
   }
 
   for(index=0; index<NUM_TEST_MODES; ++index)
@@ -1035,5 +1075,5 @@ int main(void)
     xil_printf("\r\n\r\nINFO: Test completed successfully\r\n");
   }
 
-  while(1);
+  return XST_SUCCESS;
 }
