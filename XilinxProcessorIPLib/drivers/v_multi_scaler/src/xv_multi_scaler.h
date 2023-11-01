@@ -1,5 +1,6 @@
 /*************************************************************************
  * Copyright (c) 1986 - 2022 Xilinx, Inc. All Rights Reserved.
+ * Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -76,7 +77,11 @@ typedef uint32_t u32;
 #define XV_MULTI_SCALER_DST_IMG_BUF_1(x) \
 				XV_multi_scaler_Set_HwReg_dstImgBuf1_##x##_V
 typedef struct {
+#ifndef SDT
     u16 DeviceId;
+#else
+    char *Name;
+#endif
     u32 Ctrl_BaseAddress;
     u32 SamplesPerClock;
     u32 MaxDataWidth;
@@ -86,12 +91,17 @@ typedef struct {
     u32 ScaleMode;
     u32 NumTaps;
     u32 MaxOuts;
+#ifdef SDT
+    u16 IntrId; 		    /**< Interrupt ID */
+    UINTPTR IntrParent;		/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XV_multi_scaler_Config;
 extern XV_multi_scaler_Config XV_multi_scaler_ConfigTable[];
 #endif
 
 typedef void (*XVMultiScaler_Callback)(void *CallbackRef);
 typedef struct {
+    XV_multi_scaler_Config Config;
     u32 Ctrl_BaseAddress;
     u32 IsReady;
     u32 SamplesPerClock;
@@ -130,8 +140,13 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
+#ifndef SDT
 int XV_multi_scaler_Initialize(XV_multi_scaler *InstancePtr, u16 DeviceId);
 XV_multi_scaler_Config* XV_multi_scaler_LookupConfig(u16 DeviceId);
+#else
+int XV_multi_scaler_Initialize(XV_multi_scaler *InstancePtr, UINTPTR BaseAddress);
+XV_multi_scaler_Config* XV_multi_scaler_LookupConfig(UINTPTR BaseAddress);
+#endif
 int XV_multi_scaler_CfgInitialize(XV_multi_scaler *InstancePtr,
 	XV_multi_scaler_Config *ConfigPtr);
 #else

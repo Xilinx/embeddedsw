@@ -1,5 +1,6 @@
 # ==============================================================
 # Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 # ==============================================================
 
@@ -12,7 +13,7 @@ BEGIN driver v_multi_scaler
  OPTION copyfiles = all;
  OPTION DEPENDS = (video_common);
  OPTION name = v_multi_scaler;
- OPTION version = 1.4;
+ OPTION version = 1.5;
 
 END driver
 
