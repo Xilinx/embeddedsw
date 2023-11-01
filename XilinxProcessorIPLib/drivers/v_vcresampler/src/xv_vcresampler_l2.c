@@ -15,7 +15,7 @@
 * The Vertical Chroma Resampler Layer-2 Driver.
 * The functions in this file provides an abstraction from the register peek/poke
 * methodology by implementing most common use-case provided by the sub-core.
-* See xv_vvcresampler_l2.h for a detailed description of the layer-2 driver
+* See xv_vcresampler_l2.h for a detailed description of the layer-2 driver
 *
 * <pre>
 * MODIFICATION HISTORY:

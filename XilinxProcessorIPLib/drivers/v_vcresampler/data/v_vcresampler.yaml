@@ -1,0 +1,49 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for vcresampler controller
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-vcresampler-1.1
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,samples-per-clock:
+    description: Samples Per Clock supported by core instance
+  xlnx,num-video-components:
+    description: Number of Video Components
+  xlnx,max-cols:
+    description: Maximum width supported by core instance
+  xlnx,max-rows:
+    description: Maximum height supported by core instance
+  xlnx,max-data-width:
+    description: Maximum rows supported by core instance
+  xlnx,convert-type:
+    description: Resampling Method selected
+  xlnx,num-v-taps:
+    description: Number of filter taps
+
+required:
+    - compatible
+    - reg
+    - xlnx,samples-per-clock
+    - xlnx,num-video-components
+    - xlnx,max-cols
+    - xlnx,max-rows
+    - xlnx,max-data-width
+    - xlnx,convert-type
+    - xlnx,num-v-taps
+
+depends:
+    video_common: []
+
+...
