@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,7 +35,11 @@
 #include "xil_cache.h"
 #include "xparameters.h"
 #include "xv_multi_scaler_l2.h"
+#ifndef SDT
 #include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Local Constants *********************************/
 #define XMULTISCALER_SW_VER "v1.00"
@@ -57,6 +62,10 @@
 
 #if defined XPAR_GPIO_0_BASEADDR
 #define GPIO_BASE XPAR_GPIO_0_BASEADDR
+#endif
+
+#ifdef SDT
+#define XPAR_PSU_GPIO_0_BASEADDR XPAR_GPIO_BASEADDR
 #endif
 
 XScuGic Intc;
@@ -86,6 +95,7 @@ XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
 	}
 };
 
+#ifndef SDT
 /*****************************************************************************/
 /**
  *
@@ -135,6 +145,7 @@ static int SetupInterruptSystem(void)
 
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -158,17 +169,17 @@ void XV_Reset_MultiScaler(void)
 	*(u32 *)(GPIO_BASE) = 0xFF;
 	for (count = 0; count <1000; count++);
 #else
-	XV_multi_scaler_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
+	XV_multi_scaler_WriteReg(XPAR_XGPIOPS_0_BASEADDR,
 	XGPIOPS_MASK_DATA_3_LSW_OFFSET, 0xFFFF0000);
-	XV_multi_scaler_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
+	XV_multi_scaler_WriteReg(XPAR_XGPIOPS_0_BASEADDR,
 	XGPIOPS_DIRM_3_OFFSET, 0xFFFFFFFF);
-	XV_multi_scaler_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
+	XV_multi_scaler_WriteReg(XPAR_XGPIOPS_0_BASEADDR,
 	XGPIOPS_OEN_3_OFFSET, 0xFFFFFFFF);
-	XV_multi_scaler_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
+	XV_multi_scaler_WriteReg(XPAR_XGPIOPS_0_BASEADDR,
 	XGPIOPS_DATA_3_OFFSET, 0x00000001);
-	XV_multi_scaler_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
+	XV_multi_scaler_WriteReg(XPAR_XGPIOPS_0_BASEADDR,
 	XGPIOPS_DATA_3_OFFSET, 0x00000000);
-	XV_multi_scaler_WriteReg(XPAR_PSU_GPIO_0_BASEADDR,
+	XV_multi_scaler_WriteReg(XPAR_XGPIOPS_0_BASEADDR,
 	XGPIOPS_DATA_3_OFFSET, 0x00000001);
 #endif
 }
@@ -188,7 +199,7 @@ void XV_Reset_MultiScaler(void)
  ******************************************************************************/
 void *XVMultiScalerCallback(void *data)
 {
-	xil_printf("\nMultiScaler interrupt received.\r\n");
+	xil_printf("\nMultiScaler interrupt received. \n\r");
 
 	/* clear interrupt flag */
 	interrupt_flag = 0;
@@ -279,15 +290,13 @@ int main(void)
 		XMULTISCALER_SW_VER);
 	xil_printf("	(c) 2018 by Xilinx Inc.\r\n");
 
-	/* Initialize IRQ */
-	status = SetupInterruptSystem();
-	if (status == XST_FAILURE) {
-		xil_printf("IRQ init failed.\n\r\r");
-		return XST_FAILURE;
-	}
-
+#ifndef SDT
 	status = XV_multi_scaler_Initialize(MultiScalerPtr,
 		XPAR_V_MULTI_SCALER_0_DEVICE_ID);
+#else
+	status = XV_multi_scaler_Initialize(MultiScalerPtr,
+		XPAR_XV_MULTI_SCALER_0_BASEADDR);
+#endif
 	if (status != XST_SUCCESS) {
 		xil_printf("CRITICAL ERROR:: System Init Failed.\n\r");
 		return XST_FAILURE;
@@ -295,13 +304,30 @@ int main(void)
 
 	XVMultiScaler_SetCallback(MultiScalerPtr, XVMultiScalerCallback,
 		(void *)MultiScalerPtr);
+
+#ifndef SDT
+	/* Initialize IRQ */
+	status = SetupInterruptSystem();
+	if (status == XST_FAILURE) {
+		xil_printf("IRQ init failed.\n\r\r");
+		return XST_FAILURE;
+	}
 	status = XScuGic_Connect(&Intc,
 		XPAR_FABRIC_V_MULTI_SCALER_0_INTERRUPT_INTR,
 		(XInterruptHandler)XV_MultiScalerIntrHandler,
 		(void *)MultiScalerPtr);
+#else
+	status = XSetupInterruptSystem(MultiScalerPtr,&XV_MultiScalerIntrHandler,
+				       MultiScalerInst.Config.IntrId,
+				       MultiScalerInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
+
 	if (status == XST_SUCCESS) {
+#ifndef SDT
 		XScuGic_Enable(&Intc,
 			XPAR_FABRIC_V_MULTI_SCALER_0_INTERRUPT_INTR);
+#endif
 	} else {
 		xil_printf("ERR:: Unable to register interrupt handler");
 		return XST_FAILURE;

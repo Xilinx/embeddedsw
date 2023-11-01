@@ -1,5 +1,6 @@
 /*************************************************************************
  * Copyright (c) 1986 - 2022 Xilinx, Inc. All Rights Reserved.
+ * Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +26,20 @@ int XV_multi_scaler_CfgInitialize(XV_multi_scaler *InstancePtr,
 	InstancePtr->ScaleMode = ConfigPtr->ScaleMode;
 	InstancePtr->NumTaps = ConfigPtr->NumTaps;
 	InstancePtr->MaxOuts = ConfigPtr->MaxOuts;
+
+	InstancePtr->Config.Ctrl_BaseAddress = ConfigPtr->Ctrl_BaseAddress;
+	InstancePtr->Config.MaxCols = ConfigPtr->MaxCols;
+	InstancePtr->Config.MaxRows = ConfigPtr->MaxRows;
+	InstancePtr->Config.SamplesPerClock = ConfigPtr->SamplesPerClock;
+	InstancePtr->Config.MaxDataWidth = ConfigPtr->MaxDataWidth;
+	InstancePtr->Config.PhaseShift = ConfigPtr->PhaseShift;
+	InstancePtr->Config.ScaleMode = ConfigPtr->ScaleMode;
+	InstancePtr->Config.NumTaps = ConfigPtr->NumTaps;
+	InstancePtr->Config.MaxOuts = ConfigPtr->MaxOuts;
+#ifdef SDT
+	InstancePtr->Config.IntrId = ConfigPtr->IntrId;
+	InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
+#endif
 	return XST_SUCCESS;
 }
 #endif

@@ -1,0 +1,59 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for v_multi_scaler controller
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-multi-scaler-1.2
+  reg:
+    description: Physical base address and size of the controller register map
+  samples-per-clock:
+    description: Samples Per Clock
+  max-data-width:
+    description: Maximum Data width of each channel
+  max-cols:
+    description: Maximum columns supported by core instance
+  max-rows:
+    description: Maximum rows supported by core instance
+  xlnx,phase-shift:
+    description: Max Phase shift of colour convertions
+  xlnx,scale-mode:
+    description: Scaling mode if applicable.
+  xlnx,taps:
+    description: Number of Taps to be used for colour conversion.
+  xlnx,max-outs:
+    description: Maximum number of channels to be used by Multiscaler.
+
+required:
+    - compatible
+    - reg
+    - xlnx,samples-per-clock
+    - xlnx,max-data-width
+    - xlnx,max-cols
+    - xlnx,max-rows
+    - xlnx,phase-shift
+    - xlnx,scale-mode
+    - xlnx,taps
+    - xlnx,max-outs
+    - interrupts
+    - interrupt-parent
+
+config:
+    - XV_multi_scaler_Config
+
+depends:
+    video_common: []
+
+examples:
+     xv_multi_scaler_example.c:
+...
