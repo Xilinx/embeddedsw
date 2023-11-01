@@ -474,6 +474,12 @@ def get_cmake_generator():
         cmake_generator = "Unix Makefiles"
     return cmake_generator
 
+def discard_dump():
+    if os.name == "nt":
+        return "NUL"
+    else:
+        return "/dev/null"
+
 def get_high_precedence_path(repo_paths_list, file_type, *argv):
     path = ""
     for entries in repo_paths_list:

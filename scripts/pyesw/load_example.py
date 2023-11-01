@@ -79,7 +79,8 @@ project(bsp)
             cwd = build_metadata
         )
 
-        utils.runcmd("cmake --build . --parallel 22 --verbose > nul", cwd = build_metadata)
+        dump = utils.discard_dump()
+        utils.runcmd("cmake --build . --parallel 22 --verbose > {dump}", cwd = build_metadata)
         for ip,data in domain_data['drv_info'].items():
             if data != "None":
                 driver = data['driver']
