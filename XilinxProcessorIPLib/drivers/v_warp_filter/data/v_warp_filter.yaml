@@ -1,0 +1,51 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for V_WARP_FILTER Driver
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-warp-filter-1.1
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,max-cols:
+    description: Maximum pixel width supported by core instance
+  xlnx,max-rows:
+    description: Maximum pixel height supported by core instance
+  xlnx,warp-type:
+    description: Warp type
+  xlnx,axi-mm-data-width:
+    description: AxiMM datawidth.
+  xlnx,performance-level:
+    description: Warp Filter performance level.
+  xlnx,bits-per-component:
+    description: Maximum Pixel Data width of each channel
+  interrupts:
+    description: Interrupt number
+  interrupt-parent:
+    description: Parent interrupt
+
+required:
+    - compatible
+    - reg
+    - xlnx,max-cols
+    - xlnx,max-rows
+    - xlnx,axi-mm-data-width
+    - xlnx,performance-level
+    - xlnx,bits-per-component
+    - interrupts
+    - interrupt-parent
+
+config:
+    - XV_warp_filter_Config
+
+...
