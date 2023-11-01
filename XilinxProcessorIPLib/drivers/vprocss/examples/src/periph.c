@@ -118,7 +118,11 @@ int XPeriph_PowerOnInit(XPeriph *InstancePtr)
   InstancePtr->VidLockMonitorPtr = &VidLocMonitor;
 
   //TPG
+#ifndef SDT
   status = XV_tpg_Initialize(InstancePtr->TpgPtr, XPAR_V_TPG_0_DEVICE_ID);
+#else
+  status = XV_tpg_Initialize(InstancePtr->TpgPtr, XPAR_V_TPG_0_BASEADDR);
+#endif
   if(status == XST_DEVICE_NOT_FOUND)
   {
     xil_printf("ERR:: TPG device not found\r\n");
@@ -126,7 +130,11 @@ int XPeriph_PowerOnInit(XPeriph *InstancePtr)
   }
 
   //VTC
+#ifndef SDT
   VtcConfigPtr = XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);
+#else
+  VtcConfigPtr = XVtc_LookupConfig(XPAR_V_TC_0_BASEADDR);
+#endif
   if(VtcConfigPtr == NULL)
   {
 	xil_printf("ERR:: VTC device not found\r\n");
@@ -144,7 +152,11 @@ int XPeriph_PowerOnInit(XPeriph *InstancePtr)
 
   //Peripheral GPIOs
   //  Video Lock Monitor
+#ifndef SDT
   GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_DEVICE_ID);
+#else
+  GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_BASEADDR);
+#endif
   if(GpioCfgPtr == NULL)
   {
 	xil_printf("ERR:: Video Lock Monitor GPIO device not found\r\n");

@@ -221,14 +221,14 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   {
     case XVPROCSS_SCALE_1_1:
         if(XVprocSsPtr->VdmaPtr) {
-          pTable[index++] = XVPROCSS_SUBCORE_VDMA;
-	}
+			pTable[index++] = XVPROCSS_SUBCORE_VDMA;
+		}
         break;
 
     case XVPROCSS_SCALE_UP:
-	if(XVprocSsPtr->VdmaPtr) {
-          pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is before Scaler */
-	}
+		if(XVprocSsPtr->VdmaPtr) {
+			pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is before Scaler */
+		}
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_V;
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_H;
         break;
@@ -236,9 +236,9 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
     case XVPROCSS_SCALE_DN:
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_H;
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_V;
-	if(XVprocSsPtr->VdmaPtr) {
-          pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is after Scaler */
-	}
+		if(XVprocSsPtr->VdmaPtr) {
+			pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is after Scaler */
+		}
         break;
 
     default:

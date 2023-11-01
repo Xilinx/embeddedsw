@@ -1,0 +1,26 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+cmake_minimum_required(VERSION 3.14.7)
+
+project(vprocss)
+
+find_package(common)
+collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
+collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
+include_directories(${CMAKE_BINARY_DIR}/include)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/vdma)
+collect (PROJECT_LIB_SOURCES xvprocss.c)
+collect (PROJECT_LIB_HEADERS xvprocss.h)
+collect (PROJECT_LIB_HEADERS xvprocss_coreinit.h)
+collect (PROJECT_LIB_SOURCES xvprocss_g.c)
+collect (PROJECT_LIB_SOURCES xvprocss_log.c)
+collect (PROJECT_LIB_HEADERS xvprocss_log.h)
+collect (PROJECT_LIB_SOURCES xvprocss_router.c)
+collect (PROJECT_LIB_HEADERS xvprocss_router.h)
+collect (PROJECT_LIB_SOURCES xvprocss_coreinit.c)
+collect (PROJECT_LIB_SOURCES xvprocss_sinit.c)
+collector_list (_sources PROJECT_LIB_SOURCES)
+collector_list (_headers PROJECT_LIB_HEADERS)
+file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
+add_library(vprocss STATIC ${_sources})
+set_target_properties(vprocss PROPERTIES LINKER_LANGUAGE C)
