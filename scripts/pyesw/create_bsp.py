@@ -74,9 +74,10 @@ class Domain(Repo):
         sdt input.
         """
         cpu_list_file = os.path.join(self.domain_dir, "cpulist.yaml")
+        dump = utils.discard_dump()
         if not utils.is_file(cpu_list_file):
             utils.runcmd(
-                f"lopper --werror -f -O {self.domain_dir} -i {self.lops_dir}/lop-cpulist.dts {self.sdt} > nul",
+                f"lopper --werror -f -O {self.domain_dir} -i {self.lops_dir}/lop-cpulist.dts {self.sdt} > {dump}",
                 cwd = self.domain_dir
             )
         if os.environ.get("VALIDATE_ARGS"):
@@ -145,7 +146,7 @@ class Domain(Repo):
                 Toolchain file for cmake infra that would be used across the
                 created domain for builds.
         """
-
+        dump = utils.discard_dump()
         # no gic mapping is needed for procs other than APU and RPU
         proc_lops_specs_map = {
             "a53": ("cortexa53", "lop-a53-imux", "arm"),
@@ -164,7 +165,7 @@ class Domain(Repo):
 
         # Save unpruned SDT as it may be used later
         ori_sdt_path = os.path.join(self.sdt_folder, "sdt.dts")
-        utils.runcmd(f"lopper -f -O {self.domain_dir} --enhanced  --permissive {self.sdt} {ori_sdt_path} > nul")
+        utils.runcmd(f"lopper -f -O {self.domain_dir} --enhanced  --permissive {self.sdt} {ori_sdt_path} > {dump}")
 
         toolchain_file_copy = None
         for val in proc_lops_specs_map.keys():
@@ -206,7 +207,7 @@ class Domain(Repo):
             vitis_path = os.environ.get("XILINX_VITIS")
 
             utils.runcmd(
-                f"lopper -f -O {self.domain_dir} --enhanced -i {lops_file} {self.sdt} > nul",
+                f"lopper -f -O {self.domain_dir} --enhanced -i {lops_file} {self.sdt} > {dump}",
                 cwd = self.domain_dir
             )
             cflags_file = os.path.join(self.domain_dir, "cflags.yaml")

@@ -179,7 +179,8 @@ def create_app(args):
     utils.mkdir(compile_commands_dir)
     obj.app_src_dir = obj.app_src_dir.replace('\\', '/')
     obj.cmake_paths_append = obj.cmake_paths_append.replace('\\', '/')
-    utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append} > nul', cwd=compile_commands_dir)
+    dump = utils.discard_dump()
+    utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append} > {dump}', cwd=compile_commands_dir)
 
     '''
     compile_commands.json file needs to be kept inside src directory.
