@@ -73,18 +73,23 @@ int XSys_Init(XPeriph  *pPeriph, XVprocSs *pVprocss)
   memset(pPeriph,  0, sizeof(XPeriph));
   memset(pVprocss, 0, sizeof(XVprocSs));
 
+#ifndef SDT
+  VprocSsConfigPtr = XVprocSs_LookupConfig(XPAR_V_PROC_SS_0_DEVICE_ID);
+#else
+  VprocSsConfigPtr = XVprocSs_LookupConfig(XPAR_XVPROCSS_0_BASEADDR);
+#endif
+  if(VprocSsConfigPtr == NULL)
+  {
+	xil_printf("ERR:: VprocSs device not found\r\n");
+	return (XST_DEVICE_NOT_FOUND);
+  }
+
+
   status = XPeriph_PowerOnInit(pPeriph);
   if(status != XST_SUCCESS)
   {
 	 xil_printf("ERR:: System Peripheral Init. error\n\r");
 	 return(XST_FAILURE);
-  }
-
-  VprocSsConfigPtr = XVprocSs_LookupConfig(XPAR_V_PROC_SS_0_DEVICE_ID);
-  if(VprocSsConfigPtr == NULL)
-  {
-	xil_printf("ERR:: VprocSs device not found\r\n");
-    return (XST_DEVICE_NOT_FOUND);
   }
 
   switch (VprocSsConfigPtr->Topology)

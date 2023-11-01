@@ -122,7 +122,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 u32 ClkWiz_IntrExample(u32 DeviceId, u32 outfreq);
+#else
+u32 ClkWiz_IntrExample(UINTPTR BaseAddress, u32 outfreq);
+#endif
 //int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr);
 void XClk_Wiz_IntrHandler(void *InstancePtr);
 void XClk_Wiz_InterruptEnable(XClk_Wiz *InstancePtr, u32 Mask);
@@ -441,6 +445,7 @@ int Clk_Wiz_Reconfig(XClk_Wiz_Config *CfgPtr_Dynamic, u32 outfreq)
 *		events.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 ClkWiz_IntrExample(u32 DeviceId, u32 outfreq)
 {
 	XClk_Wiz_Config *CfgPtr_Mon;
@@ -476,6 +481,85 @@ u32 ClkWiz_IntrExample(u32 DeviceId, u32 outfreq)
 	 * Get the CLK_WIZ Dynamic reconfiguration driver instance
 	 */
 	CfgPtr_Dynamic = XClk_Wiz_LookupConfig(XCLK_WIZ_DYN_DEVICE_ID);
+	if (!CfgPtr_Dynamic) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Initialize the CLK_WIZ Dynamic reconfiguration driver
+	 */
+	Status = XClk_Wiz_CfgInitialize(&ClkWiz_Dynamic, CfgPtr_Dynamic,
+		 CfgPtr_Dynamic->BaseAddr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Connect the CLK_WIZ to the interrupt subsystem such that interrupts can
+	 * occur. This function is application specific.
+	 */
+
+//	Status = SetupInterruptSystem(IntcInstancePtr, &ClkWiz_Mon);
+//	if (Status != XST_SUCCESS) {
+//		return XST_FAILURE;
+//	}
+
+	/* Calling Clock wizard dynamic reconfig */
+	Clk_Wiz_Reconfig(CfgPtr_Dynamic, outfreq);
+
+	/* Enable interrupts after setup interrupt */
+//	XClk_Wiz_InterruptEnable(&ClkWiz_Mon, XCLK_WIZ_IER_ALLINTR_MASK);
+//
+//	do {
+//		Delay(1);
+//		Exit_Count++;
+//		if(Exit_Count > 3) {
+//			xil_printf("ClKMon Interrupt test failed, " \
+//				"Please check design\r\n");
+//			return XST_FAILURE;
+//		}
+//	}
+//	while((Clk_Outof_Range_Flag == 1) && (Clk_Glitch_Flag == 1) \
+//		&& (Clk_Stop_Flag == 1));
+	return XST_SUCCESS;
+}
+
+#else
+u32 ClkWiz_IntrExample(UINTPTR BaseAddress, u32 outfreq)
+{
+	XClk_Wiz_Config *CfgPtr_Mon;
+	XClk_Wiz_Config *CfgPtr_Dynamic;
+	ULONG Exit_Count = 0;
+	u32 Status = XST_SUCCESS;
+
+	CfgPtr_Mon = XClk_Wiz_LookupConfig(BaseAddress);
+	if (!CfgPtr_Mon) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Initialize the CLK_WIZ driver so that it is ready to use.
+	 */
+	Status = XClk_Wiz_CfgInitialize(&ClkWiz_Mon, CfgPtr_Mon,
+					CfgPtr_Mon->BaseAddr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Check the given clock wizard is enabled with clock monitor
+	 * This test applicable only for clock monitor
+	 */
+//	if(CfgPtr_Mon->EnableClkMon == 0) {
+//		xil_printf("Interrupt test only applicable for "
+//			"clock monitor\r\n");
+//		return XST_SUCCESS;
+//	}
+
+	/*
+	 * Get the CLK_WIZ Dynamic reconfiguration driver instance
+	 */
+	CfgPtr_Dynamic = XClk_Wiz_LookupConfig(BaseAddress);
 	if (!CfgPtr_Dynamic) {
 		return XST_FAILURE;
 	}
@@ -630,7 +714,11 @@ int main(void)
 
     ClockFreq = ClockFreq*10000;
 
+#ifndef SDT
 	ClkWiz_IntrExample(XCLK_WIZ_DEVICE_ID, ClockFreq);
+#else
+	ClkWiz_IntrExample(XPAR_XCLK_WIZ_0_BASEADDR, ClockFreq);
+#endif
 #endif
 #endif
 

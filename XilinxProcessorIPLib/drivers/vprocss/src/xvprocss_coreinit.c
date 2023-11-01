@@ -103,7 +103,12 @@ int XVprocSs_SubcoreInitResetAxis(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->RstAxisPtr)
   {
 	/* Get core configuration */
+#ifndef SDT
     pConfig  = XGpio_LookupConfig(XVprocSsPtr->Config.RstAxis.DeviceId);
+#else
+    pConfig  = XGpio_LookupConfig(XVprocSsPtr->Config.RstAxis.AddrOffset);
+#endif
+
     if(pConfig == NULL)
     {
       XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_RESAXIS, XVPROCSS_EDAT_CFABSENT);
@@ -157,7 +162,12 @@ int XVprocSs_SubcoreInitResetAximm(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->RstAximmPtr)
   {
 	/* Get core configuration */
+#ifndef SDT
     pConfig  = XGpio_LookupConfig(XVprocSsPtr->Config.RstAximm .DeviceId);
+#else
+    pConfig  = XGpio_LookupConfig(XVprocSsPtr->Config.RstAximm.AddrOffset);
+#endif
+
     if(pConfig == NULL)
     {
       XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_RESAXIM, XVPROCSS_EDAT_CFABSENT);
@@ -211,7 +221,12 @@ int XVprocSs_SubcoreInitRouter(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->RouterPtr)
   {
 	/* Get core configuration */
+#ifndef SDT
     pConfig  = XAxisScr_LookupConfig(XVprocSsPtr->Config.Router.DeviceId);
+#else
+    pConfig  = XAxisScr_LookupConfig(XVprocSsPtr->Config.Router.AddrOffset);
+#endif
+
     if(pConfig == NULL)
     {
       XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_ROUTER, XVPROCSS_EDAT_CFABSENT);
@@ -265,7 +280,12 @@ int XVprocSs_SubcoreInitCsc(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->CscPtr)
   {
 	/* Get core configuration */
+#ifndef SDT
     pConfig  = XV_csc_LookupConfig(XVprocSsPtr->Config.Csc.DeviceId);
+#else
+    pConfig  = XV_csc_LookupConfig(XVprocSsPtr->Config.Csc.AddrOffset);
+#endif
+
     if(pConfig == NULL)
     {
       XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_CSC, XVPROCSS_EDAT_CFABSENT);
@@ -320,7 +340,12 @@ int XVprocSs_SubcoreInitHScaler(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->HscalerPtr)
   {
 	/* Get core configuration */
+#ifndef SDT
     pConfig  = XV_hscaler_LookupConfig(XVprocSsPtr->Config.Hscale.DeviceId);
+#else
+    pConfig  = XV_hscaler_LookupConfig(XVprocSsPtr->Config.Hscale.AddrOffset);
+#endif
+
     if(pConfig == NULL)
     {
       XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HSCALER, XVPROCSS_EDAT_CFABSENT);
@@ -374,7 +399,12 @@ int XVprocSs_SubcoreInitVScaler(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->VscalerPtr)
   {
 	/* Get core configuration */
+#ifndef SDT
     pConfig  = XV_vscaler_LookupConfig(XVprocSsPtr->Config.Vscale.DeviceId);
+#else
+    pConfig  = XV_vscaler_LookupConfig(XVprocSsPtr->Config.Vscale.AddrOffset);
+#endif
+
     if(pConfig == NULL)
     {
       XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VSCALER, XVPROCSS_EDAT_CFABSENT);
@@ -428,7 +458,12 @@ int XVprocSs_SubcoreInitHCrsmplr(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->HcrsmplrPtr)
   {
 	/* Get core configuration */
+#ifndef SDT
     pConfig  = XV_hcresampler_LookupConfig(XVprocSsPtr->Config.HCrsmplr.DeviceId);
+#else
+    pConfig  = XV_hcresampler_LookupConfig(XVprocSsPtr->Config.HCrsmplr.AddrOffset);
+#endif
+
     if(pConfig == NULL)
     {
       XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HCR, XVPROCSS_EDAT_CFABSENT);
@@ -489,7 +524,12 @@ int XVprocSs_SubcoreInitVCrsmpleIn(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->VcrsmplrInPtr)
   {
 	/* Get core configuration */
+#ifndef SDT
     pConfig  = XV_vcresampler_LookupConfig(XVprocSsPtr->Config.VCrsmplrIn.DeviceId);
+#else
+    pConfig  = XV_vcresampler_LookupConfig(XVprocSsPtr->Config.VCrsmplrIn.AddrOffset);
+#endif
+
     if(pConfig == NULL)
     {
       XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VCRI, XVPROCSS_EDAT_CFABSENT);
@@ -550,7 +590,11 @@ int XVprocSs_SubcoreInitVCrsmpleOut(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->VcrsmplrOutPtr)
   {
 	/* Get core configuration */
+#ifndef SDT
     pConfig  = XV_vcresampler_LookupConfig(XVprocSsPtr->Config.VCrsmplrOut.DeviceId);
+#else
+    pConfig  = XV_vcresampler_LookupConfig(XVprocSsPtr->Config.VCrsmplrOut.AddrOffset);
+#endif
     if(pConfig == NULL)
     {
       XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VCRO, XVPROCSS_EDAT_CFABSENT);
@@ -611,7 +655,12 @@ int XVprocSs_SubcoreInitLetterbox(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->LboxPtr)
   {
 	/* Get core configuration */
+#ifndef SDT
     pConfig  = XV_letterbox_LookupConfig(XVprocSsPtr->Config.Lbox.DeviceId);
+#else
+    pConfig  = XV_letterbox_LookupConfig(XVprocSsPtr->Config.Lbox.AddrOffset);
+#endif
+
     if(pConfig == NULL)
     {
       XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_LBOX, XVPROCSS_EDAT_CFABSENT);
@@ -665,7 +714,12 @@ int XVprocSs_SubcoreInitVdma(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->VdmaPtr)
   {
 	/* Get core configuration */
+#ifndef SDT
     pConfig  = XAxiVdma_LookupConfig(XVprocSsPtr->Config.Vdma.DeviceId);
+#else
+    pConfig  = XAxiVdma_LookupConfig(XVprocSsPtr->Config.Vdma.AddrOffset);
+#endif
+
     if(pConfig == NULL)
     {
       XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_INIT_VDMA, XVPROCSS_EDAT_CFABSENT);
@@ -719,7 +773,12 @@ int XVprocSs_SubcoreInitDeinterlacer(XVprocSs *XVprocSsPtr)
   if(XVprocSsPtr->DeintPtr)
   {
 	/* Get core configuration */
+#ifndef SDT
     pConfig  = XV_deinterlacer_LookupConfig(XVprocSsPtr->Config.Deint.DeviceId);
+#else
+    pConfig  = XV_deinterlacer_LookupConfig(XVprocSsPtr->Config.Deint.AddrOffset);
+#endif
+
     if(pConfig == NULL)
     {
       XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_DEINT, XVPROCSS_EDAT_CFABSENT);

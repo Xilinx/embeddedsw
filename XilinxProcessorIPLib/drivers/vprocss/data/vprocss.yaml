@@ -1,0 +1,143 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for VPROCSS Sub system controller Driver
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-proc-ss-2.3
+  reg:
+    description: Physical base addreiss and size of the controller register map
+  highaddr:
+    description: HighAddress is the physical MAX address of the subsystem address range
+  xlnx,topology:
+    description: Subsystem configuration mode
+  xlnx,samples-per-clk:
+    description: Number of Pixels Per Clock processed by Subsystem
+  xlnx-max-data-width:
+    description: Processing precision of the data pipe
+  xlnx,num-video-components:
+    description: Number of Video Components
+  xlnx,max-cols:
+    description: Maximum cols supported by subsystem instance
+  xlnx,max-rows:
+    description: Maximum rows supported by subsystem instance
+  xlnx,deint-motion-adaptive:
+    description: Motion Adaptive Deinterlacer available flag
+  rstaximm-present:
+    description: Sub-core instance presence
+  rstaximm-connected:
+    description: Axi MM reset network instance configuration
+  rstaxis-present:
+    description: Sub-core instance presence
+  rstaxis-connected:
+    description: Axi stream reset network instance configuration
+  vdma-present:
+    description: Sub-core instance presence
+  vdma-connected:
+    description: Sub-core instance configuration
+  router-present:
+    description: Sub-core instance presence
+  router-connected:
+    description: Sub-core instance configuration
+  csc-present:
+    description: Sub-core instance presence
+  csc-connected:
+    description: Sub-core instance configuration
+  deint-present:
+    description: Sub-core instance presence
+  deint-connected:
+    description: Sub-core instance configuration
+  hcrsmplr-present:
+    description: Sub-core instance presence
+  hcrsmplr-connected:
+    description: Sub-core instance configuration
+  hscale-present:
+    description: Sub-core instance presence
+  hscale-connected:
+    description: Sub-core instance configuration
+  lbox-present:
+    description: Sub-core instance presence
+  lbox-connected:
+    description: Sub-core instance configuration
+  vcrsmplrin-present:
+    description: Sub-core instance presence
+  vcrsmplrin-connected:
+    description: Sub-core instance configuration
+  vcrsmplrout-present:
+    description: Sub-core instance presence
+  vcrsmplrout-connected:
+    description: Sub-core instance configuration
+  vscale-present:
+    description: Sub-core instance presence
+  vscale-connected:
+    description: Sub-core instance configuration
+
+required:
+    - compatible
+    - reg
+    - xlnx,highaddr
+    - xlnx,topology
+    - xlnx,samples-per-clk
+    - xlnx,max-data-width
+    - xlnx,num-video-components
+    - xlnx,max-cols
+    - xlnx,max-rows
+    - xlnx,deint-motion-adaptive
+    - rstaximm-present
+    - rstaximm-connected: phandle
+    - rstaxis-present
+    - rstaxis-connected: phandle
+    - vdma-present
+    - vdma-connected: phandle
+    - router-present
+    - router-connected: phandle
+    - csc-present
+    - csc-connected: phandle
+    - deint-present
+    - deint-connected: phandle
+    - hcrsmplr-present
+    - hcrsmplr-connected: phandle
+    - hscale-present
+    - hscale-connected: phandle
+    - lbox-present
+    - lbox-connected: phandle
+    - vcrsmplrin-present
+    - vcrsmplrin-connected: phandle
+    - vcrsmplrout-present
+    - vcrsmplrout-connected: phandle
+    - vscale-present
+    - vscale-connected: phandle
+
+config:
+    - XVprocSs_Config
+
+depends:
+    video_common: []
+    v_csc: []
+    v_deinterlacer: []
+    v_hcresampler: []
+    v_vcresampler: []
+    v_hscaler: []
+    v_vscaler: []
+    v_letterbox: []
+    axivdma: []
+    gpio: []
+    axis_switch: []
+
+examples:
+    xv_procss_example.c:
+    - tpg-connected: phandle
+    - vtc-connected: phandle
+    - gpio-connected: phandle
+
+...
