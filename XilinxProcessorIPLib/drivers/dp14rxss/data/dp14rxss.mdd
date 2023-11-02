@@ -10,8 +10,8 @@ OPTION psf_version = 2.1;
 BEGIN driver dp14rxss
 	OPTION supported_peripherals = (v_dp_rxss1);
 	OPTION driver_state = ACTIVE;
-	OPTION depends = (video_common_v4_0 hdcp22_rx_dp hdcp1x hdcp22_common hdcp22_mmult hdcp22_cipher_dp hdcp22_rng tmrctr);
+	OPTION depends = (video_common_v4_0);
 	OPTION copyfiles = all;
-	OPTION VERSION = 8.2;
+	OPTION VERSION = 8.3;
 	OPTION NAME = dp14rxss;
 END driver
