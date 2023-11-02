@@ -374,6 +374,11 @@
 #define XDP_H_
 
 /******************************* Include Files ********************************/
+#include "xparameters.h"
+#ifdef SDT
+#define XPAR_XDPTXSS_NUM_INSTANCES XPAR_DPTXSS_NUM_INSTANCES
+#define XPAR_XDPRXSS_NUM_INSTANCES XPAR_DPRXSS_NUM_INSTANCES
+#endif
 
 #include "xil_assert.h"
 #include "xil_types.h"
@@ -498,7 +503,11 @@ typedef enum {
  * This typedef contains configuration information for the DisplayPort core.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Device instance ID. */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddr;	/**< The base address of the core instance. */
 	u32 SAxiClkHz;		/**< The clock frequency of the core instance's
 					S_AXI_ACLK port. */
@@ -1440,10 +1449,12 @@ typedef struct {
 } XDp;
 
 /**************************** Function Prototypes *****************************/
-
+#ifndef SDT
 /* xdp_sinit.c: Configuration extraction function. */
 XDp_Config *XDp_LookupConfig(u16 DeviceId);
-
+#else
+XDp_Config *XDp_LookupConfig(UINTPTR BaseAddress);
+#endif
 /* xdp.c: Setup and initialization functions. */
 void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 							UINTPTR EffectiveAddr);
