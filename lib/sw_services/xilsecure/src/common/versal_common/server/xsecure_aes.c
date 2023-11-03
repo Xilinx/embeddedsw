@@ -144,7 +144,7 @@ static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr);
 static int XSecure_AesOpInit(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr);
 static int XSecure_AesPmcDmaCfgAndXfer(const XSecure_Aes *InstancePtr,
-	const XSecure_AesDmaCfg *AesDmaCfg, u32 Size);
+	XSecure_AesDmaCfg *AesDmaCfg, u32 Size);
 static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u64 OutDataAddr, u32 Size, u8 IsLastChunk);
 static int XSecure_AesIvXfer(const XSecure_Aes *InstancePtr, u64 IvAddr);
@@ -2059,7 +2059,7 @@ END:
  *
  ******************************************************************************/
 static int XSecure_AesPmcDmaCfgAndXfer(const XSecure_Aes *InstancePtr,
-	const XSecure_AesDmaCfg *AesDmaCfg, u32 Size)
+	XSecure_AesDmaCfg *AesDmaCfg, u32 Size)
 {
 	int Status = XST_FAILURE;
 
