@@ -99,6 +99,9 @@
 *       mus  08/17/23 Updated translation table for VersalNet SoC, to configure
 *                     DDR regions as normal memory if DDR is mapped to given
 *                     DDR region in HW design. It fixes CR#1162903.
+* 9.1   oh   11/03/23 Updated translation table to support versal net in system
+*                     device-tree flow. xparameter macro has to be used for the
+*                     DDR regions after the last change.
 *
 ******************************************************************************/
 #include "bspconfig.h"
@@ -677,6 +680,24 @@ MMUTableL2:
 .else
 .set DDR_0_REG, DDR_0_SIZE/0x200000
 .endif
+
+#elif defined(XPAR_AXI_NOC2_0_BASEADDRESS)
+.set DDR_0_START, XPAR_AXI_NOC2_0_BASEADDRESS
+.set DDR_0_END, XPAR_AXI_NOC2_0_HIGHADDRESS
+
+.if DDR_0_START > DDRMC0_REGION0_START_ADDR
+.set UNDEF_START, (DDR_0_START - DDRMC0_REGION0_START_ADDR)
+.set UNDEF_START, (UNDEF_START)/0x200000
+.endif
+
+.set DDR_0_SIZE, (DDR_0_END - DDR_0_START)+1
+.if DDR_0_SIZE > 0x80000000
+/* If DDR size is larger than 2GB, truncate to 2GB */
+.set DDR_0_REG, 0x400
+.else
+.set DDR_0_REG, DDR_0_SIZE/0x200000
+.endif
+
 #else
 .set DDR_0_REG, 0
 #warning "There's no DDR_0 in the HW design. MMU translation table marks 2 GB DDR address space as undefined"
