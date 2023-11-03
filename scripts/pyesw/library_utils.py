@@ -402,7 +402,8 @@ class Library(Repo):
         utils.runcmd(lopper_cmd, cwd = dst_dir)
         if ("xilpm" in lib) and ("ZynqMP" in self.domain_data['family']):
             dstdir = os.path.join(self.libsrc_folder, lib, "src", "zynqmp", "client", "common")
-            lopper_cmd = f"lopper -O {dstdir} -f {self.sdt} --  generate_config_object pm_cfg_obj.c {self.proc}"
+            ori_sdt_path = os.path.join(self.domain_path, "hw_artifacts", "sdt.dts")
+            lopper_cmd = f"lopper -O {dstdir} -f {ori_sdt_path} --  generate_config_object pm_cfg_obj.c {self.proc}"
             utils.runcmd(lopper_cmd, cwd = dst_dir)
 
     def modify_cmake_subdirs(self, lib_list, action="add"):
