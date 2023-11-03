@@ -53,6 +53,7 @@ int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count);
 int XNvm_EfuseValidateDecOnlyRequest(void);
 int XNvm_EfuseValidateFipsInfo(u32 FipsMode, u32 FipsVersion);
 int XNvm_IsDmeModeEn(void);
+int XNvm_EfuseIsPufHelperDataEmpty(void);
 
 /**
  * @}

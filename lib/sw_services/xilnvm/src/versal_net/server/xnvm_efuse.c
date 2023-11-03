@@ -71,7 +71,6 @@ static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col,
 static int XNvm_EfuseCloseController(void);
 static int XNvm_EfusePrgmFipsInfo(u32 FipsMode, u32 FipsVersion);
 static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *EfuseKey);
-static int XNvm_EfuseIsPufHelperDataEmpty(void);
 static int XNvm_EfuseWritePufSynData(const u32 *SynData);
 static int XNvm_EfuseWritePufChash(u32 Chash);
 static int XNvm_EfuseWritePufAux(u32 Aux);
