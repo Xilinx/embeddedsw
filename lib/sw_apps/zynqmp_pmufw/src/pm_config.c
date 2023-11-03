@@ -1,5 +1,6 @@
 /*
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -58,7 +59,7 @@ static s32 PmConfigGpoSectionHandler(u32* const addr);
 #define PM_CONFIG_GPO_MASK	(BIT(5U) | BIT(4U) | BIT(3U) | BIT(2U))
 
 /* Default number of sections in configuration object */
-#define DEFAULT_SECTIONS_NUM	7U
+#define DEFAULT_SECTIONS_NUM	8U
 
 /* Type of Config Obejcts */
 #define PM_CONFIG_OBJECT_TYPE_BASE	(1U)
