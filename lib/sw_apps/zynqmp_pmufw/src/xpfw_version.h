@@ -11,7 +11,7 @@
 extern "C" {
 #endif
 
-#define ZYNQMP_XPFW_VERSION	"2023.2"
+#define ZYNQMP_XPFW_VERSION	"2024.1"
 
 #ifdef __cplusplus
 }
