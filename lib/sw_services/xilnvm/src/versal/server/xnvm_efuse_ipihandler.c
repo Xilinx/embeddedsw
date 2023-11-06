@@ -96,11 +96,18 @@ static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 int XNvm_EfuseIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	u32 *Pload = NULL;
 
-    /**
+	/**
 	 *  Validate the input parameters. Return error code if input parameters are not valid
 	 */
+	if (NULL == Cmd) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
+
 	if (Pload == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;

@@ -124,7 +124,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
     /**
 	 *  Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid
 	 */
-	if (Cmd == NULL) {
+	if (NULL == Cmd) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
