@@ -60,7 +60,14 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
 int XSecure_TrngIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	const u32 *Pload = Cmd->Payload;
+	u32 *Pload = NULL;
+
+	if (NULL == Cmd) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
@@ -71,6 +78,7 @@ int XSecure_TrngIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	}
 
+END:
 	return Status;
 }
 

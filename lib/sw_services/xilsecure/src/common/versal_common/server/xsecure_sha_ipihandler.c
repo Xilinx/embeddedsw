@@ -83,6 +83,11 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
 
+	if (NULL == Cmd) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
 	/* Check for resource availability to store Ipimask value */
 	if (XSecureSha3InstPtr->IsResourceBusy == (u32)XSECURE_RESOURCE_FREE) {
 		XSecureSha3InstPtr->IpiMask = Cmd->IpiMask;

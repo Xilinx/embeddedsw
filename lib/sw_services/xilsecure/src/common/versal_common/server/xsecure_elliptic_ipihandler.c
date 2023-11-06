@@ -76,7 +76,14 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh);
 int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	u32 *Pload = NULL;
+
+	if (NULL == Cmd) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
 
 	/** Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
@@ -105,6 +112,7 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	}
 
+END:
 	return Status;
 }
 
