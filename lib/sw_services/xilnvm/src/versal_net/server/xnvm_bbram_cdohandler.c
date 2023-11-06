@@ -55,12 +55,19 @@ static int XNvm_BbramWriteKeyFromCdoPload(u32 *Pload);
 int XNvm_BbramCdoHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	u32 *Pload = NULL;
 
-    /**
+	/**
 	 * Perform input parameters validation. Return error code if input parameters are invalid
 	 */
-	if (Pload == NULL) {
+	if (NULL == Cmd) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
+
+	if (NULL == Pload) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
