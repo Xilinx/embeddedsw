@@ -66,12 +66,18 @@ static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 int XPuf_IpiHandler(const XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_INVALID_PARAM;
-	const u32 *Pload = Cmd->Payload;
+	u32 *Pload = NULL;
 
 	/**
 	 *  Validate the input parameters. Return XST_FAILURE if input parameters are invalid
 	 */
-	if (Pload == NULL) {
+	if (NULL == Cmd) {
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
+
+	if (NULL == Pload) {
 		goto END;
 	}
 
