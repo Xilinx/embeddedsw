@@ -99,8 +99,15 @@ static void XSecure_MakeAesFree(void);
 int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	u32 *Pload = NULL;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+
+	if (NULL == Cmd) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
 
 	/*
 	 * Storing the Ipimask value when a request for the resource comes and

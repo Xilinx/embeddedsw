@@ -58,7 +58,14 @@ static int XSecure_GenSharedSecret(u32 CrvType, u32 PrvtKeyAddrLow, u32 PrvtKeyA
 int XSecure_PlatEllipticIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	const u32 *Pload = Cmd->Payload;
+	u32 *Pload = NULL;
+
+	if (NULL == Cmd) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
@@ -71,6 +78,7 @@ int XSecure_PlatEllipticIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	}
 
+END:
 	return Status;
 }
 

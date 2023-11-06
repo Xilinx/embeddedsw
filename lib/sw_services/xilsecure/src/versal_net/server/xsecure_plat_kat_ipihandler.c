@@ -70,7 +70,14 @@ static int XSecure_TrngKat(void);
 int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	const u32 *Pload = Cmd->Payload;
+	u32 *Pload = NULL;
+
+	if (NULL == Cmd) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
 
 	switch (Pload[0U] & XSECURE_API_ID_MASK) {
 #ifndef PLM_SECURE_EXCLUDE
@@ -83,7 +90,7 @@ int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 		Status = XSecure_KatIpiHandler(Cmd);
 		break;
 	}
-
+END:
 	return Status;
 }
 

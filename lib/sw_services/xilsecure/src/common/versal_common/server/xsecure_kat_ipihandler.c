@@ -75,7 +75,14 @@ static int XSecure_ShaKat(void);
 int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	const u32 *Pload = Cmd->Payload;
+	u32 *Pload = NULL;
+
+	if (NULL == Cmd) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
 
 	/** Call the respective API handler according to API ID */
 	switch (Pload[0U] & XSECURE_API_ID_MASK) {
@@ -123,6 +130,7 @@ int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	}
 
+END:
 	return Status;
 }
 
