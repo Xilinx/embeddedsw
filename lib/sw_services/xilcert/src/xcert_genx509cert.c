@@ -22,6 +22,7 @@
 * 1.1   am   08/18/2023 Renamed error codes which starts with XOCP with XCERT
 * 1.2   har  10/31/2023 Add support to use DevIk subject as DevAk Issuer if DevIk user config is
 *			available
+*       kpt  10/26/2023 Add support to run KAT
 *
 * </pre>
 * @note
@@ -498,7 +499,8 @@ END:
  ******************************************************************************/
 int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config *Cfg)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u8 X509CertBuf[1024];
 	u8* Start = X509CertBuf;
 	u8* Curr = Start;
@@ -512,7 +514,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	u8 Sign[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U] = {0U};
 	u8 SignTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U] = {0U};
 	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
-	XCert_SignStore *SignStore;
+	XCert_SignStore *SignStore = NULL;
 #endif
 	u8 HashTmp[XCERT_HASH_SIZE_IN_BYTES] = {0U};
 	u8 *TbsCertStart;
@@ -533,6 +535,19 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	}
 
 	TbsCertStart = Curr;
+
+	/**
+	 * SHA 384 is used to calculate hash for Serial field and to calculate hash
+	 * for signature calculation. So run KAT for SHA384 before use
+	 */
+	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != (u8)TRUE) {
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XCERT_ERR_X509_KAT_FAILED, Status, StatusTmp, XSecure_Sha384Kat);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			goto END;
+		}
+		XPlmi_SetKatMask(XPLMI_SECURE_SHA384_KAT_MASK);
+	}
+
 	if (Cfg->AppCfg.IsCsr == TRUE) {
 		Status = XCert_GenCertReqInfo(Curr, Cfg, &DataLen);
 	}
@@ -599,6 +614,14 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	 * regenerate the signature.
 	 */
 	if ((SignStore->IsSignAvailable != XCERT_SIGN_AVAILABLE) || (HashCmpStatus != XST_SUCCESS)) {
+		if (XPlmi_IsKatRan(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK) != TRUE) {
+			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp,
+				XSecure_EllipticSignGenerateKat, XSECURE_ECC_PRIME);
+			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+				goto END;
+			}
+			XPlmi_SetKatMask(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK);
+		}
 
 		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)Hash,
 					(u64)(UINTPTR)HashTmp);
@@ -1793,8 +1816,7 @@ END:
  ******************************************************************************/
 static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCertLen)
 {
-	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u8* Start = TBSCertBuf;
 	u8* Curr  = Start;
 	u8* SequenceLenIdx;
@@ -1889,14 +1911,6 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	}
 	else {
 		Curr = Curr + Len;
-	}
-
-	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != (u8)TRUE) {
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XCERT_ERR_X509_KAT_FAILED, Status, StatusTmp, XSecure_Sha384Kat);
-		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-			goto END;
-		}
-		XPlmi_SetKatMask(XPLMI_SECURE_SHA384_KAT_MASK);
 	}
 
 	/**

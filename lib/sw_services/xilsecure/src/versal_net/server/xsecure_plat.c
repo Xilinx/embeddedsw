@@ -572,7 +572,11 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 			if (TrngInstance->ErrorState != XTRNGPSX_HEALTHY) {
 				Status = XTrngpsx_PreOperationalSelfTests(TrngInstance);
 				if (Status != XST_SUCCESS) {
+					XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
 					goto END;
+				}
+				else {
+					XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
 				}
 			}
 		Status = XSecure_TrngInitNCfgHrngMode();
@@ -625,8 +629,7 @@ int XSecure_ECCRandInit(void)
 	if ((TrngInstance->UserCfg.Mode != XTRNGPSX_HRNG_MODE) ||
 		(TrngInstance->State == XTRNGPSX_UNINITIALIZED_STATE )) {
 		Status = XSecure_TrngInitNCfgHrngMode();
-		if(Status != XST_SUCCESS)
-		{
+		if(Status != XST_SUCCESS) {
 			goto END;
 		}
 	}

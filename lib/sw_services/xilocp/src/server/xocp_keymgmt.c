@@ -25,6 +25,7 @@
 *       kpt  07/25/23 Add redundancy for key generation APIs
 *       yog  08/07/23 Replaced trng API calls using trngpsx driver
 *       am   09/04/23 Added XOcp_ValidateDiceCdi function
+* 1.3   kpt  11/06/23 Add support to run ECC KAT before attestation
 *
 * </pre>
 * @note
@@ -534,7 +535,8 @@ END:
  ******************************************************************************/
 int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u32 DevAkIndex;
 	XOcp_DevAkData *DevAkData = NULL;
 #ifndef PLM_ECDSA_EXCLUDE
@@ -562,6 +564,15 @@ int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId)
 	}
 
 #ifndef PLM_ECDSA_EXCLUDE
+	if (XPlmi_IsKatRan(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK) != TRUE) {
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp,XSecure_EllipticSignGenerateKat,
+			XSECURE_ECC_PRIME);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			goto END;
+		}
+		XPlmi_SetKatMask(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK);
+	}
+
 	/* Covert hash to little endian */
 	XSecure_FixEndiannessNCopy(AttestWithDevAkPtr->HashLen,
 		(u64)(UINTPTR)Hash, AttestWithDevAkPtr->HashAddr);

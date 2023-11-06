@@ -22,6 +22,7 @@
 * 1.2   kpt  06/02/23 Fixed circular buffer issues during HWPCR logging
 *       kal  06/02/23 Added SW PCR extend and logging functions
 *       yog  08/07/23 Replaced trng API calls using trngpsx driver
+* 1.3   kpt  11/06/23 Add support to run SHA384 KAT during DME
 *
 * </pre>
 * @note
@@ -44,7 +45,8 @@
 #include "xsecure_trng.h"
 #include "xil_error_node.h"
 #include "xplmi_err.h"
-#include "xsecure_sha384.h"
+#include "xplmi_tamper.h"
+#include "xsecure_plat_kat.h"
 
 /************************** Constant Definitions *****************************/
 #define XOCP_SHA3_LEN_IN_BYTES		(48U) /**< Length of Sha3 hash in bytes */
@@ -751,6 +753,13 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 
 	/* Fill the DME structure's DEVICE ID field with hash of DEV IK Public key */
 	if (XOcp_IsDevIkReady() != FALSE) {
+		if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != (u8)TRUE) {
+			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, SStatus, XSecure_Sha384Kat);
+			if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
+				goto END;
+			}
+			XPlmi_SetKatMask(XPLMI_SECURE_SHA384_KAT_MASK);
+		}
 		Status = XSecure_Sha384Digest((u8 *)(UINTPTR)DevIkPubKey,
 				XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES, Sha3Hash);
 		if (Status != XST_SUCCESS) {
