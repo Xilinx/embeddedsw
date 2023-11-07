@@ -754,7 +754,7 @@ typedef enum {
 	IOCTL_RPU_BOOT_ADDR_CONFIG,			/**< RPU boot address config */
 	IOCTL_TCM_COMB_CONFIG,				/**< TCM config */
 	IOCTL_SET_TAPDELAY_BYPASS,			/**< TAP delay bypass */
-	IOCTL_SET_SGMII_MODE,				/**< SGMII mode */
+	IOCTL_RESERVED_1,				/**< Deprecated IOCTL ID */
 	IOCTL_SD_DLL_RESET,				/**< SD DLL reset */
 	IOCTL_SET_SD_TAPDELAY,				/**< SD TAP delay */
 	/* Ioctl for clock driver */
