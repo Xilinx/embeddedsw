@@ -76,7 +76,7 @@ u32 XIpiPs_Init(XMailbox *InstancePtr, UINTPTR BaseAddress)
 	XIpiPsu_ClearInterruptStatus(IpiInstancePtr, XIPIPSU_ALL_MASK);
 
 	/* Register IRQ */
-#ifndef __MICROBLAZE__
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 	Status = XIpiPs_RegisterIrq(&DataPtr->GicInst, InstancePtr,
 				    CfgPtr->IntId);
 #endif
@@ -183,7 +183,7 @@ u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 	return Status;
 }
 
-#ifndef __MICROBLAZE__
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 /*****************************************************************************/
 /**
  * This function implements the interrupt handler

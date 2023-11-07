@@ -35,7 +35,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xilmailbox.h"
 #include "xipipsu.h"
-#ifndef __MICROBLAZE__
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 #include "xscugic.h"
 #endif
 
@@ -45,7 +45,7 @@ extern "C" {
  */
 typedef struct {
 	XIpiPsu IpiInst; /**< Ipi instance */
-#ifndef __MICROBLAZE__
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 	XScuGic GicInst; /**< Interrupt instance */
 #endif
 	u32 SourceId; /**< Source id */
