@@ -105,7 +105,7 @@
  * | IOCTL_RPU_BOOT_ADDR_CONFIG		| 2	| Both		| RPU boot address config		|
  * | IOCTL_TCM_COMB_CONFIG		| 3	| Both		| TCM config				|
  * | IOCTL_SET_TAPDELAY_BYPASS		| 4	| Both		| TAP delay bypass			|
- * | IOCTL_SET_SGMII_MODE		| 5	| ZynqMP	| SGMII mode				|
+ * | IOCTL_RESERVED_1			| 5	| None		| Deprecated IOCTL ID			|
  * | IOCTL_SD_DLL_RESET			| 6	| Both		| SD DLL reset				|
  * | IOCTL_SET_SD_TAPDELAY		| 7	| Both		| SD TAP delay				|
  * | IOCTL_SET_PLL_FRAC_MODE		| 8	| Both		| Set PLL frac mode			|
