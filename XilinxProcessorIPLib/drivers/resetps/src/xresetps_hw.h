@@ -20,6 +20,7 @@
 * 1.00  cjp    09/05/17 First release
 * 1.1   Nava   04/20/18 Fixed compilation warnings.
 * 1.2   cjp    04/27/18 Updated for clockps interdependency
+* 1.7   sd     11/07/23 Remove the unused pss ref frequency
 * </pre>
 *
 ******************************************************************************/
@@ -38,7 +39,6 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /* Register address defines */
 /* CRF_APB defines */
-#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ 33330000U
 #define XPAR_PSU_CRL_APB_S_AXI_BASEADDR 0xFF5E0000
 #define XPAR_PSU_IOUSLCR_0_S_AXI_BASEADDR 0xFF180000
 #define XPAR_PSU_CRF_APB_S_AXI_BASEADDR		0xFD1A0000

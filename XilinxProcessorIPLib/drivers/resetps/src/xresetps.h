@@ -35,6 +35,7 @@
 *                       execution.
 * 1.5   sk     11/30/21 Fix compilation warnings reported with "-Wundef" flag.
 * 1.6   sd     07/07/23 Added SDT support.
+* 1.7   sd     11/07/23 Remove the unused pss ref frequency
 * </pre>
 *
 ******************************************************************************/
