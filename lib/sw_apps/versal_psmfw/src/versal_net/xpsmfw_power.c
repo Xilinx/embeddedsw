@@ -1507,7 +1507,7 @@ static XStatus XPsmFwMemPwrDwn(struct XPsmFwMemPwrCtrl_t *Args)
 	}else{
 
 		/*power down the OCM RAMs without Retention*/
-		XPsmFw_RMW32(Args->RetCtrlAddr, Args->RetCtrlMask, ~Args->RetCtrlAddr);
+		XPsmFw_RMW32(Args->RetCtrlAddr, Args->RetCtrlMask, ~Args->RetCtrlMask);
 
 		/*poll for disable retention*/
 		Status = XPsmFw_UtilPollForZero(PSMX_LOCAL_REG_LOC_AUX_PWR_STATE, Args->PwrStateMask, Args->PwrStateAckTimeout);
