@@ -12,7 +12,7 @@ BEGIN driver resetps
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (clockps);
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.6;
+	OPTION VERSION = 1.7;
 	OPTION NAME = resetps;
 
 END driver
