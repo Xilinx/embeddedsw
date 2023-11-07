@@ -1382,7 +1382,7 @@ extern "C" {
 ******************************************************************************/
 static INLINE u16 XSdPs_ReadReg16(UINTPTR BaseAddress, u8 RegOffset)
 {
-#if defined (__MICROBLAZE__)
+#if defined (__MICROBLAZE__) || defined (__riscv)
 	u32 Reg;
 	BaseAddress += RegOffset & 0xFC;
 	Reg = XSdPs_In32(BaseAddress);
@@ -1412,7 +1412,7 @@ static INLINE u16 XSdPs_ReadReg16(UINTPTR BaseAddress, u8 RegOffset)
 
 static INLINE void XSdPs_WriteReg16(UINTPTR BaseAddress, u8 RegOffset, u16 RegisterValue)
 {
-#if defined (__MICROBLAZE__)
+#if defined (__MICROBLAZE__) || defined (__riscv)
 	u32 Reg;
 	BaseAddress += RegOffset & 0xFC;
 	Reg = XSdPs_In32(BaseAddress);
@@ -1440,7 +1440,7 @@ static INLINE void XSdPs_WriteReg16(UINTPTR BaseAddress, u8 RegOffset, u16 Regis
 ******************************************************************************/
 static INLINE u8 XSdPs_ReadReg8(UINTPTR BaseAddress, u8 RegOffset)
 {
-#if defined (__MICROBLAZE__)
+#if defined (__MICROBLAZE__) || defined (__riscv)
 	u32 Reg;
 	BaseAddress += RegOffset & 0xFC;
 	Reg = XSdPs_In32(BaseAddress);
@@ -1468,7 +1468,7 @@ static INLINE u8 XSdPs_ReadReg8(UINTPTR BaseAddress, u8 RegOffset)
 ******************************************************************************/
 static INLINE void XSdPs_WriteReg8(UINTPTR BaseAddress, u8 RegOffset, u8 RegisterValue)
 {
-#if defined (__MICROBLAZE__)
+#if defined (__MICROBLAZE__) || defined (__riscv)
 	u32 Reg;
 	BaseAddress += RegOffset & 0xFC;
 	Reg = XSdPs_In32(BaseAddress);
