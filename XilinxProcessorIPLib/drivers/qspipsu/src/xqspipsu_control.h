@@ -53,7 +53,7 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__) || defined (__riscv)
 #define TAPDLY_BYPASS_VALVE_40MHZ 0x01U
 #define TAPDLY_BYPASS_VALVE_100MHZ 0x01U
 #define USE_DLY_LPBK  0x01U
@@ -63,7 +63,7 @@ extern "C" {
 #define LPBK_DLY_ADJ_DLY1 0X02U
 #endif
 
-#ifdef __MICROBLAZE__
+#if defined (__MICROBLAZE__) || defined (__riscv)
 #define XPS_SYS_CTRL_BASEADDR   0xFF180000U     /**< System controller Baseaddress */
 #endif
 /************************** Function Prototypes ******************************/
@@ -104,7 +104,7 @@ void XQspiPsu_IntrRecvData(XQspiPsu *InstancePtr,
 void XQspiPsu_IntrDummyDataTransfer(XQspiPsu *InstancePtr, u32 QspiPsuStatusReg,
 				    u8 DeltaMsgCnt);
 
-#if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__) || defined (__riscv)
 s32 XQspipsu_Set_TapDelay(const XQspiPsu *InstancePtr, u32 TapdelayBypass,
 			  u32 LPBKDelay, u32 Datadelay);
 s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler);

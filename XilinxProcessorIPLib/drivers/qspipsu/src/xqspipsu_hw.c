@@ -709,7 +709,7 @@ void XQspiPsu_IORead(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	}
 }
 
-#if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__) || defined (__riscv)
 /*****************************************************************************/
 /**
 *
