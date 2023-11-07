@@ -35,7 +35,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xilmailbox.h"
 #include "xil_util.h"
-#ifndef __MICROBLAZE__
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 #include "xscugic.h"
 #endif
 #include "sleep.h"
@@ -59,7 +59,7 @@ u32 XIpiPs_SendData(XMailbox *InstancePtr, void *MsgBufferPtr,
 u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 		    u32 MsgLen, u8 BufferType);
 u32 XIpiPs_PollforDone(XMailbox *InstancePtr);
-#ifndef __MICROBLAZE__
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 void XIpiPs_ErrorIntrHandler(void *XMailboxPtr);
 void XIpiPs_IntrHandler(void *XMailboxPtr);
 XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,

@@ -69,7 +69,7 @@ u32 XIpiPs_PollforDone(XMailbox *InstancePtr)
 	return Status;
 }
 
-#ifndef __MICROBLAZE__
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 /*****************************************************************************/
 /**
  * This function registers an irq
