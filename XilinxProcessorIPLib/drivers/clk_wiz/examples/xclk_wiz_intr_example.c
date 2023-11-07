@@ -204,7 +204,7 @@ int Wait_For_Lock(XClk_Wiz_Config *CfgPtr_Dynamic)
 ******************************************************************************/
 void Delay(u32 Seconds)
 {
-#if defined (__MICROBLAZE__) || defined(__PPC__)
+#if defined (__MICROBLAZE__) || defined (__riscv)
 	static s32 WarningFlag = 0;
 
 	/* If MB caches are disabled or do not exist, this delay loop could
