@@ -322,6 +322,7 @@ void XIpiPsu_SetConfigTable(u32 DeviceId, XIpiPsu_Config *ConfigTblPtr)
 	Xil_AssertVoid(ConfigTblPtr != NULL);
 
 	/* Loop through all the IPI devices present in the system */
+#if XPAR_XIPIPSU_NUM_INSTANCES != 0
 	for (Index = 0U; Index < XPAR_XIPIPSU_NUM_INSTANCES; Index++) {
 		/* Set up the device configuration based on the unique device ID */
 		if (XIpiPsu_ConfigTable[Index].DeviceId == DeviceId) {
@@ -331,6 +332,11 @@ void XIpiPsu_SetConfigTable(u32 DeviceId, XIpiPsu_Config *ConfigTblPtr)
 			XIpiPsu_ConfigTable[Index].IntId = ConfigTblPtr->IntId;
 		}
 	}
+#else
+	(void)DeviceId;
+	(void)Index;
+#endif
+
 }
 #endif
 /** @} */

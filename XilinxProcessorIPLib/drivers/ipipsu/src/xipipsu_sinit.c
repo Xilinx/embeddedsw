@@ -55,6 +55,7 @@ XIpiPsu_Config *XIpiPsu_LookupConfig(u32 DeviceId)
 	XIpiPsu_Config *CfgPtr = NULL;
 	u32 Index;
 
+#if XPAR_XIPIPSU_NUM_INSTANCES != 0
 	/* Checks all the instances */
 	for (Index = 0U; Index < XPAR_XIPIPSU_NUM_INSTANCES; Index++) {
 		if (XIpiPsu_ConfigTable[Index].DeviceId == DeviceId) {
@@ -63,6 +64,10 @@ XIpiPsu_Config *XIpiPsu_LookupConfig(u32 DeviceId)
 		}
 	}
 
+#else
+	(void)DeviceId;
+	(void)Index;
+#endif
 	/* Returns reference to config record if found, else NULL*/
 	return (XIpiPsu_Config *) CfgPtr;
 }
