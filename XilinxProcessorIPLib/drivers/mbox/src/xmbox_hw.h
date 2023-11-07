@@ -51,7 +51,7 @@ extern "C" {
 
 #include "xil_io.h"
 
-#ifdef __MICROBLAZE__
+#if defined (__MICROBLAZE__) || defined (__riscv)
 #include "fsl.h"		/* MicroBlaze Specific */
 #endif
 
@@ -241,7 +241,7 @@ extern "C" {
  * access method
  */
 
-#ifdef __MICROBLAZE__
+#if defined (__MICROBLAZE__) || defined (__riscv)
 /*****************************************************************************/
 /**
 * Read the mbox FIFO using FSL
