@@ -57,6 +57,9 @@ extern "C" {
 #define UDP_FLAGS_UDPLITE        0x02U
 #define UDP_FLAGS_CONNECTED      0x04U
 #define UDP_FLAGS_MULTICAST_LOOP 0x08U
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+#define UDP_FLAGS_BLOCK_TX_TILL_COMPLETE	0x10U
+#endif
 
 struct udp_pcb;
 
@@ -136,6 +139,11 @@ err_t            udp_sendto_if_src(struct udp_pcb *pcb, struct pbuf *p,
 err_t            udp_sendto     (struct udp_pcb *pcb, struct pbuf *p,
                                  const ip_addr_t *dst_ip, u16_t dst_port);
 err_t            udp_send       (struct udp_pcb *pcb, struct pbuf *p);
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE && NO_SYS
+err_t udp_send_blocking(struct udp_pcb *pcb, struct pbuf *p);
+err_t udp_sendto_blocking(struct udp_pcb *pcb, struct pbuf *p,
+           const ip_addr_t *dst_ip, u16_t dst_port);
+#endif
 
 #if LWIP_CHECKSUM_ON_COPY && CHECKSUM_GEN_UDP
 err_t            udp_sendto_if_chksum(struct udp_pcb *pcb, struct pbuf *p,
@@ -150,6 +158,12 @@ err_t            udp_send_chksum(struct udp_pcb *pcb, struct pbuf *p,
 err_t            udp_sendto_if_src_chksum(struct udp_pcb *pcb, struct pbuf *p,
                                  const ip_addr_t *dst_ip, u16_t dst_port, struct netif *netif,
                                  u8_t have_chksum, u16_t chksum, const ip_addr_t *src_ip);
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE && NO_SYS
+err_t udp_send_chksum_blocking(struct udp_pcb *pcb, struct pbuf *p,
+                u8_t have_chksum, u16_t chksum);
+err_t udp_sendto_chksum_blocking(struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *dst_ip,
+                  u16_t dst_port, u8_t have_chksum, u16_t chksum);
+#endif
 #endif /* LWIP_CHECKSUM_ON_COPY && CHECKSUM_GEN_UDP */
 
 #define          udp_flags(pcb) ((pcb)->flags)

@@ -1435,7 +1435,11 @@ lwip_send(int s, const void *data, size_t size, int flags)
   if (NETCONNTYPE_GROUP(netconn_type(sock->conn)) != NETCONN_TCP) {
 #if (LWIP_UDP || LWIP_RAW)
     done_socket(sock);
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+    return lwip_sendto_blocking(s, data, size, flags, NULL, 0);
+#else
     return lwip_sendto(s, data, size, flags, NULL, 0);
+#endif
 #else /* (LWIP_UDP || LWIP_RAW) */
     set_errno(err_to_errno(ERR_ARG));
     done_socket(sock);
@@ -1664,6 +1668,13 @@ lwip_sendto(int s, const void *data, size_t size, int flags,
 #if LWIP_CHECKSUM_ON_COPY
   buf.flags = 0;
 #endif /* LWIP_CHECKSUM_ON_COPY */
+
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+  buf.flags = 0;
+  if (flags & MSG_WAITALL) {
+	buf.flags |= NETBUF_FLAG_UDP_BLOCL_TX_TILL_COMPLETE;
+  }
+#endif
   if (to) {
     SOCKADDR_TO_IPADDR_PORT(to, &buf.addr, remote_port);
   } else {
@@ -1711,6 +1722,9 @@ lwip_sendto(int s, const void *data, size_t size, int flags,
     err = netconn_send(sock->conn, &buf);
   }
 
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+    buf.flags = 0;
+#endif
   /* deallocated the buffer */
   netbuf_free(&buf);
 
@@ -1718,6 +1732,23 @@ lwip_sendto(int s, const void *data, size_t size, int flags,
   done_socket(sock);
   return (err == ERR_OK ? short_size : -1);
 }
+
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+ssize_t
+lwip_sendto_blocking(int s, const void *data, size_t size, int flags,
+            const struct sockaddr *to, socklen_t tolen)
+{
+	flags |= MSG_WAITALL;
+	return lwip_sendto(s, data, size, flags, to, tolen);
+}
+
+ssize_t
+lwip_send_blocking(int s, const void *data, size_t size, int flags)
+{
+	flags |= MSG_WAITALL;
+	return lwip_send(s, data, size, flags);
+}
+#endif
 
 int
 lwip_socket(int domain, int type, int protocol)

@@ -74,8 +74,13 @@
 #include "lwip/stats.h"
 #include "lwip/ip6.h"
 #include "lwip/ip6_addr.h"
+#include "lwip/sys.h"
 #if LWIP_TCP_TIMESTAMPS
 #include "lwip/sys.h"
+#endif
+
+#ifdef __MICROBLAZE__
+#include "mb_interface.h"
 #endif
 
 #include <string.h>

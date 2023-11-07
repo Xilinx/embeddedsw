@@ -38,6 +38,10 @@
 #define LWIP_HDR_SYS_H
 
 #include "lwip/opt.h"
+#if defined (__arm__) || defined (__aarch64__)
+#include "xpseudo_asm.h"
+#include "xil_exception.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -50,6 +54,7 @@ extern "C" {
 typedef u8_t sys_sem_t;
 typedef u8_t sys_mutex_t;
 typedef u8_t sys_mbox_t;
+typedef u32_t sys_prot_t;
 
 #define sys_sem_new(s, c) ERR_OK
 #define sys_sem_signal(s)
@@ -492,7 +497,14 @@ u32_t sys_now(void);
  * which should be implemented in sys_arch.c. If a particular port needs a
  * different implementation, then this macro may be defined in sys_arch.h
  */
+#ifdef __MICROBLAZE__
+#define SYS_ARCH_PROTECT(lev) lev = mfmsr(); \
+			      mtmsr(lev & ~0x2)
+#endif
+
+#if defined (__arm__) || defined (__aarch64__)
 #define SYS_ARCH_PROTECT(lev) lev = sys_arch_protect()
+#endif
 /**
  * @ingroup sys_prot
  * SYS_ARCH_UNPROTECT
@@ -503,7 +515,13 @@ u32_t sys_now(void);
  * sys_arch.c. If a particular port needs a different implementation, then
  * this macro may be defined in sys_arch.h
  */
+#ifdef __MICROBLAZE__
+#define SYS_ARCH_UNPROTECT(lev)	mtmsr(lev)
+#endif
+
+#if defined (__arm__) || defined (__aarch64__)
 #define SYS_ARCH_UNPROTECT(lev) sys_arch_unprotect(lev)
+#endif
 sys_prot_t sys_arch_protect(void);
 void sys_arch_unprotect(sys_prot_t pval);
 

@@ -109,6 +109,9 @@ extern "C" {
 /**
  * @}
  */
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+#define NETIF_ENABLE_BLOCKING_TX_FOR_PACKET 0x20
+#endif
 
 enum lwip_internal_netif_client_data_index
 {
@@ -352,6 +355,11 @@ struct netif {
   u8_t hwaddr_len;
   /** flags (@see @ref netif_flags) */
   u8_t flags;
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+  /** flags that are used to support the feature where for UDP Tx, the adapter send routine
+    * returns only when the respective packet is transmitted out */
+  u8_t block_tx_till_complt;
+#endif
   /** descriptive abbreviation */
   char name[2];
   /** number of this interface. Used for @ref if_api and @ref netifapi_netif,
@@ -469,7 +477,12 @@ void netif_set_gw(struct netif *netif, const ip4_addr_t *gw);
 
 #define netif_set_flags(netif, set_flags)     do { (netif)->flags = (u8_t)((netif)->flags |  (set_flags)); } while(0)
 #define netif_clear_flags(netif, clr_flags)   do { (netif)->flags = (u8_t)((netif)->flags & (u8_t)(~(clr_flags) & 0xff)); } while(0)
-#define netif_is_flag_set(netif, flag)        (((netif)->flags & (flag)) != 0)
+#define netif_is_flag_set(nefif, flag)        (((netif)->flags & (flag)) != 0)
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+#define netif_set_opt_block_tx(netif, set_flags)     do { (netif)->block_tx_till_complt = (u8_t)((netif)->block_tx_till_complt |  (set_flags)); } while(0)
+#define netif_clear_opt_block_tx(netif, clr_flags)   do { (netif)->block_tx_till_complt = (u8_t)((netif)->flags & (u8_t)(~(clr_flags) & 0xff)); } while(0)
+#define netif_is_opt_block_tx_set(nefif, flag)        (((netif)->block_tx_till_complt & (flag)) != 0)
+#endif
 
 void netif_set_up(struct netif *netif);
 void netif_set_down(struct netif *netif);

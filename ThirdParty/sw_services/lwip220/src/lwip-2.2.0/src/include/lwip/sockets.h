@@ -608,10 +608,15 @@ ssize_t lwip_readv(int s, const struct iovec *iov, int iovcnt);
 ssize_t lwip_recvfrom(int s, void *mem, size_t len, int flags,
       struct sockaddr *from, socklen_t *fromlen);
 ssize_t lwip_recvmsg(int s, struct msghdr *message, int flags);
-ssize_t lwip_send(int s, const void *dataptr, size_t size, int flags);
-ssize_t lwip_sendmsg(int s, const struct msghdr *message, int flags);
-ssize_t lwip_sendto(int s, const void *dataptr, size_t size, int flags,
+ssize_t lwip_sendto(int s, const void *data, size_t size, int flags,
     const struct sockaddr *to, socklen_t tolen);
+ssize_t lwip_send(int s, const void *dataptr, size_t size, int flags);
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+ssize_t lwip_send_blocking(int s, const void *dataptr, size_t size, int flags);
+ssize_t lwip_sendto_blocking(int s, const void *data, size_t size, int flags,
+    const struct sockaddr *to, socklen_t tolen);
+#endif
+ssize_t lwip_sendmsg(int s, const struct msghdr *message, int flags);
 int lwip_socket(int domain, int type, int protocol);
 ssize_t lwip_write(int s, const void *dataptr, size_t size);
 ssize_t lwip_writev(int s, const struct iovec *iov, int iovcnt);
