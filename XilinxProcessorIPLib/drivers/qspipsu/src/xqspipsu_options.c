@@ -368,7 +368,7 @@ s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
 				  ConfigReg);
 
-#if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__) || defined (__riscv)
 		Status = XQspipsu_Calculate_Tapdelay(InstancePtr, Prescaler);
 #else
 		Status = (s32)XST_SUCCESS;

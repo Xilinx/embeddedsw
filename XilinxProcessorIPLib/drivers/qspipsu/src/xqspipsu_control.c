@@ -203,7 +203,7 @@ void XQspiPsu_PollDataConfig(XQspiPsu *InstancePtr, XQspiPsu_Msg *FlashMsg)
 
 }
 
-#if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__) || defined (__riscv)
 /*****************************************************************************/
 /**
 *
@@ -466,7 +466,7 @@ void XQspiPsu_IntrDummyDataTransfer(XQspiPsu *InstancePtr, u32 QspiPsuStatusReg,
 					  (u32)XQSPIPSU_IER_RXNEMPTY_MASK |
 					  (u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
 					  (u32)XQSPIPSU_IER_RXEMPTY_MASK);
-#if ! defined (__MICROBLAZE__)
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 			dmb();
 #endif
 			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
