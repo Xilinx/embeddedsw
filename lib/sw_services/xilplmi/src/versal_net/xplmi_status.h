@@ -372,7 +372,7 @@ typedef enum {
 					  checksum fails */
 	XLOADER_ERR_PRTNHDR,		/**< 0x304 - Error if partition header
 					  checksum fails */
-	XLOADER_ERR_RESERVED0,		/**< 0x305 - XLoader Reserved Error 0 */
+	XLOADER_ERR_INVALID_CPUID,		/**< 0x305 - XLoader Reserved Error 0 */
 	XLOADER_ERR_RESERVED1,		/**< 0x306 - XLoader Reserved Error 1 */
 	XLOADER_ERR_RESERVED2,		/**< 0x307 - XLoader Reserved Error 2 */
 	XLOADER_ERR_RESERVED3,		/**< 0x308 - XLoader Reserved Error 3 */

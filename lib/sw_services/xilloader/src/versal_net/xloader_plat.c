@@ -41,6 +41,7 @@
 *                       Removed XLoader_GetLoadAddr targeting TCM Memory
 *       ng   06/26/2023 Added support for system device tree flow
 *       dd   08/11/2023 Updated doxygen comments
+*       sk   08/11/2023 Added error code for default case in XLoader_StartImage
 *
 * </pre>
 *
@@ -239,6 +240,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	u64 HandoffAddr;
 	u8 SetAddress = 1U;
 	u32 ErrorCode;
+	u32 RequestWakeup = FALSE;
 
 	/** - Start Handoff to the cpus */
 	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++) {
@@ -249,12 +251,15 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 		ClusterId >>= XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT;
 		HandoffAddr = PdiPtr->HandoffParam[Index].HandoffAddr;
 		Status = XST_FAILURE;
+		RequestWakeup = FALSE;
 		/** - Wake up each processor */
 		switch (CpuId)
 		{
 			case XIH_PH_ATTRB_DSTN_CPU_R52_0:
 				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_1) {
 					Status = XLOADER_ERR_WAKEUP_R52_0;
+				} else {
+					RequestWakeup = TRUE;
 				}
 				ErrorCode = XLOADER_ERR_WAKEUP_R52_0;
 				DeviceId = PM_DEV_RPU_A_0 + (ClusterId*2) +
@@ -266,6 +271,8 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			case XIH_PH_ATTRB_DSTN_CPU_R52_1:
 				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_1) {
 					Status = XLOADER_ERR_WAKEUP_R52_0;
+				} else {
+					RequestWakeup = TRUE;
 				}
 				ErrorCode = XLOADER_ERR_WAKEUP_R52_0;
 				DeviceId = PM_DEV_RPU_A_0 + (ClusterId*2) +
@@ -277,6 +284,8 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			case XIH_PH_ATTRB_DSTN_CPU_A78_0:
 				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_3) {
 					Status = XLOADER_ERR_WAKEUP_A78_0;
+				} else {
+					RequestWakeup = TRUE;
 				}
 				ErrorCode = XLOADER_ERR_WAKEUP_A78_0;
 				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4);
@@ -287,6 +296,8 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			case XIH_PH_ATTRB_DSTN_CPU_A78_1:
 				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_3) {
 					Status = XLOADER_ERR_WAKEUP_A78_1;
+				} else {
+					RequestWakeup = TRUE;
 				}
 				ErrorCode = XLOADER_ERR_WAKEUP_A78_1;
 				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4) +
@@ -298,6 +309,8 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			case XIH_PH_ATTRB_DSTN_CPU_A78_2:
 				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_3) {
 					Status = XLOADER_ERR_WAKEUP_A78_2;
+				} else {
+					RequestWakeup = TRUE;
 				}
 				ErrorCode = XLOADER_ERR_WAKEUP_A78_2;
 				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4) +
@@ -309,6 +322,8 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			case XIH_PH_ATTRB_DSTN_CPU_A78_3:
 				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_3) {
 					Status = XLOADER_ERR_WAKEUP_A78_3;
+				} else {
+					RequestWakeup = TRUE;
 				}
 				ErrorCode = XLOADER_ERR_WAKEUP_A78_3;
 				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4) +
@@ -318,6 +333,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				break;
 
 			case XIH_PH_ATTRB_DSTN_CPU_PSM:
+				RequestWakeup = TRUE;
 				DeviceId = PM_DEV_PSM_PROC;
 				ErrorCode = XLOADER_ERR_WAKEUP_PSM;
 				SetAddress = 0U;
@@ -325,10 +341,10 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				break;
 
 			default:
-				Status = XST_SUCCESS;
+				Status = XLOADER_ERR_INVALID_CPUID;
 				break;
 		}
-		if (Status == XST_FAILURE) {
+		if (RequestWakeup == TRUE) {
 			Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, DeviceId,
 				SetAddress, HandoffAddr, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
@@ -336,7 +352,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				goto END;
 			}
 		}
-		else if (Status != XST_SUCCESS) {
+		else {
 			Status = XPlmi_UpdateStatus(Status, 0U);
 			goto END;
 		}
