@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 title: FreeRTOS lwIP TCP Perf Client
 maintainers: [Vineeth Karumanchi <vineeth.karumanchi@amd.com>]
@@ -18,19 +18,18 @@ properties:
   interrupts:
     description: Interrupt property of the controller
 depends_libs:
-  lwip213:
-    lwip213_api_mode: SOCKET_API
-    lwip213_dhcp_does_arp_check: true
-    lwip213_dhcp: true
-    lwip213_ipv6_enable: false
-    lwip213_mem_size: 524288
-    lwip213_memp_n_pbuf: 1024
-    lwip213_memp_n_tcp_seg: 1024
-    lwip213_n_rx_descriptors: 512
-    lwip213_n_tx_descriptors: 512
-    lwip213_pbuf_pool_size: 16384
-    lwip213_tcp_snd_buf: 65535
-    lwip213_tcp_wnd: 65535
+  lwip220:
+    lwip220_api_mode: SOCKET_API
+    lwip220_dhcp: true
+    lwip220_ipv6_enable: false
+    lwip220_mem_size: 524288
+    lwip220_memp_n_pbuf: 1024
+    lwip220_memp_n_tcp_seg: 1024
+    lwip220_n_rx_descriptors: 512
+    lwip220_n_tx_descriptors: 512
+    lwip220_pbuf_pool_size: 16384
+    lwip220_tcp_snd_buf: 65535
+    lwip220_tcp_wnd: 65535
   xiltimer:
     XILTIMER_en_interval_timer: true
 supported_processors:

@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 title: FreeRTOS lwIP Echo Server
 maintainers: [Vineeth Karumanchi <vineeth.karumanchi@amd.com>]
@@ -16,12 +16,11 @@ properties:
   interrupts:
     description: Interrupt property of the controller
 depends_libs:
-  lwip213:
-    lwip213_api_mode: SOCKET_API
-    lwip213_dhcp_does_arp_check: true
-    lwip213_dhcp: true
-    lwip213_ipv6_enable: false
-    lwip213_pbuf_pool_size: 2048
+  lwip220:
+    lwip220_api_mode: SOCKET_API
+    lwip220_dhcp: true
+    lwip220_ipv6_enable: false
+    lwip220_pbuf_pool_size: 2048
   xiltimer:
     XILTIMER_en_interval_timer: true
 supported_processors:

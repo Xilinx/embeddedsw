@@ -1,6 +1,6 @@
 #/******************************************************************************
 #* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-#* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+#* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -167,8 +167,8 @@ proc swapp_is_supported_sw {} {
     # check for stdout being set
     check_stdout_sw;
 
-    # make sure lwip213 is available
-    set librarylist [hsi::get_libs -filter "NAME==lwip213"];
+    # make sure lwip220 is available
+    set librarylist [hsi::get_libs -filter "NAME==lwip220"];
 
     if { [llength $librarylist] == 0 } {
         error "This application requires lwIP library in the Board Support Package.";
@@ -296,8 +296,8 @@ proc swapp_generate {} {
     generate_stdout_config $fid;
     puts $fid "";
 
-    set use_softeth_on_zynq [common::get_property CONFIG.use_axieth_on_zynq [hsi::get_libs lwip213]];
-    set use_ethernetlite_on_zynq [common::get_property CONFIG.use_emaclite_on_zynq [hsi::get_libs lwip213]];
+    set use_softeth_on_zynq [common::get_property CONFIG.use_axieth_on_zynq [hsi::get_libs lwip220]];
+    set use_ethernetlite_on_zynq [common::get_property CONFIG.use_emaclite_on_zynq [hsi::get_libs lwip220]];
     # figure out the emac baseaddr
     generate_emac_config $fid;
     puts $fid "";

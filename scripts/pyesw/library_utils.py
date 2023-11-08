@@ -166,8 +166,8 @@ class Library(Repo):
                 if lib not in default_lib_config.keys():
                     default_lib_config[lib] = {}
                 # lwip param names are starting with lwip in cmake file but
-                # lib name is lwip213.
-                prefix = "lwip" if lib == "lwip213" else lib
+                # lib name is lwip220.
+                prefix = "lwip" if lib == "lwip220" else lib
                 proc_prefix = "proc" if lib == self.proc else lib
                 if (re.search(f"^{prefix}", line_entries[line_index], re.I) or
                    re.search(f"^{proc_prefix}", line_entries[line_index], re.I)):
