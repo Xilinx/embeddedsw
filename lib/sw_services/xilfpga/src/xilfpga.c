@@ -75,6 +75,7 @@
  * 6.3 Nava   08/05/22  Added doxygen tags.
  * 6.5 Nava   08/18/23  Resolved the doxygen issues.
  * 6.5 Nava   09/04/23  Added proper ifdef platform checks for user-accessible APIs.
+ * 6.6 Nava   10/20/23  Added proper validations checks for input parameters.
  * </pre>
  *
  *****************************************************************************/
@@ -82,13 +83,16 @@
 #include "xilfpga.h"
 
 /************************** Function Prototypes ******************************/
-#ifndef versal
 /* @cond nocomments */
+#ifdef versal
+static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
+					UINTPTR BitstreamImageAddr, u32 Flags);
+#else
 static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
 					UINTPTR BitstreamImageAddr,
 					UINTPTR KeyAddr, u32 Flags);
-/* @endcond */
 #endif
+/* @endcond */
 /************************** Variable Definitions *****************************/
 
 /** @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
@@ -143,16 +147,16 @@ u32 XFpga_BitStream_Load(XFpga *InstancePtr,
 
 	/* Validate the input arguments */
 #ifdef versal
-	if ((Flags != XFPGA_PDI_LOAD) && (Flags != XFPGA_DELAYED_PDI_LOAD)) {
-		goto END;
-	}
+	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
+					      Flags);
 #else
 	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
 					      KeyPtr, Flags);
+#endif
 	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
-#endif
+
 	/* Validate Bitstream Image */
 	Status = XFPGA_VALIDATE_ERROR;
 	Status = XFpga_ValidateImage(InstancePtr, BitstreamImageAddr,
@@ -238,16 +242,16 @@ u32 XFpga_ValidateImage(XFpga *InstancePtr,
 
 	/* Validate the input arguments */
 #ifdef versal
-	if ((Flags != XFPGA_PDI_LOAD) && (Flags != XFPGA_DELAYED_PDI_LOAD)) {
-		goto END;
-	}
+	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
+					      Flags);
 #else
 	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
 					      KeyAddr, Flags);
+#endif
 	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
-#endif
+
 	if (InstancePtr->XFpga_ValidateBitstream == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
@@ -341,16 +345,16 @@ u32 XFpga_Write_Pl(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 
 	/* Validate the input arguments */
 #ifdef versal
-	if ((Flags != XFPGA_PDI_LOAD) && (Flags != XFPGA_DELAYED_PDI_LOAD)) {
-		goto END;
-	}
+	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
+					      Flags);
 #else
 	Status = XFpga_ValidateBitstreamParam(InstancePtr, BitstreamImageAddr,
 					      KeyAddr, Flags);
+#endif
 	if (Status != XFPGA_SUCCESS) {
 		goto END;
 	}
-#endif
+
 	if (InstancePtr->XFpga_WriteToPl == NULL) {
 		Status = XFPGA_OPS_NOT_IMPLEMENTED;
 		Xfpga_Printf(XFPGA_DEBUG,
@@ -630,7 +634,6 @@ END:
 }
 #endif
 
-#ifndef versal
 /*****************************************************************************/
 /**
  * @cond nocomments
@@ -652,9 +655,14 @@ END:
  *      - Error code on failure.
  *
  *****************************************************************************/
+#ifdef versal
+static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
+					UINTPTR BitstreamImageAddr, u32 Flags)
+#else
 static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
 					UINTPTR BitstreamImageAddr,
 					UINTPTR KeyAddr, u32 Flags)
+#endif
 {
 	u32 Status = XFPGA_INVALID_PARAM;
 
@@ -663,6 +671,11 @@ static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
 		goto END;
 	}
 
+#ifdef versal
+        if ((Flags != XFPGA_PDI_LOAD) && (Flags != XFPGA_DELAYED_PDI_LOAD)) {
+		goto END;
+	}
+#else
 	if ((Flags & (~(XFPGA_SECURE_FLAGS | XFPGA_PARTIAL_EN))) != 0U) {
 		goto END;
 	}
@@ -681,7 +694,7 @@ static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
 	    (KeyAddr == 0U)) {
 		goto END;
 	}
-
+#endif
 	Status = XFPGA_SUCCESS;
 
 END:
@@ -689,5 +702,4 @@ END:
 }
 
 /*  @endcond */
-#endif
 /** @} */

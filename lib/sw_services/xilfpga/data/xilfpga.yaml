@@ -9,7 +9,7 @@ maintainers:
 
 type: library
 
-version: 6.5
+version: 6.6
 
 description: |-
   XilFPGA library provides an interface to the Linux or bare-metal users for configuring the PL over PCAP from PS.
