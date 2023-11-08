@@ -48,6 +48,7 @@
  * 6.5  Nava  07/17/23  Fixed compiler optimization issues relevant to the function
  *                      pointer validation checks.
  * 6.5  Nava  08/18/23  Resolved the doxygen issues.
+ * 6.6  Nava  10/20/23  Removed unwanted branching statements.
  * </pre>
  *
  * @note
@@ -146,14 +147,11 @@ static u32 XFpga_WriteToPl(XFpga *InstancePtr)
 		ReqBuffer[1U] = (u32)BitstreamAddr; /* Image ID */
 		ReqBuffer[2U] = 0U;
 		ReqBuffer[3U] = 0U;
-	} else if (InstancePtr->WriteInfo.Flags == XFPGA_PDI_LOAD) {
+	} else {
 		ReqBuffer[0U] = PDI_LOAD;
 		ReqBuffer[1U] = FPGA_PDI_SRC_DDR;
 		ReqBuffer[2U] = UPPER_32_BITS(BitstreamAddr);
 		ReqBuffer[3U] = LOWER_32_BITS(BitstreamAddr);
-	} else {
-		Status = XFPGA_FAILURE;
-		goto END;
 	}
 
 	/* Send an IPI Req Message */
