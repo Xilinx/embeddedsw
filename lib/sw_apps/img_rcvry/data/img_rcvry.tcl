@@ -1,6 +1,6 @@
 #/******************************************************************************
 #* Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved.
-#* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+#* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -41,8 +41,8 @@ proc swapp_is_supported_sw {} {
     set lib_list_missing ""
     set has_missing_libs 0
 
-    # make sure xilffs and lwip213 are available
-    set lib_needed "xilffs lwip213"
+    # make sure xilffs and lwip220 are available
+    set lib_needed "xilffs lwip220"
     set lib_list [hsi::get_libs];
 
     foreach libs ${lib_needed} {
