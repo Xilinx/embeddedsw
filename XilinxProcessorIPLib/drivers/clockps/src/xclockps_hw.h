@@ -18,6 +18,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------
 * 1.00  cjp    02/09/18 First release
+* 1.6   sd     10/30/23 Fix the redefinition of the PSS_REF
 * </pre>
 *
 ******************************************************************************/
@@ -32,10 +33,18 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* CRL APB register defines */
+#ifndef XPAR_PSU_PSS_REF_CLK_FREQ_HZ
 #define XPAR_PSU_PSS_REF_CLK_FREQ_HZ		33330000U
+#endif
+#ifndef XPAR_PSU_CRL_APB_S_AXI_BASEADDR
 #define XPAR_PSU_CRL_APB_S_AXI_BASEADDR		0xFF5E0000
+#endif
+#ifndef XPAR_PSU_IOUSLCR_0_S_AXI_BASEADDR
 #define XPAR_PSU_IOUSLCR_0_S_AXI_BASEADDR	0xFF180000
+#endif
+#ifndef XPAR_PSU_CRF_APB_S_AXI_BASEADDR
 #define XPAR_PSU_CRF_APB_S_AXI_BASEADDR		0xFD1A0000
+#endif
 #define CRL_APB_BASE_ADDR    XPAR_PSU_CRL_APB_S_AXI_BASEADDR
 #define IOPLL_CTRL           (u32)(CRL_APB_BASE_ADDR + 0x20)
 #define RPLL_CTRL            (u32)(CRL_APB_BASE_ADDR + 0x30)

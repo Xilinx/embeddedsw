@@ -35,6 +35,7 @@
 * 1.2   sd     02/13/20 Rename ARRAY_SIZE
 * 1.4   sd     12/02/21 Fix compilation warnings reported with "-Wundef" flag.
 * 1.5   sd     07/10/23 Added SDT support
+* 1.6   sd     11/03/23 Fix the redefinition of the PSS_REF frequency
 * </pre>
 *
 ******************************************************************************/
