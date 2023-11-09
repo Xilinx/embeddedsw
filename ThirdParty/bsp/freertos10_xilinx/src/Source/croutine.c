@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Kernel V10.5.1
+ * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
@@ -66,13 +66,13 @@
  * used from within an ISR.
  */
     #define prvAddCoRoutineToReadyQueue( pxCRCB )                                                                               \
-    {                                                                                                                           \
+    do {                                                                                                                        \
         if( ( pxCRCB )->uxPriority > uxTopCoRoutineReadyPriority )                                                              \
         {                                                                                                                       \
             uxTopCoRoutineReadyPriority = ( pxCRCB )->uxPriority;                                                               \
         }                                                                                                                       \
         vListInsertEnd( ( List_t * ) &( pxReadyCoRoutineLists[ ( pxCRCB )->uxPriority ] ), &( ( pxCRCB )->xGenericListItem ) ); \
-    }
+    } while( 0 )
 
 /*
  * Utility to ready all the lists used by the scheduler.  This is called

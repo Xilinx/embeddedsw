@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Kernel V10.5.1
+ * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2018 - 2021 Xilinx, Inc. All rights reserved.
  * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
@@ -169,14 +169,20 @@ void vPortEnableInterrupt( uint8_t ucInterruptID );
  * file, which is itself part of the BSP project.
  */
 void vPortDisableInterrupt( uint8_t ucInterruptID );
-#if (configUSE_TASK_FPU_SUPPORT != 2)
+#if ( configUSE_TASK_FPU_SUPPORT == 1 )
 /* Any task that uses the floating point unit MUST call vPortTaskUsesFPU()
 before any floating point instructions are executed. */
 void vPortTaskUsesFPU( void );
 #define portTASK_USES_FLOATING_POINT() vPortTaskUsesFPU()
-#else
-#define portTASK_USES_FLOATING_POINT()
-#endif
+#elif ( configUSE_TASK_FPU_SUPPORT == 2 )
+
+/*
+ * Each task has an FPU context already, so define this function away to
+ * prevent it being called accidentally.
+ */
+    #define vPortTaskUsesFPU()
+    #define portTASK_USES_FLOATING_POINT()
+#endif /* configUSE_TASK_FPU_SUPPORT */
 
 #define portLOWEST_INTERRUPT_PRIORITY ( ( ( uint32_t ) configUNIQUE_INTERRUPT_PRIORITIES ) - 1UL )
 #define portLOWEST_USABLE_INTERRUPT_PRIORITY ( portLOWEST_INTERRUPT_PRIORITY - 1UL )
@@ -206,9 +212,6 @@ void vPortTaskUsesFPU( void );
 #define portNOP() __asm volatile( "NOP" )
 
 
-#ifdef __cplusplus
-	} /* extern C */
-#endif
 
 
 /* The number of bits to shift for an interrupt priority is dependent on the
@@ -267,4 +270,7 @@ number of bits implemented by the interrupt controller. */
 #endif
 #define portMEMORY_BARRIER()    __asm volatile ( "" ::: "memory" )
 
+#ifdef __cplusplus
+    } /* extern C */
+#endif
 #endif /* PORTMACRO_H */

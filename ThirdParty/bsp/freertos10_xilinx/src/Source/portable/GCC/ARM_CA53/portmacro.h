@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Kernel V10.5.1
+ * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved.
  * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
@@ -271,11 +271,6 @@ void vPortTaskUsesFPU( void );
 #define portNOP() __asm volatile( "NOP" )
 #define portINLINE __inline
 
-#ifdef __cplusplus
-	} /* extern C */
-#endif
-
-
 /* The number of bits to shift for an interrupt priority is dependent on the
 number of bits implemented by the interrupt controller. */
 
@@ -316,4 +311,11 @@ number of bits implemented by the interrupt controller. */
 #define portICCRPR_RUNNING_PRIORITY_REGISTER 				( *( ( const volatile uint32_t * ) ( portINTERRUPT_CONTROLLER_CPU_INTERFACE_ADDRESS + portICCRPR_RUNNING_PRIORITY_OFFSET ) ) )
 #endif
 #define portMEMORY_BARRIER() __asm volatile( "" ::: "memory" )
+
+/* *INDENT-OFF* */
+#ifdef __cplusplus
+    }
+#endif
+/* *INDENT-ON* */
+
 #endif /* PORTMACRO_H */

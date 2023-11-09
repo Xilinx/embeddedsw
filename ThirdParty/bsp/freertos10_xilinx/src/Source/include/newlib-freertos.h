@@ -26,33 +26,37 @@
  *
  */
 
-#ifndef FREERTOS_STDINT
-#define FREERTOS_STDINT
+#ifndef INC_NEWLIB_FREERTOS_H
+#define INC_NEWLIB_FREERTOS_H
 
-/*******************************************************************************
- * THIS IS NOT A FULL stdint.h IMPLEMENTATION - It only contains the definitions
- * necessary to build the FreeRTOS code.  It is provided to allow FreeRTOS to be
- * built using compilers that do not provide their own stdint.h definition.
+/* Note Newlib support has been included by popular demand, but is not
+ * used by the FreeRTOS maintainers themselves.  FreeRTOS is not
+ * responsible for resulting newlib operation.  User must be familiar with
+ * newlib and must provide system-wide implementations of the necessary
+ * stubs. Be warned that (at the time of writing) the current newlib design
+ * implements a system-wide malloc() that must be provided with locks.
  *
- * To use this file:
- *
- *    1) Copy this file into the directory that contains your FreeRTOSConfig.h
- *       header file, as that directory will already be in the compiler's include
- *       path.
- *
- *    2) Rename the copied file stdint.h.
- *
- */
+ * See the third party link http://www.nadler.com/embedded/newlibAndFreeRTOS.html
+ * for additional information. */
 
-typedef signed char int8_t;
-typedef unsigned char uint8_t;
-typedef short int16_t;
-typedef unsigned short uint16_t;
-typedef long int32_t;
-typedef unsigned long uint32_t;
+#include <reent.h>
 
-#ifndef SIZE_MAX
-    #define SIZE_MAX    ( ( size_t ) -1 )
+#define configUSE_C_RUNTIME_TLS_SUPPORT    1
+
+#ifndef configTLS_BLOCK_TYPE
+    #define configTLS_BLOCK_TYPE           struct _reent
 #endif
 
-#endif /* FREERTOS_STDINT */
+#ifndef configINIT_TLS_BLOCK
+    #define configINIT_TLS_BLOCK( xTLSBlock, pxTopOfStack )    _REENT_INIT_PTR( &( xTLSBlock ) )
+#endif
+
+#ifndef configSET_TLS_BLOCK
+    #define configSET_TLS_BLOCK( xTLSBlock )    ( _impure_ptr = &( xTLSBlock ) )
+#endif
+
+#ifndef configDEINIT_TLS_BLOCK
+    #define configDEINIT_TLS_BLOCK( xTLSBlock )    _reclaim_reent( &( xTLSBlock ) )
+#endif
+
+#endif /* INC_NEWLIB_FREERTOS_H */

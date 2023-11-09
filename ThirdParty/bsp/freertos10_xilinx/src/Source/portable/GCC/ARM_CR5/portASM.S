@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Kernel V10.5.1
+ * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2018 - 2021 Xilinx, Inc. All rights reserved.
  * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
@@ -43,14 +43,17 @@
 	.extern ulICCPMR
 #endif
 
-	/* Variables and functions. */
-	.extern ulMaxAPIPriorityMask
-	.extern _freertos_vector_table
-	.extern pxCurrentTCB
-	.extern vTaskSwitchContext
-	.extern vApplicationIRQHandler
-	.extern ulPortInterruptNesting
-	.extern ulPortTaskHasFPUContext
+    /* Variables and functions. */
+    .extern ulMaxAPIPriorityMask
+    .extern _freertos_vector_table
+    .extern pxCurrentTCB
+    .extern vTaskSwitchContext
+    .extern vApplicationIRQHandler
+    .extern ulPortInterruptNesting
+
+#if defined( __ARM_FP )
+    .extern ulPortTaskHasFPUContext
+#endif /* __ARM_FP */
 
 	.global FreeRTOS_IRQ_Handler
 	.global FreeRTOS_SWI_Handler
@@ -69,19 +72,21 @@
 	LDR		R1, [R2]
 	PUSH	{R1}
 
-	/* Does the task have a floating point context that needs saving?  If
-	ulPortTaskHasFPUContext is 0 then no. */
-	LDR		R2, ulPortTaskHasFPUContextConst
-	LDR		R3, [R2]
-	CMP		R3, #0
+    #if defined( __ARM_FP )
+        /* Does the task have a floating point context that needs saving?  If
+        ulPortTaskHasFPUContext is 0 then no. */
+        LDR     R2, ulPortTaskHasFPUContextConst
+        LDR     R3, [R2]
+        CMP     R3, #0
 
 	/* Save the floating point context, if any. */
 	FMRXNE  R1,  FPSCR
 	VPUSHNE {D0-D15}
 	PUSHNE	{R1}
 
-	/* Save ulPortTaskHasFPUContext itself. */
-	PUSH	{R3}
+        /* Save ulPortTaskHasFPUContext itself. */
+        PUSH    {R3}
+    #endif /* __ARM_FP */
 
 	/* Save the stack pointer in the TCB. */
 	LDR		R0, pxCurrentTCBConst
@@ -99,17 +104,21 @@
 	LDR		R1, [R0]
 	LDR		SP, [R1]
 
-	/* Is there a floating point context to restore?  If the restored
-	ulPortTaskHasFPUContext is zero then no. */
-	LDR		R0, ulPortTaskHasFPUContextConst
-	POP		{R1}
-	STR		R1, [R0]
-	CMP		R1, #0
+    #if defined( __ARM_FP )
+        /*
+         * Is there a floating point context to restore?  If the restored
+         * ulPortTaskHasFPUContext is zero then no.
+         */
+        LDR     R0, ulPortTaskHasFPUContextConst
+        POP     {R1}
+        STR     R1, [R0]
+        CMP     R1, #0
 
-	/* Restore the floating point context, if any. */
-	POPNE 	{R0}
-	VPOPNE	{D0-D15}
-	VMSRNE  FPSCR, R0
+        /* Restore the floating point context, if any. */
+        POPNE   {R0}
+        VPOPNE  {D0-D15}
+        VMSRNE  FPSCR, R0
+    #endif /* __ARM_FP */
 
 	/* Restore the critical section nesting depth. */
 	LDR		R0, ulCriticalNestingConst
@@ -205,7 +214,7 @@ FreeRTOS_IRQ_Handler:
 #endif
 	/* Ensure bit 2 of the stack pointer is clear.  r2 holds the bit 2 value for
 	future use.  _RB_ Is this ever needed provided the start of the stack is
-	aligned on an 8-byte boundary? */
+    alligned on an 8-byte boundary? */
 	MOV		r2, sp
 	AND		r2, r2, #4
 	SUB		sp, sp, r2

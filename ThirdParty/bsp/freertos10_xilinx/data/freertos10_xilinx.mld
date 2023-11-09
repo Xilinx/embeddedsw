@@ -34,10 +34,10 @@ OPTION DRC = FreeRTOS_drc ;
 OPTION supported_peripherals =  (microblaze ps7_cortexa9 psu_cortexr5 psv_cortexr5 psu_cortexa53 psv_cortexa72 psx_cortexr52 psxl_cortexr52 psx_cortexa78 psxl_cortexa78);
 OPTION COPYFILES = all;
 OPTION NAME = freertos10_xilinx;
-OPTION VERSION = 1.15;
+OPTION VERSION = 1.16;
 OPTION DEPENDS = (standalone_v9_0);
 OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,--end-group";
-OPTION DESC = "This Xilinx FreeRTOS port is based on FreeRTOS kernel version 10.5.1";
+OPTION DESC = "This Xilinx FreeRTOS port is based on FreeRTOS kernel version 10.6.1";
 
 # STDIN/STDOUT
 PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, psv_sbsauart, psx_sbsauart, psxl_sbsauart, ps7_coresight_comp, psu_coresight_0, psv_coresight_0, psv_pmc_ppu1_mdm, axi_uartlite, axi_uart16550, mdm, iomodule);

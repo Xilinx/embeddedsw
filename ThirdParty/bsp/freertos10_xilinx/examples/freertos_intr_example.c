@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Kernel V10.5.1
+ * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2020-2022 Xilinx, Inc. All Rights Reserved.
  * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.

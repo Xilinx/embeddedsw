@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Kernel V10.5.1
+ * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
@@ -233,6 +233,35 @@ typedef struct QueueDefinition   * QueueSetMemberHandle_t;
  */
 #if ( configSUPPORT_STATIC_ALLOCATION == 1 )
     #define xQueueCreateStatic( uxQueueLength, uxItemSize, pucQueueStorage, pxQueueBuffer )    xQueueGenericCreateStatic( ( uxQueueLength ), ( uxItemSize ), ( pucQueueStorage ), ( pxQueueBuffer ), ( queueQUEUE_TYPE_BASE ) )
+#endif /* configSUPPORT_STATIC_ALLOCATION */
+
+/**
+ * queue. h
+ * @code{c}
+ * BaseType_t xQueueGetStaticBuffers( QueueHandle_t xQueue,
+ *                                    uint8_t ** ppucQueueStorage,
+ *                                    StaticQueue_t ** ppxStaticQueue );
+ * @endcode
+ *
+ * Retrieve pointers to a statically created queue's data structure buffer
+ * and storage area buffer. These are the same buffers that are supplied
+ * at the time of creation.
+ *
+ * @param xQueue The queue for which to retrieve the buffers.
+ *
+ * @param ppucQueueStorage Used to return a pointer to the queue's storage
+ * area buffer.
+ *
+ * @param ppxStaticQueue Used to return a pointer to the queue's data
+ * structure buffer.
+ *
+ * @return pdTRUE if buffers were retrieved, pdFALSE otherwise.
+ *
+ * \defgroup xQueueGetStaticBuffers xQueueGetStaticBuffers
+ * \ingroup QueueManagement
+ */
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+    #define xQueueGetStaticBuffers( xQueue, ppucQueueStorage, ppxStaticQueue )    xQueueGenericGetStaticBuffers( ( xQueue ), ( ppucQueueStorage ), ( ppxStaticQueue ) )
 #endif /* configSUPPORT_STATIC_ALLOCATION */
 
 /**
@@ -1346,9 +1375,9 @@ BaseType_t xQueueGiveFromISR( QueueHandle_t xQueue,
  * @param pvBuffer Pointer to the buffer into which the received item will
  * be copied.
  *
- * @param pxTaskWoken A task may be blocked waiting for space to become
- * available on the queue.  If xQueueReceiveFromISR causes such a task to
- * unblock *pxTaskWoken will get set to pdTRUE, otherwise *pxTaskWoken will
+ * @param pxHigherPriorityTaskWoken A task may be blocked waiting for space to
+ * become available on the queue.  If xQueueReceiveFromISR causes such a task
+ * to unblock *pxTaskWoken will get set to pdTRUE, otherwise *pxTaskWoken will
  * remain unchanged.
  *
  * @return pdTRUE if an item was successfully received from the queue,
@@ -1565,6 +1594,18 @@ BaseType_t xQueueGiveMutexRecursive( QueueHandle_t xMutex ) PRIVILEGED_FUNCTION;
 #endif
 
 /*
+ * Generic version of the function used to retrieve the buffers of statically
+ * created queues. This is called by other functions and macros that retrieve
+ * the buffers of other statically created RTOS objects that use the queue
+ * structure as their base.
+ */
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+    BaseType_t xQueueGenericGetStaticBuffers( QueueHandle_t xQueue,
+                                              uint8_t ** ppucQueueStorage,
+                                              StaticQueue_t ** ppxStaticQueue ) PRIVILEGED_FUNCTION;
+#endif
+
+/*
  * Queue sets provide a mechanism to allow a task to block (pend) on a read
  * operation from multiple queues or semaphores simultaneously.
  *
@@ -1711,7 +1752,8 @@ void vQueueSetQueueNumber( QueueHandle_t xQueue,
                            UBaseType_t uxQueueNumber ) PRIVILEGED_FUNCTION;
 UBaseType_t uxQueueGetQueueNumber( QueueHandle_t xQueue ) PRIVILEGED_FUNCTION;
 uint8_t ucQueueGetQueueType( QueueHandle_t xQueue ) PRIVILEGED_FUNCTION;
-
+UBaseType_t uxQueueGetQueueItemSize( QueueHandle_t xQueue ) PRIVILEGED_FUNCTION;
+UBaseType_t uxQueueGetQueueLength( QueueHandle_t xQueue ) PRIVILEGED_FUNCTION;
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus
