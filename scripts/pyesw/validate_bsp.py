@@ -6,13 +6,13 @@ template application.
 """
 
 import argparse, textwrap
+from library_utils import Library
 from build_bsp import BSP
-from repo import Repo
 import os, sys
 import utils
 
 
-class Validation(BSP, Repo):
+class Validation(BSP, Library):
     """
     This class contains attributes and functions to validate the given bsp
     w.r.t. the user input template application. This inherits BSP class to
@@ -22,7 +22,16 @@ class Validation(BSP, Repo):
 
     def __init__(self, args):
         BSP.__init__(self, args)
-        Repo.__init__(self, repo_yaml_path=args["repo_info"])
+        Library.__init__(
+            self,
+            self.domain_path,
+            self.proc,
+            self.os,
+            self.sdt,
+            self.cmake_paths_append,
+            self.libsrc_folder,
+            args['repo_info']
+        )
         self.template = args.get("template", self.template)
         self.proc_data = self._get_template_lib_data(args.get("app_list_yaml"))
         self.app_data = self.proc_data[self.os]
@@ -106,6 +115,8 @@ class Validation(BSP, Repo):
         required_libs = self.app_data[self.template].get("depends_libs", [])
         diff_libs = []
         for ele in required_libs:
+            if not self.is_valid_lib(ele):
+                continue
             if ele not in self.avail_libs:
                 diff_libs.append(ele)
 
@@ -126,6 +137,8 @@ class Validation(BSP, Repo):
         for app in self.supported_app_list:
             app_depends_lib = self.app_data[app].get("depends_libs", ["NA"])
             for entry in app_depends_lib:
+                if not self.is_valid_lib(entry):
+                    continue
                 if app not in lib_app_dict.get(entry, []):
                     try:
                         lib_app_dict[entry] += [app]
@@ -139,6 +152,8 @@ class Validation(BSP, Repo):
             for entry in lib_app_dict[ele]:
                 required_libs = self.app_data[entry].get("depends_libs", [])
                 for lib in required_libs:
+                    if not self.is_valid_lib(lib):
+                        continue
                     if lib not in self.avail_libs:
                         confirmed = False
                         break
