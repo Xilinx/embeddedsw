@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Kernel V10.5.1
+ * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2018 - 2021 Xilinx, Inc. All rights reserved.
  * Copyright (c) 2022 -2023 Advanced Micro Devices, Inc. All Rights Reserved.
@@ -86,8 +86,29 @@
 	#error configMAX_API_CALL_INTERRUPT_PRIORITY must be greater than ( configUNIQUE_INTERRUPT_PRIORITIES / 2 )
 #endif
 
-/* Some vendor specific files default configCLEAR_TICK_INTERRUPT() in
-portmacro.h. */
+/*
+ * __ARM_FP is defined by the c preprocessor when FPU support is enabled,
+ * usually with the -mfpu= argument and -mfloat-abi=.
+ *
+ * Note: Some implementations of the c standard library may use FPU registers
+ *       for generic memory operations (memcpy, etc).
+ *       When setting configUSE_TASK_FPU_SUPPORT == 1, care must be taken to
+ *       ensure that the FPU registers are not used without an FPU context.
+ */
+#if ( configUSE_TASK_FPU_SUPPORT == 0 )
+    #ifdef __ARM_FP
+        #error __ARM_FP is defined, so configUSE_TASK_FPU_SUPPORT must be set to either to 1 or 2.
+    #endif /* __ARM_FP */
+#elif ( configUSE_TASK_FPU_SUPPORT == 1 ) || ( configUSE_TASK_FPU_SUPPORT == 2 )
+    #ifndef __ARM_FP
+        #error __ARM_FP is not defined, so configUSE_TASK_FPU_SUPPORT must be set to 0.
+    #endif /* __ARM_FP */
+#endif /* configUSE_TASK_FPU_SUPPORT */
+
+/*
+ * Some vendor specific files default configCLEAR_TICK_INTERRUPT() in
+ * portmacro.h.
+ */
 #ifndef configCLEAR_TICK_INTERRUPT
 	#define configCLEAR_TICK_INTERRUPT()
 #endif
@@ -191,6 +212,30 @@ extern void vPortRestoreTaskContext( void );
  * Used to catch tasks that attempt to return from their implementing function.
  */
 static void prvTaskExitError( void );
+
+#if ( configUSE_TASK_FPU_SUPPORT != 0 )
+
+/*
+ * If the application provides an implementation of vApplicationIRQHandler(),
+ * then it will get called directly without saving the FPU registers on
+ * interrupt entry, and this weak implementation of
+ * vApplicationFPUSafeIRQHandler() is just provided to remove linkage errors -
+ * it should never actually get called so its implementation contains a
+ * call to configASSERT() that will always fail.
+ *
+ * If the application provides its own implementation of
+ * vApplicationFPUSafeIRQHandler() then the implementation of
+ * vApplicationIRQHandler() provided in portASM.S will save the FPU registers
+ * before calling it.
+ *
+ * Therefore, if the application writer wants FPU registers to be saved on
+ * interrupt entry their IRQ handler must be called
+ * vApplicationFPUSafeIRQHandler(), and if the application writer does not want
+ * FPU registers to be saved on interrupt entry their IRQ handler must be
+ * called vApplicationIRQHandler().
+ */
+    void vApplicationFPUSafeIRQHandler( uint32_t ulICCIAR ) __attribute__( ( weak ) );
+#endif /* configUSE_TASK_FPU_SUPPORT != 0 */
 
 /*-----------------------------------------------------------*/
 
@@ -337,9 +382,9 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 		*pxTopOfStack = pdTRUE;
 		ulPortTaskHasFPUContext = pdTRUE;
 	}
-#else
+    #elif ( configUSE_TASK_FPU_SUPPORT != 0 )
 	{
-		#error Invalid configUSE_TASK_FPU_SUPPORT setting - configUSE_TASK_FPU_SUPPORT must be set to 1, 2, or left undefined
+        #error Invalid configUSE_TASK_FPU_SUPPORT setting - configUSE_TASK_FPU_SUPPORT must be set to 0, 1, or 2.
 	}
 #endif
 
@@ -500,25 +545,25 @@ uint32_t ulBpr;
 
 	#if( configASSERT_DEFINED == 1 )
 	{
-		volatile uint32_t ulOriginalPriority;
+		volatile uint32_t ucOriginalPriority;
 #if !defined(ARMR52)
-		volatile uint32_t ulFirstUserPriorityRegister = ( configINTERRUPT_CONTROLLER_BASE_ADDRESS + portINTERRUPT_PRIORITY_REGISTER_OFFSET );
+		volatile uint32_t ucFirstUserPriorityRegister = ( configINTERRUPT_CONTROLLER_BASE_ADDRESS + portINTERRUPT_PRIORITY_REGISTER_OFFSET );
 #else
-		volatile uint32_t ulFirstUserPriorityRegister = ( configINTERRUPT_CONTROLLER_BASE_ADDRESS + portINTERRUPT_PRIORITY_REGISTER_OFFSET);
+		volatile uint32_t ucFirstUserPriorityRegister = ( configINTERRUPT_CONTROLLER_BASE_ADDRESS + portINTERRUPT_PRIORITY_REGISTER_OFFSET);
 #endif
 		volatile uint8_t ucMaxPriorityValue;
 
 		/* Determine how many priority bits are implemented in the GIC.
 
 		Save the interrupt priority value that is about to be clobbered. */
-		ulOriginalPriority = Xil_In32(ulFirstUserPriorityRegister);
+		ucOriginalPriority = Xil_In32(ucFirstUserPriorityRegister);
 
 		/* Determine the number of priority bits available.  First write to
 		all possible bits. */
-		Xil_Out32(ulFirstUserPriorityRegister, portMAX_8_BIT_VALUE);
+		Xil_Out32(ucFirstUserPriorityRegister, portMAX_8_BIT_VALUE);
 
 		/* Read the value back to see how many bits stuck. */
-		ucMaxPriorityValue = Xil_In32(ulFirstUserPriorityRegister);
+		ucMaxPriorityValue = Xil_In32(ucFirstUserPriorityRegister);
 
 		/* Shift to the least significant bits. */
 		while( ( ucMaxPriorityValue & portBIT_0_SET ) != portBIT_0_SET )
@@ -534,7 +579,7 @@ uint32_t ulBpr;
 			}
 		}
 
-		Xil_Out32(ulFirstUserPriorityRegister, ulOriginalPriority);
+		Xil_Out32(ucFirstUserPriorityRegister, ucOriginalPriority);
 	}
 	#endif /* conifgASSERT_DEFINED */
 
@@ -685,7 +730,7 @@ void FreeRTOS_Tick_Handler( void )
 	configCLEAR_TICK_INTERRUPT();
 }
 /*-----------------------------------------------------------*/
-#if (configUSE_TASK_FPU_SUPPORT != 2)
+#if ( configUSE_TASK_FPU_SUPPORT == 1 )
 void vPortTaskUsesFPU( void )
 {
 uint32_t ulInitialFPSCR = 0;

@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Kernel V10.5.1
+ * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2014 - 2021 Xilinx, Inc. All rights reserved.
  * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
@@ -130,14 +130,14 @@ point is zero. */
 
 #if defined (GICv2)
 /* Macro to unmask all interrupt priorities. */
-#define portCLEAR_INTERRUPT_MASK()									\
-	{																\
-		portDISABLE_INTERRUPTS();									\
-		portICCPMR_PRIORITY_MASK_REGISTER = portUNMASK_VALUE;		\
-		__asm volatile (	"DSB SY		\n"							\
-					"ISB SY		\n" );								\
-		portENABLE_INTERRUPTS();									\
-	}
+#define portCLEAR_INTERRUPT_MASK()                                  \
+{                                                                   \
+    portDISABLE_INTERRUPTS();                                       \
+    portICCPMR_PRIORITY_MASK_REGISTER = portUNMASK_VALUE;           \
+    __asm volatile (    "DSB SY     \n"                             \
+                        "ISB SY     \n" );                          \
+    portENABLE_INTERRUPTS();                                        \
+}
 #else
 #define portCLEAR_INTERRUPT_MASK()									\
 	{																\
@@ -150,9 +150,9 @@ point is zero. */
 #endif
 
 /* Hardware specifics used when sanity checking the configuration. */
-#define portINTERRUPT_PRIORITY_REGISTER_OFFSET		0x400UL
-#define portMAX_8_BIT_VALUE							( ( uint8_t ) 0xff )
-#define portBIT_0_SET								( ( uint8_t ) 0x01 )
+#define portINTERRUPT_PRIORITY_REGISTER_OFFSET      0x400UL
+#define portMAX_8_BIT_VALUE                         ( ( uint8_t ) 0xff )
+#define portBIT_0_SET                               ( ( uint8_t ) 0x01 )
 
 /* Let the user override the pre-loading of the initial LR with the address of
 prvTaskExitError() in case is messes up unwinding of the stack in the
@@ -491,7 +491,7 @@ BaseType_t xPortStartScheduler( void )
 
 #if( configASSERT_DEFINED == 1 )
 	{
-		volatile uint32_t ulOriginalPriority;
+		volatile uint32_t ucOriginalPriority;
 #if defined(GICv2)
 		volatile uint8_t *const pucFirstUserPriorityRegister = ( volatile uint8_t *const ) (
 					configINTERRUPT_CONTROLLER_BASE_ADDRESS + portINTERRUPT_PRIORITY_REGISTER_OFFSET );
@@ -504,7 +504,7 @@ BaseType_t xPortStartScheduler( void )
 		/* Determine how many priority bits are implemented in the GIC.
 
 		Save the interrupt priority value that is about to be clobbered. */
-		ulOriginalPriority = *pucFirstUserPriorityRegister;
+		ucOriginalPriority = *pucFirstUserPriorityRegister;
 
 		/* Determine the number of priority bits available.  First write to
 		all possible bits. */
@@ -526,7 +526,7 @@ BaseType_t xPortStartScheduler( void )
 
 		/* Restore the clobbered interrupt priority register to its original
 		value. */
-		*pucFirstUserPriorityRegister = ulOriginalPriority;
+		*pucFirstUserPriorityRegister = ucOriginalPriority;
 	}
 #endif /* conifgASSERT_DEFINED */
 
@@ -674,8 +674,8 @@ void FreeRTOS_Tick_Handler( void )
 #else
 		mtcp(S3_0_C4_C6_0, ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ));
 #endif
-		__asm volatile (	"dsb sy		\n"
-					"isb sy		\n" ::: "memory" );
+    __asm volatile (    "dsb sy     \n"
+                        "isb sy     \n" ::: "memory" );
 
 		configCLEAR_TICK_INTERRUPT();
 		portENABLE_INTERRUPTS();

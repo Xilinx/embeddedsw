@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Kernel V10.5.1
+ * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
@@ -53,9 +53,9 @@
  * The tskKERNEL_VERSION_MAJOR, tskKERNEL_VERSION_MINOR, tskKERNEL_VERSION_BUILD
  * values will reflect the last released version number.
  */
-#define tskKERNEL_VERSION_NUMBER       "V10.5.1"
+#define tskKERNEL_VERSION_NUMBER       "V10.6.1"
 #define tskKERNEL_VERSION_MAJOR        10
-#define tskKERNEL_VERSION_MINOR        5
+#define tskKERNEL_VERSION_MINOR        6
 #define tskKERNEL_VERSION_BUILD        1
 
 /* MPU region parameters passed in ulParameters
@@ -65,6 +65,11 @@
 #define tskMPU_REGION_EXECUTE_NEVER    ( 1UL << 2UL )
 #define tskMPU_REGION_NORMAL_MEMORY    ( 1UL << 3UL )
 #define tskMPU_REGION_DEVICE_MEMORY    ( 1UL << 4UL )
+
+/* MPU region permissions stored in MPU settings to
+ * authorize access requests. */
+#define tskMPU_READ_PERMISSION         ( 1UL << 0UL )
+#define tskMPU_WRITE_PERMISSION        ( 1UL << 1UL )
 
 /* The direct to task notification feature used to have only a single notification
  * per task.  Now there is an array of notifications per task that is dimensioned by
@@ -658,7 +663,7 @@ typedef enum
  *
  * @param xTask The handle of the task being updated.
  *
- * @param xRegions A pointer to a MemoryRegion_t structure that contains the
+ * @param[in] pxRegions A pointer to a MemoryRegion_t structure that contains the
  * new memory region definitions.
  *
  * Example usage:
@@ -1510,6 +1515,36 @@ char * pcTaskGetName( TaskHandle_t xTaskToQuery ) PRIVILEGED_FUNCTION; /*lint !e
 TaskHandle_t xTaskGetHandle( const char * pcNameToQuery ) PRIVILEGED_FUNCTION; /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
 
 /**
+ * task. h
+ * @code{c}
+ * BaseType_t xTaskGetStaticBuffers( TaskHandle_t xTask,
+ *                                   StackType_t ** ppuxStackBuffer,
+ *                                   StaticTask_t ** ppxTaskBuffer );
+ * @endcode
+ *
+ * Retrieve pointers to a statically created task's data structure
+ * buffer and stack buffer. These are the same buffers that are supplied
+ * at the time of creation.
+ *
+ * @param xTask The task for which to retrieve the buffers.
+ *
+ * @param ppuxStackBuffer Used to return a pointer to the task's stack buffer.
+ *
+ * @param ppxTaskBuffer Used to return a pointer to the task's data structure
+ * buffer.
+ *
+ * @return pdTRUE if buffers were retrieved, pdFALSE otherwise.
+ *
+ * \defgroup xTaskGetStaticBuffers xTaskGetStaticBuffers
+ * \ingroup TaskUtils
+ */
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
+    BaseType_t xTaskGetStaticBuffers( TaskHandle_t xTask,
+                                      StackType_t ** ppuxStackBuffer,
+                                      StaticTask_t ** ppxTaskBuffer ) PRIVILEGED_FUNCTION;
+#endif /* configSUPPORT_STATIC_ALLOCATION */
+
+/**
  * task.h
  * @code{c}
  * UBaseType_t uxTaskGetStackHighWaterMark( TaskHandle_t xTask );
@@ -1634,7 +1669,7 @@ configSTACK_DEPTH_TYPE uxTaskGetStackHighWaterMark2( TaskHandle_t xTask ) PRIVIL
 /**
  * task.h
  * @code{c}
- * void vApplicationStackOverflowHook( TaskHandle_t xTask char *pcTaskName);
+ * void vApplicationStackOverflowHook( TaskHandle_t xTask, char *pcTaskName);
  * @endcode
  *
  * The application stack overflow hook is called when a stack overflow is detected for a task.
@@ -1649,7 +1684,25 @@ configSTACK_DEPTH_TYPE uxTaskGetStackHighWaterMark2( TaskHandle_t xTask ) PRIVIL
 
 #endif
 
-#if  ( configUSE_TICK_HOOK > 0 )
+#if ( configUSE_IDLE_HOOK == 1 )
+
+/**
+ * task.h
+ * @code{c}
+ * void vApplicationIdleHook( void );
+ * @endcode
+ *
+ * The application idle hook is called by the idle task.
+ * This allows the application designer to add background functionality without
+ * the overhead of a separate task.
+ * NOTE: vApplicationIdleHook() MUST NOT, UNDER ANY CIRCUMSTANCES, CALL A FUNCTION THAT MIGHT BLOCK.
+ */
+    void vApplicationIdleHook( void );
+
+#endif
+
+
+#if  ( configUSE_TICK_HOOK != 0 )
 
 /**
  *  task.h
@@ -1919,17 +1972,52 @@ void vTaskGetRunTimeStats( char * pcWriteBuffer ) PRIVILEGED_FUNCTION; /*lint !e
 /**
  * task. h
  * @code{c}
+ * configRUN_TIME_COUNTER_TYPE ulTaskGetRunTimeCounter( const TaskHandle_t xTask );
+ * configRUN_TIME_COUNTER_TYPE ulTaskGetRunTimePercent( const TaskHandle_t xTask );
+ * @endcode
+ *
+ * configGENERATE_RUN_TIME_STATS must be defined as 1 for these functions to be
+ * available.  The application must also then provide definitions for
+ * portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() and
+ * portGET_RUN_TIME_COUNTER_VALUE() to configure a peripheral timer/counter and
+ * return the timers current count value respectively.  The counter should be
+ * at least 10 times the frequency of the tick count.
+ *
+ * Setting configGENERATE_RUN_TIME_STATS to 1 will result in a total
+ * accumulated execution time being stored for each task.  The resolution
+ * of the accumulated time value depends on the frequency of the timer
+ * configured by the portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() macro.
+ * While uxTaskGetSystemState() and vTaskGetRunTimeStats() writes the total
+ * execution time of each task into a buffer, ulTaskGetRunTimeCounter()
+ * returns the total execution time of just one task and
+ * ulTaskGetRunTimePercent() returns the percentage of the CPU time used by
+ * just one task.
+ *
+ * @return The total run time of the given task or the percentage of the total
+ * run time consumed by the given task.  This is the amount of time the task
+ * has actually been executing.  The unit of time is dependent on the frequency
+ * configured using the portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() and
+ * portGET_RUN_TIME_COUNTER_VALUE() macros.
+ *
+ * \defgroup ulTaskGetRunTimeCounter ulTaskGetRunTimeCounter
+ * \ingroup TaskUtils
+ */
+configRUN_TIME_COUNTER_TYPE ulTaskGetRunTimeCounter( const TaskHandle_t xTask ) PRIVILEGED_FUNCTION;
+configRUN_TIME_COUNTER_TYPE ulTaskGetRunTimePercent( const TaskHandle_t xTask ) PRIVILEGED_FUNCTION;
+
+/**
+ * task. h
+ * @code{c}
  * configRUN_TIME_COUNTER_TYPE ulTaskGetIdleRunTimeCounter( void );
  * configRUN_TIME_COUNTER_TYPE ulTaskGetIdleRunTimePercent( void );
  * @endcode
  *
- * configGENERATE_RUN_TIME_STATS, configUSE_STATS_FORMATTING_FUNCTIONS and
- * INCLUDE_xTaskGetIdleTaskHandle must all be defined as 1 for these functions
- * to be available.  The application must also then provide definitions for
- * portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() and portGET_RUN_TIME_COUNTER_VALUE()
- * to configure a peripheral timer/counter and return the timers current count
- * value respectively.  The counter should be at least 10 times the frequency of
- * the tick count.
+ * configGENERATE_RUN_TIME_STATS must be defined as 1 for these functions to be
+ * available.  The application must also then provide definitions for
+ * portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() and
+ * portGET_RUN_TIME_COUNTER_VALUE() to configure a peripheral timer/counter and
+ * return the timers current count value respectively.  The counter should be
+ * at least 10 times the frequency of the tick count.
  *
  * Setting configGENERATE_RUN_TIME_STATS to 1 will result in a total
  * accumulated execution time being stored for each task.  The resolution
@@ -1976,7 +2064,7 @@ configRUN_TIME_COUNTER_TYPE ulTaskGetIdleRunTimePercent( void ) PRIVILEGED_FUNCT
  * each of which is a 32-bit unsigned integer (uint32_t).  The constant
  * configTASK_NOTIFICATION_ARRAY_ENTRIES sets the number of indexes in the
  * array, and (for backward compatibility) defaults to 1 if left undefined.
- * Prior to FreeRTOS V10.4.0 there was only one notification value per task.
+ * Prior to FreeRTOS V10.6.1 there was only one notification value per task.
  *
  * Events can be sent to a task using an intermediary object.  Examples of such
  * objects are queues, semaphores, mutexes and event groups.  Task notifications
@@ -2004,7 +2092,7 @@ configRUN_TIME_COUNTER_TYPE ulTaskGetIdleRunTimePercent( void ) PRIVILEGED_FUNCT
  * unblocked by a notification sent to any other array index.
  *
  * Backward compatibility information:
- * Prior to FreeRTOS V10.4.0 each task had a single "notification value", and
+ * Prior to FreeRTOS V10.6.1 each task had a single "notification value", and
  * all task notification API functions operated on that value. Replacing the
  * single notification value with an array of notification values necessitated a
  * new set of API functions that could address specific notifications within the
@@ -2123,7 +2211,7 @@ BaseType_t xTaskGenericNotify( TaskHandle_t xTaskToNotify,
  * each of which is a 32-bit unsigned integer (uint32_t).  The constant
  * configTASK_NOTIFICATION_ARRAY_ENTRIES sets the number of indexes in the
  * array, and (for backward compatibility) defaults to 1 if left undefined.
- * Prior to FreeRTOS V10.4.0 there was only one notification value per task.
+ * Prior to FreeRTOS V10.6.1 there was only one notification value per task.
  *
  * Events can be sent to a task using an intermediary object.  Examples of such
  * objects are queues, semaphores, mutexes and event groups.  Task notifications
@@ -2152,7 +2240,7 @@ BaseType_t xTaskGenericNotify( TaskHandle_t xTaskToNotify,
  * unblocked by a notification sent to any other array index.
  *
  * Backward compatibility information:
- * Prior to FreeRTOS V10.4.0 each task had a single "notification value", and
+ * Prior to FreeRTOS V10.6.1 each task had a single "notification value", and
  * all task notification API functions operated on that value. Replacing the
  * single notification value with an array of notification values necessitated a
  * new set of API functions that could address specific notifications within the
@@ -2277,7 +2365,7 @@ BaseType_t xTaskGenericNotifyFromISR( TaskHandle_t xTaskToNotify,
  * each of which is a 32-bit unsigned integer (uint32_t).  The constant
  * configTASK_NOTIFICATION_ARRAY_ENTRIES sets the number of indexes in the
  * array, and (for backward compatibility) defaults to 1 if left undefined.
- * Prior to FreeRTOS V10.4.0 there was only one notification value per task.
+ * Prior to FreeRTOS V10.6.1 there was only one notification value per task.
  *
  * Events can be sent to a task using an intermediary object.  Examples of such
  * objects are queues, semaphores, mutexes and event groups.  Task notifications
@@ -2306,7 +2394,7 @@ BaseType_t xTaskGenericNotifyFromISR( TaskHandle_t xTaskToNotify,
  * unblocked by a notification sent to any other array index.
  *
  * Backward compatibility information:
- * Prior to FreeRTOS V10.4.0 each task had a single "notification value", and
+ * Prior to FreeRTOS V10.6.1 each task had a single "notification value", and
  * all task notification API functions operated on that value. Replacing the
  * single notification value with an array of notification values necessitated a
  * new set of API functions that could address specific notifications within the
@@ -2390,7 +2478,7 @@ BaseType_t xTaskGenericNotifyWait( UBaseType_t uxIndexToWaitOn,
  * each of which is a 32-bit unsigned integer (uint32_t).  The constant
  * configTASK_NOTIFICATION_ARRAY_ENTRIES sets the number of indexes in the
  * array, and (for backward compatibility) defaults to 1 if left undefined.
- * Prior to FreeRTOS V10.4.0 there was only one notification value per task.
+ * Prior to FreeRTOS V10.6.1 there was only one notification value per task.
  *
  * Events can be sent to a task using an intermediary object.  Examples of such
  * objects are queues, semaphores, mutexes and event groups.  Task notifications
@@ -2418,7 +2506,7 @@ BaseType_t xTaskGenericNotifyWait( UBaseType_t uxIndexToWaitOn,
  * unblocked by a notification sent to any other array index.
  *
  * Backward compatibility information:
- * Prior to FreeRTOS V10.4.0 each task had a single "notification value", and
+ * Prior to FreeRTOS V10.6.1 each task had a single "notification value", and
  * all task notification API functions operated on that value. Replacing the
  * single notification value with an array of notification values necessitated a
  * new set of API functions that could address specific notifications within the
@@ -2467,7 +2555,7 @@ BaseType_t xTaskGenericNotifyWait( UBaseType_t uxIndexToWaitOn,
  * each of which is a 32-bit unsigned integer (uint32_t).  The constant
  * configTASK_NOTIFICATION_ARRAY_ENTRIES sets the number of indexes in the
  * array, and (for backward compatibility) defaults to 1 if left undefined.
- * Prior to FreeRTOS V10.4.0 there was only one notification value per task.
+ * Prior to FreeRTOS V10.6.1 there was only one notification value per task.
  *
  * Events can be sent to a task using an intermediary object.  Examples of such
  * objects are queues, semaphores, mutexes and event groups.  Task notifications
@@ -2495,7 +2583,7 @@ BaseType_t xTaskGenericNotifyWait( UBaseType_t uxIndexToWaitOn,
  * unblocked by a notification sent to any other array index.
  *
  * Backward compatibility information:
- * Prior to FreeRTOS V10.4.0 each task had a single "notification value", and
+ * Prior to FreeRTOS V10.6.1 each task had a single "notification value", and
  * all task notification API functions operated on that value. Replacing the
  * single notification value with an array of notification values necessitated a
  * new set of API functions that could address specific notifications within the
@@ -2555,7 +2643,7 @@ void vTaskGenericNotifyGiveFromISR( TaskHandle_t xTaskToNotify,
  * each of which is a 32-bit unsigned integer (uint32_t).  The constant
  * configTASK_NOTIFICATION_ARRAY_ENTRIES sets the number of indexes in the
  * array, and (for backward compatibility) defaults to 1 if left undefined.
- * Prior to FreeRTOS V10.4.0 there was only one notification value per task.
+ * Prior to FreeRTOS V10.6.1 there was only one notification value per task.
  *
  * Events can be sent to a task using an intermediary object.  Examples of such
  * objects are queues, semaphores, mutexes and event groups.  Task notifications
@@ -2597,7 +2685,7 @@ void vTaskGenericNotifyGiveFromISR( TaskHandle_t xTaskToNotify,
  * unblocked by a notification sent to any other array index.
  *
  * Backward compatibility information:
- * Prior to FreeRTOS V10.4.0 each task had a single "notification value", and
+ * Prior to FreeRTOS V10.6.1 each task had a single "notification value", and
  * all task notification API functions operated on that value. Replacing the
  * single notification value with an array of notification values necessitated a
  * new set of API functions that could address specific notifications within the
@@ -2658,7 +2746,7 @@ uint32_t ulTaskGenericNotifyTake( UBaseType_t uxIndexToWaitOn,
  * each of which is a 32-bit unsigned integer (uint32_t).  The constant
  * configTASK_NOTIFICATION_ARRAY_ENTRIES sets the number of indexes in the
  * array, and (for backward compatibility) defaults to 1 if left undefined.
- * Prior to FreeRTOS V10.4.0 there was only one notification value per task.
+ * Prior to FreeRTOS V10.6.1 there was only one notification value per task.
  *
  * If a notification is sent to an index within the array of notifications then
  * the notification at that index is said to be 'pending' until it is read or
@@ -2669,7 +2757,7 @@ uint32_t ulTaskGenericNotifyTake( UBaseType_t uxIndexToWaitOn,
  * task.
  *
  * Backward compatibility information:
- * Prior to FreeRTOS V10.4.0 each task had a single "notification value", and
+ * Prior to FreeRTOS V10.6.1 each task had a single "notification value", and
  * all task notification API functions operated on that value. Replacing the
  * single notification value with an array of notification values necessitated a
  * new set of API functions that could address specific notifications within the
@@ -2722,14 +2810,14 @@ BaseType_t xTaskGenericNotifyStateClear( TaskHandle_t xTask,
  * each of which is a 32-bit unsigned integer (uint32_t).  The constant
  * configTASK_NOTIFICATION_ARRAY_ENTRIES sets the number of indexes in the
  * array, and (for backward compatibility) defaults to 1 if left undefined.
- * Prior to FreeRTOS V10.4.0 there was only one notification value per task.
+ * Prior to FreeRTOS V10.6.1 there was only one notification value per task.
  *
  * ulTaskNotifyValueClearIndexed() clears the bits specified by the
  * ulBitsToClear bit mask in the notification value at array index uxIndexToClear
  * of the task referenced by xTask.
  *
  * Backward compatibility information:
- * Prior to FreeRTOS V10.4.0 each task had a single "notification value", and
+ * Prior to FreeRTOS V10.6.1 each task had a single "notification value", and
  * all task notification API functions operated on that value. Replacing the
  * single notification value with an array of notification values necessitated a
  * new set of API functions that could address specific notifications within the
@@ -3109,6 +3197,14 @@ TaskHandle_t pvTaskIncrementMutexHeldCount( void ) PRIVILEGED_FUNCTION;
  */
 void vTaskInternalSetTimeOutState( TimeOut_t * const pxTimeOut ) PRIVILEGED_FUNCTION;
 
+#if ( portUSING_MPU_WRAPPERS == 1 )
+
+/*
+ * For internal use only.  Get MPU settings associated with a task.
+ */
+    xMPU_SETTINGS * xTaskGetMPUSettings( TaskHandle_t xTask ) PRIVILEGED_FUNCTION;
+
+#endif /* portUSING_MPU_WRAPPERS */
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus

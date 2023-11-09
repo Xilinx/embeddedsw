@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Kernel V10.5.1
+ * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
@@ -30,7 +30,7 @@
 #define PORTMACRO_H
 
 #ifdef __cplusplus
-extern "C" {
+    extern "C" {
 #endif
 
 /* BSP includes. */
@@ -49,19 +49,19 @@ extern "C" {
  */
 
 /* Type definitions. */
-#define portCHAR		char
-#define portFLOAT		float
-#define portDOUBLE		double
-#define portLONG		long
-#define portSHORT		short
+#define portCHAR        char
+#define portFLOAT       float
+#define portDOUBLE      double
+#define portLONG        long
+#define portSHORT       short
 #ifdef __arch64__
 #define portSTACK_TYPE	size_t
 typedef uint64_t UBaseType_t;
 #else
-#define portSTACK_TYPE	uint32_t
+#define portSTACK_TYPE  uint32_t
 typedef unsigned long UBaseType_t;
 #endif
-#define portBASE_TYPE	long
+#define portBASE_TYPE   long
 
 typedef portSTACK_TYPE StackType_t;
 typedef long BaseType_t;
@@ -80,31 +80,32 @@ typedef long BaseType_t;
 /* Interrupt control macros and functions. */
 void microblaze_disable_interrupts( void );
 void microblaze_enable_interrupts( void );
-#define portDISABLE_INTERRUPTS()	microblaze_disable_interrupts()
-#define portENABLE_INTERRUPTS()		microblaze_enable_interrupts()
+#define portDISABLE_INTERRUPTS()    microblaze_disable_interrupts()
+#define portENABLE_INTERRUPTS()     microblaze_enable_interrupts()
 /*-----------------------------------------------------------*/
 
 /* Critical section macros. */
 extern volatile UBaseType_t uxCriticalNesting;
-extern volatile UBaseType_t uxCriticalNesting;
 void vPortEnterCritical( void );
 void vPortExitCritical( void );
-#define portENTER_CRITICAL()		{																\
-										microblaze_disable_interrupts();							\
-										uxCriticalNesting++;										\
-									}
+#define portENTER_CRITICAL()        {                                                               \
+                                        extern volatile UBaseType_t uxCriticalNesting;              \
+                                        microblaze_disable_interrupts();                            \
+                                        uxCriticalNesting++;                                        \
+                                    }
 
-#define portEXIT_CRITICAL()			{																\
-										/* Interrupts are disabled, so we can */					\
-										/* access the variable directly. */							\
-										uxCriticalNesting--;										\
-										if( uxCriticalNesting == 0 )								\
-										{															\
-											/* The nesting has unwound and we 						\
-											can enable interrupts again. */							\
-											portENABLE_INTERRUPTS();								\
-										}															\
-									}
+#define portEXIT_CRITICAL()         {                                                               \
+                                        extern volatile UBaseType_t uxCriticalNesting;              \
+                                        /* Interrupts are disabled, so we can */                    \
+                                        /* access the variable directly. */                         \
+                                        uxCriticalNesting--;                                        \
+                                        if( uxCriticalNesting == 0 )                                \
+                                        {                                                           \
+                                            /* The nesting has unwound and we                       \
+                                            can enable interrupts again. */                         \
+                                            portENABLE_INTERRUPTS();                                \
+                                        }                                                           \
+                                    }
 
 /*-----------------------------------------------------------*/
 
@@ -123,17 +124,14 @@ extern volatile uint32_t ulTaskSwitchRequested;
 
 #if( configUSE_PORT_OPTIMISED_TASK_SELECTION == 1 )
 
-	/* Generic helper function. */
-	__attribute__( ( always_inline ) ) static inline uint8_t ucPortCountLeadingZeros( uint32_t ulBitmap )
-	{
-	uint8_t ucReturn;
-#if( XPAR_MICROBLAZE_USE_PCMP_INSTR != 0 )
-		__asm volatile ( "clz %0, %1" : "=r" ( ucReturn ) : "r" ( ulBitmap ) );
-#else
-		ucReturn = __builtin_clz(ulBitmap);
-#endif
-		return ucReturn;
-	}
+    /* Generic helper function. */
+    __attribute__( ( always_inline ) ) static inline uint8_t ucPortCountLeadingZeros( uint32_t ulBitmap )
+    {
+    uint8_t ucReturn;
+
+        __asm volatile ( "clz %0, %1" : "=r" ( ucReturn ) : "r" ( ulBitmap ) );
+        return ucReturn;
+    }
 
 	/* Check the configuration. */
 	#if( configMAX_PRIORITIES > 32 )
@@ -162,6 +160,11 @@ extern volatile uint32_t ulTaskSwitchRequested;
 #define portTICK_PERIOD_MS			( ( TickType_t ) 1000 / configTICK_RATE_HZ )
 #define portNOP()					asm volatile ( "NOP" )
 #define portMEMORY_BARRIER() 				asm volatile( "" ::: "memory" )
+/*-----------------------------------------------------------*/
+
+#if( XPAR_MICROBLAZE_USE_STACK_PROTECTION )
+#define portHAS_STACK_OVERFLOW_CHECKING 1
+#endif
 /*-----------------------------------------------------------*/
 
 /* Task function macros as described on the FreeRTOS.org WEB site. */
@@ -214,19 +217,19 @@ typedef struct PORT_REGISTER_DUMP
 	UINTPTR ulFSR;
 	UINTPTR ulEDR;
 
-	/* A human readable description of the exception cause.  The strings used
-	are the same as the #define constant names found in the
-	microblaze_exceptions_i.h header file */
-	int8_t *pcExceptionCause;
+    /* A human readable description of the exception cause.  The strings used
+    are the same as the #define constant names found in the
+    microblaze_exceptions_i.h header file */
+    int8_t *pcExceptionCause;
 
-	/* The human readable name of the task that was running at the time the
-	exception occurred.  This is the name that was given to the task when the
-	task was created using the FreeRTOS xTaskCreate() API function. */
-	char *pcCurrentTaskName;
+    /* The human readable name of the task that was running at the time the
+    exception occurred.  This is the name that was given to the task when the
+    task was created using the FreeRTOS xTaskCreate() API function. */
+    char *pcCurrentTaskName;
 
-	/* The handle of the task that was running a the time the exception
-	occurred. */
-	void * xCurrentTaskHandle;
+    /* The handle of the task that was running a the time the exception
+    occurred. */
+    void * xCurrentTaskHandle;
 
 } xPortRegisterDump;
 
