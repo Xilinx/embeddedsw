@@ -78,8 +78,8 @@ def build_app(args):
         cmake_lib_list = ';'.join(lib_list)
         utils.replace_line(
             src_cmake,
-            'xiltimer',
-            f'collect(PROJECT_LIB_DEPS {cmake_lib_list})\n',
+            f'PROJECT_LIB_DEPS xilstandalone',
+            f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})\n',
         )
     utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append}', cwd=obj.app_build_dir)
     utils.copy_file(f"{obj.app_build_dir}/compile_commands.json", obj.app_src_dir, silent_discard=True)
