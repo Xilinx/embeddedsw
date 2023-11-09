@@ -35,7 +35,7 @@ OPTION supported_peripherals =  (microblaze ps7_cortexa9 psu_cortexr5 psv_cortex
 OPTION COPYFILES = all;
 OPTION NAME = freertos10_xilinx;
 OPTION VERSION = 1.16;
-OPTION DEPENDS = (standalone_v9_0);
+OPTION DEPENDS = (standalone_v9_1);
 OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,--end-group";
 OPTION DESC = "This Xilinx FreeRTOS port is based on FreeRTOS kernel version 10.6.1";
 
