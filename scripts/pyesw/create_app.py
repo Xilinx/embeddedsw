@@ -90,8 +90,8 @@ def create_app(args):
         cmake_lib_list = ';'.join(lib_list)
         utils.replace_line(
             src_cmake,
-            f'PROJECT_LIB_DEPS xiltimer',
-            f'collect(PROJECT_LIB_DEPS {cmake_lib_list})\n',
+            f'PROJECT_LIB_DEPS xilstandalone',
+            f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})\n',
         )
 
     # Checks if the app depends on any driver, if yest, generates the corresponding metadata
