@@ -58,8 +58,8 @@
 
 /************************** Function Prototypes ******************************/
 static int XOcp_SetSwPcrConfig(const XPlmi_Cmd *Cmd);
-static int XOcp_DevAkInput(XPlmi_Cmd *Cmd);
-static int XOcp_GetCertUserCfg(XPlmi_Cmd *Cmd);
+static int XOcp_DevAkInput(const XPlmi_Cmd *Cmd);
+static int XOcp_GetCertUserCfg(const XPlmi_Cmd *Cmd);
 
 /************************** Function Definitions ******************************/
 
@@ -107,12 +107,12 @@ static int XOcp_FeaturesCmd(u32 ApiId)
 
 /*****************************************************************************/
 /**
- * @brief   This function processes XilOcp IPI commands
+ * @brief   This function processes XilOcp commands coming via CDO and IPI.
  *
  * @param   Cmd - Pointer to the XPlmi_Cmd structure
  *
  * @return
- *          - XST_SUCCESS - On successful IPI processing
+ *          - XST_SUCCESS - On successful processing of command
  *          - XST_INVALID_PARAM - On invalid command
  *          - Error Code - On Failure
  *
@@ -246,7 +246,7 @@ static int XOcp_SetSwPcrConfig(const XPlmi_Cmd *Cmd)
  *          - Error Code - On Failure
  *
  *****************************************************************************/
-static int XOcp_DevAkInput(XPlmi_Cmd *Cmd)
+static int XOcp_DevAkInput(const XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
@@ -273,7 +273,7 @@ static int XOcp_DevAkInput(XPlmi_Cmd *Cmd)
  *		- Error Code - On Failure
  *
  *****************************************************************************/
-static int XOcp_GetCertUserCfg(XPlmi_Cmd *Cmd)
+static int XOcp_GetCertUserCfg(const XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
