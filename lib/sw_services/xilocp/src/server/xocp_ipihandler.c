@@ -266,8 +266,11 @@ static int XOcp_GetX509CertificateIpi(u32 GetX509CertAddrLow,
 				(u64)GetX509CertAddrLow;
 	XOcp_X509Cert X509Cert __attribute__ ((aligned (32U)));
 
-	XPlmi_MemCpy64((u64)(UINTPTR)&X509Cert, GetX509CertAddr,
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&X509Cert, GetX509CertAddr,
 				sizeof(XOcp_X509Cert));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XOcp_GetX509Certificate(&X509Cert, SubSystemID);
 	if (Status != XST_SUCCESS) {
@@ -300,8 +303,11 @@ static int XOcp_AttestWithDevAkIpi(u32 AttestWithDevAkLow,
 			(u64)AttestWithDevAkLow;
 	XOcp_Attest AttestInstance __attribute__ ((aligned (32U)));
 
-	XPlmi_MemCpy64((u64)(UINTPTR)&AttestInstance, AttestWithDevAkAddr,
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&AttestInstance, AttestWithDevAkAddr,
 				sizeof(XOcp_Attest));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XOcp_AttestWithDevAk(&AttestInstance, SubSystemID);
 	if (Status != XST_SUCCESS) {
