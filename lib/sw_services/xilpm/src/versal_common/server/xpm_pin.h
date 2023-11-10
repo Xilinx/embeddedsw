@@ -12,7 +12,7 @@
 #include "xpm_pinfunc.h"
 #include "xpm_device.h"
 #include "xpm_api.h"
-
+#include "xpm_pin_plat.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -43,35 +43,11 @@ typedef enum {
 } XPm_PinState;
 
 typedef struct XPm_PinNode XPm_PinNode;
-
-/* Size of bit fields for XPm_PinNode structure */
-#define PIN_NODE_BANK_BIT_FIELD_SIZE 		2
-#define PIN_NODE_BIASSTATUS_BIT_FIELD_SIZE 	1
-#define PIN_NODE_PULLCTRL_BIT_FIELD_SIZE 	1
-#define PIN_NODE_TRISTATE_BIT_FIELD_SIZE 	1
-
 typedef struct PmPinGroup XPm_PinGroup;
 
 struct PmPinGroup {
 	u16 GroupCount;
 	u16 *GroupList;
-};
-
-/**
- * The Pin class.
- */
-struct XPm_PinNode {
-	XPm_Node Node; /**< Node: Base class */
-	u8 NumGroups; /**< Number of function groups allocated to this pin */
-	SAVE_REGION(
-	u16 SubsysIdx;  /**< Subsystem Idx of the owner who is using this pin */
-	u8 Bank:PIN_NODE_BANK_BIT_FIELD_SIZE; /**< Specifies the bank number */
-	u8 BiasStatus:PIN_NODE_BIASSTATUS_BIT_FIELD_SIZE; /**< BiasStatus: 0 – Disable; 1 – Enable */
-	u8 PullCtrl:PIN_NODE_PULLCTRL_BIT_FIELD_SIZE; /**< PullCtrl: 0 – Pull Down; 1 – Pull Up */
-	u8 TriState:PIN_NODE_TRISTATE_BIT_FIELD_SIZE; /**< TriState: 0 – Disable; 1 – Enable */
-	)
-	XPm_PinFunc *PinFunc; /**< Function that this pin is allocated to */
-	u16 *Groups; /**< Array of group identifier supported by this pin */
 };
 
 /************************** Function Prototypes ******************************/
