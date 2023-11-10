@@ -251,7 +251,7 @@ static int XOcp_DevAkInput(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
-	if (Cmd->ProcessedLen != 0) {
+	if (Cmd->ProcessedLen != 0U) {
 		Status = (int)XOCP_ERR_CHUNK_BOUNDARY_CROSSED;
 	}
 	else {
@@ -282,11 +282,12 @@ static int XOcp_GetCertUserCfg(XPlmi_Cmd *Cmd)
 				XOCP_CERT_USERIN_FIELD_SHIFT;
 	u8 LenInBytes = Pload[1] & XOCP_CERT_USERIN_LEN_MASK;
 
-	if (Cmd->ProcessedLen != 0) {
+	if (Cmd->ProcessedLen != 0U) {
 		Status = (int)XOCP_ERR_CHUNK_BOUNDARY_CROSSED;
 	}
 	else {
-		Status = XCert_StoreCertUserInput(SubsystemId, FieldType, (u8 *)(UINTPTR)&Pload[2], LenInBytes);
+		Status = XCert_StoreCertUserInput(SubsystemId, FieldType, (u8 *)(UINTPTR)&Pload[2],
+			LenInBytes);
 	}
 
 	return Status;
