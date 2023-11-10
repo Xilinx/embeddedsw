@@ -120,9 +120,17 @@ static int XOcp_FeaturesCmd(u32 ApiId)
 static int XOcp_ProcessCmd(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	u32 *Pload = NULL;
+
+	if (Cmd == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
 
 	if (Pload == NULL) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
