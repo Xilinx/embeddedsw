@@ -21,6 +21,7 @@
 * 1.2   kpt  06/02/23 Updated XOcp_GetPcrLogIpi to XOcp_GetHwPcrLogIpi
 *       kal  06/02/23 Added handler API for SW PCR
 *       am   09/04/23 Cleared SharedSecretTmp array
+* 1.3   har  11/03/23 Moved out the support to handle SW PCR Config CDO to xocp_cmd.c
 *
 * </pre>
 *
@@ -54,7 +55,6 @@ static int XOcp_GetX509CertificateIpi(u32 GetX509CertAddrLow,
 				u32 GetX509CertAddrHigh, u32 SubSystemID);
 static int XOcp_AttestWithDevAkIpi(u32 AttestWithDevAkLow,
 			u32 AttestWithDevAkHigh, u32 SubSystemID);
-static int XOcp_SetSwPcrConfig(u32 *Pload, u32 Len);
 static int XOcp_ExtendSwPcrIpi(u32 ExtParamsAddrLow, u32 ExtParamsAddrHigh);
 static int XOcp_GetSwPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PcrBufSize);
 static int XOcp_GetSwPcrLogIpi(u32 AddrLow, u32 AddrHigh);
@@ -105,9 +105,6 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_ATTESTWITHDEVAK):
 			Status = XOcp_AttestWithDevAkIpi(Pload[0], Pload[1],
 					Cmd->SubsystemId);
-			break;
-		case XOCP_API(XOCP_API_SET_SWPCRCONFIG):
-			Status = XOcp_SetSwPcrConfig(Cmd->Payload, Cmd->Len);
 			break;
 		case XOCP_API(XOCP_API_EXTEND_SWPCR):
 			Status = XOcp_ExtendSwPcrIpi(Pload[0], Pload[1]);
@@ -312,27 +309,6 @@ static int XOcp_AttestWithDevAkIpi(u32 AttestWithDevAkLow,
 	}
 
 END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief   This function handler calls the XOcp_StoreSwPcrConfig server
- * 	    API to store SwPcr configuration sent over IPI.
- *
- * @param   Pload - Pointer to command payload
- * @param   Len   - Length of the payload
- *
- * @return
- *          - XST_SUCCESS - Upon success
- *          - ErrorCode - Upon any failure
- ******************************************************************************/
-static int XOcp_SetSwPcrConfig(u32 *Pload, u32 Len)
-{
-	volatile int Status = XST_FAILURE;
-
-	Status = XOcp_StoreSwPcrConfig(Pload, Len);
-
 	return Status;
 }
 

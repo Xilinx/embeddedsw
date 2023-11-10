@@ -23,6 +23,7 @@
 *       bm   06/23/23 Added access permissions for IPI commands
 *       har  07/21/23 Add access permission for XOCP_API_GEN_SHARED_SECRET
 * 1.3   tri  10/09/23 Added support to handle cdo chunk boundary
+*       har  11/03/23 Moved handling of SW PCR Config CDO command from xocp_ipihandler.c to this file
 *
 * </pre>
 *
@@ -85,6 +86,7 @@ static XPlmi_Module XPlmi_Ocp =
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XOcp_SetSwPcrConfig(const XPlmi_Cmd *Cmd);
 static int XOcp_DevAkInput(XPlmi_Cmd *Cmd);
 static int XOcp_GetCertUserCfg(XPlmi_Cmd *Cmd);
 
@@ -163,13 +165,15 @@ static int XOcp_ProcessCmd(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_GENDMERESP):
 		case XOCP_API(XOCP_API_GETX509CERT):
 		case XOCP_API(XOCP_API_ATTESTWITHDEVAK):
-		case XOCP_API(XOCP_API_SET_SWPCRCONFIG):
 		case XOCP_API(XOCP_API_EXTEND_SWPCR):
 		case XOCP_API(XOCP_API_GET_SWPCR):
 		case XOCP_API(XOCP_API_GET_SWPCRLOG):
 		case XOCP_API(XOCP_API_GET_SWPCRDATA):
 		case XOCP_API(XOCP_API_GEN_SHARED_SECRET):
 			Status = XOcp_IpiHandler(Cmd);
+			break;
+		case XOCP_API(XOCP_API_SET_SWPCRCONFIG):
+			Status = XOcp_SetSwPcrConfig(Cmd);
 			break;
 		case XOCP_API(XOCP_API_DEVAKINPUT):
 			Status = XOcp_DevAkInput(Cmd);
@@ -202,6 +206,33 @@ void XOcp_CmdsInit(void)
 	}
 
 	XPlmi_ModuleRegister(&XPlmi_Ocp);
+}
+
+
+/*****************************************************************************/
+/**
+ * @brief	This function gets the SW PCR configuration and stores it.
+ *
+ * @param	Cmd - Pointer to the XPlmi_Cmd structure
+ *
+ * @return
+ *		- XST_SUCCESS - Upon success
+ *		- ErrorCode - Upon any failure
+ ******************************************************************************/
+static int XOcp_SetSwPcrConfig(const XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 *Pload = Cmd->Payload;
+	u32 Len = Cmd->Len;
+
+	if (Cmd->ProcessedLen != 0U) {
+		Status = (int)XOCP_ERR_CHUNK_BOUNDARY_CROSSED;
+	}
+	else {
+		Status = XOcp_StoreSwPcrConfig(Pload, Len);
+	}
+
+	return Status;
 }
 
 /*****************************************************************************/
