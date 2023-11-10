@@ -78,12 +78,14 @@ static XPlmi_Module XPlmi_Ocp =
 	XOcp_DataZeroize
 };
 
-#define XOCP_CERT_USERIN_FIELD_MASK			(0x00FF0000U)
-#define XOCP_CERT_USERIN_FIELD_SHIFT			(16U)
-#define XOCP_CERT_USERIN_LEN_MASK			(0x0000FFFFU)
-/**************************** Type Definitions *******************************/
-
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XOCP_CERT_USERIN_FIELD_MASK			(0x00FF0000U)
+			/**< Mask for Field in Payload of Get Certificate User Cfg CDO command*/
+#define XOCP_CERT_USERIN_FIELD_SHIFT			(16U)
+			/**< Shift for Field in Payload of Get Certificate User Cfg CDO command*/
+#define XOCP_CERT_USERIN_LEN_MASK			(0x0000FFFFU)
+			/**< Mask for Length in Payload of Get Certificate User Cfg CDO command*/
+/**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
 static int XOcp_SetSwPcrConfig(const XPlmi_Cmd *Cmd);
