@@ -31,6 +31,7 @@
 * 1.17  akm 10/31/22 Add support for Winbond flash w25q02nw.
 * 1.18  sb  05/19/23 Update number of sector calculation logic
 *           in flash erase API.
+* 1.19  sb  11/10/23 Add support for Winbond flash w25q256jw
 *
 *</pre>
 *
@@ -300,6 +301,11 @@ FlashInfo Flash_Config_Table[] = {
 	{
 		0xef7018, SECTOR_SIZE_64K, NUM_OF_SECTORS256, BYTES256_PER_PAGE,
 		0x10000, 0x1000000, 1
+	},
+	/*w25q256jw*/
+	{
+		0xef8019, SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
+		0x20000, 0x2000000, 1
 	},
 	/*w25h02jv*/
 	{
