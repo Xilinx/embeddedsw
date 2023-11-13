@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -341,26 +342,31 @@ static XMipi_MenuType XMipi_ResolutionMenu(XMipi_Menu *InstancePtr, u8 Input) {
 
 		/* 1280 x 720p @ 60fps */
 		case 1:
+            Reset_IP_Pipe();
 			New_Cfg.VideoMode = XVIDC_VM_1280x720_60_P;
 			break;
 
 			/* 1920 x 1080p @ 30fps */
 		case 2:
+            Reset_IP_Pipe();
 			New_Cfg.VideoMode = XVIDC_VM_1920x1080_30_P;
 			break;
 
 			/* 1920 x 1080p @ 60fps */
 		case 3:
+            Reset_IP_Pipe();
 			New_Cfg.VideoMode = XVIDC_VM_1920x1080_60_P;
 			break;
 
 			/* 3840 x 2160p @ 30fps */
 		case 4:
+            Reset_IP_Pipe();
 			New_Cfg.VideoMode = XVIDC_VM_3840x2160_30_P;
 			break;
 
 			/* 3840 x 2160p @ 60fps */
 		case 5:
+            Reset_IP_Pipe();
 			New_Cfg.VideoMode = XVIDC_VM_3840x2160_60_P;
 			break;
 

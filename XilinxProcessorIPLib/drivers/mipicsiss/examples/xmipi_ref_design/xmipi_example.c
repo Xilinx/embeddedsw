@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -103,6 +104,10 @@
 
 #define XPAR_INTC_0_V_FRMBUF_WR_0_VEC_ID XPAR_FABRIC_V_FRMBUF_WR_0_VEC_ID
 #define XPAR_INTC_0_V_FRMBUF_RD_0_VEC_ID XPAR_FABRIC_V_FRMBUF_RD_0_VEC_ID
+
+u8                 SinkReady = (FALSE);
+u8                 IsStreamUp = (FALSE);
+u64                TxLineRate = 0;
 
 /**************************** Type Definitions *******************************/
 
@@ -519,9 +524,9 @@ void TxVsCallback(void *CallbackRef) {
  *****************************************************************************/
 void TxStreamUpCallback(void *CallbackRef) {
 	xil_printf("TX stream is up\n\r");
+    IsStreamUp = TRUE;
 	XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *) CallbackRef;
 	XVphy_PllType TxPllType;
-	u64 TxLineRate;
 
 	TxPllType = XVphy_GetPllType(&Vphy, 0, XVPHY_DIR_TX, XVPHY_CHANNEL_ID_CH1);
 	if ((TxPllType == XVPHY_PLL_TYPE_CPLL)) {
@@ -534,10 +539,6 @@ void TxStreamUpCallback(void *CallbackRef) {
 			- XVPHY_CHANNEL_ID_CH1].LineRateHz;
 	}
 
-	i2c_dp159(&Vphy, 0, TxLineRate);
-
-	/* Enable TX TMDS clock*/
-	XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_TX, (TRUE));
 
 	/* Copy Sampling Rate */
 	XV_HdmiTxSs_SetSamplingRate(HdmiTxSsPtr, Vphy.HdmiTxSampleRate);
@@ -1215,7 +1216,8 @@ xil_printf("\r\n");
 
 		/* Switch to DSI on HDMI monitor removal */
 		if ((HdmiTxSs.IsStreamConnected == (FALSE)) &&
-				(Pipeline_Cfg.DSIDisplayPresent)) {
+				(Pipeline_Cfg.DSIDisplayPresent) &&
+                (New_Cfg.VideoDestn != Pipeline_Cfg.VideoDestn)) {
 			New_Cfg.VideoDestn = XVIDDES_DSI;
 		}
 
@@ -1280,6 +1282,16 @@ xil_printf("\r\n");
 							Pipeline_Cfg.ColorDepth);
 				}
 			}
+        }
+
+                SinkReady = TRUE;
+
+		if (IsStreamUp && SinkReady) {
+			IsStreamUp = FALSE;
+			i2c_dp159(&Vphy, 0, TxLineRate);
+			/* Enable TX TMDS clock*/
+			XVphy_Clkout1OBufTdsEnable
+				(&Vphy, XVPHY_DIR_TX, (TRUE));
 		}
 
 		/* HDMI menu */
