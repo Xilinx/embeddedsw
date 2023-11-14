@@ -97,6 +97,7 @@ void XDpTxSs_DpIntrHandler(void *InstancePtr)
 	XDp_InterruptHandler(XDpTxSsPtr->DpPtr);
 }
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -124,6 +125,9 @@ void XDpTxSs_HdcpIntrHandler(void *InstancePtr)
 	/* HDCP Cipher interrupt handler */
 	XHdcp1x_CipherIntrHandler(XDpTxSsPtr->Hdcp1xPtr);
 }
+#endif
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -151,6 +155,7 @@ void XDpTxSs_TmrCtrIntrHandler(void *InstancePtr)
 	/* Timer Counter interrupt handler */
 	XTmrCtr_InterruptHandler(XDpTxSsPtr->TmrCtrPtr);
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -487,13 +492,15 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 		case XDPTXSS_HANDLER_HDCP_RPTR_EXCHG:
 			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
 				XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE,
 					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
-
+#endif
+#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 		case XDPTXSS_HANDLER_HDCP22_AUTHENTICATED:
 			/* Register HDCP 2.2 callbacks */
 			XHdcp22Tx_Dp_SetCallback(InstancePtr->Hdcp22Ptr,
@@ -518,6 +525,7 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 					(void *)CallbackRef);
 			Status = XST_SUCCESS;
 			break;
+#endif
 
 		case XDPTXSS_HANDLER_DP_SET_MSA:
 			XDp_TxSetCallback(InstancePtr->DpPtr,
