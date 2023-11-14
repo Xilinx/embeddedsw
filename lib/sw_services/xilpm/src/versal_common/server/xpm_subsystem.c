@@ -626,9 +626,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
                 Status = XST_BUFFER_TOO_SMALL;
                 goto done;
         }
-#ifdef VERSAL_NET
-        XPmUpdate_AllNodes_Add((XPm_Node*)Subsystem);
-#endif
+
         Subsystem->NextSubsystem = PmSubsystems;
         Subsystem->Id = SubsystemId;
         Subsystem->PendCb.Reason = 0U;
@@ -652,7 +650,9 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
                 DbgErr = XPM_INT_ERR_SUBSYS_SET_STATE;
                 goto done;
         }
-
+        #ifdef VERSAL_NET
+                XPmUpdate_AllNodes_Add((XPm_Node*)Subsystem);
+        #endif
 done:
         XPm_PrintDbgErr(Status, DbgErr);
         return Status;

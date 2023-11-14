@@ -67,47 +67,10 @@ typedef enum {
 	MAX_STATE
 } XPm_SubsysState;
 
-struct XPm_Permissions {
-	/*
-	 *  bits[0:15] non secure operations
-	 *  bits[16:31] secure operations
-	 */
-	u32 WakeupPerms;
-	u32 SuspendPerms;
-	u32 PowerdownPerms;
-};
-
+/** This type is defined within the
+ * platform specific headers which are included above
+ * */
 typedef struct XPm_PendSuspCb XPm_PendSuspCb;
-
-/**
- * The Pending suspend callback
- */
-struct XPm_PendSuspCb {
-	u32 Reason;
-	u32 Latency;
-	u32 State;
-};
-
-typedef struct XPm_Subsystem XPm_Subsystem;
-
-/**
- * The subsystem class.
- */
-struct XPm_Subsystem {
-SAVE_REGION(
-	u32 Id; /**< Subsystem ID */
-	u8 State; /**< Subsystem state */
-	u8 Flags; /**< Subsystem specific flags */
-	u32 IpiMask;
-	struct XPm_Permissions Perms;
-	struct XPm_PendSuspCb PendCb;
-	struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
-)
-	struct XPm_Reqm *Requirements;
-		/**< Head of the requirement list for all devices. */
-	void (*NotifyCb)(u32 SubsystemId, const u32 EventId);
-	XPm_Subsystem *NextSubsystem;
-};
 
 /************************** Function Prototypes ******************************/
 

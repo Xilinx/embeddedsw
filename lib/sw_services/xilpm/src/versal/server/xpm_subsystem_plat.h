@@ -16,6 +16,45 @@
 extern "C" {
 #endif
 
+/* Forward declaration */
+typedef struct XPm_Subsystem XPm_Subsystem;
+
+struct XPm_Permissions {
+	/*
+	 *  bits[0:15] non secure operations
+	 *  bits[16:31] secure operations
+	 */
+	u32 WakeupPerms;
+	u32 SuspendPerms;
+	u32 PowerdownPerms;
+};
+
+/**
+ * The Pending suspend callback
+ */
+struct XPm_PendSuspCb {
+	u32 Reason;
+	u32 Latency;
+	u32 State;
+};
+
+/**
+ * The subsystem class.
+ */
+struct XPm_Subsystem {
+	u32 Id; /**< Subsystem ID */
+	u8 State; /**< Subsystem state */
+	u8 Flags; /**< Subsystem specific flags */
+	u32 IpiMask;
+	struct XPm_Permissions Perms;
+	struct XPm_PendSuspCb PendCb;
+	struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
+	struct XPm_Reqm *Requirements;
+		/**< Head of the requirement list for all devices. */
+	void (*NotifyCb)(u32 SubsystemId, const u32 EventId);
+	XPm_Subsystem *NextSubsystem;
+};
+
 maybe_unused static XStatus IsDevExcluded(const u32 DevId)
 {
 	XStatus Status = XST_FAILURE;
