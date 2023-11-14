@@ -36,14 +36,67 @@
 #include "xpm_update_data.h"
 
 #define MAX_NUM_NODE 1000
+
 static XPm_Node* AllNodes[MAX_NUM_NODE] = {NULL};
+static XPm_SaveRegionInfo AllSaveRegionsInfo[INDEX(XPm_Max)];
+static void Init_SRInfo(void);
+
+#define X(T) AllSaveRegionsInfo[INDEX(T)]= (XPm_SaveRegionInfo){ .Offset = offsetof(T, save), .Size = member_size(T,save)};
+void Init_SRInfo() {
+	LIST_OF_XPM_TYPE
+};
+#undef X
+
+/**
+ * @brief This macro converts a pointer member of a given struct Type,
+ * from new offset to old offset of the member within the given struct Type.
+ * The return of this macro is not only the offset but also the pointer to the data of the old member
+ *  Let's  X and X' are the offset of old and new  data member.
+ *         S and S' are offset of the save region.
+ *
+ *   +---------------+             +---------------+
+ *   |               |             |               |
+ *   |               |             |               |
+ *   +---------------+ ---> S      |               |
+ *   |     Save      |             |               |
+ *   +---------------+             |               |
+ *   |   PtrMember1  |             +---------------+ ----> S'
+ *   +---------------+ ---> X      |               |
+ *   |   PtrMember2  |             |    Save       |
+ *   +---------------+             |               |
+ *   |               |             +---------------+
+ *   +---------------+             |  PtrMember1   |
+ *                                 +---------------+ ----> X'
+ *                                 |  PtrMember2   |
+ *                                 +---------------+
+ *
+ * It is important that there's no new data inserted between PtrMember1 and Save
+ * With that condition, we have this following equation
+ * (X - S) - (X' - S') = size(S) - size(S')
+ *  To find X = X' + S - S' + Size(S) - Size(S')
+ */
+#define GET_SAVED_PTR_MEMBER_FROM_TYPE(Type, Ptr, PtrMember)\
+	(typeof(PtrMember))XPm_ConvertToSavedAddress(Xil_In32(\
+		RoundToWordAddr(\
+			(u32)(Ptr) + (UINTPTR)(&(PtrMember))\
+			+ AllSaveRegionsInfo[INDEX(Type)].Offset - (UINTPTR)(&(Ptr->save))\
+			+ AllSaveRegionsInfo[INDEX(Type)].Size - sizeof(Ptr->save))));
+
+static u32 PrevNumSaveRegionInfo = Index_XPm_Max;
 static u32 NumNodes = 0;
 static u32 SavedAllNodesAddr = 0;
 static u32 PrevNumNodes = 0;
-/* Handle to save AllNodes data base. This is later use for iterating through the saved node*/
+
+/* Handle to save AllNodes data. This is later use for iterating through the saved node*/
 static int XPmNode_AllNodesOps(u32 Op, u64 Addr, void *Data);
 /* Handle to save NumNodes. This is later use for iterating through the saved nodes */
 static int XPmNode_NumNodesOps(u32 Op, u64 Addr, void *Data);
+
+
+/* Handle to save AllSaveRegionsInfo data.
+ * This is data to track previous save markers blocks/region.
+ */
+static int XPm_AllSRegionOps(u32 Op, u64 Addr, void *Data);
 
 EXPORT_DS_W_HANDLER(AllNodes, \
 	XPLMI_MODULE_XILPM_ID, XPM_ALLNODES_DS_ID, \
@@ -55,53 +108,90 @@ EXPORT_DS_W_HANDLER(PrevNumNodes, \
 	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \
 	sizeof(PrevNumNodes), (u32)(UINTPTR)(&PrevNumNodes) , XPmNode_NumNodesOps);
 
-static int XPmNode_AllNodesOps(u32 Op, u64 Addr, void *Data){
+EXPORT_DS_W_HANDLER(AllSaveRegionsInfo, \
+	XPLMI_MODULE_XILPM_ID, XPM_ALLSAVEREGIONSINFO_DS_ID, \
+	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \
+	sizeof(AllSaveRegionsInfo), (u32)(UINTPTR)AllSaveRegionsInfo , XPm_AllSRegionOps);
+
+EXPORT_DS(PrevNumSaveRegionInfo, \
+	XPLMI_MODULE_XILPM_ID, XPM_PREVNUMSAVEREGIONINFO_DS_ID, \
+	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \
+	sizeof(PrevNumSaveRegionInfo), (u32)(UINTPTR)(&PrevNumSaveRegionInfo));
+
+static int XPmNode_AllNodesOps(u32 Op, u64 Addr, void *Data)
+{
 	XStatus Status = XST_FAILURE;
-	if (Op == XPLMI_STORE_DATABASE) {
+	if (XPLMI_STORE_DATABASE == Op) {
 		/* Copy Data Structure to given address */
 		Status = XPlmi_DsOps(Op, Addr, Data);
 		if (XST_SUCCESS != Status) {
-			goto END;
+			goto done;
 		}
-	} else if (Op == XPLMI_RESTORE_DATABASE) {
+	} else if (XPLMI_RESTORE_DATABASE == Op) {
 		/** Need to know the address of the storage of AllNodes
 		*/
 		SavedAllNodesAddr = (u32)(Addr + sizeof(XPlmi_DsHdr));
 	}
 	else {
 		Status = XPLMI_ERR_PLM_UPDATE_INVALID_OP;
-		goto END;
+		goto done;
 	}
 	Status = XST_SUCCESS;
 
-END:
+done:
 	return Status;
 }
+
+static int XPm_AllSRegionOps(u32 Op, u64 Addr, void *Data)
+{
+	XStatus Status = XST_FAILURE;
+	if (XPLMI_STORE_DATABASE == Op) {
+		/* Capture the current Save Region Info */
+		Init_SRInfo();
+		/* Copy Data Structure to given address */
+		Status = XPlmi_DsOps(Op, Addr, Data);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	} else if (XPLMI_RESTORE_DATABASE == Op) {
+		/* Restore the current SaveRegionInfo */
+		Status = XPlmi_DsOps(Op, Addr, Data);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	} else {
+		Status = XPLMI_ERR_PLM_UPDATE_INVALID_OP;
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
 static int XPmNode_NumNodesOps(u32 Op, u64 Addr, void *Data)
 {
 	XStatus Status = XST_FAILURE;
-	if (Op == XPLMI_STORE_DATABASE) {
+	if (XPLMI_STORE_DATABASE == Op) {
 		/* Assigned current NumNodes */
 		PrevNumNodes = NumNodes;
 		/* Then store it. */
 		Status = XPlmi_DsOps(Op, Addr, Data);
 		if (XST_SUCCESS != Status) {
-			goto END;
+			goto done;
 		}
-	} else if (Op == XPLMI_RESTORE_DATABASE) {
+	} else if (XPLMI_RESTORE_DATABASE == Op) {
 		/* Simply retstore it */
 		Status = XPlmi_DsOps(Op, Addr, Data);
 		if (XST_SUCCESS != Status) {
-			goto END;
+			goto done;
 		}
-	}
-	else {
+	} else {
 		Status = XPLMI_ERR_PLM_UPDATE_INVALID_OP;
-		goto END;
+		goto done;
 	}
 	Status = XST_SUCCESS;
 
-END:
+done:
 	return Status;
 }
 
@@ -111,7 +201,8 @@ END:
  * @param Index an index within the saved AllNodes array
  * @return NULL if Index out of bound; else pointer to XPm_Node within DDR region
  */
-static XPm_Node* GetSavedNodeAt(u32 Index) {
+static XPm_Node* GetSavedNodeAt(u32 Index)
+{
 	if (0U == SavedAllNodesAddr) {
 		return NULL;
 	}
@@ -136,6 +227,7 @@ static XPm_Node* GetNodeAt(u32 Index)
 	}
 	return AllNodes[Index];
 }
+
 /**
  * @brief Add a node to AllNodes array
  *
@@ -143,7 +235,9 @@ static XPm_Node* GetNodeAt(u32 Index)
  */
 void XPmUpdate_AllNodes_Add(XPm_Node* Node)
 {
-	if (NumNodes >= MAX_NUM_NODE){
+	if(NULL == Node){
+		PmErr("Error: Node can not be NULL !\n\r");
+	} else if (NumNodes >= MAX_NUM_NODE){
 		PmErr("Error: Too many Node !\n\r");
 	} else {
 		AllNodes[NumNodes++] = Node;
@@ -159,11 +253,12 @@ void XPmUpdate_AllNodes_Add(XPm_Node* Node)
  * @param ToSize size of the runtime region (destination's size)
  * @return XST_SUCCESS if there's no error.
  */
-static XStatus XPmUpdate_RegionRestore(u32 *From, u32 FromSize, u32 *To, u32 ToSize) {
+static XStatus XPmUpdate_RegionRestore(u8 *From, u32 FromSize, u8 *To, u32 ToSize)
+{
 	XStatus Status = XST_FAILURE;
 	u32 CpSize = FromSize >= ToSize? ToSize : FromSize;
 	if (CpSize == 0) {
-		//Do nothing
+		/* Do nothing */
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -180,10 +275,10 @@ done:
  * @param Node the pointer of a Node that is in current runtime memory.
  * @return XST_SUCCESS if there's no error.
  */
-static XStatus XPm_Node_Restore(XPm_Node *SavedNode, XPm_Node *Node) {
-
+static XStatus XPm_Node_Restore(XPm_Node *SavedNode, XPm_Node *Node)
+{
 	XStatus Status = XST_FAILURE;
-	Status = RESTORE_REGION(*SavedNode, *Node);
+	Status = RESTORE_REGION(SavedNode, AllSaveRegionsInfo[Index_XPm_Node], Node);
 	if (XST_SUCCESS != Status){
 		goto done;
 	}
@@ -199,9 +294,10 @@ done:
  * @param Node the pointer of a Node that is in current runtime memory (destination)
  * @return XST_SUCCESS
  */
-static XStatus XPm_Subsystem_Restore(XPm_Subsystem *SavedNode, XPm_Subsystem *Node) {
+static XStatus XPm_Subsystem_Restore(XPm_Subsystem *SavedNode, XPm_Subsystem *Node)
+{
 	XStatus Status = XST_FAILURE;
-	Status = RESTORE_REGION(*SavedNode, *Node);
+	Status = RESTORE_REGION(SavedNode, AllSaveRegionsInfo[Index_XPm_Subsystem], Node);
 	if (XST_SUCCESS != Status){
 		goto done;
 	}
@@ -227,7 +323,6 @@ MAKE_GENERIC_RESTORE_FUNC(XPm_Device, XPm_Node, Node)
 static XPm_Requirement *FindReqm(const XPm_Device *Device, const XPm_Subsystem *Subsystem)
 {
 	XPm_Requirement *Reqm = NULL;
-
 	Reqm = Device->Requirements;
 	while (NULL != Reqm) {
 		if (Reqm->Subsystem == Subsystem) {
@@ -247,21 +342,23 @@ static XPm_Requirement *FindReqm(const XPm_Device *Device, const XPm_Subsystem *
  * @return NULL if there's no corresponding requirement in runtime memory;
  * else return the pointer to XPm_Requirement.
  */
-static XPm_Requirement* GetCurReqFromSavedReq(XPm_Requirement *SavedReq) {
+static XPm_Requirement* GetCurReqFromSavedReq(XPm_Requirement *SavedReq)
+{
 	XPm_Requirement* CurReq = NULL;
-	XPm_Device* SavedDevice = (XPm_Device*)XPm_ConvertToSavedAddress((u32)SavedReq->Device);
-	XPm_Subsystem* SavedSubsystem = (XPm_Subsystem*)XPm_ConvertToSavedAddress((u32)SavedReq->Subsystem);
+	XPm_Device *SavedDevice = GET_SAVED_PTR_MEMBER_FROM_TYPE(XPm_Requirement, SavedReq, SavedReq->Device);
+
+	XPm_Subsystem *SavedSubsystem = GET_SAVED_PTR_MEMBER_FROM_TYPE(XPm_Requirement, SavedReq, SavedReq->Subsystem);
 
 	XPm_Subsystem* Subsystem = XPmSubsystem_GetById(SavedSubsystem->Id);
 	if (NULL == Subsystem)
 	{
-		PmWarn("Warning:Subsystem 0x%x Not Found!", SavedSubsystem->Id);
+		PmWarn("Warning:Subsystem 0x%x Not Found!\n\r", SavedSubsystem->Id);
 		goto done;
 	}
 	XPm_Device* Device = XPmDevice_GetById(SavedDevice->Node.Id);
 	if (NULL == Device)
 	{
-		PmWarn("Warning:Device 0x%x Not Found!", SavedDevice->Node.Id);
+		PmWarn("Warning:Device 0x%x Not Found!\n\r", SavedDevice->Node.Id);
 		goto done;
 	}
 	CurReq = FindReqm(Device , Subsystem);
@@ -276,34 +373,34 @@ done:
  * @param Node a pointer to a XPm_Device node that is reside in runtime memory.
  * @return XST_SUCCESS if there is no error.
  */
-static XStatus RestoreRequirements(XPm_Device *SavedNode, XPm_Device *Node) {
+static XStatus RestoreRequirements(XPm_Device *SavedNode, XPm_Device *Node)
+{
 	XStatus Status = XST_FAILURE;
-	/* Restore requirements */
-	if (NULL == SavedNode->Requirements) {
+	XPm_Requirement* SavedReq = GET_SAVED_PTR_MEMBER_FROM_TYPE(XPm_Device, SavedNode, SavedNode->Requirements);
+	XPm_Requirement* SavedPendingReq = GET_SAVED_PTR_MEMBER_FROM_TYPE(XPm_Device, SavedNode, SavedNode->PendingReqm);
+	if (NULL == SavedReq) {
 		/* Nothing to be done here*/
 		Status = XST_SUCCESS;
 		goto done;
 	}
-	XPm_Requirement* SavedReq = (XPm_Requirement*)XPm_ConvertToSavedAddress((u32)(SavedNode->Requirements));
-	while(SavedReq) {
+	while(NULL != SavedReq) {
 		XPm_Requirement* CurReq = GetCurReqFromSavedReq(SavedReq);
 		if (NULL == CurReq) {
 			PmWarn("Warning: Requirement not found %x %x\n\r", SavedReq->Device->Node.Id, SavedReq->Subsystem->Id);
 		}else {
-			Status = RESTORE_REGION(*SavedReq, *CurReq);
+			Status = RESTORE_REGION(SavedReq, AllSaveRegionsInfo[Index_XPm_Requirement], CurReq);
 			if (XST_SUCCESS != Status){
 				goto done;
 			}
 		}
-		if (NULL == SavedReq->NextSubsystem) break;
-		SavedReq =  (XPm_Requirement*)XPm_ConvertToSavedAddress((u32)(SavedReq->NextSubsystem));
+		SavedReq = GET_SAVED_PTR_MEMBER_FROM_TYPE(XPm_Requirement, SavedReq, SavedReq->NextSubsystem);
 	}
 	/* Restore Pending Requirement*/
-	if (SavedNode->PendingReqm){
-		XPm_Requirement *SavedPendingReqm = (XPm_Requirement*)XPm_ConvertToSavedAddress((u32)(SavedNode->PendingReqm));
-		XPm_Requirement *Req = GetCurReqFromSavedReq(SavedPendingReqm);
+	if (NULL != SavedPendingReq){
+		XPm_Requirement *Req = GetCurReqFromSavedReq(SavedPendingReq);
 		Node->PendingReqm = Req;
 	}
+
 	Status = XST_SUCCESS;
 done:
 	return Status;
@@ -316,7 +413,8 @@ done:
  * @param Node pointer to a running XPm_Device (destination)
  * @return XST_SUCCESS if there is no errors
  */
-static XStatus XPm_Device_Restore(XPm_Device *SavedNode, XPm_Device *Node) {
+static XStatus XPm_Device_Restore(XPm_Device *SavedNode, XPm_Device *Node)
+{
 	XStatus Status = XST_FAILURE;
 	Status = XPm_Device_Generic_Restore(SavedNode, Node);
 	if (XST_SUCCESS != Status) {
@@ -386,7 +484,8 @@ static void* XPmUpdate_GetSavedDataById(u32 NodeId)
  * This function make sure they're present and later restore them propally.
  * @return XST_SUCCESS if there is no errors.
  */
-static XStatus AddMissingPlDevices(void) {
+static XStatus AddMissingPlDevices(void)
+{
 	XStatus Status = XST_FAILURE;
 	for (u32 i = 0; i< PrevNumNodes; i++){
 		XPm_Node* Node= GetSavedNodeAt(i);
@@ -414,33 +513,31 @@ done:
  * @param Node pointer to a running XPm_PlDevice (destination)
  * @return XST_SUCCESS if there is no errors
  */
-static XStatus XPm_PlDevice_Restore(XPm_PlDevice *SavedNode, XPm_PlDevice *Node) {
+static XStatus XPm_PlDevice_Restore(XPm_PlDevice *SavedNode, XPm_PlDevice *Node)
+{
 	XStatus Status = XST_FAILURE;
 	Status = XPm_Device_Restore(&(SavedNode->Device), &(Node->Device));
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-	Status = RESTORE_REGION(*SavedNode, *Node);
+	Status = RESTORE_REGION(SavedNode, AllSaveRegionsInfo[Index_XPm_PlDevice], Node);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-
 	/* Restore MemCtrlDevice*/
 	for(u32 i = 0 ; i< MAX_PLAT_DDRMC_COUNT; i++){
-		if (SavedNode->MemCtrlr[i]) {
-			XPm_MemCtrlrDevice *PrevMemCtrl = \
-				(XPm_MemCtrlrDevice*)XPm_ConvertToSavedAddress((u32)(SavedNode->MemCtrlr[i]));
-			XPm_MemCtrlrDevice *CurMemCtrl = (XPm_MemCtrlrDevice*)XPmDevice_GetById(PrevMemCtrl->Device.Node.Id);
+		XPm_MemCtrlrDevice* SavedMemCtrlr = GET_SAVED_PTR_MEMBER_FROM_TYPE(XPm_PlDevice, SavedNode, SavedNode->MemCtrlr[i]);
+		if (NULL != SavedMemCtrlr){
+			XPm_MemCtrlrDevice *CurMemCtrl = (XPm_MemCtrlrDevice*)XPmDevice_GetById(SavedMemCtrlr->Device.Node.Id);
 			if (NULL == CurMemCtrl) {
-				PmWarn("Wanring: Cannot find MemCtrl Device %x\n\r", PrevMemCtrl->Device.Node.Id);
+				PmWarn("Wanring: Cannot find MemCtrl Device %x\n\r", SavedMemCtrlr->Device.Node.Id);
 			}
-			/** No need to restore MemCtrl contents because it is done through the main device restore routine */
 			Node->MemCtrlr[i] = CurMemCtrl;
 		}
 	}
 	/* Restore Parents */
-	if (SavedNode->Parent) {
-		XPm_PlDevice *PrevParent = (XPm_PlDevice*)XPm_ConvertToSavedAddress((u32)(SavedNode->Parent));
+	XPm_PlDevice *PrevParent = GET_SAVED_PTR_MEMBER_FROM_TYPE(XPm_PlDevice, SavedNode, SavedNode->Parent);
+	if (NULL != PrevParent) {
 		XPm_PlDevice *CurParent =  (XPm_PlDevice*)XPmDevice_GetById(PrevParent->Device.Node.Id);
 		if (NULL == CurParent) {
 			PmWarn("Wanring: Cannot find PL Device %x", PrevParent->Device.Node.Id);
@@ -448,8 +545,8 @@ static XStatus XPm_PlDevice_Restore(XPm_PlDevice *SavedNode, XPm_PlDevice *Node)
 		Node->Parent = CurParent;
 	}
 	/* Restore Child */
-	if (SavedNode->Child) {
-		XPm_PlDevice *PrevChild = (XPm_PlDevice*)XPm_ConvertToSavedAddress((u32)(SavedNode->Child));
+	XPm_PlDevice *PrevChild = GET_SAVED_PTR_MEMBER_FROM_TYPE(XPm_PlDevice, SavedNode, SavedNode->Child);
+	if (NULL != PrevChild){
 		XPm_PlDevice *CurChild =  (XPm_PlDevice*)XPmDevice_GetById(PrevChild->Device.Node.Id);
 		if (NULL == CurChild) {
 			PmWarn("Wanring: Cannot find PL Device %x", PrevChild->Device.Node.Id);
@@ -457,8 +554,8 @@ static XStatus XPm_PlDevice_Restore(XPm_PlDevice *SavedNode, XPm_PlDevice *Node)
 		Node->Child = CurChild;
 	}
 	/* Restore Peer */
-	if (SavedNode->NextPeer) {
-		XPm_PlDevice *PrevNextPeer = (XPm_PlDevice*)XPm_ConvertToSavedAddress((u32)(SavedNode->NextPeer));
+	XPm_PlDevice *PrevNextPeer = GET_SAVED_PTR_MEMBER_FROM_TYPE(XPm_PlDevice, SavedNode, SavedNode->NextPeer);
+	if (NULL != PrevNextPeer){
 		XPm_PlDevice *CurNextPeer =  (XPm_PlDevice*)XPmDevice_GetById(PrevNextPeer->Device.Node.Id);
 		if (NULL == CurNextPeer) {
 			PmWarn("Wanring: Cannot find PL Device %x", PrevNextPeer->Device.Node.Id);
@@ -477,25 +574,27 @@ done:
  * @param Node pointer to a running XPm_MemCtrlrDevice (destination)
  * @return XST_SUCCESS if there is no errors
  */
-static XStatus XPm_MemCtrlrDevice_Restore(XPm_MemCtrlrDevice *SavedNode, XPm_MemCtrlrDevice *Node) {
+static XStatus XPm_MemCtrlrDevice_Restore(XPm_MemCtrlrDevice *SavedNode, XPm_MemCtrlrDevice *Node)
+{
 	XStatus Status = XST_FAILURE;
 	Status = XPm_Device_Restore(&(SavedNode->Device), &(Node->Device));
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-	Status = RESTORE_REGION(*SavedNode, *Node);
+	Status = RESTORE_REGION(SavedNode, AllSaveRegionsInfo[Index_XPm_MemCtrlrDevice], Node);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-	if (SavedNode->PlDevice){
-		XPm_PlDevice *PrevPlDevice = (XPm_PlDevice*)XPm_ConvertToSavedAddress((u32)(SavedNode->PlDevice));
+
+	XPm_PlDevice *PrevPlDevice = GET_SAVED_PTR_MEMBER_FROM_TYPE(XPm_PlDevice, SavedNode, SavedNode->PlDevice);
+	if (NULL != PrevPlDevice) {
 		XPm_PlDevice *CurPlDevice = (XPm_PlDevice*)XPmDevice_GetById(PrevPlDevice->Device.Node.Id);
 		if (NULL == CurPlDevice) {
-			PmWarn("Warning Can't find PL device %x\n\r",PrevPlDevice->Device.Node.Id );
+			PmWarn("Warning Can't find PL device %x\n\r",PrevPlDevice->Device.Node.Id);
 			Status = XST_SUCCESS;
 			goto done;
 		}
-		/** No need to restore Pl Device contents because it is done through the main device restore routine */
+		/** No need to restore Pl Device contents because it is done through the device restore routines */
 		Node->PlDevice = CurPlDevice;
 	}
 	Status = XST_SUCCESS;
@@ -503,8 +602,8 @@ done:
 	return Status;
 }
 
-
-static XStatus Class_Power_Restore(XPm_Power *SavedNode, XPm_Power *Node) {
+static XStatus Class_Power_Restore(XPm_Power *SavedNode, XPm_Power *Node)
+{
 	XStatus Status = XST_FAILURE;
 	u32 NodeId = Node->Node.Id;
 	switch(NODETYPE(NodeId)){
@@ -558,7 +657,8 @@ static XStatus Class_Power_Restore(XPm_Power *SavedNode, XPm_Power *Node) {
  * @param Node a pointer to a XPm_ClockNode that is in runtime region (destination)
  * @return XST_SUCCESS if there's no error.
  */
-static XStatus Class_Clock_Restore(XPm_ClockNode *SavedNode, XPm_ClockNode *Node) {
+static XStatus Class_Clock_Restore(XPm_ClockNode *SavedNode, XPm_ClockNode *Node)
+{
 	XStatus Status = XST_FAILURE;
 	u32 NodeId = Node->Node.Id;
 	switch(NODETYPE(NodeId)){
@@ -589,11 +689,12 @@ static XStatus Class_Clock_Restore(XPm_ClockNode *SavedNode, XPm_ClockNode *Node
  * @param Node a pointer to a XPm_Device that is in runtime region (destination)
  * @return XST_SUCCESS if there's no error.
  */
-static XStatus Class_Device_Restore(XPm_Device *SavedNode, XPm_Device *Node) {
+static XStatus Class_Device_Restore(XPm_Device *SavedNode, XPm_Device *Node)
+{
 	XStatus Status = XST_FAILURE;
 	u32 NodeId = Node->Node.Id;
 
-	/** These nodes doesn't have NODETYPE, use NODESUBCLASS to identify*/
+	/** These nodes ignore NODETYPE, use NODESUBCLASS  */
 	switch (NODESUBCLASS(NodeId)) {
 	case XPM_NODESUBCL_DEV_PL:
 		Status = RESTORE(XPm_PlDevice, SavedNode, Node);
@@ -654,7 +755,8 @@ done:
  * @return XST_SUCCESS if there's no error.
  * 	   XST_NO_FEATURE if there's no implementation of restore function for given nodeID
  */
-XStatus XPmUpdate_RestoreAllNodes(void) {
+XStatus XPmUpdate_RestoreAllNodes(void)
+{
 	XStatus Status = XST_FAILURE;
 	XPm_Node* FailedNode = NULL;
 	Status = AddMissingPlDevices();
@@ -662,7 +764,7 @@ XStatus XPmUpdate_RestoreAllNodes(void) {
 		goto done;
 	}
 	/* Iterating through all Nodes */
-	for (u32 i =0; i < NumNodes; i++){
+	for (u32 i = 0; i < NumNodes; i++) {
 		XPm_Node* node = GetNodeAt(i);
 		if (NULL == node){
 			/* Empty Node */
@@ -710,7 +812,6 @@ XStatus XPmUpdate_RestoreAllNodes(void) {
 			FailedNode = node;
 			goto done;
 		}
-
 	}
 done:
 	XPM_UPDATE_THROW_IF_ERROR(Status, FailedNode);

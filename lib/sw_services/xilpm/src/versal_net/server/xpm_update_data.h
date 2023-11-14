@@ -23,6 +23,8 @@ extern "C" {
 #define XPM_POSEMPTYSPACE_DS_ID		7U
 #define XPM_PMNOTIFIERS_DS_ID		8U
 #define XPM_SCHEDULERTASK_DS_ID		9U
+#define XPM_ALLSAVEREGIONSINFO_DS_ID    10U
+#define XPM_PREVNUMSAVEREGIONINFO_DS_ID 11U
 #ifdef __cplusplus
 }
 #endif

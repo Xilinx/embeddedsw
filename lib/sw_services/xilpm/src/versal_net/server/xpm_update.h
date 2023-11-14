@@ -8,12 +8,64 @@
 #include "xpm_debug.h"
 #include "xpm_common.h"
 #include "xpm_node.h"
+#define member_size(type, member) sizeof(((type *)0)->member)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define RESTORE_REGION(SavedNode, Node) \
-		XPmUpdate_RegionRestore((u32*)(&((SavedNode).save)), sizeof((SavedNode).save), (u32*)(&((Node).save)), sizeof((Node).save));
+/* This is the List of  of type that we use to save and restore*/
+#define LIST_OF_XPM_TYPE\
+	X(XPm_Node)\
+	X(XPm_Subsystem)\
+	X(XPm_Power)\
+	X(XPm_ClockNode)\
+	X(XPm_ResetNode)\
+	X(XPm_PinNode)\
+	X(XPm_Device)\
+	X(XPm_Iso)\
+	X(XPm_PowerDomain)\
+	X(XPm_PmcDomain)\
+	X(XPm_PsFpDomain)\
+	X(XPm_PsLpDomain)\
+	X(XPm_NpDomain)\
+	X(XPm_CpmDomain)\
+	X(XPm_PlDomain)\
+	X(XPm_HnicxDomain)\
+	X(XPm_Rail)\
+	X(XPm_Regulator)\
+	X(XPm_PllClockNode)\
+	X(XPm_OutClockNode)\
+	X(XPm_PlDevice)\
+	X(XPm_MemCtrlrDevice)\
+	X(XPm_Core)\
+	X(XPm_Pmc)\
+	X(XPm_Psm)\
+	X(XPm_ApuCore)\
+	X(XPm_RpuCore)\
+	X(XPm_MemDevice)\
+	X(XPm_Periph)\
+	X(XPm_Requirement)
+#define INDEX(T) Index_##T
+#define X(T) INDEX(T),
+enum {
+	INDEX(XPm_Invalid),
+	LIST_OF_XPM_TYPE
+	INDEX(XPm_Max)
+};
+#undef X
+
+#define RoundToWordAddr(Addr) (((Addr)+3)&(~0x03U))
+
+typedef struct XPm_SaveRegionInfo {
+	u32 Offset;
+	u32 Size;
+} XPm_SaveRegionInfo;
+
+#define RESTORE_REGION(SavedNode, SrInfo, Node) \
+		XPmUpdate_RegionRestore(\
+			(u8*)((u32)SavedNode + SrInfo.Offset), SrInfo.Size,\
+			(u8*)(&((Node)->save)), sizeof((Node)->save));
 
 void XPmUpdate_AllNodes_Add(XPm_Node* Node);
 XStatus XPmUpdate_RestoreAllNodes(void);
@@ -34,7 +86,8 @@ static XStatus Type##_Generic_Restore(Type *SavedNode, Type *Node) {\
 	if (XST_SUCCESS != Status) {\
 		    goto done;\
 	}\
-	Status = RESTORE_REGION(*SavedNode, *Node);\
+	XPm_SaveRegionInfo SrInfo = AllSaveRegionsInfo[Index_##Type];\
+	Status = RESTORE_REGION(SavedNode, SrInfo, Node);\
 	if (XST_SUCCESS != Status) {\
 		goto done;\
 	}\
