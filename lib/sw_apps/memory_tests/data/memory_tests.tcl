@@ -124,6 +124,17 @@ proc get_mem_props {data type memlist} {
     }
 }
 
+proc IsMemoryRegionsFromRejectList {RejectMemoryList Address_block_name} {
+    foreach element $RejectMemoryList {
+        if {[string match $Address_block_name $element]} {
+            # Address block region name is present in reject memory region list
+            return 1;
+        }
+    }
+    # Address block is not present in rejected memory regions list
+    return 0;
+}
+
 # Create a dict with memory info
 #	- dict keys = unique memory instance names (Instance name + Base Name + Address Block)
 #	- key data  = base, high, HW memory instance, IP type, access type (RD/WR/RW), memory type (BRAM, OCM, etc), section type (CODE, DATA, etc)
@@ -132,10 +143,44 @@ proc get_mem_info { proc_instance } {
         return [set [namespace current]::memcfg]
     }
     set memdata [dict create iranges {} dranges {} idranges {}]
+    set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psv_cortexa72" || IP_NAME=="psv_cortexr5"}]
+    set is_versal_net [hsi::get_cells -hier -filter {IP_NAME=="psx_cortexr52" || IP_NAME=="psx_cortexa78"}]
 
-    set imemlist [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter { IS_INSTRUCTION == true && IS_DATA != true && MEM_TYPE == "MEMORY"}];
-    set dmemlist [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter { IS_INSTRUCTION != true && IS_DATA == true && MEM_TYPE == "MEMORY"}];
-    set idmemlist [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter { IS_INSTRUCTION == true && IS_DATA == true && MEM_TYPE == "MEMORY" }];
+    if {[llength $is_versal_net] > 0 || [llength $is_versal] > 0} {
+        set RejectListForAddressBlocks {"psx_noc_pcie_0" "psv_noc_pcie_0"}
+
+        set imem_elements [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter {IS_INSTRUCTION != true && IS_DATA == true && MEM_TYPE == "MEMORY"}]
+        set imemlist {}
+        foreach imem_element $imem_elements {
+            set i_addr_block [common::get_property ADDRESS_BLOCK $imem_element]
+            if {![IsMemoryRegionsFromRejectList $RejectListForAddressBlocks $i_addr_block]} {
+                lappend imemlist $imem_element
+            }
+        }
+
+        set dmem_elements [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter {IS_INSTRUCTION != true && IS_DATA == true && MEM_TYPE == "MEMORY"}]
+        set dmemlist {}
+        foreach dmem_element $dmem_elements {
+            set d_addr_block [common::get_property ADDRESS_BLOCK $dmem_element]
+            if {![IsMemoryRegionsFromRejectList $RejectListForAddressBlocks $d_addr_block]} {
+                lappend dmemlist $dmem_element
+            }
+        }
+
+        set idmem_elements [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter {IS_INSTRUCTION == true && IS_DATA == true && MEM_TYPE == "MEMORY"}]
+        set idmemlist {}
+        foreach idmem_element $idmem_elements {
+            set id_addr_block [common::get_property ADDRESS_BLOCK $idmem_element]
+            if {![IsMemoryRegionsFromRejectList $RejectListForAddressBlocks $id_addr_block]} {
+                lappend idmemlist $idmem_element
+            }
+        }
+    } else {
+        set imemlist [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter {IS_INSTRUCTION == true && IS_DATA != true && MEM_TYPE == "MEMORY"}]
+        set dmemlist [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter {IS_INSTRUCTION != true && IS_DATA == true && MEM_TYPE == "MEMORY"}]
+        set idmemlist [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter {IS_INSTRUCTION == true && IS_DATA == true && MEM_TYPE == "MEMORY"}]
+    }
+
     get_mem_props memdata "iranges" $imemlist
     get_mem_props memdata "dranges" $dmemlist
     get_mem_props memdata "idranges" $idmemlist
