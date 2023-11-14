@@ -69,6 +69,7 @@ static volatile u32 SchedulerTask = (u32)NOT_PRESENT;
 #ifdef VERSAL_NET
 #include "xpm_update.h"
 #include "xpm_update_data.h"
+
 EXPORT_DS(EventSeq, \
 	XPLMI_MODULE_XILPM_ID, XPM_EVENTSEQ_DS_ID, \
 	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \
@@ -93,6 +94,33 @@ EXPORT_DS(SchedulerTask, \
 	XPLMI_MODULE_XILPM_ID, XPM_SCHEDULERTASK_DS_ID, \
 	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \
 	sizeof(SchedulerTask), (u32)(UINTPTR)&SchedulerTask);
+
+/***************************************************************************/
+/**
+ * @brief This function will re-register error event handlers of event nodes.
+ * This function called after PLM's module initialization after plm update done.
+ *
+ ***************************************************************************/
+XStatus XPmNotifier_RestoreErrorEvents(void)
+{
+	XStatus Status = XST_FAILURE;
+	/* Going through all PMNotifiers and re-register those event nodes*/
+	for (u32 Index = 0U; Index < ARRAY_SIZE(PmNotifiers); Index ++) {
+		u32 SsId = PmNotifiers[Index].SubsystemId;
+		u32 NodeId = PmNotifiers[Index].NodeId;
+		if ((0U != SsId) && ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId))) {
+			Status = XPlmi_EmSetAction(NodeId, PmNotifiers[Index].EventMask , XPLMI_EM_ACTION_CUSTOM,
+				   XPmNotifier_Event, INVALID_SUBSYSID);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+	}
+	/* If there are no PmNotifiers, return OK. */
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
 #endif
 
 static int XPmNotifier_SchedulerTask(void *Arg);

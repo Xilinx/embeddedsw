@@ -34,6 +34,7 @@
 #include "xpm_regulator.h"
 #include "xpm_requirement.h"
 #include "xpm_update_data.h"
+#include "xpm_notifier_plat.h"
 
 #define MAX_NUM_NODE 1000
 
@@ -813,6 +814,8 @@ XStatus XPmUpdate_RestoreAllNodes(void)
 			goto done;
 		}
 	}
+	/* Restore Error Event Nodes */
+	Status = XPmNotifier_RestoreErrorEvents();
 done:
 	XPM_UPDATE_THROW_IF_ERROR(Status, FailedNode);
 	return Status;
