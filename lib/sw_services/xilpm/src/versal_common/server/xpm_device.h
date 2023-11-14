@@ -105,13 +105,12 @@ struct XPm_DeviceNode {
 	u8 WfDealloc; /**< Deallocation is pending */
 	u8 WfPwrUseCnt; /**< Pending power use count */
 	)
+	struct XPm_Reqm *Requirements;
+		/**< Head of the list of requirements for all subsystems */
+	struct XPm_Reqm *PendingReqm; /**< Requirement being updated */
 	XPm_Power *Power; /**< Device power node */
 	XPm_ClockHandle *ClkHandles; /**< Head of the list of device clocks */
 	XPm_ResetHandle *RstHandles; /**< Head of the list device resets */
-	struct XPm_Reqm *Requirements;
-		/**< Head of the list of requirements for all subsystems */
-
-	struct XPm_Reqm *PendingReqm; /**< Requirement being updated */
 	XPm_DeviceOps *DeviceOps; /**< Device operations */
 	XPm_DeviceAttr *DevAttr;  /**< Device attributes */
 	const XPm_DeviceFsm* DeviceFsm; /**< Device finite state machine */

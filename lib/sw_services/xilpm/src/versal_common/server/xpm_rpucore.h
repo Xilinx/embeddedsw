@@ -20,12 +20,11 @@ extern "C" {
  */
 struct XPm_RpuCore {
 	XPm_Core Core; /**< Processor core devices */
-	SAVE_REGION(
 	u32 ResumeCfg;
 	u32 RpuBaseAddr; /**< Base address of RPU module */
 	u32 ClusterBaseAddr; /**< Base address of RPU module */
 	u32 PcilIsr; /*pcil isr register*/
-	)
+	SAVE_REGION()
 };
 
 /************************** Function Prototypes ******************************/
