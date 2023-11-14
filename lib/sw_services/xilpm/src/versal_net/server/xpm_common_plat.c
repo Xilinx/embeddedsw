@@ -117,10 +117,18 @@ inline u32 XPm_GetPrevByteBufferAddress(void) {
  * to the address within the ByteBuffer that saved in DDR
  *
  * @param InputAddress address in the previous ByteBuffer
- * @return u32 32-bit address in the saved ByteBuffer.
+ * @return u32 32-bit address in the saved ByteBuffer. This address is in PLM storage area
  */
+
 u32 XPm_ConvertToSavedAddress(u32 InputAddress){
-	return InputAddress + XPm_GetByteBufferOffset();
+	u32 OutputAddress = 0U;
+	if (0U != InputAddress) {
+		OutputAddress = InputAddress + XPm_GetByteBufferOffset();
+		/** TODO: add range check here on OutputAddress
+		 * to make sure it is within the PLM storage area.
+		 */
+	}
+	return OutputAddress;
 }
 
 static int XPm_ByteBufferOps(u32 Op, u64 Addr, void *Data)
