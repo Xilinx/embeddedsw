@@ -55,6 +55,7 @@ extern XDp_Config XDp_ConfigTable[XPAR_XDP_NUM_INSTANCES];
  * @note	None.
  *
 *******************************************************************************/
+#ifndef SDT
 XDp_Config *XDp_LookupConfig(u16 DeviceId)
 {
 	XDp_Config *CfgPtr = NULL;
@@ -69,4 +70,21 @@ XDp_Config *XDp_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XDp_Config *XDp_LookupConfig(UINTPTR BaseAddress)
+{
+	XDp_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0; XDp_ConfigTable[Index].Name != NULL; Index++) {
+		if ( (XDp_ConfigTable[Index].BaseAddr == BaseAddress) ||
+             !BaseAddress) {
+			CfgPtr = &XDp_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /** @} */
