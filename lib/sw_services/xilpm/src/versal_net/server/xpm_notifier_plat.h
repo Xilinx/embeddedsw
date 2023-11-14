@@ -13,6 +13,7 @@
 extern "C" {
 #endif
 
+XStatus XPmNotifier_RestoreErrorEvents(void);
 maybe_unused static inline XStatus XPmNotifier_PlatHandleSsit(u32 SubsystemId,
 		u32 NodeId, u32 Event, u32 Enable)
 {
