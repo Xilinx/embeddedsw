@@ -116,7 +116,7 @@ static DSTATUS Stat[XSDPS_NUM_INSTANCES] = {STA_NOINIT, STA_NOINIT};	/* Disk sta
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
 static XSdPs SdInstance[XSDPS_NUM_INSTANCES];
-static u32 BaseAddress[XSDPS_NUM_INSTANCES];
+static UINTPTR BaseAddress[XSDPS_NUM_INSTANCES];
 static u32 CardDetect[XSDPS_NUM_INSTANCES];
 static u32 WriteProtect[XSDPS_NUM_INSTANCES];
 static u32 SlotType[XSDPS_NUM_INSTANCES];
@@ -188,12 +188,12 @@ DSTATUS disk_status (
 	}
 
 	/* If SD is not powered up then mark it as not initialized */
-	if ((XSdPs_ReadReg8((u32)BaseAddress[pdrv], XSDPS_POWER_CTRL_OFFSET) &
+	if ((XSdPs_ReadReg8(BaseAddress[pdrv], XSDPS_POWER_CTRL_OFFSET) &
 	     XSDPS_PC_BUS_PWR_MASK) == 0U) {
 		s |= STA_NOINIT;
 	}
 
-	StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress[pdrv]);
+	StatusReg = XSdPs_GetPresentStatusReg(BaseAddress[pdrv]);
 	if (SlotType[pdrv] != XSDPS_CAPS_EMB_SLOT) {
 		if (CardDetect[pdrv]) {
 			while ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
@@ -205,7 +205,7 @@ DSTATUS disk_status (
 					/* Wait for 10 msec */
 					usleep(SD_CD_DELAY);
 					DelayCount++;
-					StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress[pdrv]);
+					StatusReg = XSdPs_GetPresentStatusReg(BaseAddress[pdrv]);
 				}
 			}
 		}
@@ -281,7 +281,7 @@ DSTATUS disk_initialize (
 		while (!((XSDPS_PSR_CARD_DPL_MASK |
 			  XSDPS_PSR_CARD_STABLE_MASK |
 			  XSDPS_PSR_CARD_INSRT_MASK) ==
-			 (XSdPs_GetPresentStatusReg((u32)BaseAddress[pdrv]) &
+			 (XSdPs_GetPresentStatusReg(BaseAddress[pdrv]) &
 			  (XSDPS_PSR_CARD_DPL_MASK |
 			   XSDPS_PSR_CARD_STABLE_MASK |
 			   XSDPS_PSR_CARD_INSRT_MASK))));
