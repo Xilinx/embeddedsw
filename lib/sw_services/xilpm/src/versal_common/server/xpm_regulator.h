@@ -26,10 +26,9 @@ typedef enum {
 
 typedef struct {
 	XPm_Node Node; 			/** Node base class */
-	SAVE_REGION(
 	XPm_I2cCmd Config;		/** i2c commands to configure the regulator */
 	u16 I2cAddress;			/** i2c address of the regulator */
-	)
+	SAVE_REGION()
 	XPm_Device *Cntrlr[XPM_MAX_NUM_CNTRLR]; /** Array of supported controllers */
 } XPm_Regulator;
 

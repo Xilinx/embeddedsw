@@ -39,8 +39,8 @@ struct XPm_PlDeviceNode {
 	XPm_PlDevice *Parent;           /**< Parent of PLD */
 	XPm_PlDevice *NextPeer;         /**< Sibling/Peer of PLD */
 	XPm_PlDevice *Child;            /**< Child head PLD’s children */
-	XPm_PldInitNodeOps *Ops;	/**< Node Initialization Operations */
 	XPm_MemCtrlrDevice *MemCtrlr[MAX_PLAT_DDRMC_COUNT];	/**< Link to DDR Mem controllers */
+	XPm_PldInitNodeOps *Ops;	/**< Node Initialization Operations */
 	struct XPm_AieDeviceNode *AieDevice;       /**< Link to AIE Device */
 };
 
