@@ -10,28 +10,12 @@
 
 #include "xpm_device.h"
 #include "xpm_subsystem.h"
+#include "xpm_requirement_plat.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct XPm_ReqmInfo XPm_ReqmInfo;
-typedef struct XPm_Reqm XPm_Requirement;
-
-/* Size of bit fields for XPm_ReqmInfo structure */
-#define REQ_INFO_CAPS_BIT_FIELD_SIZE		4
-#define REQ_INFO_LATENCY_BIT_FIELD_SIZE		21
-#define REQ_INFO_RESERVED_BIT_FIELD_SIZE	7
-
-/**
- * Specific requirement information.
- */
-struct XPm_ReqmInfo {
-	u32 Capabilities:REQ_INFO_CAPS_BIT_FIELD_SIZE; /**< Device capabilities (1-hot) */
-	u32 Latency:REQ_INFO_LATENCY_BIT_FIELD_SIZE; /**< Maximum device latency */
-	u32 Reserved:REQ_INFO_RESERVED_BIT_FIELD_SIZE; /**< Reserved for future use */
-	u32 QoS; /**< QoS requirement */
-};
 
 typedef enum {
         RELEASE_ONE,
@@ -84,30 +68,6 @@ enum XPm_ReqSecurityFlags {
 #define USAGE_POLICY(Flags)	((Flags) & REG_FLAGS_USAGE_MASK)
 #define SECURITY_POLICY(Flags)	(((Flags) & REG_FLAGS_SECURITY_MASK) >> REG_FLAGS_SECURITY_OFFSET)
 #define PREALLOC(Flags)		(((Flags) & REG_FLAGS_PREALLOC_MASK) >> REG_FLAGS_PREALLOC_OFFSET)
-
-/**
- * The requirement class.
- */
-struct XPm_Reqm {
-SAVE_REGION(
-	XPm_ReqmInfo Curr; /**< Current requirements */
-	XPm_ReqmInfo Next; /**< Pending requirements */
-	u32 PreallocQoS;  /**< Preallocated QoS value */
-	u8 Allocated; /**< Device has been allocated to the subsystem */
-	u16 Flags;	  /** Flags */
-	u8 SetLatReq; /**< Latency has been set from the subsystem */
-	u8 PreallocCaps;  /**< Preallocated capabilities */
-	u8 AttrCaps;	/**
-			 * Other capabilities like security, coherency and virtualization.
-			 * This does not play any role for device state transition so
-			 * it is keep as a separate variable.
-			 */
-)
-	struct XPm_Subsystem *Subsystem; /**< Subsystem imposing this requirement on the device */
-	XPm_Device *Device; /**< Device used by the subsystem */
-	XPm_Requirement *NextDevice; /**< Requirement on the next device from this subsystem */
-	XPm_Requirement *NextSubsystem; /**< Requirement from the next subsystem on this device */
-};
 
 /************************** Function Prototypes ******************************/
 
