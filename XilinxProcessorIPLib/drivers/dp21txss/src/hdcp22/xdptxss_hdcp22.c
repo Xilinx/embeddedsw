@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@
 
 /****************************** Include Files ********************************/
 #include "xdptxss_hdcp22.h"
+#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 #include "xdptxss.h"
 
 
@@ -240,16 +242,21 @@ int XDpTxSs_SubcoreInitHdcp22(void *InstancePtr)
 		if (DpTxSsPtr->Hdcp22Lc128Ptr && DpTxSsPtr->Hdcp22SrmPtr) {
 			/* Get core configuration */
 			/* Initialize HDCP 2.2 TX */
-			Hdcp22TxConfig = XHdcp22Tx_Dp_LookupConfig(
+#ifndef SDT
+		Hdcp22TxConfig = XHdcp22Tx_Dp_LookupConfig(
 					DpTxSsPtr->Config.Hdcp22SubCore.
 					Hdcp22Config.DeviceId);
-			if (Hdcp22TxConfig == NULL) {
+#else
+			Hdcp22TxConfig = XHdcp22Tx_Dp_LookupConfig(
+					DpTxSsPtr->Config.Hdcp22SubCore.Hdcp22Config.BaseAddress);
+#endif
+		if (Hdcp22TxConfig == NULL) {
 				xdbg_printf(XDBG_DEBUG_GENERAL,
 						"DPTXSS ERR:: HDCP 2.2 device"
 						"not found\r\n");
 				return XST_FAILURE;
 			}
-
+#ifndef SDT
 			/* Calculate absolute base address of HDCP22 sub-core */
 			DpTxSsPtr->Config.Hdcp22SubCore.Hdcp22Config.AbsAddr +=
 				DpTxSsPtr->Config.BaseAddress;
@@ -262,7 +269,19 @@ int XDpTxSs_SubcoreInitHdcp22(void *InstancePtr)
 					Hdcp22TxConfig,
 					DpTxSsPtr->Config.Hdcp22SubCore.
 					Hdcp22Config.AbsAddr);
+#else
+			/* Calculate absolute base address of HDCP22 sub-core */
+			DpTxSsPtr->Config.Hdcp22SubCore.Hdcp22Config.BaseAddress +=
+				DpTxSsPtr->Config.BaseAddress;
+			/* HDCP22 config initialize */
+			Hdcp22TxConfig->BaseAddress +=
+				DpTxSsPtr->Config.BaseAddress;
 
+			Status = XHdcp22Tx_Dp_CfgInitialize(DpTxSsPtr->Hdcp22Ptr,
+					Hdcp22TxConfig,
+					DpTxSsPtr->Config.Hdcp22SubCore.
+					Hdcp22Config.BaseAddress);
+#endif
 			if (Status != XST_SUCCESS) {
 				xdbg_printf(XDBG_DEBUG_GENERAL,
 						"DPTXSS ERR:: HDCP 2.2 "
@@ -447,3 +466,4 @@ u8 XDpTxSs_IsSinkHdcp22Capable(void *Instance)
 
 	return FALSE;
 }
+#endif /*(XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)*/

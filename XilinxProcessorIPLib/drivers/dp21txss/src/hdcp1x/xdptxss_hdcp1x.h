@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,8 +32,13 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
+#ifdef SDT
+#define XPAR_XHDCP_NUM_INSTANCES XPAR_XHDCP1X_NUM_INSTANCES
+#endif
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #include "xhdcp1x.h"
 #include "xhdcp1x_port.h"
+#endif
 #include "xtmrctr.h"
 
 /************************** Constant Definitions *****************************/

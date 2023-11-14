@@ -251,12 +251,14 @@ void XDpTxSs_ReportCoreInfo(XDpTxSs *InstancePtr)
 	}
 #endif
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	if (InstancePtr->Hdcp1xPtr) {
 		xil_printf("High-Bandwidth Content protection (HDCP):Yes\n\r");
 	}
 	if (InstancePtr->TmrCtrPtr) {
 		xil_printf("Timer Counter(0):Yes\n\r");
 	}
+#endif
 
 	if (InstancePtr->DpPtr) {
 		xil_printf("DisplayPort Transmitter(TX):Yes\n\r");
@@ -561,9 +563,11 @@ void XDpTxSs_ReportHdcpInfo(XDpTxSs *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	if (InstancePtr->Hdcp1xPtr)
 		XHdcp1x_Info(InstancePtr->Hdcp1xPtr);
 	else
+#endif
 		xil_printf("HDCP is not supported in this design.\n\r");
 }
 /** @} */

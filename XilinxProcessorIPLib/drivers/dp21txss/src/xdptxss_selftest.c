@@ -90,6 +90,7 @@ u32 XDpTxSs_SelfTest(XDpTxSs *InstancePtr)
 	}
 #endif
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	if ((InstancePtr->Hdcp1xPtr) && (InstancePtr->Config.HdcpEnable)) {
 		Status = XHdcp1x_SelfTest(InstancePtr->Hdcp1xPtr);
 		if (Status != XST_SUCCESS) {
@@ -106,6 +107,7 @@ u32 XDpTxSs_SelfTest(XDpTxSs *InstancePtr)
 			return XST_FAILURE;
 		}
 	}
+#endif
 
 	for (Index = 0; Index < InstancePtr->Config.NumMstStreams; Index++) {
 		if (InstancePtr->VtcPtr[Index]) {
