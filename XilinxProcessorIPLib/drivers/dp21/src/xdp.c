@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -4173,7 +4173,7 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask)
 	return XST_SUCCESS;
 }
 
-#ifdef XPAR_XDPTXSS_NUM_INSTANCES
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function Reads downstream RX FFE Preset values in the time of link
