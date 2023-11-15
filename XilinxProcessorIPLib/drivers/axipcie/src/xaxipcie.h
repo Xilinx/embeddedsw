@@ -8,7 +8,7 @@
 /**
 *
 * @file xaxipcie.h
-* @addtogroup axipcie_v3_3
+* @addtogroup axipcie Overview
 * @{
 * @details
 *
