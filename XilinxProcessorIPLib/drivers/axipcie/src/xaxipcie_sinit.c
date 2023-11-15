@@ -55,6 +55,7 @@ extern XAxiPcie_Config XAxiPcie_ConfigTable[];
 * @note		None
 *
 ******************************************************************************/
+#ifndef SDT
 XAxiPcie_Config *XAxiPcie_LookupConfig(u16 DeviceId)
 {
 	XAxiPcie_Config *CfgPtr = NULL;
@@ -70,6 +71,23 @@ XAxiPcie_Config *XAxiPcie_LookupConfig(u16 DeviceId)
 
 	return (CfgPtr);
 }
+#else
+XAxiPcie_Config *XAxiPcie_LookupConfig(UINTPTR BaseAddress)
+{
+	XAxiPcie_Config *CfgPtr = NULL;
+
+	int Index;
+
+	for (Index = 0; XAxiPcie_ConfigTable[Index].Name != NULL; Index++) {
+		if (XAxiPcie_ConfigTable[Index].BaseAddress == BaseAddress) {
+			CfgPtr = &XAxiPcie_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (CfgPtr);
+}
+#endif
 
 
 

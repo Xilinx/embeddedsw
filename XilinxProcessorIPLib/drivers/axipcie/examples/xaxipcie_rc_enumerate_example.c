@@ -61,8 +61,9 @@
 
 /************************** Constant Definitions ****************************/
 
-
+#ifndef SDT
 #define AXIPCIE_DEVICE_ID 	XPAR_AXIPCIE_0_DEVICE_ID
+#endif
 
 
 /*
@@ -117,7 +118,12 @@
 
 /************************** Function Prototypes *****************************/
 
+#ifndef SDT
 int PcieInitRootComplex(XAxiPcie *AxiPciePtr, u16 DeviceId);
+#else
+int PcieInitRootComplex(XAxiPcie *AxiPciePtr, UINTPTR BaseAddress);
+#endif
+
 void PCIeEnumerateFabric(XAxiPcie *AxiPciePtr);
 
 
@@ -145,7 +151,11 @@ int main(void)
 	int Status;
 
 	/* Initialize Root Complex */
-	Status = PcieInitRootComplex(&AxiPcieInstance, AXIPCIE_DEVICE_ID);
+#ifndef SDT
+	Status = PcieInitRootComplex(&AxiPcieInstance, XDMAPCIE_DEVICE_ID);
+#else
+	Status = PcieInitRootComplex(&AxiPcieInstance, XPAR_XAXIPCIE_0_BASEADDR);
+#endif
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("Axipcie rc enumerate Example Failed\r\n");
@@ -175,7 +185,11 @@ int main(void)
 *
 *
 ******************************************************************************/
+#ifndef SDT
 int PcieInitRootComplex(XAxiPcie *AxiPciePtr, u16 DeviceId)
+#else
+int PcieInitRootComplex(XAxiPcie *AxiPciePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u32 HeaderData;
@@ -186,8 +200,12 @@ int PcieInitRootComplex(XAxiPcie *AxiPciePtr, u16 DeviceId)
 	u8  PortNumber;
 
 	XAxiPcie_Config *ConfigPtr;
-
+#ifndef SDT
 	ConfigPtr = XAxiPcie_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XAxiPcie_LookupConfig(BaseAddress);
+#endif
+
 
 	Status = XAxiPcie_CfgInitialize(AxiPciePtr, ConfigPtr,
 						ConfigPtr->BaseAddress);

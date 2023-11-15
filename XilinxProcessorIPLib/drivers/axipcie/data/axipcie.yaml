@@ -1,0 +1,33 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for AXIPCIE controller
+
+maintainers:
+  - Bhavana Jupalli <Bhavana.Jupalli@amd.com>
+  - Thippeswamy Havalige <thippeswamy.havalige@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+      - const: xlnx,axi-pcie-host-1.00.a
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XAxiPcie_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,axibar-num
+    - xlnx,include-baroffset-reg
+    - xlnx,port-type
+
+examples:
+    xaxipcie_rc_enumerate_example.c:
+        - reg
+...
