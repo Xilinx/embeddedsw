@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2023 Xilinx, Inc. All rights reserved.
 * Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -80,6 +80,7 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 		}
 	}
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	if ((InstancePtr->Hdcp1xPtr) && (InstancePtr->Config.HdcpEnable)) {
 		Status = XHdcp1x_SelfTest(InstancePtr->Hdcp1xPtr);
 		if (Status != XST_SUCCESS) {
@@ -88,7 +89,11 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 			return XST_FAILURE;
 		}
 	}
+#endif
 
+#if (((XPAR_XHDCP_NUM_INSTANCES > 0) || \
+	(XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)) \
+		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 	if (InstancePtr->TmrCtrPtr) {
 		Status = XTmrCtr_SelfTest(InstancePtr->TmrCtrPtr, 0);
 		if (Status != XST_SUCCESS) {
@@ -97,6 +102,7 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 			return XST_FAILURE;
 		}
 	}
+#endif
 
 #ifdef XPAR_XIIC_NUM_INSTANCES
 	/* Check IIC availability */

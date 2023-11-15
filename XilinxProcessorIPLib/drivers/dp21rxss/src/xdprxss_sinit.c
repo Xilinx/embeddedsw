@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2023 Xilinx, Inc. All rights reserved.
 * Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -25,9 +25,8 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
-#include "xdprxss.h"
 #include "xparameters.h"
+#include "xdprxss.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -63,6 +62,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XDpRxSs_Config *XDpRxSs_LookupConfig(u16 DeviceId)
 {
 	extern XDpRxSs_Config XDpRxSs_ConfigTable[XPAR_XDPRXSS_NUM_INSTANCES];
@@ -84,4 +84,53 @@ XDpRxSs_Config *XDpRxSs_LookupConfig(u16 DeviceId)
 
 	return (XDpRxSs_Config *)CfgPtr;
 }
+#else
+XDpRxSs_Config *XDpRxSs_LookupConfig(UINTPTR BaseAddress)
+{
+	extern XDpRxSs_Config XDpRxSs_ConfigTable[XPAR_XDPRXSS_NUM_INSTANCES];
+	XDpRxSs_Config *CfgPtr = NULL;
+	u32 Index;
+
+	/* Checking for device id for which instance it is matching */
+	for (Index = (u32)0x0; XDpRxSs_ConfigTable[Index].Name != NULL;
+								Index++) {
+
+		/* Assigning address of config table if both device ids
+		 * are matched
+		 */
+		if ((XDpRxSs_ConfigTable[Index].BaseAddress == BaseAddress)  ||
+           (!BaseAddress)) {
+			CfgPtr = &XDpRxSs_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XDpRxSs_Config *)CfgPtr;
+}
+#endif
+#ifdef SDT
+/*****************************************************************************/
+/**
+* This function returns the Index number of config table using BaseAddress.
+*
+* @param  Base address of the instance
+*
+* @return Index number of the config table
+*
+********************************************************************************/
+
+u32 XDpRxSs_GetDrvIndex(UINTPTR BaseAddress)
+{
+	extern XDpRxSs_Config XDpRxSs_ConfigTable[XPAR_XDPRXSS_NUM_INSTANCES];
+	u32 Index;
+
+
+    for (Index = 0U; XDpRxSs_ConfigTable[Index].Name != NULL; Index++) {
+        if ((XDpRxSs_ConfigTable[Index].BaseAddress) == BaseAddress) {
+	        break;
+        }
+    }
+    return Index;
+}
+#endif
 /** @} */
