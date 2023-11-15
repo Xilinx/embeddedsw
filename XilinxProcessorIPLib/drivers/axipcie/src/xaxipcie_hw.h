@@ -8,7 +8,7 @@
 /**
 *
 * @file xaxipcie_hw.h
-* @addtogroup axipcie_v3_3
+* @addtogroup axipcie Overview
 * @{
 *
 * This header file contains identifiers and basic driver functions for the
