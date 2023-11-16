@@ -32,6 +32,7 @@
 * 1.18  sb  05/19/23 Update number of sector calculation logic
 *           in flash erase API.
 * 1.19  sb  11/10/23 Add support for Winbond flash w25q256jw
+* 1.19  sb  11/10/23 Add support for ISSI flash is25lp02g
 *
 *</pre>
 *
@@ -423,6 +424,11 @@ FlashInfo Flash_Config_Table[] = {
 	{
 		0x9d701b, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
 		0x80000, 0x8000000, 1
+	},
+	/*is25lp02g*/
+	{
+		0x9d6022, SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE,
+		0x100000, 0x10000000, 1
 	}
 };
 
