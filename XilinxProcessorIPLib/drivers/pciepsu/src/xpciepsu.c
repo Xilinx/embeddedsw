@@ -533,19 +533,28 @@ static u64 XPciePsu_ReserveBarMem(XPciePsu *InstancePtr,
 {
 	u64 Ret = 0;
 
-	if (MemBarArdSize == XPCIEPSU_BAR_MEM_TYPE_64) {
-		Ret = InstancePtr->Config.PMemBaseAddr;
-		InstancePtr->Config.PMemBaseAddr = InstancePtr->Config.PMemBaseAddr
-							+ Size;
-		Xil_AssertNonvoid(InstancePtr->Config.PMemBaseAddr <=
-				InstancePtr->Config.PMemMaxAddr);
-	} else {
-		Ret = InstancePtr->Config.NpMemBaseAddr;
-		InstancePtr->Config.NpMemBaseAddr = InstancePtr->Config.NpMemBaseAddr
-							+ (u32)Size;
-		Xil_AssertNonvoid(InstancePtr->Config.NpMemBaseAddr <=
-				InstancePtr->Config.NpMemMaxAddr);
-	}
+        if (MemBarArdSize & XPCIEPSU_BAR_MEM_TYPE_64) {
+                if (MemBarArdSize & (XPCIEPSU_BAR_MEM_TYPE_64 << 1)) {
+                        Ret = InstancePtr->Config.PMemBaseAddr;
+                        InstancePtr->Config.PMemBaseAddr = InstancePtr->Config.PMemBaseAddr
+                                                                + Size;
+                        Xil_AssertNonvoid(InstancePtr->Config.PMemBaseAddr <=
+                                        InstancePtr->Config.PMemMaxAddr);
+                } else {
+                        Ret = InstancePtr->Config.NpMemBaseAddr;
+                        InstancePtr->Config.NpMemBaseAddr = InstancePtr->Config.NpMemBaseAddr
+                                                                + Size;
+                        Xil_AssertNonvoid(InstancePtr->Config.NpMemBaseAddr <=
+                                        InstancePtr->Config.NpMemMaxAddr);
+                }
+        } else {
+
+                Ret = InstancePtr->Config.NpMemBaseAddr;
+                InstancePtr->Config.NpMemBaseAddr = InstancePtr->Config.NpMemBaseAddr
+                                                        + Size;
+                Xil_AssertNonvoid(InstancePtr->Config.NpMemBaseAddr <=
+                                InstancePtr->Config.NpMemMaxAddr);
+        }
 
 	return Ret;
 }
@@ -635,10 +644,11 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 		}
 
 		/* check for 32 bit AS or 64 bit AS */
-		if ((Size & XPCIEPSU_CFG_BAR_MEM_AS_MASK) == XPCIEPSU_BAR_MEM_TYPE_64) {
+
+		if (Size & XPCIEPSU_BAR_MEM_TYPE_64) {
 #if defined(__aarch64__) || defined(__arch64__)
 			/* 64 bit AS is required */
-			MemAs = XPCIEPSU_BAR_MEM_TYPE_64;
+			MemAs = Size;
 			/* Compose function configuration space location */
 			Location_1 = XPciePsu_ComposeExternalConfigAddress(
 				Bus, Device, Function,
@@ -707,7 +717,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 
 #if defined(__aarch64__) || defined(__arch64__)
 			/* 32 bit AS is required */
-			MemAs = XPCIEPSU_BAR_MEM_TYPE_32;
+			MemAs = Size;
 
 			/* actual bar size is 2 << TestWrite */
 			BarAddr =
