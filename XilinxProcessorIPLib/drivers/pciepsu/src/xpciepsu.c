@@ -37,7 +37,7 @@
 
 /******************************************************************************/
 /**
-* This function reads a register value from specificied offset
+* This function reads a register value from specified offset
 *
 * @param   BaseAddr   BaseAddr of the register
 * @param   RegOffset  Offset from the base address to be read
@@ -51,7 +51,7 @@ u32 XPciePsu_ReadReg(UINTPTR BaseAddr, u32 RegOffset) {
 
 /******************************************************************************/
 /**
-* This function writes a register value to specificied offset
+* This function writes a register value to specified offset
 *
 * @param   BaseAddr   Base Address of the register
 * @param   RegOffset  Offset from the base address to be written
@@ -66,7 +66,7 @@ void XPciePsu_WriteReg(UINTPTR BaseAddr, u32 RegOffset, u32 Val) {
 
 /******************************************************************************/
 /**
-* This function writes a register value to specificied offset
+* This function writes a register value to specified offset
 *
 * @param   BaseAddr   Base Address of the register
 * @param   RegOffset  Offset from the base address to be written
@@ -473,7 +473,7 @@ u8 XPciePsu_ReadLocalConfigSpace(XPciePsu *InstancePtr, u16 Offset,
 /****************************************************************************/
 /**
 * Write 32-bit value to one of this IP own configuration space.
-* Location is identified by its offset from the begginning of the
+* Location is identified by its offset from the beginning of the
 * configuration space.
 *
 * @param 	InstancePtr is the PCIe component to operate on.
@@ -592,6 +592,8 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 	u32 Data = DATA_MASK_32;
 	u32 Location = 0;
 	u32 Size = 0, TestWrite;
+	u64 ReqBar = 0;
+	u64 MaxBarSize = 0;
 #if defined(__aarch64__) || defined(__arch64__)
 	u64 BarAddr;
 	u32 Size_1 = 0, *PPtr;
@@ -605,6 +607,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 
 	u8 MaxBars = 0;
 
+	MaxBarSize = InstancePtr->Config.NpMemMaxAddr - InstancePtr->Config.NpMemBaseAddr;
 	if (Headertype == XPCIEPSU_CFG_HEADER_O_TYPE) {
 		/* For endpoints */
 		MaxBars = 6;
@@ -668,6 +671,15 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 			*(PPtr + 1) = Size_1;
 
 			TestWrite = XPciePsu_PositionRightmostSetbit(BarAddr);
+			ReqBar = (2 << (TestWrite - 1));
+
+                        if(ReqBar > MaxBarSize) {
+                              XPciePsu_Dbg(
+					"Requested BAR size of %uK for bus: %d, dev: %d, "
+					"function: %d is out of range \n",
+					((2 << (TestWrite - 1))/1024),Bus,Device,Function);
+                                return XST_SUCCESS;
+                        }
 
 			/* actual bar size is 2 << TestWrite */
 			BarAddr =
@@ -718,6 +730,15 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 #if defined(__aarch64__) || defined(__arch64__)
 			/* 32 bit AS is required */
 			MemAs = Size;
+			ReqBar = (2 << (TestWrite - 1));
+
+                        if(ReqBar > MaxBarSize) {
+                                XPciePsu_Dbg(
+					"Requested BAR size of %uK for bus: %d, dev: %d, "
+					"function: %d is out of range \n",
+					((2 << (TestWrite - 1))/1024),Bus,Device,Function);
+                                return XST_SUCCESS;
+                        }
 
 			/* actual bar size is 2 << TestWrite */
 			BarAddr =
@@ -1021,7 +1042,7 @@ static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 					 */
 
 					/*
-					 * Align memory to 1 Mb boundry.
+					 * Align memory to 1 Mb boundary.
 					 *
 					 * eg. 0xE000 0000 is the base address. Increments
 					 * 1 Mb which gives 0xE010 0000 and writes to limit.
