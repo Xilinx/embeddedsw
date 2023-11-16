@@ -132,6 +132,7 @@
 * 1.11  bm   09/25/2023 Fix Error Handling after In-Place PLM Update
 *       ma   09/27/2023 Add secure lockdown to EAM error actions list
 *       mss  10/31/2023 Added code to Trigger FW CR error in XPlmi_ErrMgr
+*       ma   11/14/2023 Update error action to NONE after disabling the error
 *
 * </pre>
 *
@@ -466,6 +467,15 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
 				"for PSM errors. Error ID: 0x%x\r\n", ErrorId);
 		break;
 	}
+
+	/*
+	 * Reset Action in ErrorTable to XPLMI_EM_ACTION_NONE if previous action is
+	 * not invalid or custom.
+	 */
+	if ((ErrorTable[ErrorId].Action != XPLMI_EM_ACTION_INVALID) &&
+		(ErrorTable[ErrorId].Action != XPLMI_EM_ACTION_CUSTOM)) {
+		ErrorTable[ErrorId].Action = XPLMI_EM_ACTION_NONE;
+	}
 }
 
 /****************************************************************************/
@@ -528,6 +538,15 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
 		XPlmi_Printf(DEBUG_GENERAL, "Invalid SW Error Node: 0x%x and ErrorId: 0x%x\r\n",
 									ErrorNodeId, ErrorId);
 	}
+
+	/*
+	 * Reset Action in ErrorTable to XPLMI_EM_ACTION_NONE if previous action is
+	 * not invalid or custom.
+	 */
+	if ((ErrorTable[ErrorId].Action != XPLMI_EM_ACTION_INVALID) &&
+		(ErrorTable[ErrorId].Action != XPLMI_EM_ACTION_CUSTOM)) {
+		ErrorTable[ErrorId].Action = XPLMI_EM_ACTION_NONE;
+	}
 }
 
 /****************************************************************************/
@@ -582,7 +601,6 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 			if (((ErrStatus[ErrIndex] & ErrRegMask) != (u32)FALSE) &&
 				((ErrMask[ErrIndex] & ErrRegMask) == 0x0U) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
-
 				XPlmi_HandlePsmError(XIL_NODETYPE_EVENT_ERROR_PSM_ERR1 +
 					(ErrIndex * XPLMI_EVENT_ERROR_OFFSET),
 					ErrRegMask);
@@ -778,6 +796,14 @@ int XPlmi_ErrorTaskHandler(void *Data)
 						(ErrIndex * XPLMI_EVENT_ERROR_OFFSET), RegMask);
 					ErrorTable[Index].Handler(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
 						(ErrIndex * XPLMI_EVENT_ERROR_OFFSET), RegMask);
+					/*
+					 * Reset Action in ErrorTable to XPLMI_EM_ACTION_NONE if previous action
+					 * is not invalid or custom.
+					 */
+					if ((ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) &&
+						(ErrorTable[Index].Action != XPLMI_EM_ACTION_CUSTOM)) {
+						ErrorTable[Index].Action = XPLMI_EM_ACTION_NONE;
+					}
 				}
 				else {
 					XPlmi_ErrPSMIntrHandler(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
