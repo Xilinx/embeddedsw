@@ -4059,8 +4059,6 @@ static XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem)
 			    (1U == Core->IsCoreIdleSupported)) {
 				XPm_CoreIdle(Core);
 				Status = XST_SUCCESS;
-			} else {
-				Status = XPmCore_ForcePwrDwn(DeviceId);
 			}
 		}
 		Reqm = Reqm->NextDevice;
