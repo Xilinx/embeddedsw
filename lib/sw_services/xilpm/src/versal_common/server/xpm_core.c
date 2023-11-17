@@ -139,6 +139,8 @@ XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
+	u32 SubsystemId;
+	const XPm_Subsystem *Subsystem;
 
 	if (1U == Core->isCoreUp) {
 		Status = XPM_ERR_WAKEUP;
@@ -178,7 +180,19 @@ XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 		goto done;
 	}
 
-	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
+	SubsystemId = XPmDevice_GetSubsystemIdOfCore(&Core->Device);
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	/**
+	 * Mark core as pending power down if subsystem restart or force power
+	 * down is pending.
+	 */
+	if ((NULL != Subsystem) && (((u8)PENDING_RESTART == Subsystem->State) ||
+	   ((u8)PENDING_POWER_OFF == Subsystem->State))) {
+		Core->Device.Node.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN;
+	} else {
+		Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
+	}
+
 	Core->isCoreUp = 1;
 	/* Send notification about core state change */
 	XPmNotifier_Event(Core->Device.Node.Id, (u32)EVENT_STATE_CHANGE);
@@ -191,6 +205,8 @@ XStatus XPmCore_AfterDirectWakeUp(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
+	u32 SubsystemId;
+	const XPm_Subsystem *Subsystem;
 
 	if ((u32)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
 		Status = XST_SUCCESS;
@@ -212,7 +228,19 @@ XStatus XPmCore_AfterDirectWakeUp(XPm_Core *Core)
 		}
 	}
 
-	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
+	SubsystemId = XPmDevice_GetSubsystemIdOfCore(&Core->Device);
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	/**
+	 * Mark core as pending power down if subsystem restart or force power
+	 * down is pending.
+	 */
+	if ((NULL != Subsystem) && (((u8)PENDING_RESTART == Subsystem->State) ||
+	   ((u8)PENDING_POWER_OFF == Subsystem->State))) {
+		Core->Device.Node.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN;
+	} else {
+		Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
+	}
+
 	Core->isCoreUp = 1;
 	Status = XST_SUCCESS;
 	/* Send notification about core state change */
