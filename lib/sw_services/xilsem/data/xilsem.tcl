@@ -20,6 +20,8 @@
 # 1.10	hv   02/14/23 Added support to get number of SLRs from the design
 # 1.11	rv   04/20/23 Added support for psxl IP name
 # 1.12	rv   05/11/23 Added support for Versal-net device
+# 1.13  anv  10/10/23 Added support to enable SSIT feature
+#                     based on Number of SLRs from the design
 ##############################################################################
 
 #---------------------------------------------
@@ -146,6 +148,10 @@ proc xgen_opts_file {libhandle} {
 	      set SlrCount [common::get_property NUM_OF_SLRS $part]
 	      puts $file_handle "\n/** Maximum number of SLRs on SSIT device */"
 	      puts $file_handle "#define XSEM_SSIT_MAX_SLR_CNT       $SlrCount"
+              if {$SlrCount > 1} {
+              puts $file_handle "\n/** Enable SSIT device */"
+              puts $file_handle "\#define XILSEM_ENABLE_SSIT"
+              }
 	  }
 
 	  puts $file_handle ""
