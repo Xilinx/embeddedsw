@@ -4055,11 +4055,17 @@ static XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem)
 				Status = XST_INVALID_PARAM;
 				goto done;
 			}
-			if ((1U == Core->isCoreUp) &&
-			    (1U == Core->IsCoreIdleSupported)) {
+			if (1U == Core->IsCoreIdleSupported) {
 				XPm_CoreIdle(Core);
-				Status = XST_SUCCESS;
+			} else if (((u32)XPM_NODETYPE_DEV_CORE_APU ==
+				   NODETYPE(DeviceId)) &&
+				   (1U == Core->isCoreUp)) {
+				XPm_CoreIdle(Core);
+			} else {
+				/* Required by MISRA */
 			}
+			Status = XST_SUCCESS;
+
 		}
 		Reqm = Reqm->NextDevice;
 	}
