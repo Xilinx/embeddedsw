@@ -115,6 +115,7 @@ extern "C" {
  */
 #define IPI_PMC_IER				(IPI_BASEADDR + 0x20018U)
 #define IPI_PMC_IDR				(IPI_BASEADDR + 0x2001CU)
+#define IPI_ISR_OFFSET				(0x10U)
 
 #define RPU_0_CFG_OFFSET					(0x00000000U)
 #define RPU_1_CFG_OFFSET					(0x00000000U)
