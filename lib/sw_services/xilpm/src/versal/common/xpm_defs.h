@@ -473,6 +473,7 @@ enum XPmNotifyEvent {
  * State arguments of the self suspend
  */
 #define PM_SUSPEND_STATE_CPU_IDLE		0x0U
+#define PM_SUSPEND_STATE_CPU_OFF		0x1U
 #define PM_SUSPEND_STATE_SUSPEND_TO_RAM		0xFU
 /** @} */
 
@@ -623,8 +624,8 @@ enum XPmNotifyEvent {
 #define XST_API_PM_IOCTL_VERSION		(3U)
 #define XST_API_PM_FEATURE_CHECK_VERSION	(2U)
 
-/* Version 2 supports the CPU idling feature during force power down */
-#define XST_API_SELF_SUSPEND_VERSION		(2U)
+/* Version 3 supports the CPU idling feature during force power down */
+#define XST_API_SELF_SUSPEND_VERSION		(3U)
 #define XST_API_FORCE_POWERDOWN_VERSION		(2U)
 /*
  * Version 2 supports some extra security checks for REQ_ACCESS_SECURE

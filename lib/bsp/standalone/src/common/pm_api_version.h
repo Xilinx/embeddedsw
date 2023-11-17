@@ -32,9 +32,10 @@
  * | ^				| ^	| ^		| ^	 | V2 - Added support of event management functionality			     |
  * | ^				| ^	| ^		| ^	 | Note: V2 is supported in Versal but ZynqMP supports only V1		     |
  * | PM_REQUEST_SUSPEND		| 0x6	| Both		| 1	 | The API is used to send suspend request to another subsystem		     |
- * | PM_SELF_SUSPEND		| 0x7	| Both		| 2	 | V1 - The API is used to suspend a child subsystem			     |
+ * | PM_SELF_SUSPEND		| 0x7	| Both		| 3	 | V1 - The API is used to suspend a child subsystem			     |
  * | ^				| ^	| ^		| ^	 | V2 - Added support of cpu idle functionality during force powerdown	     |
- * | ^				| ^	| ^		| ^	 | Note: V2 is supported in Versal but ZynqMP supports only V1		     |
+ * | ^				| ^	| ^		| ^	 | V3 - Added support of CPU off state					     |
+ * | ^				| ^	| ^		| ^	 | Note: V3 is supported in Versal and Versal NET but ZynqMP supports only V1|
  * | PM_FORCE_POWERDOWN		| 0x8	| Both		| 2	 | V1 - The API is used to Powerdown other processor or node		     |
  * | ^				| ^	| ^		| ^	 | V2 - Added support of cpu idle functionality	during force powerdown	     |
  * | ^				| ^	| ^		| ^	 | Note: V2 is supported in Versal but ZynqMP supports only V1		     |
