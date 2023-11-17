@@ -4305,6 +4305,58 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Handler for subsystem restart timer event
+ *
+ * @param Data	Node ID of subsystem for which subsystem restart called
+ *
+ * @return XST_SUCCESS in case of success and error code in case of failure
+ *
+ * @note   none
+ *
+ ****************************************************************************/
+int XPm_SubsysRstTimerHandler(void *Data)
+{
+	int Status = XST_FAILURE;
+	const XPm_Subsystem *Subsystem;
+	u32 NodeId = (u32)Data;
+	const XPm_Device *Ipi;
+	u32 IpiIsrVal;
+
+	Subsystem = XPmSubsystem_GetById(NodeId);
+	if (NULL == Subsystem) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	if ((u8)PENDING_RESTART != Subsystem->State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/**
+	 * Clear pending idle callback status. In case of Linux hang, Linux
+	 * will not clear IPI ISR register. So clear from here to re-send idle
+	 * callback to TF-A.
+	 */
+	for (NodeId = PM_DEV_IPI_0; NodeId <= PM_DEV_IPI_6; NodeId++) {
+		Ipi = XPmDevice_GetById(NodeId);
+		if (NULL != Ipi) {
+			IpiIsrVal = XPm_Read32(Ipi->Node.BaseAddress +
+					       IPI_ISR_OFFSET);
+			if (0U != (IpiIsrVal & PMC_IPI_MASK)) {
+				XPm_Write32(Ipi->Node.BaseAddress + IPI_ISR_OFFSET,
+					    (IpiIsrVal & PMC_IPI_MASK));
+			}
+		}
+	}
+
+	Status = XPm_SubsystemIdleCores(Subsystem);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function can be used to send restart CPU idle callback to
  * 	   subsystem to idle cores before subsystem restart
  *
@@ -4415,7 +4467,14 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 				goto done;
 			}
 
-			/* TODO: Need to add recovery handling if subsystem not responding */
+			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
+							XPm_SubsysRstTimerHandler,
+							NULL,
+							XPM_PWR_DWN_TIMEOUT,
+							XPLM_TASK_PRIORITY_1,
+							(void *)SubsystemId,
+							XPLMI_NON_PERIODIC_TASK);
+
 		} else {
 			Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
 			if (XST_SUCCESS != Status) {
