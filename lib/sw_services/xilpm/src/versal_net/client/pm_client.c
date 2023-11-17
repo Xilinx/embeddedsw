@@ -461,8 +461,16 @@ void XPm_ClientAbortSuspend(void)
 
 static void CpuIdleCallback(XPm_Notifier* const notifier)
 {
-    XPm_ClientSuspend(PrimaryProc);
-    XPm_ClientSuspendFinalize();
+	XStatus Status = XST_FAILURE;
+
+	Status = XPm_SelfSuspend(notifier->node, XPM_MAX_LATENCY,
+				 PM_SUSPEND_STATE_CPU_OFF, 0U);
+	if (XST_SUCCESS != Status) {
+		XPm_Err("%s: Error in Self suspend: %d\n", __func__, Status);
+		return;
+	}
+
+	XPm_ClientSuspendFinalize();
 }
 
 XPm_Notifier IdleNotifier = {
