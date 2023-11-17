@@ -3733,6 +3733,7 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	}
 
 	if ((PM_SUSPEND_STATE_SUSPEND_TO_RAM != State) &&
+	    (PM_SUSPEND_STATE_CPU_OFF != State) &&
 	    (PM_SUSPEND_STATE_CPU_IDLE != State)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -3774,7 +3775,12 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	}
 
 	ENABLE_WFI(Core->SleepMask);
-	Core->Device.Node.State = (u8)XPM_DEVSTATE_SUSPENDING;
+
+	if (PM_SUSPEND_STATE_CPU_OFF == State) {
+		Core->Device.Node.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN;
+	} else {
+		Core->Device.Node.State = (u8)XPM_DEVSTATE_SUSPENDING;
+	}
 
 	XPm_ClearScanClear();
 
@@ -4020,7 +4026,6 @@ done:
 
 static void XPm_CoreIdle(XPm_Core *Core)
 {
-	ENABLE_WFI(Core->SleepMask);
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN;
 	XPmNotifier_Event(Core->Device.Node.Id,
 			  (u8)EVENT_CPU_IDLE_FORCE_PWRDWN);
