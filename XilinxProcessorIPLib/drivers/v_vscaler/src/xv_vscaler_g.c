@@ -4,8 +4,9 @@
 * SPDX-License-Identifier: MIT
 *******************************************************************/
 
-
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xv_vscaler.h"
 
 #ifndef SDT
