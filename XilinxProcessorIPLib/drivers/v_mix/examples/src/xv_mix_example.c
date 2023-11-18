@@ -75,6 +75,10 @@
 #warning No GIC Device ID found
 #endif
 
+#ifdef XPAR_XV_FRMBUF_RD_NUM_INSTANCES
+#define XPAR_XV_FRMBUFRD_NUM_INSTANCES XPAR_XV_FRMBUF_RD_NUM_INSTANCES
+#endif
+
 #ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
 #include "xv_frmbufrd_l2.h"
 extern XV_frmbufrd_Config XV_frmbufrd_ConfigTable[];
@@ -116,7 +120,11 @@ u32 volatile *gpio_hlsIpReset;
 #ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
 typedef struct {
   XV_FrmbufRd_l2 Inst;
+#ifndef SDT
   u32            DeviceId;
+#else
+  UINTPTR        BaseAddress;
+#endif
 } FrmbufInst;
 
 FrmbufInst FBLayer[XPAR_XV_FRMBUFRD_NUM_INSTANCES];
@@ -308,6 +316,7 @@ static int DriverInit(void)
     FBLayer[count].DeviceId = XV_frmbufrd_ConfigTable[count].DeviceId;
     Status = XVFrmbufRd_Initialize(&FBLayer[count].Inst, FBLayer[count].DeviceId);
 #else
+    FBLayer[count].BaseAddress = XV_frmbufrd_ConfigTable[count].BaseAddress;
     Status = XVFrmbufRd_Initialize(&FBLayer[count].Inst, FBLayer[count].BaseAddress);
 #endif
     if(Status != XST_SUCCESS) {
