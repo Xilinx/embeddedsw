@@ -64,4 +64,11 @@ examples:
    xqspipsu_generic_flash_lqspi_example.c:
     - dependency_files:
         - xqspipsu_flash_config.h
+   xqspipsu_generic_nand_flash_interrupt_example.c:
+    - dependency_files:
+        - xqspipsu_flash_config.h
+    - interrupts
+   xqspipsu_generic_nand_flash_polled_example.c:
+    - dependency_files:
+        - xqspipsu_flash_config.h
 ...
