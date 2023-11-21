@@ -84,14 +84,14 @@
 #define AXIETHERNET_DEVICE_ID	XPAR_AXIETHERNET_0_DEVICE_ID
 
 #define AVB_PTP_RX_INTERRUPT_ID  \
-XPAR_INTC_0_AXIETHERNET_0_AV_INTERRUPT_PTP_RX_VEC_ID  	/*
+	XPAR_INTC_0_AXIETHERNET_0_AV_INTERRUPT_PTP_RX_VEC_ID  	/*
 							 * AVB PTP Received
 							 * Frame Interrupt ID
-							 */
+*/
 #define AVB_PTP_INTERRUPT_ID     \
-XPAR_INTC_0_AXIETHERNET_0_AV_INTERRUPT_10MS_VEC_ID  	/* AVB PTP Timer
+	XPAR_INTC_0_AXIETHERNET_0_AV_INTERRUPT_10MS_VEC_ID  	/* AVB PTP Timer
 							 * Interrupt ID
-							 */
+*/
 
 /*
  * Other constants used in this file.
@@ -99,7 +99,6 @@ XPAR_INTC_0_AXIETHERNET_0_AV_INTERRUPT_10MS_VEC_ID  	/* AVB PTP Timer
 
 #define PHY_DETECT_REG  	1
 #define PHY_DETECT_MASK 	0x1808
-
 
 #define PHY_R0_RESET		0x8000
 #define PHY_R0_LOOPBACK		0x4000
@@ -126,14 +125,13 @@ XPAR_INTC_0_AXIETHERNET_0_AV_INTERRUPT_10MS_VEC_ID  	/* AVB PTP Timer
 /************************** Function Prototypes ******************************/
 
 static int AvbSetupInterruptSystem(XAvb *InstancePtr);
-static int AvbConfigHW(XAxiEthernet *AxiEthernetInstancePtr,XAvb *InstancePtr);
+static int AvbConfigHW(XAxiEthernet *AxiEthernetInstancePtr, XAvb *InstancePtr);
 void AvbGMDiscontinuityHandler(void *CallBackRef, u32 TimestampsUncertain);
 static int AvbConfigureGmii(XAxiEthernet *InstancePtr, XAvb *AvbInstancePtr);
 static int AvbEnterPhyLoopBack(XAxiEthernet *InstancePtr);
 static void AvbUtilPhyDelay(unsigned int Seconds);
 static void AvbEnablePTPInterrupts(void);
 static void AvbUtilPrintMessage(char *Message);
-
 
 static XAxiEthernet AxiEthernetInstance; /* Instance of Axi Ethernet driver */
 static XAvb Avb; 			 /* Instance of AVB driver */
@@ -181,8 +179,8 @@ int main()
 	 */
 	AxiEtherCfgPtr = XAxiEthernet_LookupConfig(AXIETHERNET_DEVICE_ID);
 	Status = XAxiEthernet_CfgInitialize(&AxiEthernetInstance,
-					AxiEtherCfgPtr,
-					AxiEtherCfgPtr->BaseAddress);
+					    AxiEtherCfgPtr,
+					    AxiEtherCfgPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		AvbUtilPrintMessage("Failed initializing config for Axi Ethernet\r\n");
 		AvbUtilPrintMessage("--- Exiting main() ---\r\n");
@@ -223,7 +221,6 @@ int main()
 		return XST_FAILURE;
 	}
 
-
 	/*
 	 * Initialize Interrupt Controller
 	 */
@@ -239,9 +236,9 @@ int main()
 	 * TX PTP Buffers
 	 */
 	SystemIdentity.ClockIdentityUpper = (ETH_SYSTEM_ADDRESS_EUI48_HIGH
-								<< 8) | 0xFF;
+					     << 8) | 0xFF;
 	SystemIdentity.ClockIdentityLower = (0xFE << 24) |
-						(ETH_SYSTEM_ADDRESS_EUI48_LOW);
+					    (ETH_SYSTEM_ADDRESS_EUI48_LOW);
 	SystemIdentity.PortNumber = 1;
 
 	/*
@@ -250,7 +247,7 @@ int main()
 	WriteData = (XAvb_ReorderWord(SystemIdentity.ClockIdentityUpper)) << 16;
 	XAvb_WriteToMultipleTxPtpFrames(Avb.Config.BaseAddress,
 					XAVB_PTP_TX_PKT_SA_UPPER_OFFSET,
-					(WriteData & 0xFFFF0000) ,
+					(WriteData & 0xFFFF0000),
 					0xFFFF0000,
 					0x7F);
 
@@ -267,8 +264,7 @@ int main()
 	/*
 	 * Write sourceportidentity to all default TX PTP buffers
 	 */
-	XAvb_SetupSourcePortIdentity(&Avb,SystemIdentity);
-
+	XAvb_SetupSourcePortIdentity(&Avb, SystemIdentity);
 
 	/*
 	 * Start AVB and enable the PTP interrupts.
@@ -276,9 +272,8 @@ int main()
 	XAvb_Start(&Avb);
 	AvbEnablePTPInterrupts();
 
-
-	while(1) {
-		if(EchoPTPFramesReceived) {
+	while (1) {
+		if (EchoPTPFramesReceived) {
 			AvbUtilPrintMessage("\r\nExample passed\r\n");
 			AvbUtilPrintMessage("--- Exiting main() ---\r\n");
 			break;
@@ -286,7 +281,6 @@ int main()
 	}
 	return XST_SUCCESS;
 }
-
 
 /*****************************************************************************/
 /**
@@ -313,31 +307,31 @@ static int AvbConfigHW(XAxiEthernet *AxiEthernetInstancePtr, XAvb *AvbInstancePt
 	 * any MDIO accesses
 	 */
 	XAxiEthernet_WriteReg(AxiEthernetInstancePtr->Config.BaseAddress,
-						XAE_MDIO_MC_OFFSET,0x0000005D);
+			      XAE_MDIO_MC_OFFSET, 0x0000005D);
 
 	/*
 	 * Disable Axi Ethernet Flow Control
 	 */
 	XAxiEthernet_WriteReg(AxiEthernetInstancePtr->Config.BaseAddress,
-						XAE_FCC_OFFSET,0x0);
+			      XAE_FCC_OFFSET, 0x0);
 
 	/*
 	 * Initialise Axi Ethernet by enabling Tx and Rx with VLAN capability
 	 */
 	XAxiEthernet_WriteReg(AxiEthernetInstancePtr->Config.BaseAddress,
-			XAE_TC_OFFSET,XAE_TC_TX_MASK | XAE_TC_VLAN_MASK);
+			      XAE_TC_OFFSET, XAE_TC_TX_MASK | XAE_TC_VLAN_MASK);
 	XAxiEthernet_WriteReg(AxiEthernetInstancePtr->Config.BaseAddress,
-		XAE_RCW1_OFFSET, XAE_RCW1_RX_MASK | XAE_RCW1_VLAN_MASK);
+			      XAE_RCW1_OFFSET, XAE_RCW1_RX_MASK | XAE_RCW1_VLAN_MASK);
 
 	/*
 	 * Initialise RTC reference clock for nominal frequency 125MHz -
 	 * (see xavb_hw.h for value)
 	 */
 	XAvb_WriteReg(AvbInstancePtr->Config.BaseAddress,
-				XAVB_RTC_INCREMENT_OFFSET,
-				XAVB_RTC_INCREMENT_NOMINAL_RATE);
+		      XAVB_RTC_INCREMENT_OFFSET,
+		      XAVB_RTC_INCREMENT_NOMINAL_RATE);
 
-	Status = AvbConfigureGmii(AxiEthernetInstancePtr,AvbInstancePtr);
+	Status = AvbConfigureGmii(AxiEthernetInstancePtr, AvbInstancePtr);
 	return Status;
 }
 
@@ -365,7 +359,7 @@ static int AvbConfigureGmii(XAxiEthernet *InstancePtr, XAvb *AvbInstancePtr)
 	 * Set PHY to loopback.
 	 */
 	Status = AvbEnterPhyLoopBack(InstancePtr);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		XAvb_Stop(AvbInstancePtr);
 		return XST_FAILURE;
 	}
@@ -375,11 +369,11 @@ static int AvbConfigureGmii(XAxiEthernet *InstancePtr, XAvb *AvbInstancePtr)
 	 * zero out speed bits
 	 */
 	EmmcReg = XAxiEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-							XAE_EMMC_OFFSET);
+				       XAE_EMMC_OFFSET);
 	EmmcReg = EmmcReg & (~XAE_EMMC_LINKSPEED_MASK);
 	EmmcReg |= XAE_EMMC_LINKSPD_1000;
 	XAxiEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-						XAE_EMMC_OFFSET,EmmcReg);
+			      XAE_EMMC_OFFSET, EmmcReg);
 
 	/*
 	 * Setting the operating speed of the MAC needs a delay.  There
@@ -414,16 +408,17 @@ static int AvbEnterPhyLoopBack(XAxiEthernet *InstancePtr)
 
 	for (PhyAddr = 31; PhyAddr >= 0; PhyAddr--) {
 		XAxiEthernet_PhyRead(&AxiEthernetInstance, PhyAddr,
-						PHY_DETECT_REG, &PhyReg);
+				     PHY_DETECT_REG, &PhyReg);
 		if ((PhyReg != 0xFFFF) && ((PhyReg & PHY_DETECT_MASK)
-						== PHY_DETECT_MASK)) {
+					   == PHY_DETECT_MASK)) {
 			/* Found a valid PHY address */
 			break;
 		}
 	}
 
-	if(PhyAddr == 0)
+	if (PhyAddr == 0) {
 		return XST_FAILURE;
+	}
 	/*
 	 * Clear the PHY of any existing bits by zeroing this out
 	 */
@@ -434,11 +429,11 @@ static int AvbEnterPhyLoopBack(XAxiEthernet *InstancePtr)
 	 * Set the speed and put the PHY in reset, then put the PHY in loopback
 	 */
 	XAxiEthernet_PhyWrite(&AxiEthernetInstance, PhyAddr, 0,
-						PhyReg0 | PHY_R0_RESET);
+			      PhyReg0 | PHY_R0_RESET);
 	AvbUtilPhyDelay(1);
-	XAxiEthernet_PhyRead(&AxiEthernetInstance, PhyAddr, 0,&PhyReg0);
+	XAxiEthernet_PhyRead(&AxiEthernetInstance, PhyAddr, 0, &PhyReg0);
 	XAxiEthernet_PhyWrite(&AxiEthernetInstance, PhyAddr, 0,
-						PhyReg0 | PHY_R0_LOOPBACK);
+			      PhyReg0 | PHY_R0_LOOPBACK);
 	AvbUtilPhyDelay(1);
 
 	return XST_SUCCESS;
@@ -475,14 +470,13 @@ static int AvbSetupInterruptSystem(XAvb *InstancePtr)
 		return XST_FAILURE;
 	}
 
-
 	/*
 	 * Connect the Ethernet AVB Endpoint's 10 ms interrupt
 	 */
 	Status = XIntc_Connect(&InterruptController,
-			AVB_PTP_INTERRUPT_ID,
-			(XInterruptHandler)XAvb_PtpTimerInterruptHandler,
-			InstancePtr);
+			       AVB_PTP_INTERRUPT_ID,
+			       (XInterruptHandler)XAvb_PtpTimerInterruptHandler,
+			       InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -491,9 +485,9 @@ static int AvbSetupInterruptSystem(XAvb *InstancePtr)
 	 * Connect the Ethernet AVB Endpoint's PTP Rx interrupt
 	 */
 	Status = XIntc_Connect(&InterruptController,
-			AVB_PTP_RX_INTERRUPT_ID,
-			(XInterruptHandler)XAvb_PtpRxInterruptHandler,
-			InstancePtr);
+			       AVB_PTP_RX_INTERRUPT_ID,
+			       (XInterruptHandler)XAvb_PtpRxInterruptHandler,
+			       InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -512,8 +506,8 @@ static int AvbSetupInterruptSystem(XAvb *InstancePtr)
 	 */
 	Xil_ExceptionInit();
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XIntc_InterruptHandler,
-				(void *)&InterruptController);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     (void *)&InterruptController);
 	Xil_ExceptionEnable();
 
 	return XST_SUCCESS;
@@ -564,11 +558,10 @@ static void AvbEnablePTPInterrupts(void)
 void AvbGMDiscontinuityHandler(void *CallBackRef, u32 TimestampsUncertain)
 {
 
-  xil_printf("\r\nGMDiscontinuityHandler: Timestamps are now %s\r\n",
-		TimestampsUncertain ? "uncertain" : "certain");
+	xil_printf("\r\nGMDiscontinuityHandler: Timestamps are now %s\r\n",
+		   TimestampsUncertain ? "uncertain" : "certain");
 
 }
-
 
 /******************************************************************************/
 /**
@@ -596,16 +589,16 @@ static void AvbUtilPhyDelay(unsigned int Seconds)
 	}
 
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
-    __asm__ __volatile__ ("\n"
-			"1:               \n\t"
-			"addik r7, r0, %0 \n\t"
-			"2:               \n\t"
-			"addik r7, r7, -1 \n\t"
-			"bneid  r7, 2b    \n\t"
-			"or  r0, r0, r0   \n\t"
-			"bneid %1, 1b     \n\t"
-			"addik %1, %1, -1 \n\t"
-			:: "i"(ITERS_PER_SEC), "d" (Seconds));
+	__asm__ __volatile__ ("\n"
+			      "1:               \n\t"
+			      "addik r7, r0, %0 \n\t"
+			      "2:               \n\t"
+			      "addik r7, r7, -1 \n\t"
+			      "bneid  r7, 2b    \n\t"
+			      "or  r0, r0, r0   \n\t"
+			      "bneid %1, 1b     \n\t"
+			      "addik %1, %1, -1 \n\t"
+			      :: "i"(ITERS_PER_SEC), "d" (Seconds));
 
 }
 

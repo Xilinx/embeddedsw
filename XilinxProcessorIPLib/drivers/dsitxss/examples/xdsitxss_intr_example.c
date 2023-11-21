@@ -1,4 +1,5 @@
 /******************************************************************************
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -56,7 +57,7 @@ u32 DsiTxSs_IntrExample(u32 DeviceId);
 u32 DsiTxSs_SetupIntrSystem(void);
 void XDsiTxSs_IntrHandler(void *InstancePtr);
 u32 XDsiTxSs_SetCallback(XDsiTxSs *InstancePtr, u32 HandlerType,
-				void *CallbackFunc, void *CallbackRef);
+			 void *CallbackFunc, void *CallbackRef);
 void XDsiTxSs_SetGlobalInterrupt(void *InstancePtr);
 void XDsiTxSs_InterruptEnable(void *InstancePtr, u32 Mask);
 
@@ -144,16 +145,16 @@ void Delay(u32 Seconds)
 	}
 
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
-    __asm__ __volatile__ ("\n"
-			"1:               \n\t"
-			"addik r7, r0, %0 \n\t"
-			"2:               \n\t"
-			"addik r7, r7, -1 \n\t"
-			"bneid  r7, 2b    \n\t"
-			"or  r0, r0, r0   \n\t"
-			"bneid %1, 1b     \n\t"
-			"addik %1, %1, -1 \n\t"
-			:: "i"(ITERS_PER_SEC), "d" (Seconds));
+	__asm__ __volatile__ ("\n"
+			      "1:               \n\t"
+			      "addik r7, r0, %0 \n\t"
+			      "2:               \n\t"
+			      "addik r7, r7, -1 \n\t"
+			      "bneid  r7, 2b    \n\t"
+			      "or  r0, r0, r0   \n\t"
+			      "bneid %1, 1b     \n\t"
+			      "addik %1, %1, -1 \n\t"
+			      :: "i"(ITERS_PER_SEC), "d" (Seconds));
 #else
 	sleep(Seconds);
 #endif
@@ -185,11 +186,11 @@ s32 SetupInterruptSystem(XDsiTxSs *DsiTxSsPtr)
 
 	/* Setup call back handlers */
 	XDsiTxSs_SetCallback(DsiTxSsPtr, XDSITXSS_HANDLER_UNSUPPORT_DATATYPE,
-				DsiTxSs_UnSupportDataEventHandler, DsiTxSsPtr);
+			     DsiTxSs_UnSupportDataEventHandler, DsiTxSsPtr);
 	XDsiTxSs_SetCallback(DsiTxSsPtr, XDSITXSS_HANDLER_PIXELDATA_UNDERRUN,
-				DsiTxSs_PixelUnderrunEventHandler, DsiTxSsPtr);
+			     DsiTxSs_PixelUnderrunEventHandler, DsiTxSsPtr);
 	XDsiTxSs_SetCallback(DsiTxSsPtr, XDSITXSS_HANDLER_CMDQ_FIFOFULL,
-				DsiTxSs_CmdQFIFOFullEventHandler, DsiTxSsPtr);
+			     DsiTxSs_CmdQFIFOFullEventHandler, DsiTxSsPtr);
 
 	/*
 	 * Initialize the interrupt controller driver so that it is ready to
@@ -206,8 +207,8 @@ s32 SetupInterruptSystem(XDsiTxSs *DsiTxSsPtr)
 	 * specific interrupt processing for the device.
 	 */
 	Status = XIntc_Connect(&InterruptController, XINTC_DSITXSS_INTERRUPT_ID,
-				(XInterruptHandler)XDsiTxSs_IntrHandler,
-				(void *)DsiTxSsPtr);
+			       (XInterruptHandler)XDsiTxSs_IntrHandler,
+			       (void *)DsiTxSsPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -227,8 +228,8 @@ s32 SetupInterruptSystem(XDsiTxSs *DsiTxSsPtr)
 	Xil_ExceptionInit();
 
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			 (Xil_ExceptionHandler)XIntc_InterruptHandler,
-			 &InterruptController);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     &InterruptController);
 
 	Xil_ExceptionEnable();
 
@@ -299,14 +300,13 @@ u32 DsiTxSs_IntrExample(u32 DeviceId)
 	 */
 
 	do {
-	    Delay(1);
-	    Exit_Count++;
-	    if(Exit_Count > 3) {
-		xil_printf("DSI TXInterrupt test failed \r\n");
-		return XST_FAILURE;
-	    }
-	}
-	while(data_err_flag && pixel_underrun_flag && cmdq_fifo_full_flag);
+		Delay(1);
+		Exit_Count++;
+		if (Exit_Count > 3) {
+			xil_printf("DSI TXInterrupt test failed \r\n");
+			return XST_FAILURE;
+		}
+	} while (data_err_flag && pixel_underrun_flag && cmdq_fifo_full_flag);
 
 	return XST_SUCCESS;
 }

@@ -140,7 +140,7 @@ void AxiEthernetUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
 *
 ******************************************************************************/
 void AxiEthernetUtilFrameSetPayloadData(EthernetFrame *FramePtr,
-							int PayloadSize)
+					int PayloadSize)
 {
 	unsigned BytesLeft = PayloadSize;
 	u8 *Frame;
@@ -166,8 +166,9 @@ void AxiEthernetUtilFrameSetPayloadData(EthernetFrame *FramePtr,
 		*Frame++ = (u8) (Counter >> 8);	/* high */
 		BytesLeft--;
 
-		if (!BytesLeft)
+		if (!BytesLeft) {
 			break;
+		}
 
 		*Frame++ = (u8) Counter++;	/* low */
 		BytesLeft--;
@@ -190,7 +191,7 @@ void AxiEthernetUtilFrameSetPayloadData(EthernetFrame *FramePtr,
 *
 ******************************************************************************/
 void AxiEthernetUtilFrameHdrVlanFormatVid(EthernetFrame *FramePtr,
-						u32 VlanNumber,	u32 Vid)
+	u32 VlanNumber,	u32 Vid)
 {
 	char *Frame = (char *) FramePtr;
 
@@ -223,7 +224,7 @@ void AxiEthernetUtilFrameHdrVlanFormatVid(EthernetFrame *FramePtr,
 *
 ******************************************************************************/
 void AxiEthernetUtilFrameHdrVlanFormatType(EthernetFrame *FramePtr,
-						u16 FrameType, u32 VlanNumber)
+	u16 FrameType, u32 VlanNumber)
 {
 	char *Frame = (char *) FramePtr;
 
@@ -261,7 +262,7 @@ void AxiEthernetUtilFrameHdrVlanFormatType(EthernetFrame *FramePtr,
 *
 ******************************************************************************/
 void AxiEthernetUtilFrameSetVlanPayloadData(EthernetFrame *FramePtr,
-					int PayloadSize, u32 VlanNumber)
+	int PayloadSize, u32 VlanNumber)
 {
 	unsigned BytesLeft = PayloadSize;
 	u8 *Frame;
@@ -287,8 +288,9 @@ void AxiEthernetUtilFrameSetVlanPayloadData(EthernetFrame *FramePtr,
 		*Frame++ = (u8) (Counter >> 8);	/* high */
 		BytesLeft--;
 
-		if (!BytesLeft)
+		if (!BytesLeft) {
 			break;
+		}
 
 		*Frame++ = (u8) Counter++;	/* low */
 		BytesLeft--;
@@ -314,8 +316,8 @@ void AxiEthernetUtilFrameSetVlanPayloadData(EthernetFrame *FramePtr,
 * @note		None.
 *
 ******************************************************************************/
-int AxiEthernetUtilFrameVerify(EthernetFrame * CheckFrame,
-			 EthernetFrame * ActualFrame)
+int AxiEthernetUtilFrameVerify(EthernetFrame *CheckFrame,
+			       EthernetFrame *ActualFrame)
 {
 	unsigned char *CheckPtr = (unsigned char *) CheckFrame;
 	unsigned char *ActualPtr = (unsigned char *) ActualFrame;
@@ -346,7 +348,7 @@ int AxiEthernetUtilFrameVerify(EthernetFrame * CheckFrame,
 	while ((0x8100 == BytesLeft) || (0x88A8 == BytesLeft) ||
 	       (0x9100 == BytesLeft) || (0x9200 == BytesLeft)) {
 		Index++;
-		BytesLeft = *(u16 *) &ActualPtr[12+(4*Index)];
+		BytesLeft = *(u16 *) &ActualPtr[12 + (4 * Index)];
 		BytesLeft = Xil_Ntohs(BytesLeft);
 	}
 
@@ -354,7 +356,7 @@ int AxiEthernetUtilFrameVerify(EthernetFrame * CheckFrame,
 	 * Validate the payload
 	 */
 	Counter = 0;
-	ActualPtr = &ActualPtr[14+(4*Index)];
+	ActualPtr = &ActualPtr[14 + (4 * Index)];
 
 	/*
 	 * Check 8 bit incrementing pattern
@@ -377,8 +379,9 @@ int AxiEthernetUtilFrameVerify(EthernetFrame * CheckFrame,
 
 		BytesLeft--;
 
-		if (!BytesLeft)
+		if (!BytesLeft) {
 			break;
+		}
 
 		if (*ActualPtr++ != (u8) Counter++) {	/* low */
 			return XST_FAILURE;
@@ -401,7 +404,7 @@ int AxiEthernetUtilFrameVerify(EthernetFrame * CheckFrame,
 * @note		None.
 *
 ******************************************************************************/
-void AxiEthernetUtilFrameMemClear(EthernetFrame * FramePtr)
+void AxiEthernetUtilFrameMemClear(EthernetFrame *FramePtr)
 {
 	u32 *Data32Ptr = (u32 *) FramePtr;
 	u32 WordsLeft = sizeof(EthernetFrame) / sizeof(u32);
@@ -445,17 +448,17 @@ void AxiEthernetUtilFrameMemClear(EthernetFrame * FramePtr)
  */
 #define PHY_DETECT_MASK 0x1808
 
-u32 AxiEthernetDetectPHY(XAxiEthernet * AxiEthernetInstancePtr)
+u32 AxiEthernetDetectPHY(XAxiEthernet *AxiEthernetInstancePtr)
 {
 	u16 PhyReg;
 	int PhyAddr;
 
 	for (PhyAddr = 31; PhyAddr >= 0; PhyAddr--) {
 		XAxiEthernet_PhyRead(AxiEthernetInstancePtr, PhyAddr,
-						PHY_DETECT_REG, &PhyReg);
+				     PHY_DETECT_REG, &PhyReg);
 
 		if ((PhyReg != 0xFFFF) &&
-		   ((PhyReg & PHY_DETECT_MASK) == PHY_DETECT_MASK)) {
+		    ((PhyReg & PHY_DETECT_MASK) == PHY_DETECT_MASK)) {
 			/* Found a valid PHY address */
 			return PhyAddr;
 		}
@@ -545,7 +548,7 @@ u32 AxiEthernetDetectPHY(XAxiEthernet * AxiEthernetInstancePtr)
 *
 ******************************************************************************/
 int AxiEthernetUtilEnterLoopback(XAxiEthernet *AxiEthernetInstancePtr,
-								int Speed)
+				 int Speed)
 {
 	u16 PhyReg0;
 	signed int PhyAddr;
@@ -574,72 +577,72 @@ int AxiEthernetUtilEnterLoopback(XAxiEthernet *AxiEthernetInstancePtr,
 	}
 
 	XAxiEthernet_PhyRead(AxiEthernetInstancePtr, PhyAddr,
-				PHY_R3_PHY_IDENT_REG, &PhyModel);
+			     PHY_R3_PHY_IDENT_REG, &PhyModel);
 	PhyModel = PhyModel & PHY_MODEL_NUM_MASK;
 
 	/* Clear the PHY of any existing bits by zeroing this out */
 	PhyReg0 = PhyReg20 = PhyReg21 = 0;
 
 	switch (Speed) {
-	case XAE_SPEED_10_MBPS:
-		PhyReg0 |= PHY_R0_DFT_SPD_10;
-		PhyReg20 |= PHY_R20_DFT_SPD_10;
-		PhyReg21 |= PHY_REG21_10;
-		break;
+		case XAE_SPEED_10_MBPS:
+			PhyReg0 |= PHY_R0_DFT_SPD_10;
+			PhyReg20 |= PHY_R20_DFT_SPD_10;
+			PhyReg21 |= PHY_REG21_10;
+			break;
 
-	case XAE_SPEED_100_MBPS:
-		PhyReg0 |= PHY_R0_DFT_SPD_100;
-		PhyReg20 |= PHY_R20_DFT_SPD_100;
-		PhyReg21 |= PHY_REG21_100;
-		break;
+		case XAE_SPEED_100_MBPS:
+			PhyReg0 |= PHY_R0_DFT_SPD_100;
+			PhyReg20 |= PHY_R20_DFT_SPD_100;
+			PhyReg21 |= PHY_REG21_100;
+			break;
 
-	case XAE_SPEED_1000_MBPS:
-		PhyReg0 |= PHY_R0_DFT_SPD_1000;
-		PhyReg20 |= PHY_R20_DFT_SPD_1000;
-		PhyReg21 |= PHY_REG21_1000;
-		break;
+		case XAE_SPEED_1000_MBPS:
+			PhyReg0 |= PHY_R0_DFT_SPD_1000;
+			PhyReg20 |= PHY_R20_DFT_SPD_1000;
+			PhyReg21 |= PHY_REG21_1000;
+			break;
 
-	case XAE_SPEED_2500_MBPS:
-		PhyReg0 |= PHY_R0_DFT_SPD_2500;
-		PhyReg20 |= PHY_R20_DFT_SPD_1000;
-		PhyReg21 |= PHY_REG21_1000;
-		break;
+		case XAE_SPEED_2500_MBPS:
+			PhyReg0 |= PHY_R0_DFT_SPD_2500;
+			PhyReg20 |= PHY_R20_DFT_SPD_1000;
+			PhyReg21 |= PHY_REG21_1000;
+			break;
 
-	default:
-		AxiEthernetUtilErrorTrap("Intg_LinkSpeed not 10, 100, or 1000 mbps");
-		return XST_FAILURE;
+		default:
+			AxiEthernetUtilErrorTrap("Intg_LinkSpeed not 10, 100, or 1000 mbps");
+			return XST_FAILURE;
 	}
 
 	/* RGMII mode Phy specific registers initialization */
 	if ((PhyType == XAE_PHY_TYPE_RGMII_2_0) ||
-		(PhyType == XAE_PHY_TYPE_RGMII_1_3)) {
+	    (PhyType == XAE_PHY_TYPE_RGMII_1_3)) {
 		if (PhyModel == MARVEL_PHY_88E1111_MODEL) {
 			PhyReg20 |= PHY_R20_RX_DLY;
 			/*
 			 * Adding Rx delay. Configuring loopback speed.
 			 */
 			XAxiEthernet_PhyWrite(AxiEthernetInstancePtr,
-						PhyAddr, PHY_R20_EXTND_CTRL_REG,
-						PhyReg20);
+					      PhyAddr, PHY_R20_EXTND_CTRL_REG,
+					      PhyReg20);
 		} else if (PhyModel == MARVEL_PHY_88E1116R_MODEL) {
 			/*
 			 * Switching to PAGE2
 			 */
 			XAxiEthernet_PhyWrite(AxiEthernetInstancePtr,
-						PhyAddr,
-						PHY_R22_PAGE_ADDR_REG, 2);
+					      PhyAddr,
+					      PHY_R22_PAGE_ADDR_REG, 2);
 			/*
 			 * Adding Tx and Rx delay. Configuring loopback speed.
 			 */
 			XAxiEthernet_PhyWrite(AxiEthernetInstancePtr,
-						PhyAddr,
-						PHY_PG2_R21_CTRL_REG, PhyReg21);
+					      PhyAddr,
+					      PHY_PG2_R21_CTRL_REG, PhyReg21);
 			/*
 			 * Switching to PAGE0
 			 */
 			XAxiEthernet_PhyWrite(AxiEthernetInstancePtr,
-						PhyAddr,
-						PHY_R22_PAGE_ADDR_REG, 0);
+					      PhyAddr,
+					      PHY_R22_PAGE_ADDR_REG, 0);
 		}
 		PhyReg0 &= (~PHY_R0_ANEG_ENABLE);
 	}
@@ -647,37 +650,37 @@ int AxiEthernetUtilEnterLoopback(XAxiEthernet *AxiEthernetInstancePtr,
 	/* Configure interface modes */
 	if (PhyModel == MARVEL_PHY_88E1111_MODEL) {
 		if ((PhyType == XAE_PHY_TYPE_RGMII_2_0) ||
-				(PhyType == XAE_PHY_TYPE_RGMII_1_3))  {
+		    (PhyType == XAE_PHY_TYPE_RGMII_1_3))  {
 			XAxiEthernet_PhyWrite(AxiEthernetInstancePtr,
-					PhyAddr, PHY_R27_EXTND_STS_REG,
-					PHY_R27_MAC_CONFIG_RGMII);
+					      PhyAddr, PHY_R27_EXTND_STS_REG,
+					      PHY_R27_MAC_CONFIG_RGMII);
 		} else if (PhyType == XAE_PHY_TYPE_SGMII) {
 			XAxiEthernet_PhyWrite(AxiEthernetInstancePtr,
-					PhyAddr, PHY_R27_EXTND_STS_REG,
-					PHY_R27_MAC_CONFIG_SGMII);
+					      PhyAddr, PHY_R27_EXTND_STS_REG,
+					      PHY_R27_MAC_CONFIG_SGMII);
 		} else if ((PhyType == XAE_PHY_TYPE_GMII) ||
-				(PhyType == XAE_PHY_TYPE_MII)) {
+			   (PhyType == XAE_PHY_TYPE_MII)) {
 			XAxiEthernet_PhyWrite(AxiEthernetInstancePtr,
-					PhyAddr, PHY_R27_EXTND_STS_REG,
-					PHY_R27_MAC_CONFIG_GMII );
+					      PhyAddr, PHY_R27_EXTND_STS_REG,
+					      PHY_R27_MAC_CONFIG_GMII );
 		}
 	}
 
 	/* Set the speed and put the PHY in reset, then put the PHY in loopback */
 	XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr,
-				PHY_R0_CTRL_REG,
-				PhyReg0 | PHY_R0_RESET);
+			      PHY_R0_CTRL_REG,
+			      PhyReg0 | PHY_R0_RESET);
 	AxiEthernetUtilPhyDelay(AXIETHERNET_PHY_DELAY_SEC);
-	XAxiEthernet_PhyRead(AxiEthernetInstancePtr,PhyAddr,
-				PHY_R0_CTRL_REG, &PhyReg0);
+	XAxiEthernet_PhyRead(AxiEthernetInstancePtr, PhyAddr,
+			     PHY_R0_CTRL_REG, &PhyReg0);
 	if (!ExternalLoopback) {
 		XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr,
-					PHY_R0_CTRL_REG,
-					PhyReg0 | PHY_R0_LOOPBACK);
+				      PHY_R0_CTRL_REG,
+				      PhyReg0 | PHY_R0_LOOPBACK);
 	}
 
 	if ((PhyModel == TI_PHY_MODEL) && (PhyType == XAE_PHY_TYPE_SGMII)) {
-		XAxiEthernet_PhyRead(AxiEthernetInstancePtr,PhyAddr,
+		XAxiEthernet_PhyRead(AxiEthernetInstancePtr, PhyAddr,
 				     PHY_R0_CTRL_REG, &PhyReg0);
 		PhyReg0 &= (~PHY_R0_ANEG_ENABLE);
 		XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr,
@@ -686,7 +689,7 @@ int AxiEthernetUtilEnterLoopback(XAxiEthernet *AxiEthernetInstancePtr,
 	}
 
 	if ((PhyType == XAE_PHY_TYPE_SGMII) ||
-		(PhyType == XAE_PHY_TYPE_1000BASE_X)) {
+	    (PhyType == XAE_PHY_TYPE_1000BASE_X)) {
 		AxiEthernetUtilConfigureInternalPhy(AxiEthernetInstancePtr, Speed);
 	}
 
@@ -748,21 +751,21 @@ void AxiEthernetUtilPhyDelay(unsigned int Seconds)
 	}
 
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
-    __asm__ __volatile__ ("\n"
-			"1:               \n\t"
-			"addik r7, r0, %0 \n\t"
-			"2:               \n\t"
-			"addik r7, r7, -1 \n\t"
-			"bneid  r7, 2b    \n\t"
-			"or  r0, r0, r0   \n\t"
-			"bneid %1, 1b     \n\t"
-			"addik %1, %1, -1 \n\t"
-			:: "i"(ITERS_PER_SEC), "d" (Seconds));
+	__asm__ __volatile__ ("\n"
+			      "1:               \n\t"
+			      "addik r7, r0, %0 \n\t"
+			      "2:               \n\t"
+			      "addik r7, r7, -1 \n\t"
+			      "bneid  r7, 2b    \n\t"
+			      "or  r0, r0, r0   \n\t"
+			      "bneid %1, 1b     \n\t"
+			      "addik %1, %1, -1 \n\t"
+			      :: "i"(ITERS_PER_SEC), "d" (Seconds));
 #else
-    sleep(Seconds);
+	sleep(Seconds);
 #endif
 #else
-    sleep(Seconds);
+	sleep(Seconds);
 #endif
 }
 
@@ -797,7 +800,7 @@ int AxiEthernetUtilConfigureInternalPhy(XAxiEthernet *AxiEthernetInstancePtr,
 	/* Clear the PHY of any existing bits by zeroing this out */
 	PhyReg0 = 0;
 	XAxiEthernet_PhyRead(AxiEthernetInstancePtr, PhyAddr,
-				 PHY_R0_CTRL_REG, &PhyReg0);
+			     PHY_R0_CTRL_REG, &PhyReg0);
 
 	PhyReg0 &= (~PHY_R0_ANEG_ENABLE);
 	PhyReg0 &= (~PHY_R0_ISOLATE);
@@ -818,12 +821,12 @@ int AxiEthernetUtilConfigureInternalPhy(XAxiEthernet *AxiEthernetInstancePtr,
 		default:
 			AxiEthernetUtilErrorTrap(
 				"Intg_LinkSpeed not 10, 100, or 1000 mbps\n\r");
-				return XST_FAILURE;
+			return XST_FAILURE;
 	}
 
 	AxiEthernetUtilPhyDelay(1);
 	XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr,
-				PHY_R0_CTRL_REG, PhyReg0);
+			      PHY_R0_CTRL_REG, PhyReg0);
 	return XST_SUCCESS;
 }
 
@@ -843,7 +846,7 @@ int AxiEtherentConfigureTIPhy(XAxiEthernet *AxiEthernetInstancePtr, u32 PhyAddr)
 
 	/* Enable SGMII */
 	XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr, TI_PHY_PHYCTRL,
-	                      TI_PHY_CR_SGMII_EN);
+			      TI_PHY_CR_SGMII_EN);
 	XAxiEthernet_PhyRead(AxiEthernetInstancePtr, PhyAddr, TI_PHY_CFGR2,
 			     &PhyReg14);
 	XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr, TI_PHY_CFGR2,

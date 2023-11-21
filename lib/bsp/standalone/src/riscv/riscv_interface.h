@@ -119,41 +119,41 @@ extern void riscv_scrub(void);                                          /* Scrub
 /* Polling versions of FSL access macros. This makes the FSL access interruptible */
 #define getfsl_interruptible(val, id)       { register unsigned int _item asm("t0");       \
 		__asm__ __volatile__ ("\n1:\n\t.word (" stringify(id) " << 15) | 0x400022AB # rd = %0\n\t" \
-			      "csrr\tt1,0x7C0\n\t"           \
-			      "andi\tt1,t1,0x1\n\t"          \
-			      "bnez\tt1,1b\n"                \
-			      : "=r" (_item) :: "t1");       \
+				      "csrr\tt1,0x7C0\n\t"           \
+				      "andi\tt1,t1,0x1\n\t"          \
+				      "bnez\tt1,1b\n"                \
+				      : "=r" (_item) :: "t1");       \
 		val = _item; }
 
 #define putfsl_interruptible(val, id)       { register unsigned int _item asm("t0") = val; \
 		__asm__ __volatile__ ("\n1:\n\t.word 0x4002B02B | (" stringify(id) " << 7) # rs1 = %0\n\t" \
-			      "csrr\tt1,0x7C0\n\t"             \
-			      "andi\tt1,t1,0x1\n\t"            \
-			      "bnez\tt1,1b\n"                  \
-			      :: "r" (_item) : "t1"); }
+				      "csrr\tt1,0x7C0\n\t"             \
+				      "andi\tt1,t1,0x1\n\t"            \
+				      "bnez\tt1,1b\n"                  \
+				      :: "r" (_item) : "t1"); }
 
 #define cgetfsl_interruptible(val, id)      { register unsigned int _item asm("t0");       \
 		__asm__ __volatile__ ("\n1:\n\t.word (" stringify(id) " << 15) | 0xC00022AB # rd = %0\n\t" \
-			      "csrr\tt1,0x7C0\n\t"           \
-			      "andi\tt1,t1,0x1\n\t"          \
-			      "bnez\tt1,1b\n"                \
-			      : "=r" (_item) :: "t1");       \
+				      "csrr\tt1,0x7C0\n\t"           \
+				      "andi\tt1,t1,0x1\n\t"          \
+				      "bnez\tt1,1b\n"                \
+				      : "=r" (_item) :: "t1");       \
 		val = _item; }
 
 #define cputfsl_interruptible(val, id)      { register unsigned int _item asm("t0") = val; \
 		__asm__ __volatile__ ("\n1:\n\t.word 0xC002B02B | (" stringify(id) " << 7) # rs1 = %0\n\t" \
-			      "csrr\tt1,0x7C0\n\t"           \
-			      "andi\tt1,t1,0x1\n\t"          \
-			      "bnez\tt1,1b\n"                \
-			      :: "r" (_item) : "t1"); }
+				      "csrr\tt1,0x7C0\n\t"           \
+				      "andi\tt1,t1,0x1\n\t"          \
+				      "bnez\tt1,1b\n"                \
+				      :: "r" (_item) : "t1"); }
 
 /* FSL valid and error check macros. */
 #define fsl_isinvalid(result)               __asm__ __volatile__ ("csrr\t%0,0x7C0\n\t"             \
-		"andi\t%0,%0,0x1\n\t"            \
-		: "=r" (result))
+	"andi\t%0,%0,0x1\n\t"            \
+	: "=r" (result))
 #define fsl_iserror(error)                  __asm__ __volatile__ ("csrr\t%0,0x7C0\n\t"             \
-		"andi\t%0,%0,0x2"                \
-		: "=r" (error))
+	"andi\t%0,%0,0x2"                \
+	: "=r" (error))
 /* Pseudo assembler instructions */
 #ifndef XPAR_MICROBLAZE_RISCV_USE_SLEEP
 #define XPAR_MICROBLAZE_RISCV_USE_SLEEP 1

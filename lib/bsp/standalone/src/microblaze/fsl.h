@@ -1,4 +1,5 @@
 /******************************************************************************
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -49,9 +50,9 @@ extern "C" {
 
 #define FSL_NONBLOCKING_EXCEPTION_CONTROL_ATOMIC neca
 
- /**
-  *@endcond
-  */
+/**
+ *@endcond
+ */
 
 /**
 Performs a get function on an input FSL of the MicroBlaze processor
@@ -114,7 +115,6 @@ Performs a put function on an input FSL of the MicroBlaze processor
 @param flags  valid FSL macro flags
 */
 #define tputdfslx(var, flags)        __asm__ __volatile__ ("t" stringify(flags) "putd\t%0" :: "d" (var))
-
 
 #ifdef __cplusplus
 }

@@ -340,8 +340,7 @@ u32 Xil_UpdateMPUConfig(u32 reg_num, INTPTR address, u32 size, u32 attrib)
 			}
 		}
 		Mpu_Config[reg_num].Attribute = attrib;
-	}
-	else {
+	} else {
 		Mpu_Config[reg_num].RegionStatus = 0U;
 		Mpu_Config[reg_num].BaseAddress = 0;
 		Mpu_Config[reg_num].Size = 0U;

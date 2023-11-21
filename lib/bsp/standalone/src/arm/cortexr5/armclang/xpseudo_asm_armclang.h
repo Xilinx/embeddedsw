@@ -49,12 +49,11 @@ extern "C" {
 #define stringify(s)	tostring(s)
 #define tostring(s)	#s
 
-
 /* pseudo assembler instructions */
 #define mfcpsr()	({u32 rval = 0U; \
-			  __asm__ __volatile__ ("mrs %0, cpsr" : "=r" (rval));\
-			  rval;\
-			 })
+		__asm__ __volatile__ ("mrs %0, cpsr" : "=r" (rval));\
+		rval;\
+	})
 
 #define mtcpsr(v) __asm__ __volatile__("msr cpsr,%0\n" : : "r" (v) : "cc")
 
@@ -64,20 +63,18 @@ extern "C" {
 #define cpsief()	__asm__ __volatile__("cpsie	f\n")
 #define cpsidf()	__asm__ __volatile__("cpsid	f\n")
 
-
-
 #define mtgpr(rn, v)	__asm__ __volatile__(\
-			  "mov r" stringify(rn) ", %x0 \n"\
-			  : : "r" (v)\
-			)
+	"mov r" stringify(rn) ", %x0 \n"\
+	: : "r" (v)\
+					 )
 
 #define mfgpr(rn)	({u32 rval; \
-			  __asm__ __volatile__(\
-			    "mov %x0,r" stringify(rn) "\n"\
-			    : "=r" (rval)\
-			  );\
-			  rval;\
-			 })
+		__asm__ __volatile__(\
+				     "mov %x0,r" stringify(rn) "\n"\
+				     : "=r" (rval)\
+				    );\
+		rval;\
+	})
 
 /* memory synchronization operations */
 
@@ -90,57 +87,55 @@ extern "C" {
 /* Data Memory Barrier */
 #define dmb() __asm__ __volatile__ ("dmb" : : : "memory")
 
-
 /* Memory Operations */
 #define ldr(adr)	({u32 rval; \
-			  __asm__ __volatile__(\
-			    "ldr %x0,[%x1]"\
-			    : "=r" (rval) : "r" (adr)\
-			  );\
-			  rval;\
-			 })
-
+		__asm__ __volatile__(\
+				     "ldr %x0,[%x1]"\
+				     : "=r" (rval) : "r" (adr)\
+				    );\
+		rval;\
+	})
 
 #define ldrb(adr)	({u8 rval; \
-			  __asm__ __volatile__(\
-			    "ldrb %x0,[%x1]"\
-			    : "=r" (rval) : "r" (adr)\
-			  );\
-			  rval;\
-			 })
+		__asm__ __volatile__(\
+				     "ldrb %x0,[%x1]"\
+				     : "=r" (rval) : "r" (adr)\
+				    );\
+		rval;\
+	})
 
 #define str(adr, val)	__asm__ __volatile__(\
-			  "str %x0,[%x1]\n"\
-			  : : "r" (val), "r" (adr)\
-			)
+	"str %x0,[%x1]\n"\
+	: : "r" (val), "r" (adr)\
+					  )
 
 #define strb(adr, val)	__asm__ __volatile__(\
-			  "strb %0,[%x1]\n"\
-			  : : "r" (val), "r" (adr)\
-			)
+	"strb %0,[%x1]\n"\
+	: : "r" (val), "r" (adr)\
+					   )
 
 /* Count leading zeroes (clz) */
 #define clz(arg)	({u8 rval; \
-			  __asm__ __volatile__(\
-			    "clz %x0,%x1"\
-			    : "=r" (rval) : "r" (arg)\
-			  );\
-			  rval;\
-			 })
+		__asm__ __volatile__(\
+				     "clz %x0,%x1"\
+				     : "=r" (rval) : "r" (arg)\
+				    );\
+		rval;\
+	})
 
 /* CP15 operations */
 #define mtcp(rn, v)	__asm__ __volatile__(\
-			 "mcr " rn "\n"\
-			 : : "r" (v)\
-			);
+	"mcr " rn "\n"\
+	: : "r" (v)\
+					);
 
 #define mfcp(rn)	({u32 rval = 0U; \
-			 __asm__ __volatile__(\
-			   "mrc " rn "\n"\
-			   : "=r" (rval)\
-			 );\
-			 rval;\
-			 })
+		__asm__ __volatile__(\
+				     "mrc " rn "\n"\
+				     : "=r" (rval)\
+				    );\
+		rval;\
+	})
 
 /************************** Variable Definitions ****************************/
 

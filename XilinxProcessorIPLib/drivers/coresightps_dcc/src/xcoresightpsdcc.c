@@ -84,7 +84,7 @@ void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data)
 	__asm__ __volatile__ ("msr dbgdtrtx_el0, %0" : : "r" (Data));
 #elif defined (__GNUC__) || defined (__ICCARM__)
 	__asm__ __volatile__("mcr p14, 0, %0, c0, c5, 0"
-		     : : "r" (Data));
+			     : : "r" (Data));
 #else
 	{
 		volatile register u32 Reg __asm("cp14:0:c0:c5:0");
@@ -123,7 +123,7 @@ u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 	__asm__ __volatile__ ("mrs %0, dbgdtrrx_el0" : "=r" (Data));
 #elif defined (__GNUC__) || defined (__ICCARM__)
 	__asm__ __volatile__("mrc p14, 0, %0, c0, c5, 0"
-		     : "=r" (Data));
+			     : "=r" (Data));
 #else
 	{
 		volatile register u32 Reg __asm("cp14:0:c0:c5:0");
@@ -134,7 +134,6 @@ u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 
 	return Data;
 }
-
 
 /****************************************************************************/
 /**INLINE
@@ -156,7 +155,7 @@ static INLINE u32 XCoresightPs_DccGetStatus(void)
 	__asm__ __volatile__ ("mrs %0, mdccsr_el0" : "=r" (Status));
 #elif defined (__GNUC__) || defined (__ICCARM__)
 	__asm__ __volatile__("mrc p14, 0, %0, c0, c1, 0"
-		     : "=r" (Status) : : "cc");
+			     : "=r" (Status) : : "cc");
 #else
 	{
 		volatile register u32 Reg __asm("cp14:0:c0:c1:0");

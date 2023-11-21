@@ -43,39 +43,39 @@ extern "C" {
 #define tostring(s)	#s
 
 #define csrw(csr, v)	__asm__ __volatile__(		  \
-			  "csrw " stringify(csr) ", %0\n" \
-			  : : "r" (v)			  \
-			)
+	"csrw " stringify(csr) ", %0\n" \
+	: : "r" (v)			  \
+					 )
 
 #define csrwi(csr, v)	__asm__ __volatile__(				 \
-			  "csrwi " stringify(csr) ", " stringify(v) "\n" \
-			)
+	"csrwi " stringify(csr) ", " stringify(v) "\n" \
+					  )
 
 #define csrr(csr)	({unsigned int rval = 0U;				 \
-			  __asm__ __volatile__("csrr %0," stringify(csr) : "=r" (rval)); \
-			  rval;							 \
-			 })
+		__asm__ __volatile__("csrr %0," stringify(csr) : "=r" (rval)); \
+		rval;							 \
+	})
 
 #define csrsi(csr, v)	__asm__ __volatile__(				 \
-			  "csrsi " stringify(csr) ", " stringify(v) "\n" \
-			)
+	"csrsi " stringify(csr) ", " stringify(v) "\n" \
+					  )
 
 #define csrci(csr, v)	__asm__ __volatile__(				 \
-			  "csrci " stringify(csr) ", " stringify(v) "\n" \
-			)
+	"csrci " stringify(csr) ", " stringify(v) "\n" \
+					  )
 
 #define mtgpr(rn, v)	__asm__ __volatile__(		\
-			  "mv x" stringify(rn) ", %0\n" \
-			  : : "r" (v)			\
-			)
+	"mv x" stringify(rn) ", %0\n" \
+	: : "r" (v)			\
+					 )
 
 #define mfgpr(rn)	({unsigned int rval;		 \
-			  __asm__ __volatile__(		 \
-			    "mv %0,x" stringify(rn) "\n" \
-			    : "=r" (rval)		 \
-			  );				 \
-			  rval;				 \
-			 })
+		__asm__ __volatile__(		 \
+						 "mv %0,x" stringify(rn) "\n" \
+						 : "=r" (rval)		 \
+				    );				 \
+		rval;				 \
+	})
 
 #define fence()		__asm__ __volatile__("fence\n")
 #define fence_i()	__asm__ __volatile__("fence.i\n")
@@ -87,20 +87,20 @@ extern "C" {
 #define ecall()		__asm__ __volatile__("ecall\n")
 
 #define rdtime()	({								\
-				register u32 rval;					\
-				__asm__ __volatile__ ( "rdtime %0" : "=r" (rval));	\
-				 rval;							\
-			})
+		register u32 rval;					\
+		__asm__ __volatile__ ( "rdtime %0" : "=r" (rval));	\
+		rval;							\
+	})
 
 /************** Atomic Macros (Inline Functions) Definitions ****************/
 
 #define atomic(instr, addr, data) ({unsigned int rval;			   \
-				  __asm__ __volatile__(			   \
-				    stringify(instr) " %0, %1, (%2)\n"	   \
-				    : "=r" (rval) : "r" (data), "r" (addr) \
-				  );					   \
-				  rval;					   \
-				 })
+		__asm__ __volatile__(			   \
+			stringify(instr) " %0, %1, (%2)\n"	   \
+			: "=r" (rval) : "r" (data), "r" (addr) \
+				    );					   \
+		rval;					   \
+	})
 
 #define amoswap_w(addr, data) atomic(amoswap.w, addr, data)
 #define amoadd_w(addr, data)  atomic(amoadd.w,  addr, data)
@@ -113,19 +113,19 @@ extern "C" {
 #define amominu_w(addr, data) atomic(amominu.w, addr, data)
 
 #define lr_w(addr) ({unsigned int rval;				  \
-		   __asm__ __volatile__ (			  \
-		     "lr.w\t%0, (%1)\n" : "=r"(rval) : "r" (addr) \
-		   );						  \
-		   rval;					  \
-		  })
+		__asm__ __volatile__ (			  \
+			"lr.w\t%0, (%1)\n" : "=r"(rval) : "r" (addr) \
+				     );						  \
+		rval;					  \
+	})
 
 #define sc_w(addr, data) ({unsigned int rval;			  \
-			 __asm__ __volatile__ (			  \
-			   "sc.w\t%0, %1, (%2)\n"		  \
-			   : "=r"(rval) : "r" (data), "r" (addr)  \
-			 );					  \
-			 rval;					  \
-			})
+		__asm__ __volatile__ (			  \
+			"sc.w\t%0, %1, (%2)\n"		  \
+			: "=r"(rval) : "r" (data), "r" (addr)  \
+				     );					  \
+		rval;					  \
+	})
 
 #if __riscv_xlen == 64
 #define amoswap_d(addr, data) atomic(amoswap.d, addr, data)
@@ -139,19 +139,19 @@ extern "C" {
 #define amominu_d(addr, data) atomic(amominu.d, addr, data)
 
 #define lr_d(addr) ({unsigned int rval;				  \
-		   __asm__ __volatile__ (			  \
-		     "lr.d\t%0, (%1)\n" : "=r"(rval) : "r" (addr) \
-		   );						  \
-		   rval;					  \
-		  })
+		__asm__ __volatile__ (			  \
+			"lr.d\t%0, (%1)\n" : "=r"(rval) : "r" (addr) \
+				     );						  \
+		rval;					  \
+	})
 
 #define sc_d(addr, data) ({unsigned int rval;			  \
-			 __asm__ __volatile__ (			  \
-			   "sc.d\t%0, %1, (%2)\n"		  \
-			   : "=r"(rval) : "r" (data), "r" (addr)  \
-			 );					  \
-			 rval;					  \
-			})
+		__asm__ __volatile__ (			  \
+			"sc.d\t%0, %1, (%2)\n"		  \
+			: "=r"(rval) : "r" (data), "r" (addr)  \
+				     );					  \
+		rval;					  \
+	})
 #endif /* __riscv_xlen == 64 */
 
 /************************** Variable Definitions ****************************/

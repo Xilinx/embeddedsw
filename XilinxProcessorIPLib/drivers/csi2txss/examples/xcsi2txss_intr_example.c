@@ -64,12 +64,12 @@
 #define XINTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
 #define XINTC					XIntc
 #define XINTC_CSI2TXSS_CSI_INTERRUPT_ID	\
-								XPAR_INTC_0_CSI2TXSS_0_VEC_ID
+	XPAR_INTC_0_CSI2TXSS_0_VEC_ID
 #define XINTC_HANDLER			XIntc_InterruptHandler
 #else
 #define XINTC_DEVICE_ID			XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define XINTC_CSI2TXSS_CSI_INTERRUPT_ID	\
-		XPAR_FABRIC_AXI_CSI2TXSS_0_INTERRUPT_INTR
+	XPAR_FABRIC_AXI_CSI2TXSS_0_INTERRUPT_INTR
 #define XINTC					XScuGic
 #define XINTC_HANDLER			XScuGic_InterruptHandler
 #endif
@@ -137,18 +137,18 @@ static void Delay(u32 Seconds)
 	}
 
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
-    __asm__ __volatile__ ("\n"
-			"1:               \n\t"
-			"addik r7, r0, %0 \n\t"
-			"2:               \n\t"
-			"addik r7, r7, -1 \n\t"
-			"bneid  r7, 2b    \n\t"
-			"or  r0, r0, r0   \n\t"
-			"bneid %1, 1b     \n\t"
-			"addik %1, %1, -1 \n\t"
-			:: "i"(ITERS_PER_SEC), "d" (Seconds));
+	__asm__ __volatile__ ("\n"
+			      "1:               \n\t"
+			      "addik r7, r0, %0 \n\t"
+			      "2:               \n\t"
+			      "addik r7, r7, -1 \n\t"
+			      "bneid  r7, 2b    \n\t"
+			      "or  r0, r0, r0   \n\t"
+			      "bneid %1, 1b     \n\t"
+			      "addik %1, %1, -1 \n\t"
+			      :: "i"(ITERS_PER_SEC), "d" (Seconds));
 #else
-    sleep(Seconds);
+	sleep(Seconds);
 #endif
 }
 
@@ -179,7 +179,7 @@ int main()
 	Status = Csi2TxSs_IntrExample(XCSI2TXSS_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("MIPI CSI2Tx Subsystem interrupt example "
-				"failed.");
+			   "failed.");
 		return XST_FAILURE;
 	}
 
@@ -235,10 +235,10 @@ u32 Csi2TxSs_IntrExample(u32 DeviceId)
 	/* Copy the device configuration into the Csi2TxSsInst's Config
 	 * structure. */
 	Status = XCsi2TxSs_CfgInitialize(&Csi2TxSsInst, ConfigPtr,
-					ConfigPtr->BaseAddr);
+					 ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		xil_printf("CSI2TXSS config initialization "
-		"failed.\n\r");
+			   "failed.\n\r");
 		return XST_FAILURE;
 	}
 	/* Dump the configuration */
@@ -271,7 +271,7 @@ u32 Csi2TxSs_IntrExample(u32 DeviceId)
 	Status = Csi2TxSs_SetupIntrSystem(&IntcInst);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: Interrupt system "
-		"setup failed.\n\r");
+			   "setup failed.\n\r");
 		return XST_FAILURE;
 	}
 
@@ -282,14 +282,13 @@ u32 Csi2TxSs_IntrExample(u32 DeviceId)
 	do {
 		Delay(1);
 		Exit_Count++;
-		if(Exit_Count > 3) {
+		if (Exit_Count > 3) {
 			xil_printf("CSI2TXSS Interrupt "
-			" test failed, Please check design\n\r");
+				   " test failed, Please check design\n\r");
 			return XST_FAILURE;
 		}
 
-	}
-	while (interrupt_counts < MAX_INTERRUPT_COUNT);
+	} while (interrupt_counts < MAX_INTERRUPT_COUNT);
 
 	return XST_SUCCESS;
 }
@@ -344,17 +343,17 @@ u32 Csi2TxSs_SetupIntrSystem(XINTC *IntcInstPtr)
 
 	/* Set the interrupt handlers. */
 	XCsi2TxSs_SetCallBack(&Csi2TxSsInst, XCSI2TXSS_HANDLER_WRG_LANE,
-				Csi2TxSs_WrgLaneEventHandler, &Csi2TxSsInst);
+			      Csi2TxSs_WrgLaneEventHandler, &Csi2TxSsInst);
 	XCsi2TxSs_SetCallBack(&Csi2TxSsInst, XCSI2TXSS_HANDLER_GSPFIFO_FULL,
-				Csi2TxSs_GSPFullEventHandler, &Csi2TxSsInst);
+			      Csi2TxSs_GSPFullEventHandler, &Csi2TxSsInst);
 	XCsi2TxSs_SetCallBack(&Csi2TxSsInst, XCSI2TXSS_HANDLER_ULPS,
-				Csi2TxSs_UlpsEventHandler, &Csi2TxSsInst);
+			      Csi2TxSs_UlpsEventHandler, &Csi2TxSsInst);
 	XCsi2TxSs_SetCallBack(&Csi2TxSsInst, XCSI2TXSS_HANDLER_LINEBUF_FULL,
-				Csi2TxSs_LinebufEventHandler, &Csi2TxSsInst);
+			      Csi2TxSs_LinebufEventHandler, &Csi2TxSsInst);
 	XCsi2TxSs_SetCallBack(&Csi2TxSsInst, XCSI2TXSS_HANDLER_WRG_DATATYPE,
-				Csi2TxSs_WrgDTypeEventHandler, &Csi2TxSsInst);
+			      Csi2TxSs_WrgDTypeEventHandler, &Csi2TxSsInst);
 	XCsi2TxSs_SetCallBack(&Csi2TxSsInst, XCSI2TXSS_HANDLER_UNDERRUN_PIXEL,
-				Csi2TxSs_UrunPixelEventHandler, &Csi2TxSsInst);
+			      Csi2TxSs_UrunPixelEventHandler, &Csi2TxSsInst);
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 	/* Initialize the interrupt controller driver so that it's ready to
@@ -368,11 +367,11 @@ u32 Csi2TxSs_SetupIntrSystem(XINTC *IntcInstPtr)
 
 	/* Hook up interrupt service routine */
 	Status = XIntc_Connect(IntcInstPtr, XINTC_CSI2TXSS_CSI_INTERRUPT_ID,
-			(XInterruptHandler)XCsi2TxSs_IntrHandler,
-				&Csi2TxSsInst);
+			       (XInterruptHandler)XCsi2TxSs_IntrHandler,
+			       &Csi2TxSsInst);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: MIPI CSI2TX SS"
-		"interrupt connect  failed!\n\r");
+			   "interrupt connect  failed!\n\r");
 		return XST_FAILURE;
 	}
 
@@ -394,7 +393,7 @@ u32 Csi2TxSs_SetupIntrSystem(XINTC *IntcInstPtr)
 	 * table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)XINTC_HANDLER, IntcInstPtr);
+				     (Xil_ExceptionHandler)XINTC_HANDLER, IntcInstPtr);
 
 	/* Enable exceptions. */
 	Xil_ExceptionEnable();
@@ -411,22 +410,22 @@ u32 Csi2TxSs_SetupIntrSystem(XINTC *IntcInstPtr)
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	XScuGic_SetPriorityTriggerType(IntcInstancePtr,
-			XINTC_CSI2TXSS_CSI_INTERRUPT_ID, 0xA0, 0x3);
+				       XINTC_CSI2TXSS_CSI_INTERRUPT_ID, 0xA0, 0x3);
 	/*
 	 * Connect the device driver handler that will be called when an
 	 * interrupt for the device occurs, the handler defined above performs
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr,
-				XINTC_CSI2TXSS_CSI_INTERRUPT_ID,
-				(Xil_InterruptHandler)XCsi2TxSs_IntrHandler,
-				Csi2TxSsInst);
+				 XINTC_CSI2TXSS_CSI_INTERRUPT_ID,
+				 (Xil_InterruptHandler)XCsi2TxSs_IntrHandler,
+				 Csi2TxSsInst);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: MIPI CSI2TX SS interrupt connect failed!\n\r");
 		return XST_FAILURE;
@@ -444,8 +443,8 @@ u32 Csi2TxSs_SetupIntrSystem(XINTC *IntcInstPtr)
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-				(Xil_ExceptionHandler)XINTC_HANDLER,
-				IntcInstPtr);
+				     (Xil_ExceptionHandler)XINTC_HANDLER,
+				     IntcInstPtr);
 	/*
 	 * Enable interrupts in the Processor.
 	 */
@@ -588,7 +587,7 @@ void Csi2TxSs_WrgDTypeEventHandler(void *InstancePtr, u32 Mask)
 void Csi2TxSs_UrunPixelEventHandler(void *InstancePtr, u32 Mask)
 {
 	xil_printf("+=> Byte stream FIFO starves for Pixel"
-				"during packet transmission.\n\r");
+		   "during packet transmission.\n\r");
 	interrupt_counts++;
 }
 /** @} */
