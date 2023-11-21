@@ -65,6 +65,7 @@
 * 8.1 mus  12/22/22  Removed workaround added to Xil_DCacheInvalidateRange for
 *                    VERSAL NET.
 * 9.0 ml   03/03/23  Add description to fix doxygen warnings.
+* 9.1 ml   11/16/23  Fix compilation errors reported with -std=c2x compiler flag
 * </pre>
 *
 ******************************************************************************/
@@ -145,7 +146,7 @@ void Xil_DCacheDisable(void)
 	register u32 CacheLevel;
 
 	dsb();
-	asm(
+	__asm__(
 	"mov 	x0, #0\n\t"
 #if EL3==1
 	"mrs	x0, sctlr_el3 \n\t"
@@ -269,7 +270,7 @@ void Xil_DCacheDisable(void)
 	/* Wait for Flush to complete */
 	dsb();
 #endif
-	asm(
+	__asm__(
 #if EL3==1
 		"tlbi 	ALLE3\n\t"
 #elif EL1_NONSECURE==1

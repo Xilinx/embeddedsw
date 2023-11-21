@@ -94,6 +94,7 @@
 * 1.10	pm    08/30/21 Update MACRO to fix plm compilation warnings
 * 1.13	pm    01/05/23 Added "xil_util.h" header to use polling logic API
 * 1.14	pm    21/06/23 Added support for system device-tree flow.
+* 1.15  ml    11/16/23 Fix compilation errors reported with -std=c2x compiler flag
 *
 * </pre>
 *
@@ -749,7 +750,7 @@ extern XUsbPsu_Config XUsbPsu_ConfigTable[]; /**< Configuration table */
 								 * aligned
 								 */
 #else
-#define IS_ALIGNED(x, a)	(((x) & ((typeof(x))(a) - 1U)) == 0U)
+#define IS_ALIGNED(x, a)	(((x) & ((__typeof__(x))(a) - 1U)) == 0U)
 /**< parameter aligned */
 #endif
 
@@ -761,9 +762,9 @@ extern XUsbPsu_Config XUsbPsu_ConfigTable[]; /**< Configuration table */
 
 #else
 #define roundup(x, y) (                                 \
-		(((x) + (u32)((typeof(y))(y) - 1U)) / \
-		 (u32)((typeof(y))(y))) * \
-		(u32)((typeof(y))(y))               \
+		(((x) + (u32)((__typeof__(y))(y) - 1U)) / \
+		 (u32)((__typeof__(y))(y))) * \
+		(u32)((__typeof__(y))(y))               \
 		      )	/**< roundup value based on input parameter */
 #endif
 #define DECLARE_DEV_DESC(Instance, desc)			\

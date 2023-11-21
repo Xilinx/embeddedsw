@@ -41,7 +41,7 @@
 #define SHARED_BUF_OFFSET 0x8000UL
 
 #ifndef RPMSG_NO_IPI
-#define _rproc_wait() asm volatile("wfi")
+#define _rproc_wait() __asm__ __volatile__("wfi")
 #endif /* !RPMSG_NO_IPI */
 
 /* Polling information used by remoteproc operations.

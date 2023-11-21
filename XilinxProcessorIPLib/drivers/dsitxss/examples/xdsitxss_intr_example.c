@@ -24,6 +24,7 @@
 *                  CR-965028.
 *     ms  04/05/17 Added tabspace for return statements in functions for
 *                  proper documentation while generating doxygen.
+* 2.4 ml  11/15/23 Fix compilation errors reported with -std=c2x compiler flag
 * </pre>
 *
 ******************************************************************************/
@@ -143,7 +144,7 @@ void Delay(u32 Seconds)
 	}
 
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
-    asm volatile ("\n"
+    __asm__ __volatile__ ("\n"
 			"1:               \n\t"
 			"addik r7, r0, %0 \n\t"
 			"2:               \n\t"
@@ -323,7 +324,7 @@ u32 DsiTxSs_IntrExample(u32 DeviceId)
 * @return	None.
 *
 * @note		Use the DsiTxSs_UnSupportDataEventHandler driver function to set
-* 		this function as the handler for Unsupport data error event.
+* 		this function as the handler for Unsupported data error event.
 *
 ******************************************************************************/
 void DsiTxSs_UnSupportDataEventHandler(void *CallbackRef, u32 Mask)

@@ -84,44 +84,44 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
 /* FSL Access Macros */
 
 /* Blocking Data Read and Write to FSL no. id */
-#define getfsl(val, id)         asm volatile ("get\t%0,rfsl" stringify(id) : "=d" (val))
-#define putfsl(val, id)         asm volatile ("put\t%0,rfsl" stringify(id) :: "d" (val))
+#define getfsl(val, id)         __asm__ __volatile__ ("get\t%0,rfsl" stringify(id) : "=d" (val))
+#define putfsl(val, id)         __asm__ __volatile__ ("put\t%0,rfsl" stringify(id) :: "d" (val))
 
 /* Non-blocking Data Read and Write to FSL no. id */
-#define ngetfsl(val, id)        asm volatile ("nget\t%0,rfsl" stringify(id) : "=d" (val))
-#define nputfsl(val, id)        asm volatile ("nput\t%0,rfsl" stringify(id) :: "d" (val))
+#define ngetfsl(val, id)        __asm__ __volatile__ ("nget\t%0,rfsl" stringify(id) : "=d" (val))
+#define nputfsl(val, id)        __asm__ __volatile__ ("nput\t%0,rfsl" stringify(id) :: "d" (val))
 
 /* Blocking Control Read and Write to FSL no. id */
-#define cgetfsl(val, id)        asm volatile ("cget\t%0,rfsl" stringify(id) : "=d" (val))
-#define cputfsl(val, id)        asm volatile ("cput\t%0,rfsl" stringify(id) :: "d" (val))
+#define cgetfsl(val, id)        __asm__ __volatile__ ("cget\t%0,rfsl" stringify(id) : "=d" (val))
+#define cputfsl(val, id)        __asm__ __volatile__ ("cput\t%0,rfsl" stringify(id) :: "d" (val))
 
 /* Non-blocking Control Read and Write to FSL no. id */
-#define ncgetfsl(val, id)       asm volatile ("ncget\t%0,rfsl" stringify(id) : "=d" (val))
-#define ncputfsl(val, id)       asm volatile ("ncput\t%0,rfsl" stringify(id) :: "d" (val))
+#define ncgetfsl(val, id)       __asm__ __volatile__ ("ncget\t%0,rfsl" stringify(id) : "=d" (val))
+#define ncputfsl(val, id)       __asm__ __volatile__ ("ncput\t%0,rfsl" stringify(id) :: "d" (val))
 
 /* Polling versions of FSL access macros. This makes the FSL access interruptible */
-#define getfsl_interruptible(val, id)       asm volatile ("\n1:\n\tnget\t%0,rfsl" stringify(id) "\n\t"   \
+#define getfsl_interruptible(val, id)       __asm__ __volatile__ ("\n1:\n\tnget\t%0,rfsl" stringify(id) "\n\t"   \
                                                           "addic\tr18,r0,0\n\t"                \
                                                           "bnei\tr18,1b\n"                     \
                                                            : "=d" (val) :: "r18")
 
-#define putfsl_interruptible(val, id)       asm volatile ("\n1:\n\tnput\t%0,rfsl" stringify(id) "\n\t"   \
+#define putfsl_interruptible(val, id)       __asm__ __volatile__ ("\n1:\n\tnput\t%0,rfsl" stringify(id) "\n\t"   \
                                                           "addic\tr18,r0,0\n\t"                \
                                                           "bnei\tr18,1b\n"                     \
                                                           :: "d" (val) : "r18")
 
-#define cgetfsl_interruptible(val, id)      asm volatile ("\n1:\n\tncget\t%0,rfsl" stringify(id) "\n\t"  \
+#define cgetfsl_interruptible(val, id)      __asm__ __volatile__ ("\n1:\n\tncget\t%0,rfsl" stringify(id) "\n\t"  \
                                                           "addic\tr18,r0,0\n\t"                \
                                                           "bnei\tr18,1b\n"                     \
                                                           : "=d" (val) :: "r18")
 
-#define cputfsl_interruptible(val, id)      asm volatile ("\n1:\n\tncput\t%0,rfsl" stringify(id) "\n\t"  \
+#define cputfsl_interruptible(val, id)      __asm__ __volatile__ ("\n1:\n\tncput\t%0,rfsl" stringify(id) "\n\t"  \
                                                           "addic\tr18,r0,0\n\t"                \
                                                           "bnei\tr18,1b\n"                     \
                                                           :: "d" (val) : "r18")
 /* FSL valid and error check macros. */
-#define fsl_isinvalid(result)               asm volatile ("addic\t%0,r0,0"  : "=d" (result))
-#define fsl_iserror(error)                  asm volatile ("mfs\t%0,rmsr\n\t"  \
+#define fsl_isinvalid(result)               __asm__ __volatile__ ("addic\t%0,r0,0"  : "=d" (result))
+#define fsl_iserror(error)                  __asm__ __volatile__ ("mfs\t%0,rmsr\n\t"  \
                                                               "andi\t%0,%0,0x10" : "=d" (error))
 
 /* Pseudo assembler instructions */

@@ -25,6 +25,7 @@
 *		      TxFrame[XEL_MAX_FRAME_SIZE], RxFrame[XEL_MAX_FRAME_SIZE]
 *		      from the xemaclite_example.h
 *		      to this file for fixing C++ compilation errors
+* 4.9    ml  11/15/23 Fix compilation errors reported with -std=c2x compiler flag
 *</pre>
 ******************************************************************************/
 
@@ -228,7 +229,7 @@ void EmacLitePhyDelay(unsigned int Seconds)
 	}
 
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
-    asm volatile ("\n"
+    __asm__ __volatile__ ("\n"
                   "1:               \n\t"
                   "addik r7, r0, %0 \n\t"
                   "2:               \n\t"

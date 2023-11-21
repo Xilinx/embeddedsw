@@ -41,7 +41,7 @@
 #define SCUGIC_PERIPH_BASE	0xF8F00000
 #define SCUGIC_DIST_BASE	(SCUGIC_PERIPH_BASE + 0x00001000)
 
-#define _rproc_wait() asm volatile("wfi")
+#define _rproc_wait() __asm__ __volatile__("wfi")
 
 /* processor operations for hil_proc for A9. It defines
  * notification operation and remote processor management. */

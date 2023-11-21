@@ -39,6 +39,7 @@
 *                  are available in all examples. This is a fix for
 *                  CR-965028.
 * 1.2 vsa 03/02/17 Added Word Count corruption interrupt
+* 1.11 ml 11/15/23 Fix compilation errors reported with -std=c2x compiler flag
 * </pre>
 *
 ******************************************************************************/
@@ -131,7 +132,7 @@ void Delay(u32 Seconds)
 	}
 
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
-    asm volatile ("\n"
+    __asm__ __volatile__ ("\n"
 			"1:               \n\t"
 			"addik r7, r0, %0 \n\t"
 			"2:               \n\t"
@@ -681,11 +682,11 @@ void CsiSs_SPktEventHandler(void *InstancePtr, u32 Mask)
 * @return	None.
 *
 * @note		Use the XCsiSs_SetCallback driver function to set this
-*		function as the handler for Frame Receieved event.
+*		function as the handler for Frame Received event.
 *
 ******************************************************************************/
 void CsiSs_FrameRcvdEventHandler(void *InstancePtr, u32 Mask)
 {
-	xil_printf("+=> Frame Receieved Event detected.\n\r");
+	xil_printf("+=> Frame Received Event detected.\n\r");
 	interrupt_counts++;
 }

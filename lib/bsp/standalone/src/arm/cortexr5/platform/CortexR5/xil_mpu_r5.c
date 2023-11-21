@@ -58,6 +58,7 @@
 *                     arm/cortexr5/platform/versal/ directory. There will be
 *                     separate file for CortexR52.
 * 9.0  ml   04/26/23  Updated code to fix overrun coverity warnings.
+* 9.1  ml   11/16/23  Fix compilation errors reported with -std=c2x compiler flag
 * </pre>
 *
 *
@@ -602,7 +603,7 @@ u32 Xil_GetNextMPURegion(void)
 }
 
 #ifdef __GNUC__
-#define u32overflow(a, b) ({typeof(a) s; __builtin_uadd_overflow(a, b, &s); })
+#define u32overflow(a, b) ({__typeof__(a) s; __builtin_uadd_overflow(a, b, &s); })
 #else
 #define u32overflow(a, b) ((a) > ((a) + (b))) /**< u32 overflow is defined for
                                                *   readability and __GNUC__ */

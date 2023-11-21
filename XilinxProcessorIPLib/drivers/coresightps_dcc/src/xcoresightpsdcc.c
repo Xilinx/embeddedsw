@@ -32,6 +32,7 @@
 * 1.5   sne    01/19/19 Fixed MISRA-C Violations CR#1025101.
 * 1.9   ht     07/05/23 Added support for system device-tree flow.
 * 1.10  mus    10/06/23 Fix compilation error for Microblaze RISC-V processor.
+* 1.10  ml     11/15/23 Fix compilation errors reported with -std=c2x compiler flag
 * </pre>
 *
 ******************************************************************************/
@@ -80,9 +81,9 @@ void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data)
 		dsb();
 	}
 #ifdef __aarch64__
-	asm volatile ("msr dbgdtrtx_el0, %0" : : "r" (Data));
+	__asm__ __volatile__ ("msr dbgdtrtx_el0, %0" : : "r" (Data));
 #elif defined (__GNUC__) || defined (__ICCARM__)
-	asm volatile("mcr p14, 0, %0, c0, c5, 0"
+	__asm__ __volatile__("mcr p14, 0, %0, c0, c5, 0"
 		     : : "r" (Data));
 #else
 	{
@@ -119,9 +120,9 @@ u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 	}
 
 #ifdef __aarch64__
-	asm volatile ("mrs %0, dbgdtrrx_el0" : "=r" (Data));
+	__asm__ __volatile__ ("mrs %0, dbgdtrrx_el0" : "=r" (Data));
 #elif defined (__GNUC__) || defined (__ICCARM__)
-	asm volatile("mrc p14, 0, %0, c0, c5, 0"
+	__asm__ __volatile__("mrc p14, 0, %0, c0, c5, 0"
 		     : "=r" (Data));
 #else
 	{
@@ -152,9 +153,9 @@ static INLINE u32 XCoresightPs_DccGetStatus(void)
 	u32 Status = 0U;
 
 #ifdef __aarch64__
-	asm volatile ("mrs %0, mdccsr_el0" : "=r" (Status));
+	__asm__ __volatile__ ("mrs %0, mdccsr_el0" : "=r" (Status));
 #elif defined (__GNUC__) || defined (__ICCARM__)
-	asm volatile("mrc p14, 0, %0, c0, c1, 0"
+	__asm__ __volatile__("mrc p14, 0, %0, c0, c1, 0"
 		     : "=r" (Status) : : "cc");
 #else
 	{

@@ -23,6 +23,7 @@
 * 7.2   dp       04/30/20 Added clobber "cc" to mtcpsr for aarch32 processors
 * 8.0   mus      02/24/22 Added macro mfcpnotoken and mtcpnotoken.
 * 8.1   asa      02/13/23 Create macros to read ESR, FAR and ELR registers.
+* 9.1   ml       11/15/23 Fix compilation errors reported with -std=c2x compiler flag
 * </pre>
 *
 ******************************************************************************/
@@ -56,7 +57,7 @@ extern "C" {
 #if defined (__aarch64__)
 /* pseudo assembler instructions */
 #define mfcpsr()	({u32 rval = 0U; \
-			   asm volatile("mrs %0,  DAIF" : "=r" (rval));\
+			   __asm__ __volatile__("mrs %0,  DAIF" : "=r" (rval));\
 			  rval;\
 			 })
 
@@ -106,32 +107,32 @@ extern "C" {
 
 #if (EL3 == 1)
 #define mfelrel3() ({u64 rval = 0U; \
-                   asm volatile("mrs %0,  ELR_EL3" : "=r" (rval));\
+                   __asm__ __volatile__("mrs %0,  ELR_EL3" : "=r" (rval));\
                   rval;\
                  })
 #define mfesrel3() ({u64 rval = 0U; \
-                   asm volatile("mrs %0,  ESR_EL3" : "=r" (rval));\
+                   __asm__ __volatile__("mrs %0,  ESR_EL3" : "=r" (rval));\
                   rval;\
                  })
 
 #define mffarel3() ({u64 rval = 0U; \
-                   asm volatile("mrs %0,  FAR_EL3" : "=r" (rval));\
+                   __asm__ __volatile__("mrs %0,  FAR_EL3" : "=r" (rval));\
                   rval;\
                  })
 
 #else
 #define mfelrel1() ({u64 rval = 0U; \
-                   asm volatile("mrs %0,  ELR_EL1" : "=r" (rval));\
+                   __asm__ __volatile__("mrs %0,  ELR_EL1" : "=r" (rval));\
                   rval;\
                  })
 
 #define mfesrel1() ({u64 rval = 0U; \
-                   asm volatile("mrs %0,  ESR_EL1" : "=r" (rval));\
+                   __asm__ __volatile__("mrs %0,  ESR_EL1" : "=r" (rval));\
                   rval;\
                  })
 
 #define mffarel1() ({u64 rval = 0U; \
-                   asm volatile("mrs %0,  FAR_EL1" : "=r" (rval));\
+                   __asm__ __volatile__("mrs %0,  FAR_EL1" : "=r" (rval));\
                   rval;\
                  })
 
