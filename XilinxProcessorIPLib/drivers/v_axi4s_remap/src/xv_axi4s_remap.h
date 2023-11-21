@@ -1,5 +1,6 @@
 // ==============================================================
 // Copyright (c) 2015 - 2020 Xilinx Inc. All rights reserved.
+// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -42,7 +43,11 @@ typedef uint32_t u32;
 * Each core instance should have a configuration structure associated.
 */
 typedef struct {
-  u16 DeviceId;            /**< Unique ID  of device */
+#ifndef SDT
+  u16 DeviceId;             /**< Unique ID of device */
+#else
+  char *Name;		    /**< Unique Name of device */
+#endif
   UINTPTR BaseAddress;     /**< The base address of the core instance. */
   u16 NumVidComponents;    /**< Number of Video Components */
   u16 MaxWidth;            /**< Maximum columns supported by core instance */
@@ -56,6 +61,10 @@ typedef struct {
   u16 IsHdmi420OutEn;      /**< AXIS 420 to HDMI 420 converter block En */
   u16 IsInPixelDropEn;     /**< Input Pixel Drop block En */
   u16 IsOutPixelRepeatEn;  /**< Output Pixel Repeat block En */
+#ifdef SDT
+  u16 IntrId; 		    /**< Interrupt ID */
+  UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XV_axi4s_remap_Config;
 #endif
 
@@ -90,8 +99,13 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
+#ifndef SDT
 int XV_axi4s_remap_Initialize(XV_axi4s_remap *InstancePtr, u16 DeviceId);
 XV_axi4s_remap_Config* XV_axi4s_remap_LookupConfig(u16 DeviceId);
+#else
+int XV_axi4s_remap_Initialize(XV_axi4s_remap *InstancePtr, UINTPTR BaseAddress);
+XV_axi4s_remap_Config* XV_axi4s_remap_LookupConfig(UINTPTR BaseAddress);
+#endif
 int XV_axi4s_remap_CfgInitialize(XV_axi4s_remap *InstancePtr,
 		                 XV_axi4s_remap_Config *ConfigPtr,
 		                 UINTPTR EffectiveAddr);
