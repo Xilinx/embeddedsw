@@ -211,9 +211,9 @@ extern "C" {
 #define XUSBPSU_NUM_IN_EPS_MASK		((u32)0x0000001FU << (u32)18U) /**< Number of Device Mode Active IN Endpoints mask */
 #define XUSBPSU_NUM_EPS_MASK		((u32)0x0000003FU << (u32)12U) /**< Number of Device Mode Endpoints mask */
 #define XUSBPSU_NUM_EPS(p)		(((u32)(p) &		\
-		(XUSBPSU_NUM_EPS_MASK)) >> (u32)12) /**< Number of Device Mode EP */
+	(XUSBPSU_NUM_EPS_MASK)) >> (u32)12) /**< Number of Device Mode EP */
 #define XUSBPSU_NUM_IN_EPS(p)		(((u32)(p) &		\
-		(XUSBPSU_NUM_IN_EPS_MASK)) >> (u32)18) /**< Number of Device Mode Active IN Endpoints */
+	(XUSBPSU_NUM_IN_EPS_MASK)) >> (u32)18) /**< Number of Device Mode Active IN Endpoints */
 
 /* HWPARAMS7 */
 #define XUSBPSU_RAM1_DEPTH(n)		((n) & 0xFFFFU) /**< depth of RAM1 */
@@ -762,9 +762,9 @@ extern XUsbPsu_Config XUsbPsu_ConfigTable[]; /**< Configuration table */
 
 #else
 #define roundup(x, y) (                                 \
-		(((x) + (u32)((__typeof__(y))(y) - 1U)) / \
-		 (u32)((__typeof__(y))(y))) * \
-		(u32)((__typeof__(y))(y))               \
+	(((x) + (u32)((__typeof__(y))(y) - 1U)) / \
+	 (u32)((__typeof__(y))(y))) * \
+	(u32)((__typeof__(y))(y))               \
 		      )	/**< roundup value based on input parameter */
 #endif
 #define DECLARE_DEV_DESC(Instance, desc)			\

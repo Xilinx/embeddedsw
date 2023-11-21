@@ -42,11 +42,11 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #ifdef XPAR_INTC_0_DEVICE_ID
- #include "xintc.h"
- #include <stdio.h>
+#include "xintc.h"
+#include <stdio.h>
 #else
- #include "xscugic.h"
- #include "xil_printf.h"
+#include "xscugic.h"
+#include "xil_printf.h"
 #endif
 
 #ifdef SDT
@@ -63,11 +63,11 @@
 #define XCLK_WIZ_DEVICE_ID		XPAR_CLK_WIZ_0_DEVICE_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
- #define XINTC_CLK_WIZ_INTERRUPT_ID	XPAR_INTC_0_CLK_WIZ_0_VEC_ID
- #define XINTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#define XINTC_CLK_WIZ_INTERRUPT_ID	XPAR_INTC_0_CLK_WIZ_0_VEC_ID
+#define XINTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
 #else
- #define XINTC_CLK_WIZ_INTERRUPT_ID	XPAR_FABRIC_AXI_CLK_WIZ_0_INTERRUPT_INTR
- #define XINTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define XINTC_CLK_WIZ_INTERRUPT_ID	XPAR_FABRIC_AXI_CLK_WIZ_0_INTERRUPT_INTR
+#define XINTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 /*
@@ -91,7 +91,7 @@
 #define VCO_FREQ			600
 #define CLK_WIZ_VCO_FACTOR		(VCO_FREQ * 10000)
 
- /*Input frequency in MHz */
+/*Input frequency in MHz */
 #define DYNAMIC_INPUT_FREQ		100
 #define DYNAMIC_INPUT_FREQ_FACTOR	(DYNAMIC_INPUT_FREQ * 10000)
 
@@ -105,26 +105,21 @@
 #define CLK_WIZ_RECONFIG_OUTPUT		DYNAMIC_OUTPUT_FREQ
 #define CLK_FRAC_EN			1
 
-
-
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
- #define XINTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
- #define INTC		XIntc
- #define INTC_HANDLER	XIntc_InterruptHandler
+#define XINTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#define INTC		XIntc
+#define INTC_HANDLER	XIntc_InterruptHandler
 #else
- #define XINTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
- #define INTC		XScuGic
- #define INTC_HANDLER	XScuGic_InterruptHandler
+#define XINTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define INTC		XScuGic
+#define INTC_HANDLER	XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /**************************** Type Definitions *******************************/
-
 
 /************************** Function Prototypes ******************************/
 
@@ -178,14 +173,14 @@ int Wait_For_Lock(XClk_Wiz_Config *CfgPtr_Dynamic)
 	u32 Count = 0;
 	u32 Error = 0;
 
-	while(!(*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK)) {
-		if(Count == 10000) {
+	while (!(*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK)) {
+		if (Count == 10000) {
 			Error++;
 			break;
 		}
 		Count++;
-        }
-    return Error;
+	}
+	return Error;
 }
 
 /******************************************************************************/
@@ -217,18 +212,18 @@ void Delay(u32 Seconds)
 	}
 
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
-    __asm__ __volatile__ ("\n"
-			"1:               \n\t"
-			"addik r7, r0, %0 \n\t"
-			"2:               \n\t"
-			"addik r7, r7, -1 \n\t"
-			"bneid  r7, 2b    \n\t"
-			"or  r0, r0, r0   \n\t"
-			"bneid %1, 1b     \n\t"
-			"addik %1, %1, -1 \n\t"
-			:: "i"(ITERS_PER_SEC), "d" (Seconds));
+	__asm__ __volatile__ ("\n"
+			      "1:               \n\t"
+			      "addik r7, r0, %0 \n\t"
+			      "2:               \n\t"
+			      "addik r7, r7, -1 \n\t"
+			      "bneid  r7, 2b    \n\t"
+			      "or  r0, r0, r0   \n\t"
+			      "bneid %1, 1b     \n\t"
+			      "addik %1, %1, -1 \n\t"
+			      :: "i"(ITERS_PER_SEC), "d" (Seconds));
 #else
-    sleep(Seconds);
+	sleep(Seconds);
 #endif
 }
 
@@ -251,120 +246,118 @@ void Delay(u32 Seconds)
 ******************************************************************************/
 int Clk_Wiz_Reconfig(XClk_Wiz_Config *CfgPtr_Dynamic)
 {
-    u32 Count = 0;
-    u32 Error = 0;
-    u32 Fail  = 0;
-    u32 Frac_en = 0;
-    u32 Frac_divide = 0;
-    u32 Divide = 0;
-    float Freq = 0.0;
+	u32 Count = 0;
+	u32 Error = 0;
+	u32 Fail  = 0;
+	u32 Frac_en = 0;
+	u32 Frac_divide = 0;
+	u32 Divide = 0;
+	float Freq = 0.0;
 
-    Fail = Wait_For_Lock(CfgPtr_Dynamic);
-    if(Fail) {
-	Error++;
-        xil_printf("\n ERROR: Clock is not locked for default frequency" \
-	" : 0x%x\n\r", *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK);
-     }
+	Fail = Wait_For_Lock(CfgPtr_Dynamic);
+	if (Fail) {
+		Error++;
+		xil_printf("\n ERROR: Clock is not locked for default frequency" \
+			   " : 0x%x\n\r", *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK);
+	}
 
-    /* SW reset applied */
-    *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x00) = 0xA;
+	/* SW reset applied */
+	*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x00) = 0xA;
 
-    if(*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK) {
-	Error++;
-        xil_printf("\n ERROR: Clock is locked : 0x%x \t expected "\
-	  "0x00\n\r", *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK);
-    }
+	if (*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK) {
+		Error++;
+		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected "\
+			   "0x00\n\r", *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK);
+	}
 
-    /* Wait cycles after SW reset */
-    for(Count = 0; Count < 2000; Count++);
+	/* Wait cycles after SW reset */
+	for (Count = 0; Count < 2000; Count++);
 
-    Fail = Wait_For_Lock(CfgPtr_Dynamic);
-    if(Fail) {
-	  Error++;
-          xil_printf("\n ERROR: Clock is not locked after SW reset :"
-	      "0x%x \t Expected  : 0x1\n\r",
-	      *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK);
-    }
+	Fail = Wait_For_Lock(CfgPtr_Dynamic);
+	if (Fail) {
+		Error++;
+		xil_printf("\n ERROR: Clock is not locked after SW reset :"
+			   "0x%x \t Expected  : 0x1\n\r",
+			   *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK);
+	}
 
-    /* Calculation of Input Freq and Divide factors*/
-    Freq = ((float) CLK_WIZ_VCO_FACTOR/ DYNAMIC_INPUT_FREQ_FACTOR);
+	/* Calculation of Input Freq and Divide factors*/
+	Freq = ((float) CLK_WIZ_VCO_FACTOR / DYNAMIC_INPUT_FREQ_FACTOR);
 
-    Divide = Freq;
-    Freq = (float)(Freq - Divide);
+	Divide = Freq;
+	Freq = (float)(Freq - Divide);
 
-    Frac_divide = Freq * 10000;
+	Frac_divide = Freq * 10000;
 
-    if(Frac_divide % 10 > 5) {
-	   Frac_divide = Frac_divide + 10;
-    }
-    Frac_divide = Frac_divide/10;
+	if (Frac_divide % 10 > 5) {
+		Frac_divide = Frac_divide + 10;
+	}
+	Frac_divide = Frac_divide / 10;
 
-    if(Frac_divide > 1023 ) {
-	   Frac_divide = Frac_divide / 10;
-    }
+	if (Frac_divide > 1023 ) {
+		Frac_divide = Frac_divide / 10;
+	}
 
-    if(Frac_divide) {
-	   /* if fraction part exists, Frac_en is shifted to 26
-	    * for input Freq */
-	   Frac_en = (CLK_FRAC_EN << 26);
-    }
-    else {
-	   Frac_en = 0;
-    }
+	if (Frac_divide) {
+		/* if fraction part exists, Frac_en is shifted to 26
+		 * for input Freq */
+		Frac_en = (CLK_FRAC_EN << 26);
+	} else {
+		Frac_en = 0;
+	}
 
-    /* Configuring Multiply and Divide values */
-    *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x200) = \
-	Frac_en | (Frac_divide << 16) | (Divide << 8) | 0x01;
-    *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x204) = 0x00;
+	/* Configuring Multiply and Divide values */
+	*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x200) = \
+		Frac_en | (Frac_divide << 16) | (Divide << 8) | 0x01;
+	*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x204) = 0x00;
 
-    /* Calculation of Output Freq and Divide factors*/
-    Freq = ((float) CLK_WIZ_VCO_FACTOR / DYNAMIC_OUTPUT_FREQFACTOR);
+	/* Calculation of Output Freq and Divide factors*/
+	Freq = ((float) CLK_WIZ_VCO_FACTOR / DYNAMIC_OUTPUT_FREQFACTOR);
 
-    Divide = Freq;
-    Freq = (float)(Freq - Divide);
+	Divide = Freq;
+	Freq = (float)(Freq - Divide);
 
-    Frac_divide = Freq * 10000;
+	Frac_divide = Freq * 10000;
 
-    if(Frac_divide%10 > 5) {
-	Frac_divide = Frac_divide + 10;
-    }
-    Frac_divide = Frac_divide / 10;
+	if (Frac_divide % 10 > 5) {
+		Frac_divide = Frac_divide + 10;
+	}
+	Frac_divide = Frac_divide / 10;
 
-    if(Frac_divide > 1023 ) {
-        Frac_divide = Frac_divide / 10;
-    }
+	if (Frac_divide > 1023 ) {
+		Frac_divide = Frac_divide / 10;
+	}
 
-    if(Frac_divide) {
-	/* if fraction part exists, Frac_en is shifted to 18 for output Freq */
-	Frac_en = (CLK_FRAC_EN << 18);
-    }
-    else {
-	Frac_en = 0;
-    }
+	if (Frac_divide) {
+		/* if fraction part exists, Frac_en is shifted to 18 for output Freq */
+		Frac_en = (CLK_FRAC_EN << 18);
+	} else {
+		Frac_en = 0;
+	}
 
-    /* Configuring Multiply and Divide values */
-    *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x208) =
-	    Frac_en | (Frac_divide << 8) | (Divide);
-    *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x20C) = 0x00;
+	/* Configuring Multiply and Divide values */
+	*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x208) =
+		Frac_en | (Frac_divide << 8) | (Divide);
+	*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x20C) = 0x00;
 
-    /* Load Clock Configuration Register values */
-    *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x25C) = 0x07;
+	/* Load Clock Configuration Register values */
+	*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x25C) = 0x07;
 
-    if(*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK) {
-	Error++;
-        xil_printf("\n ERROR: Clock is locked : 0x%x \t expected "
-	    "0x00\n\r", *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK);
-     }
+	if (*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK) {
+		Error++;
+		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected "
+			   "0x00\n\r", *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK);
+	}
 
-     /* Clock Configuration Registers are used for dynamic reconfiguration */
-     *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x25C) = 0x02;
+	/* Clock Configuration Registers are used for dynamic reconfiguration */
+	*(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x25C) = 0x02;
 
-    Fail = Wait_For_Lock(CfgPtr_Dynamic);
-    if(Fail) {
-	Error++;
-        xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected "\
-	": 0x1\n\r", *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK);
-    }
+	Fail = Wait_For_Lock(CfgPtr_Dynamic);
+	if (Fail) {
+		Error++;
+		xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected "\
+			   ": 0x1\n\r", *(u32 *)(CfgPtr_Dynamic->BaseAddr + 0x04) & CLK_LOCK);
+	}
 	return Error;
 }
 
@@ -435,14 +428,13 @@ int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
 
 	int Status;
 
-
 	/* Setup call back handlers */
 	XClk_Wiz_SetCallBack(ClkWizPtr, XCLK_WIZ_HANDLER_CLK_OUTOF_RANGE,
-				ClkWiz_ClkOutOfRangeEventHandler, ClkWizPtr);
+			     ClkWiz_ClkOutOfRangeEventHandler, ClkWizPtr);
 	XClk_Wiz_SetCallBack(ClkWizPtr, XCLK_WIZ_HANDLER_CLK_GLITCH,
-				ClkWiz_ClkGlitchEventHandler, ClkWizPtr);
+			     ClkWiz_ClkGlitchEventHandler, ClkWizPtr);
 	XClk_Wiz_SetCallBack(ClkWizPtr, XCLK_WIZ_HANDLER_CLK_STOP,
-				ClkWiz_ClkStopEventHandler, ClkWizPtr);
+			     ClkWiz_ClkStopEventHandler, ClkWizPtr);
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 	/*
@@ -459,9 +451,9 @@ int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
 	 * for the device occurs, the device driver handler performs the
 	 * specific interrupt processing for the device.
 	 */
-	Status = XIntc_Connect(IntcInstancePtr, XINTC_CLK_WIZ_INTERRUPT_ID,\
-			   (XInterruptHandler)XClk_Wiz_IntrHandler, \
-			   (void *)ClkWizPtr);
+	Status = XIntc_Connect(IntcInstancePtr, XINTC_CLK_WIZ_INTERRUPT_ID, \
+			       (XInterruptHandler)XClk_Wiz_IntrHandler, \
+			       (void *)ClkWizPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -494,20 +486,20 @@ int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	XScuGic_SetPriorityTriggerType(IntcInstancePtr, XINTC_CLK_WIZ_INTERRUPT_ID,
-					0xA0, 0x3);
+				       0xA0, 0x3);
 
 	/*
 	 * Connect the interrupt handler that will be called when an
 	 * interrupt occurs for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, XINTC_CLK_WIZ_INTERRUPT_ID,
-			(XInterruptHandler)XClk_Wiz_IntrHandler, (void *)ClkWizPtr);
+				 (XInterruptHandler)XClk_Wiz_IntrHandler, (void *)ClkWizPtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -524,8 +516,8 @@ int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT, \
-			 (Xil_ExceptionHandler)INTC_HANDLER, \
-			 IntcInstancePtr);
+				     (Xil_ExceptionHandler)INTC_HANDLER, \
+				     IntcInstancePtr);
 
 	/*
 	 * Enable exceptions.
@@ -589,9 +581,9 @@ u32 ClkWiz_IntrExample(UINTPTR BaseAddress)
 	 * Check the given clock wizard is enabled with clock monitor
 	 * This test applicable only for clock monitor
 	 */
-	if(CfgPtr_Mon->EnableClkMon == 0) {
+	if (CfgPtr_Mon->EnableClkMon == 0) {
 		xil_printf("Interrupt test only applicable for "
-			"clock monitor\r\n");
+			   "clock monitor\r\n");
 		return XST_SUCCESS;
 	}
 
@@ -611,7 +603,7 @@ u32 ClkWiz_IntrExample(UINTPTR BaseAddress)
 	 * Initialize the CLK_WIZ Dynamic reconfiguration driver
 	 */
 	Status = XClk_Wiz_CfgInitialize(&ClkWiz_Dynamic, CfgPtr_Dynamic,
-		 CfgPtr_Dynamic->BaseAddr);
+					CfgPtr_Dynamic->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -626,13 +618,13 @@ u32 ClkWiz_IntrExample(UINTPTR BaseAddress)
 #else
 	/* Setup call back handlers */
 	XClk_Wiz_SetCallBack(&ClkWiz_Mon, XCLK_WIZ_HANDLER_CLK_OUTOF_RANGE,
-				ClkWiz_ClkOutOfRangeEventHandler, &ClkWiz_Mon);
+			     ClkWiz_ClkOutOfRangeEventHandler, &ClkWiz_Mon);
 	XClk_Wiz_SetCallBack(&ClkWiz_Mon, XCLK_WIZ_HANDLER_CLK_GLITCH,
-				ClkWiz_ClkGlitchEventHandler, &ClkWiz_Mon);
+			     ClkWiz_ClkGlitchEventHandler, &ClkWiz_Mon);
 	XClk_Wiz_SetCallBack(&ClkWiz_Mon, XCLK_WIZ_HANDLER_CLK_STOP,
-				ClkWiz_ClkStopEventHandler, &ClkWiz_Mon);
+			     ClkWiz_ClkStopEventHandler, &ClkWiz_Mon);
 	Status = XSetupInterruptSystem(&ClkWiz_Mon, &XClk_Wiz_IntrHandler,
-			               ClkWiz_Mon.Config.IntId,
+				       ClkWiz_Mon.Config.IntId,
 				       ClkWiz_Mon.Config.IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
@@ -649,14 +641,13 @@ u32 ClkWiz_IntrExample(UINTPTR BaseAddress)
 	do {
 		Delay(1);
 		Exit_Count++;
-		if(Exit_Count > 3) {
+		if (Exit_Count > 3) {
 			xil_printf("ClKMon Interrupt test failed, " \
-				"Please check design\r\n");
+				   "Please check design\r\n");
 			return XST_FAILURE;
 		}
-	}
-	while((Clk_Outof_Range_Flag == 1) && (Clk_Glitch_Flag == 1) \
-		&& (Clk_Stop_Flag == 1));
+	} while ((Clk_Outof_Range_Flag == 1) && (Clk_Glitch_Flag == 1) \
+		 && (Clk_Stop_Flag == 1));
 	return XST_SUCCESS;
 }
 
@@ -680,35 +671,35 @@ void ClkWiz_ClkOutOfRangeEventHandler(void *CallBackRef, u32 Mask)
 {
 	if (Mask & XCLK_WIZ_ISR_CLK0_MAXFREQ_MASK) {
 		xil_printf(" User Clock 0  frequency is greater "
-			"than the specifications \r\n");
+			   "than the specifications \r\n");
 	}
 	if (Mask & XCLK_WIZ_ISR_CLK1_MAXFREQ_MASK) {
 		xil_printf(" User Clock 1  frequency is greater "
-			"than the specifications \r\n");
+			   "than the specifications \r\n");
 	}
 	if (Mask & XCLK_WIZ_ISR_CLK2_MAXFREQ_MASK) {
 		xil_printf(" User Clock 2  frequency is greater "
-			"than the specifications \r\n");
+			   "than the specifications \r\n");
 	}
 	if (Mask & XCLK_WIZ_ISR_CLK3_MAXFREQ_MASK) {
 		xil_printf(" User Clock 3  frequency is greater"
-			"than the specifications \r\n");
+			   "than the specifications \r\n");
 	}
 	if (Mask & XCLK_WIZ_ISR_CLK0_MINFREQ_MASK) {
 		xil_printf(" User Clock 0  frequency is lesser "
-			"than the specifications \r\n");
+			   "than the specifications \r\n");
 	}
 	if (Mask & XCLK_WIZ_ISR_CLK1_MINFREQ_MASK) {
 		xil_printf(" User Clock 1  frequency is lesser "
-			"than the specifications \r\n");
+			   "than the specifications \r\n");
 	}
 	if (Mask & XCLK_WIZ_ISR_CLK2_MINFREQ_MASK) {
 		xil_printf(" User Clock 2  frequency is lesser "
-			"than the specifications \r\n");
+			   "than the specifications \r\n");
 	}
 	if (Mask & XCLK_WIZ_ISR_CLK3_MINFREQ_MASK) {
 		xil_printf(" User Clock 3  frequency is lesser "
-			"than the specifications \r\n");
+			   "than the specifications \r\n");
 	}
 	Clk_Outof_Range_Flag = 0;
 }

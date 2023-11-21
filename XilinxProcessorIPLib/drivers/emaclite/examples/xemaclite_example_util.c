@@ -229,16 +229,16 @@ void EmacLitePhyDelay(unsigned int Seconds)
 	}
 
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
-    __asm__ __volatile__ ("\n"
-                  "1:               \n\t"
-                  "addik r7, r0, %0 \n\t"
-                  "2:               \n\t"
-                  "addik r7, r7, -1 \n\t"
-                  "bneid  r7, 2b    \n\t"
-                  "or  r0, r0, r0   \n\t"
-                  "bneid %1, 1b     \n\t"
-                  "addik %1, %1, -1 \n\t"
-                  :: "i"(ITERS_PER_SEC), "d" (Seconds));
+	__asm__ __volatile__ ("\n"
+			      "1:               \n\t"
+			      "addik r7, r0, %0 \n\t"
+			      "2:               \n\t"
+			      "addik r7, r7, -1 \n\t"
+			      "bneid  r7, 2b    \n\t"
+			      "or  r0, r0, r0   \n\t"
+			      "bneid %1, 1b     \n\t"
+			      "addik %1, %1, -1 \n\t"
+			      :: "i"(ITERS_PER_SEC), "d" (Seconds));
 
 #else
 
