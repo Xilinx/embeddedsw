@@ -43,6 +43,7 @@ extern "C" {
 #define LPX_TAG_ID	0x20
 #define FPX_TAG_ID	0x21
 #define HNICX_NTHUB_TAG_ID	0x22
+#define HNICX_DPU_TAG_ID       0x24
 #define DDRMC5_MAIN_TAG_ID   0x26
 
 
