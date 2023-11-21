@@ -1,0 +1,75 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for V_AXI4S_REMAP Driver
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-axi4s-remap-1.1
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,num-video-components:
+    description: Number of Vidro components
+  xlnx,max-cols:
+    description: Maximum pixel width supported by core instance
+  xlnx,max-rows:
+    description: Maximum pixel height supported by core instance
+  xlnx,in-samples-per-clock:
+    description: Pixels Per Clk In
+  xlnx,out-samples-per-clock:
+    description: Pixels Per Clk Out
+  xlnx,convert-samples-per-clock:
+    description: Samples per clock convertion enablement
+  xlnx,in-max-data-width:
+    description: Input Maximum Pixel Data width of each channel
+  xlnx,out-max-data-width:
+    description: Output Maximum Pixel Data width of each channel
+  xlnx,in-hdmi-420:
+    description: Input HDMI420 enablement
+  xlnx,out-hdmi-420:
+    description: Output HDMI420 enablement
+  xlnx,in-sample-drop:
+    description: Input Sample drop enablement
+  xlnx,out-sample-repeat:
+    description: Output Sample repeat enablement
+  interrupts:
+    description: Interrupt number
+  interrupt-parent:
+    description: Parent interrupt
+
+required:
+    - compatible
+    - reg
+    - xlnx,num-video-components
+    - xlnx,max-cols
+    - xlnx,max-rows
+    - xlnx,in-samples-per-clock
+    - xlnx,out-samples-per-clock
+    - xlnx,convert-samples-per-clock
+    - xlnx,in-max-data-width
+    - xlnx,out-max-data-width
+    - xlnx,in-hdmi-420
+    - xlnx,out-hdmi-420
+    - xlnx,in-sample-drop
+    - xlnx,out-sample-repeat
+    - interrupts
+    - interrupt-parent
+
+config:
+    - XV_axi4s_remap_Config
+
+depends:
+    video_common: []
+
+examples:
+     main.c:
+...
