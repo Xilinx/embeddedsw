@@ -20,6 +20,7 @@
 * 8.0   mus  06/20/22 Added mfcpnotoken and mtcpnotoken macros to fix
 *                     linking errors observed while building application
 *                     with armclang compiler. It fixes CR#1132642.
+* 9.1   ml   11/16/23 Fix compilation errors reported with -std=c2x compiler flag
 * </pre>
 *
 ******************************************************************************/
@@ -50,7 +51,7 @@ extern "C" {
 
 /* pseudo assembler instructions */
 #define mfcpsr()	({u32 rval = 0U; \
-			    asm volatile("mrs %x0, DAIF" : "=r" (rval)); \
+			    __asm__ __volatile__("mrs %x0, DAIF" : "=r" (rval)); \
 			    rval; \
 			})
 

@@ -19,7 +19,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _ARM64_OPS_H_
 #include <stdint.h>
 
-#define BUG() while(1){asm volatile (".word 0xe7f000f0\n");} /* Undefined instruction; will call our fault handler. */
+#define BUG() while(1){__asm__ __volatile__ (".word 0xe7f000f0\n");} /* Undefined instruction; will call our fault handler. */
 #define ASSERT(x)                                              \
 do {                                                           \
 	if (!(x)) {                                                \
@@ -65,7 +65,7 @@ static inline int irqs_disabled(void) {
     return x & 0x80;
 }
 
-#define dsb(scope)      asm volatile("dsb " #scope : : : "memory")
+#define dsb(scope)      __asm__ __volatile__("dsb " #scope : : : "memory")
 
 /* We probably only need "dmb" here, but we'll start by being paranoid. */
 #define mb()  dsb(sy)

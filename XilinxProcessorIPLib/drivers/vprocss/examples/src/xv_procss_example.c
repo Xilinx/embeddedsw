@@ -78,7 +78,7 @@
 
 /*
 * change the XCLK_WIZ_DYN_DEVICE_ID value as per the Clock wizard
-* whihc is setting as dynamic reconfiguration. In the present
+* which is setting as dynamic reconfiguration. In the present
 * example clokc wizard 1 configured as clock wizard 1 as dynamic
 * reconfigurable parameter
 */
@@ -271,7 +271,7 @@ void Delay(u32 Seconds)
 	}
 
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
-    asm volatile ("\n"
+    __asm__ __volatile__ ("\n"
 			"1:               \n\t"
 			"addik r7, r0, %0 \n\t"
 			"2:               \n\t"

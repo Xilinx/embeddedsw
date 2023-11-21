@@ -46,7 +46,7 @@
 * 9.0   sa   05/16/22 Initial release
 * 9.0   sa   06/21/23 Fix sleep related macros based on HW configuration.
 *                     It fixes CR#1162997.
-*
+* 9.1   ml   11/16/23 Fix compilation errors reported with -std=c2x compiler flag
 * </pre>
 *
 ******************************************************************************/
@@ -90,35 +90,35 @@ extern void riscv_scrub(void);                                          /* Scrub
 
 /* Blocking Data Read and Write to FSL no. id */
 #define getfsl(val, id)         { register unsigned int _item asm("t0"); \
-		asm volatile (".word (" stringify(id) " << 15) | 0x000022AB # rd = %0" : "=r" (_item)); \
+		__asm__ __volatile__ (".word (" stringify(id) " << 15) | 0x000022AB # rd = %0" : "=r" (_item)); \
 		val = _item; }
 #define putfsl(val, id)         { register unsigned int _item asm("t0") = val; \
-		asm volatile (".word 0x0002B02B | (" stringify(id) " << 7) # rs1 = %0" :: "r" (_item)); }
+		__asm__ __volatile__ (".word 0x0002B02B | (" stringify(id) " << 7) # rs1 = %0" :: "r" (_item)); }
 
 /* Non-blocking Data Read and Write to FSL no. id */
 #define ngetfsl(val, id)        { register unsigned int _item asm("t0"); \
-		asm volatile (".word (" stringify(id) " << 15) | 0x400022AB # rd = %0" : "=r" (_item)); \
+		__asm__ __volatile__ (".word (" stringify(id) " << 15) | 0x400022AB # rd = %0" : "=r" (_item)); \
 		val = _item; }
 #define nputfsl(val, id)        { register unsigned int _item asm("t0") = val; \
-		asm volatile (".word 0x4002B02B | (" stringify(id) " << 7) # rs1 = %0" :: "r" (_item)); }
+		__asm__ __volatile__ (".word 0x4002B02B | (" stringify(id) " << 7) # rs1 = %0" :: "r" (_item)); }
 
 /* Blocking Control Read and Write to FSL no. id */
 #define cgetfsl(val, id)        { register unsigned int _item asm("t0"); \
-		asm volatile (".word (" stringify(id) " << 15) | 0x800022AB # rd = %0" : "=r" (_item)); \
+		__asm__ __volatile__ (".word (" stringify(id) " << 15) | 0x800022AB # rd = %0" : "=r" (_item)); \
 		val = _item; }
 #define cputfsl(val, id)        { register unsigned int _item asm("t0") = val; \
-		asm volatile (".word 0x8002B02B | (" stringify(id) " << 7) # rs1 = %0" :: "r" (_item)); }
+		__asm__ __volatile__ (".word 0x8002B02B | (" stringify(id) " << 7) # rs1 = %0" :: "r" (_item)); }
 
 /* Non-blocking Control Read and Write to FSL no. id */
 #define ncgetfsl(val, id)       { register unsigned int _item asm("t0"); \
-		asm volatile (".word (" stringify(id) " << 15) | 0xC00022AB # rd = %0" : "=r" (_item)); \
+		__asm__ __volatile__ (".word (" stringify(id) " << 15) | 0xC00022AB # rd = %0" : "=r" (_item)); \
 		val = _item; }
 #define ncputfsl(val, id)       { register unsigned int _item asm("t0") = val; \
-		asm volatile (".word 0xC002B02B | (" stringify(id) " << 7) # rs1 = %0" :: "r" (_item)); }
+		__asm__ __volatile__ (".word 0xC002B02B | (" stringify(id) " << 7) # rs1 = %0" :: "r" (_item)); }
 
 /* Polling versions of FSL access macros. This makes the FSL access interruptible */
 #define getfsl_interruptible(val, id)       { register unsigned int _item asm("t0");       \
-		asm volatile ("\n1:\n\t.word (" stringify(id) " << 15) | 0x400022AB # rd = %0\n\t" \
+		__asm__ __volatile__ ("\n1:\n\t.word (" stringify(id) " << 15) | 0x400022AB # rd = %0\n\t" \
 			      "csrr\tt1,0x7C0\n\t"           \
 			      "andi\tt1,t1,0x1\n\t"          \
 			      "bnez\tt1,1b\n"                \
@@ -126,14 +126,14 @@ extern void riscv_scrub(void);                                          /* Scrub
 		val = _item; }
 
 #define putfsl_interruptible(val, id)       { register unsigned int _item asm("t0") = val; \
-		asm volatile ("\n1:\n\t.word 0x4002B02B | (" stringify(id) " << 7) # rs1 = %0\n\t" \
+		__asm__ __volatile__ ("\n1:\n\t.word 0x4002B02B | (" stringify(id) " << 7) # rs1 = %0\n\t" \
 			      "csrr\tt1,0x7C0\n\t"             \
 			      "andi\tt1,t1,0x1\n\t"            \
 			      "bnez\tt1,1b\n"                  \
 			      :: "r" (_item) : "t1"); }
 
 #define cgetfsl_interruptible(val, id)      { register unsigned int _item asm("t0");       \
-		asm volatile ("\n1:\n\t.word (" stringify(id) " << 15) | 0xC00022AB # rd = %0\n\t" \
+		__asm__ __volatile__ ("\n1:\n\t.word (" stringify(id) " << 15) | 0xC00022AB # rd = %0\n\t" \
 			      "csrr\tt1,0x7C0\n\t"           \
 			      "andi\tt1,t1,0x1\n\t"          \
 			      "bnez\tt1,1b\n"                \
@@ -141,17 +141,17 @@ extern void riscv_scrub(void);                                          /* Scrub
 		val = _item; }
 
 #define cputfsl_interruptible(val, id)      { register unsigned int _item asm("t0") = val; \
-		asm volatile ("\n1:\n\t.word 0xC002B02B | (" stringify(id) " << 7) # rs1 = %0\n\t" \
+		__asm__ __volatile__ ("\n1:\n\t.word 0xC002B02B | (" stringify(id) " << 7) # rs1 = %0\n\t" \
 			      "csrr\tt1,0x7C0\n\t"           \
 			      "andi\tt1,t1,0x1\n\t"          \
 			      "bnez\tt1,1b\n"                \
 			      :: "r" (_item) : "t1"); }
 
 /* FSL valid and error check macros. */
-#define fsl_isinvalid(result)               asm volatile ("csrr\t%0,0x7C0\n\t"             \
+#define fsl_isinvalid(result)               __asm__ __volatile__ ("csrr\t%0,0x7C0\n\t"             \
 		"andi\t%0,%0,0x1\n\t"            \
 		: "=r" (result))
-#define fsl_iserror(error)                  asm volatile ("csrr\t%0,0x7C0\n\t"             \
+#define fsl_iserror(error)                  __asm__ __volatile__ ("csrr\t%0,0x7C0\n\t"             \
 		"andi\t%0,%0,0x2"                \
 		: "=r" (error))
 /* Pseudo assembler instructions */

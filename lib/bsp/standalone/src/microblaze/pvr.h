@@ -59,7 +59,7 @@ typedef struct pvr_s {
 } pvr_t;
 
 
-#define getpvr(pvrid, val)      asm volatile ("mfs\t%0,rpvr" stringify(pvrid) "\n\t" : "=d" (val))
+#define getpvr(pvrid, val)      __asm__ __volatile__ ("mfs\t%0,rpvr" stringify(pvrid) "\n\t" : "=d" (val))
 
 /* Basic PVR mask */
 #define MICROBLAZE_PVR0_PVR_FULL_MASK               0x80000000U

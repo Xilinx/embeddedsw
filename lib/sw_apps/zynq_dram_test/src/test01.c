@@ -58,7 +58,7 @@
    This test can communicate with register viewer via 12 mailbox registers
    at 0xF8001024.
 
-   xregv mode can be selected thru the 'test_mode' variable. Default is
+   xregv mode can be selected through the 'test_mode' variable. Default is
    'standalone' mode.
 
    Run the test from xmd as shown below:
@@ -117,10 +117,10 @@ extern char inbyte();
 // --------------------------------------------------------- PREPROCESSORS ----
 // Macros
 #define REG_READ(addr) \
-    ({int val;int a=addr; asm volatile ("ldr   %0,[%1]\n" : "=r"(val) : "r"(a)); val;})
+    ({int val;int a=addr; __asm__ __volatile__ ("ldr   %0,[%1]\n" : "=r"(val) : "r"(a)); val;})
 
 #define REG_WRITE(addr,val) \
-    ({int v = val; int a = addr; __asm volatile ("str  %1,[%0]\n" :: "r"(a),"r"(v)); v;})
+    ({int v = val; int a = addr; __asm__ __volatile__ ("str  %1,[%0]\n" :: "r"(a),"r"(v)); v;})
 
 #define min(a,b)        (((a) < (b)) ? (a) : (b))
 #define max(a,b)        (((a) > (b)) ? (a) : (b))
@@ -142,7 +142,7 @@ extern char inbyte();
 #define MAILBOX_MODE      MAILBOX+0x28     /* mode, 1 bit per test, if msb=0 */
 #define MAILBOX_LAST      MAILBOX+0x2C     /* last of the 12 words */
 
-// Added error info in 3 gem0 regs: these are useable: 80,84,88,--,90,--,98,a0
+// Added error info in 3 gem0 regs: these are usable: 80,84,88,--,90,--,98,a0
 #define ERR_INFO          0xE000B080
 
 // PLL
@@ -837,7 +837,7 @@ void cache_ctrl(int d, int i)
 {
   unsigned int cr1;
 
-  asm volatile ("mrc 15,0,%0,cr1,cr0,0":"=r"(cr1));
+  __asm__ __volatile__ ("mrc 15,0,%0,cr1,cr0,0":"=r"(cr1));
   if (d)
     cr1 |= 3;
   else
@@ -848,7 +848,7 @@ void cache_ctrl(int d, int i)
   else
     cr1 &= ~(1 << 12);
 
-  asm volatile ("mcr  15,0,%0,cr1,cr0,0"::"r"(cr1));
+  __asm__ __volatile__ ("mcr  15,0,%0,cr1,cr0,0"::"r"(cr1));
 }
 
 
@@ -2524,7 +2524,7 @@ void print_qual(int *qual, int cnt, int step)
         following criteria
         - more: sum of widths of the 4 lanes eyes
         - less: variation between lanes
-        - more: good neigbours
+        - more: good neighbours
  ****************************************************************************/
 int find_best_eye(int *x, int cnt, int *qual1, int *qual2, int *qual3, int *qual4)
 {
@@ -3143,7 +3143,7 @@ int main(void)
           Xil_DCacheEnable();
           cache_enable = 1;
         }
-        (cache_enable) ? printf("\nD Cache enabled\r\n") : printf("\nD Cache disabled\r\n");
+        (cache_enable) ? printf("\n D Cache enabled\r\n") : printf("\n D Cache disabled\r\n");
       }
 
       // Write Eye measurement test

@@ -19,6 +19,7 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 7.3  dp  06/25/20   Initial version for armclang
+* 9.1  ml  11/16/23   Fix compilation errors reported with -std=c2x compiler flag
 * </pre>
 *
 ******************************************************************************/
@@ -51,11 +52,11 @@ extern "C" {
 
 /* pseudo assembler instructions */
 #define mfcpsr()	({u32 rval = 0U; \
-			  __asm volatile ("mrs %0, cpsr" : "=r" (rval));\
+			  __asm__ __volatile__ ("mrs %0, cpsr" : "=r" (rval));\
 			  rval;\
 			 })
 
-#define mtcpsr(v) asm volatile("msr cpsr,%0\n" : : "r" (v) : "cc")
+#define mtcpsr(v) __asm__ __volatile__("msr cpsr,%0\n" : : "r" (v) : "cc")
 
 #define cpsiei()	__asm__ __volatile__("cpsie	i\n")
 #define cpsidi()	__asm__ __volatile__("cpsid	i\n")

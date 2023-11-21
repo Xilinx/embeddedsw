@@ -60,7 +60,7 @@
 *				  users of this example to take note of the fact that
 *				  we have just used a typical value for XAVB_CLOCK_LOCK_THRESHOLD
 *                 and users may want to change it as per their requirements.
-*
+* 5.17  ml   11/15/23  Fix compilation errors reported with -std=c2x compiler flag
 * </pre>
 *******************************************************************************/
 
@@ -596,7 +596,7 @@ static void AvbUtilPhyDelay(unsigned int Seconds)
 	}
 
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
-    asm volatile ("\n"
+    __asm__ __volatile__ ("\n"
 			"1:               \n\t"
 			"addik r7, r0, %0 \n\t"
 			"2:               \n\t"

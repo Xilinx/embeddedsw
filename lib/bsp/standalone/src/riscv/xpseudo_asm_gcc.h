@@ -18,6 +18,7 @@
 * ----- -------- -------- -----------------------------------------------
 * 9.00  sa       10/24/22 First release
 * 9.1   mus      10/31/23 Added macro for rdtime pseudo instruction.
+* 9.1   ml       11/16/23 Fix compilation errors reported with -std=c2x compiler flag
 * </pre>
 *
 ******************************************************************************/
@@ -51,7 +52,7 @@ extern "C" {
 			)
 
 #define csrr(csr)	({unsigned int rval = 0U;				 \
-			  asm volatile("csrr %0," stringify(csr) : "=r" (rval)); \
+			  __asm__ __volatile__("csrr %0," stringify(csr) : "=r" (rval)); \
 			  rval;							 \
 			 })
 
