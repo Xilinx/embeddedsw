@@ -42,11 +42,11 @@ struct XPm_PendSuspCb {
  */
 struct XPm_Subsystem {
 	u32 Id; /**< Subsystem ID */
-	u32 IpiMask;
 	struct XPm_Permissions Perms;
 SAVE_REGION(
 	u8 State; /**< Subsystem state */
 	u8 Flags; /**< Subsystem specific flags */
+	u32 IpiMask;
 	struct XPm_PendSuspCb PendCb;
 	struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
 )
