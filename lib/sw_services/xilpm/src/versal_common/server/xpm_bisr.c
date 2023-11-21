@@ -463,6 +463,9 @@ XStatus XPmBisr_Repair2(u32 TagId)
 			case HNICX_NTHUB_TAG_ID:
 				Status = XPmRepair_Hnicx_Nthub(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
 				break;
+			case HNICX_DPU_TAG_ID:
+				Status = XPmRepair_Hnicx_Dpu(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
+				break;
 			case DDRMC5_MAIN_TAG_ID:
 				Status = XPmRepair_Ddrmc5_Main(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
 				break;
@@ -502,6 +505,7 @@ XStatus XPmBisr_TagSupportCheck2(u32 TagId)
 	case LPX_TAG_ID:
 	case FPX_TAG_ID:
 	case HNICX_NTHUB_TAG_ID:
+	case HNICX_DPU_TAG_ID:
 	case DDRMC5_MAIN_TAG_ID:
 		Status = XST_SUCCESS;
 		break;

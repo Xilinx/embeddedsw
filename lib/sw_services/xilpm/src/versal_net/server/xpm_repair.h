@@ -47,6 +47,8 @@ XStatus XPmRepair_Ddrmc5_Crypto(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 	 u32 *TagDataAddr);
 XStatus XPmRepair_Ddrmc5_Main(u32 EfuseTagAddr, u32 TagSize,
                 u32 TagOptional, u32 *TagDataAddr);
+XStatus XPmRepair_Hnicx_Dpu(u32 EfuseTagAddr, u32 TagSize,
+            u32 TagOptional, u32 *TagDataAddr);
 #ifdef __cplusplus
 }
 #endif
