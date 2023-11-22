@@ -64,11 +64,15 @@
   *       am   04/13/23 Fix PUF auxiliary convergence error
   * 2.2   am   05/03/23 Added KAT before crypto usage
 	      vek  05/31/23  Added support for Programming PUF secure control bits
+  *	  vss	11/22/23 Added header file required for SDT flow
   *
   *@note
   *
  *****************************************************************************/
 /***************************** Include Files *********************************/
+#ifdef SDT
+#include "xpuf_bsp_config.h"
+#endif
 #include "xpuf_client.h"
 #include "xsecure_aesclient.h"
 #include "xsecure_katclient.h"

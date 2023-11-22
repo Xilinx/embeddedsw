@@ -22,12 +22,16 @@
   * 1.0   har  06/24/22 Initial release
   * 2.1   am   04/13/23 Fix PUF auxiliary convergence error
   * 2.2   am   05/03/23 Added KAT before crypto usage
-  *       mb   08/09/23 Declare variables that are passed to server in data section
+  *       mb   08/09/23 Declare variables that are passed to server in data
+  *	  vss	11/22/23 Added header file required for SDT flow
   *
   *@note
   *
  *****************************************************************************/
 /***************************** Include Files *********************************/
+#ifdef SDT
+#include "xpuf_bsp_config.h"
+#endif
 #include "xpuf.h"
 #include "xsecure_aesclient.h"
 #include "xsecure_katclient.h"

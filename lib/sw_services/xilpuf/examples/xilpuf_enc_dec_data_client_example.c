@@ -31,6 +31,7 @@
  *       kpt  04/08/22 Added comment on usage of shared memory
  * 2.1   am   04/13/23 Fix PUF auxiliary convergence error
  * 2.2   am   05/03/23 Added KAT before crypto usage
+ * 	 vss  11/22/23 Added header file required for SDT flow
  *
  * @note
  *
@@ -121,6 +122,9 @@
  *
  *****************************************************************************/
 /***************************** Include Files *********************************/
+#ifdef SDT
+#include "xpuf_bsp_config.h"
+#endif
 #include "xpuf_client.h"
 #include "xsecure_aesclient.h"
 #include "xsecure_katclient.h"
