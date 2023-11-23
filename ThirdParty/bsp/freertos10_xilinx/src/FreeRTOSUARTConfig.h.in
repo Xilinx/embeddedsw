@@ -2,29 +2,10 @@
 * Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-#ifndef BSPCONFIG_H
-#define BSPCONFIG_H
+#ifndef _FREERTOSUARTCONFIG_H
+#define _FREERTOSUARTCONFIG_H
 
-#include "xmem_config.h"
-#define XPAR_XILTIMER_ENABLED
-@XPAR_PS_INCLUDE@
-@FREERTOS_UARTCONFIG_INCLUDE@
 
-#if defined (__aarch64__)
-#cmakedefine01 EL3 @EL3@
-#cmakedefine01 EL1_NONSECURE @EL1_NONSECURE@
-#cmakedefine01 HYP_GUEST @HYP_GUEST@
-#endif
-
-#cmakedefine versal @versal@
-#cmakedefine PSU_PMU @PSU_PMU@
-#cmakedefine PLATFORM_ZYNQMP @PLATFORM_ZYNQMP@
-#cmakedefine PLATFORM_ZYNQ @PLATFORM_ZYNQ@
-#cmakedefine VERSAL_PLM @VERSAL_PLM@
-#cmakedefine VERSALNET_PLM @VERSALNET_PLM@
-#cmakedefine PLATFORM_MB @PLATFORM_MB@
-#define XPAR_CPU_ID 0
-#cmakedefine XIL_INTERRUPT @XIL_INTERRUPT@
 #cmakedefine XPAR_STDIN_IS_UARTLITE @XPAR_STDIN_IS_UARTLITE@
 #cmakedefine XPAR_STDIN_IS_UARTNS550 @XPAR_STDIN_IS_UARTNS550@
 #cmakedefine XPAR_STDIN_IS_UARTPS @XPAR_STDIN_IS_UARTPS@
@@ -33,4 +14,4 @@
 #cmakedefine STDIN_BASEADDRESS @STDIN_BASEADDRESS@
 #cmakedefine STDOUT_BASEADDRESS @STDOUT_BASEADDRESS@
 
-#endif /* BSPCONFIG_H */
+#endif /* _FREERTOSUARTCONFIG_H */

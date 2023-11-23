@@ -33,9 +33,6 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "bspconfig.h"
-#if defined(FREERTOS_BSP) && defined(SDT)
-#include "FreeRTOSConfig.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 

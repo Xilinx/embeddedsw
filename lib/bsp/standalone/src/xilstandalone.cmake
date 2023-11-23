@@ -59,7 +59,8 @@ list(APPEND TOTAL_UART_INSTANCES ${UARTPS_NUM_DRIVER_INSTANCES})
 list(APPEND TOTAL_UART_INSTANCES ${UARTPSV_NUM_DRIVER_INSTANCES})
 list(APPEND TOTAL_UART_INSTANCES ${CORESIGHTPS_DCC_NUM_DRIVER_INSTANCES})
 
-if(NOT "${CMAKE_SYSTEM_NAME}" STREQUAL "FreeRTOS")
+if ((NOT ${YOCTO}) AND
+    (NOT "${CMAKE_SYSTEM_NAME}" STREQUAL "FreeRTOS"))
 set(standalone_stdin "None;" CACHE STRING "stdin peripheral")
 SET_PROPERTY(CACHE standalone_stdin PROPERTY STRINGS "None;${TOTAL_UART_INSTANCES}")
 set(standalone_stdout "None;" CACHE STRING "stdout peripheral")
@@ -110,6 +111,8 @@ elseif (standalone_stdin IN_LIST CORESIGHTPS_DCC_NUM_DRIVER_INSTANCES)
     set(STDOUT_BASEADDRESS  ${${reg}})
     set(XPAR_STDIN_IS_CORESIGHTPS_DCC " ")
 endif()
+else()
+    set(FREERTOS_UARTCONFIG_INCLUDE "#include \"FreeRTOSUARTConfig.h\"")
 endif()
 
 # Processor CMake Cache entires
