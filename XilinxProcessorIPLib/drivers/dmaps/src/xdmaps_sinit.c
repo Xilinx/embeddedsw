@@ -11,7 +11,7 @@
 * @addtogroup dmaps Overview
 * @{
 *
-* The implementation of the XDmaPs driver's static initialzation
+* The implementation of the XDmaPs driver's static initialization
 * functionality.
 *
 * <pre>
@@ -98,7 +98,6 @@ XDmaPs_Config *XDmaPs_LookupConfig(UINTPTR BaseAddress)
 
 u32 XDmaPs_GetDrvIndex(XDmaPs *InstancePtr, UINTPTR BaseAddress)
 {
-	XDmaPs_Config *CfgPtr = NULL;
 	u32 Index = 0;
 
 	for (Index = (u32)0x0; XDmaPs_ConfigTable[Index].Name != NULL; Index++) {
