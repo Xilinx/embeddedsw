@@ -49,6 +49,7 @@
  * 1.8   am   09/03/23    Added payload length macros
  *	 ht   05/30/23	  Added support for system device-tree flow.
  * 1.9   ht   09/12/23	  Added code for versioning of library.
+ *	 sd   11/23/23	  Clear the interrupts after calling the user handler.
  *
  *</pre>
  *

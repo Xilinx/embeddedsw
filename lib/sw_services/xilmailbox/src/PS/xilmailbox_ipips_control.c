@@ -19,6 +19,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.8   ht   07/24/23    Restructure the code for more modularity.
+ * 1.9   sd   11/23/23    Clear the interrupts after calling the user handler.
  *
  *  *</pre>
  *
@@ -202,10 +203,10 @@ void XIpiPs_IntrHandler(void *XMailboxPtr)
 
 	/* Get the Status Register of the current IPI instance.*/
 	IntrStatus = XIpiPsu_GetInterruptStatus(IpiInstancePtr);
-	XIpiPsu_ClearInterruptStatus(IpiInstancePtr, IntrStatus);
 	if (InstancePtr->RecvHandler != NULL) {
 		InstancePtr->RecvHandler(InstancePtr->RecvRefPtr);
 	}
+	XIpiPsu_ClearInterruptStatus(IpiInstancePtr, IntrStatus);
 }
 
 /*****************************************************************************/
