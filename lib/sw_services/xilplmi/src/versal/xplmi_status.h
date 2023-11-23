@@ -118,8 +118,8 @@
 *       sk   07/31/2023 Moved Image Store error codes to plat header
 *       yog  08/18/2023 Added error XLOADER_ERR_PLM_MH_SEC_MISMATCH error code
 *       yog  08/25/2023 Removed XLOADER_ERR_PLM_MH_SEC_MISMATCH error code
-*       mss  09/04/2023 Added error code for Null Check of EmInit params
-*
+*       mss  09/04/2023 Added error code for Null Check of EmInit params
+* 2.0   ng   11/11/2023 Added error code for User modules
 * </pre>
 *
 * @note
@@ -773,6 +773,11 @@ typedef enum {
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
+		 * [12:8] contains Module ID, [7:0] contains API ID.
+		 * Refer Minor code for Handler error code */
+
+	XPLMI_ERR_USER_MODULE_CDO_CMD = 0x3000,
+		/**< 0x3XXX, CDO command handler has failed for user modules.
 		 * [12:8] contains Module ID, [7:0] contains API ID.
 		 * Refer Minor code for Handler error code */
 } XPlmiStatus_t;

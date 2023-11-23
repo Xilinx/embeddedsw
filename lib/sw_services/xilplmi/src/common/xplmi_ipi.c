@@ -76,6 +76,7 @@
  *                       CheckIpiAccess
  *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
  * 1.08  bm   06/23/2023 Added IPI access permissions validation
+ * 2.0   ng   11/11/2023 Implemented user modules
  *
  * </pre>
  *
@@ -536,8 +537,7 @@ int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
  *
  * @return
  * 		- XST_SUCCESS on success.
-		- XPLMI_ERR_VALIDATE_IPI_INVALID_ID if the module id or ipi
-		source index is not valid during ipi validation
+		- XPLMI_ERR_VALIDATE_IPI_INVALID_ID on invalid IPI source.
 		- XPLMI_ERR_VALIDATE_IPI_MODULE_NOT_REGISTERED if the module
 		associated with the command's module id is not registered.
 		- XPLMI_ERR_VALIDATE_IPI_INVALID_API_ID if the Api Id received
@@ -553,35 +553,28 @@ int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
 int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 {
 	int Status = XST_FAILURE;
-	u32 ModuleId = (Cmd->CmdId & XPLMI_CMD_MODULE_ID_MASK) >>
-			XPLMI_CMD_MODULE_ID_SHIFT;
+	u32 ModuleId = (Cmd->CmdId & XPLMI_CMD_MODULE_ID_MASK) >> XPLMI_CMD_MODULE_ID_SHIFT;
 	u32 ApiId = Cmd->CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
 	u32 AccessPerm = XPLMI_NO_IPI_ACCESS;
 	const XPlmi_Module *Module = NULL;
 
-	/**
-	 * Validate module number and source IPI index
-	 */
-	if ((ModuleId >= XPLMI_MAX_MODULES) ||
-		(SrcIndex > XPLMI_IPI5_BUFFER_INDEX) ||
+	/** - Validate IPI source. */
+	if ((SrcIndex > XPLMI_IPI5_BUFFER_INDEX) ||
 		(SrcIndex == IPI_NO_BUF_CHANNEL_INDEX)) {
 		Status = XPLMI_ERR_VALIDATE_IPI_INVALID_ID;
 		goto END;
 	}
 
-	/** Check if the module is registered */
-	Module = Modules[ModuleId];
+	/** - Validate Module registration. */
+	Module = XPlmi_GetModule(ModuleId);
 	if (Module == NULL) {
 		Status = XPLMI_ERR_VALIDATE_IPI_MODULE_NOT_REGISTERED;
 		goto END;
 	}
 
-	/**
-	 * Validate IPI Command access permission if the permission buffer is
-	 * registered for the respective module
-	 */
+	/** - Validate IPI Command access permission. */
 	if (Module->AccessPermBufferPtr != NULL) {
-		/** Check if ApiId is greater than the max supported APIs by module */
+		/* Check if ApiId is greater than the max supported APIs by module */
 		if (ApiId >= Module->CmdCnt) {
 			/* If a Invalid Cmd Handler is registered skip throwing error */
 			if (Module->InvalidCmdHandler == NULL) {
@@ -594,12 +587,12 @@ int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 		}
 		AccessPerm = (u32)Module->AccessPermBufferPtr[ApiId] >> (XPLMI_ACCESS_PERM_SHIFT * SrcIndex);
 		AccessPerm &= XPLMI_ACCESS_PERM_MASK;
-		/** Check if the requested command is supported only through CDO */
+		/** - Check if the requested command is supported only through CDO */
 		if (AccessPerm == XPLMI_NO_IPI_ACCESS) {
 			Status = XPLMI_ERR_VALIDATE_IPI_NO_IPI_ACCESS;
 			goto END;
 		}
-		/** Check the access permissions of the requested Api */
+		/** - Check the access permissions of the requested Api */
 		if ((Cmd->IpiReqType == XPLMI_CMD_NON_SECURE) &&
 				(AccessPerm == XPLMI_SECURE_IPI_ACCESS)) {
 			Status = XPLMI_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS | XPLMI_WARNING_MINOR_MASK;
@@ -677,7 +670,7 @@ END:
  *
  * @return
  * 			- XST_SUCCESS on success.
- * 			- XPLMI_ERR_MODULE_MAX if module is not registered.
+ * 			- XPLMI_ERR_MODULE_NOT_REGISTERED if module is not registered.
  * 			- XPLMI_ERR_CMD_APIID on processing unregistered command ID.
  *
  *****************************************************************************/
@@ -688,17 +681,8 @@ static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload)
 	u32 ApiId = CmdPtr->CmdId & XPLMI_CMD_API_ID_MASK;
 	const XPlmi_Module *Module = NULL;
 
-
-	/* Assign Module */
-	if (ModuleId < XPLMI_MAX_MODULES) {
-		Module = Modules[ModuleId];
-	}
-	else {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_MAX, 0);
-		goto END;
-	}
-
-	/** Check if the module is registered */
+	/** - Validate Module registration. */
+	Module = XPlmi_GetModule(ModuleId);
 	if (Module == NULL) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_NOT_REGISTERED, 0);
 		goto END;
@@ -714,10 +698,11 @@ static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload)
 		}
 	}
 	else{
-		 Status = XPlmi_CmdExecute(CmdPtr);
+		/** - Execute the command. */
+		Status = XPlmi_CmdExecute(CmdPtr);
 	}
 
 END:
-      return Status;
+	return Status;
 }
 #endif /* XPLMI_IPI_DEVICE_ID */

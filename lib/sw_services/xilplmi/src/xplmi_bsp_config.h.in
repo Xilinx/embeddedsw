@@ -33,6 +33,8 @@
 #cmakedefine    PLM_RSA_EXCLUDE
 #cmakedefine    PLM_EN_ADD_PPKS
 
+#define XPAR_MAX_USER_MODULES (@XILPLMI_USER_MODULES_COUNT@U)
+
 #if ((defined(NUMBER_OF_SLRS)) && (NUMBER_OF_SLRS > 1))
 #cmakedefine    PLM_ENABLE_PLM_TO_PLM_COMM
 #endif

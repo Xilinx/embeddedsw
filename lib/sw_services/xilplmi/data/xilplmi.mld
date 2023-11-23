@@ -18,6 +18,7 @@
 #       rama 08/08/2023 Added option sem_override_dbg_lvl for overriding
 #                       plm_dbg_lvl to 0 for XilSEM enabled designs
 # 2.0   kpt  10/09/2023 Updated library version for 2024.1
+#       ng   11/11/2023 Added option to set number of user modules
 #
 ##############################################################################
 
@@ -51,4 +52,5 @@ BEGIN LIBRARY xilplmi
   PARAM name = plm_ecdsa_en, desc = "Enables or Disables ECDSA handlers", type = bool, default = true;
   PARAM name = plm_rsa_en, desc = "Enables or Disables RSA handlers", type = bool, default = true;
   PARAM name = sem_override_dbg_lvl, desc = "Overrides plm_dbg_lvl as 0 for XilSEM designs if enabled (1) ", type = bool, default = true;
+  PARAM name = user_modules_count, desc = "Number of User Modules", type = int, default = 0;
 END LIBRARY

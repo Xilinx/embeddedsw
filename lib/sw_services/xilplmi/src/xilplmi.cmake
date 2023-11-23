@@ -117,4 +117,7 @@ if (NOT XILPLMI_plm_rsa_en)
   set(PLM_RSA_EXCLUDE " ")
 endif()
 
+set(XILPLMI_user_modules_count "0" CACHE STRING "Number of User Modules.")
+set(XILPLMI_USER_MODULES_COUNT "${XILPLMI_user_modules_count}")
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xplmi_bsp_config.h.in ${CMAKE_BINARY_DIR}/include/xplmi_bsp_config.h)

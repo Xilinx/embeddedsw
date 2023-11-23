@@ -18,6 +18,7 @@
 # 1.8   skg  12/07/2022 Added plm_add_ppks_en user configuration
 # 1.9   rama 08/08/2023 Added logic for overriding plm_dbg_lvl to 0
 #                      for XilSEM enabled designs
+# 2.0   ng   11/11/2023 Added option to set number of user modules
 #
 ##############################################################################
 
@@ -302,6 +303,11 @@ proc xgen_opts_file {libhandle} {
 			puts $file_handle "#define PLM_RSA_EXCLUDE"
 		}
 	}
+
+	# Get user_modules count set by user, by default it is 0
+	set value [common::get_property CONFIG.user_modules_count $libhandle]
+	puts $file_handle "\n/* Number of User Modules */"
+	puts $file_handle [format %s%d%s "#define XPAR_MAX_USER_MODULES " [expr $value]  "U"]
 
 	puts $file_handle "\n"
 	close $file_handle
