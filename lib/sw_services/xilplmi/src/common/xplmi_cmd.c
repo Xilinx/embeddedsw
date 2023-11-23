@@ -27,6 +27,7 @@
 *       bm   03/09/2023 Add NULL check for module before using it
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.05  bm   06/13/2023 Add API to just log PLM error
+* 2.0   ng   11/11/2023 Implemented user modules
 * </pre>
 *
 * @note
@@ -60,7 +61,7 @@
  *
  * @return
  * 			- XST_SUCCESS on success.
- * 			- XPLMI_ERR_MODULE_MAX if the module is not registered.
+ * 			- XPLMI_ERR_MODULE_NOT_REGISTERED if the module is not registered.
  * 			- XPLMI_ERR_CMD_APIID on invalid module and unregistered CMD ID.
  * 			- XPLMI_ERR_CMD_HANDLER_NULL if command handler is not registered.
  * 			- XPLMI_ERR_CDO_CMD on invalid CDO command handler.
@@ -70,32 +71,28 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 {
 	int Status = XST_FAILURE;
 	u32 CdoErr;
-	u32 ModuleId = (CmdPtr->CmdId & XPLMI_CMD_MODULE_ID_MASK) >> 8U;
+	u32 CdoErrType = XPLMI_ERR_CDO_CMD;
+	u32 ModuleId = (CmdPtr->CmdId & XPLMI_CMD_MODULE_ID_MASK) >> XPLMI_CMD_MODULE_ID_SHIFT;
 	u32 ApiId = CmdPtr->CmdId & XPLMI_CMD_API_ID_MASK;
 	const XPlmi_Module *Module = NULL;
 	const XPlmi_ModuleCmd *ModuleCmd = NULL;
 
 	XPlmi_Printf(DEBUG_DETAILED, "CMD Execute \n\r");
-	/** - Assign Module */
-	if (ModuleId >= XPLMI_MAX_MODULES) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_MAX, 0);
-		goto END;
-	}
 
-	/** - Check if the module is registered */
-	Module = Modules[ModuleId];
+	/** - Validate Module registration. */
+	Module = XPlmi_GetModule(ModuleId);
 	if (Module == NULL) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_NOT_REGISTERED, 0);
 		goto END;
 	}
 
-	/** - Check if it is within the commands registered */
+	/** - Validate if API is registered. */
 	if (ApiId >= Module->CmdCnt) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_APIID, 0);
 		goto END;
 	}
 
-	/** - Check if proper handler is registered */
+	/** - Validate the module handler. */
 	ModuleCmd = &Module->CmdAry[ApiId];
 	if (ModuleCmd->Handler == NULL) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_HANDLER_NULL, 0);
@@ -104,10 +101,16 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 	XPlmi_Printf(DEBUG_DETAILED, "CMD 0x%0x, Len 0x%0x, PayloadLen 0x%0x \n\r",
 			CmdPtr->CmdId, CmdPtr->Len, CmdPtr->PayloadLen);
 
-	/** - Run the command handler */
+	/** - Execute the API. */
 	Status = ModuleCmd->Handler(CmdPtr);
 	if (Status != XST_SUCCESS) {
-		CdoErr = (u32)XPLMI_ERR_CDO_CMD + (CmdPtr->CmdId & XPLMI_ERR_CDO_CMD_MASK);
+#if ( XPAR_MAX_USER_MODULES > 0U )
+		if ( ModuleId >= XPLMI_USER_MODULE_START_INDEX ) {
+			CdoErrType = XPLMI_ERR_USER_MODULE_CDO_CMD;
+		}
+#endif
+		CdoErr = CdoErrType + (CmdPtr->CmdId & XPLMI_ERR_CDO_CMD_MASK);
+
 		Status = XPlmi_UpdateStatus((XPlmiStatus_t)CdoErr, Status);
 		if (CmdPtr->DeferredError != (u8)TRUE) {
 			goto END;

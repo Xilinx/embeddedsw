@@ -37,6 +37,7 @@
 *       sk   09/07/2023 Removed redundant code in XPlmi_PlmUpdate
 * 1.11  bm   09/25/2023 Fix Error Handling after In-Place PLM Update
 *       sk   09/26/2023 Added Support for In-Place Update from Image Store
+* 2.0   ng   11/11/2023 Implemented user modules
 *
 * </pre>
 *
@@ -569,7 +570,7 @@ static int XPlmi_ShutdownModules(XPlmi_ModuleOp Op)
 	int Status = XST_FAILURE;
 	int Index;
 
-	for (Index = XPLMI_MAX_MODULES - 1; Index >= 0; --Index) {
+	for (Index = XPLMI_ALL_MODULES_MAX - 1; Index >= 0; --Index) {
 		if (Modules[Index] == NULL) {
 			continue;
 		}

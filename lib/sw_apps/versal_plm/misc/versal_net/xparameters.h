@@ -1697,6 +1697,9 @@
 
 #define XPAR_XILPM_ENABLED
 
+/* Number of user modules. */
+#define XPAR_MAX_USER_MODULES 0U
+
 /* Xilinx Secure library ecdsa endianness Settings */
 #define XSECURE_ELLIPTIC_ENDIANNESS	0U	/* 0: Little Endian and 1: Big endian */
 #endif  /* end of protection macro */

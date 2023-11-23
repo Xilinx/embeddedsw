@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 *       bm   07/06/2023 Added command id for run_proc command
 *       bm   07/06/2023 Added list command ids
 *       bm   07/24/2023 Type cast IPI Access macros properly
+* 2.0   ng   11/11/2023 Implemented user modules
 *
 * </pre>
 *
@@ -67,18 +68,27 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_MAX_MODULES			(14U)
-#define XPLMI_MODULE_GENERIC_ID			(1U)
-#define XPLMI_MODULE_XILPM_ID			(2U)
+#define XPLMI_MODULE_GENERIC_ID		(1U)
+#define XPLMI_MODULE_XILPM_ID		(2U)
 #define XPLMI_MODULE_SEM_ID			(3U)
-#define XPLMI_MODULE_XILSECURE_ID		(5U)
-#define XPLMI_MODULE_XILPSM_ID			(6U)
-#define XPLMI_MODULE_LOADER_ID			(7U)
-#define XPLMI_MODULE_ERROR_ID			(8U)
+#define XPLMI_MODULE_XILSECURE_ID	(5U)
+#define XPLMI_MODULE_XILPSM_ID		(6U)
+#define XPLMI_MODULE_LOADER_ID		(7U)
+#define XPLMI_MODULE_ERROR_ID		(8U)
 #define XPLMI_MODULE_STL_ID			(10U)
-#define XPLMI_MODULE_XILNVM_ID			(11U)
-#define XPLMI_MODULE_XILPUF_ID			(12U)
-#define XPLMI_MODULE_XILOCP_ID			(13U)
-#define XPLMI_MODULE_COMMAND(FUNC)		{ (FUNC) }
+#define XPLMI_MODULE_XILNVM_ID		(11U)
+#define XPLMI_MODULE_XILPUF_ID		(12U)
+#define XPLMI_MODULE_XILOCP_ID		(13U)
+#define XPLMI_MODULE_COMMAND(FUNC)	{ (FUNC) }
+
+/* User modules */
+#define XPLMI_USER_MODULE_START_INDEX	( XPLMI_MAX_MODULES )
+#define XPLMI_USER_MODULE_MASK			(0x80U)
+#define XPLMI_SET_USER_MODULE_ID(ID)	(u32)( XPLMI_USER_MODULE_MASK | ID )
+#define XPLMI_GET_USER_MODULE_ID(ID)	(u32)( (~XPLMI_USER_MODULE_MASK) & ID )
+
+#define XPLMI_ALL_MODULES_MAX		( XPLMI_MAX_MODULES + XPAR_MAX_USER_MODULES )
+
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -203,9 +213,10 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 void XPlmi_ModuleRegister(XPlmi_Module *Module);
+XPlmi_Module* XPlmi_GetModule(u32 ModuleId);
 
 /************************** Variable Definitions *****************************/
-extern XPlmi_Module *Modules[XPLMI_MAX_MODULES];
+extern XPlmi_Module *Modules[XPLMI_ALL_MODULES_MAX];
 
 /**
  * @}

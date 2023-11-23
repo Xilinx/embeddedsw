@@ -102,6 +102,7 @@
 *       bm   07/06/2023 Added list commands
 *       sk   08/30/2023 Added Address range check for PSM Buff List
 *       dd   09/12/2023 MISRA-C violation Rule 14.4 fixed
+* 2.0   ng   11/11/2023 Implemented user modules
 *
 * </pre>
 *
@@ -2220,8 +2221,6 @@ static int XPlmi_Break(XPlmi_Cmd *Cmd)
  *
  * @return
  * 		- XST_SUCCESS on success.
-		- XPLMI_ERR_SET_IPI_MODULE_MAX if the module id is greater than
-		max module count
 		- XPLMI_ERR_SET_IPI_INVALID_API_ID_UPPER if the Api Id Upper limit
 		is greater than maximum api count
 		- XPLMI_ERR_SET_IPI_INVALID_API_ID_LOWER if the Api Id Lower limit
@@ -2249,28 +2248,21 @@ static int XPlmi_SetIpiAccess(XPlmi_Cmd *Cmd)
 
 	XPLMI_EXPORT_CMD(XPLMI_SET_IPI_ACCESS_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
-	/**
-	 * Validate module number
-	 */
-	if ((ModuleId >= XPLMI_MAX_MODULES)) {
-		Status = XPLMI_ERR_SET_IPI_MODULE_MAX;
-		goto END;
-	}
 
-	/** Check if the module is registered */
-	Module = Modules[ModuleId];
+	Module = XPlmi_GetModule(ModuleId);
 	if (Module == NULL) {
 		/* Ignore if module is not registered */
 		Status = XST_SUCCESS;
 		goto END;
 	}
 
-	/* Set permissions only if Access Permission buffer is registered */
+	/** - Set permissions only if Access Permission buffer is registered */
 	if (Module->AccessPermBufferPtr == NULL) {
 		Status= XPLMI_ERR_SET_IPI_PERM_BUFF_NOT_REGISTERED;
 		goto END;
 	}
 
+	/** - Validate the API ID limits. */
 	/* Check if Api Id upper limit is valid */
 	if (ApiIdUpper >= Module->CmdCnt) {
 		Status = XPLMI_ERR_SET_IPI_INVALID_API_ID_UPPER;
@@ -2283,7 +2275,7 @@ static int XPlmi_SetIpiAccess(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/* Set access permissions for api id range specified in the command */
+	/** - Set access permissions for api id range specified in the command */
 	for (ApiIndex = ApiIdLower; ApiIndex <= ApiIdUpper; ApiIndex++) {
 		/* Write and readback the requested access permission */
 		Module->AccessPermBufferPtr[ApiIndex] = AccessPermMask;
