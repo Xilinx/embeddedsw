@@ -49,6 +49,9 @@
 *
 * To keep things simple, by default the cache is disabled for this example
 *
+* The endianness selected in the example should be in sync with the endianness selected for
+* Xilsecure server which is part of PLM.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -75,65 +78,23 @@
 #define P384_KEY_SIZE			(XSECURE_ECC_P384_SIZE_IN_BYTES + \
 					XSECURE_ECC_P384_SIZE_IN_BYTES)
 
-#define XSECURE_SHARED_TOTAL_MEM_SIZE	(XSECURE_SHARED_MEM_SIZE + \
-		(XSECURE_ECC_P384_SIZE_IN_BYTES * 3U))
+#define XSECURE_LITTLE_ENDIAN 		0U
+#define XSECURE_BIG_ENDIAN		1U
+#define XSECURE_ECC_ENDIANNESS		XSECURE_BIG_ENDIAN
 
 /************************** Variable Definitions *****************************/
-/* shared memory allocation */
-static u8 SharedMem[XSECURE_SHARED_TOTAL_MEM_SIZE] __attribute__((aligned(64U)))
-			__attribute__ ((section (".data.SharedMem")));
+#define XSECURE_PUBLIC_KEY_P384_X	"532070B5A6785CC61F5BD308DA6AA5ABDFF81988B65E912F" \
+					"7AC68077208BD3569C7BD85C87EC02EC2A23338AD75B7339"
 
-#if XSECURE_ELLIPTIC_ENDIANNESS
-static const u8 PubKey_P384[XSECURE_ECC_P384_SIZE_IN_BYTES +
-			XSECURE_ECC_P384_SIZE_IN_BYTES] = {
-	0x53U, 0x20U, 0x70U, 0xB5U, 0xA6U, 0x78U, 0x5CU, 0xC6U,
-	0x1FU, 0x5BU, 0xD3U, 0x08U, 0xDAU, 0x6AU, 0xA5U, 0xABU,
-	0xDFU, 0xF8U, 0x19U, 0x88U, 0xB6U, 0x5EU, 0x91U, 0x2FU,
-	0x7AU, 0xC6U, 0x80U, 0x77U, 0x20U, 0x8BU, 0xD3U, 0x56U,
-	0x9CU, 0x7BU, 0xD8U, 0x5CU, 0x87U, 0xECU, 0x02U, 0xECU,
-	0x2AU, 0x23U, 0x33U, 0x8AU, 0xD7U, 0x5BU, 0x73U, 0x39U,
-	0x2AU, 0xDAU, 0x1BU, 0x44U, 0x0EU, 0xFFU, 0xBDU, 0xE9U,
-	0xACU, 0x52U, 0x96U, 0x92U, 0x05U, 0xAAU, 0xBEU, 0xB1U,
-	0x31U, 0x83U, 0xD5U, 0xD6U, 0x0BU, 0xA1U, 0xFAU, 0x1BU,
-	0xBAU, 0xE5U, 0x80U, 0x42U, 0x07U, 0xD2U, 0x0DU, 0x4FU,
-	0x05U, 0x7DU, 0xA1U, 0x3FU, 0x00U, 0x51U, 0xB9U, 0x7FU,
-	0x03U, 0xFBU, 0x01U, 0x27U, 0x44U, 0x7FU, 0x33U, 0xCFU
-};
+#define XSECURE_PUBLIC_KEY_P384_Y	"2ADA1B440EFFBDE9AC52969205AABEB13183D5D60BA1FA1B" \
+					"BAE5804207D20D4F057DA13F0051B97F03FB0127447F33CF"
 
-static const u8 D_P384[XSECURE_ECC_P384_SIZE_IN_BYTES] = {
-	0x9FU, 0x29U, 0xCDU, 0x59U, 0xD3U, 0x49U, 0xDCU, 0x56U,
-	0x20U, 0x4AU, 0x0DU, 0x1BU, 0x24U, 0xA8U, 0x04U, 0xBFU,
-	0x9DU, 0x16U, 0xA2U, 0x20U, 0x9BU, 0x04U, 0x34U, 0xFCU,
-	0x3EU, 0x6FU, 0xE8U, 0x9FU, 0x4EU, 0x5DU, 0xEEU, 0x24U,
-	0xCCU, 0x74U, 0x20U, 0xBAU, 0x10U, 0x61U, 0xFFU, 0xB7U,
-	0x1DU, 0x02U, 0x5DU, 0x89U, 0x74U, 0x2AU, 0x21U, 0x9CU
-};
-#else
-static const u8 PubKey_P384[XSECURE_ECC_P384_SIZE_IN_BYTES +
-			XSECURE_ECC_P384_SIZE_IN_BYTES] = {
-	0x39U, 0x73U, 0x5BU, 0xD7U, 0x8AU, 0x33U, 0x23U, 0x2AU,
-	0xECU, 0x02U, 0xECU, 0x87U, 0x5CU, 0xD8U, 0x7BU, 0x9CU,
-	0x56U, 0xD3U, 0x8BU, 0x20U, 0x77U, 0x80U, 0xC6U, 0x7AU,
-	0x2FU, 0x91U, 0x5EU, 0xB6U, 0x88U, 0x19U, 0xF8U, 0xDFU,
-	0xABU, 0xA5U, 0x6AU, 0xDAU, 0x08U, 0xD3U, 0x5BU, 0x1FU,
-	0xC6U, 0x5CU, 0x78U, 0xA6U, 0xB5U, 0x70U, 0x20U, 0x53U,
-	0xCFU, 0x33U, 0x7FU, 0x44U, 0x27U, 0x01U, 0xFBU, 0x03U,
-	0x7FU, 0xB9U, 0x51U, 0x00U, 0x3FU, 0xA1U, 0x7DU, 0x05U,
-	0x4FU, 0x0DU, 0xD2U, 0x07U, 0x42U, 0x80U, 0xE5U, 0xBAU,
-	0x1BU, 0xFAU, 0xA1U, 0x0BU, 0xD6U, 0xD5U, 0x83U, 0x31U,
-	0xB1U, 0xBEU, 0xAAU, 0x05U, 0x92U, 0x96U, 0x52U, 0xACU,
-	0xE9U, 0xBDU, 0xFFU, 0x0EU, 0x44U, 0x1BU, 0xDAU, 0x2AU
-};
+#define XSECURE_D_P384			"9F29CD59D349DC56204A0D1B24A804BF9D16A2209B0434FC" \
+					"3E6FE89F4E5DEE24CC7420BA1061FFB71D025D89742A219C"
 
-static const u8 D_P384[XSECURE_ECC_P384_SIZE_IN_BYTES] = {
-	0x9CU, 0x21U, 0x2AU, 0x74U, 0x89U, 0x5DU, 0x02U, 0x1DU,
-	0xB7U, 0xFFU, 0x61U, 0x10U, 0xBAU, 0x20U, 0x74U, 0xCCU,
-	0x24U, 0xEEU, 0x5DU, 0x4EU, 0x9FU, 0xE8U, 0x6FU, 0x3EU,
-	0xFCU, 0x34U, 0x04U, 0x9BU, 0x20U, 0xA2U, 0x16U, 0x9DU,
-	0xBFU, 0x04U, 0xA8U, 0x24U, 0x1BU, 0x0DU, 0x4AU, 0x20U,
-	0x56U, 0xDCU, 0x49U, 0xD3U, 0x59U, 0xCDU, 0x29U, 0x9FU
-};
-#endif
+static u8 PubKey_P384[XSECURE_ECC_P384_SIZE_IN_BYTES + XSECURE_ECC_P384_SIZE_IN_BYTES]__attribute__ ((section (".data.PubKey_P384")));
+static u8 D_P384[XSECURE_ECC_P384_SIZE_IN_BYTES]__attribute__ ((section (".data.D_P384")));
+static u8 SharedSecret[XSECURE_ECC_P384_SIZE_IN_BYTES]__attribute__ ((section (".data.SharedSecret")));
 
 /************************** Function Prototypes ******************************/
 static void XSecure_ShowData(const u8* Data, u32 Len);
@@ -154,7 +115,6 @@ int main()
 	int Status = XST_FAILURE;
 	XMailbox MailboxInstance;
 	XSecure_ClientInstance SecureClientInstance;
-	u8 *SharedSecret;
 
 	#ifdef XSECURE_CACHE_DISABLE
 		Xil_DCacheDisable();
@@ -171,16 +131,7 @@ int main()
 		goto END;
 	}
 
-	/* Set shared memory */
-	Status = XMailbox_SetSharedMem(&MailboxInstance, (u64)(UINTPTR)(SharedMem +
-		(XSECURE_ECC_P384_SIZE_IN_BYTES * 3U)), XSECURE_SHARED_MEM_SIZE);
-	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n shared memory initialization failed");
-		goto END;
-	}
-
 	xil_printf("Request sent to generate shared secret\r\n");
-	SharedSecret = &SharedMem[0U];
 
 	Status = GenerateSharedSecretExample(&SecureClientInstance, SharedSecret);
 	if (Status != XST_SUCCESS) {
@@ -213,6 +164,68 @@ END:
 static int GenerateSharedSecretExample(XSecure_ClientInstance *InstancePtr, u8 *SharedSecret)
 {
 	int Status = XST_FAILURE;
+
+	if (Xil_Strnlen(XSECURE_D_P384, (XSECURE_ECC_P384_SIZE_IN_BYTES * 2U)) ==
+		(XSECURE_ECC_P384_SIZE_IN_BYTES * 2U)) {
+		if (XSECURE_ECC_ENDIANNESS == XSECURE_LITTLE_ENDIAN) {
+			Status = Xil_ConvertStringToHexLE((const char *)(XSECURE_D_P384), D_P384,
+				XSECURE_ECC_P384_SIZE_IN_BYTES * 8U);
+		}
+		else {
+			Status = Xil_ConvertStringToHexBE((const char *) (XSECURE_D_P384),
+				D_P384, XSECURE_ECC_P384_SIZE_IN_BYTES * 8U);
+		}
+		if (Status != XST_SUCCESS) {
+			xil_printf("String Conversion error (D):%08x \r\n", Status);
+			goto END;
+		}
+	}
+	else {
+		xil_printf("Provided length of private key is wrong\r\n");
+		goto END;
+	}
+
+	if (Xil_Strnlen(XSECURE_PUBLIC_KEY_P384_X, (XSECURE_ECC_P384_SIZE_IN_BYTES * 2U)) ==
+		(XSECURE_ECC_P384_SIZE_IN_BYTES * 2U)) {
+		if (XSECURE_ECC_ENDIANNESS == XSECURE_LITTLE_ENDIAN) {
+			Status = Xil_ConvertStringToHexLE((const char *)(XSECURE_PUBLIC_KEY_P384_X), PubKey_P384,
+				XSECURE_ECC_P384_SIZE_IN_BYTES * 8U);
+		}
+		else {
+			Status = Xil_ConvertStringToHexBE((const char *)(XSECURE_PUBLIC_KEY_P384_X), PubKey_P384,
+				XSECURE_ECC_P384_SIZE_IN_BYTES * 8U);
+		}
+		if (Status != XST_SUCCESS) {
+			xil_printf("String Conversion error (Public Key X):%08x !!!\r\n", Status);
+			goto END;
+		}
+	}
+	else {
+		xil_printf("Provided length of Public Key(X) is wrong \r\n");
+		goto END;
+	}
+
+	if (Xil_Strnlen(XSECURE_PUBLIC_KEY_P384_Y, (XSECURE_ECC_P384_SIZE_IN_BYTES * 2U)) ==
+	(XSECURE_ECC_P384_SIZE_IN_BYTES * 2U)) {
+		if (XSECURE_ECC_ENDIANNESS == XSECURE_LITTLE_ENDIAN) {
+			Status = Xil_ConvertStringToHexLE((const char *)(XSECURE_PUBLIC_KEY_P384_Y),
+				PubKey_P384 + XSECURE_ECC_P384_SIZE_IN_BYTES,
+				XSECURE_ECC_P384_SIZE_IN_BYTES * 8U);
+		}
+		else {
+			Status = Xil_ConvertStringToHexBE((const char *)(XSECURE_PUBLIC_KEY_P384_Y),
+				PubKey_P384 + XSECURE_ECC_P384_SIZE_IN_BYTES,
+				XSECURE_ECC_P384_SIZE_IN_BYTES * 8U);
+		}
+		if (Status != XST_SUCCESS) {
+			xil_printf("String Conversion error (Public Key Y):%08x !!!\r\n", Status);
+			goto END;
+		}
+	}
+	else {
+		xil_printf("Provided length of Public Key(Y) is wrong\r\n");
+		goto END;
+	}
 
 	Xil_DCacheFlushRange((UINTPTR)D_P384, sizeof(D_P384));
 	Xil_DCacheFlushRange((UINTPTR)PubKey_P384, sizeof(PubKey_P384));
