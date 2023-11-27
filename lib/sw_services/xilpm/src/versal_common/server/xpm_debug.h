@@ -555,6 +555,12 @@ extern "C" {
 #define XPM_INT_ERR_RAIL_LOWER_VOLT		0x4805U
 /* Controller regulating rail is disabled */
 #define XPM_INT_ERR_RAIL_CONTROLLER_DISABLED	0x4806U
+/* VID adjustment failed */
+#define XPM_INT_ERR_VID_ADJUST			0x4807U
+/* Invalid VID value */
+#define XPM_INT_ERR_INVALID_VID			0x4808U
+/* Rail control for VID adjustment failed */
+#define XPM_INT_ERR_RAIL_VID			0x4809U
 
 /*********************** PL Device specific Errors **************************/
 /************************** (0x4900) - (0x497F) ******************************/

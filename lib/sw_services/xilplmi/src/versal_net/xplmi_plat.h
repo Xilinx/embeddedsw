@@ -87,6 +87,7 @@ extern "C" {
 #define XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_2			(XPLMI_RTCFG_BASEADDR + 0x2A4U) /**< Secure PKI KAT address 2 */
 #define XPLMI_RTCFG_PLM_RSVD_DDR_ADDR				(XPLMI_RTCFG_BASEADDR + 0x2A8U) /**< Baseadress of DDR region reserved for PLM */
 #define XPLMI_RTCFG_PLM_RSVD_DDR_SIZE				(XPLMI_RTCFG_BASEADDR + 0x2ACU) /**< Size of DDR region reserved for PLM */
+#define XPLMI_RTCFG_VID_OVERRIDE				(XPLMI_RTCFG_BASEADDR + 0x2B0U) /**< VID override */
 
 #define XPLMI_INVALID_PLM_RSVD_DDR_ADDR				(0x0U)
 #define XPLMI_INVALID_PLM_RSVD_DDR_SIZE				(0U)

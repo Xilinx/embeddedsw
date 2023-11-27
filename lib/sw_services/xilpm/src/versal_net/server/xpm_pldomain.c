@@ -120,6 +120,7 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus SocRailPwrSts = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
+	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
 	const XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
 	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
 	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
@@ -135,6 +136,13 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK);
 	if ((XST_SUCCESS != RamRailPwrSts) || (XST_SUCCESS != AuxRailPwrSts) ||(XST_SUCCESS != SocRailPwrSts)) {
 		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		goto done;
+	}
+
+	/* Perform VID adjustment */
+	Status = XPmRail_AdjustVID((XPm_Rail *)VccintRail);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VID_ADJUST;
 		goto done;
 	}
 

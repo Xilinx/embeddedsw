@@ -40,6 +40,9 @@ struct XPm_Power {
 		/**< HandleEvent: Pointer to event handler */
 };
 
+/* Support for up to 7 words of data for I2C commands */
+#define MAX_I2C_COMMAND_LEN	28
+
 /************************** Function Prototypes ******************************/
 void XPmPower_SetPsmRegInfo(XPm_Power *Power, const u32 *Args);
 XStatus XPmPower_SendIslandPowerDwnReq(const XPm_Node *Node);

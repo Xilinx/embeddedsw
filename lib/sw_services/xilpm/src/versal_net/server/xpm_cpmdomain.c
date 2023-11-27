@@ -37,6 +37,7 @@ static XStatus Cpm5nInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
 	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
 	const XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
+	const XPm_Rail *VccCpm5nRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_CPM5N);
 
 	/* Check LPD and PL power rails first to make sure power is on */
 	PslpRailPwrSts = XPmPower_CheckPower(VccintPslpRail,
@@ -53,6 +54,20 @@ static XStatus Cpm5nInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
 		goto done;
 	}
+
+	/* Perform VID adjustment */
+	Status = XPmRail_AdjustVID((XPm_Rail *)VccintRail);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VID_ADJUST;
+		goto done;
+	}
+
+	Status = XPmRail_AdjustVID((XPm_Rail *)VccCpm5nRail);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VID_ADJUST;
+		goto done;
+	}
+
 	Status = XST_SUCCESS;
 done:
 	XPm_PrintDbgErr(Status, DbgErr);

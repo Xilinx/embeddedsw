@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,8 +37,6 @@ typedef enum {
 	XPM_POWER_EVENT_PARENT_DOWN_DONE,
 	XPM_POWER_EVENT_TIMER,
 } XPm_PowerEvent;
-
-#define MAX_I2C_COMMAND_LEN	16
 
 typedef struct {
 	u8 CmdLen; /** Total no of commands to configure this regulator */
