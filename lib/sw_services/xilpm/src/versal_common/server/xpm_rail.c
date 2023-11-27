@@ -151,7 +151,7 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 	u8 WriteBuffer[3] = {0};
 	const XPm_Regulator *Regulator;
 	u16 RegulatorSlaveAddress, MuxAddress;
-	u32 i = 0, j = 0, k = 0, BytesLen = 0;
+	u32 i = 0, j = 0, k = 0, BytesLen = 0, ByteIndex = 0;
 
 	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
 	if (NULL == Regulator) {
@@ -169,6 +169,11 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 
 	RegulatorSlaveAddress = (u16)Regulator->I2cAddress;
 	for (i = 0; i < Regulator->Config.CmdLen; i++) {
+		if (j >= ((u32)Regulator->Config.CmdLen * 4U)) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
 		MuxAddress = (u16)Regulator->Config.CmdArr[j];
 		j++;
 		BytesLen = Regulator->Config.CmdArr[j];
@@ -176,6 +181,7 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
+
 		j++;
 		for (k = 0; k < BytesLen; k++) {
 			WriteBuffer[k] = Regulator->Config.CmdArr[j];
@@ -190,17 +196,26 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 		}
 	}
 
-	i = 0; j = 0; k = 0;
-	for (i = 0; i < Rail->I2cModes[Mode].CmdLen; i++) {
-		BytesLen = Rail->I2cModes[Mode].CmdArr[j];
+	while (ByteIndex < ((u32)Rail->I2cModes[Mode].CmdLen * 4U)) {
+		BytesLen = Rail->I2cModes[Mode].CmdArr[ByteIndex];
+
+		/*
+		 * If the next BytesLen is 0, it means we are in the middle of
+		 * last payload word with no more I2C command to process.
+		 */
+		if (0U == BytesLen) {
+			break;
+		}
+
 		if (BytesLen > 3u) {
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
-		j++;
+
+		ByteIndex++;
 		for (k = 0; k < BytesLen; k++) {
-			WriteBuffer[k] = Rail->I2cModes[Mode].CmdArr[j];
-			j++;
+			WriteBuffer[k] = Rail->I2cModes[Mode].CmdArr[ByteIndex];
+			ByteIndex++;
 		}
 
 		Status = I2CWrite(&IicInstance, RegulatorSlaveAddress, WriteBuffer,
