@@ -32,6 +32,14 @@ static XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 		goto done;
 	}
+
+	/* Perform VID adjustment */
+	Status = XPmRail_AdjustVID((XPm_Rail *)VccintPsfpRail);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VID_ADJUST;
+		goto done;
+	}
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
