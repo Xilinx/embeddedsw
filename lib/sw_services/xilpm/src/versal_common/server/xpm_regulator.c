@@ -61,7 +61,8 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32
 		Regulator->I2cAddress = (u16)((Args[1] >> 16) & 0xFFU);
 		Regulator->Cntrlr[XPM_I2C_CNTRLR] = XPmDevice_GetById(ControllerId);
 		if ((NULL == Regulator->Cntrlr[XPM_I2C_CNTRLR]) ||
-		    (PM_DEV_I2C_PMC != ControllerId)) {
+		    ((PM_DEV_I2C_PMC != ControllerId) && (PM_DEV_I2C_0 != ControllerId) &&
+		     (PM_DEV_I2C_1 != ControllerId))) {
 			DbgErr = XPM_INT_ERR_INVALID_NODE;
 			Status = XST_INVALID_PARAM;
 			goto done;
@@ -76,6 +77,7 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32
 			}
 		}
 
+		Status = XST_SUCCESS;
 		break;
 	case (u32)XPM_METHODTYPE_GPIO:
 		Regulator->Cntrlr[XPM_GPIO_CNTRLR] = XPmDevice_GetById(ControllerId);

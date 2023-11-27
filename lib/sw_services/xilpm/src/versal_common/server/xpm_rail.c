@@ -31,25 +31,25 @@ static XIicPs IicInstance;
 
 XIicPs *XPmRail_GetIicInstance(void)
 {
-        return &IicInstance;
+	return &IicInstance;
 }
 
-XStatus I2CInitialize(XIicPs *Iic)
+XStatus I2CInitialize(XIicPs *Iic, const u32 ControllerID)
 {
 	XStatus Status = XST_FAILURE;
 	XIicPs_Config *Config;
 	const XPm_Device *Device;
 	u16 I2CDeviceId;
 
-	/* Request the PMC_I2C device */
-	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC,
+	/* Request the I2C controller */
+	Status = XPm_RequestDevice(PM_SUBSYS_PMC, ControllerID,
 				   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0,
 				   XPLMI_CMD_SECURE);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-	Device = XPmDevice_GetById(PM_DEV_I2C_PMC);
+	Device = XPmDevice_GetById(ControllerID);
 	if (NULL == Device) {
 		Status = XPM_PM_INVALID_NODE;
 		goto done;
@@ -152,6 +152,7 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 	const XPm_Regulator *Regulator;
 	u16 RegulatorSlaveAddress, MuxAddress;
 	u32 i = 0, j = 0, k = 0, BytesLen = 0, ByteIndex = 0;
+	u32 ControllerID;
 
 	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
 	if (NULL == Regulator) {
@@ -160,7 +161,8 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 	}
 
 	if ((u32)XIL_COMPONENT_IS_READY != IicInstance.IsReady) {
-		Status = I2CInitialize(&IicInstance);
+		ControllerID = Regulator->Cntrlr[XPM_I2C_CNTRLR]->Node.Id;
+		Status = I2CInitialize(&IicInstance, ControllerID);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_I2C_INIT;
 			goto done;

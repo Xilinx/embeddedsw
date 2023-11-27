@@ -107,7 +107,7 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 	IicInstance = XPmRail_GetIicInstance();
 
 	if (IicInstance->IsReady != (u32) XIL_COMPONENT_IS_READY) {
-		Status = I2CInitialize(IicInstance);
+		Status = I2CInitialize(IicInstance, PM_DEV_I2C_PMC);
 		if (Status != XST_SUCCESS) {
 			Status = (int)XLOADER_ERR_I2C_TRANSACTION;
 			goto END;
