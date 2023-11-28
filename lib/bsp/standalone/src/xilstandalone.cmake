@@ -138,4 +138,6 @@ set(proc_compiler ${compiler} CACHE STRING "Compiler")
 set(proc_compiler_flags ${TOOLCHAIN_C_FLAGS} "-c" CACHE STRING "Compiler Flags")
 set(proc_extra_compiler_flags ${TOOLCHAIN_EXTRA_C_FLAGS} CACHE STRING "Extra Compiler Flags")
 
+# If the PG flag is present, remove any references to it as BSP doesn't support the mcount API.
+remove_pg()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bspconfig.h.in ${CMAKE_BINARY_DIR}/include/bspconfig.h)

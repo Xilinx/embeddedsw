@@ -4,6 +4,9 @@ cmake_minimum_required(VERSION 3.15)
 project(coresightps_dcc)
 
 find_package(common)
+# If the PG flag is present, remove any references to it as BSP doesn't support the mcount API.
+remove_pg()
+
 collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories(${CMAKE_BINARY_DIR}/include)
