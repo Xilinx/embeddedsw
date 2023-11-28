@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 5.00 	pkp  05/29/14 First release
+* 9.01  bl   10/11/23 Add API Xil_MemMap
 * </pre>
 *
 * @note
@@ -83,6 +85,7 @@ extern "C" {
  */
 
 void Xil_SetTlbAttributes(UINTPTR Addr, u64 attrib);
+void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags);
 
 #ifdef __cplusplus
 }

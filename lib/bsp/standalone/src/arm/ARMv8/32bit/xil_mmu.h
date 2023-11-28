@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -21,6 +22,7 @@
 * 5.2	pkp  28/05/15 First release
 * 7.1	mus  30/07/19 Added constant definitions for memory attributes.
 * 9.0   ml   03/03/23 Add description to fix doxygen warnings.
+* 9.1   bl   10/11/23 Add API Xil_MemMap
 * </pre>
 *
 *
@@ -62,6 +64,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 void Xil_SetTlbAttributes(UINTPTR Addr, u32 attrib);
+void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags);
 void Xil_EnableMMU(void);
 void Xil_DisableMMU(void);
 
