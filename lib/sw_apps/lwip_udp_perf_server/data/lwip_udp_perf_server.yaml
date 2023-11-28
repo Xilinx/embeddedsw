@@ -24,9 +24,6 @@ supported_processors:
   - psv_cortexa72
   - psv_cortexr5
   - ps7_cortexa9
-  - psu_pmu
-  - psv_pmc
-  - psv_psm
   - microblaze
 supported_os: [standalone]
 depends_libs:
