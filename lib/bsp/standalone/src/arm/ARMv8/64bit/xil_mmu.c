@@ -21,6 +21,7 @@
 * 5.00 	pkp  05/29/14 First release
 * 6.02  pkp  01/22/17 Added support for EL1 non-secure
 * 9.00  ml   03/03 23 Add description to fix doxygen warnings.
+* 9.01  bl   10/11/23 Add API Xil_MemMap
 * </pre>
 *
 * @note
@@ -45,6 +46,25 @@
 #define BLOCK_SIZE_2MB 0x200000U /**< block size is 2MB */
 #define BLOCK_SIZE_1GB 0x40000000U /**< block size is 1GB */
 #define ADDRESS_LIMIT_4GB 0x100000000UL /**< Address limit is 4GB */
+#define BLOCK_SIZE_1TB 0x10000000000UL /**< block size 1TB */
+
+#if defined(PLATFORM_ZYNQMP) || defined (VERSAL_NET)
+#define BLOCK_SIZE_2MB_RANGE	4UL
+#else
+#define BLOCK_SIZE_2MB_RANGE	5UL
+#endif
+
+#if defined(VERSAL_NET)
+#if defined (ENABLE_MINIMAL_XLAT_TBL)
+#define HIGH_ADDR	(BLOCK_SIZE_1TB * 4) /* 4 TB */
+#else
+#define HIGH_ADDR 	(BLOCK_SIZE_1TB * 256)/* 256 TB */
+#endif
+#elif defined (versal)
+#define HIGH_ADDR	(BLOCK_SIZE_1TB * 16)
+#elif defined (PLATFORM_ZYNQMP)
+#define HIGH_ADDR	BLOCK_SIZE_1TB
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -102,4 +122,61 @@ void Xil_SetTlbAttributes(UINTPTR Addr, u64 attrib)
 	dsb(); /* ensure completion of the BP and TLB invalidation */
     isb(); /* synchronize context on this processor */
 
+}
+
+/*****************************************************************************/
+/**
+* @brief    Memory mapping for ARMv8 based processors. If successful, the
+*	    mapped region will include all of the memory requested, but
+*	    may include more. Specifically, it will be a power of 2 in
+*           size, aligned on a boundary of that size.
+*
+* @param       Physaddr is base physical address at which to start mapping.
+*                   NULL in Physaddr masks possible mapping errors.
+* @param       size of region to be mapped.
+* @param       flags used to set translation table.
+*
+* @return      Physaddr on success, NULL on error. Ambiguous if Physaddr==NULL
+*
+******************************************************************************/
+void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
+{
+	UINTPTR section_offset;
+	UINTPTR ttb_addr;
+	UINTPTR ttb_size = (Physaddr < BLOCK_SIZE_2MB_RANGE * BLOCK_SIZE_1GB)
+			   ? BLOCK_SIZE_2MB : BLOCK_SIZE_1GB;
+
+	if (Physaddr >= HIGH_ADDR || size >= HIGH_ADDR ||
+	    Physaddr + size >= HIGH_ADDR) {
+		return NULL;
+	}
+	if (flags == 0U) {
+		return (void *)Physaddr;
+	}
+
+	/* Ensure alignment on a section boundary */
+	ttb_addr = Physaddr & ~(ttb_size - 1UL);
+
+	/*
+	 * Loop through entire region of memory (one MMU section at a time).
+	 * Each section requires a TTB entry.
+	 */
+	for (section_offset = 0; section_offset < size; ) {
+		/* Calculate translation table entry for this memory section */
+		ttb_addr += section_offset;
+
+		/* Write translation table entry value to entry address */
+		Xil_SetTlbAttributes(ttb_addr, flags);
+
+		/*
+		 * recalculate if we started below 4GB and going above in
+		 * 64bit mode
+		 */
+		if (ttb_addr >= BLOCK_SIZE_2MB_RANGE * BLOCK_SIZE_1GB) {
+			ttb_size = BLOCK_SIZE_1GB;
+		}
+		section_offset += ttb_size;
+	}
+
+	return Physaddr;
 }
