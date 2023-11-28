@@ -29,6 +29,10 @@ supported_processors:
   - psv_pmc
   - psv_psm
   - microblaze
+  - psx_cortexa78
+  - psx_cortexr52
+  - psx_pmc
+  - psx_psm
 
 supported_os:
   - standalone
