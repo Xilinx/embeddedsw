@@ -75,6 +75,8 @@ def build_app(args):
         lib_list = list(domain_data['lib_info'].keys())
         # Special handling for libmetal
         lib_list = [lib.replace('libmetal', 'metal') for lib in lib_list]
+        if obj.os == "freertos":
+            lib_list.append(obj.os)
         cmake_lib_list = ';'.join(lib_list)
         utils.replace_line(
             src_cmake,
