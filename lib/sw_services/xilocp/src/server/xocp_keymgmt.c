@@ -26,6 +26,7 @@
 *       yog  08/07/23 Replaced trng API calls using trngpsx driver
 *       am   09/04/23 Added XOcp_ValidateDiceCdi function
 * 1.3   kpt  11/06/23 Add support to run ECC KAT before attestation
+*       kpt  11/24/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *
 * </pre>
 * @note
@@ -396,8 +397,7 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 #endif
 
 END:
-	ClrStatus = Xil_SMemSet(Seed, XOCP_CDI_SIZE_IN_BYTES,
-				0U, XOCP_CDI_SIZE_IN_BYTES);
+	ClrStatus = Xil_SecureZeroize(Seed, XOCP_CDI_SIZE_IN_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}
@@ -783,14 +783,12 @@ static int XOcp_KeyGenerateDevIk(void)
 
 END:
 #ifndef PLM_ECDSA_EXCLUDE
-	ClrStatus = Xil_SMemSet(EccPrvtKey, XOCP_ECC_P384_SIZE_BYTES,
-				0U, XOCP_ECC_P384_SIZE_BYTES);
+	ClrStatus = Xil_SecureZeroize(EccPrvtKey, XOCP_ECC_P384_SIZE_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}
 #endif
-	ClrStatus = Xil_SMemSet(Seed, XOCP_CDI_SIZE_IN_BYTES,
-				0U, XOCP_CDI_SIZE_IN_BYTES);
+	ClrStatus = Xil_SecureZeroize(Seed, XOCP_CDI_SIZE_IN_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}

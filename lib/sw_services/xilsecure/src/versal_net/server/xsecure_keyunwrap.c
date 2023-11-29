@@ -18,6 +18,7 @@
 * 5.2   kpt     06/30/23 Initial release
 *       dd      10/11/23 MISRA-C violation Rule 10.4 fixed
 *       dd      10/11/23 MISRA-C violation Rule 8.13 fixed
+* 5.3   kpt     11/24/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *
 * </pre>
 *
@@ -239,8 +240,7 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 
 END:
 	/* Clear the ephemeral AES key after the usage */
-	XSECURE_TEMPORAL_IMPL(SStatus, SStatusTmp, Xil_SMemSet, EphAesKey, XSECURE_AES_KEY_SIZE_256BIT_BYTES,
-			      0U, XSECURE_AES_KEY_SIZE_256BIT_BYTES);
+	XSECURE_TEMPORAL_IMPL(SStatus, SStatusTmp, Xil_SecureZeroize, EphAesKey, XSECURE_AES_KEY_SIZE_256BIT_BYTES);
 	if ((SStatus != XST_SUCCESS) || (SStatusTmp != XST_SUCCESS)) {
 		if (Status == XST_SUCCESS) {
 			Status = (SStatus | SStatusTmp);
