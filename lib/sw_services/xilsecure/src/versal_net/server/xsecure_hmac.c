@@ -19,8 +19,9 @@
 * 5.0   vns 05/30/22 Initial release
 *       kpt 07/24/22 Moved XSecure_HmacKat into xsecure_kat_plat.c
 * 5.2   kpt 07/27/23 Fix security review comments
-*       dd   10/11/23 MISRA-C violation Rule 10.3 fixed
-*       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
+*       dd  10/11/23 MISRA-C violation Rule 10.3 fixed
+*       dd  10/11/23 MISRA-C violation Rule 8.13 fixed
+* 5.3   kpt 11/24/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *
 * </pre>
 *
@@ -117,8 +118,7 @@ END:
 		XSecure_SetReset(Sha3InstancePtr->BaseAddress,
 					XSECURE_SHA3_RESET_OFFSET);
 	}
-	Status |= Xil_SMemSet((void *)K0, XSECURE_SHA3_BLOCK_LEN, 0U,
-							XSECURE_SHA3_BLOCK_LEN);
+	Status |= Xil_SecureZeroize(K0, XSECURE_SHA3_BLOCK_LEN);
 
 RET:
 	return Status;
@@ -240,7 +240,7 @@ END:
 								XSECURE_SHA3_BLOCK_LEN);
 	RetStatus |= Xil_SMemSet((void *)InstancePtr->OPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
 							XSECURE_SHA3_BLOCK_LEN);
-	RetStatus |= Xil_SMemSet((void *)IntHash, XSECURE_HASH_SIZE_IN_BYTES, 0U, XSECURE_HASH_SIZE_IN_BYTES);
+	Status |= Xil_SecureZeroize(IntHash, XSECURE_SHA3_BLOCK_LEN);
 
 RET:
 	return RetStatus;

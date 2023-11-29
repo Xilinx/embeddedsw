@@ -26,6 +26,7 @@
 *       yog  08/07/23 Replaced trng API calls using trngpsx driver
 *       dd   10/11/23 MISRA-C violation Rule 10.3 fixed
 * 5.3   har  11/01/23 Updated core API for ECDH
+*       kpt  11/24/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *
 * </pre>
 *
@@ -163,9 +164,8 @@ END:
 	XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
 	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
 				XSECURE_ECDSA_RSA_RESET_OFFSET);
-	ClearStatus |= Xil_SMemSet((void *)RandBuf,
-				 XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN,
-				0U, XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN);
+	ClearStatus |= Xil_SecureZeroize(RandBuf,
+				 XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN);
 	if (Status == XST_SUCCESS) {
 		Status = ClearStatus;
 	}
@@ -222,9 +222,8 @@ int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 END:
 	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
 				XSECURE_ECDSA_RSA_RESET_OFFSET);
-	ClearStatus = Xil_SMemSet((void *)RandBuf,
-				 XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN,
-				0U, XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN);
+	ClearStatus = Xil_SecureZeroize(RandBuf,
+				 XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN);
 	if (Status == XST_SUCCESS) {
 		Status = ClearStatus;
 	}
