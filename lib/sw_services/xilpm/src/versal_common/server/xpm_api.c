@@ -723,7 +723,7 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 			CRP_RST_NONPS_SYS_RST_2_MASK |
 			CRP_RST_NONPS_SYS_RST_3_MASK;
 
-	if (0U != (ResetReason & SysResetMask)) {
+	if (0U != (ResetReason & SysResetMask) && (XPlmi_IsPlmUpdateDone() != TRUE)) {
 
 		XPm_DisableSkipHC();
 
