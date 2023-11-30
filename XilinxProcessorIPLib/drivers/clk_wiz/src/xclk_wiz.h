@@ -164,7 +164,11 @@ typedef struct {
 				going as input to the PLL/MMCM */
 	u8  EnablePll1;        /**< specify if this user clock is
 				going as input to the PLL/MMCM */
+#ifndef SDT
 	double PrimInClkFreq;       /**< Input Clock */
+#else
+	u64 PrimInClkFreq;       /**< Input Clock */
+#endif
 	u32 NumClocks;		/**< Number of clocks */
 #ifdef SDT
 	u32 IntId;		/**< Interrupt ID on GIC **/
