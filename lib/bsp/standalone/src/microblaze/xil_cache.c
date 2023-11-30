@@ -24,6 +24,9 @@
 *					  cache/L2 cache. Existing APIs in this file are modified
 *					  to add support for L2 cache.
 *					  These changes are done for implementing PR #697214.
+* 9.1   mus  11/29/23 Removed check for DcacheUseWriteback from
+*                     microblaze_invalidate_dcache, it fixes infinite loop
+*                     in case of HW designs where DcacheUseWriteback=1.
 * </pre>
 *
 *
@@ -141,10 +144,8 @@ void microblaze_invalidate_dcache(void) {
 		endadr = ((CfgPtr->DcacheBaseaddr + CfgPtr->DcacheByteSize) & (- (CfgPtr->DcacheLineLen*4)));
 
 		while ( startadr < endadr) {
-			if (CfgPtr->DcacheUseWriteback) {
-				mtwdc(startadr);
-				startadr += (CfgPtr->DcacheLineLen * 4);
-			}
+			mtwdc(startadr);
+			startadr += (CfgPtr->DcacheLineLen * 4);
 		}
 		if (CfgPtr->DcacheUseWriteback) {
 			mtmsr(temp);
