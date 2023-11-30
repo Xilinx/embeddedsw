@@ -30,7 +30,21 @@ config:
 required:
   - compatible
   - reg
+  - xlnx,enable-clock-monitor
+  - xlnx,enable-user-clock0
+  - xlnx,enable-user-clock1
+  - xlnx,enable-user-clock2
+  - xlnx,enable-user-clock3
+  - xlnx,ref-clk-freq
+  - xlnx,user-clk-freq0
+  - xlnx,user-clk-freq1
+  - xlnx,user-clk-freq2
+  - xlnx,user-clk-freq3
+  - xlnx,precision
+  - xlnx,enable-pll0
+  - xlnx,enable-pll1
   - xlnx,prim-in-freq
+  - xlnx,num-out-clks
   - interrupts
   - interrupt-parent
 
