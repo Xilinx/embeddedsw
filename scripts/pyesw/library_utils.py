@@ -268,6 +268,21 @@ class Library(Repo):
                 return False
         return True
 
+    def get_depends_libs(self, lib_name, lib_list=[]):
+        app_dir = self.get_comp_dir(lib_name)
+        yaml_file = os.path.join(app_dir, "data", f"{lib_name}.yaml")
+        schema = utils.load_yaml(yaml_file)
+
+        if schema and schema.get("depends_libs", {}):
+           for name, props in schema["depends_libs"].items():
+                if not self.is_valid_lib(name):
+                    continue
+                lib_list += [name]
+                self.get_depends_libs(name, lib_list)
+
+        return lib_list
+
+
     def add_lib_for_apps(self, app_name):
         """
         Adds library to the bsp. Creates metadata if needed for the library,

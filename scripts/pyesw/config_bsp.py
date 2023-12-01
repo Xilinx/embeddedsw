@@ -55,9 +55,16 @@ def configure_bsp(args):
                  Use config_bsp.py if you want to configure the library.
             """)
             sys.exit(1)
-        obj.validate_lib_name(lib_name)
-        obj.gen_lib_metadata(lib_name)
-        obj.config_lib(lib_name, [lib_name], "", is_app=False)
+        lib_list = obj.get_depends_libs(lib_name, lib_list=[lib_name])
+        # Remove duplicate libs
+        lib_list = list(dict.fromkeys(lib_list))
+        for lib in lib_list:
+            if lib in obj.lib_list:
+                continue
+            obj.validate_lib_name(lib)
+            obj.gen_lib_metadata(lib)
+
+        obj.config_lib(lib_name, lib_list, "", is_app=False)
 
     # If user wants to remove a library from the bsp
     if obj.rmlib:
