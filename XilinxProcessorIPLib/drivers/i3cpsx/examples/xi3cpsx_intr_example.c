@@ -16,6 +16,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.00 sd   06/21/22 First release
+ * 1.3  sd   11/17/23 Added support for system device-tree flow
  *
  * </pre>
  *
@@ -27,16 +28,29 @@
 #include "xi3cpsx_pr.h"
 #include "xscugic.h"
 #include "xil_exception.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 XI3cPsx Xi3cPsx_Instance;
 XScuGic InterruptController;	/* Instance of the Interrupt Controller */
 XI3cPsx *InstancePtr = &Xi3cPsx_Instance;
 
+#ifndef SDT
+int I3cPsxMasterIntrExample(u16 DeviceId);
 static int SetupInterruptSystem(XI3cPsx *InstancePtr);
+#else
+int I3cPsxMasterIntrExample(UINTPTR BaseAddress);
+#endif
 
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define I3C_INT_VEC_ID		XPAR_PSVXL_I3C_0_INTR
+#ifndef SDT
 #define I3C_DEVICE_ID		XPAR_XI3CPSX_0_DEVICE_ID
+#else
+#define I3C_DEVICE_ID		XPAR_XI3CPSX_0_BASEADDR
+#endif
+
 #define I3C_WHO_AM_I		0x0F
 #define I3C_CTRL		0x11
 #define I3C_INT_SRC		0x1A
@@ -44,7 +58,6 @@ static int SetupInterruptSystem(XI3cPsx *InstancePtr);
 
 /************************** Function Prototypes *******************************/
 
-int I3cPsxMasterIntrExample(u16 DeviceId);
 /******************************************************************************/
 /**
 *
@@ -95,7 +108,11 @@ int main(void)
 * @note
 *
 *******************************************************************************/
+#ifndef SDT
 int I3cPsxMasterIntrExample(u16 DeviceId)
+#else
+int I3cPsxMasterIntrExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XI3cPsx_Config *CfgPtr;
@@ -103,10 +120,13 @@ int I3cPsxMasterIntrExample(u16 DeviceId)
 	u8 TxData[3] = { 0x0F, 0x0F, 0x0F};
 	struct CmdInfo CmdInfo;
 	u16 RxLen;
-	u16 TxLen;
 	XI3cPsx_Cmd DAA_Cmd;
 
+#ifndef SDT
 	CfgPtr = XI3cPsx_LookupConfig(DeviceId);
+#else
+	CfgPtr = XI3cPsx_LookupConfig(BaseAddress);
+#endif
 	if (NULL == CfgPtr) {
 		  return XST_FAILURE;
 	}
@@ -123,7 +143,14 @@ int I3cPsxMasterIntrExample(u16 DeviceId)
 	CmdInfo.Cmd = I3C_CCC_GETDCR;
 	Status =	XI3cPsx_SendTransferCmd(InstancePtr, &CmdInfo);
 
+#ifndef SDT
 	Status = SetupInterruptSystem(InstancePtr);
+#else
+	Status = XSetupInterruptSystem(InstancePtr, XI3cPsx_MasterInterruptHandler,
+				       CfgPtr->IntrId,
+				       CfgPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -207,6 +234,7 @@ int I3cPsxMasterIntrExample(u16 DeviceId)
 
 	return XST_SUCCESS;
 }
+#ifndef SDT
 /******************************************************************************/
 /**
 *
@@ -280,3 +308,4 @@ static int SetupInterruptSystem(XI3cPsx *InstancePtr)
 
 	return XST_SUCCESS;
 }
+#endif
