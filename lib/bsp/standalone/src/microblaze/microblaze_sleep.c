@@ -55,6 +55,7 @@
 * 8.0	sk   03/17/22  Update RHS operands to unsigned to match with LHS
 *		       operands and fix misra_c_2012_rule_10_4 violation.
 * 9.0   ml   03/03/23  Add description to fix doxygen warnings.
+* 9.1   ml   12/01/23  Updated the note description for sleep_MB.
 * </pre>
 *
 * @note
@@ -194,7 +195,9 @@ void sleep_MB(u32 seconds)
 *
 * @return	None.
 *
-* @note		Instruction cache should be enabled for this to work.
+* @note 	Instruction cache should be enabled for this to work.
+*		Since this MB_sleep() is getting deprecated, please use
+*		sleep() instead of it.
 *
 ******************************************************************************/
 void MB_Sleep(u32 MilliSeconds)
