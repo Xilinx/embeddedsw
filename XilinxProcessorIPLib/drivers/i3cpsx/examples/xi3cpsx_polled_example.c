@@ -1,6 +1,6 @@
 
 /******************************************************************************
-* Copyright (C) 2022 AMD, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -16,6 +16,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.00 sd   06/21/22 First release
+ * 1.3  sd   11/17/23 Added support for system device-tree flow
  *
  * </pre>
  *
@@ -26,7 +27,12 @@
 #include "xi3cpsx_hw.h"
 #include "xi3cpsx_pr.h"
 
+#ifndef SDT
 #define I3C_DEVICE_ID		XPAR_XI3CPSX_0_DEVICE_ID
+#else
+#define I3C_DEVICE_ID		XPAR_XI3CPSX_0_BASEADDR
+#endif
+
 #define I3C_WHO_AM_I		0x0F
 #define I3C_CTRL		0x11
 #define I3C_INT_SRC		0x1A
@@ -36,7 +42,11 @@ XI3cPsx Xi3cPs_Instance;
 XI3cPsx *InstancePtr = &Xi3cPs_Instance;
 /************************** Function Prototypes *******************************/
 
+#ifndef SDT
 int I3cPsxMasterPolledExample(u16 DeviceId);
+#else
+int I3cPsxMasterPolledExample(UINTPTR BaseAddress);
+#endif
 /******************************************************************************/
 /******************************************************************************/
 /**
@@ -89,17 +99,24 @@ int main(void)
 * @note
 *
 *******************************************************************************/
+#ifndef SDT
 int I3cPsxMasterPolledExample(u16 DeviceId)
+#else
+int I3cPsxMasterPolledExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XI3cPsx_Config *CfgPtr;
 	u8 RxData[I3C_DATALEN];
 	struct CmdInfo CmdInfo;
 	u16 RxLen;
-	u16 TxLen;
 	XI3cPsx_Cmd DAA_Cmd;
 
+#ifndef SDT
 	CfgPtr = XI3cPsx_LookupConfig(DeviceId);
+#else
+	CfgPtr = XI3cPsx_LookupConfig(BaseAddress);
+#endif
 	if (NULL == CfgPtr) {
 		  return XST_FAILURE;
 	}

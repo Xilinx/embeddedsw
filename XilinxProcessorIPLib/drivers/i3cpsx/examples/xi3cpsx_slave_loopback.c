@@ -24,6 +24,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.00a sd  06/10/22 First release
+* 1.3   sd   11/17/23 Added support for system device-tree flow
 * </pre>
 *
 ******************************************************************************/
@@ -34,8 +35,17 @@
 #include "xi3cpsx_hw.h"
 #include "xi3cpsx_pr.h"
 
+#ifndef SDT
 #define I3C_DEVICE_ID		XPAR_XI3CPSX_0_DEVICE_ID
+#else
+#define I3C_DEVICE_ID		XPAR_XI3CPSX_0_BASEADDR
+#endif
+
+#ifndef SDT
 #define I3C_SLAVE_ID		XPAR_XI3CPSX_1_DEVICE_ID
+#else
+#define I3C_SLAVE_ID		XPAR_XI3CPSX_1_BASEADDR
+#endif
 #define LEN 10
 
 XI3cPsx Xi3cPs_InstanceMaster;
@@ -43,7 +53,12 @@ XI3cPsx *InstancePtr = &Xi3cPs_InstanceMaster;
 XI3cPsx Xi3cPs_InstanceSlave;
 XI3cPsx *InstancePtrSlave = &Xi3cPs_InstanceSlave;
 
+#ifndef SDT
 int I3cPsxSlaveLoopbackExample(u16 DeviceId);
+#else
+int I3cPsxSlaveLoopbackExample(UINTPTR BaseAddress);
+#endif
+
 /******************************************************************************/
 /**
 *
@@ -95,7 +110,11 @@ int main(void)
 * @note
 *
 *******************************************************************************/
+#ifndef SDT
 int I3cPsxSlaveLoopbackExample(u16 DeviceId)
+#else
+int I3cPsxSlaveLoopbackExample(UINTPTR BaseAddress)
+#endif
 {
 
 	s32 Ret;
@@ -116,7 +135,11 @@ int I3cPsxSlaveLoopbackExample(u16 DeviceId)
 
 	XI3cPsx_SetupSlave(InstancePtrSlave, 0x5d);
 
+#ifndef SDT
 	CfgPtr = XI3cPsx_LookupConfig(DeviceId);
+#else
+	CfgPtr = XI3cPsx_LookupConfig(BaseAddress);
+#endif
 	XI3cPsx_CfgInitialize(InstancePtr, CfgPtr, CfgPtr->BaseAddress);
 
 /*
