@@ -35,7 +35,7 @@
 XI3cPsx_Cmd DAA_Cmd[2];
 
 s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
-						u32 EffectiveAddr)
+			  u32 EffectiveAddr)
 {
 	/* Assert the arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -86,7 +86,7 @@ s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
 *
 *
 ******************************************************************************/
-s32 XI3cPsx_SendTransferCmd(XI3cPsx *InstancePtr, struct CmdInfo * CmdCCC)
+s32 XI3cPsx_SendTransferCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC)
 {
 	s32 ret = 0;
 
@@ -94,11 +94,11 @@ s32 XI3cPsx_SendTransferCmd(XI3cPsx *InstancePtr, struct CmdInfo * CmdCCC)
 	DAA_Cmd[0].TransCmd = COMMAND_PORT_ARG_DATA_LEN(CmdCCC->RxLen) | COMMAND_PORT_TRANSFER_ARG;
 	/* Refer Transfer command data structure in DWC MIPI I3C Master and Slave controller Databook */
 	DAA_Cmd[0].TransArg = (COMMAND_PORT_SPEED(0) |	/* 21 - 23 Selecting SDR0 */
-			COMMAND_PORT_DEV_INDEX(CmdCCC->SlaveAddr) | /* 16 - 20 */
-			COMMAND_PORT_CMD(CmdCCC->Cmd) |	/* 7 - 14 Selecting broadcast*/
-			COMMAND_PORT_CP |	/* 15 */
-			COMMAND_PORT_TOC |	/* 30 */
-			COMMAND_PORT_ROC);	/* 26 */;
+			       COMMAND_PORT_DEV_INDEX(CmdCCC->SlaveAddr) | /* 16 - 20 */
+			       COMMAND_PORT_CMD(CmdCCC->Cmd) |	/* 7 - 14 Selecting broadcast*/
+			       COMMAND_PORT_CP |	/* 15 */
+			       COMMAND_PORT_TOC |	/* 30 */
+			       COMMAND_PORT_ROC);	/* 26 */;
 	if (CmdCCC->RxLen) {
 		DAA_Cmd[0].TransArg |= COMMAND_PORT_READ_TRANSFER;	/* 28 - For read */
 	}
@@ -129,7 +129,7 @@ s32 XI3cPsx_SendTransferCmd(XI3cPsx *InstancePtr, struct CmdInfo * CmdCCC)
 *
 *
 ******************************************************************************/
-s32 XI3cPsx_SendAddrAssignCmd(XI3cPsx *InstancePtr, struct CmdInfo * CmdCCC)
+s32 XI3cPsx_SendAddrAssignCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC)
 {
 	s32 ret = 0;
 
@@ -137,11 +137,11 @@ s32 XI3cPsx_SendAddrAssignCmd(XI3cPsx *InstancePtr, struct CmdInfo * CmdCCC)
 	DAA_Cmd[0].TransCmd = COMMAND_PORT_TRANSFER_ARG;
 	/* Refer Address assignment command data structure in DWC MIPI I3C Master and Slave controller Databook */
 	DAA_Cmd[0].TransArg = ((InstancePtr->Config.DeviceCount << 21) |
-				COMMAND_PORT_DEV_INDEX(CmdCCC->SlaveAddr) | /* 16 - 20 */
-				COMMAND_PORT_CMD(CmdCCC->Cmd) |	/* 7 - 14 */
-				COMMAND_PORT_ADDR_ASSGN_CMD |	/* 0 - 2 */
-				COMMAND_PORT_TOC |	/* 30 */
-				COMMAND_PORT_ROC);	/* 26 */
+			       COMMAND_PORT_DEV_INDEX(CmdCCC->SlaveAddr) | /* 16 - 20 */
+			       COMMAND_PORT_CMD(CmdCCC->Cmd) |	/* 7 - 14 */
+			       COMMAND_PORT_ADDR_ASSGN_CMD |	/* 0 - 2 */
+			       COMMAND_PORT_TOC |	/* 30 */
+			       COMMAND_PORT_ROC);	/* 26 */
 	xil_printf("E Arg 0x%x\t Cmd 0x%x\n", DAA_Cmd[0].TransCmd, DAA_Cmd[0].TransArg);
 	ret = XI3cPsx_MasterSendPolled(InstancePtr, NULL, 0, DAA_Cmd[0]);
 

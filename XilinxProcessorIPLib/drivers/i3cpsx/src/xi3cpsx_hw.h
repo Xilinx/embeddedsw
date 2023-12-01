@@ -66,7 +66,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XI3cPsx_ReadReg(BaseAddress, RegOffset) \
-        XI3cPsx_In32((BaseAddress) + (u32)(RegOffset))
+	XI3cPsx_In32((BaseAddress) + (u32)(RegOffset))
 
 /***************************************************************************/
 /**
@@ -84,7 +84,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XI3cPsx_WriteReg(BaseAddress, RegOffset, RegisterValue) \
-        XI3cPsx_Out32((BaseAddress) + (u32)(RegOffset), (u32)(RegisterValue))
+	XI3cPsx_Out32((BaseAddress) + (u32)(RegOffset), (u32)(RegisterValue))
 
 /**
  * Register: XI3CPSX_DEVICE_CTRL
@@ -2989,7 +2989,6 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-
 
 #endif /* XI3CPSX_HW_H_ */
 /** @} */
