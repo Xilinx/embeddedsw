@@ -973,6 +973,12 @@ static XStatus HandleDeviceAttr(struct XPm_Reqm *Reqm, u32 ReqCaps,
 {
 	XStatus Status = XST_FAILURE;
 
+#ifdef VERSAL_NET
+	/* FIXME: Disable this feature temporarily on Versal Net */
+	Status = XST_SUCCESS;
+	goto done;
+#endif /* VERSAL_NET */
+
 	Status = SetDevCohVirtAttr(Reqm, ReqCaps, (u8)PM_CAP_COHERENT, Enable);
 	if (XST_SUCCESS != Status) {
 		goto done;
