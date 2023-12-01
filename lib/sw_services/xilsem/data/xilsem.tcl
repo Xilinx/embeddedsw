@@ -22,6 +22,7 @@
 # 1.12	rv   05/11/23 Added support for Versal-net device
 # 1.13  anv  10/10/23 Added support to enable SSIT feature
 #                     based on Number of SLRs from the design
+# 1.14  gm   10/31/23 Added client support for A78
 ##############################################################################
 
 #---------------------------------------------
@@ -59,7 +60,8 @@ proc generate {libhandle} {
 		"psxl_cortexr52" -
 		"psx_cortexr52" -
         "psu_cortexa72" -
-        "psv_cortexa72" {
+        "psv_cortexa72" -
+		"psx_cortexa78" {
 			copy_files_to_src $client_dir
 		}
 		"microblaze" {
