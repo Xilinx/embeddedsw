@@ -44,7 +44,7 @@ class Domain(Repo):
         self.drv_info = {}
         self.os_info = {}
         utils.mkdir(self.domain_dir)
-        self._validate_inputs()
+        self.proc_ip_name = self._validate_inputs()
 
     def _get_family(self):
         """
@@ -80,10 +80,6 @@ class Domain(Repo):
                 f"lopper --werror -f -O {self.domain_dir} -i {self.lops_dir}/lop-cpulist.dts {self.sdt} > {dump}",
                 cwd = self.domain_dir
             )
-        if os.environ.get("VALIDATE_ARGS"):
-            app_list_file = os.path.join(self.domain_dir, "app_list.yaml")
-            lib_list_file = os.path.join(self.domain_dir, "lib_list.yaml")
-
             avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
             if self.proc not in avail_cpu_data.keys():
                 utils.remove(self.domain_dir)
@@ -91,6 +87,10 @@ class Domain(Repo):
                     f"[ERROR]: Please pass a valid processor name. Valid Processor Names for the given SDT are: {list(avail_cpu_data.keys())}"
                 )
                 sys.exit(1)
+        if os.environ.get("VALIDATE_ARGS"):
+            app_list_file = os.path.join(self.domain_dir, "app_list.yaml")
+            lib_list_file = os.path.join(self.domain_dir, "lib_list.yaml")
+
             if not utils.is_file(app_list_file) or not utils.is_file(lib_list_file):
                 utils.runcmd(
                     f"lopper --werror -f -O {self.domain_dir} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}",
@@ -100,6 +100,7 @@ class Domain(Repo):
             Validation.validate_template_name(
                 self.domain_dir, proc_data, self.os, self.app
             )
+        return avail_cpu_data[self.proc]
 
     def build_dir_struct(self):
         """
@@ -169,7 +170,7 @@ class Domain(Repo):
 
         toolchain_file_copy = None
         for val in proc_lops_specs_map.keys():
-            if val in self.proc:
+            if val in self.proc_ip_name:
                 toolchain_file_name = f"{proc_lops_specs_map[val][0]}_toolchain.cmake"
                 toolchain_file_path = utils.get_high_precedence_path(
                     self.repo_paths_list, "toolchain File", "cmake", "toolchainfiles", toolchain_file_name
@@ -202,7 +203,7 @@ class Domain(Repo):
                 f'set( CMAKE_MACHINE "{self.family}")',
             )
 
-        if "microblaze" in self.proc:
+        if "microblaze" in self.proc_ip_name:
             lops_file = os.path.join(self.lops_dir, "lop-microblaze.dts")
             vitis_path = os.environ.get("XILINX_VITIS")
 
@@ -611,7 +612,7 @@ endforeach()
                 if os_config[obj.os].get(key, {}):
                     os_config[obj.os][key]['value'] = value
 
-    if "microblaze" in obj.proc:
+    if "microblaze" in obj.proc_ip_name:
         cmake_config = lib_obj.get_default_lib_params(build_metadata, ["cmake"])
         if cmake_config['cmake'].get('CMAKE_MACHINE', {}):
             obj.family = cmake_config['cmake']['CMAKE_MACHINE']['value']
