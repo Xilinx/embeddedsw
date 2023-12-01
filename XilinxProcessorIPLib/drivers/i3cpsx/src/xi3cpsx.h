@@ -69,6 +69,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------
 * 1.00  sd  06/10/22 First release
+* 1.3  sd   11/17/23 Added support for system device-tree flow
 * </pre>
 *
 ******************************************************************************/
@@ -147,8 +148,19 @@ typedef void (*XI3cPsx_IntrHandler) (void *CallBackRef, u32 StatusEvent);
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;     /**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;  /**< Base address of the device */
+#ifdef SDT
+	u16 IntrId;		/**< Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags */
+	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
+
 	u32 InputClockHz; /**< Input clock frequency */
 	u32 DeviceCount; /**< No of I3C devices */
 } XI3cPsx_Config;
@@ -262,7 +274,11 @@ extern XI3cPsx_Config XI3cPsx_ConfigTable[];	/**< Configuration table */
 /*
  * Function for configuration lookup, in XI3cPsx_sinit.c
  */
+#ifndef SDT
 XI3cPsx_Config *XI3cPsx_LookupConfig(u16 DeviceId);
+#else
+XI3cPsx_Config *XI3cPsx_LookupConfig(u32 BaseAddress);
+#endif
 
 /*
  * Functions for general setup, in XI3cPsx.c
