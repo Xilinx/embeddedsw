@@ -6,10 +6,12 @@ title: Bindings for xilsem library.
 
 maintainers:
   - Veggalam, Rama Devi <rama.devi.veggalam@amd.com>
+  - M, Gayathri <gayathri.m@amd.com>
+  - Anantha Naga Vidhya, Lavanya <lavanya.ananthanagavidhya@amd.com>
 
 type: library
 
-version: 1.8
+version: 1.9
 
 description: Xilinx Versal Soft Error Mitigation Library.
 
@@ -18,6 +20,7 @@ supported_processors:
   - psxl_cortexr52
   - psx_cortexr52
   - psv_cortexa72
+  - psx_cortexa78
   - microblaze
   - psv_pmc
   - psx_pmc
