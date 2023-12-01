@@ -24,10 +24,12 @@ required:
     - compatible
     - reg: 3
     - ranges: 2
-    - xlnx,bar0-enable
+    - xlnx,dma-addr
     - xlnx,port-type
 
 examples:
     xpciepsu_rc_enumerate_example.c:
         - reg
+    xpciepsu_ep_enable_example.c:
+	- reg
 ...

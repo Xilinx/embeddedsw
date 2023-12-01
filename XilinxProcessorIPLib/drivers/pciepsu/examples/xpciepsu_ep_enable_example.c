@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -45,15 +46,22 @@
 /****************************** Type Definitions ******************************/
 
 /******************** Macros (Inline Functions) Definitions *******************/
-#define INGRESS_NUM	0x0		/* Ingress num to setup ingress */
+#define INGRESS_NUM	0x1		/* Ingress num to setup ingress */
 #define BAR_NUM		0x2		/* Bar no to setup ingress */
-#define PS_DDR_ADDR	0x1000000	/* 32 or 64 bit PS DDR Addr
+#define PS_DDR_ADDR	0x10000000	/* 32 or 64 bit PS DDR Addr
 						to setup ingress */
-#define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
+#ifndef SDT
+	#define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
+#endif
 #define PS_PCIE_AXI_INTR_ID	(117U + 32U)
 /***************************** Function Prototypes ****************************/
 
+#ifndef SDT
 int XPciePsu_InitEndPoint(XPciePsu *PciePsuPtr, u16 DeviceId);
+#else
+int XPciePsu_InitEndPoint(XPciePsu *PciePsuPtr, UINTPTR BrigReg);
+#endif
+
 void XPciePsu_EP_IntrHandler(XPciePsu *PciePsuPtr);
 int XPciePsu_EP_InitIntr(void);
 
@@ -132,7 +140,11 @@ int XPciePsu_EP_InitIntr(void)
 	XScuGic_Config *IntcConfig;
 	int Status;
 
+#ifndef SDT
 	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+#else
+	IntcConfig = XScuGic_LookupConfig(XPAR_XSCUGIC_0_BASEADDR);
+#endif
 	if (NULL == IntcConfig) {
 			return XST_FAILURE;
 	}
@@ -170,9 +182,11 @@ int XPciePsu_EP_InitIntr(void)
 int main()
 {
 	int Status = XST_SUCCESS;
-#ifdef XPAR_PSU_PCIE_DEVICE_ID
+#ifndef SDT
 	XPciePsu_InitEndPoint(&PciePsuInstance, XPAR_PSU_PCIE_DEVICE_ID);
-
+#else
+	XPciePsu_InitEndPoint(&PciePsuInstance, XPAR_PCIE_BASEADDR);
+#endif
 	XPciePsu_EP_InitIntr();
 	xil_printf("Waiting for PCIe Link up\r\n");
 	XPciePsu_EP_WaitForLinkup(&PciePsuInstance);
@@ -192,7 +206,6 @@ int main()
 		xil_printf("PCIE Ingress Test done\r\n");
 	}
 
-#endif
 	return Status;
 }
 
@@ -211,12 +224,22 @@ int main()
 *
 *
 *******************************************************************************/
-
+#ifndef SDT
 int XPciePsu_InitEndPoint(XPciePsu *PciePsuPtr, u16 DeviceId)
+#else
+int XPciePsu_InitEndPoint(XPciePsu *PciePsuPtr, UINTPTR BrigReg)
+#endif
 {
-	const XPciePsu_Config *ConfigPtr;
+	XPciePsu_Config *ConfigPtr;
+
+#ifndef SDT
 	ConfigPtr = XPciePsu_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XPciePsu_LookupConfig(BrigReg);
+#endif
 	Xil_AssertNonvoid(ConfigPtr != NULL);
+
+	ConfigPtr->PcieMode=0;
 	if (ConfigPtr->PcieMode != XPCIEPSU_MODE_ENDPOINT) {
 		xil_printf("Psu pcie mode is not configured as endpoint\r\n");
 		return XST_FAILURE;
