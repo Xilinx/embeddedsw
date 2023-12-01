@@ -1,4 +1,5 @@
 /******************************************************************************
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2022 AMD, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -142,14 +143,14 @@ int I3cPsxSlaveLoopbackExample(UINTPTR BaseAddress)
 #endif
 	XI3cPsx_CfgInitialize(InstancePtr, CfgPtr, CfgPtr->BaseAddress);
 
-/*
- * It is necessary to provide SCL clocks to the DWC_mipi_i3c Slave controller to make it come
- * out of the reset. This can be achieved by scheduling any transfer (dummy transfer) to the
- * controller ending in a STOP before initiating valid transfers. The dummy transfer is ignored by
- * the DWC_mipi_i3c Slave.
- *
- * So doing a dummy transter
-*/
+	/*
+	 * It is necessary to provide SCL clocks to the DWC_mipi_i3c Slave controller to make it come
+	 * out of the reset. This can be achieved by scheduling any transfer (dummy transfer) to the
+	 * controller ending in a STOP before initiating valid transfers. The dummy transfer is ignored by
+	 * the DWC_mipi_i3c Slave.
+	 *
+	 * So doing a dummy transter
+	*/
 	XI3cPsx_ResetFifos(InstancePtr);
 	CmdInfo.RxLen = 1;
 	CmdInfo.RxBuff = RxData;
@@ -157,17 +158,17 @@ int I3cPsxSlaveLoopbackExample(UINTPTR BaseAddress)
 	CmdInfo.Cmd = I3C_CCC_GETDCR;
 	Ret =	XI3cPsx_SendTransferCmd(InstancePtr, &CmdInfo);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-				XI3CPSX_DEVICE_CTRL, XI3CPSX_DEVICE_CTRL_ENABLE_MASK |XI3CPSX_DEVICE_CTRL_RESUME_MASK);
+			 XI3CPSX_DEVICE_CTRL, XI3CPSX_DEVICE_CTRL_ENABLE_MASK | XI3CPSX_DEVICE_CTRL_RESUME_MASK);
 
 
 	DAA_Cmd.TransCmd = COMMAND_PORT_ARG_DATA_LEN(3) | COMMAND_PORT_TRANSFER_ARG;
 	DAA_Cmd.TransArg = (COMMAND_PORT_SPEED(0) |
-			COMMAND_PORT_DEV_INDEX(0) |
-			COMMAND_PORT_TID(3) |
-			COMMAND_PORT_TOC |
-			COMMAND_PORT_ROC);
+			    COMMAND_PORT_DEV_INDEX(0) |
+			    COMMAND_PORT_TID(3) |
+			    COMMAND_PORT_TOC |
+			    COMMAND_PORT_ROC);
 	DAA_Cmd.RxBuf = NULL;
-	Ret = XI3cPsx_MasterSendPolled(InstancePtr,(u8 *) &TxData, 3, DAA_Cmd);
+	Ret = XI3cPsx_MasterSendPolled(InstancePtr, (u8 *) &TxData, 3, DAA_Cmd);
 
 	Ret = XI3cPsx_SlaveRecvPolled(InstancePtrSlave, (u8 *)&RxData);
 	xil_printf("Data from slave is  %x %x %x\n", RxData[0], RxData[1], RxData[2]);
@@ -176,18 +177,18 @@ int I3cPsxSlaveLoopbackExample(UINTPTR BaseAddress)
 	DAA_Cmd.TransCmd = 0x000a101a ;
 	DAA_Cmd.TransArg = 0x48000000;
 	Ret = XI3cPsx_SlaveSendPolled(InstancePtrSlave, &TxDataTest,
-		 LEN, DAA_Cmd);
+				      LEN, DAA_Cmd);
 	RxLen = LEN;
 	DAA_Cmd.RxBuf = RxData;
 	DAA_Cmd.TransCmd = COMMAND_PORT_ARG_DATA_LEN(0xa) | COMMAND_PORT_TRANSFER_ARG;
 	DAA_Cmd.TransArg = (COMMAND_PORT_SPEED(0) |
-			COMMAND_PORT_DEV_INDEX(0) |
-			COMMAND_PORT_TOC |
-			COMMAND_PORT_READ_TRANSFER |
-			COMMAND_PORT_ROC);
+			    COMMAND_PORT_DEV_INDEX(0) |
+			    COMMAND_PORT_TOC |
+			    COMMAND_PORT_READ_TRANSFER |
+			    COMMAND_PORT_ROC);
 	Ret = XI3cPsx_MasterRecvPolled(InstancePtr, RxData, RxLen, &DAA_Cmd);
 
-	for( Index = 0 ; Index < LEN; Index++) {
+	for ( Index = 0 ; Index < LEN; Index++) {
 		xil_printf("Data at slave is  %d\n", RxData[Index]);
 	}
 

@@ -50,16 +50,16 @@
  */
 XI3cPsx_Config XI3cPsx_ConfigTable[XPAR_XI3CPSX_NUM_INSTANCES] = {
 	{
-		 (u16)XPAR_XI3CPSX_0_DEVICE_ID, /* Device ID for instance */
-		 (u32)XPAR_XI3CPSX_0_BASEADDR,  /* Device base address */
-		 (u32)XPAR_XI3CPSX_0_I3C_CLK_FREQ_HZ, /* Device input clock frequency */
-		 (u32)XPAR_XI3CPSX_0_SLAVES  /* Device input clock frequency */
+		(u16)XPAR_XI3CPSX_0_DEVICE_ID, /* Device ID for instance */
+		(u32)XPAR_XI3CPSX_0_BASEADDR,  /* Device base address */
+		(u32)XPAR_XI3CPSX_0_I3C_CLK_FREQ_HZ, /* Device input clock frequency */
+		(u32)XPAR_XI3CPSX_0_SLAVES  /* Device input clock frequency */
 	},
 	{
-		 (u16)XPAR_XI3CPSX_1_DEVICE_ID, /* Device ID for instance */
-		 (u32)XPAR_XI3CPSX_1_BASEADDR,  /* Device base address */
-		 (u32)XPAR_XI3CPSX_1_I3C_CLK_FREQ_HZ, /* Device input clock frequency */
-		 (u32)XPAR_XI3CPSX_1_SLAVES,  /* Device input clock frequency */
+		(u16)XPAR_XI3CPSX_1_DEVICE_ID, /* Device ID for instance */
+		(u32)XPAR_XI3CPSX_1_BASEADDR,  /* Device base address */
+		(u32)XPAR_XI3CPSX_1_I3C_CLK_FREQ_HZ, /* Device input clock frequency */
+		(u32)XPAR_XI3CPSX_1_SLAVES,  /* Device input clock frequency */
 	}
 };
 /** @} */

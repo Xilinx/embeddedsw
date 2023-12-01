@@ -48,7 +48,7 @@
 void XI3cPsx_Reset(XI3cPsx *InstancePtr)
 {
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_RESET_CTRL, 0x1);
-	while(XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_RESET_CTRL));
+	while (XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_RESET_CTRL));
 }
 /*****************************************************************************/
 /**
@@ -72,18 +72,18 @@ void XI3cPsx_Reset(XI3cPsx *InstancePtr)
 void XI3cPsx_ResetFifos(XI3cPsx *InstancePtr)
 {
 
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
-        /*
-         * Abort any transfer that is in progress.
-         */
+	/*
+	 * Abort any transfer that is in progress.
+	 */
 
-        /*
-         * Reset any values so the software state matches the hardware device.
-         */
+	/*
+	 * Reset any values so the software state matches the hardware device.
+	 */
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_RESET_CTRL, 0x1E);
-	while(XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_RESET_CTRL));
+	while (XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_RESET_CTRL));
 
 }
 

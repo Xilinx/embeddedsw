@@ -69,7 +69,8 @@ void XI3cPsx_SetupSlave(XI3cPsx *InstancePtr, u16 SlaveAddr)
 	reg =  (1 << XI3CPSX_QUEUE_THLD_CTRL_CMD_EMPTY_BUF_THLD_SHIFT);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_QUEUE_THLD_CTRL, reg);
 
-	reg = ( 1 << XI3CPSX_DATA_BUFFER_THLD_CTRL_RX_START_THLD_SHIFT ) | 1 <<  XI3CPSX_DATA_BUFFER_THLD_CTRL_TX_EMPTY_BUF_THLD_SHIFT;
+	reg = ( 1 << XI3CPSX_DATA_BUFFER_THLD_CTRL_RX_START_THLD_SHIFT ) | 1 <<
+	      XI3CPSX_DATA_BUFFER_THLD_CTRL_TX_EMPTY_BUF_THLD_SHIFT;
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DATA_BUFFER_THLD_CTRL, reg);
 
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_BUS_FREE_AVAIL_TIMING, 0x00a00020);
@@ -80,17 +81,17 @@ void XI3cPsx_SetupSlave(XI3cPsx *InstancePtr, u16 SlaveAddr)
 	reg = reg | 1 << XI3CPSX_DEVICE_CTRL_EXTENDED_DEV_OPERATION_MODE_SHIFT ;
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL_EXTENDED, reg);
 
-
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_STATUS_EN, 0xffffffff);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_SIGNAL_EN, 0xffffffff);
 	reg =  1 << XI3CPSX_SLV_CHAR_CTRL_MAX_DATA_SPEED_LIMIT_SHIFT |
-		1 << XI3CPSX_SLV_CHAR_CTRL_IBI_REQUEST_CAPABLE_SHIFT |
-		1 << XI3CPSX_SLV_CHAR_CTRL_HDR_CAPABLE_SHIFT |
-		0xC4 << XI3CPSX_SLV_CHAR_CTRL_DCR_SHIFT |
-		1 << XI3CPSX_SLV_CHAR_CTRL_HDR_CAP_SHIFT;
+	       1 << XI3CPSX_SLV_CHAR_CTRL_IBI_REQUEST_CAPABLE_SHIFT |
+	       1 << XI3CPSX_SLV_CHAR_CTRL_HDR_CAPABLE_SHIFT |
+	       0xC4 << XI3CPSX_SLV_CHAR_CTRL_DCR_SHIFT |
+	       1 << XI3CPSX_SLV_CHAR_CTRL_HDR_CAP_SHIFT;
 
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_SLV_CHAR_CTRL, reg);
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_SLV_MIPI_ID_VALUE, 0x2 << XI3CPSX_SLV_MIPI_ID_VALUE_SLV_PROV_ID_SEL_SHIFT );
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_SLV_MIPI_ID_VALUE,
+			 0x2 << XI3CPSX_SLV_MIPI_ID_VALUE_SLV_PROV_ID_SEL_SHIFT );
 
 }
 
@@ -99,7 +100,7 @@ static void XI3cPsx_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd)
 	xil_printf("Writing Command - Arg: 0x%x\t Cmd: 0x%x\n", Cmd->TransCmd, Cmd->TransArg);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 			 XI3CPSX_COMMAND_QUEUE_PORT, Cmd->TransCmd);
-	 XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 			 XI3CPSX_COMMAND_QUEUE_PORT, Cmd->TransArg);
 }
 
@@ -114,13 +115,13 @@ void XI3cPsx_SlvWrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen)
 		Val = TxBuf[i];
 		xil_printf("0x%x\t", Val);
 		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-				XI3CPSX_TX_RX_DATA_PORT, Val);
+				 XI3CPSX_TX_RX_DATA_PORT, Val);
 	}
 	if (TxLen & 3) {
 		memcpy(&Val, TxBuf + (TxLen & (~3)), TxLen & 3);
 		xil_printf("0x%x\n", Val);
 		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-				XI3CPSX_TX_RX_DATA_PORT, Val);
+				 XI3CPSX_TX_RX_DATA_PORT, Val);
 	}
 }
 
@@ -154,7 +155,7 @@ static void XI3cPsx_SlvRdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
 	}
 	if (RxLen & 3) {
 		Val = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-					   XI3CPSX_TX_RX_DATA_PORT);
+				      XI3CPSX_TX_RX_DATA_PORT);
 		xil_printf("Data word 0x%x\tData 0x%x\n", i, Val);
 		memcpy(RxBuf + (RxLen & (~3)), &Val, RxLen & 3);
 	}
@@ -205,7 +206,7 @@ void XI3cPsx_SlaveRecv(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 *
 ****************************************************************************/
 s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
-		 s32 ByteCount, XI3cPsx_Cmd Cmds)
+			    s32 ByteCount, XI3cPsx_Cmd Cmds)
 {
 	/*
 	 * Assert validates the input arguments
@@ -215,9 +216,8 @@ s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 
 	if (ByteCount) {
 		XI3cPsx_SlvWrTxFifo(InstancePtr, (u32 *)MsgPtr,
-				  ByteCount);
+				    ByteCount);
 	}
-
 
 	/* Send command part to controller. It triggers the transfer */
 	XI3cPsx_WrCmdFifo(InstancePtr, &Cmds);
@@ -256,27 +256,26 @@ s32 XI3cPsx_SlaveRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr)
 	InstancePtr->RecvBufferPtr = MsgPtr;
 
 	Reg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-				XI3CPSX_INTR_STATUS);
+			      XI3CPSX_INTR_STATUS);
 	while (!(Reg & XI3CPSX_INTR_STATUS_RESP_READY_STS_MASK)) {
 		Reg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-				XI3CPSX_INTR_STATUS);
+				      XI3CPSX_INTR_STATUS);
 	}
 	Reg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-				XI3CPSX_RESPONSE_QUEUE_PORT);
+			      XI3CPSX_RESPONSE_QUEUE_PORT);
 	Err = Reg & XI3CPSX_TRANSFER_ERROR;
 	if (Err != 0) {
 		Reg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-				XI3CPSX_DEVICE_CTRL);
+				      XI3CPSX_DEVICE_CTRL);
 		Reg = Reg | XI3CPSX_DEVICE_CTRL_RESUME_MASK;
 		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL, Reg);
 		return (s32)XST_FAILURE;
 	}
 
-
 	Reg = Reg & XI3CPSX_DATA_LEN;
 
 	XI3cPsx_SlvRdRxFifo(InstancePtr, (u32 *)MsgPtr,
-				  Reg);
+			    Reg);
 
 	return (s32)XST_SUCCESS;
 }

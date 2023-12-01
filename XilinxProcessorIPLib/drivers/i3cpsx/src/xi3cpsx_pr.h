@@ -6,7 +6,6 @@
 
 /*****************************************************************************/
 
-
 /******************************************************************************
 * I3C spec defines the following:
 * Common command codes (CCC)
@@ -24,12 +23,10 @@
 
 #define BIT(N)		(1U << N)
 
-
 #define I3C_BUS_TYP_I3C_SCL_RATE	12500000
 #define I3C_BUS_I2C_FM_PLUS_SCL_RATE	1000000
 #define I3C_BUS_I2C_FM_SCL_RATE		400000
 #define I3C_BUS_TLOW_OD_MIN_NS		200
-
 
 /***********************Common command codes (CCC)****************************/
 
@@ -75,7 +72,7 @@
 #define I3C_CCC_EVENT_HJ		BIT(3)
 /*FIXME */
 #define GENMASK(h, l)			(~(u32)0 - ( (u32)1 << l) + 1) & \
-					(~(u32)0 >> (32 - 1 - h))
+	(~(u32)0 >> (32 - 1 - h))
 
 #define COMMAND_PORT_TOC		BIT(30)
 #define COMMAND_PORT_READ_TRANSFER	BIT(28)
@@ -114,7 +111,6 @@
 #define RESPONSE_ERROR_I2C_W_NACK_ERR	9
 #define RESPONSE_PORT_TID(x)		(((x) & GENMASK(27, 24)) >> 24)
 #define RESPONSE_PORT_DATA_LEN(x)	((x) & 0xFFFF)
-
 
 #define SCL_I3C_TIMING_HCNT(x)		(((x) << 16) & GENMASK(23, 16))
 #define SCL_I3C_TIMING_LCNT(x)		((x) & GENMASK(7, 0))

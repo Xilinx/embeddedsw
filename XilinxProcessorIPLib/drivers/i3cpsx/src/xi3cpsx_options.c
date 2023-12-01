@@ -33,15 +33,11 @@
 
 /************************** Constant Definitions *****************************/
 
-
 /**************************** Type Definitions *******************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
 /************************** Function Prototypes ******************************/
-
 
 /************************** Variable Definitions *****************************/
 s32 XI3cPsx_SetSClk(XI3cPsx *InstancePtr)
@@ -59,12 +55,14 @@ s32 XI3cPsx_SetSClk(XI3cPsx *InstancePtr)
 	CorePeriod = XI3CPSX_CEIL_DIV(1000000000, CoreRate);
 
 	Hcnt = XI3CPSX_CEIL_DIV(I3C_BUS_THIGH_MAX_NS, CorePeriod) - 1;
-	if (Hcnt < SCL_I3C_TIMING_CNT_MIN)
+	if (Hcnt < SCL_I3C_TIMING_CNT_MIN) {
 		Hcnt = SCL_I3C_TIMING_CNT_MIN;
+	}
 
 	Lcnt = XI3CPSX_CEIL_DIV(CoreRate, I3C_BUS_TYP_I3C_SCL_RATE) - Hcnt;
-	if (Lcnt < SCL_I3C_TIMING_CNT_MIN)
+	if (Lcnt < SCL_I3C_TIMING_CNT_MIN) {
 		Lcnt = SCL_I3C_TIMING_CNT_MIN;
+	}
 
 	SclTiming = SCL_I3C_TIMING_HCNT(Hcnt) | (Lcnt & XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_LCNT_MASK);
 	XI3cPsx_WriteReg(BaseAddress, XI3CPSX_SCL_I3C_PP_TIMING, SclTiming);

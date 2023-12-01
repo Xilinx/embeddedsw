@@ -180,12 +180,11 @@ typedef struct {
 	u8 Data_FD;
 } XI3cPsx_Master_Caps;
 
-struct CmdInfo
-{
+struct CmdInfo {
 	u8 Cmd;
 	u16 SlaveAddr;
-	u8 * TxBuff;
-	u8 * RxBuff;
+	u8 *TxBuff;
+	u8 *RxBuff;
 	u8 TxLen;
 	u8 RxLen;
 };
@@ -235,15 +234,15 @@ extern XI3cPsx_Config XI3cPsx_ConfigTable[];	/**< Configuration table */
 *
 *****************************************************************************/
 #define XI3cPsx_SendByte(InstancePtr)					\
-{									\
-	u8 Data;							\
-	Data = *((InstancePtr)->SendBufferPtr);				\
-	 XI3cPsx_Out32((InstancePtr)->Config.BaseAddress			\
-			 + (u32)(XI3cPsx_DATA_OFFSET), 			\
-					(u32)(Data));			\
-	(InstancePtr)->SendBufferPtr += 1;				\
-	(InstancePtr)->SendByteCount -= 1;\
-}
+	{									\
+		u8 Data;							\
+		Data = *((InstancePtr)->SendBufferPtr);				\
+		XI3cPsx_Out32((InstancePtr)->Config.BaseAddress			\
+			      + (u32)(XI3cPsx_DATA_OFFSET), 			\
+			      (u32)(Data));			\
+		(InstancePtr)->SendBufferPtr += 1;				\
+		(InstancePtr)->SendByteCount -= 1;\
+	}
 
 /****************************************************************************/
 /**
@@ -259,15 +258,15 @@ extern XI3cPsx_Config XI3cPsx_ConfigTable[];	/**< Configuration table */
 *
 *****************************************************************************/
 #define XI3cPsx_RecvByte(InstancePtr)					\
-{									\
-	u8 *Data, Value;						\
-	Value = (u8)(XI3cPsx_In32((InstancePtr)->Config.BaseAddress	\
-		  + (u32)XI3cPsx_DATA_OFFSET));  			\
-	Data = &Value;							\
-	*(InstancePtr)->RecvBufferPtr = *Data;				\
-	(InstancePtr)->RecvBufferPtr += 1;				\
-	 (InstancePtr)->RecvByteCount --; 				\
-}
+	{									\
+		u8 *Data, Value;						\
+		Value = (u8)(XI3cPsx_In32((InstancePtr)->Config.BaseAddress	\
+					  + (u32)XI3cPsx_DATA_OFFSET));  			\
+		Data = &Value;							\
+		*(InstancePtr)->RecvBufferPtr = *Data;				\
+		(InstancePtr)->RecvBufferPtr += 1;				\
+		(InstancePtr)->RecvByteCount --; 				\
+	}
 
 /************************** Function Prototypes ******************************/
 
@@ -283,8 +282,8 @@ XI3cPsx_Config *XI3cPsx_LookupConfig(u32 BaseAddress);
 /*
  * Functions for general setup, in XI3cPsx.c
  */
-s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config * ConfigPtr,
-				  u32 EffectiveAddr);
+s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
+			  u32 EffectiveAddr);
 
 void XI3cPsx_Abort(XI3cPsx *InstancePtr);
 void XI3cPsx_Resume(XI3cPsx *InstancePtr);
@@ -293,8 +292,8 @@ void XI3cPsx_ResetFifos(XI3cPsx *InstancePtr);
 
 s32 XI3cPsx_BusIsBusy(XI3cPsx *InstancePtr);
 s32 XI3cPsx_TransmitFifoFill(XI3cPsx *InstancePtr);
-s32 XI3cPsx_SendTransferCmd(XI3cPsx *InstancePtr, struct CmdInfo * CmdCCC);
-s32 XI3cPsx_SendAddrAssignCmd(XI3cPsx *InstancePtr, struct CmdInfo * CmdCCC);
+s32 XI3cPsx_SendTransferCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC);
+s32 XI3cPsx_SendAddrAssignCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC);
 s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr);
 void XI3cPsx_PrintDCT(XI3cPsx *InstancePtr);
 
@@ -302,19 +301,19 @@ void XI3cPsx_PrintDCT(XI3cPsx *InstancePtr);
  * Functions for interrupts, in XI3cPsx_intr.c
  */
 void XI3cPsx_SetStatusHandler(XI3cPsx *InstancePtr, void *CallBackRef,
-				  XI3cPsx_IntrHandler FunctionPtr);
+			      XI3cPsx_IntrHandler FunctionPtr);
 
 /*
  * Functions for device as master, in XI3cPsx_master.c
  */
 s32 XI3cPsx_MasterSend(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount,
-		 XI3cPsx_Cmd Cmd);
+		       XI3cPsx_Cmd Cmd);
 s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
-				s32 ByteCount, XI3cPsx_Cmd *Cmds);
+		       s32 ByteCount, XI3cPsx_Cmd *Cmds);
 s32 XI3cPsx_MasterSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount,
-		 XI3cPsx_Cmd Cmd);
+			     XI3cPsx_Cmd Cmd);
 s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount,
-		 XI3cPsx_Cmd *Cmd);
+			     XI3cPsx_Cmd *Cmd);
 void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr);
 
 /*
@@ -324,7 +323,7 @@ void XI3cPsx_SetupSlave(XI3cPsx *InstancePtr, u16 SlaveAddr);
 void XI3cPsx_SlaveSend(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount);
 void XI3cPsx_SlaveRecv(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount);
 s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount,
-			XI3cPsx_Cmd Cmds);
+			    XI3cPsx_Cmd Cmds);
 s32 XI3cPsx_SlaveRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr);
 void XI3cPsx_SlaveInterruptHandler(XI3cPsx *InstancePtr);
 

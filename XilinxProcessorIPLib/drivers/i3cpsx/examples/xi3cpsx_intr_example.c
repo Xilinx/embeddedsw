@@ -1,6 +1,6 @@
 
 /******************************************************************************
-* Copyright (C) 2022 AMD, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -128,7 +128,7 @@ int I3cPsxMasterIntrExample(UINTPTR BaseAddress)
 	CfgPtr = XI3cPsx_LookupConfig(BaseAddress);
 #endif
 	if (NULL == CfgPtr) {
-		  return XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	Status = XI3cPsx_CfgInitialize(InstancePtr, CfgPtr, CfgPtr->BaseAddress);
@@ -156,11 +156,11 @@ int I3cPsxMasterIntrExample(UINTPTR BaseAddress)
 	}
 
 	DAA_Cmd.TransCmd = COMMAND_PORT_SDA_DATA_BYTE_1(I3C_WHO_AM_I) |
-			COMMAND_PORT_SDA_BYTE_STRB_1 |
-			COMMAND_PORT_SHORT_DATA_ARG;
+			   COMMAND_PORT_SDA_BYTE_STRB_1 |
+			   COMMAND_PORT_SHORT_DATA_ARG;
 	DAA_Cmd.TransArg = (COMMAND_PORT_SPEED(0) |
-			COMMAND_PORT_DEV_INDEX(0) |
-			COMMAND_PORT_SDAP);
+			    COMMAND_PORT_DEV_INDEX(0) |
+			    COMMAND_PORT_SDAP);
 	DAA_Cmd.RxBuf = NULL;
 	XI3cPsx_ResetFifos(InstancePtr);
 	Status = XI3cPsx_MasterSend(InstancePtr, TxData, 1, DAA_Cmd);
@@ -169,30 +169,29 @@ int I3cPsxMasterIntrExample(UINTPTR BaseAddress)
 	DAA_Cmd.RxBuf = RxData;
 	DAA_Cmd.TransCmd = COMMAND_PORT_ARG_DATA_LEN(RxLen) | COMMAND_PORT_TRANSFER_ARG;
 	DAA_Cmd.TransArg =	(COMMAND_PORT_READ_TRANSFER |
-			COMMAND_PORT_SPEED(0) |
-			COMMAND_PORT_DEV_INDEX(0) |
-			COMMAND_PORT_TID(1) |
-			COMMAND_PORT_ROC |
-			COMMAND_PORT_TOC);
+				 COMMAND_PORT_SPEED(0) |
+				 COMMAND_PORT_DEV_INDEX(0) |
+				 COMMAND_PORT_TID(1) |
+				 COMMAND_PORT_ROC |
+				 COMMAND_PORT_TOC);
 	Status = XI3cPsx_MasterRecv(InstancePtr, RxData, RxLen, &DAA_Cmd);
 	xil_printf("Data at 0x0F is  %d\n", InstancePtr->RecvBufferPtr[0]);
 
 	DAA_Cmd.TransCmd = COMMAND_PORT_SDA_DATA_BYTE_1(I3C_CTRL) |
-		COMMAND_PORT_SDA_BYTE_STRB_1 | COMMAND_PORT_SDA_BYTE_STRB_2 | COMMAND_PORT_SDA_DATA_BYTE_2(2) |
-			COMMAND_PORT_SHORT_DATA_ARG;
+			   COMMAND_PORT_SDA_BYTE_STRB_1 | COMMAND_PORT_SDA_BYTE_STRB_2 | COMMAND_PORT_SDA_DATA_BYTE_2(2) |
+			   COMMAND_PORT_SHORT_DATA_ARG;
 	DAA_Cmd.TransArg = (COMMAND_PORT_SPEED(0) |
-			COMMAND_PORT_DEV_INDEX(0) | COMMAND_PORT_SDAP);
+			    COMMAND_PORT_DEV_INDEX(0) | COMMAND_PORT_SDAP);
 	DAA_Cmd.RxBuf = NULL;
 	XI3cPsx_ResetFifos(InstancePtr);
 	Status = XI3cPsx_MasterSend(InstancePtr, NULL, 0, DAA_Cmd);
 
-
 	DAA_Cmd.TransCmd = COMMAND_PORT_SDA_DATA_BYTE_1(I3C_CTRL) |
-		COMMAND_PORT_SDA_BYTE_STRB_1 |
-			COMMAND_PORT_SHORT_DATA_ARG;
+			   COMMAND_PORT_SDA_BYTE_STRB_1 |
+			   COMMAND_PORT_SHORT_DATA_ARG;
 	DAA_Cmd.TransArg = (COMMAND_PORT_SPEED(0) |
-		COMMAND_PORT_DEV_INDEX(0) |
-			COMMAND_PORT_SDAP);
+			    COMMAND_PORT_DEV_INDEX(0) |
+			    COMMAND_PORT_SDAP);
 	DAA_Cmd.RxBuf = NULL;
 	XI3cPsx_ResetFifos(InstancePtr);
 	Status = XI3cPsx_MasterSend(InstancePtr, NULL, 0, DAA_Cmd);
@@ -201,36 +200,35 @@ int I3cPsxMasterIntrExample(UINTPTR BaseAddress)
 	DAA_Cmd.RxBuf = RxData;
 	DAA_Cmd.TransCmd = COMMAND_PORT_ARG_DATA_LEN(RxLen) | COMMAND_PORT_TRANSFER_ARG;
 	DAA_Cmd.TransArg =	(COMMAND_PORT_READ_TRANSFER |
-		COMMAND_PORT_SPEED(0) |
-		COMMAND_PORT_DEV_INDEX(0) |
-			COMMAND_PORT_TID(1) |
-			COMMAND_PORT_ROC |
-			COMMAND_PORT_TOC);
+				 COMMAND_PORT_SPEED(0) |
+				 COMMAND_PORT_DEV_INDEX(0) |
+				 COMMAND_PORT_TID(1) |
+				 COMMAND_PORT_ROC |
+				 COMMAND_PORT_TOC);
 	Status = XI3cPsx_MasterRecv(InstancePtr, RxData, RxLen, &DAA_Cmd);
 	xil_printf("Data at 0x11 is  %d %d\n", InstancePtr->RecvBufferPtr[0], InstancePtr->RecvBufferPtr[1]);
 
 	DAA_Cmd.TransCmd = COMMAND_PORT_SDA_DATA_BYTE_1(I3C_INT_SRC) |
-		COMMAND_PORT_SDA_BYTE_STRB_1 |
-			COMMAND_PORT_SHORT_DATA_ARG;
+			   COMMAND_PORT_SDA_BYTE_STRB_1 |
+			   COMMAND_PORT_SHORT_DATA_ARG;
 	DAA_Cmd.TransArg = (COMMAND_PORT_SPEED(0) |
-		COMMAND_PORT_DEV_INDEX(0) |
-			COMMAND_PORT_SDAP);
+			    COMMAND_PORT_DEV_INDEX(0) |
+			    COMMAND_PORT_SDAP);
 	XI3cPsx_ResetFifos(InstancePtr);
 	Status = XI3cPsx_MasterSend(InstancePtr, NULL, 0, DAA_Cmd);
 	RxLen = I3C_DATALEN;
 	DAA_Cmd.RxBuf = RxData;
 	DAA_Cmd.TransCmd = COMMAND_PORT_ARG_DATA_LEN(RxLen) | COMMAND_PORT_TRANSFER_ARG;
 	DAA_Cmd.TransArg =	(COMMAND_PORT_READ_TRANSFER |
-		COMMAND_PORT_SPEED(0) |
-		COMMAND_PORT_DEV_INDEX(0) |
-			COMMAND_PORT_TID(1) |
-			COMMAND_PORT_ROC |
-			COMMAND_PORT_TOC);
+				 COMMAND_PORT_SPEED(0) |
+				 COMMAND_PORT_DEV_INDEX(0) |
+				 COMMAND_PORT_TID(1) |
+				 COMMAND_PORT_ROC |
+				 COMMAND_PORT_TOC);
 	Status = XI3cPsx_MasterRecv(InstancePtr, RxData, I3C_DATALEN, &DAA_Cmd);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
 
 	return XST_SUCCESS;
 }
@@ -269,19 +267,18 @@ static int SetupInterruptSystem(XI3cPsx *InstancePtr)
 	}
 
 	Status = XScuGic_CfgInitialize(&InterruptController, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
 
 	/*
 	 * Connect the interrupt controller interrupt handler to the hardware
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				&InterruptController);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     &InterruptController);
 
 	/*
 	 * Connect the device driver handler that will be called when an
@@ -289,8 +286,8 @@ static int SetupInterruptSystem(XI3cPsx *InstancePtr)
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(&InterruptController, I3C_INT_VEC_ID,
-			(Xil_InterruptHandler)XI3cPsx_MasterInterruptHandler,
-			(void *)InstancePtr);
+				 (Xil_InterruptHandler)XI3cPsx_MasterInterruptHandler,
+				 (void *)InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -299,7 +296,6 @@ static int SetupInterruptSystem(XI3cPsx *InstancePtr)
 	 * Enable the interrupt for the Iic device.
 	 */
 	XScuGic_Enable(&InterruptController, I3C_INT_VEC_ID);
-
 
 	/*
 	 * Enable interrupts in the Processor.

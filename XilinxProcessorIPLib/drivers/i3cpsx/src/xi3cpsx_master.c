@@ -90,7 +90,8 @@ s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr)
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_STATUS_EN, tmp);
 	xil_printf("XI3CPSX_INTR_STATUS_EN 0x%x\n", tmp);
 
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_SIGNAL_EN, XI3CPSX_INTR_SIGNAL_EN_RESP_READY_SIGNAL_EN_MASK);
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_SIGNAL_EN,
+			 XI3CPSX_INTR_SIGNAL_EN_RESP_READY_SIGNAL_EN_MASK);
 	xil_printf("XI3CPSX_INTR_SIGNAL_EN 0x%x\n", XI3CPSX_INTR_SIGNAL_EN_RESP_READY_SIGNAL_EN_MASK);
 
 	/* Initializing master registers */
@@ -104,10 +105,10 @@ s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr)
 	/* Initialize Device address table (DAT) */
 	tmp = 0x25 << XI3CPSX_DEV_ADDR_TABLE_LOC1_DEV_DYNAMIC_ADDR_SHIFT;
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-				       XI3CPSX_DEV_ADDR_TABLE_LOC1, tmp);
+			 XI3CPSX_DEV_ADDR_TABLE_LOC1, tmp);
 	tmp = 0x26 << XI3CPSX_DEV_ADDR_TABLE_LOC1_DEV_DYNAMIC_ADDR_SHIFT;
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-				       XI3CPSX_DEV_ADDR_TABLE_LOC2, tmp);
+			 XI3CPSX_DEV_ADDR_TABLE_LOC2, tmp);
 
 	xil_printf("DEV_ADDR_TABLE_LOC(0x2c0, 0) 0x%x\n", tmp);
 
@@ -148,13 +149,13 @@ void XI3cPsx_WrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen)
 		Val = TxBuf[i];
 		xil_printf("0x%x\t", Val);
 		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-				XI3CPSX_TX_RX_DATA_PORT, Val);
+				 XI3CPSX_TX_RX_DATA_PORT, Val);
 	}
 	if (TxLen & 3) {
 		memcpy(&Val, TxBuf + (TxLen & (~3)), TxLen & 3);
 		xil_printf("0x%x\n", Val);
 		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-				XI3CPSX_TX_RX_DATA_PORT, Val);
+				 XI3CPSX_TX_RX_DATA_PORT, Val);
 	}
 }
 
@@ -163,7 +164,7 @@ static void XI3cPsixl_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd)
 	xil_printf("Writing Command - Arg: 0x%x\t Cmd: 0x%x\n", Cmd->TransCmd, Cmd->TransArg);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 			 XI3CPSX_COMMAND_QUEUE_PORT, Cmd->TransCmd);
-	 XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 			 XI3CPSX_COMMAND_QUEUE_PORT, Cmd->TransArg);
 }
 
@@ -181,7 +182,7 @@ static void XI3cPsx_RdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
 	}
 	if (RxLen & 3) {
 		Val = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-					   XI3CPSX_TX_RX_DATA_PORT);
+				      XI3CPSX_TX_RX_DATA_PORT);
 		xil_printf("Data word 0x%x\tData 0x%x\n", i, Val);
 		memcpy(RxBuf + (RxLen & (~3)), &Val, RxLen & 3);
 	}
@@ -222,9 +223,9 @@ void XI3cPsx_PrintDCT(XI3cPsx *InstancePtr)
 * @note		This send routine is for interrupt-driven transfer only.
 *
  ****************************************************************************/
-XI3cPsx_Cmd * CmdsPtr;
+XI3cPsx_Cmd *CmdsPtr;
 s32 XI3cPsx_MasterSend(XI3cPsx *InstancePtr, u8 *MsgPtr,
-		 s32 ByteCount, XI3cPsx_Cmd Cmds)
+		       s32 ByteCount, XI3cPsx_Cmd Cmds)
 {
 	u32 Rbuf_level = 0;
 
@@ -233,7 +234,7 @@ s32 XI3cPsx_MasterSend(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	InstancePtr->SendByteCount = ByteCount;
 	InstancePtr->SendBufferPtr = MsgPtr;
 	Rbuf_level = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-					XI3CPSX_QUEUE_STATUS_LEVEL);
+				     XI3CPSX_QUEUE_STATUS_LEVEL);
 
 	xil_printf("Rbuf_level before Cmd write %d\n", Rbuf_level);
 	/* Send command part to controller. It triggers the transfer */
@@ -262,7 +263,7 @@ s32 XI3cPsx_MasterSend(XI3cPsx *InstancePtr, u8 *MsgPtr,
 ****************************************************************************/
 
 s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
-				s32 ByteCount, XI3cPsx_Cmd *Cmds)
+		       s32 ByteCount, XI3cPsx_Cmd *Cmds)
 {
 	u32 Rbuf_level = 0;
 	u32 Intr_status = 0;
@@ -270,10 +271,10 @@ s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
 
 	XI3cPsx_EnableInterrupts(InstancePtr->Config.BaseAddress, (u32)0xB77F);
 	IntrStatusReg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-			XI3CPSX_INTR_STATUS);
+					XI3CPSX_INTR_STATUS);
 
 	Rbuf_level = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-					XI3CPSX_QUEUE_STATUS_LEVEL);
+				     XI3CPSX_QUEUE_STATUS_LEVEL);
 	InstancePtr->RecvByteCount  = ByteCount;
 
 	xil_printf("Rbuf_level, Intr_status before Cmd write %x\t%x\n", Rbuf_level, Intr_status);
@@ -281,20 +282,22 @@ s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	/* Send command part to controller. It triggers the transfer */
 	XI3cPsixl_WrCmdFifo(InstancePtr, Cmds);
 	/* Wait until response buffer is filled up */
-	Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >> XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
-	while(((s32)Rbuf_level  != InstancePtr->RecvByteCount) && !(IntrStatusReg)) {
+	Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >>
+		     XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
+	while (((s32)Rbuf_level  != InstancePtr->RecvByteCount) && !(IntrStatusReg)) {
 		Rbuf_level = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-					XI3CPSX_QUEUE_STATUS_LEVEL);
-		Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >> XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
+					     XI3CPSX_QUEUE_STATUS_LEVEL);
+		Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >>
+			     XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
 		IntrStatusReg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-				XI3CPSX_INTR_STATUS);
+						XI3CPSX_INTR_STATUS);
 	}
 
 	InstancePtr->SendBufferPtr = MsgPtr;
 
 	/* Check if any error in all commands */
 	if (InstancePtr->Error != 0) {
-		xil_printf("Error %d \n" , InstancePtr->Error );
+		xil_printf("Error %d \n", InstancePtr->Error );
 		XI3cPsx_ResetFifos(InstancePtr);
 		return XST_FAILURE;
 	}
@@ -326,12 +329,12 @@ s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
 *
 ****************************************************************************/
 s32 XI3cPsx_MasterSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
-		 s32 ByteCount, XI3cPsx_Cmd Cmds)
+			     s32 ByteCount, XI3cPsx_Cmd Cmds)
 {
 	/* If tx command, first write it's data to tx FIFO */
 	if (ByteCount) {
 		XI3cPsx_WrTxFifo(InstancePtr, (u32 *)MsgPtr,
-				  ByteCount);
+				 ByteCount);
 	}
 
 	/* Send command part to controller. It triggers the transfer */
@@ -365,7 +368,7 @@ s32 XI3cPsx_MasterSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 *
 ****************************************************************************/
 s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
-				s32 ByteCount, XI3cPsx_Cmd *Cmds)
+			     s32 ByteCount, XI3cPsx_Cmd *Cmds)
 {
 	u32 Resp = 0;
 	u32 Rbuf_level = 0;
@@ -374,34 +377,36 @@ s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 
 	XI3cPsx_EnableInterrupts(InstancePtr->Config.BaseAddress, (u32)0xB77F);
 	Intr_status = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-			XI3CPSX_INTR_STATUS);
+				      XI3CPSX_INTR_STATUS);
 
 	Rbuf_level = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-					XI3CPSX_QUEUE_STATUS_LEVEL);
+				     XI3CPSX_QUEUE_STATUS_LEVEL);
 
 	/* Send command part to controller. It triggers the transfer */
 	XI3cPsixl_WrCmdFifo(InstancePtr, Cmds);
 
 	/* Wait until response buffer is filled up */
-	Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >> XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
-	while(((s32)Rbuf_level  != ByteCount) && !(Intr_status)) {
+	Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >>
+		     XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
+	while (((s32)Rbuf_level  != ByteCount) && !(Intr_status)) {
 		Rbuf_level = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-					XI3CPSX_QUEUE_STATUS_LEVEL);
-		Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >> XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
+					     XI3CPSX_QUEUE_STATUS_LEVEL);
+		Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >>
+			     XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
 		Intr_status = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-				XI3CPSX_INTR_STATUS);
+					      XI3CPSX_INTR_STATUS);
 	}
 
 	/* Read the response buffer */
 	Resp = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-			      XI3CPSX_RESPONSE_QUEUE_PORT);
+			       XI3CPSX_RESPONSE_QUEUE_PORT);
 	RxLen = RESPONSE_PORT_DATA_LEN(Resp);
 	Cmds->Error = RESPONSE_PORT_ERR_STATUS(Resp);
 
 	/* If rx command, read data from FIFO */
 	if ((RxLen) && !(Cmds->Error)) {
 		XI3cPsx_RdRxFifo(InstancePtr, (u32 *)MsgPtr,
-				  RxLen);
+				 RxLen);
 	}
 
 	/* Check if any error in all commands */
@@ -455,21 +460,23 @@ void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, (u32)XI3CPSX_INTR_STATUS, IntrStatusReg);
 
 	Rbuf_level = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-					XI3CPSX_QUEUE_STATUS_LEVEL);
+				     XI3CPSX_QUEUE_STATUS_LEVEL);
 
 	/* Wait until response buffer is filled up */
-	Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >> XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
-	while((Rbuf_level  != (u32)InstancePtr->RecvByteCount) && !(IntrStatusReg)) {
+	Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >>
+		     XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
+	while ((Rbuf_level  != (u32)InstancePtr->RecvByteCount) && !(IntrStatusReg)) {
 		Rbuf_level = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-					XI3CPSX_QUEUE_STATUS_LEVEL);
-		Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >> XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
+					     XI3CPSX_QUEUE_STATUS_LEVEL);
+		Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >>
+			     XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
 		IntrStatusReg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-				XI3CPSX_INTR_STATUS);
+						XI3CPSX_INTR_STATUS);
 	}
 
 	/* Read the response buffer */
 	Resp = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-			      XI3CPSX_RESPONSE_QUEUE_PORT);
+			       XI3CPSX_RESPONSE_QUEUE_PORT);
 	xil_printf("Resp 0x%x\n", Resp);
 	RxLen = RESPONSE_PORT_DATA_LEN(Resp);
 	InstancePtr->Error = RESPONSE_PORT_ERR_STATUS(Resp);
@@ -477,12 +484,12 @@ void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
 	/* If rx command, read data from FIFO */
 	if ((RxLen) && !(InstancePtr->Error)) {
 		XI3cPsx_RdRxFifo(InstancePtr, (u32 *)InstancePtr->RecvBufferPtr,
-				  RxLen);
+				 RxLen);
 	}
 	xil_printf("Rbuf_level, Intr_status after Cmd write %x\t%x\n", Rbuf_level, IntrStatusReg);
 	if (InstancePtr->SendByteCount) {
 		XI3cPsx_WrTxFifo(InstancePtr, (u32 *)InstancePtr->SendBufferPtr,
-					InstancePtr->SendByteCount);
+				 InstancePtr->SendByteCount);
 	}
 }
 /** @} */
