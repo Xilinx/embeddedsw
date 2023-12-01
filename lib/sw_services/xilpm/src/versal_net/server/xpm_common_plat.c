@@ -12,7 +12,7 @@
 #ifdef CPPUTEST
 #define MAX_BYTEBUFFER_SIZE	(52U * 1024U)
 #else
-#define MAX_BYTEBUFFER_SIZE	(44U * 1024U)
+#define MAX_BYTEBUFFER_SIZE	(46U * 1024U)
 #endif
 
 #ifdef CPPUTEST
