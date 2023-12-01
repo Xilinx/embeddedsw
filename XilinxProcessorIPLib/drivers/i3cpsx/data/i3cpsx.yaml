@@ -1,0 +1,46 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for I3CPS controller
+
+maintainers:
+  - Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,psx-i3c-11.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,frequency:
+      I3C frequency
+  xlnx,device-count:
+      Number of available IPI Targets
+
+config:
+    - XI3cPsx_Config
+
+required:
+    - compatible
+    - reg
+    - interrupts
+    - interrupt-parent
+    - xlnx,frequency
+    - xlnx,device-count
+
+examples:
+    xi3cpsx_intr_example.c:
+        - interrupts
+
+    xi3cpsx_polled_example.c:
+        - reg
+
+    xi3cpsx_slave_loopback.c:
+        - reg
+...

@@ -21,6 +21,7 @@
 * 1.00 	sd   11/21/21 First release
 * 1.2   sd    2/12/23 Remove the hardcoding devices
 *       	      Copy the input clock
+* 1.3  sd   11/17/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -45,7 +46,9 @@ s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
 	}
 
 	/* Set the values read from the device config and the base address. */
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.DeviceCount = ConfigPtr->DeviceCount;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
