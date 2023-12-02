@@ -756,6 +756,10 @@ extern "C" {
 #define XPM_RTCA_HBM_TEMP_CONFIG_STACKS_MAX_TEMP_MASK		(0xFF0000U)
 #define XPM_RTCA_HBM_TEMP_VAL_STACK0_TEMP_SHIFT			(0U)
 #define XPM_RTCA_HBM_TEMP_VAL_STACK1_TEMP_SHIFT			(8U)
+#define XPM_RTCA_HBM_TEMP_THRESHOLD_WIDTH			(0x7U) /**< HBM 7-bit Threshold Temperature Width >*/
+#define XPM_RTCA_HBM_TEMP_THRESHOLD_OFFSET			(0x8U) /**< HBM Threshold Temperature Offset > */
+#define XPM_RTCA_HBM_TEMP_THRESHOLD_MASK			BITNMASK(XPM_RTCA_HBM_TEMP_THRESHOLD_OFFSET, \
+								XPM_RTCA_HBM_TEMP_THRESHOLD_WIDTH) /** < HBM Threshold Temperature Mask > */
 
 /* Probe Counter Register related macros */
 #define CORESIGHT_LPD_ATM_BASE					(0xF0980000U)

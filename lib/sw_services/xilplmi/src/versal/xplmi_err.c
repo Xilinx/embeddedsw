@@ -29,6 +29,7 @@
 *       rama 08/30/2023 Changed XMPU & XPPU error prints to DEBUG_ALWAYS for
 *                       debug level_0 option
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
+*       kj   12/01/2023 Updated ErrorTable to support HBM CATTRIP Error
 *
 * </pre>
 *
@@ -378,6 +379,8 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_NPI_UE] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_STL_UE] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_HBM_SW_CATTRIP] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
 
