@@ -20,6 +20,7 @@
 *       ma       01/17/2022 Add PLM exceptions to SW errors list
 * 7.8   rama     06/28/2022 Add XilSem errors to SW error events
 * 7.9   rama     07/19/2023 Add STL errors to SW error events
+*       kj       12/01/2023 Add HBM CATTRIP Sw Error Mask
 *
 * </pre>
 *
@@ -477,6 +478,8 @@ extern "C" {
 #define XIL_EVENT_ERROR_MASK_XSEM_NPI_UE	(0x00000080U)
 /** STL errors */
 #define XIL_EVENT_ERROR_MASK_XSTL_UE		(0x00000100U)
+/** HBM CATTRIP Software Error */
+#define XIL_EVENT_ERROR_MASK_HBM_CATTRIP	(0x00000200U)
 /**
  * @}
  */

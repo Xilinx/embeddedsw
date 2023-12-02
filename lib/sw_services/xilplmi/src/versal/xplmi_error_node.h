@@ -32,6 +32,7 @@
 * 1.07  ng   11/11/2022 Fixed doxygen file name error
 * 1.08  rama 07/19/2023 Added STL error ID to support software event
 *                       notification
+*       kj   12/01/2023 Added HBM CATTRIP SW Error
 *
 * </pre>
 *
@@ -210,7 +211,9 @@ typedef enum {
 /* STL UE errors */
 #define XPLMI_ERROR_STL_UE			(0x88U)
 
-#define XPLMI_ERROR_SW_ERR_MAX		(0x89U)
+/* HBM CATTRIP Notification SW Error */
+#define XPLMI_ERROR_HBM_SW_CATTRIP	(0x89U)
+#define XPLMI_ERROR_SW_ERR_MAX		(0x8AU)
 
 #define XPLMI_ERROR_PSMERR_MAX		XPLMI_ERROR_PSMERR2_MAX
 #define XPLMI_ERROR_PMCERR_MAX		XPLMI_ERROR_PMCERR2_MAX

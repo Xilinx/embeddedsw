@@ -15,6 +15,9 @@
 #include "xpm_rpucore.h"
 #include "xpm_npdomain.h"
 #include "xpm_debug.h"
+#include "xil_error_node.h"
+#include "xplmi_error_node.h"
+#include "xplmi_err_common.h"
 
 #define XPM_TCM_BASEADDRESS_MODE_OFFSET	0x80000U
 
@@ -89,6 +92,7 @@ static int XPmMem_HBMTempMonitor(void *data)
 	int Status = XST_FAILURE;
 	u32 S0Temp = 0U, S1Temp = 0U;
 	u32 TempVal = 0U, TempMax = 0U;
+	u32 TempThreshold = 0U;
 	const u32 *HbmPhyMs = (u32 *)data;
 
 	/* Read HBM temp config register from RTCA */
@@ -122,6 +126,19 @@ static int XPmMem_HBMTempMonitor(void *data)
 	XPm_RMW32(XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX,
 		  XPM_RTCA_HBM_TEMP_CONFIG_STACKS_MAX_TEMP_MASK,
 		  (TempMax << XPM_RTCA_HBM_TEMP_CONFIG_STACKS_MAX_TEMP_SHIFT));
+
+	/* Check whether threshold temperature for HBM is reached or crossed */
+	TempThreshold = (Xil_In32(XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX) & XPM_RTCA_HBM_TEMP_THRESHOLD_MASK);
+	TempThreshold = (TempThreshold >> XPM_RTCA_HBM_TEMP_THRESHOLD_OFFSET);
+
+	/**
+	 * NOTE: Zero value here describes invalid/negative state.
+	 * Make sure TempMax and TempThreshold are non-zero and trigger an action if threshold is crossed
+	 */
+	if ((0U != TempMax) && (0U != TempThreshold) && (TempMax >= TempThreshold)){
+		/* Trigger SW Error Action for HBM CATTRIP Error */
+		XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR, XIL_EVENT_ERROR_MASK_HBM_CATTRIP);
+	}
 
 	Status = XST_SUCCESS;
 
@@ -177,6 +194,13 @@ XStatus XPmMem_HBMTempMonInitTask(void)
 			/* Nothing to do */
 			break;
 		}
+	}
+
+	/* Set the default error triggering action (before scheduling to avoid race condition)*/
+	Status = XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_SW_ERR, XIL_EVENT_ERROR_MASK_HBM_CATTRIP,
+				   XPLMI_EM_ACTION_SRST, NULL, 0U);
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
 	/* Schedule the HBM temp monitoring task with periodicity of HBM_TEMP_MON_PERIOD */
