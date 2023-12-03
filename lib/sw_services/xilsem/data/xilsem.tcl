@@ -23,6 +23,8 @@
 # 1.13  anv  10/10/23 Added support to enable SSIT feature
 #                     based on Number of SLRs from the design
 # 1.14  gm   10/31/23 Added client support for A78
+# 1.15  gm   12/02/23 Renamed Libxilsem.a to support Classic and SDT Vitis
+#                     flow
 ##############################################################################
 
 #---------------------------------------------
@@ -46,14 +48,14 @@ proc generate {libhandle} {
 		"psu_pmc" -
 		"psv_pmc" {
 			copy_files_to_src $server_dir
-			file delete -force ./src/libxilsem_versal_net.a
-			file rename -force ./src/libxilsem_versal.a ./src/libxilsem.a
+			file delete -force ./src/libxilsem_versal_net_classic.a
+			file rename -force ./src/libxilsem_versal_classic.a ./src/libxilsem.a
 		}
 		"psxl_pmc" -
 		"psx_pmc" {
 			copy_files_to_src $server_dir
-			file delete -force ./src/libxilsem_versal.a
-			file rename -force ./src/libxilsem_versal_net.a ./src/libxilsem.a
+			file delete -force ./src/libxilsem_versal_classic.a
+			file rename -force ./src/libxilsem_versal_net_classic.a ./src/libxilsem.a
 		}
 
 		"psv_cortexr5" -
