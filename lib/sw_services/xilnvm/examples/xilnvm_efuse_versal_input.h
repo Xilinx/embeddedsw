@@ -49,6 +49,11 @@
 * 	will be disabled as well.
 *	FALSE will not modify this control bit of efuse.
 *
+*	#define XNVM_EFUSE_PMC_SC_EN		FALSE
+*	TRUE will enable PMC Scan Clear during ROM operation or
+*	during lockdown.
+*	FALSE will not modify this control bit of efuse.
+*
 * 	#define XNVM_EFUSE_AUTH_JTAG_LOCK_DIS		FALSE
 * 	TRUE will disable the Authenticated JTAG feature after
 * 	secure lock down.
@@ -106,6 +111,11 @@
 *
 *	#define XNVM_EFUSE_USER_KEY_1_WR_LK		FALSE
 *	TRUE permanently disables writing to User 1 key
+*	FALSE will not modify this control bit of eFuse.
+
+*	#define XNVM_EFUSE_HWTSTBITS_DIS		FALSE
+*	TRUE will disable the hardware testbit mode
+*	(soft programming of efuse cache) completely.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XNVM_EFUSE_PPK0_INVLD			FALSE
@@ -740,8 +750,9 @@
 * 2.3	kal    01/07/21 Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
 *			and remaining eFuses in SecCtrl eFuse rows programming
 *			and reading
-*	    kal    02/20/21 Added new macro for Environmental Monitor Disable
+*	kal    02/20/21 Added new macro for Environmental Monitor Disable
 * 3.1   skg    12/07/22 Added additional PPKs related macros
+* 3.3   har    12/04/23 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
 *
 * </pre>
 *
@@ -771,6 +782,7 @@ extern "C" {
  */
 #define XNVM_EFUSE_REG_INIT_DIS			FALSE
 #define XNVM_EFUSE_BOOT_ENV_WR_LK		FALSE
+#define XNVM_EFUSE_PMC_SC_EN			FALSE
 #define XNVM_EFUSE_AUTH_JTAG_LOCK_DIS		FALSE
 #define XNVM_EFUSE_AUTH_JTAG_DIS		FALSE
 #define XNVM_EFUSE_PPK0_WR_LK			FALSE
@@ -782,6 +794,7 @@ extern "C" {
 #define XNVM_EFUSE_USER_KEY_0_WR_LK		FALSE
 #define XNVM_EFUSE_USER_KEY_1_CRC_LK		FALSE
 #define XNVM_EFUSE_USER_KEY_1_WR_LK		FALSE
+#define XNVM_EFUSE_HWTSTBITS_DIS		FALSE
 #define XNVM_EFUSE_JTAG_DIS			FALSE
 #define XNVM_EFUSE_JTAG_ERROR_OUT_DIS		FALSE
 #define XNVM_EFUSE_AES_DIS			FALSE
