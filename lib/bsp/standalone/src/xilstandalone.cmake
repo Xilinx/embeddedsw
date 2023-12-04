@@ -25,6 +25,14 @@ elseif("${CMAKE_MACHINE}" STREQUAL "Zynq")
     set(PLATFORM_ZYNQ " ")
 endif()
 
+if(("${CMAKE_MACHINE}" STREQUAL "VersalNet") AND
+   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78"))
+    option(standalone_enable_minimal_xlat_tbl "Configures translation table only for initial 4 TB address space. Translation table size will be reduced by ~1 MB. It is applicable only for CortexA78 BSP. Enable it by default to fit executable in OCM memory, If users want to access peripheral/Memory mapped beyond 4 TB, it must be disabled." ON)
+    if(standalone_enable_minimal_xlat_tbl)
+        ADD_DEFINITIONS(-DENABLE_MINIMAL_XLAT_TBL)
+    endif()
+endif()
+
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
     OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52"))
     set(XPAR_PS_INCLUDE "#include \"xparameters_ps.h\"")
