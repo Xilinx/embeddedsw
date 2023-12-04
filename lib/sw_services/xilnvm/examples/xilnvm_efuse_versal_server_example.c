@@ -51,6 +51,8 @@
  * 3.1   skg   12/07/2022 Added Additional PPks support
  * 3.2   yog   09/13/2023 Added XilNvm_ShowData() API
  *       vss   09/19/23 Fixed MISRA-C Rule 2.5 violation
+ * 3.3   har   12/04/2023 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
+ *
  * </pre>
  *
  ******************************************************************************/
@@ -812,6 +814,7 @@ static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *WriteEfuse,
  *	u8 AesDis;
  *	u8 JtagErrOutDis;
  *	u8 JtagDis;
+ *	u8 HwTstBitsDis;
  *	u8 Ppk0WrLk;
  *	u8 Ppk1WrLk;
  *	u8 Ppk2WrLk;
@@ -823,6 +826,7 @@ static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *WriteEfuse,
  *	u8 UserKey1WrLk;
  *	u8 SecDbgDis;
  *	u8 SecLockDbgDis;
+ *	u8 PmcScEn;
  *	u8 BootEnvWrLk;
  *	u8 RegInitDis;
  * }XNvm_EfuseSecCtrlBits;
@@ -858,6 +862,8 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
 	SecCtrlBits->UserKey0WrLk = XNVM_EFUSE_USER_KEY_0_WR_LK;
 	SecCtrlBits->UserKey1CrcLk = XNVM_EFUSE_USER_KEY_1_CRC_LK;
 	SecCtrlBits->UserKey1WrLk = XNVM_EFUSE_USER_KEY_1_WR_LK;
+	SecCtrlBits->HwTstBitsDis = XNVM_EFUSE_HWTSTBITS_DIS;
+	SecCtrlBits->PmcScEn = XNVM_EFUSE_PMC_SC_EN;
 
 	if ((SecCtrlBits->AesDis == TRUE) ||
 		(SecCtrlBits->JtagErrOutDis == TRUE) ||
@@ -874,7 +880,9 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
 		(SecCtrlBits->UserKey0CrcLk == TRUE) ||
 		(SecCtrlBits->UserKey0WrLk == TRUE) ||
 		(SecCtrlBits->UserKey1CrcLk == TRUE) ||
-		(SecCtrlBits->UserKey1WrLk == TRUE)) {
+		(SecCtrlBits->UserKey1WrLk == TRUE) ||
+		(SecCtrlBits->HwTstBitsDis == TRUE) ||
+		(SecCtrlBits->PmcScEn == TRUE)) {
 
 		WriteEfuse->SecCtrlBits = SecCtrlBits;
 	}
@@ -1658,6 +1666,18 @@ static int XilNvm_EfuseShowCtrlBits(void)
 	}
 	else {
 		xil_printf("Register Init is enabled\n\r");
+	}
+	if (SecCtrlBits.HwTstBitsDis == TRUE) {
+		xil_printf("HW Testbit mode is disabled\n\r");
+	}
+	else {
+		xil_printf("HW Testbit mode is enabled\n\r");
+	}
+	 if (SecCtrlBits.PmcScEn == TRUE) {
+		xil_printf("PMC Scan Clear is enabled\n\r");
+	}
+	else {
+		xil_printf("PMC Scan Clear is disabled\n\r");
 	}
 
 	xil_printf("\r\nPuf Control eFuses:\n\r");

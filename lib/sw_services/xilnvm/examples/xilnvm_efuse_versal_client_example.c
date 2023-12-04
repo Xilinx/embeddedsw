@@ -67,6 +67,7 @@
  *       skg   12/07/2022 Added Additional PPKs support
  * 3.2   ng    07/05/2023 added support for system device tree flow
  *       vss   09/19/2023 Fixed MISRA-C Rule 2.5 violation
+ * 3.3   har   12/04/2023 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
  *
  * </pre>
  *
@@ -1058,24 +1059,26 @@ static int XilNvm_EfuseInitDecOnly(XNvm_EfuseDataAddr *WriteEfuse,
  * user provided data and assign the same to global structure XNvm_EfuseDataAddr
  * to program SECURITY_CONTROL eFuses.
  *
- * typedef struct {
- *	u8 AesDis;
- *	u8 JtagErrOutDis;
- *	u8 JtagDis;
- *	u8 Ppk0WrLk;
- *	u8 Ppk1WrLk;
- *	u8 Ppk2WrLk;
- *	u8 AesCrcLk;
- *	u8 AesWrLk;
- *	u8 UserKey0CrcLk;
- *	u8 UserKey0WrLk;
- *	u8 UserKey1CrcLk;
- *	u8 UserKey1WrLk;
- *	u8 SecDbgDis;
- *	u8 SecLockDbgDis;
- *	u8 BootEnvWrLk;
- *	u8 RegInitDis;
- * }XNvm_EfuseSecCtrlBits;
+typedef struct {
+	u8 AesDis;
+	u8 JtagErrOutDis;
+	u8 JtagDis;
+	u8 HwTstBitsDis;
+	u8 Ppk0WrLk;
+	u8 Ppk1WrLk;
+	u8 Ppk2WrLk;
+	u8 AesCrcLk;
+	u8 AesWrLk;
+	u8 UserKey0CrcLk;
+	u8 UserKey0WrLk;
+	u8 UserKey1CrcLk;
+	u8 UserKey1WrLk;
+	u8 SecDbgDis;
+	u8 SecLockDbgDis;
+	u8 PmcScEn;
+	u8 BootEnvWrLk;
+	u8 RegInitDis;
+} XNvm_EfuseSecCtrlBits;
  *
  * @param	WriteEfuse	Pointer to XNvm_EfuseDataAddr structure.
  *
@@ -1108,6 +1111,8 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseDataAddr *WriteEfuse,
 	SecCtrlBits->UserKey0WrLk = XNVM_EFUSE_USER_KEY_0_WR_LK;
 	SecCtrlBits->UserKey1CrcLk = XNVM_EFUSE_USER_KEY_1_CRC_LK;
 	SecCtrlBits->UserKey1WrLk = XNVM_EFUSE_USER_KEY_1_WR_LK;
+	SecCtrlBits->HwTstBitsDis = XNVM_EFUSE_HWTSTBITS_DIS;
+	SecCtrlBits->PmcScEn = XNVM_EFUSE_PMC_SC_EN;
 
 	if ((SecCtrlBits->AesDis == TRUE) ||
 		(SecCtrlBits->JtagErrOutDis == TRUE) ||
@@ -1124,7 +1129,9 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseDataAddr *WriteEfuse,
 		(SecCtrlBits->UserKey0CrcLk == TRUE) ||
 		(SecCtrlBits->UserKey0WrLk == TRUE) ||
 		(SecCtrlBits->UserKey1CrcLk == TRUE) ||
-		(SecCtrlBits->UserKey1WrLk == TRUE)) {
+		(SecCtrlBits->UserKey1WrLk == TRUE) ||
+		(SecCtrlBits->HwTstBitsDis == TRUE) ||
+		(SecCtrlBits->PmcScEn == TRUE)) {
 		Xil_DCacheFlushRange((UINTPTR)SecCtrlBits,
 			sizeof(XNvm_EfuseSecCtrlBits));
 		WriteEfuse->SecCtrlAddr = (UINTPTR)SecCtrlBits;
@@ -1783,6 +1790,12 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 	else {
 		xil_printf("JTAG is not disabled\n\r");
 	}
+	if (SecCtrlBits->HwTstBitsDis == TRUE) {
+		xil_printf("HW Testbit mode is disabled\n\r");
+	}
+	else {
+		xil_printf("HW Testbit mode is enabled\n\r");
+	}
 	if (SecCtrlBits->Ppk0WrLk == TRUE) {
 		xil_printf("Locks writing to PPK0 efuse\n\r");
 	}
@@ -1848,6 +1861,12 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 	}
 	else {
 		xil_printf("Secure Debug feature in JTAG is enabled\n\r");
+	}
+	if (SecCtrlBits->PmcScEn == TRUE) {
+		xil_printf("PMC Scan Clear is enabled\n\r");
+	}
+	else {
+		xil_printf("PMC Scan Clear is disabled\n\r");
 	}
 	if (SecCtrlBits->BootEnvWrLk == TRUE) {
 		xil_printf("Update to BOOT_ENV_CTRL row is disabled\n\r");

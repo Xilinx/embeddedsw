@@ -91,6 +91,7 @@
 *                       XNvm_EfuseWriteSecMisc1Fuses
 * 3.2   kum 04/11/2023  Moved common code to xnvm_efuse_common.c
 *	kpt 07/26/2023  Add missing else check in XNvm_EfuseReadPpkHash
+* 3.3   har 12/04/2023  Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
 *
 * </pre>
 *
@@ -576,6 +577,10 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
 		(u8)((RegData &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_MASK) >>
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_SHIFT);
+	SecCtrlBits->HwTstBitsDis =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_HWTSTBITS_DIS_MASK) >>
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_HWTSTBITS_DIS_SHIFT);
 	SecCtrlBits->Ppk0WrLk =
 		(u8)((RegData &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK0_WR_LK_MASK) >>
@@ -620,6 +625,10 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
 		(u8)((RegData &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_LOCK_DBG_DIS_MASK) >>
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_LOCK_DBG_DIS_1_0_SHIFT);
+	SecCtrlBits->PmcScEn =
+		(u8)((RegData &
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PMC_SC_EN_MASK) >>
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PMC_SC_EN_SHIFT);
 	SecCtrlBits->BootEnvWrLk =
 		(u8)((RegData &
 		XNVM_EFUSE_CACHE_SECURITY_CONTROL_BOOT_ENV_WR_LK_MASK) >>
@@ -2078,6 +2087,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 	if ((SecCtrl->AesDis != FALSE) ||
 		(SecCtrl->JtagErrOutDis != FALSE) ||
 		(SecCtrl->JtagDis != FALSE) ||
+		(SecCtrl->HwTstBitsDis != FALSE) ||
 		(SecCtrl->Ppk0WrLk != FALSE) ||
 		(SecCtrl->Ppk1WrLk != FALSE) ||
 		(SecCtrl->Ppk2WrLk != FALSE) ||
@@ -2089,6 +2099,7 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		(SecCtrl->UserKey1WrLk != FALSE) ||
 		(SecCtrl->SecDbgDis != FALSE) ||
 		(SecCtrl->SecLockDbgDis != FALSE) ||
+		(SecCtrl->PmcScEn != FALSE) ||
 		(SecCtrl->BootEnvWrLk != FALSE) ||
 		(SecCtrl->RegInitDis != FALSE)) {
 
@@ -2342,6 +2353,48 @@ static int XNvm_EfuseWriteSecCtrl(const XNvm_EfuseSecCtrlBits *SecCtrl)
 		if (Status != XST_SUCCESS) {
 			Status = (Status |
 				XNVM_EFUSE_ERR_WRITE_REG_INIT_DIS_BIT_1);
+			goto END;
+		}
+	}
+	if ((SecCtrl->HwTstBitsDis != FALSE) &&
+		((RowDataVal &
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_HWTSTBITS_DIS_MASK) ==
+		0x00U)) {
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
+					(u32)XNVM_EFUSE_SEC_HWTSTBITS_DIS);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_HWTSTBITS_DIS);
+			goto END;
+		}
+	}
+	if ((SecCtrl->PmcScEn != FALSE) &&
+		((RowDataVal &
+		XNVM_EFUSE_CACHE_SECURITY_CONTROL_PMC_SC_EN_MASK) ==
+		0x00U)) {
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
+					(u32)XNVM_EFUSE_SEC_PMC_SC_EN_BIT_0);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_0);
+			goto END;
+		}
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
+					(u32)XNVM_EFUSE_SEC_PMC_SC_EN_BIT_1);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_1);
+			goto END;
+		}
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePgmAndVerifyBit(EfuseType, Row,
+					(u32)XNVM_EFUSE_SEC_PMC_SC_EN_BIT_2);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_2);
 			goto END;
 		}
 	}

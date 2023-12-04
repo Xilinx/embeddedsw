@@ -51,6 +51,7 @@
 *       skg  12/07/2022 Added Additional PPKs related enums and macros
 * 3.2   kum  04/11/2023 Moved env common code to xnvm_efuse_common.h
 *       vss  09/19/2023 Fixed MISRA-C Rule 2.5 violation
+* 3.3   har  12/04/2023 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
 *
 * </pre>
 *
@@ -108,7 +109,7 @@ typedef enum {
 	XNVM_EFUSE_SEC_AES_DIS = 0, /**< Aes disable*/
 	XNVM_EFUSE_SEC_JTAG_ERROUT_DIS, /**< Jtag error out disable*/
 	XNVM_EFUSE_SEC_JTAG_DIS, /**< Jtag disable*/
-	XNVM_EFUSE_SEC_HWTSTBITS_DIS, /**< Tbits disable*/
+	XNVM_EFUSE_SEC_HWTSTBITS_DIS, /**< Hardware testbit mode disable*/
 	XNVM_EFUSE_SEC_IP_DIS_WRLK = 5, /**< IP disable*/
 	XNVM_EFUSE_SEC_PPK0_WRLK, /**< PPK0_WRLK*/
 	XNVM_EFUSE_SEC_PPK1_WRLK, /**< PPK1_WRLK*/
