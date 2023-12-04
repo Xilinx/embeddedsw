@@ -1,7 +1,7 @@
-# Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.14.7)
+cmake_minimum_required(VERSION 3.15)
 include(${CMAKE_CURRENT_SOURCE_DIR}/ZdmaExample.cmake)
 project(zdma)
 
@@ -20,8 +20,6 @@ set(index 0)
 LIST_INDEX(${index} ${DRIVER_INSTANCES} "${NUM_DRIVER_INSTANCES}")
 list(GET TOTAL_EXAMPLE_LIST ${index} ex_list)
 list(GET REG_LIST ${index} reg)
-SET(XZDMA_BASEADDRESS "${reg}")
-SET(COMMON_EXAMPLES xzdma_selftest_example.c;)
 SET(EXAMPLE_LIST "${${ex_list}}" CACHE STRING "Driver Example List")
 SET_PROPERTY(CACHE EXAMPLE_LIST PROPERTY STRINGS "${${ex_list}}")
 
@@ -33,17 +31,15 @@ foreach(LIST1 ${TOTAL_EXAMPLE_LIST})
     endif()
 endforeach()
 
-set(CMAKE_INFILE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../scripts/linker_files/")
-linker_gen(${CMAKE_INFILE_PATH})
-gen_exheader(${CMAKE_INFILE_PATH} ${CMAKE_PROJECT_NAME} ${XZDMA_BASEADDRESS} x)
+linker_gen("${CMAKE_CURRENT_SOURCE_DIR}/linker_files/")
 
 if (${valid_ex})
-    list(APPEND COMMON_EXAMPLES "${${ex_list}}")
+    list(APPEND EXAMPLES "${${ex_list}}")
 else()
-    list(APPEND COMMON_EXAMPLES ${EXAMPLE_LIST})
+    list(APPEND EXAMPLES ${EXAMPLE_LIST})
 endif()
 
-foreach(EXAMPLE ${COMMON_EXAMPLES})
+foreach(EXAMPLE ${EXAMPLES})
     string(REGEX REPLACE "\\.[^.]*$" "" EXAMPLE ${EXAMPLE})
     add_executable(${EXAMPLE}.elf ${EXAMPLE})
     target_link_libraries(${EXAMPLE}.elf -Wl,--gc-sections -T\"${CMAKE_SOURCE_DIR}/lscript.ld\" -L\"${CMAKE_SOURCE_DIR}/\" -Wl,--start-group ${_deps} -Wl,--end-group)
