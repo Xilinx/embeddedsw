@@ -62,10 +62,11 @@ static XStatus XPsmFw_KeepAliveEvent(void)
  * @return		XST_SUCCESS if successfull else XST_FAILURE
  *
  ****************************************************************************/
-static XStatus XPsmFw_ProcessCdo(u32 CdoStartAddr, u32 Len)
+static XStatus XPsmFw_ProcessCdo(u32 CdoStartAddr, u32 Length)
 {
 	XStatus Status = XST_FAILURE;
 	u32 CmdLength = 0U;
+	u32 Len = Length;
 	XPsmFw_PmCmdHeader CmdHeader;
 	/*Sanity check boundary to make sure the CdoStart Address in bound of dedicated region from PSMX RAM*/
 	if ((CdoStartAddr >= XPSMFW_PROC_LOCATION_ADDRESS) && \
