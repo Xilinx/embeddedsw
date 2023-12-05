@@ -34,6 +34,11 @@ extern "C" {
 #define FPD_SLCR_WPROT0_OFFSET                  (0x00000000U)
 
 /**
+ * PMC Global module
+ */
+#define PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0		( ( PMC_GLOBAL_BASEADDR ) + 0x00000050U )
+
+/**
  * Definitions required from pmc_tap.h
  */
 #define PMC_TAP_VERSION_PLATFORM_SHIFT          (24U)
