@@ -1260,8 +1260,8 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Clear the Interrupt */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS,Args->PwrStateMask);
 
-	u32 PwrState = XPsmFw_Read32(PSMX_LOCAL_REG_LOC_PWR_STATE0) & (0xFU <<
-				     (Args->ClusterId * 4U));
+	u32 PwrState = XPsmFw_Read32(PSMX_LOCAL_REG_LOC_PWR_STATE0) & ((u32)0xFU <<
+				     ((u32)Args->ClusterId * 4U));
 
 	/* Power down cluster if all cores in cluster are powered off */
 	if (1U == __builtin_popcount(PwrState)) {
