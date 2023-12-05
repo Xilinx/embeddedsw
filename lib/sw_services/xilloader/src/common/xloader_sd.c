@@ -47,7 +47,6 @@
 *       ng   08/16/2023 Fixed status overwrite in SdRelease
 *       dd	 09/11/2023 MISRA-C violation Rule 10.3 fixed
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
-* 2.00  ng   12/03/2023 Fixed SD macro for handling both xsct and sdt flows
 *
 * </pre>
 *
@@ -160,7 +159,7 @@ static u8 XLoader_GetDrvNumSD(u8 DeviceFlags)
 	 * - If design has both SD0 and SD1, select drive number based on bootmode
 	 * - If design has only SD0 or ONLY SD1, drive number should be "0".
 	 */
-#ifdef XLOADER_SD_1
+#ifdef XPAR_XSDPS_1_DEVICE_ID
 	if ((XLoader_IsPdiSrcSD0(DeviceFlags) == (u8)TRUE) ||
 		(DeviceFlags == XLOADER_PDI_SRC_EMMC0)) {
 		DrvNum = XLOADER_SD_DRV_NUM_0;
