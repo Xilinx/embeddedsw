@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -39,11 +40,11 @@ XStatus XPsmfw_PwrDwnHandler(void)
 	PwrDwn1IntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRDWN1_INT_MASK);
 	PwrUp1Status = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS);
 	PwrUp1IntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_MASK);
-	if(0 != PwrDwn0Status){
+	if(0U != PwrDwn0Status){
 		Status = XPsmFw_DispatchPwrDwn0Handler(PwrDwn0Status, PwrDwn0IntMask,
 				PwrUp0Status, PwrUp0IntMask);
 	}
-	if(0 != PwrDwn1Status){
+	if(0U != PwrDwn1Status){
 		Status = XPsmFw_DispatchPwrDwn1Handler(PwrDwn1Status, PwrDwn1IntMask,
 				PwrUp1Status, PwrUp1IntMask);
 	}
@@ -57,13 +58,13 @@ XStatus XPsmfw_WakeupHandler(void)
 
 	WakeupStatus = XPsmFw_Read32(PSMX_GLOBAL_REG_WAKEUP0_IRQ_STATUS);
 	WakeupIntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_WAKEUP0_IRQ_MASK);
-	if(0 != WakeupStatus){
+	if(0U != WakeupStatus){
 		Status = XPsmFw_DispatchAPUWakeupHandler(WakeupStatus, WakeupIntMask);
 	}
 
 	WakeupStatus = XPsmFw_Read32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_STATUS);
 	WakeupIntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_MASK);
-	if(0 != WakeupStatus){
+	if(0U != WakeupStatus){
 		Status = XPsmFw_DispatchRPUWakeupHandler(WakeupStatus, WakeupIntMask);
 	}
 	return Status;

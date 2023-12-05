@@ -69,7 +69,7 @@ static XStatus XPsmFw_ProcessCdo(u32 CdoStartAddr, u32 Len)
 	XPsmFw_PmCmdHeader CmdHeader;
 	/*Sanity check boundary to make sure the CdoStart Address in bound of dedicated region from PSMX RAM*/
 	if (CdoStartAddr >= XPSMFW_PROC_LOCATION_ADDRESS && \
-		CdoStartAddr + Len * 4 <= XPSMFW_PROC_LOCATION_ADDRESS + XPSMFW_PROC_LOCATION_LENGTH){
+		CdoStartAddr + Len * 4U <= XPSMFW_PROC_LOCATION_ADDRESS + XPSMFW_PROC_LOCATION_LENGTH){
 		u32* CmdPtr = (u32*)CdoStartAddr;
 		while (0U != Len) {
 			CmdHeader.Value = CmdPtr[0];
@@ -128,11 +128,11 @@ static XStatus XPsmFw_ProcessCdo(u32 CdoStartAddr, u32 Len)
 				Len = 0U;
 				break;
 			}
-			if (Len < (CmdLength + 1)) {
+			if (Len < (CmdLength + 1U)) {
 				break;
 			}
-			Len -= (CmdLength + 1);
-			CmdPtr += (CmdLength + 1);
+			Len -= (CmdLength + 1U);
+			CmdPtr += (CmdLength + 1U);
 		}
 	}
 	return Status;
