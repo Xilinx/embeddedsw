@@ -245,7 +245,7 @@ struct XPsmFwPwrCtrl_t {
 	/* Bit number in  Cluster P-Channel Pactive and Accept/Deny */
 	u32 ClusterPacceptMask;
 
-	u8 ClusterId;
+	enum ClusteId ClusterId;
 
 	/* Interrupt Enable Register*/
 	u32 IntrDisableAddr;
