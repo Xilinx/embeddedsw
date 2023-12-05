@@ -1118,8 +1118,8 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	LowAddress = (u32)(PsmToPlmEvent.ResumeAddress[Args->Id] & 0xfffffffeULL);
 	HighAddress = (u32)(PsmToPlmEvent.ResumeAddress[Args->Id] >> 32ULL);
 	XPsmFw_Write32(Args->ResetCfgAddr,LowAddress);
-	XPsmFw_Write32(Args->ResetCfgAddr+0x4,HighAddress);
-	PsmToPlmEvent.ResumeAddress[Args->Id]=0;
+	XPsmFw_Write32(Args->ResetCfgAddr + 0x4U,HighAddress);
+	PsmToPlmEvent.ResumeAddress[Args->Id] = 0U;
 
 	/* APU core release warm reset */
 	XPsmFw_RMW32(Args->RstAddr,Args->WarmRstMask,~Args->WarmRstMask);
@@ -1495,7 +1495,7 @@ static XStatus XPsmFwMemPwrDwn(struct XPsmFwMemPwrCtrl_t *Args)
 
 	/*Clear the retention bit*/
 	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS, Args->RetMask);
-	if(0 != Retention){
+	if(0U != Retention){
 		/*Set the retention bit*/
 		XPsmFw_RMW32(PSMX_LOCAL_REG_OCM_RET_CNTRL,Args->PwrStatusMask,Args->PwrStatusMask);
 		/*Check the retention mode is enabled or not*/
@@ -1689,7 +1689,7 @@ static XStatus XTcmPwrDown(struct XPsmTcmPwrCtrl_t *Args)
 	/*Clear the interrupt*/
 	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS, Tcm->GlobPwrStatusMask);
 	u32 Retention = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS) & Tcm->RetMask;
-	if(0 != Retention){
+	if(0U != Retention){
 		XPsmFw_RMW32(PSMX_LOCAL_REG_TCM_RET_CNTRL,Tcm->PwrStatusMask,Tcm->PwrStatusMask);
 		XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS, Tcm->RetMask);
 		/*Ensure for Retention Mode taken effect*/
