@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -704,9 +705,13 @@ extern "C" {
  */
 /** Error event mask for Software error events */
 /** Health Boot Monitoring errors */
+/** Error event mask for hbmon_0 */
 #define XPM_EVENT_ERROR_MASK_HB_MON_0		(0x00000001U)
+/** Error event mask for hbmon_1 */
 #define XPM_EVENT_ERROR_MASK_HB_MON_1		(0x00000002U)
+/** Error event mask for hbmon_2 */
 #define XPM_EVENT_ERROR_MASK_HB_MON_2		(0x00000004U)
+/** Error event mask for hbmon_3 */
 #define XPM_EVENT_ERROR_MASK_HB_MON_3		(0x00000008U)
 /**
  * @}
