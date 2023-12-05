@@ -103,6 +103,8 @@
 *       rama 08/10/2023 Changed partition ID print to DEBUG_ALWAYS for
 *                       debug level_0 option
 *       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
+*       mss  11/02/2023 Added VerifyAddr check for destination address of
+*                       Raw Partition Loading
 *
 * </pre>
 *
@@ -638,6 +640,12 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
 	PrtnParams.DeviceCopy.Len = (PrtnHdr->TotalDataWordLen <<
 		XPLMI_WORD_LEN_SHIFT);
 	PrtnParams.DeviceCopy.Flags = 0U;
+
+	/** Verify the destination address range before writing */
+	Status = XPlmi_VerifyAddrRange(PrtnParams.DeviceCopy.DestAddr, PrtnParams.DeviceCopy.DestAddr + (u64)PrtnParams.DeviceCopy.Len - 1U);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	if (PdiPtr->PdiType != XLOADER_PDI_TYPE_RESTORE) {
 		PrtnParams.DeviceCopy.SrcAddr = PdiPtr->MetaHdr.FlashOfstAddr +

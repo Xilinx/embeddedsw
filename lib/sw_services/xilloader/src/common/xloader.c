@@ -164,6 +164,8 @@
 *                       debug level_0 option
 *       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
+*       mss  11/02/2023 Added VerifyAddr check for Image Store Address of RTCA registers
+*
 * </pre>
 *
 * @note
@@ -1914,6 +1916,12 @@ int XLoader_ReadImageStoreCfg(void)
 		goto END;
 	} else {
 		Status = XST_SUCCESS;
+	}
+
+	/** Verify the image store address range */
+	Status = XPlmi_VerifyAddrRange(PdiList->PdiImgStrAddr, PdiList->PdiImgStrAddr + (u64)PdiList->PdiImgStrSize - 1U);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	/**
