@@ -36,6 +36,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 4.10  gm   07/11/23 Added SDT support.
+* 4.11  gm   12/06/23 Added IER and GIER calls in SDT flow.
 *
 *</pre>
 *
@@ -267,6 +268,8 @@ int GpioIntrExample(XGpio *InstancePtr, UINTPTR BaseAddress,
 				       ConfigPtr->IntrId,
 				       ConfigPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
+	XGpio_InterruptEnable(InstancePtr, IntrMask);
+	XGpio_InterruptGlobalEnable(InstancePtr);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
