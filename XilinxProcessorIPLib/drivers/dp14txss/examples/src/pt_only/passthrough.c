@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +22,10 @@
 #include "main.h"
 #include "tx.h"
 #include "rx.h"
+
+#ifdef SDT
+#define XPAR_IIC_0_BASEADDR XPAR_XIIC_0_BASEADDR
+#endif
 
 #define ENABLE_AUDIO XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_AUDIO_ENABLE
 
@@ -308,10 +313,10 @@ void DpPt_Main(void){
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 			XDP_TX_INTERRUPT_MASK, 0xFFF);
 
-
+#ifndef SDT
 	XScuGic_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
 	XScuGic_Enable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
-
+#endif
 	/* Initializing the Audio related IPs. The AXIS Switches are programmed
 	 * based on the "I2S_AUDIO" param in main.h
 	 * The Audio Clock Recovery Module is programmed in fixed mode
@@ -1005,9 +1010,10 @@ void DpPt_Main(void){
 
 					// disabling Tx
 					XDpTxSs_Stop(&DpTxSsInst);
+#ifndef SDT
 					XScuGic_Disable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
 					XScuGic_Disable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
-
+#endif
 #ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 					Vpg_Audio_stop();
 #endif

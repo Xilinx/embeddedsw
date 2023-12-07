@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -62,9 +63,11 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
+#include "xparameters.h"
 #include "main.h"
-
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 #ifndef versal
 #include "si5328drv.h"
 #endif
@@ -76,6 +79,9 @@ XIicPs Ps_Iic1;
 #define ENABLE_AUDIO XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_AUDIO_ENABLE
 #define 			XINTC XScuGic
 
+#ifdef SDT
+#define XPAR_IIC_0_BASEADDR XPAR_XIIC_0_BASEADDR
+#endif
 #if ENABLE_AUDIO
 XGpio_Config  *aud_gpio_ConfigPtr;
 XGpio   aud_gpio;
@@ -112,7 +118,11 @@ void DpRxSs_Main();
 void DpPt_Main();
 int I2cMux_Ps(u8 mux);
 int I2cClk_Ps(u32 InFreq, u32 OutFreq);
+#ifndef SDT
 u32 DpSs_PhyInit(u16 DeviceId);
+#else
+u32 DpSs_PhyInit(u32 baseaddress);
+#endif
 u32 CalcStride(XVidC_ColorFormat Cfmt,
 					  u16 AXIMMDataWidth,
 					  XVidC_VideoStream *StreamPtr);
@@ -490,9 +500,16 @@ u32 DpSs_Main(void)
 	xil_printf("Platform initialization done.\n\r");
 
 #ifdef Rx
+#ifndef SDT
 	/* Obtain the device configuration
 	 * for the DisplayPort RX Subsystem */
 	ConfigPtr_rx = XDpRxSs_LookupConfig(XDPRXSS_DEVICE_ID);
+#else
+	/* Obtain the device configuration
+	 * for the DisplayPort RX Subsystem */
+	ConfigPtr_rx = XDpRxSs_LookupConfig(XPAR_DPRXSS_0_BASEADDR);
+    xil_printf("configrx %x", ConfigPtr_rx);
+#endif
 	if (!ConfigPtr_rx) {
 		return XST_FAILURE;
 	}
@@ -516,9 +533,12 @@ u32 DpSs_Main(void)
 
 	if (!DpRxSsInst.Config.IncludeClkWiz) {
 #if (VERSAL_FABRIC_8B10B == 1)
-
-	 CfgPtr_Dynamic_rx = XClk_Wiz_LookupConfig(XPAR_CLK_WIZ_1_DEVICE_ID);
-	 if (!CfgPtr_Dynamic_rx) {
+#ifndef SDT
+	CfgPtr_Dynamic_rx = XClk_Wiz_LookupConfig(XPAR_CLK_WIZ_1_DEVICE_ID);
+#else
+	CfgPtr_Dynamic_rx = XClk_Wiz_LookupConfig(XPAR_XCLK_WIZ_1_BASEADDR);
+#endif
+	if (!CfgPtr_Dynamic_rx) {
 			 return XST_FAILURE;
 	 }
 
@@ -535,8 +555,14 @@ u32 DpSs_Main(void)
 #endif
 
 #ifdef Tx
+#ifndef SDT
 	/* Obtain the device configuration for the DisplayPort TX Subsystem */
 		ConfigPtr_tx = XDpTxSs_LookupConfig(XPAR_DPTXSS_0_DEVICE_ID);
+#else
+	/* Obtain the device configuration for the DisplayPort TX Subsystem */
+		ConfigPtr_tx = XDpTxSs_LookupConfig(XPAR_DPTXSS_0_BASEADDR);
+#endif
+	xil_printf("f");
 		if (!ConfigPtr_tx) {
 			return XST_FAILURE;
 		}
@@ -559,10 +585,17 @@ u32 DpSs_Main(void)
 		}
 #endif
 	/* Setup Video Phy, left to the user for implementation */
-
+#ifndef SDT
 	DpSs_PhyInit(XVPHY_DEVICE_ID);
-    u32 loop = 0;
-    u32 good;
+#else
+#ifdef versal
+	DpSs_PhyInit(0);
+#else
+	DpSs_PhyInit(XPAR_XVPHY_0_BASEADDR);
+#endif
+#endif
+	u32 loop = 0;
+	u32 good;
 
 #ifdef Tx
 
@@ -706,8 +739,13 @@ u32 DpSs_Main(void)
 #endif
 
 #if XPAR_XV_FRMBUFRD_NUM_INSTANCES
+#ifndef SDT
 	/* FrameBuffer initialization. */
 	Status = XVFrmbufRd_Initialize(&frmbufrd, FRMBUF_RD_DEVICE_ID);
+#else
+	/* FrameBuffer initialization. */
+	Status = XVFrmbufRd_Initialize(&frmbufrd, XPAR_XV_FRMBUFRD_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Frame Buffer Read "
 			   "initialization failed\r\n");
@@ -716,7 +754,11 @@ u32 DpSs_Main(void)
 #endif
 
 #if XPAR_XV_FRMBUFWR_NUM_INSTANCES
+#ifndef SDT
 	Status = XVFrmbufWr_Initialize(&frmbufwr, FRMBUF_WR_DEVICE_ID);
+#else
+	Status = XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUFWR_0_BASEADDR);
+#endif
 	if(Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Frame Buffer Write "
 			   "initialization failed\r\n");
@@ -1301,8 +1343,13 @@ u32 DpSs_PlatformInit(void)
 
 	XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
 	int result=XST_SUCCESS;
+#ifndef SDT
 	/* Initialize the IIC driver so that it is ready to use. */
 	ConfigPtr_IIC = XIic_LookupConfig(IIC_DEVICE_ID);
+#else
+	/* Initialize the IIC driver so that it is ready to use. */
+	ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_0_BASEADDR);
+#endif
 	if (ConfigPtr_IIC == NULL) {
 	        return XST_FAILURE;
 	}
@@ -1327,8 +1374,12 @@ u32 DpSs_PlatformInit(void)
    /*
 	  * Get the CLK_WIZ Dynamic reconfiguration driver instance
 	  */
-	 CfgPtr_Dynamic = XClk_Wiz_LookupConfig(XPAR_CLK_WIZ_0_DEVICE_ID);
-	 if (!CfgPtr_Dynamic) {
+#ifndef SDT
+	CfgPtr_Dynamic = XClk_Wiz_LookupConfig(XPAR_CLK_WIZ_0_DEVICE_ID);
+#else
+	CfgPtr_Dynamic = XClk_Wiz_LookupConfig(XPAR_XCLK_WIZ_0_BASEADDR);
+#endif
+	if (!CfgPtr_Dynamic) {
 			 return XST_FAILURE;
 	 }
 
@@ -1342,7 +1393,11 @@ u32 DpSs_PlatformInit(void)
 	 }
 
 	 /* Initialize the GPIO driver */
-	 Status = XGpio_Initialize(&Gpio, XPAR_GPIO_2_DEVICE_ID);
+#ifndef SDT
+	Status = XGpio_Initialize(&Gpio, XPAR_GPIO_2_DEVICE_ID);
+#else
+	Status = XGpio_Initialize(&Gpio, XPAR_XGPIO_2_BASEADDR);
+#endif
 	 if (Status != XST_SUCCESS) {
 			xil_printf("Gpio Initialization Failed\r\n");
 			return XST_FAILURE;
@@ -1364,6 +1419,7 @@ u32 DpSs_PlatformInit(void)
 #endif
 
 	/* Initialize Timer */
+#ifndef SDT
 	Status = XTmrCtr_Initialize(&TmrCtr, XTIMER0_DEVICE_ID);
 	if (Status != XST_SUCCESS){
 		xil_printf("ERR:Timer failed to initialize. \r\n");
@@ -1371,9 +1427,21 @@ u32 DpSs_PlatformInit(void)
 	}
 	XTmrCtr_SetResetValue(&TmrCtr, XTIMER0_DEVICE_ID, TIMER_RESET_VALUE);
 	XTmrCtr_Start(&TmrCtr, XTIMER0_DEVICE_ID);
-
+#else
+	Status = XTmrCtr_Initialize(&TmrCtr, XPAR_XTMRCTR_0_BASEADDR);
+	if (Status != XST_SUCCESS){
+		xil_printf("ERR:Timer failed to initialize. \r\n");
+		return XST_FAILURE;
+	}
+	XTmrCtr_SetResetValue(&TmrCtr, XPAR_XTMRCTR_0_BASEADDR, TIMER_RESET_VALUE);
+	XTmrCtr_Start(&TmrCtr, XPAR_XTMRCTR_0_BASEADDR);
+#endif
 //   /* Initialize PS IIC1 */
+#ifndef SDT
 	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
+#else
+	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_BASEADDR);
+#endif
 	if (NULL == XIic1Ps_ConfigPtr) {
 			return XST_FAILURE;
 	}
@@ -1452,24 +1520,32 @@ u32 DpSs_PlatformInit(void)
 #endif
 
 #if ENABLE_AUDIO
-
-    XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_RX =
+#ifndef SDT
+	XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_RX =
 		XAxisScr_LookupConfig(XPAR_DP_RX_HIER_0_AXIS_SWITCH_0_DEVICE_ID);
-     if (ConfigPtr_AXIS_SWITCH_RX == NULL) {
+#else
+	XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_RX =
+		XAxisScr_LookupConfig(XPAR_DP_RX_HIER_0_AXIS_SWITCH_0_BASEADDR);
+#endif
+	if (ConfigPtr_AXIS_SWITCH_RX == NULL) {
              return XST_FAILURE;
-     }
+	}
 
      Status = XAxisScr_CfgInitialize(&axis_switch_rx,
 		 ConfigPtr_AXIS_SWITCH_RX, ConfigPtr_AXIS_SWITCH_RX->BaseAddress);
      if (Status != XST_SUCCESS) {
              return XST_FAILURE;
      }
-
-     XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_TX =
+#ifndef SDT
+	XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_TX =
 		 XAxisScr_LookupConfig(XPAR_DP_TX_HIER_0_AXIS_SWITCH_0_DEVICE_ID);
-      if (ConfigPtr_AXIS_SWITCH_TX == NULL) {
+#else
+	XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH_TX =
+		 XAxisScr_LookupConfig(XPAR_DP_TX_HIER_0_AXIS_SWITCH_0_BASEADDR);
+#endif
+	if (ConfigPtr_AXIS_SWITCH_TX == NULL) {
               return XST_FAILURE;
-      }
+	}
 
       Status = XAxisScr_CfgInitialize(&axis_switch_tx,
 		  ConfigPtr_AXIS_SWITCH_TX, ConfigPtr_AXIS_SWITCH_TX->BaseAddress);
@@ -1477,32 +1553,45 @@ u32 DpSs_PlatformInit(void)
               return XST_FAILURE;
       }
 
-
-    Config = XI2s_Tx_LookupConfig(
+#ifndef SDT
+	Config = XI2s_Tx_LookupConfig(
 			XPAR_DP_RX_HIER_0_I2S_TRANSMITTER_0_DEVICE_ID);
-    if (Config == NULL) {
-         return XST_FAILURE;
+
+#else
+	Config = XI2s_Tx_LookupConfig(
+			XPAR_DP_RX_HIER_0_I2S_TRANSMITTER_0_BASEADDR);
+#endif
+	if (Config == NULL) {
+		return XST_FAILURE;
     }
 
     Status = XI2s_Tx_CfgInitialize(&I2s_tx, Config, Config->BaseAddress);
     if (Status != XST_SUCCESS) {
          return XST_FAILURE;
     }
-
-    Config_rx = XI2s_Rx_LookupConfig(
+#ifndef SDT
+	Config_rx = XI2s_Rx_LookupConfig(
 			XPAR_DP_TX_HIER_0_I2S_RECEIVER_0_DEVICE_ID);
-    if (Config == NULL) {
+#else
+    Config_rx = XI2s_Rx_LookupConfig(
+			XPAR_DP_TX_HIER_0_I2S_RECEIVER_0_BASEADDR);
+#endif
+	if (Config == NULL) {
           return XST_FAILURE;
-    }
+	}
 
     Status = XI2s_Rx_CfgInitialize(&I2s_rx, Config_rx, Config_rx->BaseAddress);
     if (Status != XST_SUCCESS) {
           return XST_FAILURE;
     }
 
-    aud_gpio_ConfigPtr =
+#ifndef SDT
+	aud_gpio_ConfigPtr =
             XGpio_LookupConfig(XPAR_DP_RX_HIER_0_AXI_GPIO_0_DEVICE_ID);
-
+#else
+    aud_gpio_ConfigPtr =
+            XGpio_LookupConfig(XPAR_DP_RX_HIER_0_AXI_GPIO_0_BASEADDR);
+#endif
     if(aud_gpio_ConfigPtr == NULL) {
 	aud_gpio.IsReady = 0;
             return (XST_DEVICE_NOT_FOUND);
@@ -1543,6 +1632,7 @@ u32 DpSs_PlatformInit(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 DpSs_SetupIntrSystem(void)
 {
 	u32 Status;
@@ -1658,7 +1748,63 @@ u32 DpSs_SetupIntrSystem(void)
 
 	return (XST_SUCCESS);
 }
+#else
+u32 DpSs_SetupIntrSystem(void)
+{
+	u32 Status;
+	XINTC *IntcInstPtr = &IntcInst;
 
+	// Tx side
+#ifdef Tx
+	DpTxSs_SetupIntrSystem();
+#endif
+	// Rx side
+#ifdef Rx
+	DpRxSs_SetupIntrSystem();
+#endif
+
+#if XPAR_XV_FRMBUFWR_NUM_INSTANCES
+	XVFrmbufWr_SetCallback(&frmbufwr, XVFRMBUFWR_HANDLER_DONE,
+								&bufferWr_callback, &frmbufwr);
+#endif
+
+#if XPAR_XV_FRMBUFRD_NUM_INSTANCES
+	XVFrmbufRd_SetCallback(&frmbufrd, XVFRMBUFRD_HANDLER_DONE,
+								&bufferRd_callback, &frmbufrd);
+#endif
+	Status = XSetupInterruptSystem(&DpTxSsInst, (Xil_InterruptHandler)XDpTxSs_DpIntrHandler,
+                                       DpTxSsInst.Config.IntrId, DpTxSsInst.Config.IntrParent,
+                                       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+	Status = XSetupInterruptSystem(&DpRxSsInst, (Xil_InterruptHandler)XDpRxSs_DpIntrHandler,
+                                       DpRxSsInst.Config.IntrId, DpRxSsInst.Config.IntrParent,
+                                       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+	Status = XSetupInterruptSystem(&frmbufwr, (Xil_InterruptHandler)XVFrmbufWr_InterruptHandler,
+                                       frmbufwr.FrmbufWr.Config.IntrId, frmbufwr.FrmbufWr.Config.IntrParent,
+                                       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+
+	Status = XSetupInterruptSystem(&frmbufrd, (Xil_InterruptHandler)XVFrmbufRd_InterruptHandler,
+                                       frmbufrd.FrmbufRd.Config.IntrId, frmbufrd.FrmbufRd.Config.IntrParent,
+                                       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+
+	return (XST_SUCCESS);
+}
+#endif
 /*****************************************************************************/
 /**
 *
@@ -1776,13 +1922,20 @@ int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 * @note        None.
 *
 ******************************************************************************/
-u32 DpSs_PhyInit(u16 DeviceId)
-{
+#ifndef SDT
+u32 DpSs_PhyInit(u16 DeviceId) {
+#else
+u32 DpSs_PhyInit(u32 BaseAddress) {
+#endif
 #ifndef versal
 	XVphy_Config *ConfigPtr;
 
 	/* Obtain the device configuration for the DisplayPort RX Subsystem */
+#ifndef SDT
 	ConfigPtr = XVphy_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XVphy_LookupConfig(BaseAddress);
+#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
