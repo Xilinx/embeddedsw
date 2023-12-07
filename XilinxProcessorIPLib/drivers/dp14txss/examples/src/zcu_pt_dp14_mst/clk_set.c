@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,7 +61,11 @@ u32 clk_set(u8 i2c_mux_addr, u8 i2c_dev_addr, double set_freq)
 	u8 WriteBuffer[16];
 
 	/* Initialize I2C driver. */
+#ifndef SDT
 	IicCfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
+#else
+	IicCfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_BASEADDR);
+#endif
 	XIicPs_CfgInitialize(&IicPtr, IicCfgPtr, IicCfgPtr->BaseAddress);
 	/* Set serial clock rate. */
 	Status = XIicPs_SetSClk(&IicPtr, 400000);
