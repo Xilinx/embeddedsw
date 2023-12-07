@@ -91,6 +91,7 @@
 *       sk     04/07/22 Add support to read custom tap delay values from design
 *                       for SD/eMMC.
 * 4.2   ro     06/12/23 Added support for system device-tree flow.
+* 4.3   ap     11/29/23 Add support for Sanitize feature.
 *
 * </pre>
 *
@@ -549,4 +550,45 @@ RETURN_PATH:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+* @brief
+* This function performs Sanitize operation on the unmapped user address range.
+*
+* @param        InstancePtr is a pointer to the instance to be worked on.
+*
+* @return
+*               - XST_SUCCESS if Sanitize is successful
+*               - XST_FAILURE if failure - could be because another transfer
+*               is in progress or card not present or Sanitize operation failure.
+*
+******************************************************************************/
+s32 XSdPs_Sanitize(XSdPs *InstancePtr)
+{
+	s32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+#if defined  (XCLOCKING)
+	Xil_ClockEnable(InstancePtr->Config.RefClk);
+#endif
+
+	if (InstancePtr->IsBusy == TRUE) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	Status = XSdPs_Set_Mmc_ExtCsd(InstancePtr, XSDPS_MMC_START_SANITIZE_ARG);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+RETURN_PATH:
+#if defined  (XCLOCKING)
+	Xil_ClockDisable(InstancePtr->Config.RefClk);
+#endif
+	return Status;
+}
 /** @} */

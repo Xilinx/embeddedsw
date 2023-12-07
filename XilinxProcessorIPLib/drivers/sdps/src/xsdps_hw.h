@@ -46,6 +46,7 @@
 *       sk     04/07/22 Fix typo in 'XSDPS_MMC_1_BIT_BUS_ARG' macro definition.
 * 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
 * 4.2   ro     06/12/23 Added support for system device-tree flow.
+* 4.3   ap     11/29/23 Add support for Sanitize feature.
 *
 * </pre>
 *
@@ -930,7 +931,9 @@ extern "C" {
 #define EXT_CSD_PART_CONFIG_ACC_BOOT1   (0x2U)
 #define EXT_CSD_PART_CONFIG_ACC_RPMB    (0x3U)
 #define EXT_CSD_PART_CONFIG_ACC_GP0     (0x4U)
+#define EXT_CSD_SANITIZE_START		(0x1U)
 #define EXT_CSD_PART_CONFIG_BYTE	(179U)
+#define EXT_CSD_SANIT_CONFIG_BYTE	(165U)
 #define XSDPS_MMC_PART_CFG_0_ARG		(((u32)XSDPS_EXT_CSD_WRITE_BYTE << 24U) \
 	| ((u32)EXT_CSD_PART_CONFIG_BYTE << 16U) \
 	| ((u32)(0U) << 8U))
@@ -942,6 +945,10 @@ extern "C" {
 #define XSDPS_MMC_PART_CFG_2_ARG		(((u32)XSDPS_EXT_CSD_WRITE_BYTE << 24U) \
 	| ((u32)EXT_CSD_PART_CONFIG_BYTE << 16U) \
 	| ((u32)EXT_CSD_PART_CONFIG_ACC_BOOT1 << 8U))
+
+#define XSDPS_MMC_START_SANITIZE_ARG		(((u32)XSDPS_EXT_CSD_WRITE_BYTE << 24U) \
+	| ((u32)EXT_CSD_SANIT_CONFIG_BYTE << 16U) \
+	| ((u32)EXT_CSD_SANITIZE_START << 8U))
 
 #define EXT_CSD_PART_SUPPORT_PART_EN    (0x1U)
 
