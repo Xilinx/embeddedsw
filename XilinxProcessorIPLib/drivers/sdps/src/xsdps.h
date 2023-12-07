@@ -164,6 +164,7 @@
 * 4.2   ro     06/12/23 Added support for system device-tree flow.
 * 4.2   ap     08/09/23 Reordered XSdPs_FrameCmd XSdPs_Identify_UhsMode functions
 * 4.3   ap     10/11/23 Resolved compilation errors with Microblaze RISC-V
+* 4.3   ap     11/29/23 Add support for Sanitize feature.
 *
 * </pre>
 *
@@ -402,6 +403,7 @@ s32 XSdPs_CheckReadTransfer(XSdPs *InstancePtr);
 s32 XSdPs_StartWriteTransfer(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff);
 s32 XSdPs_CheckWriteTransfer(XSdPs *InstancePtr);
 s32 XSdPs_Erase(XSdPs *InstancePtr, u32 StartAddr, u32 EndAddr);
+s32 XSdPs_Sanitize(XSdPs *InstancePtr);
 
 #ifdef __cplusplus
 }
