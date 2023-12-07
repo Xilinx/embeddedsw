@@ -26,6 +26,7 @@
 *       yog  07/06/2023 Added support for P-256
 *       ng   07/10/2023 Added support for system device tree flow
 *       kpt  07/20/2023 Renamed XSecure_AesDpaCmDecryptKat to XSecure_AesDpaCmDecryptData
+* 5.3   kpt  12/07/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *
 * </pre>
 *
@@ -880,8 +881,7 @@ END_CLR:
 	if((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}
-	SStatus = Xil_SMemSet(DstVal, XSECURE_KAT_MSG_LEN_IN_BYTES, 0U,
-				XSECURE_KAT_MSG_LEN_IN_BYTES);
+	SStatus = Xil_SecureZeroize((u8*)DstVal, XSECURE_KAT_MSG_LEN_IN_BYTES);
 	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}
@@ -998,9 +998,8 @@ END_CLR:
 		Status = SStatus;
 	}
 
-	SStatus = Xil_SMemSet(DstVal, XSECURE_KAT_MSG_LEN_IN_BYTES, 0U,
-				XSECURE_KAT_MSG_LEN_IN_BYTES);
-	SStatus |= Xil_SMemSet(GcmTag, sizeof(GcmTag), 0U, sizeof(GcmTag));
+	SStatus = Xil_SecureZeroize((u8*)DstVal, XSECURE_KAT_MSG_LEN_IN_BYTES);
+	SStatus |= Xil_SecureZeroize(GcmTag, sizeof(GcmTag));
 	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}
@@ -1080,8 +1079,7 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 	}
 
 END_RST:
-	SStatus = Xil_SMemSet(&OutVal.Hash[0U], XSECURE_HASH_SIZE_IN_BYTES, 0U,
-				XSECURE_HASH_SIZE_IN_BYTES);
+	SStatus = Xil_SecureZeroize(OutVal.Hash, XSECURE_HASH_SIZE_IN_BYTES);
 	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}
@@ -1141,8 +1139,7 @@ int XSecure_RsaPublicEncryptKat(void)
 	}
 
 END_CLR:
-	SStatus = Xil_SMemSet(RsaOutput, XSECURE_RSA_4096_KEY_SIZE, 0U,
-				XSECURE_RSA_4096_KEY_SIZE);
+	SStatus = Xil_SecureZeroize((u8*)RsaOutput, XSECURE_RSA_4096_KEY_SIZE);
 	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}
@@ -1232,9 +1229,8 @@ int XSecure_RsaPrivateDecryptKat(void)
 	}
 
 END_CLR:
-	SStatus = Xil_SMemSet(RsaOutput, XSECURE_RSA_4096_KEY_SIZE, 0U,
-				XSECURE_RSA_4096_KEY_SIZE);
-	SStatus |= Xil_SMemSet(&XSecureRsaInstance, sizeof(XSecure_Rsa), 0U, sizeof(XSecure_Rsa));
+	SStatus = Xil_SecureZeroize((u8*)RsaOutput, XSECURE_RSA_4096_KEY_SIZE);
+	SStatus |= Xil_SecureZeroize((u8*)&XSecureRsaInstance, sizeof(XSecure_Rsa));
 	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}
@@ -1335,7 +1331,7 @@ int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass) {
 	}
 
 END_CLR:
-	SStatus = Xil_SMemSet(Sign, sizeof(Sign), 0U, sizeof(Sign));
+	SStatus = Xil_SecureZeroize(Sign, sizeof(Sign));
 	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}
@@ -1403,7 +1399,7 @@ int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_El
 	}
 
 END_CLR:
-	SStatus = Xil_SMemSet(Sign, sizeof(Sign), 0U, sizeof(Sign));
+	SStatus = Xil_SecureZeroize(Sign, sizeof(Sign));;
 	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}

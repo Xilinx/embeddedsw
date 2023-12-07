@@ -23,6 +23,7 @@
 *       dd   10/11/23 MISRA-C violation Rule 10.3 fixed
 *       dd   10/11/23 MISRA-C violation Rule 17.7 fixed
 *       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
+* 5.3   kpt  12/07/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *
 * </pre>
 *
@@ -61,6 +62,7 @@
 int XSecure_HmacKat(XSecure_Sha3 *SecureSha3)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	volatile u32 Index;
 	XSecure_HmacRes Hmac = {0U};
 	XSecure_Hmac HmacInstance;
@@ -104,8 +106,10 @@ int XSecure_HmacKat(XSecure_Sha3 *SecureSha3)
 		Status = XST_SUCCESS;
 	}
 END:
-	(void)memset((void *)Hmac.Hash, (s32)0,
-			XSECURE_HASH_SIZE_IN_BYTES);
+	SStatus = Xil_SecureZeroize(Hmac.Hash, XSECURE_HASH_SIZE_IN_BYTES);
+	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
+		Status = SStatus;
+	}
 
 	return Status;
 }
@@ -121,6 +125,7 @@ END:
 int XSecure_Sha384Kat(void)
 {
 	volatile int Status = (int)XSECURE_SHA384_KAT_ERROR;
+	volatile int SStatus = (int)XSECURE_SHA384_KAT_ERROR;
 	volatile u32 Index;
 	u8 *Data = XSecure_GetKatMessage();
 	u8 CalculatedHash[XSECURE_HASH_SIZE_IN_BYTES];
@@ -150,6 +155,11 @@ int XSecure_Sha384Kat(void)
 	}
 
 END:
+	SStatus = Xil_SecureZeroize(CalculatedHash, XSECURE_HASH_SIZE_IN_BYTES);
+	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
+		Status = SStatus;
+	}
+
 	return Status;
 }
 #ifndef PLM_RSA_EXCLUDE
@@ -172,11 +182,12 @@ END:
 int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	XSecure_Rsa RsaInstance = {0U};
 	const u8 *Message = XSecure_GetKatMessage();
 	XSecure_RsaOaepParam OaepParam = {0U};
-	const u8 EncOutput[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];
-	const u8 DecOutput[XSECURE_KAT_MSG_LEN_IN_BYTES];
+	u8 EncOutput[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];
+	u8 DecOutput[XSECURE_KAT_MSG_LEN_IN_BYTES];
 
 	Status = XSecure_RsaInitialize(&RsaInstance, PubKey->Modulus, PubKey->ModExt, PubKey->Exponent);
 	if (Status != XST_SUCCESS) {
@@ -215,6 +226,12 @@ int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaKey *PubKey, void *ShaIn
 	}
 
 END:
+	SStatus = Xil_SecureZeroize(EncOutput, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+	SStatus |= Xil_SecureZeroize(DecOutput, XSECURE_KAT_MSG_LEN_IN_BYTES);
+	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
+		Status = SStatus;
+	}
+
 	return Status;
 }
 #endif
