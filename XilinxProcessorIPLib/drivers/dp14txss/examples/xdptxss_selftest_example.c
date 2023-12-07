@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,8 +42,9 @@
 /* The unique device ID of the DisplayPort Transmitter Subsystem HIP instance
  * to be used
  */
+#ifndef SDT
 #define XDPTXSS_DEVICE_ID		XPAR_DPTXSS_0_DEVICE_ID
-
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -50,9 +52,11 @@
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 u32 DpTxSs_SelfTestExample(u16 DeviceId);
-
+#else
+u32 DpTxSs_SelfTestExample(u32 BaseAddress);
+#endif
 /************************** Variable Definitions *****************************/
 
 XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
@@ -83,7 +87,11 @@ int main()
 	xil_printf("(c) 2015 by Xilinx\n\r");
 	xil_printf("---------------------------------\n\r\n\r");
 
+#ifndef SDT
 	Status = DpTxSs_SelfTestExample(XDPTXSS_DEVICE_ID);
+#else
+	Status = DpTxSs_SelfTestExample(XPAR_DPTXSS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("DisplayPort TX Subsystem self test example failed\n\r");
 		return XST_FAILURE;
@@ -113,6 +121,7 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 DpTxSs_SelfTestExample(u16 DeviceId)
 {
 	u32 Status;
@@ -137,3 +146,27 @@ u32 DpTxSs_SelfTestExample(u16 DeviceId)
 
 	return Status;
 }
+#else
+u32 DpTxSs_SelfTestExample(u32 BaseAddress)
+{
+	u32 Status;
+	XDpTxSs_Config *ConfigPtr;
+
+	/* Obtain the device configuration for the DisplayPort TX Subsystem */
+	ConfigPtr = XDpTxSs_LookupConfig(BaseAddress);
+	if (!ConfigPtr) {
+		return XST_FAILURE;
+	}
+	/* Copy the device configuration into the DpTxSsInst's Config
+	 * structure. */
+	Status = XDpTxSs_CfgInitialize(&DpTxSsInst, ConfigPtr,
+					ConfigPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		xil_printf("DPTXSS config initialization failed.\n\r");
+		return XST_FAILURE;
+	}
+	/* Run the self test. */
+	Status = XDpTxSs_SelfTest(&DpTxSsInst);
+	return Status;
+}
+#endif
