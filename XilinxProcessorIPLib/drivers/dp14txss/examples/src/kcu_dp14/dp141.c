@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +28,9 @@
 #include "xparameters.h"
 #include "videofmc_defs.h"
 
+#ifdef SDT
+#define XPAR_IIC_0_BASEADDR XPAR_XIIC_0_BASEADDR
+#endif
 #define ch0 0x02
 #define ch1 0x05
 #define ch2 0x08
