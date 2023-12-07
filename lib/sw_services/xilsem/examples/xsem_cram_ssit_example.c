@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -16,6 +17,10 @@
  * 0.2	gupta    07/18/2022  Added cram get status API and updated example
  * 0.3	gupta    08/15/2022  Updated broad cast APIs to check status of all SLRs
  *							 seperately
+ * 0.4  anv      10/18/2023  Added macro protection to Enable Error Injection
+ *                           Feature usage,Updated to get
+ *                           XilSEM CRAM status prints of all SLRs seperately
+ *                           and Updated Copyright information
  * </pre>
  *
  *****************************************************************************/
@@ -182,36 +187,6 @@ void XSem_IpiCallback(XIpiPsu *const InstancePtr)
 
 /*****************************************************************************
  *
- * @brief	This function initializes CRAM scan in one SLR in SSIT device
- * 		using XilSEM Client API XSem_Ssit_CmdCfrInit
- *
- *
- * @return    	XST_SUCCESS : upon successful initialization of CRAM
- *  		XST_FAILURE : any failure in initialization of CRAM.
- *
- ******************************************************************************/
-static XStatus XSem_ApiCfrInitCram_InOneSlr(u32 TargetSlr)
-{
-	XStatus Status = XST_FAILURE;
-
-	Status = XSem_Ssit_CmdCfrInit(&IpiInst, &IpiResp, \
-			TargetSlr);
-	if ((XST_SUCCESS == Status) && (CMD_ACK_CFR_INIT == IpiResp.RespMsg1) \
-			&& (XST_SUCCESS == IpiResp.RespMsg2)) {
-		xil_printf("[%s] Success: Cfr Init on SLR-%u\n\r", \
-			__func__, TargetSlr);
-	} else {
-		xil_printf("[%s] Error: Cfr Init Status 0x%x Ack 0x%x " \
-			"Ret 0x%x\n", __func__, Status, IpiResp.RespMsg1, \
-			IpiResp.RespMsg2);
-		Status = XST_FAILURE;
-	}
-
-	return Status;
-}
-
-/*****************************************************************************
- *
  * @brief	This function initializes CRAM scan on all SLRs in SSIT device
  * 		using XilSEM Client API XSem_Ssit_CmdCfrInit
  *
@@ -268,6 +243,54 @@ static XStatus XSem_ApiCfrInitCram_Broadcast()
 
 /*****************************************************************************
  *
+ * @brief    	This function gets status of any SLR in SSIT device
+ * 		using XilSEM Client API XSem_Ssit_CmdCfrGetStatus
+ *
+ * @param[in]	TargetSlr :	target slr index
+ * @param[out]	CfrStatusInfo	:	Cram status structure pointer
+ *
+ * @return    	XST_SUCCESS : upon successful completion of start scan.
+ *    		XST_FAILURE : any failure in start scan.
+ *
+ ******************************************************************************/
+static XStatus XSem_Ssit_ApiCfrGetStatusSlr(u32 TargetSlr, \
+		XSemCfrStatus *CfrStatusInfo)
+{
+	XStatus Status = XST_FAILURE;
+	XSemStatus StatusInfo = {0U};
+	u32 Index = 0U;
+
+	Status = XSem_Ssit_CmdGetStatus(&IpiInst, &IpiResp, TargetSlr, \
+			&StatusInfo);
+	if ((XST_SUCCESS == Status) && \
+		(CMD_ACK_CFR_GET_STATUS == IpiResp.RespMsg1) && \
+		(TargetSlr == IpiResp.RespMsg2)) {
+		xil_printf("[%s] Success: Getting Cfr Status of SLR-%u\n\r", \
+			__func__, TargetSlr);
+		/* update data in to [out] param cram structure */
+		CfrStatusInfo->Status = StatusInfo.CramStatus;
+		xil_printf("CRAM Scan Status:%x\n",CfrStatusInfo->Status);
+		for(Index = 0U; Index < MAX_CRAMERR_REGISTER_CNT; Index++) {
+			CfrStatusInfo->ErrAddrH[Index] = StatusInfo.ErrAddrH[Index];
+			CfrStatusInfo->ErrAddrL[Index] = StatusInfo.ErrAddrL[Index];
+			xil_printf("Last Corrected Location_%x High Addr: %x Low Addr: %x\n",
+				Index,CfrStatusInfo->ErrAddrH,CfrStatusInfo->ErrAddrL);
+		}
+		CfrStatusInfo->ErrCorCnt = StatusInfo.ErrCorCnt;
+		xil_printf("Total CE count: %x\n" ,CfrStatusInfo->ErrCorCnt);
+	} else {
+		xil_printf("[%s] Error: Getting Cfr Status. Status 0x%x "
+			"Ack 0x%x SlrFailMask 0x%x\n", __func__, Status, \
+				IpiResp.RespMsg1, IpiResp.RespMsg2);
+		Status = XST_FAILURE;
+	}
+
+	return Status;
+}
+
+#ifdef XILSEM_ERRINJ_ENABLE
+/*****************************************************************************
+ *
  * @brief    	This function starts Cfr scan in one SLR of SSIT device
  *		using XilSEM Client API XSem_Ssit_CmdCfrStopScan
  *
@@ -288,91 +311,6 @@ static XStatus XSem_Ssit_ApiCfrStartScan_InOneSlr(u32 TargetSlr)
 			__func__, TargetSlr);
 	} else {
 		xil_printf("[%s] Error: Cfr Start scan on Slr-%u. Status 0x%x "
-			"Ack 0x%x Ret 0x%x SlrFailMask 0x%x\n", __func__, \
-			TargetSlr, Status, IpiResp.RespMsg1, IpiResp.RespMsg2,\
-			IpiResp.RespMsg3);
-		Status = XST_FAILURE;
-	}
-
-	return Status;
-}
-
-/*****************************************************************************
- *
- * @brief    	This function starts Cfr scan on all SLRs in SSIT device
- *		using XilSEM Client API XSem_Ssit_CmdCfrStartScan
- *
- * @return    	XST_SUCCESS : upon successful completion of stop scan.
- *    		XST_FAILURE : any failure in stop scan.
- *
- ******************************************************************************/
-static XStatus XSem_ApiCfrStartScan_Broadcast()
-{
-	XStatus Status = XST_FAILURE;
-
-	Status = XSem_Ssit_CmdCfrStartScan(&IpiInst, &IpiResp, \
-		XSEM_SSIT_ALL_SLRS_ID);
-	if ((XST_SUCCESS == Status) && (CMD_ACK_CFR_START_SCAN == IpiResp.RespMsg1) \
-			&& (XST_SUCCESS == IpiResp.RespMsg2) &&
-			(XST_SUCCESS == IpiResp.RespMsg3) &&
-			(XST_SUCCESS == IpiResp.RespMsg4 &&
-			(XST_SUCCESS == IpiResp.RespMsg5))) {
-		xil_printf("[%s] Success: Cfr StartScan on all SLRs\n\r", __func__);
-	} else {
-		xil_printf("[%s] Error: Cfr StartScan Status 0x%x Ack 0x%x \n", \
-			__func__, Status, IpiResp.RespMsg1);
-
-		/*Check If RespMsg2 is success or not */
-		if (IpiResp.RespMsg2 != XST_SUCCESS){
-			/* If not success Cfr StartScan is failed in master SLR */
-			xil_printf("[%s] Cfr StartScan failed on SLR-0 with error"
-					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg2);
-		}
-		/*Check If RespMsg3 is success or not */
-		if (IpiResp.RespMsg3 != XST_SUCCESS){
-			/* If not success Cfr StartScan is failed in Slave 1 */
-			xil_printf("[%s] Cfr StartScan failed on SLR-1 with error"
-					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg3);
-		}
-		/*Check If RespMsg4 is success or not */
-		if (IpiResp.RespMsg4 != XST_SUCCESS){
-			/* If not success Cfr StartScan is failed in Slave 2 */
-			xil_printf("[%s] Cfr StartScan failed on SLR-2 with error"
-					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg4);
-		}
-		/*Check If RespMsg5 is success or not */
-		if (IpiResp.RespMsg5 != XST_SUCCESS){
-			/* If not success Cfr StartScan is failed in Slave 3 */
-			xil_printf("[%s] Cfr StartScan failed on SLR-3 with error"
-					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg5);
-		}
-		Status = XST_FAILURE;
-	}
-	return Status;
-}
-
-/*****************************************************************************
- *
- * @brief    	This function stops Cfr scan in one SLR of SSIT device
- *		using XilSEM Client API XSem_Ssit_CmdCfrStopScan
- *
- * @return    	XST_SUCCESS : upon successful completion of stop scan.
- *    		XST_FAILURE : any failure in stop scan.
- *
- ******************************************************************************/
-static XStatus XSem_Ssit_ApiCfrStopScan_InOneSlr(u32 TargetSlr)
-{
-	XStatus Status = XST_FAILURE;
-
-	Status = XSem_Ssit_CmdCfrStopScan(&IpiInst, &IpiResp, \
-			TargetSlr);
-	if ((XST_SUCCESS == Status) && \
-		(CMD_ACK_CFR_STOP_SCAN == IpiResp.RespMsg1) && \
-		(XST_SUCCESS == IpiResp.RespMsg2)) {
-		xil_printf("[%s] Success: Cfr Stop scan on Slr-%u\n\r", \
-			__func__, TargetSlr);
-	} else {
-		xil_printf("[%s] Error: Cfr Stop scan on Slr-%u. Status 0x%x "
 			"Ack 0x%x Ret 0x%x SlrFailMask 0x%x\n", __func__, \
 			TargetSlr, Status, IpiResp.RespMsg1, IpiResp.RespMsg2,\
 			IpiResp.RespMsg3);
@@ -438,49 +376,6 @@ static XStatus XSem_ApiCfrStopScan_Broadcast()
 
 /*****************************************************************************
  *
- * @brief    	This function gets status of any SLR in SSIT device
- * 		using XilSEM Client API XSem_Ssit_CmdCfrGetStatus
- *
- * @param[in]	TargetSlr :	target slr index
- * @param[out]	CfrStatusInfo	:	Cram status structure pointer
- *
- * @return    	XST_SUCCESS : upon successful completion of start scan.
- *    		XST_FAILURE : any failure in start scan.
- *
- ******************************************************************************/
-static XStatus XSem_Ssit_ApiCfrGetStatusSlr(u32 TargetSlr, \
-		XSemCfrStatus *CfrStatusInfo)
-{
-	XStatus Status = XST_FAILURE;
-	XSemStatus StatusInfo = {0U};
-	u32 Index = 0U;
-
-	Status = XSem_Ssit_CmdGetStatus(&IpiInst, &IpiResp, TargetSlr, \
-			&StatusInfo);
-	if ((XST_SUCCESS == Status) && \
-		(CMD_ACK_CFR_GET_STATUS == IpiResp.RespMsg1) && \
-		(TargetSlr == IpiResp.RespMsg2)) {
-		xil_printf("[%s] Success: Getting Cfr Status of SLR-%u\n\r", \
-			__func__, TargetSlr);
-		/* update data in to [out] param cram structure */
-		CfrStatusInfo->Status = StatusInfo.CramStatus;
-		for(Index = 0U; Index < MAX_CRAMERR_REGISTER_CNT; Index++) {
-			CfrStatusInfo->ErrAddrH[Index] = StatusInfo.ErrAddrH[Index];
-			CfrStatusInfo->ErrAddrL[Index] = StatusInfo.ErrAddrL[Index];
-		}
-		CfrStatusInfo->ErrCorCnt = StatusInfo.ErrCorCnt;
-	} else {
-		xil_printf("[%s] Error: Getting Cfr Status. Status 0x%x "
-			"Ack 0x%x SlrFailMask 0x%x\n", __func__, Status, \
-				IpiResp.RespMsg1, IpiResp.RespMsg2);
-		Status = XST_FAILURE;
-	}
-
-	return Status;
-}
-
-/*****************************************************************************
- *
  * @brief    	Function to inject error in CFRAME on all SLRs using XilSEM
  * 		Client API XSem_Ssit_CmdCfrNjctErr
  *
@@ -526,155 +421,6 @@ static XStatus XSem_ApiCfrErrNjct_OnAllSLRs(XSemCfrErrInjData *ErrData)
 	}
 	return Status;
 }
-
-/*****************************************************************************
- *
- * @brief    	Function to inject error in CFRAME in any one SLR using XilSEM
- * 		Client API XSem_Ssit_CmdCfrNjctErr
- *
- * @param    	ErrData : Pointer to Error details
- *
- * @return    	XST_SUCCESS : upon successful error injection.
- *   		XST_FAILURE : Any failure IPI interface
- *     		Error Codes : Below error codes upon failure during injection
- *		0x00500000U : If CRAM Scan is not initialized
- * 		0X00002000U : On getting Cframe driver instance as Null
- * 		0x00800000U : If invalid row is passed as input
- * 		0x00E00000U : If invalid block type is passed as input
- * 		0x00A00000U : If invalid bit is passed as input
- * 		0x00B00000U : If invalid frame is passed as input
- * 		0x00900000U : If invalid qword is passed as input
- * 		0x00D00000U : If input bit is masked
- * 		0x00C00000U : If injection is failed
- *****************************************************************************/
-XStatus XSem_Ssit_ApiCfrErrNjct_InOneSlr(XSemCfrErrInjData *ErrData, \
-		u32 TargetSlr)
-{
-	XStatus Status = XST_FAILURE;
-
-	/* Inject Cram error in Target Slr */
-
-	Status = XSem_Ssit_CmdCfrNjctErr(&IpiInst, ErrData, &IpiResp, TargetSlr);
-	if ((XST_SUCCESS == Status) && \
-			(CMD_ACK_CFR_NJCT_ERR == IpiResp.RespMsg1)) {
-		if ((XST_SUCCESS != IpiResp.RespMsg2) ){
-			xil_printf("[%s] Error: Injection Failed with 0x%x" \
-				"on SLR-%u \n", __func__, IpiResp.RespMsg2, \
-				TargetSlr);
-			Status = (XStatus) IpiResp.RespMsg2;
-		} else {
-			xil_printf("[%s] Success: Inject on SLR-%u\n\r", \
-				__func__, TargetSlr);
-		}
-	} else {
-		xil_printf("[%s] Error: Njct Status 0x%x Ack 0x%x Ret 0x%x\n",\
-			__func__, Status, IpiResp.RespMsg1, IpiResp.RespMsg2);
-	}
-
-	return Status;
-}
-
-/*****************************************************************************
- * @brief	This function gets Cram scan configuration of each SLR serially
- * 		using XilSEM Client API XSem_Ssit_CmdGetConfig
- *
- * @return	XST_SUCCESS : upon successful retrieval of Cram scan
- * 			      configuration
- * 		XST_FAILURE : any failure in retrieval of CRAM scan
- * 			      configuration
- *
- *****************************************************************************/
-static XStatus XSem_ApiCfrGetConfig(u32 *CramConfig)
-{
-	XStatus Status = XST_FAILURE;
-	u32 SlrCnt;
-	u32 CramStartupConfig = 0U;
-	u32 CramScanAvailable = 0U;
-	u32 CramEccSel = 0U;
-
-	/* Check CRAM scan configuration on each SLRs */
-	for (SlrCnt = 0U; SlrCnt < XSEM_SSIT_MAX_SLR_CNT; SlrCnt++) {
-		Status = XSem_Ssit_CmdGetConfig(&IpiInst, &IpiResp, SlrCnt);
-		if (Status != XST_SUCCESS) {
-			xil_printf("%s Failed to get CRAM configuration\n\r", \
-				__func__);
-			goto END;
-		}
-		/* Check if CRAM is configured on current SLR */
-		if (IpiResp.RespMsg2 != 0U) {
-			xil_printf("[%s] Getting Cram scan configuration for" \
-				"SLR-%u:\n\r", __func__, SlrCnt);
-			xil_printf("---------------------------------------"\
-				"--------\n\r");
-			/* Get CRAM config for SLR */
-			CramConfig[SlrCnt] = IpiResp.RespMsg2;
-
-			/* Check if CRAM scan is available on SLR */
-			CramScanAvailable = \
-				XSem_DataMaskShift(CramConfig[SlrCnt], \
-				XSEM_CRAM_ENABLED_MASK, \
-				XSEM_CRAM_ENABLED_SHIFT);
-
-			if (CramScanAvailable == 0U) {
-				xil_printf("Cram scan is not enabled on" \
-					"SLR-%u\n\r", SlrCnt);
-				continue;
-			}
-
-			/* Get CRAM scan startup configuration */
-			CramStartupConfig = \
-				XSem_DataMaskShift(CramConfig[SlrCnt], \
-				XSEM_STARTUP_CONFIG_MASK, \
-				XSEM_STARTUP_CONFIG_SHIFT);
-			if (CramStartupConfig == 0x00U) {
-				IsStartupImmediate = 0U;
-				xil_printf("Cram scan is configured for" \
-					"deferred startup\n\r");
-			} else if (CramStartupConfig == 0x01U) {
-				IsStartupImmediate = 1U;
-				xil_printf("Cram scan is configured for" \
-					"immediate startup\n\r");
-			} else {
-				xil_printf("Error: Unknown Cram scan startup" \
-					"configuration (0x%08x)\n\r", \
-					CramStartupConfig);
-			}
-
-			/* Get Cram ECC selection configuration */
-			CramEccSel = XSem_DataMaskShift(CramConfig[SlrCnt],\
-				XSEM_CRAM_ECC_SEL_MASK, \
-				XSEM_CRAM_ECC_SEL_SHIFT);
-
-			if (CramEccSel == 0U) {
-				xil_printf("Cram is configured to use" \
-					" HW ECC \n\r");
-			} else {
-				xil_printf("Cram is configured to use" \
-					"SW ECC \n\r");
-			}
-
-			/* Get Cram Correction configuration */
-			CramCorEnabled = XSem_DataMaskShift(CramConfig[SlrCnt],\
-				XSEM_CRAM_COR_EN_MASK, XSEM_CRAM_COR_EN_SHIFT);
-
-			if (CramCorEnabled == 0U) {
-				xil_printf("Cram configured to not correct" \
-					"error\n\r");
-			} else {
-				xil_printf("Cram configured to correct" \
-					"error\n\r");
-			}
-		} else {
-			xil_printf("[%s] Device not configured for Cram scan"\
-				" on Slr-%u \n\r", __func__, SlrCnt);
-		}
-		xil_printf("-------------------------------------"\
-			"----------\n\r");
-	}
-END:
-	return Status;
-}
-
 
 /******************************************************************************
  * @brief	This function is used to inject 1-bit correctable error
@@ -779,6 +525,109 @@ static XStatus Xsem_CfrApiInjctCrcErr()
 
 	return Status;
 }
+#endif /* End of XILSEM_ERRINJ_ENABLE */
+
+/*****************************************************************************
+ * @brief	This function gets Cram scan configuration of each SLR serially
+ * 		using XilSEM Client API XSem_Ssit_CmdGetConfig
+ *
+ * @return	XST_SUCCESS : upon successful retrieval of Cram scan
+ * 			      configuration
+ * 		XST_FAILURE : any failure in retrieval of CRAM scan
+ * 			      configuration
+ *
+ *****************************************************************************/
+static XStatus XSem_ApiCfrGetConfig(u32 *CramConfig)
+{
+	XStatus Status = XST_FAILURE;
+	u32 SlrCnt;
+	u32 CramStartupConfig = 0U;
+	u32 CramScanAvailable = 0U;
+	u32 CramEccSel = 0U;
+
+	/* Check CRAM scan configuration on each SLRs */
+	for (SlrCnt = 0U; SlrCnt < XSEM_SSIT_MAX_SLR_CNT; SlrCnt++) {
+		Status = XSem_Ssit_CmdGetConfig(&IpiInst, &IpiResp, SlrCnt);
+		if (Status != XST_SUCCESS) {
+			xil_printf("%s Failed to get CRAM configuration\n\r", \
+				__func__);
+			goto END;
+		}
+		/* Check if CRAM is configured on current SLR */
+		if (IpiResp.RespMsg2 != 0U) {
+			xil_printf("[%s] Getting Cram scan configuration for" \
+				"SLR-%u:\n\r", __func__, SlrCnt);
+			xil_printf("---------------------------------------"\
+				"--------\n\r");
+			/* Get CRAM config for SLR */
+			CramConfig[SlrCnt] = IpiResp.RespMsg2;
+
+			/* Check if CRAM scan is available on SLR */
+			CramScanAvailable = \
+				XSem_DataMaskShift(CramConfig[SlrCnt], \
+				XSEM_CRAM_ENABLED_MASK, \
+				XSEM_CRAM_ENABLED_SHIFT);
+
+			if (CramScanAvailable == 0U) {
+				xil_printf("Cram scan is not enabled on" \
+					"SLR-%u\n\r", SlrCnt);
+				continue;
+			}
+
+			/* Get CRAM scan startup configuration */
+			CramStartupConfig = \
+				XSem_DataMaskShift(CramConfig[SlrCnt], \
+				XSEM_STARTUP_CONFIG_MASK, \
+				XSEM_STARTUP_CONFIG_SHIFT);
+			if (CramStartupConfig == 0x00U) {
+				IsStartupImmediate = 0U;
+				xil_printf("Cram scan is configured for" \
+					"deferred startup\n\r");
+			} else if (CramStartupConfig == 0x01U) {
+				IsStartupImmediate = 1U;
+				xil_printf("Cram scan is configured for" \
+					"immediate startup\n\r");
+			} else {
+				xil_printf("Error: Unknown Cram scan startup" \
+					"configuration (0x%08x)\n\r", \
+					CramStartupConfig);
+			}
+
+			/* Get Cram ECC selection configuration */
+			CramEccSel = XSem_DataMaskShift(CramConfig[SlrCnt],\
+				XSEM_CRAM_ECC_SEL_MASK, \
+				XSEM_CRAM_ECC_SEL_SHIFT);
+
+			if (CramEccSel == 0U) {
+				xil_printf("Cram is configured to use" \
+					" HW ECC \n\r");
+			} else {
+				xil_printf("Cram is configured to use" \
+					"SW ECC \n\r");
+			}
+
+			/* Get Cram Correction configuration */
+			CramCorEnabled = XSem_DataMaskShift(CramConfig[SlrCnt],\
+				XSEM_CRAM_COR_EN_MASK, XSEM_CRAM_COR_EN_SHIFT);
+
+			if (CramCorEnabled == 0U) {
+				xil_printf("Cram configured to not correct" \
+					"error\n\r");
+			} else {
+				xil_printf("Cram configured to correct" \
+					"error\n\r");
+			}
+		} else {
+			xil_printf("[%s] Device not configured for Cram scan"\
+				" on Slr-%u \n\r", __func__, SlrCnt);
+		}
+		xil_printf("-------------------------------------"\
+			"----------\n\r");
+	}
+
+END:
+	return Status;
+}
 
 /******************************************************************************
  * @brief	This function is used to Read frame ECC of a particular Frame on
@@ -877,9 +726,12 @@ int main(void)
 	u32 SlrCnt = 0U;
 	XSemCfrStatus CfrStatusInfo = {0};
 	Xil_DCacheDisable();
-	u32 IntialCorErrCnt[XSEM_SSIT_MAX_SLR_CNT] = {0U};
 	u32 FailCnt = 0U;
+
+#ifdef XILSEM_ERRINJ_ENABLE
+	u32 IntialCorErrCnt[XSEM_SSIT_MAX_SLR_CNT] = {0U};
 	u32 IncreaseInCorErrCnt = 0U;
+#endif /* End of XILSEM_ERRINJ_ENABLE */
 
 	/* Initialize IPI Driver
 	 * This initialization is required to get XilSEM event notifications
@@ -893,6 +745,7 @@ int main(void)
 		goto END;
 	}
 	xil_printf("==================================================\n\r");
+
 	/* Enable event Notifications on all SLRs to receive notifications
 	 * from PLM upon detection of any error in CFRAME
 	 */
@@ -907,6 +760,7 @@ int main(void)
 		goto END;
 	}
 	xil_printf("==================================================\n\r");
+
 	/* Initialize CRAM scan if not initialized
 	 * This is applicable when CRAM Scan is set for deferred start up.
 	 */
@@ -919,6 +773,7 @@ int main(void)
 		}
 	}
 	xil_printf("==================================================\n\r");
+
 	/* Read Frame ECC values of a particular frame over IPI */
 	Status = XSem_ApiCfrGetFrameEcc(CframeAddr, RowLoc);
 	if (XST_SUCCESS != Status) {
@@ -927,6 +782,7 @@ int main(void)
 		goto END;
 	}
 	xil_printf("==================================================\n\r");
+
 	/* Read Frame ECC values of a particular frame over IPI */
 	Status = XSem_ApiCfrGetCrc(RowLoc);
 	/* Read Golden ECC for Row 0 for each SLR */
@@ -936,6 +792,7 @@ int main(void)
 	}
 	xil_printf("==================================================\n\r");
 
+
 	/* Get Status and capture initial error count of all SLRs */
 	for (SlrCnt = 0U; SlrCnt < XSEM_SSIT_MAX_SLR_CNT; SlrCnt++){
 		Status = XSem_Ssit_ApiCfrGetStatusSlr(SlrCnt, &CfrStatusInfo);
@@ -944,9 +801,14 @@ int main(void)
 			++FailCnt;
 			goto END;
 		}
+
+#ifdef XILSEM_ERRINJ_ENABLE
 		IntialCorErrCnt[SlrCnt] = CfrStatusInfo.ErrCorCnt;
+#endif /* End of XILSEM_ERRINJ_ENABLE */
+
 	}
 
+#ifdef XILSEM_ERRINJ_ENABLE
 	xil_printf("==================================================\n\r");
 	/**
 	 * The following sequence demonstrates how to inject errors in CRAM and
@@ -958,6 +820,8 @@ int main(void)
 	 * 4. Start scan of any one SLR
 	 * 5. Wait for error event notification from PLM
 	 * 6. After receiving notification then repeat 4 & 5 steps for next SLR
+	 * Note: For Error injection feature check enable
+	 *       XILSEM_ERRINJ_ENABLE macro
 	 */
 
 	/* Stop Scan */
@@ -983,6 +847,7 @@ int main(void)
 		goto END;
 	}
 	xil_printf("==================================================\n\r");
+
 	/**
 	 * Start Scan to enable CRAM to detect the injected error.
 	 * In case of CRC or uncorrectable error, XilSEM stops the scan
@@ -1016,6 +881,7 @@ int main(void)
 			++FailCnt;
 			goto END;
 		}
+
 		/* Calculate increase in correctable error count */
 		IncreaseInCorErrCnt = CfrStatusInfo.ErrCorCnt - \
 			IntialCorErrCnt[SlrCnt];
@@ -1191,11 +1057,11 @@ int main(void)
 		xil_printf("------------------------------------------"\
 			"-----\n\r");
 	}
+#endif /* End of XILSEM_ERRINJ_ENABLE */
 
 END:
-	xil_printf("----------------------------------------------------\n\r");
-	xil_printf("-----------------Print Report-----------------------\n\r");
-	xil_printf("----------------------------------------------------\n\r");
+	xil_printf("\n\r-------------- Test Report --------------\n\r");
+	xil_printf("Failed Command Count : %d\n\r", FailCnt);
 	if (FailCnt == 0U){
 		xil_printf("CRAM Tests Ran Successfully\n\r");
 	} else {

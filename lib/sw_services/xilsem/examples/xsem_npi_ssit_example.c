@@ -20,6 +20,9 @@
  * 0.4   hb    08/22/2022  Updated to use XSem_Ssit_CmdGetStatus API
  * 0.5   gm    03/06/2023  Updated total test count with SLR count macro
  *                         to support different SSIT devices.
+ * 0.6   anv   10/18/2023  Added macro protection to Enable Error Injection
+ *                         Feature usage and Updated to get
+ *                         XilSEM NPI status prints of all SLRs seperately
  * </pre>
  *
  *****************************************************************************/
@@ -269,6 +272,7 @@ static XStatus XSem_ApiNpiStartScan_Broadcast(XIpiPsu *IpiInst,
 	return Status;
 }
 
+#ifdef XILSEM_ERRINJ_ENABLE
 /*****************************************************************************
  * @brief	This function is used to send broadcast command to stop NPI scan
  * 			on all SLRs using XilSEM Client API XSem_Ssit_CmdNpiStopScan
@@ -353,6 +357,7 @@ static XStatus XSem_ApiNpiInjectError(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 END:
 	return Status;
 }
+#endif /* End of XILSEM_ERRINJ_ENABLE */
 
 /*****************************************************************************
  * @brief	This function gets NPI scan configuration of each SLR serially
@@ -448,6 +453,7 @@ XStatus XSem_ApiNpiGetAllStatus(XSemIpiResp *Resp)
 	u32 PassCnt = 0U;
 	u32 TempVal = 0U;
 	u32 SlrCnt;
+	u32 Index = 0U;
 
 	xil_printf("-------------- NPI Scan Status --------------\n\r");
 	/* Get Status of all SLRs */
@@ -459,6 +465,17 @@ XStatus XSem_ApiNpiGetAllStatus(XSemIpiResp *Resp)
 				(TempVal == XSEM_NPI_SCAN_IDLE)) {
 			xil_printf("Npi scan is successfully running on SLR-%u\n\r",
 					SlrCnt);
+			xil_printf("NPI Scan Status: %x\n",NpiStatus.NpiStatus);
+			for(Index = 0U; Index < MAX_NPI_SLV_SKIP_CNT; Index++){
+			xil_printf("NPI Scan Fail Count for register %x: %x\n",Index,NpiStatus.SlvSkipCnt[Index]);
+			}
+			xil_printf("SHA mismatch Err details recorded as\n");
+			for(Index = 0U; Index < MAX_NPI_ERR_INFO_CNT; Index++) {
+			xil_printf("ErrInfo[%x]: %x\n",Index,NpiStatus.ErrInfo[Index]);
+			}
+			xil_printf("NPI Scan Count = %x\n",NpiStatus.ScanCnt);
+			xil_printf("HBCount = %x\n",NpiStatus.HbCnt);
+
 			/* Increase pass count */
 			PassCnt++;
 			/* Clear TempVal for next read */
@@ -504,10 +521,12 @@ int main(void)
 {
 	XStatus Status = XST_FAILURE;
 	XSemIpiResp IpiResp = {0};
-	u32 XSem_TotalTestCnt = (5U + XSEM_SSIT_MAX_SLR_CNT);
-	u32 XSem_PassCnt = 0U;
-	u32 SlrCnt;
 
+#ifdef XILSEM_ERRINJ_ENABLE
+	u32 SlrCnt;
+#endif /* End of XILSEM_ERRINJ_ENABLE */
+
+	u32 FailCnt = 0U;
 	xil_printf("\nStarting NPI scan example demo for SSIT device\n\r");
 
 	/* Disable cache before using get status API */
@@ -542,6 +561,8 @@ int main(void)
 	 * 5. Inject error on all SLRs
 	 * 6. Start scan on all SLRs
 	 * 7. Wait for notification from PLM
+	 * Note: For Error injection feature check enable
+	 *       XILSEM_ERRINJ_ENABLE macro
 	 */
 
 	/* Get NPI configuration */
@@ -549,8 +570,7 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		xil_printf("[%s] Failed to get NPI configuration with status " \
 				"0x%x\n\r", __func__, Status);
-	} else {
-		XSem_PassCnt++;
+		++FailCnt;
 	}
 
 	/* If configured for deferred startup, start scan */
@@ -559,9 +579,8 @@ int main(void)
 		if (Status != XST_SUCCESS) {
 			xil_printf("[%s] Failed to start NPI scan with status 0x%x\n\r", \
 					__func__, Status);
+			++FailCnt;
 		} else {
-			XSem_PassCnt++;
-			XSem_TotalTestCnt++;
 			/* Small delay to wait for NPI scan to startup */
 			sleep(1U);
 		}
@@ -572,17 +591,16 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		xil_printf("[%s] NPI scan is not running successfully on all SLRs: " \
 				"0x%x\n\r", __func__, Status);
-	} else {
-		XSem_PassCnt++;
+		++FailCnt;
 	}
 
+#ifdef XILSEM_ERRINJ_ENABLE
 	/* Stop NPI scan before injecting error */
 	Status = XSem_ApiNpiStopScan_Broadcast(&IpiInst, &IpiResp);
 	if (Status != XST_SUCCESS) {
 		xil_printf("[%s] Failed to stop NPI scan with status 0x%x\n\r", \
 				__func__, Status);
-	} else {
-		XSem_PassCnt++;
+		++FailCnt;
 	}
 
 	/* Inject error in all SLRs */
@@ -590,8 +608,7 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		xil_printf("[%s] Failed to inject error with status 0x%x\n\r", \
 				__func__, Status);
-	} else {
-		XSem_PassCnt++;
+		++FailCnt;
 	}
 
 	/* Restart NPI scan for errors to be detected */
@@ -599,8 +616,7 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		xil_printf("[%s] Failed to start NPI scan with status 0x%x\n\r", \
 				__func__, Status);
-	} else {
-		XSem_PassCnt++;
+		++FailCnt;
 	}
 
 	/* Wait for error to be detected and reported */
@@ -610,13 +626,14 @@ int main(void)
 		if (NpiEvents[SlrCnt].CrcEventCnt == 1U) {
 			xil_printf("\nCrc error detected on SLR-%u\n\r", \
 					SlrCnt);
-			XSem_PassCnt++;
 		}
 	}
+#endif /* End of XILSEM_ERRINJ_ENABLE */
 
 END:
-	xil_printf("\n---------------------------------------------\n\r");
-	if (XSem_PassCnt == XSem_TotalTestCnt) {
+	xil_printf("\n\r-------------- Test Report --------------\n\r");
+	xil_printf("Failed Command Count : %d\n\r", FailCnt);
+	if (FailCnt == 0U){
 		xil_printf("Success: NPI example test completed\n\r");
 	} else {
 		xil_printf("\nFailure: NPI example test failed\n\r");
