@@ -103,8 +103,6 @@
 *       sk   08/30/2023 Added Address range check for PSM Buff List
 *       dd   09/12/2023 MISRA-C violation Rule 14.4 fixed
 * 2.0   ng   11/11/2023 Implemented user modules
-*       mss  12/05/2023 Added VerifyAddr check for address mentioned in
-*                       GetBoard command
 *
 * </pre>
 *
@@ -1445,12 +1443,6 @@ static int XPlmi_GetBoard(XPlmi_Cmd *Cmd)
 	u8* BoardName = XPlmi_BoardNameRW(Cmd, (u8)TRUE, &Len);
 	XPLMI_EXPORT_CMD(XPLMI_GET_BOARD_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
-
-	/** Verify the destination address range before writing */
-	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + ((u64)Len * 4U) - 1U);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	Status = XPlmi_DmaXfr((u64)(u32)&BoardName[0U], DestAddr, Len,
 			XPLMI_PMCDMA_0);

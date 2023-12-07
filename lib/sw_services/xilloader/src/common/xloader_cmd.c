@@ -79,8 +79,6 @@
 *       sk   07/31/2023 Updated Image Store Error Codes
 *       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
-*       mss  11/02/2023 Added VerifyAddr check for address mentioned in
-*                       GetImageInfoList and LoadReadbackPdi commands
 *
 * </pre>
 *
@@ -458,13 +456,6 @@ static int XLoader_GetImageInfoList(XPlmi_Cmd *Cmd)
 		(DestAddr << 32U));
 	MaxSize = (u32)(Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_LIST_MAXLEN_INDEX] &
 			XLOADER_BUFFER_MAX_SIZE_MASK);
-
-	/** Verify the destination address range before writing */
-	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + (u64)MaxSize - 1U);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	Status = XLoader_LoadImageInfoTbl(DestAddr, MaxSize, &NumEntries);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -506,13 +497,6 @@ static int XLoader_LoadReadBackPdi(XPlmi_Cmd *Cmd)
 	ReadBack.MaxSize = Cmd->Payload[XLOADER_CMD_READBACK_MAXLEN_INDEX] &
 		XLOADER_BUFFER_MAX_SIZE_MASK;
 	ReadBack.ProcessedLen = 0U;
-
-	/** Verify the destination address range before writing */
-	Status = XPlmi_VerifyAddrRange(ReadBack.DestAddr, ReadBack.DestAddr + (u64)ReadBack.MaxSize - 1U);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XLOADER_ERR_INVALID_READBACK_PDI_DEST_ADDR;
-		goto END;
-	}
 
 	Status = XPlmi_SetReadBackProps(&ReadBack);
 	if (Status != XST_SUCCESS) {
