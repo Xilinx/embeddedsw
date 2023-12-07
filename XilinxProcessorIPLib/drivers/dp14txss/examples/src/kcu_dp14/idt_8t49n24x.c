@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,7 +33,9 @@
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
+#ifndef SDT
 #include "microblaze_sleep.h"
+#endif
 #include <stdlib.h>
 #include <math.h>
 

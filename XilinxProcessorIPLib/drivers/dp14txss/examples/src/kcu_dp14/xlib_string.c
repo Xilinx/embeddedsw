@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +22,10 @@
 #include "xuartlite_l.h"
 #include "xparameters.h"
 #include "xtmrctr.h"
+
+#ifdef SDT
+#define XPAR_MICROBLAZE_CORE_CLOCK_FREQ_HZ  XPAR_CPU_CORE_CLOCK_FREQ_HZ
+#endif
 
 char xil_getc(u32 timeout_ms){
 	char c;
