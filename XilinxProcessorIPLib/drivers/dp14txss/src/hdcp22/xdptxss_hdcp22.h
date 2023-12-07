@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +31,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
+#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 #include "xhdcp22_tx_dp.h"
 
 /************************** Constant Definitions *****************************/
@@ -78,6 +80,7 @@ int XDpTxSs_HdcpPoll(void *Instance);
 int XDpTxSs_HdcpPushEvent(void *Instance, XDpTxSs_HdcpEvent Event);
 u8 XDpTxSs_IsSinkHdcp22Capable(void *Instance);
 
+#endif /*(XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)*/
 
 #ifdef __cplusplus
 }

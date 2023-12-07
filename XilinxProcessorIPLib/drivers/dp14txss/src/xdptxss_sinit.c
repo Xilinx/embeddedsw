@@ -42,7 +42,7 @@
 
 
 /************************** Variable Definitions *****************************/
-
+extern XDpTxSs_Config XDpTxSs_ConfigTable[XPAR_XDPTXSS_NUM_INSTANCES];
 
 /************************** Function Definitions *****************************/
 
@@ -63,6 +63,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XDpTxSs_Config *XDpTxSs_LookupConfig(u16 DeviceId)
 {
 	extern XDpTxSs_Config XDpTxSs_ConfigTable[XPAR_XDPTXSS_NUM_INSTANCES];
@@ -83,4 +84,49 @@ XDpTxSs_Config *XDpTxSs_LookupConfig(u16 DeviceId)
 
 	return (XDpTxSs_Config *)CfgPtr;
 }
+#else
+XDpTxSs_Config *XDpTxSs_LookupConfig(UINTPTR BaseAddress)
+{
+	XDpTxSs_Config *CfgPtr = NULL;
+	u32 Index;
+
+	/* Checking for device id for which instance it is matching */
+	for (Index = (u32)0x0; XDpTxSs_ConfigTable[Index].Name != NULL;
+								Index++) {
+		/* Assigning address of config table if both device ids
+		 * are matched
+		 */
+		if ((XDpTxSs_ConfigTable[Index].BaseAddress == BaseAddress) ||
+           (!BaseAddress)){
+			CfgPtr = &XDpTxSs_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XDpTxSs_Config *)CfgPtr;
+}
+#endif
+#ifdef SDT
+/*****************************************************************************/
+/**
+* This function returns the Index number of config table using BaseAddress.
+*
+* @param  Base address of the instance
+*
+* @return Index number of the config table
+*
+********************************************************************************/
+
+u32 XDpTxSs_GetDrvIndex(UINTPTR BaseAddress)
+{
+ u32 Index = 0;
+
+ for (Index = 0U; XDpTxSs_ConfigTable[Index].Name != NULL; Index++) {
+   if ((XDpTxSs_ConfigTable[Index].BaseAddress) == BaseAddress) {
+	break;
+   }
+ }
+ return Index;
+}
+#endif
 /** @} */
