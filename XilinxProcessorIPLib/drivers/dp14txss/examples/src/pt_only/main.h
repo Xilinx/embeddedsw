@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -67,11 +68,11 @@
 #include "videofmc_defs.h"
 #include "idt_8t49n24x.h"
 
+#ifndef SDT
 #if XPAR_XV_FRMBUFRD_NUM_INSTANCES
 #include "xv_frmbufrd_l2.h"
 #define FRMBUF_RD_DEVICE_ID  XPAR_XV_FRMBUFRD_0_DEVICE_ID
 #endif
-
 #if XPAR_XV_FRMBUFWR_NUM_INSTANCES
 #include "xv_frmbufwr_l2.h"
 #define FRMBUF_WR_DEVICE_ID  XPAR_XV_FRMBUFWR_0_DEVICE_ID
@@ -79,6 +80,19 @@
 
 #ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 #include "xv_axi4s_remap.h"
+#endif
+#else
+#if XPAR_XV_FRMBUFRD_NUM_INSTANCES
+#include "xv_frmbufrd_l2.h"
+#endif
+
+#if XPAR_XV_FRMBUFWR_NUM_INSTANCES
+#include "xv_frmbufwr_l2.h"
+#endif
+
+#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
+#include "xv_axi4s_remap.h"
+#endif
 #endif
 
 #include "xi2stx.h"
@@ -99,6 +113,7 @@
 * There is only one interrupt controlled to be selected from SCUGIC and GPIO
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
+#ifndef SDT
 #define XINTC_DPTXSS_DP_INTERRUPT_ID \
 	XPAR_FABRIC_DP14TXSS_0_VEC_ID
 
@@ -118,7 +133,7 @@
 #endif
 
 #define XTIMER0_DEVICE_ID 	XPAR_TMRCTR_0_DEVICE_ID
-
+#endif
 #define VIDEO_CRC_BASEADDR 	XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR
 #define UARTLITE_BASEADDR 	XPAR_PSU_UART_0_BASEADDR
 #define VIDPHY_BASEADDR 	XPAR_VPHY_0_BASEADDR
@@ -135,20 +150,33 @@
 			XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX_BASEADDR
 #define VIDEO_FRAME_CRC_RX_BASEADDR \
 			XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR
+#ifndef SDT
 #define REMAP_RX_BASEADDR  XPAR_DP_RX_HIER_0_REMAP_RX_S_AXI_CTRL_BASEADDR
 #define REMAP_TX_BASEADDR  XPAR_DP_TX_HIER_0_REMAP_TX_S_AXI_CTRL_BASEADDR
 #define REMAP_RX_DEVICE_ID  XPAR_DP_RX_HIER_0_REMAP_RX_DEVICE_ID
 #define REMAP_TX_DEVICE_ID  XPAR_DP_TX_HIER_0_REMAP_TX_DEVICE_ID
+#endif
 #define RX_ACR_ADDR XPAR_DP_RX_HIER_0_RX_ACR_BASEADDR
-
+#ifndef SDT
 #define AXI_SYSTEM_CLOCK_FREQ_HZ \
 			XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQ_HZ
+#else
+#define AXI_SYSTEM_CLOCK_FREQ_HZ \
+XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY
+#endif
 /* DP Specific Defines
  */
+#ifndef SDT
 #define SET_TX_TO_2BYTE            \
     (XPAR_XDP_0_GT_DATAWIDTH/2)
 #define SET_RX_TO_2BYTE            \
     (XPAR_XDP_0_GT_DATAWIDTH/2)
+#else
+#define SET_TX_TO_2BYTE            \
+    (XPAR_XDP_0_GT_DATA_WIDTH/2)
+#define SET_RX_TO_2BYTE            \
+    (XPAR_XDP_0_GT_DATA_WIDTH/2)
+#endif
 #define XDP_RX_CRC_CONFIG       0x074
 #define XDP_RX_CRC_COMP0        0x078
 #define XDP_RX_CRC_COMP1        0x07C
