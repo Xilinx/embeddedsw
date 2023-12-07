@@ -26,6 +26,9 @@
  * 0.7   hb    02/10/2022  Modified print information
  * 0.8   gayu  05/19/2023  Added Test print summary and updated copyright
  *                         information
+ * 0.9   anv   10/18/2023  Added macro protection to Enable Error Injection
+ *                         Feature usage and Updated to get
+ *                         XilSEM CRAM status prints
  * </pre>
  *
  *****************************************************************************/
@@ -173,6 +176,7 @@ XStatus XSem_CfrApiStopScan (void)
 	return Status;
 }
 
+#ifdef XILSEM_ERRINJ_ENABLE
 /*****************************************************************************
  *
  * @brief    	Function to inject error in CFRAME using Client IPI interface.
@@ -312,74 +316,6 @@ XStatus Xsem_CfrApiInjctCrcErr()
 }
 
 /******************************************************************************
- * @brief	This function is used to Register XilSEM event notifications
- *
- * @param[in]	Enable : Enable event notification in XilSEM
- *
- * @return	Status : Success or Failure
- *
- *****************************************************************************/
-int Xsem_CfrEventRegisterNotifier(u32 Enable)
-{
-	int Status;
-
-	if (Enable) {
-		Notifier.Flag = 1U;
-	} else {
-		Notifier.Flag = 0U;
-	}
-	/* In this example all CRAM events are enabled
-	 * If you want to enable a particular event set the Event member in
-	 * Notifier structure with corresponding event.
-	 */
-	Status = XSem_RegisterEvent(&IpiInst, &Notifier);
-
-	return Status;
-}
-
-/******************************************************************************
- * @brief	IpiCallback to receive event messages
- *
- * @param[in]	InstancePtr : Pointer to IPI driver instance
- *
- *****************************************************************************/
-void XSem_IpiCallback(XIpiPsu *const InstancePtr)
-{
-	int Status;
-	u32 Payload[PAYLOAD_ARG_CNT] = {0};
-
-
-	Status = XIpiPsu_ReadMessage(&IpiInst, SRC_IPI_MASK, Payload, \
-			PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERROR #%d while reading IPI buffer\n", Status);
-		return;
-	}
-
-	if ((XSEM_EVENT_ERROR == Payload[0]) && \
-			(XSEM_NOTIFY_CRAM == Payload[1])) {
-		if (XSEM_EVENT_CRAM_UNCOR_ECC_ERR == Payload[2]) {
-			EventCnt_UnCorEcc = 1U;
-		} else if (XSEM_EVENT_CRAM_CRC_ERR == Payload[2]) {
-			EventCnt_Crc = 1U;
-		} else if (XSEM_EVENT_CRAM_INT_ERR == Payload[2]) {
-			xil_printf("[ALERT] Received internal error event" \
-				" notification from XilSEM\n\r");
-			EventCnt_IntErr = 1U;
-		} else if (XSEM_EVENT_CRAM_COR_ECC_ERR == Payload[2]) {
-			EventCnt_CorEcc = 1U;
-		} else {
-			xil_printf("%s Someother callback received: %d:%d:%d\n",
-					__func__, Payload[0], \
-					Payload[1], Payload[2]);
-		}
-	} else {
-		xil_printf("%s Some other callback received: %d\n", \
-				__func__, Payload[0]);
-	}
-}
-
-/******************************************************************************
  * @brief	This function checks if correctable error counter is incremented
  * 	        after error injection is successful
  *
@@ -426,7 +362,6 @@ void PrintErrReport(u32 IntialCorErrCnt)
 	xil_printf("-----------------------------------------------------\n\r");
 	xil_printf("-----------------Print Report------------------------\n\r");
 	xil_printf("-----------------------------------------------------\n\r");
-
 	/*Check error is detected and corrected*/
 	(void)XSem_CmdCfrGetStatus(&CfrStatusInfo);
 	TempA = (CRAM_STATUS_COR_ERR_MASK |
@@ -553,29 +488,103 @@ void PrintErrReport(u32 IntialCorErrCnt)
 			" Status = 0x%08x\n\r", CfrStatusInfo.Status);
 		FailCnt++;
 	}
+}
+#endif /* End of XILSEM_ERRINJ_ENABLE */
 
+/******************************************************************************
+ * @brief	This function is used to Register XilSEM event notifications
+ *
+ * @param[in]	Enable : Enable event notification in XilSEM
+ *
+ * @return	Status : Success or Failure
+ *
+ *****************************************************************************/
+int Xsem_CfrEventRegisterNotifier(u32 Enable)
+{
+	int Status;
+
+	if (Enable) {
+		Notifier.Flag = 1U;
+	} else {
+		Notifier.Flag = 0U;
+	}
+	/* In this example all CRAM events are enabled
+	 * If you want to enable a particular event set the Event member in
+	 * Notifier structure with corresponding event.
+	 */
+	Status = XSem_RegisterEvent(&IpiInst, &Notifier);
+
+	return Status;
 }
 
+/******************************************************************************
+ * @brief	IpiCallback to receive event messages
+ *
+ * @param[in]	InstancePtr : Pointer to IPI driver instance
+ *
+ *****************************************************************************/
+void XSem_IpiCallback(XIpiPsu *const InstancePtr)
+{
+	int Status;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
+
+
+	Status = XIpiPsu_ReadMessage(&IpiInst, SRC_IPI_MASK, Payload, \
+			PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERROR #%d while reading IPI buffer\n", Status);
+		return;
+	}
+
+	if ((XSEM_EVENT_ERROR == Payload[0]) && \
+			(XSEM_NOTIFY_CRAM == Payload[1])) {
+		if (XSEM_EVENT_CRAM_UNCOR_ECC_ERR == Payload[2]) {
+			xil_printf("Received CRAM Uncorrecatble error event \n");
+			EventCnt_UnCorEcc = 1U;
+		} else if (XSEM_EVENT_CRAM_CRC_ERR == Payload[2]) {
+			xil_printf("Received CRAM Uncorrecatble error event \n");
+			EventCnt_Crc = 1U;
+		} else if (XSEM_EVENT_CRAM_INT_ERR == Payload[2]) {
+			xil_printf("[ALERT] Received internal error event" \
+				" notification from XilSEM\n\r");
+			EventCnt_IntErr = 1U;
+		} else if (XSEM_EVENT_CRAM_COR_ECC_ERR == Payload[2]) {
+			xil_printf("Received CRAM Correcatble error event \n");
+			EventCnt_CorEcc = 1U;
+		} else {
+			xil_printf("%s Someother callback received: %d:%d:%d\n",
+					__func__, Payload[0], \
+					Payload[1], Payload[2]);
+		}
+	} else {
+		xil_printf("%s Some other callback received: %d\n", \
+				__func__, Payload[0]);
+	}
+}
 
 /***************************************************************************
  * @brief	Main showing example with usage of API's to StartScan, StopScan,
  *		& Error Inject
  **************************************************************************/
-
 int main(void)
 {
 	XStatus Status = XST_SUCCESS;
 	XSemCfrStatus CfrStatusInfo = {0};
 	u32 IsInitDone = 0U;
+
+#ifdef XILSEM_ERRINJ_ENABLE
 	u32 IsErrorInjected = 0U;
 	u32 IntialCorErrCnt = 0U;
+#endif /* End of XILSEM_ERRINJ_ENABLE */
+
 	XSemIpiResp IpiResp={0};
 	u32 CframeAddr = 0xFU;
 	u32 RowLoc = 0U;
 	u32 GoldenCrc = 0U;
 	u32 TotalFrames[7];
 	u32 Id;
-	u32 TotalCnt = 18U;
+	u32 FailCnt= 0;
+	u32 Index =0U;
 
 	/* Initialize IPI Driver
 	 * This initialization is required to get XilSEM event notifications
@@ -593,6 +602,12 @@ int main(void)
 	 * This is applicable when CRAM Scan is set for deferred start up.
 	 */
 	(void)XSem_CmdCfrGetStatus(&CfrStatusInfo);
+	xil_printf("CRAM Scan Status:%x\n",CfrStatusInfo.Status);
+	for(Index = 0U; Index < MAX_CRAMERR_REGISTER_CNT; Index++) {
+		xil_printf("Last Corrected Location_%x High Addr: %x Low Addr: %x\n", \
+				Index,CfrStatusInfo.ErrAddrH,CfrStatusInfo.ErrAddrL);
+	}
+	xil_printf("Total CE count: %x\n" ,CfrStatusInfo.ErrCorCnt);
 	IsInitDone = CfrStatusInfo.Status & CRAM_STATUS_INIT_DONE_MASK;
 	if (IsInitDone != CRAM_STATUS_INIT_DONE_MASK) {
 		Status = XSem_CfrApiInitCram();
@@ -607,20 +622,25 @@ int main(void)
 		xil_printf("CRAM scan is configured for immediate start\n\r");
 	}
 
+#ifdef XILSEM_ERRINJ_ENABLE
 	/*Capture Initial error count*/
 	IntialCorErrCnt = CfrStatusInfo.ErrCorCnt;
+#endif /* End of XILSEM_ERRINJ_ENABLE */
 
 	/* Enable event Notifications to receive notfications from PLM
 	 * upon detection of any error in CFRAME
 	 */
 	Xsem_CfrEventRegisterNotifier(1U);
 
+#ifdef XILSEM_ERRINJ_ENABLE
 	/* The following sequence demonstrates how to inject errors in CRAM
 	 * 1. StopScan
 	 * 2. InjectError
 	 * 3. StartScan
 	 * 4. Read Correctable error count in case of correctable errors and status
+	 * 5. For Error injection feature check enable XILSEM_ERRINJ_ENABLE macro
 	 */
+
 	/* Stop Scan */
 	Status = XSem_CfrApiStopScan();
 	if (XST_SUCCESS != Status) {
@@ -636,6 +656,7 @@ int main(void)
 	 * If you want to inject uncorrectable error replace the function call
 	 * with Xsem_CfrApiInjctUnCorErr.
 	 */
+
 	Status = Xsem_CfrApiInjctCorErr();
 	if (Status == XST_SUCCESS){
 		IsErrorInjected = 1U;
@@ -669,6 +690,7 @@ int main(void)
 
 	/*Check and print error report*/
 	PrintErrReport(IntialCorErrCnt);
+#endif /* End of XILSEM_ERRINJ_ENABLE */
 
 	/* Read Frame ECC values of a particular frame over IPI */
 	Status = XSem_CmdCfrReadFrameEcc(&IpiInst, \
@@ -738,10 +760,7 @@ int main(void)
 
 END:
 	xil_printf("\n\r-------------- Test Report --------------\n\r");
-
-	xil_printf("Total  : %d\n\r", TotalCnt);
-	xil_printf("Passed : %d\n\r", TotalCnt - FailCnt);
-	xil_printf("Failed : %d\n\r", FailCnt);
+	xil_printf("Failed Command Count : %d\n\r", FailCnt);
 	if(FailCnt) {
 		xil_printf("CRAM examples Failed \n");
 	}else{

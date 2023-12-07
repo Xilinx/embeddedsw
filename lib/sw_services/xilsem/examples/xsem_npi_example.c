@@ -23,6 +23,9 @@
  *                         interpretation
  * 0.7   gayu  05/19/2023  Added Test print summary and updated copyright
  *                         information
+ * 0.8   anv   10/18/2023  Added macro protection to Enable Error Injection
+ *                         Feature usage and Updated to get
+ *                         XilSEM NPI status prints
  * </pre>
  *
  *****************************************************************************/
@@ -49,6 +52,9 @@
 #define NPI_DESC_BASE_ADDR_MASK				(0xFFFF0000U)
 #define NPI_SLAVE_SKIP_CNT_MASK				(0x000000FFU)
 #define DataMaskShift(Data, Mask, Shift)	(((Data) & (Mask)) >> (Shift))
+#define XSEM_NPI_SCAN_STATUS_MASK	(0xFFFU)
+#define XSEM_NPI_SCAN_ACTIVE		(0xA04U)
+#define XSEM_NPI_SCAN_IDLE			(0xA01U)
 
 static XIpiPsu IpiInst;
 static XScuGic GicInst;
@@ -309,6 +315,7 @@ void XSem_IpiCallback(XIpiPsu *const InstancePtr)
 	}
 }
 
+#ifdef XILSEM_ERRINJ_ENABLE
 /******************************************************************************
  * @brief	Verifies and Prints error report
  *
@@ -327,7 +334,6 @@ void PrintErrReport(void)
 	xil_printf("-----------------------------------------------------\n\r");
 	xil_printf("-----------------Print Report------------------------\n\r");
 	xil_printf("-----------------------------------------------------\n\r");
-
 	/* Check if SHA mismatch error is reported */
 	Status = XSem_CmdNpiGetStatus(&NpiStatus);
 	if (XST_SUCCESS != Status) {
@@ -441,8 +447,8 @@ void PrintErrReport(void)
 		}
 	}
 	xil_printf("----------------------------------------------------\n\r");
-
 }
+#endif /* End of XILSEM_ERRINJ_ENABLE */
 
 /*****************************************************************************/
 /**
@@ -464,13 +470,17 @@ void PrintErrReport(void)
 int main(void)
 {
 	XStatus Status = XST_FAILURE;
+	u32 TempVal = 0U;
 	u32 TempA_32 = 0U;
 	u32 TempB_32 = 0U;
+
+#ifdef XILSEM_ERRINJ_ENABLE
 	u32 TimeoutCount = 0U;
-	u32 TotalCnt = 16U;
+#endif /* End of XILSEM_ERRINJ_ENABLE */
+
 	XSemNpiStatus NpiStatus = {0};
 	XSemIpiResp IpiResp = {0};
-
+	u32 Index= 0U;
 	/* Disable cache to enable PLM access to OCM registers */
 	Xil_DCacheDisable();
 
@@ -493,11 +503,28 @@ int main(void)
 	 * 6. Read current Golden SHA from descriptors
 	 * Note: Execute the sequence again to correct the injected error,
 	 *       but the error status will remain till POR.
+	 * Note: For Error injection feature check enable
+	 *       XILSEM_ERRINJ_ENABLE macro
 	 */
 
 	/* Check if NPI is stopped or not started previously */
 	Status = XSem_CmdNpiGetStatus(&NpiStatus);
-	if (XST_SUCCESS != Status) {
+	TempVal = DataMaskShift(NpiStatus.Status,
+					XSEM_NPI_SCAN_STATUS_MASK, 0U);
+	if ((TempVal == XSEM_NPI_SCAN_ACTIVE) ||
+					(TempVal == XSEM_NPI_SCAN_IDLE)){
+		for(Index = 0U; Index < MAX_NPI_SLV_SKIP_CNT; Index++){
+		xil_printf("NPI Scan Fail Count for register %x: %x\n",\
+				Index,NpiStatus.SlvSkipCnt[Index]);
+		}
+		xil_printf("SHA mismatch Err details recorded as\n");
+		for(Index = 0U; Index < MAX_NPI_ERR_INFO_CNT; Index++){
+		xil_printf("ErrInfo[%x]: %x\n",Index,NpiStatus.ErrInfo[Index]);
+		}
+		xil_printf("NPI Scan Count = %x\n",NpiStatus.ScanCnt);
+		xil_printf("HBCount = %x\n",NpiStatus.HbCnt);
+	}
+	else {
 		xil_printf("[%s] ERROR: NPI Status read failure.\n\r", \
 				__func__, Status);
 		FailCnt++;
@@ -551,7 +578,7 @@ int main(void)
 
 	/* Store total descriptor count */
 	TotalDescCnt = DescData_PreInj.DescriptorCount;
-
+#ifdef XILSEM_ERRINJ_ENABLE
 	/* Stop NPI scan */
 	Status = XSem_CmdNpiStopScan(&IpiInst, &IpiResp);
 	if ((XST_SUCCESS == Status) &&
@@ -634,14 +661,16 @@ int main(void)
 			__func__);
 	Status = XST_FAILURE;
 	FailCnt++;
+#endif /* End of XILSEM_ERRINJ_ENABLE */
 	goto END;
-
 END:
+
+#ifdef XILSEM_ERRINJ_ENABLE
 	PrintErrReport();
+#endif /* End of XILSEM_ERRINJ_ENABLE */
+
 	xil_printf("\n\r-------------- Test Report --------------\n\r");
-	xil_printf("Total  : %d\n\r", TotalCnt);
-	xil_printf("Passed : %d\n\r", (TotalCnt - FailCnt));
-	xil_printf("Failed : %d\n\r", FailCnt);
+	xil_printf("Failed Command Count : %d\n\r", FailCnt);
 
 	if(FailCnt) {
 			xil_printf("NPI examples Failed \n");
