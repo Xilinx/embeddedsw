@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +41,9 @@
 ******************************************************************************/
 
 #include "xdptxss_zcu102_mst_pt.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 #define I2C_MUX_device_address 0x74
 #define Si570_device_address 0x5D
@@ -300,9 +304,10 @@ u32 DpMST_Main()
     xil_printf ("used for this example application demo !!! \r\n");
 
     operationMenu();
+#ifndef SDT
     XScuGic_Disable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
     XScuGic_Disable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
-
+#endif
 
 	while (1) { // for menu loop
 		UserInput = XUartPs_RecvByte_NonBlocking();
@@ -357,20 +362,28 @@ u32 DpMST_PlatformInit(void)
 	u8 LineRate_init = XDP_TX_LINK_BW_SET_540GBPS;
 
 	// Initialize timer.
+#ifndef SDT
 	Status = XTmrCtr_Initialize(&TmrCtr, XPAR_TMRCTR_0_DEVICE_ID);
+#else
+	Status = XTmrCtr_Initialize(&TmrCtr, XPAR_XTMRCTR_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS){
 		xil_printf("ERR:Timer failed to initialize. \r\n");
 		return XST_FAILURE;
 	}
 	// Set up timer options.
-	XTmrCtr_SetResetValue(&TmrCtr, XPAR_TMRCTR_0_DEVICE_ID, TIMER_RESET_VALUE);
-	XTmrCtr_Start(&TmrCtr, XPAR_TMRCTR_0_DEVICE_ID);
+	XTmrCtr_SetResetValue(&TmrCtr, XTC_TIMER_0, TIMER_RESET_VALUE);
+	XTmrCtr_Start(&TmrCtr, XTC_TIMER_0);
 
 
     /*
      * Initialize the IIC driver so that it is ready to use.
      */
+#ifndef SDT
     ConfigPtr_IIC = XIic_LookupConfig(IIC_DEVICE_ID);
+#else
+    ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_0_BASEADDR);
+#endif
     if (ConfigPtr_IIC == NULL) {
             return XST_FAILURE;
     }
@@ -380,8 +393,11 @@ u32 DpMST_PlatformInit(void)
     if (Status != XST_SUCCESS) {
             return XST_FAILURE;
     }
-
+#ifndef SDT
     XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH = XAxisScr_LookupConfig(XPAR_DP_RX_HIER_0_AXIS_SWITCH_0_DEVICE_ID);
+#else
+    XAxis_Switch_Config *ConfigPtr_AXIS_SWITCH = XAxisScr_LookupConfig(XPAR_XAXIS_SWITCH_0_BASEADDR);
+#endif
      if (ConfigPtr_AXIS_SWITCH == NULL) {
              return XST_FAILURE;
      }
@@ -425,6 +441,7 @@ u32 DpMST_PlatformInit(void)
 #endif
 //    XVidFrameCrc_Initialize(&VidFrameCRC);
 	/* FrameBuffer initialization. */
+#ifndef SDT
 	Status = XVFrmbufRd_Initialize(&frmbufrd, FRMBUF_RD_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Frame Buffer Read "
@@ -438,7 +455,21 @@ u32 DpMST_PlatformInit(void)
 			   "initialization failed\r\n");
 		return (XST_FAILURE);
 	}
+#else
+	Status = XVFrmbufRd_Initialize(&frmbufrd, XPAR_XV_FRMBUFRD_0_BASEADDR);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERROR:: Frame Buffer Read "
+			   "initialization failed\r\n");
+		return (XST_FAILURE);
+	}
 
+	Status = XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUFWR_0_BASEADDR);
+	if(Status != XST_SUCCESS) {
+		xil_printf("ERROR:: Frame Buffer Write "
+			   "initialization failed\r\n");
+		return (XST_FAILURE);
+	}
+#endif
 	resetIp_wr();
 	resetIp_rd();
 
@@ -452,10 +483,17 @@ u32 DpMST_PlatformInit(void)
 	i2c_write_dp141(XPAR_IIC_0_BASEADDR, I2C_TI_DP141_ADDR, 0x0B, 0x78);
 
 	/* Setup Video Phy, left to the user for implementation */
+#ifndef SDT
 	DpTxSs_VideoPhyInit(XVPHY_DEVICE_ID);
-
+#else
+	DpTxSs_VideoPhyInit(XPAR_XVPHY_0_BASEADDR);
+#endif
 	/* Obtain the device configuration for the DisplayPort TX Subsystem */
+#ifndef SDT
 	ConfigPtr = XDpTxSs_LookupConfig(XDPTXSS_DEVICE_ID);
+#else
+	ConfigPtr = XDpTxSs_LookupConfig(XPAR_DPTXSS_0_BASEADDR);
+#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -499,7 +537,11 @@ u32 DpMST_PlatformInit(void)
 
 	/* Obtain the device configuration
 	 * for the DisplayPort RX Subsystem */
+#ifndef SDT
 	ConfigPtr_rx = XDpRxSs_LookupConfig (XDPRXSS_DEVICE_ID);
+#else
+	ConfigPtr_rx = XDpRxSs_LookupConfig (XPAR_DPRXSS_0_BASEADDR);
+#endif
 	if (!ConfigPtr_rx) {
 			return XST_FAILURE;
 	}
@@ -681,7 +723,7 @@ u32 Dp_SetupIntrSystem(void)
 
 	XVFrmbufWr_SetCallback(&frmbufwr, XVFRMBUFWR_HANDLER_DONE,
 			            bufferWr_callback, &frmbufwr);
-
+#ifndef SDT
 	/* The configuration parameters of the interrupt controller */
 	XScuGic_Config *IntcConfig;
 
@@ -745,7 +787,32 @@ u32 Dp_SetupIntrSystem(void)
 
 	/* Enable exceptions. */
 	Xil_ExceptionEnable();
+#else
+    Status = XSetupInterruptSystem(&DpTxSsInst, (Xil_InterruptHandler)XDpTxSs_DpIntrHandler,
+                                   DpTxSsInst.Config.IntrId, DpTxSsInst.Config.IntrParent,
+                                   XINTERRUPT_DEFAULT_PRIORITY);
+    if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
 
+    Status = XSetupInterruptSystem(&DpRxSsInst, (Xil_InterruptHandler)XDpRxSs_DpIntrHandler,
+                                   DpRxSsInst.Config.IntrId, DpRxSsInst.Config.IntrParent,
+                                   XINTERRUPT_DEFAULT_PRIORITY);
+    if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP RX SS DP interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+
+    Status = XSetupInterruptSystem(&frmbufwr, (Xil_InterruptHandler)XVFrmbufWr_InterruptHandler,
+                                   frmbufwr.FrmbufWr.Config.IntrId, frmbufwr.FrmbufWr.Config.IntrParent,
+                                   XINTERRUPT_DEFAULT_PRIORITY);
+    if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP FrameBuffer interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+
+#endif
 	return (XST_SUCCESS);
 }
 
@@ -1651,12 +1718,20 @@ void bufferWr_callback(void *InstancePtr){
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 DpTxSs_VideoPhyInit(u16 DeviceId)
+#else
+u32 DpTxSs_VideoPhyInit(u32 BaseAddress)
+#endif
 {
 	XVphy_Config *ConfigPtr;
 
 	/* Obtain the device configuration for the DisplayPort RX Subsystem */
+#ifndef SDT
 	ConfigPtr = XVphy_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XVphy_LookupConfig(BaseAddress);
+#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -2026,7 +2101,7 @@ void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 
 	u32 TimerVal = 0, TimerVal_pre;
 	u32 NumTicks = (MicroSeconds * (
-			XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQ_HZ / 1000000));
+			XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY / 1000000));
 
 	XTmrCtr_Reset(&TmrCtr, 0);
 	XTmrCtr_Start(&TmrCtr, 0);
@@ -3214,7 +3289,11 @@ int VideoFMC_Init(void){
     /*
      * Initialize the IIC driver so that it is ready to use.
      */
+#ifndef SDT
     ConfigPtr_IIC = XIic_LookupConfig(IIC_DEVICE_ID);
+#else
+    ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_0_BASEADDR);
+#endif
     if (ConfigPtr_IIC == NULL) {
             return XST_FAILURE;
     }

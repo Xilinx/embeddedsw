@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,7 +49,9 @@
 #ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
 #include "xv_axi4s_remap.h"
 #endif
-
+#ifdef SDT
+#define XPAR_IIC_0_BASEADDR XPAR_XIIC_0_BASEADDR
+#endif
 /************************** Constant Definitions *****************************/
 
 /*
@@ -104,12 +107,19 @@
 #define FRMBUF_RD_DEVICE_ID  XPAR_XV_FRMBUFRD_0_DEVICE_ID
 #define FRMBUF_WR_DEVICE_ID  XPAR_XV_FRMBUFWR_0_DEVICE_ID
 
+#ifndef SDT
 #define SET_TX_TO_2BYTE		\
 		(XPAR_XDP_0_GT_DATAWIDTH/2)
 
 #define SET_RX_TO_2BYTE		\
 		(XPAR_XDP_0_GT_DATAWIDTH/2)
+#else
+#define SET_TX_TO_2BYTE		\
+		(XPAR_XDP_0_GT_DATA_WIDTH/2)
 
+#define SET_RX_TO_2BYTE		\
+		(XPAR_XDP_0_GT_DATA_WIDTH/2)
+#endif
 
 #define TIMER_RESET_VALUE				1000
 #define is_TX_CPLL 0
@@ -366,7 +376,11 @@ void Dppt_DetectResolution(void *InstancePtr, u16 offset,
 void remap_start(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K);
 void Dprx_ResetVideoOutput(void *InstancePtr);
 u32 Dp_SetupIntrSystem(void);
+#ifndef SDT
 u32 DpTxSs_VideoPhyInit(u16 DeviceId);
+#else
+u32 DpTxSs_VideoPhyInit(u32 BaseAddress);
+#endif
 void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds);
 u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr,
 			XDpTxSs_MainStreamAttributes Msa[4]);

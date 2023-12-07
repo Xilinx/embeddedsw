@@ -325,7 +325,9 @@ void main_loop(){
 
 	xilInfoFrame = 0; // initialize
 	XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x140);
+#ifndef SDT
 	XScuGic_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
+#endif
     set_vphy(DPTXSS_LINK_RATE);
     start_tx_only (DPTXSS_LINK_RATE, DPTXSS_LANE_COUNT,user_config);
 	sub_help_menu ();
@@ -983,10 +985,12 @@ void pt_loop(){
 	XDpTxSs_Stop(&DpTxSsInst);
 	//isue HPD
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_HPD_INTERRUPT,0xFBB80001);
+#ifndef SDT
     XScuGic_Enable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
       //Clearing the interrupt before starting
 //    XDpTxSs_Stop(&DpTxSsInst);
   	XScuGic_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
+#endif
 	sub_help_menu_pt ();
 
 	while (exit == 0) { // for menu loop
