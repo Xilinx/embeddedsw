@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xil_types.h"
@@ -10,7 +11,7 @@
 #include "xclk_wiz.h"
 
 #ifndef versal
-#define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
+#define CLK_WIZ_BASE      				XPAR_XCLK_WIZ_0_BASEADDR
 #endif
 #define CLK_LOCK                        1
 

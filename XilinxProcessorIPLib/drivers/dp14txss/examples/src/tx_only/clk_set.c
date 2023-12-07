@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,7 @@
 *******************************************************************************/
 
 #include "xparameters.h"
+#include "bspconfig.h"
 #ifndef PLATFORM_MB
 #include "xiicps.h"
 #include "sleep.h"
