@@ -29,8 +29,8 @@ struct XPm_PinNode {
 	u8 BiasStatus:PIN_NODE_BIASSTATUS_BIT_FIELD_SIZE; /**< BiasStatus: 0 – Disable; 1 – Enable */
 	u8 PullCtrl:PIN_NODE_PULLCTRL_BIT_FIELD_SIZE; /**< PullCtrl: 0 – Pull Down; 1 – Pull Up */
 	u8 TriState:PIN_NODE_TRISTATE_BIT_FIELD_SIZE; /**< TriState: 0 – Disable; 1 – Enable */
+	u8 FuncId; /**< Function unique ID of the pin */
 	)
-	XPm_PinFunc *PinFunc; /**< Function that this pin is allocated to */
 	u16 *Groups; /**< Array of group identifier supported by this pin */
 };
 

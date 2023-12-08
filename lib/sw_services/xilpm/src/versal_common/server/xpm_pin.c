@@ -38,7 +38,7 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 	XPm_PinGroup *Grp = XPmPin_GetGroupByIdx(PinIdx);
 	Pin->Groups = Grp->GroupList;
 	Pin->NumGroups = (u8)(Grp->GroupCount);
-	Pin->PinFunc = NULL;
+	Pin->FuncId = MAX_FUNCTION;
 	Pin->SubsysIdx = (u16)NODEINDEX(INVALID_SUBSYSID);
 
 	if (PinIdx <= PINS_PER_BANK) {
@@ -202,7 +202,7 @@ XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
-	Pin->PinFunc = PinFunc;
+	Pin->FuncId = (u8)(FuncId & 0xFFU);
 	Pin->Node.State = (u8)XPM_PINSTATE_ASSIGNED;
 
 	Status = XST_SUCCESS;
@@ -231,11 +231,11 @@ XStatus XPmPin_GetPinFunction(u32 PinId, u32 *FuncId)
 	if (NULL == Pin) {
 		Status = XST_INVALID_PARAM;
 		goto done;
-	} else if (NULL == Pin->PinFunc) {
+	} else if (NULL == PIN_FUNC(Pin)) {
 		*FuncId = INVALID_FUNC_ID;
 		Status = XST_SUCCESS;
 	} else {
-		*FuncId = Pin->PinFunc->Id;
+		*FuncId = Pin->FuncId;
 		Status = XST_SUCCESS;
 	}
 
