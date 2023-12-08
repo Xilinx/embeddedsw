@@ -56,6 +56,8 @@
 *       rama 08/10/2023 Changed SSIT sync error prints to DEBUG_ALWAYS for
 *                       debug level_0 option
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
+*       sk   12/08/2023 Disable master interrupts while triggering
+*                       SSIT event
 *
 * </pre>
 *
@@ -614,8 +616,10 @@ int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
 
 	if (EventIndex != XPLMI_SLRS_SYNC_EVENT_INDEX) {
 		/** - Trigger an SSIT interrupt for SLR */
+		microblaze_disable_interrupts();
 		XSECURE_REDUNDANT_IMPL(XPlmi_Out32, PMC_GLOBAL_SSIT_ERR, BitMask);
 		XSECURE_REDUNDANT_IMPL(XPlmi_Out32, PMC_GLOBAL_SSIT_ERR, 0x0U);
+		microblaze_enable_interrupts();
 	}
 	Status = XST_SUCCESS;
 
