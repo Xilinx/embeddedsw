@@ -19,6 +19,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   har  01/09/2023 Initial release
 * 1.1   am   08/18/2023 Added XCert_ErrorStatus enum
+* 1.2   har  12/08/2023 Add support for Subject Alternative Name field
 *
 * </pre>
 *
@@ -47,6 +48,8 @@ extern "C" {
 	/**< Max length of the DER encoded Subject field received from CDO */
 #define XCERT_VALIDITY_MAX_SIZE					(40U)
 	/**< Max length of the DER encoded Validity field received from CDO */
+#define XCERT_SUB_ALT_NAME_MAX_SIZE				(90U)
+	/**< Max length of the DER encoded Subject Alternative Name field received from CDO */
 #define XCERT_HASH_SIZE_IN_BYTES				(48U)
 					/**< Length of hash in bytes */
 #define XCert_Printf						XPlmi_Printf
@@ -58,7 +61,8 @@ extern "C" {
 typedef enum {
 	XCERT_ISSUER = 0U,	/**< 0U */
 	XCERT_SUBJECT,		/**< 1U */
-	XCERT_VALIDITY		/**< 2U */
+	XCERT_VALIDITY, 	/**< 2U */
+	XCERT_SUBALTNAME	/**< 3U */
 } XCert_UserCfgFields;
 
 typedef struct {
@@ -74,6 +78,9 @@ typedef struct {
 	u32 SubjectLen;		/**< Length of DER encoded Subject field */
 	u8 Validity[XCERT_VALIDITY_MAX_SIZE];	/**< DER encoded value of Validity */
 	u32 ValidityLen;	/**< Length of DER encoded Validity field */
+	u32 IsSubAltNameAvailable;	/**< Flag to indicate if Subject Alt Name is given by user */
+	u8 SubAltName[XCERT_SUB_ALT_NAME_MAX_SIZE];	/**< DER encoded value of Subject Alt Name */
+	u32 SubAltNameLen;	/**< Length of DER encoded Subject Alt Name */
 } XCert_UserCfg;
 
 typedef struct {
