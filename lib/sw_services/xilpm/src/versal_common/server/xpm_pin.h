@@ -35,6 +35,7 @@ extern "C" {
 #define VMODE				(0x0000015CU)
 #define VMODE_MASK			(0x1U)
 #define TRI_STATE			(0x200U)
+#define PIN_FUNC(pin) XPmPinFunc_GetById(pin->FuncId)
 
 /* Pin states */
 typedef enum {

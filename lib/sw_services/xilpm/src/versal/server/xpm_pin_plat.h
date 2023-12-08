@@ -22,7 +22,7 @@ extern "C" {
  */
 struct XPm_PinNode {
 	XPm_Node Node; /**< Node: Base class */
-	XPm_PinFunc *PinFunc; /**< Function that this pin is allocated to */
+	u8 FuncId; /**< Function unique ID of the pin */
 	u16 *Groups; /**< Array of group identifier supported by this pin */
 	u16 SubsysIdx;  /**< Subsystem Idx of the owner who is using this pin */
 	u8 NumGroups; /**< Number of function groups allocated to this pin */

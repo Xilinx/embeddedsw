@@ -433,7 +433,7 @@ static XStatus XPm_PinCheckPermission(const XPm_Subsystem *Subsystem, u32 NodeId
 	 * is responsible for validating the Node ID attributes
 	 * other than node index.
 	 */
-	Device = XPmDevice_GetByIndex(Pin->PinFunc->DevIdx);
+	Device = XPmDevice_GetByIndex(PIN_FUNC(Pin)->DevIdx);
 	if (NULL == Device) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_DEVICE_NOT_FOUND;
