@@ -23,6 +23,7 @@
 * 1.2   har  10/31/2023 Add support to use DevIk subject as DevAk Issuer if DevIk user config is
 *			available
 *       kpt  10/26/2023 Add support to run KAT
+*       har  12/08/2023 Add support for Subject Alternative Name field
 *
 * </pre>
 * @note
@@ -161,6 +162,8 @@ static int XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen);
 static void XCert_UpdateKeyUsageVal(u8* KeyUsageVal, XCert_KeyUsageOption KeyUsageOption);
 static int XCert_GenKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *KeyUsageExtnLen);
 static int XCert_GenExtKeyUsageField(u8* TBSCertBuf,  XCert_Config* Cfg, u32 *EkuLen);
+static inline int XCert_GenSubAltNameField(u8* TBSCertBuf, u8* SubAltName, const u32 SubAltNameValLen,
+	u32 *SubAltNameLen);
 static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u32 *ExtensionsLen);
 static int XCert_GenBasicConstraintsExtnField(u8* CertReqInfoBuf, u32 *Len);
 static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *ExtensionsLen);
@@ -425,14 +428,15 @@ int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8*
 	u32 *NumOfEntriesInUserCfgDB = XCert_GetNumOfEntriesInUserCfgDB();
 	u32 Idx;
 
-	if (FieldType > XCERT_VALIDITY) {
+	if (FieldType > XCERT_SUBALTNAME) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
 	if (((FieldType == XCERT_VALIDITY) && (Len > XCERT_VALIDITY_MAX_SIZE)) ||
 		((FieldType == XCERT_ISSUER) && (Len > XCERT_ISSUER_MAX_SIZE)) ||
-		((FieldType == XCERT_SUBJECT) && (Len > XCERT_SUBJECT_MAX_SIZE))) {
+		((FieldType == XCERT_SUBJECT) && (Len > XCERT_SUBJECT_MAX_SIZE)) ||
+		((FieldType == XCERT_SUBALTNAME) && (Len > XCERT_SUB_ALT_NAME_MAX_SIZE))) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -468,9 +472,14 @@ int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8*
 		XSecure_MemCpy(CertDB[IdxToBeUpdated].UserCfg.Subject, Val, Len);
 		CertDB[IdxToBeUpdated].UserCfg.SubjectLen = Len;
 	}
-	else {
+	else if (FieldType == XCERT_VALIDITY){
 		XSecure_MemCpy(CertDB[IdxToBeUpdated].UserCfg.Validity, Val, Len);
 		CertDB[IdxToBeUpdated].UserCfg.ValidityLen = Len;
+	}
+	else {
+		XSecure_MemCpy(CertDB[IdxToBeUpdated].UserCfg.SubAltName, Val, Len);
+		CertDB[IdxToBeUpdated].UserCfg.SubAltNameLen = Len;
+		CertDB[IdxToBeUpdated].UserCfg.IsSubAltNameAvailable = TRUE;
 	}
 
 	Status = XST_SUCCESS;
@@ -1534,6 +1543,30 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function creates the Subject Alternative Name extension field in TBS Certificate.
+ *
+ * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ *		the Subject Alternative Name extension field shall be added.
+ * @param	SubAltName is the DER encoded value of the Subject Alternative Name extension field
+ * @param	SubAltNameValLen is the length of the DER encoded value
+ * @param	SubAltNameLen is the length of the Subject Alternative Name extension field
+ *
+ * @note	This function expects the user to provide the Subject Alternative Name extension
+ *		field in DER encoded format and it will be updated in the TBS Certificate buffer.
+ *
+ ******************************************************************************/
+static inline int XCert_GenSubAltNameField(u8* TBSCertBuf, u8* SubAltName, const u32 SubAltNameValLen, u32 *SubAltNameLen)
+{
+	int Status = XST_FAILURE;
+
+	Status = XCert_CreateRawDataFromByteArray(TBSCertBuf, SubAltName, SubAltNameValLen,
+		SubAltNameLen);
+
+	return Status;
+}
+
 /******************************************************************************/
 /**
  * @brief	This function creates the X.509 v3 extensions field present in
@@ -1604,7 +1637,7 @@ static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u3
 	Curr = Curr + Len;
 
 	/**
-	 * UEID entension (2.23.133.5.4.4) should be added for self-signed
+	 * UEID extension (2.23.133.5.4.4) should be added for self-signed
 	 * DevIK certificates only
 	 */
 	if (Cfg->AppCfg.IsSelfSigned == TRUE) {
@@ -1623,6 +1656,15 @@ static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u3
 
 	if (Cfg->AppCfg.IsSelfSigned == TRUE) {
 		Status = XCert_GenExtKeyUsageField(Curr, Cfg, &Len);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Curr = Curr + Len;
+	}
+
+	if (Cfg->UserCfg->IsSubAltNameAvailable == TRUE) {
+		Status = XCert_GenSubAltNameField(Curr, Cfg->UserCfg->SubAltName,
+			Cfg->UserCfg->SubAltNameLen, &Len);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
