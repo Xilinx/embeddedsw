@@ -44,6 +44,8 @@
 *       bm   09/04/2023 Added support to use DDR region for backup of PLM data
 *                       structures during In-Place PLM Update
 * 1.05  sk   09/26/2023 Added Error Codes for In-Place Update from Image Store
+*       mss  12/06/2023 Added Error Code XPLMI_ERR_INPLACE_INVALID_OPTIONAL_DATA_LEN
+*
 * </pre>
 *
 * @note
@@ -141,6 +143,8 @@ enum {
 	XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE, /**< 0x203 - Error while In-Place Update from Image Store */
 	XPLMI_ERR_INPLACE_UPDATE_INVALID_SOURCE, /**< 0x204 - Error while In-Place Update request other than IS or DDR */
 	XPLMI_ERR_INPLACE_UPDATE_INVALID_PAYLOAD_LEN, /**< 0x205 - Error while In-Place Update with Invalid Payload Len */
+	XPLMI_ERR_INPLACE_INVALID_OPTIONAL_DATA_LEN,	/**< 0x206 - Error when invalid Optional Data Length is used in
+													the PDI used for In-Place PLM Update */
 };
 
 typedef struct {

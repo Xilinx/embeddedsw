@@ -24,6 +24,8 @@
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       dd   03/28/2023 Updated doxygen comments
 * 1.02  sk   05/22/2023 Added redundancy for validate checksum
+*       mss  12/06/2023 Added ErrorCode in XPlm_CompatibilityCheck API
+*                       for OptionalDataLen Check
 *
 * </pre>
 *
@@ -197,8 +199,7 @@ int XPlm_CompatibilityCheck(u32 PdiAddr)
 	/* Check if Optional data length is non-zero */
 	OptionalDataLen = XPlmi_In32(Offset + XIH_OPTIONAL_DATA_LEN_OFFSET);
 	if (OptionalDataLen == 0U) {
-		XPlmi_Printf(DEBUG_GENERAL, "Skipped DS Compatibility Check\n\r");
-		Status = XST_SUCCESS;
+		Status = XPLMI_ERR_INPLACE_INVALID_OPTIONAL_DATA_LEN;
 		goto END;
 	}
 
