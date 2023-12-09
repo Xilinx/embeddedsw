@@ -202,6 +202,7 @@ typedef enum {
 	XOCP_PCR_ERR_SWPCR_CONFIG_NOT_RECEIVED, /**< 0x0A SwPcr configuration is not done */
 	XOCP_PCR_ERR_INSUFFICIENT_BUF_MEM, /**< 0x0B Pcr insufficient buffer size provided */
 	XOCP_PCR_ERR_SWPCR_DUP_EXTEND, /**< 0x0C Duplicate Pcr extend request received */
+	XOCP_PCR_ERR_DATA_IN_INVALID_MEM, /**< 0x0D SW PCR data is in upper DDR memory */
 
 	XOCP_DICE_CDI_PARITY_ERROR = 0x20,	/**< 0x20 CDI parity error */
 	XOCP_DME_ERR,		/**< 0x21 DME signing error */

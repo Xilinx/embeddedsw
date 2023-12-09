@@ -23,6 +23,7 @@
 *       kal  06/02/23 Added SW PCR extend and logging functions
 *       yog  08/07/23 Replaced trng API calls using trngpsx driver
 * 1.3   kpt  11/06/23 Add support to run SHA384 KAT during DME
+*       kal  12/09/23 Added a check for DataAddr if size > 48 bytes for SWPCR
 *
 * </pre>
 * @note
@@ -502,6 +503,10 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 			PcrNum, MeasurementIdx, DigestIdxInLog);
 
 	if (DataSize > XOCP_PCR_HASH_SIZE_IN_BYTES) {
+		if (((u32)(DataAddr >> 32U)) != 0x00U) {
+			Status = (int)XOCP_PCR_ERR_DATA_IN_INVALID_MEM;
+			goto END;
+		}
 		SwPcr->Data[DigestIdxInLog].DataAddr = DataAddr;
 	}
 	else {
