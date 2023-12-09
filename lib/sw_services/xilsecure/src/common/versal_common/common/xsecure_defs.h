@@ -155,11 +155,15 @@ typedef struct {
 	u64 InDataAddr;	 /**< Input data address*/
 	u64 OutDataAddr; /**< Output data address*/
 	u64 GcmTagAddr; /**< Gcm Tag address*/
+	u64 AadAddr;	/**< Aad address*/
 	u32 OperationId;/**< Operation type - Encrypt or decrypt */
 	u32 KeySrc;	/**< AES Key source */
 	u32 KeySize;	/**< Size of AES key*/
 	u32 Size;	/**< Length of input data*/
 	u32 IsLast;	/**< Flag to indicate last update of data*/
+	u32 AadSize;	/**< Aad size*/
+	u32 IsGmacEnable; /**< Flag for GMAC operation */
+	u32 IsUpdateAadEn; /**<Enable if operation includes update AAD */
 } XSecure_AesDataBlockParams;
 
 typedef enum {

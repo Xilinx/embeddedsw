@@ -34,6 +34,7 @@
 * 5.1   skg  12/14/22 Added SSIT Provisioning support
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *	yog  05/04/23 Fixed HIS COMF violations
+* 5.3	vss  10/03/23 Added single API support for AES AAD and GMAC operations
 *
 * </pre>
 * @note
@@ -745,9 +746,13 @@ int XSecure_AesEncryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	AesParams->Size = Size;
 	AesParams->IsLast = TRUE;
 	AesParams->OutDataAddr = OutDataAddr;
+	AesParams->IsUpdateAadEn = FALSE;
 
 	/**<AES Encrypt Final*/
 	AesParams->GcmTagAddr = GcmTagAddr;
+
+	/**< AES GMAC operation*/
+	AesParams->IsGmacEnable = FALSE;
 
 	Buffer = (u64)(UINTPTR)AesParams;
 
@@ -821,9 +826,13 @@ int XSecure_AesDecryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	AesParams->Size = Size;
 	AesParams->IsLast = TRUE;
 	AesParams->OutDataAddr = OutDataAddr;
+	AesParams->IsUpdateAadEn = FALSE;
 
 	/**<AES Decrypt Final*/
 	AesParams->GcmTagAddr = GcmTagAddr;
+
+	/**< AES GMAC operation*/
+	AesParams->IsGmacEnable = FALSE;
 
 	Buffer = (u64)(UINTPTR)AesParams;
 
@@ -836,6 +845,89 @@ int XSecure_AesDecryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesDecryptData api.
+	 * Wait for IPI response from PLM with a timeout.
+	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function calls IPI request to encrypt/decrypt a single block of data
+ * 		along with update AAD/GMAC based on the user's choice.
+ *
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KeySrc  	Type of the key
+ * @param 	AesDataParams	Pointer to the Aes parameters
+ *
+ * @return
+ *	-	XST_SUCCESS - On success
+ *	-	XSECURE_AES_INVALID_PARAM - On invalid parameter
+ *	-	XSECURE_AES_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *	-	XST_FAILURE - On failure
+ *
+ ******************************************************************************/
+int XSecure_AesPerformOperation(const XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc,
+	const XSecure_AesDataBlockParams *AesDataParams)
+{
+	volatile int Status = XST_FAILURE;
+	XSecure_AesDataBlockParams *AesParams = NULL;
+	u64 Buffer;
+	u32 MemSize;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&AesParams);
+	if ((AesParams == NULL) || (MemSize < sizeof(XSecure_AesDataBlockParams))) {
+		Status = XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/**<AES Encrypt/Decrypt Init operation*/
+	AesParams->IvAddr = AesDataParams->IvAddr;
+	AesParams->OperationId = AesDataParams->OperationId;
+	AesParams->KeySrc = (u32)KeySrc;
+	AesParams->KeySize = AesDataParams->KeySize;
+
+	/**< AES Aad Update*/
+	AesParams->AadAddr = AesDataParams->AadAddr;
+	AesParams->AadSize = AesDataParams->AadSize;
+	AesParams->IsUpdateAadEn = AesDataParams->IsUpdateAadEn;
+	AesParams->IsLast = TRUE;
+
+	if (AesDataParams->IsGmacEnable == TRUE) {
+		AesParams->IsGmacEnable = TRUE;
+	}
+	else {
+		AesParams->InDataAddr = AesDataParams->InDataAddr;
+		AesParams->Size = AesDataParams->Size;
+		AesParams->OutDataAddr = AesDataParams->OutDataAddr;
+		/**< Set to FALSE for GCM operation */
+		AesParams->IsGmacEnable = FALSE;
+	}
+
+	/**< AES Encrypt/Decrypt Final*/
+	AesParams->GcmTagAddr = AesDataParams->GcmTagAddr;
+
+	Buffer = (u64)(UINTPTR)AesParams;
+
+	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesDataBlockParams));
+
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_PERFORM_OPERATION);
+	Payload[1U] = (u32)Buffer;
+	Payload[2U] = (u32)(Buffer >> 32U);
+
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesPerformOperation.
 	 * Wait for IPI response from PLM with a timeout.
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
