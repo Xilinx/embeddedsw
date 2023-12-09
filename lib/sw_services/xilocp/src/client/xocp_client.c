@@ -21,6 +21,7 @@
 *       am   01/10/23 Added client side API for dme
 * 1.2   kpt  06/02/23 Updated XOcp_GetHwPcrLog
 *       kal  06/02/23 Added client side API for SW PCR
+* 1.3   kal  12/09/23 Added a check for DataAddr if size > 48 bytes SWPCR
 *
 * </pre>
 *
@@ -216,6 +217,12 @@ int XOcp_ExtendSwPcr(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrExtendParams *E
 		goto END;
 	}
 
+	if (ExtendParams->DataSize > XOCP_EXTENDED_HASH_SIZE_IN_BYTES) {
+		if (((u32)(ExtendParams->DataAddr >> 32U)) != 0x00U) {
+			Status = (int)XOCP_PCR_ERR_DATA_IN_INVALID_MEM;
+			goto END;
+		}
+	}
 	/** Fill IPI Payload */
 	Payload[0U] = OcpHeader(0U, XOCP_API_EXTEND_SWPCR);
 	Payload[1U] = (u32)ExtendParamsAddr;
