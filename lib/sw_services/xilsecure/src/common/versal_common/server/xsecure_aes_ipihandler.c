@@ -37,6 +37,7 @@
 *	yog   05/03/2023 Fixed MISRA C violation of Rule 10.3
 *       vss	  07/14/2023 Added support for IpiChannel check
 *       vss   09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
+* 5.3	vss  10/03/23 Added single API support for AES AAD and GMAC operations
 *
 * </pre>
 *
@@ -85,6 +86,7 @@ static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh);
 static int XSecure_IsKeySrcValid(u32 KeySrc);
 static int XSecure_AesIsDataContextLost(void);
 static void XSecure_MakeAesFree(void);
+static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAddr);
 /*****************************************************************************/
 /**
  * @brief       This function calls respective IPI handler based on the API_ID
@@ -249,36 +251,7 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
-	/* Validate Key source to allow only key source other than device keys */
-	Status = XSecure_IsKeySrcValid(AesParams.KeySrc);
-	if(Status != XST_SUCCESS){
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-	/* Initialize AES engine for encryption/decryption */
-	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
-		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_ENC_KAT_MASK) != TRUE) {
-			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
-			goto END;
-		}
-
-		Status = XSecure_AesEncryptInit(XSecureAesInstPtr,
-				(XSecure_AesKeySrc)AesParams.KeySrc,
-				(XSecure_AesKeySize)AesParams.KeySize,
-				AesParams.IvAddr);
-	}
-	else {
-		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_DEC_KAT_MASK) != TRUE) {
-			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
-			goto END;
-		}
-
-		Status = XSecure_AesDecryptInit(XSecureAesInstPtr,
-				(XSecure_AesKeySrc)AesParams.KeySrc,
-				(XSecure_AesKeySize)AesParams.KeySize,
-				AesParams.IvAddr);
-	}
+	Status = XSecure_AesConfig(AesParams.OperationId, AesParams.KeySrc, AesParams.KeySize, AesParams.IvAddr);
 
 END:
 	if (Status != XST_SUCCESS) {
@@ -672,46 +645,42 @@ static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
-	Status = XSecure_IsKeySrcValid(AesParams.KeySrc);
-	if(Status != XST_SUCCESS){
+	Status = XSecure_AesConfig(AesParams.OperationId, AesParams.KeySrc, AesParams.KeySize, AesParams.IvAddr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XST_FAILURE;
-	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
-		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_ENC_KAT_MASK) != TRUE) {
-			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
-			goto END;
-		}
-		/**<AES Encrypt Init*/
-		Status = XSecure_AesEncryptInit(XSecureAesInstPtr,
-				(XSecure_AesKeySrc)AesParams.KeySrc,
-				(XSecure_AesKeySize)AesParams.KeySize,
-				AesParams.IvAddr);
+	if (AesParams.IsUpdateAadEn == TRUE) {
+		/**< Update AAD */
+		Status = XSecure_AesAadUpdate((u32)AesParams.AadAddr, (u32)(AesParams.AadAddr >> 32U),
+								 AesParams.AadSize, AesParams.IsGmacEnable);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		/**<AES Encrypt Data*/
-		Status = XSecure_AesEncryptData(XSecureAesInstPtr, AesParams.InDataAddr,
+	}
+
+	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
+		/**< Based on user's choice GCM/GMAC is performed */
+		if (AesParams.IsGmacEnable == FALSE) {
+			Status = XSecure_AesEncryptData(XSecureAesInstPtr, AesParams.InDataAddr,
 					AesParams.OutDataAddr, AesParams.Size, AesParams.GcmTagAddr);
+		}
+		else {
+			Status = XSecure_AesEncryptFinal(XSecureAesInstPtr,AesParams.GcmTagAddr);
+		}
+
 	}
 	else {
-		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_DEC_KAT_MASK) != TRUE) {
-			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
-			goto END;
-		}
-		/**<AES Decrypt Init*/
-		Status = XSecure_AesDecryptInit(XSecureAesInstPtr,
-			(XSecure_AesKeySrc)AesParams.KeySrc,
-			(XSecure_AesKeySize)AesParams.KeySize,
-			AesParams.IvAddr);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		/**<AES Decrypt Data*/
-		Status = XSecure_AesDecryptData(XSecureAesInstPtr, AesParams.InDataAddr,
+		/**< Based on user's choice GCM/GMAC is performed */
+		if (AesParams.IsGmacEnable == FALSE) {
+			Status = XSecure_AesDecryptData(XSecureAesInstPtr, AesParams.InDataAddr,
 					AesParams.OutDataAddr, AesParams.Size, AesParams.GcmTagAddr);
+		}
+		else {
+			Status = XSecure_AesDecryptFinal(XSecureAesInstPtr,AesParams.GcmTagAddr);
+		}
 	}
+
 
 END:
 	if (Status != XST_SUCCESS) {
@@ -780,5 +749,56 @@ static int XSecure_AesIsDataContextLost(void)
 			Status = XST_DATA_LOST;
 		}
 	}
+	return Status;
+}
+/*****************************************************************************/
+/**
+ * @brief       This function is used to validate key source and initialise the encryption/decryption
+ *
+ * @param	OperationId - Decides whether oepration is encryption/decryption
+ * @param	KeySrc - Aes key source
+ * @param	KeySize - Aes key size
+ * @param	IvAddr - Iv address
+ *
+ * @return
+ *      -       XST_SUCCESS - If successfully initialised
+ *      -       XST_FAILURE - Failure in initialisation
+ *
+ ******************************************************************************/
+static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAddr)
+{
+	int Status = XST_FAILURE;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+
+	Status = XSecure_IsKeySrcValid(KeySrc);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**< Selecting the AES Encryption/Decryption operation */
+	if (OperationId == (u32)XSECURE_ENCRYPT) {
+		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_ENC_KAT_MASK) != TRUE) {
+			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
+			goto END;
+		}
+		Status = XSecure_AesEncryptInit(XSecureAesInstPtr,
+					(XSecure_AesKeySrc)KeySrc,
+					(XSecure_AesKeySize)KeySize,
+					IvAddr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	else {
+		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_DEC_KAT_MASK) != TRUE) {
+			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
+			goto END;
+		}
+		Status = XSecure_AesDecryptInit(XSecureAesInstPtr,
+				(XSecure_AesKeySrc)KeySrc,
+				(XSecure_AesKeySize)KeySize,
+				IvAddr);
+	}
+END:
 	return Status;
 }

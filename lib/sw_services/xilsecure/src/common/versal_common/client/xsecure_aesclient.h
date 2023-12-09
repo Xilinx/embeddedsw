@@ -27,6 +27,7 @@
 *       kpt  08/19/22 Added GMAC support
 * 5.2   mmd  07/09/23 Included header file for crypto algorithm information
 *	vss  09/21/23 Fixed doxygen warnings
+* 5.3	vss  10/03/23 Added single API support for AES AAD and GMAC operations
 *
 * </pre>
 * @note
@@ -107,6 +108,8 @@ int XSecure_AesEncryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
 int XSecure_AesDecryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
 	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
+int XSecure_AesPerformOperation(const XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc,
+		const XSecure_AesDataBlockParams *AesDataParams);
 int XSecure_AesGmacUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u32 AadSize, u32 IsLastChunkSrc);
 
 #ifdef __cplusplus
