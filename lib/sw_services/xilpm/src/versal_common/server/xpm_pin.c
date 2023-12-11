@@ -611,12 +611,15 @@ XStatus XPmPin_QueryAttributes(const u32 PinIndex, u32 *Resp)
 	const XPm_PinNode *Pin;
 
 	/* Check for valid pin index */
-	if ((PinIndex >= (u32)XPM_NODEIDX_STMIC_MAX) || (PinIndex == (u32)XPM_NODEIDX_STMIC_MIN)) {
+	if (PinIndex >= (u32)XPM_NODEIDX_STMIC_MAX) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	Pin = XPmPin_GetByIndex(PinIndex);
+	/* As per TRM, MIO PIN starts from 0 but the PIN node ID
+	 * generated from the toplogy CDO starts from 1 and thus the
+	 * mismatch is happening. Add +1 hack to avoid the mismatch*/
+	Pin = XPmPin_GetByIndex(PinIndex + 1U);
 	if (NULL == Pin) {
 		Status = XST_INVALID_PARAM;
 		goto done;
