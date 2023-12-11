@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2013 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -9,6 +10,7 @@
 # 1.00a hk/sg 10/17/13 First release
 # 2.0   hk    12/13/13 Modified to use new TCL API's
 # 4.1   hk    11/21/18 Use additional LFN options
+# 5.2   ap    12/11/23 Added support for microblaze risc-v
 #
 ##############################################################################
 
@@ -112,7 +114,7 @@ proc xgen_opts_file {libhandle} {
 		if {$ramfs_start_addr == ""} {
 			puts $file_handle "\#define RAMFS_START_ADDR 0x10000000"
 
-			if {$proc_type == "microblaze"} {
+			if {$proc_type == "microblaze" || $proc_type == "microblaze_riscv"} {
 				puts "WARNING : Specify RAM FS start address \
 						in system.mss for Microblaze\n"
 			}
@@ -184,7 +186,7 @@ proc xgen_opts_file {libhandle} {
 		puts $file_handle "\#define FILE_SYSTEM_SET_FS_RPATH $set_fs_rpath"
 
 		# MB does not allow word access from RAM
-		if {$proc_type != "microblaze" && $word_access == true} {
+		if {$proc_type != "microblaze" && $proc_type != "microblaze_riscv" && $word_access == true} {
 			puts $file_handle "\#define FILE_SYSTEM_WORD_ACCESS"
 		}
 	} else {

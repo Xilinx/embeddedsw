@@ -81,6 +81,7 @@ if (${XILFFS_fs_interface})
 	endif()
 
 	if((NOT "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") AND
+           (NOT "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv") AND
            (NOT "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblazeel") AND
 	   (NOT "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze") AND
 	   (NOT "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "pmu_microblaze") AND
