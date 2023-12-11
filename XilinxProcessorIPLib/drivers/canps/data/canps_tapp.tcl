@@ -12,6 +12,7 @@
 # -------- ------ -------- ----------------------------------------------------
 # 2.0     adk    10/12/13 Updated as per the New Tcl API's
 # 3.1     mus    01/14/16 Added support for microblaze
+# 3.8     ap     12/11/23 Added support for microblaze risc-v
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -107,7 +108,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    }"
 	if {$isintr == 1} {
             if {
-                $proc == "microblaze"
+                $proc == "microblaze" || $proc == "microblaze_risc"
             } then {
                     set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
             } else {
@@ -149,7 +150,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 
 	if {$isintr ==1 } {
             if {
-                $proc == "microblaze"
+                $proc == "microblaze" || $proc == "microblaze_risc"
             } then {
                     set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
             } else {
