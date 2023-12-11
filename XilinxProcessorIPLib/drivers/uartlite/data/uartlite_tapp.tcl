@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -19,6 +20,7 @@
 #			   getting overwritten for the tmr_sem IP validation
 #			   check, due to which wrong instance name being
 #			   generated in the testperiph.c file.
+# 3.10     ap     11/12/23 Added support for microblaze risc-v
 ##############################################################################
 
 ## BEGIN_CHANGELOG EDK_I
@@ -203,7 +205,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 		 return $testfunc_call
 	}
 	if {
-           $proc == "microblaze"
+           $proc == "microblaze" || $proc == "microblaze_riscv"
 	} then {
 		set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	} else {
@@ -243,7 +245,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 		 return $testfunc_call
 	}
 	if {
-            $proc == "microblaze"
+            $proc == "microblaze" || $proc == "microblaze_riscv"
 	} then {
 		set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	} else {
