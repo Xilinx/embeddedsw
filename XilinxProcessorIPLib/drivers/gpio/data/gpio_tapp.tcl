@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -11,6 +12,7 @@
 # 4.5     sd     08/05/19 Added a check for custom for running
 # 				gpiooutput example
 # 4.6	  sne    11/08/19 Fixed compilation error of armcc compiler
+# 4.11	  ap     11/12/23 Added support for microblaze risc-v
 #
 ##############################################################################
 
@@ -203,7 +205,7 @@ proc gen_testfunc_call {swproj mhsinst} {
         
         if { ${gpio_intr} == 1 && ${all_inputs} == 1 } {
 	    if {
-		 $proc == "microblaze"
+		 $proc == "microblaze" || $proc == "microblaze_riscv"
 	    } then {
 		   set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	    } else {
@@ -279,7 +281,7 @@ proc gen_testfunc_call {swproj mhsinst} {
         
         if { ${gpio_intr} == 1 && ${all_inputs} == 1 } {
             if {
-		 $proc == "microblaze"
+		 $proc == "microblaze" || $proc == "microblaze_riscv"
 	    } then {
 		   set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	    } else {
