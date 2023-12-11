@@ -80,13 +80,13 @@ class Domain(Repo):
                 f"lopper --werror -f -O {self.domain_dir} -i {self.lops_dir}/lop-cpulist.dts {self.sdt} > {dump}",
                 cwd = self.domain_dir
             )
-            avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
-            if self.proc not in avail_cpu_data.keys():
-                utils.remove(self.domain_dir)
-                print(
-                    f"[ERROR]: Please pass a valid processor name. Valid Processor Names for the given SDT are: {list(avail_cpu_data.keys())}"
-                )
-                sys.exit(1)
+        avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
+        if self.proc not in avail_cpu_data.keys():
+            utils.remove(self.domain_dir)
+            print(
+                f"[ERROR]: Please pass a valid processor name. Valid Processor Names for the given SDT are: {list(avail_cpu_data.keys())}"
+            )
+            sys.exit(1)
         if os.environ.get("VALIDATE_ARGS"):
             app_list_file = os.path.join(self.domain_dir, "app_list.yaml")
             lib_list_file = os.path.join(self.domain_dir, "lib_list.yaml")
