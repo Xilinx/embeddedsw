@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2004 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -8,6 +9,7 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ------------------------------------
 # 3.0      adk    12/10/13 Updated as per the New Tcl API's
+# 3.10     ap     12/11/23 Added support for microblaze risc-v
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_M
@@ -175,7 +177,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    }"
       if {$ifuartns550intr == 1} {
 	if {
-           $proc == "microblaze"
+           $proc == "microblaze" || $proc == "microblaze_riscv"
 	} then {
 		set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	} else {
@@ -213,7 +215,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 
       if {$ifuartns550intr == 1} {
 	if {
-          $proc == "microblaze"
+          $proc == "microblaze" || $proc == "microblaze_riscv"
 	} then {
 		set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	} else {
