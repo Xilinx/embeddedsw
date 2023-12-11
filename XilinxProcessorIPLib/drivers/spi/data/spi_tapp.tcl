@@ -10,6 +10,7 @@
 # -------- ------ -------- ------------------------------------
 # 4.0      adk    12/10/13 Updated as per the New Tcl API's
 # 4.9	   adk	  31/01/22 Fix interrupt controller name in SMP designs.
+# 4.12     ap     11/12/23 Added support for microblaze risc-v
 ##############################################################################
 
 ## BEGIN_CHANGELOG EDK_L_SP4
@@ -144,7 +145,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    }"
       if { ${spi_intr} == 1} {
         if {
-            $proc == "microblaze"
+            $proc == "microblaze" || $proc == "microblaze_riscv"
 	 } then {
 		 set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	 } else {
@@ -182,7 +183,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    }"
       if { ${spi_intr} == 1} {
          if {
-            $proc == "microblaze"
+            $proc == "microblaze" || $proc == "microblaze_riscv"
 	 } then {
 		 set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	 } else {
