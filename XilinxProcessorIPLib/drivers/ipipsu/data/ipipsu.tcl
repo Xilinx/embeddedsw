@@ -27,6 +27,7 @@
 # 2.12  sd  02/24/22 Added support for VERSAL NET
 # 2.13  sd  11/03/22 Add hack to support cores
 # 2.15  sd  11/03/23 Add support for name change of ACP
+# 2.15  ap  12/11/23 Added support for microblaze risc-v
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -67,7 +68,7 @@ proc ipi_find_cpu {ipi_list param hw_proc} {
 		set param_value [common::get_property $param [hsi::get_cells -hier $ipi]]
 		set ip_name [common::get_property IP_NAME [hsi::get_cells -hier $hw_proc]]
 		set index [string index $hw_proc end]
-		if {[string match -nocase $ip_name "microblaze"]} {
+		if {[string match -nocase $ip_name "microblaze"] || [string match -nocase $ip_name "microblaze_riscv"]} {
 			set is_pl [common::get_property IS_PL [hsi::get_cells -hier $hw_proc]]
 			if {$is_pl == 1} {
 				if { [string match -nocase "*$param_value*" S_AXI_GP4] || [string match -nocase "*$param_value*" PL_AXI_LPD] } {
