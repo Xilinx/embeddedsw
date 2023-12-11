@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -13,6 +14,7 @@
 #		    This patch fixes the interrupt id issue.
 # 1.6  adk 15/03/22 Updated interrupt id variable for CIPS3 designs
 # 		    when stdout is none.
+# 1.10 ap  11/12/23 Added support for microblaze risc-v
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -139,7 +141,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 
 	if {$isintr == 1} {
             if {
-                $proc == "microblaze"
+                $proc == "microblaze" ||  $proc == "microblaze_riscv"
             } then {
                     set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
             } else {
@@ -178,7 +180,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 
 	if {$isintr == 1} {
             if {
-                $proc == "microblaze"
+                $proc == "microblaze" || $proc == "microblaze_riscv"
             } then {
                     set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
             } else {
