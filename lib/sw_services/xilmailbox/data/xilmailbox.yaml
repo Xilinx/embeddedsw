@@ -33,6 +33,7 @@ supported_processors:
   - psx_cortexr52
   - psx_pmc
   - psx_psm
+  - microblaze_riscv
 
 supported_os:
   - standalone

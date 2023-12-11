@@ -23,7 +23,7 @@ BEGIN LIBRARY xilmailbox
   OPTION drc = mailbox_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
-  OPTION SUPPORTED_PERIPHERALS = (psv_cortexa72 psx_cortexa78 psv_cortexr5 psu_cortexa72 psu_cortexa53 psu_cortexr5 psx_cortexr52 psu_pmu psu_pmc psv_pmc psx_pmc microblaze);
+  OPTION SUPPORTED_PERIPHERALS = (psv_cortexa72 psx_cortexa78 psv_cortexr5 psu_cortexa72 psu_cortexa53 psu_cortexr5 psx_cortexr52 psu_pmu psu_pmc psv_pmc psx_pmc microblaze microblaze_riscv);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilmailbox,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx IPI Mailbox Library";
   OPTION VERSION = 1.9;
