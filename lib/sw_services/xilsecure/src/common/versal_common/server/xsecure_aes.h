@@ -43,7 +43,8 @@
 *       mmd  07/11/2023 Included header file for crypto algorithm information
 *       vss  07/14/2023 Added IsResourceBusy flag and IpiMask variable in Xsecure_Aes instance
 *       kpt  07/20/2023 Renamed XSecure_AesDpaCmDecryptKat to XSecure_AesDpaCmDecryptData
-*	vss  09/07/2023 Reverted the fix for NO_EFFECT coverity warning
+*	    vss  09/07/2023 Reverted the fix for NO_EFFECT coverity warning
+* 5.3   kpt  11/28/2023 Added XSECURE_AES_PUF_RED_EXPANDED_KEYS
 *
 * </pre>
 *
@@ -144,6 +145,7 @@ typedef enum {
 	XSECURE_AES_USER_KEY_6,			/**< User Key 6 */
 	XSECURE_AES_USER_KEY_7,			/**< User Key 7 */
 	XSECURE_AES_EXPANDED_KEYS,		/**< Expanded keys */
+	XSECURE_AES_PUF_RED_EXPANDED_KEYS,	/**< AES PUF,RED,KUP keys */
 	XSECURE_AES_ALL_KEYS,			/**< AES All keys */
 	XSECURE_AES_INVALID_KEY,		/**< AES Invalid Key */
 } XSecure_AesKeySrc;

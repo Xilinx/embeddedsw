@@ -86,10 +86,11 @@
 *       ng   07/13/2023 Added SDT support
 *       kpt  07/20/2023 Added volatile keyword for SStatus variable in XSecure_AesDecryptFinal
 *       kpt  07/20/2023 Renamed XSecure_AesDpaCmDecryptKat to XSecure_AesDpaCmDecryptData
-*	kpt  07/27/2023 Initialize KeySizeInWords to zero to avoid invalid value incase of glitch
-*	vss  09/11/2023 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS and MISRA-C Rule 10.1 violation
-*	vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
-*	vss  09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
+*	    kpt  07/27/2023 Initialize KeySizeInWords to zero to avoid invalid value incase of glitch
+*       vss  09/11/2023 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS and MISRA-C Rule 10.1 violation
+*       vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
+*       vss  09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
+* 5.3   kpt  11/28/2023 Add support to clear AES PUF,RED,KUP keys
 *
 * </pre>
 *
@@ -1638,6 +1639,9 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 	}
 	else if (KeySrc == XSECURE_AES_EXPANDED_KEYS) {
 		Mask = XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK;
+	}
+	else if (KeySrc == XSECURE_AES_PUF_RED_EXPANDED_KEYS) {
+		Mask = XSECURE_AES_KEY_CLEAR_PUF_RED_EXPANDED_KEYS_MASK;
 	}
 	else if (AesKeyLookupTbl[KeySrc].KeyClearVal != XSECURE_AES_INVALID_CFG) {
 		Mask = AesKeyLookupTbl[KeySrc].KeyClearVal;

@@ -51,6 +51,7 @@
 *       sk   08/18/2023 Fixed security review comments
 *       sk   08/28/2023 Added redundant call for XLoader_GetKekSrc
 * 1.10  bm   09/25/2023 Fix Error Handling after In-Place PLM Update
+*       kpt  12/07/2023 Add support to clear RED keys after In-Place PLM update
 *
 * </pre>
 *
@@ -117,6 +118,13 @@ int XPlm_LoadBootPdi(void *Arg)
 			goto ERR_END;
 		}
 		XPlmi_GetBootKatStatus((volatile u32*)&BootPdiInfo->PlmKatStatus);
+
+		/**
+		 * Update DecKeySrc after clearing RED keys
+		 * when RedKeyClear is set in PMCRAM
+		 */
+		XSECURE_TEMPORAL_CHECK(ERR_END, Status, XLoader_ClearAesKey, &BootPdiInfo->DecKeySrc);
+
 	#endif
 		/* Regenerate DEVAK keys of the sub-systems */
 #ifdef PLM_OCP

@@ -122,6 +122,7 @@
 *       kpt  10/09/23 Fixed compilation warning when PLM_EN_ADD_PPKS macro is enabled
 * 2.1   sk   10/24/23 Added Redundancy in XLoader_EnableJtag
 *       sk   11/02/23 Updated Redundancy in XLoader_EnableJtag
+*       kpt  11/22/23 Add support to clear AES keys when RedKeyClear bit is set
 *
 * </pre>
 *
@@ -221,6 +222,7 @@ static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
 static void XLoader_ClearKatStatusOnCfg(XilPdi *PdiPtr, u32 PlmKatMask);
 static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
 static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr);
+static int XLoader_ClearAesKeysOnCfg(void);
 
 /************************** Variable Definitions *****************************/
 static XLoader_AuthJtagStatus AuthJtagStatus = {0U};
@@ -3494,6 +3496,77 @@ void XLoader_ClearKatOnPPDI(XilPdi *PdiPtr, u32 PlmKatMask)
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
 		XLoader_ClearKatStatusOnCfg(PdiPtr, PlmKatMask);
 	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears the AES keys when RedKeyClear is set in PMC RAM
+ *
+ * @param	DecKeySrc is pointer to the Decrypt Key source
+ *
+ * @return
+ *			 - XST_SUCCESS on success.
+ *			 - ErrorCode on failure.
+ *
+ *****************************************************************************/
+int XLoader_ClearAesKey(u32 *DecKeySrc)
+{
+	volatile int Status = XST_FAILURE;
+	volatile u32 RedKeyClear = XPlmi_In32(XPLMI_RTCFG_SECURE_CTRL_ADDR) &
+						XLOADER_PPDI_RED_KEY_CLR_MASK;
+	volatile u32 RedKeyClearTmp = XPlmi_In32(XPLMI_RTCFG_SECURE_CTRL_ADDR) &
+						XLOADER_PPDI_RED_KEY_CLR_MASK;
+
+	if ((RedKeyClear != 0U) || (RedKeyClearTmp != 0U)) {
+		*DecKeySrc = 0x0U;
+		Status = XLoader_ClearAesKeysOnCfg();
+		if (Status != XST_SUCCESS) {
+			Status = XLoader_UpdateMinorErr(XLOADER_SEC_KEY_CLEAR_FAILED_ERROR,
+						Status);
+		}
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears the AES PUF,RED and expanded keys
+ *
+ * @return
+ *			 - XST_SUCCESS on success.
+ *			 - ErrorCode on failure.
+ *
+ *****************************************************************************/
+static int XLoader_ClearAesKeysOnCfg(void)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
+	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
+	XPmcDma *PmcDma = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
+
+	Status = XSecure_AesInitialize(AesInstPtr, PmcDma);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_AesKeyZero(AesInstPtr, XSECURE_AES_PUF_RED_EXPANDED_KEYS);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
+	/** - Place AES in reset */
+	SStatus = Xil_SecureOut32(XLOADER_AES_RESET_REG,
+				XLOADER_AES_RESET_VAL);
+	if (Status == XST_SUCCESS) {
+		Status |= SStatus;
+	}
+
+	return Status;
 }
 
 /*****************************************************************************/
