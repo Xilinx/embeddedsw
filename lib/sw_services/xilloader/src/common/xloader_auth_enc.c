@@ -2289,6 +2289,10 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 	}
 
 	if (DecryptBlkKey == (u8)TRUE) {
+		KeyDetails->PufShutterValue = BootHdr->PufShutterVal;
+#ifdef VERSAL_NET
+		KeyDetails->PufRoSwapEn = BootHdr->PufRingOscConfig;
+#endif
 		Status = XLoader_DecryptBlkKey(SecurePtr->AesInstPtr, KeyDetails);
 		if (Status == XST_SUCCESS) {
 			*DecKeyMask = (*DecKeyMask) | KekStat;
@@ -2779,10 +2783,15 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 	}
 
 	XPlmi_Printf(DEBUG_INFO, "Decrypting PUF KEK\n\r");
-	PufData->ShutterValue = XPUF_SHUTTER_VALUE;
+	PufData->ShutterValue = KeyDetails->PufShutterValue;
 	PufData->PufOperation = XPUF_REGEN_ON_DEMAND;
 	PufData->GlobalVarFilter = (u8)(PufData->ShutterValue >>
 		XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT);
+#ifdef VERSAL_NET
+	PufData->ShutterValue = PufData->ShutterValue &
+					~(1U << XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT);
+	PufData->RoSwapVal = KeyDetails->PufRoSwapEn;
+#endif
 
 	if (KeyDetails->PufHdLocation == XLOADER_PUF_HD_BHDR) {
 		PufData->ReadOption = XPUF_READ_FROM_RAM;

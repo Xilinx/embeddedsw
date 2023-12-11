@@ -26,6 +26,7 @@
 *       am   06/19/2023 Added KAT error codes
 * 1.9   kpt  07/13/2023 Added mask generation function
 * 2.1   kpt  12/07/2023 Added XLOADER_SEC_KEY_CLEAR_FAILED_ERROR
+*       kpt  12/04/2023 Added XLoader_AesKekInfo
 *
 * </pre>
 *
@@ -137,6 +138,16 @@ typedef enum {
 		/**<0x31 Error when RED key clear failed */
 } XLoader_SecErrCodes;
 
+
+/**< KEK info */
+typedef struct {
+	u32 PdiKeySrc;	/**< PDI Key Source */
+	u32 PufHdLocation;	/**< PUF helper data location */
+	u32 PufShutterValue; /**< PUF shutter value */
+	XSecure_AesKeySrc KeySrc;	/**< Source key source */
+	XSecure_AesKeySrc KeyDst;	/**< Destination key source */
+	u64 KekIvAddr;	 /**< KEK IV address */
+} XLoader_AesKekInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
