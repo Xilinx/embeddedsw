@@ -25,6 +25,7 @@
 *       sk   06/12/2023 Renamed XLoader_UpdateKekSrc to XLoader_GetKekSrc
 *       am   06/19/2023 Added KAT error codes
 * 1.9   kpt  07/13/2023 Added mask generation function
+* 2.1   kpt  12/07/2023 Added XLOADER_SEC_KEY_CLEAR_FAILED_ERROR
 *
 * </pre>
 *
@@ -132,6 +133,8 @@ typedef enum {
 		/**<0x29 Error encrypted data is not 128 bit aligned */
 	XLOADER_SEC_KAT_FAILED_ERROR,
 		/**<0x30 Secure KAT failed error */
+	XLOADER_SEC_KEY_CLEAR_FAILED_ERROR,
+		/**<0x31 Error when RED key clear failed */
 } XLoader_SecErrCodes;
 
 

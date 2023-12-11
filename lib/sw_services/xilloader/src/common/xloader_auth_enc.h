@@ -110,7 +110,9 @@ extern "C" {
 /**< Masks are used to determine if KAT for the respective crypto hardware
  * has already been run or not.
  */
-#define XLOADER_PPDI_KAT_MASK		(0x03U) /**< PPDI KAT mask */
+#define XLOADER_PPDI_KAT_MASK		    (0x03U) /**< PPDI KAT mask */
+
+#define XLOADER_PPDI_RED_KEY_CLR_MASK	(0x0CU) /**< Red key clear mask */
 
 /** @} */
 #define XLOADER_RSA_4096_KEY_SIZE	(4096U/8U) /**< RSA 4096 key size */
@@ -564,6 +566,7 @@ int XLoader_CheckAuthJtagIntStatus(void *Arg);
 int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash);
 int XLoader_IsAdditionalPpkValid(const u8 *PpkHash);
 int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 *PpkOffset);
+int XLoader_ClearAesKey(u32 *DecKeySrc);
 #endif
 int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
 

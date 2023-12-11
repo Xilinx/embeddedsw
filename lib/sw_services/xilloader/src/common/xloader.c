@@ -164,6 +164,8 @@
 *                       debug level_0 option
 *       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
+*       kpt  11/22/2023 Add support to clear AES keys when RedKeyClear bit is set
+*
 * </pre>
 *
 * @note
@@ -215,6 +217,7 @@ static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount);
 static int XLoader_LoadImage(XilPdi *PdiPtr);
 static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID);
 static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo);
+static int XLoader_PostPdiDone(XilPdi * PdiPtr);
 
 /************************** Variable Definitions *****************************/
 /*****************************************************************************/
@@ -479,13 +482,13 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTemp =  XST_FAILURE;
 	XLoader_SecureParams SecureParams = {0U};
-	volatile u32 DecKeySrcTmp;
 	u32 RegVal = RegValue;
 #ifdef PLM_SECURE_EXCLUDE
 	u8 IsEncrypted;
 	u8 IsAuthenticated;
 #else
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
+	volatile u32 DecKeySrcTmp;
 #endif
 	XilBootPdiInfo *BootPdiInfo = XLoader_GetBootPdiInfo();
 
@@ -945,7 +948,7 @@ static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	}
 
 	/* Mark PDI loading is completed */
-	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
+	Status = XLoader_PostPdiDone(PdiPtr);
 
 END:
 	return Status;
@@ -1553,7 +1556,7 @@ END1:
 
 END:
 	if (Status == XST_SUCCESS) {
-		XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
+		Status = XLoader_PostPdiDone(PdiPtr);
 	}
 	return Status;
 }
@@ -2005,4 +2008,31 @@ XilPdi *XLoader_GetPdiInstance(void)
 	static XilPdi PdiInstance __attribute__ ((aligned(4U))) = {0U};
 
 	return &PdiInstance;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function updates PDI done bit and clears AES keys
+ *
+ * @param	PdiPtr Pointer to PdiInstance
+ *
+ *		- XST_SUCCESS on success
+ *		- ErrorCode on failure
+ *
+ *****************************************************************************/
+static int XLoader_PostPdiDone(XilPdi * PdiPtr)
+{
+	int Status = XST_FAILURE;
+
+	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
+
+#ifndef PLM_SECURE_EXCLUDE
+	/* Clear AES keys when RedKey clear is set in PMC RAM */
+	Status = XLoader_ClearAesKey(&PdiPtr->DecKeySrc);
+#else
+	(void)PdiPtr;
+	Status = XST_SUCCESS;
+#endif
+
+	return Status;
 }

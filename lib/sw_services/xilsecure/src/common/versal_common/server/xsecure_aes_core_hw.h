@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,6 +23,7 @@
 *       har  10/12/20 Addressed security review comments
 * 4.5   har  03/02/21 Added register offset for AAD
 * 4.6   har  07/14/21 Fixed doxygen warnings
+* 5.3   kpt  11/28/23 Added XSECURE_AES_KEY_CLEAR_PUF_RED_EXPANDED_KEYS_MASK
 *
 * </pre>
 *
@@ -133,6 +135,9 @@ extern "C" {
 #define XSECURE_AES_KEY_CLR_REG_CLR_MASK		(0x00000000U)
 
 #define XSECURE_AES_KEY_CLEAR_ALL_KEYS_MASK		(0x003FFFF3U)
+
+#define XSECURE_AES_KEY_CLEAR_PUF_RED_EXPANDED_KEYS_MASK	(0x003B8003U)
+
 /** @} */
 
 /**
