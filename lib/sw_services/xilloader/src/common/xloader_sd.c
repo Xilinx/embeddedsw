@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +47,7 @@
 *       ng   08/16/2023 Fixed status overwrite in SdRelease
 *       dd	 09/11/2023 MISRA-C violation Rule 10.3 fixed
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
+* 2.00  ng   12/11/2023 Fixed SD macro for SDT flow
 *
 * </pre>
 *
@@ -159,7 +160,7 @@ static u8 XLoader_GetDrvNumSD(u8 DeviceFlags)
 	 * - If design has both SD0 and SD1, select drive number based on bootmode
 	 * - If design has only SD0 or ONLY SD1, drive number should be "0".
 	 */
-#ifdef XPAR_XSDPS_1_DEVICE_ID
+#if (defined(XPAR_XSDPS_NUM_INSTANCES) && (XPAR_XSDPS_NUM_INSTANCES > 1))
 	if ((XLoader_IsPdiSrcSD0(DeviceFlags) == (u8)TRUE) ||
 		(DeviceFlags == XLOADER_PDI_SRC_EMMC0)) {
 		DrvNum = XLOADER_SD_DRV_NUM_0;
