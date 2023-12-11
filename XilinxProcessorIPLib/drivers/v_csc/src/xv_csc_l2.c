@@ -1502,20 +1502,21 @@ static void cscUpdateIPReg(XV_Csc_l2 *CscPtr,
         break;
 
     case UPD_REG_DEMO_WIN:
-        for(x=0; x<3; ++x)
-        {
-          for(y=0; y<3; ++y)
-          {
-            K[x][y] = cscFw_RegR(CscPtr, (x*3+y)+CSC_FW_REG_K11_2);
-          }
-        }
-        K[0][3] = cscFw_RegR(CscPtr, CSC_FW_REG_ROffset_2);
-        K[1][3] = cscFw_RegR(CscPtr, CSC_FW_REG_GOffset_2);
-        K[2][3] = cscFw_RegR(CscPtr, CSC_FW_REG_BOffset_2);
-        clampMin = cscFw_RegR(CscPtr, CSC_FW_REG_ClampMin_2);
-        clipMax  = cscFw_RegR(CscPtr, CSC_FW_REG_ClipMax_2);
         if (XV_CscIsDemoWindowEnabled(CscPtr)) {
-          XV_csc_Set_HwReg_K11_2(pCsc, K[0][0]);
+          for(x=0; x<3; ++x)
+          {
+            for(y=0; y<3; ++y)
+            {
+              K[x][y] = cscFw_RegR(CscPtr, (x*3+y)+CSC_FW_REG_K11_2);
+            }
+          }
+          K[0][3] = cscFw_RegR(CscPtr, CSC_FW_REG_ROffset_2);
+          K[1][3] = cscFw_RegR(CscPtr, CSC_FW_REG_GOffset_2);
+          K[2][3] = cscFw_RegR(CscPtr, CSC_FW_REG_BOffset_2);
+          clampMin = cscFw_RegR(CscPtr, CSC_FW_REG_ClampMin_2);
+          clipMax  = cscFw_RegR(CscPtr, CSC_FW_REG_ClipMax_2);
+
+	  XV_csc_Set_HwReg_K11_2(pCsc, K[0][0]);
           XV_csc_Set_HwReg_K12_2(pCsc, K[0][1]);
           XV_csc_Set_HwReg_K13_2(pCsc, K[0][2]);
           XV_csc_Set_HwReg_K21_2(pCsc, K[1][0]);
@@ -1529,21 +1530,6 @@ static void cscUpdateIPReg(XV_Csc_l2 *CscPtr,
           XV_csc_Set_HwReg_BOffset_2_V(pCsc,  K[2][3]);
           XV_csc_Set_HwReg_ClampMin_2_V(pCsc, clampMin);
           XV_csc_Set_HwReg_ClipMax_2_V(pCsc,  clipMax);
-        } else {
-          XV_csc_Set_HwReg_K11(pCsc, K[0][0]);
-          XV_csc_Set_HwReg_K12(pCsc, K[0][1]);
-          XV_csc_Set_HwReg_K13(pCsc, K[0][2]);
-          XV_csc_Set_HwReg_K21(pCsc, K[1][0]);
-          XV_csc_Set_HwReg_K22(pCsc, K[1][1]);
-          XV_csc_Set_HwReg_K23(pCsc, K[1][2]);
-          XV_csc_Set_HwReg_K31(pCsc, K[2][0]);
-          XV_csc_Set_HwReg_K32(pCsc, K[2][1]);
-          XV_csc_Set_HwReg_K33(pCsc, K[2][2]);
-          XV_csc_Set_HwReg_ROffset_V(pCsc,  K[0][3]);
-          XV_csc_Set_HwReg_GOffset_V(pCsc,  K[1][3]);
-          XV_csc_Set_HwReg_BOffset_V(pCsc,  K[2][3]);
-          XV_csc_Set_HwReg_ClampMin_V(pCsc, clampMin);
-          XV_csc_Set_HwReg_ClipMax_V(pCsc,  clipMax);
         }
         break;
 
