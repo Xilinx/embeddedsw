@@ -57,6 +57,7 @@
 *       dd   03/28/23 Updated doxygen comments
 *       sk   07/06/23 Corrected DAP Config Mask's
 *       dd   08/11/23 Updated doxygen comments
+* 2.1   kpt  12/04/23 Move XLoader_AesKekInfo to platform specific file
 *
 * </pre>
 *
@@ -424,15 +425,6 @@ typedef struct
 	u8 Salt[48];	/**< Salt */
 	u8 Padding1[8];	/**< Padding 1 */
 } XLoader_Vars;
-
-/**< KEK info */
-typedef struct {
-	u32 PdiKeySrc;	/**< PDI Key Source */
-	u64 KekIvAddr;	/**< KEK IV address */
-	u32 PufHdLocation;	/**< PUF helper data location */
-	XSecure_AesKeySrc KeySrc;	/**< Source key source */
-	XSecure_AesKeySrc KeyDst;	/**< Destination key source */
-} XLoader_AesKekInfo;
 
 /**< Authenticated Message structure */
 typedef struct {

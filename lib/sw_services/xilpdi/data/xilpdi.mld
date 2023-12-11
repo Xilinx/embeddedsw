@@ -22,6 +22,6 @@ BEGIN LIBRARY xilpdi
   OPTION SUPPORTED_PERIPHERALS = (psv_pmc psxl_pmc psx_pmc);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpdi,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Programmable Device Image (PDI) Library ";
-  OPTION VERSION = 1.8;
+  OPTION VERSION = 1.9;
   OPTION NAME = xilpdi;
 END LIBRARY

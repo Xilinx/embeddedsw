@@ -23,6 +23,8 @@
 * 1.01  har  11/17/2022 Added macros for bh_auth attribute in Bootheader
 *       ng   11/23/2022 Fixed doxygen file name error
 *       sk   01/11/2023 Added macro for Image Store as SBD
+* 1.02  kpt  12/04/2023 Added XilPdi_BootHdr
+*
 * </pre>
 *
 * @note
@@ -133,6 +135,37 @@ extern "C" {
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_1		(0x20U)
 
 /**************************** Type Definitions *******************************/
+
+/**
+ * Structure to store the Boot Header PMC FW fields
+ */
+typedef struct {
+	u32 MetaHdrOfst; /**< Offset to the start of meta header */
+	u32 FwRsvd[24U]; /**< FW Reserved fields */
+} XilPdi_BootHdrFwRsvd;
+
+/**
+ * Structure to store the boot header table details.
+ * It contains all the information of boot header table in order.
+ */
+typedef struct {
+	u32 WidthDetection; /**< Width Detection 0xAA995566 */
+	u32 ImgIden;  /**< Image Identification */
+	u32 EncStatus;  /**< Encryption Status */
+	u32 DpiSrcOfst;  /**< Source Offset of PMC FW in DPI */
+	u32 DpiStartOfst;  /**< PMC FW start offset in RAM */
+	u32 DataPrtnLen;  /**< Data Partition Length */
+	u32 TotalDataPrtnLen;  /**< Total Data Partition length */
+	u32 PlmLen;  /**< PLM Length */
+	u32 TotalPlmLen;  /**< Total PLM length */
+	u32 ImgAttrb;  /**< Image Attributes */
+	u32 Kek[8U];  /**< Encrypted Key */
+	u32 KekIv[3U];  /**< Key Iv */
+	u32 SecureHdrIv[3U];  /**< Secure Header IV */
+	u32 PufShutterVal; /**< PUF Shutter Value */
+	u32 RomRsvd[20U]; /**< ROM Reserved */
+	XilPdi_BootHdrFwRsvd BootHdrFwRsvd; /**< FW reserved fields */
+} XilPdi_BootHdr __attribute__ ((aligned(16U)));
 
 /**
  * Structure to store the partition header details.

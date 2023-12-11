@@ -66,6 +66,7 @@
 *       sk   05/18/2023 Deprecate copy to memory feature
 *       am   07/03/2023 Added macros related to IHT OP data
 *       dd   08/11/2023 Updated doxygen comments
+*       kpt  12/04/2023 Move XilPdi_BootHdr to platform specific files
 *
 * </pre>
 *
@@ -254,37 +255,6 @@ extern "C" {
 #define XIPLDI_SHA3_HASH_SIZE_IN_BYTES (48U)
 
 /**************************** Type Definitions *******************************/
-
-/**
- * Structure to store the Boot Header PMC FW fields
- */
-typedef struct {
-	u32 MetaHdrOfst; /**< Offset to the start of meta header */
-	u32 FwRsvd[24U]; /**< FW Reserved fields */
-} XilPdi_BootHdrFwRsvd;
-
-/**
- * Structure to store the boot header table details.
- * It contains all the information of boot header table in order.
- */
-typedef struct {
-	u32 WidthDetection; /**< Width Detection 0xAA995566 */
-	u32 ImgIden;  /**< Image Identification */
-	u32 EncStatus;  /**< Encryption Status */
-	u32 DpiSrcOfst;  /**< Source Offset of PMC FW in DPI */
-	u32 DpiStartOfst;  /**< PMC FW start offset in RAM */
-	u32 DataPrtnLen;  /**< Data Partition Length */
-	u32 TotalDataPrtnLen;  /**< Total Data Partition length */
-	u32 PlmLen;  /**< PLM Length */
-	u32 TotalPlmLen;  /**< Total PLM length */
-	u32 ImgAttrb;  /**< Image Attributes */
-	u32 Kek[8U];  /**< Encrypted Key */
-	u32 KekIv[3U];  /**< Key Iv */
-	u32 SecureHdrIv[3U];  /**< Secure Header IV */
-	u32 PufShutterVal; /**< PUF Shutter Value */
-	u32 RomRsvd[20U]; /**< ROM Reserved */
-	XilPdi_BootHdrFwRsvd BootHdrFwRsvd; /**< FW reserved fields */
-} XilPdi_BootHdr __attribute__ ((aligned(16U)));
 
 /**
  * Structure to store the image header table details.
