@@ -15,6 +15,7 @@
 # 5.1	   sne    06/05/20 Updated tcl to support WWDT mode.
 # 5.1	   sne	  06/30/20 Added interrupt connection check for Generic WDT
 #			   example.
+# 5.8      ap     12/11/23 Added support for microblaze risc-v
 ##############################################################################
 
 ## BEGIN_CHANGELOG EDK_Im_SP2
@@ -176,7 +177,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    }"
       if {$iftmrintr == 1 && $ps_wdt == 0} {
         if {
-           $proc == "microblaze"
+           $proc == "microblaze" || $proc == "microblaze_riscv"
 	} then {
 		 set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	} else {
@@ -258,7 +259,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    }"
       if {$iftmrintr == 1 && $ps_wdt == 0} {
         if {
-           $proc == "microblaze"
+           $proc == "microblaze" || $proc == "microblaze_riscv"
 	} then {
 		 set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	} else {
