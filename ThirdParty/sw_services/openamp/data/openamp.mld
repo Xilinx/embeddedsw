@@ -19,10 +19,10 @@ BEGIN LIBRARY openamp
   OPTION COPYFILES = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION supported_peripherals = (ps7_cortexa9 psu_cortexr5 psv_cortexr5 psx_cortexr52 psxl_cortexr52);
-  OPTION DEPENDS = (libmetal_v2_5);
+  OPTION DEPENDS = (libmetal_v2_8);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lmetal,-lopen_amp,-lgcc,-lc,--end-group";
   OPTION DESC = "OpenAmp Library";
-  OPTION VERSION = 1.9;
+  OPTION VERSION = 1.10;
   OPTION NAME = openamp;
 
   PARAM NAME = WITH_PROXY, type = bool, default = true, desc = "Add support for proxy", permit = all_users;
