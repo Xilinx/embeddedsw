@@ -115,13 +115,9 @@
  */
 #define RESET_VALUE	 0xF0000000
 
-
-
 /**************************** Type Definitions *******************************/
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
-
 
 /************************** Function Prototypes ******************************/
 #ifndef SDT
@@ -136,12 +132,10 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 				 u16 IntrId,
 				 u8 TmrCtrNumber);
 
-
 static void TmrCtrDisableIntr(INTC *IntcInstancePtr, u16 IntrId);
 #else
 int TmrCtrIntrExample(XTmrCtr *InstancePtr,
 		      UINTPTR BaseAddr);
-
 
 static void TmrCtrDisableIntr( u16 IntrId, UINTPTR IntrParent);
 #endif
@@ -160,7 +154,6 @@ XTmrCtr TimerCounterInst;   /* The instance of the Timer Counter */
  * interrupt processing such that they must be global.
  */
 static volatile int TimerExpired;
-
 
 /*****************************************************************************/
 /**
@@ -444,7 +437,7 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 	/*
 	 * Start the interrupt controller such that interrupts are enabled for
 	 * all devices that cause interrupts, specific real mode so that
-	 * the timer counter can cause interrupts thru the interrupt controller.
+	 * the timer counter can cause interrupts through the interrupt controller.
 	 */
 	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
 	if (Status != XST_SUCCESS) {
@@ -497,7 +490,6 @@ static int TmrCtrSetupIntrSystem(INTC *IntcInstancePtr,
 	 */
 	XScuGic_Enable(IntcInstancePtr, IntrId);
 #endif /* XPAR_INTC_0_DEVICE_ID */
-
 
 #ifndef TESTAPP_GEN
 	/*
@@ -559,4 +551,3 @@ void TmrCtrDisableIntr( u16 IntrId, UINTPTR IntrParent)
 	XDisableIntrId( IntrId, IntrParent);
 #endif
 }
-

@@ -436,7 +436,7 @@ static int TmrCtrSetupIntrSystem(XIntc *IntcInstancePtr,
 	/*
 	 * Start the interrupt controller such that interrupts are enabled for
 	 * all devices that cause interrupts, specific real mode so that
-	 * the timer counter can cause interrupts thru the interrupt controller.
+	 * the timer counter can cause interrupts through the interrupt controller.
 	 */
 	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
 	if (Status != XST_SUCCESS) {
