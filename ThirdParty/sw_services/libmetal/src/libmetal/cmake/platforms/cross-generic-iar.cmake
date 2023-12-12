@@ -7,4 +7,3 @@ include (CMakeForceCompiler)
 CMAKE_FORCE_C_COMPILER   ("icc${CROSS_SUFFIX}" IAR)
 CMAKE_FORCE_CXX_COMPILER ("icc${CROSS_SUFFIX} --eec++" IAR)
 
-# vim: expandtab:ts=2:sw=2:smartindent

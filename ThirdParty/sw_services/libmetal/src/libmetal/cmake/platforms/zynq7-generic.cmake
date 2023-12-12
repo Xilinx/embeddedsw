@@ -6,4 +6,3 @@ set (CMAKE_C_FLAGS          "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard" CACHE
 
 include (cross-generic-gcc)
 
-# vim: expandtab:ts=2:sw=2:smartindent

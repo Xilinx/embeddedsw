@@ -30,9 +30,6 @@ void metal_io_init(struct metal_io_region *io, void *virt,
 	io->mem_flags = mem_flags;
 	io->ops = ops ? *ops : nops;
 	metal_sys_io_mem_map(io);
-
-	/* Intialize the metal_io_region linked list */
-	metal_list_init(&io->list);
 }
 
 int metal_io_block_read(struct metal_io_region *io, unsigned long offset,

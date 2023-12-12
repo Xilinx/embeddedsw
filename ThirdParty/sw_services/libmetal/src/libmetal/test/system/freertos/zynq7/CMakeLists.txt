@@ -15,4 +15,3 @@ collect (PROJECT_LIB_DIRS ${_ext_lib_path})
 
 set_property (GLOBAL PROPERTY TEST_LINKER_OPTIONS "-Wl,--gc-sections -Wl,-build-id=none -specs=${CMAKE_CURRENT_SOURCE_DIR}/Xilinx.spec -T\"${CMAKE_CURRENT_SOURCE_DIR}/lscript.ld\" -Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,--end-group")
 
-# vim: expandtab:ts=2:sw=2:smartindent

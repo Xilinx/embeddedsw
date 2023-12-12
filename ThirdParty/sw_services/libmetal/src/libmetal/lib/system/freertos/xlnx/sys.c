@@ -1,29 +1,41 @@
 /*
- * Copyright (c) 2014, Mentor Graphics Corporation
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2016-2022 Xilinx, Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
 /*
- * @file	generic/zynq7/sys.c
+ * @file	freertos/xlnx/sys.c
  * @brief	machine specific system primitives implementation.
  */
 
 #include <metal/compiler.h>
 #include <metal/io.h>
 #include <metal/sys.h>
+#include <metal/utilities.h>
 #include <stdint.h>
 #include "xil_cache.h"
-#include "xil_mmu.h"
 #include "xil_exception.h"
 #include "xscugic.h"
+#include "xil_mmu.h"
 
-/* Each TTB descriptor covers a 1MB region */
-#define     ARM_AR_MEM_TTB_SECT_SIZE      (1024*1024)
+#if (defined(__aarch64__) || defined(ARMA53_32)) && !defined(SDT)
 
-/* Mask off lower bits of addr */
-#define     ARM_AR_MEM_TTB_SECT_SIZE_MASK (~(ARM_AR_MEM_TTB_SECT_SIZE-1UL))
+#ifdef VERSAL_NET
+#include "xcpu_cortexa78.h"
+#elif defined(versal)
+#include "xcpu_cortexa72.h"
+#else
+#include "xreg_cortexa53.h"
+#endif /* defined(versal) */
+
+#elif defined(ARMR5)
+
+#include "xil_mpu.h"
+#include "xreg_cortexr5.h"
+
+#endif /* (defined(__aarch64__) || defined(ARMA53_32)) && !defined(SDT) */
 
 void sys_irq_restore_enable(unsigned int flags)
 {
@@ -65,32 +77,11 @@ void metal_weak metal_generic_default_poll(void)
 }
 
 void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
-				      size_t size, unsigned int flags)
+			       size_t size, unsigned int flags)
 {
-	unsigned int section_offset;
-	unsigned int ttb_addr;
+	void *__attribute__((unused)) physaddr;
 
-	if (!flags)
-		return va;
-	/*
-	 * Ensure the virtual and physical addresses are aligned on a
-	 * section boundary
-	 */
-	pa &= ARM_AR_MEM_TTB_SECT_SIZE_MASK;
-
-	/*
-	 * Loop through entire region of memory (one MMU section at a time).
-	 * Each section requires a TTB entry.
-	 */
-	for (section_offset = 0; section_offset < size;
-	     section_offset += ARM_AR_MEM_TTB_SECT_SIZE) {
-
-		/* Calculate translation table entry for this memory section */
-		ttb_addr = (pa + section_offset);
-
-		/* Write translation table entry value to entry address */
-		Xil_SetTlbAttributes(ttb_addr, flags);
-	}
-
+	physaddr = Xil_MemMap(pa, size, flags);
+	metal_assert(physaddr == (void *)pa);
 	return va;
 }

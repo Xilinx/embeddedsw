@@ -17,4 +17,3 @@ collect (PROJECT_LIB_DIRS ${_ext_lib_path})
 
 set_property (GLOBAL PROPERTY TEST_LINKER_OPTIONS "-Wl,--gc-sections -T\"${CMAKE_CURRENT_SOURCE_DIR}/lscript.ld\"")
 
-# vim: expandtab:ts=2:sw=2:smartindent

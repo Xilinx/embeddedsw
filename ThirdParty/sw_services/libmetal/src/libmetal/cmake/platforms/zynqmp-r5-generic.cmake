@@ -7,4 +7,3 @@ set (CMAKE_C_FLAGS          "-mfloat-abi=hard -mfpu=vfpv3-d16 -mcpu=cortex-r5" C
 
 include (cross-generic-gcc)
 
-# vim: expandtab:ts=2:sw=2:smartindent

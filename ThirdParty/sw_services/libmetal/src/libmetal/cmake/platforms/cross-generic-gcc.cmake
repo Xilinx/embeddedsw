@@ -9,4 +9,3 @@ set (CMAKE_CXX_COMPILER "${CROSS_PREFIX}g++")
 # causes errors in try_compile on ARM generic.
 set (CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
-# vim: expandtab:ts=2:sw=2:smartindent

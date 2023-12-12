@@ -69,10 +69,17 @@ if (WITH_ZEPHYR)
 endif (WITH_ZEPHYR)
 
 option (WITH_DEFAULT_LOGGER "Build with default logger" ON)
+option (WITH_FUNC_LINE_LOG "Log with function name, line number prefix" ON)
 
 option (WITH_DOC "Build with documentation" ON)
 
-option (WITH_VFIO "Build with VFIO enabled" OFF)
-
 set_property (GLOBAL PROPERTY "PROJECT_EC_FLAGS" -Wall -Werror -Wextra)
-# vim: expandtab:ts=2:sw=2:smartindent
+
+if ("${PROJECT_MACHINE}" STREQUAL "zynqmp_a53" OR
+    "${PROJECT_MACHINE}" STREQUAL "zynqmp_a72" OR
+    "${PROJECT_MACHINE}" STREQUAL "zynqmp_a78" OR
+    "${PROJECT_MACHINE}" STREQUAL "zynqmp_r5"  OR
+    "${PROJECT_MACHINE}" STREQUAL "microblaze_generic"  OR
+    "${PROJECT_MACHINE}" STREQUAL "zynq7")
+  add_definitions( -DXLNX_PLATFORM )
+endif()

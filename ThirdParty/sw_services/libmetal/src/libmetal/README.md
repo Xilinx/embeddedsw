@@ -8,10 +8,14 @@ and request memory across the following operating environments:
   * RTOS (with and without virtual memory)
   * Bare-metal environments
 
+For more details on the framework please refer to the
+[OpenAMP Docs](https://openamp.readthedocs.io/en/latest/).
+
 ## Project configuration
-The configuration phase begins when the user invokes CMake. CMake begins by processing the CMakeLists.txt file and the cmake directory.
-Some cmake options are available to help user to customize the libmetal to their
-own project.
+
+The configuration phase begins when the user invokes CMake. CMake begins by
+processing the CMakeLists.txt file and the cmake directory. Some cmake options
+are available to help user to customize the libmetal to their own project.
 
 * **WITH_DOC** (default ON): Build with documentation. Add -DWITH_DOC=OFF in
 cmake command line to disable.
@@ -40,9 +44,11 @@ in cmake command line to disable the option.
 ```
 
 ### Cross Compiling for Linux Target
+
 Use [meta-openamp](https://github.com/openamp/meta-openamp) to build
 libmetal library.
-Use package `libmetal` in your yocto config file.
+
+Use package `libmetal` in your Yocto config file.
 
 ### Building for Baremetal
 
@@ -77,14 +83,16 @@ xilmem and xilstandalone libraries in your build. These libraries were
 removed in 2019.1.
 
 ### Building for Zephyr
+
 The [zephyr-libmetal](https://github.com/zephyrproject-rtos/libmetal)
-implements the libmetal for the Zephyr project. It is mainly  a fork of this repository, with some add-ons for integration in the Zephyr project.
+implements the libmetal for the Zephyr project. It is mainly a fork of this
+repository, with some add-ons for integration in the Zephyr project.
 
-Following instruction is only to be able to run test application on a QEMU running
-a Zephyr environment.
+Following instruction is only to be able to run test application on a QEMU
+running a Zephyr environment.
 
-As Zephyr uses CMake, we build libmetal library and test application as
-targets of Zephyr CMake project. Here is how to build libmetal for Zephyr:
+As Zephyr uses CMake, we build libmetal library and test application as targets
+of Zephyr CMake project. Here is how to build libmetal for Zephyr:
 ```
     $ export ZEPHYR_GCC_VARIANT=zephyr
     $ export ZEPHYR_SDK_INSTALL_DIR=<where Zephyr SDK is installed>
@@ -135,8 +143,9 @@ The following utilities are provided in lib/utilities.h:
 
 #### Version
 
-The libmetal version interface allows user to get the version of the library. The version increment
-follows the set of rule proposed in [Semantic Versioning specification](https://semver.org/).
+The libmetal version interface allows user to get the version of the library.
+The version increment follows the set of rule proposed in
+[Semantic Versioning specification](https://semver.org/).
 
 ### Top Level Interfaces
 
@@ -153,13 +162,12 @@ For the current release, libmetal provides Linux userspace and bare-metal
 implementation for metal_sys_init and metal_sys_finish.
 
 For Linux userspace, metal_sys_init sets up a table for available shared pages,
-checks whether UIO/VFIO drivers are avail, and starts interrupt handling
-thread.
-Please note that on Linux, to access device's memory that is not page
-aligned, an offset has to be added to the pointer returned by
-mmap(). This `offset`, although it can be read from the device tree
-property exposed by the uio driver, is not handled yet by the
-library.
+checks whether UIO/VFIO drivers are avail, and starts interrupt handling thread.
+
+Please note that on Linux, to access device's memory that is not page aligned,
+an offset has to be added to the pointer returned by mmap(). This `offset`,
+although it can be read from the device tree property exposed by the uio driver,
+is not handled yet by the library.
 
 For bare-metal, metal_sys_init and metal_sys_finish just returns.
 
@@ -207,12 +215,12 @@ sizes.
 libmetal has a static generic implementation.  If your OS has a driver model
 implementation, you will need to port it for the OS.
 
-The Linux userspace abstraction binds the devices to UIO or VFIO driver.
-The user applications specify which device to use, e.g. bus "platform" bus,
-device "f8000000.slcr", and then the abstraction will check if platform UIO
-driver or platform VFIO driver is there.  If platform VFIO driver exists,
-it will bind the device to the platform VFIO driver, otherwise, if UIO driver
-exists, it will bind the device to the platform UIO driver.
+The Linux userspace abstraction binds the devices to UIO or VFIO driver. The
+user applications specify which device to use, e.g. bus "platform" bus, device
+"f8000000.slcr", and then the abstraction will check if platform UIO driver or
+platform VFIO driver is there.  If platform VFIO driver exists, it will bind the
+device to the platform VFIO driver, otherwise, if UIO driver exists, it will
+bind the device to the platform UIO driver.
 
 The VFIO support is not yet implemented.
 
@@ -255,47 +263,71 @@ This API is for compiler dependent functions.  For this release, there is only
 a GCC implementation, and compiler specific code is limited to atomic
 operations.
 
-## How to contribute:
-As an open-source project, we welcome and encourage the community to submit patches directly to the project. As a contributor you  should be familiar with common developer tools such as Git and CMake, and platforms such as GitHub.
+## How to contribute
+
+As an open-source project, we welcome and encourage the community to submit
+patches directly to the project. As a contributor you should be familiar with
+common developer tools such as Git and CMake, and platforms such as GitHub.
+
 Then following points should be rescpected to facilitate the review process.
 
 ### Licencing
-Code is contributed to OpenAMP under a number of licenses, but all code must be compatible with version the [BSD License](https://github.com/OpenAMP/libmetal/blob/master/LICENSE.md), which is the license covering the OpenAMP distribution as a whole. In practice, use the following tag instead of the full license text in the individual files:
+
+Code is contributed to OpenAMP under a number of licenses, but all code must be
+compatible with version the
+[BSD License](https://github.com/OpenAMP/libmetal/blob/master/LICENSE.md), which
+is the license covering the OpenAMP distribution as a whole. In practice, use
+the following tag instead of the full license text in the individual files:
 
     ```
     SPDX-License-Identifier:    BSD-3-Clause
     ```
 ### Signed-off-by
-Commit message must contain Signed-off-by: line and your email must match the change authorship information. Make sure your .gitconfig is set up correctly:
+
+Commit messages must contain Signed-off-by: line and your email must match the
+change authorship information. Make sure your .gitconfig is set up correctly:
 
     ```
     git config --global user.name "first-name Last-Namer"
     git config --global user.email "yourmail@company.com"
     ```
-### gitlint
-Before you submit a pull request to the project, verify your commit messages meet the requirements. The check can be performed locally using the the gitlint command.
 
-Run gitlint locally in your tree and branch where your patches have been committed:
+### gitlint
+
+Before you submit a pull request to the project, verify your commit messages
+meet the requirements. The check can be performed locally using the the gitlint
+command.
+
+Run gitlint locally in your tree and branch where your patches have been
+committed:
 
       ```gitlint```
-Note, gitlint only checks HEAD (the most recent commit), so you should run it after each commit, or use the --commits option to specify a commit range covering all the development patches to be submitted.
+
+Note, gitlint only checks HEAD (the most recent commit), so you should run it
+after each commit, or use the --commits option to specify a commit range
+covering all the development patches to be submitted.
 
 ### Code style
+
 In general, follow the Linux kernel coding style, with the following exceptions:
 
 * Use /**  */ for doxygen comments that need to appear in the documentation.
 
-The Linux kernel GPL-licensed tool checkpatch is used to check coding style conformity.Checkpatch is available in the scripts directory.
+The Linux kernel GPL-licensed tool checkpatch is used to check coding style
+conformity. Checkpatch is available in the scripts directory.
 
 To check your \<n\> commits in your git branch:
+
    ```
    ./scripts/checkpatch.pl --strict  -g HEAD-<n>
 
    ```
 ### Send a pull request
-We use standard github mechanism for pull request. Please refer to github documentation for help.
+
+We use standard GitHub mechanism for pull request. Please refer to GitHub
+documentation for help.
 
 ## Communication and Collaboration
-[Subscribe](https://lists.openampproject.org/mailman/listinfo/openamp-rp) to the OpenAMP mailing list(openamp-rp@lists.openampproject.org).
 
-For more details on the framework please refer to the the [OpenAMP wiki](https://github.com/OpenAMP/open-amp/wiki).
+[Subscribe](https://lists.openampproject.org/mailman3/lists/openamp-rp.lists.openampproject.org/)
+to the OpenAMP mailing list (openamp-rp@lists.openampproject.org).

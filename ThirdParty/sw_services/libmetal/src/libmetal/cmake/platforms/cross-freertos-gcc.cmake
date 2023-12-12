@@ -3,4 +3,3 @@ include (cross-generic-gcc)
 string (TOLOWER "FreeRTOS"                PROJECT_SYSTEM)
 string (TOUPPER "FreeRTOS"                PROJECT_SYSTEM_UPPER)
 
-# vim: expandtab:ts=2:sw=2:smartindent

@@ -22,12 +22,12 @@
 extern "C" {
 #endif
 
-static inline void *metal_allocate_memory(unsigned int size)
+static inline void *__metal_allocate_memory(unsigned int size)
 {
 	return malloc(size);
 }
 
-static inline void metal_free_memory(void *ptr)
+static inline void __metal_free_memory(void *ptr)
 {
 	free(ptr);
 }

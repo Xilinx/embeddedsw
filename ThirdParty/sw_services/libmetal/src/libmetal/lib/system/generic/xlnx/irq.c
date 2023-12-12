@@ -5,20 +5,24 @@
  */
 
 /*
- * @file	generic/xlnx_common/irq.c
+ * @file	generic/xlnx/irq.c
  * @brief	generic libmetal Xilinx irq controller definitions.
  */
 
 #include <metal/errno.h>
 #include <metal/irq_controller.h>
-#include <metal/sys.h>
 #include <metal/log.h>
 #include <metal/mutex.h>
 #include <metal/list.h>
-#include <metal/utilities.h>
 #include <metal/alloc.h>
+#include <metal/sys.h>
+#include <metal/system/generic/xlnx/sys.h>
 
+#ifdef __MICROBLAZE__
+#define MAX_IRQS 32
+#else
 #define MAX_IRQS XLNX_MAXIRQS
+#endif
 
 static struct metal_irq irqs[MAX_IRQS]; /**< Linux IRQs array */
 

@@ -5,19 +5,15 @@
  */
 
 /*
- * @file	generic/microblaze_generic/sys.c
+ * @file	generic/xlnx/microblaze_generic/sys.c
  * @brief	machine specific system primitives implementation.
  */
 
-#include <metal/assert.h>
-#include <metal/io.h>
 #include <metal/sys.h>
-#include <stdint.h>
-#include <xil_cache.h>
-#include <xil_exception.h>
+#include <metal/system/generic/xlnx/sys.h>
+
 #ifdef HAS_XINTC
 #include <xintc.h>
-#include <xparameters.h>
 #endif /* HAS_XINTC */
 
 #define MSR_IE  0x2UL /* MicroBlaze status register interrupt enable mask */

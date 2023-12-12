@@ -69,4 +69,3 @@ else (WITH_ZEPHYR)
   add_library (metal-headers STATIC ${_flist})
 endif (WITH_ZEPHYR)
 
-# vim: expandtab:ts=2:sw=2:smartindent
