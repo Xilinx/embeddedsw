@@ -46,11 +46,6 @@ examples:
    xwdttb_winwdt_qamode_example.c:
     - compatible : xlnx,versal-wwdt-1.0
     - interrupts
-   xwdttb_winwdt_example.c:
-    - compatible : xlnx,versal-wwdt-1.0
-   xwdttb_winwdt_intr_example.c:
-    - compatible : xlnx,versal-wwdt-1.0
-    - interrupts
    xwdttb_low_level_example.c:
     - xlnx,enable-window-wdt : 0
     - compatible : xlnx,axi-timebase-wdt-3.0
@@ -62,10 +57,8 @@ examples:
     - compatible : xlnx,axi-timebase-wdt-3.0
     - interrupts
    xwdttb_winwdt_example.c:
-    - xlnx,enable-window-wdt : 1
-    - compatible : xlnx,axi-timebase-wdt-3.0
+    - xlnx,winwdt-example : 1
    xwdttb_winwdt_intr_example.c:
-    - xlnx,enable-window-wdt : 1
-    - compatible : xlnx,axi-timebase-wdt-3.0
+    - xlnx,winwdt-example : 1
     - interrupts
 ...
