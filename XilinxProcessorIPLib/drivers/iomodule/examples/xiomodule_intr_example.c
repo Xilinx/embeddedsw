@@ -30,6 +30,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 2.16  ml   12/07/23 Make TimerExpired as a static variable.
 * </pre>
 ******************************************************************************/
 
@@ -81,7 +82,7 @@ static XIOModule IOModule; /* Instance of the IO Module */
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
-volatile int TimerExpired[XTC_DEVICE_TIMER_COUNT];
+static volatile int TimerExpired[XTC_DEVICE_TIMER_COUNT];
 
 
 /*****************************************************************************/
