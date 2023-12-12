@@ -1,3 +1,7 @@
+if (WITH_DOC)
+  find_package (Doxygen)
+endif (WITH_DOC)
+
 if (WITH_LIBMETAL_FIND)
   find_package (Libmetal REQUIRED)
   collect (PROJECT_INC_DIRS "${LIBMETAL_INCLUDE_DIR}")

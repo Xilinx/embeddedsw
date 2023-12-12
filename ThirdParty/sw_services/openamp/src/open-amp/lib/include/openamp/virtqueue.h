@@ -20,6 +20,7 @@ extern "C" {
 #include <openamp/virtio_ring.h>
 #include <metal/alloc.h>
 #include <metal/io.h>
+#include <metal/cache.h>
 
 /* Error Codes */
 #define VQ_ERROR_BASE                                 -3000
@@ -47,65 +48,113 @@ extern "C" {
 /* Support to suppress interrupt until specific index is reached. */
 #define VIRTIO_RING_F_EVENT_IDX        (1 << 29)
 
+/* cache invalidation helpers */
+#define CACHE_FLUSH(x, s)		metal_cache_flush(x, s)
+#define CACHE_INVALIDATE(x, s)		metal_cache_invalidate(x, s)
+
+#ifdef VIRTIO_CACHED_VRINGS
+#warning "VIRTIO_CACHED_VRINGS is deprecated, please use VIRTIO_USE_DCACHE"
+#endif
+#if defined(VIRTIO_CACHED_VRINGS) || defined(VIRTIO_USE_DCACHE)
+#define VRING_FLUSH(x, s)		CACHE_FLUSH(x, s)
+#define VRING_INVALIDATE(x, s)		CACHE_INVALIDATE(x, s)
+#else
+#define VRING_FLUSH(x, s)		do { } while (0)
+#define VRING_INVALIDATE(x, s)		do { } while (0)
+#endif /* VIRTIO_CACHED_VRINGS || VIRTIO_USE_DCACHE */
+
+/** @brief Buffer descriptor. */
 struct virtqueue_buf {
+	/** Address of the buffer. */
 	void *buf;
+
+	/** Size of the buffer. */
 	int len;
 };
 
+/** @brief Vring descriptor extra information for buffer list management. */
 struct vq_desc_extra {
+	/** Pointer to first descriptor. */
 	void *cookie;
+
+	/** Number of chained descriptors. */
 	uint16_t ndescs;
 };
 
+/** @brief Local virtio queue to manage a virtio ring for sending or receiving. */
 struct virtqueue {
+	/** Associated virtio device. */
 	struct virtio_device *vq_dev;
-	const char *vq_name;
-	uint16_t vq_queue_index;
-	uint16_t vq_nentries;
-	void (*callback)(struct virtqueue *vq);
-	void (*notify)(struct virtqueue *vq);
-	struct vring vq_ring;
-	uint16_t vq_free_cnt;
-	uint16_t vq_queued_cnt;
-	void *shm_io; /* opaque pointer to data needed to allow v2p & p2v */
 
-	/*
-	 * Head of the free chain in the descriptor table. If
-	 * there are no free descriptors, this will be set to
-	 * VQ_RING_DESC_CHAIN_END.
+	/** Name of the virtio queue. */
+	const char *vq_name;
+
+	/** Index of the virtio queue. */
+	uint16_t vq_queue_index;
+
+	/** Max number of buffers in the virtio queue. */
+	uint16_t vq_nentries;
+
+	/** Function to invoke, when message is available on the virtio queue. */
+	void (*callback)(struct virtqueue *vq);
+
+	/** Private data associated to the virtio queue. */
+	void *priv;
+
+	/** Function to invoke, to inform the other side about an update in the virtio queue. */
+	void (*notify)(struct virtqueue *vq);
+
+	/** Associated virtio ring. */
+	struct vring vq_ring;
+
+	/** Number of free descriptor in the virtio ring. */
+	uint16_t vq_free_cnt;
+
+	/** Number of queued buffer in the virtio ring. */
+	uint16_t vq_queued_cnt;
+
+	/**
+	 * Metal I/O region of the vrings and buffers.
+	 * This structure is used for conversion between virtual and physical addresses.
+	 */
+	void *shm_io;
+
+	/**
+	 * Head of the free chain in the descriptor table. If there are no free descriptors,
+	 * this will be set to VQ_RING_DESC_CHAIN_END.
 	 */
 	uint16_t vq_desc_head_idx;
 
-	/*
-	 * Last consumed descriptor in the used table,
-	 * trails vq_ring.used->idx.
-	 */
+	/** Last consumed descriptor in the used table, trails vq_ring.used->idx. */
 	uint16_t vq_used_cons_idx;
 
-	/*
-	 * Last consumed descriptor in the available table -
-	 * used by the consumer side.
-	 */
+	/** Last consumed descriptor in the available table, used by the consumer side. */
 	uint16_t vq_available_idx;
 
 #ifdef VQUEUE_DEBUG
+	/** Debug counter for virtqueue reentrance check. */
 	bool vq_inuse;
 #endif
 
-	/*
-	 * Used by the host side during callback. Cookie
-	 * holds the address of buffer received from other side.
-	 * Other fields in this structure are not used currently.
+	/**
+	 * Used by the host side during callback. Cookie holds the address of buffer received from
+	 * other side. Other fields in this structure are not used currently.
 	 */
-
 	struct vq_desc_extra vq_descx[0];
 };
 
-/* struct to hold vring specific information */
+/** @brief Virtio ring specific information. */
 struct vring_alloc_info {
+	/** Vring address. */
 	void *vaddr;
+
+	/** Vring alignment. */
 	uint32_t align;
+
+	/** Number of descriptors in the vring. */
 	uint16_t num_descs;
+
+	/** Padding */
 	uint16_t pad;
 };
 
@@ -162,6 +211,23 @@ typedef void (*vq_notify)(struct virtqueue *);
 
 #endif
 
+/**
+ * @internal
+ *
+ * @brief Creates new VirtIO queue
+ *
+ * @param device	Pointer to VirtIO device
+ * @param id		VirtIO queue ID , must be unique
+ * @param name		Name of VirtIO queue
+ * @param ring		Pointer to vring_alloc_info control block
+ * @param callback	Pointer to callback function, invoked
+ *			when message is available on VirtIO queue
+ * @param notify	Pointer to notify function, used to notify
+ *			other side that there is job available for it
+ * @param vq		Created VirtIO queue.
+ *
+ * @return Function status
+ */
 int virtqueue_create(struct virtio_device *device, unsigned short id,
 		     const char *name, struct vring_alloc_info *ring,
 		     void (*callback)(struct virtqueue *vq),
@@ -182,21 +248,91 @@ static inline void virtqueue_set_shmem_io(struct virtqueue *vq,
 	vq->shm_io = io;
 }
 
+/**
+ * @internal
+ *
+ * @brief Enqueues new buffer in vring for consumption by other side. Readable
+ * buffers are always inserted before writable buffers
+ *
+ * @param vq		Pointer to VirtIO queue control block.
+ * @param buf_list	Pointer to a list of virtqueue buffers.
+ * @param readable	Number of readable buffers
+ * @param writable	Number of writable buffers
+ * @param cookie	Pointer to hold call back data
+ *
+ * @return Function status
+ */
 int virtqueue_add_buffer(struct virtqueue *vq, struct virtqueue_buf *buf_list,
 			 int readable, int writable, void *cookie);
 
+/**
+ * @internal
+ *
+ * @brief Returns used buffers from VirtIO queue
+ *
+ * @param vq	Pointer to VirtIO queue control block
+ * @param len	Length of conumed buffer
+ * @param idx	Index of the buffer
+ *
+ * @return Pointer to used buffer
+ */
 void *virtqueue_get_buffer(struct virtqueue *vq, uint32_t *len, uint16_t *idx);
 
+/**
+ * @internal
+ *
+ * @brief Returns buffer available for use in the VirtIO queue
+ *
+ * @param vq		Pointer to VirtIO queue control block
+ * @param avail_idx	Pointer to index used in vring desc table
+ * @param len		Length of buffer
+ *
+ * @return Pointer to available buffer
+ */
 void *virtqueue_get_available_buffer(struct virtqueue *vq, uint16_t *avail_idx,
 				     uint32_t *len);
 
+/**
+ * @internal
+ *
+ * @brief Returns consumed buffer back to VirtIO queue
+ *
+ * @param vq		Pointer to VirtIO queue control block
+ * @param head_idx	Index of vring desc containing used buffer
+ * @param len		Length of buffer
+ *
+ * @return Function status
+ */
 int virtqueue_add_consumed_buffer(struct virtqueue *vq, uint16_t head_idx,
 				  uint32_t len);
 
+/**
+ * @internal
+ *
+ * @brief Disables callback generation
+ *
+ * @param vq	Pointer to VirtIO queue control block
+ */
 void virtqueue_disable_cb(struct virtqueue *vq);
 
+/**
+ * @internal
+ *
+ * @brief Enables callback generation
+ *
+ * @param vq	Pointer to VirtIO queue control block
+ *
+ * @return Function status
+ */
 int virtqueue_enable_cb(struct virtqueue *vq);
 
+/**
+ * @internal
+ *
+ * @brief Notifies other side that there is buffer available for it.
+ *
+ * @param vq	Pointer to VirtIO queue control block
+ */
 void virtqueue_kick(struct virtqueue *vq);
 
 static inline struct virtqueue *virtqueue_allocate(unsigned int num_desc_extra)
@@ -213,16 +349,63 @@ static inline struct virtqueue *virtqueue_allocate(unsigned int num_desc_extra)
 	return vqs;
 }
 
+/**
+ * @internal
+ *
+ * @brief Frees VirtIO queue resources
+ *
+ * @param vq	Pointer to VirtIO queue control block
+ */
 void virtqueue_free(struct virtqueue *vq);
 
+/**
+ * @internal
+ *
+ * @brief Dumps important virtqueue fields , use for debugging purposes
+ *
+ * @param vq	Pointer to VirtIO queue control block
+ */
 void virtqueue_dump(struct virtqueue *vq);
 
 void virtqueue_notification(struct virtqueue *vq);
 
+/**
+ * @internal
+ *
+ * @brief Returns vring descriptor size
+ *
+ * @param vq	Pointer to VirtIO queue control block
+ *
+ * @return Descriptor length
+ */
 uint32_t virtqueue_get_desc_size(struct virtqueue *vq);
 
 uint32_t virtqueue_get_buffer_length(struct virtqueue *vq, uint16_t idx);
 void *virtqueue_get_buffer_addr(struct virtqueue *vq, uint16_t idx);
+
+/**
+ * @brief Test if virtqueue is empty
+ *
+ * @param vq	Pointer to VirtIO queue control block
+ *
+ * @return 1 if virtqueue is empty, 0 otherwise
+ */
+static inline int virtqueue_empty(struct virtqueue *vq)
+{
+	return (vq->vq_nentries == vq->vq_free_cnt);
+}
+
+/**
+ * @brief Test if virtqueue is full
+ *
+ * @param vq	Pointer to VirtIO queue control block
+ *
+ * @return 1 if virtqueue is full, 0 otherwise
+ */
+static inline int virtqueue_full(struct virtqueue *vq)
+{
+	return (vq->vq_free_cnt == 0);
+}
 
 #if defined __cplusplus
 }

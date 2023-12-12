@@ -13,14 +13,16 @@
 #include "rpmsg_internal.h"
 
 /**
- * rpmsg_get_address
+ * @internal
+ *
+ * @brief rpmsg_get_address
  *
  * This function provides unique 32 bit address.
  *
- * @param bitmap - bit map for addresses
- * @param size   - size of bitmap
+ * @param bitmap	Bit map for addresses
+ * @param size		Size of bitmap
  *
- * return - a unique address
+ * @return A unique address
  */
 static uint32_t rpmsg_get_address(unsigned long *bitmap, int size)
 {
@@ -37,13 +39,13 @@ static uint32_t rpmsg_get_address(unsigned long *bitmap, int size)
 }
 
 /**
- * rpmsg_release_address
+ * @internal
  *
- * Frees the given address.
+ * @brief Frees the given address.
  *
- * @param bitmap - bit map for addresses
- * @param size   - size of bitmap
- * @param addr   - address to free
+ * @param bitmap	Bit map for addresses
+ * @param size		Size of bitmap
+ * @param addr		Address to free
  */
 static void rpmsg_release_address(unsigned long *bitmap, int size,
 				  int addr)
@@ -54,15 +56,15 @@ static void rpmsg_release_address(unsigned long *bitmap, int size,
 }
 
 /**
- * rpmsg_is_address_set
+ * @internal
  *
- * Checks whether address is used or free.
+ * @brief Checks whether address is used or free.
  *
- * @param bitmap - bit map for addresses
- * @param size   - size of bitmap
- * @param addr   - address to free
+ * @param bitmap	Bit map for addresses
+ * @param size		Size of bitmap
+ * @param addr		Address to free
  *
- * return - TRUE/FALSE
+ * @return TRUE/FALSE
  */
 static int rpmsg_is_address_set(unsigned long *bitmap, int size, int addr)
 {
@@ -74,15 +76,15 @@ static int rpmsg_is_address_set(unsigned long *bitmap, int size, int addr)
 }
 
 /**
- * rpmsg_set_address
+ * @internal
  *
- * Marks the address as consumed.
+ * @brief Marks the address as consumed.
  *
- * @param bitmap - bit map for addresses
- * @param size   - size of bitmap
- * @param addr   - address to free
+ * @param bitmap	Bit map for addresses
+ * @param size		Size of bitmap
+ * @param addr		Address to free
  *
- * return - none
+ * @return 0 on success, otherwise error code
  */
 static int rpmsg_set_address(unsigned long *bitmap, int size, int addr)
 {
@@ -95,20 +97,6 @@ static int rpmsg_set_address(unsigned long *bitmap, int size, int addr)
 	}
 }
 
-/**
- * This function sends rpmsg "message" to remote device.
- *
- * @param ept     - pointer to end point
- * @param src     - source address of channel
- * @param dst     - destination address of channel
- * @param data    - data to transmit
- * @param len     - size of data
- * @param wait    - boolean, wait or not for buffer to become
- *                  available
- *
- * @return - size of data sent or negative value for failure.
- *
- */
 int rpmsg_send_offchannel_raw(struct rpmsg_endpoint *ept, uint32_t src,
 			      uint32_t dst, const void *data, int len,
 			      int wait)
@@ -331,14 +319,6 @@ ret_status:
 	return status;
 }
 
-/**
- * rpmsg_destroy_ept
- *
- * This function deletes rpmsg endpoint and performs cleanup.
- *
- * @param ept - pointer to endpoint to destroy
- *
- */
 void rpmsg_destroy_ept(struct rpmsg_endpoint *ept)
 {
 	struct rpmsg_device *rdev;

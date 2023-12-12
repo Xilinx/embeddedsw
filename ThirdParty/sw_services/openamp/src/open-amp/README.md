@@ -94,6 +94,11 @@ library for it project:
   enabled on vrings.
 * **WITH_DCACHE_BUFFERS** (default OFF): Build with data cache operations
   enabled on buffers.
+* **WITH_DCACHE_RSC_TABLE** (default OFF): Build with data cache operations
+  enabled on resource table.
+* **WITH_DCACHE** (default OFF): Build with all cache operations
+  enabled. When set to ON, cache operations for vrings, buffers and resource
+  table are enabled.
 * **RPMSG_BUFFER_SIZE** (default 512): adjust the size of the RPMsg buffers.
   The default value of the RPMsg size is compatible with the Linux Kernel hard
   coded value. If you AMP configuration is Linux kernel host/ OpenAMP remote,
@@ -246,7 +251,8 @@ In order to user OpenAMP(RPMsg) in Linux userspace, you will need to have put th
   https://github.com/OpenAMP/open-amp/blob/main/apps/machine/zynqmp/openamp-linux-userspace.dtsi
 
 ## Version
-The OpenAMP version follows the set of rule proposed in [Semantic Versioning specification](https://semver.org/).
+The OpenAMP version follows the set of rule proposed in
+[Semantic Versioning specification](https://semver.org/).
 
 ## Supported System and Machines
 For now, it supports:
@@ -264,37 +270,47 @@ For now, it supports:
    it doesn't work on some systems if you are normal users.
 
 ## How to contribute:
-As an open-source project, we welcome and encourage the community to submit patches directly to the project. As a contributor you  should be familiar with common developer tools such as Git and CMake, and platforms such as GitHub.
+As an open-source project, we welcome and encourage the community to submit patches directly to the
+project. As a contributor you  should be familiar with common developer tools such as Git and CMake,
+and platforms such as GitHub.
 Then following points should be rescpected to facilitate the review process.
 
 ### Licencing
-Code is contributed to the Linux kernel under a number of licenses, but all code must be compatible with version the [BSD License](https://github.com/OpenAMP/open-amp/blob/main/LICENSE.md), which is the license covering the OpenAMP distribution as a whole. In practice, use the following tag instead of the full license text in the individual files:
+Code is contributed to the Linux kernel under a number of licenses, but all code must be compatible
+with version the [BSD License](https://github.com/OpenAMP/open-amp/blob/main/LICENSE.md), which is
+the license covering the OpenAMP distribution as a whole. In practice, use the following tag
+instead of the full license text in the individual files:
 
     ```
     SPDX-License-Identifier:    BSD-3-Clause
     SPDX-License-Identifier:    BSD-2-Clause
     ```
 ### Signed-off-by
-Commit message must contain Signed-off-by: line and your email must match the change authorship information. Make sure your .gitconfig is set up correctly:
+Commit message must contain Signed-off-by: line and your email must match the change authorship
+information. Make sure your .gitconfig is set up correctly:
 
     ```
     git config --global user.name "first-name Last-Namer"
     git config --global user.email "yourmail@company.com"
     ```
 ### gitlint
-Before you submit a pull request to the project, verify your commit messages meet the requirements. The check can be  performed locally using the the gitlint command.
+Before you submit a pull request to the project, verify your commit messages meet the requirements.
+The check can be  performed locally using the the gitlint command.
 
 Run gitlint locally in your tree and branch where your patches have been committed:
 
       ```gitlint```
-Note, gitlint only checks HEAD (the most recent commit), so you should run it after each commit, or use the --commits option to specify a commit range covering all the development patches to be submitted.
+Note, gitlint only checks HEAD (the most recent commit), so you should run it after each commit, or
+use the --commits option to specify a commit range covering all the development patches to be
+submitted.
 
 ### Code style
 In general, follow the Linux kernel coding style, with the following exceptions:
 
 * Use /**  */ for doxygen comments that need to appear in the documentation.
 
-The Linux kernel GPL-licensed tool checkpatch is used to check coding style conformity.Checkpatch is available in the scripts directory.
+The Linux kernel GPL-licensed tool checkpatch is used to check coding style conformity.Checkpatch is
+available in the scripts directory.
 
 To check your \<n\> commits in your git branch:
    ```
@@ -305,6 +321,8 @@ To check your \<n\> commits in your git branch:
 We use standard github mechanism for pull request. Please refer to github documentation for help.
 
 ## Communication and Collaboration
-[Subscribe](https://lists.openampproject.org/mailman/listinfo/openamp-rp) to the OpenAMP mailing list(openamp-rp@lists.openampproject.org).
+[Subscribe](https://lists.openampproject.org/mailman3/lists/openamp-rp.lists.openampproject.org/) to
+the OpenAMP mailing list(openamp-rp@lists.openampproject.org).
 
-For more details on the framework please refer to the the [OpenAMP wiki](https://github.com/OpenAMP/open-amp/wiki).
+For more details on the framework please refer to the
+[OpenAMP Docs](https://openamp.readthedocs.io/en/latest/).

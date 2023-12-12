@@ -77,17 +77,6 @@ int handle_rsc_table(struct remoteproc *rproc,
 	return status;
 }
 
-/**
- * handle_carve_out_rsc
- *
- * Carveout resource handler.
- *
- * @param rproc - pointer to remote remoteproc
- * @param rsc   - pointer to carveout resource
- *
- * @returns - 0 for success, or negative value for failure
- *
- */
 int handle_carve_out_rsc(struct remoteproc *rproc, void *rsc)
 {
 	struct fw_rsc_carveout *carve_rsc = rsc;
@@ -169,17 +158,6 @@ err:
 	return -RPROC_ERR_RSC_TAB_NP;
 }
 
-/**
- * handle_trace_rsc
- *
- * trace resource handler.
- *
- * @param rproc - pointer to remote remoteproc
- * @param rsc   - pointer to trace resource
- *
- * @returns - no service error
- *
- */
 int handle_trace_rsc(struct remoteproc *rproc, void *rsc)
 {
 	struct fw_rsc_trace *vdev_rsc = rsc;
@@ -193,15 +171,14 @@ int handle_trace_rsc(struct remoteproc *rproc, void *rsc)
 }
 
 /**
- * handle_dummy_rsc
+ * @internal
  *
- * dummy resource handler.
+ * @brief Dummy resource handler.
  *
- * @param rproc - pointer to remote remoteproc
- * @param rsc   - pointer to trace resource
+ * @param rproc	Pointer to remote remoteproc
+ * @param rsc	Pointer to trace resource
  *
- * @returns - no service error
- *
+ * @return No service error
  */
 static int handle_dummy_rsc(struct remoteproc *rproc, void *rsc)
 {
