@@ -18,19 +18,6 @@
 extern "C" {
 #endif
 
-/**
- * Convenience macros ML_ERR, ML_INFO, ML_DBG add source
- * function name and the line number before the message.
- * Inspired by pr_err, pr_info, etc. in the kernel's printk.h.
- * These should be moved to libmetal/lib/log.h and upstreamed.
- */
-#define ML_ERR(fmt, args ...) metal_log(METAL_LOG_ERROR, "%s():%u "fmt, \
-		__func__, __LINE__, ##args)
-#define ML_INFO(fmt, args ...) metal_log(METAL_LOG_INFO, "%s():%u "fmt, \
-		__func__, __LINE__, ##args)
-#define ML_DBG(fmt, args ...) metal_log(METAL_LOG_DEBUG, "%s():%u "fmt, \
-		__func__, __LINE__, ##args)
-
 /* SGIs */
 #define SGI_TO_NOTIFY		15 /* SGI to notify the remote */
 #define SGI_NOTIFICATION	14 /* SGI from the remote */
