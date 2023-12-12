@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file xpuf_ipihandler.h
-* @addtogroup xpuf_apis XilPuf Versal APIs
-* @{
-* @cond xpuf_internal
+*
 * This file contains the xilpuf IPI handler declaration.
 *
 * <pre>
@@ -20,11 +18,9 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kpt  01/04/2022 Initial release
 * 2.1   am   02/13/2023 Fixed MISRA C violations
+* 2.3   ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
-*
-* @note
-* @endcond
 *
 ******************************************************************************/
 

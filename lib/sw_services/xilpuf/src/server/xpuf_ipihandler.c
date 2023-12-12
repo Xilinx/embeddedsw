@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file xpuf_ipihandler.c
-* @addtogroup xpuf_server_api XilPuf Server API
-* @{
-* @details
+*
 * This file contains the XilPuf IPI Handler definition.
 *
 * <pre>
@@ -23,13 +21,15 @@
 * 2.10  skg  10/29/2022 Added In Body comments
 *       am   02/13/2023 Fixed MISRA C violations
 *       am   02/17/2023 Fixed HIS_COMF violations
+* 2.3   ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
+/**
+ * @addtogroup xpuf_server_apis XilPuf Server APIs
+ * @{
+ */
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 #ifdef PLM_PUF

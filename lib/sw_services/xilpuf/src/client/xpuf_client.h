@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file xpuf_client.h
-* @addtogroup xpuf_client_apis XilPuf Versal Client APIs
-* @{
-* @cond xpuf_internal
+*
 * This file Contains the client function prototypes, defines and macros for
 * the PUF hardware interface.
 *
@@ -23,12 +21,10 @@
 *       am   02/28/22 Fixed MISRA C violation rule 8.3
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 2.1   am   02/13/23 Fixed MISRA C violations
+* 2.3   ng   11/22/23 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
-* @endcond
 ******************************************************************************/
 
 #ifndef XPUF_CLIENT_H

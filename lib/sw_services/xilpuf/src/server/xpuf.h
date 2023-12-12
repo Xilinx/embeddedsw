@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,9 +8,7 @@
 /**
 *
 * @file xpuf.h
-* @addtogroup xpuf_apis XilPuf APIs
-* @{
-* @cond xpuf_internal
+*
 * This file contains PUF interface APIs
 *
 * <pre>
@@ -38,10 +37,9 @@
 * 1.5   kpt  03/23/2022 Added macro's and error code related to IRO frequency
 * 2.0   har  06/09/2022 Added support for Versal_Net
 *                       Removed support for 12K mode
+* 2.3   ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
-*
-* @endcond
 *
 *******************************************************************************/
 #ifndef XPUF_H
@@ -57,9 +55,10 @@ extern "C" {
 #include "xpuf_defs.h"
 
 /*************************** Constant Definitions *****************************/
-/** @cond xpuf_internal
-@{
-*/
+/**
+ * @cond xpuf_internal
+ * @{
+ */
 #define XPUF_EFUSE_TRIM_MASK				(0xFFFFF000U)
 		/**< Mask for trimming syndrome data to be stored in eFuses */
 #define XPUF_LAST_WORD_OFFSET				(126U)
@@ -127,7 +126,7 @@ typedef struct _XPuf_Data {
 	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS];
 					/**< Syndrome data for PUF regeneration */
 	u32 Chash;			/**< Chash for PUF regeneration */
-	u32 Aux;			/**< Auxillary data for PUF regeneration */
+	u32 Aux;			/**< Auxiliary data for PUF regeneration */
 	u32 PufID[XPUF_ID_LEN_IN_WORDS];/**< PUF ID */
 	u32 SyndromeAddr;		/**< Address of syndrome data */
 	u32 EfuseSynData[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS];
@@ -137,8 +136,10 @@ typedef struct _XPuf_Data {
 #endif
 } XPuf_Data;
 
-/** @}
-@endcond */
+/**
+ * @}
+ * @endcond
+ */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -153,4 +154,3 @@ int XPuf_ClearPufID(void);
 #endif
 
 #endif  /* XPUF_H */
-/**@}*/

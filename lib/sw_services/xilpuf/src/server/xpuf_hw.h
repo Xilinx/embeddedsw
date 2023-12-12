@@ -8,9 +8,7 @@
 /**
 *
 * @file xpuf_hw.h
-* @addtogroup xpuf_apis XilPuf APIs
-* @{
-* @cond xpuf_internal
+*
 * This file contains PUF hardware interface.
 *
 * <pre>
@@ -31,14 +29,12 @@
 * 1.4   har  07/09/2021 Fixed doxygen warnings
 * 1.5   har  03/21/2022 Added offset for GLOBAL_CNTRL register
 *       kpt  03/24/2021 Added macro XPUF_IRO_TRIM_FUSE_SEL_BIT
-* 2.2	vss  09/07/2023	Fixed MISRA-C Rule 2.5 violation
-*	vss  09/21/2023 Fixed doxygen warnings
+* 2.2   vss  09/07/2023 Fixed MISRA-C Rule 2.5 violation
+*       vss  09/21/2023 Fixed doxygen warnings
+* 2.3   ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
-* @endcond
 ******************************************************************************/
 #ifndef XPUF_HW_H
 #define XPUF_HW_H

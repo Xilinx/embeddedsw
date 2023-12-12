@@ -8,9 +8,6 @@
 /**
 *
 * @file xpuf_init.c
-* @addtogroup xpuf_server_api_ XilPuf Server API
-* @{
-* @details
 *
 * This file contains the initialization functions to be called by PLM. This
 * file will only be part of XilPuf when it is compiled with PLM.
@@ -20,15 +17,17 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   kpt 01/04/2022 Initial release
-* 2.1   skg 10/29/2022 Added In Body comments
+* 1.0   kpt  01/04/22 Initial release
+* 2.1   skg  10/29/22 Added In Body comments
+* 2.3   ng   11/22/23 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
+/**
+ * @addtogroup xpuf_server_apis XilPuf Server APIs
+ * @{
+ */
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 #ifdef PLM_PUF
@@ -51,13 +50,10 @@
 /**
  * @brief	This function registers the handlers for Xilpuf IPI commands
  *
- *
  *****************************************************************************/
 void XPuf_Init(void)
 {
-	/**
-	 *  Intialize XilPUF commands
-	 */
+	/** - Initialize XilPUF commands. */
 	XPuf_CmdsInit();
 }
 #endif

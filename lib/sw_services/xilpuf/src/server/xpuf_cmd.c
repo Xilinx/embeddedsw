@@ -23,13 +23,15 @@
 *       am   02/13/2023 Fixed MISRA C violations
 *       am   02/17/2023 Fixed HIS_COMF violations
 * 2.2   bm   06/23/2023 Added access permissions for IPI commands
+* 2.3   ng   11/22/23 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
+/**
+ * @addtogroup xpuf_server_apis XilPuf Server APIs
+ * @{
+ */
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 #ifdef PLM_PUF
@@ -122,7 +124,7 @@ static int XPuf_FeaturesCmd(u32 ApiId)
 
 	/**
 	 * Check the requested ApiId (registration, regeneration or puf Id),
-	 * return XST_SUCCESS for valid ApiId else, reurn XST_INVALID_PARAM if the ApiId is invalid.
+	 * return XST_SUCCESS for valid ApiId else, return XST_INVALID_PARAM if the ApiId is invalid.
 	 */
 	switch (ApiId) {
 		case XPUF_PUF_REGISTRATION:

@@ -8,9 +8,6 @@
 /**
 *
 * @file xpuf_client.c
-* @addtogroup xpuf_client_api XilPuf Client API
-* @{
-* @details
 *
 * This file contains the implementation of the client interface functions for
 * PUF hardware interface API's.
@@ -28,13 +25,17 @@
 *       am   02/13/23 Fixed MISRA C violations
 *       am   02/17/23 Fixed HIS_COMF violations
 * 2.2   am   03/09/23 Replaced xpuf payload lengths with xmailbox payload lengths
-*	vss  09/21/23 Fixed doxygen warnings
+*       vss  09/21/23 Fixed doxygen warnings
+* 2.3   ng   11/22/23 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xpuf_client_api XilPuf Client API
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xpuf_client.h"

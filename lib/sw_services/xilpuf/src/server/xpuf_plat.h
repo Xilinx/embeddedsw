@@ -8,9 +8,7 @@
 /**
 *
 * @file xpuf_plat.h
-* @addtogroup xpuf_plat_apis XilPuf Platform specific APIs
-* @{
-* @cond xpuf_internal
+*
 * This file contains platform specific APIs for PUF
 *
 * <pre>
@@ -21,13 +19,11 @@
 * 2.0   har  07/04/2022 Initial release
 * 2.1   am   02/13/2023 Fixed MISRA C violations
 * 2.2   kpt  08/14/2023 Renamed XPuf_IsRegistrationEnabled to XPuf_IsRegistrationDisabled
-*	vss  09/07/2023	Fixed MISRA-C Rule 2.5 violation
+*       vss  09/07/2023	Fixed MISRA-C Rule 2.5 violation
+* 2.3   ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
-* @endcond
 *******************************************************************************/
 #ifndef XPUF_PLAT_H
 #define XPUF_PLAT_H
@@ -41,9 +37,10 @@ extern "C" {
 #include "xil_types.h"
 
 /*************************** Constant Definitions *****************************/
-/** @cond xpuf_internal
-@{
-*/
+/**
+ * @cond xpuf_internal
+ * @{
+ */
 #if defined (VERSAL_NET)
 #define XPUF_PMX_GLOBAL_PUF_RO_SWP_OFFSET		(0x00000100U)
 #define XPUF_PUF_REGIS_DIS				((u32)1U << 29U)
@@ -75,8 +72,10 @@ void XPuf_SetRoSwap(const XPuf_Data *PufData);
 u32 XPuf_IsRegistrationDisabled(void);
 u32 XPuf_IsIroFreqChangeReqd(void);
 
-/** @}
-@endcond */
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

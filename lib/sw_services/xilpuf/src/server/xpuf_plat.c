@@ -20,12 +20,15 @@
 *       kpt  08/31/2022 Fixed logical error in XPuf_CheckGlobalVariationFilter
 * 2.1   am   02/13/2023 Fixed MISRA C violations
 * 2.2   kpt  08/14/2023 Renamed XPuf_IsRegistrationEnabled to XPuf_IsRegistrationDisabled
+* 2.3   ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 *******************************************************************************/
+/**
+ * @addtogroup xpuf_server_apis XilPuf Server APIs
+ * @{
+ */
 /****************************** Include Files *********************************/
 #include "xparameters.h"
 #include "xil_types.h"
@@ -36,9 +39,10 @@
 #include "xpuf_hw.h"
 
 /*************************** Constant Definitions *****************************/
-/** @cond xpuf_internal
-@{
-*/
+/**
+ * @cond xpuf_internal
+ * @{
+ */
 #define XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT	(31)
 		/**< Shift for Global Variation Filter bit in shutter value */
 
@@ -170,5 +174,7 @@ u32 XPuf_IsIroFreqChangeReqd(void)
 
 }
 
-/** @}
-@endcond */
+/**
+ * @}
+ * @endcond
+ */

@@ -8,9 +8,7 @@
 /**
  *
  * @file xpuf_cmd.h
- * @addtogroup xpuf_apis XilPuf APIs
- * @{
- * @cond xpuf_internal
+ *
  * Header file for xpuf_cmd.c
  *
  * <pre>
@@ -20,12 +18,10 @@
  * ----- ---- ---------- -------------------------------------------------------
  * 1.0   kpt  01/04/2022 Initial release
  * 2.1   skg  10/29/2022 Added to XilPuf APIs group
+ * 2.3   ng   11/22/23 Fixed doxygen grouping
  *
  * </pre>
  *
- * @note
- *
- * @endcond
  ******************************************************************************/
 #ifndef XPUF_CMD_H_
 #define XPUF_CMD_H_
