@@ -48,6 +48,7 @@
 *                     TmrCtrIntrExample calls, interrupt example test for 2nd
 *                     and subsequent AXI timer instances would be passed
 *                     without generating interrupts. It fixes CR#1116308.
+* 4.12  ml   12/07/23 Make TimerExpired as a static variable.
 *</pre>
 ******************************************************************************/
 
@@ -158,7 +159,7 @@ XTmrCtr TimerCounterInst;   /* The instance of the Timer Counter */
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
-volatile int TimerExpired;
+static volatile int TimerExpired;
 
 
 /*****************************************************************************/

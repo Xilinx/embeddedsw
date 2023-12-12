@@ -23,6 +23,7 @@
 * 1.00a nm   03/10/10 First release
 * 2.5   dp   07/11/23 Add Support for system device tree flow
 * 2.5   dp   09/08/23 Update example to stop timer at the end of the test
+* 2.6   ml   12/07/23 Make TimerExpired as a static variable.
 * </pre>
 *
 ******************************************************************************/
@@ -91,7 +92,7 @@ XScuGic IntcInstance;		/* Interrupt Controller Instance */
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
-volatile int TimerExpired;
+static volatile int TimerExpired;
 
 /*****************************************************************************/
 /**

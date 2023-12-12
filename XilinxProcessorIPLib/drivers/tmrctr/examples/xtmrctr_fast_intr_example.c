@@ -28,7 +28,7 @@
 *                     being passed instead of interrupt id. It fixes
 *                     CR#1006251.
 * 4.5   mus  07/05/18 Fixed checkpatch errors and warnings.
-*
+* 4.12  ml   12/07/23 Make TimerExpired as a static variable.
 *</pre>
 ******************************************************************************/
 
@@ -115,7 +115,7 @@ XTmrCtr TimerCounterInst;   /* The instance of the Timer Counter */
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
-volatile int TimerExpired;
+static volatile int TimerExpired;
 
 
 /*****************************************************************************/
