@@ -24,9 +24,9 @@ extern "C" {
 
 /** Generic shared memory data structure. */
 struct metal_generic_shmem {
-	const char		*name; /**< shared memory name */
-	struct metal_io_region	io;    /**< shared memory I/O region */
-	struct metal_list	node;  /**< memory node */
+	const char		*name;
+	struct metal_io_region	io;
+	struct metal_list	node;
 };
 
 /**
