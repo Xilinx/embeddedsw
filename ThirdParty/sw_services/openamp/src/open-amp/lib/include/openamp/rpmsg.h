@@ -55,102 +55,117 @@ typedef void (*rpmsg_ns_bind_cb)(struct rpmsg_device *rdev,
 				 const char *name, uint32_t dest);
 
 /**
- * struct rpmsg_endpoint - binds a local rpmsg address to its user
- * @name: name of the service supported
- * @rdev: pointer to the rpmsg device
- * @addr: local address of the endpoint
- * @dest_addr: address of the default remote endpoint binded.
- * @cb: user rx callback, return value of this callback is reserved
- *      for future use, for now, only allow RPMSG_SUCCESS as return value.
- * @ns_unbind_cb: end point service unbind callback, called when remote
- *                ept is destroyed.
- * @node: end point node.
- * @priv: private data for the driver's use
+ * @brief Structure that binds a local RPMsg address to its user
  *
- * In essence, an rpmsg endpoint represents a listener on the rpmsg bus, as
- * it binds an rpmsg address with an rx callback handler.
+ * In essence, an RPMsg endpoint represents a listener on the RPMsg bus, as
+ * it binds an RPMsg address with an rx callback handler.
  */
 struct rpmsg_endpoint {
+	/** Name of the service supported */
 	char name[RPMSG_NAME_SIZE];
+
+	/** Pointer to the RPMsg device */
 	struct rpmsg_device *rdev;
+
+	/** Local address of the endpoint */
 	uint32_t addr;
+
+	/** Address of the default remote endpoint binded */
 	uint32_t dest_addr;
+
+	/**
+	 * User rx callback, return value of this callback is reserved for future
+	 * use, for now, only allow RPMSG_SUCCESS as return value
+	 */
 	rpmsg_ept_cb cb;
+
+	/** Endpoint service unbind callback, called when remote ept is destroyed */
 	rpmsg_ns_unbind_cb ns_unbind_cb;
+
+	/** Endpoint node */
 	struct metal_list node;
+
+	/** Private data for the driver's use */
 	void *priv;
 };
 
-/**
- * struct rpmsg_device_ops - RPMsg device operations
- * @send_offchannel_raw: send RPMsg data
- * @hold_rx_buffer: hold RPMsg RX buffer
- * @release_rx_buffer: release RPMsg RX buffer
- * @get_tx_payload_buffer: get RPMsg TX buffer
- * @send_offchannel_nocopy: send RPMsg data without copy
- * @release_tx_buffer: release RPMsg TX buffer
- */
+/** @brief RPMsg device operations */
 struct rpmsg_device_ops {
+	/** Send RPMsg data */
 	int (*send_offchannel_raw)(struct rpmsg_device *rdev,
 				   uint32_t src, uint32_t dst,
 				   const void *data, int len, int wait);
+
+	/** Hold RPMsg RX buffer */
 	void (*hold_rx_buffer)(struct rpmsg_device *rdev, void *rxbuf);
+
+	/** Release RPMsg RX buffer */
 	void (*release_rx_buffer)(struct rpmsg_device *rdev, void *rxbuf);
+
+	/** Get RPMsg TX buffer */
 	void *(*get_tx_payload_buffer)(struct rpmsg_device *rdev,
 				       uint32_t *len, int wait);
+
+	/** Send RPMsg data without copy */
 	int (*send_offchannel_nocopy)(struct rpmsg_device *rdev,
 				      uint32_t src, uint32_t dst,
-				       const void *data, int len);
+				      const void *data, int len);
+
+	/** Release RPMsg TX buffer */
 	int (*release_tx_buffer)(struct rpmsg_device *rdev, void *txbuf);
 };
 
-/**
- * struct rpmsg_device - representation of a RPMsg device
- * @endpoints: list of endpoints
- * @ns_ept: name service endpoint
- * @bitmap: table endpoint address allocation.
- * @lock: mutex lock for rpmsg management
- * @ns_bind_cb: callback handler for name service announcement without local
- *              endpoints waiting to bind.
- * @ns_unbind_cb: callback handler for name service announcement, called when
- *                remote ept is destroyed.
- * @ops: RPMsg device operations
- * @support_ns: create/destroy namespace message
- */
+/** @brief Representation of a RPMsg device */
 struct rpmsg_device {
+	/** List of endpoints */
 	struct metal_list endpoints;
+
+	/** Name service endpoint */
 	struct rpmsg_endpoint ns_ept;
+
+	/** Table endpoint address allocation */
 	unsigned long bitmap[metal_bitmap_longs(RPMSG_ADDR_BMP_SIZE)];
+
+	/** Mutex lock for RPMsg management */
 	metal_mutex_t lock;
+
+	/** Callback handler for name service announcement without local epts waiting to bind */
 	rpmsg_ns_bind_cb ns_bind_cb;
+
+	/** Callback handler for name service announcement, called when remote ept is destroyed */
 	rpmsg_ns_bind_cb ns_unbind_cb;
+
+	/** RPMsg device operations */
 	struct rpmsg_device_ops ops;
+
+	/** Create/destroy namespace message */
 	bool support_ns;
 };
 
 /**
- * rpmsg_send_offchannel_raw() - send a message across to the remote processor,
+ * @brief Send a message across to the remote processor,
  * specifying source and destination address.
- * @ept: the rpmsg endpoint
- * @data: payload of the message
- * @len: length of the payload
  *
  * This function sends @data of length @len to the remote @dst address from
  * the source @src address.
  * The message will be sent to the remote processor which the channel belongs
  * to.
  *
- * Returns number of bytes it has sent or negative error value on failure.
+ * @param ept	The rpmsg endpoint
+ * @param src	Source endpoint address of the message
+ * @param dst	Destination endpoint address of the message
+ * @param data	Payload of the message
+ * @param len	Length of the payload
+ * @param wait	Boolean value indicating whether to wait on buffers
+ *
+ * @return Number of bytes it has sent or negative error value on failure.
  */
 int rpmsg_send_offchannel_raw(struct rpmsg_endpoint *ept, uint32_t src,
 			      uint32_t dst, const void *data, int len,
 			      int wait);
 
 /**
- * rpmsg_send() - send a message across to the remote processor
- * @ept: the rpmsg endpoint
- * @data: payload of the message
- * @len: length of the payload
+ * @brief Send a message across to the remote processor
  *
  * This function sends @data of length @len based on the @ept.
  * The message will be sent to the remote processor which the channel belongs
@@ -159,7 +174,11 @@ int rpmsg_send_offchannel_raw(struct rpmsg_endpoint *ept, uint32_t src,
  * one becomes available, or a timeout of 15 seconds elapses. When the latter
  * happens, -ERESTARTSYS is returned.
  *
- * Returns number of bytes it has sent or negative error value on failure.
+ * @param ept	The rpmsg endpoint
+ * @param data	Payload of the message
+ * @param len	Length of the payload
+ *
+ * @return Number of bytes it has sent or negative error value on failure.
  */
 static inline int rpmsg_send(struct rpmsg_endpoint *ept, const void *data,
 			     int len)
@@ -172,11 +191,7 @@ static inline int rpmsg_send(struct rpmsg_endpoint *ept, const void *data,
 }
 
 /**
- * rpmsg_sendto() - send a message across to the remote processor, specify dst
- * @ept: the rpmsg endpoint
- * @data: payload of message
- * @len: length of payload
- * @dst: destination address
+ * @brief Send a message across to the remote processor, specify dst
  *
  * This function sends @data of length @len to the remote @dst address.
  * The message will be sent to the remote processor which the @ept
@@ -185,7 +200,12 @@ static inline int rpmsg_send(struct rpmsg_endpoint *ept, const void *data,
  * one becomes available, or a timeout of 15 seconds elapses. When the latter
  * happens, -ERESTARTSYS is returned.
  *
- * Returns number of bytes it has sent or negative error value on failure.
+ * @param ept	The rpmsg endpoint
+ * @param data	Payload of message
+ * @param len	Length of payload
+ * @param dst	Destination address
+ *
+ * @return Number of bytes it has sent or negative error value on failure.
  */
 static inline int rpmsg_sendto(struct rpmsg_endpoint *ept, const void *data,
 			       int len, uint32_t dst)
@@ -197,12 +217,7 @@ static inline int rpmsg_sendto(struct rpmsg_endpoint *ept, const void *data,
 }
 
 /**
- * rpmsg_send_offchannel() - send a message using explicit src/dst addresses
- * @ept: the rpmsg endpoint
- * @src: source address
- * @dst: destination address
- * @data: payload of message
- * @len: length of payload
+ * @brief Send a message using explicit src/dst addresses
  *
  * This function sends @data of length @len to the remote @dst address,
  * and uses @src as the source address.
@@ -212,7 +227,13 @@ static inline int rpmsg_sendto(struct rpmsg_endpoint *ept, const void *data,
  * one becomes available, or a timeout of 15 seconds elapses. When the latter
  * happens, -ERESTARTSYS is returned.
  *
- * Returns number of bytes it has sent or negative error value on failure.
+ * @param ept	The rpmsg endpoint
+ * @param src	Source address
+ * @param dst	Destination address
+ * @param data	Payload of message
+ * @param len	Length of payload
+ *
+ * @return Number of bytes it has sent or negative error value on failure.
  */
 static inline int rpmsg_send_offchannel(struct rpmsg_endpoint *ept,
 					uint32_t src, uint32_t dst,
@@ -222,10 +243,7 @@ static inline int rpmsg_send_offchannel(struct rpmsg_endpoint *ept,
 }
 
 /**
- * rpmsg_trysend() - send a message across to the remote processor
- * @ept: the rpmsg endpoint
- * @data: payload of message
- * @len: length of payload
+ * @brief Send a message across to the remote processor
  *
  * This function sends @data of length @len on the @ept channel.
  * The message will be sent to the remote processor which the @ept
@@ -233,7 +251,11 @@ static inline int rpmsg_send_offchannel(struct rpmsg_endpoint *ept,
  * In case there are no TX buffers available, the function will immediately
  * return -ENOMEM without waiting until one becomes available.
  *
- * Returns number of bytes it has sent or negative error value on failure.
+ * @param ept	The rpmsg endpoint
+ * @param data	Payload of message
+ * @param len	Length of payload
+ *
+ * @return Number of bytes it has sent or negative error value on failure.
  */
 static inline int rpmsg_trysend(struct rpmsg_endpoint *ept, const void *data,
 				int len)
@@ -246,12 +268,7 @@ static inline int rpmsg_trysend(struct rpmsg_endpoint *ept, const void *data,
 }
 
 /**
- * rpmsg_trysendto() - send a message across to the remote processor,
- * specify dst
- * @ept: the rpmsg endpoint
- * @data: payload of message
- * @len: length of payload
- * @dst: destination address
+ * @brief Send a message across to the remote processor, specify dst
  *
  * This function sends @data of length @len to the remote @dst address.
  * The message will be sent to the remote processor which the @ept
@@ -259,7 +276,12 @@ static inline int rpmsg_trysend(struct rpmsg_endpoint *ept, const void *data,
  * In case there are no TX buffers available, the function will immediately
  * return -ENOMEM without waiting until one becomes available.
  *
- * Returns number of bytes it has sent or negative error value on failure.
+ * @param ept	The rpmsg endpoint
+ * @param data	Payload of message
+ * @param len	Length of payload
+ * @param dst	Destination address
+ *
+ * @return Number of bytes it has sent or negative error value on failure.
  */
 static inline int rpmsg_trysendto(struct rpmsg_endpoint *ept, const void *data,
 				  int len, uint32_t dst)
@@ -271,12 +293,7 @@ static inline int rpmsg_trysendto(struct rpmsg_endpoint *ept, const void *data,
 }
 
 /**
- * rpmsg_trysend_offchannel() - send a message using explicit src/dst addresses
- * @ept: the rpmsg endpoint
- * @src: source address
- * @dst: destination address
- * @data: payload of message
- * @len: length of payload
+ * @brief Send a message using explicit src/dst addresses
  *
  * This function sends @data of length @len to the remote @dst address,
  * and uses @src as the source address.
@@ -285,7 +302,13 @@ static inline int rpmsg_trysendto(struct rpmsg_endpoint *ept, const void *data,
  * In case there are no TX buffers available, the function will immediately
  * return -ENOMEM without waiting until one becomes available.
  *
- * Returns number of bytes it has sent or negative error value on failure.
+ * @param ept	The rpmsg endpoint
+ * @param src	Source address
+ * @param dst	Destination address
+ * @param data	Payload of message
+ * @param len	Length of payload
+ *
+ * @return Number of bytes it has sent or negative error value on failure.
  */
 static inline int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept,
 					   uint32_t src, uint32_t dst,
@@ -306,8 +329,8 @@ static inline int rpmsg_trysend_offchannel(struct rpmsg_endpoint *ept,
  * buffer for future reuse in vring by calling the rpmsg_release_rx_buffer()
  * function.
  *
- * @param: ept The rpmsg endpoint
- * @param: rxbuf RX buffer with message payload
+ * @param ept	The rpmsg endpoint
+ * @param rxbuf RX buffer with message payload
  *
  * @see rpmsg_release_rx_buffer
  */
@@ -319,8 +342,8 @@ void rpmsg_hold_rx_buffer(struct rpmsg_endpoint *ept, void *rxbuf);
  * This API can be called at process context when the message in rx buffer is
  * processed.
  *
- * @ept: the rpmsg endpoint
- * @rxbuf: rx buffer with message payload
+ * @param ept	The rpmsg endpoint
+ * @param rxbuf	rx buffer with message payload
  *
  * @see rpmsg_hold_rx_buffer
  */
@@ -336,9 +359,9 @@ void rpmsg_release_rx_buffer(struct rpmsg_endpoint *ept, void *rxbuf);
  * buffer by data and passing correct parameters to the rpmsg_send_nocopy() or
  * rpmsg_sendto_nocopy() function to perform data no-copy-send mechanism.
  *
- * @ept:  Pointer to rpmsg endpoint
- * @len:  Pointer to store tx buffer size
- * @wait: Boolean, wait or not for buffer to become available
+ * @param ept	Pointer to rpmsg endpoint
+ * @param len	Pointer to store tx buffer size
+ * @param wait	Boolean, wait or not for buffer to become available
  *
  * @return The tx buffer address on success and NULL on failure
  *
@@ -352,17 +375,18 @@ void *rpmsg_get_tx_payload_buffer(struct rpmsg_endpoint *ept,
 /**
  * @brief Releases unused buffer.
  *
- * This API can be called when the Tx buffer reserved by rpmsg_get_tx_payload_buffer
- * needs to be released without having been sent to the remote side.
+ * This API can be called when the Tx buffer reserved by
+ * rpmsg_get_tx_payload_buffer needs to be released without having been sent to
+ * the remote side.
  *
- * Note that the rpmsg virtio is not able to detect if a buffer has already been released.
- * The user must prevent a double release (e.g. by resetting its buffer pointer to zero after
- * the release).
+ * Note that the rpmsg virtio is not able to detect if a buffer has already
+ * been released. The user must prevent a double release (e.g. by resetting its
+ * buffer pointer to zero after the release).
  *
- * @ept: the rpmsg endpoint
- * @txbuf: tx buffer with message payload
+ * @param ept	The rpmsg endpoint
+ * @param txbuf	tx buffer with message payload
  *
- * @return:
+ * @return
  *   - RPMSG_SUCCESS on success
  *   - RPMSG_ERR_PARAM on invalid parameter
  *   - RPMSG_ERR_PERM if service not implemented
@@ -372,7 +396,7 @@ void *rpmsg_get_tx_payload_buffer(struct rpmsg_endpoint *ept,
 int rpmsg_release_tx_buffer(struct rpmsg_endpoint *ept, void *txbuf);
 
 /**
- * rpmsg_send_offchannel_nocopy() - send a message in tx buffer reserved by
+ * @brief Send a message in tx buffer reserved by
  * rpmsg_get_tx_payload_buffer() across to the remote processor.
  *
  * This function sends buf of length len to the remote dst address,
@@ -391,13 +415,13 @@ int rpmsg_release_tx_buffer(struct rpmsg_endpoint *ept, void *txbuf);
  * case application should try to re-issue the rpmsg_send_offchannel_nocopy()
  * again.
  *
- * @ept:  The rpmsg endpoint
- * @src:  The rpmsg endpoint local address
- * @dst:  The rpmsg endpoint remote address
- * @data: TX buffer with message filled
- * @len:  Length of payload
+ * @param ept	The rpmsg endpoint
+ * @param src	The rpmsg endpoint local address
+ * @param dst	The rpmsg endpoint remote address
+ * @param data	TX buffer with message filled
+ * @param len	Length of payload
  *
- * @return number of bytes it has sent or negative error value on failure.
+ * @return Number of bytes it has sent or negative error value on failure.
  *
  * @see rpmsg_get_tx_payload_buffer
  * @see rpmsg_sendto_nocopy
@@ -407,7 +431,7 @@ int rpmsg_send_offchannel_nocopy(struct rpmsg_endpoint *ept, uint32_t src,
 				 uint32_t dst, const void *data, int len);
 
 /**
- * @brief rpmsg_sendto_nocopy() - sends a message in tx buffer allocated by
+ * @brief Sends a message in tx buffer allocated by
  * rpmsg_get_tx_payload_buffer() across to the remote processor, specify dst.
  *
  * This function sends buf of length len to the remote dst address.
@@ -424,12 +448,12 @@ int rpmsg_send_offchannel_nocopy(struct rpmsg_endpoint *ept, uint32_t src,
  * rpmsg_sendto_nocopy() function fails and returns an error. In that case the
  * application should try to re-issue the rpmsg_sendto_nocopy() again.
  *
- * @ept:  The rpmsg endpoint
- * @data: TX buffer with message filled
- * @len:  Length of payload
- * @dst:  Destination address
+ * @param ept	The rpmsg endpoint
+ * @param data	TX buffer with message filled
+ * @param len	Length of payload
+ * @param dst	Destination address
  *
- * @return number of bytes it has sent or negative error value on failure.
+ * @return Number of bytes it has sent or negative error value on failure.
  *
  * @see rpmsg_get_tx_payload_buffer
  * @see rpmsg_send_offchannel_nocopy
@@ -445,7 +469,7 @@ static inline int rpmsg_sendto_nocopy(struct rpmsg_endpoint *ept,
 }
 
 /**
- * rpmsg_send_nocopy() - send a message in tx buffer reserved by
+ * @brief Send a message in tx buffer reserved by
  * rpmsg_get_tx_payload_buffer() across to the remote processor.
  *
  * This function sends buf of length len on the ept endpoint.
@@ -462,11 +486,11 @@ static inline int rpmsg_sendto_nocopy(struct rpmsg_endpoint *ept,
  * rpmsg_send_nocopy() function fails and returns an error. In that case the
  * application should try to re-issue the rpmsg_send_nocopy() again.
  *
- * @ept:  The rpmsg endpoint
- * @data: TX buffer with message filled
- * @len:  Length of payload
+ * @param ept	The rpmsg endpoint
+ * @param data	TX buffer with message filled
+ * @param len	Length of payload
  *
- * @return number of bytes it has sent or negative error value on failure.
+ * @return Number of bytes it has sent or negative error value on failure.
  *
  * @see rpmsg_get_tx_payload_buffer
  * @see rpmsg_send_offchannel_nocopy
@@ -483,19 +507,11 @@ static inline int rpmsg_send_nocopy(struct rpmsg_endpoint *ept,
 }
 
 /**
- * rpmsg_create_ept - create rpmsg endpoint and register it to rpmsg device
+ * @brief Create rpmsg endpoint and register it to rpmsg device
  *
  * Create a RPMsg endpoint, initialize it with a name, source address,
  * remoteproc address, endpoint callback, and destroy endpoint callback,
  * and register it to the RPMsg device.
- *
- * @ept: pointer to rpmsg endpoint
- * @name: service name associated to the endpoint
- * @src: local address of the endpoint
- * @dest: target address of the endpoint
- * @cb: endpoint callback
- * @ns_unbind_cb: end point service unbind callback, called when remote ept is
- *                destroyed.
  *
  * In essence, an rpmsg endpoint represents a listener on the rpmsg bus, as
  * it binds an rpmsg address with an rx callback handler.
@@ -506,29 +522,38 @@ static inline int rpmsg_send_nocopy(struct rpmsg_endpoint *ept,
  *
  * As an option Some rpmsg clients can specify an endpoint with a specific
  * source address.
+ *
+ * @param ept		Pointer to rpmsg endpoint
+ * @param rdev		RPMsg device associated with the endpoint
+ * @param name		Service name associated to the endpoint
+ * @param src		Local address of the endpoint
+ * @param dest		Target address of the endpoint
+ * @param cb		Endpoint callback
+ * @param ns_unbind_cb	Endpoint service unbind callback, called when remote
+ *			ept is destroyed.
+ *
+ * @return 0 on success, or negative error value on failure.
  */
-
 int rpmsg_create_ept(struct rpmsg_endpoint *ept, struct rpmsg_device *rdev,
 		     const char *name, uint32_t src, uint32_t dest,
 		     rpmsg_ept_cb cb, rpmsg_ns_unbind_cb ns_unbind_cb);
 
 /**
- * rpmsg_destroy_ept - destroy rpmsg endpoint and unregister it from rpmsg
- *                     device
- *
- * @ept: pointer to the rpmsg endpoint
+ * @brief Destroy rpmsg endpoint and unregister it from rpmsg device
  *
  * It unregisters the rpmsg endpoint from the rpmsg device and calls the
  * destroy endpoint callback if it is provided.
+ *
+ * @param ept	Pointer to the rpmsg endpoint
  */
 void rpmsg_destroy_ept(struct rpmsg_endpoint *ept);
 
 /**
- * is_rpmsg_ept_ready - check if the rpmsg endpoint ready to send
+ * @brief Check if the rpmsg endpoint ready to send
  *
- * @ept: pointer to rpmsg endpoint
+ * @param ept	Pointer to rpmsg endpoint
  *
- * Returns 1 if the rpmsg endpoint has both local addr and destination
+ * @return 1 if the rpmsg endpoint has both local addr and destination
  * addr set, 0 otherwise
  */
 static inline unsigned int is_rpmsg_ept_ready(struct rpmsg_endpoint *ept)

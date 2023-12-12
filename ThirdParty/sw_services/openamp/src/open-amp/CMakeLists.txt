@@ -35,3 +35,7 @@ add_subdirectory (lib)
 if (WITH_APPS)
   add_subdirectory (apps)
 endif (WITH_APPS)
+
+if (WITH_DOC)
+  add_subdirectory (doc)
+endif (WITH_DOC)

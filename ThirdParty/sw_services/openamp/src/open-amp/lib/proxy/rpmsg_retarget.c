@@ -85,7 +85,8 @@ int rpmsg_rpc_init(struct rpmsg_rpc_data *rpc,
 	rpc->ept_destroyed = 0;
 	rpc->respbuf = NULL;
 	rpc->respbuf_len = 0;
-	atomic_init(&rpc->nacked, 1);
+	rpc->nacked = (atomic_flag)ATOMIC_FLAG_INIT;
+	atomic_flag_test_and_set(&rpc->nacked);
 	ret = rpmsg_create_ept(&rpc->ept, rdev,
 			       ept_name, ept_addr, ept_raddr,
 			       rpmsg_rpc_ept_cb, rpmsg_service_unbind);

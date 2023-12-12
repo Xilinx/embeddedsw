@@ -48,40 +48,46 @@ enum rpmsg_ns_flags {
 };
 
 /**
- * struct rpmsg_hdr - common header for all rpmsg messages
- * @src: source address
- * @dst: destination address
- * @reserved: reserved for future use
- * @len: length of payload (in bytes)
- * @flags: message flags
+ * @brief Common header for all RPMsg messages
  *
- * Every message sent(/received) on the rpmsg bus begins with this header.
+ * Every message sent(/received) on the RPMsg bus begins with this header.
  */
 METAL_PACKED_BEGIN
 struct rpmsg_hdr {
+	/** Source address */
 	uint32_t src;
+
+	/** Destination address */
 	uint32_t dst;
+
+	/** Reserved for future use */
 	uint32_t reserved;
+
+	/** Length of payload (in bytes) */
 	uint16_t len;
+
+	/** Message flags */
 	uint16_t flags;
 } METAL_PACKED_END;
 
 /**
- * struct rpmsg_ns_msg - dynamic name service announcement message
- * @name: name of remote service that is published
- * @addr: address of remote service that is published
- * @flags: indicates whether service is created or destroyed
+ * @brief Dynamic name service announcement message
  *
  * This message is sent across to publish a new service, or announce
  * about its removal. When we receive these messages, an appropriate
- * rpmsg channel (i.e device) is created/destroyed. In turn, the ->probe()
- * or ->remove() handler of the appropriate rpmsg driver will be invoked
+ * RPMsg channel (i.e device) is created/destroyed. In turn, the ->probe()
+ * or ->remove() handler of the appropriate RPMsg driver will be invoked
  * (if/as-soon-as one is registered).
  */
 METAL_PACKED_BEGIN
 struct rpmsg_ns_msg {
+	/** Name of the remote service that is being published */
 	char name[RPMSG_NAME_SIZE];
+
+	/** Endpoint address of the remote service that is being published */
 	uint32_t addr;
+
+	/** Indicates whether service is created or destroyed */
 	uint32_t flags;
 } METAL_PACKED_END;
 

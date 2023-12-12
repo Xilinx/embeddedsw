@@ -21,50 +21,54 @@ extern "C" {
  */
 
 /**
- *  @brief	Library major version number.
+ * @brief Library major version number.
  *
- *  Return the major version number of the library linked into the application.
- *  This is required to match the value of LIB_VERSION_MAJOR, which is the major
- *  version of the library that the application was compiled against.
+ * Return the major version number of the library linked into the application.
+ * This is required to match the value of LIB_VERSION_MAJOR, which is the major
+ * version of the library that the application was compiled against.
  *
- *  @return	Library major version number.
- *  @see	PROJECT_VERSION_MAJOR
+ * @return Library major version number.
+ *
+ * @see PROJECT_VERSION_MAJOR
  */
 extern int openamp_version_major(void);
 
 /**
- *  @brief	Library minor version number.
+ * @brief Library minor version number.
  *
- *  Return the minor version number of the library linked into the application.
- *  This could differ from the value of LIB_VERSION_MINOR, which is the minor
- *  version of the library that the application was compiled against.
+ * Return the minor version number of the library linked into the application.
+ * This could differ from the value of LIB_VERSION_MINOR, which is the minor
+ * version of the library that the application was compiled against.
  *
- *  @return	Library minor version number.
- *  @see	PROJECT_VERSION_MINOR
+ * @return Library minor version number.
+ *
+ * @see PROJECT_VERSION_MINOR
  */
 extern int openamp_version_minor(void);
 
 /**
- *  @brief	Library patch level.
+ * @brief Library patch level.
  *
- *  Return the patch level of the library linked into the application.  This
- *  could differ from the value of LIB_VERSION_PATCH, which is the patch level of
- *  the library that the application was compiled against.
+ * Return the patch level of the library linked into the application.  This
+ * could differ from the value of LIB_VERSION_PATCH, which is the patch level of
+ * the library that the application was compiled against.
  *
- *  @return	Library patch level.
- *  @see	PROJECT_VERSION_PATCH
+ * @return Library patch level.
+ *
+ * @see PROJECT_VERSION_PATCH
  */
 extern int openamp_version_patch(void);
 
 /**
- *  @brief	Library version string.
+ * @brief Library version string.
  *
- *  Return the version string of the library linked into the application.  This
- *  could differ from the value of LIB_VERSION, which is the version string of
- *  the library that the application was compiled against.
+ * Return the version string of the library linked into the application.  This
+ * could differ from the value of LIB_VERSION, which is the version string of
+ * the library that the application was compiled against.
  *
- *  @return	Library version string.
- *  @see	PROJECT_VERSION
+ * @return Library version string.
+ *
+ * @see PROJECT_VERSION
  */
 extern const char *openamp_version(void);
 

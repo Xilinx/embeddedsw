@@ -33,25 +33,49 @@ extern "C" {
  */
 #define VRING_AVAIL_F_NO_INTERRUPT      1
 
-/* VirtIO ring descriptors: 16 bytes.
- * These can chain together via "next".
+/**
+ * @brief VirtIO ring descriptors.
+ *
+ * The descriptor table refers to the buffers the driver is using for the
+ * device. addr is a physical address, and the buffers can be chained via \ref next.
+ * Each descriptor describes a buffer which is read-only for the device
+ * (“device-readable”) or write-only for the device (“device-writable”), but a
+ * chain of descriptors can contain both device-readable and device-writable
+ * buffers.
  */
 METAL_PACKED_BEGIN
 struct vring_desc {
-	/* Address (guest-physical). */
+	/** Address (guest-physical) */
 	uint64_t addr;
-	/* Length. */
+
+	/** Length */
 	uint32_t len;
-	/* The flags as indicated above. */
+
+	/** Flags relevant to the descriptors */
 	uint16_t flags;
-	/* We chain unused descriptors via this, too. */
+
+	/** We chain unused descriptors via this, too */
 	uint16_t next;
 } METAL_PACKED_END;
 
+/**
+ * @brief Used to offer buffers to the device.
+ *
+ * Each ring entry refers to the head of a descriptor chain. It is only
+ * written by the driver and read by the device.
+ */
 METAL_PACKED_BEGIN
 struct vring_avail {
+	/** Flag which determines whether device notifications are required */
 	uint16_t flags;
+
+	/**
+	 * Indicates where the driver puts the next descriptor entry in the
+	 * ring (modulo the queue size)
+	 */
 	uint16_t idx;
+
+	/** The ring of descriptors */
 	uint16_t ring[0];
 } METAL_PACKED_END;
 
@@ -67,22 +91,39 @@ struct vring_used_elem {
 	uint32_t len;
 } METAL_PACKED_END;
 
+/**
+ * @brief The device returns buffers to this structure when done with them
+ *
+ * The structure is only written to by the device, and read by the driver.
+ */
 METAL_PACKED_BEGIN
 struct vring_used {
+	/** Flag which determines whether device notifications are required */
 	uint16_t flags;
+
+	/**
+	 * Indicates where the driver puts the next descriptor entry in the
+	 * ring (modulo the queue size)
+	 */
 	uint16_t idx;
+
+	/** The ring of descriptors */
 	struct vring_used_elem ring[0];
 } METAL_PACKED_END;
 
-struct vring {
-	unsigned int num;
-
-	struct vring_desc *desc;
-	struct vring_avail *avail;
-	struct vring_used *used;
-};
-
-/* The standard layout for the ring is a continuous chunk of memory which
+/**
+ * @brief The virtqueue layout structure
+ *
+ * Each virtqueue consists of; descriptor table, available ring, used ring,
+ * where each part is physically contiguous in guest memory.
+ *
+ * When the driver wants to send a buffer to the device, it fills in a slot in
+ * the descriptor table (or chains several together), and writes the descriptor
+ * index into the available ring. It then notifies the device. When the device
+ * has finished a buffer, it writes the descriptor index into the used ring,
+ * and sends an interrupt.
+ *
+ * The standard layout for the ring is a continuous chunk of memory which
  * looks like this.  We assume num is a power of 2.
  *
  * struct vring {
@@ -107,6 +148,22 @@ struct vring {
  *
  * NOTE: for VirtIO PCI, align is 4096.
  */
+struct vring {
+	/**
+	 * The maximum number of buffer descriptors in the virtqueue.
+	 * The value is always a power of 2.
+	 */
+	unsigned int num;
+
+	/** The actual buffer descriptors, 16 bytes each */
+	struct vring_desc *desc;
+
+	/** A ring of available descriptor heads with free-running index */
+	struct vring_avail *avail;
+
+	/** A ring of used descriptor heads with free-running index */
+	struct vring_used *used;
+};
 
 /*
  * We publish the used event index at the end of the available ring, and vice

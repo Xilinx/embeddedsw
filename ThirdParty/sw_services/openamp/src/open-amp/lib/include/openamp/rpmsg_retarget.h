@@ -46,7 +46,7 @@ struct rpmsg_rpc_syscall {
 struct rpmsg_rpc_data {
 	struct rpmsg_endpoint ept;
 	int ept_destroyed;
-	atomic_int nacked;
+	atomic_flag nacked;
 	void *respbuf;
 	size_t respbuf_len;
 	rpmsg_rpc_poll poll;
@@ -57,22 +57,24 @@ struct rpmsg_rpc_data {
 };
 
 /**
- * rpmsg_rpc_init - initialize RPMsg remote procedure call
+ * @internal
+ *
+ * @brief Initialize RPMsg remote procedure call
  *
  * This function is to initialize the remote procedure call
  * global data. RPMsg RPC will send request to remote and
  * wait for callback.
  *
- * @rpc: pointer to the global remote procedure call data
- * @rdev: pointer to the rpmsg device
- * @ept_name: name of the endpoint used by RPC
- * @ept_addr: address of the endpoint used by RPC
- * @ept_raddr: remote address of the endpoint used by RPC
- * @poll_arg: pointer to poll function argument
- * @poll: poll function
- * @shutdown_cb: shutdown callback function
+ * @param rpc		Pointer to the global remote procedure call data
+ * @param rdev		Pointer to the rpmsg device
+ * @param ept_name	Name of the endpoint used by RPC
+ * @param ept_addr	Address of the endpoint used by RPC
+ * @param ept_raddr	Remote address of the endpoint used by RPC
+ * @param poll_arg	Pointer to poll function argument
+ * @param poll		Poll function
+ * @param shutdown_cb	Shutdown callback function
  *
- * return 0 for success, and negative value for failure.
+ * @return 0 for success, and negative value for failure.
  */
 int rpmsg_rpc_init(struct rpmsg_rpc_data *rpc,
 		   struct rpmsg_device *rdev,
@@ -82,40 +84,46 @@ int rpmsg_rpc_init(struct rpmsg_rpc_data *rpc,
 		   rpmsg_rpc_shutdown_cb shutdown_cb);
 
 /**
- * rpmsg_rpc_release - release RPMsg remote procedure call
+ * @internal
+ *
+ * @brief Release RPMsg remote procedure call
  *
  * This function is to release remoteproc procedure call
  * global data.
  *
- * @rpc: pointer to the globacl remote procedure call
+ * @param rpc	Pointer to the global remote procedure call
  */
 void rpmsg_rpc_release(struct rpmsg_rpc_data *rpc);
 
 /**
- * rpmsg_rpc_send - Request RPMsg RPC call
+ * @internal
+ *
+ * @brief Request RPMsg RPC call
  *
  * This function sends RPC request it will return with the length
  * of data and the response buffer.
  *
- * @rpc: pointer to remoteproc procedure call data struct
- * @req: pointer to request buffer
- * @len: length of the request data
- * @resp: pointer to where store the response buffer
- * @resp_len: length of the response buffer
+ * @param rpc		Pointer to remoteproc procedure call data struct
+ * @param req		Pointer to request buffer
+ * @param len		Length of the request data
+ * @param resp		Pointer to where store the response buffer
+ * @param resp_len	Length of the response buffer
  *
- * return length of the received response, negative value for failure.
+ * @return Length of the received response, negative value for failure.
  */
 int rpmsg_rpc_send(struct rpmsg_rpc_data *rpc,
 		   void *req, size_t len,
 		   void *resp, size_t resp_len);
 
 /**
- * rpmsg_set_default_rpc - set default RPMsg RPC data
+ * @internal
+ *
+ * @brief Set default RPMsg RPC data
  *
  * The default RPC data is used to redirect standard C file operations
  * to RPMsg channels.
  *
- * @rpc: pointer to remoteproc procedure call data struct
+ * @param rpc	Pointer to remoteproc procedure call data struct
  */
 void rpmsg_set_default_rpc(struct rpmsg_rpc_data *rpc);
 

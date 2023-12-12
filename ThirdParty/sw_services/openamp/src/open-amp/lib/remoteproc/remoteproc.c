@@ -848,6 +848,7 @@ int remoteproc_load_noblock(struct remoteproc *rproc,
 			}
 			rproc->rsc_table = rsc_table;
 			rproc->rsc_len = rsc_size;
+			rproc->rsc_io = *io;
 			metal_free_memory(lrsc_table);
 		}
 

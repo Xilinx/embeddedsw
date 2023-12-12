@@ -9,7 +9,6 @@
  */
 
 #include <metal/alloc.h>
-#include <metal/cache.h>
 #include <metal/sleep.h>
 #include <metal/utilities.h>
 #include <openamp/rpmsg_virtio.h>
@@ -78,21 +77,23 @@ void rpmsg_virtio_init_shm_pool(struct rpmsg_virtio_shm_pool *shpool,
 }
 
 /**
- * rpmsg_virtio_return_buffer
+ * @internal
  *
- * Places the used buffer back on the virtqueue.
+ * @brief Places the used buffer back on the virtqueue.
  *
- * @param rvdev  - pointer to remote core
- * @param buffer - buffer pointer
- * @param len    - buffer length
- * @param idx    - buffer index
- *
+ * @param rvdev		Pointer to remote core
+ * @param buffer	Buffer pointer
+ * @param len		Buffer length
+ * @param idx		Buffer index
  */
 static void rpmsg_virtio_return_buffer(struct rpmsg_virtio_device *rvdev,
 				       void *buffer, uint32_t len,
 				       uint16_t idx)
 {
 	unsigned int role = rpmsg_virtio_get_role(rvdev);
+
+	BUFFER_INVALIDATE(buffer, len);
+
 #ifndef VIRTIO_DEVICE_ONLY
 	if (role == RPMSG_HOST) {
 		struct virtqueue_buf vqbuf;
@@ -114,16 +115,16 @@ static void rpmsg_virtio_return_buffer(struct rpmsg_virtio_device *rvdev,
 }
 
 /**
- * rpmsg_virtio_enqueue_buffer
+ * @internal
  *
- * Places buffer on the virtqueue for consumption by the other side.
+ * @brief Places buffer on the virtqueue for consumption by the other side.
  *
- * @param rvdev  - pointer to rpmsg virtio
- * @param buffer - buffer pointer
- * @param len    - buffer length
- * @param idx    - buffer index
+ * @param rvdev		Pointer to rpmsg virtio
+ * @param buffer	Buffer pointer
+ * @param len		Buffer length
+ * @param idx		Buffer index
  *
- * @return - status of function execution
+ * @return Status of function execution
  */
 static int rpmsg_virtio_enqueue_buffer(struct rpmsg_virtio_device *rvdev,
 				       void *buffer, uint32_t len,
@@ -131,9 +132,7 @@ static int rpmsg_virtio_enqueue_buffer(struct rpmsg_virtio_device *rvdev,
 {
 	unsigned int role = rpmsg_virtio_get_role(rvdev);
 
-#ifdef VIRTIO_CACHED_BUFFERS
-	metal_cache_flush(buffer, len);
-#endif /* VIRTIO_CACHED_BUFFERS */
+	BUFFER_FLUSH(buffer, len);
 
 #ifndef VIRTIO_DEVICE_ONLY
 	if (role == RPMSG_HOST) {
@@ -157,15 +156,15 @@ static int rpmsg_virtio_enqueue_buffer(struct rpmsg_virtio_device *rvdev,
 }
 
 /**
- * rpmsg_virtio_get_tx_buffer
+ * @internal
  *
- * Provides buffer to transmit messages.
+ * @brief Provides buffer to transmit messages.
  *
- * @param rvdev - pointer to rpmsg device
- * @param len  - length of returned buffer
- * @param idx  - buffer index
+ * @param rvdev	Pointer to rpmsg device
+ * @param len	Length of returned buffer
+ * @param idx	Buffer index
  *
- * return - pointer to buffer.
+ * @return Pointer to buffer.
  */
 static void *rpmsg_virtio_get_tx_buffer(struct rpmsg_virtio_device *rvdev,
 					uint32_t *len, uint16_t *idx)
@@ -212,16 +211,15 @@ static void *rpmsg_virtio_get_tx_buffer(struct rpmsg_virtio_device *rvdev,
 }
 
 /**
- * rpmsg_virtio_get_rx_buffer
+ * @internal
  *
- * Retrieves the received buffer from the virtqueue.
+ * @brief Retrieves the received buffer from the virtqueue.
  *
- * @param rvdev - pointer to rpmsg device
- * @param len  - size of received buffer
- * @param idx  - index of buffer
+ * @param rvdev	Pointer to rpmsg device
+ * @param len	Size of received buffer
+ * @param idx	Index of buffer
  *
- * @return - pointer to received buffer
- *
+ * @return Pointer to received buffer
  */
 static void *rpmsg_virtio_get_rx_buffer(struct rpmsg_virtio_device *rvdev,
 					uint32_t *len, uint16_t *idx)
@@ -242,16 +240,15 @@ static void *rpmsg_virtio_get_rx_buffer(struct rpmsg_virtio_device *rvdev,
 	}
 #endif /*!VIRTIO_DRIVER_ONLY*/
 
-#ifdef VIRTIO_CACHED_BUFFERS
 	/* Invalidate the buffer before returning it */
-	metal_cache_invalidate(data, *len);
-#endif /* VIRTIO_CACHED_BUFFERS */
+	if (data)
+		BUFFER_INVALIDATE(data, *len);
 
 	return data;
 }
 
 #ifndef VIRTIO_DRIVER_ONLY
-/**
+/*
  * check if the remote is ready to start RPMsg communication
  */
 static int rpmsg_virtio_wait_remote_ready(struct rpmsg_virtio_device *rvdev)
@@ -274,14 +271,13 @@ static int rpmsg_virtio_wait_remote_ready(struct rpmsg_virtio_device *rvdev)
 #endif /*!VIRTIO_DRIVER_ONLY*/
 
 /**
- * _rpmsg_virtio_get_buffer_size
+ * @internal
  *
- * Returns buffer size available for sending messages.
+ * @brief Returns buffer size available for sending messages.
  *
- * @param rvdev - pointer to rpmsg device
+ * @param rvdev	Pointer to rpmsg device
  *
- * @return - buffer size
- *
+ * @return Buffer size
  */
 static int _rpmsg_virtio_get_buffer_size(struct rpmsg_virtio_device *rvdev)
 {
@@ -474,18 +470,19 @@ static int rpmsg_virtio_release_tx_buffer(struct rpmsg_device *rdev, void *txbuf
 }
 
 /**
- * This function sends rpmsg "message" to remote device.
+ * @internal
  *
- * @param rdev    - pointer to rpmsg device
- * @param src     - source address of channel
- * @param dst     - destination address of channel
- * @param data    - data to transmit
- * @param len     - size of data
- * @param wait    - boolean, wait or not for buffer to become
- *                  available
+ * @brief This function sends rpmsg "message" to remote device.
  *
- * @return - size of data sent or negative value for failure.
+ * @param rdev	Pointer to rpmsg device
+ * @param src	Source address of channel
+ * @param dst	Destination address of channel
+ * @param data	Data to transmit
+ * @param len	Size of data
+ * @param wait	Boolean, wait or not for buffer to become
+ *		available
  *
+ * @return Size of data sent or negative value for failure.
  */
 static int rpmsg_virtio_send_offchannel_raw(struct rpmsg_device *rdev,
 					    uint32_t src, uint32_t dst,
@@ -518,13 +515,12 @@ static int rpmsg_virtio_send_offchannel_raw(struct rpmsg_device *rdev,
 }
 
 /**
- * rpmsg_virtio_tx_callback
+ * @internal
  *
- * Tx callback function.
+ * @brief Tx callback function.
  *
- * @param vq - pointer to virtqueue on which Tx is has been
- *             completed.
- *
+ * @param vq	Pointer to virtqueue on which Tx is has been
+ *		completed.
  */
 static void rpmsg_virtio_tx_callback(struct virtqueue *vq)
 {
@@ -532,12 +528,11 @@ static void rpmsg_virtio_tx_callback(struct virtqueue *vq)
 }
 
 /**
- * rpmsg_virtio_rx_callback
+ * @internal
  *
- * Rx callback function.
+ * @brief Rx callback function.
  *
- * @param vq - pointer to virtqueue on which messages is received
- *
+ * @param vq	Pointer to virtqueue on which messages is received
  */
 static void rpmsg_virtio_rx_callback(struct virtqueue *vq)
 {
@@ -598,18 +593,18 @@ static void rpmsg_virtio_rx_callback(struct virtqueue *vq)
 }
 
 /**
- * rpmsg_virtio_ns_callback
+ * @internal
  *
- * This callback handles name service announcement from the remote device
- * and creates/deletes rpmsg channels.
+ * @brief This callback handles name service announcement from the remote
+ * device and creates/deletes rpmsg channels.
  *
- * @param ept  - pointer to server channel control block.
- * @param data - pointer to received messages
- * @param len  - length of received data
- * @param priv - any private data
- * @param src  - source address
+ * @param ept	Pointer to server channel control block.
+ * @param data	Pointer to received messages
+ * @param len	Length of received data
+ * @param priv	Any private data
+ * @param src	Source address
  *
- * @return - rpmag endpoint callback handled
+ * @return Rpmsg endpoint callback handled
  */
 static int rpmsg_virtio_ns_callback(struct rpmsg_endpoint *ept, void *data,
 				    size_t len, uint32_t src, void *priv)

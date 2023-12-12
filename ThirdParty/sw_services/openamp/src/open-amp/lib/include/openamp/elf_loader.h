@@ -311,66 +311,81 @@ struct elf64_info {
 extern const struct loader_ops elf_ops;
 
 /**
- * elf_identify - check if it is an ELF file
+ * @internal
+ *
+ * @brief Check if it is an ELF file
  *
  * It will check if the input image header is an ELF header.
  *
- * @img_data: firmware private data which will be passed to user defined loader
- *            operations
- * @len: firmware header length
+ * @param img_data	Firmware private data which will be passed to user
+ *			defined loader operations
+ * @param len		Firmware header length
  *
- * return 0 for success or negative value for failure.
+ * @return 0 for success or negative value for failure.
  */
 int elf_identify(const void *img_data, size_t len);
 
 /**
- * elf_load_header - Load ELF headers
+ * @internal
+ *
+ * @brief Load ELF headers
  *
  * It will get the ELF header, the program header, and the section header.
  *
- * @img_data: image data
- * @offset: input image data offset to the start of image file
- * @len: input image data length
- * @img_info: pointer to store image information data
- * @last_load_state: last state return by this function
- * @noffset: pointer to next offset required by loading ELF header
- * @nlen: pointer to next data length required by loading ELF header
+ * @param img_data		Image data
+ * @param offset		Input image data offset to the start of image
+ *				file
+ * @param len			Input image data length
+ * @param img_info		Pointer to store image information data
+ * @param last_load_state	Last state return by this function
+ * @param noffset		Pointer to next offset required by loading ELF
+ *				header
+ * @param nlen			Pointer to next data length required by loading
+ *				ELF header
  *
- * return ELF loading header state, or negative value for failure
+ * @return ELF loading header state, or negative value for failure
  */
 int elf_load_header(const void *img_data, size_t offset, size_t len,
 		    void **img_info, int last_load_state,
 		    size_t *noffset, size_t *nlen);
 
 /**
- * elf_load - load ELF data
+ * @internal
+ *
+ * @brief Load ELF data
  *
  * It will parse the ELF image and return the target device address,
  * offset to the start of the ELF image of the data to load and the
  * length of the data to load.
  *
- * @rproc: pointer to remoteproc instance
- * @img_data: image data which will passed to the function.
- *            it can be NULL, if image data doesn't need to be handled
- *            by the load function. E.g. binary data which was
- *            loaded to the target memory.
- * @offset: last loaded image data offset to the start of image file
- * @len: last loaded image data length
- * @img_info: pointer to store image information data
- * @last_load_state: the returned state of the last function call.
- * @da: target device address, if the data to load is not for target memory
- *      the da will be set to ANY.
- * @noffset: pointer to next offset required by loading ELF header
- * @nlen: pointer to next data length required by loading ELF header
- * @padding: value to pad it is possible that a size of a segment in memory
- *           is larger than what it is in the ELF image. e.g. a segment
- *           can have stack section .bss. It doesn't need to copy image file
- *           space, in this case, it will be packed with 0.
- * @nmemsize: pointer to next data target memory size. The size of a segment
- *            in the target memory can be larger than the its size in the
- *            image file.
+ * @param rproc			Pointer to remoteproc instance
+ * @param img_data		Image data which will passed to the function.
+ *				it can be NULL, if image data doesn't need to
+ *				be handled by the load function. E.g. binary
+ *				data which was loaded to the target memory.
+ * @param offset		Last loaded image data offset to the start of
+ *				image file
+ * @param len			Last loaded image data length
+ * @param img_info		Pointer to store image information data
+ * @param last_load_state	The returned state of the last function call.
+ * @param da			Target device address, if the data to load is
+ *				not for target memory the da will be set to
+ *				ANY.
+ * @param noffset		Pointer to next offset required by loading ELF
+ *				header
+ * @param nlen			Pointer to next data length required by loading
+ *				ELF header
+ * @param padding		Value to pad it is possible that a size of a
+ *				segment in memory is larger than what it is in
+ *				the ELF image. e.g. a segment can have stack
+ *				section .bss. It doesn't need to copy image
+ *				file space, in this case, it will be packed
+ *				with 0.
+ * @param nmemsize		Pointer to next data target memory size. The
+ *				size of a segment in the target memory can be
+ *				larger than the its size in the image file.
  *
- * return 0 for success, otherwise negative value for failure
+ * @return 0 for success, otherwise negative value for failure
  */
 int elf_load(struct remoteproc *rproc, const void *img_data,
 	     size_t offset, size_t len,
@@ -380,38 +395,44 @@ int elf_load(struct remoteproc *rproc, const void *img_data,
 	     unsigned char *padding, size_t *nmemsize);
 
 /**
- * elf_release - Release ELF image information
+ * @internal
+ *
+ * @brief Release ELF image information
  *
  * It will release ELF image information data.
  *
- * @img_info: pointer to ELF image information
+ * @param img_info	Pointer to ELF image information
  */
 void elf_release(void *img_info);
 
 /**
- * elf_get_entry - Get entry point
+ * @internal
+ *
+ * @brief Get entry point
  *
  * It will return entry point specified in the ELF file.
  *
- * @img_info: pointer to ELF image information
+ * @param img_info	Pointer to ELF image information
  *
- * return entry address
+ * @return Entry address
  */
 metal_phys_addr_t elf_get_entry(void *img_info);
 
 /**
- * elf_locate_rsc_table - locate the resource table information
+ * @internal
+ *
+ * @brief Locate the resource table information
  *
  * It will return the length of the resource table, and the device address of
  * the resource table.
  *
- * @img_info: pointer to ELF image information
- * @da: pointer to the device address
- * @offset: pointer to the offset to in the ELF image of the resource
- *          table section.
- * @size: pointer to the size of the resource table section.
+ * @param img_info	Pointer to ELF image information
+ * @param da		Pointer to the device address
+ * @param offset	Pointer to the offset to in the ELF image of the
+ *			resource table section.
+ * @param size		Pointer to the size of the resource table section.
  *
- * return 0 if successfully locate the resource table, negative value for
+ * @return 0 if successfully locate the resource table, negative value for
  * failure.
  */
 int elf_locate_rsc_table(void *img_info, metal_phys_addr_t *da,
