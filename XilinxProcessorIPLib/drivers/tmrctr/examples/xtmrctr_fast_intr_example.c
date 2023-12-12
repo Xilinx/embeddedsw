@@ -63,7 +63,6 @@
  */
 #define TIMER_CNTR_0	 0
 
-
 /*
  * The following constant is used to set the reset value of the timer counter,
  * making this number larger reduces the amount of time this example consumes
@@ -73,9 +72,7 @@
 
 /**************************** Type Definitions *******************************/
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
-
 
 /************************** Function Prototypes ******************************/
 #ifndef SDT
@@ -90,7 +87,6 @@ static int TmrCtrSetupIntrSystem(XIntc *IntcInstancePtr,
 				 u16 DeviceId,
 				 u16 IntrId,
 				 u8 TmrCtrNumber);
-
 
 static void TmrCtrDisableIntr(XIntc *IntcInstancePtr, u16 IntrId);
 #else
@@ -116,7 +112,6 @@ XTmrCtr TimerCounterInst;   /* The instance of the Timer Counter */
  * interrupt processing such that they must be global.
  */
 static volatile int TimerExpired;
-
 
 /*****************************************************************************/
 /**
@@ -161,7 +156,6 @@ int main(void)
 	return XST_SUCCESS;
 
 }
-
 
 /*****************************************************************************/
 /**
@@ -465,7 +459,6 @@ void TmrCtrDisableIntr(XTmrCtr *TmrCtrInstancePtr)
 	XDisableIntrId(TmrCtrInstancePtr->Config.IntrId, TmrCtrInstancePtr->Config.IntrParent);
 #endif
 }
-
 
 /*****************************************************************************/
 /**

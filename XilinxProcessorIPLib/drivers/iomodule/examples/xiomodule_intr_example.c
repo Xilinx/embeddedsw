@@ -1,4 +1,5 @@
 /******************************************************************************
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -60,9 +61,7 @@
 
 /**************************** Type Definitions *******************************/
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
-
 
 /************************** Function Prototypes ******************************/
 
@@ -84,7 +83,6 @@ static XIOModule IOModule; /* Instance of the IO Module */
  */
 static volatile int TimerExpired[XTC_DEVICE_TIMER_COUNT];
 
-
 /*****************************************************************************/
 /**
 *
@@ -101,23 +99,21 @@ static volatile int TimerExpired[XTC_DEVICE_TIMER_COUNT];
 #ifndef TESTAPP_GEN
 int main(void)
 {
-    XStatus Status;
+	XStatus Status;
 
-    /*
-     *  Run the example, specify the Device ID generated in xparameters.h
-     */
-    Status = IOModuleIntrExample(&IOModule, IOMODULE_DEVICE_ID);
-    if (Status != XST_SUCCESS)
-    {
+	/*
+	 *  Run the example, specify the Device ID generated in xparameters.h
+	 */
+	Status = IOModuleIntrExample(&IOModule, IOMODULE_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
 		xil_printf("Iomodule interrupt Example Failed\r\n");
-        return XST_FAILURE;
-    }
+		return XST_FAILURE;
+	}
 
 	xil_printf("Successfully ran Iomodule interrupt Example\r\n");
-    return XST_SUCCESS;
+	return XST_SUCCESS;
 }
 #endif
-
 
 /*****************************************************************************/
 /**
@@ -142,116 +138,115 @@ int main(void)
 *****************************************************************************/
 XStatus IOModuleIntrExample(XIOModule *IOModuleInstancePtr, u16 DeviceId)
 {
-    int Status;
-    u8 Timer;
-    XIOModule_Config *CfgPtr = IOModuleInstancePtr->CfgPtr;
+	int Status;
+	u8 Timer;
+	XIOModule_Config *CfgPtr = IOModuleInstancePtr->CfgPtr;
 
-    /*
-     * Initialize the IO Module so that it's ready to use, specify the device
-     * ID that is generated in xparameters.h
-     */
-    Status = XIOModule_Initialize(IOModuleInstancePtr, DeviceId);
-    if (Status != XST_SUCCESS) {
-	    return XST_FAILURE;
-    }
-
-    /*
-     * Perform a self-test to ensure that the hardware was built correctly.
-     */
-    Status = XIOModule_SelfTest(IOModuleInstancePtr);
-    if (Status != XST_SUCCESS) {
-	    return XST_FAILURE;
-    }
-
-    /*
-     * Initialize and enable interrupts in the processor.
-     */
-    IOModuleSetupIntrSystem(IOModuleInstancePtr);
-
-    /*
-     * Setup the handler for the IO Module handler that will be called from
-     * the interrupt context when an interrupt occurs, specify a pointer to
-     * the IO Module driver instance as the callback reference so the
-     * handler is able to access the instance data.
-     */
-    XIOModule_SetHandler(IOModuleInstancePtr,
-			 IOModuleHandler,
-			 IOModuleInstancePtr);
-
-    for (Timer = 0; Timer < XTC_DEVICE_TIMER_COUNT; Timer++)
-    {
 	/*
-	 * Skip unused timers,timers with prescaler (since they may
-	 * have very long expiration times), timers without readable
-	 * counters, and timers with small size (since the counter
-	 * may not change when sampled).
+	 * Initialize the IO Module so that it's ready to use, specify the device
+	 * ID that is generated in xparameters.h
 	 */
-	if (!  (CfgPtr->PitUsed[Timer] &&
-		CfgPtr->PitPrescaler[Timer] == XTC_PRESCALER_NONE &&
-		CfgPtr->PitReadable[Timer] &&
-		CfgPtr->PitSize[Timer] > MIN_TIMER_BITS)) {
-	    TimerExpired[Timer] = MAX_INTR_COUNT;
-	    continue;
+	Status = XIOModule_Initialize(IOModuleInstancePtr, DeviceId);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
 	/*
-	 * Use auto reload mode such that the Programmable Interval Timers will
-	 * reload automatically and continue repeatedly, without this option
-	 * they would expire once only
+	 * Perform a self-test to ensure that the hardware was built correctly.
 	 */
-	XIOModule_Timer_SetOptions(IOModuleInstancePtr, Timer,
-			   XTC_INT_MODE_OPTION | XTC_AUTO_RELOAD_OPTION);
+	Status = XIOModule_SelfTest(IOModuleInstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	/*
-	 * Set a reset value for the Programmable Interval Timers such that
-	 * they will expire earlier than letting them roll over from 0, the
-	 * reset value is loaded into the Programmable Interval Timers when
-	 * they are started.
+	 * Initialize and enable interrupts in the processor.
 	 */
-	XIOModule_SetResetValue(IOModuleInstancePtr, Timer, RESET_VALUE);
+	IOModuleSetupIntrSystem(IOModuleInstancePtr);
 
 	/*
-	 * Enable the interrupt for the Programmable Interval Timers.
+	 * Setup the handler for the IO Module handler that will be called from
+	 * the interrupt context when an interrupt occurs, specify a pointer to
+	 * the IO Module driver instance as the callback reference so the
+	 * handler is able to access the instance data.
 	 */
-	XIOModule_Enable(IOModuleInstancePtr,
-			 Timer + XIN_IOMODULE_PIT_1_INTERRUPT_INTR);
+	XIOModule_SetHandler(IOModuleInstancePtr,
+			     IOModuleHandler,
+			     IOModuleInstancePtr);
 
-	/*
-	 * Start the Programmable Interval Timers such that they are
-	 * decrementing by default, then wait for them to timeout a number of
-	 * times.
-	 */
-	XIOModule_Timer_Start(IOModuleInstancePtr, Timer);
-    }
-
-    while (1) {
-	int TotalExpiredCount = 0;
-
-	/*
-	 * Wait for the Programmable Interval Timers to expire as indicated by
-	 * the shared variable which the handler will increment, and stop each
-	 * timer when it has reached the expected number of times.
-	 */
 	for (Timer = 0; Timer < XTC_DEVICE_TIMER_COUNT; Timer++) {
-	    if (TimerExpired[Timer] >= MAX_INTR_COUNT)
-		XIOModule_Timer_Stop(IOModuleInstancePtr, Timer);
-	    TotalExpiredCount += TimerExpired[Timer];
+		/*
+		 * Skip unused timers,timers with prescaler (since they may
+		 * have very long expiration times), timers without readable
+		 * counters, and timers with small size (since the counter
+		 * may not change when sampled).
+		 */
+		if (!  (CfgPtr->PitUsed[Timer] &&
+			CfgPtr->PitPrescaler[Timer] == XTC_PRESCALER_NONE &&
+			CfgPtr->PitReadable[Timer] &&
+			CfgPtr->PitSize[Timer] > MIN_TIMER_BITS)) {
+			TimerExpired[Timer] = MAX_INTR_COUNT;
+			continue;
+		}
+
+		/*
+		 * Use auto reload mode such that the Programmable Interval Timers will
+		 * reload automatically and continue repeatedly, without this option
+		 * they would expire once only
+		 */
+		XIOModule_Timer_SetOptions(IOModuleInstancePtr, Timer,
+					   XTC_INT_MODE_OPTION | XTC_AUTO_RELOAD_OPTION);
+
+		/*
+		 * Set a reset value for the Programmable Interval Timers such that
+		 * they will expire earlier than letting them roll over from 0, the
+		 * reset value is loaded into the Programmable Interval Timers when
+		 * they are started.
+		 */
+		XIOModule_SetResetValue(IOModuleInstancePtr, Timer, RESET_VALUE);
+
+		/*
+		 * Enable the interrupt for the Programmable Interval Timers.
+		 */
+		XIOModule_Enable(IOModuleInstancePtr,
+				 Timer + XIN_IOMODULE_PIT_1_INTERRUPT_INTR);
+
+		/*
+		 * Start the Programmable Interval Timers such that they are
+		 * decrementing by default, then wait for them to timeout a number of
+		 * times.
+		 */
+		XIOModule_Timer_Start(IOModuleInstancePtr, Timer);
 	}
 
-	/*
-	 * If all timers have expired the expected number of times, then stop
-	 * this example.
-	 */
-	if (TotalExpiredCount == MAX_INTR_COUNT * XTC_DEVICE_TIMER_COUNT) {
-	    break;
+	while (1) {
+		int TotalExpiredCount = 0;
+
+		/*
+		 * Wait for the Programmable Interval Timers to expire as indicated by
+		 * the shared variable which the handler will increment, and stop each
+		 * timer when it has reached the expected number of times.
+		 */
+		for (Timer = 0; Timer < XTC_DEVICE_TIMER_COUNT; Timer++) {
+			if (TimerExpired[Timer] >= MAX_INTR_COUNT) {
+				XIOModule_Timer_Stop(IOModuleInstancePtr, Timer);
+			}
+			TotalExpiredCount += TimerExpired[Timer];
+		}
+
+		/*
+		 * If all timers have expired the expected number of times, then stop
+		 * this example.
+		 */
+		if (TotalExpiredCount == MAX_INTR_COUNT * XTC_DEVICE_TIMER_COUNT) {
+			break;
+		}
 	}
-    }
 
-    IOModuleDisableIntr(IOModuleInstancePtr);
+	IOModuleDisableIntr(IOModuleInstancePtr);
 
-    return XST_SUCCESS;
+	return XST_SUCCESS;
 }
-
 
 /*****************************************************************************/
 /**
@@ -271,42 +266,39 @@ XStatus IOModuleIntrExample(XIOModule *IOModuleInstancePtr, u16 DeviceId)
 XStatus IOModuleInterruptSetup(XIOModule *IOModuleInstancePtr,
 			       u16 DeviceId)
 {
-    XStatus Status;
+	XStatus Status;
 
-    /*
-     * Initialize the IO Module driver so that it is ready to use.
-     */
-    Status = XIOModule_Initialize(IOModuleInstancePtr, DeviceId);
-    if (Status != XST_SUCCESS)
-    {
-	return XST_FAILURE;
-    }
+	/*
+	 * Initialize the IO Module driver so that it is ready to use.
+	 */
+	Status = XIOModule_Initialize(IOModuleInstancePtr, DeviceId);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
-    /*
-     * Perform a self-test to ensure that the hardware was built correctly.
-     */
-    Status = XIOModule_SelfTest(IOModuleInstancePtr);
-    if (Status != XST_SUCCESS)
-    {
-	return XST_FAILURE;
-    }
+	/*
+	 * Perform a self-test to ensure that the hardware was built correctly.
+	 */
+	Status = XIOModule_SelfTest(IOModuleInstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
-    /*
-     * Initialize and enable interrupts in the processor.
-     */
-    IOModuleSetupIntrSystem(IOModuleInstancePtr);
+	/*
+	 * Initialize and enable interrupts in the processor.
+	 */
+	IOModuleSetupIntrSystem(IOModuleInstancePtr);
 
-    /*
-     * Start the IO Module such that interrupts are enabled for all
-     * internal interrupts.
-     */
-    Status = XIOModule_Start(IOModuleInstancePtr);
-    if (Status != XST_SUCCESS)
-    {
-	return XST_FAILURE;
-    }
+	/*
+	 * Start the IO Module such that interrupts are enabled for all
+	 * internal interrupts.
+	 */
+	Status = XIOModule_Start(IOModuleInstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
-    return XST_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -330,22 +322,22 @@ XStatus IOModuleInterruptSetup(XIOModule *IOModuleInstancePtr,
 ******************************************************************************/
 void IOModuleHandler(void *CallBackRef, u8 Timer)
 {
-    XIOModule *InstancePtr = (XIOModule *)CallBackRef;
+	XIOModule *InstancePtr = (XIOModule *)CallBackRef;
 
-    /*
-     * Check if the Programmable Interval Timer has expired, checking is not
-     * necessary since that's the reason this function is executed, this just
-     * shows how the callback reference can be used as a pointer to the
-     * instance of the IO Module that had a timer that expired, increment a
-     * shared variable so the main thread of execution can see the timer
-     * expired.
-     */
-    if (XIOModule_IsExpired(InstancePtr, Timer)) {
-	TimerExpired[Timer]++;
-	if(TimerExpired[Timer] == MAX_INTR_COUNT) {
-	    XIOModule_Timer_SetOptions(InstancePtr, Timer, 0);
+	/*
+	 * Check if the Programmable Interval Timer has expired, checking is not
+	 * necessary since that's the reason this function is executed, this just
+	 * shows how the callback reference can be used as a pointer to the
+	 * instance of the IO Module that had a timer that expired, increment a
+	 * shared variable so the main thread of execution can see the timer
+	 * expired.
+	 */
+	if (XIOModule_IsExpired(InstancePtr, Timer)) {
+		TimerExpired[Timer]++;
+		if (TimerExpired[Timer] == MAX_INTR_COUNT) {
+			XIOModule_Timer_SetOptions(InstancePtr, Timer, 0);
+		}
 	}
-    }
 }
 
 /*****************************************************************************/
@@ -362,22 +354,22 @@ void IOModuleHandler(void *CallBackRef, u8 Timer)
 ******************************************************************************/
 void IOModuleSetupIntrSystem(XIOModule *IOModuleInstancePtr)
 {
-    /*
-     * Initialize the exception table.
-     */
-    Xil_ExceptionInit();
+	/*
+	 * Initialize the exception table.
+	 */
+	Xil_ExceptionInit();
 
-    /*
-     * Register the IO module interrupt handler with the exception table.
-     */
-    Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-		 (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
-		 (void*) 0);
+	/*
+	 * Register the IO module interrupt handler with the exception table.
+	 */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+				     (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
+				     (void *) 0);
 
-    /*
-     * Enable exceptions.
-     */
-    Xil_ExceptionEnable();
+	/*
+	 * Enable exceptions.
+	 */
+	Xil_ExceptionEnable();
 }
 
 /******************************************************************************/
@@ -395,14 +387,13 @@ void IOModuleSetupIntrSystem(XIOModule *IOModuleInstancePtr)
 ******************************************************************************/
 void IOModuleDisableIntr(XIOModule *IOModuleInstancePtr)
 {
-    u8 Timer;
+	u8 Timer;
 
-    /*
-     * Disable the interrupts
-     */
-    for (Timer = 0; Timer < XTC_DEVICE_TIMER_COUNT; Timer++)
-    {
-	XIOModule_Disable(IOModuleInstancePtr,
-			  Timer + XIN_IOMODULE_PIT_1_INTERRUPT_INTR);
-    }
+	/*
+	 * Disable the interrupts
+	 */
+	for (Timer = 0; Timer < XTC_DEVICE_TIMER_COUNT; Timer++) {
+		XIOModule_Disable(IOModuleInstancePtr,
+				  Timer + XIN_IOMODULE_PIT_1_INTERRUPT_INTR);
+	}
 }
