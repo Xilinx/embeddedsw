@@ -51,20 +51,22 @@
 * 2.0   har  06/09/2022 Added support for Versal_net
 *                       Removed support for 12K mode
 *            08/02/2022 Modified if check for XPuf_ChangeIroFreq to avoid returning XST_SUCCESS
-*                       incase of glitch attack
+*                       in case of glitch attack
 * 2.1   skg  10/29/2022 Added In Body comments for APIs
 *       am   02/13/2023 Fixed MISRA C violations
 *       am   02/17/2023 Fixed HIS_COMF violation
 *       vss  02/21/2023 Fixed PUF aux shift issue
 * 2.2	kpt  08/03/2023 Fix passing efuse cache value and changed XPuf_IsRegistrationEnabled to
 *                       XPuf_IsRegistrationDisabled
+* 2.3   ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
+/**
+ * @addtogroup xpuf_server_apis XilPuf Server APIs
+ * @{
+ */
 /***************************** Include Files *********************************/
 #include "sleep.h"
 #include "xpuf.h"
@@ -287,7 +289,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 	Status = XST_FAILURE;
 
 	/**
-	 * PUF helper data includes Syndrome data, CHash and Auxillary data.
+	 * PUF helper data includes Syndrome data, CHash and Auxiliary data.
 	 * Capturing Syndrome data word by word.
 	 */
 	for (Idx = 0; Idx < XPUF_4K_PUF_SYN_LEN_IN_WORDS; Idx++) {
@@ -302,7 +304,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 
 	/**
 	 * Once complete Syndrome data is captured and PUF operation is done,
-	 * read CHash, Auxillary data and PUF ID.
+	 * read CHash, Auxiliary data and PUF ID.
 	 */
 	if (Idx == XPUF_4K_PUF_SYN_LEN_IN_WORDS) {
 		Status = XST_FAILURE;

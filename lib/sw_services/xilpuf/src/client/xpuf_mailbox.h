@@ -8,10 +8,7 @@
 /**
 *
 * @file xpuf_mailbox.h
-* @addtogroup xpuf_mailbox_apis XilPuf Mailbox APIs
-* @{
 *
-* @cond xpuf_internal
 * This file contains declarations of xilmailbox generic interface APIs
 *
 * <pre>
@@ -23,12 +20,16 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 2.2   am   03/09/23 Moved payload length macros to xilmailbox.h file
 *       kal  09/14/23 Added XPuf_SetSlrIndex function
+* 2.3   ng   11/22/23 Fixed doxygen grouping
 *
 * </pre>
-* @note
 *
-* @endcond
 ******************************************************************************/
+
+/**
+ * @addtogroup xpuf_mailbox_apis XilPuf Mailbox APIs
+ * @{
+ */
 
 #ifndef XPUF_MAILBOX_H
 #define XPUF_MAILBOX_H

@@ -8,21 +8,17 @@
 /**
  *
  * @file xpuf_init.h
- * @addtogroup xpuf_init_apis XilPuf Intialize APIs
- * @{
- * @cond xpuf_internal
+ *
  * <pre>
  * MODIFICATION HISTORY:
  *
  * Ver   Who  Date        Changes
  * ----- ---- ---------- -------------------------------------------------------
  * 1.0   kpt  01/04/2022 Initial release
+ * 2.3   ng   11/22/2023 Fixed doxygen grouping
  *
  * </pre>
  *
- * @note
- *
- * @endcond
  ******************************************************************************/
 #ifndef XPUF_INIT_H_
 #define XPUF_INIT_H_

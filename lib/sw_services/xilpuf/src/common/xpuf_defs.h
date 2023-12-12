@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,10 +8,7 @@
 /**
 *
 * @file xpuf_defs.h
-* @addtogroup xpuf_api_ids XilPuf API IDs
-* @{
 *
-* @cond xpuf_internal
 * This file contains the xilpuf API IDs
 *
 * <pre>
@@ -19,11 +17,10 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/22 Initial release
+* 2.3   ng   11/22/23 Fixed doxygen grouping
 *
 * </pre>
-* @note
 *
-* @endcond
 ******************************************************************************/
 
 #ifndef XPUF_DEFS_H
@@ -38,9 +35,6 @@ extern "C" {
 #include "xil_types.h"
 
 /************************** Constant Definitions ****************************/
-/**@cond xpuf_internal
- * @{
- */
 /* Enable client printfs by setting XPUF_DEBUG to 1 */
 #define XPUF_DEBUG	(0U)
 
@@ -123,11 +117,6 @@ typedef enum {
 	XPUF_PUF_CLEAR_PUF_ID,		/**< API id for PUF clear id */
 	XPUF_API_MAX,			/**< Number of API features */
 } XPuf_ApiId;
-
-/**
- * @}
- * @endcond
- */
 
 #ifdef __cplusplus
 }
