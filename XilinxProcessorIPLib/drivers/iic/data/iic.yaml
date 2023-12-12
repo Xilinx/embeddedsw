@@ -19,9 +19,9 @@ properties:
           - xlnx,xps-iic-2.00.a
   reg:
     description: Physical base address and size of the controller register map
-  Has10BitAddr:
+  xlnx,ten-bit-adr:
     description: Does device have 10 bit address decoding
-  GpOutWidth:
+  xlnx,gpo-width:
     description: Number of bits in general purpose output
 
 config:
@@ -30,8 +30,8 @@ config:
 required:
     - compatible
     - reg
-    - Has10BitAddr
-    - GpOutWidth
+    - xlnx,ten-bit-adr
+    - xlnx,gpo-width
     - interrupts
     - interrupt-parent
 
