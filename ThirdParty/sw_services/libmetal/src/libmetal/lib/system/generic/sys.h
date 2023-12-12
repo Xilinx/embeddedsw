@@ -22,8 +22,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
-
-#include "./@PROJECT_MACHINE@/sys.h"
+#include <metal/system/generic/xlnx/sys.h>
 
 #ifdef __cplusplus
 extern "C" {

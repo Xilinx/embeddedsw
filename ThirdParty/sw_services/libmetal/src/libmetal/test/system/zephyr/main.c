@@ -17,7 +17,7 @@
 #define BLK_NUM_MAX 16
 
 K_HEAP_DEFINE(kmpool, BLK_SIZE_MAX * BLK_NUM_MAX);
-struct k_mem_block block[BLK_NUM_MAX];
+static void *block[BLK_NUM_MAX];
 
 extern int init_system(void);
 extern void metal_generic_default_poll(void);
@@ -30,15 +30,13 @@ extern void metal_test_add_mutex();
 extern void *metal_zephyr_allocate_memory(unsigned int size)
 {
 	int i;
-	struct k_mem_block *blk;
 
 	for (i = 0; i < sizeof(block)/sizeof(block[0]); i++) {
-		blk = &block[i];
-		if (!blk->data) {
-			blk->data = k_heap_alloc(&kmpool, size, K_NO_WAIT);
-			if (!blk->data)
+		if (!block[i]) {
+			block[i] = k_heap_alloc(&kmpool, size, K_NO_WAIT);
+			if (!block[i])
 				printk("Failed to alloc 0x%x memory.\n", size);
-			return blk->data;
+			return block[i];
 		}
 	}
 
@@ -49,13 +47,11 @@ extern void *metal_zephyr_allocate_memory(unsigned int size)
 extern void metal_zephyr_free_memory(void *ptr)
 {
 	int i;
-	struct k_mem_block *blk;
 
 	for (i = 0; i < sizeof(block)/sizeof(block[0]); i++) {
-		blk = &block[i];
-		if (blk->data == ptr) {
-			k_heap_free(&kmpool, blk);
-			blk->data = NULL;
+		if (block[i] == ptr) {
+			k_heap_free(&kmpool, block[i]);
+			block[i] = NULL;
 			return;
 		}
 	}

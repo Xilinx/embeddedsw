@@ -1,26 +1,37 @@
 /*
- * Copyright (c) 2016 - 2019, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2022, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
 /*
- * @file	freertos/zynqmp_r5/sys.c
+ * @file	generic/xlnx/sys.c
  * @brief	machine specific system primitives implementation.
  */
 
-#include <metal/compiler.h>
-#include <metal/io.h>
 #include <metal/sys.h>
-#include <stdint.h>
-#include "xil_cache.h"
-#include "xil_exception.h"
+#include <metal/system/generic/xlnx/sys.h>
+
 #include "xil_mmu.h"
+
+/* System Device Tree (SDT) flow does not have the files generated. */
+#if (defined(__aarch64__) || defined(ARMA53_32)) && !defined(SDT)
+
+#ifdef VERSAL_NET
+#include "xcpu_cortexa78.h"
+#elif defined(versal)
+#include "xcpu_cortexa72.h"
+#else
+#include "xreg_cortexa53.h"
+#endif /* defined(versal) */
+
+#elif defined(ARMR5)
+
 #include "xil_mpu.h"
 #include "xreg_cortexr5.h"
-#include "xscugic.h"
-#include "FreeRTOS.h"
-#include "task.h"
+
+#endif /* (defined(__aarch64__) || defined(ARMA53_32)) && !defined(SDT) */
 
 void sys_irq_restore_enable(unsigned int flags)
 {
@@ -31,9 +42,9 @@ unsigned int sys_irq_save_disable(void)
 {
 	unsigned int state = mfcpsr() & XIL_EXCEPTION_ALL;
 
-	if (state != XIL_EXCEPTION_ALL) {
+	if (state != XIL_EXCEPTION_ALL)
 		Xil_ExceptionDisableMask(XIL_EXCEPTION_ALL);
-	}
+
 	return state;
 }
 
@@ -58,17 +69,15 @@ void metal_machine_cache_invalidate(void *addr, unsigned int len)
  */
 void metal_weak metal_generic_default_poll(void)
 {
-	taskYIELD();
+	metal_asm volatile("wfi");
 }
 
-/**
- * The code moved to cortexr5/xil_mpu.c:Xil_MemMap()
- * NULL in pa masks possible Xil_MemMap() errors.
- */
 void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 			       size_t size, unsigned int flags)
 {
-	void* __attribute__((unused)) physaddr = Xil_MemMap(pa, size, flags);
+	void *__attribute__((unused)) physaddr;
+
+	physaddr = Xil_MemMap(pa, size, flags);
 	metal_assert(physaddr == (void *)pa);
 	return va;
 }

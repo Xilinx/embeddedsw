@@ -5,8 +5,8 @@
  */
 
 /*
- * @file	generic/xlnx_common/irq.c
- * @brief	generic libmetal Xilinx irq controller definitions.
+ * @file	freertos/xlnx/irq.c
+ * @brief	freertos libmetal Xilinx irq controller definitions.
  */
 
 #include <metal/errno.h>
@@ -17,6 +17,7 @@
 #include <metal/list.h>
 #include <metal/utilities.h>
 #include <metal/alloc.h>
+#include <metal/system/freertos/xlnx/sys.h>
 
 #define MAX_IRQS XLNX_MAXIRQS
 

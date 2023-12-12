@@ -17,4 +17,3 @@ collect (PROJECT_LIB_SOURCES shmem.c)
 collect (PROJECT_LIB_SOURCES time.c)
 collect (PROJECT_LIB_SOURCES utilities.c)
 
-# vim: expandtab:ts=2:sw=2:smartindent

@@ -51,58 +51,6 @@ int metal_bus_find(const char *name, struct metal_bus **result)
 	return -ENOENT;
 }
 
-void metal_device_add_dmamem(struct metal_device *device,
-			      struct metal_io_region *region)
-{
-	metal_list_add_tail(&device->dmamem_list, &region->list);
-}
-
-void *metal_device_da2virt(struct metal_device *device, void *phys)
-{
-	struct metal_list *node;
-	struct metal_io_region *io;
-	unsigned long offset;
-
-	metal_list_for_each(&device->dmamem_list, node) {
-		io = metal_container_of(node, struct metal_io_region, list);
-		if (((unsigned long)phys >= (unsigned long)(*io->physmap)) &&
-			((unsigned long)phys < ((unsigned long)(*io->physmap) + io->size)))
-			break;
-		else
-			io = NULL;
-	}
-
-	if (io == NULL)
-		return NULL;
-
-	offset = (unsigned long)phys - (unsigned long)(*io->physmap);
-
-	return (void *)((unsigned long)io->virt + offset);
-}
-
-void *metal_device_virt2da(struct metal_device *device, void *virt)
-{
-	struct metal_list *node;
-	struct metal_io_region *io;
-	unsigned long offset;
-
-	metal_list_for_each(&device->dmamem_list, node) {
-		io = metal_container_of(node, struct metal_io_region, list);
-		if ((virt >= io->virt) &&
-			((unsigned long)virt < ((unsigned long)io->virt + io->size)))
-			break;
-		else
-			io = NULL;
-	}
-
-	if (io == NULL)
-		return NULL;
-
-	offset = virt - io->virt;
-
-	return (void *)(*io->physmap + offset);
-}
-
 int metal_device_open(const char *bus_name, const char *dev_name,
 		      struct metal_device **device)
 {
@@ -125,8 +73,6 @@ int metal_device_open(const char *bus_name, const char *dev_name,
 	if (error)
 		return error;
 
-	/* Initialize the metal device memory region list */
-	metal_list_init(&(*device)->dmamem_list);
 	return 0;
 }
 
@@ -135,9 +81,6 @@ void metal_device_close(struct metal_device *device)
 	metal_assert(device && device->bus);
 	if (device->bus->ops.dev_close)
 		device->bus->ops.dev_close(device->bus, device);
-
-	/* Delete the metal device memory region list */
-	metal_list_del(&device->dmamem_list);
 }
 
 int metal_register_generic_device(struct metal_device *device)

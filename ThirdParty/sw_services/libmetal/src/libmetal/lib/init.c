@@ -11,6 +11,9 @@ int metal_init(const struct metal_init_params *params)
 {
 	int error = 0;
 
+	if (_metal.common.ref_count++ != 0)
+		return 0;
+
 	memset(&_metal, 0, sizeof(_metal));
 
 	_metal.common.log_handler   = params->log_handler;
@@ -24,11 +27,15 @@ int metal_init(const struct metal_init_params *params)
 	if (error)
 		return error;
 
+	++_metal.common.ref_count;
 	return error;
 }
 
 void metal_finish(void)
 {
+	if (--_metal.common.ref_count != 0)
+		return;
+
 	metal_sys_finish();
 	memset(&_metal, 0, sizeof(_metal));
 }

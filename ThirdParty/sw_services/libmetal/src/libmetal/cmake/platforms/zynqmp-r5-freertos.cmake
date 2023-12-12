@@ -5,4 +5,3 @@ set (CMAKE_C_FLAGS          "-mfloat-abi=soft -mcpu=cortex-r5" CACHE STRING "")
 
 include (cross-freertos-gcc)
 
-# vim: expandtab:ts=2:sw=2:smartindent

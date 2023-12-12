@@ -43,4 +43,3 @@ if (WITH_EXAMPLES)
   add_subdirectory (examples)
 endif (WITH_EXAMPLES)
 
-# vim: expandtab:ts=2:sw=2:smartindent
