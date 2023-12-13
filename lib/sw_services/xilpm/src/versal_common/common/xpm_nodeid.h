@@ -867,6 +867,12 @@ extern "C" {
 #define PM_DEV_DDRMC_5				(0x185200E0U)
 #define PM_DEV_DDRMC_6				(0x185200E1U)
 #define PM_DEV_DDRMC_7				(0x185200E2U)
+#define PM_DEV_IPI_NOBUF_1			(0x182240E3U)
+#define PM_DEV_IPI_NOBUF_2			(0x182240E4U)
+#define PM_DEV_IPI_NOBUF_3			(0x182240E5U)
+#define PM_DEV_IPI_NOBUF_4			(0x182240E6U)
+#define PM_DEV_IPI_NOBUF_5			(0x182240E7U)
+#define PM_DEV_IPI_NOBUF_6			(0x182240E8U)
 /** @} */
 
 /**
