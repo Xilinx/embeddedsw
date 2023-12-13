@@ -24,7 +24,7 @@
  *                       other secure library version info API's.
  * 2.0   Nava  09/07/23  Fixed issues with IRQ signal.
  * 2.0   Nava  09/11/23  Fixed doxygen warnings.
- *
+ * 2.1   Nava  12/07/23  Corrected the PKI_ECC_NIST_P384_KEY_PRIV_GEN_CMD value.
  *</pre>
  *
  *@note
@@ -95,7 +95,7 @@
 #define PKI_ECC_NIST_P521_SIGN_VERIFY_CMD	0x00304131U
 #define PKI_ECC_NIST_P192_KEY_PRIV_GEN_CMD	0x00001701U
 #define PKI_ECC_NIST_P256_KEY_PRIV_GEN_CMD	0x00001F01U
-#define PKI_ECC_NIST_P384_KEY_PRIV_GEN_CMD	0x00002F02U
+#define PKI_ECC_NIST_P384_KEY_PRIV_GEN_CMD	0x00002F01U
 #define PKI_ECC_NIST_P521_KEY_PRIV_GEN_CMD	0x00004101U
 #define PKI_ECC_NIST_P192_KEY_PUB_GEN_CMD	0x00401722U
 #define PKI_ECC_NIST_P256_KEY_PUB_GEN_CMD	0x00101F22U
