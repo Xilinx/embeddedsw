@@ -1537,6 +1537,12 @@ typedef enum {
 	XPM_NODEIDX_MISC_READBACK_PDI_IMG = 0x1
 } XPm_MiscNodeIdx;
 
+/* Register node index */
+typedef enum {
+	XPM_NODEIDX_REG_MIN = 0x0,
+	XPM_NODEIDX_REG_CRP = 0x1,
+	XPM_NODEIDX_REG_MAX = 0x2
+} XPm_RegNodeIdx;
 
 #ifdef __cplusplus
 }

@@ -1012,6 +1012,18 @@ extern "C" {
 #define PM_MISC_READBACK_PDI_IMG		(0x34000001U)
 /** @} */
 
+/**
+ * @name Versal Register Nodes
+ * @defgroup xilpmregisternodes Register Nodes
+ * @ingroup xilpmnodeids
+ * @{
+ */
+/**
+ * Versal Register Nodes
+ */
+#define PM_REG_CRP				(0x30000001U)
+/** @} */
+
 #ifdef __cplusplus
 }
 #endif
