@@ -330,57 +330,56 @@ enum pm_pinctrl_tri_state {
  * IOCTL IDs
  */
 typedef enum {
-	IOCTL_GET_RPU_OPER_MODE,			/**< Get RPU mode */
-	IOCTL_SET_RPU_OPER_MODE,			/**< Set RPU mode */
-	IOCTL_RPU_BOOT_ADDR_CONFIG,			/**< RPU boot address config */
-	IOCTL_TCM_COMB_CONFIG,				/**< TCM config */
-	IOCTL_SET_TAPDELAY_BYPASS,			/**< TAP delay bypass */
-	IOCTL_RESERVED_1,				/**< Deprecated IOCTL ID */
-	IOCTL_SD_DLL_RESET,				/**< SD DLL reset */
-	IOCTL_SET_SD_TAPDELAY,				/**< SD TAP delay */
+	IOCTL_GET_RPU_OPER_MODE = 0,			/**< Get RPU mode */
+	IOCTL_SET_RPU_OPER_MODE = 1,			/**< Set RPU mode */
+	IOCTL_RPU_BOOT_ADDR_CONFIG = 2,			/**< RPU boot address config */
+	IOCTL_TCM_COMB_CONFIG = 3,			/**< TCM config */
+	IOCTL_SET_TAPDELAY_BYPASS = 4,			/**< TAP delay bypass */
+	IOCTL_SD_DLL_RESET = 6,				/**< SD DLL reset */
+	IOCTL_SET_SD_TAPDELAY = 7,			/**< SD TAP delay */
 	/* Ioctl for clock driver */
-	IOCTL_SET_PLL_FRAC_MODE,			/**< Set PLL frac mode */
-	IOCTL_GET_PLL_FRAC_MODE,			/**< Get PLL frac mode */
-	IOCTL_SET_PLL_FRAC_DATA,			/**< Set PLL frac data */
-	IOCTL_GET_PLL_FRAC_DATA,			/**< Get PLL frac data */
-	IOCTL_WRITE_GGS,				/**< Write GGS */
-	IOCTL_READ_GGS,					/**< Read GGS */
-	IOCTL_WRITE_PGGS,				/**< Write PGGS */
-	IOCTL_READ_PGGS,				/**< Read PGGS */
+	IOCTL_SET_PLL_FRAC_MODE = 8,			/**< Set PLL frac mode */
+	IOCTL_GET_PLL_FRAC_MODE = 9,			/**< Get PLL frac mode */
+	IOCTL_SET_PLL_FRAC_DATA = 10,			/**< Set PLL frac data */
+	IOCTL_GET_PLL_FRAC_DATA = 11,			/**< Get PLL frac data */
+	IOCTL_WRITE_GGS = 12,				/**< Write GGS */
+	IOCTL_READ_GGS = 13,				/**< Read GGS */
+	IOCTL_WRITE_PGGS = 14,				/**< Write PGGS */
+	IOCTL_READ_PGGS = 15,				/**< Read PGGS */
 	/* IOCTL for ULPI reset */
-	IOCTL_ULPI_RESET,				/**< ULPI reset */
+	IOCTL_ULPI_RESET = 16,				/**< ULPI reset */
 	/* Set healthy bit value */
-	IOCTL_SET_BOOT_HEALTH_STATUS,			/**< Set boot status */
-	IOCTL_AFI,					/**< AFI */
+	IOCTL_SET_BOOT_HEALTH_STATUS = 17,		/**< Set boot status */
+	IOCTL_AFI = 18,					/**< AFI */
 	/* Probe counter read/write */
-	IOCTL_PROBE_COUNTER_READ,			/**< Probe counter read */
-	IOCTL_PROBE_COUNTER_WRITE,			/**< Probe counter write */
+	IOCTL_PROBE_COUNTER_READ = 19,			/**< Probe counter read */
+	IOCTL_PROBE_COUNTER_WRITE = 20,			/**< Probe counter write */
 	/* Ospi mux select */
-	IOCTL_OSPI_MUX_SELECT,				/**< OSPI mux select */
+	IOCTL_OSPI_MUX_SELECT = 21,			/**< OSPI mux select */
 	/* USB PMU state req */
-	IOCTL_USB_SET_STATE,				/**< USB set state */
-	IOCTL_GET_LAST_RESET_REASON,			/**< Get last reset reason */
+	IOCTL_USB_SET_STATE = 22,			/**< USB set state */
+	IOCTL_GET_LAST_RESET_REASON = 23,		/**< Get last reset reason */
 	/* AIE ISR Clear */
-	IOCTL_AIE_ISR_CLEAR,				/**< AIE ISR clear */
+	IOCTL_AIE_ISR_CLEAR = 24,			/**< AIE ISR clear */
 	/* Register SGI to ATF */
-	IOCTL_REGISTER_SGI,				/**< Register SGI to ATF */
+	IOCTL_REGISTER_SGI = 25,			/**< Register SGI to ATF */
 	/* Runtime feature configuration */
-	IOCTL_SET_FEATURE_CONFIG,			/**< Set runtime feature config */
-	IOCTL_GET_FEATURE_CONFIG,			/**< Get runtime feature config */
+	IOCTL_SET_FEATURE_CONFIG = 26,			/**< Set runtime feature config */
+	IOCTL_GET_FEATURE_CONFIG = 27,			/**< Get runtime feature config */
 	/* Generic IOCTL Read/Write */
-	IOCTL_READ_REG,					/**< Read a 32-bit register */
-	IOCTL_MASK_WRITE_REG,				/**< RMW a 32-bit register */
+	IOCTL_READ_REG = 28,				/**< Read a 32-bit register */
+	IOCTL_MASK_WRITE_REG = 29,			/**< RMW a 32-bit register */
 	/* Dynamic MIO config */
-	IOCTL_SET_SD_CONFIG,				/**< Set SD config register value */
-	IOCTL_SET_GEM_CONFIG,				/**< Set GEM config register value */
-	IOCTL_SET_USB_CONFIG,				/**< Set USB config register value */
+	IOCTL_SET_SD_CONFIG = 30,			/**< Set SD config register value */
+	IOCTL_SET_GEM_CONFIG = 31,			/**< Set GEM config register value */
+	IOCTL_SET_USB_CONFIG = 32,			/**< Set USB config register value */
 	/* AIE1/AIEML Run Time Operations */
-	IOCTL_AIE_OPS,                                  /**< AIE1/AIEML Run Time Operations */
-	IOCTL_GET_QOS,					/**< Get Device QoS value */
-	IOCTL_GET_APU_OPER_MODE,			/**< Get APU operation mode */
-	IOCTL_SET_APU_OPER_MODE,			/**< Set APU operation mode */
-	IOCTL_PREPARE_DDR_SHUTDOWN,			/**< Prepare DDR for shut down */
-	IOCTL_GET_SSIT_TEMP,				/**< Read secondary SLR temperature */
+	IOCTL_AIE_OPS = 33,                             /**< AIE1/AIEML Run Time Operations */
+	IOCTL_GET_QOS = 34,				/**< Get Device QoS value */
+	IOCTL_GET_APU_OPER_MODE = 35,			/**< Get APU operation mode */
+	IOCTL_SET_APU_OPER_MODE = 36,			/**< Set APU operation mode */
+	IOCTL_PREPARE_DDR_SHUTDOWN = 37,		/**< Prepare DDR for shut down */
+	IOCTL_GET_SSIT_TEMP = 38,			/**< Read secondary SLR temperature */
 } pm_ioctl_id;
 /** @endcond */
 
