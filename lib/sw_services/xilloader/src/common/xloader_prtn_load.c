@@ -103,6 +103,8 @@
 *       rama 08/10/2023 Changed partition ID print to DEBUG_ALWAYS for
 *                       debug level_0 option
 *       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
+*       mss  11/02/2023 Added VerifyAddr check for destination address of
+*                       Raw Partition Loading
 *
 * </pre>
 *
@@ -351,6 +353,13 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	u32 PcrInfo = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PcrInfo;
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 
+	/** Verify the destination address range before writing */
+	Status = XPlmi_VerifyAddrRange(DeviceCopy->DestAddr, DeviceCopy->DestAddr + (u64)DeviceCopy->Len - 1U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_PRTNCOPY_DEST_ADDR, Status);
+		goto END;
+	}
+
 	/**
 	 * - Check if security is enabled and start the partition copy securely.
 	 * Otherwise copy the partition in non-secure mode.
@@ -382,6 +391,7 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 	}
 
+END:
 	return Status;
 }
 

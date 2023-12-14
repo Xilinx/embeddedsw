@@ -585,6 +585,8 @@ typedef enum {
 	XLOADER_ERR_RESERVED10, /**< 0x372 - XLoader Reserver Error 10 */
 	XLOADER_ERR_ECDSA_NOT_ENABLED, /**< 0x373 - ECDSA code is excluded */
 	XLOADER_ERR_RSA_NOT_ENABLED, /**< 0x374 - RSA code is excluded */
+	XLOADER_ERR_INVALID_PRTNCOPY_DEST_ADDR,	/**< 0x375 - Invalid Destination address in
+												PrtnCopy API for Raw Partition Loading*/
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 	XLOADER_ERR_WAKEUP_A78_0 = 0x3A0,	/**< 0x3A0 - Error waking up the A78-0 during handoff. */
