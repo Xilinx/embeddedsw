@@ -61,8 +61,11 @@ typedef struct {
 /**************************** Local Global ***********************************/
 
 /* Define Driver instance of all sub-core included in the design */
+#ifndef SDT
 XCsiSs_SubCores CsiSsSubCores[XPAR_XCSISS_NUM_INSTANCES];
-
+#else
+XCsiSs_SubCores CsiSsSubCores[];
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -493,6 +496,7 @@ void XCsiSs_GetVCInfo(XCsiSs *InstancePtr)
 ******************************************************************************/
 static void CsiSs_GetIncludedSubCores(XCsiSs *CsiSsPtr)
 {
+#ifndef SDT
 	CsiSsPtr->CsiPtr = ((CsiSsPtr->Config.CsiInfo.IsPresent) ?
 		(&CsiSsSubCores[CsiSsPtr->Config.DeviceId].CsiInst) : NULL);
 
@@ -504,6 +508,23 @@ static void CsiSs_GetIncludedSubCores(XCsiSs *CsiSsPtr)
 #if (XPAR_XIIC_NUM_INSTANCES > 0)
 	CsiSsPtr->IicPtr = ((CsiSsPtr->Config.IicInfo.IsPresent) ?
 		(&CsiSsSubCores[CsiSsPtr->Config.DeviceId].IicInst) : NULL);
+#endif
+#else
+	u32 Index = 0;
+	Index = XCsiSs_GetDrvIndex(CsiSsPtr, CsiSsPtr->Config.BaseAddr);
+
+	CsiSsPtr->CsiPtr = ((CsiSsPtr->Config.CsiInfo.IsPresent) ?
+		(&CsiSsSubCores[Index].CsiInst) : NULL);
+
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+	CsiSsPtr->DphyPtr = ((CsiSsPtr->Config.DphyInfo.IsPresent) ?
+		(&CsiSsSubCores[Index].DphyInst) : NULL);
+#endif
+
+#if (XPAR_XIIC_NUM_INSTANCES > 0)
+	CsiSsPtr->IicPtr = ((CsiSsPtr->Config.IicInfo.IsPresent) ?
+		(&CsiSsSubCores[Index].IicInst) : NULL);
+#endif
 #endif
 }
 
@@ -528,7 +549,11 @@ static u32 CsiSs_SubCoreInitCsi(XCsiSs *CsiSsPtr)
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing CSI Rx Controller...\n\r");
+#ifndef SDT
 	ConfigPtr = XCsi_LookupConfig(CsiSsPtr->Config.CsiInfo.DeviceId);
+#else
+	ConfigPtr = XCsi_LookupConfig(CsiSsPtr->Config.CsiInfo.AddrOffset);
+#endif
 	if (ConfigPtr == NULL) {
 		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: CSI not found\n\r");
 		return XST_FAILURE;
@@ -579,7 +604,11 @@ static u32 CsiSs_SubCoreInitIic(XCsiSs *CsiSsPtr)
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL,"->Initializing IIC MIPI CSI "
 		"subsystem.\n\r");
+#ifndef SDT
 	ConfigPtr = XIic_LookupConfig(CsiSsPtr->Config.IicInfo.DeviceId);
+#else
+	ConfigPtr = XIic_LookupConfig(CsiSsPtr->Config.IicInfo.AddrOffset);
+#endif
 	if (!ConfigPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: IIC not found\n\r");
 		return XST_FAILURE;
@@ -631,7 +660,11 @@ static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr)
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing DPHY ...\n\r");
+#ifndef SDT
 	ConfigPtr = XDphy_LookupConfig(CsiSsPtr->Config.DphyInfo.DeviceId);
+#else
+	ConfigPtr = XDphy_LookupConfig(CsiSsPtr->Config.DphyInfo.AddrOffset);
+#endif
 	if (!ConfigPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: DPHY not found\n\r");
 		return XST_FAILURE;

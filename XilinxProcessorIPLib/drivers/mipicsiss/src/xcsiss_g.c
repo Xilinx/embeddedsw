@@ -1,12 +1,16 @@
 /*******************************************************************
 * Copyright (C) 2010-2022 Xilinx, Inc. All rights reserved.*
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
-
+#ifndef SDT
 #include "xparameters.h"
+#else
 #include "xcsiss.h"
+#endif
 
+#ifndef SDT
 /*
 * List of Sub-cores included in the subsystem
 * Sub-core device id will be set by its driver in xparameters.h
@@ -62,3 +66,40 @@ XCsiSs_Config XCsiSs_ConfigTable[] =
 		},
 	}
 };
+
+#else
+
+XCsiSs_Config XCsiSs_ConfigTable[] __attribute__ ((section (".drvcfg_sec"))) = {
+
+	{
+		"xlnx,mipi-csi2-rx-subsystem-5.4", /* compatible */
+		0x80000000, /* reg */
+		0x8000ffff, /* xlnx,highaddr */
+		0x0, /* xlnx,cmn-inc-iic */
+		0x4, /* xlnx,cmn-num-lanes */
+		0x2, /* xlnx,cmn-num-pixels */
+		0x2b, /* xlnx,cmn-pxl-format */
+		0x10, /* xlnx,cmn-vc */
+		0x4096, /* xlnx,csi-buf-depth */
+		0x0, /* xlnx,csi-emb-non-img */
+		0x1, /* xlnx,dpy-en-reg-if */
+		0x1440, /* xlnx,dpy-line-rate */
+		0x1, /* xlnx,csi-en-crc */
+		0x1, /* xlnx,csi-en-activelanes */
+		0x0, /* xlnx,en-csi-v2 */
+		0x4, /* xlnx,dphy-lanes */
+		0x0, /* axii2c-present */
+		0x0, /* axii2c-connected */
+		0x1, /* csirx-present */
+		0x0, /* csirx-connected */
+		0x1, /* mipi-dphy-present */
+		0x1000, /* mipi-dphy-connected */
+		0x405c, /* interrupts */
+		0xf9010000 /* interrupt-parent */
+	},
+	 {
+		 NULL
+	}
+};
+
+#endif
