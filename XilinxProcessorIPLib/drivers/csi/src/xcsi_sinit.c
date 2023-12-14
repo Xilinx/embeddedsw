@@ -26,8 +26,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xcsi.h"
 
 /*****************************************************************************/
@@ -43,6 +44,7 @@
  * @note	None
  *
  *****************************************************************************/
+#ifndef SDT
 XCsi_Config *XCsi_LookupConfig(u32 DeviceId)
 {
 	extern XCsi_Config XCsi_ConfigTable[];
@@ -58,4 +60,21 @@ XCsi_Config *XCsi_LookupConfig(u32 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XCsi_Config *XCsi_LookupConfig(UINTPTR BaseAddress)
+{
+	extern XCsi_Config XCsi_ConfigTable[];
+	XCsi_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0; XCsi_ConfigTable[Index].Name != NULL; Index++) {
+		if (XCsi_ConfigTable[Index].BaseAddr == BaseAddress) {
+			CfgPtr = &XCsi_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /** @} */
