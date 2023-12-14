@@ -151,7 +151,11 @@ typedef struct {
  * This structure passes the hardware building information to the driver
  */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId;		/**< Device Id */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddr;	/**< Base address of DSI Controller */
 	u8  DsiLanes;		/**< DSI supported lanes1, 2, 3, 4 */
 	u8  DataType;		/**< RGB  type */
@@ -899,8 +903,11 @@ static inline u32 XDsi_GetUnderProgress(XDsi *InstancePtr)
 }
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 XDsi_Config *XDsi_LookupConfig(u32 DeviceId);
+#else
+XDsi_Config *XDsi_LookupConfig(UINTPTR BaseAddress);
+#endif
 u32 XDsi_CfgInitialize(XDsi *InstancePtr, XDsi_Config *Config,
 			UINTPTR EffectiveAddr);
 u32 XDsi_Activate(XDsi *InstancePtr, XDsi_Selection Flag);
