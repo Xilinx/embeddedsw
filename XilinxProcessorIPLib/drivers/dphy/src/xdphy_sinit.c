@@ -27,8 +27,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xdphy.h"
 
 /*****************************************************************************/
@@ -44,6 +45,7 @@
  * @note	None
  *
  *****************************************************************************/
+#ifndef SDT
 XDphy_Config * XDphy_LookupConfig(u32 DeviceId)
 {
 	extern XDphy_Config XDphy_ConfigTable[];
@@ -59,4 +61,20 @@ XDphy_Config * XDphy_LookupConfig(u32 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XDphy_Config * XDphy_LookupConfig(UINTPTR BaseAddress)
+{
+	extern XDphy_Config XDphy_ConfigTable[];
+	XDphy_Config *CfgPtr = NULL;
+	u32 Index;
+	for (Index = 0; XDphy_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XDphy_ConfigTable[Index].BaseAddr == BaseAddress) || !BaseAddress) {
+			CfgPtr = &XDphy_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /** @} */

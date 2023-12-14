@@ -1,0 +1,66 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for dphy controller Driver
+
+maintainers:
+  - Kunal Rane <kvrane@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,mipi-dphy-4.3
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,highaddr:
+    description: High address for the Dphy IP.
+  xlnx,dphy-mode:
+    description: Flag for dphy-mode.
+  xlnx,dphy-en-reg-if:
+    description: Flag for PHY enable.
+  xlnx,dphy-lanes:
+    description: Number of dphy lanes.
+  xlnx,dphy-esc-clk-period:
+    description: Phy clock period.
+  xlnx,dphy-esc-timeout:
+    description: Phy esc timeout.
+  xlnx,hs-line-rate:
+    description: Phy hs line rate.
+  xlnx,dphy-hs-timeout:
+    description: Phy LPX period.
+  xlnx,dphy-stable-clk-period:
+    description: Phy stable clock period.
+  xlnx,dphy-txpll-clkin-period:
+    description: Phy TXPLL clkin period.
+  xlnx,dphy-wakeup:
+    description: Phy wakeup.
+  xlnx,dphy-en-timeout-regs:
+    description: Phy enable timeout registers.
+  xlnx,dphy-hs-settle-ns:
+    description: Phy HS settle NS.
+
+required:
+  - compatible
+  - reg
+  - xlnx,highaddr
+  - xlnx,dphy-mode
+  - xlnx,dphy-en-reg-if
+  - xlnx,dphy-dphy-lanes
+  - xlnx,dphy-esc-clk-period
+  - xlnx,dphy-esc-timeout
+  - xlnx,hs-line-rate
+  - xlnx,dphy-hs-timeout
+  - xlnx,dphy-stable-clk-period
+  - xlnx,dphy-txpll-clkin-period
+  - xlnx,dphy-wakeup
+  - xlnx,dphy-en-timeout-regs
+  - xlnx,dphy-hs-settle-ns
+
+config:
+  - XDphy_Config
+...
