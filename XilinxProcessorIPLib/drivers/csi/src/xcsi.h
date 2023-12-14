@@ -188,7 +188,11 @@ typedef struct {
 *
 */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId;		/**< Device Id */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddr;	/**< Base address of CSI2 Rx Controller */
 	u32 MaxLanesPresent;	/**< Number of Lanes. Range 1 - 4 */
 	u32 HasOffloadNonImageSupport;	/**< Offload non image data
@@ -663,7 +667,11 @@ static inline void XCsi_ResetGlobalInterrupt(XCsi *InstancePtr)
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xcsi_sinit.c */
+#ifndef SDT
 XCsi_Config *XCsi_LookupConfig(u32 DeviceId);
+#else
+XCsi_Config *XCsi_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /* Initialization and control functions in xcsi.c */
 u32 XCsi_CfgInitialize(XCsi *InstancePtr, XCsi_Config *Config,

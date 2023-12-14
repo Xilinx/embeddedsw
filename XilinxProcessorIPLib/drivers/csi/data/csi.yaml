@@ -1,0 +1,45 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for mipi csi controller driver
+
+maintainers:
+  - Kunal Rane <kvrane@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,mipi-csi2-rx-ctrl-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,highaddr:
+    description: High Address of the CSI controller
+  xlnx,csi-lanes:
+    description: Active CSI controller lanes.
+  xlnx,csi-offload-non-image:
+    description: CSI controller non-image flag.
+  xlnx,csi-en-vc-support:
+    description: CSI controller enable virtual channel support.
+  xlnx,csi-fixed-vc:
+    description: Flag for CSI fixed virtual channel.
+  xlnx,csi-opt3-fixed-lanes:
+    description: Flag for CSI OPT3 fixed lanes.
+
+required:
+  - compatible
+  - reg
+  - xlnx,highaddr
+  - xlnx,csi-lanes
+  - xlnx,csi-offload-non-image
+  - xlnx,csi-en-vc-support
+  - xlnx,csi-fixed-vc
+  - xlnx,csi-optt3-fixed-lanes
+
+config:
+  - XCsi_Config
+...
