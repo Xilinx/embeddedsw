@@ -165,6 +165,7 @@
 *       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
 *       kpt  11/22/2023 Add support to clear AES keys when RedKeyClear bit is set
+*       mss  11/06/2023 Added VerifyAddr check for Image Store Address of RTCA registers
 *
 * </pre>
 *
@@ -1917,6 +1918,13 @@ int XLoader_ReadImageStoreCfg(void)
 		goto END;
 	} else {
 		Status = XST_SUCCESS;
+	}
+
+	/** Verify the image store address range */
+	Status = XPlmi_VerifyAddrRange(PdiList->PdiImgStrAddr, PdiList->PdiImgStrAddr + (u64)PdiList->PdiImgStrSize - 1U);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_ERR_INVALID_IMAGE_STORE_ADDRESS;
+		goto END;
 	}
 
 	/**

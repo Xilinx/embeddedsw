@@ -34,6 +34,9 @@
 *       sk   07/10/2023 Removed TCM Address, Offset defines
 *       sk   07/31/2023 Added error code for Image Store feature
 *	ro   08/01/2023 Added error codes for DDR initialization
+*       mss  06/11/2023 Added XLOADER_ERR_INVALID_READBACK_PDI_DEST_ADDR,
+                        XLOADER_ERR_INVALID_DEST_IMGINFOTBL_ADDRESS and
+						XLOADER_ERR_INVALID_IMAGE_STORE_ADDRESS error code macro
 *
 * </pre>
 *
@@ -152,6 +155,11 @@ extern "C" {
 #define XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET	(0x19U) /**< Image Store configuration is not enabled/error */
 #define XLOADER_ERR_PDI_IMG_STORE_FULL		(0x1AU) /**< Error when PdiList is full and user
 							is trying to add a new Pdi */
+#define XLOADER_ERR_INVALID_READBACK_PDI_DEST_ADDR	(0x1BU) /**< Error when invalid destination address
+																is passed for Readback PDI overriding */
+#define	XLOADER_ERR_INVALID_IMAGE_STORE_ADDRESS	(0x1CU)	/** Error when invalid Image Store Address address is encountered */
+#define	XLOADER_ERR_INVALID_DEST_IMGINFOTBL_ADDRESS	(0x1DU) /** Error when invalid Destination Address where
+															Image Info Table to be copied is encountered */
 
 /* Platform specific Minor Error Codes start from 0x100 */
 
