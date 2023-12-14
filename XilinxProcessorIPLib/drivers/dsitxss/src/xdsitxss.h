@@ -124,7 +124,6 @@ extern "C" {
 #include "xil_types.h"
 #include "xdsi.h"
 #include "xparameters.h"
-
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 #include "xdphy.h"
 #endif
@@ -143,8 +142,12 @@ extern "C" {
 typedef struct {
 	u32 IsPresent;  /**< Flag to indicate if sub-core is present
 			in the design */
+#ifndef SDT
 	u32 DeviceId;   /**< Device ID of the sub-core */
 	u32 AddrOffset;	/**< sub-core offset from subsystem base address */
+#else
+	UINTPTR AddrOffset;
+#endif
 } DsiTxSsSubCore;
 
 /**
@@ -169,8 +172,12 @@ typedef enum {
  * that defines the MAX supported sub-cores within subsystem
  */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId;	/**< DeviceId is the unique ID
 			  *  of the device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddr;	/**< BaseAddress is the physical
 			  *  base address of the subsystem
 			  *  address range */
@@ -187,6 +194,10 @@ typedef struct {
 				 *  interface presence */
 	DsiTxSsSubCore DphyInfo;	/**< Sub-core instance configuration */
 	DsiTxSsSubCore DsiInfo;	/**< Sub-core instance configuration */
+#ifdef SDT
+	u16 IntrId;		/* Interrupt ID */
+	UINTPTR IntrParent; 	/* Bit[0] Interrupt Parent */
+#endif
 } XDsiTxSs_Config;
 
 /**
@@ -235,8 +246,13 @@ typedef struct {
 } XDsiTxSs;
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 XDsiTxSs_Config* XDsiTxSs_LookupConfig(u32 DeviceId);
+#else
+XDsiTxSs_Config* XDsiTxSs_LookupConfig(UINTPTR BaseAddress);
+u32 XDsiTxSs_GetDrvIndex(XDsiTxSs *InstancePtr, UINTPTR BaseAddress);
+#endif
+
 s32 XDsiTxSs_CfgInitialize(XDsiTxSs *InstancePtr, XDsiTxSs_Config *CfgPtr,
 							UINTPTR EffectiveAddr);
 u32 XDsiTxSs_DefaultConfigure(XDsiTxSs *InstancePtr);
