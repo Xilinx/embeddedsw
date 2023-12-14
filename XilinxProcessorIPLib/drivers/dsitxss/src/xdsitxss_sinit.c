@@ -60,6 +60,7 @@ extern XDsiTxSs_Config XDsiTxSs_ConfigTable[];
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XDsiTxSs_Config* XDsiTxSs_LookupConfig(u32 DeviceId)
 {
 	XDsiTxSs_Config *CfgPtr = NULL;
@@ -74,4 +75,45 @@ XDsiTxSs_Config* XDsiTxSs_LookupConfig(u32 DeviceId)
 
 	return (CfgPtr);
 }
+#else
+XDsiTxSs_Config* XDsiTxSs_LookupConfig(UINTPTR BaseAddress)
+{
+	XDsiTxSs_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0; XDsiTxSs_ConfigTable[Index].Name != NULL; Index++) {
+
+		if ((XDsiTxSs_ConfigTable[Index].BaseAddr == BaseAddress) || !BaseAddress) {
+			CfgPtr = &XDsiTxSs_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (CfgPtr);
+}
+/*****************************************************************************/
+/**
+* This function returns the Index number of config table using BaseAddress.
+*
+* @param  A pointer to the instance structure
+*
+* @param  Base address of the instance
+*
+* @return Index number of the config table
+*
+*
+*******************************************************************************/
+
+u32 XDsiTxSs_GetDrvIndex(XDsiTxSs *InstancePtr, UINTPTR BaseAddress)
+{
+ u32 Index = 0;
+
+ for (Index = 0U; XDsiTxSs_ConfigTable[Index].Name != NULL; Index++) {
+   if ((XDsiTxSs_ConfigTable[Index].BaseAddr == BaseAddress)) {
+	break;
+   }
+ }
+ return Index;
+}
+#endif
 /** @} */

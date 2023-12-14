@@ -53,10 +53,12 @@ typedef struct {
 } XDsiTxSs_SubCores;
 
 /**************************** Variable Definitions ***********************************/
-
+#ifndef SDT
 XDsiTxSs_SubCores DsiTxSsSubCores[XPAR_XDSITXSS_NUM_INSTANCES]; /**< Define Driver instance of all sub-core
 					included in the design */
-
+#else
+XDsiTxSs_SubCores DsiTxSsSubCores[];
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -119,6 +121,7 @@ s32 XDsiTxSs_CfgInitialize(XDsiTxSs *InstancePtr, XDsiTxSs_Config *CfgPtr,
 			return XST_FAILURE;
 		}
 	}
+
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->DphyPtr != NULL) {
 		Status = XDsiTxSs_SubCoreInitDphy(InstancePtr);
@@ -498,12 +501,22 @@ static void XDsiTxSs_GetIncludedSubCores(XDsiTxSs *DsiTxSsPtr)
 {
 	/* Verify argument */
 	Xil_AssertVoid(DsiTxSsPtr != NULL);
-
+#ifndef SDT
 	DsiTxSsPtr->DsiPtr = ((DsiTxSsPtr->Config.DsiInfo.IsPresent) ?
 				(&DsiTxSsSubCores[DsiTxSsPtr->Config.DeviceId].DsiInst) : NULL);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	DsiTxSsPtr->DphyPtr = ((DsiTxSsPtr->Config.DphyInfo.IsPresent) ?
 				(&DsiTxSsSubCores[DsiTxSsPtr->Config.DeviceId].DphyInst) : NULL);
+#endif
+#else
+	u32 Index = 0;
+	Index = XDsiTxSs_GetDrvIndex(DsiTxSsPtr, DsiTxSsPtr->Config.BaseAddr);
+	DsiTxSsPtr->DsiPtr = ((DsiTxSsPtr->Config.DsiInfo.IsPresent) ?
+				(&DsiTxSsSubCores[Index].DsiInst) : NULL);
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+	DsiTxSsPtr->DphyPtr = ((DsiTxSsPtr->Config.DphyInfo.IsPresent) ?
+				(&DsiTxSsSubCores[Index].DphyInst) : NULL);
+#endif
 #endif
 }
 
@@ -532,7 +545,11 @@ static s32 XDsiTxSs_SubCoreInitDsi(XDsiTxSs *DsiTxSsPtr)
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, ">Initializing DSI Tx Controller...\n\r");
+#ifndef SDT
 	ConfigPtr = XDsi_LookupConfig(DsiTxSsPtr->Config.DsiInfo.DeviceId);
+#else
+	ConfigPtr = XDsi_LookupConfig(DsiTxSsPtr->Config.DsiInfo.AddrOffset);
+#endif
 	if (ConfigPtr == NULL) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: DSI not found\n\r");
 		return XST_FAILURE;
@@ -588,7 +605,12 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr)
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing DPHY ...\n\r");
+#ifndef SDT
 	ConfigPtr = XDphy_LookupConfig(DsiTxSsPtr->Config.DphyInfo.DeviceId);
+#else
+	ConfigPtr = XDphy_LookupConfig(DsiTxSsPtr->Config.DphyInfo.AddrOffset);
+#endif
+
 	if (!ConfigPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: DPHY not found \n\r");
 		return (XST_FAILURE);
