@@ -42,6 +42,7 @@
 * 1.09  sk   11/09/2022 Added Timeout settings info for JTAG_SBI Bootmode
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.10  ng   07/06/2023 Added support for SDT flow
+*       pre  14/12/2023 Fixed compilation warnings
 *
 * </pre>
 *
@@ -72,9 +73,11 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#if (XPLMI_UART_NUM_INSTANCES)
 #define XPLMI_SPP_INPUT_CLK_FREQ	(25000000U) /**< SPP Input Clk Freq
 						should be 25 MHz */
 #define XPLMI_UART_SELECT_CURRENT	(0U) /**< Flag indicates current uart is selected */
+#endif
 
 #if (XPLMI_UART_NUM_INSTANCES > 0U)
 #define XPLMI_UART_SELECT_0		(1U) /**< Flag indicates UART0 is selected */
@@ -105,8 +108,9 @@
 int XPlmi_InitUart(void)
 {
 	int Status = XST_FAILURE;
+#ifdef STDOUT_BASEADDRESS
 	u32 *UartBaseAddr = XPlmi_GetUartBaseAddr();
-
+#endif
 	/**
 	 * - Initialize UART, If UART is already initialized, just return success.
 	 */
@@ -209,6 +213,10 @@ END:
 int XPlmi_ConfigUart(u8 UartSelect, u8 UartEnable)
 {
 	int Status = XPLMI_ERR_NO_UART_PRESENT;
+
+	(void)UartSelect;
+	(void)UartEnable;
+
 #if (XPLMI_UART_NUM_INSTANCES > 0U)
 	/** - Set the UART base address based on the selected UART. */
 	u32 *UartBaseAddr = XPlmi_GetUartBaseAddr();
