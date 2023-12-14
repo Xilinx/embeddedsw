@@ -193,8 +193,12 @@ typedef void (*XCsiSs_Callback)(void *CallbackRef, u32 Mask);
 typedef struct {
 	u32 IsPresent;	/**< Flag to indicate if sub-core is present in
 			  *  design */
+#ifndef SDT
 	u32 DeviceId;	/**< Device ID of the sub-core */
 	u32 AddrOffset;	/**< sub-core offset from subsystem base address */
+#else
+	UINTPTR AddrOffset;
+#endif
 } CsiRxSsSubCore;
 
 /**
@@ -203,7 +207,11 @@ typedef struct {
  * that defines the MAX supported sub-cores within subsystem
  */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId;	/**< DeviceId is the unique ID  of the device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddr;	/**< BaseAddress is the physical base address
 				of the subsystem address range */
 	UINTPTR HighAddr;	/**< HighAddress is the physical MAX address
@@ -230,6 +238,10 @@ typedef struct {
 	CsiRxSsSubCore IicInfo;	/**< IIC sub-core configuration */
 	CsiRxSsSubCore CsiInfo;	/**< CSI sub-core configuration */
 	CsiRxSsSubCore DphyInfo;	/**< DPHY sub-core configuration */
+#ifdef SDT
+	u16 IntrId;		/* Interrupt ID */
+	UINTPTR IntrParent; 	/* Bit[0] Interrupt Parent */
+#endif
 } XCsiSs_Config;
 
 /**
@@ -258,7 +270,12 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xcsiss_sinit.c */
+#ifndef SDT
 XCsiSs_Config* XCsiSs_LookupConfig(u32 DeviceId);
+#else
+XCsiSs_Config* XCsiSs_LookupConfig(UINTPTR BaseAddress);
+u32 XCsiSs_GetDrvIndex(XCsiSs *InstancePtr, UINTPTR BaseAddress);
+#endif
 
 /* Initialization and control functions xcsiss.c */
 u32 XCsiSs_CfgInitialize(XCsiSs *InstancePtr, XCsiSs_Config *CfgPtr,

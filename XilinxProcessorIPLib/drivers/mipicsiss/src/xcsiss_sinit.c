@@ -25,7 +25,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xparameters.h"
 #include "xcsiss.h"
 
@@ -61,6 +60,7 @@ extern XCsiSs_Config XCsiSs_ConfigTable[];
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XCsiSs_Config* XCsiSs_LookupConfig(u32 DeviceId)
 {
 	XCsiSs_Config *CfgPtr = NULL;
@@ -75,4 +75,45 @@ XCsiSs_Config* XCsiSs_LookupConfig(u32 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XCsiSs_Config* XCsiSs_LookupConfig(UINTPTR BaseAddress)
+{
+	XCsiSs_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0; XCsiSs_ConfigTable[Index].Name != NULL; Index++) {
+		if (XCsiSs_ConfigTable[Index].BaseAddr == BaseAddress) {
+			CfgPtr = &XCsiSs_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+/*****************************************************************************/
+/**
+* This function returns the Index number of config table using BaseAddress.
+*
+* @param  A pointer to the instance structure
+*
+* @param  Base address of the instance
+*
+* @return Index number of the config table
+*
+*
+*******************************************************************************/
+
+u32 XCsiSs_GetDrvIndex(XCsiSs *InstancePtr, UINTPTR BaseAddress)
+{
+ u32 Index = 0;
+
+ for (Index = 0U; XCsiSs_ConfigTable[Index].Name != NULL; Index++) {
+   if ((XCsiSs_ConfigTable[Index].BaseAddr == BaseAddress)) {
+	break;
+   }
+ }
+ return Index;
+}
+
+#endif
 /** @} */

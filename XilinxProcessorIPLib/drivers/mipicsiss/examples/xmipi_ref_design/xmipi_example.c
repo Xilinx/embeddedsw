@@ -1,6 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -53,14 +52,19 @@
 #include "xvphy.h"
 #include "xv_tpg.h"
 #include "xgpio.h"
+#ifndef SDT
 #include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 #include "xvprocss.h"
 #include "sensor_cfgs.h"
 #include "xmipi_menu.h"
 #include "pipeline_program.h"
 #include "xv_frmbufwr_l2.h"
 #include "xv_frmbufrd_l2.h"
-
+#include "xcsiss.h"
+#include "xdsitxss.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -78,20 +82,29 @@
 #define HDMI_TXSS_INTR_ID	XPAR_FABRIC_V_HDMITXSS_0_VEC_ID
 #define HDMI_TX_SS_INTR_ID 	HDMI_TXSS_INTR_ID
 
+#ifndef SDT
 #define VPHY_DEV_ID	XPAR_VPHY_0_DEVICE_ID
 #define VPHY_INTRID XPAR_FABRIC_VPHY_0_VEC_ID
 
 #define VID_PHY_DEVICE_ID	VPHY_DEV_ID
 #define VID_PHY_INTR_ID		VPHY_INTRID
+#endif
 
 #define GPIO_TPG_RESET_DEVICE_ID	XPAR_GPIO_3_DEVICE_ID
 
 #define V_TPG_DEVICE_ID		XPAR_XV_TPG_0_DEVICE_ID
 
-#define GPIO_SENSOR		XPAR_AXI_GPIO_0_SENSOR_BASEADDR
+#ifndef SDT
+#define GPIO_SENSOR	XPAR_AXI_GPIO_0_SENSOR_BASEADDR
 #define GPIO_IP_RESET	XPAR_GPIO_3_BASEADDR
-#define GPIO_IP_RESET1   XPAR_GPIO_4_BASEADDR
-#define GPIO_IP_RESET2   XPAR_GPIO_2_BASEADDR
+#define GPIO_IP_RESET1  XPAR_GPIO_4_BASEADDR
+#define GPIO_IP_RESET2  XPAR_GPIO_2_BASEADDR
+#else
+#define GPIO_SENSOR_BASE	XPAR_XGPIO_2_BASEADDR
+#define GPIO_IP_RESET_BASE	XPAR_XGPIO_1_BASEADDR
+#define GPIO_IP_RESET1_BASE   	XPAR_XGPIO_3_BASEADDR
+#define GPIO_IP_RESET2_BASE	XPAR_XGPIO_5_BASEADDR
+#endif
 
 #ifdef XPAR_PSU_ACPU_GIC_DEVICE_ID
 #define PSU_INTR_DEVICE_ID	XPAR_PSU_ACPU_GIC_DEVICE_ID
@@ -135,6 +148,12 @@ XVphy Vphy; /* VPHY structure */
 
 XV_HdmiTxSs HdmiTxSs; /* HDMI TX SS structure */
 XV_HdmiTxSs_Config *XV_HdmiTxSs_ConfigPtr;
+
+XCsiSs CsiSs;
+XCsiSs_Config XCsiSs_ConfigPtr;
+
+XDsiTxSs DSITxSs;
+XDsiTxSs_Config XDsiTxSs_ConfigPtr;
 
 XScuGic Intc;
 
@@ -316,9 +335,13 @@ int I2cMux(void) {
 
 	/* Select SI5324 clock generator */
 	Buffer = 0x80;
+#ifndef SDT
 	Status = XIic_Send((XPAR_IIC_1_BASEADDR), (I2C_MUX_ADDR),
 				(u8 *) &Buffer, 1, (XIIC_STOP));
-
+#else
+	Status = XIic_Send((XPAR_XIIC_1_BASEADDR), (I2C_MUX_ADDR),
+				(u8 *) &Buffer, 1, (XIIC_STOP));
+#endif
 	return Status;
 }
 
@@ -340,13 +363,19 @@ int I2cClk(u32 InFreq, u32 OutFreq) {
 
 	/* Free running mode */
 	if (InFreq == 0) {
-
+#ifndef SDT
 		Status = Si5324_SetClock((XPAR_IIC_1_BASEADDR),
 						(I2C_CLK_ADDR),
 						(SI5324_CLKSRC_XTAL),
 						(SI5324_XTAL_FREQ),
 						OutFreq);
-
+#else
+		Status = Si5324_SetClock((XPAR_XIIC_1_BASEADDR),
+						(I2C_CLK_ADDR),
+						(SI5324_CLKSRC_XTAL),
+						(SI5324_XTAL_FREQ),
+						OutFreq);
+#endif
 		if (Status != (SI5324_SUCCESS)) {
 			print("Error programming free mode SI5324\n\r");
 			return 0;
@@ -355,11 +384,19 @@ int I2cClk(u32 InFreq, u32 OutFreq) {
 
 	/* Locked mode */
 	else {
+#ifndef SDT
 		Status = Si5324_SetClock((XPAR_IIC_1_BASEADDR),
 						(I2C_CLK_ADDR),
 						(SI5324_CLKSRC_CLK1),
 						InFreq,
 						OutFreq);
+#else
+		Status = Si5324_SetClock((XPAR_XIIC_1_BASEADDR),
+						(I2C_CLK_ADDR),
+						(SI5324_CLKSRC_CLK1),
+						InFreq,
+						OutFreq);
+#endif
 
 		if (Status != (SI5324_SUCCESS)) {
 			print("Error programming locked mode SI5324\n\r");
@@ -539,6 +576,10 @@ void TxStreamUpCallback(void *CallbackRef) {
 			- XVPHY_CHANNEL_ID_CH1].LineRateHz;
 	}
 
+	i2c_dp159(&Vphy, 0, TxLineRate);
+
+	/* Enable TX TMDS clock*/
+	XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_TX, (TRUE));
 
 	/* Copy Sampling Rate */
 	XV_HdmiTxSs_SetSamplingRate(HdmiTxSsPtr, Vphy.HdmiTxSampleRate);
@@ -605,7 +646,9 @@ void StartTxAfterRx(void) {
 	}
 }
 
+#ifndef SDT
 /*****************************************************************************/
+
 /**
  *
  * This function setups the interrupt system.
@@ -668,6 +711,33 @@ int SetupInterruptSystem(void) {
 		return XST_FAILURE;
 	}
 
+	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
+	Status |= XScuGic_Connect(&Intc,
+			HDMI_TX_SS_INTR_ID,
+			(XInterruptHandler) XV_HdmiTxSS_HdmiTxIntrHandler,
+			(void *) &HdmiTxSs);
+
+	if (Status == XST_SUCCESS) {
+		XScuGic_Enable(&Intc, HDMI_TX_SS_INTR_ID);
+	} else {
+		xil_printf("ERR: Unable to register HDMI TX interrupt handler");
+		print("HDMI TX SS initialization error\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Register VPHY Interrupt Handler */
+	Status = XScuGic_Connect(&Intc,	VID_PHY_INTR_ID,
+				(XInterruptHandler) XVphy_InterruptHandler,
+				(void *) &Vphy);
+
+	if (Status == XST_SUCCESS) {
+		XScuGic_Enable(&Intc, VID_PHY_INTR_ID);
+	} else {
+		xil_printf("ERR: Unable to register Vphy interrupt handler");
+		print("HDMI VPHY Interrupt Vec ID not found!\n\r");
+		return XST_FAILURE;
+	}
+
 	/* Enable IO expander and sensor IIC interrupts */
 	XScuGic_Enable(IntcInstPtr, IIC_SENSOR_INTR_ID);
 	XScuGic_Enable(IntcInstPtr, XPAR_INTC_0_V_FRMBUF_WR_0_VEC_ID);
@@ -681,7 +751,7 @@ int SetupInterruptSystem(void) {
 
 	return (XST_SUCCESS);
 }
-
+#endif
 /*****************************************************************************/
 /**
  *
@@ -805,9 +875,15 @@ void Xil_AssertCallbackRoutine(u8 *File, s32 Line) {
 ******************************************************************************/
 void CamReset(void)
 {
+#ifndef SDT
 	Xil_Out32(GPIO_SENSOR, 0x07);
 	Xil_Out32(GPIO_SENSOR, 0x06);
 	Xil_Out32(GPIO_SENSOR, 0x07);
+#else
+	Xil_Out32(GPIO_SENSOR_BASE, 0x07);
+	Xil_Out32(GPIO_SENSOR_BASE, 0x06);
+	Xil_Out32(GPIO_SENSOR_BASE, 0x07);
+#endif
 }
 
 /*****************************************************************************/
@@ -821,13 +897,19 @@ void CamReset(void)
 ******************************************************************************/
 void Reset_IP_Pipe(void)
 {
-
+#ifndef SDT
 	Xil_Out32(GPIO_IP_RESET1, 0x00);
 	Xil_Out32(GPIO_IP_RESET2, 0x00);
 	usleep(1000);
 	Xil_Out32(GPIO_IP_RESET1, 0x01);
 	Xil_Out32(GPIO_IP_RESET2, 0x03);
-
+#else
+	Xil_Out32(GPIO_IP_RESET1_BASE, 0x00);
+	Xil_Out32(GPIO_IP_RESET2_BASE, 0x00);
+	usleep(1000);
+	Xil_Out32(GPIO_IP_RESET1_BASE, 0x01);
+	Xil_Out32(GPIO_IP_RESET2_BASE, 0x03);
+#endif
 }
 
 /*****************************************************************************/
@@ -958,19 +1040,15 @@ xil_printf("\r\n");
 	init_platform();
 
 	/* Initialize external clock generator for HDMI through I2C*/
+#ifndef SDT
 	Si5324_Init(XPAR_IIC_1_BASEADDR, I2C_CLK_ADDR);
-
+#else
+	Si5324_Init(XPAR_XIIC_1_BASEADDR, I2C_CLK_ADDR);
+#endif
 	/* Initialize IIC */
 	Status = InitIIC();
 	if (Status != XST_SUCCESS) {
 		xil_printf(TXT_RED "\n\rIIC Init Failed \n\r" TXT_RST);
-		return XST_FAILURE;
-	}
-
-	/* Initialize IRQ */
-	Status = SetupInterruptSystem();
-	if (Status == XST_FAILURE) {
-		print(TXT_RED "IRQ init failed.\n\r" TXT_RST);
 		return XST_FAILURE;
 	}
 
@@ -1010,9 +1088,8 @@ xil_printf("\r\n");
 		return XST_FAILURE;
 	}
 
+	/* Setup FrmBufRd and FrmBufWr */
 	config_csi_cap_path();
-
-
 
 	/* MIPI colour depth in bits per clock */
 	SetColorDepth();
@@ -1020,7 +1097,11 @@ xil_printf("\r\n");
 	/*
 	 * Initialize HDMI TX Subsystem
 	 */
+#ifndef SDT
 	XV_HdmiTxSs_ConfigPtr = XV_HdmiTxSs_LookupConfig(HDMI_TX_SS_DEVICE_ID);
+#else
+	XV_HdmiTxSs_ConfigPtr = XV_HdmiTxSs_LookupConfig(XPAR_XV_HDMITXSS_0_BASEADDR);
+#endif
 
 	if (XV_HdmiTxSs_ConfigPtr == NULL) {
 		HdmiTxSs.IsReady = 0;
@@ -1034,19 +1115,7 @@ xil_printf("\r\n");
 					"failed %d\r\n" TXT_RST, Status);
 	}
 
-	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
-	Status |= XScuGic_Connect(&Intc,
-			HDMI_TX_SS_INTR_ID,
-			(XInterruptHandler) XV_HdmiTxSS_HdmiTxIntrHandler,
-			(void *) &HdmiTxSs);
 
-	if (Status == XST_SUCCESS) {
-		XScuGic_Enable(&Intc, HDMI_TX_SS_INTR_ID);
-	} else {
-		xil_printf("ERR: Unable to register HDMI TX interrupt handler");
-		print("HDMI TX SS initialization error\n\r");
-		return XST_FAILURE;
-	}
 
 	/* HDMI TX SS callback setup */
 	XV_HdmiTxSs_SetCallback(&HdmiTxSs, XV_HDMITXSS_HANDLER_CONNECT,
@@ -1063,22 +1132,16 @@ xil_printf("\r\n");
 	 * The reason for this is the GtRxInitStartCallback
 	 * calls the RX stream down callback.
 	 */
-
+#ifndef SDT
 	XVphyCfgPtr = XVphy_LookupConfig(VID_PHY_DEVICE_ID);
+#else
+	XVphyCfgPtr = XVphy_LookupConfig(XPAR_XVPHY_0_BASEADDR);
+#endif
 	if (XVphyCfgPtr == NULL) {
 		print("Video PHY device not found\n\r\r");
 		return XST_FAILURE;
 	}
 
-	/* Register VPHY Interrupt Handler */
-	Status = XScuGic_Connect(&Intc,	VID_PHY_INTR_ID,
-				(XInterruptHandler) XVphy_InterruptHandler,
-				(void *) &Vphy);
-
-	if (Status != XST_SUCCESS) {
-		print("HDMI VPHY Interrupt Vec ID not found!\n\r");
-		return XST_FAILURE;
-	}
 
 	/* Initialize HDMI VPHY */
 	Status = XVphy_Hdmi_CfgInitialize(&Vphy, 0, XVphyCfgPtr);
@@ -1087,8 +1150,6 @@ xil_printf("\r\n");
 		return XST_FAILURE;
 	}
 
-	/* Enable VPHY Interrupt */
-	XScuGic_Enable(&Intc, VID_PHY_INTR_ID);
 
 	/* VPHY callback setup */
 	XVphy_SetHdmiCallback(&Vphy, XVPHY_HDMI_HANDLER_TXINIT,
@@ -1097,7 +1158,11 @@ xil_printf("\r\n");
 			VphyHdmiTxReadyCallback, (void *) &Vphy);
 
 	/* Initialize GPIO for Tpg Reset */
+#ifndef SDT
 	Gpio_Tpg_resetn_ConfigPtr = XGpio_LookupConfig(GPIO_TPG_RESET_DEVICE_ID);
+#else
+	Gpio_Tpg_resetn_ConfigPtr = XGpio_LookupConfig(XPAR_XGPIO_1_BASEADDR);
+#endif
 
 	if (Gpio_Tpg_resetn_ConfigPtr == NULL) {
 		Gpio_Tpg_resetn.IsReady = 0;
@@ -1117,7 +1182,11 @@ xil_printf("\r\n");
 	ResetTpg();
 
 	/* Initialize TPG IP */
+#ifndef SDT
 	Tpg_ConfigPtr = XV_tpg_LookupConfig(V_TPG_DEVICE_ID);
+#else
+	Tpg_ConfigPtr = XV_tpg_LookupConfig(XPAR_XV_TPG_0_BASEADDR);
+#endif
 
 	if (Tpg_ConfigPtr == NULL) {
 		Tpg.IsReady = 0;
@@ -1131,6 +1200,76 @@ xil_printf("\r\n");
 		return (XST_FAILURE);
 	}
 
+#ifndef SDT
+	/* Initialize IRQ */
+	Status = SetupInterruptSystem();
+	if (Status == XST_FAILURE) {
+		print(TXT_RED "IRQ init failed.\n\r" TXT_RST);
+		return XST_FAILURE;
+	}
+#else
+	Status = XSetupInterruptSystem(&frmbufwr,&XVFrmbufWr_InterruptHandler,
+				       frmbufwr.FrmbufWr.Config.IntrId,
+				       frmbufwr.FrmbufWr.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: frmbufwr Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+
+	Status = XSetupInterruptSystem(&frmbufrd,&XVFrmbufRd_InterruptHandler,
+				       frmbufrd.FrmbufRd.Config.IntrId,
+				       frmbufrd.FrmbufRd.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: frmbufrd Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+
+	Status = XSetupInterruptSystem(&HdmiTxSs,
+					&XV_HdmiTxSS_HdmiTxIntrHandler,
+					HdmiTxSs.Config.IntrId,
+					HdmiTxSs.Config.IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: HDMI Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+
+	Status = XSetupInterruptSystem(&DSITxSs,&XDsiTxSs_IntrHandler,
+				       DSITxSs.Config.IntrId,
+				       DSITxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: DSI TX Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+
+	Status = XSetupInterruptSystem(&Vphy,&XVphy_InterruptHandler,
+				       Vphy.Config.IntrId,
+				       Vphy.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: Vphy Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+
+	Status = XSetupInterruptSystem(&CsiSs,&XCsiSs_IntrHandler,
+				       CsiSs.Config.IntrId,
+				       CsiSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: CSI Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+#endif
 	print("---------------------------------\r\n");
 
 	/* Enable exceptions. */
@@ -1149,7 +1288,6 @@ xil_printf("\r\n");
 			xil_printf("Failed to setup Camera sensor\r\n");
 			return XST_FAILURE;
 		}
-
 
 	start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
 
@@ -1200,11 +1338,8 @@ xil_printf("\r\n");
 	/* Initialize menu */
 	XMipi_MenuInitialize(&HdmiMenu, UART_BASEADDR);
 
-
 	/* Enable DSI IP */
 	EnableDSI();
-
-
 
 	New_Cfg = Pipeline_Cfg;
 
@@ -1282,9 +1417,9 @@ xil_printf("\r\n");
 							Pipeline_Cfg.ColorDepth);
 				}
 			}
-        }
+		}
 
-                SinkReady = TRUE;
+		SinkReady = TRUE;
 
 		if (IsStreamUp && SinkReady) {
 			IsStreamUp = FALSE;

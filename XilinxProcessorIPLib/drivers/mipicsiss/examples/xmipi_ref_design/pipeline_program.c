@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -29,7 +30,11 @@
 #include "xil_exception.h"
 #include "xil_cache.h"
 #include "sensor_cfgs.h"
+#ifndef SDT
 #include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 
 #include "xdsitxss.h"
 #include "xgpio.h"
@@ -39,11 +44,27 @@
 #include "xv_frmbufwr_l2.h"
 #include "xv_frmbufrd_l2.h"
 
+#ifndef SDT
 #define IIC_SENSOR_DEV_ID	XPAR_AXI_IIC_1_SENSOR_DEVICE_ID
+#else
+#define IIC_SENSOR_BASE	XPAR_XIIC_0_BASEADDR
+#endif
 
 #define VPROCSSCSC_BASE	XPAR_XVPROCSS_1_BASEADDR
+#ifndef SDT
 #define DEMOSAIC_BASE	XPAR_XV_DEMOSAIC_0_S_AXI_CTRL_BASEADDR
 #define VGAMMALUT_BASE	XPAR_XV_GAMMA_LUT_0_S_AXI_CTRL_BASEADDR
+#else
+#define DEMOSAIC_BASE	XPAR_XV_DEMOSAIC_0_BASEADDR
+#define VGAMMALUT_BASE	XPAR_XV_GAMMA_LUT_0_BASEADDR
+#endif
+#ifndef SDT
+#define XCSIRXSS_DEVICE_ID	XPAR_CSISS_0_DEVICE_ID
+#define XGPIO_STREAM_MUX_GPIO_DEVICE_ID	XPAR_GPIO_5_DEVICE_ID
+#else
+#define XCSIRXSS_BASE	XPAR_XMIPICSISS_0_BASEADDR
+#define XGPIO_STREAM_MUX_GPIO_BASE	XPAR_XGPIO_4_BASEADDR
+#endif
 
 #define PAGE_SIZE	16
 
@@ -53,9 +74,15 @@
 #define CSIFrame	0x20000000
 #define ScalerFrame	0x30000000
 
+#ifndef SDT
 #define XVPROCSS_DEVICE_ID	XPAR_XVPROCSS_0_DEVICE_ID
 #define XDSITXSS_DEVICE_ID	XPAR_DSITXSS_0_DEVICE_ID
 #define XDSITXSS_INTR_ID	XPAR_FABRIC_MIPI_DSI_TX_SUBSYSTEM_0_INTERRUPT_INTR
+#else
+#define XVPROCSS_BASE	XPAR_XVPROCSS_0_BASEADDR
+#define XDSITXSS_BASE	XPAR_XDSITXSS_0_BASEADDR
+#endif
+
 #define DSI_BYTES_PER_PIXEL	(3)
 #define DSI_H_RES		(1920)
 #define DSI_V_RES		(1200)
@@ -76,16 +103,11 @@
 
 XDsiTxSs DsiTxSs;
 
-#define XGPIO_STREAM_MUX_GPIO_DEVICE_ID	XPAR_GPIO_5_DEVICE_ID
 XGpio Gpio_Stream_Mux;
 
-#define XCSIRXSS_DEVICE_ID	XPAR_CSISS_0_DEVICE_ID
 XCsiSs CsiRxSs;
 
-
-
 XVprocSs scaler_new_inst;
-
 
 XVidC_VideoMode VideoMode;
 XVidC_VideoStream  VidStream;
@@ -103,7 +125,7 @@ u8 SensorIicAddr; /* Variable for storing Eeprom IIC address */
 
 #define SENSOR_ADDR         (0x34>>1)	/* for IMX274 Vision */
 
-#define IIC_MUX_ADDRESS 		0x75
+#define IIC_MUX_ADDRESS		0x75
 #define IIC_EEPROM_CHANNEL		0x01	/* 0x08 */
 
 XIic IicSensor; /* The instance of the IIC device. */
@@ -119,8 +141,6 @@ extern u8 TxRestartColorbar;
 
 void ConfigDemosaicResolution(XVidC_VideoMode videomode);
 void DisableDemosaicResolution();
-
-
 
 #define DDR_BASEADDR 0x10000000
 
@@ -140,7 +160,6 @@ u64 XVFRMBUFWR_BUFFER_BASEADDR;
 u32 frmrd_start  = 0;
 u32 frm_cnt = 0;
 u32 frm_cnt1 = 0;
-
 
 /*****************************************************************************/
 /**
@@ -252,10 +271,6 @@ static int ConfigFrmbuf(u32 StrideInBytes,
   return(Status);
 }
 
-
-
-
-
 /*****************************************************************************/
 /**
  * This Receive handler is called asynchronously from an interrupt
@@ -312,7 +327,6 @@ int SensorWriteData(u16 ByteCount) {
 	IicSensor.Stats.TxErrors = 0;
 
 	/* Start the IIC device. */
-
 	Status = XIic_Start(&IicSensor);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -326,7 +340,6 @@ int SensorWriteData(u16 ByteCount) {
 
 	/* Wait till the transmission is completed. */
 	while ((TransmitComplete) || (XIic_IsIicBusy(&IicSensor) == TRUE)) {
-
 		if (IicSensor.Stats.TxErrors != 0) {
 
 			/* Enable the IIC device. */
@@ -531,17 +544,33 @@ int InitIIC(void) {
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
+#ifndef SDT
 	ConfigPtr = XIic_LookupConfig(IIC_SENSOR_DEV_ID);
+#else
+	ConfigPtr = XIic_LookupConfig(IIC_SENSOR_BASE);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
 
 	Status = XIic_CfgInitialize(&IicSensor, ConfigPtr,
 					ConfigPtr->BaseAddress);
+
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
+#ifdef SDT
+	Status = XSetupInterruptSystem(&IicSensor,&XIic_InterruptHandler,
+			       ConfigPtr->IntrId,
+			       ConfigPtr->IntrParent,
+			       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: Iic Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+#endif
 	return Status;
 }
 
@@ -675,7 +704,6 @@ void ConfigDemosaic(u32 width , u32 height)
  *
  *****************************************************************************/
 void FrmbufwrDoneCallback(void *CallbackRef) {
-	 //xil_printf("  Wr Done  \r\n");
 	int Status;
 
 	 rd_ptr = wr_ptr;
@@ -919,10 +947,14 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 
 int config_csi_cap_path(){
 
-
 	u32 Status;
+
 	/* Initialize Frame Buffer Write */
-	 Status =  XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUFWR_0_DEVICE_ID);
+#ifndef SDT
+	Status =  XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUFWR_0_DEVICE_ID);
+#else
+	 Status =  XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUF_WR_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf(TXT_RED "Frame Buffer Write Init failed status = %x.\r\n"
 				 TXT_RST, Status);
@@ -931,7 +963,11 @@ int config_csi_cap_path(){
 
 
 	/* Initialize Frame Buffer Read */
+#ifndef SDT
 	Status =  XVFrmbufRd_Initialize(&frmbufrd, XPAR_XV_FRMBUFRD_0_DEVICE_ID);
+#else
+	Status =  XVFrmbufRd_Initialize(&frmbufrd, XPAR_XV_FRMBUF_RD_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf(TXT_RED "Frame Buffer Read Init failed status = %x.\r\n"
 				 TXT_RST, Status);
@@ -1152,7 +1188,11 @@ void InitVprocSs_Scaler(int count)
 	}
 
 	if (count) {
+#ifndef SDT
 		p_vpss_cfg = XVprocSs_LookupConfig(XVPROCSS_DEVICE_ID);
+#else
+		p_vpss_cfg = XVprocSs_LookupConfig(XVPROCSS_BASE);
+#endif
 		if (p_vpss_cfg == NULL) {
 			xil_printf("ERROR! Failed to find VPSS-based scaler.");
 			xil_printf("\n\r");
@@ -1328,8 +1368,11 @@ u32 SetupDSI(void)
 	u32 Status;
 	u32 PixelFmt;
 
+#ifndef SDT
 	DsiTxSsCfgPtr = XDsiTxSs_LookupConfig(XDSITXSS_DEVICE_ID);
-
+#else
+	DsiTxSsCfgPtr = XDsiTxSs_LookupConfig(XDSITXSS_BASE);
+#endif
 	if (!DsiTxSsCfgPtr) {
 		xil_printf(TXT_RED "DSI Tx SS Device Id not found\r\n" TXT_RST);
 		return XST_FAILURE;
@@ -1434,8 +1477,11 @@ u32 InitStreamMuxGpio(void)
 	u32 Status = 0;
 	XGpio_Config *GpioStreamMuxCfgPtr = NULL;
 
+#ifndef SDT
 	GpioStreamMuxCfgPtr = XGpio_LookupConfig(XGPIO_STREAM_MUX_GPIO_DEVICE_ID);
-
+#else
+	GpioStreamMuxCfgPtr = XGpio_LookupConfig(XGPIO_STREAM_MUX_GPIO_BASE);
+#endif
 	if (!GpioStreamMuxCfgPtr) {
 		xil_printf("Stream Mux GPIO LookupCfg failed\r\n");
 		return XST_FAILURE;
@@ -1466,7 +1512,11 @@ u32 InitializeCsiRxSs(void)
 	u32 Status = 0;
 	XCsiSs_Config *CsiRxSsCfgPtr = NULL;
 
+#ifndef SDT
 	CsiRxSsCfgPtr = XCsiSs_LookupConfig(XCSIRXSS_DEVICE_ID);
+#else
+	CsiRxSsCfgPtr = XCsiSs_LookupConfig(XCSIRXSS_BASE);
+#endif
 	if (!CsiRxSsCfgPtr) {
 		xil_printf("CSI2RxSs LookupCfg failed\r\n");
 		return XST_FAILURE;

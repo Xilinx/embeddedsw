@@ -1,0 +1,104 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for mipicsiss Sub system controller Driver
+
+maintainers:
+  - Kunal Rane <kvrane@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,mipi-csi2-rx-subsystem-5.4
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,highaddr:
+    description: HighAddress is the physical MAX address of the subsystem address range
+  xlnx,cmn-inc-iic:
+    description: Flag for I2C channel.
+  xlnx,cmn-num-lanes:
+    description: Flag for number of lanes.
+  xlnx,cmn-num-pixels:
+    description: Number of pixels
+  xlnx,cmn-pxl-format:
+    description: Input pixel format.
+  xlnx,cmn-vc:
+    description: Flag for common virtual channel.
+  xlnx,csi-buf-depth:
+    description: Defines buffer depth.
+  xlnx,csi-emb-non-img:
+    description: flag for embedded non image.
+  xlnx,dpy-en-reg-if:
+    description: flag for dpy enable reg
+  xlnx,dpy-line-rate:
+    description: flag for dpy line rate.
+  xlnx,csi-en-crc:
+    description: flag to enable crc for CSI.
+  xlnx,csi-en-activelanes:
+    description: flag for csi en active lanes.
+  xlnx,en-csi-v2:
+    description: flag to enable csi v2.
+  xlnx,dphy-lanes:
+    description: Number of dphy lanes.
+  axii2c-present:
+    description: Sub-core instance presence.
+  axii2c-connected:
+    description: Sub-core instance configuration.
+  csirx-present:
+    description: Sub-core instance presence.
+  csirx-connected:
+    description: Sub-core instance configuration.
+  mipi-dphy-present:
+    description: Sub-core instance presence.
+  mipi-dphy-connected:
+    description: Sub-core instance configuration.
+  interrupts:
+    description: Interrupt number
+  interrupt-parent:
+    description: Parent interrupt
+
+required:
+  - compatible
+  - reg
+  - xlnx,highaddr
+  - xlnx,cmn-inc-iic
+  - xlnx,cmn-num-lanes
+  - xlnx,cmn-num-pixels
+  - xlnx,cmn-pxl-format
+  - xlnx,cmn-vc
+  - xlnx,csi-buf-depth
+  - xlnx,csi-emb-non-img
+  - xlnx,dpy-en-reg-if
+  - xlnx,dpy-line-rate
+  - xlnx,csi-en-crc
+  - xlnx,csi-en-activelanes
+  - xlnx,en-csi-v2
+  - xlnx,dphy-lanes
+  - axii2c-present
+  - axii2c-connected: phandle
+  - csirx-present
+  - csirx-connected: phandle
+  - mipi-dphy-present
+  - mipi-dphy-connected: phandle
+  - interrupts
+  - interrupt-parent
+
+config:
+  - XCsiSs_Config
+
+examples:
+  xmipi_example.c:
+    - interrupts
+    - reg
+  xmipi_vck190_example.c:
+    - interrupts
+    - reg
+  xmipi_vek280_example.c:
+    - interrupts
+    - reg
+...

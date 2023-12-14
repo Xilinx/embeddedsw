@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -52,12 +53,22 @@ u8 i2c_dp159_chk(u8 dev) {
 
 	/* DP159 ES */
 	if (dev == DP159_ES) {
+#ifndef SDT
 		r = XIic_Recv(XPAR_IIC_1_BASEADDR, I2C_DP159_ES_ADDR,
 				(u8 *)&buf, 1, XIIC_STOP);
+#else
+		r = XIic_Recv(XPAR_XIIC_1_BASEADDR, I2C_DP159_ES_ADDR,
+						(u8 *)&buf, 1, XIIC_STOP);
+#endif
 	}
 	else
+#ifndef SDT
 		r = XIic_Recv(XPAR_IIC_1_BASEADDR, I2C_DP159_ZOMBIE_ADDR,
 				(u8 *)&buf, 1, XIIC_STOP);
+#else
+		r = XIic_Recv(XPAR_XIIC_1_BASEADDR, I2C_DP159_ZOMBIE_ADDR,
+					(u8 *)&buf, 1, XIIC_STOP);
+#endif
 
 	/* When a device is found, it returns one byte */
 	if (r == 1)
@@ -94,14 +105,24 @@ u32 i2c_dp159_write(u8 dev, u8 addr, u8 dat)
 
 	/* DP159 ES */
 	if (dev == DP159_ES) {
+#ifndef SDT
 		r = XIic_Send(XPAR_IIC_1_BASEADDR, I2C_DP159_ES_ADDR,
 				(u8 *)&buf, 2, XIIC_STOP);
+#else
+		r = XIic_Send(XPAR_XIIC_1_BASEADDR, I2C_DP159_ES_ADDR,
+						(u8 *)&buf, 2, XIIC_STOP);
+#endif
 	}
 
 	/* Zombie */
 	else {
+#ifndef SDT
 		r = XIic_Send(XPAR_IIC_1_BASEADDR, I2C_DP159_ZOMBIE_ADDR,
 				(u8 *)&buf, 2, XIIC_STOP);
+#else
+		r = XIic_Send(XPAR_XIIC_1_BASEADDR, I2C_DP159_ZOMBIE_ADDR,
+					(u8 *)&buf, 2, XIIC_STOP);
+#endif
 	}
 
 	if (r == 2)
@@ -135,18 +156,32 @@ u8 i2c_dp159_read(u8 dev, u8 addr)
 
 	/* DP159 ES */
 	if (dev == DP159_ES) {
+#ifndef SDT
 		r = XIic_Send(XPAR_IIC_1_BASEADDR, I2C_DP159_ES_ADDR,
 				(u8 *)&buf, 1, XII_REPEATED_START_OPTION);
 		r = XIic_Recv(XPAR_IIC_1_BASEADDR, I2C_DP159_ES_ADDR,
 				(u8 *)&buf, 1, XIIC_STOP);
+#else
+		r = XIic_Send(XPAR_XIIC_1_BASEADDR, I2C_DP159_ES_ADDR,
+						(u8 *)&buf, 1, XII_REPEATED_START_OPTION);
+		r = XIic_Recv(XPAR_XIIC_1_BASEADDR, I2C_DP159_ES_ADDR,
+						(u8 *)&buf, 1, XIIC_STOP);
+#endif
 	}
 
 	/* Zombie */
 	else {
+#ifndef SDT
 		r = XIic_Send(XPAR_IIC_1_BASEADDR, I2C_DP159_ZOMBIE_ADDR,
 				(u8 *)&buf, 1, XII_REPEATED_START_OPTION);
 		r = XIic_Recv(XPAR_IIC_1_BASEADDR, I2C_DP159_ZOMBIE_ADDR,
 				(u8 *)&buf, 1, XIIC_STOP);
+#else
+		r = XIic_Send(XPAR_XIIC_1_BASEADDR, I2C_DP159_ZOMBIE_ADDR,
+						(u8 *)&buf, 1, XII_REPEATED_START_OPTION);
+		r = XIic_Recv(XPAR_XIIC_1_BASEADDR, I2C_DP159_ZOMBIE_ADDR,
+						(u8 *)&buf, 1, XIIC_STOP);
+#endif
 	}
 
 	if (r == 1)
@@ -176,11 +211,19 @@ void i2c_dp159_dump(void)
 
 	buf[0] = 0x0;
 	xil_printf("DP159 register dump\n");
+#ifndef SDT
 	r = XIic_Send(XPAR_IIC_1_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf,
 			1, XII_REPEATED_START_OPTION);
 
 	r = XIic_Recv(XPAR_IIC_1_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf,
 			32, XIIC_STOP);
+#else
+	r = XIic_Send(XPAR_XIIC_1_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf,
+				1, XII_REPEATED_START_OPTION);
+
+	r = XIic_Recv(XPAR_XIIC_1_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf,
+				32, XIIC_STOP);
+#endif
 	for (i = 0; i<= 0x20; i++) {
 		xil_printf("(%d) ADDR: %0x DATA: %0x\n", r, i, buf[i]);
 	}
