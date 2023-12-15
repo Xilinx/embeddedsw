@@ -23,6 +23,7 @@ supported_processors:
   - psx_cortexr52
   - ps7_cortexa9
   - microblaze
+  - microblaze_riscv
 
 supported_os:
   - standalone
