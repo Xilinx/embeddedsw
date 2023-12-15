@@ -17,6 +17,7 @@ depends_libs:
 
 supported_processors:
   - microblaze
+  - microblaze_riscv
   - psu_cortexa53
   - psu_cortexr5
   - psv_cortexa72
