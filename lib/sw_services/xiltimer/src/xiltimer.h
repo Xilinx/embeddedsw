@@ -171,6 +171,12 @@ u32 Xil_GetMBFrequency(void);
 u32 Xil_SetMBFrequency(u32 Val);
 #endif
 
+#ifdef XTIMER_DEFAULT_TIMER_IS_MB_RISCV
+u32 Xil_GetMBRISCVFrequency(void);
+u32 Xil_SetMBRISCVFrequency(u32 Val);
+#endif
+
+
 #ifdef __cplusplus
 }
 #endif

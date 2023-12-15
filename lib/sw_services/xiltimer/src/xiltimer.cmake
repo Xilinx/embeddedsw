@@ -131,6 +131,10 @@ if (("${XILTIMER_sleep_timer}" STREQUAL "Default") OR
 	set(XTIMER_DEFAULT_TIMER_IS_MB " ")
     endif()
 
+    if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv"))
+	set(XSLEEPTIMER_FREQ XPAR_CPU_CORE_CLOCK_FREQ_HZ)
+	set(XTIMER_DEFAULT_TIMER_IS_MB_RISCV " ")
+    endif()
 endif()
 
 if (${CONFIG_AXI_TIMER})
