@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *       bm   07/06/2023 Refactored Proc logic to more generic logic
 *       bm   07/06/2023 Added List commands
 *       sk   08/29/2023 Updated IPI Timeout to ~5sec to avoid any DoS issue
+* 2.00  ng   12/15/2023 Added offset support to list commands
 *
 * </pre>
 *
@@ -71,6 +72,10 @@
 /* Address Buffer related macros */
 #define XPLMI_MAX_ADDR_BUFFERS (1U)
 #define XPLMI_MAX_ADDR_LIST_CNT (200U)
+#define XPLMI_LIST_ID_MASK  (0xFF000000U)
+#define XPLMI_LIST_ID_SHIFT (24U)
+#define XPLMI_ADDRESS_OFFSET_MASK   (0x00FFFFFFU)
+#define XPLMI_LIST_ID_INDEX (7U)
 
 /**************************** Type Definitions *******************************/
 
@@ -459,16 +464,22 @@ int XPlmi_RunProc(XPlmi_Cmd *Cmd)
 int XPlmi_ListSet(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 ListId = 0U;
 
 	XPLMI_EXPORT_CMD(XPLMI_LIST_SET_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 
 	if (Cmd->ProcessedLen == 0U) {
-		ListId = Cmd->Payload[0U];
+		/*
+		 * ResumeData entry 7 is used to store the list ID, if the current list set command
+		 * data is spread across multiple chunks.
+		 * Note: ResumeData entry 0 can't be used, as Store buffer is using it.
+		 */
+		Cmd->ResumeData[XPLMI_LIST_ID_INDEX] = ((Cmd->Payload[0U] & XPLMI_LIST_ID_MASK) >>
+			XPLMI_LIST_ID_SHIFT);
 	}
 
-	Status = XPlmi_StoreBuffer(Cmd, ListId, &AddressBufferList);
+	Status = XPlmi_StoreBuffer(Cmd, Cmd->ResumeData[XPLMI_LIST_ID_INDEX],
+				   &AddressBufferList);
 
 	return Status;
 }
@@ -487,12 +498,13 @@ int XPlmi_ListSet(XPlmi_Cmd *Cmd)
 int XPlmi_ListWrite(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 ListId = Cmd->Payload[0U];
+	u32 ListId = ((Cmd->Payload[0U] & XPLMI_LIST_ID_MASK) >> XPLMI_LIST_ID_SHIFT);
 	u32 Value = Cmd->Payload[1U];
 	u64 BufAddr;
 	const u32 *BufPtr;
 	u32 BufLen;
 	u32 Index;
+	u32 AddressOffset = (Cmd->Payload[0U] & XPLMI_ADDRESS_OFFSET_MASK);
 
 	XPLMI_EXPORT_CMD(XPLMI_LIST_WRITE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
@@ -505,7 +517,7 @@ int XPlmi_ListWrite(XPlmi_Cmd *Cmd)
 	BufPtr = (u32*)(UINTPTR)BufAddr;
 
 	for (Index = 0U; Index < BufLen; Index++) {
-		XPlmi_Out32(BufPtr[Index], Value);
+		XPlmi_Out32(BufPtr[Index] + AddressOffset, Value);
 	}
 
 	Status = XST_SUCCESS;
@@ -528,13 +540,14 @@ END:
 int XPlmi_ListMaskWrite(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 ListId = Cmd->Payload[0U];
+	u32 ListId = ((Cmd->Payload[0U] & XPLMI_LIST_ID_MASK) >> XPLMI_LIST_ID_SHIFT);
 	u32 Mask = Cmd->Payload[1U];
 	u32 Value = Cmd->Payload[2U];
 	u64 BufAddr;
 	const u32 *BufPtr;
 	u32 BufLen;
 	u32 Index;
+	u32 AddressOffset = (Cmd->Payload[0U] & XPLMI_ADDRESS_OFFSET_MASK);
 
 	XPLMI_EXPORT_CMD(XPLMI_LIST_MASK_WRITE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
@@ -547,7 +560,7 @@ int XPlmi_ListMaskWrite(XPlmi_Cmd *Cmd)
 	BufPtr = (u32*)(UINTPTR)BufAddr;
 
 	for (Index = 0U; Index < BufLen; Index++) {
-		XPlmi_UtilRMW(BufPtr[Index], Mask, Value);
+		XPlmi_UtilRMW(BufPtr[Index] + AddressOffset, Mask, Value);
 	}
 
 	Status = XST_SUCCESS;
@@ -570,11 +583,12 @@ END:
 int XPlmi_ListMaskPoll(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 ListId = Cmd->Payload[0U];
+	u32 ListId = ((Cmd->Payload[0U] & XPLMI_LIST_ID_MASK) >> XPLMI_LIST_ID_SHIFT);
 	u64 BufAddr;
 	const u32 *BufPtr;
 	u32 BufLen;
 	u32 Index;
+	u32 AddressOffset = (Cmd->Payload[0U] & XPLMI_ADDRESS_OFFSET_MASK);
 
 	XPLMI_EXPORT_CMD(XPLMI_LIST_MASK_POLL_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_SIX);
@@ -587,8 +601,8 @@ int XPlmi_ListMaskPoll(XPlmi_Cmd *Cmd)
 	BufPtr = (u32 *)(UINTPTR)BufAddr;
 
 	for (Index = 0U; Index < BufLen; Index++) {
-		Status = XPlmi_GenericMaskPoll(Cmd, (u64)BufPtr[Index],
-				XPLMI_LIST_MASK_POLL_32BIT_TYPE);
+		Status = XPlmi_GenericMaskPoll(Cmd, (u64)BufPtr[Index] + AddressOffset,
+					       XPLMI_LIST_MASK_POLL_32BIT_TYPE);
 		if (Status != XST_SUCCESS) {
 			break;
 		}
