@@ -159,6 +159,7 @@ class Domain(Repo):
             "pmu": ("microblaze-pmu", "", "microblaze"),
             "pmc": ("microblaze-plm", "", "microblaze"),
             "psm": ("microblaze-psm", "", "microblaze"),
+            "microblaze_riscv": ("microblaze_riscv", "", "microblaze_riscv"),
             "microblaze": ("microblaze", "", "microblaze"),
         }
         lops_file = ""
@@ -203,9 +204,13 @@ class Domain(Repo):
                 f'set( CMAKE_MACHINE "{self.family}")',
             )
 
-        if "microblaze" in self.proc_ip_name:
-            lops_file = os.path.join(self.lops_dir, "lop-microblaze.dts")
-            vitis_path = os.environ.get("XILINX_VITIS")
+        if "microblaze_riscv" in self.proc_ip_name or "microblaze" in self.proc_ip_name:
+            if "microblaze_riscv" in self.proc_ip_name:
+                lops_file = os.path.join(self.lops_dir, "lop-microblaze-riscv.dts")
+                processor = "riscv"
+            else:
+                lops_file = os.path.join(self.lops_dir, "lop-microblaze.dts")
+                processor = "microblaze"
 
             utils.runcmd(
                 f"lopper -f -O {self.domain_dir} --enhanced -i {lops_file} {self.sdt} > {dump}",
@@ -215,28 +220,38 @@ class Domain(Repo):
             avail_cflag_data = utils.fetch_yaml_data(cflags_file, "cflags")
             cflags = avail_cflag_data.get("cflags")
 
+
             utils.replace_line(
                 toolchain_file_copy,
                 f'set( CMAKE_HW_FLAGS "" )',
                 f'set( CMAKE_HW_FLAGS "{cflags}" )\n',
             )
 
-            #TODO: Handle libpath in cflags.yaml based on OS
+            if "microblaze_riscv" in self.proc_ip_name:
+                bsp_linkflags = avail_cflag_data.get("linkflags")
+                utils.replace_line(
+                    toolchain_file_copy,
+                    f'set( CMAKE_BSP_HW_LINK_FLAGS "" )',
+                    f'set( CMAKE_BSP_HW_LINK_FLAGS "{bsp_linkflags}" )\n',
+                )
+
             relative_libpath = avail_cflag_data.get("libpath")
             vitis_path = os.environ.get("XILINX_VITIS")
             if os.name == "nt":
-                libpath = os.path.join(vitis_path, "gnu", "microblaze", "nt", relative_libpath)
+                libpath = os.path.join(vitis_path, "gnu", processor, "nt", relative_libpath)
             else:
-                libpath = os.path.join(vitis_path, "gnu", "microblaze", "lin", relative_libpath)
+                libpath = os.path.join(vitis_path, "gnu", processor, "lin", relative_libpath)
+
             libpath = libpath.replace('\\', '/')
 
-            assert utils.is_dir(libpath), f"Microblaze compiler library path {libpath} is not found."
+            assert utils.is_dir(libpath), f"{processor} compiler library path {libpath} is not found."
 
             utils.replace_line(
                 toolchain_file_copy,
                 f'set( CMAKE_COMPILER_LIB_PATH "" )',
                 f'set( CMAKE_COMPILER_LIB_PATH "{libpath}" )\n',
             )
+
 
         # freertos needs a separate CMAKE_SYSTEM_NAME
         if "freertos" in self.os:

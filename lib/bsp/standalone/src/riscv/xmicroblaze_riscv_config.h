@@ -1,0 +1,22 @@
+/******************************************************************************
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef _XMICROBLAZE_CONFIG_H_  /**< prevent circular inclusions */
+#define _XMICROBLAZE_CONFIG_H_  /**< by using protection macros */
+
+/***************************** Include Files ********************************/
+#ifdef SDT
+#include "xmicroblaze_riscv.h"
+
+/************************** Variable Definitions ****************************/
+extern XMicroblaze_RISCV_Config XMicroblaze_RISCV_ConfigTable;
+
+/***************** Macros (Inline Functions) Definitions ********************/
+#define XGet_CpuFreq() XMicroblaze_ConfigTable.CpuFreq
+#define XGet_CpuId() XMicroblaze_ConfigTable.CpuId
+#define XGet_DdrSa() XMicroblaze_ConfigTable.DdrSa
+#define XGet_CpuCfgPtr() &XMicroblaze_RISCV_ConfigTable
+
+#endif
+#endif // _XMICROBLAZE_CONFIG_H_
