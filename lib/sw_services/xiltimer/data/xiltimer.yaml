@@ -26,6 +26,7 @@ supported_processors:
   - psv_pmc
   - psv_psm
   - microblaze
+  - microblaze_riscv
   - ps7_cortexa9
   - psx_cortexa78
   - psx_cortexr52
