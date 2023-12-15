@@ -406,27 +406,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
                                 puts $config_file ","
                                 puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_baseaddr]]
                                 puts $config_file "\n\t\t\},"
-
-				set str_name "unknown"
-                                if {[string compare -nocase "axi_gpio" $sub_core] == 0} {
-
-					set str_name "RESET_SEL_AXI_MM"
-					set final_child_cell_instance_name_present "XPAR_${periph}_${str_name}_PRESENT"
-					set final_child_cell_instance_devid "XPAR_${periph}_${str_name}_DEVICE_ID"
-					set final_child_cell_instance_name_baseaddr "XPAR_${periph}_${str_name}_${base_addr_name}"
-					puts $config_file "\t\t\{"
-					puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
-					puts $config_file ","
-					puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_devid]]
-					puts $config_file ","
-					puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_baseaddr]]
-					puts $config_file "\n\t\t\},"
-
-
-				} elseif {[string compare -nocase "v_vcresampler" $sub_core] == 0} {
-					set str_name [expr {$count == 0 ? "VCR_I" : "VCR_O"}]
-				}
-			    }
+                            }
                         }
                     }
                 } else {
