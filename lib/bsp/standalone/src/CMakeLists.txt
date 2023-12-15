@@ -33,6 +33,8 @@ if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "pmu_microblaze"))
 add_subdirectory(microblaze)
+elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
+add_subdirectory(riscv)
 else()
 add_subdirectory(arm)
 endif()

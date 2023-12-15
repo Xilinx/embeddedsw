@@ -1,0 +1,47 @@
+# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for Microblaze RISCV Processor
+
+maintainers:
+  - Mubin Sayyed <mubin.sayyed@amd.com>
+
+config:
+    - XMicroblaze_RISCV_Config
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,microblaze_riscv
+          - xlnx,microblaze-riscv-1.0
+
+required:
+    - timebase-frequency
+    - xlnx,freq
+    - xlnx,base-vectors
+    - xlnx,use-mmu
+    - xlnx,use-dcache
+    - xlnx,use-icache
+    - xlnx,use-muldiv
+    - xlnx,use-atomic
+    - xlnx,use-fpu
+    - xlnx,data-size
+    - d-cache-size
+    - d-cache-line-size
+    - xlnx,dcache-use-writeback
+    - xlnx,dcache-line-len
+    - d-cache-baseaddr
+    - d-cache-highaddr
+    - i-cache-size
+    - i-cache-line-size
+    - xlnx,icache-line-len
+    - i-cache-baseaddr
+    - i-cache-highaddr
+    - reg
+
+optional:
+    - interrupts
+...
