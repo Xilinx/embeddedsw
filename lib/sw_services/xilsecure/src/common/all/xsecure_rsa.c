@@ -50,6 +50,7 @@
 * 4.5   am   11/24/20 Resolved MISRA C violations
 * 4.6   gm   07/16/21 Added support for 64-bit address
 *       am   09/17/21 Resolved compiler warnings
+* 5.3   am   12/18/23 Fixed assignment of status to success for invalid mod data
 *
 * </pre>
 *
@@ -418,7 +419,7 @@ int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 	u32 Size, u64 Result)
 {
-	int Status = (int)XSECURE_RSA_DATA_VALUE_ERROR;
+	volatile int Status = (int)XSECURE_RSA_DATA_VALUE_ERROR;
 	u32 Idx;
 	u32 InputData;
 	u32 ModData;
@@ -450,6 +451,8 @@ int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 		Status = (int)XSECURE_RSA_INVALID_PARAM;
 		goto END;
 	}
+
+	Status = XST_FAILURE;
 	for (Idx = 0U; Idx < Size; Idx++) {
 		ModData = XSecure_InByte64((ModAddr + Idx));
 		InputData = XSecure_InByte64((Input + Idx));
@@ -468,6 +471,7 @@ int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 		}
 
 		if (ModData < InputData) {
+			Status = (int)XSECURE_RSA_DATA_VALUE_ERROR;
 			break;
 		}
 	}
