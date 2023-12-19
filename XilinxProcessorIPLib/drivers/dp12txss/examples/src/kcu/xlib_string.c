@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -30,10 +31,17 @@ char xil_getc(u32 timeout_ms){
 		    } else if ( timeout_ms == 0xff ) { // no wait - special case
 			   timeout = 1;
 		    } else if(timeout_ms > 0){
+#ifndef  SDT
 				if(XTmrCtr_GetValue(&TmrCtr, 0) >
 				  (timeout_ms * (XPAR_MICROBLAZE_CORE_CLOCK_FREQ_HZ / 1000))){
 					timeout = 1;
 				}
+#else
+				if(XTmrCtr_GetValue(&TmrCtr, 0) >
+				  (timeout_ms * (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 1000))){
+					timeout = 1;
+				}
+#endif
 		    }
 		}
 		if(timeout == 1){
