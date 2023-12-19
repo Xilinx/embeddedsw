@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,8 +42,11 @@ u32 StreamOffset[4] = {0, XILINX_DISPLAYPORT_VID2_BASE_ADDRESS_OFFSET,
 
 u8 StreamPattern_vpg[5] = {0x11, 0x13, 0x15, 0x16, 0x10};
 
-
+#ifndef SDT
 #define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
+#else
+#define CLK_WIZ_BASE      				XPAR_XCLK_WIZ_0_BASEADDR
+#endif
 #define CLK_LOCK                        1
 /************************** Constant Definitions *****************************/
 
