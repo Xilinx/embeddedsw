@@ -15,7 +15,7 @@ properties:
     OneOf:
       - items:
         - enum:
-          - xlnx,dual_splitter-2.1
+          - xlnx,v-dual-splitter-1.0
   reg:
     description: Physical base address
 
@@ -28,25 +28,25 @@ properties:
   xlnx,max-segments:
     description: Maximum number of segments in an image
 
-  xlnx,max-tdatawidth:
+  xlnx,axis-video-max-tdata-width:
     description: Maximum data bus width
 
-  xlnx,max-itdatasamples:
+  xlnx,axis-video-max-itdatasmpls-per-clk:
     description: Maximum Input data samples per clock
 
-  xlnx,max-otdatasamples:
+  xlnx,axis-video-max-otdatasmpls-per-clk:
     description: Maximum Output data samples per clock
 
-  xlnx,max-overlap:
+  xlnx,max-ovrlap:
     description: Maximum Overlap of the samples in the segments
 
-  xlnx,max-samplewidth:
+  xlnx,max-smpl-width:
     description: Maximum number of bits in a sample
 
-  xlnx,has-axi4lite:
+  xlnx,has-axi4-lite:
     description: Axi4-Lite support
 
-  xlnx,has-intrreq:
+  xlnx,has-irq:
     description: irq support
 
 config:
@@ -58,10 +58,12 @@ required:
     - xlnx,active-cols
     - xlnx,active-rows
     - xlnx,max-segments
-    - xlnx,max-tdatawidth
-    - xlnx,max-itdatasamples
-    - xlnx,max-otdatasamples
-    - xlnx,max-overlap
-    - xlnx,max-samplewidth
-    - xlnx,has-axi4lite
-    - xlnx,has-intrreq
+    - xlnx,axis-video-max-tdata-width
+    - xlnx,axis-video-max-itdatasmpls-per-clk
+    - xlnx,axis-video-max-otdatasmpls-per-clk
+    - xlnx,max-ovrlap
+    - xlnx,max-smpl-width
+    - xlnx,has-axi4-lite
+    - xlnx,has-irq
+
+...
