@@ -116,6 +116,9 @@ extern "C" {
 #include "xvidc.h"
 #include "xdebug.h"
 
+#ifdef SDT
+#define XPAR_XHDCP_NUM_INSTANCES XPAR_XHDCP1X_NUM_INSTANCES
+#endif
 /* Subsystem sub-cores header files */
 #include "xdptxss_dptx.h"
 #include "xdptxss_dualsplitter.h"
@@ -175,6 +178,19 @@ typedef struct {
 	u8 VtcAdjustBs;		/**< Adjustment in Blanking symbol timing */
 } XDpTxSs_UsrOpt;
 
+/*
+ * This typedef contains configuration information for the
+ * DpTxSs subcore instances.
+ */
+typedef struct {
+#ifndef SDT
+	u16 DeviceId;	/**< Device ID of the sub-core */
+	UINTPTR BaseAddress;/**< Absolute Base Address of the Sub-cores*/
+#else
+	char *Name;
+    UINTPTR BaseAddress;
+#endif
+} XDpTxSs_SubCoreConfig;
 /**
 * VTC Sub-core structure.
 */
@@ -191,8 +207,8 @@ typedef struct {
 typedef struct {
 	u16 IsPresent;		/**< Flag to hold the presence of Dual
 				  *  Splitter core. */
-	XDualSplitter_Config DsConfig;	/**< Dual Splitter core configuration
-					  *  information */
+	XDpTxSs_SubCoreConfig DsConfig;	/**< Dual Splitter core configuration
+					 *  information */
 } XDpTxSs_DsSubCore;
 #endif
 
@@ -212,8 +228,8 @@ typedef struct {
 */
 typedef struct {
 	u16 IsPresent;		/**< Flag to hold the presence of HDCP core */
-	XHdcp1x_Config Hdcp1xConfig;	/**< HDCP core configuration
-					  *  information */
+	XDpTxSs_SubCoreConfig Hdcp1xConfig;	/**< HDCP core configuration
+						 *  information */
 } XDpTxSs_Hdcp1xSubCore;
 
 /**
@@ -222,8 +238,8 @@ typedef struct {
 typedef struct {
 	u16 IsPresent;		/**< Flag to hold the presence of Timer
 				  *  Counter core */
-	XTmrCtr_Config TmrCtrConfig;	/**< Timer Counter core
-					  * configuration information */
+	XDpTxSs_SubCoreConfig TmrCtrConfig;	/**< Timer Counter core
+						 * configuration information */
 } XDpTxSs_TmrCtrSubCore;
 #endif
 
@@ -233,8 +249,12 @@ typedef struct {
 * a configuration structure associated.
 */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< DeviceId is the unique ID of the
 				  *  DisplayPort TX Subsystem core */
+#else
+    char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 				  *  of the core's registers */
 	u8 SecondaryChEn;	/**< This Subsystem core supports audio packets
@@ -262,6 +282,10 @@ typedef struct {
 	XDpTxSs_VtcSubCore VtcSubCore[XDPTXSS_NUM_STREAMS]; /**< VTC
 							      *  Configura-
 							      *  tion */
+#ifdef SDT
+    u32 IntrId;
+    UINTPTR IntrParent;
+#endif
 } XDpTxSs_Config;
 
 /**
@@ -338,8 +362,14 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xdptxss_sinit.c */
+#ifndef SDT
 XDpTxSs_Config* XDpTxSs_LookupConfig(u16 DeviceId);
-
+#else
+XDpTxSs_Config* XDpTxSs_LookupConfig(UINTPTR BaseAddress);
+#endif
+#ifdef SDT
+u32 XDpTxSs_GetDrvIndex(UINTPTR BaseAddress);
+#endif
 /* Initialization and control functions in xaxi4s_switch.c */
 u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 				UINTPTR EffectiveAddr);
