@@ -22,16 +22,16 @@ properties:
   xlnx,axi-aclk-freq-mhz:
     description: The clock frequency of Displayport core instances's s_axi_aclk
 
-  xlnx,lanecount:
+  xlnx,lane-count:
     description: Maximum lane count supported by this DispalyPort core
 
-  xlnx,linkrate:
+  xlnx,link-rate:
     description: Maximum linkrate supported by this DisplayPort core
 
-  xlnx,bits-per-color:
+  xlnx,max-bits-per-color:
     description: Maximum bits/color supported by this DisplayPort core
 
-  xlnx,qual-pixel-enable:
+  xlnx,quad-pixel-enable:
     description: 1 if displayport core supports qual pixel, 0 if not support
 
   xlnx,dual-pixel-enable:
@@ -49,13 +49,13 @@ properties:
   xlnx,yonly-enable:
     description: 1 if Displayport core supports YOnly format, 0 if not support
 
-  xlnx,audio-enable:
+  xlnx,secondary-support:
     description: 1 if Displayport core supports audio packets being sent by Secondary channel, 0 if not present
 
   xlnx,number-of-audio-channels:
     description: Maximum number of audio channels supported by DisplayPort core
 
-  xlnx,mode:
+  xlnx,mst-enable:
     description: 1 if Displayport core supports Multi-stream transport(MST) mode, 0 if not present
 
   xlnx,number-of-mst-streams:
@@ -76,15 +76,15 @@ required:
     - xlnx,axi-aclk-freq-mhz
     - xlnx,lane-count
     - xlnx,link-rate
-    - xlnx,bits-per-color
+    - xlnx,max-bits-per-color
     - xlnx,quad-pixel-enable
     - xlnx,dual-pixel-enable
     - xlnx,ycrcb-enable
     - xlnx,yonly-enable
     - xlnx,gt-data-width
-    - xlnx,audio-enable
+    - xlnx,secondary-support
     - xlnx,number-of-audio-channels
-    - xlnx,mode
+    - xlnx,mst-enable
     - xlnx,number-of-mst-streams
     - xlnx,protocol-selection
     - xlnx,flow-direction
