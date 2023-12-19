@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +34,9 @@
 #include "xstatus.h"
 #include "xdebug.h"
 #include "xdprxss_dp159.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 #include "xuartps_hw.h"
 #include "xtmrctr.h"
 #include "xvidframe_crc.h"
@@ -205,10 +209,17 @@ typedef struct {
 } DP_Rx_Training_Algo_Config;
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 u32 DpRxSs_Main(u16 DeviceId);
+#else
+u32 DpRxSs_Main(UINTPTR BaseAddress);
+#endif
 u32 DpRxSs_PlatformInit(void);
+#ifndef SDT
 u32 DpRxSs_VideoPhyInit(u16 DeviceId);
+#else
+u32 DpRxSs_VideoPhyInit(UINTPTR BaseAddress);
+#endif
 u32 DpRxSs_Setup(void);
 void PHY_Two_byte_set (XVphy *InstancePtr, u8 Rx_to_two_byte);
 void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate);
@@ -272,8 +283,11 @@ int main()
     xil_printf("DisplayPort RX Only Example\n\r");
     xil_printf("(c) 2017 by Xilinx\n\r");
     xil_printf("-------------------------------------------\n\r\n\r");
-
+#ifndef SDT
     Status = DpRxSs_Main(XDPRXSS_DEVICE_ID);
+#else
+    Status = DpRxSs_Main(XPAR_DPRXSS_0_BASEADDR);
+#endif
     if (Status != XST_SUCCESS) {
         xil_printf("DisplayPort RX Subsystem design example failed.");
         return XST_FAILURE;
@@ -302,7 +316,11 @@ int main()
 *        Refer xdprxss.h file for more info.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 DpRxSs_Main(u16 DeviceId)
+#else
+u32 DpRxSs_Main(UINTPTR BaseAddress)
+#endif
 {
     u32 Status;
     XDpRxSs_Config *ConfigPtr;
@@ -321,7 +339,11 @@ u32 DpRxSs_Main(u16 DeviceId)
     xil_printf("Platform initialization done.\n\r");
 
     /* Obtain the device configuration for the DisplayPort RX Subsystem */
+#ifndef SDT
     ConfigPtr = XDpRxSs_LookupConfig(DeviceId);
+#else
+    ConfigPtr = XDpRxSs_LookupConfig(BaseAddress);
+#endif
     if (!ConfigPtr) {
         return XST_FAILURE;
     }
@@ -362,8 +384,11 @@ u32 DpRxSs_Main(u16 DeviceId)
     }
 
     /* Setup Video Phy, left to the user for implementation */
+#ifndef SDT
     DpRxSs_VideoPhyInit(XVPHY_DEVICE_ID);
-
+#else
+    DpRxSs_VideoPhyInit(XPAR_XVPHY_0_BASEADDR);
+#endif
     /* Setup DPRX SS, left to the user for implementation */
     DpRxSs_Setup();
 
@@ -538,13 +563,17 @@ u32 DpRxSs_PlatformInit(void)
 
     /*Initialize Timer
     */
+#ifndef SDT
     Status = XTmrCtr_Initialize(&TmrCtr, XTIMER0_DEVICE_ID);
+#else
+    Status = XTmrCtr_Initialize(&TmrCtr, XPAR_XTMRCTR_0_BASEADDR);
+#endif
     if (Status != XST_SUCCESS){
         xil_printf("ERR:Timer failed to initialize. \r\n");
         return XST_FAILURE;
     }
-    XTmrCtr_SetResetValue(&TmrCtr, XTIMER0_DEVICE_ID, TIMER_RESET_VALUE);
-    XTmrCtr_Start(&TmrCtr, XTIMER0_DEVICE_ID);
+    XTmrCtr_SetResetValue(&TmrCtr, XTC_TIMER_0, TIMER_RESET_VALUE);
+    XTmrCtr_Start(&TmrCtr, XTC_TIMER_0);
 
     return Status;
 }
@@ -563,12 +592,20 @@ u32 DpRxSs_PlatformInit(void)
 * @note        None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 DpRxSs_VideoPhyInit(u16 DeviceId)
+#else
+u32 DpRxSs_VideoPhyInit(UINTPTR BaseAddress)
+#endif
 {
     XVphy_Config *ConfigPtr;
 
     /* Obtain the device configuration for the DisplayPort RX Subsystem */
+#ifndef SDT
     ConfigPtr = XVphy_LookupConfig(DeviceId);
+#else
+    ConfigPtr = XVphy_LookupConfig(BaseAddress);
+#endif
     if (!ConfigPtr) {
         return XST_FAILURE;
     }
@@ -696,6 +733,7 @@ u32 DpRxSs_Setup(void)
 * @note        None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 DpRxSs_SetupIntrSystem(void)
 {
     u32 Status;
@@ -769,7 +807,46 @@ u32 DpRxSs_SetupIntrSystem(void)
 
     return (XST_SUCCESS);
 }
+#else
+u32 DpRxSs_SetupIntrSystem(void)
+{
+    u32 Status;
 
+    /* Set callbacks for all the interrupts */
+    XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_PWR_CHG_EVENT,
+                DpRxSs_PowerChangeHandler, &DpRxSsInst);
+    XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_NO_VID_EVENT,
+                DpRxSs_NoVideoHandler, &DpRxSsInst);
+    XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_VBLANK_EVENT,
+                DpRxSs_VerticalBlankHandler, &DpRxSsInst);
+    XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_TLOST_EVENT,
+                DpRxSs_TrainingLostHandler, &DpRxSsInst);
+    XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_VID_EVENT,
+                DpRxSs_VideoHandler, &DpRxSsInst);
+    XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_TDONE_EVENT,
+                DpRxSs_TrainingDoneHandler, &DpRxSsInst);
+    XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_UNPLUG_EVENT,
+                DpRxSs_UnplugHandler, &DpRxSsInst);
+    XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_LINKBW_EVENT,
+                DpRxSs_LinkBandwidthHandler, &DpRxSsInst);
+    XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_PLL_RESET_EVENT,
+                DpRxSs_PllResetHandler, &DpRxSsInst);
+
+    /* Set custom timer wait */
+    XDpRxSs_SetUserTimerHandler(&DpRxSsInst, &CustomWaitUs, &TmrCtr);
+
+
+    Status = XSetupInterruptSystem(&DpRxSsInst, (Xil_InterruptHandler)XDpRxSs_DpIntrHandler,
+                                   DpRxSsInst.Config.IntrId, DpRxSsInst.Config.IntrParent,
+                                   XINTERRUPT_DEFAULT_PRIORITY);
+		if (Status != XST_SUCCESS) {
+			xil_printf("ERR: DP RX SS DP interrupt connect failed!\n\r");
+			return XST_FAILURE;
+		}
+
+    return (XST_SUCCESS);
+}
+#endif
 /*****************************************************************************/
 /**
 *
