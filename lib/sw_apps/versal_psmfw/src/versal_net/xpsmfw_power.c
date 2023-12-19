@@ -1264,7 +1264,7 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 				     ((u32)Args->ClusterId * 4U));
 
 	/* Power down cluster if all cores in cluster are powered off */
-	if (1U == __builtin_popcount(PwrState)) {
+	if (1 == __builtin_popcount(PwrState)) {
 		XPsmFw_Write32(Args->ClusterPstate, 0U);
 		XPsmFw_Write32(Args->ClusterPreq, Args->ClusterPreqMask);
 
