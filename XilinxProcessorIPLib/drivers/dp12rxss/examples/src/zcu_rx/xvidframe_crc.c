@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,11 +54,17 @@ int XVidFrameCrc_Initialize(Video_CRC_Config *VidFrameCRC)
 
 	/* Initialize CRC & Set default Pixel Mode */
 	VidFrameCRC->TEST_CRC_SUPPORTED = 1;
-
+#ifndef SDT
 	XVidFrameCrc_WriteReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
-			VIDEO_FRAME_CRC_CONFIG,
-			VIDEO_FRAME_CRC_CLEAR | XPAR_VPHY_0_INPUT_PIXELS_PER_CLOCK);
-
+			      VIDEO_FRAME_CRC_CONFIG,
+			      (VIDEO_FRAME_CRC_CLEAR |
+			       XPAR_VPHY_0_INPUT_PIXELS_PER_CLOCK));
+#else
+	XVidFrameCrc_WriteReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
+			      VIDEO_FRAME_CRC_CONFIG,
+			      (VIDEO_FRAME_CRC_CLEAR |
+			       XPAR_XVPHY_0_INPUT_PIXELS_PER_CLOCK));
+#endif
 
   return (XST_SUCCESS);
 }
