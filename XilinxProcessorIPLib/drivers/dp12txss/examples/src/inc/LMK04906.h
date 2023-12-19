@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,10 +25,18 @@
 #include <stdlib.h>
 #include "xspi.h"
 #include "xparameters.h"
+#ifndef  SDT
 #include "microblaze_sleep.h"
+#endif
 
+#ifndef SDT
 #define  LMK04906_DEVICE_ID  XPAR_SPI_0_DEVICE_ID
+#endif
+#ifndef  SDT
 #define  LMK04906_DEVICE_BASEADDR  XPAR_SPI_0_BASEADDR
+#else
+#define  LMK04906_DEVICE_BASEADDR  XPAR_XSPI_0_BASEADDR
+#endif
 
 typedef struct {
 	u32 SPI_BaseAddr;
