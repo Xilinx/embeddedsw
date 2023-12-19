@@ -1,0 +1,96 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for DisplayPort Core
+
+maintainers:
+  - Lakshmi Prasanna Eachuri <lakshmi.prasanna.eachuri@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,displayport-7.0
+  reg:
+    description: Physical base address
+
+  xlnx,axi-aclk-freq-mhz:
+    description: The clock frequency of Displayport core instances's s_axi_aclk
+
+  xlnx,lane-count:
+    description: Maximum lane count supported by this DispalyPort core
+
+  xlnx,link-rate:
+    description: Maximum linkrate supported by this DisplayPort core
+
+  xlnx,max-bits-per-color:
+    description: Maximum bits/color supported by this DisplayPort core
+
+  xlnx,quad-pixel-enable:
+    description: 1 if displayport core supports qual pixel, 0 if not support
+
+  xlnx,dual-pixel-enable:
+    description: 1 if displayport core supports qual pixel, 0 if not support
+
+  xlnx,ycrcb-enable:
+    description: 1 if displayport core supports YCrCb format, 0 if not support
+
+  xlnx,yonly-enable:
+    description: 1 if displayport core supports YOnly format, 0 if not support
+
+  xlnx,gt-datawidth:
+    description: Payload data width used by DisplayPort core
+
+  xlnx,yonly-enable:
+    description: 1 if Displayport core supports YOnly format, 0 if not support
+
+  xlnx,secondary-support:
+    description: 1 if Displayport core supports audio packets being sent by Secondary channel, 0 if not present
+
+  xlnx,number-of-audio-channels:
+    description: Maximum number of audio channels supported by DisplayPort core
+
+  xlnx,mst-enable:
+    description: 1 if Displayport core supports Multi-stream transport(MST) mode, 0 if not present
+
+  xlnx,number-of-mst-streams:
+    description: total number of MST streams supported by Displayport core
+
+  xlnx,protocol-selection:
+    description: The DisplayPort protocol version that configured for, 0 = v1.1a, 1 = v1.2, 2 = v1.4.
+
+  xlnx,flow-direction:
+    description: The type of DisplayPort core, 0 = TX, 1 = RX.
+
+depends:
+    video_common: []
+
+required:
+    - compatible
+    - reg
+    - xlnx,axi-aclk-freq-mhz
+    - xlnx,lane-count
+    - xlnx,link-rate
+    - xlnx,max-bits-per-color
+    - xlnx,quad-pixel-enable
+    - xlnx,dual-pixel-enable
+    - xlnx,ycrcb-enable
+    - xlnx,yonly-enable
+    - xlnx,gt-datawidth
+    - xlnx,secondary-support
+    - xlnx,number-of-audio-channels
+    - xlnx,mst-enable
+    - xlnx,number-of-mst-streams
+    - xlnx,protocol-selection
+    - xlnx,flow-direction
+
+config:
+    - XDp_Config
+
+xparam_prefix: XDp
+...
