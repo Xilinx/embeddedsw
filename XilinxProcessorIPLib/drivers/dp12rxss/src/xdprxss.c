@@ -51,6 +51,7 @@
 #include "xdprxss_dp159.h"
 #include "string.h"
 #include "xdebug.h"
+#include "xil_types.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -71,8 +72,12 @@ typedef struct {
 } XDpRxSs_SubCores;
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr);
+#else
+static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr,
+                                 UINTPTR BaseAddress);
+#endif
 static void DpRxSs_PopulateDpRxPorts(XDpRxSs *InstancePtr);
 static void StubTp1Callback(void *InstancePtr);
 static void StubTp2Callback(void *InstancePtr);
@@ -165,8 +170,12 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
-	/* Get included sub-cores in the DisplayPort RX Subsystem */
+#ifndef SDT
 	DpRxSs_GetIncludedSubCores(InstancePtr);
+#else
+	/* Get included sub-cores in the DisplayPort RX Subsystem */
+	DpRxSs_GetIncludedSubCores(InstancePtr, InstancePtr->Config.BaseAddress);
+#endif
 
 	/* Check for IIC availability */
 	if (InstancePtr->IicPtr) {
@@ -288,7 +297,15 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: Initializing Timer "
 			"Counter IP \n\r");
 
-		ConfigPtr = XTmrCtr_LookupConfig(InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.DeviceId);
+#ifndef SDT
+		ConfigPtr = XTmrCtr_LookupConfig(
+				InstancePtr->Config.TmrCtrSubCore.
+				TmrCtrConfig.DeviceId);
+#else
+		ConfigPtr = XTmrCtr_LookupConfig(
+				InstancePtr->Config.TmrCtrSubCore.
+				TmrCtrConfig.BaseAddress);
+#endif
 		if (!ConfigPtr) {
 			return XST_DEVICE_NOT_FOUND;
 		}
@@ -1322,6 +1339,7 @@ static u32 DpRxSs_ConvertUsToTicks(u32 TimeoutInUs, u32 ClkFreq)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr)
 {
 	/* Assign instance of DisplayPort core */
@@ -1346,6 +1364,35 @@ static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr)
 	InstancePtr->Hdcp1xPtr->Hdcp1xRef = (void *)InstancePtr->TmrCtrPtr;
 #endif
 }
+#else
+static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr, UINTPTR BaseAddress)
+{
+    u32 Index;
+
+    Index = XDpRxSs_GetDrvIndex(BaseAddress);
+	/* Assign instance of DisplayPort core */
+	InstancePtr->DpPtr = ((InstancePtr->Config.DpSubCore.IsPresent) ?
+		(&DpRxSsSubCores[Index].DpInst) : NULL);
+
+	/* Assign instance of IIC core */
+	InstancePtr->IicPtr = ((InstancePtr->Config.DpSubCore.IsPresent) ?
+		(&DpRxSsSubCores[
+			Index].IicInst) : NULL);
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Assign instance of HDCP core */
+	InstancePtr->Hdcp1xPtr =
+		((InstancePtr->Config.Hdcp1xSubCore.IsPresent) ?
+	(&DpRxSsSubCores[Index].Hdcp1xInst) : NULL);
+
+	/* Assign instance of Timer Counter core */
+	InstancePtr->TmrCtrPtr =
+		((InstancePtr->Config.TmrCtrSubCore.IsPresent) ?
+	(&DpRxSsSubCores[Index].TmrCtrInst) : NULL);
+	InstancePtr->Hdcp1xPtr->Hdcp1xRef = (void *)InstancePtr->TmrCtrPtr;
+#endif
+}
+#endif
 
 /*****************************************************************************/
 /**
