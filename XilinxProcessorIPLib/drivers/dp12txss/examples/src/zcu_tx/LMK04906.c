@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,8 +25,11 @@
 #include "xparameters.h"
 
 #define  LMK04906_DEVICE_ID  XPAR_SPI_0_DEVICE_ID
+#ifndef SDT
 #define  LMK04906_DEVICE_BASEADDR  XPAR_SPI_0_BASEADDR
-
+#else
+#define  LMK04906_DEVICE_BASEADDR XPAR_XSPI_0_BASEADDR
+#endif
 typedef struct {
 	u32 SPI_BaseAddr;
 } LMK04906_SPI_Info;
@@ -49,8 +53,13 @@ void LMK04906_init(XSpi *SPI_LMK04906){
     u32 SPI_Option = 0;
     XSpi_Config *SPI_LMK04906_Conf;
 
+#ifndef SDT
 	// SPI Setting Load
 	SPI_LMK04906_Conf = (XSpi_LookupConfig(LMK04906_DEVICE_ID));
+#else
+	// SPI Setting Load
+	SPI_LMK04906_Conf = (XSpi_LookupConfig(XPAR_XSPI_0_BASEADDR));
+#endif
 
 	if (SPI_LMK04906_Conf == NULL) {
 		xil_printf("Error : SPI Device ConfSetting Not Found !\r\n");
