@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,11 +57,21 @@ typedef enum
 }vdma_run_mode;
 
 #define FRAME_LENGTH         		0x3B53800;//0x1FAA000;
+#ifndef  SDT
 #define NUMBER_OF_READ_FRAMES    XPAR_AXIVDMA_0_NUM_FSTORES
 #define NUMBER_OF_WRITE_FRAMES   XPAR_AXIVDMA_0_NUM_FSTORES
+#else
+#define NUMBER_OF_READ_FRAMES    XPAR_XAXIVDMA_0_NUM_FSTORES
+#define NUMBER_OF_WRITE_FRAMES   XPAR_XAXIVDMA_0_NUM_FSTORES
+#endif
 #define BPC (XPAR_DP_RX_HIER_DP_RX_SUBSYSTEM_0_BITS_PER_COLOR * 3 * 4/8)
+#ifndef SDT
 #define DDR_MEMORY               \
 				(XPAR_MEMORY_SUBSYSTEM_DDR4_0_C0_DDR4_MEMORY_MAP_BASEADDR +  0x1000000)
+#else
+#define DDR_MEMORY               \
+				(XPAR_DDR4_0_BASEADDRESS +  0x1000000)
+#endif
 
 
 int WriteSetup(struct dma_chan_parms define_function[1], u32 dp_hres,
