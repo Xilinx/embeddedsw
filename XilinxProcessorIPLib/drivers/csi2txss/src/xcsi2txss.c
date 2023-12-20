@@ -54,8 +54,11 @@ typedef struct {
 /**************************** Local Global ***********************************/
 
 /* Define Driver instance of all sub-core included in the design */
+#ifndef SDT
 XCsi2TxSs_SubCores Csi2TxSsSubCores[XPAR_XCSI2TXSS_NUM_INSTANCES];
-
+#else
+XCsi2TxSs_SubCores Csi2TxSsSubCores[];
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -151,6 +154,7 @@ u32 XCsi2TxSs_CfgInitialize(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr,
 ******************************************************************************/
 static void Csi2TxSs_GetIncludedSubCores(XCsi2TxSs *Csi2TxSsPtr)
 {
+#ifndef SDT
 	Csi2TxSsPtr->CsiPtr = ((Csi2TxSsPtr->Config.CsiInfo.IsPresent) ?
 	(&Csi2TxSsSubCores[Csi2TxSsPtr->Config.DeviceId].CsiInst) : NULL);
 
@@ -158,7 +162,18 @@ static void Csi2TxSs_GetIncludedSubCores(XCsi2TxSs *Csi2TxSsPtr)
 	Csi2TxSsPtr->DphyPtr = ((Csi2TxSsPtr->Config.DphyInfo.IsPresent) ?
 		(&Csi2TxSsSubCores[Csi2TxSsPtr->Config.DeviceId].DphyInst) : NULL);
 #endif
+#else
+	u32 Index = 0;
+	Index = XCsi2TxSs_GetDrvIndex(Csi2TxSsPtr, Csi2TxSsPtr->Config.BaseAddr);
 
+	Csi2TxSsPtr->CsiPtr = ((Csi2TxSsPtr->Config.CsiInfo.IsPresent) ?
+	(&Csi2TxSsSubCores[Index].CsiInst) : NULL);
+
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+	Csi2TxSsPtr->DphyPtr = ((Csi2TxSsPtr->Config.DphyInfo.IsPresent) ?
+		(&Csi2TxSsSubCores[Index].DphyInst) : NULL);
+#endif
+#endif
 }
 
 /*****************************************************************************/
@@ -362,7 +377,11 @@ static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *CsiSsPtr)
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing CSI2 Tx Controller.\n\r");
+#ifndef SDT
 	ConfigPtr = XCsi2Tx_LookupConfig(CsiSsPtr->Config.CsiInfo.DeviceId);
+#else
+	ConfigPtr = XCsi2Tx_LookupConfig(CsiSsPtr->Config.CsiInfo.AddrOffset);
+#endif
 	if (ConfigPtr == NULL) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
 			"CSISS2TX ERR:: CSI not found\n\r");
@@ -415,7 +434,11 @@ static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *CsiSsPtr)
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing DPHY ...\n\r");
+#ifndef SDT
 	ConfigPtr = XDphy_LookupConfig(CsiSsPtr->Config.DphyInfo.DeviceId);
+#else
+	ConfigPtr = XDphy_LookupConfig(CsiSsPtr->Config.DphyInfo.AddrOffset);
+#endif
 	if (!ConfigPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
 				"CSISS2TX ERR:: DPHY not found\n\r");
