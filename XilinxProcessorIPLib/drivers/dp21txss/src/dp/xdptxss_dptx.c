@@ -719,7 +719,8 @@ u32 XDpTxSs_DpTxStartLink(XDp *InstancePtr, u8 TrainMaxCap)
 	}
 
 	/* Enable clock spreading for both DP TX and RX device */
-	XDp_TxSetDownspread(InstancePtr, 1);
+	XDp_TxSetDownspread(InstancePtr,
+						InstancePtr->TxInstance.LinkConfig.SupportDownspreadControl);
 
 	/* Enable enhanced framing symbol sequence */
 	XDp_TxSetEnhancedFrameMode(InstancePtr, 1);
