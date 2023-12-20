@@ -30,6 +30,7 @@
 * 3.1   mus    01/14/16 Added support for intc interrupt controller
 * 3.7   ht     06/28/23 Added support for system device-tree flow.
 *              07/10/23 Updated conditional macros for interrupt headers.
+* 3.8   rma    01/12/23 Update example code to fix compilation warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -155,9 +156,9 @@ static u32 RxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS];
 /*
  * Shared variables used to test the callbacks.
  */
-volatile static int LoopbackError;	/* Asynchronous error occurred */
-volatile static int RecvDone;		/* Received a frame */
-volatile static int SendDone;		/* Frame was sent successfully */
+static volatile int LoopbackError;	/* Asynchronous error occurred */
+static volatile int RecvDone;		/* Received a frame */
+static volatile int SendDone;		/* Frame was sent successfully */
 
 /****************************************************************************/
 /**
@@ -430,6 +431,7 @@ static void SendHandler(void *CallBackRef)
 	/*
 	 * The frame was sent successfully. Notify the task context.
 	 */
+	(void)CallBackRef;
 	SendDone = TRUE;
 }
 
@@ -512,7 +514,7 @@ static void RecvHandler(void *CallBackRef)
 ******************************************************************************/
 static void ErrorHandler(void *CallBackRef, u32 ErrorMask)
 {
-
+	(void)CallBackRef;
 	if (ErrorMask & XCANPS_ESR_ACKER_MASK) {
 		/*
 		 * ACK Error handling code should be put here.
