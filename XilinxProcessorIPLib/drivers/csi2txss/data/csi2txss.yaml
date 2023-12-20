@@ -1,0 +1,77 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for csi2txss Sub System Driver
+
+maintainers:
+  - Kunal Rane <kvrane@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,mipi-csi2-tx-subsystem-2.2
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,highaddr:
+    description: HighAddress is the physical MAX address of the subsystem address range
+  xlnx,csi2-tx-lanes:
+    description: Flag for I2C channel.
+  xlnx,csi2-tx-data-type:
+    description: Flag for number of lanes.
+  xlnx,csi2x-tx-pixel-mode:
+    description: Pixel mode.
+  xlnx,csi2-tx-line-bufr-depth:
+    description: Line buffer depth.
+  xlnx,dphy-linerate:
+    description: Dphy line rate.
+  xlnx,dphy-en-reg-if:
+    description: Dphy enable reg.
+  xlnx,en-reg-based-fe-gen:
+    description: Register based fe generation.
+  csi2-tx-present:
+    description: Sub-core instance presence.
+  csi2-tx-connected:
+    description: Sub-core instance configuration.
+  mipi-dphy-present:
+    description: Sub-core instance presence.
+  mipi-dphy-connected:
+    description: Sub-core instance configuration.
+  interrupts:
+    description: Interrupt number
+  interrupt-parent:
+    description: Parent interrupt
+
+required:
+  - compatible
+  - reg
+  - xlnx,highaddr
+  - xlnx,csi2-tx-lanes
+  - xlnx,csi2-tx-data-type
+  - xlnx,csi2x-tx-pixel-mode
+  - xlnx,csi2-tx-line-bufr-depth
+  - xlnx,dphy-linerate
+  - xlnx,dphy-en-reg-if
+  - xlnx,en-reg-based-fe-gen
+  - csi2-tx-present
+  - csi2-tx-connected: phandle
+  - mipi-dphy-present
+  - mipi-dphy-connected: phandle
+  - interrupts
+  - interrupt-parent
+
+config:
+  - XCsi2TxSs_Config
+
+examples:
+  xcsi2txss_selftest_example.c:
+    - interrupts
+    - reg
+  xcsi2txss_intr_example.c:
+    - interrupts
+    - reg
+...

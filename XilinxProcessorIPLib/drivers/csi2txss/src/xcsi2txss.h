@@ -195,8 +195,12 @@ typedef void (*XCsi2TxSs_Callback)(void *CallbackRef, u32 Mask);
 typedef struct {
 	u32 IsPresent;	/**< Flag to indicate if sub-core is present in
 			  *  design */
+#ifndef SDT
 	u32 DeviceId;	/**< Device ID of the sub-core */
 	u32 AddrOffset;	/**< sub-core offset from subsystem base address */
+#else
+	UINTPTR AddrOffset;
+#endif
 } SubCoreCsi2Tx;
 
 /**
@@ -205,7 +209,11 @@ typedef struct {
  * that defines the MAX supported sub-cores within subsystem
  */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId;	/**< DeviceId is the unique ID  of the device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddr; /**< BaseAddress is the physical base address of the
 			  *  subsystem address range */
 	UINTPTR HighAddr; /**< HighAddress is the physical MAX address of the
@@ -224,6 +232,10 @@ typedef struct {
 	u32 FEGenEnabled;	/**< Frame End Generation enabled flag */
 	SubCoreCsi2Tx CsiInfo;	/**< CSI sub-core configuration */
 	SubCoreCsi2Tx DphyInfo;	/**< DPHY sub-core configuration */
+#ifdef SDT
+	u16 IntrId;		/* Interrupt ID */
+	UINTPTR IntrParent; 	/* Bit[0] Interrupt Parent */
+#endif
 } XCsi2TxSs_Config;
 
 /**
@@ -247,7 +259,12 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xcsi2txss_sinit.c */
+#ifndef SDT
 XCsi2TxSs_Config* XCsi2TxSs_LookupConfig(u32 DeviceId);
+#else
+XCsi2TxSs_Config* XCsi2TxSs_LookupConfig(UINTPTR BaseAddress);
+u32 XCsi2TxSs_GetDrvIndex(XCsi2TxSs *InstancePtr, UINTPTR BaseAddress);
+#endif
 
 /* Initialization and control functions xcsi2txss.c */
 u32 XCsi2TxSs_CfgInitialize(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr,
