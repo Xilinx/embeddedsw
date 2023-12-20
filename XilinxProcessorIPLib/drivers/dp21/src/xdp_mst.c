@@ -320,6 +320,7 @@ void XDp_TxMstCfgModeDisable(XDp *InstancePtr)
 *******************************************************************************/
 u32 XDp_TxMstCapable(XDp *InstancePtr)
 {
+	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 	u32 Status;
 	u8 AuxData;
 
@@ -352,6 +353,18 @@ u32 XDp_TxMstCapable(XDp *InstancePtr)
 	}
 	else if ((AuxData & XDP_DPCD_MST_CAP_MASK) !=
 						XDP_DPCD_MST_CAP_MASK) {
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1) {
+			u8 RxCodingCap;
+
+			/* Check if the RX device has MST capabilities.. */
+			Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_ML_CH_CODING_CAP, 1, &RxCodingCap);
+			if (Status != XST_SUCCESS) {
+				/* The AUX read transaction failed. */
+				return Status;
+			}
+			if ((RxCodingCap & XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_128B_132B_MASK))
+				return XST_SUCCESS;
+			}
 		return XST_NO_FEATURE;
 	}
 
@@ -393,7 +406,7 @@ u32 XDp_TxMstEnable(XDp *InstancePtr)
 	/* Check if the immediate downstream RX device has MST capabilities. */
 	Status = XDp_TxMstCapable(InstancePtr);
 	if (Status != XST_SUCCESS) {
-		/* The RX device is not downstream capable. */
+		/* The RX device is not mst capable. */
 		return Status;
 	}
 
@@ -406,14 +419,24 @@ u32 XDp_TxMstEnable(XDp *InstancePtr)
 		return Status;
 	}
 
-	/* Enable MST in the immediate branch device and tell it that its
-	 * upstream device is a source (the DisplayPort TX). */
-	AuxData = XDP_DPCD_UP_IS_SRC_MASK | XDP_DPCD_UP_REQ_EN_MASK |
-							XDP_DPCD_MST_EN_MASK;
-	Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_MSTM_CTRL, 1, &AuxData);
+	/* Check if the RX device has MST capabilities.. */
+	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_MSTM_CAP, 1, &AuxData);
 	if (Status != XST_SUCCESS) {
-		/* The AUX write transaction failed. */
+		/* The AUX read transaction failed. */
 		return Status;
+	}
+	if (AuxData & XDP_DPCD_MST_CAP_MASK) {
+		/* This is done because some SST sinks not allowing to update this DPCD register */
+		/* Enable MST in the immediate branch device and tell it that its
+		 * upstream device is a source (the DisplayPort TX). */
+		AuxData = 0;
+		AuxData = XDP_DPCD_UP_IS_SRC_MASK | XDP_DPCD_UP_REQ_EN_MASK |
+								XDP_DPCD_MST_EN_MASK;
+		Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_MSTM_CTRL, 1, &AuxData);
+		if (Status != XST_SUCCESS) {
+			/* The AUX write transaction failed. */
+			return Status;
+		}
 	}
 
 	/* Enable MST in the DisplayPort TX. */
