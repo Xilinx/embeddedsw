@@ -159,7 +159,11 @@ typedef struct {
 *
 */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId;		/**< Device Id */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddr;	/**< Base address of CSI2 Rx Controller */
 	u32 MaxLanesPresent;	/**< Max value of Lanes. Range 0 - 3 */
 	u32 ActiveLanes;	/**< Number of Lanes configured. Range 0 - 3 */
@@ -776,7 +780,11 @@ static inline u32 XCsi2Tx_GetClkMode(XCsi2Tx *InstancePtr)
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xcsi2tx_sinit.c */
+#ifndef SDT
 XCsi2Tx_Config *XCsi2Tx_LookupConfig(u32 DeviceId);
+#else
+XCsi2Tx_Config *XCsi2Tx_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /* Initialization and control functions in xcsi2tx.c */
 u32 XCsi2Tx_CfgInitialize(XCsi2Tx *InstancePtr, XCsi2Tx_Config *Config,

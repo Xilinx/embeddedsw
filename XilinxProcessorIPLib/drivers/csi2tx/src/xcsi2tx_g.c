@@ -1,23 +1,15 @@
-/*******************************************************************
- *
- * Copyright (C) 2010-2020 Xilinx, Inc. All rights reserved.
- * SPDX-License-Identifier: MIT
-*******************************************************************************/
-
-#include "xparameters.h"
 #include "xcsi2tx.h"
 
-/*
-* The configuration table for devices
-*/
+XCsi2Tx_Config XCsi2Tx_ConfigTable[] __attribute__ ((section (".drvcfg_sec"))) = {
 
-XCsi2Tx_Config XCsi2Tx_ConfigTable[] =
-{
 	{
-		XPAR_MIPI_CSI2_TX_SUBSYSTEM_0_MIPI_CSI2_TX_CTRL_0_DEVICE_ID,
-		XPAR_MIPI_CSI2_TX_SUBSYSTEM_0_MIPI_CSI2_TX_CTRL_0_BASEADDR,
-		XPAR_MIPI_CSI2_TX_SUBSYSTEM_0_MIPI_CSI2_TX_CTRL_0_CSI_LANES,
-		XPAR_MIPI_CSI2_TX_SUBSYSTEM_0_MIPI_CSI2_TX_CTRL_0_CSI_EN_ACTIVELANES,
-		XPAR_MIPI_CSI2_TX_SUBSYSTEM_0_MIPI_CSI2_TX_CTRL_0_EN_REG_BASED_FE_GEN
+		"xlnx,mipi-csi2-tx-ctrl-1.0", /* compatible */
+		0x0, /* reg */
+		0x0, /* xlnx,csi2-tx-lanes */
+		0x0, /* xlnx,csi2-tx-en-active-lanes */
+		0x0 /* xlnx,csi2-tx-en-reg-based-fe-gen */
+	},
+	 {
+		 NULL
 	}
 };
