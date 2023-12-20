@@ -43,6 +43,9 @@ XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
 		       u32 GicProxyGroup);
 XStatus XPmHbMonDev_Init(XPm_Device *Device, u32 Id, XPm_Power *Power);
 XStatus XPmPeriph_SsitTempPropInitTask(void);
+#ifdef CPPUTEST
+int XPmPeriph_TempPropTask(void *data);
+#endif
 
 #ifdef __cplusplus
 }
