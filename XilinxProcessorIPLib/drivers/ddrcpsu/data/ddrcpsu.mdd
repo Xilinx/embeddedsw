@@ -11,6 +11,6 @@ BEGIN driver ddrcps
         OPTION supported_peripherals = (psu_ddrc psu_ddr);
         OPTION driver_state = ACTIVE;
         OPTION copyfiles = all;
-        OPTION VERSION = 1.5;
+        OPTION VERSION = 1.6;
         OPTION NAME = ddrcpsu;
 END driver
