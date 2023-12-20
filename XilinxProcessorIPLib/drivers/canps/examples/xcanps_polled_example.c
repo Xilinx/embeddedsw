@@ -26,6 +26,7 @@
 *						 SDK claims a 40kbps baud rate but it's not.
 * 3.7   ht     06/28/23 Added support for system device-tree flow.
 *       ht     07/10/23 Added support for peripheral test in SDT flow.
+* 3.8   rma    01/12/23 Update example code to fix compilation warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -109,10 +110,10 @@ static int RecvFrame(XCanPs *InstancePtr);
  */
 static u32 TxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS];
 static u32 RxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS];
-
+#ifndef SDT
 /* Driver instance */
 static XCanPs Can;
-
+#endif
 /****************************************************************************/
 /**
 *
@@ -177,7 +178,9 @@ int CanPsPolledExample(XCanPs *CanInstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	int Status;
-	XCanPs *CanInstPtr = &Can;
+#ifndef SDT
+	XCanPs *CanInstancePtr = &Can;
+#endif
 	XCanPs_Config *ConfigPtr;
 
 	/*
@@ -188,10 +191,10 @@ int CanPsPolledExample(XCanPs *CanInstancePtr, UINTPTR BaseAddress)
 #else
 	ConfigPtr = XCanPs_LookupConfig(BaseAddress);
 #endif
-	if (CanInstPtr == NULL) {
+	if (CanInstancePtr == NULL) {
 		return XST_FAILURE;
 	}
-	Status = XCanPs_CfgInitialize(CanInstPtr,
+	Status = XCanPs_CfgInitialize(CanInstancePtr,
 				      ConfigPtr,
 				      ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
@@ -202,7 +205,7 @@ int CanPsPolledExample(XCanPs *CanInstancePtr, UINTPTR BaseAddress)
 	 * Run self-test on the device, which verifies basic sanity of the
 	 * device and the driver.
 	 */
-	Status = XCanPs_SelfTest(CanInstPtr);
+	Status = XCanPs_SelfTest(CanInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -211,15 +214,15 @@ int CanPsPolledExample(XCanPs *CanInstancePtr, UINTPTR BaseAddress)
 	 * Enter Configuration Mode so we can setup Baud Rate Prescaler
 	 * Register (BRPR) and Bit Timing Register (BTR).
 	 */
-	XCanPs_EnterMode(CanInstPtr, XCANPS_MODE_CONFIG);
-	while (XCanPs_GetMode(CanInstPtr) != XCANPS_MODE_CONFIG);
+	XCanPs_EnterMode(CanInstancePtr, XCANPS_MODE_CONFIG);
+	while (XCanPs_GetMode(CanInstancePtr) != XCANPS_MODE_CONFIG);
 
 	/*
 	 * Setup Baud Rate Prescaler Register (BRPR) and
 	 * Bit Timing Register (BTR).
 	 */
-	XCanPs_SetBaudRatePrescaler(CanInstPtr, TEST_BRPR_BAUD_PRESCALAR);
-	XCanPs_SetBitTiming(CanInstPtr, TEST_BTR_SYNCJUMPWIDTH,
+	XCanPs_SetBaudRatePrescaler(CanInstancePtr, TEST_BRPR_BAUD_PRESCALAR);
+	XCanPs_SetBitTiming(CanInstancePtr, TEST_BTR_SYNCJUMPWIDTH,
 			    TEST_BTR_SECOND_TIMESEGMENT,
 
 			    TEST_BTR_FIRST_TIMESEGMENT);
@@ -227,19 +230,19 @@ int CanPsPolledExample(XCanPs *CanInstancePtr, UINTPTR BaseAddress)
 	/*
 	 * Enter Loop Back Mode.
 	 */
-	XCanPs_EnterMode(CanInstPtr, XCANPS_MODE_LOOPBACK);
-	while (XCanPs_GetMode(CanInstPtr) != XCANPS_MODE_LOOPBACK);
+	XCanPs_EnterMode(CanInstancePtr, XCANPS_MODE_LOOPBACK);
+	while (XCanPs_GetMode(CanInstancePtr) != XCANPS_MODE_LOOPBACK);
 
 	/*
 	 * Send a frame, receive the frame via the loop back and verify its
 	 * contents.
 	 */
-	Status = SendFrame(CanInstPtr);
+	Status = SendFrame(CanInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
 
-	Status = RecvFrame(CanInstPtr);
+	Status = RecvFrame(CanInstancePtr);
 
 	return Status;
 }
