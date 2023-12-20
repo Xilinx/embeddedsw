@@ -138,7 +138,7 @@ void SceneChangeDetectedCallback(void *CallbackRef)
 int XV_SceneChange_init()
 {
 	XV_scenechange_Config *ScdConfig;
-	int Status;
+	int Status = 0;
 	u32 streams = SCD_STREAMS_ENABLE - 1;
 
 #ifndef SDT
@@ -180,6 +180,11 @@ int XV_SceneChange_init()
 	}
 
 #ifndef SDT
+	Status = SetupInterruptSystem();
+	if (Status != XST_SUCCESS) {
+		xil_printf("SetupInterruptSystem() is Failed.\r\n");
+		return XST_FAILURE;
+	}
 	Status |= XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_SCENECHANGE_0_VEC_ID,
 			(XInterruptHandler)XV_scenechange_InterruptHandler,
@@ -348,14 +353,6 @@ int main()
 	Xil_DCacheDisable();
 	Xil_ExceptionDisable();
 	init_platform();
-
-#ifndef SDT
-	state = SetupInterruptSystem();
-	if (state != XST_SUCCESS) {
-		xil_printf("SetupInterrupt() is Failed.\r\n");
-		return XST_FAILURE;
-	}
-#endif
 
 	reset_pipe();
 
