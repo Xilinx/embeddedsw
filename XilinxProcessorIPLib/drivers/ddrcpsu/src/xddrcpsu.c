@@ -40,6 +40,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ---------------------------------------------------
 * 1.5	ht	08/03/23 Added support for system device-tree flow.
+* 1.6   rma     01/12/23 Update driver sources to fix compilation warnings
 * </pre>
 *
 ******************************************************************************/
@@ -47,6 +48,7 @@
 /***************************** Include Files *********************************/
 
 #include "xddrcpsu.h"
+#include <string.h>
 
 /************************** Function Prototypes ******************************/
 
