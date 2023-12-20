@@ -277,7 +277,11 @@ done:
 /*
  * Handler for SSIT temperature propagation periodic task
  */
+#ifdef CPPUTEST
+int XPmPeriph_TempPropTask(void *data)
+#else
 static int XPmPeriph_TempPropTask(void *data)
+#endif
 {
 	XStatus Status = XST_FAILURE;
 	u32 Response[XPLMI_CMD_RESP_SIZE-1U];
