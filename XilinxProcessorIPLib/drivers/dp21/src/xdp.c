@@ -3483,7 +3483,6 @@ static u32 XDp_TxSetTrainingPattern(XDp *InstancePtr, u32 Pattern)
 			InstancePtr->TxInstance.LinkConfig.ScramblerEn = 1;
 			break;
 		case XDP_TX_TRAINING_PATTERN_SET_TP1:
-			AuxData[0] |= XDP_DPCD_TP_SET_SCRAMB_DIS_MASK;
 			XDp_WriteReg(InstancePtr->Config.BaseAddr,
 				     XDP_TX_SCRAMBLING_DISABLE, 1);
 			InstancePtr->TxInstance.LinkConfig.ScramblerEn = 0;
@@ -3520,14 +3519,34 @@ static u32 XDp_TxSetTrainingPattern(XDp *InstancePtr, u32 Pattern)
 		}
 		/* Make the adjustments to both the DisplayPort TX core and the RX device. */
 
-		XDp_TxSetVswingPreemp(InstancePtr, &AuxData[1]);
-		/* Write the voltage swing and pre-emphasis levels for each lane to the
-		 * RX device.
-		 */
-		if  (Pattern == XDP_TX_TRAINING_PATTERN_SET_OFF)
+		if  ((Pattern == XDP_TX_TRAINING_PATTERN_SET_OFF)
+				|| (XDP_TX_TRAINING_PATTERN_SET_TP1) )
 			Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_TP_SET, 1, AuxData);
-		else
+		else {
+			/* adjust FFE_PRESET_VALUE_LANEx parameters based on receiver request*/
+			AuxData[1] =
+			InstancePtr->TxInstance.RxConfig.FfePresetValue[0] &
+			XDP_DPCD_ADJ_REQ_LANE_0_FFE_PRESET;
+
+			AuxData[2] =
+			InstancePtr->TxInstance.RxConfig.FfePresetValue[0] &
+			XDP_DPCD_ADJ_REQ_LANE_1_FFE_PRESET;
+			AuxData[2] = AuxData[2] >> 4;
+
+			AuxData[3] =
+			InstancePtr->TxInstance.RxConfig.FfePresetValue[1] &
+			XDP_DPCD_ADJ_REQ_LANE_0_FFE_PRESET;
+
+			AuxData[4] =
+			InstancePtr->TxInstance.RxConfig.FfePresetValue[1] &
+			XDP_DPCD_ADJ_REQ_LANE_1_FFE_PRESET;
+			AuxData[4] = AuxData[4] >> 4;
+
+			XDp_Tx_2x_SetFfePresetValues(InstancePtr,
+			    InstancePtr->TxInstance.LinkConfig.LaneCount );
+
 			Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_TP_SET, 5, AuxData);
+		}
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 	}
@@ -4912,13 +4931,13 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr)
 	if (Status != XST_SUCCESS)
 		return XDP_TX_TS_FAILURE;
 
-	Status = XDp_Tx_2x_GetFfePresetValues(InstancePtr);
-	if (Status != XST_SUCCESS)
-		return XDP_TX_TS_FAILURE;
-
 	DelayUs = XDp_Tx_2x_GetLinkTrainingDelay(InstancePtr);
 
 	if (!(DelayUs > 1))
+		return XDP_TX_TS_FAILURE;
+
+	Status = XDp_Tx_2x_GetFfePresetValues(InstancePtr);
+	if (Status != XST_SUCCESS)
 		return XDP_TX_TS_FAILURE;
 
 	Status = XDp_TxSetTrainingPattern(InstancePtr, XDP_TX_TRAINING_PATTERN_SET_TP2);
@@ -4945,6 +4964,12 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr)
 					       InstancePtr->TxInstance.LinkConfig.LaneCount);
 		if (Status != XST_SUCCESS) {
 			ce_failure = 1;
+
+			DelayUs = XDp_Tx_2x_GetLinkTrainingDelay(InstancePtr);
+
+			if (!(DelayUs > 1))
+				return XDP_TX_TS_FAILURE;
+
 			Status = XDp_Tx_2x_GetFfePresetValues(InstancePtr);
 			if (Status != XST_SUCCESS)
 				return XDP_TX_TS_FAILURE;
@@ -4956,10 +4981,7 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr)
 			/* The AUX read failed. */
 			if (Status != XST_SUCCESS)
 				return XDP_TX_TS_FAILURE;
-			DelayUs = XDp_Tx_2x_GetLinkTrainingDelay(InstancePtr);
 
-			if (!(DelayUs > 1))
-				return XDP_TX_TS_FAILURE;
 			XDp_WaitUs(InstancePtr, DelayUs);
 		} else {
 			ce_failure = 0;
