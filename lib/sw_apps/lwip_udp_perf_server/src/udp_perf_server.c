@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2017 - 2019 Xilinx, Inc.
- * All rights reserved.
+ * Copyright (C) 2017 - 2022 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -165,6 +165,7 @@ static void udp_recv_perf_traffic(void *arg, struct udp_pcb *tpcb,
 	static u8_t first = 1;
 	u32_t drop_datagrams = 0;
 	s32_t recv_id;
+	u64_t now;
 
 	/* first, check if the datagram is received in order */
 #ifdef __MICROBLAZE__
@@ -200,7 +201,6 @@ static void udp_recv_perf_traffic(void *arg, struct udp_pcb *tpcb,
 	}
 
 	if (recv_id < 0) {
-		u64_t now = get_time_ms();
 		u64_t diff_ms = now - server.start_time;
 		/* Send Ack */
 		udp_sendto(tpcb, p, addr, port);
@@ -231,7 +231,7 @@ static void udp_recv_perf_traffic(void *arg, struct udp_pcb *tpcb,
 	server.total_bytes += p->tot_len;
 
 	if (REPORT_INTERVAL_TIME) {
-		u64_t now = get_time_ms();
+		now = get_time_ms();
 
 		server.i_report.cnt_datagrams++;
 		server.i_report.cnt_dropped_datagrams += drop_datagrams;
