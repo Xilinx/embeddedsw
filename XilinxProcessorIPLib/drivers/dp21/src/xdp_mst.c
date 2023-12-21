@@ -2831,7 +2831,6 @@ void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
 		}
 	}
 
-	XDp_RxMstExposePort(InstancePtr, PortNum, 1);
 }
 
 /******************************************************************************/
