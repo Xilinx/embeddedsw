@@ -2875,7 +2875,7 @@ void XDp_RxMstSetPbn(XDp *InstancePtr, u8 PortNum, u16 PbnVal)
 *******************************************************************************/
 static void XDp_RxSetLinkAddressReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 {
-	Msg->Header.LinkCountTotal = 1;
+	Msg->Header.LinkCountTotal = Msg->Header.LinkCountTotal;
 	Msg->Header.LinkCountRemaining = 0;
 	Msg->Header.BroadcastMsg = 0;
 	Msg->Header.PathMsg = 0;
@@ -2898,7 +2898,7 @@ static void XDp_RxSetLinkAddressReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 *******************************************************************************/
 static void XDp_RxSetClearPayloadIdReply(XDp_SidebandMsg *Msg)
 {
-	Msg->Header.LinkCountTotal = 1;
+	Msg->Header.LinkCountTotal = Msg->Header.LinkCountTotal;
 	Msg->Header.LinkCountRemaining = 0;
 	Msg->Header.BroadcastMsg = 1;
 	Msg->Header.PathMsg = 1;
@@ -2932,7 +2932,7 @@ static void XDp_RxSetAllocPayloadReply(XDp_SidebandMsg *Msg)
 	VcId = Msg->Body.MsgData[2];
 	Pbn = (Msg->Body.MsgData[3] << 8) | Msg->Body.MsgData[4];
 
-	Msg->Header.LinkCountTotal = 1;
+	Msg->Header.LinkCountTotal = Msg->Header.LinkCountTotal;
 	Msg->Header.LinkCountRemaining = 0;
 	Msg->Header.BroadcastMsg = 0;
 	Msg->Header.PathMsg = 0;
@@ -2964,7 +2964,7 @@ static void XDp_RxSetEnumPathResReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
         u8 ReplyIndex = 0;
         u8 PortNum;
 
-        Msg->Header.LinkCountTotal = 1;
+        Msg->Header.LinkCountTotal = Msg->Header.LinkCountTotal;
         Msg->Header.LinkCountRemaining = 0;
         Msg->Header.BroadcastMsg = 0;
         Msg->Header.PathMsg = 0;
@@ -3013,7 +3013,7 @@ static u32 XDp_RxSetRemoteDpcdReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 			(Msg->Body.MsgData[2] << 8) | Msg->Body.MsgData[3];
 	NumReadBytes = Msg->Body.MsgData[4];
 
-	Msg->Header.LinkCountTotal = 1;
+	Msg->Header.LinkCountTotal = Msg->Header.LinkCountTotal;
 	Msg->Header.LinkCountRemaining = 0;
 	Msg->Header.BroadcastMsg = 0;
 	Msg->Header.PathMsg = 0;
@@ -3077,7 +3077,7 @@ static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	u8 NumIicWriteTransactions;
 	XDp_RxIicMapEntry *MyIicMapEntry;
 
-	Msg->Header.LinkCountTotal = 1;
+	Msg->Header.LinkCountTotal = Msg->Header.LinkCountTotal;
 	Msg->Header.LinkCountRemaining = 0;
 	Msg->Header.BroadcastMsg = 0;
 	Msg->Header.PathMsg = 0;
@@ -3156,7 +3156,7 @@ static void XDp_RxSetGenericNackReply(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	u8 ReplyIndex = 0;
 	u8 GuidIndex;
 
-	Msg->Header.LinkCountTotal = 1;
+	Msg->Header.LinkCountTotal = Msg->Header.LinkCountTotal;
 	Msg->Header.LinkCountRemaining = 0;
 	Msg->Header.BroadcastMsg = 0;
 	Msg->Header.PathMsg = 0;
