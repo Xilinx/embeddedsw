@@ -20,6 +20,7 @@
  * ---- ----- -------- ----------------------------------------------------
  * 1.0  aad   04/12/16 Initial release.
  * 1.1  aad   04/26/18 Fixed Warnings
+ * 1.6  arm   11/27/23 Fixed Coverity Warnings
  * </pre>
  *
  *****************************************************************************/
@@ -387,12 +388,12 @@ int XDpDma_SetChannelState(XDpDma *InstancePtr, XDpDma_ChannelType Channel,
 		}
 		else {
 			NumPlanes = (u8)InstancePtr->Video.VideoInfo->Mode;
-			for(Index = 0; Index <= NumPlanes && RetVal != (int)XST_FAILURE; Index++) {
-				if (XDpDma_ConfigChannelState(InstancePtr,
+			for (Index = 0; Index <= NumPlanes; Index++) {
+				RetVal = XDpDma_ConfigChannelState(InstancePtr,
 							      Index,
-							      ChannelState) ==
-							      XST_FAILURE) {
-					RetVal = (int)XST_FAILURE;
+							      ChannelState);
+				if (RetVal == (int)XST_FAILURE) {
+					break;
 				}
 			}
 		}
