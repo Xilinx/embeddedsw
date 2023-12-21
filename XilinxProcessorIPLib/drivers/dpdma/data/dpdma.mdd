@@ -13,6 +13,6 @@ BEGIN driver dpdma
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (video_common);
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.5;
+	OPTION VERSION = 1.6;
 	OPTION NAME = dpdma;
 END driver
