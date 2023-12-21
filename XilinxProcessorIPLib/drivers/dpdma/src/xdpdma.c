@@ -653,7 +653,7 @@ int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 /*************************************************************************/
 /**
  *
- * This function intializes Video Descriptor for Video and Graphics channel
+ * This function initializes Video Descriptor for Video and Graphics channel
  *
  * @param    CurrDesc is a pointer to the current Descriptor of Video or
  *	     Graphics Channel.
@@ -689,7 +689,7 @@ void XDpDma_InitVideoDescriptor(XDpDma_Descriptor *CurrDesc,
 /*************************************************************************/
 /**
  *
- * This function intializes Descriptors for transactions on Audio Channel
+ * This function initializes Descriptors for transactions on Audio Channel
  *
  * @param    Channel is a pointer to the XDpDma_AudioChannel instance
  *
