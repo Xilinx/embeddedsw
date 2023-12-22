@@ -23,6 +23,7 @@ properties:
           - xlnx,cfi-cframe-1.0
           - xlnx,psv-pmc-cfi-cframe-1.0
           - xlnx,psv-pmc-cfi-cframe-11.0
+          - xlnx,psx-pmc-cfi-cframe-11.0
   reg:
     description: Physical base address and size of the controller register map
 
