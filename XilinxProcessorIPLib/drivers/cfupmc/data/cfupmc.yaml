@@ -23,6 +23,7 @@ properties:
           - xlnx,cfu-apb-1.0
           - xlnx,psv-pmc-cfu-apb-1.0
           - xlnx,psv-pmc-cfu-apb-11.0
+          - xlnx,psx-pmc-cfu-apb-11.0
   reg:
     description: Physical base address and size of the controller register map
 
