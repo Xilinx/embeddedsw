@@ -22,6 +22,7 @@
 * 1.10a mta  05/13/07 Updated to new coding style
 * 2.00a ktn  10/22/09 Updated to use the HAL APIs/macros.
 *		      The macros have been renamed to remove _m from the name.
+* 3.8   ht   12/13/23 Modify XCan_InterruptEnable to enable the interrupts.
 * </pre>
 *
 ******************************************************************************/
@@ -64,19 +65,11 @@
 *****************************************************************************/
 void XCan_InterruptEnable(XCan *InstancePtr, u32 Mask)
 {
-	u32 IntrValue;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/* Read currently enabled interrupts. */
-	IntrValue = XCan_InterruptGetEnabled(InstancePtr);
-
-	/* Calculate the new interrupts that should be enabled */
-	IntrValue |= Mask & XCAN_IXR_ALL;
-
 	/* Write to IER to enable interrupts */
-	XCan_WriteReg(InstancePtr->BaseAddress, XCAN_IER_OFFSET, IntrValue);
+	XCan_WriteReg(InstancePtr->BaseAddress, XCAN_IER_OFFSET, Mask);
 }
 
 /****************************************************************************/
