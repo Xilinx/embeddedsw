@@ -47,6 +47,7 @@
 * 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
 * 4.2   ro     06/12/23 Added support for system device-tree flow.
 * 4.3   ap     11/29/23 Add support for Sanitize feature.
+* 4.3   ap     12/22/23 Add support to read custom HS400 tap delay value from design for eMMC.
 *
 * </pre>
 *
@@ -1204,6 +1205,8 @@ extern "C" {
 #define SD_ITAPCHGWIN			0x00000200U
 #define SD_ITAPDLYENA			0x00000100U
 #define SD_OTAPDLYENA			0x00000040U
+#define SD_OTAPDLYSEL_SD104_B0		0x00000002U
+#define SD_OTAPDLYSEL_SD104_B2		0x00000002U
 #define SD_OTAPDLYSEL_HS200_B0		0x00000007U
 #define SD_OTAPDLYSEL_HS200_B2		0x00000007U
 #define SD_OTAPDLYSEL_HS400		0x00000004U
@@ -1232,6 +1235,8 @@ extern "C" {
 #define SD_ITAPCHGWIN				0x00000200U
 #define SD_ITAPDLYENA				0x00000100U
 #define SD_OTAPDLYENA				0x00000040U
+#define SD_OTAPDLYSEL_SD104_B0		0x00000002U
+#define SD_OTAPDLYSEL_SD104_B2		0x00000002U
 #define SD_OTAPDLYSEL_HS200_B0		0x00000002U
 #define SD_OTAPDLYSEL_HS200_B2		0x00000002U
 #define SD_ITAPDLYSEL_SD50			0x0000000EU
@@ -1263,6 +1268,8 @@ extern "C" {
 #define SD1_ITAPCHGWIN				0x02000000U
 #define SD1_ITAPDLYENA				0x01000000U
 #define SD1_OTAPDLYENA				0x00400000U
+#define SD_OTAPDLYSEL_SD104_B0		0x00000003U
+#define SD_OTAPDLYSEL_SD104_B2		0x00000002U
 #define SD_OTAPDLYSEL_HS200_B0		0x00000003U
 #define SD_OTAPDLYSEL_HS200_B2		0x00000002U
 #define SD_ITAPDLYSEL_SD50			0x00000014U

@@ -177,6 +177,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->Config.OTapDly_DDR_Clk50 = ConfigPtr->OTapDly_DDR_Clk50;
 	InstancePtr->Config.OTapDly_SDR_Clk100 = ConfigPtr->OTapDly_SDR_Clk100;
 	InstancePtr->Config.OTapDly_SDR_Clk200 = ConfigPtr->OTapDly_SDR_Clk200;
+	InstancePtr->Config.OTapDly_DDR_Clk200 = ConfigPtr->OTapDly_DDR_Clk200;
 	InstancePtr->SectorCount = 0U;
 	InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
 	InstancePtr->OTapDelay = 0U;

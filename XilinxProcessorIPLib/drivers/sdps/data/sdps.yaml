@@ -52,6 +52,7 @@ required:
     - xlnx,clk-50-ddr-otap-dly
     - xlnx,clk-100-sdr-otap-dly
     - xlnx,clk-200-sdr-otap-dly
+    - xlnx,clk-200-ddr-otap-dly
 examples:
     xsdps_raw_example.c:
         - reg
