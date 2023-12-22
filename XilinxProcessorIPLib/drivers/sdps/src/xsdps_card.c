@@ -39,6 +39,7 @@
 * 			Xil_WaitForEvents API.
 * 	sa     01/25/23 Use instance structure to store DMA descriptor tables.
 * 4.2   ap     08/09/23 reordered function XSdPs_Identify_UhsMode.
+* 4.3   ap     12/22/23 Add support to read custom HS400 tap delay value from design for eMMC.
 * </pre>
 *
 ******************************************************************************/

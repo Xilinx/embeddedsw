@@ -165,6 +165,7 @@
 * 4.2   ap     08/09/23 Reordered XSdPs_FrameCmd XSdPs_Identify_UhsMode functions
 * 4.3   ap     10/11/23 Resolved compilation errors with Microblaze RISC-V
 * 4.3   ap     11/29/23 Add support for Sanitize feature.
+* 4.3   ap     12/22/23 Add support to read custom HS400 tap delay value from design for eMMC.
 *
 * </pre>
 *
@@ -270,6 +271,7 @@ typedef struct {
 	u32 OTapDly_DDR_Clk50;	/**< Output Tap delay for DDR50 modes */
 	u32 OTapDly_SDR_Clk100;	/**< Input Tap delay for SDR50 modes */
 	u32 OTapDly_SDR_Clk200;	/**< Input Tap delay for SDR104/HS200 modes */
+	u32 OTapDly_DDR_Clk200;	/**< Input Tap delay for HS400 modes */
 } XSdPs_Config;
 
 /**

@@ -40,6 +40,7 @@
 * 			Xil_WaitForEvents API.
 * 	sa     01/25/23 Use instance structure to store DMA descriptor tables.
 * 4.2   ap     08/09/23 Restructured XSdPs_FrameCmd API
+* 4.3   ap     12/22/23 Add support to read custom HS400 tap delay value from design for eMMC.
 * </pre>
 *
 ******************************************************************************/
@@ -79,9 +80,9 @@ void XSdPs_SetTapDelay_SDR104(XSdPs *InstancePtr)
 	if (InstancePtr->Config.OTapDly_SDR_Clk200 != 0U) {
 		InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk200;
 	} else if (InstancePtr->Config.BankNumber == 2U) {
-		InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B2;
+		InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD104_B2;
 	} else {
-		InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B0;
+		InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD104_B0;
 	}
 }
 
@@ -1847,7 +1848,11 @@ u32 XSdPs_Select_HS400(XSdPs *InstancePtr)
 		goto RETURN_PATH;
 	}
 
-	InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS400;
+	if (InstancePtr->Config.OTapDly_DDR_Clk200 != 0U){
+		InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_DDR_Clk200;
+	} else {
+		InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS400;
+	}
 	Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
