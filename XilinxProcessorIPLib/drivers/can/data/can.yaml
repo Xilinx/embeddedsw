@@ -21,6 +21,8 @@ properties:
     description: Physical base address and size of the controller register map
   can-num-acf:
     description: Number of acceptance filters configured in the design
+  xlnx,has-ecc:
+    description: ECC is enabled or disabled in the design
 
 config:
     - XCan_Config
@@ -31,6 +33,7 @@ required:
     - can-num-acf
     - interrupts
     - interrupt-parent
+    - xlnx,has-ecc
 
 examples:
         xcan_intr_example.c:
