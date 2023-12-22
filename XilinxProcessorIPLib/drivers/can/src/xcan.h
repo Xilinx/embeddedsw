@@ -175,6 +175,7 @@ exclusion
 * 3.3   ask  08/01/18 Fixed Cppcheck and GCC warnings in can driver
 * 3.5	sne  08/28/20 Modify Makefile to support parallel make execution.
 * 3.7	ht   07/04/23 Added support for system device-tree flow.
+* 3.8   ht   12/13/23 Added support for ECC.
 * </pre>
 *
 ******************************************************************************/
@@ -228,6 +229,7 @@ typedef struct {
 	u16 IntrId; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
 	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 #endif
+	u8 EnableECC;		/**< ECC is enabled or disabled */
 } XCan_Config;
 
 /******************************************************************************/
@@ -277,6 +279,8 @@ typedef struct {
 	u32 IsReady;		/**< Device is initialized and ready */
 	u8 NumOfAcceptFilters;  /**< Number of Acceptance Filters */
 
+	u8 EnableECC;		/**< ECC is enabled or disabled */
+
 	/** Callback for TXOK interrupt */
 	XCan_SendRecvHandler SendHandler;
 
@@ -303,6 +307,23 @@ typedef struct {
 	/** This will be passed to the EventHandler callback */
 	void *EventRef;
 
+	/** TXTLFIFO 2bit ECC count */
+	u64 ecc_2bit_txtlfifo_cnt;
+
+	/** TXTLFIFO 1bit ECC count */
+	u64 ecc_1bit_txtlfifo_cnt;
+
+	/** TXOLFIFO 2bit ECC count */
+	u64 ecc_2bit_txolfifo_cnt;
+
+	/** TXOLFIFO 1bit ECC count */
+	u64 ecc_1bit_txolfifo_cnt;
+
+	/** RXFIFO 2bit ECC count */
+	u64 ecc_2bit_rxfifo_cnt;
+
+	/** RXFIFO 1bit ECC count */
+	u64 ecc_1bit_rxfifo_cnt;
 } XCan;
 
 
@@ -501,6 +522,9 @@ XCan_Config *XCan_LookupConfig(u16 DeviceId);
 XCan_Config *XCan_LookupConfig(UINTPTR BaseAddress);
 #endif
 XCan_Config *XCan_GetConfig(unsigned int InstanceIndex);
+
+void XCan_ResetECC(XCan *InstancePtr);
+void XCan_GetECCCount(XCan *InstancePtr);
 
 /*
  * Configuration functions in xcan_config.c

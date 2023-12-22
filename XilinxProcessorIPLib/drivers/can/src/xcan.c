@@ -27,6 +27,7 @@
 * 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XCan_VmInitialize API.
 * 3.7   ht   07/04/23 Added support for system device-tree flow.
+* 3.8   ht   12/13/23 Added support for ECC.
 * </pre>
 ******************************************************************************/
 
@@ -1115,6 +1116,7 @@ static void Initialize(XCan *InstancePtr, XCan_Config *ConfigPtr)
 	/* Set other field(s) using the configuration structure */
 	InstancePtr->NumOfAcceptFilters = ConfigPtr->NumOfAcceptFilters;
 
+	InstancePtr->EnableECC = ConfigPtr->EnableECC;
 	/*
 	 * Indicate the component is now ready to use. Note that this is done
 	 * before we reset the device below, which may seem a bit odd. The
@@ -1154,4 +1156,80 @@ static void StubHandler(void)
 	Xil_AssertVoidAlways();
 }
 
+/*****************************************************************************/
+/**
+* This function resets the ECC counters. Calling this function resets all the
+* ECC counters immediately. The register is reset to default value, and no
+* previous status will be restored.
+*
+* @param        InstancePtr is a pointer to the XCan instance to be worked on.
+*
+* @return       None.
+*
+* @note         None.
+*
+******************************************************************************/
+void XCan_ResetECC(XCan *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/* Reset ECC CFG register */
+	XCan_WriteReg(InstancePtr->BaseAddress, XCAN_ECC_CFG_OFFSET,
+			XCAN_ECC_CFG_RST_MASK);
+
+	/* Set ECC CFG register to 0 as it holds the value after reset */
+	XCan_WriteReg(InstancePtr->BaseAddress, XCAN_ECC_CFG_OFFSET, 0);
+}
+
+/*****************************************************************************/
+/**
+* This function gets the count of ECC error count for one and two bit error in
+* TX_TL FIFO, TX_OL FIFO, RX FIFO.
+*
+* @param        InstancePtr is a pointer to the XCan instance to be worked on.
+*
+* @return       None.
+*
+* @note         None.
+*
+******************************************************************************/
+void XCan_GetECCCount(XCan *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	u32 reg_ecc = 0;
+
+	/* Get count of ECC error count in  TX_TL FIFO */
+	reg_ecc = XCan_ReadReg(InstancePtr->BaseAddress, XCAN_TXTLFIFO_ECC_OFFSET);
+	if (XCan_InterruptGetStatus(InstancePtr) & XCAN_IXR_E2BETXTL_MASK){
+		InstancePtr->ecc_2bit_txtlfifo_cnt += (reg_ecc & XCAN_MASK_HIGH_16BITS) >> XCAN_ECC_2BIT_SHIFT;
+	}
+
+	if (XCan_InterruptGetStatus(InstancePtr) & XCAN_IXR_E1BETXTL_MASK){
+		InstancePtr->ecc_1bit_txtlfifo_cnt += (reg_ecc & XCAN_MASK_LOW_16BITS);
+	}
+
+	/* Get count of ECC error count in  TX_OL FIFO */
+	reg_ecc = XCan_ReadReg(InstancePtr->BaseAddress, XCAN_TXOLFIFO_ECC_OFFSET);
+	if (XCan_InterruptGetStatus(InstancePtr) & XCAN_IXR_E2BETXOL_MASK){
+		InstancePtr->ecc_2bit_txolfifo_cnt += (reg_ecc & XCAN_MASK_HIGH_16BITS) >> XCAN_ECC_2BIT_SHIFT;
+	}
+
+	if (XCan_InterruptGetStatus(InstancePtr) & XCAN_IXR_E1BETXOL_MASK){
+		InstancePtr->ecc_1bit_txolfifo_cnt += (reg_ecc & XCAN_MASK_LOW_16BITS);
+	}
+
+	/* Get count of ECC error count in  RX FIFO */
+	reg_ecc = XCan_ReadReg(InstancePtr->BaseAddress, XCAN_RXFIFO_ECC_OFFSET);
+	if (XCan_InterruptGetStatus(InstancePtr) & XCAN_IXR_E2BERX_MASK){
+		InstancePtr->ecc_2bit_rxfifo_cnt += (reg_ecc & XCAN_MASK_HIGH_16BITS) >> XCAN_ECC_2BIT_SHIFT;
+	}
+
+	if (XCan_InterruptGetStatus(InstancePtr) & XCAN_IXR_E1BERX_MASK){
+		InstancePtr->ecc_1bit_rxfifo_cnt += (reg_ecc & XCAN_MASK_LOW_16BITS);
+	}
+
+}
 /** @} */

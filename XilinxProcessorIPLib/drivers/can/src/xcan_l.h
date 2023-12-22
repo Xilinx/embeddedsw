@@ -24,6 +24,7 @@
 * 1.10a mta  05/13/07 Updated to new coding style
 * 2.00a ktn  10/22/09 Updated to use the HAL APIs/macros.
 *		      The macros have been renamed to remove _m from the name.
+* 3.8   ht   12/13/23 Added support for ECC.
 *
 * </pre>
 *
@@ -84,6 +85,12 @@ extern "C" {
 #define XCAN_AFIR3_OFFSET	0x078  /**< Acceptance Filter ID Register 3 */
 #define XCAN_AFMR4_OFFSET	0x07C  /**< Acceptance Filter Mask Register 4 */
 #define XCAN_AFIR4_OFFSET	0x080  /**< Acceptance Filter ID Register 4 */
+
+#define XCAN_ECC_CFG_OFFSET	0x0C8  /**< ECC Configuration register */
+#define XCAN_TXTLFIFO_ECC_OFFSET	0x0CC  /**< TXTL FIFO ECC error counter */
+#define XCAN_TXOLFIFO_ECC_OFFSET	0x0D0  /**< TXOL FIFO ECC error counter */
+#define XCAN_RXFIFO_ECC_OFFSET	0X0D4  /**< RX FIFO ECC error counter */
+
 /** @} */
 
 /** @name Software Reset Register
@@ -154,6 +161,13 @@ extern "C" {
 /** @name Interrupt Status/Enable/Clear Register
  *  @{
  */
+#define XCAN_IXR_E2BERX_MASK	0x00800000  /**< RX FIFO two bit ECC error */
+#define XCAN_IXR_E1BERX_MASK	0x00400000  /**< RX FIFO one bit ECC error */
+#define XCAN_IXR_E2BETXOL_MASK	0x00200000  /**< TXOL FIFO two bit ECC error */
+#define XCAN_IXR_E1BETXOL_MASK	0x00100000  /**< TXOL FIFO one bit ECC error */
+#define XCAN_IXR_E2BETXTL_MASK	0x00080000  /**< TXTL FIFO two bit ECC error */
+#define XCAN_IXR_E1BETXTL_MASK	0x00040000  /**< TXTL FIFO one bit ECC error */
+
 #define XCAN_IXR_WKUP_MASK	0x00000800  /**< Wake up Interrupt Mask */
 #define XCAN_IXR_SLP_MASK	0x00000400  /**< Sleep Interrupt Mask */
 #define XCAN_IXR_BSOFF_MASK	0x00000200  /**< Bus Off Interrupt Mask */
@@ -166,19 +180,30 @@ extern "C" {
 #define XCAN_IXR_TXFLL_MASK	0x00000004  /**< TX FIFO Full Interrupt Mask */
 #define XCAN_IXR_TXOK_MASK	0x00000002  /**< TX Successful Interrupt Mask */
 #define XCAN_IXR_ARBLST_MASK	0x00000001  /**< Arbitration Lost Intr Mask */
+
+#define XCAN_IXR_ECC_MASK	(XCAN_IXR_E2BERX_MASK   | \
+				XCAN_IXR_E1BERX_MASK    | \
+				XCAN_IXR_E2BETXOL_MASK   | \
+				XCAN_IXR_E1BETXOL_MASK   | \
+				XCAN_IXR_E2BETXTL_MASK   | \
+				XCAN_IXR_E1BETXTL_MASK)
+					/**< Mask for ECC interrupts */
+
+
 #define XCAN_IXR_ALL		(XCAN_IXR_WKUP_MASK   | \
-				XCAN_IXR_SLP_MASK	| \
+				XCAN_IXR_SLP_MASK    | \
 				XCAN_IXR_BSOFF_MASK  | \
 				XCAN_IXR_ERROR_MASK  | \
 				XCAN_IXR_RXNEMP_MASK | \
- 				XCAN_IXR_RXOFLW_MASK | \
+				XCAN_IXR_RXOFLW_MASK | \
 				XCAN_IXR_RXUFLW_MASK | \
-	 			XCAN_IXR_RXOK_MASK   | \
+				XCAN_IXR_RXOK_MASK   | \
 				XCAN_IXR_TXBFLL_MASK | \
 				XCAN_IXR_TXFLL_MASK  | \
 				XCAN_IXR_TXOK_MASK   | \
 				XCAN_IXR_ARBLST_MASK)
 					/**< Mask for basic interrupts */
+
 /** @} */
 
 /** @name CAN Frame Identifier (TX High Priority Buffer/TX/RX/Acceptance Filter
@@ -239,12 +264,29 @@ Mask/Acceptance Filter ID)
 					   /**< Mask for Acceptance Filters */
 /** @} */
 
+/** @name ECC Configuration register
+ *  @{
+ */
+#define XCAN_ECC_CFG_RST_MASK		0x00000007  /**< Reset Mask for ECC configuration register */
+#define XCAN_ECC_CFG_REECRX_MASK	0x00000004  /**< Reset RX FIFO ECC error counters */
+#define XCAN_ECC_CFG_REECTXOL_MASK	0x00000002  /**< Reset TXOL FIFO ECC error counters */
+#define XCAN_ECC_CFG_REECTXTL_MASK	0x00000001  /**< Reset TXTL FIFO ECC error counters */
+#define XCAN_ECC_2BIT_SHIFT	16  /**< ECC 2bit error counter shift */
+/** @} */
+
 /** @name CAN frame length constants
  *  @{
  */
 #define XCAN_MAX_FRAME_SIZE 16	/**< Maximum CAN frame length in bytes */
 /** @} */
 
+
+/** @name Mask for Low 16bits and High 16 bits
+ *  @{
+ */
+#define XCAN_MASK_LOW_16BITS	0x0000FFFF /**< Mask to obtain lower 16bits */
+#define XCAN_MASK_HIGH_16BITS	0XFFFF0000 /**< Mask to obtain higher 16bits */
+/** @} */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

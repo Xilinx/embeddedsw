@@ -21,6 +21,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a xd   04/12/05 First release
 * 1.10a mta  05/13/07 Updated to new coding style
+* 3.8   ht   12/13/23 Added support for ECC.
 * </pre>
 *
 ******************************************************************************/
@@ -52,7 +53,8 @@ XCan_Config XCan_ConfigTable[XPAR_XCAN_NUM_INSTANCES] = {
 	{
 		XPAR_OPB_CAN_0_DEVICE_ID,   /* Unique ID of device */
 		XPAR_OPB_CAN_0_BASEADDR,    /* Base address of device */
-		XPAR_OPB_CAN_0_CAN_NUM_ACF  /* Number of acceptance filters */
+		XPAR_OPB_CAN_0_CAN_NUM_ACF,  /* Number of acceptance filters */
+		XPAR_OPB_CAN_0_ENABLE_ECC,  /* ECC is enabled or disabled */
 	 }
 };
 /** @} */
