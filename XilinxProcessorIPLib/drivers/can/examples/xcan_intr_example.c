@@ -42,6 +42,7 @@
 *                    available in all examples. This is a fix for CR-965028.
 * 3.3   ask  08/01/18 Fixed Cppcheck and GCC warnings in can driver
 * 3.7   ht   07/04/23 Added support for system device-tree flow.
+* 3.8   ht   12/13/23 Added support for ECC.
 * </pre>
 *
 ******************************************************************************/
@@ -217,6 +218,7 @@ static int XCanIntrExample(UINTPTR BaseAddress)
 #endif
 {
 	int Status;
+	u32 Mask;
 #ifdef SDT
 	XCan_Config *ConfigPtr;
 
@@ -288,7 +290,14 @@ static int XCanIntrExample(UINTPTR BaseAddress)
 	/*
 	 * Enable all interrupts in CAN device.
 	 */
-	XCan_InterruptEnable(&Can, XCAN_IXR_ALL);
+	Mask = XCAN_IXR_ALL;
+
+	if(Can.EnableECC == 1) {
+		/* Enable ECC interrupts in CAN device */
+		Mask |= XCAN_IXR_ECC_MASK;
+	}
+
+	XCan_InterruptEnable(&Can, Mask);
 
 	/*
 	 * Enter Loop Back Mode.
@@ -629,6 +638,15 @@ static void EventHandler(void *CallBackRef, u32 IntrMask)
 		 * Code to handle Lost bus arbitration
 		 * Interrupt should be put here.
 		 */
+	}
+
+	if(CanPtr->EnableECC == 1) {
+		if (IntrMask & XCAN_IXR_ECC_MASK) { /* ECC error */
+			/*
+			 * Code to ECC errors
+			 * Interrupt should be put here.
+			 */
+		}
 	}
 }
 
