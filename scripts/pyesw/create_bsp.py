@@ -196,6 +196,7 @@ class Domain(Repo):
                 toolchain_file_copy,
                 "-mcpu=v10.0",
                 "-mcpu=v11.0")
+            utils.add_newline(toolchain_file_copy, "ADD_DEFINITIONS(-Dversal -DVERSAL_NET)")
 
         if "r5" in self.proc:
             utils.replace_line(
