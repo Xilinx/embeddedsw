@@ -29,6 +29,10 @@
 * ----- ---- -------- ---------------------------------------------------
 * 9.0   sa   12/11/22 Initial version
 * 9.1   mj   22/12/23 Disable relaxation before initializing stack pointer
+* 9.1   mus  22/12/23 Trap vector base address must be 4 byte aligned, it
+*                     is initialized to .Ldone label which is not 4 byte
+*       	      aligned. Updated boot code to make .Ldone labe 4 byte
+*                     aligned explicitly.
 * </pre>
 *
 ******************************************************************************/
@@ -156,6 +160,7 @@ _boot:
 	sw	zero,0(sp)	/* Initialize argc to zero */
 	j 	_start		/* jump to C startup code */
 
+.align 2
 .Ldone:	j	.Ldone		/* We should only get here for unhandled traps*/
 
 .end
