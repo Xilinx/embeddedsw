@@ -28,6 +28,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 9.0   sa   12/11/22 Initial version
+* 9.1   mj   22/12/23 Disable relaxation before initializing stack pointer
 * </pre>
 *
 ******************************************************************************/
@@ -78,7 +79,10 @@ _boot:
 	addi	x31,x0,0
 
 /* Initialize stack pointer */
-	la	sp,__stack
+	.option push
+	.option norelax
+	la	sp, __stack
+	.option pop
 
 /* Clear the floating point registers */
 #if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_USE_FPU == 2)
