@@ -22,7 +22,7 @@ BEGIN driver dfeprach
   OPTION supported_peripherals = (xdfe_nr_prach);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.6;
+  OPTION VERSION = 1.7;
   OPTION NAME = dfeprach;
   OPTION depends = libmetal;
   OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";

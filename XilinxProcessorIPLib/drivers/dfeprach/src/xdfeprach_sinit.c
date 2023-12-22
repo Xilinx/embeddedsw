@@ -29,6 +29,7 @@
 * 1.5   dc     12/14/22 Update multiband register arithmetic
 *       dc     01/02/23 Multiband registers update
 * 1.6   cog    07/04/23 Add support for SDT
+* 1.7   dc     11/29/23 Add continuous scheduling
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -65,9 +66,7 @@
 	"/sys/bus/platform/devices/" /**< Device location in a file system. */
 #define XDFEPRACH_COMPATIBLE_PROPERTY "compatible" /**< Device tree property */
 #define XDFEPRACH_BUS_NAME "platform" /**< System bus name. */
-#define XDFEPRACH_DEVICE_ID_SIZE 4U
 #define XDFEPRACH_BASEADDR_PROPERTY "reg" /**< Base address property. */
-#define XDFEPRACH_BASEADDR_SIZE 8U
 #define XDFEPRACH_NUM_ANTENNA0_CFG                                             \
 	"xlnx,num-antenna0" /**< Number of antenna 1-8. */
 #define XDFEPRACH_NUM_ANTENNA1_CFG                                             \
@@ -96,6 +95,8 @@
 	"xlnx,num-rach-lanes" /**< Number of RACH output Lanes 1-2. */
 #define XDFEPRACH_NUM_RACH_CHANNELS_CFG                                        \
 	"xlnx,num-rach-channels" /**<  Number of RACH Channels channels 1-16 */
+#define XDFEPRACH_HAS_CONTINUOUS_SCHED_CFG                                     \
+	"xlnx,is-always-on" /**< The continuous scheduling is present. */
 #define XDFEPRACH_HAS_AXIS_CTRL_CFG                                            \
 	"xlnx,has-axis-ctrl" /**< The AXIS dynamic scheduling control interface is present */
 #define XDFEPRACH_HAS_IRQ_CFG                                                  \
@@ -105,6 +106,8 @@
 /**
 * @cond nocomments
 */
+#define XDFEPRACH_DEVICE_ID_SIZE 4U
+#define XDFEPRACH_BASEADDR_SIZE 8U
 #define XDFEPRACH_WORD_SIZE 4U
 #else
 #define XDFEPRACH_BUS_NAME "generic"
@@ -436,6 +439,13 @@ s32 XDfePrach_LookupConfig(XDfePrach *InstancePtr)
 				   XDFEPRACH_WORD_SIZE)) {
 		goto end_failure;
 	}
+	if (XST_SUCCESS != metal_linux_get_device_property(
+				   Dev,
+				   Name = XDFEPRACH_HAS_CONTINUOUS_SCHED_CFG,
+				   &d, XDFEPRACH_WORD_SIZE)) {
+		goto end_failure;
+	}
+	InstancePtr->Config.HasContinuousSched = ntohl(d);
 	InstancePtr->Config.HasAxisCtrl = ntohl(d);
 
 	if (XST_SUCCESS !=
@@ -493,6 +503,8 @@ end_failure:
 		ConfigTable->NumAntennaSlots[2];
 	InstancePtr->Config.NumRachLanes = ConfigTable->NumRachLanes;
 	InstancePtr->Config.NumRachChannels = ConfigTable->NumRachChannels;
+	InstancePtr->Config.HasContinuousSched =
+		ConfigTable->HasContinuousSched;
 	InstancePtr->Config.HasAxisCtrl = ConfigTable->HasAxisCtrl;
 	InstancePtr->Config.HasIrq = ConfigTable->HasIrq;
 	InstancePtr->Config.NumBands = ConfigTable->NumBands;

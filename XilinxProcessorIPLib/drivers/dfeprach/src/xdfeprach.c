@@ -48,9 +48,10 @@
 * 1.6   dc     05/08/23 Set NCO config for RCId=0 fix
 *       dc     05/09/23 Dual and single mode calculation fix
 *       dc     08/06/23 Support dynamic and static modes of operation
-*       dc     06/20/23 Depricate obsolete APIs
+*       dc     06/20/23 Deprecate obsolete APIs
 *       cog    07/04/23 Add support for SDT
 *       dc     30/28/23 Remove immediate trigger
+* 1.7   dc     11/29/23 Add continuous scheduling
 * </pre>
 * @addtogroup dfeprach Overview
 * @{
@@ -81,7 +82,7 @@
 */
 
 #define XDFEPRACH_DRIVER_VERSION_MINOR                                         \
-	(6U) /**< Driver's minor version number */
+	(7U) /**< Driver's minor version number */
 #define XDFEPRACH_DRIVER_VERSION_MAJOR                                         \
 	(1U) /**< Driver's major version number */
 
@@ -94,6 +95,9 @@
 #define XDFEPRACH_FREQ_MAX (1 << 23) /**< Maximum frequency value */
 #define XDFEPRACH_MAX_CCRATE (3) /**< CCRate maxixmum value */
 
+/**
+* @cond nocomments
+*/
 #define XDFEPRACH_SCS_15KHZ 0U
 #define XDFEPRACH_SCS_30KHZ 1U
 #define XDFEPRACH_SCS_60KHZ 2U
@@ -105,9 +109,6 @@
 #define XDFEPRACH_SCS_MAX 15U
 
 /************************** Function Prototypes *****************************/
-/**
-* @cond nocomments
-*/
 static void XDfePrach_GetRCEnable(const XDfePrach *InstancePtr, bool Next,
 				  u32 RCId, u32 *Enable);
 static void XDfePrach_AddRCEnable(u32 Enable,
@@ -613,9 +614,14 @@ static void XDfePrach_GetRC(const XDfePrach *InstancePtr, bool Next, u32 RCId,
 			 &RCCfg->NcoCfg[RCId]);
 	/* get the DDC configuration - no Next/current available here! */
 	XDfePrach_GetDDC(InstancePtr, RCId, &RCCfg->DdcCfg[RCId]);
-	/* get the DDC configuration */
-	XDfePrach_GetSchedule(InstancePtr, Next, RCId,
-			      &RCCfg->StaticSchedule[RCId]);
+	/* get the scheduling configuration only if a continuous scheduling
+	   flag is 0 */
+	if (InstancePtr->Config.HasContinuousSched ==
+	    XDFEPRACH_MODEL_PARAM_HAS_CONTINUOUS_SCHED_OFF) {
+		/* get the Schedule configuration */
+		XDfePrach_GetSchedule(InstancePtr, Next, RCId,
+				      &RCCfg->StaticSchedule[RCId]);
+	}
 }
 
 /****************************************************************************/
@@ -730,7 +736,8 @@ static void XDfePrach_FreqCalculation(const XDfePrach *InstancePtr, u32 RCId,
 * @param    RCCfg RC config container.
 * @param    DdcCfg DDC data container.
 * @param    NcoCfg NCO data container.
-* @param    Schedule Schedule data container.
+* @param    Schedule Schedule data container (ignore it if module
+*                          parameter HAS_CONTINUOUS_SCHED == 1)
 * @param    NextCCCfg CC configuration container.
 * @param    BandId Band Id.
 *
@@ -754,8 +761,12 @@ static void XDfePrach_AddRC(const XDfePrach *InstancePtr, u32 RCId,
 
 	/* Add the NCO */
 	XDfePrach_AddNCO(RCCfg, NcoCfg, RCId);
-	/* Add the schedule */
-	XDfePrach_AddSchedule(RCCfg, Schedule, RCId);
+	/* Add scheduling parameters if a continuous scheduling flag is 0 */
+	if (InstancePtr->Config.HasContinuousSched ==
+	    XDFEPRACH_MODEL_PARAM_HAS_CONTINUOUS_SCHED_OFF) {
+		/* Add the schedule */
+		XDfePrach_AddSchedule(RCCfg, Schedule, RCId);
+	}
 	/* Add the CCID number */
 	XDfePrach_AddRC_CCID(CCID, RCCfg, RCId, BandId);
 	/* Enable the RC */
@@ -796,7 +807,11 @@ static void XDfePrach_SetRC(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(RCCfg != NULL);
 
-	XDfePrach_SetSchedule(InstancePtr, RCCfg, RCId);
+	/* Add scheduling parameters if a continuous scheduling flag is 0 */
+	if (InstancePtr->Config.HasContinuousSched ==
+	    XDFEPRACH_MODEL_PARAM_HAS_CONTINUOUS_SCHED_OFF) {
+		XDfePrach_SetSchedule(InstancePtr, RCCfg, RCId);
+	}
 
 	/* Update the DDC and the NCO. */
 	XDfePrach_SetNCO(InstancePtr, RCCfg, RCId);
@@ -1752,6 +1767,9 @@ void XDfePrach_Configure(XDfePrach *InstancePtr, XDfePrach_Cfg *Cfg)
 		       XDFEPRACH_MODEL_PARAM_NUM_RACH_CHANNELS_MIN);
 	Xil_AssertVoid(InstancePtr->Config.NumRachChannels <=
 		       XDFEPRACH_MODEL_PARAM_NUM_RACH_CHANNELS_MAX);
+	InstancePtr->Config.HasContinuousSched = XDfePrach_RdBitField(
+		XDFEPRACH_MODEL_PARAM_HAS_CONTINUOUS_SCHED_WIDTH,
+		XDFEPRACH_MODEL_PARAM_HAS_CONTINUOUS_SCHED_OFFSET, ModelParam);
 	InstancePtr->Config.HasAxisCtrl =
 		XDfePrach_RdBitField(XDFEPRACH_MODEL_PARAM_HAS_AXIS_CTRL_WIDTH,
 				     XDFEPRACH_MODEL_PARAM_HAS_AXIS_CTRL_OFFSET,
@@ -1860,6 +1878,8 @@ configure_exit_tag:
 	}
 	Cfg->ModelParams.NumRachLanes = InstancePtr->Config.NumRachLanes;
 	Cfg->ModelParams.NumRachChannels = InstancePtr->Config.NumRachChannels;
+	Cfg->ModelParams.HasContinuousSched =
+		InstancePtr->Config.HasContinuousSched;
 	Cfg->ModelParams.HasAxisCtrl = InstancePtr->Config.HasAxisCtrl;
 	Cfg->ModelParams.HasIrq = InstancePtr->Config.HasIrq;
 	Cfg->ModelParams.NumBands = InstancePtr->Config.NumBands;
@@ -2767,7 +2787,8 @@ void XDfePrach_GetChannelCfg(const XDfePrach *InstancePtr,
 * @param    RachChan RACH channel [0-15].
 * @param    DdcCfg DDC data container.
 * @param    NcoCfg NCO data container.
-* @param    StaticSchedule Schedule data container.
+* @param    StaticSchedule Schedule data container (ignore it if module
+*                          parameter HAS_CONTINUOUS_SCHED == 1)
 * @param    NextCCCfg CC configuration container.
 * @param    BandId Band id.
 *
@@ -2801,7 +2822,6 @@ u32 XDfePrach_AddRCtoRCCfgMB(const XDfePrach *InstancePtr,
 	Xil_AssertNonvoid(RachChan < XDFEPRACH_RC_NUM_MAX);
 	Xil_AssertNonvoid(DdcCfg != NULL);
 	Xil_AssertNonvoid(NcoCfg != NULL);
-	Xil_AssertNonvoid(StaticSchedule != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 	Xil_AssertNonvoid(NextCCCfg != NULL);
 
@@ -2915,7 +2935,8 @@ u32 XDfePrach_AddRCtoRCCfgMBDynamic(const XDfePrach *InstancePtr,
 * @param    RachChan RACH channel [0-15].
 * @param    DdcCfg DDC data container.
 * @param    NcoCfg NCO data container.
-* @param    StaticSchedule Schedule data container.
+* @param    StaticSchedule Schedule data container (ignore it if module
+*                          parameter HAS_CONTINUOUS_SCHED == 1)
 * @param    NextCCCfg CC configuration container.
 *
 * @return
@@ -2944,7 +2965,6 @@ u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 	Xil_AssertNonvoid(RachChan < XDFEPRACH_RC_NUM_MAX);
 	Xil_AssertNonvoid(DdcCfg != NULL);
 	Xil_AssertNonvoid(NcoCfg != NULL);
-	Xil_AssertNonvoid(StaticSchedule != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 	Xil_AssertNonvoid(NextCCCfg != NULL);
 
@@ -3044,7 +3064,8 @@ u32 XDfePrach_RemoveRCfromRCCfg(const XDfePrach *InstancePtr,
 * @param    RachChan RACH channel [0-15].
 * @param    DdcCfg DDC data container.
 * @param    NcoCfg NCO data container.
-* @param    StaticSchedule Schedule data container.
+* @param    StaticSchedule Schedule data container (ignore it if module
+*                          parameter HAS_CONTINUOUS_SCHED == 1)
 * @param    NextCCCfg CC configuration container.
 * @param    BandId Band id.
 *
@@ -3067,7 +3088,6 @@ void XDfePrach_UpdateRCinRCCfgMB(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(RachChan < XDFEPRACH_RC_NUM_MAX);
 	Xil_AssertVoid(DdcCfg != NULL);
 	Xil_AssertVoid(NcoCfg != NULL);
-	Xil_AssertVoid(StaticSchedule != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 	Xil_AssertVoid(NextCCCfg != NULL);
 	Xil_AssertVoid(BandId < InstancePtr->Config.NumBands);
@@ -3111,7 +3131,6 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(RachChan < XDFEPRACH_RC_NUM_MAX);
 	Xil_AssertVoid(DdcCfg != NULL);
 	Xil_AssertVoid(NcoCfg != NULL);
-	Xil_AssertVoid(StaticSchedule != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 	Xil_AssertVoid(NextCCCfg != NULL);
 
@@ -3133,7 +3152,8 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 * @param    RachChan RACH channel [0-15].
 * @param    DdcCfg DDC data container.
 * @param    NcoCfg NCO data container.
-* @param    StaticSchedule Schedule data container.
+* @param    StaticSchedule Schedule data container (ignore it if module
+*                          parameter HAS_CONTINUOUS_SCHED == 1)
 *
 * @return
 *	- XST_SUCCESS on success
@@ -3174,7 +3194,6 @@ u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 	Xil_AssertNonvoid(RachChan < XDFEPRACH_RC_NUM_MAX);
 	Xil_AssertNonvoid(DdcCfg != NULL);
 	Xil_AssertNonvoid(NcoCfg != NULL);
-	Xil_AssertNonvoid(StaticSchedule != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 
 	/* Read current CC configuration. */
@@ -3274,7 +3293,8 @@ u32 XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
 * @param    RachChan RACH channel [0-15].
 * @param    DdcCfg DDC data container.
 * @param    NcoCfg NCO data container.
-* @param    StaticSchedule Schedule data container.
+* @param    StaticSchedule Schedule data container (ignore it if module
+*                          parameter HAS_CONTINUOUS_SCHED == 1)
 *
 * @return
 *	- XST_SUCCESS on success
@@ -3314,7 +3334,6 @@ u32 XDfePrach_UpdateRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 	Xil_AssertNonvoid(RachChan < XDFEPRACH_RC_NUM_MAX);
 	Xil_AssertNonvoid(DdcCfg != NULL);
 	Xil_AssertNonvoid(NcoCfg != NULL);
-	Xil_AssertNonvoid(StaticSchedule != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
 
 	/* Read current CC configuration. */

@@ -78,6 +78,7 @@
 *       dc     01/02/23 Multiband registers update
 * 1.6   dc     08/06/23 Support dynamic and static modes of operation
 *       cog    07/04/23 Add support for SDT
+* 1.7   dc     11/29/23 Add continuous scheduling
 *
 * </pre>
 * @endcond
@@ -108,10 +109,10 @@ extern "C" {
 #ifndef __BAREMETAL__
 #define XDFEPRACH_MAX_NUM_INSTANCES                                            \
 	(1U) /**< Maximum number of driver instances running at the same time. */
-#define XDFEPRACH_INSTANCE_EXISTS(X) (X < XDFEPRACH_MAX_NUM_INSTANCES)
 /**
 * @cond nocomments
 */
+#define XDFEPRACH_INSTANCE_EXISTS(X) (X < XDFEPRACH_MAX_NUM_INSTANCES)
 #define Xil_AssertNonvoid(Expression)                                          \
 	assert(Expression) /**< Assertion for non void return parameter function. */
 #define Xil_AssertVoid(Expression)                                             \
@@ -280,6 +281,7 @@ typedef struct {
 	u32 HasAxisCtrl; /**< [0,1] CORE.MODEL_PARAM.HAS_AXIS_CTRL */
 	u32 HasIrq; /**< [0,1] CORE.MODEL_PARAM.HAS_IRQ */
 	u32 NumBands; /**< [1-3] CORE.MODEL_PARAM.NUM_BANDS */
+	u32 HasContinuousSched; /**< [0,1] CORE.MODEL_PARAM.XDFEPRACH_HAS_CONTINUOUS_SCHED */
 } XDfePrach_ModelParameters;
 
 /**
@@ -606,7 +608,7 @@ typedef struct {
 #ifndef SDT
 	u32 DeviceId; /**< The component instance Id */
 #else
-       char *Name; /**< Unique name of the device */
+	char *Name; /**< Unique name of the device */
 #endif
 	metal_phys_addr_t BaseAddr; /**< Instance base address */
 	u32 NumAntenna
@@ -622,6 +624,7 @@ typedef struct {
 	u32 HasAxisCtrl; /**< [0,1] CORE.MODEL_PARAM.HAS_AXIS_CTRL */
 	u32 HasIrq; /**< [0,1] CORE.MODEL_PARAM.HAS_IRQ */
 	u32 NumBands; /**< [1-3] CORE.MODEL_PARAM.NUM_BANDS */
+	u32 HasContinuousSched; /**< [0,1] CORE.MODEL_PARAM.XDFEPRACH_HAS_CONTINUOUS_SCHED */
 } XDfePrach_Config;
 
 /**

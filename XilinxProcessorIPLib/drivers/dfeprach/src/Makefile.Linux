@@ -1,10 +1,11 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 APP = dfeprach
 
 LIBSOURCES = *.c
 OUTS = *.o
 NAME := dfeprach
 MAJOR = 1
-MINOR = 6
+MINOR = 7
 VERSION = $(MAJOR).$(MINOR)
 
 all: lib$(NAME).so
