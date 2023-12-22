@@ -10,6 +10,7 @@
 # 1.0  mmd  05/06/19 Initial Release
 # 3.0  kpt  08/25/22 Changed user configurable parameter names
 # 3.1  skg  12/07/22 Added a user configuration parameter
+# 3.3  vss  12/21/23 Added microblaze support for versalnet
 #
 ##############################################################################
 
@@ -88,8 +89,7 @@ proc nvm_drc {libhandle} {
 
 		"psu_cortexa72" -
 		"psv_cortexa72" -
-		"psv_cortexr5" -
-                "microblaze" {
+		"psv_cortexr5" {
 			if {$mode == "server"} {
 				copy_files_to_src $family_common_server_dir
 				copy_files_to_src $versal_server_dir
@@ -117,6 +117,22 @@ proc nvm_drc {libhandle} {
 				copy_files_to_src $versal_net_client_dir
 				copy_files_to_src $versal_net_common_dir
 				copy_files_to_src $versal_family_dir
+			}
+		}
+
+		"microblaze" {
+			set is_versal_net [hsi::get_cells -hier -filter {IP_NAME=="psxl_cortexr52" || IP_NAME=="psx_cortexr52" ||
+				IP_NAME=="psxl_cortexa78" || IP_NAME=="psx_cortexa78"}]
+			if {[llength $is_versal_net] > 0} {
+					copy_files_to_src $family_common_client_dir
+					copy_files_to_src $versal_net_client_dir
+					copy_files_to_src $versal_net_common_dir
+					copy_files_to_src $versal_family_dir
+			} else {
+					copy_files_to_src $family_common_client_dir
+					copy_files_to_src $versal_client_dir
+					copy_files_to_src $versal_common_dir
+					copy_files_to_src $versal_family_dir
 			}
 		}
 	}
