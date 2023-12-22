@@ -10,6 +10,7 @@
 # -------- ------ -------- ----------------------------------------------------
 # 3.0     adk    10/12/13  Removed support for xps can
 # 3.7     ht     07/04/23  Updated library version for 2023.2
+# 3.8     ht     12/13/23  Updated library version for 2024.1
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_M
 ## 11/25/09 ktn removed support for opb_can
@@ -27,7 +28,7 @@ BEGIN driver can
   OPTION supported_peripherals = (axi_can can);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.7;
+  OPTION VERSION = 3.8;
   OPTION NAME = can;
 
 END driver
