@@ -153,7 +153,7 @@ int main(void)
 
 	/* Initialize Root Complex */
 #ifndef SDT
-	Status = PcieInitRootComplex(&AxiPcieInstance, XDMAPCIE_DEVICE_ID);
+	Status = PcieInitRootComplex(&AxiPcieInstance, AXIPCIE_DEVICE_ID);
 #else
 	Status = PcieInitRootComplex(&AxiPcieInstance, XPAR_XAXIPCIE_0_BASEADDR);
 #endif
