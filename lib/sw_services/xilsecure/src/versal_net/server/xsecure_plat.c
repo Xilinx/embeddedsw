@@ -21,6 +21,7 @@
 *       kpt     07/09/23 Added XSecure_GetRandomNum function
 *       yog     08/07/23 Moved functions from xsecure_trng.c to xsecure_plat.c
 *       kpt     08/29/23 Added volatile keyword to avoid compiler optimization
+* 5.3   kpt     12/14/23 Place TRNG in reset when there is a failure
 *
 * </pre>
 *
@@ -567,23 +568,7 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	u32 NoOfGenerates = (Size + XTRNGPSX_SEC_STRENGTH_IN_BYTES - 1U) >> 5U;
 	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
 
-	if ((TrngInstance->UserCfg.Mode != XTRNGPSX_HRNG_MODE) ||
-		(TrngInstance->State == XTRNGPSX_UNINITIALIZED_STATE )) {
-			if (TrngInstance->ErrorState != XTRNGPSX_HEALTHY) {
-				Status = XTrngpsx_PreOperationalSelfTests(TrngInstance);
-				if (Status != XST_SUCCESS) {
-					XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
-					goto END;
-				}
-				else {
-					XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
-				}
-			}
-		Status = XSecure_TrngInitNCfgHrngMode();
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ECCRandInit);
 
 	for (Index = 0U; Index < NoOfGenerates; Index++) {
 		if (Index == (NoOfGenerates - 1U)) {
@@ -597,6 +582,11 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	}
 
 END:
+	if (Status != XST_SUCCESS) {
+		Status |= XTrngpsx_Uninstantiate(TrngInstance);
+		XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
+	}
+
 	return Status;
 }
 

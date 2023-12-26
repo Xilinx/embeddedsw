@@ -125,6 +125,7 @@
 *       ng   07/10/23 Added support for system device-tree flow
 *       yog  08/17/23 Added a check to return error when secure is excluded
 *                     and trying to do secure boot
+* 2.1   kpt  12/13/23 Reset PMC TRNG when exception occurs
 *
 * </pre>
 *
@@ -156,6 +157,10 @@
 					/**< SHA3 Reset register address */
 #define XLOADER_SHA3_RESET_VAL			(0x1U)
 					/**< SHA3 Reset value */
+#ifdef VERSAL_NET
+#define XLOADER_TRNG_RESET_REG				(0xF12300D0U) /**< TRNG reset register */
+#define XLOADER_TRNG_RESET_VAL				(0x01U) /**< TRNG reset value */
+#endif
 
 /************************** Function Prototypes ******************************/
 static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
@@ -402,6 +407,10 @@ int XLoader_SecureClear(void)
 #endif
 	/** Place SHA3 in reset */
 	SStatus = Xil_SecureOut32(XLOADER_SHA3_RESET_REG, XLOADER_SHA3_RESET_VAL);
+#ifdef VERSAL_NET
+	/** Place TRNG in reset */
+	SStatus |= Xil_SecureOut32(XLOADER_TRNG_RESET_REG, XLOADER_TRNG_RESET_VAL);
+#endif
 END:
 	if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "%s failed with"
