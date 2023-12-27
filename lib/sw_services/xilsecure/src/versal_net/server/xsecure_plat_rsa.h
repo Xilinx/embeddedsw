@@ -20,6 +20,7 @@
 * 5.2   kpt  06/25/23 Initial release
 * 5.3   am   09/28/23 Added wrapper function prototypes for IPCore's RSA APIs
 *       kpt  12/13/23 Added XSecure_RsaOperationParam
+*       kpt  12/13/23 Added RSA CRT support for keyunwrap
 *
 * </pre>
 *
@@ -69,9 +70,18 @@ typedef struct {
 
 typedef struct {
 	u8 *Modulus;  /**< Modulus */
-	u8 *ModExt;   /**< Modulus extension */
-	u8 *Exponent; /**< Exponent */
+	u8 *P;        /**< Prime1 */
+	u8 *Q;        /**< Prime2 */
+	u8 *DP;       /**< Private exponent 1 */
+	u8 *DQ;       /**< Private exponent 2 */
+	u8 *QInv;     /**< Q inverse */
 } XSecure_RsaKey;
+
+typedef struct {
+	u8 *Modulus;     /**< Modulus */
+	u8 *Exponent;    /**< Public exponent */
+	u8 *ModExt;      /**< Modulus extension */
+} XSecure_RsaPubKey;
 
 typedef struct {
 	u8 InData[XSECURE_RSA_SIZE_IN_BYTES];  /**< Input data */
@@ -86,9 +96,9 @@ typedef struct {
 /***************************** Function Prototypes ***************************/
 
 int XSecure_RsaOaepEncrypt(XSecure_Rsa *InstancePtr, XSecure_RsaOaepParam *OaepParam);
-int XSecure_RsaOaepDecrypt(XSecure_Rsa *InstancePtr, XSecure_RsaOaepParam *OaepParam);
+int XSecure_RsaOaepDecrypt(XSecure_RsaKey *PrivKey, XSecure_RsaOaepParam *OaepParam);
 XSecure_RsaKey *XSecure_GetRsaPrivateKey(void);
-XSecure_RsaKey *XSecure_GetRsaPublicKey(void);
+XSecure_RsaPubKey *XSecure_GetRsaPublicKey(void);
 
 /**
  * @name Wrapper function prototypes for IPCores RSA quiet mode APIs

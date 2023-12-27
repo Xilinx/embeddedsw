@@ -22,6 +22,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 5.0   kpt  07/15/2022 Initial release
 * 5.2   kpt  07/12/2023 Add pairwise consistency for RSA
+* 5.3   kpt  12/13/2023 Added RSA CRT support for PWCT
 *
 * </pre>
 *
@@ -49,7 +50,7 @@ extern "C" {
 int XSecure_HmacKat(XSecure_Sha3 *SecureSha3);
 int XSecure_Sha384Kat(void);
 #ifndef PLM_RSA_EXCLUDE
-int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype);
+int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaPubKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype);
 #endif
 
 #ifdef __cplusplus

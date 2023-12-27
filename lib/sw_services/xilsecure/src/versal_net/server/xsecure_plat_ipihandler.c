@@ -47,8 +47,8 @@
 /************************** Function Prototypes *****************************/
 static int XSecure_UpdateCryptoMask(XSecure_CryptoStatusOp CryptoOp, u32 CryptoMask, u32 CryptoVal);
 #ifndef PLM_RSA_EXCLUDE
-static int XSecure_GetRsaPublicKeyIpi(u32 PubKeyAddrHigh, u32 PubKeyAddrLow);
-static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrHigh, u32 KeyWrapAddrLow);
+static int XSecure_GetRsaPublicKeyIpi(u32 PubKeyAddrLow, u32 PubKeyAddrHigh);
+static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh);
 static int XSecure_RsaExpQOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
 #endif
@@ -149,19 +149,19 @@ END:
  * @brief   The function returns the public key of RSA key pair generated for
  *          Key Wrap/Unwrap operation.
  *
- * @param   PubKeyAddrHigh   - Higher address of the RsaPubKeyAddr structure.
  * @param   PubKeyAddrLow    - Lower address of the RsaPubKeyAddr structure.
+ * @param   PubKeyAddrHigh   - Higher address of the RsaPubKeyAddr structure.
  *
  * @return
 	-	XST_SUCCESS - On Success
  *	-	ErrorCode - On failure
  *
  ******************************************************************************/
- static int XSecure_GetRsaPublicKeyIpi(u32 PubKeyAddrHigh, u32 PubKeyAddrLow)
+ static int XSecure_GetRsaPublicKeyIpi(u32 PubKeyAddrLow, u32 PubKeyAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 PubKeyAddr = ((u64)PubKeyAddrHigh << 32U) | (u64)PubKeyAddrLow;
-	const XSecure_RsaKey *RsaPubKey =  XSecure_GetRsaPublicKey();
+	const XSecure_RsaPubKey *RsaPubKey =  XSecure_GetRsaPublicKey();
 	XSecure_RsaPubKeyAddr RsaPubKeyAddr = {0U};
 	u32 PubExp = 0U;
 
@@ -191,15 +191,15 @@ END:
 /**
  * @brief   This function unwraps the input wrapped key and copies to secure shell.
  *
- * @param   KeyWrapAddrHigh   - Higher address of the XSecure_KeyWrapData structure.
  * @param   KeyWrapAddrLow    - Lower address of the XSecure_KeyWrapData structure.
+ * @param   KeyWrapAddrHigh   - Higher address of the XSecure_KeyWrapData structure.
  *
  * @return
  *	-	XST_SUCCESS - On Success
  *	-	ErrorCode - On failure
  *
  ******************************************************************************/
-static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrHigh, u32 KeyWrapAddrLow)
+static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(0U);
@@ -219,16 +219,16 @@ END:
 /*****************************************************************************/
 /**
  * @brief       This function handler calls XSecure_RsaInitialize and
- * 		XSecure_RsaPrivateDecrypt server APIs
+ *              XSecure_RsaExp server API.
  *
- * @param	SrcAddrLow	- Lower 32 bit address of the XSecure_RsaInParam
- * 				structure
- * 		SrcAddrHigh	- Higher 32 bit address of the XSecure_RsaInParam
- * 				structure
- * 		DstAddrLow	- Lower 32 bit address of the output data
- * 				where decrypted data to be stored
- * 		DstAddrHigh	- Higher 32 bit address of the output data
- * 				where decrypted data to be stored
+ * @param   RsaParamAddrLow - Lower 32 bit address of the XSecure_RsaInParam
+ *                            structure
+ *          RsaParamAddrHigh - Higher 32 bit address of the XSecure_RsaInParam
+ *                             structure
+ *          DstAddrLow - Lower 32 bit address of the output data
+ *                       where decrypted data to be stored
+ *          DstAddrHigh	- Higher 32 bit address of the output data
+ *                        where decrypted data to be stored
  *
  * @return
  *	-	XST_SUCCESS - If the Rsa decryption is successful
@@ -285,6 +285,7 @@ static int XSecure_RsaExpQOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+
 		P = RsaOperationParamPtr->P;
 		Q = RsaOperationParamPtr->Q;
 	}
