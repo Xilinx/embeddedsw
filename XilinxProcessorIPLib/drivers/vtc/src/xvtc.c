@@ -1707,14 +1707,14 @@ void XVtc_GetDetector(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 					r_vactive+1) & XVTC_SB_START_MASK);
 
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
-						XVTC_GVSYNC_F1_OFFSET);
+						XVTC_DVSYNC_F1_OFFSET);
 		SCPtr->V1SyncStart = ((RegValue-r_vactive+1) &
 						XVTC_SB_START_MASK);
 		SCPtr->V1BackPorchStart = (((RegValue>>XVTC_SB_END_SHIFT) -
 								r_vactive+1)
 							& XVTC_SB_START_MASK);
 
-		/* Get signal values from the Generator Vertical 2 Register
+		/* Get signal values from the Detector Vertical 2 Register
 		 * (field 0)
 		 */
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
@@ -1772,7 +1772,7 @@ void XVtc_GetDetector(XVtc *InstancePtr, XVtc_Signal *SignalCfgPtr)
 							XVTC_SB_START_MASK);
 
 
-		/* Get signal values from the Generator Vertical 2 Register
+		/* Get signal values from the Detector Vertical 2 Register
 		 * (field 0)
 		 */
 		RegValue = XVtc_ReadReg(InstancePtr->Config.BaseAddress,
