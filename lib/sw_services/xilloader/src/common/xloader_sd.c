@@ -48,6 +48,7 @@
 *       dd	 09/11/2023 MISRA-C violation Rule 10.3 fixed
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
 * 2.00  ng   12/11/2023 Fixed SD macro for SDT flow
+*       ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -264,7 +265,7 @@ int XLoader_SdInit(u32 DeviceFlagsVal)
 
 	if (Rc != FR_OK) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_INIT, (int)Rc);
-		XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_INIT\n\r");
+		XLoader_Printf(DEBUG_INFO, "XLOADER_ERR_SD_INIT\n\r");
 		XPlmi_Out32(SdCdnReg, SdCdnVal);
 		goto END;
 	}
@@ -331,7 +332,7 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 		XLoader_Printf(DEBUG_INFO, "SD: Unable to seek to 0x%0x%08x\n",
 				(SrcAddr >> 32U), (u32)SrcAddr);
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_LSEEK, (int)Rc);
-		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_SD_F_LSEEK\n\r");
+		XLoader_Printf(DEBUG_INFO,"XLOADER_ERR_SD_F_LSEEK\n\r");
 		goto END;
 	}
 
@@ -347,7 +348,7 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 		if (Rc != FR_OK) {
 			XLoader_Printf(DEBUG_GENERAL, "SD: f_read returned %d\r\n", Rc);
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_READ, (int)Rc);
-			XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_F_READ\n\r");
+			XLoader_Printf(DEBUG_INFO, "XLOADER_ERR_SD_F_READ\n\r");
 			goto END;
 		}
 	}
@@ -364,7 +365,7 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 			if (Rc != FR_OK) {
 				XLoader_Printf(DEBUG_GENERAL, "SD: f_read returned %d\r\n", Rc);
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_READ, (int)Rc);
-				XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_F_READ\n\r");
+				XLoader_Printf(DEBUG_INFO, "XLOADER_ERR_SD_F_READ\n\r");
 				goto END;
 			}
 			Status = XPlmi_DmaXfr((u64)XPLMI_PMCRAM_BASEADDR,
@@ -372,7 +373,7 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 					XPLMI_PMCDMA_0);
             if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_DMA_XFER, Status);
-                 XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_SD_F_READ\n\r");
+                 XLoader_Printf(DEBUG_INFO, "XLOADER_ERR_SD_F_READ\n\r");
                  goto END;
             }
 
@@ -410,7 +411,7 @@ END:
 	if (Rc != FR_OK) {
 		XLoader_Printf(DEBUG_INFO, "SD: Unable to close file\n\r");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_CLOSE, (int)Rc);
-		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_SD_F_CLOSE\n\r");
+		XLoader_Printf(DEBUG_INFO,"XLOADER_ERR_SD_F_CLOSE\n\r");
 		goto END;
 	}
 
@@ -419,7 +420,7 @@ END:
 	if (Rc != FR_OK) {
 		XLoader_Printf(DEBUG_INFO, "SD: Unable to unmount filesystem\n\r");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_UMOUNT, (int)Rc);
-		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_SD_UMOUNT\n\r");
+		XLoader_Printf(DEBUG_INFO,"XLOADER_ERR_SD_UMOUNT\n\r");
 		goto END;
 	}
 
@@ -502,7 +503,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	/** - Get the device configuration. */
 	SdConfig = XSdPs_LookupConfig(DrvNum);
 	if (NULL == SdConfig) {
-		XLoader_Printf(DEBUG_GENERAL,"RAW Lookup config failed\r\n");
+		XLoader_Printf(DEBUG_INFO,"RAW Lookup config failed\r\n");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_LOOKUP, Status);
 		XPlmi_Out32(SdCdnReg, SdCdnVal);
 		goto END;
@@ -512,7 +513,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	Status = XSdPs_CfgInitialize(&SdInstance, SdConfig,
 				SdConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
-		XLoader_Printf(DEBUG_GENERAL, "RAW Config init failed\r\n");
+		XLoader_Printf(DEBUG_INFO, "RAW Config init failed\r\n");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_CFG, Status);
 		XPlmi_Out32(SdCdnReg, SdCdnVal);
 		goto END;

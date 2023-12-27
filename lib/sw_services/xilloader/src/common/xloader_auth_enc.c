@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -123,6 +123,7 @@
 * 2.1   sk   10/24/23 Added Redundancy in XLoader_EnableJtag
 *       sk   11/02/23 Updated Redundancy in XLoader_EnableJtag
 *       kpt  11/22/23 Add support to clear AES keys when RedKeyClear bit is set
+*       ng   12/27/23 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -2808,7 +2809,7 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 
 	Status = XPuf_Regeneration(PufData);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "Failed at PUF regeneration with status "
+		XPlmi_Printf(DEBUG_INFO, "Failed at PUF regeneration with status "
 			"%0x\n\r", Status);
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PUF_REGN_ERRR, Status);
 		goto END;
@@ -2818,7 +2819,7 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 		KeyDetails->KeyDst, (UINTPTR)KeyDetails->KekIvAddr,
 		XSECURE_AES_KEY_SIZE_256);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "Failed during AES KEK decrypt\n\r");
+		XPlmi_Printf(DEBUG_INFO, "Failed during AES KEK decrypt\n\r");
 		Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC, Status);
 		goto END;
 	}
@@ -2864,7 +2865,7 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 			XSecure_AesDecryptCmKat, SecurePtr->AesInstPtr)
 		if(Status != XST_SUCCESS) {
 			Status = XLoader_UpdateMinorErr(XLOADER_SEC_KAT_FAILED_ERROR, Status);
-			XPlmi_Printf(DEBUG_GENERAL, "DPACM KAT failed\n\r");
+			XPlmi_Printf(DEBUG_INFO, "DPACM KAT failed\n\r");
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XPLMI_SECURE_AES_CMKAT_MASK;
@@ -2881,7 +2882,7 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 			XSecure_AesDecryptKat, SecurePtr->AesInstPtr);
 		if(Status != XST_SUCCESS) {
 			Status = XLoader_UpdateMinorErr(XLOADER_SEC_KAT_FAILED_ERROR, Status);
-			XPlmi_Printf(DEBUG_GENERAL, "AES KAT failed\n\r");
+			XPlmi_Printf(DEBUG_INFO, "AES KAT failed\n\r");
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= XPLMI_SECURE_AES_DEC_KAT_MASK;
@@ -4048,10 +4049,10 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 		}
 		if (Status != XST_SUCCESS) {
 			if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
-				XPlmi_Printf(DEBUG_GENERAL, "RSA KAT Failed\n\r");
+				XPlmi_Printf(DEBUG_INFO, "RSA KAT Failed\n\r");
 			}
 			else {
-				XPlmi_Printf(DEBUG_GENERAL, "ECDSA KAT Failed\n\r");
+				XPlmi_Printf(DEBUG_INFO, "ECDSA KAT Failed\n\r");
 			}
 			Status = XLoader_UpdateMinorErr(XLOADER_SEC_KAT_FAILED_ERROR, Status);
 			goto END;
@@ -4099,7 +4100,7 @@ static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr) {
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
 			XSecure_Sha3Kat, Sha3InstPtr);
 		if(Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "SHA3 KAT failed\n\r");
+			XPlmi_Printf(DEBUG_INFO, "SHA3 KAT failed\n\r");
 			Status = XLoader_UpdateMinorErr(XLOADER_SEC_KAT_FAILED_ERROR, Status);
 			goto END;
 		}
