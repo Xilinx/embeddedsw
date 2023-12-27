@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
@@ -1841,6 +1841,9 @@
 
 /* Xilinx Secure library ecdsa endianness Settings */
 #define XSECURE_ELLIPTIC_ENDIANNESS    0U    /* 0: Little Endian and 1: Big endian */
+
+/* Number of user modules. */
+#define XPAR_MAX_USER_MODULES 0U
 
 //#define XPAR_XILPM_ENABLED
 #endif  /* end of protection macro */
