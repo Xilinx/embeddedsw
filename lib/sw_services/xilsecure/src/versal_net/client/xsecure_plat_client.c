@@ -196,8 +196,8 @@ int XSecure_GetRsaPublicKeyForKeyWrap(XSecure_ClientInstance *InstancePtr, XSecu
 	PubKeyAddr = (u64)(UINTPTR)PubKey;
 	/* Fill IPI Payload */
 	Payload[0U] = HEADER(0U, XSECURE_API_GET_KEY_WRAP_RSA_PUBLIC_KEY);
-	Payload[1U] = (u32)(PubKeyAddr >> 32U);
-	Payload[2U] = (u32)PubKeyAddr;
+	Payload[1U] = (u32)PubKeyAddr;
+	Payload[2U] = (u32)(PubKeyAddr >> 32U);
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
@@ -232,8 +232,8 @@ int XSecure_KeyUnwrap(XSecure_ClientInstance *InstancePtr, XSecure_KeyWrapData *
 	KeyWrapAddr = (u64)(UINTPTR)KeyWrapData;
 	/* Fill IPI Payload */
 	Payload[0U] = HEADER(0U, XSECURE_API_KEY_UNWRAP);
-	Payload[1U] = (u32)(KeyWrapAddr >> 32U);
-	Payload[2U] = (u32)KeyWrapAddr;
+	Payload[1U] = (u32)KeyWrapAddr;
+	Payload[2U] = (u32)(KeyWrapAddr >> 32U);
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
@@ -246,10 +246,10 @@ END:
  * @brief	This function sends IPI request to Perform SCA resistance
  * 		RSA decryption with private key.
  *
- * @param	InstancePtr	- Pointer to the client instance
- * @param	RsaOperationInParamAddr	- Address of the rsa input data
- * @param	OutDataAddr	- Address of the buffer where resultant decrypted
- *				  data to be stored
+ * @param	InstancePtr - Pointer to the client instance
+ * @param	RsaOperationInParamAddr - Address of the rsa input data
+ * @param	OutDataAddr - Address of the buffer where resultant decrypted
+ *                        data to be stored
  *
  * @return
  *	-	XST_SUCCESS - On Success

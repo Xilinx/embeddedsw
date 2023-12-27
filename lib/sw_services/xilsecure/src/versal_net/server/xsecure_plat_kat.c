@@ -24,6 +24,7 @@
 *       dd   10/11/23 MISRA-C violation Rule 17.7 fixed
 *       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
 * 5.3   kpt  12/07/23 Replace Xil_SMemSet with Xil_SecureZeroize
+*       kpt  12/13/23 Added RSA CRT support for PWCT
 *
 * </pre>
 *
@@ -169,8 +170,8 @@ END:
  * This function performs pairwise consistency test for generated RSA key pair using
  * OAEP encrypt and decrypt operation.
  *
- * @param PrivKey Pointer to the private key
- * @param PubKey  Pointer to the public key
+ * @param PrivKey Pointer to the XSecure_RsaKey
+ * @param PubKey  Pointer to the XSecure_RsaPubKey
  * @param ShaInstancePtr Pointer to the SHA instance used during OAEP encoding for MGF
  * @param Shatype is SHA algorithm type used for MGF
  *
@@ -179,7 +180,7 @@ END:
  *        ErrorCode   - On Failure
  *
  *****************************************************************************/
-int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype)
+int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaPubKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
@@ -189,7 +190,7 @@ int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaKey *PubKey, void *ShaIn
 	u8 EncOutput[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];
 	u8 DecOutput[XSECURE_KAT_MSG_LEN_IN_BYTES];
 
-	Status = XSecure_RsaInitialize(&RsaInstance, PubKey->Modulus, PubKey->ModExt, PubKey->Exponent);
+	Status = XSecure_RsaInitialize(&RsaInstance, PubKey->Modulus,PubKey->ModExt, PubKey->Exponent);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -204,16 +205,11 @@ int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaKey *PubKey, void *ShaIn
 		goto END;
 	}
 
-	Status = XSecure_RsaInitialize(&RsaInstance, PrivKey->Modulus, PrivKey->ModExt, PrivKey->Exponent);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	OaepParam.InputDataAddr = (u64)(UINTPTR)EncOutput;
 	OaepParam.OutputDataAddr = (u64)(UINTPTR)DecOutput;
 	OaepParam.ShaInstancePtr = (void*)ShaInstancePtr;
 	OaepParam.ShaType = Shatype;
-	Status = XSecure_RsaOaepDecrypt(&RsaInstance, &OaepParam);
+	Status = XSecure_RsaOaepDecrypt(PrivKey, &OaepParam);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

@@ -19,6 +19,7 @@
 *       dd      10/11/23 MISRA-C violation Rule 10.4 fixed
 *       dd      10/11/23 MISRA-C violation Rule 8.13 fixed
 * 5.3   kpt     11/24/23 Replace Xil_SMemSet with Xil_SecureZeroize
+*       kpt     12/13/23 Added support for RSA CRT
 *
 * </pre>
 *
@@ -154,10 +155,9 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 	u32 EncryptedKeySize = 0U;
 	XSecure_AesKeySize AesKeySize;
 	XSecure_RsaOaepParam OaepParam = {0U};
-	XSecure_Rsa *RsaInstancePtr = XSecure_GetRsaInstance();
 	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
 	XSecure_Sha3 *ShaInstancePtr = XSecure_GetSha3Instance();
-	const XSecure_RsaKey *PrivKey = XSecure_GetRsaPrivateKey();
+	XSecure_RsaKey *PrivKey = XSecure_GetRsaPrivateKey();
 	u64 SharedKeyStoreAddr = XSecure_GetKeyStoreAddr();
 	u8 EphAesKey[XSECURE_AES_KEY_SIZE_256BIT_BYTES];
 	u32 KeySlotVal = 0U;
@@ -191,12 +191,6 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 	DstKeySlotAddr = (SharedKeyStoreAddr + sizeof(XSecure_KeyStoreHdr) + (KeySlotVal * sizeof(XSecure_KeyMetaData)) +
 				(KeySlotVal * XSECURE_AES_KEY_SIZE_256BIT_BYTES));
 
-	/* Decode the wrapped AES ephemeral key using RSA OAEP decrypt */
-	Status = XSecure_RsaInitialize(RsaInstancePtr, PrivKey->Modulus, PrivKey->ModExt, PrivKey->Exponent);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	Status = XSecure_Sha3Initialize(ShaInstancePtr, DmaPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -206,7 +200,7 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 	OaepParam.OutputDataAddr = (u64)(UINTPTR)EphAesKey;
 	OaepParam.ShaInstancePtr = (void *)ShaInstancePtr;
 	OaepParam.ShaType = XSECURE_SHA3_384;
-	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_RsaOaepDecrypt, RsaInstancePtr, &OaepParam);
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_RsaOaepDecrypt, PrivKey, &OaepParam);
 	if (OaepParam.OutputDataSize == XSECURE_AES_KEY_SIZE_256BIT_BYTES) {
 		AesKeySize = XSECURE_AES_KEY_SIZE_256;
 	}
