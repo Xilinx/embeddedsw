@@ -91,7 +91,6 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 			   const u32 CmdType);
 XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx);
 int XPm_ForcePwrDwnCb(void *Data);
-int XPm_SubsysRstTimerHandler(void *Data);
 void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 		       const u32 NodeId, const u32 NodeState);
 XStatus XPm_IdleRestartHandler(const u32 SubsystemId);
@@ -193,6 +192,8 @@ XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId);
 XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId);
 
 XStatus XPm_AddHbMonDevice(const u32 DeviceId);
+
+XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem);
 #ifdef __cplusplus
 }
 #endif
