@@ -44,15 +44,16 @@ extern "C" {
 
 typedef enum {
 	XSECURE_SHA3_384 = 0, /**< SHA3 384 */
+	XSECURE_SHA384, /**< SHA3 384 */
 } XSecure_ShaType;
 
 typedef struct {
 	XSecure_ShaType Shatype; /**< SHA type for MGF */
 	u32 HashLen;             /**< Hash length for MGF */
-	int (*ShaStart)(void *InstancePtr); /**< Function pointer to SHA start */
-	int (*ShaUpdate)(void *InstancePtr, u64 InputDataAddr, u32 Size); /**< Function pointer to SHA update */
-	int (*ShaFinish)(void *InstancePtr, u64 HashAddr); /**< Function pointer to SHA finish */
-	int (*ShaDigest)(void *InstancePtr, u64 InputDataAddr, u32 Size, u64 HashAddr); /**< Function pointer to SHA digest */
+	int (*ShaStart)(XSecure_ShaType Shatype, void *InstancePtr); /**< Function pointer to SHA start */
+	int (*ShaUpdate)(XSecure_ShaType Shatype, void *InstancePtr, u64 InputDataAddr, u32 Size); /**< Function pointer to SHA update */
+	int (*ShaFinish)(XSecure_ShaType Shatype, void *InstancePtr, u64 HashAddr); /**< Function pointer to SHA finish */
+	int (*ShaDigest)(XSecure_ShaType Shatype, void *InstancePtr, u64 InputDataAddr, u32 Size, u64 HashAddr); /**< Function pointer to SHA digest */
 } XSecure_HashAlgInfo;
 
 typedef struct {

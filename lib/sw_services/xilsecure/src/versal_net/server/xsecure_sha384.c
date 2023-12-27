@@ -56,7 +56,7 @@ int XSecure_Sha384Digest(u8* Data, u32 Size, u8* Hash)
 	volatile int Status = XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((Data == NULL) || (Hash == NULL)) {
+	if (Hash == NULL) {
 		Status = (int)XSECURE_SHA384_INVALID_PARAM;
 		goto END;
 	}

@@ -135,7 +135,7 @@ static int XSecure_RsaOaepEncode(XSecure_RsaOaepParam *OaepParam, u64 OutputAddr
 		goto END;
 	}
 
-	Status = HashPtr->ShaDigest(OaepParam->ShaInstancePtr, OaepParam->OptionalLabelAddr, OaepParam->OptionalLabelSize,
+	Status = HashPtr->ShaDigest(OaepParam->ShaType, OaepParam->ShaInstancePtr, OaepParam->OptionalLabelAddr, OaepParam->OptionalLabelSize,
 				       (u64)(UINTPTR)DB);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -215,7 +215,7 @@ static int XSecure_RsaOaepDecode(XSecure_RsaOaepParam *OaepParam, u64 InputDataA
 		goto END;
 	}
 
-	Status = HashPtr->ShaDigest(OaepParam->ShaInstancePtr, OaepParam->OptionalLabelAddr, OaepParam->OptionalLabelSize,
+	Status = HashPtr->ShaDigest(OaepParam->ShaType, OaepParam->ShaInstancePtr, OaepParam->OptionalLabelAddr, OaepParam->OptionalLabelSize,
 				       (u64)(UINTPTR)Hash);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_RSA_OAEP_DATA_CPY_ERROR;
@@ -307,11 +307,6 @@ int XSecure_RsaOaepEncrypt(XSecure_Rsa *InstancePtr, XSecure_RsaOaepParam *OaepP
 		goto END;
 	}
 
-	if (OaepParam->ShaInstancePtr == NULL) {
-		Status = (int)XSECURE_RSA_OAEP_INVALID_PARAM;
-		goto END;
-	}
-
 	Status = XSecure_RsaOaepEncode(OaepParam, (u64)(UINTPTR)Output);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -349,10 +344,6 @@ int XSecure_RsaOaepDecrypt(XSecure_RsaKey *PrivKey, XSecure_RsaOaepParam *OaepPa
 		goto END;
 	}
 
-	if (OaepParam->ShaInstancePtr == NULL) {
-		Status = (int)XSECURE_RSA_OAEP_INVALID_PARAM;
-		goto END;
-	}
 
 	Status = XSecure_RsaExpCRT((u8*)(UINTPTR)OaepParam->InputDataAddr, PrivKey->P, PrivKey->Q, PrivKey->DP, PrivKey->DQ, PrivKey->QInv, NULL,
 					PrivKey->Modulus, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES * 8U, (u8*)(UINTPTR)Output);

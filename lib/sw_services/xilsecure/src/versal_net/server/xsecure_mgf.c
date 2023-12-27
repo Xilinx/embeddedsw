@@ -18,6 +18,7 @@
 * 5.2   kpt     06/23/23 Initial release
 *       dd      10/11/23 MISRA-C violation Rule 12.1 fixed
 *       dd      10/11/23 MISRA-C violation Rule 8.13 fixed
+* 5.3   kpt     12/13/23 Added SHA384 MGF support
 *
 * </pre>
 *
@@ -27,6 +28,7 @@
 
 #include "xsecure_mgf.h"
 #include "xsecure_sha.h"
+#include "xsecure_sha384.h"
 #include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
@@ -35,15 +37,16 @@
 
 /************************** Function Prototypes ******************************/
 
-static int XSecure_ShaStart(void *InstancePtr);
-static int XSecure_ShaUpdate(void *InstancePtr, u64 InDataAddr, u32 Size);
-static int XSecure_ShaFinish(void *InstancePtr, u64 HashAddr);
-static int XSecure_ShaDigest(void *InstancePtr, u64 InputDataAddr, u32 Size, u64 HashAddr);
+static int XSecure_ShaStart(XSecure_ShaType Shatype, void *InstancePtr);
+static int XSecure_ShaUpdate(XSecure_ShaType Shatype, void *InstancePtr, u64 InDataAddr, u32 Size);
+static int XSecure_ShaFinish(XSecure_ShaType Shatype, void *InstancePtr, u64 HashAddr);
+static int XSecure_ShaDigest(XSecure_ShaType Shatype, void *InstancePtr, u64 InputDataAddr, u32 Size, u64 HashAddr);
 
 /************************** Variable Definitions *****************************/
 
 static XSecure_HashAlgInfo XSecure_MgfHashList[] =
-{{XSECURE_SHA3_384, XSECURE_SHA3_HASH_LENGTH_IN_BYTES, XSecure_ShaStart, XSecure_ShaUpdate, XSecure_ShaFinish, XSecure_ShaDigest}};
+{{XSECURE_SHA3_384, XSECURE_HASH_SIZE_IN_BYTES, XSecure_ShaStart, XSecure_ShaUpdate, XSecure_ShaFinish, XSecure_ShaDigest},
+ {XSECURE_SHA384, XSECURE_HASH_SIZE_IN_BYTES, XSecure_ShaStart, XSecure_ShaUpdate, XSecure_ShaFinish, XSecure_ShaDigest}};
 
 /************************** Function Definitions *****************************/
 
@@ -51,6 +54,7 @@ static XSecure_HashAlgInfo XSecure_MgfHashList[] =
 /**
  * @brief	This function starts the sha engine
  *
+ * @param	Shatype holds the XSecure_ShaType value of choosen sha algo.
  * @param	InstancePtr is the pointer to SHA algorithm used.
  *
  * @return
@@ -58,11 +62,17 @@ static XSecure_HashAlgInfo XSecure_MgfHashList[] =
  * 			- Errorcode on failure.
  *
  ******************************************************************************/
-static int XSecure_ShaStart(void *InstancePtr)
+static int XSecure_ShaStart(XSecure_ShaType Shatype, void *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XSecure_Sha3Start((XSecure_Sha3 *)InstancePtr);
+	if (Shatype == XSECURE_SHA3_384) {
+		Status = XSecure_Sha3Start((XSecure_Sha3 *)InstancePtr);
+	}
+	else {
+		XSecure_Sha384Start();
+		Status = XST_SUCCESS;
+	}
 
 	return Status;
 
@@ -72,6 +82,7 @@ static int XSecure_ShaStart(void *InstancePtr)
 /**
  * @brief	This function updates the data to SHA algorithm
  *
+ * @param	Shatype holds the XSecure_ShaType value of choosen sha algo.
  * @param	InstancePtr is the pointer to SHA algorithm used.
  * @param	InDataAddr is the input data address.
  * @param	Size is the size of the input data.
@@ -81,11 +92,16 @@ static int XSecure_ShaStart(void *InstancePtr)
  * 			- Errorcode on failure.
  *
  ******************************************************************************/
-static int XSecure_ShaUpdate(void *InstancePtr, u64 InDataAddr, u32 Size)
+static int XSecure_ShaUpdate(XSecure_ShaType Shatype, void *InstancePtr, u64 InDataAddr, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XSecure_Sha3Update64Bit((XSecure_Sha3 *)InstancePtr, InDataAddr, Size);
+	if (Shatype == XSECURE_SHA3_384) {
+		Status = XSecure_Sha3Update64Bit((XSecure_Sha3 *)InstancePtr, InDataAddr, Size);
+	}
+	else {
+		Status = XSecure_Sha384Update((u8*)(UINTPTR)InDataAddr, Size);
+	}
 
 	return Status;
 
@@ -96,6 +112,7 @@ static int XSecure_ShaUpdate(void *InstancePtr, u64 InDataAddr, u32 Size)
  * @brief	This function updates SHA engine with final data which includes
  * 		SHA padding and reads final hash on complete data
  *
+ * @param	Shatype holds the XSecure_ShaType value of choosen sha algo.
  * @param	InstancePtr is the pointer to SHA algorithm used.
  * @param	HashAddr is the address where the hash is stored.
  *
@@ -104,11 +121,17 @@ static int XSecure_ShaUpdate(void *InstancePtr, u64 InDataAddr, u32 Size)
  * 			- Errorcode on failure.
  *
  ******************************************************************************/
-static int XSecure_ShaFinish(void *InstancePtr, u64 HashAddr)
+static int XSecure_ShaFinish(XSecure_ShaType Shatype, void *InstancePtr, u64 HashAddr)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XSecure_Sha3Finish((XSecure_Sha3 *)InstancePtr, (XSecure_Sha3Hash *)(UINTPTR)HashAddr);
+	if (Shatype == XSECURE_SHA3_384) {
+		Status = XSecure_Sha3Finish((XSecure_Sha3 *)InstancePtr, (XSecure_Sha3Hash *)(UINTPTR)HashAddr);
+	}
+	else {
+		XSecure_Sha384Finish((XSecure_Sha2Hash*)(UINTPTR)HashAddr);
+		Status = XST_SUCCESS;
+	}
 
 	return Status;
 
@@ -118,6 +141,7 @@ static int XSecure_ShaFinish(void *InstancePtr, u64 HashAddr)
 /**
  * @brief	This function updates and calculates sha digest on data.
  *
+ * @param	Shatype holds the XSecure_ShaType value of choosen sha algo.
  * @param	InstancePtr is the pointer to SHA algorithm used.
  * @param	InDataAddr is the input data address.
  * @param	Size is the size of the input data.
@@ -128,12 +152,17 @@ static int XSecure_ShaFinish(void *InstancePtr, u64 HashAddr)
  * 			- Errorcode on failure.
  *
  ******************************************************************************/
-static int XSecure_ShaDigest(void *InstancePtr, u64 InputDataAddr, u32 Size, u64 HashAddr)
+static int XSecure_ShaDigest(XSecure_ShaType Shatype, void *InstancePtr, u64 InputDataAddr, u32 Size, u64 HashAddr)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XSecure_Sha3Digest((XSecure_Sha3 *)InstancePtr, (UINTPTR)InputDataAddr, Size,
-			(XSecure_Sha3Hash *)(UINTPTR)HashAddr);
+	if (Shatype == XSECURE_SHA3_384) {
+		Status = XSecure_Sha3Digest((XSecure_Sha3 *)InstancePtr, (UINTPTR)InputDataAddr, Size,
+				(XSecure_Sha3Hash *)(UINTPTR)HashAddr);
+	}
+	else {
+		Status = XSecure_Sha384Digest((u8*)(UINTPTR)InputDataAddr, Size, (u8*)(UINTPTR)HashAddr);
+	}
 
 	return Status;
 }
@@ -174,7 +203,7 @@ XSecure_HashAlgInfo *XSecure_GetHashInstance(XSecure_ShaType Shatype)
 {
 	XSecure_HashAlgInfo *MgfHashPtr = NULL;
 
-	if (Shatype == XSECURE_SHA3_384) {
+	if ((Shatype == XSECURE_SHA3_384) || (Shatype == XSECURE_SHA384)) {
 		MgfHashPtr =  &XSecure_MgfHashList[Shatype];
 	}
 
@@ -207,7 +236,7 @@ int XSecure_MaskGenFunc(XSecure_ShaType ShaType, void *InstancePtr, XSecure_MgfI
 	u8 *OutputPtr;
 	const XSecure_HashAlgInfo *HashFunList = XSecure_GetHashInstance(ShaType);
 
-	if ((InstancePtr == NULL) || (MgfInput == NULL)) {
+	if (MgfInput == NULL) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
@@ -232,22 +261,22 @@ int XSecure_MaskGenFunc(XSecure_ShaType ShaType, void *InstancePtr, XSecure_MgfI
 	while (Counter < NoOfIterations) {
 		XSecure_I2Osp(Counter, XSECURE_WORD_SIZE, Bytes);
 
-		Status = HashFunList->ShaStart(InstancePtr);
+		Status = HashFunList->ShaStart(HashFunList->Shatype, InstancePtr);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		Status = HashFunList->ShaUpdate(InstancePtr, (UINTPTR)MgfInput->Seed, MgfInput->SeedLen);
+		Status = HashFunList->ShaUpdate(HashFunList->Shatype, InstancePtr, (UINTPTR)MgfInput->Seed, MgfInput->SeedLen);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		Status = HashFunList->ShaUpdate(InstancePtr, (UINTPTR)Bytes, XSECURE_WORD_SIZE);
+		Status = HashFunList->ShaUpdate(HashFunList->Shatype, InstancePtr, (UINTPTR)Bytes, XSECURE_WORD_SIZE);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		Status = HashFunList->ShaFinish(InstancePtr, (u64)(UINTPTR)Hash);
+		Status = HashFunList->ShaFinish(HashFunList->Shatype, InstancePtr, (u64)(UINTPTR)Hash);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
