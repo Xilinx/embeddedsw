@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.2   kpt  06/25/23 Initial release
 * 5.3   am   09/28/23 Added wrapper function prototypes for IPCore's RSA APIs
+*       kpt  12/13/23 Added XSecure_RsaOperationParam
 *
 * </pre>
 *
@@ -49,6 +50,9 @@
 #define XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES (XSECURE_RSA_3072_SIZE_WORDS * 4U) /**< RSA default key size in bytes */
 #endif
 #define XSECURE_ECDSA_RSA_SOFT_RESET		(0xF1200040U) /**< ECDSA/RSA soft reset address */
+#define XSECURE_RSA_SIZE_IN_BYTES		(512U)	      /**< 512 bytes for 4096 bit data */
+#define XSECURE_PRIME_FACTOR_P_SIZE	(256U)  /**< 256 bytes size of first prime factor(P) */
+#define XSECURE_PRIME_FACTOR_Q_SIZE	(256U)  /**< 256 bytes size of first prime factor(Q) */
 
 /***************************** Type Definitions ******************************/
 
@@ -68,6 +72,16 @@ typedef struct {
 	u8 *ModExt;   /**< Modulus extension */
 	u8 *Exponent; /**< Exponent */
 } XSecure_RsaKey;
+
+typedef struct {
+	u8 InData[XSECURE_RSA_SIZE_IN_BYTES];  /**< Input data */
+	u8 Exp[XSECURE_RSA_SIZE_IN_BYTES];     /**< Exponent */
+	u8 Mod[XSECURE_RSA_SIZE_IN_BYTES];     /**< Modulus */
+	u8 Tot[XSECURE_RSA_SIZE_IN_BYTES];     /**< Totient */
+	u8 P[XSECURE_PRIME_FACTOR_P_SIZE];     /**< Prime1 */
+	u8 Q[XSECURE_PRIME_FACTOR_Q_SIZE];     /**< Prime2 */
+	u32 PubExp;                            /**< Public Exponent */
+} XSecure_RsaOperationParam;
 
 /***************************** Function Prototypes ***************************/
 
