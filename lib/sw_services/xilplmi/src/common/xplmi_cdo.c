@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,6 +62,7 @@
 *       rama 08/10/2023 Changed CDO cmd execute failure prints to DEBUG_ALWAYS
 *                       for debug level_0 option
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
+* 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -183,7 +184,7 @@ static int XPlmi_CdoVerifyHeader(const XPlmiCdo *CdoPtr)
 	u32 Index;
 
 	if (CdoHdr[1U] != XPLMI_CDO_HDR_IDN_WRD) {
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_INFO,
 				"CDO Header Identification Failed\n\r");
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_CDO_HDR_ID, 0);
 		goto END;
@@ -195,7 +196,7 @@ static int XPlmi_CdoVerifyHeader(const XPlmiCdo *CdoPtr)
 	/* Invert checksum */
 	CheckSum ^= 0xFFFFFFFFU;
 	if (CheckSum != CdoHdr[Index]) {
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_INFO,
 				"Config Object Checksum Failed\n\r");
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_CDO_CHECKSUM, 0);
 		goto END;

@@ -45,6 +45,7 @@
 *                       structures during In-Place PLM Update
 * 1.05  sk   09/26/2023 Added Error Codes for In-Place Update from Image Store
 *       mss  12/06/2023 Added Error Code XPLMI_ERR_INPLACE_INVALID_OPTIONAL_DATA_LEN
+* 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -133,6 +134,14 @@ enum {
 	XPLMI_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS, /**< 0x10 - Error if the Api Id received during IPI request only
 						   supports secure request */
 	XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE, /**< 0x11 - Error if Buffer memory is not available for storing */
+	XPLMI_ERR_END_ADDR_STACK_EMPTY,		/**< 0x12 - Error when End Address stack is empty */
+	XPLMI_ERR_INVALID_STACK_TOP,		/**< 0x13 - Error when End Address stack doesn't have a valid
+						  top address */
+	XPLMI_ERR_MAX_NESTED_BEGIN,		/**< 0x14 - Error when max limit of nested begin is reached */
+	XPLMI_ERR_INVALID_STACK_TOP_DURING_PUSH, /**< 0x15 - Error when the stack top is not valid while pushing
+						   into it */
+	XPLMI_ERR_END_ADDR_STACK_FULL,		/**< 0x16 - Error when End address stack is full */
+	XPLMI_ERR_END_CMD_HAS_NO_BEGIN,		/**< 0x17 - Error when End command doesn't have a valid begin */
 
 	/* Platform specific error codes start at 0x200 */
 	XPLMI_ERR_INVALID_RSVD_DDR_REGION_UPDATE = 0x200, /**< 0x200 - Invalid/No DDR region reserved for PLM.

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +43,7 @@
 *       bsv  03/11/2022 Restore race condition fix that got disturbed by
 *                       previous patch
 * 1.08  ng   11/11/2022 Updated doxygen comments
+* 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -94,7 +95,7 @@ XPlmi_TaskNode* XPlmi_TaskCreate(TaskPriority_t Priority,
 	/* Get a free task node */
 	Task = XPlmi_GetTaskInstance(NULL, NULL, XPLMI_INVALID_INTR_ID);
 	if (Task == NULL) {
-		XPlmi_Printf(DEBUG_GENERAL, "Task creation failed \n\r");
+		XPlmi_Printf(DEBUG_INFO, "Task creation failed \n\r");
 		goto END;
 	}
 	Task->Priority = Priority;

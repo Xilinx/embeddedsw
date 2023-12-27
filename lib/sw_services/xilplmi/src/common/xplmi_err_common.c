@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -133,6 +133,7 @@
 *       ma   09/27/2023 Add secure lockdown to EAM error actions list
 *       mss  10/31/2023 Added code to Trigger FW CR error in XPlmi_ErrMgr
 *       ma   11/14/2023 Update error action to NONE after disabling the error
+* 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -1252,7 +1253,7 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 				(ErrorTable[ErrorId].Action == XPLMI_EM_ACTION_INVALID)) {
 			/* Invalid Error Id */
 			Status = XPLMI_INVALID_ERROR_ID;
-			XPlmi_Printf(DEBUG_GENERAL,
+			XPlmi_Printf(DEBUG_INFO,
 					"Invalid Error: 0x%0x\n\r", ErrorId);
 			goto END;
 		}
@@ -1264,7 +1265,7 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 				(XPLMI_ERROR_PMC_PSM_NCR != ErrorId)) {
 			/* Null handler */
 			Status = XPLMI_INVALID_ERROR_HANDLER;
-			XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Handler \n\r");
+			XPlmi_Printf(DEBUG_INFO, "Invalid Error Handler \n\r");
 			goto END;
 		}
 

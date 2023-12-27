@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -77,6 +77,7 @@
  *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
  * 1.08  bm   06/23/2023 Added IPI access permissions validation
  * 2.0   ng   11/11/2023 Implemented user modules
+ * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
  *
  * </pre>
  *
@@ -211,7 +212,7 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 					(void *)IpiCfgPtr->TargetList[Index].BufferIndex);
 			if (Task == NULL) {
 				Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
-				XPlmi_Printf(DEBUG_GENERAL, "IPI Interrupt task creation "
+				XPlmi_Printf(DEBUG_INFO, "IPI Interrupt task creation "
 						"error\n\r");
 				goto END;
 			}
@@ -470,11 +471,11 @@ int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
 				Type);
 		if (Status != XST_SUCCESS) {
 			if (XIPIPSU_CRC_ERROR == Status) {
-				XPlmi_Printf(DEBUG_GENERAL,
+				XPlmi_Printf(DEBUG_INFO,
 						"%s: IPI CRC validation failed\r\n", __func__);
 				Status = XPlmi_UpdateStatus(XPLMI_IPI_CRC_MISMATCH_ERR, 0);
 			} else {
-				XPlmi_Printf(DEBUG_GENERAL,
+				XPlmi_Printf(DEBUG_INFO,
 						"%s: IPI Buffer address or Message Length "
 						"is invalid\r\n", __func__);
 				Status = XPlmi_UpdateStatus(XPLMI_IPI_READ_ERR, 0);

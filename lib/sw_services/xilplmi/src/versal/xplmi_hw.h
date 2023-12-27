@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -91,6 +91,7 @@
 * 1.11  ma   10/10/2023 Enable Slave Error for PSM_GLOBAL
 *       mss  10/31/2023 Added PMC_GLOBAL_PMC_FW_ERR_CR_FLAG_MASK macro
 *       pre  14/12/2023 Fixed compilation warnings
+* 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -908,6 +909,9 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 #define XPLMI_PSM_MAX_ERR_CNT	(0x2U)
 #define XPLMI_PMC_MAX_ERR_CNT	(0x2U)
+
+#define XPLMI_GICP_NON_PMC_MAX_CNT		(5U)
+#define XPLMI_GICP_IRQ_STATUS_REG_OFFSET	(0x14U)
 
 /*
  * Register: EFUSE_CACHE_IP_DISABLE_0

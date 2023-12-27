@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -105,6 +105,7 @@
 * 2.0   ng   11/11/2023 Implemented user modules
 *       mss  11/02/2023 Added VerifyAddr check for address mentioned in
 *                       GetBoard command
+* 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -817,8 +818,7 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 		Dest = ReadBackPtr->DestAddr;
 		if ((Len + ReadBackPtr->ProcessedLen) > ReadBackPtr->MaxSize) {
 			Status = XPLMI_ERR_READBACK_BUFFER_OVERFLOW;
-			XPlmi_Printf(DEBUG_GENERAL,
-				"ReadBack Buffer Overflow\n\r");
+			XPlmi_Printf(DEBUG_INFO, "ReadBack Buffer Overflow\n\r");
 			goto END;
 		}
 	}
@@ -1129,8 +1129,7 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 			if ((Len + ReadBackPtr->ProcessedLen) >
 				ReadBackPtr->MaxSize) {
 				Status = XPLMI_ERR_READBACK_BUFFER_OVERFLOW;
-				XPlmi_Printf(DEBUG_GENERAL,
-					"ReadBack Buffer Overflow\n\r");
+				XPlmi_Printf(DEBUG_INFO, "ReadBack Buffer Overflow\n\r");
 				goto END;
 			}
 		}
@@ -2100,8 +2099,9 @@ static int XPlmi_Begin(XPlmi_Cmd *Cmd)
 	}
 	/* Max 10 nested begin supported */
 	if (Cmd->CdoParamsStack.OffsetListTop == (int)(XPLMI_BEGIN_OFFSET_STACK_SIZE - 1U)) {
-		XPlmi_Printf(DEBUG_GENERAL,"Max %d nested begin supported\n",
+		XPlmi_Printf(DEBUG_INFO,"Max %d nested begin supported\n",
 				XPLMI_BEGIN_OFFSET_STACK_SIZE);
+		Status = (int)XPLMI_ERR_MAX_NESTED_BEGIN;
 		goto END;
 	}
 
@@ -2164,7 +2164,8 @@ static int XPlmi_End(XPlmi_Cmd *Cmd)
 
 	/* Stack empty, End does not have begin */
 	if (Cmd->CdoParamsStack.OffsetListTop < 0) {
-		XPlmi_Printf(DEBUG_GENERAL,"End does not have valid begin\n");
+		XPlmi_Printf(DEBUG_INFO,"End does not have valid begin\n");
+		Status = (int)XPLMI_ERR_END_CMD_HAS_NO_BEGIN;
 		goto END;
 	}
 
@@ -2570,7 +2571,6 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	KeyHoleXfrParams.Func = NULL;
 	Status = XPlmi_KeyHoleXfr(&KeyHoleXfrParams);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 		goto END;
 	}
 
@@ -2594,7 +2594,6 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	Status = Cmd->KeyHoleParams.Func(Src, DestAddr, RemData,
 			XPLMI_DEVICE_COPY_STATE_WAIT_DONE);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 		goto END;
 	}
 	if (RemData > (XPLMI_CHUNK_SIZE / 2U)) {
@@ -2608,7 +2607,6 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	KeyHoleXfrParams.Len = LenTmp;
 	Status = XPlmi_KeyHoleXfr(&KeyHoleXfrParams);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 		goto END;
 	}
 
@@ -2624,7 +2622,6 @@ END2:
 	KeyHoleXfrParams.Func = Cmd->KeyHoleParams.Func;
 	Status = XPlmi_KeyHoleXfr(&KeyHoleXfrParams);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
 		goto END;
 	}
 END1:
@@ -2632,6 +2629,9 @@ END1:
 	Cmd->PayloadLen = Cmd->Len + 1U;
 	Cmd->ProcessedLen = Cmd->Len;
 END:
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "DMA WRITE Key Hole Failed\n\r");
+	}
 	return Status;
 }
 
@@ -2728,14 +2728,14 @@ static int XPlmi_StackPush(XPlmi_CdoParamsStack *CdoParamsStack, u32 *Data)
 
 	/* Validate stack top */
 	if (CdoParamsStack->OffsetListTop < -1) {
-		XPlmi_Printf(DEBUG_GENERAL,
-				"Invalid top in End address stack\n");
+		XPlmi_Printf(DEBUG_INFO, "Invalid top in End address stack\n");
+		Status = (int)XPLMI_ERR_INVALID_STACK_TOP_DURING_PUSH;
 		goto END;
 	}
 
 	if (CdoParamsStack->OffsetListTop >= (int)(XPLMI_BEGIN_OFFSET_STACK_SIZE - 1U)) {
-		XPlmi_Printf(DEBUG_GENERAL,
-				"End address stack is full\n");
+		XPlmi_Printf(DEBUG_INFO, "End address stack is full\n");
+		Status = (int)XPLMI_ERR_END_ADDR_STACK_FULL;
 	} else {
 		CdoParamsStack->OffsetListTop++;
 		CdoParamsStack->OffsetList[CdoParamsStack->OffsetListTop] = *Data;
@@ -2764,16 +2764,15 @@ static int XPlmi_StackPop(XPlmi_CdoParamsStack *CdoParamsStack, u32 PopLevel, u3
 
 	/* Validate stack top */
 	if (CdoParamsStack->OffsetListTop >= (int)XPLMI_BEGIN_OFFSET_STACK_SIZE) {
-		XPlmi_Printf(DEBUG_GENERAL,
-				"Invalid top in End address stack\n");
+		Status = (int)XPLMI_ERR_INVALID_STACK_TOP;
+		XPlmi_Printf(DEBUG_INFO, "Invalid top in End address stack\n");
 		goto END;
 	}
 
 	for (Index = 0U; Index < PopLevel; Index++) {
 		if (CdoParamsStack->OffsetListTop < 0) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"End address stack is empty\n");
-			Status = XST_FAILURE;
+			XPlmi_Printf(DEBUG_INFO, "End address stack is empty\n");
+			Status = (int)XPLMI_ERR_END_ADDR_STACK_EMPTY;
 			break;
 		} else {
 			*Data = CdoParamsStack->OffsetList[CdoParamsStack->OffsetListTop];

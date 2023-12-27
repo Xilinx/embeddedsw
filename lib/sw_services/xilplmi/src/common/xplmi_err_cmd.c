@@ -43,6 +43,7 @@
 *                       while processing IPI request,
 *                       Enable EMSetAction process via IPI
 * 1.08  ma   09/27/2023 Add secure lockdown to EAM error actions list
+* 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -176,7 +177,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	if ((XPLMI_EM_ACTION_CUSTOM == ErrorAction) ||
 		(ErrorAction >= XPLMI_EM_ACTION_MAX) ||
 		(XPLMI_EM_ACTION_INVALID == ErrorAction)) {
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DEBUG_INFO,
 			"Error: XPlmi_CmdEmSetAction: Invalid/unsupported error "
 			"action 0x%x received for error mask 0x%x", ErrorAction, ErrorMasks);
 		Status = XPLMI_INVALID_ERROR_ACTION;
@@ -193,7 +194,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 		/* Only allow HW error actions for PSM_CR error */
 		if (PmcPsmCrErrVal != 0U) {
 			if (ErrorAction >= XPLMI_EM_ACTION_SUBSYS_SHUTDN) {
-				XPlmi_Printf(DEBUG_GENERAL, "Error: "
+				XPlmi_Printf(DEBUG_INFO, "Error: "
 					"XPlmi_CmdEmSetAction: Invalid/unsupported"
 					" error action 0x%x received for "
 					"PMC PSM_CR error", ErrorAction);
@@ -202,7 +203,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 			}
 
 			if (*IsPsmCrChanged == (u32)TRUE) {
-				XPlmi_Printf(DEBUG_GENERAL, "Error: "
+				XPlmi_Printf(DEBUG_INFO, "Error: "
 					"XPlmi_CmdEmSetAction: PMC PSM_CR error"
 					" action cannot be changed more than "
 					"once\r\n");
@@ -212,7 +213,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 		}
 		/* PMC's PSM_NCR error action must not be changed */
 		if ((FwErrVal | PmcPsmNCrErrVal) != 0U) {
-			XPlmi_Printf(DEBUG_GENERAL, "Error: XPlmi_CmdEmSetAction: "
+			XPlmi_Printf(DEBUG_INFO, "Error: XPlmi_CmdEmSetAction: "
 				"Error Action cannot be changed for PMC FW CR "
 				"and PSM_NCR\r\n");
 			Status = XPLMI_CANNOT_CHANGE_ACTION;
@@ -225,7 +226,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	 */
 	if ((XPlmi_GetEventIndex(NodeType) ==  XPLMI_NODETYPE_EVENT_PSM_INDEX) &&
 		(XPlmi_IsLpdInitialized() != (u8)TRUE)) {
-		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized to configure "
+		XPlmi_Printf(DEBUG_INFO, "LPD is not initialized to configure "
 				"PSM errors and actions\n\r");
 		Status = XPLMI_LPD_UNINITIALIZED;
 		goto END;

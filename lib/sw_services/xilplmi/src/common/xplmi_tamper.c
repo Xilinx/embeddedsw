@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *       dd   09/12/2023 MISRA-C violation Rule 17.7 fixed
 * 1.04  ma   10/10/2023 Added redundancy to TAMPER_RESP_0 and TAMPER_TRIG writes
 *       mss  10/31/2023 Added code to Trigger FW CR error in XPlmi_ProcessTamperResponse
+* 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -194,7 +195,8 @@ static int XPlmi_ProcessTamperResponse(void *Data)
 
 		Status = XPlmi_ExecuteProc(XPLMI_SLD_PROC_ID);
 		if (Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "Secure Lockdown failed with 0x%x "
+			XPlmi_LogPlmErr(Status);
+			XPlmi_Printf(DEBUG_INFO, "Secure Lockdown failed with 0x%x "
 					"error\r\n", Status);
 		}
 	}
@@ -303,8 +305,8 @@ static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 			((TamperRespTmp & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U)) {
 			XSECURE_REDUNDANT_IMPL(XPlmi_TriggerTamperResponse, TamperResp, XPLMI_TRIGGER_TAMPER_TASK);
 		} else {
-			XPlmi_Printf(DEBUG_GENERAL, "Warning: Invalid Tamper Response. "
-					"Configured Tamper Response at RTCA: 0x%x\r\n"
+			XPlmi_Printf(DEBUG_GENERAL, "Warning: Invalid Tamper Response.\n\r");
+			XPlmi_Printf(DEBUG_INFO, "Configured Tamper Response at RTCA: 0x%x\r\n"
 					"For SYSTEM_INERRUPT response, user need to register for "
 					"notification of PMC_APB error\r\n",
 					TamperResp);
