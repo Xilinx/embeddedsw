@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +43,7 @@
 *       sk   07/28/2023 Added redundant func XPlmi_IsPlmUpdateDoneTmp
 *       bm   09/07/2023 Allow loading of ELFs into XRAM
 * 1.03  sk   09/26/2023 Updated XPlmi_UpdateInit function definition
+* 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 * </pre>
 *
 * @note
@@ -238,6 +239,14 @@ enum {
 	XPLMI_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS, /**< 0x10 - Error if the Api Id received during IPI request only
 						   supports secure request */
 	XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE, /**< 0x11 - Error if Buffer memory is not available for storing */
+	XPLMI_ERR_END_ADDR_STACK_EMPTY,		/**< 0x12 - Error when End Address stack is empty */
+	XPLMI_ERR_INVALID_STACK_TOP,		/**< 0x13 - Error when End Address stack doesn't have a valid
+						  top address */
+	XPLMI_ERR_MAX_NESTED_BEGIN,		/**< 0x14 - Error when max limit of nested begin is reached */
+	XPLMI_ERR_INVALID_STACK_TOP_DURING_PUSH, /**< 0x15 - Error when the stack top is not valid while pushing
+						   into it */
+	XPLMI_ERR_END_ADDR_STACK_FULL,		/**< 0x16 - Error when End address stack is full */
+	XPLMI_ERR_END_CMD_HAS_NO_BEGIN,		/**< 0x17 - Error when End command doesn't have a valid begin */
 
 	/* Platform specific error codes start at 0x200 */
 };

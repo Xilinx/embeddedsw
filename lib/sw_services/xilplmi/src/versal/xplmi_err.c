@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *                       debug level_0 option
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *       kj   12/01/2023 Updated ErrorTable to support HBM CATTRIP Error
+* 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -499,7 +500,7 @@ void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
 			/* Execute proc for PCIE link down */
 			Status = XPlmi_ExecuteProc(ProcId);
 			if (Status != XST_SUCCESS) {
-				XPlmi_Printf(DEBUG_GENERAL, "Error in handling PCIE "
+				XPlmi_Printf(DEBUG_INFO, "Error in handling PCIE "
 						"link down event: 0x%x\r\n", Status);
 				/*
 				 * Update error manager with error received
@@ -696,20 +697,19 @@ static void XPlmi_ProtUnitErrHandler(u32 ErrorNodeId, u32 RegMask)
 ****************************************************************************/
 void XPlmi_DumpErrNGicStatus(void)
 {
-	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_ERR1_STATUS: 0x%08x\n\r",
-		XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_ERR2_STATUS: 0x%08x\n\r",
-		XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_GICP0_IRQ_STATUS: 0x%08x\n\r",
-		XPlmi_In32(PMC_GLOBAL_GICP0_IRQ_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_GICP1_IRQ_STATUS: 0x%08x\n\r",
-		XPlmi_In32(PMC_GLOBAL_GICP1_IRQ_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_GICP2_IRQ_STATUS: 0x%08x\n\r",
-		XPlmi_In32(PMC_GLOBAL_GICP2_IRQ_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_GICP3_IRQ_STATUS: 0x%08x\n\r",
-		XPlmi_In32(PMC_GLOBAL_GICP3_IRQ_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_GICP4_IRQ_STATUS: 0x%08x\n\r",
-		XPlmi_In32(PMC_GLOBAL_GICP4_IRQ_STATUS));
+	u32 Index;
+
+	for (Index = 0U; Index < XPLMI_PMC_MAX_ERR_CNT; Index++) {
+		XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_ERR%d_STATUS: 0x%08x\n\r",
+			Index + 1U, XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS +
+				(Index * PMC_GLOBAL_REG_PMC_ERR_OFFSET)));
+	}
+
+	for (Index = 0U; Index < XPLMI_GICP_NON_PMC_MAX_CNT; Index++) {
+		XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_GICP%d_IRQ_STATUS: 0x%08x\n\r",
+			Index, XPlmi_In32(PMC_GLOBAL_GICP0_IRQ_STATUS +
+				(Index * (XPLMI_GICP_IRQ_STATUS_REG_OFFSET))));
+	}
 	XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_GICP_PMC_IRQ_STATUS: 0x%08x\n\r",
 		XPlmi_In32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS));
 }

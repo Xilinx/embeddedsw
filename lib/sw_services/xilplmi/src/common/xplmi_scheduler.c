@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,6 +48,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.08  nb   06/28/2023 Move XPLMI_SCHED_TICK to header
 *       dd   09/12/2023 MISRA-C violation Rule 13.4 fixed
+* 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -314,7 +315,7 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 
 			if (Task == NULL) {
 				Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
-				XPlmi_Printf(DEBUG_GENERAL, "Task Creation "
+				XPlmi_Printf(DEBUG_INFO, "Task Creation "
 						"Err:0x%x\n\r", Status);
 				goto END;
 			}

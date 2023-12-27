@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,6 +58,7 @@
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *       sk   12/08/2023 Disable master interrupts while triggering
 *                       SSIT event
+* 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -308,7 +309,7 @@ int XPlmi_SsitEventsInit(void)
 		if ((SsitEvents->Task1 == NULL) || (SsitEvents->Task2 == NULL) ||
 				(SsitEvents->Task3 == NULL)) {
 			Status = (int)XPLM_ERR_TASK_CREATE;
-			XPlmi_Printf(DEBUG_GENERAL, "SSIT event task creation "
+			XPlmi_Printf(DEBUG_INFO, "SSIT event task creation "
 					"failed for Slave SLR events\r\n");
 			goto END;
 		}
@@ -322,7 +323,7 @@ int XPlmi_SsitEventsInit(void)
 		SsitEvents->Task3 = NULL;
 		if (SsitEvents->Task1 == NULL) {
 			Status = (int)XPLM_ERR_TASK_CREATE;
-			XPlmi_Printf(DEBUG_GENERAL, "SSIT event task creation "
+			XPlmi_Printf(DEBUG_INFO, "SSIT event task creation "
 					"failed for Master SLR events\r\n");
 			goto END;
 		}

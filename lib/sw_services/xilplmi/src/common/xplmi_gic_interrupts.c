@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *                       same priority
 * 1.07  bm   07/06/2022 Refactor versal and versal_net code
 * 1.08  ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -77,7 +78,7 @@ int XPlmi_GicRegisterHandler(u32 GicPVal, u32 GicPxVal, GicIntHandler_t Handler,
 	Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0, Handler, Data);
 	if (Task == NULL) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
-		XPlmi_Printf(DEBUG_GENERAL, "GIC Interrupt task creation "
+		XPlmi_Printf(DEBUG_INFO, "GIC Interrupt task creation "
 			"error\n\r");
 		goto END;
 	}
