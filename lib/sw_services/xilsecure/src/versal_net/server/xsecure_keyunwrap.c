@@ -21,6 +21,7 @@
 * 5.3   kpt     11/24/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *       kpt     12/13/23 Added support for RSA CRT
 *       kpt     12/13/23 Added SHA384 MGF support for keyunwrap
+*       kpt     12/19/23 Fix logical issue in updating keyslot value
 *
 * </pre>
 *
@@ -105,13 +106,15 @@ static int XSecure_GetFreeKeySlot(u32 *KeySlotPtr, u64 SharedKeyStoreAddr)
 		goto END;
 	}
 
+	if (UpdateKeyFreeSlot >= KeyStoreSize) {
+		UpdateKeyFreeSlot = 0U;
+	}
+
 	while (((BitMap >> UpdateKeyFreeSlot) & 0x01U) != 0x00U) {
 		UpdateKeyFreeSlot++;
-		if (UpdateKeyFreeSlot > KeyStoreSize) {
-			UpdateKeyFreeSlot = 0U;
-		}
 	}
-	*KeySlotPtr = UpdateKeyFreeSlot;
+
+	*KeySlotPtr = UpdateKeyFreeSlot++;
 	Status = XST_SUCCESS;
 END:
 	return Status;
