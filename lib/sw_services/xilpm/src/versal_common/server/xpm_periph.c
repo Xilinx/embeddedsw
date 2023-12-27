@@ -5,6 +5,7 @@
 ******************************************************************************/
 
 
+#include "xpm_api.h"
 #include "xpm_periph.h"
 #include "xpm_gic_proxy.h"
 #include "xpm_defs.h"
@@ -228,8 +229,10 @@ static int HbMon_Scheduler(void *data)
 {
 	(void)data;
 	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device, *Ipi;
 	u32 ActiveMonitors = 0U;
-	u32 Idx;
+	u32 Idx, Timeout, NodeId, IpiIsrVal;
+	static u8 IsIdleCbSent = (u8)FALSE;
 
 	for (Idx = (u32)XPM_NODEIDX_DEV_HB_MON_0;
 			Idx < (u32)XPM_NODEIDX_DEV_HB_MON_MAX; Idx++)
@@ -241,11 +244,50 @@ static int HbMon_Scheduler(void *data)
 		ActiveMonitors++;
 
 		if (HbMon_TimeoutList[Idx] <= HbMon_SchedFreq) {
-			PmErr("Healthy Boot Timer %lu Expired. Triggering recovery\r\n",
+			Device = XPmDevice_GetHbMonDeviceByIndex(Idx);
+			if (((u8)PENDING_RESTART == Device->Requirements->Subsystem->State) &&
+			    (1U == Device->Requirements->Allocated) &&
+			    ((u8)FALSE == IsIdleCbSent)) {
+				IsIdleCbSent = (u8)TRUE;
+
+				/**
+				 * Extract the timeout value from the requirement
+				 * structure. It is assumed that this node
+				 * will not be shared with any subsystem, so
+				 * there should be only one requirement
+				 */
+				Timeout = Device->Requirements->PreallocQoS;
+
+				Status = HbMon_StartTimer(Idx, Timeout);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+
+				/**
+				 * Clear pending idle callback status. In case of Linux hang, Linux
+				 * will not clear IPI ISR register. So clear from here to re-send idle
+				 * callback to TF-A.
+				 */
+				for (NodeId = PM_DEV_IPI_0; NodeId <= PM_DEV_IPI_6; NodeId++) {
+					Ipi = XPmDevice_GetById(NodeId);
+					if (NULL != Ipi) {
+						IpiIsrVal = XPm_Read32(Ipi->Node.BaseAddress +
+								       IPI_ISR_OFFSET);
+						if (0U != (IpiIsrVal & PMC_IPI_MASK)) {
+							XPm_Write32(Ipi->Node.BaseAddress + IPI_ISR_OFFSET,
+								    (IpiIsrVal & PMC_IPI_MASK));
+						}
+					}
+				}
+
+				Status = XPm_SubsystemIdleCores(Device->Requirements->Subsystem);
+			} else {
+				PmErr("Healthy Boot Timer %lu Expired. Triggering recovery\r\n",
 									Idx);
-			HbMon_TimeoutList[Idx] = 0U;
-			XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
-						(u32)1U << Idx);
+				HbMon_TimeoutList[Idx] = 0U;
+				XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
+							(u32)1U << Idx);
+			}
 		} else {
 			HbMon_TimeoutList[Idx] = HbMon_TimeoutList[Idx] - HbMon_SchedFreq;
 		}
