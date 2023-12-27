@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 * 1.06  ng   11/11/2022 Updated doxygen comments
 *       bm   01/11/2023 Added support for Gigadevice 512M, 1G, 2G parts
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -137,7 +138,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	}
 	else {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_OSPI, 0);
-		XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_UNSUPPORTED_OSPI\r\n");
+		XLoader_Printf(DEBUG_INFO, "XLOADER_ERR_UNSUPPORTED_OSPI\r\n");
 		goto END;
 	}
 
@@ -199,7 +200,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 
 	if (OspiFlashSize == 0U) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_OSPI_SIZE, 0);
-		XLoader_Printf(DEBUG_GENERAL,
+		XLoader_Printf(DEBUG_INFO,
 			"XLOADER_ERR_UNSUPPORTED_OSPI_SIZE\r\n");
 		goto END;
 	}
@@ -289,7 +290,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	OspiConfig = XOspiPsv_LookupConfig(XLOADER_OSPI_DEVICE_ID);
 	if (NULL == OspiConfig) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_INIT, 0);
-		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_OSPI_INIT\r\n");
+		XLoader_Printf(DEBUG_INFO,"XLOADER_ERR_OSPI_INIT\r\n");
 		goto END;
 	}
 
@@ -299,7 +300,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	Status = (int)XOspiPsv_CfgInitialize(&OspiPsvInstance, OspiConfig);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_CFG, Status);
-		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_OSPI_CFG\r\n");
+		XLoader_Printf(DEBUG_INFO,"XLOADER_ERR_OSPI_CFG\r\n");
 		goto END;
 	}
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -81,6 +81,7 @@
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
 *       mss  11/02/2023 Added VerifyAddr check for address mentioned in
 *                       GetImageInfoList and LoadReadbackPdi commands
+*       ng   12/27/2023 Reduced log level for less frequent prints
 *
 * </pre>
 *
@@ -370,7 +371,7 @@ static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
 	if (Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX] ==
 		XLOADER_INVALID_IMG_ID) {
 		Status = (int)XLOADER_ERR_INVALID_IMGID;
-		XPlmi_Printf(DEBUG_GENERAL, "Invalid ImgID\n\r");
+		XPlmi_Printf(DEBUG_INFO, "Invalid ImgID\n\r");
 		goto END;
 	}
 
@@ -386,7 +387,7 @@ static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
 	if ((ImageInfo->ImgID != Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX])
 		|| (ImageInfo->ImgID == XLOADER_INVALID_IMG_ID)) {
 		Status = (int)XLOADER_ERR_NO_VALID_IMG_FOUND;
-		XPlmi_Printf(DEBUG_GENERAL, "No Valid Image Entry Found\n\r");
+		XPlmi_Printf(DEBUG_INFO, "No Valid Image Entry Found\n\r");
 		goto END;
 	}
 
@@ -593,7 +594,7 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 			RawBootVal = XLOADER_SD_FILE_SYSTEM_VAL;
 		}
 		else {
-			XPlmi_Printf(DEBUG_GENERAL, "Unsupported Flash Type\n");
+			XPlmi_Printf(DEBUG_INFO, "Unsupported Flash Type\n");
 			Status = (int)XLOADER_ERR_UNSUPPORTED_MULTIBOOT_FLASH_TYPE;
 			goto END;
 		}
@@ -612,7 +613,7 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 			RawBootVal = XLOADER_EMMC_BP2_RAW_VAL;
 		}
 		else {
-			XPlmi_Printf(DEBUG_GENERAL, "Unsupported Flash Type\n");
+			XPlmi_Printf(DEBUG_INFO, "Unsupported Flash Type\n");
 			Status = (int)XLOADER_ERR_UNSUPPORTED_MULTIBOOT_FLASH_TYPE;
 			goto END;
 		}
@@ -621,7 +622,7 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 		 if ((PdiSrc != XLOADER_PDI_SRC_QSPI24) &&
 			(PdiSrc != XLOADER_PDI_SRC_QSPI32) &&
 			(PdiSrc != XLOADER_PDI_SRC_OSPI)) {
-			XPlmi_Printf(DEBUG_GENERAL, "Unsupported PdiSrc\n");
+			XPlmi_Printf(DEBUG_INFO, "Unsupported PdiSrc\n");
 			Status = (int)XLOADER_ERR_UNSUPPORTED_MULTIBOOT_PDISRC;
 			goto END;
 		}
@@ -632,7 +633,7 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 			MultiBootVal = ImageLocation;
 		}
 		else {
-			XPlmi_Printf(DEBUG_GENERAL, "Unsupported Boot File Num\n");
+			XPlmi_Printf(DEBUG_INFO, "Unsupported Boot File Num\n");
 			Status = (int)XLOADER_ERR_UNSUPPORTED_FILE_NUM;
 			goto END;
 		}
@@ -642,7 +643,7 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 			MultiBootVal = ImageLocation / XLOADER_IMAGE_SEARCH_OFFSET;
 		}
 		else {
-			XPlmi_Printf(DEBUG_GENERAL, "Unsupported Image Location\n");
+			XPlmi_Printf(DEBUG_INFO, "Unsupported Image Location\n");
 			Status = (int)XLOADER_ERR_UNSUPPORTED_MULTIBOOT_OFFSET;
 			goto END;
 		}
@@ -1104,7 +1105,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 	TotalDataSize += DataSize;
-	XPlmi_Printf(DEBUG_GENERAL, "Extracted Metaheader Successfully\n\r");
+	XPlmi_Printf(DEBUG_INFO, "Extracted Metaheader Successfully\n\r");
 
 END:
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
