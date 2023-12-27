@@ -21,6 +21,7 @@
 * 5.1   kpt  01/14/23 Initial release
 * 5.2   vns  07/07/23 Added separate IPI commands for Crypto Status update
 *       kpt  07/09/23 Added APIs related to Key wrap and unwrap
+* 5.3   kpt  12/13/23 Added RSA quiet mode support
 *
 * </pre>
 * @note
@@ -57,6 +58,8 @@ int XSecure_UpdatePcideCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure
 	 u32 CryptoMask);
 int XSecure_GetRsaPublicKeyForKeyWrap(XSecure_ClientInstance *InstancePtr, XSecure_RsaPubKeyAddr *PubKey);
 int XSecure_KeyUnwrap(XSecure_ClientInstance *InstancePtr, XSecure_KeyWrapData *KeyWrapData);
+int XSecure_RsaExpQOperation(XSecure_ClientInstance *InstancePtr,
+	const u64 RsaOperationInParamAddr, const u64 OutDataAddr);
 
 #ifdef __cplusplus
 }
