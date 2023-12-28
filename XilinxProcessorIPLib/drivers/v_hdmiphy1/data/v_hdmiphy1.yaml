@@ -64,6 +64,8 @@ properties:
     description: Maximum rate of RX GT
   xlnx,tx-maxgt-line-rate:
     description: Maximum rate of TX GT
+  xlnx,speedgrade:
+    desciption: FPGA device speed grade
   interrupts:
     description: Interrupt number
   interrupt-parent:
@@ -95,6 +97,7 @@ required:
     - xlnx,use-gt-ch4-hdmi
     - xlnx,rx-max-gt-line-rate
     - xlnx,tx-max-gt-line-rate
+    - xlnx,speedgrade
     - interrupts
     - interrupt-parent
 

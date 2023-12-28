@@ -68,7 +68,7 @@ extern "C" {
 
 #ifdef SDT
 #define XPAR_HDMIPHY1_0_TRANSCEIVER XPAR_XV_HDMIPHY1_0_TRANSCEIVER
-#define XPAR_HDMIPHY1_0_SPEEDGRADE_STR XPAR_XV_HDMIPHY1_0_SPEEDGRADE_STR
+#define XPAR_HDMIPHY1_0_SPEEDGRADE_STR XPAR_XV_HDMIPHY1_0_SPEEDGRADE
 #endif
 /******************* Macros (Inline Functions) Definitions ********************/
 
@@ -699,6 +699,7 @@ typedef struct {
     u8  UseGtAsTxTmdsClk;   /**< Use 4th GT channel as TX TMDS clock */
     u8  RxMaxRate;          /**< Max rate of RX */
     u8  TxMaxRate;          /**< Max rate of TX */
+	char *speedgrade;		/**< FPGA device speed grade */
 #ifdef SDT
     u16 IntrId; 		    /**< Interrupt ID */
     UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
