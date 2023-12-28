@@ -87,6 +87,11 @@ int XV_HdmiRxSs1_SubcoreInitHdmiRx1(XV_HdmiRxSs1 *HdmiRxSs1Ptr)
 
     ConfigPtr->AxiLiteClkFreq = HdmiRxSs1Ptr->Config.AxiLiteClkFreq;
 
+#ifdef SDT
+	HdmiRxSs1Ptr->Config.HdmiRx1.AbsAddr +=  HdmiRxSs1Ptr->Config.BaseAddress;
+	ConfigPtr->BaseAddress += HdmiRxSs1Ptr->Config.BaseAddress;
+#endif
+
     /* Initialize core */
     Status = XV_HdmiRx1_CfgInitialize(HdmiRxSs1Ptr->HdmiRx1Ptr,
                                     ConfigPtr,
