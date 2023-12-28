@@ -73,6 +73,11 @@ int XV_HdmiTxSs1_SubcoreInitHdmiTx1(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
       return(XST_FAILURE);
     }
 
+#ifdef SDT
+	HdmiTxSs1Ptr->Config.HdmiTx1.AbsAddr +=  HdmiTxSs1Ptr->Config.BaseAddress;
+	ConfigPtr->BaseAddress += HdmiTxSs1Ptr->Config.BaseAddress;
+#endif
+
     ConfigPtr->AxiLiteClkFreq = HdmiTxSs1Ptr->Config.AxiLiteClkFreq;
 
     /* Initialize core */
@@ -121,6 +126,10 @@ int XV_HdmiTxSs1_SubcoreInitVtc(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
       return(XST_FAILURE);
     }
 
+#ifdef SDT
+	HdmiTxSs1Ptr->Config.Vtc.AbsAddr +=  HdmiTxSs1Ptr->Config.BaseAddress;
+	ConfigPtr->BaseAddress += HdmiTxSs1Ptr->Config.BaseAddress;
+#endif
     /* Initialize core */
     Status = XVtc_CfgInitialize(HdmiTxSs1Ptr->VtcPtr,
                                 ConfigPtr,
