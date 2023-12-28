@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,21 +41,6 @@ extern "C" {
 #define OTAPDLY_OFFSET				(0x0000F0FCU)
 #define XPM_SD_OTAPDLYENA_MASK			(0x40U)
 #define XPM_SD_OTAPDLYSEL_MASK			(0x3FU)
-
-/* Probe Counter Register related macros */
-#define PROBE_COUNTER_REQ_TYPE_SHIFT		(16U)
-#define PROBE_COUNTER_REQ_TYPE_MASK		(0xFFU)
-#define PROBE_COUNTER_TYPE_SHIFT		(8U)
-#define PROBE_COUNTER_TYPE_MASK			(0xFFU)
-#define PROBE_COUNTER_IDX_MASK			(0xFFU)
-
-#define PROBE_COUNTER_CPU_R5_MAX_IDX		(9U)
-#define PROBE_COUNTER_LPD_MAX_IDX		(5U)
-#define PROBE_COUNTER_FPD_MAX_IDX		(15U)
-
-#define PROBE_COUNTER_CPU_R5_MAX_REQ_TYPE	(3U)
-#define PROBE_COUNTER_LPD_MAX_REQ_TYPE		(7U)
-#define PROBE_COUNTER_FPD_MAX_REQ_TYPE		(3U)
 
 /* Permissions related macros */
 #define IOCTL_PERM_READ_SHIFT_NS		(0U)

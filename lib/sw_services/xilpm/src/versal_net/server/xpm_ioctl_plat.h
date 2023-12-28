@@ -79,17 +79,6 @@ maybe_unused static inline XStatus XPm_AieISRClear(u32 SubsystemId, u32 AieDevic
 
 	return XPM_ERR_IOCTL;
 }
-maybe_unused static inline XStatus XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
-				  u32 *const Response, u8 Write)
-{
-	(void)DeviceId;
-	(void)Arg1;
-	(void)Value;
-	(void)Response;
-	(void)Write;
-
-	return XPM_ERR_IOCTL;
-}
 maybe_unused static inline XStatus XPm_RpuTcmCombConfig(const u32 DeviceId, const u32 Config)
 {
 	(void)DeviceId;

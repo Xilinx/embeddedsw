@@ -17,21 +17,6 @@
 extern "C" {
 #endif
 
-/* Probe Counter Register related macros */
-#define PROBE_COUNTER_REQ_TYPE_SHIFT		(16U)
-#define PROBE_COUNTER_REQ_TYPE_MASK		(0xFFU)
-#define PROBE_COUNTER_TYPE_SHIFT		(8U)
-#define PROBE_COUNTER_TYPE_MASK			(0xFFU)
-#define PROBE_COUNTER_IDX_MASK			(0xFFU)
-
-#define PROBE_COUNTER_CPU_R5_MAX_IDX		(9U)
-#define PROBE_COUNTER_LPD_MAX_IDX		(5U)
-#define PROBE_COUNTER_FPD_MAX_IDX		(15U)
-
-#define PROBE_COUNTER_CPU_R5_MAX_REQ_TYPE	(3U)
-#define PROBE_COUNTER_LPD_MAX_REQ_TYPE		(7U)
-#define PROBE_COUNTER_FPD_MAX_REQ_TYPE		(3U)
-
 #define IS_DEV_USB(DeviceId)			(PM_DEV_USB_0 == (DeviceId))
 
 maybe_unused static XStatus XPm_ValidateDeviceId(const pm_ioctl_id IoctlId, const u32 DeviceId)
@@ -64,8 +49,6 @@ done:
 XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response);
 XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 Part, u32 Ops);
 XStatus XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value);
-XStatus XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
-				  u32 *const Response, u8 Write);
 XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
 		const u32 *Perms, u32 Type, u32 CmdType);
 XStatus XPm_GetSsitTemp(u32 DeviceId, pm_ioctl_id IoctlId, u32 Offset, u32 *const Response);

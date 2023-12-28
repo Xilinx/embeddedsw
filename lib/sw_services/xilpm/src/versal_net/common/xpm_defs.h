@@ -373,9 +373,6 @@ typedef enum {
 	/* Set healthy bit value */
 	IOCTL_SET_BOOT_HEALTH_STATUS = 17,		/**< Set boot status */
 	IOCTL_AFI = 18,					/**< AFI */
-	/* Probe counter read/write */
-	IOCTL_PROBE_COUNTER_READ = 19,			/**< Probe counter read */
-	IOCTL_PROBE_COUNTER_WRITE = 20,			/**< Probe counter write */
 	/* Ospi mux select */
 	IOCTL_OSPI_MUX_SELECT = 21,			/**< OSPI mux select */
 	/* USB PMU state req */
@@ -603,22 +600,6 @@ enum XPmNotifyEvent {
 #define XPM_RESET_REASON_SW_SRST	(9U)
 #define XPM_RESET_REASON_SLR_SRST	(10U)
 #define XPM_RESET_REASON_INVALID	(0xFFU)
-/** @} */
-
-/**
- * @name Probe Counter Type
- * @{
- */
-/**
- * Probe Counter Type
- */
-#define XPM_PROBE_COUNTER_TYPE_LAR_LSR		(0U)
-#define XPM_PROBE_COUNTER_TYPE_MAIN_CTL		(1U)
-#define XPM_PROBE_COUNTER_TYPE_CFG_CTL		(2U)
-#define XPM_PROBE_COUNTER_TYPE_STATE_PERIOD	(3U)
-#define XPM_PROBE_COUNTER_TYPE_PORT_SEL		(4U)
-#define XPM_PROBE_COUNTER_TYPE_SRC		(5U)
-#define XPM_PROBE_COUNTER_TYPE_VAL		(6U)
 /** @} */
 
 /**
