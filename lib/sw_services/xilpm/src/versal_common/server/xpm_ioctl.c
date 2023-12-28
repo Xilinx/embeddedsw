@@ -585,14 +585,6 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 	case IOCTL_TCM_COMB_CONFIG:
 		Status = XPm_RpuTcmCombConfig(DeviceId, Arg1);
 		break;
-	case IOCTL_PROBE_COUNTER_READ:
-		Status = XPm_ProbeCounterAccess(DeviceId, Arg1, Arg2,
-						Response, 0U);
-		break;
-	case IOCTL_PROBE_COUNTER_WRITE:
-		Status = XPm_ProbeCounterAccess(DeviceId, Arg1, Arg2,
-						Response, 1U);
-		break;
 	case IOCTL_AIE_ISR_CLEAR:
 		Status = XPm_AieISRClear(SubsystemId, DeviceId, Arg1);
 		break;

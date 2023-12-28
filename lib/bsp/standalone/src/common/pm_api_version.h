@@ -119,8 +119,6 @@
  * | IOCTL_ULPI_RESET			| 16	| ZynqMP	| ULPI reset				|
  * | IOCTL_SET_BOOT_HEALTH_STATUS	| 17	| Both		| Set boot status			|
  * | IOCTL_AFI				| 18	| ZynqMP	| AFI					|
- * | IOCTL_PROBE_COUNTER_READ		| 19	| Versal	| Probe counter read			|
- * | IOCTL_PROBE_COUNTER_WRITE		| 20	| Versal	| Probe counter write			|
  * | IOCTL_OSPI_MUX_SELECT		| 21	| Versal	| OSPI mux select			|
  * | IOCTL_USB_SET_STATE		| 22	| Versal	| USB set state				|
  * | IOCTL_GET_LAST_RESET_REASON	| 23	| Versal	| Get last reset reason			|

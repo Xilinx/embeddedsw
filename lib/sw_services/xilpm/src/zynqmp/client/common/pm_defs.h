@@ -770,9 +770,6 @@ typedef enum {
 	/* Set healthy bit value */
 	IOCTL_SET_BOOT_HEALTH_STATUS = 17,		/**< Set boot status */
 	IOCTL_AFI = 18,					/**< AFI */
-	/* Probe counter read/write */
-	IOCTL_PROBE_COUNTER_READ = 19,			/**< Probe counter read */
-	IOCTL_PROBE_COUNTER_WRITE = 20,			/**< Probe counter write */
 	/* Ospi mux select */
 	IOCTL_OSPI_MUX_SELECT = 21,			/**< OSPI mux select */
 	/* USB PMU state req */
