@@ -1,8 +1,8 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 /*****************************************************************************/
 /**
 *
@@ -27,7 +27,6 @@
 * </pre>
 *
 ******************************************************************************/
-
 /***************************** Include Files *********************************/
 
 #include "xv_sditx.h"
@@ -36,8 +35,6 @@
 #include <string.h>
 
 /************************** Constant Definitions *****************************/
-
-
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSDI_CH_SHIFT 29
 #define XST352_BYTE3_BIT5_SHIFT 21
