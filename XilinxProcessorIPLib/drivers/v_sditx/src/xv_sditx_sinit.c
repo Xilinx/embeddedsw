@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,8 +40,9 @@
 
 
 /************************** Variable Definitions *****************************/
-
-
+#ifdef SDT
+extern XV_SdiTx_Config XV_SdiTx_ConfigTable[];
+#endif
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -60,6 +62,7 @@
 * @note     None.
 *
 ******************************************************************************/
+#ifndef SDT
 XV_SdiTx_Config *XV_SdiTx_LookupConfig(u16 DeviceId)
 {
 	extern XV_SdiTx_Config
@@ -82,3 +85,25 @@ XV_SdiTx_Config *XV_SdiTx_LookupConfig(u16 DeviceId)
 
 	return (XV_SdiTx_Config *)CfgPtr;
 }
+#else
+XV_SdiTx_Config *XV_SdiTx_LookupConfig(UINTPTR BaseAddress)
+{
+	XV_SdiTx_Config *CfgPtr = NULL;
+	u32 Index;
+
+	/* Checking for device id for which instance it is matching */
+	for (Index = 0U; XV_SdiTx_ConfigTable[Index].Name;
+	Index++) {
+		/* Assigning address of config table if both device ids
+		 * are matched
+		 */
+		if (XV_SdiTx_ConfigTable[Index].BaseAddress == BaseAddress ||
+		!BaseAddress) {
+			CfgPtr = &XV_SdiTx_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XV_SdiTx_Config *)CfgPtr;
+}
+#endif
