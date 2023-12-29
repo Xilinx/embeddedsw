@@ -40,6 +40,7 @@
 *       sk   09/07/2023 Added redundancy check in XPlmi_SetPmcIroFreq
 *                       for updating the MB Freq
 *       ng   09/22/2023 Fixed missing header for microblaze sleep
+* 1.03  sk   14/12/2023 PSM & PMC buffer list saving to handle in-place update
 *
 * </pre>
 *
@@ -100,6 +101,11 @@
 
 /* PMC IRO Frequency related macros */
 #define XPLMI_PMC_IRO_FREQ_233_MHZ	(233000000U) /**< PMC IRO frequency 233Mhz */
+
+#define XPLMI_PSM_BUFFER_DS_VER 	(1U) /**< PSM buffers Data structure version */
+#define XPLMI_PSM_BUFFER_DS_LCVER 	(1U) /**< PSM buffers Data structure LC version */
+#define XPLMI_PMC_BUFFER_DS_VER 	(1U) /**< PMC buffers Data structure version */
+#define XPLMI_PMC_BUFFER_DS_LCVER 	(1U) /**< PMC buffers Data structure LC version */
 
 /**************************** Type Definitions *******************************/
 
@@ -1131,4 +1137,51 @@ u8 XPlmi_IsKatRan(u32 PlmKatMask)
 	}
 
 	return IsKatRan;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function defines BufferList and returns the address of the same
+ *
+ * @param	BufferListType is the proc list type if it is stored in PMC or PSM RAM
+ *
+ * @return	BufferList is the address of BufferList structure
+ *
+ *****************************************************************************/
+XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
+{
+	/**
+	 * - Create static BufferList structure and initialize with zero during
+	 * initial call.
+	 */
+	static XPlmi_BufferList PsmBufferList = {0U};
+	static XPlmi_BufferData PsmBuffers[XPLMI_MAX_PSM_BUFFERS + 1U] = {0U};
+	static XPlmi_BufferList PmcBufferList = {0U};
+	static XPlmi_BufferData PmcBuffers[XPLMI_MAX_PMC_BUFFERS + 1U] = {0U};
+	XPlmi_BufferList *BufferList = &PsmBufferList;
+
+	EXPORT_GENERIC_DS(PsmBuffers, XPLMI_PSM_BUFFER_DS_ID, XPLMI_PSM_BUFFER_DS_VER, \
+			XPLMI_PSM_BUFFER_DS_LCVER, sizeof(PsmBuffers), (u32)(UINTPTR)PsmBuffers);
+
+	EXPORT_GENERIC_DS(PmcBuffers, XPLMI_PMC_BUFFER_DS_ID, XPLMI_PMC_BUFFER_DS_VER, \
+			XPLMI_PMC_BUFFER_DS_LCVER, sizeof(PmcBuffers), (u32)(UINTPTR)PmcBuffers);
+
+	PsmBufferList.Data = PsmBuffers;
+	PsmBufferList.MaxBufferCount = XPLMI_MAX_PSM_BUFFERS;
+	PmcBufferList.Data = PmcBuffers;
+	PmcBufferList.MaxBufferCount = XPLMI_MAX_PMC_BUFFERS;
+
+	if (BufferListType == XPLMI_PMC_BUFFER_LIST) {
+		BufferList = &PmcBufferList;
+
+		/**
+		 * - Initialize first Data address of the PmcBufferList to the PMC RAM
+		 * reserved address and BufferMemSize with the Max Size allocated
+		 */
+		PmcBufferList.Data[0U].Addr = XPLMI_PMCRAM_BUFFER_MEMORY;
+		PmcBufferList.BufferMemSize = XPLMI_PMCRAM_BUFFER_MEMORY_LENGTH;
+		PmcBufferList.IsBufferMemAvailable = (u8)TRUE;
+	}
+
+	return BufferList;
 }

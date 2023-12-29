@@ -46,6 +46,7 @@
 * 1.05  sk   09/26/2023 Added Error Codes for In-Place Update from Image Store
 *       mss  12/06/2023 Added Error Code XPLMI_ERR_INPLACE_INVALID_OPTIONAL_DATA_LEN
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
+*       sk   12/14/2023 Added PSM & PMC buffer list DS ID
 *
 * </pre>
 *
@@ -191,6 +192,8 @@ typedef enum {
 #define XPLMI_IS_PSMCR_CHANGED_DS_ID	(0x07U) /**< PSMCR status check data structure Id */
 #define XPLMI_NUM_ERROUTS_DS_ID		(0x08U) /**< Number of error outs data structure Id */
 #define XPLMI_BOARD_PARAMS_DS_ID	(0x09U) /**< Board parameters data structure Id */
+#define XPLMI_PSM_BUFFER_DS_ID		(0x0AU) /**< PSM Buffers data structure Id */
+#define XPLMI_PMC_BUFFER_DS_ID		(0x0BU) /**< PMC Buffers data structure Id */
 
 /*
  * SLR Types

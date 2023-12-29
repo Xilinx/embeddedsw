@@ -51,6 +51,7 @@
 *       ng   03/16/2023 Added control to disable minimal timeout in maskpoll
 * 1.10  bm   07/06/2023 Refactored Proc logic to more generic logic
 *       bm   07/06/2023 Updated prototypes required for list commands logic
+* 1.11  sk   12/14/2023 Added PSM & PMC max proc list defines
 *
 * </pre>
 *
@@ -171,6 +172,10 @@ typedef struct {
 #define XPLMI_PSM_BUFFER_LIST		(0x0U)
 #define XPLMI_PMC_BUFFER_LIST		(0x1U)
 #define XPLMI_ADDR_BUFFER_LIST		(0x2U)
+
+/* Maximum procs supported */
+#define XPLMI_MAX_PSM_BUFFERS		(10U)
+#define XPLMI_MAX_PMC_BUFFERS		(5U)
 
 /* Proc related defines */
 #define XPLMI_PMC_RAM_PROC_ID_MASK	(0x80000000U) /** All procs which need to be
