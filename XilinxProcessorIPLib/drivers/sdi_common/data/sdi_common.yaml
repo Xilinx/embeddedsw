@@ -1,0 +1,12 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for sdi_common Driver
+
+maintainers:
+  - Katta Dhanunjanrao <katta.dhanunjanrao@amd.com>
+
+type: driver
+
+...
