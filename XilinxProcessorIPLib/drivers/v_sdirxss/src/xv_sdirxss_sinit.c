@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,6 +54,7 @@ extern XV_SdiRxSs_Config XV_SdiRxSs_ConfigTable[];
 *		given device ID, or NULL if no match is found
 *
 *******************************************************************************/
+#ifndef SDT
 XV_SdiRxSs_Config *XV_SdiRxSs_LookupConfig(u32 DeviceId)
 {
 	XV_SdiRxSs_Config *CfgPtr = NULL;
@@ -66,4 +68,45 @@ XV_SdiRxSs_Config *XV_SdiRxSs_LookupConfig(u32 DeviceId)
 	}
 	return CfgPtr;
 }
-/** @} */
+#else
+XV_SdiRxSs_Config *XV_SdiRxSs_LookupConfig(UINTPTR BaseAddress)
+{
+	XV_SdiRxSs_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0U; XV_SdiRxSs_ConfigTable[Index].Name; Index++) {
+		if (XV_SdiRxSs_ConfigTable[Index].BaseAddress == BaseAddress ||
+		    !BaseAddress) {
+			CfgPtr = &XV_SdiRxSs_ConfigTable[Index];
+			break;
+		}
+	}
+	return CfgPtr;
+}
+
+/*****************************************************************************/
+/**
+ *  This function returns the Index number of config table using BaseAddress
+ *
+ *  @param A pointer to the instance structure
+ *
+ *  @param Base address of the instance
+ *
+ *  @return Index number of the config table
+ *
+ *
+ *****************************************************************************/
+
+u32 XV_SdiRxSs_GetDrvIndex(XV_SdiRxSs *InstancePtr, UINTPTR BaseAddress)
+{
+	u32 Index = 0;
+
+	for (Index = 0U; XV_SdiRxSs_ConfigTable[Index].Name; Index++) {
+		if (XV_SdiRxSs_ConfigTable[Index].BaseAddress == BaseAddress ||
+		    !BaseAddress) {
+			break;
+		}
+	}
+	return Index;
+}
+#endif
