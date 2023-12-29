@@ -1223,7 +1223,9 @@ void XVphy_MmcmPowerDown(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 {
 #if defined (XPAR_XDP_NUM_INSTANCES)
-#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
+#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID) || \
+	     defined (XPAR_XV_HDMITX_0_BASEADDR) || defined (XPAR_XV_HDMIRX_0_BASEADDR)
+
 	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_DP ||
 		InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP) {
 #endif
@@ -1241,7 +1243,8 @@ void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 	/* Toggle MMCM reset. */
 	XVphy_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
 #endif
-#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
+#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID) || \
+	     defined (XPAR_XV_HDMITX_0_BASEADDR) || defined (XPAR_XV_HDMIRX_0_BASEADDR)
 #if defined (XPAR_XDP_NUM_INSTANCES)
 	} else if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_TX) ||
 			   XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {

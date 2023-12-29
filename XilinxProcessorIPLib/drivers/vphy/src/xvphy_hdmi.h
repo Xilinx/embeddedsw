@@ -34,7 +34,8 @@
  * @{
 *******************************************************************************/
 #include "xparameters.h"
-#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
+#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID) || \
+	     defined (XPAR_XV_HDMITX_0_BASEADDR) || defined (XPAR_XV_HDMIRX_0_BASEADDR)
 
 #ifndef XVPHY_HDMI_H_
 /* Prevent circular inclusions by using protection macros. */

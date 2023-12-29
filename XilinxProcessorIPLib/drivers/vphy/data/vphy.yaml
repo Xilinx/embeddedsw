@@ -1,5 +1,4 @@
 # Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
-# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -89,6 +88,12 @@ properties:
   xlnx,rx-clk-primitive:
     description: RX Clock Primitive
 
+  interrupts:
+    description: Interrupt number
+
+  interrupt-parent:
+    description: Parent interrupt
+
 
 config:
     - XVphy_Config
@@ -121,6 +126,8 @@ required:
     - xlnx,rx-dp-protocol
     - xlnx,tx-clk-primitive
     - xlnx,rx-clk-primitive
+    - interrupts
+    - interrupt-parent
 
 depends:
     video_common: []
