@@ -1,7 +1,8 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-******************************************************************************/
+*******************************************************************************/
 
 /*****************************************************************************/
 /**
@@ -115,8 +116,12 @@ typedef enum {
  */
 typedef struct {
 	u16 IsPresent;  /**< Flag to indicate if sub-core is present in the design*/
+#ifndef SDT
 	u16 DeviceId;   /**< Device ID of the sub-core */
 	UINTPTR AbsAddr; /**< sub-core offset from subsystem base address */
+#else
+	UINTPTR AbsAddr; /**< sub-core offset from subsystem base address */
+#endif
 } XV_SdiRxSs_SubCore;
 
 /**
@@ -124,13 +129,21 @@ typedef struct {
  * Each SDI RX device should have a configuration structure associated.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;       /**< DeviceId is the unique ID of the SDI RX core */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;      /**< BaseAddress is the physical base address of the
 				    subsystem address range */
 	XVidC_PixelsPerClock Ppc;
 	u8 MaxRateSupported;
 	XVidC_ColorDepth bitdepth;
 	XV_SdiRxSs_SubCore SdiRx;       /**< Sub-core instance configuration */
+#ifdef SDT
+	u16 IntrId;		/**< Interrupt ID */
+	UINTPTR IntrParent;	/*< Bit[0] Interrupt parent type Bit[64]*/
+#endif
 } XV_SdiRxSs_Config;
 
 /**
@@ -194,8 +207,13 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 /* Initialization function in xv_sdirxss_sinit.c */
 XV_SdiRxSs_Config *XV_SdiRxSs_LookupConfig(u32 DeviceId);
+#else
+XV_SdiRxSs_Config *XV_SdiRxSs_LookupConfig(UINTPTR BaseAddress);
+u32 XV_SdiRxSs_GetDrvIndex(XV_SdiRxSs *InstancePtr, UINTPTR BaseAddress);
+#endif
 
 /* Initialization and control functions in xv_sdirxss.c */
 int XV_SdiRxSs_CfgInitialize(XV_SdiRxSs *InstancePtr,

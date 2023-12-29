@@ -56,12 +56,21 @@ int XV_SdiRxSs_SubcoreInitSdiRx(XV_SdiRxSs *SdiRxSsPtr)
 	if (SdiRxSsPtr->SdiRxPtr) {
 		/* Get core configuration */
 		XV_SdiRxSs_LogWrite(SdiRxSsPtr, XV_SDIRXSS_LOG_EVT_SDIRX_INIT, 0);
+#ifndef SDT
 		ConfigPtr = XV_SdiRx_LookupConfig(SdiRxSsPtr->Config.SdiRx.DeviceId);
+#else
+		ConfigPtr = XV_SdiRx_LookupConfig(SdiRxSsPtr->Config.SdiRx.AbsAddr);
+#endif
 		if (ConfigPtr == NULL) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
 				"SDIRXSS ERR:: SDI RX device not found\r\n");
 			return XST_FAILURE;
 		}
+
+#ifdef SDT
+		SdiRxSsPtr->Config.SdiRx.AbsAddr += SdiRxSsPtr->Config.BaseAddress;
+		ConfigPtr->BaseAddress += SdiRxSsPtr->Config.BaseAddress;
+#endif
 
 		/* Initialize core */
 		Status = XV_SdiRx_CfgInitialize(SdiRxSsPtr->SdiRxPtr,
