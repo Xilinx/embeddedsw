@@ -122,8 +122,12 @@ typedef enum {
  */
 typedef struct {
   u16 IsPresent;  /**< Flag to indicate if sub-core is present in the design*/
+#ifndef SDT
   u16 DeviceId;   /**< Device ID of the sub-core */
   UINTPTR AbsAddr; /**< sub-core offset from subsystem base address */
+#else
+	UINTPTR AbsAddr;
+#endif
 } XV_SdiTxSs_SubCore;
 
 /**
@@ -131,7 +135,11 @@ typedef struct {
 * Each SDI TX device should have a configuration structure associated.
 */
 typedef struct {
+#ifndef SDT
     u16 DeviceId;		/**< DeviceId is the unique ID of the SDI TX core */
+#else
+	char *Name;
+#endif
     UINTPTR BaseAddress;	/**< BaseAddress is the physical base address of the					subsystem address range */
     XVidC_PixelsPerClock Ppc;	/**< Supported Pixel per Clock */
     u8 MaxRateSupported;
@@ -139,6 +147,10 @@ typedef struct {
 	XVidC_ColorDepth bitdepth;
     XV_SdiTxSs_SubCore SdiTx;	/**< Sub-core instance configuration */
 	XV_SdiTxSs_SubCore Vtc;	/**< Sub-core instance configuration */
+#ifdef SDT
+	u16 IntrId;		/**< Interrupt ID */
+	UINTPTR IntrParent;/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XV_SdiTxSs_Config;
 
 /**
@@ -219,7 +231,12 @@ typedef enum {
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xv_sditxss_sinit.c */
-XV_SdiTxSs_Config *XV_SdiTxSs_LookupConfig(u32 DeviceId);
+#ifndef SDT
+XV_SdiTxSs_Config* XV_SdiTxSs_LookupConfig(u32 DeviceId);
+#else
+XV_SdiTxSs_Config* XV_SdiTxSs_LookupConfig(UINTPTR BaseAddress);
+u32 XV_SdiTxSs_GetDrvIndex(XV_SdiTxSs *InstancePtr, UINTPTR BaseAddress);
+#endif
 
 /* Initialization and control functions in xv_sditxss.c */
 int XV_SdiTxSs_CfgInitialize(XV_SdiTxSs *InstancePtr,
