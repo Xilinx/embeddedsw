@@ -76,7 +76,8 @@
 /******************************* Include Files ********************************/
 
 #include "xparameters.h"
-#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
+#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID) || \
+	     defined (XPAR_XV_HDMITX_0_BASEADDR) || defined (XPAR_XV_HDMIRX_0_BASEADDR)
 #include "xstatus.h"
 #include "xvphy.h"
 #include "xvphy_i.h"

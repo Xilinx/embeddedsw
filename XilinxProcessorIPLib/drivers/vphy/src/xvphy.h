@@ -693,6 +693,11 @@ typedef struct {
 	u8  DpRxProtocol;       /* DP RX protocol */
 	XVphy_ClkPrimitive TxClkPrimitive; /* TX Clock Primitive */
 	XVphy_ClkPrimitive RxClkPrimitive; /* RX Clock Primitive */
+#ifdef SDT
+	u16 IntrId;		/**< Interrupt ID */
+	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1]
+					Parent base address */
+#endif
 } XVphy_Config;
 
 /* Forward declaration. */

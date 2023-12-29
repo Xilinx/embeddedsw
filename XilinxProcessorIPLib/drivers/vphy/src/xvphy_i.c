@@ -1189,7 +1189,8 @@ u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
 	}
 	else {
 		if (XVphy_IsHDMI(InstancePtr, XVPHY_DIR_RX)) {
-#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
+#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)  || \
+	     defined (XPAR_XV_HDMITX_0_BASEADDR) || defined (XPAR_XV_HDMIRX_0_BASEADDR)
 			if (InstancePtr->HdmiRxDruIsEnabled) {
 				PllRefClkHz = XVphy_DruGetRefClkFreqHz(InstancePtr);
 			}

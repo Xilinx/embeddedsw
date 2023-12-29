@@ -25,7 +25,9 @@
 
 /******************************* Include Files ********************************/
 
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xvphy.h"
 #include "xvphy_i.h"
 
@@ -39,7 +41,11 @@
  * A table of configuration structures containing the configuration information
  * for each Video PHY core in the system.
  */
+#ifndef SDT
 extern XVphy_Config XVphy_ConfigTable[XPAR_XVPHY_NUM_INSTANCES];
+#else
+extern XVphy_Config XVphy_ConfigTable[];
+#endif
 
 /**************************** Function Definitions ****************************/
 
