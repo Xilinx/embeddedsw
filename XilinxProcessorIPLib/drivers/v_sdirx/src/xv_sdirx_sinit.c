@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +25,9 @@
 /***************************** Include Files *********************************/
 
 #include "xv_sdirx.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -39,8 +42,9 @@
 
 
 /************************** Variable Definitions *****************************/
-
-
+#ifdef SDT
+extern XV_SdiRx_Config XV_SdiRx_ConfigTable[];
+#endif
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -60,6 +64,7 @@
 * @note     None.
 *
 ******************************************************************************/
+#ifndef SDT
 XV_SdiRx_Config *XV_SdiRx_LookupConfig(u16 DeviceId)
 {
 	extern XV_SdiRx_Config
@@ -72,8 +77,8 @@ XV_SdiRx_Config *XV_SdiRx_LookupConfig(u16 DeviceId)
 	Index++) {
 
 		/* Assigning address of config table if both device ids
-		* are matched
-		*/
+		 * are matched
+		 */
 		if (XV_SdiRx_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XV_SdiRx_ConfigTable[Index];
 			break;
@@ -82,3 +87,25 @@ XV_SdiRx_Config *XV_SdiRx_LookupConfig(u16 DeviceId)
 
 	return (XV_SdiRx_Config *)CfgPtr;
 }
+#else
+XV_SdiRx_Config *XV_SdiRx_LookupConfig(UINTPTR BaseAddress)
+{
+	XV_SdiRx_Config *CfgPtr = NULL;
+	u32 Index;
+
+	/* Checking for device id for which instance it is matching */
+	for (Index = 0U; XV_SdiRx_ConfigTable[Index].Name;
+	Index++) {
+		/* Assigning address of config table if both device ids
+		* are matched
+		*/
+		if (XV_SdiRx_ConfigTable[Index].BaseAddress == BaseAddress ||
+		    !BaseAddress) {
+			CfgPtr = &XV_SdiRx_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XV_SdiRx_Config *)CfgPtr;
+}
+#endif
