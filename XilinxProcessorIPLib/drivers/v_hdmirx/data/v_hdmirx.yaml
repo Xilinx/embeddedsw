@@ -1,0 +1,35 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for HDMI 2.0 Rx Controller Driver
+
+maintainers:
+  - Gugulothu Rajesh <rajesh.gugulothu@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-hdmi-rx-3.0
+  reg:
+    description: Physical base addreiss and size of the controller register map
+  xlnx,axi-lite-freq-hz:
+    description: Axi lite clock frequency
+
+required:
+    - compatible
+    - reg
+    - xlnx,axi-lite-freq-hz
+
+config:
+    - XV_HdmiRx_Config
+
+depends:
+    video_common: []
+    v_hdmi_common: []
+
+...
