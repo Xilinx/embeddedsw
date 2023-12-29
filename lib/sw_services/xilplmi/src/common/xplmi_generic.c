@@ -106,6 +106,7 @@
 *       mss  11/02/2023 Added VerifyAddr check for address mentioned in
 *                       GetBoard command
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
+*       sk   12/14/2023 Moved XPlmi_GetBufferList to platform files
 *
 * </pre>
 *
@@ -182,10 +183,6 @@
 /* Index defines of set ipi access command payload */
 #define XPLMI_SET_IPI_ACCESS_API_ID_VAL_INDEX	(0U)
 #define XPLMI_SET_IPI_ACCESS_PERM_VAL_INDEX	(1U)
-
-/* Maximum procs supported */
-#define XPLMI_MAX_PSM_BUFFERS		(10U)
-#define XPLMI_MAX_PMC_BUFFERS		(5U)
 
 /* Secure Lockdown and SRST Tamper response mask */
 #define XPLMI_SLD_AND_SRST_TAMPER_RESP_MASK	(0xEU)
@@ -1669,47 +1666,6 @@ int XPlmi_MoveBuffer(u8 BufferIndex, XPlmi_BufferList *BufferList)
 
 END:
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function defines BufferList and returns the address of the same
- *
- * @param	BufferListType is the proc list type if it is stored in PMC or PSM RAM
- *
- * @return	BufferList is the address of BufferList structure
- *
- *****************************************************************************/
-XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
-{
-	/**
-	 * - Create static BufferList structure and initialize with zero during
-	 * initial call.
-	 */
-	static XPlmi_BufferList PsmBufferList = {0U};
-	static XPlmi_BufferData PsmBuffers[XPLMI_MAX_PSM_BUFFERS + 1U] = {0U};
-	static XPlmi_BufferList PmcBufferList = {0U};
-	static XPlmi_BufferData PmcBuffers[XPLMI_MAX_PMC_BUFFERS + 1U] = {0U};
-	XPlmi_BufferList *BufferList = &PsmBufferList;
-
-	PsmBufferList.Data = PsmBuffers;
-	PsmBufferList.MaxBufferCount = XPLMI_MAX_PSM_BUFFERS;
-	PmcBufferList.Data = PmcBuffers;
-	PmcBufferList.MaxBufferCount = XPLMI_MAX_PMC_BUFFERS;
-
-	if (BufferListType == XPLMI_PMC_BUFFER_LIST) {
-		BufferList = &PmcBufferList;
-
-		/**
-		 * - Initialize first Data address of the PmcBufferList to the PMC RAM
-		 * reserved address and BufferMemSize with the Max Size allocated
-		 */
-		PmcBufferList.Data[0U].Addr = XPLMI_PMCRAM_BUFFER_MEMORY;
-		PmcBufferList.BufferMemSize = XPLMI_PMCRAM_BUFFER_MEMORY_LENGTH;
-		PmcBufferList.IsBufferMemAvailable = (u8)TRUE;
-	}
-
-	return BufferList;
 }
 
 /*****************************************************************************/

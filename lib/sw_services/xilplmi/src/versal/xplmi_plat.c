@@ -36,6 +36,7 @@
 *       bm   09/07/2023 Allow loading of ELFs into XRAM
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *       ng   09/22/2023 Fixed missing header for microblaze sleep
+* 1.04  sk   12/14/2023 Moved XPlmi_GetBufferList to platform file
 *
 * </pre>
 *
@@ -723,4 +724,45 @@ void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)
 	} else {
 		*PlmKatStatus = XPLMI_KAT_MASK;
 	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function defines BufferList and returns the address of the same
+ *
+ * @param	BufferListType is the proc list type if it is stored in PMC or PSM RAM
+ *
+ * @return	BufferList is the address of BufferList structure
+ *
+ *****************************************************************************/
+XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
+{
+	/**
+	 * - Create static BufferList structure and initialize with zero during
+	 * initial call.
+	 */
+	static XPlmi_BufferList PsmBufferList = {0U};
+	static XPlmi_BufferData PsmBuffers[XPLMI_MAX_PSM_BUFFERS + 1U] = {0U};
+	static XPlmi_BufferList PmcBufferList = {0U};
+	static XPlmi_BufferData PmcBuffers[XPLMI_MAX_PMC_BUFFERS + 1U] = {0U};
+	XPlmi_BufferList *BufferList = &PsmBufferList;
+
+	PsmBufferList.Data = PsmBuffers;
+	PsmBufferList.MaxBufferCount = XPLMI_MAX_PSM_BUFFERS;
+	PmcBufferList.Data = PmcBuffers;
+	PmcBufferList.MaxBufferCount = XPLMI_MAX_PMC_BUFFERS;
+
+	if (BufferListType == XPLMI_PMC_BUFFER_LIST) {
+		BufferList = &PmcBufferList;
+
+		/**
+		 * - Initialize first Data address of the PmcBufferList to the PMC RAM
+		 * reserved address and BufferMemSize with the Max Size allocated
+		 */
+		PmcBufferList.Data[0U].Addr = XPLMI_PMCRAM_BUFFER_MEMORY;
+		PmcBufferList.BufferMemSize = XPLMI_PMCRAM_BUFFER_MEMORY_LENGTH;
+		PmcBufferList.IsBufferMemAvailable = (u8)TRUE;
+	}
+
+	return BufferList;
 }
