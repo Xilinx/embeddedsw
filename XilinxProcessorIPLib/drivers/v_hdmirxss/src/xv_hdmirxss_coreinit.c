@@ -98,13 +98,21 @@ int XV_HdmiRxSs_SubcoreInitHdmiRx(XV_HdmiRxSs *HdmiRxSsPtr)
 #ifdef XV_HDMIRXSS_LOG_ENABLE
     XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_HDMIRX_INIT, 0);
 #endif
+#ifndef SDT
     ConfigPtr  = XV_HdmiRx_LookupConfig(HdmiRxSsPtr->Config.HdmiRx.DeviceId);
+#else
+    ConfigPtr  = XV_HdmiRx_LookupConfig(HdmiRxSsPtr->Config.HdmiRx.AbsAddr);
+#endif
     if(ConfigPtr == NULL)
     {
       xdbg_printf(XDBG_DEBUG_GENERAL,"HDMIRXSS ERR:: HDMI RX device not found\r\n");
       return(XST_FAILURE);
     }
 
+#ifdef SDT
+    HdmiRxSsPtr->Config.HdmiRx.AbsAddr +=  HdmiRxSsPtr->Config.BaseAddress;
+    ConfigPtr->BaseAddress += HdmiRxSsPtr->Config.BaseAddress;
+#endif
     /* Initialize core */
     Status = XV_HdmiRx_CfgInitialize(HdmiRxSsPtr->HdmiRxPtr,
                                     ConfigPtr,
