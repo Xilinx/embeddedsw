@@ -29,6 +29,9 @@
 /***************************** Include Files *********************************/
 #include "xv_sdirx.h"
 #include "xparameters.h"
+#ifdef SDT
+#include "xv_sdirxss.h"
+#endif
 #include "xdebug.h"
 #include "xstatus.h"
 
@@ -37,11 +40,11 @@
 /*
  * Device hardware build related constants.
  */
-
+#ifndef SDT
 #ifndef TESTAPP_GEN
 #define XV_SDIRX_DEV_ID XPAR_XV_SDIRX_0_DEVICE_ID
 #endif
-
+#endif
 /**************************** Type Definitions *******************************/
 
 
@@ -49,9 +52,11 @@
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 u32 XV_SdiRxSelfTestExample(u32 DeviceId);
-
+#else
+u32 XV_SdiRxSelfTestExample(UINTPTR BaseAddress);
+#endif
 /************************** Variable Definitions *****************************/
 /*
  * Device instance definitions
@@ -80,7 +85,11 @@ int main(void)
 	xil_printf("\n\r--- Entering main() --- \n\r");
 
 	/* Run the poll example for simple transfer */
+#ifndef SDT
 	Status = XV_SdiRxSelfTestExample(XV_SDIRX_DEV_ID);
+#else
+	Status = XV_SdiRxSelfTestExample(XPAR_XV_SDIRX_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 
 		xil_printf("XV_SdiRxSelfTest Example Failed\n\r");
@@ -110,17 +119,29 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 XV_SdiRxSelfTestExample(u32 DeviceId)
+#else
+u32 XV_SdiRxSelfTestExample(UINTPTR BaseAddress)
+#endif
 {
 	XV_SdiRx_Config *CfgPtr;
 	u32 Status = XST_SUCCESS;
-
+#ifndef SDT
 	CfgPtr = XV_SdiRx_LookupConfig(DeviceId);
+#else
+	XV_SdiRxSs_Config *SdiRxSsCfg = NULL;
+
+	SdiRxSsCfg = XV_SdiRxSs_LookupConfig(XPAR_XV_SDIRXSS_0_BASEADDR);
+	CfgPtr = XV_SdiRx_LookupConfig(BaseAddress);
+#endif
 	if (!CfgPtr) {
 		return XST_FAILURE;
 	}
-
-	Status = XV_SdiRx_CfgInitialize(&Sdi, CfgPtr, CfgPtr->BaseAddr);
+#ifdef SDT
+	CfgPtr->BaseAddress += SdiRxSsCfg->BaseAddress;
+#endif
+	Status = XV_SdiRx_CfgInitialize(&Sdi, CfgPtr, CfgPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
