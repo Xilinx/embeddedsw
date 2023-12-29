@@ -40,8 +40,9 @@
 
 
 /************************** Variable Definitions *****************************/
+#ifdef SDT
 extern XV_SdiTxSs_Config XV_SdiTxSs_ConfigTable[];
-
+#endif
 /*****************************************************************************/
 /**
 * This function looks for the device configuration based on the unique device
@@ -54,6 +55,7 @@ extern XV_SdiTxSs_Config XV_SdiTxSs_ConfigTable[];
 *         given device ID, or NULL if no match is found
 *
 *******************************************************************************/
+#ifndef SDT
 XV_SdiTxSs_Config *XV_SdiTxSs_LookupConfig(u32 DeviceId)
 {
 	XV_SdiTxSs_Config *CfgPtr = NULL;
@@ -67,4 +69,42 @@ XV_SdiTxSs_Config *XV_SdiTxSs_LookupConfig(u32 DeviceId)
 	}
 	return CfgPtr;
 }
+#else
+XV_SdiTxSs_Config *XV_SdiTxSs_LookupConfig(UINTPTR BaseAddress)
+{
+	XV_SdiTxSs_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0U; XV_SdiTxSs_ConfigTable[Index].Name; Index++) {
+		if (XV_SdiTxSs_ConfigTable[Index].BaseAddress == BaseAddress ||
+		    !BaseAddress) {
+			CfgPtr = &XV_SdiTxSs_ConfigTable[Index];
+			break;
+		}
+	}
+	return CfgPtr;
+}
+
+/*****************************************************************************/
+/**
+ * This function returns the Index number of config table using BaseAddress
+ *
+ * @param A pointer to the instance structure
+ *
+ * @param Base address of the instance
+ *
+ * @return Index number of the config table
+ *
+ *****************************************************************************/
+u32 XV_SdiTxSs_GetDrvIndex(XV_SdiTxSs *InstancePtr, UINTPTR BaseAddress)
+{
+	u32 Index = 0;
+
+	for (Index = 0U; XV_SdiTxSs_ConfigTable[Index].Name; Index++) {
+		if (XV_SdiTxSs_ConfigTable[Index].BaseAddress == BaseAddress)
+			break;
+	}
+	return Index;
+}
+#endif
 /** @} */

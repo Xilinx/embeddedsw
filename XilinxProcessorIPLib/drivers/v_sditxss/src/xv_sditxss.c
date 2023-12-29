@@ -881,8 +881,18 @@ void XV_SdiTxSs_StreamConfig(XV_SdiTxSs *InstancePtr)
 		/* Only for 3GB DL case we need to change the IsInterlaced
 		 * to true as it should be true for 3GB DL. For remaining
 		 * cases it should be as it is configured from the upper layer*/
-		if (XV_SdiTxSs_Is3GBDLor3GA1125L(InstancePtr))
-			InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced = 1;
+		if (XV_SdiTxSs_Is3GBDLor3GA1125L(InstancePtr)) {
+			InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced =
+			XVidC_IsInterlaced(InstancePtr->SdiTxPtr->Stream[0].Video.VmId);
+			if (InstancePtr->SdiTxPtr->Stream[0].Video.ColorDepth ==
+			    XVIDC_BPC_10 &&
+			    InstancePtr->SdiTxPtr->Stream[0].Video.ColorFormatId ==
+			    XVIDC_CSF_YCRCB_422 ||
+			    InstancePtr->SdiTxPtr->Stream[0].Video.ColorFormatId ==
+			    XVIDC_CSF_YCRCB_420) {
+				InstancePtr->SdiTxPtr->Stream[0].Video.IsInterlaced = 1;
+			}
+		}
 	case XSDIVID_MODE_HD:
 	case XSDIVID_MODE_12G:
 		PayloadLineNum1 = XV_SDITX_PAYLOADLN1_HD_3G_6G_12G;
