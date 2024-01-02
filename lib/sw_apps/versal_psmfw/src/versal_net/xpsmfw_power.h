@@ -247,10 +247,11 @@ struct XPsmFwPwrCtrl_t {
 
 	enum ClusteId ClusterId;
 
-	/* Interrupt Enable Register*/
-	u32 IntrDisableAddr;
+	/* PCIL ISR Register*/
+	u32 PcilIsrAddr;
 
-	u8 IntrDisableMask;
+	/* Pactive1 bit number*/
+	u8 Pactive1Mask;
 
 	/* core vectore table address*/
 	u32 VectTableAddr;
