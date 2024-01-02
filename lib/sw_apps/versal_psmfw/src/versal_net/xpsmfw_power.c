@@ -694,8 +694,8 @@ static struct XPsmFwPwrCtrl_t Rpu0_Core0PwrCtrl = {
 	.CorePactive = LPD_SLCR_RPU_PCIL_A0_PA,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_A0_PA_PACTIVE_MASK,
 	.CorePacceptMask = LPD_SLCR_RPU_PCIL_A0_PA_PACCEPT_MASK,
-	.IntrDisableAddr = LPD_SLCR_RPU_PCIL_A0_IDS,
-	.IntrDisableMask = LPD_SLCR_RPU_PCIL_A0_IDS_PACTIVE1_MASK,
+	.PcilIsrAddr = LPD_SLCR_RPU_PCIL_A0_ISR,
+	.Pactive1Mask = LPD_SLCR_RPU_PCIL_A0_ISR_PACTIVE1_MASK,
 	.ClusterId = CLUSTER_0,
 	.VectTableAddr = PSX_RPU_CLUSTER_A0_CORE_0_VECTABLE,
 
@@ -718,8 +718,8 @@ static struct XPsmFwPwrCtrl_t Rpu0_Core1PwrCtrl = {
 	.CorePactive = LPD_SLCR_RPU_PCIL_A1_PA,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_A1_PA_PACTIVE_MASK,
 	.CorePacceptMask = LPD_SLCR_RPU_PCIL_A1_PA_PACCEPT_MASK,
-	.IntrDisableAddr = LPD_SLCR_RPU_PCIL_A1_IDS,
-	.IntrDisableMask = LPD_SLCR_RPU_PCIL_A1_IDS_PACTIVE1_MASK,
+	.PcilIsrAddr = LPD_SLCR_RPU_PCIL_A1_ISR,
+	.Pactive1Mask = LPD_SLCR_RPU_PCIL_A1_ISR_PACTIVE1_MASK,
 	.ClusterId = CLUSTER_0,
 	.VectTableAddr = PSX_RPU_CLUSTER_A1_CORE_1_VECTABLE,
 
@@ -742,8 +742,8 @@ static struct XPsmFwPwrCtrl_t Rpu1_Core0PwrCtrl = {
 	.CorePactive = LPD_SLCR_RPU_PCIL_B0_PA,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_B0_PA_PACTIVE_MASK,
 	.CorePacceptMask = LPD_SLCR_RPU_PCIL_B0_PA_PACCEPT_MASK,
-	.IntrDisableAddr = LPD_SLCR_RPU_PCIL_B0_IDS,
-	.IntrDisableMask = LPD_SLCR_RPU_PCIL_B0_IDS_PACTIVE1_MASK,
+	.PcilIsrAddr = LPD_SLCR_RPU_PCIL_B0_ISR,
+	.Pactive1Mask = LPD_SLCR_RPU_PCIL_B0_ISR_PACTIVE1_MASK,
 	.ClusterId = CLUSTER_1,
 	.VectTableAddr = PSX_RPU_CLUSTER_B0_CORE_0_VECTABLE,
 };
@@ -765,8 +765,8 @@ static struct XPsmFwPwrCtrl_t Rpu1_Core1PwrCtrl = {
 	.CorePactive = LPD_SLCR_RPU_PCIL_B1_PA,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_B1_PA_PACTIVE_MASK,
 	.CorePacceptMask = LPD_SLCR_RPU_PCIL_B1_PA_PACCEPT_MASK,
-	.IntrDisableAddr = LPD_SLCR_RPU_PCIL_B1_IDS,
-	.IntrDisableMask = LPD_SLCR_RPU_PCIL_B1_IDS_PACTIVE1_MASK,
+	.PcilIsrAddr = LPD_SLCR_RPU_PCIL_B1_ISR,
+	.Pactive1Mask = LPD_SLCR_RPU_PCIL_B1_ISR_PACTIVE1_MASK,
 	.ClusterId = CLUSTER_1,
 	.VectTableAddr = PSX_RPU_CLUSTER_B1_CORE_1_VECTABLE,
 };
@@ -1349,7 +1349,7 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 
 	/*Set the start address */
 	LowAddress = (u32)(PsmToPlmEvent.ResumeAddress[Args->Id] & 0xffffffe0ULL);
-	if(0U != PsmToPlmEvent.ResumeAddress[Args->Id] & 1ULL){
+	if(0U != (PsmToPlmEvent.ResumeAddress[Args->Id] & 1ULL)){
 		u32 TcmBootFlag = (Xil_In32(Args->ResetCfgAddr)&RPU_TCMBOOT_MASK)>>0x4;
 		if(0U == TcmBootFlag){
 			XPsmFw_Write32(Args->VectTableAddr, LowAddress);
@@ -1361,7 +1361,7 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_Write32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_DIS, Args->PwrStateMask >> 14);
 
 	/* Mask RPU PCIL Interrupts */
-    XPsmFw_RMW32(Args->IntrDisableAddr,Args->IntrDisableMask,Args->IntrDisableMask);
+	XPsmFw_RMW32(Args->PcilIsrAddr + LPX_SLCR_RPU_PCIL_CORE_IDS_OFFSET, Args->Pactive1Mask, Args->Pactive1Mask);
 
 	Status = XPsmFwRPUxPwrUp(Args);
 	if(XST_SUCCESS != Status){
@@ -1476,10 +1476,10 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 		PSMX_GLOBAL_REG_WAKEUP1_IRQ_RPU_X_COREX_SHIFT);
 
 	/*clear ISR*/
-	XPsmFw_Write32(Args->IntrDisableAddr + LPX_SLCR_RPU_PCIL_CORE_ISR_OFFSET, Args->IntrDisableMask);
+	XPsmFw_Write32(Args->PcilIsrAddr, Args->Pactive1Mask);
 
 	/* Unmask the RPU PCIL Interrupt */
-	XPsmFw_Write32(Args->IntrDisableAddr + LPX_SLCR_RPU_PCIL_CORE_IEN_OFFSET, Args->IntrDisableMask);
+	XPsmFw_Write32(Args->PcilIsrAddr + LPX_SLCR_RPU_PCIL_CORE_IEN_OFFSET, Args->Pactive1Mask);
 
 done:
 	return Status;
