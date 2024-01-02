@@ -31,6 +31,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   26/03/18 First release
  * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
+ * 1.15  pm   12/15/23 Added support for system device-tree flow.
  *
  * </pre>
  *
@@ -45,7 +46,12 @@
 #include "xusb_freertos_class_audio.h"
 
 /************************** Constant Definitions ****************************/
+#ifndef SDT
 #define USB_INTR_ID			XPAR_XUSBPS_0_INTR
+#else
+#define INTRNAME_DWC3USB3	0 /* Interrupt-name - USB */
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#endif
 
 /* The following constants are to be modified to get different size of memory */
 #define RAMDISKSECTORS		0x400   /* 1KB */
@@ -240,15 +246,24 @@ static void Usb_IsoInHandler(void *CallBackRef, u32 RequestedBytes,
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 static int XUsbAudioExample(struct Usb_DevData *UsbInstPtr,
 			    struct audio_dev *dev, u16 DeviceId, u16 UsbIntrId)
+#else
+static int XUsbAudioExample(struct Usb_DevData *UsbInstPtr,
+			    struct audio_dev *dev)
+#endif
 {
 	s32 Status;
 	Usb_Config *UsbConfigPtr;
 
 	xil_printf("FreeRTOS Xilinx Audio Start...\r\n");
 
+#ifndef SDT
 	UsbConfigPtr = LookupConfig(DeviceId);
+#else
+	UsbConfigPtr = LookupConfig(XUSBPSU_BASEADDRESS);
+#endif
 	if (NULL == UsbConfigPtr) {
 		xil_printf("LookupConfig failed\r\n");
 		return XST_FAILURE;
@@ -291,7 +306,13 @@ static int XUsbAudioExample(struct Usb_DevData *UsbInstPtr,
 		     Usb_IsoOutHandler);
 
 	/* Setup interrupts */
-	SetupInterruptSystem(UsbInstPtr->PrivateData, UsbIntrId);
+	SetupInterruptSystem(UsbInstPtr->PrivateData,
+#ifndef SDT
+			     UsbIntrId
+#else
+			     UsbConfigPtr->IntrId[INTRNAME_DWC3USB3]
+#endif
+			     );
 
 	set_audio_transfer_size(&audio_dev);
 
@@ -356,8 +377,12 @@ static void prvMainTask(void *pvParameters)
 {
 	s32 Status;
 
+#ifndef SDT
 	Status = XUsbAudioExample(&UsbInstance, &audio_dev, USB_DEVICE_ID,
 				  USB_INTR_ID);
+#else
+	Status = XUsbAudioExample(&UsbInstance, &audio_dev);
+#endif
 	if (Status == XST_FAILURE) {
 		xil_printf("FreeRTOS USB Audio Example failed\r\n");
 		vTaskDelete(NULL);
