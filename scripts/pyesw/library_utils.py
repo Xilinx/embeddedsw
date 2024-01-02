@@ -335,9 +335,11 @@ class Library(Repo):
         if lib_list:
             # Run cmake configuration with all the default cache entries
             build_metadata = os.path.join(self.libsrc_folder, "build_configs/gen_bsp")
-            if ("libmetal" in lib_list) and ("standalone" in self.domain_data['os']):
+            if ("libmetal" in lib_list):
                 toolchain_file = os.path.join(self.domain_path, self.domain_data['toolchain_file'])
-                utils.add_newline(toolchain_file, 'ADD_DEFINITIONS(-D__BAREMETAL__)')
+                utils.add_newline(toolchain_file, 'ADD_DEFINITIONS(-DXLNX_PLATFORM)')
+                if ("standalone" in self.domain_data['os']):
+                    utils.add_newline(toolchain_file, 'ADD_DEFINITIONS(-D__BAREMETAL__)')
             self.cmake_paths_append = self.cmake_paths_append.replace('\\', '/')
             self.domain_path = self.domain_path.replace('\\', '/')
             build_metadata = build_metadata.replace('\\', '/')
