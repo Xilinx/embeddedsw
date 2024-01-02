@@ -32,6 +32,7 @@
  * 1.0   rb   22/03/18 First release
  * 1.5   vak  13/02/19 Added support for versal
  * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
+ * 1.15  pm   12/15/23 Added support for system device-tree flow.
  *
  * </pre>
  *
@@ -56,7 +57,12 @@ u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifndef SDT
 #define USB_INTR_ID			XPAR_XUSBPS_0_INTR
+#else
+#define INTRNAME_DWC3USB3	0 /* Interrupt-name - USB */
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#endif
 
 /************************** Function Prototypes ******************************/
 void BulkOutHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed);
@@ -142,8 +148,12 @@ void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 static int XUsbMassStorageExamle(struct Usb_DevData *UsbInstPtr,
 				 u16 DeviceId, u16 UsbIntrId)
+#else
+static int XUsbMassStorageExamle(struct Usb_DevData *UsbInstPtr)
+#endif
 {
 	s32 Status;
 	Usb_Config *UsbConfigPtr;
@@ -153,7 +163,11 @@ static int XUsbMassStorageExamle(struct Usb_DevData *UsbInstPtr,
 	/* Initialize the USB driver so that it's ready to use,
 	 * specify the controller ID that is generated in xparameters.h
 	 */
+#ifndef SDT
 	UsbConfigPtr = LookupConfig(DeviceId);
+#else
+	UsbConfigPtr = LookupConfig(XUSBPSU_BASEADDRESS);
+#endif
 	if (NULL == UsbConfigPtr) {
 		xil_printf("LookupConfig failed\r\n");
 		return XST_FAILURE;
@@ -200,7 +214,13 @@ static int XUsbMassStorageExamle(struct Usb_DevData *UsbInstPtr,
 		     BulkInHandler);
 
 	/* setup interrupts */
-	SetupInterruptSystem(UsbInstPtr->PrivateData, UsbIntrId);
+	SetupInterruptSystem(UsbInstPtr->PrivateData,
+#ifndef SDT
+			     UsbIntrId
+#else
+			     UsbConfigPtr->IntrId[INTRNAME_DWC3USB3]
+#endif
+			     );
 
 	/* Start the controller so that Host can see our device */
 	Usb_Start(UsbInstPtr->PrivateData);
@@ -247,8 +267,13 @@ static void prvMainTask(void *pvParameters)
 {
 	s32 Status;
 
+#ifndef SDT
 	Status = XUsbMassStorageExamle(&UsbInstance, USB_DEVICE_ID,
 				       USB_INTR_ID);
+#else
+	Status = XUsbMassStorageExamle(&UsbInstance);
+#endif
+
 	if (Status == XST_FAILURE) {
 		xil_printf("FreeRTOS USB MASS STORGE Example failed\r\n");
 		vTaskDelete(NULL);

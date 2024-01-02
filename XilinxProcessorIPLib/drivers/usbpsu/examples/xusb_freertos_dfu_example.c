@@ -29,6 +29,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   28/03/18 First release
+ * 1.15  pm   15/12/23 Added support for system device-tree flow.
  *
  * </pre>
  *
@@ -42,7 +43,12 @@
 #include "xusb_class_dfu.h"
 
 /************************** Constant Definitions ****************************/
+#ifndef SDT
 #define USB_INTR_ID             XPAR_XUSBPS_0_INTR
+#else
+#define INTRNAME_DWC3USB3	0 /* Interrupt-name - USB */
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#endif
 
 /************************** Function Prototypes ******************************/
 
@@ -118,8 +124,12 @@ void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 static int XUsbDfuExample(struct Usb_DevData *UsbInstPtr,  u16 DeviceId,
 			  u16 UsbIntrId)
+#else
+static int XUsbDfuExample(struct Usb_DevData *UsbInstPtr)
+#endif
 {
 	s32 Status;
 	Usb_Config *UsbConfigPtr;
@@ -129,7 +139,11 @@ static int XUsbDfuExample(struct Usb_DevData *UsbInstPtr,  u16 DeviceId,
 	/* Initialize the USB driver so that it's ready to use,
 	 * specify the controller ID that is generated in xparameters.h
 	 */
+#ifndef SDT
 	UsbConfigPtr = LookupConfig(DeviceId);
+#else
+	UsbConfigPtr = LookupConfig(XUSBPSU_BASEADDRESS);
+#endif
 	if (NULL == UsbConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -169,7 +183,13 @@ static int XUsbDfuExample(struct Usb_DevData *UsbInstPtr,  u16 DeviceId,
 	DFU.total_bytes_uploaded = 0;
 
 	/* setup interrupts */
-	SetupInterruptSystem(UsbInstPtr->PrivateData, UsbIntrId);
+	SetupInterruptSystem(UsbInstPtr->PrivateData,
+#ifndef SDT
+			     UsbIntrId
+#else
+			     UsbConfigPtr->IntrId[INTRNAME_DWC3USB3]
+#endif
+			     );
 
 	/* Start the controller so that Host can see our device */
 	Usb_Start(UsbInstPtr->PrivateData);
@@ -193,7 +213,11 @@ static void prvMainTask(void *pvParameters)
 {
 	s32 Status;
 
+#ifndef SDT
 	Status = XUsbDfuExample(&UsbInstance, USB_DEVICE_ID, USB_INTR_ID);
+#else
+	Status = XUsbDfuExample(&UsbInstance);
+#endif
 	if (Status == XST_FAILURE) {
 		xil_printf("FreeRTOS USB DFU Example failed\r\n");
 		vTaskDelete(NULL);

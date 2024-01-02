@@ -18,6 +18,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   rb   28/03/18 First release
+ * 1.15  pm   15/12/23 Added support for system device-tree flow.
  *
  * </pre>
  *
@@ -30,9 +31,15 @@
 #include "xusb_freertos_class_composite.h"
 
 /************************** Constant Definitions ****************************/
+#ifndef SDT
 #define INTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define USB_INTR_ID             XPAR_XUSBPS_0_INTR
 #define USB_WAKEUP_INTR_ID      XPAR_XUSBPS_0_WAKE_INTR
+#else
+#define INTRNAME_DWC3USB3	0 /* Interrupt-name - USB */
+#define INTRNAME_HIBER		2 /* Interrupt-name - Hiber */
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#endif
 
 /************************** Function Prototypes ******************************/
 
@@ -261,6 +268,7 @@ static void Usb_KeyboardInHabdler(void *CallBackRef, u32 RequestedBytes, u32 Byt
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
+#ifndef SDT
 /****************************************************************************/
 /**
 * This function setups the interrupt system such that interrupts can occur.
@@ -355,6 +363,7 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 
 	return XST_SUCCESS;
 }
+#endif
 
 /****************************************************************************/
 /**
@@ -371,8 +380,13 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr, XScuGic *IntrInstPtr,
 				struct composite_dev *dev, u16 DeviceId, u16 IntcDeviceID, u16 UsbIntrId)
+#else
+static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr,
+				struct composite_dev *dev)
+#endif
 {
 	s32 Status;
 	Usb_Config *UsbConfigPtr;
@@ -382,7 +396,11 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr, XScuGic *IntrIns
 	/* Initialize the USB driver so that it's ready to use,
 	 * specify the controller ID that is generated in xparameters.h
 	 */
+#ifndef SDT
 	UsbConfigPtr = LookupConfig(DeviceId);
+#else
+	UsbConfigPtr = LookupConfig(XUSBPSU_BASEADDRESS);
+#endif
 	if (NULL == UsbConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -441,11 +459,44 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr, XScuGic *IntrIns
 	SetEpHandler(UsbInstPtr->PrivateData, KEYBOARD_EP, USB_EP_DIR_IN,
 		     Usb_KeyboardInHabdler);
 	/* setup interrupts */
+#ifndef SDT
 	Status = SetupInterruptSystem(UsbInstPtr->PrivateData, IntcDeviceID,
 				      UsbIntrId, (void *)IntrInstPtr);
+
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+#else
+	xPortInstallInterruptHandler(UsbConfigPtr->IntrId[INTRNAME_DWC3USB3],
+				     &XUsbPsu_IntrHandler,
+				     UsbInstance.PrivateData);
+	/*
+	 * Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
+	 * Wakeup and Overflow events.
+	 */
+	XUsbPsu_EnableIntr(UsbInstance.PrivateData,
+			XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
+			XUSBPSU_DEVTEN_WKUPEVTEN |
+			XUSBPSU_DEVTEN_ULSTCNGEN |
+			XUSBPSU_DEVTEN_CONNECTDONEEN |
+			XUSBPSU_DEVTEN_USBRSTEN |
+			XUSBPSU_DEVTEN_DISCONNEVTEN);
+
+	vPortEnableInterrupt(UsbConfigPtr->IntrId[INTRNAME_DWC3USB3]);
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	xPortInstallInterruptHandler(UsbConfigPtr->IntrId[INTRNAME_HIBER],
+				     &XUsbPsu_WakeUpIntrHandler,
+				     UsbInstance.PrivateData);
+
+	if (InstancePtr->HasHibernation)
+		XUsbPsu_EnableIntr(UsbInstance.PrivateData,
+				   XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
+
+	vPortEnableInterrupt(UsbConfigPtr->IntrId[INTRNAME_HIBER]);
+#endif
+
+#endif
 
 	/* Start the controller so that Host can see our device */
 	Usb_Start(UsbInstPtr->PrivateData);
@@ -548,8 +599,12 @@ static void prvMainTask(void *pvParameters)
 	s32 Status;
 	struct composite_dev *dev = pvParameters;
 
+#ifndef SDT
 	Status = XUsbCompositeExample(&UsbInstance, &InterruptController, dev,
 				      USB_DEVICE_ID, INTC_DEVICE_ID, USB_INTR_ID);
+#else
+	Status = XUsbCompositeExample(&UsbInstance, dev);
+#endif
 	if (Status == XST_FAILURE) {
 		xil_printf("USB Composite Example failed\r\n");
 		vTaskDelete(NULL);
