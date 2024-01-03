@@ -14,6 +14,6 @@ BEGIN driver v_frmbuf_rd
  OPTION copyfiles = all;
  OPTION DEPENDS = (video_common);
  OPTION name = v_frmbuf_rd;
- OPTION version = 4.7;
+ OPTION version = 4.8;
 
 END driver

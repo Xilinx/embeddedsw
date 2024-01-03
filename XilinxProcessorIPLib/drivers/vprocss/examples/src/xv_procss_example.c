@@ -635,6 +635,8 @@ u32 ClkWiz_IntrExample(UINTPTR BaseAddress, u32 outfreq)
 
 #endif
 
+#endif
+
 int main(void)
 {
 	XPeriph *PeriphPtr;

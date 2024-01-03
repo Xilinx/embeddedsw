@@ -357,18 +357,20 @@ int main()
 	reset_pipe();
 
 	state = Pattern;
-	state = scd_stream_mode_pipe_init();
-	if (state != XST_SUCCESS) {
-		xil_printf("scd_ stream mode pipe Failed.\n");
-		return XST_FAILURE;
-	}
-	xil_printf("SceneChange initialization - Started\r\n");
 
+	xil_printf("SceneChange initialization - Started\r\n");
 	state = XV_SceneChange_init();
 	if (state != XST_SUCCESS) {
 		xil_printf("SceneChange_init Failed.\n");
 		return XST_FAILURE;
 	}
+
+	state = scd_stream_mode_pipe_init();
+	if (state != XST_SUCCESS) {
+		xil_printf("scd_ stream mode pipe Failed.\n");
+		return XST_FAILURE;
+	}
+
 	Xil_ExceptionEnable();
 
 	state = XTPG_BKGND_H_RAMP;

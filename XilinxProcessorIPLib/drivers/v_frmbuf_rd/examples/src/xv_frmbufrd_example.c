@@ -53,7 +53,11 @@
 #include "xgpio.h"
 
 #if defined(__MICROBLAZE__)
+#ifndef  SDT
 #define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
+#else
+#define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
+#endif
 #else
 #define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
 #endif
