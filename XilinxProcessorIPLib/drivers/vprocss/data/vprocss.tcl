@@ -391,10 +391,9 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
                             incr count
                         }
                     } else {
-                        set periph_first [concat $periph\_]
                         foreach ip_inst $ip_instances {
                             #write, only if, it belongs to current subsystem instance
-                            if {[string first $periph_first $ip_inst] == 0} {
+				if {[string first $periph $ip_inst] == 0} {
 				set final_child_cell_instance_name_present "XPAR_${ip_inst}_PRESENT"
 				set final_child_cell_instance_devid "XPAR_${ip_inst}_DEVICE_ID"
                                 set final_child_cell_instance_name_baseaddr "XPAR_${ip_inst}_${base_addr_name}"
@@ -501,7 +500,8 @@ proc GetNumSubcoreInstances {subsys_inst instance_list} {
 
     set num_instances 0
     foreach ip_inst $instance_list {
-        if {[string first $subsys_inst $ip_inst] == 0} {
+	set subsys [concat $subsys_inst\_]
+	if {[regexp $subsys $ip_inst]} {
             incr num_instances
         }
     }
