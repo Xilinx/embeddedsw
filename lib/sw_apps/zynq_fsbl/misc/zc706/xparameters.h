@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
@@ -368,6 +369,7 @@
 #define XPAR_PS7_SD_0_CLK_50_DDR_OTAP_DLY 0
 #define XPAR_PS7_SD_0_CLK_100_SDR_OTAP_DLY 0
 #define XPAR_PS7_SD_0_CLK_200_SDR_OTAP_DLY 0
+#define XPAR_PS7_SD_0_CLK_200_DDR_OTAP_DLY 0
 
 
 /******************************************************************/
@@ -391,6 +393,7 @@
 #define XPAR_XSDPS_0_CLK_50_DDR_OTAP_DLY 0
 #define XPAR_XSDPS_0_CLK_100_SDR_OTAP_DLY 0
 #define XPAR_XSDPS_0_CLK_200_SDR_OTAP_DLY 0
+#define XPAR_XSDPS_0_CLK_200_DDR_OTAP_DLY 0
 
 
 /******************************************************************/
