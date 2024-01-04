@@ -6,6 +6,7 @@
 * DO NOT EDIT.
 *
 * Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved.
+* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 
 *
@@ -39,6 +40,7 @@ XSdPs_Config XSdPs_ConfigTable[XPAR_XSDPS_NUM_INSTANCES] =
 		XPAR_PSV_PMC_SD_0_CLK_50_DDR_OTAP_DLY,
 		XPAR_PSV_PMC_SD_0_CLK_100_SDR_OTAP_DLY,
 		XPAR_PSV_PMC_SD_0_CLK_200_SDR_OTAP_DLY,
+		XPAR_PSV_PMC_SD_0_CLK_200_DDR_OTAP_DLY,
 	},
 	{
 		XPAR_PSV_PMC_SD_1_DEVICE_ID,
@@ -57,5 +59,6 @@ XSdPs_Config XSdPs_ConfigTable[XPAR_XSDPS_NUM_INSTANCES] =
 		XPAR_PSV_PMC_SD_1_CLK_50_DDR_OTAP_DLY,
 		XPAR_PSV_PMC_SD_1_CLK_100_SDR_OTAP_DLY,
 		XPAR_PSV_PMC_SD_1_CLK_200_SDR_OTAP_DLY,
+		XPAR_PSV_PMC_SD_1_CLK_200_DDR_OTAP_DLY,
 	}
 };
