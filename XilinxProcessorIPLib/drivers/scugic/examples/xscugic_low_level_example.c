@@ -165,11 +165,11 @@ static int ScuGicLowLevelExample()
 #endif
 	GicDistInit(XSCUGIC_DIST_BASEADDR);
 
-        #ifndef SDT
-        CfgPtr = XScuGic_LookupConfigBaseAddr(XSCUGIC_DIST_BASEADDR);
-        #else
-        CfgPtr = XScuGic_LookupConfig(XSCUGIC_DIST_BASEADDR);
-        #endif
+#ifndef SDT
+	CfgPtr = XScuGic_LookupConfigBaseAddr(XSCUGIC_DIST_BASEADDR);
+#else
+	CfgPtr = XScuGic_LookupConfig(XSCUGIC_DIST_BASEADDR);
+#endif
 
 #if !defined (GICv3)
 	GicCPUInit(CfgPtr->CpuBaseAddress);
@@ -262,8 +262,8 @@ void SetupInterruptSystem(void)
 	 */
 
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-			(Xil_ExceptionHandler) LowInterruptHandler,
-			(void *)CfgPtr->CpuBaseAddress);
+				     (Xil_ExceptionHandler) LowInterruptHandler,
+				     (void *)CfgPtr->CpuBaseAddress);
 	/*
 	 * Enable interrupts in the ARM
 	 */

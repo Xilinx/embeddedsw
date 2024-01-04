@@ -118,7 +118,6 @@ int main(void)
 {
 	int Status;
 
-
 	/*
 	 * Setup an assert call back to get some info if we assert.
 	 */
@@ -129,11 +128,11 @@ int main(void)
 	/*
 	 *  Run the Gic example , specify the Device ID generated in xparameters.h
 	 */
-	#ifndef SDT
+#ifndef SDT
 	Status = ScuGicExample(INTC_DEVICE_ID);
-	#else
-        Status = ScuGicExample(XSCUGiC_DIST_BASEADDR);
-	#endif
+#else
+	Status = ScuGicExample(XSCUGiC_DIST_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("GIC Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -196,7 +195,6 @@ int ScuGicExample(u32 BaseAddr)
 		return XST_FAILURE;
 	}
 
-
 	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly
@@ -205,7 +203,6 @@ int ScuGicExample(u32 BaseAddr)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
 
 	/*
 	 * Setup the Interrupt System
@@ -250,8 +247,8 @@ int ScuGicExample(u32 BaseAddr)
 				      ((ClusterId << XSCUGIC_CLUSTERID_SHIFT ) | CoreId));
 #else
 	Status = XScuGic_SoftwareIntr(&InterruptController,
-					INTC_DEVICE_INT_ID,
-					(XSCUGIC_SPI_CPU0_MASK << CoreId));
+				      INTC_DEVICE_INT_ID,
+				      (XSCUGIC_SPI_CPU0_MASK << CoreId));
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
