@@ -54,8 +54,6 @@
 #endif
 
 #define MIO_TRI_PIN32	(32U)
-#define MIO_TRI_PIN33	(33U)
-#define MIO_TRI_PIN34	(34U)
 
 #define AES_PUF_KEY_SEL_MASK	0x2U
 #define EXPORT_EFUSE_BIT_MASK	0x8000U
@@ -195,14 +193,8 @@ void PmKillBoardPower(void)
 	XPfw_RMW32((IOU_SLCR_BASE + mioPinOffset),
 			0x000000FEU, 0x00000008U);
 
-	/* Clearing the tri-state of the below MIO pins
-	 * FPD_PWR_EN (MIO32)
-	 * PL_PWR_EN (MIO33)
-	 * LPD_PWR_EN/PWR_KILL_N (MIO34)
-	 */
-	PmPinCtrlMioTriState(MIO_TRI_PIN32, 0U);
-	PmPinCtrlMioTriState(MIO_TRI_PIN33, 0U);
-	PmPinCtrlMioTriState(MIO_TRI_PIN34, 0U);
+	/* Clearing the tri-state for LPD_PWR_EN/PWR_KILL_N (MIO34) */
+	PmPinCtrlMioTriState((MIO_TRI_PIN32 + BOARD_SHUTDOWN_PIN), 0U);
 }
 #else
 void PmKillBoardPower(void) { }
