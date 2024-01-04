@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,7 +52,11 @@
  * included if the example is generated from the TestAppGen test tool.
  */
 #ifndef TESTAPP_GEN
+#ifndef SDT
 #define INTC_DEVICE_ID		  XPAR_SCUGIC_SINGLE_DEVICE_ID
+#else
+#define XSCUGIC_DIST_BASEADDR XPAR_XSCUGIC_0_BASEADDR
+#endif
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -61,9 +66,13 @@
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int ScuGicSelfTestExample(u16 DeviceId);
 int ScuGicInterruptSetup(XScuGic *IntcInstancePtr, u16 DeviceId);
+#else
+int ScuGicSelfTestExample(u32 BaseAddr);
+int ScuGicInterruptSetup(XScuGic *IntcInstancePtr, u32 BaseAddr);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -95,7 +104,11 @@ int main(void)
 	 *  xparameters.h.
 	 */
 	xil_printf("Starting Scugic self test Example \r\n");
+	#ifndef SDT
 	Status = ScuGicSelfTestExample(INTC_DEVICE_ID);
+	#else
+	Status = ScuGicSelfTestExample(XSCUGIC_DIST_BASEADDR);
+	#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Scugic self test Example failed \n!");
 		return XST_FAILURE;
@@ -130,7 +143,11 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int ScuGicSelfTestExample(u16 DeviceId)
+#else
+int ScuGicSelfTestExample(u32 BaseAddr)
+#endif
 {
 	int Status;
 	static XScuGic_Config *GicConfig;
@@ -139,7 +156,11 @@ int ScuGicSelfTestExample(u16 DeviceId)
 	 * Initialize the interrupt controller driver so that it is ready to
 	 * use.
 	 */
+	#ifndef SDT
 	GicConfig = XScuGic_LookupConfig(DeviceId);
+	#else
+	GicConfig = XScuGic_LookupConfig(BaseAddr);
+	#endif
 	if (NULL == GicConfig) {
 		return XST_FAILURE;
 	}
@@ -172,7 +193,11 @@ int ScuGicSelfTestExample(u16 DeviceId)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int ScuGicInterruptSetup(XScuGic *IntcInstancePtr, u16 DeviceId)
+#else
+int ScuGicInterruptSetup(XScuGic *IntcInstancePtr, u32 BaseAddr)
+#endif
 {
 
 	int Status;
@@ -182,7 +207,11 @@ int ScuGicInterruptSetup(XScuGic *IntcInstancePtr, u16 DeviceId)
 	 * Initialize the interrupt controller driver so that it is ready to
 	 * use.
 	 */
+	#ifndef SDT
 	GicConfig = XScuGic_LookupConfig(DeviceId);
+	#else
+	GicConfig = XScuGic_LookupConfig(BaseAddr);
+	#endif
 	if (NULL == GicConfig) {
 		return XST_FAILURE;
 	}
