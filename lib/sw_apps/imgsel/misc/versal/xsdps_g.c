@@ -1,6 +1,6 @@
 /*******************************************************************
 * Copyright (C) 2022 Xilinx, Inc. All Rights Reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *
 * Description: Driver configuration
@@ -32,6 +32,7 @@ XSdPs_Config XSdPs_ConfigTable[XPAR_XSDPS_NUM_INSTANCES] =
 		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SD_1_CLK_50_DDR_ITAP_DLY,
 		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SD_1_CLK_50_DDR_OTAP_DLY,
 		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SD_1_CLK_100_SDR_OTAP_DLY,
-		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SD_1_CLK_200_SDR_OTAP_DLY
+		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SD_1_CLK_200_SDR_OTAP_DLY,
+		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SD_1_CLK_200_DDR_OTAP_DLY
 	}
 };
