@@ -83,26 +83,26 @@ int TmrNestedInterruptExample();  /* Main test */
 
 /* Set up routines for timer counters */
 #ifndef SDT
-int SetupTicker(XTtcPs *TtcPsInst,u16 DeviceID,u16 TtcTickIntrID,
-                        void *TickHandler, XScuGic *InterruptController,
-                        TmrCntrSetup SettingsTable);
-int SetupTimer(u16 DeviceID,XTtcPs *TtcPsInst,TmrCntrSetup SettingsTable);
+int SetupTicker(XTtcPs *TtcPsInst, u16 DeviceID, u16 TtcTickIntrID,
+		void *TickHandler, XScuGic *InterruptController,
+		TmrCntrSetup SettingsTable);
+int SetupTimer(u16 DeviceID, XTtcPs *TtcPsInst, TmrCntrSetup SettingsTable);
 static int SetupInterruptSystem(u16 IntcDeviceID, XScuGic *IntcInstancePtr);
 #else
-int SetupTicker(XTtcPs *TtcPsInst,u32 BaseAddr,u32 priority,
-                        void *TickHandler, TmrCntrSetup SettingsTable);
-int SetupTimer(u32 BaseAddr,XTtcPs *TtcPsInst,TmrCntrSetup SettingsTable);
+int SetupTicker(XTtcPs *TtcPsInst, u32 BaseAddr, u32 priority,
+		void *TickHandler, TmrCntrSetup SettingsTable);
+int SetupTimer(u32 BaseAddr, XTtcPs *TtcPsInst, TmrCntrSetup SettingsTable);
 #endif
 
 static void TtcInst0TickHandler(void *CallBackRef1);
 static void TtcInst1TickHandler(void *CallBackRef1);
 /************************** Variable Definitions *****************************/
 /* Ticker timer counter initial setup, only output freq */
-static TmrCntrSetup SettingsTable0=
-	{TICK_TIMER0_FREQ_HZ, 0, 0, 0};
+static TmrCntrSetup SettingsTable0 =
+{TICK_TIMER0_FREQ_HZ, 0, 0, 0};
 
-static TmrCntrSetup SettingsTable1=
-	{TICK_TIMER1_FREQ_HZ, 0, 0, 0};
+static TmrCntrSetup SettingsTable1 =
+{TICK_TIMER1_FREQ_HZ, 0, 0, 0};
 
 static volatile u8 LowPriorityIntrFlag;	/* Flag to update low priority interrupt counter */
 static volatile u8 HighPriorityIntrFlag;	/* Flag to update high priority interrupt counter */
@@ -185,25 +185,25 @@ int TmrNestedInterruptExample()
 
 	/* configure the priority for counter 0 */
 	IntrPriority = XScuGic_DistReadReg(&InterruptController,
-			XSCUGIC_PRIORITY_OFFSET_CALC(TtcTickIntrID));
+					   XSCUGIC_PRIORITY_OFFSET_CALC(TtcTickIntrID));
 	IntrPriority = (IntrPriority & ~( XSCUGIC_PRIORITY_MASK << ((TtcTickIntrID % 4) * 8)))
-							| (TTC_CNT0_INTR_PRIORITY << ((TtcTickIntrID%4) * 8));
+		       | (TTC_CNT0_INTR_PRIORITY << ((TtcTickIntrID % 4) * 8));
 	XScuGic_DistWriteReg(&InterruptController,
-					XSCUGIC_PRIORITY_OFFSET_CALC(TtcTickIntrID),IntrPriority);
+			     XSCUGIC_PRIORITY_OFFSET_CALC(TtcTickIntrID), IntrPriority);
 #else
 	BaseAddr = TTC_CNT0_BASEADDR;
 #endif
 
 #ifndef SDT
-	Status = SetupTicker(&TtcPsInst0,DeviceID,TtcTickIntrID, (void*) TtcInst0TickHandler,
-						&InterruptController, SettingsTable0);
+	Status = SetupTicker(&TtcPsInst0, DeviceID, TtcTickIntrID, (void *) TtcInst0TickHandler,
+			     &InterruptController, SettingsTable0);
 #else
-	Status = SetupTicker(&TtcPsInst0,BaseAddr,TTC_CNT0_INTR_PRIORITY, (void*) TtcInst0TickHandler,
-									SettingsTable0);
+	Status = SetupTicker(&TtcPsInst0, BaseAddr, TTC_CNT0_INTR_PRIORITY, (void *) TtcInst0TickHandler,
+			     SettingsTable0);
 #endif
-        if (Status != XST_SUCCESS) {
-                return XST_FAILURE;
-        }
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	/* Configure counter 1 */
 #ifndef SDT
@@ -212,27 +212,27 @@ int TmrNestedInterruptExample()
 
 	/* configure the priority for counter 1 */
 	IntrPriority = XScuGic_DistReadReg(&InterruptController,
-				XSCUGIC_PRIORITY_OFFSET_CALC(TtcTickIntrID));
+					   XSCUGIC_PRIORITY_OFFSET_CALC(TtcTickIntrID));
 	IntrPriority = (IntrPriority & ~( XSCUGIC_PRIORITY_MASK << ((TtcTickIntrID % 4) * 8)))
-						| (TTC_CNT1_INTR_PRIORITY << ((TtcTickIntrID%4) * 8));
+		       | (TTC_CNT1_INTR_PRIORITY << ((TtcTickIntrID % 4) * 8));
 	XScuGic_DistWriteReg(&InterruptController,
-						XSCUGIC_PRIORITY_OFFSET_CALC(TtcTickIntrID),IntrPriority);
+			     XSCUGIC_PRIORITY_OFFSET_CALC(TtcTickIntrID), IntrPriority);
 	XScuGic_SetPriTrigTypeByDistAddr(INTC_DIST_BASEADDR, TtcTickIntrID,
-				      TTC_CNT1_INTR_PRIORITY, 1);
+					 TTC_CNT1_INTR_PRIORITY, 1);
 #else
-    BaseAddr = TTC_CNT1_BASEADDR;
+	BaseAddr = TTC_CNT1_BASEADDR;
 #endif
 
 #ifndef SDT
-	Status = SetupTicker(&TtcPsInst1,DeviceID,TtcTickIntrID, (void*) TtcInst1TickHandler,
-						&InterruptController,SettingsTable1);
+	Status = SetupTicker(&TtcPsInst1, DeviceID, TtcTickIntrID, (void *) TtcInst1TickHandler,
+			     &InterruptController, SettingsTable1);
 #else
-	Status = SetupTicker(&TtcPsInst1,BaseAddr,TTC_CNT1_INTR_PRIORITY, (void*) TtcInst1TickHandler,
-								SettingsTable1);
+	Status = SetupTicker(&TtcPsInst1, BaseAddr, TTC_CNT1_INTR_PRIORITY, (void *) TtcInst1TickHandler,
+			     SettingsTable1);
 #endif
-        if (Status != XST_SUCCESS) {
-                return XST_FAILURE;
-        }
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	/* start all the timer at once */
 	XTtcPs_Start(&TtcPsInst0);
@@ -240,7 +240,7 @@ int TmrNestedInterruptExample()
 	XTtcPs_Start(&TtcPsInst1);
 
 
-	while(LowPriorityIntrFlag==0 || HighPriorityIntrFlag==0);
+	while (LowPriorityIntrFlag == 0 || HighPriorityIntrFlag == 0);
 
 	return XST_SUCCESS;
 }
@@ -263,13 +263,13 @@ int TmrNestedInterruptExample()
 *
 *****************************************************************************/
 #ifndef SDT
-int SetupTicker(XTtcPs *TtcPsInst,u16 DeviceID,u16 TtcTickIntrID,
-			void *TickHandler, XScuGic *InterruptController,
-			TmrCntrSetup SettingsTable)
+int SetupTicker(XTtcPs *TtcPsInst, u16 DeviceID, u16 TtcTickIntrID,
+		void *TickHandler, XScuGic *InterruptController,
+		TmrCntrSetup SettingsTable)
 #else
-int SetupTicker(XTtcPs *TtcPsInst,u32 BaseAddr,u32 priority,
-                        void *TickHandler,
-                        TmrCntrSetup SettingsTable)
+int SetupTicker(XTtcPs *TtcPsInst, u32 BaseAddr, u32 priority,
+		void *TickHandler,
+		TmrCntrSetup SettingsTable)
 #endif
 {
 	int Status;
@@ -283,7 +283,7 @@ int SetupTicker(XTtcPs *TtcPsInst,u32 BaseAddr,u32 priority,
 	 * waveform output.
 	 */
 	TimerSetup->Options |= (XTTCPS_OPTION_INTERVAL_MODE |
-					      XTTCPS_OPTION_WAVE_DISABLE);
+				XTTCPS_OPTION_WAVE_DISABLE);
 
 	/*
 	 * Calling the timer setup routine
@@ -291,11 +291,11 @@ int SetupTicker(XTtcPs *TtcPsInst,u32 BaseAddr,u32 priority,
 	 *  . set options
 	 */
 #ifndef SDT
-	Status = SetupTimer(DeviceID,TtcPsInst,SettingsTable);
+	Status = SetupTimer(DeviceID, TtcPsInst, SettingsTable);
 #else
-	Status = SetupTimer(BaseAddr,TtcPsInst,SettingsTable);
+	Status = SetupTimer(BaseAddr, TtcPsInst, SettingsTable);
 #endif
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		return Status;
 	}
 
@@ -306,7 +306,7 @@ int SetupTicker(XTtcPs *TtcPsInst,u32 BaseAddr,u32 priority,
 	 * Connect to the interrupt controller
 	 */
 	Status = XScuGic_Connect(InterruptController, TtcTickIntrID,
-		(Xil_InterruptHandler)TickHandler, (void *)TtcPsTick);
+				 (Xil_InterruptHandler)TickHandler, (void *)TtcPsTick);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -316,11 +316,11 @@ int SetupTicker(XTtcPs *TtcPsInst,u32 BaseAddr,u32 priority,
 	XScuGic_Enable(InterruptController, TtcTickIntrID);
 #else
 
-    Status = XSetupInterruptSystem(TtcPsTick, TickHandler,
+	Status = XSetupInterruptSystem(TtcPsTick, TickHandler,
 				       TtcPsTick->Config.IntrId[0],
 				       TtcPsTick->Config.IntrParent,
 				       priority);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		return Status;
 	}
 #endif
@@ -348,9 +348,9 @@ int SetupTicker(XTtcPs *TtcPsInst,u32 BaseAddr,u32 priority,
 *
 *****************************************************************************/
 #ifndef SDT
-int SetupTimer(u16 DeviceID,XTtcPs *TtcPsInst,TmrCntrSetup SettingsTable)
+int SetupTimer(u16 DeviceID, XTtcPs *TtcPsInst, TmrCntrSetup SettingsTable)
 #else
-int SetupTimer(u32 BaseAddr,XTtcPs *TtcPsInst,TmrCntrSetup SettingsTable)
+int SetupTimer(u32 BaseAddr, XTtcPs *TtcPsInst, TmrCntrSetup SettingsTable)
 #endif
 {
 	int Status;
@@ -393,7 +393,7 @@ int SetupTimer(u32 BaseAddr,XTtcPs *TtcPsInst,TmrCntrSetup SettingsTable)
 	 * frequency to the interval and prescaler values.
 	 */
 	XTtcPs_CalcIntervalFromFreq(Timer, TimerSetup->OutputHz,
-		&(TimerSetup->Interval), &(TimerSetup->Prescaler));
+				    &(TimerSetup->Interval), &(TimerSetup->Prescaler));
 
 	/*
 	 * Set the interval and prescale
@@ -421,7 +421,7 @@ int SetupTimer(u32 BaseAddr,XTtcPs *TtcPsInst,TmrCntrSetup SettingsTable)
 *
 *****************************************************************************/
 static int SetupInterruptSystem(u16 IntcDeviceID,
-				    XScuGic *IntcInstancePtr)
+				XScuGic *IntcInstancePtr)
 {
 	int Status;
 	XScuGic_Config *IntcConfig; /* The configuration parameters of the
@@ -437,7 +437,7 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -448,8 +448,8 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 	 * interrupt handling logic in the ARM processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-				(Xil_ExceptionHandler) XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler) XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 
 
 	/*
@@ -495,7 +495,7 @@ static void TtcInst0TickHandler(void *CallBackRef1)
 	Xil_EnableNestedInterrupts();
 
 	/* wait till interrupts from counter configured with high priority interrupt */
-	while(HighPriorityIntrFlag == 0);
+	while (HighPriorityIntrFlag == 0);
 
 	/* Disable the nested interrupt before exiting IRQ mode */
 	Xil_DisableNestedInterrupts();
@@ -518,19 +518,19 @@ static void TtcInst0TickHandler(void *CallBackRef1)
 
 static void TtcInst1TickHandler(void *CallBackRef1)
 {
-        u32 StatusEvent;
+	u32 StatusEvent;
 
-        /* stop the counter first to avoid any further interrupt generation */
-        XTtcPs_Stop((XTtcPs *)CallBackRef1);
+	/* stop the counter first to avoid any further interrupt generation */
+	XTtcPs_Stop((XTtcPs *)CallBackRef1);
 
 	/*
-         * Read the interrupt status, then write it back to clear the interrupt.
-         */
-        StatusEvent = XTtcPs_GetInterruptStatus((XTtcPs *)CallBackRef1);
-        XTtcPs_ClearInterruptStatus((XTtcPs *)CallBackRef1, StatusEvent);
+	 * Read the interrupt status, then write it back to clear the interrupt.
+	 */
+	StatusEvent = XTtcPs_GetInterruptStatus((XTtcPs *)CallBackRef1);
+	XTtcPs_ClearInterruptStatus((XTtcPs *)CallBackRef1, StatusEvent);
 
 	/* update the flag to indicate the interrupt */
-        HighPriorityIntrFlag++;
+	HighPriorityIntrFlag++;
 
 }
 
