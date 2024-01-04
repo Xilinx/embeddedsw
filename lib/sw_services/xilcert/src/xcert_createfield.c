@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,6 +26,8 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   har  01/09/2023 Initial release
+* 1.2   pre  26/12/2023 Avoids infinite loop in XCert_GetTrailingZeroesCount
+*                       function
 *
 * </pre>
 * @note
@@ -318,16 +320,22 @@ END:
  * 		be counted
  *
  * @return
- *		Number of trailing zeroes
+ *      Number of trailing zeroes. In case the Data is 0 then number of
+ *      trailing zeroes is 8
  *
  ******************************************************************************/
 static u32 XCert_GetTrailingZeroesCount(u8 Data)
 {
 	u32 Count = 0;
 
-	while ((Data & 0x1U) == 0x0U) {
-		Data = Data >> 0x1U;
-		Count++;
+	if (Data != 0x0U) {
+		while ((Data & 0x1U) == 0x0U) {
+			Data = Data >> 0x1U;
+			Count++;
+		}
+	}
+	else {
+		Count = XCERT_LENGTH_OF_BYTE_IN_BITS;
 	}
 
 	return Count;
