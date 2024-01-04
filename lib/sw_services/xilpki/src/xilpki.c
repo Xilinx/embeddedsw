@@ -27,6 +27,7 @@
  * 2.1   Nava  12/07/23  Corrected the PKI_ECC_NIST_P384_KEY_PRIV_GEN_CMD value.
  * 2.1   Nava  12/27/23  Updated the XPki_DeQueueData() API to return the proper error
  *                       status for CopyEcdsa* operations.
+ * 2.1   Nava  01/03/24  Fixed security issues relevant to instance pointer NULL check.
  *</pre>
  *
  *@note
@@ -659,9 +660,7 @@ static inline void XilPki_Queue_MapPageAddr(XPki_Instance *InstancePtr)
 
 static int XilPki_Queue_Init(XPki_Instance *InstancePtr, XPki_QueueID QueueID)
 {
-	UINTPTR RQOutputAddr = InstancePtr->MultiQinfo[QueueID].RQOutputAddr;
-	UINTPTR RQInputAddr = InstancePtr->MultiQinfo[QueueID].RQInputAddr;
-	UINTPTR CQAddr = InstancePtr->MultiQinfo[QueueID].CQAddr;
+	UINTPTR RQOutputAddr, RQInputAddr, CQAddr;
 	volatile int Status = XST_FAILURE;
 	u32 RegOffset, QSlotSize;
 
@@ -675,6 +674,10 @@ static int XilPki_Queue_Init(XPki_Instance *InstancePtr, XPki_QueueID QueueID)
 		Status = XPKI_INVALID_QUEUE_ID;
 		goto END;
 	}
+
+	RQOutputAddr = InstancePtr->MultiQinfo[QueueID].RQOutputAddr;
+	RQInputAddr = InstancePtr->MultiQinfo[QueueID].RQInputAddr;
+	CQAddr = InstancePtr->MultiQinfo[QueueID].CQAddr;
 
 	if (((RQInputAddr & XPKI_ADDR_WORD_ALIGN_MASK) != 0U) ||
 	    ((RQOutputAddr & XPKI_ADDR_WORD_ALIGN_MASK) != 0U) ||
