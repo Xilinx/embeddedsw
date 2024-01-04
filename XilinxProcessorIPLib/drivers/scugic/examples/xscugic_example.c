@@ -50,7 +50,9 @@
 #include "xil_types.h"
 #include "xscugic.h"
 #include "xil_util.h"
+#if defined (VERSAL_NET)
 #include "xplatform_info.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -59,9 +61,14 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
+#else
+#define XSCUGiC_DIST_BASEADDR 	XPAR_XSCUGIC_0_BASEADDR
+#endif
 #define INTC_DEVICE_INT_ID	0x0E
 
+#define XSCUGIC_SPI_CPU_MASK	(XSCUGIC_SPI_CPU0_MASK << XPAR_CPU_ID)
 #define XSCUGIC_SW_TIMEOUT_VAL	10000000U /* Wait for 10 sec */
 
 /**************************** Type Definitions *******************************/
@@ -69,7 +76,11 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 int ScuGicExample(u16 DeviceId);
+#else
+int ScuGicExample(u32 BaseAddr);
+#endif
 int SetUpInterruptSystem(XScuGic *XScuGicInstancePtr);
 void DeviceDriverHandler(void *CallbackRef);
 
@@ -118,7 +129,11 @@ int main(void)
 	/*
 	 *  Run the Gic example , specify the Device ID generated in xparameters.h
 	 */
+	#ifndef SDT
 	Status = ScuGicExample(INTC_DEVICE_ID);
+	#else
+        Status = ScuGicExample(XSCUGiC_DIST_BASEADDR);
+	#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("GIC Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -150,7 +165,11 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int ScuGicExample(u16 DeviceId)
+#else
+int ScuGicExample(u32 BaseAddr)
+#endif
 {
 	int Status;
 	u32 CoreId;
@@ -162,7 +181,11 @@ int ScuGicExample(u16 DeviceId)
 	 * Initialize the interrupt controller driver so that it is ready to
 	 * use.
 	 */
+#ifndef SDT
 	GicConfig = XScuGic_LookupConfig(DeviceId);
+#else
+	GicConfig = XScuGic_LookupConfig(BaseAddr);
+#endif
 	if (NULL == GicConfig) {
 		return XST_FAILURE;
 	}
