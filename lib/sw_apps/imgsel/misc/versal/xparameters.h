@@ -1325,6 +1325,7 @@
 #define XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SD_1_CLK_50_DDR_OTAP_DLY 0
 #define XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SD_1_CLK_100_SDR_OTAP_DLY 0
 #define XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SD_1_CLK_200_SDR_OTAP_DLY 0
+#define XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SD_1_CLK_200_DDR_OTAP_DLY 0
 
 
 /******************************************************************/
@@ -1348,6 +1349,7 @@
 #define XPAR_XSDPS_0_CLK_50_DDR_OTAP_DLY 0
 #define XPAR_XSDPS_0_CLK_100_SDR_OTAP_DLY 0
 #define XPAR_XSDPS_0_CLK_200_SDR_OTAP_DLY 0
+#define XPAR_XSDPS_0_CLK_200_DDR_OTAP_DLY 0
 
 
 /******************************************************************/
