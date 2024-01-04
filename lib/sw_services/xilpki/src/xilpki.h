@@ -40,6 +40,8 @@
  *                       other secure library version info API's.
  * 2.0   Nava  09/07/23  Fixed issues with IRQ signal.
  * 2.0   Nava  09/11/23  Fixed doxygen warnings.
+ * 2.1   Nava  12/27/23  Updated the XPki_DeQueueData() API to return the proper error
+ *                       status for CopyEcdsa* operations.
  *
  * </pre>
  *
@@ -182,6 +184,9 @@ extern "C" {
 #define XPKI_QUEUE_FULL			0x6U /**< Queue full */
 #define XPKI_SLOT_SIZE_ERR		0x7U /**< For incompatiable slot size */
 #define XPKI_INVALID_REQ_ID		0x8U /**< Invalid request ID */
+#define XPKI_SIGN_COPY_ERR		0x9U /**< Failed to copy the signature into the user pointed buffer */
+#define XPKI_PRIV_KEY_COPY_ERR		0xAU /**< Failed to copy the private-key into the user pointed buffer */
+#define XPKI_PUB_KEY_COPY_ERR		0xBU /**< Failed to copy the public-key into the user pointed buffer */
 
 /*
 @cond internal

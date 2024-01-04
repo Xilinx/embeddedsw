@@ -25,6 +25,8 @@
  * 2.0   Nava  09/07/23  Fixed issues with IRQ signal.
  * 2.0   Nava  09/11/23  Fixed doxygen warnings.
  * 2.1   Nava  12/07/23  Corrected the PKI_ECC_NIST_P384_KEY_PRIV_GEN_CMD value.
+ * 2.1   Nava  12/27/23  Updated the XPki_DeQueueData() API to return the proper error
+ *                       status for CopyEcdsa* operations.
  *</pre>
  *
  *@note
@@ -995,6 +997,10 @@ static int XPki_DeQueueData(XPki_Instance *InstancePtr,
 		case PKI_ECC_NIST_P521_SIGN:
 			Status = XPki_CopyEcdsaSigature(CrvType, Addr,
 							(XPki_EcdsaSign *)Request_InfoPtr->PtrOutputData);
+			if (Status != XST_SUCCESS) {
+				Status = XPKI_SIGN_COPY_ERR;
+				goto END;
+			}
 			break;
 		case PKI_ECC_NIST_P192_KEY_PRIV_GEN:
 		case PKI_ECC_NIST_P256_KEY_PRIV_GEN:
@@ -1002,6 +1008,10 @@ static int XPki_DeQueueData(XPki_Instance *InstancePtr,
 		case PKI_ECC_NIST_P521_KEY_PRIV_GEN:
 			Status = XPki_CopyEcdsaPrivKey(CrvType, Addr,
 						       (u8 *)Request_InfoPtr->PtrOutputData);
+			if (Status != XST_SUCCESS) {
+				Status = XPKI_PRIV_KEY_COPY_ERR;
+				goto END;
+			}
 			break;
 		case PKI_ECC_NIST_P192_KEY_PUB_GEN:
 		case PKI_ECC_NIST_P256_KEY_PUB_GEN:
@@ -1009,6 +1019,10 @@ static int XPki_DeQueueData(XPki_Instance *InstancePtr,
 		case PKI_ECC_NIST_P521_KEY_PUB_GEN:
 			Status = XPki_CopyEcdsaPubKey(CrvType, Addr,
 						      (XPki_EcdsaKey *)Request_InfoPtr->PtrOutputData);
+			if (Status != XST_SUCCESS) {
+				Status = XPKI_PUB_KEY_COPY_ERR;
+				goto END;
+			}
 			break;
 		case PKI_ECC_NIST_P192_SIGN_VERIFY:
 		case PKI_ECC_NIST_P256_SIGN_VERIFY:
