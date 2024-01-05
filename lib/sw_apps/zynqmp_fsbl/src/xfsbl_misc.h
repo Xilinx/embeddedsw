@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   10/21/13 Initial release
 * 2.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
+* 2.1   pre  29/12/23 XFsbl_PollTimeout function is removed
 *
 * </pre>
 *
@@ -64,7 +66,6 @@ const char *XFsbl_GetSiliconIdName(void);
 const char *XFsbl_GetProcEng(void);
 u32 XFsbl_CheckSupportedCpu(u32 CpuId);
 u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u32 Size);
-s32 XFsbl_PollTimeout(u32 Addr,u32 Value, u32 cond, u32 TimeOutInUs);
 
 #ifndef ARMA53_64
 void XFsbl_RegisterHandlers(void);

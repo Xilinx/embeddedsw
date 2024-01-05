@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 2.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
 *       vns  01/29/17 Added API XFsbl_AdmaCopy to transfer data using ADMA
 * 6.1   ng   07/13/23 Added SDT support
+* 6.2   pre  29/12/23 XFsbl_PollTimeout function is removed
 *
 * </pre>
 *
@@ -864,52 +865,3 @@ u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u32 Size)
 
 }
 
-/*****************************************************************************/
-/**
- * *
- * * This macro polls an address periodically until a condition is met or till the
- * * timeout occurs.
- * * The minimum timeout for calling this macro is 100us. If the timeout is less
- * * than 100us, it still waits for 100us. Also the unit for the timeout is 100us.
- * * If the timeout is not a multiple of 100us, it waits for a timeout of
- * * the next usec value which is a multiple of 100us.
- * *
- * * @param            Addr - Address to be polled
- * * @param            Value - variable to read the value
- * * @param            Cond - Condition to checked (usually involves VALUE)
- * * @param            TimeOutInUs - timeout in micro seconds
- * *
- * * @return           XFSBL_SUCCESS - when the condition is met
- * *                   XFSBL_FAILURE - when the condition is not met
- * * @note             none
- * *
- * *****************************************************************************/
-s32 XFsbl_PollTimeout(u32 Addr,u32 Value, u32 cond, u32 TimeOutInUs)
-{
-	s32 Status;
-	u64 timeout = TimeOutInUs / 100U;
-
-	if ((TimeOutInUs % (100U)) != 0U) {
-		timeout++;
-	}
-
-	for(;;) {
-		Value = Xil_In32(Addr);
-		if(cond) {
-			break;
-		} else {
-			usleep(100U);
-			timeout--;
-			if(timeout==0U)
-			break;
-		}
-	}
-
-	if (timeout > 0U) {
-		Status = XFSBL_SUCCESS;
-	} else {
-		Status = XFSBL_FAILURE;
-	}
-
-	return Status;
- }
