@@ -31,6 +31,7 @@
 * 1.7   sk  06/28/22 Added Block Protection test for Micron flash.
 * 1.9   sb  06/06/23 Added support for system device-tree flow.
 * 1.10  sb  11/21/23 Added support for Macronix flash mx66um2g45g.
+* 1.10  sb  01/04/24 Added support for ISSI flash is25lx512m.
 *
 *</pre>
 *
@@ -159,6 +160,14 @@ FlashInfo Flash_Config_Table[] = {
 	{
 		0x9d5b19, FLASH_SECTOR_SIZE_128KB, 0x100, FLASH_PAGE_SIZE_256, 0x20000,
 		FLASH_DEVICE_SIZE_256M, 0xFFFE0000, 1,
+		READ_CMD_OCTAL_IO_4B, (WRITE_CMD_OCTAL_4B << 8) | WRITE_CMD_4B,
+		(DIE_ERASE_CMD << 16) | (BULK_ERASE_CMD << 8) | SEC_ERASE_CMD_4B,
+		READ_FLAG_STATUS_CMD, 16
+	},
+	/*is25lx512m*/
+	{
+		0x9d5a1a, FLASH_SECTOR_SIZE_128KB, 0x200, FLASH_PAGE_SIZE_256, 0x40000,
+		FLASH_DEVICE_SIZE_512M, 0xFFFE0000, 2,
 		READ_CMD_OCTAL_IO_4B, (WRITE_CMD_OCTAL_4B << 8) | WRITE_CMD_4B,
 		(DIE_ERASE_CMD << 16) | (BULK_ERASE_CMD << 8) | SEC_ERASE_CMD_4B,
 		READ_FLAG_STATUS_CMD, 16
