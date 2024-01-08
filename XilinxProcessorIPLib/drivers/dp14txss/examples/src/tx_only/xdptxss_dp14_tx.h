@@ -86,12 +86,14 @@
 
 #define XINTC				XScuGic
 #define XINTC_HANDLER			XScuGic_InterruptHandler
+#endif
 #else
+#ifndef SDT
 #define XINTC_DPTXSS_DP_INTERRUPT_ID \
 	XPAR_INTC_0_DP14TXSS_0_VEC_ID
 
 #define XINTC_HANDLER			XIntc_InterruptHandler
-
+#endif
 #endif
 
 /* The unique device ID of the DisplayPort Transmitter Subsystem HIP instance
@@ -99,7 +101,6 @@
  */
 #define XDPTXSS_DEVICE_ID		XPAR_DPTXSS_0_DEVICE_ID
 #define VIDEO_CRC_BASEADDR      XPAR_VIDEO_FRAME_CRC_RX_BASEADDR
-#endif
 /* If set to 1, example will run in MST mode. Otherwise, in SST mode.
  * In MST mode, this example reads the EDID of RX devices if connected in
  * daisy-chain.

@@ -47,6 +47,10 @@
 #endif
 XTmrCtr TmrCtr; /* Timer instance.*/
 
+#ifdef SDT
+#define INTRNAME_DPTX   0
+#endif
+
 #ifndef versal
 XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
 XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
@@ -203,11 +207,16 @@ void enable_caches()
     Xil_ICacheEnableRegion(CACHEABLE_REGION_MASK);
     Xil_DCacheEnableRegion(CACHEABLE_REGION_MASK);
 #elif __MICROBLAZE__
+#ifndef SDT
 #ifdef XPAR_MICROBLAZE_USE_ICACHE
     Xil_ICacheEnable();
 #endif
 #ifdef XPAR_MICROBLAZE_USE_DCACHE
     Xil_DCacheEnable();
+#endif
+#else
+	Xil_ICacheEnable();
+	Xil_DCacheEnable();
 #endif
 #endif
 }
@@ -215,11 +224,16 @@ void enable_caches()
 void disable_caches()
 {
 #ifdef __MICROBLAZE__
+#ifndef SDT
 #ifdef XPAR_MICROBLAZE_USE_DCACHE
     Xil_DCacheDisable();
 #endif
 #ifdef XPAR_MICROBLAZE_USE_ICACHE
     Xil_ICacheDisable();
+#endif
+#else
+	Xil_DCacheDisable();
+	Xil_ICacheDisable();
 #endif
 #endif
 }
@@ -834,7 +848,8 @@ u32 DpTxSs_SetupIntrSystem(void)
 #else
 u32 DpTxSs_SetupIntrSystem(void)
 {
-    u32 Status;
+	u32 Status;
+
 	/* Set custom timer wait */
 	XDpTxSs_SetUserTimerHandler(&DpTxSsInst, &DpPt_CustomWaitUs, &TmrCtr);
 	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_HPD_EVENT),
@@ -850,14 +865,16 @@ u32 DpTxSs_SetupIntrSystem(void)
 	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_VSYNC),
 			(void *)DpPt_Vblank_Handler, &DpTxSsInst);
 
-    Status = XSetupInterruptSystem(&DpTxSsInst, XDpTxSs_DpIntrHandler,
-                                   DpTxSsInst.Config.IntrId, DpTxSsInst.Config.IntrParent,
-                                   XINTERRUPT_DEFAULT_PRIORITY);
-    if (Status != XST_SUCCESS) {
+	Status = XSetupInterruptSystem(&DpTxSsInst, XDpTxSs_DpIntrHandler,
+				       DpTxSsInst.Config.IntrId[INTRNAME_DPTX],
+				       DpTxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
 		return XST_FAILURE;
 	}
-   return XST_SUCCESS;
+
+	return XST_SUCCESS;
 }
 #endif
 /*****************************************************************************/
