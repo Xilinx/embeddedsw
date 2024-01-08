@@ -61,6 +61,10 @@ XV_axi4s_remap_Config   *tx_remap_Config;
 XV_axi4s_remap          tx_remap;
 #endif
 
+#ifdef SDT
+#define INTRNAME_DPTX   0
+#define INTRNAME_DPRX   0
+#endif
 /************************** Function Prototypes ******************************/
 
 u32 DpMST_Main(void);
@@ -456,14 +460,14 @@ u32 DpMST_PlatformInit(void)
 		return (XST_FAILURE);
 	}
 #else
-	Status = XVFrmbufRd_Initialize(&frmbufrd, XPAR_XV_FRMBUFRD_0_BASEADDR);
+	Status = XVFrmbufRd_Initialize(&frmbufrd, XPAR_XV_FRMBUF_RD_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Frame Buffer Read "
 			   "initialization failed\r\n");
 		return (XST_FAILURE);
 	}
 
-	Status = XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUFWR_0_BASEADDR);
+	Status = XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUF_WR_0_BASEADDR);
 	if(Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Frame Buffer Write "
 			   "initialization failed\r\n");
@@ -788,26 +792,29 @@ u32 Dp_SetupIntrSystem(void)
 	/* Enable exceptions. */
 	Xil_ExceptionEnable();
 #else
-    Status = XSetupInterruptSystem(&DpTxSsInst, (Xil_InterruptHandler)XDpTxSs_DpIntrHandler,
-                                   DpTxSsInst.Config.IntrId, DpTxSsInst.Config.IntrParent,
-                                   XINTERRUPT_DEFAULT_PRIORITY);
-    if (Status != XST_SUCCESS) {
+	Status = XSetupInterruptSystem(&DpTxSsInst, (Xil_InterruptHandler)XDpTxSs_DpIntrHandler,
+				       DpTxSsInst.Config.IntrId[INTRNAME_DPTX],
+				       DpTxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
 		return XST_FAILURE;
 	}
 
-    Status = XSetupInterruptSystem(&DpRxSsInst, (Xil_InterruptHandler)XDpRxSs_DpIntrHandler,
-                                   DpRxSsInst.Config.IntrId, DpRxSsInst.Config.IntrParent,
-                                   XINTERRUPT_DEFAULT_PRIORITY);
-    if (Status != XST_SUCCESS) {
+	Status = XSetupInterruptSystem(&DpRxSsInst, (Xil_InterruptHandler)XDpRxSs_DpIntrHandler,
+				       DpRxSsInst.Config.IntrId[INTRNAME_DPRX],
+				       DpRxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: DP RX SS DP interrupt connect failed!\r\n");
 		return XST_FAILURE;
 	}
 
-    Status = XSetupInterruptSystem(&frmbufwr, (Xil_InterruptHandler)XVFrmbufWr_InterruptHandler,
-                                   frmbufwr.FrmbufWr.Config.IntrId, frmbufwr.FrmbufWr.Config.IntrParent,
-                                   XINTERRUPT_DEFAULT_PRIORITY);
-    if (Status != XST_SUCCESS) {
+	Status = XSetupInterruptSystem(&frmbufwr, (Xil_InterruptHandler)XVFrmbufWr_InterruptHandler,
+				       frmbufwr.FrmbufWr.Config.IntrId,
+				       frmbufwr.FrmbufWr.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: DP FrameBuffer interrupt connect failed!\r\n");
 		return XST_FAILURE;
 	}
@@ -2100,9 +2107,13 @@ void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 {
 
 	u32 TimerVal = 0, TimerVal_pre;
+#ifndef SDT
+	u32 NumTicks = (MicroSeconds * (
+			XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQ_HZ / 1000000));
+#else
 	u32 NumTicks = (MicroSeconds * (
 			XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY / 1000000));
-
+#endif
 	XTmrCtr_Reset(&TmrCtr, 0);
 	XTmrCtr_Start(&TmrCtr, 0);
 
