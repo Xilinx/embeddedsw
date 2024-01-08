@@ -87,7 +87,7 @@ properties:
     description: Sub-core instance configuration
 
   interrupts:
-    description: Sub-core interrupt id
+    description: Sub-core interrupt ids
 
   interrupt-parent:
     description: Interrupt parent
@@ -118,7 +118,7 @@ required:
     - hdcp14-connected: phandle
     - hdcp22-present
     - hdcp22-connected: phandle
-    - interrupts
+    - interrupts: 5
     - interrupt-parent
 
 config:
