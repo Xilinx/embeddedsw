@@ -87,7 +87,7 @@ properties:
     description: Sub-core instance configuration
 
   interrupts:
-    description: Sub-core interrupt id
+    description: Sub-core interrupt ids
 
   interrupt-parent:
     description: Interrupt parent
@@ -112,13 +112,13 @@ required:
     - hdcptimer-connected: phandle
     - clkWiz-present
     - clkWiz-connected: phandle
-    - dp14-present
-    - dp14-connected: phandle
+    - dp21-present
+    - dp21-connected: phandle
     - hdcp14-present
     - hdcp14-connected: phandle
     - hdcp22-present
     - hdcp22-connected: phandle
-    - interrupts
+    - interrupts: 5
     - interrupt-parent
 
 config:

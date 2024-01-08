@@ -448,8 +448,8 @@ typedef struct {
 	XDpRxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
 	XDpRxSs_Hdcp22SubCore Hdcp22SubCore;
 #ifdef SDT
-    u32 IntrId;
-    UINTPTR IntrParent;
+	u32 IntrId[5];
+	UINTPTR IntrParent;
 #endif
 } XDpRxSs_Config;
 
