@@ -342,8 +342,8 @@ typedef struct {
 							      *  Configura-
 							      *  tion */
 #ifdef SDT
-    u32 IntrId;
-    UINTPTR IntrParent;
+	u32 IntrId[5];
+	UINTPTR IntrParent;
 #endif
 } XDpTxSs_Config;
 

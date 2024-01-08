@@ -47,10 +47,10 @@ properties:
   hdcp-timer-connected:
     description: Sub-core instance configuration
 
-  dp14-present:
+  dp21-present:
     description: Sub-core instance presence
 
-  dp14-connected:
+  dp21-connected:
     description: Sub-core instance configuration
 
   hdcp14-present:
@@ -71,14 +71,32 @@ properties:
   dual-splitter-connected:
     description: Sub-core instance configuration
 
-  vtc-present:
+  vtc1-present:
     description: Sub-core instance presence
 
-  vtc-connected:
+  vtc1-connected:
+    description: Sub-core instance configuration
+
+  vtc2-present:
+    description: Sub-core instance presence
+
+  vtc2-connected:
+    description: Sub-core instance configuration
+
+  vtc3-present:
+    description: Sub-core instance presence
+
+  vtc3-connected:
+    description: Sub-core instance configuration
+
+  vtc4-present:
+    description: Sub-core instance presence
+
+  vtc4-connected:
     description: Sub-core instance configuration
 
   interrupts:
-    description: Sub-core interrupt id
+    description: Sub-core interrupt ids
 
   interrupt-parent:
     description: Interrupt parent
@@ -95,17 +113,23 @@ required:
     - xlnx,num-streams
     - hdcptimer-present
     - hdcptimer-connected: phandle
-    - dp14-present
-    - dp14-connected: phandle
+    - dp21-present
+    - dp21-connected: phandle
     - hdcp14-present
     - hdcp14-connected: phandle
     - hdcp22-present
     - hdcp22-connected: phandle
     - dual-splitter-present
     - dual-splitter-connected: phandle
-    - vtc-present
-    - vtc-connected: phandle
-    - interrupts
+    - vtc1-present
+    - vtc1-connected: phandle
+    - vtc2-present
+    - vtc2-connected: phandle
+    - vtc3-present
+    - vtc3-connected: phandle
+    - vtc4-present
+    - vtc4-connected: phandle
+    - interrupts: 5
     - interrupt-parent
 
 config:
