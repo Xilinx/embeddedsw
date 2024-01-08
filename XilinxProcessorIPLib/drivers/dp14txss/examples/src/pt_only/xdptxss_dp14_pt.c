@@ -109,6 +109,11 @@ XClk_Wiz ClkWiz_Dynamic_rx;
 #include "rx.h"
 #endif
 
+#ifdef SDT
+#define INTRNAME_DPTX   0
+#define INTRNAME_DPRX   0
+#endif
+
 void operationMenu();
 //void resetIp();
 void resetIp_wr();
@@ -744,7 +749,7 @@ u32 DpSs_Main(void)
 	Status = XVFrmbufRd_Initialize(&frmbufrd, FRMBUF_RD_DEVICE_ID);
 #else
 	/* FrameBuffer initialization. */
-	Status = XVFrmbufRd_Initialize(&frmbufrd, XPAR_XV_FRMBUFRD_0_BASEADDR);
+	Status = XVFrmbufRd_Initialize(&frmbufrd, XPAR_XV_FRMBUF_RD_0_BASEADDR);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Frame Buffer Read "
@@ -757,7 +762,7 @@ u32 DpSs_Main(void)
 #ifndef SDT
 	Status = XVFrmbufWr_Initialize(&frmbufwr, FRMBUF_WR_DEVICE_ID);
 #else
-	Status = XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUFWR_0_BASEADDR);
+	Status = XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUF_WR_0_BASEADDR);
 #endif
 	if(Status != XST_SUCCESS) {
 		xil_printf("ERROR:: Frame Buffer Write "
@@ -1772,33 +1777,37 @@ u32 DpSs_SetupIntrSystem(void)
 	XVFrmbufRd_SetCallback(&frmbufrd, XVFRMBUFRD_HANDLER_DONE,
 								&bufferRd_callback, &frmbufrd);
 #endif
-	Status = XSetupInterruptSystem(&DpTxSsInst, (Xil_InterruptHandler)XDpTxSs_DpIntrHandler,
-                                       DpTxSsInst.Config.IntrId, DpTxSsInst.Config.IntrParent,
-                                       XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(&DpTxSsInst, XDpTxSs_DpIntrHandler,
+				       DpTxSsInst.Config.IntrId[INTRNAME_DPTX],
+				       DpTxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
 		return XST_FAILURE;
 	}
-	Status = XSetupInterruptSystem(&DpRxSsInst, (Xil_InterruptHandler)XDpRxSs_DpIntrHandler,
-                                       DpRxSsInst.Config.IntrId, DpRxSsInst.Config.IntrParent,
-                                       XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(&DpRxSsInst, XDpRxSs_DpIntrHandler,
+				       DpRxSsInst.Config.IntrId[INTRNAME_DPRX],
+				       DpRxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
+		xil_printf("ERR: DP RX SS DP interrupt connect failed!\r\n");
 		return XST_FAILURE;
 	}
-	Status = XSetupInterruptSystem(&frmbufwr, (Xil_InterruptHandler)XVFrmbufWr_InterruptHandler,
-                                       frmbufwr.FrmbufWr.Config.IntrId, frmbufwr.FrmbufWr.Config.IntrParent,
-                                       XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(&frmbufwr, XVFrmbufWr_InterruptHandler,
+				       frmbufwr.FrmbufWr.Config.IntrId,
+				       frmbufwr.FrmbufWr.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
+		xil_printf("ERR: FRAMEBUF WR interrupt connect failed!\r\n");
 		return XST_FAILURE;
 	}
 
-	Status = XSetupInterruptSystem(&frmbufrd, (Xil_InterruptHandler)XVFrmbufRd_InterruptHandler,
-                                       frmbufrd.FrmbufRd.Config.IntrId, frmbufrd.FrmbufRd.Config.IntrParent,
-                                       XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(&frmbufrd, XVFrmbufRd_InterruptHandler,
+				       frmbufrd.FrmbufRd.Config.IntrId,
+				       frmbufrd.FrmbufRd.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
+		xil_printf("ERR: FRAMEBUF RD interrupt connect failed!\r\n");
 		return XST_FAILURE;
 	}
 
