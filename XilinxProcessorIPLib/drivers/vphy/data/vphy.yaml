@@ -67,7 +67,7 @@ properties:
   xlnx,err-irq-en:
     description: 1 if error IRQ is enabled in the design, 0 if not present
 
-  xlnx,axi-lite-frequency:
+  xlnx,axi-aclk-freq-mhz:
     description: AXI Lite Clock Frequency in Hz
 
   xlnx,drpclk-freq:
@@ -119,7 +119,7 @@ required:
     - xlnx,hdmi-fast-switch
     - xlnx,transceiver-width
     - xlnx,err-irq-en
-    - xlnx,axi-lite-frequency
+    - xlnx,axi-aclk-freq-mhz
     - xlnx,drpclk-freq
     - xlnx,use-gt-ch4-hdmi
     - xlnx,tx-dp-protocol
