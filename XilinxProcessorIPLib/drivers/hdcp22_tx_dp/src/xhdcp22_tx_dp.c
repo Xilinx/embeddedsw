@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -389,7 +389,11 @@ static int XHdcp22Tx_InitializeCipher(XHdcp22_Tx_Dp *InstancePtr)
 	XHdcp22_Cipher_Dp_Config *ConfigPtr = NULL;
 	UINTPTR SubcoreBaseAddr;
 
+#ifndef SDT
 	ConfigPtr = XHdcp22Cipher_Dp_LookupConfig(InstancePtr->Config.CipherId);
+#else
+	ConfigPtr = XHdcp22Cipher_Dp_LookupConfig(InstancePtr->Config.CipherAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}
@@ -436,7 +440,11 @@ static int XHdcp22Tx_InitializeRng(XHdcp22_Tx_Dp *InstancePtr)
 
 	XHdcp22_Rng_Config *ConfigPtr = NULL;
 
+#ifndef SDT
 	ConfigPtr = XHdcp22Rng_LookupConfig(InstancePtr->Config.RngId);
+#else
+	ConfigPtr = XHdcp22Rng_LookupConfig(InstancePtr->Config.RngAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}
