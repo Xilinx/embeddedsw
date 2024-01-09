@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,6 +63,7 @@ extern XHdcp1x_Config XHdcp1x_ConfigTable[];	/**< Instance of Lookup table
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceId)
 {
 	XHdcp1x_Config *CfgPtr = NULL;
@@ -77,4 +78,21 @@ XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceId)
 
 	return (CfgPtr);
 }
+#else
+XHdcp1x_Config *XHdcp1x_LookupConfig(UINTPTR BaseAddress)
+{
+	XHdcp1x_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0; XHdcp1x_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XHdcp1x_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    (!BaseAddress)) {
+			CfgPtr = &XHdcp1x_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (CfgPtr);
+}
+#endif
 /** @} */
