@@ -25,6 +25,8 @@ extern "C" {
 #define XPM_SCHEDULERTASK_DS_ID		9U
 #define XPM_ALLSAVEREGIONSINFO_DS_ID    10U
 #define XPM_PREVNUMSAVEREGIONINFO_DS_ID 11U
+#define XPM_GICPROXYGROUPS_DS_ID	12U
+
 #ifdef __cplusplus
 }
 #endif

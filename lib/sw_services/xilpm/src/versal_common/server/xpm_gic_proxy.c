@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +10,10 @@
 #include "xpm_device.h"
 #include "xpm_common.h"
 #include "xpm_regs.h"
-
+#ifdef VERSAL_NET
+#include "xpm_update.h"
+#include "xpm_update_data.h"
+#endif
 #define XPM_GIC_PROXY_IS_ENABLED		0x1U
 
 void XPmGicProxy_WakeEventSet(const XPm_Periph *Periph, u8 Enable)
@@ -123,6 +127,13 @@ static void XPmGicProxy_Clear(void)
 
 /* FPD GIC Proxy has interrupts organized in 5 Groups */
 static XPm_GicProxyGroup XPm_GicProxyGroups[5];
+
+#ifdef VERSAL_NET
+EXPORT_DS(XPm_GicProxyGroups, \
+	XPLMI_MODULE_XILPM_ID, XPM_GICPROXYGROUPS_DS_ID, \
+	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \
+	sizeof(XPm_GicProxyGroups), (u32)(UINTPTR)XPm_GicProxyGroups);
+#endif
 
 XPm_GicProxy_t XPm_GicProxy = {
 	.Groups = XPm_GicProxyGroups,
