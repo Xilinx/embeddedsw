@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -311,18 +311,28 @@ typedef void (*XHdcp22_Tx_Dp_Callback)(void *CallbackRef);
 */
 typedef struct
 {
-	/** DeviceId is the unique ID of the device. */
-	u16 DeviceId;
+#ifndef SDT
+	u16 DeviceId;		/**< Device instance ID. */
+#else
+	char *Name;
+#endif
 	/** Base Address is the physical base address of the device's registers. */
 	UINTPTR BaseAddress;
 	/** HDMI or DP (Always HDCP22_TX_DP: Currently HDMI is not supported). */
 	int Protocol;
 	/** Future expansion. */
 	int Mode;
+#ifndef SDT
 	/** DeviceId of the used cipher. */
 	u16 CipherId;
 	/** Device Id of the random generator. */
 	u16 RngId;
+#else
+	/** Address of the used cipher. */
+	u16 CipherAddress;
+	/** Address Id of the random generator. */
+	u16 RngAddress;
+#endif
 } XHdcp22_Tx_Dp_Config;
 
 /**
@@ -631,9 +641,12 @@ typedef struct
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 /* Initialization function in xhdcp22_tx_sinit.c */
 XHdcp22_Tx_Dp_Config  *XHdcp22Tx_Dp_LookupConfig (u16 DeviceId);
+#else
+XHdcp22_Tx_Dp_Config *XHdcp22Tx_Dp_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /* Initialization and control functions in xhdcp_tx.c */
 int XHdcp22Tx_Dp_CfgInitialize(XHdcp22_Tx_Dp *InstancePtr, XHdcp22_Tx_Dp_Config *CfgPtr,
