@@ -1,0 +1,28 @@
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for HDCP 2.2 Montgomery Multiplier
+
+maintainers:
+  - Lakshmi Prasanna Eachuri <lakshmi.prasanna.eachuri@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,hdcp22-mmult-1.0
+  reg:
+    description: Physical base address
+
+config:
+    - XHdcp22_mmult_Config
+
+required:
+    - compatible
+    - reg
+...
