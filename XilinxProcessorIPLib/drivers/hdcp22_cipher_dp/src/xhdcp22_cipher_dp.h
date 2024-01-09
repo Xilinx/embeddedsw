@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,7 +75,11 @@ extern "C" {
 * Each HDCP22 Cipher device should have a configuration structure associated.
 */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;     /**< DeviceId is the unique ID of the HDCP22 Cipher core */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;  /**< BaseAddress is the physical base address of the core's registers */
 } XHdcp22_Cipher_Dp_Config;
 
@@ -315,8 +319,11 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 /* Initialization function in xhdcp22_cipher_sinit.c */
+#ifndef SDT
 XHdcp22_Cipher_Dp_Config *XHdcp22Cipher_Dp_LookupConfig(u16 DeviceId);
-
+#else
+(XHdcp22_Cipher_Dp_Config *)XHdcp22Cipher_Dp_LookupConfig(UINTPTR BaseAddress);
+#endif
 /* Initialization and control functions in xhdcp22_cipher.c */
 int XHdcp22Cipher_Dp_CfgInitialize(XHdcp22_Cipher_Dp *InstancePtr, XHdcp22_Cipher_Dp_Config *CfgPtr, UINTPTR EffectiveAddr);
 
