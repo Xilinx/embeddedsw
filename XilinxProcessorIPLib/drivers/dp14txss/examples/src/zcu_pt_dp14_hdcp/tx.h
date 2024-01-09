@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -90,10 +91,13 @@
 #define DPTXSS_BPC		XPAR_DPTXSS_0_BITS_PER_COLOR
 //#define IIC_DEVICE_ID 	XPAR_IIC_0_DEVICE_ID
 //#define XVPHY_DEVICE_ID	XPAR_VPHY_0_DEVICE_ID
-
+#ifndef SDT
 #define SET_TX_TO_2BYTE		\
-		(XPAR_XDP_0_GT_DATAWIDTH/2)
-
+	(XPAR_XDP_0_GT_DATAWIDTH/2)
+#else
+#define SET_TX_TO_2BYTE            \
+	(XPAR_XDP_0_GT_DATA_WIDTH/2)
+#endif
 #define TIMER_RESET_VALUE 	1000
 #define is_TX_CPLL 		0
 #define CLK135MHz_DIVIDER 	18

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -371,9 +371,10 @@ void DpPt_Main(void){
 	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_SET_MSA),
 					&DpPt_TxSetMsaValuesImmediate, &DpTxSsInst);
 
+#ifndef SDT
 	XScuGic_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
 	XScuGic_Enable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
-
+#endif
 	/* Initializing the Audio related IPs. The AXIS Switches are programmed
 	 * based on the "I2S_AUDIO" param in main.h
 	 * The Audio Clock Recovery Module is programmed in fixed mode
@@ -682,8 +683,13 @@ void DpPt_Main(void){
 
 
 					xil_printf ("==========MCDP6000 Debug Data===========\r\n");
+#ifndef SDT
 					XDpRxSs_MCDP6000_Read_ErrorCounters(XPAR_IIC_0_BASEADDR,
 							I2C_MCDP6000_ADDR);
+#else
+					XDpRxSs_MCDP6000_Read_ErrorCounters(XPAR_XIIC_0_BASEADDR,
+							I2C_MCDP6000_ADDR);
+#endif
 					xil_printf("0x0754: %08x\n\r",XDpRxSs_MCDP6000_GetRegister(
 							&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0754));
 					xil_printf("0x0B20: %08x\n\r",XDpRxSs_MCDP6000_GetRegister(
@@ -988,8 +994,10 @@ void DpPt_Main(void){
 
 				// disabling Tx
 				XDpTxSs_Stop(&DpTxSsInst);
+#ifndef SDT
 				XScuGic_Disable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
 				XScuGic_Disable(&IntcInst, XINTC_DPRXSS_DP_INTERRUPT_ID);
+#endif
 
 #ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 				Vpg_Audio_stop();

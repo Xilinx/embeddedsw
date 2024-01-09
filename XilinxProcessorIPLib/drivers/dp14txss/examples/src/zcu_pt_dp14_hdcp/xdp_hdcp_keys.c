@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,7 +36,9 @@
 #else
 #define UART_BASE_ADDRESS XPAR_XUARTPS_0_BASEADDR
 #endif
-
+#ifdef SDT
+#define XPAR_IIC_0_BASEADDR XPAR_XIIC_0_BASEADDR
+#endif
 #define XHDCP_IIC_BASEADDR		  XPAR_IIC_0_BASEADDR
 #define XHDCP_EEPROM_ADDRESS      0x57
 #define XHDCP_EEPROM_PAGE_SIZE    16

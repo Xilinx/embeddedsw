@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,10 +23,16 @@
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
+#ifdef SDT
+#define XPAR_XHDCP_NUM_INSTANCES XPAR_XHDCP1X_NUM_INSTANCES
+#endif
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #include "xhdcp1x.h"
 #include "xhdcp1x_port.h"
 #include "xhdcp1x_example.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 #ifdef XPAR_INTC_0_DEVICE_ID
 /* For MicroBlaze systems. */
 #include "xintc.h"
@@ -38,6 +45,7 @@
 #include "xtmrctr.h"
 #include "rx.h"
 #include "tx.h"
+#include "main.h"
 /************************** Example Configuration ****************************/
 #if defined(XPAR_XHDMI_RX_NUM_INSTANCES) || defined(XPAR_XHDMI_TX_NUM_INSTANCES)
 	#define HDMI_EXAMPLE
@@ -136,6 +144,14 @@ extern XINTC IntcInst;
 #define RX_KEYSELECT			(0x01u)
 //#define RX_KEYSELECT			(0x00u)
 
+#ifdef SDT
+#if (ENABLE_HDCP_IN_DESIGN && ENABLE_HDCP22_IN_TX)
+#define INTRNAME_DPTX_1XCIPHER    2
+#else
+#define INTRNAME_DPTX_1XCIPHER    1
+#endif
+#define INTRNAME_DPRX_1XCIPHER    3
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**************************** Type Definitions *******************************/
@@ -416,6 +432,7 @@ static int BusyDelay(const XHdcp1x* InstancePtr, u16 DelayInMs)
 *   None
 *
 ******************************************************************************/
+#ifndef SDT
 static int SetupInterrupts(void)
 {
 	int Status = XST_SUCCESS;
@@ -452,7 +469,38 @@ static int SetupInterrupts(void)
 
 	return (Status);
 }
+#else
+static int SetupInterrupts(void)
+{
+	int Status = XST_SUCCESS;
 
+	/* Connect and enable the receive cipher interrupt */
+	/* Hook up Rx interrupt service routine */
+#if ENABLE_HDCP1x_IN_RX
+	Status = XSetupInterruptSystem(&DpRxSsInst, (Xil_InterruptHandler)XHdcp1x_CipherIntrHandler,
+				       DpRxSsInst.Config.IntrId[INTRNAME_DPRX_1XCIPHER],
+				       DpRxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: RX Cipher interrupt connect failed!\n\r");
+		return XST_FAILURE;
+	}
+#endif
+	/* Connect and enable the transmit cipher interrupt */
+#if ENABLE_HDCP1x_IN_TX
+	Status = XSetupInterruptSystem(&DpTxSsInst, (Xil_InterruptHandler)XHdcp1x_CipherIntrHandler,
+				       DpTxSsInst.Config.IntrId[INTRNAME_DPTX_1XCIPHER],
+				       DpTxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: TX Cipher interrupt connect failed!\n\r");
+		return XST_FAILURE;
+	}
+#endif
+
+	return (Status);
+}
+#endif
 
 /*****************************************************************************/
 /**
