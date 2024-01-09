@@ -158,6 +158,8 @@
 * 2.6	akm    09/03/20    Updated the Makefile to support parallel make execution.
 * 2.7   sg     03/18/21    Added validation check for parameter page.
 * 2.8  akm     07/06/23    Update the driver to support for system device-tree flow.
+* 2.9  sb      01/03/24    Add FlashBbt array in nandps structure for partial read/write operations
+*                          while reading and writing bbt in flash.
 *
 * </pre>
 *
@@ -383,6 +385,7 @@ typedef struct XNandPsTag {
 	XNandPs_BadBlockPattern BbPattern;	/**< Bad block pattern to
 						  search */
 	u8 Bbt[XNANDPS_MAX_BLOCKS >> 2];	/**< Bad block table array */
+	u8 FlashBbt[XNANDPS_MAX_BLOCKS >> 2];	/**< BBT buffer for partial read/writes */
 	u8 DataBuf[XNANDPS_MAX_PAGE_SIZE + XNANDPS_MAX_SPARE_SIZE];
 	/**< Data buffer for partial read/writes */
 	u8 *SpareBufPtr;		/**< Pointer to store spare buffer */

@@ -25,6 +25,9 @@
 * 2.4   nsk    06/20/2018  Fixed BBT offset overflow in XNandPs_WriteBbt()
 *			   and XNandPs_ReadBbt(), overflow causes incorrect
 *			   BBT writes.
+* 2.9   sb     01/03/2024  Use FlashBbt array of nandps structure instead
+*                          of local Buf array in XNandPs_WriteBbt() and XNandPs_ReadBbt(),
+*                          to avoid stack overflow.
 * </pre>
 *
 ******************************************************************************/
@@ -356,7 +359,6 @@ static void XNandPs_ConvertBbt(XNandPs *InstancePtr, u8 *Buf)
 static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 {
 	u64 Offset;
-	u8 Buf[XNANDPS_MAX_BLOCKS >> XNANDPS_BBT_BLOCK_SHIFT];
 	u32 Status1;
 	u32 Status2;
 	u32 Status;
@@ -385,12 +387,12 @@ static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 		if (Desc->Version > MirrorDesc->Version) {
 			Offset = ((u64)Desc->PageOffset) *
 				 ((u64)InstancePtr->Geometry.BytesPerPage);
-			XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
+			XNandPs_Read(InstancePtr, Offset, BbtLen, InstancePtr->FlashBbt, NULL);
 
 			/*
 			 * Convert flash BBT to memory based BBT
 			 */
-			XNandPs_ConvertBbt(InstancePtr, &Buf[0]);
+			XNandPs_ConvertBbt(InstancePtr, InstancePtr->FlashBbt);
 			MirrorDesc->Version = Desc->Version;
 
 			/*
@@ -404,12 +406,12 @@ static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 		} else if (Desc->Version < MirrorDesc->Version) {
 			Offset = ((u64)MirrorDesc->PageOffset) *
 				 ((u64)InstancePtr->Geometry.BytesPerPage);
-			XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
+			XNandPs_Read(InstancePtr, Offset, BbtLen, InstancePtr->FlashBbt, NULL);
 
 			/*
 			 * Convert flash BBT to memory based BBT
 			 */
-			XNandPs_ConvertBbt(InstancePtr, &Buf[0]);
+			XNandPs_ConvertBbt(InstancePtr, InstancePtr->FlashBbt);
 			Desc->Version = MirrorDesc->Version;
 
 			/*
@@ -424,24 +426,24 @@ static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 			/* Both are up-to-date */
 			Offset = ((u64)Desc->PageOffset) *
 				 ((u64)InstancePtr->Geometry.BytesPerPage);
-			XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
+			XNandPs_Read(InstancePtr, Offset, BbtLen, InstancePtr->FlashBbt, NULL);
 
 			/*
 			 * Convert flash BBT to memory based BBT
 			 */
-			XNandPs_ConvertBbt(InstancePtr, &Buf[0]);
+			XNandPs_ConvertBbt(InstancePtr, InstancePtr->FlashBbt);
 		}
 	} else if (Desc->Valid) {
 		/*
 		 * Valid Primary BBT found
 		 */
 		Offset = ((u64)Desc->PageOffset) * ((u64)InstancePtr->Geometry.BytesPerPage);
-		XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
+		XNandPs_Read(InstancePtr, Offset, BbtLen, InstancePtr->FlashBbt, NULL);
 
 		/*
 		 * Convert flash BBT to memory based BBT
 		 */
-		XNandPs_ConvertBbt(InstancePtr, &Buf[0]);
+		XNandPs_ConvertBbt(InstancePtr, InstancePtr->FlashBbt);
 		MirrorDesc->Version = Desc->Version;
 
 		/*
@@ -457,12 +459,12 @@ static int XNandPs_ReadBbt(XNandPs *InstancePtr)
 		 */
 		Offset = ((u64)MirrorDesc->PageOffset) *
 			 ((u64)InstancePtr->Geometry.BytesPerPage);
-		XNandPs_Read(InstancePtr, Offset, BbtLen, &Buf, NULL);
+		XNandPs_Read(InstancePtr, Offset, BbtLen, InstancePtr->FlashBbt, NULL);
 
 		/*
 		 * Convert flash BBT to memory based BBT
 		 */
-		XNandPs_ConvertBbt(InstancePtr, &Buf[0]);
+		XNandPs_ConvertBbt(InstancePtr, InstancePtr->FlashBbt);
 		Desc->Version = MirrorDesc->Version;
 
 		/*
@@ -561,7 +563,6 @@ static int XNandPs_WriteBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc,
 {
 	u64 Offset;
 	u32 Block = InstancePtr->Geometry.NumBlocks - 1;
-	u8 Buf[XNANDPS_MAX_BLOCKS >> XNANDPS_BBT_BLOCK_SHIFT];
 	u8 SpareBuf[XNANDPS_MAX_SPARE_SIZE];
 	u8 Mask[4] = {0x00, 0x01, 0x02, 0x03};
 	u8 Data;
@@ -573,7 +574,6 @@ static int XNandPs_WriteBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc,
 	u8 BlockType;
 	u32 BbtLen = InstancePtr->Geometry.NumBlocks >>
 		     XNANDPS_BBT_BLOCK_SHIFT;
-
 	/*
 	 * Find a valid block to write the Bad Block Table(BBT)
 	 */
@@ -614,7 +614,7 @@ static int XNandPs_WriteBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc,
 	/*
 	 * Convert the memory based BBT to flash based table
 	 */
-	memset(Buf, 0xff, BbtLen);
+	memset(InstancePtr->FlashBbt, 0xff, BbtLen);
 
 	/*
 	 * Loop through the number of blocks
@@ -627,7 +627,7 @@ static int XNandPs_WriteBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc,
 		for (BlockIndex = 0; BlockIndex < XNANDPS_BBT_ENTRY_NUM_BLOCKS;
 		     BlockIndex++) {
 			BlockShift = XNandPs_BbtBlockShift(BlockIndex);
-			Buf[BlockOffset] &= ~(Mask[Data &
+			InstancePtr->FlashBbt[BlockOffset] &= ~(Mask[Data &
 						   XNANDPS_BLOCK_TYPE_MASK] <<
 					      BlockShift);
 			Data >>= XNANDPS_BBT_BLOCK_SHIFT;
@@ -654,7 +654,7 @@ static int XNandPs_WriteBbt(XNandPs *InstancePtr, XNandPs_BbtDesc *Desc,
 	 * Write the BBT to page offset
 	 */
 	Offset = ((u64)Desc->PageOffset) * ((u64)InstancePtr->Geometry.BytesPerPage);
-	Status = XNandPs_Write(InstancePtr, Offset, BbtLen, &Buf[0], SpareBuf);
+	Status = XNandPs_Write(InstancePtr, Offset, BbtLen, InstancePtr->FlashBbt, SpareBuf);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
