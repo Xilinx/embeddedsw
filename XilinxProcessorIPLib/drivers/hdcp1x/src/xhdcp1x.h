@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -713,7 +713,12 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
+#include "xparameters.h"
+#ifdef SDT
+#define XPAR_XHDCP_NUM_INSTANCES XPAR_XHDCP1X_NUM_INSTANCES
+#define XPAR_XDPTXSS_NUM_INSTANCES XPAR_DPTXSS_NUM_INSTANCES
+#define XPAR_XDPRXSS_NUM_INSTANCES XPAR_DPRXSS_NUM_INSTANCES
+#endif
 #include "xil_types.h"
 #include "xhdcp1x_hw.h"
 #include "xstatus.h"
@@ -876,12 +881,20 @@ typedef u32 (*XHdcp1x_GetDdcHandler)(void *HandlerRef);
 * This typedef contains configuration information for the HDCP core.
 */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Device instance ID. */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< The base address of the core  */
 	u32 SysFrequency;	/**< The main clock frequency of the core */
 	u16 IsRx;		/**< Flag indicating the core direction */
 	u16 IsHDMI;		/**< Flag indicating if the core is meant to
 				  *  work with HDMI. */
+#ifdef SDT
+	u32 IntrId;
+	UINTPTR IntrParent;
+#endif
 } XHdcp1x_Config;
 
 /**
@@ -1159,9 +1172,11 @@ typedef int (*XHdcp1x_KsvRevokeCheck)(const XHdcp1x *InstancePtr, u64 Ksv);
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceId);
-
+#else
+XHdcp1x_Config *XHdcp1x_LookupConfig(UINTPTR BaseAddress);
+#endif
 int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 		void *PhyIfPtr, UINTPTR EffectiveAddr);
 void XHdcp1x_LateInit(XHdcp1x *InstancePtr);

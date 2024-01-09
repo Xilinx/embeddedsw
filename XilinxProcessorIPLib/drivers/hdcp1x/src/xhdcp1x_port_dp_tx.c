@@ -27,6 +27,11 @@
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
+#ifdef SDT
+#define XPAR_XHDCP_NUM_INSTANCES XPAR_XHDCP1X_NUM_INSTANCES
+#define XPAR_XDPTXSS_NUM_INSTANCES XPAR_DPTXSS_NUM_INSTANCES
+#define XPAR_XDPRXSS_NUM_INSTANCES XPAR_DPRXSS_NUM_INSTANCES
+#endif
 #if defined(XPAR_XDPTXSS_NUM_INSTANCES) && (XPAR_XDPTXSS_NUM_INSTANCES > 0)
 #include "xhdcp1x_port.h"
 #include "xhdcp1x_port_dp.h"

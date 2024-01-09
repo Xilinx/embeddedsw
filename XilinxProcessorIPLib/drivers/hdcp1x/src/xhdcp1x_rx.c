@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -916,9 +916,15 @@ static void XHdcp1x_RxDebugLog(const XHdcp1x *InstancePtr, const char *LogMsg)
 {
 	char Label[16];
 
+#ifndef SDT
 	/* Format Label */
 	snprintf(Label, sizeof(Label), "hdcp-rx(%hu) - ",
 			 InstancePtr->Config.DeviceId);
+#else
+	/* Format Label */
+	snprintf(Label, sizeof(Label), "hdcp-rx(%hu) - ",
+		 InstancePtr->Config.BaseAddress);
+#endif
 
 	/* Log it */
 	XHDCP1X_DEBUG_LOGMSG(Label);
