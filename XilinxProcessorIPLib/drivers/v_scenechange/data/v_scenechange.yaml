@@ -18,15 +18,15 @@ properties:
   reg:
     description: Physical base address and size of the controller register map
   xlnx,memory-based:
-    description: Samples Per Clock
-  xlnx,numstreams:
-    description: Maximum Data width of each channel
+    description: Is memory mode
+  xlnx,max-nr-streams:
+    description: Maximum number of streams
   xlnx,histogram-bits:
-    description: Max Phase shift of colour convertions
+    description: Histogram Bits
   xlnx,has-y8:
-    description: Scaling mode if applicable.
+    description: Y8 enabled?.
   xlnx,has-y10:
-    description: Number of Taps to be used for colour conversion.
+    description: Y10 enabled?.
   xlnx,max-cols:
     description: Maximum columns supported by core instance
   xlnx,max-rows:
@@ -40,7 +40,7 @@ required:
     - compatible
     - reg
     - xlnx,memory-based
-    - xlnx,numstreams
+    - xlnx,max-nr-streams
     - xlnx,histogram-bits
     - xlnx,has-y8
     - xlnx,has-y10

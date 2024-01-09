@@ -23,7 +23,7 @@ properties:
     description: Samples Per Clock supported by core instance
   xlnx,num-video-components:
     description: Number of Video Components
-  xlnx,max-columns:
+  xlnx,max-cols:
     description: Maximum columns supported by core instance
   xlnx,max-rows:
     description: Maximum rows supported by core instance
@@ -54,7 +54,7 @@ required:
     - xlnx,axi4s-slave
     - xlnx,samples-per-clock
     - xlnx,num-video-components
-    - xlnx,max-columns
+    - xlnx,max-cols
     - xlnx,max-rows
     - xlnx,max-data-width
     - xlnx,solid-color
