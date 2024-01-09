@@ -52,6 +52,7 @@
 * 3.2   kum  04/11/2023 Moved env common code to xnvm_efuse_common.h
 *       vss  09/19/2023 Fixed MISRA-C Rule 2.5 violation
 * 3.3   har  12/04/2023 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
+*       vss  12/31/2023 Added support for Program the eFuse protection bits only once
 *
 * </pre>
 *
@@ -93,6 +94,23 @@ extern "C" {
 
 #define XNVM_MAX_REVOKE_ID_FUSES			(XNVM_NUM_OF_REVOKE_ID_FUSES	\
 											* XNVM_EFUSE_MAX_BITS_IN_ROW) /**< Maximum eFuses in a row*/
+/**
+ * @name  EFUSE masks
+ */
+/**< Protection bit masks of various eFuses */
+#define XNVM_EFUSE_PROTECTION_BIT_SECURITY_CONTROL_MASK	((u32)1U << XNVM_EFUSE_ROW_43_0_PROT_COLUMN) | 	\
+								((u32)1U << XNVM_EFUSE_ROW_43_1_PROT_COLUMN)
+#define XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_0_MASK	((u32)1U << XNVM_EFUSE_ROW_57_0_PROT_COLUMN) |	\
+								((u32)1U << XNVM_EFUSE_ROW_57_1_PROT_COLUMN)
+#define XNVM_EFUSE_PROTECTION_BIT_PPK_0_HASH_MASK	((u32)1U << XNVM_EFUSE_ROW64_87_0_PROT_COLUMN) |	\
+								((u32)1U << XNVM_EFUSE_ROW64_87_1_PROT_COLUMN)
+#define XNVM_EFUSE_PROTECTION_BIT_META_HEADER_IV_MASK	((u32)1U << XNVM_EFUSE_ROW96_99_0_PROT_COLUMN) |	\
+								((u32)1U << XNVM_EFUSE_ROW96_99_1_PROT_COLUMN)
+#define XNVM_EFUSE_BOOTENVCTRL_ANLGTRIMX_TRIMAMS_MASK	((u32)1U << XNVM_EFUSE_ROW_37_PROT_COLUMN)
+#define XNVM_EFUSE_PROTECTION_BIT_MISC_CTRL_MASK	((u32)1U << XNVM_EFUSE_ROW_40_PROT_COLUMN)
+#define XNVM_EFUSE_PROTECTION_BIT_PUF_CHASH_MASK	((u32)1U << XNVM_EFUSE_ROW_42_PROT_COLUMN)
+#define XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_1_MASK	((u32)1U << XNVM_EFUSE_ROW_58_PROT_COLUMN)
+/** @} */
 
 /**
 * @}

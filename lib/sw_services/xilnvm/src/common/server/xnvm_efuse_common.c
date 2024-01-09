@@ -26,6 +26,7 @@
 *       kal  03/07/2023 Added volatile keyword for Status variables
 * 3.2   kum  04/11/2023 Moved Env monitor API's from versal xnvm_efuse.c to make use for both versal and versalnet
 *	vss  09/19/2023	Fixed MISRA-C Rule 8.7 violation
+*  3.3  vss  12/31/2023 Added support for Program the eFuse protection bits only once
 *
 * </pre>
 *
@@ -41,6 +42,7 @@
 #include "xnvm_efuse_common_hw.h"
 #include "xnvm_utils.h"
 #include "xstatus.h"
+#include "xnvm_efuse_hw.h"
 
 /*************************** Constant Definitions *****************************/
 /**
@@ -118,7 +120,7 @@ int XNvm_EfuseCacheReload(void)
 
     /**
 	 * @{ Write 1 to load bit of eFuse_CACHE_LOAD register.
-     *	  Wait for CACHE_DONE bit to set in EFUSE_STATUS register . If timed out return timout error.
+     *	  Wait for CACHE_DONE bit to set in EFUSE_STATUS register . If timed out return timeout error.
      *	  Return XST_SUCCESS
      */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
@@ -415,7 +417,7 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 	}
 
 	/**
-	 *  Disable power down mode and set refernce clock to eFuse
+	 *  Disable power down mode and set reference clock to eFuse
 	 */
 	XNvm_EfuseDisablePowerDown();
 	XNvm_EfuseSetRefClk();
@@ -433,7 +435,7 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 	}
 
     /**
-	 *   Intialize eFuse Timers
+	 *   Initialize eFuse Timers
 	 */
 	XNvm_EfuseInitTimers();
 
@@ -803,4 +805,21 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 
 END:
 	return Status;
+}
+/******************************************************************************/
+/**
+ * @brief	This function reads the corresponding eFuse protection bits.
+ *
+ * @param	Mask	Efuse Protection bit mask value.
+ *
+ * @return	Return protection bits value as specified by Mask
+ *
+ ******************************************************************************/
+u32 XNvm_EfuseReadProtectionBits(u32 Mask)
+{
+	volatile u32 ProtectionBitMask = (u32)XNVM_EFUSE_PROTECTION_BIT_CLEAR;
+
+	ProtectionBitMask = (XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,XNVM_EFUSE_TBITS_XILINX_CTRL_ROW)) & Mask;
+
+	return ProtectionBitMask;
 }

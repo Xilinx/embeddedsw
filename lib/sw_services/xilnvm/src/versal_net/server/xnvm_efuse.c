@@ -29,6 +29,7 @@
 *       kpt  09/05/2023 Fix SW-BP-REDUNDANCY in XNvm_EfusePrgmIv and XNvm_EfuseWriteDmeRevoke
 *       kpt  09/09/2023 Avoid returning XST_SUCCESS incase of glitch
 *       yog  09/13/2023 Used XNvm_IsDmeModeEn() API for reading DME Mode
+*       vss  12/31/2023 Added support for Program the eFuse protection bits only once
 *
 * </pre>
 *
@@ -2481,28 +2482,32 @@ static int XNvm_EfusePrgmProtectionBits(void)
 	volatile int Status = XST_FAILURE;
 	volatile u32 RowData = 0U;
 	volatile u32 RowDataTmp = 0U;
+	volatile u32 ProtectionBitMask = XNVM_EFUSE_PROTECTION_BIT_CLEAR;
 
 	RowData  = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 				XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET);
 	RowDataTmp =  XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 				XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET);
 	if ((RowData != 0x00U) || (RowDataTmp != 0x00U)) {
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_0_COL_NUM,
-				XNVM_EFUSE_PROGRAM_VERIFY);
-		if (Status != XST_SUCCESS) {
-			Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_CTRL_0_PROT);
-			goto END;
-		}
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_1_COL_NUM,
-				XNVM_EFUSE_PROGRAM_VERIFY);
-		if (Status != XST_SUCCESS) {
-			Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_CTRL_1_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_SECURITY_CONTROL_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_0_COL_NUM,
+					XNVM_EFUSE_PROGRAM_VERIFY);
+			if (Status != XST_SUCCESS) {
+				Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_CTRL_0_PROT);
+				goto END;
+			}
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_1_COL_NUM,
+					XNVM_EFUSE_PROGRAM_VERIFY);
+			if (Status != XST_SUCCESS) {
+				Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_CTRL_1_PROT);
+				goto END;
+			}
 		}
 	}
 
@@ -2514,69 +2519,78 @@ static int XNvm_EfusePrgmProtectionBits(void)
 			XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK;
 
 	if ((RowData != 0x00U) || (RowDataTmp != 0x00U)) {
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_0_SEC_MISC0_PROT_0_COL_NUM,
-				XNVM_EFUSE_PROGRAM_VERIFY);
-		if (Status != XST_SUCCESS) {
-			Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC0_0_PROT);
-			goto END;
-		}
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_0_SEC_MISC0_PROT_1_COL_NUM,
-				XNVM_EFUSE_PROGRAM_VERIFY);
-		if (Status != XST_SUCCESS) {
-			Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC0_1_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_0_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_0_SEC_MISC0_PROT_0_COL_NUM,
+					XNVM_EFUSE_PROGRAM_VERIFY);
+			if (Status != XST_SUCCESS) {
+				Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC0_0_PROT);
+				goto END;
+				}
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_0_SEC_MISC0_PROT_1_COL_NUM,
+					XNVM_EFUSE_PROGRAM_VERIFY);
+			if (Status != XST_SUCCESS) {
+				Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC0_1_PROT);
+				goto END;
+			}
 		}
 	}
 
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PPK0_HASH_OFFSET,
 				XNVM_EFUSE_PPK_HASH_NUM_OF_CACHE_ROWS * 3U);
 	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_0_PPK_HASH_PROT_0_COL_NUM,
-				XNVM_EFUSE_PROGRAM_VERIFY);
-		if (Status != XST_SUCCESS) {
-			Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_PPK_HASH_0_PROT);
-			goto END;
-		}
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_0_PPK_HASH_PROT_1_COL_NUM,
-				XNVM_EFUSE_PROGRAM_VERIFY);
-		if (Status != XST_SUCCESS) {
-			Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_PPK_HASH_1_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_PPK_0_HASH_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_0_PPK_HASH_PROT_0_COL_NUM,
+					XNVM_EFUSE_PROGRAM_VERIFY);
+			if (Status != XST_SUCCESS) {
+				Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_PPK_HASH_0_PROT);
+				goto END;
+			}
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_0_PPK_HASH_PROT_1_COL_NUM,
+					XNVM_EFUSE_PROGRAM_VERIFY);
+			if (Status != XST_SUCCESS) {
+				Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_PPK_HASH_1_PROT);
+				goto END;
+			}
 		}
 	}
 
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET,
 				XNVM_EFUSE_METAHEADER_IV_NUM_OF_ROWS);
 	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_0_META_HEADER_EXPORT_DFT_PROT_0_COL_NUM,
-				XNVM_EFUSE_PROGRAM_VERIFY);
-		if (Status != XST_SUCCESS) {
-			Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_METAHEADER_0_PROT);
-			goto END;
-		}
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_0_META_HEADER_EXPORT_DFT_PROT_1_COL_NUM,
-				XNVM_EFUSE_PROGRAM_VERIFY);
-		if (Status != XST_SUCCESS) {
-			Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_METAHEADER_1_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_META_HEADER_IV_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_0_META_HEADER_EXPORT_DFT_PROT_0_COL_NUM,
+					XNVM_EFUSE_PROGRAM_VERIFY);
+			if (Status != XST_SUCCESS) {
+				Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_METAHEADER_0_PROT);
+				goto END;
+			}
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_0_META_HEADER_EXPORT_DFT_PROT_1_COL_NUM,
+					XNVM_EFUSE_PROGRAM_VERIFY);
+			if (Status != XST_SUCCESS) {
+				Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_METAHEADER_1_PROT);
+				goto END;
+			}
 		}
 	}
 
@@ -2588,24 +2602,27 @@ static int XNvm_EfusePrgmProtectionBits(void)
 				XNVM_EFUSE_CACHE_ME_ID_CODE_CRC_SALT_MASK;
 
 	if ((RowData != 0x00U) || (RowDataTmp != 0x00U)) {
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_0_CRC_PROT_0_COL_NUM,
-				XNVM_EFUSE_PROGRAM_VERIFY);
-		if (Status != XST_SUCCESS) {
-			Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_CRC_0_PROT);
-			goto END;
-		}
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_0_CRC_PROT_1_COL_NUM,
-				XNVM_EFUSE_PROGRAM_VERIFY);
-		if (Status != XST_SUCCESS) {
-			Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_CRC_1_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_ME_ID_CODE_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_0_CRC_PROT_0_COL_NUM,
+					XNVM_EFUSE_PROGRAM_VERIFY);
+			if (Status != XST_SUCCESS) {
+				Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_CRC_0_PROT);
+				goto END;
+			}
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_0_CRC_PROT_1_COL_NUM,
+					XNVM_EFUSE_PROGRAM_VERIFY);
+			if (Status != XST_SUCCESS) {
+				Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_CRC_1_PROT);
+				goto END;
 
+			}
 		}
 	}
 
@@ -2614,14 +2631,17 @@ static int XNvm_EfusePrgmProtectionBits(void)
 	RowDataTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 					XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET);
 	if ((RowData != 0x00U) || (RowDataTmp != 0x00U)) {
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_0_PUF_CHASH_PROT_COL_NUM,
-				XNVM_EFUSE_PROGRAM_VERIFY);
-		if (Status != XST_SUCCESS) {
-			Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_PUF_CHASH_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_PUF_CHASH_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_0_PUF_CHASH_PROT_COL_NUM,
+					XNVM_EFUSE_PROGRAM_VERIFY);
+			if (Status != XST_SUCCESS) {
+				Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_PUF_CHASH_PROT);
+				goto END;
+			}
 		}
 	}
 
@@ -2632,14 +2652,17 @@ static int XNvm_EfusePrgmProtectionBits(void)
 			XNVM_EFUSE_CACHE_SEC_MISC_1_OFFSET) &
 			XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK;
 	if ((RowData != 0x00U) || (RowDataTmp != 0x00U)) {
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_0_SEC_MISC1_PROT_COL_NUM,
-				XNVM_EFUSE_PROGRAM_VERIFY);
-		if (Status != XST_SUCCESS) {
-			Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC1_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_1_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_0_SEC_MISC1_PROT_COL_NUM,
+					XNVM_EFUSE_PROGRAM_VERIFY);
+			if (Status != XST_SUCCESS) {
+				Status = (Status | XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC1_PROT);
+				goto END;
+			}
 		}
 	}
 

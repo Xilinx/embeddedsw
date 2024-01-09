@@ -20,6 +20,7 @@
  * 3.0   kal  07/12/2022 Initial release
  * 3.2   har  02/21/2023 Added support for writing ROM Rsvd bits
  *	 kpt  07/26/2023 Removed XNvm_EfuseReadCacheRange
+ *       vss  12/31/2023 Added support for Program the eFuse protection bits only once
  *
  * </pre>
  *
@@ -38,6 +39,23 @@ extern "C" {
 #include "xnvm_efuse_common.h"
 
 /************************** Constant Definitions *****************************/
+/**
+ * @name  EFUSE masks
+ */
+/**< Protection bit masks of various eFuses */
+#define XNVM_EFUSE_PROTECTION_BIT_SECURITY_CONTROL_MASK	((u32)1U << XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_0_COL_NUM) |      \
+				                                ((u32)1U << XNVM_EFUSE_ROW_0_SEC_CTRL_PROT_1_COL_NUM)
+#define XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_0_MASK	((u32)1U << XNVM_EFUSE_ROW_0_SEC_MISC0_PROT_0_COL_NUM) |     \
+				                                ((u32)1U << XNVM_EFUSE_ROW_0_SEC_MISC0_PROT_1_COL_NUM)
+#define XNVM_EFUSE_PROTECTION_BIT_PPK_0_HASH_MASK	((u32)1U << XNVM_EFUSE_ROW_0_PPK_HASH_PROT_0_COL_NUM) |      \
+				                                ((u32)1U << XNVM_EFUSE_ROW_0_PPK_HASH_PROT_1_COL_NUM)
+#define XNVM_EFUSE_PROTECTION_BIT_META_HEADER_IV_MASK	((u32)1U << XNVM_EFUSE_ROW_0_META_HEADER_EXPORT_DFT_PROT_0_COL_NUM) |        \
+				                                ((u32)1U << XNVM_EFUSE_ROW_0_META_HEADER_EXPORT_DFT_PROT_1_COL_NUM)
+#define XNVM_EFUSE_PROTECTION_BIT_ME_ID_CODE_MASK	((u32)1U << XNVM_EFUSE_ROW_0_CRC_PROT_0_COL_NUM) |   \
+				                                ((u32)1U << XNVM_EFUSE_ROW_0_CRC_PROT_1_COL_NUM)
+#define XNVM_EFUSE_PROTECTION_BIT_PUF_CHASH_MASK	((u32)1U << XNVM_EFUSE_ROW_0_PUF_CHASH_PROT_COL_NUM)
+#define XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_1_MASK	((u32)1U << XNVM_EFUSE_ROW_0_SEC_MISC1_PROT_COL_NUM)
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
