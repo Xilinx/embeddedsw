@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,19 +66,33 @@
 #define XTIMER0_DEVICE_ID 	XPAR_TMRCTR_0_DEVICE_ID
 
 #define VIDEO_CRC_BASEADDR 	XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR
+#ifndef SDT
 #define UARTLITE_BASEADDR 	XPAR_PSU_UART_0_BASEADDR
 #define VIDPHY_BASEADDR 	XPAR_VPHY_0_BASEADDR
+#else
+#define UARTLITE_BASEADDR XPAR_UART0_BASEADDR
+#define VIDPHY_BASEADDR		XPAR_XVPHY_0_BASEADDR
+#endif
 #define VID_EDID_BASEADDR 	XPAR_DP_RX_HIER_0_VID_EDID_0_BASEADDR
+#ifndef SDT
 #define IIC_DEVICE_ID 		XPAR_IIC_0_DEVICE_ID
-
+#endif
 /* DP Specific Defines
  */
 //#define DPRXSS_LINK_RATE        XDPRXSS_LINK_BW_SET_810GBPS
 #define DPRXSS_LANE_COUNT        XDPRXSS_LANE_COUNT_SET_4
+#ifndef SDT
 #define SET_TX_TO_2BYTE            \
     (XPAR_XDP_0_GT_DATAWIDTH/2)
 #define SET_RX_TO_2BYTE            \
     (XPAR_XDP_0_GT_DATAWIDTH/2)
+#else
+#define SET_TX_TO_2BYTE            \
+	(XPAR_XDP_0_GT_DATA_WIDTH/2)
+#define SET_RX_TO_2BYTE            \
+	(XPAR_XDP_0_GT_DATA_WIDTH/2)
+#endif
+
 #define XDP_RX_CRC_CONFIG       0x074
 #define XDP_RX_CRC_COMP0        0x078
 #define XDP_RX_CRC_COMP1        0x07C
