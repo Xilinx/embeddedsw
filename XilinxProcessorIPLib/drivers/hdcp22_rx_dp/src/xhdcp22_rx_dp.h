@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -628,22 +628,33 @@ typedef struct
 /**
  * This typedef contains configuration information for the device.
  */
-typedef struct
-{
-	/** Unique ID of device instance */
-	u16 DeviceId;
+typedef struct {
+#ifndef SDT
+	u16 DeviceId;		/**< Device instance ID. */
+#else
+	char *Name;
+#endif
 	/** Base address of subsystem */
 	UINTPTR BaseAddress;
 	/** HDCP22 over specified protocol (i.e. hdmi) */
 	int Protocol;
 	/** HDCP22 mode (i.e. receiver, repeater, or converter) */
 	int Mode;
+#ifndef SDT
 	/** Cipher device instance ID */
 	u32 CipherDeviceId;
 	/** Mongomery multiplier device instance ID */
 	u32 MontMultDeviceId;
 	/** Random number generator device instance ID */
 	u32 RngDeviceId;
+#else
+	/** Cipher device instance Address */
+	u32 CipherDeviceAddress;
+	/** Mongomery multiplier device instance Address */
+	u32 MontMultDeviceAddress;
+	/** Random number generator device instance Address */
+	u32 RngDeviceAddress;
+#endif
 } XHdcp22_Rx_Dp_Config;
 
 /**
@@ -701,8 +712,12 @@ typedef struct
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Function Prototypes *****************************/
+#ifndef SDT
 /* Functions for initializing and running driver */
 XHdcp22_Rx_Dp_Config *XHdcp22Rx_Dp_LookupConfig(u16 DeviceId);
+#else
+XHdcp22_Rx_Dp_Config *XHdcp22Rx_Dp_LookupConfig(UINTPTR BaseAddress);
+#endif
 int  XHdcp22Rx_Dp_CfgInitialize(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_Dp_Config *ConfigPtr,
        UINTPTR EffectiveAddr);
 int  XHdcp22Rx_Dp_Enable(XHdcp22_Rx_Dp *InstancePtr);

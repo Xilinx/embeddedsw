@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,6 +63,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XHdcp22_Rx_Dp_Config *XHdcp22Rx_Dp_LookupConfig(u16 DeviceId)
 {
 	extern XHdcp22_Rx_Dp_Config XHdcp22_Rx_Dp_ConfigTable[XPAR_XHDCP22_RX_DP_NUM_INSTANCES];
@@ -82,5 +83,26 @@ XHdcp22_Rx_Dp_Config *XHdcp22Rx_Dp_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XHdcp22_Rx_Dp_Config *XHdcp22Rx_Dp_LookupConfig(UINTPTR BaseAddress)
+{
+	extern XHdcp22_Rx_Dp_Config XHdcp22_Rx_Dp_ConfigTable[XPAR_XHDCP22_RX_DP_NUM_INSTANCES];
+	XHdcp22_Rx_Dp_Config *CfgPtr = NULL;
+	u32 Index;
 
+	/* Checking for device id for which instance it is matching */
+	for (Index = (u32)0x0; XHdcp22_Rx_Dp_ConfigTable[Index].Name != NULL; Index++) {
+		/* Assigning address of config table if both device ids
+		 * are matched
+		 */
+		if ((XHdcp22_Rx_Dp_ConfigTable[Index].BaseAddress == BaseAddress)
+		    || (!BaseAddress)) {
+			CfgPtr = &XHdcp22_Rx_Dp_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /** @} */
