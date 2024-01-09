@@ -92,6 +92,7 @@
 * 3.2   kum 04/11/2023  Moved common code to xnvm_efuse_common.c
 *	kpt 07/26/2023  Add missing else check in XNvm_EfuseReadPpkHash
 * 3.3   har 12/04/2023  Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
+*       vss 12/31/2023  Added support for Program the eFuse protection bits only once
 *
 * </pre>
 *
@@ -806,7 +807,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 	}
 
     /**
-	 *  Read driectly from cache offset of Puf SecCtrl bits
+	 *  Read directly from cache offset of Puf SecCtrl bits
 	 */
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_SECURITY_CONTROL_ROW,
 				&PufSecurityCtrlReg);
@@ -4382,6 +4383,7 @@ END:
 static int XNvm_EfusePrgmProtectionEfuse(void)
 {
 	volatile int Status = XST_FAILURE;
+	volatile u32 ProtectionBitMask = XNVM_EFUSE_PROTECTION_BIT_CLEAR;
 	u32 SecurityCtrlData;
 	u32 SecurityMisc0Data;
 	u32 SecurityMisc1Data;
@@ -4398,47 +4400,54 @@ static int XNvm_EfusePrgmProtectionEfuse(void)
 			XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
 
 	if (SecurityCtrlData != 0x00U) {
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_43_0_PROT_COLUMN);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				XNVM_EFUSE_ERR_WRITE_ROW_43_0_PROT);
-			goto END;
-		}
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_43_1_PROT_COLUMN);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				XNVM_EFUSE_ERR_WRITE_ROW_43_1_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_SECURITY_CONTROL_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_43_0_PROT_COLUMN);
+			if (Status != XST_SUCCESS) {
+				Status = (Status |
+					XNVM_EFUSE_ERR_WRITE_ROW_43_0_PROT);
+				goto END;
+			}
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_43_1_PROT_COLUMN);
+			if (Status != XST_SUCCESS) {
+				Status = (Status |
+					XNVM_EFUSE_ERR_WRITE_ROW_43_1_PROT);
+				goto END;
+			}
 		}
 	}
+
 	SecurityMisc0Data = XNvm_EfuseReadReg(
 			XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET);
 	if ((SecurityMisc0Data &
 		XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK) !=
 			0x00U) {
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_57_0_PROT_COLUMN);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				XNVM_EFUSE_ERR_WRITE_ROW_57_0_PROT);
-			goto END;
-		}
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_57_1_PROT_COLUMN);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				XNVM_EFUSE_ERR_WRITE_ROW_57_1_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_0_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_57_0_PROT_COLUMN);
+			if (Status != XST_SUCCESS) {
+				Status = (Status |
+					XNVM_EFUSE_ERR_WRITE_ROW_57_0_PROT);
+				goto END;
+			}
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_57_1_PROT_COLUMN);
+			if (Status != XST_SUCCESS) {
+				Status = (Status |
+					XNVM_EFUSE_ERR_WRITE_ROW_57_1_PROT);
+				goto END;
+			}
 		}
 	}
 
@@ -4446,47 +4455,54 @@ static int XNvm_EfusePrgmProtectionEfuse(void)
 			(XNVM_EFUSE_PPK_0_HASH_START_ROW +
 			 (XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS * 3U)));
 	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW64_87_0_PROT_COLUMN);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				XNVM_EFUSE_ERR_WRITE_ROW64_87_0_PROT);
-			goto END;
-		}
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW64_87_1_PROT_COLUMN);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				XNVM_EFUSE_ERR_WRITE_ROW64_87_1_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_PPK_0_HASH_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW64_87_0_PROT_COLUMN);
+			if (Status != XST_SUCCESS) {
+				Status = (Status |
+					XNVM_EFUSE_ERR_WRITE_ROW64_87_0_PROT);
+				goto END;
+			}
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW64_87_1_PROT_COLUMN);
+			if (Status != XST_SUCCESS) {
+				Status = (Status |
+					XNVM_EFUSE_ERR_WRITE_ROW64_87_1_PROT);
+				goto END;
+			}
 		}
 	}
+
 	Status = XNvm_EfuseCheckZeros(
 			XNVM_EFUSE_META_HEADER_IV_START_ROW,
 			(XNVM_EFUSE_META_HEADER_IV_START_ROW +
 			 XNVM_EFUSE_IV_NUM_OF_ROWS));
 	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW96_99_0_PROT_COLUMN);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				XNVM_EFUSE_ERR_WRITE_ROW96_99_0_PROT);
-			goto END;
-		}
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW96_99_1_PROT_COLUMN);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_META_HEADER_IV_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW96_99_0_PROT_COLUMN);
+			if (Status != XST_SUCCESS) {
+				Status = (Status |
+					XNVM_EFUSE_ERR_WRITE_ROW96_99_0_PROT);
+				goto END;
+			}
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW96_99_1_PROT_COLUMN);
+			if (Status != XST_SUCCESS) {
+				Status = (Status |
+					XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT);
+				goto END;
+			}
 		}
 	}
 
@@ -4510,17 +4526,20 @@ static int XNvm_EfusePrgmProtectionEfuse(void)
 		(AnlgTrim6Row != 0x00U) &&
 		(AnlgTrim7Row != 0x00U) &&
 		(TrimAms12Row != 0x00U)) {
-
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_37_PROT_COLUMN);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				XNVM_EFUSE_ERR_WRITE_ROW_37_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_BOOTENVCTRL_ANLGTRIMX_TRIMAMS_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_37_PROT_COLUMN);
+			if (Status != XST_SUCCESS) {
+				Status = (Status |
+					XNVM_EFUSE_ERR_WRITE_ROW_37_PROT);
+				goto END;
+			}
 		}
 	}
+
 	MiscCtrlData = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_MISC_CTRL_OFFSET);
 	if ((MiscCtrlData &
@@ -4534,28 +4553,34 @@ static int XNvm_EfusePrgmProtectionEfuse(void)
 		XNVM_EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK |
 		XNVM_EFUSE_CACHE_MISC_CTRL_GD_ROM_MONITOR_EN_MASK)) != 0x00U)
 	{
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_40_PROT_COLUMN);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				XNVM_EFUSE_ERR_WRITE_ROW_40_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_MISC_CTRL_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_40_PROT_COLUMN);
+			if (Status != XST_SUCCESS) {
+				Status = (Status |
+					XNVM_EFUSE_ERR_WRITE_ROW_40_PROT);
+				goto END;
+			}
 		}
 	}
 
 	PufChashData = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 					XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET);
 	if (PufChashData != 0x00U) {
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_42_PROT_COLUMN);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				XNVM_EFUSE_ERR_WRITE_ROW_42_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_PUF_CHASH_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_42_PROT_COLUMN);
+			if (Status != XST_SUCCESS) {
+				Status = (Status |
+					XNVM_EFUSE_ERR_WRITE_ROW_42_PROT);
+				goto END;
+			}
 		}
 	}
 
@@ -4564,14 +4589,17 @@ static int XNvm_EfusePrgmProtectionEfuse(void)
 			XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET);
 	if ((SecurityMisc1Data &
 		XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK) != 0x00U) {
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
-				XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
-				XNVM_EFUSE_ROW_58_PROT_COLUMN);
-		if (Status != XST_SUCCESS) {
-			Status = (Status |
-				XNVM_EFUSE_ERR_WRITE_ROW_58_PROT);
-			goto END;
+		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_1_MASK);
+		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
+			Status = XST_FAILURE;
+			Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+					XNVM_EFUSE_TBITS_XILINX_CTRL_ROW,
+					XNVM_EFUSE_ROW_58_PROT_COLUMN);
+			if (Status != XST_SUCCESS) {
+				Status = (Status |
+					XNVM_EFUSE_ERR_WRITE_ROW_58_PROT);
+				goto END;
+			}
 		}
 	}
 	Status = XNvm_EfuseCacheLoadAndProtectionChecks();
@@ -5595,6 +5623,7 @@ END:
 }
 
 #endif
+
 #ifdef XNVM_EN_ADD_PPKS
 /******************************************************************************/
 /**
@@ -5664,7 +5693,7 @@ END:
  * @return	- XST_SUCCESS - On Successful write of Ppk Misc bits.
  *      - XNVM_EFUSE_ERR_RD_MISC_CTRL_BITS - Error while reading Misc
  *                          bits
- *      - XNVM_EFUSE_ERR_WRITE_ADD_PPK_EN - Error in writing additonal
+ *      - XNVM_EFUSE_ERR_WRITE_ADD_PPK_EN - Error in writing additional
  *                          PPK enable Misc bits
  *		- XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_0 - Error in writing
  *							PPK3 Invalid bit0.
@@ -5844,7 +5873,7 @@ END:
  * @brief	This function Validates additional PPK Hash requested for programming.
  *
  * @param	WriteReq - Pointer to XNvm_EfuseAdditionalPpkHash structure which holds
- * 			additonal ppk Hash data to be programmed to eFuse.
+ * 			additional PPK Hash data to be programmed to eFuse.
  *
  * @return	- XST_SUCCESS - if additional PPK validation is successful.
  *      - XNVM_EFUSE_ERR_INVALID_PARAM - Error when invalid param is passed.

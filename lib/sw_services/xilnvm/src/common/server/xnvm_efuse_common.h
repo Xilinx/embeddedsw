@@ -24,6 +24,7 @@
 * 3.1   skg  10/25/2022 Added comments for macros and enums
 * 3.2   kum  04/11/2023 Moved Voltage and Temp macros for LP,MP,HP ranges from versal xnvm_efuse.h
 *	vss  09/19/2023	Fixed MISRA-C Rule 8.7 violation
+*  3.3  vss  12/31/2023 Added support for Program the eFuse protection bits only once
 *
 * </pre>
 *
@@ -97,6 +98,9 @@ extern "C" {
 
 #define XNVM_EFUSE_SYSMON_LOCK_CODE	(0xF9E8D7C6U)
 
+#define XNVM_EFUSE_PROTECTION_BIT_CLEAR                           (0U)
+                                                        /**< To check the corresponding protection eFuse is set or not */
+
 /***************************** Type Definitions *******************************/
 /**
  * @name  Operation mode
@@ -141,6 +145,7 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op, XNvm_EfuseRdMode RdMode);
 int XNvm_EfuseCheckForTBits(void);
 u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr);
 int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr);
+u32 XNvm_EfuseReadProtectionBits(u32 Mask);
 
 
 #ifdef __cplusplus
