@@ -1244,7 +1244,11 @@ static int XHdcp22Rx_InitializeCipher(XHdcp22_Rx_Dp *InstancePtr)
 	UINTPTR SubcoreBaseAddr;
 	XHdcp22_Cipher_Dp_Config *CipherConfigPtr = NULL;
 
+#ifndef SDT
 	CipherConfigPtr = XHdcp22Cipher_Dp_LookupConfig(InstancePtr->Config.CipherDeviceId);
+#else
+	CipherConfigPtr = XHdcp22Cipher_Dp_LookupConfig(InstancePtr->Config.CipherDeviceAddress);
+#endif
 	if(CipherConfigPtr == NULL)
 	{
 		return XST_FAILURE;
@@ -1276,8 +1280,11 @@ static int XHdcp22Rx_InitializeMmult(XHdcp22_Rx_Dp *InstancePtr)
 	int Status = XST_SUCCESS;
 	UINTPTR SubcoreBaseAddr;
 	XHdcp22_mmult_Config *MmultConfigPtr;
-
+#ifndef SDT
 	MmultConfigPtr = XHdcp22_mmult_LookupConfig(InstancePtr->Config.MontMultDeviceId);
+#else
+	MmultConfigPtr = XHdcp22_mmult_LookupConfig(InstancePtr->Config.MontMultDeviceAddress);
+#endif
 	if(MmultConfigPtr == NULL)
 	{
 		return XST_FAILURE;
@@ -1308,7 +1315,11 @@ static int XHdcp22Rx_InitializeRng(XHdcp22_Rx_Dp *InstancePtr)
 	UINTPTR SubcoreBaseAddr;
 	XHdcp22_Rng_Config *RngConfigPtr;
 
+#ifndef SDT
 	RngConfigPtr = XHdcp22Rng_LookupConfig(InstancePtr->Config.RngDeviceId);
+#else
+	RngConfigPtr = XHdcp22Rng_LookupConfig(InstancePtr->Config.RngDeviceAddress);
+#endif
 	if(RngConfigPtr == NULL)
 	{
 		return XST_FAILURE;
