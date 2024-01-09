@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,7 +62,7 @@ extern XHdcp22_Rng_Config XHdcp22_Rng_ConfigTable[];
 * @note   None.
 *
 ******************************************************************************/
-
+#ifndef SDT
 /* Definitions for driver XHDCP22 RNG */
 XHdcp22_Rng_Config *XHdcp22Rng_LookupConfig(u16 DeviceId)
 {
@@ -84,5 +84,27 @@ XHdcp22_Rng_Config *XHdcp22Rng_LookupConfig(u16 DeviceId)
 
 	return (XHdcp22_Rng_Config *)CfgPtr;
 }
+#else
+XHdcp22_Rng_Config *XHdcp22Rng_LookupConfig(UINTPTR BaseAddress)
+{
+	XHdcp22_Rng_Config *CfgPtr = NULL;
+	u32 Index;
+
+	/* Checking for device id for which instance it is matching */
+	for (Index = (u32)0x0; XHdcp22_Rng_ConfigTable[Index].Name != NULL;
+		Index++) {
+
+		/* Assigning address of config table if both device ids
+		 * are matched
+		 */
+		if (XHdcp22_Rng_ConfigTable[Index].BaseAddress == BaseAddress) {
+			CfgPtr = &XHdcp22_Rng_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XHdcp22_Rng_Config *)CfgPtr;
+}
+#endif
 
 /** @} */
