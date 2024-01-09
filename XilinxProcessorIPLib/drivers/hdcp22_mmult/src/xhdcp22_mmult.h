@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,8 +60,12 @@ typedef uint16_t u16;
 typedef uint32_t u32;
 #else
 typedef struct {
-    u16 DeviceId;
-    UINTPTR BaseAddress;
+#ifndef SDT
+	u16 DeviceId;
+#else
+	char *Name;
+#endif
+	UINTPTR BaseAddress;
 } XHdcp22_mmult_Config;
 #endif
 
@@ -93,11 +97,21 @@ typedef struct {
 
 /************************** Function Prototypes *****************************/
 #ifndef __linux__
+#ifndef SDT
 int XHdcp22_mmult_Initialize(XHdcp22_mmult *InstancePtr, u16 DeviceId);
+#endif
+#ifndef SDT
 XHdcp22_mmult_Config* XHdcp22_mmult_LookupConfig(u16 DeviceId);
+#else
+XHdcp22_mmult_Config *XHdcp22_mmult_LookupConfig(UINTPTR BaseAddress);
+#endif
 int XHdcp22_mmult_CfgInitialize(XHdcp22_mmult *InstancePtr, XHdcp22_mmult_Config *ConfigPtr, UINTPTR EffectiveAddr);
 #else
+#ifndef SDT
 int XHdcp22_mmult_Initialize(XHdcp22_mmult *InstancePtr, const char* InstanceName);
+#else
+int XHdcp22_mmult_Initialize((XHdcp22_mmult *)InstancePtr, UINTPTR BaseAddress);
+#endif
 int XHdcp22_mmult_Release(XHdcp22_mmult *InstancePtr);
 #endif
 
