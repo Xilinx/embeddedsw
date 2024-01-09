@@ -21,7 +21,11 @@
 #endif
 
 /************************** Constant Definitions *****************************/
+#ifndef SDT
 #define XHDCP_IIC_BASEADDR			XPAR_IIC_0_BASEADDR
+#else
+#define XHDCP_IIC_BASEADDR			XPAR_XIIC_0_BASEADDR
+#endif
 #define EEPROM_ADDRESS				0x57
 #define PAGE_SIZE					16
 
@@ -236,7 +240,11 @@ int main()
     init_platform();
 
 	/* Initialize the IIC driver so that it is ready to use. */
+#ifndef SDT
 	ConfigPtr_IIC = XIic_LookupConfig(XPAR_IIC_0_DEVICE_ID);
+#else
+	ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_0_BASEADDR);
+#endif
 	if (ConfigPtr_IIC == NULL) {
 	        return XST_FAILURE;
 	}
