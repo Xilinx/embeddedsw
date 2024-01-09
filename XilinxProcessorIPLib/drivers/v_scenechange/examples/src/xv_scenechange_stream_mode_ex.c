@@ -319,9 +319,9 @@ u32 scd_stream_mode_pipe_init(void)
 		return XST_FAILURE;
 	}
 #else
-    Status = XSetupInterruptSystem(&Intc,&XVFrmbufWr_InterruptHandler,
-				       ScdPtr.ScdConfig->IntrId,
-				       ScdPtr.ScdConfig->IntrParent,
+    Status = XSetupInterruptSystem(&Frmbufwr,&XVFrmbufWr_InterruptHandler,
+				       Frmbufwr.FrmbufWr.Config.IntrId,
+				       Frmbufwr.FrmbufWr.Config.IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:: Unable to register SD interrupt handler.\r\n");
