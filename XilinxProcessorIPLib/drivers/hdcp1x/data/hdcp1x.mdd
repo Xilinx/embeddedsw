@@ -1,5 +1,6 @@
 ################################################################################
 # Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ################################################################################
 
@@ -9,7 +10,7 @@ BEGIN driver hdcp1x
         OPTION supported_peripherals = (hdmi_tx_hdcp_cipher_4b hdmi_rx_hdcp_cipher_4b hdcp);
         OPTION driver_state = ACTIVE;
         OPTION copyfiles = all;
-        OPTION VERSION = 4.7;
+        OPTION VERSION = 4.8;
 	OPTION DEPENDS = tmrctr;
         OPTION NAME = hdcp1x;
 END driver
