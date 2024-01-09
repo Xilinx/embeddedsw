@@ -1,5 +1,6 @@
 ################################################################################
 # Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ################################################################################
@@ -11,7 +12,7 @@ BEGIN driver hdcp22_rx_dp
   OPTION supported_peripherals = (hdcp22_rx_dp);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.0;
+  OPTION VERSION = 3.1;
   OPTION DEPENDS = (hdcp22_common hdcp22_cipher_dp hdcp22_mmult hdcp22_rng);
   OPTION NAME = hdcp22_rx_dp;
 
