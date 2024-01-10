@@ -24,6 +24,7 @@
 *       ng   09/04/23 Added SDT support
 * 1.2   kpt  12/18/23 Non-blocking support for reseed operation and corrected
 *                     check for PTRNG mode during generate
+*       kpt  01/09/24 Added option for blocking or non-blocking reseed support
 *
 * </pre>
 *
@@ -66,7 +67,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Prototypes ******************************/
 static int XTrngpsx_ReseedInternal(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u8 DLen,
-	const u8 *PerStr);
+	const u8 *PerStr, const u8 IsBlocking);
 static int XTrngpsx_WritePersString(XTrngpsx_Instance *InstancePtr, const u8 *PersString);
 static int XTrngpsx_WaitForReseed(XTrngpsx_Instance *InstancePtr);
 static int XTrngpsx_CollectRandData(XTrngpsx_Instance *InstancePtr, u8 *RandBuf, u32 RandBufSize);
@@ -402,6 +403,7 @@ END:
  * 		- XTRNGPSX_TIMEOUT_ERROR If timeout occurred waiting for done bit
  * 		- XTRNGPSX_CATASTROPHIC_CTF_ERROR If CTF bit asserted in STATUS register.
  * 		- XTRNGPSX_ERROR_WRITE On write failure
+ * 		- XTRNGPSX_INVALID_BLOCKING_MODE If invalid blocking mode is choosen
  * 		- XST_FAILURE On unexpected failure
  *
  **************************************************************************************************/
@@ -465,6 +467,12 @@ int XTrngpsx_Instantiate(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u32 See
 		goto END;
 	}
 
+	if ((UserCfg->Mode != XTRNGPSX_PTRNG_MODE) &&
+		(UserCfg->IsBlocking != TRUE) && (UserCfg->IsBlocking != FALSE)) {
+		Status = XTRNGPSX_INVALID_BLOCKING_MODE;
+		goto END;
+	}
+
 	Status = Xil_SMemCpy(&InstancePtr->UserCfg, sizeof(XTrngpsx_UserConfig), UserCfg,
 			sizeof(XTrngpsx_UserConfig), sizeof(XTrngpsx_UserConfig));
 	if (Status != XST_SUCCESS) {
@@ -503,7 +511,7 @@ int XTrngpsx_Instantiate(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u32 See
 		(UserCfg->Mode == XTRNGPSX_HRNG_MODE)) {
 		Status = XST_FAILURE;
 		Status = XTrngpsx_ReseedInternal(InstancePtr, Seed, InstancePtr->UserCfg.DFLength,
-				PersStr);
+				PersStr, UserCfg->IsBlocking);
 		if ((Status != XST_SUCCESS) || (InstancePtr->State != XTRNGPSX_RESEED_STATE)) {
 			goto END;
 		}
@@ -587,12 +595,12 @@ int XTrngpsx_Reseed(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u8 DLen) {
 	}
 
 	/* Wait for reseed operation and check CTF flag */
-	if (InstancePtr->State == XTRNGPSX_RESEED_STATE) {
+	if ((InstancePtr->State == XTRNGPSX_RESEED_STATE) && (InstancePtr->UserCfg.IsBlocking != TRUE)) {
 		XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_WaitForReseed, InstancePtr);
 	}
 
 	XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_ReseedInternal, InstancePtr,
-		Seed, DLen, NULL);
+		Seed, DLen, NULL, InstancePtr->UserCfg.IsBlocking);
 
 END:
 	return Status;
@@ -679,9 +687,10 @@ int XTrngpsx_Generate(XTrngpsx_Instance *InstancePtr, u8 *RandBuf, u32 RandBufSi
 			}
 		}
 		/* Wait for reseed operation and check CTF flag */
-		if (InstancePtr->State == XTRNGPSX_RESEED_STATE) {
+		if ((InstancePtr->State == XTRNGPSX_RESEED_STATE) && (InstancePtr->UserCfg.IsBlocking != TRUE)) {
 			XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_WaitForReseed, InstancePtr);
 		}
+
 		InstancePtr->UserCfg.PredResistance = PredResistance;
 	}
 	else if (InstancePtr->UserCfg.Mode == XTRNGPSX_PTRNG_MODE) {
@@ -703,6 +712,8 @@ int XTrngpsx_Generate(XTrngpsx_Instance *InstancePtr, u8 *RandBuf, u32 RandBufSi
 	XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_CollectRandData, InstancePtr, RandBuf,
 			RandBufSize);
 
+	InstancePtr->State = XTRNGPSX_GENERATE_STATE;
+
 	/* For every generate elapsed sseed life should be incremented */
 	InstancePtr->Stats.ElapsedSeedLife++;
 	if (InstancePtr->UserCfg.Mode == XTRNGPSX_HRNG_MODE) {
@@ -713,9 +724,6 @@ int XTrngpsx_Generate(XTrngpsx_Instance *InstancePtr, u8 *RandBuf, u32 RandBufSi
 				NULL, InstancePtr->UserCfg.DFLength);
 		}
 	}
-
-	InstancePtr->State = XTRNGPSX_GENERATE_STATE;
-	Status = XST_SUCCESS;
 
 END:
 	if (InstancePtr != NULL) {
@@ -788,6 +796,7 @@ END:
  * @param	Seed Pointer to the seed input
  * @param	DLen Seed length in multiples of TRNG block size
  * @param	PerStr Pointer to the personalization string
+ * @param	IsBlocking Blocking or Non-blocking support for reseed operation
  *
  * @return
  * 		- XST_SUCCESS On successful reseed
@@ -797,7 +806,7 @@ END:
  *
  **************************************************************************************************/
 static int XTrngpsx_ReseedInternal(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u8 DLen,
-		const u8 *PerStr) {
+		const u8 *PerStr, const u8 IsBlocking) {
 	volatile int Status = XST_FAILURE;
 	u32 PersMask = TRNG_CTRL_PERSODISABLE_MASK;
 
@@ -848,6 +857,10 @@ static int XTrngpsx_ReseedInternal(XTrngpsx_Instance *InstancePtr, const u8 *See
 		/* Start reseed operation */
 		XTRNGPSX_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, (InstancePtr->Config.BaseAddress + TRNG_CTRL),
 			TRNG_CTRL_PRNGSTART_MASK, TRNG_CTRL_PRNGSTART_MASK);
+	}
+
+	if (IsBlocking == TRUE) {
+		XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_WaitForReseed, InstancePtr);
 	}
 
 	InstancePtr->State = XTRNGPSX_RESEED_STATE;

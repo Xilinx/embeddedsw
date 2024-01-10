@@ -22,6 +22,7 @@
 *       yog     08/07/23 Moved functions from xsecure_trng.c to xsecure_plat.c
 *       kpt     08/29/23 Added volatile keyword to avoid compiler optimization
 * 5.3   kpt     12/14/23 Place TRNG in reset when there is a failure
+        kpt     01/09/24 Updated option for non-blocking trng reseed
 *
 * </pre>
 *
@@ -657,6 +658,7 @@ int XSecure_TrngInitNCfgHrngMode(void)
 	UsrCfg.RepCountTestCutoff = XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF;
 	UsrCfg.DFLength = XSECURE_TRNG_USER_CFG_DF_LENGTH ;
 	UsrCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE ;
+	UsrCfg.IsBlocking = FALSE;
 	Status = XTrngpsx_Instantiate(TrngInstance, NULL, 0U, NULL, &UsrCfg);
 	if (Status != XST_SUCCESS) {
 		(void)XTrngpsx_Uninstantiate(TrngInstance);

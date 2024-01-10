@@ -24,6 +24,7 @@
  * 1.00  kpt  01/10/23 First release
  *       yog  08/04/23 Removed support for PKI instances
  * 1.01  ng   09/04/23 Added SDT support
+ * 1.2   kpt  01/09/24 Updated option for non-blocking trng reseed
  *
  *</pre>
  **************************************************************************************************/
@@ -147,7 +148,8 @@ int Trngpsx_Example()
 	XTrngpsx_UserConfig UsrCfg = {
 			.Mode = XTRNGPSX_DRNG_MODE,
 			.SeedLife = XTRNGPSX_EXAMPLE_SEEDLIFE,
-			.DFLength = XTRNGPSX_EXAMPLE_DFLENMUL
+			.DFLength = XTRNGPSX_EXAMPLE_DFLENMUL,
+			.IsBlocking = FALSE,
 	};
 
 	/*
