@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -196,7 +197,11 @@ typedef enum {
 * Each HDMI TX device should have a configuration structure associated.
 */
 typedef struct {
-    u16 DeviceId;       /**< DeviceId is the unique ID of the HDMI TX core */
+#ifndef SDT
+	u16 DeviceId;       /**< DeviceId is the unique ID of the HDMI TX core */
+#else
+	char *Name;
+#endif
     UINTPTR BaseAddress;    /**< BaseAddress is the physical
                         * base address of the core's registers */
 	u32 AxiLiteClkFreq;
@@ -1046,7 +1051,11 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xv_hdmitx_sinit.c */
+#ifndef SDT
 XV_HdmiTx_Config *XV_HdmiTx_LookupConfig(u16 DeviceId);
+#else
+XV_HdmiTx_Config *XV_HdmiTx_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /* Initialization and control functions in xv_hdmitx.c */
 int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr,

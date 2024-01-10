@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +25,9 @@
 /***************************** Include Files *********************************/
 
 #include "xv_hdmitx.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -40,6 +43,7 @@
 
 /************************** Variable Definitions *****************************/
 
+extern XV_HdmiTx_Config XV_HdmiTx_ConfigTable[];
 
 /************************** Function Definitions *****************************/
 
@@ -60,6 +64,7 @@
 * @note     None.
 *
 ******************************************************************************/
+#ifndef SDT
 XV_HdmiTx_Config *XV_HdmiTx_LookupConfig(u16 DeviceId)
 {
     extern XV_HdmiTx_Config
@@ -82,3 +87,20 @@ XV_HdmiTx_Config *XV_HdmiTx_LookupConfig(u16 DeviceId)
 
     return (XV_HdmiTx_Config *)CfgPtr;
 }
+#else
+XV_HdmiTx_Config *XV_HdmiTx_LookupConfig(UINTPTR BaseAddress)
+{
+	XV_HdmiTx_Config *CfgPtr = NULL;
+	u32 Index;
+
+	/* Checking for device id for which instance it is matching */
+	for (Index = 0U; XV_HdmiTx_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XV_HdmiTx_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XV_HdmiTx_ConfigTable[Index];
+			break;
+		}
+	}
+	return (XV_HdmiTx_Config *)CfgPtr;
+}
+#endif
