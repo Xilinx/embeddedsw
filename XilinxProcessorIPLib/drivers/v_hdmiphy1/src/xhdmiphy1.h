@@ -699,8 +699,8 @@ typedef struct {
     u8  UseGtAsTxTmdsClk;   /**< Use 4th GT channel as TX TMDS clock */
     u8  RxMaxRate;          /**< Max rate of RX */
     u8  TxMaxRate;          /**< Max rate of TX */
-	char *speedgrade;		/**< FPGA device speed grade */
 #ifdef SDT
+    char *speedgrade;		/**< FPGA device speed grade */
     u16 IntrId; 		    /**< Interrupt ID */
     UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 #endif
