@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,7 +36,7 @@
 *					  L2 cache. Users can include this file in their application
 *					  to use the various cache related APIs. These changes are
 *					  done for implementing PR #697214.
-*
+* 9.1   ml   01/09/24 Fix comment for Xil_L2CacheInvalidateRange.
 * </pre>
 *
 *
@@ -107,7 +107,7 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* @brief    Invalidate the L1 data cache for the given address range.
+* @brief    Invalidate the L2 data cache for the given address range.
 *           If the bytes specified by the address (Addr) are cached by the
 *           L1 data cache, the cacheline containing that byte is invalidated.
 *           If the cacheline is modified (dirty), the modified contents are lost.

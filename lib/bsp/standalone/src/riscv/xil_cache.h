@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023-2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +24,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 9.00  sa   08/29/22 Initial release
-*
+* 9.1   ml   01/09/24 Fix comment for Xil_L2CacheInvalidateRange.
 * </pre>
 *
 *
@@ -99,7 +99,7 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* @brief    Invalidate the L1 data cache for the given address range.
+* @brief    Invalidate the L2 data cache for the given address range.
 *           If the bytes specified by the address (Addr) are cached by the
 *           L1 data cache, the cacheline containing that byte is invalidated.
 *           If the cacheline is modified (dirty), the modified contents are lost.
