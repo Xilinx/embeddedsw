@@ -27,7 +27,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xv_hdmitxss.h"
 
 /************************** Constant Definitions *****************************/
@@ -56,6 +58,7 @@ extern XV_HdmiTxSs_Config XV_HdmiTxSs_ConfigTable[];
 *         given device ID, or NULL if no match is found
 *
 *******************************************************************************/
+#ifndef SDT
 XV_HdmiTxSs_Config* XV_HdmiTxSs_LookupConfig(u32 DeviceId)
 {
   XV_HdmiTxSs_Config *CfgPtr = NULL;
@@ -69,4 +72,45 @@ XV_HdmiTxSs_Config* XV_HdmiTxSs_LookupConfig(u32 DeviceId)
   }
   return (CfgPtr);
 }
+#else
+XV_HdmiTxSs_Config* XV_HdmiTxSs_LookupConfig(UINTPTR BaseAddress)
+{
+	XV_HdmiTxSs_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0U; XV_HdmiTxSs_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XV_HdmiTxSs_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XV_HdmiTxSs_ConfigTable[Index];
+			break;
+		}
+	}
+	return (CfgPtr);
+}
+
+/*****************************************************************************/
+/**
+* This function returns the Index number of config table using BaseAddress.
+*
+* @param  A pointer to the instance structure
+*
+* @param  Base address of the instance
+*
+* @return Index number of the config table
+*
+*
+*******************************************************************************/
+
+u32 XV_HdmiTxSs_GetDrvIndex(XV_HdmiTxSs *InstancePtr, UINTPTR BaseAddress)
+{
+	u32 Index = 0;
+
+	for (Index = 0U; XV_HdmiTxSs_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XV_HdmiTxSs_ConfigTable[Index].BaseAddress == BaseAddress)) {
+			break;
+		}
+	}
+	return Index;
+}
+#endif
 /** @} */

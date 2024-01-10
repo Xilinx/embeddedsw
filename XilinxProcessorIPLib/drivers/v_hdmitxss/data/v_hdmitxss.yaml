@@ -1,0 +1,86 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for HDMI 2.0 Tx Subsystem Controller Driver
+
+maintainers:
+  - Gugulothu Rajesh <rajesh.gugulothu@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-hdmi-tx-ss-3.2
+  reg:
+    description: Physical base addreiss and size of the controller register map
+  highaddr:
+    description: HighAddress is the physical MAX address of the subsystem address range
+  xlnx,input-pixels-per-clock:
+    description: Number of Pixels Per Clock processed by Subsystem
+  xlnx,max-bits-per-component:
+    description: Maxmimum supported color depth
+  xlnx,include-low-reso-vid:
+    description: Flag to indicate low resolution support
+  xlnx,include-yuv420-sup:
+    description:
+  xlnx,axi-lite-freq-hz:
+    description: Axi lite clock frequency in Hz
+  hdcptimer-present:
+    description: Sub-core instance presence
+  hdcptimer-connected:
+    description: Sub-core instance configuration
+  hdcp14-present:
+    description: Sub-core instance presence
+  hdcp14-connected:
+    description: Sub-core instance configuration
+  hdcp22-present:
+    description: Sub-core instance presence
+  hdcp22-connected:
+    description: Sub-core instance configuration
+  hdmitx-present:
+    description: Sub-core instance presence
+  hdmitx-connected:
+    description: Sub-core instance configuration
+  vtc-present:
+    description: Sub-core instance present
+  vtc-connected:
+    description: Sub-core instance configuration
+  interrupts:
+    description: Interrupt number
+  interrupt-parent:
+    description: Parent interrupt
+
+required:
+    - compatible
+    - reg
+    - xlnx,highaddr
+    - xlnx,input-pixels-per-clock
+    - xlnx,max-bits-per-component
+    - xlnx,include-low-reso-vid
+    - xlnx,include-yuv420-sup
+    - xlnx,axi-lite-freq-hz
+    - hdcptimer-present
+    - hdcptimer-connected: phandle
+    - hdcp14-present
+    - hdcp14-connected: phandle
+    - hdcp22-present
+    - hdcp22-connected: phandle
+    - hdmitx-present
+    - hdmitx-connected: phandle
+    - vtc-present
+    - vtc-connected: phandle
+    - interrupts
+    - interrupt-parent
+
+config:
+    - XV_HdmiTxSs_Config
+
+depends:
+    video_common: []
+    v_hdmi_common: []
+
+...
