@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,6 +16,9 @@
 #include "xhdmiphy1.h"
 #endif
 
+#ifdef SDT
+#define XPAR_IIC_0_BASEADDR XPAR_XIIC_0_BASEADDR
+#endif
 // Function prototypes
 #ifndef versal
 u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate);
