@@ -25,6 +25,7 @@
 *       kpt  05/18/23 Updated adapttestcutoff and reptestcutoff default values
 * 1.1   mmd  07/09/23 Included header file for crypto algorithm information
 *       ng   09/04/23 Added SDT support
+* 1.2   kpt  01/09/24 Added error code XTRNGPSX_INVALID_BLOCKING_MODE
 *
 * </pre>
 *
@@ -89,7 +90,8 @@ typedef struct {
 	u16 AdaptPropTestCutoff; /**< Adaptive test cutoff */
 	u16 RepCountTestCutoff;  /**< Repititive test cutoff */
 	u8 DFLength;	/**< df length */
-	u8 PredResistance;
+	u8 PredResistance; /**< prediction resistance */
+	u8 IsBlocking; /**< Blocking or Non-Blocking reseed */
 } XTrngpsx_UserConfig;
 
 /* This typedef contains status related to TRNG */
@@ -155,6 +157,8 @@ typedef enum {
 												doesn't match with expected o/p */
 	XTRNGPSX_WRITE_ERROR,			 		 /**< 0x13 - Error occurred while writing in
 												to the register */
+	XTRNGPSX_INVALID_BLOCKING_MODE,			 /**< 0x14 - Error occurred when invalid blocking mode
+												is selected */
 } XTrngpsx_ErrorCodes;
 
 /************************************ Variable Definitions ***************************************/

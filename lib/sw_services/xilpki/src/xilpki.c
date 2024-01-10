@@ -28,6 +28,8 @@
  * 2.1   Nava  12/27/23  Updated the XPki_DeQueueData() API to return the proper error
  *                       status for CopyEcdsa* operations.
  * 2.1   Nava  01/03/24  Fixed security issues relevant to instance pointer NULL check.
+ * 2.2   kpt   01/09/24  Updated option for non-blocking trng reseed
+ *
  *</pre>
  *
  *@note
@@ -563,6 +565,7 @@ static int XPki_TrngInit(void)
 		.DFLength = XTRNGPSX_USER_CFG_DF_LENGTH,
 		.AdaptPropTestCutoff = XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF,
 		.RepCountTestCutoff = XTRNGPSX_USER_CFG_REP_TEST_CUTOFF,
+		.IsBlocking = FALSE,
 	};
 
 	for (u8 DeviceId = 1U; DeviceId < XPAR_XTRNGPSX_NUM_INSTANCES; DeviceId++) {

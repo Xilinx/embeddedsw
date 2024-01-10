@@ -27,6 +27,7 @@
 *       dd   10/11/23 MISRA-C violation Rule 10.3 fixed
 * 5.3   har  11/01/23 Updated core API for ECDH
 *       kpt  11/24/23 Replace Xil_SMemSet with Xil_SecureZeroize
+*       kpt  01/09/24 Updated option for non-blocking trng reseed
 *
 * </pre>
 *
@@ -122,6 +123,7 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	TrngUserCfg.Mode = XTRNGPSX_DRNG_MODE;
 	TrngUserCfg.DFLength = XSECURE_ECC_TRNG_DF_LENGTH;
 	TrngUserCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE;
+	TrngUserCfg.IsBlocking = FALSE;
 	Status = XTrngpsx_Instantiate(TrngInstance,
 			(u8 *)(UINTPTR)PrivateKey->SeedAddr, PrivateKey->SeedLength,
 			(u8 *)(UINTPTR)PrivateKey->PerStringAddr, &TrngUserCfg);

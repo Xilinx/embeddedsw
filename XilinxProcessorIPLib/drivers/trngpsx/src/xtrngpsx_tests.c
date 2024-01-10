@@ -20,6 +20,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   kpt  01/04/23 First release
  * 1.1   kpt  08/29/23 Removed dead code
+ * 1.2   kpt  01/09/24 Added option for blocking or non-blocking reseed support
  *
  * </pre>
  *
@@ -130,6 +131,7 @@ int XTrngpsx_DRBGKat(XTrngpsx_Instance *InstancePtr) {
 	UsrCfg.DFLength = XTRNGPSX_KAT_DEFAULT_DF_lENGTH;
 	UsrCfg.Mode = XTRNGPSX_DRNG_MODE;
 	UsrCfg.SeedLife = XTRNGPSX_KAT_DEFAULT_SEED_LIFE;
+	UsrCfg.IsBlocking = FALSE;
 
 	Status = XTrngpsx_Instantiate(InstancePtr, ExtSeed, XTRNGPSX_KAT_SEED_LEN_IN_BYTES, PersString,
 			&UsrCfg);
@@ -181,6 +183,7 @@ int XTrngpsx_HealthTest(XTrngpsx_Instance *InstancePtr) {
 	UsrCfg.RepCountTestCutoff = XTRNGPSX_USER_CFG_REP_TEST_CUTOFF;
 	UsrCfg.DFLength = XTRNGPSX_USER_CFG_DF_LENGTH;
 	UsrCfg.SeedLife = XTRNGPSX_USER_CFG_SEED_LIFE;
+	UsrCfg.IsBlocking = TRUE;
 
 	Status = XTrngpsx_Instantiate(InstancePtr, NULL, 0U, NULL, &UsrCfg);
 	if (Status != XST_SUCCESS) {
