@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2022, Xilinx Inc. and Contributors. All rights reserved.
- * Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -72,12 +72,61 @@ void metal_weak metal_generic_default_poll(void)
 	metal_asm volatile("wfi");
 }
 
+
+/*
+ * VERSAL_NET is used since XMpu_Config structure is
+ * different for r52(versal net) and r5(zynqmp) to avoid build failure
+ */
+#ifdef VERSAL_NET
+void *metal_machine_io_mem_map_versal_net(void *va, metal_phys_addr_t pa,
+			       size_t size, unsigned int flags)
+{
+	void *__attribute__((unused)) physaddr;
+	u32 ReqEndAddr = pa + size;
+	XMpu_Config MpuConfig;
+	u32 ReqAddr = pa;
+	u32 mmap_req = 1;
+	u32 BaseEndAddr;
+	u32 Cnt;
+
+	/* Get the MPU Config enties */
+	Xil_GetMPUConfig(MpuConfig);
+
+	for (Cnt = 0; (Cnt < MAX_POSSIBLE_MPU_REGS) && (MpuConfig[Cnt].flags & XMPU_VALID_REGION); Cnt++){
+		BaseEndAddr =  MpuConfig[Cnt].Size + MpuConfig[Cnt].BaseAddress;
+
+		if ( MpuConfig[Cnt].BaseAddress <= ReqAddr && BaseEndAddr >= ReqEndAddr){
+			/*
+			 * Mapping available for requested region in MPU table
+			 * If no change in Attribute for region then additional mapping in MPU table is not required
+			 */
+			if (MpuConfig[Cnt].Attribute == flags) {
+				mmap_req=0;
+				break;
+			}
+		}
+	}
+
+	/* if mapping is required we call Xil_MemMap to get the mapping done */
+	if (mmap_req == 1){
+		physaddr = Xil_MemMap(pa, size, flags);
+		metal_assert(physaddr == (void *)pa);
+	}
+
+	return va;
+}
+#endif
+
 void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 			       size_t size, unsigned int flags)
 {
 	void *__attribute__((unused)) physaddr;
 
+#ifdef VERSAL_NET
+	va = metal_machine_io_mem_map_versal_net(va, pa, size, flags);
+#else
 	physaddr = Xil_MemMap(pa, size, flags);
 	metal_assert(physaddr == (void *)pa);
+#endif
 	return va;
 }
