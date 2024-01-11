@@ -187,11 +187,6 @@ def create_libmetal_app(obj, esw_app_dir):
     app_os = obj.os if obj.os == 'freertos' else 'generic'
     common_mappings = {
         'top-CMakeLists.txt'         : ['CMakeLists.txt'],
-        'app-CMakeLists.txt'         : ['examples', 'system', app_os, 'zynqmp_r5',
-                                        'zynqmp_amp_demo', 'CMakeLists.txt'],
-        'app-list-CMakeLists.txt'    : ['examples', 'system' , app_os, 'zynqmp_r5', 'CMakeLists.txt'],
-        'lscript.ld'                 : ['examples', 'system', app_os, 'zynqmp_r5',
-                                        'zynqmp_amp_demo', 'lscript.ld']
     }
 
     # Create new mappings based on app name. Each record is (embeddedsw-src : app-workspace

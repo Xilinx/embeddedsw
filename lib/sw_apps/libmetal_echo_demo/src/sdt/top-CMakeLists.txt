@@ -25,6 +25,7 @@ if (r5)
   set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -specs=${CMAKE_SPECS_FILE} " )
   set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -I${CMAKE_INCLUDE_PATH} " )
   set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${proc_extra_compiler_flags}" )
+  set( DEMO_LINK_FLAGS " -lxil -lxilstandalone -lxiltimer -lgcc" )
 endif()
 
 set (LIBMETAL_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
