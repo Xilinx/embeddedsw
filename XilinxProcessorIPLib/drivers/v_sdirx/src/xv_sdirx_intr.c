@@ -908,7 +908,8 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 										XVIDC_VM_2048x1080_120_I);
 						else
 							SdiStream->VmId = ((active_luma== 1) ?
-								XVIDC_VM_2048x1080_60_8b2c2c8280683a07d2557794553d85f5fed5187dP : XVIDC_VM_1920x1080_60_P);
+								XVIDC_VM_2048x1080_60_P :
+								XVIDC_VM_1920x1080_60_P);
 					}
 					break;
 				default:
