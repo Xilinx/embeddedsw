@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -31,15 +32,20 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #ifndef TESTAPP_GEN
 #define I2S_RX_DEVICE_ID	XPAR_XI2SRX_0_DEVICE_ID
+#endif
 #endif
 
 /**************************** Type Definitions ********************************/
 
 /************************** Function Prototypes *******************************/
-
+#ifndef SDT
 int I2srx_SelfTest_Example(u16 DeviceId);
+#else
+int I2srx_SelfTest_Example(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions ******************************/
 
@@ -66,7 +72,11 @@ int main(void)
 	 * Run the I2S RX Self Test example, specify the Device ID that is
 	 * generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = I2srx_SelfTest_Example(I2S_RX_DEVICE_ID);
+#else
+	Status = I2srx_SelfTest_Example(XPAR_XI2SRX_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("I2S RX Self Test Failed\r\n");
 		return XST_FAILURE;
@@ -93,7 +103,11 @@ int main(void)
  *
  *
  ******************************************************************************/
+#ifndef SDT
 int I2srx_SelfTest_Example(u16 DeviceId)
+#else
+int I2srx_SelfTest_Example(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XI2srx_Config *Config;
@@ -101,7 +115,11 @@ int I2srx_SelfTest_Example(u16 DeviceId)
 	 * Initialize the I2S RX driver so that it's ready to use
 	 * Look up the configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Config = XI2s_Rx_LookupConfig(DeviceId);
+#else
+	Config = XI2s_Rx_LookupConfig(BaseAddress);
+#endif
 	if (Config == NULL)
 		return XST_FAILURE;
 
