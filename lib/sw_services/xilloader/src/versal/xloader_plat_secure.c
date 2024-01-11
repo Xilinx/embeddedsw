@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 *       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
 *       dd	 09/11/2023 MISRA-C violation Rule 12.1 fixed
 * 2.0   kpt  10/09/2023 Fixed compilation warning when PLM_EN_ADD_PPKS macro is enabled
+* 2.1   pre  01/11/2024 Removed unused macro
 *
 * </pre>
 *
@@ -61,8 +62,6 @@
                     /**< PPK 3&4 Enable bits mask*/
 #define XLOADER_EFUSE_PPK3_START_OFFSET                 (0xF12502C0U)
                     /**< PPK3 start register address */
-#define XLOADER_EFUSE_PPK4_END_OFFSET                   (0xF12502FCU)
-                    /**< PPK4 start register address */
 #endif /**< END OF PLM_EN_ADD_PPKS*/
 
 /************************** Function Prototypes ******************************/
