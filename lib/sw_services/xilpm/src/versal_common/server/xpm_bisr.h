@@ -40,6 +40,7 @@ extern "C" {
 #define BFRB_TAG_ID 	0x1B
 #define DDRMC5_CRYPTO_TAG_ID   0x1C
 #define CPM5N_TAG_ID    0x1D
+#define VP1902_LAGUNA_TAG_ID	0x1E
 #define LPX_TAG_ID	0x20
 #define FPX_TAG_ID	0x21
 #define HNICX_NTHUB_TAG_ID	0x22

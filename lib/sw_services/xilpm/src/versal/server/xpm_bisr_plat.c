@@ -38,7 +38,7 @@
 #define TAG_ID_TYPE_GTYP				(12U)
 #define TAG_ID_TYPE_GTM					(13U)
 #define TAG_ID_TYPE_XRAM				(14U)
-#define TAG_ID_TYPE_LAGUNA             (15U)
+#define TAG_ID_TYPE_LAGUNA				(15U)
 #define TAG_ID_ARRAY_SIZE				(256U)
 
 #define ME_BISR_FIXED_OFFSET				(0x36010U)
@@ -85,6 +85,7 @@
 #define XRAM_SLCR_PCSR_PSR_BISR_DONE_MASK		(0x00004000U)
 #define XRAM_SLCR_PCSR_PSR_BISR_PASS_MASK		(0x00008000U)
 
+#ifndef XCVP1902
 /* Laguna Repair */
 #define LAGUNA_FUSE_Y0_LSB		   (0U)
 #define LAGUNA_FUSE_Y0_BITS		   (9U)
@@ -99,6 +100,7 @@
 #define FDRO_BASEADDR              (0xF12C2000U)
 #define FSR_TILE_END               (95U)
 #define HALF_FSR_START             (48U)
+#endif
 
 #ifdef XCVP1902
 /* Repair register unlock value, 0x1 to lock */
@@ -145,7 +147,6 @@ static void XPmBisr_InitTagIdList(
 	XPmTagIdWhiteList[GTM_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_GTM;
 	XPmTagIdWhiteList[XRAM_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_XRAM;
 	XPmTagIdWhiteList[LAGUNA_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_LAGUNA;
-
 	return;
 }
 
@@ -730,6 +731,7 @@ done:
 	return Status;
 }
 
+#ifndef XCVP1902
 static void LagunaRmwOneFrame(const XPm_PlDomain *Pld, u32 RowIndex,
 		u32 FrameAddr, u32 LowerTile, u32 UpperTile, u32 RepairWord)
 {
@@ -965,6 +967,7 @@ static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 done:
 	return TagDataAddr;
 }
+#endif
 
 XStatus XPmBisr_Repair(u32 TagId)
 {
@@ -992,7 +995,6 @@ XStatus XPmBisr_Repair(u32 TagId)
 		Status = XST_FAILURE;
                 goto done;
         }
-
 	Status = XPM_STRICT_CHECK_IF_EQUAL_FOR_FUNC(StatusTmp, PLATFORM_VERSION_SILICON, u32,
 					     XPm_GetPlatform);
 	if ((XST_SUCCESS != Status) && (XST_SUCCESS != StatusTmp)) {
@@ -1093,12 +1095,14 @@ XStatus XPmBisr_Repair(u32 TagId)
 					case TAG_ID_TYPE_XRAM:
 						Status = XPmBisr_RepairXram(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
 						break;
+#ifndef XCVP1902
 					case TAG_ID_TYPE_LAGUNA:
 						EfuseNextAddr = XPmBisr_RepairLaguna(EfuseCurrAddr, EfuseBisrSize);
 						if (EfuseNextAddr != ~0U) {
 							Status = XST_SUCCESS;
 						}
 						break;
+#endif
 					default: //block type not recognized, no function to handle it
 						XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);
 						DbgErr = XPM_INT_ERR_BAD_TAG_TYPE;
