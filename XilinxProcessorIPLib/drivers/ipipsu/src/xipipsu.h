@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -99,6 +99,7 @@
  * 2.14 adk 05/22/23 Added IPI Mask's for referring to processor IPI Targets
  * 		     in system device-tree flow.
  * 2.14 sd 07/27/23  Update the target count.
+ * 2.15 ht 01/11/24  Add PMC, PSM bitmasks macros for versal-net
  * </pre>
  *
  *****************************************************************************/
@@ -138,7 +139,11 @@ extern "C" {
  * would be generating the defines using lopper.
  */
 #ifdef	SDT
-#ifdef	versal
+#if defined (VERSAL_NET)
+#define XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK		0x00000002U
+#define XPAR_XIPIPS_TARGET_PSX_PMC_0_CH1_MASK		0x00000100U
+#define XPAR_XIPIPS_TARGET_PSX_PSM_0_CH0_MASK		0x00000001U
+#elif defined (versal)
 #define XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK		0x00000002U
 #define XPAR_XIPIPS_TARGET_PSV_PMC_0_CH1_MASK		0x00000100U
 #define XPAR_XIPIPS_TARGET_PSV_PSM_0_CH0_MASK		0x00000001U
