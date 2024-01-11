@@ -56,6 +56,7 @@ extern XSpdif_Config XSpdif_ConfigTable[];
  * @note   None.
  *
  ******************************************************************************/
+#ifndef SDT
 XSpdif_Config *XSpdif_LookupConfig(u16 DeviceId)
 {
 	XSpdif_Config *CfgPtr = NULL;
@@ -112,6 +113,63 @@ int XSpdif_Initialize(XSpdif *InstancePtr, u16 DeviceId)
 	return XSpdif_CfgInitialize(InstancePtr, ConfigPtr,
 			ConfigPtr->BaseAddress);
 }
+#else
+XSpdif_Config *XSpdif_LookupConfig(UINTPTR BaseAddress)
+{
+	XSpdif_Config *CfgPtr = NULL;
+	u32 Index;
 
+	/* Checking for device id for which instance it is matching */
+	for (Index = 0; Index < (u32)(XPAR_XSPDIF_NUM_INSTANCES);
+			Index++) {
+		/* Assigning address of config table if both device ids
+		 * are matched
+		 */
+		if (XSpdif_ConfigTable[Index].BaseAddress == BaseAddress ||
+		    !BaseAddress) {
+			CfgPtr = &XSpdif_ConfigTable[Index];
+			break;
+		}
+	}
+	return CfgPtr;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * Initializes a specific Xspdif instance such that the driver is ready to use.
+ *
+ * @param InstancePtr is a pointer to the XSpdif instance to be worked on.
+ * @param DeviceId is the unique id of the device controlled by this XSpdif
+ *        instance. Passing in a device id associates the generic XSpdif
+ *        instance to a specific device, as chosen by the caller or
+ *        application developer.
+ *
+ * @return
+ *   - XST_SUCCESS if successful.
+ *   - XST_DEVICE_NOT_FOUND if the device was not found in the configuration
+ *     such that initialization could not be accomplished.
+ *   - XST_FAILURE if version mismatched
+ *
+ ******************************************************************************/
+int XSpdif_Initialize(XSpdif *InstancePtr, UINTPTR BaseAddress)
+{
+	XSpdif_Config *ConfigPtr; /* Pointer to Configuration ROM data */
+
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/*
+	 * Lookup the device configuration in the temporary CROM table. Use this
+	 * configuration info down below when initializing this component.
+	 */
+	ConfigPtr = XSpdif_LookupConfig(BaseAddress);
+	if (ConfigPtr == NULL)
+		return XST_DEVICE_NOT_FOUND;
+
+	return XSpdif_CfgInitialize(InstancePtr, ConfigPtr,
+			ConfigPtr->BaseAddress);
+}
+#endif
 /** @} */
 
