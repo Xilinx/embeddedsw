@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -31,16 +32,21 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #ifndef TESTAPP_GEN
 #define SPDIF_0_DEVICE_ID	XPAR_XSPDIF_0_DEVICE_ID
 #define SPDIF_1_DEVICE_ID	XPAR_XSPDIF_1_DEVICE_ID
+#endif
 #endif
 
 /**************************** Type Definitions *****************************i***/
 
 /************************** Function Prototypes *******************************/
-
+#ifndef SDT
 int SpdifSelfTestExample(u16 DeviceId);
+#else
+int SpdifSelfTestExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions ******************************/
 
@@ -69,7 +75,11 @@ int main(void)
 	 * Run the Spdif Self Test example, specify the Device ID that is
 	 * generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = SpdifSelfTestExample(SPDIF_0_DEVICE_ID);
+#else
+	Status = SpdifSelfTestExample(XPAR_XSPDIF_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Spdif Self Test Failed\r\n");
 		return XST_FAILURE;
@@ -95,7 +105,11 @@ int main(void)
  *
  *
  *****************************************************************************/
+#ifndef SDT
 int SpdifSelfTestExample(u16 DeviceId)
+#else
+int SpdifSelfTestExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XSpdif_Config *Config;
@@ -103,7 +117,11 @@ int SpdifSelfTestExample(u16 DeviceId)
 	 * Initialize the Spdif driver so that it's ready to use
 	 * Look up the configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Config = XSpdif_LookupConfig(DeviceId);
+#else
+	Config = XSpdif_LookupConfig(BaseAddress);
+#endif
 
 	if (Config == NULL)
 		return XST_FAILURE;

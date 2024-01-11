@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -27,12 +28,16 @@
 #include "xspdif_hw.h"
 #include "xil_printf.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #include <stdio.h>
 #else
 #include "xscugic.h"
 #endif
+#else /* SDT flow */
+#include "xinterrupt_wrap.h"
+#endif /* End of SDT */
 
 /************************** Constant Definitions ******************************/
 /*
@@ -40,6 +45,7 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define SPDIF_0_DEVICE_ID	XPAR_XSPDIF_0_DEVICE_ID
 #define SPDIF_1_DEVICE_ID	XPAR_XSPDIF_1_DEVICE_ID
 
@@ -59,13 +65,14 @@
 #define INTC			XScuGic
 #define INTC_HANDLER	XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
+#endif
 
 #define SPDIF_TIME_OUT 500000
 
 /**************************** Type Definitions ********************************/
 
 /************************** Function Prototypes *******************************/
-
+#ifndef SDT
 int SpdifSelfTestExample(u16 DeviceId);
 
 int SpdifIntrExample(INTC *IntcInstancePtr, XSpdif *SpdifInstancePtr,
@@ -76,7 +83,12 @@ static int SpdifSetupIntrSystem(INTC *IntcInstancePtr,
 		u16 DeviceId, u16 IntrId);
 
 void SpdifDisableIntr(INTC *IntcInstancePtr, u16 IntrId);
-
+#else
+int SpdifSelfTestExample(UINTPTR BaseAddress);
+static int SpdifIntrExample(XSpdif *SpdifInstancePtr, UINTPTR BaseAddress);
+static int SpdifSetupIntrSystem(XSpdif *SpdifInstancePtr,
+				UINTPTR BaseAddress);
+#endif
 void SpdifStartOfBlockHandler(void *CallBackRef);
 
 void SpdifPreambleErrHandler(void *CallBackRef);
@@ -88,8 +100,9 @@ void SpdifTxOrRxFifoEmptyHandler(void *CallBackRef);
 void SpdifTxOrRxFifoFullHandler(void *CallBackRef);
 
 /************************** Variable Definitions ******************************/
-
+#ifndef SDT
 INTC InterruptController;	/* The instance of the Interrupt Controller */
+#endif
 XSpdif SpdifInstance;		/* Instance of the Spdif device */
 unsigned int IntrReceived;
 
@@ -112,9 +125,12 @@ int main(void)
 	/*
 	 * Run the Spdif - Interrupt example.
 	 */
+#ifndef SDT
 	Status = SpdifIntrExample(&InterruptController, &SpdifInstance,
 			SPDIF_0_DEVICE_ID, SPDIF_0_INTERRUPT_ID);
-
+#else
+	Status = SpdifIntrExample(&SpdifInstance, XPAR_XSPDIF_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Spdif interrupt Example Failed\r\n");
 		return XST_FAILURE;
@@ -147,8 +163,12 @@ int main(void)
  *		are not working it may never return.
  *
  *****************************************************************************/
+#ifndef SDT
 int SpdifIntrExample(INTC *IntcInstancePtr, XSpdif *SpdifInstancePtr,
 		u16 DeviceId, u16 IntrId)
+#else
+int SpdifIntrExample(XSpdif *SpdifInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XSpdif_Config *Config;
@@ -156,7 +176,11 @@ int SpdifIntrExample(INTC *IntcInstancePtr, XSpdif *SpdifInstancePtr,
 	/*
 	 * Lookup and Initialize the Spdif so that it's ready to use.
 	 */
+#ifndef SDT
 	Config = XSpdif_LookupConfig(DeviceId);
+#else
+	Config = XSpdif_LookupConfig(BaseAddress);
+#endif
 	if (Config == NULL)
 		return XST_FAILURE;
 
@@ -169,10 +193,15 @@ int SpdifIntrExample(INTC *IntcInstancePtr, XSpdif *SpdifInstancePtr,
 	 * subsystem such that interrupts can occur.
 	 * This function is application specific.
 	 */
+#ifndef SDT
 	Status = SpdifSetupIntrSystem(IntcInstancePtr, SpdifInstancePtr,
 			DeviceId, IntrId);
+#endif
+#ifdef SDT
+	Status = SpdifSetupIntrSystem(SpdifInstancePtr, BaseAddress);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
+#endif
 	/*
 	 * Setup the handler for the Spdif that will be called from the
 	 * interrupt context when the Spdif receives a interrupt.
@@ -216,8 +245,9 @@ int SpdifIntrExample(INTC *IntcInstancePtr, XSpdif *SpdifInstancePtr,
 	XSpdif_SetClkConfig(SpdifInstancePtr, XSPDIF_CLK_8);
 
 	XSpdif_Enable(SpdifInstancePtr, TRUE);
-
+#ifndef SDT
 	Xil_ExceptionEnable();
+#endif
 	while (IntrCount < SPDIF_TIME_OUT) {
 		/* Wait until an interrupts has been received. */
 		if (IntrReceived == 1) {
@@ -369,6 +399,7 @@ void SpdifTxOrRxFifoFullHandler(void *CallBackRef)
  *		are not working it may never return.
  *
  ******************************************************************************/
+#ifndef SDT
 static int SpdifSetupIntrSystem(INTC *IntcInstancePtr,
 		XSpdif *SpdifInstancePtr,
 		u16 DeviceId, u16 IntrId)
@@ -460,6 +491,22 @@ static int SpdifSetupIntrSystem(INTC *IntcInstancePtr,
 #endif
 	return XST_SUCCESS;
 }
+#else
+static int SpdifSetupIntrSystem(XSpdif *SpdifInstancePtr,
+				UINTPTR BaseAddress)
+{
+	int Status;
+
+	Status = XSetupInterruptSystem(SpdifInstancePtr, &XSpdif_IntrHandler,
+				       SpdifInstancePtr->Config.IntrId,
+				       SpdifInstancePtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("IRQ init failed.\n\r\r");
+		return XST_FAILURE;
+	}
+}
+#endif
 /******************************************************************************/
 /**
  *
@@ -475,6 +522,7 @@ static int SpdifSetupIntrSystem(INTC *IntcInstancePtr,
  * @note	None.
  *
  ******************************************************************************/
+#ifndef SDT
 void SpdifDisableIntr(INTC *IntcInstancePtr, u16 IntrId)
 {
 	/*
@@ -488,4 +536,5 @@ void SpdifDisableIntr(INTC *IntcInstancePtr, u16 IntrId)
 	XScuGic_Disconnect(IntcInstancePtr, IntrId);
 #endif
 }
+#endif
 

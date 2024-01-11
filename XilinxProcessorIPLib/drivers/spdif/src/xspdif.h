@@ -78,9 +78,18 @@ typedef void (*XSpdif_Callback)(void *CallbackRef);
 * @brief This typedef contains configuration information for the XSpdif.
 */
 typedef struct {
+#ifndef SDT
 		u32 DeviceId;		//!< DeviceId is the unique ID of XSpdif
+#else
+		char *Name;
+#endif
 		UINTPTR BaseAddress;
 		//!< BaseAddress of the XSpdif Transmitter or Receiver
+#ifdef SDT
+		u16 IntrId;	/**< Interrupt ID */
+		UINTPTR IntrParent;
+		/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XSpdif_Config;
 /**
 * @brief The XSpdif driver instance data.
@@ -119,8 +128,13 @@ typedef struct {
 /************************* Function Prototypes ******************************/
 
 /* Initialization function in xspdif_sinit.c */
+#ifndef SDT
 XSpdif_Config *XSpdif_LookupConfig(u16 DeviceId);
 int XSpdif_Initialize(XSpdif *InstancePtr, u16 DeviceId);
+#else
+XSpdif_Config *XSpdif_LookupConfig(UINTPTR BaseAddress);
+int XSpdif_Initialize(XSpdif *InstancePtr, UINTPTR BaseAddress);
+#endif
 
 /* Initialization and control functions in xspdif.c */
 int XSpdif_CfgInitialize(XSpdif *InstancePtr,
