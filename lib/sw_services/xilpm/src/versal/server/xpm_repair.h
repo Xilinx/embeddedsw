@@ -95,6 +95,7 @@ maybe_unused static inline XStatus XPmRepair_Hnicx_Dpu(u32 EfuseTagAddr, u32 Tag
 /************************** Function Prototypes ******************************/
 XStatus XPmRepair_Vdu(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
 XStatus XPmRepair_Bfrb(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
+u32 XPmRepair_Laguna_vp1902(u32 EfuseTagAddr, u32 TagSize);
 
 #ifdef __cplusplus
 }

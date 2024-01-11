@@ -1361,7 +1361,11 @@ static XStatus PlHouseClean(u32 TriggerTime)
 
 		if ((SLR_TYPE_INVALID != DeviceType) &&
 		    (SLR_TYPE_MONOLITHIC_DEV != DeviceType)) {
+#ifdef XCVP1902
+			Status = XPmBisr_Repair2(VP1902_LAGUNA_TAG_ID);
+#else
 			Status = XPmBisr_Repair(LAGUNA_TAG_ID);
+#endif
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_LAGUNA_REPAIR;
 				goto done;

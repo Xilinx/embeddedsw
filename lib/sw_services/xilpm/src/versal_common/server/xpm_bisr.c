@@ -469,6 +469,14 @@ XStatus XPmBisr_Repair2(u32 TagId)
 			case DDRMC5_MAIN_TAG_ID:
 				Status = XPmRepair_Ddrmc5_Main(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
 				break;
+#ifdef XCVP1902
+			case VP1902_LAGUNA_TAG_ID:
+				EfuseNextAddr = XPmRepair_Laguna_vp1902(EfuseCurrAddr, EfuseBisrSize);
+				if (EfuseNextAddr != ~0U) {
+					Status = XST_SUCCESS;
+				}
+				break;
+#endif
 			default:
 				XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);
 				DbgErr = XPM_INT_ERR_BAD_TAG_TYPE;
@@ -507,6 +515,9 @@ XStatus XPmBisr_TagSupportCheck2(u32 TagId)
 	case HNICX_NTHUB_TAG_ID:
 	case HNICX_DPU_TAG_ID:
 	case DDRMC5_MAIN_TAG_ID:
+#ifdef XCVP1902
+	case VP1902_LAGUNA_TAG_ID:
+#endif
 		Status = XST_SUCCESS;
 		break;
 	default:
