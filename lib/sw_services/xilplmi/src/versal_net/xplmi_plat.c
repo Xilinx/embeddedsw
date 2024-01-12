@@ -41,6 +41,7 @@
 *                       for updating the MB Freq
 *       ng   09/22/2023 Fixed missing header for microblaze sleep
 * 1.03  sk   14/12/2023 PSM & PMC buffer list saving to handle in-place update
+*       mss  01/09/2024 Added PMC RAM check condition in Xplmi_VerifyAddr API
 *
 * </pre>
 *
@@ -773,35 +774,6 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 		goto END;
 	}
 
-	if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
-		if ((StartAddr >= (u64)XPLMI_PSM_RAM_BASE_ADDR) &&
-			(EndAddr <= (u64)XPLMI_PSM_RAM_HIGH_ADDR)) {
-			/* PSM RAM is valid */
-			Status = XST_SUCCESS;
-		}
-		else if ((StartAddr >= (u64)XPLMI_TCM0_BASE_ADDR) &&
-			(EndAddr <= (u64)XPLMI_TCM0_HIGH_ADDR)) {
-			/* TCM0 is valid */
-			Status = XST_SUCCESS;
-		}
-		else if ((StartAddr >= (u64)XPLMI_TCM1_BASE_ADDR) &&
-			(EndAddr <= (u64)XPLMI_TCM1_HIGH_ADDR)) {
-			/* TCM1 is valid */
-			Status = XST_SUCCESS;
-		}
-		else if ((StartAddr >= (u64)XPLMI_OCM_BASE_ADDR) &&
-			(EndAddr <= (u64)XPLMI_OCM_HIGH_ADDR)) {
-			/* OCM is valid */
-			Status = XST_SUCCESS;
-		}
-		else {
-			/* Rest of the Addr range is treated as invalid */
-			Status = XPLMI_ERROR_INVALID_ADDRESS;
-		}
-	} else {
-			Status = XPLMI_ERROR_LPD_NOT_INITIALIZED;
-	}
-
 	if ((EndAddr <= (u64)XPLMI_OCM_HIGH_ADDR) ||
 		(StartAddr > (u64)XPLMI_4GB_END_ADDR)) {
 		if ((StartAddr >= (u64)XPLMI_RSVD_BASE_ADDR) &&
@@ -812,6 +784,42 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 			/* Addr range less than OCM high addr or greater
 				than 2GB is considered valid */
 			Status = XST_SUCCESS;
+		}
+	}
+	else if((StartAddr >= (u64)XPLMI_PMCRAM_BASEADDR) &&
+			(EndAddr <= (u64)(XPLMI_PMCRAM_BASEADDR + XPLMI_TOTAL_CHUNK_SIZE))){
+				/* PMC RAM is valid*/
+			Status = XST_SUCCESS;
+		}
+	else {
+		if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
+			if ((StartAddr >= (u64)XPLMI_PSM_RAM_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_PSM_RAM_HIGH_ADDR)) {
+				/* PSM RAM is valid */
+				Status = XST_SUCCESS;
+			}
+			else if ((StartAddr >= (u64)XPLMI_TCM0_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_TCM0_HIGH_ADDR)) {
+				/* TCM0 is valid */
+				Status = XST_SUCCESS;
+			}
+			else if ((StartAddr >= (u64)XPLMI_TCM1_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_TCM1_HIGH_ADDR)) {
+				/* TCM1 is valid */
+				Status = XST_SUCCESS;
+			}
+			else if ((StartAddr >= (u64)XPLMI_OCM_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_OCM_HIGH_ADDR)) {
+				/* OCM is valid */
+				Status = XST_SUCCESS;
+			}
+			else {
+				/* Rest of the Addr range is treated as invalid */
+				Status = (int)XPLMI_ERROR_INVALID_ADDRESS;
+			}
+		}
+		else {
+			Status = (int)XPLMI_ERROR_LPD_NOT_INITIALIZED;
 		}
 	}
 

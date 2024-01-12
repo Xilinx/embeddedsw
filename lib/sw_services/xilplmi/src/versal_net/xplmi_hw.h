@@ -41,6 +41,7 @@
 * 1.03  ma   10/10/2023 Enable Slave Error for PSM_GLOBAL
 *       mss  10/31/2023 Added PMC_GLOBAL_PMC_FW_ERR_CR_FLAG_MASK macro
 *       pre  14/12/2023 Fixed compilation warnings
+*       mss  01/09/2024 Added XPLMI_TOTAL_CHUNK_SIZE macro for Validating address
 *
 * </pre>
 *
@@ -1470,6 +1471,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_OCM_HIGH_ADDR		(0xBBFFFFFFU)
 #define XPLMI_2GB_END_ADDR		(0x7FFFFFFFU)
 #define XPLMI_4GB_END_ADDR		(0xFFFFFFFFU)
+#define XPLMI_TOTAL_CHUNK_SIZE	(0x10400U)
 
 #ifdef SDT
 #define XCFRAME_DEVICE  (XPAR_XCFRAME_0_BASEADDR)

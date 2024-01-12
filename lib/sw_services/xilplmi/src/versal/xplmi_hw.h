@@ -92,6 +92,7 @@
 *       mss  10/31/2023 Added PMC_GLOBAL_PMC_FW_ERR_CR_FLAG_MASK macro
 *       pre  14/12/2023 Fixed compilation warnings
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
+*       mss  01/09/2024 Added XPLMI_TOTAL_CHUNK_SIZE macro for Validating address
 *
 * </pre>
 *
@@ -1155,6 +1156,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_4GB_END_ADDR		(0xFFFFFFFFU)
 #define XPLMI_XRAM_BASE_ADDR		(0xFE800000U)
 #define XPLMI_XRAM_HIGH_ADDR		(0xFEBFFFFFU)
+#define XPLMI_TOTAL_CHUNK_SIZE		(0x10400U)
 
 #ifdef SDT
 #define XCFRAME_DEVICE  (XPAR_XCFRAME_0_BASEADDR)
