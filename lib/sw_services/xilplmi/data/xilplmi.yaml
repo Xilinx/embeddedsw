@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
@@ -19,6 +19,17 @@ supported_processors:
   - psv_pmc
   - psx_pmc
   - psxl_pmc
+  - psu_cortexa72
+  - psv_cortexa72
+  - psv_cortexr5
+  - microblaze
+  - psxl_cortexa78
+  - psxl_cortexr52
+  - psx_cortexa78
+  - psx_cortexr52
 
 supported_os:
   - standalone
+
+depends_libs:
+  xilmailbox: {}

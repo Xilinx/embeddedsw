@@ -1,5 +1,19 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
+
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
+  set(XILPLMI_mode "server")
+else()
+  # For soft microblaze and  APU/RPU cores, mode is client.
+  set(XILPLMI_mode "client")
+endif()
+
+option(XILPLMI_cache_disable "Enables/Disables Cache for XilPlmi client library." ON)
+if(XILPLMI_mode STREQUAL "client")
+  if(XILPLMI_cache_disable)
+    set(XPLMI_CACHE_DISABLE " ")
+  endif()
+endif()
 
 option(XILPLMI_plm_uart_dbg_en "Enables (if enabled in hardware design too) or Disables Debug prints from UART (log to memory done irrespectively" ON)
 if(NOT XILPLMI_plm_uart_dbg_en)
