@@ -37,6 +37,7 @@
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 *       ng   09/22/2023 Fixed missing header for microblaze sleep
 * 1.04  sk   12/14/2023 Moved XPlmi_GetBufferList to platform file
+*       mss  01/09/2024 Added PMC RAM check condition in Xplmi_VerifyAddr API
 *
 * </pre>
 *
@@ -579,6 +580,11 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 			Status = XST_SUCCESS;
 		}
 	}
+	else if((StartAddr >= (u64)XPLMI_PMCRAM_BASEADDR) &&
+			(EndAddr <= (u64)(XPLMI_PMCRAM_BASEADDR + XPLMI_TOTAL_CHUNK_SIZE))){
+				/* PMC RAM is valid*/
+			Status = XST_SUCCESS;
+		}
 	else {
 		if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
 			if ((StartAddr >= (u64)XPLMI_PSM_RAM_BASE_ADDR) &&
