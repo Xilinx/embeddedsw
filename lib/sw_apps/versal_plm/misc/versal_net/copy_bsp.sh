@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2023, Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
 # This script will copy the required bsp directories
@@ -61,10 +61,10 @@ cp -r $SERVICES_DIR/xilpdi/src/common/*.h $BSP_DIR/include/
 
 mkdir -p $BSP_DIR/libsrc/xilplmi/src
 cp -r $SERVICES_DIR/xilplmi/src/Makefile $BSP_DIR/libsrc/xilplmi/src
-cp -r $SERVICES_DIR/xilplmi/src/versal_net/* $BSP_DIR/libsrc/xilplmi/src/
-cp -r $SERVICES_DIR/xilplmi/src/versal_net/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilplmi/src/common/* $BSP_DIR/libsrc/xilplmi/src/
-cp -r $SERVICES_DIR/xilplmi/src/common/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilplmi/src/versal_net/server/* $BSP_DIR/libsrc/xilplmi/src/
+cp -r $SERVICES_DIR/xilplmi/src/common/server/* $BSP_DIR/libsrc/xilplmi/src/
+cp -r $SERVICES_DIR/xilplmi/src/common/common/* $BSP_DIR/libsrc/xilplmi/src/
+cp -r $BSP_DIR/libsrc/xilplmi/src/*.h $BSP_DIR/include/
 
 mkdir -p $BSP_DIR/libsrc/xilpuf/src
 cp -r $SERVICES_DIR/xilpuf/src/Makefile $BSP_DIR/libsrc/xilpuf/src
@@ -74,10 +74,10 @@ cp -r $BSP_DIR/libsrc/xilpuf/src/*.h $BSP_DIR/include/
 
 mkdir -p $BSP_DIR/libsrc/xilloader/src
 cp -r $SERVICES_DIR/xilloader/src/Makefile $BSP_DIR/libsrc/xilloader/src
-cp -r $SERVICES_DIR/xilloader/src/versal_net/* $BSP_DIR/libsrc/xilloader/src/
-cp -r $SERVICES_DIR/xilloader/src/versal_net/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilloader/src/common/* $BSP_DIR/libsrc/xilloader/src/
-cp -r $SERVICES_DIR/xilloader/src/common/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilloader/src/versal_net/server/* $BSP_DIR/libsrc/xilloader/src/
+cp -r $SERVICES_DIR/xilloader/src/common/server/* $BSP_DIR/libsrc/xilloader/src/
+cp -r $SERVICES_DIR/xilloader/src/common/common/* $BSP_DIR/libsrc/xilloader/src/
+cp -r $BSP_DIR/libsrc/xilloader/src/*.h $BSP_DIR/include/
 
 mkdir -p $BSP_DIR/libsrc/xilpm/src/
 cp -r $SERVICES_DIR/xilpm/src/versal_net/common/* $BSP_DIR/libsrc/xilpm/src/
