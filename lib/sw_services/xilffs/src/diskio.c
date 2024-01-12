@@ -3,7 +3,7 @@
 /*-----------------------------------------------------------------------*/
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -69,6 +69,7 @@
 * 4.8   sk   05/05/22 Replace standard lib functions with Xilinx functions.
 * 5.1   ro   06/12/23 Added support for system device-tree flow.
 * 5.2   ap   12/05/23 Add SDT check to fix bug in disk_initialize.
+*       ap   01/11/24 Fix Doxygen warnings.
 *
 * </pre>
 *
@@ -91,8 +92,8 @@
 #include "xil_printf.h"
 #include "xil_util.h"
 
-#define SD_CD_DELAY		10000U
-#define XSDPS_NUM_INSTANCES	2
+#define SD_CD_DELAY		10000U		/**< SD card detection delay */
+#define XSDPS_NUM_INSTANCES	2		/**< Number of SD instances */
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
 #include "xparameters.h"
@@ -353,7 +354,7 @@ DSTATUS disk_initialize (
 * In case of SD, it reads the SD card using ADMA2 in polled mode.
 *
 * @param	pdrv - Drive number
-* @param	*buff - Pointer to the data buffer to store read data
+* @param	buff - Pointer to the data buffer to store read data
 * @param	sector - Start sector number
 * @param	count - Sector count
 *
@@ -416,6 +417,25 @@ DRESULT disk_read (
 /* Miscellaneous Functions						*/
 /*-----------------------------------------------------------------------*/
 
+/*****************************************************************************/
+/**
+*
+* List specific features and do miscellaneous functions on device.
+* In case of SD, it control device specific features and miscellaneous functions other than generic read/write.
+*
+* @param	pdrv - Drive number
+* @param	cmd - Command code
+* @param	buff - Pointer to the parameter depends on the command code.
+*
+* @return
+*		RES_OK		Command successful
+*		RES_PARERR	Command is invalid
+*		RES_NOTRDY	Drive not initialized
+*		RES_ERROR	Error occured
+*
+* @note
+*
+******************************************************************************/
 DRESULT disk_ioctl (
 	BYTE pdrv,				/* Physical drive number (0) */
 	BYTE cmd,				/* Control code */
@@ -523,7 +543,7 @@ DWORD get_fattime (void)
 * In case of SD, it reads the SD card using ADMA2 in polled mode.
 *
 * @param	pdrv - Drive number
-* @param	*buff - Pointer to the data to be written
+* @param	buff - Pointer to the data to be written
 * @param	sector - Sector address
 * @param	count - Sector count
 *
