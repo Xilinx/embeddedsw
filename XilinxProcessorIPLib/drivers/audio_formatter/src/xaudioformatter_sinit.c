@@ -55,6 +55,7 @@
 *
 * @note		None.
 ******************************************************************************/
+#ifndef SDT
 XAudioFormatter_Config *XAudioFormatter_LookupConfig(u16 DeviceId)
 {
 	XAudioFormatter_Config *CfgPtr = NULL;
@@ -86,4 +87,38 @@ u32 XAudioFormatter_Initialize(XAudioFormatter *InstancePtr, u16 DeviceId)
 
 	return XAudioFormatter_CfgInitialize(InstancePtr, CfgPtr);
 }
+#else
+XAudioFormatter_Config *XAudioFormatter_LookupConfig(UINTPTR BaseAddress)
+{
+	XAudioFormatter_Config *CfgPtr = NULL;
+	u32 Index;
+
+	/* Checks all the instances */
+	for (Index = 0; Index < XPAR_XAUDIO_FORMATTER_NUM_INSTANCES;
+								Index++) {
+		if (XAudioFormatter_ConfigTable[Index].BaseAddress == BaseAddress ||
+		    !BaseAddress) {
+			CfgPtr = &XAudioFormatter_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+
+u32 XAudioFormatter_Initialize(XAudioFormatter *InstancePtr, UINTPTR BaseAddress)
+{
+	XAudioFormatter_Config *CfgPtr = NULL;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	CfgPtr = XAudioFormatter_LookupConfig(BaseAddress);
+	if (CfgPtr == NULL) {
+		InstancePtr->IsReady = 0;
+		return XST_DEVICE_NOT_FOUND;
+	}
+
+	return XAudioFormatter_CfgInitialize(InstancePtr, CfgPtr);
+}
+#endif
 /** @} */

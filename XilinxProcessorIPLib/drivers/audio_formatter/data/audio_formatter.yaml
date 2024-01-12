@@ -1,0 +1,59 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for Audio Formatter 2.1 driver
+
+maintainers:
+  - Katta Dhanunjanrao <katta.dhanunjanrao@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,audio-formatter-1.0
+  reg:
+    description: Physical base addreiss and size of the controller register map
+  xlnx,include-mm2s:
+    description: Whether audio formatter connected to mm2s or not
+  xlnx,include-s2mm:
+    description: whether audio formatter ip connetced to s2mm or not
+  xlnx,max-num-channels-mm2s:
+    description: whether audio formatter ip connetced to s2mm or not
+  xlnx,max-num-channels-s2mm:
+    description: whether audio formatter ip connetced to s2mm or not
+  xlnx,mm2s-addr-width:
+    description: Audio formatter mm2s configured address width
+  xlnx,mm2s-dataformat:
+    description: Audio formatter mm2s data format
+  xlnx,packing-mode-mm2s:
+    description: Audio formatter ip configured packing mode type.
+  xlnx,packing-mode-s2mm:
+    description: Audio formatter ip configured packing mode type.
+  xlnx,s2mm-addr-width:
+    description: Audio formatter s2mm configured address width.
+  xlnx,s2mm-dataformat:
+    description: Audio formatter ip configured s2mm data format.
+
+required:
+    - compatible
+    - reg
+    - xlnx,include-mm2s
+    - xlnx,include-s2mm
+    - xlnx,max-num-channels-mm2s
+    - xlnx,max-num-channels-s2mm
+    - xlnx,mm2s-addr-width
+    - xlnx,mm2s-dataformat
+    - xlnx,packing-mode-mm2s
+    - xlnx,packing-mode-s2mm
+    - xlnx,s2mm-addr-width
+    - xlnx,s2mm-dataformat
+    - interrupts
+    - interrupt-parent
+
+config:
+    - XAudioFormatter_Config
+...
