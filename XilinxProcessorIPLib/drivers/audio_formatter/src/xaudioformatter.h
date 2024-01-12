@@ -97,8 +97,12 @@ typedef void (*XAudioFormatter_Callback)(void *CallbackRef);
 * Each audio formatter core should have a configuration structure associated.
 */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< DeviceId is the unique ID of the
 				  *  device */
+#else
+	char *Name;
+#endif
 	u32 BaseAddress;	/**< BaseAddress is the physical base address
 				  *  of the device's registers */
 	u8 IncludeMM2S; 	/**< IncludeMM2S is MM2S included or not */
@@ -115,6 +119,11 @@ typedef struct {
 				  *  mode */
 	u8 S2MMAddrWidth;	/**< S2MMAddrWidth is the S2MM Address Width */
 	u8 S2MMDataFormat;	/**< S2MMDataFormat is the S2MM Data format */
+#ifdef SDT
+	u16 IntrId;		/**< Interrupt ID */
+	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1]
+				  *  Parent base address */
+#endif
 } XAudioFormatter_Config;
 
 extern XAudioFormatter_Config XAudioFormatter_ConfigTable[];
@@ -162,12 +171,16 @@ typedef struct {
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 XAudioFormatter_Config *XAudioFormatter_LookupConfig(u16 DeviceId);
+u32 XAudioFormatter_Initialize(XAudioFormatter *InstancePtr, u16 DeviceId);
+#else
+XAudioFormatter_Config *XAudioFormatter_LookupConfig(UINTPTR BaseAddress);
+u32 XAudioFormatter_Initialize(XAudioFormatter *InstancePtr, UINTPTR BaseAddress);
+#endif
 
 u32 XAudioFormatter_CfgInitialize(XAudioFormatter *InstancePtr,
 	XAudioFormatter_Config *CfgPtr);
-u32 XAudioFormatter_Initialize(XAudioFormatter *InstancePtr, u16 DeviceId);
 void XAudioFormatter_InterruptEnable(XAudioFormatter *InstancePtr, u32 Mask);
 void XAudioFormatter_InterruptDisable(XAudioFormatter *InstancePtr, u32 Mask);
 void XAudioFormatterDMAStart(XAudioFormatter *InstancePtr);
