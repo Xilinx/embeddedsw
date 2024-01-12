@@ -166,6 +166,7 @@
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
 *       kpt  11/22/2023 Add support to clear AES keys when RedKeyClear bit is set
 *       mss  11/06/2023 Added VerifyAddr check for Image Store Address of RTCA registers
+*       kpt  11/01/2023 Clear AES keys during PDI failure
 *
 * </pre>
 *
@@ -218,7 +219,7 @@ static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount);
 static int XLoader_LoadImage(XilPdi *PdiPtr);
 static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID);
 static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo);
-static int XLoader_PostPdiDone(XilPdi * PdiPtr);
+static int XLoader_ClearKeys(XilPdi * PdiPtr);
 
 /************************** Variable Definitions *****************************/
 /*****************************************************************************/
@@ -949,7 +950,7 @@ static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	}
 
 	/* Mark PDI loading is completed */
-	Status = XLoader_PostPdiDone(PdiPtr);
+	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
 
 END:
 	return Status;
@@ -969,7 +970,8 @@ END:
  *****************************************************************************/
 int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
@@ -981,6 +983,11 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	}
 
 END:
+	SStatus = XLoader_ClearKeys(PdiPtr);
+	if (Status == XST_SUCCESS) {
+		Status |= SStatus;
+	}
+
 	return Status;
 }
 
@@ -1484,7 +1491,8 @@ END:
  *****************************************************************************/
 int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	XilPdi *PdiPtr = XLoader_GetPdiInstance();
 	const XLoader_ImageStore *PdiList = XLoader_GetPdiList();
 	int Index;
@@ -1556,8 +1564,10 @@ END1:
 	Status = XLoader_StartImage(PdiPtr);
 
 END:
+	SStatus = XLoader_ClearKeys(PdiPtr);
 	if (Status == XST_SUCCESS) {
-		Status = XLoader_PostPdiDone(PdiPtr);
+		XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
+		Status |= SStatus;
 	}
 	return Status;
 }
@@ -2020,7 +2030,7 @@ XilPdi *XLoader_GetPdiInstance(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function updates PDI done bit and clears AES keys
+ * @brief	This function clears AES keys when RedKeyClear is set in PMCRAM
  *
  * @param	PdiPtr Pointer to PdiInstance
  *
@@ -2028,11 +2038,9 @@ XilPdi *XLoader_GetPdiInstance(void)
  *		- ErrorCode on failure
  *
  *****************************************************************************/
-static int XLoader_PostPdiDone(XilPdi * PdiPtr)
+static int XLoader_ClearKeys(XilPdi * PdiPtr)
 {
 	int Status = XST_FAILURE;
-
-	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
 
 #ifndef PLM_SECURE_EXCLUDE
 	/* Clear AES keys when RedKey clear is set in PMC RAM */
