@@ -1,5 +1,5 @@
 /******************************************************************************
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XPLMI_BSP_CONFIG_H
@@ -38,5 +38,7 @@
 #if ((defined(NUMBER_OF_SLRS)) && (NUMBER_OF_SLRS > 1))
 #cmakedefine    PLM_ENABLE_PLM_TO_PLM_COMM
 #endif
+
+#cmakedefine XPLMI_CACHE_DISABLE
 
 #endif /* XPLMI_BSP_CONFIG_H */
