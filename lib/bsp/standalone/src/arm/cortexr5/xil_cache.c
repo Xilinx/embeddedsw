@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *                     scenarios. Changes are made to fix the same.
 * 9.0    ml  03/03/23 Added description to fix doxygen warnings.
 * 9.0    ml  07/12/23 fixed compilation warnings.
++ 9.1    asa 12/01/24 Fix issues in Xil_DCacheInvalidateRange.
 * </pre>
 *
 ******************************************************************************/
@@ -252,6 +253,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 	u32 tempadr = adr;
 	u32 tempend;
 	u32 currmask;
+	u32 unalignedstart = 0x0;
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
@@ -262,25 +264,29 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 		/* Select L1 Data cache in CSSR */
 		mtcp(XREG_CP15_CACHE_SIZE_SEL, 0U);
 
-		if ((tempadr & (cacheline - 1U)) != 0U) {
-			tempadr &= (~(cacheline - 1U));
+		if ((adr & (cacheline - 1U)) != 0U) {
+			adr &= (~(cacheline - 1U));
+			unalignedstart = 1;
 
 			Xil_DCacheFlushLine(tempadr);
+			tempadr = adr;
+			adr += cacheline;
 		}
 		if ((tempend & (cacheline - 1U)) != 0U) {
 			tempend &= (~(cacheline - 1U));
 
-			if (tempend != tempadr) {
+			if ((tempend != tempadr) || (unalignedstart == 0x0U)) {
 				Xil_DCacheFlushLine(tempend);
+				end -= cacheline;
 			}
 		}
 
-		while (tempadr < end) {
+		while (adr < end) {
 
 			/* Invalidate Data cache line */
-			asm_inval_dc_line_mva_poc(tempadr);
+			asm_inval_dc_line_mva_poc(adr);
 
-			tempadr += cacheline;
+			adr += cacheline;
 		}
 	}
 
