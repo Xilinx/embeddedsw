@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -92,6 +92,7 @@
 * 9.0    ml  03/03/23 Added description to fix doxygen warnings.
 *        mus 09/21/23 Fix infinite loop in Xil_DCacheInvalidateRange when
 *                     USE_AMP=1.
++        asa 01/12/24 Fix issues in Xil_DCacheInvalidateRange API.
 * </pre>
 *
 ******************************************************************************/
@@ -312,6 +313,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 	INTPTR opendaddr;
 	INTPTR endaddr;
 	u32 currmask;
+	u32 unalignedstart = 0x0;
 	volatile u32 *L2CCOffset = (volatile u32 *)(XPS_L2CC_BASEADDR +
 				    XPS_L2CC_CACHE_INVLD_PA_OFFSET);
 
@@ -324,6 +326,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 
 		if ((adr & (cacheline-1U)) != 0U) {
 			adr &= (~(cacheline - 1U));
+			unalignedstart = 1;
 
 			Xil_L1DCacheFlushLine(adr);
 #ifndef USE_AMP
@@ -334,12 +337,13 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 			Xil_L2WriteDebugCtrl(0x0U);
 			Xil_L2CacheSync();
 #endif
+			tempadr = adr;
 			adr += cacheline;
 		}
 		if ((opendaddr & (cacheline-1U)) != 0U) {
 			opendaddr &= (~(cacheline - 1U));
 
-			if (opendaddr != adr) {
+			if ((opendaddr != tempadr) || (unalignedstart == 0x0U)) {
 				Xil_L1DCacheFlushLine(opendaddr);
 #ifndef USE_AMP
 				/* Disable Write-back and line fills */
@@ -348,6 +352,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 				/* Enable Write-back and line fills */
 				Xil_L2WriteDebugCtrl(0x0U);
 				Xil_L2CacheSync();
+				endaddr -= cacheline;
 #endif
 			}
 		}
