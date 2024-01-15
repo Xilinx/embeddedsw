@@ -185,8 +185,6 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr);
-static int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
-	u8 *Signature);
 #ifndef PLM_ECDSA_EXCLUDE
 static int XLoader_EcdsaSignVerify(const XSecure_EllipticCrvTyp CrvType, const u8 *DataHash,
 	const u8 *Key, const u32 KeySize, const u8 *Signature);
@@ -971,7 +969,7 @@ END:
 * 			- XLOADER_SEC_GLITCH_DETECTED_ERROR if glitch is detected.
 *
 ******************************************************************************/
-static int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
+int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature)
 {
 	volatile int Status = XST_FAILURE;
@@ -996,12 +994,15 @@ static int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
 			XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT);
-		if (Status != XST_SUCCESS) {
+		if (Status != XST_SUCCESS && SecurePtr->NoLoad != XLOADER_NOLOAD_VAL) {
 			if (ReadAuthReg != SecureStateAHWRoT) {
 				Status = XLoader_UpdateMinorErr(
 					XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0);
 			}
 			goto END;
+		}
+		else if (Status != XST_SUCCESS && SecurePtr->NoLoad == XLOADER_NOLOAD_VAL) {
+			Status = XST_SUCCESS;
 		}
 		else {
 			IsEfuseAuth = (u8)FALSE;
