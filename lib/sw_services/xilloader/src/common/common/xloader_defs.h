@@ -56,6 +56,9 @@ extern "C" {
 #define XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS (15U)
                                                 /**< command id for read DDR crypto  counters */
 #define XLOADER_CMD_ID_I2C_HANDSHAKE            (16U) /**< command id for I2C handshake */
+#ifdef VERSAL_NET
+#define XLOADER_CMD_ID_DATA_AUTH		(17U)	/**< API ID for Data authentication */
+#endif
 
 #define XLOADER_HEADER_LEN_1			(1U) /**< Header length 1 */
 #define XLOADER_HEADER_LEN_2			(2U) /**< Header length 2 */

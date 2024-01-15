@@ -378,6 +378,8 @@ extern "C" {
 #define XLOADER_WORD_IN_BITS_SHIFT		(5U) /**< Value to shift word */
 #define XLOADER_WORD_IN_BITS_MASK		(0x1FU) /**< Value to mask word */
 
+#define XLOADER_NOLOAD_VAL			(0xFFFFFFFFU)
+
 /**************************** Type Definitions *******************************/
 /**< RSA Key */
 typedef struct {
@@ -475,6 +477,7 @@ typedef struct XLoader_SecureParams {
 					/**< Auth JTAG message pointer */
 	u8 IsEncrypted;		/**< Encryption enabled or disabled */
 	u8 IsAuthenticated;	/**< Authentication enabled or disabled */
+	u32 NoLoad;
 #endif
 } XLoader_SecureParams;
 
@@ -561,6 +564,8 @@ int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 
 int XLoader_ClearAesKey(u32 *DecKeySrc);
 #endif
 int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
+int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
+	u8 *Signature);
 
 #ifdef __cplusplus
 }

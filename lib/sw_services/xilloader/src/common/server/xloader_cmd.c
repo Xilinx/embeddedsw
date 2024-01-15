@@ -107,6 +107,8 @@
 #include "xplmi_plat.h"
 #include "xloader_plat.h"
 #include "xloader_defs.h"
+#include "xloader_auth_enc.h"
+#include "xloader_secure.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -181,6 +183,14 @@ static XPlmi_Module XPlmi_Loader;
 /* Command related macros */
 #define XLOADER_ATF_HANDOFF_FORMAT_SIZE		(8U)
 #define XLOADER_ATF_HANDOFF_PRTN_ENTRIES_SIZE	(16U)
+
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET))
+#define XLOADER_ISHDR_IDX			(0U)
+#define XLOADER_HASH_LOW_ADDR_IDX		(1U)
+#define XLOADER_HASH_HIGH_ADDR_IDX		(2U)
+#define XLOADER_AC_LOW_ADDR_IDX			(3U)
+#define XLOADER_AC_HIGH_ADDR_IDX		(4U)
+#endif
 
 /************************** Function Prototypes ******************************/
 
@@ -1160,6 +1170,61 @@ END:
 	return Status;
 }
 
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET))
+/*****************************************************************************/
+/**
+ * @brief	This function verifies the signature of the provided hash
+ *
+ *  Command payload parameters are:
+ *	- IsHeaderSignature
+ *	- Higher address of buffer which stores the hash
+ *	- Lower address of buffer which stores the hash
+ *	- Higher address of buffer which stores the Authentication Certificate
+ *	- Lower address of buffer which stores the Authentication Certificate
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error Code in case of failure
+ *
+ *****************************************************************************/
+static int XLoader_VerifyDataAuth(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u64 HashAddr = Cmd->Payload[XLOADER_HASH_HIGH_ADDR_IDX];
+	HashAddr = (u64)(Cmd->Payload[XLOADER_HASH_LOW_ADDR_IDX] | (HashAddr << 32));
+	u64 AcAddr = Cmd->Payload[XLOADER_AC_HIGH_ADDR_IDX];
+	AcAddr = (u64)(Cmd->Payload[XLOADER_AC_LOW_ADDR_IDX] | (AcAddr << 32));
+	XLoader_SecureParams SecurePtr = {0U};
+	u8* Hash = (u8*)(UINTPTR)HashAddr;
+	u8* Signature = NULL;
+
+	SecurePtr.NoLoad = XLOADER_NOLOAD_VAL;
+	SecurePtr.AcPtr = (XLoader_AuthCertificate*)(UINTPTR)AcAddr;
+	SecurePtr.AuthJtagMessagePtr = NULL;
+	SecurePtr.PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
+	if (SecurePtr.PmcDmaInstPtr == NULL) {
+		goto END;
+	}
+
+	if (Cmd->Payload[XLOADER_ISHDR_IDX] == TRUE) {
+		Signature = (u8*)SecurePtr.AcPtr->IHTSignature;
+	}
+	else {
+		Signature = (u8*)SecurePtr.AcPtr->ImgSignature;
+	}
+
+	Status = XLoader_DataAuth(&SecurePtr, Hash, Signature);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
+	return Status;
+}
+#endif
+
 /**
  * @{
  * @cond xloader_internal
@@ -1188,7 +1253,10 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_WriteImageStorePdi),
 	XPLMI_MODULE_COMMAND(XLoader_ConfigureJtagState),
 	XPLMI_MODULE_COMMAND(XLoader_ReadDdrCryptoPerfCounters),
-        XPLMI_MODULE_COMMAND(XLoader_MbPmcI2cHandshake)
+        XPLMI_MODULE_COMMAND(XLoader_MbPmcI2cHandshake),
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET))
+	XPLMI_MODULE_COMMAND(XLoader_VerifyDataAuth),
+#endif
 };
 
 /*****************************************************************************/
@@ -1214,6 +1282,7 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_WRITE_IMAGESTORE_PDI),
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET))
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_CONFIG_JTAG_STATE),
+	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_DATA_AUTH),
 #else
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CONFIG_JTAG_STATE),
 #endif
