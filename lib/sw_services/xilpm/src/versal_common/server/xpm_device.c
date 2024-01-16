@@ -1439,8 +1439,10 @@ XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 			while (NULL != DeviceHandle) {
 				if ((Device->Node.Id !=
 				    DeviceHandle->Device->Node.Id) &&
-				    ((u32)XPM_DEVSTATE_RUNNING ==
-				    DeviceHandle->Device->Node.State)) {
+				    (((u32)XPM_DEVSTATE_RUNNING ==
+				    DeviceHandle->Device->Node.State) ||
+				    ((u32)XPM_DEVSTATE_PENDING_PWR_DWN ==
+				    DeviceHandle->Device->Node.State))) {
 					break;
 				}
 				DeviceHandle = DeviceHandle->NextDevice;
