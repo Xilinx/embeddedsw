@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,6 +22,7 @@
 *       dd  10/11/23 MISRA-C violation Rule 10.3 fixed
 *       dd  10/11/23 MISRA-C violation Rule 8.13 fixed
 * 5.3   kpt 11/24/23 Replace Xil_SMemSet with Xil_SecureZeroize
+*       har 01/16/24 Corrected length of IntHash for zeroization
 *
 * </pre>
 *
@@ -240,7 +241,7 @@ END:
 								XSECURE_SHA3_BLOCK_LEN);
 	RetStatus |= Xil_SMemSet((void *)InstancePtr->OPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
 							XSECURE_SHA3_BLOCK_LEN);
-	Status |= Xil_SecureZeroize(IntHash, XSECURE_SHA3_BLOCK_LEN);
+	Status |= Xil_SecureZeroize(IntHash, XSECURE_HASH_SIZE_IN_BYTES);
 
 RET:
 	return RetStatus;
