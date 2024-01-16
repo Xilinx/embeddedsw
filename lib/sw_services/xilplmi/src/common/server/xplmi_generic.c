@@ -107,6 +107,7 @@
 *                       GetBoard command
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       sk   12/14/2023 Moved XPlmi_GetBufferList to platform files
+*       pre  01/10/2024 XPlmi_LogString, XPlmi_Begin logic enhancement
 *
 * </pre>
 *
@@ -148,8 +149,6 @@
 #define XPLMI_LOG_ADDR_ARG_LOW_ADDR_INDEX	(0U)
 #define XPLMI_LOG_ADDR_ARG_HIGH_ADDR_INDEX	(1U)
 #define XPLMI_LOG_ADDR_MAX_ARGS		(2U)
-#define XPLMI_MAX_LOG_STR_LEN	(256U)
-#define XPLMI_ERR_LOG_STRING	(2U)
 #define XPLMI_SRC_ALIGN_REQ	(0U)
 #define XPLMI_DEST_ALIGN_REQ	(1U)
 #define XPLMI_LEN_ALIGN_REQ	(2U)
@@ -166,12 +165,9 @@
 #define XPLMI_MASK_POLL_64BIT_OFFSET	(1U)
 
 
-#define XPLMI_BEGIN_MAX_LOG_STR_LEN			(24U)
-#define XPLMI_BEGIN_LOG_STR_BUF_END_INDEX	(XPLMI_BEGIN_MAX_LOG_STR_LEN - 1U)
 #define XPLMI_BEGIN_OFFSET_STACK_SIZE			(10U)
 #define XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL	(1U)
 #define XPLMI_BEGIN_CMD_EXTRA_OFFSET			(2U)
-#define XPLMI_BEGIN_MAX_STRING_WORD_LEN		(XPLMI_BEGIN_MAX_LOG_STR_LEN /  XPLMI_WORD_LEN)
 
 /* Masks and shift defines of set ipi access command */
 #define XPLMI_SET_IPI_ACCESS_MODULE_ID_MASK	(0xFFU)
@@ -1499,47 +1495,25 @@ static int XPlmi_SetWdtParam(XPlmi_Cmd *Cmd)
  *
  * @return
  * 			- XST_SUCCESS on success.
- * 			- XPLMI_ERR_LOG_STRING if the string provided exceeds max length.
  *
  *****************************************************************************/
 static int XPlmi_LogString(XPlmi_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
 	u32 Len = Cmd->PayloadLen * XPLMI_WORD_LEN;
-	static u8 LogString[XPLMI_MAX_LOG_STR_LEN] __attribute__ ((aligned(4U)));
-	static u32 StringIndex = 0U;
+	u16 DebugFlag = DEBUG_PRINT_ALWAYS | XPLMI_DEBUG_PRINT_TIMESTAMP_MASK ;
+
+	/* Print without timestamp if it is not the beginning of the string */
+	if (Cmd->ProcessedLen != 0U) {
+		DebugFlag = DEBUG_PRINT_ALWAYS;
+	}
+
 	XPLMI_EXPORT_CMD(XPLMI_LOG_STR_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
 
-	if (Cmd->ProcessedLen == 0U) {
-		/* Check for array overflow */
-		if ((Cmd->Len * XPLMI_WORD_LEN) >= XPLMI_MAX_LOG_STR_LEN) {
-			Status = (int)XPLMI_ERR_LOG_STRING;
-			goto END;
-		}
-		Status = XPlmi_MemSet((u64)(u32)&LogString[0U], 0U,
-			XPLMI_MAX_LOG_STR_LEN /  XPLMI_WORD_LEN);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		StringIndex = 0U;
-	}
+	/* Print the string*/
+		XPlmi_Printf_WoTS(DebugFlag, "%.*s", Len,(u8 *)&Cmd->Payload[0U]);
 
-	/* Append the payload to local buffer */
-	Status = Xil_SMemCpy(&LogString[StringIndex],
-		(XPLMI_MAX_LOG_STR_LEN - StringIndex), (u8 *)&Cmd->Payload[0U],
-		Len, Len);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	StringIndex += Len;
-	if ((Cmd->ProcessedLen + Cmd->PayloadLen) == Cmd->Len) {
-		/* Print the string only when complete payload is received */
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s\n\r", LogString);
-	}
-
-END:
-	return Status;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -2031,7 +2005,7 @@ static int XPlmi_OTCheck(XPlmi_Cmd *Cmd)
  * @brief	This function provides start of the block.
  *  		Command payload parameters are
  *		- Offset : specifies no. of words until "end" of the block
- *		- String : optional for debugging purpose (max. 6 words)
+ *		- String : optional for debugging purpose
  *
  * @param	Cmd is pointer to the command structure
  *
@@ -2042,57 +2016,53 @@ static int XPlmi_OTCheck(XPlmi_Cmd *Cmd)
 static int XPlmi_Begin(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 EndOffSet = Cmd->ProcessedCdoLen + Cmd->Payload[0U] + XPLMI_BEGIN_CMD_EXTRA_OFFSET;
-	u8  LogString[XPLMI_BEGIN_MAX_LOG_STR_LEN] __attribute__ ((aligned(4U)));
-	u32 StrLen = 0U;
+	u32 EndOffSet;
+	u32 StrLen;
+	u32 StartOffset;
+	u16 DebugFlag ;
 
 	XPLMI_EXPORT_CMD(XPLMI_BEGIN_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
 
-	if (Cmd->ProcessedLen != 0U) {
-		Status = XST_SUCCESS;
-		goto END;
-	}
-	/* Max 10 nested begin supported */
-	if (Cmd->CdoParamsStack.OffsetListTop == (int)(XPLMI_BEGIN_OFFSET_STACK_SIZE - 1U)) {
-		XPlmi_Printf(DEBUG_INFO,"Max %d nested begin supported\n",
-				XPLMI_BEGIN_OFFSET_STACK_SIZE);
-		Status = (int)XPLMI_ERR_MAX_NESTED_BEGIN;
-		goto END;
-	}
+	/* Push to stack, selection of 'StrLen' and 'StartOffset' based on processed length */
+	if (Cmd->ProcessedLen == 0U) {
+		/* Max 10 nested begin supported */
+		if (Cmd->CdoParamsStack.OffsetListTop == (int)(XPLMI_BEGIN_OFFSET_STACK_SIZE - 1U)) {
+			Status = (int)XPLMI_ERR_MAX_NESTED_BEGIN;
+			goto END;
+		}
 
-	/* Push "end" Offset to stack */
-	Status = XPlmi_StackPush(&Cmd->CdoParamsStack, &EndOffSet);
-	if ( Status != XST_SUCCESS) {
-		goto END;
+		/* Calculate 'EndOffSet' based on command length */
+		if (Cmd->Len > XPLMI_MAX_SHORT_CMD_LEN) {
+			EndOffSet = Cmd->ProcessedCdoLen + Cmd->Payload[0U] + XPLMI_BEGIN_CMD_EXTRA_OFFSET+ 1U;
+		}
+		else {
+			EndOffSet = Cmd->ProcessedCdoLen + Cmd->Payload[0U] + XPLMI_BEGIN_CMD_EXTRA_OFFSET;
+		}
+
+		/* Push "end" Offset to stack */
+		Status = XPlmi_StackPush(&Cmd->CdoParamsStack, &EndOffSet);
+		if ( Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		StrLen = (Cmd->PayloadLen - 1U) * XPLMI_WORD_LEN;
+		StartOffset = 1U;
+
+		/* Print with timestamp if it is the beginning of the string */
+		DebugFlag = DEBUG_PRINT_ALWAYS | XPLMI_DEBUG_PRINT_TIMESTAMP_MASK ;
+	}
+	else {
+		StrLen = Cmd->PayloadLen * XPLMI_WORD_LEN;
+		StartOffset = 0U;
+
+		/* Print without timestamp if it is not the beginning of the string */
+		DebugFlag = DEBUG_PRINT_ALWAYS;
 	}
 
 	if (Cmd->PayloadLen > 1U) {
-		/* Truncate string if its length exceeds 6 words (24 characters) */
-		if (Cmd->PayloadLen >= XPLMI_CMD_RESP_SIZE) {
-			StrLen = XPLMI_BEGIN_MAX_STRING_WORD_LEN;
-		}
-		else {
-			StrLen = Cmd->PayloadLen - 1U;
-		}
-
-		Status = XPlmi_MemSet((u64)(UINTPTR)LogString, 0U,
-				XPLMI_BEGIN_MAX_STRING_WORD_LEN);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-		/* Add the payload to local buffer */
-		Status = Xil_SMemCpy(LogString, XPLMI_BEGIN_MAX_LOG_STR_LEN,
-				(u8 *)&Cmd->Payload[1U], (StrLen * XPLMI_WORD_LEN),
-				(StrLen * XPLMI_WORD_LEN));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-		/* add null character at the end of log string buffer before reading it.*/
-		LogString[XPLMI_BEGIN_LOG_STR_BUF_END_INDEX] = '\0';
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s\n\r", LogString);
+		/* Print string */
+		XPlmi_Printf_WoTS(DebugFlag, "%.*s", StrLen, (u8 *)&Cmd->Payload[StartOffset]);
 	}
 	Status = XST_SUCCESS;
 
