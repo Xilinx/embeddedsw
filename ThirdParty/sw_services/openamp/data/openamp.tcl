@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -126,8 +126,6 @@ proc generate {libhandle} {
 		set ::env(LD_LIBRARY_PATH) "${shared_lib_dir}/tps/lnx64/cmake-3.3.2/libs/Ubuntu/x86_64-linux-gnu/:${ld_lib_path}"
 	}
 
-	file delete -force "sdt"
-
 	# Run cmake to generate make file
 	set bdir "build_openamp"
 	if { [catch {file mkdir "${bdir}"} msg] } {
@@ -136,6 +134,8 @@ proc generate {libhandle} {
 	set workdir [pwd]
 	cd "${bdir}"
 	set cmake_cmd "../src/run_cmake"
+
+	file delete -force -- "${workdir}/src/sdt"
 
 	if { [string match -nocase "windows*" "${os_platform_type}"] == 0 } {
 		# Linux
