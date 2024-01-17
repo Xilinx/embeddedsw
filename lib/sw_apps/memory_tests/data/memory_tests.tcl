@@ -1,6 +1,6 @@
 #/******************************************************************************
 #* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-#* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+#* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -126,7 +126,7 @@ proc get_mem_props {data type memlist} {
 
 proc IsMemoryRegionsFromRejectList {RejectMemoryList Address_block_name} {
     foreach element $RejectMemoryList {
-        if {[string match $Address_block_name $element]} {
+        if {[string first $element $Address_block_name] != -1} {
             # Address block region name is present in reject memory region list
             return 1;
         }
@@ -146,15 +146,29 @@ proc get_mem_info { proc_instance } {
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc_instance]];
     set is_cortexr5 [expr {$proc_type=="psv_cortexr5" || $proc_type=="psu_cortexr5" || $proc_type=="psx_cortexr52"}]
 
-    set RejectListForAddressBlocks {"AIE_ARRAY_0" "psx_noc_pcie_0" "psv_noc_pcie_0" "psv_pmc_ram" "psx_pmc_ram"}
+    set is_zynqmp [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa53" || IP_NAME=="psu_cortexr5" || IP_NAME=="psu_pmu"}]
+    set is_versal_net [hsi::get_cells -hier -filter {IP_NAME=="psx_cortexr52" || IP_NAME=="psx_cortexa78"}]
+    set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psv_cortexr5" || IP_NAME=="psv_cortexa72"}]
+
+    set RejectListForAddressBlocks {"AIE_ARRAY" "pcie" "pmc_ram"}
+
+    if { [llength $is_zynqmp] > 0 } {
+    set RejectListForBaseValue {"E0000000" "600000000" "8000000000"}
+    } elseif { [llength $is_versal_net] > 0 } {
+    set RejectListForBaseValue {"A0000000"}
+    } elseif { [llength $is_versal] > 0 } {
+    set RejectListForBaseValue {"E0000000"}
+    } else {
+    set RejectListForBaseValue {}
+    }
 
     set imem_elements [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter {IS_INSTRUCTION == true && IS_DATA != true && MEM_TYPE == "MEMORY"}]
     set imemlist {}
     foreach imem_element $imem_elements {
-    set i_addr_block [common::get_property ADDRESS_BLOCK $imem_element]
-    set i_base [common::get_property BASE_VALUE $imem_element]
-    if {![IsMemoryRegionsFromRejectList $RejectListForAddressBlocks $i_addr_block]} {
-        if { $is_cortexr5 && $i_base > 0x100000000} {
+    set i_block_name [common::get_property NAME $imem_element]
+    set i_base_value [common::get_property BASE_VALUE $imem_element]
+    if {![IsMemoryRegionsFromRejectList $RejectListForAddressBlocks $i_block_name] && ![IsMemoryRegionsFromRejectList $RejectListForBaseValue $i_base_value]} {
+        if { $is_cortexr5 && $i_base_value > 0xFFFFFFFF} {
             continue;
             }
         lappend imemlist $imem_element
@@ -164,10 +178,10 @@ proc get_mem_info { proc_instance } {
     set dmem_elements [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter {IS_INSTRUCTION != true && IS_DATA == true && MEM_TYPE == "MEMORY"}]
     set dmemlist {}
     foreach dmem_element $dmem_elements {
-    set d_addr_block [common::get_property ADDRESS_BLOCK $dmem_element]
-    set d_base [common::get_property BASE_VALUE $dmem_element]
-    if {![IsMemoryRegionsFromRejectList $RejectListForAddressBlocks $d_addr_block]} {
-        if { $is_cortexr5 && $d_base > 0x100000000} {
+    set d_block_name [common::get_property NAME $dmem_element]
+    set d_base_value [common::get_property BASE_VALUE $dmem_element]
+    if {![IsMemoryRegionsFromRejectList $RejectListForAddressBlocks $d_block_name] && ![IsMemoryRegionsFromRejectList $RejectListForBaseValue $d_base_value]} {
+	if { $is_cortexr5 && $d_base_value > 0xFFFFFFFF} {
             continue;
             }
         lappend dmemlist $dmem_element
@@ -177,11 +191,11 @@ proc get_mem_info { proc_instance } {
     set idmem_elements [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter {IS_INSTRUCTION == true && IS_DATA == true && MEM_TYPE == "MEMORY"}]
     set idmemlist {}
     foreach idmem_element $idmem_elements {
-    set id_addr_block [common::get_property ADDRESS_BLOCK $idmem_element]
-    set id_base [common::get_property BASE_VALUE $idmem_element]
-    if {![IsMemoryRegionsFromRejectList $RejectListForAddressBlocks $id_addr_block]} {
-        if { $is_cortexr5 && $id_base > 0x100000000} {
-            continue;
+    set id_block_name [common::get_property NAME $idmem_element]
+    set id_base_value [common::get_property BASE_VALUE $idmem_element]
+    if {![IsMemoryRegionsFromRejectList $RejectListForAddressBlocks $id_block_name] && ![IsMemoryRegionsFromRejectList $RejectListForBaseValue $id_base_value]} {
+        if { $is_cortexr5 && $id_base_value > 0xFFFFFFFF} {
+	    continue;
             }
         lappend idmemlist $idmem_element
         }
