@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,8 @@
 * 6.02  pkp  01/22/17 Added support for EL1 non-secure
 * 9.00  ml   03/03 23 Add description to fix doxygen warnings.
 * 9.01  bl   10/11/23 Add API Xil_MemMap
+* 9.2   ml   17/01/24 Modified description and code for Xil_MemMap API
+*                     to fix doxygen warnings.
 * </pre>
 *
 * @note
@@ -131,7 +133,7 @@ void Xil_SetTlbAttributes(UINTPTR Addr, u64 attrib)
 *	    may include more. Specifically, it will be a power of 2 in
 *           size, aligned on a boundary of that size.
 *
-* @param       Physaddr is base physical address at which to start mapping.
+* @param       PhysAddr is base physical address at which to start mapping.
 *                   NULL in Physaddr masks possible mapping errors.
 * @param       size of region to be mapped.
 * @param       flags used to set translation table.
@@ -139,23 +141,23 @@ void Xil_SetTlbAttributes(UINTPTR Addr, u64 attrib)
 * @return      Physaddr on success, NULL on error. Ambiguous if Physaddr==NULL
 *
 ******************************************************************************/
-void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
+void *Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
 {
 	UINTPTR section_offset;
 	UINTPTR ttb_addr;
-	UINTPTR ttb_size = (Physaddr < BLOCK_SIZE_2MB_RANGE * BLOCK_SIZE_1GB)
+	UINTPTR ttb_size = (PhysAddr < BLOCK_SIZE_2MB_RANGE * BLOCK_SIZE_1GB)
 			   ? BLOCK_SIZE_2MB : BLOCK_SIZE_1GB;
 
-	if (Physaddr >= HIGH_ADDR || size >= HIGH_ADDR ||
-	    Physaddr + size >= HIGH_ADDR) {
+	if (PhysAddr >= HIGH_ADDR || size >= HIGH_ADDR ||
+	    PhysAddr + size >= HIGH_ADDR) {
 		return NULL;
 	}
 	if (flags == 0U) {
-		return (void *)Physaddr;
+		return (void *)PhysAddr;
 	}
 
 	/* Ensure alignment on a section boundary */
-	ttb_addr = Physaddr & ~(ttb_size - 1UL);
+	ttb_addr = PhysAddr & ~(ttb_size - 1UL);
 
 	/*
 	 * Loop through entire region of memory (one MMU section at a time).
@@ -178,5 +180,5 @@ void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 		section_offset += ttb_size;
 	}
 
-	return Physaddr;
+	return PhysAddr;
 }

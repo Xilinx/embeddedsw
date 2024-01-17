@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,8 @@
 * ----- ---- -------- ---------------------------------------------------
 * 9.0   mus  04/19/23 Initial version
 * 9.1   ml   11/16/23 Fix compilation errors reported with -std=c2x compiler flag
+* 9.2   ml   17/01/24 Modified description and code for Xil_SetTlbAttributesR52 and
+*                     Xil_SetTlbAttributes API's to fix doxygen warnings.
 * </pre>
 *
 *
@@ -49,7 +51,7 @@ struct XRequestMpuConfig {
 };
 
 /***************** Static functions declarations *********************/
-static u32 Xil_SetTlbAttributesR52(UINTPTR addr, u32 Size, u32 Attrib)__attribute__((__section__(".boot")));
+static u32 Xil_SetTlbAttributesR52(UINTPTR Addr, u32 Size, u32 Attrib)__attribute__((__section__(".boot")));
 static void Xil_AddEntryToMPUConfig(XMpu_Config MpuConfig, struct XMpuConfig NewEntry);
 static u32 Xil_RemoveEntryFromMPUConfig(XMpu_Config MpuConfig, UINTPTR RemovedEntry);
 static void Xil_SetMPUConfig(XMpu_Config MpuConfigNew);
@@ -232,7 +234,7 @@ void Xil_SetAttributeBasedOnConfig(u32 IsSortingNedded)
 	}
 }
 
-static u32 Xil_SetTlbAttributesR52(UINTPTR addr, u32 Size, u32 Attrib)
+static u32 Xil_SetTlbAttributesR52(UINTPTR Addr, u32 Size, u32 Attrib)
 {
 	u32 Cnt, AttrChange = 0, NumFreeRegion = 0, Status = XST_FAILURE ;
 	u32 StartRegNum = 0xFF, EndRegNum = 0xFF;
@@ -241,12 +243,12 @@ static u32 Xil_SetTlbAttributesR52(UINTPTR addr, u32 Size, u32 Attrib)
 	XMpu_Config MpuConfig, MpuConfigNew;
 	struct XRequestMpuConfig ReqMPUConfig;
 	struct XMpuConfig Temp;
-	u32 Localaddr = addr;
+	u32 Localaddr = Addr;
 
 	Xil_GetMPUConfig(MpuConfig);
 	Xil_GetMPUConfig(MpuConfigNew);
 
-	ReqEndAddr =  (((addr & XMPU_PBAR_REG_BASEADDR_MASK) + Size) | 0x3F);
+	ReqEndAddr =  (((Addr & XMPU_PBAR_REG_BASEADDR_MASK) + Size) | 0x3F);
 
 	for (Cnt = 0; (Cnt < MAX_POSSIBLE_MPU_REGS) && (MpuConfig[Cnt].flags & XMPU_VALID_REGION); Cnt++) {
 		Endaddr =  MpuConfig[Cnt].Size + MpuConfig[Cnt].BaseAddress;
@@ -278,7 +280,7 @@ static u32 Xil_SetTlbAttributesR52(UINTPTR addr, u32 Size, u32 Attrib)
 		 *
 		 */
 
-		if ( ((MpuConfig[Cnt].BaseAddress <= addr) && (Endaddr >= addr))) {
+		if ( ((MpuConfig[Cnt].BaseAddress <= Addr) && (Endaddr >= Addr))) {
 
 			StartRegNum = Cnt;
 		}
@@ -286,7 +288,7 @@ static u32 Xil_SetTlbAttributesR52(UINTPTR addr, u32 Size, u32 Attrib)
 		if ( ((MpuConfig[Cnt].BaseAddress <= ReqEndAddr) && (Endaddr >= ReqEndAddr))) {
 			EndRegNum = Cnt;
 			if (StartRegNum == EndRegNum) {
-				if ((MpuConfig[Cnt].BaseAddress == (addr & XMPU_PBAR_REG_BASEADDR_MASK)) && (ReqEndAddr == Endaddr) ) {
+				if ((MpuConfig[Cnt].BaseAddress == (Addr & XMPU_PBAR_REG_BASEADDR_MASK)) && (ReqEndAddr == Endaddr) ) {
 					AttrChange = 1;
 				}
 			}
@@ -515,14 +517,14 @@ u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig )
 *           scheduler and interrupts.
 *
 ******************************************************************************/
-u32 Xil_SetTlbAttributes(UINTPTR addr, u32 attrib)
+u32 Xil_SetTlbAttributes(UINTPTR Addr, u32 attrib)
 {
 	/*
 	 * Sets attribute of section of 1 MB memory, if user wants to set it
 	 * for different size of memory section, Xil_SetMPURegion API needs
 	 * to be used.
 	 */
-	return (Xil_SetTlbAttributesR52(addr, 0x100000, attrib));
+	return (Xil_SetTlbAttributesR52(Addr, 0x100000, attrib));
 }
 
 /*****************************************************************************/
