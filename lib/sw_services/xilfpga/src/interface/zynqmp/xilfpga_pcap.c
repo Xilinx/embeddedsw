@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -129,6 +129,8 @@
  * 6.5 Nava  08/18/23  Resolved the doxygen issues.
  * 6.5 ml    09/14/23  Fixed by proper type casting of the operands to fix
  *                     MISRA-C ciolations for Rule 10.3
+ * 6.6 ml    17/01/24  Removed None parameters from description to fix doxygen
+ *                     warnings.
  * </pre>
  *
  * @note
@@ -706,8 +708,6 @@ static u32 XFpga_PcapInit(u32 Flags)
 /*****************************************************************************/
 /**
  * Waits for PCAP transfer to complete
- *
- * @param	None
  *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success
@@ -1940,8 +1940,6 @@ END:
  * This function waits for PL Done bit to be set or till timeout and resets
  * PCAP after this.
  *
- * @param	None
- *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success
  *		- Error code on failure
@@ -1979,8 +1977,6 @@ END:
 /**
  * This function is used to power-up the PL
  *
- * @param	None
- *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success
  *		- Error code on failure
@@ -2011,8 +2007,6 @@ static u32 XFpga_PowerUpPl(void)
 /*************************************************************************/
 /**
  * This function is used to request isolation restore, through PMU
- *
- * @param None.
  *
  * @return
  * 	- XFPGA_SUCCESS if successful
@@ -2051,8 +2045,6 @@ static u32 XFpga_IsolationRestore(void)
 /**
  * This function is used to start reset of the PL from PS EMIO pins
  *
- * @param	None.
- *
  * @return	None.
  *
  * @note	None.
@@ -2073,8 +2065,6 @@ void XFpga_PsPlGpioResetsLow(void)
 /***************************************************************************/
 /**
  * This function is used to release reset of the PL from PS EMIO pins
- *
- * @param	None.
  *
  * @return	None.
  *
@@ -2097,8 +2087,6 @@ void XFpga_PsPlGpioResetsHigh(void)
 /*****************************************************************************/
 /**
  * Provides the STATUS of PCAP interface
- *
- * @param	None
  *
  * @return	Status of the PCAP interface.
  *
@@ -2566,8 +2554,6 @@ static void XFpga_SetFirmwareState(u8 State)
 #if defined(XFPGA_READ_CONFIG_DATA) || defined(XFPGA_READ_CONFIG_REG)
 /*****************************************************************************/
 /** Returns the library firmware state
- *
- * @param	None
  *
  * @return	library firmware state
  *****************************************************************************/
