@@ -99,30 +99,31 @@ void Xil_SetTlbAttributes(UINTPTR Addr, u64 attrib)
 	INTPTR section;
 	u64 block_size;
 	/* if region is less than 4GB MMUTable level 2 need to be modified */
-	if(Addr < ADDRESS_LIMIT_4GB){
+	if (Addr < ADDRESS_LIMIT_4GB) {
 		/* block size is 2MB for addressed < 4GB*/
 		block_size = BLOCK_SIZE_2MB;
 		section = Addr / block_size;
 		ptr = &MMUTableL2 + section;
 	}
 	/* if region is greater than 4GB MMUTable level 1 need to be modified */
-	else{
+	else {
 		/* block size is 1GB for addressed > 4GB */
 		block_size = BLOCK_SIZE_1GB;
 		section = Addr / block_size;
 		ptr = &MMUTableL1 + section;
 	}
-	*ptr = (Addr & (~(block_size-1))) | attrib;
+	*ptr = (Addr & (~(block_size - 1))) | attrib;
 
 	Xil_DCacheFlush();
 
-	if (EL3 == 1)
+	if (EL3 == 1) {
 		mtcptlbi(ALLE3);
-	else if (EL1_NONSECURE == 1)
+	} else if (EL1_NONSECURE == 1) {
 		mtcptlbi(VMALLE1);
+	}
 
 	dsb(); /* ensure completion of the BP and TLB invalidation */
-    isb(); /* synchronize context on this processor */
+	isb(); /* synchronize context on this processor */
 
 }
 
