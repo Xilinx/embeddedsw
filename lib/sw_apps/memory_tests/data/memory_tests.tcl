@@ -148,7 +148,7 @@ proc get_mem_info { proc_instance } {
 
     set RejectListForAddressBlocks {"AIE_ARRAY_0" "psx_noc_pcie_0" "psv_noc_pcie_0" "psv_pmc_ram" "psx_pmc_ram"}
 
-    set imem_elements [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter {IS_INSTRUCTION != true && IS_DATA == true && MEM_TYPE == "MEMORY"}]
+    set imem_elements [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier $proc_instance] -filter {IS_INSTRUCTION == true && IS_DATA != true && MEM_TYPE == "MEMORY"}]
     set imemlist {}
     foreach imem_element $imem_elements {
     set i_addr_block [common::get_property ADDRESS_BLOCK $imem_element]
