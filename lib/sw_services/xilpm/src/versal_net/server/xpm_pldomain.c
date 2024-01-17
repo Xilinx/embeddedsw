@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -235,7 +235,11 @@ static XStatus PldCframeInit(void)
 	 * look up the configuration in the config table,
 	 * then initialize it.
 	 */
+#ifndef SDT
 	Config = XCframe_LookupConfig((u16)XPAR_XCFRAME_0_DEVICE_ID);
+#else
+	Config = XCframe_LookupConfig((u16)XPAR_XCFRAME_0_BASEADDR);
+#endif
 	if (NULL == Config) {
 		DbgErr = XPM_INT_ERR_DEVICE_LOOKUP;
 		Status = XST_FAILURE;
