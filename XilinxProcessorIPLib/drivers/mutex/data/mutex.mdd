@@ -7,6 +7,7 @@
 # -------- ------ -------- --------------------------------------------------
 # 4.0     adk    10/12/13  Removed support for xps_mutex
 # 4.7     ht     06/21/23  Updated library version for 2023.2
+# 4.8     ht     01/17/24  Updated library version for 2024.1
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_MS3
@@ -21,7 +22,7 @@ BEGIN driver mutex
   OPTION supported_peripherals = (mutex);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.7;
+  OPTION VERSION = 4.8;
   OPTION NAME = mutex;
   
 END driver
