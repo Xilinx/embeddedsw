@@ -31,7 +31,6 @@
 #include "xil_types.h"
 #include "xil_mmu.h"
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef __GNUC__
 #define u32overflow(a, b) ({typeof(a) s; __builtin_uadd_overflow(a, b, &s); })
@@ -74,7 +73,7 @@ void Xil_SetTlbAttributes(UINTPTR Addr, u32 attrib)
 	section = Addr / 0x100000U;
 	ptr = &MMUTable;
 	ptr += section;
-	if(ptr != NULL) {
+	if (ptr != NULL) {
 		*ptr = (Addr & 0xFFF00000U) | attrib;
 	}
 
@@ -85,7 +84,7 @@ void Xil_SetTlbAttributes(UINTPTR Addr, u32 attrib)
 	mtcp(XREG_CP15_INVAL_BRANCH_ARRAY, 0U);
 
 	dsb(); /* ensure completion of the BP and TLB invalidation */
-    isb(); /* synchronize context on this processor */
+	isb(); /* synchronize context on this processor */
 }
 
 /*****************************************************************************/
