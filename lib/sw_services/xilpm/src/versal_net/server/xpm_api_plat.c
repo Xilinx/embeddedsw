@@ -83,6 +83,45 @@
 	(1ULL << (u64)IOCTL_READ_REG) | \
 	(1ULL << (u64)IOCTL_MASK_WRITE_REG))
 
+XStatus XPm_PlatCmnFlushWorkaround(void)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Idx, MemAddr[4] = {0xF8100000U, 0xF8900000U, 0xF9100000U, 0xF9900000U};
+
+	/**
+	 * Flush DDR addresses using ABF (Address based flush) for NID8, NID72,
+	 * NID136 and NID200.
+	 */
+	for (Idx = 0U; Idx < 4U; Idx++) {
+		XPm_Out32(MemAddr[Idx] + 0xF50U, 0x0U);
+		XPm_Out32(MemAddr[Idx] + 0xF58U, 0x80000000U);
+		XPm_Out32(MemAddr[Idx] + 0xF60U, 0x1U);
+		Status = XPm_PollForMask(MemAddr[Idx] + 0xF68U, 0x1U,
+					 XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/**
+	 * Flush OCM addresses using ABF (Address based flush) for NID8, NID72,
+	 * NID136 and NID200.
+	 */
+	for (Idx = 0U; Idx < 4U; Idx++) {
+		XPm_Out32(MemAddr[Idx] + 0xF50U, 0xBBF00000U);
+		XPm_Out32(MemAddr[Idx] + 0xF58U, 0xBC000000U);
+		XPm_Out32(MemAddr[Idx] + 0xF60U, 0x1U);
+		Status = XPm_PollForMask(MemAddr[Idx] + 0xF68U, 0x1U,
+					 XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+done:
+	return Status;
+}
+
 XStatus XPm_PlatAddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 				     u32 ReqFlags, const u32 *Args, u32 NumArgs)
 {

@@ -3913,6 +3913,19 @@ static XStatus XPm_SubsystemPwrUp(const u32 SubsystemId)
 		goto done;
 	}
 
+	/**
+	 * Currently LLC is not getting flush during subsystem restart.
+	 * Because of that APU is reading incorrect value from memory.
+	 * So, Flush LLC in CMN block before reloading subsystem Image.
+	 *
+	 * TODO: Remove this workaround once proper solution to flush
+	 * LLC in CMN will be available.
+	 */
+	Status = XPm_PlatCmnFlushWorkaround();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	/* Reload the subsystem image */
 	Status = XPm_RestartCbWrapper(SubsystemId);
 	if (XST_SUCCESS != Status) {
