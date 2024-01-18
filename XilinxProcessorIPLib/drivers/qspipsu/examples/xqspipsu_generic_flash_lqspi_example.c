@@ -73,6 +73,7 @@
 * 1.18  sb  06/07/23 Added support for system device-tree flow.
 * 1.18  sb  07/24/23 Fix wrong init sequence for spansion byte ID.
 * 1.18  sb  08/02/23 Add status check for XQspiPsu_SetClkPrescaler API.
+* 1.19  sb  01/12/24 Added support to set QSPI clock based on baud rate divisior
 *
 *</pre>
 *
@@ -396,10 +397,12 @@ int QspiPsuInterruptFlashExample(XQspiPsu *QspiPsuInstancePtr,
 
 
 	xil_printf("Set Prescalar...\n\r");
-	/*
-	 * Set the prescaler for QSPIPSU clock
-	 */
-	Status = XQspiPsu_SetClkPrescaler(QspiPsuInstancePtr, XQSPIPSU_CLK_PRESCALE_8);
+	/* Configure qspi controller frequency based on Baud rate divisor if baud rate divisor is non zero*/
+	if(QspiPsuInstancePtr->Config.BaudRateDiv != (u8)0){
+		Status = XQspiPsu_SetClkPrescaler(QspiPsuInstancePtr, QspiPsuInstancePtr->Config.BaudRateDiv);
+	} else {
+		Status = XQspiPsu_SetClkPrescaler(QspiPsuInstancePtr, XQSPIPSU_CLK_PRESCALE_8);
+	}
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
