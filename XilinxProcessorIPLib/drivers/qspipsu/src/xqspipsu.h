@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -176,6 +176,7 @@
  *                   to volatile.
  * 1.18 ht  07/18/23 Fixed GCC warnings.
  * 1.18 sb  08/01/23 Added support for Feed back clock
+ * 1.19 sb  01/12/24 Added support for baud rate divisior
  *
  * </pre>
  *
@@ -262,6 +263,7 @@ typedef struct {
 	u32 RefClk;		/**< Input clocks */
 #endif
 	u8 IsFbClock;		/**< Describes whether Feed Back clock or not */
+	u8 BaudRateDiv;		/**< Baud rate divisor to set QSPI clock */
 } XQspiPsu_Config;
 
 /**

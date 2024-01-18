@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -84,6 +84,7 @@
  * 1.18 sb  08/01/23 Added support for Feed back clock
  * 1.18 sb  08/29/23 Updated PolledTransfer and InterruptHandler functions as modular.
  * 1.18 sb  09/11/23 Fix MISRA-C violation 8.13.
+ * 1.19 sb  01/12/24 Added support for baud rate divisior
  *
  * </pre>
  *
@@ -165,6 +166,7 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
 		InstancePtr->Config.IsCacheCoherent =
 			ConfigPtr->IsCacheCoherent;
 		InstancePtr->Config.IsFbClock = ConfigPtr->IsFbClock;
+		InstancePtr->Config.BaudRateDiv = ConfigPtr->BaudRateDiv;
 		/* Other instance variable initializations */
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
