@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,7 @@
 *       cog    07/04/23 Add support for SDT
 *       dc     30/28/23 Remove immediate trigger
 * 1.7   dc     11/29/23 Add continuous scheduling
+*       dc     01/19/24 Correct memset destination address
 * </pre>
 * @addtogroup dfeprach Overview
 * @{
@@ -2746,7 +2747,7 @@ void XDfePrach_GetEmptyRCCfg(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(RCCfg != NULL);
 
-	memset(&RCCfg, 0, sizeof(XDfePrach_RCCfg));
+	memset(RCCfg, 0, sizeof(XDfePrach_RCCfg));
 }
 
 /****************************************************************************/
