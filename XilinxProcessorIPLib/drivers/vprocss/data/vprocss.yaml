@@ -135,9 +135,11 @@ depends:
     axis_switch: []
 
 examples:
-    xv_procss_example.c:
-    - tpg-connected: phandle
-    - vtc-connected: phandle
-    - gpio-connected: phandle
+    src/xv_procss_example.c:
+        - dependency_files:
+            - src/periph.c
+            - src/periph.h
+            - src/system.c
+            - src/system.h
 
 ...

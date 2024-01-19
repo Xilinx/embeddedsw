@@ -161,9 +161,9 @@ depends:
     video_common: []
 
 examples:
-     xv_mix_example.c:
-     - vtc-connected: phandle
-     - gpio-connected: phandle
-     - remote-endpoint: phandle
-     - v-frmbuf-rd-connected: phandle
+    src/xv_mix_example.c:
+        - dependency_files:
+            - src/logo.c
+            - src/platform.c
+            - src/platform.h
 ...

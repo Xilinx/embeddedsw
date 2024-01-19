@@ -50,8 +50,6 @@ depends:
     video_common: []
 
 examples:
-     main.c:
-     - vtc-connected: phandle
-     - v-tpg-connected: phandle
-     - gpio-connected: phandle
+    src/main.c:
+        - reg
 ...

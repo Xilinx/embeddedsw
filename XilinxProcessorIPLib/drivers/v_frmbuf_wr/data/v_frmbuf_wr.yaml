@@ -149,9 +149,9 @@ depends:
     video_common: []
 
 examples:
-    xv_frmbufwr_example.c:
-        - interrupts
+    src/xv_frmbufwr_example.c:
         - dependency_files:
-            - platform.c
-            - platform.h
+            - src/platform.c
+            - src/platform.h
+        - interrupts
 ...

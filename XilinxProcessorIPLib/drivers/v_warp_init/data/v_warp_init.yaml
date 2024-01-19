@@ -50,5 +50,9 @@ config:
     - XV_warp_init_Config
 
 examples:
-     xwarp_example.c:
+    src/xwarp_example.c:
+        - dependency_files:
+            - src/inputs.h
+            - src/xwarp_input_configs.c
+            - src/xwarp_input_configs.h
 ...
