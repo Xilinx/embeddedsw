@@ -56,7 +56,15 @@ depends:
     video_common: []
 
 examples:
-     xv_scenechange_stream_mode_ex.c:
-     - tpg-connected: phandle
-     - frmbuf-wr-connected: phandle
+    src/xv_scenechange_memory_mode_ex.c:
+        - dependency_files:
+            - src/platform.c
+            - src/platform.h
+            - src/platform_config.h
+
+    src/xv_scenechange_stream_mode_ex.c:
+        - dependency_files:
+            - src/platform.c
+            - src/platform.h
+            - src/platform_config.h
 ...

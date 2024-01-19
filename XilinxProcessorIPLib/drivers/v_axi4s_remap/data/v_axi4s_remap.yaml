@@ -71,5 +71,6 @@ depends:
     video_common: []
 
 examples:
-     main.c:
+    main.c:
+        - reg
 ...

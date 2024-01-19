@@ -55,5 +55,6 @@ depends:
     video_common: []
 
 examples:
-     xv_multi_scaler_example.c:
+    xv_multi_scaler_example.c:
+        - reg
 ...
