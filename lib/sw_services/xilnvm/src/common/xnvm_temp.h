@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 3.0   har  07/21/22 Initial release
 * 3.2   mb   10/03/23 Add DEC_ONLY Error checks
+* 3.3	mb   1/09/24  Add DEC_ONLY Error check for PUF HD
 *
 * </pre>
 * @note
@@ -117,6 +118,10 @@ typedef enum {
 
 	XNVM_EFUSE_ERR_DEC_ONLY_METAHEADER_IV_MUST_BE_PRGMD = 0xF800,/**<0xF800 - Error
 						* METAHEADER IV should be programmed for
+						* DEC_ONLY eFuse programming */
+
+	XNVM_EFUSE_ERR_DEC_ONLY_PUF_HD_MUST_BE_PRGMD = 0xF900,/**0xF900 - Error
+						* PUF HELPER DATA should be programmed for
 						* DEC_ONLY eFuse programming */
 
 	XNVM_EFUSE_ERR_BOOT_ENV_CTRL_ALREADY_PRGMD = 0xE0,/**<0xE0 - BootEnvCtrl
