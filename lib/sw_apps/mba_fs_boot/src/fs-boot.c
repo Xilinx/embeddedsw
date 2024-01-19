@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -158,7 +158,11 @@ static void uart_init(void)
 #elif XPAR_XUARTNS550_NUM_INSTANCES
 static void uart_init(void)
 {
+#ifndef SDT
 	XUartNs550_SetBaud(STDOUT_BASEADDRESS, XPAR_UARTNS550_0_CLOCK_FREQ_HZ, 115200);
+#else
+	XUartNs550_SetBaud(STDOUT_BASEADDRESS, XPAR_XUARTNS550_0_CLOCK_FREQ, 115200);
+#endif
 	uartns550_set_linecontrolreg(STDOUT_BASEADDRESS, XUN_LCR_8_DATA_BITS);
 }
 #endif
