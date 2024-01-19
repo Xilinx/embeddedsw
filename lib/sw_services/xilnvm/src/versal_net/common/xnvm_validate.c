@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -467,6 +467,9 @@ END:
  *		- XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD - Blk IV should be
  *							 programmed for DEC_ONLY
  *							 eFuse programming.
+ *		- XNVM_EFUSE_ERR_DEC_ONLY_PUF_HD_MUST_BE_PRGMD - Puf helper should be
+ *							 programmed for DEC_ONLY
+ *							 eFuse programming.
  *
  ******************************************************************************/
 int XNvm_EfuseValidateDecOnlyRequest(void)
@@ -500,8 +503,8 @@ int XNvm_EfuseValidateDecOnlyRequest(void)
 		}
 
 		Status =  XNvm_EfuseIsPufHelperDataEmpty();
-		if (Status != XST_SUCCESS) {
-			Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD;
+		if (Status == XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_PUF_HD_MUST_BE_PRGMD;
 			goto END;
 		}
 	}
