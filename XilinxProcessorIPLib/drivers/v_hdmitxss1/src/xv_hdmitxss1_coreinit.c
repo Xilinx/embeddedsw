@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -164,13 +164,21 @@ int XV_HdmiTxSs1_SubcoreInitHdcpTimer(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 #ifdef XV_HDMITXSS1_LOG_ENABLE
     XV_HdmiTxSs1_LogWrite(HdmiTxSs1Ptr, XV_HDMITXSS1_LOG_EVT_HDCPTIMER_INIT, 0);
 #endif
+#ifndef SDT
     ConfigPtr  = XTmrCtr_LookupConfig(HdmiTxSs1Ptr->Config.HdcpTimer.DeviceId);
-    if (ConfigPtr == NULL) {
-      xdbg_printf(XDBG_DEBUG_GENERAL,
-                  "HDMITXSS1 ERR:: AXIS Timer device not found\r\n");
-      return(XST_FAILURE);
-    }
+#else
+	ConfigPtr  = XTmrCtr_LookupConfig(HdmiTxSs1Ptr->Config.HdcpTimer.AbsAddr);
+#endif
+	if (!ConfigPtr) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "HDMITXSS1 ERR:: AXIS Timer device not found\r\n");
+		return XST_FAILURE;
+	}
 
+#ifdef SDT
+	HdmiTxSs1Ptr->Config.HdcpTimer.AbsAddr +=  HdmiTxSs1Ptr->Config.BaseAddress;
+	ConfigPtr->BaseAddress += HdmiTxSs1Ptr->Config.BaseAddress;
+#endif
     /* Setup the instance */
     memset(HdmiTxSs1Ptr->HdcpTimerPtr, 0, sizeof(XTmrCtr));
 
@@ -226,13 +234,20 @@ int XV_HdmiTxSs1_SubcoreInitHdcp14(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 #ifdef XV_HDMITXSS1_LOG_ENABLE
       XV_HdmiTxSs1_LogWrite(HdmiTxSs1Ptr, XV_HDMITXSS1_LOG_EVT_HDCP14_INIT, 0);
 #endif
+#ifndef SDT
       ConfigPtr  = XHdcp1x_LookupConfig(HdmiTxSs1Ptr->Config.Hdcp14.DeviceId);
-      if (ConfigPtr == NULL){
-        xdbg_printf(XDBG_DEBUG_GENERAL,
-                    "HDMITXSS1 ERR:: HDCP 1.4 device not found\r\n");
-        return(XST_FAILURE);
-      }
-
+#else
+	ConfigPtr  = XHdcp1x_LookupConfig(HdmiTxSs1Ptr->Config.Hdcp14.AbsAddr);
+#endif
+	if (!ConfigPtr)	{
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "HDMITXSS1 ERR:: HDCP 1.4 device not found\r\n");
+		return XST_FAILURE;
+	}
+#ifdef SDT
+	HdmiTxSs1Ptr->Config.Hdcp14.AbsAddr +=  HdmiTxSs1Ptr->Config.BaseAddress;
+	ConfigPtr->BaseAddress += HdmiTxSs1Ptr->Config.BaseAddress;
+#endif
       /* Initialize core */
       void *PhyIfPtr = HdmiTxSs1Ptr->HdmiTx1Ptr;
 
@@ -241,7 +256,7 @@ int XV_HdmiTxSs1_SubcoreInitHdcp14(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
                                         PhyIfPtr,
                                         HdmiTxSs1Ptr->Config.Hdcp14.AbsAddr);
 
-      /* Self-test the hdcp interface */
+	/* Self-test the hdcp interface */
       if (XHdcp1x_SelfTest(HdmiTxSs1Ptr->Hdcp14Ptr) != XST_SUCCESS) {
           Status = XST_FAILURE;
       }
@@ -302,10 +317,18 @@ int XV_HdmiTxSs1_SubcoreInitHdcp22(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 #ifdef XV_HDMITXSS1_LOG_ENABLE
       XV_HdmiTxSs1_LogWrite(HdmiTxSs1Ptr, XV_HDMITXSS1_LOG_EVT_HDCP22_INIT, 0);
 #endif
+#ifndef SDT
       /* Initialize HDCP 2.2 TX */
       Hdcp22TxConfig =
                     XHdcp22Tx_LookupConfig(HdmiTxSs1Ptr->Config.Hdcp22.DeviceId);
-
+#else
+	/* Initialize HDCP 2.2 TX */
+	Hdcp22TxConfig = XHdcp22Tx_LookupConfig(HdmiTxSs1Ptr->Config.Hdcp22.AbsAddr);
+#endif
+#ifdef SDT
+	HdmiTxSs1Ptr->Config.Hdcp22.AbsAddr +=  HdmiTxSs1Ptr->Config.BaseAddress;
+	Hdcp22TxConfig->BaseAddress += HdmiTxSs1Ptr->Config.BaseAddress;
+#endif
       if (Hdcp22TxConfig == NULL) {
         xdbg_printf(XDBG_DEBUG_GENERAL,
                     "HDMITXSS1 ERR:: HDCP 2.2 device not found\r\n");
