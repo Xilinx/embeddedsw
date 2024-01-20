@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1203,7 +1203,11 @@ static int XHdcp22Rx_InitializeCipher(XHdcp22_Rx *InstancePtr)
 	UINTPTR SubcoreBaseAddr;
 	XHdcp22_Cipher_Config *CipherConfigPtr = NULL;
 
+#ifndef SDT
 	CipherConfigPtr = XHdcp22Cipher_LookupConfig(InstancePtr->Config.CipherDeviceId);
+#else
+	CipherConfigPtr = XHdcp22Cipher_LookupConfig(InstancePtr->Config.CipherDeviceAddress);
+#endif
 	if(CipherConfigPtr == NULL)
 	{
 		return XST_FAILURE;
@@ -1235,8 +1239,11 @@ static int XHdcp22Rx_InitializeMmult(XHdcp22_Rx *InstancePtr)
 	int Status = XST_SUCCESS;
 	UINTPTR SubcoreBaseAddr;
 	XHdcp22_mmult_Config *MmultConfigPtr;
-
+#ifndef SDT
 	MmultConfigPtr = XHdcp22_mmult_LookupConfig(InstancePtr->Config.MontMultDeviceId);
+#else
+	MmultConfigPtr = XHdcp22_mmult_LookupConfig(InstancePtr->Config.MontMultDeviceAddress);
+#endif
 	if(MmultConfigPtr == NULL)
 	{
 		return XST_FAILURE;
@@ -1267,7 +1274,11 @@ static int XHdcp22Rx_InitializeRng(XHdcp22_Rx *InstancePtr)
 	UINTPTR SubcoreBaseAddr;
 	XHdcp22_Rng_Config *RngConfigPtr;
 
+#ifndef SDT
 	RngConfigPtr = XHdcp22Rng_LookupConfig(InstancePtr->Config.RngDeviceId);
+#else
+	RngConfigPtr = XHdcp22Rng_LookupConfig(InstancePtr->Config.RngDeviceAddress);
+#endif
 	if(RngConfigPtr == NULL)
 	{
 		return XST_FAILURE;
@@ -1298,7 +1309,11 @@ static int XHdcp22Rx_InitializeTimer(XHdcp22_Rx *InstancePtr)
 	UINTPTR SubcoreBaseAddr;
 	XTmrCtr_Config *TimerConfigPtr;
 
+#ifndef SDT
 	TimerConfigPtr = XTmrCtr_LookupConfig(InstancePtr->Config.TimerDeviceId);
+#else
+	TimerConfigPtr = XTmrCtr_LookupConfig(InstancePtr->Config.TimerDeviceAddress);
+#endif
 	if(TimerConfigPtr == NULL)
 	{
 		return XST_FAILURE;
