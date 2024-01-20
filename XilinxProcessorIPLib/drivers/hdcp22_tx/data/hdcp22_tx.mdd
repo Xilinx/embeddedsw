@@ -1,5 +1,6 @@
 ################################################################################
 # Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ################################################################################
@@ -11,7 +12,7 @@ BEGIN driver hdcp22_tx
   OPTION supported_peripherals = (hdcp22_tx_v1_0);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.0;
+  OPTION VERSION = 3.1;
   OPTION DEPENDS = (tmrctr hdcp22_common hdcp22_cipher hdcp22_rng);
   OPTION NAME = hdcp22_tx;
 
