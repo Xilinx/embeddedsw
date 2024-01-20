@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -102,6 +102,10 @@ extern "C" {
 #if !defined(XV_CONFIG_LOG_VHDMITXSS_DISABLE) && \
                                              !defined(XV_CONFIG_LOG_DISABLE_ALL)
 #define XV_HDMITXSS_LOG_ENABLE
+#endif
+
+#ifdef SDT
+#define XPAR_XHDCP_NUM_INSTANCES XPAR_XHDCP1X_NUM_INSTANCES
 #endif
 
 #if defined(XPAR_XHDCP_NUM_INSTANCES) || defined(XPAR_XHDCP22_TX_NUM_INSTANCES)
@@ -319,7 +323,7 @@ typedef struct
     XV_HdmiTxSs_SubCore HdmiTx;       /**< Sub-core instance configuration */
     XV_HdmiTxSs_SubCore Vtc;          /**< Sub-core instance configuration */
 #ifdef SDT
-	u16 IntrId;		/**< Interrupt ID */
+	u16 IntrId[5];		/**< Interrupt ID */
 	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1]
 					Parent base address */
 #endif
