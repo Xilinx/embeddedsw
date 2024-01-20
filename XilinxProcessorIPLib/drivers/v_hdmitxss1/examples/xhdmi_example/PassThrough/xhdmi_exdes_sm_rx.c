@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,16 @@
 #include "xinterrupt_wrap.h"
 #endif
 
+#ifdef SDT
+#ifdef USE_HDCP_HDMI_RX
+#define INTRNAME_HDMIRX 4
+#define INTRNAME_HDCP1XRX   0
+#define INTRNAME_HDCP1XRX_TIMER   1
+#define INTRNAME_HDCP2XRX_TIMER  3
+#else
+#define INTRNAME_HDMIRX 0
+#endif
+#endif
 /************************** Constant Definitions ****************************/
 
 static const XV_Rx_Hdmi_Events XHdmi_Rx_EventsPriorityQueue[] = {
@@ -864,17 +874,18 @@ u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 #else
 	Status = XSetupInterruptSystem(InstancePtr->HdmiRxSs,
 					(XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
-					InstancePtr->HdmiRxSs->Config.IntrId,
+					InstancePtr->HdmiRxSs->Config.IntrId[INTRNAME_HDMIRX],
 					InstancePtr->HdmiRxSs->Config.IntrParent,
 					XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP RX SS DP interrupt connect failed!\r\n");
+		xil_printf("ERR: HDMI RX SS interrupt connect failed!\r\n");
 		return XST_FAILURE;
 	}
 #endif
 
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
+#ifndef SDT
 	/* HDCP 1.4 Cipher interrupt */
 	Status |= XScuGic_Connect(InstancePtr->Intc,
 			/* XPAR_FABRIC_V_HDMIRXSS1_0_HDCP14_IRQ_VEC_ID, */
@@ -887,24 +898,74 @@ u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 			IntrVecIds.IntrVecId_Hdcp14Timer,
 			(XInterruptHandler)XV_HdmiRxSS1_HdcpTimerIntrHandler,
 			(void *)InstancePtr->HdmiRxSs);
+#else
+	Status =
+		XSetupInterruptSystem(InstancePtr->HdmiRxSs,
+				      (XInterruptHandler)XV_HdmiRxSS1_HdcpIntrHandler,
+				      InstancePtr->HdmiRxSs->Config.IntrId[INTRNAME_HDCP1XRX],
+				      InstancePtr->HdmiRxSs->Config.IntrParent,
+				      XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: HDMI RX SS HDMI HDCP interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+
+	Status =
+		XSetupInterruptSystem(InstancePtr->HdmiRxSs,
+				      (XInterruptHandler)XV_HdmiRxSS1_HdcpTimerIntrHandler,
+				      InstancePtr->HdmiRxSs->Config.IntrId[INTRNAME_HDCP1XRX_TIMER],
+				      InstancePtr->HdmiRxSs->Config.IntrParent,
+				      XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: HDMI RX SS HDCP1X TIMER interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+#endif
 #endif
 
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
+#ifndef SDT
 	/* HDCP 2.2 Timer interrupt */
 	Status |= XScuGic_Connect(InstancePtr->Intc,
 			/* XPAR_FABRIC_V_HDMIRXSS1_0_HDCP22_TIMER_IRQ_VEC_ID, */
 			IntrVecIds.IntrVecId_Hdcp22Timer,
 			(XInterruptHandler)XV_HdmiRxSS1_Hdcp22TimerIntrHandler,
 			(void *)InstancePtr->HdmiRxSs);
+#else
+	Status =
+		XSetupInterruptSystem(InstancePtr->HdmiRxSs,
+				      (XInterruptHandler)XV_HdmiRxSS1_Hdcp22TimerIntrHandler,
+				      InstancePtr->HdmiRxSs->Config.IntrId[INTRNAME_HDCP2XRX_TIMER],
+				      InstancePtr->HdmiRxSs->Config.IntrParent,
+				      XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: HDMI RX SS HDCP2X TIMER interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+#endif
 #endif
 
 #else
+#ifndef SDT
 	Status |= XIntc_Connect(InstancePtr->Intc,
 			IntrVecIds.IntrVecId_HdmiRxSs,
 			(XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
 			(void *)InstancePtr->HdmiRxSs);
+#else
+	Status =
+		XSetupInterruptSystem(InstancePtr->HdmiRxSs,
+				      (XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
+				      InstancePtr->HdmiRxSs->Config.IntrId[INTRNAME_HDMIRX],
+				      InstancePtr->HdmiRxSs->Config.IntrParent,
+				      XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: HDMI RX SS interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+#endif
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
+#ifndef SDT
 	/* HDCP 1.4 Cipher interrupt */
 	Status |= XIntc_Connect(InstancePtr->Intc,
 				/* XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID, */
@@ -918,15 +979,51 @@ u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 			IntrVecIds.IntrVecId_Hdcp14Timer,
 			(XInterruptHandler)XV_HdmiRxSS1_HdcpTimerIntrHandler,
 			(void *)InstancePtr->HdmiRxSs);
+#else
+	Status =
+		XSetupInterruptSystem(InstancePtr->HdmiRxSs,
+				      (XInterruptHandler)XV_HdmiRxSS1_HdcpIntrHandler,
+				      InstancePtr->HdmiRxSs->Config.IntrId[INTRNAME_HDCP1XRX],
+				      InstancePtr->HdmiRxSs->Config.IntrParent,
+				      XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: HDMI RX SS HDMI HDCP interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+
+	Status =
+		XSetupInterruptSystem(InstancePtr->HdmiRxSs,
+				      (XInterruptHandler)XV_HdmiRxSS1_HdcpTimerIntrHandler,
+				      InstancePtr->HdmiRxSs->Config.IntrId[INTRNAME_HDCP1XRX_TIMER],
+				      InstancePtr->HdmiRxSs->Config.IntrParent,
+				      XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: HDMI RX SS HDCP1X TIMER interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+#endif
 #endif
 
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
+#ifndef SDT
 	/* HDCP 2.2 Timer interrupt */
 	Status |= XIntc_Connect(InstancePtr->Intc,
 			/* XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID, */
 			IntrVecIds.IntrVecId_Hdcp22Timer,
 			(XInterruptHandler)XV_HdmiRxSS1_Hdcp22TimerIntrHandler,
 			(void *)InstancePtr->HdmiRxSs);
+#else
+	Status =
+		XSetupInterruptSystem(InstancePtr->HdmiRxSs,
+				      (XInterruptHandler)XV_HdmiRxSS1_Hdcp22TimerIntrHandler,
+				      InstancePtr->HdmiRxSs->Config.IntrId[INTRNAME_HDCP2XRX_TIMER],
+				      InstancePtr->HdmiRxSs->Config.IntrParent,
+				      XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: HDMI RX SS HDCP2X TIMER interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+#endif
 #endif
 
 #endif
