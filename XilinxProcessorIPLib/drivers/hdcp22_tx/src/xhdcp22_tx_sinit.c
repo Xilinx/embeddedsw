@@ -66,6 +66,7 @@
 * @note   None.
 *
 ******************************************************************************/
+#ifndef SDT
 XHdcp22_Tx_Config *XHdcp22Tx_LookupConfig(u16 DeviceId)
 {
 	extern XHdcp22_Tx_Config XHdcp22_Tx_ConfigTable[XPAR_XHDCP22_TX_NUM_INSTANCES];
@@ -85,5 +86,26 @@ XHdcp22_Tx_Config *XHdcp22Tx_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XHdcp22_Tx_Config *XHdcp22Tx_LookupConfig(UINTPTR BaseAddress)
+{
+	extern XHdcp22_Tx_Config XHdcp22_Tx_ConfigTable[XPAR_XHDCP22_TX_NUM_INSTANCES];
+	XHdcp22_Tx_Config *CfgPtr = NULL;
+	u32 Index;
 
+	/* Checking for device id for which instance it is matching */
+	for (Index = (u32)0x0; XHdcp22_Tx_ConfigTable[Index].Name != NULL; Index++) {
+		/* Assigning address of config table if both device ids
+		 * are matched
+		 */
+		if (XHdcp22_Tx_ConfigTable[Index].BaseAddress == BaseAddress
+		    || !BaseAddress) {
+			CfgPtr = &XHdcp22_Tx_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /** @} */

@@ -252,20 +252,33 @@ typedef void (*XHdcp22_Tx_Callback)(void *CallbackRef);
 */
 typedef struct
 {
+#ifndef SDT
 	/** DeviceId is the unique ID of the device. */
 	u16 DeviceId;
+#else
+	char *Name;
+#endif
 	/** Base Address is the physical base address of the device's registers. */
 	UINTPTR BaseAddress;
 	/** HDMI or DP (Always HDCP22_TX_HDMI: Currently DP is not supported). */
 	int Protocol;
 	/** Future expansion. */
 	int Mode;
+#ifndef SDT
 	/** DeviceId of the internal used timer. */
 	u16 TimerDeviceId;
 	/** DeviceId of the used cipher. */
 	u16 CipherId;
 	/** Device Id of the random generator. */
 	u16 RngId;
+#else
+	/** DeviceId of the internal used timer. */
+	UINTPTR TimerDeviceAddress;
+	/** Address of the used cipher. */
+	UINTPTR CipherAddress;
+	/** Address Id of the random generator. */
+	UINTPTR RngAddress;
+#endif
 } XHdcp22_Tx_Config;
 
 /**
@@ -554,9 +567,12 @@ typedef struct
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 /* Initialization function in xhdcp22_tx_sinit.c */
 XHdcp22_Tx_Config  *XHdcp22Tx_LookupConfig (u16 DeviceId);
+#else
+XHdcp22_Tx_Config *XHdcp22Tx_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /* Initialization and control functions in xhdcp_tx.c */
 int XHdcp22Tx_CfgInitialize(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_Config *CfgPtr,

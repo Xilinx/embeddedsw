@@ -421,7 +421,11 @@ static int XHdcp22Tx_InitializeTimer(XHdcp22_Tx *InstancePtr)
 
 	XTmrCtr_Config *TimerConfigPtr;
 
+#ifndef SDT
 	TimerConfigPtr = XTmrCtr_LookupConfig(InstancePtr->Config.TimerDeviceId);
+#else
+	TimerConfigPtr = XTmrCtr_LookupConfig(InstancePtr->Config.TimerDeviceAddress);
+#endif
 	if(TimerConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -465,7 +469,11 @@ static int XHdcp22Tx_InitializeCipher(XHdcp22_Tx *InstancePtr)
 	XHdcp22_Cipher_Config *ConfigPtr = NULL;
 	UINTPTR SubcoreBaseAddr;
 
+#ifndef SDT
 	ConfigPtr = XHdcp22Cipher_LookupConfig(InstancePtr->Config.CipherId);
+#else
+	ConfigPtr = XHdcp22Cipher_LookupConfig(InstancePtr->Config.CipherAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}
@@ -512,7 +520,11 @@ static int XHdcp22Tx_InitializeRng(XHdcp22_Tx *InstancePtr)
 
 	XHdcp22_Rng_Config *ConfigPtr = NULL;
 
+#ifndef SDT
 	ConfigPtr = XHdcp22Rng_LookupConfig(InstancePtr->Config.RngId);
+#else
+	ConfigPtr = XHdcp22Rng_LookupConfig(InstancePtr->Config.RngAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}
