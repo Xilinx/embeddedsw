@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2021 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +20,7 @@
 * 1.1   dc     11/21/19 Remove xil dependencies from linux build
 *       dc     12/05/19 adjust LMX and LMK configs to a rftool needs
 * 1.5   dc     18/01/21 pass GPIO Mux base address as parameter
+* 1.6   dc     01/19/24 Correct linux gpio ID
 *
 * </pre>
 *
@@ -138,8 +140,15 @@ int main()
 	/* The base address is defined in xparameters.h */
 	XRFClk_Init(XPAR_PS_SUBSYSTEM_AXI_GPIO_SPI_MUX_DEVICE_ID);
 #else
-	/* The parameter is a gpioID, see Linux boot logging */
-	XRFClk_Init(486);
+	/* The argument in XRFClk_Init is a gpioID.
+	   Note: gpioID must be detected manualy, first find a gpio base
+	         address in device tree (currently is 0xa0205000), second
+	         check which gpio device has this address alocated, eg.:
+	             xilinx-zcu216:~$ cat /sys/class/gpio/gpiochip481/label
+	             a0205000.gpio
+	        the gpio ID value is 481.
+	     */
+	XRFClk_Init(481);
 #endif
 
 	/* Reset */
