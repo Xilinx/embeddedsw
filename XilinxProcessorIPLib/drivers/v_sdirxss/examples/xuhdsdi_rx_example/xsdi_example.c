@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,10 +40,18 @@
 #include "sleep.h"
 #include "xsdi_menu.h"
 #include "xv_sdirxss.h"
+#ifndef SDT
 #include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
+#ifndef SDT
 #define GPIO_RX_RST XPAR_GPIO_0_BASEADDR
+#else
+#define GPIO_RX_RST XPAR_XGPIO_0_BASEADDR
+#endif
 
 typedef u8 AddressType;
 #define PAGE_SIZE   16
@@ -61,7 +70,9 @@ typedef u8 AddressType;
 
 /************************** Function Prototypes ******************************/
 void ClearScreen(void);
+#ifndef SDT
 static int SetupInterruptSystem(void);
+#endif
 void RxStreamUpCallback(void *CallbackRef);
 void RxStreamUp(void);
 void RxStreamDownCallback(void *CallbackRef);
@@ -132,6 +143,7 @@ void ClearScreen(void)
  *		system is used.
  *
  ******************************************************************************/
+#ifndef SDT
 static int SetupInterruptSystem(void)
 {
 	int Status;
@@ -148,8 +160,8 @@ static int SetupInterruptSystem(void)
 		return XST_DEVICE_NOT_FOUND;
 	}
 	Status = XScuGic_CfgInitialize(IntcInstPtr,
-					IntcCfgPtr,
-					IntcCfgPtr->CpuBaseAddress);
+				       IntcCfgPtr,
+				       IntcCfgPtr->CpuBaseAddress);
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("Intc initialization failed!\r\n");
@@ -167,7 +179,7 @@ static int SetupInterruptSystem(void)
 
 	return XST_SUCCESS;
 }
-
+#endif
 /*****************************************************************************/
 /**
  *
@@ -186,11 +198,19 @@ static int I2cMux(void)
 	xil_printf("Set i2c mux... ");
 
 	Buffer = 0x18;
+#ifndef SDT
 	Status = XIic_Send((XPAR_IIC_0_BASEADDR),
 				(I2C_MUX_ADDR),
 				(u8 *)&Buffer,
 				1,
 				(XIIC_STOP));
+#else
+	Status = XIic_Send((XPAR_XIIC_0_BASEADDR),
+				(I2C_MUX_ADDR),
+				(u8 *)&Buffer,
+				1,
+				(XIIC_STOP));
+#endif
 	xil_printf("done\n\r");
 
 	return Status;
@@ -344,9 +364,12 @@ int main(void)
 
 	/* Setting path for Si570 chip */
 	I2cMux();
-
+#ifndef SDT
 	/* si570 configuration of 148.5MHz */
 	Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570);
+#else
+	Si570_SetClock(XPAR_XIIC_0_BASEADDR, I2C_CLK_ADDR_570);
+#endif
 
 	/* Rx Reset Sequence */
 	Xil_Out32((UINTPTR)(GPIO_RX_RST), (u32)(0x00000002));
@@ -366,15 +389,20 @@ int main(void)
 	xil_printf("      Build %s - %s      \r\n", __DATE__, __TIME__);
 	xil_printf("----------------------------------------\r\n");
 
+#ifndef SDT
 	/* Initialize IRQ */
 	Status = SetupInterruptSystem();
 	if (Status == XST_FAILURE) {
 		xil_printf("IRQ init failed.\n\r\r");
 		return XST_FAILURE;
 	}
-
-    /* Initialize SDI RX Subsystem */
+#endif
+	/* Initialize SDI RX Subsystem */
+#ifndef SDT
 	XV_SdiRxSs_ConfigPtr = XV_SdiRxSs_LookupConfig(XPAR_XV_SDIRX_0_DEVICE_ID);
+#else
+	XV_SdiRxSs_ConfigPtr = XV_SdiRxSs_LookupConfig(XPAR_V_SMPTE_UHDSDI_RX_SS_BASEADDR);
+#endif
 
 	XV_SdiRxSs_ConfigPtr->BaseAddress = XPAR_V_SMPTE_UHDSDI_RX_SS_BASEADDR;
 
@@ -420,6 +448,7 @@ int main(void)
 	/* Enable SDI Rx video lock and unlock Interrupts */
 	XV_SdiRxSs_IntrEnable(&SdiRxSs, XV_SDIRXSS_IER_VIDEO_LOCK_MASK | XV_SDIRXSS_IER_VIDEO_UNLOCK_MASK);
 
+#ifndef SDT
 	/* Register SDI RX SS Interrupt Handler with Interrupt Controller */
 	Status = 0;
 	Status |= XScuGic_Connect(&Intc,
@@ -433,6 +462,16 @@ int main(void)
 		xil_printf("SDI RX SS initialization error\n\r");
 		return XST_FAILURE;
 	}
+#else
+	Status = XSetupInterruptSystem(&SdiRxSs, &XV_SdiRxSS_SdiRxIntrHandler,
+				       SdiRxSs.Config.IntrId,
+				       SdiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("IRQ init failed.\n\r\r");
+		return XST_FAILURE;
+	}
+#endif
 
 	memset((u32 *)0x10000000, 0xff, 2000);
 

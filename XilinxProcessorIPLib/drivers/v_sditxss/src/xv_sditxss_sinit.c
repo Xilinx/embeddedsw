@@ -40,9 +40,7 @@
 
 
 /************************** Variable Definitions *****************************/
-#ifdef SDT
 extern XV_SdiTxSs_Config XV_SdiTxSs_ConfigTable[];
-#endif
 /*****************************************************************************/
 /**
 * This function looks for the device configuration based on the unique device
