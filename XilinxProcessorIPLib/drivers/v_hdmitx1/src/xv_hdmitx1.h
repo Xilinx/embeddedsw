@@ -1486,7 +1486,7 @@ void XV_HdmiTx1_SetDviMode(XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_AuxEnable(XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_AudioEnable(XV_HdmiTx1 *InstancePtr);
 void XV_HdmiTx1_Clear(XV_HdmiTx1 *InstancePtr);
-u8 XV_HdmiTx1_GetVic(XVidC_VideoMode VideoMode);
+u8 XV_HdmiTx1_LookupVic(XVidC_VideoMode VideoMode);
 XVidC_VideoMode XV_HdmiTx1_GetVideoModeFromVic(u8 Vic);
 u32 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
 		XVidC_VideoTiming VideoTiming,
