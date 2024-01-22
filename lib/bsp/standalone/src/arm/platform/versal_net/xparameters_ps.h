@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 *                        interrupt wrapper.
 * 8.0	sb	05/10/23 Add Interrupt Id's for WWDT.
 * 9.0   dp      05/19/23 Update Interrupt IDs for USB
+* 9.1   dp      01/12/24 Update GIC base address
 *
 * </pre>
 *
@@ -163,8 +164,7 @@ extern "C" {
 /* Canonical definitions for SCU GIC */
 #define XPAR_SCUGIC_NUM_INSTANCES	1U
 #define XPAR_SCUGIC_SINGLE_DEVICE_ID	0U
-#define XPAR_SCUGIC_CPU_BASEADDR	(XPS_SCU_PERIPH_BASE + 0x00001000U)
-#define XPAR_SCUGIC_DIST_BASEADDR	(XPS_SCU_PERIPH_BASE + 0x00002000U)
+#define XPAR_SCUGIC_DIST_BASEADDR   0xE2000000
 #define XPAR_SCUGIC_ACK_BEFORE		0U
 
 #define XPAR_CPU_CORTEXR5_CORE_CLOCK_FREQ_HZ    XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ
@@ -175,7 +175,6 @@ extern "C" {
  */
 
 #define XPS_SYS_CTRL_BASEADDR		0xF1060000U
-#define XPS_SCU_PERIPH_BASE		0xF9000000U
 #define XPS_CRP_BASEADDRESS		0xF1260000U
 #define XPS_PMC_GLOBAL_BASEADDRESS	0xF1110000U
 
