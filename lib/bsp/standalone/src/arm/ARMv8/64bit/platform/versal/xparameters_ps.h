@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +22,7 @@
 *	 ap	02/14/19 Add Interrupt Id for usbpsu controller
 *	sne	03/26/20 Add Interrupt Id's for WWDT.
 * 7.2	pm      03/24/20 Add wakeup Interrupt Id for usbpsu controller
+* 9.1 dp 01/12/24 Update GIC base address
 *
 * </pre>
 *
@@ -132,8 +134,12 @@ extern "C" {
 /* Canonical definitions for SCU GIC */
 #define XPAR_SCUGIC_NUM_INSTANCES	1U
 #define XPAR_SCUGIC_SINGLE_DEVICE_ID	0U
-#define XPAR_SCUGIC_CPU_BASEADDR	(XPS_SCU_PERIPH_BASE + 0x00001000U)
-#define XPAR_SCUGIC_DIST_BASEADDR	(XPS_SCU_PERIPH_BASE + 0x00002000U)
+#if defined(__aarch64__)
+#define XPAR_SCUGIC_DIST_BASEADDR   XPS_SCU_PERIPH_BASE
+#else
+#define XPAR_SCUGIC_DIST_BASEADDR   XPS_SCU_PERIPH_BASE
+#define XPAR_SCUGIC_CPU_BASEADDR    (XPS_SCU_PERIPH_BASE + 0x1000U)
+#endif
 #define XPAR_SCUGIC_ACK_BEFORE		0U
 
 #define XPAR_CPU_CORTEXA72_CORE_CLOCK_FREQ_HZ	XPAR_CPU_CORTEXA72_0_CPU_CLK_FREQ_HZ
