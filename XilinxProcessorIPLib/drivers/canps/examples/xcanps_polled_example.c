@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,8 @@
 * 3.7   ht     06/28/23 Added support for system device-tree flow.
 *       ht     07/10/23 Added support for peripheral test in SDT flow.
 * 3.8   rma    01/12/23 Update example code to fix compilation warnings.
+* 3.8   ht     01/19/24 Update example to fix peripheral test compilation warnings
+* 				and example compilation failure in rigel flow
 * </pre>
 *
 ******************************************************************************/
@@ -110,7 +112,8 @@ static int RecvFrame(XCanPs *InstancePtr);
  */
 static u32 TxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS];
 static u32 RxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS];
-#ifndef SDT
+
+#if !(defined (SDT) && defined (TESTAPP_GEN))
 /* Driver instance */
 static XCanPs Can;
 #endif
@@ -179,7 +182,9 @@ int CanPsPolledExample(XCanPs *CanInstancePtr, UINTPTR BaseAddress)
 {
 	int Status;
 #ifndef SDT
-	XCanPs *CanInstancePtr = &Can;
+	XCanPs *CanInstPtr = &Can;
+#else
+	XCanPs *CanInstPtr = CanInstancePtr;
 #endif
 	XCanPs_Config *ConfigPtr;
 
@@ -191,10 +196,10 @@ int CanPsPolledExample(XCanPs *CanInstancePtr, UINTPTR BaseAddress)
 #else
 	ConfigPtr = XCanPs_LookupConfig(BaseAddress);
 #endif
-	if (CanInstancePtr == NULL) {
+	if (CanInstPtr == NULL) {
 		return XST_FAILURE;
 	}
-	Status = XCanPs_CfgInitialize(CanInstancePtr,
+	Status = XCanPs_CfgInitialize(CanInstPtr,
 				      ConfigPtr,
 				      ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
@@ -205,7 +210,7 @@ int CanPsPolledExample(XCanPs *CanInstancePtr, UINTPTR BaseAddress)
 	 * Run self-test on the device, which verifies basic sanity of the
 	 * device and the driver.
 	 */
-	Status = XCanPs_SelfTest(CanInstancePtr);
+	Status = XCanPs_SelfTest(CanInstPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -214,15 +219,15 @@ int CanPsPolledExample(XCanPs *CanInstancePtr, UINTPTR BaseAddress)
 	 * Enter Configuration Mode so we can setup Baud Rate Prescaler
 	 * Register (BRPR) and Bit Timing Register (BTR).
 	 */
-	XCanPs_EnterMode(CanInstancePtr, XCANPS_MODE_CONFIG);
-	while (XCanPs_GetMode(CanInstancePtr) != XCANPS_MODE_CONFIG);
+	XCanPs_EnterMode(CanInstPtr, XCANPS_MODE_CONFIG);
+	while (XCanPs_GetMode(CanInstPtr) != XCANPS_MODE_CONFIG);
 
 	/*
 	 * Setup Baud Rate Prescaler Register (BRPR) and
 	 * Bit Timing Register (BTR).
 	 */
-	XCanPs_SetBaudRatePrescaler(CanInstancePtr, TEST_BRPR_BAUD_PRESCALAR);
-	XCanPs_SetBitTiming(CanInstancePtr, TEST_BTR_SYNCJUMPWIDTH,
+	XCanPs_SetBaudRatePrescaler(CanInstPtr, TEST_BRPR_BAUD_PRESCALAR);
+	XCanPs_SetBitTiming(CanInstPtr, TEST_BTR_SYNCJUMPWIDTH,
 			    TEST_BTR_SECOND_TIMESEGMENT,
 
 			    TEST_BTR_FIRST_TIMESEGMENT);
@@ -230,19 +235,19 @@ int CanPsPolledExample(XCanPs *CanInstancePtr, UINTPTR BaseAddress)
 	/*
 	 * Enter Loop Back Mode.
 	 */
-	XCanPs_EnterMode(CanInstancePtr, XCANPS_MODE_LOOPBACK);
-	while (XCanPs_GetMode(CanInstancePtr) != XCANPS_MODE_LOOPBACK);
+	XCanPs_EnterMode(CanInstPtr, XCANPS_MODE_LOOPBACK);
+	while (XCanPs_GetMode(CanInstPtr) != XCANPS_MODE_LOOPBACK);
 
 	/*
 	 * Send a frame, receive the frame via the loop back and verify its
 	 * contents.
 	 */
-	Status = SendFrame(CanInstancePtr);
+	Status = SendFrame(CanInstPtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
 
-	Status = RecvFrame(CanInstancePtr);
+	Status = RecvFrame(CanInstPtr);
 
 	return Status;
 }
