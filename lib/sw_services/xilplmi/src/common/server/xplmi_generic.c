@@ -108,6 +108,8 @@
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       sk   12/14/2023 Moved XPlmi_GetBufferList to platform files
 *       pre  01/10/2024 XPlmi_LogString, XPlmi_Begin logic enhancement
+*       pre  01/22/2024 Addition of new line after string printing
+                        in XPlmi_LogString, XPlmi_Begin functions
 *
 * </pre>
 *
@@ -1511,8 +1513,12 @@ static int XPlmi_LogString(XPlmi_Cmd *Cmd)
 		XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
 
 	/* Print the string*/
-		XPlmi_Printf_WoTS(DebugFlag, "%.*s", Len,(u8 *)&Cmd->Payload[0U]);
+	XPlmi_Printf_WoTS(DebugFlag, "%.*s", Len,(u8 *)&Cmd->Payload[0U]);
 
+	/* Print new line */
+	if (Cmd->Len == (Cmd->ProcessedLen + Cmd->PayloadLen)) {
+        XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "\n\r");
+	}
 	return XST_SUCCESS;
 }
 
@@ -2063,6 +2069,11 @@ static int XPlmi_Begin(XPlmi_Cmd *Cmd)
 	if (Cmd->PayloadLen > 1U) {
 		/* Print string */
 		XPlmi_Printf_WoTS(DebugFlag, "%.*s", StrLen, (u8 *)&Cmd->Payload[StartOffset]);
+
+		/* Print new line */
+		if (Cmd->Len == (Cmd->ProcessedLen + Cmd->PayloadLen)) {
+                XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "\n\r");
+		}
 	}
 	Status = XST_SUCCESS;
 
