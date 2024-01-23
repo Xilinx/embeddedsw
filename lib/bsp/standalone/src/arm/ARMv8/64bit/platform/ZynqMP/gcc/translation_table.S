@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -58,7 +58,7 @@
 *		      of the memory in that 32GB range is marked as reserved.
 * 6.4   mus  08/10/17 Marked memory as a outer shareable for EL1 NS execution,
 *                     to support CCI enabled IP's.
-*
+* 9.2   ml   01/23/24 Updated lower DDR mapping calculation for MMUTableL2.
 *
 ******************************************************************************/
 #include "bspconfig.h"
@@ -182,6 +182,10 @@ MMUTableL2:
 .set DDR_0_REG, 0x400
 .else
 .set DDR_0_REG, DDR_0_SIZE/0x200000
+.set TEMP, DDR_0_SIZE%0x200000
+.if TEMP > 0
+.set DDR_0_REG, DDR_0_REG + 1
+.endif
 .endif
 #elif defined(XPAR_PSU_DDR_0_BASEADDRESS)
 .set DDR_0_START, XPAR_PSU_DDR_0_BASEADDRESS
@@ -192,6 +196,10 @@ MMUTableL2:
 .set DDR_0_REG, 0x400
 .else
 .set DDR_0_REG, DDR_0_SIZE/0x200000
+.set TEMP, DDR_0_SIZE%0x200000
+.if TEMP > 0
+.set DDR_0_REG, DDR_0_REG + 1
+.endif
 .endif
 #else
 .set DDR_0_REG, 0
