@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -117,7 +117,7 @@ s32 test_memory_range(struct memory_range_s *range)
 int main()
 {
 	sint32 i;
-	s32 Status;
+	s32 Status = XST_SUCCESS;
 	init_platform();
 
 	print("--Starting Memory Test Application--\n\r");
