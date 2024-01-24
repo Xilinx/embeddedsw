@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -16,6 +17,7 @@
 * 6.6   srm  10/18/17 Added timer configuration using XTime_StartTTCTimer API.
 *		      Now the TTC instance as specified by the user will be
 *		      started.
+* 9.1 dp   01/24/24 Dont invoke XTime_StartTTCTimer when xiltimer is enabled
 * </pre>
 *
 * @note
@@ -79,7 +81,7 @@ _startup:
 	bl __libc_init_array
 
 	/* Reset and start Triple Timer Counter */
-	#if defined (SLEEP_TIMER_BASEADDR)
+	#if defined (SLEEP_TIMER_BASEADDR) && !defined(XPAR_XILTIMER_ENABLED)
 	bl XTime_StartTTCTimer
 	#endif
 
