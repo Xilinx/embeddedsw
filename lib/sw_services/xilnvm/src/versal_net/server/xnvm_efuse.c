@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *       kpt  09/09/2023 Avoid returning XST_SUCCESS incase of glitch
 *       yog  09/13/2023 Used XNvm_IsDmeModeEn() API for reading DME Mode
 *       vss  12/31/2023 Added support for Program the eFuse protection bits only once
+*       kal  01/24/2024 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -1162,6 +1163,9 @@ END:
 /**
  * @brief	This function programs UDS eFuses.
  *
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ *				and temperature limits.
  * @param	EfuseUds - Pointer to the XNvm_Uds structure.
  *
  * @return	- XST_SUCCESS - On successful write.
@@ -3490,7 +3494,7 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
  *
  * @param	Page - It is an enum variable of type XNvm_EfuseType.
  * @param	Row - It is an 32-bit Row number (0-based addressing).
- * @param	Col - It is an 32-bit Col number (0-based addressing).
+ * @param	RegData - Pointer to the register value.
  *
  * @return	- XST_SUCCESS - Specified bit set in eFUSE.
  *		- XNVM_EFUSE_ERR_PGM_VERIFY  - Verification failed, specified bit
