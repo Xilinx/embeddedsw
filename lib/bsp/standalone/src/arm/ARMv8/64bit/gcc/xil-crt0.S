@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -31,6 +31,7 @@
 * 8.0   mus  06/27/22 Enabled PMU counter.
 * 8.2   asa  02/23/23 Add instruction barrier after updating PMCR_EL0.
 * 9.0   mus  02/23/23 Skip BSS clearing logic in case of warm boot. It
+* 9.1   dp   01/24/24 Dont invoke XTime_StartTTCTimer when xiltimer is enabled
 *                     fixes CR#1157817.
 * </pre>
 *
@@ -109,7 +110,7 @@ _startup:
 	bl __libc_init_array
 
 	/* Reset and start Triple Timer Counter */
-	#if defined (SLEEP_TIMER_BASEADDR)
+	#if defined (SLEEP_TIMER_BASEADDR) && !defined(XPAR_XILTIMER_ENABLED)
 	bl XTime_StartTTCTimer
 	#endif
 
