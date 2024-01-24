@@ -167,6 +167,8 @@
 *       kpt  11/22/2023 Add support to clear AES keys when RedKeyClear bit is set
 *       mss  11/06/2023 Added VerifyAddr check for Image Store Address of RTCA registers
 *       kpt  11/01/2023 Clear AES keys during PDI failure
+* 1.08  is   01/23/2024 Do CPU delayed handoff and subsystem activation after releasing
+*                       the boot device
 *
 * </pre>
 *
@@ -883,36 +885,46 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 		(void)XPlmi_ErrorTaskHandler(NULL);
 	}
 
-	/** Execute Delay Handoff after all images are loaded. */
+END:
+	/** Release boot device after all images are loaded */
+	if (DeviceOps[PdiPtr->PdiIndex].Release != NULL) {
+		SStatus = DeviceOps[PdiPtr->PdiIndex].Release();
+		if ((SStatus != XST_SUCCESS) && (Status == XST_SUCCESS)) {
+			/** Update with current status if no failures observed before */
+			Status = SStatus;
+		}
+		if (Status != XST_SUCCESS) {
+			/* Do not proceed if failure */
+			goto END1;
+		}
+	}
+
+	/** Execute delayed handoff after the boot device is released */
 	for (Index = 0U; Index < NoOfDelayedHandoffCpus; ++Index) {
 		ImageNum = DelayHandoffImageNum[Index];
 		PrtnNum = DelayHandoffPrtnNum[Index];
 		PdiPtr->PrtnNum = PrtnNum;
+		PdiPtr->ImageNum = ImageNum;
+
 		for (PrtnIndex = 0U;
 			PrtnIndex < (u8)PdiPtr->MetaHdr.ImgHdr[ImageNum].NoOfPrtns;
 			PrtnIndex++) {
 			Status = XLoader_UpdateHandoffParam(PdiPtr);
 			if (Status != XST_SUCCESS) {
-				goto END;
+				goto END1;
 			}
 			PdiPtr->PrtnNum++;
 		}
 
 		Status = XLoader_StartImage(PdiPtr);
 		if (Status != XST_SUCCESS) {
-			goto END;
+			goto END1;
 		}
 	}
 
 	Status = XST_SUCCESS;
 
-END:
-	if (DeviceOps[PdiPtr->PdiIndex].Release != NULL) {
-		SStatus = DeviceOps[PdiPtr->PdiIndex].Release();
-		if (Status == XST_SUCCESS) {
-			Status = SStatus;
-		}
-	}
+END1:
 
 #ifndef PLM_DEBUG_MODE
 	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
@@ -1388,17 +1400,6 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 		&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 	if (Status != XST_SUCCESS) {
 		goto END;
-	}
-	/* Configure preallocs for subsystem */
-	if (NODECLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
-			== XPM_NODECLASS_SUBSYSTEM) {
-		Status = XPmSubsystem_Configure(
-			PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_CONFIG_SUBSYSTEM, Status);
-			goto END;
-		}
 	}
 
 	PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName[XILPDI_IMG_NAME_ARRAY_SIZE - 1U] = 0;
