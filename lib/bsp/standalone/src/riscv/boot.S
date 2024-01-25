@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -33,6 +33,9 @@
 *                     is initialized to .Ldone label which is not 4 byte
 *       	      aligned. Updated boot code to make .Ldone labe 4 byte
 *                     aligned explicitly.
+* 9.1  mus   25/01/24 Temporarily set mtvec with _trap_handler at start of
+*                     boot code. It will be reverted once triggering of
+*                     constructor is fixed.
 * </pre>
 *
 ******************************************************************************/
@@ -46,8 +49,8 @@
 
 _boot:
 
-/* Initialize mtvec CSR to .Ldone */
-	la	t0, .Ldone
+/* FIXME: Initialize mtvec CSR to _trap_handler */
+	la	t0, _trap_handler
 	csrw	mtvec, t0
 
 /* Initialize processor registers to 0 */
