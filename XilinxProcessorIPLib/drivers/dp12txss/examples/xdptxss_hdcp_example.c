@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +42,9 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "string.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -76,7 +80,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 u32 DpTxSs_HdcpExample(u16 DeviceId);
+#else
+u32 DpTxSs_HdcpExample(UINTPTR BaseAddress);
+#endif
 u32 DpTxSs_PlatformInit(void);
 u32 DpTxSs_StreamSrc(u8 VerticalSplit);
 
@@ -110,7 +118,11 @@ int main()
 	xil_printf("(c) 2015 by Xilinx\n\r");
 	xil_printf("-------------------------------------------\n\r\n\r");
 
+#ifndef SDT
 	Status = DpTxSs_HdcpExample(XDPTXSS_DEVICE_ID);
+#else
+	Status = DpTxSs_HdcpExample(XPAR_DPTXSS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("DisplayPort TX Subsystem HDCP example failed."
 				"\n\r");
@@ -140,7 +152,11 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 DpTxSs_HdcpExample(u16 DeviceId)
+#else
+u32 DpTxSs_HdcpExample(UINTPTR BaseAddress)
+#endif
 {
 	u32 Status;
 	u8 VSplitMode = 0;
@@ -157,7 +173,11 @@ u32 DpTxSs_HdcpExample(u16 DeviceId)
 	xil_printf("Platform initialization done.\n\r");
 
 	/* Obtain the device configuration for the DisplayPort TX Subsystem */
+#ifndef SDT
 	ConfigPtr = XDpTxSs_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XDpTxSs_LookupConfig(BaseAddress);
+#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}

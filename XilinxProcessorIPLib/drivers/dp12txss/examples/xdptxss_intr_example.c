@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,6 +49,7 @@
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xstatus.h"
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 /* For MicroBlaze systems. */
 #include "xintc.h"
@@ -55,7 +57,16 @@
 /* For ARM/Zynq SoC systems. */
 #include "xscugic.h"
 #endif /* XPAR_INTC_0_DEVICE_ID */
+#endif
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
+#ifdef SDT
+#define INTRNAME_DPTX       0
+#define INTRNAME_DPTX_CIPHER       1
+#define INTRNAME_DPTX_TIMER        2
+#endif
 /************************** Constant Definitions *****************************/
 
 /*
@@ -123,7 +134,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 u32 DpTxSs_IntrExample(u16 DeviceId);
+#else
+u32 DpTxSs_IntrExample(UINTPTR BaseAddress);
+#endif
 u32 DpTxSs_PlatformInit(void);
 u32 DpTxSs_StreamSrc(u8 VerticalSplit);
 
@@ -140,8 +155,9 @@ static void DpTxSs_HpdEventCommon(XDpTxSs *InstancePtr, u8 Mode);
 /************************** Variable Definitions *****************************/
 
 XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
+#ifndef SDT
 XINTC IntcInst;		/* The interrupt controller instance. */
-
+#endif
 /************************** Function Definitions *****************************/
 
 
@@ -172,7 +188,11 @@ int main()
 	xil_printf("(c) 2015 by Xilinx\n\r");
 	xil_printf("-------------------------------------------\n\r\n\r");
 
+#ifndef SDT
 	Status = DpTxSs_IntrExample(XDPTXSS_DEVICE_ID);
+#else
+	Status = DpTxSs_IntrExample(XPAR_DPTXSS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("DisplayPort TX Subsystem interrupt example failed.");
 		return XST_FAILURE;
@@ -203,7 +223,11 @@ int main()
 *		events.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 DpTxSs_IntrExample(u16 DeviceId)
+#else
+u32 DpTxSs_IntrExample(UINTPTR BaseAddress)
+#endif
 {
 	u32 Status;
 	XDpTxSs_Config *ConfigPtr;
@@ -219,7 +243,11 @@ u32 DpTxSs_IntrExample(u16 DeviceId)
 	xil_printf("Platform initialization done.\n\r");
 
 	/* Obtain the device configuration for the DisplayPort TX Subsystem */
+#ifndef SDT
 	ConfigPtr = XDpTxSs_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XDpTxSs_LookupConfig(BaseAddress);
+#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -322,6 +350,7 @@ u32 DpTxSs_StreamSrc(u8 VerticalSplit)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 DpTxSs_SetupIntrSystem(void)
 {
 	u32 Status;
@@ -462,6 +491,61 @@ u32 DpTxSs_SetupIntrSystem(void)
 
 	return (XST_SUCCESS);
 }
+#else
+u32 DpTxSs_SetupIntrSystem(void)
+{
+	u32 Status;
+
+	/* Set interrupt handlers. */
+	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_HPD_EVENT,
+			    DpTxSs_HpdEventHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_HPD_PULSE,
+			    DpTxSs_HpdPulseHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_LANE_COUNT_CHG,
+			    DpTxSs_LaneCountChangeHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_LINK_RATE_CHG,
+			    DpTxSs_LinkRateChangeHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_PE_VS_ADJUST,
+			    DpTxSs_PeVsAdjustHandler, &DpTxSsInst);
+	XDpTxSs_SetCallBack(&DpTxSsInst, XDPTXSS_HANDLER_DP_SET_MSA,
+			    DpTxSs_MsaHandler, &DpTxSsInst);
+
+	/* Hook up Tx interrupt service routine */
+	Status = XSetupInterruptSystem(&DpTxSsInst, XDpTxSs_DpIntrHandler,
+				       DpTxSsInst.Config.IntrId[INTRNAME_DPTX],
+				       DpTxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
+		return XST_FAILURE;
+	}
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	/* Hook up interrupt service routine */
+	/* Connect and enable the transmit cipher interrupt */
+	Status = XSetupInterruptSystem(&DpTxSsInst.Hdcp1xPtr, XDpTxSs_HdcpIntrHandler,
+				       DpTxSsInst.Config.IntrId[INTRNAME_DPTX_CIPHER],
+				       DpTxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: TX HDCP1x Cipher connect failed!\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Connect and enable the hardware timer interrupt */
+	Status = XSetupInterruptSystem(DpTxSsInst.TmrCtrPtr, XTmrCtr_InterruptHandler,
+				       DpTxSsInst.Config.IntrId[INTRNAME_DPTX_TIMER],
+				       DpTxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: TX HDCP timer connect failed!\n\r");
+		return XST_FAILURE;
+	}
+#endif
+
+	return XST_SUCCESS;
+}
+#endif
 
 /*****************************************************************************/
 /**
