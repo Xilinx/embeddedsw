@@ -4266,6 +4266,8 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 			goto process_ack;
 		}
 
+		Subsystem->FrcPwrDwnReq.AckType = Ack;
+		Subsystem->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
 		if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
 			Status = XPmSubsystem_SetState(Subsystem->Id,
 						       (u8)PENDING_POWER_OFF);
@@ -4273,8 +4275,6 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 				goto done;
 			}
 
-			Subsystem->FrcPwrDwnReq.AckType = Ack;
-			Subsystem->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
 			Status = XPm_SubsystemIdleCores(Subsystem);
 			if (XST_SUCCESS != Status) {
 				NodeState = Subsystem->State;
