@@ -78,6 +78,11 @@ extern user_config_struct user_config;
 
 typedef unsigned int    UINT32;
 
+#ifdef SDT
+#define XPAR_XDPTXSS_NUM_INSTANCES XPAR_DPTXSS_NUM_INSTANCES
+#define XPAR_XDPRXSS_NUM_INSTANCES XPAR_DPRXSS_NUM_INSTANCES
+#endif
+
 #define UART_BASEADDR    				\
 	XPAR_PROCESSOR_SUBSYSTEM_INTERCONNECT_AXI_UARTLITE_1_BASEADDR
 #ifndef SDT

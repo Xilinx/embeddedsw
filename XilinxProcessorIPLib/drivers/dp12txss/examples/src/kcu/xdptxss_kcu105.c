@@ -29,6 +29,8 @@
 #endif
 #ifdef SDT
 #define CLK_WIZ_BASE XPAR_XCLK_WIZ_0_BASEADDR
+#define INTRNAME_DPTX   0
+#define INTRNAME_DPRX   0
 #endif
 #if ENABLE_HDCP_IN_DESIGN
 unsigned int gKeyMGMTBaseAddress[2] = {
@@ -3515,60 +3517,61 @@ int DpPt_SetupIntrSystem()
 int DpPt_SetupIntrSystem()
 {
 	int Status;
-    XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
+	XIic_Config *ConfigPtr_IIC;	/* Pointer to configuration data */
+
 	/* Hook up interrupt service routine */
-    Status = XSetupInterruptSystem(&DpTxSsInst, XDpTxSs_DpIntrHandler,
-                                   DpTxSsInst.Config.IntrId, DpTxSsInst.Config.IntrParent,
-                                   XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(&DpTxSsInst, XDpTxSs_DpIntrHandler,
+				       DpTxSsInst.Config.IntrId[INTRNAME_DPTX],
+				       DpTxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
 		return XST_FAILURE;
 	}
+
 	/* Hook up Rx interrupt service routine */
-    Status = XSetupInterruptSystem(&DpRxSsInst, XDpRxSs_DpIntrHandler,
-                                   DpRxSsInst.Config.IntrId, DpRxSsInst.Config.IntrParent,
-                                   XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(&DpRxSsInst, XDpRxSs_DpIntrHandler,
+				       DpRxSsInst.Config.IntrId[INTRNAME_DPRX],
+				       DpRxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: DP RX SS DP interrupt connect failed!\n\r");
 		return XST_FAILURE;
 	}
+
 	/* Hook up Rx interrupt service routine */
-    Status = XSetupInterruptSystem(&TmrCtr, XTmrCtr_InterruptHandler,
-                                   TmrCtr.Config.IntrId, TmrCtr.Config.IntrParent,
-                                   XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(&TmrCtr, XTmrCtr_InterruptHandler,
+				       TmrCtr.Config.IntrId, TmrCtr.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: Timer interrupt connect failed!\n\r");
 		return XST_FAILURE;
 	}
 
-       /*
-     * Initialize the IIC driver so that it is ready to use.
-     */
-    ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_1_BASEADDR);
-    if (ConfigPtr_IIC == NULL) {
-            return XST_FAILURE;
-    }
+       /* Initialize the IIC driver so that it is ready to use. */
+	ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_1_BASEADDR);
+	if (!ConfigPtr_IIC)
+		return XST_FAILURE;
 
-    Status = XSetupInterruptSystem(&ConfigPtr_IIC, XIic_InterruptHandler,
-                                   ConfigPtr_IIC->IntrId, ConfigPtr_IIC->IntrParent,
-                                   XINTERRUPT_DEFAULT_PRIORITY);
-                                   xil_printf("intr %x %x\n\r",ConfigPtr_IIC->IntrId, ConfigPtr_IIC->IntrParent );
+	Status = XSetupInterruptSystem(&ConfigPtr_IIC, XIic_InterruptHandler,
+				       ConfigPtr_IIC->IntrId, ConfigPtr_IIC->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: IIC interrupt connect failed!\n\r");
 		return XST_FAILURE;
 	}
 #if ENABLE_HDCP_IN_DESIGN
 	/* Hook up Rx interrupt service routine */
-    Status = XSetupInterruptSystem(&DpRxSsInst, XDpRxSs_TmrCtrIntrHandler,
-                                   DpRxSsInst.Config.IntrId, DpRxSsInst.Config.IntrParent,
-                                   XINTERRUPT_DEFAULT_PRIORITY);
+	Status = XSetupInterruptSystem(&DpRxSsInst, XDpRxSs_TmrCtrIntrHandler,
+				       DpRxSsInst.Config.IntrId, DpRxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: Timer interrupt connect failed!\n\r");
 		return XST_FAILURE;
-    }
+	}
 #endif
 
-	return (XST_SUCCESS);
+	return XST_SUCCESS;
 }
 #endif
 /*****************************************************************************/

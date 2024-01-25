@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,14 @@
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
+
+#if SDT
+#define XPAR_XHDCP_NUM_INSTANCES XPAR_XHDCP1X_NUM_INSTANCES
+#endif
+
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #include "xhdcp1x.h"
 #include "xhdcp1x_port.h"
@@ -106,6 +115,11 @@ extern XIntc INTC;
 #define HDCP_RX_VEC_ID			\
 	(XPAR_INTC_0_DP12RXSS_0_DPRXSS_HDCP_IRQ_VEC_ID)
 
+#ifdef SDT
+#define INTRNAME_DPTX_CIPHER       1
+#define INTRNAME_DPRX_CIPHER       1
+#define INTRNAME_DPTX_TIMER        2
+#endif
 //#undef  HDCP_TX_DEV_ID
 //#undef  HDCP_TX_VEC_ID
 
@@ -354,6 +368,7 @@ static int BusyDelay(const XHdcp1x* InstancePtr, u16 DelayInMs)
 *   None.
 *
 ******************************************************************************/
+#ifndef SDT
 static void *GetPhyIfPtr(u16 DeviceID)
 {
 	void *PhyIfPtr = NULL;
@@ -392,7 +407,7 @@ static void *GetPhyIfPtr(u16 DeviceID)
 
 	return (PhyIfPtr);
 }
-
+#endif
 /*****************************************************************************/
 /**
 *
@@ -406,6 +421,7 @@ static void *GetPhyIfPtr(u16 DeviceID)
 *   None
 *
 ******************************************************************************/
+#ifndef SDT
 static int SetupInterrupts(void)
 {
 	int Status = XST_SUCCESS;
@@ -439,7 +455,43 @@ static int SetupInterrupts(void)
 
 	return (Status);
 }
+#else
+static int SetupInterrupts(void)
+{
+	int Status = XST_SUCCESS;
+	/* Connect and enable the hardware timer interrupt */
+	Status = XSetupInterruptSystem(DpTxSsInst.TmrCtrPtr, XTmrCtr_InterruptHandler,
+				       DpTxSsInst.Config.IntrId[INTRNAME_DPTX_TIMER],
+				       DpTxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: TX HDCP timer connect failed!\n\r");
+		return XST_FAILURE;
+	}
 
+	/* Connect and enable the receive cipher interrupt */
+	Status = XSetupInterruptSystem(&DpRxSsInst.Hdcp1xPtr, XHdcp1x_CipherIntrHandler,
+				       DpRxSsInst.Config.IntrId[INTRNAME_DPRX_CIPHER],
+				       DpRxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: RX HDCP1X Cipher connect failed!\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Connect and enable the transmit cipher interrupt */
+	Status = XSetupInterruptSystem(&DpTxSsInst.Hdcp1xPtr, XHdcp1x_CipherIntrHandler,
+				       DpTxSsInst.Config.IntrId[INTRNAME_DPTX_CIPHER],
+				       DpTxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: TX HDCP1X Cipher connect failed!\n\r");
+		return XST_FAILURE;
+	}
+
+	return (Status);
+}
+#endif
 
 /*****************************************************************************/
 /**

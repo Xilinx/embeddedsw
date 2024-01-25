@@ -29,7 +29,9 @@
 #include "xinterrupt_wrap.h"
 #endif
 
-
+#ifdef SDT
+#define INTRNAME_DPTX   0
+#endif
 // adding new resolution definition example
 // XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
 // and XVIDC_VM_3840x2160_60_P_RB has added
@@ -544,8 +546,9 @@ u32 DpTxSs_SetupIntrSystem(void)
 	 * the specific interrupt processing for the device
 	 */
     Status = XSetupInterruptSystem(&DpTxSsInst, XDpTxSs_DpIntrHandler,
-                                   DpTxSsInst.Config.IntrId, DpTxSsInst.Config.IntrParent,
-                                   XINTERRUPT_DEFAULT_PRIORITY);
+				   DpTxSsInst.Config.IntrId[INTRNAME_DPTX],
+				   DpTxSsInst.Config.IntrParent,
+				   XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
 		return XST_FAILURE;

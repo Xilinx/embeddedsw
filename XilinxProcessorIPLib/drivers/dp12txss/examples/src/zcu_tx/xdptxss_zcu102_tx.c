@@ -155,6 +155,10 @@ void DpPt_HpdEventHandler(void *InstancePtr);
 void DpPt_HpdPulseHandler(void *InstancePtr);
 void DpPt_LinkrateChgHandler (void *InstancePtr);
 
+#ifdef SDT
+#define INTRNAME_DPTX	0 /* Interrupt-name - DPTX */
+#endif
+
 u32 DpTxSs_SetupIntrSystem(void);
 #ifndef  SDT
 u32 DpTxSs_VideoPhyInit(u16 DeviceId);
@@ -538,11 +542,11 @@ u32 DpTxSs_SetupIntrSystem(void)
 	/* Set custom timer wait */
 	XDpTxSs_SetUserTimerHandler(&DpTxSsInst, &DpPt_CustomWaitUs, &TmrCtr);
 	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_HPD_EVENT),
-						&DpPt_HpdEventHandler, &DpTxSsInst);
+			    &DpPt_HpdEventHandler, &DpTxSsInst);
 	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_HPD_PULSE),
-						&DpPt_HpdPulseHandler, &DpTxSsInst);
+			    &DpPt_HpdPulseHandler, &DpTxSsInst);
 	XDpTxSs_SetCallBack(&DpTxSsInst, (XDPTXSS_HANDLER_DP_LINK_RATE_CHG),
-						&DpPt_LinkrateChgHandler, &DpTxSsInst);
+			    &DpPt_LinkrateChgHandler, &DpTxSsInst);
 
 
 	/* Connect the device driver handler that will be called when an
@@ -550,8 +554,9 @@ u32 DpTxSs_SetupIntrSystem(void)
 	 * the specific interrupt processing for the device
 	 */
     Status = XSetupInterruptSystem(&DpTxSsInst, XDpTxSs_DpIntrHandler,
-                                   DpTxSsInst.Config.IntrId, DpTxSsInst.Config.IntrParent,
-                                   XINTERRUPT_DEFAULT_PRIORITY);
+				   DpTxSsInst.Config.IntrId[INTRNAME_DPTX],
+				   DpTxSsInst.Config.IntrParent,
+				   XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
 		return XST_FAILURE;
