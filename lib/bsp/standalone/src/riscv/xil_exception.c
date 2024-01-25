@@ -77,6 +77,20 @@ void Xil_ExceptionInit(void)
 
 /****************************************************************************/
 /**
+* @brief   Initialize mtvec with valid trap handler address
+*
+* @param    None.
+*
+* @return   None.
+*
+*****************************************************************************/
+void __attribute__ ((constructor)) Xil_RegMtvecInit(void)
+{
+        csrw(XREG_MTVEC, &_trap_handler);
+}
+
+/****************************************************************************/
+/**
 * @brief    Enable external, timer, and software interrupts.
 *
 * @return   None.
