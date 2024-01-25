@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -677,12 +677,13 @@ u32 XEmacPs_BdRingFromHwTx(XEmacPs_BdRing * RingPtr, u32 BdLimit,
 				BdPartialCount = 0U;
 			}
 
+			/* Move on to next BD in work group */
+			CurBdPtr = XEmacPs_BdRingNext(RingPtr, CurBdPtr);
+
 			/* Reached the end of the work group */
 			if (CurBdPtr == RingPtr->HwTail) {
 				break;
 			}
-			/* Move on to next BD in work group */
-			CurBdPtr = XEmacPs_BdRingNext(RingPtr, CurBdPtr);
 		}
 
 		/* Subtract off any partial packet BDs found */
