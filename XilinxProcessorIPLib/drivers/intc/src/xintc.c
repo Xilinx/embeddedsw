@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,6 +53,8 @@
 *                    software interrupts
 * 3.12 mus  05/28/20 Added new API XIntc_TriggerSwIntr to trigger the software
 *                    interrupts.
+* 3.18 mus  01/25/24 Update XIntc_Initialize to initialize IVAR registers based on
+*                    mtvec register in case of Microblaze RISC-V.
 *
 * </pre>
 *
@@ -126,6 +128,7 @@ int XIntc_Initialize(XIntc *InstancePtr, UINTPTR BaseAddr)
 	u8 Id;
 	XIntc_Config *CfgPtr;
 	u32 NextBitMask = 1;
+	UINTPTR vector_base;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -235,16 +238,22 @@ int XIntc_Initialize(XIntc *InstancePtr, UINTPTR BaseAddr)
 			}
 		}
 #else
+
+#ifdef __riscv
+		vector_base = csrr(XREG_MTVEC);
+#else
+		vector_base = 0x10;
+#endif
 		if (InstancePtr->CfgPtr->VectorAddrWidth >
 		    XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
 			for (Id = 0; Id < 32 ; Id++) {
 				XIntc_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET
-					    + (Id * 8), 0x10);
+					    + (Id * 8), vector_base);
 			}
 		} else {
 			for (Id = 0; Id < 32 ; Id++) {
 				XIntc_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET
-					    + (Id * 4), 0x10);
+					    + (Id * 4), vector_base);
 			}
 		}
 #endif
