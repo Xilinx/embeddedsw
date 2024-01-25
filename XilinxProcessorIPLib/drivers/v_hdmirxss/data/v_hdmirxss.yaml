@@ -40,7 +40,7 @@ properties:
   hdmirx-connected:
     description: Sub-core instance configuration
   interrupts:
-    description: Interrupt number
+    description: Interrupt numbers
   interrupt-parent:
     description: Parent interrupt
 
@@ -58,7 +58,7 @@ required:
     - hdcp22-connected: phandle
     - hdmirx-present
     - hdmirx-connected: phandle
-    - interrupts
+    - interrupts: 5
     - interrupt-parent
 
 config:
