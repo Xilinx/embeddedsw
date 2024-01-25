@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -235,13 +235,14 @@ typedef struct {
 typedef struct {
 #ifndef SDT
 	u16 DeviceId;	/**< Device ID of the sub-core */
-	UINTPTR AbsAddr;/**< Absolute Base Address of the Sub-cores*/
+	UINTPTR BaseAddress;/**< Absolute Base Address of the Sub-cores*/
 #else
 	char *Name;
     UINTPTR BaseAddress;
 #endif
 } XDpRxSs_SubCoreConfig;
 
+#ifndef SDT
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 /**
 * High-Bandwidth Content Protection (HDCP) Sub-core structure.
@@ -250,6 +251,27 @@ typedef struct {
 	u16 IsPresent;		/**< Flag to hold the presence of HDCP core. */
 	XDpRxSs_SubCoreConfig Hdcp1xConfig;	/**< HDCP core configuration
 						information */
+} XDpRxSs_Hdcp1xSubCore;
+
+/**
+ * Timer Counter Sub-core structure.
+ */
+typedef struct {
+	u16 IsPresent;		/**< Flag to hold the presence of Timer
+				  *  Counter core
+				  */
+	XDpRxSs_SubCoreConfig TmrCtrConfig;	/**< Timer Counter core
+						  *configuration information
+						  */
+} XDpRxSs_TmrCtrSubCore;
+#endif
+#else
+/**
+ * High-Bandwidth Content Protection (HDCP) Sub-core structure.
+ */
+typedef struct {
+	u16 IsPresent;		/**< Flag to hold the presence of HDCP core. */
+	XDpRxSs_SubCoreConfig Hdcp1xConfig;	/**< HDCP core configuration information */
 } XDpRxSs_Hdcp1xSubCore;
 
 /**
@@ -294,17 +316,29 @@ typedef struct {
 	u8 ColorFormat;		/**< Type of color format supported by this
 				  *  core instance. */
 	XDpRxSs_DpSubCore DpSubCore;	/**< DisplayPort Configuration */
+#ifndef SDT
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	XDpRxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
 #endif
+#else
+	XDpRxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
+#endif
 	XDpRxSs_IicSubCore IicSubCore;	/**< IIC Configuration */
+#ifndef SDT
 #if ((XPAR_XHDCP_NUM_INSTANCES > 0) && (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 	XDpRxSs_TmrCtrSubCore TmrCtrSubCore;	/**< Timer Counter
 						  *  Configuration */
 #endif
+#else
+	XDpRxSs_TmrCtrSubCore TmrCtrSubCore;	/**< Timer Counter Configuration */
+#endif
 #ifdef SDT
-    u32 IntrId;
-    UINTPTR IntrParent;
+	u16 IntrId[4];		/**< Bits[11:0] Interrupt-id Bits[15:12] trigger
+				  * type and level flags
+				  */
+	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1]
+				  * Parent base address
+				  */
 #endif
 } XDpRxSs_Config;
 
