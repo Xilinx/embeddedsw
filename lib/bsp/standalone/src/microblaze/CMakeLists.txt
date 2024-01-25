@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 collect (PROJECT_LIB_SOURCES errno.c)
 collect (PROJECT_LIB_SOURCES _exit.c)
@@ -28,3 +28,7 @@ collect(PROJECT_LIB_HEADERS xmicroblaze_config.h)
 collect (PROJECT_LIB_SOURCES xil_cache.c)
 collect (PROJECT_LIB_SOURCES microblaze_scrub.S)
 collect(PROJECT_LIB_HEADERS xil_cache.h)
+if ((NOT "${CMAKE_SYSTEM_NAME}" STREQUAL "FreeRTOS") AND
+    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
+	collect (PROJECT_LIB_SOURCES microblaze_interrupt_handler.c)
+endif()
