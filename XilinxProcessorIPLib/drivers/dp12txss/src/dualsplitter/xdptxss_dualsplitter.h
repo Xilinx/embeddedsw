@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +34,9 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
+#ifdef SDT
+#define XPAR_XDUALSPLITTER_NUM_INSTANCES  XPAR_XDUAL_SPLITTER_NUM_INSTANCES
+#endif
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 #include "xdualsplitter.h"
 #endif

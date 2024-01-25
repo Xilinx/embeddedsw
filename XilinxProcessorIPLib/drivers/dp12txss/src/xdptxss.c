@@ -219,10 +219,11 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: Initializing Timer "
 			"Counter IP \n\r");
 
+#ifndef SDT
 		/* Calculate absolute base address of Timer Counter sub-core */
 		InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.BaseAddress +=
 					InstancePtr->Config.BaseAddress;
-
+#endif
 		/* Timer Counter config initialize */
 #ifndef SDT
 		Status = XTmrCtr_Initialize(InstancePtr->TmrCtrPtr,
@@ -237,7 +238,11 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 				"Counter initialization failed\n\r");
 			return XST_FAILURE;
 		}
-
+#ifdef SDT
+		/* Calculate absolute base address of Timer Counter sub-core */
+		InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.BaseAddress +=
+					InstancePtr->Config.BaseAddress;
+#endif
 		/* Calculate absolute base address of Timer Counter sub-core */
 		InstancePtr->TmrCtrPtr->Config.BaseAddress +=
 					InstancePtr->Config.BaseAddress;
