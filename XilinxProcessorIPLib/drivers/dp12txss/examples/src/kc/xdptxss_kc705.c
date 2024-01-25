@@ -3470,7 +3470,7 @@ int DpPt_SetupIntrSystem()
 	return (XST_SUCCESS);
 }
 #else
-int DpPt_SetupIntrSystem()
+int DpPt_SetupIntrSystem(void)
 {
 	int Status;
 	XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */

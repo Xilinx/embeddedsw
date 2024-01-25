@@ -125,6 +125,9 @@
  */
 #define TIMER_RESET_VALUE        1000
 
+#ifdef SDT
+#define  INTRNAME_DPRX  0
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -837,12 +840,13 @@ u32 DpRxSs_SetupIntrSystem(void)
 
 
     Status = XSetupInterruptSystem(&DpRxSsInst, (Xil_InterruptHandler)XDpRxSs_DpIntrHandler,
-                                   DpRxSsInst.Config.IntrId, DpRxSsInst.Config.IntrParent,
-                                   XINTERRUPT_DEFAULT_PRIORITY);
-		if (Status != XST_SUCCESS) {
-			xil_printf("ERR: DP RX SS DP interrupt connect failed!\n\r");
-			return XST_FAILURE;
-		}
+				   DpRxSsInst.Config.IntrId[INTRNAME_DPRX],
+				   DpRxSsInst.Config.IntrParent,
+				   XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP RX SS DP interrupt connect failed!\n\r");
+		return XST_FAILURE;
+	}
 
     return (XST_SUCCESS);
 }
