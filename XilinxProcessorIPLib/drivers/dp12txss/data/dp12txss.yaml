@@ -61,14 +61,32 @@ properties:
   dual-splitter-connected:
     description: Sub-core instance configuration
 
-  vtc-present:
+  vtc1-present:
     description: Sub-core instance presence
 
-  vtc-connected:
+  vtc1-connected:
+    description: Sub-core instance configuration
+
+  vtc2-present:
+    description: Sub-core instance presence
+
+  vtc2-connected:
+    description: Sub-core instance configuration
+
+  vtc3-present:
+    description: Sub-core instance presence
+
+  vtc3-connected:
+    description: Sub-core instance configuration
+
+  vtc4-present:
+    description: Sub-core instance presence
+
+  vtc4-connected:
     description: Sub-core instance configuration
 
   interrupts:
-    description: Sub-core interrupt id
+    description: Sub-core interrupt ids
 
   interrupt-parent:
     description: Interrupt parent
@@ -90,9 +108,15 @@ required:
     - hdcptimer-connected: phandle
     - dual-splitter-present
     - dual-splitter-connected: phandle
-    - vtc-present
-    - vtc-connected: phandle
-    - interrupts
+    - vtc1-present
+    - vtc1-connected: phandle
+    - vtc2-present
+    - vtc2-connected: phandle
+    - vtc3-present
+    - vtc3-connected: phandle
+    - vtc4-present
+    - vtc4-connected: phandle
+    - interrupts: 4
     - interrupt-parent
 
 config:
