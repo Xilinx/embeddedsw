@@ -143,10 +143,6 @@ def create_openamp_app(obj, esw_app_dir):
         'top-CMakeLists.txt'         : ['CMakeLists.txt'],
         'app-CMakeLists.txt'         : ['apps', 'CMakeLists.txt'],
         'app-example-CMakeLists.txt' : ['apps', 'examples', 'CMakeLists.txt'],
-        'zynqmp_r5-CMakeLists.txt'   : ['apps', 'system', 'generic', 'machine',
-                                        'zynqmp_r5', 'CMakeLists.txt'],
-        'lscript.ld'                 : ['apps', 'system', 'generic', 'machine',
-                                        'zynqmp_r5', 'linker_remote.ld']
     }
 
     app_cmake_name = APP_NAMES[obj.template]

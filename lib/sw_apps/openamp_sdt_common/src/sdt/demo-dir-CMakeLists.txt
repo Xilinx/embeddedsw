@@ -24,24 +24,6 @@ elseif(OPENAMP_APP_NAME STREQUAL "matrix_multiply")
   set (_app matrix_multiplyd)
 endif()
 
-include(CheckSymbolExists)
-
-check_symbol_exists(versal "bspconfig.h" IS_VERSAL)
-check_symbol_exists(VERSAL_NET "xparameters_ps.h" IS_VERSAL_NET)
-
-if (IS_VERSAL)
-    set (SOC_FAMILY "versal")
-elseif(IS_VERSAL_NET)
-    set (SOC_FAMILY "versalnet")
-    add_definitions(-DIPI_IRQ_VECT_ID=90)
-    add_definitions(-DPOLL_BASE_ADDR=0xEB340000)
-    add_definitions(-DIPI_CHN_BITMASK=0x20)
-else()
-    set (SOC_FAMILY "zynqmp")
-    add_definitions(-DXPAR_XIPIPSU_0_INT_ID=65)
-    add_definitions(-DXPAR_XIPIPSU_0_BASE_ADDRESS=0xff310000)
-endif()
-
 collector_list (_sources APP_COMMON_SOURCES)
 list (APPEND _sources "${CMAKE_CURRENT_SOURCE_DIR}/${_app}.c")
 
