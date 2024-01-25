@@ -1,6 +1,6 @@
-# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
-cmake_minimum_required(VERSION 3.14.7)
+cmake_minimum_required(VERSION 3.15)
 project(xilstandalone)
 
 set(Mem_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
@@ -53,9 +53,7 @@ file(COPY ${CMAKE_BINARY_DIR}/include/bspconfig.h DESTINATION ${CMAKE_INCLUDE_PA
 endif()
 
 #Compile it as a static library
-if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR
-   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblazeel") OR
-   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze") OR
+if (("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "pmu_microblaze"))
 string(REPLACE "-Os -flto -ffat-lto-objects" "" CUSTOM_FLAGS ${CMAKE_C_FLAGS})
 # Split the flags into a cmake list (; separated)
