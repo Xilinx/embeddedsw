@@ -34,11 +34,15 @@
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
-
+#ifdef SDT
+#ifndef XPAR_XDUAL_SPLITTER_NUM_INSTANCES
+#define XPAR_XDUAL_SPLITTER_NUM_INSTANCES	0
+#endif
+#else
 #ifndef XPAR_XDUALSPLITTER_NUM_INSTANCES
 #define XPAR_XDUALSPLITTER_NUM_INSTANCES	0
 #endif
-
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 

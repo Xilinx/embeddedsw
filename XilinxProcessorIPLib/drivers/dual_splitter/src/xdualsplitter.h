@@ -86,6 +86,9 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifdef SDT
+#define XPAR_XDUALSPLITTER_NUM_INSTANCES  XPAR_XDUAL_SPLITTER_NUM_INSTANCES
+#endif
 /************************** Constant Definitions *****************************/
 
 #define XDUSP_MAX_INPUT_SAMPLES		4	/**< Maximum input samples per
