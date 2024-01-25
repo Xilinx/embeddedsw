@@ -90,7 +90,7 @@ required:
     - iic-connected: phandle
     - hdcptimer-present
     - hdcptimer-connected: phandle
-    - interrupts
+    - interrupts: 4
     - interrupt-parent
 
 config:
