@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -229,7 +229,7 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
 
 	/* Transmit error conditions interrupt */
         if (((RegISR & XEMACPS_IXR_TX_ERR_MASK) != 0x00000000U) &&
-            (!(RegISR & XEMACPS_IXR_TXCOMPL_MASK) != 0x00000000U)) {
+            ((!(RegISR & XEMACPS_IXR_TXCOMPL_MASK)) != 0x00000000U)) {
 		/* Clear TX status register */
 		RegSR = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 					  XEMACPS_TXSR_OFFSET);
