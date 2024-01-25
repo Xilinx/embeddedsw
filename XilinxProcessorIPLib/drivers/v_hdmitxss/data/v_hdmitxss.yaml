@@ -50,7 +50,7 @@ properties:
   vtc-connected:
     description: Sub-core instance configuration
   interrupts:
-    description: Interrupt number
+    description: Interrupt numbers
   interrupt-parent:
     description: Parent interrupt
 
@@ -73,7 +73,7 @@ required:
     - hdmitx-connected: phandle
     - vtc-present
     - vtc-connected: phandle
-    - interrupts
+    - interrupts: 5
     - interrupt-parent
 
 config:
