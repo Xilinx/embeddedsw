@@ -42,6 +42,10 @@ extern "C" {
 #include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
+#ifdef SDT
+#define XPAR_XDPTXSS_NUM_INSTANCES XPAR_DPTXSS_NUM_INSTANCES
+#define XPAR_XDPRXSS_NUM_INSTANCES XPAR_DPRXSS_NUM_INSTANCES
+#endif
 
 /* HDCP Cipher register offsets */
 #define XHDCP1X_CIPHER_REG_VERSION	(0x0000u)  /**< Version register
