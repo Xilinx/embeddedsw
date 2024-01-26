@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *                        system controllers
 *       skd   01/31/23   Added debug print levels
 * 5.00  skd   05/02/23   Added Image recovery support for KD240 board
+* 5.01  ng    07/21/23   Added SDT support
 *
 * </pre>
 *
@@ -342,10 +343,10 @@ static int Xbir_KVEthInit (void)
 	Xbir_MaskWrite(IOU_SLCR_BANK2_CTRL5_OFFSET, 0x3FFFFFFU, 0x357FFFFU);
 	Xbir_MaskWrite(CRL_APB_RST_LPD_IOU0_OFFSET, 0x00000008U, 0x00000000U);
 
-#ifdef XPAR_PSU_ETHERNET_3_BASEADDR
-	EmacBaseAddr = XPAR_PSU_ETHERNET_3_BASEADDR;
+#ifdef XPAR_XEMACPS_0_BASEADDR
+	EmacBaseAddr = XPAR_XEMACPS_0_BASEADDR;
 #endif
-	ConfigPtr = XGpioPs_LookupConfig(XPAR_XGPIOPS_0_DEVICE_ID);
+	ConfigPtr = XGpioPs_LookupConfig(XBIR_GPIOPS_DEVICE);
 	if (ConfigPtr == NULL) {
 		Xbir_Printf(DEBUG_INFO, " ERROR: GPIO look up config failed\n\r");
 		goto END;
@@ -389,8 +390,8 @@ static int Xbir_KREthInit (void)
 {
 	int Status = XST_FAILURE;
 
-#ifdef XPAR_PSU_ETHERNET_1_BASEADDR
-	EmacBaseAddr = XPAR_PSU_ETHERNET_1_BASEADDR;
+#ifdef XPAR_XEMACPS_1_BASEADDR
+	EmacBaseAddr = XPAR_XEMACPS_1_BASEADDR;
 #endif
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_38_OFFSET, 0x000000FEU ,0x00000002U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_39_OFFSET, 0x000000FEU ,0x00000002U);
@@ -447,8 +448,8 @@ static int Xbir_KDEthInit (void)
 	XGpioPs_Config *ConfigPtr;
 
 
-#ifdef XPAR_PSU_ETHERNET_1_BASEADDR
-	EmacBaseAddr = XPAR_PSU_ETHERNET_1_BASEADDR;
+#ifdef XPAR_XEMACPS_1_BASEADDR
+	EmacBaseAddr = XPAR_XEMACPS_1_BASEADDR;
 #endif
 
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_38_OFFSET, 0x000000FEU ,0x00000002U);
@@ -476,7 +477,7 @@ static int Xbir_KDEthInit (void)
 	Xbir_MaskWrite(XBIR_MIO_BANK1_CTRL5, 0x03FFFFFFU, 0x03FFF000);
 	Xbir_MaskWrite(CRL_APB_RST_LPD_IOU0_OFFSET, 0x00000003U, 0x00000000U);
 
-	ConfigPtr = XGpioPs_LookupConfig(XPAR_XGPIOPS_0_DEVICE_ID);
+	ConfigPtr = XGpioPs_LookupConfig(XBIR_GPIOPS_DEVICE);
 	if (ConfigPtr == NULL) {
 		Xbir_Printf(DEBUG_INFO, "ERROR: GPIO look up config failed\n\r");
 		goto END;
@@ -524,10 +525,10 @@ static int Xbir_SCEthInit (void)
 	XGpioPs Gpio = {0U};
 	XGpioPs_Config *ConfigPtr;
 
-#ifdef XPAR_PSU_ETHERNET_1_BASEADDR
-	EmacBaseAddr = XPAR_PSU_ETHERNET_1_BASEADDR;
+#ifdef XPAR_XEMACPS_1_BASEADDR
+	EmacBaseAddr = XPAR_XEMACPS_1_BASEADDR;
 #endif
-	ConfigPtr = XGpioPs_LookupConfig(XPAR_XGPIOPS_0_DEVICE_ID);
+	ConfigPtr = XGpioPs_LookupConfig(XBIR_GPIOPS_DEVICE);
 	if (ConfigPtr == NULL) {
 		Xbir_Printf(DEBUG_INFO, " ERROR: GPIO look up config failed\n\r");
 		goto END;

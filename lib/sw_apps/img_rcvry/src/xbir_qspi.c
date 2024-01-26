@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 1.00  bsv   07/02/20   First release
 * 2.00  bsv   03/15/22   Fix bug in stacked mode
 * 3.00  skd   01/31/23   Added debug print levels
+* 5.01  ng    07/21/23   Added SDT support
 *
 * </pre>
 *
@@ -38,12 +39,6 @@
 #include "xbir_sys.h"
 
 /************************** Constant Definitions *****************************/
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
-#define XBIR_QSPI_DEVICE_ID	XPAR_XQSPIPSU_0_DEVICE_ID
 
 /**************************** Type Definitions *******************************/
 
@@ -275,7 +270,7 @@ int Xbir_QspiInit(void)
 		goto END;
 	}
 
-	switch ((u32)XPAR_PSU_QSPI_0_QSPI_MODE) {
+	switch ((u32)XBIR_QSPI_MODE) {
 		case XQSPIPSU_CONNECTION_MODE_SINGLE:
 			break;
 

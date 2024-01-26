@@ -13,6 +13,7 @@ set(LWIP_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lwip-2.2.0)
 set(LWIP_INCLUDE_DIRS
     "${LWIP_DIR}/src"
     "${LWIP_DIR}/src/include"
+    "${LWIP_DIR}/src/include/lwip"
     "${LWIP_DIR}/contrib/ports/xilinx/include/arch"
     "${LWIP_DIR}/contrib/ports/xilinx/include/netif"
 )

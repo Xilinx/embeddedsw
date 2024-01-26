@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,11 +24,19 @@
 
 /************************** Constant Definitions *****************************/
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define TIMER_DEVICE_ID		XPAR_XTTCPS_0_DEVICE_ID
 #define TIMER_IRPT_INTR		XPAR_XTTCPS_0_INTR
+#define PLATFORM_TIMER_INTR_RATE_HZ	(4U)
+
+#ifndef SDT
+#define TIMER_DEVICE_ID		XPAR_XTTCPS_0_DEVICE_ID
 #define INTC_BASE_ADDR		XPAR_SCUGIC_0_CPU_BASEADDR
 #define INTC_DIST_BASE_ADDR	XPAR_SCUGIC_0_DIST_BASEADDR
-#define PLATFORM_TIMER_INTR_RATE_HZ	(4U)
+#else
+#define TIMER_DEVICE_ID		XPAR_XTTCPS_0_BASEADDR
+// change the INTC_BASE_ADDR to canonical format
+#define INTC_BASE_ADDR		XPAR_GIC_A53_BASEADDR_1
+#define INTC_DIST_BASE_ADDR	XPAR_XSCUGIC_0_BASEADDR
+#endif
 
 /**************************** Type Definitions *******************************/
 

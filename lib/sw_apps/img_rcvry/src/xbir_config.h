@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -97,6 +97,18 @@ extern "C" {
 #if ((XPAR_XSDPS_0_BASEADDR == 0xFF170000) ||\
         (XPAR_XSDPS_1_BASEADDR == 0xFF170000))
 #define XBIR_SD_1
+#endif
+
+#ifndef SDT
+#define XBIR_QSPI_DEVICE_ID	XPAR_XQSPIPSU_0_DEVICE_ID
+#define XBIR_QSPI_MODE		XPAR_PSU_QSPI_0_QSPI_MODE
+#define XBIR_SDPS_DEVICE        XPAR_XSDPS_0_DEVICE_ID
+#define XBIR_GPIOPS_DEVICE      XPAR_XGPIOPS_0_DEVICE_ID
+#else
+#define XBIR_QSPI_DEVICE_ID	XPAR_XQSPIPSU_0_BASEADDR
+#define XBIR_QSPI_MODE		XPAR_XQSPIPSU_0_CONNECTION_MODE
+#define XBIR_SDPS_DEVICE        XPAR_XSDPS_0_BASEADDR
+#define XBIR_GPIOPS_DEVICE      XPAR_XGPIOPS_0_BASEADDR
 #endif
 
 /**************************** Type Definitions *******************************/
