@@ -30,6 +30,7 @@
 *       skd   01/31/23   Added debug print levels
 * 5.00  skd   05/02/23   Added Image recovery support for KD240 board
 * 5.01  ng    07/21/23   Added SDT support
+* 6.00  sd    01/27/23   Clean up
 *
 * </pre>
 *
@@ -158,10 +159,7 @@ static int Xbir_KREthInit (void);
 static int Xbir_SCEthInit (void);
 #if (defined(XBIR_SD_0) || defined(XBIR_SD_1))
 static int Xbir_KVeMMCInit (void);
-#if !defined(XPS_BOARD_K26I) && !defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
-	&& !defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
 static int Xbir_SCeMMCInit (void);
-#endif
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -254,12 +252,12 @@ int Xbir_SysInit (void)
 		XBIR_SYS_PRODUCT_NAME_LEN) == 0U) {
 		Status = Xbir_KVeMMCInit();
 	}
-#if !defined(XPS_BOARD_K26I) && !defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
-	&& !defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
-	else {
+	else if (strncmp((char *)&SysInfo.BoardPrdName, "SMK",
+		XBIR_SYS_PRODUCT_NAME_LEN) == 0U) {
+			Status = XST_SUCCESS;
+	} else {
 		Status = Xbir_SCeMMCInit();
 	}
-#endif
 #endif
 
 END:
@@ -328,14 +326,13 @@ static int Xbir_KVEthInit (void)
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_76_OFFSET, 0x000000FEU, 0x000000C0U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_77_OFFSET, 0x000000FEU, 0x000000C0U);
 
-	/* GEM clock settings */
-#ifdef XPS_BOARD_K26I
-	Xbir_MaskWrite(CRL_APB_GEM3_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010C00U);
-	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010600U);
-#else
-	Xbir_MaskWrite(CRL_APB_GEM3_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010C00U);
-	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010600U);
+#ifdef XPAR_XEMACPS_0_BASEADDR
+	EmacBaseAddr = XPAR_XEMACPS_0_BASEADDR;
 #endif
+
+	/* GEM clock settings */
+	Xbir_MaskWrite(CRL_APB_GEM3_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010800U);
+	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010600U);
 
 	Xil_Out32(IOU_SLCR_MIO_MST_TRI0_OFFSET, 0xD4000000U);
 	Xil_Out32(IOU_SLCR_MIO_MST_TRI1_OFFSET, 0x00B02020U);
@@ -343,9 +340,6 @@ static int Xbir_KVEthInit (void)
 	Xbir_MaskWrite(IOU_SLCR_BANK2_CTRL5_OFFSET, 0x3FFFFFFU, 0x357FFFFU);
 	Xbir_MaskWrite(CRL_APB_RST_LPD_IOU0_OFFSET, 0x00000008U, 0x00000000U);
 
-#ifdef XPAR_XEMACPS_0_BASEADDR
-	EmacBaseAddr = XPAR_XEMACPS_0_BASEADDR;
-#endif
 	ConfigPtr = XGpioPs_LookupConfig(XBIR_GPIOPS_DEVICE);
 	if (ConfigPtr == NULL) {
 		Xbir_Printf(DEBUG_INFO, " ERROR: GPIO look up config failed\n\r");
@@ -390,9 +384,6 @@ static int Xbir_KREthInit (void)
 {
 	int Status = XST_FAILURE;
 
-#ifdef XPAR_XEMACPS_1_BASEADDR
-	EmacBaseAddr = XPAR_XEMACPS_1_BASEADDR;
-#endif
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_38_OFFSET, 0x000000FEU ,0x00000002U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_39_OFFSET, 0x000000FEU ,0x00000002U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_40_OFFSET, 0x000000FEU ,0x00000002U);
@@ -407,6 +398,16 @@ static int Xbir_KREthInit (void)
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_49_OFFSET, 0x000000FEU ,0x00000002U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_50_OFFSET, 0x000000FEU, 0x00000080U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_51_OFFSET, 0x000000FEU, 0x00000080U);
+
+#if (XPAR_XEMACPS_NUM_INSTANCES == 2U)
+#ifdef XPAR_XEMACPS_1_BASEADDR
+	EmacBaseAddr = XPAR_XEMACPS_1_BASEADDR;
+#endif
+#else
+#ifdef XPAR_XEMACPS_0_BASEADDR
+	EmacBaseAddr = XPAR_XEMACPS_0_BASEADDR;
+#endif
+#endif
 
 	/* GEM clock settings */
 	Xbir_MaskWrite(CRL_APB_GEM1_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010800U);
@@ -447,11 +448,6 @@ static int Xbir_KDEthInit (void)
 	XGpioPs Gpio = {0U};
 	XGpioPs_Config *ConfigPtr;
 
-
-#ifdef XPAR_XEMACPS_1_BASEADDR
-	EmacBaseAddr = XPAR_XEMACPS_1_BASEADDR;
-#endif
-
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_38_OFFSET, 0x000000FEU ,0x00000002U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_39_OFFSET, 0x000000FEU ,0x00000002U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_40_OFFSET, 0x000000FEU ,0x00000002U);
@@ -466,6 +462,16 @@ static int Xbir_KDEthInit (void)
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_49_OFFSET, 0x000000FEU ,0x00000002U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_50_OFFSET, 0x000000FEU, 0x00000080U);
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_51_OFFSET, 0x000000FEU, 0x00000080U);
+
+#if (XPAR_XEMACPS_NUM_INSTANCES == 2U)
+#ifdef XPAR_XEMACPS_1_BASEADDR
+	EmacBaseAddr = XPAR_XEMACPS_1_BASEADDR;
+#endif
+#else
+#ifdef XPAR_XEMACPS_0_BASEADDR
+	EmacBaseAddr = XPAR_XEMACPS_0_BASEADDR;
+#endif
+#endif
 
 	/* GEM clock settings */
 	Xbir_MaskWrite(CRL_APB_GEM1_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010800U);
@@ -525,9 +531,10 @@ static int Xbir_SCEthInit (void)
 	XGpioPs Gpio = {0U};
 	XGpioPs_Config *ConfigPtr;
 
-#ifdef XPAR_XEMACPS_1_BASEADDR
-	EmacBaseAddr = XPAR_XEMACPS_1_BASEADDR;
+#ifdef XPAR_XEMACPS_0_BASEADDR
+	EmacBaseAddr = XPAR_XEMACPS_0_BASEADDR;
 #endif
+
 	ConfigPtr = XGpioPs_LookupConfig(XBIR_GPIOPS_DEVICE);
 	if (ConfigPtr == NULL) {
 		Xbir_Printf(DEBUG_INFO, " ERROR: GPIO look up config failed\n\r");
@@ -1142,17 +1149,17 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	u8 BoardIndex = 0U;
 	char *BoardList[] = {"SM-", "SMK", "VPK", "VHK", "VEK"};
 	u8 BoardNum = sizeof(BoardList)/sizeof(char*);
-#if defined(XPS_BOARD_K26I) || defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
-	|| defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
-	Xbir_CCEepromData CCEepromData = {0U};
-#endif
 
 	Status = Xbir_IicEepromReadData((u8 *)&SysBoardEepromData,
-		sizeof(Xbir_SysBoardEepromData), XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS);
+		sizeof(Xbir_SysBoardEepromData), XBIR_IIC_SOM_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf(DEBUG_INFO, " Unable to access System Board Eeprom\n\r");
-		Xbir_Printf(DEBUG_INFO, " Unrecognized Eeprom contents...");
-		goto END;
+		Status = Xbir_IicEepromReadData((u8 *)&SysBoardEepromData,
+			sizeof(Xbir_SysBoardEepromData), XBIR_IIC_SC_EEPROM_ADDRESS);
+		if (Status != XST_SUCCESS) {
+			Xbir_Printf(DEBUG_INFO, " Unable to access System Board Eeprom\n\r");
+			Xbir_Printf(DEBUG_INFO, " Unrecognized Eeprom contents...");
+			goto END;
+		}
 	}
 
 	memcpy(SysInfo.BoardPrdName,
@@ -1196,51 +1203,53 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		UUIDStrPtr += Ret;
 		MaxSize -= Ret;
 	}
-#if defined(XPS_BOARD_K26I) || defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
-	|| defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
-	Status = Xbir_IicEepromReadData((u8 *)&CCEepromData,
-		sizeof(Xbir_CCEepromData), XBIR_IIC_CC_EEPROM_ADDRESS);
-	if (Status != XST_SUCCESS) {
-		Xbir_Printf(DEBUG_INFO, " Unable to access CC Eeprom\n\r");
-		Xbir_Printf(DEBUG_INFO, " Unrecognized Eeprom contents...");
-		goto END;
-	}
 
-	memcpy(CCInfo.BoardPrdName,
-		CCEepromData.SysBoardInfo.BoardPrdName,
-		sizeof(CCEepromData.SysBoardInfo.BoardPrdName));
-	if (strncmp((char *)&CCInfo.BoardPrdName, "SCK",
-		XBIR_SYS_PRODUCT_NAME_LEN) != 0U) {
-		Xbir_Printf(DEBUG_INFO, " Unrecognized CC Eeprom contents...");
-		Status = XBIR_ERR_CC_EEPROM_CONTENTS;
-		goto END;
-	}
-
-	Xbir_Printf(DEBUG_PRINT_ALWAYS, "Carrier Card Detected: %s\n\r", (char *)&CCInfo.BoardPrdName);
-	memcpy(CCInfo.RevNum, CCEepromData.SysBoardInfo.RevNum,
-		sizeof(CCEepromData.SysBoardInfo.RevNum));
-	memcpy(CCInfo.BoardSerialNumber,
-		CCEepromData.SysBoardInfo.BoardSerialNumber,
-		sizeof(CCEepromData.SysBoardInfo.BoardSerialNumber));
-	memcpy(CCInfo.BoardPartNum,
-		CCEepromData.SysBoardInfo.BoardPartNum,
-		sizeof(CCEepromData.SysBoardInfo.BoardPartNum));
-
-	UUIDStrPtr = (char *)CCInfo.UUID;
-	MaxSize = sizeof(CCInfo.UUID);
-	for(LoopIndex = 0U; LoopIndex < sizeof(CCEepromData.SysBoardInfo.UUID);
-		++LoopIndex) {
-		Ret = snprintf(UUIDStrPtr, MaxSize, "%02X",
-			CCEepromData.SysBoardInfo.UUID[LoopIndex]);
-		if (Ret != XBIR_BYTE_HEX_LEN) {
+	if((strncmp((char *)&SysInfo.BoardPrdName, "SM",
+		XBIR_SYS_PRODUCT_TYPE_LEN) == 0U)){
+		Xbir_CCEepromData CCEepromData = {0U};
+		Status = Xbir_IicEepromReadData((u8 *)&CCEepromData,
+			sizeof(Xbir_CCEepromData), XBIR_IIC_CC_EEPROM_ADDRESS);
+		if (Status != XST_SUCCESS) {
+			Xbir_Printf(DEBUG_INFO, " Unable to access CC Eeprom\n\r");
 			Xbir_Printf(DEBUG_INFO, " Unrecognized Eeprom contents...");
-			Status = XST_FAILURE;
 			goto END;
 		}
-		UUIDStrPtr += Ret;
-		MaxSize -= Ret;
+
+		memcpy(CCInfo.BoardPrdName,
+			CCEepromData.SysBoardInfo.BoardPrdName,
+			sizeof(CCEepromData.SysBoardInfo.BoardPrdName));
+		if (strncmp((char *)&CCInfo.BoardPrdName, "SCK",
+			XBIR_SYS_PRODUCT_NAME_LEN) != 0U) {
+			Xbir_Printf(DEBUG_INFO, " Unrecognized CC Eeprom contents...");
+			Status = XBIR_ERR_CC_EEPROM_CONTENTS;
+			goto END;
+		}
+
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, "Carrier Card Detected: %s\n\r", (char *)&CCInfo.BoardPrdName);
+		memcpy(CCInfo.RevNum, CCEepromData.SysBoardInfo.RevNum,
+			sizeof(CCEepromData.SysBoardInfo.RevNum));
+		memcpy(CCInfo.BoardSerialNumber,
+			CCEepromData.SysBoardInfo.BoardSerialNumber,
+			sizeof(CCEepromData.SysBoardInfo.BoardSerialNumber));
+		memcpy(CCInfo.BoardPartNum,
+			CCEepromData.SysBoardInfo.BoardPartNum,
+			sizeof(CCEepromData.SysBoardInfo.BoardPartNum));
+
+		UUIDStrPtr = (char *)CCInfo.UUID;
+		MaxSize = sizeof(CCInfo.UUID);
+		for(LoopIndex = 0U; LoopIndex < sizeof(CCEepromData.SysBoardInfo.UUID);
+			++LoopIndex) {
+			Ret = snprintf(UUIDStrPtr, MaxSize, "%02X",
+				CCEepromData.SysBoardInfo.UUID[LoopIndex]);
+			if (Ret != XBIR_BYTE_HEX_LEN) {
+				Xbir_Printf(DEBUG_INFO, " Unrecognized Eeprom contents...");
+				Status = XST_FAILURE;
+				goto END;
+			}
+			UUIDStrPtr += Ret;
+			MaxSize -= Ret;
+		}
 	}
-#endif
 
 END:
 #else
@@ -1501,8 +1510,6 @@ static int Xbir_KVeMMCInit (void)
 	return Status;
 }
 
-#if !defined(XPS_BOARD_K26I) && !defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
-	&& !defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
 /*****************************************************************************/
 /**
  * @brief
@@ -1522,5 +1529,4 @@ static int Xbir_SCeMMCInit (void)
 
 	return Status;
 }
-#endif
 #endif

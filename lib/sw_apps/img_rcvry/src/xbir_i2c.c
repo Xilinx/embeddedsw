@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2021 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +17,7 @@
 * Ver   Who    Date      Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.00  bsv   07/02/20   First release
+* 2.00  sd    01/27/24   Clean up
 *
 * </pre>
 *
@@ -36,16 +38,6 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#if (XPAR_XIICPS_NUM_INSTANCES == 2U)
-#define XBIR_I2C_EEPROM_INDEX	(1U)
-#else
-#define XBIR_I2C_EEPROM_INDEX	(0U)
-#endif
-
-#define XBIR_IIC_SCLK_RATE		(100000U)
-#define XBIR_MAX_DELAY			(10000000U)
-#define XBIR_I2C_GPIO_EXPANDER		(0x11U)
-#define XBIR_GEM1_RESET_MASK		(0x40U)
 
 /************************** Function Prototypes ******************************/
 
@@ -190,7 +182,7 @@ int Xbir_IicInit (void)
 	u32 TimeOutCount = XBIR_MAX_DELAY;
 
 	/* Initialize the IIC driver so that it is ready to use */
-	ConfigPtr = XIicPs_LookupConfig(XBIR_I2C_EEPROM_INDEX);
+	ConfigPtr = XIicPs_LookupConfig(XBIR_I2C_EEPROM_DEVICE);
 	if (ConfigPtr == NULL) {
 		Status = XBIR_ERROR_IIC_LKP_CONFIG;
 		goto END;
