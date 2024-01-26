@@ -63,7 +63,7 @@ extern "C" {
 #define IR_DEBUG
 #endif
 
-#if (FSBL_DEBUG_INFO_VAL) && (!defined(IR_DEBUG_INFO))
+#if (IR_DEBUG_INFO_VAL) && (!defined(IR_DEBUG_INFO))
 #define IR_DEBUG_INFO
 #endif
 
