@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * Ver   Who    Date       Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.00  bsv   07/25/21   First release
+* 5.01  ng    07/21/23   Added SDT support
 *
 * </pre>
 *
@@ -59,7 +60,7 @@ int Xbir_SdInit(void)
 	XSdPs_Config *SdConfig;
 
 	/* Initialize the SD driver so that it's ready to use */
-	SdConfig =  XSdPs_LookupConfig(XPAR_XSDPS_0_DEVICE_ID);
+	SdConfig =  XSdPs_LookupConfig(XBIR_SDPS_DEVICE);
 	if (NULL == SdConfig) {
 		Status = XBIR_ERROR_SD_CONFIG;
 		goto END;
