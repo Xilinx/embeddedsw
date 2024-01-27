@@ -37,9 +37,9 @@ properties:
     description: Dphy is present.
   xlnx,dphy-connected:
     description: Dphy is connected flag.
-  xlnx,dsi-tx-ctrl-present:
+  xlnx,dsi-tx-present:
     description: DSI TX controller present flag.
-  xlnx,dsi-tx-ctrl-connected:
+  xlnx,dsi-tx-connected:
     description: DSI TX controller present flag.
   interrupts:
     description: Interrupt number
@@ -59,8 +59,8 @@ required:
   - xlnx,dphy-en-reg-if
   - xlnx,dphy-present
   - xlnx,dphy-connected: phandle
-  - xlnx,dsi-tx-ctrl-present
-  - xlnx,dsi-tx-ctrl-connected: phandle
+  - xlnx,dsi-tx-present
+  - xlnx,dsi-tx-connected: phandle
   - interrupts
   - interrupt-parent
 

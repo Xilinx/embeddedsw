@@ -18,28 +18,25 @@ properties:
           - xlnx,mipi-dsi-tx-ctrl-1.0
   reg:
     description: Physical base address and size of the controller register map
-  xlnx,highaddr:
-    description: High Address for DSI controller.
-  xlnx,dsi-ctrl-lanes:
+  xlnx,dsi-lanes:
     description: DSI no of control lanes.
-  xlnx,dsi-ctrl-datatype:
+  xlnx,dsi-datatype:
     description: DSI control data type flag.
-  xlnx,dsi-ctrl-byte-fifo:
+  xlnx,dsi-byte-fifo:
     description: DSI control byte FIFO size.
-  xlnx,dsi-ctrl-crc-gen:
+  xlnx,dsi-crc-gen:
     description: DSI control CRC generate flag.
-  xlnx,dsi-ctrl-pixels:
+  xlnx,dsi-pixels:
     description: DSI control no of pixels.
 
 required:
   - compatible
   - reg
-  - xlnx,highaddr
-  - xlnx,dsi-ctrl-lanes
-  - xlnx,dsi-ctrl-datatype
-  - xlnx,dsi-ctrl-byte-fifo
-  - xlnx,dsi-ctrl-crc-gen
-  - xlnx,dsi-ctrl-pixels
+  - xlnx,dsi-lanes
+  - xlnx,dsi-datatype
+  - xlnx,dsi-byte-fifo
+  - xlnx,dsi-crc-gen
+  - xlnx,dsi-pixels
 
 config:
   - XDsi_Config
