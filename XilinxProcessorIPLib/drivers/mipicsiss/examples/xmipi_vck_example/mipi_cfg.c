@@ -29,7 +29,11 @@
 #include "xvprocss.h"
 #include "xgpio_l.h"
 #include "xiic.h"
+#ifndef SDT
 #include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 #include "xuartpsv.h"
 #include "sensor_cfgs.h"
 
@@ -43,27 +47,46 @@
 #define UART_BASEADDR	XPAR_XUARTPSV_0_BASEADDR
 
 #define MIPICSI_BASEADDR XPAR_CSISS_0_BASEADDR
+#ifndef SDT
 #define XCSIRXSS_DEVICE_ID	XPAR_CSISS_0_DEVICE_ID
 #define GPIO_SENSOR		XPAR_GPIO_3_BASEADDR
+#else
+#define XCSIRXSS_BASE		XPAR_XMIPICSISS_0_BASEADDR
+#define GPIO_SENSOR_BASE	XPAR_XGPIO_3_BASEADDR
+#endif
 
+#ifndef SDT
 #define GPIO_IP_RESET	 XPAR_AXI_GPIO_0_BASEADDR
+#else
+#define GPIO_IP_BASE	 XPAR_XGPIO_0_BASEADDR
+#endif
 
 #define VPROCSSCSC_BASE	XPAR_XVPROCSS_0_BASEADDR
+#ifndef SDT
 #define DEMOSAIC_BASE	XPAR_XV_DEMOSAIC_0_S_AXI_CTRL_BASEADDR
 #define VGAMMALUT_BASE	XPAR_XV_GAMMA_LUT_0_S_AXI_CTRL_BASEADDR
+#else
+#define DEMOSAIC_BASE_1		XPAR_XV_DEMOSAIC_0_BASEADDR
+#define VGAMMALUT_BASE		XPAR_XV_GAMMA_LUT_0_BASEADDR
+#endif
 
-
+#ifndef SDT
 #define IIC_SENSOR_DEV_ID	XPAR_IIC_1_DEVICE_ID
 #define XVPROCSS_DEVICE_ID	XPAR_XVPROCSS_1_DEVICE_ID
+#else
+#define IIC_SENSOR_BASE XPAR_XIIC_1_BASEADDR
+#define XVPROCSS_BASE	XPAR_XVPROCSS_0_BASEADDR
+#endif
 
 #define PSU_INTR_DEVICE_ID XPAR_PSV_ACPU_GIC_DEVICE_ID
 
+#ifndef SDT
 // Group 0 84 +32 , Group1 - 92 +32
 #define XPAR_INTC_0_V_SENSOR_IIC_0_VEC_ID  XPAR_FABRIC_IIC_1_VEC_ID
 #define XPAR_INTC_0_CSIRXSS_0_VEC_ID XPAR_FABRIC_MIPICSISS_0_VEC_ID
 #define XPAR_INTC_0_V_FRMBUF_WR_0_VEC_ID XPAR_FABRIC_V_FRMBUF_WR_0_VEC_ID
 #define XPAR_INTC_0_V_FRMBUF_RD_0_VEC_ID XPAR_FABRIC_V_FRMBUF_RD_0_VEC_ID
-
+#endif
 
 #define DDR_BASEADDR XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
 
@@ -136,9 +159,15 @@ void start_hdmi(XVidC_VideoMode VideoMode);
 ******************************************************************************/
 void Reset_IP_Pipe(void)
 {
+#ifndef SDT
 	Xil_Out32(GPIO_IP_RESET, 0xFFFFFFFF);
 	Xil_Out32(GPIO_IP_RESET, 0x00000000);
 	Xil_Out32(GPIO_IP_RESET, 0xFFFFFFFF);
+#else
+	Xil_Out32(GPIO_IP_BASE, 0xFFFFFFFF);
+	Xil_Out32(GPIO_IP_BASE, 0x00000000);
+	Xil_Out32(GPIO_IP_BASE, 0xFFFFFFFF);
+#endif
 }
 
 /*****************************************************************************/
@@ -152,10 +181,17 @@ void Reset_IP_Pipe(void)
 ******************************************************************************/
 void CamReset(void)
 {
+#ifndef SDT
 	Xil_Out32(GPIO_SENSOR, 0x07);
 	Xil_Out32(GPIO_SENSOR, 0x06);
 	Xil_Out32(GPIO_SENSOR, 0x07);
+#else
+	Xil_Out32(GPIO_SENSOR_BASE, 0x07);
+	Xil_Out32(GPIO_SENSOR_BASE, 0x06);
+	Xil_Out32(GPIO_SENSOR_BASE, 0x07);
+#endif
 }
+
 
 /*****************************************************************************/
 /**
@@ -207,12 +243,19 @@ void ConfigCSC(u32 width , u32 height)
  *****************************************************************************/
 void ConfigDemosaic(u32 width , u32 height)
 {
+#ifndef SDT
 	Xil_Out32((DEMOSAIC_BASE + 0x10), width );
 	Xil_Out32((DEMOSAIC_BASE + 0x18), height );
 	Xil_Out32((DEMOSAIC_BASE + 0x20), 0x0   );
 	Xil_Out32((DEMOSAIC_BASE + 0x28), 0x0   );
 	Xil_Out32((DEMOSAIC_BASE + 0x00), 0x81   );
-
+#else
+	Xil_Out32((DEMOSAIC_BASE_1 + 0x10), width );
+	Xil_Out32((DEMOSAIC_BASE_1 + 0x18), height );
+	Xil_Out32((DEMOSAIC_BASE_1 + 0x20), 0x0   );
+	Xil_Out32((DEMOSAIC_BASE_1 + 0x28), 0x0   );
+	Xil_Out32((DEMOSAIC_BASE_1 + 0x00), 0x81   );
+#endif
 }
 
 /*****************************************************************************/
@@ -309,7 +352,11 @@ void InitVprocSs_Scaler(int count,int width,int height)
 	}
 
 	if (count) {
+#ifndef SDT
 		p_vpss_cfg = XVprocSs_LookupConfig(XVPROCSS_DEVICE_ID);
+#else
+		p_vpss_cfg = XVprocSs_LookupConfig(XVPROCSS_BASE);
+#endif
 		if (p_vpss_cfg == NULL) {
 			xil_printf("ERROR! Failed to find VPSS-based scaler.");
 			xil_printf("\n\r");
@@ -725,7 +772,11 @@ int InitIIC(void) {
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
+#ifndef SDT
 	ConfigPtr = XIic_LookupConfig(IIC_SENSOR_DEV_ID);
+#else
+	ConfigPtr = XIic_LookupConfig(IIC_SENSOR_BASE);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
@@ -735,6 +786,18 @@ int InitIIC(void) {
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+
+#ifdef SDT
+	Status = XSetupInterruptSystem(&IicSensor,&XIic_InterruptHandler,
+			       ConfigPtr->IntrId,
+			       ConfigPtr->IntrParent,
+			       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: Iic Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+#endif
 	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly.
@@ -793,8 +856,11 @@ u32 InitializeCsiRxSs(void)
 {
 	u32 Status = 0;
 	XCsiSs_Config *CsiRxSsCfgPtr = NULL;
-
+#ifndef SDT
 	CsiRxSsCfgPtr = XCsiSs_LookupConfig(XCSIRXSS_DEVICE_ID);
+#else
+	CsiRxSsCfgPtr = XCsiSs_LookupConfig(XCSIRXSS_BASE);
+#endif
 	if (!CsiRxSsCfgPtr) {
 		xil_printf("CSI2RxSs LookupCfg failed\r\n");
 		return XST_FAILURE;
@@ -807,6 +873,17 @@ u32 InitializeCsiRxSs(void)
 		xil_printf("CsiRxSs Cfg init failed - %x\r\n", Status);
 		return Status;
 	}
+#ifdef SDT
+	Status = XSetupInterruptSystem(&CsiRxSs,&XCsiSs_IntrHandler,
+				       CsiRxSs.Config.IntrId,
+				       CsiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: CSI Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+#endif
 
 	return XST_SUCCESS;
 }
@@ -865,7 +942,7 @@ void DisableCSI(void)
 	XCsiSs_Reset(&CsiRxSs);
 }
 
-
+#ifndef SDT
 /*****************************************************************************/
 /**
  *
@@ -921,7 +998,7 @@ int SetupInterrupts(void) {
 
 	return (XST_SUCCESS);
 }
-
+#endif
 
 /*****************************************************************************/
 /**
@@ -1184,7 +1261,11 @@ int config_csi_cap_path(){
 
 	u32 Status;
 	/* Initialize Frame Buffer Write */
+#ifndef SDT
 	 Status =  XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUFWR_0_DEVICE_ID);
+#else
+	 Status =  XVFrmbufWr_Initialize(&frmbufwr, XPAR_XV_FRMBUF_WR_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf(TXT_RED "Frame Buffer Write Init failed status = %x.\r\n"
 				 TXT_RST, Status);
@@ -1193,7 +1274,11 @@ int config_csi_cap_path(){
 
 
 	/* Initialize Frame Buffer Read */
+#ifndef SDT
 	Status =  XVFrmbufRd_Initialize(&frmbufrd, XPAR_XV_FRMBUFRD_0_DEVICE_ID);
+#else
+	Status =  XVFrmbufRd_Initialize(&frmbufrd, XPAR_XV_FRMBUF_RD_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf(TXT_RED "Frame Buffer Read Init failed status = %x.\r\n"
 				 TXT_RST, Status);
@@ -1221,7 +1306,7 @@ int config_csi_cap_path(){
 
 	xil_printf("\r\n\r\n *Init CSI is Done \n");
 
-
+#ifndef SDT
 	/* Initialize IRQ */
 	Status = SetupInterrupts();
 	if (Status == XST_FAILURE) {
@@ -1229,6 +1314,27 @@ int config_csi_cap_path(){
 		return XST_FAILURE;
 	}
 	xil_printf("\r\n\r\n *IRQ Setup is Done \n");
+#else
+	Status = XSetupInterruptSystem(&frmbufwr,&XVFrmbufWr_InterruptHandler,
+				       frmbufwr.FrmbufWr.Config.IntrId,
+				       frmbufwr.FrmbufWr.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: frmbufwr Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+
+	Status = XSetupInterruptSystem(&frmbufrd,&XVFrmbufRd_InterruptHandler,
+				       frmbufrd.FrmbufRd.Config.IntrId,
+				       frmbufrd.FrmbufRd.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: frmbufrd Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+#endif
 
 	/* IIC interrupt handlers */
 	SetupIICIntrHandlers();
