@@ -17,8 +17,6 @@ properties:
           - xlnx,mipi-csi2-rx-ctrl-1.0
   reg:
     description: Physical base address and size of the controller register map
-  xlnx,highaddr:
-    description: High Address of the CSI controller
   xlnx,csi-lanes:
     description: Active CSI controller lanes.
   xlnx,csi-offload-non-image:
@@ -33,7 +31,6 @@ properties:
 required:
   - compatible
   - reg
-  - xlnx,highaddr
   - xlnx,csi-lanes
   - xlnx,csi-offload-non-image
   - xlnx,csi-en-vc-support

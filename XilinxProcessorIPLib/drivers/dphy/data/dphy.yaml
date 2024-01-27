@@ -50,7 +50,7 @@ required:
   - xlnx,highaddr
   - xlnx,dphy-mode
   - xlnx,dphy-en-reg-if
-  - xlnx,dphy-dphy-lanes
+  - xlnx,dphy-lanes
   - xlnx,dphy-esc-clk-period
   - xlnx,dphy-esc-timeout
   - xlnx,hs-line-rate
