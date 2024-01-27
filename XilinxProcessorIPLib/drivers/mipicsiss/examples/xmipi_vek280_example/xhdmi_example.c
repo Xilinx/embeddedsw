@@ -311,6 +311,7 @@ u32 XV_Tx_InitController(XV_Tx *InstancePtr, u32 HdmiTxSsDevId,
 	InstancePtr->VidPhy = &Hdmiphy1;
 	InstancePtr->Intc = &Intc;
 
+#ifndef SDT
 	/* Setup the System Interrupt vector Id references. */
 	XV_Tx_IntrVecId IntrVecIds;
 #if defined(__arm__) || (__aarch64__)
@@ -367,7 +368,7 @@ u32 XV_Tx_InitController(XV_Tx *InstancePtr, u32 HdmiTxSsDevId,
 		           "Transmitter for HDMI failed !!\r\n");
 		return XST_FAILURE;
 	}
-
+#endif
 	/* Set the Application version in TXSs driver structure */
 	XV_HdmiTxSS1_SetAppVersion(&HdmiTxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
 
@@ -2880,12 +2881,19 @@ u32 Exdes_SetupClkSrc(u32 ps_iic0_deviceid, u32 ps_iic1_deviceid)
 	} else if (Status == XST_SUCCESS){
 		xil_printf("RC21008A initialization done.\r\n");
 	}
-
+#ifndef SDT
 	Status = XIic_Initialize(&Iic, XPAR_IIC_0_DEVICE_ID);
+#else
+	Status = XIic_Initialize(&Iic, XPAR_XIIC_0_BASEADDR);
+#endif
 	Status |= XIic_Start(&Iic);
 
 #else /* VCU118 */
+#ifndef SDT
 	Status = XIic_Initialize(&Iic, XPAR_IIC_0_DEVICE_ID);
+#else
+	Status = XIic_Initialize(&Iic, XPAR_XIIC_0_BASEADDR);
+#endif
 	Status |= XIic_Start(&Iic);
 
 	I2cMuxSel(&Iic, VCK190_MGT_SI570);
@@ -2906,6 +2914,7 @@ u32 Exdes_SetupClkSrc(u32 ps_iic0_deviceid, u32 ps_iic1_deviceid)
 	return Status;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -2987,6 +2996,7 @@ int SetupInterruptSystem(void)
 
 	return (XST_SUCCESS);
 }
+#endif
 
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 
@@ -3148,6 +3158,7 @@ u32 Exdes_AxisSwitchInitialize(XAxis_Switch *AxisSwitchPtr,u32 deviceid)
 int config_hdmi()
 {
 	u32 Status = XST_FAILURE;
+#ifndef SDT
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	TxInputSourceType TxInputSrc;
 	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
@@ -3158,6 +3169,20 @@ int config_hdmi()
 	 */
 	ResetAuxFifo();
 #endif
+#else
+#ifdef XPAR_XV_HDMITX1_NUM_INSTANCES
+	TxInputSourceType TxInputSrc;
+	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
+
+	/**
+	 * Reset the Fifo buffer which will be used for holding
+	 * incoming auxillary packets.
+	 */
+	ResetAuxFifo();
+#endif
+#endif
+
+#ifndef SDT
 #if (!defined XPAR_XVTC_NUM_INSTANCES) || (defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
                       (XPAR_XV_FRMBUFRD_NUM_INSTANCES))
 #if defined (VTEM2FSYNC)
@@ -3165,9 +3190,19 @@ int config_hdmi()
 	XVidC_VideoStream      *HdmiRxSsVidStreamVRRPtr;
 #endif
 #endif
+#else
+#if (!defined XPAR_XVTC_NUM_INSTANCES) || (defined (XPAR_XV_FRMBUF_WR_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUF_RD_NUM_INSTANCES))
+#if defined (VTEM2FSYNC)
+	XV_HdmiC_VrrInfoFrame  *HdmiRxVrrInfoFrameVRRPtr;
+	XVidC_VideoStream      *HdmiRxSsVidStreamVRRPtr;
+#endif
+#endif
+#endif
 
 	xil_printf("\r\n\r\n");
 	xil_printf("------------------------------------------\r\n");
+#ifndef SDT
 #if defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
                       (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
 	xil_printf("--- HDMI 2.1 SS + HdmiPhy VRR Example v%d.%d ---\r\n",
@@ -3176,10 +3211,21 @@ int config_hdmi()
 	xil_printf("--- HDMI 2.1 SS + HdmiPhy Example v%d.%d---\r\n",
 			APP_MAJ_VERSION, APP_MIN_VERSION);
 #endif
+#else
+#if defined (XPAR_XV_FRMBUF_RD_NUM_INSTANCES) && \
+                      (XPAR_XV_FRMBUF_WR_NUM_INSTANCES)
+	xil_printf("--- HDMI 2.1 SS + HdmiPhy VRR Example v%d.%d ---\r\n",
+			APP_MAJ_VERSION, APP_MIN_VERSION);
+#else
+	xil_printf("--- HDMI 2.1 SS + HdmiPhy Example v%d.%d---\r\n",
+			APP_MAJ_VERSION, APP_MIN_VERSION);
+#endif
+#endif
 	xil_printf("---    (c) 2019 by Xilinx, Inc.        ---\r\n");
 	xil_printf("------------------------------------------\r\n");
 	xil_printf("Build %s - %s\r\n", __DATE__, __TIME__);
 	xil_printf("------------------------------------------\r\n");
+
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	xhdmi_exdes_ctrlr.TxBusy            = (TRUE);
 	HdmiTxErrorFlag = FALSE;
@@ -3199,8 +3245,13 @@ int config_hdmi()
 	xil_printf("Initializing IIC and clock sources. \r\n");
 #if !(defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_ZCU104)
 	/* Initialize the PS_I2C and Initialize the clocks */
+#ifndef SDT
 	Status = Exdes_SetupClkSrc(XPAR_XIICPS_0_DEVICE_ID,
 			XPAR_XIICPS_1_DEVICE_ID);
+#else
+	Status = Exdes_SetupClkSrc(XPAR_I2C0_BASEADDR,
+			XPAR_I2C1_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("PS IIC initialization failed. \r\n");
 	}
@@ -3220,9 +3271,15 @@ int config_hdmi()
 	xil_printf("Initializing HDMI Video Transmitter. \r\n");
 
 	/* Initialize the controller for the Video TX for HDMI */
+#ifndef SDT
 	Status = XV_Tx_InitController(&xhdmi_example_tx_controller,
 			XPAR_XV_HDMITXSS1_0_DEVICE_ID,
 			XPAR_HDMIPHY1_0_DEVICE_ID);
+#else
+	Status = XV_Tx_InitController(&xhdmi_example_tx_controller,
+			XPAR_XV_HDMITXSS1_0_BASEADDR,
+			XPAR_XV_HDMIPHY1_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("HDMI Video Transmitter system setup failed !!\r\n");
 	} else {
@@ -3245,8 +3302,12 @@ int config_hdmi()
 #endif
 
 	/* Initialize Video FMC and GT TX output*/
+#ifndef SDT
 	Status = Vfmc_HdmiInit(&Vfmc[0], XPAR_HDMI_HIER_0_AXI_GPIO_0_DEVICE_ID,
 						&Iic, VFMC_HPC0);
+#else
+	Status = Vfmc_HdmiInit(&Vfmc[0], XPAR_XGPIO_3_BASEADDR, &Iic, VFMC_HPC0);
+#endif
 	if (Status == XST_FAILURE) {
 		xil_printf("VFMC Initialization Error! Exiting Program...\r\n");
 		return 0;
@@ -3354,6 +3415,7 @@ int config_hdmi()
 //	Xil_ExceptionEnable();
 
 	/* Initialize the system timer */
+#ifndef SDT
 	Exdes_SysTmrInitialize(&xhdmi_exdes_ctrlr,
 					XPAR_TMRCTR_1_DEVICE_ID,
 #if defined(__arm__) || (__aarch64__)
@@ -3361,7 +3423,7 @@ int config_hdmi()
 #else
 					XPAR_INTC_0_TMRCTR_1_VEC_ID);
 #endif
-
+#endif
 
 #if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 	/* Reset the TX Info Frame. */
