@@ -24,7 +24,11 @@
 #include "xil_cache.h"
 #include "xgpio_l.h"
 #include "xiic.h"
+#ifndef SDT
 #include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 #include "xuartpsv.h"
 #include "xvidc.h"
 #include "platform.h"
@@ -32,6 +36,10 @@
 #include "xdsitxss.h"
 #include "sensor_cfgs.h"
 #include "xv_hdmitxss1.h"
+#include "xv_frmbufwr_l2.h"
+#include "xv_frmbufrd_l2.h"
+#include "xcsiss.h"
+#include "xdsitxss.h"
 #include "xhdmi_example.h"
 #include "xhdmi_menu.h"
 
@@ -68,11 +76,19 @@ extern XHdmi_Exdes xhdmi_exdes_ctrlr;
 extern XHdmi_Menu_ExDes_Ctrlr ExDesCtrlr;
 
 #define VPROCSSCSC_BASE	XPAR_XVPROCSS_1_BASEADDR
+#ifndef SDT
 #define DEMOSAIC_BASE	XPAR_XV_DEMOSAIC_0_S_AXI_CTRL_BASEADDR
 #define VGAMMALUT_BASE	XPAR_XV_GAMMA_LUT_0_S_AXI_CTRL_BASEADDR
+#else
+#define DEMOSAIC_BASE_1		XPAR_XV_DEMOSAIC_0_BASEADDR
+#define VGAMMALUT_BASE_1	XPAR_XV_GAMMA_LUT_0_BASEADDR
+#endif
 
+#ifndef SDT
 #define XDSITXSS_DEVICE_ID	XPAR_DSITXSS_0_DEVICE_ID
 #define XDSITXSS_INTR_ID	XPAR_FABRIC_MIPI_DSI_TX_SUBSYSTEM_0_INTERRUPT_INTR
+#endif
+
 #define DSI_BYTES_PER_PIXEL	(3)
 #define DSI_H_RES		(1920)
 #define DSI_V_RES		(1200)
@@ -90,11 +106,21 @@ extern XHdmi_Menu_ExDes_Ctrlr ExDesCtrlr;
 #define ACTIVE_LANES_4	4
 
 XDsiTxSs DsiTxSs;
+XDsiTxSs_Config XDsiTxSs_ConfigPtr;
 
+XCsiSs CsiSs;
+XCsiSs_Config XCsiSs_ConfigPtr;
+
+#ifndef SDT
 #define XGPIO_TREADY_DEVICE_ID	XPAR_GPIO_0_DEVICE_ID//XPAR_GPIO_3_DEVICE_ID//XPAR_GPIO_2_DEVICE_ID
+#else
+#define XGPIO_TREADY_BASE XPAR_XGPIO_2_BASEADDR
+#endif
 XGpio Gpio_Tready;
 
 extern	XV_HdmiTxSs1  HdmiTxSs;
+extern XV_FrmbufWr_l2     frmbufwr;
+extern XV_FrmbufRd_l2     frmbufrd;
 
 extern u8                 TxBusy ;
 extern u8                 TxStartTransmit ;
@@ -111,10 +137,15 @@ extern u8   			  IsTxPresent;
  *****************************************************************************/
 void DisableImageProcessingPipe(void)
 {
+#ifndef SDT
 	Xil_Out32((DEMOSAIC_BASE + 0x00), 0x0   );
 	Xil_Out32((VGAMMALUT_BASE + 0x00), 0x0   );
 	Xil_Out32((VPROCSSCSC_BASE + 0x00), 0x0  );
-
+#else
+	Xil_Out32((DEMOSAIC_BASE_1 + 0x00), 0x0   );
+	Xil_Out32((VGAMMALUT_BASE_1 + 0x00), 0x0   );
+	Xil_Out32((VPROCSSCSC_BASE + 0x00), 0x0  );
+#endif
 }
 
 
@@ -240,9 +271,11 @@ u32 SetupDSI(void)
 	XDsiTxSs_Config *DsiTxSsCfgPtr = NULL;
 	u32 Status;
 	u32 PixelFmt;
-
+#ifndef SDT
 	DsiTxSsCfgPtr = XDsiTxSs_LookupConfig(XDSITXSS_DEVICE_ID);
-
+#else
+	DsiTxSsCfgPtr = XDsiTxSs_LookupConfig(XPAR_XDSITXSS_0_BASEADDR);
+#endif
 	if (!DsiTxSsCfgPtr) {
 		xil_printf("DSI Tx SS Device Id not found\r\n");
 		return XST_FAILURE;
@@ -255,7 +288,17 @@ u32 SetupDSI(void)
 				\r\n",Status);
 		return Status;
 	}
-
+#ifdef SDT
+	Status = XSetupInterruptSystem(&DsiTxSs,&XDsiTxSs_IntrHandler,
+				       DsiTxSs.Config.IntrId,
+				       DsiTxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: DSI TX Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+#endif
 	PixelFmt = XDsiTxSs_GetPixelFormat(&DsiTxSs);
 
 	if (PixelFmt != 0x3E) {
@@ -660,15 +703,21 @@ int main() {
 	/* Initialize platform */
 	init_platform();
 
+	#ifndef SDT
 	XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_DEVICE_ID);
+	#else
+	XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_BASE);
+	#endif
 
-
+#ifndef SDT
 	/* Initialize IRQ */
 	Status = SetupInterruptSystem();
 	if (Status == XST_FAILURE) {
 		xil_printf("IRQ Configuration failed.\r\n");
 		return XST_FAILURE;
 	}
+#endif
+
 	Status = config_csi_cap_path();
 	if (Status == XST_FAILURE) {
 		xil_printf("CSI Capture Pipe Configuration failed.\r\n");
