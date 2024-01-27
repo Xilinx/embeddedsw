@@ -24,7 +24,11 @@
 #include "xil_cache.h"
 #include "xgpio_l.h"
 #include "xiic.h"
+#ifndef SDT
 #include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 #include "xuartpsv.h"
 #include "xvidc.h"
 #include "platform.h"
@@ -62,10 +66,20 @@ extern u8   			  IsStreamUp;
 extern u8                        SinkReady;
 
 #define VPROCSSCSC_BASE	XPAR_XVPROCSS_1_BASEADDR
+#ifndef SDT
 #define DEMOSAIC_BASE	XPAR_XV_DEMOSAIC_0_S_AXI_CTRL_BASEADDR
 #define VGAMMALUT_BASE	XPAR_XV_GAMMA_LUT_0_S_AXI_CTRL_BASEADDR
+#else
+#define DEMOSAIC_BASE_1		XPAR_XV_DEMOSAIC_0_BASEADDR
+#define VGAMMALUT_BASE_1	XPAR_XV_GAMMA_LUT_0_BASEADDR
+#endif
 
+#ifndef SDT
 #define XDSITXSS_DEVICE_ID	XPAR_DSITXSS_0_DEVICE_ID
+#else
+#define XDSITXSS_BASE	XPAR_XDSITXSS_0_BASEADDR
+#endif
+
 #define XDSITXSS_INTR_ID	XPAR_FABRIC_MIPI_DSI_TX_SUBSYSTEM_0_INTERRUPT_INTR
 #define DSI_BYTES_PER_PIXEL	(3)
 #define DSI_H_RES		(1920)
@@ -85,7 +99,11 @@ extern u8                        SinkReady;
 
 XDsiTxSs DsiTxSs;
 
+#ifndef SDT
 #define XGPIO_TREADY_DEVICE_ID	XPAR_GPIO_2_DEVICE_ID
+#else
+#define XGPIO_TREADY_BASE	XPAR_XGPIO_2_BASEADDR
+#endif
 XGpio Gpio_Tready;
 
 extern	XV_HdmiTxSs  HdmiTxSs;
@@ -101,8 +119,13 @@ extern	XV_HdmiTxSs  HdmiTxSs;
  *****************************************************************************/
 void DisableImageProcessingPipe(void)
 {
+#ifndef SDT
 	Xil_Out32((DEMOSAIC_BASE + 0x00), 0x0   );
 	Xil_Out32((VGAMMALUT_BASE + 0x00), 0x0   );
+#else
+	Xil_Out32((DEMOSAIC_BASE_1 + 0x00), 0x0   );
+	Xil_Out32((VGAMMALUT_BASE_1 + 0x00), 0x0   );
+#endif
 	Xil_Out32((VPROCSSCSC_BASE + 0x00), 0x0  );
 
 }
@@ -231,8 +254,11 @@ u32 SetupDSI(void)
 	u32 Status;
 	u32 PixelFmt;
 
+#ifndef SDT
 	DsiTxSsCfgPtr = XDsiTxSs_LookupConfig(XDSITXSS_DEVICE_ID);
-
+#else
+	DsiTxSsCfgPtr = XDsiTxSs_LookupConfig(XDSITXSS_BASE);
+#endif
 	if (!DsiTxSsCfgPtr) {
 		xil_printf("DSI Tx SS Device Id not found\r\n");
 		return XST_FAILURE;
@@ -245,6 +271,17 @@ u32 SetupDSI(void)
 				\r\n",Status);
 		return Status;
 	}
+#ifdef SDT
+	Status = XSetupInterruptSystem(&DsiTxSs,&XDsiTxSs_IntrHandler,
+				       DsiTxSs.Config.IntrId,
+				       DsiTxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: DSI TX Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+#endif
 
 	PixelFmt = XDsiTxSs_GetPixelFormat(&DsiTxSs);
 
@@ -304,7 +341,7 @@ void SelectHDMIOutput(void) {
 	XGpio_DiscreteWrite(&Gpio_Tready, 1, 0);
 }
 
-
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -361,6 +398,7 @@ int SetupInterruptSystem(void) {
 
 	return (XST_SUCCESS);
 }
+#endif
 
 void Xil_AssertCallbackRoutine(u8 *File, s32 Line) {
 	xil_printf("Assertion in File %s, on line %0d\r\n", File, Line);
@@ -577,7 +615,7 @@ void Enable_mmcmfabric_control()
 /*****************************************************************************/
 /**
 *
-* Function to rnable MMCME5 Fabric Control in PCSR
+* Function to enable MMCME5 Fabric Control in PCSR
 *
 * @param  None.
 *
@@ -699,7 +737,11 @@ int main() {
 	Pipeline_Cfg.VideoDestn = New_Cfg.VideoDestn ;
 	Pipeline_Cfg.VideoMode = New_Cfg.VideoMode ;
 
+#ifndef SDT
 	XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_DEVICE_ID);
+#else
+	XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_BASE);
+#endif
 	SelectHDMIOutput();
 
 	Reset_IP_Pipe();
@@ -710,12 +752,14 @@ int main() {
 		  return XST_FAILURE;
 		}
 	}
+#ifndef SDT
 	/* Initialize IRQ */
 	Status = SetupInterruptSystem();
 	if (Status == XST_FAILURE) {
 		xil_printf("IRQ Configuration failed.\r\n");
 		return XST_FAILURE;
 	}
+#endif
 	Status = config_csi_cap_path();
 	if (Status == XST_FAILURE) {
 		xil_printf("CSI Capture Pipe Configuration failed.\r\n");
@@ -770,8 +814,11 @@ int main() {
 
 				if (Pipeline_Cfg.VideoDestn == XVIDDES_DSI) {
 					xil_printf("Set DSI as destination \r\n");
-
+#ifndef SDT
 					XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_DEVICE_ID);
+#else
+					XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_BASE);
+#endif
 					Reset_IP_Pipe();
 					SetupDSI();
 					TxRestartColorbar = (FALSE);

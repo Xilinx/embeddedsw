@@ -455,10 +455,17 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 		case ('o') :
 		case ('O') :
 			/* Toggle GTWiz_RESET_ALL */
+#ifndef SDT
 		XHdmiphy1_WriteReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14,
 		(XHdmiphy1_ReadReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14) | 0x1));
 		XHdmiphy1_WriteReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14,
 		(XHdmiphy1_ReadReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14) & ~0x1));
+#else
+		XHdmiphy1_WriteReg(XPAR_XV_HDMIPHY1_0_BASEADDR, 0x14,
+		(XHdmiphy1_ReadReg(XPAR_XV_HDMIPHY1_0_BASEADDR, 0x14) | 0x1));
+		XHdmiphy1_WriteReg(XPAR_XV_HDMIPHY1_0_BASEADDR, 0x14,
+		(XHdmiphy1_ReadReg(XPAR_XV_HDMIPHY1_0_BASEADDR, 0x14) & ~0x1));
+#endif
 			Menu = XHDMI_MAIN_MENU;
 			break;
 
