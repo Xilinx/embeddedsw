@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +8,9 @@
 #define XPM_BISR_PLAT_H_
 
 #include "xpm_common.h"
+#ifdef SDT
+#include "xpm_config.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {

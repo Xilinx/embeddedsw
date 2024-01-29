@@ -1,4 +1,4 @@
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_SOURCES xpm_aie.c)
@@ -67,3 +67,4 @@ collect (PROJECT_LIB_SOURCES xpm_pin_plat.c)
 collect (PROJECT_LIB_SOURCES xpm_pinfunc_plat.c)
 collect (PROJECT_LIB_HEADERS xpm_pin_plat.h)
 collect (PROJECT_LIB_HEADERS xpm_requirement_plat.h)
+collect (PROJECT_LIB_SOURCES xpm_noc_config_vp1902.c)
