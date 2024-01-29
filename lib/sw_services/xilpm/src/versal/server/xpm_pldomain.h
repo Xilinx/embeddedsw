@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,6 +12,9 @@
 #include "xpm_regs.h"
 #include "xcframe.h"
 #include "xcfupmc.h"
+#ifdef SDT
+#include "xpm_config.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
