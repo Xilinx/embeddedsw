@@ -92,7 +92,13 @@
 * 9.0    ml  03/03/23 Added description to fix doxygen warnings.
 *        mus 09/21/23 Fix infinite loop in Xil_DCacheInvalidateRange when
 *                     USE_AMP=1.
-+        asa 01/12/24 Fix issues in Xil_DCacheInvalidateRange API.
+* 9.1    asa 01/12/24 Fix issues in Xil_DCacheInvalidateRange.
+* 9.1    asa 01/29/24 In an unlikely scenario where the start address
+*                     passed is 0x0 and length is less than 0x20 (cache line),
+*                     the XilDCacheInvalidateRange API will result in
+*                     a probable crash as it will try to invalidate the
+*                     complete 4 GB address range.
+*                     Changes are made to fix the same.
 * </pre>
 *
 ******************************************************************************/
@@ -352,7 +358,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 				/* Enable Write-back and line fills */
 				Xil_L2WriteDebugCtrl(0x0U);
 				Xil_L2CacheSync();
-				endaddr -= cacheline;
+				endaddr >= cacheline ? (endaddr -= cacheline) : (endaddr = 0);
 #endif
 			}
 		}
