@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2020-2022 Xilinx, Inc. All Rights Reserved.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -70,6 +70,7 @@
 *                      handling in FreeRTOS based applications.
 * 1.14  asa  06/23/23  Update the timer interrupt id to support use
 *                      cases where xiltimer or SDT is enabled.
+* 1.15  dp   01/30/24  Update the example to support SDT flow.
 * </pre>
 ******************************************************************************/
 
@@ -85,6 +86,30 @@
 #include "xil_printf.h"
 #include "xparameters.h"
 
+#ifdef SDT
+
+#ifdef XPAR_XTTCPS_3_BASEADDR
+#include "xttcps.h"
+/* Instance for ttcps */
+static XTtcPs xTimerInstance;
+
+/* Interrupt handler for ttcps */
+void TtcHandler(XTtcPs *InstancePtr);
+
+#elif defined (XPAR_XTMRCTR_1_BASEADDR)
+#include "xtmrctr.h"
+
+/* AXI timer instance */
+static XTmrCtr xTickTimerInstance;
+
+/* AXI timer instance Handler */
+void TmrctrHandler(XTmrCtr *InstancePtr);
+#else
+#error "This example needs 2 AXI timer IP's in HW design for Microblaze case, and TTC0, TTC1 in case of other ARM processors, \
+Please make sure that, you have enabled required IP's in HW design"
+#endif
+
+#else
 #if defined (XPAR_XTTCPS_3_DEVICE_ID)
 #include "xttcps.h"
 
@@ -116,6 +141,7 @@ void TmrctrHandler(XTmrCtr *InstancePtr);
 #else
 #error "This example needs 2 AXI timer IP's in HW design for Microblaze case, and TTC0, TTC1 in case of other ARM processors, \
 Please make sure that, you have enabled required IP's in HW design"
+#endif
 #endif
 
 #define TIMER_ID	1
@@ -172,11 +198,15 @@ static void prvTimerTask( void *pvParameters )
 		return XST_FAILURE;
 	}
 
-#if defined (XPAR_XTTCPS_3_DEVICE_ID)
+#if defined (XPAR_XTTCPS_3_DEVICE_ID) || defined(XPAR_XTTCPS_3_BASEADDR)
 	XTtcPs_Config *pxTimerConfig;
 	XInterval usInterval;
 	uint8_t ucPrescaler;
-	pxTimerConfig = XTtcPs_LookupConfig( TIMER_DEVICE_ID );
+#ifdef SDT
+	pxTimerConfig = XTtcPs_LookupConfig( XPAR_XTTCPS_3_BASEADDR );
+#else
+   pxTimerConfig = XTtcPs_LookupConfig( TIMER_DEVICE_ID );
+#endif
 
 	xStatus = XTtcPs_CfgInitialize( &xTimerInstance, pxTimerConfig, pxTimerConfig->BaseAddress );
 
@@ -196,12 +226,19 @@ static void prvTimerTask( void *pvParameters )
 	XTtcPs_SetPrescaler( &xTimerInstance, ucPrescaler );
 	XTtcPs_EnableInterrupts( &xTimerInstance, XTTCPS_IXR_INTERVAL_MASK );
 	/* Register the ttcps Timer interrupt handler with interrupt controller */
+#ifdef SDT
+	xPortInstallInterruptHandler( pxTimerConfig->IntrId[0], (Xil_ExceptionHandler)TtcHandler, &xTimerInstance );
+	/* Enable interrupt for TTC1 instance */
+	vPortEnableInterrupt(pxTimerConfig->IntrId[0]);
+
+#else
 	xPortInstallInterruptHandler( TIMER_INTR_ID, (Xil_ExceptionHandler)TtcHandler, &xTimerInstance );
 	/* Enable interrupt for TTC1 instance */
 	vPortEnableInterrupt(TIMER_INTR_ID);
+#endif
 	XTtcPs_Start( &xTimerInstance );
 
-#elif defined (XPAR_TMRCTR_1_DEVICE_ID)
+#elif defined (XPAR_TMRCTR_1_DEVICE_ID) || defined (XPAR_XTMRCTR_1_BASEADDR)
 
 	const unsigned char ucTickTimerCounterNumber = ( unsigned char ) 0U;
 	const unsigned char ucRunTimeStatsCounterNumber = ( unsigned char ) 1U;
@@ -209,19 +246,36 @@ static void prvTimerTask( void *pvParameters )
 	extern void vPortTickISR( void *pvUnused );
 
 	/* Initialise the timer/counter. */
+#ifdef SDT
+	xStatus = XTmrCtr_Initialize( &xTickTimerInstance, XPAR_XTMRCTR_1_BASEADDR);
+#else
 	xStatus = XTmrCtr_Initialize( &xTickTimerInstance, TIMER_DEVICE_ID );
+#endif
 
 	if ( xStatus == XST_SUCCESS ) {
+
+#ifdef SDT
 		/* Register the AXI Timer interrupt handler with interrupt controller */
-		xStatus = xPortInstallInterruptHandler( TIMER_INTR_ID, (XInterruptHandler)XTmrCtr_InterruptHandler,
-							&xTickTimerInstance );
+		xStatus = xPortInstallInterruptHandler(&xTickTimerInstance->Config.IntrId,
+                                             (XInterruptHandler)XTmrCtr_InterruptHandler,
+                                             &xTickTimerInstance );
+#else
+		xStatus = xPortInstallInterruptHandler(TIMER_INTR_ID,
+                                             (XInterruptHandler)XTmrCtr_InterruptHandler,
+                                             &xTickTimerInstance );
+
+#endif
 		XTmrCtr_SetHandler(&xTickTimerInstance, TmrctrHandler,
 				   &xTickTimerInstance);
 	}
 
 	if ( xStatus == pdPASS ) {
 		/* Enable interrupt for timer peripheral */
+#ifdef SDT
+		vPortEnableInterrupt(&xTickTimerInstance->Config.IntrId);
+#else
 		vPortEnableInterrupt( TIMER_INTR_ID );
+#endif
 
 		/* Set the correct period for the timer. */
 		XTmrCtr_SetResetValue( &xTickTimerInstance, ucTickTimerCounterNumber, ulCounterValue );
@@ -246,7 +300,7 @@ static void prvTimerTask( void *pvParameters )
 
 }
 
-#if defined (XPAR_XTTCPS_3_DEVICE_ID)
+#if defined (XPAR_XTTCPS_3_DEVICE_ID) || defined (XPAR_XTTCPS_3_BASEADDR)
 void TtcHandler(XTtcPs *InstancePtr)
 {
 	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
@@ -262,7 +316,7 @@ void TtcHandler(XTtcPs *InstancePtr)
 	}
 }
 
-#elif defined (XPAR_TMRCTR_1_DEVICE_ID)
+#elif defined (XPAR_TMRCTR_1_DEVICE_ID) || defined (XPAR_XTMRCTR_1_BASEADDR)
 void TmrctrHandler(XTmrCtr *InstancePtr)
 {
 	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
