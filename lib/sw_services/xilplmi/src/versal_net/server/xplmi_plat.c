@@ -42,7 +42,8 @@
 *       ng   09/22/2023 Fixed missing header for microblaze sleep
 * 1.03  sk   14/12/2023 PSM & PMC buffer list saving to handle in-place update
 *       mss  01/09/2024 Added PMC RAM check condition in Xplmi_VerifyAddr API
-*
+*       pre  01/22/2024 Updated XPlmi_SetPmcIroFreq to support both ES1 and
+*                       production samples
 * </pre>
 *
 * @note
@@ -145,7 +146,7 @@ static XInterruptHandler g_TopLevelInterruptTable[] = {
 };
 
  /* Default IRO frequency during ROM phase is 233MHz */
-static u32 RomIroFreq = XPLMI_PMC_IRO_FREQ_233_MHZ;
+static u32 RomIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ;
 
 /*****************************************************************************/
 /**
@@ -603,8 +604,8 @@ u32 XPlmi_GetRomIroFreq(void)
 /**
 * @brief	This function provides check if its hp part
 *
-* @return	- TRUE
-*		- FALSE
+* @return	- returns TRUE for voltage > 0.854v
+*		- FALSE otherwise
 *
 *****************************************************************************/
 static u32 XPlmi_IsHpPart(void) {
@@ -624,6 +625,29 @@ static u32 XPlmi_IsHpPart(void) {
 
 /*****************************************************************************/
 /**
+* @brief	This function provides check if its Mp or hp part
+*
+* @return	- returns TRUE for voltage > 0.775v
+*		- FALSE otherwise
+*
+*****************************************************************************/
+static u32 XPlmi_IsMporHpPart(void) {
+
+	volatile u32 RawVoltage;
+	u32 IsMporHpPart = (u32)FALSE;
+
+	RawVoltage = Xil_In32(XPLMI_SYSMON_SUPPLY0_ADDR);
+	RawVoltage &= XPLMI_SYSMON_SUPPLYX_MASK;
+
+	if (RawVoltage >= XPlmi_GetRawVoltage(XPLMI_VCC_PMC_MP_MIN)) {
+		IsMporHpPart = (u32)TRUE;
+	}
+
+	return IsMporHpPart;
+}
+
+/*****************************************************************************/
+/**
 * @brief	This functions sets the PMC IRO frequency.
 *
 * @return	- XST_SUCCESS on success
@@ -633,19 +657,41 @@ static u32 XPlmi_IsHpPart(void) {
 int XPlmi_SetPmcIroFreq(void)
 {
 	int Status = XST_FAILURE;
+	volatile u32 FastfreqFlag = FALSE;
+	volatile u32 FastfreqFlagTmp = FALSE;
 	u32 *PmcIroFreq = XPlmi_GetPmcIroFreq();
 
-	/** Set PMC IRO Frequency to the value used during ROM phase */
-	*PmcIroFreq = XPLMI_PMC_IRO_FREQ_233_MHZ;
+	/* Read PMC version */
+	u32 SiliconVal = XPlmi_In32(PMC_TAP_VERSION) &
+			PMC_TAP_VERSION_PMC_VERSION_MASK;
+
+	/* During ROM phase, set PMC IRO frequecy based on version */
+	if (SiliconVal == XPLMI_SILICON_ES1_VAL) {
+		*PmcIroFreq = XPLMI_PMC_IRO_FREQ_233_MHZ;
+		RomIroFreq = XPLMI_PMC_IRO_FREQ_233_MHZ;
+	}
+
+	/* Selection based on IRO trim fuse select */
 	if ((XPlmi_In32(EFUSE_CTRL_ANLG_OSC_SW_1LP) == XPLMI_EFUSE_IRO_TRIM_FAST)) {
 		RomIroFreq = XPLMI_PMC_IRO_FREQ_400_MHZ;
 		*PmcIroFreq = XPLMI_PMC_IRO_FREQ_400_MHZ;
 		goto END;
 	}
-	/** Set PMC IRO frequency to be used during PLM phase */
-	/** Update IR0 frequency to 400MHz for HP parts */
-	/** Added redundacy to make it single glitch immune */
-	if((XPlmi_IsHpPart() == (u32)TRUE) && (XPlmi_IsHpPart() == (u32)TRUE)) {
+
+	/**
+	 * During PLM phase, set PMC IRO frequency to 400MHz for MP,HP parts
+	 * if production sample and for HP parts if ES1.
+	 * Added redundancy to make it single glitch immune
+	 */
+	if (SiliconVal != XPLMI_SILICON_ES1_VAL) {
+		XSECURE_REDUNDANT_CALL(FastfreqFlag, FastfreqFlagTmp, XPlmi_IsMporHpPart)
+	}
+	else {
+		XSECURE_REDUNDANT_CALL(FastfreqFlag, FastfreqFlagTmp, XPlmi_IsHpPart)
+	}
+
+	/* Switch to high frequency based on flag status */
+	if((FastfreqFlag == (u32)TRUE) && (FastfreqFlagTmp == (u32)TRUE)) {
 		XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_UNLOCK_VAL);
 		*PmcIroFreq = XPLMI_PMC_IRO_FREQ_400_MHZ;
 		XPlmi_Out32(EFUSE_CTRL_ANLG_OSC_SW_1LP,

@@ -42,6 +42,8 @@
 *       mss  10/31/2023 Added PMC_GLOBAL_PMC_FW_ERR_CR_FLAG_MASK macro
 *       pre  14/12/2023 Fixed compilation warnings
 *       mss  01/09/2024 Added XPLMI_TOTAL_CHUNK_SIZE macro for Validating address
+*       pre  01/22/2024 Updated XPlmi_SetPmcIroFreq to support both ES1 and
+*                       production samples
 *
 * </pre>
 *
@@ -1298,6 +1300,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /* Sysmon supply 0 address */
 #define XPLMI_SYSMON_SUPPLY0_ADDR		(0xF1271040U)
 #define XPLMI_SYSMON_SUPPLYX_MASK		(0x0000FFFFU)
+#define XPLMI_VCC_PMC_MP_MIN			(0.775f)
 #define XPLMI_VCC_PMC_HP_MIN			(0.854f)
 
 /* Slave error enable mask */
