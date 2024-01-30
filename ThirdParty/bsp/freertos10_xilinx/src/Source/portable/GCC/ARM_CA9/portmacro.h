@@ -142,8 +142,11 @@ void FreeRTOS_Tick_Handler( void );
  * pdPASS is returned if the function executes successfully.  Any other value
  * being returned indicates that the function did not execute correctly.
  */
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 BaseType_t xPortInstallInterruptHandler( uint8_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef );
-
+#else
+BaseType_t xPortInstallInterruptHandler( uint16_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef );
+#endif
 /*
  * Enables the interrupt, within the interrupt controller, for the peripheral
  * specified by the ucInterruptID parameter.
@@ -154,8 +157,11 @@ BaseType_t xPortInstallInterruptHandler( uint8_t ucInterruptID, XInterruptHandle
  * interrupt controller.  Peripheral IDs are defined in the xparameters.h header
  * file, which is itself part of the BSP project.
  */
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 void vPortEnableInterrupt( uint8_t ucInterruptID );
-
+#else
+void vPortEnableInterrupt( uint16_t ucInterruptID );
+#endif
 /*
  * Disables the interrupt, within the interrupt controller, for the peripheral
  * specified by the ucInterruptID parameter.
@@ -166,8 +172,11 @@ void vPortEnableInterrupt( uint8_t ucInterruptID );
  * interrupt controller.  Peripheral IDs are defined in the xparameters.h header
  * file, which is itself part of the BSP project.
  */
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 void vPortDisableInterrupt( uint8_t ucInterruptID );
-
+#else
+void vPortDisableInterrupt( uint16_t ucInterruptID );
+#endif
 /* If configUSE_TASK_FPU_SUPPORT is set to 1 (or left undefined) then tasks are
 created without an FPU context and must call vPortTaskUsesFPU() to give
 themselves an FPU context before using any FPU instructions.  If

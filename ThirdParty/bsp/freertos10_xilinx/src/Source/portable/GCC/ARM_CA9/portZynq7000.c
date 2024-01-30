@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2009-2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -34,7 +34,7 @@
 
 /* Xilinx includes. */
 #include "xscugic.h"
-#ifndef XPAR_XILTIMER_ENABLED
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 #include "xscutimer.h"
 #else
 #include "xiltimer.h"
@@ -71,14 +71,16 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer,
 #endif
 
 /* Timer used to generate the tick interrupt. */
-#ifndef XPAR_XILTIMER_ENABLED
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 static XScuTimer xTimer;
-#endif
 XScuGic xInterruptController; 	/* Interrupt controller instance */
+#else
+extern uintptr_t IntrControllerAddr;
+#endif
 
 /*-----------------------------------------------------------*/
 
-#ifndef XPAR_XILTIMER_ENABLED
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 void FreeRTOS_SetupTickInterrupt( void )
 {
 BaseType_t xStatus;
