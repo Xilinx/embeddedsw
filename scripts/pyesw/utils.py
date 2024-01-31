@@ -480,6 +480,9 @@ def discard_dump():
     else:
         return "/dev/null"
 
+def touch(filepath: str):
+    Path(filepath).touch()
+
 def get_high_precedence_path(repo_paths_list, file_type, *argv):
     path = ""
     for entries in repo_paths_list:
