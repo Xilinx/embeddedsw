@@ -1,4 +1,9 @@
-DRIVER_LIB_VERSION = 2.8
+###############################################################################
+# Copyright (C) 2024  Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+DRIVER_LIB_VERSION = 2.10
 COMPILER=
 ARCHIVER=
 CP=cp
