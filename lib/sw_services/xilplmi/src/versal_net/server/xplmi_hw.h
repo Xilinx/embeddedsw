@@ -34,7 +34,7 @@
 *       bm   05/22/2023 Update current CDO command offset in GSW Error Status
 *       bm   07/06/2023 Refactored Proc logic to more generic logic
 *       kpt  07/10/2023 Added macros related to DDRMC status check
-*       am   07/11/2023 Reduced the trace event buffer length to accomodate
+*       am   07/11/2023 Reduced the trace event buffer length to accommodate
 *                       IHT OP data store address
 *       ng   07/13/2023 Added support for system device-tree flow
 *       ro   08/03/2023 Updated XPAR_XIICPS_0_BASEADDR macro
