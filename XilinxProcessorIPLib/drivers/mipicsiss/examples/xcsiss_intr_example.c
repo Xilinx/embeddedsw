@@ -137,7 +137,7 @@ void Delay(u32 Seconds)
 	}
 
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
-	__asm__ __volatile__ ("\n"
+	__asm volatile ("\n"
 			      "1:               \n\t"
 			      "addik r7, r0, %0 \n\t"
 			      "2:               \n\t"

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -52,7 +52,7 @@ extern "C" {
 
 /* pseudo assembler instructions */
 #define mfcpsr()	({u32 rval = 0U; \
-		__asm__ __volatile__("mrs %x0, DAIF" : "=r" (rval)); \
+		__asm volatile("mrs %x0, DAIF" : "=r" (rval)); \
 		rval; \
 	})
 

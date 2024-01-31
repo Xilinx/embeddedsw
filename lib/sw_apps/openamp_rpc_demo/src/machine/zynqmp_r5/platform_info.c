@@ -2,7 +2,7 @@
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
  * Copyright (c) 2022 Xilinx, Inc.
- * Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -41,7 +41,7 @@
 #define SHARED_BUF_OFFSET 0x8000UL
 
 #ifndef RPMSG_NO_IPI
-#define _rproc_wait() __asm__ __volatile__("wfi")
+#define _rproc_wait() __asm volatile("wfi")
 #endif /* !RPMSG_NO_IPI */
 
 /* Polling information used by remoteproc operations.

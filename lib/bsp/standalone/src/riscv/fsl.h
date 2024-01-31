@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,7 +62,7 @@ Performs a get function on an input stream of the MicroBlaze RISC-V processor
 */
 #define getfslx(val, id, flags) \
 	{ register unsigned int _item asm("t0"); \
-		__asm__ __volatile__ (".word (" stringify(flags) ") | (" stringify(id) " << 15) | 0x22AB # rd = %0" : "=r" (_item)); \
+		__asm volatile (".word (" stringify(flags) ") | (" stringify(id) " << 15) | 0x22AB # rd = %0" : "=r" (_item)); \
 		val = _item; }
 
 /**
@@ -73,7 +73,7 @@ Performs a put function on an input stream of the MicroBlaze RISC-V processor
 */
 #define putfslx(val, id, flags) \
 	{ register unsigned int _item asm("t0") = val; \
-		__asm__ __volatile__ (".word (" stringify(flags) ") | 0x2B02B | (" stringify(id) " << 7) # rs1 = %0" :: "r" (_item)); }
+		__asm volatile (".word (" stringify(flags) ") | 0x2B02B | (" stringify(id) " << 7) # rs1 = %0" :: "r" (_item)); }
 
 /**
 Performs a test get function on an input stream of the MicroBlaze RISC-V processor
@@ -83,7 +83,7 @@ Performs a test get function on an input stream of the MicroBlaze RISC-V process
 */
 #define tgetfslx(val, id, flags) \
 	{ register unsigned int _item asm("t0"); \
-		__asm__ __volatile__ (".word 0x20000000 | (" stringify(flags) ") | (" stringify(id) " << 15) | 0x22AB # rd = %0" : "=r" (_item)); \
+		__asm volatile (".word 0x20000000 | (" stringify(flags) ") | (" stringify(id) " << 15) | 0x22AB # rd = %0" : "=r" (_item)); \
 		val = _item; }
 
 /**
@@ -103,7 +103,7 @@ Performs a get function on a dynamic input stream of the MicroBlaze RISC-V proce
 #define getdfslx(val, var, flags) \
 	{ register unsigned int _item asm("t0"); \
 		register unsigned int _link asm("t1") = var; \
-		__asm__ __volatile__ (".word (" stringify(flags) ") | 0x6022AB # rd = %0, rs2 = %1" : "=r" (_item) : "r" (_link)); \
+		__asm volatile (".word (" stringify(flags) ") | 0x6022AB # rd = %0, rs2 = %1" : "=r" (_item) : "r" (_link)); \
 		val = _item; }
 
 /**
@@ -115,7 +115,7 @@ Performs a put function on a dynamic input stream of the MicroBlaze RISC-V proce
 #define putdfslx(val, var, flags) \
 	{ register unsigned int _item asm("t0") = val; \
 		register unsigned int _link asm("t1") = var; \
-		__asm__ __volatile__ (".word (" stringify(flags) ") | 0x62B02B # rs1 = %0, rs2 = %1" :: "r" (_item), "r" (_link)); }
+		__asm volatile (".word (" stringify(flags) ") | 0x62B02B # rs1 = %0, rs2 = %1" :: "r" (_item), "r" (_link)); }
 
 /**
 Performs a test get function on a dynamic input stream of the MicroBlaze RISC-V processor;
@@ -126,7 +126,7 @@ Performs a test get function on a dynamic input stream of the MicroBlaze RISC-V 
 #define tgetdfslx(val, var, flags) \
 	{ register unsigned int _item asm("t0"); \
 		register unsigned int _link asm("t1") = var; \
-		__asm__ __volatile__ (".word 0x20000000 | (" stringify(flags) ") | 0x6022AB # rd = %0, rs2 = %1" : "=r" (_item) : "r" (_link)); \
+		__asm volatile (".word 0x20000000 | (" stringify(flags) ") | 0x6022AB # rd = %0, rs2 = %1" : "=r" (_item) : "r" (_link)); \
 		val = _item; }
 
 /**
@@ -136,7 +136,7 @@ Performs a test put function on a dynamic input stream of the MicroBlaze RISC-V 
 */
 #define tputdfslx(var, flags) \
 	{ register unsigned int _link asm("t1") = var; \
-		__asm__ __volatile__ (".word 0x20000000 | (" stringify(flags) ") | 0x60302B # rs2 = %0" :: "r" (_link)); }
+		__asm volatile (".word 0x20000000 | (" stringify(flags) ") | 0x60302B # rs2 = %0" :: "r" (_link)); }
 
 #ifdef __cplusplus
 }

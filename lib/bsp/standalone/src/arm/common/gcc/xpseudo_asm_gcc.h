@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,7 +57,7 @@ extern "C" {
 #if defined (__aarch64__)
 /* pseudo assembler instructions */
 #define mfcpsr()	({u32 rval = 0U; \
-		__asm__ __volatile__("mrs %0,  DAIF" : "=r" (rval));\
+		__asm volatile("mrs %0,  DAIF" : "=r" (rval));\
 		rval;\
 	})
 
@@ -104,32 +104,32 @@ extern "C" {
 
 #if (EL3 == 1)
 #define mfelrel3() ({u64 rval = 0U; \
-		__asm__ __volatile__("mrs %0,  ELR_EL3" : "=r" (rval));\
+		__asm volatile("mrs %0,  ELR_EL3" : "=r" (rval));\
 		rval;\
 	})
 #define mfesrel3() ({u64 rval = 0U; \
-		__asm__ __volatile__("mrs %0,  ESR_EL3" : "=r" (rval));\
+		__asm volatile("mrs %0,  ESR_EL3" : "=r" (rval));\
 		rval;\
 	})
 
 #define mffarel3() ({u64 rval = 0U; \
-		__asm__ __volatile__("mrs %0,  FAR_EL3" : "=r" (rval));\
+		__asm volatile("mrs %0,  FAR_EL3" : "=r" (rval));\
 		rval;\
 	})
 
 #else
 #define mfelrel1() ({u64 rval = 0U; \
-		__asm__ __volatile__("mrs %0,  ELR_EL1" : "=r" (rval));\
+		__asm volatile("mrs %0,  ELR_EL1" : "=r" (rval));\
 		rval;\
 	})
 
 #define mfesrel1() ({u64 rval = 0U; \
-		__asm__ __volatile__("mrs %0,  ESR_EL1" : "=r" (rval));\
+		__asm volatile("mrs %0,  ESR_EL1" : "=r" (rval));\
 		rval;\
 	})
 
 #define mffarel1() ({u64 rval = 0U; \
-		__asm__ __volatile__("mrs %0,  FAR_EL1" : "=r" (rval));\
+		__asm volatile("mrs %0,  FAR_EL1" : "=r" (rval));\
 		rval;\
 	})
 

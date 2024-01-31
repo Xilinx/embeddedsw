@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -117,10 +117,10 @@ extern char inbyte();
 // --------------------------------------------------------- PREPROCESSORS ----
 // Macros
 #define REG_READ(addr) \
-	({int val;int a=addr; __asm__ __volatile__ ("ldr   %0,[%1]\n" : "=r"(val) : "r"(a)); val;})
+	({int val;int a=addr; __asm volatile ("ldr   %0,[%1]\n" : "=r"(val) : "r"(a)); val;})
 
 #define REG_WRITE(addr,val) \
-	({int v = val; int a = addr; __asm__ __volatile__ ("str  %1,[%0]\n" :: "r"(a),"r"(v)); v;})
+	({int v = val; int a = addr; __asm volatile ("str  %1,[%0]\n" :: "r"(a),"r"(v)); v;})
 
 #define min(a,b)        (((a) < (b)) ? (a) : (b))
 #define max(a,b)        (((a) > (b)) ? (a) : (b))
@@ -832,7 +832,7 @@ void cache_ctrl(int d, int i)
 {
 	unsigned int cr1;
 
-	__asm__ __volatile__ ("mrc 15,0,%0,cr1,cr0,0":"=r"(cr1));
+	__asm volatile ("mrc 15,0,%0,cr1,cr0,0":"=r"(cr1));
 	if (d) {
 		cr1 |= 3;
 	} else {
@@ -845,7 +845,7 @@ void cache_ctrl(int d, int i)
 		cr1 &= ~(1 << 12);
 	}
 
-	__asm__ __volatile__ ("mcr  15,0,%0,cr1,cr0,0"::"r"(cr1));
+	__asm volatile ("mcr  15,0,%0,cr1,cr0,0"::"r"(cr1));
 }
 
 

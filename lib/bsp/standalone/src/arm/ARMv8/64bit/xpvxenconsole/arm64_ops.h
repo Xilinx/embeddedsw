@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 Copyright DornerWorks 2016
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -20,7 +20,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _ARM64_OPS_H_
 #include <stdint.h>
 
-#define BUG() while(1){__asm__ __volatile__ (".word 0xe7f000f0\n");} /* Undefined instruction; will call our fault handler. */
+#define BUG() while(1){__asm volatile (".word 0xe7f000f0\n");} /* Undefined instruction; will call our fault handler. */
 #define ASSERT(x)                                              \
 	do {                                                           \
 		if (!(x)) {                                                \
@@ -69,7 +69,7 @@ static inline int irqs_disabled(void)
 	return x & 0x80;
 }
 
-#define dsb(scope)      __asm__ __volatile__("dsb " #scope : : : "memory")
+#define dsb(scope)      __asm volatile("dsb " #scope : : : "memory")
 
 /* We probably only need "dmb" here, but we'll start by being paranoid. */
 #define mb()  dsb(sy)
