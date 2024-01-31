@@ -32,8 +32,7 @@
 *       rama 08/10/2023 Changed DDRMC register dump prints to DEBUG_ALWAYS for
 *                       debug level_0 option
 *       dd   09/11/2023 MISRA-C violation Directive 4.5 fixed
-*       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
-*       is   01/23/2024 Activate subsystem before doing CPU handoffs
+*       dd	 09/11/2023 MISRA-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -176,12 +175,6 @@ XilBootPdiInfo* XLoader_GetBootPdiInfo(void)
  * 			handoff.
  * 			- XLOADER_ERR_WAKEUP_PSM if waking up the PSM failed during
  * 			handoff.
- * 			- XLOADER_ERR_CONFIG_SUBSYSTEM if subsystem activation fails.
- *
- * @note	Before starting a subsystem this function will activate it
- * 		which results in device pre-allocation for that subsystem. Subsystem
- * 		activation happens only the first time, already activated subsystem
- * 		simply returns without failure indicating that it is already activated.
  *
  *****************************************************************************/
 int XLoader_StartImage(XilPdi *PdiPtr)
@@ -195,18 +188,6 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	u32 DeviceId;
 	u8 SetAddress = 1U;
 	u32 ErrorCode;
-
-	/** Pre-allocate peripheral devices to subsystem images now */
-	if (NODECLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID)
-			== XPM_NODECLASS_SUBSYSTEM) {
-		Status = XPmSubsystem_Configure(
-			PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_CONFIG_SUBSYSTEM, Status);
-			goto END;
-		}
-	}
 
 	/** - Start Handoff to the cpus */
 	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++) {
