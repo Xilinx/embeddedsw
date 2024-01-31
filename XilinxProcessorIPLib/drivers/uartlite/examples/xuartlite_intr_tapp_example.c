@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -129,7 +129,9 @@ static void UartLiteDisableIntrSystem(INTC *IntrInstancePtr,
  * are initialized to zero each time the program runs.
  */
 #ifndef TESTAPP_GEN
+#ifndef SDT
 static INTC IntcInstance;	/* The instance of the Interrupt Controller */
+#endif
 static XUartLite UartLiteInst;  /* The instance of the UartLite Device */
 #endif
 
