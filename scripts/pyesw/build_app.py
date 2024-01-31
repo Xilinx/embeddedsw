@@ -46,10 +46,8 @@ def build_app(args):
     obj = Build_App(args)
 
     # Build the bsp first before building application
-    libxil_a_path = os.path.join(obj.domain_path, 'lib', 'libxil.a')
-    libxilstandalone_a_path = os.path.join(obj.domain_path, 'lib', 'libxilstandalone.a')
-
-    if not utils.is_file(libxil_a_path) or not utils.is_file(libxilstandalone_a_path):
+    cmake_cache = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp", "CMakeCache.txt")
+    if utils.is_file(cmake_cache):
         generate_bsp(args)
 
     # Run make inside cmake configured build area

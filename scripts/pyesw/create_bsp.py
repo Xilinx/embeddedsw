@@ -477,6 +477,7 @@ def create_domain(args):
         "sdt": utils.get_rel_path(obj.sdt, obj.domain_dir),
         "family": obj.family,
         "path": obj.domain_dir,
+        "config": "default",
         "os": obj.os,
         "os_info": obj.os_info,
         "os_config": {},
@@ -598,6 +599,10 @@ foreach(entry ${{SUBDIR_LIST}})
         add_subdirectory(${{path}})
     endif()
 endforeach()
+cmake_language(DEFER DIRECTORY ${{CMAKE_SOURCE_DIR}} CALL _my_hook_end_of_configure())
+function(_my_hook_end_of_configure)
+    set(SUBDIR_LIST "ALL" CACHE STRING "sub dir list" FORCE)
+endfunction(_my_hook_end_of_configure)
     '''
 
     utils.write_into_file(cmake_file, cmake_file_cmds)

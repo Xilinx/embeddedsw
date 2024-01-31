@@ -356,6 +356,7 @@ class Library(Repo):
                         f'cmake -G "{self.cmake_generator}" {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_lib_list}" -LH > cmake_lib_configs.txt',
                         cwd = build_metadata
                     )
+                    utils.update_yaml(self.domain_config_file, "domain", "config", "reconfig")
             except:
                 lib_path = os.path.join(self.libsrc_folder, comp_name)
                 # Remove library src folder from libsrc

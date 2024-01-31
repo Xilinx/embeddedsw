@@ -121,6 +121,7 @@ def configure_bsp(args):
             os_config = {obj.os:os_config}
             utils.update_yaml(obj.domain_config_file, "domain", "os_config", os_config, action="add")
         utils.update_yaml(obj.domain_config_file, "domain", "lib_config", obj.bsp_lib_config)
+        utils.update_yaml(obj.domain_config_file, "domain", "config", "reconfig")
 
     if args.get("set_repo_path"):
         prop_params = args["set_repo_path"]
