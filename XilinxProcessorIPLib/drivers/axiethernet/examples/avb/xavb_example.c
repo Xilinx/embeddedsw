@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -589,7 +589,7 @@ static void AvbUtilPhyDelay(unsigned int Seconds)
 	}
 
 #define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
-	__asm__ __volatile__ ("\n"
+	__asm volatile ("\n"
 			      "1:               \n\t"
 			      "addik r7, r0, %0 \n\t"
 			      "2:               \n\t"

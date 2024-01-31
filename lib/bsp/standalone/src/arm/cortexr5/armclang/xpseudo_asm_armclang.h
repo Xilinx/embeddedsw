@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 *
 * SPDX-License-Identifier: MIT
 *
@@ -51,11 +51,11 @@ extern "C" {
 
 /* pseudo assembler instructions */
 #define mfcpsr()	({u32 rval = 0U; \
-		__asm__ __volatile__ ("mrs %0, cpsr" : "=r" (rval));\
+		__asm volatile ("mrs %0, cpsr" : "=r" (rval));\
 		rval;\
 	})
 
-#define mtcpsr(v) __asm__ __volatile__("msr cpsr,%0\n" : : "r" (v) : "cc")
+#define mtcpsr(v) __asm volatile("msr cpsr,%0\n" : : "r" (v) : "cc")
 
 #define cpsiei()	__asm__ __volatile__("cpsie	i\n")
 #define cpsidi()	__asm__ __volatile__("cpsid	i\n")

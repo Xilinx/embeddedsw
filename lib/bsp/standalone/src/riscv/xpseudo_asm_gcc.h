@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,7 +52,7 @@ extern "C" {
 					  )
 
 #define csrr(csr)	({unsigned int rval = 0U;				 \
-		__asm__ __volatile__("csrr %0," stringify(csr) : "=r" (rval)); \
+		__asm volatile("csrr %0," stringify(csr) : "=r" (rval)); \
 		rval;							 \
 	})
 

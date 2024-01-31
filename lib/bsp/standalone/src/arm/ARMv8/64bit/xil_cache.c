@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -146,7 +146,7 @@ void Xil_DCacheDisable(void)
 	register u32 CacheLevel;
 
 	dsb();
-	__asm__(
+	__asm(
 		"mov 	x0, #0\n\t"
 #if EL3==1
 		"mrs	x0, sctlr_el3 \n\t"
@@ -270,7 +270,7 @@ void Xil_DCacheDisable(void)
 	/* Wait for Flush to complete */
 	dsb();
 #endif
-	__asm__(
+	__asm(
 #if EL3==1
 		"tlbi 	ALLE3\n\t"
 #elif EL1_NONSECURE==1

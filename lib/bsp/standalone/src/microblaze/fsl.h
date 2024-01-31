@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -60,7 +60,7 @@ Performs a get function on an input FSL of the MicroBlaze processor
 @param id     literal in the range of 0 to 7 (0 to 15 for MicroBlaze v7.00.a and later)
 @param flags  valid FSL macro flags
 */
-#define getfslx(val, id, flags)      __asm__ __volatile__ (stringify(flags) "get\t%0,rfsl" stringify(id) : "=d" (val))
+#define getfslx(val, id, flags)      __asm volatile (stringify(flags) "get\t%0,rfsl" stringify(id) : "=d" (val))
 
 /**
 Performs a put function on an input FSL of the MicroBlaze processor
@@ -68,7 +68,7 @@ Performs a put function on an input FSL of the MicroBlaze processor
 @param id     literal in the range of 0 to 7 (0 to 15 for MicroBlaze v7.00.a and later)
 @param flags  valid FSL macro flags
 */
-#define putfslx(val, id, flags)      __asm__ __volatile__ (stringify(flags) "put\t%0,rfsl" stringify(id) :: "d" (val))
+#define putfslx(val, id, flags)      __asm volatile (stringify(flags) "put\t%0,rfsl" stringify(id) :: "d" (val))
 
 /**
 Performs a test get function on an input FSL of the MicroBlaze processor
@@ -76,14 +76,14 @@ Performs a test get function on an input FSL of the MicroBlaze processor
 @param id     literal in the range of 0 to 7 (0 to 15 for MicroBlaze v7.00.a and later)
 @param flags  valid FSL macro flags
 */
-#define tgetfslx(val, id, flags)     __asm__ __volatile__ ("t" stringify(flags) "get\t%0,rfsl" stringify(id) : "=d" (val))
+#define tgetfslx(val, id, flags)     __asm volatile ("t" stringify(flags) "get\t%0,rfsl" stringify(id) : "=d" (val))
 
 /**
 Performs a put function on an input FSL of the MicroBlaze processor
 @param id     FSL identifier
 @param flags  valid FSL macro flags
 */
-#define tputfslx(id, flags)          __asm__ __volatile__ ("t" stringify(flags) "put\trfsl" stringify(id))
+#define tputfslx(id, flags)          __asm volatile ("t" stringify(flags) "put\trfsl" stringify(id))
 
 /**
 Performs a getd function on an input FSL of the MicroBlaze processor
@@ -91,7 +91,7 @@ Performs a getd function on an input FSL of the MicroBlaze processor
 @param var    literal in the range of 0 to 7 (0 to 15 for MicroBlaze v7.00.a and later)
 @param flags  valid FSL macro flags
 */
-#define getdfslx(val, var, flags)    __asm__ __volatile__ (stringify(flags) "getd\t%0,%1" : "=d" (val) : "d" (var))
+#define getdfslx(val, var, flags)    __asm volatile (stringify(flags) "getd\t%0,%1" : "=d" (val) : "d" (var))
 
 /**
 Performs a putd function on an input FSL of the MicroBlaze processor
@@ -99,7 +99,7 @@ Performs a putd function on an input FSL of the MicroBlaze processor
 @param var    literal in the range of 0 to 7 (0 to 15 for MicroBlaze v7.00.a and later)
 @param flags  valid FSL macro flags
 */
-#define putdfslx(val, var, flags)    __asm__ __volatile__ (stringify(flags) "putd\t%0,%1" :: "d" (val), "d" (var))
+#define putdfslx(val, var, flags)    __asm volatile (stringify(flags) "putd\t%0,%1" :: "d" (val), "d" (var))
 
 /**
 Performs a test getd function on an input FSL of the MicroBlaze processor;
@@ -107,14 +107,14 @@ Performs a test getd function on an input FSL of the MicroBlaze processor;
 @param var    literal in the range of 0 to 7 (0 to 15 for MicroBlaze v7.00.a and later)
 @param flags  valid FSL macro flags
 */
-#define tgetdfslx(val, var, flags)   __asm__ __volatile__ ("t" stringify(flags) "getd\t%0,%1" : "=d" (val) : "d" (var))
+#define tgetdfslx(val, var, flags)   __asm volatile ("t" stringify(flags) "getd\t%0,%1" : "=d" (val) : "d" (var))
 
 /**
 Performs a put function on an input FSL of the MicroBlaze processor
 @param var     FSL identifier
 @param flags  valid FSL macro flags
 */
-#define tputdfslx(var, flags)        __asm__ __volatile__ ("t" stringify(flags) "putd\t%0" :: "d" (var))
+#define tputdfslx(var, flags)        __asm volatile ("t" stringify(flags) "putd\t%0" :: "d" (var))
 
 #ifdef __cplusplus
 }

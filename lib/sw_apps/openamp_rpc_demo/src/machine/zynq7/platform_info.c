@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation. All rights reserved.
  * Copyright (c) 2017-2022 Xilinx, Inc. and Contributors. All rights reserved.
- * Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -41,7 +41,7 @@
 #define SCUGIC_PERIPH_BASE	0xF8F00000
 #define SCUGIC_DIST_BASE	(SCUGIC_PERIPH_BASE + 0x00001000)
 
-#define _rproc_wait() __asm__ __volatile__("wfi")
+#define _rproc_wait() __asm volatile("wfi")
 
 /* processor operations for hil_proc for A9. It defines
  * notification operation and remote processor management. */
