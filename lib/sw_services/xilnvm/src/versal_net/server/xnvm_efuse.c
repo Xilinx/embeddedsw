@@ -31,6 +31,7 @@
 *       yog  09/13/2023 Used XNvm_IsDmeModeEn() API for reading DME Mode
 *       vss  12/31/2023 Added support for Program the eFuse protection bits only once
 *       kal  01/24/2024 Fixed doxygen warnings
+* 3.3	kpt  02/01/2024 XNvm_EfuseWriteRoSwapEn only when RoSwap is non-zero
 *
 * </pre>
 *
@@ -1934,13 +1935,15 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 			goto END;
 		}
 
-		Status = XST_FAILURE;
-		/**
-		 *  Write puf RoSwap data into eFuse. Return XNVM_EFUSE_ERR_WRITE_RO_SWAP upon failure
-		 */
-		Status = XNvm_EfuseWriteRoSwapEn(PufHelperData->RoSwap);
-		if (Status != XST_SUCCESS) {
-			Status = (Status | XNVM_EFUSE_ERR_WRITE_RO_SWAP);
+		if (PufHelperData->RoSwap != 0x0U) {
+			Status = XST_FAILURE;
+			/**
+			*  Write puf RoSwap data into eFuse. Return XNVM_EFUSE_ERR_WRITE_RO_SWAP upon failure
+			*/
+			Status = XNvm_EfuseWriteRoSwapEn(PufHelperData->RoSwap);
+			if (Status != XST_SUCCESS) {
+				Status = (Status | XNVM_EFUSE_ERR_WRITE_RO_SWAP);
+			}
 		}
 	}
 
