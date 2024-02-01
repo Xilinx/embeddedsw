@@ -104,9 +104,10 @@ int main(void)
 	Xil_ExceptionDisable();
 
 	xil_printf("\r\n-----------------------------------------------\r\n");
-	xil_printf("	(c) 2020 by Xilinx Inc.\r\n");
+	xil_printf("	(c) 2020 - 2024 by Xilinx Inc.\r\n");
 	xil_printf("-----------------------------------------------\r\n");
 
+	xil_printf("\n\rWarp exdes test is started\n\r");
 	/**************V_WARP_REMAP_GEN*************************/
 	/* Initialize GPIO for WarpInit Reset */
 #ifndef SDT
@@ -285,6 +286,8 @@ int main(void)
 
 	XVWarpInit_ClearNumOfDescriptors(&WarpInitInst);
 	XVWarpFilter_ClearNumOfDescriptors(&WarpInst);
+
+	xil_printf("\n\rWarp exdes test is completed\n\r");
 
 	return 0;
 }
