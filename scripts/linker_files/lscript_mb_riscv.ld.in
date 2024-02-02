@@ -87,14 +87,6 @@ SECTIONS
    __sdata2_end = .;
 } > @DDR@
 
-.sbss2 : {
-   __sbss2_start = .;
-   *(.sbss2)
-   *(.sbss2.*)
-   *(.gnu.linkonce.sb2.*)
-   __sbss2_end = .;
-} > @DDR@
-
 .data : {
    __data_start = .;
    *(.data)
@@ -131,14 +123,6 @@ SECTIONS
    __sdata_end = .;
 } > @DDR@
 
-.sbss (NOLOAD) : {
-   __sbss_start = .;
-   *(.sbss)
-   *(.sbss.*)
-   *(.gnu.linkonce.sb.*)
-   __sbss_end = .;
-} > @DDR@
-
 .tdata : {
    __tdata_start = .;
    *(.tdata)
@@ -162,6 +146,22 @@ SECTIONS
    *(.gnu.linkonce.b.*)
    *(COMMON)
    __bss_end = .;
+} > @DDR@
+
+.sbss (NOLOAD) : {
+   __sbss_start = .;
+   *(.sbss)
+   *(.sbss.*)
+   *(.gnu.linkonce.sb.*)
+   __sbss_end = .;
+} > @DDR@
+
+.sbss2 : {
+   __sbss2_start = .;
+   *(.sbss2)
+   *(.sbss2.*)
+   *(.gnu.linkonce.sb2.*)
+   __sbss2_end = .;
 } > @DDR@
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
