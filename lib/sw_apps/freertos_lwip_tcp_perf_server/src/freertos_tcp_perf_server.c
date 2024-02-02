@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 - 2022 Xilinx, Inc. All rights reserved.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+ * Copyright (C) 2018 - 2019 Xilinx, Inc.
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -143,7 +143,6 @@ void tcp_recv_perf_traffic(void *p)
 	char recv_buf[RECV_BUF_SIZE];
 	int read_bytes;
 	int sock = *((int *)p);
-	u64_t now;
 
 	server.start_time = sys_now();
 	server.client_id++;
@@ -158,7 +157,7 @@ void tcp_recv_perf_traffic(void *p)
 		/* read a max of RECV_BUF_SIZE bytes from socket */
 		if ((read_bytes = lwip_recvfrom(sock, recv_buf, RECV_BUF_SIZE,
 						0, NULL, NULL)) < 0) {
-			now = sys_now();
+			u64_t now = sys_now();
 			u64_t diff_ms = now - server.start_time;
 			tcp_conn_report(diff_ms, TCP_ABORTED_REMOTE);
 			break;
@@ -166,6 +165,7 @@ void tcp_recv_perf_traffic(void *p)
 
 		/* break if client closed connection */
 		if (read_bytes == 0) {
+			u64_t now = sys_now();
 			u64_t diff_ms = now - server.start_time;
 			tcp_conn_report(diff_ms, TCP_DONE_SERVER);
 			xil_printf("TCP test passed Successfully\n\r");
@@ -173,7 +173,7 @@ void tcp_recv_perf_traffic(void *p)
 		}
 
 		if (REPORT_INTERVAL_TIME) {
-			now = sys_now();
+			u64_t now = sys_now();
 			server.i_report.total_bytes += read_bytes;
 			if (server.i_report.start_time) {
 				u64_t diff_ms = now - server.i_report.start_time;
