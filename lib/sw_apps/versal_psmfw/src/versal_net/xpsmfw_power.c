@@ -2747,7 +2747,7 @@ static XStatus ACPU0_Core0Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_0] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_0]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu0_Core0PwrCtrl);
@@ -2774,7 +2774,7 @@ static XStatus ACPU0_Core1Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_1] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_1]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu0_Core1PwrCtrl);
@@ -2801,7 +2801,7 @@ static XStatus ACPU0_Core2Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_2] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_2] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_2]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu0_Core2PwrCtrl);
@@ -2828,7 +2828,7 @@ static XStatus ACPU0_Core3Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_3] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_3] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_3]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu0_Core3PwrCtrl);
@@ -2855,7 +2855,7 @@ static XStatus ACPU1_Core0Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_4] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_4] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_4]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu1_Core0PwrCtrl);
@@ -2882,7 +2882,7 @@ static XStatus ACPU1_Core1Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_5] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_5] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_5]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu1_Core1PwrCtrl);
@@ -2909,7 +2909,7 @@ static XStatus ACPU1_Core2Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_6] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_6] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_6]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu1_Core2PwrCtrl);
@@ -2936,7 +2936,7 @@ static XStatus ACPU1_Core3Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_7] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_7] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_7]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu1_Core3PwrCtrl);
@@ -2963,7 +2963,7 @@ static XStatus ACPU2_Core0Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_8] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_8] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_8]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu2_Core0PwrCtrl);
@@ -2990,7 +2990,7 @@ static XStatus ACPU2_Core1Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_9] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_9] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_9]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu2_Core1PwrCtrl);
@@ -3017,7 +3017,7 @@ static XStatus ACPU2_Core2Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_10] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_10] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_10]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu2_Core2PwrCtrl);
@@ -3044,7 +3044,7 @@ static XStatus ACPU2_Core3Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_11] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_11] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_11]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu2_Core3PwrCtrl);
@@ -3071,7 +3071,7 @@ static XStatus ACPU3_Core0Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_12] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_12] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_12]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu3_Core0PwrCtrl);
@@ -3098,7 +3098,7 @@ static XStatus ACPU3_Core1Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_13] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_13] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_13]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu3_Core1PwrCtrl);
@@ -3125,7 +3125,7 @@ static XStatus ACPU3_Core2Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_14] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_14] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_14]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu3_Core2PwrCtrl);
@@ -3152,7 +3152,7 @@ static XStatus ACPU3_Core3Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_15] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_15] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_15]) {
 		Status = XPsmFwACPUxDirectPwrUp(&Acpu3_Core3PwrCtrl);
@@ -3179,7 +3179,7 @@ static XStatus ACPU0_Core0Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_0] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_0]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu0_Core0PwrCtrl);
@@ -3206,7 +3206,7 @@ static XStatus ACPU0_Core1Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_1] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_1]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu0_Core1PwrCtrl);
@@ -3233,7 +3233,7 @@ static XStatus ACPU0_Core2Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_2] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_2] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_2]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu0_Core2PwrCtrl);
@@ -3260,7 +3260,7 @@ static XStatus ACPU0_Core3Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_3] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_3] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_3]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu0_Core3PwrCtrl);
@@ -3287,7 +3287,7 @@ static XStatus ACPU1_Core0Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_4] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_4] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_4]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu1_Core0PwrCtrl);
@@ -3314,7 +3314,7 @@ static XStatus ACPU1_Core1Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_5] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_5] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_5]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu1_Core1PwrCtrl);
@@ -3341,7 +3341,7 @@ static XStatus ACPU1_Core2Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_6] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_6] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_6]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu1_Core2PwrCtrl);
@@ -3368,7 +3368,7 @@ static XStatus ACPU1_Core3Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_7] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_7] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_7]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu1_Core3PwrCtrl);
@@ -3395,7 +3395,7 @@ static XStatus ACPU2_Core0Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_8] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_8] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_8]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu2_Core0PwrCtrl);
@@ -3422,7 +3422,7 @@ static XStatus ACPU2_Core1Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_9] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_9] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_9]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu2_Core1PwrCtrl);
@@ -3449,7 +3449,7 @@ static XStatus ACPU2_Core2Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_10] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_10] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_10]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu2_Core2PwrCtrl);
@@ -3476,7 +3476,7 @@ static XStatus ACPU2_Core3Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_11] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_11] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_11]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu2_Core3PwrCtrl);
@@ -3503,7 +3503,7 @@ static XStatus ACPU3_Core0Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_12] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_12] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_12]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu3_Core0PwrCtrl);
@@ -3530,7 +3530,7 @@ static XStatus ACPU3_Core1Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_13] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_13] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_13]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu3_Core1PwrCtrl);
@@ -3557,7 +3557,7 @@ static XStatus ACPU3_Core2Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_14] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_14] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_14]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu3_Core2PwrCtrl);
@@ -3584,7 +3584,7 @@ static XStatus ACPU3_Core3Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_15] == 0U);
+	assert(PsmToPlmEvent.Event[ACPU_15] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_15]) {
 		Status = XPsmFwACPUxDirectPwrDwn(&Acpu3_Core3PwrCtrl);
@@ -3611,7 +3611,7 @@ static XStatus RPU0_Core0Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[RPU0_0] == 0U);
+	assert(PsmToPlmEvent.Event[RPU0_0] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_0]) {
 		Status = XPsmFwRPUxDirectPwrUp(&Rpu0_Core0PwrCtrl);
@@ -3638,7 +3638,7 @@ static XStatus RPU0_Core1Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[RPU0_1] == 0U);
+	assert(PsmToPlmEvent.Event[RPU0_1] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_1]) {
 		Status = XPsmFwRPUxDirectPwrUp(&Rpu0_Core1PwrCtrl);
@@ -3665,7 +3665,7 @@ static XStatus RPU1_Core0Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[RPU1_0] == 0U);
+	assert(PsmToPlmEvent.Event[RPU1_0] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU1_0]) {
 		Status = XPsmFwRPUxDirectPwrUp(&Rpu1_Core0PwrCtrl);
@@ -3692,7 +3692,7 @@ static XStatus RPU1_Core1Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[RPU1_1] == 0U);
+	assert(PsmToPlmEvent.Event[RPU1_1] != PWR_UP_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU1_1]) {
 		Status = XPsmFwRPUxDirectPwrUp(&Rpu1_Core1PwrCtrl);
@@ -3719,7 +3719,7 @@ static XStatus RPU0_Core0Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[RPU0_0] == 0U);
+	assert(PsmToPlmEvent.Event[RPU0_0] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_0]) {
 		Status = XPsmFwRPUxDirectPwrDwn(&Rpu0_Core0PwrCtrl);
@@ -3746,7 +3746,7 @@ static XStatus RPU0_Core1Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[RPU0_1] == 0U);
+	assert(PsmToPlmEvent.Event[RPU0_1] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_1]) {
 		Status = XPsmFwRPUxDirectPwrDwn(&Rpu0_Core1PwrCtrl);
@@ -3773,7 +3773,7 @@ static XStatus RPU1_Core0Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[RPU1_0] == 0U);
+	assert(PsmToPlmEvent.Event[RPU1_0] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU1_0]) {
 		Status = XPsmFwRPUxDirectPwrDwn(&Rpu1_Core0PwrCtrl);
@@ -3800,7 +3800,7 @@ static XStatus RPU1_Core1Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[RPU1_1] == 0U);
+	assert(PsmToPlmEvent.Event[RPU1_1] != PWR_DWN_EVT);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU1_1]) {
 		Status = XPsmFwRPUxDirectPwrDwn(&Rpu1_Core1PwrCtrl);
