@@ -12,16 +12,18 @@ type: driver
 
 properties:
   compatible:
+    items:
     OneOf:
       - items:
         - enum:
+          - snps,dw-i3c-master-1.00a
           - xlnx,psx-i3c-11.0
   reg:
     description: Physical base address and size of the controller register map
-  xlnx,frequency:
+  xlnx,i3c-clk-freq-hz:
       I3C frequency
   xlnx,device-count:
-      Number of available IPI Targets
+      Number of available slave devices
 
 config:
     - XI3cPsx_Config
@@ -31,16 +33,14 @@ required:
     - reg
     - interrupts
     - interrupt-parent
-    - xlnx,frequency
+    - xlnx,i3c-clk-freq-hz
     - xlnx,device-count
 
 examples:
     xi3cpsx_intr_example.c:
         - interrupts
-
     xi3cpsx_polled_example.c:
         - reg
-
     xi3cpsx_slave_loopback.c:
         - reg
 ...
