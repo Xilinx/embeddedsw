@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,8 @@
 * 		      misra_c_2012_rule_18_4 violation.
 * 9.0   ml   08/30/23 Update Memory tests API in BSP, to not to stress test by
                       default.
+* 9.1   ml   02/02/23 Fix compilation warnings report with
+*                     XIL_ENABLE_MEMORY_STRESS_TEST
 * </pre>
 *
 *****************************************************************************/
@@ -49,7 +51,9 @@
 /************************** Constant Definitions ****************************/
 /************************** Function Prototypes *****************************/
 
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
 static u32 RotateLeft(u32 Input, u8 Width);
+#endif
 
 /* define ROTATE_RIGHT to give access to this functionality */
 #ifdef ROTATE_RIGHT
@@ -89,11 +93,15 @@ static u32 RotateRight(u32 Input, u8 Width);
 s32 Xil_TestMem8(u32 Addrlow, u32 Addrhigh, u32 Words, u8 Pattern, u8 Subtest)
 {
 	u32 I;
-	u32 j;
 	u8 Val;
 	u8 WordMem8;
 	s32 Status = 0;
 	u64  Addr = (Addrlow + ((u64)Addrhigh << 32));
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
+	u32 j;
+#else
+	(void)Pattern;
+#endif
 
 	Xil_AssertNonvoid(Words != (u32)0);
 	Xil_AssertNonvoid(Subtest <= XIL_TESTMEM_MAXTEST);
@@ -313,11 +321,15 @@ End_Label:
 s32 Xil_TestMem16(u32 Addrlow, u32 Addrhigh, u32 Words, u16 Pattern, u8 Subtest)
 {
 	u32 I;
-	u32 j;
 	u16 Val;
 	u16 WordMem16;
 	s32 Status = 0;
 	u64  Addr = (Addrlow + ((u64)Addrhigh << 32));
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
+	u32 j;
+#else
+	(void)Pattern;
+#endif
 
 	Xil_AssertNonvoid(Words != (u32)0);
 	Xil_AssertNonvoid(Subtest <= XIL_TESTMEM_MAXTEST);
@@ -551,11 +563,15 @@ End_Label:
 s32 Xil_TestMem32(u32 Addrlow, u32 Addrhigh, u32 Words, u32 Pattern, u8 Subtest)
 {
 	u32 I;
-	u32 j;
 	u32 Val;
 	u32 WordMem32;
 	s32 Status = 0;
 	u64  Addr = (Addrlow + ((u64)Addrhigh << 32));
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
+	u32 j;
+#else
+	(void)Pattern;
+#endif
 
 	Xil_AssertNonvoid(Words != (u32)0);
 	Xil_AssertNonvoid(Subtest <= (u8)XIL_TESTMEM_MAXTEST);
@@ -806,11 +822,15 @@ End_Label:
 s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 {
 	u32 i;
-	u32 j;
 	u32 Val;
 	u32 FirtVal;
 	u32 WordMem32;
 	s32 Status = 0;
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
+	u32 j;
+#else
+	(void)Pattern;
+#endif
 
 	Xil_AssertNonvoid(Words != (u32)0);
 	Xil_AssertNonvoid(Subtest <= (u8)XIL_TESTMEM_MAXTEST);
@@ -1051,11 +1071,15 @@ End_Label:
 s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 {
 	u32 i;
-	u32 j;
 	u16 Val;
 	u16 FirtVal;
 	u16 WordMem16;
 	s32 Status = 0;
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
+	u32 j;
+#else
+	(void)Pattern;
+#endif
 
 	Xil_AssertNonvoid(Words != (u32)0);
 	Xil_AssertNonvoid(Subtest <= XIL_TESTMEM_MAXTEST);
@@ -1281,11 +1305,15 @@ End_Label:
 s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 {
 	u32 i;
-	u32 j;
 	u8 Val;
 	u8 FirtVal;
 	u8 WordMem8;
 	s32 Status = 0;
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
+	u32 j;
+#else
+	(void)Pattern;
+#endif
 
 	Xil_AssertNonvoid(Words != (u32)0);
 	Xil_AssertNonvoid(Subtest <= XIL_TESTMEM_MAXTEST);
@@ -1487,6 +1515,7 @@ End_Label:
 *
 *
 *****************************************************************************/
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
 static u32 RotateLeft(u32 Input, u8 Width)
 {
 	u32 Msb;
@@ -1522,6 +1551,7 @@ static u32 RotateLeft(u32 Input, u8 Width)
 	return ReturnVal;
 
 }
+#endif
 
 #ifdef ROTATE_RIGHT
 /*****************************************************************************/
