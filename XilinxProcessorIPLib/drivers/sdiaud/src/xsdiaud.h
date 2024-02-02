@@ -285,13 +285,22 @@ typedef void (*XSdiAud_Callback)(void *CallbackRef);
  */
 
 typedef struct {
+#ifndef SDT
 	u32 DeviceId;	//!< DeviceId is the unique ID of XSdiaud
+#endif
+#ifdef SDT
+	char *Name;
+#endif
 	UINTPTR BaseAddress;
 	//!< BaseAddress of the XSdiaud
 	u8 IsEmbed; //!< Is Audio Embed or Extract
 	u8 LineRate;  //!< UHD SDI standard
 	u8 MaxNumChannels;
 	//!< Indicates the max number of channels supported by the core
+#ifdef SDT
+	u16 IntrId;
+	UINTPTR IntrParent;
+#endif
 	} XSdiAud_Config;
 /**
  * @brief The XSdiAud driver instance data.
@@ -457,10 +466,13 @@ static inline void XSdiAud_IntrDisable(XSdiAud *InstancePtr, u32 Mask)
 /************************* Function Prototypes ******************************/
 
 /* Initialization function in xsdiAud_sinit.c */
+#ifndef SDT
 XSdiAud_Config *XSdiAud_LookupConfig(u16 DeviceId);
-
 int XSdiAud_Initialize(XSdiAud *InstancePtr, u16 DeviceId);
-
+#else
+XSdiAud_Config *XSdiAud_LookupConfig(UINTPTR Baseaddress);
+int XSdiAud_Initialize(XSdiAud *InstancePtr, UINTPTR Baseaddress);
+#endif
 /* Initialization and control functions in xsdiaud.c */
 int XSdiAud_CfgInitialize(XSdiAud *InstancePtr,
 		XSdiAud_Config *CfgPtr, UINTPTR EffectiveAddr);

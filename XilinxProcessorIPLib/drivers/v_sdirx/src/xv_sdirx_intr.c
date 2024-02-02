@@ -689,7 +689,8 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 				}
 			switch (FrameRate) {
 				case XVIDC_FR_24HZ:
-					if (color_format == XST352_BYTE3_COLOR_FORMAT_422) {
+					if (color_format == XST352_BYTE3_COLOR_FORMAT_422 &&
+					    bitdepth == XST352_BYTE4_BIT_DEPTH_10) {
 						SdiStream->VmId = ((active_luma == 1) ?
 								XVIDC_VM_2048x1080_96_I : XVIDC_VM_1920x1080_96_I);
 					} else {
@@ -706,7 +707,8 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 					}
 					break;
 				case XVIDC_FR_25HZ:
-					if (color_format == XST352_BYTE3_COLOR_FORMAT_422) {
+					if (color_format == XST352_BYTE3_COLOR_FORMAT_422 &&
+					    bitdepth == XST352_BYTE4_BIT_DEPTH_10) {
 						SdiStream->VmId = ((active_luma == 1) ?
 								XVIDC_VM_2048x1080_100_I : XVIDC_VM_1920x1080_100_I);
 					} else {

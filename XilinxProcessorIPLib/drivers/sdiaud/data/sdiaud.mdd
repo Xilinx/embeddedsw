@@ -1,5 +1,6 @@
 ################################################################################
 # Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ################################################################################
@@ -11,6 +12,6 @@ BEGIN driver v_uhdsdi_audio
   OPTION supported_peripherals = (v_uhdsdi_audio);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.2;
+  OPTION VERSION = 2.3;
   OPTION NAME = sdiaud;
 END driver

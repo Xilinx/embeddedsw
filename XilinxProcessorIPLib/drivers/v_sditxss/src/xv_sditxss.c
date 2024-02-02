@@ -185,6 +185,7 @@ static int XV_SdiTxSs_RegisterSubsysCallbacks(XV_SdiTxSs *InstancePtr)
 * @return None
 *
 ******************************************************************************/
+#ifndef SDT
 static void XV_SdiTxSs_GetIncludedSubcores(XV_SdiTxSs *SdiTxSsPtr, u16 DevId)
 {
 	SdiTxSsPtr->SdiTxPtr = ((SdiTxSsPtr->Config.SdiTx.IsPresent) ?
@@ -192,6 +193,18 @@ static void XV_SdiTxSs_GetIncludedSubcores(XV_SdiTxSs *SdiTxSsPtr, u16 DevId)
 	SdiTxSsPtr->VtcPtr = ((SdiTxSsPtr->Config.Vtc.IsPresent) ?
 		(&XV_SdiTxSs_SubCoreRepo[DevId].Vtc) : NULL);
 }
+#else
+static void XV_SdiTxSs_GetIncludedSubcores(XV_SdiTxSs *SdiTxSsPtr, UINTPTR BaseAddress)
+{
+	u32 Index = 0;
+
+	Index = XV_SdiTxSs_GetDrvIndex(SdiTxSsPtr, BaseAddress);
+	SdiTxSsPtr->SdiTxPtr = ((SdiTxSsPtr->Config.SdiTx.IsPresent) ?
+		(&XV_SdiTxSs_SubCoreRepo[Index].SdiTx) : NULL);
+	SdiTxSsPtr->VtcPtr = ((SdiTxSsPtr->Config.Vtc.IsPresent) ?
+		(&XV_SdiTxSs_SubCoreRepo[Index].Vtc) : NULL);
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -259,7 +272,11 @@ UINTPTR EffectiveAddr)
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
 	/* Determine sub-cores included in the provided instance of subsystem */
+#ifndef SDT
 	XV_SdiTxSs_GetIncludedSubcores(SdiTxSsPtr, CfgPtr->DeviceId);
+#else
+	XV_SdiTxSs_GetIncludedSubcores(SdiTxSsPtr, CfgPtr->BaseAddress);
+#endif
 
 	/* Initialize all included sub_cores */
 	if (SdiTxSsPtr->SdiTxPtr) {

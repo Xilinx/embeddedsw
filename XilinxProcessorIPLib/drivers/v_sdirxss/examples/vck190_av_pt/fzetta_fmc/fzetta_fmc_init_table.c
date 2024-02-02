@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 /**
@@ -52,9 +53,15 @@ void fzetta_fmc_table_init(){
 
 		//Generic FMC Device Initialization Table
 		fzetta_fmc_reg fzetta_fmc_table_temp = {
+#ifndef SDT
 		.gpio_dev_id = XPAR_GPIO_2_DEVICE_ID,
 		.iic_dev_id  = XPAR_IIC_0_DEVICE_ID,
 		.spi_dev_id  = XPAR_SPI_0_DEVICE_ID,
+#else
+		.gpio_dev_baseaddress = XPAR_XGPIO_2_BASEADDR,
+		.iic_dev_baseaddress  = XPAR_XIIC_0_BASEADDR,
+		.spi_dev_baseaddress  = XPAR_XSPI_0_BASEADDR,
+#endif
 		.reglist =
 		{   //Dev Type		Channel		Slave Select		RegAddr			RegData
 			{ IIC_Dev,		DUMMY,		DUMMY,				0x00,			0x0E},	//148.5MHz (IN2-->OUT0); 148.35MHz (IN3-->OUT1)
