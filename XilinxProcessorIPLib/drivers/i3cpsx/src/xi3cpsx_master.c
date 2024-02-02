@@ -19,6 +19,7 @@
 * ----- ---  -------- ---------------------------------------------
 * 1.00  sd  06/10/22 First release
 * 1.01  sd  12/14/22 Fix warnings
+* 1.3 	sd   1/30/24  Moved prints under DEBUG flag.
 * </pre>
 *
 ******************************************************************************/
@@ -48,7 +49,6 @@ void XI3cPsx_SetRespThreshold(XI3cPsx *InstancePtr, u32 Val)
 	reg = reg & ~(XI3CPSX_QUEUE_THLD_CTRL_RESP_BUF_THLD_MASK);
 	reg = reg | (Val << XI3CPSX_QUEUE_THLD_CTRL_RESP_BUF_THLD_SHIFT);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_QUEUE_THLD_CTRL, reg);
-	xil_printf("XI3CPSX_QUEUE_THLD_CTRL 0x%x\n", reg);
 }
 
 s32 XI3cPsx_SetDynamicAddr(XI3cPsx *InstancePtr, u32 *Addr, u32 Devices)
@@ -84,15 +84,12 @@ s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr)
 
 	tmp = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_DATA_BUFFER_THLD_CTRL);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DATA_BUFFER_THLD_CTRL, tmp);
-	xil_printf("XI3CPSX_DATA_BUFFER_THLD_CTRL 0x%x\n", tmp);
 
 	tmp = XI3CPSX_INTR_SIGNAL_EN_TRANSFER_ERR_SIGNAL_EN_MASK | XI3CPSX_INTR_SIGNAL_EN_RESP_READY_SIGNAL_EN_MASK;
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_STATUS_EN, tmp);
-	xil_printf("XI3CPSX_INTR_STATUS_EN 0x%x\n", tmp);
 
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_SIGNAL_EN,
 			 XI3CPSX_INTR_SIGNAL_EN_RESP_READY_SIGNAL_EN_MASK);
-	xil_printf("XI3CPSX_INTR_SIGNAL_EN 0x%x\n", XI3CPSX_INTR_SIGNAL_EN_RESP_READY_SIGNAL_EN_MASK);
 
 	/* Initializing master registers */
 
@@ -100,7 +97,6 @@ s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr)
 	tmp = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_ADDR);
 	tmp = ((0x45 << XI3CPSX_DEVICE_ADDR_DYNAMIC_ADDR_SHIFT) | XI3CPSX_DEVICE_ADDR_DYNAMIC_ADDR_VALID_MASK);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_ADDR, tmp);
-	xil_printf("XI3CPSX_DEVICE_ADDR 0x%x\n", tmp);
 
 	/* Initialize Device address table (DAT) */
 	tmp = 0x25 << XI3CPSX_DEV_ADDR_TABLE_LOC1_DEV_DYNAMIC_ADDR_SHIFT;
@@ -110,16 +106,15 @@ s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr)
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 			 XI3CPSX_DEV_ADDR_TABLE_LOC2, tmp);
 
+#ifdef DEBUG
 	xil_printf("DEV_ADDR_TABLE_LOC(0x2c0, 0) 0x%x\n", tmp);
+#endif
 
 	/* Enable the controller */
 	tmp = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL);
 	tmp = tmp | XI3CPSX_DEVICE_CTRL_ENABLE_MASK;
-	xil_printf("Write 0x%x\n", tmp);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL, tmp);
 	tmp = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL);
-
-	xil_printf("DEVICE CTRL reads 0x%x\n", tmp);
 
 	/* Issue ENTDAA command */
 	CmdCCC.SlaveAddr = 0;
@@ -143,17 +138,15 @@ void XI3cPsx_WrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen)
 	u16 NoWords = TxLen / 4;
 	u32 Val;
 	u16 i;
-	xil_printf("Writing to FIFO\n");
+
 	/* FIFO is word based, so pack the data accordingly */
 	for (i = 0; i < NoWords; i++) {
 		Val = TxBuf[i];
-		xil_printf("0x%x\t", Val);
 		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 				 XI3CPSX_TX_RX_DATA_PORT, Val);
 	}
 	if (TxLen & 3) {
-		memcpy(&Val, TxBuf + (TxLen & (~3)), TxLen & 3);
-		xil_printf("0x%x\n", Val);
+		memcpy(&Val, TxBuf, TxLen & 3);
 		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 				 XI3CPSX_TX_RX_DATA_PORT, Val);
 	}
@@ -161,7 +154,6 @@ void XI3cPsx_WrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen)
 
 static void XI3cPsixl_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd)
 {
-	xil_printf("Writing Command - Arg: 0x%x\t Cmd: 0x%x\n", Cmd->TransCmd, Cmd->TransArg);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 			 XI3CPSX_COMMAND_QUEUE_PORT, Cmd->TransCmd);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
@@ -178,12 +170,16 @@ static void XI3cPsx_RdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
 	for (i = 0; i < NoWords; i++) {
 		RxBuf[i] = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 					   XI3CPSX_TX_RX_DATA_PORT);
+#ifdef DEBUG
 		xil_printf("Data word 0x%x\tData 0x%x\n", i, RxBuf[i]);
+#endif
 	}
 	if (RxLen & 3) {
 		Val = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 				      XI3CPSX_TX_RX_DATA_PORT);
+#ifdef DEBUG
 		xil_printf("Data word 0x%x\tData 0x%x\n", i, Val);
+#endif
 		memcpy(RxBuf + (RxLen & (~3)), &Val, RxLen & 3);
 	}
 }
@@ -196,10 +192,11 @@ void XI3cPsx_PrintDCT(XI3cPsx *InstancePtr)
 
 	for (i = 0; i < InstancePtr->Config.DeviceCount; i++) {
 		/* 4 words in DCT for 1 device */
-		xil_printf("Device number 0x%x\n", i);
 		for (j = 0; j < 4; j++) {
 			DctRead = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEV_CHAR_TABLE1_LOC1 + (i * 16) + (j * 4));
+#ifdef DEBUG
 			xil_printf("Word 0x%x\t DctRead 0x%x\n", j, DctRead);
+#endif
 
 		}
 	}
@@ -236,7 +233,6 @@ s32 XI3cPsx_MasterSend(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	Rbuf_level = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 				     XI3CPSX_QUEUE_STATUS_LEVEL);
 
-	xil_printf("Rbuf_level before Cmd write %d\n", Rbuf_level);
 	/* Send command part to controller. It triggers the transfer */
 
 	XI3cPsixl_WrCmdFifo(InstancePtr, &Cmds);
@@ -277,8 +273,6 @@ s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
 				     XI3CPSX_QUEUE_STATUS_LEVEL);
 	InstancePtr->RecvByteCount  = ByteCount;
 
-	xil_printf("Rbuf_level, Intr_status before Cmd write %x\t%x\n", Rbuf_level, Intr_status);
-
 	/* Send command part to controller. It triggers the transfer */
 	XI3cPsixl_WrCmdFifo(InstancePtr, Cmds);
 	/* Wait until response buffer is filled up */
@@ -297,7 +291,9 @@ s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
 
 	/* Check if any error in all commands */
 	if (InstancePtr->Error != 0) {
+#ifdef DEBUG
 		xil_printf("Error %d \n", InstancePtr->Error );
+#endif
 		XI3cPsx_ResetFifos(InstancePtr);
 		return XST_FAILURE;
 	}
@@ -477,7 +473,6 @@ void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
 	/* Read the response buffer */
 	Resp = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 			       XI3CPSX_RESPONSE_QUEUE_PORT);
-	xil_printf("Resp 0x%x\n", Resp);
 	RxLen = RESPONSE_PORT_DATA_LEN(Resp);
 	InstancePtr->Error = RESPONSE_PORT_ERR_STATUS(Resp);
 
@@ -486,7 +481,6 @@ void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
 		XI3cPsx_RdRxFifo(InstancePtr, (u32 *)InstancePtr->RecvBufferPtr,
 				 RxLen);
 	}
-	xil_printf("Rbuf_level, Intr_status after Cmd write %x\t%x\n", Rbuf_level, IntrStatusReg);
 	if (InstancePtr->SendByteCount) {
 		XI3cPsx_WrTxFifo(InstancePtr, (u32 *)InstancePtr->SendBufferPtr,
 				 InstancePtr->SendByteCount);

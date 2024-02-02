@@ -20,6 +20,7 @@
 * 1.00  sd  06/10/22 First release
 * 1.1   sd  14/12/22 Fix warnings
 * 1.2   sd  1/2/23   Write to resume bit
+* 1.3 	sd   1/30/24  Moved prints under DEBUG flag.
 * </pre>
 *
 ******************************************************************************/
@@ -97,7 +98,9 @@ void XI3cPsx_SetupSlave(XI3cPsx *InstancePtr, u16 SlaveAddr)
 
 static void XI3cPsx_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd)
 {
+#ifdef DEBUG
 	xil_printf("Writing Command - Arg: 0x%x\t Cmd: 0x%x\n", Cmd->TransCmd, Cmd->TransArg);
+#endif
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 			 XI3CPSX_COMMAND_QUEUE_PORT, Cmd->TransCmd);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
@@ -109,17 +112,15 @@ void XI3cPsx_SlvWrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen)
 	u16 NoWords = TxLen / 4;
 	u32 Val;
 	u16 i;
-	xil_printf("Writing to FIFO\n");
+
 	/* FIFO is word based, so pack the data accordingly */
 	for (i = 0; i < NoWords; i++) {
 		Val = TxBuf[i];
-		xil_printf("0x%x\t", Val);
 		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 				 XI3CPSX_TX_RX_DATA_PORT, Val);
 	}
 	if (TxLen & 3) {
-		memcpy(&Val, TxBuf + (TxLen & (~3)), TxLen & 3);
-		xil_printf("0x%x\n", Val);
+		memcpy(&Val, TxBuf , TxLen & 3);
 		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 				 XI3CPSX_TX_RX_DATA_PORT, Val);
 	}
@@ -151,12 +152,10 @@ static void XI3cPsx_SlvRdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
 	for (i = 0; i < NoWords; i++) {
 		RxBuf[i] = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 					   XI3CPSX_TX_RX_DATA_PORT);
-		xil_printf("Data word 0x%x\tData 0x%x\n", i, RxBuf[i]);
 	}
 	if (RxLen & 3) {
 		Val = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 				      XI3CPSX_TX_RX_DATA_PORT);
-		xil_printf("Data word 0x%x\tData 0x%x\n", i, Val);
 		memcpy(RxBuf + (RxLen & (~3)), &Val, RxLen & 3);
 	}
 }
