@@ -1,8 +1,11 @@
-cmake_minimum_required(VERSION 2.8.9)
-include(${CMAKE_CURRENT_SOURCE_DIR}/../../../../cmake/common.cmake NO_POLICY_SCOPE)
+
+#Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved
+# SPDX-License-Identifier: MIT
+cmake_minimum_required(VERSION 3.15)
 include(${CMAKE_CURRENT_SOURCE_DIR}/Clk_wizExample.cmake)
 project(clk_wiz)
 
+find_package(common)
 enable_language(C ASM)
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)
@@ -17,12 +20,6 @@ set(index 0)
 LIST_INDEX(${index} ${DRIVER_INSTANCES} "${NUM_DRIVER_INSTANCES}")
 list(GET TOTAL_EXAMPLE_LIST ${index} ex_list)
 list(GET REG_LIST ${index} reg)
-SET(XCLK_WIZ_BASEADDRESS "${reg}")
-if("${CMAKE_MACHINE}" STREQUAL "Versal")
-SET(COMMON_EXAMPLES xclk_wiz_versal_example.c)
-else()
-SET(COMMON_EXAMPLES xclk_wiz_setrate_example.c;xclk_wiz_intr_example.c)
-endif()
 SET(EXAMPLE_LIST "${${ex_list}}" CACHE STRING "Driver Example List")
 SET_PROPERTY(CACHE EXAMPLE_LIST PROPERTY STRINGS "${${ex_list}}")
 
@@ -34,17 +31,15 @@ foreach(LIST1 ${TOTAL_EXAMPLE_LIST})
     endif()
 endforeach()
 
-set(CMAKE_INFILE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../../../scripts/linker_files/")
-linker_gen(${CMAKE_INFILE_PATH})
-gen_exheader(${CMAKE_INFILE_PATH} ${CMAKE_PROJECT_NAME} ${XCLK_WIZ_BASEADDRESS} x)
+linker_gen("${CMAKE_CURRENT_SOURCE_DIR}/linker_files/")
 
 if (${valid_ex})
-    list(APPEND COMMON_EXAMPLES "${${ex_list}}")
+    list(APPEND EXAMPLES "${${ex_list}}")
 else()
-    list(APPEND COMMON_EXAMPLES ${EXAMPLE_LIST})
+    list(APPEND EXAMPLES ${EXAMPLE_LIST})
 endif()
 
-foreach(EXAMPLE ${COMMON_EXAMPLES})
+foreach(EXAMPLE ${EXAMPLES})
     string(REGEX REPLACE "\\.[^.]*$" "" EXAMPLE ${EXAMPLE})
     add_executable(${EXAMPLE}.elf ${EXAMPLE})
     target_link_libraries(${EXAMPLE}.elf -Wl,--gc-sections -T\"${CMAKE_SOURCE_DIR}/lscript.ld\" -L\"${CMAKE_SOURCE_DIR}/\" -Wl,--start-group ${_deps} -Wl,--end-group)
