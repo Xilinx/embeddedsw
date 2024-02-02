@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,6 +61,7 @@
 *       dc     06/20/23 Depricate obsolete APIs
 *       cog    07/04/23 Add support for SDT
 *       dc     08/28/23 Remove immediate trigger
+* 1.7   cog    01/29/24 Yocto SDT support
 * </pre>
 * @addtogroup dfemix Overview
 * @{
@@ -105,7 +106,7 @@
 /**
 * @endcond
 */
-#define XDFEMIX_DRIVER_VERSION_MINOR (6U) /**< Driver's minor version number */
+#define XDFEMIX_DRIVER_VERSION_MINOR (7U) /**< Driver's minor version number */
 #define XDFEMIX_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
