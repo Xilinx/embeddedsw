@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -19,6 +20,7 @@
  * 1.1   kar    04/25/18        Changed default value of the clk phase bit to 1.
  *                              Removed version register macro.
  *                              Removed get version API call from the self test.
+ * 1.2	Dhanumjay 02/02/24	Ported the self test to rigel flow
  * </pre>
  *
  ****************************************************************************/
@@ -34,9 +36,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #ifndef TESTAPP_GEN
 #define SDIAUD_0_DEVICE_ID	XPAR_XSDIAUD_0_DEVICE_ID
 #define SDIAUD_1_DEVICE_ID	XPAR_XSDIAUD_1_DEVICE_ID
+#endif
 #endif
 
 #define XSDIAUD_NUM_REG 4 /* Number of registers to be read after reset */
@@ -45,8 +49,11 @@
 /**************************** Type Definitions ********************************/
 
 /************************** Function Prototypes *******************************/
-
+#ifndef SDT
 int SdiAud_SelfTestExample(u16 DeviceId);
+#else
+int SdiAud_SelfTestExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions ******************************/
 
@@ -75,7 +82,11 @@ int main(void)
 	 * Run the SdiAud Self Test example, specify the Device ID that is
 	 * generated in xparameters.h
 	 */
+#ifndef SDT
 	Status = SdiAud_SelfTestExample(SDIAUD_0_DEVICE_ID);
+#else
+	Status = SdiAud_SelfTestExample(XPAR_XSDIAUD_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("SDI Audio Self Test Failed \r\n");
 		return XST_FAILURE;
@@ -100,14 +111,22 @@ int main(void)
  *
  *
  *****************************************************************************/
+#ifndef SDT
 int SdiAud_SelfTestExample(u16 DeviceId)
+#else
+int SdiAud_SelfTestExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	/*
 	 * Initialize the SdiAud driver so that it's ready to use
 	 * Look up the configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Status = XSdiAud_Initialize(&SdiAud0, DeviceId);
+#else
+	Status = XSdiAud_Initialize(&SdiAud0, BaseAddress);
+#endif
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 

@@ -1,0 +1,39 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for SDI Audio deriver.
+
+maintainers:
+  - katta Dhanunjanrao <katta.dhanunjanrao@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,v-uhdsdi-audio-2.0
+  reg:
+    description: Physical base addreiss and size of the controller register map
+  xlnx,audio-function:
+    description: Type of audio operation like embed/extract mode
+  xlnx,line-rate:
+    description: SDI supported line rate like 3G/6G/12G..etc
+  xlnx,max-audio-channels:
+    description: SDI Audio supported maximum channels.
+
+required:
+    - compatible
+    - reg
+    - xlnx,audio-function
+    - xlnx,line-rate
+    - xlnx,max-audio-channels
+    - interrupts
+    - interrupts-parent
+
+config:
+    - XSdiAud_Config
+
+...

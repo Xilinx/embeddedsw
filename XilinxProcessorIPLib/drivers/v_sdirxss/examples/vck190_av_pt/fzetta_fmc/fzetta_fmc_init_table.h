@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 /**
@@ -42,9 +43,15 @@ typedef struct {
 #define REGLIST_SIZE 25
 
 typedef struct {
+#ifndef SDT
 	u8 gpio_dev_id;
 	u8 iic_dev_id;
 	u8 spi_dev_id;
+#else
+	UINTPTR gpio_dev_baseaddress;
+	UINTPTR iic_dev_baseaddress;
+	UINTPTR spi_dev_baseaddress;
+#endif
 	fzetta_fmc_reglist reglist[REGLIST_SIZE];
 }fzetta_fmc_reg;
 
