@@ -1359,7 +1359,7 @@
 /* Definitions for peripheral  */
 #define XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SYSMON_0_S_AXI_BASEADDR 0xF1270000
 #define XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SYSMON_0_S_AXI_HIGHADDR 0xF129FFFF
-
+#define XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SYSMON_0_NUMSUPPLIES 0
 
 /******************************************************************/
 
@@ -1369,6 +1369,7 @@
 
 #define XPAR_XSYSMONPSV_0_NO_MEAS	161
 
+#define XPAR_XSYSMONPSV_0_NUMSUPPLIES 0
 /******************************************************************/
 
 /* Xilinx Sysmon Device Name */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 4.0   se     10/04/22 Update return value definitions
 *		se	   11/10/22 Secure and Non-Secure mode integration
 * 4.1   cog    07/18/23 Add support for SDT flow
+* 4.2   cog    01/25/24 Added SSIT support
 * </pre>
 *
 ******************************************************************************/
@@ -73,6 +74,7 @@ typedef void (*XSysMonPsv_Handler)(void *CallbackRef);
  */
 typedef struct {
 	UINTPTR BaseAddress; /**< Register base address */
+	u8 NumSupplies;
 	u8 Supply_List[XSYSMONPSV_MAX_SUPPLIES]; /**< Maps voltage supplies in
                                                   use to the Supply registers */
 } XSysMonPsv_Config;
@@ -103,7 +105,7 @@ typedef struct {
  * @{
  */
 typedef struct {
-	XSysMonPsv_Config Config; /**< Device configuration */
+	XSysMonPsv_Config *Config; /**< Device configuration */
 #if defined (ARMR5) || defined (__aarch64__)
 	XSysMonPsv_EventHandler
 		SupplyEvent[XSYSMONPSV_MAX_SUPPLIES]; /**< EventList will
@@ -119,6 +121,7 @@ typedef struct {
 	u32 IpiIntrId; /**< Secure mode IPI Interrupt ID*/
 	u32 IpiDeviceId; /**< Secure mode IPI Device ID*/
 #endif
+	s8 TargetSLR;
 } XSysMonPsv;
 
 #ifdef __cplusplus

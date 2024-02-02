@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *                       arch64 architecture
 * 4.0   se     10/04/22 Update return value definitions
 *		se	   11/10/22 Secure and Non-Secure mode integration
+* 4.2   cog    01/25/24 Added SSIT support
 * </pre>
 *
 ******************************************************************************/
@@ -59,7 +60,7 @@ int XSysMonPsv_EnableVoltageEvents(XSysMonPsv *InstancePtr, u32 Supply,
 		return -XST_FAILURE;
 	}
 
-	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	SupplyReg = InstancePtr->Config->Supply_List[Supply];
 	Bit = ALARM_SHIFT(SupplyReg);
 	Event = ALARM_REG(SupplyReg);
 	AlarmRegOffset = XSYSMONPSV_ALARM_REG0 + (Event * 4U);
@@ -94,7 +95,7 @@ int XSysMonPsv_DisableVoltageEvents(XSysMonPsv *InstancePtr, u32 Supply)
 		return -XST_FAILURE;
 	}
 
-	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	SupplyReg = InstancePtr->Config->Supply_List[Supply];
 	Bit = ALARM_SHIFT(SupplyReg);
 	Event = ALARM_REG(SupplyReg);
 	AlarmRegOffset = XSYSMONPSV_ALARM_REG0 + (Event * 4U);
@@ -220,7 +221,7 @@ void XSysMonPsv_RegisterSupplyCallback(XSysMonPsv *InstancePtr,
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	SupplyReg = InstancePtr->Config->Supply_List[Supply];
 	InstancePtr->SupplyEvent[SupplyReg].Handler = CallbackFunc;
 	InstancePtr->SupplyEvent[SupplyReg].CallbackRef = CallbackRef;
 	InstancePtr->SupplyEvent[SupplyReg].Supply = Supply;
@@ -245,7 +246,7 @@ void XSysMonPsv_UnregisterSupplyCallback(XSysMonPsv *InstancePtr, u32 Supply)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	SupplyReg = InstancePtr->Config->Supply_List[Supply];
 	InstancePtr->SupplyEvent[SupplyReg].Handler = NULL;
 	InstancePtr->SupplyEvent[SupplyReg].CallbackRef = NULL;
 	InstancePtr->SupplyEvent[SupplyReg].Supply = EndList;
@@ -316,7 +317,7 @@ void XSysMonPsv_IntrHandler(XSysMonPsv *InstancePtr)
 			if (XSysMonPsv_IsAlarmPresent(InstancePtr, Supply) ==
 			    1U) {
 				SupplyReg =
-					InstancePtr->Config.Supply_List[Supply];
+					InstancePtr->Config->Supply_List[Supply];
 				EventHandler =
 					&InstancePtr->SupplyEvent[SupplyReg];
 				XSysMonPsv_DisableVoltageEvents(InstancePtr,
