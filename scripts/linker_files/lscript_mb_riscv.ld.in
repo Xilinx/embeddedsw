@@ -115,6 +115,20 @@ SECTIONS
    *(.gcc_except_table)
 } > @DDR@
 
+.init_array : {
+   __init_array_start = .;
+   KEEP (*(SORT(.init_array.*)))
+   KEEP (*(.init_array))
+   __init_array_end = .;
+} > @DDR@
+
+.fini_array : {
+   __fini_array_start = .;
+   KEEP (*(SORT(.fini_array.*)))
+   KEEP (*(.fini_array))
+   __fini_array_end = .;
+} > @DDR@
+
 .sdata : {
    __sdata_start = .;
    *(.sdata)
