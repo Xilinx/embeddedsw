@@ -852,6 +852,18 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 			Clkflags = PtrNodes[Index + i].Clkflags;
 			Typeflags = PtrNodes[Index + i].Typeflags;
 
+			/**
+			 * CCF should not disable unused clocks since all clocks
+			 * are managed by PLM and when XPm_InitFinalize() is
+			 * called PLM will release all unused devices and
+			 * disables its clocks. So add CLK_IGNORE_UNUSED flag
+			 * for all GATE to avoid disabling unused clocks from
+			 * Linux CCF driver.
+			 */
+			if ((u8)TYPE_GATE == Type) {
+				Clkflags |= CLK_IGNORE_UNUSED;
+			}
+
 			/* Set CCF flags to each nodes for read only clock */
 			if (0U != (Clk->ClkNode.Flags & CLK_FLAG_READ_ONLY)) {
 				if ((u8)TYPE_GATE == Type) {
