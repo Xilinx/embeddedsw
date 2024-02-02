@@ -22,6 +22,7 @@
 * 1.2   sd    2/12/23 Remove the hardcoding devices
 *       	      Copy the input clock
 * 1.3  sd   11/17/23 Added support for system device-tree flow.
+*      sd   1/30/24  Moved prints under DEBUG flag.
 * </pre>
 *
 ******************************************************************************/
@@ -103,7 +104,9 @@ s32 XI3cPsx_SendTransferCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC)
 		DAA_Cmd[0].TransArg |= COMMAND_PORT_READ_TRANSFER;	/* 28 - For read */
 	}
 
+#ifdef DEBUG
 	xil_printf("E Arg 0x%x\t Cmd 0x%x\n", DAA_Cmd[0].TransCmd, DAA_Cmd[0].TransArg);
+#endif
 	if (CmdCCC->RxLen) {
 		ret = XI3cPsx_MasterRecvPolled(InstancePtr, CmdCCC->RxBuff, CmdCCC->RxLen, &DAA_Cmd[0]);
 	} else {
@@ -142,7 +145,9 @@ s32 XI3cPsx_SendAddrAssignCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC)
 			       COMMAND_PORT_ADDR_ASSGN_CMD |	/* 0 - 2 */
 			       COMMAND_PORT_TOC |	/* 30 */
 			       COMMAND_PORT_ROC);	/* 26 */
+#ifdef DEBUG
 	xil_printf("E Arg 0x%x\t Cmd 0x%x\n", DAA_Cmd[0].TransCmd, DAA_Cmd[0].TransArg);
+#endif
 	ret = XI3cPsx_MasterSendPolled(InstancePtr, NULL, 0, DAA_Cmd[0]);
 
 	return ret;
