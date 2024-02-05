@@ -47,10 +47,9 @@ required:
     - xlnx,32bit-lr
 
 examples:
-  xi2srx_selftest_example.c:
-    - reg
-
-  xi2srx_intr_example.c:
-    - interrupts
+    xi2srx_selftest_example.c:
+        - reg
+    xi2srx_intr_example.c:
+        - interrupts
 
 ...

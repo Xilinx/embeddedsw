@@ -56,4 +56,10 @@ required:
 
 config:
     - XAudioFormatter_Config
+
+examples:
+    xaudioformatter_selftest_example.c:
+        - reg
+    xaudioformatter_intr_example.c:
+        - interrupts
 ...

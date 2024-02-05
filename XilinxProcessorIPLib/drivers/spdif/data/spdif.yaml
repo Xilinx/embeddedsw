@@ -26,4 +26,10 @@ required:
 
 config:
     - XSpdif_Config
+
+examples:
+    xspdif_selftest_example.c:
+        - reg
+    xspdif_intr_example.c:
+        - interrupts
 ...

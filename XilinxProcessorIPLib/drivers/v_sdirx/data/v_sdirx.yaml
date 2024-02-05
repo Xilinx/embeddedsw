@@ -35,4 +35,8 @@ depends:
     video_common: []
     sdi_common: []
 
+examples:
+    xv_sdirx_example_selftest.c:
+        - reg
+
 ...
