@@ -5,6 +5,7 @@
 /* Version:                                 */
 /*                                                                 */
 /* Copyright (c) 2010-2016 Xilinx, Inc.  All rights reserved.      */
+/* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved. */
 /*                                                                 */
 /* Description : MicroBlaze Linker Script                          */
 /*                                                                 */

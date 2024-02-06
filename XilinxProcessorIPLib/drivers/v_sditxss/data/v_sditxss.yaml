@@ -55,4 +55,19 @@ depends:
     video_common: []
     sdi_common: []
 
+examples:
+    xv_sditxss_selftest_example.c:
+        - reg
+
+    xuhdsdi_pixco_example/xsdi_example.c:
+        - dependency_files:
+            - xuhdsdi_pixco_example/platform.c
+            - xuhdsdi_pixco_example/platform.h
+            - xuhdsdi_pixco_example/platform_config.h
+            - xuhdsdi_pixco_example/si570drv.c
+            - xuhdsdi_pixco_example/si570drv.h
+            - xuhdsdi_pixco_example/xsdi_menu.c
+            - xuhdsdi_pixco_example/xsdi_menu.h
+            - xuhdsdi_pixco_example/lscript.ld
+
 ...
