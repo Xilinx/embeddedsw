@@ -927,19 +927,24 @@ u32 XV_Tx_Hdmi_Initialize(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 	}
 
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
-#if defined(__arm__) || (__aarch64__)
-#ifndef SDT
-	Status |= XScuGic_Connect(InstancePtr->Intc,
-			IntrVecIds.IntrVecId_HdmiTxSs,
-			(XInterruptHandler)XV_HdmiTxSS1_HdmiTx1IntrHandler,
-			(void *)InstancePtr->HdmiTxSs);
-#else
+#ifdef SDT
 	Status =
 		XSetupInterruptSystem(InstancePtr->HdmiTxSs,
 				      (XInterruptHandler)XV_HdmiTxSS1_HdmiTx1IntrHandler,
 				      InstancePtr->HdmiTxSs->Config.IntrId[INTRNAME_HDMITX],
 				      InstancePtr->HdmiTxSs->Config.IntrParent,
 				      XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: HDMI TX SS  interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+#endif
+#if defined(__arm__) || (__aarch64__)
+#ifndef SDT
+	Status |= XScuGic_Connect(InstancePtr->Intc,
+			IntrVecIds.IntrVecId_HdmiTxSs,
+			(XInterruptHandler)XV_HdmiTxSS1_HdmiTx1IntrHandler,
+			(void *)InstancePtr->HdmiTxSs);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: HDMI TX SS  interrupt connect failed!\r\n");
 		return XST_FAILURE;
@@ -1014,16 +1019,6 @@ u32 XV_Tx_Hdmi_Initialize(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 			(XInterruptHandler)XV_HdmiTxSS1_HdmiTx1IntrHandler,
 			(void *)InstancePtr->HdmiTxSs);
 #else
-	Status =
-		XSetupInterruptSystem(InstancePtr->HdmiTxSs,
-				      (XInterruptHandler)XV_HdmiTxSS1_HdmiTx1IntrHandler,
-				      InstancePtr->HdmiTxSs->Config.IntrId[INTRNAME_HDMITX],
-				      InstancePtr->HdmiTxSs->Config.IntrParent,
-				      XINTERRUPT_DEFAULT_PRIORITY);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: HDMI TX SS  interrupt connect failed!\r\n");
-		return XST_FAILURE;
-	}
 #endif
 
 /* HDCP 1.4 */
