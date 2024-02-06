@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -101,8 +102,11 @@ void hdmi_tx_acr (XV_HdmiTxSs *HdmiTxSsPtr, XhdmiAudioGen_t *AudioGen);
 u32 i2s_init() {
 
 	u32 Status;
-
+#ifndef SDT
 	Config = XI2s_Tx_LookupConfig(XPAR_XI2STX_0_DEVICE_ID);
+#else
+    Config = XI2s_Tx_LookupConfig(XPAR_XI2STX_0_BASEADDR);
+#endif
 	if (Config == NULL) {
 		 return XST_FAILURE;
 	}
@@ -112,8 +116,11 @@ u32 i2s_init() {
 		 return XST_FAILURE;
 	}
 
-
+#ifndef SDT
 	Config_rx = XI2s_Rx_LookupConfig(XPAR_XI2SRX_0_DEVICE_ID);
+#else
+	Config_rx = XI2s_Rx_LookupConfig(XPAR_XI2SRX_0_BASEADDR);
+#endif
 	if (Config == NULL) {
 		  return XST_FAILURE;
 	}
@@ -126,7 +133,11 @@ u32 i2s_init() {
 	}
 
 	Gpio_AudClk_resetn_ConfigPtr =
+#ifndef SDT
 		XGpio_LookupConfig(XPAR_AUDIO_I2S_SS_0_AXI_GPIO_DEVICE_ID);
+#else
+        XGpio_LookupConfig(XPAR_AUDIO_I2S_SS_0_AXI_GPIO_BASEADDR);
+#endif
 
 	if(Gpio_AudClk_resetn_ConfigPtr == NULL) {
 		Gpio_AudClk_resetn.IsReady = 0;
