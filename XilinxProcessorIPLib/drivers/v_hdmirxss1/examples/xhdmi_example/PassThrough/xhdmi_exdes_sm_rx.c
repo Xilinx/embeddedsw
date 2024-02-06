@@ -854,6 +854,17 @@ u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 	}
 
 	/* Register HDMI RX SS Interrupt Handler with Interrupt Controller */
+#ifdef SDT
+	Status = XSetupInterruptSystem(InstancePtr->HdmiRxSs,
+					(XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
+					InstancePtr->HdmiRxSs->Config.IntrId,
+					InstancePtr->HdmiRxSs->Config.IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP RX SS DP interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+#endif
 #if defined(__arm__) || (__aarch64__)
 #ifndef SDT
 	Status |= XScuGic_Connect(InstancePtr->Intc,
@@ -973,17 +984,6 @@ u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 #endif
 	/* Initialize the RX SS interrupts. */
 	XV_Rx_HdmiRxSs_Setup_Callbacks(InstancePtr);
-#ifdef SDT
-	Status = XSetupInterruptSystem(InstancePtr->HdmiRxSs,
-					(XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
-					InstancePtr->HdmiRxSs->Config.IntrId,
-					InstancePtr->HdmiRxSs->Config.IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP RX SS DP interrupt connect failed!\r\n");
-		return XST_FAILURE;
-	}
-#endif
 	/* Initialize the VPhy related to the HdmiRxSs if it isn't ready yet. */
 	if (!(InstancePtr->VidPhy->IsReady == 0xFFFFFFFF)) {
 		xil_printf("Initializing Video Phy with Video Receiver \r\n");
