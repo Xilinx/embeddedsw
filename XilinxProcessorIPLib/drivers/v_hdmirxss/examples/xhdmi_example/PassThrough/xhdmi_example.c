@@ -2987,6 +2987,13 @@ int main() {
 	XV_HdmiTxSS_SetAppVersion(&HdmiTxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
 
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
+#ifdef SDT
+	Status = XSetupInterruptSystem(&HdmiTxSs,
+				       XV_HdmiTxSS_HdmiTxIntrHandler,
+				       XV_HdmiTxSs_ConfigPtr->IntrId[INTRNAME_HDMITX],
+				       XV_HdmiTxSs_ConfigPtr->IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 #if defined(__arm__) || (__aarch64__)
 #ifndef SDT
 #ifndef USE_HDCP
@@ -3002,13 +3009,6 @@ int main() {
 #endif
 #endif
 
-#ifdef SDT
-	Status = XSetupInterruptSystem(&HdmiTxSs,
-				       XV_HdmiTxSS_HdmiTxIntrHandler,
-				       XV_HdmiTxSs_ConfigPtr->IntrId[INTRNAME_HDMITX],
-				       XV_HdmiTxSs_ConfigPtr->IntrParent,
-				       XINTERRUPT_DEFAULT_PRIORITY);
-#endif
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -3073,6 +3073,7 @@ int main() {
 #endif
 
 #else
+#ifndef SDT
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
 	Status |= XIntc_Connect(&Intc,
 #if defined(USE_HDCP)
@@ -3082,6 +3083,7 @@ int main() {
 #endif
 			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
 			(void *)&HdmiTxSs);
+#endif
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -3304,6 +3306,14 @@ int main() {
 	XV_HdmiRxSS_SetAppVersion(&HdmiRxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
 
 	/* Register HDMI RX SS Interrupt Handler with Interrupt Controller */
+#ifdef SDT
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDMIRX],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
+
 #if defined(__arm__) || (__aarch64__)
 #ifndef SDT
 #ifndef USE_HDCP
@@ -3317,14 +3327,7 @@ int main() {
 			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
 			(void *)&HdmiRxSs);
 #endif
-#else
-	Status = XSetupInterruptSystem(&HdmiRxSs,
-				       (XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-				       HdmiRxSs.Config.IntrId[INTRNAME_HDMIRX],
-				       HdmiRxSs.Config.IntrParent,
-				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
-
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 	/* HDCP 1.4 Cipher interrupt */
@@ -3364,7 +3367,7 @@ int main() {
 	}
 #endif
 #endif
-#endif
+
 
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
 #ifndef SDT
@@ -3386,8 +3389,10 @@ int main() {
 		return XST_FAILURE;
 	}
 #endif
+#endif
 
 #else
+#ifndef SDT
 	Status |= XIntc_Connect(&Intc,
 #if defined(USE_HDCP)
 			XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID,
@@ -3396,9 +3401,11 @@ int main() {
 #endif
 			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
 			(void *)&HdmiRxSs);
+#endif
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 	/* HDCP 1.4 Cipher interrupt */
+#ifndef SDT
 	Status |= XIntc_Connect(&Intc,
 				XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID,
 				(XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
@@ -3410,7 +3417,6 @@ int main() {
 			(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
 			(void *)&HdmiRxSs);
 #else
-#ifndef SDT
 	Status = XSetupInterruptSystem(&HdmiRxSs,
 				       (XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
 				       HdmiRxSs.Config.IntrId[INTRNAME_HDCP1XRX],
@@ -3481,6 +3487,7 @@ int main() {
 #endif
 
 #else
+#ifndef SDT
 		XIntc_Enable(&Intc,
 #if defined(USE_HDCP)
 			XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID
@@ -3488,6 +3495,7 @@ int main() {
 			XPAR_INTC_0_V_HDMIRXSS_0_VEC_ID
 #endif
 			);
+#endif
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 		/* HDCP 1.4 Cipher interrupt */
@@ -3504,7 +3512,6 @@ int main() {
 		XIntc_Enable(&Intc,
 			XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
 #endif
-
 #endif
 	} else {
 		xil_printf
@@ -3591,10 +3598,10 @@ int main() {
 #endif
 #else
 	Status = XSetupInterruptSystem(&Vphy,
-				       (XInterruptHandler)XVphy_InterruptHandler,
-				       XVphyCfgPtr->IntrId,
-				       XVphyCfgPtr->IntrParent,
-				       XINTERRUPT_DEFAULT_PRIORITY);
+				(XInterruptHandler)XVphy_InterruptHandler,
+				XVphyCfgPtr->IntrId,
+				XVphyCfgPtr->IntrParent,
+				XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("HDMI VPHY Interrupt Vec ID not found!\r\n");
