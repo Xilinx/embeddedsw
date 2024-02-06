@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ****************************************************************************/
 
@@ -27,11 +28,15 @@
 #include "xi2srx.h"
 #include "xil_printf.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #include <stdio.h>
 #else
 #include "xscugic.h"
+#endif
+#else
+#include "xinterrupt_wrap.h"
 #endif
 /************************** Constant Definitions ******************************/
 /*
@@ -39,6 +44,7 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define I2S_RX_DEVICE_ID	XPAR_XI2SRX_0_DEVICE_ID
 #define I2S_RX_INTERRUPT_ID	XPAR_FABRIC_I2SRX_0_VEC_ID
 #define XPAR_I2S_TRANSMITTER_0_BA XPAR_XI2STX_0_BASEADDR
@@ -55,6 +61,7 @@
 #define INTC			XScuGic
 #define INTC_HANDLER	XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
+#endif
 
 #define I2S_RX_FS		48 //kHz
 #define I2S_RX_MCLK		(384 * I2S_RX_FS)
@@ -62,7 +69,7 @@
 /**************************** Type Definitions ********************************/
 
 /************************** Function Prototypes *******************************/
-
+#ifndef SDT
 int I2sRxIntrExample(INTC *IntcInstancePtr, XI2s_Rx *I2sRxInstancePtr,
 		u16 DeviceId, u16 IntrId);
 
@@ -71,13 +78,17 @@ static int I2sRxSetupIntrSystem(INTC *IntcInstancePtr,
 		u16 DeviceId, u16 IntrId);
 
 void I2sRxDisableIntr(INTC *IntcInstancePtr, u16 IntrId);
-
+#else
+static int I2sRxIntrExample(XI2s_Rx *I2sRxInstancePtr, UINTPTR BaseAddress);
+#endif
 void I2sRxAesBlockCmplIntrHandler(void *CallBackRef);
 
 void I2sRxOvrflwIntrHandler(void *CallBackRef);
 
 /************************** Variable Definitions ******************************/
+#ifndef SDT
 INTC InterruptController;	/* The instance of the Interrupt Controller */
+#endif
 XI2s_Rx I2sRxInstance;		/* Instance of the I2S receiver device */
 u32 IntrReceived;
 /*****************************************************************************/
@@ -99,8 +110,12 @@ int main(void)
 	/*
 	 * Run the I2S receiver - Interrupt example.
 	 */
+#ifndef SDT
 	Status = I2sRxIntrExample(&InterruptController, &I2sRxInstance,
 			I2S_RX_DEVICE_ID, I2S_RX_INTERRUPT_ID);
+#else
+	Status = I2sRxIntrExample(&I2sRxInstance, XPAR_XI2SRX_0_BASEADDR);
+#endif
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("I2S receiver interrupt Example Failed\r\n");
@@ -129,8 +144,12 @@ int main(void)
  * @return	XST_SUCCESS if the Test is successful, otherwise XST_FAILURE
  *
  *****************************************************************************/
+#ifndef SDT
 int I2sRxIntrExample(INTC *IntcInstancePtr, XI2s_Rx *I2sRxInstancePtr,
 		u16 DeviceId, u16 IntrId)
+#else
+static int I2sRxIntrExample(XI2s_Rx *I2sRxInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	xil_printf("I2s Receiver\r\n");
 	int Status;
@@ -139,7 +158,11 @@ int I2sRxIntrExample(INTC *IntcInstancePtr, XI2s_Rx *I2sRxInstancePtr,
 	/*
 	 * Lookup and Initialize the I2S receiver so that it's ready to use.
 	 */
+#ifndef SDT
 	Config = XI2s_Rx_LookupConfig(DeviceId);
+#else
+	Config = XI2s_Rx_LookupConfig(BaseAddress);
+#endif
 	if (Config == NULL)
 		return XST_FAILURE;
 
@@ -152,11 +175,12 @@ int I2sRxIntrExample(INTC *IntcInstancePtr, XI2s_Rx *I2sRxInstancePtr,
 	 * subsystem such that interrupts can occur.
 	 * This function is application specific.
 	 */
+#ifndef SDT
 	Status = I2sRxSetupIntrSystem(IntcInstancePtr, I2sRxInstancePtr,
 			DeviceId, IntrId);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-
+#endif
 	/*
 	 * Setup the handler for the I2S receiver that will be called from the
 	 * interrupt context when the I2S receiver receives a block complete
@@ -177,7 +201,18 @@ int I2sRxIntrExample(INTC *IntcInstancePtr, XI2s_Rx *I2sRxInstancePtr,
 	/*
 	 * Enable non-critical exceptions.
 	 */
+#ifndef SDT
 	Xil_ExceptionEnable();
+#else
+	Status = XSetupInterruptSystem(I2sRxInstancePtr, &XI2s_Rx_IntrHandler,
+				       I2sRxInstancePtr->Config.IntrId,
+				       I2sRxInstancePtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("IRQ init failed.\n\r\r");
+		return XST_FAILURE;
+	}
+#endif
 	while (IntrCount < I2S_RX_TIME_OUT) {
 		//	while(1) {
 		/* Wait until an interrupts has been received. */
@@ -189,7 +224,7 @@ int I2sRxIntrExample(INTC *IntcInstancePtr, XI2s_Rx *I2sRxInstancePtr,
 		Status =  XST_SUCCESS;
 	}
 	return Status;
-	}
+}
 /*****************************************************************************/
 /**
 * This function is the handler which performs processing for the I2S
@@ -258,6 +293,7 @@ void I2sRxOvrflwIntrHandler(void *CallBackRef)
 *		are not working it may never return.
 *
 ******************************************************************************/
+#ifndef SDT
 static int I2sRxSetupIntrSystem(INTC *IntcInstancePtr,
 			XI2s_Rx *I2sRxInstancePtr,
 			u16 DeviceId, u16 IntrId)
@@ -343,6 +379,7 @@ static int I2sRxSetupIntrSystem(INTC *IntcInstancePtr,
 #endif
 		return XST_SUCCESS;
 }
+#endif
 /*****************************************************************************/
 /**
 *
@@ -358,6 +395,7 @@ static int I2sRxSetupIntrSystem(INTC *IntcInstancePtr,
 * @note	None.
 *
 ******************************************************************************/
+#ifndef SDT
 void I2sRxDisableIntr(INTC *IntcInstancePtr, u16 IntrId)
 {
 		/*
@@ -371,3 +409,4 @@ void I2sRxDisableIntr(INTC *IntcInstancePtr, u16 IntrId)
 		XScuGic_Disconnect(IntcInstancePtr, IntrId);
 #endif
 }
+#endif
