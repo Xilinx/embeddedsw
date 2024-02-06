@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,29 +30,39 @@
 #include "xil_cache.h"
 #include "xparameters.h"
 #include "xaudioformatter.h"
-#include "xscugic.h"
 #include "xi2srx.h"
 #include "xi2stx.h"
 #include "xil_printf.h"
+#ifndef SDT
+#include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions ******************************/
 
 #define XAUDIO_FORMATTER_SW_VER "v1.00"
+#ifndef SDT
 #define I2S_RX_DEVICE_ID	XPAR_XI2SRX_0_DEVICE_ID
 #define I2S_RX_INTERRUPT_ID	XPAR_FABRIC_I2SRX_0_VEC_ID
+#endif
 #define I2S_RX_FS		48 /* kHz */
 #define I2S_RX_MCLK		(384 * I2S_RX_FS)
 #define I2S_RX_TIME_OUT 500000
+#ifndef SDT
 #define I2S_TX_DEVICE_ID	XPAR_XI2STX_0_DEVICE_ID
 #define I2S_TX_INTERRUPT_ID	XPAR_FABRIC_I2STX_0_VEC_ID
+#endif
 #define I2S_TX_FS		48 /* kHz */
 #define I2S_TX_MCLK		(384*I2S_TX_FS)
 #define I2S_TX_TIME_OUT 500000
+#ifndef SDT
 #define AF_DEVICE_ID	XPAR_XAUDIOFORMATTER_0_DEVICE_ID
 #define AF_S2MM_INTERRUPT_ID \
 	XPAR_FABRIC_AUDIO_FORMATTER_0_IRQ_S2MM_VEC_ID
 #define AF_MM2S_INTERRUPT_ID \
 	XPAR_FABRIC_AUDIO_FORMATTER_0_IRQ_MM2S_VEC_ID
+#endif
 #define AF_FS		48 /* kHz */
 #define AF_MCLK		(384 * AF_FS)
 #define AF_S2MM_TIMEOUT 0x80000000
@@ -59,7 +70,9 @@
 XI2s_Rx I2sRxInstance;		/* Instance of the I2S receiver device */
 XAudioFormatter AFInstance;
 XI2s_Tx I2sTxInstance;		/* Instance of the I2s Transmitter device */
+#ifndef SDT
 XScuGic Intc;
+#endif
 u32 I2sTxIntrReceived;
 u32 I2sRxIntrReceived;
 u32 S2MMAFIntrReceived;
@@ -82,6 +95,7 @@ XAudioFormatterHwParams af_hw_params = {0x20000000, 2, BIT_DEPTH_24, 8, 64};
  **	operating system is used.
  **
 *******************************************************************************/
+#ifndef SDT
 static int SetupInterruptSystem(void)
 {
 	int Status;
@@ -116,6 +130,7 @@ static int SetupInterruptSystem(void)
 
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -322,7 +337,11 @@ u32 InitializeI2sTx(XI2s_Tx *I2sTxInstancePtr)
 	 */
 	u32 Status;
 	XI2stx_Config *I2STxConfig;
+#ifndef SDT
 	I2STxConfig = XI2s_Tx_LookupConfig(I2S_TX_DEVICE_ID);
+#else
+	I2STxConfig = XI2s_Tx_LookupConfig(XPAR_XI2STX_0_BASEADDR);
+#endif
 	if (I2STxConfig == NULL) {
 		return XST_FAILURE;
 	}
@@ -332,6 +351,7 @@ u32 InitializeI2sTx(XI2s_Tx *I2sTxInstancePtr)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+#ifndef SDT
 	Status = XScuGic_Connect(&Intc,	I2S_TX_INTERRUPT_ID,
 		(XInterruptHandler)XI2s_Tx_IntrHandler,
 		(void *)I2sTxInstancePtr);
@@ -341,7 +361,7 @@ u32 InitializeI2sTx(XI2s_Tx *I2sTxInstancePtr)
 		xil_printf("ERR:: Unable to register i2s tx interrupt handler");
 		return XST_FAILURE;
 	}
-
+#endif
 	XI2s_Tx_SetHandler(I2sTxInstancePtr, XI2S_TX_HANDLER_AES_BLKCMPLT,
 			&I2sTxAesBlockCmplIntrHandler,
 			(void *)I2sTxInstancePtr);
@@ -360,6 +380,17 @@ u32 InitializeI2sTx(XI2s_Tx *I2sTxInstancePtr)
 	XI2s_Tx_IntrEnable(I2sTxInstancePtr, XI2S_TX_INTR_AES_BLKCMPLT_MASK);
 	XI2s_Tx_IntrEnable(I2sTxInstancePtr, XI2S_TX_INTR_AUDUNDRFLW_MASK);
 	XI2s_Tx_Enable(I2sTxInstancePtr, 0x1);
+#ifdef SDT
+	Status = XSetupInterruptSystem(I2sTxInstancePtr, &XI2s_Tx_IntrHandler,
+				       I2sTxInstancePtr->Config.IntrId,
+				       I2sTxInstancePtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+
+	if (Status == XST_FAILURE) {
+		xil_printf("IRQ init failed.\n\r\r");
+		return XST_FAILURE;
+	}
+#endif
 }
 
 /*****************************************************************************/
@@ -380,7 +411,11 @@ u32 InitializeI2sRx(XI2s_Rx *I2sRxInstancePtr)
 	 */
 	u32 Status;
 	XI2srx_Config *I2SRxConfig;
+#ifndef SDT
 	I2SRxConfig = XI2s_Rx_LookupConfig(I2S_RX_DEVICE_ID);
+#else
+	I2SRxConfig = XI2s_Rx_LookupConfig(XPAR_XI2SRX_0_BASEADDR);
+#endif
 	if (I2SRxConfig == NULL)
 		return XST_FAILURE;
 
@@ -388,7 +423,7 @@ u32 InitializeI2sRx(XI2s_Rx *I2sRxInstancePtr)
 			I2SRxConfig->BaseAddress);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
-
+#ifndef SDT
 	Status = XScuGic_Connect(&Intc,	I2S_RX_INTERRUPT_ID,
 		(XInterruptHandler)XI2s_Rx_IntrHandler,
 		(void *)I2sRxInstancePtr);
@@ -400,6 +435,7 @@ u32 InitializeI2sRx(XI2s_Rx *I2sRxInstancePtr)
 	}
 
 	Xil_ExceptionEnable();
+#endif
 	XI2s_Rx_SetHandler(I2sRxInstancePtr, XI2S_RX_HANDLER_AES_BLKCMPLT,
 			&I2sRxAesBlockCmplIntrHandler,
 			(void *)I2sRxInstancePtr);
@@ -411,6 +447,16 @@ u32 InitializeI2sRx(XI2s_Rx *I2sRxInstancePtr)
 	XI2s_Rx_IntrEnable(I2sRxInstancePtr, XI2S_RX_INTR_AES_BLKCMPLT_MASK);
 	XI2s_Rx_IntrEnable(I2sRxInstancePtr, XI2S_RX_INTR_AUDOVRFLW_MASK);
 	XI2s_Rx_Enable(I2sRxInstancePtr, TRUE);
+#ifdef SDT
+	Status = XSetupInterruptSystem(I2sRxInstancePtr, &XI2s_Rx_IntrHandler,
+				       XI2s_Rx_IntrHandler->Config.IntrId,
+				       XI2s_Rx_IntrHandler->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+
+	if (Status == XST_FAILURE) {
+		xil_printf("IRQ init failed.\n\r\r");
+		return XST_FAILURE;
+#endif
 	return Status;
 }
 
@@ -433,11 +479,16 @@ u32 InitializeAudioFormatter(XAudioFormatter *AFInstancePtr)
 	/*
 	 * Lookup and Initialize the audio formatter so that it's ready to use.
 	 */
+#ifndef SDT
 	Status = XAudioFormatter_Initialize(&AFInstance, AF_DEVICE_ID);
+#else
+	Status = XAudioFormatter_Initialize(&AFInstance, XPAR_XAUDIO_FORMATTER_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
 	if (AFInstancePtr->s2mm_presence == 1) {
+#ifndef SDT
 		Status = XScuGic_Connect(&Intc, AF_S2MM_INTERRUPT_ID,
 			(XInterruptHandler)XAudioFormatterS2MMIntrHandler,
 			(void *)AFInstancePtr);
@@ -447,6 +498,7 @@ u32 InitializeAudioFormatter(XAudioFormatter *AFInstancePtr)
 			xil_printf("Failed to register AF interrupt handler");
 			return XST_FAILURE;
 		}
+#endif
 		AFInstancePtr->ChannelId = XAudioFormatter_S2MM;
 		XAudioFormatter_SetS2MMCallback(AFInstancePtr,
 			XAudioFormatter_IOC_Handler, XS2MMAFCallback,
@@ -456,8 +508,20 @@ u32 InitializeAudioFormatter(XAudioFormatter *AFInstancePtr)
 		XAudioFormatterSetS2MMTimeOut(AFInstancePtr, AF_S2MM_TIMEOUT);
 		XAudioFormatterSetHwParams(AFInstancePtr, &af_hw_params);
 		XAudioFormatterDMAStart(AFInstancePtr);
+#ifdef SDT
+		Status = XSetupInterruptSystem(AFInstancePtr,
+					       &XAudioFormatterS2MMIntrHandler,
+					       AFInstancePtr->Config.IntrId,
+					       AFInstancePtr->Config.IntrParent,
+					       XINTERRUPT_DEFAULT_PRIORITY);
+		if (Status == XST_FAILURE) {
+			xil_printf("IRQ init failed.\n\r\r");
+			return XST_FAILURE;
+		}
+#endif
 	}
 	if (AFInstancePtr->mm2s_presence == 1) {
+#ifndef SDT
 		Status = XScuGic_Connect(&Intc, AF_MM2S_INTERRUPT_ID,
 			(XInterruptHandler)XAudioFormatterMM2SIntrHandler,
 			(void *)AFInstancePtr);
@@ -467,6 +531,7 @@ u32 InitializeAudioFormatter(XAudioFormatter *AFInstancePtr)
 			xil_printf("Failed to register AF interrupt handler");
 			return XST_FAILURE;
 		}
+#endif
 		AFInstancePtr->ChannelId = XAudioFormatter_MM2S;
 		XAudioFormatter_SetMM2SCallback(AFInstancePtr,
 			XAudioFormatter_IOC_Handler, XMM2SAFCallback,
@@ -476,6 +541,17 @@ u32 InitializeAudioFormatter(XAudioFormatter *AFInstancePtr)
 		XAudioFormatterSetFsMultiplier(AFInstancePtr, AF_MCLK, AF_FS);
 		XAudioFormatterSetHwParams(AFInstancePtr, &af_hw_params);
 		XAudioFormatterDMAStart(AFInstancePtr);
+#ifdef SDT
+		Status = XSetupInterruptSystem(AFInstancePtr,
+					       &XAudioFormatterS2MMIntrHandler,
+					       AFInstancePtr->Config.IntrId,
+					       AFInstancePtr->Config.IntrParent,
+					       XINTERRUPT_DEFAULT_PRIORITY);
+		if (Status == XST_FAILURE) {
+			xil_printf("IRQ init failed.\n\r\r");
+			return XST_FAILURE;
+		}
+#endif
 	}
 	return Status;
 }
@@ -517,13 +593,14 @@ int main(void)
 	Xil_DCacheEnable();
 
 	/* Initialize IRQ */
+#ifndef SDT
 	Status = SetupInterruptSystem();
 	if (Status == XST_FAILURE) {
 		xil_printf("IRQ init failed.\n\r\r");
 		return XST_FAILURE;
 	}
 	Xil_ExceptionEnable();
-
+#endif
 	Status = InitializeAudioFormatter(AFInstancePtr);
 	if (Status == XST_FAILURE) {
 		xil_printf("\nAudio Formatter Init failed\n");
