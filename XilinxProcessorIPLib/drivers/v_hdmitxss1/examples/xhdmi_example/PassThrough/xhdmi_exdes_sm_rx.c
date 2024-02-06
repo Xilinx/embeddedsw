@@ -864,6 +864,17 @@ u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 	}
 
 	/* Register HDMI RX SS Interrupt Handler with Interrupt Controller */
+#ifdef SDT
+	Status = XSetupInterruptSystem(InstancePtr->HdmiRxSs,
+					(XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
+					InstancePtr->HdmiRxSs->Config.IntrId[INTRNAME_HDMIRX],
+					InstancePtr->HdmiRxSs->Config.IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: HDMI RX SS interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+#endif
 #if defined(__arm__) || (__aarch64__)
 #ifndef SDT
 	Status |= XScuGic_Connect(InstancePtr->Intc,
@@ -871,12 +882,6 @@ u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 			IntrVecIds.IntrVecId_HdmiRxSs,
 			(XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
 			(void *)InstancePtr->HdmiRxSs);
-#else
-	Status = XSetupInterruptSystem(InstancePtr->HdmiRxSs,
-					(XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
-					InstancePtr->HdmiRxSs->Config.IntrId[INTRNAME_HDMIRX],
-					InstancePtr->HdmiRxSs->Config.IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR: HDMI RX SS interrupt connect failed!\r\n");
 		return XST_FAILURE;
@@ -951,17 +956,6 @@ u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 			IntrVecIds.IntrVecId_HdmiRxSs,
 			(XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
 			(void *)InstancePtr->HdmiRxSs);
-#else
-	Status =
-		XSetupInterruptSystem(InstancePtr->HdmiRxSs,
-				      (XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
-				      InstancePtr->HdmiRxSs->Config.IntrId[INTRNAME_HDMIRX],
-				      InstancePtr->HdmiRxSs->Config.IntrParent,
-				      XINTERRUPT_DEFAULT_PRIORITY);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: HDMI RX SS interrupt connect failed!\r\n");
-		return XST_FAILURE;
-	}
 #endif
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
