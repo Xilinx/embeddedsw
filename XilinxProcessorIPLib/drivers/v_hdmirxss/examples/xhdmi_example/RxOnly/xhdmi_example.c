@@ -1334,6 +1334,7 @@ int main() {
 #endif
 
 #else
+#ifndef SDT
 	Status |= XIntc_Connect(&Intc,
 #if defined(USE_HDCP)
 			XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID,
@@ -1342,6 +1343,7 @@ int main() {
 #endif
 			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
 			(void *)&HdmiRxSs);
+#endif
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 	/* HDCP 1.4 Cipher interrupt */
