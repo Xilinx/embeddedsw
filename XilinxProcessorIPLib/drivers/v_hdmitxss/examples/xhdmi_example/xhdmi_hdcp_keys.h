@@ -52,6 +52,7 @@ extern "C" {
 
 #ifdef SDT
 #define XPAR_IIC_0_BASEADDR XPAR_XIIC_0_BASEADDR
+#define XPAR_IIC_1_BASEADDR XPAR_XIIC_1_BASEADDR
 #endif
 /************************** Function Prototypes ******************************/
 int XHdcp_LoadKeys(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size, u8 *Hdcp22RxPrivateKey, u32 Hdcp22RxPrivateKeySize,
