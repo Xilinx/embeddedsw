@@ -2202,6 +2202,7 @@ int main() {
 #endif
 
 #else
+#ifndef SDT
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
 	Status |= XIntc_Connect(&Intc,
 #if defined(USE_HDCP)
@@ -2211,6 +2212,7 @@ int main() {
 #endif
 			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
 			(void *)&HdmiTxSs);
+#endif
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -2266,6 +2268,7 @@ int main() {
 #endif
 
 #else
+#ifndef SDT
 		XIntc_Enable(&Intc,
 #if defined(USE_HDCP)
 			XPAR_INTC_0_V_HDMITXSS_0_IRQ_VEC_ID
@@ -2273,6 +2276,7 @@ int main() {
 			XPAR_INTC_0_V_HDMITXSS_0_VEC_ID
 #endif
 			);
+#endif
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
