@@ -124,6 +124,11 @@ typedef struct {
 	u8  IsMaster;	    /**< IsMaster(TRUE/FALSE) for I2s Tx core */
 	u8  MaxNumChannels; /**< Max channels supported by I2s Tx core */
 	u8 Is32BitLR; /* Indicates if the core is 32bitwidth or not */
+#ifdef SDT
+	u16 IntrId;	/**< Interrupt ID */
+	UINTPTR IntrParent;
+	/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XI2stx_Config;
 /**
  * This typedef implements the I2s Transmitter driver instance data.
