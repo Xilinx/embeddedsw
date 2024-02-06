@@ -76,7 +76,7 @@ examples:
             - hdcp_key_utility/aes256.h
             - hdcp_key_utility/bigdigits.c
             - hdcp_key_utility/bigdigits.h
-            - hdcp_key_utility/bigdtyp
+            - hdcp_key_utility/bigdtypes.h
             - hdcp_key_utility/hmac.c
             - hdcp_key_utility/sha2.c
             - hdcp_key_utility/xhdcp22_common.h
@@ -206,7 +206,7 @@ examples:
             - platforms/platform.c
             - platforms/platform.h
             - platforms/platform_config.h
-            - zynq_us_r5/lscript.ld
+            - platforms/zynq_us_r5/lscript.ld
 
     xhdmi_example/dummy/RxOnly_Microblaze.txt:
         - dependency_files:
