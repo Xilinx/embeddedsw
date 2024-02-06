@@ -861,16 +861,6 @@ u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 			IntrVecIds.IntrVecId_HdmiRxSs,
 			(XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
 			(void *)InstancePtr->HdmiRxSs);
-#else
-	Status = XSetupInterruptSystem(InstancePtr->HdmiRxSs,
-					(XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
-					InstancePtr->HdmiRxSs->Config.IntrId,
-					InstancePtr->HdmiRxSs->Config.IntrParent,
-					XINTERRUPT_DEFAULT_PRIORITY);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP RX SS DP interrupt connect failed!\r\n");
-		return XST_FAILURE;
-	}
 #endif
 
 
@@ -899,11 +889,12 @@ u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 #endif
 
 #else
+#ifndef SDT
 	Status |= XIntc_Connect(InstancePtr->Intc,
 			IntrVecIds.IntrVecId_HdmiRxSs,
 			(XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
 			(void *)InstancePtr->HdmiRxSs);
-
+#endif
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 	/* HDCP 1.4 Cipher interrupt */
 	Status |= XIntc_Connect(InstancePtr->Intc,
@@ -982,8 +973,17 @@ u32 XV_Rx_Hdmi_Initialize(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 #endif
 	/* Initialize the RX SS interrupts. */
 	XV_Rx_HdmiRxSs_Setup_Callbacks(InstancePtr);
-
-
+#ifdef SDT
+	Status = XSetupInterruptSystem(InstancePtr->HdmiRxSs,
+					(XInterruptHandler)XV_HdmiRxSS1_HdmiRxIntrHandler,
+					InstancePtr->HdmiRxSs->Config.IntrId,
+					InstancePtr->HdmiRxSs->Config.IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP RX SS DP interrupt connect failed!\r\n");
+		return XST_FAILURE;
+	}
+#endif
 	/* Initialize the VPhy related to the HdmiRxSs if it isn't ready yet. */
 	if (!(InstancePtr->VidPhy->IsReady == 0xFFFFFFFF)) {
 		xil_printf("Initializing Video Phy with Video Receiver \r\n");

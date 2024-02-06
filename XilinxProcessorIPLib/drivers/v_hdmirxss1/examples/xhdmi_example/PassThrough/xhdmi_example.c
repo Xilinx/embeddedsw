@@ -6209,7 +6209,7 @@ u32 Exdes_SetupClkSrc(u32 ps_iic0_baseaddr, u32 ps_iic1_baseaddr)
 	Status |= XIic_Start(&Iic);
 
 #else
-#ifndef
+#ifndef SDT
 	Status = XIic_Initialize(&Iic, XPAR_IIC_0_DEVICE_ID);
 #else
 	Status = XIic_Initialize(&Iic, XPAR_XIIC_0_BASEADDR);
