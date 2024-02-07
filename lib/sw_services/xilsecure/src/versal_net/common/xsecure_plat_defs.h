@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,6 +26,7 @@
 *       kpt  08/30/23 Updated XSECURE_KAT_HDR_LEN
 *	vss  09/21/23 Fixed doxygen warnings
 * 5.3   kpt  12/13/23 Added XSECURE_API_RSA_SCA_RESISTANCE_PRIVATE_DECRYPT
+*       har  02/05/24 Added XSECURE_API_AES_OP_N_ZEROIZE_KEY
 *
 * </pre>
 * @note
@@ -100,7 +101,8 @@ typedef enum {
 	XSECURE_API_GET_KEY_WRAP_RSA_PUBLIC_KEY,	/**< 34U */
 	XSECURE_API_KEY_UNWRAP,                 	/**< 35U */
 	XSECURE_API_RSA_SCA_RESISTANCE_PRIVATE_DECRYPT, /**< 36U */
-	XSECURE_API_MAX,				/**< 37U */
+	XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,/**< 37U */
+	XSECURE_API_MAX,				/**< 38U */
 } XSecure_ApiId;
 
 /**< XilSecure KAT ids */

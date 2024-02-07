@@ -1,26 +1,24 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_aes_ipihandler.h
-* @addtogroup xsecure_apis XilSecure Versal Handler APIs
+* @file xsecure_plat_aes_ipihandler.h
+* @addtogroup xsecure_apis XilSecure Versal Net IPI Handler APIs
 * @{
 * @cond xsecure_internal
-* This file contains the xilsecure AES IPI handler declaration.
+* This file contains the Xilsecure Versal Net IPI Handler APIs
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0  kal   03/23/21 Initial release
-* 5.2  vss	 07/15/23 Added prototype for XSecure_MakeAesFree()
-
+* 5.3   har  02/05/24 Initial release
 *
 * </pre>
 *
@@ -29,8 +27,8 @@
 *
 ******************************************************************************/
 
-#ifndef XSECURE_AES_IPIHANDLER_H_
-#define XSECURE_AES_IPIHANDLER_H_
+#ifndef XSECURE_PLAT_AES_IPIHANDLER_H_
+#define XSECURE_PLAT_AES_IPIHANDLER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,14 +42,10 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
-int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd);
-int XSecure_AesInit(void);
-int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc, u32 KeyAddrLow, u32 KeyAddrHigh);
-int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh);
-int XSecure_AesKeyZeroize(u32 KeySrc);
+int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XSECURE_AES_IPIHANDLER_H_ */
+#endif /* XSECURE_PLAT_AES_IPIHANDLER_H_ */

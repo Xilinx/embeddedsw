@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,8 +31,9 @@
 *       vns  07/07/2023 Added separate IPI commands for Crypto Status and KAT status updates
 *       kpt  07/10/2023 Added support for key wrap and unwrap
 *       ng   07/13/2023 Added support for system device tree flow
-*       dd   10/11/23   MISRA-C violation Rule 10.4 fixed
-*       dd   10/11/23   MISRA-C violation Rule 8.13 fixed
+*       dd   10/11/2023 MISRA-C violation Rule 10.4 fixed
+*       dd   10/11/2023 MISRA-C violation Rule 8.13 fixed
+* 5.3   har  02/06/2024 Added support for AES operation and zeroize key
 *
 * </pre>
 *
@@ -59,6 +60,7 @@
 #include "xplmi.h"
 #include "xplmi_tamper.h"
 #include "xsecure_cryptochk.h"
+#include "xsecure_plat_aes_ipihandler.h"
 
 #ifdef SDT
 #include "xsecure_config.h"
@@ -110,6 +112,7 @@ static XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_GET_KEY_WRAP_RSA_PUBLIC_KEY),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_KEY_UNWRAP),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_RSA_SCA_RESISTANCE_PRIVATE_DECRYPT),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY),
 };
 
 static XPlmi_Module XPlmi_Secure =
@@ -184,6 +187,7 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_UPDATE_CPM5N_CRYPTO_STATUS):
 	case XSECURE_API(XSECURE_API_UPDATE_PCIDE_CRYPTO_STATUS):
 	case XSECURE_API(XSECURE_API_UPDATE_PKI_CRYPTO_STATUS):
+	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY):
 #endif
 		Status = XSecure_CryptoCheck();
 		if (Status != XST_SUCCESS) {
@@ -276,6 +280,9 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_RSA_SCA_RESISTANCE_PRIVATE_DECRYPT):
 #endif
 		Status = XSecure_PlatIpiHandler(Cmd);
+		break;
+	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY):
+		Status = XSecure_PlatAesIpiHandler(Cmd);
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");

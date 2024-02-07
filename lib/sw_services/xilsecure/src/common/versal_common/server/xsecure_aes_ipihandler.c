@@ -68,7 +68,6 @@
 			/**< AES destination key source mask for KEK decryption */
 
 /************************** Function Prototypes *****************************/
-static int XSecure_AesInit(void);
 static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh);
 static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size, u32 IsGmacEn);
 static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -77,12 +76,8 @@ static int XSecure_AesEncFinal(u32 DstAddrLow, u32 DstAddrHigh);
 static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
 static int XSecure_AesDecFinal(u32 SrcAddrLow, u32 SrcAddrHigh);
-static int XSecure_AesKeyZeroize(u32 KeySrc);
-static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
-	u32 KeyAddrLow, u32 KeyAddrHigh);
 static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh);
 static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg);
-static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh);
 static int XSecure_IsKeySrcValid(u32 KeySrc);
 static int XSecure_AesIsDataContextLost(void);
 static void XSecure_MakeAesFree(void);
@@ -198,7 +193,7 @@ END:
  *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_AesInit(void)
+int XSecure_AesInit(void)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
@@ -474,7 +469,7 @@ END:
  *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_AesKeyZeroize(u32 KeySrc)
+int XSecure_AesKeyZeroize(u32 KeySrc)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
@@ -512,7 +507,7 @@ static int XSecure_AesKeyZeroize(u32 KeySrc)
  *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
+int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 			u32 KeyAddrLow, u32 KeyAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
@@ -633,7 +628,7 @@ END:
  *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
+int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
