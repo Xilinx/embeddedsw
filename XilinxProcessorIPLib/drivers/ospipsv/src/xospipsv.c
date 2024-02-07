@@ -43,6 +43,7 @@
 * 1.8   sk   11/11/22 Enable Master DLL mode by default for Versal Net.
 *       sk   11/29/22 Added support for Indirect Non-Dma write.
 * 1.9   sb   09/06/23 Fixed MISRAC violations.
+* 1.10	akm  01/31/24 Use OSPI controller reset for resetting flash device.
 *
 * </pre>
 *
@@ -256,6 +257,53 @@ u32 XOspiPsv_DeviceReset(u8 Type)
 			((u32)XPMC_MIO12_DATA_MASK_LSW << XPMC_MIO12_DATA_MASK_LSW_SHIFT) |
 			(u32)XPMC_MIO12_MASK);
 		usleep(35);
+	} else {
+		/* TODO In-band reset */
+		Status = (u32)XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	Status = (u32)XST_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function reset the OSPI flash device via OSPI controller.
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	Type is Reset type.
+*
+* @return
+* 		- XST_SUCCESS if successful.
+*		- XST_FAILURE for invalid Reset Type.
+*
+******************************************************************************/
+u32 XOspiPsv_DeviceResetViaOspi(const XOspiPsv *InstancePtr, u8 Type)
+{
+	u32 Status;
+
+        if (Type == XOSPIPSV_HWPIN_RESET) {
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
+				  (XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				  XOSPIPSV_CONFIG_REG) | XOSPIPSV_CONFIG_REG_RESET_CFG_FLD_MASK));
+
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
+				  XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				  XOSPIPSV_CONFIG_REG) & (~XOSPIPSV_CONFIG_REG_RESET_PIN_FLD_MASK));
+		usleep(5);
+
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
+				  (XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				  XOSPIPSV_CONFIG_REG)) | XOSPIPSV_CONFIG_REG_RESET_PIN_FLD_MASK);
+		usleep(150);
+
+		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_CONFIG_REG,
+				  XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+				  XOSPIPSV_CONFIG_REG) & (~XOSPIPSV_CONFIG_REG_RESET_PIN_FLD_MASK));
+		usleep(1200);
 	} else {
 		/* TODO In-band reset */
 		Status = (u32)XST_FAILURE;

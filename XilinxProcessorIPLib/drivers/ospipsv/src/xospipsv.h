@@ -85,6 +85,7 @@
 * 1.8   sk   11/11/22 Enable Master DLL mode by default for Versal Net.
 *       sk   11/29/22 Added support for Indirect Non-Dma write.
 * 1.9   sb   06/06/23 Added support for system device-tree flow.
+* 1.10	akm  01/31/24 Use OSPI controller reset for resetting flash device.
 *
 * </pre>
 *
@@ -437,6 +438,7 @@ u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode);
 void XOspiPsv_ConfigureAutoPolling(const XOspiPsv *InstancePtr, u32 FlashMode);
 void XOspiPsv_Idle(const XOspiPsv *InstancePtr);
 u32 XOspiPsv_DeviceReset(u8 Type);
+u32 XOspiPsv_DeviceResetViaOspi(const XOspiPsv *InstancePtr, u8 Type);
 u32 XOspiPsv_StartDmaTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
 u32 XOspiPsv_CheckDmaDone(XOspiPsv *InstancePtr);
 u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr);

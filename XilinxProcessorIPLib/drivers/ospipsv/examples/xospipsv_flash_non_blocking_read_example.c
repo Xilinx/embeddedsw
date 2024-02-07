@@ -33,6 +33,7 @@
 * 1.3   sk  05/27/20 Added Stacked mode support.
 * 1.4   sk  02/18/21 Added support for Macronix flash and DualByte commands.
 * 1.9   sb  06/06/23 Added support for system device-tree flow.
+* 1.10  akm 01/31/24 Use OSPI controller reset for resetting flash device.
 *
 *</pre>
 *
@@ -217,11 +218,6 @@ int OspiPsvFlashNonBlockingReadExample(XOspiPsv *OspiPsvInstancePtr, UINTPTR Bas
 	int ReadBfrSize;
 	ReadBfrSize = (PAGE_COUNT * MAX_PAGE_SIZE);
 
-	Status = XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
 	/*
 	 * Initialize the OSPIPSV driver so that it's ready to use
 	 */
@@ -235,6 +231,15 @@ int OspiPsvFlashNonBlockingReadExample(XOspiPsv *OspiPsvInstancePtr, UINTPTR Bas
 	}
 
 	Status = XOspiPsv_CfgInitialize(OspiPsvInstancePtr, OspiPsvConfig);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+#if defined (versal) && !defined (VERSAL_NET)
+	Status = XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
+#else
+	Status = XOspiPsv_DeviceResetViaOspi(OspiPsvInstancePtr, XOSPIPSV_HWPIN_RESET);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
