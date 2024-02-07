@@ -123,6 +123,27 @@
 #define APP_MIN_VERSION 3
 #ifdef SDT
 #define XPAR_IIC_0_BASEADDR XPAR_XIIC_0_BASEADDR
+#ifdef USE_HDCP
+#define INTRNAME_HDMIRX 4
+#define INTRNAME_HDCP1XRX 0
+#define INTRNAME_HDCP1XRX_TIMER 1
+#define INTRNAME_HDCP2XRX_TIMER   3
+#define INTRNAME_HDMITX 4
+#define INTRNAME_HDCP1XTX  0
+#define INTRNAME_HDCP1XTX_TIMER 1
+#define INTRNAME_HDCP2XTX_TIMER   3
+
+#else
+#define INTRNAME_HDMIRX 0
+#define INTRNAME_HDCP1XRX 1
+#define INTRNAME_HDCP1XRX_TIMER 2
+#define INTRNAME_HDCP2XRX_TIMER   3
+#define INTRNAME_HDMITX 0
+#define INTRNAME_HDCP1XTX  1
+#define INTRNAME_HDCP1XTX_TIMER 2
+#define INTRNAME_HDCP2XTX_TIMER   3
+
+#endif
 #endif
 /**************************** Type Definitions *******************************/
 
@@ -2898,6 +2919,20 @@ int main() {
 	/* Set the Application version in TXSs driver structure */
 	XV_HdmiTxSS_SetAppVersion(&HdmiTxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
 
+#ifdef SDT
+	Status = XSetupInterruptSystem(&HdmiTxSs,
+				XV_HdmiTxSS_HdmiTxIntrHandler,
+				XV_HdmiTxSs_ConfigPtr->IntrId[INTRNAME_HDMITX],
+				XV_HdmiTxSs_ConfigPtr->IntrParent,
+				XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI TX Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
+#endif
+
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
 #if defined(__arm__) || (__aarch64__)
 #ifndef SDT
@@ -2917,6 +2952,7 @@ int main() {
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
+#ifndef SDT
 	/* HDCP 1.4 Cipher interrupt */
 	Status |= XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID,
@@ -2928,14 +2964,52 @@ int main() {
 			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiTxSS_HdcpTimerIntrHandler,
 			(void *)&HdmiTxSs);
+#else
+	Status = XSetupInterruptSystem(&HdmiTxSs,
+				       (XInterruptHandler)XV_HdmiTxSS_HdcpIntrHandler,
+				       HdmiTxSs.Config.IntrId[INTRNAME_HDCP1XTX],
+				       HdmiTxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI TX HDCP1X Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
+	Status = XSetupInterruptSystem(&HdmiTxSs,
+				       (XInterruptHandler)XV_HdmiTxSS_HdcpTimerIntrHandler,
+				       HdmiTxSs.Config.IntrId[INTRNAME_HDCP1XTX_TIMER],
+				       HdmiTxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI TX HDCP1X Timer Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
+#endif
 #endif
 
 /* HDCP 2.2 */
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+#ifndef SDT
 	Status |= XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiTxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiTxSs);
+#else
+	Status = XSetupInterruptSystem(&HdmiTxSs,
+				       (XInterruptHandler)XV_HdmiTxSS_Hdcp22TimerIntrHandler,
+				       HdmiTxSs.Config.IntrId[INTRNAME_HDCP2XTX_TIMER],
+				       HdmiTxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI TX HDCP2X Timer Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
+#endif
 #endif
 
 #else
@@ -2953,6 +3027,7 @@ int main() {
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
+#ifndef SDT
 	/* HDCP 1.4 Cipher interrupt */
 	Status |= XIntc_Connect(&Intc,
 			XPAR_INTC_0_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID,
@@ -2964,14 +3039,52 @@ int main() {
 			XPAR_INTC_0_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiTxSS_HdcpTimerIntrHandler,
 			(void *)&HdmiTxSs);
+#else
+	Status = XSetupInterruptSystem(&HdmiTxSs,
+				       (XInterruptHandler)XV_HdmiTxSS_HdcpIntrHandler,
+				       HdmiTxSs.Config.IntrId[INTRNAME_HDCP1XTX],
+				       HdmiTxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI TX HDCP1X Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
+	Status = XSetupInterruptSystem(&HdmiTxSs,
+				       (XInterruptHandler)XV_HdmiTxSS_HdcpTimerIntrHandler,
+				       HdmiTxSs.Config.IntrId[INTRNAME_HDCP1XTX_TIMER],
+				       HdmiTxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI TX HDCP1X Timer Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
+#endif
 #endif
 
 /* HDCP 2.2 */
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+#ifndef SDT
 	Status |= XIntc_Connect(&Intc,
 			XPAR_INTC_0_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiTxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiTxSs);
+#else
+	Status = XSetupInterruptSystem(&HdmiTxSs,
+				       (XInterruptHandler)XV_HdmiTxSS_Hdcp22TimerIntrHandler,
+				       HdmiTxSs.Config.IntrId[INTRNAME_HDCP2XTX_TIMER],
+				       HdmiTxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI TX HDCP2X Timer Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
+#endif
 #endif
 
 #endif
@@ -2990,6 +3103,7 @@ int main() {
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
+#ifndef SDT
 		/* HDCP 1.4 Cipher interrupt */
 		XScuGic_Enable(&Intc,
 			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID);
@@ -2998,11 +3112,14 @@ int main() {
 		XScuGic_Enable(&Intc,
 			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
 #endif
+#endif
 
 /* HDCP 2.2 */
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+#ifndef SDT
 		XScuGic_Enable(&Intc,
 			XPAR_FABRIC_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
+#endif
 #endif
 
 #else
@@ -3018,6 +3135,7 @@ int main() {
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
+#ifndef SDT
 		/* HDCP 1.4 Cipher interrupt */
 		XIntc_Enable(&Intc,
 			XPAR_INTC_0_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID);
@@ -3026,11 +3144,14 @@ int main() {
 		XIntc_Enable(&Intc,
 			XPAR_INTC_0_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
 #endif
+#endif
 
 /* HDCP 2.2 */
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES)
+#ifndef SDT
 		XIntc_Enable(&Intc,
 			XPAR_INTC_0_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
+#endif
 #endif
 
 #endif
@@ -3091,13 +3212,6 @@ int main() {
 		XHdcp_SetDownstream(&HdcpRepeater, &HdmiTxSs);
 	}
 #endif
-#ifdef SDT
-	Status = XSetupInterruptSystem(&HdmiTxSs,
-				XV_HdmiTxSS_HdmiTxIntrHandler,
-				XV_HdmiTxSs_ConfigPtr->IntrId,
-				XV_HdmiTxSs_ConfigPtr->IntrParent,
-				XINTERRUPT_DEFAULT_PRIORITY);
-#endif
 #endif
 
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
@@ -3151,6 +3265,7 @@ int main() {
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 	/* HDCP 1.4 Cipher interrupt */
+#ifndef SDT
 	Status |= XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
@@ -3160,16 +3275,54 @@ int main() {
 			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
 			(void *)&HdmiRxSs);
+#else
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDCP1XRX],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI RX HDCP1X Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
+
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDCP1XRX_TIMER],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI RX HDCP1X Timer Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
+#endif
 #endif
 
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
+#ifndef SDT
 	/* HDCP 2.2 Timer interrupt */
 	Status |= XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiRxSs);
+#else
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDCP2XRX_TIMER],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI RX HDCP2X Timer Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
 #endif
-
+#endif
 #else
 #ifndef SDT
 	Status |= XIntc_Connect(&Intc,
@@ -3183,6 +3336,7 @@ int main() {
 #endif
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
+#ifndef SDT
 	/* HDCP 1.4 Cipher interrupt */
 	Status |= XIntc_Connect(&Intc,
 				XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID,
@@ -3194,14 +3348,53 @@ int main() {
 			XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
 			(void *)&HdmiRxSs);
-#endif
+#else
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDCP1XRX],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+			("ERR:: HDMI RX HDCP1X Interrupt Initialization failed %d\r\n",
+			Status);
+		return XST_FAILURE;
+	}
 
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDCP1XRX_TIMER],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+			("ERR:: HDMI RX HDCP1X Timer Interrupt Initialization failed %d\r\n",
+			Status);
+		return XST_FAILURE;
+	}
+#endif
+#endif
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
+#ifndef SDT
 	/* HDCP 2.2 Timer interrupt */
 	Status |= XIntc_Connect(&Intc,
 			XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiRxSs);
+#else
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDCP2XRX_TIMER],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI RX HDCP2X Timer Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
+#endif
+
 #endif
 
 #endif
@@ -3310,7 +3503,7 @@ int main() {
 #ifdef SDT
 	Status = XSetupInterruptSystem(&HdmiRxSs,
 					(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-					HdmiRxSs.Config.IntrId,
+					HdmiRxSs.Config.IntrId[INTRNAME_HDMIRX],
 					HdmiRxSs.Config.IntrParent,
 					XINTERRUPT_DEFAULT_PRIORITY);
 #endif
