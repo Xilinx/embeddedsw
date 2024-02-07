@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +57,7 @@
 #define ANSI_COLOR_BG_RED       "\x1b[41m"
 #define ANSI_COLOR_BG_RESET     "\x1b[0m"
 
+#ifndef SDT
 #if defined (XPAR_V_HDMI_TX_SS_HDCP_1_4_DEVICE_ID) || \
 	defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
 
@@ -64,6 +65,18 @@
  * then use the HDCP abstraction layer */
 #define USE_HDCP_HDMI_TX
 
+#endif
+#else
+#if (XPAR_V_HDMI_TXSS1_HDCP14_PRESENT > 0) || \
+	(XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+
+/*
+ * If HDCP 1.4 or HDCP 2.2 is in the system
+ * then use the HDCP abstraction layer
+ */
+#define USE_HDCP_HDMI_TX
+
+#endif
 #endif
 
 #if defined (XPS_BOARD_VEK280_ES) || \
