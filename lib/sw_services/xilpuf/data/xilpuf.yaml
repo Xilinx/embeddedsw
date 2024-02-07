@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
@@ -13,8 +13,6 @@ maintainers:
 
 type: library
 
-version: 2.3
-
 description: Xilinx PUF Library provides interface for registration and regeneration.
 
 supported_processors:
@@ -22,9 +20,7 @@ supported_processors:
   - psv_cortexr5
   - psv_pmc
   - microblaze
-  - psxl_pmc
-  - psxl_cortexa78
-  - psxl_cortexr52
+  - psx_pmc
   - psx_cortexa78
   - psx_cortexr52
 
@@ -55,4 +51,3 @@ examples:
       - xilpuf_versal_net_example.h
     - supported_platforms:
       - VersalNet
-...
