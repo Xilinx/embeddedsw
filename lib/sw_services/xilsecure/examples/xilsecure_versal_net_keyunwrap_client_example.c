@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,8 +53,9 @@
 * <pre>
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
-* 1.0   kpt     07/03/23 Initial release
-* 5.3   kpt     12/13/23 Added support for RSA CRT
+* 1.0   kpt    07/03/23 Initial release
+* 5.3   kpt    12/13/23 Added support for RSA CRT
+* 5.3   ng     01/28/24 Added SDT support
 *
 * </pre>
 ******************************************************************************/
@@ -63,6 +64,10 @@
 #include "xil_cache.h"
 #include "xil_util.h"
 #include "xsecure_plat_client.h"
+
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 

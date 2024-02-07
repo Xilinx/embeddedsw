@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,12 +22,18 @@
 *       kpt     12/13/23 Added support for RSA CRT
 *       kpt     12/13/23 Added SHA384 MGF support for keyunwrap
 *       kpt     12/19/23 Fix logical issue in updating keyslot value
+* 5.3   ng      01/28/24 Added SDT support
 *
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+
+#ifdef SDT
+#include "xsecure_config.h"
+#include "xplmi_bsp_config.h"
+#endif
 
 #include "xparameters.h"
 #ifndef PLM_RSA_EXCLUDE

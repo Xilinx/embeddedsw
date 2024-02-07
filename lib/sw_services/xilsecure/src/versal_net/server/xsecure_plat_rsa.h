@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 5.3   am   09/28/23 Added wrapper function prototypes for IPCore's RSA APIs
 *       kpt  12/13/23 Added XSecure_RsaOperationParam
 *       kpt  12/13/23 Added RSA CRT support for keyunwrap
+* 5.3   ng   01/28/24 Added SDT support
 *
 * </pre>
 *
@@ -36,9 +37,15 @@
 #define externC extern
 #endif
 
-#ifndef PLM_RSA_EXCLUDE
 
 /***************************** Include Files *********************************/
+
+#ifdef SDT
+#include "xsecure_config.h"
+#include "xplmi_bsp_config.h"
+#endif
+
+#ifndef PLM_RSA_EXCLUDE
 
 #include "xil_types.h"
 #include "xsecure_rsa_core.h"

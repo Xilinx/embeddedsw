@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS xsecure_aes.h)
@@ -11,6 +11,7 @@ collect (PROJECT_LIB_HEADERS xsecure_kat.h)
 collect (PROJECT_LIB_HEADERS xsecure_rsa_core.h)
 collect (PROJECT_LIB_HEADERS xsecure_sha.h)
 collect (PROJECT_LIB_HEADERS xsecure_sss.h)
+collect (PROJECT_LIB_HEADERS xsecure_utils.h)
 
 collect (PROJECT_LIB_SOURCES xsecure_aes.c)
 collect (PROJECT_LIB_SOURCES xsecure_cryptochk.c)
@@ -20,12 +21,13 @@ collect (PROJECT_LIB_SOURCES xsecure_kat.c)
 collect (PROJECT_LIB_SOURCES xsecure_rsa_core.c)
 collect (PROJECT_LIB_SOURCES xsecure_sha.c)
 collect (PROJECT_LIB_SOURCES xsecure_sss.c)
-
-collect (PROJECT_LIB_HEADERS xsecure_utils.h)
 collect (PROJECT_LIB_SOURCES xsecure_utils.c)
 
-
-if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze"))
+if( NOT (
+		("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
+		("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
+	)
+  )
   collect (PROJECT_LIB_HEADERS xsecure_rsa_ipihandler.h)
   collect (PROJECT_LIB_SOURCES xsecure_rsa_ipihandler.c)
   collect (PROJECT_LIB_HEADERS xsecure_elliptic_ipihandler.h)
@@ -37,7 +39,9 @@ if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze"))
   collect (PROJECT_LIB_HEADERS xsecure_kat_ipihandler.h)
   collect (PROJECT_LIB_SOURCES xsecure_kat_ipihandler.c)
   collect (PROJECT_LIB_HEADERS xsecure_cmd.h)
-  collect (PROJECT_LIB_SOURCES xsecure_cmd.c)
+  if( "${CMAKE_MACHINE}" STREQUAL "Versal" )
+    collect (PROJECT_LIB_SOURCES xsecure_cmd.c)
+  endif()
   collect (PROJECT_LIB_HEADERS xsecure_init.h)
   collect (PROJECT_LIB_SOURCES xsecure_init.c)
 endif()

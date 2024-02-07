@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,12 +21,18 @@
 *       dd      10/11/23 MISRA-C violation Rule 12.1 fixed
 *       dd      10/11/23 MISRA-C violation Rule 8.13 fixed
 *       kpt     12/13/23 Added RSA CRT support for RSA keyunwrap
+* 5.3   ng      01/28/24 Added SDT support
 *
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+
+#ifdef SDT
+#include "xsecure_config.h"
+#include "xplmi_bsp_config.h"
+#endif
 
 #include "xparameters.h"
 #ifndef PLM_RSA_EXCLUDE
