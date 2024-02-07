@@ -72,12 +72,6 @@ static void XV_Tx_Hdcp_Authenticated_Cb(void *CallbackRef);
 static void XV_Tx_Hdcp_Unauthenticated_Cb(void *CallbackRef);
 #endif
 
-#ifdef SDT
-#ifdef USE_HDCP_HDMI_TX
-#define  INTRNAME_
-#else
-#endif
-#endif
 static void XV_Tx_HdmiTx_Connect_Cb(void *CallbackRef);
 static void XV_Tx_HdmiTx_Toggle_Cb(void *CallbackRef);
 static void XV_Tx_HdmiTx_BrdgUnlocked_Cb(void *CallbackRef);
@@ -1018,7 +1012,6 @@ u32 XV_Tx_Hdmi_Initialize(XV_Tx *InstancePtr, u32 HdmiTxSsBaseAddr,
 			IntrVecIds.IntrVecId_HdmiTxSs,
 			(XInterruptHandler)XV_HdmiTxSS1_HdmiTx1IntrHandler,
 			(void *)InstancePtr->HdmiTxSs);
-#else
 #endif
 
 /* HDCP 1.4 */
