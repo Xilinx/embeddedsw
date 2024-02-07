@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -79,6 +79,7 @@
 *       kal    02/01/23 Moved configurable parameters from input.h file to
 *                       this file.
 * 1.2   kal    05/28/23 Adder SW PCR extend and logging functions
+* 1.3   ng     01/28/24 Added SDT support
 *
 * </pre>
 * @note
@@ -91,6 +92,9 @@
 #include "xil_cache.h"
 #include "xparameters.h"
 
+#ifdef SDT
+#include "xilocp_bsp_config.h"
+#endif
 /************************** Constant Definitions *****************************/
 #define XOCP_WORD_LEN		(4U)
 
