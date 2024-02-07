@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 - 2019 Xilinx, Inc.
- * All rights reserved.
+ * Copyright (C) 2018 - 2022 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -166,8 +166,8 @@ static void tcp_server_err(void *arg, err_t err)
 static err_t tcp_recv_perf_traffic(void *arg, struct tcp_pcb *tpcb,
 		struct pbuf *p, err_t err)
 {
+	static u64_t now;
 	if (p == NULL) {
-		u64_t now = get_time_ms();
 		u64_t diff_ms = now - server.start_time;
 		tcp_server_close(tpcb);
 		tcp_conn_report(diff_ms, TCP_DONE_SERVER);
@@ -179,7 +179,7 @@ static err_t tcp_recv_perf_traffic(void *arg, struct tcp_pcb *tpcb,
 	server.total_bytes += p->tot_len;
 
 	if (server.i_report.report_interval_time) {
-		u64_t now = get_time_ms();
+		now = get_time_ms();
 		/* Record total bytes for interim report */
 		server.i_report.total_bytes += p->tot_len;
 		if (server.i_report.start_time) {

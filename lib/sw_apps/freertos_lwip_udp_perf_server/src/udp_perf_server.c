@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2017 - 2019 Xilinx, Inc.
- * All rights reserved.
+ * Copyright (C) 2018 - 2022 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -166,6 +166,7 @@ static void udp_recv_perf_traffic(int sock)
 	u32_t drop_datagrams = 0;
 	s32_t recv_id;
 	int count;
+	static u64_t now;
 	char recv_buf[UDP_RECV_BUFSIZE];
 	struct sockaddr_in from;
 	socklen_t fromlen = sizeof(from);
@@ -197,7 +198,6 @@ static void udp_recv_perf_traffic(int sock)
 		}
 
 		if (recv_id < 0) {
-			u64_t now = sys_now();
 			u64_t diff_ms = now - server.start_time;
 			/* Send Ack */
 			if (sendto(sock, recv_buf, count, 0,
@@ -232,7 +232,7 @@ static void udp_recv_perf_traffic(int sock)
 		server.total_bytes += count;
 
 		if (REPORT_INTERVAL_TIME) {
-			u64_t now = sys_now();
+			now = sys_now();
 
 			server.i_report.cnt_datagrams++;
 
