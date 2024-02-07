@@ -44,6 +44,7 @@
 *       sk   11/29/22 Added support for Indirect Non-Dma write.
 * 1.9   sb   09/06/23 Fixed MISRAC violations.
 * 1.10	akm  01/31/24 Use OSPI controller reset for resetting flash device.
+* 1.10	akm  02/06/24 Increase the delay after device reset.
 *
 * </pre>
 *
@@ -249,14 +250,14 @@ u32 XOspiPsv_DeviceReset(u8 Type)
 		XOspiPsv_WriteReg(XPMC_IOU_MIO_TRI0, 0,
 			XOspiPsv_ReadReg(XPMC_IOU_MIO_TRI0, 0) & ~(u32)XPMC_MIO12_MASK);
 #endif
-		usleep(1);
+		usleep(5);
 		XOspiPsv_WriteReg(XPMC_GPIO_DATA, 0,
 				((u32)XPMC_MIO12_DATA_MASK_LSW << XPMC_MIO12_DATA_MASK_LSW_SHIFT));
-		usleep(10);
+		usleep(150);
 		XOspiPsv_WriteReg(XPMC_GPIO_DATA, 0,
 			((u32)XPMC_MIO12_DATA_MASK_LSW << XPMC_MIO12_DATA_MASK_LSW_SHIFT) |
 			(u32)XPMC_MIO12_MASK);
-		usleep(35);
+		usleep(1200);
 	} else {
 		/* TODO In-band reset */
 		Status = (u32)XST_FAILURE;

@@ -86,6 +86,7 @@
 *       sk   11/29/22 Added support for Indirect Non-Dma write.
 * 1.9   sb   06/06/23 Added support for system device-tree flow.
 * 1.10	akm  01/31/24 Use OSPI controller reset for resetting flash device.
+* 1.10	akm  02/06/24 Increase the delay after device reset.
 *
 * </pre>
 *
