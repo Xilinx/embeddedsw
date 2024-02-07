@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
 * 5.3   kpt  12/07/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *       kpt  12/13/23 Added RSA CRT support for PWCT
+* 5.3   ng   01/28/24 Added SDT support
 *
 * </pre>
 *
@@ -39,6 +40,11 @@
 #include "xsecure_error.h"
 #include "xil_util.h"
 #include "xsecure_sha384.h"
+
+#ifdef SDT
+#include "xsecure_config.h"
+#include "xplmi_bsp_config.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 

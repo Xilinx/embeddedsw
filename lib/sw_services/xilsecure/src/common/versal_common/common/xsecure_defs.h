@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -29,7 +29,8 @@
 *       ng   07/15/23 Added support for system device tree flow
 *       har  07/26/23 Renamed members of XSecure_EccCrvClass and added macros for
 *                     backward compatibilty
-*	vss  09/11/2023 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS
+*       vss  09/11/23 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS
+* 5.3   ng   01/28/24 Added SDT support
 *
 * </pre>
 * @note
@@ -51,6 +52,7 @@ extern "C" {
 
 #ifdef SDT
 #include "xsecure_config.h"
+#include "xplmi_bsp_config.h"
 #endif
 
 /************************** Constant Definitions ****************************/
