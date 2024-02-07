@@ -87,6 +87,7 @@
 * 1.9   sb   06/06/23 Added support for system device-tree flow.
 * 1.10	akm  01/31/24 Use OSPI controller reset for resetting flash device.
 * 1.10	akm  02/06/24 Increase the delay after device reset.
+* 1.10	akm  02/01/24 Update OSPI TX tap delay element to 0x26 for DDR mode.
 *
 * </pre>
 *
@@ -365,7 +366,11 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  */
 #define XOSPIPSV_SDR_TX_VAL			0x5U
 #define XOSPIPSV_DDR_TX_VAL			0x0U
+#if defined (VERSAL_NET)
+#define XOSPIPSV_DDR_TX_VAL_MASTER		0x26U
+#else
 #define XOSPIPSV_DDR_TX_VAL_MASTER		0x1EU
+#endif
 #define XOSPIPSV_SDR_TX_VAL_MASTER		0x3CU
 #define XOSPIPSV_DLL_MAX_TAPS			0x7FU
 /** @} */
