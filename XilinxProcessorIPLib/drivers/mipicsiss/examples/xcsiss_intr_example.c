@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -54,7 +54,7 @@
 #include "xintc.h"
 
 /************************** Constant Definitions *****************************/
-
+#ifndef SDT
 /*
 * The following constants map to the names of the hardware instances.
 * They are only defined here such that a user can easily change all the
@@ -65,9 +65,15 @@
 #define XINTC				XIntc
 #define XINTC_HANDLER			XIntc_InterruptHandler
 
+#endif
+
 /* The unique device ID of the MIPI CSI Rx Subsystem instance to be used
  */
+#ifndef SDT
 #define XCSISS_DEVICE_ID		XPAR_CSISS_0_DEVICE_ID
+#else
+#define XCSISS_BASE			XPAR_CSISS_0_BASEADDR
+#endif
 #define MAX_INTERRUPT_COUNT 	1
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -172,8 +178,11 @@ int main()
 	xil_printf("------------------------------------------\n\r");
 	xil_printf("MIPI CSI Rx Subsystem interrupt example\n\r");
 	xil_printf("-------------------------------------------\n\r");
-
+#ifndef SDT
 	Status = CsiSs_IntrExample(XCSISS_DEVICE_ID);
+#else
+	Status = CsiSs_IntrExample(XCSISS_BASE);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("MIPI CSI Rx Subsystem interrupt example failed.");
 		return XST_FAILURE;
@@ -235,7 +244,17 @@ u32 CsiSs_IntrExample(u32 DeviceId)
 			   "failed.\n\r");
 		return XST_FAILURE;
 	}
-
+#ifdef SDT
+	Status = XSetupInterruptSystem(&CsiSsInst,&XCsiSs_IntrHandler,
+				       CsiSsInst.Config.IntrId,
+				       CsiSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: CSI Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+#endif
 	/* Dump the configuration */
 	XCsiSs_ReportCoreInfo(&CsiSsInst);
 
@@ -284,7 +303,7 @@ u32 CsiSs_IntrExample(u32 DeviceId)
 	}
 	xil_printf("Camera Control Interface "
 		   "initialization done.\n\r");
-
+#ifndef SDT
 	/* Setup the interrupts and call back handlers */
 	Status = CsiSs_SetupIntrSystem();
 	if (Status != XST_SUCCESS) {
@@ -292,7 +311,7 @@ u32 CsiSs_IntrExample(u32 DeviceId)
 			   "setup failed.\n\r");
 		return XST_FAILURE;
 	}
-
+#endif
 	/* Enable the cores */
 	XCsiSs_Activate(&CsiSsInst, 1);
 
@@ -378,6 +397,7 @@ u32 CsiSs_CciSetupIntrSystem(void)
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
@@ -467,6 +487,7 @@ u32 CsiSs_SetupIntrSystem(void)
 	return XST_SUCCESS;
 }
 
+#endif
 /*****************************************************************************/
 /**
 *
