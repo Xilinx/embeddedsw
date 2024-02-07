@@ -1,4 +1,5 @@
 /******************************************************************************
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
@@ -42,11 +43,16 @@
 //END
 #include "xv_demosaic.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
  #include "xintc.h"
 #else
  #include "xscugic.h"
 #endif
+#else
+#include "xinterrupt_wrap.h"
+#endif
+
 //HDMI
 XDsiTxSs DsiTxSs;
 XCsiSs CsiRxSs;
@@ -74,9 +80,15 @@ XGpio Gpio;
 
 
 
-
+#ifndef SDT
 #define IIC_FMC_DEVICE_ID	XPAR_IIC_0_DEVICE_ID
 #define IIC_ADAPTER_DEVICE_ID	XPAR_IIC_1_DEVICE_ID
+#else
+#define IIC_FMC_BASE		XPAR_XIIC_0_BASEADDR
+#define IIC_ADAPTER_BASE	XPAR_XIIC_1_BASEADDR
+#endif
+
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
   #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
   #define IIC_FMC_INTR_ID	XPAR_INTC_0_IIC_0_VEC_ID
@@ -89,6 +101,7 @@ XGpio Gpio;
   #define IIC_ADAPTER_INTR_ID	XPAR_FABRIC_IIC_0_VEC_ID
   #define INTC			XScuGic
   #define INTC_HANDLER		XScuGic_InterruptHandler
+#endif
 #endif
 
 #define FMC_ADDRESS 		0x3C
@@ -104,8 +117,14 @@ XGpio Gpio;
 
 #define DSI_BASE XPAR_MIPI_DSI_TX_SUBSYSTEM_0_BASEADDR
 #define VDMA_BASE XPAR_AXI_VDMA_0_BASEADDR
+
+#ifndef SDT
 #define XCSIRXSS_DEVICE_ID      XPAR_CSISS_0_DEVICE_ID
 #define XDSITXSS_DEVICE_ID      XPAR_DSITXSS_0_DEVICE_ID
+#else
+#define XCSIRXSS_BASE      	XPAR_XMIPICSISS_0_BASEADDR
+#define XDSITXSS_BASE      	XPAR_XDSITXSS_0_BASEADDR
+#endif
 
 #define DEMOSAIC_DEVICE_ID XPAR_XV_DEMOSAIC_0_DEVICE_ID
 
@@ -209,8 +228,11 @@ static int StartTransfer(XAxiVdma *InstancePtr);
 typedef u8 AddressType;
 
 XIic IicFmc, IicAdapter;
+
 XIic *IicFmcInstPtr, *IicAdapterInstPtr;/* The instance of the IIC device. */
+#ifndef SDT
 INTC IntcFmc, IntcAdapter ;
+#endif
 /*
  * Write buffer for writing a page.
  */
@@ -255,8 +277,11 @@ unsigned int srcBuffer = (0x80000000U + 0x1000000);
 int driverInit()
 {
   int status;
-
+#ifndef SDT
   vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);
+#else
+  vtc_Config = XVtc_LookupConfig(XPAR_XVTC_0_BASEADDR);
+#endif
   if(vtc_Config == NULL)
   {
     xil_printf("ERR:: VTC device not found\r\n");
@@ -269,8 +294,11 @@ int driverInit()
 	return(XST_FAILURE);
   }
 
-
+#ifndef SDT
   tpg1_Config = XV_tpg_LookupConfig(XPAR_V_TPG_0_DEVICE_ID);
+#else
+  tpg1_Config = XV_tpg_LookupConfig(XPAR_XV_TPG_0_BASEADDR);
+#endif
   if(tpg1_Config == NULL)
   {
 	xil_printf("ERR:: TPG device not found\r\n");
@@ -342,8 +370,11 @@ u32 SetupDSI(void)
   XDsiTxSs_Config *DsiTxSsCfgPtr = NULL;
   u32 Status;
   u32 PixelFmt;
-
+#ifndef SDT
   DsiTxSsCfgPtr = XDsiTxSs_LookupConfig(XDSITXSS_DEVICE_ID);
+#else
+  DsiTxSsCfgPtr = XDsiTxSs_LookupConfig(XDSITXSS_BASE);
+#endif
 
   if (!DsiTxSsCfgPtr) {
     xil_printf("DSI Tx SS Device Id not found\r\n");
@@ -356,7 +387,17 @@ u32 SetupDSI(void)
     xil_printf("DSI Tx Ss Cfg Init failed status = %d \r\n", Status);
     return Status;
   }
-
+#ifdef SDT
+  Status = XSetupInterruptSystem(&DsiTxSs,&XDsiTxSs_IntrHandler,
+				       DsiTxSs.Config.IntrId,
+				       DsiTxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: DSI TX Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+#endif
   PixelFmt = XDsiTxSs_GetPixelFormat(&DsiTxSs);
 
   if (PixelFmt != 0x3E) {
@@ -402,8 +443,11 @@ u32 InitializeCsiRxSs(void)
 {
   u32 Status = 0;
   XCsiSs_Config *CsiRxSsCfgPtr = NULL;
-
+#ifndef SDT
   CsiRxSsCfgPtr = XCsiSs_LookupConfig(XCSIRXSS_DEVICE_ID);
+#else
+  CsiRxSsCfgPtr = XCsiSs_LookupConfig(XCSIRXSS_BASE);
+#endif
   if (!CsiRxSsCfgPtr) {
     xil_printf("CSI2RxSs LookupCfg failed\r\n");
     return XST_FAILURE;
@@ -416,7 +460,18 @@ u32 InitializeCsiRxSs(void)
     xil_printf("CsiRxSs Cfg init failed - %x\r\n", Status);
     return Status;
   }
+#ifdef SDT
 
+	Status = XSetupInterruptSystem(&CsiRxSs,&XCsiSs_IntrHandler,
+				       CsiRxSs.Config.IntrId,
+				       CsiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: CSI Interrupt Setup Failed\r\n");
+		xil_printf("ERROR:: Test could not be completed\r\n");
+		return(1);
+	}
+#endif
 
   return XST_SUCCESS;
 
@@ -544,6 +599,7 @@ XV_demosaic_Config XV_demosaic_ConfigTable[] =
 {
 	{
 #ifdef XPAR_XV_DEMOSAIC_NUM_INSTANCES
+#ifndef SDT
 		XPAR_XV_DEMOSAIC_0_DEVICE_ID,
 		XPAR_XV_DEMOSAIC_0_S_AXI_CTRL_BASEADDR,
 		XPAR_XV_DEMOSAIC_0_SAMPLES_PER_CLOCK,
@@ -551,10 +607,20 @@ XV_demosaic_Config XV_demosaic_ConfigTable[] =
 		XPAR_XV_DEMOSAIC_0_MAX_ROWS,
 		XPAR_XV_DEMOSAIC_0_MAX_DATA_WIDTH,
 		XPAR_XV_DEMOSAIC_0_ALGORITHM
+#else
+		XPAR_XV_DEMOSAIC_0_BASEADDR,
+		XPAR_XV_DEMOSAIC_0_HIGHADDR,
+		XPAR_XV_DEMOSAIC_0_ALGORITHM,
+		XPAR_XV_DEMOSAIC_0_MAX_COLS,
+		XPAR_XV_DEMOSAIC_0_MAX_ROWS,
+		XPAR_XV_DEMOSAIC_0_MAX_DATA_WIDTH,
+		XPAR_XV_DEMOSAIC_0_SAMPLES_PER_CLOCK
+#endif
 #endif
 	}
 };
 
+#ifndef SDT
 XV_demosaic_Config *XV_demosaic_LookupConfig(u16 DeviceId) {
 	XV_demosaic_Config *ConfigPtr = NULL;
 
@@ -570,6 +636,23 @@ XV_demosaic_Config *XV_demosaic_LookupConfig(u16 DeviceId) {
 	return ConfigPtr;
 }
 
+#else
+XV_demosaic_Config *XV_demosaic_LookupConfig(UINTPTR BaseAddress) {
+	XV_demosaic_Config *ConfigPtr = NULL;
+
+	int Index;
+
+	for (Index = 0; XV_demosaic_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XV_demosaic_ConfigTable[Index].BaseAddress == BaseAddress) ||
+				!BaseAddress) {
+			ConfigPtr = &XV_demosaic_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return ConfigPtr;
+}
+#endif
 
 
 /*****************************************************************************/
@@ -586,7 +669,11 @@ XV_demosaic_Config *XV_demosaic_LookupConfig(u16 DeviceId) {
  *****************************************************************************/
 int demosaic()
 {
+#ifndef SDT
   demosaic_Config = XV_demosaic_LookupConfig(DEMOSAIC_DEVICE_ID);
+#else
+  demosaic_Config = XV_demosaic_LookupConfig(XPAR_XV_DEMOSAIC_0_BASEADDR);
+#endif
   XV_demosaic_CfgInitialize(&InstancePtr, demosaic_Config,
 		                           demosaic_Config->BaseAddress);
   XV_demosaic_Set_HwReg_width(&InstancePtr, 1920);
@@ -610,7 +697,11 @@ int demosaic()
  *****************************************************************************/
 void resetVIP(void)
 {
+#ifndef SDT
   XGpio_Initialize(&Gpio, GPIO_4_DEVICE_ID);
+#else
+  XGpio_Initialize(&Gpio, XPAR_XGPIO_4_BASEADDR);
+#endif
   XGpio_DiscreteClear(&Gpio, GPIO_CHANNEL, SET);
   usleep(300);
   XGpio_DiscreteWrite(&Gpio, GPIO_CHANNEL, SET);
@@ -657,7 +748,11 @@ extern int InitIIC()
   /*
    * Initialize the FMC IIC so that it is ready to use.
    */
+#ifndef SDT
   ConfigPtr = XIic_LookupConfig(IIC_FMC_DEVICE_ID);
+#else
+  ConfigPtr = XIic_LookupConfig(IIC_FMC_BASE);
+#endif
   if (ConfigPtr == NULL) {
     return XST_FAILURE;
   }
@@ -667,10 +762,20 @@ extern int InitIIC()
 	return XST_FAILURE;
   }
 
+#ifdef SDT
+  Status = XSetupInterruptSystem(&IicFmc,&XIic_InterruptHandler,
+			       ConfigPtr->IntrId,
+			       ConfigPtr->IntrParent,
+			       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
   /*
    * Initialize the Adapter IIC so that it is ready to use.
    */
+#ifndef SDT
   ConfigPtr = XIic_LookupConfig(IIC_ADAPTER_DEVICE_ID);
+#else
+  ConfigPtr = XIic_LookupConfig(IIC_ADAPTER_BASE);
+#endif
   if (ConfigPtr == NULL) {
     return XST_FAILURE;
   }
@@ -681,11 +786,17 @@ extern int InitIIC()
     return XST_FAILURE;
   }
 
+#ifdef SDT
+  Status = XSetupInterruptSystem(&IicAdapter,&XIic_InterruptHandler,
+			       ConfigPtr->IntrId,
+			       ConfigPtr->IntrParent,
+			       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
   return XST_SUCCESS;
 
 }
 
-
+#ifndef SDT
 
 /***************************************************************************/
 /***************************************************************************/
@@ -786,7 +897,9 @@ extern int SetupFmcInterruptSystem(XIic *IicFmcInstPtr)
   return XST_SUCCESS;
 
 }
+#endif
 
+#ifndef SDT
 /**************************************************************************/
 /**************************************************************************/
 
@@ -889,6 +1002,7 @@ extern int SetupAdapterInterruptSystem(XIic *IicAdapterInstPtr)
 
 }
 
+#endif
 
 /***************************************************************************/
 extern void SetupIICIntrHandlers() {
@@ -1220,17 +1334,29 @@ extern int SensorPreConfig(int pcam5c_mode) {
 void GPIOSelect(int dsi)
 {
   if (dsi) {
+#ifndef SDT
     XGpio_Initialize(&Gpio, GPIO_3_DEVICE_ID);
+#else
+    XGpio_Initialize(&Gpio, XPAR_XGPIO_3_BASEADDR);
+#endif
 	XGpio_DiscreteClear(&Gpio, GPIO_CHANNEL, SET);
   } else {
+#ifndef SDT
 	XGpio_Initialize(&Gpio, GPIO_3_DEVICE_ID);
+#else
+	XGpio_Initialize(&Gpio, XPAR_XGPIO_3_BASEADDR);
+#endif
 	XGpio_DiscreteSet(&Gpio, GPIO_CHANNEL, SET);
   }
 }
 
 void CamReset(void)
 {
+#ifndef SDT
   XGpio_Initialize(&Gpio, GPIO_0_DEVICE_ID);
+#else
+  XGpio_Initialize(&Gpio, XPAR_XGPIO_0_BASEADDR);
+#endif
   XGpio_DiscreteClear(&Gpio, GPIO_CHANNEL, SET);
   usleep(10000);
   XGpio_DiscreteSet(&Gpio, GPIO_CHANNEL, SET);
@@ -1255,7 +1381,11 @@ void InitVprocSs_Scaler(int count) {
   StreamIn.FrameRate = 60; //rao
 
   if (count) {
+#ifndef SDT
     p_vpss_cfg = XVprocSs_LookupConfig(XPAR_XVPROCSS_0_DEVICE_ID);
+#else
+    p_vpss_cfg = XVprocSs_LookupConfig(XPAR_VPSS_0_BASEADDR);
+#endif
 	if (p_vpss_cfg == NULL) {
 	  xil_printf("ERROR! Failed to find VPSS-based scaler.\n\r");
       return;
@@ -1810,7 +1940,11 @@ void InitVprocSs_CSC(int count) {
   StreamIn.FrameRate = 60; //rao
 
   if (count) {
+#ifndef SDT
     p_vpss_cfg1 = XVprocSs_LookupConfig(XPAR_XVPROCSS_1_DEVICE_ID);
+#else
+    p_vpss_cfg1 = XVprocSs_LookupConfig(XPAR_XVPROCSS_1_BASEADDR);
+#endif
 	if (p_vpss_cfg1 == NULL) {
 	  xil_printf("ERROR! Failed to find VPSS-based scaler.\n\r");
       return;
@@ -1893,28 +2027,31 @@ int vdma_dsi() {
   InitVprocSs_Scaler(1);
 
   ResetVDMA();
-
+#ifndef SDT
   RunVDMA(&AxiVdma, XPAR_AXI_VDMA_0_DEVICE_ID, HORIZONTAL_RESOLUTION, \
 		  VERTICAL_RESOLUTION, srcBuffer, FRAME_COUNTER, 0);
-
+#else
+  RunVDMA(&AxiVdma, XPAR_XAXIVDMA_0_BASEADDR, HORIZONTAL_RESOLUTION, \
+		  VERTICAL_RESOLUTION, srcBuffer, FRAME_COUNTER, 0);
+#endif
   XDsiTxSs_Activate(&DsiTxSs, XDSITXSS_DSI, XDSITXSS_ENABLE);
 
   return XST_SUCCESS;
 
 }
 
-
-
-
 int vdma_hdmi() {
 
   InitVprocSs_CSC(1);
 
   ResetVDMA();
-
+#ifndef SDT
   RunVDMA(&AxiVdma, XPAR_AXI_VDMA_0_DEVICE_ID, HORIZONTAL_RESOLUTION, \
 		  VERTICAL_RESOLUTION, srcBuffer, FRAME_COUNTER, 0);
-
+#else
+  RunVDMA(&AxiVdma, XPAR_XAXIVDMA_0_BASEADDR, HORIZONTAL_RESOLUTION, \
+		  VERTICAL_RESOLUTION, srcBuffer, FRAME_COUNTER, 0);
+#endif
   return XST_SUCCESS;
 
 }
