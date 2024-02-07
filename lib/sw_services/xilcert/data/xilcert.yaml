@@ -1,0 +1,26 @@
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for xilcert library.
+
+maintainers:
+  - Harsha, Harsha <harsha.harsha@amd.com>
+  - Akula, Kalyani <kalyani.akula@amd.com>
+  - Challa, Durga <durga.challa@amd.com>
+  - Kundanala, Praveen Teja <praveen.teja.kundanala@amd.com>
+
+type: library
+
+description: |
+  Xilinx X.509 certificate generation library. Supported only for Versal Net.
+
+supported_processors:
+  - psx_pmc
+
+supported_os:
+  - standalone
+
+depends_libs:
+  xilplmi: {}
+  xilsecure: {}
