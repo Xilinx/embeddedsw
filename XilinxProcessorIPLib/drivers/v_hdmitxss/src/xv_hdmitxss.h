@@ -91,6 +91,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
 #include "xstatus.h"
 #include "xvidc.h"
 #include "xv_hdmic.h"
