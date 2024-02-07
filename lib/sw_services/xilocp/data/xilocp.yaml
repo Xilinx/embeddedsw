@@ -1,0 +1,36 @@
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: Bindings for xilocp library.
+
+maintainers:
+  - Harsha, Harsha <harsha.harsha@amd.com>
+  - Akula, Kalyani <kalyani.akula@amd.com>
+  - Challa, Durga <durga.challa@amd.com>
+  - Kundanala, Praveen Teja <praveen.teja.kundanala@amd.com>
+
+type: library
+
+description: Xilinx Open Compute Platform(OCP) support Library. Supported only for Versal Net.
+
+supported_processors:
+  - psx_pmc
+  - psx_cortexa78
+  - psx_cortexr52
+
+supported_os:
+  - standalone
+  - freertos10_xilinx
+
+depends_libs:
+  xilplmi: {}
+  xilsecure: {}
+  xilcert: {}
+  xilmailbox: {}
+
+examples:
+  xilocp_client_devicekey_example.c: []
+  xilocp_client_dme_example.c: []
+  xilocp_client_pcr_example.c: []

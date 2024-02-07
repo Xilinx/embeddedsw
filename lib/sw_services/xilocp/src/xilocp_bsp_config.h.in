@@ -1,0 +1,10 @@
+/******************************************************************************
+* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef XILOCP_CONFIG_H
+#define XILOCP_CONFIG_H
+
+#cmakedefine XOCP_CACHE_DISABLE
+
+#endif /* XILOCP_CONFIG_H */

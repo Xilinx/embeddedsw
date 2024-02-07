@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.1   am   12/21/22 Initial release
 *       am   01/10/23 Added XOCP_DME_NONCE_SIZE_IN_BITS macro for dme
 * 1.2   kal  05/28/23 Added SW PCR API IDs
+* 1.3   ng   01/28/24 Added SDT support
 *
 * </pre>
 * @note
@@ -41,6 +42,9 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_cache.h"
 
+#ifdef SDT
+#include "xilocp_bsp_config.h"
+#endif
 /************************** Constant Definitions ****************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
