@@ -87,9 +87,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#ifndef SDT
 #include "xparameters.h"
-#endif
 #include "xstatus.h"
 #include "xv_hdmirx.h"
 #include "xv_hdmic_vsif.h"
