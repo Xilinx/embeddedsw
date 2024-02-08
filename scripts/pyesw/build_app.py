@@ -63,7 +63,7 @@ def build_app(args):
         original_sdt = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'sdt.dts')
         print('Domain YAML is found. Passing this in to a OpenAMP Lopper run to generate platform info header.')
 
-        openamp_lopper_run(overlay_path, original_sdt, obj.app_src_dir)
+        openamp_lopper_run(overlay_path, original_sdt, obj.app_src_dir, obj.proc)
         obj.cmake_paths_append += " -D_AMD_GENERATED_=ON "
 
     domain_data = utils.fetch_yaml_data(obj.domain_config_file, "domain")

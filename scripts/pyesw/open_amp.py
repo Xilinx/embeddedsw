@@ -205,7 +205,7 @@ def create_libmetal_app(obj, esw_app_dir):
 
     create_app(new_file_mappings, obj, esw_app_dir)
 
-def openamp_lopper_run(openamp_overlay, original_sdt, app_src_dir):
+def openamp_lopper_run(openamp_overlay, original_sdt, app_src_dir, proc):
     """
     Run Lopper upon OpenAMP YAML information if present.
     Args:
@@ -221,15 +221,39 @@ def openamp_lopper_run(openamp_overlay, original_sdt, app_src_dir):
     if len(openamp_overlay) == 0:
         print('No overlay provided for OpenAMP app. Exiting Build.')
         sys.exit(1)
+    remote = {
+        'psx_cortexr52_0' : 'r52_0',
+        'psx_cortexr52_1' : 'r52_1',
+        'psx_cortexr52_2' : 'r52_2',
+        'psx_cortexr52_3' : 'r52_3',
+        'psv_cortexr5_0' : 'r5_0',
+        'psv_cortexr5_1' : 'r5_1',
+        'psu_cortexr5_0' : 'r5_0',
+        'psu_cortexr5_1' : 'r5_1',
+    }
+
+    host = {
+        'psx_cortexr52_0' : 'a78_0',
+        'psx_cortexr52_1' : 'a78_0',
+        'psx_cortexr52_2' : 'a78_0',
+        'psx_cortexr52_3' : 'a78_0',
+        'psv_cortexr5_0' : 'a72_0',
+        'psv_cortexr5_1' : 'a72_0',
+        'psu_cortexr5_0' : 'a53_0',
+        'psu_cortexr5_1' : 'a53_0',
+    }
 
     lops_dir = os.path.join(utils.get_dir_path(lopper.__file__), "lops")
-    lops = ["lop-load.dts", "lop-xlate-yaml.dts", "lop-r5-imux.dts"]
+    lops = ["lop-load.dts", "lop-xlate-yaml.dts"]
     lopper_cmd = "lopper -f -v  --enhanced  --permissive -i " + openamp_overlay
     for lop in lops:
         lopper_cmd += " -i " + lops_dir + "/" + lop
     # add remote role for this Lopper run after the lop-openamp-versal.dts lop
     lopper_cmd += " -O . " + original_sdt + " openamp_output.dts "
-    lopper_cmd += " -- openamp remote "
+    lopper_cmd += " -- openamp --openamp_role=remote "
+    lopper_cmd += " --openamp_host=" + host[proc]
+    lopper_cmd += " --openamp_remote=" + remote[proc]
+
     utils.runcmd(lopper_cmd)
     if is_file('amd_platform_info.h'):
         utils.copy_file('amd_platform_info.h', os.path.join(app_src_dir, 'apps',
