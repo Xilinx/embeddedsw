@@ -31,6 +31,7 @@
 * 1.03  bsv  07/16/2021 Added Macronix flash support
 *       bsv  08/31/2021 Code clean up
 *       bm   01/11/2023 Added support for Gigadevice 512M, 1G, 2G parts
+*       dd   02/08/2024 Added support for ISSI 512M
 *
 * </pre>
 *
@@ -71,20 +72,36 @@ extern "C" {
  * Byte 0 is Manufacturer ID;
  * Byte 1 is first byte of Device ID - 0x5B
  * Byte 2 is second byte of Device ID describes flash size:
+ * 512Mbit : 0x1A; 1Gbit : 0x1B; 2Gbit : 0x1C
+ * Gigadevice:
+ * Byte 0 is Manufacturer ID;
+ * Byte 1 is first byte of Device ID - 0x40 or 0x47
+ * Byte 2 is second byte of Device ID describes flash size:
+ * 256Mbit : 0x19; 512Mbit : 0x1A; 1Gbit : 0x1B; 2Gbit : 0x1C
+ * ISSI:
+ * Byte 0 is Manufacturer ID;
+ * Byte 1 is first byte of Device ID - 0x5A or 0x5B
+ * Byte 2 is second byte of Device ID describes flash size:
  * 512Mbit : 0x1A
+ * Macronix:
+ * Byte 0 is Manufacturer ID;
+ * Byte 1 is first byte of Device ID - 0x80
+ * Byte 2 is second byte of Device ID describes flash size:
+ * 2Gbit : 0x3C
  */
-#define	MICRON_OCTAL_ID_BYTE0		  (0x2CU)
-#define GIGADEVICE_OCTAL_ID_BYTE0     (0xC8U)
-#define ISSI_OCTAL_ID_BYTE0           (0x9DU)
-#define MACRONIX_OCTAL_ID_BYTE0           (0xC2U)
-#define MICRON_OCTAL_ID_BYTE2_512	(0x1AU)
-#define MICRON_OCTAL_ID_BYTE2_1G	(0x1BU)
-#define MICRON_OCTAL_ID_BYTE2_2G	(0x1CU)
-#define MACRONIX_OCTAL_ID_BYTE2_512	(0x3AU)
-#define GIGADEVICE_OCTAL_ID_BYTE2_256	(0x19U)
-#define GIGADEVICE_OCTAL_ID_BYTE2_512	(0x1AU)
-#define GIGADEVICE_OCTAL_ID_BYTE2_1G	(0x1BU)
-#define GIGADEVICE_OCTAL_ID_BYTE2_2G	(0x1CU)
+#define MICRON_OCTAL_ID_BYTE0           (0x2CU) /* Micron manufacture id */
+#define GIGADEVICE_OCTAL_ID_BYTE0       (0xC8U) /* Gigadevice manufacture id */
+#define ISSI_OCTAL_ID_BYTE0             (0x9DU) /* ISSI manufacture id */
+#define MACRONIX_OCTAL_ID_BYTE0         (0xC2U) /* Macronix manufacture id */
+#define MICRON_OCTAL_ID_BYTE2_512       (0x1AU) /* Micron 512Mbit flash size */
+#define MICRON_OCTAL_ID_BYTE2_1G        (0x1BU) /* Micron 1Gbit flash size */
+#define MICRON_OCTAL_ID_BYTE2_2G        (0x1CU) /* Micron 2Gbit flash size */
+#define MACRONIX_OCTAL_ID_BYTE2_512     (0x3AU) /* Macronix 512Mbit flash size */
+#define GIGADEVICE_OCTAL_ID_BYTE2_256	(0x19U) /* Gigadevice 256Mbit flash size */
+#define GIGADEVICE_OCTAL_ID_BYTE2_512	(0x1AU) /* Gigadevice 512Mbit flash size */
+#define GIGADEVICE_OCTAL_ID_BYTE2_1G	(0x1BU) /* Gigadevice 1Gbit flash size */
+#define GIGADEVICE_OCTAL_ID_BYTE2_2G	(0x1CU) /* Gigadevice 2Gbit flash size */
+#define ISSI_OCTAL_ID_BYTE2_512         (0x1AU) /* ISSI 512Mbit flash size */
 
 /**************************** Type Definitions *******************************/
 
