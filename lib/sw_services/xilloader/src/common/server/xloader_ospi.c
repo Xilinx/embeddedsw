@@ -38,6 +38,7 @@
 *       bm   01/11/2023 Added support for Gigadevice 512M, 1G, 2G parts
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       ng   12/27/2023 Reduced log level for less frequent prints
+*       dd   02/08/2024 Added support for ISSI 512M
 *
 * </pre>
 *
@@ -177,6 +178,14 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 		}
 		else if (ReadBuffer[2U] == GIGADEVICE_OCTAL_ID_BYTE2_2G) {
 			OspiFlashSize = XLOADER_FLASH_SIZE_2G;
+		}
+		else {
+			/* Do nothing */
+		}
+	}
+	else if (OspiFlashMake == ISSI_OCTAL_ID_BYTE0) {
+		if (ReadBuffer[2U] == ISSI_OCTAL_ID_BYTE2_512) {
+			OspiFlashSize = XLOADER_FLASH_SIZE_512M;
 		}
 		else {
 			/* Do nothing */
