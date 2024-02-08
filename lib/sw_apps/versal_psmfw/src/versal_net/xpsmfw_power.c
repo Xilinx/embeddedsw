@@ -1721,7 +1721,7 @@ static XStatus XTcmPwrDown(struct XPsmTcmPwrCtrl_t *Args)
 	}
 
 	/* unmask tcm powerup interrupt*/
-	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_DIS, Tcm->PwrStateMask);
+	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_EN, Tcm->GlobPwrStatusMask);
 
 done:
 	return Status;
