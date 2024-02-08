@@ -1707,7 +1707,7 @@ static XStatus XTcmPwrDown(struct XPsmTcmPwrCtrl_t *Args)
 	}
 
 	/* disable power gate*/
-	XPsmFw_RMW32(Tcm->PwrCtrlAddr, Tcm->PwrStateMask, ~Tcm->PwrStateMask);
+	XPsmFw_RMW32(Tcm->PwrCtrlAddr, Tcm->PwrCtrlMask, ~Tcm->PwrCtrlMask);
 
 	/*disable chip enable signal*/
 	XPsmFw_RMW32(Tcm->ChipEnAddr, Tcm->ChipEnMask, ~Tcm->ChipEnMask);
