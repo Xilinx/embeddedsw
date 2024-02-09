@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1179,8 +1179,8 @@ static XStatus DevRelease(XPm_Device *Device, const XPm_Subsystem *Subsystem, u3
 	}
 
 done:
+	Device->PendingReqm = NULL;
 	if (XST_SUCCESS != Status) {
-		Device->PendingReqm = NULL;
 		PmErr("0x%x, Id: 0x%x\r\n", Status, Device->Node.Id);
 	}
 	return Status;
