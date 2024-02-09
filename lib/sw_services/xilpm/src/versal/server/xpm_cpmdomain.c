@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,10 @@
 static u32 GtyAddresses[XPM_NODEIDX_DEV_GTYP_CPM5_MAX -
 			XPM_NODEIDX_DEV_GTYP_CPM5_MIN + 1] = {0};
 
+/* Default polling timeout, initialized at the time of initstart
+ * XPM_SLD_POLL_TIMEOUT for secure lock down */
+static u32 PollTimeOut = XPM_POLL_TIMEOUT;
+
 static XStatus CpmInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
@@ -39,10 +43,7 @@ static XStatus CpmInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 PlatformVersion;
-
-	/* This function does not use the args */
-	(void)Args;
-	(void)NumOfArgs;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 
 	const XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
 	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
@@ -61,6 +62,10 @@ static XStatus CpmInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		PmErr("PslpRailPwrSts: %d IntRailPwrSts: %d AuxRailPwrSts: %d\r\n",
 		       PslpRailPwrSts, IntRailPwrSts, AuxRailPwrSts);
 		goto done;
+	}
+
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		PollTimeOut = XPM_SLD_POLL_TIMEOUT;
 	}
 
 	/* Remove isolation to allow scan_clear on CPM */
@@ -101,12 +106,12 @@ static XStatus Cpm5InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus RamRailPwrSts = XST_FAILURE;
 
 	u32 i;
+	u32 RegVal;
 	const XPm_Device* Device = NULL;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumofArgs);
 
 	/* This function does not use any args */
-	(void)Args;
-	(void)NumofArgs;
 	(void)PwrDomain;
 
 	const XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
@@ -130,6 +135,18 @@ static XStatus Cpm5InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		PmErr("PslpRailPwrSts: %d IntRailPwrSts: %d AuxRailPwrSts: %d RamRailPwrSts: %d\r\n",
 		       PslpRailPwrSts, IntRailPwrSts, AuxRailPwrSts, RamRailPwrSts);
 		goto done;
+	}
+
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		PollTimeOut = XPM_SLD_POLL_TIMEOUT;
+		RegVal = XPm_In32(CRL_RST_OCM2_CTRL) &
+					(CRL_RST_OCM2_CTRL_POR_MASK | CRL_RST_OCM2_CTRL_SRST_MASK);
+
+		/* If reset is active skip initstart for secure lock down */
+		if (0U != RegVal) {
+			DbgErr = XPM_INT_ERR_CPM5_INIT_RST;
+			goto done;
+		}
 	}
 
 	/* Remove isolation between CPM5 and LPD */
@@ -197,14 +214,22 @@ static XStatus Cpm5ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegVal;
-
-	/* This function does not use the args */
-	(void)Args;
-	(void)NumOfArgs;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 
 	if (NULL == PwrDomain) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
+	}
+
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		RegVal = XPm_In32(CRL_RST_OCM2_CTRL) &
+					(CRL_RST_OCM2_CTRL_POR_MASK | CRL_RST_OCM2_CTRL_SRST_MASK);
+
+		/* If reset is active skip scan clear for secure lock down */
+		if (0U != RegVal) {
+			DbgErr = XPM_INT_ERR_CPM5_SCAN_CLEAR_RST;
+			goto done;
+		}
 	}
 
 	/* Unlock PCSR */
@@ -255,7 +280,7 @@ static XStatus Cpm5ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		/* Wait for Scan Clear do be done */
 		Status = XPm_PollForMask(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET,
 				CPM_PCSR_PSR_SCAN_CLEAR_DONE_MASK,
-				XPM_POLL_TIMEOUT);
+				PollTimeOut);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
 			goto done;
@@ -318,10 +343,19 @@ static XStatus CpmBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 {
 	volatile XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 RegVal;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 
-	/* This function does not use the args */
-	(void)Args;
-	(void)NumOfArgs;
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		RegVal = XPm_In32(CRL_RST_OCM2_CTRL) &
+					(CRL_RST_OCM2_CTRL_POR_MASK | CRL_RST_OCM2_CTRL_SRST_MASK);
+
+		/* If reset is active skip BISR for secure lock down */
+		if (0U != RegVal) {
+			DbgErr = XPM_INT_ERR_CPM_BISR_RST;
+			goto done;
+		}
+	}
 
 	if (PM_HOUSECLEAN_CHECK(CPM, BISR)){
 		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
@@ -339,6 +373,7 @@ static XStatus CpmBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	Status = XST_SUCCESS;
 
+done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -349,10 +384,19 @@ static XStatus Cpm5Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	volatile XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 i;
+	u32 RegVal;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 
-	/* This function does not use the args */
-	(void)Args;
-	(void)NumOfArgs;
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		RegVal = XPm_In32(CRL_RST_OCM2_CTRL) &
+					(CRL_RST_OCM2_CTRL_POR_MASK | CRL_RST_OCM2_CTRL_SRST_MASK);
+
+		/* If reset is active skip BISR for secure lock down */
+		if (0U != RegVal) {
+			DbgErr = XPM_INT_ERR_CPM5_BISR_RST;
+			goto done;
+		}
+	}
 
 	if (PM_HOUSECLEAN_CHECK(CPM, BISR)){
 		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
@@ -406,10 +450,18 @@ static XStatus CpmMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u32 RegValue;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 
-	/* This function does not use the args */
-	(void)Args;
-	(void)NumOfArgs;
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		RegValue = XPm_In32(CRL_RST_OCM2_CTRL) &
+					(CRL_RST_OCM2_CTRL_POR_MASK | CRL_RST_OCM2_CTRL_SRST_MASK);
+
+		/* If reset is active skip BISR for secure lock down */
+		if (0U != RegValue) {
+			DbgErr = XPM_INT_ERR_CPM_MBIST_RST;
+			goto done;
+		}
+	}
 
 	if (!(PM_HOUSECLEAN_CHECK(CPM, MBIST))) {
 		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
@@ -456,7 +508,7 @@ static XStatus CpmMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* Wait till its done */
 	Status = XPm_PollForMask(Cpm->CpmSlcrSecureBaseAddr +
 				 CPM_SLCR_SECURE_OD_MBIST_DONE_OFFSET,
-				 0xFF, XPM_POLL_TIMEOUT);
+				 0xFF, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
 		goto fail;
@@ -518,14 +570,14 @@ static XStatus Cpm5GtypMbist(u32 BaseAddress)
 	}
 
 	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET,
-	GTY_PCSR_STATUS_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+	GTY_PCSR_STATUS_MEM_CLEAR_DONE_MASK, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 		goto done;
 	}
 
 	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET,
-	GTY_PCSR_STATUS_MEM_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
+	GTY_PCSR_STATUS_MEM_CLEAR_PASS_MASK, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS_TIMEOUT;
 		goto done;
@@ -553,10 +605,18 @@ static XStatus Cpm5MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u32 RegValue, i;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 
-	/* This function does not use the args */
-	(void)Args;
-	(void)NumOfArgs;
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		RegValue = XPm_In32(CRL_RST_OCM2_CTRL) &
+					(CRL_RST_OCM2_CTRL_POR_MASK | CRL_RST_OCM2_CTRL_SRST_MASK);
+
+		/* If reset is active skip mbist clear for secure lock down */
+		if (0U != RegValue) {
+			DbgErr = XPM_INT_ERR_CPM5_MBIST_RST;
+			goto done;
+		}
+	}
 
 	if (!(PM_HOUSECLEAN_CHECK(CPM, MBIST))) {
 		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
@@ -588,7 +648,7 @@ static XStatus Cpm5MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* If trigger action is performed in stages, then break down this step */
 	Status = XPm_PollForMask(Cpm->CpmSlcrSecureBaseAddr + CPM5_SLCR_SECURE_OD_MBIST_DONE_OFFSET,
 				 CPM5_SLCR_SECURE_OD_MBIST_DONE_MASK,
-				 XPM_POLL_TIMEOUT);
+				 PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
 		goto done;

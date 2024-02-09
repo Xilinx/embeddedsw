@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +51,10 @@ static volatile u32 PlpdHouseCleanBypass = 0;
 static volatile u32 PlpdHouseCleanBypassTmp = 0;
 u32 HcleanDone = 0;
 
+/* Default polling timeout, initialized at the time of initstart
+ * XPM_SLD_POLL_TIMEOUT for secure lock down */
+static u32 PollTimeOut = XPM_POLL_TIMEOUT;
+
 static XStatus XPmPlDomain_InitandHouseclean(void);
 
 static XStatus PldInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
@@ -91,12 +95,14 @@ static XStatus PldGtyMbist(u32 BaseAddress)
 		DbgErr = XPM_INT_ERR_REG_WRT_GTY_MEM_CLEAR_TRIGGER_MASK;
 		goto done;
 	}
-	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET, GTY_PCSR_STATUS_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET,
+				GTY_PCSR_STATUS_MEM_CLEAR_DONE_MASK, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 		goto done;
 	}
-	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET, GTY_PCSR_STATUS_MEM_CLEAR_PASS_MASK, XPM_POLL_TIMEOUT);
+	Status = XPm_PollForMask(BaseAddress + GTY_PCSR_STATUS_OFFSET,
+				GTY_PCSR_STATUS_MEM_CLEAR_PASS_MASK, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS_TIMEOUT;
 		goto done;
@@ -219,7 +225,7 @@ static XStatus VduScanClear(u32 BaseAddress)
 
 	/* Wait for Scan Clear DONE */
 	Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
-			VDU_NPI_PCSR_STATUS_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+				VDU_NPI_PCSR_STATUS_SCAN_CLEAR_DONE_MASK, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
 		goto done;
@@ -255,7 +261,7 @@ static XStatus VduMbist(u32 BaseAddress)
 
 	/* Wait for Mem Clear DONE */
 	Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
-					VDU_NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+				VDU_NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 		goto done;
@@ -653,7 +659,7 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld)
 		}
 
 		Status = XPm_PollForMask(GtyAddrs[i] + GTY_PCSR_STATUS_OFFSET,
-			   GTY_PCSR_STATUS_HOUSECLEAN_DONE_MASK, XPM_POLL_TIMEOUT);
+					GTY_PCSR_STATUS_HOUSECLEAN_DONE_MASK, PollTimeOut);
 		if (XST_SUCCESS != Status) {
 			PmErr("HOUSECLEAN_DONE poll failed for GT:0x%08X\n\r", GtyAddrs[i]);
 			DbgErr = XPM_INT_ERR_GTY_HC;
@@ -768,7 +774,7 @@ static XStatus BfrbInit(const u32 *BfrbAddresses, const u32 ArrLen)
 
 		/* Wait for SRAMS Powered Up */
 		Status = XPm_PollForZero(BfrbAddresses[i] + NPI_PCSR_STATUS_OFFSET,
-				BFR_NPI_PCSR_STATUS_POWER_STATE_MASK, XPM_POLL_TIMEOUT);
+					BFR_NPI_PCSR_STATUS_POWER_STATE_MASK, PollTimeOut);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_BFRB_POWER_STATE;
 			goto done;
@@ -821,7 +827,7 @@ static XStatus BfrbMbist(const u32 *BfrbAddresses, const u32 ArrLen)
 
 		/* Wait for Mem Clear DONE */
 		Status = XPm_PollForMask(BfrbAddresses[i] + NPI_PCSR_STATUS_OFFSET,
-				BFR_NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+					BFR_NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK, PollTimeOut);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 			goto done;
@@ -885,7 +891,7 @@ static XStatus BfrbScanClear(const u32 *BfrbAddresses, const u32 ArrLen)
 
 		/* Wait for Scan Clear DONE */
 		Status = XPm_PollForMask(BfrbAddresses[i] + NPI_PCSR_STATUS_OFFSET,
-				BFR_NPI_PCSR_STATUS_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+					BFR_NPI_PCSR_STATUS_SCAN_CLEAR_DONE_MASK, PollTimeOut);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
 			goto done;
@@ -1271,7 +1277,7 @@ static XStatus PlHcScanClear(const XPm_PlDomain *Pld, u16 *DbgErr)
 	XPlmi_Printf(DEBUG_INFO, "INFO: %s : Wait for Hard Block Scan Clear / MBIST complete...", __func__);
 	Status = XPm_PollForMask(Pld->CfuApbBaseAddr + CFU_APB_CFU_STATUS_OFFSET,
 				 CFU_APB_CFU_STATUS_SCAN_CLEAR_DONE_MASK,
-				 XPM_POLL_TIMEOUT);
+				 PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
 		/** HACK: Continuing even if CFI SC is not completed for ES1 */
@@ -1333,7 +1339,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		Status = XPm_PollForMask(Pld->CfuApbBaseAddr +
 						CFU_APB_CFU_STATUS_OFFSET,
 					 CFU_APB_CFU_STATUS_HC_COMPLETE_MASK,
-					 XPM_POLL_TIMEOUT);
+					 PollTimeOut);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PL_HC_COMPLETE_TIMEOUT;
 			goto done;
@@ -1423,7 +1429,7 @@ static XStatus IsPlPowerUp(const XPm_Pmc *Pmc, u16 *DbgErr)
 			}
 
 			PlPowerUpTime++;
-			if (PlPowerUpTime > XPM_POLL_TIMEOUT)
+			if (PlPowerUpTime > PollTimeOut)
 			{
 				XPlmi_Printf(DEBUG_GENERAL, "ERROR: PL Power Up TimeOut\n\r");
 				*DbgErr = XPM_INT_ERR_POWER_SUPPLY;
@@ -1519,14 +1525,16 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 Platform = XPm_GetPlatform();
 	u32 IdCode = XPm_GetIdCode();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-
-	(void)Args;
-	(void)NumOfArgs;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 
 	const XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
 	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
 	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		PollTimeOut = XPM_SLD_POLL_TIMEOUT;
+	}
 
 	/*
 	 * PL housecleaning requires CFU clock to run at a lower frequency for
@@ -1752,7 +1760,7 @@ static XStatus RemoveResetEnableClk(u32 PmcBaseAddress)
 
 	Status = XPm_PollForMask(BaseAddress,
 				 PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK,
-				 XPM_POLL_TIMEOUT);
+				 PollTimeOut);
 	if(XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PL_POR_STATUS;
 		goto done;
@@ -1954,7 +1962,7 @@ static XStatus XPmPlDomain_InitandHouseclean(void)
 	Status = XPm_PollForMask(Pmc->PmcGlobalBaseAddr +
 				 PMC_GLOBAL_PL_STATUS_OFFSET,
 				 PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK,
-				 XPM_POLL_TIMEOUT);
+				 PollTimeOut);
 	if(XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PL_POR_STATUS;
 		goto done;
@@ -1998,7 +2006,7 @@ static XStatus XPmPlDomain_InitandHouseclean(void)
 		Status = XPm_PollForMask(Pmc->PmcGlobalBaseAddr +
 					 PMC_GLOBAL_PL_STATUS_OFFSET,
 					 PMC_GLOBAL_PL_STATUS_POR_PL_B_MASK,
-					 XPM_POLL_TIMEOUT);
+					 PollTimeOut);
 		if(XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PL_STATUS_TIMEOUT;
 			goto done;

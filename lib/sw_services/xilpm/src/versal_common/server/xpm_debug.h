@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -423,6 +423,18 @@ extern "C" {
 #define XPM_INT_ERR_PL_CPM5_ISO			0x400AU
 /* Error during PL-CPM5 DFX Isolation enable/disable */
 #define XPM_INT_ERR_PL_CPM5_DFX_ISO		0x400BU
+/* Error during CPM5 init in reset */
+#define XPM_INT_ERR_CPM5_INIT_RST			0x400CU
+/* Error during CPM5 scan clear in reset */
+#define XPM_INT_ERR_CPM5_SCAN_CLEAR_RST		0x400DU
+/* Error during CPM BISR in reset */
+#define XPM_INT_ERR_CPM_BISR_RST			0x400EU
+/* Error during CPM5 BISR in reset */
+#define XPM_INT_ERR_CPM5_BISR_RST			0x400FU
+/* Error during CPM MBIST in reset */
+#define XPM_INT_ERR_CPM_MBIST_RST			0x4010U
+/* Error during CPM5 MBIST in reset */
+#define XPM_INT_ERR_CPM5_MBIST_RST			0x4011U
 
 /************************** AIE specific Errors ******************************/
 /************************** (0x4100) - (0x41FF) ******************************/

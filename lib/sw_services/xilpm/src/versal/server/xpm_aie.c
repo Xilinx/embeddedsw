@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +43,10 @@
 
 static XPm_AieDomain *PmAieDomain;
 static XStatus Aie2_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColEnd, const u32 Ops);
+
+/* Default polling timeout, initialized at the time of initstart
+ * XPM_SLD_POLL_TIMEOUT for secure lock down */
+static u32 PollTimeOut = AIE_POLL_TIMEOUT;
 
 static inline void AieRMW64(u64 addr, u32 Mask, u32 Value)
 {
@@ -410,10 +414,7 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
-
-	/* This function does not use the args */
-	(void)Args;
-	(void)NumOfArgs;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 
 	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
 	if (NULL == AieDev) {
@@ -422,6 +423,10 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	BaseAddress = AieDev->Node.BaseAddress;
+
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		PollTimeOut = XPM_SLD_POLL_TIMEOUT;
+	}
 
 	/* Use AIE NoC Address if available */
 	if (2U <= NumOfArgs) {
@@ -478,6 +483,7 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 
 	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
 
@@ -492,6 +498,10 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	BaseAddress = Aie2Dev->Node.BaseAddress;
+
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		PollTimeOut = XPM_SLD_POLL_TIMEOUT;
+	}
 
 	/* Use AIE NoC Address if available */
 	if (2U <= NumOfArgs) {
@@ -719,7 +729,7 @@ static XStatus AieScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		/* Wait for Scan Clear DONE */
 		Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
 					 ME_NPI_REG_PCSR_STATUS_SCAN_CLEAR_DONE_MASK,
-					 AIE_POLL_TIMEOUT);
+					 PollTimeOut);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
 			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
@@ -1055,7 +1065,7 @@ static XStatus IsMemClearDone(const u32 BaseAddress, u16 *DbgErr)
 	/* Wait for Mem Clear DONE */
 	Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
 				 ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
-				 AIE_POLL_TIMEOUT);
+				 PollTimeOut);
 	if (Status != XST_SUCCESS) {
 		*DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 		XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
@@ -1225,7 +1235,7 @@ static XStatus Aie2MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		/* Wait for Mem Clear DONE */
 		Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
 				ME_NPI_REG_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
-				AIE_POLL_TIMEOUT);
+				PollTimeOut);
 		if (Status != XST_SUCCESS) {
 			DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 			XPlmi_Printf(DEBUG_INFO, "ERROR\r\n");
