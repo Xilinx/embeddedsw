@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -433,7 +433,8 @@ extern "C" {
 
 #define CRL_RCLK_CTRL						(CRL_BASEADDR + 0x000001A0)
 #define CRL_RST_OCM2_CTRL					(CRL_BASEADDR + 0x00000364U)
-#define CRL_RST_OCM2_CTRL_POR_MASK				(0x0)
+#define CRL_RST_OCM2_CTRL_POR_MASK					(0x1U)
+#define CRL_RST_OCM2_CTRL_SRST_MASK					(0x2U)
 #define CRL_RCLK_CTRL_CLKACT_GEM_TSU_MASK			(0x1000)
 #define CRL_RCLK_CTRL_CLKACT_GEM0_TXRX_MASK			(0x300)
 #define CRL_RCLK_CTRL_CLKACT_GEM1_TXRX_MASK			(0xC00)

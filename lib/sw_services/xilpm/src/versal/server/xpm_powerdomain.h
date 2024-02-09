@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 #else
 #define XPM_POLL_TIMEOUT			(0X1000000U)
 #endif
+#define XPM_SLD_POLL_TIMEOUT		(5000U)	/* Secure lock down poll time out */
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
 #define MAX_POWERDOMAINS			6U
 #define MAX_DOMAIN_CONTROL_MODES	2U

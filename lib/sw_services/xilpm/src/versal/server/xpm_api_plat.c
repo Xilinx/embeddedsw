@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1505,6 +1505,15 @@ XStatus XPm_ForceHouseClean(u32 NodeId)
 		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
+
+	/* If domain initialization not done, skip secure lock down */
+	if ((NULL != PwrDomainNode->DomainOps) &&
+		(PwrDomainNode->InitFlag != PwrDomainNode->DomainOps->InitMask)) {
+		PmErr("Power domain is not initialized for the given Node Id\n\r");
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
 	XPM_HOUSECLEAN(PwrDomainNode, InitStart, Args, 1, Status_st);
 	XPM_HOUSECLEAN(PwrDomainNode, ScanClear, Args, 1, Status_sc);
 	XPM_HOUSECLEAN(PwrDomainNode, Bisr, Args, 1, Status_sr);
