@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 *      yog   08/07/2023 Removed trng init call in XSecure_EllipticIpiHandler API
 *                       since trng is being initialised in server API's
 *      am    08/17/2023 Replaced curve size check with XSecure_EllipticGetCrvSize() call
+*      ng    02/12/2024 optimised u8 vars to u32 for size reduction
 *
 * </pre>
 *
@@ -159,7 +160,7 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 		goto END;
 	}
 
-	if (XPlmi_IsCryptoKatEn() == TRUE) {
+	if (XPlmi_IsCryptoKatEn() == (u32)TRUE) {
 		XPlmi_ClearKatMask(XPLMI_SECURE_ECC_PWCT_KAT_MASK);
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp,
 			XSecure_EllipticPwct, (XSecure_EllipticCrvTyp)CurveType,

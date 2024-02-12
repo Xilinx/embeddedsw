@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -27,6 +27,7 @@
 *       am   09/04/23 Added XOcp_ValidateDiceCdi function
 * 1.3   kpt  11/06/23 Add support to run ECC KAT before attestation
 *       kpt  11/24/23 Replace Xil_SMemSet with Xil_SecureZeroize
+*       ng   02/12/24 optimised u8 vars to u32 for size reduction
 *
 * </pre>
 * @note
@@ -319,8 +320,8 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 	u8 EccY[XOCP_ECC_P384_SIZE_BYTES];
 #endif
 	int ClrStatus = XST_FAILURE;
-	volatile u8 CryptoKatEn = (u8)TRUE;
-	volatile u8 CryptoKatEnTmp = (u8)TRUE;
+	volatile u32 CryptoKatEn = (u32)TRUE;
+	volatile u32 CryptoKatEnTmp = (u32)TRUE;
 	XOcp_SubSysHash *SubSysHashDs = XOcp_GetSubSysHash();
 	SubSysHashDs = SubSysHashDs + DevAkIndex;
 
@@ -353,7 +354,7 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 
 	CryptoKatEn = XPlmi_IsCryptoKatEn();
 	CryptoKatEnTmp = CryptoKatEn;
-	if ((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
+	if ((CryptoKatEn == (u32)TRUE) || (CryptoKatEnTmp == (u32)TRUE)) {
 		XPlmi_ClearKatMask(XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK);
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_EllipticPwct,
 			XSECURE_ECC_NIST_P384, (u64)(UINTPTR)DevAkData->EccPrvtKey, &PubKeyAddr);
@@ -708,8 +709,8 @@ static int XOcp_KeyGenerateDevIk(void)
 	u8 EccY[XOCP_ECC_P384_SIZE_BYTES];
 #endif
 	u32 ClrStatus = XST_FAILURE;
-	volatile u8 CryptoKatEn = TRUE;
-	volatile u8 CryptoKatEnTmp = TRUE;
+	volatile u32 CryptoKatEn = (u32)TRUE;
+	volatile u32 CryptoKatEnTmp = (u32)TRUE;
 
 	/* Copy CDI from PMC global registers to Seed buffer */
 	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, (void *)Seed, XOCP_CDI_SIZE_IN_BYTES,
@@ -752,7 +753,7 @@ static int XOcp_KeyGenerateDevIk(void)
 
 	CryptoKatEn = XPlmi_IsCryptoKatEn();
 	CryptoKatEnTmp = CryptoKatEn;
-	if ((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
+	if ((CryptoKatEn == (u32)TRUE) || (CryptoKatEnTmp == (u32)TRUE)) {
 		XPlmi_ClearKatMask(XPLMI_SECURE_ECC_DEVIK_PWCT_KAT_MASK);
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_EllipticPwct,
 			XSECURE_ECC_NIST_P384, (u64)(UINTPTR)EccPrvtKey, &PubKeyAddr);
