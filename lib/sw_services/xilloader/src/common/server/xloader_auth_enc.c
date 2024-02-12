@@ -124,6 +124,7 @@
 *       sk   11/02/23 Updated Redundancy in XLoader_EnableJtag
 *       kpt  11/22/23 Add support to clear AES keys when RedKeyClear bit is set
 *       ng   12/27/23 Reduced log level for less frequent prints
+*       ng   01/28/24 u8 variables optimization
 *
 * </pre>
 *
@@ -973,8 +974,8 @@ int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature)
 {
 	volatile int Status = XST_FAILURE;
-	volatile u8 IsEfuseAuth = (u8)TRUE;
-	volatile u8 IsEfuseAuthTmp = (u8)TRUE;
+	volatile u32 IsEfuseAuth = (u32)TRUE;
+	volatile u32 IsEfuseAuthTmp = (u32)TRUE;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 ReadAuthReg = 0x0U;
 
@@ -1005,14 +1006,14 @@ int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 			Status = XST_SUCCESS;
 		}
 		else {
-			IsEfuseAuth = (u8)FALSE;
-			IsEfuseAuthTmp = (u8)FALSE;
+			IsEfuseAuth = (u32)FALSE;
+			IsEfuseAuthTmp = (u32)FALSE;
 		}
 	}
 	else {
 		Status = XST_FAILURE;
-		IsEfuseAuth = (u8)TRUE;
-		IsEfuseAuthTmp = (u8)TRUE;
+		IsEfuseAuth = (u32)TRUE;
+		IsEfuseAuthTmp = (u32)TRUE;
 		/* Validate PPK hash */
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PpkVerify, SecurePtr);
 	}
@@ -1021,7 +1022,7 @@ int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SpkAuthentication, SecurePtr);
 
 	/* Check for SPK ID revocation */
-	if ((IsEfuseAuth == (u8)TRUE) || (IsEfuseAuthTmp == (u8)TRUE)) {
+	if ((IsEfuseAuth == (u32)TRUE) || (IsEfuseAuthTmp == (u32)TRUE)) {
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyRevokeId,
 			SecurePtr->AcPtr->SpkId);
 	}
@@ -1944,14 +1945,14 @@ static int XLoader_DataDecrypt(XLoader_SecureParams *SecurePtr,
 	u64 OutAddr = DestAddr;
 	u32 Iv[XLOADER_SECURE_IV_LEN];
 	u32 ChunkSize = Size;
-	u8 Index;
+	u32 Index;
 	u32 RegVal;
 
 	do {
 		for (Index = 0U; Index < XLOADER_SECURE_IV_LEN; Index++) {
 			RegVal = XPlmi_In32(SecurePtr->AesInstPtr->BaseAddress +
 					(XSECURE_AES_IV_0_OFFSET +
-					((u32)Index * XIH_PRTN_WORD_LEN)));
+					(Index * XIH_PRTN_WORD_LEN)));
 			Iv[Index] = Xil_Htonl(RegVal);
 		}
 
@@ -2132,7 +2133,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 	const XilPdi_BootHdr *BootHdr = SecurePtr->PdiPtr->MetaHdr.BootHdrPtr;
 	u32 KekStat = 0U;
 	volatile u32 PdiKeySrcTmp;
-	u8 DecryptBlkKey = (u8)FALSE;
+	u32 DecryptBlkKey = (u32)FALSE;
 
 	*KeySrc = XSECURE_AES_INVALID_KEY;
 
@@ -2150,7 +2151,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_KEY;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_RED_KEY;
 			KekStat = XLOADER_EFUSE_RED_KEY;
-			DecryptBlkKey = (u8)TRUE;
+			DecryptBlkKey = (u32)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
@@ -2168,7 +2169,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 			KeyDetails->KeySrc = XSECURE_AES_BBRAM_KEY;
 			KeyDetails->KeyDst = XSECURE_AES_BBRAM_RED_KEY;
 			KekStat = XLOADER_BBRAM_RED_KEY;
-			DecryptBlkKey = (u8)TRUE;
+			DecryptBlkKey = (u32)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
@@ -2189,7 +2190,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 			if (Status != XST_SUCCESS) {
 				break;
 			}
-			DecryptBlkKey = (u8)TRUE;
+			DecryptBlkKey = (u32)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
@@ -2207,7 +2208,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_USER_KEY_0;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_USER_RED_KEY_0;
 			KekStat = XLOADER_EFUSE_USR0_RED_KEY;
-			DecryptBlkKey = (u8)TRUE;
+			DecryptBlkKey = (u32)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
@@ -2225,7 +2226,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_USER_KEY_1;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_USER_RED_KEY_1;
 			KekStat = XLOADER_EFUSE_USR1_RED_KEY;
-			DecryptBlkKey = (u8)TRUE;
+			DecryptBlkKey = (u32)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
@@ -2290,7 +2291,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	if (DecryptBlkKey == (u8)TRUE) {
+	if (DecryptBlkKey == (u32)TRUE) {
 		KeyDetails->PufShutterValue = BootHdr->PufShutterVal;
 #ifdef VERSAL_NET
 		KeyDetails->PufRoSwapEn = BootHdr->PufRingOscConfig;

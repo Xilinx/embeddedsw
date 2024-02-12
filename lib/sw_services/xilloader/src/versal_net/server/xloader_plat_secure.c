@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 * 1.9   kpt  07/12/2023 Added mask generation function
 *       dd   08/11/2023 Updated doxygen comments
 *	kpt  07/31/2023 Removed dead code in XLoader_CheckSecureStateAuth
+* 2.1   ng   02/01/2024 u8 variables optimization
 *
 * </pre>
 *
@@ -442,12 +443,12 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	volatile u8 IsSignedImg = XIH_BH_IMG_ATTRB_SIGNED_IMG_VALUE;
-	volatile u8 IsSignedImgTmp = XIH_BH_IMG_ATTRB_SIGNED_IMG_VALUE;
+	volatile u32 IsSignedImg = XIH_BH_IMG_ATTRB_SIGNED_IMG_VALUE;
+	volatile u32 IsSignedImgTmp = XIH_BH_IMG_ATTRB_SIGNED_IMG_VALUE;
 
-	IsSignedImg = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
+	IsSignedImg = ((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
 		XIH_BH_IMG_ATTRB_SIGNED_IMG_MASK) >> XIH_BH_IMG_ATTRB_SIGNED_IMG_SHIFT);
-	IsSignedImgTmp = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
+	IsSignedImgTmp = ((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
 		XIH_BH_IMG_ATTRB_SIGNED_IMG_MASK) >> XIH_BH_IMG_ATTRB_SIGNED_IMG_SHIFT);
 
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroPpk);

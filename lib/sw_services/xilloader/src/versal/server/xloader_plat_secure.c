@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 *       dd	 09/11/2023 MISRA-C violation Rule 12.1 fixed
 * 2.0   kpt  10/09/2023 Fixed compilation warning when PLM_EN_ADD_PPKS macro is enabled
 * 2.1   pre  01/11/2024 Removed unused macro
+*       ng   02/01/2024 u8 variables optimization
 *
 * </pre>
 *
@@ -362,14 +363,14 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	volatile u8 IsBhdrAuth;
-	volatile u8 IsBhdrAuthTmp;
+	volatile u32 IsBhdrAuth;
+	volatile u32 IsBhdrAuthTmp;
 
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroPpk);
-	IsBhdrAuth = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
+	IsBhdrAuth = ((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
 			XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
 			XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
-	IsBhdrAuthTmp = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
+	IsBhdrAuthTmp = ((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
 		XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
 		XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
 	if ((Status == XST_SUCCESS) || (StatusTmp == XST_SUCCESS)) {
