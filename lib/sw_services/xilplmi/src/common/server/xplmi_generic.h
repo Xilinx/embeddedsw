@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,7 @@
 * 1.10  bm   07/06/2023 Refactored Proc logic to more generic logic
 *       bm   07/06/2023 Updated prototypes required for list commands logic
 * 1.11  sk   12/14/2023 Added PSM & PMC max proc list defines
+*       ng   01/28/2024 optimized u8 variables
 *
 * </pre>
 *
@@ -193,7 +194,7 @@ XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType);
 int XPlmi_DmaTransfer(u64 Dest, u64 Src, u32 Len, u32 Flags);
 int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level);
 void XPlmi_ClearEndStack(void);
-int XPlmi_MoveBuffer(u8 BufferIndex, XPlmi_BufferList *BufferList);
+int XPlmi_MoveBuffer(u32 BufferIndex, XPlmi_BufferList *BufferList);
 int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList);
 int XPlmi_SearchBufferList(XPlmi_BufferList *BufferList, u32 BufferId,
 		u64 *BufAddr, u32 *BufLen);

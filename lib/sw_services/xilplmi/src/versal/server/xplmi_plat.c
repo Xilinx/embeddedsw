@@ -38,6 +38,7 @@
 *       ng   09/22/2023 Fixed missing header for microblaze sleep
 * 1.04  sk   12/14/2023 Moved XPlmi_GetBufferList to platform file
 *       mss  01/09/2024 Added PMC RAM check condition in Xplmi_VerifyAddr API
+*       ng   01/28/2024 optimized u8 variables
 *
 * </pre>
 *
@@ -423,25 +424,25 @@ void XPlmi_GetReadbackSrcDest(u32 SlrType, u64 *SrcAddr, u64 *DestAddrRead)
 void XPlmi_GicAddTask(u32 PlmIntrId)
 {
 #ifdef XPLMI_IPI_DEVICE_ID
-	u16 IpiIntrVal;
-	u16 IpiMaskVal;
-	u8 IpiIndex;
-	u16 IpiIndexMask;
+	u32 IpiIntrVal;
+	u32 IpiMaskVal;
+	u32 IpiIndex;
+	u32 IpiIndexMask;
 
 	/* Check if the received interrupt is IPI */
 	if (PlmIntrId == XPLMI_IPI_INTR_ID) {
-		IpiIntrVal = (u16)Xil_In32(IPI_PMC_ISR);
-		IpiMaskVal = (u16)Xil_In32(IPI_PMC_IMR);
+		IpiIntrVal = Xil_In32(IPI_PMC_ISR);
+		IpiMaskVal = Xil_In32(IPI_PMC_IMR);
 		XPlmi_Out32(IPI_PMC_IDR, IpiIntrVal);
 		/*
 		 * Check IPI source channel and add channel specific task to
 		 * task queue according to the channel priority
 		 */
 		for (IpiIndex = 0U; IpiIndex < XPLMI_IPI_MASK_COUNT; ++IpiIndex) {
-			IpiIndexMask = (u16)1U << IpiIndex;
+			IpiIndexMask = (u32)1U << IpiIndex;
 			if (((IpiIntrVal & IpiIndexMask) != 0U) &&
 				((IpiMaskVal & IpiIndexMask) == 0U)) {
-				XPlmi_GicIntrAddTask(XPlmi_GetIpiIntrId((u32)IpiIndex));
+				XPlmi_GicIntrAddTask(XPlmi_GetIpiIntrId(IpiIndex));
 			}
 		}
 	} else

@@ -44,6 +44,7 @@
 *                       previous patch
 * 1.08  ng   11/11/2022 Updated doxygen comments
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
+*       ng   01/28/2024 optimized u8 variables
 *
 * </pre>
 *
@@ -126,9 +127,8 @@ XPlmi_TaskNode* XPlmi_GetTaskInstance(int (*Handler)(void *Arg),
 {
 	XPlmi_TaskNode *Task = NULL;
 	static XPlmi_TaskNode Tasks[XPLMI_TASK_MAX];
-	u8 Index;
 
-	for (Index = 0U; Index < XPLMI_TASK_MAX; Index++) {
+	for (u32 Index = 0U; Index < XPLMI_TASK_MAX; Index++) {
 		Task = &Tasks[Index];
 		if (IntrId != XPLMI_INVALID_INTR_ID) {
 			/* Return task whose interrupt id is matching */

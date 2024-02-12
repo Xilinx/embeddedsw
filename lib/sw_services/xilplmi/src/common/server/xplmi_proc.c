@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,7 @@
 * 1.10  bm   04/28/2023 Use XPlmi_GetRomIroFreq API to get IRO frequency used
 *                       during ROM
 *       ng   06/21/2023 Added support for system device-tree flow
+*       ng   01/28/2024 optimized u8 variables
 *
 * </pre>
 *
@@ -85,7 +86,7 @@
  */
 
 /************************** Function Prototypes ******************************/
-static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue);
+static void XPlmi_InitPitTimer(u32 Timer, u32 ResetValue);
 static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq,
 		XPlmi_PerfTime *PerfTime);
 
@@ -128,14 +129,14 @@ XIOModule *XPlmi_GetIOModuleInst(void)
 * 			- None
 *
 *****************************************************************************/
-static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue)
+static void XPlmi_InitPitTimer(u32 Timer, u32 ResetValue)
 {
 	/*
 	 * When used in PIT1 prescalar to PIT2, PIT2 has least 32bits
 	 * So, PIT2 is reloaded to get 64bit timer value.
 	 */
 	if ((XPLMI_PIT2 == Timer) || (XPLMI_PIT3 == Timer)) {
-		XIOModule_Timer_SetOptions(&IOModule, Timer,
+		XIOModule_Timer_SetOptions(&IOModule, (u8)Timer,
 				XTC_AUTO_RELOAD_OPTION);
 	}
 
@@ -145,13 +146,13 @@ static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue)
 	 * reset value is loaded into the Programmable Interval Timers when
 	 * they are started.
 	 */
-	XIOModule_SetResetValue(&IOModule, Timer, ResetValue);
+	XIOModule_SetResetValue(&IOModule, (u8)Timer, ResetValue);
 
 	/*
 	 * Start the Programmable Interval Timers and they are
 	 * decrementing by default
 	 */
-	XIOModule_Timer_Start(&IOModule, Timer);
+	XIOModule_Timer_Start(&IOModule, (u8)Timer);
 }
 
 /*****************************************************************************/
@@ -340,9 +341,9 @@ int XPlmi_StartTimer(void)
 	 */
 	XPlmi_Out32(IOModule.BaseAddress + (u32)XGO_OUT_OFFSET,
 		MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
-	XPlmi_InitPitTimer((u8)XPLMI_PIT2, Pit2ResetValue);
-	XPlmi_InitPitTimer((u8)XPLMI_PIT1, Pit1ResetValue);
-	XPlmi_InitPitTimer((u8)XPLMI_PIT3, Pit3ResetValue);
+	XPlmi_InitPitTimer(XPLMI_PIT2, Pit2ResetValue);
+	XPlmi_InitPitTimer(XPLMI_PIT1, Pit1ResetValue);
+	XPlmi_InitPitTimer(XPLMI_PIT3, Pit3ResetValue);
 
 END:
 	return Status;
