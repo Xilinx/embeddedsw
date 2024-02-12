@@ -1,10 +1,11 @@
 /******************************************************************************
-* Copyright (c) 2013 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2013 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 #include "fs-boot.h"
-#ifdef CONFIG_PRIMARY_FLASH_SPI
+#ifdef XPAR_AXI_QUAD_SPI_0_DEVICE_ID
 #include "spi-flash.h"
 #include "fs-xspi.h"
 

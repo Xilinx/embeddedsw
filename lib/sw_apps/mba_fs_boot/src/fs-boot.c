@@ -25,7 +25,7 @@
 *******************************************************************************/
 #include <xenv_standalone.h>
 #include "fs-boot.h"
-#ifdef CONFIG_PRIMARY_FLASH_SPI
+#ifdef XPAR_AXI_QUAD_SPI_0_DEVICE_ID
 #include "fs-xspi.h"
 #endif
 
@@ -191,7 +191,7 @@ void put_ch (unsigned char data)
 #endif
 
 #ifndef CONFIG_NO_FLASH
-#ifndef CONFIG_PRIMARY_FLASH_SPI
+#ifndef XPAR_AXI_QUAD_SPI_0_DEVICE_ID
 /*!
  * This routine send a command to the CUI
  * to put the FLASH into Read Array mode.
@@ -427,7 +427,7 @@ int main()
 	if (!failed_reason) /* failed_reason = 0 means NO reason to fail */
 		fsprint("FS-BOOT: Booting from FLASH.\r\n");
 	else
-		fsprint("FS-BOOT: No existing image in FLASH.\r\n");
+		fsprint("FS-BOOT: No existing image in FLASH. \r\n");
 #else
 	fsprint("FS-BOOT: FLASH is not configured.\r\n");
 	failed_reason = REASON_BAD_ADDRESS;

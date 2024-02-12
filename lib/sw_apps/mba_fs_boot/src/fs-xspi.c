@@ -1,11 +1,11 @@
 /******************************************************************************
 * Copyright 2013 - 2022 Xilinx, Inc. All Rights Reserved.
-* Copyright 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 #include "fs-boot.h"
-#if defined(XPAR_AXI_QUAD_SPI_0_COMPATIBLE) || defined(XPAR_XSPI_0_COMPATIBLE)
+#if defined(XPAR_XSPI_NUM_INSTANCES)
 #include "fs-xspi.h"
 #include "xio.h"
 
@@ -110,7 +110,7 @@ int xspi_xfer(unsigned char *cmd, int cmdlen, unsigned char *rx, int endflag)
 		sr = XIo_In32(XSP_BASEADDR + XSP_SR_OFFSET);
 		i = 0;
 		while((sr & XSP_SR_TX_FULL_MASK) == 0 && xfer.mtxlen < cmdlen &&
-		       i < XSP_SPI_FIFO_DEPTH) {
+		       i < XPAR_SPI_0_FIFO_DEPTH) {
 			if (cmd != 0) {
 				xspi_tx(&xfer);
 			} else {
