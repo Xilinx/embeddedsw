@@ -38,13 +38,16 @@ extern "C" {
 /   2: f_opendir(), f_readdir() and f_closedir() are removed in addition to 1.
 /   3: f_lseek() function is removed in addition to 2. */
 
-
+#ifdef FILE_SYSTEM_USE_STRFUNC
 #if FILE_SYSTEM_USE_STRFUNC == 0
 #define	FF_USE_STRFUNC	0	/* 0:Disable */
 #elif FILE_SYSTEM_USE_STRFUNC == 1
 #define	FF_USE_STRFUNC	1	/* 1:Enable */
 #elif FILE_SYSTEM_USE_STRFUNC == 2
 #define	FF_USE_STRFUNC	2	/* 2:Enable */
+#endif
+#else
+#define	FF_USE_STRFUNC	0	/* 0:Disable */
 #endif
 /* This option switches string functions, f_gets(), f_putc(), f_puts() and f_printf().
 /
@@ -190,13 +193,16 @@ extern "C" {
 /  the file names to read. The maximum possible length of the read file name depends
 /  on character encoding. When LFN is not enabled, these options have no effect. */
 
-
+#ifdef FILE_SYSTEM_SET_FS_RPATH
 #if FILE_SYSTEM_SET_FS_RPATH == 0
 #define FF_FS_RPATH		0U
 #elif FILE_SYSTEM_SET_FS_RPATH == 1
 #define FF_FS_RPATH		1U
 #elif FILE_SYSTEM_SET_FS_RPATH == 2
 #define FF_FS_RPATH		2U
+#endif
+#else
+#define FF_FS_RPATH		0U
 #endif
 /* This option configures support for relative path.
 /
