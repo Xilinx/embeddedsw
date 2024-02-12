@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright 2013 - 2022 Xilinx, Inc. All Rights Reserved.
-* Copyright 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -74,10 +74,8 @@ void __fs_bad_image(unsigned int reason) __attribute__((weak));
 //#define DEBUG
 
 /* enable SREC functionality for system without flash */
-#ifndef CONFIG_XILINX_FLASH_START /* without parallel flash */
-#ifndef CONFIG_PRIMARY_FLASH_SPI /* without SPI flash */
+#ifndef XPAR_XSPI_NUM_INSTANCES /* without SPI flash */
 #define CONFIG_NO_FLASH
-#endif
 #endif
 
 /* Memory access type */
@@ -85,13 +83,7 @@ void __fs_bad_image(unsigned int reason) __attribute__((weak));
 #define REG32_READ(addr,offset)       (*(mtype *)(addr + offset))
 #define REG32_WRITE(addr,data)        (*(mtype *)(addr) = data)
 
-#ifndef CONFIG_NO_FLASH
-/*! FLASH size */
-#define FLASH_SIZE      CONFIG_XILINX_FLASH_SIZE
-#endif
 
-/*! SDRAM size */
-#define RAM_SIZE        CONFIG_XILINX_ERAM_SIZE
 
 /*! @defgroup mmap1 Memory Map Addressing Definitions
  * MEMORY MAP PERIPHERAL ADDRESS DEFINITIONS
@@ -101,25 +93,33 @@ void __fs_bad_image(unsigned int reason) __attribute__((weak));
 /*! DDR Base address*/
 #ifndef SDT
 #define DDR_BASEADDR XPAR_MICROBLAZE_ICACHE_BASEADDR
+#define DDR_HIGHADDR XPAR_MICROBLAZE_ICACHE_HIGHADDR
 #else
 #ifdef XPAR_MIG_0_BASEADDRESS
 #define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
+#define DDR_HIGHADDR XPAR_MIG_0_HIGHADDRESS
 #elif XPAR_DDR4_0_BASEADDRESS
 #define DDR_BASEADDR XPAR_DDR4_0_BASEADDRESS
+#define DDR_HIGHADDR XPAR_DDR4_0_HIGHADDRESS
 #endif
 #endif //SDT endif
+
 #ifndef CONFIG_NO_FLASH
 /*! Start address of FLASH device */
-#define FLASH_BASE      CONFIG_XILINX_FLASH_START
+#define FLASH_BASE      XPAR_SPI_0_BASEADDR
 /*! End address of FLASH device */
-#define FLASH_END       (FLASH_BASE + FLASH_SIZE)
+#define FLASH_END       XPAR_SPI_0_HIGHADDR
+/*! FLASH size */
+#define FLASH_SIZE      (XPAR_SPI_0_HIGHADDR - XPAR_SPI_0_BASEADDR)
 #endif
 
 /*! Start address of SDRAM device */
-#define RAM_START       CONFIG_XILINX_ERAM_START
+#define RAM_START       DDR_BASEADDR
 /*! End address of SDRAM device */
-#define RAM_END         (RAM_START + RAM_SIZE - 1)
+#define RAM_END         DDR_HIGHADDR
 
+/*! SDRAM size */
+#define RAM_SIZE        (DDR_HIGHADDR - DDR_BASEADDR)
 /*! @} */
 
 /* -FIXME
@@ -135,7 +135,7 @@ void __fs_bad_image(unsigned int reason) __attribute__((weak));
 
 /*! Start address in FLASH of the 2nd Stage bootloader */
 #ifndef CONFIG_NO_FLASH
-#ifdef CONFIG_PRIMARY_FLASH_SPI
+#ifdef XPAR_AXI_QUAD_SPI_0_DEVICE_ID
 #define CONFIG_FS_BOOT_START	CONFIG_FS_BOOT_OFFSET
 #else
 #define CONFIG_FS_BOOT_START	FLASH_BASE + CONFIG_FS_BOOT_OFFSET
