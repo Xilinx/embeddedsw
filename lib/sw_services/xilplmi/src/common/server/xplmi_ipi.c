@@ -78,6 +78,7 @@
  * 1.08  bm   06/23/2023 Added IPI access permissions validation
  * 2.0   ng   11/11/2023 Implemented user modules
  * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
+ *       ng   01/28/2024 optimized u8 variables
  *
  * </pre>
  *
@@ -282,9 +283,9 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
-	u8 MaskIndex;
+	u32 MaskIndex;
 	XPlmi_Cmd Cmd = {0U};
-	u8 PendingPsmIpi = (u8)FALSE;
+	u32 PendingPsmIpi = (u32)FALSE;
 
 	for (MaskIndex = 0U; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
 		if (IpiInst.Config.TargetList[MaskIndex].BufferIndex == (u32)Data) {
@@ -301,7 +302,7 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 		Cmd.IpiReqType = XPLMI_CMD_NON_SECURE;
 		Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
 		if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
-			PendingPsmIpi = (u8)TRUE;
+			PendingPsmIpi = (u32)TRUE;
 		}
 
 		/**
@@ -353,7 +354,7 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 
 		/* Ack PSM IPIs before running handlers */
 		if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
-			PendingPsmIpi = (u8)FALSE;
+			PendingPsmIpi = (u32)FALSE;
 			XPlmi_Out32(IPI_PMC_ISR,
 				IPI_PMC_ISR_PSM_BIT_MASK);
 		}
@@ -380,7 +381,7 @@ END:
 			 */
 			if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
 				if ((IPI_PMC_ISR_PSM_BIT_MASK != Cmd.IpiMask) ||
-				    (PendingPsmIpi == (u8)TRUE)) {
+				    (PendingPsmIpi == (u32)TRUE)) {
 					XPlmi_Out32(IPI_PMC_ISR, Cmd.IpiMask);
 				}
 				XPlmi_Out32(IPI_PMC_IER, Cmd.IpiMask);

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +57,7 @@
 *       sk   07/26/2023 Added redundant check for XPlmi_IsPlmUpdateDone
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 * 1.09  ma   10/10/2023 Enable Slave Error for PSM_GLOBAL
+*       ng   01/28/2024 optimized u8 variables
 *
 * </pre>
 *
@@ -232,11 +233,11 @@ END:
 void XPlmi_PrintPlmBanner(void)
 {
 	u32 Version;
-	u8 PsVersion;
-	u8 PmcVersion;
+	u32 PsVersion;
+	u32 PmcVersion;
 	u32 BootMode;
 	u32 MultiBoot;
-	u8 PmcVersionDecimal;
+	u32 PmcVersionDecimal;
 
 	/* Print the PLM Banner */
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
@@ -250,15 +251,15 @@ void XPlmi_PrintPlmBanner(void)
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
 		/* Read the Version */
 		Version = XPlmi_In32(PMC_TAP_VERSION);
-		PsVersion = (u8)((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
+		PsVersion = ((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
 				PMC_TAP_VERSION_PS_VERSION_SHIFT);
-		PmcVersion = (u8)((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
+		PmcVersion = ((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
 				PMC_TAP_VERSION_PMC_VERSION_SHIFT);
 		BootMode = XPlmi_In32(CRP_BOOT_MODE_USER) &
 				CRP_BOOT_MODE_USER_BOOT_MODE_MASK;
 		MultiBoot = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
-		PmcVersionDecimal = (u8)(PmcVersion & XPLMI_PMC_VERSION_MASK);
-		PmcVersion = (u8)(PmcVersion >> XPLMI_PMC_VERSION_SHIFT);
+		PmcVersionDecimal = (PmcVersion & XPLMI_PMC_VERSION_MASK);
+		PmcVersion = (PmcVersion >> XPLMI_PMC_VERSION_SHIFT);
 
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Platform Version: v%u.%u "
 			"PMC: v%u.%u, PS: v%u.%u\n\r", PmcVersion, PmcVersionDecimal,

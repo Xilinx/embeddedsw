@@ -49,6 +49,7 @@
 * 1.08  nb   06/28/2023 Move XPLMI_SCHED_TICK to header
 *       dd   09/12/2023 MISRA-C violation Rule 13.4 fixed
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
+*       ng   01/28/2024 optimized u8 variables
 *
 * </pre>
 *
@@ -156,7 +157,7 @@ static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr,
 ****************************************************************************/
 void XPlmi_SchedulerInit(void)
 {
-	u8 Idx;
+	u32 Idx;
 
 	/* Disable all the tasks */
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
@@ -183,7 +184,7 @@ void XPlmi_SchedulerInit(void)
 ****************************************************************************/
 void XPlmi_SchedulerHandler(void *Data)
 {
-	u8 Idx;
+	u32 Idx;
 	(void)Data;
 	XPlmi_TaskNode *Task = NULL;
 
@@ -266,7 +267,7 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 {
 	int Status = XST_FAILURE;
 	XPlmi_PerfTime ExtraTime;
-	u8 Idx;
+	u32 Idx;
 	u32 TriggerTime = 0U;
 	XPlmi_TaskNode *Task = NULL;
 	u8 TaskNodePresent = (u8)FALSE;
@@ -362,7 +363,7 @@ int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 		u32 MilliSeconds, const void *Data)
 {
 	int Status = XST_FAILURE;
-	u8 Idx;
+	u32 Idx;
 	u32 TaskCount = 0U;
 
 	/* Find the Task Index */

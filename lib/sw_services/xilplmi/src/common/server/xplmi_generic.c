@@ -109,7 +109,8 @@
 *       sk   12/14/2023 Moved XPlmi_GetBufferList to platform files
 *       pre  01/10/2024 XPlmi_LogString, XPlmi_Begin logic enhancement
 *       pre  01/22/2024 Addition of new line after string printing
-                        in XPlmi_LogString, XPlmi_Begin functions
+*                       in XPlmi_LogString, XPlmi_Begin functions
+*       ng   01/28/2024 optimized u8 variables
 *
 * </pre>
 *
@@ -889,28 +890,26 @@ static int XPlmi_DmaUnalignedXfer(u64* SrcAddr, u64* DestAddr, u32* Len,
 {
 	int Status = XST_FAILURE;
 	u32 RegVal;
-	u8 Offset;
-	u8 Count;
+	u32 Offset;
+	u32 Count;
 
 	if (Flag == XPLMI_SRC_ALIGN_REQ) {
-		Offset = (u8)(XPLMI_WORD_LEN -
-			(((*SrcAddr) & XPLMI_SIXTEEN_BYTE_MASK) / XPLMI_WORD_LEN));
+		Offset = (u32)(XPLMI_WORD_LEN - (((*SrcAddr) & XPLMI_SIXTEEN_BYTE_MASK) / XPLMI_WORD_LEN));
 		Count = Offset % XPLMI_WORD_LEN;
 	}
 	else if (Flag == XPLMI_DEST_ALIGN_REQ) {
-		Offset = (u8)(XPLMI_WORD_LEN -
-			(((*DestAddr) & XPLMI_SIXTEEN_BYTE_MASK) / XPLMI_WORD_LEN));
+		Offset = (u32)(XPLMI_WORD_LEN - (((*DestAddr) & XPLMI_SIXTEEN_BYTE_MASK) / XPLMI_WORD_LEN));
 		Count = Offset % XPLMI_WORD_LEN;
 	}
 	else if (Flag == XPLMI_LEN_ALIGN_REQ) {
-		Count = (u8)((*Len) % XPLMI_WORD_LEN);
+		Count = ((*Len) % XPLMI_WORD_LEN);
 	}
 	else {
 		goto END;
 	}
 
 	if (Count > *Len) {
-		Count = (u8)*Len;
+		Count = (u32)*Len;
 	}
 	*Len -= Count;
 	while (Count > 0U) {
@@ -1599,13 +1598,13 @@ static int XPlmi_Marker(XPlmi_Cmd *Cmd)
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_MoveBuffer(u8 BufferIndex, XPlmi_BufferList *BufferList)
+int XPlmi_MoveBuffer(u32 BufferIndex, XPlmi_BufferList *BufferList)
 {
 	int Status = XST_FAILURE;
 	u64 DestAddr;
 	u64 SrcAddr;
 	u32 Len;
-	u8 Index = BufferIndex;
+	u32 Index = BufferIndex;
 	u32 DeletedBufferLen;
 
 	/**
@@ -1613,7 +1612,7 @@ int XPlmi_MoveBuffer(u8 BufferIndex, XPlmi_BufferList *BufferList)
 	 * same ID, it can directly be overwritten.
 	 */
 	if ((BufferList->BufferCount == 1U) ||
-		(Index == (BufferList->BufferCount - 1U))) {
+		(Index == (u32)(BufferList->BufferCount - 1U))) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
@@ -1882,7 +1881,7 @@ END:
 int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList)
 {
 	int Status = XST_FAILURE;
-	u8 Index = 0U;
+	u32 Index = 0U;
 	u32 SrcAddr;
 	u32 LenDiff = 0U;
 	u32 CmdLenInBytes = (Cmd->Len - 1U) * XPLMI_WORD_LEN;

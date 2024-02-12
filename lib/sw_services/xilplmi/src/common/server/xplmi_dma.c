@@ -49,6 +49,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.09  ng   07/06/2023 Added support for SDT flow
 *       am   08/23/2023 Fixed doxygen comment for XPlmi_DmaXfr Len in words
+*       ng   01/28/2024 optimized u8 variables
 *
 * </pre>
 *
@@ -993,7 +994,7 @@ int XPlmi_MemSetBytes(void *const DestPtr, u32 DestLen, u8 Val, u32 Len)
 {
 	int Status = XST_FAILURE;
 	u64 DestAddr = (u64)(UINTPTR)DestPtr;
-	u8 StartBytes;
+	u32 StartBytes;
 	u32 WordVal = ((u32)Val) | ((u32)Val << 8U) |
 			((u32)Val << 16U) | ((u32)Val << 24U);
 
@@ -1004,10 +1005,10 @@ int XPlmi_MemSetBytes(void *const DestPtr, u32 DestLen, u8 Val, u32 Len)
 		goto END;
 	}
 
-	StartBytes = (XPLMI_WORD_LEN - (u8)(DestAddr & XPLMI_WORD_LEN_MASK)) &
+	StartBytes = (XPLMI_WORD_LEN - (u32)(DestAddr & XPLMI_WORD_LEN_MASK)) &
 		XPLMI_WORD_LEN_MASK;
 	if (StartBytes > Len) {
-			StartBytes = (u8)Len;
+			StartBytes = Len;
 			goto END1;
 	}
 	while (StartBytes > 0U) {
@@ -1016,7 +1017,7 @@ int XPlmi_MemSetBytes(void *const DestPtr, u32 DestLen, u8 Val, u32 Len)
 		--StartBytes;
 	}
 	Len = Len - StartBytes;
-	StartBytes = (u8)(Len & XPLMI_WORD_LEN_MASK);
+	StartBytes = (Len & XPLMI_WORD_LEN_MASK);
 	Len = Len - StartBytes;
 
 	Status = XPlmi_MemSet(DestAddr, WordVal, (Len >> XPLMI_WORD_LEN_SHIFT));
