@@ -418,9 +418,9 @@ void XPlmi_ClearKatMask(u32 PlmKatMask)
  *			FALSE If crypto kat bit is not set
  *
  *****************************************************************************/
-u8 XPlmi_IsCryptoKatEn(void)
+u32 XPlmi_IsCryptoKatEn(void)
 {
-	u8 CryptoKatEn = (u8)((XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
+	u32 CryptoKatEn = ((XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
 						XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_MASK) >>
 						XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_SHIFT);
 

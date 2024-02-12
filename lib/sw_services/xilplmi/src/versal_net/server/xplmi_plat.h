@@ -532,7 +532,7 @@ void XPlmi_PrintRomVersion(void);
 u32 XPlmi_GetGicIntrId(u32 GicPVal, u32 GicPxVal);
 u32 XPlmi_GetIpiIntrId(u32 BufferIndex);
 u32 *XPlmi_GetUartBaseAddr(void);
-u8 XPlmi_IsFipsModeEn(void);
+u32 XPlmi_IsFipsModeEn(void);
 u32 XPlmi_GetRomKatStatus(void);
 void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus);
 void XPlmi_IpiIntrHandler(void *CallbackRef);

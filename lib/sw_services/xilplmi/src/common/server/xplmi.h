@@ -61,6 +61,7 @@
 * 1.09  skd  02/10/2023 SDK release version updated
 * 1.10  ma   09/27/2023 Add XPLMI_RTCFG_TAMPER_RESP_SLD_0_MASK macro
 * 1.11  dd   10/18/2023 Updated SDK release year and SDK release quarter
+*       ng   02/12/2024 optimised u8 vars to u32 for size reduction
 * </pre>
 *
 * @note
@@ -253,7 +254,7 @@ void XPlmi_UpdateKatStatus(u32 PlmKatStatus);
 u32 XPlmi_GetKatStatus(void);
 void XPlmi_SetKatMask(u32 PlmKatMask);
 void XPlmi_ClearKatMask(u32 PlmKatMask);
-u8 XPlmi_IsCryptoKatEn(void);
+u32 XPlmi_IsCryptoKatEn(void);
 
 /************************** Variable Definitions *****************************/
 

@@ -720,13 +720,13 @@ void XPlmi_DisableCFrameIso(void)
  *****************************************************************************/
 void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)
 {
-	volatile u8 CryptoKatEn = TRUE;
-	volatile u8 CryptoKatEnTmp = TRUE;
+	volatile u32 CryptoKatEn = (u32)TRUE;
+	volatile u32 CryptoKatEnTmp = (u32)TRUE;
 
 	*PlmKatStatus = 0U;
 	CryptoKatEn = XPlmi_IsCryptoKatEn();
 	CryptoKatEnTmp = XPlmi_IsCryptoKatEn();
-	if((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
+	if((CryptoKatEn == (u32)TRUE) || (CryptoKatEnTmp == (u32)TRUE)) {
 		*PlmKatStatus = XPlmi_GetKatStatus();
 	} else {
 		*PlmKatStatus = XPLMI_KAT_MASK;

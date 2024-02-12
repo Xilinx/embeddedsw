@@ -44,6 +44,8 @@
 *       mss  01/09/2024 Added PMC RAM check condition in Xplmi_VerifyAddr API
 *       pre  01/22/2024 Updated XPlmi_SetPmcIroFreq to support both ES1 and
 *                       production samples
+*       ng   02/12/2024 optimised u8 vars to u32 for size reduction
+*
 * </pre>
 *
 * @note
@@ -985,11 +987,11 @@ END:
  *			FALSE If FIPS mode is disabled
  *
  *****************************************************************************/
-u8 XPlmi_IsFipsModeEn(void)
+u32 XPlmi_IsFipsModeEn(void)
 {
-	u8 FipsModeEn = TRUE;
+	u32 FipsModeEn = TRUE;
 
-	FipsModeEn = (u8)((XPlmi_In32(EFUSE_CACHE_DME_FIPS_CTRL) & EFUSE_CACHE_DME_FIPS_MODE_MASK) >>
+	FipsModeEn = ((XPlmi_In32(EFUSE_CACHE_DME_FIPS_CTRL) & EFUSE_CACHE_DME_FIPS_MODE_MASK) >>
 					XPLMI_EFUSE_FIPS_MODE_SHIFT);
 
 	return FipsModeEn;
@@ -1018,18 +1020,18 @@ u32 XPlmi_GetRomKatStatus(void)
  *****************************************************************************/
 void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)
 {
-	volatile u8 CryptoKatEn = TRUE;
-	volatile u8 CryptoKatEnTmp = TRUE;
-	volatile u8 FipsModeEn = TRUE;
-	volatile u8 FipsModeEnTmp = TRUE;
+	volatile u32 CryptoKatEn = (u32)TRUE;
+	volatile u32 CryptoKatEnTmp = (u32)TRUE;
+	volatile u32 FipsModeEn = (u32)TRUE;
+	volatile u32 FipsModeEnTmp = (u32)TRUE;
 
 	CryptoKatEn = XPlmi_IsCryptoKatEn();
 	CryptoKatEnTmp = XPlmi_IsCryptoKatEn();
-	if((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
+	if((CryptoKatEn == (u32)TRUE) || (CryptoKatEnTmp == (u32)TRUE)) {
 		*PlmKatStatus = XPlmi_GetKatStatus();
 		FipsModeEn = XPlmi_IsFipsModeEn();
 		FipsModeEnTmp = XPlmi_IsFipsModeEn();
-		if ((FipsModeEn != TRUE) && (FipsModeEnTmp != TRUE)) {
+		if ((FipsModeEn != (u32)TRUE) && (FipsModeEnTmp != (u32)TRUE)) {
 			*PlmKatStatus |= XPlmi_GetRomKatStatus();
 			XPlmi_UpdateKatStatus(*PlmKatStatus);
 		}
@@ -1125,10 +1127,10 @@ static int XPlmi_UpdateFipsState(void)
 int XPlmi_CheckAndUpdateFipsState(void)
 {
 	int Status = XST_FAILURE;
-	u8 FipsModeEn = XPlmi_IsFipsModeEn();
-	u8 FipsModeEnTmp = XPlmi_IsFipsModeEn();
+	u32 FipsModeEn = XPlmi_IsFipsModeEn();
+	u32 FipsModeEnTmp = XPlmi_IsFipsModeEn();
 
-	if ((FipsModeEn == TRUE) || (FipsModeEnTmp == TRUE)) {
+	if ((FipsModeEn == (u32)TRUE) || (FipsModeEnTmp == (u32)TRUE)) {
 		Status = XPlmi_UpdateFipsState();
 	}
 	else {
@@ -1178,11 +1180,11 @@ u32 XPlmi_GetCryptoStatus(u32 Mask)
  *****************************************************************************/
 u8 XPlmi_IsKatRan(u32 PlmKatMask)
 {
-	volatile u8 CryptoKatEn = XPlmi_IsCryptoKatEn();
-	volatile u8 CryptoKatEnTmp = XPlmi_IsCryptoKatEn();
+	volatile u32 CryptoKatEn = XPlmi_IsCryptoKatEn();
+	volatile u32 CryptoKatEnTmp = XPlmi_IsCryptoKatEn();
 	u8 IsKatRan = FALSE;
 
-	if ((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
+	if ((CryptoKatEn == (u32)TRUE) || (CryptoKatEnTmp == (u32)TRUE)) {
 		IsKatRan = (((XPlmi_In32(XPLMI_RTCFG_PLM_KAT_ADDR) & PlmKatMask) != 0U)?
 					(u8)TRUE: (u8)FALSE);
 	}
