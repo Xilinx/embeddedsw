@@ -126,6 +126,7 @@
 *       yog  08/17/23 Added a check to return error when secure is excluded
 *                     and trying to do secure boot
 * 2.1   kpt  12/13/23 Reset PMC TRNG when exception occurs
+*       ng   01/28/24 u8 variables optimization
 *
 * </pre>
 *
@@ -708,7 +709,7 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 			u8 Last, u32 BlockSize, u32 TotalSize)
 {
 	int Status = XST_FAILURE;
-	u8 Flags = XPLMI_DEVICE_COPY_STATE_BLK;
+	u32 Flags = XPLMI_DEVICE_COPY_STATE_BLK;
 
 	if (SecurePtr->IsNextChunkCopyStarted == (u8)TRUE) {
 		SecurePtr->IsNextChunkCopyStarted = (u8)FALSE;
@@ -720,7 +721,7 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 	 *   be completed.
 	 */
 	Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(SrcAddr,
-		SecurePtr->ChunkAddr, TotalSize, (u32)(Flags | SecurePtr->DmaFlags));
+		SecurePtr->ChunkAddr, TotalSize, (Flags | SecurePtr->DmaFlags));
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_DATA_COPY_FAIL, Status);

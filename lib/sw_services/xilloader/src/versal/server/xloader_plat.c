@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,11 +32,10 @@
 *       rama 08/10/2023 Changed DDRMC register dump prints to DEBUG_ALWAYS for
 *                       debug level_0 option
 *       dd   09/11/2023 MISRA-C violation Directive 4.5 fixed
-*       dd	 09/11/2023 MISRA-C violation Rule 10.3 fixed
+*       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
+*       ng   01/28/2024 u8 variables optimization
 *
 * </pre>
-*
-* @note
 *
 ******************************************************************************/
 
@@ -85,7 +84,7 @@
 
 /************************** Function Prototypes ******************************/
 static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
-static int XLoader_RequestTCM(u8 TcmId);
+static int XLoader_RequestTCM(u32 TcmId);
 static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu);
 static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
 static int XLoader_DumpDdrmcRegisters(void);
@@ -775,7 +774,7 @@ END:
  * 			failed.
  *
  *****************************************************************************/
-static int XLoader_RequestTCM(u8 TcmId)
+static int XLoader_RequestTCM(u32 TcmId)
 {
 	int Status = XST_FAILURE;
 	u32 CapAccess = (u32)PM_CAP_ACCESS;

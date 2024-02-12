@@ -83,6 +83,7 @@
 *                       GetImageInfoList and LoadReadbackPdi commands
 *       ng   12/27/2023 Reduced log level for less frequent prints
 *       dd   01/09/2023 Removed IPI full access for I2C handshake
+*       ng   01/28/2024 u8 variables optimization
 *
 * </pre>
 *
@@ -560,10 +561,10 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 	u32 ImageLocation;
 	u32 MultiBootVal = XLOADER_DEFAULT_MULTIBOOT_VAL;
 	u32 RawBootVal = XLOADER_DEFAULT_RAWBOOT_VAL;
-	u8 FlashType;
+	u32 FlashType;
 	PdiSrc_t PdiSrc;
 
-	FlashType = (u8)(Cmd->Payload[XLOADER_CMD_MULTIBOOT_BOOTMODE_INDEX] &
+	FlashType = (Cmd->Payload[XLOADER_CMD_MULTIBOOT_BOOTMODE_INDEX] &
 				XLOADER_CMD_MULTIBOOT_FLASHTYPE_MASK);
 	PdiSrc = (PdiSrc_t)((Cmd->Payload[XLOADER_CMD_MULTIBOOT_BOOTMODE_INDEX] &
 			XLOADER_CMD_MULTIBOOT_PDISRC_MASK) >>
@@ -720,7 +721,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 			XPlmi_Printf(DEBUG_DETAILED, "Img Store add PdiId: 0x%x\n\r",PdiId);
 			BufferList.Data = (XPlmi_BufferData*)&PdiList->ImgList[0];
 			/* Re-Purpose MoveBuffer func to handle memory re-organisation */
-			Status = XPlmi_MoveBuffer((u8)Index,&BufferList);
+			Status = XPlmi_MoveBuffer(Index,&BufferList);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -825,7 +826,7 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 				XPlmi_Printf(DEBUG_DETAILED, "Img Store PdiId : 0x%x\n\r",PdiId);
 				BufferList.Data = (XPlmi_BufferData*)&PdiList->ImgList[0];
 				/* Re-Purpose MoveBuffer func to handle memory re-organisation */
-				Status = XPlmi_MoveBuffer((u8)Index,&BufferList);
+				Status = XPlmi_MoveBuffer(Index,&BufferList);
 				if (Status != XST_SUCCESS) {
 					goto END;
 				}
@@ -890,7 +891,7 @@ static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 PdiId = (u32)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDI_ID_INDEX];
-	u8 Index;
+	u32 Index;
 	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
 	XPlmi_BufferList BufferList;
 
