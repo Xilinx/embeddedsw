@@ -36,6 +36,10 @@
 #include "mb_interface.h"
 #endif
 
+#ifdef __riscv
+#include "riscv_interface.h"
+#endif
+
 #include "arch/cc.h"
 #include "lwip/sys.h"
 

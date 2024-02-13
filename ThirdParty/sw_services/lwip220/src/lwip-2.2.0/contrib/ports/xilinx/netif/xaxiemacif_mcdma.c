@@ -334,7 +334,7 @@ static void setup_rx_bds(XMcdma_ChanCtrl *Rx_Chan, u32_t n_bds)
 #endif
 	}
 
-#if !defined (__MICROBLAZE__)
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 		dsb();
 #endif
 

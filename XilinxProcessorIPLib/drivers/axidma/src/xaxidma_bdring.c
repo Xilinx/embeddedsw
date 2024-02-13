@@ -1082,7 +1082,10 @@ int XAxiDma_BdRingToHw(XAxiDma_BdRing *RingPtr, int NumBd,
 
 	/* Flush the last BD so DMA core could see the updates */
 	XAXIDMA_CACHE_FLUSH(CurBdPtr);
-	DATA_SYNC;
+
+        #if !defined (__riscv)
+	    DATA_SYNC;
+        #endif
 
 	/* This set has completed pre-processing, adjust ring pointers and
 	 * counters

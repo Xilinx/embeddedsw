@@ -505,6 +505,10 @@ u32_t sys_now(void);
 #if defined (__arm__) || defined (__aarch64__)
 #define SYS_ARCH_PROTECT(lev) lev = sys_arch_protect()
 #endif
+
+#ifdef __riscv
+#define SYS_ARCH_PROTECT(lev) riscv_disable_interrupts()
+#endif
 /**
  * @ingroup sys_prot
  * SYS_ARCH_UNPROTECT
@@ -522,6 +526,11 @@ u32_t sys_now(void);
 #if defined (__arm__) || defined (__aarch64__)
 #define SYS_ARCH_UNPROTECT(lev) sys_arch_unprotect(lev)
 #endif
+
+#ifdef __riscv
+#define SYS_ARCH_UNPROTECT(lev) riscv_enable_interrupts()
+#endif
+
 sys_prot_t sys_arch_protect(void);
 void sys_arch_unprotect(sys_prot_t pval);
 

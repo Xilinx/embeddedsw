@@ -83,6 +83,10 @@
 #include "mb_interface.h"
 #endif
 
+#ifdef __riscv
+#include "riscv_interface.h"
+#endif
+
 #include <string.h>
 
 #ifdef LWIP_HOOK_FILENAME

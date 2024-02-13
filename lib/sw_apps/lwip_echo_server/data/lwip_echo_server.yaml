@@ -16,6 +16,7 @@ supported_processors:
   - psv_cortexr5
   - ps7_cortexa9
   - microblaze
+  - microblaze_riscv
 supported_os: [standalone]
 properties:
   reg:
