@@ -548,6 +548,9 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		XPlmi_Printf(DEBUG_INFO, "Meta Header Offset: 0x%x\n\r",
 			PdiPtr->MetaHdr.MetaHdrOfst);
 	}
+	else if (PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU){
+		PdiPtr->MetaHdr.FlashOfstAddr = PdiAddr;
+	}
 	else {
 		PdiPtr->ImageNum = 0U;
 		PdiPtr->PrtnNum = 0U;

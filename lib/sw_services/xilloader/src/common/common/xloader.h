@@ -163,6 +163,7 @@ extern "C" {
 #define XLOADER_PDI_TYPE_RESTORE	(0x3U)
 #define XLOADER_PDI_TYPE_FULL_METAHEADER 	(0x4U)
 #define XLOADER_PDI_TYPE_PARTIAL_METAHEADER 	(0x5U)
+#define XLOADER_PDI_TYPE_IPU	(0x6U)
 
 /*
  * SD boot mode related macros
@@ -416,6 +417,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl);
 void Xloader_SaveBootPdiInfo(XilPdi *BootPdiPtr);
 void XLoader_EnableJtag(u32 CfgState);
 void XLoader_DisableJtag(void);
+int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex);
 /************************** Variable Definitions *****************************/
 #ifdef __cplusplus
 }
