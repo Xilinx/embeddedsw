@@ -421,6 +421,13 @@ static int XNvm_EfuseAreAllIvsProgrammed(void)
 {
 	int Status = XST_FAILURE;
 
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET,
+					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
+	if (Status == XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_METAHEADER_IV_MUST_BE_PRGMD;
+		goto END;
+	}
+
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_BLACK_IV_OFFSET,
 					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
 	if (Status == XST_SUCCESS) {
@@ -439,13 +446,6 @@ static int XNvm_EfuseAreAllIvsProgrammed(void)
 					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
 	if (Status == XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_DATA_PARTITION_IV_MUST_BE_PRGMD;
-		goto END;
-	}
-
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET,
-					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
-	if (Status == XST_SUCCESS) {
-		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_METAHEADER_IV_MUST_BE_PRGMD;
 		goto END;
 	}
 
@@ -503,10 +503,15 @@ int XNvm_EfuseValidateDecOnlyRequest(void)
 		}
 
 		Status =  XNvm_EfuseIsPufHelperDataEmpty();
-		if (Status == XST_SUCCESS) {
-			Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_PUF_HD_MUST_BE_PRGMD;
-			goto END;
+		if (Status != XST_SUCCESS) {
+			/* PUF HD is present in eFuse, Hence DEC_ONLY eFuse can be programmed */
+			Status = XST_SUCCESS;
 		}
+		else {
+			/* PUF HD must be programmed to program DEC_ONLY eFuse */
+			Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_PUF_HD_MUST_BE_PRGMD;
+		}
+
 	}
 	else {
 		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD;
