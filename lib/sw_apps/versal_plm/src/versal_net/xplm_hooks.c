@@ -38,7 +38,7 @@
 #include "xplmi.h"
 #include "xpm_psm_api.h"
 #include "xpm_update.h"
-
+#include "xloader_plat.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -92,10 +92,23 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
+
 		Status = XPmUpdate_RestoreAllNodes();
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
+		Status = XLoader_LoadPsmElf();
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
+		Status = XPmUpdate_ResetPsm();
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
+
+		/* TODO: Check if PSM reset succesfull and report*/
+
+		/* Get PSM to PLM event address */
 		Status = XPm_GetPsmToPlmEventAddr();
 		if (XST_SUCCESS != Status) {
 			goto END;
