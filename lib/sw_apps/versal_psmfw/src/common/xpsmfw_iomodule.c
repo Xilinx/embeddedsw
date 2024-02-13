@@ -125,6 +125,7 @@ static void XPsmfw_InterruptGicP2Handler(void)
  *****************************************************************************/
 static void XPsmfw_ExceptionHandler(void *Data)
 {
+	(void)Data;	/* To avoid compiler warning */
 	/* Writing PSM Non-Correctable bit to ERR1_TRIG reg */
 	XPsmFw_Write32(PSM_GLOBAL_REG_ERR1_TRIG, PSM_GLOBAL_REG_ERR1_TRIG_PSM_B_NCR_MASK);
 
@@ -295,6 +296,20 @@ XStatus SetUpInterruptSystem(void)
 	mtmsr(mfmsr() & (~XPSMFW_MB_MSR_BIP_MASK));
 
 	return XST_SUCCESS;
+}
+
+void XPsmFw_DisableInterruptSystem(void)
+{
+	for(u32 l_index = 0U; l_index < ARRAYSIZE(g_TopLevelInterruptTable); l_index++) {
+		u32 IntrNumber = g_TopLevelInterruptTable[l_index].Shift;
+		XIOModule_Disable(&IOModule, (u8)IntrNumber);
+	}
+
+}
+
+void XPsmFw_StopIoModule(void)
+{
+	XIOModule_Stop(&IOModule);
 }
 
 #ifdef PSM_ENABLE_STL
