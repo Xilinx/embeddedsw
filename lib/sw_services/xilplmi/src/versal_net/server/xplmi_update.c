@@ -101,6 +101,9 @@ static u32 PlmUpdateIpiMask __attribute__ ((aligned(4U)));
 EXPORT_GENERIC_DS(PlmUpdateIpiMask, XPLMI_UPDATE_IPIMASK_DS_ID,
 	XPLMI_UPDATE_IPIMASK_VER, XPLMI_UPDATE_IPIMASK_LCVER,
 	sizeof(PlmUpdateIpiMask), (u32)(UINTPTR)&PlmUpdateIpiMask);
+EXPORT_GENERIC_DS(UpdatePdiAddr, XPLMI_UPDATE_PDIADDR_DS_ID,
+	XPLMI_UPDATE_IPIMASK_VER, XPLMI_UPDATE_IPIMASK_LCVER,
+	sizeof(UpdatePdiAddr), (u32)(UINTPTR)&UpdatePdiAddr);
 static u32 DbStartAddr; /** Db Start Address */
 static u32 DbEndAddr; /** Db End Address */
 
@@ -695,8 +698,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 		/* Update from DDR location */
 		UpdatePdiAddr = Cmd->Payload[1U];
 	}
-
-	XPlmi_Printf(DEBUG_GENERAL, "In-Place PLM Update started with new PLM "
+	XPlmi_Printf(DEBUG_GENERAL, "In-Place Firmware Update started with new PLM and PSM "
 			"from PDI Address: 0x%x\n\r", UpdatePdiAddr);
 
 	/* Check if PLM Update is enabled in ROM_RSVD efuse */
@@ -856,4 +858,8 @@ static int XPlmi_PlmUpdateTask(void *Arg)
 
 END:
 	return Status;
+}
+
+u32 XPlmi_GetUpdatePdiAddr(void){
+	return UpdatePdiAddr;
 }
