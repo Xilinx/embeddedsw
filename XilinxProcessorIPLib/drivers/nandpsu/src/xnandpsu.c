@@ -2153,7 +2153,7 @@ s32 XNandPsu_EraseBlock(XNandPsu *InstancePtr, u32 Target, u32 Block)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
-	Xil_AssertNonvoid(Block < InstancePtr->Geometry.NumBlocks);
+	Xil_AssertNonvoid(Block < InstancePtr->Geometry.NumTargetBlocks);
 
 	s32 Status = XST_FAILURE;
 	u32 Page;
