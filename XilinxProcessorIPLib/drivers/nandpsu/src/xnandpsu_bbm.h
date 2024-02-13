@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -65,6 +65,7 @@
 *			   in page section by enabling XNANDPSU_BBT_NO_OOB.
 *			   Modified Bbt Signature and Version Offset value for
 *			   Oob and No-Oob region.
+* 1.13  akm    02/13/24    Update BBT writing logic.
 * </pre>
 *
 ******************************************************************************/

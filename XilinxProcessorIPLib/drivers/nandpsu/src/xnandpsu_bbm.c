@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *	                   data access.
 * 1.4	nsk    04/10/18    Added ICCARM compiler support.
 * 1.10	akm    01/05/22    Remove assert checks form static and internal APIs.
+* 1.13  akm    02/13/24    Update BBT writing logic.
 * </pre>
 *
 ******************************************************************************/
@@ -399,7 +400,7 @@ static s32 XNandPsu_ReadBbt(XNandPsu *InstancePtr, u32 Target)
 
 	XNandPsu_BbtDesc *Desc = &InstancePtr->BbtDesc;
 	XNandPsu_BbtDesc *MirrorDesc = &InstancePtr->BbtMirrorDesc;
-	BufLen = InstancePtr->Geometry.NumBlocks >>
+	BufLen = InstancePtr->Geometry.NumTargetBlocks >>
 		 XNANDPSU_BBT_BLOCK_SHIFT;
 	/* Search the Bad Block Table(BBT) in flash */
 	Status1 = XNandPsu_SearchBbt(InstancePtr, Desc, Target);
