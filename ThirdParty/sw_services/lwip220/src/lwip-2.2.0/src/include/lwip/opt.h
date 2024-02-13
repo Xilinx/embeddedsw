@@ -55,6 +55,10 @@
 #include "mb_interface.h"
 #endif
 
+#ifdef __riscv
+#include "riscv_interface.h"
+#endif
+
 /**
  * @defgroup lwip_opts Options (lwipopts.h)
  * @ingroup lwip

@@ -359,7 +359,7 @@ static void setup_rx_bds(XAxiDma_BdRing *rxring)
 		XAxiDma_BdSetLength(rxbd, p->len, rxring->MaxTransferLen);
 		XAxiDma_BdSetCtrl(rxbd, 0);
 		XAxiDma_BdSetId(rxbd, p);
-#if !defined (__MICROBLAZE__)
+#if !defined (__MICROBLAZE__)  && !defined (__riscv)
 		dsb();
 #endif
 #ifdef USE_JUMBO_FRAMES
@@ -682,7 +682,7 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	Xil_SetTlbAttributes((s32_t)bd_space, DEVICE_MEMORY);
 #endif
 
-#if defined (__MICROBLAZE__)
+#if defined (__MICROBLAZE__) || defined (__riscv)
 	xaxiemacif->rx_bdspace = alloc_bdspace(XLWIP_CONFIG_N_RX_DESC);
 	xaxiemacif->tx_bdspace = alloc_bdspace(XLWIP_CONFIG_N_TX_DESC);
 #else
