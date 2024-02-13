@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -92,6 +92,7 @@
 * 1.11  akm    03/31/22    Fix unused parameter warning.
 * 1.11  akm    03/31/22    Fix misleading-indentation warning.
 * 1.12  akm    06/27/23    Update the driver to support for system device-tree flow.
+* 1.13  akm    02/13/24    Ensure buffer cache sync.
 *
 * </pre>
 *
@@ -1612,6 +1613,9 @@ s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 		}
 		if (PartialBytes > 0U) {
 			(void)Xil_MemCpy(DestBufPtr, BufPtr + Col, NumBytes);
+			if (InstancePtr->Config.IsCacheCoherent == 0) {
+			        Xil_DCacheFlushRange((INTPTR)(void *)DestBufPtr, NumBytes);
+			}
 		}
 		DestBufPtr += NumBytes;
 		OffsetVar += NumBytes;
