@@ -13,6 +13,15 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+/** PSM update related definition*/
+#define PSM_UPDATE_REG_STATE (0xF20142C0U) /** Register to store state of PSM update*/
+/** States of PSM update */
+#define PSM_UPDATE_STATE_INIT		0x0
+#define PSM_UPDATE_STATE_SHUTDOWN_START	0x1U
+#define PSM_UPDATE_STATE_SHUTDOWN_DONE	0x2U
+#define PSM_UPDATE_STATE_LOAD_ELF_DONE	0x3U
+#define PSM_UPDATE_STATE_FINISHED	0x4U
+/*******************************************/
 
 /* This is the List of  of type that we use to save and restore*/
 #define LIST_OF_XPM_TYPE\
@@ -108,7 +117,12 @@ static XStatus Type##_Restore(Type *SavedNode, Type *Node) {\
 done:\
 	return Status;\
 }
-
+XStatus XPmUpdate_ShutdownPsm(void);
+XStatus XPmUpdate_ResetPsm(void);
+void XPmUpdate_PsmUpdateSetState(u32 State);
+u32 XPmUpdate_PsmUpdateGetState(void);
+XStatus XPmUpdate_LoadPsmElf(void);
+int XPmUpdate_ShutdownHandler(XPlmi_ModuleOp Op);
 #ifdef __cplusplus
 }
 #endif

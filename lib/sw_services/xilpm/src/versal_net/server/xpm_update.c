@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -36,8 +36,14 @@
 #include "xpm_update_data.h"
 #include "xpm_notifier_plat.h"
 
-#define MAX_NUM_NODE 1000
+#include "xloader.h"
+#include "xloader_plat.h"
+#include "xloader_ddr.h"
 
+#define XPM_UPDATE_PSM_RST_TIMEOUT 150000U /** < Timeout to wait for PSM firmware us */
+
+#define MAX_NUM_NODE 1000
+extern int XPlm_RemoveKeepAliveTask(void);
 static XPm_Node* AllNodes[MAX_NUM_NODE] = {NULL};
 static XPm_SaveRegionInfo AllSaveRegionsInfo[INDEX(XPm_Max)];
 static void Init_SRInfo(void);
@@ -818,5 +824,130 @@ XStatus XPmUpdate_RestoreAllNodes(void)
 	Status = XPmNotifier_RestoreErrorEvents();
 done:
 	XPM_UPDATE_THROW_IF_ERROR(Status, FailedNode);
+	return Status;
+}
+
+XStatus XPmUpdate_ResetPsm(void){
+	XStatus Status = XST_FAILURE;
+
+	XPmUpdate_PsmUpdateSetState(PSM_UPDATE_STATE_LOAD_ELF_DONE);
+	/* Wakeup PSM */
+	PmRmw32(CRL_PSM_RST_MODE_ADDR, CRL_PSM_RST_WAKEUP_MASK, CRL_PSM_RST_WAKEUP_MASK);
+	/* Wait for PSMFW to initialize */
+	Status = XPm_PollForMask(PSMX_GLOBAL_REG_GLOBAL_CNTRL,
+				 PSMX_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
+				 XPM_UPDATE_PSM_RST_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		PmErr("PSMFW is not present after reset\n\r");
+		goto done;
+	}
+
+	/* Deassert Wakeup pin on PSM*/
+	PmRmw32(CRL_PSM_RST_MODE_ADDR, CRL_PSM_RST_WAKEUP_MASK, 0);
+
+done:
+	return Status;
+}
+
+void XPmUpdate_PsmUpdateSetState(u32 State)
+{
+	Xil_Out32(PSM_UPDATE_REG_STATE, State);
+}
+
+u32 XPmUpdate_PsmUpdateGetState()
+{
+	return Xil_In32(PSM_UPDATE_REG_STATE);
+}
+
+XStatus XPmUpdate_ShutdownPsm() {
+	XStatus Status = XST_FAILURE;
+	u32 Payload[8] = {0U};
+
+	if (1U != XPmPsm_FwIsPresent()) {
+		Status = XST_NOT_ENABLED;
+		PmErr("PSMFW is not present\n\r");
+		goto done;
+	}
+
+	/**  Disable all PSM interrupts*/
+	Payload[0U] = PSM_API_SHUTDOWN_PSM;
+	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to send IPI to PSM\n\r");
+		goto done;
+	}
+	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to read IPI status from PSM\n\r");
+		goto done;
+	}
+
+	Status = XPm_PollForMask(PSM_UPDATE_REG_STATE,
+				 PSM_UPDATE_STATE_SHUTDOWN_DONE,
+				 XPM_UPDATE_PSM_RST_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		PmErr("PSMFW is not shutting down\n\r");
+		goto done;
+	}
+done:
+	return Status;
+
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides update handler for xilpm
+ *
+ * @param	Op is the module operation variable
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPmUpdate_ShutdownHandler(XPlmi_ModuleOp Op)
+{
+
+	XStatus Status = XST_FAILURE;
+	static u8 GenericHandlerState = XPLMI_MODULE_NORMAL_STATE;
+
+	if (XPLMI_MODULE_SHUTDOWN_INITIATE == Op.Mode) {
+		if (XPLMI_MODULE_NORMAL_STATE == GenericHandlerState ) {
+			/** Remove check PSM alive task */
+			Status = XPlm_RemoveKeepAliveTask();
+			if (XST_SUCCESS != Status) {
+				goto done;
+
+			}
+			Status = XPmUpdate_ShutdownPsm();
+			if (XST_SUCCESS != Status) {
+				XPlmi_Printf(DEBUG_GENERAL, "PSM shutdown failed\n\r");
+				goto done;
+			}
+			GenericHandlerState = XPLMI_MODULE_SHUTDOWN_INITIATED_STATE;
+			Status = XST_SUCCESS;
+		}
+	}
+	else if (XPLMI_MODULE_SHUTDOWN_COMPLETE == Op.Mode) {
+		if (XPLMI_MODULE_SHUTDOWN_COMPLETED_STATE == GenericHandlerState) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+		if (XPLMI_MODULE_SHUTDOWN_INITIATED_STATE != GenericHandlerState) {
+			goto done;
+		}
+		/* DO NOTHING */
+		GenericHandlerState = XPLMI_MODULE_SHUTDOWN_COMPLETED_STATE;
+		Status = XST_SUCCESS;
+	}
+	else if (XPLMI_MODULE_SHUTDOWN_ABORT == Op.Mode) {
+		if (XPLMI_MODULE_SHUTDOWN_INITIATED_STATE == GenericHandlerState) {
+			GenericHandlerState = XPLMI_MODULE_NORMAL_STATE;
+			/* DO NOTHING */
+			Status = XST_SUCCESS;
+		}
+	} else {
+		/* Do Nothing */
+	}
+
+done:
 	return Status;
 }

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,10 @@ extern "C" {
 
 #define PSM_API_DOMAIN_ISO_GETTER_HEADER	(0U)
 #define PSM_API_DOMAIN_ISO_SETTER_HEADER	(1U)
+
+/** PSM update related API IDs*/
+#define PSM_API_SHUTDOWN_PSM			(9U) /** Shutdown PSM*/
+/*******************************************************/
 
 enum ProcDeviceId {
 	ACPU_0,
