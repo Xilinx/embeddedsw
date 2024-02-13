@@ -296,6 +296,7 @@ typedef enum {
 #define XPLMI_BOARD_PARAMS_DS_ID	(0x09U) /**< Board parameters data structure Id */
 #define XPLMI_PSM_BUFFER_DS_ID		(0x0AU) /**< PSM Buffers data structure Id */
 #define XPLMI_PMC_BUFFER_DS_ID		(0x0BU) /**< PMC Buffers data structure Id */
+#define XPLMI_UPDATE_PDIADDR_DS_ID	(0x10U) /**< Update IPI mask data structure Id */
 
 /*
  * SLR Types

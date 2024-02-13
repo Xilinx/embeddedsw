@@ -170,6 +170,7 @@ int XPlmi_DsOps(u32 Op, u64 Addr, void *Data);
 int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler,
 		XPlmi_IsPdiAddrLookup_t IsPdiAddLookUpHandler);
 XPlmi_DsEntry* XPlmi_GetDsEntry(XPlmi_DsEntry *DsList, u32 DsCnt, XPlmi_DsVer *DsVer);
+u32 XPlmi_GetUpdatePdiAddr(void);
 
 #ifdef __cplusplus
 }
