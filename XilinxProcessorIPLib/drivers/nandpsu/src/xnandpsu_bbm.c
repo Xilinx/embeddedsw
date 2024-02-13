@@ -785,7 +785,7 @@ static s32 XNandPsu_MarkBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 
 	/* Mark the last four blocks as Reserved */
 	BlockIndex = ((Target + (u32)1) * InstancePtr->Geometry.NumTargetBlocks) -
-		     Desc->MaxBlocks - (u32)1;
+		     Desc->MaxBlocks;
 
 	for (Index = 0U; Index < Desc->MaxBlocks; Index++) {
 
