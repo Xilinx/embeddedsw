@@ -158,6 +158,7 @@
 * 1.12  akm    06/27/23    Update the driver to support for system device-tree flow.
 * 1.13  akm    02/13/24    Ensure buffer cache sync.
 * 1.13  akm    02/13/24    Avoid loop counter reset.
+* 1.13  akm    02/13/24    Always wrap page to device size.
 *
 * </pre>
 *

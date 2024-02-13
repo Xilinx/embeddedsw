@@ -94,6 +94,7 @@
 * 1.12  akm    06/27/23    Update the driver to support for system device-tree flow.
 * 1.13  akm    02/13/24    Ensure buffer cache sync.
 * 1.13  akm    02/13/24    Avoid loop counter reset.
+* 1.13  akm    02/13/24    Always wrap page to device size.
 *
 * </pre>
 *
@@ -1475,9 +1476,7 @@ s32 XNandPsu_Write(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
 		}
 
 		Target = (u32) (OffsetVar / InstancePtr->Geometry.TargetSize);
-		if (Page > InstancePtr->Geometry.NumTargetPages) {
-			Page %= InstancePtr->Geometry.NumTargetPages;
-		}
+		Page %= InstancePtr->Geometry.NumTargetPages;
 
 		/* Check if partial write */
 		if (PartialBytes > 0U) {
@@ -1592,9 +1591,7 @@ s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 		}
 
 		Target = (u32) (OffsetVar / InstancePtr->Geometry.TargetSize);
-		if (Page > InstancePtr->Geometry.NumTargetPages) {
-			Page %= InstancePtr->Geometry.NumTargetPages;
-		}
+		Page %= InstancePtr->Geometry.NumTargetPages;
 		/* Check if partial read */
 		if (PartialBytes > 0U) {
 			BufPtr = &InstancePtr->PartialDataBuf[0];
