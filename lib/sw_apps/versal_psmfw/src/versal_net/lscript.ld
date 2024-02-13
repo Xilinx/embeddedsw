@@ -6,12 +6,13 @@
 
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x400;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x800;
-
+_PSM_UPDATE_MNG_SIZE = DEFINED(_PSM_UPDATE_MNG_SIZE) ? _PSM_UPDATE_MNG_SIZE : 0x200;
 /* Define Memories in the system */
 
 MEMORY
 {
-   psmfw_Mem : ORIGIN = 0xEBC00000, LENGTH = 0x26000
+   psmfw_Mem : ORIGIN = 0xEBC00000, LENGTH = (0x23000 - _PSM_UPDATE_MNG_SIZE)
+   update_mgr_Mem : ORIGIN = 0XEBC23000, LENGTH = _PSM_UPDATE_MNG_SIZE
    proc_reserved_Mem : ORIGIN = 0xEBC26000, LENGTH = 0x2000
 }
 
@@ -47,6 +48,15 @@ SECTIONS
 
 .note.gnu.build-id : {
    KEEP (*(.note.gnu.build-id))
+} > psmfw_Mem
+
+.update_mgr_a : {
+  . = ALIGN(16);
+  __update_mgr_a_fn_start = .;
+   KEEP (*(.update_mgr_a))
+  __update_mgr_a_fn_end = .;
+  _update_mgr_a_end = __update_mgr_a_fn_start + _PSM_UPDATE_MNG_SIZE;
+  . = _update_mgr_a_end;
 } > psmfw_Mem
 
 .init : {
@@ -206,6 +216,14 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    _stack = .;
    __stack = _stack;
 } > psmfw_Mem
+
+.update_mgr_b (NOLOAD) : {
+   __update_mgr_b = .;
+   __update_mgr_b_start = .;
+   . += _PSM_UPDATE_MNG_SIZE;
+   __update_mgr_b_end = .;
+
+} > update_mgr_Mem
 
 .proc_reserved_memory (NOLOAD) : {
 	KEEP (*(.proc_reserved_memory))

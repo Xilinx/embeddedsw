@@ -8,6 +8,7 @@
 #include "xpsmfw_api.h"
 #include "xpsmfw_ipi_manager.h"
 #include "xpsmfw_power.h"
+#include "xpsmfw_update.h"
 
 #define PACK_PAYLOAD(Payload, Arg0, Arg1)	\
 	Payload[0] = (u32)Arg0;		\
@@ -216,6 +217,10 @@ void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response)
 			break;
 		case PSM_API_DOMAIN_ISO:
 			Status = XPsmFw_ProcessIsoCommand(Payload, &Response[1]);
+			break;
+		case PSM_API_SHUTDOWN_PSM:
+			XPsmFw_StartShutdown();
+			Status = XST_SUCCESS;
 			break;
 		default:
 			Status = XST_INVALID_PARAM;

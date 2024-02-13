@@ -351,7 +351,8 @@ XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask);
 XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId);
 XStatus XPsmFw_DirectPwrUp(const u32 DeviceId);
 void XPsmFw_GetPsmToPlmEventAddr(u32 *EventAddr);
-
+u8* XPsmFw_GetApuClusterStatePtr(void);
+u8 XPsmFw_GetNumApuCluster(void);
 #ifdef __cplusplus
 }
 #endif

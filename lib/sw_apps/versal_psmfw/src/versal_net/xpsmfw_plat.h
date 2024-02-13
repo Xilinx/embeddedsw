@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +52,10 @@ extern "C" {
 
 #define PSM_GLOBAL_REG_ERR1_TRIG PSMX_GLOBAL_REG_PSM_ERR1_TRIG
 #define PSM_GLOBAL_REG_ERR1_TRIG_PSM_B_NCR_MASK PSMX_GLOBAL_REG_PSM_ERR1_TRIG_SRC3_MASK
+
+/** PSM update related save and restore region */
+#define XPSM_DATA_SAVED_START	(0XEBC24000)
+#define XPSM_DATA_SAVED_END	(0XEBC25FFC)
 
 XStatus XPsmfw_PwrUpHandler(void);
 XStatus XPsmfw_PwrDwnHandler(void);
