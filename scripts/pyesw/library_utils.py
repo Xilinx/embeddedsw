@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module acts as a supporting module to get/set library related information
@@ -250,7 +250,7 @@ class Library(Repo):
                 return False
         return True
 
-    def is_valid_lib(self, comp_name):
+    def is_valid_lib(self, comp_name, silent_discard=True):
         comp_dir = self.get_comp_dir(comp_name)
         yaml_file = os.path.join(comp_dir, "data", f"{comp_name}.yaml")
         schema = utils.load_yaml(yaml_file)
@@ -262,9 +262,10 @@ class Library(Repo):
             if proc_ip_name in proc_list:
                 return True
             else:
-                print(
-                    f"[WARNING]: {comp_name} Library is not valid for the given processor: {self.proc}"
-                )
+                if not silent_discard:
+                    print(
+                        f"[WARNING]: {comp_name} Library is not valid for the given processor: {self.proc}"
+                    )
                 return False
         return True
 
@@ -275,7 +276,7 @@ class Library(Repo):
 
         if schema and schema.get("depends_libs", {}):
            for name, props in schema["depends_libs"].items():
-                if not self.is_valid_lib(name):
+                if not self.is_valid_lib(name, silent_discard=False):
                     continue
                 lib_list += [name]
                 self.get_depends_libs(name, lib_list)
