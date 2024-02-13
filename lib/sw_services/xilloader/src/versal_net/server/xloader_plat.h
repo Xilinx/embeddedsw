@@ -394,6 +394,7 @@ XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
 int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
 int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd);
+int XLoader_LoadPsmElf(void);
 /************************** Variable Definitions *****************************/
 
 #ifdef __cplusplus

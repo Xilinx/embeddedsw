@@ -73,6 +73,7 @@
 #include "xplmi_plat.h"
 #include "xplmi_hw.h"
 #include "xtrngpsx.h"
+#include "xloader_ddr.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U) /**< Image version information */
@@ -89,6 +90,8 @@
 #define XLOADER_DDR_PERF_MON_CNT1_OFFSET (0X86CU)   /**< Counter 1 offset */
 #define XLOADER_DDR_PERF_MON_CNT2_OFFSET (0X870U)   /**< Counter 2 offset */
 #define XLOADER_DDR_PERF_MON_CNT3_OFFSET (0X874U)   /**< Counter 3 offset */
+#define XLOADER_FIRST_IMAGE_NUM				(0x1U) /**< First image */
+#define XLOADER_SECOND_PRTN_NUM				(0x2U) /**< Second partition */
 #ifndef PLM_SECURE_EXCLUDE
 #define XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_INDEX	(0U)
         /**< Index in the Payload of ConfigureJtagState command where JTAG state flag is present */
@@ -1629,3 +1632,38 @@ END:
 	return Status;
 }
 #endif
+
+/*****************************************************************************/
+/**
+ * @brief	This Function will load the PSM ELF file from DDR to PSM.
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure
+*****************************************************************************/
+int XLoader_LoadPsmElf()
+{
+	int Status = XST_FAILURE;
+	u64 PdiAddr = (u64)(XPlmi_GetUpdatePdiAddr());
+	XilPdi *PdiPtr = XLoader_GetPdiInstance();
+
+	PdiPtr->PdiType = XLOADER_PDI_TYPE_IPU;
+	Status = XLoader_PdiInit(PdiPtr, XLOADER_PDI_SRC_DDR, PdiAddr);
+
+	if (XST_SUCCESS != Status){
+		PmErr("XLoader_LoadPdi failed with Status=%x\n\r", Status);
+		goto END;
+	}
+
+	PdiPtr->ImageNum = XLOADER_FIRST_IMAGE_NUM;
+	PdiPtr->PrtnNum = XLOADER_SECOND_PRTN_NUM;
+	Status = XLoader_ProcessPrtn(PdiPtr,PdiPtr->PrtnNum - 1U);
+	if (XST_SUCCESS != Status){
+		PmErr("XLoader_ProcessPrtn failed with Status=%x\n\r", Status);
+		goto END;
+	}
+
+END:
+	(void)XLoader_DdrRelease();
+
+	return Status;
+}

@@ -141,7 +141,6 @@
 
 /************************** Function Prototypes ******************************/
 static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr* PrtnHdr, u32 PrtnNum);
-static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex);
 static int XLoader_ProcessCdo (const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 	XLoader_SecureParams* SecureParams);
 
@@ -627,7 +626,7 @@ END:
  * 			PCIE, or JTAG to PMC RAM.
  *
  *****************************************************************************/
-static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
+int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
