@@ -87,7 +87,6 @@ maybe_unused static inline XStatus IsOnSecondarySLR(u32 SubsystemId)
 	(void)SubsystemId;
 	return XST_FAILURE;
 }
-int XPm_UpdateHandler(XPlmi_ModuleOp Op);
 #ifdef __cplusplus
 }
 #endif

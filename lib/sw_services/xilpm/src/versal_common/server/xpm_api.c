@@ -47,7 +47,9 @@
 #include "xpm_pldevice.h"
 #include "xpm_rail.h"
 #include "xpm_regulator.h"
-
+#ifdef VERSAL_NET
+#include "xpm_update.h"
+#endif
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)
 
@@ -153,7 +155,7 @@ static XPlmi_Module XPlmi_Pm =
 	NULL,
 	XPlmi_PmAccessPermBuff,
 #ifdef VERSAL_NET
-	XPm_UpdateHandler
+	XPmUpdate_ShutdownHandler
 #endif
 };
 static int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
