@@ -50,9 +50,15 @@ static volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
 	.CpuIdleFlag 	= {0x0},
 	.ResumeAddress 	= {0x0},
 };
+#define NUM_CLUSTER 4U
+static u8  ApuClusterState[NUM_CLUSTER]  = {0U};
 
-static u8 ApuClusterState[4U] = {0U};
-
+u8* XPsmFw_GetApuClusterStatePtr() {
+	return ApuClusterState;
+}
+u8 XPsmFw_GetNumApuCluster() {
+	return NUM_CLUSTER;
+}
 static struct XPsmFwPwrCtrl_t Acpu0_Core0PwrCtrl = {
 	.Id = ACPU_0,
 	.ResetCfgAddr = APU_CLUSTER0_RVBARADDR0L,
