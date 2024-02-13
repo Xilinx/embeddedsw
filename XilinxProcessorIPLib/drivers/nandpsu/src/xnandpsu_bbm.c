@@ -548,6 +548,7 @@ static s32 XNandPsu_SearchBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 	VerOffset = Desc->VerOffset;
 	MaxBlocks = Desc->MaxBlocks;
 	SigLength = Desc->SigLength;
+	Desc->Valid = 0U;
 
 	/* Read the last 4 blocks for Bad Block Table(BBT) signature */
 	for (Block = 0U; Block < MaxBlocks; Block++) {
