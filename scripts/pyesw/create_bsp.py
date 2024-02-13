@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module creates a domain and a bsp for the passed processor, os and system
@@ -205,6 +205,22 @@ class Domain(Repo):
                 f'set( CMAKE_MACHINE "{self.family}")',
             )
 
+        # freertos needs a separate CMAKE_SYSTEM_NAME
+        if "freertos" in self.os:
+            utils.add_newline(toolchain_file_copy, "set( CMAKE_SYSTEM_NAME FreeRTOS)")
+        # Do the gic pruning in the sdt for APU/RPU.
+        if self.sdt != out_dts_path:
+            if utils.is_file(lops_file):
+                utils.runcmd(
+                    f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
+                )
+            else:
+                utils.runcmd(
+                    f"lopper -f --enhanced -O {self.domain_dir} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}"
+                )
+        else:
+            out_dts_path = self.sdt
+
         if "microblaze_riscv" in self.proc_ip_name or "microblaze" in self.proc_ip_name:
             if "microblaze_riscv" in self.proc_ip_name:
                 lops_file = os.path.join(self.lops_dir, "lop-microblaze-riscv.dts")
@@ -214,7 +230,7 @@ class Domain(Repo):
                 processor = "microblaze"
 
             utils.runcmd(
-                f"lopper -f -O {self.domain_dir} --enhanced -i {lops_file} {self.sdt} > {dump}",
+                f"lopper -f -O {self.domain_dir} --enhanced -i {lops_file} {out_dts_path} > {dump}",
                 cwd = self.domain_dir
             )
             cflags_file = os.path.join(self.domain_dir, "cflags.yaml")
@@ -252,23 +268,6 @@ class Domain(Repo):
                 f'set( CMAKE_COMPILER_LIB_PATH "" )',
                 f'set( CMAKE_COMPILER_LIB_PATH "{libpath}" )\n',
             )
-
-
-        # freertos needs a separate CMAKE_SYSTEM_NAME
-        if "freertos" in self.os:
-            utils.add_newline(toolchain_file_copy, "set( CMAKE_SYSTEM_NAME FreeRTOS)")
-        # Do the gic pruning in the sdt for APU/RPU.
-        if self.sdt != out_dts_path:
-            if utils.is_file(lops_file):
-                utils.runcmd(
-                    f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
-                )
-            else:
-                utils.runcmd(
-                    f"lopper -f --enhanced -O {self.domain_dir} {self.sdt} {out_dts_path}"
-                )
-        else:
-            out_dts_path = self.sdt
 
         self.compiler_flags = self.apps_cflags_update(
             toolchain_file_copy, self.app, self.proc
