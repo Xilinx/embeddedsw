@@ -25,6 +25,7 @@
 /***************************** Include Files *********************************/
 #include "xsdi_menu.h"
 #include "xgpio.h"
+#include "xparameters.h"
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
 #include "xsdiaud.h"
 #endif

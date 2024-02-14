@@ -88,6 +88,7 @@ typedef u8 AddressType;
 #define FREQ_27_MHz	(27000000)
 #define FREQ_148_35_MHz	(148350000)
 
+#ifndef SDT
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
 #define SPDIF_0_DEVICE_ID XPAR_XSPDIF_0_DEVICE_ID
 #define SPDIF_1_DEVICE_ID XPAR_XSPDIF_1_DEVICE_ID
@@ -107,6 +108,14 @@ typedef u8 AddressType;
 #define ACR_BASEADDR XPAR_AES_TX_HIER_ACR_BASEADDR
 #define AXIS_SWITCH_RX XPAR_AXIS_SWITCH_0_BASEADDR
 #define AXIS_SWITCH_TX XPAR_AXIS_SWITCH_1_BASEADDR
+#endif
+#else
+#ifdef XPAR_XSDIAUD_NUM_INSTANCES
+#define XSDIAUD_QUAD_GROUP	4
+#define ACR_BASEADDR XPAR_AES_TX_HIER_ACR_BASEADDR
+#define AXIS_SWITCH_RX XPAR_XAXIS_SWITCH_0_BASEADDR
+#define AXIS_SWITCH_TX XPAR_XAXIS_SWITCH_1_BASEADDR
+#endif
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -1696,7 +1705,7 @@ int main(void)
 #else
 	Status = XSetupInterruptSystem(&SdiEmbed, &XSpdif_IntrHandler,
 				       SdiEmbed.Config.IntrId,
-				       SpdEmbed.Config.IntrParent,
+				       SdiEmbed.Config.IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 	if (Status == XST_FAILURE) {
 		xil_printf("IRQ init failed.\n\r\r");
