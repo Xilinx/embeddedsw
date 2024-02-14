@@ -15,4 +15,4 @@ if(XILLOADER_mode STREQUAL "client")
   endif()
 endif()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xilloader_bsp_config.h.in ${CMAKE_BINARY_DIR}/include/xilloader_bsp_config.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xloader_bsp_config.h.in ${CMAKE_BINARY_DIR}/include/xloader_bsp_config.h)

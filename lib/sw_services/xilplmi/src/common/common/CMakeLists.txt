@@ -2,3 +2,4 @@
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS xplmi_defs.h)
+collect (PROJECT_LIB_HEADERS xplmi_ver.h)
