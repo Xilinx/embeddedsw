@@ -449,13 +449,14 @@ u32 InitializeI2sRx(XI2s_Rx *I2sRxInstancePtr)
 	XI2s_Rx_Enable(I2sRxInstancePtr, TRUE);
 #ifdef SDT
 	Status = XSetupInterruptSystem(I2sRxInstancePtr, &XI2s_Rx_IntrHandler,
-				       XI2s_Rx_IntrHandler->Config.IntrId,
-				       XI2s_Rx_IntrHandler->Config.IntrParent,
+				       I2sRxInstancePtr->Config.IntrId,
+				       I2sRxInstancePtr->Config.IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 
 	if (Status == XST_FAILURE) {
 		xil_printf("IRQ init failed.\n\r\r");
 		return XST_FAILURE;
+	}
 #endif
 	return Status;
 }
