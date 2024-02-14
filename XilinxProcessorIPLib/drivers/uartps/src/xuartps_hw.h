@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,8 @@
 * 3.1	kvn    04/10/15 Modified code for latest RTL changes.
 * 3.6   ms     02/16/18 Updates flow control mode offset value in
 *			modem control register.
+* 4.0   sd     02/02/24 Added macros for transmission FIFO empty check
+*                       and transmission active state check
 *
 * </pre>
 *
@@ -409,6 +411,36 @@ extern "C" {
 	((Xil_In32((BaseAddress) + XUARTPS_SR_OFFSET) & 	\
 	 (u32)XUARTPS_SR_TXFULL) == (u32)XUARTPS_SR_TXFULL)
 
+/****************************************************************************/
+/**
+* Check if transmission FIFO is empty
+*
+* @return	TRUE if the TX FIFO is empty, FALSE if Tx FIFO is not empty
+*
+* @note		C-Style signature:
+*		u32 XUartPs_IsTransmitEmpty(u32 BaseAddress)
+*
+******************************************************************************/
+#define XUartPs_IsTransmitEmpty(BaseAddress)			 \
+	((Xil_In32((BaseAddress) + XUARTPS_SR_OFFSET) & 	\
+	 (u32)XUARTPS_SR_TXEMPTY) == (u32)XUARTPS_SR_TXEMPTY)
+
+/****************************************************************************/
+/**
+* Check if transmission state machine is active
+*
+* @return	TRUE if the TX state machine is active, FALSE if Tx state machine
+* is In-active
+*
+* @note		C-Style signature:
+*		u32 XUartPs_IsTransmitActive(u32 BaseAddress)
+*
+******************************************************************************/
+#define XUartPs_IsTransmitActive(BaseAddress)			 \
+	((Xil_In32((BaseAddress) + XUARTPS_SR_OFFSET) & 	\
+	 (u32)XUARTPS_SR_TACTIVE) == (u32)XUARTPS_SR_TACTIVE)
+
+
 /************************** Function Prototypes ******************************/
 
 void XUartPs_SendByte(u32 BaseAddress, u8 Data);
@@ -416,6 +448,8 @@ void XUartPs_SendByte(u32 BaseAddress, u8 Data);
 u8 XUartPs_RecvByte(u32 BaseAddress);
 
 void XUartPs_ResetHw(u32 BaseAddress);
+
+void XUartPs_WaitTransmitDone(u32 BaseAddress);
 
 /************************** Variable Definitions *****************************/
 

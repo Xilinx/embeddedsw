@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 *****************************************************************************/
 
@@ -21,6 +21,8 @@
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
 * 3.0   sd   08/09/23 Added DEBUG_HANDOFF macro to fix uart console
 *                     prints issue
+* 4.0   sd   02/02/24 Added XFsbl_Handoff_Printf macro to fix uart
+*                     garbage prints and removed DEBUG_HANDOFF macro
 *
 * </pre>
 *
@@ -39,6 +41,7 @@ extern "C" {
 #include "xil_printf.h"
 #include "xfsbl_config.h"
 #include "xil_types.h"
+#include "xuartps_hw.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -57,17 +60,6 @@ extern "C" {
 #define DEBUG_INFO	      (0x00000004U)    /* More debug information */
 #define DEBUG_DETAILED	      (0x00000008U)    /* More debug information */
 
-/**
- * DEBUG_HANDOFF macro is added to resolve junk characters printed on uart
- * console whenever FSBL_DEBUG flag is enabled and if design has single uart
- * instance which forces all the components to use same uart.
- */
-#if (XPAR_XUARTPS_NUM_INSTANCES > 1)
-#define DEBUG_HANDOFF    DEBUG_GENERAL
-#else
-#define DEBUG_HANDOFF    (0x0U)
-#endif
-
 #if defined (FSBL_DEBUG_DETAILED)
 #define XFsblDbgCurrentTypes ((DEBUG_DETAILED) | (DEBUG_INFO) | \
          (DEBUG_GENERAL) | (DEBUG_PRINT_ALWAYS))
@@ -83,6 +75,8 @@ extern "C" {
 #endif
 #define XFsbl_Printf(DebugType,...) \
 		if(((DebugType) & XFsblDbgCurrentTypes)!=XFSBL_SUCCESS) {xil_printf (__VA_ARGS__); }
+#define XFsbl_Handoff_Printf(DebugType,...) \
+		if(((DebugType) & XFsblDbgCurrentTypes)!=XFSBL_SUCCESS) {xil_printf (__VA_ARGS__); XUartPs_WaitTransmitDone(STDOUT_BASEADDRESS);}
 
 #ifdef __cplusplus
 }

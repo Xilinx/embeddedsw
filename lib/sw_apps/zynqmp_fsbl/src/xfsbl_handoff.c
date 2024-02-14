@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,8 @@
  *                     handoff in FSBL
  * 5.0   sd   08/09/23 Added DEBUG_HANDOFF macro to fix uart console
  *                     prints issue
+ * 6.0   sd   02/02/24 Added XFsbl_Handoff_Printf macro to fix uart
+ *                     garbage prints and removed DEBUG_HANDOFF macro
  *
  * </pre>
  *
@@ -553,7 +555,7 @@ void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 	RegVal |= XFSBL_EXEC_COMPLETED;
 	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, RegVal);
 
-	XFsbl_Printf(DEBUG_HANDOFF,"Exit from FSBL \n\r");
+	XFsbl_Handoff_Printf(DEBUG_GENERAL,"Exit from FSBL \n\r");
 
 	/**
 	 * Exit to handoff address
@@ -757,7 +759,7 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 		goto END;
 	}
 
-	XFsbl_Printf(DEBUG_HANDOFF, "Protection configuration applied\r\n");
+	XFsbl_Printf(DEBUG_GENERAL, "Protection configuration applied\r\n");
 
 	}
 
@@ -783,7 +785,7 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 
 		if (XGet_Zynq_UltraMp_Platform_info() == (u32)(0X2U))
 		{
-			XFsbl_Printf(DEBUG_GENERAL,"Exit from FSBL. \n\r");
+			XFsbl_Handoff_Printf(DEBUG_GENERAL,"Exit from FSBL. \n\r");
 #ifdef ARMA53_64
 			XFsbl_Out32(0xFFFC0000U, 0x14000000U);
 #else

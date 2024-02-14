@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 1.00	drg/jz 01/12/10 First Release
 * 1.05a hk     08/22/13 Added reset function
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 4.00  sd     02/02/24 Added wait for transmission done function
 * </pre>
 *
 *****************************************************************************/
@@ -152,6 +153,29 @@ void XUartPs_ResetHw(u32 BaseAddress)
 						(u32)XUARTPS_CR_STOPBRK));
 
 }
+
+/****************************************************************************/
+/**
+*
+* This function waits for transmission to complete
+*
+* @return	None
+*
+* @note		None.
+*
+*****************************************************************************/
+void XUartPs_WaitTransmitDone(u32 BaseAddress)
+{
+	/* Wait until Transmitter FIFO is empty */
+	while (!XUartPs_IsTransmitEmpty(BaseAddress)) {
+		;
+	}
+	/* Wait until Transmitter state machine is In-Active */
+	while (XUartPs_IsTransmitActive(BaseAddress)) {
+		;
+	}
+}
+
 
 #ifdef SDT
 #ifdef XPAR_STDIN_IS_UARTPS
