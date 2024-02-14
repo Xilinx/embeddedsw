@@ -1,0 +1,407 @@
+/******************************************************************************
+* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
+/*****************************************************************************/
+/**
+*
+* @file xi3c_hw.h
+* @addtogroup Overview
+* @{
+*
+* This file contains low level access functions using the base address
+* directly without an instance.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who Date     Changes
+* ----- --- -------- -----------------------------------------------.
+* 1.00  gm  01/25/24 First release
+*
+* </pre>
+*
+******************************************************************************/
+#ifndef XI3C_HW_H_		/**< prevent circular inclusions */
+#define XI3C_HW_H_		/**< by using protection macros */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/***************************** Include Files *********************************/
+
+#include "xil_types.h"
+#include "xil_assert.h"
+#include "xil_io.h"
+#include "xparameters.h"
+
+/************************** Constant Definitions *****************************/
+
+/**
+ * AXI_I3C0 Base Address
+#define XI3C_BASEADDR      0x80000000
+ */
+
+#define XI3C_BASEADDR      0x0
+#define XI3c_In32  Xil_In32
+#define XI3c_Out32 Xil_Out32
+
+/**
+ * Register offsets for the XI3c device.
+ * @{
+ */
+#define XI3C_VERSION_OFFSET			0x00	/**< Version Register */
+#define XI3C_RESET_OFFSET			0x04	/**< Soft Reset Register */
+#define XI3C_CR_OFFSET				0x08	/**< Control Register */
+#define XI3C_ADDRESS_OFFSET			0x0C	/**< Target Address Register */
+#define XI3C_SR_OFFSET				0x10	/**< Status Register */
+#define XI3C_INTR_STATUS_OFFSET			0x14	/**< Status Event Register */
+#define XI3C_INTR_RE_OFFSET			0x18	/**< Status Event Enable(Rising Edge) Register */
+#define XI3C_INTR_FE_OFFSET			0x1C	/**< Status Event Enable(Falling Edge) Register  */
+#define XI3C_CMD_FIFO_OFFSET			0x20	/**< I3C Command FIFO Register */
+#define XI3C_WR_FIFO_OFFSET			0x24	/**< I3C Write Data FIFO Register */
+#define XI3C_RD_FIFO_OFFSET			0x28	/**< I3C Read Data FIFO Register */
+#define XI3C_RESP_STATUS_FIFO_OFFSET		0x2C	/**< I3C Response status FIFO Register */
+#define XI3C_FIFO_LVL_STATUS_OFFSET		0x30	/**< I3C CMD & WR FIFO LVL Register */
+#define XI3C_FIFO_LVL_STATUS_1_OFFSET		0x34	/**< I3C RESP & RD FIFO LVL  Register */
+#define XI3C_SCL_HIGH_TIME_OFFSET		0x38	/**< I3C SCL HIGH Register */
+#define XI3C_SCL_LOW_TIME_OFFSET		0x3C	/**< I3C SCL LOW  Register */
+#define XI3C_SDA_HOLD_TIME_OFFSET		0x40	/**< I3C SDA HOLD Register */
+#define XI3C_BUS_IDLE_OFFSET			0x44	/**< I3C CONTROLLER BUS IDLE Register */
+#define XI3C_TSU_START_OFFSET			0x48	/**< I3C START SETUP Register  */
+#define XI3C_THD_START_OFFSET			0x4C	/**< I3C START HOLD Register */
+#define XI3C_TSU_STOP_OFFSET			0x50	/**< I3C STOP Setup Register  */
+#define XI3C_OD_SCL_HIGH_TIME_OFFSET		0x54	/**< I3C OD SCL HIGH Register */
+#define XI3C_OD_SCL_LOW_TIME_OFFSET		0x58	/**< I3C OD SCL LOW  Register */
+/* @} */
+
+/**
+ * @name Status Register  (SR) mask(s)
+ * @{
+ */
+
+#define  XI3C_SOFT_RESET_MASK		0x00000001	/**< BIT 0 - Reset */
+#define  XI3C_CMD_FIFO_RESET_MASK	0x00000002	/**< BIT 1 - Cmd fifo reset */
+#define  XI3C_WR_FIFO_RESET_MASK	0x00000004	/**< BIT 2 - Write fifo reset  */
+#define  XI3C_RD_FIFO_RESET_MASK	0x00000008	/**< BIT 3 - Read fifo reset */
+#define  XI3C_RESP_FIFO_RESET_MASK	0x00000010	/**< BIT 4 - Response fifo reset */
+#define  XI3C_ALL_FIFOS_RESET_MASK	0x0000001E	/**< BIT 1 to 4 - All fifos reset */
+
+/**
+ * @name Control Register  (CR) mask(s)
+ * @{
+ */
+
+#define  XI3C_CR_EN_MASK		0x00000001   /**< BIT 0 - Core Enable */
+#define  XI3C_CR_ABORT_MASK		0x00000002   /**< BIT 1 - Abort Transaction */
+#define  XI3C_CR_RESUME_MASK		0x00000004   /**< BIT 2 - Resume Operation  */
+
+/**
+ * @name Status Register  (SR) mask(s)
+ * @{
+ */
+
+#define  XI3C_SR_BUS_BUSY_MASK		0x00000001	/**< BIT 0 - Bus Busy */
+#define  XI3C_SR_CLK_STALL_MASK		0x00000002	/**< BIT 1 - Clock Stall */
+#define  XI3C_SR_CMD_FULL_MASK		0x00000004	/**< BIT 2 - Cmd Fifo Full  */
+#define  XI3C_SR_RESP_FULL_MASK		0x00000008	/**< BIT 3 - Resp Fifo Full */
+#define  XI3C_SR_RESP_NOT_EMPTY_MASK	0x00000010	/**< BIT 4 - Resp Fifo not empty */
+#define  XI3C_SR_WR_FULL_MASK		0x00000020	/**< BIT 5 - Write Fifo Full */
+#define  XI3C_SR_RD_FULL_MASK		0x00000040	/**< BIT 6 - Read Fifo Full */
+
+/**
+ * @name Status Register  (SR) Shifts(s)
+ * @{
+ */
+#define  XI3C_SR_BUS_BUSY_SHIFT		0x0		/**< BIT 0 - Bus Busy */
+#define  XI3C_SR_CLK_STALL_SHIFT	0x1		/**< BIT 1 - Clock Stall */
+#define  XI3C_SR_CMD_FULL_SHIFT		0x2		/**< BIT 2 - Cmd Fifo Full  */
+#define  XI3C_SR_RESP_FULL_SHIFT	0x3		/**< BIT 3 - Resp Fifo Full */
+#define  XI3C_SR_RESP_NOT_EMPTY_SHIFT	0x4		/**< BIT 4 - Resp Fifo not empty */
+#define  XI3C_SR_WR_FULL_SHIFT		0x5		/**< BIT 5 - Write Fifo Full */
+#define  XI3C_SR_RD_FULL_SHIFT		0x6		/**< BIT 6 - Read Fifo Full */
+
+/**
+ * @name CMD TYPE Fifo Register  (RESP_FIFO) mask(s)
+ * @{
+ */
+#define  XI3C_RESP_ID_MASK		0x0000000F
+#define  XI3C_RESP_RW_MASK		0x00000010
+#define  XI3C_RESP_CODE_MASK		0x000001E0
+#define  XI3C_RESP_BYTES_MASK		0x001FFE00
+
+/**
+ * @name CMD TYPE Fifo Register  (RESP_FIFO) SHIFT(s)
+ * @{
+ */
+#define  XI3C_RESP_TID_SHIFT		0
+#define  XI3C_RESP_RW_SHIFT		4
+#define  XI3C_RESP_CODE_SHIFT		5
+#define  XI3C_RESP_BYTES_SHIFT		9
+
+
+/**
+ * @name bit masks
+ * @{
+ */
+
+#define	XI3C_1BIT_MASK		0x00000001
+#define	XI3C_2BITS_MASK		0x00000003
+#define	XI3C_3BITS_MASK		0x00000007
+#define	XI3C_4BITS_MASK		0x0000000F
+#define	XI3C_5BITS_MASK		0x0000001F
+#define	XI3C_6BITS_MASK		0x0000003F
+#define	XI3C_7BITS_MASK		0x0000007F
+#define	XI3C_8BITS_MASK		0x000000FF
+#define	XI3C_9BITS_MASK		0x000001FF
+#define	XI3C_10BITS_MASK	0x000003FF
+#define	XI3C_11BITS_MASK	0x000007FF
+#define	XI3C_12BITS_MASK	0x00000FFF
+#define	XI3C_13BITS_MASK	0x00001FFF
+#define	XI3C_14BITS_MASK	0x00003FFF
+#define	XI3C_15BITS_MASK	0x00007FFF
+#define	XI3C_16BITS_MASK	0x0000FFFF
+#define	XI3C_17BITS_MASK	0x0001FFFF
+#define	XI3C_18BITS_MASK	0x0003FFFF
+#define	XI3C_19BITS_MASK	0x0007FFFF
+#define	XI3C_20BITS_MASK	0x000FFFFF
+
+#define	XI3C_MSB_16BITS_MASK	0xFFFF0000
+/**
+ * @name interrupt Register  (INTR) mask(s)
+ * @{
+ */
+
+#define  XI3C_INTR_BUS_BUSY_MASK		0x00000001	/**< BIT 0 - Bus Busy */
+#define  XI3C_INTR_CLK_STALL_MASK		0x00000002	/**< BIT 1 - Clock Stall */
+#define  XI3C_INTR_CMD_FULL_MASK		0x00000004	/**< BIT 2 - Cmd Fifo Full  */
+#define  XI3C_INTR_RESP_FULL_MASK		0x00000008	/**< BIT 3 - Resp Fifo Full */
+#define  XI3C_INTR_RESP_NOT_EMPTY_MASK		0x00000010	/**< BIT 4 - Resp Fifo not empty */
+#define  XI3C_INTR_WR_FIFO_ALMOST_FULL_MASK	0x00000020	/**< BIT 5 - Write Fifo Full */
+#define  XI3C_INTR_RD_FULL_MASK			0x00000040	/**< BIT 6 - Read Fifo Full */
+#define  XI3C_ALL_INTR_MASK			0x0000007F	/**< 6:0 BITS */
+
+/****************************************************************************/
+/**
+* Read an I3C register.
+*
+* @param	BaseAddress contains the base address of the device.
+* @param	RegOffset contains the offset from the 1st register of the
+*		device to select the specific register.
+*
+* @return	The value read from the register.
+*
+* @note		C-Style signature:
+*		u32 XI3c_ReadReg(u32 BaseAddress. int RegOffset)
+*
+******************************************************************************/
+#define XI3c_ReadReg(BaseAddress, RegOffset) \
+	XI3c_In32((BaseAddress) + (u32)(RegOffset))
+
+/***************************************************************************/
+/**
+* Write an I3C register.
+*
+* @param	BaseAddress contains the base address of the device.
+* @param	RegOffset contains the offset from the 1st register of the
+*		device to select the specific register.
+* @param	RegisterValue is the value to be written to the register.
+*
+* @return	None.
+*
+* @note	C-Style signature:
+*	void XI3c_WriteReg(u32 BaseAddress, int RegOffset, u32 RegisterValue)
+*
+******************************************************************************/
+#define XI3c_WriteReg(BaseAddress, RegOffset, RegisterValue) 		\
+	XI3c_Out32((BaseAddress) + (u32)(RegOffset), (u32)(RegisterValue))
+
+/****************************************************************************/
+/**
+*
+* Read WR FIFO LEVEL.
+*
+* @param        InstancePtr is the instance of I3C
+*
+* @return       None.
+*
+* @note         C-Style signature:
+*               void XI3c_WrFifoLevel(XI3cPsx *InstancePtr)
+*
+*****************************************************************************/
+#define XI3c_WrFifoLevel(InstancePtr)					  \
+	(u16)(XI3c_ReadReg(InstancePtr->Config.BaseAddress,		  \
+			   XI3C_FIFO_LVL_STATUS_OFFSET) & XI3C_16BITS_MASK)
+
+/*****************************************************************************/
+/**
+*
+* Read CMD FIFO LEVEL
+*
+* @param        InstancePtr is a pointer to the XI3c core instance.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               u16 XI3c_CmdFifoLevel(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_CmdFifoLevel(InstancePtr)					\
+        (u16)((XI3c_ReadReg(InstancePtr->Config.BaseAddress,		\
+			    XI3C_FIFO_LVL_STATUS_OFFSET) &		\
+	      XI3C_MSB_16BITS_MASK) >> XI3C_16BITS_MASK)
+
+/*****************************************************************************/
+/**
+*
+* Read RD FIFO LEVEL
+*
+* @param        InstancePtr is a pointer to the XI3c core instance.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               u16 XI3c_RdFifoLevel(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_RdFifoLevel(InstancePtr)					\
+        (u16)(XI3c_ReadReg(InstancePtr->Config.BaseAddress,		\
+			   XI3C_FIFO_LVL_STATUS_1_OFFSET) &		\
+	      XI3C_16BITS_MASK)
+
+/*****************************************************************************/
+/**
+*
+* Read RESP FIFO LEVEL
+*
+* @param        InstancePtr is a pointer to the XI3c core instance.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               u16 XI3c_RespFifoLevel(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_RespFifoLevel(InstancePtr)					\
+        (u16)((XI3c_ReadReg(InstancePtr->Config.BaseAddress,		\
+			    XI3C_FIFO_LVL_STATUS_1_OFFSET) &		\
+                            XI3C_MSB_16BITS_MASK) >> XI3C_16BITS_MASK)
+
+/*****************************************************************************/
+/**
+*
+* Enable Raising edge interrupts
+*
+* @param        Base address of the XI3c core instance.
+* @param        interrupt mask value.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               u16 XI3c_EnableREInterrupts(XI3c *InstancePtr, u32 IntrMask)
+*
+******************************************************************************/
+#define XI3c_EnableREInterrupts(BaseAddress, IntrMask) \
+	XI3c_WriteReg((BaseAddress), XI3C_INTR_RE_OFFSET, (IntrMask))
+
+/*****************************************************************************/
+/**
+*
+* Enable Faling edge interrupts
+*
+* @param        Base address of the XI3c core instance.
+* @param        interrupt mask value.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               u16 XI3c_EnableFEInterrupts(XI3c *InstancePtr, u32 IntrMask)
+*
+******************************************************************************/
+#define XI3c_EnableFEInterrupts(BaseAddress, IntrMask) \
+	XI3c_WriteReg((BaseAddress), XI3C_INTR_FE_OFFSET, (IntrMask))
+
+/*****************************************************************************/
+/**
+*
+* Disable raising edge interrupts
+*
+* @param        Base address of the XI3c core instance.
+* @param        interrupt mask value.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               u16 XI3c_DisableREInterrupts(XI3c *InstancePtr, u32 IntrMask)
+*
+******************************************************************************/
+#define XI3c_DisableREInterrupts(BaseAddress, IntrMask)			\
+	XI3c_WriteReg((BaseAddress), XI3C_INTR_RE_OFFSET,		\
+		      ((XI3c_ReadReg(BaseAddress,XI3C_INTR_RE_OFFSET))	\
+		      & ~(IntrMask)))					\
+
+/*****************************************************************************/
+/**
+*
+* Disable faling edge interrupts
+*
+* @param        Base address of the XI3c core instance.
+* @param        interrupt mask value.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               u16 XI3c_DisableFEInterrupts(XI3c *InstancePtr, u32 IntrMask)
+*
+******************************************************************************/
+#define XI3c_DisableFEInterrupts(BaseAddress, IntrMask)			\
+	XI3c_WriteReg((BaseAddress), XI3C_INTR_FE_OFFSET,		\
+		      ((XI3c_ReadReg(BaseAddress,XI3C_INTR_FE_OFFSET))	\
+		      & ~(IntrMask)))					\
+
+/*****************************************************************************/
+/**
+*
+* Disable all raising edge interrupts
+*
+* @param        Base address of the XI3c core instance.
+* @param        interrupt mask value.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               u16 XI3c_DisableAllREInterrupts(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_DisableAllREInterrupts(BaseAddress)			\
+	XI3c_WriteReg((BaseAddress), XI3C_INTR_RE_OFFSET,		\
+		      ((XI3c_ReadReg(BaseAddress,XI3C_INTR_RE_OFFSET))	\
+		      & ~(XI3C_ALL_INTR_MASK)))				\
+
+/*****************************************************************************/
+/**
+*
+* Disable all faling edge interrupts
+*
+* @param        Base address of the XI3c core instance.
+* @param        interrupt mask value.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               u16 XI3c_DisableAllFEInterrupts(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_DisableAllFEInterrupts(BaseAddress)			\
+	XI3c_WriteReg((BaseAddress), XI3C_INTR_FE_OFFSET,		\
+		      ((XI3c_ReadReg(BaseAddress,XI3C_INTR_FE_OFFSET))	\
+		      & ~(XI3C_ALL_INTR_MASK)))				\
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XI3C_HW_H_ */
+/** @} */
