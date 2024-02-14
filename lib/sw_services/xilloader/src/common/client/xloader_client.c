@@ -91,7 +91,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief This function sends IPI request to Load the DDR copy image.
+ * @brief This function sends IPI request to Load image.
  *
  * @param	InstancePtr Pointer to the client instance.
  * @param	NodeID		Node id of ddr copied image.
@@ -102,7 +102,7 @@ END:
  *			 - XST_FAILURE on failure.
  *
  **************************************************************************************************/
-int XLoader_LoadDdrCpyImg(XLoader_ClientInstance *InstancePtr, u32 NodeId, u32 FunctionId)
+int XLoader_LoadImage(XLoader_ClientInstance *InstancePtr, u32 NodeId, u32 FunctionId)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
@@ -119,7 +119,7 @@ int XLoader_LoadDdrCpyImg(XLoader_ClientInstance *InstancePtr, u32 NodeId, u32 F
 	Payload[2U] = FunctionId;
 
     /**
-	 * - Send an IPI request to the PLM by using the XLoader_LoadDdrCpyImg CDO command
+	 * - Send an IPI request to the PLM by using the XLoader_LoadImage CDO command
 	 * Wait for IPI response from PLM with a timeout.
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
@@ -190,16 +190,28 @@ END:
  *			 - XST_FAILURE on failure.
  *
  **************************************************************************************************/
-int XLoader_GetImageInfoList(XLoader_ClientInstance *InstancePtr, const u64 Buff_Addr,
-		u32 Maxsize, u32 *NumEntries)
+int XLoader_GetImageInfoList(XLoader_ClientInstance *InstancePtr, u64 Buff_Addr,u32 Maxsize,
+		u32 *NumEntries)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+	u32 Continue = 0;
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	/**
+	 * - Typically be Continue[31 bit] set to 0,
+	 * In case the first call indicated that more entries are available then this can be set to 1
+	 * present we are not supporting more entries , So returning XST_FAILURE if continue parameter
+	 * is 1.
+	 */
+	Continue = ((Maxsize & XLOADER_MSB_MASK) >> 31);
+	if (Continue != 0) {
 		goto END;
 	}
 
@@ -285,12 +297,12 @@ END:
  *			 - XST_FAILURE on failure.
  *
  **************************************************************************************************/
-int XLoader_LoadReadBackPdi(XLoader_ClientInstance *InstancePtr, u32 PdiSrc, u64 PdiAddr,
+int XLoader_LoadReadBackPdi(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc PdiSrc, u64 PdiAddr,
 		u64 ReadbackDdrDestAddr, u32 Maxsize, u32 *Sizecopied)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_7U];
-	u8 Continue =0;
+	u32 Continue = 0;
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -305,7 +317,7 @@ int XLoader_LoadReadBackPdi(XLoader_ClientInstance *InstancePtr, u32 PdiSrc, u64
 	 * present we are not supporting more entries , So returning XST_FAILURE if continue parameter
 	 * is 1.
 	 */
-	Continue = (Maxsize & XLOADER_MSB_MASK) >> 31;
+	Continue = ((Maxsize & XLOADER_MSB_MASK) >> 31);
 	if (Continue != 0) {
 		goto END;
 	}

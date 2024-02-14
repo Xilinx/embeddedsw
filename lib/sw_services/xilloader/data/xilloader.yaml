@@ -17,6 +17,7 @@ description: Xilinx Versal Platform Loader Library.
 
 supported_processors:
   - psv_pmc
+  - psu_cortexa72
   - psv_cortexa72
   - psv_cortexr5
   - microblaze
@@ -31,9 +32,31 @@ supported_os:
   - standalone
 
 depends_libs:
-  xilstandalone: {}
   xilplmi: {}
   xilpm: {}
   xilpdi: {}
   xilffs: {}
   xilmailbox: {}
+
+examples:
+  xilloader_add_image_store_pdi_client_example.c: []
+  xilloader_configure_jtag_status_client_example.c:
+    - supported_platforms:
+      - VersalNet
+  xilloader_extract_metaheader_client_example.c: []
+  xilloader_get_atf_handoff_params_client_example.c: []
+  xilloader_get_image_info_client_example.c: []
+  xilloader_get_image_info_list_client_example.c: []
+  xilloader_load_image_client_example.c: []
+  xilloader_load_pdi_client_example.c: []
+  xilloader_load_pdi_from_is_client_example.c: []
+  xilloader_load_readback_pdi_client_example.c: []
+  xilloader_read_ddr_crypto_perf_counters_client_example.c:
+    - supported_platforms:
+      - VersalNet
+  xilloader_remove_image_store_pdi_client_example.c: []
+  xilloader_update_multiboot_client_example.c: []
+  xilloader_validate_pdi_auth_example.c:
+    - supported_platforms:
+      - VersalNet
+...

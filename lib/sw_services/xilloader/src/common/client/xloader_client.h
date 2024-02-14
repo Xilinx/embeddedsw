@@ -58,10 +58,10 @@ typedef enum {
 } XLoader_PdiSrc; /**< PDI sources */
 
 typedef enum {
-		XLOADER_Flash_RAW = 0,
-		XLOADER_Flash_FS,
-		XLOADER_Flash_RAW_BP1,
-		XLOADER_Flash_RAW_BP2,
+		XLOADER_FLASH_RAW = 0,
+		XLOADER_FLASH_FS,
+		XLOADER_FLASH_RAW_BP1,
+		XLOADER_FLASH_RAW_BP2,
 } XLoader_FlashType; /**< Flash types */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -70,15 +70,15 @@ typedef enum {
 
 int XLoader_LoadPartialPdi(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc PdiSrc,
 		u64 PdiAddr, u32 *PlmErrStatus);
-int XLoader_LoadDdrCpyImg(XLoader_ClientInstance *InstancePtr, u32 NodeId, u32 FunctionId);
+int XLoader_LoadImage(XLoader_ClientInstance *InstancePtr, u32 NodeId, u32 FunctionId);
 int XLoader_GetImageInfo(XLoader_ClientInstance *InstancePtr, u32 NodeId,
 		XLoader_ImageInfo *ImageInfo);
-int XLoader_GetImageInfoList(XLoader_ClientInstance *InstancePtr, const u64 Buff_Addr,
-		u32 Maxsize, u32 *ImageInfoList);
+int XLoader_GetImageInfoList(XLoader_ClientInstance *InstancePtr, u64 Buff_Addr,u32 Maxsize,
+		u32 *NumEntries);
 int XLoader_ExtractMetaheader(XLoader_ClientInstance *InstancePtr, u64 PdiSrcAddr,
 		u64 DestBuffAddr, u32 DestBuffSize);
-int XLoader_LoadReadBackPdi(XLoader_ClientInstance *InstancePtr, u32 PdiSrc, u64 PdiAddr,
-		u64 ReadbackDdrDestAddr, u32 Maxsize, u32 *ReadBackLen);
+int XLoader_LoadReadBackPdi(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc PdiSrc, u64 PdiAddr,
+		u64 ReadbackDdrDestAddr, u32 Maxsize, u32 *Sizecopied);
 int XLoader_UpdateMultiboot(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc BootMode,
 		XLoader_FlashType Type, u32 ImageLocation);
 int XLoader_AddImageStorePdi(XLoader_ClientInstance *InstancePtr, u32 PdiId,

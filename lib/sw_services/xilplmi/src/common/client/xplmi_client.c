@@ -192,7 +192,7 @@ int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Addr,
 
 	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_4, (u32)XPLMI_EVENT_LOGGING_CMD_ID);
     Payload[1U] = sub_cmd;
-    Payload[2U] = (u32)Addr >> XPLMI_ADDR_HIGH_SHIFT;
+    Payload[2U] = (u32)(Addr >> XPLMI_ADDR_HIGH_SHIFT);
 	Payload[3U] = (u32)(Addr);
 	Payload[4U] = Len;
 
