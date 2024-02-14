@@ -167,6 +167,7 @@
 *       kpt  11/22/2023 Add support to clear AES keys when RedKeyClear bit is set
 *       mss  11/06/2023 Added VerifyAddr check for Image Store Address of RTCA registers
 *       kpt  11/01/2023 Clear AES keys during PDI failure
+*       bm   02/12/2024 Update XLoader_ReadAndValidateHdrs prototype
 *
 * </pre>
 *
@@ -209,7 +210,7 @@
 					     tables in the available buffer */
 
 /************************** Function Prototypes ******************************/
-static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr);
+static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr);
 static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr);
 static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
 static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr);
