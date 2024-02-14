@@ -49,6 +49,7 @@
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
 * 2.00  ng   12/11/2023 Fixed SD macro for SDT flow
 *       ng   12/27/2023 Reduced log level for less frequent prints
+*       bm   02/12/2024 Updated logical partition comments for SD/eMMC bootmodes
 *
 * </pre>
 *
@@ -240,14 +241,15 @@ int XLoader_SdInit(u32 DeviceFlagsVal)
 	 * - Filesystem boot modes require the filename extension as well as
 	 * the logical drive in which the secondary pdi file is present.
 	 * To meet these requirements and to reuse the same code for primary
-	 * and secondary boot modes, bits 0 to 3 in DeviceFlags denote the
-	 * PdiSrc. Bits 4 to 19 denote the file name extension.
-	 * Example if the offset is 4, file name should be BOOT0004.BIN, these
+	 * and secondary boot modes, DeviceFlags[3:0] denote the PdiSrc.
+	 * DeviceFlags[19:4] denote the file name extension.
+	 * For Example if the offset is 4, file name should be BOOT0004.BIN, these
 	 * bits are analogous to multiboot offset in case of primary boot mode.
-	 * Bits 20, 21, 22 and 23 denote the logical drive number of the
-	 * secondary device. Please note that bits 20, 21, 22 and 23 in device
-	 * flags actually map to bits 16, 17, 18 and 19 in secondary device
-	 * address specified in bif file.
+	 * DeviceFlags[23:20] bits denote the logical drive number of the secondary
+	 * device.  Please note that bits 23:20 bits in device flags actually map
+	 * to bits 19:16 in secondary device address specified in bif file. So, user
+	 * has to enter the logical drive number in 19:16 bits of SBD address in bif
+	 * file
 	 */
 	DeviceFlags >>= XLOADER_SD_ADDR_SHIFT;
 	MultiBootOffset = (DeviceFlags & XLOADER_SD_ADDR_MASK);
