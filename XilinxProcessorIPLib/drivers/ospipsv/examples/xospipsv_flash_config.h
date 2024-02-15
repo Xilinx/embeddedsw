@@ -32,6 +32,7 @@
 * 1.9   sb  06/06/23 Added support for system device-tree flow.
 * 1.10  sb  11/21/23 Added support for Macronix flash mx66um2g45g.
 * 1.10  sb  01/04/24 Added support for ISSI flash is25lx512m.
+* 1.10  sb  02/09/24 Add support for Infineon flash part S28HS02G.
 *
 *</pre>
 *
@@ -78,6 +79,12 @@
 #define READ_CONFIG_REG		0x85
 #define WRITE_CONFIG2_REG_MX	0x72
 #define READ_CONFIG2_REG_MX		0x71
+#define WRITE_CONFIG_REG_SPN	0x71
+#define READ_CONFIG_REG_SPN	0x65
+#define STATUS_REG_1_ADDR_SPN	0x800000
+#define CONFIG_REG_4_ADDR_SPN	0x800005
+#define CONFIG_REG_5_ADDR_SPN	0x800006
+#define DDR_READ_CMD_4B_SPN	0xEE
 
 /*
  * Sixteen MB
@@ -86,6 +93,7 @@
 
 #define FLASH_PAGE_SIZE_256		256
 #define FLASH_SECTOR_SIZE_4KB		0x1000
+#define FLASH_SECTOR_SIZE_256KB 	0x40000
 #define FLASH_SECTOR_SIZE_64KB		0x10000
 #define FLASH_SECTOR_SIZE_128KB		0x20000
 #define FLASH_DEVICE_SIZE_256M		0x2000000
@@ -97,6 +105,7 @@
 #define GIGADEVICE_OCTAL_ID_BYTE0	0xc8
 #define ISSI_OCTAL_ID_BYTE0		0x9d
 #define MACRONIX_OCTAL_ID_BYTE0		0xc2
+#define SPANSION_OCTAL_ID_BYTE0		0x34
 
 #define MICRON_BP_BITS_MASK		0x7C
 
@@ -185,6 +194,14 @@ FlashInfo Flash_Config_Table[] = {
 		FLASH_DEVICE_SIZE_2G, 0xFFFFF000, 1,
 		(READ_CMD_OPI_MX << 8) | READ_CMD_4B, WRITE_CMD_4B,
 		(BULK_ERASE_CMD << 8) | SEC_ERASE_CMD_MX, READ_STATUS_CMD, 0
+	},
+	/* Infineon */
+	/*s28hs02gt*/
+	{
+		0x345b1c, FLASH_SECTOR_SIZE_256KB, 0x400, FLASH_PAGE_SIZE_256, 0x100000,
+		FLASH_DEVICE_SIZE_2G, 0xFFFC0000, 2,
+		(DDR_READ_CMD_4B_SPN  << 8) | READ_CMD_4B, WRITE_CMD_4B,
+		(BULK_ERASE_CMD << 8) | SEC_ERASE_CMD_4B, READ_STATUS_CMD, 0
 	},
 };
 

@@ -45,6 +45,7 @@
 * 1.9   sb   09/06/23 Fixed MISRAC violations.
 * 1.10	akm  01/31/24 Use OSPI controller reset for resetting flash device.
 * 1.10	akm  02/06/24 Increase the delay after device reset.
+* 1.10	sb   02/09/24 Add support for Infineon flash part S28HS02G.
 *
 * </pre>
 *
@@ -939,8 +940,15 @@ u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
 		FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
 	}
 
-	if (InstancePtr->DualByteOpcodeEn != 0U) {
+	if (InstancePtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
 		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+		FlashMsg.Addrsize = 4U;
+		FlashMsg.Addrvalid = 1U;
+		FlashMsg.Dummy = 4;
+		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
+	}
+	else if (InstancePtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
+		FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
 		FlashMsg.Addrsize = 4U;
 		FlashMsg.Addrvalid = 1U;
 		FlashMsg.Dummy = 4;
@@ -994,7 +1002,7 @@ u32 XOspiPsv_ConfigDualByteOpcode(XOspiPsv *InstancePtr, u8 Enable)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (Enable > (u8)XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
+	if (Enable > (u8)(XOSPIPSV_DUAL_BYTE_OP_SAME)) {
 		Status = (u32)XST_FAILURE;
 		goto ERROR_PATH;
 	}
