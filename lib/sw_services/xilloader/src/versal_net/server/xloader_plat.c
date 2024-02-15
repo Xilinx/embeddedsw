@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,7 @@
 *       ng   06/26/2023 Added support for system device tree flow
 *       dd   08/11/2023 Updated doxygen comments
 *       sk   08/11/2023 Added error code for default case in XLoader_StartImage
+*       ng   02/14/2024 removed int typecast for errors
 *
 * </pre>
 *
@@ -754,7 +755,7 @@ int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd)
 	/* Validate the given device id */
 	if ((NODESUBCLASS(DevId) != (u32)XPM_NODESUBCL_DEV_MEM_CTRLR) ||
 		(NODETYPE(DevId) != XPM_NODETYPE_DEV_DDR)) {
-		Status = (int)XLOADER_ERR_DDR_DEVICE_ID;
+		Status = XLOADER_ERR_DDR_DEVICE_ID;
 		goto END;
 	}
 
@@ -767,7 +768,7 @@ int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd)
 	/** Read PCSR control status */
 	PcsrCtrl = XPlmi_In32(BaseAddr + DDRMC_PCSR_CONTROL_OFFSET);
 	if (0U == (PcsrCtrl & DDRMC_PCSR_CONTROL_PCOMPLETE_MASK)) {
-		Status = (int)XLOADER_ERR_PCOMPLETE_NOT_DONE;
+		Status = XLOADER_ERR_PCOMPLETE_NOT_DONE;
 		goto END;
 	}
 

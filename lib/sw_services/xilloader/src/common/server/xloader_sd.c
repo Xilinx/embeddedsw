@@ -50,6 +50,7 @@
 * 2.00  ng   12/11/2023 Fixed SD macro for SDT flow
 *       ng   12/27/2023 Reduced log level for less frequent prints
 *       bm   02/12/2024 Updated logical partition comments for SD/eMMC bootmodes
+*       ng   02/14/2024 removed int typecast for errors
 *
 * </pre>
 *
@@ -212,7 +213,7 @@ int XLoader_SdInit(u32 DeviceFlagsVal)
 	Status = XPlmi_MemSetBytes(BootFile, sizeof(BootFile), 0U, sizeof(BootFile));
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET,
-			(int)XLOADER_ERR_MEMSET_SD_BOOT_FILE);
+			XLOADER_ERR_MEMSET_SD_BOOT_FILE);
 		goto END;
 	}
 
@@ -471,7 +472,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 				0U, sizeof(SdInstance));
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET,
-			(int)XLOADER_ERR_MEMSET_SD_INSTANCE);
+			XLOADER_ERR_MEMSET_SD_INSTANCE);
 		goto END;
 	}
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,7 @@
 *       dd    03/28/2023 Updated doxygen comments
 *       ng    03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.10  ng    06/26/2023 Added support for system device tree flow
+* 2.00  ng    01/26/2024 Added header file for minor error codes
 * </pre>
 *
 * @note
@@ -55,6 +56,7 @@
 #include "xcframe.h"
 #include "xplmi_util.h"
 #include "xplmi_config.h"
+#include "xloader_plat.h"
 
 /************************** Constant Definitions *****************************/
 /* CFRAM related register defines */
@@ -274,7 +276,7 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 
 	/** - Check if the block type is valid */
 	if (BlockType >= CFRAME_MAX_BLOCK_TYPE_COUNT) {
-		Status = (int)XLOADER_INVALID_BLOCKTYPE;
+		Status = XLOADER_INVALID_BLOCKTYPE;
 		goto END;
 	}
 
@@ -305,7 +307,7 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 	Status = XPlmi_UtilPoll(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK,
 			XPLMI_ZERO, CFRAME_CRC_POLL_TIMEOUT, NULL);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XLOADER_CFI_CFRAME_IS_BUSY;
+		Status = XLOADER_CFI_CFRAME_IS_BUSY;
 		goto END;
 	}
 
@@ -313,7 +315,7 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 		XCframe_ReadReg(&XLoader_CframeIns, XCFRAME_CRC_OFFSET, (XCframe_FrameNo)RowRange, (u32 *)&CframeData);
 		/** - Check CRC */
 		if (CframeData.Word0 != XPLMI_ZERO) {
-			Status = (int)XLOADER_CFRAME_CRC_CHECK_FAILED;
+			Status = XLOADER_CFRAME_CRC_CHECK_FAILED;
 			goto END;
 		}
 	}

@@ -28,6 +28,7 @@
 * 1.05  ng   11/11/2022 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       ng   06/26/2023 Added support for system device tree flow
+*       ng   02/14/2024 removed int typecast for errors
 *
 * </pre>
 *
@@ -94,18 +95,18 @@ int XLoader_UsbInit(u32 DeviceFlags)
 	Status = XPlmi_MemSetBytes((void *)UsbInstancePtr, sizeof(struct Usb_DevData), 0U,
 		sizeof(struct Usb_DevData));
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_USB_INSTANCE);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, XLOADER_ERR_MEMSET_USB_INSTANCE);
 		goto END;
 	}
 	Status = XPlmi_MemSetBytes((void *)UsbPrivateDataPtr, sizeof(struct XUsbPsu),
 				0U, sizeof(struct XUsbPsu));
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_USB_PRIVATE_DATA);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, XLOADER_ERR_MEMSET_USB_PRIVATE_DATA);
 		goto END;
 	}
 	Status = XPlmi_MemSetBytes(&DfuObj, sizeof(DfuObj), 0U, sizeof(DfuObj));
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_DFU_OBJ);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, XLOADER_ERR_MEMSET_DFU_OBJ);
 		goto END;
 	}
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 *       mss  06/11/2023 Added XLOADER_ERR_INVALID_READBACK_PDI_DEST_ADDR,
                         XLOADER_ERR_INVALID_DEST_IMGINFOTBL_ADDRESS and
 						XLOADER_ERR_INVALID_IMAGE_STORE_ADDRESS error code macro
+* 2.00  ng   01/26/2024 Updated minor error codes
 *
 * </pre>
 *
@@ -108,64 +109,140 @@ extern "C" {
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
 
 /* Minor Error Codes */
-#define XLOADER_ERR_INVALID_IMGID		(0x2U) /**< Invalid ImgID passed in Command */
-#define XLOADER_ERR_NO_VALID_IMG_FOUND		(0x3U) /**< No Valid Image Found in the Image Info Table */
-#define XLOADER_ERR_IMAGE_INFO_TBL_FULL		(0x4U) /**< Image Info Table is Full */
-#define XLOADER_ERR_PARENT_QUERY_RELATION_CHECK	(0x5U) /**< Error on Parent Query while checking for Child Relation */
-#define XLOADER_ERR_MEMSET_BOOT_HDR_FW_RSVD	(0x6U) /**< Error during memset on XilPdi_BootHdrFwRsvd */
-#define XLOADER_ERR_MEMSET_PDIPTR		(0x7U) /**< Error during memset on PdiPtr */
-#define XLOADER_ERR_MEMSET_QSPI_PSU_INST	(0x8U) /**< Error during memset on QspiPsuInstance */
-#define XLOADER_ERR_MEMSET_SD_BOOT_FILE		(0x9U) /**< Error during memset on SD BootFile */
-#define XLOADER_ERR_MEMSET_SD_INSTANCE		(0xAU) /**< Error during memset on SdInstance */
-#define XLOADER_ERR_MEMSET_USB_INSTANCE		(0xBU) /**< Error during memset on UsbInstance */
-#define XLOADER_ERR_MEMSET_USB_PRIVATE_DATA	(0xCU) /**< Error during memset on UsbPrivateData */
-#define XLOADER_ERR_MEMSET_DFU_OBJ		(0xDU) /**< Error during memset on DfuObj */
-#define XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE	(0xEU) /**< Error when buffer size given by user
-							is less than the metaheader length */
-#define XLOADER_ERR_INVALID_PDI_INPUT	(0xFU) /**< Error when PDI given is not a full PDI
-							or partial PDI */
-#define XLOADER_ERR_INVALID_DEST_IMGINFOTBL_SIZE	(0x10U) /**< Error when the destination
-							buffer provided to store image info
-							table is less than the current length
-							of image info table */
-#define XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR		(0x11U) /**< Error when invalid source address
-							is passed as a input to extract metaheader
-							command */
-#define XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR	(0x12U) /**< Error when invalid destination address
-							is passed as a input to extract metaheader
-							command */
-#define XLOADER_ERR_INVALID_METAHEADER_OFFSET	(0x13U) /**< Error when the metaheader offset provided
-							in full PDI is not present in DDR */
-#define XLOADER_ERR_MAX_BASE_ADDR	(0x14U) /**< Error when Max ddr base addr */
-#define XLOADER_ERR_HS_TIMEOUT		(0x17U) /**< Handshake process timeout */
-#define XLOADER_ERR_I2C_TRANSACTION	(0x18U) /**< I2c transaction error */
-#define XLOADER_ERR_I2C_INIT		(0x19U) /**< I2c initialization error */
-#define XLOADER_ERR_I2C_BUS_BUSY	(0x20U) /**< I2c bus busy error */
+enum {
+	/* Do not move this error, as it is used to represent XST_FAILURE */
+	/** 0x1 - XLOADER_ERR_FAILURE */
+	XLOADER_ERR_FAILURE = 0x1,
 
-/* Minor Error codes for Major Error code: XLOADER_ERR_GEN_IDCODE */
-#define XLOADER_ERR_IDCODE		(0x14U) /**< IDCODE mismatch */
-#define XLOADER_ERR_EXT_IDCODE		(0x15U) /**< EXTENDED IDCODE mismatch */
-#define XLOADER_ERR_EXT_ID_SI		(0x16U) /**< Invalid combination of
-						* EXTENDED IDCODE - Device
-						*/
+	/** 0x2 - Invalid ImgID passed in Command */
+	XLOADER_ERR_INVALID_IMGID,
 
-#define XLOADER_ERR_PDI_LIST_EMPTY		(0x17U) /**< Error when PdiList is empty*/
-#define XLOADER_ERR_PDI_ADDR_NOT_FOUND		(0x18U) /**< Error when the PdiAddr that is being tried
-							to remove does not exist in the PdiList */
-#define XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET	(0x19U) /**< Image Store configuration is not enabled/error */
-#define XLOADER_ERR_PDI_IMG_STORE_FULL		(0x1AU) /**< Error when PdiList is full and user
-							is trying to add a new Pdi */
-#define XLOADER_ERR_INVALID_READBACK_PDI_DEST_ADDR	(0x1BU) /**< Error when invalid destination address
-																is passed for Readback PDI overriding */
-#define	XLOADER_ERR_INVALID_IMAGE_STORE_ADDRESS	(0x1CU)	/** Error when invalid Image Store Address address is encountered */
-#define	XLOADER_ERR_INVALID_DEST_IMGINFOTBL_ADDRESS	(0x1DU) /** Error when invalid Destination Address where
-															Image Info Table to be copied is encountered */
+	/** 0x3 - No Valid Image Found in the Image Info Table */
+	XLOADER_ERR_NO_VALID_IMG_FOUND,
 
-/* Platform specific Minor Error Codes start from 0x100 */
+	/** 0x4 - Image Info Table is Full */
+	XLOADER_ERR_IMAGE_INFO_TBL_FULL,
 
-#define XLOADER_ERR_INVALID_JTAG_OPERATION	(0x100U) /**< Invalid JTAG/DAP config request */
-#define XLOADER_ERR_DDR_DEVICE_ID           (0x101U) /**< Invalid DDR device id */
-#define XLOADER_ERR_PCOMPLETE_NOT_DONE      (0x102U) /**< Pcomplete not done for given DDR device id */
+	/** 0x5 - Error on Parent Query while checking for Child Relation */
+	XLOADER_ERR_PARENT_QUERY_RELATION_CHECK,
+
+	/** 0x6 - Error during memset on PdiPtr */
+	XLOADER_ERR_MEMSET_PDIPTR,
+
+	/** 0x7 - Error during memset on QspiPsuInstance */
+	XLOADER_ERR_MEMSET_QSPI_PSU_INST,
+
+	/** 0x8 - Error during memset on SD BootFile */
+	XLOADER_ERR_MEMSET_SD_BOOT_FILE,
+
+	/** 0x9 - Error during memset on SdInstance */
+	XLOADER_ERR_MEMSET_SD_INSTANCE,
+
+	/** 0xA - Error during memset on UsbInstance */
+	XLOADER_ERR_MEMSET_USB_INSTANCE,
+
+	/** 0xB - Error during memset on UsbPrivateData */
+	XLOADER_ERR_MEMSET_USB_PRIVATE_DATA,
+
+	/** 0xC - Error during memset on DfuObj */
+	XLOADER_ERR_MEMSET_DFU_OBJ,
+
+	/** 0xD - Error when buffer size given by user is less than the metaheader length */
+	XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE,
+
+	/** 0xE - Error when PDI given is not a full PDI or partial PDI */
+	XLOADER_ERR_INVALID_PDI_INPUT,
+
+	/* Do not move this error, as it is used to represent XST_INVALID_PARAM */
+	/** 0xF - XLOADER_ERR_INVALID_PARAM */
+	XLOADER_ERR_INVALID_PARAM,
+
+	/** 0x10 - Error when the destination buffer provided to store image info table is less than the current length of image info table */
+	XLOADER_ERR_INVALID_DEST_IMGINFOTBL_SIZE,
+
+	/** 0x11 - Error when invalid source address is passed as a input to extract metaheader command */
+	XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR,
+
+	/** 0x12 - Error when invalid destination address is passed as a input to extract metaheader command */
+	XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR,
+
+	/** 0x13 - Error when the metaheader offset provided in full PDI is not present in DDR */
+	XLOADER_ERR_INVALID_METAHEADER_OFFSET,
+
+
+	/* Minor Error codes for Major Error code: XLOADER_ERR_GEN_IDCODE */
+	/** 0x14 - IDCODE mismatch */
+	XLOADER_ERR_IDCODE,
+
+	/** 0x15 - EXTENDED IDCODE mismatch */
+	XLOADER_ERR_EXT_IDCODE,
+
+	/** 0x16 - Invalid combination of EXTENDED IDCODE - Device */
+	XLOADER_ERR_EXT_ID_SI,
+
+	/** 0x17 - Error when PdiList is empty*/
+	XLOADER_ERR_PDI_LIST_EMPTY,
+
+	/** 0x18 - Error when the PdiAddr that is being tried to remove does not exist in the PdiList */
+	XLOADER_ERR_PDI_ADDR_NOT_FOUND,
+
+	/** 0x19 - Image Store configuration is not enabled/error */
+	XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET,
+
+	/** 0x1A - Error when PdiList is full and user is trying to add a new Pdi */
+	XLOADER_ERR_PDI_IMG_STORE_FULL,
+
+	/** 0x1B - Error when invalid destination address is passed for Readback PDI overriding */
+	XLOADER_ERR_INVALID_READBACK_PDI_DEST_ADDR,
+
+	/** 0x1C - Error when invalid Image Store Address is encountered */
+	XLOADER_ERR_INVALID_IMAGE_STORE_ADDRESS,
+
+	/** 0x1D - Error when invalid Destination Address where Image Info Table to be copied is encountered */
+	XLOADER_ERR_INVALID_DEST_IMGINFOTBL_ADDRESS,
+
+	/** 0x1E - Invalid Blocktype to Cframe data clear check */
+	XLOADER_INVALID_BLOCKTYPE,
+
+	/** 0x1F - CRAM self check failed as CFI CFrame is busy */
+	XLOADER_CFI_CFRAME_IS_BUSY,
+
+	/* Do not move this error, as it is used to represent XST_GLITCH_DETECTED */
+	/** 0x20 - XLOADER_GLITCH_DETECTED. */
+	XLOADER_GLITCH_DETECTED,
+
+	/** 0x21 - CFRAME CRC check failed */
+	XLOADER_CFRAME_CRC_CHECK_FAILED,
+
+	/** 0x22 - Invalid destination address for copying ATF Handoff Parameters */
+	XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_ADDR,
+
+	/** 0x23 - Invalid destination size for copying ATF Handoff Parameters */
+	XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE,
+
+	/* Platform specific Minor Error Codes start from 0x100 */
+	/** 0x100 - Invalid JTAG/DAP config request */
+	XLOADER_ERR_INVALID_JTAG_OPERATION = 0x100,
+
+	/** 0x101 - Invalid DDR device id */
+	XLOADER_ERR_DDR_DEVICE_ID,
+
+	/** 0x102 - Pcomplete not done for given DDR device id */
+	XLOADER_ERR_PCOMPLETE_NOT_DONE,
+
+	/** 0x103 - Error when Max ddr base addr */
+	XLOADER_ERR_MAX_BASE_ADDR,
+
+	/** 0x104 - Handshake process timeout */
+	XLOADER_ERR_HS_TIMEOUT,
+
+	/** 0x105 - I2c transaction error */
+	XLOADER_ERR_I2C_TRANSACTION,
+
+	/** 0x106 - I2c bus busy error */
+	XLOADER_ERR_I2C_BUS_BUSY,
+
+};
 
 /**************************** Type Definitions *******************************/
 

@@ -475,15 +475,17 @@ typedef enum {
 					 unsupported secondary boot mode */
 	XLOADER_ERR_SECURE_METAHDR,	/**< 0x325 - Error when meta header
 					  secure validations fail. */
-	XLOADER_ERR_GEN_IDCODE,		/**< 0X326 - Error caused due to
-						mismatch in IDCODEs */
+	XLOADER_ERR_GEN_IDCODE,		/**< 0X326 - Error if Vivado configured part (IDCODE)
+						mismatches with the acutal part */
 	XLOADER_ERR_USB_LOOKUP,		/**< 0x327 - Error when USB lookup fails*/
 	XLOADER_ERR_USB_CFG,		/**< 0x328 - Error when USB cfg initialize fails */
 	XLOADER_ERR_USB_START,		/**< 0x329 - Error when USB fails to start */
 	XLOADER_ERR_DFU_DWNLD,	/**< 0x32A - Error when pdi fails to download */
-	XLOADER_ERR_DEFERRED_CDO_PROCESS, /**< 0x32B - Error occurred while
-					  processing CDO but error is deferred
-					  till whole CDO processing is completed */
+	XLOADER_ERR_DEFERRED_CDO_PROCESS, /**< 0x32B - Error if the expected value is not
+						same as actual value for the address polled
+						using mask_poll CDO cmd, but the CDO command
+						is configured to defer it till the whole CDO
+						processing is complete. */
 	XLOADER_ERR_SD_LOOKUP,		/**< 0x32C - Error when SD look up fails */
 	XLOADER_ERR_SD_CFG,		/**< 0x32D - Error when SD config fails */
 	XLOADER_ERR_SD_CARD_INIT,	/**< 0x32E - Error when SD card init fails */
@@ -603,13 +605,11 @@ typedef enum {
 	XLOADER_ERR_RELEASE_BOOT_DEVICE,	/**< 0x369 - Failed to Release Boot Device */
 	XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE,	/**< 0x36A - Failed to disable DUAL BYTE OP */
 	XLOADER_ERR_INVALID_TCM_ADDR,	/**< 0x36B - Invalid TCM address for A72 elfs */
-	XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_ADDR, /**< 0x36C - Invalid destination address
-	                        for copying ATF Handoff Parameters */
-	XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE, /**< 0x36D - Invalid destination size
-	                        for copying ATF Handoff Parameters */
-	XLOADER_INVALID_BLOCKTYPE, /**< 0x36E - Invalid Blocktype to Cframe data clear check */
-	XLOADER_CFI_CFRAME_IS_BUSY, /**< 0x36F - CRAM self check failed as CFI CFrame is busy */
-	XLOADER_CFRAME_CRC_CHECK_FAILED, /**< 0x370 - CFRAME CRC check failed */
+	XLOADER_ERR_RESERVED_36C, /**< 0x36C - XLOADER_ERR_RESERVED_36C */
+	XLOADER_ERR_RESERVED_36D, /**< 0x36D - XLOADER_ERR_RESERVED_36D */
+	XLOADER_ERR_RESERVED_36E, /**< 0x36E - XLOADER_ERR_RESERVED_36E */
+	XLOADER_ERR_RESERVED_36F, /**< 0x36F - XLOADER_ERR_RESERVED_36F */
+	XLOADER_ERR_RESERVED_370, /**< 0x370 - XLOADER_ERR_RESERVED_370 */
 	XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, /**< 0x371 - Skip processing rest of the partitions
 						as secure lockdown has been triggered */
 	XLOADER_ERR_RESERVED4, /**< 0x372 - XLoader Reserved Error 4 */
