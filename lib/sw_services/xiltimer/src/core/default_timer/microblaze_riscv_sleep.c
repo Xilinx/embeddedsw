@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 -2024  Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -18,7 +18,9 @@
  *
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
- * 1.0  mus	 24/11/23 Initial release.
+ * 1.4  mus	 24/11/23 Initial release.
+ * 1.4  mus	 13/02/24 Update XilSleepTimer_Init properly initialize MB V
+ *                        timer.
  *</pre>
  *
  *@note
@@ -40,7 +42,7 @@ static u32 RISCVFreq;
 
 /****************************************************************************/
 /**
- * Initialize the microblaze sleep timer
+ * Initialize the microblaze riscv sleep timer
  *
  * @param	InstancePtr is a pointer to the XTimer Instance
  *
@@ -49,6 +51,8 @@ static u32 RISCVFreq;
 /****************************************************************************/
 u32 XilSleepTimer_Init(XTimer *InstancePtr)
 {
+	InstancePtr->XTimer_ModifyInterval = XMicroblaze_RISCV_ModifyInterval;
+	InstancePtr->XSleepTimer_Stop = NULL;
 #ifdef SDT
 	RISCVFreq = XGet_CpuFreq();
 #else
