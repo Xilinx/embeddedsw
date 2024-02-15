@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.3)
 
@@ -12,8 +12,13 @@ list(LENGTH SCUTIMER_NUM_DRIVER_INSTANCES CONFIG_SCUTIMER)
 list(LENGTH TOTAL_TIMER_INSTANCES _len)
 
 if (NOT "${TOTAL_TIMER_INSTANCES}" STREQUAL "")
-   set(XILTIMER_sleep_timer "Default;" CACHE STRING "This parameter is used to select specific timer for sleep functionality")
-   SET_PROPERTY(CACHE XILTIMER_sleep_timer PROPERTY STRINGS "Default;${TOTAL_TIMER_INSTANCES}")
+    if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv"))
+	set(XILTIMER_sleep_timer "Default" CACHE STRING "This parameter is used to select specific timer for sleep functionality")
+	SET_PROPERTY(CACHE XILTIMER_sleep_timer PROPERTY STRINGS "Default")
+    else()
+	set(XILTIMER_sleep_timer "Default;" CACHE STRING "This parameter is used to select specific timer for sleep functionality")
+	SET_PROPERTY(CACHE XILTIMER_sleep_timer PROPERTY STRINGS "Default;${TOTAL_TIMER_INSTANCES}")
+    endif()
 
    set(XILTIMER_tick_timer "None;" CACHE STRING "This parameter is used to select specific timer for tick functionality")
    SET_PROPERTY(CACHE XILTIMER_tick_timer PROPERTY STRINGS "None;${TOTAL_TIMER_INSTANCES}")
