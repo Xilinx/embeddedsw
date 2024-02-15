@@ -191,7 +191,10 @@ typedef struct {
 	u32 DeviceIdData;	/**< Contains Device Id Data information */
 	u8 Extra_DummyCycle;	/**< Contains extra dummy cycle data */
 	u8 DllMode;		/**< DLL mode */
-	u8 DualByteOpcodeEn;	/**< Flag to indicate Dual Byte Opcode */
+	u8 DualByteOpcodeEn;	/**< Flag to indicate Dual Byte Opcode
+				* 0 - DualByte opcode is disabled
+				* 1 - DualByte opcode is enabled with inverted opcode
+				* 2 - DualByte opcode is enabled with same opcode */
 #ifdef __ICCARM__
 #pragma pack(push, 8)
 	u8 UnalignReadBuffer[4];	/**< Buffer used to read the unaligned bytes in DMA */
@@ -417,6 +420,7 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  */
 #define XOSPIPSV_DUAL_BYTE_OP_DISABLE	0x0U
 #define XOSPIPSV_DUAL_BYTE_OP_ENABLE	0x1U
+#define XOSPIPSV_DUAL_BYTE_OP_SAME	0x2U
 /** @} */
 
 /**< Macro used for more than 32-bit address */
