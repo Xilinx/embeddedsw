@@ -377,6 +377,25 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		goto done;
 	}
 
+	/* Add xGGS Permissions */
+	j |= 1UL << IOCTL_PERM_READ_SHIFT_NS;
+	j |= 1UL << IOCTL_PERM_WRITE_SHIFT_NS;
+	j |= 1UL << IOCTL_PERM_READ_SHIFT_S;
+	j |= 1UL << IOCTL_PERM_WRITE_SHIFT_S;
+	for (i = PM_DEV_GGS_0; i <= PM_DEV_GGS_3; i++) {
+		Status = XPm_AddDevRequirement(Subsystem, i, j, NULL, 0);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	for (i = PM_DEV_PGGS_0; i <= PM_DEV_PGGS_3; i++) {
+		Status = XPm_AddDevRequirement(Subsystem, i, j, NULL, 0);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
 	Status = XST_SUCCESS;
 
 done:
