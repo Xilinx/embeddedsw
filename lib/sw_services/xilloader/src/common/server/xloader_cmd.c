@@ -84,6 +84,7 @@
 *       ng   12/27/2023 Reduced log level for less frequent prints
 *       dd   01/09/2023 Removed IPI full access for I2C handshake
 *       ng   01/28/2024 u8 variables optimization
+*       ng   02/14/2024 removed int typecast for errors
 *
 * </pre>
 *
@@ -363,7 +364,7 @@ static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
 
 	if (Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX] ==
 		XLOADER_INVALID_IMG_ID) {
-		Status = (int)XLOADER_ERR_INVALID_IMGID;
+		Status = XLOADER_ERR_INVALID_IMGID;
 		XPlmi_Printf(DEBUG_INFO, "Invalid ImgID\n\r");
 		goto END;
 	}
@@ -374,12 +375,12 @@ static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
 	ImageInfo = XLoader_GetImageInfoEntry(
 		Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX]);
 	if (ImageInfo == NULL) {
-		Status = (int)XLOADER_ERR_NO_VALID_IMG_FOUND;
+		Status = XLOADER_ERR_NO_VALID_IMG_FOUND;
 		goto END;
 	}
 	if ((ImageInfo->ImgID != Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX])
 		|| (ImageInfo->ImgID == XLOADER_INVALID_IMG_ID)) {
-		Status = (int)XLOADER_ERR_NO_VALID_IMG_FOUND;
+		Status = XLOADER_ERR_NO_VALID_IMG_FOUND;
 		XPlmi_Printf(DEBUG_INFO, "No Valid Image Entry Found\n\r");
 		goto END;
 	}
@@ -456,7 +457,7 @@ static int XLoader_GetImageInfoList(XPlmi_Cmd *Cmd)
 	/** Verify the destination address range before writing */
 	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + (u64)MaxSize - 1U);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XLOADER_ERR_INVALID_DEST_IMGINFOTBL_ADDRESS;
+		Status = XLOADER_ERR_INVALID_DEST_IMGINFOTBL_ADDRESS;
 		goto END;
 	}
 
@@ -505,7 +506,7 @@ static int XLoader_LoadReadBackPdi(XPlmi_Cmd *Cmd)
 	/** Verify the destination address range before writing */
 	Status = XPlmi_VerifyAddrRange(ReadBack.DestAddr, ReadBack.DestAddr + (u64)ReadBack.MaxSize - 1U);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XLOADER_ERR_INVALID_READBACK_PDI_DEST_ADDR;
+		Status = XLOADER_ERR_INVALID_READBACK_PDI_DEST_ADDR;
 		goto END;
 	}
 
@@ -685,7 +686,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 
 	if(PdiList->PdiImgStrSize == XLOADER_IMG_STORE_INVALID_SIZE) {
 		XPlmi_Printf(DEBUG_INFO,"Image Store Configuration not Set\n\r");
-		Status = (int)XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET;
+		Status = XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET;
 		goto END;
 	}
 
@@ -696,7 +697,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 	 * that are maintained in PLM.
 	 */
 	if (PdiList->Count >= XLOADER_MAX_PDI_LIST) {
-		Status = (int)XLOADER_ERR_PDI_IMG_STORE_FULL;
+		Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 		goto END;
 	}
 
@@ -714,7 +715,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 		FreeImgStoreSpace += (u32)(PdiList->ImgList[Index + 1U].PdiAddr - PdiList->ImgList[Index].PdiAddr);
 		/* Check if free space to accomodate new PDI */
 		if ((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
-			Status = (int)XLOADER_ERR_PDI_IMG_STORE_FULL;
+			Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 			goto END;
 		} else {
 			BufferList.BufferCount = PdiList->Count;
@@ -730,7 +731,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 	} else {
 
 		if((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
-			Status = (int)XLOADER_ERR_PDI_IMG_STORE_FULL;
+			Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 			goto END;
 		}
 	}
@@ -792,7 +793,7 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 
 	if(PdiList->PdiImgStrSize == XLOADER_IMG_STORE_INVALID_SIZE) {
 		XPlmi_Printf(DEBUG_INFO,"Image Store Configuration not Set\n\r");
-		Status = (int)XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET;
+		Status = XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET;
 		goto END;
 	}
 
@@ -804,7 +805,7 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 		 * that are maintained in PLM.
 		 */
 		if (PdiList->Count >= XLOADER_MAX_PDI_LIST) {
-			Status = (int)XLOADER_ERR_PDI_IMG_STORE_FULL;
+			Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 			goto END;
 		}
 
@@ -819,7 +820,7 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 			XPlmi_Printf(DEBUG_DETAILED, "%s:PdiId:0x%x exists... updating\n\r", __func__,PdiId);
 			FreeImgStoreSpace += (u32)(PdiList->ImgList[Index + 1U].PdiAddr - PdiList->ImgList[Index].PdiAddr);
 			if ((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
-				Status = (int)XLOADER_ERR_PDI_IMG_STORE_FULL;
+				Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 				goto END;
 			} else {
 				BufferList.BufferCount = PdiList->Count;
@@ -834,7 +835,7 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 			}
 		} else {
 			if((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
-				Status = (int)XLOADER_ERR_PDI_IMG_STORE_FULL;
+				Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 				goto END;
 			}
 		}
@@ -896,7 +897,7 @@ static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
 	XPlmi_BufferList BufferList;
 
 	if (PdiList->Count == 0U) {
-		Status = (int)XLOADER_ERR_PDI_LIST_EMPTY;
+		Status = XLOADER_ERR_PDI_LIST_EMPTY;
 		goto END;
 	}
 
@@ -916,7 +917,7 @@ static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
 	}
 
 	if (Index == PdiList->Count) {
-		Status = (int)XLOADER_ERR_PDI_ADDR_NOT_FOUND;
+		Status = XLOADER_ERR_PDI_ADDR_NOT_FOUND;
 		goto END;
 	}
 
@@ -1016,14 +1017,14 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL_METAHEADER;
 		}
 		else {
-			Status = (int)XLOADER_ERR_INVALID_PDI_INPUT;
+			Status = XLOADER_ERR_INVALID_PDI_INPUT;
 			goto END;
 		}
 	}
 
 	Status = XPlmi_VerifyAddrRange(SrcAddr, SrcAddr + (XPLMI_WORD_LEN - 1U));
 	if (Status != XST_SUCCESS) {
-		Status = (int)XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR;
+		Status = XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR;
 		goto END;
 	}
 
@@ -1035,14 +1036,14 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 		Status = XPlmi_VerifyAddrRange(MetaHdrOfst, MetaHdrOfst +
 				(XPLMI_WORD_LEN - 1U));
 		if (Status != XST_SUCCESS) {
-			Status = (int)XLOADER_ERR_INVALID_METAHEADER_OFFSET;
+			Status = XLOADER_ERR_INVALID_METAHEADER_OFFSET;
 			goto END;
 		}
 	}
 
 	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + DestSize - 1U);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR;
+		Status = XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR;
 		goto END;
 	}
 
@@ -1054,7 +1055,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	DataSize = (PdiPtr->MetaHdr.ImgHdrTbl.TotalHdrLen * XPLMI_WORD_LEN) +
 			XIH_IHT_LEN;
 	if (DestSize < DataSize) {
-		Status = (int)XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE;
+		Status = XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE;
 		goto END;
 	}
 
@@ -1143,7 +1144,7 @@ static int XLoader_GetATFHandOffParams(XPlmi_Cmd *Cmd)
 	/** Verify destination address and the size */
 	Status = XPlmi_VerifyAddrRange(DestAddr, (DestAddr + Size - 1U));
 	if (Status != XST_SUCCESS) {
-		Status = (int)XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_ADDR;
+		Status = XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_ADDR;
 		goto END;
 	}
 
@@ -1155,7 +1156,7 @@ static int XLoader_GetATFHandOffParams(XPlmi_Cmd *Cmd)
 
 	/** Verify the Handoff parameters size */
 	if (Size < HandoffParamsSize) {
-		Status = (int)XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE;
+		Status = XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE;
 		goto END;
 	}
 

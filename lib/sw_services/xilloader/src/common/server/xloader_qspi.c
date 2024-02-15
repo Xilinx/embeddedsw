@@ -41,6 +41,7 @@
 *       ng   06/26/2023 Added support for system device-tree flow
 *       ng   08/09/2023 Removed redundant windbond flash size macro
 *       ng   12/27/2023 Reduced log level for less frequent prints
+*       ng   02/14/2024 removed int typecast for errors
 *
 * </pre>
 *
@@ -243,7 +244,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 	Status = XPlmi_MemSetBytes(&QspiPsuInstance, sizeof(QspiPsuInstance),
 				0U, sizeof(QspiPsuInstance));
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_QSPI_PSU_INST);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, XLOADER_ERR_MEMSET_QSPI_PSU_INST);
 		goto END;
 	}
 

@@ -168,6 +168,7 @@
 *       mss  11/06/2023 Added VerifyAddr check for Image Store Address of RTCA registers
 *       kpt  11/01/2023 Clear AES keys during PDI failure
 *       bm   02/12/2024 Update XLoader_ReadAndValidateHdrs prototype
+*       ng   02/14/2024 removed int typecast for errors
 *
 * </pre>
 *
@@ -465,8 +466,6 @@ END:
  *
  * @return
  * 			- XST_SUCCESS on success.
- * 			- XLOADER_ERR_MEMSET_BOOT_HDR_FW_RSVD if failed to create instance
- * 			for boot header reserved fields.
  * 			- XLOADER_ERR_IMGHDR_TBL if PLM is unable to read image header table.
  * 			- XLOADER_ERR_MEMSET_SECURE_PTR if failed to create instance for
  * 			secure pointer.
@@ -1017,7 +1016,7 @@ static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChil
 		Status = XPm_Query((u32)XPM_QID_PLD_GET_PARENT, TempParentImgID, 0U, 0U,
 				&TempParentImgID);
 		if (Status != XST_SUCCESS) {
-			Status = (int)XLOADER_ERR_PARENT_QUERY_RELATION_CHECK;
+			Status = XLOADER_ERR_PARENT_QUERY_RELATION_CHECK;
 			goto END;
 		}
 
@@ -1235,7 +1234,7 @@ int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
 	 * Maximum buffer size available
 	 */
 	if (ImageInfoTbl->Count > MaxLen) {
-		Status = (int)XLOADER_ERR_INVALID_DEST_IMGINFOTBL_SIZE;
+		Status = XLOADER_ERR_INVALID_DEST_IMGINFOTBL_SIZE;
 		goto END;
 	}
 
@@ -1250,7 +1249,7 @@ int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
 	}
 
 	if (ImageInfoTbl->IsBufferFull == (u8)TRUE) {
-		Status = (int)XLOADER_ERR_IMAGE_INFO_TBL_FULL;
+		Status = XLOADER_ERR_IMAGE_INFO_TBL_FULL;
 		XPlmi_Printf(DEBUG_INFO, "Image Info Table Overflowed\r\n");
 	}
 	*NumEntries = ImageInfoTbl->Count;
@@ -1748,7 +1747,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 	 */
 	if ((IsExtIdCodeZero == (u8)TRUE) &&
 			(IsVC1902Es1 == (u8)FALSE)) {
-		Status = (int)XLOADER_ERR_EXT_ID_SI;
+		Status = XLOADER_ERR_EXT_ID_SI;
 		goto END;
 	}
 	else {
@@ -1760,14 +1759,14 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 
 		/* Do the actual IDCODE check */
 		if (IdCodeIHT != IdCodeRd) {
-			Status = (int)XLOADER_ERR_IDCODE;
+			Status = XLOADER_ERR_IDCODE;
 			goto END;
 		}
 
 		/* Do the actual Extended IDCODE check */
 		if ((u8)FALSE == IsExtIdCodeZero) {
 			if (ExtIdCodeIHT != ExtIdCodeRd) {
-				Status = (int)XLOADER_ERR_EXT_IDCODE;
+				Status = XLOADER_ERR_EXT_IDCODE;
 				goto END;
 			}
 		}
@@ -1879,7 +1878,7 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 
 			Status = XPlmi_MemSetBytes(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
 			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_PDIPTR);
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, XLOADER_ERR_MEMSET_PDIPTR);
 				goto END;
 			}
 			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
@@ -1934,7 +1933,7 @@ int XLoader_ReadImageStoreCfg(void)
 	/** Verify the image store address range */
 	Status = XPlmi_VerifyAddrRange(PdiList->PdiImgStrAddr, PdiList->PdiImgStrAddr + (u64)PdiList->PdiImgStrSize - 1U);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XLOADER_ERR_INVALID_IMAGE_STORE_ADDRESS;
+		Status = XLOADER_ERR_INVALID_IMAGE_STORE_ADDRESS;
 		goto END;
 	}
 
@@ -1970,7 +1969,7 @@ int XLoader_IsPdiAddrLookup(u32 PdiId, u64 *PdiAddr)
 	}
 
 	if (PdiList->Count == 0U) {
-		Status = (int)XLOADER_ERR_PDI_LIST_EMPTY;
+		Status = XLOADER_ERR_PDI_LIST_EMPTY;
 		goto END;
 	}
 
@@ -1982,7 +1981,7 @@ int XLoader_IsPdiAddrLookup(u32 PdiId, u64 *PdiAddr)
 	}
 
 	if (Index < 0) {
-		Status = (int)XLOADER_ERR_PDI_ADDR_NOT_FOUND;
+		Status = XLOADER_ERR_PDI_ADDR_NOT_FOUND;
 		XPlmi_Printf(DEBUG_GENERAL, "Image Store PdiId:0x%x Not Found\n\r",PdiId);
 		goto END;
 	}

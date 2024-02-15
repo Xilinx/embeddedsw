@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * 1.00  ro   05/24/2023 Initial release
  * 1.1   ro   08/1/2023  Handle i2c handshake across CDO Chunk boundary
  *       dd   08/11/2023 Updated doxygen comments
+ *       ng   02/14/2024 removed int typecast for errors
  * </pre>
  *
  * @note
@@ -110,7 +111,7 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 	if (IicInstance->IsReady != (u32) XIL_COMPONENT_IS_READY) {
 		Status = I2CInitialize(IicInstance, PM_DEV_I2C_PMC);
 		if (Status != XST_SUCCESS) {
-			Status = (int)XLOADER_ERR_I2C_TRANSACTION;
+			Status = XLOADER_ERR_I2C_TRANSACTION;
 			goto END;
 		}
 	}
@@ -129,7 +130,7 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 		/*Check handshake timeout status*/
 		HsTimeoutStatus = Xloader_CheckForTimeout();
 		if (HsTimeoutStatus != TRUE) {
-			Status = (int)XLOADER_ERR_HS_TIMEOUT;
+			Status = XLOADER_ERR_HS_TIMEOUT;
 			break;
 		}
 
@@ -163,7 +164,7 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 				/* Updated status error bit(0x1) in control register */
 				XPlmi_UtilRMW(CtrlRegAddr, XPLMI_STATUS_ERR_MASK,
 					      XPLMI_STATUS_ERR);
-				Status = (int)XLOADER_ERR_I2C_TRANSACTION;
+				Status = XLOADER_ERR_I2C_TRANSACTION;
 				break;
 			}
 		}
@@ -230,14 +231,14 @@ static int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
 		if ((CtrlReg & XPLMI_REPSTART_BIT_MASK) == XPLMI_REPSTART_BIT_MASK) {
 			Status = XIicPs_SetOptions(Iic, XIICPS_REP_START_OPTION);
 			if (Status != XST_SUCCESS) {
-				Status = (int)XLOADER_ERR_I2C_TRANSACTION;
+				Status = XLOADER_ERR_I2C_TRANSACTION;
 				goto END;
 			}
 		}
 		else {
 			Status = XIicPs_ClearOptions(Iic, XIICPS_REP_START_OPTION);
 			if (Status != XST_SUCCESS) {
-				Status = (int)XLOADER_ERR_I2C_TRANSACTION;
+				Status = XLOADER_ERR_I2C_TRANSACTION;
 				goto END;
 			}
 		}
@@ -262,7 +263,7 @@ static int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
 								>> XPLMI_SLAVE_ADDR_SHIFT)));
 		}
 		if (Status != XST_SUCCESS) {
-			Status = (int)XLOADER_ERR_I2C_TRANSACTION;
+			Status = XLOADER_ERR_I2C_TRANSACTION;
 			goto END;
 		}
 		if (!((CtrlReg & XPLMI_REPSTART_BIT_MASK) == XPLMI_REPSTART_BIT_MASK)) {
@@ -271,7 +272,7 @@ static int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
 			while (XIicPs_BusIsBusy(Iic)) {
 				/* Check the timeout status */
 				if (FALSE == Xloader_CheckForTimeout()) {
-					Status = (int)XLOADER_ERR_I2C_BUS_BUSY;
+					Status = XLOADER_ERR_I2C_BUS_BUSY;
 					goto END;
 				}
 			}
@@ -343,7 +344,7 @@ static int XLoader_PmcI2cParseHandshakeCmd (XLoader_I2cHsCmd *I2cHsPtr,
 	}
 
 	if (Cmd->ResumeData[0U] > XLOADER_MAX_BASE_ADDR_QUEUE) {
-		Status = (int)XLOADER_ERR_MAX_BASE_ADDR;
+		Status = XLOADER_ERR_MAX_BASE_ADDR;
 		goto END;
 	}
 
