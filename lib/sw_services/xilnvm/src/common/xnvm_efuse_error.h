@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,7 +22,8 @@
 * 3.1   skg  10/25/22 Added comments for macros and enums
 *       skg  12/07/22 Added error codes for Additional PPKs
 *       kpt  01/21/23 Removed error codes for Additional PPKs
-* 3.2   kum  04/11/2023 Moved Env error codes to common to make use for both versal and versalnet
+* 3.2   kum  04/11/23 Moved Env error codes to common to make use for both versal and versalnet
+* 3.3   ng   01/26/24 Fixed error number
 *
 * </pre>
 * @note
@@ -210,7 +211,7 @@ typedef enum {
 	XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE = 0xF200,/**<0xF200 - Error
 						* before programming eFuse,
 						* Voltage is out of range */
-	XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED = 0xF300,/**<0xF200 - Error
+	XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED = 0xF300,/**<0xF300 - Error
 						* before programming eFuse,
 						* no supplies are enabled */
 	XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA = 0xF400,/**<0xF400 - Error
