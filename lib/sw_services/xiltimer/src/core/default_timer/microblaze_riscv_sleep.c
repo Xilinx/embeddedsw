@@ -36,11 +36,7 @@
 /************************** Function Prototypes ******************************/
 static void XMicroblaze_RISCV_ModifyInterval(XTimer *InstancePtr, u32 delay,
 				       XTimer_DelayType DelayType);
-#ifdef SDT
-static u32 RISCVFreq = XGet_CpuFreq();
-#else
-static u32 RISCVFreq = XPAR_CPU_CORE_CLOCK_FREQ_HZ;
-#endif
+static u32 RISCVFreq;
 
 /****************************************************************************/
 /**
@@ -53,6 +49,11 @@ static u32 RISCVFreq = XPAR_CPU_CORE_CLOCK_FREQ_HZ;
 /****************************************************************************/
 u32 XilSleepTimer_Init(XTimer *InstancePtr)
 {
+#ifdef SDT
+	RISCVFreq = XGet_CpuFreq();
+#else
+	RISCVFreq = XPAR_CPU_CORE_CLOCK_FREQ_HZ;
+#endif
 	return XST_SUCCESS;
 }
 
