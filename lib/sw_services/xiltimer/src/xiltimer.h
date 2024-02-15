@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 *  1.2  adk	 22/12/22 Fixed doxygen style and indentation issues.
 *  1.3  gm      21/07/23 Added Timer Release Callback function.
 *  1.4  ht      09/12/23 Added code for versioning of library.
+*  1.4  mus     15/02/24 Added correct APIs to set/get MB V frequency.
 *
 * </pre>
 ******************************************************************************/
@@ -172,8 +173,8 @@ u32 Xil_SetMBFrequency(u32 Val);
 #endif
 
 #ifdef XTIMER_DEFAULT_TIMER_IS_MB_RISCV
-u32 Xil_GetMBRISCVFrequency(void);
-u32 Xil_SetMBRISCVFrequency(u32 Val);
+u32 Xil_GetRISCVFrequency(void);
+u32 Xil_SetRISCVFrequency(u32 Val);
 #endif
 
 
