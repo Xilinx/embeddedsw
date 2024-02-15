@@ -59,6 +59,7 @@
 *       sk   12/08/2023 Disable master interrupts while triggering
 *                       SSIT event
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
+* 2.00  ng   01/26/2024 Updated minor error codes
 *
 * </pre>
 *
@@ -1294,7 +1295,7 @@ static int XPlmi_SsitSyncEventHandler(u32 SlavesMask, u32 TimeOut, u8 IsWait)
 			 */
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Slaves did not initiate sync. "
 					"SSIT Sync/Wait Slaves event timed out in Master\r\n");
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
+			Status = XPLMI_ERR_SSIT_SLAVE_SYNC;
 		}
 	} else {
 		/*
@@ -1807,7 +1808,7 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
 	if (0x0U == TimeOut) {
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Slaves did not initiate sync. "
 				"SSIT Sync Slaves command timed out in Master\r\n");
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
+		Status = XPLMI_ERR_SSIT_SLAVE_SYNC;
 		goto END;
 	}
 
@@ -1879,7 +1880,7 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
 	if (TimeOut == 0x0U) {
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 			"Received error from Slave SLR or Timed out\r\n");
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_SLAVE_SYNC, Status);
+		Status = XPLMI_ERR_SSIT_SLAVE_SYNC;
 		goto END;
 	}
 

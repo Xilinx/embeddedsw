@@ -34,6 +34,7 @@
 *       bm   07/06/2023 Added List commands
 *       sk   08/29/2023 Updated IPI Timeout to ~5sec to avoid any DoS issue
 * 2.00  ng   12/15/2023 Added offset support to list commands
+*       ng   02/14/2024 removed int typecast for errors
 *
 * </pre>
 *
@@ -223,7 +224,7 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
 		(BufferList->IsBufferMemAvailable != (u8)TRUE)) {
 		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized or Buffer memory "
 			"is not available for psm sequence\r\n");
-		Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
+		Status = XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
 		goto END;
 	}
 
@@ -236,7 +237,7 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
 			((u32)BufferList->Data[0U].Addr + BufferList->BufferMemSize)) {
 			XPlmi_Printf(DEBUG_GENERAL,"psm_sequence too large \
 				to fit in BufferList.\n\r");
-			Status = (int)XPLMI_UNSUPPORTED_PROC_LENGTH;
+			Status = XPLMI_UNSUPPORTED_PROC_LENGTH;
 			goto END;
 		}
 		/* Store the destination of the DMA to Resume Data to handle resume case*/
@@ -299,7 +300,7 @@ int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd)
 		if (Cmd->PayloadLen < XPLMI_SCATTER_WRITE_PAYLOAD_LEN) {
 			XPlmi_Print(DEBUG_GENERAL, "Scatter_write: invalid "
 				"payload length 0x%x which is less than 2", Cmd->PayloadLen);
-			Status = (int)XPLMI_ERR_INVALID_PAYLOAD_LEN;
+			Status = XPLMI_ERR_INVALID_PAYLOAD_LEN;
 			goto END;
 		}
 
@@ -355,7 +356,7 @@ int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd)
 		if (Cmd->PayloadLen < XPLMI_SCATTER_WRITE2_PAYLOAD_LEN) {
 			XPlmi_Print(DEBUG_GENERAL, "Scatter_write2: invalid "
 				"payload length 0x%x which is less than 3", Cmd->PayloadLen);
-			Status = (int)XPLMI_ERR_INVALID_PAYLOAD_LEN;
+			Status = XPLMI_ERR_INVALID_PAYLOAD_LEN;
 			goto END;
 		}
 
@@ -404,7 +405,7 @@ int XPlmi_SetFipsKatMask(XPlmi_Cmd *Cmd)
 	if (Cmd->PayloadLen != XPLMI_FIPS_WRITE_KATMASK_PAYLOAD_LEN) {
 		XPlmi_Print(DEBUG_GENERAL, "FIPS_SetKatMask: invalid "
 				"payload length %d which is less than 7", Cmd->PayloadLen);
-		Status = (int)XPLMI_ERR_INVALID_PAYLOAD_LEN;
+		Status = XPLMI_ERR_INVALID_PAYLOAD_LEN;
 		goto END;
 	}
 

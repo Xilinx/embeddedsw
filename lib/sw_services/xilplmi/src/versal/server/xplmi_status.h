@@ -120,6 +120,8 @@
 *       yog  08/25/2023 Removed XLOADER_ERR_PLM_MH_SEC_MISMATCH error code
 *       mss  09/04/2023 Added error code for Null Check of EmInit params
 * 2.0   ng   11/11/2023 Added error code for User modules
+* 2.00  ng   01/26/2024 Updated minor error codes
+*
 * </pre>
 *
 * @note
@@ -177,13 +179,7 @@ extern "C" {
  * Status for PLM functions
  */
 typedef enum {
-	/** Status codes used in PLMI */
-	XPLM_SUCCESS = 0x0,		/**< 0x0 - Success */
-	XPLM_FAILURE,			/**< 0x1 - Used internally
-					  for small functions */
-	XPLMI_TASK_INPROGRESS,		/**< 0x2 - Used internally
-					  to indicate task is in progress */
-
+	/* Status codes used in PLMI */
 	/* XPLMI error codes common for all platforms are from 0x100 to 0x19F */
 	XPLMI_ERR_DMA_LOOKUP = 0x100,	/**< 0x100 - Error when DMA driver
 					  lookup fails. */
@@ -210,9 +206,7 @@ typedef enum {
 	XPLMI_ERR_CMD_HANDLER_NULL,	/**< 0x108 - Error when no command
 					 handler is registered by module
 					  for CDO CMD */
-	XPLMI_ERR_CMD_HANDLER,		/**< 0x109 - Error returned by the
-					  CDO CMD handler. For error returned
-					  by the CMD, check the PLM minor code*/
+	XPLMI_ERR_RESERVED_109,		/**< 0x109 - XPLMI_ERR_RESERVED_109 */
 	XPLMI_ERR_RESUME_HANDLER,	/**< 0x10A - Error returned by the CDO
 					  CMD resume handler. For error returned
 					  by the CMD, check the PLM minor code*/
@@ -235,27 +229,19 @@ typedef enum {
 
 	XPLMI_ERR_SSIT_MASTER_SYNC,	/**< 0x110 - Error when SSIT slave
 					  sync fails with master */
-	XPLMI_ERR_SSIT_SLAVE_SYNC,	/**< 0x111 - Error when SSIT master
-					 times out waiting for slaves sync
-					 point */
-	XPLMI_ERR_INVALID_LOG_LEVEL, /**< 0x112 - Error when invalid log level
-					 is received in Logging command. */
-	XPLMI_ERR_INVALID_LOG_BUF_ADDR, /**< 0x113 - Error when invalid log buffer
-					 address is received in Logging command. */
-	XPLMI_ERR_INVALID_LOG_BUF_LEN, /**< 0x114 - Error when invalid log buffer
-						 length is received in Logging command. */
+	XPLMI_ERR_RESERVED_111, /**< 0x111 - XPLMI_ERR_RESERVED_111 */
+	XPLMI_ERR_RESERVED_112, /**< 0x112 - XPLMI_ERR_RESERVED_112 */
+	XPLMI_ERR_RESERVED_113, /**< 0x113 - XPLMI_ERR_RESERVED_113 */
+	XPLMI_ERR_RESERVED_114, /**< 0x114 - XPLMI_ERR_RESERVED_114 */
 	XPLMI_ERR_IPI_CMD, /**< 0x115 - Error when command execution through
 						IPI is not supported because it's a CDO or
 						due to access permission restriction. See
 						minor error code for more details */
 	XPLMI_ERR_REGISTER_IOMOD_HANDLER, /**< 0x116 - Error when registering
 						IoModule Handler */
-	XPLMI_ERR_WDT_PERIODICITY, /**< 0x117 - Invalid Periodicity parameter for
-				     SetWDT command */
-	XPLMI_ERR_WDT_NODE_ID, /**< 0x118 - Invalid Node ID parameter for SetWDT
-				 command */
-	XPLMI_ERR_WDT_LPD_NOT_INITIALIZED, /**< 0x119 LPD MIO is used for WDT
-					     but LPD is not initialized */
+	XPLMI_ERR_RESERVED_117, /**< 0x117 - XPLMI_ERR_RESERVED_117 */
+	XPLMI_ERR_RESERVED_118, /**< 0x118 - XPLMI_ERR_RESERVED_118 */
+	XPLMI_ERR_RESERVED_119, /**< 0x119 - XPLMI_ERR_RESERVED_119 */
 	XPLMI_ERR_INVALID_INTR_ID_DISABLE, /**< 0x11A Invalid Interrupt ID used
 					     to disable interrupt */
 	XPLMI_ERR_INVALID_INTR_ID_CLEAR,   /**< 0x11B Invalid Interrupt ID used
@@ -306,26 +292,21 @@ typedef enum {
 	XPLMI_ERR_INVALID_TASK_PERIOD, /**< 0x133 - Error when invalid task period is
 						used to add tasks in scheduler */
 	XPLMI_ERR_NPI_LOCK, /**< 0x134 - Error locking NPI address space */
-	XPLMI_PROCID_NOT_VALID, /**< 0x135 - Invalid ProcID received */
-	XPLMI_MAX_PROC_COMMANDS_RECEIVED, /**< 0x136 - Maximum supported proc
-						commands received */
-	XPLMI_UNSUPPORTED_PROC_LENGTH, /**< 0x137 - Received proc does not fit in
-						proc memory */
-	XPLMI_ERR_PROC_LPD_NOT_INITIALIZED, /**< 0x138 LPD is not initialized
-						proc command cannot be stored/executed */
+	XPLMI_ERR_RESERVED_135, /**< 0x135 - XPLMI_ERR_RESERVED_135. */
+	XPLMI_ERR_RESERVED_136, /**< 0x136 - XPLMI_ERR_RESERVED_136. */
+	XPLMI_ERR_RESERVED_137, /**< 0x137 - XPLMI_ERR_RESERVED_137. */
+	XPLMI_ERR_RESERVED_138, /**< 0x138 - XPLMI_ERR_RESERVED_138. */
 	XPLMI_ERR_SCHED_TASK_MISSED, /**< 0x139 Scheduler task missed executing
 						at the scheduled interval */
 	XPLMI_ERR_SET_PMC_IRO_FREQ, /**< 0x13A - Error when setting PMC IRO frequency
 						is failed */
-	XPLMI_ERR_FROM_SSIT_SLAVE, /**< 0x13B - Error received from SSIT Slave SLR */
+	XPLMI_ERR_RESERVED_13B, /**< 0x13B - XPLMI_ERR_RESERVED_13B. */
 	XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE, /**< 0x13C - Error when the given address
 	                    range for storing Proc commands is invalid */
 	XPLMI_ERR_CDO_CMD_BREAK_CHUNKS_NOT_SUPPORTED, /**< 0x13D - Error when end
 						and break command are in separate chunks */
-	XPLMI_ERR_INVALID_PAYLOAD_LEN, /**< 0x13E - Invalid payload length received for
-	                    the command */
-	XPLMI_INVALID_TAMPER_RESPONSE, /**< 0x13F - Invalid tamper response received for
-		                TamperTrigger IPI call */
+	XPLMI_ERR_RESERVED_13E, /**< 0x13E - XPLMI_ERR_RESERVED_13E. */
+	XPLMI_ERR_RESERVED_13F, /**< 0x13F - XPLMI_ERR_RESERVED_13F */
 	XPLMI_INVALID_BREAK_LENGTH, /**< 0x140 - Error when the break length required to jump
 				      is less than the processed CDO length */
 	XPLMI_ERR_MODULE_NOT_REGISTERED, /**< 0x141 - Error when the module of the CDO/IPI command

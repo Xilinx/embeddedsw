@@ -51,6 +51,7 @@
 * 1.07  ng   03/12/2023 Fixed Coverity warnings
 * 1.07  ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       dd   09/12/2023 MISRA-C violation Rule 10.8 fixed
+*       ng   02/14/2024 removed int typecast for errors
 *
 * </pre>
 *
@@ -175,7 +176,7 @@ static int XPlmi_ConfigureLogMem(XPlmi_CircularBuffer *LogBuffer, u64 StartAddr,
 
 	if ((NumBytes == 0U) ||
 		((NumBytes & XPLMI_WORD_LEN_MASK) != 0U)) {
-		Status = (int)XPLMI_ERR_INVALID_LOG_BUF_LEN;
+		Status = XPLMI_ERR_INVALID_LOG_BUF_LEN;
 		goto END1;
 	}
 
@@ -194,7 +195,7 @@ static int XPlmi_ConfigureLogMem(XPlmi_CircularBuffer *LogBuffer, u64 StartAddr,
 			goto END;
 		}
 		if ((StartAddr < StartLimit) || (EndAddr > EndLimit)) {
-			Status = (int)XPLMI_ERR_INVALID_LOG_BUF_ADDR;
+			Status = XPLMI_ERR_INVALID_LOG_BUF_ADDR;
 			goto END1;
 		}
 	}
@@ -286,7 +287,7 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 				DebugLog->LogLevel = (u8)((Arg1 << XPLMI_LOG_LEVEL_SHIFT) | Arg1);
 				Status = XST_SUCCESS;
 			} else {
-				Status = (int)XPLMI_ERR_INVALID_LOG_LEVEL;
+				Status = XPLMI_ERR_INVALID_LOG_LEVEL;
 			}
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_MEM:

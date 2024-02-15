@@ -47,6 +47,7 @@
 *       mss  12/06/2023 Added Error Code XPLMI_ERR_INPLACE_INVALID_OPTIONAL_DATA_LEN
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       sk   12/14/2023 Added PSM & PMC buffer list DS ID
+* 2.00  ng   01/26/2024 Updated minor error codes
 *
 * </pre>
 *
@@ -103,58 +104,159 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 /* Minor Error Codes */
 enum {
-	XPLMI_ERR_CURRENT_UART_INVALID = 0x2, /**< 0x2 - Error when current uart
-						selected has invalid base address */
-	XPLMI_ERR_INVALID_UART_SELECT, /**< 0x3 - Error when invalid uart select
-						argument is passed */
-	XPLMI_ERR_INVALID_UART_ENABLE, /**< 0x4 - Error when invalid uart enable
-						argument is passed */
-	XPLMI_ERR_NO_UART_PRESENT, /**< 0x5 - Error when no uart is present to
-						configure in run-time */
-	XPLMI_ERR_SET_IPI_MODULE_MAX, /**< 0x6 - Error if the module id is greater than max module count */
-	XPLMI_ERR_SET_IPI_PERM_BUFF_NOT_REGISTERED, /**< 0x7 - Error if the permission buffer in which the access
-						      permissions has to be stored is not registered or defined */
-	XPLMI_ERR_SET_IPI_INVALID_API_ID_UPPER, /**< 0x8 - Error if the Api Id Upper limit is greater than
-						maximum api count */
-	XPLMI_ERR_SET_IPI_INVALID_API_ID_LOWER, /**< 0x9 - Error if the Api Id Lower limit is greater than
-						Api Id upper limit */
-	XPLMI_ERR_SET_IPI_ACCESS_PERM_NOT_SET, /**< 0xA - Error if the Ipi Access permission is not set
-						 properly */
-	XPLMI_ERR_VALIDATE_IPI_NO_SECURE_ACCESS, /**< 0xB - Error if the Api Id received during IPI request only
-						   supports non-secure request */
-	XPLMI_ERR_VALIDATE_IPI_INVALID_ID, /**< 0xC - Error if the module id or ipi source index is not
-						valid during ipi validation */
-	XPLMI_ERR_VALIDATE_IPI_MODULE_NOT_REGISTERED, /**< 0xD - Error if the module associated with the
-						command's module id is not registered. This is checked
-						during ipi validation */
-	XPLMI_ERR_VALIDATE_IPI_INVALID_API_ID, /**< 0xE - Error if the Api Id received is greater than
-						 the maximum supported commands in the module. This is checked
-						 during ipi validation */
-	XPLMI_ERR_VALIDATE_IPI_NO_IPI_ACCESS, /**< 0xF - Error if the Api Id received during IPI request doesn't
-						have IPI access. */
-	XPLMI_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS, /**< 0x10 - Error if the Api Id received during IPI request only
-						   supports secure request */
-	XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE, /**< 0x11 - Error if Buffer memory is not available for storing */
-	XPLMI_ERR_END_ADDR_STACK_EMPTY,		/**< 0x12 - Error when End Address stack is empty */
-	XPLMI_ERR_INVALID_STACK_TOP,		/**< 0x13 - Error when End Address stack doesn't have a valid
-						  top address */
-	XPLMI_ERR_MAX_NESTED_BEGIN,		/**< 0x14 - Error when max limit of nested begin is reached */
-	XPLMI_ERR_INVALID_STACK_TOP_DURING_PUSH, /**< 0x15 - Error when the stack top is not valid while pushing
-						   into it */
-	XPLMI_ERR_END_ADDR_STACK_FULL,		/**< 0x16 - Error when End address stack is full */
-	XPLMI_ERR_END_CMD_HAS_NO_BEGIN,		/**< 0x17 - Error when End command doesn't have a valid begin */
+	/* Do not move this error, as it is used to represent XST_FAILURE */
+	/** 0x1 - XPLMI_ERR_FAILURE */
+	XPLMI_ERR_FAILURE = 0x1,
+
+	/** 0x2 - Error when current uart selected has invalid base address */
+	XPLMI_ERR_CURRENT_UART_INVALID,
+
+	/** 0x3 - Error when invalid uart select argument is passed */
+	XPLMI_ERR_INVALID_UART_SELECT,
+
+	/** 0x4 - Error when invalid uart enable argument is passed */
+	XPLMI_ERR_INVALID_UART_ENABLE,
+
+	/** 0x5 - Error when no uart is present to configure in run-time */
+	XPLMI_ERR_NO_UART_PRESENT,
+
+	/** 0x6 - Error if the permission buffer in which the access permissions has to be stored is not registered or defined */
+	XPLMI_ERR_SET_IPI_PERM_BUFF_NOT_REGISTERED,
+
+	/** 0x7 - Error if the Api Id Upper limit is greater than maximum api count */
+	XPLMI_ERR_SET_IPI_INVALID_API_ID_UPPER,
+
+	/** 0x8 - Error if the Api Id Lower limit is greater than Api Id upper limit */
+	XPLMI_ERR_SET_IPI_INVALID_API_ID_LOWER,
+
+	/** 0x9 - Error if the Ipi Access permission is not set properly */
+	XPLMI_ERR_SET_IPI_ACCESS_PERM_NOT_SET,
+
+	/** 0xA - Error if the Api Id received during IPI request only supports non-secure request */
+	XPLMI_ERR_VALIDATE_IPI_NO_SECURE_ACCESS,
+
+	/** 0xB - Error if the module id or ipi source index is not valid during ipi validation */
+	XPLMI_ERR_VALIDATE_IPI_INVALID_ID,
+
+	/** 0xC - Error if the module associated with the command's module id is not registered. This is checked during ipi validation */
+	XPLMI_ERR_VALIDATE_IPI_MODULE_NOT_REGISTERED,
+
+	/** 0xD - Error if the Api Id received is greater than the maximum supported commands in the module. This is checked during ipi validation */
+	XPLMI_ERR_VALIDATE_IPI_INVALID_API_ID,
+
+	/** 0xE - Error if the Api Id received during IPI request doesn't have IPI access. */
+	XPLMI_ERR_VALIDATE_IPI_NO_IPI_ACCESS,
+
+	/* Do not move this error, as it is used to represent XST_INVALID_PARAM */
+	/** 0xF - XPLMI_ERR_INVALID_PARAM */
+	XPLMI_ERR_INVALID_PARAM,
+
+	/** 0x10 - Error if the Api Id received during IPI request only supports secure request */
+	XPLMI_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS,
+
+	/** 0x11 - Error if Buffer memory is not available for storing */
+	XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE,
+
+	/** 0x12 - Error when End Address stack is empty */
+	XPLMI_ERR_END_ADDR_STACK_EMPTY,
+
+	/** 0x13 - Error when End Address stack doesn't have a valid top address */
+	XPLMI_ERR_INVALID_STACK_TOP,
+
+	/** 0x14 - Error when max limit of nested begin is reached */
+	XPLMI_ERR_MAX_NESTED_BEGIN,
+
+	/** 0x15 - Error when the stack top is not valid while pushing into it */
+	XPLMI_ERR_INVALID_STACK_TOP_DURING_PUSH,
+
+	/** 0x16 - Error when End address stack is full */
+	XPLMI_ERR_END_ADDR_STACK_FULL,
+
+	/** 0x17 - Error when End command doesn't have a valid begin */
+	XPLMI_ERR_END_CMD_HAS_NO_BEGIN,
+
+	/** 0x18 - Error when invalid ProcID is received. */
+	XPLMI_ERR_PROCID_NOT_VALID,
+
+	/** 0x19 - The Proc command cannot be stored or executed because the LPD is not initialized. */
+	XPLMI_ERR_PROC_LPD_NOT_INITIALIZED,
+
+	/** 0x1A - Maximum supported proc commands received */
+	XPLMI_MAX_PROC_COMMANDS_RECEIVED,
+
+	/** 0x1B - Received proc does not fit in proc memory */
+	XPLMI_UNSUPPORTED_PROC_LENGTH,
+
+	/** 0x1C - Error when invalid log level is received in Logging command. */
+	XPLMI_ERR_INVALID_LOG_LEVEL,
+
+	/** 0x1D - Error when invalid log buffer address is received in Logging command. */
+	XPLMI_ERR_INVALID_LOG_BUF_ADDR,
+
+	/** 0x1E - Error when invalid log buffer length is received in Logging command. */
+	XPLMI_ERR_INVALID_LOG_BUF_LEN,
+
+	/** 0x1F - Error if readback buffer overflows. */
+	XPLMI_ERR_READBACK_BUFFER_OVERFLOW,
+
+	/* Do not move this error, as it is used to represent XST_GLITCH_DETECTED */
+	/** 0x20 - XPLMI_ERR_GLITCH_DETECTED. */
+	XPLMI_ERR_GLITCH_DETECTED,
+
+	/** 0x21 - Error on unsupported CDO command. */
+	XPLMI_ERR_CMD_NOT_SUPPORTED,
+
+	/** 0x22 - Error on invalid Periodicity parameter. */
+	XPLMI_ERR_WDT_PERIODICITY,
+
+	/** 0x23 - Error on invalid Node ID parameter. */
+	XPLMI_ERR_WDT_NODE_ID,
+
+	/** 0x24 - LPD MIO is used for WDT but LPD is not initialized. */
+	XPLMI_ERR_WDT_LPD_NOT_INITIALIZED,
+
+	/** 0x25 - Invalid tamper response received for TamperTrigger IPI call */
+	XPLMI_INVALID_TAMPER_RESPONSE,
 
 	/* Platform specific error codes start at 0x200 */
-	XPLMI_ERR_INVALID_RSVD_DDR_REGION_UPDATE = 0x200, /**< 0x200 - Invalid/No DDR region reserved for PLM.
-							    This is checked before the update */
-	XPLMI_ERR_INVALID_RSVD_DDR_REGION_RESTORE, /**< 0x201 - Invalid/No DDR region reserved for
-							     PLM during restore operation after the update */
-	XPLMI_ERR_INSUFFICIENT_PLM_RSVD_DDR_REGION, /**< 0x202 - Insufficient DDR region reserved for PLM */
-	XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE, /**< 0x203 - Error while In-Place Update from Image Store */
-	XPLMI_ERR_INPLACE_UPDATE_INVALID_SOURCE, /**< 0x204 - Error while In-Place Update request other than IS or DDR */
-	XPLMI_ERR_INPLACE_UPDATE_INVALID_PAYLOAD_LEN, /**< 0x205 - Error while In-Place Update with Invalid Payload Len */
-	XPLMI_ERR_INPLACE_INVALID_OPTIONAL_DATA_LEN,	/**< 0x206 - Error when invalid Optional Data Length is used in
-													the PDI used for In-Place PLM Update */
+	/** 0x200 - Invalid/No DDR region reserved for PLM. This is checked before the update */
+	XPLMI_ERR_INVALID_RSVD_DDR_REGION_UPDATE = 0x200,
+
+	/** 0x201 - Invalid/No DDR region reserved for PLM during restore operation after the update */
+	XPLMI_ERR_INVALID_RSVD_DDR_REGION_RESTORE,
+
+	/** 0x202 - Insufficient DDR region reserved for PLM */
+	XPLMI_ERR_INSUFFICIENT_PLM_RSVD_DDR_REGION,
+
+	/** 0x203 - Error while In-Place Update from Image Store */
+	XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE,
+
+	/** 0x204 - Error while In-Place Update with Invalid Payload Len */
+	XPLMI_ERR_INPLACE_UPDATE_INVALID_PAYLOAD_LEN,
+
+	/** 0x205 - Error when invalid Optional Data Length is used in the PDI used for In-Place PLM Update */
+	XPLMI_ERR_INPLACE_INVALID_OPTIONAL_DATA_LEN,
+
+	/** 0x206 - Error when a task cannot be executed as the update is in progress.*/
+	XPLMI_ERR_INPLACE_UPDATE_IN_PROGRESS,
+
+	/** 0x207 - Error in shutdown initiate of modules during InPlace PLM Update */
+	XPLMI_ERR_INPLACE_UPDATE_SHUTDOWN_INIT,
+
+	/** 0x208 - Error when PLM Update is disabled in ROM_RSV efuse */
+	XPLMI_ERR_INPLACE_UPDATE_DISABLED,
+
+	/** 0x209 - Error when PLM Update task is not found */
+	XPLMI_ERR_INPLACE_UPDATE_TASK_NOT_FOUND,
+
+	/** 0x20A - Error when PMC tries to use WDT but not enabled in design. */
+	XPLMI_ERR_PMC_WDT_NOT_ENABLED,
+
+	/** 0x20B - Error when PMC WDT driver initialization fails. */
+	XPLMI_ERR_PMC_WDT_DRV_INIT,
+
+	/** 0x20C - Invalid payload length received for the command */
+	XPLMI_ERR_INVALID_PAYLOAD_LEN,
 };
 
 typedef struct {
