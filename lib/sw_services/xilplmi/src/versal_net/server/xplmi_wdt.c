@@ -22,6 +22,7 @@
 *       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.02  bm   05/01/2023 Fix Default PMC WDT timeout when Efuse is enabled
+*       ng   02/14/2024 removed int typecast for errors
 *
 * </pre>
 *
@@ -180,11 +181,11 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 #ifdef XPLMI_PMC_WDT
 		if ((XPLMI_PLATFORM == PMC_TAP_VERSION_SPP) &&
 			(Periodicity < XPLMI_SPP_WDT_PERIODICITY_MIN)) {
-			Status = (int)XPLMI_ERR_WDT_PERIODICITY;
+			Status = XPLMI_ERR_WDT_PERIODICITY;
 			goto END;
 		}
 		else if (Periodicity < XPLMI_WDT_PERIODICITY_MIN) {
-			Status = (int)XPLMI_ERR_WDT_PERIODICITY;
+			Status = XPLMI_ERR_WDT_PERIODICITY;
 			goto END;
 		}
 
@@ -199,14 +200,14 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 		/* Set GWDT timeout */
 		XPlmi_SetGWdtTimeout(Periodicity);
 #else
-		Status = (int)XPLMI_ERR_PMC_WDT_NOT_ENABLED;
+		Status = XPLMI_ERR_PMC_WDT_NOT_ENABLED;
 		goto END;
 #endif
 	}
 	else {
 		if ((Periodicity < XPLMI_WDT_PERIODICITY_MIN) ||
 		    (Periodicity > XPLMI_WDT_PERIODICITY_MAX)) {
-			Status = (int)XPLMI_ERR_WDT_PERIODICITY;
+			Status = XPLMI_ERR_WDT_PERIODICITY;
 			goto END;
 		}
 
@@ -214,7 +215,7 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 		    (NodeId <= XPLMI_PM_STMIC_LMIO_25)) {
 			/* LPD MIO is used */
 			if (XPlmi_IsLpdInitialized() != (u8)TRUE) {
-				Status = (int)XPLMI_ERR_WDT_LPD_NOT_INITIALIZED;
+				Status = XPLMI_ERR_WDT_LPD_NOT_INITIALIZED;
 				goto END;
 			}
 			XPlmi_SetLpdInitialized(LPD_WDT_INITIALIZED);
@@ -236,7 +237,7 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 						(MioNum % XPLMI_MIO_NUM_PER_BANK);
 		}
 		else {
-			Status = (int)XPLMI_ERR_WDT_NODE_ID;
+			Status = XPLMI_ERR_WDT_NODE_ID;
 			goto END;
 		}
 

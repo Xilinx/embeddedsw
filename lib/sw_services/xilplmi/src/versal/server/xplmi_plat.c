@@ -39,6 +39,7 @@
 * 1.04  sk   12/14/2023 Moved XPlmi_GetBufferList to platform file
 *       mss  01/09/2024 Added PMC RAM check condition in Xplmi_VerifyAddr API
 *       ng   01/28/2024 optimized u8 variables
+*       ng   02/14/2024 removed int typecast for errors
 *
 * </pre>
 *
@@ -324,7 +325,7 @@ static int XPlmi_SsitWaitForDmaDone(XPmcDma *DmaPtr, XPmcDma_Channel Channel)
 	Status = XPmcDma_WaitForDoneTimeout(DmaPtr, Channel);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "SSIT Wait for DMA Done Timed Out\r\n");
-		Status = (int)XPLMI_ERR_FROM_SSIT_SLAVE;
+		Status = XPLMI_ERR_FROM_SSIT_SLAVE;
 	}
 
 	return Status;

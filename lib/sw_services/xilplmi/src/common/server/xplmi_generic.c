@@ -111,6 +111,7 @@
 *       pre  01/22/2024 Addition of new line after string printing
 *                       in XPlmi_LogString, XPlmi_Begin functions
 *       ng   01/28/2024 optimized u8 variables
+*       ng   01/26/2024 Updated minor error codes
 *
 * </pre>
 *
@@ -333,7 +334,8 @@ static int XPlmi_GetDeviceID(XPlmi_Cmd *Cmd)
  * @param	Is64Bit is flag indicating if the address is 64-bit
  *
  * @return
- * 		- XST_SUCCESS on success and error code on failure
+ * 			- XST_SUCCESS on success.
+ * 			- XST_FAILURE if timedout.
  *
  *****************************************************************************/
 int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u64 Addr, u32 Type)
@@ -466,7 +468,8 @@ END:
  * @param	Cmd is pointer to the command structure
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
+ * 			- XST_SUCCESS on success.
+ * 			- XST_FAILURE if timedout.
  *
  *****************************************************************************/
 static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
@@ -692,7 +695,7 @@ static int XPlmi_DmaWrite(XPlmi_Cmd *Cmd)
  *
  * @return
  * 			- XST_SUCCESS on success.
- * 			- XPLMI_ERR_MASKPOLL64 if failed to poll a 64-bit register value.
+ * 			- XST_FAILURE if timedout.
  *
  *****************************************************************************/
 static int XPlmi_MaskPoll64(XPlmi_Cmd *Cmd)
@@ -788,12 +791,15 @@ static int XPlmi_Write64(XPlmi_Cmd *Cmd)
 /**
  * @brief	The function reads data from Npi address space.
  *
- * @param	Src Address in Npi address space.
- * @param   	Destination Address
+ * @param	SrcAddr Source Address in Npi address space.
+ * @param	DestAddr Destination Address
  * @param	Len is number of words to be read
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_READBACK_BUFFER_OVERFLOW if readback buffer overflows.
+ * 			- XPLMI_ERR_UNALIGNED_DMA_XFER if failed to transfer data through DMA involving unaligned source address or
+ * 				destination address or number of words.
  *
  ******************************************************************************/
 static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
@@ -806,11 +812,8 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	u64 Dest = DestAddr;
 	u64 Src = SrcAddr;
 
-	/**
-	 * Check if Readback Dest Addr is Overriden
-	 */
-	if ((XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) &&
-			(XPLMI_SBI_DEST_ADDR != Dest)) {
+	/** - Check if Readback Dest Addr is Overriden. */
+	if ((XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) && (XPLMI_SBI_DEST_ADDR != Dest)) {
 		Dest = ReadBackPtr->DestAddr;
 		if ((Len + ReadBackPtr->ProcessedLen) > ReadBackPtr->MaxSize) {
 			Status = XPLMI_ERR_READBACK_BUFFER_OVERFLOW;
@@ -827,8 +830,7 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	Status = XPlmi_DmaUnalignedXfer(&Src, &Dest, &Count,
 		XPLMI_SRC_ALIGN_REQ);
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_UNALIGNED_DMA_XFER,
-			Status);
+		Status = (int)XPLMI_ERR_UNALIGNED_DMA_XFER;
 		goto END;
 	}
 
@@ -882,7 +884,8 @@ END:
  *		or Len should be made aligned with 16 bytes
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
+ * 			- XST_SUCCESS on success.
+ * 			- XST_FAILURE for unsupported flag.
  *
  *****************************************************************************/
 static int XPlmi_DmaUnalignedXfer(u64* SrcAddr, u64* DestAddr, u32* Len,
@@ -1495,7 +1498,7 @@ static int XPlmi_SetWdtParam(XPlmi_Cmd *Cmd)
  *		- Debug String
  *
  * @return
- * 			- XST_SUCCESS on success.
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_LogString(XPlmi_Cmd *Cmd)
@@ -1532,7 +1535,7 @@ static int XPlmi_LogString(XPlmi_Cmd *Cmd)
  *		- High Address (Optional)
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_LogAddress(XPlmi_Cmd *Cmd)
@@ -1706,8 +1709,9 @@ END:
  * @param	BufLen is the length of the Buffer found
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
- * 			- XPLMI_PROCID_NOT_VALID if provided proc id is invalid.
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE if Buffer memory is not available for storing.
+ * 			- XPLMI_ERR_PROCID_NOT_VALID if provided proc id is invalid.
  *
  *****************************************************************************/
 int XPlmi_SearchBufferList(XPlmi_BufferList *BufferList, u32 BufferId,
@@ -1716,12 +1720,12 @@ int XPlmi_SearchBufferList(XPlmi_BufferList *BufferList, u32 BufferId,
 	int Status = XST_FAILURE;
 	u8 BufferIndex = 0U;
 
-	/** Check if Buffer Memory is available */
+	/** - Check if Buffer Memory is available. */
 	if (BufferList->IsBufferMemAvailable != (u8)TRUE) {
 		Status = XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE;
 		goto END;
 	}
-	/** Search for the buffer index which has a matching BufferId */
+	/** - Search for the buffer index which has a matching BufferId. */
 	BufferList->Data[BufferList->BufferCount].Id = BufferId;
 	while (BufferList->Data[BufferIndex].Id != BufferId) {
 		BufferIndex++;
@@ -1729,10 +1733,10 @@ int XPlmi_SearchBufferList(XPlmi_BufferList *BufferList, u32 BufferId,
 
 	/** - Execute proc if the received BufferId is valid. */
 	if (BufferIndex >= BufferList->BufferCount) {
-		Status = (int)XPLMI_PROCID_NOT_VALID;
+		Status = XPLMI_ERR_PROCID_NOT_VALID;
 		goto END;
 	}
-	/** Fill BufAddr and BufLen pointers with resulting values */
+	/** - Fill BufAddr and BufLen pointers with resulting values. */
 	*BufAddr = BufferList->Data[BufferIndex].Addr;
 	*BufLen = (u32)(BufferList->Data[BufferIndex + 1U].Addr -
 		BufferList->Data[BufferIndex].Addr) / XPLMI_WORD_LEN;
@@ -1752,8 +1756,7 @@ END:
  *
  * @return
  * 			- XST_SUCCESS on success.
- * 			- XPLMI_ERR_PROC_LPD_NOT_INITIALIZED if LPD failed to initialize.
- * 			- XPLMI_PROCID_NOT_VALID on invalid Proc ID.
+ * 			- XPLMI_ERR_PROC_LPD_NOT_INITIALIZED The Proc command cannot be executed because the LPD is not initialized.
  *
  *****************************************************************************/
 int XPlmi_ExecuteProc(u32 ProcId)
@@ -1778,7 +1781,7 @@ int XPlmi_ExecuteProc(u32 ProcId)
 		 * do not execute the proc and return an error.
 		 */
 		if (XPlmi_IsLpdInitialized() != (u8)TRUE) {
-			Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
+			Status = XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
 			goto END;
 		}
 	}
@@ -1818,8 +1821,7 @@ END:
  *
  * @return
  * 			- XST_SUCCESS on success.
- * 			- XPLMI_UNSUPPORTED_PROC_LENGTH if received proc does not fit in
- * 			proc memory.
+ * 			- XPLMI_ERR_PROC_LPD_NOT_INITIALIZED The Proc command cannot be stored because the LPD is not initialized.
  *
  *****************************************************************************/
 static int XPlmi_Proc(XPlmi_Cmd *Cmd)
@@ -1849,7 +1851,7 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 			 */
 			if ((XPlmi_IsLpdInitialized() != (u8)TRUE) ||
 					(BufferList->IsBufferMemAvailable != (u8)TRUE)) {
-				Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
+				Status = XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
 				goto END;
 			}
 		}
@@ -1872,10 +1874,9 @@ END:
  *
  * @return
  * 			- XST_SUCCESS on success.
- * 			- XPLMI_UNSUPPORTED_PROC_LENGTH if received proc does not fit in
- * 			proc memory.
- * 			- XPLMI_MAX_PROC_COMMANDS_RECEIVED on maximum supported proc commands
- * 			received.
+ * 			- XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE if Buffer memory is not available for storing.
+ * 			- XPLMI_UNSUPPORTED_PROC_LENGTH if received proc does not fit in proc memory.
+ * 			- XPLMI_MAX_PROC_COMMANDS_RECEIVED on maximum supported proc commands received.
  *
  *****************************************************************************/
 int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList)
@@ -1891,7 +1892,7 @@ int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList
 
 		/* Check if Buffer memory is available */
 		if (BufferList->IsBufferMemAvailable != (u8)TRUE) {
-			Status = (int)XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE;
+			Status = XPLMI_ERR_BUFFER_MEM_NOT_AVAILABLE;
 			goto END;
 		}
 
@@ -1915,7 +1916,7 @@ int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList
 			if ((LenDiff + (BufferList->Data[BufferList->BufferCount].Addr -
 					BufferList->Data[BufferList->BufferCount - 1U].Addr)) >
 					BufferList->BufferMemSize) {
-				Status = (int)XPLMI_UNSUPPORTED_PROC_LENGTH;
+				Status = XPLMI_UNSUPPORTED_PROC_LENGTH;
 				goto END;
 			}
 
@@ -1931,7 +1932,7 @@ int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList
 		} else {
 			/* Check if proc list is full */
 			if (BufferList->BufferCount == BufferList->MaxBufferCount) {
-				Status = (int)XPLMI_MAX_PROC_COMMANDS_RECEIVED;
+				Status = XPLMI_MAX_PROC_COMMANDS_RECEIVED;
 				goto END;
 			}
 		}
@@ -1942,7 +1943,7 @@ int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList
 		/* Check if new proc length fits in the proc allocated memory */
 		if ((Cmd->ResumeData[0U] + CmdLenInBytes) > ((u32)BufferList->Data[0U].Addr +
 				BufferList->BufferMemSize)) {
-			Status = (int)XPLMI_UNSUPPORTED_PROC_LENGTH;
+			Status = XPLMI_UNSUPPORTED_PROC_LENGTH;
 			goto END;
 		}
 		SrcAddr = (u32)(&Cmd->Payload[1U]);
@@ -1981,7 +1982,7 @@ END:
  *              - Delay in milliseconds
  *
  * @return
- * 			- XST_SUCCESS on success and XST_FAILURE on failure
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_OTCheck(XPlmi_Cmd *Cmd)
@@ -2033,7 +2034,7 @@ static int XPlmi_Begin(XPlmi_Cmd *Cmd)
 	if (Cmd->ProcessedLen == 0U) {
 		/* Max 10 nested begin supported */
 		if (Cmd->CdoParamsStack.OffsetListTop == (int)(XPLMI_BEGIN_OFFSET_STACK_SIZE - 1U)) {
-			Status = (int)XPLMI_ERR_MAX_NESTED_BEGIN;
+			Status = XPLMI_ERR_MAX_NESTED_BEGIN;
 			goto END;
 		}
 
@@ -2101,7 +2102,7 @@ static int XPlmi_End(XPlmi_Cmd *Cmd)
 	/* Stack empty, End does not have begin */
 	if (Cmd->CdoParamsStack.OffsetListTop < 0) {
 		XPlmi_Printf(DEBUG_INFO,"End does not have valid begin\n");
-		Status = (int)XPLMI_ERR_END_CMD_HAS_NO_BEGIN;
+		Status = XPLMI_ERR_END_CMD_HAS_NO_BEGIN;
 		goto END;
 	}
 
@@ -2264,7 +2265,7 @@ static int XPlmi_TamperTrigger(XPlmi_Cmd *Cmd)
 	if (((TamperResp & XPLMI_SLD_AND_SRST_TAMPER_RESP_MASK) == 0x0U) &&
 		((TamperRespTmp & XPLMI_SLD_AND_SRST_TAMPER_RESP_MASK) == 0x0U)) {
 		/* Return error code if the Tamper Response received is invalid */
-		Status = (int)XPLMI_INVALID_TAMPER_RESPONSE;
+		Status = XPLMI_INVALID_TAMPER_RESPONSE;
 		goto END;
 	}
 
@@ -2665,13 +2666,13 @@ static int XPlmi_StackPush(XPlmi_CdoParamsStack *CdoParamsStack, u32 *Data)
 	/* Validate stack top */
 	if (CdoParamsStack->OffsetListTop < -1) {
 		XPlmi_Printf(DEBUG_INFO, "Invalid top in End address stack\n");
-		Status = (int)XPLMI_ERR_INVALID_STACK_TOP_DURING_PUSH;
+		Status = XPLMI_ERR_INVALID_STACK_TOP_DURING_PUSH;
 		goto END;
 	}
 
 	if (CdoParamsStack->OffsetListTop >= (int)(XPLMI_BEGIN_OFFSET_STACK_SIZE - 1U)) {
 		XPlmi_Printf(DEBUG_INFO, "End address stack is full\n");
-		Status = (int)XPLMI_ERR_END_ADDR_STACK_FULL;
+		Status = XPLMI_ERR_END_ADDR_STACK_FULL;
 	} else {
 		CdoParamsStack->OffsetListTop++;
 		CdoParamsStack->OffsetList[CdoParamsStack->OffsetListTop] = *Data;
@@ -2700,7 +2701,7 @@ static int XPlmi_StackPop(XPlmi_CdoParamsStack *CdoParamsStack, u32 PopLevel, u3
 
 	/* Validate stack top */
 	if (CdoParamsStack->OffsetListTop >= (int)XPLMI_BEGIN_OFFSET_STACK_SIZE) {
-		Status = (int)XPLMI_ERR_INVALID_STACK_TOP;
+		Status = XPLMI_ERR_INVALID_STACK_TOP;
 		XPlmi_Printf(DEBUG_INFO, "Invalid top in End address stack\n");
 		goto END;
 	}
@@ -2708,7 +2709,7 @@ static int XPlmi_StackPop(XPlmi_CdoParamsStack *CdoParamsStack, u32 PopLevel, u3
 	for (Index = 0U; Index < PopLevel; Index++) {
 		if (CdoParamsStack->OffsetListTop < 0) {
 			XPlmi_Printf(DEBUG_INFO, "End address stack is empty\n");
-			Status = (int)XPLMI_ERR_END_ADDR_STACK_EMPTY;
+			Status = XPLMI_ERR_END_ADDR_STACK_EMPTY;
 			break;
 		} else {
 			*Data = CdoParamsStack->OffsetList[CdoParamsStack->OffsetListTop];

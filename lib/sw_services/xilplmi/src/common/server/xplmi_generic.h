@@ -53,6 +53,8 @@
 *       bm   07/06/2023 Updated prototypes required for list commands logic
 * 1.11  sk   12/14/2023 Added PSM & PMC max proc list defines
 *       ng   01/28/2024 optimized u8 variables
+*       ng   01/26/2024 Removed unused error codes and moved the remaining to
+*                       minor errors enum
 *
 * </pre>
 *
@@ -76,13 +78,6 @@ extern "C" {
  */
 
 /************************** Constant Definitions *****************************/
-enum {
-	XPLMI_ERR_MASKPOLL = 0x10,
-	XPLMI_ERR_MASKPOLL64, /**< 0x11 */
-	XPLMI_ERR_CMD_NOT_SUPPORTED, /**< 0x12 */
-	XPLMI_ERR_READBACK_BUFFER_OVERFLOW, /**< 0x13 */
-};
-
 /* Max board name length supported is 256 bytes */
 #define XPLMI_MAX_NAME_LEN			(256U)
 #define XPLMI_MAX_NAME_WORDS			(XPLMI_MAX_NAME_LEN / XPLMI_WORD_LEN)

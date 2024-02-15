@@ -38,6 +38,7 @@
 * 1.11  bm   09/25/2023 Fix Error Handling after In-Place PLM Update
 *       sk   09/26/2023 Added Support for In-Place Update from Image Store
 * 2.0   ng   11/11/2023 Implemented user modules
+* 2.00  ng   01/26/2024 Updated minor error codes
 *
 * </pre>
 *
@@ -156,7 +157,7 @@ int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler,
 		if ((DdrRsvdAddr == XPLMI_INVALID_PLM_RSVD_DDR_ADDR) ||
 			(DdrRsvdSize == XPLMI_INVALID_PLM_RSVD_DDR_SIZE) ||
 			(((u64)DdrRsvdAddr + DdrRsvdSize) > (u64)XPLMI_2GB_END_ADDR)) {
-			Status = (int)XPLMI_ERR_INVALID_RSVD_DDR_REGION_RESTORE;
+			Status = XPLMI_ERR_INVALID_RSVD_DDR_REGION_RESTORE;
 			goto END;
 		}
 		DbStartAddr = DdrRsvdAddr;
@@ -615,15 +616,12 @@ static inline u32 XPlmi_GetPlmDbSize(void)
  *
  * @return
  * 			- XST_SUCCESS if success.
- * 			- XPLMI_ERR_UPDATE_IN_PROGRESS if a task cannot be executed as the
- * 			update is in progress.
- * 			- XPLMI_ERR_PLM_UPDATE_DISABLED if PLM Update is disabled in
- * 			ROM_RSV efuse.
- * 			- XPLMI_ERR_PLM_UPDATE_SHUTDOWN_INIT if failed to shutdown
- * 			initiate of	modules during InPlace PLM Update.
- * 			- XPLMI_ERR_UPDATE_TASK_NOT_FOUND if PLM Update task is not found.
+ * 			- XPLMI_ERR_INPLACE_UPDATE_IN_PROGRESS if a task cannot be executed as the update is in progress.
+ * 			- XPLMI_ERR_INPLACE_UPDATE_DISABLED if PLM Update is disabled in ROM_RSV efuse.
+ * 			- XPLMI_ERR_INVALID_RSVD_DDR_REGION_UPDATE if invalid/no DDR region reserved for PLM.
+ * 			- XPLMI_ERR_INPLACE_UPDATE_SHUTDOWN_INIT if failed to shutdown initiate of modules during InPlace PLM Update
+ * 			- XPLMI_ERR_INPLACE_UPDATE_TASK_NOT_FOUND if PLM Update task is not found.
  * 			- XPLMI_ERR_INPLACE_UPDATE_INVALID_PAYLOAD_LEN if Invalid Payload Len.
- * 			- XPLMI_ERR_INPLACE_UPDATE_INVALID_SOURCE if Invalid Source.
  * 			- XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE error during update from IS.
  *
  *
@@ -646,13 +644,13 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 
 	if (Cmd->Len < XPLMI_UPDATE_PAYLOAD_LEN) {
 		XPlmi_Printf(DEBUG_GENERAL, "Invalid Payload Length\n\r");
-		Status = (int)XPLMI_ERR_INPLACE_UPDATE_INVALID_PAYLOAD_LEN;
+		Status = XPLMI_ERR_INPLACE_UPDATE_INVALID_PAYLOAD_LEN;
 		goto END;
 	}
 
 	if (XPlmi_IsPlmUpdateInProgress() == (u8)TRUE) {
 		XPlmi_Printf(DEBUG_GENERAL, "Update in Progress\n\r");
-		Status = XPLMI_ERR_UPDATE_IN_PROGRESS;
+		Status = XPLMI_ERR_INPLACE_UPDATE_IN_PROGRESS;
 		goto END;
 	}
 
@@ -662,13 +660,13 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	if ((DdrRsvdAddr == XPLMI_INVALID_PLM_RSVD_DDR_ADDR) ||
 		(DdrRsvdSize == XPLMI_INVALID_PLM_RSVD_DDR_SIZE) ||
 		(((u64)DdrRsvdAddr + DdrRsvdSize) > (u64)XPLMI_2GB_END_ADDR)) {
-		Status = (int)XPLMI_ERR_INVALID_RSVD_DDR_REGION_UPDATE;
+		Status = XPLMI_ERR_INVALID_RSVD_DDR_REGION_UPDATE;
 		goto END;
 	}
 
 	/* Check if Ddr Reserved Area is sufficient */
 	if (DdrRsvdSize < XPlmi_GetPlmDbSize()) {
-		Status = (int)XPLMI_ERR_INSUFFICIENT_PLM_RSVD_DDR_REGION;
+		Status = XPLMI_ERR_INSUFFICIENT_PLM_RSVD_DDR_REGION;
 		goto END;
 	}
 
@@ -680,7 +678,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	/* Check if Update via PDI Id in Image Store */
 	if (Flag == XPLMI_UPDATE_USING_IMAGE_STORE) {
 		if (XPlmi_In32(XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH) != 0U) {
-			Status = (int)XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE;
+			Status = XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE;
 			XPlmi_Printf(DEBUG_GENERAL, "Image Store not in lower 2GB range\n\r");
 			goto END;
 		}
@@ -688,7 +686,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 		PdiId = Cmd->Payload[1U];
 		Status = XPlmi_IsPdiAddrLookup(PdiId, (u64*)&PdiAddr );
 		if (Status != XST_SUCCESS) {
-			Status = (int)XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE;
+			Status = XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE;
 			goto END;
 		}
 
@@ -709,7 +707,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	if ((RomRsvd == EFUSE_PLM_UPDATE_MASK) ||
 		(RomRsvdTmp == EFUSE_PLM_UPDATE_MASK)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Update Disabled\n\r");
-		Status = (int)XPLMI_ERR_PLM_UPDATE_DISABLED;
+		Status = XPLMI_ERR_INPLACE_UPDATE_DISABLED;
 		goto END;
 	}
 
@@ -728,7 +726,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	Status = XPlmi_ShutdownModules(Op);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "Shutdown Initialite Failed\n\r");
-		Status = XPLMI_ERR_PLM_UPDATE_SHUTDOWN_INIT;
+		Status = XPLMI_ERR_INPLACE_UPDATE_SHUTDOWN_INIT;
 		goto END;
 	}
 
@@ -738,7 +736,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	Task = XPlmi_GetTaskInstance(NULL, NULL, XPLMI_UPDATE_TASK_ID);
 	if (Task == NULL) {
 		XPlmi_Printf(DEBUG_GENERAL, "Task not found\n\r");
-		Status = XPLMI_ERR_UPDATE_TASK_NOT_FOUND;
+		Status = XPLMI_ERR_INPLACE_UPDATE_TASK_NOT_FOUND;
 		goto END;
 	}
 

@@ -25,6 +25,7 @@
 * 1.03  ng   11/11/2022 Fixed doxygen file name error
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       ng   02/14/2024 removed int typecast for errors
 *
 * </pre>
 *
@@ -106,7 +107,7 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 
 	if ((Periodicity < XPLMI_WDT_PERIODICITY_MIN) ||
 	    (Periodicity > XPLMI_WDT_PERIODICITY_MAX)) {
-		Status = (int)XPLMI_ERR_WDT_PERIODICITY;
+		Status = XPLMI_ERR_WDT_PERIODICITY;
 		goto END;
 	}
 
@@ -115,7 +116,7 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 	    (NodeId <= XPLMI_PM_STMIC_LMIO_25)) {
 		/* LPD MIO is used */
 		if (XPlmi_IsLpdInitialized() != (u8)TRUE) {
-			Status = (int)XPLMI_ERR_WDT_LPD_NOT_INITIALIZED;
+			Status = XPLMI_ERR_WDT_LPD_NOT_INITIALIZED;
 			goto END;
 		}
 		XPlmi_SetLpdInitialized(LPD_WDT_INITIALIZED);
@@ -137,7 +138,7 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 					(MioNum % XPLMI_MIO_NUM_PER_BANK);
 	}
 	else {
-		Status = (int)XPLMI_ERR_WDT_NODE_ID;
+		Status = XPLMI_ERR_WDT_NODE_ID;
 		goto END;
 	}
 
