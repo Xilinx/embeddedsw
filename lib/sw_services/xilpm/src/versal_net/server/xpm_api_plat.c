@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -117,43 +117,6 @@ XStatus XPm_PlatCmnFlushWorkaround(void)
 			goto done;
 		}
 	}
-
-done:
-	return Status;
-}
-
-XStatus XPm_PlatAddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
-				     u32 ReqFlags, const u32 *Args, u32 NumArgs)
-{
-	XStatus Status = XST_FAILURE;
-	u32 PreallocCaps, PreallocQoS;
-	XPm_Device *Device = NULL;
-	u32 Flags = ReqFlags;
-	u32 DevType = NODETYPE(DeviceId);
-
-	if((u32)XPM_NODETYPE_DEV_HB_MON == DevType){
-		Status = XPm_AddHbMonDevice(DeviceId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
-
-	/* This is a general case for adding requirements */
-	if (6U > NumArgs) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-	(void)Args[3];	/* Args[3] is reserved */
-	PreallocCaps = Args[4];
-	PreallocQoS = Args[5];
-
-	/* Device must be present in the topology at this point */
-	Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
-	if (NULL == Device) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-	Status = XPmRequirement_Add(Subsystem, Device, Flags, PreallocCaps, PreallocQoS);
 
 done:
 	return Status;

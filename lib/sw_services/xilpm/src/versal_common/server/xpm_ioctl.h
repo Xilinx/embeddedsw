@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,10 +53,6 @@ extern "C" {
 
 #define GGS_MAX					(XPM_NODEIDX_DEV_GGS_3)
 
-extern u32 PggsReadPermissions[PSM_PGGS_REGS + PMC_PGGS_REGS];
-extern u32 PggsWritePermissions[PSM_PGGS_REGS + PMC_PGGS_REGS];
-extern u32 GgsReadPermissions[GGS_REGS];
-extern u32 GgsWritePermissions[GGS_REGS];
 
 XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id IoctlId,
 	      const u32 Arg1, const u32 Arg2, const u32 Arg3,

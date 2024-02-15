@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -241,6 +241,44 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function adds the Healthy boot monitor node through software.
+ *
+ * @param  DeviceId 	Device Id
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_AddHbMonDevice(const u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device = NULL;
+
+	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(DeviceId)) &&
+			((u32)XPM_NODETYPE_DEV_HB_MON == NODETYPE(DeviceId))) {
+		Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
+		if (NULL == Device) {
+			/*
+			 * Add the device node if doesn't exist.
+			 * Assuming all the virtual devices will have
+			 * PM_POWER_PMC as power node.
+			 */
+			const u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
+			Status = XPm_AddNode(AddNodeArgs, ARRAY_SIZE(AddNodeArgs));
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+	}
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function links a device to a subsystem with the given policies.
  *         It is a helper function serving the handling of subsystem <-> device
  *         requirements for PM_ADD_REQ command.
@@ -269,11 +307,16 @@ done:
  * @note   None
  *
  ****************************************************************************/
-static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
-				     u32 ReqFlags, const u32 *Args, u32 NumArgs)
+XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
+				u32 ReqFlags, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubClass = NODESUBCLASS(DeviceId);
+	u32 PreallocCaps, PreallocQoS;
+	XPm_Device *Device = NULL;
+	u32 Flags = ReqFlags;
+	u32 DevType = NODETYPE(DeviceId);
+
 
 	/* TODO: Memory region node support is yet to be added */
 	if ((u32)XPM_NODESUBCL_DEV_MEM_REGN == SubClass) {
@@ -281,7 +324,50 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 		goto done;
 	}
 
-	Status = XPm_PlatAddDevRequirement(Subsystem, DeviceId, ReqFlags, Args, NumArgs);
+	switch (DevType) {
+	case (u32)XPM_NODETYPE_DEV_GGS:
+	case (u32)XPM_NODETYPE_DEV_PGGS:
+		/* Add ggs/pggs node with the given permissions */
+		Status = XPmIoctl_AddRegPermission(Subsystem, DeviceId, Flags);
+		break;
+	case (u32)XPM_NODETYPE_DEV_HB_MON:
+		/* Add healthy boot monitor node */
+		Status = XPm_AddHbMonDevice(DeviceId);
+		break;
+	default:
+		/* Allow adding a device requirement by default */
+		Status = XST_SUCCESS;
+		break;
+	}
+	/* Error out if special handling failed before */
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if (((u32)XPM_NODETYPE_DEV_GGS == DevType) ||
+	    ((u32)XPM_NODETYPE_DEV_PGGS == DevType)) {
+		/* Prealloc requirement */
+		Flags = REQUIREMENT_FLAGS(1U, (u32)REQ_ACCESS_SECURE_NONSECURE, (u32)REQ_NO_RESTRICTION);
+		PreallocCaps = (u32)PM_CAP_ACCESS;
+		PreallocQoS = XPM_DEF_QOS;
+	} else {
+		/* This is a general case for adding requirements */
+		if (6U > NumArgs) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		(void)Args[3];	/* Args[3] is reserved */
+		PreallocCaps = Args[4];
+		PreallocQoS = Args[5];
+	}
+
+	/* Device must be present in the topology at this point */
+	Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	Status = XPmRequirement_Add(Subsystem, Device, Flags, PreallocCaps, PreallocQoS);
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -1916,44 +2002,6 @@ static XStatus AddPeriphDevice(const u32 *Args, u32 PowerId)
 					GicProxyMask, GicProxyGroup);
 	}
 
-done:
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function adds the Healthy boot monitor node through software.
- *
- * @param  DeviceId 	Device Id
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
- *
- ****************************************************************************/
-XStatus XPm_AddHbMonDevice(const u32 DeviceId)
-{
-	XStatus Status = XST_FAILURE;
-	const XPm_Device *Device = NULL;
-
-	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(DeviceId)) &&
-			((u32)XPM_NODETYPE_DEV_HB_MON == NODETYPE(DeviceId))) {
-		Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
-		if (NULL == Device) {
-			/*
-			 * Add the device node if doesn't exist.
-			 * Assuming all the virtual devices will have
-			 * PM_POWER_PMC as power node.
-			 */
-			const u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
-			Status = XPm_AddNode(AddNodeArgs, ARRAY_SIZE(AddNodeArgs));
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-		}
-	}
-	Status = XST_SUCCESS;
 done:
 	return Status;
 }
