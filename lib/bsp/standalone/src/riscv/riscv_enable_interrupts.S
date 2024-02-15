@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -36,7 +36,7 @@ riscv_enable_interrupts:
 	csrr	t1, mie
 	/* Set the mie interrupt enable bits MEIE (bit 11), MTIE (bit 7), and MSIE (bit 3) */
 	li	t2, 0x888
-	and	t1, t1, t2
+	or	t1, t1, t2
 	/* Save the mie CSR register */
 	csrw	mie, t1
 	/* Set the mstatus interrupt enable bit MIE (bit 3) */
