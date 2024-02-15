@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xplmi.h"
@@ -133,72 +133,6 @@ XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response)
 
 done:
 	return Status;
-}
-
-XStatus XPmIoctl_AddRegPermission(const XPm_Subsystem *Subsystem, u32 DeviceId,
-		u32 Operations)
-{
-	XStatus Status = XST_FAILURE;
-	u32 RegNum = NODEINDEX(DeviceId);
-	u32 SubsystemId = Subsystem->Id;
-	u32 Type = NODETYPE(DeviceId);
-	u32 *ReadPerm, *WritePerm;
-	const u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
-	const XPm_Device *Device;
-
-	/* Ensure device is added before trying to use it. */
-	Device = XPmDevice_GetById(DeviceId);
-	if (NULL == Device) {
-		Status = XPm_AddNode(AddNodeArgs, ARRAY_SIZE(AddNodeArgs));
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		Device = XPmDevice_GetById(DeviceId);
-		if (NULL == Device) {
-			Status = XST_DEVICE_NOT_FOUND;
-			goto done;
-		}
-	}
-
-	if (PM_SUBSYS_PMC == SubsystemId) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
-
-	switch (Type) {
-		case (u32)XPM_NODETYPE_DEV_PGGS:
-			/* Normalize to permissions indices range for PGGS */
-			RegNum -= (u32)XPM_NODEIDX_DEV_PGGS_0;
-			ReadPerm =  &PggsReadPermissions[RegNum];
-			WritePerm = &PggsWritePermissions[RegNum];
-			break;
-		case (u32)XPM_NODETYPE_DEV_GGS:
-			ReadPerm =  &GgsReadPermissions[RegNum];
-			WritePerm = &GgsWritePermissions[RegNum];
-			break;
-		default:
-			Status = XPM_INVALID_TYPEID;
-			break;
-	}
-
-	if (XPM_INVALID_TYPEID == Status) {
-		goto done;
-	}
-
-	*ReadPerm |= PERM_BITMASK(Operations, IOCTL_PERM_READ_SHIFT_NS,
-			SUBSYS_TO_NS_BITPOS(SubsystemId));
-	*ReadPerm |= PERM_BITMASK(Operations, IOCTL_PERM_READ_SHIFT_S,
-			SUBSYS_TO_S_BITPOS(SubsystemId));
-	*WritePerm |= PERM_BITMASK(Operations, IOCTL_PERM_WRITE_SHIFT_NS,
-			SUBSYS_TO_NS_BITPOS(SubsystemId));
-	*WritePerm |= PERM_BITMASK(Operations, IOCTL_PERM_WRITE_SHIFT_S,
-			SUBSYS_TO_S_BITPOS(SubsystemId));
-
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
-
 }
 
 static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 Register, u32 Type)

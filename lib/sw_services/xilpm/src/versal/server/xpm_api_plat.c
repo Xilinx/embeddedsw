@@ -132,67 +132,6 @@ void XPmPlDevice_SetStlInitFinishCb(void (*Handler)(void))
 }
 #endif /* PLM_ENABLE_STL */
 
-XStatus XPm_PlatAddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
-				     u32 ReqFlags, const u32 *Args, u32 NumArgs)
-{
-	XStatus Status = XST_FAILURE;
-	u32 DevType = NODETYPE(DeviceId);
-	u32 PreallocCaps, PreallocQoS;
-	XPm_Device *Device = NULL;
-	u32 Flags = ReqFlags;
-
-	switch (DevType) {
-	case (u32)XPM_NODETYPE_DEV_GGS:
-	case (u32)XPM_NODETYPE_DEV_PGGS:
-		/* Add ggs/pggs node with the given permissions */
-		Status = XPmIoctl_AddRegPermission(Subsystem, DeviceId, Flags);
-		break;
-	case (u32)XPM_NODETYPE_DEV_HB_MON:
-		/* Add healthy boot monitor node */
-		Status = XPm_AddHbMonDevice(DeviceId);
-		break;
-	default:
-		/* Allow adding a device requirement by default */
-		Status = XST_SUCCESS;
-		break;
-	}
-	/* Error out if special handling failed before */
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	if (((u32)XPM_NODETYPE_DEV_GGS == DevType) ||
-	    ((u32)XPM_NODETYPE_DEV_PGGS == DevType)) {
-		/* Prealloc requirement */
-		Flags = REQUIREMENT_FLAGS(1U, (u32)REQ_ACCESS_SECURE_NONSECURE, (u32)REQ_NO_RESTRICTION);
-		PreallocCaps = (u32)PM_CAP_ACCESS;
-		PreallocQoS = XPM_DEF_QOS;
-	} else {
-		/* This is a general case for adding requirements */
-		if (6U > NumArgs) {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-		(void)Args[3];	/* Args[3] is reserved */
-		PreallocCaps = Args[4];
-		PreallocQoS = Args[5];
-	}
-
-	/* Device must be present in the topology at this point */
-	Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
-	if (NULL == Device) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-	Status = XPmRequirement_Add(Subsystem, Device, Flags, PreallocCaps, PreallocQoS);
-
-done:
-	if (XST_SUCCESS != Status) {
-		PmErr("0x%x\n\r", Status);
-	}
-	return Status;
-}
-
 /****************************************************************************/
 /**
  * @brief  This function links a node (dev/rst/subsys/regnode) to a subsystem.
@@ -633,14 +572,14 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 	j |= 1UL << IOCTL_PERM_READ_SHIFT_S;
 	j |= 1UL << IOCTL_PERM_WRITE_SHIFT_S;
 	for (i = PM_DEV_GGS_0; i <= PM_DEV_GGS_3; i++) {
-		Status = XPm_PlatAddDevRequirement(Subsystem, i, j, NULL, 0);
+		Status = XPm_AddDevRequirement(Subsystem, i, j, NULL, 0);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 	}
 
 	for (i = PM_DEV_PGGS_0; i <= PM_DEV_PGGS_3; i++) {
-		Status = XPm_PlatAddDevRequirement(Subsystem, i, j, NULL, 0);
+		Status = XPm_AddDevRequirement(Subsystem, i, j, NULL, 0);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}

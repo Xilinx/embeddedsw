@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,9 +37,6 @@ XStatus XPm_PlatAddNode(const u32 *Args, u32 NumArgs);
 XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version);
 
 int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd);
-
-XStatus XPm_PlatAddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
-				     u32 ReqFlags, const u32 *Args, u32 NumArgs);
 
 XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs);
 

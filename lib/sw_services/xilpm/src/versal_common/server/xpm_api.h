@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,8 @@ struct XPm_FrcPwrDwnReq {
 
 /* Extern Variable and Function */
 extern u32 ResetReason;
+XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
+				u32 ReqFlags, const u32 *Args, u32 NumArgs);
 
 XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload),
 		 int (*const RestartCb)(u32 ImageId, u32 *FuncId));
@@ -190,8 +192,6 @@ XStatus XPm_GetPinParameter(const u32 PinId,
 XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId);
 
 XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId);
-
-XStatus XPm_AddHbMonDevice(const u32 DeviceId);
 
 XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem);
 #ifdef __cplusplus
