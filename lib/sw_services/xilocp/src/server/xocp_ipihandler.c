@@ -51,7 +51,7 @@
 
 /************************** Function Prototypes *****************************/
 static int XOcp_ExtendHwPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHigh, u32 Size);
-static int XOcp_GetHwPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PurBufSize);
+static int XOcp_GetHwPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PcrBufSize);
 static int XOcp_GetHwPcrLogIpi(u32 HwPcrEvntAddrLow, u32 HwPcrEvntAddrHigh,
 			u32 HwPcrLogInfoAddrLow, u32 HwPcrLogInfoAddrHigh,u32 NumOfLogEntries);
 static int XOcp_GenDmeRespIpi(u32 NonceAddrLow, u32 NonceAddrHigh, u32 DmeStructResAddrLow, u32 DmeStructResAddrHigh);
@@ -159,7 +159,7 @@ static int XOcp_ExtendHwPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHi
 	volatile int Status = XST_FAILURE;
 	u64 ExtendedHashAddr = ((u64)ExtHashAddrHigh << 32U) | (u64)ExtHashAddrLow;
 
-	Status = XOcp_ExtendHwPcr(PcrNum, (u64)(UINTPTR)ExtendedHashAddr, Size);
+	Status = XOcp_ExtendHwPcr((XOcp_HwPcr)PcrNum, (u64)(UINTPTR)ExtendedHashAddr, Size);
 
 	return Status;
 }

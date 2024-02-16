@@ -312,16 +312,16 @@ static int XOcp_GetCertUserCfg(const XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 	u32 SubsystemId = Pload[0];
-	u8 FieldType = (Pload[1] & XOCP_CERT_USERIN_FIELD_MASK) >>
+	u32 FieldType = (Pload[1] & XOCP_CERT_USERIN_FIELD_MASK) >>
 				XOCP_CERT_USERIN_FIELD_SHIFT;
-	u8 LenInBytes = Pload[1] & XOCP_CERT_USERIN_LEN_MASK;
+	u32 LenInBytes = Pload[1] & XOCP_CERT_USERIN_LEN_MASK;
 
 	if (Cmd->ProcessedLen != 0U) {
 		Status = (int)XOCP_ERR_CHUNK_BOUNDARY_CROSSED;
 	}
 	else {
-		Status = XCert_StoreCertUserInput(SubsystemId, FieldType, (u8 *)(UINTPTR)&Pload[2],
-			LenInBytes);
+		Status = XCert_StoreCertUserInput(SubsystemId, (XCert_UserCfgFields)FieldType,
+			(u8 *)(UINTPTR)&Pload[2], LenInBytes);
 	}
 
 	return Status;
