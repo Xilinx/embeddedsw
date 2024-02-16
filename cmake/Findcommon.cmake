@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 option(YOCTO "Yocto based embeddedsw FLOW" OFF)
@@ -82,7 +82,7 @@ function (linker_gen path)
 	if (NOT DEFINED HEAP_SIZE)
 		if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR
 			("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv"))
-	        set(HEAP_SIZE 0x400)
+	        set(HEAP_SIZE 0x800)
 	    else()
 	        set(HEAP_SIZE 0x2000)
 	    endif()
