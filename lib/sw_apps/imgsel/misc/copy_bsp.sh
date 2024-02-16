@@ -1,6 +1,6 @@
 #******************************************************************************
 #* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-#* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+#* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************
 
@@ -40,6 +40,10 @@ BSP_SEQUENTIAL_MAKEFILES=
 # Copy psu_init.c file from SOM folder
 if [ $BOARD = "som" ]; then
 	cp $WORKING_DIR/$BOARD/psu_init.c .
+	cp $WORKING_DIR/$BOARD/psu_init.h .
+elif [ $BOARD = "zynqmp" ]; then
+	cp $WORKING_DIR/$BOARD/psu_init.c .
+	cp $WORKING_DIR/$BOARD/psu_init.h .
 fi
 # creation of BSP folders required
 if [ -d $BSP_DIR ]; then

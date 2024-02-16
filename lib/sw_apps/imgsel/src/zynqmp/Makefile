@@ -1,6 +1,6 @@
 #/******************************************************************************
-#* Copyright (c) 2020-2022 Xilinx, Inc.  All rights reserved.
-#* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+#* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -8,7 +8,7 @@
 BSP_DIR := ../../misc/imgsel_bsp
 ASFLAGS = --cpu=8-A.64 --fpu=fp-armv8
 LSCRIPT := -Tlscript_a53.ld
-BOARD   ?= zcu102
+BOARD   ?= zynqmp
 EXEC := imgsel.elf
 LIBS = libxil.a
 c_SOURCES := $(wildcard *.c)
