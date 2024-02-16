@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 1.1   am   01/10/2023 Modified function argument type to u64 in
 *                       XOcp_GenerateDmeResponse().
 * 1.2   kal  05/28/2023 Added SW PCR extend and logging functions
+* 1.3   am   01/31/2024 Fixed wrong XOcp_ExtendSwPcr() prototype parameter
 *
 * </pre>
 *
@@ -35,6 +36,9 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
+
+#ifdef PLM_OCP
 #include "xstatus.h"
 #include "xocp_common.h"
 #include "xplmi_debug.h"
@@ -120,4 +124,5 @@ int XOcp_GetSwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize);
 #ifdef __cplusplus
 }
 #endif
+#endif /* PLM_OCP */
 #endif  /* XOCP_H */

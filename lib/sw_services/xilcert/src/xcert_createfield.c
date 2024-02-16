@@ -28,6 +28,7 @@
 * 1.0   har  01/09/2023 Initial release
 * 1.2   pre  26/12/2023 Avoids infinite loop in XCert_GetTrailingZeroesCount
 *                       function
+*       am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
 *
 * </pre>
 * @note
@@ -35,6 +36,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
+
+#ifdef PLM_OCP_KEY_MNGMT
 #include "xcert_createfield.h"
 #include "xil_mem.h"
 #include "xil_util.h"
@@ -340,3 +344,4 @@ static u32 XCert_GetTrailingZeroesCount(u8 Data)
 
 	return Count;
 }
+#endif  /* PLM_OCP_KEY_MNGMT */

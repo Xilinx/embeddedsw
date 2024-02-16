@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.2   kpt  06/02/23 Updated XOcp_GetHwPcrLog
 *       kal  06/02/23 Added client side API for SW PCR
 * 1.3   kal  12/09/23 Added a check for DataAddr if size > 48 bytes SWPCR
+*       am   02/06/24 Fixed Doxygen warning
 *
 * </pre>
 *
@@ -83,6 +84,7 @@ int XOcp_ClientInit(XOcp_ClientInstance* const InstancePtr,
  *          be extended
  * @param   ExtHashAddr - Address of the buffer which holds the hash to be
  *          extended
+ * @param   Size - Size of extended hash
  *
  * @return
  *          - XST_SUCCESS - If PCR extend is success

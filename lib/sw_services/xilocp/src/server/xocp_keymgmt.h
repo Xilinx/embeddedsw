@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022-2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 1.2   har  02/24/2023   Added macro XOCP_INVALID_USR_CFG_INDEX
 *       vns  07/06/2023   Added DEVAK regenerate support and Data clear before shutdown
 *       am   07/20/2023   Added macro XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK
+* 1.3   am   01/31/2024   Fixed internal security review comments
 *
 * </pre>
 *
@@ -38,6 +39,9 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
+
+#ifdef PLM_OCP_KEY_MNGMT
 #include "xocp.h"
 #include "xocp_common.h"
 #include "xsecure_sha.h"
@@ -72,7 +76,7 @@ extern "C" {
  * to refer to a specific driver instance.
  */
 typedef struct {
-	u32 IsDevKeyReady;	/**< Indicates device key is supported */
+	u32 KeyMgmtReady;	/**< Key management ready */
 	u32 DevAkInputIndex;	/**< Points to the next empty dev AK */
 } XOcp_KeyMgmt;
 
@@ -103,18 +107,20 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-int XOcp_KeyInit(void);
+int XOcp_GenerateDevIKKeyPair(void);
 int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString);
-u32 XOcp_GetSubSysReqDevAkIndex(u32 SubSystemId);
-XOcp_DevAkData *XOcp_GetDevAkData(void);
+u32 XOcp_GetSubSysDevAkIndex(u32 SubSystemId);
 int XOcp_GenerateDevAk(u32 SubSystemId);
 int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId);
 int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId);
 int XOcp_IsDevIkReady(void);
 int XOcp_RegenSubSysDevAk(void);
-int XOcp_DataZeroize(XPlmi_ModuleOp Op);
+int XOcp_ShutdownHandler(XPlmi_ModuleOp Op);
+int XOCP_GenSubSysDevAk(u32 SubsystemID, u64 InHash);
+int XOcp_GenSharedSecretwithDevAk(u32 SubSystemId, u64 PubKeyAddr, u64 SharedSecretAddr);
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XOCPKEYMGMT_SERVER_H */
+#endif /* PLM_OCP_KEY_MNGMT */
+#endif /* XOCPKEYMGMT_SERVER_H */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   har  01/09/2023 Initial release
+* 1.2   am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
 *
 * </pre>
 * @note
@@ -32,6 +33,9 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
+
+#ifdef PLM_OCP_KEY_MNGMT
 #include "xil_types.h"
 
 /************************** Constant Definitions *****************************/
@@ -85,5 +89,6 @@ int XCert_UpdateEncodedLength(u8* LenIdx, u32 Len, u8* ValIdx);
 #ifdef __cplusplus
 }
 #endif
+#endif  /* PLM_OCP_KEY_MNGMT */
 #endif  /* XCERT_CREATEFIELD_H */
 /* @} */

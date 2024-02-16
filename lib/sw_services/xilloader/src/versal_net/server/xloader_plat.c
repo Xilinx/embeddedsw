@@ -43,6 +43,7 @@
 *       dd   08/11/2023 Updated doxygen comments
 *       sk   08/11/2023 Added error code for default case in XLoader_StartImage
 *       ng   02/14/2024 removed int typecast for errors
+* 1.03  am   01/31/2024 Fixed internal security review comments of XilOcp library
 *
 * </pre>
 *
@@ -65,7 +66,9 @@
 #include "xplmi_gic_interrupts.h"
 #ifdef PLM_OCP
 #include "xocp.h"
+#ifdef PLM_OCP_KEY_MNGMT
 #include "xocp_keymgmt.h"
+#endif
 #include "xsecure_sha.h"
 #include "xsecure_init.h"
 #endif
@@ -99,6 +102,10 @@
 #define XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE		(0x03U) /**< Value of JTAG state flag if enabled */
 #define XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE		(0x00U) /**< Value of JTAG state flag if disabled */
 #endif
+#ifdef PLM_OCP
+#define XLOADER_INVALID_DEVAK_INDEX			(0xFFFFFFFFU) /**< INVALID DEVAK INDEX */
+#endif
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -116,11 +123,6 @@ static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha
 static int XLoader_ExtendSpkId(XSecure_Sha3Hash* SpkIdHash, u32 PcrInfo, u32 DigestIndex, u32 PdiType);
 static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash);
 static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrInfo, u32 DigestIndex, u32 PdiType);
-#endif
-#ifdef PLM_OCP
-static int XLoader_GenSubSysDevAk(u32 SubsystemID, u64 InHash);
-#endif
-#ifndef PLM_SECURE_EXCLUDE
 static int XLoader_RunSha3Engine1Kat(XilPdi* PdiPtr);
 #endif
 
@@ -1106,13 +1108,16 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	XSecure_Sha3 *Sha3Instance = XLoader_GetSha3Engine1Instance();
 	XSecure_Sha3Hash Sha3Hash;
 	u32 PcrNo;
-	u32 DevAkIndex = XOcp_GetSubSysReqDevAkIndex(ImageInfo->SubsystemID);
+	u32 DevAkIndex = XLOADER_INVALID_DEVAK_INDEX;
 #ifndef PLM_SECURE_EXCLUDE
 	XilPdi* PdiPtr = XLoader_GetPdiInstance();
 #endif
 
+#ifdef PLM_OCP_KEY_MNGMT
+	DevAkIndex = XOcp_GetSubSysDevAkIndex(ImageInfo->SubsystemID);
+#endif
 	if ((ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) &&
-			(DevAkIndex == XOCP_INVALID_DEVAK_INDEX)) {
+		(DevAkIndex == XLOADER_INVALID_DEVAK_INDEX)) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
@@ -1145,15 +1150,16 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	}
 
 	if (ImageInfo->Flags == XLOADER_MEASURE_FINISH) {
-		if (DevAkIndex != XOCP_INVALID_DEVAK_INDEX) {
+#ifdef PLM_OCP_KEY_MNGMT
+		if (DevAkIndex != XLOADER_INVALID_DEVAK_INDEX) {
 			/* Generate DEVAK */
-			Status = XLoader_GenSubSysDevAk(ImageInfo->SubsystemID,
+			Status = XOCP_GenSubSysDevAk(ImageInfo->SubsystemID,
 						(u64)(UINTPTR)Sha3Hash.Hash);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 		}
-
+#endif
 		if (ImageInfo->PcrInfo != XOCP_PCR_INVALID_VALUE) {
 			/* Extend HW PCR */
 			Status = XOcp_ExtendHwPcr(PcrNo,(u64)(UINTPTR)&Sha3Hash.Hash,
@@ -1481,42 +1487,6 @@ END:
 }
 #endif
 
-#ifdef PLM_OCP
-/*****************************************************************************/
-/**
- * @brief	This function generates the DEVAK for requested subsystem by user.
- *
- * @param	SubsystemID is the ID of image.
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- *****************************************************************************/
-static int XLoader_GenSubSysDevAk(u32 SubsystemID, u64 InHash)
-{
-	int Status = XST_FAILURE;
-	u32 DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubsystemID);
-	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
-
-	if (DevAkIndex != XOCP_INVALID_DEVAK_INDEX)  {
-		DevAkData = DevAkData + DevAkIndex;
-		Status = XPlmi_MemCpy64((u64)(UINTPTR)DevAkData->SubSysHash,
-					InHash, XLOADER_SHA3_LEN);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		Status = XOcp_GenerateDevAk(SubsystemID);
-		XPlmi_Printf(DEBUG_DETAILED, "DEV AK of subsystem is generated %x\n\r",
-					SubsystemID);
-	}
-	else {
-		XPlmi_Printf(DEBUG_DETAILED, "DEV AK of subsystem is not generated \n\r");
-		Status = XST_SUCCESS;
-	}
-END:
-	return Status;
-}
-#endif
-
 /*****************************************************************************/
 /**
  * @brief	This function enables or disable Jtag Access
@@ -1590,7 +1560,7 @@ END:
 	return Status;
 }
 
-#ifndef PLM_SECURE_EXCLUDE
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 /*****************************************************************************/
 /**
  * @brief	This Function does the following:

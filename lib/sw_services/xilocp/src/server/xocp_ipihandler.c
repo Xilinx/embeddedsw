@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 *       kal  06/02/23 Added handler API for SW PCR
 *       am   09/04/23 Cleared SharedSecretTmp array
 * 1.3   har  11/03/23 Moved out the support to handle SW PCR Config CDO to xocp_cmd.c
+*       am   01/31/24 Moved key Management operations under PLM_OCP_KEY_MNGMT macro
 *
 * </pre>
 *
@@ -32,10 +33,13 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
+
 #ifdef PLM_OCP
 #include "xocp.h"
 #include "xocp_ipihandler.h"
+#ifdef PLM_OCP_KEY_MNGMT
 #include "xocp_keymgmt.h"
+#endif
 #include "xocp_common.h"
 #include "xocp_def.h"
 #include "xocp_init.h"
@@ -51,18 +55,17 @@ static int XOcp_GetHwPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh
 static int XOcp_GetHwPcrLogIpi(u32 HwPcrEvntAddrLow, u32 HwPcrEvntAddrHigh,
 			u32 HwPcrLogInfoAddrLow, u32 HwPcrLogInfoAddrHigh,u32 NumOfLogEntries);
 static int XOcp_GenDmeRespIpi(u32 NonceAddrLow, u32 NonceAddrHigh, u32 DmeStructResAddrLow, u32 DmeStructResAddrHigh);
-static int XOcp_GetX509CertificateIpi(u32 GetX509CertAddrLow,
-				u32 GetX509CertAddrHigh, u32 SubSystemID);
-static int XOcp_AttestWithDevAkIpi(u32 AttestWithDevAkLow,
-			u32 AttestWithDevAkHigh, u32 SubSystemID);
+#ifdef PLM_OCP_KEY_MNGMT
+static int XOcp_GetX509CertificateIpi(u32 GetX509CertAddrLow, u32 GetX509CertAddrHigh, u32 SubSystemID);
+static int XOcp_AttestWithDevAkIpi(u32 AttestWithDevAkLow, u32 AttestWithDevAkHigh, u32 SubSystemID);
+static int XOcp_GenSharedSecretWithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, u32 PubKeyAddrHigh,
+	u32 SharedSecretAddrLow, u32 SharedSecretAddrHigh);
+#endif
 static int XOcp_ExtendSwPcrIpi(u32 ExtParamsAddrLow, u32 ExtParamsAddrHigh);
 static int XOcp_GetSwPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PcrBufSize);
 static int XOcp_GetSwPcrLogIpi(u32 AddrLow, u32 AddrHigh);
 static int XOcp_GetSwPcrDataIpi(u32 AddrLow, u32 AddrHigh);
-#ifndef PLM_ECDSA_EXCLUDE
-static int XOcp_GenSharedSecretwithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, u32 PubKeyAddrHigh,
-	u32 SharedSecretAddrLow, u32 SharedSecretAddrHigh);
-#endif
+
 /*************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -98,6 +101,7 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_GENDMERESP):
 			Status = XOcp_GenDmeRespIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
 			break;
+#ifdef PLM_OCP_KEY_MNGMT
 		case XOCP_API(XOCP_API_GETX509CERT):
 			Status = XOcp_GetX509CertificateIpi(Pload[0], Pload[1],
 					Cmd->SubsystemId);
@@ -106,6 +110,11 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 			Status = XOcp_AttestWithDevAkIpi(Pload[0], Pload[1],
 					Cmd->SubsystemId);
 			break;
+		case XOCP_API(XOCP_API_GEN_SHARED_SECRET):
+			Status = XOcp_GenSharedSecretWithDevAkIpi(Cmd->SubsystemId, Pload[0], Pload[1],
+				Pload[2], Pload[3]);
+			break;
+#endif
 		case XOCP_API(XOCP_API_EXTEND_SWPCR):
 			Status = XOcp_ExtendSwPcrIpi(Pload[0], Pload[1]);
 			break;
@@ -118,12 +127,6 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_GET_SWPCRDATA):
 			Status = XOcp_GetSwPcrDataIpi(Pload[0], Pload[1]);
 			break;
-#ifndef PLM_ECDSA_EXCLUDE
-		case XOCP_API(XOCP_API_GEN_SHARED_SECRET):
-			Status = XOcp_GenSharedSecretwithDevAkIpi(Cmd->SubsystemId, Pload[0], Pload[1],
-				Pload[2], Pload[3]);
-			break;
-#endif
 		default:
 			XOcp_Printf(DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 			Status = XST_INVALID_PARAM;
@@ -246,6 +249,7 @@ END:
 	return Status;
 }
 
+#ifdef PLM_OCP_KEY_MNGMT
 /*****************************************************************************/
 /**
  * @brief   This function handler calls XOcp_GetX509Certificate server API to
@@ -317,6 +321,37 @@ static int XOcp_AttestWithDevAkIpi(u32 AttestWithDevAkLow,
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function handler calls XSecure_EcdhGetSecret server API to
+ * 		generate the shared secret using ECDH.
+ *
+ * @param	SubSystemId - ID of the subsystem from where the command is
+ * 			originating
+ * @param	PubKeyAddrLow - Lower 32 bit address of the Public Key buffer
+ * @param	PubKeyAddrHigh - Upper 32 bit address of the Public Key buffer
+ * @param	SharedSecretAddrLow - Lower 32 bit address of the Shared Secret buffer
+ * @param	SharedSecretAddrHigh - Upper 32 bit address of the Shared Secret buffer
+ *
+ * @return
+ *		 - XST_SUCCESS  On Success
+ *		 - Errorcode  On failure
+
+ ******************************************************************************/
+static int XOcp_GenSharedSecretWithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, u32 PubKeyAddrHigh,
+	u32 SharedSecretAddrLow, u32 SharedSecretAddrHigh)
+{
+	volatile int Status = XST_FAILURE;
+	u64 PubKeyAddr = ((u64)PubKeyAddrHigh << XOCP_ADDR_HIGH_SHIFT) | (u64)PubKeyAddrLow;
+	u64 SharedSecretAddr = ((u64)SharedSecretAddrHigh << XOCP_ADDR_HIGH_SHIFT) |
+		(u64)SharedSecretAddrLow;
+
+	Status = XOcp_GenSharedSecretwithDevAk(SubSystemId, PubKeyAddr, SharedSecretAddr);
+
+	return Status;
+}
+#endif /* PLM_OCP_KEY_MNGMT */
 
 /*****************************************************************************/
 /**
@@ -415,76 +450,4 @@ static int XOcp_GetSwPcrDataIpi(u32 AddrLow, u32 AddrHigh)
 
 	return Status;
 }
-
-#ifndef PLM_ECDSA_EXCLUDE
-/*****************************************************************************/
-/**
- * @brief	This function handler calls XSecure_EcdhGetSecret server API to
- * 		generate the shared secret using ECDH.
- *
- * @param	SubSystemId - ID of the subsystem from where the command is
- * 			originating
- * @param	PubKeyAddrLow - Lower 32 bit address of the Public Key buffer
- * @param	PubKeyAddrHigh - Upper 32 bit address of the Public Key buffer
- * @param	SharedSecretAddrLow - Lower 32 bit address of the Shared Secret buffer
- * @param	SharedSecretAddrHigh - Upper 32 bit address of the Shared Secret buffer
- *
- * @return
- *		 - XST_SUCCESS  On Success
- *		 - Errorcode  On failure
-
- ******************************************************************************/
-static int XOcp_GenSharedSecretwithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, u32 PubKeyAddrHigh,
-	u32 SharedSecretAddrLow, u32 SharedSecretAddrHigh)
-{
-	volatile int Status = XST_FAILURE;
-	volatile int ClrStatus = XST_FAILURE;
-	u64 PubKeyAddr = ((u64)PubKeyAddrHigh << XOCP_ADDR_HIGH_SHIFT) | (u64)PubKeyAddrLow;
-	u64 SharedSecretAddr = ((u64)SharedSecretAddrHigh << XOCP_ADDR_HIGH_SHIFT) | (u64)SharedSecretAddrLow;
-	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
-	u32 DevAkIndex = XOCP_INVALID_DEVAK_INDEX;
-	u64 PrvtKeyAddr;
-	u8 PubKeyTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
-	u8 SharedSecretTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
-
-	DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
-	if (DevAkIndex == XOCP_INVALID_DEVAK_INDEX) {
-		Status = XOCP_ERR_INVALID_DEVAK_REQ;
-		goto END;
-	}
-
-	DevAkData = DevAkData + DevAkIndex;
-
-	if (DevAkData->IsDevAkKeyReady == TRUE) {
-		PrvtKeyAddr = (u64)(UINTPTR)DevAkData->EccPrvtKey;
-
-		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
-			(u64)(UINTPTR)PubKeyTmp, PubKeyAddr);
-		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
-			(u64)(UINTPTR)(PubKeyTmp + XSECURE_ECC_P384_SIZE_IN_BYTES),
-			PubKeyAddr + XSECURE_ECC_P384_SIZE_IN_BYTES);
-
-		Status = XSecure_EcdhGetSecret(XSECURE_ECC_NIST_P384, PrvtKeyAddr,
-			(u64)(UINTPTR)PubKeyTmp, (u64)(UINTPTR)SharedSecretTmp);
-
-		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
-			SharedSecretAddr, (u64)(UINTPTR)SharedSecretTmp);
-		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
-			SharedSecretAddr + XSECURE_ECC_P384_SIZE_IN_BYTES,
-			(u64)(UINTPTR)(SharedSecretTmp + XSECURE_ECC_P384_SIZE_IN_BYTES));
-	}
-	else {
-		Status = XOCP_ERR_DEVAK_NOT_READY;
-	}
-
-END:
-	ClrStatus = Xil_SecureZeroize(SharedSecretTmp, XSECURE_ECC_P384_SIZE_IN_BYTES * 2U);
-	if (ClrStatus != XST_SUCCESS) {
-		Status |= ClrStatus;
-	}
-
-	return Status;
-}
-#endif
-
 #endif /* PLM_OCP */

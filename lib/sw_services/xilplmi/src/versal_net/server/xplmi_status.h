@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,6 +49,7 @@
 *       mss  09/04/2023 Added error code for Null Check of EmInit params
 * 2.0   ng   11/11/2023 Added error code for User modules
 * 2.00  ng   01/26/2024 Updated minor error codes
+*       am   01/31/2024 Removed XOCP_ECDSA_NOT_ENABLED_ERR enum
 *
 * </pre>
 *
@@ -727,7 +728,6 @@ typedef enum {
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XOCP_PCR_ERR_SWPCR_DUP_CONFIG = 0x6A0, /**< 0x6A0 Duplicate Pcr configuration provided */
 	XOCP_PCR_ERR_IN_SWPCR_CONFIG, /**< 0x6A1 Error in SwPcr configuration */
-	XOCP_ECDSA_NOT_ENABLED_ERR, /**< 0x6A2 Error in SwPcr configuration */
 
 	XOCP_DEVAK_MAX_COUNT_EXCEED = 0x6B0,	/**< 0x6B0 DEVAK MAX count exceeded */
 
@@ -735,6 +735,8 @@ typedef enum {
 
 	XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED,
 		/**< 0x6C1 Storing user configuration for more than 4 subsystems is not allowed */
+	XOCP_ERR_KEY_MANAGEMENT_NOT_ENABLED,
+		/**< 0x6C2 Key Management operation is disabled */
 
 	XLOADER_TRNG_INIT_FAIL,
 		/**< 0x6CB Error when TRNG driver look
