@@ -343,7 +343,7 @@ static int Psu_Clock_Init_Data(void)
     * This register controls this reference clock
     * (OFFSET, MASK, VALUE)      (0XFF5E0078, 0x013F3F07U ,0x01010A00U)
     */
-	PSU_Mask_Write(CRL_APB_UART1_REF_CTRL_OFFSET,
+	PSU_Mask_Write(CRL_APB_UART0_REF_CTRL_OFFSET,
 		0x013F3F07U, 0x01010A00U);
 #endif
 /*##################################################################### */

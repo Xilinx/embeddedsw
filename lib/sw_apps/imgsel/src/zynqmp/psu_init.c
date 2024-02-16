@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2020-2021 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -372,6 +372,29 @@ static int Psu_Clock_Init_Data(void)
 	PSU_Mask_Write(CRL_APB_QSPI_REF_CTRL_OFFSET,
 		0x013F3F07U, 0x01010800U);
 #endif
+
+/*##################################################################### */
+
+    /*
+    * Register : TIMESTAMP_REF_CTRL @ 0XFF5E0128
+
+    * 6 bit divider
+    *  PSU_CRL_APB_TIMESTAMP_REF_CTRL_DIVISOR0                     0xf
+
+    * 1XX = pss_ref_clk; 000 = IOPLL; 010 = RPLL; 011 = DPLL; (This signal may
+    *  only be toggled after 4 cycles of the old clock and 4 cycles of the new
+    *  clock. This is not usually an issue, but designers must be aware.)
+    *  PSU_CRL_APB_TIMESTAMP_REF_CTRL_SRCSEL                       0x0
+
+    * Clock active signal. Switch to 0 to disable the clock
+    *  PSU_CRL_APB_TIMESTAMP_REF_CTRL_CLKACT                       0x1
+
+    * This register controls this reference clock
+    * (OFFSET, MASK, VALUE)      (0XFF5E0128, 0x01003F07U ,0x01000F00U)
+    */
+
+	PSU_Mask_Write(CRL_APB_TIMESTAMP_REF_CTRL_OFFSET,
+		0x01003F07U, 0x01000A00U);
 
 	Status = XST_SUCCESS;
 
@@ -915,13 +938,33 @@ static int Psu_Peripherals_Init_Data(void)
 {
 	int Status = XST_FAILURE;
 
+/*##################################################################### */
     /*
-    * COHERENCY
+    * RESET BLOCK
     */
     /*
-    * FPD RESET
+    * TIMESTAMP
     */
-   /*##################################################################### */
+    /*
+    * Register : RST_LPD_IOU2 @ 0XFF5E0238
+
+    * Block level reset
+    *  PSU_CRL_APB_RST_LPD_IOU2_TIMESTAMP_RESET                    0
+
+    * Block level reset
+    *  PSU_CRL_APB_RST_LPD_IOU2_IOU_CC_RESET                       0
+
+    * Block level reset
+    *  PSU_CRL_APB_RST_LPD_IOU2_ADMA_RESET                         0
+
+    * Software control register for the IOU block. Each bit will cause a singl
+    * erperipheral or part of the peripheral to be reset.
+    * (OFFSET, MASK, VALUE)      (0XFF5E0238, 0x001A0000U ,0x00000000U)
+    */
+	PSU_Mask_Write(CRL_APB_RST_LPD_IOU2_OFFSET,
+		0x001E0005U, 0x00000000U);
+
+/*##################################################################### */
 
 #ifdef XIS_UART_ENABLE
     /*
