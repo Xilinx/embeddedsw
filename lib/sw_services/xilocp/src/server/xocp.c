@@ -190,7 +190,7 @@ int XOcp_ExtendHwPcr(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
 	}
 
 	if (DataSize != XOCP_PCR_SIZE_BYTES) {
-		Status = XST_INVALID_PARAM;
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -253,6 +253,7 @@ int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntr
 	u32 ReqHwPcrLogEntries = NumOfLogEntries;
 	u32 RemHwPcrLogEvents = 0U;
 	u32 TotalRdHwPcrLogEvents = 0U;
+	u64 HwPcrEventsAddrTmp = HwPcrEventsAddr;
 
 	if (ReqHwPcrLogEntries > XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
 		Status = (int)XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST;
@@ -276,7 +277,7 @@ int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntr
 	 */
 	if ((HwPcrLog.TailIndex + ReqHwPcrLogEntries) >= XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
 		RemHwPcrLogEvents = XOCP_MAX_NUM_OF_HWPCR_EVENTS - HwPcrLog.TailIndex;
-		Status = XPlmi_MemCpy64(HwPcrEventsAddr, (u64)(UINTPTR)&HwPcrLog.Buffer[HwPcrLog.TailIndex],
+		Status = XPlmi_MemCpy64(HwPcrEventsAddrTmp, (u64)(UINTPTR)&HwPcrLog.Buffer[HwPcrLog.TailIndex],
 				(RemHwPcrLogEvents * sizeof(XOcp_HwPcrEvent)));
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -284,12 +285,12 @@ int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntr
 		/* Update HWPCR events and log entries to handle remaining entries */
 		HwPcrLog.LogInfo.RemainingHwPcrEvents -= RemHwPcrLogEvents;
 		ReqHwPcrLogEntries -= RemHwPcrLogEvents;
-		HwPcrEventsAddr += (u64)RemHwPcrLogEvents * sizeof(XOcp_HwPcrEvent);
+		HwPcrEventsAddrTmp += (u64)RemHwPcrLogEvents * sizeof(XOcp_HwPcrEvent);
 		HwPcrLog.TailIndex = 0U;
     }
 
 	if (ReqHwPcrLogEntries != 0U) {
-		Status = XPlmi_MemCpy64(HwPcrEventsAddr, (u64)(UINTPTR)&HwPcrLog.Buffer[HwPcrLog.TailIndex],
+		Status = XPlmi_MemCpy64(HwPcrEventsAddrTmp, (u64)(UINTPTR)&HwPcrLog.Buffer[HwPcrLog.TailIndex],
 			(ReqHwPcrLogEntries * sizeof(XOcp_HwPcrEvent)));
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -379,12 +380,12 @@ static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType)
 		goto END;
 	}
 	if (NumOfBitsSetInMask == 0U) {
-		Status = XST_INVALID_PARAM;
+		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
 
 	if (Mask > XOCP_GET_ALL_PCR_MASK) {
-		Status = XOCP_PCR_ERR_PCR_SELECT;
+		Status = (int)XOCP_PCR_ERR_PCR_SELECT;
 		goto END;
 	}
 
@@ -395,10 +396,10 @@ static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType)
 				if (Status != XST_SUCCESS) {
 					break;
 				}
-				PcrOffset = (UINTPTR)&ExtendedHash;
+				PcrOffset = (u32)(UINTPTR)&ExtendedHash;
 			}
 			else {
-				PcrOffset = XOCP_PMC_GLOBAL_PCR_0_0 + (u32)PcrNum * XOCP_PCR_SIZE_BYTES;
+				PcrOffset = XOCP_PMC_GLOBAL_PCR_0_0 + (u32)(PcrNum * XOCP_PCR_SIZE_BYTES);
 				if (PcrOffset > XOCP_PMC_GLOBAL_PCR_7_0) {
 					Status = (int)XOCP_PCR_ERR_PCR_SELECT;
 					goto END;
@@ -469,7 +470,7 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 
 	/* Check if the DigestIdx calculated is not overflowing */
 	DigestIdxInLog = XOcp_GetPcrOffsetInLog(PcrNum) + MeasurementIdx;
-	if (DigestIdxInLog > XOCP_MAX_NUM_OF_SWPCRS) {
+	if (DigestIdxInLog > (XOCP_MAX_NUM_OF_SWPCRS - 1U)) {
 		Status = (int)XOCP_PCR_ERR_MEASURE_IDX_SELECT;
 		goto END;
 	}
@@ -508,7 +509,7 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 			"\r\nSwPcrNum: %x MeasurementIdx: %x DigestIdxInLog: %x\r\n",
 			PcrNum, MeasurementIdx, DigestIdxInLog);
 
-	if (DataSize > XOCP_PCR_HASH_SIZE_IN_BYTES) {
+	if (DataSize > (XOCP_PCR_HASH_SIZE_IN_BYTES - 1U)) {
 		if (((u32)(DataAddr >> 32U)) != 0x00U) {
 			Status = (int)XOCP_PCR_ERR_DATA_IN_INVALID_MEM;
 			goto END;
@@ -604,7 +605,7 @@ int XOcp_GetSwPcrData(u64 Addr)
 	 */
 	DigestIdx = XOcp_GetPcrOffsetInLog(Data.PcrNum) + Data.MeasurementIdx;
 	CurrDataLen = SwPcr->Data[DigestIdx].Measurement.DataLength;
-	if (Data.DataStartIdx > CurrDataLen - 1U) {
+	if (Data.DataStartIdx > (CurrDataLen - 1U)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
@@ -753,12 +754,12 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	 */
 	if ((Xil_In32(PMC_XPPU_LOCK) != PMC_XPPU_LOCK_DEFVAL) ||
 		(Xil_In32(PMC_XPPU_DYNAMIC_RECONFIG_EN) != PMC_XPPU_DYNAMIC_RECONFIG_EN_DEFVAL)) {
-		Status = XOCP_ERR_INVALID_XPPU_CONFIGURATION;
+		Status = (int)XOCP_ERR_INVALID_XPPU_CONFIGURATION;
 		goto RET;
 	}
 
 	/* Zeorizing the DME structure */
-	Status = Xil_SMemSet((void *)DmePtr,
+	Status = Xil_SMemSet((void *)(UINTPTR)DmePtr,
 				sizeof(XOcp_Dme), 0U, sizeof(XOcp_Dme));
 	if (Status != XST_SUCCESS) {
 		goto RET;
@@ -767,7 +768,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 #ifdef PLM_OCP_KEY_MNGMT
 	/* Fill the DME structure's DEVICE ID field with hash of DEV IK Public key */
 	if (XOcp_IsDevIkReady() != FALSE) {
-		if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != (u8)TRUE) {
+		if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != TRUE) {
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, SStatus, XSecure_Sha384Kat);
 			if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
 				goto END;
@@ -779,9 +780,9 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 		if (Status != XST_SUCCESS) {
 			goto RET;
 		}
-		Status = Xil_SMemCpy((void *)DmePtr->DeviceID,
+		Status = Xil_SMemCpy((void *)(UINTPTR)DmePtr->DeviceID,
 			 XOCP_SHA3_LEN_IN_BYTES,
-			(const void *)Sha3Hash,
+			(const void *)(UINTPTR)Sha3Hash,
 			 XOCP_SHA3_LEN_IN_BYTES,
 			 XOCP_SHA3_LEN_IN_BYTES);
 		if (Status != XST_SUCCESS) {
@@ -825,13 +826,15 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 
 	/* If XPPU is not enabled, enable XPPU */
 	if (((Xil_In32(PMC_XPPU_CTRL) & PMC_XPPU_CTRL_ENABLE_MASK)) == 0U) {
-		Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
+		Status = Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
 			XOCP_PMC_XPPU_CTRL_ENABLE_VAL);
-		XppuEnabled = XOCP_XPPU_ENABLED;
+		if (Status == XST_SUCCESS) {
+			XppuEnabled = XOCP_XPPU_ENABLED;
+		}
 	}
 
 	/* Mention the Address and Size of DME structure for ROM service */
-	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE5, (u32)DmePtr);
+	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE5, (u32)(UINTPTR)DmePtr);
 	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE6, sizeof(XOcp_Dme));
 
 	Status = XPlmi_RomISR(XPLMI_DME_CHL_SIGN_GEN);
@@ -840,15 +843,15 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	}
 
 	/* Check if any ROM error occurred during DME request */
-	Status = Xil_In32(PMC_GLOBAL_PMC_BOOT_ERR);
-	if (Status != 0x0U) {
+	Status = (int)Xil_In32(PMC_GLOBAL_PMC_BOOT_ERR);
+	if (Status != XST_SUCCESS) {
 		Status = (int)XOCP_DME_ROM_ERROR;
 		goto END;
 	}
 	/* Copy the contents to user DME response structure */
 	Status = Xil_SMemCpy(DmeResponse.DmeSignatureR,
 			XOCP_ECC_P384_SIZE_BYTES,
-			(const void *)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_R_0,
+			(const void *)(UINTPTR)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_R_0,
 			XOCP_ECC_P384_SIZE_BYTES,
 			XOCP_ECC_P384_SIZE_BYTES);
 	if (Status != XST_SUCCESS) {
@@ -857,7 +860,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 
 	Status = Xil_SMemCpy(DmeResponse.DmeSignatureS,
 			XOCP_ECC_P384_SIZE_BYTES,
-			(const void *)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_S_0,
+			(const void *)(UINTPTR)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_S_0,
 			XOCP_ECC_P384_SIZE_BYTES,
 			XOCP_ECC_P384_SIZE_BYTES);
 
@@ -865,8 +868,8 @@ END:
 	XOcp_DmeRestoreXppuDefaultConfig();
 
 	if (XppuEnabled == XOCP_XPPU_ENABLED) {
-		Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
-				XOCP_PMC_XPPU_CTRL_DISABLE_VAL);
+		Status = Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
+			XOCP_PMC_XPPU_CTRL_DISABLE_VAL);
 	}
 
 	if (Status == XST_SUCCESS) {
@@ -1059,19 +1062,19 @@ static int XOcp_ClearDigestData(u32 PcrNum)
 	u32 Index;
 
 	for (Index = DigestIdx; Index < (DigestIdx + SwPcr->CountPerPcr[PcrNum]); Index++) {
-		Status = Xil_SMemSet((void *)SwPcr->Data[Index].DataToExtend,
+		Status = Xil_SMemSet((void *)(UINTPTR)SwPcr->Data[Index].DataToExtend,
 				XOCP_PCR_HASH_SIZE_IN_BYTES, 0U, XOCP_PCR_HASH_SIZE_IN_BYTES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		Status = Xil_SMemSet((void *)SwPcr->Data[Index].Measurement.MeasuredData,
+		Status = Xil_SMemSet((void *)(UINTPTR)SwPcr->Data[Index].Measurement.MeasuredData,
 				XOCP_PCR_HASH_SIZE_IN_BYTES, 0U, XOCP_PCR_HASH_SIZE_IN_BYTES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		Status = Xil_SMemSet((void *)SwPcr->Data[Index].Measurement.HashOfData,
+		Status = Xil_SMemSet((void *)(UINTPTR)SwPcr->Data[Index].Measurement.HashOfData,
 				XOCP_PCR_HASH_SIZE_IN_BYTES, 0U, XOCP_PCR_HASH_SIZE_IN_BYTES);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -1148,7 +1151,7 @@ static int XOcp_StoreEventIdConfig(u32 *Pload, u32 CurrIdx, u32 DigestCount, u32
 	u32 Index;
 
 	for (Index = CurrIdx;
-		Index < (CurrIdx + DigestCount * XOCP_DOUBLE_NUM_OF_WORDS);
+		Index < (CurrIdx + (DigestCount * XOCP_DOUBLE_NUM_OF_WORDS));
 		Index = Index + XOCP_DOUBLE_NUM_OF_WORDS) {
 		if (Index > (Len - 1U)) {
 			Status = (int)XOCP_PCR_ERR_IN_SWPCR_CONFIG;
@@ -1221,7 +1224,7 @@ static int XOcp_CalculateSwPcr(u32 PcrNum, u8 *ExtendedHash)
 		}
 
 		/* Push the calculated hash to same buffer */
-		Status = XSecure_Sha384Finish((XSecure_Sha2Hash *)ExtendedHash);
+		Status = XSecure_Sha384Finish((XSecure_Sha2Hash *)(UINTPTR)ExtendedHash);
 		if(Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -1309,7 +1312,7 @@ static int XOcp_DataMeasurement(u32 DigestIdx, u8 *Hash)
 	}
 
 	/* Calculate the SHA2 hash */
-	Status = XSecure_Sha384Finish((XSecure_Sha2Hash *)Hash);
+	Status = XSecure_Sha384Finish((XSecure_Sha2Hash *)(UINTPTR)Hash);
 END:
 	return Status;
 }
@@ -1438,7 +1441,7 @@ static int XOcp_UpdateHwPcrLog(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
 		goto END;
 	}
 
-	Status = XOcp_MemCopy(((u64)XOCP_PMC_GLOBAL_PCR_0_0 +
+	Status = XOcp_MemCopy(((u64)(UINTPTR)XOCP_PMC_GLOBAL_PCR_0_0 +
 		((u64)PcrNum * XOCP_PCR_SIZE_BYTES)),
 		(u64)(UINTPTR)HwPcrLog.Buffer[HwPcrLog.HeadIndex].PcrValue,
 		XOCP_PCR_SIZE_WORDS, XPLMI_PMCDMA_0);
@@ -1471,11 +1474,12 @@ END:
  ******************************************************************************/
 static u32 XOcp_CountNumOfOnesInWord(u32 Num)
 {
-	int Count = 0U;
+	u32 NumTmp = Num;
+	u32 Count = 0U;
 
-	while (Num != 0U)
+	while (NumTmp != 0U)
 	{
-		Num = Num & (Num - 1U);
+		NumTmp = NumTmp & (NumTmp - 1U);
 		Count++;
 	}
 

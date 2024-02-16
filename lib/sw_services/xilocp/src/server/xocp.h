@@ -115,7 +115,7 @@ int XOcp_ExtendHwPcr(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize);
 int XOcp_GetHwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize);
 int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntries);
 int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr);
-int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize, u32 PdiType);
+int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize, u32 OverWrite);
 int XOcp_StoreSwPcrConfig(u32 *Pload, u32 Len);
 int XOcp_GetSwPcrLog(u64 Addr);
 int XOcp_GetSwPcrData(u64 Addr);
