@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022, Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,6 +49,7 @@
 * 1.08  ng   11/11/2022 Updated doxygen comments
 *       am   12/21/2022 Added module support for XilOcp
 *		kpt  08/03/2023 Added temporal check for XOcp_KeyInit
+* 1.10  am   01/31/2024 Fixed internal security review comments of XilOcp library
 *
 * </pre>
 *
@@ -83,7 +84,9 @@
 #include "xplm_stl.h"
 #endif
 #ifdef PLM_OCP
+#ifdef PLM_OCP_KEY_MNGMT
 #include "xocp_keymgmt.h"
+#endif
 #include "xocp_init.h"
 #endif
 
@@ -179,7 +182,9 @@ int XPlm_ModuleInit(void *Arg)
 #endif
 /* OCP module is applicable only for Versalnet */
 #ifdef PLM_OCP
-	XSECURE_TEMPORAL_CHECK(END, Status, XOcp_KeyInit);
+#ifdef PLM_OCP_KEY_MNGMT
+	XSECURE_TEMPORAL_CHECK(END, Status, XOcp_GenerateDevIKKeyPair);
+#endif
 	/**
 	 * Init function for OCP module for handler registration to server
 	 */

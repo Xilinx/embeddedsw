@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -24,6 +24,7 @@
 *			available
 *       kpt  10/26/2023 Add support to run KAT
 *       har  12/08/2023 Add support for Subject Alternative Name field
+* 1.2   am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
 *
 * </pre>
 * @note
@@ -31,11 +32,10 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xparameters.h"
+#include "xplmi_config.h"
 
-#ifndef PLM_ECDSA_EXCLUDE
+#ifdef PLM_OCP_KEY_MNGMT
 #include "xsecure_ellipticplat.h"
-#endif
 #include "xsecure_sha384.h"
 #include "xcert_genx509cert.h"
 #include "xcert_createfield.h"
@@ -52,10 +52,8 @@
  */
  /**< Object IDs used in X.509 Certificate and Certificate Signing Request */
 static const u8 Oid_SignAlgo[]		= {0x06U, 0x08U, 0x2AU, 0x86U, 0x48U, 0xCEU, 0x3DU, 0x04U, 0x03U, 0x03U};
-#ifndef PLM_ECDSA_EXCLUDE
 static const u8 Oid_EcPublicKey[]	= {0x06U, 0x07U, 0x2AU, 0x86U, 0x48U, 0xCEU, 0x3DU, 0x02U, 0x01U};
 static const u8 Oid_P384[]		= {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U,0x00U, 0x22U};
-#endif
 static const u8 Oid_SubKeyIdentifier[]	= {0x06U, 0x03U, 0x55U, 0x1DU, 0x0EU};
 static const u8 Oid_AuthKeyIdentifier[]	= {0x06U, 0x03U, 0x55U, 0x1DU, 0x23U};
 static const u8 Oid_TcbInfoExtn[]	= {0x06U, 0x06U, 0x67U, 0x81U, 0x05U, 0x05U, 0x04U, 0x01U};
@@ -147,12 +145,10 @@ static int XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen);
 static inline int XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, const u32 IssuerValLen, u32 *IssuerLen);
 static inline int XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, const u32 ValidityValLen, u32 *ValidityLen);
 static inline int XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, const u32 SubjectValLen, u32 *SubjectLen);
-#ifndef PLM_ECDSA_EXCLUDE
 static int XCert_GenPubKeyAlgIdentifierField(u8* TBSCertBuf, u32 *Len);
 static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey,u32 *PubKeyInfoLen);
 static int XCert_GenSignField(u8* X509CertBuf, u8* Signature, u32 *SignLen);
 static int XCert_GetSignStored(u32 SubsystemId, XCert_SignStore **SignStore);
-#endif
 static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCertLen);
 static void XCert_CopyCertificate(const u32 Size, const u8 *Src, const u64 DstAddr);
 static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicKey, u32 *SubjectKeyIdentifierLen);
@@ -367,7 +363,6 @@ END:
 	return Status;
 }
 
-#ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief	This function finds the provided Subsystem ID in InfoStore DB and
@@ -402,7 +397,6 @@ static int XCert_GetSignStored(u32 SubsystemId, XCert_SignStore **SignStore)
 END:
 	return Status;
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -517,14 +511,12 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	u8* SequenceValIdx;
 	u32 DataLen = 0U;
 	u32 SignAlgoLen;
-#ifndef PLM_ECDSA_EXCLUDE
 	int HashCmpStatus = XST_FAILURE;
 	u32 SignLen = 0U;
 	u8 Sign[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U] = {0U};
 	u8 SignTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U] = {0U};
 	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
 	XCert_SignStore *SignStore = NULL;
-#endif
 	u8 HashTmp[XCERT_HASH_SIZE_IN_BYTES] = {0U};
 	u8 *TbsCertStart;
 	(void)MaxCertSize;
@@ -588,7 +580,6 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 		Status = (int)XCERT_ERR_X509_GEN_TBSCERT_DIGEST;
 		goto END;
 	}
-#ifndef PLM_ECDSA_EXCLUDE
 
 	/**
 	 * Get the TBS certificate signature stored in Cert DB
@@ -668,10 +659,6 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	 */
 	XCert_GenSignField(Curr, Sign, &SignLen);
 	Curr = Curr + SignLen;
-#else
-	Status = XOCP_ECDSA_NOT_ENABLED_ERR;
-	goto END;
-#endif
 
 	/**
 	 * Update the encoded length in the X.509 certificate SEQUENCE
@@ -895,7 +882,6 @@ static inline int XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, const u32 S
 	return Status;
 }
 
-#ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief	This function creates the Public Key Algorithm Identifier sub-field.
@@ -1014,7 +1000,6 @@ static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey, u32
 END:
 	return Status;
 }
-#endif
 
 /******************************************************************************/
 /**
@@ -1926,7 +1911,6 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	}
 	Curr = Curr + Len;
 
-#ifndef PLM_ECDSA_EXCLUDE
 	/**
 	 * Generate Public Key Info field
 	 */
@@ -1938,10 +1922,6 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	else {
 		Curr = Curr + Len;
 	}
-#else
-	Status = XOCP_ECDSA_NOT_ENABLED_ERR;
-	goto END;
-#endif
 
 	/**
 	 * Generate X.509 V3 extensions field
@@ -2027,7 +2007,6 @@ static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Cert
 	XCert_GenSubjectField(Curr, Cfg->UserCfg->Subject, Cfg->UserCfg->SubjectLen, &Len);
 	Curr = Curr + Len;
 
-#ifndef PLM_ECDSA_EXCLUDE
 	/**
 	 * Generate Public Key Info field
 	 */
@@ -2039,10 +2018,6 @@ static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Cert
 	else {
 		Curr = Curr + Len;
 	}
-#else
-	Status = XOCP_ECDSA_NOT_ENABLED_ERR;
-	goto END;
-#endif
 
 	XCert_GenCsrExtensions(Curr, Cfg, &Len);
 	Curr = Curr + Len;
@@ -2061,7 +2036,6 @@ END:
 	return Status;
 }
 
-#ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief	This function creates the Signature field in the X.509 certificate
@@ -2127,7 +2101,6 @@ static int XCert_GenSignField(u8* X509CertBuf, u8* Signature, u32 *SignLen)
 END:
 	return Status;
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -2147,3 +2120,4 @@ static void XCert_CopyCertificate(const u32 Size, const u8 *Src, const u64 DstAd
 		XSecure_OutByte64((DstAddr + Index), Src[Index]);
 	}
 }
+#endif  /* PLM_OCP_KEY_MNGMT */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,7 @@
 *       sk   08/28/2023 Added redundant call for XLoader_GetKekSrc
 * 1.10  bm   09/25/2023 Fix Error Handling after In-Place PLM Update
 *       kpt  12/07/2023 Add support to clear RED keys after In-Place PLM update
+*       am   01/31/2024 Moved key management operations under PLM_OCP_KEY_MNGMT
 *
 * </pre>
 *
@@ -66,7 +67,7 @@
 #include "xplmi_err_common.h"
 #include "xloader_plat.h"
 #include "xplmi_plat.h"
-#ifdef PLM_OCP
+#ifdef PLM_OCP_KEY_MNGMT
 #include "xocp_keymgmt.h"
 #endif
 
@@ -127,7 +128,7 @@ int XPlm_LoadBootPdi(void *Arg)
 
 	#endif
 		/* Regenerate DEVAK keys of the sub-systems */
-#ifdef PLM_OCP
+#ifdef PLM_OCP_KEY_MNGMT
 		Status = XOcp_RegenSubSysDevAk();
 		if (Status != XST_SUCCESS) {
 			goto END;

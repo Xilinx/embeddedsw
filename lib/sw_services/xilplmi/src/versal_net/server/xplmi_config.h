@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 *       dc   07/17/2022 Added PLM_OCP configuration
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 * 1.02  ng   06/21/2023 Added support for system device-tree flow
+* 1.03  am   01/31/2024 Added PLM_OCP_KEY_MNGMT configuration macro
 *
 * </pre>
 *
@@ -114,6 +115,9 @@ extern "C" {
  *	- PLM_SECURE_EXCLUDE secure code will be excluded (included by default)
  *	- PLM_NVM_EXCLUDE NVM handlers will be excluded (excluded by default)
  *	- PLM_PUF_EXCLUDE PUF handlers will be excluded (excluded by default)
+ *	- PLM_OCP_EXCLUDE entire OCP code(PCR, DME and Key Management) will be excluded
+ *	- PLM_OCP OCP code(PCR, DME) will be included
+ *	- PLM_OCP_KEY_MNGMT OCP code(Key Management) will be included
  *
  * Please note that below are defined in xparameters.h based on the
  * xilplmi library configuration, hence all the below are commented out here.
@@ -137,6 +141,10 @@ extern "C" {
 
 #if (!defined(PLM_OCP_EXCLUDE)) && (!defined(PLM_OCP))
 #define PLM_OCP
+#endif
+
+#if (!defined(PLM_ECDSA_EXCLUDE)) && (defined(PLM_OCP))
+#define PLM_OCP_KEY_MNGMT
 #endif
 
 /**

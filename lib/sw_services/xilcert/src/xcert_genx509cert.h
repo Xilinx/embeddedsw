@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 1.0   har  01/09/2023 Initial release
 * 1.1   am   08/18/2023 Added XCert_ErrorStatus enum
 * 1.2   har  12/08/2023 Add support for Subject Alternative Name field
+*       am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
 *
 * </pre>
 *
@@ -34,11 +35,12 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xparameters.h"
+#include "xplmi_config.h"
+
+#ifdef PLM_OCP_KEY_MNGMT
 #include "xplmi_debug.h"
-#ifndef PLM_ECDSA_EXCLUDE
 #include "xsecure_elliptic.h"
-#endif
+
 /**************************** Type Definitions *******************************/
 
 /**************************** Constant Definitions *******************************/
@@ -127,8 +129,10 @@ typedef enum {
 int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config *Cfg);
 int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8* Val, u32 Len);
 
-#endif
+
 #ifdef __cplusplus
 }
+#endif
+#endif  /* PLM_OCP_KEY_MNGMT */
 #endif  /* XCERT_GENX509CERT_H */
 /* @} */

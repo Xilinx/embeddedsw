@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022-2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -24,6 +24,7 @@
 *       yog  08/07/23 Replaced trng API calls using trngpsx driver
 * 1.3   kpt  11/06/23 Add support to run SHA384 KAT during DME
 *       kal  12/09/23 Added a check for DataAddr if size > 48 bytes for SWPCR
+*       am   01/31/24 Moved Key Management operations under PLM_OCP_KEY_MNGMT macro
 *
 * </pre>
 * @note
@@ -31,9 +32,14 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
+
+#ifdef PLM_OCP
 #include "xil_types.h"
 #include "xocp.h"
+#ifdef PLM_OCP_KEY_MNGMT
 #include "xocp_keymgmt.h"
+#endif
 #include "xocp_hw.h"
 #include "xplmi_hw.h"
 #include "xplmi.h"
@@ -731,8 +737,10 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 	int ClearStatus = XST_FAILURE;
-	u32 *DevIkPubKey = (u32 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
+#ifdef PLM_OCP_KEY_MNGMT
+	u32 *DevIkPubKey = (u32 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
 	u8 Sha3Hash[XOCP_SHA3_LEN_IN_BYTES];
+#endif
 	XOcp_DmeResponse DmeResponse = {0U};
 	XOcp_Dme *DmePtr = &DmeResponse.Dme;
 	XTrngpsx_Instance *TrngInstance = NULL;
@@ -756,6 +764,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 		goto RET;
 	}
 
+#ifdef PLM_OCP_KEY_MNGMT
 	/* Fill the DME structure's DEVICE ID field with hash of DEV IK Public key */
 	if (XOcp_IsDevIkReady() != FALSE) {
 		if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != (u8)TRUE) {
@@ -779,6 +788,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 			goto RET;
 		}
 	}
+#endif
 
 	/* Fill the DME structure with Nonce */
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)DmePtr->Nonce, NonceAddr,
@@ -1390,15 +1400,6 @@ static u32 XOcp_GetPcrOffsetInLog(u32 PcrNum)
 
 /*****************************************************************************/
 /**
- * @brief	This function configures the XPPU for requesting DME service
- *		to ROM.
- *
- * @return	None.
- ******************************************************************************/
-
-
-/*****************************************************************************/
-/**
  * @brief	This function updates the HWPCR log.
  *
  * @param	PcrNum		PCR register number
@@ -1514,3 +1515,4 @@ static XOcp_SwPcrConfig *XOcp_GetSwPcrConfigInstance(void)
 
 	return &SwPcrConfig;
 }
+#endif /* PLM_OCP */

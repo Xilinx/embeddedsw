@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 1.3   kpt  11/06/23 Add support to run ECC KAT before attestation
 *       kpt  11/24/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *       ng   02/12/24 optimised u8 vars to u32 for size reduction
+*       am   02/14/24 Fixed internal security review comments
 *
 * </pre>
 * @note
@@ -36,6 +37,8 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
+
+#ifdef PLM_OCP_KEY_MNGMT
 #include "xocp_keymgmt.h"
 #include "xocp_hw.h"
 #include "xocp_def.h"
@@ -44,11 +47,9 @@
 #include "xplmi.h"
 #include "xplmi_tamper.h"
 #include "xsecure_hmac.h"
-#ifndef PLM_ECDSA_EXCLUDE
 #include "xsecure_elliptic.h"
 #include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_ellipticplat.h"
-#endif
 #include "xil_util.h"
 #include "xsecure_init.h"
 #include "xsecure_plat_kat.h"
@@ -61,20 +62,22 @@
 #define XOCP_PMC_SUBSYSTEM_ID				(0x1C000001U)	/**< PMC Subsystem ID */
 #define XOCP_DEVAK_SUBSYS_HASH_VERSION 			(1U) /**< DEVAK subsys hash version list */
 #define XOCP_DEVAK_SUBSYS_HASH_LCVERSION 		(1U) /**< DEVAK subsys lowest compatible
-														* version list */
+							      * version list */
+#define XOCP_SUBSYSTEM_ID_0				(0U) /**< SubSystem Id zero */
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XOcp_KeyGenDevAkSeed(u32 KeyAddr, u32 KeyLen, u32 DataAddr,
-			 u32 DataLen, XSecure_HmacRes *Out);
+static int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr,
+	u32 DataLen, XSecure_HmacRes *Out);
 static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg);
 static int XOcp_KeyGenerateDevIk(void);
 static XOcp_KeyMgmt *XOcp_GetKeyMgmtInstance(void);
 static XOcp_SubSysHash *XOcp_GetSubSysHash(void);
 static int XOcp_ValidateDiceCdi(void);
+static XOcp_DevAkData *XOcp_GetDevAkData(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -83,13 +86,13 @@ static int XOcp_ValidateDiceCdi(void);
 /*****************************************************************************/
 /**
  * @brief       This function provides the pointer to the common XOcp_DevAkData
- * instance which has to be used across the project to store the data.
+ *              instance which has to be used across the project to store the data.
  *
  * @return
- *      -   Pointer to the XOcp_DevAkData instance
+ *          -   Pointer to the XOcp_DevAkData instance
  *
  ******************************************************************************/
-XOcp_DevAkData *XOcp_GetDevAkData(void)
+static XOcp_DevAkData *XOcp_GetDevAkData(void)
 {
 	static XOcp_DevAkData DevAkData[XOCP_MAX_DEVAK_SUPPORT] = {0U};
 
@@ -99,11 +102,11 @@ XOcp_DevAkData *XOcp_GetDevAkData(void)
 /*****************************************************************************/
 /**
  * @brief       This function gets the hash(s) of the corresponding subsystem(s)
- * which will be updated during DEVAK generation and stored during an
- * in place PLM update to regenerate the DEVAK.
+ *              which will be updated during DEVAK generation and stored during an
+ *              in place PLM update to regenerate the DEVAK.
  *
  * @return
- *      -   Pointer to the XOcp_ instance
+ *          -   Pointer to the XOcp_ instance
  *
  ******************************************************************************/
 static XOcp_SubSysHash *XOcp_GetSubSysHash(void)
@@ -120,8 +123,7 @@ static XOcp_SubSysHash *XOcp_GetSubSysHash(void)
 
 /*****************************************************************************/
 /**
- * @brief       This function returns whether Device identity key is ready or
- * not.
+ * @brief       This function returns whether Device identity key is ready or not.
  *
  * @return
  *		- FALSE if DEV IK is not ready
@@ -132,28 +134,28 @@ int XOcp_IsDevIkReady(void)
 {
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
 
-	return KeyInstPtr->IsDevKeyReady;
+	return KeyInstPtr->KeyMgmtReady;
 }
 
 /*****************************************************************************/
 /**
- * @brief	This function generates the DEVIK ECC private and public
- *		key pair and generates the self-signed X.509 certificate to share
- *		DEVIK public key.
+ * @brief   This function generates the DEVIK ECC private and public
+ *          key pair and generates the self-signed X.509 certificate to share
+ *          DEVIK public key.
  *
  * @return
  *	-	XST_SUCCESS - If whole operation is success
  *	-	XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-int XOcp_KeyInit(void)
+int XOcp_GenerateDevIKKeyPair(void)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
 
-	KeyInstPtr->IsDevKeyReady = FALSE;
+	KeyInstPtr->KeyMgmtReady = FALSE;
 
 	/* If CDI is not valid device key generation is skipped */
 	if (XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_VALID) == 0x0U) {
@@ -185,7 +187,7 @@ int XOcp_KeyInit(void)
 
 	XOcp_Printf(DEBUG_INFO, "Generated DEV IK\n\r");
 
-	KeyInstPtr->IsDevKeyReady = TRUE;
+	KeyInstPtr->KeyMgmtReady = TRUE;
 
 END:
 	if (Status != XST_SUCCESS) {
@@ -216,7 +218,7 @@ int XOcp_RegenSubSysDevAk(void)
 	volatile u32 Index = 0U;
 	u32 DevAkIndex = 0U;
 
-	if (KeyMgmtInstance->IsDevKeyReady != TRUE) {
+	if (KeyMgmtInstance->KeyMgmtReady != TRUE) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
@@ -251,6 +253,7 @@ END:
 /**
  * @brief	This function stores the DEVAK input personalized string along with
  *		corresponding subsystem ID.
+ *
  * @param	SubSystemId of which DEVAK shall be generated.
  * @param	PerString holds 48 byte personalised string to the corresponding
  *		subsystem ID.
@@ -266,7 +269,7 @@ int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString)
 	XOcp_KeyMgmt *KeyMgmtInstance = XOcp_GetKeyMgmtInstance();
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
 
-	if (KeyMgmtInstance->IsDevKeyReady != TRUE) {
+	if (KeyMgmtInstance->KeyMgmtReady != TRUE) {
 		XOcp_Printf(DEBUG_DETAILED, "No Device keys are supported\n\r");
 		Status = XST_SUCCESS;
 		goto END;
@@ -299,8 +302,8 @@ END:
 /**
  * @brief	This function generates the DEVAK ECC private and public key pair.
  *
- * @param	SubSystemId holds the sub system ID of PDI of whose DEVAK
- *		generation is requested.
+ * @param	SubSystemId of the PDI for which DEVAK generation is requested.
+ *
  * @return
  *		- XST_SUCCESS - If key generation is success
  *		- Error code - Upon any failure
@@ -311,14 +314,12 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
-	u32 DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
+	u32 DevAkIndex = XOcp_GetSubSysDevAkIndex(SubSystemId);
 	u8 Seed[XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES];
-#ifndef PLM_ECDSA_EXCLUDE
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
 	XSecure_EllipticKeyAddr PubKeyAddr;
 	u8 EccX[XOCP_ECC_P384_SIZE_BYTES];
 	u8 EccY[XOCP_ECC_P384_SIZE_BYTES];
-#endif
 	int ClrStatus = XST_FAILURE;
 	volatile u32 CryptoKatEn = (u32)TRUE;
 	volatile u32 CryptoKatEnTmp = (u32)TRUE;
@@ -335,10 +336,9 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 	DevAkData->IsDevAkKeyReady = (u32)FALSE;
 
 	XSECURE_TEMPORAL_CHECK(END, Status, XOcp_KeyGenDevAkSeed, XOCP_PMC_GLOBAL_DICE_CDI_SEED_0,
-						   XOCP_CDI_SIZE_IN_BYTES, (u32)DevAkData->SubSysHash, XSECURE_HASH_SIZE_IN_BYTES,
-						   (XSecure_HmacRes *)Seed);
+		XOCP_CDI_SIZE_IN_BYTES, (u32)DevAkData->SubSysHash, XSECURE_HASH_SIZE_IN_BYTES,
+		(XSecure_HmacRes *)Seed);
 
-#ifndef PLM_ECDSA_EXCLUDE
 	/* Generate the DEV AK public and private keys */
 	KeyGenParams.SeedAddr = (u32)Seed;
 	KeyGenParams.SeedLength = XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES;
@@ -390,13 +390,6 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 	XPlmi_PrintArray(DEBUG_INFO, (u64)(UINTPTR)DevAkData->EccY,
 		XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY Y");
 
-#else
-	(void)CryptoKatEn;
-    (void)CryptoKatEnTmp;
-	(void)StatusTmp;
-	Status = XOCP_ECDSA_NOT_ENABLED_ERR;
-#endif
-
 END:
 	ClrStatus = Xil_SecureZeroize(Seed, XOCP_CDI_SIZE_IN_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
@@ -418,15 +411,15 @@ END:
  *	-	XOCP_INVALID_DEVAK_INDEX
  *
  ******************************************************************************/
-u32 XOcp_GetSubSysReqDevAkIndex(u32 SubSystemId)
+u32 XOcp_GetSubSysDevAkIndex(u32 SubSystemId)
 {
 	u32 DevAkIndex = XOCP_INVALID_DEVAK_INDEX;
 	XOcp_KeyMgmt *KeyMgmtInstance = XOcp_GetKeyMgmtInstance();
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
 	u32 Index = 0U;
 
-	/* If no device key is supported returns invalid */
-	if (KeyMgmtInstance->IsDevKeyReady != TRUE) {
+	/* Returns invalid DEVAK index if no device key is supported */
+	if (KeyMgmtInstance->KeyMgmtReady != TRUE) {
 		goto END;
 	}
 	while (Index < KeyMgmtInstance->DevAkInputIndex) {
@@ -446,7 +439,7 @@ END:
 /**
  * @brief	This function generates the X.509 Certificate for device keys
  *
- * @param   XOcp_GetX509CertPtr points to the address of XOcp_X509Cert structure.
+ * @param	XOcp_GetX509CertPtr points to the address of XOcp_X509Cert structure.
  * @param	SubSystemId is the ID of the subsystem from which certificate is
  *		requested.
  *
@@ -469,7 +462,7 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 		goto END;
 	}
 
-	if (KeyInstPtr->IsDevKeyReady != TRUE) {
+	if (KeyInstPtr->KeyMgmtReady != TRUE) {
 		XOcp_Printf(DEBUG_DETAILED, "No Device keys are supported\n\r");
 		Status = XOCP_ERR_DEVIK_NOT_READY;
 		goto END;
@@ -491,7 +484,7 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 		}
 	}
 	else {
-		DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
+		DevAkIndex = XOcp_GetSubSysDevAkIndex(SubSystemId);
 		if (DevAkIndex == XOCP_INVALID_DEVAK_INDEX) {
 			Status = XOCP_ERR_INVALID_DEVAK_REQ;
 			goto END;
@@ -522,11 +515,11 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function allows user to sign his own data using device
- *	attestation key. The PLM signs the hash of the data (SHA384/SHA3-384)
- *	supplied by the user as input. The PLM uses ECC P-384 DevAK private key to
- * sign the input hash
+ *		attestation key. The PLM signs the hash of the data supplied by
+ *		the user as input. The PLM uses ECC P-384 DevAK private
+ *		key to sign the input hash.
  *
- * @param   AttestWithDevAkPtr - Address of XOcp_AttestWithDevAk structure.
+ * @param   	AttestWithDevAkPtr - Address of XOcp_AttestWithDevAk structure.
  * @param	SubSystemId holds the image ID.
  *
  * @return
@@ -540,17 +533,16 @@ int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId)
 	volatile int StatusTmp = XST_FAILURE;
 	u32 DevAkIndex;
 	XOcp_DevAkData *DevAkData = NULL;
-#ifndef PLM_ECDSA_EXCLUDE
 	u8 Hash[XSECURE_ECC_P384_SIZE_IN_BYTES];
 	u8 Signature[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
-#endif
 
-	if ((SubSystemId == 0x0U) || (AttestWithDevAkPtr->HashAddr == 0x0U) ||
-				(AttestWithDevAkPtr->SignatureAddr == 0x0U)) {
+	if ((SubSystemId == XOCP_SUBSYSTEM_ID_0) ||
+		(AttestWithDevAkPtr->HashAddr == 0x0U) ||
+		(AttestWithDevAkPtr->SignatureAddr == 0x0U)) {
 		goto END;
 	}
 
-	DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
+	DevAkIndex = XOcp_GetSubSysDevAkIndex(SubSystemId);
 	if (DevAkIndex == XOCP_INVALID_DEVAK_INDEX) {
 		Status = XOCP_ERR_INVALID_DEVAK_REQ;
 		goto END;
@@ -564,7 +556,6 @@ int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId)
 		goto END;
 	}
 
-#ifndef PLM_ECDSA_EXCLUDE
 	if (XPlmi_IsKatRan(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK) != TRUE) {
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp,XSecure_EllipticSignGenerateKat,
 			XSECURE_ECC_PRIME);
@@ -588,21 +579,23 @@ int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId)
 	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
 		AttestWithDevAkPtr->SignatureAddr + XSECURE_ECC_P384_SIZE_IN_BYTES,
 		(u64)(UINTPTR)(Signature + XSECURE_ECC_P384_SIZE_IN_BYTES));
-#endif
+
 END:
 	return Status;
 }
 
 /*****************************************************************************/
 /**
- * @brief	This function zeroizes DEVIK and CDI
+ * @brief	This function zeroizes DEVIK and CDI SEED during OCP module shutdown.
+ *
+ * @param	Op - OCP module operation
  *
  * @return
  *		- XST_SUCCESS - If zeroization status is pass
  *		- XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-int XOcp_DataZeroize(XPlmi_ModuleOp Op)
+int XOcp_ShutdownHandler(XPlmi_ModuleOp Op)
 {
 	volatile int Status = XST_FAILURE;
 	static u32 OcpHandlerState = XPLMI_MODULE_NORMAL_STATE;
@@ -622,7 +615,7 @@ int XOcp_DataZeroize(XPlmi_ModuleOp Op)
 		if (OcpHandlerState != XPLMI_MODULE_SHUTDOWN_INITIATED_STATE) {
 			goto END;
 		}
-		if (KeyInstPtr->IsDevKeyReady == TRUE) {
+		if (KeyInstPtr->KeyMgmtReady == TRUE) {
 			/* Zeroize DEVIK */
 			Status = XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_CTRL,
 				(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_STATUS);
@@ -666,7 +659,9 @@ static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg)
 	int Status = XST_FAILURE;
 	u32 ReadReg;
 
-	XPlmi_Out32(CtrlReg, XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_MASK);
+	/* Writes data to 32-bit address and checks for blind writes */
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureOut32, CtrlReg,
+		XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_MASK);
 
 	Status = (int)Xil_WaitForEvent(StatusReg,
 			XOCP_PMC_GLOBAL_ZEROIZE_STATUS_PASS_MASK,
@@ -680,6 +675,7 @@ static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg)
 		}
 	}
 
+END:
 	/* Clearing Zeroize Control register */
 	XPlmi_Out32(CtrlReg, XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK);
 
@@ -701,21 +697,19 @@ static int XOcp_KeyGenerateDevIk(void)
 	volatile int StatusTmp = XST_FAILURE;
 	u8 Seed[XOCP_CDI_SIZE_IN_BYTES];
 	u8 PersString[XTRNGPSX_PERS_STRING_LEN_IN_BYTES];
-#ifndef PLM_ECDSA_EXCLUDE
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
 	XSecure_EllipticKeyAddr PubKeyAddr;
-	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES];
+	u8 EccPvtKey[XOCP_ECC_P384_SIZE_BYTES];
 	u8 EccX[XOCP_ECC_P384_SIZE_BYTES];
 	u8 EccY[XOCP_ECC_P384_SIZE_BYTES];
-#endif
 	u32 ClrStatus = XST_FAILURE;
 	volatile u32 CryptoKatEn = (u32)TRUE;
 	volatile u32 CryptoKatEnTmp = (u32)TRUE;
 
 	/* Copy CDI from PMC global registers to Seed buffer */
 	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, (void *)Seed, XOCP_CDI_SIZE_IN_BYTES,
-						   (const void *)XOCP_PMC_GLOBAL_DICE_CDI_SEED_0, XOCP_CDI_SIZE_IN_BYTES,
-						   XOCP_CDI_SIZE_IN_BYTES);
+		(const void *)XOCP_PMC_GLOBAL_DICE_CDI_SEED_0, XOCP_CDI_SIZE_IN_BYTES,
+		XOCP_CDI_SIZE_IN_BYTES);
 
 	/*
 	 * Copy Personalized string to buffer, here the input string is DNA
@@ -737,26 +731,25 @@ static int XOcp_KeyGenerateDevIk(void)
 		goto END;
 	}
 
-#ifndef PLM_ECDSA_EXCLUDE
 	/* Generate the DEV IK public and private keys */
 	KeyGenParams.SeedAddr = (u32)Seed;
 	KeyGenParams.SeedLength = XOCP_CDI_SIZE_IN_BYTES;
 	KeyGenParams.PerStringAddr = (u32)PersString;
-	KeyGenParams.KeyOutPutAddr = (u32)EccPrvtKey;
+	KeyGenParams.KeyOutPutAddr = (u32)EccPvtKey;
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_EllipticPrvtKeyGenerate, XSECURE_ECC_NIST_P384,
 						   &KeyGenParams);
 
 	PubKeyAddr.Qx = (UINTPTR)(u8*)EccX;
 	PubKeyAddr.Qy = (UINTPTR)(u8*)EccY;
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_EllipticGenerateKey_64Bit, XSECURE_ECC_NIST_P384,
-						   (u64)(UINTPTR)EccPrvtKey, &PubKeyAddr);
+						   (u64)(UINTPTR)EccPvtKey, &PubKeyAddr);
 
 	CryptoKatEn = XPlmi_IsCryptoKatEn();
 	CryptoKatEnTmp = CryptoKatEn;
 	if ((CryptoKatEn == (u32)TRUE) || (CryptoKatEnTmp == (u32)TRUE)) {
 		XPlmi_ClearKatMask(XPLMI_SECURE_ECC_DEVIK_PWCT_KAT_MASK);
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_EllipticPwct,
-			XSECURE_ECC_NIST_P384, (u64)(UINTPTR)EccPrvtKey, &PubKeyAddr);
+			XSECURE_ECC_NIST_P384, (u64)(UINTPTR)EccPvtKey, &PubKeyAddr);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			goto END;
 		}
@@ -765,7 +758,7 @@ static int XOcp_KeyGenerateDevIk(void)
 
 	/* Copy Private key to PMC global registers */
 	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, (void *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0,
-						   XOCP_ECC_P384_SIZE_BYTES, (const void *)EccPrvtKey,
+						   XOCP_ECC_P384_SIZE_BYTES, (const void *)EccPvtKey,
 						   XOCP_ECC_P384_SIZE_BYTES, XOCP_ECC_P384_SIZE_BYTES);
 
 	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
@@ -775,20 +768,12 @@ static int XOcp_KeyGenerateDevIk(void)
 				 (u64)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_Y_0,
 						(u64)(UINTPTR)EccY);
 
-#else
-	(void)CryptoKatEn;
-	(void)CryptoKatEnTmp;
-	(void)StatusTmp;
-	Status = XOCP_ECDSA_NOT_ENABLED_ERR;
-#endif
-
 END:
-#ifndef PLM_ECDSA_EXCLUDE
-	ClrStatus = Xil_SecureZeroize(EccPrvtKey, XOCP_ECC_P384_SIZE_BYTES);
+	ClrStatus = Xil_SecureZeroize(EccPvtKey, XOCP_ECC_P384_SIZE_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}
-#endif
+
 	ClrStatus = Xil_SecureZeroize(Seed, XOCP_CDI_SIZE_IN_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
@@ -814,13 +799,13 @@ END:
  *	-	XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-static int XOcp_KeyGenDevAkSeed(u32 KeyAddr, u32 KeyLen, u32 DataAddr,
-			 u32 DataLen, XSecure_HmacRes *Out)
+static int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr,
+	u32 DataLen, XSecure_HmacRes *Out)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
-	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(0U);
+	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	XSecure_Sha3 Sha3Instance = {0U};
 	XSecure_Hmac HmacInstance;
 
@@ -833,6 +818,7 @@ static int XOcp_KeyGenDevAkSeed(u32 KeyAddr, u32 KeyLen, u32 DataAddr,
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_Sha3Kat,
 				&Sha3Instance);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status |= StatusTmp;
 			goto END;
 		}
 		XPlmi_SetKatMask(XPLMI_SECURE_SHA3_KAT_MASK);
@@ -842,13 +828,14 @@ static int XOcp_KeyGenDevAkSeed(u32 KeyAddr, u32 KeyLen, u32 DataAddr,
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_HmacKat,
 				&Sha3Instance);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status |= StatusTmp;
 			goto END;
 		}
 		XPlmi_SetKatMask(XPLMI_SECURE_HMAC_KAT_MASK);
 	}
 
 	Status = XST_FAILURE;
-	Status = XSecure_HmacInit(&HmacInstance, &Sha3Instance, KeyAddr, KeyLen);
+	Status = XSecure_HmacInit(&HmacInstance, &Sha3Instance, CdiAddr, CdiLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -873,8 +860,8 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function provides the pointer to the common XOcp_KeyMgmt
-*	instance which has to be used across the project to store the data.
+ * @brief	This function provides the pointer to the common XOcp_KeyMgmt
+ *		instance which has to be used across the project to store the data.
  *
  * @return
  *      -   Pointer to the XOcp_KeyMgmt instance
@@ -934,3 +921,103 @@ static int XOcp_ValidateDiceCdi(void)
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function handler calls XSecure_EcdhGetSecret server API to
+ *		generate the shared secret using ECDH.
+ *
+ * @param	SubSystemId - ID of the subsystem from where the command is
+ * 		originating
+ * @param	PubKeyAddrLow - 64 bit address of the Public Key buffer
+ * @param	SharedSecretAddrLow - 64 bit address of the Shared Secret buffer
+ *
+ * @return
+ *		 - XST_SUCCESS  On Success
+ *		 - Errorcode  On failure
+ *
+ ******************************************************************************/
+int XOcp_GenSharedSecretwithDevAk(u32 SubSystemId, u64 PubKeyAddr, u64 SharedSecretAddr)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int ClrStatus = XST_FAILURE;
+	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
+	u32 DevAkIndex;
+	u64 PrvtKeyAddr;
+	u8 PubKeyTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
+	u8 SharedSecretTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
+
+	DevAkIndex = XOcp_GetSubSysDevAkIndex(SubSystemId);
+	if (DevAkIndex == XOCP_INVALID_DEVAK_INDEX) {
+		Status = XOCP_ERR_INVALID_DEVAK_REQ;
+		goto END;
+	}
+	DevAkData = DevAkData + DevAkIndex;
+
+	if (DevAkData->IsDevAkKeyReady == TRUE) {
+		PrvtKeyAddr = (u64)(UINTPTR)DevAkData->EccPrvtKey;
+
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+			(u64)(UINTPTR)PubKeyTmp, PubKeyAddr);
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+			(u64)(UINTPTR)(PubKeyTmp + XSECURE_ECC_P384_SIZE_IN_BYTES),
+			PubKeyAddr + XSECURE_ECC_P384_SIZE_IN_BYTES);
+
+		Status = XSecure_EcdhGetSecret(XSECURE_ECC_NIST_P384, PrvtKeyAddr,
+			(u64)(UINTPTR)PubKeyTmp, (u64)(UINTPTR)SharedSecretTmp);
+
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+			SharedSecretAddr, (u64)(UINTPTR)SharedSecretTmp);
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+			SharedSecretAddr + XSECURE_ECC_P384_SIZE_IN_BYTES,
+			(u64)(UINTPTR)(SharedSecretTmp + XSECURE_ECC_P384_SIZE_IN_BYTES));
+	}
+	else {
+		Status = XOCP_ERR_DEVAK_NOT_READY;
+	}
+
+END:
+	ClrStatus = Xil_SecureZeroize(SharedSecretTmp, XSECURE_ECC_P384_SIZE_IN_BYTES * 2U);
+	if (ClrStatus != XST_SUCCESS) {
+		Status |= ClrStatus;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function generates the DEVAK for requested subsystem by user.
+ *
+ * @param	SubsystemID is the ID of image.
+ * @param	InhHash 64-bit address of hash.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XOCP_GenSubSysDevAk(u32 SubsystemID, u64 InHash)
+{
+	int Status = XST_FAILURE;
+	u32 DevAkIndex = XOcp_GetSubSysDevAkIndex(SubsystemID);
+	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
+
+	if (DevAkIndex != XOCP_INVALID_DEVAK_INDEX)  {
+		DevAkData = DevAkData + DevAkIndex;
+		Status = XPlmi_MemCpy64((u64)(UINTPTR)DevAkData->SubSysHash,
+					InHash, XOCP_CDI_SIZE_IN_BYTES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XOcp_GenerateDevAk(SubsystemID);
+		XOcp_Printf(DEBUG_DETAILED, "DEV AK of subsystem is generated %x\n\r",
+					SubsystemID);
+	}
+	else {
+		XOcp_Printf(DEBUG_DETAILED, "DEV AK of subsystem is not generated \n\r");
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+#endif /* PLM_OCP_KEY_MNGMT */
