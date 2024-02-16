@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module creates the driver or library example using the domain information
@@ -85,10 +85,11 @@ def create_example(args):
     utils.copy_directory(srcdir, obj.app_src_dir)
 
     src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")
+    app_name = os.path.splitext(utils.get_base_name(obj.app_name))[0]
     utils.replace_line(
         src_cmake,
         f'APP_NAME empty_application',
-        f'set(APP_NAME {utils.get_base_name(obj.app_name).replace(".c","")})',
+        f'set(APP_NAME {app_name})',
     )
     # in case of library update link libraries
     if domain_data['lib_info']:
