@@ -210,14 +210,33 @@ class Domain(Repo):
             utils.add_newline(toolchain_file_copy, "set( CMAKE_SYSTEM_NAME FreeRTOS)")
         # Do the gic pruning in the sdt for APU/RPU.
         if self.sdt != out_dts_path:
-            if utils.is_file(lops_file):
-                utils.runcmd(
-                    f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
-                )
-            else:
-                utils.runcmd(
-                    f"lopper -f --enhanced -O {self.domain_dir} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}"
-                )
+            iss_file = utils.find_file("*.iss", utils.get_dir_path(self.sdt))
+            domain_dts = None
+            if iss_file:
+                domain_yaml = os.path.join(self.sdt_folder, "domains.yaml")
+                # Convert ISS to domain YAML
+                utils.runcmd(f"lopper -f -O {self.sdt_folder} --enhanced {self.sdt} -- isospec --audit {iss_file} {domain_yaml}")
+                if utils.is_file(domain_yaml, silent_discard=True):
+                    domain_name = utils.get_domain_name(self.proc, domain_yaml)
+                    if domain_name:
+                        domain_dts = True
+                        if utils.is_file(lops_file):
+                            utils.runcmd(
+                                f"lopper -f -O {self.sdt_folder} --enhanced -i {lops_file} -t {domain_name} -a domain_access --auto  -x '*.yaml' -i {domain_yaml} {self.sdt} {out_dts_path}"
+                            )
+                        else:
+                            utils.runcmd(
+                                f"lopper -f -O {self.sdt_folder} --enhanced -t {domain_name} -a domain_access --auto  -x '*.yaml' -i {domain_yaml} {self.sdt} {out_dts_path}"
+                            )
+            if not domain_dts:
+                if utils.is_file(lops_file):
+                    utils.runcmd(
+                        f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
+                    )
+                else:
+                    utils.runcmd(
+                        f"lopper -f --enhanced -O {self.domain_dir} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}"
+                    )
         else:
             out_dts_path = self.sdt
 
