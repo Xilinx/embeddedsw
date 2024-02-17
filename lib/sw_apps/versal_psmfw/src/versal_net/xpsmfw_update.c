@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,18 +25,18 @@ static int XPsmFw_PsmUpdateMgr(void) {
 		u32 RegAddress = PSM_GLOBAL_REG_GLOBAL_CNTRL;
 		u32 Mask = PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK;
 		u32 Value = 0;
-		l_Val = Xil_In32(RegAddress);
+		l_Val = *((volatile u32 *)RegAddress);
 		l_Val = (l_Val & (~Mask)) | (Mask & Value);
-		Xil_Out32(RegAddress, l_Val);
+		*((volatile u32 *)RegAddress) =  l_Val;
 	}
-	Xil_Out32(PSM_UPDATE_REG_STATE, PSM_UPDATE_STATE_SHUTDOWN_DONE);
+	*((volatile u32 *)PSM_UPDATE_REG_STATE) = PSM_UPDATE_STATE_SHUTDOWN_DONE;
 	/** Wait for Psm.elf loaded */
 	/** Note: we have to use Xil_In32 macro here not function call to XPsmFw_GetUpdateState
 	 * because of this function is relocated.
 	 **/
 	mb_sleep();
 	while (PSM_UPDATE_STATE_LOAD_ELF_DONE != PsmUpdateState) {
-		PsmUpdateState = Xil_In32(PSM_UPDATE_REG_STATE);
+		PsmUpdateState = *((volatile u32 *)PSM_UPDATE_REG_STATE);
 	}
 	/** Reset PSM with new code */
 	XPsm_ResetVector();
