@@ -66,7 +66,7 @@ properties:
     description: Sub-core instance configuration
 
   interrupts:
-    description: Sub-core interrupt id
+    description: Sub-core interrupt ids
 
   interrupt-parent:
     description: Interrupt parent
@@ -83,13 +83,44 @@ required:
     - xlnx,num-streams
     - xlnx,color-format
     - dp12-present
-    - dp12-connected: phandle
+    - dp12-connected:
+        subnode_phandle:
+          - compatible
+          - reg
+          - xlnx,axi-aclk-freq-mhz
+          - xlnx,lane-count
+          - xlnx,link-rate
+          - xlnx,max-bits-per-color
+          - xlnx,quad-pixel-enable
+          - xlnx,dual-pixel-enable
+          - xlnx,ycrcb-enable
+          - xlnx,yonly-enable
+          - xlnx,gt-datawidth
+          - xlnx,secondary-support
+          - xlnx,number-of-audio-channels
+          - xlnx,mst-enable
+          - xlnx,number-of-mst-streams
+          - xlnx,protocol-selection
+          - xlnx,flow-direction
     - hdcp14-present
-    - hdcp14-connected: phandle
+    - hdcp14-connected:
+        subnode_phandle:
+          - compatible
+          - reg
     - iic-present
-    - iic-connected: phandle
+    - iic-connected:
+        subnode_phandle:
+          - compatible
+          - reg
+          - xlnx,ten-bit-adr
+          - xlnx,gpo-width
+          - interrupts
+          - interrupt-parent
     - hdcptimer-present
-    - hdcptimer-connected: phandle
+    - hdcptimer-connected:
+        subnode_phandle:
+          - compatible
+          - reg
     - interrupts: 4
     - interrupt-parent
 
