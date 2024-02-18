@@ -1,0 +1,63 @@
+# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for Mipi_Rx_Phy Driver
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,mipi-rx-phy-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,phy-mode:
+    description: MIPI CPHY Mode
+  xlnx,reg-on:
+    description: MIPI Reg enablement
+  xlnx,phy-lanes:
+    description: Maximum phy lanes
+  xlnx,esc-clk-period:
+    description: ESC clock period
+  xlnx,esc-timeout:
+    description: ESC timeout
+  xlnx,hs-line-rate:
+    description: HS Line rate
+  xlnx,hs-timeout:
+    description: HS Timeout
+  xlnx,stable-clk-period:
+    description: Stable clock perior
+  xlnx,wakeup:
+    description: Wakeup
+  xlnx,en-timeout-regs:
+    description: Enable timeout regs
+  xlnx,hs-settle:
+    description: HS Settle
+
+required:
+    - compatible
+    - reg
+    - xlnx,phy-mode
+    - xlnx,reg-on
+    - xlnx,phy-lanes
+    - xlnx,esc-clk-period
+    - xlnx,esc-timeout
+    - xlnx,hs-line-rate
+    - xlnx,hs-timeout
+    - xlnx,stable-clk-period
+    - xlnx,wakeup
+    - xlnx,en-timeout-regs
+    - xlnx,hs-settle
+
+config:
+    - XMipi_Rx_Phy_Config
+
+examples:
+    xmipi_rx_phy_example_selftest.c:
+...
