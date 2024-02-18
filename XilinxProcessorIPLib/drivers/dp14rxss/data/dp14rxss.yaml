@@ -107,17 +107,54 @@ required:
     - xlnx,include-axi-iic
     - xlnx,include-clk-wiz
     - iic-present
-    - iic-connected: phandle
+    - iic-connected:
+        subnode_phandle:
+          - compatible
+          - reg
+          - xlnx,ten-bit-adr
+          - xlnx,gpo-width
+          - interrupts
+          - interrupt-parent
     - hdcptimer-present
-    - hdcptimer-connected: phandle
+    - hdcptimer-connected:
+        subnode_phandle:
+          - compatible
+          - reg
     - clkWiz-present
-    - clkWiz-connected: phandle
+    - clkWiz-connected:
+        subnode_phandle:
+          - compatible
+          - reg
     - dp14-present
-    - dp14-connected: phandle
+    - dp14-connected:
+        subnode_phandle:
+          - compatible
+          - reg
+          - xlnx,axi-aclk-freq-mhz
+          - xlnx,lane-count
+          - xlnx,link-rate
+          - xlnx,max-bits-per-color
+          - xlnx,quad-pixel-enable
+          - xlnx,dual-pixel-enable
+          - xlnx,ycrcb-enable
+          - xlnx,yonly-enable
+          - xlnx,gt-datawidth
+          - xlnx,secondary-support
+          - xlnx,number-of-audio-channels
+          - xlnx,mst-enable
+          - xlnx,number-of-mst-streams
+          - xlnx,protocol-selection
+          - xlnx,flow-direction
     - hdcp14-present
-    - hdcp14-connected: phandle
+    - hdcp14-connected:
+        subnode_phandle:
+          - compatible
+          - reg
     - hdcp22-present
-    - hdcp22-connected: phandle
+    - hdcp22-connected:
+        subnode_phandle:
+          - compatible
+          - reg
     - interrupts: 5
     - interrupt-parent
 
