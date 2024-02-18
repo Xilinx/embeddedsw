@@ -322,7 +322,7 @@ typedef struct {
 #ifndef SDT
 XHdcp22_Cipher_Dp_Config *XHdcp22Cipher_Dp_LookupConfig(u16 DeviceId);
 #else
-(XHdcp22_Cipher_Dp_Config *)XHdcp22Cipher_Dp_LookupConfig(UINTPTR BaseAddress);
+XHdcp22_Cipher_Dp_Config *XHdcp22Cipher_Dp_LookupConfig(UINTPTR BaseAddress);
 #endif
 /* Initialization and control functions in xhdcp22_cipher.c */
 int XHdcp22Cipher_Dp_CfgInitialize(XHdcp22_Cipher_Dp *InstancePtr, XHdcp22_Cipher_Dp_Config *CfgPtr, UINTPTR EffectiveAddr);

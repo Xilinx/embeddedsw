@@ -112,23 +112,73 @@ required:
     - xlnx,mode
     - xlnx,num-streams
     - hdcptimer-present
-    - hdcptimer-connected: phandle
+    - hdcptimer-connected:
+        subnode_phandle:
+          - compatible
+          - reg
     - dp14-present
-    - dp14-connected: phandle
+    - dp14-connected:
+        subnode_phandle:
+          - compatible
+          - reg
+          - xlnx,axi-aclk-freq-mhz
+          - xlnx,lane-count
+          - xlnx,link-rate
+          - xlnx,max-bits-per-color
+          - xlnx,quad-pixel-enable
+          - xlnx,dual-pixel-enable
+          - xlnx,ycrcb-enable
+          - xlnx,yonly-enable
+          - xlnx,gt-datawidth
+          - xlnx,secondary-support
+          - xlnx,number-of-audio-channels
+          - xlnx,mst-enable
+          - xlnx,number-of-mst-streams
+          - xlnx,protocol-selection
+          - xlnx,flow-direction
     - hdcp14-present
-    - hdcp14-connected: phandle
+    - hdcp14-connected:
+        subnode_phandle:
+          - compatible
+          - reg
     - hdcp22-present
-    - hdcp22-connected: phandle
+    - hdcp22-connected:
+        subnode_phandle:
+          - compatible
+          - reg
     - dual-splitter-present
-    - dual-splitter-connected: phandle
+    - dual-splitter-connected:
+        subnode_phandle:
+          - compatible
+          - reg
     - vtc1-present
-    - vtc1-connected: phandle
+    - vtc1-connected:
+        subnode_phandle:
+          - compatible
+          - reg
+          - interrupts
+          - interrupt-parent
     - vtc2-present
-    - vtc2-connected: phandle
+    - vtc2-connected:
+        subnode_phandle:
+          - compatible
+          - reg
+          - interrupts
+          - interrupt-parent
     - vtc3-present
-    - vtc3-connected: phandle
+    - vtc3-connected:
+        subnode_phandle:
+          - compatible
+          - reg
+          - interrupts
+          - interrupt-parent
     - vtc4-present
-    - vtc4-connected: phandle
+    - vtc4-connected:
+        subnode_phandle:
+          - compatible
+          - reg
+          - interrupts
+          - interrupt-parent
     - interrupts: 5
     - interrupt-parent
 
