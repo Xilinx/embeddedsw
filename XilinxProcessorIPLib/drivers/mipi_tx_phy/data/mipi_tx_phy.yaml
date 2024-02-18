@@ -1,0 +1,57 @@
+# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for Mipi_Tx_Phy Driver
+
+maintainers:
+  - Prasad Gutti <prasadg@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,mipi-tx-phy-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,phy-mode:
+    description: MIPI CPHY Mode
+  xlnx,reg-on:
+    description: MIPI Reg enablement
+  xlnx,phy-lanes:
+    description: Maximum phy lanes
+  xlnx,esc-clk-period:
+    description: ESC clock period
+  xlnx,esc-timeout:
+    description: ESC timeout
+  xlnx,line-rate:
+    description: HS Line rate
+  xlnx,hs-timeout:
+    description: HS Timeout
+  xlnx,lpx-time:
+    description: LPX period
+  xlnx,stable-clk-period:
+    description: Stable clock perior
+
+required:
+    - compatible
+    - reg
+    - xlnx,phy-mode
+    - xlnx,reg-on
+    - xlnx,phy-lanes
+    - xlnx,esc-clk-period
+    - xlnx,esc-timeout
+    - xlnx,line-rate
+    - xlnx,hs-timeout
+    - xlnx,lpx-time
+    - xlnx,stable-clk-period
+
+config:
+    - XMipi_Tx_Phy_Config
+
+examples:
+    xmipi_tx_phy_example_selftest.c:
+...
