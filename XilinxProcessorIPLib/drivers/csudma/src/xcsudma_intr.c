@@ -9,11 +9,11 @@
 /**
 *
 * @file xcsudma_intr.c
-* @addtogroup Overview
+* @addtogroup csuma_api CSUDMA APIs
 * @{
 *
 * The xcsudma_intr.c file contains interrupt related functions of Xilinx CSU_DMA core.
-* Please see xcsudma.h for more details of the driver.
+* Refer to the header file xcsudma.h for more details of the driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -44,9 +44,8 @@
 * Use the XCSUDMA_IXR_*_MASK constants defined in xcsudma_hw.h to interpret the
 * returned value.
 *
-* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
-*		Destination.
+* @param	InstancePtr Pointer to XCsuDma instance to be worked on.
+* @param	Channel Type of channel
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
 *
@@ -84,12 +83,11 @@ u32 XCsuDma_IntrGetStatus(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 * function clears one or more interrupts by writing a bit mask to Interrupt
 * Clear Register.
 *
-* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
-*		Destination.
+* @param	InstancePtr Pointer to XCsuDma instance to be worked on.
+* @param	Channel Type of channel
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
-* @param	Mask is the mask to clear. Bit positions of 1 will be cleared.
+* @param	Mask Mask to clear. Bit positions of 1 will be cleared.
 *		Bit positions of 0 will not change the previous interrupt
 *		status. This mask is formed by OR'ing XCSUDMA_IXR_* bits
 *		defined in xcsudma_hw.h.
@@ -125,12 +123,11 @@ void XCsuDma_IntrClear(XCsuDma *InstancePtr, XCsuDma_Channel Channel, u32 Mask)
 * This function enables the interrupt(s). Use the XCSUDMA_IXR_*_MASK constants
 * defined in xcsudma_hw.h to create the bit-mask to enable interrupts.
 *
-* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
-*		Destination.
+* @param	InstancePtr Pointer to XCsuDma instance to be worked on.
+* @param	Channel Type of channel
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
-* @param	Mask contains interrupts to be enabled.
+* @param	Mask Contains interrupts to be enabled.
 *		- Bit positions of 1 will be enabled.
 *		This mask is formed by OR'ing XCSUDMA_IXR_*_MASK bits defined
 *		in xcsudma_hw.h.
@@ -171,12 +168,11 @@ void XCsuDma_EnableIntr(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 * This function disables the interrupt(s). Use the XCSUDMA_IXR_*_MASK constants
 * defined in xcsudma_hw.h to create the bit-mask to disable interrupts.
 *
-* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
-*		Destination.
+* @param	InstancePtr Pointer to XCsuDma instance to be worked on.
+* @param	Channel Type of channel
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
-* @param	Mask contains interrupts to be disabled.
+* @param	Mask Contains interrupts to be disabled.
 *		- Bit positions of 1 will be disabled.
 *		This mask is formed by OR'ing XCSUDMA_IXR_*_MASK bits defined
 *		in xcsudma_hw.h.
@@ -218,19 +214,18 @@ void XCsuDma_DisableIntr(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 * This function returns the interrupt mask to know which interrupts are
 * enabled and which of them were disaled.
 *
-* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
-*		Destination.
+* @param	InstancePtr Pointer to XCsuDma instance to be worked on.
+* @param	Channel Type of channel
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
 *
-* @return	The current interrupt mask. The mask indicates which interrupts
-*		are enabled/disabled.
-*		0 bit represents .....corresponding interrupt is enabled.
-*		1 bit represents .....Corresponding interrupt is disabled.
+* @return	The current interrupt mask.
+*       The mask indicates which interrupts are enabled/disabled.
+*		- 0 bit represents that the corresponding interrupt is enabled.
+*		- 1 bit represents that the Corresponding interrupt is disabled.
 *		To interpret returned mask use
-*		XCSUDMA_IXR_SRC_MASK........For source channel
-*		XCSUDMA_IXR_DST_MASK........For destination channel
+*		- XCSUDMA_IXR_SRC_MASK that the For source channel
+*		- XCSUDMA_IXR_DST_MASK that the For destination channel
 *
 * @note		None.
 *
