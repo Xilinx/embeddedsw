@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -79,6 +79,7 @@
 * 1.6   dc     08/06/23 Support dynamic and static modes of operation
 *       cog    07/04/23 Add support for SDT
 * 1.7   dc     11/29/23 Add continuous scheduling
+*       cog    02/19/24 Fixed SDT runtime issue
 *
 * </pre>
 * @endcond
@@ -133,7 +134,7 @@ extern "C" {
 #define XDFEPRACH_INSTANCE_EXISTS(X) (X < XDFEPRACH_MAX_NUM_INSTANCES)
 #else
 #define XDFEPRACH_MAX_NUM_INSTANCES                                            \
-	(1U) /**< Maximum number of driver instances running at the same time. */
+	(2U) /**< Maximum number of driver instances in global config struct. */
 #define XDFEPRACH_INSTANCE_EXISTS(X) (XDfePrach_ConfigTable[X].Name != NULL)
 #endif
 #endif
