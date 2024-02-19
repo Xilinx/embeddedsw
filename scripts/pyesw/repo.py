@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module acts as a supporting module for all the other modules. It helps
@@ -78,6 +78,17 @@ class Repo:
         return comp_dir
 
 
+"""
+Rules that decide the priority order:
+1. Versionless component path will always have the higher priority than the
+    versioned path no matter what the entered path order is.
+2. For multiple versionless paths, priority shifts from left to right of the
+    entered paths, left one having the higher priority.
+3. For versioned paths, higher versions will have higher priority no matter
+    what the entered path order is.
+4. For multiple versioned paths having the same versions, priority shifts
+    from left to right of the entered paths, left one having the higher priority.
+"""
 def resolve_paths(repo_paths):
     path_dict = {
         'paths' : {},
@@ -96,20 +107,36 @@ def resolve_paths(repo_paths):
             path_dict['paths'].update({abs_path : {}})
         else:
             continue
-        files = glob.glob(abs_path + '/**/data/*.yaml', recursive=True)
-        files.sort(reverse=True)
+
+        files = sorted(glob.glob(abs_path + '/**/data/*.yaml', recursive=True))
         for entries in files:
             dir_path = utils.get_dir_path(utils.get_dir_path(entries))
             comp_name = utils.get_base_name(dir_path)
-            comp_name =  re.sub("_v(\d+)_(\d+)", "", comp_name)
+            comp_version_info = re.split("_v(\d+)_(\d+)", comp_name)
+            comp_name = comp_version_info[0]
+            comp_major_version = 9999
+            comp_minor_version = 0
+            if len(comp_version_info) > 1:
+                comp_major_version = comp_version_info[1]
+                comp_minor_version = comp_version_info[2]
+            comp_version = float(f"{comp_major_version}.{int(comp_minor_version):04d}")
+
             yaml_data = utils.load_yaml(entries)
-            if yaml_data is None:
+            if yaml_data is None or not yaml_data.get('type'):
                 continue
 
             if not path_dict[yaml_data['type']].get(comp_name):
-                path_dict[yaml_data['type']][comp_name] = {"path" : [dir_path]}
+                path_dict[yaml_data['type']][comp_name] = [(comp_version, dir_path)]
             else:
-                path_dict[yaml_data['type']][comp_name]["path"].append(dir_path)
+                path_dict[yaml_data['type']][comp_name] += [(comp_version, dir_path)]
+
+    for comp_type in ['os','driver','library','apps']:
+        for comp_name, version_path_tuple in path_dict[comp_type].items():
+            comp_path_list = []
+            sorted_version_path_tuple = sorted(version_path_tuple, key=lambda x: x[0], reverse=True)
+            for version_path_comb in sorted_version_path_tuple:
+                comp_path_list += [version_path_comb[1]]
+            path_dict[comp_type][comp_name] = {'path': comp_path_list}
 
     utils.write_yaml('.repo.yaml', path_dict)
 
