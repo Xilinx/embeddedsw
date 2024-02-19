@@ -1,6 +1,7 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -26,6 +27,9 @@
  * 0.8   anv   10/18/2023  Added macro protection to Enable Error Injection
  *                         Feature usage and Updated to get
  *                         XilSEM NPI status prints
+ * 0.9   gayu  01/18/2024  Removed false else condition in main function
+ *                         for XSem_CmdNpiGetStatus API as this is not a
+ *                         valid case for deferred start-up.
  * </pre>
  *
  *****************************************************************************/
@@ -523,12 +527,6 @@ int main(void)
 		}
 		xil_printf("NPI Scan Count = %x\n",NpiStatus.ScanCnt);
 		xil_printf("HBCount = %x\n",NpiStatus.HbCnt);
-	}
-	else {
-		xil_printf("[%s] ERROR: NPI Status read failure.\n\r", \
-				__func__, Status);
-		FailCnt++;
-		goto END;
 	}
 
 	TempA_32 = DataMaskShift(NpiStatus.Status, NPI_STATUS_SCAN_PSCAN_EN_MASK,
