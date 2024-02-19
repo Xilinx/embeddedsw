@@ -25,13 +25,13 @@ properties:
   xlnx,mode:
     description: 1 if core direction is configured in receiving mode, 0 if configured in transmitting mode
 
-  timer-connected:
+  hdcp22_timer-connected:
     description: timer sub-core instance configuration
 
   cipher-connected:
     description: Cipher sub-core instance configuration
 
-  mmul-connected:
+  hdcp22_mmult-connected:
     description: Mmul sub-core instance configuration
 
   rng-connected:
@@ -45,9 +45,9 @@ required:
     - reg
     - xlnx,protocol
     - xlnx,mode
-    - timer-connected: phandle
+    - hdcp22_timer-connected: phandle
     - cipher-connected: phandle
-    - mmul-connected: phandle
+    - hdcp22_mmult-connected: phandle
     - rng-connected: phandle
 
 depends:
