@@ -1161,7 +1161,7 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 	}
 
 	/* Initialize Video Frame Buffer Read */
-#ifndef
+#ifndef SDT
 	FrameBufRd_ConfigPtr =
 			XV_frmbufrd_LookupConfig(XPAR_XV_FRMBUFRD_0_DEVICE_ID);
 #else
