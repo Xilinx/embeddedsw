@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -36,6 +36,14 @@ required:
     - xlnx,num-bands
 
 examples:
+    xdfeprach_examples.c:
+        - dependency_files:
+            - xdfeprach_examples.h
+            - xdfeprach_2CC_3RC_dynamic_example.c
+            - xdfeprach_2CC_3RC_example.c
+            - xdfeprach_2CC_3RC_reconfigure_example.c
+            - xdfeprach_one_instance_initialization_example.c
+            - xdfesi570_mgt.c
 
 depends_libs:
     libmetal: {}

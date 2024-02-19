@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 1.0   dc     03/08/21 Initial version
 * 1.1   dc     07/13/21 Update to common latency requirements
 * 1.2   dc     11/19/21 Update doxygen documentation
+* 1.7   cog    19/02/24 SDT Support
 * </pre>
 *
 ******************************************************************************/
@@ -93,6 +94,14 @@ int fd_device;
 #define XDFESI570_FREEZE_DCO 0x10U /* Freeze oscillator */
 #define XDFESI570_UNFREEZE_DCO 0U /* Un-freeze oscillator */
 
+#ifdef __BAREMETAL__
+#ifndef SDT
+#define XDFESI570_IICPS_INST 1U
+#else
+#define XDFESI570_IICPS_INST 0
+#endif
+#endif
+
 /****************************************************************************/
 /**
 *
@@ -115,7 +124,7 @@ int XDfeSi570_InitI2C(void)
 	u32 ClkRate = 100000U;
 
 	/* I2C1 */
-	Config_iic = XIicPs_LookupConfig(1);
+	Config_iic = XIicPs_LookupConfig(XDFESI570_IICPS_INST);
 	if (NULL == Config_iic) {
 		return XST_FAILURE;
 	}
