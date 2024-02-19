@@ -62,6 +62,7 @@
 * 1.10  ma   09/27/2023 Add XPLMI_RTCFG_TAMPER_RESP_SLD_0_MASK macro
 * 1.11  dd   10/18/2023 Updated SDK release year and SDK release quarter
 *       ng   02/12/2024 optimised u8 vars to u32 for size reduction
+*       sk   02/18/2024 Added define for DDRMC Calib Check Status RTCA Reg init
 * </pre>
 *
 * @note
@@ -225,6 +226,9 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 #define XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH_INVALID   (0xFFFFFFFFU)
 #define XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW_INVALID    (0xFFFFFFFFU)
 #define XPLMI_RTCFG_IMG_STORE_SIZE_INVALID 	     (0x0U)
+
+/* Default value for DDRMC Calib Check */
+#define XPLMI_RTCFG_INIT_DDRMC_CALIB_CHECK 	     (0x0U)
 
 /*
  * Using FW_IS_PRESENT to indicate Boot PDI loading is completed

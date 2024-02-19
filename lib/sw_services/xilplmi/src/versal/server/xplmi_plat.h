@@ -45,7 +45,7 @@
 * 1.03  sk   09/26/2023 Updated XPlmi_UpdateInit function definition
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 * 2.00  ng   01/26/2024 Updated minor error codes
-*
+*       sk   02/18/2024 Added defines for DDRMC Calib Check Status RTCA Register
 * </pre>
 *
 * @note
@@ -90,6 +90,7 @@ extern "C" {
 #define XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW	(XPLMI_RTCFG_BASEADDR + 0x28CU) /**< Image store address low */
 #define XPLMI_RTCFG_IMG_STORE_SIZE		(XPLMI_RTCFG_BASEADDR + 0x290U) /**< Image store size */
 #define XPLMI_RTCFG_SSIT_TEMP_PROPAGATION	(XPLMI_RTCFG_BASEADDR + 0x298U) /**< SSIT temperature prop config */
+#define XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR	(XPLMI_RTCFG_BASEADDR + 0x300U) /**< Skip DDRMC Calib Check */
 
 /* Masks of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_PLM_MJTAG_WA_IS_ENABLED_MASK	(0x00000001U) /**< MJTAG word aligner enable status check mask */
@@ -185,6 +186,11 @@ extern "C" {
 
 #define XPLMI_SBI_GICP_INDEX	(XPLMI_PMC_GIC_IRQ_GICP4) /**< SBI GICP index */
 #define XPLMI_SBI_GICPX_INDEX	(XPLMI_GICP4_SRC8) /**< SBI GICPX index */
+
+/*
+ * DDRMC Defines
+ */
+#define MAX_DEV_DDRMC		(4U)
 
 /*
  * RTCA area KAT masks

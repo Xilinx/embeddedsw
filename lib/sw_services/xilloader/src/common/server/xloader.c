@@ -169,6 +169,7 @@
 *       kpt  11/01/2023 Clear AES keys during PDI failure
 *       bm   02/12/2024 Update XLoader_ReadAndValidateHdrs prototype
 *       ng   02/14/2024 removed int typecast for errors
+*       sk   02/18/2024 Added DDRMC Calib Check Status RTCA Register Init
 *
 * </pre>
 *
@@ -349,6 +350,11 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr)
 	const char *RawString = "";
 	const PdiSrcMap PdiSourceMap[] = XLOADER_GET_PDISRC_INFO();
 
+	/**
+	 *  Clear the DDR Calib Check RTCA Register.
+	 */
+	XPlmi_Out32(XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR,
+				XPLMI_RTCFG_INIT_DDRMC_CALIB_CHECK);
 	/**
 	 * - Mark PDI loading is started.
 	 */
