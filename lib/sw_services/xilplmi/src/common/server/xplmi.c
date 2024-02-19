@@ -58,6 +58,7 @@
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 * 1.09  ma   10/10/2023 Enable Slave Error for PSM_GLOBAL
 *       ng   01/28/2024 optimized u8 variables
+*       sk   02/18/2024 Added DDRMC Calib Check Status RTCA Register Init
 *
 * </pre>
 *
@@ -170,6 +171,9 @@ int XPlmi_RunTimeConfigInit(void)
 	XPlmi_Out32(XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH, XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH_INVALID);
 	XPlmi_Out32((XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW), XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW_INVALID);
 	XPlmi_Out32(XPLMI_RTCFG_IMG_STORE_SIZE, XPLMI_RTCFG_IMG_STORE_SIZE_INVALID);
+	XPlmi_Out32(XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR,
+				XPLMI_RTCFG_INIT_DDRMC_CALIB_CHECK);
+
 	/**
 	 * Initialize platform specific RTCA Registers
 	 */

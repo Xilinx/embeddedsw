@@ -105,7 +105,7 @@
 *       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
 *       mss  11/02/2023 Added VerifyAddr check for destination address of
 *                       Raw Partition Loading
-*
+*       sk   02/18/2024 Added logic to print DDRMC Calib Check Status
 * </pre>
 *
 * @note
@@ -164,6 +164,8 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 	u32 PrtnIndex;
 	u64 PrtnLoadTime;
 	XPlmi_PerfTime PerfTime;
+	u32 DDRMCCalibCheck;
+	u8  Ub;
 
 	if (PdiPtr->DelayLoad == (u8)FALSE) {
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
@@ -181,6 +183,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 	}
 
 	XPlmi_Printf(DEBUG_INFO, "------------------------------------\r\n");
+
 	/**
 	 * - Validate and load the image partitions.
 	 */
@@ -234,6 +237,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
+
 		XPlmi_MeasurePerfTime(PrtnLoadTime, &PerfTime);
 		XPlmi_Printf(DEBUG_PRINT_PERF,
 			" %u.%03u ms for Partition#: 0x%0x, Size: %u Bytes\n\r",
@@ -269,6 +273,16 @@ END:
 		}
 	}
 END1:
+	if (NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID) ==
+				(u32)XPM_NODESUBCL_DEV_PL) {
+		DDRMCCalibCheck = XPlmi_In32(XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR);
+		for (Ub = 0U; Ub < MAX_DEV_DDRMC; Ub++) {
+			if ((DDRMCCalibCheck >> Ub) & 0x01U) {
+				XPlmi_Printf(DEBUG_GENERAL, "DDRMC_%u Calib Check Skip Enabled \n\r", Ub);
+			}
+		}
+	}
+
 	return Status;
 }
 

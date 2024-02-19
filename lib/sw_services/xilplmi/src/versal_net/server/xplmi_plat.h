@@ -48,6 +48,7 @@
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       sk   12/14/2023 Added PSM & PMC buffer list DS ID
 * 2.00  ng   01/26/2024 Updated minor error codes
+*       sk   02/18/2024 Added defines for DDRMC Calib Check Status RTCA Register
 *
 * </pre>
 *
@@ -93,6 +94,7 @@ extern "C" {
 #define XPLMI_RTCFG_PLM_RSVD_DDR_ADDR				(XPLMI_RTCFG_BASEADDR + 0x2A8U) /**< Baseadress of DDR region reserved for PLM */
 #define XPLMI_RTCFG_PLM_RSVD_DDR_SIZE				(XPLMI_RTCFG_BASEADDR + 0x2ACU) /**< Size of DDR region reserved for PLM */
 #define XPLMI_RTCFG_VID_OVERRIDE				(XPLMI_RTCFG_BASEADDR + 0x2B0U) /**< VID override */
+#define XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR			(XPLMI_RTCFG_BASEADDR + 0x300U) /**< Skip DDRMC Calib Check */
 
 #define XPLMI_INVALID_PLM_RSVD_DDR_ADDR				(0x0U)
 #define XPLMI_INVALID_PLM_RSVD_DDR_SIZE				(0U)
@@ -432,6 +434,12 @@ typedef enum {
 #define XPlmi_SsitSyncMaster	NULL /**< SSIT sync master */
 #define XPlmi_SsitSyncSlaves	NULL /**< SSIT sync slaves */
 #define XPlmi_SsitWaitSlaves	NULL /**< SSIT wait slaves */
+
+/*
+ * DDRMC Defines
+ */
+#define MAX_DEV_DDRMC		(8U)
+
 
 /*
  * RTCA area KAT masks
