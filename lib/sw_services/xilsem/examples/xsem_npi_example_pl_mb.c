@@ -1,6 +1,7 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -35,6 +36,10 @@
  *                           usage and Updated Xilsem prints to get
  *                           Npi status information and
  *                           Added Test print summary
+ * 0.3   gam     01/02/2023  Fixed IPI interrupt ID for PL MB Versal Net,
+ *                           Removed false else condition in main function
+ *                           for XSem_CmdNpiGetStatus API as this is not a
+ *                           valid case for deferred start-up.
  * </pre>
  *
  *****************************************************************************/
@@ -71,7 +76,13 @@
  * Interrupt Number of IPI whose interrupt output is connected to the input
  * of the Interrupt Controller
  */
-#define INTC_DEVICE_IPI_INT_ID	XPAR_AXI_INTC_0_VERSAL_CIPS_0_PSPMC_0_PS_PL_IRQ_LPD_IPI_IPI1_INTR
+#ifdef VERSAL_NET
+	#define INTC_DEVICE_IPI_INT_ID	\
+		XPAR_AXI_INTC_0_PSX_WIZARD_0_PSXL_0_PSX_PL_IRQ_LPD_IPI4_INTR
+#else
+	#define INTC_DEVICE_IPI_INT_ID	\
+		XPAR_AXI_INTC_0_VERSAL_CIPS_0_PSPMC_0_PS_PL_IRQ_LPD_IPI_IPI1_INTR
+#endif
 #define XSEM_NPI_SCAN_STATUS_MASK	(0xFFFU)
 #define XSEM_NPI_SCAN_ACTIVE		(0xA04U)
 #define XSEM_NPI_SCAN_IDLE			(0xA01U)
@@ -643,12 +654,6 @@ int main(void)
 		}
 		xil_printf("NPI Scan Count = %x\n",NpiStatus.ScanCnt);
 		xil_printf("HBCount = %x\n",NpiStatus.HbCnt);
-	}
-	else {
-		xil_printf("[%s] ERROR: NPI Status read failure.\n\r", \
-				__func__, Status);
-		FailCnt++;
-		goto END;
 	}
 
 	TempA_32 = DataMaskShift(NpiStatus.Status, NPI_STATUS_SCAN_PSCAN_EN_MASK,

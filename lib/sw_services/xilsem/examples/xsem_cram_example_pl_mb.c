@@ -1,6 +1,7 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -19,6 +20,10 @@
  *                           Feature usage and Updated to get
  *                           XilSEM CRAM status prints and
  *                           Added Test print summary
+ * 0.3   gam     01/02/2023  Fixed IPI interrupt ID for PL MB Versal Net,
+ *                           changed Uncorrectable and CRC error data.
+ *                           Moved Error injection sequence in the end of
+ *                           main function to get clear prints.
  * </pre>
  *
  *****************************************************************************/
@@ -42,8 +47,13 @@
  * Interrupt Number of IPI whose interrupt output is connected to the input
  * of the Interrupt Controller
  */
-#define INTC_DEVICE_IPI_INT_ID	\
+#ifdef VERSAL_NET
+	#define INTC_DEVICE_IPI_INT_ID	\
+		XPAR_AXI_INTC_0_PSX_WIZARD_0_PSXL_0_PSX_PL_IRQ_LPD_IPI4_INTR
+#else
+	#define INTC_DEVICE_IPI_INT_ID	\
 		XPAR_AXI_INTC_0_VERSAL_CIPS_0_PSPMC_0_PS_PL_IRQ_LPD_IPI_IPI1_INTR
+#endif
 
 static XIpiPsu IpiInst;
 static XIntc InterruptController;
@@ -198,7 +208,7 @@ XStatus Xsem_CfrApiInjctCorErr()
 	/* To inject correctable error, inject error in single bit position in
 	 * any of the row/frame/qword. The argument details are
 	 * ErrData[0]: Frame Address : 0, Quadword: 3, Bit position: 4, Row: 0
-	 * Valid ranges: Row 0-3, Qword 0-24, Bit postion 0-127,
+	 * Valid ranges: Row 0-3, Qword 0-24, Bit position 0-127,
 	 * For frame address, refer to the LAST_FRAME_TOP (CFRAME_REG) and
 	 * LAST_FRAME_BOT (CFRAME_REG) registers.
 	 * In Qword 12, 0-23 & 48-71 are syndrome bits. All other bits are data bits.
@@ -225,11 +235,11 @@ XStatus Xsem_CfrApiInjctUnCorErr()
 {
 	/* To inject uncorrectable error, the injection has to be done in alternate
 	 * bit positions in the same qword. The argument details are
-	 * ErrData[0]: Frame Address : 0, Quadword: 0, Bit position: 2, Row: 0
-	 * ErrData[1]: Frame Address : 0, Quadword: 0, Bit position: 4, Row: 0
+	 * ErrData[0]: Frame Address : 0, Quadword: 0, Bit position: 1, Row: 0
+	 * ErrData[1]: Frame Address : 0, Quadword: 0, Bit position: 3, Row: 0
 	 */
-	XSemCfrErrInjData ErrData[2] = {{0, 0, 2, 0},
-					{0, 0, 4, 0},
+	XSemCfrErrInjData ErrData[2] = {{0, 0, 1, 0},
+					{0, 0, 3, 0},
 					};
 	XStatus Status = 0U;
 	u32 Index = 0U;
@@ -257,15 +267,15 @@ XStatus Xsem_CfrApiInjctCrcErr()
 	/* To inject CRC error, the injection has to be done in alternate bit
      * positions of the same qword in 3 or more than 3 positions.
 	 * The argument details are
-	 * ErrData[0]: Frame Address : 0, Quadword: 0, Bit position: 0, Row: 0
-	 * ErrData[1]: Frame Address : 0, Quadword: 0, Bit position: 2, Row: 0
-	 * ErrData[2]: Frame Address : 0, Quadword: 0, Bit position: 4, Row: 0
-	 * ErrData[3]: Frame Address : 0, Quadword: 0, Bit position: 6, Row: 0
+	 * ErrData[0]: Frame Address : 0, Quadword: 0, Bit position: 1, Row: 2
+	 * ErrData[1]: Frame Address : 0, Quadword: 0, Bit position: 3, Row: 2
+	 * ErrData[2]: Frame Address : 0, Quadword: 0, Bit position: 5, Row: 2
+	 * ErrData[3]: Frame Address : 0, Quadword: 0, Bit position: 7, Row: 2
 	 */
-	XSemCfrErrInjData ErrData[4] = {{0, 0, 0, 0},
-					{0, 0, 2, 0},
-					{0, 0, 4, 0},
-					{0, 0, 6, 0},
+	XSemCfrErrInjData ErrData[4] = {{0, 0, 1, 2},
+					{0, 0, 3, 2},
+					{0, 0, 5, 2},
+					{0, 0, 7, 2},
 					};
 	XStatus Status = 0U;
 	u32 Index = 0U;
@@ -704,10 +714,76 @@ int main(void)
 #endif /* End of XILSEM_ERRINJ_ENABLE */
 
 	/**
-	 * Enable event Notifications to receive notfications from PLM
+	 * Enable event Notifications to receive notifications from PLM
 	 * upon detection of any error in CFRAME
 	 */
 	Xsem_CfrEventRegisterNotifier(1U);
+
+	/* Read Frame ECC values of a particular frame over IPI */
+	Status = XSem_CmdCfrReadFrameEcc(&IpiInst, \
+				CframeAddr, RowLoc, &IpiResp);
+	if ((XST_SUCCESS == Status) && \
+			(CMD_ACK_SEM_READ_FRAME_ECC == IpiResp.RespMsg1) && \
+			(XST_SUCCESS == IpiResp.RespMsg4)) {
+		xil_printf("[XSem_CmdCfrReadFrameEcc] Success Reading Cfr Frame "
+					"ECC Values of Row = 0x%02x  Frame = 0x%08x  Over IPI\n\r",\
+				RowLoc, CframeAddr);
+		xil_printf("Received Segment 0 ECC "
+				"Value = 0x%08x\n\r", IpiResp.RespMsg2);
+		xil_printf("Received Segment 1 ECC "
+				"Value = 0x%08x\n\r", IpiResp.RespMsg3);
+	} else {
+		xil_printf("[%s] Error: Reading Cfr frame ECC, "
+				"Status 0x%x Ack 0x%x Ret 0x%x\n", \
+				__func__, Status, IpiResp.RespMsg1, \
+						IpiResp.RespMsg4);
+		FailCnt++;
+	}
+
+	/* Stop Scan */
+	Status = XSem_CfrApiStopScan();
+	if (XST_SUCCESS != Status) {
+		xil_printf("Stop Scan Failed\n\r");
+		FailCnt++;
+		goto END;
+	}
+
+	/* Read Total number of frames in Row 0 */
+	XSem_CmdCfrGetTotalFrames(RowLoc, &TotalFrames[RowLoc]);
+	for(Id = 0U; Id < CFRAME_MAX_TYPE; Id++) {
+		xil_printf("Type: %x Total Frames : %d \n", Id, TotalFrames[Id]);
+	}
+
+	/* Read Golden ECC for Row 0 */
+	GoldenCrc = XSem_CmdCfrGetCrc(RowLoc);
+	xil_printf("Golden CRC for ROW_0 : %x \n", GoldenCrc);
+
+	/* Start Scan */
+	Status = XSem_CfrApiStartScan();
+	if (XST_SUCCESS != Status) {
+		xil_printf("start Scan Failed\n\r");
+		FailCnt++;
+		goto END;
+	}
+
+	/* Read CRAM and NPI configuration over IPI */
+	Status = XSem_CmdGetConfig(&IpiInst, &IpiResp);
+	if ((XST_SUCCESS == Status) && \
+			(CMD_ACK_SEM_GET_CONFIG == IpiResp.RespMsg1) && \
+			(XST_SUCCESS == IpiResp.RespMsg4)) {
+		xil_printf("[XSem_CmdGetConfig] Success Reading CRAM"
+				" and NPI configuration Over IPI\n\r");
+		xil_printf("Received CRAM Configuration ="
+				" 0x%08x\n\r", IpiResp.RespMsg2);
+		xil_printf("Received NPI Configuration ="
+				" 0x%08x\n\r", IpiResp.RespMsg3);
+	} else {
+		xil_printf("[%s] Error: Reading CRAM and NPI Configuration, "
+				"Status 0x%x Ack 0x%x Ret 0x%x\n", \
+				__func__, Status, IpiResp.RespMsg1, \
+						IpiResp.RespMsg4);
+		FailCnt++;
+	}
 
 #ifdef XILSEM_ERRINJ_ENABLE
 	/* The following sequence demonstrates how to inject errors in CRAM
@@ -771,72 +847,6 @@ int main(void)
 	/* Check and print error report */
 	PrintErrReport(IntialCorErrCnt);
 #endif /* End of XILSEM_ERRINJ_ENABLE */
-
-	/* Read Frame ECC values of a particular frame over IPI */
-	Status = XSem_CmdCfrReadFrameEcc(&IpiInst, \
-				CframeAddr, RowLoc, &IpiResp);
-	if ((XST_SUCCESS == Status) && \
-			(CMD_ACK_SEM_READ_FRAME_ECC == IpiResp.RespMsg1) && \
-			(XST_SUCCESS == IpiResp.RespMsg4)) {
-		xil_printf("[XSem_CmdCfrReadFrameEcc] Success Reading Cfr Frame "
-				"ECC Values of Row = 0x%02x  Frame = 0x%08x  Over IPI\n\r",\
-				RowLoc, CframeAddr);
-		xil_printf("Received Segment 0 ECC "
-				"Value = 0x%08x\n\r", IpiResp.RespMsg2);
-		xil_printf("Received Segment 1 ECC "
-				"Value = 0x%08x\n\r", IpiResp.RespMsg3);
-	} else {
-		xil_printf("[%s] Error: Reading Cfr frame ECC, "
-				"Status 0x%x Ack 0x%x Ret 0x%x\n", \
-				__func__, Status, IpiResp.RespMsg1, \
-						IpiResp.RespMsg4);
-		FailCnt++;
-	}
-
-	/* Stop Scan */
-	Status = XSem_CfrApiStopScan();
-	if (XST_SUCCESS != Status) {
-		xil_printf("Stop Scan Failed\n\r");
-		FailCnt++;
-		goto END;
-	}
-
-	/* Read Total number of frames in Row 0 */
-	XSem_CmdCfrGetTotalFrames(RowLoc, &TotalFrames[RowLoc]);
-	for(Id = 0U; Id < CFRAME_MAX_TYPE; Id++) {
-		xil_printf("Type: %x Total Frames : %d \n", Id, TotalFrames[Id]);
-	}
-
-	/* Read Golden ECC for Row 0 */
-	GoldenCrc = XSem_CmdCfrGetCrc(RowLoc);
-	xil_printf("Golden CRC for ROW_0 : %x \n", GoldenCrc);
-
-	/* Start Scan */
-	Status = XSem_CfrApiStartScan();
-	if (XST_SUCCESS != Status) {
-		xil_printf("start Scan Failed\n\r");
-		FailCnt++;
-		goto END;
-	}
-
-	/* Read CRAM and NPI configuration over IPI */
-	Status = XSem_CmdGetConfig(&IpiInst, &IpiResp);
-	if ((XST_SUCCESS == Status) && \
-			(CMD_ACK_SEM_GET_CONFIG == IpiResp.RespMsg1) && \
-			(XST_SUCCESS == IpiResp.RespMsg4)) {
-		xil_printf("[XSem_CmdGetConfig] Success Reading CRAM"
-				" and NPI configuration Over IPI\n\r");
-		xil_printf("Received CRAM Configuration ="
-				" 0x%08x\n\r", IpiResp.RespMsg2);
-		xil_printf("Received NPI Configuration ="
-				" 0x%08x\n\r", IpiResp.RespMsg3);
-	} else {
-		xil_printf("[%s] Error: Reading CRAM and NPI Configuration, "
-				"Status 0x%x Ack 0x%x Ret 0x%x\n", \
-				__func__, Status, IpiResp.RespMsg1, \
-						IpiResp.RespMsg4);
-		FailCnt++;
-	}
 
 END:
 	xil_printf("\n\r-------------- Test Report --------------\n\r");
