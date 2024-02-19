@@ -9,11 +9,11 @@
 /**
 *
 * @file xcsudma_selftest.c
-* @addtogroup Overview
+* @addtogroup csuma_api CSUDMA APIs
 * @{
 *
 * The xcsudma_selftest.c file contains a diagnostic self-test function for the CSU_DMA driver.
-* Refer to the header file xcsudma.h for more detailed information.
+* Refer to the header file xcsudma.h for detailed information.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -56,7 +56,7 @@
 * reset of both source and destination channels and checks if reset is working
 * properly or not.
 *
-* @param	InstancePtr is a pointer to the XCsuDma instance.
+* @param	InstancePtr Pointer to the XCsuDma instance.
 *
 * @return
 *		- XST_SUCCESS if the self-test passed.

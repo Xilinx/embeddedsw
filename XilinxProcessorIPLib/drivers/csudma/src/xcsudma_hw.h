@@ -8,11 +8,11 @@
 /**
 *
 * @file xcsudma_hw.h
-* @addtogroup Overview
+* @addtogroup csuma_api CSUDMA APIs
 * @{
 *
 * The xcsudma_hw.h header file contains identifiers and register-level driver
-* functions (or macros) that can be used to access the Xilinx CSU_DMA core.
+* functions (or macros) that can be used to access the CSU_DMA core.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -288,8 +288,8 @@ extern "C" {
 *
 * This macro reads the given register.
 *
-* @param	BaseAddress is the Xilinx base address of the CSU_DMA core.
-* @param	RegOffset is the register offset of the register.
+* @param	BaseAddress Base address of the CSU_DMA core.
+* @param	RegOffset Register offset of the register.
 *
 * @return	The 32-bit value of the register.
 *
@@ -305,9 +305,9 @@ extern "C" {
 *
 * This macro writes the value into the given register.
 *
-* @param	BaseAddress is the Xilinx base address of the CSU_DMA core.
-* @param	RegOffset is the register offset of the register.
-* @param	Data is the 32-bit value to write to the register.
+* @param	BaseAddress Base address of the CSU_DMA core.
+* @param	RegOffset Register offset of the register.
+* @param	Data 32-bit value to write to the register.
 *
 * @return	None.
 *

@@ -9,7 +9,7 @@
 /**
 *
 * @file xcsudma_sinit.c
-* @addtogroup Overview
+* @addtogroup csuma_api CSUDMA APIs
 * @{
 *
 * The xcsudma_sinit.c file contains static initialization methods for Xilinx CSU_DMA core.
@@ -58,7 +58,7 @@
 * to an entry in the device configuration table defined in the xcsudma_g.c
 * file.
 *
-* @param	DeviceId is the unique device ID of the device for the lookup
+* @param	DeviceId Unique device ID of the device for the lookup
 *		operation.
 *
 * @return	CfgPtr is a reference to a config record in the configuration

@@ -7,69 +7,9 @@
 /*****************************************************************************/
 /**
 * @file xcsudma.h
-* @addtogroup Overview
+* @addtogroup csuma_api CSUDMA APIs
 * @{
 * @details
-*
-* The CSU_DMA is present inside CSU (Configuration Security Unit) module which
-* is located within the Low-Power Subsystem (LPS) internal to the PS.
-* CSU_DMA allows the CSU to move data efficiently between the memory (32 bit
-* AXI interface) and the CSU stream peripherals (SHA, AES and PCAP) via Secure
-* Stream Switch (SSS).
-*
-* The CSU_DMA is a 2 channel simple DMA, allowing separate control of the SRC
-* (read) channel and DST (write) channel. The DMA is effectively able to
-* transfer data:
-*	- From PS-side to the SSS-side (SRC DMA only).
-*	- From SSS-side to the PS-side (DST DMA only).
-*	- Simultaneous PS-side to SSS_side and SSS-side to the PS-side.
-*
-* <b>Initialization & Configuration</b>
-*
-* The device driver enables higher layer software (e.g., an application) to
-* communicate to the CSU_DMA core.
-*
-* XCsuDma_CfgInitialize() API is used to initialize the CSU_DMA core.
-* The user needs to first call the XCsuDma_LookupConfig() API which returns
-* the Configuration structure pointer which is passed as a parameter to the
-* XCsuDma_CfgInitialize() API.
-*
-* <b> Reset </b>
-* This driver will not support handling of CRP PDMA Reset in case of PMCDMA
-* inorder to support multiple level of handoff's. User needs to call
-* the XCsuDma_PmcReset() API before performing any driver operation to make
-* sure PMCDMA is in proper state.
-*
-* <b> Interrupts </b>
-* This driver will not support handling of interrupts user should write handler
-* to handle the interrupts.
-*
-* <b> Virtual Memory </b>
-*
-* This driver supports Virtual Memory. The RTOS is responsible for calculating
-* the correct device base address in Virtual Memory space.
-*
-* <b> Threads </b>
-*
-* This driver is not thread safe. Any needs for threads or thread mutual
-* exclusion must be satisfied by the layer above this driver.
-*
-* <b> Asserts </b>
-*
-* Asserts are used within all Xilinx drivers to enforce constraints on argument
-* values. Asserts can be turned off on a system-wide basis by defining, at
-* compile time, the NDEBUG identifier. By default, asserts are turned on and it
-* is recommended that users leave asserts on during development.
-*
-* <b> Building the driver </b>
-*
-* The XCsuDma driver is composed of several source files. This allows the user
-* to build and link only those parts of the driver that are necessary.
-*
-* This section contains identifiers and register-level driver functions (or
-* macros), range macros, structure typedefs that can be used to access the
-* Xilinx CSU_DMA core instance.
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -196,13 +136,12 @@ typedef enum {
 *
 * This function resets the PMC_DMA core.
 *
-* @param	DmaType is the type of DMA (PMCDMA0 or PMCDMA1).
+* @param	DmaType Type of DMA (PMCDMA0 or PMCDMA1).
 *
 * @return	None.
 *
-* @note		None.
-*		C-style signature:
-*		void XCsuDma_PmcReset(u8 DmaType)
+* @note	 C-style signature:
+*		 void XCsuDma_PmcReset(u8 DmaType)
 *
 ******************************************************************************/
 #define XCsuDma_PmcReset(DmaType)  \
@@ -217,8 +156,8 @@ typedef enum {
 * This function will be in busy while loop until the data transfer is
 * completed.
 *
-* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
+* @param	InstancePtr Pointer to XCsuDma instance to be worked on.
+* @param	Channel Represents the type of channel either it is Source or
 *		Destination.
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
@@ -254,9 +193,8 @@ typedef enum {
 * This function returns the number of completed SRC/DST DMA transfers that
 * have not been acknowledged by software based on the channel selection.
 *
-* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
-* 		Destination.
+* @param	InstancePtr Pointer to XCsuDma instance to be worked on.
+* @param	Channel Type of channel.
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
 *
@@ -266,9 +204,8 @@ typedef enum {
 *		- Count - Count number of finished transfers are still
 *		outstanding.
 *
-* @note		None.
-*		C-style signature:
-*		u8 XCsuDma_GetDoneCount(XCsuDma *InstancePtr,
+* @note	 C-style signature:
+*		 u8 XCsuDma_GetDoneCount(XCsuDma *InstancePtr,
 *						XCsuDma_Channel Channel)
 *
 ******************************************************************************/
@@ -284,9 +221,9 @@ typedef enum {
 *
 * This function returns the current SRC/DST FIFO level in 32 bit words of the
 * selected channel
-* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
-* 		Destination.
+*
+* @param	InstancePtr Pointer to XCsuDma instance to be worked on.
+* @param	Channel Type of channel
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
 *
@@ -294,9 +231,8 @@ typedef enum {
 *		- 0 Indicates empty
 *		- Any number 1 to 128 indicates the number of entries in FIFO.
 *
-* @note		None.
-*		C-style signature:
-*		u8 XCsuDma_GetFIFOLevel(XCsuDma *InstancePtr,
+* @note	 C-style signature:
+*		 u8 XCsuDma_GetFIFOLevel(XCsuDma *InstancePtr,
 *					XCsuDma_Channel Channel)
 *
 ******************************************************************************/
@@ -313,17 +249,15 @@ typedef enum {
 * This function returns the current number of read(src)/write(dst) outstanding
 * commands based on the type of channel selected.
 *
-* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
-* 		Destination.
+* @param	InstancePtr Pointer to XCsuDma instance to be worked on.
+* @param	Channel Type of channel
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
 *
 * @return	Count of outstanding commands. (Range is 0 to 9).
 *
-* @note		None.
-*		C-style signature:
-*		u8 XCsuDma_GetWROutstandCount(XCsuDma *InstancePtr,
+* @note	 C-style signature:
+*		 u8 XCsuDma_GetWROutstandCount(XCsuDma *InstancePtr,
 *						XCsuDma_Channel Channel)
 *
 ******************************************************************************/
@@ -339,9 +273,8 @@ typedef enum {
 *
 * This function returns the status of Channel either it is busy or not.
 *
-* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
-* @param	Channel represents the type of channel either it is Source or
-* 		Destination.
+* @param	InstancePtr Pointer to XCsuDma instance to be worked on.
+* @param	Channel Type of channel
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
 *
@@ -349,9 +282,8 @@ typedef enum {
 *		- TRUE represents core is currently busy.
 *		- FALSE represents core is not involved in any transfers.
 *
-* @note		None.
-*		C-style signature:
-*		s32 XCsuDma_IsBusy(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
+* @note  C-style signature:
+*		 s32 XCsuDma_IsBusy(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 *
 ******************************************************************************/
 
@@ -367,7 +299,7 @@ typedef enum {
 
 /**
 * This typedef contains configuration information for a CSU_DMA core.
-* Each CSU_DMA core should have a configuration structure associated.
+* Each CSU_DMA core should have an associated configuration structure.
 */
 typedef struct {
 #ifndef SDT
@@ -407,7 +339,7 @@ typedef struct {
 
 /******************************************************************************/
 /**
-* This typedef contains all the configuration feilds which needs to be set
+* This typedef contains all the configuration feilds which must be set
 * before the start of the data transfer. All these feilds of CSU_DMA can be
 * configured by using XCsuDma_SetConfig API.
 */
