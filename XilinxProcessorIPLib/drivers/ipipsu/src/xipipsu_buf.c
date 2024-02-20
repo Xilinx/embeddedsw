@@ -8,7 +8,7 @@
 /**
 *
 * @file xipipsu_buf.c
-* @addtogroup ipipsu Overview
+* @addtogroup ipipsu_api IPIPSU APIs
 * @{
 *
 * The xipipsu_buf.c file contains the implementation of the buffer access
@@ -35,15 +35,15 @@
 
 
 /**
- * @brief	Get the Buffer Address for a given pair of CPUs
+ * @brief	Gets the Buffer Address for a given pair of CPUs
  *
- * @param	InstancePtr is the pointer to current IPI instance
- * @param	SrcCpuMask is the Mask for Source CPU
- * @param	DestCpuMask is the Mask for Destination CPU
- * @param	BufferType is either XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP
+ * @param	InstancePtr Pointer to current IPI instance
+ * @param	SrcCpuMask Mask for Source CPU
+ * @param	DestCpuMask Mask for Destination CPU
+ * @param	BufferType Type of buffer either XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP
  *
  * @return	Valid Buffer Address if no error
- * 			NULL if an error occurred in calculating Address
+ * 			NULL if an error occurs in calculating address
  *
  */
 

@@ -11,62 +11,6 @@
 * @{
 * @details
  *
- * This section explains the implementation of IPIPSU driver. Inter Processor
- * Interrupt (IPI) is used for communication between different processors on
- * ZynqMP SoC. Each IPI register set has Trigger, Status and Observation
- * registers for communication between processors. Each IPI path has a 32 byte
- * buffer associated with it and these buffers are located in the XPPU RAM.
- *
- * This driver supports the following operations:
- *
- * - Trigger IPIs to CPUs on the SoC
- * - Write and Read Message buffers
- * - Read the status of Observation Register to get status of Triggered IPI
- * - Enable/Disable IPIs from selected Masters
- * - Read the Status register to get the source of an incoming IPI
- *
- * <b>Initialization & Configuration</b>
- *
- * The XIpiPsu_Config structure is used by the driver to configure itself.
- * Fields inside this structure are properties of XIpiPsu based on its
- * hardware build.
- *
- * To support multiple runtime loading and initialization strategies employed
- * by various operating systems, the driver instance can be initialized in
- * the following way:
- *
- *   - XIpiPsu_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
- *	 configuration structure provided by the caller. If running in a
- *	 system with address translation, the parameter EffectiveAddr should
- *	 be the virtual address.
- *
- * The config data for the driver is loaded and is based on the HW build. The
- * XIpiPsu_Config data structure contains all the data related to the
- * IPI driver instance and also the available Target CPUs.
- *
- * <b>Sending an IPI</b>
- *
- * The following steps can be followed to send an IPI:
- * - Write the Message into Message Buffer using XIpiPsu_WriteMessage()
- * - Trigger IPI using XIpiPsu_TriggerIpi()
- * - Wait for Ack using XIpiPsu_PollForAck()
- * - Read response using XIpiPsu_ReadMessage()
- *
- * @note	XIpiPsu_GetObsStatus() before sending an IPI to ensure that the
- * previous IPI was serviced by the target
- *
- * <b>Receiving an IPI</b>
- *
- * To receive an IPI, the following sequence can be followed:
- * - Register an interrupt handler for the IPIs interrupt ID
- * - Enable the required sources using XIpiPsu_InterruptEnable()
- * - In the interrupt handler, Check for source using XIpiPsu_GetInterruptStatus
- * - Read the message form source using XIpiPsu_ReadMessage()
- * - Write the response using XIpiPsu_WriteMessage()
- * - Ack the IPI using XIpiPsu_ClearInterruptStatus()
- *
- * @note	XIpiPsu_Reset can be used at startup to clear the status and
- * disable all sources
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -205,10 +149,10 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 /**
 *
-* Read the register specified by the base address and offset
+* Reads the register specified by the base address and offset
 *
-* @param	BaseAddress is the base address of the IPI instance
-* @param	RegOffset is the offset of the register relative to base
+* @param	BaseAddress Base address of the IPI instance
+* @param	RegOffset Offset of the register relative to base
 *
 * @return	Value of the specified register
 * @note
@@ -223,11 +167,11 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Write a value into a register specified by base address and offset
+* Writes a value into a register specified by base address and offset
 *
-* @param BaseAddress is the base address of the IPI instance
-* @param RegOffset is the offset of the register relative to base
-* @param Data is a 32-bit value that is to be written into the specified register
+* @param BaseAddress Base address of the IPI instance
+* @param RegOffset Offset of the register relative to base
+* @param Data 32-bit value that is to be written into the specified register
 *
 * @note
 * C-style signature
@@ -244,8 +188,8 @@ typedef struct {
 * Enable interrupts specified in <i>Mask</i>. The corresponding interrupt for
 * each bit set to 1 in <i>Mask</i>, will be enabled.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	Mask contains a bit mask of interrupts to enable. The mask can
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	Mask Contains a bit mask of interrupts to enable. The mask can
 *			be formed using a set of bitwise or'd values of individual CPU masks
 *
 * @note
@@ -264,8 +208,8 @@ typedef struct {
 * Disable interrupts specified in <i>Mask</i>. The corresponding interrupt for
 * each bit set to 1 in <i>Mask</i>, will be disabled.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	Mask contains a bit mask of interrupts to disable. The mask can
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	Mask Contains a bit mask of interrupts to disable. The mask can
 *			be formed using a set of bitwise or'd values of individual CPU masks
 *
 * @note
@@ -280,9 +224,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Get the <i>STATUS REGISTER</i> of the current IPI instance.
+* Gets the <i>STATUS REGISTER</i> of the current IPI instance.
 *
-* @param InstancePtr is a pointer to the instance to be worked on.
+* @param InstancePtr Pointer to the instance to be worked on.
 * @return Returns the Interrupt Status register(ISR) contents
 * @note User needs to parse this 32-bit value to check the source CPU
 * C-style signature
@@ -295,12 +239,12 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Clear the <i>STATUS REGISTER</i> of the current IPI instance.
+* Clears the <i>STATUS REGISTER</i> of the current IPI instance.
 * The corresponding interrupt status for
-* each bit set to 1 in <i>Mask</i>, will be cleared
+* each bit set to 1 in <i>Mask</i> is cleared.
 *
-* @param InstancePtr is a pointer to the instance to be worked on.
-* @param Mask corresponding to the source CPU*
+* @param InstancePtr Pointer to the instance to be worked on.
+* @param Mask Mask corresponding to the source CPU*
 *
 * @note This function should be used after handling the IPI.
 * Clearing the status will automatically clear the corresponding bit in
@@ -317,9 +261,9 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Get the <i>OBSERVATION REGISTER</i> of the current IPI instance.
+* Gets the <i>OBSERVATION REGISTER</i> of the current IPI instance.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 * @return	Returns the Observation register(OBS) contents
 * @note		User needs to parse this 32-bit value to check the status of
 *			individual CPUs

@@ -8,9 +8,9 @@
 /*****************************************************************************/
 /**
  * @file xipipsu_buf.h
-* @addtogroup ipipsu Overview
-* @{
-* @details
+ * @addtogroup ipipsu_api IPIPSU APIs
+ * @{
+ * @details
  *
  * The xipipsu_buf.h is the header file for implementation of IPIPSU driver
  * get buffer and calculate CRC functions.

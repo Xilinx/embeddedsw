@@ -7,7 +7,7 @@
 /**
 *
 * @file xipipsu_helper.c
-* @addtogroup ipipsu Overview
+* @addtogroup ipipsu_api IPIPSU APIs
 * @{
 *
 * The xipipsu_helper.c file contains the implementation of the XIpiPsu_CalculateCRC
@@ -86,10 +86,10 @@ u32 XIpiPsu_CalculateCRC(u32 BufAddr, u32 BufSize)
 
 /****************************************************************************/
 /**
- * @brief	Get the Buffer Index for a CPU specified by Mask
+ * @brief	Gets the Buffer Index for a CPU specified by Mask
  *
- * @param	InstancePtr is the pointer to current IPI instance
- * @param	CpuMask is the Mask of the CPU form which Index is required
+ * @param	InstancePtr Pointer to current IPI instance
+ * @param	CpuMask Mask of the CPU form which Index is required
  *
  * @return	Buffer Index value if CPU Mask is valid
  * 			XIPIPSU_MAX_BUFF_INDEX+1 if not valid

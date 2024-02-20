@@ -8,7 +8,7 @@
 /**
 *
 * @file xipipsu.c
-* @addtogroup ipipsu Overview
+* @addtogroup ipipsu_api IPIPSU APIs
 * @{
 *
 * The xipipsu.c file contains the implementation of the interface functions for
@@ -50,14 +50,14 @@
 
 /****************************************************************************/
 /**
- * Initialize the Instance pointer based on a given Config Pointer
+ * Initializes the Instance pointer based on a given Config Pointer
  *
- * @param	InstancePtr is a pointer to the instance to be worked on
- * @param	CfgPtr is the device configuration structure containing required
+ * @param	InstancePtr Pointer to the instance to be worked on
+ * @param	CfgPtr Device configuration structure containing required
  *		  	hardware build data
- * @param	EffectiveAddress is the base address of the device. If address
+ * @param	EffectiveAddress Base address of the device. If address
  *        	translation is not utilized, this parameter can be passed in using
- *        	CfgPtr->Config.BaseAddress to specify the physical base address.
+ *        	CfgPtr->Config. BaseAddress to specify the physical base address.
  * @return	XST_SUCCESS if initialization was successful
  * 			XST_FAILURE in case of failure
  *
@@ -99,11 +99,11 @@ XStatus XIpiPsu_CfgInitialize(XIpiPsu *InstancePtr, XIpiPsu_Config *CfgPtr,
 }
 
 /**
- * @brief	Reset the given IPI register set.
+ * @brief	Resets the given IPI register set.
  *        	This function can be called to disable the IPIs from all
  *        	the sources and clear any pending IPIs in status register
  *
- * @param 	InstancePtr is the pointer to current IPI instance
+ * @param 	InstancePtr Pointer to current IPI instance
  *
  */
 
@@ -125,10 +125,10 @@ void XIpiPsu_Reset(XIpiPsu *InstancePtr)
 }
 
 /**
- * @brief	Trigger an IPI to a Destination CPU
+ * @brief	Triggers an IPI to a Destination CPU
  *
- * @param	InstancePtr is the pointer to current IPI instance
- * @param	DestCpuMask is the Mask of the CPU to which IPI is to be triggered
+ * @param	InstancePtr Pointer to current IPI instance
+ * @param	DestCpuMask Mask of the CPU to which IPI is to be triggered
  *
  *
  * @return	XST_SUCCESS if successful
@@ -149,11 +149,11 @@ XStatus XIpiPsu_TriggerIpi(XIpiPsu *InstancePtr, u32 DestCpuMask)
 }
 
 /**
- * @brief Poll for an acknowledgement using Observation Register
+ * @brief Polls for an acknowledgement using Observation Register
  *
- * @param	InstancePtr is the pointer to current IPI instance
- * @param	DestCpuMask is the Mask of the destination CPU from which ACK is expected
- * @param	TimeOutCount is the Count after which the routines returns failure
+ * @param	InstancePtr Pointer to current IPI instance
+ * @param	DestCpuMask Mask of the destination CPU from which ACK is expected
+ * @param	TimeOutCount Count after which the routines returns failure
  *
  * @return	XST_SUCCESS if successful
  * 			XST_FAILURE if a timeout occurred
@@ -189,13 +189,13 @@ XStatus XIpiPsu_PollForAck(const XIpiPsu *InstancePtr, u32 DestCpuMask,
 
 
 /**
- * @brief	Read an Incoming Message from a Source
+ * @brief	Read an Incoming Message from a Source.
  *
- * @param 	InstancePtr is the pointer to current IPI instance
- * @param 	SrcCpuMask is the Device Mask for the CPU which has sent the message
- * @param 	MsgPtr is the pointer to Buffer to which the read message needs to be stored
- * @param 	MsgLength is the length of the buffer/message
- * @param 	BufferType is the type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)
+ * @param 	InstancePtr Pointer to current IPI instance
+ * @param 	SrcCpuMask Device Mask for the CPU which has sent the message
+ * @param 	MsgPtr Pointer to Buffer to which the read message needs to be stored
+ * @param 	MsgLength Length of the buffer/message
+ * @param 	BufferType Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)
  *
  * @return	XST_SUCCESS if successful
  * 			XST_FAILURE if an error occurred
@@ -246,13 +246,13 @@ END:
 
 
 /**
- * @brief	Send a Message to Destination
+ * @brief	Sends a Message to Destination
  *
- * @param	InstancePtr is the pointer to current IPI instance
- * @param	DestCpuMask is the Device Mask for the destination CPU
- * @param	MsgPtr is the pointer to Buffer which contains the message to be sent
- * @param	MsgLength is the length of the buffer/message
- * @param	BufferType is the type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)
+ * @param	InstancePtr Pointer to current IPI instance
+ * @param	DestCpuMask Device Mask for the destination CPU
+ * @param	MsgPtr Pointer to Buffer which contains the message to be sent
+ * @param	MsgLength Length of the buffer/message
+ * @param	BufferType Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)
  *
  * @return	XST_SUCCESS if successful
  * 			XST_FAILURE if an error occurred
@@ -295,12 +295,12 @@ XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, const u32 *M
 /*****************************************************************************/
 /**
 *
-* Set up the device configuration based on the unique device ID. A table
+* Sets up the device configuration based on the unique device ID. A table
 * contains the configuration info for each device in the system.
 *
-* @param	DeviceId contains the ID of the device to set up the
+* @param	DeviceId Contains the ID of the device to set up the
 *			configuration for.
- * @param	ConfigTblPtr is the device configuration structure containing required
+ * @param	ConfigTblPtr Device configuration structure containing required
  *		  	hardware build data
 *
 * @return	A pointer to the device configuration for the specified
@@ -308,9 +308,9 @@ XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, const u32 *M
 *			XIpiPsu_Config.
 *
 * @note		This is for safety use case where in this function has to
-* 			be called before CfgInitialize. So that driver will be
+* 			be called before CfgInitialize so that driver will be
 * 			initialized with the provided configuration. For non-safe
-* 			use cases, this is not needed.
+* 			use cases, this is not required.
 *
 ******************************************************************************/
 #ifndef SDT

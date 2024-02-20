@@ -7,10 +7,10 @@
 /**
 *
 * @file xipipsu_hw.h
-* @addtogroup ipipsu Overview
+* @addtogroup ipipsu_api IPIPSU APIs
 * @{
 *
-* The xipipsu_hw.h file contains macro definitions for low level HW related
+* The xipipsu_hw.h file contains macro definitions for low level Harware related
 * params.
 *
 * <pre>
