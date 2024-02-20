@@ -150,14 +150,14 @@ proc get_mem_info { proc_instance } {
     set is_versal_net [hsi::get_cells -hier -filter {IP_NAME=="psx_cortexr52" || IP_NAME=="psx_cortexa78"}]
     set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psv_cortexr5" || IP_NAME=="psv_cortexa72"}]
 
-    set RejectListForAddressBlocks {"AIE_ARRAY" "pcie" "pmc_ram"}
+    set RejectListForAddressBlocks {"ai_engine" "pcie" "pmc_ram"}
 
     if { [llength $is_zynqmp] > 0 } {
     set RejectListForBaseValue {"E0000000" "600000000" "8000000000"}
     } elseif { [llength $is_versal_net] > 0 } {
-    set RejectListForBaseValue {"A0000000"}
+    set RejectListForBaseValue {"A0000000" "20000000000" "F2000000"}
     } elseif { [llength $is_versal] > 0 } {
-    set RejectListForBaseValue {"E0000000"}
+    set RejectListForBaseValue {"E0000000" "20000000000" "F2000000" "600000000"}
     } else {
     set RejectListForBaseValue {}
     }
