@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     04/06/22 Update documentation
 * 1.5   cog    07/04/23 Add support for SDT
+* 1.6   cog    01/29/24 Yocto SDT support
 *
 * </pre>
 * @addtogroup dfeequ Overview
@@ -69,7 +70,7 @@
 * @endcond
 */
 #define XDFEEQU_TAP_MAX (24U) /**< Maximum tap value */
-#define XDFEEQU_DRIVER_VERSION_MINOR (5U) /**< Driver's minor version number */
+#define XDFEEQU_DRIVER_VERSION_MINOR (6U) /**< Driver's minor version number */
 #define XDFEEQU_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
