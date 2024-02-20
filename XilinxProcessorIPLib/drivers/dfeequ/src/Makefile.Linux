@@ -1,11 +1,11 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 APP = dfeequ
 
 LIBSOURCES = *.c
 OUTS = *.o
 NAME := dfeequ
 MAJOR = 1
-MINOR = 5
+MINOR = 6
 VERSION = $(MAJOR).$(MINOR)
 
 all: lib$(NAME).so
