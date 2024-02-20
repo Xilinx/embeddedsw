@@ -28,7 +28,7 @@ properties:
   cipher-connected:
     description: Sub-core instance configuration
 
-  mmul-connected:
+  hdcp22_mmult-connected:
     description: Sub-core instance configuration
 
   rng-connected:
@@ -43,7 +43,7 @@ required:
     - xlnx,protocol
     - xlnx,mode
     - cipher-connected: phandle
-    - mmul-connected: phandle
+    - hdcp22_mmult-connected: phandle
     - rng-connected: phandle
 
 depends:
