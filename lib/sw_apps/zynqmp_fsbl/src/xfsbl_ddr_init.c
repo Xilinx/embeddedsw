@@ -440,6 +440,8 @@ u32 XFsbl_ComputeDdr4Params(u8 *SpdData, struct DdrcInitData *DdrDataPtr)
 		case DDR4_SPD_MODULETYPE_RDIMM:
 		case DDR4_SPD_MODULETYPE_72B_SO_RDIMM:
 			PDimmPtr->RDimm = 1U;
+			if (Ddr4SpdData->ModSection.registered.RegMap & 0x1U)
+				PDimmPtr->AddrMirror = 1U;
 			break;
 
 		case DDR4_SPD_MODULETYPE_UDIMM:
@@ -981,7 +983,6 @@ static void XFsbl_DdrCalcHifAddrBrcMap(struct DdrcInitData *DdrDataPtr,
 }
 #endif
 
-#if (XFSBL_DDR4ADDRMAPPING == 1U)
 /*****************************************************************************/
 /**
  * This function calculates the HIF Addresses for Address Mapping Enabled mode
@@ -1011,6 +1012,12 @@ static void XFsbl_DdrCalcHifAddrMemMap(struct DdrcInitData *DdrDataPtr, u32 *Hif
 		Position++;
 	}
 
+	/* Define Bank Group positions in HIF Addresses */
+	for (Index = 1U; Index < PDimmPtr->NumBgAddr; Index++) {
+		HifAddr[Position] = XFSBL_HIF_BG(Index);
+		Position++;
+	}
+
 	/* Define Bank positions in HIF Addresses */
 	for (Index = 0U; Index < PDimmPtr->NumBankAddr; Index++) {
 		HifAddr[Position] = XFSBL_HIF_BANK(Index);
@@ -1029,7 +1036,6 @@ static void XFsbl_DdrCalcHifAddrMemMap(struct DdrcInitData *DdrDataPtr, u32 *Hif
 		Position++;
 	}
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -1250,18 +1256,18 @@ static void XFsbl_DdrCalcAddrMap(struct DdrcInitData *DdrDataPtr)
 		XFsbl_DdrCalcHifAddr(DdrDataPtr, HifAddr);
 
 	} else {
-#if (XFSBL_DDR4ADDRMAPPING == 1U)
-		/*
-		 * Calculate the HIF Addresses when DDR4 Address Mapping
-		 * is Enabled
-		 */
-		XFsbl_DdrCalcHifAddrMemMap(DdrDataPtr, HifAddr);
-#else
-		/*
-		 * Calculate the HIF Addresses for default DDR4 Mapping
-		 */
-		XFsbl_DdrCalcDdr4HifAddr(DdrDataPtr, HifAddr);
-#endif
+		if (XFSBL_DDR4ADDRMAPPING == 1U || PDimmPtr->UDimm == 1U) {
+			/*
+			* Calculate the HIF Addresses when DDR4 Address Mapping
+			* is Enabled
+			*/
+			XFsbl_DdrCalcHifAddrMemMap(DdrDataPtr, HifAddr);
+		} else {
+			/*
+			* Calculate the HIF Addresses for default DDR4 Mapping
+			*/
+			XFsbl_DdrCalcDdr4HifAddr(DdrDataPtr, HifAddr);
+		}
 	}
 #endif
 
