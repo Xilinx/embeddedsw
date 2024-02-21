@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 3.0  kal  07/12/2021 Initial release
 * 3.2  kum  05/03/2023 Added macros and structures to handle cdo chunk boundary
+* 3.3  kpt  01/22/2024 Added support to extend secure state into SWPCR
 *
 * </pre>
 *
@@ -59,6 +60,9 @@ extern "c" {
 
 
 /**************************** Type Definitions *******************************/
+
+typedef int (*XNvm_OcpHandler)(void);
+
 typedef struct {
 		u32 AesKey[XNVM_AES_KEY_CDO_PAYLOAD_LEN_IN_WORDS];
 		u32 PpkHash[XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS];
@@ -70,8 +74,10 @@ typedef struct {
 	XNvm_CdoEfuseKeys Keys;
 	u8 MemClear;
 } XNvm_CdoChunk;
+
 /************************** Constant Definitions *****************************/
 int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd);
+XNvm_OcpHandler XNvm_ManageOcpHandler(XNvm_OcpHandler OcpHandler);
 
 #endif /* PLM_NVM */
 

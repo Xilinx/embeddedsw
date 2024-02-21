@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *      vek   05/31/2023 Added support for Programming PUF secure control bits
 *      kpt   07/26/2023 Clear AES keys
 *      yog   09/13/2023 Removed XNvm_EfuseMemCopy() API
+* 3.3  kpt   01/22/2024 Added support to extend secure state into SWPCR
 *
 * </pre>
 *
@@ -121,6 +122,9 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	XNvm_PufCtrlDirectPload *PufSecData = NULL;
 	static XNvm_CdoChunk CdoChunkData;
 	u32 PloadLen = 0;
+	XNvm_OcpHandler OcpHandler;
+	u32 ApiId = Cmd->CmdId & XNVM_API_ID_MASK;
+
     /**
 	 *  Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid
 	 */
@@ -132,7 +136,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
     /**
 	 *  Calls the respective handler based on API ID. Return error code upon failure
 	 */
-	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
+	switch (ApiId) {
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_AES_KEY_FROM_PLOAD):
 		PloadLen = Cmd->PayloadLen * XNVM_WORD_LEN;
 		if (Cmd->ProcessedLen == 0U){
@@ -348,6 +352,18 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
 		break;
+	}
+
+	if (ApiId == XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS) {
+		if(Status == XST_SUCCESS) {
+			OcpHandler = XNvm_ManageOcpHandler(NULL);
+			if(OcpHandler != NULL) {
+				Status = OcpHandler();
+				if (Status != XST_SUCCESS) {
+					Status = (int)XNVM_EFUSE_ERROR_SECURE_STATE_MEASUREMENT;
+				}
+			}
+		}
 	}
 
 END:
@@ -1035,6 +1051,24 @@ static int XNvm_EfuseWriteRomRsvd(u32 EnvDisFlag, u32 RomRsvdBits)
 	Status = XNvm_EfuseWriteRomRsvdBits(EnvDisFlag, RomRsvdBits);
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets or returns XNvm_OcpHandler
+ *
+ * @return	- XNvm_OcpHandler or NULL if not registered
+ *
+ *****************************************************************************/
+XNvm_OcpHandler XNvm_ManageOcpHandler(XNvm_OcpHandler OcpHandler)
+{
+	static XNvm_OcpHandler NvmOcpHandler =  NULL;
+
+	if (OcpHandler != NULL) {
+		NvmOcpHandler = OcpHandler;
+	}
+
+	return NvmOcpHandler;
 }
 
 #endif

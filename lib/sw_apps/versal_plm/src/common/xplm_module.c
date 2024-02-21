@@ -50,6 +50,7 @@
 *       am   12/21/2022 Added module support for XilOcp
 *		kpt  08/03/2023 Added temporal check for XOcp_KeyInit
 * 1.10  am   01/31/2024 Fixed internal security review comments of XilOcp library
+*       kpt  02/21/2024 Add support to extend secure state
 *
 * </pre>
 *
@@ -71,6 +72,7 @@
 #endif
 #include "xplmi_err_common.h"
 #include "xplm_loader.h"
+#include "xplm_plat.h"
 #include "xplm_pm.h"
 #include "xplmi.h"
 #include "xil_util.h"
@@ -163,7 +165,7 @@ int XPlm_ModuleInit(void *Arg)
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_Init);
 
 #ifdef PLM_NVM
-	XNvm_Init();
+	XNvm_Init(XPlm_OcpHandler);
 #endif
 #ifdef PLM_PUF
 	XPuf_Init();

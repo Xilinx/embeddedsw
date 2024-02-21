@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- ---------- -------------------------------------------------------
  * 3.0   kal  07/12/2022 Initial release
+ * 3.3   kpt  02/21/2024 Added support to extend secure state
  *
  * </pre>
  *
@@ -41,7 +42,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
-void XNvm_CmdsInit(void);
+void XNvm_CmdsInit(int (*OcpHandler)(void));
 
 #endif /* PLM_NVM */
 

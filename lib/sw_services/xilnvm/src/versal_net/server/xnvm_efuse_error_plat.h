@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -151,6 +151,9 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC1_PROT = 0xCE00, /**< 0xCE00
 								* Error in SEC_MISC1_PROT
 								* programming */
+
+	XNVM_EFUSE_ERROR_SECURE_STATE_MEASUREMENT = 0xF500,/**<0xF500 - Error
+						* during secure state measurement */
 
 } XNvm_EfuseVersalNetErrorCodes;
 

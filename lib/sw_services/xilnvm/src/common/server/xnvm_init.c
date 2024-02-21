@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,7 +18,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal 07/05/2021 Initial release
-* 2.4   bsv  09/09/2021 Added PLM_NVM macro
+* 2.4   bsv 09/09/2021 Added PLM_NVM macro
+* 3.3   kpt 02/21/2024 Added support to extend secure state
 *
 * </pre>
 *
@@ -48,12 +50,14 @@
 /**
  * @brief	This function registers the handlers for Xilnvm IPI commands
  *
+ * @param	GenericHandler Pointer to generic handler
+ *
  * @return	- XST_SUCCESS - On success
  *
  *****************************************************************************/
-void XNvm_Init(void)
+void XNvm_Init(int (*GenericHandler)(void))
 {
-	XNvm_CmdsInit();
+	XNvm_CmdsInit(GenericHandler);
 }
 
 #endif

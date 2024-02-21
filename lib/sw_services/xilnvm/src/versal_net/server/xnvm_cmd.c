@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 3.2   har  02/21/2023 Added support for writing ROM Rsvd bits
 *       vek  05/31/2023 Added support for Programming PUF secure control bits
 *       bm   06/23/2023 Added access permissions for IPI commands
+* 3.3   kpt  02/21/2024 Added support to extend secure state
 *
 * </pre>
 *
@@ -215,8 +216,10 @@ END:
 /**
  * @brief	This function registers the XilNvm commands to the PLMI.
  *
+ * @param	OcpHandler Pointer to OCP handler
+ *
  *****************************************************************************/
-void XNvm_CmdsInit(void)
+void XNvm_CmdsInit(int (*OcpHandler)(void))
 {
 	u32 Idx;
 
@@ -225,6 +228,7 @@ void XNvm_CmdsInit(void)
 		XNvm_Cmds[Idx].Handler = XNvm_ProcessCmd;
 	}
 	XPlmi_ModuleRegister(&XPlmi_Nvm);
+	(void)XNvm_ManageOcpHandler(OcpHandler);
 }
 
 #endif

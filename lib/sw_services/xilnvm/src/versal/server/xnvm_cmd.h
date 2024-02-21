@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,7 +45,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
-void XNvm_CmdsInit(void);
+void XNvm_CmdsInit(int (*GenericHandler)(void));
 
 #endif /* PLM_NVM */
 

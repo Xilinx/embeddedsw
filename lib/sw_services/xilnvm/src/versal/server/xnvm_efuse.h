@@ -53,6 +53,7 @@
 *       vss  09/19/2023 Fixed MISRA-C Rule 2.5 violation
 * 3.3   har  12/04/2023 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
 *       vss  12/31/2023 Added support for Program the eFuse protection bits only once
+*       kpt  02/21/2024 Added generic handler
 *
 * </pre>
 *
