@@ -38,6 +38,7 @@
                         XLOADER_ERR_INVALID_DEST_IMGINFOTBL_ADDRESS and
 						XLOADER_ERR_INVALID_IMAGE_STORE_ADDRESS error code macro
 * 2.00  ng   01/26/2024 Updated minor error codes
+*       kpt  02/19/2024 Add support to extend secure state to SWPCR
 *
 * </pre>
 *
@@ -395,6 +396,8 @@ int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
 int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
 int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd);
 int XLoader_LoadPsmElf(void);
+int XLoader_CheckAndUpdateSecureState(void);
+
 /************************** Variable Definitions *****************************/
 
 #ifdef __cplusplus

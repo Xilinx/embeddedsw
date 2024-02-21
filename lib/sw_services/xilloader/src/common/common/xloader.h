@@ -114,6 +114,7 @@
 *                       Moved minor error codes to plat headers
 *       sk   08/18/2023 Renamed ValidHeader member to DiscardUartLogs in XilPdi
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
+* 2.00  kpt  02/21/2024 Update prototype for XLoader_EnableJtag and XLoader_DisableJtag
 *
 * </pre>
 *
@@ -415,9 +416,10 @@ void XLoader_ClearIntrSbiDataRdy(void);
 XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void);
 int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl);
 void Xloader_SaveBootPdiInfo(XilPdi *BootPdiPtr);
-void XLoader_EnableJtag(u32 CfgState);
-void XLoader_DisableJtag(void);
+int XLoader_EnableJtag(u32 CfgState);
+int XLoader_DisableJtag(void);
 int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex);
+
 /************************** Variable Definitions *****************************/
 #ifdef __cplusplus
 }
