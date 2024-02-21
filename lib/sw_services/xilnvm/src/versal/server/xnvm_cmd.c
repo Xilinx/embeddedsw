@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 2.5   am   02/28/2022 Fixed MISRA C violation rule 4.5
 * 3.1   skg  10/04/2022 Added invalid hidden handler for PLM to PLM communication
 * 3.2   bm   06/23/2023 Added access permissions for IPI commands
+* 3.3   kpt  02/21/2024 Added generic handler
 *
 * </pre>
 *
@@ -233,11 +234,14 @@ END:
 /**
  * @brief	This function registers the XilNvm commands to the PLMI.
  *
+ * @param	GenericHandler Pointer to generic handler
+ *
  *****************************************************************************/
-void XNvm_CmdsInit(void)
+void XNvm_CmdsInit(int (*GenericHandler)(void))
 {
 	u32 Idx;
 
+	(void)GenericHandler;
 	/**
      *	Register command handlers with XilPlmi
 	 */

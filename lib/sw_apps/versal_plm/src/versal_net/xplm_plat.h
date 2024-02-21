@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 *       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
 *                       XPLMI_IPI_DEVICE_ID
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+* 1.10  kpt  02/21/2024 Added XPlm_OcpHandler
 *
 * </pre>
 *
@@ -37,9 +38,19 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
 #include "xplmi_hw.h"
+#ifdef PLM_OCP
+#include "xocp.h"
+#endif
 
 /************************** Constant Definitions *****************************/
+
+#ifdef PLM_OCP
+#define XPlm_OcpHandler		(XOcp_CheckAndExtendSecureState) /** OCP handler */
+#else
+#define XPlm_OcpHandler		(NULL) /** OCP handler */
+#endif
 
 /**************************** Type Definitions *******************************/
 
