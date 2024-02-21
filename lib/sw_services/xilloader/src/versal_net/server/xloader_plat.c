@@ -44,6 +44,7 @@
 *       sk   08/11/2023 Added error code for default case in XLoader_StartImage
 *       ng   02/14/2024 removed int typecast for errors
 * 1.03  am   01/31/2024 Fixed internal security review comments of XilOcp library
+*       kpt  01/22/2024 Added support to extend secure state to SWPCR
 *
 * </pre>
 *
@@ -77,6 +78,7 @@
 #include "xplmi_hw.h"
 #include "xtrngpsx.h"
 #include "xloader_ddr.h"
+#include "xsecure_plat.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U) /**< Image version information */
@@ -1515,12 +1517,10 @@ int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd)
 	}
 
 	if (Flag == XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE) {
-		XLoader_EnableJtag(XLOADER_CONFIG_DAP_STATE_NONSECURE_DBG);
+		Status = XLoader_EnableJtag(XLOADER_CONFIG_DAP_STATE_NONSECURE_DBG);
 	} else {
-		XLoader_DisableJtag();
+		Status = XLoader_DisableJtag();
 	}
-
-	Status = XST_SUCCESS;
 
 END:
 #else
@@ -1606,9 +1606,11 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This Function will load the PSM ELF file from DDR to PSM.
+ *
  * @return
  * 		- XST_SUCCESS on success.
  * 		- Error code on failure
+ *
 *****************************************************************************/
 int XLoader_LoadPsmElf()
 {
@@ -1634,6 +1636,30 @@ int XLoader_LoadPsmElf()
 
 END:
 	(void)XLoader_DdrRelease();
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks and updates the secure state configuration
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure
+ *
+*****************************************************************************/
+int XLoader_CheckAndUpdateSecureState(void)
+{
+	int Status = XST_FAILURE;
+
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
+	Status = XOcp_CheckAndExtendSecureState();
+	if (Status != XST_SUCCESS) {
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR, Status);
+	}
+#else
+	Status = XST_SUCCESS;
+#endif
 
 	return Status;
 }

@@ -30,8 +30,9 @@
 *       sk   06/12/2023 Renamed XLoader_UpdateKekSrc to XLoader_GetKekSrc
 * 1.9   kpt  07/12/2023 Added mask generation function
 *       dd   08/11/2023 Updated doxygen comments
-*	kpt  07/31/2023 Removed dead code in XLoader_CheckSecureStateAuth
+	kpt  07/31/2023 Removed dead code in XLoader_CheckSecureStateAuth
 * 2.1   ng   02/01/2024 u8 variables optimization
+*       kpt  02/08/2024 Added support to update secure state when DAP state is changed
 *
 * </pre>
 *
@@ -44,6 +45,7 @@
 #include "xplmi_status.h"
 #include "xplmi_scheduler.h"
 #include "xloader_plat_secure.h"
+#include "xloader_plat.h"
 #include "xloader_secure.h"
 #include "xplmi.h"
 #include "xplmi_err.h"
@@ -252,14 +254,16 @@ int XLoader_RsaKat(XPmcDma *PmcDmaPtr) {
 *
 * @param	Arg is of pointer of void type.
 *
-* @return       XST_SUCCESS is returned.
+* @return   XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 int XLoader_CheckDeviceStateChange(void *Arg)
 {
+	int Status = XST_FAILURE;
 	volatile u32 JtagStatus = XPlmi_In32(XLOADER_PMC_TAP_JTAG_STATUS_0) &
 					XLOADER_PMC_TAP_JTAG_STATUS_DAP_STATUS_MASK;
 	static u8 JtagStateChange = XLOADER_JTAG_SEC_GATE_CLOSE;
+	static u8 PrevJtagStateChange = XLOADER_JTAG_SEC_GATE_CLOSE;
 	(void)Arg;
 
 	if (JtagStatus == XLOADER_PMC_TAP_JTAG_STATUS_DAP_STATUS_MASK) {
@@ -277,7 +281,17 @@ int XLoader_CheckDeviceStateChange(void *Arg)
 		JtagStateChange = XLOADER_JTAG_SEC_GATE_CLOSE;
 	}
 
-	return XST_SUCCESS;
+	/* Update secure state when DAP state gets changed */
+	if (PrevJtagStateChange != JtagStateChange) {
+		Status = XLoader_CheckAndUpdateSecureState();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		PrevJtagStateChange = JtagStateChange;
+	}
+	Status = XST_SUCCESS;
+END:
+	return Status;
 }
 
 #ifndef PLM_RSA_EXCLUDE

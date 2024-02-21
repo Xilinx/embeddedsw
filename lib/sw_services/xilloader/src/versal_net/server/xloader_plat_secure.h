@@ -28,6 +28,7 @@
 * 1.9   kpt  07/13/2023 Added mask generation function
 * 2.1   kpt  12/07/2023 Added XLOADER_SEC_KEY_CLEAR_FAILED_ERROR
 *       kpt  12/04/2023 Added XLoader_AesKekInfo
+*       kpt  02/21/2024 Added XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR
 *
 * </pre>
 *
@@ -145,6 +146,8 @@ typedef enum {
 		/**<0x30 Secure KAT failed error */
 	XLOADER_SEC_KEY_CLEAR_FAILED_ERROR,
 		/**<0x31 Error when RED key clear failed */
+	XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR,
+		/**<0x32 Error when secure state config measurement failed */
 } XLoader_SecErrCodes;
 
 /**< KEK info */

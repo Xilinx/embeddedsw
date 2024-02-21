@@ -125,6 +125,7 @@
 *       kpt  11/22/23 Add support to clear AES keys when RedKeyClear bit is set
 *       ng   12/27/23 Reduced log level for less frequent prints
 *       ng   01/28/24 u8 variables optimization
+*       kpt  02/08/24 Added support to extend secure state to SWPCR during AuthJtag
 *
 * </pre>
 *
@@ -3128,7 +3129,7 @@ int XLoader_CheckAuthJtagIntStatus(void *Arg)
 END:
 	/* Reset DAP status */
 	if (Status != XST_SUCCESS) {
-		XLoader_DisableJtag();
+		(void)XLoader_DisableJtag();
 		AuthJtagStatus.JtagTimerEnabled = FALSE;
 		AuthJtagStatus.JtagTimeOut = (u32)0U;
 	}
@@ -3342,7 +3343,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 				goto END;
 			}
 		}
-		XLoader_EnableJtag((u32)XLOADER_CONFIG_DAP_STATE_ALL_DBG);
+		Status = XLoader_EnableJtag((u32)XLOADER_CONFIG_DAP_STATE_ALL_DBG);
 		*TimeOut = SecureParams.AuthJtagMessagePtr->JtagEnableTimeout;
 	}
 
@@ -3360,11 +3361,13 @@ END:
 * @brief       This function enables the Jtag
 *
 * @return
-* 			- None
+* 			- XST_SUCCESS on SUCCESS
+* 			- Errorcode upon failure
 *
 ******************************************************************************/
-void XLoader_EnableJtag(volatile u32 CfgState)
+int XLoader_EnableJtag(volatile u32 CfgState)
 {
+	int Status = XST_FAILURE;
 	volatile u32 DapCfgMask = 0U;
 
 	if ((CfgState == XLOADER_CONFIG_DAP_STATE_ALL_DBG) &&
@@ -3399,6 +3402,10 @@ void XLoader_EnableJtag(volatile u32 CfgState)
 	 */
 	XPlmi_Out32(XLOADER_CRP_RST_DBG_OFFSET,
 		XLOADER_CRP_RST_DBG_ENABLE_MASK);
+
+	Status = XLoader_CheckAndUpdateSecureState();
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -3406,11 +3413,14 @@ void XLoader_EnableJtag(volatile u32 CfgState)
 * @brief       This function disables the Jtag
 *
 * @return
-* 			- None
+* 			- XST_SUCCESS on SUCCESS
+* 			- Errorcode upon failure
 *
 ****************************************************************************/
-void XLoader_DisableJtag(void)
+int XLoader_DisableJtag(void)
 {
+	int Status = XST_FAILURE;
+
 	/**
 	 * Reset DBG module
 	 */
@@ -3438,6 +3448,10 @@ void XLoader_DisableJtag(void)
 	 */
 	XPlmi_Out32(XLOADER_PMC_TAP_DAP_CFG_OFFSET,
 				0x0U);
+
+	Status = XLoader_CheckAndUpdateSecureState();
+
+	return Status;
 }
 
 /*****************************************************************************/

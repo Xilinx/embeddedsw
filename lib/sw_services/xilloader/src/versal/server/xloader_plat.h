@@ -30,6 +30,7 @@
 *       dd   09/11/2023 MISRA-C violation Directive 4.5 fixed
 *       mss  06/11/2023 Added XLOADER_ERR_INVALID_READBACK_PDI_DEST_ADDR error code macro
 * 2.00  ng   01/26/2024 Updated minor error codes
+*            02/21/2024 Added XLoader_CheckAndUpdateSecureState
 *
 * </pre>
 *
@@ -373,6 +374,20 @@ static inline int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd)
 {
 	(void)Cmd;
 	/* Not Applicable for Versal */
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This Function checks and updates the secure state configuration
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure
+ *
+*****************************************************************************/
+static inline int XLoader_CheckAndUpdateSecureState(void)
+{
 	return XST_SUCCESS;
 }
 
