@@ -25,6 +25,7 @@
 * 1.3   tri  10/09/23 Added support to handle cdo chunk boundary
 *       har  11/03/23 Moved handling of SW PCR Config CDO command from xocp_ipihandler.c to this file
 *       am   01/31/24 Moved key Management operations under PLM_OCP_KEY_MNGMT macro
+*       kpt  02/20/24 Added support to extend secure state into SWPCR
 *
 * </pre>
 *
@@ -261,7 +262,7 @@ static int XOcp_SetSwPcrConfig(const XPlmi_Cmd *Cmd)
 		Status = (int)XOCP_ERR_CHUNK_BOUNDARY_CROSSED;
 	}
 	else {
-		Status = XOcp_StoreSwPcrConfig(Pload, Len);
+		Status = XOcp_StoreSwPcrConfigAndExtendSwPcr_0_1(Pload, Len);
 	}
 
 	return Status;

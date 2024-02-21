@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022-2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -25,6 +25,7 @@
 *       am   08/18/2023 Added XOcp_OcpErrorStatus enum
 *       am   09/04/2023 Added XOCP_DICE_CDI_SEED_ZERO enum
 * 1.3   tri  10/09/2023 Added XOCP_ERR_CHUNK_BOUNDARY_CROSSED enum
+*       kpt  02/21/2024 Added error codes related to secure state
 *
 * </pre>
 *
@@ -212,7 +213,10 @@ typedef enum {
 	XOCP_ERR_INVALID_DEVAK_REQ,	/**< 0x25 Error when there is a invalid DEVAK request */
 	XOCP_DICE_CDI_SEED_ZERO,	/**< 0x26 DICE CDI Seed is zero */
 	XOCP_ERR_GLITCH_DETECTED,	/**< 0x27 Error glitch detected */
-	XOCP_ERR_CHUNK_BOUNDARY_CROSSED	/**< 0x28 Error when command length crossed chunk boundary */
+	XOCP_ERR_CHUNK_BOUNDARY_CROSSED,	/**< 0x28 Error when command length crossed chunk boundary */
+	XOCP_ERR_SECURE_EFUSE_CONFIG,	/**< 0x29 Error when updating secure efuse configuration */
+	XOCP_ERR_SECURE_TAP_CONFIG,		/**< 0x30 Error when updating tap configuration */
+	XOCP_ERR_SECURE_STATE_MEASUREMENT	/**< 0x31 Error when calculating secure state hash */
 }XOcp_OcpErrorStatus;
 
 /***************** Macros (Inline Functions) Definitions *********************/
