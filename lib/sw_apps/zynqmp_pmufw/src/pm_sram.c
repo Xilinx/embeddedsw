@@ -175,7 +175,7 @@ static inline void PmMemSet(u32 baseaddr, u32 value, u32 len)
 {
 	u32 i;
 
-	for (i = 0; i < len; i += 4) {
+	for (i = 0; i < len; i += 4U) {
 		Xil_Out32(baseaddr + i, value);
 	}
 }
