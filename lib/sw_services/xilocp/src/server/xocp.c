@@ -25,6 +25,7 @@
 * 1.3   kpt  11/06/23 Add support to run SHA384 KAT during DME
 *       kal  12/09/23 Added a check for DataAddr if size > 48 bytes for SWPCR
 *       am   01/31/24 Moved Key Management operations under PLM_OCP_KEY_MNGMT macro
+*       kpt  01/22/24 Added support to extend secure state into SWPCR
 *
 * </pre>
 * @note
@@ -73,9 +74,13 @@
 #define XOCP_GET_ALL_PCR_MASK           (0x000000FFU) /**< All PCR read mask */
 #define XOCP_HW_PCR                     (0x0U)  /**< HW PCR type */
 #define XOCP_SW_PCR                     (0x1U)  /**< SW PCR type */
-#define XOCP_SW_PCR_NUM_FOR_ROM_DIGEST  (0U)    /**< SW PCR number to extend ROM digest */
-#define XOCP_SW_PCR_NUM_FOR_PLM_DIGEST  (1U)    /**< SW PCR number to extend PLM digest */
-#define XOCP_SW_PCR_MEASUREMENT_IDX_ROM_PLM     (0U) /**< Measurement index for ROM and PLM extension */
+
+#define XOCP_SWPCR_CONFIG_DS_ID      (1U)   /**< SW PCR data structure id */
+#define XOCP_SWPCR_CONFIG_LCVERSION  (1U)   /**< SW PCR LC version */
+#define XOCP_SWPCR_CONFIG_VERSION    (1U)   /**< SW PCR version */
+#define XOCP_SWPCR_STORE_DS_ID       (1U)   /**< SW PCR store data structure id */
+#define XOCP_SWPCR_STORE_LCVERSION   (1U)   /**< SW PCR store LC version */
+#define XOCP_SWPCR_STORE_VERSION     (1U)   /**< SW PCR store version */
 
 /**************************** Type Definitions *******************************/
 static XOcp_DmeXppuCfg XOcp_DmeXppuCfgTable[XOCP_XPPU_MAX_APERTURES] =
@@ -137,10 +142,26 @@ static int XOcp_ClearDigestData(u32 PcrNum);
 static void XOcp_DmeStoreXppuDefaultConfig(void);
 static void XOcp_DmeRestoreXppuDefaultConfig(void);
 static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType);
+static int XOcp_StoreSwPcrConfig(u32 *Pload, u32 Len);
+static void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig);
+static void XOcp_ReadTapConfig(XOcp_SecureTapConfig* TapConfig);
+static int XOcp_CheckAndUpdateSecConfigState(u32 *MeasureSecureConfig);
+static int XOcp_CheckAndUpdateTapConfigState(u32 *MeasureTapConfig);
+static int XOcp_MeasureSecureState(void);
 
 /************************** Variable Definitions *****************************/
+
 /**< HW PCR log struture */
 static XOcp_HwPcrLog HwPcrLog = {0U};
+
+/**< Secure state hash */
+static XOcp_SecureStateHash SecureStateHash;
+
+/**< Secure efuse configuration */
+static XOcp_SecureConfig SecureConfig;
+
+/**< Secure tap configuration */
+static XOcp_SecureTapConfig SecureTapConfig;
 
 /************************** Function Definitions *****************************/
 
@@ -592,6 +613,11 @@ int XOcp_GetSwPcrData(u64 Addr)
 		goto END;
 	}
 
+	if (Data.BufSize == 0U) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
 	/* If MeasurementIdx is greater than number of digests
 	 * configured, throw an error.
 	 */
@@ -911,6 +937,110 @@ RET:
 
 /*****************************************************************************/
 /**
+ * @brief	This function extends the secure state to SWPCR 0 and SWPCR 1 at
+ *          measurement index 0
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- ErrorCode if there is a failure.
+ *
+ *****************************************************************************/
+int XOcp_MeasureSecureStateAndExtendSwPcr(void)
+{
+	int Status = XST_FAILURE;
+	XOcp_SwPcrConfig *SwPcrConfig = XOcp_GetSwPcrConfigInstance();
+
+	if (SwPcrConfig->IsPcrConfigReceived != TRUE) {
+		XPlmi_Printf(DEBUG_INFO,"Secure State MeasureMent is not configured \r\n");
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	Status = Xil_SMemCpy(&SecureStateHash.RomHash, XOCP_PCR_HASH_SIZE_IN_BYTES, (u8*)(UINTPTR)XOCP_PMC_ROM_HASH_ADDR,
+						XOCP_PCR_HASH_SIZE_IN_BYTES, XOCP_PCR_HASH_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xil_SMemCpy(&SecureStateHash.PlmHash, XOCP_PCR_HASH_SIZE_IN_BYTES, (u8*)(UINTPTR)XOCP_PMC_PLM_HASH_ADDR,
+						XOCP_PCR_HASH_SIZE_IN_BYTES, XOCP_PCR_HASH_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Read secure efuse,tap configuration */
+	XOcp_ReadSecureConfig(&SecureConfig);
+	XOcp_ReadTapConfig(&SecureTapConfig);
+
+	/* Measure and extend secure state to SWPCR0 and SWPCR1 */
+	Status = XOcp_MeasureSecureState();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_0, XOCP_SW_PCR_SEC_STATE_MEASUREMENT_IDX,
+				(u64)(UINTPTR)&SecureStateHash, sizeof(XOcp_SecureStateHash), TRUE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1, XOCP_SW_PCR_SEC_STATE_MEASUREMENT_IDX,
+				(u64)(UINTPTR)&SecureStateHash, sizeof(XOcp_SecureStateHash), TRUE);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function compares the secure state configuration and
+ *          updates the secure state
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure
+ *
+*****************************************************************************/
+int XOcp_CheckAndExtendSecureState(void)
+{
+	int Status = XST_FAILURE;
+	XOcp_SwPcrConfig *SwPcrConfig = XOcp_GetSwPcrConfigInstance();
+	u32 MeasureSecureConfig = FALSE;
+	u32 MeasureTapConfig = FALSE;
+
+	if (SwPcrConfig->IsPcrConfigReceived != TRUE) {
+		XPlmi_Printf(DEBUG_INFO,"Secure State Measurement is not configured \r\n");
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	Status = XOcp_CheckAndUpdateSecConfigState(&MeasureSecureConfig);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_SECURE_EFUSE_CONFIG;
+		goto END;
+	}
+
+	Status = XOcp_CheckAndUpdateTapConfigState(&MeasureTapConfig);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_SECURE_TAP_CONFIG;
+		goto END;
+	}
+
+	if ((MeasureSecureConfig == TRUE) || (MeasureTapConfig == TRUE)) {
+		Status = XOcp_MeasureSecureState();
+		if (Status != XST_SUCCESS) {
+			Status = (int)XOCP_ERR_SECURE_STATE_MEASUREMENT;
+			goto END;
+		}
+		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1, XOCP_SW_PCR_SEC_STATE_MEASUREMENT_IDX,
+					(u64)(UINTPTR)&SecureStateHash, sizeof(XOcp_SecureStateHash), TRUE);
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function stores default XPPU aperture configuration
  *		before DME operation.
  *
@@ -948,6 +1078,33 @@ static void XOcp_DmeRestoreXppuDefaultConfig(void)
 
 /*****************************************************************************/
 /**
+ * @brief	This function parses and store the SW PCR config sent via CDO and
+ *          extends secure state to SWPCR 0 and SWPCR 1
+ *
+ * @param	Pload 	Pointer to the Command Payload
+ * @param	Len 	CDO payload length
+ *
+ * @return
+ *		- XST_SUCCESS - Upon success
+ *		- XST_FAILURE - Upon failure
+ *
+ ******************************************************************************/
+int XOcp_StoreSwPcrConfigAndExtendSwPcr_0_1(u32 *Pload, u32 Len)
+{
+	volatile int Status = XST_FAILURE;
+
+	Status = XOcp_StoreSwPcrConfig(Pload, Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XOcp_MeasureSecureStateAndExtendSwPcr();
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function parses and store the SW PCR config sent via CDO.
  *
  * @param	Pload 	Pointer to the Command Payload
@@ -958,7 +1115,7 @@ static void XOcp_DmeRestoreXppuDefaultConfig(void)
  *		- XST_FAILURE - Upon failure
  *
  ******************************************************************************/
-int XOcp_StoreSwPcrConfig(u32 *Pload, u32 Len)
+static int XOcp_StoreSwPcrConfig(u32 *Pload, u32 Len)
 {
 	volatile int Status = XST_FAILURE;
 	XOcp_SwPcrConfig *SwPcrConfig = XOcp_GetSwPcrConfigInstance();
@@ -1027,18 +1184,6 @@ int XOcp_StoreSwPcrConfig(u32 *Pload, u32 Len)
 
 	SwPcrConfig->IsPcrConfigReceived = TRUE;
 
-	Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_FOR_ROM_DIGEST,
-			XOCP_SW_PCR_MEASUREMENT_IDX_ROM_PLM,
-			(u64)(UINTPTR)PMC_GLOBAL_ROM_VALIDATION_DIGEST_0,
-			XOCP_PCR_HASH_SIZE_IN_BYTES, FALSE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_FOR_PLM_DIGEST,
-			XOCP_SW_PCR_MEASUREMENT_IDX_ROM_PLM,
-			(u64)(UINTPTR)PMC_GLOBAL_PMC_FW_HASH_0,
-			XOCP_PCR_HASH_SIZE_IN_BYTES, FALSE);
 END:
 	return Status;
 }
@@ -1498,7 +1643,11 @@ static u32 XOcp_CountNumOfOnesInWord(u32 Num)
  ******************************************************************************/
 static XOcp_SwPcrStore *XOcp_GetSwPcrInstance(void)
 {
-	static XOcp_SwPcrStore SwPcr = {0U};
+	static XOcp_SwPcrStore SwPcr __attribute__ ((aligned(4U))) = {0U};
+
+	EXPORT_OCP_DS(SwPcrConfig, XOCP_SWPCR_STORE_DS_ID,
+		XOCP_SWPCR_STORE_VERSION, XOCP_SWPCR_STORE_LCVERSION,
+		sizeof(SwPcr), (u32)(UINTPTR)&SwPcr);
 
 	return &SwPcr;
 }
@@ -1515,8 +1664,169 @@ static XOcp_SwPcrStore *XOcp_GetSwPcrInstance(void)
  ******************************************************************************/
 static XOcp_SwPcrConfig *XOcp_GetSwPcrConfigInstance(void)
 {
-	static XOcp_SwPcrConfig SwPcrConfig = {0U};
+	static XOcp_SwPcrConfig SwPcrConfig __attribute__ ((aligned(4U))) = {0U};
+
+	EXPORT_OCP_DS(SwPcrConfig, XOCP_SWPCR_CONFIG_DS_ID,
+		XOCP_SWPCR_CONFIG_VERSION, XOCP_SWPCR_CONFIG_LCVERSION,
+		sizeof(SwPcrConfig), (u32)(UINTPTR)&SwPcrConfig);
 
 	return &SwPcrConfig;
 }
-#endif /* PLM_OCP */
+
+/*****************************************************************************/
+/**
+ * @brief	This function reads secure efuse configuration
+ *
+ * @param EfuseConfig Pointer to XOcp_SecureConfig
+ *
+*****************************************************************************/
+static void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig)
+{
+	EfuseConfig->BootEnvCtrl = XPlmi_In32(XOCP_EFUSE_CACHE_BOOT_ENV_CTRL);
+	EfuseConfig->IpDisable1 = XPlmi_In32(XOCP_EFUSE_CACHE_IP_DISABLE_1);
+	EfuseConfig->SecMisc1 = XPlmi_In32(XOCP_EFUSE_CACHE_SECURITY_MISC_1);
+	EfuseConfig->Caher1 = XPlmi_In32(XOCP_EFUSE_CACHE_CAHER_1) &
+						XOCP_CAHER_1_MEASURED_MASK;
+	EfuseConfig->DecOnly = XPlmi_In32(XOCP_EFUSE_CACHE_SECURITY_MISC_0) &
+			XOCP_DEC_ONLY_MEASURED_MASK;
+	EfuseConfig->SecCtrl = XPlmi_In32(XOCP_EFUSE_CACHE_SECURITY_CONTROL) &
+			XOCP_SEC_CTRL_MEASURED_MASK;
+	EfuseConfig->BootmodeDis = XPlmi_In32(XOCP_PMC_LOCAL_BOOT_MODE_DIS) &
+			XOCP_PMC_LOCAL_BOOT_MODE_DIS_FULLMASK;
+	EfuseConfig->MiscCtrl = XPlmi_In32(XOCP_EFUSE_CACHE_MISC_CTRL) &
+			XOCP_MISC_CTRL_MEASURED_MASK;
+	EfuseConfig->AnlgTrim3 = XPlmi_In32(XOCP_EFUSE_CACHE_ANLG_TRIM_3);
+	EfuseConfig->DmeFips = XPlmi_In32(XOCP_EFUSE_CACHE_DME_FIPS) &
+			XOCP_DME_FIPS_MEASURED_MASK;
+	EfuseConfig->IPDisable0 = XPlmi_In32(XOCP_EFUSE_CACHE_IP_DISABLE_0) &
+			XOCP_IP_DISABLE0_MEASURED_MASK;
+	EfuseConfig->RomRsvd = XPlmi_In32(XOCP_EFUSE_CACHE_ROM_RSVD) &
+			XOCP_ROM_RSVD_MEASURED_MASK;
+	EfuseConfig->RoSwapEn = XPlmi_In32(XOCP_EFUSE_CACHE_RO_SWAP_EN);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function reads tap configuration
+ *
+ * @param TapConfig Pointer to XOcp_SecureTapConfig
+ *
+*****************************************************************************/
+static void XOcp_ReadTapConfig(XOcp_SecureTapConfig* TapConfig)
+{
+	TapConfig->DapCfg = Xil_In32(XOCP_PMC_TAP_DAP_CFG_OFFSET);
+	TapConfig->InstMask0 = Xil_In32(XOCP_PMC_TAP_INST_MASK_0_OFFSET);
+	TapConfig->InstMask1 = Xil_In32(XOCP_PMC_TAP_INST_MASK_1_OFFSET);
+	TapConfig->DapSecurity = Xil_In32(XOCP_PMC_TAP_DAP_SECURITY_OFFSET);
+	TapConfig->BootDevice = Xil_In32(CRP_BOOT_MODE_USER) &
+			CRP_BOOT_MODE_USER_BOOT_MODE_MASK;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function compares secure efuse configuration with previous configuration
+ *          and updates the configuration state
+ *
+ * @param	MeasureSecureConfig Flag to indicate secure efuse measurement
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+*****************************************************************************/
+static int XOcp_CheckAndUpdateSecConfigState(u32 *MeasureSecureConfig)
+{
+	int Status = XST_FAILURE;
+	XOcp_SecureConfig EfuseConfig;
+
+	Status = Xil_SMemCpy((void*)(UINTPTR)&EfuseConfig, sizeof(XOcp_SecureConfig), (void*)(UINTPTR)&SecureConfig,
+						sizeof(XOcp_SecureConfig), sizeof(XOcp_SecureConfig));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XOcp_ReadSecureConfig(&SecureConfig);
+
+	Status = Xil_SMemCmp((void*)(UINTPTR)&EfuseConfig, sizeof(XOcp_SecureConfig), (void*)(UINTPTR)&SecureConfig,
+						sizeof(XOcp_SecureConfig), sizeof(XOcp_SecureConfig));
+	if (Status != XST_SUCCESS) {
+		*MeasureSecureConfig = TRUE;
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function compares tap configuration with previous configuration
+ *          and updates the configuration state
+ *
+ * @param	MeasureTapConfig Flag to indicate tap configuration measurement
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+*****************************************************************************/
+static int XOcp_CheckAndUpdateTapConfigState(u32 *MeasureTapConfig)
+{
+	int Status = XST_FAILURE;
+	XOcp_SecureTapConfig TapConfig;
+
+	Status = Xil_SMemCpy((void*)(UINTPTR)&TapConfig, sizeof(XOcp_SecureTapConfig), (void*)(UINTPTR)&SecureTapConfig,
+						sizeof(XOcp_SecureTapConfig), sizeof(XOcp_SecureTapConfig));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XOcp_ReadTapConfig(&SecureTapConfig);
+
+	Status = Xil_SMemCmp((void*)(UINTPTR)&TapConfig, sizeof(XOcp_SecureTapConfig), (void*)(UINTPTR)&SecureTapConfig,
+						sizeof(XOcp_SecureTapConfig), sizeof(XOcp_SecureTapConfig));
+	if (Status != XST_SUCCESS) {
+		*MeasureTapConfig = TRUE;
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function calculates the hash of secure efuse and tap configuration
+ *           i.e. secure state
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+*****************************************************************************/
+static int XOcp_MeasureSecureState(void)
+{
+	int Status = XST_FAILURE;
+	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
+	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
+
+	Status = XSecure_Sha3Initialize(Sha3InstPtr, PmcDmaPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Calculate secure efuse configuration hash */
+	Status = XSecure_Sha3Digest(Sha3InstPtr, (UINTPTR)&SecureConfig, sizeof(XOcp_SecureConfig),
+					(XSecure_Sha3Hash*)(UINTPTR)&SecureStateHash.SecureConfigHash);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Calculate secure tap configuration hash */
+	Status = XSecure_Sha3Digest(Sha3InstPtr, (UINTPTR)&SecureTapConfig, sizeof(XOcp_SecureTapConfig),
+					(XSecure_Sha3Hash*)(UINTPTR)&SecureStateHash.TapConfigHash);
+
+END:
+	return Status;
+}
+#endif /* PLM OCP */
