@@ -138,9 +138,29 @@ def copy_file(src: str, dest: str, follow_symlinks: bool = False, silent_discard
     """
     is_file(src, silent_discard)
     try:
-        shutil.copy2(src, dest, follow_symlinks=follow_symlinks)
+        if is_dir(dest):
+            dest = os.path.join(dest, os.path.basename(src))
+        shutil.copyfile(src, dest, follow_symlinks=follow_symlinks)
+        change_permission(dest, 0o644)
     except Exception as e:
         assert silent_discard, e
+
+def change_permission(directory_path, permissions):
+    """
+    Recursively sets permissions for files under the specified path.
+    :param directory_path: The root directory path.
+    :param permissions: The desired permissions (e.g., 0o755 for read, write, and execute).
+    """
+    for root, dirs, files in os.walk(directory_path):
+        for dir_name in dirs:
+            dir_path = os.path.join(root, dir_name)
+            if os.path.isdir(dir_path):
+                change_permission(dir_path, permissions)
+
+        # Set permissions for files
+        for file_name in files:
+            file_path = os.path.join(root, file_name)
+            os.chmod(file_path, permissions)
 
 
 def copy_directory(src: str, dst: str, symlinks: bool = False, ignore=None) -> None:
@@ -161,10 +181,13 @@ def copy_directory(src: str, dst: str, symlinks: bool = False, ignore=None) -> N
         if is_dir(s):
             if is_dir(d):
                 copy_tree(s, d, symlinks)
+                change_permission(d, 0o644)
             else:
                 shutil.copytree(s, d, symlinks, ignore)
+                change_permission(d, 0o644)
         else:
-            shutil.copy2(s, d)
+            copy_file(s, d)
+            change_permission(d, 0o644)
 
 
 def reset(path: str) -> None:
