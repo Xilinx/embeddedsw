@@ -51,6 +51,7 @@
 *		kpt  08/03/2023 Added temporal check for XOcp_KeyInit
 * 1.10  am   01/31/2024 Fixed internal security review comments of XilOcp library
 *       kpt  02/21/2024 Add support to extend secure state
+*       jb   02/22/2024 Removed XPm_IdleRestartHandler from XPlmi_EmInit
 *
 * </pre>
 *
@@ -152,7 +153,7 @@ int XPlm_ModuleInit(void *Arg)
 		goto END;
 	}
 
-	Status = XPlmi_EmInit(XPm_SystemShutdown, XPm_IdleRestartHandler);
+	Status = XPlmi_EmInit(XPm_SystemShutdown);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

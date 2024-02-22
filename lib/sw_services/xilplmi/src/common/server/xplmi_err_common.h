@@ -66,6 +66,8 @@
 *                       define for Invalid Subsystem
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 * 1.11  ma   09/27/2023 Add secure lockdown to EAM error actions list
+*       jb   02/22/2024 Removed XPlmi_RestartHandler_t and added subsystem
+*			restart type and subtype
 *
 * </pre>
 *
@@ -108,6 +110,9 @@ extern "C" {
 
 /* Subsystem shutdown/restart related macros */
 #define XPLMI_SUBSYS_SHUTDN_TYPE_SHUTDN		(0U)
+#define XPLMI_SHUTDOWN_TYPE_RESET		(1U)
+
+#define XPLMI_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM	(0U)
 
 /* PLMI ERROR Management error codes */
 #define XPLMI_INVALID_ERROR_ID			(1)
@@ -154,8 +159,6 @@ typedef void (*XPlmi_ErrorHandler_t) (u32 ErrorNodeId, u32 RegMask);
 /* Pointer to Shutdown Handler Function */
 typedef s32 (*XPlmi_ShutdownHandler_t)(u32 SubsystemId, const u32 Type,
 		const u32 SubType, const u32 CmdType);
-/* Pointer to Subsystem Restart Handler Function */
-typedef s32 (*XPlmi_RestartHandler_t)(const u32 SubsystemId);
 
 /* Data Structure to hold Error Info */
 typedef struct {
@@ -222,8 +225,7 @@ static inline u8 XPlmi_NpiOutOfReset(void)
 }
 
 /************************** Function Prototypes ******************************/
-int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
-		  XPlmi_RestartHandler_t SubsystemRestart);
+int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown);
 int XPlmi_PsEmInit(void);
 int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler, const u32 SubsystemId);
