@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
 * 5.1   mus  02/13/23 Support example for each core of APU/RPU clusters in
 *                     VERSAL_NET SoC.
 * 5.2   mus  07/27/23 Removed dependency on XPAR_CPU_ID.
+* 5.2   ml   02/21/24 Fix compilation error reported by C++ compiler.
 * </pre>
 ******************************************************************************/
 
@@ -50,9 +51,7 @@
 #include "xil_types.h"
 #include "xscugic.h"
 #include "xil_util.h"
-#if defined (VERSAL_NET)
 #include "xplatform_info.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 
