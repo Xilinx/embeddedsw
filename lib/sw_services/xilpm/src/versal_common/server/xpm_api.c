@@ -4366,47 +4366,6 @@ done:
 	return Status;
 }
 
-/****************************************************************************/
-/**
- * @brief  This function can be used to send restart CPU idle callback to
- * 	   subsystem to idle cores before subsystem restart
- *
- * @param SubsystemId	Subsystem ID
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note  None
- *
- ****************************************************************************/
-XStatus XPm_IdleRestartHandler(const u32 SubsystemId)
-{
-	XStatus Status = XST_FAILURE;
-	const XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
-
-	if (NULL == Subsystem) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
-
-	if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
-		Status = XPmSubsystem_SetState(SubsystemId, (u8)PENDING_RESTART);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		Status = XPm_SubsystemIdleCores(Subsystem);
-
-		/* TODO: Need to add recovery handling if subsystem not responding */
-	} else {
-		Status = XPm_SystemShutdown(SubsystemId, PM_SHUTDOWN_TYPE_RESET,
-					    PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM,
-					    XPLMI_CMD_SECURE);
-	}
-
-done:
-	return Status;
-}
-
 static XStatus XPm_RequestHBMonDevice(const u32 SubsystemId, const u32 CmdType)
 {
 	u32 DeviceId;

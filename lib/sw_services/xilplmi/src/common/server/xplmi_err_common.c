@@ -134,6 +134,8 @@
 *       mss  10/31/2023 Added code to Trigger FW CR error in XPlmi_ErrMgr
 *       ma   11/14/2023 Update error action to NONE after disabling the error
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
+*       jb   02/22/2024 Removed PmSubsysRestart handler and insed used
+*			SystemShutdown for Subsystem restart EM action
 *
 * </pre>
 *
@@ -182,7 +184,6 @@
 /************************** Function Prototypes ******************************/
 static s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType,
 				const u32 CmdType);
-static s32 (* PmSubsysRestart)(const u32 SubsystemId);
 static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask);
@@ -640,7 +641,10 @@ static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask)
 		break;
 	case XPLMI_EM_ACTION_SUBSYS_RESTART:
 		XPlmi_Printf(DEBUG_GENERAL, "Subsystem Restart 0x%x\r\n", ErrorTable[ErrorId].SubsystemId);
-		Status = (*PmSubsysRestart)(ErrorTable[ErrorId].SubsystemId);
+		Status = (*PmSystemShutdown)(ErrorTable[ErrorId].SubsystemId,
+					XPLMI_SHUTDOWN_TYPE_RESET,
+					XPLMI_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM,
+					XPLMI_CMD_SECURE);
 		break;
 	default:
 		Status = XPLMI_INVALID_ERROR_ACTION;
@@ -1305,15 +1309,12 @@ END1:
  *
  * @param	SystemShutdown is the pointer to the PM system shutdown
  *		callback handler for action subtype system shutdown
- * @param	SubsystemRestart is pointer to the PM subsystem restart
- *		with CPU idle support handler for action subtype restart
  *
  * @return
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
-		  XPlmi_RestartHandler_t SubsystemRestart)
+int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
@@ -1325,7 +1326,7 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 	XPlmi_TaskNode *Task = NULL;
 
 	/** Checking both Arguments for NULL, If any one of it found to be NULL Major Error Code will be returned */
-	if (SystemShutdown == NULL || SubsystemRestart == NULL) {
+	if (SystemShutdown == NULL) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_EMINIT_INVALID_PARAM, Status);
 		goto END;
 	}
@@ -1343,7 +1344,6 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 	XPlmi_ErrModuleInit();
 
 	PmSystemShutdown = SystemShutdown;
-	PmSubsysRestart = SubsystemRestart;
 
 	/* In-Place Update is applicable only for versal_net */
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {

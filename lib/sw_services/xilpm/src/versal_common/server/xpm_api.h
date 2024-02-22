@@ -95,7 +95,6 @@ XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx);
 int XPm_ForcePwrDwnCb(void *Data);
 void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 		       const u32 NodeId, const u32 NodeState);
-XStatus XPm_IdleRestartHandler(const u32 SubsystemId);
 XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version);
 
 XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 Enable);
