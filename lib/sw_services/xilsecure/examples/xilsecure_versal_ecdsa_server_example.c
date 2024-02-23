@@ -45,10 +45,16 @@
 #include "xsecure_plat_kat.h"
 #endif
 
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 /************************** Constant Definitions *****************************/
 #define TEST_NIST_P384
 #define TEST_NIST_P521
+#define TEST_NIST_P256
 
+#define XSECURE_MINOR_ERROR_MASK 0xFFU
+#define XSECURE_ELLIPTIC_NON_SUPPORTED_CRV 0xC2U
 /************************** Function Prototypes ******************************/
 static void XSecure_ShowData(const u8* Data, u32 Len);
 #ifdef TEST_NIST_P384
@@ -57,7 +63,7 @@ static int XSecure_TestP384();
 #ifdef TEST_NIST_P521
 static int XSecure_TestP521();
 #endif
-#ifdef ECC_SUPPORT_NIST_P256
+#ifdef TEST_NIST_P256
 static int XSecure_TestP256();
 #endif
 
@@ -79,15 +85,25 @@ static int XSecure_TestP256();
 	xil_printf("Test P-521 curve started \r\n");
 	Status = XSecure_TestP521();
 	if (Status != XST_SUCCESS) {
-		goto END;
+		if((Status & XSECURE_MINOR_ERROR_MASK) == XSECURE_ELLIPTIC_NON_SUPPORTED_CRV) {
+			xil_printf("Ecdsa example failed for P-521 with Status:%08x\r\n", Status);
+		}
+		else {
+			goto END;
+		}
 	}
 #endif
 
-#ifdef ECC_SUPPORT_NIST_P256
+#ifdef TEST_NIST_P256
 	xil_printf("Test P-256 curve started \r\n");
 	Status = XSecure_TestP256();
 	if (Status != XST_SUCCESS) {
-		goto END;
+		if((Status & XSECURE_MINOR_ERROR_MASK) == XSECURE_ELLIPTIC_NON_SUPPORTED_CRV) {
+			xil_printf("Ecdsa example failed for P-256 with Status:%08x\r\n", Status);
+		}
+		else {
+			goto END;
+		}
 	}
 #endif
 
@@ -344,7 +360,7 @@ END:
 }
 #endif
 
-#ifdef ECC_SUPPORT_NIST_P256
+#ifdef TEST_NIST_P256
 int XSecure_TestP256()
 {
 	int Status = XST_FAILURE;

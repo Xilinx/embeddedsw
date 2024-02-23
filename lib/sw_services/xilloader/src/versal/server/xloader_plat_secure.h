@@ -27,6 +27,7 @@
 * 1.9   kpt  07/13/2023 Added mask generation function
 * 2.1   kpt  12/07/2023 Added XLOADER_SEC_KEY_CLEAR_FAILED_ERROR
 *       kpt  12/04/2023 Added XLoader_AesKekInfo
+*       yog  02/23/2024 Added XLOADER_SEC_CURVE_NOT_SUPPORTED error
 *
 * </pre>
 *
@@ -136,6 +137,8 @@ typedef enum {
 		/**<0x30 Secure KAT failed error */
 	XLOADER_SEC_KEY_CLEAR_FAILED_ERROR,
 		/**<0x31 Error when RED key clear failed */
+	XLOADER_SEC_CURVE_NOT_SUPPORTED,
+		/**<0x2C Error when ECC curve is not supported and trying to access */
 } XLoader_SecErrCodes;
 
 

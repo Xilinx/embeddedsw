@@ -29,6 +29,7 @@
 #       am   08/14/23 Errored out disallowed CPU modes
 #       vss  08/17/23 Fixed XilSecure doesn't work for Versal Client microblaze
 # 5.3   ng   09/26/23 Removed dead code
+#       yog  02/23/24 Added support to enable/disable P521 curve
 #
 ##############################################################################
 
@@ -260,7 +261,18 @@ proc xgen_opts_file {libhandle} {
 		set file_handle [hsi::utils::open_include_file "xparameters.h"]
 
 		puts $file_handle "\n/* ECC curve P-256 support */"
-		puts $file_handle "#define ECC_SUPPORT_NIST_P256\n"
+		puts $file_handle "#define XSECURE_ECC_SUPPORT_NIST_P256\n"
+
+		close $file_handle
+        }
+
+        set value [common::get_property CONFIG.xsecure_elliptic_p521_support $libhandle]
+	if {$value == true} {
+		#Open xparameters.h file
+		set file_handle [hsi::utils::open_include_file "xparameters.h"]
+
+		puts $file_handle "\n/* ECC curve P-521 support */"
+		puts $file_handle "#define XSECURE_ECC_SUPPORT_NIST_P521\n"
 
 		close $file_handle
         }

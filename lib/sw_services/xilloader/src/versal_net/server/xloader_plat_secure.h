@@ -29,6 +29,7 @@
 * 2.1   kpt  12/07/2023 Added XLOADER_SEC_KEY_CLEAR_FAILED_ERROR
 *       kpt  12/04/2023 Added XLoader_AesKekInfo
 *       kpt  02/21/2024 Added XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR
+*       yog  02/23/2024 Added XLOADER_SEC_CURVE_NOT_SUPPORTED error
 *
 * </pre>
 *
@@ -148,6 +149,8 @@ typedef enum {
 		/**<0x31 Error when RED key clear failed */
 	XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR,
 		/**<0x32 Error when secure state config measurement failed */
+	XLOADER_SEC_CURVE_NOT_SUPPORTED,
+		/**<0x2C Error when ECC curve is not supported and trying to access */
 } XLoader_SecErrCodes;
 
 /**< KEK info */

@@ -37,6 +37,7 @@
 #       kpt 07/12/23  Added xsecure_rsa_key_size_keywrap
 #       yog 07/19/23  Added xsecure_elliptic_p256_support parameter to enable/disable P256 curve
 # 5.3   ng  09/26/23  Updated library version for 2024.1
+#       yog 02/23/24  Added xsecure_elliptic_p521_support parameter to enable/disable P521 curve
 #
 ##############################################################################
 
@@ -64,4 +65,5 @@ BEGIN LIBRARY xilsecure
   PARAM name = xsecure_rsa_key_size_keywrap, desc = "RSA key size for key wrap operation \n this selection is only applicable for Versal Net", type = enum, values = (xsecure_rsa_key_size = "RSA_2048_KEY_SIZE",xsecure_rsa_key_size = "RSA_3072_KEY_SIZE", xsecure_rsa_key_size = "RSA_4096_KEY_SIZE"), default = "RSA_3072_KEY_SIZE";
   #deprecated parameters
   PARAM name = nonsecure_ipi_access, state = DEPRECATED, desc = "Deprecated in 2023.2 release", type = bool, default = false;
+  PARAM name = xsecure_elliptic_p521_support, desc = "Enables/Disables P-521 curve support", type = enum, values = (xsecure_elliptic_p521_support = "true", xsecure_elliptic_p521_support = "false"), default = "true";
 END LIBRARY
