@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -46,8 +46,11 @@ depends:
     sdi_common: []
 
 examples:
-    xuhdsdi_example/xuhdsdi_example.c:
+    xv_sdirxss_selftest_example.c:
+        - reg
+    xuhdsdi_example/xuhdsdi_example_a53.txt:
         - dependency_files:
+            - xuhdsdi_example/xuhdsdi_example.c
             - xuhdsdi_example/platform.c
             - xuhdsdi_example/platform.h
             - xuhdsdi_example/platform_config.h
@@ -57,8 +60,9 @@ examples:
             - xuhdsdi_example/xsdi_menu.h
             - xuhdsdi_example/lscript.ld
 
-    xuhdsdi_rx_example/xsdi_example.c:
+    xuhdsdi_rx_example/xuhdsdi_rx_example_a53.txt:
         - dependency_files:
+            - xuhdsdi_rx_example/xsdi_example.c
             - xuhdsdi_rx_example/platform.c
             - xuhdsdi_rx_example/platform.h
             - xuhdsdi_rx_example/platform_config.h
@@ -68,18 +72,19 @@ examples:
             - xuhdsdi_rx_example/xsdi_menu.h
             - xuhdsdi_rx_example/lscript.ld
 
-    vck190_av_pt/xuhdsdi_example.c:
+    vck190_av_pt/vck190_av_pt.txt:
         - dependency_files:
-            - vck190_av_pt/fzetta_fmc/fzetta_fmc_ctlr.c
-            - vck190_av_pt/fzetta_fmc/fzetta_fmc_ctlr.h
-            - vck190_av_pt/fzetta_fmc/fzetta_fmc_gpio.h
-            - vck190_av_pt/fzetta_fmc/fzetta_fmc_gpio.c
-            - vck190_av_pt/fzetta_fmc/fzetta_fmc_iic.h
-            - vck190_av_pt/fzetta_fmc/fzetta_fmc_iic.c
-            - vck190_av_pt/fzetta_fmc/fzetta_fmc_init_table.h
-            - vck190_av_pt/fzetta_fmc/fzetta_fmc_init_table.c
-            - vck190_av_pt/fzetta_fmc/fzetta_fmc_spi.h
-            - vck190_av_pt/fzetta_fmc/fzetta_fmc_spi.c
+            - vck190_av_pt/xuhdsdi_example.c
+            - vck190_av_pt/fzetta_fmc_ctlr.c
+            - vck190_av_pt/fzetta_fmc_ctlr.h
+            - vck190_av_pt/fzetta_fmc_gpio.h
+            - vck190_av_pt/fzetta_fmc_gpio.c
+            - vck190_av_pt/fzetta_fmc_iic.h
+            - vck190_av_pt/fzetta_fmc_iic.c
+            - vck190_av_pt/fzetta_fmc_init_table.h
+            - vck190_av_pt/fzetta_fmc_init_table.c
+            - vck190_av_pt/fzetta_fmc_spi.h
+            - vck190_av_pt/fzetta_fmc_spi.c
             - vck190_av_pt/platform.c
             - vck190_av_pt/platform.h
             - vck190_av_pt/platform_config.h
@@ -89,18 +94,19 @@ examples:
             - vck190_av_pt/idt_8t49n24x.h
             - vck190_av_pt/lscript.ld
 
-    kcu116_xuhdsdi_example/main.c:
+    kcu116_xuhdsdi_example/kcu116_xuhdsdi_example.txt:
         - dependency_files:
-            - kcu116_xuhdsdi_example/fzetta_fmc/fzetta_fmc_ctlr.c
-            - kcu116_xuhdsdi_example/fzetta_fmc/fzetta_fmc_ctlr.h
-            - kcu116_xuhdsdi_example/fzetta_fmc/fzetta_fmc_gpio.h
-            - kcu116_xuhdsdi_example/fzetta_fmc/fzetta_fmc_gpio.c
-            - kcu116_xuhdsdi_example/fzetta_fmc/fzetta_fmc_iic.h
-            - kcu116_xuhdsdi_example/fzetta_fmc/fzetta_fmc_iic.c
-            - kcu116_xuhdsdi_example/fzetta_fmc/fzetta_fmc_init_table.h
-            - kcu116_xuhdsdi_example/fzetta_fmc/fzetta_fmc_init_table.c
-            - kcu116_xuhdsdi_example/fzetta_fmc/fzetta_fmc_spi.h
-            - kcu116_xuhdsdi_example/fzetta_fmc/fzetta_fmc_spi.c
+            - kcu116_xuhdsdi_example/main.c
+            - kcu116_xuhdsdi_example/fzetta_fmc_ctlr.c
+            - kcu116_xuhdsdi_example/fzetta_fmc_ctlr.h
+            - kcu116_xuhdsdi_example/fzetta_fmc_gpio.h
+            - kcu116_xuhdsdi_example/fzetta_fmc_gpio.c
+            - kcu116_xuhdsdi_example/fzetta_fmc_iic.h
+            - kcu116_xuhdsdi_example/fzetta_fmc_iic.c
+            - kcu116_xuhdsdi_example/fzetta_fmc_init_table.h
+            - kcu116_xuhdsdi_example/fzetta_fmc_init_table.c
+            - kcu116_xuhdsdi_example/fzetta_fmc_spi.h
+            - kcu116_xuhdsdi_example/fzetta_fmc_spi.c
             - kcu116_xuhdsdi_example/si5324drv.c
             - kcu116_xuhdsdi_example/si5324drv.h
             - kcu116_xuhdsdi_example/lscript.ld

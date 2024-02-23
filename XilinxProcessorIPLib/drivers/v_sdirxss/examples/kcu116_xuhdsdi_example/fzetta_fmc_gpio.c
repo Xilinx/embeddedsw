@@ -42,6 +42,7 @@ unsigned char fmc_init_done_flag = 0;
 int fzetta_fmc_gpio_init(u8 Dev_ID)
 #else
 int fzetta_fmc_gpio_init(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	/*

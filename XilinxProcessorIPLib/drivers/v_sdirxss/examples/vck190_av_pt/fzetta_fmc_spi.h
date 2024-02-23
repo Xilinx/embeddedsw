@@ -35,7 +35,7 @@ typedef enum{
 	SPI_DRVR  = 0x02, //SDI Driver Device ID
 	SPI_RCVR  = 0x04, //Equalizer Device ID
 	DUMMY     = 0xFF  //Dummy
-}spi_slave_sel;
+} spi_slave_sel;
 
 #define SPI_WR       0x00 // Register Write
 #define SPI_RD       0x80 // Register Read

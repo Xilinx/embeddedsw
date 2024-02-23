@@ -32,12 +32,17 @@
 #include "xil_printf.h"
 #include "xil_types.h"
 #include "xstatus.h"
+#ifdef SDT
+#include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
 /* The unique device ID of the SDI Rx Subsystem instance to be used */
+#ifndef SDT
 #ifndef TESTAPP_GEN
 #define XV_SDIRXSS_DEVICE_ID	XPAR_XV_SDIRXSS_0_DEVICE_ID
+#endif
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -47,9 +52,11 @@
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 u32 SdiRxSs_SelfTestExample(u32 DeviceId);
-
+#else
+u32 SdiRxSs_SelfTestExample(UINTPTR BaseAddress);
+#endif
 /************************** Variable Definitions *****************************/
 
 XV_SdiRxSs SdiRxSsInst;	/* The SDI Rx Subsystem instance.*/
@@ -78,7 +85,11 @@ int main()
 	xil_printf("SDI RX Subsystem self test example\n\r");
 	xil_printf("---------------------------------\n\r\n\r");
 
+#ifndef SDT
 	Status = SdiRxSs_SelfTestExample(XV_SDIRXSS_DEVICE_ID);
+#else
+	Status = SdiRxSs_SelfTestExample(XPAR_XV_SDIRXSS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("SDI RX Subsystem self test example "
 			"failed\n\r");
@@ -108,13 +119,21 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 SdiRxSs_SelfTestExample(u32 DeviceId)
+#else
+u32 SdiRxSs_SelfTestExample(UINTPTR BaseAddress)
+#endif
 {
 	u32 Status;
 	XV_SdiRxSs_Config *ConfigPtr;
 
 	/* Obtain the device configuration for the SDI RX Subsystem */
+#ifndef SDT
 	ConfigPtr = XV_SdiRxSs_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XV_SdiRxSs_LookupConfig(BaseAddress);
+#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}

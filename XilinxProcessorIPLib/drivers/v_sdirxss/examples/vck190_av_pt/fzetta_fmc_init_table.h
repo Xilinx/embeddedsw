@@ -30,7 +30,7 @@
 typedef enum{
 	IIC_Dev = 0,
 	SPI_Dev
-}fzetta_dev_type;
+} fzetta_dev_type;
 
 typedef struct {
 	fzetta_dev_type dev;
@@ -38,7 +38,7 @@ typedef struct {
 	spi_slave_sel 	slave_sel;
 	u8 				regaddr;
 	u8 				regdata;
-}fzetta_fmc_reglist;
+} fzetta_fmc_reglist;
 
 #define REGLIST_SIZE 25
 
@@ -53,7 +53,7 @@ typedef struct {
 	UINTPTR spi_dev_baseaddress;
 #endif
 	fzetta_fmc_reglist reglist[REGLIST_SIZE];
-}fzetta_fmc_reg;
+} fzetta_fmc_reg;
 
 extern fzetta_fmc_reglist rclkr_errata_id_80[2];
 extern fzetta_fmc_reglist rclkr_errata_id_81[5];
