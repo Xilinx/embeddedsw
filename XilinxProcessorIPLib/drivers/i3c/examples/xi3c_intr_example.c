@@ -181,7 +181,6 @@ int I3cMasterIntrExample(UINTPTR BaseAddress)
 
 	XI3c_SetStatusHandler(InstancePtr, Handler);
 
-	XI3c_ResetFifos(InstancePtr);
         Cmd.NoRepeatedStart = 1;        /**< Disable repeated start */
         Cmd.Tid = 0;
         Cmd.Pec = 0;
@@ -199,7 +198,6 @@ int I3cMasterIntrExample(UINTPTR BaseAddress)
 	/*
 	 * Set Max Write length
 	 */
-	XI3c_ResetFifos(InstancePtr);
 	TransferComplete = FALSE;
         Cmd.NoRepeatedStart = 0;
         Cmd.Tid = 0;
@@ -230,7 +228,6 @@ int I3cMasterIntrExample(UINTPTR BaseAddress)
 	/*
 	 * Set Max read length
 	 */
-	XI3c_ResetFifos(InstancePtr);
 	TransferComplete = FALSE;
         Cmd.NoRepeatedStart = 0;
         Cmd.Tid = 0;
@@ -271,7 +268,6 @@ int I3cMasterIntrExample(UINTPTR BaseAddress)
 	 * Send
 	 */
 	TransferComplete = FALSE;
-	XI3c_ResetFifos(InstancePtr);
 	Cmd.SlaveAddr = (u8)I3C_SLAVE_ADDR;
 	Cmd.NoRepeatedStart = 1;
 	Cmd.Tid = 0;
@@ -292,7 +288,6 @@ int I3cMasterIntrExample(UINTPTR BaseAddress)
 	 * Recv
 	 */
 	TransferComplete = FALSE;
-	XI3c_ResetFifos(InstancePtr);
 	Cmd.SlaveAddr = I3C_SLAVE_ADDR;
 	Cmd.NoRepeatedStart = 1;
 	Cmd.Tid = 0;

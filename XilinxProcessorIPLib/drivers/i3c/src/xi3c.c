@@ -59,7 +59,6 @@ void XI3C_BusInit(XI3c *InstancePtr)
 	/* Assert the arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	XI3c_ResetFifos(InstancePtr);
 	Cmd.SlaveAddr = XI3C_BROADCAST_ADDRESS;
 	Cmd.NoRepeatedStart = 1;
 	Cmd.Tid = 0;
@@ -73,7 +72,6 @@ void XI3C_BusInit(XI3c *InstancePtr)
 		return Status;
 	}
 
-	XI3c_ResetFifos(InstancePtr);
 	Cmd.SlaveAddr = XI3C_BROADCAST_ADDRESS;
 	Cmd.NoRepeatedStart = 1;
 	Cmd.Tid = 0;
@@ -86,7 +84,6 @@ void XI3C_BusInit(XI3c *InstancePtr)
 		return Status;
 	}
 
-	XI3c_ResetFifos(InstancePtr);
 	Cmd.SlaveAddr = XI3C_BROADCAST_ADDRESS;
 	Cmd.NoRepeatedStart = 1;
 	Cmd.Tid = 0;

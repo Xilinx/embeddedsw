@@ -131,8 +131,6 @@ int I3cMasterDaaExample(UINTPTR BaseAddress)
 	}
 	XI3c_CfgInitialize(InstancePtr, CfgPtr, CfgPtr->BaseAddress);
 
-	XI3c_ResetFifos(InstancePtr);
-
 	/*
 	 * Assign dynamic addresses to slave devices
 	 */
@@ -166,7 +164,6 @@ int I3cMasterDaaExample(UINTPTR BaseAddress)
 		/*
 		 * Send
 		 */
-		XI3c_ResetFifos(InstancePtr);
 		Cmd.SlaveAddr = Dynamic_Addr[Index];
 		Cmd.NoRepeatedStart = 1;
 		Cmd.Tid = 0;
@@ -181,7 +178,6 @@ int I3cMasterDaaExample(UINTPTR BaseAddress)
 		/*
 		 * Recv
 		 */
-		XI3c_ResetFifos(InstancePtr);
 		Cmd.SlaveAddr = Dynamic_Addr[Index];
 		Cmd.NoRepeatedStart = 1;
 		Cmd.Tid = 0;
