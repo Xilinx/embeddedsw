@@ -52,11 +52,13 @@ XI3c_Config XI3c_ConfigTable[XPAR_XI3C_NUM_INSTANCES] = {
 		(u16)XPAR_XI3C_0_DEVICE_ID, /* Device ID for instance */
 		(u32)XPAR_XI3C_0_BASEADDR,  /* Device base address */
 		(u32)XPAR_XI3C_0_I3C_CLK_FREQ_HZ /* Device input clock frequency */
+		(u32)XPAR_XI3C_0_RW_FIFO_DEPTH /* Read write fifo depth */
 	},
 	{
 		(u16)XPAR_XI3C_1_DEVICE_ID, /* Device ID for instance */
 		(u32)XPAR_XI3C_1_BASEADDR,  /* Device base address */
 		(u32)XPAR_XI3C_1_I3C_CLK_FREQ_HZ /* Device input clock frequency */
+		(u32)XPAR_XI3C_1_RW_FIFO_DEPTH /* Read write fifo depth */
 	}
 };
 /** @} */

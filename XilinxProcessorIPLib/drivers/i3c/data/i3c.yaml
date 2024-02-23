@@ -19,6 +19,8 @@ properties:
     description: Physical base address and size of the controller register map
   xlnx,axi-clk-freq:
       Input clock frequency
+  xlnx,wr-rd-fifo-depth:
+      Read write fifo depth
 
 config:
     - XI3c_Config
@@ -29,6 +31,7 @@ required:
     - interrupts
     - interrupt-parent
     - xlnx,axi-clk-freq
+    - xlnx,wr-rd-fifo-depth
 
 examples:
     xi3c_intr_example.c:
