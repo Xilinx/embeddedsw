@@ -148,7 +148,7 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 
 	Size = XSecure_EllipticGetCrvSize((XSecure_EllipticCrvTyp)CurveType);
 	if (Size == 0U) {
-		Status = XST_INVALID_PARAM;
+		Status = XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 		goto END;
 	}
 

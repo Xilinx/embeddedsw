@@ -86,6 +86,9 @@
 #include "xsecure_katclient.h"
 #include "xstatus.h"
 
+#ifdef SDT
+#include "xsecure_config.h"
+#endif
 /************************** Constant Definitions *****************************/
 #define XSECURE_LITTLE_ENDIAN 0
 #define XSECURE_BIG_ENDIAN 1
@@ -94,6 +97,7 @@
 			of XilSecure server mode ECC endainness selection */
 #define TEST_NIST_P384
 #define TEST_NIST_P521
+#define TEST_NIST_P256
 
 #define XSECURE_ECC_P384_SIZE_IN_BYTES	(48U)
 #define XSECURE_ECC_P521_SIZE_IN_BYTES	(66U)
@@ -110,7 +114,8 @@
 						XSECURE_ECC_P256_SIZE_IN_BYTES)
 #define XSECURE_SHARED_TOTAL_MEM_SIZE	(XSECURE_SHARED_MEM_SIZE + \
 					P521_KEY_SIZE + P521_KEY_SIZE)
-
+#define XSECURE_MINOR_ERROR_MASK	0xFFU
+#define XSECURE_ELLIPTIC_NON_SUPPORTED_CRV 0xC2U
 /************************** Variable Definitions *****************************/
 /* shared memory allocation */
 static u8 SharedMem[XSECURE_SHARED_TOTAL_MEM_SIZE] __attribute__((aligned(64U)))
@@ -181,7 +186,7 @@ static const u8 K_P521[] __attribute__ ((section (".data.K_P521"))) = {
 };
 #endif
 
-#ifdef ECC_SUPPORT_NIST_P256
+#ifdef TEST_NIST_P256
 static const u8 Hash_P256[] __attribute__ ((section (".data.Hash_P256"))) = {
 		0x71U, 0x84U, 0x79U, 0xC9U, 0x84U, 0x28U, 0x7CU, 0xAAU,
 		0x5CU, 0x0BU, 0xEDU, 0xEEU, 0xEDU, 0xFFU, 0x4BU, 0x29U,
@@ -267,7 +272,7 @@ static const u8 K_P521[] __attribute__ ((section (".data.K_P521"))) = {
 };
 #endif
 
-#ifdef ECC_SUPPORT_NIST_P256
+#ifdef TEST_NIST_P256
 static const u8 Hash_P256[] __attribute__ ((section (".data.Hash_P256"))) = {
 		0xD2U, 0x9CU, 0x67U, 0x49U, 0x1CU, 0xF3U, 0xC1U, 0xAEU,
 		0xF5U, 0x65U, 0x9AU, 0x92U, 0x96U, 0x3DU, 0x94U, 0x00U,
@@ -298,7 +303,7 @@ static int XSecure_TestP384(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R);
 #ifdef TEST_NIST_P521
 static int XSecure_TestP521(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R);
 #endif
-#ifdef ECC_SUPPORT_NIST_P256
+#ifdef TEST_NIST_P256
 static int XSecure_TestP256(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R);
 #endif
 
@@ -376,18 +381,28 @@ int main()
 
 	Status = XSecure_TestP521(&SecureClientInstance, Q, R);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		if((Status & XSECURE_MINOR_ERROR_MASK) == XSECURE_ELLIPTIC_NON_SUPPORTED_CRV) {
+			xil_printf("Ecdsa example failed for P-521 with Status:%08x\r\n", Status);
+		}
+		else {
+			goto END;
+		}
 	}
 #endif
 
-#ifdef ECC_SUPPORT_NIST_P256
+#ifdef TEST_NIST_P256
 	xil_printf("Test P-256 curve started \r\n");
 	Q = &SharedMem[0U];
 	R = &Q[P256_KEY_SIZE];
 
 	Status = XSecure_TestP256(&SecureClientInstance, Q, R);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		if((Status & XSECURE_MINOR_ERROR_MASK) == XSECURE_ELLIPTIC_NON_SUPPORTED_CRV) {
+			xil_printf("Ecdsa example failed for P-256 with Status:%08x\r\n", Status);
+		}
+		else {
+			goto END;
+		}
 	}
 #endif
 
@@ -597,7 +612,7 @@ END:
 *		- XST_FAILURE if the test for elliptic curve P-256 failed.
 *
 ******************************************************************************/
-#ifdef ECC_SUPPORT_NIST_P256
+#ifdef TEST_NIST_P256
 int XSecure_TestP256(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R)
 {
 	int Status = XST_FAILURE;

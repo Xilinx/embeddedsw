@@ -13,7 +13,12 @@ endif()
 
 option(XILSECURE_elliptic_p256_support "Enables/Disables P-256 curve support" OFF)
 if(XILSECURE_elliptic_p256_support)
-  set(ECC_SUPPORT_NIST_P256 " ")
+  set(XSECURE_ECC_SUPPORT_NIST_P256 " ")
+endif()
+
+option(XILSECURE_elliptic_p521_support "Enables/Disables P-521 curve support" ON)
+if(XILSECURE_elliptic_p521_support)
+  set(XSECURE_ECC_SUPPORT_NIST_P521 " ")
 endif()
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")

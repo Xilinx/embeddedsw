@@ -126,6 +126,7 @@
 *       ng   12/27/23 Reduced log level for less frequent prints
 *       ng   01/28/24 u8 variables optimization
 *       kpt  02/08/24 Added support to extend secure state to SWPCR during AuthJtag
+*       yog  02/23/24 Added support to return error when P-521 curve is disabled.
 *
 * </pre>
 *
@@ -1071,7 +1072,7 @@ static int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 #else
 
 		XPlmi_Printf(DEBUG_INFO, "RSA code is excluded\n\r");
-		XPlmi_UpdateStatus(XLOADER_ERR_RSA_NOT_ENABLED, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_RSA_NOT_ENABLED, 0U);
 		goto END;
 #endif
 	}
@@ -1083,19 +1084,25 @@ static int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 			XLOADER_ECDSA_P384_KEYSIZE, Signature);
 #else
 		XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
-		XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
 		goto END;
 #endif
 	}
 	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
 #ifndef PLM_ECDSA_EXCLUDE
+#ifdef XSECURE_ECC_SUPPORT_NIST_P521
 		/* ECDSA P521 authentication */
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_EcdsaSignVerify,
 			XSECURE_ECC_NIST_P521, Hash, (u8 *)Key->PubModulus,
 			XLOADER_ECDSA_P521_KEYSIZE, Signature);
 #else
 		XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
-		XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_CURVE_NOT_SUPPORTED, 0U);
+		goto END;
+#endif
+#else
+		XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
 		goto END;
 #endif
 	}
@@ -4011,7 +4018,7 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 	}
 	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
 		AuthKatMask = XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK;
-#ifndef PLM_ECDSA_EXCLUDE
+#if !defined(PLM_ECDSA_EXCLUDE) && defined(XSECURE_ECC_SUPPORT_NIST_P521)
 		CrvClass = XSECURE_ECC_PRIME;
 #endif
 	}
@@ -4046,11 +4053,26 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 #endif
 
 		}
-		else if ((AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
-			(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
+		else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
 #ifndef PLM_ECDSA_EXCLUDE
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
 					XSecure_EllipticVerifySignKat, CrvClass);
+#else
+                        XPlmi_Printf(DEBUG_GENERAL, "ECDSA code is excluded\n\r");
+                        Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
+                        goto END;
+#endif
+		}
+		else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
+#ifndef PLM_ECDSA_EXCLUDE
+#ifdef XSECURE_ECC_SUPPORT_NIST_P521
+			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
+					XSecure_EllipticVerifySignKat, CrvClass);
+#else
+			XPlmi_Printf(DEBUG_GENERAL, "ECDSA code is excluded\n\r");
+                        Status = XLoader_UpdateMinorErr(XLOADER_SEC_CURVE_NOT_SUPPORTED, 0U);
+                        goto END;
+#endif
 #else
                         XPlmi_Printf(DEBUG_GENERAL, "ECDSA code is excluded\n\r");
                         Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
