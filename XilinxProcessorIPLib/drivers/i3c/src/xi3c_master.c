@@ -103,10 +103,9 @@ s32 XI3c_SendTransferCmd(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 Data)
 
 	XI3c_FillCmdFifo(InstancePtr, Cmd);
 
-	if (Cmd->NoRepeatedStart) {
-		if (XI3c_GetResponse(InstancePtr))
-			return XST_SEND_ERROR;
-	}
+	if (XI3c_GetResponse(InstancePtr))
+		return XST_SEND_ERROR;
+
 	return XST_SUCCESS;
 }
 
@@ -349,18 +348,18 @@ s32 XI3c_MasterRecvPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, s32 Byte
 	 */
 	XI3c_FillCmdFifo(InstancePtr, Cmd);
 
-	if (XI3c_GetResponse(InstancePtr)) {
-		return XST_RECV_ERROR;
-	} else {
-		while(InstancePtr->RecvByteCount > 0) {
-			RxDataAvailable = XI3c_RdFifoLevel(InstancePtr);
+	while (InstancePtr->RecvByteCount > 0) {
+		RxDataAvailable = XI3c_RdFifoLevel(InstancePtr);
 
-			for (DataIndex = 0; (DataIndex < RxDataAvailable) && (InstancePtr->RecvByteCount > 0); DataIndex++) {
-				XI3c_ReadRxFifo(InstancePtr);
-			}
+		for (DataIndex = 0; (DataIndex < RxDataAvailable) && (InstancePtr->RecvByteCount > 0); DataIndex++) {
+			XI3c_ReadRxFifo(InstancePtr);
 		}
-		return XST_SUCCESS;
 	}
+
+	if (XI3c_GetResponse(InstancePtr))
+		return XST_RECV_ERROR;
+	else
+		return XST_SUCCESS;
 }
 
 /*****************************************************************************/
