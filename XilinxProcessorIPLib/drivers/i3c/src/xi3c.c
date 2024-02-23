@@ -142,7 +142,13 @@ s32 XI3c_CfgInitialize(XI3c *InstancePtr, XI3c_Config *ConfigPtr,
 #endif
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
-	InstancePtr->Config.WrThreshold = XI3C_THRESHOLD_BYTECOUNT;	/**< Currently Write threshold value is static, expected to get parameter from design */
+	InstancePtr->Config.RwFifoDepth = ConfigPtr->RwFifoDepth;
+
+	/*
+	 * Write fifo threshold calculated from RwFifoDepth,
+	 * expected to get direct parameter from design
+	 */
+	InstancePtr->Config.WrThreshold = (ConfigPtr->RwFifoDepth - 3) * WORD_TO_BYTE;
 
 	/*
 	 * Indicate the instance is now ready to use, initialized without error

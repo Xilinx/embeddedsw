@@ -84,12 +84,12 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XI3C_THRESHOLD_BYTECOUNT	52
 #define XI3C_MAXDAACOUNT		108
 #define XI3C_MAXDATA_LENGTH		4096
 #define XI3C_SLAVEINFO_READ_BYTECOUNT	9
 #define TIMEOUT_COUNTER			2000000U /**< Wait for 2 sec in worst case */
 #define XI3C_BROADCAST_ADDRESS		0x7E
+#define WORD_TO_BYTE			4
 
 /* Broadcast commands */
 #define XI3C_CCC_BRDCAST_ENEC		0x0
@@ -528,6 +528,7 @@ typedef struct {
 				 * Parent base address */
 #endif
 	u32 InputClockHz;	/**< Input clock frequency */
+	u8 RwFifoDepth;		/**< Read and write fifo depth */
 	u8 WrThreshold;		/**< Write fifo programmable threshold byte count */
 } XI3c_Config;
 
