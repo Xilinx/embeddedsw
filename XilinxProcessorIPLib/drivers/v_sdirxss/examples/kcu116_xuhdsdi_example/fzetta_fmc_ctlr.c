@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -77,13 +77,14 @@ int fzetta_fmc_ip_init(){
  *
  ******************************************************************************/
 
-int fzetta_fmc_register_write(fzetta_dev_type *Dev, u8 *Channel, spi_slave_sel *Slave_Sel, u8 *RegAddr, u8 *RegData){
+int fzetta_fmc_register_write(fzetta_dev_type *Dev, u8 *Channel, spi_slave_sel *Slave_Sel, u8 *RegAddr, u8 *RegData)
+{
 	int Status = XST_SUCCESS;
 
-	if (*Dev == IIC_Dev){
+	if (*Dev == IIC_Dev) {
 		Status |= fzetta_fmc_iic_xbar_register_write(*RegAddr, *RegData);
 	}
-	else if (*Dev == SPI_Dev){
+	else if (*Dev == SPI_Dev) {
 		Status |= fzetta_fmc_spi_channel_select(*Channel);
 		Status |= fzetta_fmc_spi_devices_register_write(*Slave_Sel, *RegAddr, *RegData);
 	}
@@ -96,7 +97,6 @@ int fzetta_fmc_register_write(fzetta_dev_type *Dev, u8 *Channel, spi_slave_sel *
 	}
 	return XST_SUCCESS;
 }
-
 
 /*****************************************************************************/
 /**
@@ -114,14 +114,15 @@ int fzetta_fmc_register_write(fzetta_dev_type *Dev, u8 *Channel, spi_slave_sel *
  *
  ******************************************************************************/
 
-u8 fzetta_fmc_register_read(fzetta_dev_type Dev, u8 Channel, spi_slave_sel Slave_Sel, u8 RegAddr){
+u8 fzetta_fmc_register_read(fzetta_dev_type Dev, u8 Channel, spi_slave_sel Slave_Sel, u8 RegAddr)
+{
 	int Status = XST_SUCCESS;
 	u8 RegData;
 
-	if (Dev == IIC_Dev){
-		RegData= fzetta_fmc_iic_xbar_register_read(RegAddr);
+	if (Dev == IIC_Dev) {
+		RegData = fzetta_fmc_iic_xbar_register_read(RegAddr);
 	}
-	else if (Dev == SPI_Dev){
+	else if (Dev == SPI_Dev) {
 		Status |= fzetta_fmc_spi_channel_select(Channel);
 		RegData = fzetta_fmc_spi_devices_register_read(Slave_Sel, RegAddr);
 	}
@@ -147,7 +148,8 @@ u8 fzetta_fmc_register_read(fzetta_dev_type Dev, u8 Channel, spi_slave_sel Slave
  * @note	None.
  *
  ******************************************************************************/
-int fzetta_fmc_dev_init(fzetta_fmc_reg *fzetta_fmc_reg_init){
+int fzetta_fmc_dev_init(fzetta_fmc_reg *fzetta_fmc_reg_init)
+{
 	int i;
 	int Status = XST_SUCCESS;
 
@@ -159,7 +161,7 @@ int fzetta_fmc_dev_init(fzetta_fmc_reg *fzetta_fmc_reg_init){
 
     if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
-	}
+    }
 
     //Indicate init done by setting bit7 of GPIO out reg
     //fzetta_fmc_init_done();
@@ -167,8 +169,6 @@ int fzetta_fmc_dev_init(fzetta_fmc_reg *fzetta_fmc_reg_init){
 	return XST_SUCCESS;
 
 }
-
-
 
 /*****************************************************************************/
 /**
@@ -183,12 +183,13 @@ int fzetta_fmc_dev_init(fzetta_fmc_reg *fzetta_fmc_reg_init){
  *
  ******************************************************************************/
 
-int fzetta_fmc_dev_errata_init(){
+int fzetta_fmc_dev_errata_init()
+{
 	int i;
 	u8 ch, dev_id;
 	int Status = XST_SUCCESS;
 
-	for(ch=0; ch<4; ch++){
+	for (ch=0; ch<4; ch++) {
 
 		/*
 		 * Reclocker Errata Initialization
@@ -261,7 +262,6 @@ int fzetta_fmc_dev_errata_init(){
     //Indicate init done by setting bit7 of GPIO out reg
     fzetta_fmc_init_done();
 	return XST_SUCCESS;
-
 }
 
 /*****************************************************************************/
@@ -277,7 +277,8 @@ int fzetta_fmc_dev_errata_init(){
  *
  ******************************************************************************/
 
-int fzetta_fmc_stop(){
+int fzetta_fmc_stop()
+{
 	int Status = XST_SUCCESS;
 
 	Status |= XSpi_Stop(&fzetta_fmc_Spi);
@@ -305,7 +306,8 @@ int fzetta_fmc_stop(){
  ******************************************************************************/
 
 
-int fzetta_fmc_init(){
+int fzetta_fmc_init()
+{
    int Status = XST_SUCCESS;
 
    fzetta_fmc_table_init();

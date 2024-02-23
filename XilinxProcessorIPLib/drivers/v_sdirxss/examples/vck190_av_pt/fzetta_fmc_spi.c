@@ -41,11 +41,11 @@ XSpi fzetta_fmc_Spi; /* The instance of the SPI device */
  *
  ******************************************************************************/
 #ifndef SDT
-int fzetta_fmc_spi_init(u8 Dev_ID) {
+int fzetta_fmc_spi_init(u8 Dev_ID)
 #else
 int fzetta_fmc_spi_init(UINTPTR BaseAddress)
-{
 #endif
+{
 	int Status;
 	/*
 	 * Initialize the SPI driver so that it is  ready to use.
@@ -70,7 +70,7 @@ int fzetta_fmc_spi_init(UINTPTR BaseAddress)
 	 * transfer, this must be done before the slave select is set.
 	 */
 	Status = XSpi_SetOptions(&fzetta_fmc_Spi, XSP_MASTER_OPTION | XSP_MANUAL_SSELECT_OPTION);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
@@ -130,7 +130,7 @@ int fzetta_fmc_spi_devices_register_write(spi_slave_sel Slave_Sel, u8 RegAddr, u
    }
 
    int verify = 0;
-   if(verify){
+   if (verify) {
 	   WriteBuffer[1] = SPI_RD | RegAddr; //ADDR
 	   WriteBuffer[0] = SPI_DUMMY;     	  //DATA
 	   // Activate read transaction and send target address
@@ -221,6 +221,5 @@ u8 fzetta_fmc_spi_devices_register_read(u32 Slave_Sel, u8 RegAddr)
     if (Status != XST_SUCCESS) {
 	   return XST_FAILURE;
     }
-
    return ReadBuffer[0];
 }

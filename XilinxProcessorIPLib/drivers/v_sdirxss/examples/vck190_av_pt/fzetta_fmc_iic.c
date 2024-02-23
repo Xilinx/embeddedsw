@@ -158,7 +158,7 @@ u8 fzetta_fmc_iic_xbar_register_read(u8 RegAddr){
 	   while (((Status = XIic_ReadReg(fzetta_fmc_Iic.BaseAddress,
 	                           XIIC_SR_REG_OFFSET)) &
 	                           (XIIC_SR_RX_FIFO_EMPTY_MASK |
-	                           XIIC_SR_TX_FIFO_EMPTY_MASK |
+				    XIIC_SR_TX_FIFO_EMPTY_MASK |
 	                         XIIC_SR_BUS_BUSY_MASK)) !=
 	                         (XIIC_SR_RX_FIFO_EMPTY_MASK |
 	                           XIIC_SR_TX_FIFO_EMPTY_MASK)) {
@@ -170,7 +170,7 @@ u8 fzetta_fmc_iic_xbar_register_read(u8 RegAddr){
 		CntlReg = XIic_ReadReg(fzetta_fmc_Iic.BaseAddress,  XIIC_CR_REG_OFFSET);
 		CntlReg |= XIIC_CR_NO_ACK_MASK;
 		XIic_WriteReg(fzetta_fmc_Iic.BaseAddress,  XIIC_CR_REG_OFFSET, CntlReg);
-	   XIic_DynSend7BitAddress(fzetta_fmc_Iic.BaseAddress,XBAR_IIC_WRITE_ADDR, XIIC_READ_OPERATION);
+	   XIic_DynSend7BitAddress(fzetta_fmc_Iic.BaseAddress, XBAR_IIC_WRITE_ADDR, XIIC_READ_OPERATION);
 	   XIic_DynSendStop(fzetta_fmc_Iic.BaseAddress, 1);
 	   ReadBuffer[0] = XIic_ReadReg(fzetta_fmc_Iic.BaseAddress, XIIC_DRR_REG_OFFSET);
 

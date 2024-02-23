@@ -27,7 +27,7 @@
 #include "xparameters.h"
 #include "si5324drv.h"
 #include "xuartlite_l.h"
-#include "fzetta_fmc/fzetta_fmc_ctlr.h"
+#include "fzetta_fmc_ctlr.h"
 
 /************************** Constant Definitions *****************************/
 #ifndef SDT

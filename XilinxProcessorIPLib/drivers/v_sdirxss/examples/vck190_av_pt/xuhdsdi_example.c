@@ -37,7 +37,7 @@
 #include "xv_sdirxss.h"
 #include "xv_sditxss.h"
 #include "xscugic.h"
-#include "fzetta_fmc/fzetta_fmc_ctlr.h"
+#include "fzetta_fmc_ctlr.h"
 #ifdef XPAR_XSDIAUD_NUM_INSTANCES
 #include "xsdiaud_hw.h"
 #endif
@@ -1178,6 +1178,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
+#endif
 #endif
 	/* Initialize menu */
 	XSdi_MenuInitialize(&SdiMenu, XPAR_XUARTPSV_0_BASEADDR);
