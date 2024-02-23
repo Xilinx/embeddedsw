@@ -55,6 +55,8 @@
 *       am   01/31/2024 Moved key management operations under PLM_OCP_KEY_MNGMT
 *       kpt  02/13/2024 Add support to restore secure state config to SWPCR
 *                       after inplace plm update
+*       rama 02/23/2024 Changed PDI load status print to DEBUG_ALWAYS to support
+*                       XilSEM use case.
 *
 * </pre>
 *
@@ -179,7 +181,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	XPlmi_GetBootKatStatus((volatile u32*)&PdiInstPtr->PlmKatStatus);
 #endif
 
-	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Started***********\n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "***********Boot PDI Load: Started***********\n\r");
 
 	PdiInstPtr->PdiType = XLOADER_PDI_TYPE_FULL;
 	PdiInstPtr->IpiMask = 0U;
@@ -190,7 +192,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	}
 	/* Save Boot PDI info */
 	Xloader_SaveBootPdiInfo(PdiInstPtr);
-	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Done***********\n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "***********Boot PDI Load: Done***********\n\r");
 
 	/* Print ROM time and PLM time stamp */
 	XPlmi_PrintRomTime();
