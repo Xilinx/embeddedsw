@@ -1,0 +1,4 @@
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+
+Note: This Application is supported for A53 device SDI txss pixco designs.
