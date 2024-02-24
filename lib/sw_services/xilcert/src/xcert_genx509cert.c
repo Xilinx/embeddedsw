@@ -25,6 +25,7 @@
 *       kpt  10/26/2023 Add support to run KAT
 *       har  12/08/2023 Add support for Subject Alternative Name field
 * 1.2   am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
+*       kpt  02/21/2024 Add support for DME extension
 *
 * </pre>
 * @note
@@ -65,6 +66,8 @@ static const u8 Oid_EkuHwType[]		= {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U, 0x
 static const u8 Oid_BasicConstraintExtn[] = {0x06U, 0x03U, 0x55U, 0x1DU, 0x13U};
 static const u8 Oid_ExtnRequest[]	= {0x06U, 0x09U, 0x2AU, 0x86U, 0x48U, 0x86U, 0xF7U, 0x0DU, 0x01U, 0x09U, 0x0EU};
 static const u8 Oid_Sha3_384[]		= {0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U, 0x02U, 0x09U};
+static const u8 Oid_DmeExtn[] = {0x06U, 0x0AU, 0x2BU, 0x06U, 0x01U, 0x04U, 0x01U, 0x82U, 0x37U, 0x66U, 0x03U, 0x01U};
+static const u8 Oid_DmeStructExtn[] = {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U, 0x01U, 0x82U, 0x37U, 0x66U, 0x03U, 0x02U, 0x02};
 /** @} */
 
 /************************** Macro Definitions *****************************/
@@ -75,8 +78,6 @@ static const u8 Oid_Sha3_384[]		= {0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x6
 			/**< Length of Serial Field */
 #define XCERT_BIT7_MASK 				(0x80U)
 			/**< Mask to get bit 7*/
-#define XCERT_LOWER_NIBBLE_MASK				(0xFU)
-			/**< Mask to get lower nibble */
 #define XCERT_SIGN_AVAILABLE				(0x3U)
 			/**< Signature available in SignStore */
 #define XCERT_BYTE_MASK					(0xFFU)
@@ -116,6 +117,9 @@ static const u8 Oid_Sha3_384[]		= {0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x6
 #define XCERT_DNA_LEN_IN_WORDS				(4U)
 #define XCERT_DNA_LEN_IN_BYTES				(XCERT_DNA_LEN_IN_WORDS * XCERT_WORD_LEN)
 /** @} */
+
+#define XCERT_DME_PUB_KEY_X_0	    (0xF1115400U)	/**< DME public key X address */
+#define XCERT_DME_PUB_KEY_Y_0       (0xF1115430U)   /**< DME public key Y address */
 
 #define XCert_In32					(XPlmi_In32)
 			/**< Alias of XPlmi_In32 to be used in XilCert*/
@@ -164,6 +168,8 @@ static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u3
 static int XCert_GenBasicConstraintsExtnField(u8* CertReqInfoBuf, u32 *Len);
 static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *ExtensionsLen);
 static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *CertReqInfoLen);
+static int XCert_GenDmeExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeResponse *DmeResp);
+static int XCert_GenDmePublicKeyAndStructExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeChallenge *Dme);
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -1741,6 +1747,172 @@ END:
 
 /******************************************************************************/
 /**
+ * @brief	This function creates the DME extension field
+ *
+ * @param	CertReqInfoBuf is the pointer in the buffer where
+ *		the DME extension field shall be added.
+ * @param	Len is the length of the DME Extension field.
+ * @param   DmeResp is pointer to XCert_DmeResponse
+ *
+ * @note    DmeExtension ::= SEQUENCE {
+ *             dmePublicKey 	 	SubjectPublicKeyInfo,
+ *             dmeStructureFormat 	OBJECT IDENTIFIER,
+ *             dmeStructure 	 	OCTET STRING,
+ *             signatureAlgorithm 	AlgorithmIdentifier,
+ *             signatureValue 	 	BIT STRING,
+ *          }
+ * This extension shall be part of the CSR only and CSR will be generated
+ * only when DME response is generated.
+ *
+ ******************************************************************************/
+static int XCert_GenDmeExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeResponse *DmeResp)
+{
+	int Status = XST_FAILURE;
+	u8* Curr = CertReqInfoBuf;
+	u8* SequenceLenIdx;
+	u8* SequenceValIdx;
+	u8* DmeSequenceLenIdx;
+	u8* DmeSequenceValIdx;
+	u8* OctetStrLenIdx;
+	u8* OctetStrValIdx;
+	u32 OidLen;
+	u32 DmeStructFieldLen;
+	u32 SignAlgoLen;
+	u32 SignLen;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	SequenceLenIdx = Curr++;
+	SequenceValIdx = Curr;
+
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_DmeExtn,
+		sizeof(Oid_DmeExtn), &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + OidLen;
+
+	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
+	OctetStrLenIdx = Curr++;
+	OctetStrValIdx = Curr;
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	DmeSequenceLenIdx = Curr++;
+	DmeSequenceValIdx = Curr;
+
+	/* Generate DME structure extension field */
+	Status = XCert_GenDmePublicKeyAndStructExtnField(Curr, &DmeStructFieldLen, &DmeResp->Dme);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + DmeStructFieldLen;
+
+	/**
+	 * Generate Sign Algorithm field
+	 */
+	Status = XCert_GenSignAlgoField(Curr, &SignAlgoLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + SignAlgoLen;
+
+	/**
+	 * Generate Signature field
+	 */
+	Status = XCert_GenSignField(Curr, (u8*)DmeResp->DmeSignatureR, &SignLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + SignLen;
+
+	Status = XCert_UpdateEncodedLength(DmeSequenceLenIdx, (u32)(Curr - DmeSequenceValIdx), DmeSequenceValIdx);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + ((*DmeSequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+
+	Status = XCert_UpdateEncodedLength(OctetStrLenIdx, (u32)(Curr - OctetStrValIdx), OctetStrValIdx);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + ((*OctetStrLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+
+	Status = XCert_UpdateEncodedLength(SequenceLenIdx, (u32)(Curr - SequenceValIdx), SequenceValIdx);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+
+	*Len = (u32)(Curr - CertReqInfoBuf);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function creates the DME public key and structure extension field
+ *
+ * @param	CertReqInfoBuf is the pointer in the buffer where
+ *		the DME structure extension field shall be added.
+ * @param	Len is the length of the DME structure extension field.
+ * @param   Dme is pointer to XCert_DmeChallenge
+ *
+ * @note	This extension shall be part of the CSR only
+ *
+ ******************************************************************************/
+static int XCert_GenDmePublicKeyAndStructExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeChallenge *Dme)
+{
+	int Status = XST_FAILURE;
+	u8* Curr = CertReqInfoBuf;
+	u32 OidLen;
+	u32 FieldLen;
+	u8 DmePublicKey[XCERT_ECC_P384_PUBLIC_KEY_LEN] = {0U};
+
+	/* Reverse endianness of DME public key */
+	Status = Xil_SChangeEndiannessAndCpy(DmePublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN_IN_BYTES,
+				(const u8*)(UINTPTR)XCERT_DME_PUB_KEY_X_0, XCERT_ECC_P384_PUBLIC_KEY_LEN_IN_BYTES,
+				XCERT_ECC_P384_PUBLIC_KEY_LEN_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xil_SChangeEndiannessAndCpy(&DmePublicKey[XCERT_ECC_P384_PUBLIC_KEY_LEN_IN_BYTES],
+				XCERT_ECC_P384_PUBLIC_KEY_LEN_IN_BYTES, (const u8*)(UINTPTR)XCERT_DME_PUB_KEY_Y_0,
+				XCERT_ECC_P384_PUBLIC_KEY_LEN_IN_BYTES, XCERT_ECC_P384_PUBLIC_KEY_LEN_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Generate DME Public Key Info field
+	 */
+	Status = XCert_GenPublicKeyInfoField(Curr, (u8*)(UINTPTR)DmePublicKey, &FieldLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + FieldLen;
+
+	/* Generate DME struct extension */
+	Status = XCert_CreateRawDataFromByteArray(Curr, Oid_DmeStructExtn,
+		sizeof(Oid_DmeStructExtn), &OidLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + OidLen;
+
+	Status = XCert_CreateOctetString(Curr, (const u8*)(UINTPTR)Dme, sizeof(XCert_DmeChallenge), &FieldLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + FieldLen;
+	*Len = (u32)(Curr - CertReqInfoBuf);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
  * @brief	This function creates the X.509 v3 extensions field present in
  * 		TBS Certificate.
  *
@@ -1808,10 +1980,35 @@ static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Ex
 	}
 	Curr = Curr + Len;
 
-	*SetLenIdx = (u8)(Curr - SetValIdx);
-	*ExtnReqSeqLenIdx = (u8)(Curr - ExtnReqSeqValIdx);
-	*OptionalTagLenIdx = (u8)(Curr - OptionalTagValIdx);
-	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
+	Status = XCert_GenDmeExtnField(Curr, &Len, Cfg->AppCfg.DmeResp);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + Len;
+
+	Status = XCert_UpdateEncodedLength(SequenceLenIdx, (u32)(Curr - SequenceValIdx), SequenceValIdx);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+
+	Status = XCert_UpdateEncodedLength(SetLenIdx, (u32)(Curr - SetValIdx), SetValIdx);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + ((*SetLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+
+	Status = XCert_UpdateEncodedLength(ExtnReqSeqLenIdx, (u32)(Curr - ExtnReqSeqValIdx), ExtnReqSeqValIdx);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + ((*ExtnReqSeqLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+
+	Status = XCert_UpdateEncodedLength(OptionalTagLenIdx, (u32)(Curr - OptionalTagValIdx), OptionalTagValIdx);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + ((*OptionalTagLenIdx) & XCERT_LOWER_NIBBLE_MASK);
 	*ExtensionsLen = (u32)(Curr - CertReqInfoBuf);
 
 END:

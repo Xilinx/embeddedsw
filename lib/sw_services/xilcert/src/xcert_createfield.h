@@ -19,6 +19,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   har  01/09/2023 Initial release
 * 1.2   am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
+*       kpt  02/21/2024 Added support for DME extension
 *
 * </pre>
 * @note
@@ -76,6 +77,8 @@ extern "C" {
 						/**< Value of Boolean FALSE */
 #define XCERT_LEN_OF_VERSION_FIELD					(0x3U)
 						/**< Length of Version field */
+#define XCERT_LOWER_NIBBLE_MASK				(0xFU)
+			/**< Mask to get lower nibble */
 
 /************************** Function Prototypes ******************************/
 int XCert_CreateInteger(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32 *FieldLen);
