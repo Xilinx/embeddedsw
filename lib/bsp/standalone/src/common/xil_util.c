@@ -1,7 +1,7 @@
 /******************************************************************************/
 /**
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -89,6 +89,8 @@
 * 9.0   ml       04/26/23 Updated code to fix DC.STRING BUFFER and VARARGS coverity warnings.
 * 9.0   ml       09/13/23 Replaced numerical types (int) with proper typedefs(s32) to
 *                         fix MISRA-C violations for Rule 4.6
+* 9.1   kpt      02/21/24 Added Xil_SChangeEndiannessAndCpy function
+*
 * </pre>
 *
 *****************************************************************************/
@@ -1355,6 +1357,55 @@ s32 Xil_SecureRMW32(UINTPTR Addr, u32 Mask, u32 Value)
 
 	if (ReadReg == (Mask & Value)) {
 		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function changes the endianness of source data and copies it
+ *          into destination buffer.
+ *
+ * @param	Dest      - Pointer to destination memory
+ * @param	DestSize  - Memory available at destination
+ * @param	Src       - Pointer to source memory
+ * @param	SrcSize   - Maximum data that can be copied from source
+ * @param	CopyLen   - Number of bytes to be copied
+ *
+ * @return
+ *		XST_SUCCESS - Copy is successful
+ * 		XST_INVALID_PARAM - Invalid inputs
+ *      XST_FAILURE       - On failure
+ *
+ *****************************************************************************/
+s32 Xil_SChangeEndiannessAndCpy(void *Dest, const u32 DestSize,
+		const void *Src, const u32 SrcSize, const u32 CopyLen)
+{
+	s32 Status = XST_FAILURE;
+	volatile u32 Index;
+	const u8 *Src8 = (const u8 *) Src;
+	const u8 *Dst8 = (u8 *) Dest;
+	u8 *DestTemp = Dest;
+	const u8 *SrcTemp = Src;
+
+	if ((Dest == NULL) || (Src == NULL)) {
+		Status =  XST_INVALID_PARAM;
+	} else if ((CopyLen == 0U) || (DestSize < CopyLen) || (SrcSize < CopyLen)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	/* Return error for overlap string */
+	else if ((Src8 < Dst8) && (&Src8[CopyLen - 1U] >= Dst8)) {
+		Status =  XST_INVALID_PARAM;
+	} else if ((Dst8 < Src8) && (&Dst8[CopyLen - 1U] >= Src8)) {
+		Status =  XST_INVALID_PARAM;
+	} else {
+		for (Index = 0U; Index < CopyLen; Index++) {
+			DestTemp[Index] = SrcTemp[CopyLen - Index - 1U];
+		}
+		if (Index == CopyLen) {
+			Status = XST_SUCCESS;
+		}
 	}
 
 	return Status;
