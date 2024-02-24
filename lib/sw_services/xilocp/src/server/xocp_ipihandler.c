@@ -23,6 +23,8 @@
 *       am   09/04/23 Cleared SharedSecretTmp array
 * 1.3   har  11/03/23 Moved out the support to handle SW PCR Config CDO to xocp_cmd.c
 *       am   01/31/24 Moved key Management operations under PLM_OCP_KEY_MNGMT macro
+*       kpt  02/24/24 Return error when DME response is already generated and DME request
+*                     is made
 *
 * </pre>
 *
@@ -239,6 +241,11 @@ static int XOcp_GenDmeRespIpi(u32 NonceAddrLow, u32 NonceAddrHigh,
 	volatile int Status = XST_FAILURE;
 	u64 NonceBufAddr = ((u64)NonceAddrHigh << 32U) | (u64)NonceAddrLow;
 	u64 DmeStructResAddr = ((u64)DmeStructResAddrHigh << 32U) | (u64)DmeStructResAddrLow;
+
+	if (XOcp_IsDmeChlAvail() != FALSE) {
+		Status = (int)XOCP_ERR_DME_RESP_ALREADY_GENERATED;
+		goto END;
+	}
 
 	Status = XOcp_GenerateDmeResponse(NonceBufAddr, DmeStructResAddr);
 	if (Status != XST_SUCCESS) {
