@@ -21,6 +21,7 @@
 * 1.1   am   08/18/2023 Added XCert_ErrorStatus enum
 * 1.2   har  12/08/2023 Add support for Subject Alternative Name field
 *       am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
+*       kpt  02/21/2024 Add support for DME extension
 *
 * </pre>
 *
@@ -59,6 +60,21 @@ extern "C" {
 #define XCERT_ECC_P384_PUBLIC_KEY_LEN				(96U)
 					/**< Length of ECC P-384 Public Key */
 
+#define XCERT_ECC_P384_PUBLIC_KEY_LEN_IN_BYTES      (48U)
+				/**< Length og ECC P-384 Public Key in bytes */
+
+#define XCERT_ECC_P384_SIZE_WORDS					(12U)
+	/**< Length of ECC P-384 Key in words */
+
+#define XCERT_DME_DEVICE_ID_SIZE_WORDS				(12U)
+	/**< Length of DME device id size in words */
+
+#define XCERT_DME_NONCE_SIZE_WORDS					(8U)
+	/**< Length of nonce in words */
+
+#define XCERT_DME_MEASURE_SIZE_WORDS				(12U)
+	/**< Length of DME measurement in words */
+
 /**************************** Type Definitions *******************************/
 typedef enum {
 	XCERT_ISSUER = 0U,	/**< 0U */
@@ -91,6 +107,24 @@ typedef struct {
 	XCert_SignStore SignStore; /**< Signature store */
 } XCert_InfoStore;
 
+/*
+ * DME
+ */
+typedef struct {
+	u32 DeviceID[XCERT_DME_DEVICE_ID_SIZE_WORDS];	/**< Device ID */
+	u32 Nonce[XCERT_DME_NONCE_SIZE_WORDS];		/**< Nonce */
+	u32 Measurement[XCERT_DME_MEASURE_SIZE_WORDS];	/**< Measurement */
+} XCert_DmeChallenge;
+
+/*
+ * DME response
+ */
+typedef struct {
+	XCert_DmeChallenge Dme;                         /**< DME challenge */
+	u32 DmeSignatureR[XCERT_ECC_P384_SIZE_WORDS];   /**< Signature comp R */
+	u32 DmeSignatureS[XCERT_ECC_P384_SIZE_WORDS];   /**< Signature comp S */
+} XCert_DmeResponse;
+
 typedef struct {
 	u32 IsSelfSigned;	/**< Flag to check if self-signed certificate */
 	u32 IsCsr;		/**< Flag to check if Certificate Signing Request */
@@ -98,6 +132,7 @@ typedef struct {
 	u8* IssuerPrvtKey;	/**< Issuer Private Key */
 	u8* IssuerPublicKey;	/**< Issuer Public Key */
 	u8* FwHash;		/**< Firmware Hash */
+	XCert_DmeResponse* DmeResp; /**< DME configuration */
 }XCert_AppCfg;
 
 typedef struct {

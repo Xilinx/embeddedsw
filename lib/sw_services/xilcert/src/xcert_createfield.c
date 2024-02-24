@@ -29,6 +29,7 @@
 * 1.2   pre  26/12/2023 Avoids infinite loop in XCert_GetTrailingZeroesCount
 *                       function
 *       am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
+*       kpt  02/21/2024 Added support for DME extension
 *
 * </pre>
 * @note
@@ -181,16 +182,24 @@ int XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStri
 {
 	int Status = XST_FAILURE;
 	u8* Curr = DataBuf;
+	u8* OctetStringLenIdx;
+	u8* OctetStringValIdx;
 
 	*(Curr++) = XCERT_ASN1_TAG_OCTETSTRING;
-	*(Curr++) = (u8)(OctetStringLen);
+	OctetStringLenIdx = Curr++;
+	OctetStringValIdx = Curr;
 
 	Status  = Xil_SMemCpy(Curr, OctetStringLen, OctetStringVal, OctetStringLen, OctetStringLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
 	Curr = Curr + OctetStringLen;
+
+	Status = XCert_UpdateEncodedLength(OctetStringLenIdx, (u32)(Curr - OctetStringValIdx), OctetStringValIdx);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + ((*OctetStringLenIdx) & XCERT_LOWER_NIBBLE_MASK);
 	*FieldLen = (u8)(Curr - DataBuf);
 
 END:
