@@ -74,6 +74,7 @@
 
 /***************************** Include Files *********************************/
 #include "xocp_client.h"
+#include "xocp_common.h"
 #include "xil_util.h"
 #include "xil_cache.h"
 #include "xparameters.h"
@@ -286,6 +287,10 @@ static int XOcp_GetX509DevIKCSR(XOcp_ClientInstance *OcpClientInsPtr)
 
 	Status = XOcp_GetX509Cert(OcpClientInsPtr, (u64)(UINTPTR)&DataX509);
 	if (Status != XST_SUCCESS) {
+		if ((Status & XOCP_API_ID_MASK) == XOCP_ERR_DME_RESP_NOT_GENERATED) {
+			xil_printf("\r\n DME extension is not available,");
+			Status = XST_SUCCESS;
+		}
 		xil_printf("Generation of DEV IK CSR failed\n\r");
 	}
 	else {

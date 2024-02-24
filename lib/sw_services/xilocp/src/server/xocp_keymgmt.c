@@ -29,6 +29,7 @@
 *       kpt  11/24/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *       ng   02/12/24 optimised u8 vars to u32 for size reduction
 *       am   02/14/24 Fixed internal security review comments
+*       kpt  02/21/24 Add support for DME CSR extension
 *
 * </pre>
 * @note
@@ -481,7 +482,12 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 			CertConfig.AppCfg.FwHash = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_PMC_FW_AUTH_HASH_0;
 		}
 		else {
-			CertConfig.AppCfg.IsCsr = TRUE;
+			if (XOcp_IsDmeChlAvail() != TRUE) {
+				Status = (int)XOCP_ERR_DME_RESP_NOT_GENERATED;
+				goto END;
+			}
+			CertConfig.AppCfg.IsCsr = (u8)TRUE;
+			CertConfig.AppCfg.DmeResp = (XCert_DmeResponse*)XOcp_GetDmeResponse();
 		}
 	}
 	else {

@@ -26,6 +26,7 @@
 *       kal  12/09/23 Added a check for DataAddr if size > 48 bytes for SWPCR
 *       am   01/31/24 Moved Key Management operations under PLM_OCP_KEY_MNGMT macro
 *       kpt  01/22/24 Added support to extend secure state into SWPCR
+*       kpt  02/21/24 Add support for DME CSR extension
 *
 * </pre>
 * @note
@@ -162,6 +163,9 @@ static XOcp_SecureConfig SecureConfig;
 
 /**< Secure tap configuration */
 static XOcp_SecureTapConfig SecureTapConfig;
+
+/*< DME challenge available */
+static u32 IsDmeChlAvail = FALSE;
 
 /************************** Function Definitions *****************************/
 
@@ -744,6 +748,21 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function returns pointer to XOcp_DmeResponse
+ *
+ * @return
+ *		- DmeRespone Pointer to XOcp_DmeResponse
+ *
+ ******************************************************************************/
+XOcp_DmeResponse* XOcp_GetDmeResponse(void)
+{
+	static XOcp_DmeResponse DmeResponse = {0U};
+
+	return &DmeResponse;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function generates the response to DME challenge request and
  *		configures the XPPU for requesting DME service
  *		to ROM.
@@ -768,8 +787,9 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	u32 *DevIkPubKey = (u32 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
 	u8 Sha3Hash[XOCP_SHA3_LEN_IN_BYTES];
 #endif
-	XOcp_DmeResponse DmeResponse = {0U};
-	XOcp_Dme *DmePtr = &DmeResponse.Dme;
+	XOcp_Dme RomDmeInput;
+	XOcp_DmeResponse *DmeResponse = XOcp_GetDmeResponse();
+	XOcp_Dme *DmePtr = &RomDmeInput;
 	XTrngpsx_Instance *TrngInstance = NULL;
 	u32 XppuEnabled = 0U;
 	u32 Index;
@@ -875,21 +895,16 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 		goto END;
 	}
 	/* Copy the contents to user DME response structure */
-	Status = Xil_SMemCpy(DmeResponse.DmeSignatureR,
-			XOCP_ECC_P384_SIZE_BYTES,
-			(const void *)(UINTPTR)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_R_0,
-			XOCP_ECC_P384_SIZE_BYTES,
-			XOCP_ECC_P384_SIZE_BYTES);
+	Status = Xil_SChangeEndiannessAndCpy((u8*)(UINTPTR)DmeResponse->DmeSignatureR, XOCP_ECC_P384_SIZE_BYTES,
+					(const u8 *)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_R_0, XOCP_ECC_P384_SIZE_BYTES,
+					XOCP_ECC_P384_SIZE_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = Xil_SMemCpy(DmeResponse.DmeSignatureS,
-			XOCP_ECC_P384_SIZE_BYTES,
-			(const void *)(UINTPTR)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_S_0,
-			XOCP_ECC_P384_SIZE_BYTES,
-			XOCP_ECC_P384_SIZE_BYTES);
-
+	Status = Xil_SChangeEndiannessAndCpy((u8*)(UINTPTR)DmeResponse->DmeSignatureS, XOCP_ECC_P384_SIZE_BYTES,
+					(const u8 *)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_S_0, XOCP_ECC_P384_SIZE_BYTES,
+					XOCP_ECC_P384_SIZE_BYTES);
 END:
 	XOcp_DmeRestoreXppuDefaultConfig();
 
@@ -899,15 +914,21 @@ END:
 	}
 
 	if (Status == XST_SUCCESS) {
-		Status = XPlmi_MemCpy64(DmeStructResAddr, (u64)(UINTPTR)&DmeResponse,
-			sizeof(DmeResponse));
+		Status = Xil_SMemCpy(&DmeResponse->Dme, sizeof(XOcp_Dme), DmePtr, sizeof(XOcp_Dme),
+					sizeof(XOcp_Dme));
 		if (Status != XST_SUCCESS) {
 			Status = Status | XOCP_DME_ERR;
 		}
+		Status = XPlmi_MemCpy64(DmeStructResAddr, (u64)(UINTPTR)DmeResponse,
+			sizeof(XOcp_DmeResponse));
+		if (Status != XST_SUCCESS) {
+			Status = Status | XOCP_DME_ERR;
+		}
+		IsDmeChlAvail = TRUE;
 	}
 RET:
 	if (Status != XST_SUCCESS) {
-		ClearStatus = XPlmi_MemSet((u64)(UINTPTR)&DmeResponse, 0U, sizeof(XOcp_DmeResponse));
+		ClearStatus = XPlmi_MemSet((u64)(UINTPTR)&RomDmeInput, 0U, sizeof(XOcp_Dme));
 		if (ClearStatus != XST_SUCCESS) {
 			Status = Status | XLOADER_SEC_BUF_CLEAR_ERR;
 		}
@@ -1037,6 +1058,16 @@ int XOcp_CheckAndExtendSecureState(void)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns the status of Dme challenge response
+ *
+ ******************************************************************************/
+u32 XOcp_IsDmeChlAvail(void)
+{
+	return IsDmeChlAvail;
 }
 
 /*****************************************************************************/

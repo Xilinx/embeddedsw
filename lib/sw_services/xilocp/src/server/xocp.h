@@ -22,6 +22,7 @@
 * 1.2   kal  05/28/2023 Added SW PCR extend and logging functions
 * 1.3   am   01/31/2024 Fixed wrong XOcp_ExtendSwPcr() prototype parameter
 * 1.3   kpt  01/22/2024 Added support to extend secure state into SWPCR
+*       kpt  02/21/2024 Add support for DME CSR extension
 *
 * </pre>
 *
@@ -190,6 +191,8 @@ int XOcp_GetSwPcrData(u64 Addr);
 int XOcp_GetSwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize);
 int XOcp_CheckAndExtendSecureState(void);
 int XOcp_MeasureSecureStateAndExtendSwPcr(void);
+XOcp_DmeResponse* XOcp_GetDmeResponse(void);
+u32 XOcp_IsDmeChlAvail(void);
 
 #ifdef __cplusplus
 }

@@ -26,6 +26,8 @@
 *       am   09/04/2023 Added XOCP_DICE_CDI_SEED_ZERO enum
 * 1.3   tri  10/09/2023 Added XOCP_ERR_CHUNK_BOUNDARY_CROSSED enum
 *       kpt  02/21/2024 Added error codes related to secure state
+*       kpt  02/21/2024 Added XOCP_ERR_DME_RESP_ALREADY_GENERATED and
+*                       XOCP_ERR_DME_RESP_NOT_GENERATED
 *
 * </pre>
 *
@@ -215,8 +217,12 @@ typedef enum {
 	XOCP_ERR_GLITCH_DETECTED,	/**< 0x27 Error glitch detected */
 	XOCP_ERR_CHUNK_BOUNDARY_CROSSED,	/**< 0x28 Error when command length crossed chunk boundary */
 	XOCP_ERR_SECURE_EFUSE_CONFIG,	/**< 0x29 Error when updating secure efuse configuration */
-	XOCP_ERR_SECURE_TAP_CONFIG,		/**< 0x30 Error when updating tap configuration */
-	XOCP_ERR_SECURE_STATE_MEASUREMENT	/**< 0x31 Error when calculating secure state hash */
+	XOCP_ERR_SECURE_TAP_CONFIG,		/**< 0x2A Error when updating tap configuration */
+	XOCP_ERR_SECURE_STATE_MEASUREMENT,	/**< 0x2B Error when calculating secure state hash */
+	XOCP_ERR_DME_RESP_ALREADY_GENERATED,	/**< 0x2C Error when DME challenge request is made
+	                                             when DME response is already generated */
+	XOCP_ERR_DME_RESP_NOT_GENERATED			/**< 0x2D Error when DME response not generated
+	                                             and CSR is requested */
 }XOcp_OcpErrorStatus;
 
 /***************** Macros (Inline Functions) Definitions *********************/
