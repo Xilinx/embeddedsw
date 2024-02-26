@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -91,6 +91,14 @@ extern "C" {
 #define XSECURE_SHA_TIMEOUT_MAX         (0x1FFFFU)
 
 #define XSECURE_HASH_SIZE_IN_BYTES      (48U)
+
+#define XSECURE_SHA3_HASH_LENGTH_IN_BITS		(384U)
+					/**< SHA 3 hash length in bits */
+
+#define XSECURE_SHA3_HASH_LENGTH_IN_WORDS		\
+					(XSECURE_SHA3_HASH_LENGTH_IN_BITS / 32U)
+					/**< SHA 3 hash length in words */
+
 /**
 * SHA3 padding type
 */

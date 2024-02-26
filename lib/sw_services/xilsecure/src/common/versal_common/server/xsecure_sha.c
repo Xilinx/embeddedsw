@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -67,11 +67,6 @@
 #include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
-#define XSECURE_SHA3_HASH_LENGTH_IN_BITS		(384U)
-					/**< SHA 3 hash length in bits */
-#define XSECURE_SHA3_HASH_LENGTH_IN_WORDS		\
-					(XSECURE_SHA3_HASH_LENGTH_IN_BITS / 32U)
-					/**< SHA 3 hash length in words */
 #define XSECURE_SHA3_START_NIST_PADDING_MASK		(0x06U)
 						/**< Nist Start padding masks */
 #define XSECURE_SHA3_END_NIST_PADDING_MASK		(0x80U)

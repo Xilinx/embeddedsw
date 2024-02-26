@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 * 5.2   ng    07/13/2023 Added SDT support
 *	vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
 *	vss  09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
+* 5.3	mb    02/23/2024 Updated HASH length to words in XPlmi_DmaXfr
 *
 * </pre>
 *
@@ -202,7 +203,7 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 		if (XST_SUCCESS == Status) {
 			XSecure_MakeSha3Free();
 			Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
-				XSECURE_HASH_SIZE_IN_BYTES, XPLMI_PMCDMA_0);
+				XSECURE_SHA3_HASH_LENGTH_IN_WORDS, XPLMI_PMCDMA_0);
 		}
 
 	}
@@ -260,7 +261,7 @@ static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd)
 			XSecure_MakeSha3Free();
 			/* Initiate and complete the DMA to DMA transfer */
 			Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
-				XSECURE_HASH_SIZE_IN_BYTES, XPLMI_PMCDMA_0);
+				XSECURE_SHA3_HASH_LENGTH_IN_WORDS, XPLMI_PMCDMA_0);
 		}
 	}
 	else{
