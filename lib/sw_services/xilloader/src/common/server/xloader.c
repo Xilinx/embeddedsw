@@ -644,6 +644,12 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		XLoader_ClearKatOnPPDI(PdiPtr, 0U);
 	}
 
+	Status = XilPdi_ReadIhtAndOptionalData(&PdiPtr->MetaHdr, PdiPtr->PdiType);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_READ_IHT_OPTIONAL_DATA, Status);
+		goto END;
+	}
+
 	/**
 	 * Read Image Header Table to know if authentication is enabled for
 	 * Meta header
@@ -662,11 +668,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 		SecureParams.SecureEn = (u8)TRUE;
 		SecureTempParams->SecureEn = (u8)TRUE;
-		Status = XilPdi_ReadIhtAndOptionalData(&PdiPtr->MetaHdr);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_READ_IHT_OPTIONAL_DATA, Status);
-			goto END;
-		}
+
 		Status = XilPdi_StoreDigestTable(&PdiPtr->MetaHdr);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_STORE_DIGEST_TABLE, Status);
@@ -730,17 +732,6 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	 * Read and verify image headers and partition headers
 	 */
 	if (SecureParams.SecureEn != (u8)TRUE) {
-		if (PdiPtr->PdiIndex == XLOADER_SBI_INDEX) {
-			/* Source address does not matter in slave boot mode and hence
-			 * making it zero
-			 */
-			Status = PdiPtr->MetaHdr.DeviceCopy(0U, XPLMI_PMCRAM_CHUNK_MEMORY,
-				(PdiPtr->MetaHdr.ImgHdrTbl.OptionalDataLen <<
-				XPLMI_WORD_LEN_SHIFT), 0U);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
-		}
 		/* Read IHT and PHT to structures and verify checksum */
 		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Image Headers\n\r",
 				PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs);
@@ -2059,5 +2050,75 @@ static int XLoader_ClearKeys(XilPdi * PdiPtr)
 	Status = XST_SUCCESS;
 #endif
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes PDI Instance pointer for extracting
+ *		Metaheader and OptionalData
+ *
+ * @param	PdiPtr		Pointer to PdiInstance
+ * @param	SrcAddr		Address of the PDI
+ * @param	DestAddr	Address of the destination buffer
+ * @param	DestSize	Size of the destination buffer
+ *
+ *		- XST_SUCCESS on success
+ *		- ErrorCode on failure
+ *
+ *****************************************************************************/
+int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr, u64 SrcAddr, u64 DestAddr, u32 DestSize)
+{
+	int Status = XST_FAILURE;
+	u32 IdString;
+	u64 MetaHdrOfst;
+
+	IdString = XPlmi_In64(SrcAddr + XIH_BH_IMAGE_IDENT_OFFSET);
+	if (IdString == XIH_BH_IMAGE_IDENT) {
+		PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL_METAHEADER;
+	}
+	else {
+		IdString = XPlmi_In64(SrcAddr + SMAP_BUS_WIDTH_LENGTH +
+				XIH_IHT_IDENT_STRING_OFFSET);
+		if (IdString == XIH_IHT_PPDI_IDENT_VAL) {
+			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL_METAHEADER;
+		}
+		else {
+			Status = XLOADER_ERR_INVALID_PDI_INPUT;
+			goto END;
+		}
+	}
+
+	Status = XPlmi_VerifyAddrRange(SrcAddr, SrcAddr + (XPLMI_WORD_LEN - 1U));
+	if (Status != XST_SUCCESS) {
+		Status = XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR;
+		goto END;
+	}
+
+	/** Check if Metaheader offset is pointing to a valid location */
+	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER) {
+		MetaHdrOfst = SrcAddr + (u64)XPlmi_In64(SrcAddr +
+				XIH_BH_META_HDR_OFFSET);
+
+		Status = XPlmi_VerifyAddrRange(MetaHdrOfst, MetaHdrOfst +
+				(XPLMI_WORD_LEN - 1U));
+		if (Status != XST_SUCCESS) {
+			Status = XLOADER_ERR_INVALID_METAHEADER_OFFSET;
+			goto END;
+		}
+	}
+
+	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + DestSize - 1U);
+	if (Status != XST_SUCCESS) {
+		Status = XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR;
+		goto END;
+	}
+
+	PdiPtr->IpiMask = Cmd->IpiMask;
+	/** Extract Metaheader using PdiInit */
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
+			XLOADER_PDI_SRC_DDR, SrcAddr);
+
+END:
 	return Status;
 }

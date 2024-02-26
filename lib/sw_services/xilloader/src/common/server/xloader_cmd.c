@@ -147,11 +147,6 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_CMD_IMGSTORE_PDIADDR_HIGH_INDEX		(1U)
 #define XLOADER_CMD_IMGSTORE_PDIADDR_LOW_INDEX		(2U)
 #define XLOADER_CMD_IMGSTORE_PDI_SIZE_INDEX		(3U)
-#define XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_HIGH_INDEX	(0U)
-#define XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX	(1U)
-#define XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_HIGH_INDEX	(2U)
-#define XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX	(3U)
-#define XLOADER_CMD_EXTRACT_METAHDR_DEST_SIZE_INDEX	(4U)
 #define XLOADER_CMD_GET_HANDOFF_PARAM_DESTADDR_HIGH_INDEX	(0U)
 #define XLOADER_CMD_GET_HANDOFF_PARAM_DESTADDR_LOW_INDEX	(1U)
 #define XLOADER_CMD_GET_HANDOFF_PARAM_DEST_SIZE_INDEX	(2U)
@@ -969,10 +964,10 @@ static void XLoader_GetExportableBuffer(u32 *Buffer, u32 MaskVal, u32 SizeVal)
  *  Command payload parameters are:
  *	- Source Buffer Low Address
  *	- Source Buffer High Address
- *	- Source Buffer Size
  *	- Destination Buffer Low Address
  *	- Destination Buffer High Address
  *	- Destination Buffer Size
+ *	- Data Id | Get Optional data flag | PdiSrc
  *
  * @param	Cmd is pointer to the command structure
  *
@@ -995,111 +990,75 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	u64 SrcAddr = (u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_HIGH_INDEX];
 	u64 DestAddr = (u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_HIGH_INDEX];
 	u32 DestSize = (u32)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DEST_SIZE_INDEX];
-	u32 IdString;
 	u32 DataSize;
 	u32 TotalDataSize = 0U;
-	u64 MetaHdrOfst;
 	u32 Index;
 
-	SrcAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX]) |
+	if((Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX] &
+		XLOADER_GET_OPT_DATA_FLAG) != XLOADER_GET_OPT_DATA_FLAG) {
+		SrcAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX]) |
 			(SrcAddr << 32U);
-	DestAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX]) |
-			(DestAddr << 32U);
+		DestAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX]) |
+				(DestAddr << 32U);
 
-	IdString = XPlmi_In64(SrcAddr + XIH_BH_IMAGE_IDENT_OFFSET);
-	if (IdString == XIH_BH_IMAGE_IDENT) {
-		PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL_METAHEADER;
+		Status = XLoader_InitPdiInstanceForExtractMHAndOptData(Cmd, PdiPtr, SrcAddr, DestAddr, DestSize);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		DataSize = (PdiPtr->MetaHdr.ImgHdrTbl.TotalHdrLen * XPLMI_WORD_LEN) +
+				XIH_IHT_LEN;
+		if (DestSize < DataSize) {
+			Status = XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE;
+			goto END;
+		}
+
+		/** Zeroize non-exportable fields of image header table */
+		XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.ImgHdrTbl,
+			XLOADER_IMG_HDR_TBL_EXPORT_MASK0, XIH_IHT_LEN);
+		/** Zeroize non-exportable fields of image headers */
+		for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs; Index++) {
+			XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.ImgHdr[Index],
+				XLOADER_IMG_HDR_EXPORT_MASK0, XIH_IH_LEN);
+		}
+		/** Zeroize non-exportable fields of partition headers */
+		for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns; Index++) {
+			XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.PrtnHdr[Index],
+				XLOADER_PRTN_HDR_EXPORT_MASK0, XIH_PH_LEN);
+		}
+
+		/** Copy image header table to destination address*/
+		DataSize = XIH_IHT_LEN;
+		Status = XPlmi_DmaXfr((u64)(UINTPTR)&PdiPtr->MetaHdr.ImgHdrTbl, DestAddr,
+				DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		TotalDataSize += DataSize;
+		DestAddr += DataSize;
+		/** Copy image headers to destination address*/
+		DataSize = XIH_IH_LEN * PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
+		Status = XPlmi_DmaXfr((u64)(UINTPTR)PdiPtr->MetaHdr.ImgHdr, DestAddr,
+				DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		TotalDataSize += DataSize;
+		DestAddr += DataSize;
+		/** Copy partition headers to destination address*/
+		DataSize = XIH_PH_LEN * PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns;
+		Status = XPlmi_DmaXfr((u64)(UINTPTR)PdiPtr->MetaHdr.PrtnHdr, DestAddr,
+				DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		TotalDataSize += DataSize;
+		XPlmi_Printf(DEBUG_INFO, "Extracted Metaheader Successfully\n\r");
 	}
 	else {
-		IdString = XPlmi_In64(SrcAddr + SMAP_BUS_WIDTH_LENGTH +
-				XIH_IHT_IDENT_STRING_OFFSET);
-		if (IdString == XIH_IHT_PPDI_IDENT_VAL) {
-			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL_METAHEADER;
-		}
-		else {
-			Status = XLOADER_ERR_INVALID_PDI_INPUT;
-			goto END;
-		}
+		TotalDataSize = DestSize;
+		Status = XLoader_ExtractOptionalData(Cmd, &TotalDataSize);
 	}
-
-	Status = XPlmi_VerifyAddrRange(SrcAddr, SrcAddr + (XPLMI_WORD_LEN - 1U));
-	if (Status != XST_SUCCESS) {
-		Status = XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR;
-		goto END;
-	}
-
-	/** Check if Metaheader offset is pointing to a valid location */
-	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER) {
-		MetaHdrOfst = SrcAddr + (u64)XPlmi_In64(SrcAddr +
-				XIH_BH_META_HDR_OFFSET);
-
-		Status = XPlmi_VerifyAddrRange(MetaHdrOfst, MetaHdrOfst +
-				(XPLMI_WORD_LEN - 1U));
-		if (Status != XST_SUCCESS) {
-			Status = XLOADER_ERR_INVALID_METAHEADER_OFFSET;
-			goto END;
-		}
-	}
-
-	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + DestSize - 1U);
-	if (Status != XST_SUCCESS) {
-		Status = XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR;
-		goto END;
-	}
-
-	PdiPtr->IpiMask = Cmd->IpiMask;
-	/** Extract Metaheader using PdiInit */
-	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
-			XLOADER_PDI_SRC_DDR, SrcAddr);
-
-	DataSize = (PdiPtr->MetaHdr.ImgHdrTbl.TotalHdrLen * XPLMI_WORD_LEN) +
-			XIH_IHT_LEN;
-	if (DestSize < DataSize) {
-		Status = XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE;
-		goto END;
-	}
-
-	/** Zeroize non-exportable fields of image header table */
-	XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.ImgHdrTbl,
-		XLOADER_IMG_HDR_TBL_EXPORT_MASK0, XIH_IHT_LEN);
-	/** Zeroize non-exportable fields of image headers */
-	for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs; Index++) {
-		XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.ImgHdr[Index],
-			XLOADER_IMG_HDR_EXPORT_MASK0, XIH_IH_LEN);
-	}
-	/** Zeroize non-exportable fields of partition headers */
-	for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns; Index++) {
-		XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.PrtnHdr[Index],
-			XLOADER_PRTN_HDR_EXPORT_MASK0, XIH_PH_LEN);
-	}
-
-	/** Copy image header table to destination address*/
-	DataSize = XIH_IHT_LEN;
-	Status = XPlmi_DmaXfr((u64)(UINTPTR)&PdiPtr->MetaHdr.ImgHdrTbl, DestAddr,
-			 DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	TotalDataSize += DataSize;
-	DestAddr += DataSize;
-	/** Copy image headers to destination address*/
-	DataSize = XIH_IH_LEN * PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
-	Status = XPlmi_DmaXfr((u64)(UINTPTR)PdiPtr->MetaHdr.ImgHdr, DestAddr,
-			DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	TotalDataSize += DataSize;
-	DestAddr += DataSize;
-	/** Copy partition headers to destination address*/
-	DataSize = XIH_PH_LEN * PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns;
-	Status = XPlmi_DmaXfr((u64)(UINTPTR)PdiPtr->MetaHdr.PrtnHdr, DestAddr,
-			DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	TotalDataSize += DataSize;
-	XPlmi_Printf(DEBUG_INFO, "Extracted Metaheader Successfully\n\r");
 
 END:
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;

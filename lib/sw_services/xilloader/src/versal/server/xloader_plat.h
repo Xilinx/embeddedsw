@@ -218,6 +218,15 @@ enum {
 	/** 0x23 - Invalid destination size for copying ATF Handoff Parameters */
 	XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE,
 
+	/** 0x24 - Optional data associated with provided data ID is not found */
+	XLOADER_ERR_OPT_DATA_NOT_FOUND,
+
+	/** 0x25 - Error when buffer size given by user is less than the optional data length */
+	XLOADER_ERR_INVALID_OPT_DATA_BUFF_SIZE,
+
+	/** 0x26 - Error when copy of optional data to destination buffer failed */
+	XLOADER_ERR_OPT_DATA_COPY_FAILED,
+
 	/* Platform specific Minor Error Codes start from 0x100 */
 };
 
@@ -388,6 +397,26 @@ static inline int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd)
 *****************************************************************************/
 static inline int XLoader_CheckAndUpdateSecureState(void)
 {
+	return XST_SUCCESS;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function gets optional data from the PDI available in DDR or
+ * 		Image Store and copies it in the destination buffer
+ *
+ * @param	Cmd is pointer to the command structure
+ * @param	TotalDataSize is size of destination buffer in bytes
+ *
+ * @return
+ *			 - XST_SUCCESS always
+ *
+ **************************************************************************************************/
+static inline int XLoader_ExtractOptionalData(XPlmi_Cmd* Cmd, u32 *TotalDataSize)
+{
+	(void)Cmd;
+	*TotalDataSize = 0U;
+	/* Not Applicable for Versal */
 	return XST_SUCCESS;
 }
 
