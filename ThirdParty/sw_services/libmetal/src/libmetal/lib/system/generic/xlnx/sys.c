@@ -72,43 +72,47 @@ void metal_weak metal_generic_default_poll(void)
 	metal_asm volatile("wfi");
 }
 
-
 /*
  * VERSAL_NET is used since XMpu_Config structure is
  * different for r52(versal net) and r5(zynqmp) to avoid build failure
  */
 #ifdef VERSAL_NET
 void *metal_machine_io_mem_map_versal_net(void *va, metal_phys_addr_t pa,
-			       size_t size, unsigned int flags)
+					  size_t size, unsigned int flags)
 {
 	void *__attribute__((unused)) physaddr;
-	u32 ReqEndAddr = pa + size;
-	XMpu_Config MpuConfig;
-	u32 ReqAddr = pa;
+	u32 req_end_addr = pa + size;
+	XMpu_Config mpu_config;
+	u32 req_addr = pa;
 	u32 mmap_req = 1;
-	u32 BaseEndAddr;
-	u32 Cnt;
+	u32 base_end_addr;
+	u32 cnt;
 
 	/* Get the MPU Config enties */
-	Xil_GetMPUConfig(MpuConfig);
+	Xil_GetMPUConfig(mpu_config);
 
-	for (Cnt = 0; (Cnt < MAX_POSSIBLE_MPU_REGS) && (MpuConfig[Cnt].flags & XMPU_VALID_REGION); Cnt++){
-		BaseEndAddr =  MpuConfig[Cnt].Size + MpuConfig[Cnt].BaseAddress;
+	for (cnt = 0; cnt < MAX_POSSIBLE_MPU_REGS; cnt++) {
 
-		if ( MpuConfig[Cnt].BaseAddress <= ReqAddr && BaseEndAddr >= ReqEndAddr){
+		if (!(mpu_config[cnt].flags & XMPU_VALID_REGION))
+			continue;
+
+		base_end_addr =  mpu_config[cnt].Size + mpu_config[cnt].BaseAddress;
+
+		if (mpu_config[cnt].BaseAddress <= req_addr && base_end_addr >= req_end_addr) {
 			/*
 			 * Mapping available for requested region in MPU table
-			 * If no change in Attribute for region then additional mapping in MPU table is not required
+			 * If no change in Attribute for region then additional
+			 * mapping in MPU table is not required
 			 */
-			if (MpuConfig[Cnt].Attribute == flags) {
-				mmap_req=0;
+			if (mpu_config[cnt].Attribute == flags) {
+				mmap_req = 0;
 				break;
 			}
 		}
 	}
 
 	/* if mapping is required we call Xil_MemMap to get the mapping done */
-	if (mmap_req == 1){
+	if (mmap_req == 1) {
 		physaddr = Xil_MemMap(pa, size, flags);
 		metal_assert(physaddr == (void *)pa);
 	}
