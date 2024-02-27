@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 2.3   aad    07/26/21 Fixed doxygen comments.
 * 3.0   cog    03/25/21 Driver Restructure
 * 4.1   cog    07/18/23 Add support for SDT flow
+* 4.2   cog    02/27/24 Fixed issue with XSysMonPsv_LookupConfig
 *
 * </pre>
 *
@@ -66,15 +67,8 @@ extern XSysMonPsv_Config XSysMonPsv_ConfigTable[]; /**< Config Table for
 XSysMonPsv_Config *XSysMonPsv_LookupConfig(void)
 {
 	XSysMonPsv_Config *CfgPtr = NULL;
-	u32 Index;
 
-#ifndef SDT
-        for (Index = 0U; Index < (u32)XPAR_XSYSMONPSV_NUM_INSTANCES; Index++) {
-                        CfgPtr = &XSysMonPsv_ConfigTable[Index];
-        }
-#else
 	CfgPtr = &XSysMonPsv_ConfigTable[0];
-#endif
 
 	return CfgPtr;
 }
