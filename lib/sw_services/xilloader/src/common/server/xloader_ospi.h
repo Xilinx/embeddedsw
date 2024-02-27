@@ -32,6 +32,7 @@
 *       bsv  08/31/2021 Code clean up
 *       bm   01/11/2023 Added support for Gigadevice 512M, 1G, 2G parts
 *       dd   02/08/2024 Added support for ISSI 512M
+*       sk   02/26/2024 Added defines for Spansion flash part
 *
 * </pre>
 *
@@ -65,6 +66,11 @@ extern "C" {
 #define WRITE_CONFIG2_REG_MX		(0x72U)
 #define READ_CONFIG2_REG_MX		(0x71U)
 #define READ_CMD_OPI_MX			(0xEEU)
+#define READ_CMD_OPI_SPN		(0xEEU)
+#define WRITE_CONFIG_REG_SPN		(0x71U)
+#define READ_CONFIG_REG_SPN		(0x65U)
+#define CONFIG_REG_4_ADDR_SPN		(0x800005U)
+#define CONFIG_REG_5_ADDR_SPN		(0x800006U)
 
 /*
  * Identification of Flash
@@ -93,6 +99,8 @@ extern "C" {
 #define GIGADEVICE_OCTAL_ID_BYTE0       (0xC8U) /* Gigadevice manufacture id */
 #define ISSI_OCTAL_ID_BYTE0             (0x9DU) /* ISSI manufacture id */
 #define MACRONIX_OCTAL_ID_BYTE0         (0xC2U) /* Macronix manufacture id */
+#define SPANSION_OCTAL_ID_BYTE0		(0x34U)  /* Spansion manufacture id */
+#define SPANSION_OCTAL_ID_BYTE2_2G	(0x1CU)  /* Spansion 2Gbit flash size */
 #define MICRON_OCTAL_ID_BYTE2_512       (0x1AU) /* Micron 512Mbit flash size */
 #define MICRON_OCTAL_ID_BYTE2_1G        (0x1BU) /* Micron 1Gbit flash size */
 #define MICRON_OCTAL_ID_BYTE2_2G        (0x1CU) /* Micron 2Gbit flash size */
@@ -108,6 +116,7 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLOADER_OSPI_MACRONIX_EXTENDED_OPCODE		(0xFFU)
 #define XLOADER_MACRONIX_OSPI_DDR_DUMMY_CYCLES		(20U)
+#define XLOADER_SPANSION_OSPI_DDR_DUMMY_CYCLES		(21U)
 #define XLOADER_OSPI_DDR_DUMMY_CYCLES	(16U)
 #define XLOADER_OSPI_SDR_DUMMY_CYCLES	(8U)
 #define XLOADER_MACRONIX_OSPI_SET_DDR_DUMMY_CYCLES	(4U)
@@ -121,12 +130,15 @@ extern "C" {
 #define XLOADER_OSPI_READ_FLAG_STATUS_CMD_ADDR_SIZE	(0U)
 #define XLOADER_OSPI_WRITE_CFG_REG_CMD_ADDR_SIZE	(3U)
 #define XLOADER_MACRONIX_OSPI_WRITE_CFG_REG_CMD_ADDR_SIZE	(4U)
+#define XLOADER_SPANSION_OSPI_WRITE_CFG_REG_CMD_ADDR_SIZE	(4U)
 #define XLOADER_OSPI_WRITE_CFG_REG_CMD_BYTE_CNT		(1U)
 #define XLOADER_OSPI_READ_CFG_REG_CMD_ADDR_SIZE		(4U)
 #define XLOADER_OSPI_READ_CFG_REG_CMD_BYTE_CNT		(2U)
 #define XLOADER_WRITE_CFG_REG_VAL		(0xE7U)
 #define XLOADER_MACRONIX_WRITE_CFG_REG_VAL		(0x02U)
+#define XLOADER_SPANSION_WRITE_CFG_REG_VAL		(0x43U)
 #define XLOADER_OSPI_WRITE_DONE_MASK	(0x80U)
+#define XLOADER_WRITE_CFG_ECC_REG_VAL		(0xA0U)
 
 /************************** Function Prototypes ******************************/
 int XLoader_OspiInit(u32 DeviceFlags);
