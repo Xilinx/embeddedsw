@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,22 @@ extern "C" {
 #endif
 
 /************* User Configurable Options ***************/
+
+/**
+* PMU Firmware mandatory configuration for SOM
+*/
+
+#if defined(K26_SOM) || defined(K24_SOM)
+#define BOARD_SHUTDOWN_PIN             2
+#define BOARD_SHUTDOWN_PIN_STATE       0
+#define ENABLE_EM
+#define ENABLE_MOD_OVERTEMP
+#define ENABLE_DYNAMIC_MIO_CONFIiG
+#define ENABLE_IOCTL
+#define CONNECT_PMU_GPO_2_VAL          0
+#define OVERTEMP_DEGC                  90.0
+#define EXT_RESET_MIO_PIN_VAL          35
+#endif
 
 /**
  * PMU Firmware print levels
