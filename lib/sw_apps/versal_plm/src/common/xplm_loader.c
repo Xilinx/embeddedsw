@@ -57,6 +57,7 @@
 *                       after inplace plm update
 *       rama 02/23/2024 Changed PDI load status print to DEBUG_ALWAYS to support
 *                       XilSEM use case.
+*       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 *
 * </pre>
 *
@@ -71,12 +72,7 @@
 #include "xplmi_err_common.h"
 #include "xloader_plat.h"
 #include "xplmi_plat.h"
-#ifdef PLM_OCP
-#ifdef PLM_OCP_KEY_MNGMT
-#include "xocp_keymgmt.h"
-#endif
-#include "xocp.h"
-#endif
+#include "xplm_plat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -102,10 +98,6 @@ int XPlm_LoadBootPdi(void *Arg)
 	int Status = XST_FAILURE;
 	PdiSrc_t BootMode = XLOADER_PDI_SRC_INVALID;
 	XilPdi *PdiInstPtr = XLoader_GetPdiInstance();
-	XilBootPdiInfo *BootPdiInfo = XLoader_GetBootPdiInfo();
-	#ifndef PLM_SECURE_EXCLUDE
-	volatile u32 DecKeySrcTmp;
-	#endif
 
 	(void )Arg;
 
@@ -115,41 +107,7 @@ int XPlm_LoadBootPdi(void *Arg)
 
 	/* In-Place PLM Update is applicable only for versalnet */
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
-		/**
-		 * Update KEK red key availability status if PLM is encrypted with
-		 * Black key
-		 */
-	#ifndef PLM_SECURE_EXCLUDE
-		XSECURE_REDUNDANT_CALL(BootPdiInfo->DecKeySrc, DecKeySrcTmp, XLoader_GetKekSrc);
-		if (BootPdiInfo->DecKeySrc != DecKeySrcTmp) {
-			Status = XST_GLITCH_ERROR;
-			goto ERR_END;
-		}
-		XPlmi_GetBootKatStatus((volatile u32*)&BootPdiInfo->PlmKatStatus);
-
-		/**
-		 * Update DecKeySrc after clearing RED keys
-		 * when RedKeyClear is set in PMCRAM
-		 */
-		XSECURE_TEMPORAL_CHECK(ERR_END, Status, XLoader_ClearAesKey, &BootPdiInfo->DecKeySrc);
-
-	#endif
-		/* Regenerate DEVAK keys of the sub-systems */
-#ifdef PLM_OCP
-	#ifdef PLM_OCP_KEY_MNGMT
-			Status = XOcp_RegenSubSysDevAk();
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
-	#endif
-
-	/* Restore secure state configuration and extend SWPCR */
-	Status = XOcp_MeasureSecureStateAndExtendSwPcr();
-#else
-		Status = XST_SUCCESS;
-#endif
-		XPlmi_SetBootPdiDone();
-		XPlmi_Printf(DEBUG_GENERAL, "In-Place PLM Update Done\n\r");
+		Status = XPlm_PostPlmUpdate();
 		goto ERR_END;
 	}
 	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");

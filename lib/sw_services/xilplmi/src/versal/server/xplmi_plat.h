@@ -46,6 +46,7 @@
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 * 2.00  ng   01/26/2024 Updated minor error codes
 *       sk   02/18/2024 Added defines for DDRMC Calib Check Status RTCA Register
+*       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 * </pre>
 *
 * @note
@@ -519,6 +520,33 @@ static inline u8 XPlmi_IsKatRan(u32 PlmKatMask)
 static inline u32 XPlmi_GetRomIroFreq(void)
 {
 	return XPLMI_PMC_IRO_FREQ_320_MHZ;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function returns Ipi Mask of the IPI channel that requested
+*		PLM Update
+*
+* @return	0U
+*
+*****************************************************************************/
+static inline u32 XPlmi_GetPlmUpdateIpiMask(void)
+{
+	/* Not Applicable for Versal, so returning 0 */
+	return 0U;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This is not applicable for Versal. So This returns 0.
+*
+* @return	0U
+*
+*****************************************************************************/
+static inline int XPlm_PostPlmUpdate(void)
+{
+	/* Not Applicable for Versal */
+	return XST_SUCCESS;
 }
 
 /************************** Function Prototypes ******************************/

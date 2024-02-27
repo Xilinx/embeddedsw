@@ -21,6 +21,7 @@
 *       dd   03/28/2023 Updated doxygen comments
 * 1.02  vns  07/06/2023 Added EXPORT_OCP_DS
 * 1.03  sk   09/26/2023 Added Support for In-Place Update from Image Store
+*       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 *
 * </pre>
 *
@@ -171,6 +172,8 @@ int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler,
 		XPlmi_IsPdiAddrLookup_t IsPdiAddLookUpHandler);
 XPlmi_DsEntry* XPlmi_GetDsEntry(XPlmi_DsEntry *DsList, u32 DsCnt, XPlmi_DsVer *DsVer);
 u32 XPlmi_GetUpdatePdiAddr(void);
+void XPlmi_SetPlmUpdateIpiMask(u32 value);
+u32 XPlmi_GetPlmUpdateIpiMask(void);
 
 #ifdef __cplusplus
 }
