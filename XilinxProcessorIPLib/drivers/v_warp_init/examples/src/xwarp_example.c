@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <xstatus.h>
 #include "xil_cache.h"
 #include "xparameters.h"
 #include "xil_types.h"
@@ -87,7 +88,7 @@ void ResetFilter(void)
 /*****************************************************************************/
 int main(void)
 {
-	u32 status;
+	u32 status, error = 0;
 	XVWarpFilter_InputConfigs		*filter_configs_ptr;
 	u32 valid_seg;
 	u32 lblock_count;
@@ -211,6 +212,14 @@ int main(void)
 
 	Xil_ExceptionEnable();
 
+	XVWarpInit_SetCallback(&WarpInitInst,
+				(void *)XWarpInit_callback,
+				(void *)&WarpInitInst);
+
+	XVWarpFilter_SetCallback(&WarpInst,
+                    XBInterruptHandler,
+                    &WarpInst);
+
 	get_init_vect_input_configs(&warp_drv_configs, &input_configs);
 
 	xil_printf("Configuring warp_init IP\n\r");
@@ -238,6 +247,13 @@ int main(void)
     xil_printf("Valid_Segs = %d, lblk_count = %d, line_num = %d\n\r",
                valid_seg, lblock_count, line_num);
 
+    if (!valid_seg || !lblock_count || !line_num) {
+        xil_printf("\n\rWarning: Invalid warp input configurations.");
+        xil_printf("\n\rPlease check.");
+        xil_printf("\n\r*******************************************\n\r");
+        return XST_INVALID_PARAM;
+    }
+
 	filter_configs_ptr = &warp_drv_configs.filterConfigs;
 	filter_configs_ptr->src_buf_addr = SRC_BUF_START_ADDR;
 	filter_configs_ptr->dest_buf_addr = DST_BUF_START_ADDR;
@@ -256,30 +272,10 @@ int main(void)
 	/* Start the IP */
 	XVWarpFilter_Start(&WarpInst);
 
-	while (1) {
+    while (frame_done_interrupt != 1);
+    frame_done_interrupt = 0;
+    stop_timer();
 
-		while (frame_done_interrupt != 1);
-		frame_done_interrupt = 0;
-
-		frame_done_intr_count++;
-		if (frame_done_intr_count >= 1) {
-			stop_timer();
-			break;
-		} else {
-			/*Moving the dst frame address to next available mem location*/
-			if (filter_configs_ptr->dest_buf_addr >= BUFF_QUEUE_SIZE) {
-				filter_configs_ptr->dest_buf_addr = DST_BUF_START_ADDR;
-			} else {
-				filter_configs_ptr->dest_buf_addr += MAX_SIZE_OF_4K_FRAME_IN_MEM;
-			}
-			XVWarpFilter_update_src_frame_addr(&WarpInst, 0,
-					filter_configs_ptr->src_buf_addr);
-			XVWarpFilter_update_dst_frame_addr(&WarpInst, 0,
-					filter_configs_ptr->dest_buf_addr);
-			/*Restart the IP*/
-			XVWarpFilter_Start(&WarpInst);
-		}
-	}
 
 	xil_printf("Got Frame done Interrupt...Time taken = %u\n\r",
 			((tmrctr_1_value * (0xFFFFFFFF/322)) + tmrctr_value/322));
@@ -287,9 +283,9 @@ int main(void)
 	XVWarpInit_ClearNumOfDescriptors(&WarpInitInst);
 	XVWarpFilter_ClearNumOfDescriptors(&WarpInst);
 
-	xil_printf("\n\rWarp exdes test is completed\n\r");
+    xil_printf("\n\rWarp exdes test is Passed\n\r");
 
-	return 0;
+	return XST_SUCCESS;
 }
 
 /***********************Staic Funtction definitions***************************/
@@ -370,10 +366,6 @@ static int SetupInterruptSystem(void)
 		(Xil_ExceptionHandler) XScuGic_InterruptHandler,
 		(XScuGic *)IntcInstPtr);
 
-
-	XVWarpInit_SetCallback(&WarpInitInst,
-				(void *)XWarpInit_callback,
-				(void *)&WarpInitInst);
 	Status = XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_WARP_INIT_0_INTERRUPT_INTR,
 			(XV_warp_init_Callback)XVWarpInit_IntrHandler,
@@ -386,7 +378,6 @@ static int SetupInterruptSystem(void)
 		return XST_FAILURE;
 	}
 
-	XVWarpFilter_SetCallback(&WarpInst, XBInterruptHandler, &WarpInst);
 	Status = XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_WARP_FILTER_0_INTERRUPT_INTR,
 			(XV_warp_filter_Callback)XVWarpFilter_IntrHandler,
