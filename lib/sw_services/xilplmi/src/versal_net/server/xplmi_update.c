@@ -39,6 +39,7 @@
 *       sk   09/26/2023 Added Support for In-Place Update from Image Store
 * 2.0   ng   11/11/2023 Implemented user modules
 * 2.00  ng   01/26/2024 Updated minor error codes
+*       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 *
 * </pre>
 *
@@ -128,9 +129,7 @@ int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler,
 		XPlmi_IsPdiAddrLookup_t IsPdiAddrLookupHandler)
 {
 	volatile int Status = XST_FAILURE;
-	volatile int SStatus = XST_FAILURE;
 	XPlmi_TaskNode *Task = NULL;
-	u32 ResponseBuffer[XPLMI_CMD_RESP_SIZE];
 	u32 DdrRsvdAddr;
 	u32 DdrRsvdSize;
 
@@ -170,39 +169,12 @@ int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler,
 		if (XPlmi_RomSwdtUsage() == (u8)TRUE) {
 			XPlmi_KickWdt(XPLMI_WDT_INTERNAL);
 		}
-#ifdef XPLMI_IPI_DEVICE_ID
-		if (PlmUpdateIpiMask != 0U) {
-			SStatus = XPlmi_IpiDrvInit();
-			if (SStatus != XST_SUCCESS) {
-				Status = XPLMI_ERR_IPI_DRV_INIT;
-				goto END;
-			}
-			/* Fill IPI response */
-			SStatus = Xil_SMemSet(ResponseBuffer, sizeof(ResponseBuffer),
-					0U, sizeof(ResponseBuffer));
-			if (SStatus != XST_SUCCESS) {
-				Status = XPLMI_ERR_MEMSET_UPDATE_RESP;
-				goto END;
-			}
-			ResponseBuffer[0U] = (u32)Status;
-			(void)XPlmi_IpiWrite(PlmUpdateIpiMask, ResponseBuffer,
-				XPLMI_CMD_RESP_SIZE, XIPIPSU_BUF_TYPE_RESP);
-			/* Ack the IPI */
-			XPlmi_Out32(IPI_PMC_ISR, PlmUpdateIpiMask);
-		}
-#else
-		SStatus = XST_SUCCESS;
-#endif
 	}
 	else {
 		Status = XST_SUCCESS;
-		SStatus = XST_SUCCESS;
 	}
 
 END:
-	if (Status == XST_SUCCESS) {
-		Status = SStatus;
-	}
 	return Status;
 }
 
@@ -860,6 +832,39 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function gets UpdatePdiAddr variable value
+ *
+ * @return	UpdatePdiAddr value
+ *
+ *****************************************************************************/
 u32 XPlmi_GetUpdatePdiAddr(void){
 	return UpdatePdiAddr;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function gets PlmUpdateIpiMask variable value
+ *
+ * @return	PlmUpdateIpiMask value
+ *
+ *****************************************************************************/
+u32 XPlmi_GetPlmUpdateIpiMask(void)
+{
+	return PlmUpdateIpiMask;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets PlmUpdateIpiMask variable value
+ *
+ * @param	value of PlmUpdateIpiMask
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_SetPlmUpdateIpiMask(u32 value)
+{
+	PlmUpdateIpiMask = value;
 }

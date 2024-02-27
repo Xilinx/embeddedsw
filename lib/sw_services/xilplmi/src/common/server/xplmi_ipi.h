@@ -40,6 +40,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/18/2022 Shutdown modules gracefully during update
 * 1.08  bm   06/23/2023 Added IPI access permissions validation
+* 1.09  bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 *
 * </pre>
 *
@@ -94,6 +95,7 @@ int XPlmi_IpiTrigger(u32 DestCpuMask);
 int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount);
 int XPlmi_IpiDrvInit(void);
 int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
+void XPlmi_IpiEnable(u32 IpiMask);
 
 /************************** Variable Definitions *****************************/
 

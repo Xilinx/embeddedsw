@@ -79,6 +79,7 @@
  * 2.0   ng   11/11/2023 Implemented user modules
  * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
  *       ng   01/28/2024 optimized u8 variables
+ *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
  *
  * </pre>
  *
@@ -202,8 +203,15 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 
 	/** - Enable IPI from all Masters. */
 	for (Index = 0U; Index < XPLMI_IPI_MASK_COUNT; Index++) {
-		XIpiPsu_InterruptEnable(&IpiInst,
-			IpiCfgPtr->TargetList[Index].Mask);
+		/*
+		 * Do not enable IPI interrupt which originated
+		 * the In-Place Update request. This will be enabled
+		 * after update is done and acked
+		 */
+		if (XPlmi_GetPlmUpdateIpiMask() !=
+				IpiCfgPtr->TargetList[Index].Mask) {
+			XPlmi_IpiEnable(IpiCfgPtr->TargetList[Index].Mask);
+		}
 
 		IpiIntrId = XPlmi_GetIpiIntrId(IpiCfgPtr->TargetList[Index].BufferIndex);
 		Task = XPlmi_GetTaskInstance(NULL, NULL, IpiIntrId);
@@ -225,11 +233,6 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 	XPlmi_Out32(XIPIPSU_BASE_ADDR, XPLMI_SLAVE_ERROR_ENABLE_MASK);
 
 	(void) XPlmi_GetPmSubsystemHandler(SubsystemHandler);
-
-	/* In-Place Update is applicable only for versal_net */
-	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
-		XPlmi_IpiIntrHandler(NULL);
-	}
 
 	/** - Register and Enable the IPI IRQ. */
 	Status = XPlmi_RegisterNEnableIpi();
@@ -486,6 +489,20 @@ int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s: IPI read status: 0x%x\r\n", __func__, Status);
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function enables the IPI interrupt of the given IPI Mask
+ *
+ * @param	IpiMask is the Mask of the IPIs to enable
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_IpiEnable(u32 IpiMask)
+{
+	XIpiPsu_InterruptEnable(&IpiInst, IpiMask);
 }
 
 /*****************************************************************************/

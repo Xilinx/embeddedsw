@@ -26,6 +26,7 @@
 * 1.02  sk   05/22/2023 Added redundancy for validate checksum
 *       mss  12/06/2023 Added ErrorCode in XPlm_CompatibilityCheck API
 *                       for OptionalDataLen Check
+*       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 *
 * </pre>
 *
@@ -41,6 +42,16 @@
 #include "xpm_psm.h"
 #include "xilpdi.h"
 #include "xloader.h"
+#include "xloader_plat.h"
+#ifdef PLM_OCP
+#ifdef PLM_OCP_KEY_MNGMT
+#include "xocp_keymgmt.h"
+#endif
+#include "xocp.h"
+#endif
+#ifdef XPLMI_IPI_DEVICE_ID
+#include "xplmi_ipi.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_PSM_COUNTER_VER 		(1U) /**< PSM counter version */
@@ -54,6 +65,7 @@
 
 /************************** Function Prototypes ******************************/
 #define XPLMI_DS_CNT			(u32)(__data_struct_end - __data_struct_start) /**< Data structure count */
+#define XPLMI_IPU_RESPONSE_CNT		(1U)
 
 /************************** Variable Definitions *****************************/
 extern XPlmi_DsEntry __data_struct_start[];
@@ -259,6 +271,85 @@ int XPlm_CompatibilityCheck(u32 PdiAddr)
 				break;
 			}
 		}
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function performs post update activites like restoring
+ *		KEK Src, KAT Status, Clearing Aes Key, regenerating DevAk, etc.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlm_PostPlmUpdate(void)
+{
+	int Status = XST_FAILURE;
+	XilBootPdiInfo *BootPdiInfo = XLoader_GetBootPdiInfo();
+	u32 PlmUpdateIpiMask = XPlmi_GetPlmUpdateIpiMask();
+	#ifndef PLM_SECURE_EXCLUDE
+	volatile u32 DecKeySrcTmp;
+	#endif
+
+	/**
+	 * Update KEK red key availability status if PLM is encrypted with
+	 * Black key
+	 */
+#ifndef PLM_SECURE_EXCLUDE
+	XSECURE_REDUNDANT_CALL(BootPdiInfo->DecKeySrc, DecKeySrcTmp, XLoader_GetKekSrc);
+	if (BootPdiInfo->DecKeySrc != DecKeySrcTmp) {
+		Status = XST_GLITCH_ERROR;
+		goto END;
+	}
+	XPlmi_GetBootKatStatus((volatile u32*)&BootPdiInfo->PlmKatStatus);
+
+	/**
+	 * Update DecKeySrc after clearing RED keys
+	 * when RedKeyClear is set in PMCRAM
+	 */
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ClearAesKey, &BootPdiInfo->DecKeySrc);
+
+#endif
+	/* Regenerate DEVAK keys of the sub-systems */
+#ifdef PLM_OCP
+	#ifdef PLM_OCP_KEY_MNGMT
+	Status = XOcp_RegenSubSysDevAk();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	#endif
+	/* Restore secure state configuration and extend SWPCR */
+	Status = XOcp_MeasureSecureStateAndExtendSwPcr();
+#else
+	Status = XST_SUCCESS;
+#endif
+	/*
+	 * Set FW_IS_PRESENT bit indicating new PLM is ready.
+	 * Note that any error before this point in new PLM will be treated as
+	 * a fatal error and IPOR is performed.
+	 */
+	XPlmi_SetBootPdiDone();
+
+	XPlmi_Printf(DEBUG_GENERAL, "In-Place PLM Update Done\n\r");
+
+	/* Send Response to IPI request indicating PLM Update is Done */
+	if (PlmUpdateIpiMask != 0U) {
+#ifdef XPLMI_IPI_DEVICE_ID
+		/* Fill IPI response */
+		(void)XPlmi_IpiWrite(PlmUpdateIpiMask, (u32 *)&Status,
+			XPLMI_IPU_RESPONSE_CNT, XIPIPSU_BUF_TYPE_RESP);
+		microblaze_disable_interrupts();
+		/* Ack the IPI */
+		XPlmi_Out32(IPI_PMC_ISR, PlmUpdateIpiMask);
+		/* Enable back the IPI used for Update */
+		XPlmi_IpiEnable(PlmUpdateIpiMask);
+		/* Clear the IPI mask of requestor */
+		XPlmi_SetPlmUpdateIpiMask(0U);
+		microblaze_enable_interrupts();
+#endif
 	}
 
 END:
