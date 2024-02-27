@@ -508,13 +508,12 @@ def touch(filepath: str):
 
 def get_domain_name(proc_name: str, yaml_file: str):
     schema = fetch_yaml_data(yaml_file, "domains")["domains"]
-    for domain in schema:
-        if domain == "default":
-            if schema[domain].get("domains", {}):
-                for dom in schema[domain]["domains"]:
-                    domain_name = schema[domain]["domains"][dom]["cpus"][0]["cluster_cpu"]
-                    if domain_name == proc_name:
-                        return dom
+    for subsystem in schema:
+        if schema[subsystem].get("domains", {}):
+            for dom in schema[subsystem]["domains"]:
+                domain_name = schema[subsystem]["domains"][dom]["cpus"][0]["cluster_cpu"]
+                if domain_name == proc_name:
+                    return dom
     return None
 
 def get_high_precedence_path(repo_paths_list, file_type, *argv):
