@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -20,6 +20,7 @@
 # 1.10	rv   04-21-23 Uprev library to v1.8
 # 1.11  gm   07-07-23 Added support for FreeRTOS
 # 1.12  gm   10-31-23 Added support for A78.
+# 1.13  gm   02-26-24 Removed dummy BSP options.
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -33,10 +34,4 @@ BEGIN LIBRARY xilsem
   OPTION desc = "Xilinx Versal Soft Error Mitigation Library";
   OPTION VERSION = 1.9;
   OPTION NAME = xilsem;
-  BEGIN CATEGORY cfr_options
-    PARAM name = SEM_MEM_SCAN, desc = "Defines if XilSEM CRAM scan is enabled(1) or disabled (0).", type = bool, default = false;
-  END CATEGORY
-  BEGIN CATEGORY npi_options
-    PARAM name = SEM_NPI_SCAN, desc = "Defines if XilSEM NPI register scan is enabled(1) or disabled (0).", type = bool, default = false;
-  END CATEGORY
 END LIBRARY
