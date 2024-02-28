@@ -8,8 +8,8 @@
 /**
 *
 * @file xqspipsu_sinit.c
- * @addtogroup qspipsu Overview
- * @{
+* @addtogroup qspipsu_api QSPIPSU APIs
+* @{
 *
 * The implementation of the XQspiPsu component's static initialization
 * functionality.
@@ -50,7 +50,7 @@
 * Looks up the device configuration based on the unique device ID. A table
 * contains the configuration info for each device in the system.
 *
-* @param	DeviceId contains the ID of the device to look up the
+* @param	DeviceId Contains the ID of the device to look up the
 *		configuration for.
 *
 * @return	A pointer to the configuration found or NULL if the specified

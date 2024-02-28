@@ -9,59 +9,10 @@
 /**
  *
  * @file xqspipsu.h
- * @addtogroup qspipsu Overview
+ * @addtogroup qspipsu_api QSPIPSU APIs
  * @{
  * @details
  *
- * This section explains the implementation the functions required to use the
- * QSPIPSU hardware to perform a transfer. These are accessible to the user
- * via xqspipsu.h.
- *
- * Generic QSPI interface allows for communication to any QSPI slave device.
- * GQSPI contains a GENFIFO into which the bus transfers required are to be
- * pushed with appropriate configuration. The controller provides TX and RX
- * FIFO's and a DMA to be used for RX transfers. The controller executes each
- * GENFIFO entry noting the configuration and places data on the bus as required
- *
- * The different options in GENFIFO are as follows:
- * - IMM_DATA : Can be one byte of data to be transmitted, number of clocks or
- *              number of bytes in transfer.
- * - DATA_XFER : Indicates that data/clocks need to be transmitted or received.
- * - EXPONENT : e when 2^e bytes are involved in transfer.
- * - SPI_MODE : SPI/Dual SPI/Quad SPI
- * - CS : Lower or Upper CS or Both
- * - Bus : Lower or Upper Bus or Both
- * - TX : When selected, controller transmits data in IMM or fetches number of
- *        bytes mentioned form TX FIFO. If not selected, dummies are pumped.
- * - RX : When selected, controller receives and fills the RX FIFO/allows RX DMA
- *        of requested number of bytes. If not selected, RX data is discarded.
- * - Stripe : Byte stripe over lower and upper bus or not.
- * - Poll : Polls response to match for to a set value (used along with POLL_CFG
- *          registers) and then proceeds to next GENFIFO entry.
- *          This feature is not currently used in the driver.
- *
- * GENFIFO has manual and auto start options.
- * All DMA requests need a 4-byte aligned destination address buffer and
- * size of transfer should also be a multiple of 4.
- * This driver supports DMA RX and IO RX.
- *
- * <b>Initialization & Configuration</b>
- *
- * This driver uses the GQSPI controller with RX DMA. It supports both
- * interrupt and polled transfers. Manual start of GENFIFO is used.
- * XQspiPsu_CfgInitialize() initializes the instance variables.
- * Additional setting can be done using SetOptions/ClearOptions functions
- * and SelectSlave function.
- *
- * <b>Transfer</b>
- *
- * Polled or Interrupt transfers can be done. The transfer function needs the
- * message(s) to be transmitted in the form of an array of type XQspiPsu_Msg.
- * This is supposed to contain the byte count and any TX/RX buffers as required.
- * Flags can be used indicate further information such as whether the message
- * should be striped. The transfer functions form and write GENFIFO entries,
- * check the status of the transfer and report back to the application
- * when done.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -203,20 +154,20 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 /**
  * The handler data type allows the user to define a callback function to
- * handle the asynchronous processing for the QSPIPSU device.  The application
+ * handle the asynchronous processing for the QSPIPSU device. The application
  * using this driver is expected to define a handler of this type to support
- * interrupt driven mode.  The handler executes in an interrupt context, so
+ * interrupt driven mode. The handler executes in an interrupt context, so
  * only minimal processing should be performed.
  *
- * @param	CallBackRef is the callback reference passed in by the upper
+ * @param	CallBackRef Callback reference passed in by the upper
  *		layer when setting the callback functions, and passed back to
  *		the upper layer when the callback is invoked. Its type is
  *		not important to the driver, so it is a void pointer.
- * @param	StatusEvent holds one or more status events that have occurred.
- *		See the XQspiPsu_SetStatusHandler() for details on the status
+ * @param	StatusEvent Holds one or more status events that have occurred.
+ *		See XQspiPsu_SetStatusHandler() for details on the status
  *		events that can be passed in the callback.
- * @param	ByteCount indicates how many bytes of data were successfully
- *		transferred.  This may be less than the number of bytes
+ * @param	ByteCount Indicates how many bytes of data were successfully
+ *		transferred. This may be less than the number of bytes
  *		requested if the status event indicates an error.
  */
 typedef void (*XQspiPsu_StatusHandler) (const void *CallBackRef, u32 StatusEvent,
@@ -421,9 +372,9 @@ typedef struct {
 /*****************************************************************************/
 /**
  *
- * This function enables the manual start option
+ * Enables the manual start option.
  *
- * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	InstancePtr Pointer to the XQspiPsu instance.
  *
  * @return	None
  *
@@ -450,9 +401,9 @@ static inline void XQspiPsu_ManualStartEnable(XQspiPsu *InstancePtr)
 /*****************************************************************************/
 /**
  *
- * This function writes the GENFIFO entry to assert CS.
+ * Writes the GENFIFO entry to assert CS.
  *
- * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	InstancePtr Pointer to the XQspiPsu instance.
  *
  * @return	None
  *
@@ -482,9 +433,9 @@ static inline void XQspiPsu_GenFifoEntryCSAssert(const XQspiPsu *InstancePtr)
 /*****************************************************************************/
 /**
  *
- * This function writes the GENFIFO entry to de-assert CS.
+ * Writes the GENFIFO entry to de-assert CS.
  *
- * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	InstancePtr Pointer to the XQspiPsu instance.
  *
  * @return	None
  *
@@ -514,12 +465,12 @@ static inline void XQspiPsu_GenFifoEntryCSDeAssert(const XQspiPsu *InstancePtr)
 /*****************************************************************************/
 /**
  *
- * This is a stub for the status callback. The stub is here in case the upper
+ * Stub for the status callback. The stub is here in case the upper
  * layers forget to set the handler.
  *
- * @param	CallBackRef is a pointer to the upper layer callback reference
- * @param	StatusEvent is the event that just occurred.
- * @param	ByteCount is the number of bytes transferred up until the event
+ * @param	CallBackRef Pointer to the upper layer callback reference
+ * @param	StatusEvent Event that just occurred.
+ * @param	ByteCount Number of bytes transferred up until the event
  *		occurred.
  *
  * @return	None.

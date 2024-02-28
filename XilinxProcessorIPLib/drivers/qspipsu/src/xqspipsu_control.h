@@ -9,14 +9,14 @@
 /**
  *
  * @file xqspipsu_control.h
- * @addtogroup qspipsu Overview
+ * @addtogroup qspipsu_api QSPIPSU APIs
  * @{
  *
  * The xqspipsu_control.h file is the header file for the implementation of QSPIPSU driver.
  * Generic QSPI interface allows for communication to any QSPI slave device.
  * GQSPI contains a GENFIFO into which the bus transfers required are to be
  * pushed with appropriate configuration. The controller provides TX and RX
- * FIFO's and a DMA to be used for RX transfers. The controller executes each
+ * FIFOs and a DMA to be used for RX transfers. The controller executes each
  * GENFIFO entry noting the configuration and places data on the bus as required
  *
  *
