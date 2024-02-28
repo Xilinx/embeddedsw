@@ -221,15 +221,6 @@ enum {
 	/** 0x23 - Invalid destination size for copying ATF Handoff Parameters */
 	XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE,
 
-	/** 0x24 - Optional data associated with provided data ID is not found */
-	XLOADER_ERR_OPT_DATA_NOT_FOUND,
-
-	/** 0x25 - Error when buffer size given by user is less than the optional data length */
-	XLOADER_ERR_INVALID_OPT_DATA_BUFF_SIZE,
-
-	/** 0x26 - Error when copy of optional data to destination buffer failed */
-	XLOADER_ERR_OPT_DATA_COPY_FAILED,
-
 	/* Platform specific Minor Error Codes start from 0x100 */
 	/** 0x100 - Invalid JTAG/DAP config request */
 	XLOADER_ERR_INVALID_JTAG_OPERATION = 0x100,
@@ -406,7 +397,6 @@ int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
 int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd);
 int XLoader_LoadPsmElf(void);
 int XLoader_CheckAndUpdateSecureState(void);
-int XLoader_ExtractOptionalData(XPlmi_Cmd* Cmd, u32 *TotalDataSize);
 
 /************************** Variable Definitions *****************************/
 

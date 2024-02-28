@@ -419,7 +419,6 @@ void Xloader_SaveBootPdiInfo(XilPdi *BootPdiPtr);
 int XLoader_EnableJtag(u32 CfgState);
 int XLoader_DisableJtag(void);
 int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex);
-int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr, u64 SrcAddr, u64 DestAddr, u32 DestSize);
 
 /************************** Variable Definitions *****************************/
 #ifdef __cplusplus

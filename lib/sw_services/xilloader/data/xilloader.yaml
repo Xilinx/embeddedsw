@@ -59,7 +59,4 @@ examples:
   xilloader_validate_pdi_auth_example.c:
     - supported_platforms:
       - VersalNet
-  xilloader_get_opt_data_example.c:
-    - supported platforms:
-      - VersalNet
 ...
