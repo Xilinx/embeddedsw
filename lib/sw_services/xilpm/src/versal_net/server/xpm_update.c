@@ -537,7 +537,7 @@ static XStatus XPm_PlDevice_Restore(XPm_PlDevice *SavedNode, XPm_PlDevice *Node)
 		if (NULL != SavedMemCtrlr){
 			XPm_MemCtrlrDevice *CurMemCtrl = (XPm_MemCtrlrDevice*)XPmDevice_GetById(SavedMemCtrlr->Device.Node.Id);
 			if (NULL == CurMemCtrl) {
-				PmWarn("Wanring: Cannot find MemCtrl Device %x\n\r", SavedMemCtrlr->Device.Node.Id);
+				PmWarn("Wanring:MemCtrl Device not found. NodeId: %x\n\r", SavedMemCtrlr->Device.Node.Id);
 			}
 			Node->MemCtrlr[i] = CurMemCtrl;
 		}
@@ -547,7 +547,7 @@ static XStatus XPm_PlDevice_Restore(XPm_PlDevice *SavedNode, XPm_PlDevice *Node)
 	if (NULL != PrevParent) {
 		XPm_PlDevice *CurParent =  (XPm_PlDevice*)XPmDevice_GetById(PrevParent->Device.Node.Id);
 		if (NULL == CurParent) {
-			PmWarn("Wanring: Cannot find PL Device %x", PrevParent->Device.Node.Id);
+			PmWarn("Warning:PL device not found. NodeId: %x\n\r", PrevParent->Device.Node.Id);
 		}
 		Node->Parent = CurParent;
 	}
@@ -556,7 +556,7 @@ static XStatus XPm_PlDevice_Restore(XPm_PlDevice *SavedNode, XPm_PlDevice *Node)
 	if (NULL != PrevChild){
 		XPm_PlDevice *CurChild =  (XPm_PlDevice*)XPmDevice_GetById(PrevChild->Device.Node.Id);
 		if (NULL == CurChild) {
-			PmWarn("Wanring: Cannot find PL Device %x", PrevChild->Device.Node.Id);
+			PmWarn("Warning:PL device not found. NodeId: %x\n\r", PrevChild->Device.Node.Id);
 		}
 		Node->Child = CurChild;
 	}
@@ -565,7 +565,7 @@ static XStatus XPm_PlDevice_Restore(XPm_PlDevice *SavedNode, XPm_PlDevice *Node)
 	if (NULL != PrevNextPeer){
 		XPm_PlDevice *CurNextPeer =  (XPm_PlDevice*)XPmDevice_GetById(PrevNextPeer->Device.Node.Id);
 		if (NULL == CurNextPeer) {
-			PmWarn("Wanring: Cannot find PL Device %x", PrevNextPeer->Device.Node.Id);
+			PmWarn("Warning:PL device not found. NodeId: %x\n\r", PrevNextPeer->Device.Node.Id);
 		}
 		Node->NextPeer = CurNextPeer;
 	}
@@ -597,7 +597,7 @@ static XStatus XPm_MemCtrlrDevice_Restore(XPm_MemCtrlrDevice *SavedNode, XPm_Mem
 	if (NULL != PrevPlDevice) {
 		XPm_PlDevice *CurPlDevice = (XPm_PlDevice*)XPmDevice_GetById(PrevPlDevice->Device.Node.Id);
 		if (NULL == CurPlDevice) {
-			PmWarn("Warning Can't find PL device %x\n\r",PrevPlDevice->Device.Node.Id);
+			PmWarn("Warning:PL device not found. NodeId: %x\n\r",PrevPlDevice->Device.Node.Id);
 			Status = XST_SUCCESS;
 			goto done;
 		}
@@ -648,7 +648,7 @@ static XStatus Class_Power_Restore(XPm_Power *SavedNode, XPm_Power *Node)
 	case XPM_NODETYPE_POWER_ISLAND_XRAM:
 	case XPM_NODETYPE_POWER_DOMAIN_ME:
 	default:
-		PmWarn("Warning: Can not restore this node Id: %x.\n\r", NodeId);
+		PmWarn("Warning: IPU unsupport power domain node. Id: %x.\n\r", NodeId);
 		Status = XST_SUCCESS;
 		break;
 	}
@@ -680,7 +680,7 @@ static XStatus Class_Clock_Restore(XPm_ClockNode *SavedNode, XPm_ClockNode *Node
 		break;
 	case XPM_NODETYPE_CLOCK_SUBNODE:
 	default:
-		PmWarn("Warning: Can not restore this node Id: %x.\n\r", NodeId);
+		PmWarn("Warning: IPU unsupport clock node. Id: %x.\n\r", NodeId);
 		Status = XST_SUCCESS;
 		break;
 	}
@@ -736,6 +736,10 @@ static XStatus Class_Device_Restore(XPm_Device *SavedNode, XPm_Device *Node)
 	case XPM_NODETYPE_DEV_PERIPH:
 		Status = RESTORE(XPm_Periph, SavedNode, Node);
 		break;
+	case XPM_NODETYPE_DEV_GGS :
+	case XPM_NODETYPE_DEV_PGGS :
+		Status = RESTORE(XPm_Device, SavedNode, Node);
+		break;
 	case XPM_NODETYPE_DEV_SOC:
 	case XPM_NODETYPE_DEV_GT:
 	case XPM_NODETYPE_DEV_XRAM:
@@ -743,12 +747,10 @@ static XStatus Class_Device_Restore(XPm_Device *SavedNode, XPm_Device *Node)
 	case XPM_NODETYPE_DEV_RESERVED_1:
 	case XPM_NODETYPE_DEV_HBM :
 	case XPM_NODETYPE_DEV_VDU :
-	case XPM_NODETYPE_DEV_GGS :
-	case XPM_NODETYPE_DEV_PGGS :
 	case XPM_NODETYPE_DEV_HB_MON :
 	case XPM_NODETYPE_DEV_BFRB :
 	default:
-		PmWarn("Warning: Can not restore this node Id: %x.\n\r", NodeId);
+		PmWarn("Warning: IPU unsupport device node. NodeId: %x.\n\r", NodeId);
 		Status = XST_SUCCESS;
 		break;
 	}
@@ -812,7 +814,7 @@ XStatus XPmUpdate_RestoreAllNodes(void)
 		case XPM_NODECLASS_MONITOR:
 		case XPM_NODECLASS_REGNODE:
 		default:
-			PmWarn("Warning: Can not restore this node Id: %x.\n\r", NodeId);
+			PmWarn("Warning: IPU unsupport node. NodeId: %x.\n\r", NodeId);
 			Status = XST_SUCCESS;
 		}
 		if (XST_SUCCESS != Status) {
