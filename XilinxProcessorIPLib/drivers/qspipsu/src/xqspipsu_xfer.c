@@ -6,10 +6,10 @@
 
 /*****************************************************************************/
 /**
- *
- * @file xqspipsu_transfer.c
- * @addtogroup qspipsu Overview
+ * @file xqspipsu_xfer.c
+ * @addtogroup qspipsu_api QSPIPSU APIs
  * @{
+ * @details
  *
  * The xqspipsu_transfer.c contains functions to receive and transfer data
  * in polled and interrupt mode.
@@ -48,17 +48,16 @@
 /*****************************************************************************/
 /**
  *
- * This function transfers Tx data on the bus in polled mode.
+ * Transfers Tx data on the bus in polled mode.
  *
- * @param       InstancePtr is a pointer to the XQspiPsu instance.
- * @param       Msg is a pointer to the structure containing transfer data.
- * @param       Index is the Msg index to transfer.
+ * @param       InstancePtr Pointer to the XQspiPsu instance.
+ * @param       Msg Pointer to the structure containing transfer data.
+ * @param       Index Msg index to transfer.
  *
  * @return
  *		- XST_SUCCESS if successful.
  *		- XST_FAILURE if transfer fails.
  *
- * @note        None.
  *
 ******************************************************************************/
 s32 XQspiPsu_PolledSendData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
@@ -85,18 +84,17 @@ END:
 /*****************************************************************************/
 /**
  *
- * This function transfers Rx data on the bus in polled mode.
+ * Transfers Rx data on the bus in polled mode.
  *
- * @param       InstancePtr is a pointer to the XQspiPsu instance.
- * @param       Msg is a pointer to the structure containing transfer data.
- * @param       Index is the Msg index to transfer.
- * @param       IOPending is the  .
+ * @param       InstancePtr Pointer to the XQspiPsu instance.
+ * @param       Msg Pointer to the structure containing transfer data.
+ * @param       Index Msg index to transfer.
+ * @param       IOPending I/O mode transfer status.
  *
  * @return
  *		- XST_SUCCESS if successful.
  *		- XST_FAILURE if transfer fails.
  *
- * @note        None.
  *
 ******************************************************************************/
 s32 XQspiPsu_PolledRecvData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
@@ -143,15 +141,14 @@ END:
 /*****************************************************************************/
 /**
  *
- * This function performs a transfer of Tx data on the bus in interrupt mode.
+ * Performs a transfer of Tx data on the bus in interrupt mode.
  *
- * @param	InstancePtr is a pointer to the XQspiPsu instance.
- * @param	QspiPsuStatusReg is the status QSPI status register.
- * @param	DeltaMsgCnt is the message count flag.
+ * @param	InstancePtr Pointer to the XQspiPsu instance.
+ * @param	QspiPsuStatusReg Status QSPI status register.
+ * @param	DeltaMsgCnt Message count flag.
  *
  * @return	None.
  *
- * @note	None.
  *
  ******************************************************************************/
 void XQspiPsu_IntrSendData(XQspiPsu *InstancePtr,
@@ -182,16 +179,15 @@ void XQspiPsu_IntrSendData(XQspiPsu *InstancePtr,
 /*****************************************************************************/
 /**
  *
- * This function performs a transfer of Rx data on the busin interrupt mode.
+ * Performs a transfer of Rx data on the busin interrupt mode.
  *
- * @param	InstancePtr is a pointer to the XQspiPsu instance.
- * @param	QspiPsuStatusReg is the status QSPI status register.
- * @param	DmaIntrStatusReg is the status DMA interrupt register.
- * @param	DeltaMsgCnt is the message count flag.
+ * @param	InstancePtr Pointer to the XQspiPsu instance.
+ * @param	QspiPsuStatusReg Status QSPI status register.
+ * @param	DmaIntrStatusReg Status DMA interrupt register.
+ * @param	DeltaMsgCnt Message count flag.
  *
  * @return	None.
  *
- * @note	None.
  *
  ******************************************************************************/
 void XQspiPsu_IntrRecvData(XQspiPsu *InstancePtr,
