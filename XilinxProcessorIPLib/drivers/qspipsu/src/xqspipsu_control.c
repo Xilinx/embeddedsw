@@ -9,7 +9,7 @@
 /**
  *
  * @file xqspipsu_control.c
- * @addtogroup qspipsu Overview
+ * @addtogroup qspipsu_api QSPIPSU APIs
  * @{
  *
  * The xqspipsu_control.c file contains intermediate control functions used by functions
@@ -52,17 +52,16 @@
 /*****************************************************************************/
 /**
  *
- * This function writes the GENFIFO entries to transmit the messages requested.
+ * Writes the GENFIFO entries to transmit the messages requested.
  *
- * @param	InstancePtr is a pointer to the XQspiPsu instance.
- * @param	Msg is a pointer to the structure containing transfer data.
+ * @param	InstancePtr Pointer to the XQspiPsu instance.
+ * @param	Msg Pointer to the structure containing transfer data.
  *
  * @return
  *		- XST_SUCCESS if successful.
  *		- XST_FAILURE if transfer fails.
  *		- XST_DEVICE_BUSY if a transfer is already in progress.
  *
- * @note	None.
  *
  ******************************************************************************/
 void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
@@ -119,16 +118,15 @@ void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
 /*****************************************************************************/
 /**
  *
- * This function enables the polling functionality of controller
+ * Enables the polling functionality of controller.
  *
- * @param	InstancePtr is a pointer to the XQspiPsu instance.
+ * @param	InstancePtr Pointer to the XQspiPsu instance.
  *
  *
- * @param	FlashMsg is a pointer to the structure containing transfer data
+ * @param	FlashMsg Pointer to the structure containing transfer data.
  *
  * @return	None
  *
- * @note	None.
  *
  ******************************************************************************/
 void XQspiPsu_PollDataConfig(XQspiPsu *InstancePtr, XQspiPsu_Msg *FlashMsg)
@@ -210,15 +208,14 @@ void XQspiPsu_PollDataConfig(XQspiPsu *InstancePtr, XQspiPsu_Msg *FlashMsg)
 * Configures the clock according to the prescaler passed.
 *
 *
-* @param	InstancePtr is a pointer to the XQspiPsu instance.
-* @param	Prescaler - clock prescaler.
+* @param	InstancePtr Pointer to the XQspiPsu instance.
+* @param	Prescaler Clock prescaler.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_DEVICE_BUSY if the device is currently transferring data.
 *		The transfer must complete or be aborted before setting Tapdelay.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler)
@@ -288,18 +285,17 @@ END:
 /*****************************************************************************/
 /**
  *
- * This function performs a transfer on the bus in polled mode. The messages
+ * Performs a transfer on the bus in polled mode. The messages
  * passed are all transferred on the bus between one CS assert and de-assert.
  *
- * @param	InstancePtr is a pointer to the XQspiPsu instance.
- * @param	Msg is a pointer to the structure containing transfer data.
- * @param	NumMsg is the number of messages to be transferred.
+ * @param	InstancePtr Pointer to the XQspiPsu instance.
+ * @param	Msg Pointer to the structure containing transfer data.
+ * @param	NumMsg Number of messages to be transferred.
  *
  * @return
  *		- XST_SUCCESS if successful.
  *		- XST_FAILURE if transfer fails.
  *
- * @note	None.
  *
  ******************************************************************************/
 s32 XQspiPsu_PolledMessageTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
@@ -364,15 +360,14 @@ END:
 /*****************************************************************************/
 /**
  *
- * This function transfers Tx and Rx data.
+ * Transfers Tx and Rx data.
  *
- * @param       InstancePtr is a pointer to the XQspiPsu instance.
- * @param       QspiPsuStatusReg is the status of QSPI status register.
- * @param       DeltaMsgCnt is the message count flag.
+ * @param       InstancePtr Pointer to the XQspiPsu instance.
+ * @param       QspiPsuStatusReg Status of QSPI status register.
+ * @param       DeltaMsgCnt Message count flag.
  *
  * @return      None.
  *
- * @note        None.
  *
 ******************************************************************************/
 void XQspiPsu_IntrDataTransfer(XQspiPsu *InstancePtr,
@@ -413,15 +408,14 @@ void XQspiPsu_IntrDataTransfer(XQspiPsu *InstancePtr,
 /*****************************************************************************/
 /**
  *
- * This function transfers Dummy byte
+ * Transfers Dummy byte
  *
- * @param       InstancePtr is a pointer to the XQspiPsu instance.
- * @param       QspiPsuStatusReg is the status of QSPI status register.
- * @param       DeltaMsgCnt is the message count flag.
+ * @param       InstancePtr Pointer to the XQspiPsu instance.
+ * @param       QspiPsuStatusReg Status of QSPI status register.
+ * @param       DeltaMsgCnt Message count flag.
  *
  * @return      None.
  *
- * @note        None.
  *
 ******************************************************************************/
 void XQspiPsu_IntrDummyDataTransfer(XQspiPsu *InstancePtr, u32 QspiPsuStatusReg,
