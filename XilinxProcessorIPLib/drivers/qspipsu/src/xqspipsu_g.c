@@ -8,8 +8,8 @@
 /**
 *
 * @file xqspipsu_g.c
- * @addtogroup qspipsu Overview
- * @{
+* @addtogroup qspipsu_api QSPIPSU APIs
+* @{
 *
 * The xqspipsu_g.c contains a configuration table that specifies the configuration of
 * QSPIPSU devices in the system.
