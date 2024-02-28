@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1635,19 +1635,10 @@ static XStatus ACPU0Wakeup(void)
 
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
-
-	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_0]) {
-		Status = XPsmFwACPUxDirectPwrUp(&Acpu0PwrCtrl);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
-
 	/* Set the event bit for PLM */
 	PsmToPlmEvent.Event[ACPU_0] = PWR_UP_EVT;
 	Status = XPsmFw_NotifyPlmEvent();
 
-done:
 	return Status;
 }
 
@@ -1662,19 +1653,10 @@ static XStatus ACPU0Sleep(void)
 
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
-
-	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_0]) {
-		Status = XPsmFwACPUxDirectPwrDwn(&Acpu0PwrCtrl);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
-
 	/* Set the event bit for PLM */
 	PsmToPlmEvent.Event[ACPU_0] = PWR_DWN_EVT;
 	Status = XPsmFw_NotifyPlmEvent();
 
-done:
 	return Status;
 }
 
@@ -1689,19 +1671,10 @@ static XStatus ACPU1Wakeup(void)
 
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
-
-	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_1]) {
-		Status = XPsmFwACPUxDirectPwrUp(&Acpu1PwrCtrl);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
-
 	/* Set the event bit for PLM */
 	PsmToPlmEvent.Event[ACPU_1] = PWR_UP_EVT;
 	Status = XPsmFw_NotifyPlmEvent();
 
-done:
 	return Status;
 }
 
@@ -1716,19 +1689,10 @@ static XStatus ACPU1Sleep(void)
 
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
-
-	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_1]) {
-		Status = XPsmFwACPUxDirectPwrDwn(&Acpu1PwrCtrl);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
-
 	/* Set the event bit for PLM */
 	PsmToPlmEvent.Event[ACPU_1] = PWR_DWN_EVT;
 	Status = XPsmFw_NotifyPlmEvent();
 
-done:
 	return Status;
 }
 
