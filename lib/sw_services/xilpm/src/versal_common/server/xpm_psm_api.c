@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -235,6 +235,10 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 
 	/* Update the state and its parent use counts in case of CPU idle */
 	if (1U == CpuIdleFlag) {
+		Status = XPm_DirectPwrDwn(DeviceId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 		Status = XPmCore_AfterDirectPwrDwn(Core);
 		goto done;
 	}
@@ -336,6 +340,10 @@ XStatus XPm_WakeUpEvent(const u32 DeviceId)
 
 	if (1U == CpuIdleFlag) {
 		/* Update the state and its parent use counts in case of CPU idle */
+		Status = XPm_DirectPwrUp(DeviceId);
+		if (XST_SUCCESS != Status){
+			goto done;
+		}
 		Status = XPmCore_AfterDirectWakeUp(Core);
 	} else {
 		Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, DeviceId, 0, 0, 0,
