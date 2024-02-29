@@ -1137,7 +1137,7 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 #endif
 			} else if (mac_baseaddr == VERSAL_NET_EMACPS_1_BASEADDR) {
 #ifdef  XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0
-				CrlApbDiv0 =  XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0
+				CrlApbDiv0 =  XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0;
 #endif
 			}
 		} else if (speed == 100) {
