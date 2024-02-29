@@ -1,9 +1,12 @@
-# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 -2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 collect (PROJECT_LIB_SOURCES errno.c)
 collect (PROJECT_LIB_SOURCES _exit.c)
 collect (PROJECT_LIB_SOURCES _sbrk.c)
 collect (PROJECT_LIB_SOURCES fcntl.c)
+collect (PROJECT_LIB_SOURCES read.c)
+collect (PROJECT_LIB_SOURCES write.c)
+collect (PROJECT_LIB_SOURCES fstat.c)
 collect (PROJECT_LIB_SOURCES riscv_interrupt_handler.c)
 collect (PROJECT_LIB_SOURCES xil_exception.c)
 collect (PROJECT_LIB_HEADERS fsl.h)
