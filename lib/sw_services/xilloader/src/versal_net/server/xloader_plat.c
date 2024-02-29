@@ -108,6 +108,9 @@
 #define XLOADER_INVALID_DEVAK_INDEX			(0xFFFFFFFFU) /**< INVALID DEVAK INDEX */
 #endif
 
+#define XLOADER_CMD_EXTRACT_METAHDR_PDISRC_MASK		(0x1FU)
+	/**< Mask for PDI Src in Extract Metaheader command */
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -1661,5 +1664,85 @@ int XLoader_CheckAndUpdateSecureState(void)
 	Status = XST_SUCCESS;
 #endif
 
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function gets optional data from the PDI available in DDR or
+ * 		Image Store and copies it in the destination buffer
+ *
+ * @param	Cmd is pointer to the command structure
+ * @param	TotalDataSize is size of destination buffer in bytes
+ *
+ * @return
+ *			 - XST_SUCCESS on success.
+ *			 - XST_FAILURE on failure.
+ *
+ **************************************************************************************************/
+int XLoader_ExtractOptionalData(XPlmi_Cmd* Cmd, u32 *TotalDataSize)
+{
+	int Status = XST_FAILURE;
+	XilPdi* PdiPtr = XLoader_GetPdiInstance();
+	u64 SrcAddr = (u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_HIGH_INDEX];
+	u64 DestAddr = (u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_HIGH_INDEX];
+	u32 DestSize = (u32)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DEST_SIZE_INDEX];
+	u32 DataId = Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX] >>
+		XLOADER_DATA_ID_SHIFT;
+	u64 OptionalDataStartAddr;
+	u64 OptionalDataEndAddr;
+	u64 OptDataAddr;
+	u64 OptDataHdr;
+	u32 OptDataLen;
+
+	if ((Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX] &
+		XLOADER_CMD_EXTRACT_METAHDR_PDISRC_MASK) == XLOADER_PDI_SRC_IS) {
+		Status = XLoader_IsPdiAddrLookup(Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDI_ID_INDEX],
+			&SrcAddr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	else {
+		SrcAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX]) |
+				(SrcAddr << 32U);
+	}
+
+	DestAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX]) |
+			(DestAddr << 32U);
+
+	Status = XLoader_InitPdiInstanceForExtractMHAndOptData(Cmd, PdiPtr, SrcAddr, DestAddr, DestSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	OptionalDataStartAddr = XILPDI_PMCRAM_IHT_DATA_ADDR;
+	OptionalDataEndAddr = XILPDI_PMCRAM_IHT_DATA_ADDR + (u64)(PdiPtr->MetaHdr.ImgHdrTbl.OptionalDataLen * XPLMI_WORD_LEN);
+
+	OptDataAddr = XilPdi_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr,
+		DataId);
+	if (OptDataAddr > OptionalDataEndAddr) {
+		Status = XLOADER_ERR_OPT_DATA_NOT_FOUND;
+		goto END;
+	}
+
+	OptDataHdr = Xil_In64((UINTPTR)OptDataAddr);
+	OptDataLen = ((OptDataHdr & XIH_OPT_DATA_HDR_LEN_MASK) >> XIH_OPT_DATA_LEN_SHIFT) <<
+		XILPDI_WORD_LEN_SHIFT;
+
+	if (OptDataLen > *TotalDataSize) {
+		Status = XLOADER_ERR_INVALID_OPT_DATA_BUFF_SIZE;
+		goto END;
+	}
+
+	Status = XPlmi_MemCpy64(DestAddr, OptDataAddr, OptDataLen);
+	if (Status != XST_SUCCESS) {
+		Status = XLOADER_ERR_OPT_DATA_COPY_FAILED;
+		goto END;
+	}
+
+	*TotalDataSize = OptDataLen;
+
+END:
 	return Status;
 }

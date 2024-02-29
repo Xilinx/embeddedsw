@@ -584,10 +584,11 @@ int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_VerifyPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
-int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr);
+int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType);
 int XilPdi_ValidateChecksum(const void *Buffer, u32 Length);
 XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent(u32 PrtnNum, u32 HashTableSize);
 int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr);
+u64 XilPdi_SearchOptionalData(u64 StartAddress, u64 EndAddress, u32 DataId);
 
 /** @} */
 #ifdef __cplusplus
