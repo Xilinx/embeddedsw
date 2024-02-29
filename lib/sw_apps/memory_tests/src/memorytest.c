@@ -66,7 +66,11 @@ s32 test_memory_range(struct memory_range_s *range)
 	putnum(range->size);
 	print (" bytes \n\r");
 #else
+#if defined(__arch64__) || defined(__aarch64__)
 	xil_printf("         Base Address: 0x%lx \n\r", range->base);
+#else
+	xil_printf("         Base Address: 0x%x \n\r", range->base);
+#endif
 	xil_printf("                 Size: 0x%lx bytes \n\r", range->size);
 #endif
 
