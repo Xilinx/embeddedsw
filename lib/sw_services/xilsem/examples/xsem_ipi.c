@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -15,6 +15,7 @@
 * ====  ==== ==========   ====================================================
 * 0.1   gm   03/19/2021   Initial version of IPI configure
 * 0.2  rama  08/03/2023   Added support for system device-tree flow
+* 0.3  gayu  02/23/2024   Fixed error event notification issue in SDT flow.
 *
 * </pre>
 *
@@ -27,6 +28,9 @@
 #include <unistd.h>
 #include "xsem_ipi.h"
 #include "xsem_gic_setup.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 #ifndef SDT
 	#define IPI_INT_ID		(XPAR_XIPIPSU_0_INT_ID)
@@ -133,9 +137,22 @@ static XStatus IpiConfigure(XIpiPsu * IpiInst, XScuGic * GicInst)
 		goto END;
 	}
 
+#ifdef SDT
+	/* Setup Envirnorment for Interrupts */
+	Status = XSetupInterruptSystem(IpiInst, &IpiIrqHandler,
+				   IpiInst->Config.IntId,
+				   IpiInst->Config.IntrParent,
+				   XINTERRUPT_DEFAULT_PRIORITY);
+
+	/* Enable interrupt */
+	XIpiPsu_InterruptEnable(IpiInst, XIPIPSU_ALL_MASK);
+#endif
+
 	/* Clear Any existing Interrupts */
 	XIpiPsu_ClearInterruptStatus(IpiInst, XIPIPSU_ALL_MASK);
 
+#ifndef SDT
+	/* Connect Source IPI */
 	Status = XScuGic_Connect(GicInst, IPI_INT_ID,
 			(Xil_ExceptionHandler)IpiIrqHandler, IpiInst);
 	if (XST_SUCCESS != Status) {
@@ -144,6 +161,7 @@ static XStatus IpiConfigure(XIpiPsu * IpiInst, XScuGic * GicInst)
 	}
 	/* Enable IPI interrupt at GIC */
 	XScuGic_Enable(GicInst, IPI_INT_ID);
+#endif
 
 END:
 	return Status;
