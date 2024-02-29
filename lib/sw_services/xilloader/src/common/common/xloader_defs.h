@@ -67,6 +67,20 @@ extern "C" {
 #define XLOADER_HEADER_LEN_5			(5U) /**< Header length 5 */
 #define XLOADER_HEADER_LEN_6			(6U) /**< Header length 6 */
 
+#define XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_HIGH_INDEX	(0U)
+#define XLOADER_CMD_EXTRACT_METAHDR_PDI_ID_INDEX	(0U)
+#define XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX	(1U)
+#define XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_HIGH_INDEX	(2U)
+#define XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX	(3U)
+#define XLOADER_CMD_EXTRACT_METAHDR_DEST_SIZE_INDEX	(4U)
+#define XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX	(5U)
+
+#define XLOADER_ADDR_HIGH_SHIFT 		(32U) /**< Shift value to get higher 32 bit address */
+#define XLOADER_GET_OPT_DATA_FLAG		(0x80U)
+	/**< Flag to indicate that Extract Metaheader request is to extract optional data only */
+#define XLOADER_DATA_ID_SHIFT			(16U)
+	/**< Shift to get data ID from the payload of Extract metaheader command */
+
 /************************************** Type Definitions *****************************************/
 
 typedef struct {
@@ -75,6 +89,14 @@ typedef struct {
 	u32 PUID; /**< Parent UID */
 	u32 FuncID; /**< Function ID */
 } XLoader_ImageInfo; /**< Image information */
+
+typedef struct {
+	u32 PdiSrc;		/**< Source where PDI is present - DDR or Image Store*/
+	u32 PdiAddrLow;		/**< Lower address of PDI when present in DDR */
+	u32 PdiAddrHigh;	/**< Higher address of PDI when present in DDR */
+	u32 DataId;		/**< Data ID of the requested optional data */
+	u32 PdiId;		/**< PDI ID of the PDI in Image Store */
+} XLoader_OptionalDataInfo;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

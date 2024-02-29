@@ -53,6 +53,7 @@
                         MetaHdr structure
 *       am   07/03/2023 Updated XilPdi_ReadIhtAndOptionalData to store partition hashes
 *       dd   09/08/2023 Misra-C violation Rule 12.1 fixed
+*       har  02/16/2024 Modified XilPdi_SearchOptionalData as non-static function
 *
 * </pre>
 *
@@ -71,9 +72,9 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XILPDI_PDI_TYPE_PARTIAL_METAHEADER		(0x5U)
 
 /************************** Function Prototypes ******************************/
-static u32 XilPdi_SearchOptionalData(u32 StartAddress, u32 EndAddress, u32 DataId);
 
 /************************** Variable Definitions *****************************/
 
@@ -342,9 +343,10 @@ END:
 * 			- XST_FAILURE on unsuccessful copy.
 *
 *****************************************************************************/
-int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr)
+int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
 {
 	int Status = XST_FAILURE;
+	u64 OptionalDataStartAddress;
 
 	/**
 	 * - Read the IHT from Metaheader
@@ -355,12 +357,16 @@ int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr)
 		XilPdi_Printf("Device Copy Failed \n\r");
 		goto END;
 	}
+
 	/**
 	 * - Read the IHT Optinal data from Metaheader
 	 */
-	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-		MetaHdrPtr->MetaHdrOfst + XIH_IHT_LEN,
-		XILPDI_PMCRAM_IHT_DATA_ADDR,
+	OptionalDataStartAddress = MetaHdrPtr->FlashOfstAddr + MetaHdrPtr->MetaHdrOfst + XIH_IHT_LEN;
+	if (PdiType == XILPDI_PDI_TYPE_PARTIAL_METAHEADER) {
+		OptionalDataStartAddress += SMAP_BUS_WIDTH_LENGTH;
+	}
+
+	Status = MetaHdrPtr->DeviceCopy(OptionalDataStartAddress, XILPDI_PMCRAM_IHT_DATA_ADDR,
 		(MetaHdrPtr->ImgHdrTbl.OptionalDataLen << XILPDI_WORD_LEN_SHIFT), 0U);
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed \n\r");
@@ -393,7 +399,7 @@ int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr)
 	OptionalDataStartAddr = XILPDI_PMCRAM_IHT_DATA_ADDR;
 	OptionalDataEndAddr = OptionalDataStartAddr + (MetaHdrPtr->ImgHdrTbl.OptionalDataLen << XILPDI_WORD_LEN_SHIFT);
 
-	Offset = XilPdi_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr,
+	Offset = (u32)XilPdi_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr,
 		XILPDI_PARTITION_HASH_DATA_ID);
 	if (Offset < OptionalDataEndAddr) {
 		OptionalDataLen = ((Xil_In32(Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >>
@@ -461,14 +467,14 @@ END:
 *               for given data Id
 *
 *****************************************************************************/
-static u32 XilPdi_SearchOptionalData(u32 StartAddress, u32 EndAddress, u32 DataId)
+u64 XilPdi_SearchOptionalData(u64 StartAddress, u64 EndAddress, u32 DataId)
 {
-	u32 Offset = StartAddress;
+	u64 Offset = StartAddress;
 
 	while (Offset < EndAddress) {
-		if ((Xil_In32(Offset) & XIH_OPT_DATA_HDR_ID_MASK) !=
+		if ((Xil_In64((UINTPTR)Offset) & XIH_OPT_DATA_HDR_ID_MASK) !=
 				DataId) {
-			Offset += ((Xil_In32(Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >>
+			Offset += ((Xil_In64((UINTPTR)Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >>
 				XIH_OPT_DATA_LEN_SHIFT) << XILPDI_WORD_LEN_SHIFT;
 		}
 		else {
