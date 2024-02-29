@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -25,6 +25,7 @@
 * 1.2   kpt  12/18/23 Non-blocking support for reseed operation and corrected
 *                     check for PTRNG mode during generate
 *       kpt  01/09/24 Added option for blocking or non-blocking reseed support
+*       kpt  02/14/24 Use correct offset during PRNG set and reset
 *
 * </pre>
 *
@@ -208,7 +209,7 @@ static int XTrngpsx_PrngSet(XTrngpsx_Instance *InstancePtr) {
 		goto END;
 	}
 	usleep(XTRNGPSX_RESET_DELAY_US);
-	Status = XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_RESET), TRNG_CTRL_PRNGSRST_MASK, 0U);
+	Status = XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL), TRNG_CTRL_PRNGSRST_MASK, 0U);
 END:
 	return Status;
 }
@@ -228,7 +229,7 @@ END:
 static int XTrngpsx_PrngReset(XTrngpsx_Instance *InstancePtr) {
 	int Status = XST_FAILURE;
 
-	Status = XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_RESET), TRNG_CTRL_PRNGSRST_MASK,
+	Status = XTrngpsx_UtilRMW32((InstancePtr->Config.BaseAddress + TRNG_CTRL), TRNG_CTRL_PRNGSRST_MASK,
 		TRNG_CTRL_PRNGSRST_MASK);
 
 	return Status;
@@ -761,10 +762,6 @@ int XTrngpsx_Uninstantiate(XTrngpsx_Instance *InstancePtr) {
 
 	/* Bring cores in to reset state */
 	Status = XTrngpsx_Reset(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = XTrngpsx_PrngReset(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
