@@ -27,6 +27,8 @@
 *       sk   01/13/2023 CPM5N Link UP Event handler declaration
 *       dd   03/28/2023 Updated doxygen comments
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
+* 1.02  ma   02/29/2024 Change protection unit error actions to PRINT_TO_LOG
+*                       to handle restoring of the error actions after IPU
 *
 * </pre>
 *
@@ -112,6 +114,7 @@ void XPlmi_ReconfigErrActions(void);
 u32 *XPlmi_GetNumErrOuts(void);
 u32 *XPlmi_GetPsmCrState(void);
 void XPlmi_HandleLinkUpEvent(u32 Cpm5NPcieCdxIrStatusReg, u32 Cpm5NCdxPcieBReg, u32 ProcId);
+void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask);
 
 /************************** Variable Definitions *****************************/
 
