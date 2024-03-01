@@ -67,7 +67,9 @@
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 * 1.11  ma   09/27/2023 Add secure lockdown to EAM error actions list
 *       jb   02/22/2024 Removed XPlmi_RestartHandler_t and added subsystem
-*			restart type and subtype
+*			            restart type and subtype
+*       ma   02/29/2024 Removed XPlmi_ErrPrintToLog function from common folder
+*                       and moved it to xplmi_err.c
 *
 * </pre>
 *
@@ -240,7 +242,6 @@ int XPlmi_CheckNpiErrors(void);
 int XPlmi_ClearNpiErrors(void);
 void XPlmi_TriggerFwNcrError(void);
 void XPlmi_PORHandler(void);
-void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask);
 u32 XPlmi_GetErrorId(u32 ErrorNodeId, u32 RegMask);
 int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask);
 int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask);

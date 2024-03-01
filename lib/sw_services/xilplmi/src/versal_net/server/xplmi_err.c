@@ -30,6 +30,9 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.02  sk   08/17/2023 Updated XPlmi_EmConfig arguments
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
+*       ma   02/29/2024 Change protection unit error actions to PRINT_TO_LOG
+*                       to handle restoring of the error actions after IPU
+*                       Also, set CPM NCR error action to CUSTOM after IPU
 *
 * </pre>
 *
@@ -69,7 +72,6 @@
 static void XPlmi_CpmErrHandler(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr);
 static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr);
-static void XPlmi_ProtUnitErrHandler(u32 ErrorNodeId, u32 RegMask);
 
 /************************** Variable Definitions *****************************/
 /*
@@ -198,7 +200,7 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_INT_PMX_CORR_ERR] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_INT_PMX_UNCORR_ERR] =
-	{ .Handler = XPlmi_ProtUnitErrHandler, .Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_SSIT0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_SSIT1] =
@@ -270,15 +272,15 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_INT_LPD_CR] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_INT_LPD_NCR] =
-	{ .Handler = XPlmi_ProtUnitErrHandler, .Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_INT_OCM_CR] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_INT_OCM_NCR] =
-	{ .Handler = XPlmi_ProtUnitErrHandler, .Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_INT_FPD_CR] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_INT_FPD_NCR] =
-	{ .Handler = XPlmi_ProtUnitErrHandler, .Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_INT_IOU_CR] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_INT_IOU_NCR] =
@@ -348,7 +350,7 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_LPXAFIFS_CR] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_LPXAFIFS_NCR] =
-	{ .Handler = XPlmi_ProtUnitErrHandler, .Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_LPX_GLITCH_DETECT0] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_LPX_GLITCH_DETECT1] =
@@ -414,7 +416,7 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_FPXAFIFS_CR] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_FPXAFIFS_NCR] =
-	{ .Handler = XPlmi_ProtUnitErrHandler, .Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PSX_CMN_1] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PSX_CMN_2] =
@@ -515,10 +517,16 @@ void XPlmi_ReconfigErrActions(void)
 
 	for (ErrIndex = 0U; ErrIndex < XPLMI_ARRAY_SIZE(ErrorTable); ErrIndex++) {
 		ErrorTable[ErrIndex].Handler = NULL;
-		/* All custom actions except PSM NCR will be disabled */
+		/* All custom actions except PSM NCR and CPM NCR will be disabled */
 		if ((ErrorTable[ErrIndex].Action == XPLMI_EM_ACTION_CUSTOM) &&
 				(ErrIndex != XPLMI_ERROR_PMC_PSM_NCR)) {
-			ErrorTable[ErrIndex].Action = XPLMI_EM_ACTION_NONE;
+			if (ErrIndex == XPLMI_ERROR_CPM_NCR) {
+				/* Restore the handler to CPM NCR after In-Place PLM update */
+				ErrorTable[ErrIndex].Handler = XPlmi_CpmErrHandler;
+			} else {
+				/* Set error action to NONE for all other errors */
+				ErrorTable[ErrIndex].Action = XPLMI_EM_ACTION_NONE;
+			}
 		}
 		else if (ErrorTable[ErrIndex].Action == XPLMI_EM_ACTION_INVALID) {
 			continue;
@@ -780,17 +788,21 @@ static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
 			"%s: ERR_ST1_LO: 0x%08x, ERR_ST1_HI: 0x%08x, ERR_ST2: 0x%08x, ISR: 0x%08x\r\n",
 			ProtUnitStr, XmpuErr1lo, XmpuErr1hi, XmpuErrStatus2, XmpuErrors);
 }
+
 /****************************************************************************/
 /**
-* @brief    Top level action handler for the XPPU/XMPU errors
+* @brief    This function is the interrupt handler for Error action "Print
+*           to Log". This function prints detailed information if the error is
+*           due to XMPU/XPPU protection units.
 *
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
 *
-* @return   None
+* @return
+* 			- None
 *
 ****************************************************************************/
-static void XPlmi_ProtUnitErrHandler(u32 ErrorNodeId, u32 RegMask)
+void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 {
 	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
 	u32 RegVal;
@@ -889,9 +901,10 @@ static void XPlmi_ProtUnitErrHandler(u32 ErrorNodeId, u32 RegMask)
 		break;
 
 	default:
-		/* Only XPPU/XMPU errors are handled */
-		XPlmi_Printf(DEBUG_GENERAL, "Unhandled Error: Node: 0x%x, Mask: 0x%x\r\n",
-				ErrorNodeId, RegMask);
+		/** Other than XMPU/XPPU errors, print NodeId, Mask and Error ID information */
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received EAM error. ErrorNodeId: 0x%x,"
+				" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
+				ErrorNodeId, RegMask, ErrorId);
 		break;
 	}
 }

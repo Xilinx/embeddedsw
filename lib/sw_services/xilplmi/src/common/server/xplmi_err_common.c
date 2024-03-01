@@ -135,7 +135,9 @@
 *       ma   11/14/2023 Update error action to NONE after disabling the error
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       jb   02/22/2024 Removed PmSubsysRestart handler and insed used
-*			SystemShutdown for Subsystem restart EM action
+*			            SystemShutdown for Subsystem restart EM action
+*       ma   02/29/2024 Removed XPlmi_ErrPrintToLog function from common folder
+*                       and moved it to xplmi_err.c
 *
 * </pre>
 *
@@ -827,28 +829,6 @@ int XPlmi_ErrorTaskHandler(void *Data)
 	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_ERR_IRQ);
 
 	return XST_SUCCESS;
-}
-
-/****************************************************************************/
-/**
-* @brief    This function is the interrupt handler for Error action "Print
-*           to Log"
-*
-* @param    ErrorNodeId is the node ID for the error event
-* @param    RegMask is the register mask of the error received
-*
-* @return
-* 			- None
-*
-****************************************************************************/
-void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
-{
-	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
-
-	/** - Print NodeId, Mask and Error ID information of the error received. */
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received EAM error. ErrorNodeId: 0x%x,"
-			" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
-			ErrorNodeId, RegMask, ErrorId);
 }
 
 /*****************************************************************************/
