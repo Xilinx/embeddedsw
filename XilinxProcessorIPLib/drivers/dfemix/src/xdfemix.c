@@ -58,10 +58,11 @@
 *       dc     11/25/22 Update macro of SW version Minor number
 *       dc     02/21/23 Correct switch trigger register name
 * 1.6   dc     06/15/23 Correct comment about gain
-*       dc     06/20/23 Depricate obsolete APIs
+*       dc     06/20/23 Deprecate obsolete APIs
 *       cog    07/04/23 Add support for SDT
 *       dc     08/28/23 Remove immediate trigger
 * 1.7   cog    01/29/24 Yocto SDT support
+*       dc     03/01/24 Update version number in makefiles
 * </pre>
 * @addtogroup dfemix Overview
 * @{
