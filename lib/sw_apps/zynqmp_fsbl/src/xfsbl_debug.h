@@ -23,6 +23,8 @@
 *                     prints issue
 * 4.0   sd   02/02/24 Added XFsbl_Handoff_Printf macro to fix uart
 *                     garbage prints and removed DEBUG_HANDOFF macro
+*       sd   03/01/24 Removed XFsbl_Handoff_Printf macro and added
+*                     uart fifo check function just before handoff
 *
 * </pre>
 *
@@ -41,7 +43,6 @@ extern "C" {
 #include "xil_printf.h"
 #include "xfsbl_config.h"
 #include "xil_types.h"
-#include "xuartps_hw.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -75,8 +76,6 @@ extern "C" {
 #endif
 #define XFsbl_Printf(DebugType,...) \
 		if(((DebugType) & XFsblDbgCurrentTypes)!=XFSBL_SUCCESS) {xil_printf (__VA_ARGS__); }
-#define XFsbl_Handoff_Printf(DebugType,...) \
-		if(((DebugType) & XFsblDbgCurrentTypes)!=XFSBL_SUCCESS) {xil_printf (__VA_ARGS__); XUartPs_WaitTransmitDone(STDOUT_BASEADDRESS);}
 
 #ifdef __cplusplus
 }
