@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -803,6 +803,7 @@ XStatus XPmNpDomain_IsNpdIdle(const XPm_Node *Node)
 	XStatus Status = XST_SUCCESS;
 	const XPm_PowerDomain *PowerD;
 	const XPm_Power *Power;
+	const XPm_Device *Device;
 	u32 i;
 
 	/*
@@ -811,15 +812,22 @@ XStatus XPmNpDomain_IsNpdIdle(const XPm_Node *Node)
 	 * For cases that 'Node' is a power domain, that validation is done by
 	 * the calling routine 'XPmNpDomain_ClockGate'.
 	 */
-	Power = (XPm_Power *)Node;
-	if ((NODECLASS(Node->Id) == (u32)XPM_NODECLASS_DEVICE) &&
-	    (Power->Parent->Node.Id != (u32)PM_POWER_NOC)) {
-		Status = XST_FAILURE;
+	if ((u32)XPM_NODECLASS_DEVICE == NODECLASS(Node->Id)) {
+		Device = (XPm_Device *)Node;
+		if ((u32)PM_POWER_NOC != Device->Power->Node.Id) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		PowerD = (XPm_PowerDomain *)Device->Power;
+	} else if (((u32)XPM_NODECLASS_POWER == NODECLASS(Node->Id)) &&
+		   ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(Node->Id))) {
+		PowerD = (XPm_PowerDomain *)Node;
+	} else {
+		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	/* Check idleness of NOC's dependent power domains */
-	PowerD = (XPm_PowerDomain *)Power->Parent;
 	for (i = 0U; ((i < (u32)MAX_POWERDOMAINS) && (PowerD->Children[i] != 0U));
 	     i++) {
 		Power = (XPm_Power *)XPmPower_GetById(PowerD->Children[i]);
@@ -854,17 +862,18 @@ done:
 static XStatus XPmNpDomain_IsParentPowerNoc(const XPm_Node *Node, u16 *DbgErr)
 {
 	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device;
 	const XPm_Power *Power;
 
 	/* Node's parent power dmain should be NOC */
-	Power = (XPm_Power *)Node;
-	if ((u32)XPM_NODECLASS_DEVICE == NODECLASS(Power->Node.Id)) {
-		if ((u32)PM_POWER_NOC != Power->Parent->Node.Id) {
+	if ((u32)XPM_NODECLASS_DEVICE == NODECLASS(Node->Id)) {
+		Device = (XPm_Device *)Node;
+		if ((u32)PM_POWER_NOC != Device->Power->Node.Id) {
 			*DbgErr = XPM_INT_ERR_INVALID_NODE;
 			goto done;
 		}
-	} else if (((u32)XPM_NODECLASS_POWER == NODECLASS(Power->Node.Id)) &&
-		   ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(Power->Node.Id))) {
+	} else if (((u32)XPM_NODECLASS_POWER == NODECLASS(Node->Id)) &&
+		   ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(Node->Id))) {
 		const XPm_PowerDomain *PowerD = (XPm_PowerDomain *)Node;
 		u32 i = 0U;
 		while (MAX_POWERDOMAINS > i) {
