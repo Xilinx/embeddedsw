@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -30,6 +30,7 @@
 *       kpt  03/03/22 Fixed alignment issue in XNvm_EfusePufFuseAddr
 *                     by rearranging the structure elements
 * 3.1   skg  10/28/22 Added comments
+* 3.3	vss  02/23/24 Added IPI support for eFuse read and write
 *
 * </pre>
 * @note
@@ -105,6 +106,14 @@ typedef struct {
 }XNvm_EfusePufHdAddr;
 #endif
 
+#ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
+typedef struct {
+	u32 Chash;
+	u32 Aux;
+	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
+} XNvm_EfusePufData;
+#endif
+
 #ifdef XNVM_EN_ADD_PPKS
 typedef struct {
 	u8 PrgmPpk3Hash;
@@ -114,7 +123,7 @@ typedef struct {
 } XNvm_EfuseAdditionalPpkHash;
 #endif
 
-/**< XilNVM API ids */
+/**< XilNVM API ids, IDs ranging from an enum value of 24 to 35 are used by IPI */
 typedef enum {
 	XNVM_API_FEATURES = 0,
 	XNVM_API_ID_BBRAM_WRITE_AES_KEY,
@@ -139,6 +148,19 @@ typedef enum {
 	XNVM_API_ID_EFUSE_READ_DNA,
 	XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE,
 	XNVM_API_ID_EFUSE_READ_PUF,
+	XNVM_API_ID_EFUSE_READ_CACHE,
+	XNVM_API_ID_EFUSE_WRITE_IV,
+	XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC1,
+	XNVM_API_ID_EFUSE_WRITE_PUF_DATA,
+	XNVM_API_ID_EFUSE_WRITE_OFF_CHIP_ID,
+	XNVM_API_ID_EFUSE_WRITE_USER_EFUSE,
+	XNVM_API_ID_EFUSE_WRITE_REVOCATION_ID,
+	XNVM_API_ID_EFUSE_WRITE_PPK_HASH,
+	XNVM_API_ID_EFUSE_WRITE_ANLG_TRIM,
+	XNVM_API_ID_EFUSE_WRITE_BOOT_ENV_CTRL,
+	XNVM_API_ID_EFUSE_WRITE_MISC_CTRL,
+	XNVM_API_ID_EFUSE_WRITE_SECURITY_CTRL,
+	XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC0_CTRL,
 	XNVM_API_MAX,
 } XNvm_ApiId;
 

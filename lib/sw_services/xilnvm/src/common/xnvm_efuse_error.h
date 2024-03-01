@@ -24,6 +24,7 @@
 *       kpt  01/21/23 Removed error codes for Additional PPKs
 * 3.2   kum  04/11/23 Moved Env error codes to common to make use for both versal and versalnet
 * 3.3   ng   01/26/24 Fixed error number
+*	vss  02/23/24 Added IPI support for eFuse read and write
 *
 * </pre>
 * @note
@@ -217,6 +218,12 @@ typedef enum {
 	XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA = 0xF400,/**<0xF400 - Error
 						* before programming eFuse,
 						* new data is not available */
+	XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED = 0xFA00,/**<0xFA00 - Error
+						* when eFuse access,
+						* is not enabled */
+	XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE =	0xFB00,/**<0xFB00 - Error
+						* when accessed address range,
+						* of eFuse is invalid */
 	XNVM_EFUSE_ERR_GLITCH_DETECTED = 0x20000,/**<0x20000
 						 * Glitch detected, due to which
 						 * requested eFuses may be

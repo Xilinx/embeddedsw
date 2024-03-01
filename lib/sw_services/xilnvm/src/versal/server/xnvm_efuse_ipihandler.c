@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +29,8 @@
 * 			ClearStatusTmp
 *       dc   08/29/2022 Removed initializations for optimization
 * 3.1   skg  10/25/2022 Added in body comments for APIs
-*       skg  12/07/2022 Added Additonal PPKs support
+*       skg  12/07/2022 Added Additional PPKs support
+* 3.3	vss  02/23/2024	Added IPI support for eFuse read and write
 *
 * </pre>
 *
@@ -49,11 +50,14 @@
 #include "xplmi_sysmon.h"
 #include "xnvm_utils.h"
 #include "xplmi_hw.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 #define XNVM_EFUSE_NUM_OF_PUF_FUSES	(128U)
 #endif
+/**< eFuse word length */
+#define XNVM_EFUSE_WORD_LEN			(4U)
 
 /************************** Function Prototypes *****************************/
 static int XNvm_EfuseDataWrite(u32 AddrLow, u32 AddrHigh);
@@ -80,6 +84,26 @@ static int XNvm_EfusePufWrite(u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfusePufRead(u32 AddrLow, u32 AddrHigh);
 #endif
 static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
+#if (defined(XNVM_WRITE_KEY_MANAGEMENT_EFUSE)) || (defined(XNVM_WRITE_SECURITY_CRITICAL_EFUSE))
+static int XNvm_EfuseMiscCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseSecCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis);
+#endif
+#ifdef XNVM_WRITE_KEY_MANAGEMENT_EFUSE
+static int XNvm_EfuseOffChipIdsWriteAccess(u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseRevokeIdsWriteAccess(u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfusePpkhashWriteAccess(u64 Addr, u8 EnvMonitorDis);
+#endif
+#ifdef XNVM_WRITE_USER_EFUSE
+static int XNvm_EfuseUserFuseWriteAccess(u64 Addr, u8 EnvMonitorDis);
+#endif
+#ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
+static int XNvm_EfuseIvWriteAccess(u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseSecMisc1WriteAccess(u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseAnlgTrimWriteAccess(u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseBootEnvCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfusePufWriteAccess(u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseSecMisc0WriteAccess(u64 Addr, u8 EnvMonitorDis);
+#endif
 
 /*************************** Function Definitions *****************************/
 
@@ -1016,4 +1040,693 @@ static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
 	return Status;
 }
 
+#if (defined(XNVM_WRITE_KEY_MANAGEMENT_EFUSE)) || (defined(XNVM_WRITE_SECURITY_CRITICAL_EFUSE)) || \
+	(defined (XNVM_WRITE_USER_EFUSE))
+/*****************************************************************************/
+/**
+ * * @brief	This function is used to program eFuses
+ *
+ *
+ * @param	Cmd - is pointer to the command structure.
+ * @param 	AddrLow		Lower 32 bit address of the
+ * 				Payload
+ * @param	AddrHigh	Higher 32 bit address of the
+ *				Payload
+ *@param	EnvMonitorDis	Environment monitor disable variable.
+ *
+ * @return	- XST_SUCCESS - On Specified data write.
+ *		- Error Code - On corresponding failure
+ *
+ *
+ ******************************************************************************/
+int XNvm_EfuseWriteAccess(const XPlmi_Cmd *Cmd, u32 AddrLow, u32 AddrHigh, u8 EnvMonitorDis)
+{
+	volatile int Status = XST_FAILURE;
+	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
+
+	if (NULL == Cmd) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
+#ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
+		case XNVM_API_ID_EFUSE_WRITE_IV:
+			Status = XNvm_EfuseIvWriteAccess(Addr, EnvMonitorDis);
+			break;
+		case XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC1:
+			Status = XNvm_EfuseSecMisc1WriteAccess(Addr, EnvMonitorDis);
+			break;
+		case XNVM_API_ID_EFUSE_WRITE_ANLG_TRIM:
+			Status = XNvm_EfuseAnlgTrimWriteAccess(Addr, EnvMonitorDis);
+			break;
+		case XNVM_API_ID_EFUSE_WRITE_BOOT_ENV_CTRL:
+			Status = XNvm_EfuseBootEnvCtrlWriteAccess(Addr, EnvMonitorDis);
+			break;
+		case XNVM_API_ID_EFUSE_WRITE_PUF_DATA:
+			Status = XNvm_EfusePufWriteAccess(Addr, EnvMonitorDis);
+			break;
+		case XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC0_CTRL:
+			Status = XNvm_EfuseSecMisc0WriteAccess(Addr, EnvMonitorDis);
+			break;
+#endif
+
+#ifdef XNVM_WRITE_USER_EFUSE
+		case XNVM_API_ID_EFUSE_WRITE_USER_EFUSE:
+			Status = XNvm_EfuseUserFuseWriteAccess(Addr, EnvMonitorDis);
+			break;
+#endif
+
+#ifdef XNVM_WRITE_KEY_MANAGEMENT_EFUSE
+		case XNVM_API_ID_EFUSE_WRITE_OFF_CHIP_ID:
+			Status = XNvm_EfuseOffChipIdsWriteAccess(Addr, EnvMonitorDis);
+			break;
+		case XNVM_API_ID_EFUSE_WRITE_REVOCATION_ID:
+			Status = XNvm_EfuseRevokeIdsWriteAccess(Addr, EnvMonitorDis);
+			break;
+		case XNVM_API_ID_EFUSE_WRITE_PPK_HASH:
+			Status = XNvm_EfusePpkhashWriteAccess(Addr, EnvMonitorDis);
+			break;
+#endif
+#if (defined(XNVM_WRITE_KEY_MANAGEMENT_EFUSE)) || (defined(XNVM_WRITE_SECURITY_CRITICAL_EFUSE))
+		case XNVM_API_ID_EFUSE_WRITE_MISC_CTRL:
+			Status = XNvm_EfuseMiscCtrlWriteAccess(Addr, EnvMonitorDis);
+			break;
+		case XNVM_API_ID_EFUSE_WRITE_SECURITY_CTRL:
+			Status = XNvm_EfuseSecCtrlWriteAccess(Addr, EnvMonitorDis);
+			break;
+#endif
+		default :
+			XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
+			Status = XST_INVALID_PARAM;
+			break;
+	}
+
+END:
+	return Status;
+}
+#endif
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to read a specific eFuse
+ *
+ * @param 	Offset 		Offset of the eFuse
+ *
+ * @param 	AddrLow		Lower 32 bit address of the eFuse row
+ *
+ * @param	AddrHigh	Higher 32 bit address of the eFuse row
+ *
+ * @param 	Size 		Length of data to be read
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ *****************************************************************************/
+int XNvm_EfuseRead(u32 Offset, u32 AddrLow, u32 AddrHigh, u32 Size)
+{
+	int Status = XST_FAILURE;
+	u64 ReadDataAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
+
+	Status = XPlmi_VerifyAddrRange(ReadDataAddr, ReadDataAddr + Size - 1U);
+        if (Status != XST_SUCCESS) {
+		Status = (int)XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+                goto END;
+        }
+
+	/*< Offset indicates lower nibble of the eFuse cache row offset */
+	Status = XNvm_EfuseReadCacheRange(Offset / XNVM_EFUSE_WORD_LEN,
+					  Size / XNVM_EFUSE_WORD_LEN, (u32 *)(UINTPTR)ReadDataAddr);
+
+END:
+	return Status;
+}
+
+#ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
+/*****************************************************************************/
+/**
+ * @brief	This function is used to write a Iv eFuse
+ *
+ * @param 	Addr 	Address of the data to be written
+ *
+ * @param 	EnvMonitorDis	Environmental Disable variable
+ *
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- Error Code - Corresponding error code on failure
+ *
+ *****************************************************************************/
+static int XNvm_EfuseIvWriteAccess(u64 Addr, u8 EnvMonitorDis)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseIvs Ivs = {0U};
+	XNvm_EfuseData EfuseData = {0U};
+
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(Ivs) - 1U);
+	if(Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+		goto END;
+	}
+
+	EfuseData.EnvMonitorDis = EnvMonitorDis;
+	if (EfuseData.EnvMonitorDis == FALSE) {
+		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&Ivs, sizeof(Ivs));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData.Ivs = &Ivs;
+	Status = XNvm_EfuseWrite(&EfuseData);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to write SecMisc1Bits eFuse
+ *
+ * @param 	Addr 	Address of the data to be written
+ *
+ * @param 	EnvMonitorDis	Environmental Disable variable
+ *
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- Error Code - Corresponding error code on failure
+ *
+ *****************************************************************************/
+static int XNvm_EfuseSecMisc1WriteAccess(u64 Addr, u8 EnvMonitorDis)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseSecMisc1Bits SecMisc1Bits = {0U};
+	XNvm_EfuseData EfuseData = {0U};
+
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(SecMisc1Bits) - 1U);
+	if(Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+		goto END;
+	}
+
+	EfuseData.EnvMonitorDis = EnvMonitorDis;
+	if (EfuseData.EnvMonitorDis == FALSE) {
+		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&SecMisc1Bits, sizeof(SecMisc1Bits));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData.Misc1Bits = &SecMisc1Bits;
+	Status = XNvm_EfuseWrite(&EfuseData);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to write GlitchCfgBits eFuse
+ *
+ * @param 	Addr 	Address of the data to be written
+ *
+ * @param 	EnvMonitorDis	Environmental Disable variable
+ *
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- Error Code - Corresponding error code on failure
+ *
+ *****************************************************************************/
+static int XNvm_EfuseAnlgTrimWriteAccess(u64 Addr, u8 EnvMonitorDis)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseGlitchCfgBits GlitchCfgBits = {0U};
+	XNvm_EfuseData EfuseData = {0U};
+
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(GlitchCfgBits) - 1U);
+	if(Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+		goto END;
+	}
+
+	EfuseData.EnvMonitorDis = EnvMonitorDis;
+	if (EfuseData.EnvMonitorDis == FALSE) {
+		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&GlitchCfgBits, sizeof(GlitchCfgBits));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData.GlitchCfgBits = &GlitchCfgBits;
+	Status = XNvm_EfuseWrite(&EfuseData);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to write BootEnvCtrl eFuse
+ *
+ * @param 	Addr 	Address of the data to be written
+ *
+ * @param 	EnvMonitorDis	Environmental Disable variable
+ *
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- Error Code - Corresponding error code on failure
+ *
+ *****************************************************************************/
+static int XNvm_EfuseBootEnvCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseBootEnvCtrlBits BootEnvCtrl = {0U};
+	XNvm_EfuseData EfuseData = {0U};
+
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(BootEnvCtrl) - 1U);
+	if(Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+		goto END;
+	}
+
+	EfuseData.EnvMonitorDis = EnvMonitorDis;
+	if (EfuseData.EnvMonitorDis == FALSE) {
+		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&BootEnvCtrl, sizeof(BootEnvCtrl));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData.BootEnvCtrl = &BootEnvCtrl;
+	Status = XNvm_EfuseWrite(&EfuseData);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to write puf eFuse
+ *
+ * @param 	Addr 	Address of the data to be written
+ *
+ * @param 	EnvMonitorDis	Environmental Disable variable
+ *
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- Error Code - Corresponding error code on failure
+ *
+ *****************************************************************************/
+static int XNvm_EfusePufWriteAccess(u64 Addr, u8 EnvMonitorDis)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfusePufData PufHdAddr = {0U};
+	XNvm_EfusePufHd PufHd = {0U};
+	XNvm_EfuseData EfuseData = {0U};
+
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(PufHdAddr) - 1U);
+	if(Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+		goto END;
+	}
+
+	EfuseData.EnvMonitorDis = EnvMonitorDis;
+	if (EfuseData.EnvMonitorDis == FALSE) {
+		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PufHdAddr, sizeof(PufHdAddr));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	PufHd.Chash = PufHdAddr.Chash;
+	PufHd.Aux = PufHdAddr.Aux;
+	PufHd.EnvMonitorDis = EfuseData.EnvMonitorDis;
+	PufHd.SysMonInstPtr = EfuseData.SysMonInstPtr;
+	PufHd.PrgmPufHelperData = TRUE;
+
+	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&PufHdAddr.EfuseSynData,
+				   (u64)(UINTPTR)&PufHd.EfuseSynData,
+				   XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS *
+				   XNVM_WORD_LEN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XNvm_EfuseWritePuf(&PufHd);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to write SecMisc0 eFuse
+ *
+ * @param 	Addr 	Address of the data to be written
+ *
+ * @param 	EnvMonitorDis	Environmental Disable variable
+ *
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- Error Code - Corresponding error code on failure
+ *
+ *****************************************************************************/
+static int XNvm_EfuseSecMisc0WriteAccess(u64 Addr, u8 EnvMonitorDis)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseDecOnly DecOnly = {0U};
+	XNvm_EfuseData EfuseData = {0U};
+
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(DecOnly) - 1U);
+	if(Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+		goto END;
+	}
+
+	EfuseData.EnvMonitorDis = EnvMonitorDis;
+	if (EfuseData.EnvMonitorDis == FALSE) {
+		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&DecOnly, sizeof(DecOnly));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData.DecOnly = &DecOnly;
+	Status = XNvm_EfuseWrite(&EfuseData);
+
+END:
+	return Status;
+}
+
+#endif
+
+#ifdef XNVM_WRITE_KEY_MANAGEMENT_EFUSE
+/*****************************************************************************/
+/**
+ * @brief	This function is used to write OffChipIds eFuse
+ *
+ * @param 	Addr 	Address of the data to be written
+ *
+ * @param 	EnvMonitorDis	Environmental Disable variable
+ *
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- Error Code - Corresponding error code on failure
+ *
+ *****************************************************************************/
+static int XNvm_EfuseOffChipIdsWriteAccess(u64 Addr, u8 EnvMonitorDis)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseOffChipIds OffChipIds = {0U};
+	XNvm_EfuseData EfuseData = {0U};
+
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(OffChipIds) - 1U);
+	if(Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+		goto END;
+	}
+
+	EfuseData.EnvMonitorDis = EnvMonitorDis;
+	if (EfuseData.EnvMonitorDis == FALSE) {
+		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&OffChipIds, sizeof(OffChipIds));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData.OffChipIds = &OffChipIds;
+	Status = XNvm_EfuseWrite(&EfuseData);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to write RevokeIds eFuse
+ *
+ * @param 	Addr 	Address of the data to be written
+ *
+ * @param 	EnvMonitorDis	Environmental Disable variable
+ *
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- Error Code - Corresponding error code on failure
+ *
+ *****************************************************************************/
+static int XNvm_EfuseRevokeIdsWriteAccess(u64 Addr, u8 EnvMonitorDis)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseRevokeIds RevokeIds = {0U};
+	XNvm_EfuseData EfuseData = {0U};
+
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(RevokeIds) - 1U);
+	if(Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+		goto END;
+	}
+
+	EfuseData.EnvMonitorDis = EnvMonitorDis;
+	if (EfuseData.EnvMonitorDis == FALSE) {
+		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&RevokeIds, sizeof(RevokeIds));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData.RevokeIds = &RevokeIds;
+	Status = XNvm_EfuseWrite(&EfuseData);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to write PpkHash eFuse
+ *
+ * @param 	Addr 	Address of the data to be written
+ *
+ * @param 	EnvMonitorDis	Environmental Disable variable
+ *
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- Error Code - Corresponding error code on failure
+ *
+ *****************************************************************************/
+static int XNvm_EfusePpkhashWriteAccess(u64 Addr, u8 EnvMonitorDis)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfusePpkHash PpkHash = {0U};
+	XNvm_EfuseData EfuseData = {0U};
+
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(PpkHash) - 1U);
+	if(Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+		goto END;
+	}
+
+	EfuseData.EnvMonitorDis = EnvMonitorDis;
+	if (EfuseData.EnvMonitorDis == FALSE) {
+		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PpkHash, sizeof(PpkHash));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData.PpkHash = &PpkHash;
+	Status = XNvm_EfuseWrite(&EfuseData);
+
+END:
+	return Status;
+}
+#endif
+
+#ifdef XNVM_WRITE_USER_EFUSE
+/*****************************************************************************/
+/**
+ * @brief	This function is used to write UserFuses eFuse
+ *
+ * @param 	Addr 	Address of the data to be written
+ *
+ * @param 	EnvMonitorDis	Environmental Disable variable
+ *
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- Error Code - Corresponding error code on failure
+ *
+ *****************************************************************************/
+static int XNvm_EfuseUserFuseWriteAccess(u64 Addr, u8 EnvMonitorDis)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseUserData UserFuses = {0U};
+	XNvm_EfuseData EfuseData = {0U};
+
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(UserFuses) - 1U);
+	if(Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+		goto END;
+	}
+
+	EfuseData.EnvMonitorDis = EnvMonitorDis;
+	if (EfuseData.EnvMonitorDis == FALSE) {
+		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&UserFuses, sizeof(UserFuses));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData.UserFuses = &UserFuses;
+	Status = XNvm_EfuseWrite(&EfuseData);
+
+END:
+	return Status;
+}
+#endif
+
+#if (defined(XNVM_WRITE_KEY_MANAGEMENT_EFUSE)) || (defined(XNVM_WRITE_SECURITY_CRITICAL_EFUSE))
+/*****************************************************************************/
+/**
+ * @brief	This function is used to write MiscCtrlBits eFuse
+ *
+ * @param 	Addr 	Address of the data to be written
+ *
+ * @param 	EnvMonitorDis	Environmental Disable variable
+ *
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- Error Code - Corresponding error code on failure
+ *
+ *****************************************************************************/
+static int XNvm_EfuseMiscCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseMiscCtrlBits MiscCtrlBits = {0U};
+	XNvm_EfuseData EfuseData = {0U};
+
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(MiscCtrlBits) - 1U);
+	if(Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+		goto END;
+	}
+
+	EfuseData.EnvMonitorDis = EnvMonitorDis;
+	if (EfuseData.EnvMonitorDis == FALSE) {
+		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&MiscCtrlBits, sizeof(MiscCtrlBits));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData.MiscCtrlBits = &MiscCtrlBits;
+
+#ifndef XNVM_WRITE_KEY_MANAGEMENT_EFUSE
+	if ((EfuseData.MiscCtrlBits->Ppk0Invalid != 0U) || (EfuseData.MiscCtrlBits->Ppk1Invalid != 0U) ||
+	    (EfuseData.MiscCtrlBits->Ppk2Invalid != 0U)) {
+		Status = XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED;
+		goto END;
+	}
+#endif
+
+#ifndef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
+	if ((EfuseData.MiscCtrlBits->GlitchDetRomMonitorEn != 0U)
+	    || (EfuseData.MiscCtrlBits->HaltBootError != 0U) ||
+	    (EfuseData.MiscCtrlBits->HaltBootEnv != 0U) || (EfuseData.MiscCtrlBits->CryptoKatEn != 0U) ||
+	    (EfuseData.MiscCtrlBits->LbistEn != 0U) || (EfuseData.MiscCtrlBits->SafetyMissionEn != 0U)) {
+		Status = XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED;
+		goto END;
+	}
+#endif
+	Status =  XNvm_EfuseWrite(&EfuseData);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to write SecCtrlBits eFuse
+ *
+ * @param 	Addr 	Address of the data to be written
+ *
+ * @param 	EnvMonitorDis	Environmental Disable variable
+ *
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- Error Code - Corresponding error code on failure
+ *
+ *****************************************************************************/
+static int XNvm_EfuseSecCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseSecCtrlBits SecCtrlBits = {0U};
+	XNvm_EfuseData EfuseData = {0U};
+
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(SecCtrlBits) - 1U);
+	if(Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+		goto END;
+	}
+
+	EfuseData.EnvMonitorDis = EnvMonitorDis;
+	if (EfuseData.EnvMonitorDis == FALSE) {
+		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&SecCtrlBits, sizeof(SecCtrlBits));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData.SecCtrlBits = &SecCtrlBits;
+
+#ifndef XNVM_WRITE_KEY_MANAGEMENT_EFUSE
+	if ((EfuseData.SecCtrlBits->UserKey0CrcLk != 0U) || (EfuseData.SecCtrlBits->UserKey0WrLk != 0U) ||
+	    (EfuseData.SecCtrlBits->UserKey1CrcLk != 0U) || (EfuseData.SecCtrlBits->UserKey1WrLk != 0U) ||
+	    (EfuseData.SecCtrlBits->AesWrLk != 0U) || (EfuseData.SecCtrlBits->AesCrcLk != 0U) ||
+	    (EfuseData.SecCtrlBits->Ppk2WrLk != 0U) || (EfuseData.SecCtrlBits->Ppk1WrLk != 0U) ||
+	    (EfuseData.SecCtrlBits->Ppk0WrLk != 0U)) {
+		Status = XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED;
+		goto END;
+	}
+#endif
+
+#ifndef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
+	if ((EfuseData.SecCtrlBits->AesDis != 0U) || (EfuseData.SecCtrlBits->JtagErrOutDis != 0U) ||
+	    (EfuseData.SecCtrlBits->JtagDis != 0U) || (EfuseData.SecCtrlBits->HwTstBitsDis != 0U) ||
+	    (EfuseData.SecCtrlBits->SecDbgDis != 0U) || (EfuseData.SecCtrlBits->SecLockDbgDis != 0U) ||
+	    (EfuseData.SecCtrlBits->PmcScEn != 0U) || (EfuseData.SecCtrlBits->BootEnvWrLk != 0U) ||
+	    (EfuseData.SecCtrlBits->RegInitDis != 0U)) {
+		Status = XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED;
+		goto END;
+	}
+#endif
+
+	Status =  XNvm_EfuseWrite(&EfuseData);
+
+END:
+	return Status;
+}
+#endif
 #endif

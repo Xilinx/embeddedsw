@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.0   kal  01/05/22 Initial release
 * 3.2   ng   06/30/23 Added support for system device tree flow
 *       yog  09/13/23 Fixed review comments
+* 3.3	vss  02/23/24 Added IPI support for eFuse read and write
 *
 * </pre>
 * @note
@@ -246,12 +247,12 @@ typedef struct {
 } XNvm_EfuseDecOnly;
 
 typedef struct {
-	u8 PrgmRevokeId;
+	u32 PrgmRevokeId;
 	u32 RevokeId[XNVM_NUM_OF_REVOKE_ID_FUSES];
 } XNvm_EfuseRevokeIds;
 
 typedef struct {
-	u8 PrgmOffchipId;
+	u32 PrgmOffchipId;
 	u32 OffChipId[XNVM_NUM_OF_OFFCHIP_ID_FUSES];
 } XNvm_EfuseOffChipIds;
 

@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -11,6 +11,7 @@
 # 3.0  kpt  08/25/22 Changed user configurable parameter names
 # 3.1  skg  12/07/22 Added a user configuration parameter
 # 3.3  vss  12/21/23 Added microblaze support for versalnet
+#      vss  02/23/24 Added configuration parameters for eFuse write
 #
 ##############################################################################
 
@@ -193,6 +194,9 @@ proc xgen_opts_file {libhandle} {
 	set dstdir [file join .. .. include]
 	set access_puf_efuse [common::get_property CONFIG.xnvm_use_puf_hd_as_user_efuse $libhandle]
 	set add_en_ppks [common::get_property CONFIG.xnvm_en_add_ppks $libhandle]
+	set access_en_write_sec_crit_efuse [common::get_property CONFIG.xnvm_en_write_sec_crit_efuse $libhandle]
+	set access_en_write_user_efuse [common::get_property CONFIG.xnvm_en_write_user_efuse $libhandle]
+	set access_en_write_key_management_efuse [common::get_property CONFIG.xnvm_en_write_key_management_efuse $libhandle]
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
@@ -232,6 +236,21 @@ proc xgen_opts_file {libhandle} {
 	if {$add_en_ppks == true || $IsAddPpkEn ==  true} {
 		puts $file_handle "\n/* Enable provisioning support for additional PPKs */"
 		puts $file_handle "\n#define XNVM_EN_ADD_PPKS \n"
+	}
+
+	if {$access_en_write_sec_crit_efuse == true} {
+		puts $file_handle "\n/* Enable write access for security critical eFuses */"
+		puts $file_handle "\n#define XNVM_WRITE_SECURITY_CRITICAL_EFUSE \n"
+	}
+
+	if {$access_en_write_user_efuse == true} {
+		puts $file_handle "\n/* Enable write access for user eFuses */"
+		puts $file_handle "\n#define XNVM_WRITE_USER_EFUSE \n"
+	}
+
+	if {$access_en_write_key_management_efuse == true} {
+		puts $file_handle "\n/* Enable write access for key manage eFuses */"
+		puts $file_handle "\n#define XNVM_WRITE_KEY_MANAGEMENT_EFUSE \n"
 	}
 
 	# Get cache_disable value set by user, by default it is FALSE

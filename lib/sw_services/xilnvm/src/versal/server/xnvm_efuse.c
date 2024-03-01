@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -93,6 +93,7 @@
 *	kpt 07/26/2023  Add missing else check in XNvm_EfuseReadPpkHash
 * 3.3   har 12/04/2023  Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
 *       vss 12/31/2023  Added support for Program the eFuse protection bits only once
+*	vss 02/23/2024	Added IPI support for eFuse read and write
 *
 * </pre>
 *
@@ -154,7 +155,6 @@
 
 /*************************** Function Prototypes ******************************/
 static int XNvm_EfuseReadCache(u32 Row, u32* RowData);
-static int XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32* RowData);
 static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col);
 static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col);
 static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col);
@@ -4732,7 +4732,7 @@ END:
  *		- XNVM_EFUSE_ERR_CACHE_PARITY - Parity Error exist in cache.
  *
  ******************************************************************************/
-static int XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32* RowData)
+int XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32 *RowData)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Row = StartRow;
