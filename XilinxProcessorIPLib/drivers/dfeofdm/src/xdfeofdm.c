@@ -26,6 +26,7 @@
 *       dc     08/28/23 Remove immediate trigger
 * 1.2   dc     10/16/23 Doxygen documenatation update
 *       dc     10/17/23 Support for FFT size 512
+*       dc     02/29/24 Correct sw major/minor version numbers
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -57,9 +58,9 @@
 * @endcond
 */
 #define XDFEOFDM_DRIVER_VERSION_MINOR                                          \
-	(1U) /**< Minor version number of driver */
+	(2U) /**< Minor version number of driver */
 #define XDFEOFDM_DRIVER_VERSION_MAJOR                                          \
-	(2U) /**< Major version number of driver */
+	(1U) /**< Major version number of driver */
 
 #define XDFEOFDM_PHASE_COMPENSATION_REG_STEP                                   \
 	8U /**< Address space step between
