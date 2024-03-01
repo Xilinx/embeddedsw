@@ -1,4 +1,4 @@
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS apu.h)
@@ -13,3 +13,5 @@ collect (PROJECT_LIB_SOURCES xpsmfw_plat.c)
 collect (PROJECT_LIB_HEADERS xpsmfw_plat.h)
 collect (PROJECT_LIB_SOURCES xpsmfw_power.c)
 collect (PROJECT_LIB_HEADERS xpsmfw_power.h)
+collect (PROJECT_LIB_HEADERS xpsmfw_update.h)
+collect (PROJECT_LIB_SOURCES xpsmfw_update.c)
