@@ -63,6 +63,7 @@
 *                       for debug level_0 option
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
+*       bm   03/01/2024 Set LogCdoOffset by default in JTAG boot mode
 *
 * </pre>
 *
@@ -234,9 +235,16 @@ int XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 	}
 	/* Initialize the CDO buffer user params */
 	CdoPtr->Cdo1stChunk = (u8)TRUE;
-	/* Set LogCdoOffset Flag only when PGGS1 register indicates to log */
-	CdoPtr->LogCdoOffset = (u8)((XPlmi_In32(PMC_GLOBAL_PERS_GLOB_GEN_STORAGE1) &
-				PMC_GLOBAL_LOG_CDO_OFFSET_MASK) >> PMC_GLOBAL_LOG_CDO_OFFSET_SHIFT);
+	if((XPlmi_In32(CRP_BOOT_MODE_USER) &
+			CRP_BOOT_MODE_USER_BOOT_MODE_MASK) != 0U) {
+		/* Set LogCdoOffset Flag only when PGGS1 register indicates to log */
+		CdoPtr->LogCdoOffset = (u8)((XPlmi_In32(PMC_GLOBAL_PERS_GLOB_GEN_STORAGE1) &
+					PMC_GLOBAL_LOG_CDO_OFFSET_MASK) >> PMC_GLOBAL_LOG_CDO_OFFSET_SHIFT);
+	}
+	else {
+		/* Set LogCdoOffset by default in JTAG boot mode */
+		CdoPtr->LogCdoOffset = (u8)TRUE;
+	}
 	CdoPtr->Cmd.CdoParamsStack.OffsetListTop = -1;
 
 END:
