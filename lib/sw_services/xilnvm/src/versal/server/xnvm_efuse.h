@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 * 3.3   har  12/04/2023 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
 *       vss  12/31/2023 Added support for Program the eFuse protection bits only once
 *       kpt  02/21/2024 Added generic handler
+*	vss  02/23/2024	Added IPI support for eFuse read and write
 *
 * </pre>
 *
@@ -166,7 +167,7 @@ typedef enum {
 	XNVM_EFUSE_MISC_PPK1_INVALID_BIT_1, /**< Ppk1 invalid bit 1*/
 	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_0, /**< Ppk2 invalid bit 0*/
 	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_1, /**< Ppk2 invalid bit 1*/
-	XNVM_EFUSE_MISC_SAFETY_MISSION_EN, /**< Saftey mission enable*/
+	XNVM_EFUSE_MISC_SAFETY_MISSION_EN, /**< Safety mission enable*/
 	XNVM_EFUSE_MISC_PPK3_INVALID_BIT_0 = 9, /**< Ppk3 invalid bit 0*/
 	XNVM_EFUSE_MISC_PPK3_INVALID_BIT_1, /**< Ppk3 invalid bit 1*/
 	XNVM_EFUSE_MISC_PPK4_INVALID_BIT_0, /**< Ppk4 invalid bit 0*/
@@ -261,6 +262,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits);
 int XNvm_EfuseReadPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType);
 int XNvm_EfuseReadDecOnly(u32* DecOnly);
 int XNvm_EfuseReadDna(XNvm_Dna *EfuseDna);
+int XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32 *RowData);
 #ifndef XNVM_ACCESS_PUF_USER_DATA
 int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData);
 #endif

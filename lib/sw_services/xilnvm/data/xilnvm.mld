@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -14,6 +14,7 @@
 #       skg  12/07/22 Added a user configuration parameter
 # 3.2   har  02/15/23 Updated library version for 2023.2
 # 3.3   ng   09/27/23 Updated library version for 2024.1
+#       vss  02/23/24 Added configuration parameters for eFuse write
 #
 ##############################################################################
 
@@ -32,4 +33,7 @@ BEGIN LIBRARY xilnvm
   PARAM name = xnvm_mode, desc = "Enables A72/R5 server and client mode support for XilNvm library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
   PARAM name = xnvm_cache_disable, desc = "Enables/Disables Cache for XilNvm client library", type = bool, default = true;
   PARAM name = xnvm_en_add_ppks, desc = "Enables/Disables Additional PPKs provisioning support", type = bool, default = false;
+  PARAM name = xnvm_en_write_sec_crit_efuse, desc = "Enables/Disables write access to security critical eFuses ", type = bool, default = false;
+  PARAM name = xnvm_en_write_user_efuse, desc = "Enables/Disables write access to user eFuses", type = bool, default = false;
+  PARAM name = xnvm_en_write_key_management_efuse, desc = "Enables/Disables write access to key manage eFuses", type = bool, default = false;
 END LIBRARY
