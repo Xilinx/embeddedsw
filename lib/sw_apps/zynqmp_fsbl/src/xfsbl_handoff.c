@@ -32,6 +32,8 @@
  *                     prints issue
  * 6.0   sd   02/02/24 Added XFsbl_Handoff_Printf macro to fix uart
  *                     garbage prints and removed DEBUG_HANDOFF macro
+ *       sd   03/01/24 Removed XFsbl_Handoff_Printf macro and added
+ *                     uart fifo check function just before handoff
  *
  * </pre>
  *
@@ -46,6 +48,9 @@
 #include "xfsbl_main.h"
 #include "xfsbl_image_header.h"
 #include "xfsbl_bs.h"
+#ifdef XPAR_XUARTPS_NUM_INSTANCES
+#include "xuartps_hw.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #define XFSBL_CPU_POWER_UP		(0x1U)
@@ -555,7 +560,11 @@ void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 	RegVal |= XFSBL_EXEC_COMPLETED;
 	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, RegVal);
 
-	XFsbl_Handoff_Printf(DEBUG_GENERAL,"Exit from FSBL \n\r");
+	XFsbl_Printf(DEBUG_GENERAL,"Exit from FSBL \n\r");
+
+#ifdef XPAR_XUARTPS_NUM_INSTANCES
+	XUartPs_WaitTransmitDone(STDOUT_BASEADDRESS);
+#endif
 
 	/**
 	 * Exit to handoff address
@@ -785,7 +794,12 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 
 		if (XGet_Zynq_UltraMp_Platform_info() == (u32)(0X2U))
 		{
-			XFsbl_Handoff_Printf(DEBUG_GENERAL,"Exit from FSBL. \n\r");
+			XFsbl_Printf(DEBUG_GENERAL,"Exit from FSBL. \n\r");
+
+#ifdef XPAR_XUARTPS_NUM_INSTANCES
+			XUartPs_WaitTransmitDone(STDOUT_BASEADDRESS);
+#endif
+
 #ifdef ARMA53_64
 			XFsbl_Out32(0xFFFC0000U, 0x14000000U);
 #else
