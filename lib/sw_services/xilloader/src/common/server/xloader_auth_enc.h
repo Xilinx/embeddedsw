@@ -58,6 +58,7 @@
 *       sk   07/06/23 Corrected DAP Config Mask's
 *       dd   08/11/23 Updated doxygen comments
 * 2.1   kpt  12/04/23 Move XLoader_AesKekInfo to platform specific file
+*       am   03/02/24 Added XLOADER_OPTIMIZED_AUTH_CERT_MIN_SIZE macro
 *
 * </pre>
 *
@@ -148,6 +149,14 @@ extern "C" {
 						+ XLOADER_BHDR_SIG_SIZE \
 						+ XLOADER_PARTITION_SIG_SIZE)
 		/**< Minimum Size of Authentication Certificate(in bytes) */
+
+#define XLOADER_OPTIMIZED_AUTH_CERT_MIN_SIZE	(XLOADER_AUTH_HEADER_SIZE \
+						+ XLOADER_AUTH_CERT_USER_DATA \
+						+ XLOADER_PPK_SIZE  \
+						+ XLOADER_SPK_SIZE \
+						+ XLOADER_SPK_SIG_SIZE \
+						+ 8U)
+		/**< Minimum Size of Optimized Authentication Certificate(in bytes) */
 
 #define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0xF0U)
 		/**< Mask for Public Strength in Authentication Certificate */

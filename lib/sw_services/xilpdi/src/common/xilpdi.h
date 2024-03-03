@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,6 +67,7 @@
 *       am   07/03/2023 Added macros related to IHT OP data
 *       dd   08/11/2023 Updated doxygen comments
 *       kpt  12/04/2023 Move XilPdi_BootHdr to platform specific files
+*       am   03/02/2024 Added IsAuthOptimized variable in XilPdi_MetaHdr structure
 *
 * </pre>
 *
@@ -225,7 +226,7 @@ extern "C" {
 #define XILPDI_IMG_NAME_ARRAY_SIZE				(16U)
 
 /**
- * Minimun buffer length for checksum
+ * Minimum buffer length for checksum
  */
 #define XILPDI_CHECKSUM_MIN_BUF_LEN				(0X2U)
 
@@ -316,6 +317,7 @@ typedef struct {
 	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length,
 			u32 Flags); /**< Function pointer for device copy */
 	u32 DigestTableSize; /**< Digest table size in bytes */
+	u32 IsAuthOptimized; /**< Authentication optimization enabled or disabled by the user */
 } XilPdi_MetaHdr __attribute__ ((aligned(16U)));
 
 /**
