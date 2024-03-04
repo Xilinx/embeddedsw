@@ -12,9 +12,11 @@
  * <pre>
  * MODIFICATION HISTORY:
  *
- * Ver   Who     Date     Changes
- * ----- ----    -------- -----------------------------------------------
- * 1.00  Nishant 19/12/20 Added suppport for vck190
+* Ver  Who      Date      Changes
+* ---- ---      --------  --------------------------------------------------.
+* 1.00  ND      18/10/22  Common DP 2.1 tx only application for zcu102 and
+* 						  vcu118
+* 1.01	ND		26/02/24  Added support for 13.5 and 20G
  *</pre>
  *
 *****************************************************************************/
@@ -36,13 +38,6 @@
 #include "xintc.h"
 #endif
 
-#ifdef versal
-#include "xuartpsv_hw.h"
-#include <xdp.h>
-#include <xdp_hw.h>
-#include "xiicps.h"
-#include "xclk_wiz.h"
-#else
 #include "xvphy.h"
 #include "xvphy_i.h"
 #ifndef PLATFORM_MB
@@ -54,18 +49,12 @@
 #endif
 #include "xiic.h"
 #include "xiic_l.h"
-#endif
-
 #include "xtmrctr.h"
 #include "xvidc_edid.h"
 #include "sleep.h"
 #include "stdlib.h"
-
-
 #include "xvidframe_crc.h"
 #include "clk_set.h"
-
-
 #include "videofmc_defs.h"
 #include "xvidframe_crc.h"
 
@@ -144,38 +133,6 @@
 #define NUM_MODES                       7
 #define NUM_CLOCK_REGS                  6
 
-#ifdef versal
-#define GT_QUAD_BASE  				XPAR_GT_QUAD_HIER_0_GT_QUAD_BASE_BASEADDR
-#define TXCLKDIV_REG				0x3694
-#define	DIV3 						0x00000278
-#define	DIV 						0x00000260
-#define DIV_MASK 					0x000003FF
-
-#define XINTC_DEVICE_ID			        XPAR_SCUGIC_0_DEVICE_ID
-#define CLK_WIZ_BASE      				XPAR_CLK_WIZARD_1_BASEADDR
-#define XVPHY_DEVICE_ID					0
-#define IIC_BASE_ADDR 					0
-#define IIC_DEVICE_ID                   0
-#define SINGLE_LANE 					0x00000011
-#define ALL_LANE						0x0000003F
-#define VERSAL_810G                     3
-#define VERSAL_540G                     2
-#define VERSAL_270G                     1
-#define VERSAL_162G                     0
-/* For Versal the DP and GT are interfaced in RAW16 mode
- * 8b10b is implemented in Fabric. This requires two clocks to be
- * generated from GT, /16 clock and /20 clock,
- * ch0txoutclk generates /16 clk
- * ch1tcoutclk is used to generate /20 clk
- * In case if the hardware is built for 1 lane, then a MMCM is to be
- * used to generate the /20 clock
- * Refer to the PassThrough design to see generation of /20 clk on RX side
- * Similarly, the /20 clk for TX be generated for 1 lane design.
- * if the hardware is generated for 2 or 4 lanes, then there is no need of
- * MMCM.
- */
-#define VERSAL_FABRIC_8B10B             1
-#else
 #ifndef PLATFORM_MB
 #define XINTC_DEVICE_ID			XPAR_SCUGIC_SINGLE_DEVICE_ID
 #else
@@ -185,11 +142,7 @@
 #define CLK_WIZ_BASE      	XPAR_CLK_WIZ_0_BASEADDR
 #define IIC_BASE_ADDR 		XPAR_IIC_0_BASEADDR
 #define IIC_DEVICE_ID       XPAR_IIC_0_DEVICE_ID
-#endif
-
 #define PE_VS_ADJUST 1
-
-
 #define XVPHY_DRP_CPLL_FBDIV		0x28
 #define XVPHY_DRP_CPLL_REFCLK_DIV	0x2A
 #define XVPHY_DRP_RXOUT_DIV			0x63
@@ -204,13 +157,6 @@
 #define DIVIDER_270                 57415
 #define DIVIDER_540                 57442
 #define DIVIDER_810                 57440
-
-// Following values of VSwing and Pre-emphasis have been identified
-// for GTHE4. These have been tweaked for ZCU102 and VFMC card & have been
-// found to be passing the PHY compliance requirements
-// It is not necessary that these values would work across any design
-// Users should update these values to get the PHY compliance working
-// on custom setups.
 
 #define	XVPHY_GTHE4_PREEMP_DP_L0    0x3
 #define	XVPHY_GTHE4_PREEMP_DP_L1    0xD
@@ -233,19 +179,14 @@
 
 #define XVPHY_GTHE4_DIFF_SWING_DP_DP20 0xF
 
-#define TX_BUFFER_BYPASS            XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS
-
-
-/* This switch is used to enable PHY compliance mode. */
-// Compliance mode only supported for ZCU102
-#define PHY_COMP 0
-
 #define COLOR_FORMAT_SHIFT 4
 #define BPC_SHIFT 8
 #define DYNAMIC_RANGE_SHIFT 15
 
 #if !defined (XPS_BOARD_ZCU102)
-#define CRC_8PPC
+#define CRC_CFG 0x5
+#else
+#define CRC_CFG 0x4
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -301,8 +242,6 @@ void sink_power_up(void);
 u8 get_LineRate(void);
 u8 get_Lanecounts(void);
 void sink_power_cycle(void);
-int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress,
-		u8 Value);
 void DpPt_pe_vs_adjustHandler(void *InstancePtr);
 int VideoFMC_Init(void);
 int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn,
@@ -311,8 +250,6 @@ int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 
 /************************** Variable Definitions *****************************/
-#ifndef versal
-//XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
 typedef enum {
         ONBOARD_REF_CLK = 1,
 #ifdef PLATFORM_MB
@@ -337,9 +274,4 @@ typedef struct {
 } XVphy_User_Config;
 u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 							XVphy_User_Config PHY_User_Config_Table);
-
-#else
-void ReadModifyWrite(u32 MaskValue, u32 data);
-#endif
-
 #endif /* SRC_XDPTXSS_ZCU102_TX_H_ */

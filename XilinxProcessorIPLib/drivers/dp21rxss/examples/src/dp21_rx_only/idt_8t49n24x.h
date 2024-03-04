@@ -24,9 +24,6 @@
 * </pre>
 *
 ******************************************************************************/
-
-#ifdef new
-
 #ifndef IDT_8T49N24X_H
 #define IDT_8T49N24X_H
 
@@ -158,76 +155,3 @@ void IDT_8T49N24x_RegisterDump(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 
 #endif /* IDT_8T49N24X_H */
 /** @} */
-#else
-
-#ifndef IDT_8T49N24X_H
-#define IDT_8T49N24X_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/***************************** Include Files *********************************/
-#include "xil_types.h"
-
-/************************** Constant Definitions *****************************/
-#define IDT_8T49N24X_REVID 0x0    //!< Device Revision
-#define IDT_8T49N24X_DEVID 0x0607 //!< Device ID Code
-
-#define IDT_8T49N24X_XTAL_FREQ 40000000  //!< The frequency of the crystal in Hz
-
-#define IDT_8T49N24X_FVCO_MAX 4000000000 //!< Maximum VCO Operating Frequency in Hz
-#define IDT_8T49N24X_FVCO_MIN 3000000000 //!< Minimum VCO Operating Frequency in Hz
-
-#define IDT_8T49N24X_FOUT_MAX 400000000  //!< Maximum Output Frequency in Hz
-#define IDT_8T49N24X_FOUT_MIN      8000  //!< Minimum Output Frequency in Hz
-
-#define IDT_8T49N24X_FIN_MAX 875000000  //!< Maximum Input Frequency in Hz
-#define IDT_8T49N24X_FIN_MIN      8000  //!< Minimum Input Frequency in Hz
-
-//#define IDT_8T49N24X_FPD_MAX 8000000  //!< Maximum Phase Detector Frequency in Hz
-#define IDT_8T49N24X_FPD_MAX 128000  //!< Maximum Phase Detector Frequency in Hz
-#define IDT_8T49N24X_FPD_MIN   8000  //!< Minimum Phase Detector Frequency in Hz
-
-#define IDT_8T49N24X_P_MAX pow(2,22)  //!< Maximum P divider value
-#define IDT_8T49N24X_M_MAX pow(2,24)  //!< Maximum M multiplier value
-
-
-/**************************** Type Definitions *******************************/
-
-typedef struct {
-	// Integer Output Divider
-	u8  NS1_Qx;
-	u16 NS2_Qx;
-
-	// Fractional Output Divider
-	u32 N_Qx;
-	u32 NFRAC_Qx;
-
-	// Upper Loop Feedback Divider
-	u16 DSM_INT;
-	u32 DSM_FRAC;
-
-	// Lower Loop Dividers
-	u32 M1_x;
-	u32 PRE_x;
-
-} IDT_8T49N24x_Settings;
-
-/***************** Macros (Inline Functions) Definitions *********************/
-
-/************************** Function Prototypes ******************************/
-int IDT_8T49N24x_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn, int FOut, u8 FreeRun);
-int IDT_8T49N24x_SetGPOut(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 PortID, u8 Set);
-void IDT_8T49N24x_RegisterDump(u32 I2CBaseAddress, u8 I2CSlaveAddress);
-
-/************************** Variable Declarations ****************************/
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* IDT_8T49N24X_H */
-/** @} */
-#endif

@@ -15,6 +15,7 @@
 * ---- ---      --------  --------------------------------------------------.
 * 1.00  ND      18/10/22  Common DP 2.1 tx only application for zcu102 and
 * 						  vcu118
+* 1.01	ND		26/02/24  Added support for 13.5 and 20G
 * </pre>
 *
 ******************************************************************************/
@@ -23,17 +24,13 @@
 #include "xil_cache.h"
 
 XTmrCtr TmrCtr; /* Timer instance.*/
-
-#ifndef versal
 XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
 XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
 XIic IicInstance;	/* I2C bus for Si570 */
-#else
-void* VPhyInst;
-#endif
 extern volatile u8 hpd_pulse_con_event;
 volatile u8 prev_line_rate; /*This previous line rate to keep previous info to compare
 						with new line rate request*/
+
 #ifndef PLATFORM_MB
 XScuGic IntcInst;
 #else
@@ -44,32 +41,13 @@ XIntc IntcInst;
 extern XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
 extern XTmrCtr TmrCtr; /* Timer instance.*/
 
-XDp_TxVscExtPacket VscPkt;	/* VSC Packet to populate the vsc data to be sent by
-								tx */
-
 #ifdef PLATFORM_MB
 XIic  IicPtr;
 typedef u8 AddressType;
-u8 si570_reg_value[NUM_MODES][NUM_CLOCK_REGS] = {
-        /* As per Si570 programmable oscillator calculator. */
-        // 7,     8,     9,    10,      11,      12,
-        {0x4C, 0x42, 0xB0, 0x21, 0xDE, 0x77 }, // = {32kHz * 512)
-        {0xA5, 0xC2, 0xAA, 0xCC, 0x9D, 0x51 }, // = (44.1kHz * 512)
-        {0xE4, 0xC2, 0xF4, 0xB9, 0x4A, 0xA7 }, // = (48kHz * 512)
-        {0xA2, 0XC2, 0XAA, 0XCC, 0X9D, 0X51 }, // = {88.2khZ * 512)
-        {0x24, 0xC2, 0xB0, 0x21, 0xDE, 0x77 }, // = {96kHz * 512)
-        {0xA1, 0x42, 0xAA, 0xCC, 0x9D, 0x51 }, // = (176.4kHz * 512)
-        {0x22, 0x42, 0xB0, 0x21, 0xDE, 0x77 }  // = {192kHz * 512)
-};
-u8 UpdateBuffer[sizeof(AddressType) + PAGE_SIZE];
 #else
 XIicPs Ps_Iic0, Ps_Iic1;
 XIicPs_Config *XIic0Ps_ConfigPtr;
 XIicPs_Config *XIic1Ps_ConfigPtr;
-#ifdef versal
-XClk_Wiz_Config *CfgPtr_Dynamic;
-XClk_Wiz ClkWiz_Dynamic;
-#endif
 #endif
 #define PS_IIC_CLK 100000
 /************************** Function Prototypes ******************************/
@@ -92,12 +70,7 @@ void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds);
 u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr, int with_msa);
 void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 										u8 Edid_org[128], u8 Edid1_org[128]);
-
-#ifndef versal
 void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate);
-void PHY_Two_byte_set (XVphy *InstancePtr, u8 Rx_to_two_byte);
-#endif
-
 void clk_wiz_locked(void);
 void hpd_pulse_con(XDpTxSs *InstancePtr);
 extern void Gen_vid_clk(XDp *InstancePtr, u8 Stream);
@@ -112,8 +85,6 @@ volatile u8 tx_is_reconnected = 0;
 Video_CRC_Config VidFrameCRC; /* Video Frame CRC instance */
 
 /************************** Variable Definitions *****************************/
-#ifndef versal
-
 #define XVPHY_DP_LINK_RATE_HZ_1000GBPS	10000000000LL
 #define XVPHY_DP_LINK_RATE_HZ_1350GBPS	13500000000LL
 #define XVPHY_DP_LINK_RATE_HZ_2000GBPS	20000000000LL
@@ -196,7 +167,6 @@ static XVphy_User_Config PHY_User_Config_Table[] =
 #endif
 
 };
-#endif
 
 void enable_caches()
 {
@@ -252,7 +222,7 @@ int main()
 
 	xil_printf("------------------------------------------\r\n");
 	xil_printf("DisplayPort 2.x TX Subsystem Example Design\r\n");
-	xil_printf("(c) 2022 by Xilinx\r\n");
+	xil_printf("(c) 2024 by AMD\r\n");
 	xil_printf("-------------------------------------------\r\n\r\n");
 
 	Status = DpTxSs_Main(XDPTXSS_DEVICE_ID);
@@ -289,48 +259,6 @@ int I2cMux_Ps(u8 Data)
         return Status;
 }
 #endif
-
-int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress, u8 Value)
-{
-    u32 Status;
-	u32 ByteCount = 0;
-	u8 Buffer[2];
-	u8 Retry = 0;
-
-	// Write data
-	Buffer[0] = RegisterAddress & 0xff;
-	Buffer[1] = Value;
-
-	while (1) {
-#ifndef versal
-		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer, 3, XIIC_STOP);
-
-		if (ByteCount == 2) {
-			Status=XST_SUCCESS;
-		}
-		else{
-			Status=XST_FAILURE;
-		}
-#else
-	    Status = XIicPs_MasterSendPolled(&Ps_Iic0,
-	                                             (u8 *)&Buffer,
-	                                             2,
-												 I2CSlaveAddress);
-#endif
-		if (Status != XST_SUCCESS) {
-			Retry++;
-
-			// Maximum retries
-			if (Retry == 255) {
-				return XST_FAILURE;
-			}
-		}
-
-		else {
-			return XST_SUCCESS;
-		}
-	}
-}
 
 /*****************************************************************************/
 /**
@@ -377,39 +305,7 @@ u32 DpTxSs_Main(u16 DeviceId)
 	user_config.VideoMode_local = XVIDC_VM_800x600_60_P;
 	user_config.user_pattern = 1; /*Color Ramp (Default)*/
 	user_config.user_format = XVIDC_CSF_RGB;
-#if !PHY_COMP
 	set_phy = 0;
-#else
-//	set_phy = 1;
-	xil_printf("\n*********APPLICATION IS IN COMPLIANCE MODE***********\n\r");
-	xil_printf ("Do you want to enable PHY compliance? (y/n)\r\n");
-	xil_printf ("y = Enable PHY compliance mode\r\n");
-	xil_printf ("n = Enable Link Layer compliance mode\r\n");
-	CmdKey_m[0] = 0;
-	CommandKey_m = 0;
-
-
-	CommandKey_m = xil_getc(0x0);
-	Command_m = atoi(&CommandKey_m);
-	if (Command_m != 0) {
-		xil_printf("You have selected command %d\r\n", Command_m);
-	}
-
-	if (CommandKey_m == 'y') {
-		set_phy = 1;
-	} else {
-		set_phy = 0;
-	}
-#ifdef versal
-	xil_printf ("Compliance mode not supported for Versal\r\n");
-	set_phy = 0;
-#endif
-#ifdef PLATFORM_MB
-	xil_printf ("Compliance mode not supported for VCU118\r\n");
-	set_phy = 0;
-#endif
-
-#endif
 
 	/* Do platform initialization in this function. This is hardware
 	 * system specific. It is up to the user to implement this function.
@@ -420,39 +316,9 @@ u32 DpTxSs_Main(u16 DeviceId)
 		xil_printf("Platform init failed!\r\n");
 	}
 	xil_printf("Platform initialization done.\r\n");
-
-#if ENABLE_AUDIO
-	// I2C MUX device address : 0x74
-	// Si570 device address : 0x5D
-	//setting Si570 on zcu102 to be 24.576MHz for audio
-#ifndef PLATFORM_MB
-#ifdef versal
-	I2cMux_Ps(0x40);
-#endif
-	clk_set(I2C_MUX_ADDR2, IIC_SI570_ADDRESS, audio_clk_Hz);
-	I2cMux_Ps(0x04);
-#else
-	u8 i = 0;
-    for( i = 0; i < 6; i++ ) {
-            UpdateBuffer[i] = si570_reg_value[2][i];
-    }
-    Status = write_si570(UpdateBuffer);
-    if (Status != XST_SUCCESS) {
-	xil_printf ("Failed to program Si750\r\n");
-    }
-#endif
-#endif
-
 	VideoFMC_Init();
 
 	IDT_8T49N24x_SetClock(IIC_BASE_ADDR, I2C_IDT8N49_ADDR, 0,270000000, TRUE);
-//
-//	//Keeping 0db gain on RX
-//	//Adding 6db gain on TX
-	i2c_write_dp141(IIC_BASE_ADDR, I2C_TI_DP141_ADDR, 0x02, 0x7F); //0x3C);
-	i2c_write_dp141(IIC_BASE_ADDR, I2C_TI_DP141_ADDR, 0x05, 0x7F);// C);
-	i2c_write_dp141(IIC_BASE_ADDR, I2C_TI_DP141_ADDR, 0x08, 0x7F); //C);
-	i2c_write_dp141(IIC_BASE_ADDR, I2C_TI_DP141_ADDR, 0x0B, 0x7F); //C);
 
 	/* Do platform initialization in this function. This is hardware
 	 * system specific. It is up to the user to implement this function.
@@ -489,17 +355,6 @@ u32 DpTxSs_Main(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-#ifdef versal
-#if (VERSAL_FABRIC_8B10B == 1)
-	//Unlocking NPI space to modify GT parameters
-	XDp_WriteReg(GT_QUAD_BASE, 0xC, 0xF9E8D7C6);
-	ReadVal = XDp_ReadReg(GT_QUAD_BASE, TXCLKDIV_REG);
-	ReadVal &= ~DIV_MASK;
-	ReadVal |= DIV;
-	XDp_WriteReg(GT_QUAD_BASE, TXCLKDIV_REG, ReadVal);
-#endif
-#endif
-
 	/* Setup Video Phy, left to the user for implementation */
 	DpTxSs_PhyInit(XVPHY_DEVICE_ID);
 	DpTxSs_Setup(&LineRate_init, &LaneCount_init, Edid_org, Edid1_org);
@@ -525,23 +380,17 @@ u32 DpTxSs_Main(u16 DeviceId)
 	DpTxSsInst.DpPtr->TxInstance.TxMsaCallbackRef = NULL;
 	DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat = 0x0;
 
-#ifndef versal
 	XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
 	// This configures the vid_phy for line rate to start with
 	//Even though CPLL can be used in limited case,
 	//using QPLL is recommended for more coverage.
-#else
-#endif
 	Status = config_phy(LineRate_init_tx);
 	LaneCount_init_tx = LaneCount_init_tx & 0x7;
-
-#if !PHY_COMP
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 											XDP_TX_INTERRUPT_MASK, 0xFFF);
 	XDpTxSs_SetLinkRate(&DpTxSsInst, 0x1E);
     XDpTxSs_SetLaneCount(&DpTxSsInst, 0x4);
 	start_tx (LineRate_init_tx, LaneCount_init_tx,user_config);
-#endif
 
 	while (1) { // for menu loop
 		main_loop();
@@ -579,25 +428,6 @@ u32 DpTxSs_PlatformInit(void)
 	XTmrCtr_Start(&TmrCtr, XPAR_TMRCTR_0_DEVICE_ID);
 
 #ifndef PLATFORM_MB
-#ifdef versal
-     /*
-      * Get the CLK_WIZ Dynamic reconfiguration driver instance
-      */
-     CfgPtr_Dynamic = XClk_Wiz_LookupConfig(XPAR_CLK_WIZ_0_DEVICE_ID);
-     if (!CfgPtr_Dynamic) {
-             return XST_FAILURE;
-     }
-
-     /*
-      * Initialize the CLK_WIZ Dynamic reconfiguration driver
-      */
-     Status = XClk_Wiz_CfgInitialize(&ClkWiz_Dynamic, CfgPtr_Dynamic,
-              CfgPtr_Dynamic->BaseAddr);
-     if (Status != XST_SUCCESS) {
-             return XST_FAILURE;
-     }
-#endif
-
 	   XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
 	    if (NULL == XIic0Ps_ConfigPtr) {
 	            return XST_FAILURE;
@@ -618,7 +448,6 @@ u32 DpTxSs_PlatformInit(void)
 	    I2cMux_Ps(0x04);
 #endif
 
-#ifndef versal
     /*
      * Initialize the IIC driver so that it is ready to use.
      */
@@ -632,7 +461,6 @@ u32 DpTxSs_PlatformInit(void)
     if (Status != XST_SUCCESS) {
             return XST_FAILURE;
     }
-#endif
 
     XVidFrameCrc_Initialize(&VidFrameCRC);
 
@@ -795,7 +623,6 @@ u32 DpTxSs_SetupIntrSystem(void)
 ******************************************************************************/
 u32 DpTxSs_PhyInit(u16 DeviceId)
 {
-#ifndef versal
 	XVphy_Config *ConfigPtr;
 
 	/* Obtain the device configuration for the DisplayPort RX Subsystem */
@@ -816,63 +643,9 @@ u32 DpTxSs_PhyInit(u16 DeviceId)
 
 	// initial line Rate setting
 	prev_line_rate = PHY_User_Config_Table[5].LineRate;
-
-#if TX_BUFFER_BYPASS
-	XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1, 0x3E, DIVIDER_540);
-	XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, 0x3E, DIVIDER_540);
-	XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, 0x3E, DIVIDER_540);
-	XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, 0x3E, DIVIDER_540);
-#endif
-
-	PHY_Two_byte_set (&VPhyInst, SET_TX_TO_2BYTE);
-#else
-	//set vswing of value of 5
-	ReadModifyWrite(0x1F00,(5 << 8));
-//      releasing reset. bit[0] = > 0
-	ReadModifyWrite(0x1, (0 << 0));
-	u32 dptx_sts = 0;
-	u32 retry=0;
-	dptx_sts = 0;
-	//Checking the status for 4 lanes
-	while ((dptx_sts != ALL_LANE) && retry < 10000) {
-	   dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-	   dptx_sts &= ALL_LANE;
-	   retry++;
-	}
-	if(retry==10000)
-	{
-	xil_printf ("+\r\n");
-			//This reset is needed for Versal GT. Sometimes the GT does not come out
-			//automatically and needs a reset
-			//This is because the refclk is not present at start
-			ReadModifyWrite(0x1, (1 << 0));
-			ReadModifyWrite(0x1, (0 << 0));
-	}
-
-	dptx_sts = 0;
-	retry=0;
-	//Checking the status for 4 lanes
-	while ((dptx_sts != ALL_LANE) && retry < 10000) {
-	   dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-	   dptx_sts &= ALL_LANE;
-	   retry++;
-	}
-
-	if(retry==10000)
-	{
-	   prev_line_rate = XDP_TX_LINK_BW_SET_162GBPS;
-	   xil_printf (
-		"+++++++ TX GT configuration encountered a failure init2 +++++++ \r\n");
-	//	return XST_FAILURE;
-	} else {
-	   prev_line_rate = XDP_TX_LINK_BW_SET_540GBPS;
-	//    	xil_printf ("second time pass %x\r\n",dptx_sts1);
-	}
-#endif
 	return XST_SUCCESS;
 }
 
-#ifndef versal
 /*****************************************************************************/
 /**
 *
@@ -963,87 +736,6 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
 			break;
 	}
 }
-/*****************************************************************************/
-/**
-*
-* This function sets GT in 16-bits (2-Byte) or 32-bits (4-Byte) mode.
-*
-* @param	InstancePtr is a pointer to the Video PHY instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void PHY_Two_byte_set (XVphy *InstancePtr, u8 Tx_to_two_byte)
-{
-
-	u16 DrpVal;
-	u16 WriteVal;
-	u32 Status;
-	u16 TX_DATA_WIDTH_REG = 0x7A;
-	u16 TX_INT_DATAWIDTH_REG = 0x85;
-
-    if (Tx_to_two_byte == 1) {
-
-
-		Status = XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-											TX_DATA_WIDTH_REG, &DrpVal);
-
-		if(Status != XST_SUCCESS){
-			xil_printf("DRP access failed\r\n");
-			return;
-		}
-		DrpVal &= ~0xF;
-		WriteVal = 0x0;
-		WriteVal = DrpVal | 0x3;
-		Status  =XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-												TX_DATA_WIDTH_REG, WriteVal);
-#if XPAR_DPTXSS_0_LANE_COUNT == 4
-		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
-												TX_DATA_WIDTH_REG, WriteVal);
-		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
-												TX_DATA_WIDTH_REG, WriteVal);
-		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
-												TX_DATA_WIDTH_REG, WriteVal);
-#endif
-		if(Status != XST_SUCCESS){
-			xil_printf("DRP access failed\r\n");
-			return;
-		}
-
-		Status = XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-											TX_INT_DATAWIDTH_REG, &DrpVal);
-		if(Status != XST_SUCCESS){
-			xil_printf("DRP access failed\r\n");
-			return;
-		}
-
-		DrpVal &= ~0xC00;
-		WriteVal = 0x0;
-		WriteVal = DrpVal | 0x0;
-		Status  =XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-										TX_INT_DATAWIDTH_REG, WriteVal);
-#if XPAR_DPTXSS_0_LANE_COUNT == 4
-		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
-										TX_INT_DATAWIDTH_REG, WriteVal);
-		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
-										TX_INT_DATAWIDTH_REG, WriteVal);
-		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
-										TX_INT_DATAWIDTH_REG, WriteVal);
-#endif
-		if(Status != XST_SUCCESS){
-			xil_printf("DRP access failed\r\n");
-			return;
-		} else {
-
-		}
-		xil_printf ("TX Channel configured for 2byte mode\r\n");
-    }
-
-
-}
-#endif
 
 /*****************************************************************************/
 /**
@@ -1188,10 +880,6 @@ void DpPt_pe_vs_adjustHandler(void *InstancePtr){
 				break;
 		}
 
-#ifdef versal
-		ReadModifyWrite(0x1F00 ,(diff_swing << 8));
-		ReadModifyWrite(0x7C0000,(preemp << 18));
-#else
 		//setting vswing
 		XVphy_SetTxVoltageSwing(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
 				diff_swing);
@@ -1207,21 +895,6 @@ void DpPt_pe_vs_adjustHandler(void *InstancePtr){
 		XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, preemp);
 		XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, preemp);
 		XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, preemp);
-
-#if PHY_COMP
-#if 0
-		if (set_phy == 1) {
-		xil_printf ("Setting Vswing (GT) = %d\r\n",diff_swing);
-		xil_printf ("Setting Preemp (GT) = %d\r\n",preemp);
-		} else {
-			xil_printf ("Vswing requested is %d\r\n",
-					DpTxSsInst.DpPtr->TxInstance.LinkConfig.VsLevel);
-			xil_printf ("Preemp requested is %d\r\n",
-					DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel);
-		}
-#endif
-#endif
-#endif
 	}
 }
 
@@ -1311,11 +984,9 @@ void DpPt_HpdPulseHandler(void *InstancePtr)
 // Some monitors give HPD pulse repeatedly which causes HPD pulse function to
 //		be executed huge number of time. Hence hpd_pulse interrupt is disabled
 //		and then enabled when hpd_pulse function is executed
-#if !PHY_COMP
 			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 					XDP_TX_INTERRUPT_MASK,
 					XDP_TX_INTERRUPT_MASK_HPD_PULSE_DETECTED_MASK);
-#endif
 			hpd_pulse_con_event = 1;
 			xil_printf ("HPD Pulse..\r\n");
 			hpd_pulse_con(&DpTxSsInst);
@@ -1344,7 +1015,6 @@ void hpd_pulse_con(XDpTxSs *InstancePtr)
 	u8 bw_set = InstancePtr->UsrHpdPulseData.BwSet;
 	u8 lane_set = InstancePtr->UsrHpdPulseData.LaneSet;
 	u8 down_strm = InstancePtr->UsrHpdPulseData.AuxValues[4];
-
 
 	u8 retrain_link=0;
 
@@ -1418,14 +1088,6 @@ void hpd_pulse_con(XDpTxSs *InstancePtr)
 		XDpTxSs_SetLinkRate(&DpTxSsInst, bw_set);
 		XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
 		XDpTxSs_Start(&DpTxSsInst);
-
-		if(DpTxSsInst.DpPtr->TxInstance.ColorimetryThroughVsc){
-			Readval=XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-					XDP_TX_MAIN_STREAM_MISC0);
-			Readval=(Readval|(1<<12));
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-					XDP_TX_MAIN_STREAM_MISC0,Readval);
-		}
 	}
 
      XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
@@ -1542,14 +1204,8 @@ void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 
      xil_printf("System capabilities set to: LineRate %x, LaneCount %x\r\n",
 											 *LineRate_init,*LaneCount_init);
-
-#if ENABLE_AUDIO
-    XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_AUDIO_CONTROL, 0x0);
-#endif
 }
 
-
-#ifndef versal
 /*****************************************************************************/
 /**
 *
@@ -1605,7 +1261,6 @@ u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 		Status = XVphy_ClkInitialize(InstancePtr, QuadId, TxChId, XVPHY_DIR_TX);
 		if (retries > 100) {
 			retries = 0;
-			xil_printf ("exhausted\r\n");
 			break;
 		}
 		retries++;
@@ -1642,7 +1297,6 @@ u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 
 	return (Status);
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -1694,24 +1348,6 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
     xil_printf (".");
     XDpTxSs_SetLaneCount(&DpTxSsInst, lane_count);
     xil_printf (".");
-    //Populate Color format and BPC to vsc packet
-    if(DpTxSsInst.DpPtr->TxInstance.ColorimetryThroughVsc){
-			u32 data=0;
-			data|=((user_config.user_format)<<COLOR_FORMAT_SHIFT);
-			if(user_config.user_bpc==6)
-				data|=(0<<BPC_SHIFT);
-			else if(user_config.user_bpc==8)
-				data|=(1<<BPC_SHIFT);
-			else if(user_config.user_bpc==10)
-				data|=(2<<BPC_SHIFT);
-			else if(user_config.user_bpc==12)
-				data|=(3<<BPC_SHIFT);
-			else if(user_config.user_bpc==16)
-				data|=(4<<BPC_SHIFT);
-			data|=(1<<DYNAMIC_RANGE_SHIFT);
-			VscPkt.Payload[4]=data;
-			XDpTxSs_SetVscExtendedPacket(&DpTxSsInst, VscPkt);
-    }
 
     if (res_table !=0) {
 		Status = XDpTxSs_SetVidMode(&DpTxSsInst, res_table);
@@ -1738,26 +1374,9 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	if (set_phy == 0) {
 		Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
 
-		/* When sending colorimetry info through VSC
-		 * Setting bit[12] of Reg 0x1A4 to 1
-		 * This ensures that VSC pkt is sent every frame
-		 */
-
-		if(DpTxSsInst.DpPtr->TxInstance.ColorimetryThroughVsc){
-			Readval = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_MAIN_STREAM_MISC0);
-			Readval = (Readval|(1<<12));
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-				XDP_TX_MAIN_STREAM_MISC0,Readval);
-		}
-
 	if (Status != XST_SUCCESS) {
-#if !PHY_COMP
-		//Compliance tests do some crazy things.
-		//Keeping this out for compliance
 		xil_printf("ERR:1DPTX SS start failed\r\n");
 		return (XST_FAILURE);
-#endif
 	}
 
 	}
@@ -1778,8 +1397,8 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 		 &DpTxSsInst.DpPtr->TxInstance.MsaConfig[0],
 		 DpTxSsInst.UsrOpt.VtcAdjustBs);
 		 if (Status != XST_SUCCESS) {
-//				 xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
-//						 "VTC%d setup failed!\n\r", Index);
+				 xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+						 "VTC%d setup failed!\n\r", Index);
          }
     }
 
@@ -1788,12 +1407,8 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	if (Status != (XST_SUCCESS)) {
 		Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
 		if (Status != XST_SUCCESS) {
-#if !PHY_COMP
-			//Compliance tests do some crazy things.
-			//Keeping this out for compliance
 			xil_printf("ERR:DPTX SS start failed\r\n");
 			return (XST_FAILURE);
-#endif
 		}
 
 	}
@@ -1808,18 +1423,11 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 //	/* Set Pixel width in CRC engine*/
     if (format != 2) {
 	XDp_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-#ifdef CRC_8PPC
-			0x5);
-#else
-			0x4);
-#endif
+			CRC_CFG);
     } else {
 	XDp_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-#ifdef CRC_8PPC
-			0x5 | 0x80000000);
-#else
-			0x4 | 0x80000000);
-#endif
+			CRC_CFG | 0x80000000);
+
     }
 
 	xil_printf ("..done !\r\n");
@@ -1872,10 +1480,8 @@ void clk_wiz_locked(void) {
 
 void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 		u8 Edid1_org[128], u16 res_update){
-
-	// All the compliance related DPCD reads have been moved to driver
-
 	u32 Status=XST_SUCCESS;
+	u8 Channel_encoding = 0;
 	u8 max_cap_new = InstancePtr->UsrHpdEventData.MaxCapNew;
 	u8 max_cap_lanes_new = InstancePtr->UsrHpdEventData.MaxCapLanesNew;
 	u32 htotal_test_hpd;
@@ -1888,10 +1494,22 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13, 0x14,
 												0x15, 0x16, 0x17}; //Duplicate
 
+//	//read channel encoding if 128/132b supported
+	XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_ML_CH_CODING_CAP, 1,
+															&Channel_encoding);
+	if((Channel_encoding & 0x2) == 0x2){ //supports 128/132b hence UHBR rates
+		XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE, 1,
+																	&max_cap_new);
+		if((max_cap_new & 0x2) == 0x2){
+			max_cap_new = XDP_TX_LINK_BW_SET_UHBR20;
+		}else if((max_cap_new & 0x4) == 0x4){
+			max_cap_new = XDP_TX_LINK_BW_SET_UHBR135;
+		}else if((max_cap_new & 0x1) == 0x1){
+			max_cap_new = XDP_TX_LINK_BW_SET_UHBR10;
+		}
+	}
+
 	user_config_struct user_config;
-
-
-
 	XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_STATUS);
 
 	memcpy(Edid_org, InstancePtr->UsrHpdEventData.EdidOrg, 128);
@@ -1928,32 +1546,59 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 														&max_cap_lanes_new);
 	}
 
-	// check if line speed is either 0x6, 0xA, 0x14, 0x1E
-	if (max_cap_new != XDP_TX_LINK_BW_SET_810GBPS
+	// check if line speed is either 0x6, 0xA, 0x14, 0x1E, 0x1, 0x4, 0x2
+	if (max_cap_new != XDP_TX_LINK_BW_SET_UHBR20
+			&&max_cap_new != XDP_TX_LINK_BW_SET_UHBR135
+			&&max_cap_new != XDP_TX_LINK_BW_SET_UHBR10
+			&& max_cap_new != XDP_TX_LINK_BW_SET_810GBPS
 			&& max_cap_new != XDP_TX_LINK_BW_SET_540GBPS
 				&& max_cap_new != XDP_TX_LINK_BW_SET_270GBPS
 				&& max_cap_new != XDP_TX_LINK_BW_SET_162GBPS) {
-		// soemthing wrong. Read again
-		XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LINK_RATE, 1,
+
+//		//read channel encoding if 128/132b supported
+		XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_ML_CH_CODING_CAP, 1,
+																&Channel_encoding);
+		if((Channel_encoding & 0x2) == 0x2){ //supports 128/132b hence UHBR rates
+			XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE, 1,
+																		&max_cap_new);
+			if((max_cap_new & 0x2) == 0x2){
+				max_cap_new = XDP_TX_LINK_BW_SET_UHBR20;
+			}else if((max_cap_new & 0x4) == 0x4){
+				max_cap_new = XDP_TX_LINK_BW_SET_UHBR135;
+			}else if((max_cap_new & 0x1) == 0x1){
+				max_cap_new = XDP_TX_LINK_BW_SET_UHBR10;
+			}
+		}else{
+			// soemthing wrong. Read again
+			XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LINK_RATE, 1,
 														&max_cap_new);
+		}
 	}
 
-	if (max_cap_new != XDP_TX_LINK_BW_SET_810GBPS
+	if (max_cap_new != XDP_TX_LINK_BW_SET_UHBR20
+			&&max_cap_new != XDP_TX_LINK_BW_SET_UHBR135
+			&&max_cap_new != XDP_TX_LINK_BW_SET_UHBR10
+			&&max_cap_new != XDP_TX_LINK_BW_SET_810GBPS
 			&& max_cap_new != XDP_TX_LINK_BW_SET_540GBPS
 				&& max_cap_new != XDP_TX_LINK_BW_SET_270GBPS
 				&& max_cap_new != XDP_TX_LINK_BW_SET_162GBPS) {
-
-		max_cap_new = XDP_TX_LINK_BW_SET_810GBPS;
+//		//read channel encoding if 128/132b supported
+		XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_ML_CH_CODING_CAP, 1,
+																&Channel_encoding);
+		if((Channel_encoding & 0x2) == 0x2){ //supports 128/132b hence UHBR rates
+			XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE, 1,
+																		&max_cap_new);
+			if((max_cap_new & 0x2) == 0x2){
+				max_cap_new = XDP_TX_LINK_BW_SET_UHBR20;
+			}else if((max_cap_new & 0x4) == 0x4){
+				max_cap_new = XDP_TX_LINK_BW_SET_UHBR135;
+			}else if((max_cap_new & 0x1) == 0x1){
+				max_cap_new = XDP_TX_LINK_BW_SET_UHBR10;
+			}
+		}else{
+			max_cap_new = XDP_TX_LINK_BW_SET_810GBPS;
+		}
 	}
-	/**********************************************************/
-	/* Since the CTS suite is for 5.4G, we cannot go for 8.1
-	 * hence setting max_cap_new to 5.4G, when DPCD read is 8.1
-	 */
-//	if (max_cap_new >= XDP_TX_LINK_BW_SET_540GBPS) {
-//		max_cap_new = XDP_TX_LINK_BW_SET_540GBPS;
-//	}
-	/**********************************************************/
-
 	res_update = XVIDC_VM_640x480_60_P;
 
 	if (good_edid_hpd == 1) {
@@ -1970,18 +1615,20 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 
 		if (VmId_ptm_hpd == XVIDC_VM_NOT_SUPPORTED) { //Fail Safe mode
 			VmId_ptm_hpd = XVIDC_VM_640x480_60_P;
-			bpc_hpd = 6;
+			bpc_hpd = 8;
 		}
 
 	} else {
 		VmId_test_hpd = XVIDC_VM_NOT_SUPPORTED;
 		VmId_ptm_hpd = XVIDC_VM_640x480_60_P;
-		bpc_hpd = 6;
+		bpc_hpd = 8;
 		good_edid_hpd = 0;
 	}
 
-
-	if (max_cap_new == XDP_TX_LINK_BW_SET_810GBPS
+	if (max_cap_new == XDP_TX_LINK_BW_SET_UHBR20
+			||max_cap_new == XDP_TX_LINK_BW_SET_UHBR135
+			||max_cap_new == XDP_TX_LINK_BW_SET_UHBR10
+			||max_cap_new == XDP_TX_LINK_BW_SET_810GBPS
 			|| max_cap_new == XDP_TX_LINK_BW_SET_540GBPS
 			|| max_cap_new == XDP_TX_LINK_BW_SET_270GBPS
 			|| max_cap_new == XDP_TX_LINK_BW_SET_162GBPS) {
@@ -2000,17 +1647,8 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
         } else {
              user_config.VideoMode_local = res_update;
         }
-
-#if PHY_COMP
-        // UCD400 seems to have some issues with the EDID due to which
-        // some of the compliance tests fail. Hence setting bpc=8 and
-        // resolution to 640x480
-		user_config.user_bpc=8;
-		user_config.VideoMode_local=XVIDC_VM_640x480_60_P;
-#else
 		user_config.user_bpc=bpc_hpd;
 		user_config.VideoMode_local=VmId_ptm_hpd;
-#endif
 		user_config.user_pattern=1;
 		user_config.user_format = XVIDC_CSF_RGB;
 
@@ -2018,7 +1656,6 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 		if (Status != XST_SUCCESS) {
 			xil_printf ("GT Configuration failed !!\r\n");
 		}
-
 		start_tx (max_cap_new, max_cap_lanes_new&0x1F,user_config);
 }
 }
@@ -2302,44 +1939,6 @@ u32 config_phy(int LineRate_init_tx){
 	u8 linerate;
 	u32 dptx_sts = 0;
 
-#if TX_BUFFER_BYPASS
-
-	switch(LineRate_init_tx){
-		case XDP_TX_LINK_BW_SET_162GBPS:
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1, 0x3E, DIVIDER_162); //57423);
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, 0x3E, DIVIDER_162); //57423);
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, 0x3E, DIVIDER_162); //57423);
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, 0x3E, DIVIDER_162); //57423);
-
-			break;
-
-		case XDP_TX_LINK_BW_SET_270GBPS:
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1, 0x3E, DIVIDER_270); //57415);
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, 0x3E, DIVIDER_270); //57415);
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, 0x3E, DIVIDER_270); //57415);
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, 0x3E, DIVIDER_270); //57415);
-
-			break;
-
-		case XDP_TX_LINK_BW_SET_540GBPS:
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1, 0x3E, DIVIDER_540); //57442);
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, 0x3E, DIVIDER_540); //57442);
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, 0x3E, DIVIDER_540); //57442);
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, 0x3E, DIVIDER_540); //57442);
-
-			break;
-
-		case XDP_TX_LINK_BW_SET_810GBPS:
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1, 0x3E, DIVIDER_810); //57440);
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, 0x3E, DIVIDER_810); //57440);
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, 0x3E, DIVIDER_810); //57440);
-			XVphy_DrpWr(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, 0x3E, DIVIDER_810); //57440);
-
-			break;
-	}
-
-#endif
-
 	if (LineRate_init_tx == XDP_TX_LINK_BW_SET_810GBPS) {
 		PLLRefClkSel (&VPhyInst, PHY_User_Config_Table[(is_TX_CPLL)?9:10].LineRate);
 	} else if (LineRate_init_tx == XDP_TX_LINK_BW_SET_540GBPS) {
@@ -2381,22 +1980,6 @@ u32 config_phy(int LineRate_init_tx){
 				xil_printf ("Issue encountered in PHY config and reset\r\n");
 		}
 
-#ifdef versal
-	ReadModifyWrite(0xE,(linerate << 1));
-    u8 retry=0;
-    while ((dptx_sts != ALL_LANE) && retry < 255) {
-         dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280);
-         dptx_sts &= ALL_LANE;
-         DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 100);
-         retry++;
-      }
-    if(retry==255)
-    {
-	Status = XST_FAILURE;
-    }
-
-#endif
-
 	if (Status != XST_SUCCESS) {
 		xil_printf (
    "+++++++ TX GT configuration encountered a failure config+++++++\r\n");
@@ -2422,9 +2005,9 @@ void sink_power_cycle(void){
 	// give enough time for monitor to power down
 	usleep(400);
 	sink_power_up();
-//	// give enough time for monitor to wake up    CR-962717
+//	// give enough time for monitor to wake up
 	usleep(30000);
-	sink_power_up();//monitor to wake up once again due to CR-962717
+	sink_power_up();//monitor to wake up once again
 	usleep(4000);
 }
 
@@ -2435,8 +2018,6 @@ int VideoFMC_Init(void){
 	int ByteCount= 0;
 
 	xil_printf("VFMC: Setting IO Expanders...\n\r");
-
-#ifndef versal
     XIic_Reset(&IicInstance);
 
 	/* Set the I2C Mux to select the HPC FMC */
@@ -2450,30 +2031,14 @@ int VideoFMC_Init(void){
 		xil_printf("Failed to set the I2C Mux.\n\r");
 	    return XST_FAILURE;
 	}
-#endif
+
 	/* Configure VFMC IO Expander 0:
 	 * Disable Si5344
 	 * Set primary clock source for LMK03318 to IOCLKp(0)
 	 * Set secondary clock source for LMK03318 to IOCLKp(1)
 	 * Disable LMK61E2*/
 	Buffer[0] = 0x01;
-
-#ifdef versal
-    Status = XIicPs_MasterSendPolled(&Ps_Iic0,
-            (u8 *)&Buffer,
-            1,
-			 I2C_VFMCEXP_0_ADDR);
-    if(Status == XST_SUCCESS)
-    {
-	ByteCount=1;
-    }
-    else
-    {
-	ByteCount=0;
-    }
-#else
 	ByteCount = XIic_Send(IIC_BASE_ADDR, I2C_VFMCEXP_0_ADDR, (u8*)Buffer, 1, XIIC_STOP);
-#endif
 	if (ByteCount != 1) {
 		xil_printf("Failed to set the I2C IO Expander.\n\r");
 		return XST_FAILURE;
@@ -2485,22 +2050,7 @@ int VideoFMC_Init(void){
 	 * Select IDT8T49N241 clock as source for FMC_GT_CLKp(1)
 	 * Enable IDT8T49N241 */
 	Buffer[0] = 0x16;
-#ifdef versal
-    Status = XIicPs_MasterSendPolled(&Ps_Iic0,
-             (u8 *)&Buffer,
-             1,
-			  I2C_VFMCEXP_1_ADDR);
-    if(Status == XST_SUCCESS)
-    {
-	ByteCount=1;
-    }
-    else
-    {
-	ByteCount=0;
-    }
-#else
 	ByteCount = XIic_Send(IIC_BASE_ADDR, I2C_VFMCEXP_1_ADDR, (u8*)Buffer, 1, XIIC_STOP);
-#endif
 	if (ByteCount != 1) {
 		xil_printf("Failed to set the I2C IO Expander.\n\r");
 		return XST_FAILURE;
@@ -2533,7 +2083,6 @@ int VideoFMC_Init(void){
 	return XST_SUCCESS;
 }
 
-#ifndef versal
 void I2C_Scan(u32 BaseAddress)
 {
 	u8 Buffer[2];
@@ -2553,73 +2102,4 @@ void I2C_Scan(u32 BaseAddress)
 		xil_printf("Found device: 0x%02x\n\r",i);
 	}
 	print("\n\r");
-}
-
-
-
-
-
-u8 i2c_read_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress)
-{
-	u32 ByteCount = 0;
-	u8 Buffer[1];
-	u8 Data;
-	u8 Retry = 0;
-	u8 Exit;
-
-
-	Exit = FALSE;
-	Data = 0;
-
-	do {
-		// Set Address
-		Buffer[0] = RegisterAddress & 0xff;
-		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer, 1, XIIC_REPEATED_START);
-
-		if (ByteCount != 1) {
-			Retry++;
-
-			// Maximum retries
-			if (Retry == 255) {
-				Exit = TRUE;
-			}
-		}
-
-		// Read data
-		else {
-			//Read data
-			ByteCount = XIic_Recv(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer, 1, XIIC_STOP);
-
-			Data = Buffer[0];
-			Exit = TRUE;
-		}
-	} while (!Exit);
-
-	return Data;
-}
-#endif
-
-void read_DP141(){
-	u8 Data;
-	int i =0;
-
-#ifndef versal
-	for(i=0; i<0xD; i++){
-		Data = i2c_read_dp141( IIC_BASE_ADDR, I2C_TI_DP141_ADDR, i);
-		xil_printf("%x : %02x \r\n",i, Data);
-	}
-#else
-    u8 Buffer;
-    u32 Status;
-    Buffer = 0x02 & 0xff;
-    Status = XIicPs_MasterSendPolled(&Ps_Iic0,
-                                             (u8 *)&Buffer,
-                                             1,
-											 I2C_TI_DP141_ADDR);
-
-
-
-    XIicPs_MasterRecvPolled(&Ps_Iic0, &Data, 1, I2C_TI_DP141_ADDR);
-#endif
-
 }

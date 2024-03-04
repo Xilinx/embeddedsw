@@ -33,8 +33,6 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 /************************** Constant Definitions *****************************/
-#define I2C_TI_DP141_ADDR   0x05 /**< I2C TI DP141 Address */
-#define I2C_MCDP6000_ADDR  0x14 /**< I2C MCDP6000 Address*/
 #define I2C_IDT8N49_ADDR   0x7C /**< I2C IDT 8N49N241 Address */
 #define I2C_MUX_ADDR       0x75 /**< I2C Mux Address */
 #define I2C_CLK_ADDR       0x68 /**< I2C Clk Address */

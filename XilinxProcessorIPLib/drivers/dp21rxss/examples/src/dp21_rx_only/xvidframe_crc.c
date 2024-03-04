@@ -25,8 +25,6 @@
 #include "xstatus.h"
 #include "xvidframe_crc.h"
 
-//#ifdef VIDEO_FRAME_CRC_EN
-
 /************************** Constant Definitions ****************************/
 
 /**************************** Type Definitions ******************************/
@@ -111,10 +109,18 @@ void XVidFrameCrc_Report(void)
 	xil_printf("------------\r\n");
 	xil_printf("Video Frame CRC\n\r");
 	xil_printf("------------\r\n\r\n");
-	xil_printf("CRC PPC     =  %d\r\n",
+	int Vid_frame_crc_cfg=0;
+	Vid_frame_crc_cfg = XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
+			VIDEO_FRAME_CRC_CONFIG);
+	if(Vid_frame_crc_cfg == 0x5){
+		xil_printf("CRC PPC     =  %d\r\n",0x8);
+
+	}else{
+		xil_printf("CRC PPC     =  %d\r\n",
 		   XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
 					VIDEO_FRAME_CRC_CONFIG)
-		   & VIDEO_FRAME_CRC_PXLMODE_MASK);
+					& VIDEO_FRAME_CRC_PXLMODE_MASK);
+	}
 	xil_printf("CRC - R/Cr   =  0x%x\r\n",
 		   XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,
 					VIDEO_FRAME_CRC_VALUE_G_R)

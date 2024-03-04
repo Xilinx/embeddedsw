@@ -14,16 +14,15 @@
 *
 * MODIFICATION HISTORY:
 *
-* Ver   Who     Date     Changes
-* ----- ------  -------- --------------------------------------------------
-* X.XX  XX      YY/MM/DD
-* 1.0   Nishant 19/12/20 Added suppport for vck190
+* Ver  Who      Date      Changes
+* ---- ---      --------  --------------------------------------------------.
+* 1.00  ND      18/10/22  Common DP 2.1 tx only application for zcu102 and
+* 						  vcu118
+* 1.01	ND		26/02/24  Added support for 13.5 and 20G
 * </pre>
 *
 ******************************************************************************/
-#define new
 
-//#ifdef new
 /***************************** Include Files *********************************/
 #include "idt_8t49n24x.h"
 #include "xil_types.h"
@@ -34,12 +33,7 @@
 #include "math.h"
 #include "sleep.h"
 
-#ifndef versal
 #include "xiic.h"
-#else
-#include "xiicps.h"
-extern XIicPs Ps_Iic0;
-#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -92,17 +86,9 @@ static u8 IDT_8T49N24x_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
         Buffer[1] = RegisterAddress & 0xff;
 
         ByteCount = 0;
-#ifdef versal
-        Status = XIicPs_MasterSendPolled(&Ps_Iic0,(u8 *)&Buffer,
-                                                 2,I2CSlaveAddress);
-		if(Status == XST_SUCCESS)
-		{
-			ByteCount = 2;
-		}
-#else
 		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress,
 				(u8*)Buffer, 2, XIIC_REPEATED_START);
-#endif
+
 		if (ByteCount != 2)
 		{
 		    xil_printf ("Send failed\r\n");
@@ -114,25 +100,15 @@ static u8 IDT_8T49N24x_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 		} else {
 			ByteCount = 0;
 			/* Read data. */
-#ifdef versal
-		    Status = XIicPs_MasterRecvPolled(&Ps_Iic0, &Data, 1, I2CSlaveAddress);
-			if(Status == XST_SUCCESS)
-			{
-				ByteCount = 1;
-			}
-#else
 			ByteCount = XIic_Recv(I2CBaseAddress, I2CSlaveAddress,
 						(u8*)Buffer, 1, XIIC_STOP);
-#endif
 			if (ByteCount != 1)
 			{
 				xil_printf ("read failed\r\n");
 				Exit = FALSE;
 				Exit = TRUE;
 			} else {
-#ifndef versal
 				Data = Buffer[0];
-#endif
 				Exit = TRUE;
 			}
 		}
@@ -171,19 +147,8 @@ static int IDT_8T49N24x_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 
 	while (1) {
 		ByteCount = 0;
-#ifdef versal
-		Status = XIicPs_MasterSendPolled(&Ps_Iic0,
-		                                             (u8 *)&Buffer,
-		                                             3,
-													 I2CSlaveAddress);
-		if(Status == XST_SUCCESS)
-		{
-			ByteCount = 3;
-		}
-#else
 		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress,
 					(u8*)Buffer, 3, XIIC_STOP);
-#endif
 		if (ByteCount != 3)
 		{
 			Retry++;

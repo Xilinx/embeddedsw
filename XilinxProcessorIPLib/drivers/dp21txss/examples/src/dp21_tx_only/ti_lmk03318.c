@@ -15,22 +15,17 @@
 *
 * MODIFICATION HISTORY:
 *
-* Ver   Who     Date     Changes
-* ----- ------  -------- --------------------------------------------------
-* X.XX  XX      YY/MM/DD
-* 1.00  Nishant 19/12/20 Added suppport for vck190
+* Ver  Who      Date      Changes
+* ---- ---      --------  --------------------------------------------------.
+* 1.00  ND      18/10/22  Common DP 2.1 tx only application for zcu102 and
+* 						  vcu118
+* 1.01	ND		26/02/24  Added support for 13.5 and 20G
 * </pre>
 *
 ******************************************************************************/
 #include "xparameters.h"
 #include "ti_lmk03318.h"
-
-#ifdef versal
-#include "xiicps.h"
-extern XIicPs Ps_Iic0;
-#else
 #include "xiic.h"
-#endif
 
 /*****************************************************************************/
 /**
@@ -56,20 +51,8 @@ static int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 
 	Buffer[0] = RegisterAddress;
 	Buffer[1] = Value;
-
-#ifdef versal
-	Status = XIicPs_MasterSendPolled(&Ps_Iic0,
-		                                             (u8 *)&Buffer,
-		                                             2,
-													 I2CSlaveAddress);
-	if(Status == XST_SUCCESS)
-	{
-		ByteCount = 2;
-	}
-#else
 	ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress,
 			      (u8*)Buffer, 2, XIIC_STOP);
-#endif
 	if (ByteCount != 2)
 	{
 		return XST_FAILURE;
@@ -77,9 +60,6 @@ static int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 
 	return XST_SUCCESS;
 }
-
-
-#ifndef versal
 
 /*****************************************************************************/
 /**
@@ -274,9 +254,6 @@ int TI_LMK03318_Init(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 	return XST_SUCCESS;
 }
 
-#endif
-
-
 /*****************************************************************************/
 /**
 *
@@ -335,8 +312,6 @@ int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 	return XST_SUCCESS;
 }
 
-#ifndef versal
-
 /*****************************************************************************/
 /**
 *
@@ -389,4 +364,3 @@ void TI_LMK03318_RegisterDump(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 
 	print("\n\r");
 }
-#endif
