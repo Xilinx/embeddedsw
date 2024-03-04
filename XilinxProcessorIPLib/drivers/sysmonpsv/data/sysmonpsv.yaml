@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -17,22 +17,14 @@ properties:
         - enum:
           - xlnx,sysmon-psv-1.0
           - xlnx,versal-sysmon
-          - xlnx,psv-pmc-sysmon-1.0
-          - xlnx,slv1-psv-pmc-sysmon-1.0
-          - xlnx,slv2-psv-pmc-sysmon-1.0
-          - xlnx,slv3-psv-pmc-sysmon-1.0
-
   reg:
     description: Physical base address and size of the controller register map
-  xlnx,numchannels:
-    decription: Number of supplies
 
 config:
     - XSysMonPsv_Config
 
 required:
     - reg
-    - xlnx,numchannels
     - child,required:
         - reg
 
@@ -43,6 +35,4 @@ optional:
 examples:
    xsysmonpsv_intr_example.c:
     - interrupts
-   xsysmonpsv_polled_example.c:
-    - reg
 ...

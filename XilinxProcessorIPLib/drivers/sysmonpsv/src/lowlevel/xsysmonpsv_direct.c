@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,6 @@
 * ----- -----  -------- -----------------------------------------------
 * 3.0   cog    03/25/21 Driver Restructure
 * 4.0   se     11/10/22 Secure and Non-Secure mode integration
-* 4.2   cog    01/25/24 Added SSIT support
 *
 * </pre>
 *
@@ -45,7 +44,7 @@
 *******************************************************************************/
 void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
 {
-	*Data = Xil_In32(InstancePtr->Config[InstancePtr->TargetSLR].BaseAddress + Offset);
+	*Data = Xil_In32(InstancePtr->Config.BaseAddress + Offset);
 }
 
 /******************************************************************************/
@@ -61,7 +60,7 @@ void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
 *******************************************************************************/
 void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
 {
-	Xil_Out32(InstancePtr->Config[InstancePtr->TargetSLR].BaseAddress + Offset, Data);
+	Xil_Out32(InstancePtr->Config.BaseAddress + Offset, Data);
 }
 
 /******************************************************************************/
