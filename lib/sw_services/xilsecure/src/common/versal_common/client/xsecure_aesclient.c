@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -35,6 +35,7 @@
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *	yog  05/04/23 Fixed HIS COMF violations
 * 5.3	vss  10/03/23 Added single API support for AES AAD and GMAC operations
+*	vss  03/04/24 Removed code redundancy for AesPerformOperation API
 *
 * </pre>
 * @note
@@ -871,7 +872,7 @@ END:
  *	-	XST_FAILURE - On failure
  *
  ******************************************************************************/
-int XSecure_AesPerformOperation(const XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc,
+int XSecure_AesPerformOperation(const XSecure_ClientInstance *InstancePtr,
 	const XSecure_AesDataBlockParams *AesDataParams)
 {
 	volatile int Status = XST_FAILURE;
@@ -894,7 +895,7 @@ int XSecure_AesPerformOperation(const XSecure_ClientInstance *InstancePtr, XSecu
 	/**<AES Encrypt/Decrypt Init operation*/
 	AesParams->IvAddr = AesDataParams->IvAddr;
 	AesParams->OperationId = AesDataParams->OperationId;
-	AesParams->KeySrc = (u32)KeySrc;
+	AesParams->KeySrc = AesDataParams->KeySrc;
 	AesParams->KeySize = AesDataParams->KeySize;
 
 	/**< AES Aad Update*/

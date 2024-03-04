@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 5.2   mmd  07/09/23 Included header file for crypto algorithm information
 *	vss  09/21/23 Fixed doxygen warnings
 * 5.3	vss  10/03/23 Added single API support for AES AAD and GMAC operations
+*	vss  03/04/24 Removed code redundancy for AesPerformOperation API
 *
 * </pre>
 * @note
@@ -108,7 +109,7 @@ int XSecure_AesEncryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
 int XSecure_AesDecryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
 	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
-int XSecure_AesPerformOperation(const XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc,
+int XSecure_AesPerformOperation(const XSecure_ClientInstance *InstancePtr,
 		const XSecure_AesDataBlockParams *AesDataParams);
 int XSecure_AesGmacUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u32 AadSize, u32 IsLastChunkSrc);
 
