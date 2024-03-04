@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 9.0   mus  04/19/23 Initial version
+* 9.1   asa  03/04/24 Added a new structure "XMpuConfig_Init" that will be
+*                     used to pass MPU initialization data.
 * </pre>
 *
 *
@@ -85,7 +87,15 @@ struct XMpuConfig{
 	u32 flags; /* MPU region flags */
 };
 
+struct XMpuConfig_Init{
+	UINTPTR BaseAddress;/* MPU region base address */
+	u64 Size; /* MPU region size address */
+	u32 Attribute; /* MPU region size attribute */
+};
+
+
 typedef struct XMpuConfig XMpu_Config[MAX_POSSIBLE_MPU_REGS];
+typedef struct XMpuConfig_Init XMpuConfig_Initial[MAX_POSSIBLE_MPU_REGS];
 
 extern XMpu_Config Mpu_Config;
 /************************** Constant Definitions *****************************/
