@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +51,7 @@
 * 4.6   gm   07/16/21 Added support for 64-bit address
 *       am   09/17/21 Resolved compiler warnings
 * 5.3   am   12/18/23 Fixed assignment of status to success for invalid mod data
+*       kpt  03/04/24 Updated parameter description for XSecure_IsNonZeroBuffer
 *
 * </pre>
 *
@@ -518,8 +519,8 @@ int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 /**
  * @brief	This function checks if the data in the provided buffer is non-zero
  *
- * @param	Pointer to the buffer
- * @param	Size of the buffer
+ * @param	Data - Pointer to the buffer which contains data to be validated
+ * @param	Size - Size of the buffer in bytes
  *
  * @return
  *		 - XST_SUCCESS  In case of non-zero buffer
