@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023-2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
@@ -1359,6 +1359,7 @@
 /* Definitions for peripheral  */
 #define XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SYSMON_0_S_AXI_BASEADDR 0xF1270000
 #define XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SYSMON_0_S_AXI_HIGHADDR 0xF129FFFF
+#define XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_SYSMON_0_NUMSUPPLIES 0
 
 
 /******************************************************************/
@@ -1366,6 +1367,7 @@
 /* Canonical definitions for peripheral  */
 #define XPAR_XSYSMONPSV_0_S_AXI_BASEADDR 0xF1270000
 #define XPAR_XSYSMONPSV_0_S_AXI_HIGHADDR 0xF129FFFF
+#define XPAR_XSYSMONPSV_0_NUMSUPPLIES 0
 
 #define XPAR_XSYSMONPSV_0_NO_MEAS	161
 

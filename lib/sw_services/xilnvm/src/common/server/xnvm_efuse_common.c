@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 3.2   kum  04/11/2023 Moved Env monitor API's from versal xnvm_efuse.c to make use for both versal and versalnet
 *	vss  09/19/2023	Fixed MISRA-C Rule 8.7 violation
 *  3.3  vss  12/31/2023 Added support for Program the eFuse protection bits only once
+*	cog  01/31/2024	Updated for changes in sysmonpsv driver
 *
 * </pre>
 *
@@ -724,7 +725,7 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 
 	/* Unlock the sysmon register space */
 	XSysMonPsv_WriteReg(
-			SysMonInstPtr->Config.BaseAddress + XSYSMONPSV_PCSR_LOCK,
+			SysMonInstPtr->Config->BaseAddress + XSYSMONPSV_PCSR_LOCK,
 			XNVM_EFUSE_SYSMON_LOCK_CODE);
 
 	SupplyReg = XNvm_GetSysmonSupplyRegId(
@@ -743,7 +744,7 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 	Shift = SupplyReg % XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG;
 	SysmonEventsMask = (u32)1U << Shift;
 
-	Status = (int)Xil_WaitForEvents((SysMonInstPtr->Config.BaseAddress +
+	Status = (int)Xil_WaitForEvents((SysMonInstPtr->Config->BaseAddress +
 		Offset + XSYSMONPSV_NEW_DATA_FLAG0), SysmonEventsMask,
 		SysmonEventsMask, XNVM_EFUSE_SYSMONPSV_TIMEOUT, &ReadReg);
 	if(Status != XST_SUCCESS) {
@@ -752,13 +753,13 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 	}
 	else {
 		/* Clear the New data flag if its set */
-		XSysMonPsv_WriteReg(SysMonInstPtr->Config.BaseAddress +
+		XSysMonPsv_WriteReg(SysMonInstPtr->Config->BaseAddress +
 			Offset + XSYSMONPSV_NEW_DATA_FLAG0, ReadReg);
 	}
 
 	if (ReadReg != 0x00U) {
 		RawVoltage = XSysMonPsv_ReadReg(
-				SysMonInstPtr->Config.BaseAddress +
+				SysMonInstPtr->Config->BaseAddress +
 				XSYSMONPSV_SUPPLY +
 				(SupplyReg * XNVM_EFUSE_WORD_LEN));
 
@@ -775,7 +776,7 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 		}
 	}
 
-	RawTemp = XSysMonPsv_ReadReg(SysMonInstPtr->Config.BaseAddress +
+	RawTemp = XSysMonPsv_ReadReg(SysMonInstPtr->Config->BaseAddress +
 			XSYSMONPSV_TEMP_SAT);
 	Temparature = XSysMonPsv_FixedToFloat(RawTemp);
 
