@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,10 @@
 * ----- ---- -------- ---------------------------------------------------
 * 9.00 	mus  04/10/23 First release
 * 9.1 	mus  10/03/23 Added MPU region for HNIC region.
+* 9.1   asa  03/04/24 Made changes to ensure that InitialMpu_Config is used
+*                     in Init_MPU function to initialize the MPU regions
+*                     in stead of using hard coded information inside
+*                     Init_MPU.
 * </pre>
 *
 * @note
@@ -44,6 +48,101 @@ static inline void Update_MpuConfig_Array(u32 Addr, u32 RegSize, u32 RegNum,
 /************************** Function Prototypes ******************************/
 extern void Xil_SetAttributeBasedOnConfig(u32 IsSortingNedded)  __attribute__((__section__(".boot")));
 void Init_MPU(void) __attribute__((__section__(".boot")));
+
+/*
+ * InitialMpu_Config is an array of structures initialized with MPU regions
+ * configuration data. This is defined as "weak" and is placed in the bootdata
+ * section.
+ * In an isolation use case, default addresses allocated to MPU regions will change
+ * depending on user confugurations. For such cases Init_MPU must initialize
+ * MPU regions as per user configurations instead of default configurations.
+ * To have proper MPU configurations, users must override the default "weak" array
+ * defined here with a non-weak array in their application.
+ * As an example, if user has allocated just 1 GB of DDR, they can have an
+ * array defined in their application as following:
+ *
+ * #include "xil_mpu.h"
+ * XMpuConfig_Initial InitialMpu_Config __attribute__((section(".bootdata"))) = {
+ * {
+ *		0x00000000U,
+ *		0x3FFFFFFF,
+ *		NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW
+ *  },
+ *  // Other MPU region definitions follow as decided bu user
+ * }
+ */
+
+__attribute__((weak)) XMpuConfig_Initial InitialMpu_Config __attribute__((section(".bootdata"))) = {
+	{
+		/* 2 GB DDR */
+		0x00000000U,
+		0x7FFFFFFF,
+		NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW,
+	},
+	{
+		/* 512 MB LPD to AFI fabric slave port */
+		0x80000000U,
+		0x1FFFFFFF,
+		DEVICE_NONSHARED | PRIV_RW_USER_RW,
+	},
+	{
+		0xA0000000U,
+		0x17FFFFFF,
+		DEVICE_NONSHARED | PRIV_RW_USER_RW,
+	},
+	{
+		/* 1 MB OCM */
+		0xBBF00000U,
+		0xFFFFF,
+		NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW,
+	},
+	{
+		/* 512 MB xSPI + 16 MB Coresight */
+		0xC0000000U,
+		0x20FFFFFF,
+		DEVICE_NONSHARED | PRIV_RW_USER_RW,
+	},
+	{
+		/* 2MB RPU GIC */
+		0xE2000000U,
+		0x1FFFFF,
+		DEVICE_NONSHARED | PRIV_RW_USER_RW,
+	},
+	{
+		/* 16 MB CPM */
+		0xE4000000U,
+		0xFFFFFF,
+		DEVICE_NONSHARED | PRIV_RW_USER_RW,
+	},
+	{
+		/* 8 MB HNIC */
+		0xE6000000U,
+		0x7FFFFF,
+		DEVICE_NONSHARED | PRIV_RW_USER_RW,
+	},
+	{
+		/* 16 MB FPD + 32 MB LPD */
+		0xEA000000U,
+		0x2FFFFFF,
+		DEVICE_NONSHARED | PRIV_RW_USER_RW,
+	},
+	{
+		/* 128 MB PMC */
+		0xF0000000U,
+		0x7FFFFFF,
+		DEVICE_NONSHARED | PRIV_RW_USER_RW,
+	},
+	{
+		/* 64 MB PS_FPD_CMN */
+		0xF8000000U,
+		0x3FFFFFF,
+		DEVICE_NONSHARED | PRIV_RW_USER_RW,
+	},
+	/* A total of 11 MPU regions are allocated with another 5 being free for users */
+	{
+		0U
+	}
+};
 
 /*****************************************************************************/
 /**
@@ -82,94 +181,20 @@ static inline void Update_MpuConfig_Array(u32 Addr, u32 RegSize, u32 RegNum,
 ******************************************************************************/
 void Init_MPU(void)
 {
-	u32 Addr;
-	u32 RegSize = 0U;
-	u32 Attrib;
 	u32 RegNum = 0;
-	u32 Needsorting = 1;
 
 	Xil_DisableMPURegions();
 
-	/* 2 GB DDR */
-	Addr = 0x00000000U;
-	RegSize = 0x7FFFFFFF;
-	Attrib = NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW;
-	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
-	RegNum++;
+	while ((InitialMpu_Config[RegNum].Size != 0U) &&
+									(RegNum < MAX_POSSIBLE_MPU_REGS)) {
+		Update_MpuConfig_Array(InitialMpu_Config[RegNum].BaseAddress,
+								InitialMpu_Config[RegNum].Size,
+								RegNum,
+								InitialMpu_Config[RegNum].Attribute);
+		RegNum++;
+	}
+	Xil_SetAttributeBasedOnConfig(1U);
 
-	/* 512 MB LPD to AFI fabric slave port */
-	Addr = 0x80000000U;
-	RegSize = 0x1FFFFFFF;
-	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
-	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
-	RegNum++;
-
-	/* 256 MB PCIE region + 128 MB PS_FPD_AFI_FS */
-	Addr = 0xA0000000U;
-	RegSize = 0x17FFFFFF;
-	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
-	RegNum++;
-
-	/* 1 MB OCM */
-	Addr = 0xBBF00000U;
-	RegSize = 0xFFFFF;
-	Attrib = NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW;
-	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
-	RegNum++;
-
-	/* 512 MB xSPI + 16 MB Coresight */
-	Addr = 0xC0000000U;
-	RegSize = 0x20FFFFFF;
-	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
-	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
-	RegNum++;
-
-	/* 2MB RPU GIC */
-	Addr = 0xE2000000U;
-	RegSize = 0x1FFFFF;
-	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
-	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
-	RegNum++;
-
-	/* 16 MB CPM */
-	Addr = 0xE4000000U;
-	RegSize = 0xFFFFFF;
-	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
-	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
-	RegNum++;
-
-	/* 8 MB HNIC */
-	Addr = 0xE6000000U;
-	RegSize = 0x7FFFFF;
-	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
-	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
-	RegNum++;
-
-	/* 16 MB FPD + 32 MB LPD */
-	Addr = 0xEA000000U;
-	RegSize = 0x2FFFFFF;
-	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
-	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
-	RegNum++;
-
-
-	/* 128 MB PMC */
-	Addr = 0xF0000000U;
-	RegSize = 0x7FFFFFF;
-	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
-	RegNum++;
-
-	/* 64 MB PS_FPD_CMN */
-	Addr = 0xF8000000U;
-	RegSize = 0x3FFFFFF;
-	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
-	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
-	RegNum++;
-
-	Xil_SetAttributeBasedOnConfig(Needsorting);
-	/* A total of 11 MPU regions are allocated with another 5 being free for users */
 }
 
 
