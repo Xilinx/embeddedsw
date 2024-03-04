@@ -51,6 +51,7 @@
 *       ng   12/27/2023 Reduced log level for less frequent prints
 *       bm   02/12/2024 Updated logical partition comments for SD/eMMC bootmodes
 *       ng   02/14/2024 removed int typecast for errors
+*       bm   03/02/2024 Make SD drive number logic order independent
 *
 * </pre>
 *
@@ -161,19 +162,23 @@ static u8 XLoader_GetDrvNumSD(u8 DeviceFlags)
 	u8 DrvNum;
 	/**
 	 * - If design has both SD0 and SD1, select drive number based on bootmode
-	 * - If design has only SD0 or ONLY SD1, drive number should be "0".
+	 * - If design has only SD0 or ONLY SD1, drive number should be "0" or "5"
+	 *   based on how the xparameters are defined. So, use XLOADER_SD_0 * 5
+	 *   as drive number
 	 */
 #if (defined(XPAR_XSDPS_NUM_INSTANCES) && (XPAR_XSDPS_NUM_INSTANCES > 1))
 	if ((XLoader_IsPdiSrcSD0(DeviceFlags) == (u8)TRUE) ||
 		(DeviceFlags == XLOADER_PDI_SRC_EMMC0)) {
-		DrvNum = XLOADER_SD_DRV_NUM_0;
+		DrvNum = XLOADER_SD_0 * XLOADER_SD_DRV_NUM_5;
 	}
 	else {
 		/**
 		 * - For XLOADER_SD1_BOOT_MODE or XLOADER_SD1_LS_BOOT_MODE
-		 * or XLOADER_EMMC_BOOT_MODE, drive should be "5".
+		 * or XLOADER_EMMC_BOOT_MODE, drive should be "5" or "0" based
+		 * on how xparameters are defined. So, use XLOADER_SD_1 * 5 as
+		 * drive number
 		 */
-		DrvNum = XLOADER_SD_DRV_NUM_5;
+		DrvNum = XLOADER_SD_1 * XLOADER_SD_DRV_NUM_5;
 	}
 #else
 	(void)DeviceFlags;
