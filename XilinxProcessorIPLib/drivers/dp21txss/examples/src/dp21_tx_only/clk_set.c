@@ -11,9 +11,11 @@
  *
  * MODIFICATION HISTORY:
  *
- * Ver   Who  	Date     	Changes
- * ----- ---- 	-------- 	-----------------------------------------------
- * 1.0   Nishant 12/20/19 	Added support for vck190
+ * Ver  Who      Date      Changes
+ * ---- ---      --------  --------------------------------------------------.
+ * 1.00  ND      18/10/22  Common DP 2.1 tx only application for zcu102 and
+ * 						  vcu118
+ * 1.01	ND		26/02/24  Added support for 13.5 and 20G
  *
 *******************************************************************************/
 
@@ -54,8 +56,6 @@ static void double2hex(double dnum, u8 *hnum);
 
 u32 clk_set(u8 i2c_mux_addr, u8 i2c_dev_addr, double set_freq)
 {
-
-//	XIicPs_Config *IicCfgPtr;
 	u32 Status;
 	u8 WriteBuffer[16];
 

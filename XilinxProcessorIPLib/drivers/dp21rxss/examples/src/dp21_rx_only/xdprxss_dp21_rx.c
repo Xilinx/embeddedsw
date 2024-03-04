@@ -29,7 +29,6 @@
 #include <xdp.h>
 #include <xdp_hw.h>
 #include <xdprxss.h>
-#include <xdprxss_mcdp6000.h>
 #include <xiic.h>
 #include <xiic_l.h>
 #include <xil_exception.h>
@@ -54,7 +53,6 @@
 #include "videofmc_defs.h"
 #include "ti_lmk03318.h"
 #include "idt_8t49n24x.h"
-//#include "./MC/mcdp6000.h"
 /************************** Constant Definitions *****************************/
 
 /*
@@ -151,7 +149,9 @@
 #define TIMER_RESET_VALUE        1000
 
 #if !defined (XPS_BOARD_ZCU102)
-#define CRC_8PPC
+#define CRC_CFG 0x5
+#else
+#define CRC_CFG 0x4
 #endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -325,7 +325,6 @@ u32 DpRxSs_Main(u16 DeviceId);
 u32 DpRxSs_PlatformInit(void);
 u32 DpRxSs_VideoPhyInit(u16 DeviceId);
 u32 DpRxSs_Setup(void);
-void PHY_Two_byte_set (XVphy *InstancePtr, u8 Rx_to_two_byte);
 void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate);
 void AppHelp();
 void ReportVideoCRC();
@@ -360,9 +359,6 @@ void Dprx_InterruptHandlerDownReq(void *InstancePtr);
 void Dprx_InterruptHandlerDownReply(void *InstancePtr);
 void Dprx_InterruptHandlerPayloadAlloc(void *InstancePtr);
 void Dprx_InterruptHandlerActRx(void *InstancePtr);
-
-int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress,
-		u8 Value);
 int VideoFMC_Init(void);
 
 void Print_InfoPkt();
@@ -537,7 +533,7 @@ int main()
 
 	xil_printf("------------------------------------------\n\r");
 	xil_printf("DisplayPort 2.x RX Only Example\n\r");
-	xil_printf("(c) 2022 by Xilinx\n\r");
+	xil_printf("(c) 2024 by AMD\n\r");
 	xil_printf("-------------------------------------------\n\r\n\r");
 
 	Status = DpRxSs_Main(XDPRXSS_DEVICE_ID);
@@ -755,27 +751,6 @@ u32 DpRxSs_Main(u16 DeviceId)
 				XVphy_DrpRd(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4,
 						XVPHY_DRP_GTHE4_PRBS_ERR_CNTR_UPPER, &DrpVal);
 				xil_printf ("Lane3 (Upper) is %d,\r\n", DrpVal);
-
-
-				xil_printf ("==========MCDP6000 Debug Data===========\r\n");
-				XDpRxSs_MCDP6000_Read_ErrorCounters(&DpRxSsInst,
-						I2C_MCDP6000_ADDR);
-				xil_printf("0x0754: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-						&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0754));
-				xil_printf("0x0B20: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-						&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0B20));
-				xil_printf("0x0B24: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-						&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0B24));
-				xil_printf("0x0B28: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-						&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0B28));
-				xil_printf("0x0B2C: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-						&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0B2C));
-				xil_printf("0x0B2C: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-						&DpRxSsInst, I2C_MCDP6000_ADDR, 0x061C));
-				xil_printf("0x0B2C: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-						&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0504));
-				xil_printf("0x0B2C: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(
-						&DpRxSsInst, I2C_MCDP6000_ADDR, 0x0604));
 				break;
 
 			case 'm':
@@ -865,12 +840,6 @@ u32 DpRxSs_Main(u16 DeviceId)
 						 XDP_RX_MSA_MVID),
 				(int)XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 						 XDP_RX_MSA_NVID));
-
-			/* Check for RB Resolution */
-			XDp_RxSetLineReset(DpRxSsInst.DpPtr,XDP_TX_STREAM_ID1);
-			xil_printf(" Line Reset=0x%x\n\r",
-				(int)XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-						 XDP_RX_LINE_RESET_DISABLE));
 
 			XDp_RxDtgDis(DpRxSsInst.DpPtr);
 			XDp_RxDtgEn(DpRxSsInst.DpPtr);
@@ -978,8 +947,6 @@ u32 DpRxSs_VideoPhyInit(u16 DeviceId)
 			   PHY_User_Config_Table[5].RxPLL,
 			   PHY_User_Config_Table[5].LineRate);
 
-	PHY_Two_byte_set(&VPhyInst, SET_RX_TO_2BYTE);
-
 	//Setting polarity (RX) for new DP2.1 FMC
 	XVphy_SetPolarity(&VPhyInst, 0, XVPHY_CHANNEL_ID_CHA,
 			XVPHY_DIR_RX, 1);
@@ -1004,10 +971,9 @@ u32 DpRxSs_VideoPhyInit(u16 DeviceId)
 u32 DpRxSs_Setup(void)
 {
 	u32 ReadVal;
-
 	ReadVal= XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 		     0xD0);
-	ReadVal = ReadVal & (0xFFFFFFFF);
+	ReadVal = ReadVal & (0xFFFFFFFE);
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 			     0xD0, ReadVal);
 
@@ -1017,9 +983,6 @@ u32 DpRxSs_Setup(void)
 
 	/* Load Custom EDID */
 	LoadEDID();
-
-	//Enable Rx for VSC capability
-	XDp_RxVSCEn(DpRxSsInst.DpPtr);
 
 	/* Disable All Interrupts*/
 	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFFFFFFF);
@@ -1664,12 +1627,6 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 		DrpVal = DrpVal & 0xF7F7F7F7;
 		XVphy_WriteReg(VPhyInst.Config.BaseAddr,
 			       XVPHY_RX_CONTROL_REG, DrpVal);
-
-		/* Set PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_EnablePrbs7_Rx(&DpRxSsInst,
-					I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
-				      I2C_MCDP6000_ADDR);
 	} else {
 		/*Disable PRBS Mode in Video PHY*/
 		DrpVal = XVphy_ReadReg(VPhyInst.Config.BaseAddr,
@@ -1677,12 +1634,6 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 		DrpVal = DrpVal & 0xEFEFEFEF;
 		XVphy_WriteReg(VPhyInst.Config.BaseAddr,
 			       XVPHY_RX_CONTROL_REG, DrpVal);
-
-		/*Disable PRBS mode in Retimer*/
-		XDpRxSs_MCDP6000_DisablePrbs7_Rx(&DpRxSsInst,
-					 I2C_MCDP6000_ADDR);
-		XDpRxSs_MCDP6000_ClearCounter(&DpRxSsInst,
-				      I2C_MCDP6000_ADDR);
 	}
 }
 
@@ -1748,24 +1699,6 @@ void DpRxSs_AccessErrorCounterHandler(void *InstancePtr)
 		     (0x8000 | DrpVal_lower_lane2) |
 		     ((0x8000 | DrpVal_lower_lane3) << 16));
 
-	XDpRxSs_MCDP6000_Read_ErrorCounters(&DpRxSsInst, I2C_MCDP6000_ADDR);
-
-	xil_printf("0x061C: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
-							    I2C_MCDP6000_ADDR,
-							    0x061C));
-	xil_printf("0x0504: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
-							    I2C_MCDP6000_ADDR,
-							    0x0504));
-	xil_printf("0x0604: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
-							    I2C_MCDP6000_ADDR,
-							    0x0604));
-	xil_printf("0x12BC: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
-							    I2C_MCDP6000_ADDR,
-							    0x12BC));
-	xil_printf("0x12E4: %08x\n\r", XDpRxSs_MCDP6000_GetRegister(&DpRxSsInst,
-							    I2C_MCDP6000_ADDR,
-							    0x12E4));
-
 	/* Reset PRBS7 Counters */
 	DrpVal1 = XVphy_ReadReg(VPhyInst.Config.BaseAddr,
 			       XVPHY_RX_CONTROL_REG);
@@ -1777,56 +1710,6 @@ void DpRxSs_AccessErrorCounterHandler(void *InstancePtr)
 	DrpVal1 = DrpVal1 & 0xF7F7F7F7;
 	XVphy_WriteReg(VPhyInst.Config.BaseAddr,
 		       XVPHY_RX_CONTROL_REG, DrpVal1);
-}
-
-/*****************************************************************************/
-/**
-*
-* This function sets GT in 16-bits (2-Byte) or 32-bits (4-Byte) mode.
-*
-* @param    InstancePtr is a pointer to the Video PHY instance.
-*
-* @return    None.
-*
-* @note        None.
-*
-******************************************************************************/
-void PHY_Two_byte_set (XVphy *InstancePtr, u8 Rx_to_two_byte)
-{
-
-    u16 DrpVal;
-    u16 WriteVal;
-
-    if (Rx_to_two_byte == 1) {
-        XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-			XVPHY_DRP_RX_DATA_WIDTH,&DrpVal);
-        DrpVal &= ~0x1E0;
-        WriteVal = 0x0;
-        WriteVal = DrpVal | 0x60;
-        XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-			XVPHY_DRP_RX_DATA_WIDTH, WriteVal);
-        XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
-			XVPHY_DRP_RX_DATA_WIDTH, WriteVal);
-        XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
-			XVPHY_DRP_RX_DATA_WIDTH, WriteVal);
-        XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
-			XVPHY_DRP_RX_DATA_WIDTH, WriteVal);
-
-        XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-			XVPHY_DRP_RX_INT_DATA_WIDTH,&DrpVal);
-        DrpVal &= ~0x3;
-        WriteVal = 0x0;
-        WriteVal = DrpVal | 0x0;
-        XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-			XVPHY_DRP_RX_INT_DATA_WIDTH, WriteVal);
-        XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
-			XVPHY_DRP_RX_INT_DATA_WIDTH, WriteVal);
-        XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
-			XVPHY_DRP_RX_INT_DATA_WIDTH, WriteVal);
-        XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
-			XVPHY_DRP_RX_INT_DATA_WIDTH, WriteVal);
-        xil_printf ("RX Channel configured for 2byte mode\r\n");
-    }
 }
 
 /*****************************************************************************/
@@ -2065,19 +1948,11 @@ void CalculateCRC(void)
 
 	if(VidFrameCRC.Mode_422 != 0x1 ) {
 	XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-#ifdef CRC_8PPC
-				  0x5);
-#else
-				  0x4);
-#endif
+			CRC_CFG);
 	}
 	else{
 	XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-#ifdef CRC_8PPC
-			  0x5 | 0x80000000);
-#else
-			  0x4 | 0x80000000);
-#endif
+			CRC_CFG | 0x80000000);
 	}
 
 	XVidFrameCrc_Reset();
@@ -2301,106 +2176,6 @@ void I2C_Scan(u32 BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function reads DP141 VFMC- IIC.
-*
-* @param    None.
-*
-* @return    None.
-*
-* @note        None.
-*
-******************************************************************************/
-u8 i2c_read_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress,
-		u16 RegisterAddress)
-{
-	u32 ByteCount = 0;
-	u8 Buffer[1];
-	u8 Data;
-	u8 Retry = 0;
-	u8 Exit;
-
-	Exit = FALSE;
-	Data = 0;
-
-	do {
-		/* Set Address */
-//		Buffer[0] = (RegisterAddress >> 8);
-		Buffer[0] = RegisterAddress & 0xff;
-		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress,
-				      (u8*)Buffer, 1, XIIC_REPEATED_START);
-
-		if (ByteCount != 1) {
-			Retry++;
-
-			/* Maximum retries */
-			if (Retry == 255) {
-				Exit = TRUE;
-			}
-		} else {
-			/* Read data */
-			ByteCount = XIic_Recv(I2CBaseAddress, I2CSlaveAddress,
-					      (u8*)Buffer, 1, XIIC_STOP);
-//			ByteCount = XIic_Recv(I2CBaseAddress, I2CSlaveAddress,
-//					      (u8*)Buffer, 2, XIIC_STOP);
-//			if (ByteCount != 1) {
-//				Exit = FALSE;
-//				Exit = TRUE;
-//			} else {
-				Data = Buffer[0];
-				Exit = TRUE;
-//			}
-		}
-	} while (!Exit);
-
-	return Data;
-}
-
-int i2c_write_dp141(u32 I2CBaseAddress, u8 I2CSlaveAddress,
-		u16 RegisterAddress, u8 Value)
-{
-	u32 ByteCount = 0;
-	u8 Buffer[2];
-	u8 Retry = 0;
-
-	/* Write data */
-//	Buffer[0] = (RegisterAddress >> 8);
-	Buffer[0] = RegisterAddress & 0xff;
-	Buffer[1] = Value;
-
-	while (1) {
-		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress,
-				      (u8*)Buffer, 3, XIIC_STOP);
-
-		if (ByteCount != 2) {
-			Retry++;
-
-			/* Maximum retries */
-			if (Retry == 255) {
-				return XST_FAILURE;
-			}
-		} else {
-			return XST_SUCCESS;
-		}
-	}
-}
-
-void read_DP141()
-{
-	u8 Data;
-	int i =0;
-//	u8 Buffer[1];
-
-	for (i = 0 ; i < 0xD ; i++) {
-		Data = i2c_read_dp141(XPAR_IIC_0_BASEADDR,
-				      I2C_TI_DP141_ADDR, i);
-		xil_printf("%x : %02x \r\n",i, Data);
-	}
-}
-
-
-/*****************************************************************************/
-/**
-*
 * This function is the callback function for Info Packet Handling.
 *
 * @param    InstancePtr is a pointer to the XDpRxSs instance.
@@ -2543,11 +2318,6 @@ void Print_ExtPkt()
 		case 0x04: xil_printf(" -> Extension\r\n"); break;
 		case 0x05: xil_printf(" -> Audio_CopyManagement\r\n"); break;
 		case 0x06: xil_printf(" -> ISRC\r\n"); break;
-		case 0x07: xil_printf(" -> Video Stream Configuration (VSC)\r\n");break;
-		case 0x20: xil_printf(" -> Video Stream Configuration Extension"
-				" for VESA (VSC_EXT_VESA) - Used for HDR Metadata\r\n"); break;
-		case 0x21: xil_printf(" -> VSC_EXT_CEA for future CEA INFOFRAME with "
-				"payload of more than 28 bytes\r\n"); break;
 		default: xil_printf(" -> Reserved/Not Defined\r\n"); break;
 	}
 	xil_printf(" Header Bytes : 0x%x, 0x%x, 0x%x, 0x%x \r\n",

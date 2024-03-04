@@ -15,10 +15,11 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date       Changes
-* ----- ---- ---------- --------------------------------------------------
-* X.X   ..   DD-MM-YYYY ..
-* 1.0        23-07-2019 Initial version
+* Ver  Who      Date      Changes
+* ---- ---      --------  --------------------------------------------------.
+* 1.00  ND      18/10/22  Common DP 2.1 tx only application for zcu102 and
+* 						  vcu118
+* 1.01	ND		26/02/24  Added support for 13.5 and 20G
 *
 * </pre>
 *

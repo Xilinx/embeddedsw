@@ -11,12 +11,11 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver  Who     Date      Changes
-* ---- ---     --------  --------------------------------------------------
-* 1.00 Nishant 19/12/20 Added support for vck190.Added ReadModifyWrite()
-* 						for writing to vck190 register space.set_vphy() renamed
-* 						to config_phy() and has two parameters for linerate and
-* 						lanecount.
+* Ver  Who      Date      Changes
+* ---- ---      --------  --------------------------------------------------.
+* 1.00  ND      18/10/22  Common DP 2.1 tx only application for zcu102 and
+* 						  vcu118
+* 1.01	ND		26/02/24  Added support for 13.5 and 20G
 *
 * </pre>
 *
@@ -28,10 +27,7 @@ XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
 volatile u8 hpd_pulse_con_event; /*This variable triggers hpd_pulse_con*/
 extern volatile u8 prev_line_rate;
 extern XTmrCtr TmrCtr; /* Timer instance.*/
-#ifndef versal
 extern XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
-#endif
-extern XDp_TxVscExtPacket VscPkt;
 u32 Ext_frame[3];
 
 lane_link_rate_struct lane_link_table[]=
@@ -180,7 +176,11 @@ XVidC_VideoMode resolution_table[] =
 	XVIDC_VM_3840x2160_120_MSTR,
 	XVIDC_VM_3840x2160_82_ASUS,
 	XVIDC_VM_3840x2160_98_ASUS,
-	XVIDC_VM_3840x2160_120_ASUS
+	XVIDC_VM_3840x2160_120_ASUS,
+	XVIDC_VM_4096x2160_120_P,
+	XVIDC_VM_5120x2160_120_P,
+	XVIDC_VM_7680x4320_60_P,
+	XVIDC_VM_7680x4320_60_P
 };
 
 
@@ -219,7 +219,6 @@ void DpPt_LaneLinkRateHelpMenu(void)
 void bpc_help_menu(int DPTXSS_BPC_int)
 {
 xil_printf("Choose Video Bits per color option\r\n"
-		    "0 -->  6 bpc (18bpp)\r\n"
 			"1 -->  8 bpc (24bpp)\r\n");
 if (DPTXSS_BPC_int >= 10){
 xil_printf("2 --> 10 bpc (30bpp)\r\n");
@@ -248,16 +247,6 @@ void format_help_menu(void)
 			   "Press any key to show this menu again\r\n");
 }
 
-void vsc_help_menu(void)
-{
-	xil_printf("Choose to enable/disable VSC \r\n"
-			   "1 -->  Enable VSC 			\r\n"
-			   "2 -->  Disable VSC		\r\n"
-			   "\r\n"
-			   "Press 'x' to return to main menu\r\n"
-			   "Press any key to show this menu again\r\n");
-}
-
 void resolution_help_menu(void)
 {
 xil_printf("- - - - -  -  - - - - - - - - - - - - - - - - - - -  -  - - - - -"
@@ -266,16 +255,21 @@ xil_printf("- - - - -  -  - - - - - - - - - - - - - - - - - - -  -  - - - - -"
 		"n                                      -\r\n"
 "- - - - - - - - - - - - - - - - - - - - - - - - - -  -  - - - - - - - - - - "
 		"- - - - - \r\n"
-"0 640x480_60_P    |   1 720x480_60_P      |   2 800x600_60_P  \r\n"
-"3 1024x768_60_P   |   4 1280x720_60_P     |   5 1600x1200_60_P        \r\n"
-"6 1366x768_60_P   |   7 1920x1080_60_P    |   8 3840x2160_30_P\r\n"
-"9 3840x2160_60_P  |   a 2560x1600_60_P    |   b 1280x1024_60_P\r\n"
-"c 1792x1344_60_P  |   d 848x480_60_P      |   e 1280x960\r\n"
-"f 1920x1440_60_P  |   i 3840x2160_60_P_RB |   j 3840x2160_120_P_RB\r\n"
-"k 7680x4320_24_P  |   l 7680x4320_30_P    |   m 3840x2160_100_P\r\n"
-"n 7680x4320_30DELL|   o 5120x2880_30      |   p 7680x4320_30_MSTR\r\n"
-"q 5120x2880_MSTR  |   r 3840x2160_120_MSTR\r\n"
-"s 3840x2160_82_ASUS|  t 3840x2160_98_ASUS|    u 3840x2160_120_ASUS\r\n"
+"0 640x480_60_P     |   1 720x480_60_P       |   2 800x600_60_P  \r\n"
+"3 1024x768_60_P    |   4 1280x720_60_P      |   5 1600x1200_60_P        \r\n"
+"7 1920x1080_60_P   |   8 3840x2160_30_P\r\n"
+"9 3840x2160_60_P   |   a 2560x1600_60_P     |   b 1280x1024_60_P\r\n"
+"c 1792x1344_60_P   |   d 848x480_60_P       |   e 1280x960\r\n"
+"f 1920x1440_60_P   |   i 3840x2160_60_P_RB  |   j 3840x2160_120_P_RB\r\n"
+"k 7680x4320_24_P   |   l 7680x4320_30_P     |   m 3840x2160_100_P\r\n"
+"n 7680x4320_30DELL |   o 5120x2880_30       |   p 7680x4320_30_MSTR\r\n"
+"q 5120x2880_MSTR   |   r 3840x2160_120_MSTR |   s 3840x2160_82_ASUS\r\n"
+"t 3840x2160_98_ASUS|   u 3840x2160_120_ASUS |   \r\n"
+#if defined (XPS_BOARD_ZCU102)
+"v 4096x2160_120_P\r\n"
+#else
+"v 4096x2160_120_P  |   w 5120x2160_120_P    |   y 7680x4320_60_P\r\n"
+#endif
 "- - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 "\r\n"
 
@@ -325,18 +319,9 @@ void sub_help_menu(void)
 "7 - Display Link Configuration Status and user selected resolution, BPC\r\n"
 "8 - Display DPCD register Configurations\r\n"
 "9 - Read Auxiliary registers \r\n"
-"g - Enable/Disable VSC \r\n"
-"a - Enable/Disable Audio\r\n"
 "d - Power Up/Down sink\r\n"
 "e - Read EDID from sink\r\n"
 "m - Read CRC checker value\r\n"
-#if PHY_COMP
-		     "f - Pattern Enable options (PHY)\r\n"
-		     "c - Change the voltage swing (PHY)\r\n"
-			 "v - Change the pre emphasis (PHY)\r\n"
-		     "t - AUX read transaction in loop (PHY)\r\n"
-#endif
-
 "z - Display this Menu again\r\n"
 "- - - - - - - - - - - - - - - - - - - - - - - - - \r\n");
 }
@@ -382,9 +367,6 @@ void select_link_lane(void)
 
 u8 aux_data_rd[0];
 u8 aux_data[0];
-#define COMPLIANCE_PAT1 0x3E0F83E0
-#define COMPLIANCE_PAT2 0x0F83E0F8
-#define COMPLIANCE_PAT3 0xF83E
 u8 term_key = 0;
 u8 tr_lane_set[4];
 
@@ -404,8 +386,6 @@ void main_loop(){
 	u32 user_tx_LaneCount , user_tx_LineRate;
 	u32 aux_reg_address, num_of_aux_registers;
 	u8 Data[8];
-	u8 audio_on=0;
-	XDp_TxAudioInfoFrame *xilInfoFrame;
 	int m_aud, n_aud;
 	u8 in_pwr_save = 0;
 	u32 DrpVal =0;
@@ -422,9 +402,6 @@ void main_loop(){
 	user_config.VideoMode_local=XVIDC_VM_800x600_60_P;
 	user_config.user_pattern=1;
 	user_config.user_format = XVIDC_CSF_RGB;
-
-
-	xilInfoFrame = 0; // initialize
 
 	// Adding custom resolutions at here.
 	xil_printf("INFO> Registering Custom Timing Table with %d entries \r\n",
@@ -443,18 +420,14 @@ void main_loop(){
 		if (tx_is_reconnected != 0) {
 			hpd_con(&DpTxSsInst, Edid_org, Edid1_org,
 					user_config.VideoMode_local);
-//			tx_is_reconnected = 0;
 		}
 
 		if(hpd_pulse_con_event == 1){
 			hpd_pulse_con_event = 0;
-//			hpd_pulse_con(&DpTxSsInst);
-#if !PHY_COMP
 			Status = XDpTxSs_CheckLinkStatus(&DpTxSsInst);
 			if (Status != XST_SUCCESS) {
 				sink_power_cycle();
 			}
-#endif
 		}
 
 		CmdKey[0] = 0;
@@ -518,64 +491,9 @@ void main_loop(){
 				in_pwr_save = 0;
 				xil_printf (
 					"\r\n==========power up===========\r\n");
-#if PHY_COMP
-				if (set_phy == 0) {
-				hpd_con(&DpTxSsInst, Edid1_org, Edid1_org,
-				user_config.VideoMode_local);
-				}
-#endif
 			}
 			break;
 
-
-#if ENABLE_AUDIO
-		case 'a' :
-			audio_on = XDp_ReadReg(
-					DpTxSsInst.DpPtr->Config.BaseAddr,
-					XDP_TX_AUDIO_CONTROL);
-			if (audio_on == 0) {
-				xilInfoFrame->audio_channel_count = 1;
-				xilInfoFrame->audio_coding_type = 0;
-				xilInfoFrame->channel_allocation = 0;
-				xilInfoFrame->downmix_inhibit = 0;
-				xilInfoFrame->info_length = 27;
-				xilInfoFrame->level_shift = 0;
-				xilInfoFrame->sample_size = 0;//16 bits
-				xilInfoFrame->sampling_frequency = 0; //48 Hz
-				xilInfoFrame->type = 0x84;
-				xilInfoFrame->version = 0x11;
-
-				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-						XDP_TX_AUDIO_CONTROL, 0x0);
-				XDpTxSs_SendAudioInfoFrame(&(DpTxSsInst),xilInfoFrame);
-				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-						XDP_TX_AUDIO_CHANNELS, 0x1);
-				switch(LineRate)
-				{
-					case  6:m_aud = 512; n_aud = 3375; break;
-					case 10:m_aud = 512; n_aud = 5625; break;
-					case 20:m_aud = 512; n_aud = 11250; break;
-					case 30:m_aud = 512; n_aud = 16875; break;
-				}
-				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-						XDP_TX_AUDIO_MAUD,  m_aud );
-				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-						XDP_TX_AUDIO_NAUD,  n_aud );
-
-				Vpg_Audio_start();
-				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-						XDP_TX_AUDIO_CONTROL, 0x1);
-				xil_printf ("Audio enabled\r\n");
-				audio_on = 1;
-			} else {
-				Vpg_Audio_stop();
-				XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-						XDP_TX_AUDIO_CONTROL, 0x0);
-				xil_printf ("Audio disabled\r\n");
-				audio_on = 0;
-			}
-			break;
-#endif
 		case '1' :
 			//resolution menu
 			LineRate = get_LineRate();
@@ -614,7 +532,6 @@ void main_loop(){
 							break;
 						}
 						xil_printf ("\r\nSetting resolution...\r\n");
-						audio_on = 0;
 						user_config.VideoMode_local =
 											resolution_table[Command];
 						// Disabling TX interrupts
@@ -663,7 +580,7 @@ void main_loop(){
 							user_config.user_bpc = bpc_table[Command];
 							xil_printf("You have selected %c\r\n",
 															CommandKey);
-							if((Command>4) || (Command < 0))
+							if((Command>4) || (Command < 1))
 							{
 								bpc_help_menu(DPTXSS_BPC);
 								done = 0;
@@ -749,21 +666,10 @@ void main_loop(){
 						// Disabling TX interrupts
 						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 										XDP_TX_INTERRUPT_MASK, 0xFFF);
-#ifdef versal
-#if (VERSAL_FABRIC_8B10B == 0)
-						if (user_tx_LineRate == XDP_TX_LINK_BW_SET_810GBPS) {
-							xil_printf ("The device on VCK190 does not support 8.1G\r\n");
-							xil_printf ("Setting linerate to 5.4G\r\n");
-							user_tx_LineRate = XDP_TX_LINK_BW_SET_540GBPS;
-
-						}
-#endif
-#endif
 						LineRate_init_tx = user_tx_LineRate;
 						prev_line_rate = user_tx_LineRate;
 						LaneCount_init_tx = user_tx_LaneCount;
 						XDpTxSs_Stop(&DpTxSsInst);
-						audio_on = 0;
 						xil_printf(
 					"TX Link & Lane Capability is set to %x, %x\r\n",
 					user_tx_LineRate, user_tx_LaneCount);
@@ -920,101 +826,6 @@ void main_loop(){
 			break;
 
 			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
-		case 'g' :
-			if(XDpTxSs_CheckVscColorimetrySupport(&DpTxSsInst) == XST_SUCCESS){
-				xil_printf("Sink supports VSC\r\n");
-			}
-			else{
-				xil_printf("Sink doesnt support VSC\r\n");
-				break;
-			}
-
-			LineRate = get_LineRate();
-			LaneCount = get_Lanecounts();
-			exit = 0;
-			vsc_help_menu();
-			while (exit == 0) {
-				CommandKey = 0;
-				Command = 0;
-				CommandKey = inbyte_local();
-				if(CommandKey!=0){
-					Command = (int)CommandKey;
-					switch  (CommandKey)
-					{
-					   case 'x' :
-					   exit = 1;
-					   sub_help_menu ();
-					   break;
-
-					   default :
-							Command = Command - 48;
-							xil_printf("You have selected %c\r\n",
-															CommandKey);
-							if((Command<=0)||(Command>2))
-							{
-								vsc_help_menu();
-								done = 0;
-								break;
-							}
-							else
-							{
-								xil_printf("Setting option of %d\r\n",
-										Command);
-								done = 1;
-							}
-							if(Command==1){
-								xil_printf("Enabling VSC\r\n");
-								Ext_frame[0]=0x13050700;
-								Ext_frame[1]=0;
-								Ext_frame[2]=0x0;
-
-								Ext_frame[2]|=((user_config.user_format)<<COLOR_FORMAT_SHIFT);
-								if(user_config.user_bpc==6)
-									Ext_frame[2]|=(0<<BPC_SHIFT);
-								else if(user_config.user_bpc==8)
-									Ext_frame[2]|=(1<<BPC_SHIFT);
-								else if(user_config.user_bpc==10)
-									Ext_frame[2]|=(2<<BPC_SHIFT);
-								else if(user_config.user_bpc==12)
-									Ext_frame[2]|=(3<<BPC_SHIFT);
-								else if(user_config.user_bpc==16)
-									Ext_frame[2]|=(4<<BPC_SHIFT);
-								Ext_frame[2]|=(1<<DYNAMIC_RANGE_SHIFT);
-
-								/*Populating Vsc header*/
-								VscPkt.Header=Ext_frame[0];
-
-								/*Populating Vsc payload*/
-								for (i=0;i<8;i++){
-									if(i==4){
-										VscPkt.Payload[i]=Ext_frame[2];
-										continue;
-									}
-									VscPkt.Payload[i]=Ext_frame[1] ;
-								}
-
-								//Enable Colorimetry through VSC for Tx
-								XDpTxss_EnableVscColorimetry(&DpTxSsInst, 1);
-
-								//Set the Vsc data to Tx
-								XDpTxSs_SetVscExtendedPacket(&DpTxSsInst, VscPkt);
-							}
-							else if(Command==2){
-								xil_printf("Disabling VSC\r\n");
-								XDpTxss_EnableVscColorimetry(&DpTxSsInst, 0);
-							}
-							start_tx (LineRate, LaneCount,user_config);
-							LineRate = get_LineRate();
-							LaneCount = get_Lanecounts();
-							exit = done;
-						break;
-					}
-				}
-			}
-			sub_help_menu ();
-			break;
-
-			/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
 
 		case '9' :
 			//"9 - Read Aux registers\r\n"
@@ -1056,7 +867,6 @@ void main_loop(){
 
 		// Display VideoPHY status
 		case 'b':
-#ifndef versal
 			xil_printf("Video PHY Config/Status --->\r\n");
 			xil_printf(" RCS (0x10) = 0x%x\r\n",
 			  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
@@ -1107,192 +917,7 @@ void main_loop(){
 				" = 0x%x, Val = 0x%x\r\n",XVPHY_DRP_TXOUT_DIV,
 				DrpVal
 			);
-#endif
 			break;
-#if PHY_COMP
-
-		case 't':
-			xil_printf ("Running AUX rd in loop\r\n");
-			term_key = 0;
-			term_key = xil_getc(0xff);
-			while (term_key == 0) {
-				term_key = xil_getc(0xff);
-				XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x100, 1, aux_data);
-				DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000000);
-				xil_printf ("RD done...%x",aux_data[0]);
-			}
-			break;
-
-
-		case 'c':
-		case 'v' :
-
-		phy_cmpl (CommandKey);
-		break;
-
-        case 'f':
-		xil_printf ("Press 'p' to put in PRBS mode\r\n");
-		xil_printf ("Press 'd' to put in D10.2 mode\r\n");
-		xil_printf ("Press 't' to put in TP3 mode\r\n");
-		xil_printf ("Press 'a' to put in TP1 mode\r\n");
-		xil_printf ("Press 'b' to put in TP2 mode\r\n");
-		xil_printf ("Press 'h' to put in hbr2pat mode\r\n");
-		xil_printf ("Press 'c' to put in pltpat mode\r\n");
-		xil_printf ("Press 'x' to put in no pat mode\r\n");
-		xil_printf ("Press '1' to write bw and lane\r\n");
-		term_key = xil_getc(0);
-		switch(term_key) {
-
-		case '1' :
-			aux_data[0] = LineRate_init_tx;
-					XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x100, 1, aux_data);
-					xil_printf ("\r\n==========BW set=============\r\n");
-					XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x101, 1, aux_data);
-			aux_data[0] = 0x80 | LaneCount_init_tx;
-					XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x101, 1, aux_data);
-					xil_printf ("\r\n==========Lanes set=============\r\n");
-
-			break;
-
-		case 'x' :;
-
-			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x00000000);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x0);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x0);
-			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
-			xil_printf ("\r\n==========Patterns cleared=============\r\n");
-
-			break;
-
-		case 'p' :
-                 xil_printf ("\r\n==========Enabling PRBS mode=============\r\n");
-                 DrpVal = XDp_ReadReg(XPAR_VPHY_0_BASEADDR, 0x70);
-                 DrpVal = DrpVal & 0xFEFEFEFE; //disabling 8b10b from GT
-                 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
-				 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
-				 XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, DrpVal);
-				 XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x3);
-                 xil_printf ("\r\n=======================================\r\n");
-
-                 break;
-		case 'd' :
-			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x0);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_PHY_TRANSMIT_PRBS7, 0x0);
-                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET) != 0)) {
-			xil_printf ("\r\n==========disabled D10.2 pattern=============\r\n");
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
-                } else {
-			xil_printf ("\r\n==========Enabling D10.2 pattern=============\r\n");
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x1);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x1);
-                }
-			break;
-
-		case 't' :
-			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
-                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET) != 0)) {
-			xil_printf ("\r\n==========TP3 disabled=============\r\n");
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x0);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
-                } else {
-			xil_printf ("\r\n==========Enabling TP3 pattern=============\r\n");
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x3);
-
-			aux_data[0] = 0x23;
-			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x102, 1, aux_data);
-
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x0);
-                }
-			break;
-		case 'a' :
-			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
-                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET) != 0)) {
-			xil_printf ("\r\n==========TP1 disabled=============\r\n");
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x0);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
-                } else {
-			xil_printf ("\r\n==========Enabling TP1 pattern=============\r\n");
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x1);
-			aux_data[0] = 0x21;
-			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x102, 1, aux_data);
-			aux_data[0] = 0x0;
-			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x103, 1, aux_data);
-			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x104, 1, aux_data);
-			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x105, 1, aux_data);
-			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x106, 1, aux_data);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x0);
-                }
-			break;
-
-		case 'b' :
-			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
-			xil_printf ("\r\n==========Enabling TP2 pattern=============\r\n");
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x2);
-			aux_data[0] = 0x22;
-			XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x102, 1, aux_data);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x0);
-			break;
-
-		case 'y' :
-			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
-			xil_printf ("\r\n==========Enabling TP2 pattern=============\r\n");
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x2);
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x0);
-			break;
-
-		case 'h' :
-			XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x01010101);
-                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET) != 0)) {
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
-                }
-                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_PHY_TRANSMIT_PRBS7) == 1)) {
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_PHY_TRANSMIT_PRBS7, 0x0);
-                }
-                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x0);
-                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x5);
-
-				xil_printf ("\r\n==========Enabled HBR2pat=============\r\n");
-
-			break;
-
-		case 'c' :
-
-                XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x102, 1, &aux_data_rd);
-                aux_data_rd[0] = (aux_data_rd[0] & 0xF0);
-                XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x102, 1, &aux_data_rd);
-                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET) != 0)) {
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_TRAINING_PATTERN_SET, 0x0);
-                }
-                if ((XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_PHY_TRANSMIT_PRBS7) == 1)) {
-			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_PHY_TRANSMIT_PRBS7, 0x0);
-                }
-                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x20, COMPLIANCE_PAT1);
-                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x24, COMPLIANCE_PAT2);
-                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x28, COMPLIANCE_PAT3);
-                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_SCRAMBLING_DISABLE, 0x1);
-                //disable 8b10b
-                XDp_WriteReg(XPAR_VPHY_0_BASEADDR, 0x70, 0x0);
-                XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_LINK_QUAL_PATTERN_SET, 0x4);
-				xil_printf ("\r\n==========Enabled pltpat=============\r\n");
-
-			break;
-
-//        	default :
-//                  break;
-
-		}
-
-            break;
-
-#endif
-
 			// CRC read
 		case 'm' :
 			XVidFrameCrc_Report();
@@ -1382,11 +1007,8 @@ static u32 xil_gethex(u8 num_chars){
 #ifndef PLATFORM_MB
 static char RecvByte_NonBlocking(){
     u32 RecievedByte;
-#ifdef versal
-    RecievedByte = XUartPsv_ReadReg(STDIN_BASEADDRESS, XUARTPSV_UARTDR_OFFSET);
-#else
     RecievedByte = XUartPs_ReadReg(STDIN_BASEADDRESS, XUARTPS_FIFO_OFFSET);
-#endif
+
     /* Return the byte received */
     return (u8)RecievedByte;
 }
@@ -1420,15 +1042,12 @@ char xil_getc(u32 timeout_ms){
 	  XTmrCtr_Start(&TmrCtr, 0);
 	}
 
-#ifdef versal
-	while((!XUartPsv_IsReceiveData(STDIN_BASEADDRESS)) && (timeout == 0)){
-#else
 #ifndef PLATFORM_MB
 	while((!XUartPs_IsReceiveData(STDIN_BASEADDRESS)) && (timeout == 0)){
 #else
 	while(XUartLite_IsReceiveEmpty(STDIN_BASEADDRESS) && (timeout == 0)){
 #endif
-#endif
+
 		if ( timeout_ms == 0 ){ // no timeout - wait for ever
 		   timeout = 0;
 		} else if ( timeout_ms == 0xff ) { // no wait - special case
@@ -1456,76 +1075,3 @@ u8 preemp = 0;
 u8 postemp = 0;
 u8 preemp_set = 0;
 u8 diff_swing = 0;
-
-#ifndef versal
-void phy_cmpl (char CommandKey) {
-	switch (CommandKey)
-		{
-			case 'c' :
-			xil_printf("Please select a voltage swing setting\n\r"
-					   " 0 -  400 mV (level 0)\n\r"
-					   " 1 -  600 mV (level 1)\n\r"
-					   " 2 -  800 mV (level 2)\n\r"
-					   " 3 -  1200 mV (level 3)\n\r");
-
-			term_key = xil_getc(0);
-			switch(term_key){
-
-
-			case '0':
-				DpTxSsInst.DpPtr->TxInstance.LinkConfig.VsLevel = 0;
-				break;
-			case '1':
-				DpTxSsInst.DpPtr->TxInstance.LinkConfig.VsLevel = 1;
-				break;
-			case '2':
-				DpTxSsInst.DpPtr->TxInstance.LinkConfig.VsLevel = 2;
-				break;
-			case '3':
-				DpTxSsInst.DpPtr->TxInstance.LinkConfig.VsLevel = 3;
-				break;
-		}
-				break;
-
-				case 'v':
-		               // Set preemphasis to preset value
-		               xil_printf("Please select a preemphasis setting\n\r"
-		                          " 0 -   0 dB (1x, pre-emp 0)\n\r"
-		                          " 1 - 3.5 dB (1.5x, pre-emp 1)\n\r"
-		                          " 2 -   6 dB (2x, pre-emp 2)\n\r"
-		                          " 3 - 9.5 dB (3x, pre-emp 3)\n\r");
-		               term_key = xil_getc(0);
-
-				switch(term_key){
-					case '0':
-						DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel = 0;
-						break;
-					case '1':
-						DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel = 1;
-						break;
-					case '2':
-						DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel = 2;
-						break;
-					case '3':
-						DpTxSsInst.DpPtr->TxInstance.LinkConfig.PeLevel = 3;
-						break;
-				}
-
-				DpPt_pe_vs_adjustHandler (&VPhyInst);
-		               break;
-		}
-}
-#endif
-
-#ifdef versal
-//api for 4C register
-void ReadModifyWrite(u32 MaskValue, u32 data)
-{
-	u32 retval=0;
-	MaskValue=~MaskValue;
-	retval=XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x4C);
-	retval= retval & MaskValue;
-	retval= retval | data;
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x4C,retval);
-}
-#endif

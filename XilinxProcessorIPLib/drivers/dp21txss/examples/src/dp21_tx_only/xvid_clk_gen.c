@@ -7,12 +7,9 @@
 #include "xparameters.h"
 #include "xdptxss.h"
 #include "xdptxss_dp21_tx.h"
-
 #include "xclk_wiz.h"
 
-#ifndef versal
 #define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
-#endif
 #define CLK_LOCK                        1
 
 //Following limits are for ZCU102 US+ device
@@ -30,17 +27,12 @@
 #define DIV_MAX 128
 #define DIV_MIN 1
 
-#ifdef versal
-extern XClk_Wiz ClkWiz_Dynamic;
-extern XClk_Wiz_Config *CfgPtr_Dynamic;
-#endif
 /************************** Function Prototypes ******************************/
 void ComputeMandD(u32 VidFreq);
 void Gen_vid_clk(XDp *InstancePtr, u8 Stream);
 
 /*****************************************************************************/
 
-#ifndef versal
 /*****************************************************************************/
 /**
 *
@@ -187,30 +179,11 @@ void ComputeMandD(u32 VidFreq){
 				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
 	}
 }
-#endif
 
 void Gen_vid_clk(XDp *InstancePtr, u8 Stream)
 {
 	u32 Count = 0;
 	XDp_TxMainStreamAttributes *MsaConfig =
 			&InstancePtr->TxInstance.MsaConfig[Stream - 1];
-#ifndef versal
 	ComputeMandD(((MsaConfig->PixelClockHz/1000)/MsaConfig->UserPixelWidth) );
-#else
-	XClk_Wiz_WriteReg(ClkWiz_Dynamic.Config.BaseAddr, XCLK_WIZ_REG25_OFFSET, 0x0);
-	XClk_Wiz_SetRateHz(&ClkWiz_Dynamic, ((MsaConfig->PixelClockHz)/MsaConfig->UserPixelWidth));
-	XClk_Wiz_WriteReg(ClkWiz_Dynamic.Config.BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, 0x3);
-	while(!((XClk_Wiz_ReadReg(ClkWiz_Dynamic.Config.BaseAddr, 0x4)) & CLK_LOCK)) {
-		if(Count == 10000) {
-				break;
-		}
-		usleep(100);
-		Count++;
-	}
-
-	if (Count == 10000) {
-		xil_printf ("Clk_wizard failed to lock\r\n");
-	}
-
-#endif
 }
