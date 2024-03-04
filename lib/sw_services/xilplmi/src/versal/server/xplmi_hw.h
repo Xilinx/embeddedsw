@@ -93,6 +93,7 @@
 *       pre  14/12/2023 Fixed compilation warnings
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       mss  01/09/2024 Added XPLMI_TOTAL_CHUNK_SIZE macro for Validating address
+*       bm   03/02/2024 Make SD drive number logic order independent
 *
 * </pre>
 *
@@ -743,15 +744,18 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  */
 #if (!defined(PLM_SD_EXCLUDE) && defined(XPAR_XSDPS_0_BASEADDR) &&\
 		(XPAR_XSDPS_0_BASEADDR == 0xF1040000U))
-#define XLOADER_SD_0
+#define XLOADER_SD_0		(0U)
+#elif (!defined(PLM_SD_EXCLUDE) && defined(XPAR_XSDPS_1_BASEADDR) &&\
+		(XPAR_XSDPS_1_BASEADDR == 0xF1040000U))
+#define XLOADER_SD_0		(1U)
 #endif
 
-#if ((!defined(PLM_SD_EXCLUDE)) &&\
-		((defined(XPAR_XSDPS_1_BASEADDR) &&\
-		  (XPAR_XSDPS_1_BASEADDR == 0xF1050000U)) ||\
-		 (defined(XPAR_XSDPS_0_BASEADDR) &&\
-		  (XPAR_XSDPS_0_BASEADDR == 0xF1050000U))))
-#define XLOADER_SD_1
+#if (!defined(PLM_SD_EXCLUDE) && defined(XPAR_XSDPS_0_BASEADDR) &&\
+		(XPAR_XSDPS_0_BASEADDR == 0xF1050000U))
+#define XLOADER_SD_1		(0U)
+#elif (!defined(PLM_SD_EXCLUDE) && defined(XPAR_XSDPS_1_BASEADDR) &&\
+		(XPAR_XSDPS_1_BASEADDR == 0xF1050000U))
+#define XLOADER_SD_1		(1U)
 #endif
 
 /*
