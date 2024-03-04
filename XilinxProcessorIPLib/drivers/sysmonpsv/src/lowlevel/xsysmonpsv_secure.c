@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------
 * 4.0   se	   11/10/22 Secure and Non-Secure mode integration
+* 4.2   cog    01/25/24 Added SSIT support
 *
 * </pre>
 *
@@ -196,7 +197,7 @@ void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
 	Payload[0] = Offset;
 	Payload[1] = XSYSMONPSV_SECURE_READ_DEFAULT;
 	Payload[2] = XSYSMONPSV_SECURE_READ_DEFAULT;
-	XPm_DevIoctl2(PM_DEV_AMS_ROOT, IOCTL_READ_REG, Payload,
+	XPm_DevIoctl2(PM_DEV_AMS_ROOT + (0x1000 * InstancePtr->TargetSLR), IOCTL_READ_REG, Payload,
 			XSYSMONPSV_SECURE_DEFAULT_PAYLOAD_SIZE, Data, 1);
 }
 
@@ -223,7 +224,7 @@ void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
 	Payload[0] = Offset;
 	Payload[1] = XSYSMONPSV_SECURE_WRITE_DEFAULT;
 	Payload[2] = Data;
-	XPm_DevIoctl2(PM_DEV_AMS_ROOT, IOCTL_MASK_WRITE_REG, Payload,
+	XPm_DevIoctl2(PM_DEV_AMS_ROOT + (0x1000 * InstancePtr->TargetSLR), IOCTL_MASK_WRITE_REG, Payload,
 			XSYSMONPSV_SECURE_DEFAULT_PAYLOAD_SIZE, Response, 1);
 }
 

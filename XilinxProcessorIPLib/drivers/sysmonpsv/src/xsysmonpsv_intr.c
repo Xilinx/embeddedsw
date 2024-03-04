@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 * 3.1   cog    04/09/22 Remove GIC standalone related functionality for
 *                       arch64 architecture
 * 4.0   se     11/10/22 Secure and Non-Secure mode integration
+* 4.2   cog    01/25/24 Added SSIT support
 *
 * </pre>
 *
@@ -248,7 +249,7 @@ void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
 	}
 
 	Shift = XSYSMONPSV_NEW_DATA_INT_SRC_ADDR_ID1_SHIFT * Index;
-	Val = InstancePtr->Config.Supply_List[Supply];
+	Val = InstancePtr->Config->Supply_List[Supply];
 
 	if (Index < 4U) {
 		Reg |= Val << Shift;
@@ -343,7 +344,7 @@ void XSysMonPsv_SetSupplyEventHandler(XSysMonPsv *InstancePtr,
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
-	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	SupplyReg = InstancePtr->Config->Supply_List[Supply];
 	InstancePtr->SupplyEvent[SupplyReg].Handler = CallbackFunc;
 	InstancePtr->SupplyEvent[SupplyReg].CallbackRef = CallbackRef;
 	InstancePtr->SupplyEvent[SupplyReg].Supply = Supply;
@@ -408,7 +409,7 @@ void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr)
 			if (XSysMonPsv_IsAlarmCondition(InstancePtr, Supply) ==
 			    1U) {
 				SupplyReg =
-					InstancePtr->Config.Supply_List[Supply];
+					InstancePtr->Config->Supply_List[Supply];
 				EventHandler =
 					&InstancePtr->SupplyEvent[SupplyReg];
 

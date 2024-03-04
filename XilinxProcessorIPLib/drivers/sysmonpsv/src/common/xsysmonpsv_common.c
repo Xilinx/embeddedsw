@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,7 @@
 * 3.0   cog    03/25/21 Driver Restructure
 * 4.0   se     10/04/22 Update return value definitions
 *		se	   10/27/22 Secure and Non-Secure mode integration
-*
+* 4.2   cog    01/25/24 Added SSIT support
 * </pre>
 *
 ******************************************************************************/
@@ -107,23 +107,39 @@ int XSysMonPsv_TempThreshOffset(XSysMonPsv_TempEvt Event,
 *
 * @param	InstancePtr is a pointer to the XSysMonPsv instance.
 * @param	Supply is an enum which indicates the desired supply.
+* @param	Offset is an pointer to be populated with the supply offset.
 *
-* @return	Offset supply.
+* @return       XST_SUCCESS if successful
+*               XST_FAILURE if supply offset can't be determined
 *
 ***************************************************************************/
-u32 XSysMonPsv_SupplyOffset(XSysMonPsv *InstancePtr, int Supply)
+u32 XSysMonPsv_SupplyOffset(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply, u32 *Offset)
 {
-	u32 Offset;
 	u8 SupplyReg;
+	s8 SLR;
+	u32 Status;
 
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	Offset = XSYSMONPSV_SUPPLY;
+	if (Supply >= EndList) {
+		return XST_FAILURE;
+	}
 
-	SupplyReg = InstancePtr->Config.Supply_List[Supply];
-	Offset += ((u32)SupplyReg * 4U);
-	return Offset;
+	*Offset = XSYSMONPSV_SUPPLY;
+
+	Status = XSysMonPsv_SetTargetSLR(InstancePtr, Supply);
+	if (Status == XST_SUCCESS) {
+		return Status;
+	}
+
+	for(SLR = InstancePtr->TargetSLR; SLR > 0; SLR--) {
+		Supply -= InstancePtr->Config[SLR - 1U].NumSupplies;
+	}
+
+	SupplyReg = InstancePtr->Config[InstancePtr->TargetSLR].Supply_List[Supply];
+	*Offset += ((u32)SupplyReg * 4U);
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -152,7 +168,7 @@ u32 XSysMonPsv_SupplyThreshOffset(XSysMonPsv *InstancePtr, int Supply,
 	} else {
 		Offset = XSYSMONPSV_SUPPLY_TH_LOWER;
 	}
-	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	SupplyReg = InstancePtr->Config->Supply_List[Supply];
 	Offset += ((u32)SupplyReg * 4U);
 
 	return Offset;
@@ -293,12 +309,12 @@ u32 XSysMonPsv_IsAlarmPresent(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	if (InstancePtr->Config.Supply_List[Supply] ==
+	if (InstancePtr->Config->Supply_List[Supply] ==
 	    XSYSMONPSV_INVALID_SUPPLY) {
 		return XSYSMONPSV_INVALID;
 	}
 
-	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	SupplyReg = InstancePtr->Config->Supply_List[Supply];
 	Offset = 4U * (SupplyReg / 32U);
 	Shift = SupplyReg % 32U;
 
@@ -334,12 +350,12 @@ u32 XSysMonPsv_ClearAlarm(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	if (InstancePtr->Config.Supply_List[Supply] ==
+	if (InstancePtr->Config->Supply_List[Supply] ==
 	    XSYSMONPSV_INVALID_SUPPLY) {
 		return XSYSMONPSV_INVALID;
 	}
 
-	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	SupplyReg = InstancePtr->Config->Supply_List[Supply];
 	Offset = 4U * (SupplyReg / 32U);
 	Shift = SupplyReg % 32U;
 
@@ -487,4 +503,32 @@ void XSysMonPsv_UnlockRegspace(XSysMonPsv *InstancePtr)
 
 	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_PCSR_LOCK,
 			     XSYSMONPSV_LOCK_CODE);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is to be used to check if the supply value has exceeded the set
+* threshold values.
+*
+* @param        InstancePtr is a pointer to the driver instance.
+* @param        Supply is an enum which indicates the desired supply.
+*
+* @return       XST_SUCCESS if successful
+*               XST_FAILURE if target SLR can't be determined
+*
+******************************************************************************/
+int XSysMonPsv_SetTargetSLR(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
+{
+	u8 SLR;
+	u8 AgrSuppliesNr=0;
+
+	for (SLR = 0; InstancePtr->Config[SLR].BaseAddress; SLR++) {
+		AgrSuppliesNr += InstancePtr->Config[SLR].NumSupplies;
+		if (Supply < AgrSuppliesNr) {
+			InstancePtr->TargetSLR = SLR;
+			return XST_SUCCESS;
+		}
+	}
+	return XST_FAILURE;
 }
