@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,6 +15,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  skd  01/13/23 Initial release
+* 2.00  sd   03/05/24 Remove argumet in XPlmi_EmInit function
 *
 * </pre>
 *
@@ -68,7 +69,7 @@ int XPlm_ModuleInit(void)
 		goto END;
 	}
 
-	Status = XPlmi_EmInit(XPm_SystemShutdown, XPm_IdleRestartHandler);
+	Status = XPlmi_EmInit(XPm_SystemShutdown);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022-2024, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
 # this script will copy the required bsp directories
@@ -64,10 +64,10 @@ BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilpdi/src/M
 
 mkdir -p $BSP_DIR/libsrc/xilplmi/src
 cp -r $SERVICES_DIR/xilplmi/src/Makefile $BSP_DIR/libsrc/xilplmi/src
-cp -r $SERVICES_DIR/xilplmi/src/versal/* $BSP_DIR/libsrc/xilplmi/src/
-cp -r $SERVICES_DIR/xilplmi/src/versal/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilplmi/src/common/* $BSP_DIR/libsrc/xilplmi/src/
-cp -r $SERVICES_DIR/xilplmi/src/common/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilplmi/src/versal/server/* $BSP_DIR/libsrc/xilplmi/src/
+cp -r $SERVICES_DIR/xilplmi/src/common/server/* $BSP_DIR/libsrc/xilplmi/src/
+cp -r $SERVICES_DIR/xilplmi/src/common/common/* $BSP_DIR/libsrc/xilplmi/src/
+cp -r $BSP_DIR/libsrc/xilplmi/src/*.h $BSP_DIR/include/
 BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilplmi/src/Makefile"
 
 mkdir -p $BSP_DIR/libsrc/xilpuf/src
@@ -79,10 +79,10 @@ BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilpuf/src/M
 
 mkdir -p $BSP_DIR/libsrc/xilloader/src
 cp -r $SERVICES_DIR/xilloader/src/Makefile $BSP_DIR/libsrc/xilloader/src
-cp -r $SERVICES_DIR/xilloader/src/versal/* $BSP_DIR/libsrc/xilloader/src/
-cp -r $SERVICES_DIR/xilloader/src/versal/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilloader/src/common/* $BSP_DIR/libsrc/xilloader/src/
-cp -r $SERVICES_DIR/xilloader/src/common/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilloader/src/versal/server/* $BSP_DIR/libsrc/xilloader/src/
+cp -r $SERVICES_DIR/xilloader/src/common/server/* $BSP_DIR/libsrc/xilloader/src/
+cp -r $SERVICES_DIR/xilloader/src/common/common/* $BSP_DIR/libsrc/xilloader/src/
+cp -r $BSP_DIR/libsrc/xilloader/src/*.h $BSP_DIR/include/
 BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilloader/src/Makefile"
 
 mkdir -p $BSP_DIR/libsrc/xilpm/src/
