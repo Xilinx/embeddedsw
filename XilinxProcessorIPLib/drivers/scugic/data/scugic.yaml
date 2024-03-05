@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -29,3 +29,20 @@ required:
     - compatible
     - reg: 2
     - Handler-table
+
+examples:
+  xscugic_example.c:
+    - reg
+  xscugic_low_level_example.c:
+    - reg
+  xscugic_tapp_example.c:
+    - reg
+
+tapp:
+  xscugic_tapp_example.c:
+    declaration: ScuGicSelfTestExample
+    declaration: ScuGicInterruptSetup
+    hwproperties:
+      - reg
+
+...
