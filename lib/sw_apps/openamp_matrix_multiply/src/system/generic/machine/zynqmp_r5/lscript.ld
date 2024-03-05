@@ -1,6 +1,7 @@
 /******************************************************************************
 *
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,11 +14,14 @@ _IRQ_STACK_SIZE = DEFINED(_IRQ_STACK_SIZE) ? _IRQ_STACK_SIZE : 1024;
 _FIQ_STACK_SIZE = DEFINED(_FIQ_STACK_SIZE) ? _FIQ_STACK_SIZE : 1024;
 _UNDEF_STACK_SIZE = DEFINED(_UNDEF_STACK_SIZE) ? _UNDEF_STACK_SIZE : 1024;
 
+_DDR_START = DEFINED(LINKER_DDR_BASE) ? LINKER_DDR_BASE : 0x3ED00000;
+
 /* Define Memories in the system */
 /* TCM size is set to 2*0x20000 for R5 in lockstep mode */
+
 MEMORY
 {
-   psu_ddr_S_AXI_BASEADDR : ORIGIN = 0x3ED00000, LENGTH = 0x00040000
+   psu_ddr_S_AXI_BASEADDR : ORIGIN = _DDR_START, LENGTH = 0x00040000
    psu_ocm_ram_1_S_AXI_BASEADDR : ORIGIN = 0xFFFF0000, LENGTH = 0x00010000
    psu_r5_tcm_ram_0_S_AXI_BASEADDR : ORIGIN = 0x00000000, LENGTH = 0x00010000
    psu_r5_tcm_ram_1_S_AXI_BASEADDR : ORIGIN = 0x00020000, LENGTH = 0x00010000
@@ -240,7 +244,7 @@ SECTIONS
    __tbss_end = .;
 } > psu_r5_tcm_ram_1_S_AXI_BASEADDR
 
-.bss 0x3ed20100 : {
+.bss (_DDR_START + 0x20100) : {
    . = ALIGN(4);
    __bss_start__ = .;
    *(.bss)
@@ -295,7 +299,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    __undef_stack = .;
 } > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
-.resource_table 0x3ed20000 : {
+.resource_table (_DDR_START + 0x20000) : {
 	. = ALIGN(4);
 	*(.resource_table)
 } > psu_ddr_S_AXI_BASEADDR
