@@ -59,7 +59,7 @@ examples:
     xaxicdma_example_hybrid_poll.c:
         - xlnx,include-sg: 1
     xaxicdma_example_simple_poll.c:
-        - interrupts
+        - reg
 
 tapp:
     xaxicdma_example_simple_intr.c:
