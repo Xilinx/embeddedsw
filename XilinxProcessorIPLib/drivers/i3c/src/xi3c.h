@@ -552,8 +552,8 @@ typedef struct {
 	u32 IsReady;		/**< Device is initialized and ready */
 	u8 *SendBufferPtr;	/**< Pointer to send buffer */
 	u8 *RecvBufferPtr;	/**< Pointer to recv buffer */
-	s32 SendByteCount;	/**< Number of bytes still expected to send */
-	s32 RecvByteCount;	/**< Number of bytes still expected to receive */
+	u16 SendByteCount;	/**< Number of bytes still expected to send */
+	u16 RecvByteCount;	/**< Number of bytes still expected to receive */
 	u8 Error;		/**< Error value */
 	u8 DeviceCount;		/**< Number of devices connected */
 	XI3c_IntrHandler StatusHandler;  /**< Event handler function */
@@ -604,10 +604,10 @@ void XI3c_SetStatusHandler(XI3c *InstancePtr, XI3c_IntrHandler FunctionPtr);
  * Functions for device as master, in XI3c_master.c
  */
 
-s32 XI3c_MasterSend(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, s32 ByteCount);
-s32 XI3c_MasterRecv(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, s32 ByteCount);
-s32 XI3c_MasterSendPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, s32 ByteCount);
-s32 XI3c_MasterRecvPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, s32 ByteCount);
+s32 XI3c_MasterSend(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount);
+s32 XI3c_MasterRecv(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount);
+s32 XI3c_MasterSendPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount);
+s32 XI3c_MasterRecvPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount);
 void XI3c_MasterInterruptHandler(XI3c *InstancePtr);
 
 /************************** Inline Function Definitions **********************/
