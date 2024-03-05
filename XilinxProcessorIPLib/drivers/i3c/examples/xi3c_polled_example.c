@@ -111,7 +111,10 @@ int I3cMasterPolledExample(UINTPTR BaseAddress)
 	u8 RxData[I3C_DATALEN];
 	XI3c_Cmd Cmd;
 	u16 Index;
-	u8 MaxLen[2] = {0, I3C_DATALEN};
+	u8 MaxLen[2];
+
+	MaxLen[0] = (I3C_DATALEN & 0xFF00) >> 8;
+	MaxLen[1] = (I3C_DATALEN & 0x00FF);
 
 #ifndef SDT
 	CfgPtr = XI3c_LookupConfig(DeviceId);
@@ -123,24 +126,28 @@ int I3cMasterPolledExample(UINTPTR BaseAddress)
 	}
 	XI3c_CfgInitialize(InstancePtr, CfgPtr, CfgPtr->BaseAddress);
 
-        Cmd.NoRepeatedStart = 1;	/* Disable repeated start */
-        Cmd.Tid = 0;
+	/*
+	 * Set Static address as dynamic address
+	 */
+	Cmd.NoRepeatedStart = 1;	/**< Disable repeated start */
+	Cmd.Tid = 0;
 	Cmd.Pec = 0;
-        Cmd.Rw = 0;
-        Cmd.CmdType = 1;
-	/* Set Static address as dynamic address */
+	Cmd.Rw = 0;
+	Cmd.CmdType = 1;
 	Status = XI3c_SendTransferCmd(InstancePtr, &Cmd,
 				      (u8)XI3C_CCC_BRDCAST_SETAASA);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
 
-	/* Set Max Write length */
-        Cmd.NoRepeatedStart = 0;
-        Cmd.Tid = 0;
+	/*
+	 * Set Max Write length
+	 */
+	Cmd.NoRepeatedStart = 0;
+	Cmd.Tid = 0;
 	Cmd.Pec = 0;
-        Cmd.Rw = 0;
-        Cmd.CmdType = 1;
+	Cmd.Rw = 0;
+	Cmd.CmdType = 1;
 	Status = XI3c_SendTransferCmd(InstancePtr, &Cmd, (u8)XI3C_CCC_SETMWL);
 	if (Status != XST_SUCCESS) {
 		return Status;
@@ -157,12 +164,14 @@ int I3cMasterPolledExample(UINTPTR BaseAddress)
 		return Status;
 	}
 
-	/* Set Max read length */
-        Cmd.NoRepeatedStart = 0;
-        Cmd.Tid = 0;
+	/*
+	 * Set Max read length
+	 */
+	Cmd.NoRepeatedStart = 0;
+	Cmd.Tid = 0;
 	Cmd.Pec = 0;
-        Cmd.Rw = 0;
-        Cmd.CmdType = 1;
+	Cmd.Rw = 0;
+	Cmd.CmdType = 1;
 	Status = XI3c_SendTransferCmd(InstancePtr, &Cmd, (u8)XI3C_CCC_SETMRL);
 	if (Status != XST_SUCCESS) {
 		return Status;
@@ -172,7 +181,7 @@ int I3cMasterPolledExample(UINTPTR BaseAddress)
 	Cmd.NoRepeatedStart = 1;
 	Cmd.Tid = 0;
 	Cmd.Pec = 0;
-	Cmd.CmdType = 1;               	/**< SDR mode */
+	Cmd.CmdType = 1;
 	Status = XI3c_MasterSendPolled(InstancePtr, &Cmd, MaxLen, 2);
 
 	if (Status != XST_SUCCESS) {
@@ -195,7 +204,7 @@ int I3cMasterPolledExample(UINTPTR BaseAddress)
 	Cmd.NoRepeatedStart = 1;
 	Cmd.Tid = 0;
 	Cmd.Pec = 0;
-	Cmd.CmdType = 1;               	/**< SDR mode */
+	Cmd.CmdType = 1;
 	Status = XI3c_MasterSendPolled(InstancePtr, &Cmd, TxData, I3C_DATALEN);
 
 	if (Status != XST_SUCCESS) {
@@ -209,7 +218,7 @@ int I3cMasterPolledExample(UINTPTR BaseAddress)
 	Cmd.NoRepeatedStart = 1;
 	Cmd.Tid = 0;
 	Cmd.Pec = 0;
-	Cmd.CmdType = 1;               	/**< SDR mode */
+	Cmd.CmdType = 1;
 	Status = XI3c_MasterRecvPolled(InstancePtr, &Cmd, RxData, I3C_DATALEN);
 
 	if (Status != XST_SUCCESS) {
@@ -217,12 +226,11 @@ int I3cMasterPolledExample(UINTPTR BaseAddress)
 	}
 
 	for (Index = 0; Index < I3C_DATALEN; Index++) {
-		xil_printf("0x%x\t", RxData[Index]);
-		if(Index != 0 && ((Index+1)%10) == 0)
-			xil_printf("\n");
+		if(TxData[Index] != RxData[Index]) {
+			xil_printf("Data miss match at index 0x%x\r\n", Index);
+			return XST_FAILURE;
+		}
 	}
-
-	xil_printf("\n\n");
 
 	return XST_SUCCESS;
 }

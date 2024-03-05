@@ -36,7 +36,7 @@
 #define XI3C_BASEADDRESS	XPAR_XI3C_0_BASEADDR
 #endif
 
-#define I3C_DATALEN		10
+#define I3C_DATALEN		90
 #define I3C_SLAVES_COUNT	1
 
 XI3c Xi3c_Instance;
@@ -87,7 +87,6 @@ int main(void)
 	return XST_SUCCESS;
 }
 
-
 /*****************************************************************************/
 /**
 *
@@ -119,7 +118,12 @@ int I3cMasterDaaExample(UINTPTR BaseAddress)
 	u8 TxData[I3C_DATALEN];
 	u8 RxData[I3C_DATALEN];
 	XI3c_Cmd Cmd;
+	u8 SlaveIndex;
 	u16 Index;
+	u8 MaxLen[2];
+
+	MaxLen[0] = (I3C_DATALEN & 0xFF00) >> 8;
+	MaxLen[1] = (I3C_DATALEN & 0x00FF);
 
 #ifndef SDT
 	CfgPtr = XI3c_LookupConfig(DeviceId);
@@ -160,17 +164,62 @@ int I3cMasterDaaExample(UINTPTR BaseAddress)
 		RxData[Index] = 0;
 	}
 
-	for (Index = 0; Index < I3C_SLAVES_COUNT; Index++) {
+	for (SlaveIndex = 0; SlaveIndex < I3C_SLAVES_COUNT; SlaveIndex++) {
 		/*
-		 * Send
+		 * Set Max Write length
 		 */
-		Cmd.SlaveAddr = Dynamic_Addr[Index];
+		Cmd.NoRepeatedStart = 0;
+		Cmd.Tid = 0;
+		Cmd.Pec = 0;
+		Cmd.Rw = 0;
+		Cmd.CmdType = 1;
+		Status = XI3c_SendTransferCmd(InstancePtr, &Cmd, (u8)XI3C_CCC_SETMWL);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+
+		Cmd.SlaveAddr = Dynamic_Addr[SlaveIndex];
 		Cmd.NoRepeatedStart = 1;
 		Cmd.Tid = 0;
 		Cmd.Pec = 0;
-		Cmd.CmdType = 1;               	/**< SDR mode */
-		Status = XI3c_MasterSendPolled(InstancePtr, &Cmd, TxData, I3C_DATALEN);
+		Cmd.CmdType = 1;                /**< SDR mode */
+		Status = XI3c_MasterSendPolled(InstancePtr, &Cmd, MaxLen, 2);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
 
+		/*
+		 * Set Max read length
+		 */
+		Cmd.NoRepeatedStart = 0;
+		Cmd.Tid = 0;
+		Cmd.Pec = 0;
+		Cmd.Rw = 0;
+		Cmd.CmdType = 1;
+		Status = XI3c_SendTransferCmd(InstancePtr, &Cmd, (u8)XI3C_CCC_SETMRL);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+
+		Cmd.SlaveAddr = Dynamic_Addr[SlaveIndex];
+		Cmd.NoRepeatedStart = 1;
+		Cmd.Tid = 0;
+		Cmd.Pec = 0;
+		Cmd.CmdType = 1;
+		Status = XI3c_MasterSendPolled(InstancePtr, &Cmd, MaxLen, 2);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+
+		/*
+		 * Send
+		 */
+		Cmd.SlaveAddr = Dynamic_Addr[SlaveIndex];
+		Cmd.NoRepeatedStart = 1;
+		Cmd.Tid = 0;
+		Cmd.Pec = 0;
+		Cmd.CmdType = 1;
+		Status = XI3c_MasterSendPolled(InstancePtr, &Cmd, TxData, I3C_DATALEN);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
@@ -178,22 +227,22 @@ int I3cMasterDaaExample(UINTPTR BaseAddress)
 		/*
 		 * Recv
 		 */
-		Cmd.SlaveAddr = Dynamic_Addr[Index];
+		Cmd.SlaveAddr = Dynamic_Addr[SlaveIndex];
 		Cmd.NoRepeatedStart = 1;
 		Cmd.Tid = 0;
 		Cmd.Pec = 0;
 		Cmd.CmdType = 1;
 		Status = XI3c_MasterRecvPolled(InstancePtr, &Cmd, RxData, I3C_DATALEN);
-
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
 
-		xil_printf("Rx Data:\n");
 		for (Index = 0; Index < I3C_DATALEN; Index++) {
-			xil_printf("0x%x  ", RxData[Index]);
+			if(TxData[Index] != RxData[Index]) {
+				xil_printf("Data miss match at index 0x%x\r\n", Index);
+				return XST_FAILURE;
+			}
 		}
-		xil_printf("\n");
 	}
 	return XST_SUCCESS;
 }
