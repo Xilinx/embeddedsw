@@ -37,13 +37,23 @@
 #include "xil_printf.h"
 #include "xil_types.h"
 #include "xstatus.h"
-#include "xintc.h"
+#ifndef SDT
+ #include "xintc.h"
+#else
+ #include "xinterrupt_wrap.h"
+#endif
 
 /* The unique device ID of the MIPI DSI Tx Subsystem instance to be used
  */
-#define XDSITXSS_DEVICE_ID		XPAR_DSITXSS_0_DEVICE_ID
-#define XINTC_DSITXSS_INTERRUPT_ID	XPAR_INTC_0_DSITXSS_0_VEC_ID
-#define XINTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
+#ifndef SDT
+ #define XDSITXSS_DEVICE_ID		XPAR_DSITXSS_0_DEVICE_ID
+#else
+#define XDSITXSS_BASE			XPAR_XDSITXSS_0_BASEADDR
+#endif
+#ifndef SDT
+ #define XINTC_DSITXSS_INTERRUPT_ID	XPAR_INTC_0_DSITXSS_0_VEC_ID
+ #define XINTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -104,7 +114,11 @@ s32 main()
 	xil_printf("MIPI DSITXSS interrupt example\n\r");
 	xil_printf("------------------------------------------\n\r\n\r");
 
+#ifndef SDT
 	Status = DsiTxSs_IntrExample(XDSITXSS_DEVICE_ID);
+#else
+	Status = DsiTxSs_IntrExample(XDSITXSS_BASE);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("MIPI DSITXSS interrupt example failed.");
 		return XST_FAILURE;
@@ -160,6 +174,7 @@ void Delay(u32 Seconds)
 #endif
 }
 
+#ifndef SDT
 /****************************************************************************/
 /**
 *
@@ -237,7 +252,7 @@ s32 SetupInterruptSystem(XDsiTxSs *DsiTxSsPtr)
 
 	return XST_SUCCESS;
 }
-
+#endif
 /*****************************************************************************/
 /**
 *
@@ -276,6 +291,25 @@ u32 DsiTxSs_IntrExample(u32 DeviceId)
 		return XST_FAILURE;
 	}
 
+#ifdef SDT
+	/* Setup call back handlers */
+	XDsiTxSs_SetCallback(DsiTxSsPtr, XDSITXSS_HANDLER_UNSUPPORT_DATATYPE,
+			     DsiTxSs_UnSupportDataEventHandler, DsiTxSsPtr);
+	XDsiTxSs_SetCallback(DsiTxSsPtr, XDSITXSS_HANDLER_PIXELDATA_UNDERRUN,
+			     DsiTxSs_PixelUnderrunEventHandler, DsiTxSsPtr);
+	XDsiTxSs_SetCallback(DsiTxSsPtr, XDSITXSS_HANDLER_CMDQ_FIFOFULL,
+			     DsiTxSs_CmdQFIFOFullEventHandler, DsiTxSsPtr);
+	Status = XSetupInterruptSystem(&DSITxSs,&XDsiTxSs_IntrHandler,
+				       DSITxSs.Config.IntrId,
+				       DSITxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+
+	if (Status == XST_FAILURE) {
+		xil_printf("ERROR:: DSI Interrupt Setup Failed \r \n");
+		xil_printf("ERROR:: Test could not be completed \r \n");
+		return(1);
+	}
+#endif
 	/*
 	 * Perform self test to ensure the hardware built correctly
 	 */
@@ -288,11 +322,12 @@ u32 DsiTxSs_IntrExample(u32 DeviceId)
 	 * Connect the DSI to the interrupt subsystem such that interrupts can
 	 * occur. This function is application specific.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(&DsiTxSs);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
+#endif
 	XDsiTxSs_InterruptEnable(&DsiTxSs, XDSITXSS_IER_ALLINTR_MASK);
 
 	/*

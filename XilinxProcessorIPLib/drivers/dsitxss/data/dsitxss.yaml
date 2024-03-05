@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -66,12 +66,4 @@ required:
 
 config:
   - XDsiTxSs_Config
-
-depends:
-    video_common: []
-
-examples:
-  xdsitxss_video_test_example.c:
-    - reg
-    - interrupts
 ...
