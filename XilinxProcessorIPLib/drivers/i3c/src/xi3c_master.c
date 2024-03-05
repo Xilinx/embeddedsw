@@ -128,7 +128,7 @@ s32 XI3c_SendTransferCmd(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 Data)
 * @note		None.
 *
 ****************************************************************************/
-s32 XI3c_MasterSend(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, s32 ByteCount)
+s32 XI3c_MasterSend(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
 {
 	u16 WrFifoSpace;
 	u16 SpaceIndex;
@@ -196,7 +196,7 @@ s32 XI3c_MasterSend(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, s32 ByteCount)
 * @note		None.
 *
 ****************************************************************************/
-s32 XI3c_MasterRecv(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, s32 ByteCount)
+s32 XI3c_MasterRecv(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
 {
 	/*
          * Assert validates the input arguments.
@@ -251,7 +251,7 @@ s32 XI3c_MasterRecv(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, s32 ByteCount)
 * @note		None.
 *
 ****************************************************************************/
-s32 XI3c_MasterSendPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, s32 ByteCount)
+s32 XI3c_MasterSendPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
 {
 	u16 WrFifoSpace;
 	u16 SpaceIndex;
@@ -316,7 +316,7 @@ s32 XI3c_MasterSendPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, s32 Byte
 * @note		None.
 *
 ****************************************************************************/
-s32 XI3c_MasterRecvPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, s32 ByteCount)
+s32 XI3c_MasterRecvPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
 {
 	u16 DataIndex;
 	u16 RxDataAvailable;
