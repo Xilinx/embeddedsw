@@ -44,7 +44,7 @@
 #ifndef SDT
 #define XCSISS_DEVICE_ID	XPAR_CSISS_0_DEVICE_ID
 #else
-#define XCSISS_BASE			XPAR_CSISS_0_BASEADDR
+#define XCSISS_BASE		XPAR_XMIPICSISS_0_BASEADDR
 #endif
 #endif
 /***************** Macros (Inline Functions) Definitions *********************/

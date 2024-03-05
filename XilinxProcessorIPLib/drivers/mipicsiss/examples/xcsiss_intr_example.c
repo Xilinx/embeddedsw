@@ -51,7 +51,11 @@
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xstatus.h"
-#include "xintc.h"
+#ifndef SDT
+ #include "xintc.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #ifndef SDT
@@ -72,7 +76,7 @@
 #ifndef SDT
 #define XCSISS_DEVICE_ID		XPAR_CSISS_0_DEVICE_ID
 #else
-#define XCSISS_BASE			XPAR_CSISS_0_BASEADDR
+#define XCSISS_BASE			XPAR_XMIPICSISS_0_BASEADDR
 #endif
 #define MAX_INTERRUPT_COUNT 	1
 
@@ -245,6 +249,20 @@ u32 CsiSs_IntrExample(u32 DeviceId)
 		return XST_FAILURE;
 	}
 #ifdef SDT
+	/* Set the HPD interrupt handlers. */
+	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_DPHY,
+			   CsiSs_DphyEventHandler, &CsiSsInst);
+	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_PKTLVL,
+			   CsiSs_PktLvlEventHandler, &CsiSsInst);
+	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_PROTLVL,
+			   CsiSs_ProtLvlEventHandler, &CsiSsInst);
+	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_SHORTPACKET,
+			   CsiSs_SPktEventHandler, &CsiSsInst);
+	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_FRAMERECVD,
+			   CsiSs_FrameRcvdEventHandler, &CsiSsInst);
+	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_OTHERERROR,
+			   CsiSs_ErrEventHandler, &CsiSsInst);
+
 	Status = XSetupInterruptSystem(&CsiSsInst,&XCsiSs_IntrHandler,
 				       CsiSsInst.Config.IntrId,
 				       CsiSsInst.Config.IntrParent,
