@@ -271,9 +271,8 @@ examples:
         - dependency_files:
             - src/zcu_tx/xdptxss_zcu102_tx.h
             - src/zcu_tx/LMK04906.c
-            - src/zcu_tx/dppt.h
             - src/zcu_tx/menus.c
-            - src/zcu_tx/dppt_zcu102_tx.c
+            - src/zcu_tx/xdptxss_zcu102_tx.c
             - src/zcu_tx/xvid_pat_gen.c
             - src/zcu_tx/clk_set.c
             - src/zcu_tx/clk_set.h
