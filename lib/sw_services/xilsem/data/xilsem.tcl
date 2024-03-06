@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -25,6 +25,7 @@
 # 1.14  gm   10/31/23 Added client support for A78
 # 1.15  gm   12/02/23 Renamed Libxilsem.a to support Classic and SDT Vitis
 #                     flow
+# 1.16  gm   03/01/24 Fixed issue of XilSEM macros for VP1902 device.
 ##############################################################################
 
 #---------------------------------------------
@@ -131,18 +132,18 @@ proc xgen_opts_file {libhandle} {
 	set sem_cfrscan_en [getCIPSProperty CONFIG.SEM_MEM_SCAN]
 	set sem_npiscan_en [getCIPSProperty CONFIG.SEM_NPI_SCAN]
 
-	if {($sem_cfrscan_en == 1)||($sem_npiscan_en == 1)} {
+	if {($sem_cfrscan_en > 0)||($sem_npiscan_en > 0)} {
 	  # Open xparameters.h file
 	  set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 
 	  puts $file_handle ""
 	  puts $file_handle "/* Xilinx Soft Error Mitigation Library (XilSEM) User Settings */"
 
-	  if {$sem_cfrscan_en == 1} {
+	  if {$sem_cfrscan_en > 0} {
 	     puts $file_handle "\#define XSEM_CFRSCAN_EN"
 	  }
 
-	  if {$sem_npiscan_en == 1} {
+	  if {$sem_npiscan_en > 0} {
 	    puts $file_handle "\#define XSEM_NPISCAN_EN"
 	  }
 
