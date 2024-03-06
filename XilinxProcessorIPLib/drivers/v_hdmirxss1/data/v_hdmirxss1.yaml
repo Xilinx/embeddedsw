@@ -221,8 +221,6 @@ examples:
             - xhdmi_example/rc21008adrv.h
             - xhdmi_example/sha256.c
             - xhdmi_example/sha256.h
-            - xhdmi_example/si5324drv.c
-            - xhdmi_example/si5324drv.h
             - xhdmi_example/si5344drv.c
             - xhdmi_example/si5344drv.h
             - xhdmi_example/si570drv.c
