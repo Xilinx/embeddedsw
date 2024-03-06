@@ -337,7 +337,6 @@ examples:
             - src/eeprom_utility/bigdtypes.h
             - src/eeprom_utility/hdcp_key_utility.c
             - src/eeprom_utility/hmac.c
-            - src/eeprom_utility/lscript.ld
             - src/eeprom_utility/platform.c
             - src/eeprom_utility/platform.h
             - src/eeprom_utility/platform_config.h
