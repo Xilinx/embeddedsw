@@ -20,6 +20,8 @@
 #                      for XilSEM enabled designs
 # 2.0   ng   11/11/2023 Added option to set number of user modules
 #       dd   01/09/2024 Added client support
+#       gm   03/01/2024 Fixed the debug level option for XilSEM
+#                       for VP1902 decive.
 #
 ##############################################################################
 
@@ -281,7 +283,7 @@ proc xgen_opts_file {libhandle} {
 	set sem_cfrscan_en [getCIPSProperty CONFIG.SEM_MEM_SCAN]
 	set sem_npiscan_en [getCIPSProperty CONFIG.SEM_NPI_SCAN]
 	puts $file_handle "\n/* Debug level option */"
-	if {((($sem_cfrscan_en == 1) || ($sem_npiscan_en == 1)) && ($sem_print_flag == true))} {
+	if {((($sem_cfrscan_en > 0) || ($sem_npiscan_en > 0)) && ($sem_print_flag == true))} {
 		puts "Level_0 is selected"
 		puts $file_handle "#define PLM_PRINT"
 	} elseif {$value == "level0"} {
