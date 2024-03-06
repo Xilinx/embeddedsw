@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 7.3   mus  04/16/20  First release of example which demonstrates nested
 *                      interrupt handling.
+* 9.1   ml   02/29/24  Fixed compilation error.
 * </pre>
 ******************************************************************************/
 
@@ -217,8 +218,6 @@ int TmrNestedInterruptExample()
 		       | (TTC_CNT1_INTR_PRIORITY << ((TtcTickIntrID % 4) * 8));
 	XScuGic_DistWriteReg(&InterruptController,
 			     XSCUGIC_PRIORITY_OFFSET_CALC(TtcTickIntrID), IntrPriority);
-	XScuGic_SetPriTrigTypeByDistAddr(INTC_DIST_BASEADDR, TtcTickIntrID,
-					 TTC_CNT1_INTR_PRIORITY, 1);
 #else
 	BaseAddr = TTC_CNT1_BASEADDR;
 #endif
