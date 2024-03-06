@@ -40,7 +40,7 @@
 * 1.04  td   01/07/2021 Fix warning in PLM memory log regarding NULL handler for
 *                       PMC_PSM_NCR error
 *       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
-* 1.05  pj   03/24/2021 Added API to update Subystem Id of the error node
+* 1.05  pj   03/24/2021 Added API to update Subsystem Id of the error node
 *       pj   03/24/2021 Added API to trigger error handling from software.
 *                       Added SW Error event and Ids for Healthy Boot errors
 *       bm   03/24/2021 Added logic to store error status in RTCA
@@ -138,6 +138,8 @@
 *			            SystemShutdown for Subsystem restart EM action
 *       ma   02/29/2024 Removed XPlmi_ErrPrintToLog function from common folder
 *                       and moved it to xplmi_err.c
+*       pre  03/01/2024 Added infinite loop for PLM to stop further processing
+*                       in slave SLR if any error is encountered during boot
 *
 * </pre>
 *
@@ -310,6 +312,14 @@ void XPlmi_ErrMgr(int ErrStatus)
 
 			XPlmi_TriggerFwNcrError();
 #endif
+		}
+	}
+	else {
+		if (XPlmi_IsLoadBootPdiDone() == FALSE) {
+			/* If boot PDI is not done in slave SLR, PLM does not process further */
+			while(TRUE) {
+				;
+			}
 		}
 	}
 
