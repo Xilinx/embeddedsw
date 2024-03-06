@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -87,9 +87,7 @@ void XPm_ClientSuspend(const struct XPm_Proc *const Proc);
 void XPm_ClientWakeUp(const struct XPm_Proc *const Proc);
 void XPm_ClientSuspendFinalize(void);
 void XPm_ClientAbortSuspend(void);
-static inline XStatus XPm_AddIdleCallBack(void){
-	return XST_SUCCESS;
-}
+
 /** @endcond */
 
 #ifdef __cplusplus
