@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,7 +63,7 @@ typedef struct XPm_Ntfier {
 	 *  event-driven notifications)
 	 */
 	void (*const callback)(struct XPm_Ntfier* const notifier);
-	u32 node; /**< Node argument (the node to receive notifications about) */
+	const u32 node; /**< Node argument (the node to receive notifications about) */
 	u32 event;	/**< Event argument (the event type to receive notifications about) */
 	u32 received_event;	/**< Event received from PLM) */
 	u32 flags;	/**< Flags */
