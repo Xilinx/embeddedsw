@@ -107,6 +107,8 @@ elseif (${_len} EQUAL 1)
 else(${_len} EQUAL 0)
     set(XTIMER_NO_TICK_TIMER 1)
     set(XTIMER_IS_DEFAULT_TIMER 1)
+    set(sleep_timer Default)
+    set(tick_timer None)
 endif()
 
 if (DEFINED sleep_timer)
@@ -123,13 +125,15 @@ if (("${XILTIMER_sleep_timer}" STREQUAL "Default") OR
     set(XPAR_INCLUDE "#include \"xparameters.h\"")
 
     if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72")
+	OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78")
 	OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53")
 	OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53-32")
 	OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "aarch64"))
 	set(XSLEEPTIMER_FREQ XPAR_CPU_TIMESTAMP_CLK_FREQ)
     endif()
 
-    if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5"))
+    if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
+       ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52"))
 	set(XSLEEPTIMER_FREQ XPAR_CPU_CORE_CLOCK_FREQ_HZ/64)
     endif()
 
