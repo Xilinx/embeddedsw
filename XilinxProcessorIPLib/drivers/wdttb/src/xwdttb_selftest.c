@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xwdttb_selftest.c
-* @addtogroup wdttb Overview
+* @addtogroup wdttb_api WDTTB APIs
 * @{
 *
 * The xwdttb_selftest.c file contains diagnostic self-test functions for the
@@ -86,7 +86,7 @@
 * after enabling window feature with first and second window count. It disables
 * window feature immediately.
 *
-* @param	InstancePtr is a pointer to the XWdtTb instance to be
+* @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @return
@@ -94,7 +94,6 @@
 *		- XST_WDTTB_TIMER_FAILED if the timebase is not incrementing.
 *		- XST_FAILURE if self-test was failed.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)

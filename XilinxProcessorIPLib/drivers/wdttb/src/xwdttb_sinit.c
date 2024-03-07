@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,10 +8,10 @@
 /**
 *
 * @file xwdttb_sinit.c
-* @addtogroup wdttb Overview
+* @addtogroup wdttb_api WDTTB APIs
 * @{
 *
-* The xwdttb_sinit.c file contains static initialization method for Xilinx AXI
+* The xwdttb_sinit.c file contains static initialization method for AXI
 * Timebase Window Watchdog Timer core.
 *
 * <pre>
@@ -58,14 +58,13 @@
 * core id, <i>DeviceId</i>. The return value will refer to an entry in the
 * device configuration table defined in the xwdttb_g.c file.
 *
-* @param	DeviceId is the unique core ID of the XWdtTb core for
+* @param	DeviceId Unique core ID of the XWdtTb core for
 *		the lookup operation.
 *
 * @return	XWdtTb_LookupConfig returns a reference to a config record
 *		in the configuration table (in xwdttb_g.c) corresponding
 *		to <i>DeviceId</i>, or NULL if no match is found.
 *
-* @note		None.
 *
 ******************************************************************************/
 #ifndef SDT
