@@ -30,8 +30,6 @@
 *       kpt  12/04/2023 Added XLoader_AesKekInfo
 *       kpt  02/21/2024 Added XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR
 *       yog  02/23/2024 Added XLOADER_SEC_CURVE_NOT_SUPPORTED error
-*       am   03/02/2024 Added XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR
-*                       and XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR enum
 *
 * </pre>
 *
@@ -153,10 +151,6 @@ typedef enum {
 		/**<0x32 Error when secure state config measurement failed */
 	XLOADER_SEC_CURVE_NOT_SUPPORTED,
 		/**<0x2C Error when ECC curve is not supported and trying to access */
-	XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR,
-		/**<0x34 Error when partition hash is not present for respective partition */
-	XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR,
-		/**<0x35 Error when partition hash comparison is failed */
 } XLoader_SecErrCodes;
 
 /**< KEK info */

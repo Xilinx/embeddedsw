@@ -170,7 +170,6 @@
 *       bm   02/12/2024 Update XLoader_ReadAndValidateHdrs prototype
 *       ng   02/14/2024 removed int typecast for errors
 *       sk   02/18/2024 Added DDRMC Calib Check Status RTCA Register Init
-*       am   03/02/2024 Added MH optimization support
 *
 * </pre>
 *
@@ -517,6 +516,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	 */
 	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) ||
 			(PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER)) {
+
 		PdiPtr->ImageNum = 1U;
 		PdiPtr->PrtnNum = 1U;
 		/**
@@ -922,14 +922,6 @@ END:
 		Status = SStatus;
 	}
 #endif
-
-	/** Clear Digest table */
-	XSECURE_TEMPORAL_IMPL(Status, SStatus, Xil_SecureZeroize, (u8*)(UINTPTR)XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR,
-		(PdiPtr->MetaHdr.DigestTableSize*sizeof(XilPdi_PrtnHashInfo)));
-	if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_ZEROIZE_DIGEST_TABLE, Status);
-		goto END;
-	}
 
 	return Status;
 }

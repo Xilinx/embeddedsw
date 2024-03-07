@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,7 +54,6 @@
 *       am   07/03/2023 Updated XilPdi_ReadIhtAndOptionalData to store partition hashes
 *       dd   09/08/2023 Misra-C violation Rule 12.1 fixed
 *       har  02/16/2024 Modified XilPdi_SearchOptionalData as non-static function
-*       am   03/02/2024 Updated MH optimization changes to XilPdi_StoreDigestTable
 *
 * </pre>
 *
@@ -105,7 +104,7 @@ int XilPdi_ValidateChecksum(const void *Buffer, u32 Length)
 
 	Len >>= XIH_PRTN_WORD_LEN_SHIFT;
     /**
-     * - Verify the buffer is not empty and has at least 2 values
+     * - Verify the buffer is not empty and has atleast 2 values
      */
 	if (Len < XILPDI_CHECKSUM_MIN_BUF_LEN)
 	{
@@ -360,7 +359,7 @@ int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
 	}
 
 	/**
-	 * - Read the IHT Optional data from Metaheader
+	 * - Read the IHT Optinal data from Metaheader
 	 */
 	OptionalDataStartAddress = MetaHdrPtr->FlashOfstAddr + MetaHdrPtr->MetaHdrOfst + XIH_IHT_LEN;
 	if (PdiType == XILPDI_PDI_TYPE_PARTIAL_METAHEADER) {
@@ -399,9 +398,6 @@ int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr)
 
 	OptionalDataStartAddr = XILPDI_PMCRAM_IHT_DATA_ADDR;
 	OptionalDataEndAddr = OptionalDataStartAddr + (MetaHdrPtr->ImgHdrTbl.OptionalDataLen << XILPDI_WORD_LEN_SHIFT);
-
-	/**< Initializing IsAuthOptimized to FALSE */
-	MetaHdrPtr->IsAuthOptimized = (u32)FALSE;
 
 	Offset = (u32)XilPdi_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr,
 		XILPDI_PARTITION_HASH_DATA_ID);
@@ -451,8 +447,6 @@ int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr)
 		}
 		/** Partition number count */
 		MetaHdrPtr->DigestTableSize /= sizeof(XilPdi_PrtnHashInfo);
-		/**< Authentication is optimized by the user */
-		MetaHdrPtr->IsAuthOptimized = (u32)TRUE;
 	}
 	Status = XST_SUCCESS;
 

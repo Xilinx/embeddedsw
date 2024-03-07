@@ -28,8 +28,6 @@
 * 2.1   kpt  12/07/2023 Added XLOADER_SEC_KEY_CLEAR_FAILED_ERROR
 *       kpt  12/04/2023 Added XLoader_AesKekInfo
 *       yog  02/23/2024 Added XLOADER_SEC_CURVE_NOT_SUPPORTED error
-*       am   03/02/2024 Added XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR
-*                       and XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR enum
 *
 * </pre>
 *
@@ -140,11 +138,7 @@ typedef enum {
 	XLOADER_SEC_KEY_CLEAR_FAILED_ERROR,
 		/**<0x31 Error when RED key clear failed */
 	XLOADER_SEC_CURVE_NOT_SUPPORTED,
-		/**<0x32 Error when ECC curve is not supported and trying to access */
-	XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR,
-		/**<0x33 Error when partition hash is not present for respective partition */
-	XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR,
-		/**<0x34 Error when partition hash comparison is failed */
+		/**<0x2C Error when ECC curve is not supported and trying to access */
 } XLoader_SecErrCodes;
 
 
