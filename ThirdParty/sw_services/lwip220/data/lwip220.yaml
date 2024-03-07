@@ -45,7 +45,7 @@ supported_os:
   - freertos10_xilinx
 
 depends:
-    emaclite:
+    emacps:
         - reg
         - interrupts
     axiethernet:
@@ -54,8 +54,7 @@ depends:
         - xlnx,txcsum
         - xlnx,rxcsum
         - axistream-connected
-    emacps:
+    emaclite:
         - reg
         - interrupts
-        - phy-handle
 ...
