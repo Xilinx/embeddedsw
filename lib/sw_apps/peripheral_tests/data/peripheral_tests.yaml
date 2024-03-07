@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -27,4 +27,8 @@ supported_processors:
 
 supported_os:
   - standalone
+
+required_mem:
+  any:
+    size: 0x2000
 ...
