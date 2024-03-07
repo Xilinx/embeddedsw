@@ -120,13 +120,13 @@ endif()
 
 if(("${CMAKE_SYSTEM_NAME}" STREQUAL "FreeRTOS") AND
     ("${lwip220_api_mode}" STREQUAL RAW_API))
-    message(FATAL_ERROR "FreeRTOS is not compatible with RAW_API mode")
+    cmake_error("FreeRTOS is not compatible with RAW_API mode")
 endif()
 
 
 if(("${CMAKE_SYSTEM_NAME}" STREQUAL "Generic") AND
     ("${lwip220_api_mode}" STREQUAL SOCKET_API))
-    message(FATAL_ERROR "Standalone is not compatible with SOCKET_API mode")
+    cmake_error("Standalone is not compatible with SOCKET_API mode")
 endif()
 
 set(MEM_SIZE ${lwip220_mem_size})
