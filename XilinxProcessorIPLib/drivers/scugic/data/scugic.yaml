@@ -8,6 +8,7 @@ maintainers:
   - Mubin Usman Sayyed <mubin.usman.sayyed@xilinx.com>
 
 type: driver
+device_type: interrupt-controller
 
 properties:
   compatible:

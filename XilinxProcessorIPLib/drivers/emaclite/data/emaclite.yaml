@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -8,6 +8,7 @@ maintainers:
   - Harini Katakam <harini.katakam@amd.com>
 
 type: driver
+device_type: ethernet
 
 properties:
   compatible:
