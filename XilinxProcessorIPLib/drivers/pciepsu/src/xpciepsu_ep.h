@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -68,6 +68,16 @@ extern "C" {
 #define BAR0_OFFSET_HI				(0x14U)
 
 #define PCIE_ENUMERATED_STATUS		0x00000002U
+#define PCIE_DMA_REG_ACCESS_DISABLE	0x000020000U
+#define ECAM_BASE			0xE0000000U
+#define EGRESS_SRC_LO			0xE8000000U
+#define EGRESS_SRC_HI		0x0U
+
+#define HANDSHAKE_DONE_OFFSET		0xFD0F00DCU
+#define HANDSHAKE_DONE				0xCCCCCCCCU
+
+#define EGRESS_BUF_ADDR0_OFFSET     (0xD0U)
+#define EGRESS_BUF_ADDR1_OFFSET     (0xD4U)
 
 #define DREG_CONTROL				(0x288U)
 #define DREG_BASE_LO				(0x290U)
@@ -78,6 +88,12 @@ extern "C" {
 #define INGRESS0_SRC_BASE_HI		(0x814U)
 #define INGRESS0_DST_BASE_LO		(0x818U)
 #define INGRESS0_DST_BASE_HI		(0x81CU)
+
+#define EGRESS0_CONTROL			(0xC08U)
+#define EGRESS0_SRC_BASE_LO		(0xC10U)
+#define EGRESS0_SRC_BASE_HI		(0xC14U)
+#define EGRESS0_DST_BASE_LO		(0xC18U)
+#define EGRESS0_DST_BASE_HI		(0xC1CU)
 
 #define MSGF_DMA_MASK               (0x464U)
 
@@ -114,6 +130,14 @@ extern "C" {
 #define INGRESS_MIN_SIZE			0x0000000CU
 #define INGRESS_TRANS_SET_OFFSET		0x54U
 
+#define EGRESS_SIZE				0x20U
+#define EGRESS_SIZE_SHIFT			16U
+#define EGRESS_ENABLE				0x000000001U
+#define EGRESS_SECURITY_ENABLE			0x000000004U
+#define EGRESS_SIZE_MASK			0x001F0000U
+#define EGRESS_SIZE_ENCODING			0x00000008U
+#define EGRESS_MIN_SIZE			0x0000000CU
+#define EGRESS_TEST_DONE			0xCCCCCCCCU
 /***************************** Function Prototypes ****************************/
 void XPciePsu_EP_BridgeInitialize(XPciePsu *PciePsuPtr);
 void XPciePsu_EP_CfgInitialize(XPciePsu *PciePsuPtr,
@@ -122,6 +146,9 @@ void XPciePsu_EP_WaitForLinkup(XPciePsu *PciePsuPtr);
 void XPciePsu_EP_WaitForEnumeration(XPciePsu *PciePsuPtr);
 int XPciePsu_EP_SetupIngress(XPciePsu *PciePsuPtr, u32 IngressNum,
 		u32 BarNum, u64 Dst);
+void XPciePsu_Egress_EP_BridgeInitialize(XPciePsu *PciePsuPtr);
+void Do_Egress_Test(u32 *egress_src_lo);
+int XPciePsu_EP_SetupEgress(XPciePsu *PciePsuPtr, u32 IngressNum );
 
 
 #ifdef __cplusplus

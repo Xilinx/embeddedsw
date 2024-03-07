@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -30,6 +30,8 @@ required:
 examples:
     xpciepsu_rc_enumerate_example.c:
         - reg
-    xpciepsu_ep_enable_example.c:
+    xpciepsu_ingress_ep_enable_example.c:
+        - reg
+    xpciepsu_egress_ep_enable_example.c:
         - reg
 ...
