@@ -14,7 +14,7 @@ import re
 from library_utils import Library
 from repo import Repo
 from validate_bsp import Validation
-
+from validate_hw import ValidateHW
 
 class Domain(Repo):
     """
@@ -87,6 +87,11 @@ class Domain(Repo):
                 f"[ERROR]: Please pass a valid processor name. Valid Processor Names for the given SDT are: {list(avail_cpu_data.keys())}"
             )
             sys.exit(1)
+        validate_obj = ValidateHW(
+            self.domain_dir, self.proc, self.os, self.sdt,
+            self.app, self.repo_yaml_path
+        )
+        validate_obj.validate_hw()
         if os.environ.get("VALIDATE_ARGS"):
             app_list_file = os.path.join(self.domain_dir, "app_list.yaml")
             lib_list_file = os.path.join(self.domain_dir, "lib_list.yaml")
