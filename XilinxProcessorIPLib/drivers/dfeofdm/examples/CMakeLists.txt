@@ -13,6 +13,8 @@ collect(PROJECT_LIB_DEPS xil)
 collect(PROJECT_LIB_DEPS xiltimer)
 collect(PROJECT_LIB_DEPS gcc)
 collect(PROJECT_LIB_DEPS c)
+collect(PROJECT_LIB_DEPS m)
+collect(PROJECT_LIB_DEPS dfeofdm)
 collect(PROJECT_LIB_DEPS metal)
 collector_list (_deps PROJECT_LIB_DEPS)
 
