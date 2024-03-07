@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xwdttb_hw.h
-* @addtogroup wdttb Overview
+* @addtogroup wdttb_api WDTTB APIs
 * @{
 *
 * The xwdttb_hw.h header file contains identifiers and register-level core
@@ -273,16 +273,16 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* Read from the specified WdtTb core's register.
+* Reads from the specified WdtTb core register.
 *
-* @param	BaseAddress contains the base address of the core.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param	BaseAddress Contains the base address of the core.
+* @param	RegOffset Contains the offset from the first register of the
 *		core to select the specific register.
 *
 * @return	The value read from the register.
 *
 * @note		C-Style signature:
-*		u32 XWdtTb_ReadReg(u32 BaseAddress, u32 RegOffset);
+*		    u32 XWdtTb_ReadReg(u32 BaseAddress, u32 RegOffset);
 *
 ******************************************************************************/
 #define XWdtTb_ReadReg(BaseAddress, RegOffset) \
@@ -291,17 +291,17 @@ extern "C" {
 /***************************************************************************/
 /**
 *
-* Write to the specified WdtTb core's register.
+* Writes to the specified WdtTb core register.
 *
-* @param	BaseAddress contains the base address of the core.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param	BaseAddress Contains the base address of the core.
+* @param	RegOffset Contains the offset from the 1st register of the
 *		core to select the specific register.
-* @param	RegisterValue is the value to be written to the register.
+* @param	RegisterValue Value to be written to the register.
 *
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XWdtTb_WriteReg(u32 BaseAddress, u32 RegOffset,
+*		    void XWdtTb_WriteReg(u32 BaseAddress, u32 RegOffset,
 *					u32 RegisterValue);
 *
 ******************************************************************************/

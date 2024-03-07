@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xwdttb_l.h
-* @addtogroup wdttb Overview
+* @addtogroup wdttb_api WDTTB APIs
 * @{
 *
 * The xwdttb_l.h header file contains identifiers and basic driver functions (or
