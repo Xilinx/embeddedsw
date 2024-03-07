@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module configures the bsp as per the passed library and os related
@@ -12,6 +12,7 @@ import utils
 from library_utils import Library
 from build_bsp import BSP
 from regen_bsp import regenerate_bsp
+from validate_hw import ValidateHW
 
 class Bsp_config(BSP, Library):
     """
@@ -55,6 +56,11 @@ def configure_bsp(args):
                  Use config_bsp.py if you want to configure the library.
             """)
             sys.exit(1)
+        validate_obj = ValidateHW(
+            obj.domain_path, obj.proc, obj.os, obj.sdt,
+            lib_name, obj.repo_yaml_path
+        )
+        validate_obj.validate_hw()
         lib_list = obj.get_depends_libs(lib_name, lib_list=[lib_name])
         # Remove duplicate libs
         lib_list = list(dict.fromkeys(lib_list))

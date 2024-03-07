@@ -377,7 +377,7 @@ def runcmd(cmd, cwd=None, logfile=None) -> bool:
             subprocess.check_call(cmd, cwd=cwd, shell=True)
         except subprocess.CalledProcessError as exc:
             ret = False
-            raise Exception(f"{exc.cmd} failed")
+            sys.exit(1)
     else:
         try:
             subprocess.check_call(cmd, cwd=cwd, shell=True, stdout=logfile, stderr=logfile)

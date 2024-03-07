@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module creates the template application using the domain information
@@ -14,6 +14,7 @@ from repo import Repo
 from validate_bsp import Validation
 from open_amp import create_openamp_app, open_amp_app_name
 from open_amp import create_libmetal_app
+from validate_hw import ValidateHW
 
 
 class App(BSP, Repo):
@@ -59,6 +60,13 @@ def create_app(args):
         args (dict): Takes all the user inputs in a dictionary.
     """
     obj = App(args)
+
+    if os.environ.get("VALIDATE_ARGS"):
+        validate_obj = ValidateHW(
+            obj.domain_path, obj.proc, obj.os, obj.sdt,
+            obj.template, obj.repo_yaml_path
+        )
+        validate_obj.validate_hw()
 
     domain_data = utils.fetch_yaml_data(obj.domain_config_file, "domain")
     # Copy the application src directory from embeddedsw to app src folder.

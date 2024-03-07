@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module facilitates the validation of a created BSP with respect to a
@@ -10,6 +10,7 @@ from library_utils import Library
 from build_bsp import BSP
 import os, sys
 import utils
+from validate_hw import ValidateHW
 
 
 class Validation(BSP, Library):
@@ -109,6 +110,11 @@ class Validation(BSP, Library):
         within the bsp. If the required libs are not available in the bsp, it
         throws the suitable assertion.
         """
+        validate_obj = ValidateHW(
+            self.domain_path, self.proc, self.os, self.sdt,
+            self.template, self.repo_yaml_path
+        )
+        validate_obj.validate_hw()
         Validation.validate_template_name(
             self.domain_path, self.proc_data, self.os, self.template
         )
