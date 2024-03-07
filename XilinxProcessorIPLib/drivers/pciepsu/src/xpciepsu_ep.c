@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -105,6 +105,70 @@ void XPciePsu_EP_BridgeInitialize(XPciePsu *PciePsuPtr)
 	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, MSGF_DMA_MASK,
 			MSGF_DMA_INTR_ENABLE);
 }
+
+/******************************************************************************/
+/**
+* This function initializes Egress PCIe bridge.
+*
+* @param   PciePsuPtr pointer to XPciePsu Instance Pointer
+*
+*******************************************************************************/
+void XPciePsu_Egress_EP_BridgeInitialize(XPciePsu *PciePsuPtr)
+{
+	u32 Val;
+	Xil_AssertVoid(PciePsuPtr != NULL);
+
+	Val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg,0U);
+	Val &= (u32)(~PCIE_DMA_REG_ACCESS_DISABLE);
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,0U, Val);
+
+	/* Bridge Configurations */
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, XPCIEPSU_E_BREG_BASE_LO,
+			LOWER_32_BITS(PciePsuPtr->Config.BrigReg));
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, XPCIEPSU_E_BREG_BASE_HI,
+			UPPER_32_BITS(PciePsuPtr->Config.BrigReg));
+
+	Val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg,
+			XPCIEPSU_E_BREG_CONTROL);
+	Val &= ~(BREG_SIZE_MASK | BREG_ENABLE_FORCE);
+	Val |= ((u32)BREG_SIZE) << BREG_SIZE_SHIFT;
+	Val |= BREG_ENABLE;
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
+			XPCIEPSU_E_BREG_CONTROL, Val);
+
+	/* DMA regs Configurations */
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, DREG_BASE_LO,
+			PciePsuPtr->Config.DmaBaseAddr);
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, DREG_BASE_HI, 0U);
+
+	Val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg, DREG_CONTROL);
+	Val |= DMA_ENABLE;
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, DREG_CONTROL, Val);
+
+	/* ECAM Configurations */
+	Val = (u32)(ECAM_BASE);
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, XPCIEPSU_E_ECAM_BASE_LO,
+			Val);
+
+	Val= UPPER_32_BITS(ECAM_BASE);
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
+			XPCIEPSU_E_ECAM_BASE_HI, Val);
+
+	/* ECAM Enable */
+	Val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg,
+			XPCIEPSU_E_ECAM_CONTROL);
+	Val |= ECAM_ENABLE;
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
+			XPCIEPSU_E_ECAM_CONTROL, Val);
+
+	 /* Enable AXI domain interrupt */
+        XPciePsu_WriteReg(PciePsuPtr->Config.DmaBaseAddr,
+                        DMA0_CHAN_AXI_INTR + 0x80, AXI_INTR_ENABLE);
+        XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg, MSGF_DMA_MASK + 0x80,
+                        MSGF_DMA_INTR_ENABLE);
+
+
+}
 /******************************************************************************/
 /**
 * This function waits for Pcie link to come up.
@@ -165,6 +229,41 @@ static void XPciePSU_ReadBar(XPciePsu *PciePsuPtr, u32 BarNum, u32 *BarLo,
 }
 /******************************************************************************/
 /**
+* This function does Egress test
+*
+* @param	egress source address
+*
+****************************************************************************/
+
+void Do_Egress_Test(u32 *egress_src_lo)
+{
+	u32 buf[2];
+
+	xil_printf("Inside of egress test: egress_src_lo: %llx\n", egress_src_lo);
+	buf[0] = *egress_src_lo;
+
+	xil_printf("Pre: Value read from offset 0 => 0x%x\n", buf[0]);
+	xil_printf("Pre: Value read from offset 4 => 0x%x\n", buf[1]);
+
+	*egress_src_lo = 0xdeadbeef;
+	*(egress_src_lo + 1) = 0xbeefdead;
+
+	buf[0] = *egress_src_lo;
+	buf[1] = *(egress_src_lo + 1);
+
+	xil_printf("Value read from offset 0 => 0x%x\n", buf[0]);
+	xil_printf("Value read from offset 4 => 0x%x\n", buf[1]);
+
+	if (buf[0] == 0xdeadbeef && buf[1] == 0xbeefdead) {
+		xil_printf("PCIe Egress Test Pass!\n");
+	} else {
+		xil_printf("PCIe Egress Test Fail\n");
+		xil_printf("Values written => 0xdeadbeef, 0xbeefdead\n");
+		xil_printf("Values read => 0x%x, 0x%x\n", buf[0], buf[1]);
+	}
+}
+/******************************************************************************/
+/**
 * This function sets up ingress translation
 *
 * @param	PciePsuPtr pointer to XPciePsu_Config Instance Pointer
@@ -172,7 +271,7 @@ static void XPciePSU_ReadBar(XPciePsu *PciePsuPtr, u32 BarNum, u32 *BarLo,
 * @param	BarNum bar no to setup ingress
 * @param	Dst 32 or 64 bit destination address
 *
-* @retun	XST_SUCCESS if setup is successful
+* @return	XST_SUCCESS if setup is successful
 *			XST_FAILURE if setup is fail
 *
 *******************************************************************************/
@@ -230,4 +329,72 @@ int XPciePsu_EP_SetupIngress(XPciePsu *PciePsuPtr, u32 IngressNum, u32 BarNum,
 
 	XPciePsu_Dbg("Done setting up the ingress trasnslation registers\r\n");
 	return (s32)XST_SUCCESS;
+}
+
+
+/******************************************************************************/
+/**
+* This function sets up Egress translation
+*
+* @param	PciePsuPtr pointer to XPciePsu_Config Instance Pointer
+* @param	EgressNum ingress must be 0 to 7
+*
+* @return	XST_SUCCESS if setup is successful
+*			XST_FAILURE if setup is fail
+*
+*******************************************************************************/
+int XPciePsu_EP_SetupEgress(XPciePsu *PciePsuPtr, u32 EgressNum ){
+	Xil_AssertNonvoid(PciePsuPtr != NULL);
+	u32 SrcLo;
+	u32 SrcHi;
+	u32 Val;
+	u32 Scratch0, Scratch1;
+
+	/*
+	 * Using Ingress Address Translation 0 to setup translation
+	 * to PS DDR
+	 */
+
+	SrcLo = LOWER_32_BITS(EGRESS_SRC_LO);
+	SrcHi = UPPER_32_BITS(EGRESS_SRC_HI);
+
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
+			(EGRESS0_SRC_BASE_LO + (EgressNum * EGRESS_SIZE)),
+			SrcLo & ~0xfU);
+
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
+			(EGRESS0_SRC_BASE_HI + (EgressNum * EGRESS_SIZE)), SrcHi);
+
+	XPciePsu_Dbg("Done writing the Ingress Src registers\r\n");
+
+	Scratch0 = (PciePsuPtr->Config.DmaBaseAddr + EGRESS_BUF_ADDR0_OFFSET);
+	Scratch1 = (PciePsuPtr->Config.DmaBaseAddr + EGRESS_BUF_ADDR1_OFFSET);
+
+	Val = XPciePsu_ReadReg(Scratch0, 0U);
+
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
+			(EGRESS0_DST_BASE_LO + (EgressNum * EGRESS_SIZE)), Val);
+
+	Val = XPciePsu_ReadReg(Scratch1, 0U);
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
+			(EGRESS0_DST_BASE_HI +
+			(EgressNum * EGRESS_SIZE)), Val);
+
+	XPciePsu_Dbg("Done writing the Ingress Dst registers\r\n");
+
+	Val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg, EGRESS0_CONTROL);
+
+	Val &= (u32)(~EGRESS_SIZE_MASK);
+	Val |= (((u32)EGRESS_SIZE_ENCODING << EGRESS_SIZE_SHIFT) |
+		(u32)EGRESS_ENABLE | (u32)EGRESS_SECURITY_ENABLE);
+
+	XPciePsu_WriteReg(PciePsuPtr->Config.BrigReg,
+			(EGRESS0_CONTROL + (EgressNum * EGRESS_SIZE)) , Val);
+
+	XPciePsu_Dbg("Done setting up the Egress trasnslation registers\r\n");
+
+	Do_Egress_Test((u32 *) EGRESS_SRC_LO);
+
+	return (s32)XST_SUCCESS;
+
 }
