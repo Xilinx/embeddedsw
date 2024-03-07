@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xwdttb_config.c
-* @addtogroup wdttb Overview
+* @addtogroup wdttb_api WDTTB APIs
 * @{
 *
 * The xwdttb_config.c file contains the required functions of the XWdtTb driver.
@@ -42,15 +42,14 @@
 /************************** Variable Definitions *****************************/
 /**
 *
-* This function disables Window Watchdog Timer feature.
+* Disables window Watchdog Timer feature.
 *
-* @param	InstancePtr is a pointer to the XWdtTb instance to be
+* @param	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @return
 *		- XST_SUCESS, if Window WDT feature is disabled.
-*		- XST_FAILURE, if Window WDT feature is not disabled. Refer
-*		note section for the reasons.
+*		- XST_FAILURE, if Window WDT feature is not disabled.
 *
 * @note
 *		- Disabling watchdog in first window duration is considered as
@@ -159,14 +158,14 @@ s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function enables Timebase Watchdog Timer feature.
+* Enables timebase Watchdog Timer feature.
 *
-* @param        InstancePtr is a pointer to the XWdtTb instance to be
+* @param        InstancePtr Pointer to the XWdtTb instance to be
 *               worked on.
 *
 * @return       None.
 *
-* @note         This will Start the Timebase Watchdog timer.
+* @note         This will start the timebase watchdog timer.
 *
 *****************************************************************************/
 void XWdtTb_EnableTimebaseWdt(XWdtTb *InstancePtr)
@@ -201,16 +200,15 @@ void XWdtTb_EnableTimebaseWdt(XWdtTb *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function Disable Timebase Watchdog Timer feature.
+* Disables timebase Watchdog Timer feature.
 *
-* @param        InstancePtr is a pointer to the XWdtTb instance to be
+* @param        InstancePtr Pointer to the XWdtTb instance to be
 *               worked on.
 *
 * @return
 *               - XST_SUCESS, if  Timebase  WDT feature is disabled.
 *               - XST_FAILURE, if Timebase  WDT feature is not disabled.
 *
-* @note         This will Disable Timebase Watchdog Timer.
 *
 *****************************************************************************/
 s32 XWdtTb_DisableTimebaseWdt(XWdtTb *InstancePtr)
