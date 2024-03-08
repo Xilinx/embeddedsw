@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,6 +62,7 @@
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     04/06/22 Update documentation
 * 1.5   cog    07/04/23 Add support for SDT
+* 1.6   cog    02/21/24 Fixed SDT runtime issue
 *
 * </pre>
 * @endcond
@@ -116,7 +117,7 @@ extern "C" {
 #define XDFEEQU_INSTANCE_EXISTS(X) (X < XDFEEQU_MAX_NUM_INSTANCES)
 #else
 #define XDFEEQU_MAX_NUM_INSTANCES                                              \
-	(10U) /**< Maximum number of driver instances running at the same time. */
+	(11U) /**< Maximum number of driver instances in global config struct. */
 #define XDFEEQU_INSTANCE_EXISTS(X) (XDfeEqu_ConfigTable[X].Name != NULL)
 #endif
 #endif
