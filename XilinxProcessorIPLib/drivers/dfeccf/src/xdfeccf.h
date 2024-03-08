@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -85,6 +85,7 @@
 *       dc     10/28/22 Switching Uplink/Downlink support
 *       dc     11/11/22 Align AddCC to switchable UL/DL algorithm
 * 1.6   cog    07/04/23 Add support for SDT
+* 1.7   cog    02/21/24 Fixed SDT runtime issue
 *
 * </pre>
 * @endcond
@@ -139,7 +140,7 @@ extern "C" {
 #define XDFECCF_INSTANCE_EXISTS(X) (X < XDFECCF_MAX_NUM_INSTANCES)
 #else
 #define XDFECCF_MAX_NUM_INSTANCES                                              \
-	(10U) /**< Maximum number of driver instances running at the same time. */
+	(11U) /**< Maximum number of driver instances in global config struct. */
 #define XDFECCF_INSTANCE_EXISTS(X) (XDfeCcf_ConfigTable[X].Name != NULL)
 #endif
 #endif
