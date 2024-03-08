@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -48,6 +48,8 @@
 * 2.4	hv   02/14/2023   Removed XSEM_SSIT_MAX_SLR_CNT macro as this is
 *                         available in xparameters.h
 * 2.5   rama 08/03/2023   Added support for system device-tree flow
+* 2.6   anv  02/18/2024   Added client interface to read total frames for a
+*                         given row in SSIT devices
 * </pre>
 *
 * @note
@@ -67,8 +69,6 @@ extern "C" {
 #include "xilsem_config.h"
 #endif
 
-/* Note: For SSIT support enable XILSEM_ENABLE_SSIT flag in bsp settings */
-
 /* CRAM Commands Acknowledgment IDs */
 /** CRAM Initialization Acknowledgment ID */
 #define CMD_ACK_CFR_INIT		(0x00010301U)
@@ -82,6 +82,8 @@ extern "C" {
 #define CMD_ACK_SEM_READ_FRAME_ECC	(0x0003030AU)
 /** SEM Read Golden CRC Acknowledgment ID */
 #define CMD_ACK_CFR_GET_GLDN_CRC	(0x0001030CU)
+/** SEM Get Total Frames Acknowledgment ID */
+#define CMD_ACK_CFR_GET_TF			(0x0004030EU)
 
 /* NPI Commands Acknowledgment ID */
 /** NPI Start Scan Acknowledgment ID */
@@ -94,7 +96,6 @@ extern "C" {
 #define CMD_ACK_NPI_GET_GLDN_SHA	(0x00010310U)
 /** SEM Get configuration Acknowledgment ID */
 #define CMD_ACK_SEM_GET_CONFIG		(0x00030309U)
-
 
 /** Maximum CRAM error register count */
 #define MAX_CRAMERR_REGISTER_CNT	(7U)
@@ -151,7 +152,6 @@ extern "C" {
 #ifdef XILSEM_ENABLE_SSIT
 /** Command ID for CRAM Get Status */
 #define CMD_ID_CFR_GET_STATUS		(0x0DU)
-
 /** CRAM Get Status Acknowledgment ID */
 #define CMD_ACK_CFR_GET_STATUS		(0x0001030DU)
 #endif
@@ -225,6 +225,9 @@ extern "C" {
 
 /** Shift for 64 to 79 bits for getting Type_3 */
 #define CFRAME_BIT_60_79_SHIFT_L		(4U)
+
+/** Command ID for CRAM Get Total Frames */
+#define CMD_ID_CFR_GET_TF				(0X0EU)
 
 /**
  * XSemIpiResp - IPI Response Data structure
@@ -553,6 +556,9 @@ XStatus XSem_Ssit_CmdNpiInjectError (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 /* SSIT get Cram and Npi configuration for target SLR */
 XStatus XSem_Ssit_CmdGetConfig(XIpiPsu *IpiInst,
 		XSemIpiResp *Resp, u32 TargetSlr);
+/* SSIT get Total frames for target SLR */
+XStatus XSem_Ssit_CmdCfrGetTotalFrames(XIpiPsu *IpiInst, XSemIpiResp *Resp,
+		u32 RowIndex, u32 TargetSlr,u32 *FrameCntBuf);
 #endif
 /* Event Notification Management */
 XStatus XSem_RegisterEvent(XIpiPsu *IpiInst, XSem_Notifier* Notifier);

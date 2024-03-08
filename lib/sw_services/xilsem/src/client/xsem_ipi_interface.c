@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -21,6 +22,7 @@
 * 0.5   rb   04/07/2021   Doxygen changes
 * 0.6	hv   08/18/2021   Fix Doxygen warnings
 * 0.7	hv   08/08/2022   Fixed Misra C violations
+* 0.8   anv  02/23/2024   Updated comments for Ug643
 * </pre>
 *
 * @note
@@ -41,8 +43,8 @@
 /**
  * @brief	Sends IPI request to the PLM
  *
- * @param[in]	IpiInst : Pointer to ipi instance
- * @param[in]	Payload : API ID and call arguments to be written in IPI buffer
+ * @param[in]	IpiInst Pointer to ipi instance
+ * @param[in]	Payload API ID and call arguments to be written in IPI buffer
  *
  * @return	XST_SUCCESS : If IPI request is successful
  * 		XST_FAILURE : If IPI request is failed
