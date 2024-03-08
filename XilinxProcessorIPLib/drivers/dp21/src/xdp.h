@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -681,8 +681,9 @@ typedef struct {
 						the pixel width. */
 	u8 OverrideSyncPolarity;	/**< Overrides the Horizontal
 						and vertical sync polarity */
-} XDp_TxMainStreamAttributes;
+} XDp_MainStreamAttributes;
 
+typedef XDp_MainStreamAttributes XDp_TxMainStreamAttributes;
 /**
  * This typedef contains the VSC extended packet information.
  */
@@ -1123,6 +1124,14 @@ typedef struct {
 							passed to the video mode
 							change callback
 							functions. */
+	XDp_MainStreamAttributes MsaConfig[4]; /**< Configuration structure
+						 * for the main stream
+						 * attributes (MSA). Each
+						 * stream has its own set
+						 * of attributes. When MST
+						 * mode is disabled, only
+						 * MsaConfig[0] is used.
+						 */
 	XDp_IntrHandler IntrPowerStateHandler;	/**< Callback function for
 							power state change
 							interrupts. */

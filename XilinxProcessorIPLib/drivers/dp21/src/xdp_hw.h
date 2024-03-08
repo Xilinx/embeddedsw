@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1125,15 +1125,17 @@
 #define XDP_RX_PHY_STATUS		0x208	/**< Current PHY status. */
 #define XDP_RX_PHY_POWER_DOWN		0x210	/**< Control PHY power down. */
 #define XDP_RX_MIN_VOLTAGE_SWING	0x214	/**< Specifies the minimum
-							voltage swing required
-							during training before
-							a link can be reliably
-							established and advanced
-							configuration for link
-							training. */
+						  * voltage swing required
+						  * during training before
+						  * a link can be reliably
+						  * established and advanced
+						  * configuration for link
+						  * training.
+						  */
 #define XDP_RX_CDR_CONTROL_CONFIG	0x21C	/**< Control the configuration
-							for clock and data
-							recovery. */
+						  * for clock and data
+						  * recovery.
+						  */
 #define XDP_RX_BS_IDLE_TIME		0x220	/**< Blanking start symbol idle
 							time - this value is
 							loaded as a timeout
@@ -2374,6 +2376,39 @@
 #define XDP_RX_DPCD_OVERWRITE_ADJREQUEST 0x80000000
 /* DP 1.4 definitions end. */
 /* @} */
+
+// MSA Attributes-
+#define XDP_RX_INDIVIDUAL_MSA_HRES	0x00	/**< Number of active pixels per
+						  * line (the horizontal resolution).
+						  */
+#define XDP_RX_INDIVIDUAL_MSA_HSPOL	0x04	/**< The horizontal sync polarity. */
+#define XDP_RX_INDIVIDUAL_MSA_HSWIDTH	0x08	/**< Width of the horizontal sync pulse. */
+#define XDP_RX_INDIVIDUAL_MSA_HSTART	0x0C	/**< Number of clocks between the leading
+						  * edge of the horizontal sync and the
+						  * start of active data.
+						  */
+#define XDP_RX_INDIVIDUAL_MSA_HTOTAL	0x10	/**< Total number of clocks in
+						  * the horizontal framing period.
+						  */
+#define XDP_RX_INDIVIDUAL_MSA_VHEIGHT	0x14	/**< Number of active lines
+						  * (the vertical resolution).
+						  */
+#define XDP_RX_INDIVIDUAL_MSA_VSPOL	0x18	/**< The vertical sync polarity. */
+#define XDP_RX_INDIVIDUAL_MSA_VSWIDTH	0x1C	/**< Width of the vertical sync pulse. */
+#define XDP_RX_INDIVIDUAL_MSA_VSTART	0x20	/**< Number of lines between the
+						  * leading edge of the vertical sync and the
+						  * first line of active	data.
+						  */
+#define XDP_RX_INDIVIDUAL_MSA_VTOTAL	0x24	/**< Total number of lines in the video frame. */
+#define XDP_RX_INDIVIDUAL_MSA_MISC0	0x28	/**< Miscellaneous stream attributes. */
+#define XDP_RX_INDIVIDUAL_MSA_MISC1	0x2C	/**< Miscellaneous stream attributes. */
+#define XDP_RX_INDIVIDUAL_MSA_MVID	0x30	/**< Used to recover the video
+						  * clock from the link clock.
+						  */
+#define XDP_RX_INDIVIDUAL_MSA_NVID	0x34	/**< Used to recover the video clock from the link
+						  * clock.
+						  */
+#define XDP_RX_INDIVIDUAL_MSA_VBID	0x38	/**< The most recently received VB-ID value. */
 
 /* DP 2.1 definitions*/
 #define XDP_RX_AUX_RD_INTERVAL	0x1644	/**< The time till which the DUT
