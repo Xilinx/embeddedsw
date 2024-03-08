@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -475,9 +475,12 @@ u32 XDpTxSs_IsMstCapable(XDpTxSs *InstancePtr);
 u32 XDpTxSs_GetRxCapabilities(XDpTxSs *InstancePtr);
 u32 XDpTxSs_GetEdid(XDpTxSs *InstancePtr, u8 *Edid);
 u32 XDpTxSs_GetRemoteEdid(XDpTxSs *InstancePtr, u8 SinkNum, u8 *Edid);
+u32 XDPTxss_GetMsa(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes *msa_tx);
 void XDpTxSs_SetHasRedriverInPath(XDpTxSs *InstancePtr, u8 Set);
 void XDpTxSs_SetUserPixelWidth(XDpTxSs *InstancePtr, u8 UserPixelWidth,
 				u8 StreamId);
+u32 XDpTxSs_SetVideoStream(XDpTxSs *InstancePtr, XVidC_VideoStream *VidStream,
+						   u8 stream);
 u8 XDpTxSs_GetNumOfMstStreams(XDpTxSs *InstancePtr);
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
