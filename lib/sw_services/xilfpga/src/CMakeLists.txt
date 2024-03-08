@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.3)
 project(xilfpga)
@@ -9,7 +9,7 @@ collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories(${CMAKE_BINARY_DIR}/include)
 
-if("${CMAKE_MACHINE}" STREQUAL "Versal")
+if (("${CMAKE_MACHINE}" STREQUAL "Versal") OR ("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/interface/versal/)
 else()
    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/interface/zynqmp/)
