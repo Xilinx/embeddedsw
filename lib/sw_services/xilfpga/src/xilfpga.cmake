@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.3)
 
@@ -10,7 +10,7 @@ SET(XILFPGA_ocm_address 0xfffc0000 CACHE STRING "OCM Address which is used for B
 SET(XILFPGA_base_address 0x80000 CACHE STRING "Bitstream Image Base Address")
 
 set(zynqmp_secure_env 0)
-if("${CMAKE_MACHINE}" STREQUAL "Versal")
+if (("${CMAKE_MACHINE}" STREQUAL "Versal") OR ("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
     set(VERSAL_INCLUDE "#include <xilfpga_versal.h>")
 elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
     set(PLATFORM_ZYNQMP " ")
