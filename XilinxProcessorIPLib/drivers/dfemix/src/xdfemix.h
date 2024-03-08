@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -85,6 +85,7 @@
 *       dc     11/11/22 Update NCOIdx and CCID check
 * 1.6   dc     06/15/23 Correct comment about gain
 *       cog    07/04/23 Add support for SDT
+* 1.7   cog    02/21/24 Fixed SDT runtime issue
 *
 * </pre>
 * @endcond
@@ -139,7 +140,7 @@ extern "C" {
 #define XDFEMIX_INSTANCE_EXISTS(X) (X < XDFEMIX_MAX_NUM_INSTANCES)
 #else
 #define XDFEMIX_MAX_NUM_INSTANCES                                              \
-	(10U) /**< Maximum number of driver instances running at the same time. */
+	(11U) /**< Maximum number of driver instances in global config struct. */
 #define XDFEMIX_INSTANCE_EXISTS(X) (XDfeMix_ConfigTable[X].Name != NULL)
 #endif
 #endif
