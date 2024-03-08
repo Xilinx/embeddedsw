@@ -1643,7 +1643,6 @@ int XLoader_LoadPsmElf()
 	}
 
 END:
-	(void)XLoader_DdrRelease();
 	return Status;
 }
 
