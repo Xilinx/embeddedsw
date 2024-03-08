@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* (c) Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -16,11 +16,13 @@
  * 0.1  hb       07/03/2022  Initial Creation
  * 0.2	gupta    07/18/2022  Added cram get status API and updated example
  * 0.3	gupta    08/15/2022  Updated broad cast APIs to check status of all SLRs
- *							 seperately
+ *							 separately
  * 0.4  anv      10/18/2023  Added macro protection to Enable Error Injection
  *                           Feature usage,Updated to get
- *                           XilSEM CRAM status prints of all SLRs seperately
+ *                           XilSEM CRAM status prints of all SLRs separately
  *                           and Updated Copyright information
+ * 0.5  anv      02/18/2024  Updated example to demonstrate the usage of
+ *                           XSem_Ssit_CmdCfrGetTotalFrames API
  * </pre>
  *
  *****************************************************************************/
@@ -433,7 +435,7 @@ static XStatus Xsem_CfrApiInjctCorErr()
 	/* To inject correctable error, inject error in single bit position in
 	 * any of the row/frame/qword. The argument details are
 	 * ErrData[0]: Frame Address : 0, Quadword: 3, Bit position: 4, Row: 0
-	 * Valid ranges: Row 0-3, Qword 0-24, Bit postion 0-127,
+	 * Valid ranges: Row 0-3, Qword 0-24, Bit position 0-127,
 	 * For frame address, refer to the LAST_FRAME_TOP (CFRAME_REG) and
 	 * LAST_FRAME_BOT (CFRAME_REG) registers.
 	 * In Qword 12, 0-23 & 48-71 are syndrome bits. All other bits are data
@@ -727,6 +729,8 @@ int main(void)
 	XSemCfrStatus CfrStatusInfo = {0};
 	Xil_DCacheDisable();
 	u32 FailCnt = 0U;
+	u32 FramesCnt[8] = {0};
+	u32 Id;
 
 #ifdef XILSEM_ERRINJ_ENABLE
 	u32 IntialCorErrCnt[XSEM_SSIT_MAX_SLR_CNT] = {0U};
@@ -1058,6 +1062,24 @@ int main(void)
 			"-----\n\r");
 	}
 #endif /* End of XILSEM_ERRINJ_ENABLE */
+
+	/* Read Total number of frames for master slr */
+	for(SlrCnt = 0U; SlrCnt < XSEM_SSIT_MAX_SLR_CNT; SlrCnt++) {
+		Status = XSem_Ssit_CmdCfrGetTotalFrames(&IpiInst, &IpiResp, \
+				RowLoc,SlrCnt,&FramesCnt);
+		if ((XST_SUCCESS == Status) && (CMD_ACK_CFR_GET_TF == \
+			IpiResp.RespMsg1) && (SlrCnt == IpiResp.RespMsg2) && \
+			(RowLoc == IpiResp.RespMsg3)) {
+			xil_printf("The total frames of Row %d in slr %d\n",RowLoc,SlrCnt);
+			for(Id = 0U; Id < CFRAME_MAX_TYPE; Id++) {
+				xil_printf("\n\r Slr: %x,	Row: %x,	"
+							"	Type: %x,	Total Frames : %d \n\r",\
+							SlrCnt, RowLoc ,Id, FramesCnt[Id]);
+			}
+			xil_printf("-----------------------------------------------"
+				"------------------\n\r");
+		}
+	}
 
 END:
 	xil_printf("\n\r-------------- Test Report --------------\n\r");

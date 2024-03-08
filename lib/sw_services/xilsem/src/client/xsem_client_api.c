@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -48,6 +49,9 @@
 * 2.1	hv   08/15/2022   Updated APIs to read status of all SLRs seperately
 *						  in case of broadcast
 * 2.2	rama 08/28/2022   Updated CRAM & NPI status bit information
+* 2.3   anv  02/18/2024   Added client interface to read total frames for a
+*                         given row in SSIT devices and Updated comments for
+*                         Ug643
 * </pre>
 *
 * @note
@@ -423,8 +427,7 @@ END:
  *		- CfrStatusInfo->Status: Provides details about CRAM scan
  *			- Bit [31-25]: Reserved
  *			- Bit [24:20]: CRAM Error codes
- *				- 00001: Unexpected CRC error when CRAM is
- *				not in observation state
+ *				- 00001: Unexpected CRC error when CRAM is not in observation state
  *				- 00010: Unexpected ECC error when CRAM is
  *				not in Observation or Initialization state
  *				- 00011: Safety write error in SEU handler
@@ -2463,6 +2466,129 @@ XStatus XSem_Ssit_CmdCfrGetCrc(XIpiPsu *IpiInst, u32 RowIndex,
 	/** Status */
 	Resp->RespMsg6 = Response[6U];
 
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to read total frames in a row for each SLR
+ * @param[in]	IpiInst		Pointer to IPI driver instance
+ * @param[in]	RowIndex	Row index for which total number of frames is to
+ *								be read
+ *                           (Min: 0 , Max: CFU_ROW_RANGE -1)
+ * @param[in]	TargetSlr	Target SLR index on which command is to be executed
+ *
+ * @param[out]	FrameCnt buffer to store Total frames
+ *		- FrameCnt[0] : Type_0 total frames
+ *		- FrameCnt[1] : Type_1 total frames
+ *		- FrameCnt[2] : Type_2 total frames
+ *		- FrameCnt[3] : Type_3 total frames
+ *		- FrameCnt[4] : Type_4 total frames
+ *		- FrameCnt[5] : Type_5 total frames
+ *		- FrameCnt[6] : Type_6 total frames
+ * @param[out]	Resp		Structure Pointer of IPI response
+ *		- Resp->RespMsg1: Acknowledgment ID of CFR Get TotalFrames (0x4030E)
+ *		- Resp->RespMsg2: SLR Index in which the command is executed
+ *		- Resp->RespMsg3: Row Index in which Total Frames are read.
+ *		- Resp->RespMsg4: Status of Get Total Frames Command
+ * @note
+ *	- Total number of frames in a row is not same for all rows.
+ *	- XSem_Ssit_CmdCfrGetTotalFrames API is provided to know the total number
+ *	of frames in a row for each block for each SLR. Output param (FrameCnt) of
+ * XSem_Ssit_CmdCfrGetTotalFrames API is updated with total number of frames of
+ * each block type for the input row and input SLR .
+ * Range of Frame number: 0 to (FrameCnt[n] - 1) where n is block type with
+ * range 0 to 6.
+ *****************************************************************************/
+XStatus XSem_Ssit_CmdCfrGetTotalFrames(XIpiPsu *IpiInst, XSemIpiResp *Resp,
+		u32 RowIndex, u32 TargetSlr,u32 *FrameCntBuf)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Buf[8]={0};
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
+	u32 Id = 0U;
+
+	/* Validate IPI instance pointer */
+	if (NULL == IpiInst) {
+		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
+		goto END;
+	}
+	/* Validate IPI Response structure pointer */
+	if (NULL == Resp) {
+		XSem_Dbg("[%s] ERROR: Resp is NULL\n\r", __func__);
+		goto END;
+	}
+
+	/* Pack commands to be sent over IPI */
+	PACK_PAYLOAD4(Payload, CMD_ID_CFR_GET_TF, TargetSlr, RowIndex,
+			(u32 *)FrameCntBuf);
+
+	/* Send request to PLM with the payload */
+	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
+	if (XST_SUCCESS != Status){
+		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with " \
+				"ErrCode 0x%x\n\r", __func__, Status);
+		goto END;
+	}
+
+	/* Check PLM response */
+	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
+	if (XST_SUCCESS != Status){
+		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with " \
+				"ErrCode 0x%x\n\r", __func__, Status);
+		goto END;
+	}
+
+	/* Copy the read Total Frames data to local buffer */
+	for(Id = 0U; Id < 8U; Id++){
+		Buf[Id]=FrameCntBuf[Id];
+	}
+
+	/* re arrange the data to decode the total frames of each blk in a row */
+	FrameCntBuf[0] = Buf[0] & CFRAME_BIT_0_19_MASK;
+
+	/* Get Type_1 total frames */
+	FrameCntBuf[1] = (Buf[0] & CFRAME_BIT_20_39_MASK_LOW) >> \
+								CFRAME_BIT_20_39_SHIFT_R;
+	FrameCntBuf[1] |= (Buf[1] & CFRAME_BIT_20_39_MASK_HIGH) << \
+								CFRAME_BIT_20_39_SHIFT_L;
+
+	/* Get Type_2 total frames */
+	FrameCntBuf[2] = (Buf[1] & CFRAME_BIT_40_59_MASK) >> \
+								CFRAME_BIT_40_59_SHIFT_R;
+
+	/* Get Type_3 total frames */
+	FrameCntBuf[3] = (Buf[1] & CFRAME_BIT_60_79_MASK_LOW) >> \
+								CFRAME_BIT_60_79_SHIFT_R;
+	FrameCntBuf[3] |= (Buf[2] & CFRAME_BIT_60_79_MASK_HIGH) << \
+								CFRAME_BIT_60_79_SHIFT_L;
+
+	/* Get Type_4 total frames */
+	FrameCntBuf[4] = Buf[4] & CFRAME_BIT_0_19_MASK;
+
+	/* Get Type_5 total frames */
+	FrameCntBuf[5] = (Buf[4] & CFRAME_BIT_20_39_MASK_LOW) >> \
+								CFRAME_BIT_20_39_SHIFT_R;
+	FrameCntBuf[5] |= (Buf[5] & CFRAME_BIT_20_39_MASK_HIGH) << \
+								CFRAME_BIT_20_39_SHIFT_L;
+
+	/* Get Type_6 total frames */
+	FrameCntBuf[6] = (Buf[5] & CFRAME_BIT_40_59_MASK) >> \
+								CFRAME_BIT_40_59_SHIFT_R;
+
+	/* Copy response messages */
+	/* Acknowledgment ID */
+	Resp->RespMsg1 = Response[1U];
+	/* Get SLR index from Response */
+	Resp->RespMsg2 = Response[2U];
+	/* Get Row index from Response */
+	Resp->RespMsg3 = Response[3U];
+	/* Get Status from Response */
+	Resp->RespMsg4 = Response[4U];
+
+	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
 END:
 	return Status;
 }
