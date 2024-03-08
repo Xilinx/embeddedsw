@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -920,6 +920,37 @@ u8 XDpRxss_GetBpc(XDpRxSs *InstancePtr, u8 Stream)
 
 /******************************************************************************/
 /**
+ * This function extracts the incoming video stream is Progressive or Interlace mode. *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance.
+ * @param	Stream is the stream number to make the calculations for.
+ *
+ * @return	Video timing is Progressive or Interlace.
+ *
+ * @note	RX clock must be stable.
+ *
+ *******************************************************************************/
+u8 XDpRxss_GetInterlace(XDpRxSs *InstancePtr, u8 Stream)
+{
+	u8 interlace;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+			  (Stream == XDP_TX_STREAM_ID2) ||
+			  (Stream == XDP_TX_STREAM_ID3) ||
+			  (Stream == XDP_TX_STREAM_ID4));
+
+	interlace =
+		XDp_ReadReg(InstancePtr->DpPtr->Config.BaseAddr,
+			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_VBID);
+
+	interlace = interlace >> 1;
+
+	return interlace;
+}
+
+/******************************************************************************/
+/**
  * This function extracts the color component format from MISC0 or VSC SDP packet
  * based on whether reception of colorimetry information through VSC SDP packets or
  * through MISC registers of the stream.
@@ -1006,6 +1037,187 @@ u8 XDpRxss_GetDynamicRange(XDpRxSs *InstancePtr, u8 Stream)
 	DynamicRange = XDp_RxGetDynamicRange(InstancePtr->DpPtr, Stream);
 
 	return DynamicRange;
+}
+
+/*****************************************************************************/
+/**	 This function gives the main stream attributes (MSA).
+ *
+ *	@param		InstancePtr is a pointer to the XDpRxSs instance.
+ *
+ *	@return		MSA Config structure
+ *
+ *****************************************************************************/
+XDp_MainStreamAttributes *XDPRxss_GetMsa(XDpRxSs *DpRxSsInst)
+{
+	u8 Stream;
+	u32 DpHres = 0, i = 0;
+	u32 DpVres = 0;
+	u32 DpHres_total = 0;
+	u32 DpVres_total = 0;
+	u32 rxMsamisc0 = 0;
+	u32 rxMsamisc1 = 0;
+	u32 rxMsaMVid = 0;
+	u32 rxMsaNVid = 0;
+	u8 bpc;
+	char *color;
+	u8 color_mode = 0;
+	XDp_MainStreamAttributes *Msa_Config =
+			(XDp_MainStreamAttributes *)&DpRxSsInst->DpPtr->RxInstance.MsaConfig;
+
+	for (Stream = 1; Stream <= DpRxSsInst->Config.NumMstStreams; Stream++) {
+		while ((DpHres == 0 || i < 300) && DpRxSsInst->link_up_trigger == 1) {
+			DpHres = XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+					     XDP_RX_MSA_HRES);
+			i++;
+		}
+		while ((DpVres == 0 || i < 300) && DpRxSsInst->link_up_trigger == 1) {
+			DpVres = XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+					     XDP_RX_MSA_VHEIGHT);
+			i++;
+		}
+
+		DpHres_total =
+		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_HTOTAL);
+		DpVres_total =
+		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_VTOTAL);
+		rxMsamisc0 =
+		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_MISC0);
+		rxMsamisc1 =
+		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_MISC1);
+		rxMsaMVid =
+		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_MVID);
+		rxMsaNVid =
+		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_NVID);
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Misc0 = rxMsamisc0;
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Misc1 = rxMsamisc1;
+		rxMsamisc0 = ((rxMsamisc0 >> 5) & 0x00000007);
+
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.HActive = DpHres;
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.VActive = DpVres;
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.HTotal =
+									DpHres_total;
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.F0PVTotal =
+									DpVres_total;
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].MVid = rxMsaMVid;
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].NVid = rxMsaNVid;
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].HStart =
+		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_HSTART);
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].VStart =
+		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_VSTART);
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.HSyncWidth =
+		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_HSWIDTH);
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.F0PVSyncWidth =
+		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_VSWIDTH);
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.HSyncPolarity =
+		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_HSPOL);
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.VSyncPolarity =
+		XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_VSPOL);
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].SynchronousClockMode =
+				rxMsamisc0 & 1;
+
+		bpc = XDpRxss_GetBpc(DpRxSsInst, XDP_TX_STREAM_ID1);
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].BitsPerColor = bpc;
+
+		color_mode = XDpRxss_GetColorComponent(DpRxSsInst, Stream);
+
+		/* Calculate the pixel clock frequency. */
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].PixelClockHz =
+				(DpRxSsInst->UsrOpt.LinkRate * 27 * rxMsaMVid) / rxMsaMVid;
+
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.FrameRate =
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].PixelClockHz /
+			(DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.HTotal *
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.F0PVTotal);
+
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.VmId =
+		XVidC_GetVideoModeId(DpHres, DpVres,
+				     DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.FrameRate,
+				     XDpRxss_GetInterlace(DpRxSsInst, Stream));
+
+		if (color_mode == 0) {
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[Stream -1].ComponentFormat =
+					XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+			color = "RGB";
+		} else if (color_mode == 1) {
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[Stream - 1].ComponentFormat =
+					XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+			color = "YCbCr444";
+		} else if (color_mode == 2) {
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[Stream - 1].ComponentFormat =
+					XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+			color = "YCbCr422";
+		} else {
+			//RAW, 420, Y unsupported
+			xil_printf("Unsupported Color Format\r\n");
+		}
+	}
+
+	return Msa_Config;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function retrieves the VideoStream Parameters from
+ * the incoming video stream.
+ *
+ * @param	InstancePtr is a pointer to the XDpRxSs core instance.
+ * @Stream	Stream is the stream number to get the Video data.
+ *
+ * @return
+ *		- SUCCESS when video data extraction is success
+ *
+ ******************************************************************************/
+int XDpRxSs_GetVideoStream(XDpRxSs *InstancePtr, XVidC_VideoStream *VideoStream, u8 Stream)
+{
+	XDp_MainStreamAttributes *Msa_Config;
+	u32 VTotal;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+			  (Stream == XDP_TX_STREAM_ID2) ||
+			  (Stream == XDP_TX_STREAM_ID3) ||
+			  (Stream == XDP_TX_STREAM_ID4));
+
+	u32 StreamOffset[4] = {XDP_RX_STREAM1_ADAPTIVE_VBLANK_VTOTAL,
+			XDP_RX_STREAM2_ADAPTIVE_VBLANK_VTOTAL,
+			XDP_RX_STREAM3_ADAPTIVE_VBLANK_VTOTAL,
+			XDP_RX_STREAM4_ADAPTIVE_VBLANK_VTOTAL};
+
+	Msa_Config = XDPRxss_GetMsa(InstancePtr);
+
+	VideoStream->Timing =
+		InstancePtr->DpPtr->RxInstance.MsaConfig[Stream - 1].Vtm.Timing;
+	VideoStream->FrameRate =
+		InstancePtr->DpPtr->RxInstance.MsaConfig[Stream - 1].Vtm.FrameRate;
+	VideoStream->VmId =
+		InstancePtr->DpPtr->RxInstance.MsaConfig[Stream - 1].Vtm.VmId;
+	VideoStream->PixPerClk = InstancePtr->UsrOpt.LaneCount;
+	VideoStream->ColorDepth =
+		InstancePtr->DpPtr->RxInstance.MsaConfig[Stream - 1].BitsPerColor;
+	VideoStream->ColorFormatId =
+		InstancePtr->DpPtr->RxInstance.MsaConfig[Stream - 1].ComponentFormat;
+	VideoStream->ColorStd = XDp_RxGetColorimetry(InstancePtr->DpPtr, Stream);
+	VideoStream->DynamicRange = XDp_RxGetDynamicRange(InstancePtr->DpPtr, Stream);
+	VideoStream->BaseFrameRate = VideoStream->FrameRate;
+	VideoStream->BaseTiming = VideoStream->Timing;
+	VideoStream->UncompressedTiming = VideoStream->Timing;
+	VideoStream->IsInterlaced = XDpRxss_GetInterlace(InstancePtr, Stream);
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
