@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2024 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -194,14 +194,41 @@ depends:
     vtc: []
 
 examples:
-  xdptxss_debug_example.c:
-    - reg
-  xdptxss_hdcp_example.c:
-    - reg
-  xdptxss_intr_example.c:
-    - interrupts
-  xdptxss_mst_example.c:
-    - reg
-  xdptxss_selftest_example.c:
-    - reg
-...
+    src/dp21_tx_only/xdptxss_dp21_tx.c:
+        - dependency_files:
+            - src/dp21_tx_only/clk_set.c
+            - src/dp21_tx_only/clk_set.h
+            - src/dp21_tx_only/idt_8t49n24x.c
+            - src/dp21_tx_only/idt_8t49n24x.h
+            - src/dp21_tx_only/menus.c
+            - src/dp21_tx_only/si5344drv.c
+            - src/dp21_tx_only/si5344drv.h
+            - src/dp21_tx_only/ti_lmk03318.c
+            - src/dp21_tx_only/ti_lmk03318.h
+            - src/dp21_tx_only/videofmc_defs.h
+            - src/dp21_tx_only/xdptxss_dp21_tx.c
+            - src/dp21_tx_only/xdptxss_dp21_tx.h
+            - src/dp21_tx_only/xvidframe_crc.c
+            - src/dp21_tx_only/xvidframe_crc.h
+            - src/dp21_tx_only/xvid_pat_gen.c
+            - src/dp21_tx_only/xvid_clk_gen.c
+
+    dummy/xdptxss_dp21_tx_vcu.txt:
+        - dependency_files:
+            - src/dp21_tx_only/clk_set.c
+            - src/dp21_tx_only/clk_set.h
+            - src/dp21_tx_only/idt_8t49n24x.c
+            - src/dp21_tx_only/idt_8t49n24x.h
+            - src/dp21_tx_only/menus.c
+            - src/dp21_tx_only/si5344drv.c
+            - src/dp21_tx_only/si5344drv.h
+            - src/dp21_tx_only/ti_lmk03318.c
+            - src/dp21_tx_only/ti_lmk03318.h
+            - src/dp21_tx_only/videofmc_defs.h
+            - src/dp21_tx_only/xdptxss_dp21_tx.c
+            - src/dp21_tx_only/xdptxss_dp21_tx.h
+            - src/dp21_tx_only/xvidframe_crc.c
+            - src/dp21_tx_only/xvidframe_crc.h
+            - src/dp21_tx_only/xvid_pat_gen.c
+            - src/dp21_tx_only/xvid_clk_gen.c
+            - src/platforms/vcu_mb/lscript.ld
