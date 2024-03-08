@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved..
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved..
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -607,6 +607,7 @@ typedef struct {
 	XVidC_VideoTiming	BaseTiming;
 	/* For DSC streams */
 	u8			IsDSCompressed;
+	u8			DynamicRange;
 	XVidC_VideoTiming	UncompressedTiming;
 } XVidC_VideoStream;
 
