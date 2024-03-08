@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -821,6 +821,145 @@ u32 XDpTxSs_SetBpc(XDpTxSs *InstancePtr, u8 Bpc)
 	} else {
 		InstancePtr->UsrOpt.Bpc = Bpc;
 	}
+	return XST_SUCCESS;
+}
+/*****************************************************************************/
+/**
+ *
+ * This function gets the MSA values for the specified video format.
+ *
+ * @param	InstancePtr is a pointer to the XDpTxSs instance.
+ * @param	VidStream is one of the enumerated standard video modes that is
+ *		used to determine the MSA values to be used.
+ *
+ * @return
+ *		- XST_SUCCESS, if MSA values read successfully.
+ *		- XST_FAILURE, if MSA values read failed.
+ *
+ * @note		Refer xvidc.h for enumerated standard video modes.
+ *
+ ******************************************************************************/
+u32 XDPTxss_GetMsa(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes *msa_tx)
+{
+	/* Copy user provided MSA values */
+	(void)memcpy((void *)msa_tx,
+		(const void *)InstancePtr->DpPtr->TxInstance.MsaConfig,
+			InstancePtr->UsrOpt.NumOfStreams *
+				sizeof(XDpTxSs_MainStreamAttributes));
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function sets the MSA values for the specified video format.
+ *
+ * @param	InstancePtr is a pointer to the XDpTxSs instance.
+ * @param	VidStream is one of the enumerated standard video modes that is
+ *		used to determine the MSA values to be used.
+ * @param	Stream number
+ *
+ * @return
+ *		- XST_SUCCESS, if video mode set successfully.
+ *		- XST_FAILURE, if video mode set failed.
+ *
+ * @note		Refer xvidc.h for enumerated standard video modes.
+ *
+ ******************************************************************************/
+u32 XDPTxss_SetMsa(XDpTxSs *InstancePtr, XVidC_VideoStream *VidStream, u8 Stream)
+{
+	XDpTxSs_MainStreamAttributes *MsaConfig;
+	u32 WordsPerLine;
+	u8 LinkRate, LaneCount;
+
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+			(Stream == XDP_TX_STREAM_ID2) ||
+			(Stream == XDP_TX_STREAM_ID3) ||
+			(Stream == XDP_TX_STREAM_ID4));
+
+	LinkRate = InstancePtr->DpPtr->TxInstance.LinkConfig.LinkRate;
+	LaneCount = InstancePtr->DpPtr->TxInstance.LinkConfig.LaneCount;
+
+	MsaConfig = &InstancePtr->DpPtr->TxInstance.MsaConfig[Stream - 1];
+
+	MsaConfig->Vtm.Timing = VidStream->Timing;
+	MsaConfig->Vtm.VmId = VidStream->VmId;
+	MsaConfig->Vtm.FrameRate = VidStream->FrameRate;
+	MsaConfig->BitsPerColor = VidStream->ColorDepth;
+	MsaConfig->HStart = VidStream->Timing.HSyncWidth + VidStream->Timing.HBackPorch;
+	MsaConfig->VStart = VidStream->Timing.F0PVSyncWidth + VidStream->Timing.F0PVBackPorch;
+
+	/*Calculate pixel clock in HZ */
+	MsaConfig->PixelClockHz = XVidC_GetPixelClockHzByVmId(VidStream->VmId);
+	MsaConfig->MVid = MsaConfig->PixelClockHz / 1000;
+
+	/*
+	 * Setting Color Format
+	 * User can change coefficients here - By default 601 is used for YCbCr
+	 **/
+	XDp_TxCfgSetColorEncode(InstancePtr->DpPtr, Stream,
+				VidStream->ColorFormatId,
+				VidStream->ColorStd, VidStream->DynamicRange);
+	XDp_TxCfgMsaRecalculate(InstancePtr->DpPtr, Stream);
+	XDp_TxSetMsaValues(InstancePtr->DpPtr, Stream);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function sets the VideoStream structure for the specified video format.
+ *
+ * @param	InstancePtr is a pointer to the XDpTxSs instance.
+ * @param	VidStream is one of the enumerated standard video modes that is
+ *		used to determine the MSA values to be used.
+ * @Stream	Streamnumber to set the video params
+ *
+ * @return
+ *		- XST_SUCCESS, if video mode set successfully.
+ *		- XST_FAILURE, if video mode set failed.
+ *
+ * @note		Refer xvidc.h for enumerated standard video modes.
+ *
+ ******************************************************************************/
+u32 XDpTxSs_SetVideoStream(XDpTxSs *InstancePtr, XVidC_VideoStream *VidStream, u8 Stream)
+{
+	int Status = 0;
+	XVidC_VideoMode VmId = VidStream->VmId;
+	XVidC_ColorFormat ColorFormat = VidStream->ColorFormatId;
+	XVidC_ColorDepth Bpc =  VidStream->ColorDepth;
+	XVidC_PixelsPerClock Ppc = VidStream->PixPerClk;
+	XVidC_FrameRate		FrameRate = VidStream->FrameRate;
+	XVidC_AspectRatio	AspectRatio = VidStream->AspectRatio;
+	XVidC_3DInfo		Info_3D = VidStream->Info_3D;
+	XVidC_VideoTiming	Timing = VidStream->Timing;
+	XVidC_Eotf		Eotf = VidStream->Eotf;
+	XVidC_ColorStd		ColorStd = VidStream->ColorStd;
+	XVidC_FrameRate		BaseFrameRate = VidStream->BaseFrameRate;
+	XVidC_VideoTiming	BaseTiming = VidStream->BaseTiming;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(VidStream != NULL);
+
+	Status = XDpTxSs_SetBpc(InstancePtr, VidStream->ColorDepth);
+	if (Status != XST_SUCCESS)
+		xil_printf("ERR: Setting BPC failed\r\n");
+
+	Status = XDpTxSs_SetVidMode(InstancePtr, VmId);
+	if (Status != XST_SUCCESS)
+		xil_printf("ERR: Setting resolution failed\r\n");
+
+	Status = XVidC_SetVideoStream(VidStream, VmId, ColorFormat, Bpc, Ppc);
+	if (Status != XST_SUCCESS)
+		xil_printf("ERR: Setting XVidC_SetVideoStream failed\r\n");
+
+	Status = XDPTxss_SetMsa(InstancePtr, VidStream, Stream);
+	if (Status != XST_SUCCESS)
+		xil_printf("ERR: Setting XDPTxss_SetMsa failed\r\n");
+
 	return XST_SUCCESS;
 }
 
