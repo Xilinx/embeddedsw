@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -638,6 +638,21 @@ typedef struct {
 #define XDpRxSs_AudioReset(InstancePtr) \
 	XDp_RxAudioReset((InstancePtr)->DpPtr)
 
+/*****************************************************************************/
+/**
+ *
+ * This function macro enable the stream address
+ *
+ * @param	StreamId is zero for SST, veries for MST.
+ *
+ * @return	None.
+ *
+ * @note		C-style signature:
+ *		XDP_RX_STREAM_MSA_OFFSET(StreamNumber)
+ *
+ *******************************************************i***********************/
+#define XDP_RX_STREAM_MSA_OFFSET(StreamId) \
+		(XDP_RX_STREAM1_MSA_START + ((StreamId) * 0x40))
 
 /*****************************************************************************/
 /**
@@ -772,7 +787,10 @@ void XDpRxSs_MaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask);
 void XDpRxSs_UnMaskAdaptiveIntr(XDpRxSs *InstancePtr, u32 Mask);
 int XDpRxSs_GetVblank(XDpRxSs *InstancePtr, u8 Stream);
 int XDpRxSs_GetVtotal(XDpRxSs *InstancePtr, u8 Stream);
-
+XDp_MainStreamAttributes *XDPRxss_GetMsa(XDpRxSs *DpRxSsInst);
+int XDpRxSs_GetVideoStream(XDpRxSs *InstancePtr, XVidC_VideoStream *VideoStream,
+			   u8 Stream);
+u8 XDpRxss_GetInterlace(XDpRxSs *InstancePtr, u8 Stream);
 void XDpRxSs_McDp6000_init(void *InstancePtr);
 
 #if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
