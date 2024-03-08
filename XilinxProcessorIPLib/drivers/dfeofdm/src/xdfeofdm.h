@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 *       dc     06/28/23 Add phase compensation calculation
 * 1.2   dc     10/16/23 Doxygen documenatation update
 *       dc     10/17/23 Support for FFT size 512
+*       cog    02/21/24 Fixed SDT runtime issue
 *
 * </pre>
 * @endcond
@@ -116,7 +117,7 @@ extern "C" {
 */
 #else
 #define XDFEOFDM_MAX_NUM_INSTANCES                                             \
-	(10U) /**< Maximum number of driver instances running at the same time. */
+	(11U) /**< Maximum number of driver instances in global config struct. */
 #define XDFEOFDM_INSTANCE_EXISTS(X) (XDfeOfdm_ConfigTable[X].Name != NULL)
 #endif
 #endif
