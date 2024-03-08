@@ -114,8 +114,13 @@
  */
 #define DPTXSS_BPC			XPAR_DPTXSS_0_BITS_PER_COLOR
 
+#ifndef SDT
 #define SET_TX_TO_2BYTE		\
 		(XPAR_XDP_0_GT_DATAWIDTH/2)
+#else
+#define SET_TX_TO_2BYTE		\
+		(XPAR_XDP_0_GT_DATA_WIDTH / 2)
+#endif
 
 #define TIMER_RESET_VALUE				1000
 #define is_TX_CPLL 0
@@ -140,7 +145,11 @@
 #endif
 #define XVPHY_DEVICE_ID		XPAR_VPHY_0_DEVICE_ID
 #define CLK_WIZ_BASE      	XPAR_CLK_WIZ_0_BASEADDR
+#ifndef SDT
 #define IIC_BASE_ADDR 		XPAR_IIC_0_BASEADDR
+#else
+#define IIC_BASE_ADDR		XPAR_XIIC_0_BASEADDR
+#endif
 #define IIC_DEVICE_ID       XPAR_IIC_0_DEVICE_ID
 #define PE_VS_ADJUST 1
 #define XVPHY_DRP_CPLL_FBDIV		0x28

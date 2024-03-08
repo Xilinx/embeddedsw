@@ -20,6 +20,9 @@
 *******************************************************************************/
 
 #include "xparameters.h"
+#ifdef SDT
+#include "bspconfig.h"
+#endif
 #ifndef PLATFORM_MB
 #include "xiicps.h"
 #include "sleep.h"
