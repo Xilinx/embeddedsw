@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2024 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -167,14 +167,31 @@ depends:
     video_common: []
 
 examples:
-  xdprxss_debug_example.c:
-    - reg
-  xdprxss_hdcp_example.c:
-    - reg
-  xdprxss_intr_example.c:
-    - interrupts
-  xdprxss_mst_example.c:
-    - reg
-  xdprxss_selftest_example.c:
-    - reg
+    src/dp21_rx_only/xdprxss_dp21_rx.c:
+        - dependency_files:
+            - src/dp21_rx_only/idt_8t49n24x.c
+            - src/dp21_rx_only/idt_8t49n24x.h
+            - src/dp21_rx_only/si5344drv.c
+            - src/dp21_rx_only/si5344drv.h
+            - src/dp21_rx_only/ti_lmk03318.c
+            - src/dp21_rx_only/ti_lmk03318.h
+            - src/dp21_rx_only/videofmc_defs.h
+            - src/dp21_rx_only/xdprxss_dp21_rx.c
+            - src/dp21_rx_only/xvidframe_crc.c
+            - src/dp21_rx_only/xvidframe_crc.h
+
+    dummy/xdprxss_dp21_rx_vcu.txt:
+        - dependency_files:
+            - src/dp21_rx_only/idt_8t49n24x.c
+            - src/dp21_rx_only/idt_8t49n24x.h
+            - src/dp21_rx_only/si5344drv.c
+            - src/dp21_rx_only/si5344drv.h
+            - src/dp21_rx_only/ti_lmk03318.c
+            - src/dp21_rx_only/ti_lmk03318.h
+            - src/dp21_rx_only/videofmc_defs.h
+            - src/dp21_rx_only/xdprxss_dp21_rx.c
+            - src/dp21_rx_only/xvidframe_crc.c
+            - src/dp21_rx_only/xvidframe_crc.h
+            - src/platforms/vcu_mb/lscript.ld
+
 ...
