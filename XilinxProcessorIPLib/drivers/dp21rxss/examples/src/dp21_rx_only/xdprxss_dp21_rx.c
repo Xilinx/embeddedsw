@@ -37,6 +37,9 @@
 #include <xparameters.h>
 #include <xstatus.h>
 #include <xtmrctr.h>
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 #ifndef PLATFORM_MB
 #include <xuartps_hw.h>
 #include "xscugic.h"
@@ -62,6 +65,10 @@
 * There is only one interrupt controlled to be selected from SCUGIC and GPIO
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
+#ifdef SDT
+#define XPAR_IIC_0_BASEADDR XPAR_AXI_IIC_0_BASEADDR
+#define INTRNAME_DPRX   0
+#endif
 #ifndef PLATFORM_MB
 #define XINTC_DPRXSS_DP_INTERRUPT_ID \
 	XPAR_FABRIC_DP21RXSS_0_VEC_ID
@@ -86,16 +93,28 @@
 #define UARTLITE_BASEADDR 	XPAR_PSU_UART_0_BASEADDR
 #define VIDPHY_BASEADDR 	XPAR_DP_RX_HIER_0_VID_PHY_CONTROLLER_0_BASEADDR
 #define VID_EDID_BASEADDR 	XPAR_DP_RX_HIER_0_VID_EDID_0_BASEADDR
-#define IIC_DEVICE_ID 		XPAR_IIC_0_DEVICE_ID
+#ifndef SDT
+#define IIC_DEVICE_ID	XPAR_IIC_0_DEVICE_ID
+#else
+#define IIC_DEVICE_ID	XPAR_AXI_IIC_0_BASEADDR
+#endif
 
 /* DP Specific Defines
  */
 #define DPRXSS_LINK_RATE 		XDPRXSS_LINK_BW_SET_810GBPS
 #define DPRXSS_LANE_COUNT 		XDPRXSS_LANE_COUNT_SET_4
+#ifndef SDT
 #define SET_TX_TO_2BYTE            \
 	(XPAR_XDP_0_GT_DATAWIDTH/2)
 #define SET_RX_TO_2BYTE            \
 	(XPAR_XDP_0_GT_DATAWIDTH/2)
+#else
+#define SET_TX_TO_2BYTE            \
+	(XPAR_XDP_0_GT_DATA_WIDTH / 2)
+#define SET_RX_TO_2BYTE            \
+	(XPAR_XDP_0_GT_DATA_WIDTH / 2)
+#endif
+
 #define XDP_RX_CRC_CONFIG 		0x074
 #define XDP_RX_CRC_COMP0 		0x078
 #define XDP_RX_CRC_COMP1 		0x07C
@@ -320,10 +339,17 @@ XIicPs_Config *XIic1Ps_ConfigPtr;
 #endif
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 u32 DpRxSs_Main(u16 DeviceId);
+#else
+u32 DpRxSs_Main(u32 BaseAddress);
+#endif
 u32 DpRxSs_PlatformInit(void);
+#ifndef SDT
 u32 DpRxSs_VideoPhyInit(u16 DeviceId);
+#else
+u32 DpRxSs_VideoPhyInit(u32 Baseaddress);
+#endif
 u32 DpRxSs_Setup(void);
 void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate);
 void AppHelp();
@@ -535,8 +561,11 @@ int main()
 	xil_printf("DisplayPort 2.x RX Only Example\n\r");
 	xil_printf("(c) 2024 by AMD\n\r");
 	xil_printf("-------------------------------------------\n\r\n\r");
-
+#ifndef SDT
 	Status = DpRxSs_Main(XDPRXSS_DEVICE_ID);
+#else
+	Status = DpRxSs_Main(XPAR_DPRXSS_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("DisplayPort RX Subsystem design example failed.");
 		return XST_FAILURE;
@@ -567,7 +596,11 @@ int main()
 *        Refer xdprxss.h file for more info.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 DpRxSs_Main(u16 DeviceId)
+#else
+u32 DpRxSs_Main(u32 BaseAddress)
+#endif
 {
 	u32 Status;
 	XDpRxSs_Config *ConfigPtr;
@@ -588,7 +621,11 @@ u32 DpRxSs_Main(u16 DeviceId)
 	xil_printf("Platform initialization done.\n\r");
 
 	/* Obtain the device configuration for the DisplayPort RX Subsystem */
+#ifndef SDT
 	ConfigPtr = XDpRxSs_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XDpRxSs_LookupConfig(BaseAddress);
+#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -631,7 +668,11 @@ u32 DpRxSs_Main(u16 DeviceId)
 	}
 
 	/* Setup Video Phy, left to the user for implementation */
+#ifndef SDT
 	DpRxSs_VideoPhyInit(XVPHY_DEVICE_ID);
+#else
+	DpRxSs_VideoPhyInit(XPAR_XVPHY_0_BASEADDR);
+#endif
 
 	/* Setup DPRX SS, left to the user for implementation */
 	DpRxSs_Setup();
@@ -880,17 +921,25 @@ u32 DpRxSs_PlatformInit(void)
 	XVidFrameCrc_Initialize(&VidFrameCRC);
 
 	/* Initialize Timer */
+#ifndef SDT
 	Status = XTmrCtr_Initialize(&TmrCtr, XTIMER0_DEVICE_ID);
+#else
+	Status = XTmrCtr_Initialize(&TmrCtr, XPAR_XTMRCTR_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("ERR:Timer failed to initialize. \r\n");
 		return XST_FAILURE;
 	}
 
-	XTmrCtr_SetResetValue(&TmrCtr, XTIMER0_DEVICE_ID, TIMER_RESET_VALUE);
-	XTmrCtr_Start(&TmrCtr, XTIMER0_DEVICE_ID);
+	XTmrCtr_SetResetValue(&TmrCtr, XTC_TIMER_0, TIMER_RESET_VALUE);
+	XTmrCtr_Start(&TmrCtr, XTC_TIMER_0);
 
 #ifndef PLATFORM_MB
+#ifndef SDT
 	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
+#else
+	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_BASEADDR);
+#endif
 	if (NULL == XIic0Ps_ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -928,12 +977,20 @@ u32 DpRxSs_PlatformInit(void)
 * @note        None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 DpRxSs_VideoPhyInit(u16 DeviceId)
+#else
+u32 DpRxSs_VideoPhyInit(u32 Baseaddress)
+#endif
 {
 	XVphy_Config *ConfigPtr;
 
 	/* Obtain the device configuration for the DisplayPort RX Subsystem */
+#ifndef SDT
 	ConfigPtr = XVphy_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XVphy_LookupConfig(Baseaddress);
+#endif
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -1100,6 +1157,7 @@ u32 DpRxSs_Setup(void)
 * @note        None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 DpRxSs_SetupIntrSystem(void)
 {
 	u32 Status;
@@ -1229,6 +1287,80 @@ u32 DpRxSs_SetupIntrSystem(void)
 
 	return (XST_SUCCESS);
 }
+#else
+u32 DpRxSs_SetupIntrSystem(void)
+{
+	u32 Status;
+
+	/* Set callbacks for all the interrupts */
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_PWR_CHG_EVENT,
+			    DpRxSs_PowerChangeHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_NO_VID_EVENT,
+			    DpRxSs_NoVideoHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_VBLANK_EVENT,
+			    DpRxSs_VerticalBlankHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_TLOST_EVENT,
+			    DpRxSs_TrainingLostHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_VID_EVENT,
+			    DpRxSs_VideoHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_TDONE_EVENT,
+			    DpRxSs_TrainingDoneHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_UNPLUG_EVENT,
+			    DpRxSs_UnplugHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_LINKBW_EVENT,
+			    DpRxSs_LinkBandwidthHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_PLL_RESET_EVENT,
+			    DpRxSs_PllResetHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_BW_CHG_EVENT,
+			    DpRxSs_BWChangeHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_ACCESS_LINK_QUAL_EVENT,
+			    DpRxSs_AccessLinkQualHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst,
+			    XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT,
+			    DpRxSs_AccessErrorCounterHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_CRC_TEST_EVENT,
+			    DpRxSs_CRCTestEventHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_INFO_PKT_EVENT,
+			    &DpRxSs_InfoPacketHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,
+			    &DpRxSs_ExtPacketHandler, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_DWN_REQ_EVENT,
+			    &Dprx_InterruptHandlerDownReq, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_DWN_REP_EVENT,
+			    &Dprx_InterruptHandlerDownReply, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_PAYLOAD_ALLOC_EVENT,
+			    &Dprx_InterruptHandlerPayloadAlloc, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_ACT_RX_EVENT,
+			    &Dprx_InterruptHandlerActRx, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_DWN_REQ_EVENT,
+			    &Dprx_InterruptHandlerDownReq, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_DWN_REP_EVENT,
+			    &Dprx_InterruptHandlerDownReply, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_PAYLOAD_ALLOC_EVENT,
+			    &Dprx_InterruptHandlerPayloadAlloc, &DpRxSsInst);
+	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_ACT_RX_EVENT,
+			    &Dprx_InterruptHandlerActRx, &DpRxSsInst);
+
+	/* Set custom timer wait */
+	XDpRxSs_SetUserTimerHandler(&DpRxSsInst, &CustomWaitUs, &TmrCtr);
+
+	/* Connect the device driver handler that will be called when an
+	 * interrupt for the device occurs, the handler defined above performs
+	 * the specific interrupt processing for the device
+	 */
+	Status = XSetupInterruptSystem(&DpRxSsInst, XDpRxSs_DpIntrHandler,
+				       DpRxSsInst.Config.IntrId[INTRNAME_DPRX],
+				       DpRxSsInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: DP RX SS DP interrupt connect failed!\n\r");
+		return XST_FAILURE;
+	}
+
+	return (XST_SUCCESS);
+}
+#endif
 
 void Dprx_InterruptHandlerPayloadAlloc(void *InstancePtr)
 {
