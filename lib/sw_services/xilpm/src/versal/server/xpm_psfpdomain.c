@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,6 +13,8 @@
 #include "xpm_device.h"
 #include "xpm_debug.h"
 #include "xpm_rail.h"
+
+#define FPD_POLL_TIMEOUT 0x10000U
 
 static XStatus SendFpdHouseCleanReqToPsm(u32 FuncId, u16 *DbgErr)
 {
@@ -145,9 +147,8 @@ static XStatus FpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_Psm *Psm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegVal;
-
-	(void)Args;
-	(void)NumOfArgs;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
+	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, FPD_POLL_TIMEOUT);
 
 	if (!(PM_HOUSECLEAN_CHECK(FPD, SCAN))) {
 		PmInfo("Skipping ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
@@ -169,7 +170,7 @@ static XStatus FpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		PSM_GLOBAL_SCAN_CLEAR_TRIGGER, PSM_GLOBAL_SCAN_CLEAR_TRIGGER);
 
 	Status = XPm_PollForMask(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_SCAN_CLEAR_FPD_OFFSET,
-				 PSM_GLOBAL_SCAN_CLEAR_DONE_STATUS, 0x10000U);
+				 PSM_GLOBAL_SCAN_CLEAR_DONE_STATUS, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
 		goto done;
@@ -226,6 +227,7 @@ done:
 static XStatus TriggerMemClearFpd(const XPm_Psm *Psm, u16 *DbgErr, u32 SecLockDownInfo)
 {
 	XStatus Status = XST_FAILURE;
+	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, FPD_POLL_TIMEOUT);
 
 	PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_RST_OFFSET,
 		PSM_GLOBAL_MBIST_RST_FPD_MASK, PSM_GLOBAL_MBIST_RST_FPD_MASK);
@@ -258,7 +260,7 @@ static XStatus TriggerMemClearFpd(const XPm_Psm *Psm, u16 *DbgErr, u32 SecLockDo
 	}
 
 	Status = XPm_PollForMask(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_DONE_OFFSET,
-				 PSM_GLOBAL_MBIST_DONE_FPD_MASK, 0x10000U);
+				 PSM_GLOBAL_MBIST_DONE_FPD_MASK, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		*DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
 		goto done;

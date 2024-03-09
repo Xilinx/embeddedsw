@@ -51,11 +51,7 @@ static volatile u32 PlpdHouseCleanBypass = 0;
 static volatile u32 PlpdHouseCleanBypassTmp = 0;
 u32 HcleanDone = 0;
 
-/* Default polling timeout, initialized at the time of initstart
- * XPM_SLD_POLL_TIMEOUT for secure lock down */
-static u32 PollTimeOut = XPM_POLL_TIMEOUT;
-
-static XStatus XPmPlDomain_InitandHouseclean(void);
+static XStatus XPmPlDomain_InitandHouseclean(u32 PollTimeOut);
 
 static XStatus PldInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
@@ -71,7 +67,7 @@ static XStatus PldInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	return Status;
 }
 
-static XStatus PldGtyMbist(u32 BaseAddress)
+static XStatus PldGtyMbist(u32 BaseAddress, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -207,7 +203,7 @@ done:
 	return Status;
 }
 
-static XStatus VduScanClear(u32 BaseAddress)
+static XStatus VduScanClear(u32 BaseAddress, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -247,7 +243,7 @@ done:
 	return Status;
 }
 
-static XStatus VduMbist(u32 BaseAddress)
+static XStatus VduMbist(u32 BaseAddress, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -313,7 +309,7 @@ static void VduClearInterrupts(u32 BaseAddress)
 	XPm_LockPcsr(BaseAddress);
 }
 
-static XStatus VduHouseClean(void)
+static XStatus VduHouseClean(u32 PollTimeOut)
 {
 	volatile XStatus Status = XST_FAILURE;
 	volatile XStatus StatusTmp = XST_FAILURE;
@@ -344,7 +340,7 @@ static XStatus VduHouseClean(void)
 			PmInfo("Triggering ScanClear for VDU\r\n");
 
 			/* Trigger scan clear */
-			Status = VduScanClear(VduAddresses[i]);
+			Status = VduScanClear(VduAddresses[i], PollTimeOut);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_VDU_SCAN_CLEAR;
 				goto done;
@@ -387,7 +383,7 @@ static XStatus VduHouseClean(void)
 		}
 
 		/* Trigger MBIST */
-		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (VduMbist), (VduAddresses[i]));
+		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (VduMbist), (VduAddresses[i]), (PollTimeOut));
 		/* Copy volatile to local to avoid MISRA */
 		XStatus LocalStatus = StatusTmp;
 		/* Required for redundancy */
@@ -637,7 +633,7 @@ done:
 	return Status;
 }
 
-static XStatus GtyHouseClean(const XPm_PlDomain *Pld)
+static XStatus GtyHouseClean(const XPm_PlDomain *Pld, u32 PollTimeOut)
 {
 	volatile XStatus Status = XPM_ERR_HC_PL;
 	volatile XStatus StatusTmp = XPM_ERR_HC_PL;
@@ -709,7 +705,7 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld)
 				}
 				XPm_UnlockPcsr(GtyAddrs[i]);
 				/* Mbist */
-				XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PldGtyMbist), (GtyAddrs[i]));
+				XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PldGtyMbist), (GtyAddrs[i]), (PollTimeOut));
 				XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
 				/* Required for redundancy */
 				if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
@@ -735,7 +731,7 @@ done:
 	return Status;
 }
 
-static XStatus BfrbInit(const u32 *BfrbAddresses, const u32 ArrLen)
+static XStatus BfrbInit(const u32 *BfrbAddresses, const u32 ArrLen, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -795,7 +791,7 @@ done:
 	return Status;
 }
 
-static XStatus BfrbMbist(const u32 *BfrbAddresses, const u32 ArrLen)
+static XStatus BfrbMbist(const u32 *BfrbAddresses, const u32 ArrLen, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -859,7 +855,7 @@ done:
     return Status;
 }
 
-static XStatus BfrbScanClear(const u32 *BfrbAddresses, const u32 ArrLen)
+static XStatus BfrbScanClear(const u32 *BfrbAddresses, const u32 ArrLen, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -1007,7 +1003,7 @@ done:
 	return Status;
 }
 
-static XStatus BfrbHouseClean(void)
+static XStatus BfrbHouseClean(u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	XStatus StatusTmp = XST_FAILURE;
@@ -1021,7 +1017,7 @@ static XStatus BfrbHouseClean(void)
 	}
 
 	/* Run setup for BFRB */
-	Status = BfrbInit(BfrbAddresses, ARRAY_SIZE(BfrbAddresses));
+	Status = BfrbInit(BfrbAddresses, ARRAY_SIZE(BfrbAddresses), PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_BFRB_INIT;
 		goto done;
@@ -1036,7 +1032,7 @@ static XStatus BfrbHouseClean(void)
 
 	/* Run MBIST for each BFRB */
 	XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (BfrbMbist),
-			(BfrbAddresses), ARRAY_SIZE(BfrbAddresses));
+			(BfrbAddresses), ARRAY_SIZE(BfrbAddresses), (PollTimeOut));
 	/* Copy volatile to local to avoid MISRA */
 	XStatus LocalStatus = StatusTmp;
 	/* Required for redundancy */
@@ -1046,7 +1042,7 @@ static XStatus BfrbHouseClean(void)
 	}
 
 	/* Run scan clear for each BFRB */
-	Status = BfrbScanClear(BfrbAddresses, ARRAY_SIZE(BfrbAddresses));
+	Status = BfrbScanClear(BfrbAddresses, ARRAY_SIZE(BfrbAddresses), PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_BFRB_SCAN_CLEAR;
 		goto done;
@@ -1245,7 +1241,7 @@ done:
 	return Status;
 }
 
-static XStatus PlHcScanClear(const XPm_PlDomain *Pld, u16 *DbgErr)
+static XStatus PlHcScanClear(const XPm_PlDomain *Pld, u16 *DbgErr, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	u32 PlatformVersion = XPm_GetPlatformVersion();
@@ -1314,7 +1310,7 @@ done:
 	return Status;
 }
 
-static XStatus PlHouseClean(u32 TriggerTime)
+static XStatus PlHouseClean(u32 TriggerTime, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_PlDomain *Pld;
@@ -1391,7 +1387,7 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		PmIn32(Pld->Cframe0RegBaseAddr + 12U, Value);
 		XPlmi_Printf(DEBUG_INFO, "Done\r\n");
 
-		Status = PlHcScanClear(Pld, &DbgErr);
+		Status = PlHcScanClear(Pld, &DbgErr, PollTimeOut);
 	}
 
 	/* Compilation warning fix */
@@ -1402,7 +1398,7 @@ done:
 	return Status;
 }
 
-static XStatus IsPlPowerUp(const XPm_Pmc *Pmc, u16 *DbgErr)
+static XStatus IsPlPowerUp(const XPm_Pmc *Pmc, u16 *DbgErr, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	XStatus IntRailPwrSts = XST_FAILURE;
@@ -1449,7 +1445,7 @@ static XStatus IsPlPowerUp(const XPm_Pmc *Pmc, u16 *DbgErr)
 			usleep(250);
 		}
 
-		Status = XPmPlDomain_InitandHouseclean();
+		Status = XPmPlDomain_InitandHouseclean(PollTimeOut);
 		if (XST_SUCCESS != Status) {
 			*DbgErr = XPM_INT_ERR_DOMAIN_INIT_AND_HC;
 			goto done;
@@ -1526,15 +1522,12 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 IdCode = XPm_GetIdCode();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
+	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, XPM_POLL_TIMEOUT);
 
 	const XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
 	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
 	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-
-	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
-		PollTimeOut = XPM_SLD_POLL_TIMEOUT;
-	}
 
 	/*
 	 * PL housecleaning requires CFU clock to run at a lower frequency for
@@ -1545,7 +1538,7 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	/* If PL power is still not up, return error as PLD can't
 	   be initialized */
-	Status = IsPlPowerUp(Pmc, &DbgErr);
+	Status = IsPlPowerUp(Pmc, &DbgErr, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1592,7 +1585,7 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
 	if ((0U == PlpdHouseCleanBypass) || (0U == LocalPlpdHCBypass)) {
-		Status = PlHouseClean(PLHCLEAN_INIT_NODE);
+		Status = PlHouseClean(PLHCLEAN_INIT_NODE, PollTimeOut);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PL_HC;
 			goto fail;
@@ -1607,7 +1600,7 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	if ((PLATFORM_VERSION_SILICON == Platform) || (PLATFORM_VERSION_FCV == Platform)) {
 		/*House clean GTY*/
-		Status = GtyHouseClean(Pld);
+		Status = GtyHouseClean(Pld, PollTimeOut);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_GTY_HC;
 			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s : GTY HC failed", __func__);
@@ -1615,14 +1608,14 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	/* Run Houseclean sequence for VDU */
-	Status = VduHouseClean();
+	Status = VduHouseClean(PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_VDU_HC;
 		goto fail;
 	}
 
 	/* Run houseclean sequence for BFR-B */
-	Status = BfrbHouseClean();
+	Status = BfrbHouseClean(PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_BFRB_HC;
 		goto fail;
@@ -1725,10 +1718,12 @@ done:
 *
 * @param      Pmc BaseAddress
 *
+* @param      Poll Time out
+*
 * @return      XST_FAILURE if error / XST_SUCCESS if success
 *
 *****************************************************************************/
-static XStatus RemoveResetEnableClk(u32 PmcBaseAddress)
+static XStatus RemoveResetEnableClk(u32 PmcBaseAddress, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -1777,10 +1772,12 @@ done:
 *
 * @param   Pointer to XPmc device
 *
+* @param   Poll Time out
+*
 * @return  XST_FAILURE if error / XST_SUCCESS if success
 *
 *****************************************************************************/
-static XStatus GtyWorkAround(const XPm_Pmc *Pmc)
+static XStatus GtyWorkAround(const XPm_Pmc *Pmc, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -1825,7 +1822,7 @@ static XStatus GtyWorkAround(const XPm_Pmc *Pmc)
 
 	usleep(1);
 
-	Status = RemoveResetEnableClk(Pmc->PmcGlobalBaseAddr);
+	Status = RemoveResetEnableClk(Pmc->PmcGlobalBaseAddr, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_REMOVE_RST_EN_CLK;
 		goto done;
@@ -1862,7 +1859,7 @@ static XStatus GtyWorkAround(const XPm_Pmc *Pmc)
 		goto done;
 	}
 
-	Status = RemoveResetEnableClk(Pmc->PmcGlobalBaseAddr);
+	Status = RemoveResetEnableClk(Pmc->PmcGlobalBaseAddr, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_REMOVE_RST_EN_CLK;
 		goto done;
@@ -1878,12 +1875,12 @@ done:
 /**
 * @brief This function initializes and performs housecleaning for PL domain
 *
-* @param       None
+* @param       PollTimeOut
 *
 * @return      XST_FAILURE if error / XST_SUCCESS if success
 *
 *****************************************************************************/
-static XStatus XPmPlDomain_InitandHouseclean(void)
+static XStatus XPmPlDomain_InitandHouseclean(u32 PollTimeOut)
 {
 	volatile XStatus Status = XST_FAILURE;
 	volatile XStatus StatusTmp = XST_FAILURE;
@@ -1972,7 +1969,7 @@ static XStatus XPmPlDomain_InitandHouseclean(void)
 		PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET_VAL_MASK);
 
 	/* Workaround for GT MBIST/Memory Access/PCSR access issues */
-	Status = GtyWorkAround(Pmc);
+	Status = GtyWorkAround(Pmc, PollTimeOut);
 	if (XST_SUCCESS !=  Status) {
 		DbgErr = XPM_INT_ERR_GT_WORKAROUND;
 		goto done;
@@ -2067,7 +2064,8 @@ static XStatus XPmPlDomain_InitandHouseclean(void)
 	if ((0U == PlpdHouseCleanBypass) || (0U == LocalPlpdHCBypass)) {
 		PmInfo("Running PL Houseclean, power node 0x%x\r\n", Pld->Domain.Power.Node.Id);
 
-		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PlHouseClean), (PLHCLEAN_EARLY_BOOT));
+		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PlHouseClean), (PLHCLEAN_EARLY_BOOT),
+			(PollTimeOut));
 		/* Required for redundancy */
 		XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
 		if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
@@ -2148,7 +2146,7 @@ XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 	}
 	HcleanDone = 0U;
 
-	Status = XPmPlDomain_InitandHouseclean();
+	Status = XPmPlDomain_InitandHouseclean(XPM_POLL_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -2156,7 +2154,7 @@ XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 	/* Unlock CFU writes */
 	PldCfuLock(Pld, 0U);
 
-	Status = PlHouseClean(PLHCLEAN_INIT_NODE);
+	Status = PlHouseClean(PLHCLEAN_INIT_NODE, XPM_POLL_TIMEOUT);
 
 	/* Lock CFU writes */
 	PldCfuLock(Pld, 1U);

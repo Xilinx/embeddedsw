@@ -402,7 +402,7 @@ static void TriggerMemClearNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrLen
 }
 
 static XStatus IsMemClearDoneNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrLength,
-				 u16 *DbgErr)
+				 u16 *DbgErr, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i;
@@ -414,7 +414,7 @@ static XStatus IsMemClearDoneNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrL
 
 		Status = XPm_PollForMask(NpdMemIcAddresses[i] + NPI_PCSR_STATUS_OFFSET,
 					 NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
-					 XPM_POLL_TIMEOUT);
+					 PollTimeOut);
 		if (XST_SUCCESS != Status) {
 			*DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 			goto done;
@@ -426,7 +426,7 @@ static XStatus IsMemClearDoneNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrL
 		}
 		Status = XPm_PollForMask(DdrMcAddresses[i] + NPI_PCSR_STATUS_OFFSET,
 					 NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
-					 XPM_POLL_TIMEOUT);
+					 PollTimeOut);
 		if (XST_SUCCESS != Status) {
 			*DbgErr = XPM_INT_ERR_DDR_MEM_CLEAR_DONE;
 			break;
@@ -435,7 +435,7 @@ static XStatus IsMemClearDoneNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrL
 		if (1U == IsCrypto) {
 			Status = XPm_PollForMask(DdrMcAddresses[i] + NPI_PCSR_STATUS_OFFSET,
 						 DDRMC5_UB_PCSR_MEM_CLEAR_DONE_CRYPTO_MASK,
-						 XPM_POLL_TIMEOUT);
+						 PollTimeOut);
 			if (XST_SUCCESS != Status) {
 				*DbgErr = XPM_INT_ERR_DDR_MEM_CLEAR_DONE;
 				break;
@@ -551,9 +551,8 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 DdrMcAddrLength = ARRAY_SIZE(DdrMcAddresses);
-
-	(void)Args;
-	(void)NumOfArgs;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
+	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, XPM_POLL_TIMEOUT);
 
 	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
 		Device = XPmDevice_GetById(DDRMC_DEVID((u32)XPM_NODEIDX_DEV_DDRMC_MIN + i));
@@ -596,7 +595,8 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	TriggerMemClearNpd(DdrMcAddresses, DdrMcAddrLength);
 
 	/* Check for Mem clear done */
-	Status = IsMemClearDoneNpd(DdrMcAddresses, DdrMcAddrLength, &DbgErr);
+	Status = IsMemClearDoneNpd(DdrMcAddresses, DdrMcAddrLength, &DbgErr,
+				PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
