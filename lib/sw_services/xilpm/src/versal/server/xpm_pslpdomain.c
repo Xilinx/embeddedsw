@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -235,9 +235,8 @@ static XStatus LpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegBitMask;
 	u32 RegVal;
-
-	(void)Args;
-	(void)NumOfArgs;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
+	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, XPM_POLL_TIMEOUT);
 
 	if (PM_HOUSECLEAN_CHECK(LPD, SCAN)) {
 		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
@@ -258,7 +257,7 @@ static XStatus LpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 				 (PMC_ANALOG_SCAN_CLEAR_DONE_LPD_IOU_MASK |
 				  PMC_ANALOG_SCAN_CLEAR_DONE_LPD_MASK |
 				  PMC_ANALOG_SCAN_CLEAR_DONE_LPD_RPU_MASK),
-				 XPM_POLL_TIMEOUT);
+				 PollTimeOut);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
 			goto done;
@@ -310,9 +309,8 @@ static XStatus LpdLbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	volatile u32 RegValTmp = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegBitMask;
-
-	(void)Args;
-	(void)NumOfArgs;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
+	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, XPM_POLL_TIMEOUT);
 
 	if (PM_HOUSECLEAN_CHECK(LPD, LBIST)) {
 		PmInfo("Triggering LBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
@@ -371,7 +369,7 @@ static XStatus LpdLbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		Status = XPm_PollForMask(PMC_ANALOG_LBIST_DONE,
 				 (PMC_ANALOG_LBIST_DONE_LPD_MASK |
 				  PMC_ANALOG_LBIST_DONE_LPD_RPU_MASK),
-				 XPM_POLL_TIMEOUT);
+				 PollTimeOut);
 
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_LBIST_DONE_TIMEOUT;
@@ -461,10 +459,12 @@ done:
 /**
  * @brief  This function executes MBIST sequence for XRAM
  *
+ * @param  Poll Time out
+ *
  * @return XST_SUCCESS if successful else XPM_ERR_MBIST_CLR
  *
  ****************************************************************************/
-static XStatus XramMbist(void)
+static XStatus XramMbist(u32 PollTimeOut)
 {
 
 	/* XRAM MBIST Sequence */
@@ -513,7 +513,7 @@ static XStatus XramMbist(void)
 	/* Poll for Memclear done */
 	Status = XPm_PollForMask(BaseAddr + XRAM_SLCR_PCSR_PSR_OFFSET,
 			XRAM_SLCR_PCSR_PSR_MEM_CLEAR_DONE_0_MASK |
-			XRAM_SLCR_PCSR_PSR_MEM_CLEAR_DONE_3_TO_1_MASK, XPM_POLL_TIMEOUT);
+			XRAM_SLCR_PCSR_PSR_MEM_CLEAR_DONE_3_TO_1_MASK, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
 		goto fail;
@@ -547,7 +547,7 @@ done:
 	return Status;
 }
 
-static XStatus LpdMbistTrigger(u16 *DbgErr)
+static XStatus LpdMbistTrigger(u16 *DbgErr, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegBitMask;
@@ -590,7 +590,7 @@ static XStatus LpdMbistTrigger(u16 *DbgErr)
 				 (PMC_ANALOG_OD_MBIST_DONE_LPD_IOU_MASK|
 				  PMC_ANALOG_OD_MBIST_DONE_LPD_RPU_MASK |
 				  PMC_ANALOG_OD_MBIST_DONE_LPD_MASK),
-				 XPM_POLL_TIMEOUT);
+				 PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		*DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
 		goto done;
@@ -641,10 +641,10 @@ static XStatus LpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_ClockNode *UsbClk, *Can0Clk, *Can1Clk;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
+	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, XPM_POLL_TIMEOUT);
 
 	(void)PwrDomain;
-	(void)Args;
-	(void)NumOfArgs;
 
 	if (!(PM_HOUSECLEAN_CHECK(LPD, MBIST))) {
 		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
@@ -698,7 +698,7 @@ static XStatus LpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	Status = LpdMbistTrigger(&DbgErr);
+	Status = LpdMbistTrigger(&DbgErr, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -707,7 +707,7 @@ static XStatus LpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	CleanupMemClearLpd();
 
 	/* Required for redundancy */
-	XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (XramMbist));
+	XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (XramMbist), (PollTimeOut));
 	XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 		DbgErr = XPM_INT_ERR_XRAM_MBIST;

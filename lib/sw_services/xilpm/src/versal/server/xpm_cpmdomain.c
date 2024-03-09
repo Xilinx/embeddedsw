@@ -29,10 +29,6 @@
 static u32 GtyAddresses[XPM_NODEIDX_DEV_GTYP_CPM5_MAX -
 			XPM_NODEIDX_DEV_GTYP_CPM5_MIN + 1] = {0};
 
-/* Default polling timeout, initialized at the time of initstart
- * XPM_SLD_POLL_TIMEOUT for secure lock down */
-static u32 PollTimeOut = XPM_POLL_TIMEOUT;
-
 static XStatus CpmInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
@@ -43,7 +39,10 @@ static XStatus CpmInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 PlatformVersion;
-	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
+
+	/* This function does not use the args */
+	(void)Args;
+	(void)NumOfArgs;
 
 	const XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
 	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
@@ -62,10 +61,6 @@ static XStatus CpmInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		PmErr("PslpRailPwrSts: %d IntRailPwrSts: %d AuxRailPwrSts: %d\r\n",
 		       PslpRailPwrSts, IntRailPwrSts, AuxRailPwrSts);
 		goto done;
-	}
-
-	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
-		PollTimeOut = XPM_SLD_POLL_TIMEOUT;
 	}
 
 	/* Remove isolation to allow scan_clear on CPM */
@@ -138,7 +133,6 @@ static XStatus Cpm5InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
-		PollTimeOut = XPM_SLD_POLL_TIMEOUT;
 		RegVal = XPm_In32(CRL_RST_OCM2_CTRL) &
 					(CRL_RST_OCM2_CTRL_POR_MASK | CRL_RST_OCM2_CTRL_SRST_MASK);
 
@@ -215,6 +209,7 @@ static XStatus Cpm5ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegVal;
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
+    u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, XPM_POLL_TIMEOUT);
 
 	if (NULL == PwrDomain) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
@@ -451,6 +446,7 @@ static XStatus CpmMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 RegValue;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
+	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, XPM_POLL_TIMEOUT);
 
 	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
 		RegValue = XPm_In32(CRL_RST_OCM2_CTRL) &
@@ -540,7 +536,7 @@ done:
         return Status;
 }
 
-static XStatus Cpm5GtypMbist(u32 BaseAddress)
+static XStatus Cpm5GtypMbist(u32 BaseAddress, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -606,6 +602,7 @@ static XStatus Cpm5MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 RegValue, i;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
+    u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, XPM_POLL_TIMEOUT);
 
 	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
 		RegValue = XPm_In32(CRL_RST_OCM2_CTRL) &
@@ -678,7 +675,7 @@ static XStatus Cpm5MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		}
 
 		/* Mbist */
-		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Cpm5GtypMbist), (GtyAddresses[i]));
+		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Cpm5GtypMbist), (GtyAddresses[i]), (PollTimeOut));
 		XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
 		/* Required for redundancy */
 		if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {

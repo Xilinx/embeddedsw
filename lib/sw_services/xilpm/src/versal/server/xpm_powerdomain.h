@@ -38,6 +38,17 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 
 #define IS_SECLOCKDOWN(SecLockDownInfo) ((SecLockDownInfo) & 0x1U)
 
+maybe_unused static inline u32 GetPollTimeOut(u32 SecLockDownInfo,
+	u32 DefaultTimeOut) {
+	u32 TimeOut = XPM_SLD_POLL_TIMEOUT;
+
+	if (0U == (SecLockDownInfo & 0x1U)) {
+		TimeOut = DefaultTimeOut;
+	}
+
+	return TimeOut;
+}
+
 maybe_unused static inline u32 GetSecLockDownInfoFromArgs(const u32* Args, u32 NumOfArgs){
 	u32 val;
 
