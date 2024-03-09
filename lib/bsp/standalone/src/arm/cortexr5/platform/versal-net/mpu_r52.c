@@ -44,6 +44,9 @@ static inline void Update_MpuConfig_Array(u32 Addr, u32 RegSize, u32 RegNum,
 /************************** Constant Definitions *****************************/
 
 /************************** Variable Definitions *****************************/
+__attribute__((weak)) u32  _TCM_A_REGION  __attribute__((__section__(".bootdata"))) = 0;
+__attribute__((weak)) u32 _TCM_B_REGION  __attribute__((__section__(".bootdata"))) = 0;
+__attribute__((weak)) u32 _TCM_C_REGION  __attribute__((__section__(".bootdata"))) = 0;
 
 /************************** Function Prototypes ******************************/
 extern void Xil_SetAttributeBasedOnConfig(u32 IsSortingNedded)  __attribute__((__section__(".boot")));
