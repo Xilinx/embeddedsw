@@ -50,9 +50,9 @@ typedef struct {
 	u8 iic_dev_id;
 	u8 spi_dev_id;
 #else
-	u8 gpio_dev_baseaddress;
-	u8 iic_dev_baseaddress;
-	u8 spi_dev_baseaddress;
+	UINTPTR gpio_dev_baseaddress;
+	UINTPTR iic_dev_baseaddress;
+	UINTPTR spi_dev_baseaddress;
 #endif
 	fzetta_fmc_reglist reglist[REGLIST_SIZE];
 }fzetta_fmc_reg;

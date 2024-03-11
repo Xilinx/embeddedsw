@@ -401,7 +401,7 @@ int main(void)
 #ifndef SDT
 	XV_SdiRxSs_ConfigPtr = XV_SdiRxSs_LookupConfig(XPAR_XV_SDIRX_0_DEVICE_ID);
 #else
-	XV_SdiRxSs_ConfigPtr = XV_SdiRxSs_LookupConfig(XPAR_V_SMPTE_UHDSDI_RX_SS_BASEADDR);
+	XV_SdiRxSs_ConfigPtr = XV_SdiRxSs_LookupConfig(XPAR_XV_SDIRX_0_BASEADDR);
 #endif
 
 	XV_SdiRxSs_ConfigPtr->BaseAddress = XPAR_V_SMPTE_UHDSDI_RX_SS_BASEADDR;
