@@ -140,6 +140,7 @@
 *                       and moved it to xplmi_err.c
 *       pre  03/01/2024 Added infinite loop for PLM to stop further processing
 *                       in slave SLR if any error is encountered during boot
+*       ng   03/09/2024 Fixed format specifier for 32bit variables
 *
 * </pre>
 *
@@ -216,11 +217,11 @@ void XPlmi_LogPlmErr(int ErrStatus) {
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK,
 				(u32)ErrStatus);
 		/** - Print the PLM Error */
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PLM Error Status: 0x%08x\n\r", ErrStatus);
 	}
 	else {
 		ErrStatus &= ~XPLMI_WARNING_STATUS_MASK;
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PLM Warning Status: 0x%08lx\n\r", ErrStatus);
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PLM Warning Status: 0x%08x\n\r", ErrStatus);
 	}
 }
 
