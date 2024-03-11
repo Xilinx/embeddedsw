@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 3.0   bv   03/03/21 Print multiboot offset in FSBL banner
 *       bsv  04/28/21 Added support to ensure authenticated images boot as
 *                     non-secure when RSA_EN is not programmed
+* 3.1   ng   03/09/24 Fixed format specifier for 32bit variables
 *
 * </pre>
 *
@@ -406,7 +407,7 @@ void XFsbl_ErrorLockDown(u32 ErrorStatus)
 	/**
 	 * Print the FSBL error
 	 */
-	XFsbl_Printf(DEBUG_GENERAL,"Fsbl Error Status: 0x%08lx\r\n",
+	XFsbl_Printf(DEBUG_GENERAL,"Fsbl Error Status: 0x%08x\r\n",
 		ErrorStatus);
 
 	/**
