@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,6 +54,7 @@
 *                       which is being used instead of one from DDR.
 *                       Deleted GetImageHeaderAndSignature() and added
 *                       GetNAuthImageHeader()
+* 21.2  ng  03/09/24   Fix format specifier for 32 bit variables
 *
 * </pre>
 *
@@ -172,7 +174,7 @@ u32 LoadBootImage(void)
 
 	RebootStatusRegister = Xil_In32(REBOOT_STATUS_REG);
 	fsbl_printf(DEBUG_INFO,
-			"Reboot status register: 0x%08lx\r\n",RebootStatusRegister);
+			"Reboot status register: 0x%08x\r\n",RebootStatusRegister);
 
 	if (Silicon_Version == SILICON_VERSION_1) {
 		/*
@@ -198,7 +200,7 @@ u32 LoadBootImage(void)
 		MultiBootReg =  XDcfg_ReadReg(DcfgInstPtr->Config.BaseAddr,
 				XDCFG_MULTIBOOT_ADDR_OFFSET);
 
-		fsbl_printf(DEBUG_INFO,"Multiboot Register: 0x%08lx\r\n",MultiBootReg);
+		fsbl_printf(DEBUG_INFO,"Multiboot Register: 0x%08x\r\n",MultiBootReg);
 
 		/*
 		 * Compute the image start address
@@ -207,7 +209,7 @@ u32 LoadBootImage(void)
 									* GOLDEN_IMAGE_OFFSET;
 	}
 
-	fsbl_printf(DEBUG_INFO,"Image Start Address: 0x%08lx\r\n",ImageStartAddress);
+	fsbl_printf(DEBUG_INFO,"Image Start Address: 0x%08x\r\n",ImageStartAddress);
 
 	/*
 	 * Get partitions header information
@@ -604,7 +606,7 @@ u32 GetPartitionHeaderInfo(u32 ImageBaseAddress)
      */
     PartitionHeaderOffset += ImageBaseAddress;
 
-    fsbl_printf(DEBUG_INFO,"Partition Header Offset:0x%08lx\r\n",
+    fsbl_printf(DEBUG_INFO,"Partition Header Offset:0x%08x\r\n",
     		PartitionHeaderOffset);
 
     /*
@@ -851,26 +853,16 @@ u32 LoadPartitionsHeaderInfo(u32 PartHeaderOffset,  PartHeader *Header)
 void HeaderDump(PartHeader *Header)
 {
 	fsbl_printf(DEBUG_INFO, "Header Dump\r\n");
-	fsbl_printf(DEBUG_INFO, "Image Word Len: 0x%08lx\r\n",
-									Header->ImageWordLen);
-	fsbl_printf(DEBUG_INFO, "Data Word Len: 0x%08lx\r\n",
-									Header->DataWordLen);
-	fsbl_printf(DEBUG_INFO, "Partition Word Len:0x%08lx\r\n",
-									Header->PartitionWordLen);
-	fsbl_printf(DEBUG_INFO, "Load Addr: 0x%08lx\r\n",
-									Header->LoadAddr);
-	fsbl_printf(DEBUG_INFO, "Exec Addr: 0x%08lx\r\n",
-									Header->ExecAddr);
-	fsbl_printf(DEBUG_INFO, "Partition Start: 0x%08lx\r\n",
-									Header->PartitionStart);
-	fsbl_printf(DEBUG_INFO, "Partition Attr: 0x%08lx\r\n",
-									Header->PartitionAttr);
-	fsbl_printf(DEBUG_INFO, "Partition Checksum Offset: 0x%08lx\r\n",
-										Header->CheckSumOffset);
-	fsbl_printf(DEBUG_INFO, "Section Count: 0x%08lx\r\n",
-									Header->SectionCount);
-	fsbl_printf(DEBUG_INFO, "Checksum: 0x%08lx\r\n",
-									Header->CheckSum);
+	fsbl_printf(DEBUG_INFO, "Image Word Len: 0x%08x\r\n", Header->ImageWordLen);
+	fsbl_printf(DEBUG_INFO, "Data Word Len: 0x%08x\r\n", Header->DataWordLen);
+	fsbl_printf(DEBUG_INFO, "Partition Word Len:0x%08x\r\n", Header->PartitionWordLen);
+	fsbl_printf(DEBUG_INFO, "Load Addr: 0x%08x\r\n", Header->LoadAddr);
+	fsbl_printf(DEBUG_INFO, "Exec Addr: 0x%08x\r\n", Header->ExecAddr);
+	fsbl_printf(DEBUG_INFO, "Partition Start: 0x%08x\r\n", Header->PartitionStart);
+	fsbl_printf(DEBUG_INFO, "Partition Attr: 0x%08x\r\n", Header->PartitionAttr);
+	fsbl_printf(DEBUG_INFO, "Partition Checksum Offset: 0x%08x\r\n", Header->CheckSumOffset);
+	fsbl_printf(DEBUG_INFO, "Section Count: 0x%08x\r\n", Header->SectionCount);
+	fsbl_printf(DEBUG_INFO, "Checksum: 0x%08x\r\n", Header->CheckSum);
 }
 
 

@@ -1,6 +1,6 @@
 /*****************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,6 +61,7 @@
 * 											through MCTRL register for
 * 											3.0 and later versions of silicon.
 * 21.1   ng  07/13/23   Add SDT support
+* 21.2   ng  03/09/24   Fix format specifier for 32 bit variables
 * </pre>
 *
 * @note
@@ -700,49 +701,49 @@ void PcapDumpRegisters (void) {
 
 	fsbl_printf(DEBUG_INFO,"PCAP register dump:\r\n");
 
-	fsbl_printf(DEBUG_INFO,"PCAP CTRL 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP CTRL 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_CTRL_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_CTRL_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP LOCK 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP LOCK 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_LOCK_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_LOCK_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP CONFIG 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP CONFIG 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_CFG_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_CFG_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP ISR 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP ISR 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_INT_STS_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_INT_STS_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP IMR 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP IMR 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_INT_MASK_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_INT_MASK_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP STATUS 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP STATUS 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_STATUS_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_STATUS_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP DMA SRC ADDR 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP DMA SRC ADDR 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_DMA_SRC_ADDR_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_DMA_SRC_ADDR_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP DMA DEST ADDR 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP DMA DEST ADDR 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_DMA_DEST_ADDR_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_DMA_DEST_ADDR_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP DMA SRC LEN 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP DMA SRC LEN 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_DMA_SRC_LEN_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_DMA_SRC_LEN_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP DMA DEST LEN 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP DMA DEST LEN 0x%x: 0x%08x\r\n",
 			XPS_DEV_CFG_APB_BASEADDR + XDCFG_DMA_DEST_LEN_OFFSET,
 			Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_DMA_DEST_LEN_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP ROM SHADOW CTRL 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP ROM SHADOW CTRL 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_ROM_SHADOW_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_ROM_SHADOW_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP MBOOT 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP MBOOT 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_MULTIBOOT_ADDR_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_MULTIBOOT_ADDR_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP SW ID 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP SW ID 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_SW_ID_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_SW_ID_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP UNLOCK 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP UNLOCK 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_UNLOCK_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_UNLOCK_OFFSET));
-	fsbl_printf(DEBUG_INFO,"PCAP MCTRL 0x%x: 0x%08lx\r\n",
+	fsbl_printf(DEBUG_INFO,"PCAP MCTRL 0x%x: 0x%08x\r\n",
 		XPS_DEV_CFG_APB_BASEADDR + XDCFG_MCTRL_OFFSET,
 		Xil_In32(XPS_DEV_CFG_APB_BASEADDR + XDCFG_MCTRL_OFFSET));
 }
