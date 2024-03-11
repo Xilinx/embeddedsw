@@ -29,17 +29,6 @@
 #include "platform_info.h"
 #include "rsc_table.h"
 
-#define KICK_DEV_NAME         "poll_dev"
-#define KICK_BUS_NAME         "generic"
-
-#if XPAR_CPU_ID == 0
-#define SHARED_MEM_PA  0x3ED40000UL
-#else
-#define SHARED_MEM_PA  0x3EF40000UL
-#endif /* XPAR_CPU_ID */
-#define SHARED_MEM_SIZE 0x100000UL
-#define SHARED_BUF_OFFSET 0x8000UL
-
 #ifndef RPMSG_NO_IPI
 #define _rproc_wait() __asm volatile("wfi")
 #endif /* !RPMSG_NO_IPI */

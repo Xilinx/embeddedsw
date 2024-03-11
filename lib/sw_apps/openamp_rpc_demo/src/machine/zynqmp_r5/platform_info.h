@@ -66,6 +66,31 @@ extern "C" {
 
 #endif /* VERSAL_NET */
 
+#if XPAR_CPU_ID == 0
+
+#ifndef SHARED_MEM_PA
+#define SHARED_MEM_PA  0x3ED40000UL
+#endif /* !SHARED_MEM_PA */
+
+#else
+
+#ifndef SHARED_MEM_PA
+#define SHARED_MEM_PA  0x3EF40000UL
+#endif /* !SHARED_MEM_PA */
+
+#endif /* XPAR_CPU_ID */
+
+#define KICK_DEV_NAME         "poll_dev"
+#define KICK_BUS_NAME         "generic"
+
+#ifndef SHARED_MEM_SIZE
+#define SHARED_MEM_SIZE 0x100000UL
+#endif /* !SHARED_MEM_SIZE */
+
+#ifndef SHARED_BUF_OFFSET
+#define SHARED_BUF_OFFSET 0x8000UL
+#endif /* !SHARED_BUF_OFFSET */
+
 #ifdef RPMSG_NO_IPI
 #undef POLL_BASE_ADDR
 #define POLL_BASE_ADDR 0x3EE40000
