@@ -76,9 +76,6 @@
 #endif
 #endif
 #include "xrfdc.h"
-#ifdef XPS_BOARD_ZCU111
-#include "xrfdc_clk.h"
-#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -128,15 +125,6 @@ static int CompareThresholdSettings(XRFdc_Threshold_Settings *SetThresholdSettin
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
 struct metal_device *deviceptr = NULL;
-
-#ifdef XPS_BOARD_ZCU111
-unsigned int LMK04208_CKin[1][26] = {
-		{0x00160040,0x80140320,0x80140321,0x80140322,
-		0xC0140023,0x40140024,0x80141E05,0x03300006,0x01300007,0x06010008,
-		0x55555549,0x9102410A,0x0401100B,0x1B0C006C,0x2302886D,0x0200000E,
-		0x8000800F,0xC1550410,0x00000058,0x02C9C419,0x8FA8001A,0x10001E1B,
-		0x0021201C,0x0180033D,0x0200033E,0x003F001F }};
-#endif
 
 #ifdef __BAREMETAL__
 metal_phys_addr_t metal_phys;
@@ -290,12 +278,6 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	if (Status != XRFDC_SUCCESS) {
 		return XRFDC_FAILURE;
 	}
-
-#ifdef XPS_BOARD_ZCU111
-printf("\n Configuring the Clock \r\n");
-	LMK04208ClockConfig(I2CBUS, LMK04208_CKin);
-	LMX2594ClockConfig(I2CBUS, 3932160);
-#endif
 
 	for (Tile = 0; Tile <4; Tile++) {
 		for (Block = 0; Block <4; Block++) {

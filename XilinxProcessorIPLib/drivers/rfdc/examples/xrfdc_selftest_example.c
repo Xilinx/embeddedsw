@@ -47,9 +47,6 @@
 #include "xparameters.h"
 #endif
 #include "xrfdc.h"
-#ifdef XPS_BOARD_ZCU111
-#include "xrfdc_clk.h"
-#endif
 
 /************************** Constant Definitions ****************************/
 

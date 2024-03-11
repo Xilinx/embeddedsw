@@ -114,9 +114,7 @@ required:
 
 examples:
     xrfdc_selftest_example.c:
-        - dependency_files:
-            - xrfdc_clk.h
-            - xrfdc_clk.c
+        - reg
     xrfdc_read_write_example.c:
         - reg
 
