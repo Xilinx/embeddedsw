@@ -350,6 +350,13 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr)
 	const char *RawString = "";
 	const PdiSrcMap PdiSourceMap[] = XLOADER_GET_PDISRC_INFO();
 
+	if (XPlmi_IsLoadBootPdiDone() == TRUE){
+		PdiPtr->ClearAtfHandoff = (u32)TRUE;
+	}
+	else{
+		PdiPtr->ClearAtfHandoff = (u32)FALSE;
+	}
+
 	/**
 	 *  Clear the DDR Calib Check RTCA Register.
 	 */
@@ -2119,6 +2126,33 @@ int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr
 	/** Extract Metaheader using PdiInit */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
 			XLOADER_PDI_SRC_DDR, SrcAddr);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears ATF Handoff parameters in case of
+ *          multi-partitions in APU subsystem
+ *
+ * @param	PdiPtr		Pointer to XilPdi instance
+ *
+ *		- XST_SUCCESS on success
+ *		- XST_FAILURE on failure
+ *
+ *****************************************************************************/
+int XLoader_ClearATFHandoffParams(XilPdi* PdiPtr){
+	int Status = XST_FAILURE;
+	XilPdi_ATFHandoffParams *ATFHandoffParams = XLoader_GetATFHandoffParamsAddr();
+	if (PdiPtr->ClearAtfHandoff == (u32)TRUE){
+			Status = XPlmi_MemSet((u64)(UINTPTR)ATFHandoffParams, (u32)0U, (u32)sizeof(XilPdi_ATFHandoffParams)/4U);
+			if(Status != XST_SUCCESS){
+				goto END;
+			}
+			PdiPtr->ClearAtfHandoff = (u32)FALSE;
+	}
+	Status = XST_SUCCESS;
 
 END:
 	return Status;

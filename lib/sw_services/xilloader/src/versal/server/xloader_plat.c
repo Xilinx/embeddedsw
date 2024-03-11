@@ -34,6 +34,8 @@
 *       dd   09/11/2023 MISRA-C violation Directive 4.5 fixed
 *       dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
 *       ng   01/28/2024 u8 variables optimization
+*       mss  03/06/2024 Removed code which was overwriting partition header
+*                       Destination Execution Address
 *
 * </pre>
 *
@@ -333,8 +335,6 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 			LoopCount++) {
 			if (ATFHandoffParams->Entry[LoopCount].PrtnFlags ==
 					PrtnFlags) {
-				ATFHandoffParams->Entry[LoopCount].EntryPoint =
-					PrtnHdr->DstnExecutionAddr;
 				break;
 			}
 		}
@@ -737,6 +737,11 @@ END1:
 
 	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A72_0) ||
 		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A72_1)) {
+
+		Status = XLoader_ClearATFHandoffParams(PdiPtr);
+		if(Status != XST_SUCCESS){
+			goto END;
+		}
 		/**
 		 *  - Populate handoff parameters to ATF.
 		 *  These correspond to the partitions of application

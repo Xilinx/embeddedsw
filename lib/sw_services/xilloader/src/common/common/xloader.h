@@ -115,6 +115,8 @@
 *       sk   08/18/2023 Renamed ValidHeader member to DiscardUartLogs in XilPdi
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
 * 2.00  kpt  02/21/2024 Update prototype for XLoader_EnableJtag and XLoader_DisableJtag
+*       mss  03/06/2024 Added ClearAtfHandoff member in XilPdi structure and
+*                       ClearATFHandoffParams function prototype
 *
 * </pre>
 *
@@ -292,6 +294,8 @@ typedef struct {
 	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
 	XLoader_HandoffParam HandoffParam[XLOADER_MAX_HANDOFF_CPUS];
 	u32 IpiMask; /**< Info about which master has sent the request*/
+	u32 ClearAtfHandoff; /** Flag to clear ATF Handoff params before loading
+					    APU Subsystem Partition */
 	u8 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
 	u8 ImageNum; /**< Image number in the PDI */
 	u8 PrtnNum; /**< Partition number in the PDI */
@@ -401,6 +405,7 @@ int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
 int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr);
 int XLoader_ReadImageStoreCfg(void);
 int XLoader_IsPdiAddrLookup(u32 PdiId, u64 *PdiAddr);
+int XLoader_ClearATFHandoffParams(XilPdi* PdiPtr);
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr);

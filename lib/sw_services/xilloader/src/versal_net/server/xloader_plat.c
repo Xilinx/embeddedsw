@@ -45,6 +45,8 @@
 *       ng   02/14/2024 removed int typecast for errors
 * 1.03  am   01/31/2024 Fixed internal security review comments of XilOcp library
 *       kpt  01/22/2024 Added support to extend secure state to SWPCR
+*       mss  03/06/2024 Removed code which was overwriting partition header
+*                       Destination Execution Address
 *
 * </pre>
 *
@@ -457,8 +459,6 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 			LoopCount++) {
 			if (ATFHandoffParams->Entry[LoopCount].PrtnFlags ==
 					PrtnFlags) {
-				ATFHandoffParams->Entry[LoopCount].EntryPoint =
-					PrtnHdr->DstnExecutionAddr;
 				break;
 			}
 		}
@@ -724,6 +724,11 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A78_2) ||
 		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A78_3)
 		) {
+
+		Status = XLoader_ClearATFHandoffParams(PdiPtr);
+		if(Status != XST_SUCCESS){
+			goto END;
+		}
 		/**
 		 *  - Populate handoff parameters to ATF.
 		 *  These correspond to the partitions of application
