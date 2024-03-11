@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -85,6 +85,7 @@
 * 											to enable level shifters in jtag boot mode.
 * 21.1   ng  07/13/23   Add SDT support
 * 21.2   ng  07/25/23   Fixed DDR, WDT, NAND and QSPI addresses support in SDT
+* 21.3   ng  03/09/24   Fix format specifier for 32 bit variables
 *
 * </pre>
 *
@@ -521,7 +522,7 @@ int main(void)
 		FsblFallback();
 	}
 
-	fsbl_printf(DEBUG_INFO,"Flash Base Address: 0x%08lx\r\n", FlashReadBaseAddress);
+	fsbl_printf(DEBUG_INFO,"Flash Base Address: 0x%08x\r\n", FlashReadBaseAddress);
 
 	/*
 	 * Check for valid flash address
@@ -561,7 +562,7 @@ int main(void)
 	 */
 	HandoffAddress = LoadBootImage();
 
-	fsbl_printf(DEBUG_INFO,"Handoff Address: 0x%08lx\r\n",HandoffAddress);
+	fsbl_printf(DEBUG_INFO,"Handoff Address: 0x%08x\r\n",HandoffAddress);
 
 	/*
 	 * For Performance measurement
@@ -1053,7 +1054,7 @@ static void Update_MultiBootRegister(void)
 				XDCFG_MULTIBOOT_ADDR_OFFSET,
 				MultiBootReg);
 
-		fsbl_printf(DEBUG_INFO,"Updated MultiBootReg = 0x%08lx\r\n",
+		fsbl_printf(DEBUG_INFO,"Updated MultiBootReg = 0x%08x\r\n",
 				MultiBootReg);
 	}
 }
