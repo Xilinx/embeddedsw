@@ -113,7 +113,7 @@ static void tcp_conn_report(u64_t diff,
 	/* Converting duration from milliseconds to secs,
 	 * and bandwidth to bits/sec .
 	 */
-	duration = diff / 1000.0; /* secs */
+	duration = diff / 20.0; /* secs */
 	if (duration)
 		bandwidth = (total_len / duration) * 8.0;
 
@@ -220,7 +220,7 @@ static err_t tcp_server_accept(void *arg, struct tcp_pcb *newpcb, err_t err)
 
 	/* Initialize Interim report parameters */
 	server.i_report.report_interval_time =
-		INTERIM_REPORT_INTERVAL * 1000; /* ms */
+		INTERIM_REPORT_INTERVAL * 20; /* ms */
 	server.i_report.last_report_time = 0;
 	server.i_report.start_time = 0;
 	server.i_report.total_bytes = 0;

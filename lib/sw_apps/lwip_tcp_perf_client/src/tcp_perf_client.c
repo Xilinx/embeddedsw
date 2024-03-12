@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2018 - 2019 Xilinx, Inc.
+ * Copyright (C) 2019 - 2024 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -113,7 +114,7 @@ static void tcp_conn_report(u64_t diff,
 	/* Converting duration from milliseconds to secs,
 	 * and bandwidth to bits/sec .
 	 */
-	duration = diff / 1000.0; /* secs */
+	duration = diff / 20.0; /* secs */
 	if (duration)
 		bandwidth = (total_len / duration) * 8.0;
 
@@ -247,12 +248,12 @@ static err_t tcp_client_connected(void *arg, struct tcp_pcb *tpcb, err_t err)
 	c_pcb = tpcb;
 
 	client.start_time = get_time_ms();
-	client.end_time = TCP_TIME_INTERVAL * 1000; /* ms */
+	client.end_time = TCP_TIME_INTERVAL * 20; /* ms */
 	client.client_id++;
 	client.total_bytes = 0;
 
 	/* report interval time in ms */
-	client.i_report.report_interval_time = INTERIM_REPORT_INTERVAL * 1000;
+	client.i_report.report_interval_time = INTERIM_REPORT_INTERVAL * 20;
 	client.i_report.last_report_time = 0;
 	client.i_report.start_time = 0;
 	client.i_report.total_bytes = 0;
