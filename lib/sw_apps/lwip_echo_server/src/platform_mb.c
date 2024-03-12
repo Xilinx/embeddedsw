@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -44,6 +44,8 @@
 #include "xintc.h"
 #include "xtmrctr_l.h"
 
+extern void timer_callback();
+
 void
 xadapter_timer_handler(void *p)
 {
@@ -63,8 +65,8 @@ xadapter_timer_handler(void *p)
 	XIntc_AckIntr(XPAR_INTC_0_BASEADDR, PLATFORM_TIMER_INTERRUPT_MASK);
 }
 
-#define MHZ (66)
-#define TIMER_TLR (25000000*((float)MHZ/100))
+//for 50 msec
+#define TIMER_TLR (XPAR_TMRCTR_0_CLOCK_FREQ_HZ/20)
 
 void
 platform_setup_timer()
