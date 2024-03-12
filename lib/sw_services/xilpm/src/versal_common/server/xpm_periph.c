@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -281,6 +281,9 @@ static int HbMon_Scheduler(void *data)
 				}
 
 				Status = XPm_SubsystemIdleCores(Device->Requirements->Subsystem);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
 			} else {
 				PmErr("Healthy Boot Timer %lu Expired. Triggering recovery\r\n",
 									Idx);
