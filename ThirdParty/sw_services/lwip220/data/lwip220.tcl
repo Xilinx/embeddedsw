@@ -897,6 +897,8 @@ proc generate_lwip_opts {libhandle} {
 	set sys_debug		[expr [common::get_property CONFIG.sys_debug $libhandle] == true]
 	set pbuf_debug		[expr [common::get_property CONFIG.pbuf_debug $libhandle] == true]
 	set socket_debug	[expr [common::get_property CONFIG.socket_debug $libhandle] == true]
+        set dhcp_debug         [expr [common::get_property CONFIG.dhcp_debug $libhandle] == true]
+        set acd_debug          [expr [common::get_property CONFIG.acd_debug $libhandle] == true]
 
 	if {$lwip_debug == 1} {
 		puts $lwipopts_fd "\#define LWIP_DEBUG 1"
