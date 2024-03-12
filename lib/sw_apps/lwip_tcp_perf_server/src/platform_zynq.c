@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -61,13 +61,17 @@
 #include "xscutimer.h"
 #include "xtime_l.h"
 
+#if LWIP_DHCP_DOES_ACD_CHECK
+#include "lwip/acd.h"
+#endif
+
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define TIMER_DEVICE_ID		XPAR_SCUTIMER_DEVICE_ID
 #define INTC_BASE_ADDR		XPAR_SCUGIC_0_CPU_BASEADDR
 #define INTC_DIST_BASE_ADDR	XPAR_SCUGIC_0_DIST_BASEADDR
 #define TIMER_IRPT_INTR		XPAR_SCUTIMER_INTR
 
-#define RESET_RX_CNTR_LIMIT	400
+#define RESET_RX_CNTR_LIMIT	2000
 
 void tcp_fasttmr(void);
 void tcp_slowtmr(void);
@@ -83,7 +87,7 @@ volatile int TcpFastTmrFlag = 0;
 volatile int TcpSlowTmrFlag = 0;
 
 #if LWIP_DHCP==1
-volatile int dhcp_timoutcntr = 24;
+volatile int dhcp_timoutcntr = 240;
 void dhcp_fine_tmr();
 void dhcp_coarse_tmr();
 #endif
@@ -94,28 +98,60 @@ timer_callback(XScuTimer * TimerInstance)
 	/* we need to call tcp_fasttmr & tcp_slowtmr at intervals specified
 	 * by lwIP. It is not important that the timing is absoluetly accurate.
 	 */
-	static int odd = 1;
-#if LWIP_DHCP==1
-    static int dhcp_timer = 0;
-#endif
-	 TcpFastTmrFlag = 1;
+        static int Tcp_Fasttimer = 0;
+        static int Tcp_Slowtimer = 0;
 
-	odd = !odd;
+#if LWIP_DHCP==1
+        static int dhcp_timer = 0;
+        static int dhcp_finetimer = 0;
+#if LWIP_DHCP_DOES_ACD_CHECK == 1
+        static int acd_timer = 0;
+#endif
+#endif
+
 #ifndef USE_SOFTETH_ON_ZYNQ
 	ResetRxCntr++;
 #endif
-	if (odd) {
-		TcpSlowTmrFlag = 1;
+
+	Tcp_Fasttimer++;
+	Tcp_Slowtimer++;
+
 #if LWIP_DHCP==1
-		dhcp_timer++;
-		dhcp_timoutcntr--;
-		dhcp_fine_tmr();
-		if (dhcp_timer >= 120) {
-			dhcp_coarse_tmr();
-			dhcp_timer = 0;
-		}
+	dhcp_finetimer++;
+	dhcp_timer++;
+	dhcp_timoutcntr--;
+#if LWIP_DHCP_DOES_ACD_CHECK == 1
+	acd_timer++;
 #endif
+#endif
+
+	if(Tcp_Fasttimer % 5 == 0)
+	{
+		TcpFastTmrFlag = 1;
 	}
+
+	if(Tcp_Slowtimer % 10 == 0)
+	{
+		TcpSlowTmrFlag = 1;
+	}
+
+#if LWIP_DHCP==1
+	if(dhcp_finetimer % 10 == 0)
+	{
+		dhcp_fine_tmr();
+	}
+	if (dhcp_timer >= 1200)
+	{
+		dhcp_coarse_tmr();
+		dhcp_timer = 0;
+	}
+#if LWIP_DHCP_DOES_ACD_CHECK == 1
+	if(acd_timer % 2 == 0)
+	{
+		acd_tmr();
+	}
+#endif /* LWIP_DHCP_DOES_ACD_CHECK */
+#endif /*LWIP_DHCP */
 
 	/* For providing an SW alternative for the SI #692601. Under heavy
 	 * Rx traffic if at some point the Rx path becomes unresponsive, the
@@ -160,9 +196,9 @@ void platform_setup_timer(void)
 
 	XScuTimer_EnableAutoReload(&TimerInstance);
 	/*
-	 * Set for 250 milli seconds timeout.
+	 * Set for 50 milli seconds timeout.
 	 */
-	TimerLoadValue = XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ / 8;
+	TimerLoadValue = XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ / 40;
 
 	XScuTimer_LoadTimer(&TimerInstance, TimerLoadValue);
 	return;
@@ -225,7 +261,7 @@ void cleanup_platform()
 
 u64_t get_time_ms()
 {
-#define COUNTS_PER_MILLI_SECOND (COUNTS_PER_SECOND/1000)
+#define COUNTS_PER_MILLI_SECOND (COUNTS_PER_SECOND/20)
 	XTime tCur = 0;
 	XTime_GetTime(&tCur);
 	return (tCur/COUNTS_PER_MILLI_SECOND);
