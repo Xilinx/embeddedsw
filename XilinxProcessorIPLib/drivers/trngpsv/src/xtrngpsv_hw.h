@@ -1,6 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -25,6 +25,7 @@
  * 1.00  ssc  09/05/21 First release
  * 1.1   ssc  03/24/22 Minor doxygen related fixes
  *       mb   09/14/23 Fix MISRA-C vioaltion 2.5
+ * 1.5   kpt  03/06/24 Fix doxygen warnings
  *
  * </pre>
  *
@@ -47,24 +48,24 @@ extern "C" {
  * @{
  */
 /* Register: TRNG_STATUS */
-#define TRNG_STATUS    0x00000004U
+#define TRNG_STATUS    0x00000004U  /**< TRNG status offset */
 
-#define TRNG_STATUS_QCNT_MASK    0x00000e00U
-#define TRNG_STATUS_CERTF_MASK    0x00000008U
-#define TRNG_STATUS_DTF_MASK    0x00000002U
-#define TRNG_STATUS_DONE_MASK    0x00000001U
+#define TRNG_STATUS_QCNT_MASK    0x00000e00U  /**< TRNG QCNT mask */
+#define TRNG_STATUS_CERTF_MASK   0x00000008U  /**< TRNG CERTF mask */
+#define TRNG_STATUS_DTF_MASK     0x00000002U  /**< TRNG DTF mask */
+#define TRNG_STATUS_DONE_MASK    0x00000001U  /**< TRNG status done mask */
 
 /* Register: TRNG_CTRL */
-#define TRNG_CTRL    0x00000008U
-#define TRNG_CTRL_EUMODE_MASK    0x00000100U
-#define TRNG_CTRL_PRNGMODE_MASK    0x00000080U
-#define TRNG_CTRL_PRNGSTART_MASK    0x00000020U
-#define TRNG_CTRL_PRNGXS_MASK    0x00000008U
-#define TRNG_CTRL_TRSSEN_MASK    0x00000004U
-#define TRNG_CTRL_PRNGSRST_MASK    0x00000001U
+#define TRNG_CTRL                  0x00000008U  /**< TRNG control offset */
+#define TRNG_CTRL_EUMODE_MASK      0x00000100U  /**< Entropy data collection mode mask */
+#define TRNG_CTRL_PRNGMODE_MASK    0x00000080U  /**< Pseudo random number mode mask */
+#define TRNG_CTRL_PRNGSTART_MASK   0x00000020U  /**< PRNG start mask */
+#define TRNG_CTRL_PRNGXS_MASK      0x00000008U  /**< PRNG seed source mask */
+#define TRNG_CTRL_TRSSEN_MASK      0x00000004U  /**< True random seed source enable mask */
+#define TRNG_CTRL_PRNGSRST_MASK    0x00000001U  /**< PRNG soft reset mask */
 
 /* Register: TRNG_EXT_SEED_0 */
-#define TRNG_EXT_SEED_0    0x00000040U
+#define TRNG_EXT_SEED_0    0x00000040U  /**< TRNG external seed 0 offset */
 /**
  * Below registers are not directly referenced in driver but are accessed accessed with offset
  * from TRNG_EXT_SEED_0
@@ -83,7 +84,7 @@ extern "C" {
  */
 
 /* Register: TRNG_PER_STRNG_0 */
-#define TRNG_PER_STRNG_0    0x00000080U
+#define TRNG_PER_STRNG_0    0x00000080U  /**< TRNG personalization string 0 offset */
 /**
  * Below registers are not directly referenced in driver but are accessed accessed with offset
  * from TRNG_PER_STRNG_0
@@ -102,15 +103,15 @@ extern "C" {
  */
 
 /* Register: TRNG_CORE_OUTPUT */
-#define TRNG_CORE_OUTPUT    0x000000C0U
+#define TRNG_CORE_OUTPUT    0x000000C0U  /**< TRNG core output offset */
 
 /* Register: TRNG_RESET */
-#define TRNG_RESET    0x000000D0U
-#define TRNG_RESET_VAL_MASK    0x00000001U
+#define TRNG_RESET              0x000000D0U  /**< TRNG reset offset */
+#define TRNG_RESET_VAL_MASK     0x00000001U  /**< TRNG default reset value */
 
 /* Register: TRNG_OSC_EN */
-#define TRNG_OSC_EN    0x000000D4U
-#define TRNG_OSC_EN_VAL_MASK    0x00000001U
+#define TRNG_OSC_EN             0x000000D4U  /**< TRNG oscillator enable offset */
+#define TRNG_OSC_EN_VAL_MASK    0x00000001U  /**< TRNG default oscillator enable value */
 /** @} */
 
 #ifdef __cplusplus
