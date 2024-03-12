@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,6 +67,7 @@
 *       am   07/03/2023 Added macros related to IHT OP data
 *       dd   08/11/2023 Updated doxygen comments
 *       kpt  12/04/2023 Move XilPdi_BootHdr to platform specific files
+*       am   03/02/2024 Added IsAuthOptimized variable in XilPdi_MetaHdr structure
 *
 * </pre>
 *
@@ -208,8 +209,10 @@ extern "C" {
 #define XILPDI_ERR_IH_CHECKSUM		(0x40)
 #define XILPDI_ERR_PH_CHECKSUM		(0x80)
 #define XILPDI_ERR_OPTIONAL_DATA_CHECKSUM_FAILED	(0x70)
-#define XILPDI_ERR_NO_VALID_OPTIONAL_DATA	(0x71)
-#define XILPDI_ERR_INVALID_DIGEST_TABLE_SIZE	(0x72)
+#define XILPDI_ERR_NO_VALID_OPTIONAL_DATA		(0x71)
+#define XILPDI_ERR_INVALID_DIGEST_TABLE_SIZE		(0x72)
+#define XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA		(0x73)
+#define XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA_AT_DATA_ID_3	(0x74)
 
 /**
  * Image Header Attributes
@@ -225,7 +228,7 @@ extern "C" {
 #define XILPDI_IMG_NAME_ARRAY_SIZE				(16U)
 
 /**
- * Minimun buffer length for checksum
+ * Minimum buffer length for checksum
  */
 #define XILPDI_CHECKSUM_MIN_BUF_LEN				(0X2U)
 
@@ -253,6 +256,10 @@ extern "C" {
 #define XIH_OPT_DATA_HDR_LEN_MASK	(0xFFFF0000U)
 #define XIH_OPT_DATA_LEN_SHIFT	(16U)
 #define XIPLDI_SHA3_HASH_SIZE_IN_BYTES (48U)
+#define XILPDI_OPTIONAL_DATA_ID_3_MAX_SIZE_2K_BYTES	(0x800U)
+					/** Maximum size of IHT Optional data for Data Id 3 is 2KB */
+#define XILPDI_OPTIONAL_DATA_MAX_SIZE_16K_BYTES		(0x3E00U)
+					/** Maximum size of IHT Optional data is 15,872B(16KB-128Word) */
 
 /**************************** Type Definitions *******************************/
 
@@ -316,6 +323,7 @@ typedef struct {
 	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length,
 			u32 Flags); /**< Function pointer for device copy */
 	u32 DigestTableSize; /**< Digest table size in bytes */
+	u32 IsAuthOptimized; /**< Authentication optimization enabled or disabled by the user */
 } XilPdi_MetaHdr __attribute__ ((aligned(16U)));
 
 /**

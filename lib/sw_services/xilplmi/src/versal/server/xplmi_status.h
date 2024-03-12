@@ -121,6 +121,7 @@
 *       mss  09/04/2023 Added error code for Null Check of EmInit params
 * 2.0   ng   11/11/2023 Added error code for User modules
 * 2.00  ng   01/26/2024 Updated minor error codes
+*       am   03/02/2024 Added XLOADER_ERR_ZEROIZE_DIGEST_TABLE error code
 *
 * </pre>
 *
@@ -313,7 +314,7 @@ typedef enum {
 					   used is not registered */
 	XPLMI_ERR_PRE_INIT,	/**< 0x142 - Error PLMI pre initialization failed */
 	XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS, /**< 0x143 - Error when max recursive CDO processing
-						has been occured */
+						has been occurred */
 	XPLMI_ERR_EMINIT_INVALID_PARAM, /**< 0x144 Error if Params are Invalid */
 
 	/** Platform specific Status codes used in PLMI from 0x1A0 to 0x1FF */
@@ -476,7 +477,7 @@ typedef enum {
 	XLOADER_ERR_SECURE_METAHDR,	/**< 0x325 - Error when meta header
 					  secure validations fail. */
 	XLOADER_ERR_GEN_IDCODE,		/**< 0X326 - Error if Vivado configured part (IDCODE)
-						mismatches with the acutal part */
+						mismatches with the actual part */
 	XLOADER_ERR_USB_LOOKUP,		/**< 0x327 - Error when USB lookup fails*/
 	XLOADER_ERR_USB_CFG,		/**< 0x328 - Error when USB cfg initialize fails */
 	XLOADER_ERR_USB_START,		/**< 0x329 - Error when USB fails to start */
@@ -749,6 +750,8 @@ typedef enum {
 		/**< 0x636 Error while reading IHT optional data */
 	XLOADER_ERR_STORE_DIGEST_TABLE,
 		/**< 0x637 Error while storing digest table */
+	XLOADER_ERR_ZEROIZE_DIGEST_TABLE,
+		/**< 0x638 Error while zeroizing digest table */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED = 0x6A0,
