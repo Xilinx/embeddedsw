@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2009 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -41,7 +41,7 @@
 #include "lwip/tcp.h"
 
 #if LWIP_DHCP==1
-volatile int dhcp_timoutcntr = 24;
+volatile int dhcp_timoutcntr = 240;
 void dhcp_fine_tmr();
 void dhcp_coarse_tmr();
 #endif
@@ -51,6 +51,10 @@ void dhcp_coarse_tmr();
 #include "xinterrupt_wrap.h"
 #else
 #include "xintc.h"
+#endif
+
+#if LWIP_DHCP_DOES_ACD_CHECK
+#include "lwip/acd.h"
 #endif
 
 volatile int TcpFastTmrFlag = 0;
@@ -63,31 +67,58 @@ void timer_callback()
 	 * by lwIP.
 	 * It is not important that the timing is absoluetly accurate.
 	 */
-	static int odd = 1;
+        static int Tcp_Fasttimer = 0;
+        static int Tcp_Slowtimer = 0;
+
 #if LWIP_DHCP==1
 	static int dhcp_timer = 0;
+        static int dhcp_finetimer = 0;
+#if LWIP_DHCP_DOES_ACD_CHECK == 1
+        static int acd_timer = 0;
 #endif
-	tickcntr++;
-	if (tickcntr % 25 == 0) {
+#endif
+
+        tickcntr++;
+
+        Tcp_Fasttimer++;
+        Tcp_Slowtimer++;
+
+#if LWIP_DHCP==1
+        dhcp_finetimer++;
+        dhcp_timer++;
+        dhcp_timoutcntr--;
+#if LWIP_DHCP_DOES_ACD_CHECK == 1
+        acd_timer++;
+#endif
+#endif
+
+	if(Tcp_Fasttimer % 5 == 0)
+	{
 		TcpFastTmrFlag = 1;
-
-		odd = !odd;
-		if (odd) {
-
-#if LWIP_DHCP==1
-			dhcp_timer++;
-			dhcp_timoutcntr--;
-#endif
-			TcpSlowTmrFlag = 1;
-#if LWIP_DHCP==1
-			dhcp_fine_tmr();
-			if (dhcp_timer >= 120) {
-				dhcp_coarse_tmr();
-				dhcp_timer = 0;
-			}
-#endif
-		}
 	}
+
+	if(Tcp_Slowtimer % 10 == 0)
+	{
+		TcpSlowTmrFlag = 1;
+	}
+
+#if LWIP_DHCP==1
+	if(dhcp_finetimer % 10 == 0)
+	{
+		dhcp_fine_tmr();
+	}
+	if (dhcp_timer >= 1200)
+	{
+		dhcp_coarse_tmr();
+		dhcp_timer = 0;
+	}
+#if LWIP_DHCP_DOES_ACD_CHECK == 1
+        if(acd_timer % 2 == 0)
+        {
+                acd_tmr();
+        }
+#endif /* LWIP_DHCP_DOES_ACD_CHECK */
+#endif /*LWIP_DHCP */
 }
 
 #ifndef SDT
@@ -188,8 +219,8 @@ void TimerCounterHandler(void *CallBackRef, u32_t TmrCtrNumber)
 
 void init_timer()
 {
-	/* Calibrate the platform timer for 1 ms */
-	XTimer_SetInterval(1);
+	/* Calibrate the platform timer for 50 ms */
+	XTimer_SetInterval(50);
 	XTimer_SetHandler(TimerCounterHandler, 0, XINTERRUPT_DEFAULT_PRIORITY);
 }
 /* Timer ticking for SDT Flow */
@@ -201,7 +232,7 @@ u64_t get_time_ms()
 /* Timer ticking for Microblaze */
 u64_t get_time_ms()
 {
-	return tickcntr * 10;
+	return tickcntr;
 }
 #endif
 void cleanup_platform()

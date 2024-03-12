@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2009 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -30,10 +30,10 @@
 #ifndef __PLATFORM_H_
 #define __PLATFORM_H_
 
-/* Platform timer is calibrated for 250 ms, so kept interval value 4 to call
+/* Platform timer is calibrated for 50 ms, so kept interval value 20 to call
  * eth_link_detect() at every one second
  */
-#define ETH_LINK_DETECT_INTERVAL 4
+#define ETH_LINK_DETECT_INTERVAL 20
 
 void init_platform();
 void cleanup_platform();
