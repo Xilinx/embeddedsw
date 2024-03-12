@@ -153,6 +153,8 @@ BEGIN LIBRARY lwip220
 	PARAM name = sys_debug, desc = "Debug sys arch layer", type = bool, default = false;
 	PARAM name = pbuf_debug, desc = "Debug pbuf layer", type = bool, default = false;
 	PARAM name = socket_debug, desc = "Debug socket layer", type = bool, default = false;
+        PARAM name = dhcp_debug, desc = "Debug dhcp layer", type = bool, default = false;
+        PARAM name = acd_debug, desc = "Debug acd", type = bool, default = false;
   END CATEGORY
 
 END LIBRARY
