@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2018 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -181,7 +181,7 @@ int main(void)
 	 * the predefined regular intervals after starting the client.
 	 */
 	dhcp_start(netif);
-	dhcp_timoutcntr = 24;
+	dhcp_timoutcntr = 240;
 	while (((netif->ip_addr.addr) == 0) && (dhcp_timoutcntr > 0))
 		xemacif_input(netif);
 
