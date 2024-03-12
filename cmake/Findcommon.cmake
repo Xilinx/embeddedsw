@@ -70,7 +70,7 @@ macro(subdirlist result curdir)
 endmacro()
 
 function (linker_gen path)
-    if (NOT EXISTS "${CMAKE_SOURCE_DIR}/lscript.ld")
+    if (NOT EXISTS "${USER_LINKER_SCRIPT}")
 	if (NOT DEFINED STACK_SIZE)
 		if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR
 			("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv"))
