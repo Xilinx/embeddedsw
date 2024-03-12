@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 *       am   07/03/2023 Updated XilPdi_ReadIhtAndOptionalData to store partition hashes
 *       dd   09/08/2023 Misra-C violation Rule 12.1 fixed
 *       har  02/16/2024 Modified XilPdi_SearchOptionalData as non-static function
+*       am   03/02/2024 Updated MH optimization changes to XilPdi_StoreDigestTable
 *
 * </pre>
 *
@@ -104,7 +105,7 @@ int XilPdi_ValidateChecksum(const void *Buffer, u32 Length)
 
 	Len >>= XIH_PRTN_WORD_LEN_SHIFT;
     /**
-     * - Verify the buffer is not empty and has atleast 2 values
+     * - Verify the buffer is not empty and has at least 2 values
      */
 	if (Len < XILPDI_CHECKSUM_MIN_BUF_LEN)
 	{
@@ -349,6 +350,16 @@ int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
 	u64 OptionalDataStartAddress;
 
 	/**
+	 * Clear 2KB PMC RAM which is allocated to store IHT OPTIONAL DATA
+	 */
+	Status = Xil_SecureZeroize((u8*)(UINTPTR)XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR,
+		XILPDI_OPTIONAL_DATA_ID_3_MAX_SIZE_2K_BYTES);
+	if (XST_SUCCESS != Status) {
+		XilPdi_Printf("IHT Optional data Zeroize Failed \n\r");
+		goto END;
+	}
+
+	/**
 	 * - Read the IHT from Metaheader
 	 */
 	Status = Xil_SecureMemCpy((void *)(UINTPTR)XILPDI_PMCRAM_IHT_COPY_ADDR,
@@ -359,11 +370,17 @@ int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
 	}
 
 	/**
-	 * - Read the IHT Optinal data from Metaheader
+	 * - Read the IHT Optional data from Metaheader
 	 */
 	OptionalDataStartAddress = MetaHdrPtr->FlashOfstAddr + MetaHdrPtr->MetaHdrOfst + XIH_IHT_LEN;
 	if (PdiType == XILPDI_PDI_TYPE_PARTIAL_METAHEADER) {
 		OptionalDataStartAddress += SMAP_BUS_WIDTH_LENGTH;
+	}
+
+	if (MetaHdrPtr->ImgHdrTbl.OptionalDataLen > XILPDI_OPTIONAL_DATA_MAX_SIZE_16K_BYTES) {
+		Status = XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA;
+		XilPdi_Printf("Failed, IHT Optional data overflow \n\r");
+		goto END;
 	}
 
 	Status = MetaHdrPtr->DeviceCopy(OptionalDataStartAddress, XILPDI_PMCRAM_IHT_DATA_ADDR,
@@ -399,11 +416,22 @@ int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr)
 	OptionalDataStartAddr = XILPDI_PMCRAM_IHT_DATA_ADDR;
 	OptionalDataEndAddr = OptionalDataStartAddr + (MetaHdrPtr->ImgHdrTbl.OptionalDataLen << XILPDI_WORD_LEN_SHIFT);
 
+	/**< Initializing IsAuthOptimized to FALSE */
+	MetaHdrPtr->IsAuthOptimized = (u32)FALSE;
+
 	Offset = (u32)XilPdi_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr,
 		XILPDI_PARTITION_HASH_DATA_ID);
 	if (Offset < OptionalDataEndAddr) {
 		OptionalDataLen = ((Xil_In32(Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >>
 			XIH_OPT_DATA_LEN_SHIFT) << XIH_PRTN_WORD_LEN_SHIFT;
+		if (OptionalDataLen < XILPDI_OPTIONAL_DATA_WORD_LEN) {
+				Status = XILPDI_ERR_NO_VALID_OPTIONAL_DATA;
+				goto END;
+		}
+		else if (OptionalDataLen > XILPDI_OPTIONAL_DATA_ID_3_MAX_SIZE_2K_BYTES) {
+			Status = XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA_AT_DATA_ID_3;
+			goto END;
+		}
 		/** IHT Optional data is in mentioned below format:
 		*
 		*	-------------------------------------------------------------------------
@@ -422,20 +450,15 @@ int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr)
 			goto END;
 		}
 
-		if (OptionalDataLen > XILPDI_OPTIONAL_DATA_WORD_LEN) {
-			/** Verify checksum of data structure info */
-			XSECURE_REDUNDANT_CALL(Status, StatusTmp, XilPdi_ValidateChecksum, (void *)Offset,
-					OptionalDataLen);
-			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-				Status = XILPDI_ERR_OPTIONAL_DATA_CHECKSUM_FAILED;
-				XilPdi_Printf("optional data Checksum failed \n\r");
-				goto END;
-			}
-		}
-		else {
-			Status = XILPDI_ERR_NO_VALID_OPTIONAL_DATA;
+		/** Verify checksum of data structure info */
+		XSECURE_REDUNDANT_CALL(Status, StatusTmp, XilPdi_ValidateChecksum, (void *)Offset,
+				OptionalDataLen);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = XILPDI_ERR_OPTIONAL_DATA_CHECKSUM_FAILED;
+			XilPdi_Printf("optional data Checksum failed \n\r");
 			goto END;
 		}
+
 		/** Copy only data part */
 		Status = Xil_SMemCpy((u8 *)(UINTPTR)XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR,
 			MetaHdrPtr->DigestTableSize, (u8 *)(UINTPTR)(Offset
@@ -447,6 +470,8 @@ int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr)
 		}
 		/** Partition number count */
 		MetaHdrPtr->DigestTableSize /= sizeof(XilPdi_PrtnHashInfo);
+		/**< Authentication is optimized by the user */
+		MetaHdrPtr->IsAuthOptimized = (u32)TRUE;
 	}
 	Status = XST_SUCCESS;
 
