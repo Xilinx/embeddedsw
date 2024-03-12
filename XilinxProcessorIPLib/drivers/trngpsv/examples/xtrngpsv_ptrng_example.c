@@ -1,6 +1,6 @@
 /***************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -22,14 +22,13 @@
  * ----- ---- -------- -----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
  * 1.01  ng   06/30/23 Added support for system device-tree flow
- *
+ * 1.02	 ss	  03/12/24 Minor fix to include xparameters header file
  *</pre>
  **************************************************************************************************/
 
 /*************************************** Include Files *******************************************/
-#ifndef SDT
+
 #include "xparameters.h"
-#endif
 #include "xtrngpsv.h"
 
 /************************************ Constant Definitions ***************************************/
