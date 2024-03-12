@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 - 2021 Xilinx, Inc.
+ * Copyright (C) 2021 - 2024 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -36,9 +37,9 @@ static struct perf_stats client;
 static char send_buf[UDP_SEND_BUFSIZE];
 #define FINISH	1
 /* Report interval time in ms */
-#define REPORT_INTERVAL_TIME (INTERIM_REPORT_INTERVAL * 1000)
+#define REPORT_INTERVAL_TIME (INTERIM_REPORT_INTERVAL * 20)
 /* End time in ms */
-#define END_TIME (UDP_TIME_INTERVAL * 1000)
+#define END_TIME (UDP_TIME_INTERVAL * 20)
 
 void print_app_header(void)
 {
@@ -103,7 +104,7 @@ static void udp_conn_report(u64_t diff,
 	/* Converting duration from milliseconds to secs,
 	 * and bandwidth to bits/sec .
 	 */
-	duration = diff / 1000.0; /* secs */
+	duration = diff / 20.0; /* secs */
 	if (duration)
 		bandwidth = (total_len / duration) * 8.0;
 

@@ -34,7 +34,7 @@ extern struct netif server_netif;
 static struct udp_pcb *pcb;
 static struct perf_stats server;
 /* Report interval in ms */
-#define REPORT_INTERVAL_TIME (INTERIM_REPORT_INTERVAL * 1000)
+#define REPORT_INTERVAL_TIME (INTERIM_REPORT_INTERVAL * 20)
 
 void print_app_header(void)
 {
@@ -109,7 +109,7 @@ static void udp_conn_report(u64_t diff,
 	/* Converting duration from milliseconds to secs,
 	 * and bandwidth to bits/sec .
 	 */
-	duration = diff / 1000.0; /* secs */
+	duration = diff / 20.0; /* secs */
 	if (duration)
 		bandwidth = (total_len / duration) * 8.0;
 
