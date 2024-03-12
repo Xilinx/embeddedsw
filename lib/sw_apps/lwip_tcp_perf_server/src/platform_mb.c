@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -45,8 +45,9 @@
 #include "xintc.h"
 #include "xtmrctr_l.h"
 
-#define MHZ (66)
-#define TIMER_TLR (1500000*((float)MHZ/100))
+extern void timer_callback();
+
+#define TIMER_TLR (XPAR_TMRCTR_0_CLOCK_FREQ_HZ/20)
 
 void
 xadapter_timer_handler(void *p)

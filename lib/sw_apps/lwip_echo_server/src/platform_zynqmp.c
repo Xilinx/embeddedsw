@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2015 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -50,13 +50,18 @@
 #if defined(PLATFORM_ZYNQMP) || defined(PLATFORM_VERSAL) || defined(PLATFORM_VERSAL_NET)
 #include "xttcps.h"
 
+#if LWIP_DHCP_DOES_ACD_CHECK
+#include "lwip/acd.h"
+#endif
+
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define TIMER_DEVICE_ID		XPAR_XTTCPS_0_DEVICE_ID
 #define TIMER_IRPT_INTR		XPAR_XTTCPS_0_INTR
 #define INTC_BASE_ADDR		XPAR_SCUGIC_0_CPU_BASEADDR
 #define INTC_DIST_BASE_ADDR	XPAR_SCUGIC_0_DIST_BASEADDR
 
-#define PLATFORM_TIMER_INTR_RATE_HZ (4)
+/* Configure timer for 50ms */
+#define PLATFORM_TIMER_INTR_RATE_HZ (20)
 
 static XTtcPs TimerInstance;
 static XInterval Interval;
@@ -66,7 +71,7 @@ volatile int TcpFastTmrFlag = 0;
 volatile int TcpSlowTmrFlag = 0;
 
 #if LWIP_DHCP==1
-volatile int dhcp_timoutcntr = 24;
+volatile int dhcp_timoutcntr = 240;
 void dhcp_fine_tmr();
 void dhcp_coarse_tmr();
 #endif
@@ -75,6 +80,19 @@ extern struct netif *echo_netif;
 
 void platform_clear_interrupt( XTtcPs * TimerInstance );
 
+/*
+Recommended Intervals by lwip stack:
+tcp_fasttmr()     - 250ms
+tcp_slowtmr()     - 500ms
+
+dhcp_fine_tmr()   - 500ms
+dhcp_coarse_tmr() - 60sec
+acd_tmr()         - 100ms
+
+eth_link_detect() - 1 second
+dhcp timeout()    - 12 secs
+*/
+
 void
 timer_callback(XTtcPs * TimerInstance)
 {
@@ -82,27 +100,61 @@ timer_callback(XTtcPs * TimerInstance)
 	/* we need to call tcp_fasttmr & tcp_slowtmr at intervals specified
 	 * by lwIP. It is not important that the timing is absoluetly accurate.
 	 */
-	static int odd = 1;
+
+	static int Tcp_Fasttimer = 0;
+	static int Tcp_Slowtimer = 0;
+
 #if LWIP_DHCP==1
-    static int dhcp_timer = 0;
+        static int dhcp_timer = 0;
+        static int dhcp_finetimer = 0;
+#if LWIP_DHCP_DOES_ACD_CHECK == 1
+        static int acd_timer = 0;
 #endif
+#endif
+
 	DetectEthLinkStatus++;
-    TcpFastTmrFlag = 1;
-	odd = !odd;
-	if (odd) {
+	Tcp_Fasttimer++;
+	Tcp_Slowtimer++;
+
 #if LWIP_DHCP==1
-		dhcp_timer++;
-		dhcp_timoutcntr--;
+        dhcp_timer++;
+        dhcp_finetimer++;
+        dhcp_timoutcntr--;
+#if LWIP_DHCP_DOES_ACD_CHECK == 1
+        acd_timer++;
 #endif
-		TcpSlowTmrFlag = 1;
-#if LWIP_DHCP==1
-		dhcp_fine_tmr();
-		if (dhcp_timer >= 120) {
-			dhcp_coarse_tmr();
-			dhcp_timer = 0;
-		}
 #endif
+
+	if(Tcp_Fasttimer % 5 == 0)
+	{
+		TcpFastTmrFlag = 1;
 	}
+
+	if(Tcp_Slowtimer % 10 == 0)
+	{
+		TcpSlowTmrFlag = 1;
+	}
+
+#if LWIP_DHCP==1
+	if(dhcp_finetimer % 10 == 0)
+	{
+		dhcp_fine_tmr();
+	}
+	if (dhcp_timer >= 1200)
+	{
+		dhcp_coarse_tmr();
+		dhcp_timer = 0;
+	}
+
+#if LWIP_DHCP_DOES_ACD_CHECK == 1
+        if(acd_timer % 2 == 0)
+        {
+                acd_tmr();
+        }
+#endif /* LWIP_DHCP_DOES_ACD_CHECK */
+
+#endif /*LWIP_DHCP */
+
 
 	/* For detecting Ethernet phy link status periodically */
 	if (DetectEthLinkStatus == ETH_LINK_DETECT_INTERVAL) {
