@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +43,7 @@
 * 7.2   asa     03/11/16 Made changes so that XSM_CFR3_OFFSET is
 *             visible only for Ultrasacle. Fix for CR#910905.
 * 7.8   cog     07/20/23 Added support for SDT flow
+* 7.10   cog    03/13/24 Fixed issue with interrupt masks.
 *
 * </pre>
 *
@@ -338,13 +339,13 @@ extern "C" {
  * @name System Monitor/ADC Status Register (SR) mask(s)
  * @{
  */
-#define XSM_SR_JTAG_BUSY_MASK	  0x00000400 /**< JTAG is busy */
-#define XSM_SR_JTAG_MODIFIED_MASK 0x00000200 /**< JTAG Write has occurred */
-#define XSM_SR_JTAG_LOCKED_MASK	  0x00000100 /**< JTAG is locked */
-#define XSM_SR_BUSY_MASK	  0x00000080 /**< ADC is busy in conversion */
-#define XSM_SR_EOS_MASK		  0x00000040 /**< End of Sequence */
-#define XSM_SR_EOC_MASK		  0x00000020 /**< End of Conversion */
-#define XSM_SR_CH_MASK		  0x0000001F /**< Input ADC channel */
+#define XSM_SR_JTAG_BUSY_MASK	  0x00000800 /**< JTAG is busy */
+#define XSM_SR_JTAG_MODIFIED_MASK 0x00000400 /**< JTAG Write has occurred */
+#define XSM_SR_JTAG_LOCKED_MASK	  0x00000200 /**< JTAG is locked */
+#define XSM_SR_BUSY_MASK	  0x00000100 /**< ADC is busy in conversion */
+#define XSM_SR_EOS_MASK		  0x00000080 /**< End of Sequence */
+#define XSM_SR_EOC_MASK		  0x00000040 /**< End of Conversion */
+#define XSM_SR_CH_MASK		  0x0000003F /**< Input ADC channel */
 
 /*@}*/
 
