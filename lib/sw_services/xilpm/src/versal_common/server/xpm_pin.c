@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,10 +35,10 @@ XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress)
 
 	XPmNode_Init(&Pin->Node, PinId, (u8)XPM_PINSTATE_UNUSED, BaseAddress);
 
-	XPm_PinGroup *Grp = XPmPin_GetGroupByIdx(PinIdx);
+	const XPm_PinGroup *Grp = XPmPin_GetGroupByIdx(PinIdx);
 	Pin->Groups = Grp->GroupList;
 	Pin->NumGroups = (u8)(Grp->GroupCount);
-	Pin->FuncId = MAX_FUNCTION;
+	Pin->FuncId = (u8)MAX_FUNCTION;
 	Pin->SubsysIdx = (u16)NODEINDEX(INVALID_SUBSYSID);
 
 	if (PinIdx <= PINS_PER_BANK) {
@@ -178,7 +178,7 @@ XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_PinNode *Pin;
-	XPm_PinFunc *PinFunc;
+	const XPm_PinFunc *PinFunc;
 	u32 PinBaseAddr;
 
 	Pin = XPmPin_GetById(PinId);
@@ -231,7 +231,7 @@ XStatus XPmPin_GetPinFunction(u32 PinId, u32 *FuncId)
 	if (NULL == Pin) {
 		Status = XST_INVALID_PARAM;
 		goto done;
-	} else if (NULL == PIN_FUNC(Pin)) {
+	} else if (NULL == XPmPinFunc_GetById(Pin->FuncId)) {
 		*FuncId = INVALID_FUNC_ID;
 		Status = XST_SUCCESS;
 	} else {

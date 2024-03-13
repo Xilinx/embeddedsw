@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,7 +35,6 @@ extern "C" {
 #define VMODE				(0x0000015CU)
 #define VMODE_MASK			(0x1U)
 #define TRI_STATE			(0x200U)
-#define PIN_FUNC(pin) XPmPinFunc_GetById(pin->FuncId)
 
 /* Pin states */
 typedef enum {
