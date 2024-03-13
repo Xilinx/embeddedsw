@@ -40,6 +40,7 @@
 *       ng   12/27/2023 Reduced log level for less frequent prints
 *       dd   02/08/2024 Added support for ISSI 512M
 *       sk   02/26/2024 Added support for Infineon OSPI flash part
+*       ng   03/05/2024 Added support for Macronix OSPI 2G flash part
 *
 * </pre>
 *
@@ -172,6 +173,12 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	else if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
 		if (ReadBuffer[2U] == MACRONIX_OCTAL_ID_BYTE2_512) {
 			OspiFlashSize = XLOADER_FLASH_SIZE_512M;
+		}
+		else if (ReadBuffer[2U] == MACRONIX_OCTAL_ID_BYTE2_2G) {
+			OspiFlashSize = XLOADER_FLASH_SIZE_2G;
+		}
+		else {
+			/* Do nothing */
 		}
 	}
 	else if (OspiFlashMake == SPANSION_OCTAL_ID_BYTE0) {
@@ -991,6 +998,11 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 	else if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
 		FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
 		FlashMsg.Dummy += 8;
+	}
+
+	if ((OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) && (OspiFlashSize == XLOADER_FLASH_SIZE_2G)) {
+		FlashMsg.ByteCount = XLOADER_OSPI_DDR_MODE_BYTE_CNT;
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_8_8;
 	}
 
 	Status = (int)XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
