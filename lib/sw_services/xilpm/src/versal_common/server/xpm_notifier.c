@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -147,7 +147,7 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 	u32 EmptyIdx = ARRAY_SIZE(PmNotifiers);
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
-		XPm_Subsystem *NotifierSubsystem = XPmSubsystem_GetById(PmNotifiers[Idx].SubsystemId);
+		const XPm_Subsystem *NotifierSubsystem = XPmSubsystem_GetById(PmNotifiers[Idx].SubsystemId);
 
 		if (NULL == NotifierSubsystem) {
 			/* Empty entry found in PmNotifiers array */
@@ -390,10 +390,10 @@ static void XPmNotifier_SendPendingNotifyEvent(const XPm_Subsystem *SubSystem)
 
 			NodeId = Payload[1];
 			Event = Payload[2];
-			XPm_Subsystem* NotiferSubsystem = XPmSubsystem_GetById(Notifier->SubsystemId);
-			if (((u8)ONLINE ==NotiferSubsystem->State) ||
-			    ((u8)PENDING_POWER_OFF ==  NotiferSubsystem->State) ||
-			    ((u8)PENDING_RESTART == NotiferSubsystem->State) ||
+			const XPm_Subsystem* NotifierSubsystem = XPmSubsystem_GetById(Notifier->SubsystemId);
+			if (((u8)ONLINE ==NotifierSubsystem->State) ||
+			    ((u8)PENDING_POWER_OFF ==  NotifierSubsystem->State) ||
+			    ((u8)PENDING_RESTART == NotifierSubsystem->State) ||
 			    (0U != (Event & Notifier->WakeMask))) {
 				/* Send Notification */
 				(*PmRequestCb)(Notifier->IpiMask,
@@ -766,8 +766,8 @@ void XPmNotifier_Event(const u32 NodeId, const u32 Event)
 		 * If subsystem is OFFLINE then it should be notified about
 		 * the event only if it requested to be woken up.
 		 */
-		XPm_Subsystem* NotiferSubsystem = XPmSubsystem_GetById(Notifier->SubsystemId);
-		if (((u8)OFFLINE != NotiferSubsystem->State) ||
+		const XPm_Subsystem* NotifierSubsystem = XPmSubsystem_GetById(Notifier->SubsystemId);
+		if (((u8)OFFLINE != NotifierSubsystem->State) ||
 		    (0U != (Event & Notifier->WakeMask))) {
 			XPmNotifier_NotifyTarget(Notifier->IpiMask, Payload);
 		}
