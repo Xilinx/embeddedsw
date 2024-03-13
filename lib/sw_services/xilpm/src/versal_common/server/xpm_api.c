@@ -811,7 +811,7 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 			CRP_RST_NONPS_SYS_RST_2_MASK |
 			CRP_RST_NONPS_SYS_RST_3_MASK;
 
-	if (0U != (ResetReason & SysResetMask) && (XPlmi_IsPlmUpdateDone() != TRUE)) {
+	if ((0U != (ResetReason & SysResetMask)) && ((u32)XPlmi_IsPlmUpdateDone() != 1U)) {
 
 		XPm_DisableSkipHC();
 
@@ -2067,7 +2067,7 @@ static XStatus AddPlDevice(const u32 *Args, u32 NumArgs, u32 PowerId)
 	XPm_PlDevice *PlDevice;
 
 	DeviceId = Args[0];
-	if (NumArgs >= 3) {
+	if (3U <= NumArgs) {
 		BaseAddr = Args[2];
 	}
 
@@ -4377,7 +4377,7 @@ static XStatus XPm_RequestHBMonDevice(const u32 SubsystemId, const u32 CmdType)
 		Reqm = XPmDevice_FindRequirement(DeviceId, SubsystemId);
 		if (NULL != Reqm) {
 			Status = XPm_RequestDevice(SubsystemId, DeviceId,
-						   PM_CAP_ACCESS, Reqm->PreallocQoS,
+						   (u32)PM_CAP_ACCESS, Reqm->PreallocQoS,
 						   0U, CmdType);
 			break;
 		}
