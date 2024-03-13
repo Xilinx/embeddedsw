@@ -232,7 +232,7 @@ static int HbMon_Scheduler(void *data)
 	const XPm_Device *Device, *Ipi;
 	u32 ActiveMonitors = 0U;
 	u32 Idx, Timeout, NodeId, IpiIsrVal;
-	static u8 IsIdleCbSent = (u8)FALSE;
+	static u8 IsIdleCbSent = 0U;
 
 	for (Idx = (u32)XPM_NODEIDX_DEV_HB_MON_0;
 			Idx < (u32)XPM_NODEIDX_DEV_HB_MON_MAX; Idx++)
@@ -247,8 +247,8 @@ static int HbMon_Scheduler(void *data)
 			Device = XPmDevice_GetHbMonDeviceByIndex(Idx);
 			if (((u8)PENDING_RESTART == Device->Requirements->Subsystem->State) &&
 			    (1U == Device->Requirements->Allocated) &&
-			    ((u8)FALSE == IsIdleCbSent)) {
-				IsIdleCbSent = (u8)TRUE;
+			    (0U == IsIdleCbSent)) {
+				IsIdleCbSent = 1U;
 
 				/**
 				 * Extract the timeout value from the requirement
