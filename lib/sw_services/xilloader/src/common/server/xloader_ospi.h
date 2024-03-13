@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *       bm   01/11/2023 Added support for Gigadevice 512M, 1G, 2G parts
 *       dd   02/08/2024 Added support for ISSI 512M
 *       sk   02/26/2024 Added defines for Spansion flash part
+*       ng   03/05/2024 Added support for Macronix OSPI 2G flash part
 *
 * </pre>
 *
@@ -93,7 +94,7 @@ extern "C" {
  * Byte 0 is Manufacturer ID;
  * Byte 1 is first byte of Device ID - 0x80
  * Byte 2 is second byte of Device ID describes flash size:
- * 2Gbit : 0x3C
+ * 512Mbit : 0x3A;  2Gbit : 0x3C
  */
 #define MICRON_OCTAL_ID_BYTE0           (0x2CU) /* Micron manufacture id */
 #define GIGADEVICE_OCTAL_ID_BYTE0       (0xC8U) /* Gigadevice manufacture id */
@@ -105,6 +106,7 @@ extern "C" {
 #define MICRON_OCTAL_ID_BYTE2_1G        (0x1BU) /* Micron 1Gbit flash size */
 #define MICRON_OCTAL_ID_BYTE2_2G        (0x1CU) /* Micron 2Gbit flash size */
 #define MACRONIX_OCTAL_ID_BYTE2_512     (0x3AU) /* Macronix 512Mbit flash size */
+#define MACRONIX_OCTAL_ID_BYTE2_2G      (0x3CU) /* Macronix 2Gbit flash size */
 #define GIGADEVICE_OCTAL_ID_BYTE2_256	(0x19U) /* Gigadevice 256Mbit flash size */
 #define GIGADEVICE_OCTAL_ID_BYTE2_512	(0x1AU) /* Gigadevice 512Mbit flash size */
 #define GIGADEVICE_OCTAL_ID_BYTE2_1G	(0x1BU) /* Gigadevice 1Gbit flash size */
