@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -433,7 +433,8 @@ static XStatus XPm_PinCheckPermission(const XPm_Subsystem *Subsystem, u32 NodeId
 	 * is responsible for validating the Node ID attributes
 	 * other than node index.
 	 */
-	Device = XPmDevice_GetByIndex(PIN_FUNC(Pin)->DevIdx);
+	const XPm_PinFunc *PinFunc = XPmPinFunc_GetById(Pin->FuncId);
+	Device =  XPmDevice_GetByIndex(PinFunc->DevIdx);
 	if (NULL == Device) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_DEVICE_NOT_FOUND;
