@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2009 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -157,7 +157,7 @@ static int8_t *errors[] = {
 
 /* We don't use interrupts/exceptions.
    Dummy definitions to reduce code size on MicroBlaze */
-#ifdef __MICROBLAZE__
+#if defined (__MICROBLAZE__) || defined (__riscv)
 void _interrupt_handler () {}
 void _exception_handler () {}
 void _hw_exception_handler () {}
@@ -221,9 +221,7 @@ int main()
 	}
 
 #ifdef VERBOSE
-	print ("Loading SREC image from flash @ address: ");
-	putnum (FLASH_IMAGE_BASEADDR);
-	print ("\r\n");
+	xil_printf("Loading SREC image from flash @ address: %x\r\n",FLASH_IMAGE_BASEADDR);
 #endif
 
 	flbuf = (u32)FLASH_IMAGE_BASEADDR;
@@ -233,9 +231,7 @@ int main()
 
 #ifdef VERBOSE
 	if (ret > LD_SREC_LINE_ERROR) {
-		print ("ERROR in SREC line: ");
-		putnum (srec_line);
-		print (errors[ret]);
+		xil_printf("ERROR in SREC line: %x%s",srec_line,errors[ret]);
 	}
 	else {
 		print ("ERROR: ");
@@ -367,9 +363,7 @@ static void display_progress (uint32_t count)
 {
 	/* Send carriage return */
 	outbyte (CR);
-	print  ("Bootloader: Processed (0x)");
-	putnum (count);
-	print (" S-records");
+	xil_printf("Bootloader: Processed (0x)%x S-records",count);
 }
 #endif
 
@@ -429,9 +423,7 @@ static uint8_t load_exec ()
 		mode = READ_WRITE_EXTRA_BYTES;
 	}
 #ifdef VERBOSE
-	print ("\r\nExecuting program starting at address: ");
-	putnum ((uint32_t)laddr);
-	print ("\r\n");
+	xil_printf("\r\nExecuting program starting at address: %x\r\n",(uint32_t)laddr);
 #endif
 	(*laddr)();
 
