@@ -1,5 +1,6 @@
 ###############################################################################
-# Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -104,7 +105,7 @@ proc swapp_is_supported_hw {} {
     set proc_instance [hsi::get_sw_processor];
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc_instance]];
 
-    if { ($proc_type != "microblaze") } {
+    if { ($proc_type != "microblaze" && $proc_type != "microblaze_riscv") } {
 	error "This application is supported only for MicroBlaze processor";
     }
 
@@ -217,7 +218,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-    return "microblaze";
+    return "microblaze microblaze_riscv";
 }
 
 proc swapp_get_supported_os {} {
