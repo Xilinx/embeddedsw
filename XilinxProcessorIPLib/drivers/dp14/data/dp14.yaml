@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -93,25 +93,5 @@ config:
     - XDp_Config
 
 xparam_prefix: XDp
-
-examples:
-  xdp_rx_mst_example.c:
-    - reg
-  xdp_rx_sst_dp159_example.c:
-    - reg
-  xdp_selftest_example.c:
-    - reg
-  xdp_tx_audio_example.c:
-    - reg
-  xdp_tx_example_common.c:
-    - reg
-  xdp_tx_intr_example.c:
-    - interrupts
-  xdp_tx_mst_example.c:
-    - reg
-  xdp_tx_poll_example.c:
-    - reg
-  xdp_tx_timer_example.c:
-    - reg
 
 ...
