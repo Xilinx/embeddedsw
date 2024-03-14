@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020-2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.00  Ana  24/06/20 First release
+* 2.00  SD   13/03/24 Added function to check if boot image
+*                     exist in partitions A and B
 *
 * </pre>
 *
@@ -112,6 +114,40 @@ END:
 
 /*****************************************************************************/
 /**
+ * This function checks if valid image exists in partition address
+ * @param	PartitionAddr of QSPI flash
+ *
+ * @return	returns XST_FAILURE if image doesn't exist else
+ *			XST_SUCCESS
+ *
+ *
+ ******************************************************************************/
+int XIs_IsImageExist(u32 PartitionAddr)
+{
+	int Status = XST_FAILURE;
+	u8 DataBuff[XIS_SIZE_256B] __attribute__ ((aligned(32U)));
+
+	Status = XIs_QspiRead(PartitionAddr, (u8 *)DataBuff, XIS_SIZE_256B);
+	if (Status != XST_SUCCESS) {
+		XIs_Printf(DEBUG_GENERAL, "QSPI Read failed\r\n");
+		goto END;
+	}
+
+	/*Check if string XNLX exists in boot header*/
+	if(strncmp((char *)&DataBuff[XIS_XLNX_OFFSET], "XNLX", \
+		XIS_XLNX_LENGTH) == 0){
+		Status = XST_SUCCESS;
+	} else {
+		Status = XST_FAILURE;
+	}
+
+END:
+	return Status;
+
+}
+
+/*****************************************************************************/
+/**
  * This function is used to update the multiboot value
  * @param	None.
  *
@@ -126,7 +162,7 @@ int XIs_UpdateABMultiBootValue(void)
 	u32 *PerstRegPtr;
 	u32 Offset;
 	u8 CurrentImage;
-	u8 ReadDataBuffer[XIS_SIZE_4K] __attribute__ ((aligned(32U)));
+	u8 ReadDataBuffer[XIS_SIZE_256B] __attribute__ ((aligned(32U)));
 
 	Status = XIs_QspiInit();
 	if (Status != XST_SUCCESS) {
@@ -135,7 +171,7 @@ int XIs_UpdateABMultiBootValue(void)
 	}
 
 	Status = XIs_QspiRead(XIS_PERS_REGISTER_BASE_ADDRESS,
-					(u8 *)ReadDataBuffer, XIS_SIZE_4K);
+					(u8 *)ReadDataBuffer, XIS_SIZE_256B);
 	if (Status != XST_SUCCESS) {
 		XIs_Printf(DEBUG_GENERAL, "QSPI Read failed\r\n");
 		goto END;
@@ -160,30 +196,47 @@ int XIs_UpdateABMultiBootValue(void)
 					(ReadDataBuffer[XIS_IMAGE_A_BOOTABLE] == FALSE)) {
 			CurrentImage = XIS_IMAGE_B;
 			PerstRegPtr = (u32 *)&ReadDataBuffer[XIS_IMAGE_B_OFFSET];
+			Status = XIs_IsImageExist(*PerstRegPtr);
+			if(Status != XST_SUCCESS) {
+				XIs_Printf(DEBUG_GENERAL, "Image does not exist in Partition B, Launching Image recovery\r\n");
+				goto RCRY;
+			}
 		}
 		else if((ReadDataBuffer[XIS_LAST_BOOTED_IMAGE]
 					== XIS_IMAGE_B) &&
 					(ReadDataBuffer[XIS_IMAGE_B_BOOTABLE] == FALSE)){
 			CurrentImage = XIS_IMAGE_A;
 			PerstRegPtr = (u32 *)&ReadDataBuffer[XIS_IMAGE_A_OFFSET];
+			Status = XIs_IsImageExist(*PerstRegPtr);
+			if(Status != XST_SUCCESS) {
+				XIs_Printf(DEBUG_GENERAL, "Image does not exist in Partition A, Launching Image recovery\r\n");
+				goto RCRY;
+			}
 		}
 		else {
 			if(ReadDataBuffer[XIS_REQUESTED_BOOT_IMAGE]
 					== XIS_IMAGE_A) {
 				CurrentImage = XIS_IMAGE_A;
 				PerstRegPtr = (u32 *)&ReadDataBuffer[XIS_IMAGE_A_OFFSET];
+				Status = XIs_IsImageExist(*PerstRegPtr);
+				if(Status != XST_SUCCESS) {
+					XIs_Printf(DEBUG_GENERAL, "Image does not exist in Partition A, Launching Image recovery\r\n");
+					goto RCRY;
+				}
 			}
 			else {
 				CurrentImage = XIS_IMAGE_B;
 				PerstRegPtr = (u32 *)&ReadDataBuffer[XIS_IMAGE_B_OFFSET];
+				Status = XIs_IsImageExist(*PerstRegPtr);
+				if(Status != XST_SUCCESS) {
+					XIs_Printf(DEBUG_GENERAL, "Image does not exist in Partition B, Launching Image recovery\r\n");
+					goto RCRY;
+				}
 			}
 		}
 	}
 	else {
-		PerstRegPtr = (u32 *)&ReadDataBuffer[XIS_RECOVERY_IMAGE_OFFSET];
-		Offset = (u32)(*PerstRegPtr / XIS_SIZE_32KB);
-		XIs_UpdateMultiBootValue(Offset);
-		goto END;
+		goto RCRY;
 	}
 
 	Offset = (u32)(*PerstRegPtr / XIS_SIZE_32KB);
@@ -193,7 +246,7 @@ int XIs_UpdateABMultiBootValue(void)
 		ReadDataBuffer[XIS_LAST_BOOTED_IMAGE] = CurrentImage;
 		(void)XIs_CheckSumCalculation((u32*)ReadDataBuffer, (u8)TRUE);
 		Status = XIs_QspiWrite(XIS_PERS_REGISTER_BASE_ADDRESS,
-						(u8 *)ReadDataBuffer, XIS_SIZE_4K);
+						(u8 *)ReadDataBuffer, XIS_SIZE_256B);
 		if(Status != XST_SUCCESS) {
 			XIs_Printf(DEBUG_GENERAL, "QSPI Last image booted"
                                   " Write failed\r\n");
@@ -201,7 +254,7 @@ int XIs_UpdateABMultiBootValue(void)
 		}
 
 		Status = XIs_QspiWrite(XIS_PERS_REGISTER_BACKUP_ADDRESS,
-						(u8 *)ReadDataBuffer, XIS_SIZE_4K);
+						(u8 *)ReadDataBuffer, XIS_SIZE_256B);
 		if(Status != XST_SUCCESS) {
 			XIs_Printf(DEBUG_GENERAL, "QSPI Last image booted"
                                   " Backup Write failed\r\n");
@@ -211,5 +264,11 @@ int XIs_UpdateABMultiBootValue(void)
 
 END:
 	return Status;
+
+RCRY:
+	PerstRegPtr = (u32 *)&ReadDataBuffer[XIS_RECOVERY_IMAGE_OFFSET];
+	Offset = (u32)(*PerstRegPtr / XIS_SIZE_32KB);
+	XIs_UpdateMultiBootValue(Offset);
+	return XST_SUCCESS;
 }
 #endif
