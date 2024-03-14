@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020-2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.00  Ana  07/02/20 First release
+* 2.00  SD   13/03/24 Added required macros
 *
 * </pre>
 *
@@ -54,7 +55,7 @@ extern "C" {
 #ifdef XIS_UPDATE_A_B_MECHANISM
 #define XIS_PERS_REGISTER_BASE_ADDRESS				(0x100000U)
 #define XIS_PERS_REGISTER_BACKUP_ADDRESS			(0x120000U)
-#define XIS_SIZE_4K									(4096U)
+#define XIS_SIZE_256B								(256U)
 #define XIS_IMAGE_A									(0U)
 #define XIS_IMAGE_B									(1U)
 #define XIS_IDENTIFICATION_STRING					(0x4D554241)
@@ -70,6 +71,8 @@ extern "C" {
 #define XIS_IMAGE_A_OFFSET 							(0x14U)
 #define XIS_IMAGE_B_OFFSET 							(0x18U)
 #define XIS_RECOVERY_IMAGE_OFFSET 					(0x1CU)
+#define XIS_XLNX_LENGTH								(0x4U)
+#define XIS_XLNX_OFFSET								(0x24U)
 #define XIS_RECOVERY_ADDRESS						(0x01E00000U)
 #define XIS_SIZE_32KB								(32768U)
 #endif
