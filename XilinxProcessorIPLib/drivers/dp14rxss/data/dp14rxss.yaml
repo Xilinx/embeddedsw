@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -167,9 +167,6 @@ depends:
     video_common: []
 
 examples:
-    xdprxss_selftest_example.c:
-        - reg
-
     src/rx_only/xdprxss_dp14_rx.c:
         - dependency_files:
             - src/rx_only/idt_8t49n24x.c
