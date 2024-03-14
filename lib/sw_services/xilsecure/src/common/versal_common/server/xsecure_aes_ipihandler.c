@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@
 *       vss	  07/14/2023 Added support for IpiChannel check
 *       vss   09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
 * 5.3	vss  10/03/23 Added single API support for AES AAD and GMAC operations
+*       mb    03/12/24   Added AES INIT call inside AES Operation INIT API
 *
 * </pre>
 *
@@ -235,6 +236,13 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	XSecure_AesInitOps AesParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 	XSecureAesInstPtr->IsResourceBusy = (u32)XSECURE_RESOURCE_BUSY;
+
+	if (XSecureAesInstPtr-> AesState == XSECURE_AES_UNINITIALIZED) {
+		Status = XSecure_AesInit();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
 
 	/* Clear previous aes data context flag */
 	if(XSecureAesInstPtr->PreviousAesIpiMask == XSecureAesInstPtr->IpiMask) {
