@@ -49,6 +49,7 @@
 *       sk   12/14/2023 Added PSM & PMC buffer list DS ID
 * 2.00  ng   01/26/2024 Updated minor error codes
 *       sk   02/18/2024 Added defines for DDRMC Calib Check Status RTCA Register
+*       ma   03/05/2024 Fixed improper timestamp issue after In-place PLM update
 *
 * </pre>
 *
@@ -69,6 +70,7 @@ extern "C" {
 #include "xplmi_event_logging.h"
 #include "xplmi_update.h"
 #include "xplmi_cmd.h"
+#include "xiomodule.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -299,6 +301,7 @@ typedef enum {
 #define XPLMI_PSM_BUFFER_DS_ID		(0x0AU) /**< PSM Buffers data structure Id */
 #define XPLMI_PMC_BUFFER_DS_ID		(0x0BU) /**< PMC Buffers data structure Id */
 #define XPLMI_UPDATE_PDIADDR_DS_ID	(0x10U) /**< Update IPI mask data structure Id */
+#define XPLMI_XIOMODULE_DS_ID		(0x11U) /**< IOModule data structure Id */
 
 /*
  * SLR Types
@@ -634,7 +637,6 @@ void XPlmi_GicAddTask(u32 PlmIntrId);
 int XPlmi_RegisterNEnableIpi(void);
 void XPlmi_EnableIomoduleIntr(void);
 int XPlmi_SetPmcIroFreq(void);
-int XPlmi_GetPitResetValues(u32 *Pit1ResetValue, u32 *Pit2ResetValue);
 int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr);
 XInterruptHandler *XPlmi_GetTopLevelIntrTbl(void);
 u8 XPlmi_GetTopLevelIntrTblSize(void);
@@ -654,6 +656,7 @@ void XPlmi_UpdateCryptoStatus(u32 Mask, u32 Val);
 u32 XPlmi_GetCryptoStatus(u32 Mask);
 u8 XPlmi_IsKatRan(u32 PlmKatMask);
 u32 XPlmi_GetRomIroFreq(void);
+XIOModule *XPlmi_GetIOModuleInst(void);
 
 /* Functions defined in xplmi_plat_cmd.c */
 int XPlmi_InPlacePlmUpdate(XPlmi_Cmd *Cmd);

@@ -39,6 +39,7 @@
 * 1.07  bm   01/03/2023 Remove usage of double data type
 * 1.08  bm   04/28/2023 Update Trim related macros
 * 1.09  ng   07/06/2023 Added support for SDT flow
+*       ma   03/05/2024 Fixed improper timestamp issue after In-place PLM update
 *
 * </pre>
 *
@@ -115,7 +116,6 @@ int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data);
 void XPlmi_PrintRomTime(void);
 void XPlmi_PrintPlmTimeStamp(void);
 u32 *XPlmi_GetPmcIroFreq(void);
-XIOModule *XPlmi_GetIOModuleInst(void);
 void XPlmi_IntrHandler(void *CallbackRef);
 
 #ifdef __cplusplus
