@@ -45,6 +45,8 @@
 *       pre  01/22/2024 Updated XPlmi_SetPmcIroFreq to support both ES1 and
 *                       production samples
 *       ng   02/12/2024 optimised u8 vars to u32 for size reduction
+*       ma   03/05/2024 Fixed improper timestamp issue after In-place PLM update
+*       ma   03/15/2024 Do not stop PIT3 timer during In-place PLM update
 *
 * </pre>
 *
@@ -101,6 +103,9 @@
 #define XPLMI_BOARD_PARAMS_VERSION	(1U) /**< Board parameters version */
 #define XPLMI_BOARD_PARAMS_LCVERSION	(1U) /**< Board parameters LC version */
 
+#define XPLMI_XIOMODULE_VERSION		(1U) /**< IOModule version */
+#define XPLMI_XIOMODULE_LCVERSION	(1U) /**< IOModule LC version */
+
 #define XPLMI_PMC_VOLTAGE_MULTIPLIER	(32768.0f) /**< Voltage multiplier for Sysmon */
 
 /* PMC IRO Frequency related macros */
@@ -132,7 +137,6 @@ static inline u32 XPlmi_GetRawVoltage(float Voltage)
 
 /************************** Function Prototypes ******************************/
 static void XPlmi_DisableClearIOmodule(void);
-static void XPlmi_StopTimer(u8 Timer);
 static void XPlmi_HwIntrHandler(void *CallbackRef);
 static u32 XPlmi_GetIoIntrMask(void);
 static void XPlmi_SetIoIntrMask(u32 Value);
@@ -193,6 +197,23 @@ XPlmi_BoardParams *XPlmi_GetBoardParams(void)
 		sizeof(BoardParams), (u32)(UINTPTR)&BoardParams);
 
 	return &BoardParams;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides pointer to IOModule structure
+ *
+ * @return	Pointer to XIOModule
+ *
+ *****************************************************************************/
+XIOModule *XPlmi_GetIOModuleInst(void)
+{
+	static XIOModule IOModule __attribute__ ((aligned(4U))) = { 0U };
+
+	EXPORT_GENERIC_DS(IOModule, XPLMI_XIOMODULE_DS_ID, XPLMI_XIOMODULE_VERSION,
+		XPLMI_XIOMODULE_LCVERSION, sizeof(IOModule), (u32)(UINTPTR)&IOModule);
+
+	return &IOModule;
 }
 
 /*****************************************************************************/
@@ -399,8 +420,6 @@ int XPlmi_GenericHandler(XPlmi_ModuleOp Op)
 			(void)XPlmi_EmDisablePsmErrors(
 			GET_PSM_ERR_ACTION_OFFSET(Index), MASK32_ALL_HIGH);
 		}
-		/* Stop Timers */
-		XPlmi_StopTimer(XPLMI_PIT3);
 
 		/* Disable & Acknowledge Interrupts */
 		microblaze_disable_interrupts();
@@ -707,20 +726,6 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
-/**
-* @brief	It stops the PIT timers.
-*
-* @param	Timer argument to select. This can be OR of all three timers too.
-*
-*****************************************************************************/
-static void XPlmi_StopTimer(u8 Timer)
-{
-	XIOModule *IOModule = XPlmi_GetIOModuleInst();
-
-	XIOModule_Timer_Stop(IOModule, Timer);
-}
-
 /****************************************************************************/
 /**
 * @brief    This function will disable and clear the IOmodule interrupts
@@ -765,40 +770,6 @@ static void XPlmi_SetIoIntrMask(u32 Value)
 	XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
 	XPlmi_Out32(IOModule->BaseAddress + XIN_IER_OFFSET, Value);
-}
-/*****************************************************************************/
-/**
-* @brief	This functions provides the PIT1 and PIT2 reset values
-*
-* @return
-* 			- XST_SUCCESS if success.
-* 			- XPLMI_ERR_IOMOD_INIT if IOModule driver look up fails.
-*
-*****************************************************************************/
-int XPlmi_GetPitResetValues(u32 *Pit1ResetValue, u32 *Pit2ResetValue)
-{
-	int Status = XST_FAILURE;
-	XIOModule_Config *CfgPtr;
-
-	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
-		CfgPtr = XIOModule_LookupConfig(IOMODULE_DEVICE);
-		if (CfgPtr == NULL) {
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_INIT, 0U);
-			goto END;
-		}
-
-		*Pit2ResetValue = XPlmi_In32(CfgPtr->BaseAddress + XTC_TCR_OFFSET +
-					XTC_TIMER_COUNTER_OFFSET);
-		*Pit1ResetValue = XPlmi_In32(CfgPtr->BaseAddress + XTC_TCR_OFFSET);
-	}
-	else {
-		*Pit2ResetValue = XPLMI_PIT2_RESET_VALUE;
-		*Pit1ResetValue = XPLMI_PIT1_RESET_VALUE;
-	}
-	Status = XST_SUCCESS;
-
-END:
-	return Status;
 }
 
 /****************************************************************************/
