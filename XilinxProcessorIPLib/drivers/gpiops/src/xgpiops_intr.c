@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
 * 3.5   sne  03/20/19 Fixed multiple interrupts problem CR#1024556.
 * 3.6	sne  06/12/19 Fixed IAR compiler warning.
 * 3.6   sne  08/14/19 Added interrupt handler support on versal.
+* 3.13  gm   03/15/24 Added multi-core interrupt support.
 *
 * </pre>
 *
@@ -71,7 +72,7 @@
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_IntrEnable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
+void XGpioPs_IntrEnable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -87,6 +88,9 @@ void XGpioPs_IntrEnable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 			  XGPIOPS_INTEN_OFFSET, Mask);
+
+	/* Setup mask for CPU */
+	InstancePtr->CoreIntrMask[Bank] |= Mask;
 }
 
 /****************************************************************************/
@@ -102,7 +106,7 @@ void XGpioPs_IntrEnable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_IntrEnablePin(const XGpioPs *InstancePtr, u32 Pin)
+void XGpioPs_IntrEnablePin(XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -123,6 +127,9 @@ void XGpioPs_IntrEnablePin(const XGpioPs *InstancePtr, u32 Pin)
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 			  XGPIOPS_INTEN_OFFSET, IntrReg);
+
+	/* Setup mask for CPU */
+	InstancePtr->CoreIntrMask[Bank] |= IntrReg;
 }
 
 /****************************************************************************/
@@ -142,7 +149,7 @@ void XGpioPs_IntrEnablePin(const XGpioPs *InstancePtr, u32 Pin)
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_IntrDisable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
+void XGpioPs_IntrDisable(XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -158,6 +165,9 @@ void XGpioPs_IntrDisable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 			  XGPIOPS_INTDIS_OFFSET, Mask);
+
+	/* Setup mask for CPU */
+	InstancePtr->CoreIntrMask[Bank] &= ~Mask;
 }
 
 /****************************************************************************/
@@ -173,7 +183,7 @@ void XGpioPs_IntrDisable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)
 * @note		None.
 *
 *****************************************************************************/
-void XGpioPs_IntrDisablePin(const XGpioPs *InstancePtr, u32 Pin)
+void XGpioPs_IntrDisablePin(XGpioPs *InstancePtr, u32 Pin)
 {
 	u8 Bank;
 	u8 PinNumber;
@@ -194,6 +204,9 @@ void XGpioPs_IntrDisablePin(const XGpioPs *InstancePtr, u32 Pin)
 	XGpioPs_WriteReg(InstancePtr->GpioConfig.BaseAddr,
 			  ((u32)(Bank) * XGPIOPS_REG_MASK_OFFSET) +
 			  XGPIOPS_INTDIS_OFFSET, IntrReg);
+
+	/* Setup mask for CPU */
+	InstancePtr->CoreIntrMask[Bank] &= ~IntrReg;
 }
 
 /****************************************************************************/
@@ -735,6 +748,7 @@ void XGpioPs_SetCallbackHandler(XGpioPs *InstancePtr, void *CallBackRef,
 void XGpioPs_IntrHandler(const XGpioPs *InstancePtr)
 {
 	u8 Bank;
+	u32 Mask;
 	u32 IntrStatus;
 	u32 IntrEnabled;
 
@@ -755,12 +769,12 @@ void XGpioPs_IntrHandler(const XGpioPs *InstancePtr)
 #endif
 		IntrStatus = XGpioPs_IntrGetStatus(InstancePtr, Bank);
 		IntrEnabled = XGpioPs_IntrGetEnabled(InstancePtr,Bank);
-		if ((IntrStatus & IntrEnabled) != (u32)0) {
-			XGpioPs_IntrClear(InstancePtr, Bank,
-					(IntrStatus & IntrEnabled));
-			InstancePtr->Handler(InstancePtr->
-					CallBackRef, Bank,
-					(IntrStatus & IntrEnabled));
+		Mask = IntrStatus & IntrEnabled & InstancePtr->CoreIntrMask[Bank];
+
+		if (Mask != (u32)0)
+		{
+			XGpioPs_IntrClear(InstancePtr, Bank, Mask);
+			InstancePtr->Handler(InstancePtr->CallBackRef, Bank, Mask);
 		}
 	}
 }

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -125,6 +125,10 @@
 * 3.9	sne  03/15/21 Fixed MISRA-C violations.
 * 3.11  sg   02/23/23 Update bank and pin mapping information.
 * 3.12  gm   07/11/23 Added SDT support.
+* 3.13  gm   03/15/24 Remove const of XGpioPs InstancePtr from function proto
+*                     type of XGpioPs_IntrEnable, XGpioPs_IntrDisable,
+*                     XGpioPs_IntrEnablePin and XGpioPs_IntrDisablePin
+*                     to add multi-core interrupt support.
 *
 * </pre>
 *
@@ -168,6 +172,7 @@ extern "C" {
 										*	Zynq Ultrascale+ MP GPIO device
 										*/
 #define XGPIOPS_MAX_BANKS		0x04U  /**< Max banks in a Zynq GPIO device */
+#define XGPIOPS_MAX_BANKS_CNT		0x06U  /**< Max banks number of all platforms */
 
 #define XGPIOPS_DEVICE_MAX_PIN_NUM_ZYNQMP	(u32)174 /**< Max pins in the
 						  *	Zynq Ultrascale+ MP GPIO device
@@ -238,6 +243,7 @@ typedef struct {
 	u32 MaxPinNum;			/**< Max pins in the GPIO device */
 	u8 MaxBanks;			/**< Max banks in a GPIO device */
         u32 PmcGpio;                    /**< Flag for accessing PS GPIO for versal*/
+	u32 CoreIntrMask[XGPIOPS_MAX_BANKS_CNT]; /**< Interrupt mask per core */
 } XGpioPs;
 
 /************************** Variable Definitions *****************************/
@@ -277,8 +283,8 @@ s32 XGpioPs_SelfTest(const XGpioPs *InstancePtr);
 
 /* Functions in xgpiops_intr.c */
 /* Bank APIs in xgpiops_intr.c */
-void XGpioPs_IntrEnable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask);
-void XGpioPs_IntrDisable(const XGpioPs *InstancePtr, u8 Bank, u32 Mask);
+void XGpioPs_IntrEnable(XGpioPs *InstancePtr, u8 Bank, u32 Mask);
+void XGpioPs_IntrDisable(XGpioPs *InstancePtr, u8 Bank, u32 Mask);
 u32 XGpioPs_IntrGetEnabled(const XGpioPs *InstancePtr, u8 Bank);
 u32 XGpioPs_IntrGetStatus(const XGpioPs *InstancePtr, u8 Bank);
 void XGpioPs_IntrClear(const XGpioPs *InstancePtr, u8 Bank, u32 Mask);
@@ -294,8 +300,8 @@ void XGpioPs_IntrHandler(const XGpioPs *InstancePtr);
 void XGpioPs_SetIntrTypePin(const XGpioPs *InstancePtr, u32 Pin, u8 IrqType);
 u8 XGpioPs_GetIntrTypePin(const XGpioPs *InstancePtr, u32 Pin);
 
-void XGpioPs_IntrEnablePin(const XGpioPs *InstancePtr, u32 Pin);
-void XGpioPs_IntrDisablePin(const XGpioPs *InstancePtr, u32 Pin);
+void XGpioPs_IntrEnablePin(XGpioPs *InstancePtr, u32 Pin);
+void XGpioPs_IntrDisablePin(XGpioPs *InstancePtr, u32 Pin);
 u32 XGpioPs_IntrGetEnabledPin(const XGpioPs *InstancePtr, u32 Pin);
 u32 XGpioPs_IntrGetStatusPin(const XGpioPs *InstancePtr, u32 Pin);
 void XGpioPs_IntrClearPin(const XGpioPs *InstancePtr, u32 Pin);
