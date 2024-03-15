@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,8 @@
 * 2.15  ml   27/02/23 Update typecast,add U to Numerical and functions return
 *                     type to fix misra-c violations.
 * 2.16  ml   27/09/23 fixed compilation warnings for cpputest.
+*       ma   05/03/24 Added XIOModule_HandlerTable_Initialize function to
+*                       be called after In-place PLM update
 * </pre>
 *
 ******************************************************************************/
@@ -108,7 +110,6 @@ s32 XIOModule_Initialize(XIOModule *InstancePtr, u32 BaseAddress)
 {
 	u8 Id;
 	XIOModule_Config *CfgPtr;
-	u32 NextBitMask = 1;
 	u32 i;
 	s32 Status;
 
@@ -158,35 +159,9 @@ s32 XIOModule_Initialize(XIOModule *InstancePtr, u32 BaseAddress)
 	InstancePtr->BaseAddress = CfgPtr->BaseAddress;
 
 	/*
-	 * Initialize all the data needed to perform interrupt processing for
-	 * each interrupt ID up to the maximum used
+	 * Initialize all the interrupt Handlers to default handler
 	 */
-	for (Id = 0; Id < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; Id++) {
-		/*
-		 * Initialize the handler to point to a stub to handle an
-		 * interrupt which has not been connected to a handler. Only
-		 * initialize it if the handler is NULL or XNullHandler, which
-		 * means it was not initialized statically by the tools/user.
-		 * Set the callback reference to this instance so that
-		 * unhandled interrupts can be tracked.
-		 */
-		if ((InstancePtr->CfgPtr->HandlerTable[Id].Handler == NULL) ||
-		    (InstancePtr->CfgPtr->HandlerTable[Id].Handler ==
-		     XNullHandler)) {
-			InstancePtr->CfgPtr->HandlerTable[Id].Handler =
-				StubHandler;
-		}
-		InstancePtr->CfgPtr->HandlerTable[Id].CallBackRef = InstancePtr;
-
-		/*
-		 * Initialize the bit position mask table such that bit
-		 * positions are lookups only for each interrupt id, with 0
-		 * being a special case
-		 * (XIOModule_BitPosMask[] = { 1, 2, 4, 8, ... })
-		 */
-		XIOModule_BitPosMask[Id] = NextBitMask;
-		NextBitMask *= 2U;
-	}
+	XIOModule_HandlerTable_Initialize(InstancePtr);
 
 	/*
 	 * Disable all interrupt sources
@@ -250,6 +225,59 @@ s32 XIOModule_Initialize(XIOModule *InstancePtr, u32 BaseAddress)
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Initializes all interrupt handlers to default handler for each interrupt ID.
+*
+* It is necessary for the caller to connect the interrupt handler of this
+* component to the proper interrupt source.
+*
+* @param	InstancePtr is a pointer to the XIOModule instance to be
+*		worked on.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XIOModule_HandlerTable_Initialize(XIOModule *InstancePtr)
+{
+	u8 Id;
+	u32 NextBitMask = 1U;
+
+	/*
+	 * Initialize all the data needed to perform interrupt processing for
+	 * each interrupt ID up to the maximum used
+	 */
+	for (Id = 0; Id < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; Id++) {
+		/*
+		 * Initialize the handler to point to a stub to handle an
+		 * interrupt which has not been connected to a handler. Only
+		 * initialize it if the handler is NULL or XNullHandler, which
+		 * means it was not initialized statically by the tools/user.
+		 * Set the callback reference to this instance so that
+		 * unhandled interrupts can be tracked.
+		 */
+		if ((InstancePtr->CfgPtr->HandlerTable[Id].Handler == NULL) ||
+		    (InstancePtr->CfgPtr->HandlerTable[Id].Handler ==
+		     XNullHandler)) {
+			InstancePtr->CfgPtr->HandlerTable[Id].Handler =
+				StubHandler;
+		}
+		InstancePtr->CfgPtr->HandlerTable[Id].CallBackRef = InstancePtr;
+
+		/*
+		 * Initialize the bit position mask table such that bit
+		 * positions are lookups only for each interrupt id, with 0
+		 * being a special case
+		 * (XIOModule_BitPosMask[] = { 1, 2, 4, 8, ... })
+		 */
+		XIOModule_BitPosMask[Id] = NextBitMask;
+		NextBitMask *= 2U;
+	}
 }
 
 /*****************************************************************************/
