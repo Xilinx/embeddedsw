@@ -121,6 +121,9 @@
 #define APP_MAJ_VERSION 5
 #define APP_MIN_VERSION 4
 
+#ifdef SDT
+#define INTRNAME_HDMIRX 0
+#endif
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -1307,7 +1310,7 @@ int main() {
 #else
 	Status = XSetupInterruptSystem(&HdmiRxSs,
 				       (XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-				       HdmiRxSs.Config.IntrId,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDMIRX],
 				       HdmiRxSs.Config.IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif //SDT
