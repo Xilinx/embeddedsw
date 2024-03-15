@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +24,7 @@
   * 2.2   am   05/03/23 Added KAT before crypto usage
   *       mb   08/09/23 Declare variables that are passed to server in data
   *	  vss	11/22/23 Added header file required for SDT flow
-  *
+  * 2.3	  vss	03/06/24 Removed server related APIs
   *@note
   *
  *****************************************************************************/
@@ -32,7 +32,7 @@
 #ifdef SDT
 #include "xpuf_bsp_config.h"
 #endif
-#include "xpuf.h"
+#include "xpuf_client.h"
 #include "xsecure_aesclient.h"
 #include "xsecure_katclient.h"
 #include "xil_util.h"
@@ -56,6 +56,7 @@
 #define XPUF_HD_LEN_IN_WORDS			(386U)
 #define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * \
 							XPUF_WORD_LENGTH)
+#define XSECURE_SHARED_MEM_SIZE_IN_BYTES	sizeof(XSecure_AesDataBlockParams)
 #define XPUF_AES_KEY_SIZE_128BIT_WORDS		(4U)
 #define XPUF_AES_KEY_SIZE_256BIT_WORDS		(8U)
 
@@ -84,16 +85,17 @@ typedef struct{
 
 /************************** Variable Definitions ******************************/
 /* shared memory allocation */
-static u8 SharedMem[XPUF_IV_LEN_IN_BYTES + XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
+static u8 SharedMem[XSECURE_SHARED_MEM_SIZE_IN_BYTES] __attribute__((aligned(64U)))
 				__attribute__ ((section (".data.Data")));
 static XPuf_EncryptedData EncData __attribute__((aligned(64U))) __attribute__ ((section (".data.EncData")));
+static XPuf_DataAddr PufDataAddr __attribute__((aligned(64U))) __attribute__ ((section (".data.PufDataAddr")));
 
 static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.Iv")));
 static u8 InputData[XPUF_DME_PRIV_KEY_LEN_IN_BYTES] __attribute__ ((section (".data.InputData")));
 static u8 UpdatedIv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.UpdatedIv")));
 
 /************************** Function Prototypes ******************************/
-static int XPuf_GeneratePufKekAndId();
+static int XPuf_GeneratePufKekAndId(XPuf_ClientInstance PufClientInstance);
 static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr);
 static int XPuf_EncryptData(XSecure_ClientInstance *SecureClientInstance, char* Data,
 	u32 DataLen, u8* Iv, u8* OutputData);
@@ -105,7 +107,9 @@ static int XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen);
 int main(void)
 {
 	int Status = XST_FAILURE;
+	int ReleaseStatus = XST_FAILURE;
 	XMailbox MailboxInstance;
+	XPuf_ClientInstance PufClientInstance;
 	u8 GenKek = XPUF_GENERATE_KEK_N_ID;
 
 #if (defined(versal) && !defined(VERSAL_NET))
@@ -122,14 +126,34 @@ int main(void)
 		goto END;
 	}
 
+	Status = XPuf_ClientInit(&PufClientInstance, &MailboxInstance);
+	if (Status != XST_SUCCESS) {
+		xil_printf("PUF Client Initilaisation failed \r\n");
+		goto END;
+	}
+
+	Status = XPuf_SetSlrIndex(&PufClientInstance, XPUF_SLR_INDEX_0);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Invalid SlrIndex \r\n");
+		goto END;
+	}
+
+	/* Set shared memory */
+	Status = XMailbox_SetSharedMem(&MailboxInstance, (u64)(UINTPTR)(SharedMem),
+			XSECURE_SHARED_MEM_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n Shared memory initialization failed");
+		goto RELEASE_END;
+	}
+
 	/* Generate PUF Key and PUF ID*/
-	Status = XPuf_GeneratePufKekAndId();
+	Status = XPuf_GeneratePufKekAndId(PufClientInstance);
 	if (Status == XST_SUCCESS) {
 		xil_printf("Successfully completed PUF operation \r\n");
 	}
 	else {
 		xil_printf("PUF operation failed %x\r\n", Status);
-		goto END;
+		goto RELEASE_END;
 	}
 
 	if (GenKek == TRUE) {
@@ -140,6 +164,12 @@ int main(void)
 		else {
 			xil_printf("Encryption failed %x\r\n", Status);
 		}
+	}
+
+RELEASE_END:
+	ReleaseStatus = XMailbox_ReleaseSharedMem(&MailboxInstance);;
+	if (ReleaseStatus != XST_SUCCESS) {
+		xil_printf("\r\n Mailbox shared memory release failed\n\r");
 	}
 
 END:
@@ -177,33 +207,39 @@ END:
  *		- XST_FAILURE - if PUF KEY generation failed.
  *
  ******************************************************************************/
-static int XPuf_GeneratePufKekAndId()
+static int XPuf_GeneratePufKekAndId(XPuf_ClientInstance PufClientInstance)
 {
 	int Status = XST_FAILURE;
-	XPuf_Data PufData;
 	u32 PUF_HelperData[XPUF_HD_LEN_IN_WORDS] = {0U};
+	u32 PufId[XPUF_ID_LEN_IN_WORDS] = {0U};
+	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS] = {0U};
+	u32 Chash, Aux;
 	u8 GenKekNId = XPUF_GENERATE_KEK_N_ID;
 	u8 KeyGenOption = XPUF_KEY_GENERATE_OPTION;
 
-	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
-	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
-	PufData.RoSwapVal = XPUF_RO_SWAP_VAL;
+	PufDataAddr.ShutterValue = XPUF_SHUTTER_VALUE;
+	PufDataAddr.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
+	PufDataAddr.RoSwapVal = XPUF_RO_SWAP_VAL;
+	PufDataAddr.PufIDAddr = (u64)(UINTPTR)PufId;
+	PufDataAddr.AuxAddr = (u64)(UINTPTR)&Aux;
+	PufDataAddr.ChashAddr = (u64)(UINTPTR)&Chash;
 
-	xil_printf("PUF ShutterValue : %02x \r\n", PufData.ShutterValue);
-	xil_printf("PUF Ring Oscillator Swap Value : %02x \r\n", PufData.RoSwapVal);
+	xil_printf("PUF ShutterValue : %02x \r\n", PufDataAddr.ShutterValue);
+	xil_printf("PUF Ring Oscillator Swap Value : %02x \r\n", PufDataAddr.RoSwapVal);
 
 	if ((GenKekNId == TRUE && KeyGenOption == XPUF_REGEN_ON_DEMAND) || GenKekNId == FALSE) {
 		if (GenKekNId == FALSE) {
-			PufData.PufOperation = XPUF_REGEN_ID_ONLY;
+			PufDataAddr.PufOperation = XPUF_REGEN_ID_ONLY;
 		}
 		else {
-			PufData.PufOperation = XPUF_REGEN_ON_DEMAND;
+			PufDataAddr.PufOperation = XPUF_REGEN_ON_DEMAND;
 		}
-		PufData.ReadOption = XPUF_READ_HD_OPTION;
-		if (PufData.ReadOption == XPUF_READ_FROM_RAM) {
-			PufData.Chash = XPUF_CHASH;
-			PufData.Aux = XPUF_AUX;
-			PufData.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
+
+		PufDataAddr.ReadOption = XPUF_READ_HD_OPTION;
+		if (PufDataAddr.ReadOption == XPUF_READ_FROM_RAM) {
+			Chash = XPUF_CHASH;
+			Aux = XPUF_AUX;
+			PufDataAddr.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
 			xil_printf("Reading helper data from DDR\r\n");
 		}
 		else {
@@ -211,29 +247,30 @@ static int XPuf_GeneratePufKekAndId()
 			goto END;
 		}
 
-		Status = XPuf_Regeneration(&PufData);
+		Status = XPuf_Regeneration(&PufClientInstance, (u64)(UINTPTR)&PufDataAddr);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Puf Regeneration failed with error:%x\r\n", Status);
 			goto END;
 		}
 		xil_printf("PUF ID : ");
-		XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
+		XPuf_ShowData((u8*)PufId, XPUF_ID_LEN_IN_BYTES);
 	}
 	else if (GenKekNId == TRUE && KeyGenOption == XPUF_REGISTRATION) {
-		PufData.PufOperation = XPUF_REGISTRATION;
-		Status = XPuf_Registration(&PufData);
+		PufDataAddr.PufOperation = XPUF_REGISTRATION;
+		PufDataAddr.SyndromeDataAddr = (u64)(UINTPTR)SyndromeData;
+		Status = XPuf_Registration(&PufClientInstance, (u64)(UINTPTR)&PufDataAddr);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
 		xil_printf("PUF Helper data Start!!!\r\n");
 		Status = Xil_SMemCpy(PUF_HelperData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
-				PufData.SyndromeData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
+				(u8 *)(UINTPTR)PufDataAddr.SyndromeDataAddr, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
 				XPUF_4K_PUF_SYN_LEN_IN_BYTES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		PUF_HelperData[XPUF_HD_LEN_IN_WORDS - 2U] = PufData.Chash;
+		PUF_HelperData[XPUF_HD_LEN_IN_WORDS - 2U] = Chash;
 		/** PLM left shifts the the AUX value by 4-bits for NVM provisioning. During regeneration
 		 *  from BootHeader, the ROM expects PUF AUX value in below format:
 		 *
@@ -244,13 +281,13 @@ static int XPuf_GeneratePufKekAndId()
 		 *  Any non-zero value in AUX_EN is causing PUF convergence error. Hence left shifting the
 		 *  AUX value by 4-bits.
 		 */
-		PUF_HelperData[XPUF_HD_LEN_IN_WORDS - 1U] = (PufData.Aux << XIL_SIZE_OF_NIBBLE_IN_BITS);
+		PUF_HelperData[XPUF_HD_LEN_IN_WORDS - 1U] = (Aux << XIL_SIZE_OF_NIBBLE_IN_BITS);
 		XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * XPUF_WORD_LENGTH);
-		xil_printf("Chash: %02x \r\n", PufData.Chash);
-		xil_printf("Aux: %02x \r\n", PufData.Aux);
+		xil_printf("Chash: %02x \r\n", Chash);
+		xil_printf("Aux: %02x \r\n", Aux);
 		xil_printf("PUF Helper data End\r\n");
 		xil_printf("PUF ID : ");
-		XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
+		XPuf_ShowData((u8*)PufId, XPUF_ID_LEN_IN_BYTES);
 	}
 	else {
 		xil_printf("Invalid PUF Operation");
@@ -288,14 +325,6 @@ static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr)
 
 	Status = XSecure_ClientInit(&SecureClientInstance, MailboxPtr);
 	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Set shared memory */
-	Status = XMailbox_SetSharedMem(MailboxPtr, (u64)(UINTPTR)(SharedMem + XPUF_IV_LEN_IN_BYTES),
-			XSECURE_SHARED_MEM_SIZE);
-	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n shared memory initialization failed");
 		goto END;
 	}
 
