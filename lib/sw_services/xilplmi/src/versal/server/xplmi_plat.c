@@ -40,6 +40,7 @@
 *       mss  01/09/2024 Added PMC RAM check condition in Xplmi_VerifyAddr API
 *       ng   01/28/2024 optimized u8 variables
 *       ng   02/14/2024 removed int typecast for errors
+*       ma   03/05/2024 Define IOModule instance as static in XPlmi_GetIOModuleInst
 *
 * </pre>
 *
@@ -179,6 +180,20 @@ XPlmi_BoardParams *XPlmi_GetBoardParams(void)
 	};
 
 	return &BoardParams;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides pointer to IOModule structure
+ *
+ * @return	Pointer to XIOModule
+ *
+ *****************************************************************************/
+XIOModule *XPlmi_GetIOModuleInst(void)
+{
+	static XIOModule IOModule __attribute__ ((aligned(4U))) = { 0U };
+
+	return &IOModule;
 }
 
 /*****************************************************************************/

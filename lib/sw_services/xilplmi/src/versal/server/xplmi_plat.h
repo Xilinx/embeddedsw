@@ -47,6 +47,7 @@
 * 2.00  ng   01/26/2024 Updated minor error codes
 *       sk   02/18/2024 Added defines for DDRMC Calib Check Status RTCA Register
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
+*       ma   03/05/2024 Define IOModule instance as static in XPlmi_GetIOModuleInst
 * </pre>
 *
 * @note
@@ -68,6 +69,7 @@ extern "C" {
 #ifdef SDT
 #include "xiltimer.h"
 #endif
+#include "xiomodule.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_PLM_BANNER	"Xilinx Versal Platform Loader and Manager \n\r" /**< PLM banner */
@@ -575,6 +577,7 @@ void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus);
 void XPlmi_NotifySldSlaveSlrs(void);
 void XPlmi_InterSlrSldHandshake(void);
 void XPlmi_SetXRamAvailable(void);
+XIOModule *XPlmi_GetIOModuleInst(void);
 
 /************************** Variable Definitions *****************************/
 
