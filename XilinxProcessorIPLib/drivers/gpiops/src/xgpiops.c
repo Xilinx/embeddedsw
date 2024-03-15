@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 *                     Literal value requires a U suffix.
 * 3.5   sne  03/13/19 Added Versal support.
 * 3.12  gm   07/11/23 Added SDT support.
+* 3.13  gm   03/15/24 Added multi-core interrupt support.
 *
 * </pre>
 *
@@ -180,6 +181,7 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 					  ((u32)(i) * XGPIOPS_REG_MASK_OFFSET) +
 					  XGPIOPS_INTDIS_OFFSET, 0xFFFFFFFFU);
                 }
+		InstancePtr->CoreIntrMask[i] = 0;
 	}
 
 	/* Indicate the component is now ready to use. */
