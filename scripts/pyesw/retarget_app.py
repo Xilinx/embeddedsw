@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module updates the application meta-data app.yaml and CMakeLists.txt
@@ -38,8 +38,8 @@ def retarget_app(args):
         cmake_lib_list = ';'.join(lib_list)
         utils.replace_line(
             src_cmake,
-            'xiltimer',
-            f'collect(PROJECT_LIB_DEPS {cmake_lib_list})\n',
+            f'PROJECT_LIB_DEPS xilstandalone',
+            f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})\n',
         )
 
 if __name__ == "__main__":
