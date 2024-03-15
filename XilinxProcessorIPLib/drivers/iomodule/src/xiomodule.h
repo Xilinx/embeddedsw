@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -239,6 +239,8 @@
 * 2.15  ml   02/27/23  converted signed macros into unsigned macros to fix
 *                      misra-c violations.
 * 2.15  adk  04/14/23  Added support for system device-tree flow.
+* 2.16  ma   05/03/24 Added XIOModule_HandlerTable_Initialize function to
+*                       be called after In-place PLM update
 * </pre>
 *
 ******************************************************************************/
@@ -473,6 +475,7 @@ s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u16 DeviceId);
 s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress);
 s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u32 BaseAddress);
 #endif
+void XIOModule_HandlerTable_Initialize(XIOModule *InstancePtr);
 
 s32 XIOModule_Start(XIOModule * InstancePtr);
 void XIOModule_Stop(XIOModule * InstancePtr);
