@@ -53,6 +53,7 @@
 *                       during ROM
 *       ng   06/21/2023 Added support for system device-tree flow
 *       ng   01/28/2024 optimized u8 variables
+*       ma   03/05/2024 Fixed improper timestamp issue after In-place PLM update
 *
 * </pre>
 *
@@ -92,7 +93,6 @@ static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq,
 
 /************************** Variable Definitions *****************************/
 static u32 PmcIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ; /* Frequency of the PMC IRO */
-static XIOModule IOModule; /* Instance of the IO Module */
 
 /*****************************************************************************/
 /**
@@ -108,18 +108,6 @@ u32 *XPlmi_GetPmcIroFreq(void)
 
 /*****************************************************************************/
 /**
-* @brief	This function provides the pointer to IOModule variable
-*
-* @return	Pointer to IOModule variable
-*
-*****************************************************************************/
-XIOModule *XPlmi_GetIOModuleInst(void)
-{
-	return &IOModule;
-}
-
-/*****************************************************************************/
-/**
 * @brief	It initializes the Programmable Interval Timer.
 *
 * @param	Timer is PIT timer number to be initialized
@@ -131,12 +119,14 @@ XIOModule *XPlmi_GetIOModuleInst(void)
 *****************************************************************************/
 static void XPlmi_InitPitTimer(u32 Timer, u32 ResetValue)
 {
+	XIOModule *IOModule = XPlmi_GetIOModuleInst();
+
 	/*
 	 * When used in PIT1 prescalar to PIT2, PIT2 has least 32bits
 	 * So, PIT2 is reloaded to get 64bit timer value.
 	 */
 	if ((XPLMI_PIT2 == Timer) || (XPLMI_PIT3 == Timer)) {
-		XIOModule_Timer_SetOptions(&IOModule, (u8)Timer,
+		XIOModule_Timer_SetOptions(IOModule, (u8)Timer,
 				XTC_AUTO_RELOAD_OPTION);
 	}
 
@@ -146,13 +136,13 @@ static void XPlmi_InitPitTimer(u32 Timer, u32 ResetValue)
 	 * reset value is loaded into the Programmable Interval Timers when
 	 * they are started.
 	 */
-	XIOModule_SetResetValue(&IOModule, (u8)Timer, ResetValue);
+	XIOModule_SetResetValue(IOModule, (u8)Timer, ResetValue);
 
 	/*
 	 * Start the Programmable Interval Timers and they are
 	 * decrementing by default
 	 */
-	XIOModule_Timer_Start(&IOModule, (u8)Timer);
+	XIOModule_Timer_Start(IOModule, (u8)Timer);
 }
 
 /*****************************************************************************/
@@ -168,9 +158,10 @@ u64 XPlmi_GetTimerValue(void)
 	u64 TimerValue;
 	u64 TPit1;
 	u32 TPit2;
+	XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
-	TPit1 = XIOModule_GetValue(&IOModule, (u8)XPLMI_PIT1);
-	TPit2 = XIOModule_GetValue(&IOModule, (u8)XPLMI_PIT2);
+	TPit1 = XIOModule_GetValue(IOModule, (u8)XPLMI_PIT1);
+	TPit2 = XIOModule_GetValue(IOModule, (u8)XPLMI_PIT2);
 
 	/**
 	 * Pit1 starts at 0 and preload the full value
@@ -288,32 +279,36 @@ void XPlmi_PrintPlmTimeStamp(void)
 int XPlmi_StartTimer(void)
 {
 	int Status =  XST_FAILURE;
-	u32 Pit1ResetValue;
-	u32 Pit2ResetValue;
 	u32 Pit3ResetValue;
+	XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
-	/**
-	 * - Get Pit1 and Pit2 reset values
-	 */
-	Status = XPlmi_GetPitResetValues(&Pit1ResetValue, &Pit2ResetValue);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		IOModule->CfgPtr = XIOModule_LookupConfig(IOMODULE_DEVICE);
+		if (IOModule->CfgPtr == NULL) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_INIT, 0U);
+			goto END;
+		}
 
-	/**
-	 * - Initialize the IO Module so that it's ready to use,
-	 * specify the device ID that is generated in xparameters.h
-	 */
-	Status = XIOModule_Initialize(&IOModule, IOMODULE_DEVICE);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_INIT, Status);
-		goto END;
-	}
+		/**
+		 * - Initialize all the interrupt Handlers to default handler
+		*/
+		XIOModule_HandlerTable_Initialize(IOModule);
+	} else {
+		/**
+		* - Initialize the IO Module so that it's ready to use,
+		* specify the device ID that is generated in xparameters.h
+		*/
+		Status = XIOModule_Initialize(IOModule, IOMODULE_DEVICE);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_INIT, Status);
+			goto END;
+		}
 
-	Status = XIOModule_Start(&IOModule);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_START, Status);
-		goto END;
+		Status = XIOModule_Start(IOModule);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_START, Status);
+			goto END;
+		}
 	}
 
 	Status = XPlmi_SetPmcIroFreq();
@@ -322,28 +317,30 @@ int XPlmi_StartTimer(void)
 		goto END;
 	}
 
-	/*
-	 * PLM scheduler is running too fast for QEMU, so increasing the
-	 * scheduler's poling time to 100ms for QEMU instead of 10ms
-	 */
-	if (XPLMI_PLATFORM == PMC_TAP_VERSION_QEMU) {
-		Pit3ResetValue = PmcIroFreq / XPLMI_PIT_FREQ_DIVISOR_QEMU;
-	} else {
-		Pit3ResetValue = PmcIroFreq / XPLMI_PIT_FREQ_DIVISOR;
+	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+		/*
+		 * PLM scheduler is running too fast for QEMU, so increasing the
+		 * scheduler's poling time to 100ms for QEMU instead of 10ms
+		*/
+		if (XPLMI_PLATFORM == PMC_TAP_VERSION_QEMU) {
+			Pit3ResetValue = PmcIroFreq / XPLMI_PIT_FREQ_DIVISOR_QEMU;
+		} else {
+			Pit3ResetValue = PmcIroFreq / XPLMI_PIT_FREQ_DIVISOR;
+		}
+
+		/**
+		 * - Initialize and start the timer
+		 *   - Use PIT1 and PIT2 in prescaler mode
+		 *   - Set the Prescaler mode
+		 */
+		XPlmi_Out32(IOModule->BaseAddress + (u32)XGO_OUT_OFFSET,
+			MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
+		XPlmi_InitPitTimer(XPLMI_PIT2, XPLMI_PIT2_RESET_VALUE);
+		XPlmi_InitPitTimer(XPLMI_PIT1, XPLMI_PIT1_RESET_VALUE);
+		XPlmi_InitPitTimer(XPLMI_PIT3, Pit3ResetValue);
 	}
 
 	XPlmi_SchedulerInit();
-
-	/**
-	 * - Initialize and start the timer
-	 *   - Use PIT1 and PIT2 in prescaler mode
-	 *   - Set the Prescaler mode
-	 */
-	XPlmi_Out32(IOModule.BaseAddress + (u32)XGO_OUT_OFFSET,
-		MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
-	XPlmi_InitPitTimer(XPLMI_PIT2, Pit2ResetValue);
-	XPlmi_InitPitTimer(XPLMI_PIT1, Pit1ResetValue);
-	XPlmi_InitPitTimer(XPLMI_PIT3, Pit3ResetValue);
 
 END:
 	return Status;
@@ -368,6 +365,7 @@ int XPlmi_SetUpInterruptSystem(void)
 	u8 Index;
 	XInterruptHandler *g_TopLevelInterruptTable = XPlmi_GetTopLevelIntrTbl();
 	u8 Size = XPlmi_GetTopLevelIntrTblSize();
+	XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
 	microblaze_disable_interrupts();
 	/**
@@ -376,7 +374,7 @@ int XPlmi_SetUpInterruptSystem(void)
 	 * interrupt processing for the device
 	 */
 	for (Index = 0U; Index < Size; ++Index) {
-		Status = XIOModule_Connect(&IOModule, IntrNum,
+		Status = XIOModule_Connect(IOModule, IntrNum,
 			(XInterruptHandler)g_TopLevelInterruptTable[Index],
 			(void *)(u32)IntrNum);
 		if (Status != XST_SUCCESS) {
@@ -387,7 +385,7 @@ int XPlmi_SetUpInterruptSystem(void)
 	}
 	++IntrNum;
 	while (IntrNum < XILPLMI_IOMODULE_INTC_MAX_INTR_SIZE) {
-		Status = XIOModule_Connect(&IOModule, IntrNum,
+		Status = XIOModule_Connect(IOModule, IntrNum,
 			(XInterruptHandler)XPlmi_IntrHandler,
 			(void *)(u32)IntrNum);
 		if (Status != XST_SUCCESS) {
@@ -397,7 +395,7 @@ int XPlmi_SetUpInterruptSystem(void)
 		IntrNum++;
 	}
 
-	Status = XIOModule_Connect(&IOModule, XIN_IOMODULE_PIT_3_INTERRUPT_INTR,
+	Status = XIOModule_Connect(IOModule, XIN_IOMODULE_PIT_3_INTERRUPT_INTR,
 		(XInterruptHandler)XPlmi_SchedulerHandler, (void *)(u32)IntrNum);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_CONNECT, Status);
@@ -456,13 +454,14 @@ void XPlmi_IntrHandler(void *CallbackRef)
 void XPlmi_PlmIntrEnable(u32 IntrId)
 {
 	u32 IntrNum = IntrId;
+	XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
 	/* For Backward Compatibility of Xilsem */
 	if (IntrId == 0U) {
 		IntrNum = XPLMI_IOMODULE_CFRAME_SEU;
 	}
 
-	XIOModule_Enable(&IOModule, (u8)IntrNum);
+	XIOModule_Enable(IOModule, (u8)IntrNum);
 }
 
 /****************************************************************************/
@@ -478,13 +477,14 @@ void XPlmi_PlmIntrEnable(u32 IntrId)
 int XPlmi_PlmIntrDisable(u32 IntrId)
 {
 	u32 IntrNum = IntrId;
+	XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
 	/* For Backward Compatibility of Xilsem */
 	if (IntrId == 0U) {
 		IntrNum = XPLMI_IOMODULE_CFRAME_SEU;
 	}
 
-	XIOModule_Disable(&IOModule, (u8)IntrNum);
+	XIOModule_Disable(IOModule, (u8)IntrNum);
 
 	return XST_SUCCESS;
 }
@@ -502,13 +502,14 @@ int XPlmi_PlmIntrDisable(u32 IntrId)
 int XPlmi_PlmIntrClear(u32 IntrId)
 {
 	u32 IntrNum = IntrId;
+	XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
 	/* For Backward Compatibility of Xilsem */
 	if (IntrId == 0U) {
 		IntrNum = XPLMI_IOMODULE_CFRAME_SEU;
 	}
 
-	XIOModule_Acknowledge(&IOModule, (u8)IntrNum);
+	XIOModule_Acknowledge(IOModule, (u8)IntrNum);
 
 	return XST_SUCCESS;
 }
@@ -531,13 +532,14 @@ int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)
 {
 	int Status = XST_FAILURE;
 	u32 IntrNum = IntrId;
+	XIOModule *IOModule = XPlmi_GetIOModuleInst();
 
 	/* For Backward Compatibility of Xilsem */
 	if (IntrId == 0U) {
 		IntrNum = XPLMI_IOMODULE_CFRAME_SEU;
 	}
 
-	Status = XIOModule_Connect(&IOModule, (u8)IntrNum,
+	Status = XIOModule_Connect(IOModule, (u8)IntrNum,
 			(XInterruptHandler)(void *)Handler, (void *)Data);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "IoModule Connect Failed:0x%0x\n\r",
