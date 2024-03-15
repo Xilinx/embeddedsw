@@ -121,6 +121,9 @@
 #define APP_MAJ_VERSION 5
 #define APP_MIN_VERSION 4
 
+#ifdef SDT
+#define INTRNAME_HDMITX 0
+#endif
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -3205,7 +3208,7 @@ int main() {
 #ifdef SDT
 	Status = XSetupInterruptSystem(&HdmiTxSs,
 				XV_HdmiTxSS_HdmiTxIntrHandler,
-				XV_HdmiTxSs_ConfigPtr->IntrId,
+				XV_HdmiTxSs_ConfigPtr->IntrId[INTRNAME_HDMITX],
 				XV_HdmiTxSs_ConfigPtr->IntrParent,
 				XINTERRUPT_DEFAULT_PRIORITY);
 #endif
