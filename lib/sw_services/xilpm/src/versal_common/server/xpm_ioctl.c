@@ -343,6 +343,98 @@ done:
 	return Status;
 }
 
+static XStatus XPmIoctl_IsRegRequested(u32 SubsystemId, u32 Register, u32 Type)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Requirement *Reqm = NULL;
+	u32 DeviceId;
+	u32 NodeClass = (u32)XPM_NODECLASS_DEVICE;
+	u32 NodeSubClass = (u32)XPM_NODESUBCL_DEV_PERIPH;
+	u32 RegNum = Register;
+
+	switch (Type) {
+		case (u32)XPM_NODETYPE_DEV_PGGS:
+			/*
+			 * +1 is needed as the first PGGS Node ID is after the last
+			 * GGS Node ID.
+			 */
+			RegNum += (u32)GGS_MAX + 1U;
+			break;
+		case (u32)XPM_NODETYPE_DEV_GGS:
+			break;
+		default:
+			Status = XPM_INVALID_TYPEID;
+			break;
+	}
+
+	if (XPM_INVALID_TYPEID == Status) {
+		goto done;
+	}
+
+	DeviceId = NODEID(NodeClass, NodeSubClass, Type, RegNum);
+
+	if (NULL == XPmDevice_GetById(DeviceId)) {
+		Status = XPM_INVALID_DEVICEID;
+		goto done;
+	}
+
+	if (NULL == XPmSubsystem_GetById(SubsystemId)) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	Reqm = XPmDevice_FindRequirement(DeviceId, SubsystemId);
+	if ((NULL == Reqm) || (1U != Reqm->Allocated)) {
+		Status = XPM_ERR_DEVICE_STATUS;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+static XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
+		const u32 *Perms, u32 Type, u32 CmdType)
+{
+	XStatus Status = XST_FAILURE;
+	u32 PermissionMask = 0;
+	u32 SecureMask;
+	u32 NonSecureMask;
+
+	/*
+	 * RegNum is validated later in each operation so do not need to
+	 * validate here in case of PMC subsystem.
+	 */
+	if (PM_SUBSYS_PMC == SubsystemId) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Other subsystems have RegNum validated in this function. */
+	Status = XPmIoctl_IsRegRequested(SubsystemId, RegNum, Type);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	PermissionMask = Perms[RegNum];
+	SecureMask = ((u32)1U << SUBSYS_TO_S_BITPOS(SubsystemId));
+	NonSecureMask = ((u32)1U << SUBSYS_TO_NS_BITPOS(SubsystemId));
+
+	/* Have Target check if Host can enact the operation */
+	if ((XPLMI_CMD_SECURE == CmdType) &&
+			(SecureMask == (PermissionMask & SecureMask))) {
+		Status = XST_SUCCESS;
+	} else if (NonSecureMask == (PermissionMask & NonSecureMask)) {
+		Status = XST_SUCCESS;
+	} else {
+		Status = XPM_PM_NO_ACCESS;
+	}
+
+done:
+	return Status;
+}
+
 static XStatus XPm_ReadPggs(const u32 SubsystemId, const u32 PggsNum,
 			    u32 *const Value, const u32 CmdType)
 {

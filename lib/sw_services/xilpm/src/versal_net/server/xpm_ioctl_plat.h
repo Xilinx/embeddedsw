@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -109,17 +109,6 @@ maybe_unused static u32 XPm_GetUsbCurrPwrOffset(const u32 DeviceId)
 	}
 
 	return CurrPwrOffset;
-}
-maybe_unused static inline XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
-		const u32 *Perms, u32 Type, u32 CmdType)
-{
-	(void)RegNum;
-	(void)SubsystemId;
-	(void)Perms;
-	(void)Type;
-	(void)CmdType;
-
-	return XST_SUCCESS;
 }
 
 maybe_unused static inline XStatus XPm_GetSsitTemp(u32 DeviceId,
