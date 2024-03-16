@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/common/StandaloneExample.cmake NO_POLICY_SCOPE)
@@ -19,6 +19,7 @@ endif()
 
 if("${CMAKE_MACHINE}" STREQUAL "Versal")
     set(versal " ")
+    set(VERSAL " ")
 elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
     set(PLATFORM_ZYNQMP " ")
 elseif("${CMAKE_MACHINE}" STREQUAL "Zynq")
