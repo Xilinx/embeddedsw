@@ -36,6 +36,15 @@ typedef struct params_s {
 	s32 unsigned_flag; /**< unsigned flag */
 } params_t;
 
+/***************** Macros (Inline Functions) Definitions *********************/
+
+#if (defined(__MICROBLAZE__)) && (!defined(__arch64__))
+#define MICROBLAZE32
+#endif
+
+#if (!defined(MICROBLAZE32)) && (!defined(ZYNQMP_R5_FSBL_BSP))
+#define SUPPORT_64BIT_PRINT
+#endif
 
 /*---------------------------------------------------*/
 /* The purpose of this routine is to output data the */
@@ -156,6 +165,7 @@ static void outnum( const s32 n, const s32 base, struct params_s *par)
 /* buffer as directed by the padding and positioning */
 /* flags. 											 */
 /*                                                   */
+#if defined (SUPPORT_64BIT_PRINT)
 static void outnum1( const s64 n, const s32 base, params_t *par)
 {
 	s32 negative;
@@ -202,6 +212,7 @@ static void outnum1( const s64 n, const s32 base, params_t *par)
 	}
 	padding( par->left_flag, par);
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -268,7 +279,9 @@ void xil_printf( const char8 *ctrl1, ...)
 void xil_vprintf(const char8 *ctrl1, va_list argp)
 {
 	s32 Check;
+#if defined (SUPPORT_64BIT_PRINT)
 	s32 long_flag;
+#endif
 	s32 dot_flag;
 	u32 width, index;
 	params_t par;
@@ -291,7 +304,9 @@ void xil_vprintf(const char8 *ctrl1, va_list argp)
 
 		/* initialize all the flags for this format.   */
 		dot_flag = 0;
+#if defined (SUPPORT_64BIT_PRINT)
 		long_flag = 0;
+#endif
 		par.unsigned_flag = 0;
 		par.left_flag = 0;
 		par.do_padding = 0;
@@ -356,7 +371,9 @@ try_next:
 				break;
 
 			case 'l':
+#if defined (SUPPORT_64BIT_PRINT)
 				long_flag = 1;
+#endif
 				Check = 0;
 				break;
 
@@ -365,11 +382,15 @@ try_next:
 			/* fall through */
 			case 'i':
 			case 'd':
+#if defined (SUPPORT_64BIT_PRINT)
 				if (long_flag != 0) {
 					outnum1((s64)va_arg(argp, s64), 10L, &par);
 				} else {
 					outnum( va_arg(argp, s32), 10L, &par);
 				}
+#else
+				outnum( va_arg(argp, s32), 10L, &par);
+#endif
 				Check = 1;
 				break;
 			case 'p':
@@ -382,11 +403,15 @@ try_next:
 			case 'X':
 			case 'x':
 				par.unsigned_flag = 1;
+#if defined (SUPPORT_64BIT_PRINT)
 				if (long_flag != 0) {
 					outnum1((s64)va_arg(argp, s64), 16L, &par);
 				} else {
 					outnum((s32)va_arg(argp, s32), 16L, &par);
 				}
+#else
+				outnum((s32)va_arg(argp, s32), 16L, &par);
+#endif
 				Check = 1;
 				break;
 
