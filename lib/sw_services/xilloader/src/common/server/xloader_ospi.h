@@ -34,6 +34,7 @@
 *       dd   02/08/2024 Added support for ISSI 512M
 *       sk   02/26/2024 Added defines for Spansion flash part
 *       ng   03/05/2024 Added support for Macronix OSPI 2G flash part
+*       sk   03/15/2024 Added structure for flash info
 *
 * </pre>
 *
@@ -71,7 +72,10 @@ extern "C" {
 #define WRITE_CONFIG_REG_SPN		(0x71U)
 #define READ_CONFIG_REG_SPN		(0x65U)
 #define CONFIG_REG_4_ADDR_SPN		(0x800005U)
-#define CONFIG_REG_5_ADDR_SPN		(0x800006U)
+#define CONFIG_REG_5_DIE_1_ADDR_SPN	(0x800006U)
+#define CONFIG_REG_5_DIE_2_ADDR_SPN	(0x8800006U)
+#define CONFIG_REG_5_DIE_3_ADDR_SPN	(0x10800006U)
+#define CONFIG_REG_5_DIE_4_ADDR_SPN	(0x18800006U)
 
 /*
  * Identification of Flash
@@ -142,12 +146,45 @@ extern "C" {
 #define XLOADER_OSPI_WRITE_DONE_MASK	(0x80U)
 #define XLOADER_WRITE_CFG_ECC_REG_VAL		(0xA0U)
 
+#define SPANSION_JEDEC_ID		(0x345b1CU)
+#define SPANSION_TOTAL_SECTORS		(0x400U)
+#define SPANSION_TOTAL_PAGES		(0x100000U)
+#define SPANSION_SECTOR_MASK		(0xFFFC0000U)
+#define SPANSION_DIE_COUNT_PER_FLASH	(0x02U)
+#define FLASH_SECTOR_SIZE_256KB 	(0x40000U)
+#define FLASH_PAGE_SIZE_256		(256U)
+#define FLASH_DEVICE_SIZE_2G		(0x10000000U)
+#define DDR_READ_CMD_4B_SPN		(0xEEU)
+#define WRITE_CMD_4B			(0x12U)
+#define READ_STATUS_CMD			(0x05U)
+
 /************************** Function Prototypes ******************************/
 int XLoader_OspiInit(u32 DeviceFlags);
 int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_OspiRelease(void);
 
 /************************** Variable Definitions *****************************/
+
+#ifdef VERSAL_NET
+typedef struct {
+	u32 jedec_id;	/* JEDEC ID */
+	u32 SectSize;		/* Individual sector size or
+						 * combined sector size in case of parallel config*/
+	u32 NumSect;		/* Total no. of sectors in one/two flash devices */
+	u32 PageSize;		/* Individual page size or
+				 * combined page size in case of parallel config*/
+	u32 NumPage;		/* Total no. of pages in one/two flash devices */
+	u32 FlashDeviceSize;	/* This is the size of one flash device
+				 * NOT the combination of both devices, if present
+				 */
+	u32 SectMask;		/* Mask to get sector start address */
+	u32 ReadCmd;		/* Read command used to read data from flash */
+	u32 WriteCmd;	/* Write command used to write data to flash */
+	u8 NumDie;		/* No. of die forming a single flash */
+	u8 StatusCmd;	/* Status Command */
+	u8 DummyCycles;	/* Number of Dummy cycles for Read operation */
+} FlashInfo;
+#endif
 
 #endif /* end of XLOADER_OSPI */
 
