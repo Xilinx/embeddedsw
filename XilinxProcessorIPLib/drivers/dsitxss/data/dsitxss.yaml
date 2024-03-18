@@ -33,13 +33,13 @@ properties:
     description: DPhy line rate.
   xlnx,dphy-en-reg-if:
     description: Dphy enable register interface.
-  xlnx,dphy-present:
+  dphy-present:
     description: Dphy is present.
-  xlnx,dphy-connected:
+  dphy-connected:
     description: Dphy is connected flag.
-  xlnx,dsi-tx-ctrl-present:
+  dsi-tx-ctrl-present:
     description: DSI TX controller present flag.
-  xlnx,dsi-tx-ctrl-connected:
+  dsi-tx-ctrl-connected:
     description: DSI TX controller present flag.
   interrupts:
     description: Interrupt number
@@ -57,10 +57,10 @@ required:
   - xlnx,dsi-pixels
   - xlnx,dphy-linerate
   - xlnx,dphy-en-reg-if
-  - xlnx,dphy-present
-  - xlnx,dphy-connected: phandle
-  - xlnx,dsi-tx-ctrl-present
-  - xlnx,dsi-tx-ctrl-connected: phandle
+  - dphy-present
+  - dphy-connected: phandle
+  - dsi-tx-ctrl-present
+  - dsi-tx-ctrl-connected: phandle
   - interrupts
   - interrupt-parent
 
