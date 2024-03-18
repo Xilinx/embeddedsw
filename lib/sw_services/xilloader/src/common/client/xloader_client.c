@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
+ *       har  03/05/24 Fixed doxygen warnings
  *
  * </pre>
  *
@@ -94,8 +95,8 @@ END:
  * @brief This function sends IPI request to Load image.
  *
  * @param	InstancePtr Pointer to the client instance.
- * @param	NodeID		Node id of ddr copied image.
- * @param	FunctionID 	To verify with the FuncID of the image copied to DDR.
+ * @param	NodeId		Node id of ddr copied image.
+ * @param	FunctionId 	To verify with the FuncID of the image copied to DDR.
  *
  * @return
  *			 - XST_SUCCESS on success.
@@ -135,7 +136,7 @@ END:
  * @brief	This function sends IPI request to get image information.
  *
  * @param	InstancePtr Pointer to the client instance.
- * @param	NodeID		Node id of ddr copied image.
+ * @param	NodeId		Node id of ddr copied image.
  * @param	ImageInfo	Pointer to the structure XLoader_ImageInfo which is used to store the
  * 						image information.
  *
@@ -181,7 +182,7 @@ END:
  * @brief	This function sends IPI request to gets ImageInfo Table.
  *
  * @param	InstancePtr Pointer to the client instance.
- * @param	Buf_Addr	Buffer address to copy the ImageInfo.
+ * @param	Buff_Addr	Buffer address to copy the ImageInfo.
  * @param	Maxsize		Maximum size requires in bytes.
  * @param	NumEntries	To get the number of enteries returned.
  *
@@ -289,7 +290,7 @@ END:
  * @param	PdiSrc				Boot Mode values, DDR.
  * @param	PdiAddr				64bit PDI address located in the Source.
  * @param	ReadbackDdrDestAddr	64bit DDR destination address.
- * @param	MaxSize				MaxSize of the buffer present at destination address in bytes.
+ * @param	Maxsize				MaxSize of the buffer present at destination address in bytes.
  * @param	Sizecopied			Readback processed length in bytes.
  *
  * @return
