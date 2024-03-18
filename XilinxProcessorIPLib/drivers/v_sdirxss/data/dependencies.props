@@ -1,2 +1,6 @@
 xv_sdirxss_selftest_example.c=,
-/xuhdsdi_example/xuhdsdi_example.c=/xuhdsdi_example/platform.c,/xuhdsdi_example/platform_config.h,/xuhdsdi_example/platform.h,/xuhdsdi_example/README.txt,/xuhdsdi_example/si5324drv.c,/xuhdsdi_example/si5324drv.h,/xuhdsdi_example/xsdi_menu.c,/xuhdsdi_example/xsdi_menu.h
+/xuhdsdi_example/xuhdsdi_example_a53.txt =/xuhdsdi_example/xuhdsdi_example.c,/xuhdsdi_example/platform.c,/xuhdsdi_example/platform_config.h,/xuhdsdi_example/platform.h,/xuhdsdi_example/README.txt,/xuhdsdi_example/si5324drv.c,/xuhdsdi_example/si5324drv.h,/xuhdsdi_example/xsdi_menu.c,/xuhdsdi_example/xsdi_menu.h
+
+/xuhdsdi_rx_example/xuhdsdi_rx_example_a53.txt =/xuhdsdi_rx_example/xsdi_example.c,/xuhdsdi_rx_example/xsdi_menu.c,/xuhdsdi_rx_example/xsdi_menu.h,/xuhdsdi_rx_example/si5324drv.c,/xuhdsdi_rx_example/si5324drv.h,/xuhdsdi_rx_example/platform.c,/xuhdsdi_rx_example/platform.h,/xuhdsdi_rx_example/platform_config.h,/xuhdsdi_rx_example/lscript.ld
+
+vck190_av_pt/vck190_av_pt.txt=vck190_av_pt/xuhdsdi_example.c,vck190_av_pt/xsdi_menu.c,vck190_av_pt/xsdi_menu.h,vck190_av_pt/platform_config.h,vck190_av_pt/platform.c,vck190_av_pt/platform.h,vck190_av_pt/idt_8t49n24x.c,vck190_av_pt/idt_8t49n24x.h,vck190_av_pt/fzetta_fmc_spi.c,vck190_av_pt/fzetta_fmc_spi.h,vck190_av_pt/fzetta_fmc_iic.c,vck190_av_pt/fzetta_fmc_iic.h,vck190_av_pt/fzetta_fmc_gpio.c,vck190_av_pt/fzetta_fmc_gpio.h,vck190_av_pt/fzetta_fmc_ctlr.c,vck190_av_pt/fzetta_fmc_ctlr.h,vck190_av_pt/fzetta_fmc_init_table.c,vck190_av_pt/fzetta_fmc_init_table.h,vck190_av_pt/lscript.ld
