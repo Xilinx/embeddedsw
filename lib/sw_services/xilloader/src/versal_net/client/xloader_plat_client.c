@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
  *       har  02/16/24 Added XLoader_GetOptionalData API
+ *       har  03/05/24 Fixed doxygen warnings
  *
  * </pre>
  *
@@ -222,7 +223,7 @@ END:
  * @brief	This function sends IPI request to read DDR crypto performance counters.
  *
  * @param	InstancePtr 	Pointer to the client instance.
- * @param	Id				DDR device id.
+ * @param	NodeId		DDR device id.
  * @param	CryptoCounters	To read DDR crypto counters.
  *
  * @return

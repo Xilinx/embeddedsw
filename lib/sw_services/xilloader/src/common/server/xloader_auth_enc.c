@@ -188,6 +188,7 @@ typedef struct {
 
 #define XLOADER_GET_PRTN_HASH_INDEX(PdiPtr) (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) \
 						? (PdiPtr->PrtnNum) : (PdiPtr->PrtnNum +1U)
+		/**< Get partition hash index depending on full/partial PDI */
 
 /************************** Function Prototypes ******************************/
 

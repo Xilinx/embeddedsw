@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
+ *       har  03/05/24 Fixed doxygen warnings
  *
  * </pre>
  *
@@ -58,10 +59,10 @@ typedef enum {
 } XLoader_PdiSrc; /**< PDI sources */
 
 typedef enum {
-		XLOADER_FLASH_RAW = 0,
-		XLOADER_FLASH_FS,
-		XLOADER_FLASH_RAW_BP1,
-		XLOADER_FLASH_RAW_BP2,
+		XLOADER_FLASH_RAW = 0, /**< 0 */
+		XLOADER_FLASH_FS, /**< 1 */
+		XLOADER_FLASH_RAW_BP1, /**< 2 */
+		XLOADER_FLASH_RAW_BP2, /**< 3 */
 } XLoader_FlashType; /**< Flash types */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

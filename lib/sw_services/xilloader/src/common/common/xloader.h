@@ -117,6 +117,7 @@
 * 2.00  kpt  02/21/2024 Update prototype for XLoader_EnableJtag and XLoader_DisableJtag
 *       mss  03/06/2024 Added ClearAtfHandoff member in XilPdi structure and
 *                       ClearATFHandoffParams function prototype
+*       har  03/12/2024 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -138,58 +139,75 @@ extern "C" {
 #include "xloader_defs.h"
 
 /************************** Constant Definitions *****************************/
-#define XLOADER_SUCCESS		(u32)XST_SUCCESS
-#define XLOADER_FAILURE		(u32)XST_FAILURE
-#define XLoader_Printf		XPlmi_Printf
-#define XLOADER_DDR_TEMP_BUFFER_ADDRESS	(0x50000000U)
-#define XLOADER_CHUNK_SIZE		(0x10000U) /* 64K */
-#define XLOADER_TOTAL_CHUNK_SIZE    (XLOADER_CHUNK_SIZE + 0x100U)
-#define XLOADER_DMA_LEN_ALIGN		(0x10U)
-#define XLOADER_DMA_LEN_ALIGN_MASK	(0xFU)
-#define XLOADER_IMAGE_SEARCH_OFFSET	(0x8000U) /* 32K */
+#define XLOADER_SUCCESS		(u32)XST_SUCCESS	/**< Alias for XST_SUCCESS */
+#define XLOADER_FAILURE		(u32)XST_FAILURE	/**< Alias for XST_FAILURE */
+#define XLoader_Printf		XPlmi_Printf		/**< Alias for XPlmi_Printf */
+#define XLOADER_DDR_TEMP_BUFFER_ADDRESS	(0x50000000U)	/**< Fixed DFU temporary address in DDR*/
+#define XLOADER_CHUNK_SIZE		(0x10000U) 	/**< 64K */
+#define XLOADER_TOTAL_CHUNK_SIZE    (XLOADER_CHUNK_SIZE + 0x100U)	/**< Total chunk size */
+#define XLOADER_DMA_LEN_ALIGN		(0x10U)		/**< 16 bytes alignment*/
+#define XLOADER_DMA_LEN_ALIGN_MASK	(0xFU)		/**< Mask for 16 bytes alignment */
+#define XLOADER_IMAGE_SEARCH_OFFSET	(0x8000U)	/**< 32K */
 
-/*
- * Subsystem related macros
+/**
+ * @name  Subsystem related macros
+ * @{
  */
+/**< Subsystem related macros */
 #ifdef VERSAL_NET
 /* Limit to the maximum number of partitions possible */
 #define XLOADER_MAX_HANDOFF_CPUS	(XIH_MAX_PRTNS)
 #else
 #define XLOADER_MAX_HANDOFF_CPUS	(10U)
 #endif
+/** @} */
 
-/*
- * PDI type macros
+/**
+ * @name  Macros for different PDI types
+ * @{
  */
+/**< Different PDI types */
 #define XLOADER_PDI_TYPE_FULL		(0x1U)
 #define XLOADER_PDI_TYPE_PARTIAL	(0x2U)
 #define XLOADER_PDI_TYPE_RESTORE	(0x3U)
 #define XLOADER_PDI_TYPE_FULL_METAHEADER 	(0x4U)
 #define XLOADER_PDI_TYPE_PARTIAL_METAHEADER 	(0x5U)
 #define XLOADER_PDI_TYPE_IPU	(0x6U)
+/** @} */
 
-/*
- * SD boot mode related macros
+/**
+ * @name  SD boot
+ * @{
  */
+/**< SD boot related macros */
 #define XLOADER_PDISRC_FLAGS_MASK	(0xFU)
 #define XLOADER_PDISRC_FLAGS_SHIFT	(0x4U)
+/** @} */
 
-/*
- * PDI Loading status
+/**
+ * @name  Status of PDI Load
+ * @{
  */
+/**< Status of PDI load */
 #define XLOADER_PDI_LOAD_COMPLETE	(0x1U)
 #define XLOADER_PDI_LOAD_STARTED	(0x0U)
+/** @} */
 
-/*
- * SLR Types
+/**
+ * @name  SLR Types
+ * @{
  */
+/**< SLR Types */
 #define XLOADER_SSIT_MONOLITIC		XPLMI_SSIT_MONOLITIC
 #define XLOADER_SSIT_MASTER_SLR		XPLMI_SSIT_MASTER_SLR
 #define XLOADER_SSIT_INVALID_SLR	XPLMI_SSIT_INVALID_SLR
+/** @} */
 
-/*
- * Flash Size macros
+/**
+ * @name  Flash size
+ * @{
  */
+/**< Flash size */
 #if defined(XLOADER_QSPI) || defined(XLOADER_OSPI)
 #define XLOADER_FLASH_SIZE_ID_64M		(0x17U)
 #define XLOADER_FLASH_SIZE_ID_128M		(0x18U)
@@ -204,25 +222,31 @@ extern "C" {
 #define XLOADER_FLASH_SIZE_1G           (0x8000000U)
 #define XLOADER_FLASH_SIZE_2G           (0x10000000U)
 #endif
+/** @} */
 
-/*
- * PDI Version macros
+/**
+ * @name PDI version
+ * @{
  */
+/**< PDI version */
 #define XLOADER_PDI_VERSION_1			(0x01030000U)
 #define XLOADER_PDI_VERSION_2			(0x00020000U)
 #define XLOADER_PDI_VERSION_4			(0x00040000U)
+/** @} */
 
-/* Invalid Img ID */
-#define XLOADER_INVALID_IMG_ID			(0x0U)
+#define XLOADER_INVALID_IMG_ID			(0x0U)	/**< Invalid Img ID */
 
-/* Invalid UID */
-#define XLOADER_INVALID_UID			(0x0U)
+#define XLOADER_INVALID_UID			(0x0U)	/**< Invalid UID */
 
-/* Macro for Image Index Not found */
-#define XLOADER_IMG_INDEX_NOT_FOUND		(0xFFFFFFFFU)
-#define XLOADER_IMG_STORE_INVALID_ADDR		(0xFFFFFFFFFFFFFFFFUL)
-#define XLOADER_IMG_STORE_INVALID_SIZE		(0x0U)
+#define XLOADER_IMG_INDEX_NOT_FOUND		(0xFFFFFFFFU)	/**< Image Index Not found */
+#define XLOADER_IMG_STORE_INVALID_ADDR		(0xFFFFFFFFFFFFFFFFUL)	/**< Invalid address in Image Store */
+#define XLOADER_IMG_STORE_INVALID_SIZE		(0x0U)	/**< Invalid size in Image Store */
 
+/**
+ * @name PDI Src Index
+ * @{
+ */
+/**< PDI Src index */
 #define XLOADER_SBI_INDEX		(0U)
 #define XLOADER_QSPI_INDEX		(1U)
 #define XLOADER_SD_INDEX		(2U)
@@ -231,54 +255,57 @@ extern "C" {
 #define XLOADER_OSPI_INDEX		(5U)
 #define XLOADER_USB_INDEX		(6U)
 #define XLOADER_INVALID_INDEX		(7U)
-#define PdiSrc_t			u32
+/** @} */
+
+#define PdiSrc_t			u32	/**< Alias for u32 */
 
 typedef struct {
-	const char* Name;
-	u8 Index;
+	const char* Name;	/**< Name of PDI source */
+	u8 Index;		/**< Index of PDI source */
 } PdiSrcMap;
 
-/* Multiboot register offset mask */
-#define XLOADER_MULTIBOOT_OFFSET_MASK		(0x001FFFFFU)
+#define XLOADER_MULTIBOOT_OFFSET_MASK		(0x001FFFFFU)	/**< Mask for multiboot offset */
 
-/* SD RAW BOOT related macros */
+/**
+ * @name SD Raw boot
+ * @{
+ */
+/**< SD Raw boot */
 #define XLOADER_SD_RAWBOOT_MASK			(0xF0000000U)
 #define XLOADER_SD_RAWBOOT_VAL			(0x70000000U)
 #define XLOADER_EMMC_BP1_RAW_VAL		(0x10000000U)
 #define XLOADER_EMMC_BP2_RAW_VAL		(0x20000000U)
+/** @} */
 
-/* SD File System Boot related macros */
 #define XLOADER_SD_MAX_BOOT_FILES_LIMIT		(8192U)
+			/**< Maximum limit of boot files in SD filesystem */
 
 #define XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL	(1000U)
-#define XLOADER_SHA3_LEN				(48U)
+			/**< Polling interval for checking Authenticated JTAG interrupt status*/
+#define XLOADER_SHA3_LEN				(48U)	/**< SHA3 hash length in bytes */
 
-#define XLOADER_MAX_PDI_LIST		(32U)
+#define XLOADER_MAX_PDI_LIST		(32U)	/**< Maximum number of PDIs */
 
 #if defined(XLOADER_SD_0) || defined(XLOADER_SD_1)
 #define XLOADER_SD_ADDR_MASK		(0xFFFFU)
 #define XLOADER_SD_ADDR_SHIFT		(0x4U)
 #endif
 
-/* DDR related macro */
-#define XLOADER_HOLD_DDR		(2U)
-
 /**************************** Type Definitions *******************************/
 /*
  * This stores the handoff Address of the different cpu's
  */
 typedef struct {
-	u32 CpuSettings;
-	u64 HandoffAddr;
+	u32 CpuSettings;	/**< CPU settings */
+	u64 HandoffAddr;	/**< Handoff address for CPU */
 } XLoader_HandoffParam;
 
 typedef struct {
 	int (*Init) (u32 DeviceFlags); /**< Function pointer for Device
 				initialization code */
-	/**< Function pointer for device copy */
 	int (*Copy) (u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
-	/**< Function pointer for device release */
-	int (*Release) (void);
+		/**< Function pointer for device copy */
+	int (*Release) (void);	/**< Function pointer for device release */
 } XLoader_DeviceOps;
 
 /*
@@ -290,11 +317,11 @@ typedef struct {
 	u8 DiscardUartLogs; /**< Used to control uart logs */
 	u8 PdiIndex; /**< Index in DeviceOps array */
 	u8 SlrType; /**< SLR Type */
-	u32 PdiSrc;
+	u32 PdiSrc; /**< PDI source */
 	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
-	XLoader_HandoffParam HandoffParam[XLOADER_MAX_HANDOFF_CPUS];
+	XLoader_HandoffParam HandoffParam[XLOADER_MAX_HANDOFF_CPUS];	/**< Handoff Param for each CPU */
 	u32 IpiMask; /**< Info about which master has sent the request*/
-	u32 ClearAtfHandoff; /** Flag to clear ATF Handoff params before loading
+	u32 ClearAtfHandoff; /**< Flag to clear ATF Handoff params before loading
 					    APU Subsystem Partition */
 	u8 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
 	u8 ImageNum; /**< Image number in the PDI */
@@ -306,7 +333,7 @@ typedef struct {
 	u32 DecKeySrc; /**< Decryption Key Source */
 	u32 PpdiKatStatus; /**< PPDI Known Answer Test Status */
 #endif
-	u32 DigestIndex;
+	u32 DigestIndex;	/**< Digest index for data measurement */
 } XilPdi;
 
 /*
@@ -314,7 +341,7 @@ typedef struct {
 * for later use.
 */
 typedef struct {
-	u32 PdiSrc; /** <Pdi Source */
+	u32 PdiSrc; /**< Pdi Source */
 	u32 MetaHdrOfst; /**< Offset to the start of meta header */
 #ifndef PLM_SECURE_EXCLUDE
 	u32 PlmKatStatus; /**< PLM Known Answer Test Status */
@@ -333,34 +360,34 @@ typedef struct {
 /* Structure to store various parameters for processing partitions */
 typedef struct {
 	XLoader_DeviceCopy DeviceCopy; /**< Device Copy instance */
-	u32 DstnCpu;	/** < Destination Cpu */
+	u32 DstnCpu;	/**< Destination Cpu */
 } XLoader_PrtnParams;
 
 typedef struct {
-	u32 Count;
-	u8 IsBufferFull;
+	u32 Count;	/**< Number of images */
+	u8 IsBufferFull;	/**< Flag to indicate if buffer is full */
 } XLoader_ImageInfoTbl;
 
 typedef struct {
-	u32 PdiId;
-	u64 PdiAddr;
+	u32 PdiId;	/**< PDI ID */
+	u64 PdiAddr;	/**< Address of PDI */
 } XLoader_PdiInfo;
 
 typedef struct {
 	u64 PdiImgStrAddr; /**< Image Store address */
 	u32 PdiImgStrSize;/**< Image Store Memory Size */
-	XLoader_PdiInfo ImgList[XLOADER_MAX_PDI_LIST + 1];
-	u8 Count;
+	XLoader_PdiInfo ImgList[XLOADER_MAX_PDI_LIST + 1];	/**< List of Images in Image Store */
+	u8 Count;	/**< Number of images in Image Store */
 } XLoader_ImageStore;
 
 typedef struct {
-	u64 DataAddr;
-	u32 DataSize;
-	u32 PcrInfo;
-	u32 *DigestIndex;
-	u32 Flags;
-	u32 SubsystemID;
-	u32 OverWrite;
+	u64 DataAddr;	/**< Address of data to be extended to PCR */
+	u32 DataSize;	/**< Size of data to be extended to PCR */
+	u32 PcrInfo;	/**< PCR Info which included PCR number and PCR measurement index */
+	u32 *DigestIndex;	/**< Digest Index in the SW PCR log */
+	u32 Flags;	/**< Flags to indicate state of hash calculation - start, update, finish */
+	u32 SubsystemID;	/**< Subsystem ID */
+	u32 OverWrite;	/**< Flag to indicate if digest can be overwritten at the measurement index */
 } XLoader_ImageMeasureInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/
