@@ -30,4 +30,19 @@ required:
     - interrupts: 3
     - interrupt-parent
 
+examples:
+    xttcps_low_level_example.c:
+            - reg
+    xttcps_rtc_example.c:
+            - interrupts
+    xttcps_tapp_example.c:
+            - interrupts
+    xttcps_intr_example.c:
+            - interrupts
+
+tapp:
+  xttcps_tapp_example.c:
+          declaration: TmrInterruptExample
+          hwproperties:
+            - interrupts
 ...

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *                      template
 * 3.18 dp     05/23/23 Update checks for Intervalvalue and Matchvalue based on
 *                      platform.
+* 3.18 ml     03/06/24 Added support for system device-tree flow.
 *</pre>
 ******************************************************************************/
 
@@ -45,7 +46,12 @@
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define PCLK_FREQ_HZ		XPAR_XTTCPS_0_CLOCK_HZ /* Input freq */
+#else
+#define PCLK_FREQ_HZ        XPAR_XTTCPS_0_CLOCK_FREQ /* Input freq */
+#endif
+
 #define TTC_NUM_DEVICES		2
 
 #define TABLE_OFFSET		6

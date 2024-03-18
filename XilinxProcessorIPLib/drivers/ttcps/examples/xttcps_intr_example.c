@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +43,7 @@
 * 3.16 adk    04/19/22 Fix infinite loop in the example by adding polled
 * 		       timeout loop.
 * 3.18 gm     07/25/23 Invoke XTtcPs_Release to release ttc node.
+* 3.18 ml     03/06/24 Added support for system device-tree flow.
 *
 *</pre>
 ******************************************************************************/
@@ -55,15 +56,28 @@
 #include "xstatus.h"
 #include "xil_exception.h"
 #include "xttcps.h"
-#include "xscugic.h"
 #include "xil_printf.h"
 #include "sleep.h"
+#ifndef SDT
+#include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #if defined (PLATFORM_ZYNQ)
+#ifndef SDT
 #define NUM_DEVICES    9U
 #else
+#define NUM_DEVICES    3U
+#endif
+
+#else
+#ifndef SDT
 #define NUM_DEVICES    12U
+#else
+#define NUM_DEVICES    4U
+#endif
 #endif
 
 /*
@@ -77,6 +91,7 @@
  *         e.g. If intended device IDs are 3 and 4, then SettingsTable[3]
  *              and SettingsTable[4] should be set properly.
  */
+#ifndef SDT
 #if !defined (XPM_SUPPORT)
 #define TTC_TICK_DEVICE_ID     XPAR_XTTCPS_1_DEVICE_ID
 #define TTC_TICK_INTR_ID       XPAR_XTTCPS_1_INTR
@@ -87,10 +102,18 @@
 
 #define TTC_PWM_DEVICE_ID	XPAR_XTTCPS_0_DEVICE_ID
 #define TTC_PWM_INTR_ID		XPAR_XTTCPS_0_INTR
-#define TTCPS_CLOCK_HZ		XPAR_XTTCPS_0_CLOCK_HZ
 
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#else
+#if !defined (XPM_SUPPORT)
+#define TTC_TICK_BASEADDR	XPAR_XTTCPS_1_BASEADDR
+#else
+#define TTC_TICK_BASEADDR	XPAR_XTTCPS_2_BASEADDR
+#endif
+#define TTC_PWM_BASEADDR       XPAR_XTTCPS_0_BASEADDR
+#endif
 
+#define TTCPS_CLOCK_HZ		XPAR_XTTCPS_0_CLOCK_HZ
 /*
  * Constants to set the basic operating parameters.
  * PWM_DELTA_DUTY is critical to the running time of the test. Smaller values
@@ -121,12 +144,17 @@ static int TmrInterruptExample(void);  /* Main test */
 /* Set up routines for timer counters */
 static int SetupTicker(void);
 static int SetupPWM(void);
+#ifndef SDT
 static int SetupTimer(int DeviceID);
+static int SetupInterruptSystem(u16 IntcDeviceID, XScuGic *IntcInstancePtr);
+#else
+static int SetupTimer(u32 Index, u32 BaseAddr);
+#endif
 
 /* Interleaved interrupt test for both timer counters */
 static int WaitForDutyCycleFull(void);
 
-static int SetupInterruptSystem(u16 IntcDeviceID, XScuGic *IntcInstancePtr);
+
 
 static void TickHandler(void *CallBackRef, u32 StatusEvent);
 static void PWMHandler(void *CallBackRef, u32 StatusEvent);
@@ -144,6 +172,10 @@ static TmrCntrSetup SettingsTable[NUM_DEVICES] = {
 	{100, 0, 0, 0},	/* Ticker timer counter initial setup, only output freq */
 };
 
+#ifdef SDT
+extern XTtcPs_Config XTtcPs_ConfigTable[NUM_DEVICES];
+#endif
+
 XScuGic InterruptController;  /* Interrupt controller instance */
 
 static u32 MatchValue;  /* Match value for PWM, set by PWM interrupt handler,
@@ -152,6 +184,11 @@ static u32 MatchValue;  /* Match value for PWM, set by PWM interrupt handler,
 static volatile u32 PWM_UpdateFlag;	/* Flag used by Ticker to signal PWM */
 static volatile u8 ErrorCount;		/* Errors seen at interrupt time */
 static volatile u32 TickCount;		/* Ticker interrupts between PWM change */
+
+#ifdef SDT
+u32 Index_Tick;
+u32 Index_PWM;
+#endif
 
 
 /*****************************************************************************/
@@ -211,10 +248,12 @@ static int TmrInterruptExample(void)
 	 * Connect the Intc to the interrupt subsystem such that interrupts can
 	 * occur. This function is application specific.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(INTC_DEVICE_ID, &InterruptController);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+#endif
 
 	/*
 	 * Set up the Ticker timer
@@ -235,7 +274,6 @@ static int TmrInterruptExample(void)
 	/*
 	 * Enable interrupts
 	 */
-
 	Status = WaitForDutyCycleFull();
 	if (Status != XST_SUCCESS) {
 		return Status;
@@ -244,6 +282,7 @@ static int TmrInterruptExample(void)
 	/*
 	 * Stop the counters
 	 */
+#ifndef SDT
 	XTtcPs_Stop(&(TtcPsInst[TTC_TICK_DEVICE_ID]));
 
 	XTtcPs_Release(&(TtcPsInst[TTC_TICK_DEVICE_ID]));
@@ -251,7 +290,15 @@ static int TmrInterruptExample(void)
 	XTtcPs_Stop(&(TtcPsInst[TTC_PWM_DEVICE_ID]));
 
 	XTtcPs_Release(&(TtcPsInst[TTC_PWM_DEVICE_ID]));
+#else
+	XTtcPs_Stop(&(TtcPsInst[Index_Tick]));
 
+	XTtcPs_Release(&(TtcPsInst[Index_Tick]));
+
+	XTtcPs_Stop(&(TtcPsInst[Index_PWM]));
+
+	XTtcPs_Release(&(TtcPsInst[Index_PWM]));
+#endif
 	return XST_SUCCESS;
 }
 
@@ -273,8 +320,16 @@ int SetupTicker(void)
 	TmrCntrSetup *TimerSetup;
 	XTtcPs *TtcPsTick;
 
+#ifndef SDT
 	TimerSetup = &(SettingsTable[TTC_TICK_DEVICE_ID]);
-
+#else
+	for (Index_Tick = 0U; XTtcPs_ConfigTable[Index_Tick].Name != NULL; Index_Tick++) {
+		if (XTtcPs_ConfigTable[Index_Tick].BaseAddress == TTC_TICK_BASEADDR) {
+			break;
+		}
+	}
+	TimerSetup = &(SettingsTable[Index_Tick]);
+#endif
 	/*
 	 * Set up appropriate options for Ticker: interval mode without
 	 * waveform output.
@@ -287,12 +342,17 @@ int SetupTicker(void)
 	 *  . initialize device
 	 *  . set options
 	 */
+#ifndef SDT
 	Status = SetupTimer(TTC_TICK_DEVICE_ID);
+#else
+	Status = SetupTimer(Index_Tick, TTC_TICK_BASEADDR);
+#endif
 	if(Status != XST_SUCCESS) {
 		return Status;
 	}
 
-	TtcPsTick = &(TtcPsInst[TTC_TICK_DEVICE_ID]);
+#ifndef SDT
+        TtcPsTick = &(TtcPsInst[TTC_TICK_DEVICE_ID]);
 
 	/*
 	 * Connect to the interrupt controller
@@ -310,7 +370,16 @@ int SetupTicker(void)
 	 * Enable the interrupt for the Timer counter
 	 */
 	XScuGic_Enable(&InterruptController, TTC_TICK_INTR_ID);
+#else
+	TtcPsTick = &(TtcPsInst[Index_Tick]);
 
+	Status = XSetupInterruptSystem(TtcPsTick,XTtcPs_InterruptHandler,
+                        TtcPsTick->Config.IntrId[0],
+                        TtcPsTick->Config.IntrParent,
+                        XINTERRUPT_DEFAULT_PRIORITY);
+	XTtcPs_SetStatusHandler(&(TtcPsInst[Index_Tick]), &(TtcPsInst[Index_Tick]),
+		              (XTtcPs_StatusHandler)TickHandler);
+#endif
 	/*
 	 * Enable the interrupts for the tick timer/counter
 	 * We only care about the interval timeout.
@@ -343,8 +412,16 @@ int SetupPWM(void)
 	TmrCntrSetup *TimerSetup;
 	XTtcPs *TtcPsPWM;
 
+#ifndef SDT
 	TimerSetup = &(SettingsTable[TTC_PWM_DEVICE_ID]);
-
+#else
+	for (Index_PWM = 0U; XTtcPs_ConfigTable[Index_PWM].Name != NULL; Index_PWM++) {
+		if (XTtcPs_ConfigTable[Index_PWM].BaseAddress == TTC_PWM_BASEADDR) {
+			break;
+		}
+	}
+	TimerSetup = &(SettingsTable[Index_PWM]);
+#endif
 	/*
 	 * Set up appropriate options for PWM: interval mode  and
 	 * match mode for waveform output.
@@ -357,11 +434,16 @@ int SetupPWM(void)
 	 * 	initialize device
 	 * 	set options
 	 */
+#ifndef SDT
 	Status = SetupTimer(TTC_PWM_DEVICE_ID);
+#else
+	Status = SetupTimer(Index_PWM, TTC_PWM_BASEADDR);
+#endif
 	if(Status != XST_SUCCESS) {
 		return Status;
 	}
 
+#ifndef SDT
 	TtcPsPWM = &(TtcPsInst[TTC_PWM_DEVICE_ID]);
 
 	/*
@@ -379,7 +461,16 @@ int SetupPWM(void)
 	 * Enable the interrupt for the Timer counter
 	 */
 	XScuGic_Enable(&InterruptController, TTC_PWM_INTR_ID);
+#else
+	TtcPsPWM = &(TtcPsInst[Index_PWM]);
 
+	Status = XSetupInterruptSystem(TtcPsPWM,XTtcPs_InterruptHandler,
+                        TtcPsPWM->Config.IntrId[0],
+                        TtcPsPWM->Config.IntrParent,
+                        XINTERRUPT_DEFAULT_PRIORITY);
+	XTtcPs_SetStatusHandler(&(TtcPsInst[Index_PWM]), &(TtcPsInst[Index_PWM]),
+		              (XTtcPs_StatusHandler) PWMHandler);
+#endif
 	/*
 	 * Enable the interrupts for the tick timer/counter
 	 * We only care about the interval timeout.
@@ -421,9 +512,13 @@ int WaitForDutyCycleFull(void)
 	XTtcPs *TtcPs_PWM;	/* Pointer to the instance structure */
 	u32 PollCount = XTTCPS_SW_TIMEOUT_VAL;
 
+#ifndef SDT
 	TimerSetup = &(SettingsTable[TTC_PWM_DEVICE_ID]);
 	TtcPs_PWM = &(TtcPsInst[TTC_PWM_DEVICE_ID]);
-
+#else
+	TimerSetup = &(SettingsTable[Index_PWM]);
+	TtcPs_PWM = &(TtcPsInst[Index_PWM]);
+#endif
 	/*
 	 * Initialize some variables used by the interrupts and in loops.
 	 */
@@ -490,13 +585,17 @@ int WaitForDutyCycleFull(void)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 int SetupTimer(int DeviceID)
+#else
+int SetupTimer(u32 Index, u32 BaseAddr)
+#endif
 {
 	int Status;
 	XTtcPs_Config *Config;
 	XTtcPs *Timer;
 	TmrCntrSetup *TimerSetup;
-
+#ifndef SDT
 	TimerSetup = &SettingsTable[DeviceID];
 
 	Timer = &(TtcPsInst[DeviceID]);
@@ -505,6 +604,16 @@ int SetupTimer(int DeviceID)
 	 * Look up the configuration based on the device identifier
 	 */
 	Config = XTtcPs_LookupConfig(DeviceID);
+#else
+	TimerSetup = &SettingsTable[Index];
+
+	Timer = &(TtcPsInst[Index]);
+
+	/*
+	 * Look up the configuration based on the device identifier
+	 */
+	Config = XTtcPs_LookupConfig(BaseAddr);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
@@ -558,6 +667,7 @@ int SetupTimer(int DeviceID)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 static int SetupInterruptSystem(u16 IntcDeviceID,
 				    XScuGic *IntcInstancePtr)
 {
@@ -594,6 +704,7 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 
 	return XST_SUCCESS;
 }
+#endif
 
 /***************************************************************************/
 /**
@@ -654,8 +765,11 @@ static void PWMHandler(void *CallBackRef, u32 StatusEvent)
 {
 	XTtcPs *Timer;
 
+#ifndef SDT
 	Timer = &(TtcPsInst[TTC_PWM_DEVICE_ID]);
-
+#else
+	Timer = &(TtcPsInst[Index_PWM]);
+#endif
 	if (0 != (XTTCPS_IXR_INTERVAL_MASK & StatusEvent)) {
 		XTtcPs_SetMatchValue(Timer, 0, MatchValue);
 	}
