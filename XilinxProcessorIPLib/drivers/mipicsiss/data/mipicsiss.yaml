@@ -97,8 +97,8 @@ depends:
 
 examples:
     xcsiss_selftest_example.c:
-        - interrupts
         - reg
+
     xmipi_ref_design/xmipi_example.c:
         - dependency_files:
             - xmipi_ref_design/dp159.c
@@ -143,42 +143,44 @@ examples:
     xmipi_vek280_example/xmipi_vek280_example.c:
         - dependency_files:
             - xmipi_vek280_example/README.txt
-            - xmipi_vck280_example/idt_8t49n24x.c
-            - xmipi_vck280_example/idt_8t49n24x.h
-            - xmipi_vck280_example/mipi_cfg.c
-            - xmipi_vck280_example/platform.c
-            - xmipi_vck280_example/platform.h
-            - xmipi_vck280_example/platform_config.h
-            - xmipi_vck280_example/rc21008adrv.c
-            - xmipi_vck280_example/rc21008adrv.h
-            - xmipi_vck280_example/sensor_cfgs.c
-            - xmipi_vck280_example/sensor_cfgs.h
-            - xmipi_vck280_example/sha256.c
-            - xmipi_vck280_example/sha256.h
-            - xmipi_vck280_example/si5324drv.c
-            - xmipi_vck280_example/si5324drv.h
-            - xmipi_vck280_example/si5344drv.h
-            - xmipi_vck280_example/si5344drv.c
-            - xmipi_vck280_example/ti_lmk03318.c
-            - xmipi_vck280_example/ti_lmk03318.h
-            - xmipi_vck280_example/ti_tmds1204.c
-            - xmipi_vck280_example/ti_tmds1204.h
-            - xmipi_vck280_example/video_fmc.c
-            - xmipi_vck280_example/video_fmc.h
-            - xmipi_vck280_example/xhdmi_edid.c
-            - xmipi_vck280_example/xhdmi_edid.h
-            - xmipi_vck280_example/xhdmi_example.c
-            - xmipi_vck280_example/xhdmi_example.h
-            - xmipi_vck280_example/xhdmi_exdes_sm_tx.c
-            - xmipi_vck280_example/xhdmi_exdes_sm_tx.h
-            - xmipi_vck280_example/xhdmi_menu.c
-            - xmipi_vck280_example/xhdmi_menu.h
-            - xmipi_vck280_example/xmipi_vek280_example.c
+            - xmipi_vek280_example/idt_8t49n24x.c
+            - xmipi_vek280_example/idt_8t49n24x.h
+            - xmipi_vek280_example/onsemi_nb7nq621m.c
+            - xmipi_vek280_example/onsemi_nb7nq621m.h
+            - xmipi_vek280_example/mipi_cfg.c
+            - xmipi_vek280_example/platform.c
+            - xmipi_vek280_example/platform.h
+            - xmipi_vek280_example/platform_config.h
+            - xmipi_vek280_example/rc21008adrv.c
+            - xmipi_vek280_example/rc21008adrv.h
+            - xmipi_vek280_example/sensor_cfgs.c
+            - xmipi_vek280_example/sensor_cfgs.h
+            - xmipi_vek280_example/sha256.c
+            - xmipi_vek280_example/sha256.h
+            - xmipi_vek280_example/si5324drv.c
+            - xmipi_vek280_example/si5324drv.h
+            - xmipi_vek280_example/si5344drv.h
+            - xmipi_vek280_example/si5344drv.c
+            - xmipi_vek280_example/ti_lmk03318.c
+            - xmipi_vek280_example/ti_lmk03318.h
+            - xmipi_vek280_example/ti_tmds1204.c
+            - xmipi_vek280_example/ti_tmds1204.h
+            - xmipi_vek280_example/video_fmc.c
+            - xmipi_vek280_example/video_fmc.h
+            - xmipi_vek280_example/xhdmi_edid.c
+            - xmipi_vek280_example/xhdmi_edid.h
+            - xmipi_vek280_example/xhdmi_example.c
+            - xmipi_vek280_example/xhdmi_example.h
+            - xmipi_vek280_example/xhdmi_exdes_sm_tx.c
+            - xmipi_vek280_example/xhdmi_exdes_sm_tx.h
+            - xmipi_vek280_example/xhdmi_menu.c
+            - xmipi_vek280_example/xhdmi_menu.h
+            - xmipi_vek280_example/xmipi_vek280_example.c
 
     sp701_ref_design/xmipi_sp701_example.c:
         - dependency_files:
-            - function_prototype.c
-            - function_prototype.h
-            - pcam_5C_cfgs.c
-            - pcam_5C_cfgs.h
+            - sp701_ref_design/function_prototype.c
+            - sp701_ref_design/function_prototype.h
+            - sp701_ref_design/pcam_5C_cfgs.c
+            - sp701_ref_design/pcam_5C_cfgs.h
 ...
