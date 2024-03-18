@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
+ *       har  03/05/24 Fixed doxygen warnings
  *
  * </pre>
  *
@@ -67,6 +68,11 @@ extern "C" {
 #define XLOADER_HEADER_LEN_5			(5U) /**< Header length 5 */
 #define XLOADER_HEADER_LEN_6			(6U) /**< Header length 6 */
 
+/**
+ * @name Payload arguments for Extract Metaheader command
+ * @{
+ */
+/**< Indices for payload arguments in Extract Metaheader command */
 #define XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_HIGH_INDEX	(0U)
 #define XLOADER_CMD_EXTRACT_METAHDR_PDI_ID_INDEX	(0U)
 #define XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX	(1U)
@@ -74,6 +80,7 @@ extern "C" {
 #define XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX	(3U)
 #define XLOADER_CMD_EXTRACT_METAHDR_DEST_SIZE_INDEX	(4U)
 #define XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX	(5U)
+/** @} */
 
 #define XLOADER_ADDR_HIGH_SHIFT 		(32U) /**< Shift value to get higher 32 bit address */
 #define XLOADER_GET_OPT_DATA_FLAG		(0x80U)
