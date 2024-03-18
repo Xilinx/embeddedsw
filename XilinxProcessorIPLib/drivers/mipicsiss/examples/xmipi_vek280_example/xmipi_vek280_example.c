@@ -114,7 +114,7 @@ XCsiSs_Config XCsiSs_ConfigPtr;
 #ifndef SDT
 #define XGPIO_TREADY_DEVICE_ID	XPAR_GPIO_0_DEVICE_ID//XPAR_GPIO_3_DEVICE_ID//XPAR_GPIO_2_DEVICE_ID
 #else
-#define XGPIO_TREADY_BASE XPAR_XGPIO_2_BASEADDR
+#define XGPIO_TREADY_BASE XPAR_XGPIO_0_BASEADDR
 #endif
 XGpio Gpio_Tready;
 
@@ -533,7 +533,7 @@ void xpio_equalization_fix()
 /*****************************************************************************/
 /**
 *
-* Function to rnable MMCME5 Fabric Control in PCSR
+* Function to enable MMCME5 Fabric Control in PCSR
 *
 * @param  None.
 *
@@ -593,7 +593,7 @@ void Enable_mmcmfabric_control()
 /*****************************************************************************/
 /**
 *
-* Function to rnable MMCME5 Fabric Control in PCSR
+* Function to display main menu of this application.
 *
 * @param  None.
 *
