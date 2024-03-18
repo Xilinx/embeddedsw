@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
+ *       har  03/05/24 Fixed doxygen warnings
  *
  * </pre>
  *
@@ -58,11 +59,21 @@ extern "C" {
 
 typedef struct {
 	XMailbox *MailboxPtr; /**< Pointer to mailbox for IPI communication */
-	u32 Response[RESPONSE_ARG_CNT];
+	u32 Response[RESPONSE_ARG_CNT];		/**< Buffer to store the response of the IPI */
 } XLoader_ClientInstance; /**< Xilloader client instance */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-
+/*************************************************************************************************/
+/**
+ * @brief	This function creates the header for the command sent to xilloader module
+ *
+ * @param	Len		Length of Payload
+ * @param	ApiId		API ID of the requested service
+ *
+ * @return
+ *		Header of the command
+ *
+ **************************************************************************************************/
 static inline u32 PACK_XLOADER_HEADER(u32 Len, u32 ApiId)
 {
 	return ((Len << XLOADER_PAYLOAD_LEN_SHIFT) | XILLOADER_MODULE_ID_MASK | (ApiId));

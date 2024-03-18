@@ -58,7 +58,11 @@
 *       sk   07/06/23 Corrected DAP Config Mask's
 *       dd   08/11/23 Updated doxygen comments
 * 2.1   kpt  12/04/23 Move XLoader_AesKekInfo to platform specific file
+<<<<<<< HEAD
 *       am   03/02/24 Added XLOADER_OPTIMIZED_AUTH_CERT_MIN_SIZE macro
+=======
+*       har  03/05/24 Fixed doxygen warnings
+>>>>>>> 817a55b8fb (sw_services: xilloader: Fixed doxygen warnings)
 *
 * </pre>
 *
@@ -387,7 +391,7 @@ extern "C" {
 #define XLOADER_WORD_IN_BITS_SHIFT		(5U) /**< Value to shift word */
 #define XLOADER_WORD_IN_BITS_MASK		(0x1FU) /**< Value to mask word */
 
-#define XLOADER_NOLOAD_VAL			(0xFFFFFFFFU)
+#define XLOADER_NOLOAD_VAL			(0xFFFFFFFFU)	/**< To indicate no load */
 
 /**************************** Type Definitions *******************************/
 /**< RSA Key */
@@ -486,7 +490,7 @@ typedef struct XLoader_SecureParams {
 					/**< Auth JTAG message pointer */
 	u8 IsEncrypted;		/**< Encryption enabled or disabled */
 	u8 IsAuthenticated;	/**< Authentication enabled or disabled */
-	u32 NoLoad;
+	u32 NoLoad;		/**< No Load */
 #endif
 } XLoader_SecureParams;
 
