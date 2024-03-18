@@ -75,7 +75,7 @@
 #define XVPROCSS_DEVICE_ID	XPAR_XVPROCSS_1_DEVICE_ID
 #else
 #define IIC_SENSOR_BASE XPAR_XIIC_1_BASEADDR
-#define XVPROCSS_BASE	XPAR_XVPROCSS_0_BASEADDR
+#define XVPROCSS_BASE	XPAR_XVPROCSS_1_BASEADDR
 #endif
 
 #define PSU_INTR_DEVICE_ID XPAR_PSV_ACPU_GIC_DEVICE_ID
@@ -1313,7 +1313,6 @@ int config_csi_cap_path(){
 		print(TXT_RED "IRQ init failed.\n\r" TXT_RST);
 		return XST_FAILURE;
 	}
-	xil_printf("\r\n\r\n *IRQ Setup is Done \n");
 #else
 	Status = XSetupInterruptSystem(&frmbufwr,&XVFrmbufWr_InterruptHandler,
 				       frmbufwr.FrmbufWr.Config.IntrId,
@@ -1335,7 +1334,7 @@ int config_csi_cap_path(){
 		return(1);
 	}
 #endif
-
+	xil_printf("\r\n\r\n *IRQ Setup is Done \n");
 	/* IIC interrupt handlers */
 	SetupIICIntrHandlers();
 
@@ -1399,7 +1398,6 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 
 	/* Default Resolution that to be displayed */
 	Pipeline_Cfg.VideoMode = VideoMode ; //XVIDC_VM_1920x1080_60_P;
-
 	/* Select the sensor configuration based on resolution and lane */
 	switch (Pipeline_Cfg.VideoMode) {
 
@@ -1433,7 +1431,6 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 			break;
 
 	}
-
 	/* Programming Stream with fixed output */
 	if(Pipeline_Cfg.VideoDestn == XVIDDES_DSI){
 		/* Fixed output to DSI (1920x1200) */
@@ -1446,7 +1443,6 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 
     usleep(1000);
 	Reset_IP_Pipe();
-
 
 	resIdOut = XVidC_GetVideoModeId(widthIn, heightIn, XVIDC_FR_60HZ,
 					FALSE);
