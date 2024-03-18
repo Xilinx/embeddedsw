@@ -740,7 +740,7 @@ int main() {
 #ifndef SDT
 	XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_DEVICE_ID);
 #else
-	XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_BASE);
+	XGpio_Initialize(&Gpio_Tready,XPAR_XGPIO_2_BASEADDR);
 #endif
 	SelectHDMIOutput();
 
