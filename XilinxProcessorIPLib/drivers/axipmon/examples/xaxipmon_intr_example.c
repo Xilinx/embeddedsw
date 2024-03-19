@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2012 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,13 +52,13 @@
 #include "xil_exception.h"
 #include "stdio.h"
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
 #include "xscugic.h"
 #endif
-
-#ifdef SDT
+#else
 #include "xinterrupt_wrap.h"
 #endif
 /************************** Constant Definitions ****************************/
@@ -181,7 +181,7 @@ int main(void)
 *
 * @param	AxiPmonDeviceId is the XPAR_<AXIPMON_instance>_DEVICE_ID value
 *		from xparameters.h.
-* @param	Metrics is an user referece variable in which computed metrics
+* @param	Metrics is an user reference variable in which computed metrics
 *			will be filled
 *
 * @return
