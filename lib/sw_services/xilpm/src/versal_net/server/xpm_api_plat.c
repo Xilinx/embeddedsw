@@ -518,20 +518,28 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 
 		 * Mark domain init status bit in DomainInitStatusReg
 		 */
 		XPm_RMW32(XPM_DOMAIN_INIT_STATUS_REG,0x2,0x2);
-#ifdef DEBUG_UART_PS
 		/**
-		 * PLM needs to request UART if debug is enabled, else XilPM
+		 * PLM needs to request UART0 and UART1, otherwise XilPM
 		 * will turn it off when it is not used by other processor.
-		 * During such scenario when PLM tries to print debug message,
-		 * system may not work properly.
+		 * During such scenario when PLM/other application tries to
+		 * print debug message, system may not work properly.
 		 */
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, NODE_UART,
-					   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0,
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_UART_0,
+					   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0U,
 					   XPLMI_CMD_SECURE);
 		if (XST_SUCCESS != Status) {
+			PmErr("Error %d in request UART_0\r\n", Status);
 			goto done;
 		}
-#endif
+
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_UART_1,
+					   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0U,
+					   XPLMI_CMD_SECURE);
+		if (XST_SUCCESS != Status) {
+			PmErr("Error %d in request UART_1\r\n", Status);
+			goto done;
+		}
+
 		/**
 		 * PLM needs to request PMC IPI, else XilPM will reset IPI
 		 * when it is not used by other processor. Because of that PLM

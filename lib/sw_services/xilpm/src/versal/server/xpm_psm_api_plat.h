@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,6 +14,13 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**
+ * PMC subsystem uses LPD devices like IPI, PSM_PROC and UART0. When no one
+ * using LPD devices, its minimum use count will be 3 as these devices are
+ * requested by PMC subsystem.
+ */
+#define MIN_LPD_USE_COUNT			(3U)
 
 enum ProcDeviceId {
 	ACPU_0,
