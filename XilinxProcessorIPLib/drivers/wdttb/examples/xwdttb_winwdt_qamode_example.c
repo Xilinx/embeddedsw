@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -33,6 +33,7 @@
 #include "xparameters.h"
 #include "xwdttb.h"
 #include "xil_exception.h"
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #include <stdio.h>
@@ -40,7 +41,7 @@
 #include "xscugic.h"
 #include "xil_printf.h"
 #endif
-#ifdef SDT
+#else
 #include "xinterrupt_wrap.h"
 #endif
 
