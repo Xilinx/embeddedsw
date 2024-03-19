@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,12 +37,13 @@
 #include "xil_printf.h"
 #ifdef SDT
 #include "xinterrupt_wrap.h"
-#endif
+#else
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
 #include "xscugic.h"
+#endif
 #endif
 /************************** Constant Definitions **************************/
 
@@ -56,6 +57,7 @@
 #else
 #define	XUARTPSV_BASEADDRESS		XPAR_XUARTPSV_0_BASEADDR
 #endif
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
@@ -64,6 +66,7 @@
 #define INTC		XScuGic
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define UARTPSV_INT_IRQ_ID		XPAR_XUARTPS_0_INTR
+#endif
 #endif
 /*
  * The following constant controls the length of the buffers to be sent
@@ -95,7 +98,9 @@ void Handler(void *CallBackRef, u32 Event, unsigned int EventData);
 /************************** Variable Definitions ***************************/
 
 XUartPsv UartPsv	;		/* Instance of the UART Device */
+#ifndef SDT
 INTC InterruptController;	/* Instance of the Interrupt Controller */
+#endif
 
 /*
  * The following buffers are used in this example to send and receive data
