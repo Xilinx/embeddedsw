@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2006 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,7 +52,7 @@
 #include "xil_exception.h"
 #ifdef SDT
 #include "xinterrupt_wrap.h"
-#endif
+#else
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -60,6 +60,7 @@
 #else
 #include "xscugic.h"
 #include "xil_printf.h"
+#endif
 #endif
 
 /************************** Constant Definitions *****************************/
