@@ -21,6 +21,14 @@ extern "C" {
 
 /** PSM update related API IDs*/
 #define PSM_API_SHUTDOWN_PSM			(9U) /** Shutdown PSM*/
+
+/**
+ * PMC subsystem uses LPD devices like IPI, PSM_PROC, UART0 and UART1.
+ * When no one using LPD devices, its minimum use count will be 4 as
+ * these devices are requested by PMC subsystem.
+ */
+#define MIN_LPD_USE_COUNT			(4U)
+
 /*******************************************************/
 
 enum ProcDeviceId {

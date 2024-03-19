@@ -289,7 +289,8 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 
 		/* Release devices requested by PLM to turn of LPD domain */
 		Lpd = XPmPower_GetById(PM_POWER_LPD);
-		if (((Lpd->UseCount > 0U) && (Lpd->UseCount <= 3U)) &&
+		if (((0U < Lpd->UseCount) &&
+		    (MIN_LPD_USE_COUNT >= Lpd->UseCount)) &&
 		    (0U == PsmPggs0Val) && (0U == PsmPggs1Val) &&
 		    (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) ||
 		     ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId)))) {
