@@ -41,6 +41,7 @@
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xstatus.h"
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #include <stdio.h>
@@ -48,8 +49,7 @@
 #include "xscugic.h"
 #include "xil_printf.h"
 #endif
-
-#ifdef SDT
+#else
 #include "xinterrupt_wrap.h"
 #endif
 /************************** Constant Definitions *****************************/
