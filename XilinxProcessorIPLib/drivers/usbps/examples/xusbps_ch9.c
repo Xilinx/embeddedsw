@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
  * 1.06a kpc 11/11/13 Always use global memory for dma operations
  * 2.1   kpc 4/29/14  Align dma buffers to cache line boundary
  * 2.4	 vak 4/01/19  Fixed IAR data_alignment warnings
+ * 2.9   nd  3/18/24  Fixed failures reported by CV test suite.
  *</pre>
  ******************************************************************************/
 
@@ -188,7 +189,7 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 					 * of the reply buffer even though we are only using the first
 					 * two bytes.
 					 */
-					*((u16 *) &Reply[0]) = 0x0100; /* Self powered */
+					*((u16 *) &Reply[0]) = 0x1; /* Self powered */
 					break;
 
 				case XUSBPS_STATUS_INTERFACE:
@@ -204,15 +205,15 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 
 						if (EpNum & 0x80) { /* In EP */
 							if (Status & XUSBPS_EPCR_TXS_MASK) {
-								*((u16 *) &Reply[0]) = 0x0100;
+								*((u16 *) &Reply[0]) = 1;
 							} else {
-								*((u16 *) &Reply[0]) = 0x0000;
+								*((u16 *) &Reply[0]) = 0;
 							}
 						} else {	/* Out EP */
 							if (Status & XUSBPS_EPCR_RXS_MASK) {
-								*((u16 *) &Reply[0]) = 0x0100;
+								*((u16 *) &Reply[0]) = 1;
 							} else {
-								*((u16 *) &Reply[0]) = 0x0000;
+								*((u16 *) &Reply[0]) = 0;
 							}
 						}
 						break;
@@ -395,10 +396,9 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 		case XUSBPS_REQ_SET_CONFIGURATION:
 
 			/*
-			 * Only allow configuration index 1 as this is the only one we
-			 * have.
+			 *  allow configuration index 0 and 1.
 			 */
-			if ((SetupData->wValue & 0xff) != 1) {
+			if (((SetupData->wValue & 0xff) != 1 ) && ((SetupData->wValue & 0xff) != 0 )) {
 				Error = 1;
 				break;
 			}
@@ -425,19 +425,8 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 
 		case XUSBPS_REQ_GET_CONFIGURATION:
 
-			if (InstancePtr->AppData != NULL) {
-
-				/* When we run CV test suite application in Windows, need to
-				 * add GET_CONFIGURATION command to pass test suite
-				 */
-				*((u8 *) &Reply[0]) = XUsbPs_GetConfigDone((XUsbPs *)InstancePtr);
-				Status = XUsbPs_EpBufferSend((XUsbPs *)InstancePtr, 0, Reply,
-							     SetupData->wLength);
-			} else {
-				Response = (u8)InstancePtr->CurrentAltSetting;
 				XUsbPs_EpBufferSend(InstancePtr, 0,
-						    &Response, 1);
-			}
+						    &UsbLocalPtr->CurrentConfig, 1);
 			break;
 
 
