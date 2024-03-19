@@ -4,17 +4,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef XV_SDIRXSS_HEADER_H		/* prevent circular inclusions */
-#define XV_SDIRXSS_HEADER_H		/* by using protection macros */
+#ifndef XV_SDITXSS_HEADER_H		/* prevent circular inclusions */
+#define XV_SDITXSS_HEADER_H		/* by using protection macros */
 
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
 
-#ifndef SDT
-u32 SdiRxSs_SelfTestExample(u32 DeviceId);
+#ifdef SDT
+u32 SdiTxSs_SelfTestExample(u32 DeviceId);
 #else
-u32 SdiRxSs_SelfTestExample(UINTPTR Baseaddress);
+u32 SdiTxSs_SelfTestExample(UINTPTR Baseaddress);
 #endif
 
 #endif /* end of protection macro */
