@@ -40,12 +40,6 @@ int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd);
 
 XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs);
 
-maybe_unused static inline XStatus XPm_PlatAddRequirement(const u32 *Args, const u32 NumArgs)
-{
-	(void)Args;
-	(void)NumArgs;
-	return XST_INVALID_PARAM;
-}
 maybe_unused static inline XStatus XPm_PlatAddDevice(const u32 *Args, u32 NumArgs)
 {
 	(void)Args;
