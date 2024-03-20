@@ -521,7 +521,7 @@ typedef struct {
 	u16 IntrId;
 	UINTPTR IntrParent;
 #endif
-#if defined  (XCLOCKING)
+#if defined  (XCLOCKING) || defined (SDT)
 	u32 RefClk;	/**< Input clock */
 #endif
 	u16 S1GDiv0;	/**< 1Gbps Clock Divider 0 */
