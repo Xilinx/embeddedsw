@@ -173,7 +173,9 @@ xemacif_recv_handler(void *arg) {
 
 #if XLWIP_CONFIG_INCLUDE_EMACLITE_ON_ZYNQ == 1
 #else
+#ifndef SDT
 	XIntc_AckIntr(xtopologyp->intc_baseaddr, 1 << xtopologyp->intc_emac_intr);
+#endif
 #endif
 	p = pbuf_alloc(PBUF_RAW, XEL_MAX_FRAME_SIZE, PBUF_POOL);
 	if (!p) {
@@ -351,7 +353,9 @@ xemacif_send_handler(void *arg) {
 #endif
 #if XLWIP_CONFIG_INCLUDE_EMACLITE_ON_ZYNQ == 1
 #else
+#ifndef SDT
 	XIntc_AckIntr(xtopologyp->intc_baseaddr, 1 << xtopologyp->intc_emac_intr);
+#endif
 #endif
 
 	if (pq_qlength(xemacliteif->send_q) && (XEmacLite_TxBufferAvailable(instance) == TRUE)) {
@@ -538,7 +542,11 @@ static err_t low_level_init(struct netif *netif)
 	netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_LINK_UP;
 
 	/* initialize the mac */
+#ifndef SDT
 	XEmacLite_Initialize(xemaclitep, config->DeviceId);
+#else
+	XEmacLite_Initialize(xemaclitep, config->BaseAddress);
+#endif
 	xemaclitep->NextRxBufferToUse = 0;
 #ifndef SDT
 #if XLWIP_CONFIG_INCLUDE_EMACLITE_ON_ZYNQ == 1
