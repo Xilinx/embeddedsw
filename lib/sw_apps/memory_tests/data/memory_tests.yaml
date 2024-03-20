@@ -34,4 +34,6 @@ required_mem:
     size: 0x10000
   bram:
     size: 0x2000
+  ps7_ram:
+    size: 0x10000
 ...
