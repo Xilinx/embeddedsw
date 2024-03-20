@@ -403,7 +403,6 @@ void axieth_link_status(struct netif *netif, xaxiemacif_s *xemacs, XAxiEthernet 
 void emaclite_link_status(struct netif *netif, xemacliteif_s *xemacs, XEmacLite *xemacp)
 {
 	u32_t phy_link_status, status, phy_autoneg_status;
-	u16_t status;
 
 	if ((xemacp->IsReady != (u32)XIL_COMPONENT_IS_READY) ||
 			(xemacs->eth_link_status == ETH_LINK_UNDEFINED))
