@@ -132,61 +132,6 @@ void XPmPlDevice_SetStlInitFinishCb(void (*Handler)(void))
 }
 #endif /* PLM_ENABLE_STL */
 
-/****************************************************************************/
-/**
- * @brief  This function links a node (dev/rst/subsys/regnode) to a subsystem.
- *         Requirement assignment could be made by XPm_RequestDevice() or
- *         XPm_SetRequirement() call.
- *
- * @param  Args		Node specific arguments
- * @param  NumArgs	Number of arguments
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
- *
- ****************************************************************************/
-XStatus XPm_PlatAddRequirement(const u32 *Args, const u32 NumArgs)
-{
-	XPM_EXPORT_CMD(PM_ADD_REQUIREMENT, XPLMI_CMD_ARG_CNT_THREE,
-		XPLMI_CMD_ARG_CNT_SIX);
-	XStatus Status = XST_FAILURE;
-	u32 SubsysId, DevId;
-	const XPm_Subsystem *Subsys;
-
-	/* Check the minimum basic arguments required for this command */
-	if (3U > NumArgs) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	/* Parse the basic arguments */
-	SubsysId = Args[0];
-	DevId = Args[1];
-
-	Subsys = XPmSubsystem_GetById(SubsysId);
-	if ((NULL == Subsys) || ((u8)ONLINE != Subsys->State)) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
-
-	switch (NODECLASS(DevId)) {
-	case (u32)XPM_NODECLASS_REGNODE:
-		Status = XPmAccess_AddRegnodeRequirement(SubsysId, DevId);
-		break;
-	default:
-		Status = XPM_INVALID_DEVICEID;
-		break;
-	}
-
-done:
-	if (XST_SUCCESS != Status) {
-		PmErr("0x%x\n\r", Status);
-	}
-	return Status;
-}
-
 XStatus IsOnSecondarySLR(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
