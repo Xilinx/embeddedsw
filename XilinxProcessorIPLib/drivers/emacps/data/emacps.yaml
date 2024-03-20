@@ -38,6 +38,7 @@ required:
     - interrupts
     - interrupt-parent
     - ref-clk
+    - phy-mode
 
 examples:
     xemacps_example_intr_dma.c:
