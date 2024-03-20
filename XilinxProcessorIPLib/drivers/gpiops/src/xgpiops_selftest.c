@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,7 +61,7 @@
 *
 *
 ******************************************************************************/
-s32 XGpioPs_SelfTest(const XGpioPs *InstancePtr)
+s32 XGpioPs_SelfTest(XGpioPs *InstancePtr)
 {
 	s32 Status = (s32)0;
 	u32 IntrEnabled;
