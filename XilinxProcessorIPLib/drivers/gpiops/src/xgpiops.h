@@ -279,7 +279,7 @@ void XGpioPs_SetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin, u32 OpEnabl
 u32 XGpioPs_GetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin);
 
 /* Diagnostic functions in xgpiops_selftest.c */
-s32 XGpioPs_SelfTest(const XGpioPs *InstancePtr);
+s32 XGpioPs_SelfTest(XGpioPs *InstancePtr);
 
 /* Functions in xgpiops_intr.c */
 /* Bank APIs in xgpiops_intr.c */
