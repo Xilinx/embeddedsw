@@ -90,6 +90,7 @@ extern "C" {
 #define TIMEOUT_COUNTER			2000000U /**< Wait for 2 sec in worst case */
 #define XI3C_BROADCAST_ADDRESS		0x7E
 #define WORD_TO_BYTE			4
+#define XI3C_CEIL_DIV(x, y)		(((x) + (y) - 1) / (y))
 
 /* Broadcast commands */
 #define XI3C_CCC_BRDCAST_ENEC		0x0
@@ -594,6 +595,7 @@ void XI3c_WriteTxFifo(XI3c *InstancePtr);
 void XI3c_ReadRxFifo(XI3c *InstancePtr);
 s32 XI3c_SendTransferCmd(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 Data);
 s32 XI3c_DynaAddrAssign(XI3c *InstancePtr, u8 DynaAddr[], u8 DevCount);
+s32 XI3c_SetSClk(XI3c *InstancePtr, u32 SclkHz, u8 Mode);
 
 /*
  * Functions for interrupts, in XI3c_master.c
