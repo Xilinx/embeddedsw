@@ -435,8 +435,11 @@ static XStatus XPm_AddRequirement(const u32 *Args, const u32 NumArgs)
 		}
 		Status = XPmReset_AddPermission(Rst, Subsys, Flags);
 		break;
+	case (u32)XPM_NODECLASS_REGNODE:
+		Status = XPmAccess_AddRegnodeRequirement(SubsysId, DevId);
+		break;
 	default:
-		Status = XPm_PlatAddRequirement(Args, NumArgs);
+		Status = XPM_INVALID_DEVICEID;
 		break;
 	}
 
