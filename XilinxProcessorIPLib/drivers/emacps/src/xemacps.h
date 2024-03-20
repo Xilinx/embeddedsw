@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -523,6 +523,11 @@ typedef struct {
 #endif
 #if defined  (XCLOCKING) || defined (SDT)
 	u32 RefClk;	/**< Input clock */
+#endif
+#ifdef SDT
+	char *PhyType;     /**< PhyType indicates which type of PHY interface is
+			     *  used (MII, GMII, RGMII, etc.
+			     */
 #endif
 	u16 S1GDiv0;	/**< 1Gbps Clock Divider 0 */
 	u8 S1GDiv1;	/**< 1Gbps Clock Divider 1 */

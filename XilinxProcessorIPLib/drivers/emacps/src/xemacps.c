@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -97,6 +97,9 @@ LONG XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
 #endif
 #if defined  (XCLOCKING)
 	InstancePtr->Config.RefClk = CfgPtr->RefClk;
+#endif
+#ifdef SDT
+	InstancePtr->Config.PhyType = CfgPtr->PhyType;
 #endif
 
 	InstancePtr->Config.S1GDiv0 = CfgPtr->S1GDiv0;

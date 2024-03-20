@@ -173,10 +173,12 @@ static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t s
 
 static u32_t get_Xilinx_pcs_pma_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 {
+
 #if XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1 || \
-    XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1
+    XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1 || defined(SDT)
 	u16_t temp;
 #endif
+
 	u16_t control;
 	u16_t status;
 
@@ -197,7 +199,7 @@ static u32_t get_Xilinx_pcs_pma_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 																&status);
 	}
 	xil_printf("autonegotiation complete \r\n");
-
+#ifndef SDT
 #if XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 1);
 	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
@@ -229,6 +231,42 @@ static u32_t get_Xilinx_pcs_pma_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, &temp);
 		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, 0x0100);
 		return 10;
+	}
+#endif
+#else
+	if (strcmp(xemacpsp->Config.PhyType, "1000base-x") == 0) {
+		XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 1);
+		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
+		if ((temp & 0x0020) == 0x0020) {
+			XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 0);
+			return 1000;
+		}
+		else {
+			XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_PAGE_ADDRESS_REGISTER, 0);
+			xil_printf("Link error, temp = %x\r\n", temp);
+			return 0;
+		}
+	}
+	if (strcmp(xemacpsp->Config.PhyType, "sgmii") == 0) {
+		xil_printf("Waiting for Link to be up; Polling for SGMII core Reg \r\n");
+		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
+		while(!(temp & 0x8000)) {
+			XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
+		}
+		if((temp & 0x0C00) == 0x0800) {
+			return 1000;
+		}
+		else if((temp & 0x0C00) == 0x0400) {
+			return 100;
+		}
+		else if((temp & 0x0C00) == 0x0000) {
+			return 10;
+		} else {
+			xil_printf("get_IEEE_phy_speed(): Invalid speed bit value, Defaulting to Speed = 10 Mbps\r\n");
+			XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, &temp);
+			XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, 0x0100);
+			return 10;
+		}
 	}
 #endif
 	return 0;
