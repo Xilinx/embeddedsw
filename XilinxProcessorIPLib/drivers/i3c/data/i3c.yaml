@@ -21,6 +21,8 @@ properties:
       Input clock frequency
   xlnx,wr-rd-fifo-depth:
       Read write fifo depth
+  xlnx,wr-fifo-prog-full-threshold:
+      Write fifo programmable threshold
 
 config:
     - XI3c_Config
@@ -32,6 +34,7 @@ required:
     - interrupt-parent
     - xlnx,axi-clk-freq
     - xlnx,wr-rd-fifo-depth
+    - xlnx,wr-fifo-prog-full-threshold
 
 examples:
     xi3c_intr_example.c:
