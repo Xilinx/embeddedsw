@@ -85,7 +85,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 #define XI3C_MAXDAACOUNT		108
-#define XI3C_MAXDATA_LENGTH		4096
+#define XI3C_MAXDATA_LENGTH		4095
 #define XI3C_SLAVEINFO_READ_BYTECOUNT	9
 #define TIMEOUT_COUNTER			2000000U /**< Wait for 2 sec in worst case */
 #define XI3C_BROADCAST_ADDRESS		0x7E
