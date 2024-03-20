@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -91,6 +91,8 @@
 *       vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
 *       vss  09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
 * 5.3   kpt  11/28/2023 Add support to clear AES PUF,RED,KUP keys
+*       har  03/20/2024 Add support for non-word aligned data in XSecure_AesEncryptData
+*                       and XSecure_AesDecryptData
 *
 * </pre>
 *
@@ -621,7 +623,9 @@ END:
  * @param	AadAddr		- Address of the additional authenticated data
  * @param	AadSize		- Size of additional authenticated data in bytes,
  *				  whereas number of bytes provided should be
- *				  quad-word aligned(multiples of 16 bytes)
+ *				  quad-word aligned(multiples of 16 bytes) for Versal
+ *				  For Versal Net, byte aligned data is
+ *				  accepted
  *
  * @return
  *	-	XST_SUCCESS - On successful update of AAD
@@ -946,9 +950,11 @@ END:
  *				  decrypted
  * @param	OutDataAddr	Address of output buffer where the decrypted
  *				  to be updated
- * @param	Size   Size of data to be decrypted in bytes, whereas number of bytes shall be aligned as below
+ * @param	Size   Size of data to be decrypted in bytes, whereas number of bytes shall be
+ *                    aligned as below for Versal
  *                  - 16 byte aligned when it is not the last chunk
  *                  - 4 byte aligned when the data is the last chunk
+ *                  For Versal Net, byte aligned data is accepted
  * @param	IsLastChunk	If this is the last update of data to be decrypted,
  *				  this parameter should be set to TRUE otherwise FALSE
  *
@@ -1143,7 +1149,8 @@ END:
  * @param	OutDataAddr Address of output buffer where the decrypted to be
  *				  updated
  * @param	Size		Size of data to be decrypted in bytes, whereas number
- *				  of bytes provided should be multiples of 4
+ *				of bytes provided should be multiples of 4 for Versal
+ *				For Versal Net, byte aligned data is acceptable
  * @param	GcmTagAddr	Address of a buffer which should contain GCM Tag
  *
  * @return
@@ -1159,8 +1166,13 @@ int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	volatile int Status = XST_FAILURE;
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || ((Size % XSECURE_WORD_SIZE) != 0x00U)) {
+	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XSecure_AesValidateSize(Size, TRUE);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -1288,9 +1300,11 @@ END:
  *				  encrypted
  * @param	OutDataAddr	Address of output buffer where the encrypted data
  *				  to be updated
- * @param	Size    Size of data to be decrypted in bytes, whereas number of bytes shall be aligned as below
+ * @param	Size    Size of data to be decrypted in bytes, whereas number of bytes shall be
+ *                      aligned as below for Versal
  *                  - 16 byte aligned when it is not the last chunk
  *                  - 4 byte aligned when the data is the last chunk
+ *                      For Versal Net, byte aligned data is acceptable
  * @param	IsLastChunk	 If this is the last update of data to be encrypted,
  *		 		  this parameter should be set to TRUE otherwise FALSE
  *
@@ -1449,7 +1463,8 @@ END:
  * @param	OutDataAddr	Address of output buffer where the encrypted data to
  *				  be updated
  * @param	Size		Size of data to be encrypted in bytes, whereas number
- *				  of bytes provided should be multiples of 4
+ *				of bytes provided should be multiples of 4 for Versal
+ *				For Versal Net, byte aligned data is acceptable
  * @param	GcmTagAddr	Address to the buffer of GCM tag size, where the API
  *				  updates GCM tag
  *
@@ -1476,8 +1491,13 @@ int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	if ((GcmTagAddr == 0x00U) || ((Size % XSECURE_WORD_SIZE) != 0x00U)) {
+	if (GcmTagAddr == 0x00U) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XSecure_AesValidateSize(Size, TRUE);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
