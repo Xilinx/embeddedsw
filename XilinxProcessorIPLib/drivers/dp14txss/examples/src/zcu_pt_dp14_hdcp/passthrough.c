@@ -1338,7 +1338,19 @@ void DpPt_Main(void){
 
 #if ENABLE_HDCP_IN_DESIGN
 #if (ENABLE_HDCP22_IN_RX | ENABLE_HDCP22_IN_TX)
-		if (DpRxSsInst.HdcpIsReady || DpTxSsInst.HdcpIsReady) {
+		if (
+#if (XPAR_XHDCP_NUM_INSTANCES > 0 || XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
+	DpRxSsInst.HdcpIsReady
+#else
+	0
+#endif
+	||
+#if (XPAR_XHDCP_NUM_INSTANCES > 0 || XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
+	DpTxSsInst.HdcpIsReady
+#else
+	0
+#endif
+	) {
 			/* Poll HDCP22 */
 			XHdcp22_Poll(&Hdcp22Repeater);
 		}

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -466,7 +466,9 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 	DpRxSsInst.VBlankCount = 0;
 	rx_unplugged = 0;
 #if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP1x_IN_RX > 0) || (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
     XDpRxSs_SetLane(&DpRxSsInst, DpRxSsInst.UsrOpt.LaneCount);
+#endif
 #if (ENABLE_HDCP1x_IN_RX && (ENABLE_HDCP1x_IN_TX || ENABLE_HDCP22_IN_TX))
     XDpRxSs_SetPhysicalState(&DpRxSsInst, hdcp_capable_org); //TRUE);
 #else
@@ -1219,8 +1221,10 @@ void Print_ExtPkt()
 void Dprx_HdcpAuthCallback(void *InstancePtr) {
 	XDpRxSs *XDpRxSsInst = (XDpRxSs *)InstancePtr;
 
+#if (ENABLE_HDCP1x_IN_RX)
 	/* Set Timer Counter reset done */
 	XDpRxSsInst->TmrCtrResetDone = 1;
+#endif
 	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
 #if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 		XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
@@ -1244,6 +1248,7 @@ void Dprx_HdcpAuthCallback(void *InstancePtr) {
 	}
 }
 
+#if ((ENABLE_HDCP1x_IN_RX > 0) || (ENABLE_HDCP22_IN_RX > 0))
 static void Dppt_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber)
 {
 	XDpRxSs *XDpRxSsPtr = (XDpRxSs *)InstancePtr;
@@ -1274,6 +1279,6 @@ void Dprx_HdcpUnAuthCallback(void *InstancePtr) {
 				InstancePtr);
 
 }
-
+#endif
 
 #endif /* ENABLE_HDCP_IN_DESIGN */

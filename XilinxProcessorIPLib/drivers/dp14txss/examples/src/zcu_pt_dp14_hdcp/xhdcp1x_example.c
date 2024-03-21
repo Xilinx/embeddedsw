@@ -150,7 +150,11 @@ extern XINTC IntcInst;
 #else
 #define INTRNAME_DPTX_1XCIPHER    1
 #endif
+#if (ENABLE_HDCP22_IN_RX)
 #define INTRNAME_DPRX_1XCIPHER    3
+#else
+#define INTRNAME_DPRX_1XCIPHER    1
+#endif
 #endif
 /***************** Macros (Inline Functions) Definitions *********************/
 

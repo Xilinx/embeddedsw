@@ -88,6 +88,8 @@ int gIsKeyWrittenInEeeprom = FALSE;
 #define INTRNAME_DPRX   0
 #if (ENABLE_HDCP_IN_DESIGN && ENABLE_HDCP22_IN_RX && ENABLE_HDCP1x_IN_RX)
 #define INTRNAME_DPRX_TIMER 4
+#elif (ENABLE_HDCP_IN_DESIGN && ENABLE_HDCP1x_IN_RX)
+#define INTRNAME_DPRX_TIMER 2
 #else
 #define INTRNAME_DPRX_TIMER 3
 #endif
@@ -732,6 +734,7 @@ u32 DpSs_Main(void)
 
 #if (ENABLE_HDCP22_IN_RX | ENABLE_HDCP22_IN_TX)
 	extern XHdcp22_Repeater     Hdcp22Repeater;
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 	if (XDpTxSs_HdcpIsReady(&DpTxSsInst)) {
 		/* Initialize the HDCP instance */
 
@@ -740,6 +743,7 @@ u32 DpSs_Main(void)
 		/* Set HDCP downstream interface(s) */
 		XHdcp_SetDownstream(&Hdcp22Repeater, &DpTxSsInst);
 	}
+#endif
 #endif
 
 	/* Set DP141 Tx driver here. */
