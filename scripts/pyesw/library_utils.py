@@ -450,9 +450,15 @@ class Library(Repo):
     def remove_lib(self, lib):
         self.validate_lib_in_bsp(lib)
         lib_path = os.path.join(self.libsrc_folder, lib)
-        base_lib_build_dir = os.path.join(self.libsrc_folder, "build_configs", "gen_bsp", "libsrc")
-        lib_build_dir = os.path.join(base_lib_build_dir, lib)
+        base_lib_build_dir = os.path.join(self.libsrc_folder, "build_configs", "gen_bsp")
+        lib_build_dir = os.path.join(base_lib_build_dir, "libsrc", lib)
         self.modify_cmake_subdirs([lib], action="remove")
+        targetdir_list = os.path.join(base_lib_build_dir, "CMakeFiles", "TargetDirectories.txt")
+        has_lib_cmake_cache = utils.check_if_line_in_file(targetdir_list, f'{lib}.dir')
+        if not has_lib_cmake_cache:
+            self.domain_path = self.domain_path.replace('\\','/')
+            self.cmake_paths_append = self.cmake_paths_append.replace('\\','/')
+            utils.runcmd(f'cmake -G "{self.cmake_generator}" {self.domain_path} -DSUBDIR_LIST="ALL" {self.cmake_paths_append}', cwd=base_lib_build_dir)
 
         # Run make clean to remove the respective headers and .a from lib and include folder.
         utils.runcmd(f"make -C {os.path.join(lib, 'src')} clean", cwd=base_lib_build_dir)
