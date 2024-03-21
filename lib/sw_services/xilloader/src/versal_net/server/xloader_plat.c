@@ -1641,7 +1641,8 @@ int XLoader_LoadPsmElf()
 		PmErr("XLoader_ProcessPrtn failed with Status=%x\n\r", Status);
 		goto END;
 	}
-
+	/* We need to reset NoOfHandOffCpus here because we don't call StartImage routine */
+	PdiPtr->NoOfHandoffCpus = 0U;
 END:
 	return Status;
 }
