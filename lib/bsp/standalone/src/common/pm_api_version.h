@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -262,7 +262,8 @@ typedef enum {
 	PM_FORCE_HOUSECLEAN,				/**< 0x47 */
 	PM_FPGA_GET_VERSION,				/**< 0x48 */
 	PM_FPGA_GET_FEATURE_LIST,			/**< 0x49 */
-	PM_API_MAX					/**< 0x4A */
+	PM_HNICX_NPI_DATA_XFER,				/**< 0x4A */
+	PM_API_MAX					/**< 0x4B */
 } XPm_ApiId;
 
 #endif  /* PM_API_VERSION_H_ */
