@@ -452,7 +452,6 @@ class Library(Repo):
         lib_path = os.path.join(self.libsrc_folder, lib)
         base_lib_build_dir = os.path.join(self.libsrc_folder, "build_configs", "gen_bsp")
         lib_build_dir = os.path.join(base_lib_build_dir, "libsrc", lib)
-        self.modify_cmake_subdirs([lib], action="remove")
         targetdir_list = os.path.join(base_lib_build_dir, "CMakeFiles", "TargetDirectories.txt")
         has_lib_cmake_cache = utils.check_if_line_in_file(targetdir_list, f'{lib}.dir')
         if not has_lib_cmake_cache:
@@ -461,10 +460,18 @@ class Library(Repo):
             utils.runcmd(f'cmake -G "{self.cmake_generator}" {self.domain_path} -DSUBDIR_LIST="ALL" {self.cmake_paths_append}', cwd=base_lib_build_dir)
 
         # Run make clean to remove the respective headers and .a from lib and include folder.
-        utils.runcmd(f"make -C {os.path.join(lib, 'src')} clean", cwd=base_lib_build_dir)
+        if os.name == "nt":
+            base_lib_build_dir = base_lib_build_dir.replace('\\', '/')
+            utils.runcmd('cmake -DCONFIG="" -P CMakeFiles\clean_additional.cmake', cwd=base_lib_build_dir)
+        else:
+            utils.runcmd(f"make -C {os.path.join('libsrc', lib, 'src')} clean", cwd=base_lib_build_dir)
         # Remove library src folder from libsrc
         utils.remove(lib_path)
         # Remove cmake build folder from cmake build area.
         utils.remove(lib_build_dir)
         # Update library config file
         utils.update_yaml(self.domain_config_file, "domain", lib, None, action="remove")
+        if os.name == "nt":
+            dump = utils.discard_dump()
+            utils.runcmd(f"ninja CMakeFiles/rebuild_cache.util > {dump}", cwd=base_lib_build_dir)
+        self.modify_cmake_subdirs([lib], action="remove")
