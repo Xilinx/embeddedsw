@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -354,7 +355,9 @@ static void XHdcp22_DownstreamAuthenticatedCallback(void *HdcpInstancePtr)
 	/* After authentication start encryption */
 	for (int i = 0; (i < InstancePtr->DownstreamInstanceBinded); i++) {
 //		xil_printf("HDCP 2.2 downstream authenticated\r\n");
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 		XDpTxSs_EnableEncryption((void *)InstancePtr->DownstreamInstancePtr[i], 1);
+#endif
 	}
 //
 //	/* Enforce blanking */
