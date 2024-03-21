@@ -429,8 +429,10 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 //		usleep(50000);
 //		 This part has added to give HDCP a proper handle when hdp even happens
 //		 HDCP block will disable Tx side encryption when hpd detected
-		#if ENABLE_HDCP_IN_DESIGN
+#if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 				XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
+#endif
 #if ENABLE_HDCP1x_IN_TX
 				XDpTxSs_SetPhysicalState(&DpTxSsInst, TRUE);
 #endif
@@ -438,7 +440,9 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 				XHdcp1xExample_Poll();
 #endif
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 				XDpTxSs_HdcpEnable(&DpTxSsInst);
+#endif
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 				XHdcp1xExample_Poll();
 #endif
@@ -479,8 +483,10 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 #if ENABLE_HDCP_IN_DESIGN
 		{
 			xdbg_printf(XDBG_DEBUG_GENERAL, ".~\r\n");
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 			XDpTxSs_DisableEncryption(&DpTxSsInst,0x1);
 			XDpTxSs_HdcpDisable(&DpTxSsInst);
+#endif
 #if ENABLE_HDCP1x_IN_TX
 			XDpTxSs_SetPhysicalState(&DpTxSsInst, hdcp_capable_org);
 #endif
@@ -1088,7 +1094,9 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	XDp_TxCfgSetColorEncode(DpTxSsInst.DpPtr, XDP_TX_STREAM_ID1, \
 				format, XVIDC_BT_601, XDP_DR_CEA);
 #if ENABLE_HDCP_IN_DESIGN
+#if (ENABLE_HDCP1x_IN_TX | ENABLE_HDCP22_IN_TX)
 	XDpTxSs_HdcpDisable(&DpTxSsInst);
+#endif
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 	XHdcp1xExample_Poll();
 #endif
