@@ -27,7 +27,13 @@ extern "C" {
  * When no one using LPD devices, its minimum use count will be 4 as
  * these devices are requested by PMC subsystem.
  */
+#if (XPLMI_UART_NUM_INSTANCES > 1U)
 #define MIN_LPD_USE_COUNT			(4U)
+#elif (XPLMI_UART_NUM_INSTANCES > 0U)
+#define MIN_LPD_USE_COUNT			(3U)
+#else
+#define MIN_LPD_USE_COUNT			(2U)
+#endif
 
 /*******************************************************/
 
