@@ -35,6 +35,7 @@
 *       sk   08/29/2023 Updated IPI Timeout to ~5sec to avoid any DoS issue
 * 2.00  ng   12/15/2023 Added offset support to list commands
 *       ng   02/14/2024 removed int typecast for errors
+*       jb   03/19/2024 Updated XPLMI_MAX_ADDR_BUFFERS count from 1 to 3
 *
 * </pre>
 *
@@ -71,7 +72,7 @@
 #define XPLMI_FIPS_WRITE_KATMASK_PAYLOAD_LEN	(7U) /**< FIPS write KAT mask payload length */
 
 /* Address Buffer related macros */
-#define XPLMI_MAX_ADDR_BUFFERS (1U)
+#define XPLMI_MAX_ADDR_BUFFERS (3U)
 #define XPLMI_MAX_ADDR_LIST_CNT (200U)
 #define XPLMI_LIST_ID_MASK  (0xFF000000U)
 #define XPLMI_LIST_ID_SHIFT (24U)
