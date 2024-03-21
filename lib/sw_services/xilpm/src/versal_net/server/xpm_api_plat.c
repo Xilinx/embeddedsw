@@ -122,6 +122,49 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function is used for HNICX NPI indirect write for a given
+ *	   address.
+ *
+ * @param  Address	32 bit address
+ * @param  Value	32 bit value to be written
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_HnicxNpiDataXfer(u32 Address, u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Fake read of status register */
+	(void)XPm_In32(HNICX_NPI_0_BASEADDR +
+		       HNICX_NPI_0_NPI_CSR_WR_STATUS_OFFSET);
+
+	/* Write NPI data in NPI_CSR_WDATA register */
+	XPm_Out32(HNICX_NPI_0_BASEADDR + HNICX_NPI_0_NPI_CSR_WDATA_OFFSET,
+		  Value);
+
+	/*
+	 * Write address + set command for data write in NPI_CSR_INST
+	 * register
+	 */
+	XPm_Out32(HNICX_NPI_0_BASEADDR + HNICX_NPI_0_NPI_CSR_INST_OFFSET,
+		  ((Address & HNICX_NPI_0_NPI_CSR_INST_NPI_CSR_ADDR_MASK) |
+		  HNICX_NPI_0_NPI_CSR_INST_NPI_CSR_CMD_WRITE));
+
+	/* Wait for a valid write response for the successful transaction */
+	Status = XPlmi_UtilPoll(HNICX_NPI_0_BASEADDR +
+				HNICX_NPI_0_NPI_CSR_WR_STATUS_OFFSET,
+				HNICX_NPI_0_NPI_CSR_WR_STATUS_MASK,
+				HNICX_NPI_0_NPI_CSR_WR_STATUS_VALID_RESP,
+				XPM_NPI_CSR_POLL_TIMEOUT, NULL);
+
+	return Status;
+}
+
 int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -142,6 +185,9 @@ int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd)
 		break;
 	case PM_API(PM_APPLY_TRIM):
 		Status = XPm_PldApplyTrim(Pload[0]);
+		break;
+	case PM_API(PM_HNICX_NPI_DATA_XFER):
+		Status = XPm_HnicxNpiDataXfer(Pload[0], Pload[1]);
 		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -401,6 +401,22 @@ extern "C" {
 /*PS=PSTATE of PChannel*/
 #define LPX_SLCR_RPU_PCIL_X_PS_OFFSET	(0x84U)
 #define LPX_SLCR_RPU_PCIL_X_PWRDWN_OFFSET	(0xC0U)
+
+/**
+ * HNICX_NPI_0 Module
+ */
+#define HNICX_NPI_0_BASEADDR				(0xF6AF0000U)
+
+/**
+ * HNICX_NPI_0 registers
+ */
+#define HNICX_NPI_0_NPI_CSR_INST_NPI_CSR_CMD_WRITE	BIT32(30)
+#define HNICX_NPI_0_NPI_CSR_WR_STATUS_VALID_RESP	(0x1U)
+#define HNICX_NPI_0_NPI_CSR_INST_OFFSET			(0x200U)
+#define HNICX_NPI_0_NPI_CSR_WDATA_OFFSET		(0x204U)
+#define HNICX_NPI_0_NPI_CSR_WR_STATUS_OFFSET		(0x208U)
+#define HNICX_NPI_0_NPI_CSR_INST_NPI_CSR_ADDR_MASK	(0x3FFFFFFFU)
+#define HNICX_NPI_0_NPI_CSR_WR_STATUS_MASK		(0x00000007U)
 
 #ifdef __cplusplus
 }
