@@ -53,6 +53,7 @@
 *       dc     30/28/23 Remove immediate trigger
 * 1.7   dc     11/29/23 Add continuous scheduling
 *       dc     01/19/24 Correct memset destination address
+*       dc     03/22/24 Correct order of RACH mapping steps
 * </pre>
 * @addtogroup dfeprach Overview
 * @{
@@ -818,6 +819,16 @@ static void XDfePrach_SetRC(const XDfePrach *InstancePtr,
 	XDfePrach_SetNCO(InstancePtr, RCCfg, RCId);
 	XDfePrach_SetDDC(InstancePtr, RCCfg, RCId);
 
+	/* Write the mapping source */
+	Data = XDfePrach_WrBitField(XDFEPRACH_RCID_MAPPING_SOURCE_CCID_WIDTH,
+				    XDFEPRACH_RCID_MAPPING_SOURCE_CCID_OFFSET,
+				    0U, RCCfg->InternalRCCfg[RCId].CCID);
+	Data = XDfePrach_WrBitField(XDFEPRACH_RCID_MAPPING_SOURCE_BAND_WIDTH,
+				    XDFEPRACH_RCID_MAPPING_SOURCE_BAND_OFFSET,
+				    Data, RCCfg->InternalRCCfg[RCId].BandId);
+	Offset = XDFEPRACH_RCID_MAPPING_SOURCE_NEXT + (RCId * sizeof(u32));
+	XDfePrach_WriteReg(InstancePtr, Offset, Data);
+
 	/* Write the mapping register */
 	Data = XDfePrach_WrBitField(
 		XDFEPRACH_RCID_MAPPING_CHANNEL_ENABLE_WIDTH,
@@ -828,16 +839,6 @@ static void XDfePrach_SetRC(const XDfePrach *InstancePtr,
 		XDFEPRACH_RCID_MAPPING_CHANNEL_RACH_CHANNEL_OFFSET, Data,
 		RCCfg->InternalRCCfg[RCId].RachChannel);
 	Offset = XDFEPRACH_RCID_MAPPING_CHANNEL_NEXT + (RCId * sizeof(u32));
-	XDfePrach_WriteReg(InstancePtr, Offset, Data);
-
-	/* Write the mapping source */
-	Data = XDfePrach_WrBitField(XDFEPRACH_RCID_MAPPING_SOURCE_CCID_WIDTH,
-				    XDFEPRACH_RCID_MAPPING_SOURCE_CCID_OFFSET,
-				    0U, RCCfg->InternalRCCfg[RCId].CCID);
-	Data = XDfePrach_WrBitField(XDFEPRACH_RCID_MAPPING_SOURCE_BAND_WIDTH,
-				    XDFEPRACH_RCID_MAPPING_SOURCE_BAND_OFFSET,
-				    Data, RCCfg->InternalRCCfg[RCId].BandId);
-	Offset = XDFEPRACH_RCID_MAPPING_SOURCE_NEXT + (RCId * sizeof(u32));
 	XDfePrach_WriteReg(InstancePtr, Offset, Data);
 }
 
@@ -2024,6 +2025,9 @@ XDfePrach_StateId XDfePrach_GetStateID(XDfePrach *InstancePtr)
 
 /*************************** Component API **********************************/
 
+/**
+* @cond nocomments
+*/
 /****************************************************************************/
 /**
 *
@@ -2081,6 +2085,9 @@ static void XDfePrach_GetCurrentCCCfgLocal(const XDfePrach *InstancePtr,
 				Data);
 	}
 }
+/**
+* @endcond
+*/
 
 /****************************************************************************/
 /**
@@ -2511,6 +2518,9 @@ u32 XDfePrach_SetNextCfg(const XDfePrach *InstancePtr,
 	return XST_SUCCESS;
 }
 
+/**
+* @cond nocomments
+*/
 /****************************************************************************/
 /**
 *
@@ -2710,6 +2720,9 @@ u32 XDfePrach_UpdateCC(const XDfePrach *InstancePtr, s32 CCID,
 
 	return XST_SUCCESS;
 }
+/**
+* @endcond
+*/
 
 /****************************************************************************/
 /**
@@ -3141,6 +3154,9 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 				    NextCCCfg, BandId);
 }
 
+/**
+* @cond nocomments
+*/
 /****************************************************************************/
 /**
 *
@@ -3356,6 +3372,9 @@ u32 XDfePrach_UpdateRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 
 	return XST_SUCCESS;
 }
+/**
+* @endcond
+*/
 
 /****************************************************************************/
 /**
