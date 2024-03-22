@@ -79,6 +79,10 @@ static u32 CsiSs_SubCoreInitIic(XCsiSs *CsiSsPtr);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr);
 #endif
+#if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
+static u32 CsiSs_SubCoreInitMipiRxPhy(XCsiSs *CsiSsPtr);
+#endif
+
 static u32 CsiSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
 					u32 Offset, UINTPTR *BaseAddr);
 
@@ -150,6 +154,14 @@ u32 XCsiSs_CfgInitialize(XCsiSs *InstancePtr, XCsiSs_Config *CfgPtr,
 			return XST_FAILURE;
 		}
 	}
+#elif (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
+	if (InstancePtr->Config.IsMipiRxPhyRegIntfcPresent && InstancePtr->MipiRxPhyPtr) {
+		Status = CsiSs_SubCoreInitMipiRxPhy(InstancePtr);
+		if (Status != XST_SUCESS) {
+			return XST_FAILURE;
+		}
+	}
+
 #endif
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	return XST_SUCCESS;
@@ -263,6 +275,11 @@ u32 XCsiSs_Activate(XCsiSs *InstancePtr, u8 Flag)
 	if (Status != XST_SUCCESS)
 		return Status;
 
+#if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
+	if (InstancePtr->Config.IsMipiRxPhyRegIntfcPresent && InstancePtr->XMipiRxPhyPtr) {
+		XMipi_Rx_Phy_Activate(InstancePtr->XMipiRxPhyPtr, Flag);
+	}
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->DphyPtr) {
 		XDphy_Activate(InstancePtr->DphyPtr, Flag);
@@ -327,6 +344,19 @@ void XCsiSs_ReportCoreInfo(XCsiSs *InstancePtr)
 		xdbg_printf(XDBG_DEBUG_GENERAL,"    : CSI Rx Controller \n\r");
 	}
 
+#if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
+	if (InstancePtr->XMipiRxPhyPtr) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"    : XMipi Rx Phy ");
+		if (InstancePtr->Config.IsMipiRxPhyRegIntfcPresent) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"with ");
+		}
+		else {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"without ");
+		}
+
+		xdbg_printf(XDBG_DEBUG_GENERAL,"register interface \n\r");
+	}
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->DphyPtr) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"    : DPhy ");
@@ -516,6 +546,10 @@ static void CsiSs_GetIncludedSubCores(XCsiSs *CsiSsPtr)
 	CsiSsPtr->CsiPtr = ((CsiSsPtr->Config.CsiInfo.IsPresent) ?
 		(&CsiSsSubCores[Index].CsiInst) : NULL);
 
+#if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
+	CsiSsPtr->MipiRxPhyPtr = ((CsiSsPtr->Config.MipiRxPhyInfo.IsPresent) ?
+		(&CsiSsSubCores[Index].MipiRxPhyInst) : NULL);
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	CsiSsPtr->DphyPtr = ((CsiSsPtr->Config.DphyInfo.IsPresent) ?
 		(&CsiSsSubCores[Index].DphyInst) : NULL);
@@ -686,6 +720,60 @@ static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr)
 	Status = XDphy_CfgInitialize(CsiSsPtr->DphyPtr, ConfigPtr, AbsAddr);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "CSISS ERR:: Dphy core "
+			"Initialization failed\n\r");
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+#endif
+
+#if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
+/*****************************************************************************/
+/**
+* This function initializes the included sub-core to it's static configuration
+*
+* @param	CsiSsPtr is a pointer to the Subsystem instance to be worked.
+*
+* @return
+*		- XST_SUCCESS If DPHY sub core is initialised sucessfully
+*		- XST_FAILURE If DPHY sub core initialization failed
+*
+* @note		None
+*
+******************************************************************************/
+static u32 CsiSs_SubCoreInitMipiRxPhy(XCsiSs *CsiSsPtr)
+{
+	u32 Status;
+	UINTPTR AbsAddr;
+	XDphy_Config *ConfigPtr;
+
+	/* Get core configuration */
+	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing MIPI RX PHY ...\n\r");
+
+	ConfigPtr = XMipi_Rx_Phy_LookupConfig(CsiSsPtr->Config.MipiRxPhyInfo.AddrOffset);
+
+	if (!ConfigPtr) {
+		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: MIPI RX PHY not found\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Compute absolute base address */
+	AbsAddr = 0;
+	Status = CsiSs_ComputeSubCoreAbsAddr(CsiSsPtr->Config.BaseAddr,
+					CsiSsPtr->Config.HighAddr,
+					CsiSsPtr->Config.MipiRxPhyInfo.AddrOffset,
+					&AbsAddr);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: MIPI RX PHY core base "
+			"address (0x%x) invalid %d\n\r", AbsAddr);
+		return XST_FAILURE;
+	}
+
+	/* Initialize core */
+	Status = XMipi_Rx_Phy_CfgInitialize(CsiSsPtr->MipiRxPhyPtr, ConfigPtr, AbsAddr);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "CSISS ERR:: Mipi  Rx Phy core "
 			"Initialization failed\n\r");
 		return XST_FAILURE;
 	}
