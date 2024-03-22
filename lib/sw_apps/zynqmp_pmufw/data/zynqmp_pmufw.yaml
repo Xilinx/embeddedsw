@@ -19,6 +19,22 @@ supported_processors:
 supported_os:
   - standalone
 
+depends:
+    ipipsu:
+        - reg
+        - xlnx,ipi-bitmask
+
+# TODO: Need to add remaining driver list which are the dependencies for this
+#       component.
+#       Reasons:
+#               - For other drivers have no effect of "depends" list while
+#               getting added as dependencies.
+#       List of remaining drivers:
+#               1) wdtps
+#               2) csudma
+#               3) ttcps
+#               4) qspipsu
+
 depends_libs:
     xiltimer: {}
     xilfpga: {}
