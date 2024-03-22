@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -8,10 +8,10 @@ OPTION psf_version = 2.1;
 
 BEGIN driver sysmonpsv
 
-  OPTION supported_peripherals = (pmc_sysmon psv_pmc_sysmon slv1_psv_pmc_sysmon slv2_psv_pmc_sysmon slv3_psv_pmc_sysmon psxl_pmc_sysmon psx_pmc_sysmon);
+  OPTION supported_peripherals = (pmc_sysmon psv_pmc_sysmon psxl_pmc_sysmon psx_pmc_sysmon);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.2;
+  OPTION VERSION = 4.1;
   OPTION NAME = sysmonpsv;
 
 END driver

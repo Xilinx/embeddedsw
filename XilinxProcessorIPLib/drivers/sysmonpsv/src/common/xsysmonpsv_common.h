@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,7 +18,6 @@
 * ----- -----  -------- -----------------------------------------------
 * 3.0   cog    03/25/21 Driver Restructure
 * 4.0   se     10/04/22 Update return value definitions
-* 4.2   cog    01/25/24 Added SSIT support
 * </pre>
 *
 ******************************************************************************/
@@ -97,7 +96,7 @@ typedef enum {
 int XSysMonPsv_TempOffset(XSysMonPsv_TempType Type);
 int XSysMonPsv_TempThreshOffset(XSysMonPsv_TempEvt Event,
 				XSysMonPsv_EventDir Dir, u32 *Offset);
-u32 XSysMonPsv_SupplyOffset(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply, u32 *Offset);
+u32 XSysMonPsv_SupplyOffset(XSysMonPsv *InstancePtr, int Supply);
 u32 XSysMonPsv_SupplyThreshOffset(XSysMonPsv *InstancePtr, int Supply,
 				  XSysMonPsv_EventDir Dir);
 void XSysMonPsv_Q8P7ToCelsius(u32 RawData, int *Val, int *Val2);
@@ -115,7 +114,6 @@ int XSysMonPsv_InterruptDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum);
 int XSysMonPsv_InterruptGetStatus(XSysMonPsv *InstancePtr, u32 *IntrStatus);
 void XSysMonPsv_InterruptClear(XSysMonPsv *InstancePtr, u32 Mask);
 void XSysMonPsv_UnlockRegspace(XSysMonPsv *InstancePtr);
-int XSysMonPsv_SetTargetSLR(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply);
 
 #ifdef __cplusplus
 }
