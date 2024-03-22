@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,10 +8,10 @@
 /**
 *
 * @file xsdps_core.h
-* @addtogroup sdps Overview
+* @addtogroup sdps_api SDPS APIs
 * @{
 *
-* The xsdps_core.h header file contains the identifiers and basic HW access driver
+* The xsdps_core.h header file contains the identifiers and basic hardware access driver
 * functions (or  macros) that can be used to access the device. Other driver
 * functions are defined in xsdps.h.
 *
