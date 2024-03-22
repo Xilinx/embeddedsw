@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -236,53 +236,6 @@ int XSecure_KeyUnwrap(XSecure_ClientInstance *InstancePtr, XSecure_KeyWrapData *
 	Payload[2U] = (u32)(KeyWrapAddr >> 32U);
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function sends IPI request to Perform SCA resistance
- * 		RSA decryption with private key.
- *
- * @param	InstancePtr - Pointer to the client instance
- * @param	RsaOperationInParamAddr - Address of the rsa input data
- * @param	OutDataAddr - Address of the buffer where resultant decrypted
- *                        data to be stored
- *
- * @return
- *	-	XST_SUCCESS - On Success
- * 	-	Errorcode - On failure
- *
- ******************************************************************************/
-int XSecure_RsaExpQOperation(XSecure_ClientInstance *InstancePtr,
-	const u64 RsaOperationInParamAddr, const u64 OutDataAddr)
-{
-	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
-
-	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_RSA_SCA_RESISTANCE_PRIVATE_DECRYPT);
-	Payload[1U] = (u32)RsaOperationInParamAddr;
-	Payload[2U] = (u32)(RsaOperationInParamAddr >> 32);
-	Payload[3U] = (u32)(OutDataAddr);
-	Payload[4U] = (u32)(OutDataAddr >> 32);
-
-	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaDecrypt api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
-	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-		 sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;

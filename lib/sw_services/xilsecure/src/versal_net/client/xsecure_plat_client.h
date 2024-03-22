@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -58,8 +58,6 @@ int XSecure_UpdatePcideCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure
 	 u32 CryptoMask);
 int XSecure_GetRsaPublicKeyForKeyWrap(XSecure_ClientInstance *InstancePtr, XSecure_RsaPubKeyAddr *PubKey);
 int XSecure_KeyUnwrap(XSecure_ClientInstance *InstancePtr, XSecure_KeyWrapData *KeyWrapData);
-int XSecure_RsaExpQOperation(XSecure_ClientInstance *InstancePtr,
-	const u64 RsaOperationInParamAddr, const u64 OutDataAddr);
 
 #ifdef __cplusplus
 }

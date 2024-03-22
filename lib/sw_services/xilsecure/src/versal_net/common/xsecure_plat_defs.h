@@ -100,9 +100,8 @@ typedef enum {
 	XSECURE_API_GEN_SHARED_SECRET,		/**< 33U */
 	XSECURE_API_GET_KEY_WRAP_RSA_PUBLIC_KEY,	/**< 34U */
 	XSECURE_API_KEY_UNWRAP,                 	/**< 35U */
-	XSECURE_API_RSA_SCA_RESISTANCE_PRIVATE_DECRYPT, /**< 36U */
-	XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,/**< 37U */
-	XSECURE_API_MAX,				/**< 38U */
+	XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,/**< 36U */
+	XSECURE_API_MAX,				/**< 37U */
 } XSecure_ApiId;
 
 /**< XilSecure KAT ids */
@@ -297,20 +296,18 @@ typedef struct {
 } XSecure_RsaPubKeyAddr;
 
 typedef struct {
-	u64 InDataAddr;
 	u64 ExpAddr;	     /**< Exponent address */
 	u64 ModAddr;	     /**< Modulus address */
 	u64 PAddr;           /**< First factor address */
 	u64 QAddr;           /**< Second factor address */
 	u64 TotAddr;         /**< Totient address */
-	u32 PSize;	     /**< Size of first factor(P) in bytes */
-	u32 QSize;	     /**< Size of first factor(Q) in bytes */
+	u32 PSize;	     	/**< Size of first factor(P) in bytes */
+	u32 QSize;	     	/**< Size of first factor(Q) in bytes */
 	u32 PubExp;         /**< Public exponent */
-	u32 KeySize;         /**< Size of the key in bits */
-	u32 IsTotAvail;  /**< Totient Available */
-	u32 IsPubExpAvail; /**< Public exponent available */
-	u32 IsPrimeAvail; /**< Prime number available */
-} XSecure_RsaOperationInParam;
+	u32 IsTotAvail;  	/**< Totient Available */
+	u32 IsPubExpAvail; 	/**< Public exponent available */
+	u32 IsPrimeAvail; 	/**< Prime number available */
+} XSecure_RsaExpKeyParam;
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_HMAC_MAJOR_VERSION	5 /**< Major version of HMAC */
