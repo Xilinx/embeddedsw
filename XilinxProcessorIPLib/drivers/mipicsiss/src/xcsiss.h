@@ -144,6 +144,9 @@ extern "C" {
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 #include "xdphy.h"
 #endif
+#if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
+#include "xmipi_rx_phy.h"
+#endif
 #if (XPAR_XIIC_NUM_INSTANCES > 0)
 #include "xiic.h"
 #endif
@@ -230,6 +233,10 @@ typedef struct {
 					  *  presence */
 	u32 DphyLineRate;	/**< DPHY Line Rate ranging from
 				  *  80-1500 Mbps */
+	u32 IsMipiRxPhyRegIntfcPresent;	/**< Flag for DPHY register interface
+					  *  presence */
+	u32 MipiRxPhyLineRate;	/**< DPHY Line Rate ranging from
+				  *  80-1500 Mbps */
 	u32 EnableCrc;		/**< CRC Calculation optimization enabled */
 	u32 EnableActiveLanes;	/**< Active Lanes programming optimization
 				  *  enabled */
@@ -238,6 +245,7 @@ typedef struct {
 	CsiRxSsSubCore IicInfo;	/**< IIC sub-core configuration */
 	CsiRxSsSubCore CsiInfo;	/**< CSI sub-core configuration */
 	CsiRxSsSubCore DphyInfo;	/**< DPHY sub-core configuration */
+	CsiRxSsSubCore MipiRxPhyInfo; /* MIPI RX PHY sub-core configuration */
 #ifdef SDT
 	u16 IntrId;		/* Interrupt ID */
 	UINTPTR IntrParent; 	/* Bit[0] Interrupt Parent */
@@ -254,6 +262,9 @@ typedef struct {
 	u32 IsReady;		/**< Device and the driver instance are
 				  *  initialized */
 	XCsi  *CsiPtr;		/**< handle to sub-core driver instance */
+#if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
+	XMipi_Rx_Phy *XMipiRxPhyPtr;		/**< handle to sub-core driver instance */
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy *DphyPtr;		/**< handle to sub-core driver instance */
 #endif
