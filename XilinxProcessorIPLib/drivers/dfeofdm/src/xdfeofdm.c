@@ -27,6 +27,7 @@
 * 1.2   dc     10/16/23 Doxygen documenatation update
 *       dc     10/17/23 Support for FFT size 512
 *       dc     02/29/24 Correct sw major/minor version numbers
+*       dc     03/22/24 Update hw version
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -1781,6 +1782,9 @@ u32 XDfeOfdm_SetNextCCCfgAndTrigger(const XDfeOfdm *InstancePtr,
 	return XDfeOfdm_EnableCCUpdateTrigger(InstancePtr);
 }
 
+/**
+* @cond nocomments
+*/
 /****************************************************************************/
 /**
 *
@@ -2049,6 +2053,9 @@ u32 XDfeOfdm_UpdateCC(XDfeOfdm *InstancePtr, s32 CCID,
 	XDfeOfdm_SetNextCCCfg(InstancePtr, &CCCfg);
 	return XDfeOfdm_EnableCCUpdateTrigger(InstancePtr);
 }
+/**
+* @endcond
+*/
 
 /****************************************************************************/
 /**

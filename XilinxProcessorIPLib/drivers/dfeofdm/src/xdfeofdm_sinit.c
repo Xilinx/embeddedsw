@@ -26,6 +26,7 @@
 * 1.1   dc     05/22/23 State and status upgrades
 *       cog    07/04/23 Add support for SDT
 * 1.2   dc     10/16/23 Doxygen documenatation update
+*       dc     03/22/24 Update hw version
 *
 * </pre>
 * @addtogroup dfeofdm Overview
@@ -62,7 +63,7 @@
 * @endcond
 */
 #define XDFEOFDM_COMPATIBLE_STRING                                             \
-	"xlnx,xdfe-ofdm-2.0" /**< Device name property. */
+	"xlnx,xdfe-ofdm-2.1" /**< Device name property. */
 #define XDFEOFDM_PLATFORM_DEVICE_DIR                                           \
 	"/sys/bus/platform/devices/" /**< Device location in a file system. */
 #define XDFEOFDM_COMPATIBLE_PROPERTY "compatible" /**< Device tree property */
