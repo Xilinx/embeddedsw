@@ -32,6 +32,29 @@ supported_processors:
 supported_os:
   - standalone
   - freertos10_xilinx
+depends:
+    ipipsu:
+        - reg
+        - xlnx,ipi-bitmask
+        - interrupts
+
+# TODO: Need to add remaining driver list which are the dependencies for this
+#       component.
+#       Reasons:
+#               - For other drivers have no effect of "depends" list while
+#               getting added as dependencies.
+#               - Implementation of architecture dependant driver dependency
+#               is pending.
+#       List of remaining drivers:
+#               1) cframe
+#               2) cfupmc
+#               3) iicps
+#               4) usbpsu
+#               5) sdps
+#               6) qspipsu
+#               7) rtcpsu
+#               8) ttcps
+#               9) scugic
 
 examples:
   xilpm_selfsuspend_example.c:
