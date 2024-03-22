@@ -58,11 +58,9 @@
 *       sk   07/06/23 Corrected DAP Config Mask's
 *       dd   08/11/23 Updated doxygen comments
 * 2.1   kpt  12/04/23 Move XLoader_AesKekInfo to platform specific file
-<<<<<<< HEAD
 *       am   03/02/24 Added XLOADER_OPTIMIZED_AUTH_CERT_MIN_SIZE macro
-=======
 *       har  03/05/24 Fixed doxygen warnings
->>>>>>> 817a55b8fb (sw_services: xilloader: Fixed doxygen warnings)
+*       kpt  03/15/24 Updated RSA KAT to use 2048-bit key
 *
 * </pre>
 *
@@ -102,9 +100,7 @@ extern "C" {
 #define XLOADER_RSA_SIG_EXP_BYTE	(0xBCU)
 #define XLOADER_RSA_EM_MSB_EXP_BYTE	(0x0U)
 #define XLOADER_I2OSP_INT_LIMIT		(256U)
-#define XLOADER_RSA_PSS_MASKED_DB_LEN	(463U)
 #define XLOADER_RSA_PSS_SALT_LEN	(XLOADER_SHA3_LEN)
-#define XLOADER_RSA_PSS_DB_LEN		(415U)
 #define XLOADER_RSA_PSS_PADDING1	(8U)
 #define XLOADER_RSA_PSS_BUFFER_LEN	(480U)
 /** @} */
@@ -567,7 +563,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	u32 BlockSize, u8 Last);
 #ifndef PLM_RSA_EXCLUDE
 int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
-		u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature);
+		u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature, u32 KeySize);
 #endif
 void XLoader_ClearKatOnPPDI(XilPdi *PdiPtr, u32 PlmKatMask);
 int XLoader_CheckAuthJtagIntStatus(void *Arg);
