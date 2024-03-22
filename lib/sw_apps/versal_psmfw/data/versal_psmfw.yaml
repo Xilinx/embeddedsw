@@ -15,6 +15,12 @@ description: Processing System Management Unit Firmware for versal.
 depends_libs:
     xiltimer: {}
 
+depends:
+    ipipsu:
+        - reg
+        - xlnx,ipi-bitmask
+        - interrupts
+
 supported_processors:
   - psv_psm
   - psx_psm
