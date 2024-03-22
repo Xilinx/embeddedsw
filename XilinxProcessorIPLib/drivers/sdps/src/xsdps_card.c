@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xsdps_card.c
-* @addtogroup sdps Overview
+* @addtogroup sdps_api SDPS APIs
 * @{
 *
 * The xsdps_card.c file contains the interface functions of the XSdPs driver.
@@ -58,10 +58,10 @@
 /*****************************************************************************/
 /**
 * @brief
-* This function performs SD read in polled mode.
+* Performs SD read in polled mode.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	Arg is the address passed by the user that is to be sent as
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	Arg Address passed by the user that is to be sent as
 * 		argument along with the command.
 * @param	BlkCnt - Block count passed by the user.
 * @param	Buff - Pointer to the data buffer for a DMA transfer.
@@ -106,10 +106,10 @@ s32 XSdPs_Read(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 /*****************************************************************************/
 /**
 * @brief
-* This function performs SD write in polled mode.
+* Performs SD write in polled mode.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	Arg is the address passed by the user that is to be sent as
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	Arg Address passed by the user that is to be sent as
 * 		argument along with the command.
 * @param	BlkCnt - Block count passed by the user.
 * @param	Buff - Pointer to the data buffer for a DMA transfer.
@@ -154,9 +154,9 @@ s32 XSdPs_Write(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to check for the transfer complete.
+* Checks for the transfer complete.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return
 * 		- XST_SUCCESS if transfer was successful
@@ -209,10 +209,10 @@ RETURN_PATH:
 /**
 *
 * @brief
-* Identify type of card using CMD0 + CMD1 sequence
+* Identifies type of card using CMD0 + CMD1 sequence
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
+* @param	InstancePtr Pointer to the XSdPs instance.
 *
 ******************************************************************************/
 s32 XSdPs_IdentifyCard(XSdPs *InstancePtr)
@@ -266,10 +266,10 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* SD initialization is done in this function
+* This function Initializes SD.
 *
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return
 * 		- XST_SUCCESS if initialization was successful
@@ -319,10 +319,10 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* Mmc initialization is done in this function
+* This function initializes MMC
 *
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return
 * 		- XST_SUCCESS if initialization was successful
@@ -391,9 +391,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function checks if the card is present or not.
+* Checks if the card is present or not.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -432,9 +432,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function sends CMD0 to reset the card.
+* Sends CMD0 to reset the card.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -455,9 +455,9 @@ s32 XSdPs_CardReset(XSdPs *InstancePtr)
 /*****************************************************************************/
 /**
 * @brief
-* This function sends command to get the card interface details.
+* Sends command to get the card interface details.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -503,9 +503,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function sends command to get the card operating condition.
+* Sends command to get the card operating condition.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -583,9 +583,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to get the card ID.
+* Gets the card ID.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -658,9 +658,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to get the CSD register from the card.
+* Gets the CSD register from the card.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -728,9 +728,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to set the card voltage to 1.8V.
+* Sets the card voltage to 1.8 V.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -776,9 +776,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to do initial Reset Configuration.
+* Configures the initial Reset.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -818,9 +818,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to do initial Host Configuration.
+* Configures the initial Host.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -848,10 +848,10 @@ void XSdPs_HostConfig(XSdPs *InstancePtr)
 /*****************************************************************************/
 /**
 * @brief
-* This function checks for Reset Done bits to be cleared after a reset assert.
+* Checks for Reset Done bits to be cleared after a reset assert.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	Value is the bits to be checked to be cleared.
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	Value Bits to be checked to be cleared.
 *
 * @return	None
 *
@@ -879,9 +879,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to setup the voltage switch.
+* Sets up the voltage switch.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -913,9 +913,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to check if the Cmd and Dat buses are high.
+* Check if the CMD and DAT buses are high.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -949,12 +949,11 @@ RETURN_PATH:
 * supported bus speed.
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
-* @param	ReadBuff contains the response for CMD6
+* @param	InstancePtr Pointer to the XSdPs instance.
+* @param	ReadBuff Contains the response for CMD6
 *
 * @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
@@ -984,14 +983,12 @@ void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
 /**
 *
 * @brief
-* API to set Tap Delay w.r.t speed modes
+* API to set Tap Delay with respect to the speed modes.
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
+* @param	InstancePtr Pointer to the XSdPs instance.
 *
 * @return	None
-*
-* @note		None.
 *
 ******************************************************************************/
 void XSdPs_SetTapDelay(XSdPs *InstancePtr)
@@ -1018,9 +1015,9 @@ void XSdPs_SetTapDelay(XSdPs *InstancePtr)
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to change the SD Bus Speed.
+* Changes the SD Bus Speed.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -1077,9 +1074,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to change the eMMC bus speed.
+* Changes the eMMC bus speed.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -1119,7 +1116,7 @@ RETURN_PATH:
 * @brief
 * This function is used to do the Auto tuning.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return	None
 *
@@ -1186,16 +1183,14 @@ RETURN_PATH:
 /**
 *
 * @brief
-* API to setup ADMA2 descriptor table
+* API to setup ADMA2 descriptor table.
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
-* @param	BlkCnt - block count.
-* @param	Buff pointer to data buffer.
+* @param	InstancePtr Pointer to the XSdPs instance.
+* @param	BlkCnt Block count.
+* @param	Buff  Pointer to data buffer.
 *
 * @return	None
-*
-* @note		None.
 *
 ******************************************************************************/
 void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
@@ -1211,15 +1206,14 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 /**
 *
 * @brief
-* API to setup ADMA2 descriptor table for 64 Bit DMA
+* API to setup ADMA2 descriptor table for 64 Bit DMA.
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
-* @param	BlkCnt - block count.
+* @param	InstancePtr Pointer to the XSdPs instance.
+* @param	BlkCnt Block count.
 *
 * @return	None
 *
-* @note		None.
 *
 ******************************************************************************/
 void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
@@ -1282,14 +1276,13 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 /**
 *
 * @brief
-* API to reset the DLL
+* API to reset the DLL.
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
+* @param	InstancePtr Pointer to the XSdPs instance.
 *
 * @return	None
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XSdPs_DllReset(XSdPs *InstancePtr)
@@ -1326,10 +1319,10 @@ s32 XSdPs_DllReset(XSdPs *InstancePtr)
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to identify the eMMC speed mode.
+* Identifies the eMMC speed mode.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	ExtCsd is the extended CSD register from the card
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	ExtCsd Extended CSD register from the card.
 *
 * @return	None
 *
@@ -1395,10 +1388,10 @@ void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd)
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to check the eMMC timing.
+* Checks the eMMC timing.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	ExtCsd is the extended CSD register from the card
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	ExtCsd Extended CSD register from the card.
 *
 * @return	None
 *
@@ -1446,10 +1439,10 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to set the clock to the passed frequency.
+* Sets the clock to the passed frequency.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	SelFreq is the selected frequency
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	SelFreq  Selected frequency
 *
 * @return	None
 *
@@ -1541,9 +1534,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function checks if the voltage is set to 1.8V or not.
+* Checks if the voltage is set to 1.8 V or not.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return
 * 		- XST_SUCCESS if voltage is 1.8V
@@ -1569,10 +1562,10 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function initializes the command sequence.
+* Initializes the command sequence.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	Arg is the address passed by the user that is to be sent as
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	Arg Address passed by the user that is to be sent as
 * 		argument along with the command.
 * @param	BlkCnt - Block count passed by the user.
 *
@@ -1618,10 +1611,10 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function initiates the Cmd transfer to SD card.
+* Initiates the Cmd transfer to SD card.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	Cmd is the command to be sent
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	Cmd Command to be sent
 *
 * @return
 * 		- XST_SUCCESS if initialization was successful
@@ -1671,10 +1664,10 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function performs Set the address of the first write block to be erased.
+* Sets the address of the first write block to be erased.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	StartAddr is the address of the first write block.
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	StartAddr Address of the first write block.
 *
 * @return
 * 		- XST_SUCCESS if Set start Address is successful
@@ -1697,10 +1690,10 @@ s32 XSdPs_SetStartAddr(XSdPs *InstancePtr, u32 StartAddr)
 /*****************************************************************************/
 /**
 * @brief
-* This function performs Set the address of the last write block to be erased.
+* Sets the address of the last write block to be erased.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	EndAddr is the address of the last write block.
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	EndAddr Address of the last write block.
 *
 * @return
 * 		- XST_SUCCESS if Set End Address is successful.
@@ -1723,9 +1716,9 @@ s32 XSdPs_SetEndAddr(XSdPs *InstancePtr, u32 EndAddr)
 /*****************************************************************************/
 /**
 * @brief
-* This function send Erase command to the device and wait for transfer complete
+* Sends Erase command to the device and wait for transfer complete.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return
 * 		- XST_SUCCESS if erase operation is successful

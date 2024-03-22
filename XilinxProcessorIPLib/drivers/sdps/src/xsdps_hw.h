@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xsdps_hw.h
-* @addtogroup sdps Overview
+* @addtogroup sdps_api SDPS APIs
 * @{{
 *
 * The xsdps_hw.h header file contains the identifiers and basic HW access driver
@@ -1309,16 +1309,16 @@ extern "C" {
 
 /****************************************************************************/
 /**
-* Read a register.
+* Reads a register.
 *
-* @param	InstancePtr is the pointer to the sdps instance.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param	InstancePtr Pointer to the sdps instance.
+* @param	RegOffset Contains the offset from the 1st register of the
 *		device to the target register.
 *
 * @return	The value read from the register.
 *
 * @note		C-Style signature:
-*		u32 XSdPs_ReadReg(XSdPs *InstancePtr. s32 RegOffset)
+*		    u32 XSdPs_ReadReg(XSdPs *InstancePtr. s32 RegOffset)
 *
 ******************************************************************************/
 #define XSdPs_ReadReg64(InstancePtr, RegOffset) \
@@ -1326,18 +1326,18 @@ extern "C" {
 
 /***************************************************************************/
 /**
-* Write to a register.
+* Writes to a register.
 *
-* @param	InstancePtr is the pointer to the sdps instance.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param	InstancePtr Pointer to the sdps instance.
+* @param	RegOffset Contains the offset from the 1st register of the
 *		device to target register.
-* @param	RegisterValue is the value to be written to the register.
+* @param	RegisterValue Value to be written to the register.
 *
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XSdPs_WriteReg(XSdPs *InstancePtr, s32 RegOffset,
-*		u64 RegisterValue)
+*		    void XSdPs_WriteReg(XSdPs *InstancePtr, s32 RegOffset,
+*		    u64 RegisterValue)
 *
 ******************************************************************************/
 #define XSdPs_WriteReg64(InstancePtr, RegOffset, RegisterValue) \
@@ -1346,16 +1346,16 @@ extern "C" {
 
 /****************************************************************************/
 /**
-* Read a register.
+* Reads a register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param	BaseAddress Contains the base address of the device.
+* @param	RegOffset Contains the offset from the 1st register of the
 *		device to the target register.
 *
 * @return	The value read from the register.
 *
 * @note		C-Style signature:
-*		u32 XSdPs_ReadReg(UINTPTR BaseAddress. int RegOffset)
+*		    u32 XSdPs_ReadReg(UINTPTR BaseAddress. int RegOffset)
 *
 ******************************************************************************/
 #define XSdPs_ReadReg(BaseAddress, RegOffset) \
@@ -1363,18 +1363,18 @@ extern "C" {
 
 /***************************************************************************/
 /**
-* Write to a register.
+* Writes to a register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param	BaseAddress Contains the base address of the device.
+* @param	RegOffset Contains the offset from the 1st register of the
 *		device to target register.
-* @param	RegisterValue is the value to be written to the register.
+* @param	RegisterValue Value to be written to the register.
 *
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
-*		u32 RegisterValue)
+*		    void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
+*		    u32 RegisterValue)
 *
 ******************************************************************************/
 #define XSdPs_WriteReg(BaseAddress, RegOffset, RegisterValue) \
@@ -1382,16 +1382,16 @@ extern "C" {
 
 /****************************************************************************/
 /**
-* Read a register.
+* Reads a register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param	BaseAddress Contains the base address of the device.
+* @param	RegOffset Contains the offset from the 1st register of the
 *		device to the target register.
 *
 * @return	The value read from the register.
 *
 * @note		C-Style signature:
-*		u16 XSdPs_ReadReg(UINTPTR BaseAddress. int RegOffset)
+*		    u16 XSdPs_ReadReg(UINTPTR BaseAddress. int RegOffset)
 *
 ******************************************************************************/
 static INLINE u16 XSdPs_ReadReg16(UINTPTR BaseAddress, u8 RegOffset)
@@ -1409,18 +1409,18 @@ static INLINE u16 XSdPs_ReadReg16(UINTPTR BaseAddress, u8 RegOffset)
 
 /***************************************************************************/
 /**
-* Write to a register.
+* Writes to a register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param	BaseAddress Contains the base address of the device.
+* @param	RegOffset Contains the offset from the 1st register of the
 *		device to target register.
-* @param	RegisterValue is the value to be written to the register.
+* @param	RegisterValue Value to be written to the register.
 *
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
-*		u16 RegisterValue)
+*		    void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
+*		    u16 RegisterValue)
 *
 ******************************************************************************/
 
@@ -1440,16 +1440,16 @@ static INLINE void XSdPs_WriteReg16(UINTPTR BaseAddress, u8 RegOffset, u16 Regis
 
 /****************************************************************************/
 /**
-* Read a register.
+* Reads a register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param	BaseAddress Contains the base address of the device.
+* @param	RegOffset Contains the offset from the 1st register of the
 *		device to the target register.
 *
 * @return	The value read from the register.
 *
 * @note		C-Style signature:
-*		u8 XSdPs_ReadReg(UINTPTR BaseAddress. int RegOffset)
+*		    u8 XSdPs_ReadReg(UINTPTR BaseAddress. int RegOffset)
 *
 ******************************************************************************/
 static INLINE u8 XSdPs_ReadReg8(UINTPTR BaseAddress, u8 RegOffset)
@@ -1466,18 +1466,18 @@ static INLINE u8 XSdPs_ReadReg8(UINTPTR BaseAddress, u8 RegOffset)
 }
 /***************************************************************************/
 /**
-* Write to a register.
+* Writes to a register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param	BaseAddress Contains the base address of the device.
+* @param	RegOffset Contains the offset from the 1st register of the
 *		device to target register.
-* @param	RegisterValue is the value to be written to the register.
+* @param	RegisterValue Value to be written to the register.
 *
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
-*		u8 RegisterValue)
+*		    void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
+*		    u8 RegisterValue)
 *
 ******************************************************************************/
 static INLINE void XSdPs_WriteReg8(UINTPTR BaseAddress, u8 RegOffset, u8 RegisterValue)
@@ -1495,15 +1495,15 @@ static INLINE void XSdPs_WriteReg8(UINTPTR BaseAddress, u8 RegOffset, u8 Registe
 }
 /***************************************************************************/
 /**
-* Macro to get present status register
+* Macro to get present status register.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param	BaseAddress Contains the base address of the device.
 *
 * @return	None.
 *
 * @note		C-Style signature:
-*		void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
-*		u8 RegisterValue)
+*		    void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
+*		    u8 RegisterValue)
 *
 ******************************************************************************/
 #define XSdPs_GetPresentStatusReg(BaseAddress) \

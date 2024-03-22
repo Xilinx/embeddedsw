@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,11 @@
 /**
 *
 * @file xsdps_sinit.c
-* @addtogroup sdps Overview
+* @addtogroup sdps_api SDPS APIs
 * @{
 *
-* The implementation of the XSdPs component's static initialization
-* functionality.
+* The file contains the implementation of the static initialization
+* functionality of the XSdPs component.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -49,7 +49,7 @@
 * Looks up the device configuration based on the unique device ID. A table
 * contains the configuration info for each device in the system.
 *
-* @param	DeviceId contains the ID of the device to look up the
+* @param	DeviceId Contains the ID of the device to look up the
 *		configuration for.
 *
 * @return
@@ -57,7 +57,6 @@
 * A pointer to the configuration found or NULL if the specified device ID was
 * not found. See xsdps.h for the definition of XSdPs_Config.
 *
-* @note		None.
 *
 ******************************************************************************/
 #ifndef SDT

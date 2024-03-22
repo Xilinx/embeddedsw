@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xsdps_options.c
-* @addtogroup sdps Overview
+* @addtogroup sdps_api SDPS APIs
 * @{
 *
 * The xsdps_options.c file ontains APIs for changing the various options in host and card.
@@ -82,11 +82,11 @@
 /**
 *
 * @brief
-* API to change clock freq to given value.
+* API to change clock frequency to a given value.
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
-* @param	SelFreq - Clock frequency in Hz.
+* @param	InstancePtr Pointer to the XSdPs instance.
+* @param	SelFreq Clock frequency in Hz.
 *
 * @return	None
 *
@@ -148,10 +148,10 @@ s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq)
 /*****************************************************************************/
 /**
 * @brief
-* Update Block size for read/write operations.
+* Updates Block size for read/write operations.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	BlkSize - Block size passed by the user.
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	BlkSize  Block size passed by the user.
 *
 * @return	None
 *
@@ -193,11 +193,11 @@ RETURN_PATH:
 /**
 *
 * @brief
-* API to get bus width support by card.
+* Gets bus width support by card.
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
-* @param	ReadBuff - buffer to store SCR register returned by card.
+* @param	InstancePtr Pointer to the XSdPs instance.
+* @param	ReadBuff Buffer to store SCR register returned by card.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -262,16 +262,15 @@ s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *ReadBuff)
 /**
 *
 * @brief
-* API to set bus width to 4-bit in card and host
+* Sets bus width to 4-bit in card and host.
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
+* @param	InstancePtr Pointer to the XSdPs instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
@@ -366,11 +365,11 @@ s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 /**
 *
 * @brief
-* API to get bus speed supported by card.
+* Gets bus speed supported by card.
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
-* @param	ReadBuff - buffer to store function group support data
+* @param	InstancePtr Pointer to the XSdPs instance.
+* @param	ReadBuff Buffer to store function group support data
 *		returned by card.
 *
 * @return
@@ -431,17 +430,16 @@ s32 XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff)
 /**
 *
 * @brief
-* API to get SD card status information.
+* Gets SD card status information.
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
-* @param	SdStatReg - buffer to store status data returned by card.
+* @param	InstancePtr Pointer to the XSdPs instance.
+* @param	SdStatReg Buffer to store status data returned by card.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg)
@@ -494,16 +492,15 @@ s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg)
 /**
 *
 * @brief
-* API to set high speed in card and host. Changes clock in host accordingly.
+* Sets high speed in card and host. Changes clock in host accordingly.
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
+* @param	InstancePtr Pointer to the XSdPs instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
@@ -575,17 +572,16 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 /**
 *
 * @brief
-* API to get EXT_CSD register of eMMC.
+* Gets EXT_CSD register of eMMC.
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
-* @param	ReadBuff - buffer to store EXT_CSD
+* @param	InstancePtr Pointer to the XSdPs instance.
+* @param	ReadBuff Buffer to store EXT_CSD
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
@@ -638,17 +634,16 @@ s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 /**
 *
 * @brief
-* API to write EXT_CSD register of eMMC.
+* Writes EXT_CSD register of eMMC.
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
-* @param	Arg is the argument to be sent along with the command
+* @param	InstancePtr Pointer to the XSdPs instance.
+* @param	Arg Argument to be sent along with the command.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XSdPs_Set_Mmc_ExtCsd(XSdPs *InstancePtr, u32 Arg)
@@ -682,16 +677,15 @@ s32 XSdPs_Set_Mmc_ExtCsd(XSdPs *InstancePtr, u32 Arg)
 /**
 *
 * @brief
-* API to send pullup command to card before using DAT line 3(using 4-bit bus)
+* Sends pullup command to card before using DAT line 3(using 4-bit bus).
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
+* @param	InstancePtr Pointer to the XSdPs instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XSdPs_Pullup(XSdPs *InstancePtr)
@@ -728,14 +722,13 @@ s32 XSdPs_Pullup(XSdPs *InstancePtr)
 * Selects card and sets default block size
 *
 *
-* @param	InstancePtr is a pointer to the XSdPs instance.
+* @param	InstancePtr Pointer to the XSdPs instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.
 *		- XSDPS_CT_ERROR if Command Transfer fail.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XSdPs_Select_Card (XSdPs *InstancePtr)
@@ -755,13 +748,13 @@ s32 XSdPs_Select_Card (XSdPs *InstancePtr)
 /*****************************************************************************/
 /**
 * @brief
-* This function performs SD read in polled mode.
+* Performs SD read in polled mode.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	Arg is the address passed by the user that is to be sent as
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	Arg Address passed by the user that is to be sent as
 * 		argument along with the command.
-* @param	BlkCnt - Block count passed by the user.
-* @param	Buff - Pointer to the data buffer for a DMA transfer.
+* @param	BlkCnt  Block count passed by the user.
+* @param	Buff  Pointer to the data buffer for a DMA transfer.
 *
 * @return
 * 		- XST_SUCCESS if Transfer initialization was successful
@@ -803,13 +796,13 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function start SD write transfer.
+* Starts SD write transfer.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
-* @param	Arg is the address passed by the user that is to be sent as
+* @param	InstancePtr Pointer to the instance to be worked on.
+* @param	Arg Address passed by the user that is to be sent as
 * 		argument along with the command.
-* @param	BlkCnt - Block count passed by the user.
-* @param	Buff - Pointer to the data buffer for a DMA transfer.
+* @param	BlkCnt Block count passed by the user.
+* @param	Buff Pointer to the data buffer for a DMA transfer.
 *
 * @return
 * 		- XST_SUCCESS if Transfer initialization was successful
@@ -851,9 +844,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to check if the transfer is completed successfully.
+* Checks if the transfer is completed successfully.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return
 * 		- XST_SUCCESS if transfer was successful
@@ -876,9 +869,9 @@ s32 XSdPs_CheckReadTransfer(XSdPs *InstancePtr)
 /*****************************************************************************/
 /**
 * @brief
-* This function is used to check for the write transfer completed.
+* Checks for the write transfer completed.
 *
-* @param	InstancePtr is a pointer to the instance to be worked on.
+* @param	InstancePtr Pointer to the instance to be worked on.
 *
 * @return
 * 		- XST_SUCCESS if transfer was successful
