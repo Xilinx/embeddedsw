@@ -128,6 +128,7 @@
 *       kpt  02/08/24 Added support to extend secure state to SWPCR during AuthJtag
 *       yog  02/23/24 Added support to return error when P-521 curve is disabled.
 *       am   03/02/24 Added MH Optimization support
+*       kpt  03/15/24 Updated RSA KAT to use 2048-bit key
 *
 * </pre>
 *
@@ -1496,6 +1497,7 @@ END:
  * @param   MsgHash of the data to be authenticated.
  * @param   RsaInstPtr is pointer to the XSecure_Rsa instance.
  * @param   Signature is pointer to RSA signature for data to be authenticated.
+ * @param   KeySize   is size of RSA key in bytes.
  *
  * @return
  * 			- XST_SUCCESS on success.
@@ -1516,7 +1518,7 @@ END:
  *
  ******************************************************************************/
 int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
-		u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature)
+		u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature, u32 KeySize)
 {
 	volatile int Status = XST_FAILURE;
 	int ClearStatus = XST_FAILURE;
@@ -1538,6 +1540,8 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 	u32 IndexTmp;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 	u8 *DataHash = (u8 *)MsgHash;
+	u32 MaskedDbLen = KeySize - XLOADER_SHA3_LEN - 1U;
+	u32 DbLen = KeySize - (2U * XLOADER_SHA3_LEN) - 2U;
 
 	Status = XPlmi_MemSetBytes(XSecure_RsaSha3Array, XLOADER_PARTITION_SIG_SIZE,
 				0U, XLOADER_PARTITION_SIG_SIZE);
@@ -1558,7 +1562,7 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 	 * - RSA signature encryption with public key components.
 	 */
 	Status = XSecure_RsaPublicEncrypt(RsaInstPtr, Signature,
-					XSECURE_RSA_4096_KEY_SIZE,
+					KeySize,
 					XSecure_RsaSha3Array);
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
@@ -1569,7 +1573,7 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 	/**
 	 * - Check for signature encrypted message.
 	 */
-	if (XSecure_RsaSha3Array[XSECURE_RSA_4096_KEY_SIZE - 1U] !=
+	if (XSecure_RsaSha3Array[KeySize - 1U] !=
 			XLOADER_RSA_SIG_EXP_BYTE) {
 		Status = XLoader_UpdateMinorErr(
 				XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED, 0);
@@ -1586,7 +1590,7 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 
 	/* As PMCDMA can't accept unaligned addresses */
 	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, Xsecure_Varsocm.EmHash, XLOADER_SHA3_LEN,
-		&XSecure_RsaSha3Array[XLOADER_RSA_PSS_MASKED_DB_LEN], XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
+		&XSecure_RsaSha3Array[MaskedDbLen], XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
 
 	Status = XSecure_Sha3Initialize(Sha3InstPtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
@@ -1599,7 +1603,7 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 	 * - Extract Salt and Generate DB from masked DB and Hash.
 	 */
 	Status = XLoader_MaskGenFunc(Sha3InstPtr, Buffer,
-			XLOADER_RSA_PSS_MASKED_DB_LEN, Xsecure_Varsocm.EmHash);
+			MaskedDbLen, Xsecure_Varsocm.EmHash);
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
 				XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
@@ -1607,12 +1611,12 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 	}
 
 	/** - XOR MGF output with masked DB from EM to get DB. */
-	for (Index = 0U; Index < XLOADER_RSA_PSS_MASKED_DB_LEN; Index++) {
+	for (Index = 0U; Index <MaskedDbLen; Index++) {
 		Buffer[Index] = Buffer[Index] ^ XSecure_RsaSha3Array[Index];
 	}
 
 	/** - Check DB = PS <414 zeros> || 0x01. */
-	for (Index = 0U; Index < (XLOADER_RSA_PSS_DB_LEN - 1U); Index++) {
+	for (Index = 0U; Index < DbLen; Index++) {
 		if (Index == 0x0U) {
 			Buffer[Index] = Buffer[Index] &
 				(u8)(~XLOADER_RSA_PSS_MSB_PADDING_MASK);
@@ -1625,7 +1629,7 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 			goto END;
 		}
 	}
-	if (Index != (XLOADER_RSA_PSS_DB_LEN - 1U)) {
+	if (Index != DbLen) {
 		Status = XLoader_UpdateMinorErr(
 				XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR,
 				Status);
@@ -1642,7 +1646,7 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 
 	/* As PMCDMA can't accept unaligned addresses */
 	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, Xsecure_Varsocm.Salt, XLOADER_RSA_PSS_SALT_LEN,
-		&Buffer[XLOADER_RSA_PSS_DB_LEN], XLOADER_RSA_PSS_SALT_LEN, XLOADER_RSA_PSS_SALT_LEN);
+		&Buffer[DbLen + 1U], XLOADER_RSA_PSS_SALT_LEN, XLOADER_RSA_PSS_SALT_LEN);
 
 	/** - Hash on M prime */
 	Status = XSecure_Sha3Start(Sha3InstPtr);
@@ -1686,7 +1690,7 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 	}
 
 	Status = XST_FAILURE;
-	IndexTmp = XLOADER_RSA_PSS_MASKED_DB_LEN;
+	IndexTmp = MaskedDbLen;
 	/** - Compare MPrime Hash with Hash from EM */
 	for (Index = 0U; Index < XLOADER_SHA3_LEN; Index++) {
 		HashTmp = MPrimeHash.Hash[Index];
@@ -1753,7 +1757,7 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 
 	Status = XST_FAILURE;
 	Status = XLoader_RsaPssSignVerify(SecurePtr->PmcDmaInstPtr, MsgHash, RsaInstPtr,
-				Signature);
+				Signature, XSECURE_RSA_4096_KEY_SIZE);
 END:
 	return Status;
 
