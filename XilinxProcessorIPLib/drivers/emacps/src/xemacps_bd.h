@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +46,7 @@
  * 3.2   hk   11/18/15 Change BD typedef and number of words.
  * 3.8   hk   08/18/18 Remove duplicate definition of XEmacPs_BdSetLength
  * 3.8   mus  11/05/18 Support 64 bit DMA addresses for Microblaze-X platform.
+ * 3.9   aj   22/03/24 Add mask for XEmaPs_BdGetBufAddr
  *
  * </pre>
  *
@@ -240,11 +241,11 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
  *****************************************************************************/
 #if defined(__aarch64__) || defined(__arch64__)
 #define XEmacPs_BdGetBufAddr(BdPtr)                               \
-    (XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_OFFSET) |		  \
+    ((XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_OFFSET) & XEMACPS_RXBUF_ADD_MASK) |		  \
 	(XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_HI_OFFSET)) << 32U)
 #else
 #define XEmacPs_BdGetBufAddr(BdPtr)                               \
-    (XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_OFFSET))
+    (XEmacPs_BdRead((BdPtr), XEMACPS_BD_ADDR_OFFSET) & XEMACPS_RXBUF_ADD_MASK)
 #endif
 
 /*****************************************************************************/
