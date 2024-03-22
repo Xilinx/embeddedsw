@@ -73,6 +73,15 @@ u32 XCsiSs_SelfTest(XCsiSs *InstancePtr)
 			"failed\n\r");
 		}
 	}
+#if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
+	if (InstancePtr->XMipiRxPhyPtr) {
+		Status = XMipi_Rx_Phy_SelfTest(InstancePtr->XMipiRxPhyPtr);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_ERROR,"ERR::XMIPI RX PHY Self test "
+			"failed\n\r");
+		}
+	}
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->DphyPtr) {
 		Status = XDphy_SelfTest(InstancePtr->DphyPtr);
