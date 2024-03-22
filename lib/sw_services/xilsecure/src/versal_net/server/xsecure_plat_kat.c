@@ -26,6 +26,7 @@
 * 5.3   kpt  12/07/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *       kpt  12/13/23 Added RSA CRT support for PWCT
 * 5.3   ng   01/28/24 Added SDT support
+*       kpt  03/15/24 Added RSA private decrypt KAT
 *
 * </pre>
 *
@@ -236,4 +237,99 @@ END:
 
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function performs private decrypt KAT on RSA core
+ *
+ * @return
+ *	-	XST_SUCCESS - On success
+ *	-	XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR - When RSA KAT fails
+ *	-	XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR - Error when RSA data not
+ *							matched with expected data
+ *
+ *****************************************************************************/
+int XSecure_RsaPrivateDecryptKat(void)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
+	volatile u32 Index;
+	u32 *RsaModulus = XSecure_GetKatRsaModulus();
+	u32 *RsaCtData = XSecure_GetKatRsaCtData();
+	u32 *RsaPrivExp = XSecure_GetKatRsaPrivateExp();
+	u8 DataVal;
+	u8 *RsaData = (u8*)XSecure_GetKatRsaData();
+	u8 RsaOutput[XSECURE_RSA_2048_KEY_SIZE];
+	u8 Mod[XSECURE_RSA_2048_KEY_SIZE];
+	u8 Exp[XSECURE_RSA_2048_KEY_SIZE];
+	u8 Data[XSECURE_RSA_2048_KEY_SIZE];
+	static const u32 Totient[XSECURE_RSA_2048_SIZE_WORDS] = {
+		0x95BD7BB0U, 0x05F0C930U, 0x78681CE6U, 0x39AA5CD0U,
+		0x5811E800U, 0xBD1BB27DU, 0xEB2A366DU, 0x60121A86U,
+		0x5CE10B2DU, 0x8F5B5DFEU, 0xDC729B60U, 0x709D283AU,
+		0xCC4B8288U, 0xE44D962CU, 0x66253E9FU, 0x6867B3BDU,
+		0xE1D323D6U, 0xD404F7EEU, 0xD0AE43F5U, 0x2A0BFC95U,
+		0xCF2E5F7FU, 0x4127F2D1U, 0xC78667ACU, 0x80C8EC95U,
+		0x3654EDB3U, 0xEB4FDB52U, 0x161235A0U, 0x45671A4EU,
+		0xCE991592U, 0x7157CA40U, 0x2894DB37U, 0x4B31AA13U,
+		0x995E1472U, 0x7C62AF06U, 0x3EE151AEU, 0x1FA34E7AU,
+		0x5F300035U, 0xB0E8830BU, 0x63B1F63BU, 0xFE531F5CU,
+		0xBA50A110U, 0xA93369D3U, 0x96B97E1BU, 0x61CBD28AU,
+		0x5D0BD65CU, 0x3F1F71D9U, 0x46E737B0U, 0x91D56A0DU,
+		0xCF2ECB6CU, 0x65AA3084U, 0xD8F9216AU, 0x98DF7569U,
+		0x70B44AFCU, 0x77C08511U, 0x8328A54CU, 0xFD0C30B7U,
+		0xE09D5555U, 0xAC131C20U, 0x67EF31CDU, 0xDBF9B357U,
+		0x6FA31D8CU, 0x1728A249U, 0xF1060147U, 0xAEFEC693U
+	};
+
+	Status = Xil_SChangeEndiannessAndCpy(Mod, XSECURE_RSA_2048_KEY_SIZE, RsaModulus, XSECURE_RSA_2048_KEY_SIZE, XSECURE_RSA_2048_KEY_SIZE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xil_SChangeEndiannessAndCpy(Exp, XSECURE_RSA_2048_KEY_SIZE, RsaPrivExp, XSECURE_RSA_2048_KEY_SIZE, XSECURE_RSA_2048_KEY_SIZE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xil_SChangeEndiannessAndCpy(Data, XSECURE_RSA_2048_KEY_SIZE, RsaCtData, XSECURE_RSA_2048_KEY_SIZE, XSECURE_RSA_2048_KEY_SIZE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_RsaExp((unsigned char *)(UINTPTR)Data, Exp, Mod, NULL, NULL, NULL,
+		(u8*)Totient, (int)(XSECURE_RSA_2048_KEY_SIZE * 8U), RsaOutput);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	for (Index = 0U; Index < (XSECURE_RSA_2048_KEY_SIZE/2U); Index++) {
+		DataVal = RsaOutput[XSECURE_RSA_2048_KEY_SIZE - Index - 1U];
+		RsaOutput[XSECURE_RSA_2048_KEY_SIZE - Index - 1U] =  RsaOutput[Index];
+		RsaOutput[Index] = DataVal;
+	}
+
+	/* Initialized to error */
+	Status = (int)XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR;
+	for (Index = 0U; Index < XSECURE_RSA_2048_KEY_SIZE; Index++) {
+		if (RsaOutput[Index] != RsaData[Index]) {
+			Status = (int)XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR;
+			goto END_CLR;
+		}
+	}
+	if (Index == XSECURE_RSA_2048_KEY_SIZE) {
+		Status = XST_SUCCESS;
+	}
+
+END_CLR:
+	SStatus = Xil_SecureZeroize((u8*)RsaOutput, XSECURE_RSA_2048_KEY_SIZE);
+	SStatus |= Xil_SecureZeroize((u8*)Exp, XSECURE_RSA_2048_KEY_SIZE);
+	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
+		Status = SStatus;
+	}
+
+END:
+	return Status;
+}
+
 #endif

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,8 +64,9 @@ u8* XSecure_GetKatSha3ExpHash(void);
 u32* XSecure_GetKatRsaModulus(void);
 u32* XSecure_GetKatRsaModExt(void);
 u32* XSecure_GetKatRsaData(void);
+u32* XSecure_GetKatRsaCtData(void);
+u32* XSecure_GetKatRsaPrivateExp(void);
 int XSecure_RsaPublicEncryptKat(void);
-int XSecure_RsaPrivateDecryptKat(void);
 #endif
 
 #ifndef PLM_ECDSA_EXCLUDE
