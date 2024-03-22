@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +55,7 @@
 #endif
 #include "xsecure_sha_ipihandler.h"
 #include "xsecure_kat_ipihandler.h"
+#include "xsecure_plat_ipihandler.h"
 #include "xsecure_cmd.h"
 #include "xplmi_ssit.h"
 #include "xsecure_cryptochk.h"
@@ -219,7 +220,6 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		break;
 #ifndef PLM_SECURE_EXCLUDE
 #ifndef PLM_RSA_EXCLUDE
-	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
 	case XSECURE_API(XSECURE_API_RSA_PUBLIC_ENCRYPT):
 	case XSECURE_API(XSECURE_API_RSA_SIGN_VERIFY):
 		/**   - @ref XSecure_RsaIpiHandler */
@@ -255,6 +255,12 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		/**   - @ref XSecure_KatIpiHandler */
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp, XSecure_KatIpiHandler, Cmd)
 		break;
+#ifndef PLM_RSA_EXCLUDE
+	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
+		/**   - @ref XSecure_PlatIpiHandler */
+		Status = XSecure_PlatIpiHandler(Cmd);
+		break;
+#endif
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;

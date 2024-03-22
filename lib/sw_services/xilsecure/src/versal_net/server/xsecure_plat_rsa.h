@@ -98,7 +98,7 @@ typedef struct {
 	u8 P[XSECURE_PRIME_FACTOR_P_SIZE];     /**< Prime1 */
 	u8 Q[XSECURE_PRIME_FACTOR_Q_SIZE];     /**< Prime2 */
 	u32 PubExp;                            /**< Public Exponent */
-} XSecure_RsaOperationParam;
+} XSecure_RsaExpOperationParam;
 
 /***************************** Function Prototypes ***************************/
 

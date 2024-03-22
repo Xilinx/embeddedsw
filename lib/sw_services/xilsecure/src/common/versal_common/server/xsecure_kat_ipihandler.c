@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_dma.h"
 #include "xsecure_kat.h"
+#include "xsecure_plat_kat.h"
 #include "xsecure_kat_ipihandler.h"
 #include "xplmi.h"
 #include "xsecure_error.h"

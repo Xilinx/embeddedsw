@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,7 +25,7 @@
 * ------------------------------------------------------------------------------------------------------------
 * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
 * any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
-* which is acccessible to both client and server.
+* which is accessible to both client and server.
 *
 * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
 *
@@ -68,6 +68,7 @@
 *       kpt    04/11/22 Added comment on usage of shared memory
 * 5.2   am     05/03/23 Added KAT before crypto usage
 * 5.3   kpt    12/13/23 Add RSA quiet mode support
+*       kpt    01/19/23 Enable totient calculation and PWCT for XSecure_RsaExpQOperation
 *
 * </pre>
 ******************************************************************************/
@@ -84,9 +85,10 @@
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_RSA_SIZE		(512U)	/**< 512 bytes for 4096 bit data */
+#define XSECURE_RSA_SHARED_DATA_SIZE (XSECURE_RSA_SIZE + XSECURE_RSA_SIZE+\
+									XSECURE_RSA_SIZE + XSECURE_RSA_SIZE)
 #define XSECURE_SHARED_BUF_SIZE		(XSECURE_SHARED_MEM_SIZE +\
-						XSECURE_RSA_SIZE + XSECURE_RSA_SIZE+\
-						XSECURE_RSA_SIZE + XSECURE_RSA_SIZE)
+						XSECURE_RSA_SHARED_DATA_SIZE)
 #ifdef VERSAL_NET
 #define XSECURE_PRIME_FACTOR_P_SIZE	(256U)  /**< 256 bytes size of first prime factor(P) */
 #define XSECURE_PRIME_FACTOR_Q_SIZE	(256U)  /**< 256 bytes size of first prime factor(Q) */
@@ -228,7 +230,7 @@ static const u8 Tot[XSECURE_RSA_SIZE] = {
 0xC9, 0xA5, 0x38, 0xD7, 0x53, 0x27, 0x57, 0x18};
 #endif
 
-static const u8 Data[XSECURE_RSA_SIZE]  = {
+static const u8 Data[XSECURE_RSA_SIZE] __attribute__ ((section (".data.Data")))  = {
 0x31, 0xF6, 0xA0, 0x58, 0x20, 0x34, 0x6F, 0xE9,
 0xCC, 0x9A, 0x55, 0x5B, 0x92, 0x88, 0x03, 0x74,
 0xE3, 0x2B, 0x89, 0x32, 0xE5, 0x65, 0x02, 0xA5,
@@ -512,13 +514,13 @@ static u32 Size = XSECURE_RSA_SIZE;
 static u8 SharedMem[XSECURE_SHARED_BUF_SIZE] __attribute__((aligned(64U)))
 										__attribute__ ((section (".data.SharedMem")));
 #ifdef VERSAL_NET
-XSecure_RsaOperationInParam RsaOperationInParam __attribute__((aligned(64U))) __attribute__ ((section (".data.RsaOperationInParam")));
-u8 InputData[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.InputData")));
+XSecure_RsaExpKeyParam RsaKeyParam __attribute__((aligned(64U))) __attribute__ ((section (".data.RsaKeyParam")));
 u8 Mod[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Mod")));
 u8 Exp[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Exp")));
 u8 Prime1[XSECURE_PRIME_FACTOR_P_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Prime1")));
 u8 Prime2[XSECURE_PRIME_FACTOR_Q_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Prime2")));
 u8 Totient[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Totient")));
+u8 InputData[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.InputData")));
 #endif
 
 /*****************************************************************************/
@@ -573,10 +575,12 @@ END:
 /** //! [RSA generic example] */
 static u32 SecureRsaExample(void)
 {
+	u64 KeyAddr;
 	u32 Status = XST_FAILURE;
 	u8 *Signature = &SharedMem[0];
 	u8 *EncryptSignatureOut = Signature + XSECURE_RSA_SIZE;
 	u8 *Key = EncryptSignatureOut + XSECURE_RSA_SIZE;
+	u8 *InputMsg;
 	u32 Index;
 	XMailbox MailboxInstance;
 	XSecure_ClientInstance SecureClientInstance;
@@ -597,20 +601,25 @@ static u32 SecureRsaExample(void)
 	Xil_DCacheFlushRange((UINTPTR)Exp, XSECURE_RSA_SIZE);
 	Xil_DCacheFlushRange((UINTPTR)Prime1, XSECURE_PRIME_FACTOR_P_SIZE);
 	Xil_DCacheFlushRange((UINTPTR)Prime2, XSECURE_PRIME_FACTOR_Q_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)Totient, XSECURE_RSA_SIZE);
 
-	RsaOperationInParam.InDataAddr = (u64)(UINTPTR)&InputData;
-	RsaOperationInParam.ExpAddr = (u64)(UINTPTR)&Exp;
-	RsaOperationInParam.ModAddr = (u64)(UINTPTR)&Mod;
-	RsaOperationInParam.PAddr   = (u64)(UINTPTR)&Prime1;
-	RsaOperationInParam.PSize   = XSECURE_PRIME_FACTOR_P_SIZE;
-	RsaOperationInParam.QAddr   = (u64)(UINTPTR)&Prime2;
-	RsaOperationInParam.QSize   = XSECURE_PRIME_FACTOR_Q_SIZE;
-	RsaOperationInParam.IsPrimeAvail = FALSE;
-	RsaOperationInParam.PubExp  = PubExp;
-	RsaOperationInParam.IsPubExpAvail = FALSE;
-	RsaOperationInParam.TotAddr = (u64)(UINTPTR)&Totient;
-	RsaOperationInParam.IsTotAvail = FALSE;
-	RsaOperationInParam.KeySize = Size;
+	RsaKeyParam.ExpAddr = (u64)(UINTPTR)&Exp;
+	RsaKeyParam.ModAddr = (u64)(UINTPTR)&Mod;
+	RsaKeyParam.PAddr   = (u64)(UINTPTR)&Prime1;
+	RsaKeyParam.PSize   = XSECURE_PRIME_FACTOR_P_SIZE;
+	RsaKeyParam.QAddr   = (u64)(UINTPTR)&Prime2;
+	RsaKeyParam.QSize   = XSECURE_PRIME_FACTOR_Q_SIZE;
+	RsaKeyParam.IsPrimeAvail = TRUE;
+	RsaKeyParam.PubExp  = PubExp;
+	RsaKeyParam.IsPubExpAvail = TRUE;
+	RsaKeyParam.TotAddr = (u64)(UINTPTR)&Totient;
+	RsaKeyParam.IsTotAvail = FALSE;
+
+	KeyAddr = (u64)(UINTPTR)&RsaKeyParam;
+	InputMsg = (u8*)(UINTPTR)&InputData;
+#else
+	KeyAddr = (u64)(UINTPTR)Key;
+	InputMsg = (u8*)(UINTPTR)&Data;
 #endif
 
 	Status = XMailbox_Initialize(&MailboxInstance, 0U);
@@ -639,6 +648,8 @@ static u32 SecureRsaExample(void)
 		goto END;
 	}
 
+	Xil_DCacheFlushRange((UINTPTR)Key, XSECURE_RSA_SIZE);
+
 #ifndef VERSAL_NET
 	Status = Xil_SMemCpy(Key + XSECURE_RSA_SIZE, XSECURE_RSA_SIZE, PrivateExp,
 			XSECURE_RSA_SIZE, XSECURE_RSA_SIZE);
@@ -647,9 +658,9 @@ static u32 SecureRsaExample(void)
 	}
 
 	Xil_DCacheFlushRange((UINTPTR)Data, XSECURE_RSA_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)(Key + XSECURE_RSA_SIZE), XSECURE_RSA_SIZE);
 #endif
 
-	Xil_DCacheFlushRange((UINTPTR)Key, XSECURE_RSA_SIZE + XSECURE_RSA_SIZE);
 	Xil_DCacheInvalidateRange((UINTPTR)Signature, XSECURE_RSA_SIZE);
 
 	Status = XSecure_RsaPrivateDecKat(&SecureClientInstance);
@@ -658,13 +669,8 @@ static u32 SecureRsaExample(void)
 	}
 
 	/* RSA signature decrypt with private key */
-#ifdef VERSAL
-	Status = XSecure_RsaPrivateDecrypt(&SecureClientInstance, (UINTPTR)Key, (UINTPTR)&Data,
+	Status = XSecure_RsaPrivateDecrypt(&SecureClientInstance, KeyAddr, (UINTPTR)InputMsg,
 			Size, (UINTPTR)Signature);
-#else
-	Status =  XSecure_RsaExpQOperation(&SecureClientInstance, (UINTPTR)&RsaOperationInParam,
-		(UINTPTR)Signature);
-#endif
 	if(XST_SUCCESS != Status) {
 		xil_printf("Failed at RSA signature decryption\n\r");
 		goto END;

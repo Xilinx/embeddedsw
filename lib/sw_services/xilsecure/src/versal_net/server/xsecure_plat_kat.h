@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +51,7 @@ int XSecure_HmacKat(XSecure_Sha3 *SecureSha3);
 int XSecure_Sha384Kat(void);
 #ifndef PLM_RSA_EXCLUDE
 int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaPubKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype);
+int XSecure_RsaPrivateDecryptKat(void);
 #endif
 
 #ifdef __cplusplus
