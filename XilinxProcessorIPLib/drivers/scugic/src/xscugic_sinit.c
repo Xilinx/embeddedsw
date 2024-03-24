@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,11 @@
 /**
 *
 * @file xscugic_sinit.c
-* @addtogroup scugic Overview
+* @addtogroup scugic_api SCUGIC APIs
 * @{
 *
-* Contains static init functions for the XScuGic driver for the Interrupt
-* Controller. See xscugic.h for a detailed description of the driver.
+* The xscugic_sinit.c contains static init functions for the XScuGic driver for the Interrupt
+* Controller.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -59,12 +59,11 @@
 * Looks up the device configuration based on the unique device ID. A table
 * contains the configuration info for each device in the system.
 *
-* @param	DeviceId is the unique identifier for a device.
+* @param	DeviceId Unique identifier for a device.
 *
 * @return	A pointer to the XScuGic configuration structure for the
-*		specified device, or NULL if the device was not found.
+*		specified device, or NULL if the device is not found.
 *
-* @note		None.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -94,12 +93,11 @@ XScuGic_Config *XScuGic_LookupConfig(u16 DeviceId)
 * will refer to an entry in the device configuration table defined in the
 * xscugic_g.c file.
 *
-* @param        BaseAddress is the base address of the device.
+* @param        BaseAddress Base address of the device.
 *
 * @return       A pointer to the XScuGic configuration structure for the
-*               specified device, or NULL if the device was not found.
+*               specified device, or NULL if the device is not found.
 *
-* @note         None.
 *
 ******************************************************************************/
 XScuGic_Config *XScuGic_LookupConfigBaseAddr(UINTPTR BaseAddress)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,10 +8,12 @@
 /**
 *
 * @file xscugic_selftest.c
-* @addtogroup scugic Overview
+* @addtogroup scugic_api SCUGIC APIs
 * @{
 *
-* Contains diagnostic self-test functions for the XScuGic driver.
+* The xscugic_selftest.c file contains diagnostic self-test functions for the XScuGic driver.
+*
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -50,17 +52,16 @@
 /*****************************************************************************/
 /**
 *
-* Run a self-test on the driver/device. This test reads the ID registers and
+* Runs a self-test on the driver/device. This test reads the ID registers and
 * compares them.
 *
-* @param	InstancePtr is a pointer to the XScuGic instance.
+* @param	InstancePtr Pointer to the XScuGic instance.
 *
 * @return
 *
 *		-XST_SUCCESS if self-test is successful.
 *		-XST_FAILURE if the self-test is not successful.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32  XScuGic_SelfTest(XScuGic *InstancePtr)
