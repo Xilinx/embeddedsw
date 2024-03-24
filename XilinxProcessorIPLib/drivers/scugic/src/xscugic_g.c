@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,10 +8,10 @@
 /**
 *
 * @file xscugic_g.c
-* @addtogroup scugic Overview
+* @addtogroup scugic_api SCUGIC APIs
 * @{
 *
-* This file contains a configuration table that specifies the configuration of
+* The xscugic_g.c file contains a configuration table that specifies the configuration of
 * interrupt controller devices in the system.
 *
 * <pre>

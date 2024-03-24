@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,22 +8,22 @@
 /**
 *
 * @file xscugic_intr.c
-* @addtogroup scugic Overview
+* @addtogroup scugic_api SCUGIC APIs
 * @{
 *
-* This file contains the interrupt processing for the driver for the Xilinx
-* Interrupt Controller.  The interrupt processing is partitioned separately such
-* that users are not required to use the provided interrupt processing.  This
+* The xscugic_intr.c file contains the interrupt processing for the driver for the
+* Interrupt Controller. The interrupt processing is partitioned separately such
+* that users are not required to use the provided interrupt processing. This
 * file requires other files of the driver to be linked in also.
 *
-* The interrupt handler, XScuGic_InterruptHandler, uses an input argument which
+* The interrupt handler XScuGic_InterruptHandler uses an input argument which
 * is an instance pointer to an interrupt controller driver such that multiple
-* interrupt controllers can be supported.  This handler requires the calling
+* interrupt controllers can be supported. This handler requires the calling
 * function to pass it the appropriate argument, so another level of indirection
-* may be required.
+* can be required.
 *
-* The interrupt processing may be used by connecting the interrupt handler to
-* the interrupt system.  The handler does not save and restore the processor
+* The interrupt processing is used by connecting the interrupt handler to
+* the interrupt system. The handler does not save and restore the processor
 * context but only handles the processing of the Interrupt Controller. The user
 * is encouraged to supply their own interrupt handler when performance tuning is
 * deemed necessary.
@@ -49,7 +49,7 @@
 * This driver assumes that the context of the processor has been saved prior to
 * the calling of the Interrupt Controller interrupt handler and then restored
 * after the handler returns. This requires either the running RTOS to save the
-* state of the machine or that a wrapper be used as the destination of the
+* state of the machine or a wrapper be used as the destination of the
 * interrupt vector to save the state of the processor and restore the state
 * after the interrupt handler returns.
 *
@@ -85,11 +85,10 @@
 * calling an interrupt handler.
 *
 *
-* @param	InstancePtr is a pointer to the XScuGic instance.
+* @param	InstancePtr Pointer to the XScuGic instance.
 *
 * @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void XScuGic_InterruptHandler(XScuGic *InstancePtr)
