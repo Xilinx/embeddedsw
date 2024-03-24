@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,14 +8,14 @@
 /**
 *
 * @file xscugic_hw.c
-* @addtogroup scugic Overview
+* @addtogroup scugic_api SCUGIC APIs
 * @{
 *
-* This file contains low-level driver functions that can be used to access the
-* device.  The user should refer to the hardware device specification for more
+* The xscugic_hw.c file contains low-level driver functions that can be used to access the
+* device. The user should refer to the hardware device specification for more
 * details of the device operation.
 * These routines are used when the user does not want to create an instance of
-* XScuGic structure but still wants to use the ScuGic device. Hence the
+* XScuGic structure but still wants to use the ScuGic device. Hence, the
 * routines provided here take device id or scugic base address as arguments.
 * Separate static versions of DistInit and CPUInit are provided to implement
 * the low level driver routines.
@@ -146,7 +146,6 @@ static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress);
 *
 * @return	None
 *
-* @note		None.
 *
 ******************************************************************************/
 static void DistInit(const XScuGic_Config *Config)
@@ -287,7 +286,6 @@ static void DistInit(const XScuGic_Config *Config)
 *
 * @return	None
 *
-* @note		None.
 *
 ******************************************************************************/
 static void CPUInit(const XScuGic_Config *Config)
@@ -325,21 +323,17 @@ static void CPUInit(const XScuGic_Config *Config)
 /*****************************************************************************/
 /**
 *
-* Initialize the GIC based on the device id. The
-* initialization entails:
+* Initializes the GIC based on the device ID. The initialization entails:
 *
 * - Initialize distributor interface
 * - Initialize cpu interface
 *
-* @param DeviceId is device id to be worked on.
+* @param DeviceId Device id to be worked on.
 *
 * @return
 *
 * - XST_SUCCESS if initialization was successful
 *
-* @note
-*
-* None.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -380,22 +374,21 @@ s32 XScuGic_DeviceInitialize(u32 DistBaseAddr)
 #endif
 /*****************************************************************************/
 /**
-* This function is the primary interrupt handler for the driver.  It must be
+* This function is the primary interrupt handler for the driver. It must be
 * connected to the interrupt source such that it is called when an interrupt of
 * the interrupt controller is active. It will resolve which interrupts are
 * active and enabled and call the appropriate interrupt handler. It uses
 * the Interrupt Type information to determine when to acknowledge the
-* interrupt.Highest priority interrupts are serviced first.
+* interrupt. Highest priority interrupts are serviced first.
 *
 * This function assumes that an interrupt vector table has been previously
 * initialized.  It does not verify that entries in the table are valid before
 * calling an interrupt handler.
 *
-* @param	DeviceId is the unique identifier for the ScuGic device.
+* @param	DeviceId  Unique identifier for the ScuGic device.
 *
 * @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void XScuGic_DeviceInterruptHandler(void *DeviceId)
@@ -474,25 +467,23 @@ IntrExit:
 /*****************************************************************************/
 /**
 *
-* Register a handler function for a specific interrupt ID.  The vector table
+* Register a handler function for a specific interrupt ID. The vector table
 * of the interrupt controller is updated, overwriting any previous handler.
 * The handler function will be called when an interrupt occurs for the given
 * interrupt ID.
 *
-* @param	BaseAddress is the CPU Interface Register base address of the
+* @param	BaseAddress CPU Interface Register base address of the
 *		interrupt controller whose vector table will be modified.
-* @param	InterruptID is the interrupt ID to be associated with the input
+* @param	InterruptID Interrupt ID to be associated with the input
 *		handler.
-* @param	IntrHandler is the function pointer that will be added to
+* @param	IntrHandler Function pointer that will be added to
 *		the vector table for the given interrupt ID.
-* @param	CallBackRef is the argument that will be passed to the new
+* @param	CallBackRef Argument that will be passed to the new
 *		handler function when it is called. This is user-specific.
 *
 * @return	None.
 *
-* @note
-*
-* Note that this function has no effect if the input base address is invalid.
+* @note  This function has no effect if the input base address is invalid.
 *
 ******************************************************************************/
 void XScuGic_RegisterHandler(u32 BaseAddress, s32 InterruptID,
@@ -527,12 +518,11 @@ void XScuGic_RegisterHandler(u32 BaseAddress, s32 InterruptID,
 * the device. A table contains the configuration info for each device in the
 * system.
 *
-* @param	CpuBaseAddress is the CPU Interface Register base address.
+* @param	CpuBaseAddress CPU Interface Register base address.
 *
 * @return	A pointer to the configuration structure for the specified
 *		device, or NULL if the device was not found.
 *
-* @note		None.
 *
 ******************************************************************************/
 static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress)
@@ -562,21 +552,21 @@ static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress)
 /**
 * Sets the interrupt priority and trigger type for the specificd IRQ source.
 *
-* @param	DistBaseAddress is the distributor base address
-* @param	Int_Id is the IRQ source number to modify
-* @param	Priority is the new priority for the IRQ source. 0 is highest
+* @param	DistBaseAddress Distributor base address
+* @param	Int_Id IRQ source number to modify
+* @param	Priority New priority for the IRQ source. 0 is highest
 *			priority, 0xF8(248) is lowest. There are 32 priority
 *			levels supported with a step of 8. Hence the supported
 *			priorities are 0, 8, 16, 32, 40 ..., 248.
-* @param	Trigger is the new trigger type for the IRQ source.
+* @param	Trigger New trigger type for the IRQ source.
 * Each bit pair describes the configuration for an INT_ID.
 * SFI    Read Only    b10 always
 * PPI    Read Only    depending on how the PPIs are configured.
 *                    b01    Active HIGH level sensitive
-*                    b11 Rising edge sensitive
-* SPI                LSB is read only.
+*                    b11    Rising edge sensitive
+* SPI                LSB    is read only.
 *                    b01    Active HIGH level sensitive
-*                    b11 Rising edge sensitive/
+*                    b11    Rising edge sensitive/
 *
 * @return	None.
 *
@@ -676,11 +666,11 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 /**
 * Gets the interrupt priority and trigger type for the specificd IRQ source.
 *
-* @param	DistBaseAddress is the distributor  base address
-* @param	Int_Id is the IRQ source number to modify
-* @param	Priority is a pointer to the value of the priority of the IRQ
+* @param	DistBaseAddress Distributor  base address
+* @param	Int_Id IRQ source number to modify
+* @param	Priority Pointer to the value of the priority of the IRQ
 *		source. This is a return value.
-* @param	Trigger is pointer to the value of the trigger of the IRQ
+* @param	Trigger Pointer to the value of the trigger of the IRQ
 *		source. This is a return value.
 *
 * @return	None.
@@ -742,16 +732,15 @@ void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 
 /****************************************************************************/
 /**
-* Sets the target CPU for the interrupt of a peripheral
+* Sets the target CPU for the interrupt of a peripheral.
 *
-* @param	DistBaseAddress is the device base address
-* @param	Cpu_Id is a CPU number from which the interrupt has to be
+* @param	DistBaseAddress Device base address
+* @param	Cpu_Id CPU number from which the interrupt has to be
 *			unmapped
-* @param	Int_Id is the IRQ source number to modify
+* @param	Int_Id IRQ source number to modify
 *
 * @return	None.
 *
-* @note		None
 *
 *****************************************************************************/
 void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
@@ -816,16 +805,15 @@ void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 
 /****************************************************************************/
 /**
-* Unmaps specific SPI interrupt from the target CPU
+* Unmaps specific SPI interrupt from the target CPU.
 *
-* @param	DistBaseAddress is the device base address
-* @param	Cpu_Id is a CPU number from which the interrupt has to be
+* @param	DistBaseAddress Device base address
+* @param	Cpu_Id CPU number from which the interrupt has to be
 *			unmapped
-* @param	Int_Id is the IRQ source number to modify
+* @param	Int_Id IRQ source number to modify
 *
-* @return	None.
+* @return	None
 *
-* @note		None
 *
 *****************************************************************************/
 void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
@@ -890,15 +878,14 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 
 /****************************************************************************/
 /**
-* Unmaps all SPI interrupts from the target CPU
+* Unmaps all SPI interrupts from the target CPU.
 *
-* @param	DistBaseAddress is the device base address
-* @param	Cpu_Id is a CPU number from which the interrupts has to be
+* @param	DistBaseAddress Device base address
+* @param	Cpu_Id CPU number from which the interrupts has to be
 *			unmapped
 *
 * @return	None.
 *
-* @note		None
 *
 *****************************************************************************/
 void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
@@ -945,12 +932,11 @@ void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 * interrupt condition for the specified Int_Id will occur after this function is
 * called.
 *
-* @param	Int_Id contains the ID of the interrupt source and should be
-*		in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
+* @param	Int_Id Contains the ID of the interrupt source and should be
+*		in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1.
 *
 * @return	None.
 *
-* @note		None.
 *
 ****************************************************************************/
 void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id)
@@ -1006,17 +992,16 @@ void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id)
 /*****************************************************************************/
 /**
 *
-* Disables the interrupt source provided as the argument Int_Id such that the
+* Disables the interrupt source provided as the argument Int_Id so that the
 * interrupt controller will not cause interrupts for the specified Int_Id. The
 * interrupt controller will continue to hold an interrupt condition for the
 * Int_Id, but will not cause an interrupt.
 *
-* @param	Int_Id contains the ID of the interrupt source and should be
-*		in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
+* @param	Int_Id Contains the ID of the interrupt source and should be
+*		in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1.
 *
 * @return	None.
 *
-* @note		None.
 *
 ****************************************************************************/
 void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id)
@@ -1073,12 +1058,11 @@ void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id)
 /*****************************************************************************/
 /**
 *
-* Find redistributor base address for CPU core on which API is executed
+* Finds redistributor base address for CPU core on which API is executed.
 *
 * @return       Redistributor base address or NULL if the device was
 *               not found.
 *
-* @note         None.
 *
 ******************************************************************************/
 UINTPTR XScuGic_GetRedistBaseAddr(void)
