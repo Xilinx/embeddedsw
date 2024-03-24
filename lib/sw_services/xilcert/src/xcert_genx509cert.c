@@ -26,6 +26,7 @@
 *       har  12/08/2023 Add support for Subject Alternative Name field
 * 1.2   am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
 *       kpt  02/21/2024 Add support for DME extension
+*       har  03/25/2024 Fix calculation of hash for serial
 *
 * </pre>
 * @note
@@ -2046,6 +2047,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	u8* SequenceLenIdx;
 	u8* SequenceValIdx;
 	u8* SerialStartIdx;
+	u8* SerialHashStartIdx;
 	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
 	u32 Len;
 
@@ -2071,6 +2073,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	 */
 	SerialStartIdx = Curr;
 	Curr = Curr + XCERT_SERIAL_FIELD_LEN;
+	SerialHashStartIdx = Curr;
 
 	/**
 	 * Generate Signature Algorithm field
@@ -2137,7 +2140,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	 * Please note that currently SerialStartIdx points to the field after Serial.
 	 * Hence this is the start pointer for calculating the hash.
 	 */
-	Status = XSecure_Sha384Digest((u8* )SerialStartIdx, (u32)(Curr - SerialStartIdx), Hash);
+	Status = XSecure_Sha384Digest((u8* )SerialHashStartIdx, (u32)(Curr - SerialHashStartIdx), Hash);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
