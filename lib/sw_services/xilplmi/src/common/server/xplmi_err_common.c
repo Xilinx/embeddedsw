@@ -141,6 +141,7 @@
 *       pre  03/01/2024 Added infinite loop for PLM to stop further processing
 *                       in slave SLR if any error is encountered during boot
 *       ng   03/09/2024 Fixed format specifier for 32bit variables
+*       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *
 * </pre>
 *
@@ -204,13 +205,14 @@ static u32 EmSubsystemId = 0U;
 /**
  * @brief	This function is called for logging PLM error into FW_ERR register
  *
- * @param	ErrStatus is the error code written to the FW_ERR register
+ * @param	ErrStatusVal is the error code written to the FW_ERR register
  *
  * @return
  * 			- None
  *
  *****************************************************************************/
-void XPlmi_LogPlmErr(int ErrStatus) {
+void XPlmi_LogPlmErr(int ErrStatusVal) {
+	int ErrStatus = ErrStatusVal;
 	/** - Print the PLM Warning */
 	if ((ErrStatus & XPLMI_WARNING_STATUS_MASK) != XPLMI_WARNING_STATUS_MASK) {
 		/* Log PLM Error in FW_ERR register */
@@ -229,20 +231,20 @@ void XPlmi_LogPlmErr(int ErrStatus) {
 /**
  * @brief	This function is called in PLM error cases.
  *
- * @param	ErrStatus is the error code written to the FW_ERR register
+ * @param	ErrStatusVal is the error code written to the FW_ERR register
  *
  * @return
  * 			- None
  *
  *****************************************************************************/
-void XPlmi_ErrMgr(int ErrStatus)
+void XPlmi_ErrMgr(int ErrStatusVal)
 {
 #ifndef PLM_DEBUG_MODE
 	u32 RegVal;
 #endif
 	u8 SlrType = XPlmi_GetSlrType();
 	u32 BootMode;
-
+	int ErrStatus = ErrStatusVal;
 	/* Log Plm Error status */
 	XPlmi_LogPlmErr(ErrStatus);
 

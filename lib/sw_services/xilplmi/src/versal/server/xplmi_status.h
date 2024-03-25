@@ -122,6 +122,7 @@
 * 2.0   ng   11/11/2023 Added error code for User modules
 * 2.00  ng   01/26/2024 Updated minor error codes
 *       am   03/02/2024 Added XLOADER_ERR_ZEROIZE_DIGEST_TABLE error code
+*       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *
 * </pre>
 *
@@ -784,8 +785,8 @@ static inline int XPlmi_UpdateStatus(XPlmiStatus_t PlmiStatus, int ModuleStatus)
 }
 
 /************************** Function Prototypes ******************************/
-void XPlmi_ErrMgr(int ErrStatus);
-void XPlmi_LogPlmErr(int ErrStatus);
+void XPlmi_ErrMgr(int ErrStatusVal);
+void XPlmi_LogPlmErr(int ErrStatusVal);
 
 /************************** Variable Definitions *****************************/
 

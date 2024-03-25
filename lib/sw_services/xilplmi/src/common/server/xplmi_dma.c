@@ -50,6 +50,7 @@
 * 1.09  ng   07/06/2023 Added support for SDT flow
 *       am   08/23/2023 Fixed doxygen comment for XPlmi_DmaXfr Len in words
 *       ng   01/28/2024 optimized u8 variables
+*       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *
 * </pre>
 *
@@ -856,7 +857,7 @@ int XPlmi_EccInit(u64 Addr, u32 Len)
 /**
  * @brief	This function is used to Set the memory with a value.
  *
- * @param	DestAddr is the address where the val need to be set
+ * @param	DestAddress is the address where the val need to be set
  * @param	Val is the value that has to be set
  * @param	Len is size of memory to be set in words
  *
@@ -864,12 +865,12 @@ int XPlmi_EccInit(u64 Addr, u32 Len)
  * 			- Status of the DMA transfer
  *
  *****************************************************************************/
-int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len)
+int XPlmi_MemSet(u64 DestAddress, u32 Val, u32 Len)
 {
 	int Status = XST_FAILURE;
 	u32 Count;
 	u32 Index;
-	u64 SrcAddr = DestAddr;
+	u64 SrcAddr = DestAddress;
 	u32 ChunkSize;
 
 	if (Len == 0U) {
@@ -984,15 +985,16 @@ void XPlmi_SetMaxOutCmds(u8 Val)
  * @param	DestPtr is the pointer where the val need to be set
  * @param	DestLen is the memory allotted to destination buffer in bytes
  * @param	Val is the value that has to be set
- * @param	Len is size of memory to be set in bytes
+ * @param	Length is size of memory to be set in bytes
  *
  * @return
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_MemSetBytes(void *const DestPtr, u32 DestLen, u8 Val, u32 Len)
+int XPlmi_MemSetBytes(void *const DestPtr, u32 DestLen, u8 Val, u32 Length)
 {
 	int Status = XST_FAILURE;
+	u32 Len = Length;
 	u64 DestAddr = (u64)(UINTPTR)DestPtr;
 	u32 StartBytes;
 	u32 WordVal = ((u32)Val) | ((u32)Val << 8U) |
@@ -1045,21 +1047,24 @@ END:
  * @brief	This function can copy the content of memory for both 32 and
  * 			64-bit address space
  *
- * @param	DestAddr is the address of the destination where content of
+ * @param	DestAddress is the address of the destination where content of
  * 			SrcAddr memory should be copied.
  *
- * @param	SrcAddr is the address of the source where copy should
+ * @param	SrcAddress is the address of the source where copy should
  * 			start from.
  *
- * @param	Len is size of memory to be copied in bytes.
+ * @param	Length is size of memory to be copied in bytes.
  *
  * @return
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_MemCpy64(u64 DestAddr, u64 SrcAddr, u32 Len)
+int XPlmi_MemCpy64(u64 DestAddress, u64 SrcAddress, u32 Length)
 {
 	int Status = XST_FAILURE;
+	u32 Len = Length;
+	u64 DestAddr = DestAddress;
+	u64 SrcAddr = SrcAddress;
 	u32 SrcBytes = (u32)(XPLMI_WORD_LEN - (u8)(SrcAddr & XPLMI_WORD_LEN_MASK));
 	u32 DestBytes = (u32)(XPLMI_WORD_LEN - (u8)(DestAddr & XPLMI_WORD_LEN_MASK));
 
