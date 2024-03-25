@@ -870,6 +870,7 @@ int XPlmi_MemSet(u64 DestAddress, u32 Val, u32 Len)
 	int Status = XST_FAILURE;
 	u32 Count;
 	u32 Index;
+	u64 DestAddr = DestAddress;
 	u64 SrcAddr = DestAddress;
 	u32 ChunkSize;
 
