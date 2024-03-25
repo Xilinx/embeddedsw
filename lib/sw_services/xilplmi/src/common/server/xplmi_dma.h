@@ -30,6 +30,7 @@
 * 1.05  bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 * 1.09  ng   07/06/2023 Added support for SDT flow
+*       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *
 * </pre>
 *
@@ -114,9 +115,9 @@ int XPlmi_WaitForNonBlkSrcDma(u32 DmaFlags);
 int XPlmi_WaitForNonBlkDestDma(u32 DmaFlags);
 int XPlmi_WaitForNonBlkDma(u32 DmaFlags);
 void XPlmi_SetMaxOutCmds(u8 Val);
-int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len);
-int XPlmi_MemSetBytes(void *const DestPtr, u32 DestLen, u8 Val, u32 Len);
-int XPlmi_MemCpy64(u64 DestAddr, u64 SrcAddr, u32 Len);
+int XPlmi_MemSet(u64 DestAddress, u32 Val, u32 Len);
+int XPlmi_MemSetBytes(void *const DestPtr, u32 DestLen, u8 Val, u32 Length);
+int XPlmi_MemCpy64(u64 DestAddress, u64 SrcAddress, u32 Length);
 
 /**
  * @}

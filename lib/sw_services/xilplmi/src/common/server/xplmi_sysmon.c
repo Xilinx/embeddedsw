@@ -39,6 +39,7 @@
  *       dd   03/28/2023 Updated doxygen comments
  * 1.08  rama 08/10/2023 Changed OT print to DEBUG_ALWAYS for
  *                       debug level_0 option
+ *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
  *
  * </pre>
  *
@@ -167,14 +168,15 @@ END:
 /**
  * @brief	This function detects if we are still in over-temperature condition.
  *
- * @param	WaitInMSec is the time in milliseconds for which the firmware must
+ * @param	WaitInMSecVal is the time in milliseconds for which the firmware must
  *              wait before proceeding after over temperature event clears up
  *
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_SysMonOTDetect(u32 WaitInMSec)
+void XPlmi_SysMonOTDetect(u32 WaitInMSecVal)
 {
+	u32 WaitInMSec = WaitInMSecVal;
 	u32 Val;
 	u32 Count;
 

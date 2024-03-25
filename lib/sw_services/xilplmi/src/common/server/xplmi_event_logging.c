@@ -52,6 +52,7 @@
 * 1.07  ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       dd   09/12/2023 MISRA-C violation Rule 10.8 fixed
 *       ng   02/14/2024 removed int typecast for errors
+*       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *
 * </pre>
 *
@@ -109,17 +110,18 @@ XPlmi_LogInfo *DebugLog = (XPlmi_LogInfo *)(UINTPTR)XPLMI_RTCFG_DBG_LOG_BUF_ADDR
  * @brief	This function retrieves buffer data to the destination location.
  *
  * @param 	Buffer Circular buffer structure to which the data should be written
- * @param 	DestAddr to which the buffer data is to be copied
+ * @param 	DestAddress to which the buffer data is to be copied
  *
  * @return
  * 			- None
  *
  *****************************************************************************/
 static int XPlmi_RetrieveBufferData(const XPlmi_CircularBuffer * Buffer,
-	u64 DestAddr)
+	u64 DestAddress)
 {
 	int Status = XST_FAILURE;
 	u64 CurrentAddr;
+	u64 DestAddr = DestAddress;
 	u32 Len;
 	u8 LogLevel = DebugLog->LogLevel;
 
