@@ -56,6 +56,7 @@
 *       ng   01/26/2024 Removed unused error codes and moved the remaining to
 *                       minor errors enum
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
+*       mss  03/13/2024 MISRA-C violation Rule 8.6 fixed
 *
 * </pre>
 *
@@ -189,7 +190,6 @@ int XPlmi_SetBufferList(u32 Address, u16 Size);
 XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType);
 int XPlmi_DmaTransfer(u64 Dest, u64 Src, u32 Len, u32 Flags);
 int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 LevelVal);
-void XPlmi_ClearEndStack(void);
 int XPlmi_MoveBuffer(u32 BufferIndex, XPlmi_BufferList *BufferList);
 int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList);
 int XPlmi_SearchBufferList(XPlmi_BufferList *BufferList, u32 BufferId,
