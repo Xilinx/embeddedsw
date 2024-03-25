@@ -28,6 +28,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.05  bm   06/13/2023 Add API to just log PLM error
 * 2.0   ng   11/11/2023 Implemented user modules
+*       mss  03/13/2024 Fix MISRA-C violation 10.3
 * </pre>
 *
 * @note
@@ -71,7 +72,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 {
 	int Status = XST_FAILURE;
 	u32 CdoErr;
-	u32 CdoErrType = XPLMI_ERR_CDO_CMD;
+	u32 CdoErrType = (u32)XPLMI_ERR_CDO_CMD;
 	u32 ModuleId = (CmdPtr->CmdId & XPLMI_CMD_MODULE_ID_MASK) >> XPLMI_CMD_MODULE_ID_SHIFT;
 	u32 ApiId = CmdPtr->CmdId & XPLMI_CMD_API_ID_MASK;
 	const XPlmi_Module *Module = NULL;
