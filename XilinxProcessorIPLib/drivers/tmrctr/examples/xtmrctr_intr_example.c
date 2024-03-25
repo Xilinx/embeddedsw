@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,6 +49,7 @@
 *                     and subsequent AXI timer instances would be passed
 *                     without generating interrupts. It fixes CR#1116308.
 * 4.12  ml   12/07/23 Make TimerExpired as a static variable.
+* 4.12  mus  03/25/24 Update RESET_VALUE to reduce extecution time to 1 seconds.
 *</pre>
 ******************************************************************************/
 
@@ -113,7 +114,7 @@
  * making this number larger reduces the amount of time this example consumes
  * because it is the value the timer counter is loaded with when it is started
  */
-#define RESET_VALUE	 0xF0000000
+#define RESET_VALUE	 0xFFFF0000
 
 /**************************** Type Definitions *******************************/
 
