@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,6 +11,10 @@
 #include "xil_types.h"
 #include "xstatus.h"
 
+#ifndef SDT
 int TmrInterruptExample(XTtcPs *TtcPsInst,u16 DeviceID,u16 TtcTickIntrID,
 						XScuGic *InterruptController);
+#else
+int TmrInterruptExample(XTtcPs *TtcPsInst,u32 BaseAddr);
+#endif
 #endif
