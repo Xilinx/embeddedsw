@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -29,12 +29,12 @@
 
 /* FPU definitions */
 #define REGCOUNT			32
-#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_USE_FPU == 2)
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 2)
 #define FPREGSIZE			8
 #define FPREGCOUNT			33
 #define STOREFP				fsd
 #define LOADFP				fld
-#elif defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_USE_FPU == 1)
+#elif defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 1)
 #define FPREGSIZE			4
 #define FPREGCOUNT			33
 #define STOREFP				fsw
@@ -145,7 +145,7 @@ _trap_handler:
 	PUSH_REG(26)
 	PUSH_REG(27)
 	PUSH_REG(31)
-#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_USE_FPU > 0)
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU > 0)
 	PUSH_FPREG(0)					/* Save f0 to f31 */
 	PUSH_FPREG(1)
 	PUSH_FPREG(2)
@@ -190,41 +190,41 @@ is_interrupt:
 	LOAD		a0, REGSIZE(t2)			/* Load argument to handler from vector */
 	LOAD		t2, 0(t2)			/* Load vector itself from vector */
 	jalr		t2				/* Jump to handler: ra = x1 = link address */
-#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_USE_FPU > 0)
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU > 0)
 	lw		t2, FPREG_OFFSET(32)(sp)	/* Restore fcsr */
 	csrw		fcsr, t2
-	POP_FPREGS(31)					/* Restore f0 to f31 */
-	POP_FPREGS(30)
-	POP_FPREGS(29)
-	POP_FPREGS(28)
-	POP_FPREGS(27)
-	POP_FPREGS(26)
-	POP_FPREGS(25)
-	POP_FPREGS(24)
-	POP_FPREGS(23)
-	POP_FPREGS(22)
-	POP_FPREGS(21)
-	POP_FPREGS(20)
-	POP_FPREGS(19)
-	POP_FPREGS(18)
-	POP_FPREGS(17)
-	POP_FPREGS(16)
-	POP_FPREGS(15)
-	POP_FPREGS(14)
-	POP_FPREGS(13)
-	POP_FPREGS(12)
-	POP_FPREGS(11)
-	POP_FPREGS(10)
-	POP_FPREGS(9)
-	POP_FPREGS(8)
-	POP_FPREGS(7)
-	POP_FPREGS(6)
-	POP_FPREGS(5)
-	POP_FPREGS(4)
-	POP_FPREGS(3)
-	POP_FPREGS(2)
-	POP_FPREGS(1)
-	POP_FPREGS(0)
+	POP_FPREG(31)					/* Restore f0 to f31 */
+	POP_FPREG(30)
+	POP_FPREG(29)
+	POP_FPREG(28)
+	POP_FPREG(27)
+	POP_FPREG(26)
+	POP_FPREG(25)
+	POP_FPREG(24)
+	POP_FPREG(23)
+	POP_FPREG(22)
+	POP_FPREG(21)
+	POP_FPREG(20)
+	POP_FPREG(19)
+	POP_FPREG(18)
+	POP_FPREG(17)
+	POP_FPREG(16)
+	POP_FPREG(15)
+	POP_FPREG(14)
+	POP_FPREG(13)
+	POP_FPREG(12)
+	POP_FPREG(11)
+	POP_FPREG(10)
+	POP_FPREG(9)
+	POP_FPREG(8)
+	POP_FPREG(7)
+	POP_FPREG(6)
+	POP_FPREG(5)
+	POP_FPREG(4)
+	POP_FPREG(3)
+	POP_FPREG(2)
+	POP_FPREG(1)
+	POP_FPREG(0)
 #endif
 	POP_REG(31)
 	POP_REG(27)

@@ -36,6 +36,7 @@
 * 9.1  mus   25/01/24 Temporarily set mtvec with _trap_handler at start of
 *                     boot code. It will be reverted once triggering of
 *                     constructor is fixed.
+* 9.1  mus   25/03/24 Use correct macro for checking FPU enablement.
 * </pre>
 *
 ******************************************************************************/
@@ -92,7 +93,7 @@ _boot:
 	.option pop
 
 /* Clear the floating point registers */
-#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_USE_FPU == 2)
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 2)
 	fmv.d.x	f0, x0
 	fmv.d.x	f1, x0
 	fmv.d.x	f2, x0
@@ -126,7 +127,7 @@ _boot:
 	fmv.d.x	f30, x0
 	fmv.d.x	f31, x0
 #endif
-#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_USE_FPU == 1)
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 1)
 	fmv.w.x	f0, x0
 	fmv.w.x	f1, x0
 	fmv.w.x	f2, x0
