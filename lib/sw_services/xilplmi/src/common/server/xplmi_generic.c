@@ -112,6 +112,7 @@
 *                       in XPlmi_LogString, XPlmi_Begin functions
 *       ng   01/28/2024 optimized u8 variables
 *       ng   01/26/2024 Updated minor error codes
+*       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *
 * </pre>
 *
@@ -2728,16 +2729,17 @@ END:
  * 			supported commands.
  *
  * @param	Cmd is pointer to the command structure
- * @param	Level is the break level
+ * @param	LevelVal is the break level
  *
  * @return
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level)
+int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 LevelVal)
 {
 	int Status = XST_FAILURE;
 	u32 PopAddr = 0U;
+	u32 Level = LevelVal;
 
 	/*
 	 * - Break level should not be 0.

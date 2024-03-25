@@ -28,6 +28,7 @@
 *       is   01/10/2022 Updated XPlmi_SysMonOTDetect API to pass wait time arg
 *       is   01/10/2022 Updated Copyright Year to 2022
 *       ma   08/08/2022 Fix SW-BP-MAGIC-NUM warning
+*       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *
 * </pre>
 *
@@ -59,7 +60,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XPlmi_SysMonInit(void);
-void XPlmi_SysMonOTDetect(u32 WaitInMSec);
+void XPlmi_SysMonOTDetect(u32 WaitInMSecVal);
 XSysMonPsv* XPlmi_GetSysmonInst(void);
 
 /************************** Variable Definitions *****************************/
