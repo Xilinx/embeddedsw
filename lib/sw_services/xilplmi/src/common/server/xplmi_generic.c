@@ -113,6 +113,7 @@
 *       ng   01/28/2024 optimized u8 variables
 *       ng   01/26/2024 Updated minor error codes
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
+*       mss  03/13/2024 MISRA-C violation Rule 2.2 fixed
 *
 * </pre>
 *
@@ -2753,7 +2754,8 @@ int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 LevelVal)
 
 	/* If level > 1, then remove (Level - 1) lengths from stack */
 	if (Level > XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL) {
-		Status = XPlmi_StackPop(&Cmd->CdoParamsStack, --Level, &PopAddr);
+		Level = Level - 1;
+		Status = XPlmi_StackPop(&Cmd->CdoParamsStack, Level, &PopAddr);
 		if ( Status != XST_SUCCESS) {
 			goto END;
 		}
