@@ -8,10 +8,10 @@
 /**
 *
 * @file xospipsv_hw.h
-* @addtogroup ospipsv Overview
+* @addtogroup ospipsv_api OSPIPSV APIs
 * @{
 *
-* This file contains low level access functions using the base address
+* The xospipsv_hw.h file contains low level access functions using the base address
 * directly without an instance.
 *
 * <pre>

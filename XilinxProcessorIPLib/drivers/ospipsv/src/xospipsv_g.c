@@ -8,7 +8,7 @@
 /**
 *
 * @file xospipsv_g.c
-* @addtogroup ospipsv Overview
+* @addtogroup ospipsv_api OSPIPSV APIs
 * @{
 *
 * The xospipsv_g.c contains a configuration table that specifies the configuration of
