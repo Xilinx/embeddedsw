@@ -8,7 +8,7 @@
 /**
 *
 * @file xospipsv_options.c
-* @addtogroup ospipsv Overview
+* @addtogroup ospipsv_api OSPIPSV APIs
 * @{
 *
 * The xospipsv_options.c file implements functions to configure the OSPIPSV component,
@@ -47,7 +47,7 @@
 /************************** Variable Definitions *****************************/
 
 /**
- * Create the table of options which are processed to get/set the device
+ * Creates the table of options which are processed to get/set the device
  * options. These options are table driven to allow easy maintenance and
  * expansion of the options.
  */
@@ -74,12 +74,12 @@ static OptionsMap OptionsTable[] = {
 /*****************************************************************************/
 /**
 * @brief
-* This function sets the options for the OSPIPSV device driver.The options
+* Sets the options for the OSPIPSV device driver.The options
 * control how the device behaves relative to the OSPIPSV bus. The device must be
 * idle rather than busy transferring data before setting these device options.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Options contains the specified options to be set. This is a bit
+* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param	Options Contains the specified options to be set. This is a bit
 *		mask where a 1 indicates the option should be turned ON and
 *		a 0 indicates no action. One or more bit Values may be
 *		contained in the mask. See the bit definitions named
@@ -203,10 +203,10 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 /*****************************************************************************/
 /**
 * @brief
-* This function gets the options for the OSPIPSV device. The options control how
+* Gets the options for the OSPIPSV device. The options control how
 * the device behaves relative to the OSPIPSV bus.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
 *
 * @return
 * 		Options contains the specified options currently set. This is a bit Value
@@ -243,8 +243,8 @@ u32 XOspiPsv_GetOptions(const XOspiPsv *InstancePtr)
 * @brief
 * Configures the clock according to the prescaler passed.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Prescaler - clock prescaler to be set.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param	Prescaler Clock prescaler to be set.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -301,10 +301,10 @@ ERROR_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* Configures the edge mode (SDR or DDR)
+* Configures the edge mode (SDR or DDR).
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Mode is Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param	Mode Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -370,13 +370,13 @@ ERROR_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function should be used to tell the OSPIPSV driver the HW flash
+* Used to signify the OSPIPSV driver that the Hardware flash
 * configuration being used. This API should be called at least once in the
 * application. If desired, it can be called multiple times when switching
-* between communicating to different flash devices/using different configs.
+* between communicating to different flash devices/using different configuration.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	chip_select - Flash Chip Select.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param	chip_select Flash Chip Select.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -414,8 +414,8 @@ ERROR_PATH:
 * transfer in DAC mode.
 *
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	FlashMode is Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param	FlashMode Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.
 *
 * @return
 *		- XST_SUCCESS if successful.

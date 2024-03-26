@@ -8,10 +8,10 @@
 /**
 *
 * @file xospipsv_sinit.c
-* @addtogroup ospipsv Overview
+* @addtogroup ospipsv_api OSPIPSV APIs
 * @{
 *
-* The implementation of the XOspiPsv component's static initialization
+* The xospipsv_sinit.c file contains implementation of the XOspiPsv component's static initialization
 * functionality.
 *
 * <pre>
@@ -50,7 +50,7 @@
 * Looks up the device configuration based on the unique device ID. A table
 * contains the configuration info for each device in the system.
 *
-* @param	DeviceId contains the ID of the device to look up the
+* @param	DeviceId Contains the ID of the device to look up the
 *		configuration for.
 *
 * @return
