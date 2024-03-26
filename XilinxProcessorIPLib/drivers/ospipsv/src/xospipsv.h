@@ -8,41 +8,10 @@
 /**
 *
 * @file xospipsv.h
-* @addtogroup ospipsv Overview
+* @addtogroup ospipsv_api OSPIPSV APIs
 * @{
 * @details
 *
-* This section contains information about the driver structures, user
-* API prototypes and all the defines required for the user to interact
-* with the driver. OspiPsv driver supports the OSPI controller in Versal
-* SoC platform.
-*
-* <b>Initialization & Configuration</b>
-*
-* The XOspiPsv_Config structure is used by the driver to configure. This
-* configuration structure is typically created by the tool-chain based on HW
-* build properties.
-*
-* To support multiple runtime loading and initialization strategies employed by
-* various operating systems, the driver instance can be initialized in the
-* following way:
-*
-*    - XOspiPsv_LookupConfig(u16 DeviceId) - Use the device identifier to find
-*      the static configuration structure defined in xospipsv_g.c.
-*
-*    - XOspiPsv_CfgInitialize(InstancePtr, ConfigPtr) - Uses a
-*      configuration structure provided by the caller. This will initialize
-*      the XOspiPsv driver structure.
-*
-* <b>Supported features</b>
-*
-* This driver supports following features
-*    - SDR-NON-PHY mode.
-*    - SDR-PHY mode.
-*    - DDR-PHY mode.
-*    - INDAC mode of operations.
-*    - DAC mode of operations.
-*    - Polled and Interrupt mode transfers.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -112,16 +81,16 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 /**
  * The handler data type allows the user to define a callback function to
- * handle the asynchronous processing for the OSPIPSV device.  The application
+ * handle the asynchronous processing for the OSPIPSV device. The application
  * using this driver is expected to define a handler of this type to support
- * interrupt driven mode.  The handler executes in an interrupt context, so
+ * interrupt driven mode. The handler executes in an interrupt context, so
  * only minimal processing should be performed.
  *
- * @param	CallBackRef is the callback reference passed in by the upper
+ * @param	CallBackRef Callback reference passed in by the upper
  *		layer when setting the callback functions, and passed back to
  *		the upper layer when the callback is invoked. Its type is
  *		not important to the driver, so it is a void pointer.
- * @param 	StatusEvent holds one or more status events that have occurred.
+ * @param 	StatusEvent Holds one or more status events that have occurred.
  *		See the XOspiPsv_SetStatusHandler() for details on the status
  *		events that can be passed in the callback.
  */

@@ -8,10 +8,10 @@
 /**
 *
 * @file xospipsv_control.h
-* @addtogroup ospipsv Overview
+* @addtogroup ospipsv_api OSPIPSV APIs
 * @{
 *
-* This is the header file for the low-level functions of OSPIPSV driver.
+* The xospipsv_control.h header file for the low-level functions of OSPIPSV driver.
 * These functions will be used internally by the user API's.
 *
 * <pre>
@@ -45,9 +45,9 @@ extern "C" {
 /*****************************************************************************/
 /**
 * @brief
-* Disable the OSPIPSV device.
+* Disables the OSPIPSV device.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
 *
 * @return	None.
 *
@@ -67,9 +67,9 @@ static inline void XOspiPsv_Disable(const XOspiPsv *InstancePtr)
 /*****************************************************************************/
 /**
 * @brief
-* Enable the OSPIPSV device.
+* Enables the OSPIPSV device.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
 *
 * @return	None.
 *
@@ -89,7 +89,7 @@ static inline void XOspiPsv_Enable(const XOspiPsv *InstancePtr)
 * @brief
 * Configures the OSPI MUX to Linear mode
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
 *
 * @return	None.
 *
@@ -124,7 +124,7 @@ static inline void XOspiPsv_ConfigureMux_Linear(const XOspiPsv *InstancePtr)
 * @brief
 * Configures the OSPI MUX to DMA mode
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
 *
 * @return	None.
 *
