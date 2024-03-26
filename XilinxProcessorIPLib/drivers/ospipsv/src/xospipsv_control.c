@@ -8,7 +8,7 @@
 /**
 *
 * @file xospipsv_control.c
-* @addtogroup ospipsv Overview
+* @addtogroup ospipsv_api OSPIPSV APIs
 * @{
 *
 * The xospipsv_control.c file implements the low level functions used by the functions in
@@ -54,8 +54,8 @@
 * @brief
 * Flash command based data reading using flash command control registers.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Msg is a pointer to the structure containing transfer data.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param	Msg Pointer to the structure containing transfer data.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -114,8 +114,8 @@ ERROR_PATH:
 * @brief
 * Flash command based data write using flash command control registers.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Msg is a pointer to the structure containing transfer data.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param	Msg Pointer to the structure containing transfer data.
 *
 * @return
 * 		- XST_SUCCESS if successful.
@@ -170,10 +170,10 @@ u32 XOspiPsv_Stig_Write(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 /*****************************************************************************/
 /**
 * @brief
-* This function Read the data using DMA
+* Reads the data using DMA.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Msg is a pointer to the structure containing transfer data.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param	Msg Pointer to the structure containing transfer data.
 *
 * @return
 * 		- XST_SUCCESS if successful.
@@ -234,10 +234,10 @@ ERROR_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function reads the data using Linear controller
+* Reads the data using Linear controller.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Msg is a pointer to the structure containing transfer data.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param	Msg Pointer to the structure containing transfer data.
 *
 * @return
 * 		- XST_SUCCESS if successful.
@@ -265,10 +265,10 @@ ERROR_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function writes the data Using Linear controller
+* Writes the data Using Linear controller.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Msg is a pointer to the structure containing transfer data.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param	Msg Pointer to the structure containing transfer data.
 *
 * @return
 * 		- XST_SUCCESS if successful.
@@ -296,12 +296,12 @@ ERROR_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This API perform RX Tuning for SDR/DDR mode to calculate RX DLL Delay.
+* Performs RX Tuning for SDR/DDR mode to calculate RX DLL Delay.
 *
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	FlashMsg is a pointer to the XOspiPsv_Msg structure.
-* @param	TXTap is TX DLL Delay value.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param	FlashMsg Pointer to the XOspiPsv_Msg structure.
+* @param	TXTap TX DLL Delay value.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -357,9 +357,9 @@ RETURN_PATH:
 * @brief
 * Configures the Rx and Tx taps in Phy Configuration register.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	RxTap is the Rx tap value.
-* @param	TxTap is the Tx tap value.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param	RxTap Rx tap value.
+* @param	TxTap Tx tap value.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -390,10 +390,10 @@ u32 XOspiPsv_ConfigureTaps(const XOspiPsv *InstancePtr, u32 RxTap, u32 TxTap)
 /*****************************************************************************/
 /**
 * @brief
-* Check for OSPI idle which means Serial interface and low level SPI pipeline
+* Checks for OSPI idle which means Serial interface and low level SPI pipeline
 * is IDLE.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -421,10 +421,10 @@ ERROR_PATH:
 /*****************************************************************************/
 /**
 * @brief
-* This function Write the data in Non-DMA Indirect mode.
+* Writes data in Non-DMA Indirect mode.
 *
-* @param	InstancePtr is a pointer to the XOspiPsv instance.
-* @param	Msg is a pointer to the structure containing transfer data.
+* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param	Msg Pointer to the structure containing transfer data.
 *
 * @return   - XST_SUCCESS if successful.
 *			- XST_FAILURE if fails.
