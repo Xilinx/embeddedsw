@@ -602,6 +602,7 @@ endif()
 
 ADD_DEFINITIONS(-c ${{proc_extra_compiler_flags}})
 include_directories(${{CMAKE_BINARY_DIR}}/include)
+include_directories(${{CMAKE_INCLUDE_PATH}})
 
 if (EXISTS ${{metal_BINARY_DIR}})
 include_directories(${{metal_BINARY_DIR}}/lib/include)
