@@ -31,10 +31,6 @@ supported_os:
   - standalone
   - freertos10_xilinx
 
-depends_libs:
-  xilplmi: {}
-  xilmailbox: {}
-
 examples:
   xilsecure_aes_example.c:
     - supported_platforms:

@@ -31,6 +31,7 @@
 *                     backward compatibilty
 *       vss  09/11/23 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS
 * 5.3   ng   01/28/24 Added SDT support
+*       ng   03/26/24 Fixed header include in SDT flow
 *
 * </pre>
 * @note
@@ -52,7 +53,6 @@ extern "C" {
 
 #ifdef SDT
 #include "xsecure_config.h"
-#include "xplmi_bsp_config.h"
 #endif
 
 /************************** Constant Definitions ****************************/
