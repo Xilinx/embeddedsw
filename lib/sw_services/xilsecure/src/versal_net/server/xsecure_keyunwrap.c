@@ -23,6 +23,7 @@
 *       kpt     12/13/23 Added SHA384 MGF support for keyunwrap
 *       kpt     12/19/23 Fix logical issue in updating keyslot value
 * 5.3   ng      01/28/24 Added SDT support
+*       ng      03/26/24 Fixed header include in SDT flow
 *
 * </pre>
 *
@@ -32,7 +33,6 @@
 
 #ifdef SDT
 #include "xsecure_config.h"
-#include "xplmi_bsp_config.h"
 #endif
 
 #include "xparameters.h"

@@ -27,6 +27,7 @@
 *       kpt  12/13/23 Added RSA CRT support for PWCT
 * 5.3   ng   01/28/24 Added SDT support
 *       kpt  03/15/24 Added RSA private decrypt KAT
+*       ng   03/26/24 Fixed header include in SDT flow
 *
 * </pre>
 *
@@ -44,7 +45,6 @@
 
 #ifdef SDT
 #include "xsecure_config.h"
-#include "xplmi_bsp_config.h"
 #endif
 
 /************************** Constant Definitions *****************************/
