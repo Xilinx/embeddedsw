@@ -824,13 +824,13 @@ u32 XEmacPs_BdRingFromHwRx(XEmacPs_BdRing * RingPtr, u32 BdLimit,
 				BdPartialCount++;
 			}
 
+			/* Move on to next BD in work group */
+			CurBdPtr = XEmacPs_BdRingNext(RingPtr, CurBdPtr);
+
 			/* Reached the end of the work group */
 			if (CurBdPtr == RingPtr->HwTail) {
 				break;
 			}
-
-			/* Move on to next BD in work group */
-			CurBdPtr = XEmacPs_BdRingNext(RingPtr, CurBdPtr);
 		}
 
 		/* Subtract off any partial packet BDs found */
