@@ -64,6 +64,7 @@
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       bm   03/01/2024 Set LogCdoOffset by default in JTAG boot mode
+*       ng   03/20/2024 Added CDO debug prints
 *
 * </pre>
 *
@@ -94,6 +95,10 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+#if defined(CDO_DEBUG_ENABLE)
+	static u32 CdoCounter = 0;
+#endif
+
 
 /*****************************************************************************/
 
@@ -247,6 +252,11 @@ int XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 	}
 	CdoPtr->Cmd.CdoParamsStack.OffsetListTop = -1;
 
+#if defined(CDO_DEBUG_ENABLE)
+		/* Reset CDO counter variable to '0' */
+		CdoCounter = 0;
+#endif
+
 END:
 	return Status;
 }
@@ -382,6 +392,11 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 		XPlmi_Out32(PMC_GLOBAL_PMC_GSW_ERR, CdoPtr->PartitionOffset +
 			CdoPtr->ProcessedCdoLen + XPLMI_CDO_HDR_LEN);
 	}
+
+#if defined(CDO_DEBUG_ENABLE)
+	CdoCounter++;
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, " %u.0x%x\r\n",CdoCounter, CmdPtr->CmdId);
+#endif
 	Status = XPlmi_CmdExecute(CmdPtr);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
