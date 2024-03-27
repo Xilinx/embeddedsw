@@ -85,6 +85,7 @@
 *       dd   01/09/2023 Removed IPI full access for I2C handshake
 *       ng   01/28/2024 u8 variables optimization
 *       ng   02/14/2024 removed int typecast for errors
+*       sk   03/13/24 Fixed doxygen comments format
 *
 * </pre>
 *
@@ -938,8 +939,6 @@ END:
  * 			non-exportable fields of the buffer
  * @param	SizeVal is the size of the buffer in bytes
  *
- * @return
- * 			- None
  *
  *****************************************************************************/
 static void XLoader_GetExportableBuffer(u32 *Buffer, u32 MaskVal, u32 SizeVal)
@@ -1069,7 +1068,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function copies the ATF handoff parameter structure to the
+ * @brief	This function copies the TF-A handoff parameter structure to the
  *          given address.
  *
  *  Command payload parameters are:
@@ -1107,7 +1106,7 @@ static int XLoader_GetATFHandOffParams(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/** Get ATF Handoff parameters structure address */
+	/** Get TF-A Handoff parameters structure address */
 	HandoffParams = XLoader_GetATFHandoffParamsAddr();
 
 	HandoffParamsSize = XLOADER_ATF_HANDOFF_FORMAT_SIZE +
@@ -1119,7 +1118,7 @@ static int XLoader_GetATFHandOffParams(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/** Write the ATF handoff parameters data to the given address */
+	/** Write the TF-A handoff parameters data to the given address */
 	Status = XPlmi_MemCpy64(DestAddr, (u64)(UINTPTR)HandoffParams,
 			HandoffParamsSize);
 
@@ -1276,9 +1275,6 @@ static XPlmi_Module XPlmi_Loader =
 /**
  * @brief	This function registers the PLM Loader commands to the PLMI.
  *
- * @param	None
- *
- * @return	None
  *
  *****************************************************************************/
 void XLoader_CmdsInit(void)
