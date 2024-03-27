@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 * 1.02  ng   06/21/2023 Added support for system device-tree flow
 * 1.03  am   01/31/2024 Added PLM_OCP_KEY_MNGMT configuration macro
+*       ng   03/20/2024 Added CDO debug prints
 *
 * </pre>
 *
@@ -81,6 +82,9 @@ extern "C" {
 //#define PLM_DEBUG
 //#define PLM_DEBUG_INFO
 //#define PLM_DEBUG_DETAILED
+
+// To Enable CDO debug prints
+//#define CDO_DEBUG_ENABLE
 
 /**
  * Enable the below define to disable prints from UART.
