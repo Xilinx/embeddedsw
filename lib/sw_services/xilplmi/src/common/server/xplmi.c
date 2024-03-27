@@ -59,6 +59,7 @@
 * 1.09  ma   10/10/2023 Enable Slave Error for PSM_GLOBAL
 *       ng   01/28/2024 optimized u8 variables
 *       sk   02/18/2024 Added DDRMC Calib Check Status RTCA Register Init
+*       ng   03/20/2024 Added print to UART on log buffer full after LPD init
 *
 * </pre>
 *
@@ -68,6 +69,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi.h"
+#include "xplmi_debug.h"
 #include "xplmi_err_common.h"
 #include "xplmi_wdt.h"
 #include "xplmi_hw.h"
@@ -297,6 +299,12 @@ static void XPlmi_PrintEarlyLog(void)
 	}
 	else {
 		XPlmi_PrintPlmBanner();
+		XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "%.*s",
+			(DebugLog->LogBuffer.Len - DebugLog->LogBuffer.Offset),
+			(UINTPTR)(DebugLog->LogBuffer.StartAddr + DebugLog->LogBuffer.Offset)
+			);
+		XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "%.*s",
+			DebugLog->LogBuffer.Offset, (UINTPTR)(DebugLog->LogBuffer.StartAddr));
 	}
 	DebugLog->PrintToBuf = (u8)TRUE;
 }

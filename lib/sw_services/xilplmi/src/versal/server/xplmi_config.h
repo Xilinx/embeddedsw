@@ -47,6 +47,7 @@
 *                       PLM to PLM communication
 * 1.09  ng   11/11/2022 Fixed doxygen file name error
 * 1.10  ng   06/21/2023 Added support for system device-tree flow
+*       ng   03/20/2024 Added CDO debug prints
 * </pre>
 *
 * @note
@@ -99,6 +100,9 @@ extern "C" {
 //#define PLM_DEBUG
 //#define PLM_DEBUG_INFO
 //#define PLM_DEBUG_DETAILED
+
+// To Enable CDO debug prints
+//#define CDO_DEBUG_ENABLE
 
 /**
  * Enable the below define to disable prints from UART.
