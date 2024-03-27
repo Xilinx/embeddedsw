@@ -5,6 +5,11 @@
 #ifndef XSECURE_CONFIG_H
 #define XSECURE_CONFIG_H
 
+#cmakedefine XILSECURE_INCLUDE_XPLMI_BSP_CONFIG_H
+#if defined(XILSECURE_INCLUDE_XPLMI_BSP_CONFIG_H)
+#include "xplmi_bsp_config.h"
+#endif
+
 #cmakedefine XSECURE_TRUSTED_ENVIRONMENT
 #cmakedefine XSECURE_TPM_ENABLE
 #cmakedefine XSECURE_ECC_SUPPORT_NIST_P256
