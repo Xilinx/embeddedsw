@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +55,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 3.18  mus  03/27/24 Added handling for FAST interrupts.
 * </pre>
 ******************************************************************************/
 
@@ -63,6 +64,7 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xintc_l.h"
+#include "xintc.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
 
@@ -161,6 +163,9 @@ int main(void)
 ******************************************************************************/
 int IntcLowLevelExample(u32 IntcBaseAddress)
 {
+	UINTPTR vector_base;
+	XIntc_Config *CfgPtr;
+	u8 Id;
 
 	/*
 	 * Connect a device driver handler that will be called when an interrupt
@@ -184,6 +189,27 @@ int IntcLowLevelExample(u32 IntcBaseAddress)
 	 * down below.
 	 */
 	XIntc_Out32(IntcBaseAddress + XIN_MER_OFFSET, XIN_INT_MASTER_ENABLE_MASK);
+
+	#ifdef __riscv
+                vector_base = csrr(XREG_MTVEC);
+	#else
+                vector_base = 0x10;
+	#endif
+
+	CfgPtr = LookupConfigByBaseAddress(IntcBaseAddress);
+	if (CfgPtr->VectorAddrWidth >
+                    XINTC_STANDARD_VECTOR_ADDRESS_WIDTH) {
+		for (Id = 0; Id < 32 ; Id++) {
+			XIntc_Out64(IntcBaseAddress + XIN_IVEAR_OFFSET
+                                            + (Id * 8), vector_base);
+		}
+	} else {
+		for (Id = 0; Id < 32 ; Id++) {
+			XIntc_Out32(IntcBaseAddress + XIN_IVAR_OFFSET
+                                            + (Id * 4), vector_base);
+		}
+	}
+
 
 	/*
 	 * This step is processor specific, connect the handler for the
