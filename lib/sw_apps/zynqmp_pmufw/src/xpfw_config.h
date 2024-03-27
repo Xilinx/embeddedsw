@@ -28,7 +28,7 @@ extern "C" {
 #define BOARD_SHUTDOWN_PIN_STATE       0
 #define ENABLE_EM
 #define ENABLE_MOD_OVERTEMP
-#define ENABLE_DYNAMIC_MIO_CONFIiG
+#define ENABLE_DYNAMIC_MIO_CONFIG
 #define ENABLE_IOCTL
 #define CONNECT_PMU_GPO_2_VAL          0
 #define OVERTEMP_DEGC                  90.0
