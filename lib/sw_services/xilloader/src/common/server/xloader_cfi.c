@@ -43,6 +43,7 @@
 *       ng    03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.10  ng    06/26/2023 Added support for system device tree flow
 * 2.00  ng    01/26/2024 Added header file for minor error codes
+*       sk    03/13/24 Fixed doxygen comments format
 * </pre>
 *
 * @note
@@ -140,8 +141,6 @@ END:
  *
  * @param	InstancePtr is a pointer to the XCfupmc instance.
  *
- * @return
- * 			- None
  *
  *****************************************************************************/
 static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr)
@@ -168,8 +167,6 @@ static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr)
  *
  * @param	InstancePtr is a pointer to the XCfupmc instance.
  *
- * @return
- * 			- None
  *
  *****************************************************************************/
 static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr)
@@ -192,8 +189,6 @@ static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr)
  *
  * @param	ImageId is Id of the image present in PDI
  *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XLoader_CframeErrorHandler(u32 ImageId)

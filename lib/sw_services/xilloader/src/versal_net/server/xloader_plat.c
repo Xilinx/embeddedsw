@@ -47,6 +47,7 @@
 *       kpt  01/22/2024 Added support to extend secure state to SWPCR
 *       mss  03/06/2024 Removed code which was overwriting partition header
 *                       Destination Execution Address
+*       sk   03/13/24 Fixed doxygen comments format
 *
 * </pre>
 *
@@ -391,8 +392,6 @@ END:
 *
 * @param	PrtnHdr is pointer to Partition header details
 *
-* @return
-* 			- None
 *
 *****************************************************************************/
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)

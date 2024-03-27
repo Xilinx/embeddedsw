@@ -36,6 +36,7 @@
 *       ng   01/28/2024 u8 variables optimization
 *       mss  03/06/2024 Removed code which was overwriting partition header
 *                       Destination Execution Address
+*       sk   03/13/24 Fixed doxygen comments format
 *
 * </pre>
 *
@@ -277,9 +278,6 @@ END:
 *
 * @param	PrtnHdr is pointer to Partition header details
 *
-* @return
-* 			- None
-*
 *****************************************************************************/
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 {
@@ -359,8 +357,6 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
  * @param	ExecState CPU execution state
  * @param	VInitHi resembles highvec configuration for CPU
  *
- * @return
- * 			- None
  *
  *****************************************************************************/
 static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
@@ -404,9 +400,6 @@ static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
  * @brief	This function is used to run MJTAG solution workaround in which
  * 			JTAG Tap state will be set to reset.
  *
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XLoader_SetJtagTapToReset(void)
@@ -1149,8 +1142,6 @@ int XLoader_ProcessDeferredError(void)
  * @brief	This function check conditions and perform internal POR
  *			for VP1802 and VP1502 device if required.
  *
- * @return
- * 			- None.
  *
  *****************************************************************************/
 void XLoader_PerformInternalPOR(void)

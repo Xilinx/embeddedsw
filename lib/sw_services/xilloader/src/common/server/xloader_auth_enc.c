@@ -129,6 +129,7 @@
 *       yog  02/23/24 Added support to return error when P-521 curve is disabled.
 *       am   03/02/24 Added MH Optimization support
 *       kpt  03/15/24 Updated RSA KAT to use 2048-bit key
+*       sk   03/13/24 Fixed doxygen comments format
 *
 * </pre>
 *
@@ -1767,7 +1768,7 @@ END:
 #ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
- * @brief	This function encrypts the ECDSA signature provided with
+ * @brief	This function verifies the ECDSA signature provided with
  * 			key components.
  *
  * @param	CrvType  is the type of the ECDSA curve
@@ -3082,8 +3083,6 @@ int XLoader_AddAuthJtagToScheduler(void)
 *
 * @return
 * 			- XST_SUCCESS on success.
-* 			- XLOADER_ERR_AUTH_JTAG_EXCEED_ATTEMPTS if Jtag Authentication
-* 			failed more than once.
 * 			- XLOADER_DAP_TIMEOUT_DISABLED if timeout is disabled for DAP.
 *
 * @note    	If Auth JTAG interrupt status is set, then XLoader_AuthJtag

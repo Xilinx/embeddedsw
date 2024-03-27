@@ -38,6 +38,7 @@
 * 2.0   kpt  10/09/2023 Fixed compilation warning when PLM_EN_ADD_PPKS macro is enabled
 * 2.1   pre  01/11/2024 Removed unused macro
 *       ng   02/01/2024 u8 variables optimization
+*       sk   03/13/24 Fixed doxygen comments format
 *
 * </pre>
 *
@@ -63,7 +64,7 @@
                     /**< PPK 3&4 Enable bits mask*/
 #define XLOADER_EFUSE_PPK3_START_OFFSET                 (0xF12502C0U)
                     /**< PPK3 start register address */
-#endif /**< END OF PLM_EN_ADD_PPKS*/
+#endif /* END OF PLM_EN_ADD_PPKS*/
 
 /************************** Function Prototypes ******************************/
 
@@ -166,8 +167,6 @@ int XLoader_RsaKat(XPmcDma *PmcDmaPtr) {
  * @param	Size holds the required size.
  * @param	Convert is a pointer in which output will be updated.
  *
- * @return
- * 			- None
  *
  ******************************************************************************/
 static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert)
