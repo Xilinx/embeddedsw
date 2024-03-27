@@ -189,5 +189,9 @@ void XSpdif_Decode_ChStat(u8 Spdif_SrcBuf[24]);
 
 /************************** Function Definitions *****************************/
 
+#ifdef __cplusplus
+}
+#endif
+
 #endif
 
