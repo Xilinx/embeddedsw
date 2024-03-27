@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
-DRIVER_LIB_VERSION = 2.10
+DRIVER_LIB_VERSION = 3.0
 COMPILER=
 ARCHIVER=
 CP=cp

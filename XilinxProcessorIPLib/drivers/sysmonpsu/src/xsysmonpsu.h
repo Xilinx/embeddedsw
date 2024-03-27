@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -159,6 +159,9 @@
 * 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
 *       aad    17/12/20 Removed undefined function.
 * 2.9   cog    07/20/23 Added support for SDT flow.
+* 3.0   cog    03/20/24 Refactored XSysMonPsu_UpdateAdcClkDivisor for more
+*                       robust error handling, this required the API protoype
+*                       to be chnaged.
 *
 * </pre>
 *
@@ -633,7 +636,8 @@ void XSysMonPsu_SetExtenalMux(XSysMonPsu *InstancePtr, u8 Channel, u32 SysmonBlk
 u32 XSysMonPsu_GetExtenalMux(XSysMonPsu *InstancePtr, u32 SysmonBlk);
 void XSysMonPsu_SetAdcClkDivisor(XSysMonPsu *InstancePtr, u8 Divisor, u32 SysmonBlk);
 u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk);
-u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk);
+u32 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk,
+				   u8 *DivCode);
 s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u64 ChEnableMask,
 		u32 SysmonBlk);
 u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk);
