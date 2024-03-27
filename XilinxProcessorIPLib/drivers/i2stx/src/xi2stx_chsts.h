@@ -189,5 +189,9 @@ void XI2s_Tx_ReslveAesChStat(u8 I2stx_SrcBuf[]);
 
 /************************** Function Definitions *****************************/
 
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* XI2STX_CHSTS_H */
 /** @} */
