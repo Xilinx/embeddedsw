@@ -25,6 +25,7 @@
 *        td	 10/19/2020	MISRA C Fixes
 * 1.02   bsv 08/31/2021 Code clean up
 * 1.03   kpt 12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
+* 1.04   sk  03/13/24 Fixed doxygen comments format
 *
 * </pre>
 *
@@ -90,9 +91,6 @@ XLoader_UsbCh9_Data Dfu_data = {
 /**
  * @brief	This function waits for DFU reset.
  *
- * @param	None
- *
- * @return	None
  *
  ******************************************************************************/
 static void XLoader_DfuWaitForReset(void)
@@ -594,7 +592,6 @@ static int XLoader_SetConfiguration(struct Usb_DevData* InstancePtr, const Setup
  * @param	InstancePtr is a pointer to XUsbPsu instance of the controller
  * @param	DfuState is a value of the DFU state to be set
  *
- * @return	None
  *
  ******************************************************************************/
 void XLoader_DfuSetState(const struct Usb_DevData* InstancePtr, u32 DfuState)
@@ -685,7 +682,6 @@ void XLoader_DfuSetState(const struct Usb_DevData* InstancePtr, u32 DfuState)
  *
  * @param	InstancePtr is a pointer to USB instance of the controller
  *
- * @return	None
  *
  ******************************************************************************/
 void XLoader_DfuReset(struct Usb_DevData* UsbInstancePtr)
@@ -737,7 +733,6 @@ static void XLoader_DfuSetIntf(const struct Usb_DevData* InstancePtr, const Setu
  * @param	InstancePtr is a pointer to XUsbPsu instance of the controller
  * @param	SetupData is a pointer to setup token of control transfer
  *
- * @return	None
  *
  ******************************************************************************/
 static void XLoader_DfuClassReq(const struct Usb_DevData* InstancePtr, const SetupPacket *SetupData)
@@ -939,7 +934,6 @@ static int XLoader_UsbReqGetDescriptor(const struct Usb_DevData *InstancePtr,
  * @param	InstancePtr is a pointer to XUsbPsu instance of the controller
  * @param	SetupData is the structure containing the setup request
  *
- * @return	None
  *
 ******************************************************************************/
 void XLoader_Ch9Handler(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
@@ -968,7 +962,6 @@ void XLoader_Ch9Handler(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
  * @param	InstancePtr is a pointer to XUsbPsu instance of the controller
  * @param	SetupData is the structure containing the setup request
  *
- * @return	None
  *
 ******************************************************************************/
 static void XLoader_StdDevReq(struct Usb_DevData *InstancePtr, const SetupPacket *SetupData)

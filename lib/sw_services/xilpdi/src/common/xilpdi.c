@@ -55,6 +55,7 @@
 *       dd   09/08/2023 Misra-C violation Rule 12.1 fixed
 *       har  02/16/2024 Modified XilPdi_SearchOptionalData as non-static function
 *       am   03/02/2024 Updated MH optimization changes to XilPdi_StoreDigestTable
+*       sk   03/13/24 Fixed doxygen comments format
 *
 * </pre>
 *
@@ -562,7 +563,7 @@ int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 	u32 TotalLen = MetaHdrPtr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN;
 
 	/**
-	 * - Read the Img headers of 64 bytes
+	 * - Read the Image headers of 64 bytes
 	 * and update the Image Header structure for all images
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +

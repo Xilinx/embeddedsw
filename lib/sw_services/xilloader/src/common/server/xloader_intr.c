@@ -48,6 +48,7 @@
 *       sk   05/18/2023 Deprecate copy to memory feature,removed SubsystemPdiIns
 *       sk   08/18/2023 Fixed security review comments
 *       dd	 09/11/2023 MISRA-C violation Rule 17.7 fixed
+*       sk   03/13/24 Fixed doxygen comments format
 *
 * </pre>
 *
@@ -208,9 +209,6 @@ END1:
 /**
  * @brief	This function clears the previous SBI data ready
  * 			and enables IRQ for next interrupt.
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XLoader_ClearIntrSbiDataRdy(void)
