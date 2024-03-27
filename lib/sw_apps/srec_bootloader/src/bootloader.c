@@ -90,10 +90,7 @@ int main()
 	init_stdout();
 
 #ifdef VERBOSE
-	print ("\r\nSREC Bootloader\r\n");
-	print ("Loading SREC image from flash @ address: ");
-	putnum (FLASH_IMAGE_BASEADDR);
-	print ("\r\n");
+	xil_printf("\r\nSREC Bootloader\r\nLoading SREC image from flash @ address: %x\r\n",FLASH_IMAGE_BASEADDR);
 #endif
 
 	flbuf = (uint8 *)FLASH_IMAGE_BASEADDR;
@@ -103,9 +100,7 @@ int main()
 
 #ifdef VERBOSE
 	if (ret > LD_SREC_LINE_ERROR) {
-		print ("ERROR in SREC line: ");
-		putnum (srec_line);
-		print (errors[ret]);
+		xil_printf("ERROR in SREC line: %x%s",srec_line,errors[ret]);
 	} else {
 		print ("ERROR: ");
 		print (errors[ret]);
@@ -120,9 +115,7 @@ static void display_progress (uint32 count)
 {
 	/* Send carriage return */
 	outbyte (CR);
-	print  ("Bootloader: Processed (0x)");
-	putnum (count);
-	print (" S-records");
+	xil_printf("Bootloader: Processed (0x)%x S-records",count);
 }
 #endif
 
@@ -167,9 +160,7 @@ static uint8 load_exec ()
 	}
 
 #ifdef VERBOSE
-	print ("\r\nExecuting program starting at address: ");
-	putnum ((uint32)laddr);
-	print ("\r\n");
+	xil_printf("\r\nExecuting program starting at address: %x\r\n",(uint32)laddr);
 #endif
 
 	(*laddr)();
