@@ -23,6 +23,7 @@ endif()
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
   set(XILSECURE_mode "server")
+  set(XILSECURE_INCLUDE_XPLMI_BSP_CONFIG_H "")
 elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR ("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
   # For soft microblaze and Versal_net APU/RPU cores, mode is client.
   set(XILSECURE_mode "client")
