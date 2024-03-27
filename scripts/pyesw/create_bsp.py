@@ -573,7 +573,7 @@ def create_domain(args):
     lop_cmds.append([obj.include_folder, "module,baremetal_xparameters_xlnx", f"{obj.proc} {obj.repo_yaml_path}"])
     utils.write_into_file(config_lops_file, lop_create_target(lop_cmds))
     utils.runcmd(
-        f"lopper -i {config_lops_file} -f {obj.sdt}"
+        f"lopper -O {obj.domain_dir} -i {config_lops_file} -f {obj.sdt}"
     )
 
     # Copy the common cmake meta-data file to domain directory so that other modules can consume it
