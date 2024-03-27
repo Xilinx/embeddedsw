@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +46,9 @@
 * 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
 * 2.8   cog    10/21/20 Fixed isues where ADCCLK divisor was not updated.
 * 2.9   cog    07/20/23 Added support for SDT flow.
+* 3.0   cog    03/20/24 Refactored XSysMonPsu_UpdateAdcClkDivisor for more
+*                       robust error handling, this required the API protoype
+*                       to be chnaged.
 *
 * </pre>
 *
@@ -105,6 +108,8 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 {
 	u32 PsSysmonControlStatus;
 	u64 IntrStatus;
+	u32 Status;
+	u8 DivCode;
 
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -120,8 +125,15 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 	/* Set all handlers to stub values, let user configure this data later. */
 	InstancePtr->Handler = (XSysMonPsu_Handler)XSysMonPsu_StubHandler;
 
-	(void)XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PS);
-	(void)XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PL);
+	Status = XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PS, &DivCode);
+	if(Status != XST_SUCCESS) {
+		return (s32)Status;
+	}
+
+	Status = XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PL, &DivCode);
+	if(Status != XST_SUCCESS) {
+		return (s32)Status;
+	}
 
 	/* Reset the device such that it is in a known state. */
 	XSysMonPsu_Reset(InstancePtr);
@@ -147,7 +159,7 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 	IntrStatus = XSysMonPsu_IntrGetStatus(InstancePtr);
 	XSysMonPsu_IntrClear(InstancePtr, IntrStatus);
 
-	return (s32)XST_SUCCESS;
+	return (s32)Status;
 }
 
 /****************************************************************************/
@@ -1179,15 +1191,17 @@ u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 * @param	InstancePtr is a pointer to the XSysMon instance.
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
+* @param	DivCode is a pointer to be populated with the divisor code.
 *
-* @return	The divisor update  the Configuration Register 2.
+* @return	- XST_SUCCESS if valid divisor found and applied.
+*		- XST_FAILURE if valid divisor does not exist.
 *
 * @note		The ADCCLK is an internal clock used by the ADC and is
 *		synchronized to the DCLK clock. The ADCCLK is equal to DCLK
 *		divided by the user selection in the Configuration Register 2.
 *
 *****************************************************************************/
-u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
+u32 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk, u8 *DivCode)
 {
 	u16 DivisorCode;
 	u16 Divisor = 0U;
@@ -1214,7 +1228,13 @@ u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 							XSYSMONPSU_CFG_REG2_OFFSET);
 	DivisorCode = DivisorCode >> XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT;
 
-	for (Count = 0U; Count < XSM_POLL_TIMEOUT; Count++) {
+	if ((InputFreq / XSYSMONPSU_CLOCK_DIV_CODE_MAX > FreqMax) ||
+	    (InputFreq / XSYSMONPSU_CLOCK_DIV_MIN < XSYSMONPSU_ADCCLK_MIN)) {
+		*DivCode = (u8)DivisorCode;
+		return XST_FAILURE;
+	}
+
+	for (Count = 0U; Count < XSYSMONPSU_CLOCK_DIV_CODE_MAX; Count++) {
 		if ((DivisorCode == XSYSMONPSU_CLOCK_DIV_CODE_ZERO) && (SysmonBlk == XSYSMON_PS)) {
 			Divisor = XSYSMONPSU_CLOCK_DIV_PS_ZERO;
 		} else if (DivisorCode < XSYSMONPSU_CLOCK_DIV_CODE_MIN) {
@@ -1246,7 +1266,8 @@ u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_CFG_REG2_OFFSET,
 			 RegValue);
 
-	return (u8)DivisorCode;
+	*DivCode = (u8)DivisorCode;
+	return XST_SUCCESS;
 }
 /****************************************************************************/
 /**
