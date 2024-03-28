@@ -1,6 +1,6 @@
 ##############################################################################
 # Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -91,6 +91,8 @@
 #                     copy appropriate files based on processor and SoC.
 # 9.1   ml   10/08/23 Updated tcl not to set coresight as stdout/stdin for
 #                     non ARM based processors.
+# 9.1   dp   03/26/24 Update tcl to use pmu as sleep timer by default for R52
+#                     and also provide an option to choose global timer.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -1115,16 +1117,22 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 
     set sleep_timer [common::get_property CONFIG.sleep_timer $os_handle ]
 	set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psv_cortexa72" || IP_NAME=="psxl_cortexa78" || IP_NAME=="psx_cortexa78"}]
-	if { $sleep_timer == "ps7_globaltimer_0" || $sleep_timer == "psu_iou_scntr" || $sleep_timer == "psu_iou_scntrs" || $sleep_timer == "psv_iou_scntr" || $sleep_timer == "psv_iou_scntrs"} {
+	if { $sleep_timer == "ps7_globaltimer_0" || $sleep_timer == "psu_iou_scntr" || $sleep_timer == "psu_iou_scntrs" || $sleep_timer == "psv_iou_scntr" || $sleep_timer == "psv_iou_scntrs" || $sleep_timer == "psx_lpd_systmr_ctrl" } {
 		if { $proctype == "psu_cortexr5" ||  $proctype == "psv_cortexr5"} {
 			error "ERROR: $proctype does not support $sleep_timer "
 		}
+      if { $proctype == "psx_cortexr52" && $sleep_timer == "psx_lpd_systmr_ctrl" } {
+         puts $file_handle "#define CONFIG_R52_USE_LPD_SYS_TMR"
+      }
     } elseif { $sleep_timer == "none" } {
 		if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psxl_cortexr52" || $proctype == "psx_cortexr52"} {
 			set is_ttc_present 0
 			set periphs [hsi::get_cells -hier -filter {IP_NAME==ps7_ttc || IP_NAME==psu_ttc || IP_NAME==psv_ttc || IP_NAME==psxl_ttc || IP_NAME==psx_ttc}]
 			set periphs [lsort -decreasing $periphs]
-                        set en_pmu_sleep_timer [common::get_property CONFIG.pmu_sleep_timer $os_handle ]
+         set en_pmu_sleep_timer [common::get_property CONFIG.pmu_sleep_timer $os_handle ]
+         if { $proctype == "psxl_cortexr52" || $proctype == "psx_cortexr52"} {
+             set en_pmu_sleep_timer "true"
+         }
 
 			foreach periph $periphs {
 				set base_addr [get_base_value $periph]

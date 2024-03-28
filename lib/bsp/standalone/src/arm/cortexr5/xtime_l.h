@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,9 @@
 *                        Cortex-R52.
 * 9.0   asa    07/07/23  Made changes to include bspconfig.h and update
 *                        macros checks for r52 freertos bsp use case.
+* 9.1   dp   03/26/24    Use global timer only when CONFIG_R52_USE_LPD_SYS_TMR is
+*                        defined for R52. By default, it uses PMU as sleep timer.
+*                        Update COUNTS_PER_SECOND accordingly.
 * </pre>
 *
 ******************************************************************************/
@@ -58,7 +61,7 @@ extern "C" {
 #include "xparameters.h"
 #include "bspconfig.h"
 /***************** Macros (Inline Functions) Definitions *********************/
-#if defined (ARMR52)
+#if defined(CONFIG_R52_USE_LPD_SYS_TMR)
 /* TODO: Taken from ARMv8 32 bit BSP, check if we can keep it in some common location */
 static inline u64 arch_counter_get_cntvct(void)
  {
@@ -68,13 +71,12 @@ static inline u64 arch_counter_get_cntvct(void)
   }
 #endif
 /************************** Constant Definitions *****************************/
-
-#if defined (ARMR52)
-#define COUNTS_PER_SECOND     XPAR_CPU_CORTEXR52_0_TIMESTAMP_CLK_FREQ
+#if defined(CONFIG_R52_USE_LPD_SYS_TMR)
+#define COUNTS_PER_SECOND  XPAR_CPU_CORTEXR52_0_TIMESTAMP_CLK_FREQ
 #elif defined (SLEEP_TIMER_BASEADDR)
-
 #define COUNTS_PER_SECOND				SLEEP_TIMER_FREQUENCY
-
+#elif defined (ARMR52)
+#define COUNTS_PER_SECOND      ((XPAR_CPU_CORTEXR52_0_CPU_CLK_FREQ_HZ + 32)/ 64)
 #else
 #define ITERS_PER_SEC  ((XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ + 2)/ 4)
 #define ITERS_PER_USEC  ((XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ + 2000000)/ 4000000)
@@ -92,12 +94,12 @@ static inline u64 arch_counter_get_cntvct(void)
 
 #define IRQ_FIQ_MASK 	0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
 
-#if defined (ARMR52) && ((defined(FREERTOS_BSP)) || (defined(XSLEEP_TIMER_IS_DEFAULT_TIMER)))
+#if defined (CONFIG_R52_USE_LPD_SYS_TMR)
 #pragma message ("For the sleep routines, global timer is used")
 #elif defined (SLEEP_TIMER_BASEADDR)
 #pragma message ("For the sleep routines, TTC3/TTC2 is used")
 #elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
-#pragma message ("For the sleep routines, PMU cycle counter is used")
+#pragma message ("For the sleep routines, PMU cycle counter is used, dont reset/disable the pmu counters")
 #else
 #pragma message ("For the sleep routines, machine cycles are used")
 #endif
