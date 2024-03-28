@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -31,6 +31,9 @@ properties:
 
   xlnx,max-bits-per-color:
     description: Maximum bits/color supported by this DisplayPort core
+
+  xlnx,octa-pixel-enable:
+    description: 1 if displayport core supports octa pixel, 0 if not support
 
   xlnx,quad-pixel-enable:
     description: 1 if displayport core supports qual pixel, 0 if not support
@@ -78,6 +81,7 @@ required:
     - xlnx,lane-count
     - xlnx,link-rate
     - xlnx,max-bits-per-color
+    - xlnx,octa-pixel-enable
     - xlnx,quad-pixel-enable
     - xlnx,dual-pixel-enable
     - xlnx,ycrcb-enable
