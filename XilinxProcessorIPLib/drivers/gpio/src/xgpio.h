@@ -1,58 +1,16 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xgpio.h
-* @addtogroup gpio Overview
+* @addtogroup gpio_api GPIO APIs
 * @{
 * @details
 *
-* This section explains the implementation of the XGpio driver's basic
-* functionality.
-* This header file contains the software API definition of the Xilinx General
-* Purpose I/O (XGpio) device driver.
-*
-* The Xilinx GPIO controller is a soft IP core designed for Xilinx FPGAs and
-* contains the following general features:
-*   - Support for up to 32 I/O discretes for each channel (64 bits total).
-*   - Each of the discretes can be configured for input or output.
-*   - Configurable support for dual channels and interrupt generation.
-*
-* The driver provides interrupt management functions. Implementation of
-* interrupt handlers is left to the user. Refer to the provided interrupt
-* example in the examples directory for details.
-*
-* This driver is intended to be RTOS and processor independent. Any needs for
-* dynamic memory management, threads or thread mutual exclusion, virtual
-* memory, or cache control must be satisfied by the layer above this driver.
-*
-* <b>Initialization & Configuration</b>
-*
-* The XGpio_Config structure is used by the driver to configure itself. This
-* configuration structure is typically created by the tool-chain based on HW
-* build properties.
-*
-* To support multiple runtime loading and initialization strategies employed
-* by various operating systems, the driver instance can be initialized in one
-* of the following ways:
-*
-*   - XGpio_Initialize(InstancePtr, DeviceId) - The driver looks up its own
-*     configuration structure created by the tool-chain based on an ID provided
-*     by the tool-chain.
-*
-*   - XGpio_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
-*     configuration structure provided by the caller. If running in a system
-*     with address translation, the provided virtual memory base address
-*     replaces the physical address present in the configuration structure.
-*
-* @note
-*
-* This API utilizes 32 bit I/O to the GPIO registers. With less than 32 bits,
-* the unused bits from registers are read as zero and written as don't cares.
 *
 * <pre>
 * MODIFICATION HISTORY:

@@ -1,16 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xgpio_selftest.c
-* @addtogroup gpio Overview
+* @addtogroup gpio_api GPIO APIs
 * @{
 *
-* The xgpio_selftest.c file contains implementation of the XGpio driver's self
-* test function.
+* The xgpio_selftest.c file contains implementation of the self test function
+* of the XGpio driver.
 * See xgpio.h for more information about the driver.
 *
 * <pre>
@@ -42,21 +43,20 @@
 
 /******************************************************************************/
 /**
-* Run a self-test on the driver/device. This function does a minimal test
+* Runs a self-test on the driver/device. This function performs a minimal test
 * in which the data register is read. It only does a read without any kind
 * of test because the hardware has been parameterized such that it may be only
-* an input such that the state of the inputs won't be known.
+* an input and the state of the input is unknown.
 *
 * All other hardware features of the device are not guaranteed to be in the
 * hardware since they are parameterizable.
 *
 *
-* @param	InstancePtr is a pointer to the XGpio instance to be worked on.
-*		This parameter must have been previously initialized with
-*		XGpio_Initialize().
+* @param	InstancePtr Pointer to the XGpio instance to be worked on.
+*		This parameter must be initialized with XGpio_Initialize().
 *
 * @return 	XST_SUCCESS always. If the GPIO device was not present in the
-*		hardware a bus error could be generated. Other indicators of a
+*		hardware a bus error is generated. Other indicators of a
 *		bus error, such as registers in bridges or buses, may be
 *		necessary to determine if this function caused a bus error.
 *
