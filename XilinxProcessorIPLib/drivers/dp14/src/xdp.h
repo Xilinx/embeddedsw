@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -372,6 +372,10 @@
 #ifndef XDP_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XDP_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /******************************* Include Files ********************************/
 #include "xparameters.h"
@@ -1813,6 +1817,10 @@ void XDp_TxHdcp22Disable(XDp *InstancePtr);
 					XDp_SbMsgLinkAddressReplyDeviceInfo
 #define XDp_TxSbMsgLinkAddressReplyPortDetail \
 					XDp_SbMsgLinkAddressReplyPortDetail
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XDP_H_ */
 /** @} */
