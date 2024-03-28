@@ -33,6 +33,7 @@ depends_libs:
   lwip220:
     lwip220_api_mode: RAW_API
     lwip220_dhcp: true
+    lwip220_lwip_dhcp_does_acd_check: true
     lwip220_ipv6_enable: false
     lwip220_pbuf_pool_size: 2048
   xiltimer:
