@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,8 @@
 *                        Cortex-R52.
 * 9.0   asa    07/07/23  Made changes to include XTime_StartTimer for
 *                        r52 freertos bsp.
+* 9.1   dp   03/26/24    Use global timer only when CONFIG_R52_USE_LPD_SYS_TMR is
+*                        defined for R52. By default, it uses PMU as sleep timer.
 *
 * </pre>
 *
@@ -64,7 +66,7 @@
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-#if defined (ARMR52) && ((defined(FREERTOS_BSP)) || (defined(XSLEEP_TIMER_IS_DEFAULT_TIMER)))
+#if defined (CONFIG_R52_USE_LPD_SYS_TMR)
 
 #define LPD_RST_TIMESTAMP  0xEB5E035CU
 /**
@@ -90,12 +92,12 @@ void XTime_StartTimer(void)
 }
 #endif
 
-#if defined(XSLEEP_TIMER_IS_DEFAULT_TIMER) && defined(ARMR52)
+#if defined(CONFIG_R52_USE_LPD_SYS_TMR)
 #pragma message ("For the sleep routines, global timer is used")
 #elif defined (SLEEP_TIMER_BASEADDR)
 #pragma message ("For the sleep routines, TTC3/TTC2 is used")
 #elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
-#pragma message ("For the sleep routines, PMU cycle counter is used")
+#pragma message ("For the sleep routines, PMU cycle counter is used, dont reset/disable the pmu counters")
 #else
 #pragma message ("For the sleep routines, machine cycles are used")
 #endif
@@ -135,7 +137,7 @@ void XTime_SetTime(XTime Xtime_Global)
 ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
 {
-#if defined(XSLEEP_TIMER_IS_DEFAULT_TIMER) && defined(ARMR52)
+#if defined(CONFIG_R52_USE_LPD_SYS_TMR)
 	*Xtime_Global = arch_counter_get_cntvct();
 #elif defined (SLEEP_TIMER_BASEADDR)
 	*Xtime_Global = Xil_In32(SLEEP_TIMER_BASEADDR +
