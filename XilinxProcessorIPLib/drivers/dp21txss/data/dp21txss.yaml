@@ -125,6 +125,7 @@ required:
           - xlnx,lane-count
           - xlnx,link-rate
           - xlnx,max-bits-per-color
+          - xlnx,octa-pixel-enable
           - xlnx,quad-pixel-enable
           - xlnx,dual-pixel-enable
           - xlnx,ycrcb-enable
