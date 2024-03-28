@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -40,6 +40,9 @@
 /* Prevent circular inclusions by using protection macros. */
 #define XDP_HW_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 /***************************** Include Files **********************************/
 
 #include "xil_io.h"
@@ -3291,6 +3294,10 @@
 	XDp_TxGetDispIdTdtHLoc(Tdt))
 
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XDP_HW_H_ */
 /** @} */
