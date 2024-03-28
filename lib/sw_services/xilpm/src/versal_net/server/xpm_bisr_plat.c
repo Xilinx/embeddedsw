@@ -197,7 +197,6 @@ XStatus XPmBisr_Repair(u32 TagId)
 
 	//check requested ID is a valid ID
 	if (TagId > 255U) {
-		XPmBisr_SwError(PMC_EFUSE_BISR_UNKN_TAG_ID);
 		DbgErr = XPM_INT_ERR_BISR_UNKN_TAG_ID;
 		Status = XST_FAILURE;
 		goto done;
@@ -207,7 +206,6 @@ XStatus XPmBisr_Repair(u32 TagId)
 	if (TAG_ID_VALID_MASK == (XPmTagIdWhiteList[TagId] & TAG_ID_VALID_MASK)) {
 		TagType = XPmTagIdWhiteList[TagId] & TAG_ID_TYPE_MASK;
 	} else {
-		XPmBisr_SwError(PMC_EFUSE_BISR_INVLD_TAG_ID);
 		DbgErr = XPM_INT_ERR_BISR_INVALID_ID;
 		Status = XST_FAILURE;
 		goto done;
@@ -288,7 +286,6 @@ XStatus XPmBisr_Repair(u32 TagId)
 						}
 						break;
 					default: //block type not recognized, no function to handle it
-						XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);
 						DbgErr = XPM_INT_ERR_BAD_TAG_TYPE;
 						Status = XST_FAILURE;
 						break;
@@ -311,7 +308,6 @@ XStatus XPmBisr_Repair(u32 TagId)
 				if (XST_SUCCESS == Status) {
 					goto done;
 				}
-				XPmBisr_SwError(PMC_EFUSE_BISR_UNSUPPORTED_ID);
 				DbgErr = XPM_INT_ERR_BISR_UNSUPPORTED_ID;
 				Status = XST_FAILURE;
 				goto done;
