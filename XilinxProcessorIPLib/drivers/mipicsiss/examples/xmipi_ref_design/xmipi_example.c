@@ -299,6 +299,7 @@ void XV_ConfigTpg(XV_tpg *InstancePtr) {
 	/* Start TPG */
 	XV_tpg_EnableAutoRestart(pTpg);
 	XV_tpg_Start(pTpg);
+
 }
 
 /*****************************************************************************/
@@ -1161,7 +1162,7 @@ xil_printf("\r\n");
 #ifndef SDT
 	Gpio_Tpg_resetn_ConfigPtr = XGpio_LookupConfig(GPIO_TPG_RESET_DEVICE_ID);
 #else
-	Gpio_Tpg_resetn_ConfigPtr = XGpio_LookupConfig(XPAR_XGPIO_1_BASEADDR);
+	Gpio_Tpg_resetn_ConfigPtr = XGpio_LookupConfig(XPAR_XGPIO_3_BASEADDR);
 #endif
 
 	if (Gpio_Tpg_resetn_ConfigPtr == NULL) {
@@ -1295,8 +1296,10 @@ xil_printf("\r\n");
 
 	/* Set colorbar pattern */
 	ResetTpg();
+
 	Pattern = XTPG_BKGND_COLOR_BARS;
 	XV_ConfigTpg(&Tpg);
+
 	/*If HDMI is disconnected then make DSI the default video destination*/
 	if (HdmiTxSs.IsStreamConnected == (FALSE)) {
 		print(TXT_RED);
