@@ -1,5 +1,6 @@
 ##############################################################################
 # Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2023-2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -29,7 +30,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 	set brace 0
 
 	array set sub_core_params {}
-	set sub_core_params(dprx) "BASEADDR S_AXI_ACLK LANE_COUNT LINK_RATE MAX_BITS_PER_COLOR QUAD_PIXEL_ENABLE DUAL_PIXEL_ENABLE YCRCB_ENABLE YONLY_ENABLE GT_DATAWIDTH SECONDARY_SUPPORT AUDIO_CHANNELS MST_ENABLE NUMBER_OF_MST_STREAMS PROTOCOL_SELECTION FLOW_DIRECTION"
+	set sub_core_params(dprx) "BASEADDR S_AXI_ACLK LANE_COUNT LINK_RATE MAX_BITS_PER_COLOR OCTA_PIXEL_ENABLE QUAD_PIXEL_ENABLE DUAL_PIXEL_ENABLE YCRCB_ENABLE YONLY_ENABLE GT_DATAWIDTH SECONDARY_SUPPORT AUDIO_CHANNELS MST_ENABLE NUMBER_OF_MST_STREAMS PROTOCOL_SELECTION FLOW_DIRECTION"
 	set sub_core_params(axi_iic) "BASEADDR TEN_BIT_ADR GPO_WIDTH"
 	set sub_core_params(hdcp) "BASEADDR"
 	set sub_core_params(axi_timer) "BASEADDR"
