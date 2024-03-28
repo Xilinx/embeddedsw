@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -43,6 +43,8 @@
 *                     enabled for freertos r52 bsp.
 * 9.0   mus  07/12/23 Fix SDT flow for CortexR52. Code related to CortexR5 has
 *                     been moved to CortexR5 related flag.
+* 9.1   dp   03/26/24 Update the #ifdef check to invoke XTime_StartTimer() only when
+*                     CONFIG_R52_USE_LPD_SYS_TMR is defined.
 * </pre>
 *
 ******************************************************************************/
@@ -168,7 +170,7 @@ noaccess:
 
 	/* configure the timer if TTC is present */
 #ifndef XPAR_XILTIMER_ENABLED
-#if defined (ARMR52) && ((defined(FREERTOS_BSP)) || (defined(XSLEEP_TIMER_IS_DEFAULT_TIMER)))
+#if defined (CONFIG_R52_USE_LPD_SYS_TMR)
 	bl XTime_StartTimer
 #elif defined (SLEEP_TIMER_BASEADDR)
     bl XTime_StartTTCTimer

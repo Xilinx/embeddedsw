@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +41,8 @@
 * 8.0   mus  02/24/22    Updated usleep_R5 to support CortexR52 processor.
 * 8.0	sk	 03/02/22 Update usleep_R5 argument type to fix misra_c_2012_
 * 			  directive_4_6 violation.
+* 9.1   dp   03/26/24    Use global timer only when CONFIG_R52_USE_LPD_SYS_TMR is
+*                        defined for R52. By default, it uses PMU as sleep timer.
 *
 * </pre>
 *
@@ -82,7 +85,7 @@
 
 void usleep_R5(ULONG useconds)
 {
-#if defined (ARMR52)
+#if defined (CONFIG_R52_USE_LPD_SYS_TMR)
         XTime tEnd, tCur;
 
         tCur = arch_counter_get_cntvct();
