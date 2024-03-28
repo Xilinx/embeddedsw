@@ -373,6 +373,10 @@
 /* Prevent circular inclusions by using protection macros. */
 #define XDP_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /******************************* Include Files ********************************/
 #include "xparameters.h"
 #ifdef SDT
@@ -1874,6 +1878,10 @@ u32 XDp_TxGetLinkRate(XDp *InstancePtr);
 					XDp_SbMsgLinkAddressReplyDeviceInfo
 #define XDp_TxSbMsgLinkAddressReplyPortDetail \
 					XDp_SbMsgLinkAddressReplyPortDetail
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XDP_H_ */
 /** @} */
