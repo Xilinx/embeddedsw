@@ -1441,7 +1441,7 @@ void XDpTxSs_SetUserPixelWidth(XDpTxSs *InstancePtr, u8 UserPixelWidth,
 	/* Verify arguments.*/
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((UserPixelWidth == 1) || (UserPixelWidth == 2) ||
-		       (UserPixelWidth == 4));
+		       (UserPixelWidth == 4) || (UserPixelWidth == 8));
 	Xil_AssertVoid((StreamId == 1) || (StreamId == 2) ||
                        (StreamId == 3) || (StreamId == 4));
 
