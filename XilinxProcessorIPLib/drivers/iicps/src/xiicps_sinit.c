@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xiicps_sinit.c
-* @addtogroup iicps Overview
+* @addtogroup iicps_api IICPS APIs
 * @{
 *
 * The xiicps_sinit.c file contains implementation of the XIicPs component's
@@ -54,14 +54,13 @@
 * Looks up the device configuration based on the unique device ID. A table
 * contains the configuration info for each device in the system.
 *
-* @param	DeviceId contains the ID of the device to look up the
-*		configuration for.
+* @param	DeviceId Contains the ID of the device whose configuration
+*		information is needed.
 *
 * @return	A pointer to the configuration found or NULL if the specified
 *		device ID was not found. See xiicps.h for the definition of
 *		XIicPs_Config.
 *
-* @note		None.
 *
 ******************************************************************************/
 #ifndef SDT

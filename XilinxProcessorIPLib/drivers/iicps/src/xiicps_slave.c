@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xiicps_slave.c
-* @addtogroup iicps Overview
+* @addtogroup iicps_api IICPS APIs
 * @{
 *
 * The xiicps_slave.c file handles slave transfers.
@@ -52,17 +52,17 @@
 /*****************************************************************************/
 /**
 * @brief
-* This function sets up the device to be a slave.
+* Sets up the device to be a slave.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
-* @param	SlaveAddr is the address of the slave we are receiving from.
+* @param	InstancePtr Pointer to the XIicPs instance.
+* @param	SlaveAddr Address of the slave we are receiving from.
 *
 * @return	None.
 *
 * @note
-*	Interrupt is always enabled no matter the transfer is interrupt-
-*	driven or polled mode. Whether device will be interrupted or not
-*	depends on whether the device is connected to an interrupt
+*	Interrupt is always enabled no matter the transfer is interrupt-driven
+*	or polled mode. The device interruption depends
+*	on whether the device is connected to an interrupt
 *	controller and interrupt for the device is enabled.
 *
 ****************************************************************************/
@@ -115,13 +115,13 @@ void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 /*****************************************************************************/
 /**
 * @brief
-* This function setup a slave interrupt-driven send. It set the repeated
-* start for the device is the transfer size is larger than FIFO depth.
+* Sets up a slave interrupt-driven send. It set the repeated
+* start for the device with a transfer size larger than FIFO depth.
 * Data processing for the send is initiated by the interrupt handler.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
+* @param	InstancePtr Pointer to the XIicPs instance.
+* @param	MsgPtr Pointer to the send buffer.
+* @param	ByteCount Number of bytes to be sent.
 *
 * @return	None.
 *
@@ -159,12 +159,12 @@ void XIicPs_SlaveSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 /*****************************************************************************/
 /**
 * @brief
-* This function setup a slave interrupt-driven receive.
+* Sets up a slave interrupt-driven receive.
 * Data processing for the receive is handled by the interrupt handler.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
-* @param	MsgPtr is the pointer to the receive buffer.
-* @param	ByteCount is the number of bytes to be received.
+* @param	InstancePtr Pointer to the XIicPs instance.
+* @param	MsgPtr Pointer to the receive buffer.
+* @param	ByteCount Number of bytes to be received.
 *
 * @return	None.
 *
@@ -204,11 +204,11 @@ void XIicPs_SlaveRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 /*****************************************************************************/
 /**
 * @brief
-* This function sends  a buffer in polled mode as a slave.
+* Sends a buffer in polled mode as a slave.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
+* @param	InstancePtr Pointer to the XIicPs instance.
+* @param	MsgPtr Pointer to the send buffer.
+* @param	ByteCount Number of bytes to be sent.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
@@ -354,9 +354,9 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 * @brief
 * This function receives a buffer in polled mode as a slave.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
-* @param	MsgPtr is the pointer to the receive buffer.
-* @param	ByteCount is the number of bytes to be received.
+* @param	InstancePtr Pointer to the XIicPs instance.
+* @param	MsgPtr Pointer to the receive buffer.
+* @param	ByteCount Number of bytes to be received.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
@@ -455,34 +455,31 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 * handling.
 *
 * The interrupts that are handled are:
-* - DATA
+* - DATA:
 *	If the instance is sending, it means that the master wants to read more
-*	data from us. Send more data, and check whether we are done with this
-*	send.
+*	data from us. Send more data, and check whether the send is complete.
 *
 *	If the instance is receiving, it means that the master has written
-* 	more data to us. Receive more data, and check whether we are done with
-*	with this receive.
+* 	more data to us. Receive more data, and check whether the receive is complete.
 *
-* - COMP
+* - COMP:
 *	This marks that stop sequence has been sent from the master, transfer
 *	is about to terminate. However, for receiving, the master may have
 *	written us some data, so receive that first.
 *
 *	It is an error if the amount of transferred data is less than expected.
 *
-* - NAK
+* - NAK:
 *	This marks that master does not want our data. It is for send only.
 *
-* - Other interrupts
+* - Other interrupts:
 *	These interrupts are marked as error.
 *
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
+* @param	InstancePtr Pointer to the XIicPs instance.
 *
 * @return	None.
 *
-* @note 	None.
 *
 ****************************************************************************/
 void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)

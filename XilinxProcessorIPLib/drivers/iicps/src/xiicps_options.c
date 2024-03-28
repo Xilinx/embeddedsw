@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xiicps_options.c
-* @addtogroup iicps Overview
+* @addtogroup iicps_api IICPS APIs
 * @{
 *
 * The xiicps_options.c file contains functions for the configuration of the XIccPs driver.
@@ -78,12 +78,12 @@ static OptionsMap OptionsTable[] = {
 /**
 *
 * @brief
-* This function sets the options for the IIC device driver. The options control
+* Sets the options for the IIC device driver. The options control
 * how the device behaves relative to the IIC bus. The device must be idle
 * rather than busy transferring data before setting these device options.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
-* @param	Options contains the specified options to be set. This is a bit
+* @param	InstancePtr Pointer to the XIicPs instance.
+* @param	Options Contains the specified options to be set. This is a bit
 *		mask where a 1 means to turn the option on. One or more bit
 *		values may be contained in the mask. See the bit definitions
 *		named XIICPS_*_OPTION in xiicps.h.
@@ -161,12 +161,12 @@ s32 XIicPs_SetOptions(XIicPs *InstancePtr, u32 Options)
 /**
 *
 * @brief
-* This function clears the options for the IIC device driver. The options
+* Clears the options for the IIC device driver. The options
 * control how the device behaves relative to the IIC bus. The device must be
 * idle rather than busy transferring data before setting these device options.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
-* @param	Options contains the specified options to be cleared. This is a
+* @param	InstancePtr Pointer to the XIicPs instance.
+* @param	Options Contains the specified options to be cleared. This is a
 *		bit mask where a 1 means to turn the option off. One or more bit
 *		values may be contained in the mask. See the bit definitions
 *		named XIICPS_*_OPTION in xiicps.h.
@@ -246,10 +246,10 @@ s32 XIicPs_ClearOptions(XIicPs *InstancePtr, u32 Options)
 /*****************************************************************************/
 /**
 * @brief
-* This function gets the options for the IIC device. The options control how
+* Gets the options for the IIC device. The options control how
 * the device behaves relative to the IIC bus.
 *
-* @param        InstancePtr is a pointer to the XIicPs instance.
+* @param        InstancePtr Pointer to the XIicPs instance.
 *
 * @return       32 bit mask of the options, where a 1 means the option is on,
 *               and a 0 means to the option is off. One or more bit values may
@@ -306,7 +306,7 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 /**
 *
 * @brief
-* This function sets the serial clock rate for the IIC device. The device
+* Sets the serial clock rate for the IIC device. The device
 * must be idle rather than busy transferring data before setting these device
 * options.
 *
@@ -316,8 +316,8 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 * See the hardware data sheet for a full explanation of setting the serial
 * clock rate.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
-* @param	FsclHz is the clock frequency in Hz. The two most common clock
+* @param	InstancePtr Pointer to the XIicPs instance.
+* @param	FsclHz Clock frequency in Hz. The two most common clock
 *		rates are 100KHz and 400KHz.
 *
 * @return
@@ -454,11 +454,11 @@ s32 XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 /**
 *
 * @brief
-* This function gets the serial clock rate for the IIC device. The device
+* Sets the serial clock rate for the IIC device. The device
 * must be idle rather than busy transferring data before setting these device
 * options.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
+* @param	InstancePtr Pointer to the XIicPs instance.
 *
 * @return	The value of the IIC clock to the nearest Hz based on the
 *		control register settings. The actual value may not be exact to
