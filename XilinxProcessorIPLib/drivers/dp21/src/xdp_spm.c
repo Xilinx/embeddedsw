@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -142,14 +142,20 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 	 * capabilities of the DisplayPort TX core. */
 	if (MsaConfig->OverrideUserPixelWidth == 0) {
 		/* Check for Dp2.1or DP1.4/Dp1.2/1.1 */
-		if (MsaConfig->PixelClockHz > 540000000 &&
+		if (MsaConfig->PixelClockHz > 1188000000 &&
 		    LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4 &&
-		    XPAR_XDP_0_QUAD_PIXEL_ENABLE == 1) {
+			XPAR_XDP_0_OCTA_PIXEL_ENABLE == 1) {
+			MsaConfig->UserPixelWidth = 8;
+		} else if (((MsaConfig->PixelClockHz > 540000000) &&
+		    (LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4) &&
+		    XPAR_XDP_0_QUAD_PIXEL_ENABLE == 1  ||
+			XPAR_XDP_0_OCTA_PIXEL_ENABLE == 1)) {
 			MsaConfig->UserPixelWidth = 4;
 		} else if ((MsaConfig->PixelClockHz > 270000000) &&
 			   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1) &&
 			   ((XPAR_XDP_0_DUAL_PIXEL_ENABLE == 1) ||
-			    (XPAR_XDP_0_QUAD_PIXEL_ENABLE == 1))) {
+			    (XPAR_XDP_0_QUAD_PIXEL_ENABLE == 1) ||
+				(XPAR_XDP_0_OCTA_PIXEL_ENABLE == 1))) {
 			MsaConfig->UserPixelWidth = 2;
 		} else {
 			MsaConfig->UserPixelWidth = 1;
@@ -1002,7 +1008,7 @@ void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 	Xil_AssertVoid((UserPixelWidth == 1) || (UserPixelWidth == 2) ||
-		       (UserPixelWidth == 4));
+		       (UserPixelWidth == 4) || (UserPixelWidth == 8));
 	/* Check the main link status. */
 	Xil_AssertVoid(XDp_ReadReg(InstancePtr->Config.BaseAddr,
 				   XDP_TX_ENABLE_MAIN_STREAM) == 0);
@@ -1036,7 +1042,7 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
 	Xil_AssertVoid((UserPixelWidth == 1) || (UserPixelWidth == 2) ||
-							(UserPixelWidth == 4));
+							(UserPixelWidth == 4) || (UserPixelWidth == 8));
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_USER_PIXEL_WIDTH,
 								UserPixelWidth);

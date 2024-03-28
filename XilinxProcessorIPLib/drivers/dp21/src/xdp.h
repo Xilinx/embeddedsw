@@ -522,6 +522,7 @@ typedef struct {
 					core instance. */
 	u8 MaxBitsPerColor;	/**< The maximum bits/color supported by this
 					core instance*/
+	u8 OctaPixelEn;		/**< Octa pixel support by this core instance.*/
 	u8 QuadPixelEn;		/**< Quad pixel support by this core
 					instance. */
 	u8 DualPixelEn;		/**< Dual pixel support by this core
