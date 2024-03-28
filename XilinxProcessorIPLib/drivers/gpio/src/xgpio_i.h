@@ -1,16 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /******************************************************************************/
 /**
 * @file xgpio_i.h
-* @addtogroup gpio Overview
+* @addtogroup gpio_api GPIO APIs
 * @{
 *
-* The xgpio_i.h header file contains internal identifiers, which are those
-* shared between the files of the driver. It is intended for internal use only.
+* The xgpio_i.h header file contains internal identifiers, which are
+* shared among the files of the driver. It is intended for internal use only.
 *
 * <pre>
 * MODIFICATION HISTORY:
