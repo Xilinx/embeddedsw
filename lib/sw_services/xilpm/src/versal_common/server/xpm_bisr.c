@@ -49,24 +49,6 @@
 #define CFRM_URAM_EXP_REPAIR_INDEX_SHIFT		(0U)
 #define CFRM_URAM_EXP_REPAIR_VAL_SHIFT			(0U)
 
-void XPmBisr_SwError(u32 ErrorCode)
-{
-	const XPm_Pmc *Pmc;
-
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-	if (NULL == Pmc) {
-		goto done;
-	}
-
-	XPm_Out32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PMC_GSW_ERR_OFFSET,
-		  XPm_In32(Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PMC_GSW_ERR_OFFSET) |
-		  ((u32)1U << ErrorCode) |
-		  (1UL << PMC_GLOBAL_PMC_GSW_ERR_CR_FLAG_SHIFT));
-
-done:
-	return;
-}
-
 u32 XPmBisr_CopyStandard(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestAddr)
 {
 	u64 TagRow;
@@ -130,7 +112,6 @@ XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *T
 		Status = XST_SUCCESS;
 		break;
 	default:
-		XPmBisr_SwError(PMC_EFUSE_BISR_UNSUPPORTED_ID);
 		DbgErr = XPM_INT_ERR_BISR_UNSUPPORTED_ID;
 		Status = XST_FAILURE;
 		break;
@@ -404,7 +385,6 @@ XStatus XPmBisr_Repair2(u32 TagId)
 
 	/* check requested ID is a valid ID */
 	if (255U < TagId) {
-		XPmBisr_SwError(PMC_EFUSE_BISR_UNKN_TAG_ID);
 		DbgErr = XPM_INT_ERR_BISR_UNKN_TAG_ID;
 		Status = XST_FAILURE;
 		goto done;
@@ -478,7 +458,6 @@ XStatus XPmBisr_Repair2(u32 TagId)
 				break;
 #endif
 			default:
-				XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);
 				DbgErr = XPM_INT_ERR_BAD_TAG_TYPE;
 				Status = XST_FAILURE;
 				break;

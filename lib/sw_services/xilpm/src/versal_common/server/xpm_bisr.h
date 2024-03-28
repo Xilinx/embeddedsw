@@ -60,17 +60,9 @@ extern "C" {
 #define NPI_FIXED_BASEADDR                              (0xF6000000U)
 #define NPI_EFUSE_ENDPOINT_SHIFT                        (16U)
 
-/* EFUSE related software errors */
-#define PMC_EFUSE_BISR_UNKN_TAG_ID			(0x1U)
-#define PMC_EFUSE_BISR_INVLD_TAG_ID			(0x2U)
-#define PMC_EFUSE_BISR_BAD_TAG_TYPE			(0x3U)
-#define PMC_EFUSE_BISR_UNSUPPORTED_ID			(0x4U)
-#define PMC_EFUSE_BISR_CFRM_HB_BAD_SIZE			(0x5U)
-
 /************************** Function Prototypes ******************************/
 XStatus XPmBisr_Repair2(u32 TagId);
 u32 XPmBisr_CopyStandard(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestAddr);
-void XPmBisr_SwError(u32 ErrorCode);
 XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr, u32 TagId);
 u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize);
 u32 XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize);
