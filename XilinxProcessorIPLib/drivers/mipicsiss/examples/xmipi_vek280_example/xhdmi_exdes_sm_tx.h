@@ -300,10 +300,13 @@ typedef struct {
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-
+#ifndef SDT
 u32 XV_Tx_Hdmi_Initialize(XV_Tx *InstancePtr, u32 HdmiTxSsDevId,
 		u32 VPhyDevId, XV_Tx_IntrVecId IntrVecIds);
-
+#else
+u32 XV_Tx_Hdmi_Initialize(XV_Tx *InstancePtr, u32 HdmiTxSsDevId,
+		u32 VPhyDevId);
+#endif
 void XV_Tx_SetDebugPrints(XV_Tx_Debug_Printf PrintFunc);
 void XV_Tx_SetDebugStateMachinePrints(XV_Tx_Debug_Printf PrintFunc);
 void XV_Tx_SetDebugTxNewStreamSetupPrints(XV_Tx_Debug_Printf PrintFunc);
