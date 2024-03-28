@@ -16,7 +16,7 @@ END
 BEGIN LIBRARY
  PARAMETER LIBRARY_NAME = lwip220
  PARAMETER API_MODE = SOCKET_API
- PARAMETER dhcp_does_arp_check = true
+ PARAMETER lwip_dhcp_does_acd_check = true
  PARAMETER lwip_dhcp = true
  PARAMETER mem_size = 524288
  PARAMETER memp_n_pbuf = 1024
