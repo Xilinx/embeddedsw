@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xgpio_l.h
-* @addtogroup gpio Overview
+* @addtogroup gpio_api GPIO APIs
 * @{
 *
 * This header file contains identifiers and driver functions (or
@@ -118,13 +119,13 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* Write a value to a GPIO register. A 32 bit write is performed. If the
-* GPIO core is implemented in a smaller width, only the least significant data
+* Performs a 32-bit write to a GPIO register. If the GPIO core is
+* implemented in a smaller width, only the least significant data
 * is written.
 *
-* @param	BaseAddress is the base address of the GPIO device.
-* @param	RegOffset is the register offset from the base to write to.
-* @param	Data is the data written to the register.
+* @param	BaseAddress Base address of the GPIO device.
+* @param	RegOffset Register offset from the base to write to.
+* @param	Data Data written to the register.
 *
 * @return	None.
 *
@@ -138,13 +139,13 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* Read a value from a GPIO register. A 32 bit read is performed. If the
+* Reads a value from a GPIO register. A 32-bit read is performed. If the
 * GPIO core is implemented in a smaller width, only the least
 * significant data is read from the register. The most significant data
 * will be read as 0.
 *
-* @param	BaseAddress is the base address of the GPIO device.
-* @param	RegOffset is the register offset from the base to read from.
+* @param	BaseAddress Base address of the GPIO device.
+* @param	RegOffset Register offset from the base to read from.
 *
 * @return	Data read from the register.
 *

@@ -1,17 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2003 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xgpio_sinit.c
-* @addtogroup gpio Overview
+* @addtogroup gpio_api GPIO APIs
 * @{
 *
-* The xgpio_sinit.c file contains the implementation of the XGpio driver's
-* static initialization functionality.
+* The xgpio_sinit.c file contains the implementation of the static initialization functionality
+* of the XGpio driver.
 *
 *
 * <pre>
@@ -56,7 +56,7 @@
 * Lookup the device configuration based on the unique device ID.  The table
 * ConfigTable contains the configuration info for each device in the system.
 *
-* @param	DeviceId is the device identifier to lookup.
+* @param	DeviceId Device identifier to lookup.
 *
 * @return
 *		- A pointer of data type XGpio_Config which points to the
@@ -102,17 +102,17 @@ XGpio_Config *XGpio_LookupConfig(UINTPTR BaseAddress)
 #endif
 /****************************************************************************/
 /**
-* Initialize the XGpio instance provided by the caller based on the
+* Initializes the XGpio instance provided by the caller based on the
 * given DeviceID.
 *
-* Nothing is done except to initialize the InstancePtr.
+* Only InstancePtr is initialized.
 *
-* @param	InstancePtr is a pointer to an XGpio instance. The memory the
+* @param	InstancePtr Pointer to an XGpio instance. The memory that the
 *		pointer references must be pre-allocated by the caller. Further
 *		calls to manipulate the instance/driver through the XGpio API
 *		must be made with this pointer.
-* @param	DeviceId is the unique id of the device controlled by this XGpio
-*		instance. Passing in a device id associates the generic XGpio
+* @param	DeviceId Unique ID of the device controlled by this XGpio
+*		instance. Passing in a device ID associates the generic XGpio
 *		instance to a specific device, as chosen by the caller or
 *		application developer.
 *

@@ -1,16 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xgpio_extra.c
-* @addtogroup gpio Overview
+* @addtogroup  gpio_api GPIO APIs
 * @{
 *
-* The xgpio_extra.c file contains implementation of the XGpio driver's advanced
-* discrete functions.
+* The xgpio_extra.c file contains implementation of the advanced discrete functions
+* of the XGpio driver.
 * See xgpio.h for more information about the driver.
 *
 * @note
@@ -54,9 +55,9 @@
 /**
 * Set output discrete(s) to logic 1 for the specified GPIO channel.
 *
-* @param	InstancePtr is a pointer to an XGpio instance to be worked on.
-* @param	Channel contains the channel of the GPIO (1 or 2) to operate on.
-* @param	Mask is the set of bits that will be set to 1 in the discrete
+* @param	InstancePtr Pointer to an XGpio instance to be worked on.
+* @param	Channel Contains the channel of the GPIO (1 or 2) to operate on.
+* @param	Mask Set of bits that will be set to 1 in the discrete
 *		data register. All other bits in the data register are
 *		unaffected.
 *
@@ -98,15 +99,14 @@ void XGpio_DiscreteSet(XGpio * InstancePtr, unsigned Channel, u32 Mask)
 /**
 * Set output discrete(s) to logic 0 for the specified GPIO channel.
 *
-* @param	InstancePtr is a pointer to an XGpio instance to be worked on.
-* @param	Channel contains the channel of the GPIO (1 or 2) to operate on.
-* @param	Mask is the set of bits that will be set to 0 in the discrete
+* @param	InstancePtr Pointer to an XGpio instance to be worked on.
+* @param	Channel Contains the channel of the GPIO (1 or 2) to operate on.
+* @param	Mask Set of bits that will be set to 0 in the discrete
 *		data register. All other bits in the data register are
 *		unaffected.
 *
 * @return	None.
 *
-* @note
 *
 * The hardware must be built for dual channels if this function is used
 * with any channel other than 1.  If it is not, this function will assert.
