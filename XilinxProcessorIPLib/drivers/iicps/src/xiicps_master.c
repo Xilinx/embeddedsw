@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xiicps_master.c
-* @addtogroup iicps Overview
+* @addtogroup iicps_api IICPS APIs
 * @{
 *
 * The xiicps_master.c file handles master mode transfers.
@@ -78,15 +78,15 @@
 /*****************************************************************************/
 /**
 * @brief
-* This function initiates an interrupt-driven send in master mode.
+* Initiates an interrupt-driven send in master mode.
 *
-* It tries to send the first FIFO-full of data, then lets the interrupt
+* It tries to send the first FIFO full of data, then lets the interrupt
 * handler to handle the rest of the data if there is any.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
-* @param	SlaveAddr is the address of the slave we are sending to.
+* @param	InstancePtr Pointer to the XIicPs instance.
+* @param	MsgPtr Pointer to the send buffer.
+* @param	ByteCount Number of bytes to be sent.
+* @param	SlaveAddr Address of the slave we are sending to.
 *
 * @return	None.
 *
@@ -166,15 +166,15 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 /*****************************************************************************/
 /**
 * @brief
-* This function initiates an interrupt-driven receive in master mode.
+* Initiates an interrupt-driven receive in master mode.
 *
-* It sets the transfer size register so the slave can send data to us.
+* It sets the transfer size register so the slave can send data.
 * The rest of the work is managed by interrupt handler.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
-* @param	MsgPtr is the pointer to the receive buffer.
-* @param	ByteCount is the number of bytes to be received.
-* @param	SlaveAddr is the address of the slave we are receiving from.
+* @param	InstancePtr Pointer to the XIicPs instance.
+* @param	MsgPtr Pointer to the receive buffer.
+* @param	ByteCount Number of bytes to be received.
+* @param	SlaveAddr Address of the slave we are receiving from.
 *
 * @return	None.
 *
@@ -254,18 +254,18 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 /*****************************************************************************/
 /**
 * @brief
-* This function initiates a polled mode send in master mode.
+* Initiates a polled mode send in master mode.
 *
 * It sends data to the FIFO and waits for the slave to pick them up.
 * If master fails to send data due arbitration lost, will stop transfer
-* and with arbitration lost status
+* and with arbitration lost status.
 * If slave fails to remove data from FIFO, the send fails with
 * time out.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
-* @param	SlaveAddr is the address of the slave we are sending to.
+* @param	InstancePtr Pointer to the XIicPs instance.
+* @param	MsgPtr Pointer to the send buffer.
+* @param	ByteCount Number of bytes to be sent.
+* @param	SlaveAddr Address of the slave we are sending to.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
@@ -405,7 +405,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 /*****************************************************************************/
 /**
 * @brief
-* This function initiates a polled mode receive in master mode.
+* Initiates a polled mode receive in master mode.
 *
 * It repeatedly sets the transfer size register so the slave can
 * send data to us. It polls the data register for data to come in.
@@ -413,10 +413,10 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 * with arbitration lost status.
 * If slave fails to send us data, it fails with time out.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
-* @param	MsgPtr is the pointer to the receive buffer.
-* @param	ByteCount is the number of bytes to be received.
-* @param	SlaveAddr is the address of the slave we are receiving from.
+* @param	InstancePtr Pointer to the XIicPs instance.
+* @param	MsgPtr Pointer to the receive buffer.
+* @param	ByteCount Number of bytes to be received.
+* @param	SlaveAddr Address of the slave we are receiving from.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
@@ -526,19 +526,18 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 /*****************************************************************************/
 /**
 * @brief
-* This function enables the slave monitor mode.
+* Enables the slave monitor mode.
 *
 * It enables slave monitor in the control register and enables
 * slave ready interrupt. It then does an address transfer to slave.
 * Interrupt handler will signal the caller if slave responds to
 * the address transfer.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
-* @param	SlaveAddr is the address of the slave we want to contact.
+* @param	InstancePtr Pointer to the XIicPs instance.
+* @param	SlaveAddr Address of the slave to contact.
 *
 * @return	None.
 *
-* @note		None.
 *
 ****************************************************************************/
 void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
@@ -601,13 +600,12 @@ void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr)
 /*****************************************************************************/
 /**
 * @brief
-* This function disables slave monitor mode.
+* Disables slave monitor mode.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
+* @param	InstancePtr Pointer to the XIicPs instance.
 *
 * @return	None.
 *
-* @note		None.
 *
 ****************************************************************************/
 void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
@@ -678,12 +676,12 @@ void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 * Completion events and errors are signaled to upper layer for proper handling.
 *
 * The interrupts that are handled are:
-* - DATA
+* - DATA:
 *	This case is handled only for master receive data.
 *	The master has to request for more data (if there is more data to
-*	receive) and read the data from the FIFO .
+*	receive) and read the data from the FIFO.
 *
-* - COMP
+* - COMP:
 *	If the Master is transmitting data and there is more data to be
 *	sent then the data is written to the FIFO. If there is no more data to
 *	be transmitted then a completion event is signalled to the upper layer
@@ -695,18 +693,17 @@ void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 *	is signalled to the upper layer by calling the callback handler.
 *	It is an error if the amount of received data is more than expected.
 *
-* - NAK and SLAVE_RDY
+* - NAK and SLAVE_RDY:
 *	This is signalled to the upper layer by calling the callback handler.
 *
-* - All Other interrupts
+* - All Other interrupts:
 *	These interrupts are marked as error. This is signalled to the upper
 *	layer by calling the callback handler.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
+* @param	InstancePtr Pointer to the XIicPs instance.
 *
 * @return	None.
 *
-* @note 	None.
 *
 ****************************************************************************/
 void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)

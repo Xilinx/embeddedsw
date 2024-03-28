@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xiicps_hw.h
-* @addtogroup iicps Overview
+* @addtogroup iicps_api IICPS APIs
 * @{
 *
 * The xiicps_hw.h header file contains the hardware definition for an IIC device.
@@ -248,10 +248,10 @@ extern "C" {
 
 /****************************************************************************/
 /**
-* Read an IIC register.
+* Reads an IIC register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param	BaseAddress Contains the base address of the device.
+* @param	RegOffset Contains the offset from the 1st register of the
 *		device to select the specific register.
 *
 * @return	The value read from the register.
@@ -265,12 +265,12 @@ extern "C" {
 
 /***************************************************************************/
 /**
-* Write an IIC register.
+* Writes an IIC register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param	BaseAddress Contains the base address of the device.
+* @param	RegOffset Contains the offset from the 1st register of the
 *		device to select the specific register.
-* @param	RegisterValue is the value to be written to the register.
+* @param	RegisterValue Value to be written to the register.
 *
 * @return	None.
 *
@@ -283,9 +283,9 @@ extern "C" {
 
 /***************************************************************************/
 /**
-* Read the interrupt enable register.
+* Reads the interrupt enable register.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param	BaseAddress Contains the base address of the device.
 *
 * @return	Current bit mask that represents currently enabled interrupts.
 *
@@ -298,11 +298,11 @@ extern "C" {
 
 /***************************************************************************/
 /**
-* Write to the interrupt enable register.
+* Writes to the interrupt enable register.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param	BaseAddress Contains the base address of the device.
 *
-* @param	IntrMask is the interrupts to be enabled.
+* @param	IntrMask Interrupts to be enabled.
 *
 * @return	None.
 *
@@ -315,9 +315,9 @@ extern "C" {
 
 /***************************************************************************/
 /**
-* Disable all interrupts.
+* Disables all interrupts.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param	BaseAddress Contains the base address of the device.
 *
 * @return	None.
 *
@@ -331,11 +331,11 @@ extern "C" {
 
 /***************************************************************************/
 /**
-* Disable selected interrupts.
+* Disables selected interrupts.
 *
-* @param	BaseAddress contains the base address of the device.
+* @param	BaseAddress Contains the base address of the device.
 *
-* @param	IntrMask is the interrupts to be disabled.
+* @param	IntrMask Interrupts to be disabled.
 *
 * @return	None.
 *

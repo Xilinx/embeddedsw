@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xiicps_selftest.c
-* @addtogroup iicps Overview
+* @addtogroup iicps_api IICPS APIs
 * @{
 *
 * The xiicps_selftest.c file component contains the implementation of selftest functions for the
@@ -57,12 +57,12 @@
 *
 * Upon successful return from the self-test, the device is reset.
 *
-* @param	InstancePtr is a pointer to the XIicPs instance.
+* @param	InstancePtr Pointer to the XIicPs instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_REGISTER_ERROR indicates a register did not read or write
-*		correctly
+*		correctly.
 *
 * @note		None.
 *

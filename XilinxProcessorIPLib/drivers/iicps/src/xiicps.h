@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,116 +8,10 @@
 /**
 *
 * @file xiicps.h
-* @addtogroup iicps Overview
+* @addtogroup iicps_api IICPS APIs
 * @{
 * @details
 *
-* The xiicps.h header file is an implementation of IIC driver in the PS block.
-* The device can be either a master or a slave on the IIC bus.
-* This implementation supports both interrupt mode transfer and polled mode
-* transfer. Only 7-bit address is used in the driver, although the hardware
-* also supports 10-bit address.
-*
-* IIC is a 2-wire serial interface.  The master controls the clock, so it can
-* regulate when it wants to send or receive data. The slave is under control of
-* the master, it must respond quickly since it has no control of the clock and
-* must send/receive data as fast or as slow as the master does.
-*
-* The higher level software must implement a higher layer protocol to inform
-* the slave what to send to the master.
-*
-* <b>Initialization & Configuration</b>
-*
-* The XIicPs_Config structure is used by the driver to configure itself. This
-* configuration structure is typically created by the tool-chain based on HW
-* build properties.
-*
-* To support multiple runtime loading and initialization strategies employed by
-* various operating systems, the driver instance can be initialized in the
-* following way:
-*
-*    - XIicPs_LookupConfig(DeviceId) - Use the device identifier to find
-*      the static configuration structure defined in xiicps_g.c. This is
-*      setup by the tools. For some operating systems the config structure
-*      will be initialized by the software and this call is not needed.
-*
-*    - XIicPs_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
-*      configuration structure provided by the caller. If running in a
-*      system with address translation, the provided virtual memory base
-*      address replaces the physical address in the configuration
-*      structure.
-*
-* <b>Multiple Masters</b>
-*
-* More than one master can exist, bus arbitration is defined in the IIC
-* standard. Lost of arbitration causes arbitration loss interrupt on the device.
-*
-* <b>Multiple Slaves</b>
-*
-* Multiple slaves are supported by selecting them with unique addresses. It is
-* up to the system designer to be sure all devices on the IIC bus have
-* unique addresses.
-*
-* <b>Addressing</b>
-*
-* The IIC hardware can use 7 or 10 bit addresses.  The driver provides the
-* ability to control which address size is sent in messages as a master to a
-* slave device.
-*
-* <b>FIFO Size </b>
-* The hardware FIFO is 32 bytes deep. The user must know the limitations of
-* other IIC devices on the bus. Some are only able to receive a limited number
-* of bytes in a single transfer.
-*
-* <b>Data Rates</b>
-*
-* The data rate is set by values in the control register. The formula for
-* determining the correct register values is:
-* Fscl = Fpclk/(22 x (divisor_a+1) x (divisor_b+1))
-*
-* When the device is configured as a slave, the slck setting controls the
-* sample rate and so must be set to be at least as fast as the fastest scl
-* expected to be seen in the system.
-*
-* <b>Polled Mode Operation</b>
-*
-* This driver supports polled mode transfers.
-*
-* <b>Interrupts</b>
-*
-* The user must connect the interrupt handler of the driver,
-* XIicPs_InterruptHandler to an interrupt system such that it will be called
-* when an interrupt occurs. This function does not save and restore the
-* processor context such that the user must provide this processing.
-*
-* The driver handles the following interrupts:
-* - Transfer complete
-* - More Data
-* - Transfer not Acknowledged
-* - Transfer Time out
-* - Monitored slave ready - master mode only
-* - Receive Overflow
-* - Transmit FIFO overflow
-* - Receive FIFO underflow
-* - Arbitration lost
-*
-* <b>Bus Busy</b>
-*
-* Bus busy is checked before the setup of a master mode device, to avoid
-* unnecessary arbitration loss interrupt.
-*
-* <b>RTOS Independence</b>
-*
-* This driver is intended to be RTOS and processor independent.  It works with
-* physical addresses only.  Any needs for dynamic memory management, threads or
-* thread mutual exclusion, virtual memory, or cache control must be satisfied by
-* the layer above this driver.
-*
-*<b>Repeated Start</b>
-*
-* The I2C controller does not indicate completion of a receive transfer if HOLD
-* bit is set. Due to this errata, repeated start cannot be used if a receive
-* transfer is followed by any other transfer.
 *
 * <pre> MODIFICATION HISTORY:
 *
@@ -254,13 +148,13 @@ extern "C" {
 /**
 * The handler data type allows the user to define a callback function to
 * respond to interrupt events in the system. This function is executed
-* in interrupt context, so amount of processing should be minimized.
+* in interrupt context, so that the amount of processing should be minimized.
 *
-* @param	CallBackRef is the callback reference passed in by the upper
+* @param	CallBackRef Reference passed in by the upper
 *		layer when setting the callback functions, and passed back to
 *		the upper layer when the callback is invoked. Its type is
 *		not important to the driver, so it is a void pointer.
-* @param	StatusEvent indicates one or more status events that occurred.
+* @param	StatusEvent Indicates one or more status events that occurred.
 */
 typedef void (*XIicPs_IntrHandler) (void *CallBackRef, u32 StatusEvent);
 
@@ -324,11 +218,10 @@ extern XIicPs_Config XIicPs_ConfigTable[];	/**< Configuration table */
 *
 * This function is to check if Rx data is valid or not.
 *
-* @param        InstancePtr	pointer to the XIicPs instance.
+* @param        InstancePtr	Pointer to the XIicPs instance.
 *
 * @return       returns '1' if Rx data is valid, '0' otherwise.
 *
-* @note         None.
 *
 ******************************************************************************/
 static INLINE u32 XIicPs_RxDataValidStatus(XIicPs *InstancePtr)
@@ -341,7 +234,7 @@ static INLINE u32 XIicPs_RxDataValidStatus(XIicPs *InstancePtr)
 /**
 * Place one byte into the transmit FIFO.
 *
-* @param	InstancePtr is the instance of IIC
+* @param	InstancePtr Pointer to the XIicPs instance.
 *
 * @return	None.
 *
@@ -365,7 +258,7 @@ static INLINE u32 XIicPs_RxDataValidStatus(XIicPs *InstancePtr)
 *
 * Receive one byte from FIFO.
 *
-* @param	InstancePtr is the instance of IIC
+* @param	InstancePtr Pointer to the XIicPs instance.
 *
 * @return	None.
 *
