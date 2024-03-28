@@ -27,6 +27,7 @@
 *       am   01/31/24 Moved Key Management operations under PLM_OCP_KEY_MNGMT macro
 *       kpt  01/22/24 Added support to extend secure state into SWPCR
 *       kpt  02/21/24 Add support for DME CSR extension
+*	vss  03/16/24 Fixed review comments of XOcp_DmeXppuConfig
 *
 * </pre>
 * @note
@@ -69,7 +70,8 @@
 #define XOCP_PAYLOAD_START_INDEX	(1U) /**< Start index of payload */
 #define XOCP_DOUBLE_NUM_OF_WORDS	(2U) /**< To double number of words */
 #define XOCP_XPPU_MAX_APERTURES         (19U) /**< Maximum XPPU apertures */
-#define XOCP_XPPU_ENABLED               (0xFFFFFFFFU) /**< XPPU enabled */
+#define XOCP_XPPU_ENABLED               (0x46E56A7CU) /**< XPPU enabled */
+#define XOCP_XPPU_DISABLED		(0x0U) /**< XPPU disabled */
 #define XOCP_XPPU_MASTER_ID_0           (17U) /**< XPPU master id 0 */
 #define XOCP_XPPU_MASTER_ID_1           (18U) /**< XPPU master id 1 */
 #define XOCP_GET_ALL_PCR_MASK           (0x000000FFU) /**< All PCR read mask */
@@ -117,7 +119,7 @@ static XOcp_DmeXppuCfg XOcp_DmeXppuCfgTable[XOCP_XPPU_MAX_APERTURES] =
 	{PMC_XPPU_APERPERM_386, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL, 0U, 0U},
 	/* Configure [23:16] bits of Aperture_049 address */
 	{PMC_XPPU_DYNAMIC_RECONFIG_APER_ADDR, XOCP_XPPU_DYNAMIC_RECONFIG_APER_SET_VALUE, 0U, 0U},
-	/* Configure PPU0 to enable reconfiguration and PPU1 to configure XPPU registers after DME opertaion */
+	/* Configure PPU0 to enable reconfiguration and PPU1 to configure XPPU registers after DME operation*/
 	{PMC_XPPU_DYNAMIC_RECONFIG_APER_PERM, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL, 0U, 0U},
 	/* MASTER ID 00 */
 	{PMC_XPPU_MASTER_ID00, XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL, 0U, 0U},
@@ -140,8 +142,8 @@ static int XOcp_DigestMeasurementAndUpdateLog(u32 PcrNum);
 static int XOcp_StoreNoOfDigestPerPcr(u32 PcrNum, u32 NumOfDigests);
 static int XOcp_StoreEventIdConfig(u32 *Pload, u32 CurrIdx, u32 DigestCount, u32 Len);
 static int XOcp_ClearDigestData(u32 PcrNum);
-static void XOcp_DmeStoreXppuDefaultConfig(void);
-static void XOcp_DmeRestoreXppuDefaultConfig(void);
+static int XOcp_DmeStoreXppuDefaultConfig(void);
+static int XOcp_DmeRestoreXppuDefaultConfig(void);
 static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType);
 static int XOcp_StoreSwPcrConfig(u32 *Pload, u32 Len);
 static void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig);
@@ -152,7 +154,7 @@ static int XOcp_MeasureSecureState(void);
 
 /************************** Variable Definitions *****************************/
 
-/**< HW PCR log struture */
+/**< HW PCR log structure */
 static XOcp_HwPcrLog HwPcrLog = {0U};
 
 /**< Secure state hash */
@@ -782,6 +784,8 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
+	volatile u32 RegVal = XOCP_XPPU_ENABLED;
+	volatile u32 RegValtmp = XOCP_XPPU_ENABLED;
 	int ClearStatus = XST_FAILURE;
 #ifdef PLM_OCP_KEY_MNGMT
 	u32 *DevIkPubKey = (u32 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
@@ -791,7 +795,8 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	XOcp_DmeResponse *DmeResponse = XOcp_GetDmeResponse();
 	XOcp_Dme *DmePtr = &RomDmeInput;
 	XTrngpsx_Instance *TrngInstance = NULL;
-	u32 XppuEnabled = 0U;
+	volatile u32 XppuEnabled =  ~XOCP_XPPU_ENABLED;
+	volatile u32 XppuEnabledTmp =  ~XOCP_XPPU_ENABLED;
 	u32 Index;
 
 	/*
@@ -845,7 +850,10 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	}
 
 	/* Store the XPPU registers initial configuration */
-	XOcp_DmeStoreXppuDefaultConfig();
+	Status = XOcp_DmeStoreXppuDefaultConfig();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	for (Index = 0U; Index < XOCP_XPPU_MAX_APERTURES; Index++) {
 		if (Index == XOCP_XPPU_MASTER_ID_0) {
@@ -871,11 +879,14 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	Xil_Out32(PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
 
 	/* If XPPU is not enabled, enable XPPU */
-	if (((Xil_In32(PMC_XPPU_CTRL) & PMC_XPPU_CTRL_ENABLE_MASK)) == 0U) {
+	RegVal = (Xil_In32(PMC_XPPU_CTRL) & PMC_XPPU_CTRL_ENABLE_MASK);
+	RegValtmp = (Xil_In32(PMC_XPPU_CTRL) & PMC_XPPU_CTRL_ENABLE_MASK);
+	if ((RegVal == XOCP_XPPU_DISABLED) || (RegValtmp == XOCP_XPPU_DISABLED)) {
 		Status = Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
 			XOCP_PMC_XPPU_CTRL_ENABLE_VAL);
 		if (Status == XST_SUCCESS) {
 			XppuEnabled = XOCP_XPPU_ENABLED;
+			XppuEnabledTmp = XOCP_XPPU_ENABLED;
 		}
 	}
 
@@ -885,6 +896,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 
 	Status = XPlmi_RomISR(XPLMI_DME_CHL_SIGN_GEN);
 	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_DME_ROM_ERROR;
 		goto END;
 	}
 
@@ -906,9 +918,12 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 					(const u8 *)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_S_0, XOCP_ECC_P384_SIZE_BYTES,
 					XOCP_ECC_P384_SIZE_BYTES);
 END:
-	XOcp_DmeRestoreXppuDefaultConfig();
+	Status = XOcp_DmeRestoreXppuDefaultConfig();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
-	if (XppuEnabled == XOCP_XPPU_ENABLED) {
+	 if ((XppuEnabled == XOCP_XPPU_ENABLED) && (XppuEnabledTmp == XOCP_XPPU_ENABLED)) {
 		Status = Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
 			XOCP_PMC_XPPU_CTRL_DISABLE_VAL);
 	}
@@ -1076,14 +1091,22 @@ u32 XOcp_IsDmeChlAvail(void)
  *		before DME operation.
  *
  ******************************************************************************/
-static void XOcp_DmeStoreXppuDefaultConfig(void)
+static int  XOcp_DmeStoreXppuDefaultConfig(void)
 {
 	volatile u32 Index;
+	int Status = XST_FAILURE;
 
 	for (Index = 0U; Index < XOCP_XPPU_MAX_APERTURES; Index++) {
 		XOcp_DmeXppuCfgTable[Index].XppuAperReadCfgVal =
 			Xil_In32(XOcp_DmeXppuCfgTable[Index].XppuAperAddr);
 	}
+
+	if (Index == XOCP_XPPU_MAX_APERTURES) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+
 }
 
 /*****************************************************************************/
@@ -1092,9 +1115,11 @@ static void XOcp_DmeStoreXppuDefaultConfig(void)
  *		after DME operation.
  *
  ******************************************************************************/
-static void XOcp_DmeRestoreXppuDefaultConfig(void)
+static int XOcp_DmeRestoreXppuDefaultConfig(void)
 {
 	volatile u32 Index;
+	int Status = XST_FAILURE;
+	volatile u32 XppuDynamicReconfigDis = XOCP_XPPU_DISABLED;
 
 	/* Restore XPPU registers to their previous state */
 	for (Index = 0U; Index < XOCP_XPPU_MAX_APERTURES; Index++) {
@@ -1104,7 +1129,13 @@ static void XOcp_DmeRestoreXppuDefaultConfig(void)
 		}
 	}
 	Xil_Out32(PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
-	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_EN, 0x00);
+	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_EN, XppuDynamicReconfigDis);
+	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_EN, XppuDynamicReconfigDis);
+	if (Index == XOCP_XPPU_MAX_APERTURES) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }
 
 /*****************************************************************************/
