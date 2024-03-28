@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xiicps_xfer.h
-* @addtogroup iicps Overview
+* @addtogroup iicps_api IICPS APIs
 * @{
 *
 * The xiicps_xfer.h file contains implementation of required helper functions
@@ -46,9 +46,9 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* This function is to check if Rx data is valid or not.
+* Checks if Rx data is valid or not.
 *
-* @param        InstancePtr is a pointer to the XIicPs instance.
+* @param        InstancePtr Pointer to the XIicPs instance.
 *
 * @return       The return value is '1' if Rx data is valid, '0' otherwise.
 *
@@ -64,10 +64,10 @@ static INLINE u32 XIicPs_RxDataValid(XIicPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function is to check if Rx FIFO is full or not.
+* Checks if Rx FIFO is full or not.
 *
-* @param        InstancePtr is a pointer to the XIicPs instance.
-* @param        ByteCountVar is the number of bytes to be received.
+* @param        InstancePtr Pointer to the XIicPs instance.
+* @param        ByteCountVar Number of bytes to be received.
 *
 * @return       The return value is '0' if Rx FIFO is full, '1' otherwise.
 *

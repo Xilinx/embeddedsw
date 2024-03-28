@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xiicps_hw.c
-* @addtogroup iicps Overview
+* @addtogroup iicps_api IICPS APIs
 * @{
 *
 * The xiicps_hw.c file contains implementation of required functions for
@@ -44,16 +44,16 @@
 /*****************************************************************************/
 /**
 * @brief
-* This function perform the reset sequence to the given I2c interface by
+* Performs the reset sequence to the given I2c interface by
 * configuring the appropriate control bits in the I2c specific registers
 * the i2cps reset sequence involves the following steps
-*	Disable all the interuupts
+*	Disable all the interrupts
 *	Clear the status
 *	Clear FIFO's and disable hold bit
 *	Clear the line status
-*	Update relevant config registers with reset values
+*	Update relevant configuration registers with reset values
 *
-* @param   BaseAddress of the interface
+* @param   BaseAddress Base address of the interface
 *
 * @return None.
 *
@@ -99,11 +99,10 @@ void XIicPs_ResetHw(UINTPTR BaseAddress)
 * The upper layer software is responsible for re-configuring (if necessary)
 * and reenabling interrupts for the IIC device after the reset.
 *
-* @param        InstancePtr is a pointer to the XIicPs instance.
+* @param        InstancePtr Pointer to the XIicPs instance.
 *
 * @return       None.
 *
-* @note         None.
 *
 ******************************************************************************/
 void XIicPs_Reset(XIicPs *InstancePtr)
@@ -132,16 +131,15 @@ void XIicPs_Reset(XIicPs *InstancePtr)
 /*****************************************************************************/
 /**
 * @brief
-* This function receives data byte by byte till Rx data is valid in interrupt
+* Receives data byte by byte till Rx data is valid in interrupt
 * master mode.
 *
-* @param        InstancePtr is a pointer to the XIicPs instance.
-* @param        IsHold is the Hold status.
-* @param        ByteCntPtr is a pointer to the byte count.
+* @param        InstancePtr Pointer to the XIicPs instance.
+* @param        IsHold Hold status.
+* @param        ByteCntPtr Pointer to the byte count.
 *
 * @return       None.
 *
-* @note         None.
 *
  ****************************************************************************/
 
