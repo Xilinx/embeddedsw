@@ -21,6 +21,7 @@ depends_libs:
   lwip220:
     lwip220_api_mode: SOCKET_API
     lwip220_dhcp: true
+    lwip220_lwip_dhcp_does_acd_check: true
     lwip220_ipv6_enable: false
     lwip220_mem_size: 524288
     lwip220_memp_n_pbuf: 1024
