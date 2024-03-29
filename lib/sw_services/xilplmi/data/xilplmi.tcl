@@ -22,6 +22,8 @@
 #       dd   01/09/2024 Added client support
 #       gm   03/01/2024 Fixed the debug level option for XilSEM
 #                       for VP1902 decive.
+#       gm   03/28/2024 Modified read format of configurable parameter
+#                       for VP1902 device.
 #
 ##############################################################################
 
@@ -217,7 +219,9 @@ proc getCIPSProperty { cips_prop } {
 	set pspmcCell [::hsi::get_cells -hier -filter "IP_NAME==psxl"]
   }
   if {$pspmcCell ne ""} {
-    return [common::get_property $cips_prop $pspmcCell]
+	set readconfig [common::get_property $cips_prop $pspmcCell]
+	set readconfig [lindex $readconfig 0]
+	return $readconfig
   } else {
     set cipsCell [::hsi::get_cells -hier -filter "IP_NAME==versal_cips"]
     if {$cipsCell ne ""} {
