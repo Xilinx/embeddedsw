@@ -1,6 +1,6 @@
 
 # Copyright (C) 2015 - 2022 Xilinx, Inc.
-# Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 #
 # This file is part of the FreeRTOS port.
 #
@@ -933,7 +933,7 @@ proc generate {os_handle} {
 		}
          }
 
-	if { $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72" || $flag_mb64 == "1" } {
+	if { $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72" || $proctype == "psx_cortexa78" || $proctype == "psxl_cortexa78" || $flag_mb64 == "1" } {
 		puts $config_file "#define portPOINTER_SIZE_TYPE	uint64_t"
 	} else {
 		puts $config_file "#define portPOINTER_SIZE_TYPE	uint32_t"
