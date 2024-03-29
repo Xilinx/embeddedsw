@@ -26,6 +26,8 @@
 # 1.15  gm   12/02/23 Renamed Libxilsem.a to support Classic and SDT Vitis
 #                     flow
 # 1.16  gm   03/01/24 Fixed issue of XilSEM macros for VP1902 device.
+# 1.17  gm   03/28/24 Modified read format of configurable parameter
+#                     for VP1902 device.
 ##############################################################################
 
 #---------------------------------------------
@@ -103,7 +105,9 @@ proc getCIPSProperty { cips_prop } {
 	set pspmcCell [::hsi::get_cells -hier -filter "IP_NAME==psxl"]
   }
   if {$pspmcCell ne ""} {
-    return [common::get_property $cips_prop $pspmcCell]
+    set readconfig [common::get_property $cips_prop $pspmcCell]
+	set readconfig [lindex $readconfig 0]
+	return $readconfig
   } else {
     set cipsCell [::hsi::get_cells -hier -filter "IP_NAME==versal_cips"]
     if {$cipsCell ne ""} {
