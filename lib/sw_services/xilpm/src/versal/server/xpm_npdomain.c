@@ -19,6 +19,7 @@
 #include "xpm_rail.h"
 #include "xpm_device.h"
 #include "xpm_mem.h"
+#include "xplmi.h"
 
 #define XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN	XPM_NODEIDX_MONITOR_SYSMON_NPD_0
 #define XPM_NODEIDX_MEMIC_NSU_MIN1		XPM_NODEIDX_MEMIC_NSU_0
@@ -920,6 +921,12 @@ XStatus XPmNpDomain_ClockGate(const XPm_Node *Node, u8 State)
 	u32 BaseAddress, Reg;
 	u32 SlrType;
 	u32 Clock_State;
+
+	/* Return while power domains are being initialized during the boot */
+	if (XPlmi_IsLoadBootPdiDone() == FALSE) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	Status = XPmNpDomain_IsParentPowerNoc(Node, &DbgErr);
 	if (XST_SUCCESS != Status) {
