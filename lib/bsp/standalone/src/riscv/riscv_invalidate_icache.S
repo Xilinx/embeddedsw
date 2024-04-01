@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -33,7 +33,8 @@ riscv_invalidate_icache:
 	li 	t0, 0               /* Start at icache index 0 */
 	li 	t1, BYTE_SIZE       /* Stop at icache byte size */
 L_start:
-	.long	0x8002A00F          /* "cbo.inval (t0)" with bit 31 set to invalidate without matching address check */
+	.long	0x8022A00F          /* "cbo.flush (t0)" with bit 31 set to flush without matching address check */
+				    /* Flush is used since the instruction also affects the dcache */
 	addi	t0, t0, INCREMENT   /* Increment the address by line length in bytes */
 	bltu	t0, t1, L_start     /* Are we at the end? */
 #endif
