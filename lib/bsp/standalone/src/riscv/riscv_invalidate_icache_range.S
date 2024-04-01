@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -37,7 +37,8 @@ riscv_invalidate_icache_range:
         andi    t0, t0, -(INCREMENT)  /* Align end down to cache line */
         andi    a0, a0, -(INCREMENT)  /* Align start down to cache line */
 L_start:
-        cbo.inval (a0)                /* Invalidate the cache block (line) */
+        cbo.flush (a0)                /* Flush the cache block (line) */
+				      /* Flush is used since the instruction also affects the dcache */
         addi    a0, a0, (INCREMENT)   /* Increment the address by line length in bytes */
         bltu    a0, t0, L_start       /* Are we at the end? */
 #endif
