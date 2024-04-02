@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1025,6 +1025,27 @@ void XVphy_RegisterDebug(XVphy *InstancePtr);
 #define XVPHY_GTHE3 4
 #define XVPHY_GTHE4 5
 #define XVPHY_GTYE4 6
+
+#define XVPHY_GTYE4_CHANNEL_ADAPT_CFG1	0x92
+#define XVPHY_GTYE4_CHANNEL_CKCAL1_CFG_0	0xF7
+#define XVPHY_GTYE4_CHANNEL_CKCAL1_CFG_1	0xF8
+#define XVPHY_GTYE4_CHANNEL_CKCAL2_CFG_0	0xF9
+#define XVPHY_GTYE4_CHANNEL_CKCAL2_CFG_1	0x101
+
+#define XVPHY_GTYE4_CHANNEL_TXDRV_FREQBAND	0xFA
+#define XVPHY_GTYE4_CHANNEL_TXFE_CFG1	0xA1
+#define XVPHY_GTYE4_CHANNEL_TXFE_CFG2	0x53
+#define XVPHY_GTYE4_CHANNEL_TXFE_CFG3	0x54
+
+#define XVPHY_GTYE4_CHANNEL_TXPHDLY_CFG1	0x6F
+#define XVPHY_GTYE4_CHANNEL_TXPI_CFG0	0xA7
+#define XVPHY_GTYE4_CHANNEL_TXPI_CFG1	0xA8
+#define XVPHY_GTYE4_CHANNEL_TX_PI_BIASSET	0xFB
+#define XVPHY_GTYE4_CHANNEL_CH_HSPMUX	0x116
+#define XVPHY_GTYE4_CHANNEL_TXOUT_DIV	0x7C
+
+#define XVPHY_GTYE4_CHANNEL_RTX_BUF_CML_CTRL	0xDD
+#define XVPHY_GTYE4_CHANNEL_TX_CLK25_DIV	0x7A
 
 #ifdef __cplusplus
 }

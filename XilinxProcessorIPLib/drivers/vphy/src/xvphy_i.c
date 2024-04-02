@@ -1,6 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -846,6 +846,13 @@ u32 XVphy_DirReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
                ChId = XVPHY_CHANNEL_ID_CHA;
     }
 
+    if (((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_DP) ||
+		 (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP)) &&
+		((InstancePtr->Config.DpTxProtocol == 1) ||
+			(InstancePtr->Config.DpRxProtocol == 1))) {
+		ChId = XVPHY_CHANNEL_ID_CHA;
+    }
+
 	XVphy_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
 		if (Dir == XVPHY_DIR_TX) {
@@ -1088,6 +1095,7 @@ u32 XVphy_PllCalculator(XVphy *InstancePtr, u8 QuadId,
 	u64 PllClkInFreqHzIn = PllClkInFreqHz;
 	XVphy_Channel *PllPtr = &InstancePtr->Quads[QuadId].
 		Plls[XVPHY_CH2IDX(ChId)];
+	u64 LineRateHz;
 
 	if (!PllClkInFreqHzIn) {
 		PllClkInFreqHzIn = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
@@ -1103,11 +1111,17 @@ u32 XVphy_PllCalculator(XVphy *InstancePtr, u8 QuadId,
 		GtPllDivs = &InstancePtr->GtAdaptor->QpllDivs;
 	}
 
+	LineRateHz = XVphy_GetLineRateHz(InstancePtr, QuadId, ChId);
 	const u8 *M, *N1, *N2, *D;
 	for (N2 = GtPllDivs->N2; *N2 != 0; N2++) {
 	for (N1 = GtPllDivs->N1; *N1 != 0; N1++) {
 	for (M = GtPllDivs->M;   *M != 0;  M++) {
-		PllClkOutFreqHz = (PllClkInFreqHzIn * *N1 * *N2) / *M;
+
+		if (LineRateHz == XVPHY_DP_LINK_RATE_HZ_20GBPS) {
+			PllClkOutFreqHz = (PllClkInFreqHzIn * *N1 * *N2 *2) / *M;
+		} else {
+			PllClkOutFreqHz = (PllClkInFreqHzIn * *N1 * *N2) / *M;
+		}
 
 		/* Test if the calculated PLL clock is in the VCO range. */
 		Status = XVphy_CheckPllOpRange(InstancePtr, QuadId, ChId,
