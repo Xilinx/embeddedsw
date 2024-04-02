@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -70,6 +70,8 @@ extern "C" {
 #define XVPHY_DP_LINK_RATE_HZ_540GBPS	5400000000LL
 #define XVPHY_DP_LINK_RATE_HZ_810GBPS	8100000000LL
 #define XVPHY_DP_LINK_RATE_HZ_10GBPS	10000000000LL
+#define XVPHY_DP_LINK_RATE_HZ_135GBPS	13500000000LL
+#define XVPHY_DP_LINK_RATE_HZ_20GBPS	20000000000LL
 
 #define XVPHY_DP_REF_CLK_FREQ_HZ_162	 162000000LL
 #define XVPHY_DP_REF_CLK_FREQ_HZ_135	 135000000LL
