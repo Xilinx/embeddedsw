@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,6 +49,7 @@
 * 7.2   am  07/13/21  Fixed doxygen warnings
 * 7.4   kal 02/16/23  Increased usleep value to 6ms in Puf regeneration function
 *       nf  03/13/23  Fixed shifting of Puf auxiliary data in puf status register
+* 7.6   har 04/02/24  Added description for XILSKEY_PUF_KEK_REGEN_RDY_TIMEOUT macro
 *
 * </pre>
 *
@@ -61,10 +62,14 @@
 #include "xilskey_eps_zynqmp.h"
 #include "sleep.h"
 /************************** Constant Definitions *****************************/
-	/**
-	* Status of PUF word syndrome ready timeout
-	*/
+/**
+* Status of PUF word syndrome ready timeout
+*/
 #define XILSKEY_PUF_STATUS_SYN_WRD_RDY_TIMEOUT	(500000U)
+
+/**
+* Delay added to wait for key_rdy bit to be set during PUF regeneration
+*/
 #define XILSKEY_PUF_KEK_REGEN_RDY_TIMEOUT	(6000U)
 
 /**************************** Type Definitions ******************************/
