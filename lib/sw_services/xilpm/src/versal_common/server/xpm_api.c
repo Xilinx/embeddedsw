@@ -3502,6 +3502,12 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 		goto done;
 	}
 
+	if ((ARRAY_SIZE(XPlmi_PmAccessPermBuff) <= ApiId) ||
+	    (XPLMI_GET_ALL_IPI_MASK(XPLMI_NO_IPI_ACCESS) == XPlmi_PmAccessPermBuff[ApiId])) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
 	switch (ApiId) {
 	case PM_API(PM_GET_API_VERSION):
 	case PM_API(PM_GET_NODE_STATUS):
