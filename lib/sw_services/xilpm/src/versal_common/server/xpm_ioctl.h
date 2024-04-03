@@ -19,7 +19,6 @@ extern "C" {
 
 #define GGS_REGS	(4U)
 
-#define PSM_PGGS_REGS	(2U)
 #define PMC_PGGS_REGS	(2U)
 
 /* Tap delay bypass */

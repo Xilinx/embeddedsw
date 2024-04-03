@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1338,8 +1338,8 @@ typedef enum {
 	XPM_NODEIDX_DEV_GGS_3 = 0x3,
 	XPM_NODEIDX_DEV_PGGS_0 = 0x4,
 	XPM_NODEIDX_DEV_PGGS_1 = 0x5,
-	XPM_NODEIDX_DEV_PGGS_2 = 0x6,
-	XPM_NODEIDX_DEV_PGGS_3 = 0x7,
+	XPM_NODEIDX_DEV_PGGS_RESERVED_0 = 0x6,
+	XPM_NODEIDX_DEV_PGGS_RESERVED_1 = 0x7,
 	XPM_NODEIDX_DEV_VIRT_MAX = 0x8
 } XPm_VirtualDeviceNodeIdx;
 
