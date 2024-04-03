@@ -435,7 +435,7 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		}
 	}
 
-	for (i = PM_DEV_PGGS_0; i <= PM_DEV_PGGS_3; i++) {
+	for (i = PM_DEV_PGGS_0; i <= PM_DEV_PGGS_1; i++) {
 		Status = XPm_AddDevRequirement(Subsystem, i, j, NULL, 0);
 		if (XST_SUCCESS != Status) {
 			goto done;
