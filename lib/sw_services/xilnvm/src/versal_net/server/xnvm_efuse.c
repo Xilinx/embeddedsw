@@ -27,11 +27,12 @@
 *       kpt  07/26/2023 Fix security review comments
 *       kpt  08/28/2023 Fix SW-BP-REDUNDANCY while assigning Status to CloseStatus
 *       kpt  09/05/2023 Fix SW-BP-REDUNDANCY in XNvm_EfusePrgmIv and XNvm_EfuseWriteDmeRevoke
-*       kpt  09/09/2023 Avoid returning XST_SUCCESS incase of glitch
+*       kpt  09/09/2023 Avoid returning XST_SUCCESS in case of glitch
 *       yog  09/13/2023 Used XNvm_IsDmeModeEn() API for reading DME Mode
 *       vss  12/31/2023 Added support for Program the eFuse protection bits only once
 *       kal  01/24/2024 Fixed doxygen warnings
 * 3.3	kpt  02/01/2024 XNvm_EfuseWriteRoSwapEn only when RoSwap is non-zero
+*	vss  04/01/2024 Fixed MISRA-C 12.1 violation
 *
 * </pre>
 *
@@ -1340,8 +1341,8 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 	 */
 	if ((KeyType != XNVM_EFUSE_DME_USER_KEY_0) &&
 		(KeyType != XNVM_EFUSE_DME_USER_KEY_1) &&
-		(KeyType != XNVM_EFUSE_DME_USER_KEY_2 &&
-		(KeyType != XNVM_EFUSE_DME_USER_KEY_3))) {
+		(KeyType != XNVM_EFUSE_DME_USER_KEY_2) &&
+		(KeyType != XNVM_EFUSE_DME_USER_KEY_3)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
@@ -3549,7 +3550,7 @@ END:
  * @return	- XST_SUCCESS - Specified bit set in eFUSE.
  *		- XNVM_EFUSE_ERR_PGM_VERIFY  - Verification failed, specified bit
  *						   is not set.
- *		- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occured.
+ *		- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occurred.
  *		- XST_FAILURE                - Unexpected error.
  *
  ******************************************************************************/
