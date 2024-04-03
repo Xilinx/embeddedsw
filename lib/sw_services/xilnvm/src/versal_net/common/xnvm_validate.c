@@ -22,7 +22,7 @@
 * 3.2   kpt  09/02/2023 Add volatile keyword to avoid compiler optimization
 * 3.2   yog  09/13/2023 Added XNvm_IsDmeModeEn() API
 * 3.2   mb   10/03/2023 Add XNvm_EfuseAreAllIvsProgrammed() API
-* 3.3	vss  04/01/2024 Fixed MISRA-C 12.1 violation
+* 3.3	vss  04/01/2024 Fixed MISRA-C 12.1 violation and EXPRESSION_WITH_MAGIC_NUMBERS coverity warning
 *
 * </pre>
 *
@@ -289,7 +289,7 @@ static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvOffset)
 {
 	volatile int Status = XST_FAILURE;
 	u32 IvRowsRd;
-	u32 EndOffset = IvOffset + (XNVM_EFUSE_IV_LEN_IN_WORDS * 4U);
+	u32 EndOffset = IvOffset + XNVM_EFUSE_IV_LEN_IN_BYTES;
 	volatile u32 Offset = IvOffset;
 
 	while(Offset < EndOffset){

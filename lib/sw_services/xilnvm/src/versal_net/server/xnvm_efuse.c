@@ -32,7 +32,7 @@
 *       vss  12/31/2023 Added support for Program the eFuse protection bits only once
 *       kal  01/24/2024 Fixed doxygen warnings
 * 3.3	kpt  02/01/2024 XNvm_EfuseWriteRoSwapEn only when RoSwap is non-zero
-*	vss  04/01/2024 Fixed MISRA-C 12.1 violation
+*	vss  04/01/2024 Fixed MISRA-C 12.1 violation and EXPRESSION_WITH_MAGIC_NUMBERS coverity warning
 *
 * </pre>
 *
@@ -2215,7 +2215,7 @@ static int XNvm_EfuseWritePufSynData(const u32 *SynData)
 	EfusePrgmInfo.NumOfRows = XNVM_EFUSE_PAGE_1_PUF_SYN_DATA_NUM_OF_ROWS;
 	EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_1;
 
-	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &SynData[64U]);
+	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &SynData[XNVM_EFUSE_PAGE_0_PUF_SYN_DATA_NUM_OF_ROWS]);
 END:
 	return Status;
 }
