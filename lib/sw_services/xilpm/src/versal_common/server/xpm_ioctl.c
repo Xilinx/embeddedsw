@@ -20,8 +20,8 @@
 
 static u32 PsmGgsValues[GGS_REGS] = {0U};
 
-static u32 PggsReadPermissions[PSM_PGGS_REGS + PMC_PGGS_REGS];
-static u32 PggsWritePermissions[PSM_PGGS_REGS + PMC_PGGS_REGS];
+static u32 PggsReadPermissions[PMC_PGGS_REGS];
+static u32 PggsWritePermissions[PMC_PGGS_REGS];
 static u32 GgsReadPermissions[GGS_REGS];
 static u32 GgsWritePermissions[GGS_REGS];
 
@@ -440,13 +440,12 @@ static XStatus XPm_ReadPggs(const u32 SubsystemId, const u32 PggsNum,
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-	const XPm_Psm *Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 
-	if ((NULL == Pmc) || (NULL == Psm)) {
+	if (NULL == Pmc) {
 		goto done;
 	}
 
-	if ((PSM_PGGS_REGS + PMC_PGGS_REGS) <= PggsNum) {
+	if (PMC_PGGS_REGS <= PggsNum) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -459,19 +458,9 @@ static XStatus XPm_ReadPggs(const u32 SubsystemId, const u32 PggsNum,
 		goto done;
 	}
 
-	/* Map PGGS0-1 to PMC_GLOBAL_PGGS3-4 and PGGS2-3 to PSM_GLOBAL_PGGS0-1 */
-	if (2U > PggsNum) {
-		PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PGGS3_OFFSET +
-		       (PggsNum << 2U)), *Value);
-	} else {
-		const XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
-		if ((u8)XPM_POWER_STATE_ON != Lpd->Node.State) {
-			Status = XST_FAILURE;
-			goto done;
-		}
-		PmIn32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_PGGS0_OFFSET) +
-		       ((PggsNum - 2U) << 2U), *Value);
-	}
+	/* Map PGGS0-1 to PMC_GLOBAL_PGGS3-4 */
+	PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PGGS3_OFFSET +
+	       (PggsNum << 2U)), *Value);
 
 done:
 	return Status;
@@ -482,13 +471,12 @@ static XStatus XPm_WritePggs(const u32 SubsystemId, const u32 PggsNum,
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-	const XPm_Psm *Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
 
-	if ((NULL == Pmc) || (NULL == Psm)) {
+	if (NULL == Pmc) {
 		goto done;
 	}
 
-	if ((PSM_PGGS_REGS + PMC_PGGS_REGS) <= PggsNum) {
+	if (PMC_PGGS_REGS <= PggsNum) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -501,19 +489,9 @@ static XStatus XPm_WritePggs(const u32 SubsystemId, const u32 PggsNum,
 		goto done;
 	}
 
-	/* Map PGGS0-1 to PMC_GLOBAL_PGGS3-4 and PGGS2-3 to PSM_GLOBAL_PGGS0-1 */
-	if (2U > PggsNum) {
-		PmOut32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PGGS3_OFFSET +
-			(PggsNum << 2U)), Value);
-	} else {
-		const XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
-		if ((u8)XPM_POWER_STATE_ON != Lpd->Node.State) {
-			Status = XST_FAILURE;
-			goto done;
-		}
-		PmOut32((Psm->PsmGlobalBaseAddr + PSM_GLOBAL_PGGS0_OFFSET) +
-			((PggsNum - 2U) << 2U), Value);
-	}
+	/* Map PGGS0-1 to PMC_GLOBAL_PGGS3-4 */
+	PmOut32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_PGGS3_OFFSET +
+		(PggsNum << 2U)), Value);
 
 done:
 	return Status;

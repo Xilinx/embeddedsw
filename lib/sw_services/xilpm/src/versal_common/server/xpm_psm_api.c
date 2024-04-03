@@ -197,8 +197,6 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 	u32 SubsystemId;
 	const XPm_Power *Lpd;
 	u32 CpuIdleFlag = 0;
-	u32 PsmPggs0Val;
-	u32 PsmPggs1Val;
 	const XPm_Psm *Psm;
 
 	if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
@@ -276,22 +274,10 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 			goto done;
 		}
 
-		/**
-		 * Read PSM_PGGS_0 and PSM_PGGS_1 registers value and do not
-		 * power down LPD if values are non zero, because both registers
-		 * are used by users and if LPD powers down then PGGS values
-		 * will be lost.
-		 */
-		PmIn32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_PGGS0_OFFSET,
-		       PsmPggs0Val);
-		PmIn32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_PGGS1_OFFSET,
-		       PsmPggs1Val);
-
 		/* Release devices requested by PLM to turn of LPD domain */
 		Lpd = XPmPower_GetById(PM_POWER_LPD);
 		if (((0U < Lpd->UseCount) &&
 		    (MIN_LPD_USE_COUNT >= Lpd->UseCount)) &&
-		    (0U == PsmPggs0Val) && (0U == PsmPggs1Val) &&
 		    (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) ||
 		     ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId)))) {
 			Status = ReleaseDeviceLpd();

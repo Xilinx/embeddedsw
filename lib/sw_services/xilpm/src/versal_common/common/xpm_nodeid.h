@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*
@@ -889,8 +889,8 @@ extern "C" {
 #define PM_DEV_GGS_3				(0x18248003U)
 #define PM_DEV_PGGS_0				(0x1824C004U)
 #define PM_DEV_PGGS_1				(0x1824C005U)
-#define PM_DEV_PGGS_2				(0x1824C006U)
-#define PM_DEV_PGGS_3				(0x1824C007U)
+#define PM_DEV_PGGS_RESERVED_0			(0x1824C006U)
+#define PM_DEV_PGGS_RESERVED_1			(0x1824C007U)
 /** @} */
 
 /**
