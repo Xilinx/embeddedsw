@@ -22,6 +22,7 @@
 * 3.2   kpt  09/02/2023 Add volatile keyword to avoid compiler optimization
 * 3.2   yog  09/13/2023 Added XNvm_IsDmeModeEn() API
 * 3.2   mb   10/03/2023 Add XNvm_EfuseAreAllIvsProgrammed() API
+* 3.3	vss  04/01/2024 Fixed MISRA-C 12.1 violation
 *
 * </pre>
 *
@@ -227,7 +228,7 @@ int XNvm_EfuseValidateIvWriteReq(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	u32 IvOffset = 0U;
 
     /**
-	 *  validate the input parametes. Return XNVM_EFUSE_ERR_INVALID_PARAM if inputs parameters are invalid
+	 *  validate the input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if inputs parameters are invalid
 	 */
 	if (IvType == XNVM_EFUSE_BLACK_IV) {
 		/**
@@ -288,7 +289,7 @@ static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvOffset)
 {
 	volatile int Status = XST_FAILURE;
 	u32 IvRowsRd;
-	u32 EndOffset = IvOffset + XNVM_EFUSE_IV_LEN_IN_WORDS * 4;
+	u32 EndOffset = IvOffset + (XNVM_EFUSE_IV_LEN_IN_WORDS * 4U);
 	volatile u32 Offset = IvOffset;
 
 	while(Offset < EndOffset){
@@ -325,7 +326,7 @@ int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count)
 {
 	volatile int Status = XST_FAILURE;
 	int IsrStatus = XST_FAILURE;
-	u32 EndOffset = CacheOffset + Count * XNVM_WORD_LEN;
+	u32 EndOffset = CacheOffset + (Count * XNVM_WORD_LEN);
 	volatile u32 Offset = CacheOffset;
 	u32 CacheData = 0U;
 
