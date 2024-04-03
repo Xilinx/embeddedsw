@@ -23,6 +23,7 @@
 * 3.2   yog  09/13/2023 Added XNvm_IsDmeModeEn() API
 * 3.2   mb   10/03/2023 Add XNvm_EfuseAreAllIvsProgrammed() API
 * 3.3	vss  04/01/2024 Fixed MISRA-C 12.1 violation and EXPRESSION_WITH_MAGIC_NUMBERS coverity warning
+*			Fixed MISRA-C Rule 8.3 violation
 *
 * </pre>
 *
@@ -41,7 +42,7 @@
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
-static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvAddress);
+static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvOffset);
 static int XNvm_EfuseAreAllIvsProgrammed(void);
 
 /************************** Constant Definitions *****************************/
@@ -277,7 +278,7 @@ END:
  *		the already programmed eFuse.
  *
  * @param	Iv  - Pointer to Iv data to be programmed.
- * @param	IvAddress - Start address of the Iv to be validated.
+ * @param	IvOffset - Offset of the Iv to be vaildated.
  *
  * @return	- XST_SUCCESS - if validation is successful.
  *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
