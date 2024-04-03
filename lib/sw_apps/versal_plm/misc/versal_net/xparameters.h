@@ -1318,7 +1318,6 @@
 /* Definitions for peripheral PSV_PMC_SYSMON_0 */
 #define XPAR_PSV_PMC_SYSMON_0_S_AXI_BASEADDR 0xF1270000
 #define XPAR_PSV_PMC_SYSMON_0_S_AXI_HIGHADDR 0xF129FFFF
-#define XPAR_PSV_PMC_SYSMON_0_NUMSUPPLIES 0
 
 
 /******************************************************************/
@@ -1326,7 +1325,6 @@
 /* Canonical definitions for peripheral PSV_PMC_SYSMON_0 */
 #define XPAR_XSYSMONPSV_0_S_AXI_BASEADDR 0xF1270000
 #define XPAR_XSYSMONPSV_0_S_AXI_HIGHADDR 0xF129FFFF
-#define XPAR_XSYSMONPSV_0_NUMSUPPLIES 0
 
 #define XPAR_XSYSMONPSV_0_NO_MEAS	161
 
