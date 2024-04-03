@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 1.0   kal  08/16/2019 Initial release
 * 3.1   kpt  01/21/2023 Added error codes for Additional PPKs
 * 3.2   kum  04/11/2023 Moved env error codes to common xnvm_efuse_error.h
+* 3.3   kpt  04/03/2024 Updated error code description
 *
 * </pre>
 *
@@ -200,8 +201,8 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_PPK4_HASH = 0xC400,/**<0xC400 - Error in
 						 * PPK4hash programming */
 	XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED = 0xC500,/**<0xC500 - Error
-							  * PPK3 and PPK4 are not
-							  * enable */
+							  * Additional ppk enable bits
+							  * are neither programmed/requested */
 	XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_0 = 0xC600,/**<0xC600 - Error in
 							  * PPK3_INVALID_BIT_0
 							  * efuse programming */
@@ -224,8 +225,8 @@ typedef enum {
 	                          * to program user efuses 48 to 63 when ADD_PPK_EN bits are
 							  * programmed */
 	XNVM_EFUSE_ERR_ADD_PPK_PGM_NOT_ALLOWED = 0xCE00,/**<0xCE00 - Error while programming
-	                          * additional PPK bits when PPK0 to PPK3 hashes are not
-							  * programmed */
+	                          * additional PPK's PPK0/PPK1/PPK2 are neither
+							  * programmed/requested */
 	XNVM_ERR_WRITE_PUF_USER_DATA = 0x10000, /**< 0x10000
 						* When user chooses PUF efuses as user efuses
 						* data provided for last row
