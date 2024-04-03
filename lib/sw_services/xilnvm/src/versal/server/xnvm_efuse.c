@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -93,7 +93,9 @@
 *	kpt 07/26/2023  Add missing else check in XNvm_EfuseReadPpkHash
 * 3.3   har 12/04/2023  Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
 *       vss 12/31/2023  Added support for Program the eFuse protection bits only once
-*	vss 02/23/2024	Added IPI support for eFuse read and write
+*       vss 02/23/2024	Added IPI support for eFuse read and write
+*       kpt 03/28/2024  Updated validation to allow additional PPK programming along with
+*                       PPK0/1/2 and additional ppk enable bit
 *
 * </pre>
 *
@@ -208,7 +210,7 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses);
 #ifdef XNVM_EN_ADD_PPKS
 static int XNvm_EfusePrgmAdditionalPpkHash(const XNvm_EfuseAdditionalPpkHash *Hash);
 static int XNvm_EfusePrgmAdditionalPpksMiscBits(const XNvm_EfuseMiscCtrlBits *WriteReq);
-static int XNvm_EfuseValidateAdditionalPpkWriteReq(const XNvm_EfuseAdditionalPpkHash *WriteReq);
+static int XNvm_EfuseValidateAdditionalPpkWriteReq(const XNvm_EfuseData *WriteChecks);
 #endif
 /*************************** Variable Definitions *****************************/
 
@@ -4113,8 +4115,7 @@ static int XNvm_EfuseValidateWriteReq(const XNvm_EfuseData *WriteChecks)
 	}
 #ifdef XNVM_EN_ADD_PPKS
 	if (WriteChecks->AdditionalPpkHash != NULL) {
-		Status = XNvm_EfuseValidateAdditionalPpkWriteReq(
-				WriteChecks->AdditionalPpkHash);
+		Status = XNvm_EfuseValidateAdditionalPpkWriteReq(WriteChecks);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -5647,12 +5648,6 @@ static int XNvm_EfusePrgmAdditionalPpkHash(const XNvm_EfuseAdditionalPpkHash *Ha
 		goto END;
 	}
 
-	/**< Read PPK3 and PPK4 enable bits*/
-	Status = XNvm_EfuseIsAdditionalPpkEn();
-	if(Status != XST_SUCCESS){
-		goto END;
-	}
-
 	if (Hash->PrgmPpk3Hash == TRUE) {
 		Status = XNvm_EfusePgmAndVerifyRows(
 				XNVM_EFUSE_PPK_3_HASH_START_ROW,
@@ -5872,24 +5867,26 @@ END:
 /**
  * @brief	This function Validates additional PPK Hash requested for programming.
  *
- * @param	WriteReq - Pointer to XNvm_EfuseAdditionalPpkHash structure which holds
+ * @param	WriteChecks - Pointer to XNvm_EfuseData structure which holds
  * 			additional PPK Hash data to be programmed to eFuse.
  *
  * @return	- XST_SUCCESS - if additional PPK validation is successful.
  *      - XNVM_EFUSE_ERR_INVALID_PARAM - Error when invalid param is passed.
- *      - XNVM_EFUSE_ERR_ADD_PPK_PGM_NOT_ALLOWED -  Error when trying to program PPK3/PPK4
- *                             when PPK0/PPK1/PPK2 are not programmed.
+ *      - XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED - Error when additional PPK enable bit is neither
+ *                             programmed/requested.
+ *      - XNVM_EFUSE_ERR_ADD_PPK_PGM_NOT_ALLOWED -  Error when PPK0/PPK1/PPK2 are neither
+ *                             programmed/requested.
  *		- XNVM_EFUSE_ERR_PPK3_HASH_ALREADY_PRGMD - Ppk3 hash already
  *							   programmed.
  *		- XNVM_EFUSE_ERR_PPK4_HASH_ALREADY_PRGMD - Ppk4 hash already
  *							   programmed.
  *
  ******************************************************************************/
-static int XNvm_EfuseValidateAdditionalPpkWriteReq(const XNvm_EfuseAdditionalPpkHash *WriteReq)
+static int XNvm_EfuseValidateAdditionalPpkWriteReq(const XNvm_EfuseData *WriteChecks)
 {
 	int Status = XST_FAILURE;
 	u32 Index = 0U;
-	u32 PpkStartRow = 0U;
+	const XNvm_EfuseAdditionalPpkHash *WriteReq = WriteChecks->AdditionalPpkHash;
 
 	if (WriteReq == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
@@ -5898,13 +5895,38 @@ static int XNvm_EfuseValidateAdditionalPpkWriteReq(const XNvm_EfuseAdditionalPpk
 
 	if ((WriteReq->PrgmPpk3Hash == TRUE) ||
 		(WriteReq->PrgmPpk4Hash == TRUE)) {
-		for (Index = 0U; Index < XNVM_EFUSE_NUM_OF_PPKS; Index++) {
-			PpkStartRow = (XNVM_EFUSE_PPK_0_HASH_START_ROW +
-					Index * XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS);
-			Status = XNvm_EfuseCheckZeros(PpkStartRow, (PpkStartRow +
-					(Index * XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS)));
-			if (Status == XST_SUCCESS) {
+		/* Check if any one of the PPK hash is already programmed */
+		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK_0_HASH_START_ROW,
+					(XNVM_EFUSE_PPK_0_HASH_START_ROW + (XNVM_EFUSE_NUM_OF_PPKS *
+					XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS)));
+		if (Status == XST_SUCCESS) {
+			if (WriteChecks->PpkHash != NULL) {
+				/* Allow additional PPK programming only when PPK0/1/2 is being programmed */
+				if ((WriteChecks->PpkHash->PrgmPpk0Hash != TRUE) &&
+					(WriteChecks->PpkHash->PrgmPpk1Hash != TRUE) &&
+					(WriteChecks->PpkHash->PrgmPpk2Hash != TRUE)) {
+					Status = (int)XNVM_EFUSE_ERR_ADD_PPK_PGM_NOT_ALLOWED;
+					goto END;
+				}
+			}
+			else {
 				Status = (int)XNVM_EFUSE_ERR_ADD_PPK_PGM_NOT_ALLOWED;
+				goto END;
+			}
+		}
+
+		/* Check MISC ctrl bits before programming */
+		Status = XNvm_EfuseIsAdditionalPpkEn();
+		if (Status != XST_SUCCESS) {
+			if (WriteChecks->MiscCtrlBits != NULL) {
+			/* Allow additional PPK programming only when additional PPK enable is being programmed */
+				if (WriteChecks->MiscCtrlBits->AdditionalPpkEn != TRUE) {
+					Status = (int)XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED;
+					goto END;
+				}
+			}
+			else {
+				Status = (int)XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED;
 				goto END;
 			}
 		}
