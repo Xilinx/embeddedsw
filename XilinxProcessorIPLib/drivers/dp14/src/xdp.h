@@ -1561,6 +1561,8 @@ int XDp_TxSetCallback(XDp *InstancePtr,	XDp_Tx_HandlerType HandlerType,
 void XDp_RxGenerateHpdInterrupt(XDp *InstancePtr, u16 DurationUs);
 void XDp_RxInterruptEnable(XDp *InstancePtr, u32 Mask);
 void XDp_RxInterruptDisable(XDp *InstancePtr, u32 Mask);
+void XDp_RxInterruptEnable1(XDp *InstancePtr, u32 Mask);
+void XDp_RxInterruptDisable1(XDp *InstancePtr, u32 Mask);
 int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
