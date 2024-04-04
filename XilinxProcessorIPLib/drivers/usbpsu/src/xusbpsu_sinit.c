@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xusbpsu_sinit.c
-* @addtogroup usbpsu Overview
+* @addtogroup usbpsu_api USBPSU APIs
 * @{
 *
 *
@@ -21,6 +21,7 @@
 * 1.9   pm   03/15/21 Fixed doxygen warnings
 * 1.12   pm   08/10/22 Update doxygen tag and addtogroup version
 * 1.14	pm    21/06/23 Added support for system device-tree flow.
+* 1.15  np    26/03/24 Add doxygen and editorial fixes
 *
 * </pre>
 *
@@ -51,16 +52,16 @@
 /*****************************************************************************/
 /**
 * @brief
-* Lookup the device configuration based on the unique device ID.  The table
+* Looks up the device configuration based on the unique device ID. The table
 * contains the configuration info for each device in the system.
 *
-* @param DeviceId is the unique device ID of the device being looked up.
+* @param DeviceId Unique device ID of the device being looked up.
 *
 * @return
 * A pointer to the configuration table entry corresponding to the given
 * device ID, or NULL if no match is found.
 *
-* @note none
+*
 *
 ******************************************************************************/
 #ifndef SDT

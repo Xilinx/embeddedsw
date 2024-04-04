@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *****************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xusbpsu_command.c
-* @addtogroup usbpsu Overview
+* @addtogroup usbpsu_api USBPSU APIs
 * @{
 *
 *
@@ -21,6 +21,7 @@
 * 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
 * 1.10	pm  24/07/21 Fixed MISRA-C and Coverity warnings
 * 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
+* 1.15  np  26/03/24 Add doxygen and editorial fixes
 *
 * </pre>
 *
@@ -42,13 +43,12 @@
 
 /****************************************************************************/
 /**
-* Returns zeroed parameters to be used by Endpoint commands
+* Returns zeroed parameters to be used by Endpoint commands.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	Zeroed Params structure pointer.
 *
-* @note		None.
 *
 *****************************************************************************/
 struct XUsbPsu_EpParams *XUsbPsu_GetEpParams(struct XUsbPsu *InstancePtr)
@@ -67,20 +67,19 @@ struct XUsbPsu_EpParams *XUsbPsu_GetEpParams(struct XUsbPsu *InstancePtr)
 /****************************************************************************/
 /**
 * @brief
-* Enables Endpoint for sending/receiving data.
+* Enables endpoint for sending/receiving data.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	UsbEpNum is USB endpoint number.
-* @param	Dir is direction of endpoint
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	UsbEpNum USB endpoint number.
+* @param	Dir Direction of endpoint
 * 				- XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
-* @param	Maxsize is size of Endpoint size.
-* @param	Type is Endpoint type Control/Bulk/Interrupt/Isoc.
-* @param	Restore should be true if saved state should be restored;
-*			typically this would be false
+* @param	Maxsize Size of Endpoint size.
+* @param	Type Endpoint type Control/Bulk/Interrupt/Isoc.
+* @param	Restore Typically False, True if saved state has to be restored.
+*
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
-* @note		None.
 *
 ****************************************************************************/
 s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
@@ -169,14 +168,13 @@ s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 * @brief
 * Disables Endpoint.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	UsbEpNum is USB endpoint number.
-* @param	Dir is direction of endpoint
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	UsbEpNum USB endpoint number.
+* @param	Dir Direction of endpoint
 *			- XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
-* @note		None.
 *
 ****************************************************************************/
 s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
@@ -214,18 +212,17 @@ s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 
 /****************************************************************************/
 /**
-* Sends Endpoint command to Endpoint.
+* Sends Endpoint command to the Endpoint.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	UsbEpNum is USB endpoint number.
-* @param	Dir is direction of endpoint
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	UsbEpNum USB endpoint number.
+* @param	Dir Direction of endpoint
 *			- XUSBPSU_EP_DIR_IN/ XUSBPSU_EP_DIR_OUT.
-* @param	Cmd is Endpoint command.
-* @param	Params is Endpoint command parameters.
+* @param	Cmd Endpoint command.
+* @param	Params Endpoint command parameters.
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
-* @note		None.
 *
 *****************************************************************************/
 s32 XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
@@ -262,20 +259,19 @@ s32 XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 
 /*****************************************************************************/
 /**
-* Send generic command for gadget
+* Sends generic command for the gadget.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
 * 		on.
-* @param	cmd is command to be sent
-* @param	param is parameter for the command, to be written in DGCMDPAR
-* 		register
+* @param	cmd Command to be sent.
+* @param	param Parameter for the command, to be written in DGCMDPAR
+* 		register.
 *
 * @return
 *		- XST_SUCCESS on success
 *		- XST_FAILURE on timeout
 *		- XST_REGISTER_ERROR on status error
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XUsbPsu_SendGadgetGenericCmd(struct XUsbPsu *InstancePtr, u32 cmd,

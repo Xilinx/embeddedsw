@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xusbpsu_ep0handler.c
-* @addtogroup usbpsu Overview
+* @addtogroup usbpsu_api USBPSU APIs
 * @{
 *
 * <pre>
@@ -20,6 +20,7 @@
 * 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
 * 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
 * 1.14	pm  09/09/23 Fixed MISRA C-2012 Rule 10.3 violation
+* 1.15  pm  26/03/24 Add doxygen and editorial fixes
 * </pre>
 *
 *****************************************************************************/
@@ -40,13 +41,12 @@
 
 /****************************************************************************/
 /**
-* Initiates DMA on Control Endpoint 0 to receive Setup packet.
+* Initiates DMA on control endpoint 0 to receive setup packet.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
-* @note		None.
 *
 *****************************************************************************/
 s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
@@ -108,14 +108,13 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
-* Handles Transfer complete event of Control Endpoints EP0 OUT and EP0 IN.
+* Handles transfer complete event of control endpoints EP0 OUT and EP0 IN.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occurred in core.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	Event Pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
@@ -170,14 +169,13 @@ void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
 
 /****************************************************************************/
 /**
-* Handles Transfer Not Ready event of Control Endpoints EP0 OUT and EP0 IN.
+* Handles transfer not ready event of control endpoints EP0 OUT and EP0 IN.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occurred in core.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	Event Pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_Ep0XferNotReady(struct XUsbPsu *InstancePtr,
@@ -216,15 +214,14 @@ void XUsbPsu_Ep0XferNotReady(struct XUsbPsu *InstancePtr,
 
 /****************************************************************************/
 /**
-* Initiates DMA to send data on Control Endpoint EP0 IN to Host.
+* Initiates DMA to send data on control endpoint EP0 IN to host.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	BufferPtr is pointer to data.
-* @param	BufferLen is Length of data buffer.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	BufferPtr Pointer to data.
+* @param	BufferLen Length of data buffer.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note		None.
 *
 *****************************************************************************/
 s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
@@ -286,15 +283,14 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 
 /****************************************************************************/
 /**
-* Initiates DMA to receive data on Control Endpoint EP0 OUT from Host.
+* Initiates DMA to receive data on control endpoint EP0 OUT from host.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	BufferPtr is pointer to data.
-* @param	Length is Length of data to be received.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	BufferPtr Pointer to data.
+* @param	Length Length of data to be received.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note		None.
 *
 *****************************************************************************/
 s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
@@ -371,12 +367,11 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 /**
 * Restarts EP0 endpoint
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
 *		on.
 *
 * @return	XST_SUCCESS on success or else XST_FAILURE.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XUsbPsu_RestoreEp0(struct XUsbPsu *InstancePtr)

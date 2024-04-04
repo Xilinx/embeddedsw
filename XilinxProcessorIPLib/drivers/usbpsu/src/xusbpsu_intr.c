@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xusbpsu_intr.c
-* @addtogroup usbpsu Overview
+* @addtogroup usbpsu_api USBPSU APIs
 * @{
 *
 *
@@ -31,6 +31,7 @@
 * 1.8	pm  01/07/20 Add versal hibernation support
 * 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
 * 1.14	pm  04/01/23 Use Xil_WaitForEvent() API for register bit polling
+* 1.15  np  26/03/24 Add doxygen and editorial fixes
 *
 * </pre>
 *
@@ -52,13 +53,12 @@
 
 /****************************************************************************/
 /**
-* Disconnect Interrupt handler.
+* Disconnects interrupt handler.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
@@ -96,13 +96,12 @@ void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
-* Reset Interrupt handler.
+* Resets interrupt handler.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
@@ -141,14 +140,13 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
-* Handles Interrupts of Control Endpoints EP0 OUT and EP0 IN.
+* Handle interrupts of control endpoints EP0 OUT and EP0 IN.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is a pointer to the Endpoint event occurred in core.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	Event Pointer to the Endpoint event occurred in core.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_Ep0Intr(struct XUsbPsu *InstancePtr,
@@ -180,13 +178,12 @@ void XUsbPsu_Ep0Intr(struct XUsbPsu *InstancePtr,
 
 /****************************************************************************/
 /**
-* Connection Done Interrupt handler.
+* Interrupt handler which indicates that the connection is completed.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
@@ -262,14 +259,13 @@ void XUsbPsu_ConnDoneIntr(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
-* Link Status Change Interrupt handler.
+* Link status change interrupt handler.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	EvtInfo is Event information.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	EvtInfo Event information.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_LinkStsChangeIntr(struct XUsbPsu *InstancePtr, u32 EvtInfo)
@@ -280,14 +276,13 @@ void XUsbPsu_LinkStsChangeIntr(struct XUsbPsu *InstancePtr, u32 EvtInfo)
 
 /****************************************************************************/
 /**
-* Processes an Event entry in Event Buffer.
+* Processes an event entry in the event Buffer.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is the Event entry.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	Event Event entry.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
@@ -315,10 +310,10 @@ void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
 /*****************************************************************************/
 /**
 * @brief
-* Enables an interrupt in Event Enable RegValister.
+* Enables an interrupt in event enable RegValister.
 *
-* @param  InstancePtr is a pointer to the XUsbPsu instance to be worked on
-* @param  Mask is the OR of any Interrupt Enable Masks:
+* @param  InstancePtr Pointer to the XUsbPsu instance to be worked on.
+* @param  Mask OR of any interrupt enable Masks:
 *		- XUSBPSU_DEVTEN_VNDRDEVTSTRCVEDEN
 *		- XUSBPSU_DEVTEN_EVNTOVERFLOWEN
 *		- XUSBPSU_DEVTEN_CMDCMPLTEN
@@ -334,7 +329,6 @@ void XUsbPsu_EventHandler(struct XUsbPsu *InstancePtr,
 *
 * @return  None
 *
-* @note		None.
 *
 ******************************************************************************/
 void XUsbPsu_EnableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
@@ -352,10 +346,10 @@ void XUsbPsu_EnableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
 /*****************************************************************************/
 /**
 * @brief
-* Disables an interrupt in Event Enable RegValister.
+* Disables an interrupt in event enable RegValister.
 *
-* @param  InstancePtr is a pointer to the XUsbPsu instance to be worked on.
-* @param  Mask is the OR of Interrupt Enable Masks
+* @param  InstancePtr Pointer to the XUsbPsu instance to be worked on.
+* @param  Mask OR of Interrupt Enable Masks
 *		- XUSBPSU_DEVTEN_VNDRDEVTSTRCVEDEN
 *		- XUSBPSU_DEVTEN_EVNTOVERFLOWEN
 *		- XUSBPSU_DEVTEN_CMDCMPLTEN
@@ -371,7 +365,7 @@ void XUsbPsu_EnableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
 *
 * @return  None
 *
-* @note		None.
+*
 *
 ******************************************************************************/
 void XUsbPsu_DisableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
@@ -390,13 +384,12 @@ void XUsbPsu_DisableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
 /****************************************************************************/
 /**
 * @brief
-* Main Interrupt Handler.
+* Main interrupt handler.
 *
-* @param	XUsbPsuInstancePtr is a void pointer to the XUsbPsu instance.
+* @param	XUsbPsuInstancePtr Void pointer to the XUsbPsu instance.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
@@ -438,13 +431,13 @@ void XUsbPsu_IntrHandler(void *XUsbPsuInstancePtr)
 /****************************************************************************/
 /**
 * @brief
-* Wakeup Interrupt Event Handler.
+* Wakeup interrupt event handler.
 *
-* @param	XUsbPsuInstancePtr is a pointer of driver Instance.
+* @param	XUsbPsuInstancePtr Pointer of driver Instance.
 *
 * @return	None.
 *
-* @note		None.
+*
 *
 *****************************************************************************/
 void XUsbPsu_WakeUpIntrHandler(void *XUsbPsuInstancePtr)
