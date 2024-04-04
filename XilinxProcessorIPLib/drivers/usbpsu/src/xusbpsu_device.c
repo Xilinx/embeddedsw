@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xusbpsu_device.c
-* @addtogroup usbpsu Overview
+* @addtogroup usbpsu_api USBPSU APIs
 * @{
 *
 * <pre>
@@ -26,6 +26,7 @@
 * 1.14	pm    09/09/23 Fixed HIS_VOCF metric violation - created common
 *		       functions for set and clear register bits.
 * 1.14	pm    12/09/23 Fixed HIS RETURN Violations
+* 1.15  np    26/03/24 Add doxygen and editorial fixes
 *
 * </pre>
 *
@@ -51,12 +52,12 @@ void XUsbPsu_PhyReset(struct XUsbPsu *InstancePtr);
 
 /*****************************************************************************/
 /**
-* Waits until a bit in a register is cleared or timeout occurs
+* Waits until a bit in a register is cleared or timeout occurs.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on
-* @param	Offset is register offset.
-* @param	BitMask is bit mask of required bit to be checked.
-* @param	Timeout is the time to wait specified in micro seconds.
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked on.
+* @param	Offset Register offset.
+* @param	BitMask Bit mask of required bit to be checked.
+* @param	Timeout Time to wait specified in micro seconds.
 *
 * @return
 *			- XST_SUCCESS when bit is cleared.
@@ -78,12 +79,12 @@ s32 XUsbPsu_WaitClearTimeout(struct XUsbPsu *InstancePtr, u32 Offset,
 
 /*****************************************************************************/
 /**
-* Waits until a bit in a register is set or timeout occurs
+* Waits until a bit in a register is set or timeout occurs.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on
-* @param	Offset is register offset.
-* @param	BitMask is bit mask of required bit to be checked.
-* @param	Timeout is the time to wait specified in micro seconds.
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked on
+* @param	Offset Register offset.
+* @param	BitMask Bit mask of required bit to be checked.
+* @param	Timeout Time to wait specified in micro seconds.
 *
 * @return
 *			- XST_SUCCESS when bit is set.
@@ -105,11 +106,11 @@ s32 XUsbPsu_WaitSetTimeout(struct XUsbPsu *InstancePtr, u32 Offset,
 
 /*****************************************************************************/
 /**
-* Set the register bits with the bit mask value
+* Sets the register bits with the bit mask value.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on
-* @param	Offset is register offset.
-* @param	BitMask is bit mask of required bit to be checked.
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked on
+* @param	Offset Register offset.
+* @param	BitMask Bit mask of required bit to be checked.
 *
 * @return  None
 *
@@ -126,11 +127,11 @@ static INLINE void XUsbPsu_SetRegVal(struct XUsbPsu *InstancePtr, u32 Offset,
 
 /*****************************************************************************/
 /**
-* Clear the register bits with the bit mask value
+* Clears the register bits with the bit mask value.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on
-* @param	Offset is register offset.
-* @param	BitMask is bit mask of required bit to be checked.
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked on.
+* @param	Offset Register offset.
+* @param	BitMask Bit mask of required bit to be checked.
 *
 * @return  None
 *
@@ -147,9 +148,9 @@ static INLINE void XUsbPsu_ClearRegVal(struct XUsbPsu *InstancePtr, u32 Offset,
 
 /*****************************************************************************/
 /**
-* Resets Event buffer Registers to zero so that events are not written by Core.
+* Resets event buffer registers to zero so that events are not written by Core.
 *
-* @param    InstancePtr is a pointer to the XUsbPsu instance to be worked on.
+* @param    InstancePtr Pointer to the XUsbPsu instance to be worked on.
 *
 * @return   None
 *
@@ -166,10 +167,10 @@ static INLINE void XUsbPsu_EventBuffersReset(struct XUsbPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Reads data from Hardware Params Registers of Core.
+* Reads data from hardware parameters registers of the core.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on
-* @param	RegIndex is Register number to read
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked on
+* @param	RegIndex Register number to read.
 *			- XUSBPSU_GHWPARAMS0
 *			- XUSBPSU_GHWPARAMS1
 *			- XUSBPSU_GHWPARAMS2
@@ -197,7 +198,7 @@ u32 XUsbPsu_ReadHwParams(struct XUsbPsu *InstancePtr, u8 RegIndex)
 /**
 * Issues core PHY reset.
 *
-* @param   InstancePtr is a pointer to the XUsbPsu instance to be worked on.
+* @param   InstancePtr Pointer to the XUsbPsu instance to be worked on.
 *
 * @return  None
 *
@@ -236,10 +237,10 @@ void XUsbPsu_PhyReset(struct XUsbPsu *InstancePtr)
 /****************************************************************************/
 /**
 * @brief
-* Sets speed of the Core for connecting to Host
+* Sets speed of the core for connecting to host.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Speed is required speed
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	Speed Required speed
 *				- XUSBPSU_DCFG_HIGHSPEED
 *				- XUSBPSU_DCFG_FULLSPEED2
 *				- XUSBPSU_DCFG_LOWSPEED
@@ -247,7 +248,6 @@ void XUsbPsu_PhyReset(struct XUsbPsu *InstancePtr)
 *
 * @return	None
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_SetSpeed(struct XUsbPsu *InstancePtr, u32 Speed)
@@ -266,14 +266,13 @@ void XUsbPsu_SetSpeed(struct XUsbPsu *InstancePtr, u32 Speed)
 /****************************************************************************/
 /**
 * @brief
-* Sets Device Address of the Core
+* Sets the device address of the core.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Addr is address to set.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	Addr Address to set.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note	None.
 *
 *****************************************************************************/
 s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr)
@@ -304,14 +303,13 @@ s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr)
 
 /****************************************************************************/
 /**
- * Enables USB2 Test Modes
+ * Enables USB2 test modes.
  *
- * @param	InstancePtr is a pointer to the XUsbPsu instance.
- * @param	Mode is Test mode to set.
+ * @param	InstancePtr Pointer to the XUsbPsu instance.
+ * @param	Mode Test mode to set.
  *
  * @return	XST_SUCCESS else XST_FAILURE
  *
- * @note	None.
  *
  ****************************************************************************/
 s32 XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode)
@@ -351,10 +349,10 @@ s32 XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode)
 /**
 * @brief
 * This function puts the controller into idle state by stopping the transfers
-* for all endpoints, stopping the usb core and clearing the event buffers.
-* buffers.
+* for all endpoints, stopping the usb core, and clearing the event buffers.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on
+*
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked on.
 *
 * @return	None
 *
@@ -450,13 +448,13 @@ void XUsbPsu_Idle(struct XUsbPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Initializes Core.
+* Initializes the core.
 *
-* @param  InstancePtr is a pointer to the XUsbPsu instance to be worked on.
+* @param  InstancePtr Pointer to the XUsbPsu instance to be worked on.
 *
 * @return
-*	 	- XST_SUCCESS if initialization was successful
-*		- XST_FAILURE if initialization was not successful
+*	 	- XST_SUCCESS if initialization was successful.
+*		- XST_FAILURE if initialization was not successful.
 *
 *******************************************************************************/
 s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
@@ -529,9 +527,9 @@ s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Sets up Event buffers so that events are written by Core.
+* Sets up the event buffers so that events are written by Core.
 *
-* @param    InstancePtr is a pointer to the XUsbPsu instance to be worked on.
+* @param    InstancePtr Pointer to the XUsbPsu instance to be worked on.
 *
 * @return   None
 *
@@ -559,11 +557,10 @@ void XUsbPsu_EventBuffersSetup(struct XUsbPsu *InstancePtr)
 * @brief
 * API for Sleep routine.
 *
-* @param	USeconds is time in MicroSeconds.
+* @param	USeconds Time in MicroSeconds.
 *
 * @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 void XUsbPsu_Sleep(u32 USeconds)
@@ -575,14 +572,13 @@ void XUsbPsu_Sleep(u32 USeconds)
 
 /*****************************************************************************/
 /**
-* Sets scratchpad buffers
+* Sets scratchpad buffers.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
 * 		on.
 *
-* @return	XST_SUCCESS on success or else error code
+* @return	XST_SUCCESS on success or else error code.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XUsbPsu_SetupScratchpad(struct XUsbPsu *InstancePtr, u8 *ScratchBuf)
