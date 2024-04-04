@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xusbpsu_hibernation.c
-* @addtogroup usbpsu Overview
+* @addtogroup usbpsu_api USBPSU APIs
 * @{
 *
 * This patch adds hibernation support to usbpsu driver when dwc3 is operating
@@ -30,6 +30,7 @@
 * 1.12	pm     10/08/22 Update doxygen tag and addtogroup version
 * 1.13	pm     04/01/23 Use Xil_WaitForEvent() API for register bit polling
 * 1.14	pm     21/06/23 Added support for system device-tree flow.
+* 1.15  np     26/03/24 Add doxygen and editorial fixes
 *
 * </pre>
 *
@@ -95,14 +96,13 @@ static u32 SavedRegs[NUM_OF_NONSTICKY_REGS];
 
 /*****************************************************************************/
 /**
-* Save non sticky registers
+* Saves non sticky registers.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
 * 		on.
 *
 * @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void XUsbPsu_SaveRegs(struct XUsbPsu *InstancePtr)
@@ -116,14 +116,13 @@ static void XUsbPsu_SaveRegs(struct XUsbPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Restore non sticky registers
+* Restores non sticky registers.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
 * 		on.
 *
 * @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static void XUsbPsu_RestoreRegs(struct XUsbPsu *InstancePtr)
@@ -138,14 +137,12 @@ static void XUsbPsu_RestoreRegs(struct XUsbPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Initialize to handle hibernation event when it comes
+* Initializes to handle hibernation event.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
 * 		on.
 *
 * @return	XST_SUCCESS else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
@@ -182,14 +179,14 @@ s32 XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Handle hibernation event
+* Handles hibernation event.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
 * 		on.
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
-* @note		None.
+
 *
 ******************************************************************************/
 s32 XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
@@ -345,14 +342,13 @@ s32 XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Core to restore non-sticky registers
+* Restores non-sticky registers from the core.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
 * 			on.
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XUsbPsu_CoreRegRestore(struct XUsbPsu *InstancePtr)

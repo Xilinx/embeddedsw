@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xusbpsu_event.c
-* @addtogroup usbpsu Overview
+* @addtogroup usbpsu_api USBPSU APIs
 * @{
 *
 *
@@ -21,6 +21,7 @@
 * 1.8	pm  01/07/20 Add versal hibernation support
 *	pm  24/07/20 Fixed MISRA-C and Coverity warnings
 * 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
+* 1.15  np  26/03/24 Add doxygen and editorial fixes
 *
 * </pre>
 *
@@ -43,12 +44,11 @@
 /**
 * Endpoint event handler.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is endpoint Event occurred in the core.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	Event Endpoint Event occurred in the core.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_EpEvent(struct XUsbPsu *InstancePtr,
@@ -90,12 +90,11 @@ void XUsbPsu_EpEvent(struct XUsbPsu *InstancePtr,
 /**
 * Device event handler for device specific events.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Event is the Device Event occurred in core.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	Event Device Event occurred in core.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_DeviceEvent(struct XUsbPsu *InstancePtr,
@@ -159,13 +158,12 @@ void XUsbPsu_DeviceEvent(struct XUsbPsu *InstancePtr,
 
 /****************************************************************************/
 /**
-* Processes events in an Event Buffer.
+* Processes events in an event buffer.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
@@ -214,12 +212,11 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 /**
 * Processes link state events for hibernation.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
 * 			on.
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
-* @note		None.
 *
 *****************************************************************************/
 s32 XUsbPsu_HibernationStateIntr(struct XUsbPsu *InstancePtr)

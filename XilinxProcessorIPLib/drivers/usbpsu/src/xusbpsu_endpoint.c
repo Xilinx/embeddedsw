@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *****************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xusbpsu_endpoint.c
-* @addtogroup usbpsu Overview
+* @addtogroup usbpsu_api USBPSU APIs
 * @{
 *
 *
@@ -28,7 +28,7 @@
 * 1.7 	pm  23/03/20 Restructured the code for more readability and modularity
 * 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
 * 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
-*
+* 1.15  np  26/03/24 Add doxygen and editorial fixes
 * </pre>
 *
 *****************************************************************************/
@@ -49,16 +49,15 @@
 
 /****************************************************************************/
 /**
-* Returns Transfer Index assigned by Core for an Endpoint transfer.
+* Returns transfer index assigned by Core for an endpoint transfer.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	UsbEpNum is USB endpoint number.
-* @param	Dir is direction of endpoint
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	UsbEpNum USB endpoint number.
+* @param	Dir Direction of endpoint
 * 				- XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT
 *
 * @return	Transfer Resource Index.
 *
-* @note		None.
 *
 *****************************************************************************/
 u32 XUsbPsu_EpGetTransferIndex(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
@@ -80,11 +79,11 @@ u32 XUsbPsu_EpGetTransferIndex(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 
 /****************************************************************************/
 /**
-* Sends Start New Configuration command to Endpoint.
+* Sends start new configuration command to the endpoint.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	UsbEpNum is USB endpoint number.
-* @param	Dir is direction of endpoint
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	UsbEpNum USB endpoint number.
+* @param	Dir Direction of endpoint
 *			- XUSBPSU_EP_DIR_IN/ XUSBPSU_EP_DIR_OUT.
 *
 * @return	XST_SUCCESS else XST_FAILURE.
@@ -130,20 +129,19 @@ s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
 
 /****************************************************************************/
 /**
-* Sends Set Endpoint Configuration command to Endpoint.
+* Sends set endpoint configuration command to the endpoint.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	UsbEpNum is USB endpoint number.
-* @param	Dir is direction of endpoint
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	UsbEpNum USB endpoint number.
+* @param	Dir Direction of endpoint
 * 				-XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
-* @param	Size is size of Endpoint size.
-* @param	Type is Endpoint type Control/Bulk/Interrupt/Isoc.
-* @param	Restore should be true if saved state should be restored;
-*			typically this would be false
+* @param	Size Size of Endpoint size.
+* @param	Type Endpoint type Control/Bulk/Interrupt/Isoc.
+* @param	Restore Typically false, true if saved state has to be restored.
+*
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
-* @note		None.
 *
 *****************************************************************************/
 s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
@@ -203,16 +201,15 @@ s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 
 /****************************************************************************/
 /**
-* Sends Set Transfer Resource command to Endpoint.
+* Sends set transfer resource command to the endpoint.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	UsbEpNum is USB endpoint number.
-* @param	Dir is direction of endpoint - XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	UsbEpNum USB endpoint number.
+* @param	Dir Direction of endpoint - XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT
 *
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
-* @note		None.
 *
 *****************************************************************************/
 s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
@@ -233,11 +230,10 @@ s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 /**
 * Stops any active transfer.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_StopActiveTransfers(struct XUsbPsu *InstancePtr)
@@ -260,13 +256,12 @@ void XUsbPsu_StopActiveTransfers(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
-* Clears stall on all stalled Eps.
+* Clears stall on all stalled endpoints.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	None.
 *
-* @note		None.
 *
 *****************************************************************************/
 void XUsbPsu_ClearStallAllEp(struct XUsbPsu *InstancePtr)
@@ -295,14 +290,13 @@ void XUsbPsu_ClearStallAllEp(struct XUsbPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Restarts non EP0 endpoints
+* Restarts non EP0 endpoints.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
 *		on.
 *
 * @return	XST_SUCCESS on success or else XST_FAILURE.
 *
-* @note		None.
 *
 ******************************************************************************/
 s32 XUsbPsu_RestoreEps(struct XUsbPsu *InstancePtr)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xusbpsu.c
-* @addtogroup usbpsu Overview
+* @addtogroup usbpsu_api USBPSU APIs
 * @{
 *
 * <pre>
@@ -33,6 +33,7 @@
 * 	pm    03/23/20 Restructured the code for more readability and modularity
 * 1.8	pm    24/07/20 Fixed MISRA-C and Coverity warnings
 * 1.12	pm    10/08/22 Update doxygen tag and addtogroup version
+* 1.15  np    26/03/24 Add doxygen and editorial fixes
 *
 * </pre>
 *
@@ -59,18 +60,18 @@ static void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr);
 
 /*****************************************************************************/
 /**
-* Sets mode of Core to USB Device/Host/OTG.
+* Sets mode of core to USB Device/Host/OTG.
 *
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be worked on.
-* @param	Mode is mode to set
+* @param	InstancePtr Pointer to the XUsbPsu instance to be worked on.
+* @param	Mode Mode to set
 *			- XUSBPSU_GCTL_PRTCAP_OTG
 *			- XUSBPSU_GCTL_PRTCAP_HOST
 *			- XUSBPSU_GCTL_PRTCAP_DEVICE
 *
 * @return	None
 *
-* @note		None.
+*
 *
 ******************************************************************************/
 static INLINE void XUsbPsu_SetMode(struct XUsbPsu *InstancePtr, u32 Mode)
@@ -85,15 +86,15 @@ static INLINE void XUsbPsu_SetMode(struct XUsbPsu *InstancePtr, u32 Mode)
 
 /****************************************************************************/
 /**
-* Initializes Endpoints. All OUT endpoints are even numbered and all IN
+* Initializes endpoints. All OUT endpoints are even numbered and all IN
 * endpoints are odd numbered. EP0 is for Control OUT and EP1 is for
 * Control IN.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	None.
 *
-* @note		None.
+*
 *
 ****************************************************************************/
 static void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr)
@@ -127,9 +128,9 @@ static void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr)
 *	- Sets Device Address to 0.
 *	- Enables interrupts.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	ConfigPtr points to the XUsbPsu device configuration structure.
-* @param	BaseAddress is the device base address in the virtual memory
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	ConfigPtr Points to the XUsbPsu device configuration structure.
+* @param	BaseAddress Device base address in the virtual memory
 *		address space. If the address translation is not used then the
 *		physical address is passed.
 *		Unexpected errors may occur if the address mapping is changed
@@ -137,7 +138,7 @@ static void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr)
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note		None.
+*
 *
 *****************************************************************************/
 s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
@@ -194,13 +195,13 @@ s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 /**
 *
 * @brief
-* Starts the controller so that Host can detect this device.
+* Starts the controller so that host can detect this device.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note		None.
+*
 *
 *****************************************************************************/
 s32 XUsbPsu_Start(struct XUsbPsu *InstancePtr)
@@ -227,13 +228,12 @@ s32 XUsbPsu_Start(struct XUsbPsu *InstancePtr)
 /**
 *
 * @brief
-* Stops the controller so that Device disconnects from Host.
+* Stops the controller so that the device disconnects from the host.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note		None.
 *
 *****************************************************************************/
 s32 XUsbPsu_Stop(struct XUsbPsu *InstancePtr)
@@ -257,13 +257,12 @@ s32 XUsbPsu_Stop(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
- * Gets current State of USB Link
+ * Gets current state of USB link.
  *
- * @param	InstancePtr is a pointer to the XUsbPsu instance.
+ * @param	InstancePtr Pointer to the XUsbPsu instance.
  *
  * @return	Link State
  *
- * @note	None.
  *
  ****************************************************************************/
 u8 XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr)
@@ -279,14 +278,13 @@ u8 XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr)
 
 /****************************************************************************/
 /**
- * Sets USB Link to a particular State
+ * Sets USB Link to a particular State.
  *
- * @param	InstancePtr is a pointer to the XUsbPsu instance.
- * @param	State is State of Link to set.
+ * @param	InstancePtr Pointer to the XUsbPsu instance.
+ * @param	State State of Link to set.
  *
  * @return	XST_SUCCESS else XST_FAILURE
  *
- * @note	None.
  *
  ****************************************************************************/
 s32 XUsbPsu_SetLinkState(struct XUsbPsu *InstancePtr,
@@ -312,14 +310,13 @@ s32 XUsbPsu_SetLinkState(struct XUsbPsu *InstancePtr,
 /****************************************************************************/
 /**
 * @brief
-* Set U1 sleep timeout
+* Sets U1 sleep timeout.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Timeout is time in microseconds
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	Timeout Time in microseconds
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note	None.
 *
 *****************************************************************************/
 s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Timeout)
@@ -339,14 +336,13 @@ s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Timeout)
 /****************************************************************************/
 /**
 * @brief
-* Set U2 sleep timeout
+* Sets U2 sleep timeout.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	Timeout is time in microseconds
+* @param	InstancePtr Pointer to the XUsbPsu instance.
+* @param	Timeout Time in microseconds.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note	None.
 *
 *****************************************************************************/
 s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Timeout)
@@ -366,13 +362,12 @@ s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Timeout)
 /****************************************************************************/
 /**
 * @brief
-* Enable Accept U1 and U2 sleep enable
+* Enable Accept U1 and U2 sleep enable.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note	None.
 *
 *****************************************************************************/
 s32 XUsbPsu_AcceptU1U2Sleep(struct XUsbPsu *InstancePtr)
@@ -391,13 +386,12 @@ s32 XUsbPsu_AcceptU1U2Sleep(struct XUsbPsu *InstancePtr)
 /****************************************************************************/
 /**
 * @brief
-* Enable U1 enable sleep
+* Enables U1 enable sleep.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note	None.
 *
 *****************************************************************************/
 s32 XUsbPsu_U1SleepEnable(struct XUsbPsu *InstancePtr)
@@ -416,13 +410,12 @@ s32 XUsbPsu_U1SleepEnable(struct XUsbPsu *InstancePtr)
 /****************************************************************************/
 /**
 * @brief
-* Enable U2 enable sleep
+* Enables U2 enable sleep.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note	None.
 *
 *****************************************************************************/
 s32 XUsbPsu_U2SleepEnable(struct XUsbPsu *InstancePtr)
@@ -441,13 +434,12 @@ s32 XUsbPsu_U2SleepEnable(struct XUsbPsu *InstancePtr)
 /****************************************************************************/
 /**
 * @brief
-* Enable U1 disable sleep
+* Enables U1 disable sleep
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note	None.
 *
 *****************************************************************************/
 s32 XUsbPsu_U1SleepDisable(struct XUsbPsu *InstancePtr)
@@ -466,13 +458,12 @@ s32 XUsbPsu_U1SleepDisable(struct XUsbPsu *InstancePtr)
 /****************************************************************************/
 /**
 * @brief
-* Enable U2 disable sleep
+* Enables U2 disable sleep.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note	None.
 *
 *****************************************************************************/
 s32 XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr)
@@ -491,13 +482,12 @@ s32 XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr)
 /****************************************************************************/
 /**
 * @brief
-* Checks if the current speed is Super Speed or not
+* Checks if the current speed is super speed or not.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
+* @param	InstancePtr Pointer to the XUsbPsu instance.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
-* @note		None.
 *
 *****************************************************************************/
 s32 XUsbPsu_IsSuperSpeed(struct XUsbPsu *InstancePtr)
