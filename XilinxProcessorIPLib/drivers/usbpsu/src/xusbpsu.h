@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,53 +8,10 @@
 /**
 *
 * @file xusbpsu.h
-* @addtogroup usbpsu Overview
+* @addtogroup usbpsu_api USBPSU APIs
 * @{
 * @details
 *
-* This section explains the implementation of functions of USBPSU driver.
-* This driver supports both USB high-speed and super-speed features for USB
-* peripheral mode.
-*
-* The definitions for endpoints is included by the xusbps_endpoint.c, which
-* is implementing the endpoint functions and by xusbps_intr.c.
-*
-* <b>Initialization & Configuration</b>
-*
-* The XUsbPsu_Config structure is used by the driver to configure itself.
-* Fields inside this structure are properties of XUsbPsu based on its hardware
-* build.
-*
-* To support multiple runtime loading and initialization strategies employed
-* by various operating systems, the driver instance can be initialized in the
-* following way:
-*
-*   - XUsbPsu_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
-*	 configuration structure provided by the caller. If running in a system
-*	 with address translation, the parameter EffectiveAddr should be the
-* 	 virtual address.
-*
-* <b>Endpoint Support</b>
-*
-* This driver supports control, bulk, interrupt and ISO endpoint and its
-* applications like mass-storage, HID, audio and composite, etc. Based on
-* user application configuration set by the application.
-*
-* <b>Interrupts</b>
-*
-* The driver defaults to no interrupts at initialization such that interrupts
-* must be enabled if desired. An interrupt is generated for one of the
-* following conditions.
-*
-* - Disconnect Detected Event Enable
-* - USB Reset Enable
-* - Connection Done Enable
-* - Link State Change Event Enable
-* - Wakeup Event Enable
-*
-* The SetupInterruptSystem function setups the interrupt system such that
-* interrupts can occur. This function is application specific since the actual
-* system may or may not have an interrupt controller.
 *
 * <pre>
 *
@@ -95,7 +52,7 @@
 * 1.13	pm    01/05/23 Added "xil_util.h" header to use polling logic API
 * 1.14	pm    21/06/23 Added support for system device-tree flow.
 * 1.15  ml    11/16/23 Fix compilation errors reported with -std=c2x compiler flag
-*
+* 1.15  np    26/03/24 Add doxygen and editorial fixes
 * </pre>
 *
 *****************************************************************************/
@@ -780,14 +737,13 @@ extern XUsbPsu_Config XUsbPsu_ConfigTable[]; /**< Configuration table */
 /**
 * @brief
 *
-* This function returns the data pointer of driver instance.
+* Returns the data pointer of driver instance.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be
+* @param	InstancePtr Pointer to the XUsbPsu instance to be
 *		worked on.
 *
 * @return	data pointer of driver instance.
 *
-* @note		None.
 *
 ******************************************************************************/
 static inline void *XUsbPsu_get_drvdata(struct XUsbPsu *InstancePtr)
@@ -799,15 +755,14 @@ static inline void *XUsbPsu_get_drvdata(struct XUsbPsu *InstancePtr)
 /**
 * @brief
 *
-* This function set driver data from driver like speed/state..
+* Sets driver data from driver like speed/state.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be
+* @param	InstancePtr Pointer to the XUsbPsu instance to be
 *		worked on.
-* @param	data is a void pointer
+* @param	data Void pointer
 *
 * @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static inline void XUsbPsu_set_drvdata(struct XUsbPsu *InstancePtr,
@@ -822,13 +777,12 @@ static inline void XUsbPsu_set_drvdata(struct XUsbPsu *InstancePtr,
 *
 * This function is used as chapter 9 interrupt handler.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be
+* @param	InstancePtr Pointer to the XUsbPsu instance to be
 *		worked on.
 * @param	func USB Chapter9 function handler
 *
 * @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static inline void XUsbPsu_set_ch9handler(
@@ -842,15 +796,14 @@ static inline void XUsbPsu_set_ch9handler(
 /**
 * @brief
 *
-* This function handles USB resets.
+* Handles USB resets.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be
+* @param	InstancePtr Pointer to the XUsbPsu instance to be
 *		worked on.
-* @param	func USB Reset function handler
+* @param	func USB Reset function handler.
 *
 * @return	None.
 *
-* @note		None.
 *
 ******************************************************************************/
 static inline void XUsbPsu_set_rsthandler(
@@ -866,13 +819,13 @@ static inline void XUsbPsu_set_rsthandler(
 *
 * This function is used as disconnect interrupt handler.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance to be
+* @param	InstancePtr Pointer to the XUsbPsu instance to be
 *		worked on.
-* @param	func USB Disconnect function handler
+* @param	func USB disconnect function handler
 *
 * @return	None.
 *
-* @note		None.
+*
 *
 ******************************************************************************/
 static inline void XUsbPsu_set_disconnect(
