@@ -39,7 +39,8 @@
 * 				   if encountering iic race condition.
 * 1.12 ND 06/15/23 Enhanced application for supporting any combbination of
 * 				   hdcp1.X/2.X combination in the Rx or Tx of the design.
-*
+* 1.13 ND 05/04/24 Modified application as to not halt on wrong password
+* 				   entered for keys via eeprom
 * </pre>
 *
 ******************************************************************************/
@@ -137,6 +138,7 @@ XTmrCtr TmrCtr; 			/* Timer instance.*/
 XIic IicInstance; 			/* I2C bus for MC6000 and IDT */
 XDp_TxVscExtPacket VscPkt;	/* VSC Packet to populate the vsc data received by
 								rx */
+u8 password_valid = 0;
 u8 enable_tx_vsc_mode;		/* Flag to enable vsc for tx */
 XV_FrmbufRd_l2     frmbufrd;
 XV_FrmbufWr_l2     frmbufwr;
@@ -594,6 +596,8 @@ u32 DpSs_Main(void)
 			Hdcp14KeyA_Sz,
 			Hdcp14KeyB,
 			Hdcp14KeyB_Sz)==XST_SUCCESS){
+		 password_valid=1;
+	 }
 #endif
 
         /*Set pointers to HDCP 2.2 Keys*/
@@ -604,10 +608,6 @@ u32 DpSs_Main(void)
         XV_DpRxSs_Hdcp22SetKey(&DpRxSsInst,
                         XV_DPRXSS_KEY_HDCP22_PRIVATE,
                         Hdcp22RxPrivateKey);
-
-#ifdef USE_EEPROM_HDCP_KEYS
-	 }
-#endif
 
 #if (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP1x_IN_TX)
 #ifdef USE_EEPROM_HDCP_KEYS
@@ -628,7 +628,14 @@ u32 DpSs_Main(void)
 	memcpy(Hdcp14Key_test,Hdcp14KeyA_test,Hdcp14KeyA_test_Sz);
 	memcpy((Hdcp14Key_test + Hdcp14KeyA_test_Sz),Hdcp14KeyB_test,Hdcp14KeyB_test_Sz);
 #endif
+
+#ifdef USE_EEPROM_HDCP_KEYS
+	if(password_valid == 1){
+#endif
 	KEYMGMT_Init();
+#ifdef USE_EEPROM_HDCP_KEYS
+	}
+#endif
 
 #endif
 
