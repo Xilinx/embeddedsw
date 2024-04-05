@@ -29,6 +29,7 @@
 *       kpt  02/21/24 Add support for DME CSR extension
 *	vss  03/16/24 Fixed review comments of XOcp_DmeXppuConfig
 *	vss  03/21/24 Clearing memory buffer in XOcp_GetPcr
+*	vss  04/01/24 Fix for XOcp_GetSwPcrData
 *
 * </pre>
 * @note
@@ -543,7 +544,7 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 			"\r\nSwPcrNum: %x MeasurementIdx: %x DigestIdxInLog: %x\r\n",
 			PcrNum, MeasurementIdx, DigestIdxInLog);
 
-	if (DataSize > (XOCP_PCR_HASH_SIZE_IN_BYTES - 1U)) {
+	if (DataSize > XOCP_PCR_HASH_SIZE_IN_BYTES) {
 		if (((u32)(DataAddr >> 32U)) != 0x00U) {
 			Status = (int)XOCP_PCR_ERR_DATA_IN_INVALID_MEM;
 			goto END;
@@ -556,14 +557,14 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 		if (Status != XST_SUCCESS) {
 		        goto END;
 		}
+		XOcp_PrintData((const u8 *)SwPcr->Data[DigestIdxInLog].DataToExtend,
+				DataSize, "Data to be extended:", DEBUG_INFO);
 	}
 
 	XOcp_PrintData((const u8 *)&SwPcr->Data[DigestIdxInLog].Measurement.EventId,
 			XOCP_EVENT_ID_NUM_OF_BYTES, "Event Id:", DEBUG_INFO);
 	XOcp_PrintData((const u8 *)&SwPcr->Data[DigestIdxInLog].Measurement.Version,
 			XOCP_VERSION_NUM_OF_BYTES, "Version:", DEBUG_INFO);
-	XOcp_PrintData((const u8 *)SwPcr->Data[DigestIdxInLog].DataToExtend,
-			DataSize, "Data to be extended:", DEBUG_INFO);
 
 	/* Calculate and store the DataBlob Hash into Log, where DataBlob is
 	 * (EventId || Version || Data to be Extended)
