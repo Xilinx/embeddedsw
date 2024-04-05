@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -28,6 +28,7 @@
 *       kpt  01/22/24 Added support to extend secure state into SWPCR
 *       kpt  02/21/24 Add support for DME CSR extension
 *	vss  03/16/24 Fixed review comments of XOcp_DmeXppuConfig
+*	vss  03/21/24 Clearing memory buffer in XOcp_GetPcr
 *
 * </pre>
 * @note
@@ -438,6 +439,12 @@ static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType)
 			if (Status != XST_SUCCESS) {
 				break;
 			}
+
+			Status = Xil_SecureZeroize(ExtendedHash, XOCP_PCR_SIZE_BYTES);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+
 			BufOffset += XOCP_PCR_SIZE_BYTES;
 		}
 		Mask = Mask >> 1U;
