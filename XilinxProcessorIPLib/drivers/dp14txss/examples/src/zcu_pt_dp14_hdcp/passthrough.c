@@ -53,6 +53,7 @@ extern Video_CRC_Config VidFrameCRC_rx; /* Video Frame CRC instance */
 extern int tx_started;
 extern volatile int tx_is_reconnected;
 extern volatile u8 hpd_pulse_con_event;
+extern password_valid;
 
 #if ENABLE_AUDIO
 extern XGpio   aud_gpio;
@@ -1064,12 +1065,23 @@ void DpPt_Main(void){
 		dprx_tracking();
 #if (ENABLE_HDCP_IN_DESIGN && (ENABLE_HDCP1x_IN_RX | ENABLE_HDCP22_IN_RX))
 		//Wait for few frames to ensure valid video is received
+#ifdef USE_EEPROM_HDCP_KEYS
+	if(!password_valid){
+		DpRxSsInst.TmrCtrResetDone = 1; //done so that tx gets trained in scenario where source starts
+										//authentication and encryption just after training even if password is wrong
+	}
+		if (tx_after_rx == 1 && rx_trained == 1
+				&& DpRxSsInst.link_up_trigger == 1
+				&& DpRxSsInst.TmrCtrResetDone == 1
+						)
+#else
 		if (tx_after_rx == 1 && rx_trained == 1
 				&& DpRxSsInst.link_up_trigger == 1
 				&& DpRxSsInst.TmrCtrResetDone
 						== 1
 
 						)
+#endif
 #else
 		if (tx_after_rx == 1 && rx_trained == 1 && DpRxSsInst.link_up_trigger == 1 )
 #endif
