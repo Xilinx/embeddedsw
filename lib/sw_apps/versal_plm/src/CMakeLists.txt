@@ -13,6 +13,7 @@ find_package(common)
 enable_language(C ASM)
 
 collect(PROJECT_LIB_DEPS xilstandalone)
+collect(PROJECT_LIB_DEPS gloss)
 collect(PROJECT_LIB_DEPS xil)
 collect(PROJECT_LIB_DEPS xiltimer)
 collect(PROJECT_LIB_DEPS xilsecure)

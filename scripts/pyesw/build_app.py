@@ -75,6 +75,11 @@ def build_app(args):
         lib_list = [lib.replace('libmetal', 'metal') for lib in lib_list]
         if obj.os == "freertos":
             lib_list.append(obj.os)
+        cpu_list_file = os.path.join(obj.domain_path, "cpulist.yaml")
+        avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
+        proc_ip_name = avail_cpu_data[obj.proc]
+        if "microblaze_riscv" in proc_ip_name or "microblaze" in proc_ip_name:
+            lib_list.append("gloss")
         cmake_lib_list = ';'.join(lib_list)
         utils.replace_line(
             src_cmake,
