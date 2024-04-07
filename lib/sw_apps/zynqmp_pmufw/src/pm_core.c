@@ -1020,6 +1020,9 @@ static void PmFpgaRead(const PmMaster *const master,
 	u32 Value = 0U;
 	XFpga XFpgaInstance = {0U};
 	UINTPTR Address = ((u64)AddrHigh << 32U)|AddrLow;
+#if defined(ENABLE_FPGA_READ_CONFIG_REG)
+   u32 RspBuf __attribute__ ((aligned(64)));
+#endif
 
 #if defined (ENABLE_WDT) &&	\
 	(XPFW_CFG_PMU_FPGA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
@@ -1042,8 +1045,8 @@ static void PmFpgaRead(const PmMaster *const master,
 
 	} else {
 #if defined(ENABLE_FPGA_READ_CONFIG_REG)
-		Status = XFpga_GetPlConfigReg(&XFpgaInstance, Address, Reg_Numframes);
-		Value = *(UINTPTR *)Address;
+		Status = XFpga_GetPlConfigReg(&XFpgaInstance, (UINTPTR)&RspBuf, Reg_Numframes);
+		Value = RspBuf;
 #else
 		PmWarn("Unsupported EEMI API\r\n");
 		Status = XST_NO_ACCESS;
