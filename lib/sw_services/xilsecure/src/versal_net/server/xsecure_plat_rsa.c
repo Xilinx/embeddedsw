@@ -23,6 +23,7 @@
 *       kpt     12/13/23 Added RSA CRT support for RSA keyunwrap
 * 5.3   ng      01/28/24 Added SDT support
 *       ng      03/26/24 Fixed header include in SDT flow
+*       kpt     03/22/24 Fix MISRA C violation of Rule 10.3
 *
 * </pre>
 *
@@ -352,7 +353,7 @@ int XSecure_RsaOaepDecrypt(XSecure_RsaKey *PrivKey, XSecure_RsaOaepParam *OaepPa
 
 
 	Status = XSecure_RsaExpCRT((u8*)(UINTPTR)OaepParam->InputDataAddr, PrivKey->P, PrivKey->Q, PrivKey->DP, PrivKey->DQ, PrivKey->QInv, NULL,
-					PrivKey->Modulus, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES * 8U, (u8*)(UINTPTR)Output);
+					PrivKey->Modulus, (int)(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES * 8U), (u8*)(UINTPTR)Output);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
