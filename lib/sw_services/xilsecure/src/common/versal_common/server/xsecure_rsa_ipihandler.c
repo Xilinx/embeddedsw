@@ -23,6 +23,7 @@
 * 5.0  kpt   07/24/22 Moved XSecure_RsaKat into xsecure_kat_plat_ipihanlder.c
 *      dc    08/22/22 Fixed RSA key accesses address based on RSA key size
 * 5.1  yog   05/03/23 Fixed MISRA C violation of Rule 10.3
+* 5.3  kpt   03/22/24 Fixed Branch past initialization
 *
 * </pre>
 *
@@ -121,6 +122,8 @@ static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
+	u64 Modulus;
+	u64 PublicExp;
 	XSecure_RsaInParam RsaParams;
 	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
 
@@ -134,8 +137,8 @@ static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 		goto END;
 	}
 
-	u64 Modulus = RsaParams.KeyAddr;
-	u64 PublicExp = RsaParams.KeyAddr + RsaParams.Size;
+	Modulus = RsaParams.KeyAddr;
+	PublicExp = RsaParams.KeyAddr + RsaParams.Size;
 
 	Status = XSecure_RsaInitialize_64Bit(XSecureRsaInstPtr, Modulus, 0U,
 			PublicExp);

@@ -15,7 +15,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   mmd     07/10/23 Initial Release
-* 	vss	09/21/23 Fixed doxygen warnings
+*       vss     09/21/23 Fixed doxygen warnings
+* 5.3   kpt     03/30/24 Updated minor version
 * </pre>
 *
 ******************************************************************************/
@@ -33,7 +34,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_ELLIPTIC_MAJOR_VERSION	5 /**< Major version of ELLIPTIC */
-#define XSECURE_ELLIPTIC_MINOR_VERSION	2 /**< Minor version of ELLIPTIC */
+#define XSECURE_ELLIPTIC_MINOR_VERSION	3 /**< Minor version of ELLIPTIC */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
