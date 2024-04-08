@@ -1,15 +1,15 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xsysmonpsv_services.h
-* @addtogroup Overview
+* @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
-* Services layers provide APIs to which a user can subscribe to like Temperature,
+* The xsysmonpsv_services.h file contains Services layers APIs such as temperature and
 * voltage alarms.
 *
 * <pre>

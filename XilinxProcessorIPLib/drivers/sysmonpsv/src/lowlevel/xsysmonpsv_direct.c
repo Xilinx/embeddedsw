@@ -8,11 +8,10 @@
 /**
 *
 * @file xsysmonpsv_direct.c
-* @addtogroup Overview
+* @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
-* This file contains the function implementation for low level sysmon APIs.
+* The xsysmonpsv_direct.c file contains the function implementation for low level sysmon APIs.
 *
-* @note		None.
 *
 * <pre>
 *
@@ -33,11 +32,11 @@
 #if !defined(XSYSMONPSV_SECURE_MODE)
 /******************************************************************************/
 /**
- * This function reads register value.
+ * Reads the register value.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Offset is offset address for register.
- * @param	Data is value to be read in.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Offset Offset address for the register.
+ * @param	Data Value to be read.
  *
  * @return	None.
  *
@@ -49,11 +48,11 @@ void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
 
 /******************************************************************************/
 /**
- * This function writes register value.
+ * Writes the register value.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Offset is offset address of the register.
- * @param	Data is value to be written.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Offset Offset address of the register.
+ * @param	Data Value to be written.
  *
  * @return	None.
  *
@@ -65,12 +64,12 @@ void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
 
 /******************************************************************************/
 /**
- * This function updates register value.
+ * Updates the register value.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Offset offset addtress of the register.
- * @param	Mask is bits to be masked.
- * @param	Data is value to be written.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Offset Offset addtress of the register.
+ * @param	Mask Bits to be masked.
+ * @param	Data Value to be written.
  *
  * @return	None.
  *

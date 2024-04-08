@@ -8,13 +8,12 @@
 /**
 *
 * @file xsysmonpsv_intr.c
-* @addtogroup Overview
+* @addtogroup sysmonpsv_api SYSMONPSV APIs
 * @{
 *
-* Functions in this file are the minimum required functions for the XSysMonPsv
+* Functions in the xsysmonpsv_intr.c file are the minimum required functions for the XSysMonPsv
 * driver. See xsysmonpsv.h for a detailed description of the driver.
 *
-* @note         None.
 *
 * <pre>
 *
@@ -59,18 +58,17 @@
 /****************************************************************************/
 /**
 *
-* This function enables the specified interrupts in the device.
+* Enables the specified interrupts in the device.
 *
-* @param        InstancePtr is a pointer to the XSysMonPsv instance.
-* @param        Mask is the 32 bit-mask of the interrupts to be enabled.
+* @param        InstancePtr Pointer to the XSysMonPsv instance.
+* @param        Mask 32 bit-mask of the interrupts to be enabled.
 *               Bit positions of 1 will be enabled. Bit positions of 0 will
 *               keep the previous setting. This mask is formed by OR'ing
 *               XSYSMONPSV_IER_*  bits defined in xsysmonpsv_hw.h.
-* @param        IntrNum is the interrupt enable register to be used
+* @param        IntrNum Interrupt enable register to be used.
 *
 * @return       None.
 *
-* @note         None.
 *
 *****************************************************************************/
 void XSysMonPsv_IntrEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
@@ -93,17 +91,16 @@ void XSysMonPsv_IntrEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 /****************************************************************************/
 /**
 *
-* This function returns the enabled interrupts read from the Interrupt Mask
+* Returns the enabled interrupts read from the Interrupt Mask
 * Register (IMR). Use the XSYSMONPSV_IMR0_* and XSYSMONPSV_IMR1_* constants
 * defined in xsysmonpsv_hw.h to interpret the returned value.
 *
-* @param        InstancePtr is a pointer to the XSysMonPsv instance.
-* @param        IntrNum is the interrupt enable register to be used
+* @param        InstancePtr Pointer to the XSysMonPsv instance.
+* @param        IntrNum Interrupt enable register to be used
 *
 * @return       A 32-bit value representing the contents of the Interrupt Mask
 *               Registers.
 *
-* @note         None.
 *
 *****************************************************************************/
 u32 XSysMonPsv_IntrGetEnabled(XSysMonPsv *InstancePtr, u8 IntrNum)
@@ -128,18 +125,17 @@ u32 XSysMonPsv_IntrGetEnabled(XSysMonPsv *InstancePtr, u8 IntrNum)
 /****************************************************************************/
 /**
 *
-* This function disables the specified interrupts in the device.
+* Disables the specified interrupts in the device.
 *
-* @param        InstancePtr is a pointer to the XSysMonPsv instance.
-* @param        Mask is the 32 bit-mask of the interrupts to be enabled.
+* @param        InstancePtr Pointer to the XSysMonPsv instance.
+* @param        Mask 32 bit-mask of the interrupts to be enabled.
 *               Bit positions of 1 will be disabled. Bit positions of 0 will
 *               keep the previous setting. This mask is formed by OR'ing
 *               XSYSMONPSV_IDR_*  bits defined in xsysmonpsv_hw.h.
-* @param        IntrNum is the interrupt disable register to be used
+* @param        IntrNum Interrupt disable register to be used.
 *
 * @return       None.
 *
-* @note         None.
 *
 *****************************************************************************/
 void XSysMonPsv_IntrDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
@@ -162,16 +158,15 @@ void XSysMonPsv_IntrDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 /****************************************************************************/
 /**
 *
-* This function returns the interrupt status read from Interrupt Status
+* Returns the interrupt status read from Interrupt Status
 * Register(ISR). Use the XSYSMONPSV_ISR* constants defined in xsysmonpsv_hw.h
 * to interpret the returned value.
 *
-* @param        InstancePtr is a pointer to the XSysMonPsv instance.
+* @param        InstancePtr Pointer to the XSysMonPsv instance.
 *
 * @return       A 32-bit value representing the contents of the Interrupt Status
 *               Register (ISR).
 *
-* @note         None.
 *
 *****************************************************************************/
 u32 XSysMonPsv_IntrGetStatus(XSysMonPsv *InstancePtr)
@@ -190,16 +185,15 @@ u32 XSysMonPsv_IntrGetStatus(XSysMonPsv *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function clears the specified interrupts in the Interrupt Status
+* Clears the specified interrupts in the Interrupt Status
 * Register (ISR).
 *
-* @param        InstancePtr is a pointer to the XSysMonPsv instance.
-* @param        Mask is the 32 bit-mask of the interrupts to be cleared.
+* @param        InstancePtr Pointer to the XSysMonPsv instance.
+* @param        Mask 32 bit-mask of the interrupts to be cleared.
 *               Bit positions of 1 will be cleared. Bit positions of 0 will not
 *               change the previous interrupt status.*
 * @return       None.
 *
-* @note         None.
 *
 *****************************************************************************/
 void XSysMonPsv_IntrClear(XSysMonPsv *InstancePtr, u32 Mask)
@@ -215,15 +209,14 @@ void XSysMonPsv_IntrClear(XSysMonPsv *InstancePtr, u32 Mask)
 /****************************************************************************/
 /**
 *
-* This function sets a supply as a source new data interrupt.
+* Sets a supply as a source new data interrupt.
 *
-* @param        InstancePtr is a pointer to the XSysMonPsv instance.
-* @param        Supply is an enum from the XSysMonPsv_Supply
-* @param        Mask is a 32 bit Mask for NEW_DATA_n fields in the interrupt
+* @param        InstancePtr Pointer to the XSysMonPsv instance.
+* @param        Supply Enum from the XSysMonPsv_Supply
+* @param        Mask 32 bit Mask for NEW_DATA_n fields in the interrupt
 *               registers
 * @return       None.
 *
-* @note         None.
 *
 *****************************************************************************/
 void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
@@ -260,17 +253,16 @@ void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
 #if defined (ARMR5) || defined (__aarch64__)
 /******************************************************************************/
 /**
- * This function installs a callback function for when a Device Temperature
- * interrupt occurs
+ * Installs a callback function for when a Device Temperature
+ * interrupt occurs.
  *
- * @param       InstancePtr is a pointer to the XSysMonPsv instance.
- * @param       CallbackFunc is the address to the callback function.
- * @param       CallbackRef is the user data item that will be passed to the
+ * @param       InstancePtr Pointer to the XSysMonPsv instance.
+ * @param       CallbackFunc Address to the callback function.
+ * @param       CallbackRef User data item that will be passed to the
  *              callback function when it is invoked.
  *
  * @return      None.
  *
- * @note        None.
  *
 *******************************************************************************/
 void XSysMonPsv_SetTempEventHandler(XSysMonPsv *InstancePtr,
@@ -289,17 +281,16 @@ void XSysMonPsv_SetTempEventHandler(XSysMonPsv *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function installs a callback function for when a OT Temperature
+ * Installs a callback function for when a OT Temperature
  * interrupt occurs
  *
- * @param       InstancePtr is a pointer to the XSysMonPsv instance.
- * @param       CallbackFunc is the address to the callback function.
- * @param       CallbackRef is the user data item that will be passed to the
+ * @param       InstancePtr Pointer to the XSysMonPsv instance.
+ * @param       CallbackFunc Address to the callback function.
+ * @param       CallbackRef User data item that will be passed to the
  *              callback function when it is invoked.
  *
  * @return      None.
  *
- * @note        None.
  *
 *******************************************************************************/
 void XSysMonPsv_SetOTEventHandler(XSysMonPsv *InstancePtr,
@@ -318,18 +309,17 @@ void XSysMonPsv_SetOTEventHandler(XSysMonPsv *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function installs a callback function for when a Supply Voltage alarm
- * interrupt occurs
+ * Installs a callback function for when a Supply Voltage alarm
+ * interrupt occurs.
  *
- * @param       InstancePtr is a pointer to the XSysMonPsv instance.
- * @param       Supply is the supply for which the alarm is to be set.
- * @param       CallbackFunc is the address to the callback function.
- * @param       CallbackRef is the user data item that will be passed to the
+ * @param       InstancePtr Pointer to the XSysMonPsv instance.
+ * @param       Supply Supply for which the alarm is to be set.
+ * @param       CallbackFunc Address to the callback function.
+ * @param       CallbackRef User data item that will be passed to the
  *              callback function when it is invoked.
  *
  * @return      None.
  *
- * @note        None.
  *
 *******************************************************************************/
 void XSysMonPsv_SetSupplyEventHandler(XSysMonPsv *InstancePtr,
@@ -352,16 +342,15 @@ void XSysMonPsv_SetSupplyEventHandler(XSysMonPsv *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function is the interrupt handler for the XSysMonPsv driver.
+ * Interrupt handler for the XSysMonPsv driver.
  *
  * When an interrupt happens, it first detects what kind of interrupt happened,
  * then decides which callback function to invoke.
  *
- * @param       InstancePtr is a pointer to the XSysMonPsv instance.
+ * @param       InstancePtr Pointer to the XSysMonPsv instance.
  *
  * @return      None.
  *
- * @note        None.
  *
 *******************************************************************************/
 void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr)
