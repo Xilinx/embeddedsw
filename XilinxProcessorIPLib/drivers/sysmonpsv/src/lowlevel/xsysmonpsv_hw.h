@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,12 +8,11 @@
 /**
 *
 * @file xsysmonpsv_hw.h
-* @addtogroup Overview
+* @addtogroup sysmonpsv_api SYSMONPSV APIs
 * @{
 *
-* This header file contains the identifiers and basic driver functions (or
-* macros) that can be used to access the device. Other driver functions
-* are defined in xsysmonpsv.h.
+* The xsysmonpsv_hw.h header file contains the identifiers and basic driver functions (or
+* macros) that can be used to access the device.
 *
 * <pre>
 *
@@ -942,12 +942,11 @@ extern "C" {
 *
 * This macro reads the given register.
 *
-* @param        RegisterAddr is the register address in the address
+* @param        RegisterAddr Register address in the address
 *               space of the SYSMONPSV device.
 *
 * @return       The 32-bit value of the register
 *
-* @note         None.
 *
 *****************************************************************************/
 #define XSysMonPsv_ReadReg(RegisterAddr) Xil_In32(RegisterAddr)
@@ -957,13 +956,12 @@ extern "C" {
 *
 * This macro writes the given register.
 *
-* @param        RegisterAddr is the register address in the address
+* @param        RegisterAddr Register address in the address
 *               space of the SYSMONPSV device.
-* @param        Data is the 32-bit value to write to the register.
+* @param        Data 32-bit value to write to the register.
 *
 * @return       None.
 *
-* @note         None.
 *
 *****************************************************************************/
 #define XSysMonPsv_WriteReg(RegisterAddr, Data)                 \
