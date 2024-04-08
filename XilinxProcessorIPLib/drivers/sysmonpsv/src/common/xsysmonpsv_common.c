@@ -8,12 +8,11 @@
 /**
 *
 * @file xsysmonpsv_common.c
-* @addtogroup Overview
+* @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
-* Functions in this file are basic driver functions which will be used in the
+* Functions in the xsysmonpsv_common.c file are basic driver functions which will be used in the
 * in servies or directly by the user.
 *
-* @note		None.
 *
 * <pre>
 *
@@ -37,12 +36,12 @@
 /****************************************************************************/
 /**
 *
-* This function gives the register offset for the different type.
+* Provides the register offset for the different type.
 *
-* @param	Type is Max or Min Temperature Type
+* @param	Type Max or Min Temperature Type
 *
 * @return	-XST_FAILURE when fails
-*		Register offset
+*		    -Register offset
 *
 ***************************************************************************/
 int XSysMonPsv_TempOffset(XSysMonPsv_TempType Type)
@@ -68,14 +67,14 @@ int XSysMonPsv_TempOffset(XSysMonPsv_TempType Type)
 /****************************************************************************/
 /**
 *
-* This function gives the temperature threshold (upper or lower) offset.
+* Provides the temperature threshold (upper or lower) offset.
 *
-* @param	Event is Temp or OT event type.
-* @param	Dir is falling or rising direction
-* @param	Offset is the upper or lower threshold offset.
+* @param	Event Temp or OT event type.
+* @param	Dir Falling or rising direction
+* @param	Offset Upper or lower threshold offset.
 *
-* @return	-XST_FAILURE when fails
-*		XST_SUCCESS when correct params are used.
+* @return	- -XST_FAILURE when fails
+*		    - XST_SUCCESS when correct params are used.
 *
 ***************************************************************************/
 int XSysMonPsv_TempThreshOffset(XSysMonPsv_TempEvt Event,
@@ -103,10 +102,10 @@ int XSysMonPsv_TempThreshOffset(XSysMonPsv_TempEvt Event,
 /****************************************************************************/
 /**
 *
-* This function gives the supply offset.
+* Provides the supply offset.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsv instance.
-* @param	Supply is an enum which indicates the desired supply.
+* @param	InstancePtr Pointer to the XSysMonPsv instance.
+* @param	Supply Enum which indicates the desired supply.
 *
 * @return	Offset supply.
 *
@@ -129,11 +128,11 @@ u32 XSysMonPsv_SupplyOffset(XSysMonPsv *InstancePtr, int Supply)
 /****************************************************************************/
 /**
 *
-* This function gives the supply threshold (upper or lower) offset.
+* Provides the supply threshold (upper or lower) offset.
 *
-* @param	InstancePtr is a pointer to the XSysMonPsv instance.
-* @param    Supply is an enum which indicates the desired supply.
-* @param	Dir is Falling or rising direction.
+* @param	InstancePtr Pointer to the XSysMonPsv instance.
+* @param    Supply Enum which indicates the desired supply.
+* @param	Dir Type of the direction - falling or rising.
 *
 * @return	Upper or lower threshold offset.
 *
@@ -161,11 +160,11 @@ u32 XSysMonPsv_SupplyThreshOffset(XSysMonPsv *InstancePtr, int Supply,
 /****************************************************************************/
 /**
 *
-* This function converts Q8P7 To Celsius.
+* Converts Q8P7 To Celsius.
 *
-* @param	RawData is Raw temperature Data.
-* @param	Val is value in Q8P7 format.
-* @param	Val2 is constant 128.
+* @param	RawData Raw temperature Data.
+* @param	Val Value in Q8P7 format.
+* @param	Val2 Constant 128.
 *
 * @return	None.
 *
@@ -179,11 +178,11 @@ void XSysMonPsv_Q8P7ToCelsius(u32 RawData, int *Val, int *Val2)
 /****************************************************************************/
 /**
 *
-* This function converts Celsius To Q8P7.
+* Converts Celsius To Q8P7.
 *
-* @param	RawData is Raw Temperature Data.
-* @param	Val is the numerator for covnersion to deg C.
-* @param	Val2 is the denominator for conversion to deg C in Q8.7 format.
+* @param	RawData Raw Temperature Data.
+* @param	Val Numerator for covnersion to deg C.
+* @param	Val2 Denominator for conversion to deg C in Q8.7 format.
 *
 * @return	None.
 *
@@ -199,11 +198,11 @@ void XSysMonPsv_CelsiusToQ8P7(u32 *RawData, int Val, int Val2)
 /****************************************************************************/
 /**
 *
-* This function converts raw data to processed.
+* Converts raw data to processed.
 *
-* @param	RawData is raw voltage data.
-* @param	Val is numerator for conversion to volts.
-* @param	Val2 is denominator for conversion to volts.
+* @param	RawData Raw voltage data.
+* @param	Val Numerator for conversion to volts.
+* @param	Val2 Denominator for conversion to volts.
 *
 * @return	None.
 *
@@ -228,12 +227,12 @@ void XSysMonPsv_SupplyRawToProcessed(int RawData, int *Val, int *Val2)
 /****************************************************************************/
 /**
 *
-* This function converts processed data to raw.
+* Converts processed data to raw.
 *
-* @param	Val is numerator for conversion to volts.
-* @param	Val2 is denominator for conversion to volts.
-* @param	RegVal is Register Value.
-* @param	RawData is converted Raw data.
+* @param	Val Numerator for conversion to volts.
+* @param	Val2 Denominator for conversion to volts.
+* @param	RegVal Register Value.
+* @param	RawData Converted Raw data.
 *
 * @return	None.
 *
@@ -272,15 +271,15 @@ void XSysMonPsv_SupplyProcessedToRaw(int Val, int Val2, u32 RegVal,
 /*****************************************************************************/
 /**
 *
-* This function is to be used to check if the supply value has exceeded the set
+* Checks if the supply value has exceeded the set
 * threshold values.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        Supply is an enum which indicates the desired supply.
+* @param        InstancePtr Pointer to the driver instance.
+* @param        Supply Enum which indicates the desired supply.
 *
-* @return       True if new data available
-*               False if new data isn't available
-*               Invalid if the Supply hasn't been configured
+* @return       True if new data available.
+*               False if new data is not available.
+*               Invalid if the Supply has not been configured.
 *
 ******************************************************************************/
 u32 XSysMonPsv_IsAlarmPresent(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
@@ -314,14 +313,14 @@ u32 XSysMonPsv_IsAlarmPresent(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 /*****************************************************************************/
 /**
 *
-* This function is to be used to clear alarm status.
+* Clears alarm status.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        Supply is an enum which indicates the desired supply.
+* @param        InstancePtr Pointer to the driver instance.
+* @param        Supply Enum which indicates the desired supply.
 *
-* @return       True if new data available
-*               False if new data isn't available
-*               Invalid if the Supply hasn't been configured
+* @return       True if new data available.
+*               False if new data isn't available.
+*               Invalid if the Supply hasn't been configured.
 *
 ******************************************************************************/
 u32 XSysMonPsv_ClearAlarm(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
@@ -359,17 +358,17 @@ u32 XSysMonPsv_ClearAlarm(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 /****************************************************************************/
 /**
 *
-* This function enables the specified interrupts in the device.
+* Enables the specified interrupts in the device.
 *
-* @param	InstancePtr is a pointer to the driver instance.
-* @param	Mask is the 32 bit-mask of the interrupts to be enabled.
+* @param	InstancePtr Pointer to the driver instance.
+* @param	Mask 32 bit-mask of the interrupts to be enabled.
 *		Bit positions of 1 will be enabled. Bit positions of 0 will
 *		keep the previous setting. This mask is formed by OR'ing
 *		XSYSMON_IER_*  bits defined in InstancePtr.h.
-* @param	IntrNum is the interrupt enable register to be used
+* @param	IntrNum Interrupt enable register to be used
 *
-* @return	- -XST_FAILURE if error
-*		- XST_SUCCESS if successful
+* @return	- XST_FAILURE if error
+*		    - XST_SUCCESS if successful
 *
 *****************************************************************************/
 int XSysMonPsv_InterruptEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
@@ -393,17 +392,17 @@ int XSysMonPsv_InterruptEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 /****************************************************************************/
 /**
 *
-* This function disables the specified interrupts in the device.
+* Disables the specified interrupts in the device.
 *
-* @param	InstancePtr is a pointer to the driver instance.
-* @param	Mask is the 32 bit-mask of the interrupts to be enabled.
+* @param	InstancePtr Pointer to the driver instance.
+* @param	Mask 32 bit-mask of the interrupts to be enabled.
 *		Bit positions of 1 will be disabled. Bit positions of 0 will
 *		keep the previous setting. This mask is formed by OR'ing
 *		XSYSMONPSV_IDR_*  bits defined in InstancePtr.h.
-* @param	IntrNum is the interrupt disable register to be used
+* @param	IntrNum Interrupt disable register to be used
 *
-* @return	- -XST_FAILURE if error
-*		- XST_SUCCESS if successful
+* @return	- XST_FAILURE if error
+*		    - XST_SUCCESS if successful
 *
 *****************************************************************************/
 int XSysMonPsv_InterruptDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
@@ -427,16 +426,16 @@ int XSysMonPsv_InterruptDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 /****************************************************************************/
 /**
 *
-* This function returns the interrupt status read from Interrupt Status
+* Returns the interrupt status read from Interrupt Status
 * Register(ISR). Use the XSYSMONPSV_ISR* constants defined in InstancePtr.h
 * to interpret the returned value.
 *
-* @param	InstancePtr is a pointer to the driver instance.
-* @param	A 32-bit value representing the contents of the Interrupt Status
+* @param	InstancePtr Pointer to the driver instance.
+* @param	IntrStatus 32-bit value representing the contents of the Interrupt Status
 *		Register (ISR).
 *
-* @return	-XST_FAILURE when NULL Instance is passed
-*               XST_SUCCESS if succeeds
+* @return	- -XST_FAILURE when NULL Instance is passed
+*           - XST_SUCCESS if succeeds
 *
 *****************************************************************************/
 int XSysMonPsv_InterruptGetStatus(XSysMonPsv *InstancePtr, u32 *IntrStatus)
@@ -452,11 +451,11 @@ int XSysMonPsv_InterruptGetStatus(XSysMonPsv *InstancePtr, u32 *IntrStatus)
 /****************************************************************************/
 /**
 *
-* This function clears the specified interrupts in the Interrupt Status
-* Register (ISR).
+* Clears the specified interrupts in the Interrupt Status
+* Register(ISR).
 *
-* @param	InstancePtr is a pointer to the struct InstancePtr.
-* @param	Mask is the 32 bit-mask of the interrupts to be cleared.
+* @param	InstancePtr Pointer to the struct InstancePtr.
+* @param	Mask 32 bit-mask of the interrupts to be cleared.
 *		Bit positions of 1 will be cleared. Bit positions of 0 will not
 *		change the previous interrupt status.*
 * @return	None.
@@ -473,9 +472,9 @@ void XSysMonPsv_InterruptClear(XSysMonPsv *InstancePtr, u32 Mask)
 /****************************************************************************/
 /**
 *
-* This function unlocks the register space of InstancePtr hardware.
+* Unlocks the register space of InstancePtr hardware.
 *
-* @param	InstancePtr is a pointer to the driver instance.
+* @param	InstancePtr Pointer to the driver instance.
 *
 * @return	None.
 *

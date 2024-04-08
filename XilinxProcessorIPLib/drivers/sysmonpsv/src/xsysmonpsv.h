@@ -1,93 +1,15 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xsysmonpsv.h
-* @addtogroup Overview
+* @addtogroup sysmonpsv_api SYSMONPSV APIs
 * @{
 *
-* The XSysMon driver supports the Xilinx System Monitor device on Versal
-*
-* The System Monitor device has the following features:
-*               - Measure and monitor up to 160 voltages across the chip
-*               - Automatic alarms based on user defined limis for the
-*                 on-chip supply voltages and temperature.
-*               - Optional interrupt request generation
-*
-*
-* The user should refer to the hardware device specification for detailed
-* information about the device.
-*
-* This header file contains the prototypes of driver functions that can
-* be used to access the System Monitor device.
-*
-*
-* <b> Initialization and Configuration </b>
-*
-* The device driver enables higher layer software (e.g., an application) to
-* communicate to the System Monitor device.
-*
-* XSysMonPsv_CfgInitialize() API is used to initialize the System Monitor
-* device. The user needs to first call the XSysMonPsv_LookupConfig() API which
-* returns the Configuration structure pointer which is passed as a parameter to
-* the XSysMonPsv_CfgInitialize() API.
-*
-*
-* <b>Interrupts</b>
-*
-* The System Monitor device supports interrupt driven mode and the default
-* operation mode is polling mode.
-*
-* This driver does not provide a Interrupt Service Routine (ISR) for the device.
-* It is the responsibility of the application to provide one if needed. Refer to
-* the interrupt example provided with this driver for details on using the
-* device in interrupt mode.
-*
-*
-* <b> Virtual Memory </b>
-*
-* This driver supports Virtual Memory. The RTOS is responsible for calculating
-* the correct device base address in Virtual Memory space.
-*
-*
-* <b> Threads </b>
-*
-* This driver is not thread safe. Any needs for threads or thread mutual
-* exclusion must be satisfied by the layer above this driver.
-*
-*
-* <b> Asserts </b>
-*
-* Asserts are used within all Xilinx drivers to enforce constraints on argument
-* values. Asserts can be turned off on a system-wide basis by defining, at
-* compile time, the NDEBUG identifier. By default, asserts are turned on and it
-* is recommended that users leave asserts on during development.
-*
-*
-* <b> Building the driver </b>
-*
-* The XSysMonPsv driver is composed of several source files. This allows the user
-* to build and link only those parts of the driver that are necessary.
-*
-*
-* <b> Limitations of the driver </b>
-*
-* System Monitor device can be accessed through the JTAG port and the AXI
-* interface. The driver implementation does not support the simultaneous access
-* of the device by both these interfaces. The user has to take care of this
-* situation in the user application code.
-*
-*  <b> Note </b>
-*  For ES1 silicon the temperature alarms are based on comparison of
-*  XSYSMONPSV_DEVICE_TEMP_MAX/MIN with XSYSMONPSV_DEVICE_TEMP_TH_UPPER/LOWER
-*  respectively.
-*  For Production silicon, only supports a single temperature measurement which
-*  is compared with XSYSMONPSV_DEVICE_TEMP_TH_UPPER/LOWER to generate temperature
-*  based alarms.
 *
 *
 *
@@ -203,12 +125,11 @@ typedef enum {
 *
 * This macro returns the XSYSMONPSV_NEW_ALARMn_MASK for a configured supply.
 *
-* @param        InstancePtr is the instance of sysmon driver
-* @param        Supply is a type enum of supply enabled
+* @param        InstancePtr Instance of sysmon driver
+* @param        Supply Type enum of supply enabled
 *
 * @return       A 32 bit mask to be used for configuring interrupts
 *
-* @note         None
 *
 *****************************************************************************/
 #define XSysMonPsv_GetAlarmMask(InstancePtr, Supply)                           \
@@ -217,13 +138,12 @@ typedef enum {
 /****************************************************************************/
 /**
 *
-* This function converts raw AdcData into Voltage value.
+* Converts raw AdcData into Voltage value.
 *
-* @param        AdcData is the System Monitor ADC Raw Data.
+* @param        AdcData System Monitor ADC Raw Data.
 *
 * @return       The Voltage in volts.
 *
-* @note         None.
 *
 *****************************************************************************/
 static inline float XSysMonPsv_RawToVoltage(u32 AdcData)
@@ -250,16 +170,15 @@ static inline float XSysMonPsv_RawToVoltage(u32 AdcData)
 /****************************************************************************/
 /**
 *
-* This function converts raw AdcData into Voltage value.
+* Converts raw AdcData into Voltage value.
 *
-* @param        Volts is the voltage value to be converted
-* @param        Type is the type of supply,
+* @param        Volts Voltage value to be converted.
+* @param        Type Type of supply:
 *               Type = 0, Unipolar
 *               Type = 1, Bipolar
 *
 * @return       The Voltage in Raw ADC format.
 *
-* @note         None.
 *
 *****************************************************************************/
 static inline u16 XSysMonPsv_VoltageToRaw(float Volts,
@@ -302,13 +221,12 @@ static inline u16 XSysMonPsv_VoltageToRaw(float Volts,
 /****************************************************************************/
 /**
 *
-* This function converts the fixed point to degree celsius
+* Converts the fixed point to degree celsius.
 *
-* @param        FixedQFmt is Q8.7 representation of temperature value.
+* @param        FixedQFmt Q8.7 representation of temperature value.
 *
-* @return       The Temperature in degree celsisus
+* @return       The Temperature in degree celsisus.
 *
-* @note         None.
 *
 *****************************************************************************/
 static inline float XSysMonPsv_FixedToFloat(u32 FixedQFmt)
@@ -329,13 +247,12 @@ static inline float XSysMonPsv_FixedToFloat(u32 FixedQFmt)
 /****************************************************************************/
 /**
 *
-* This function converts the floating point to Fixed Q8.7 format
+* Converts the floating point to Fixed Q8.7 format.
 *
-* @param        Temp is temperature value in Deg Celsius
+* @param        Temp Temperature value in Deg Celsius.
 *
-* @return       temperature value in fixed Q8.7 format.
+* @return       Temperature value in fixed Q8.7 format.
 *
-* @note         None.
 *
 *****************************************************************************/
 static inline u16 XSysMonPsv_FloatToFixed(float Temp)
@@ -474,4 +391,4 @@ XSysMonPsv_Config *XSysMonPsv_LookupConfig(void);
 #endif
 
 #endif /* XSYSMONPSV_H_ */
-/** @}*/
+/** @} */
