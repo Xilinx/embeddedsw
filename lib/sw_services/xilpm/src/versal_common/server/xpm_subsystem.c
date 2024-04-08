@@ -21,7 +21,9 @@
 #ifdef VERSAL_NET
 #include "xpm_update.h"
 #endif
-static XPm_Subsystem *PmSubsystems;
+
+/* this needs to be global to run the unit tests independently*/
+XPm_Subsystem *PmSubsystems;
 static u32 MaxSubsysIdx;
 
 XStatus XPmSubsystem_AddPermission(const XPm_Subsystem *Host,
