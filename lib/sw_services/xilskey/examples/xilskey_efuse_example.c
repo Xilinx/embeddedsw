@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -159,6 +160,7 @@
 *                        verification.
 *               08/30/19 Corrected length in bits parameter while converting
 *                        PPK hash string(zynq efuse ps)
+* 7.6   vns     04/04/24 Updated efuse PL secure bits of ultrascale devices
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -751,18 +753,7 @@ u32 XilSKey_EfusePl_ReadnCheck(XilSKey_EPl *PlInstancePtr)
 		}else {
 			xil_printf("EfusePL status bits : 128 bit User Key programming enabled\n\r");
 		}
-#ifdef XSK_MICROBLAZE_ULTRA
-		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA)) {
-			xil_printf("EfusePL status bits : FUSE logic is busy \n\r");
-		}else {
-			xil_printf("EfusePL status bits : FUSE logic is free \n\r");
-		}
-		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_ALLOW_ENCRYPTED_ONLY_ULTRA)) {
-			xil_printf("EfusePL status bits : Only allows encrypted bitstreams\n\r");
-		}else {
-			xil_printf("EfusePL status bits : Non encrypted bitstream allowed\n\r");
-		}
-#endif
+
 		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_AES_ONLY_ENABLED_ULTRA)) {
 			xil_printf("EfusePL status bits : Decryption only by AES of FUSE \n\r");
 		}else {
@@ -773,30 +764,18 @@ u32 XilSKey_EfusePl_ReadnCheck(XilSKey_EPl *PlInstancePtr)
 		}else {
 			xil_printf("EfusePL status bits : RSA authentication is disabled \n\r");
 		}
-#ifdef XSK_MICROBLAZE_ULTRA
-		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_JTAG_ULTRA)) {
-			xil_printf("EfusePL status bits : External Jtag pins are disabled\n\r");
-		}else {
-			xil_printf("EfusePL status bits : Jtag is not disabled\n\r");
-		}
-		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_TEST_ACCESS_ULTRA)) {
+		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_SCAN_DISABLE_ULTRA)) {
 			xil_printf("EfusePL status bits : Disables test access\n\r");
 		}else {
 			xil_printf("EfusePL status bits : Xilinx test access is enabled\n\r");
 		}
-#else
-		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_SECURITY_ENABLE_ULTRA)) {
-			xil_printf("EfusePL status bits : Security enabled \n\r");
-		}
-		else {
-			xil_printf("EfusePL status bits : Security is not been enabled\n\r");
-		}
-#endif
-		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_DCRPTR_ULTRA)) {
-			xil_printf("EfusePL status bits : Decryptor disabled \n\r");
+
+		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_CRYPTO_ULTRA)) {
+			xil_printf("EfusePL status bits : Disabled Crypto\n\r");
 		}else {
-			xil_printf("EfusePL status bits : Decryptor enabled\n\r");
+			xil_printf("EfusePL status bits : Crypto is not disabled\n\r");
 		}
+
 		if(PlStatus & (1U <<
 			XSK_EFUSEPL_STATUS_ENABLE_OBFUSCATED_EFUSE_KEY)) {
 			xil_printf("EfusePL status bits :"
@@ -806,6 +785,30 @@ u32 XilSKey_EfusePl_ReadnCheck(XilSKey_EPl *PlInstancePtr)
 			xil_printf("EfusePL status bits :"
 				" Obfuscation disabled\n\r");
 		}
+#ifdef XSK_MICROBLAZE_ULTRA
+		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA)) {
+			xil_printf("EfusePL status bits : FUSE logic is busy \n\r");
+		}else {
+			xil_printf("EfusePL status bits : FUSE logic is free \n\r");
+		}
+		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_FUSE_SHAD_SEC1_ULTRA)) {
+			xil_printf("EfusePL status bits : Programmed FUSE SHAD SEC 1 \n\r");
+		}else {
+			xil_printf("EfusePL status bits : Not programmed FUSE SHAD SEC 1\n\r");
+		}
+		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_FUSE_SHAD_SEC3_ULTRA)) {
+			xil_printf("EfusePL status bits : Programmed FUSE SHAD SEC 3 \n\r");
+		}else {
+			xil_printf("EfusePL status bits : Not programmed FUSE SHAD SEC 3\n\r");
+		}
+#else
+		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_JTAG_ULTRA)) {
+			xil_printf("EfusePL status bits : External Jtag pins are disabled\n\r");
+		}else {
+			xil_printf("EfusePL status bits : Jtag is not disabled\n\r");
+		}
+
+#endif
 
 	}
 
