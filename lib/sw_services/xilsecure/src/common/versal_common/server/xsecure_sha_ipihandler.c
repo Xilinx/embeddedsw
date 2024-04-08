@@ -32,6 +32,7 @@
 *	vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
 *	vss  09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
 * 5.3	mb    02/23/2024 Updated HASH length to words in XPlmi_DmaXfr
+*       kpt   03/22/2024 Fix MISRA C violation of Rule 10.3
 *
 * </pre>
 *
@@ -242,7 +243,7 @@ static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd)
 			goto END;
 		}
 		if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != TRUE) {
-			Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
 			goto END;
 		}
 		/* Initializes a XSecure_Sha3 structure for operating the SHA3 engine */
