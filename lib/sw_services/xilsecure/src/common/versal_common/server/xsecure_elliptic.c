@@ -54,7 +54,8 @@
 *       am   08/18/23 Added XSecure_EllipticValidateAndGetCrvInfo and
 *                     XSecure_EllipticGetCrvSize functions
 *       yog  09/04/23 Restricted XSecure_ECCRandInit API support to VersalNet
-*	vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
+*       vss  09/11/23 Fixed MISRA-C Rule 8.13 violation
+* 5.3   kpt  03/22/24 Fixed Branch past initialization
 *
 * </pre>
 *
@@ -207,6 +208,8 @@ int XSecure_EllipticGenerateKey(XSecure_EllipticCrvTyp CrvType, const u8* D,
 	const XSecure_EllipticKey *Key)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	XSecure_EllipticKeyAddr KeyAddr;
+
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 		(CrvType != XSECURE_ECC_NIST_P521) &&
 		(CrvType != XSECURE_ECC_NIST_P256)) {
@@ -219,8 +222,8 @@ int XSecure_EllipticGenerateKey(XSecure_EllipticCrvTyp CrvType, const u8* D,
 		goto END;
 	}
 
-	XSecure_EllipticKeyAddr KeyAddr = { (u64)(UINTPTR)Key->Qx,
-		(u64)(UINTPTR)Key->Qy};
+	KeyAddr.Qx = (u64)(UINTPTR)Key->Qx;
+	KeyAddr.Qy = (u64)(UINTPTR)Key->Qy;
 
 	Status = XSecure_EllipticGenerateKey_64Bit(CrvType, (u64)(UINTPTR)D,
 			(XSecure_EllipticKeyAddr *) &KeyAddr);
@@ -408,6 +411,9 @@ int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType,
 	const u8* K, const XSecure_EllipticSign *Sign)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	XSecure_EllipticSignAddr SignAddr;
+	XSecure_EllipticHashData HashInfo;
+
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 		(CrvType != XSECURE_ECC_NIST_P521) &&
 		(CrvType != XSECURE_ECC_NIST_P256)) {
@@ -425,10 +431,11 @@ int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
-	XSecure_EllipticSignAddr SignAddr = {(u64)(UINTPTR)Sign->SignR,
-		(u64)(UINTPTR)Sign->SignS};
+	SignAddr.SignR = (u64)(UINTPTR)Sign->SignR;
+	SignAddr.SignS = (u64)(UINTPTR)Sign->SignS;
 
-	XSecure_EllipticHashData HashInfo = {(u64)(UINTPTR)Hash, HashLen};
+	HashInfo.Addr = (u64)(UINTPTR)Hash;
+	HashInfo.Len = HashLen;
 
 	Status = XSecure_EllipticGenerateSignature_64Bit(CrvType,
 			(XSecure_EllipticHashData *) &HashInfo,
@@ -552,6 +559,8 @@ int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
 	const XSecure_EllipticKey *Key)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	XSecure_EllipticKeyAddr KeyAddr;
+
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 		(CrvType != XSECURE_ECC_NIST_P521) &&
 		(CrvType != XSECURE_ECC_NIST_P256)) {
@@ -564,8 +573,8 @@ int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
-	XSecure_EllipticKeyAddr KeyAddr = {(u64)(UINTPTR)Key->Qx,
-		(u64)(UINTPTR)Key->Qy};
+	KeyAddr.Qx = (u64)(UINTPTR)Key->Qx;
+	KeyAddr.Qy = (u64)(UINTPTR)Key->Qy;
 
 	Status = XSecure_EllipticValidateKey_64Bit(CrvType,
 			(XSecure_EllipticKeyAddr *) &KeyAddr);
@@ -744,6 +753,10 @@ int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
 	const u32 HashLen, const XSecure_EllipticKey *Key, const XSecure_EllipticSign *Sign)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	XSecure_EllipticSignAddr SignAddr;
+	XSecure_EllipticKeyAddr KeyAddr;
+	XSecure_EllipticHashData HashInfo;
+
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 		(CrvType != XSECURE_ECC_NIST_P521) &&
 		(CrvType != XSECURE_ECC_NIST_P256)) {
@@ -761,13 +774,14 @@ int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
 		goto END;
 	}
 
-	XSecure_EllipticSignAddr SignAddr = {(u64)(UINTPTR)Sign->SignR,
-		(u64)(UINTPTR)Sign->SignS};
+	SignAddr.SignR = (u64)(UINTPTR)Sign->SignR;
+	SignAddr.SignS = (u64)(UINTPTR)Sign->SignS;
 
-	XSecure_EllipticKeyAddr KeyAddr = {(u64)(UINTPTR)Key->Qx,
-		(u64)(UINTPTR)Key->Qy};
+	KeyAddr.Qx = (u64)(UINTPTR)Key->Qx;
+	KeyAddr.Qy = (u64)(UINTPTR)Key->Qy;
 
-	XSecure_EllipticHashData HashInfo = {(u64)(UINTPTR)Hash, HashLen};
+	HashInfo.Addr = (u64)(UINTPTR)Hash;
+	HashInfo.Len = HashLen;
 
 	Status = XSecure_EllipticVerifySign_64Bit(CrvType,
 			(XSecure_EllipticHashData *) &HashInfo,

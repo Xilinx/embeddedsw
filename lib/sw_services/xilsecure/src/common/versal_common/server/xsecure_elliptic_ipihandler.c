@@ -28,6 +28,7 @@
 *      am    08/17/2023 Replaced curve size check with XSecure_EllipticGetCrvSize() call
 *      ng    02/12/2024 optimised u8 vars to u32 for size reduction
 * 5.3  kpt   03/22/2024 Fix MISRA C violation of Rule 10.3
+*      kpt   03/22/2024 Fixed Branch past initialization
 *
 * </pre>
 *
@@ -146,6 +147,7 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 	u64 SrcAddr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	u32 Size = 0U;
+	XSecure_EllipticKeyAddr KeyAddr;
 
 	Size = XSecure_EllipticGetCrvSize((XSecure_EllipticCrvTyp)CurveType);
 	if (Size == 0U) {
@@ -153,7 +155,9 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 		goto END;
 	}
 
-	XSecure_EllipticKeyAddr KeyAddr = {DstAddr, (DstAddr + (u64)Size)};
+	KeyAddr.Qx = DstAddr;
+	KeyAddr.Qy = (DstAddr + (u64)Size);
+
 	Status = XSecure_EllipticGenerateKey_64Bit(
 			(XSecure_EllipticCrvTyp)CurveType,
 			SrcAddr, (XSecure_EllipticKeyAddr *) &KeyAddr);
@@ -202,6 +206,8 @@ static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u64 SrcAddr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	XSecure_EllipticSignGenParams EcdsaParams;
+	XSecure_EllipticHashData HashInfo;
+	XSecure_EllipticSignAddr SignAddr;
 	u32 Size = 0U;
 
 	if (XPlmi_IsKatRan(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK) != TRUE) {
@@ -220,10 +226,11 @@ static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
 		goto END;
 	}
 
-	XSecure_EllipticHashData HashInfo = {EcdsaParams.HashAddr,
-			EcdsaParams.Size};
-	XSecure_EllipticSignAddr SignAddr = {DstAddr,
-			(DstAddr + (u64)Size)};
+	HashInfo.Addr = EcdsaParams.HashAddr;
+	HashInfo.Len = EcdsaParams.Size;
+
+	SignAddr.SignR = DstAddr;
+	SignAddr.SignS = (DstAddr + (u64)Size);
 
 	Status = XST_FAILURE;
 	Status = XSecure_EllipticGenerateSignature_64Bit(
@@ -256,6 +263,7 @@ static int XSecure_EllipticValidatePubKey(u32 CurveType, u32 SrcAddrLow,
 {
 	volatile int Status = XST_FAILURE;
 	u64 SrcAddr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
+	XSecure_EllipticKeyAddr KeyAddr;
 	u32 Size = 0U;
 
 	Size = XSecure_EllipticGetCrvSize((XSecure_EllipticCrvTyp)CurveType);
@@ -264,7 +272,9 @@ static int XSecure_EllipticValidatePubKey(u32 CurveType, u32 SrcAddrLow,
 		goto END;
 	}
 
-	XSecure_EllipticKeyAddr KeyAddr = {SrcAddr, (SrcAddr + (u64)Size)};
+	KeyAddr.Qx = SrcAddr;
+	KeyAddr.Qy = (SrcAddr + (u64)Size);
+
 	Status = XSecure_EllipticValidateKey_64Bit(
 			(XSecure_EllipticCrvTyp)CurveType,
 			(XSecure_EllipticKeyAddr *) &KeyAddr);
@@ -293,6 +303,9 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_EllipticSignVerifyParams EcdsaParams;
+	XSecure_EllipticKeyAddr KeyAddr;
+	XSecure_EllipticHashData HashInfo;
+	XSecure_EllipticSignAddr SignAddr;
 	u32 Size = 0U;
 
 	if (XPlmi_IsKatRan(XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK) != TRUE) {
@@ -311,12 +324,14 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
-	XSecure_EllipticKeyAddr KeyAddr = {EcdsaParams.PubKeyAddr,
-			(EcdsaParams.PubKeyAddr + (u64)Size)};
-	XSecure_EllipticHashData HashInfo = {EcdsaParams.HashAddr,
-			EcdsaParams.Size};
-	XSecure_EllipticSignAddr SignAddr = {EcdsaParams.SignAddr,
-			(EcdsaParams.SignAddr + (u64)Size)};
+	KeyAddr.Qx = EcdsaParams.PubKeyAddr;
+	KeyAddr.Qy = (EcdsaParams.PubKeyAddr + (u64)Size);
+
+	HashInfo.Addr = EcdsaParams.HashAddr;
+	HashInfo.Len = EcdsaParams.Size;
+
+	SignAddr.SignR = EcdsaParams.SignAddr;
+	SignAddr.SignS = (EcdsaParams.SignAddr + (u64)Size);
 
 	Status = XST_FAILURE;
 	/** Verify the signature for the provided hash, key and curve type */
