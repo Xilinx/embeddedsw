@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +39,7 @@
 *       psl     03/29/19 Added Support for user configurable GPIO for jtag
 *                        control
 * 7.2   am      07/13/21 Fixed doxygen warnings
+* 7.6   vns     04/04/24 Updated efuse PL secure bits of ultrascale devices
 *
 * </pre>
 *
@@ -86,14 +88,14 @@ typedef enum {
 	XSK_EFUSEPL_STATUS_DISABLE_SECURE_WRITE_ULTRA,	/**< Bit 9 of Status reg */
 	XSK_EFUSEPL_STATUS_DISABLE_RSA_KEY_WRITE_ULTRA = 15,/**< Bit 15 of Status reg */
 	XSK_EFUSEPL_STATUS_DIABLE_128BIT_USER_KEY_WRITE_ULTRA,
-	XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA = 22,/**< Bit 22 of Status reg */
-	XSK_EFUSEPL_STATUS_ALLOW_ENCRYPTED_ONLY_ULTRA,/**< Bit 23 of Status reg */
+	XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA = 23,/**< Bit 23 of Status reg */
 	XSK_EFUSEPL_STATUS_AES_ONLY_ENABLED_ULTRA,/**< Bit 24 of Status reg */
-	XSK_EFUSEPL_STATUS_RSA_AUTH_ENABLED_ULTRA,/**< Bit 25 of Status reg */
-	XSK_EFUSEPL_STATUS_DISABLE_JTAG_ULTRA,/**< Bit 26 of Status reg */
-	XSK_EFUSEPL_STATUS_DISABLE_TEST_ACCESS_ULTRA,/**< Bit 27 of Status reg */
-	XSK_EFUSEPL_STATUS_DISABLE_DCRPTR_ULTRA,/**< Bit 28 of Status reg */
-	XSK_EFUSEPL_STATUS_ENABLE_OBFUSCATED_EFUSE_KEY /**< Bit 29 of Status reg */
+	XSK_EFUSEPL_STATUS_FUSE_SHAD_SEC1_ULTRA,/**< Bit 25 of Status reg */
+	XSK_EFUSEPL_STATUS_RSA_AUTH_ENABLED_ULTRA,/**< Bit 26 of Status reg */
+	XSK_EFUSEPL_STATUS_FUSE_SHAD_SEC3_ULTRA,/**< Bit 27 of Status reg */
+	XSK_EFUSEPL_STATUS_SCAN_DISABLE_ULTRA,/**< Bit 28 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_CRYPTO_ULTRA,/**< Bit 29 of Status reg */
+	XSK_EFUSEPL_STATUS_ENABLE_OBFUSCATED_EFUSE_KEY /**< Bit 30 of Status reg */
 }XSKEfusePl_FuseStatusBits_F8Series;
 #else
 /*
@@ -112,9 +114,11 @@ typedef enum {
 							/**< Bit 15 of Status reg */
 	XSK_EFUSEPL_STATUS_DIABLE_128BIT_USER_KEY_WRITE_ULTRA,
 	XSK_EFUSEPL_STATUS_AES_ONLY_ENABLED_ULTRA = 25,/**< Bit 25 of Status reg */
-	XSK_EFUSEPL_STATUS_RSA_AUTH_ENABLED_ULTRA = 27,/**< Bit 27 of Status reg */
-	XSK_EFUSEPL_STATUS_SECURITY_ENABLE_ULTRA = 29,/**< Bit 29 of Status reg */
-	XSK_EFUSEPL_STATUS_DISABLE_DCRPTR_ULTRA,/**< Bit 30 of Status reg */
+	XSK_EFUSEPL_STATUS_EFUSE_KEY_ONLY_DECRYPTION_ULTRA, /**< Bit 26 of Status reg */
+	XSK_EFUSEPL_STATUS_RSA_AUTH_ENABLED_ULTRA,  /**< Bit 27 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_JTAG_ULTRA, /**< Bit 28 of Status reg */
+	XSK_EFUSEPL_STATUS_SCAN_DISABLE_ULTRA, /**< Bit 29 of Status reg */
+	XSK_EFUSEPL_STATUS_DISABLE_CRYPTO_ULTRA,/**< Bit 30 of Status reg */
 	XSK_EFUSEPL_STATUS_ENABLE_OBFUSCATED_EFUSE_KEY /**< Bit 31 of Status reg */
 }XSKEfusePl_FuseStatusBits_F8Series;
 #endif
