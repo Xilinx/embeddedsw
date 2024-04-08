@@ -20,7 +20,7 @@ u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 #else
 static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 #endif
-static u8 *FreeBytes = ByteBuffer;
+u8 *FreeBytes = ByteBuffer;
 
 void *XPm_AllocBytes(u32 SizeInBytes)
 {
