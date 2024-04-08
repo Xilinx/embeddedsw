@@ -93,6 +93,7 @@
 * 5.3   kpt  11/28/2023 Add support to clear AES PUF,RED,KUP keys
 *       har  03/20/2024 Add support for non-word aligned data in XSecure_AesEncryptData
 *                       and XSecure_AesDecryptData
+*       kpt  03/22/2024 Fix overrun issue
 *
 * </pre>
 *
@@ -1654,14 +1655,15 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END_CLR;
 	}
+
 	if (KeySrc == XSECURE_AES_ALL_KEYS) {
 		Mask = XSECURE_AES_KEY_CLEAR_ALL_KEYS_MASK;
 	}
-	else if (KeySrc == XSECURE_AES_EXPANDED_KEYS) {
-		Mask = XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK;
-	}
 	else if (KeySrc == XSECURE_AES_PUF_RED_EXPANDED_KEYS) {
 		Mask = XSECURE_AES_KEY_CLEAR_PUF_RED_EXPANDED_KEYS_MASK;
+	}
+	else if (KeySrc == XSECURE_AES_EXPANDED_KEYS) {
+		Mask = XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK;
 	}
 	else if (AesKeyLookupTbl[KeySrc].KeyClearVal != XSECURE_AES_INVALID_CFG) {
 		Mask = AesKeyLookupTbl[KeySrc].KeyClearVal;
@@ -1670,11 +1672,13 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 		Status = XST_INVALID_PARAM;
 		goto END_CLR;
 	}
+
 	RstState = XSecure_ReadReg(InstancePtr->BaseAddress,XSECURE_AES_SOFT_RST_OFFSET);
 	if (RstState == XSECURE_RESET_SET){
 		XSecure_ReleaseReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
+
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_CLEAR_OFFSET,
 					 Mask);
 
