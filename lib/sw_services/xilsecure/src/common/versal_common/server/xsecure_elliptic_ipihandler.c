@@ -27,6 +27,7 @@
 *                       since trng is being initialised in server API's
 *      am    08/17/2023 Replaced curve size check with XSecure_EllipticGetCrvSize() call
 *      ng    02/12/2024 optimised u8 vars to u32 for size reduction
+* 5.3  kpt   03/22/2024 Fix MISRA C violation of Rule 10.3
 *
 * </pre>
 *
@@ -148,7 +149,7 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 
 	Size = XSecure_EllipticGetCrvSize((XSecure_EllipticCrvTyp)CurveType);
 	if (Size == 0U) {
-		Status = XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+		Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 		goto END;
 	}
 
