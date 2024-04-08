@@ -19,6 +19,7 @@
 *       dd      10/11/23 MISRA-C violation Rule 12.1 fixed
 *       dd      10/11/23 MISRA-C violation Rule 8.13 fixed
 * 5.3   kpt     12/13/23 Added SHA384 MGF support
+*       kpt     03/22/24 Fixed MISRA-C violation Rule 17.7
 *
 * </pre>
 *
@@ -129,8 +130,7 @@ static int XSecure_ShaFinish(XSecure_ShaType Shatype, void *InstancePtr, u64 Has
 		Status = XSecure_Sha3Finish((XSecure_Sha3 *)InstancePtr, (XSecure_Sha3Hash *)(UINTPTR)HashAddr);
 	}
 	else {
-		XSecure_Sha384Finish((XSecure_Sha2Hash*)(UINTPTR)HashAddr);
-		Status = XST_SUCCESS;
+		Status = XSecure_Sha384Finish((XSecure_Sha2Hash*)(UINTPTR)HashAddr);
 	}
 
 	return Status;
