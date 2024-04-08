@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,9 +53,9 @@
  * 6.0  Nava 05/17/21  Removed unused structure definition.
  * 6.3  Nava 08/05/22  Added doxygen tags.
  * 6.5  Nava 08/18/23  Resolved the doxygen issues.
+ * 6.6  AC	 04/04/24  Resolved the doxygen issues.
  * </pre>
  *
- * @note
  *
  ******************************************************************************/
 
@@ -73,21 +73,12 @@ extern "C" {
 /**
  * Structure to store the PL Write Image details.
  *
- * @param BitstreamAddr	Bitstream image base address for Normal PDI LOAD.
- *			Image Id for Deferred PDI LOAD.
- * @param KeyAddr	Unused
- * @param Size		Unused
- * @param Flags		Flags are used to specify the type of Bitstream file
- *			* BIT(0) - Bitstream type
- *                                     * 0 - Normal PDI Load
- *                                     * 1 - Deferred PDI Load
- *
  */
 typedef struct {
-		UINTPTR BitstreamAddr;
-		UINTPTR	KeyAddr;
-		u32 Size;
-		u32 Flags;
+		UINTPTR BitstreamAddr; /**< Bitstream image base address for Normal PDI LOAD */
+		UINTPTR	KeyAddr; /**< Unused */
+		u32 Size; /**< Unused */
+		u32 Flags; /**< Specifies the type of bitstream file: BIT(0) - Bitstream type; 0 - Normal PDI Load , 1 - Deferred PDI Load */
 }XFpga_Write;
 
 /************************** Variable Definitions *****************************/

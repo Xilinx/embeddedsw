@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
  *
  * @file xilfpga.h
- * @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adative SoC and Zynq UltraScale+ MPSoC
+ * @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC
  *
  * @{
  * @details
@@ -87,6 +87,7 @@
  * 6.5  Nava  08/18/23  Resolved the doxygen issues.
  * 6.5  Nava  08/02/23  Updated version info macro to align with the library mld version.
  * 6.5  Nava  09/04/23  Added proper ifdef platform checks for user-accessible APIs.
+ * 6.6  AC	  04/04/24  Resolved the doxygen issues.
  * </pre>
  *
  *
@@ -110,39 +111,23 @@ extern "C" {
 /**
  * Structure to the XFpga instance.
  *
- * @param XFpga_ValidateBitstream validate the Bitstream header before
- *				  programming the PL
- * @param xilfpga_PreConfig prepare the FPGA to receive confuration data
- * @param xilfpga_WriteToPl write count bytes of configuration data to
- *				  the FPGA
- * @param xilfpga_PostConfig set FPGA to operating state after writing
- *			     is done
- * @param XFpga_GetInterfaceStatus Provides the STATUS of PL programming interface
- * @param Xfpga_GetConfigReg Returns the value of the specified configuration
- *			     register
- * @param XFpga_GetConfigData Provides the FPGA readback data.
- * @param PLInfo Which is used to store the secure image data.
- * @param WriteInfo XFpga_Write structure which is used to store the PL Write
- *                  Image details.
- * @param ReadInfo XFpga_Read structure which is used to store the PL Image
- *                 readback details
  */
 typedef struct XFpgatag{
-	u32 (*XFpga_ValidateBitstream)(struct XFpgatag *InstancePtr);
-	u32 (*XFpga_PreConfig)(struct XFpgatag *InstancePtr);
-	u32 (*XFpga_WriteToPl)(struct XFpgatag *InstancePtr);
-	u32 (*XFpga_PostConfig)(struct XFpgatag *InstancePtr);
-	u32 (*XFpga_GetFeatureList)(struct XFpgatag *InstancePtr);
+	u32 (*XFpga_ValidateBitstream)(struct XFpgatag *InstancePtr); /**< Validate the bitstream header before programming the PL */
+	u32 (*XFpga_PreConfig)(struct XFpgatag *InstancePtr); /**<Prepare the FPGA to receive confuration data */
+	u32 (*XFpga_WriteToPl)(struct XFpgatag *InstancePtr); /**< Write count bytes of configuration data to the FPGA */
+	u32 (*XFpga_PostConfig)(struct XFpgatag *InstancePtr); /**< Set FPGA to operating state after writing is done */
+	u32 (*XFpga_GetFeatureList)(struct XFpgatag *InstancePtr); /**< Gets the feature list that xilfpga library supports */
 #ifndef versal
-	u32 (*XFpga_GetInterfaceStatus)(void);
-	u32 (*XFpga_GetConfigReg)(const struct XFpgatag *InstancePtr);
-	u32 (*XFpga_GetConfigData)(const struct XFpgatag *InstancePtr);
+	u32 (*XFpga_GetInterfaceStatus)(void); /**< Provides the STATUS of PL programming interface */
+	u32 (*XFpga_GetConfigReg)(const struct XFpgatag *InstancePtr); /**< Returns the value of the specified configuration register */
+	u32 (*XFpga_GetConfigData)(const struct XFpgatag *InstancePtr); /**< Provides the FPGA readback data */
 #ifndef XFPGA_SECURE_IPI_MODE_EN
-	XFpga_Info	PLInfo;
+	XFpga_Info	PLInfo; /**< Structure which is used to store the secure image data */
 #endif
-	XFpga_Read	ReadInfo;
+	XFpga_Read	ReadInfo; /**< Structure which is used to store the PL Image readback details */
 #endif
-	XFpga_Write	WriteInfo;
+	XFpga_Write	WriteInfo; /**< Structure which is used to store the PL Write Image details */
 #ifdef XFPGA_GET_FEATURE_LIST
 	u32 FeatureList;
 #endif
