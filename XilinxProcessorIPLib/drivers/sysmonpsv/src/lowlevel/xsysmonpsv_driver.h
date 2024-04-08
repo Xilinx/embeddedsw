@@ -7,9 +7,9 @@
 /*****************************************************************************/
 /**
 * @file xsysmonpsv_driver.h
-* @addtogroup Overview
+* @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
-* The SysMon driver supports the Xilinx System Monitor device on Versal
+* SysMon driver supports the AMD System Monitor device on Versal.
 *
 * The System Monitor device has the following features:
 *		- Measure and monitor up to 160 voltages across the chip
@@ -59,7 +59,7 @@ extern "C" {
  * This data type defines a handler that an application defines to communicate
  * with interrupt system to retrieve state information about an application.
  *
- * @param       CallbackRef is a callback reference passed in by the upper layer
+ * @param       CallbackRef Callback reference passed in by the upper layer
  *              when setting the handler, and is passed back to the upper layer
  *              when the handler is called. It is used to find the device driver
  *              instance.
@@ -125,3 +125,4 @@ typedef struct {
 }
 #endif
 #endif /* _XSYSMONPSV_DRIVER_H_ */
+/** @} */

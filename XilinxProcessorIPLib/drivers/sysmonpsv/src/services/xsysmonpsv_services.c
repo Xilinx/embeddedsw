@@ -7,13 +7,12 @@
 /*****************************************************************************/
 /**
 *
-* @file sysmon_services.c
-* @addtogroup Overview
+* @file xsysmonpsv_services.c
+* @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
-* Functions in this file provides services like temperature and voltage
-* event notification if subscribed.
+* The xsysmonpsv_services.c file contains functions which provides services like temperature and voltage
+* event notification on subscription basis.
 *
-* @note		None.
 *
 * <pre>
 *
@@ -38,13 +37,14 @@
 
 /******************************************************************************/
 /**
- * This function enables voltage event for the supply.
+ * Enables voltage event for the supply.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Supply is an enum from the XSysMonPsv_Supply.
-  * @param	IntrNum is interrupt Offset.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Supply Enum from the XSysMonPsv_Supply.
+ * @param	IntrNum Interrupt Offset.
  *
- * @return	- -XST_FAILURE if error.
+ * @return
+ *          - -XST_FAILURE if error.
  *			- XST_SUCCESS if successful.
  *
 *******************************************************************************/
@@ -75,12 +75,13 @@ int XSysMonPsv_EnableVoltageEvents(XSysMonPsv *InstancePtr, u32 Supply,
 
 /******************************************************************************/
 /**
- * This function disables voltage event for the supply.
+ * Disables voltage event for the supply.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Supply is an enum from the XSysMonPsv_Supply.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Supply Enum from the XSysMonPsv_Supply.
  *
- * @return	- -XST_FAILURE if error
+ * @return
+ *          - -XST_FAILURE if error.
  *			- XST_SUCCESS if successful.
  *
 *******************************************************************************/
@@ -110,12 +111,12 @@ int XSysMonPsv_DisableVoltageEvents(XSysMonPsv *InstancePtr, u32 Supply)
 #if defined (ARMR5) || defined (__aarch64__)
 /******************************************************************************/
 /**
- * This function installs a callback function for when a Device Temperature
- * interrupt occurs
+ * Installs a callback function for a device temperature
+ * when an interrupt occurs.
  *
- * @param       InstancePtr is a pointer to the XSysMonPsv instance.
- * @param       CallbackFunc is the address to the callback function.
- * @param       CallbackRef is the user data item that will be passed to the
+ * @param       InstancePtr Pointer to the XSysMonPsv instance.
+ * @param       CallbackFunc Address to the callback function.
+ * @param       CallbackRef User data item that will be passed to the
  *              callback function when it is invoked.
  *
  * @return      None.
@@ -135,9 +136,9 @@ void XSysMonPsv_RegisterDevTempCallback(XSysMonPsv *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function removes the callback function registered for a Device Temperature.
+ * Removes the callback function registered for a device temperature.
  *
- * @param       InstancePtr is a pointer to the XSysMonPsv instance.
+ * @param       InstancePtr Pointer to the XSysMonPsv instance.
  *
  * @return      None.
  *
@@ -154,12 +155,12 @@ void XSysMonPsv_UnregisterDevTempCallback(XSysMonPsv *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function installs a callback function for when a OT Temperature
- * interrupt occurs
+ * Installs a callback function for an OT Temperature
+ * when an interrupt occurs.
  *
- * @param       InstancePtr is a pointer to the XSysMonPsv instance.
- * @param       CallbackFunc is the address to the callback function.
- * @param       CallbackRef is the user data item that will be passed to the
+ * @param       InstancePtr Pointer to the XSysMonPsv instance.
+ * @param       CallbackFunc Address to the callback function.
+ * @param       CallbackRef User data item that will be passed to the
  *              callback function when it is invoked.
  *
  * @return      None.
@@ -179,9 +180,9 @@ void XSysMonPsv_RegisterOTCallback(XSysMonPsv *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function removes callback function registered for OT Temperature.
+ * Removes callback function registered for OT Temperature.
  *
- * @param       InstancePtr is a pointer to the XSysMonPsv instance.
+ * @param       InstancePtr Pointer to the XSysMonPsv instance.
  *
  * @return      None.
  *
@@ -198,13 +199,13 @@ void XSysMonPsv_UnregisterOTCallback(XSysMonPsv *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function installs a callback function for when a Supply Voltage alarm
- * interrupt occurs
+ * Installs a callback function for a supply voltage alarm
+ * when an interrupt occurs.
  *
- * @param       InstancePtr is a pointer to the XSysMonPsv instance.
- * @param       Supply is the supply for which the alarm is to be set.
- * @param       CallbackFunc is the address to the callback function.
- * @param       CallbackRef is the user data item that will be passed to the
+ * @param       InstancePtr Pointer to the XSysMonPsv instance.
+ * @param       Supply Supply for which the alarm is to be set.
+ * @param       CallbackFunc Address to the callback function.
+ * @param       CallbackRef User data item that will be passed to the
  *              callback function when it is invoked.
  *
  * @return      None.
@@ -229,11 +230,11 @@ void XSysMonPsv_RegisterSupplyCallback(XSysMonPsv *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function removes the registered a callback function for Supply Voltage alarm
+ * Removes the registered a callback function for supply voltage alarm.
  *
  *
- * @param       InstancePtr is a pointer to the XSysMonPsv instance.
- * @param       Supply is the supply for which the alarm is to be set.
+ * @param       InstancePtr Pointer to the XSysMonPsv instance.
+ * @param       Supply Supply for which the alarm is to be set.
  *
  * @return      None.
  *
@@ -259,7 +260,7 @@ void XSysMonPsv_UnregisterSupplyCallback(XSysMonPsv *InstancePtr, u32 Supply)
  * When an interrupt happens, it first detects what kind of interrupt happened,
  * then decides which callback function to invoke.
  *
- * @param       InstancePtr is a pointer to the XSysMonPsv instance.
+ * @param       InstancePtr Pointer to the XSysMonPsv instance.
  *
  * @return      None.
  *
@@ -335,13 +336,14 @@ void XSysMonPsv_IntrHandler(XSysMonPsv *InstancePtr)
 /****************************************************************************/
 /**
 *
-* This function registers ISR for driver instance
+* Registers ISR for driver instance.
 *
-* @param	IntcInstancePtr is pointer to Interrupt instance.
-* @param	InstancePtr is a pointer to the driver instance.
-* @param	IntrId is Interrupt unique ID.
+* @param	IntcInstancePtr Pointer to Interrupt instance.
+* @param	InstancePtr Pointer to the driver instance.
+* @param	IntrId Interrupt unique ID.
 *
-* @return	- XST_FAILURE if error
+* @return
+*       	- XST_FAILURE if error
 *			- XST_SUCCESS if successful.
 *
 ***************************************************************************/
