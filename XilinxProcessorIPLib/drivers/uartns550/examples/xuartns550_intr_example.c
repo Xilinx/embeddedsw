@@ -386,7 +386,6 @@ int UartNs550IntrExample(XUartNs550 *UartInstancePtr,
 *******************************************************************************/
 void UartNs550IntrHandler(void *CallBackRef, u32 Event, unsigned int EventData)
 {
-	u8 Errors;
 	XUartNs550 *UartNs550Ptr = (XUartNs550 *)CallBackRef;
 
 	/*
@@ -418,7 +417,7 @@ void UartNs550IntrHandler(void *CallBackRef, u32 Event, unsigned int EventData)
 	if (Event == XUN_EVENT_RECV_ERROR) {
 		TotalReceivedCount = EventData;
 		TotalErrorCount++;
-		Errors = XUartNs550_GetLastErrors(UartNs550Ptr);
+		XUartNs550_GetLastErrors(UartNs550Ptr);
 	}
 }
 
