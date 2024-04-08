@@ -1,18 +1,17 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
- *
+*
 * @file xsysmonpsv_secure.h
-* @addtogroup Overview
+* @addtogroup sysmonpsv_api SYSMONPSV APIs
 *
-* The user should refer to the hardware device specification for detailed
-* information about the device.
 *
-* This header file contains low level driver functions that are use to read and
+*
+* The xsysmonpsv_secure.h header file contains low level driver functions that are use to read and
 * write sysmon registers.
 *
 *

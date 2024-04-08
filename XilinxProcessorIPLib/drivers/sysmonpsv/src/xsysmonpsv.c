@@ -8,13 +8,12 @@
 /**
 *
 * @file xsysmonpsv.c
-* @addtogroup Overview
+* @addtogroup  sysmonpsv_api SYSMONPSV APIs
 * @{
 *
-* Functions in this file are the minimum required functions for the XSysMonPsv
+* Functions in the xsysmonpsv.c file are the minimum required functions for the XSysMonPsv
 * driver. See xsysmonpsv.h for a detailed description of the driver.
 *
-* @note         None.
 *
 * <pre>
 *
@@ -52,11 +51,11 @@ static XIpiPsu IpiInst;
 /*****************************************************************************/
 /**
 *
-* This function initializes XSysMonPsv device/instance. This function
+* Initializes XSysMonPsv device/instance. This function
 * must be called prior to using the System Monitor device.
 *
-* @param        InstancePtr is a pointer to the XSysMonPsv instance.
-* @param        CfgPtr points to the XSysMonPsv device configuration
+* @param        InstancePtr Pointer to the XSysMonPsv instance.
+* @param        CfgPtr Points to the XSysMonPsv device configuration
 *               structure.
 *
 * @return
@@ -92,13 +91,12 @@ s64 XSysMonPsv_CfgInitialize(XSysMonPsv *InstancePtr, XSysMonPsv_Config *CfgPtr)
 /*****************************************************************************/
 /**
 *
-* This function resets the SystemMonitor
+* Resets the SystemMonitor.
 *
-* @param        InstancePtr is a pointer to the XSysMonPsv instance.
+* @param        InstancePtr Pointer to the XSysMonPsv instance.
 *
 * @return       None.
 *
-* @note         None.
 *
 ******************************************************************************/
 void XSysMonPsv_SystemReset(XSysMonPsv *InstancePtr)
@@ -118,14 +116,12 @@ void XSysMonPsv_SystemReset(XSysMonPsv *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function Gates the register outputs
+* Gates the register outputs.
 *
-* @param        InstancePtr is a pointer to the XSysMonPsv instance.
-* @param        Enable is a flag to enable or disable gate registers.
+* @param        InstancePtr Pointer to the XSysMonPsv instance.
+* @param        Enable Flag to enable or disable gate registers.
 *
 * @return       None.
-*
-* @note         None.
 *
 ******************************************************************************/
 void XSysMonPsv_EnRegGate(XSysMonPsv *InstancePtr, u8 Enable)
@@ -147,15 +143,14 @@ void XSysMonPsv_EnRegGate(XSysMonPsv *InstancePtr, u8 Enable)
 /*****************************************************************************/
 /**
 *
-* This function sets the PMBus address for the System Monitor.
+* Sets the PMBus address for the System Monitor.
 *
-* @param        InstancePtr is a pointer to the device instance.
-* @param        Address is a value at which the Sysmon will be addressed on
+* @param        InstancePtr Pointer to the device instance.
+* @param        Address Value at which the Sysmon will be addressed on
 *               the PMBus.
 *
 * @return       None.
 *
-* @note         None.
 *
 ******************************************************************************/
 void XSysMonPsv_SetPMBusAddress(XSysMonPsv *InstancePtr, u8 Address)
@@ -175,10 +170,10 @@ void XSysMonPsv_SetPMBusAddress(XSysMonPsv *InstancePtr, u8 Address)
 /*****************************************************************************/
 /**
 *
-*  This function enables/disbles the PMBus on the System Monitor
+*  Enables/disbles the PMBus on the System Monitor.
 *
-*  @param       InstancePtr is a pointer to the driver instance.
-*  @param       Enable is the value which enables or disables the PMBus.
+*  @param       InstancePtr Pointer to the driver instance.
+*  @param       Enable Value which enables or disables the PMBus.
 *
 *  @return      None.
 *
@@ -204,10 +199,10 @@ void XSysMonPsv_PMBusEnable(XSysMonPsv *InstancePtr, u8 Enable)
 /*****************************************************************************/
 /**
 *
-*  This function restricts or de-restrict all  PMBs commands
+*  Restricts or de-restrict all PMBs commands.
 *
-*  @param       InstancePtr is a pointer to the driver instance.
-*  @param       Enable is the value which restrics or de-restrict the PMBus
+*  @param       InstancePtr Pointer to the driver instance.
+*  @param       Enable Value which restrics or de-restrict the PMBus
 *               commands.
 *
 *  @return      None.
@@ -234,16 +229,17 @@ void XSysMonPsv_PMBusEnableCmd(XSysMonPsv *InstancePtr, u8 Enable)
 /*****************************************************************************/
 /**
 *
-*  This function selects I2C or PMBus interface to which traffic from SMBus
-*  is routed to.
+*  Selects I2C or PMBus interface to which traffic from SMBus
+*  is routed.
 *
-*  @param       InstancePtr is a pointer to the driver instance.
-*  @param       Interface is a value which determies where the SMBus traffic
-*               gets routed to
+*  @param       InstancePtr Pointer to the driver instance.
+*  @param       Interface Value which determies where the SMBus traffic
+*               gets routed to.
 *
 *  @return      None.
 *
-*  @note        If Interface = 1, I2C command interface is enabled.
+*  @note
+*               If Interface = 1, I2C command interface is enabled.
 *               If Interface = 0, PMBus command interface is enabled.
 *
 ******************************************************************************/
@@ -265,18 +261,17 @@ void XSysMonPsv_SelectExtInterface(XSysMonPsv *InstancePtr, u8 Interface)
 /*****************************************************************************/
 /**
 *
-* This function Resets the Min and Max values of Supplies and Temperature to
+* Resets the Min and Max values of supplies and temperature to
 * negative and positive saturation respectively.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        ResetSupply will reset the MIN and MAX values reached by the
+* @param        InstancePtr Pointer to the driver instance.
+* @param        ResetSupply Resets the MIN and MAX values reached by the
 *               internal supplies since the last reset.
-* @param        ResetTemperature will reset the MIN and MAX values reached by
+* @param        ResetTemperature Resets the MIN and MAX values reached by
 *               the device since the last reset.
 *
 * @return       None.
 *
-* @note         None.
 *
 ******************************************************************************/
 void XSysMonPsv_StatusReset(XSysMonPsv *InstancePtr, u8 ResetSupply,
@@ -296,11 +291,11 @@ void XSysMonPsv_StatusReset(XSysMonPsv *InstancePtr, u8 ResetSupply,
 /*****************************************************************************/
 /**
 *
-* This function returns the device temperature threshold for min and max values
+* Returns the device temperature threshold for min and max values
 * in signed Q8.7 format.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        ThresholdType is an enum which indicates the type of threshold
+* @param        InstancePtr Pointer to the driver instance.
+* @param        ThresholdType Enum which indicates the type of threshold.
 *
 * @return       Device Temperature threshold in signed Q8.7 format.
 *
@@ -323,15 +318,15 @@ u16 XSysMonPsv_ReadDevTempThreshold(XSysMonPsv *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function sets Device Temperature Threshold values.
+* Sets Device Temperature Threshold values.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        ThresholdType is an enum which indicates the type of threshold.
-* @param        Value is the raw ADC threshold value.
+* @param        InstancePtr Pointer to the driver instance.
+* @param        ThresholdType Enum which indicates the type of threshold.
+* @param        Value Raw ADC threshold value.
 *
 * @return       None.
 *
-* @note         To get the raw ADC value, use XSysMonPsv_FloatToFixed.
+* @note         Use XSysMonPsv_FloatToFixed to get the raw ADC value.
 *
 ******************************************************************************/
 void XSysMonPsv_SetDevTempThreshold(XSysMonPsv *InstancePtr,
@@ -348,15 +343,14 @@ void XSysMonPsv_SetDevTempThreshold(XSysMonPsv *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function returns the OT temperature threshold for min and max values in
+* Returns the OT temperature threshold for min and max values in
 * signed Q8.7 format.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        ThresholdType is an enum which indicates the type of threshold
+* @param        InstancePtr Pointer to the driver instance.
+* @param        ThresholdType Enum which indicates the type of threshold
 *
 * @return       OT Temperature threshold in signed Q8.7 format.
 *
-* @note         None.
 *
 ******************************************************************************/
 u16 XSysMonPsv_ReadOTTempThreshold(XSysMonPsv *InstancePtr,
@@ -374,15 +368,15 @@ u16 XSysMonPsv_ReadOTTempThreshold(XSysMonPsv *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function sets OT Temperature Threshold values.
+* Sets OT Temperature Threshold values.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        ThresholdType is an enum which indicates the type of threshold.
-* @param        Value is the raw ADC threshold value.
+* @param        InstancePtr Pointer to the driver instance.
+* @param        ThresholdType Enum which indicates the type of threshold.
+* @param        Value Raw ADC threshold value.
 *
 * @return       None.
 *
-* @note         To get the raw ADC value, use XSysMonPsv_FloatToFixed.
+* @note         Use XSysMonPsv_FloatToFixed to get the raw ADC value.
 *
 ******************************************************************************/
 void XSysMonPsv_SetOTTempThreshold(XSysMonPsv *InstancePtr,
@@ -399,15 +393,15 @@ void XSysMonPsv_SetOTTempThreshold(XSysMonPsv *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function returns the temperature values for the device in signed Q8.7
+* Returns the temperature values for the device in signed Q8.7
 * format.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        Value is an enum which indicates the typde of temperature value
-*               to be read
+* @param        InstancePtr Pointer to the driver instance.
+* @param        Value Enum which indicates the type of temperature value
+*               to be read.
 *
-* @return       Temperature value requested
-*               XSYSMONPSV_INVALID if invalid value requested
+* @return       Temperature value requested.
+*               XSYSMONPSV_INVALID if invalid value requested.
 *
 * @note         XSYSMONPSV_VAL_VREF_MIN and XSYSMONPSV_VAL_VREF_MAX are only
 *               supported for ES1 silicon to get min and max temperature values.
@@ -465,16 +459,15 @@ END:
 /*****************************************************************************/
 /**
 *
-* This function reads the raw value for Supply Threshold.
+* Reads the raw value for Supply Threshold.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        Supply is an enum which indicates the desired supply to be read
-* @param        ThresholdType is an enum which indicates the type of threshold
+* @param        InstancePtr Pointer to the driver instance.
+* @param        Supply Enum which indicates the desired supply to be read.
+* @param        ThresholdType Enum which indicates the type of threshold.
 *
-* @return       The raw Upper or Lower threshold of the Supply
-*               XSYSMONPSV_INVALID if the Supply hasn't been configured
+* @return       The raw Upper or Lower threshold of the supply
+*               XSYSMONPSV_INVALID if the supply hasn't been configured.
 *
-* @note         None.
 *
 ******************************************************************************/
 u32 XSysMonPsv_ReadSupplyThreshold(XSysMonPsv *InstancePtr,
@@ -507,16 +500,15 @@ u32 XSysMonPsv_ReadSupplyThreshold(XSysMonPsv *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function reads the raw Supply Value for requested.
+* Reads the raw supply value for requested.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        Supply is an enum which indicates the desired supply to be read
-* @param        Value is the type of reading for the Supply
+* @param        InstancePtr Pointer to the driver instance.
+* @param        Supply Enum which indicates the desired supply to be read.
+* @param        Value Type of reading for the supply.
 *
-* @return       The raw values for Min, Max or the prevailing Supply Value.
-*               Invalid if the Supply hasn't been configured
+* @return       The raw values for min, max or the prevailing supply value.
+*               Invalid if the supply is not configured.
 *
-* @note         None.
 *
 ******************************************************************************/
 u32 XSysMonPsv_ReadSupplyValue(XSysMonPsv *InstancePtr,
@@ -550,14 +542,15 @@ u32 XSysMonPsv_ReadSupplyValue(XSysMonPsv *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function is to be used to check if new data is available for a supply.
+* Checks if new data is available for a supply.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        Supply is an enum which indicates the desired supply.
+* @param        InstancePtr Pointer to the driver instance.
+* @param        Supply Enum which indicates the desired supply.
 *
-* @return       True if new data available
-*               False if new data isn't available
-*               Invalid if the Supply hasn't been configured
+* @return
+*               True if new data available.
+*               False if new data is not available.
+*               Invalid if the supply is not configured.
 *
 * @note         None.
 *
@@ -596,17 +589,17 @@ u32 XSysMonPsv_IsNewData(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 /*****************************************************************************/
 /**
 *
-* This function is to be used to check if the supply value has exceeded the set
+* Checks if the supply value has exceeded the set
 * threshold values.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        Supply is an enum which indicates the desired supply.
+* @param        InstancePtr Pointer to the driver instance.
+* @param        Supply Enum which indicates the desired supply.
 *
-* @return       True if new data available
-*               False if new data isn't available
-*               Invalid if the Supply hasn't been configured
+* @return
+*               True if new data available.
+*               False if new data is not available.
+*               Invalid if the supply is not configured.
 *
-* @note         None.
 *
 ******************************************************************************/
 u32 XSysMonPsv_IsAlarmCondition(XSysMonPsv *InstancePtr,
@@ -643,17 +636,16 @@ u32 XSysMonPsv_IsAlarmCondition(XSysMonPsv *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function sets the raw value for Upper Supply Threshold.
+* Sets the raw value for upper supply threshold.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        Supply is an enum which indicates the desired supply to be
+* @param        InstancePtr Pointer to the driver instance.
+* @param        Supply Enum which indicates the desired supply to be
 *               configured
-* @param        Value is the upper threshold raw value
+* @param        Value Upper threshold raw value
 *
 * @return       XSYSMONPSV_INVALID if the Supply hasn't been configured
-*               XST_SUCCESS otherwise
+*               XST_SUCCESS otherwise.
 *
-* @note         None.
 *
 ******************************************************************************/
 u32 XSysMonPsv_SetSupplyUpperThreshold(XSysMonPsv *InstancePtr,
@@ -682,17 +674,16 @@ u32 XSysMonPsv_SetSupplyUpperThreshold(XSysMonPsv *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function sets the raw value for Lower Supply Threshold.
+* Sets the raw value for Lower Supply Threshold.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        Supply is an enum which indicates the desired supply to be
-*               configured
-* @param        Value is the lower threshold raw value
+* @param        InstancePtr Pointer to the driver instance.
+* @param        Supply Enum which indicates the desired supply to be
+*               configured.
+* @param        Value Lower threshold raw value.
 *
 * @return       XSYSMONPSV_INVALID if the Supply hasn't been configured
-*               XST_SUCCESS otherwise
+*               XST_SUCCESS otherwise.
 *
-* @note         None.
 *
 ******************************************************************************/
 u32 XSysMonPsv_SetSupplyLowerThreshold(XSysMonPsv *InstancePtr,
@@ -721,15 +712,14 @@ u32 XSysMonPsv_SetSupplyLowerThreshold(XSysMonPsv *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function sets the alarm mode for Temperature alarms.
+* Sets the alarm mode for temperature alarms.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        Mode sets the Hysteresis or Window mode.
+* @param        InstancePtr Pointer to the driver instance.
+* @param        Mode Sets the Hysteresis or window mode.
 *               Mode = 1 Hysteresis Mode
 *               Mode = 0 Window Mode
 *
 * @return       None.
-* @note         None.
 *
 ******************************************************************************/
 void XSysMonPsv_SetTempMode(XSysMonPsv *InstancePtr, u32 Mode)
@@ -748,15 +738,14 @@ void XSysMonPsv_SetTempMode(XSysMonPsv *InstancePtr, u32 Mode)
 /*****************************************************************************/
 /**
 *
-* This function sets the alarm mode for OT alarm.
+* Sets the alarm mode for OT alarm.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        Mode sets the Hysteresis or Window mode.
+* @param        InstancePtr Pointer to the driver instance.
+* @param        Mode Sets the Hysteresis or Window mode.
 *               Mode = XSYSMONPSV_HYSTERESIS Hysteresis Mode
 *               Mode = XSYSMONPSV_WINDOW Window Mode
 *
 * @return       None.
-* @note         None.
 *
 ******************************************************************************/
 void XSysMonPsv_SetOTMode(XSysMonPsv *InstancePtr, u32 Mode)
@@ -775,16 +764,16 @@ void XSysMonPsv_SetOTMode(XSysMonPsv *InstancePtr, u32 Mode)
 /*****************************************************************************/
 /**
 *
-* This function reads the current Supply Alarm Config.
+* Reads the current supply Alarm Configuration.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        Supply is the supply for which config is to be read.
+* @param        InstancePtr Pointer to the driver instance.
+* @param        Supply Supply for which configuration is to be read.
 *
-* @return       TRUE if enabled
-*               FALSE if disbaled
-*               XSYSMONPSV_INVALID if invalid SupplyValue
+* @return
+*               TRUE if enabled.
+*               FALSE if disbaled.
+*               XSYSMONPSV_INVALID if invalid SupplyValue.
 *
-* @note         None.
 *
 ******************************************************************************/
 u32 XSysMonPsv_ReadAlarmConfig(XSysMonPsv *InstancePtr,
@@ -817,18 +806,18 @@ u32 XSysMonPsv_ReadAlarmConfig(XSysMonPsv *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function sets Alarm config for a supply.
+* Sets the Alarm configuration for a supply.
 *
-* @param        InstancePtr is a pointer to the driver instance.
-* @param        Supply is the supply for which config is to be set.
-* @param        Config is the alarm config value.
+* @param        InstancePtr Pointer to the driver instance.
+* @param        Supply Supply for which config is to be set.
+* @param        Config Alarm config value.
 *               XSYSMONPSV_ENABLE to enable
 *               XSYSMONPSV_DISABLE to disable
 *
-* @return       XST_SUCCESS if successful
-*               XSYSMONPSV_INVALID if invalid SupplyValue
+* @return
+*               XST_SUCCESS if successful.
+*               XSYSMONPSV_INVALID if invalid SupplyValue.
 *
-* @note         None.
 *
 ******************************************************************************/
 u32 XSysMonPsv_SetAlarmConfig(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply,
@@ -864,16 +853,16 @@ u32 XSysMonPsv_SetAlarmConfig(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply,
 
 /******************************************************************************/
 /**
- * This function reads temperature and returns value in degree celsius.
+ * Reads the temperature and returns value in degree celsius.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Type is minimum and maximum temperature type.
- * @param	Val is processed value in degree celsius.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Type Minimum and maximum temperature type.
+ * @param	Val Processed value in degree celsius.
  *
- * @return	- -XST_FAILURE if error
- *		- XST_SUCCESS if successful.
+ * @return
+ *           - XST_FAILURE if error.
+ *           - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_ReadTempProcessed(XSysMonPsv *InstancePtr,
@@ -894,16 +883,16 @@ int XSysMonPsv_ReadTempProcessed(XSysMonPsv *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function reads temperature and returns value in raw format.
+ * Reads the temperature and returns value in raw format.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Type is minimum and maximum temperature type.
- * @param	Val is value in raw format.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Type Minimum and maximum temperature type.
+ * @param	Val Value in raw format.
  *
- * @return	- -XST_FAILURE if error
- *		- XST_SUCCESS if successful..
+ * @return
+ *          - XST_FAILURE if error.
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_ReadTempRaw(XSysMonPsv *InstancePtr, XSysMonPsv_TempType Type,
@@ -922,16 +911,16 @@ int XSysMonPsv_ReadTempRaw(XSysMonPsv *InstancePtr, XSysMonPsv_TempType Type,
 
 /******************************************************************************/
 /**
- * This function reads temperature of each satellite in degree celsius.
+ * Reads the temperature of each satellite in degree celsius.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	SatId is Satellite ID.
- * @param	Val is processed value.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	SatId Satellite ID.
+ * @param	Val Processed value.
  *
- * @return	- -XST_FAILURE if error
- * 		- XST_SUCCESS if successful..
+ * @return
+ *          - XST_FAILURE if error.
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_ReadTempProcessedSat(XSysMonPsv *InstancePtr, int SatId,
@@ -954,16 +943,16 @@ int XSysMonPsv_ReadTempProcessedSat(XSysMonPsv *InstancePtr, int SatId,
 
 /******************************************************************************/
 /**
- * This function reads temperature of each satellite in raw format.
+ * Reads the temperature of each satellite in raw format.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	SatId is Satellite ID.
- * @param	Val is  raw value.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	SatId Satellite ID.
+ * @param	Val Raw value.
  *
- * @return	- -XST_FAILURE if error
- * 			- XST_SUCCESS if successful..
+ * @return
+ *          - XST_FAILURE if error.
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_ReadTempRawSat(XSysMonPsv *InstancePtr, int SatId, u32 *Val)
@@ -982,16 +971,16 @@ int XSysMonPsv_ReadTempRawSat(XSysMonPsv *InstancePtr, int SatId, u32 *Val)
 
 /******************************************************************************/
 /**
- * This function sets temperature upper threshold.
+ * Sets the temperature upper threshold.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Event is Temp or OT event type
- * @param	Val is threshold value to be set.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Event Temp or OT event type
+ * @param	Val Threshold value to be set.
  *
- * @return	- -XST_FAILURE if error
- * 		- XST_SUCCESS if successful..
+ * @return
+ *          - XST_FAILURE if error.
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_SetTempThresholdUpper(XSysMonPsv *InstancePtr,
@@ -1017,16 +1006,16 @@ int XSysMonPsv_SetTempThresholdUpper(XSysMonPsv *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function sets temperature lower threshold.
+ * Sets the temperature lower threshold.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Event is Temp or OT event type
- * @param	Val is threshold value to be se
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Event Temp or OT event type.
+ * @param	Val Threshold value to be set.
  *
- * @return	- -XST_FAILURE if error
- * 		- XST_SUCCESS if successful..
+ * @return
+ *          - XST_FAILURE if error.
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_SetTempThresholdLower(XSysMonPsv *InstancePtr,
@@ -1051,16 +1040,16 @@ int XSysMonPsv_SetTempThresholdLower(XSysMonPsv *InstancePtr,
 }
 /******************************************************************************/
 /**
- * This function gets temperature upper threshold.
+ * Gets the temperature upper threshold.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Event is Temp or OT event type.
- * @param	Val is upper threshold value to be read in.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Event Temp or OT event type.
+ * @param	Val Upper threshold value to be read.
  *
- * @return	- -XST_FAILURE if error
- * 		- XST_SUCCESS if successful..
+ * @return
+ *          - XST_FAILURE if error
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_GetTempThresholdUpper(XSysMonPsv *InstancePtr,
@@ -1086,16 +1075,16 @@ int XSysMonPsv_GetTempThresholdUpper(XSysMonPsv *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function gets temperature lower threshold.
+ * Gets the temperature lower threshold.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Event is Temp or OT event type
- * @param	Val is lower threshold value to be read.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Event Temp or OT event type.
+ * @param	Val lower threshold value to be read.
  *
- * @return	- -XST_FAILURE if error
- * 			- XST_SUCCESS if successful..
+ * @return
+ *          - XST_FAILURE if error
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_GetTempThresholdLower(XSysMonPsv *InstancePtr,
@@ -1121,16 +1110,16 @@ int XSysMonPsv_GetTempThresholdLower(XSysMonPsv *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function reads voltage for the supply.
+ * Reads the voltage for the supply.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Supply is voltage supply.
- * @param	Val is float value in Voltage.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Supply Voltage supply.
+ * @param	Val Float value in Voltage.
  *
- * @return	- -XST_FAILURE if error
- * 		- XST_SUCCESS if successful.
+ * @return
+ *          - XST_FAILURE if error
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_ReadSupplyProcessed(XSysMonPsv *InstancePtr, int Supply,
@@ -1152,16 +1141,16 @@ int XSysMonPsv_ReadSupplyProcessed(XSysMonPsv *InstancePtr, int Supply,
 
 /******************************************************************************/
 /**
- * This function reads voltage for the supply in raw.
+ * Reads the voltage for the supply in raw.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Supply is voltage supply.
- * @param	Val is raw voltage.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Supply Voltage supply.
+ * @param	Val Raw voltage.
  *
- * @return	- -XST_FAILURE if error
- * 		- XST_SUCCESS if successful.
+ * @return
+ *          - XST_FAILURE if error
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_ReadSupplyRaw(XSysMonPsv *InstancePtr, u32 Supply, u32 *Val)
@@ -1180,16 +1169,16 @@ int XSysMonPsv_ReadSupplyRaw(XSysMonPsv *InstancePtr, u32 Supply, u32 *Val)
 
 /******************************************************************************/
 /**
- * This function sets upper threshold voltage for the supply.
+ * Sets the upper threshold voltage for the supply.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Supply is voltage supply.
- * @param	Val is upper Threshold Value.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Supply Voltage supply.
+ * @param	Val Upper Threshold Value.
  *
- * @return	- -XST_FAILURE if error
- *              - XST_SUCCESS if successful.
+ * @return
+ *          - XST_FAILURE if error
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_SetSupplyThresholdUpper(XSysMonPsv *InstancePtr, u32 Supply,
@@ -1209,16 +1198,16 @@ int XSysMonPsv_SetSupplyThresholdUpper(XSysMonPsv *InstancePtr, u32 Supply,
 
 /******************************************************************************/
 /**
- * This function sets loser threshold voltage for the supply.
+ * Sets loser threshold voltage for the supply.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Supply is voltage supply.
- * @param	Val is Threshold Value.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Supply Voltage supply.
+ * @param	Val Threshold Value.
  *
- * @return	- -XST_FAILURE if error
- *		- XST_SUCCESS if successful.
+ * @return
+ *          - -XST_FAILURE if error
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_SetSupplyThresholdLower(XSysMonPsv *InstancePtr, int Supply,
@@ -1238,16 +1227,16 @@ int XSysMonPsv_SetSupplyThresholdLower(XSysMonPsv *InstancePtr, int Supply,
 
 /******************************************************************************/
 /**
- * This function gets upper threshold voltage for the supply.
+ * Gets the upper threshold voltage for the supply.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Supply is voltage supply.
- * @param	Val is Threshold Value to be read in.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Supply Voltage supply.
+ * @param	Val Threshold Value to be read.
  *
- * @return	- -XST_FAILURE if error
- * 		- XST_SUCCESS if successful.
+ * @return
+ *          - -XST_FAILURE if error
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_GetSupplyThresholdUpper(XSysMonPsv *InstancePtr, u32 Supply,
@@ -1267,16 +1256,16 @@ int XSysMonPsv_GetSupplyThresholdUpper(XSysMonPsv *InstancePtr, u32 Supply,
 
 /******************************************************************************/
 /**
- * This function gets lower threshold voltage for the supply.
+ * Gets the lower threshold voltage for the supply.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Supply is voltage supply.
- * @param	Val is Threshold Value to be read in.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Supply Voltage supply.
+ * @param	Val Threshold Value to be read.
  *
- * @return	- -XST_FAILURE if error
- * 		- XST_SUCCESS if successful.
+ * @return
+ *          - -XST_FAILURE if error.
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_GetSupplyThresholdLower(XSysMonPsv *InstancePtr, u32 Supply,
@@ -1297,17 +1286,17 @@ int XSysMonPsv_GetSupplyThresholdLower(XSysMonPsv *InstancePtr, u32 Supply,
 #if defined (ARMR5) || defined (__aarch64__)
 /******************************************************************************/
 /**
- * This function registers callback function for the device.  This is wrapper
+ * Registers callback function for the device. This is wrapper
  * function for the corresponding function in service layer.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	CallbackFunc callback function to be registered.
- * @param	CallbackRef function's callback data.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	CallbackFunc Callback function to be registered.
+ * @param	CallbackRef Callback data of the function.
  *
- * @return	- -XST_FAILURE if error
- * 			- XST_SUCCESS if successful..
+ * @return
+ *          - -XST_FAILURE if error
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_RegisterDeviceTempOps(XSysMonPsv *InstancePtr,
@@ -1325,15 +1314,15 @@ int XSysMonPsv_RegisterDeviceTempOps(XSysMonPsv *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function unregisters callback function for the device. This is wrapper
+ * Unregisters callback function for the device. This is wrapper
  * function for the corresponding function in service layer.
  *
- * @param	InstancePtr is a pointer to the driver instance.
+ * @param	InstancePtr Pointer to the driver instance.
  *
- * @return	- -XST_FAILURE if error
- * 			- XST_SUCCESS if successful..
+ * @return
+ *          - -XST_FAILURE if error.
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_UnregisterDeviceTempOps(XSysMonPsv *InstancePtr)
@@ -1348,17 +1337,17 @@ int XSysMonPsv_UnregisterDeviceTempOps(XSysMonPsv *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function registers callback function for OT. This is wrapper
+ * Registers callback function for OT. This is wrapper
  * function for the corresponding function in service layer.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	CallbackFunc callback function to be registered.
- * @param	CallbackRef function's callback data
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	CallbackFunc Callback function to be registered.
+ * @param	CallbackRef Callback data of the function.
  *
- * @return	- -XST_FAILURE if error
- *			- XST_SUCCESS if successful.
+ * @return
+ *          - -XST_FAILURE if error.
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_RegisterOTOps(XSysMonPsv *InstancePtr,
@@ -1374,15 +1363,15 @@ int XSysMonPsv_RegisterOTOps(XSysMonPsv *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function unregisters callback function for OT. This is wrapper
+ * Unregisters callback function for OT. This is wrapper
  * function for the corresponding function in service layer.
  *
- * @param	InstancePtr is a pointer to the driver instance.
+ * @param	InstancePtr Pointer to the driver instance.
  *
- * @return	- -XST_FAILURE if error
- *		- XST_SUCCESS if successful.
+ * @return
+ *          - -XST_FAILURE if error.
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_UnregisterOTOps(XSysMonPsv *InstancePtr)
@@ -1397,18 +1386,18 @@ int XSysMonPsv_UnregisterOTOps(XSysMonPsv *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function registers callback function for Supply. This is wrapper
+ * Registers callback function for Supply. This is wrapper
  * function for the corresponding function in service layer.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Supply is voltage supply.
- * @param	CallbackFunc callback function to be registered.
- * @param	CallbackRef function's callback data
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Supply Voltage supply.
+ * @param	CallbackFunc Callback function to be registered.
+ * @param	CallbackRef Callback data of the function.
  *
- * @return	- -XST_FAILURE if error
- *		- XST_SUCCESS if successful.
+ * @return
+ *          - -XST_FAILURE if error
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_RegisterSupplyOps(XSysMonPsv *InstancePtr,
@@ -1427,16 +1416,16 @@ int XSysMonPsv_RegisterSupplyOps(XSysMonPsv *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function unregisters callback function for Supply. This is wrapper
+ * Unregisters callback function for Supply. This is wrapper
  * function for the corresponding function in service layer.
  *
- * @param	InstancePtr is a pointer to the driver instance.
- * @param	Supply is voltage supply.
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Supply Voltage supply.
  *
- * @return	- -XST_FAILURE if error
- *		- XST_SUCCESS if successful.
+ * @return
+ *          - -XST_FAILURE if error
+ *          - XST_SUCCESS if successful.
  *
- * @note	None.
  *
 *******************************************************************************/
 int XSysMonPsv_UnregisterSupplyOps(XSysMonPsv *InstancePtr,
@@ -1453,16 +1442,16 @@ int XSysMonPsv_UnregisterSupplyOps(XSysMonPsv *InstancePtr,
 /****************************************************************************/
 /**
 *
-* This function initializes basic hardware and software required for the
+* Initializes basic hardware and software required for the
 * device. It setup the ISR, read hardware information.
 *
-* @param	InstancePtr is instance to the driver structure.
-* @param	IntcInst is instance to the Interrupt controller.
+* @param	InstancePtr Instance to the driver structure.
+* @param	IntcInst Instance to the Interrupt controller.
 *
-* @return	- -XST_FAILURE if error
-*		- XST_SUCCESS if successful
+* @return
+*           - -XST_FAILURE if error
+*           - XST_SUCCESS if successful
 *
-* @note		None.
 *
 *****************************************************************************/
 int XSysMonPsv_Init(XSysMonPsv *InstancePtr, XScuGic *IntcInst)
