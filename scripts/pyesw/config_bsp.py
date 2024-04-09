@@ -105,6 +105,15 @@ def configure_bsp(args):
                 # Set the passed value in lib config dictionary
                 obj.bsp_lib_config[lib_name][prop_data[0]]["value"] = prop_data[1]
 
+        if ('xilpm' == lib_name) and ("ZynqMP" in obj.domain_data['family']):
+            dstdir = os.path.join(obj.libsrc_folder, lib_name, "src", "zynqmp", "client", "common")
+            ori_sdt_path = os.path.join(obj.domain_path, "hw_artifacts", "sdt.dts")
+            lopper_cmd_append = ""
+            for key, values in obj.bsp_lib_config[lib_name].items():
+                value = values['value']
+                lopper_cmd_append += f' {key}:{value}'
+            lopper_cmd = f"lopper -O {dstdir} -f {ori_sdt_path} --  generate_config_object pm_cfg_obj.c {obj.proc} {lopper_cmd_append}"
+            utils.runcmd(lopper_cmd, cwd = dstdir)
         # set the cmake options to append lib param values.
         cmake_cmd_append = ""
         for key, value in prop_dict[lib_name].items():

@@ -564,6 +564,8 @@ def create_domain(args):
             if ("xilpm" in lib) and ("ZynqMP" in obj.family):
                 dstdir = os.path.join(obj.libsrc_folder, lib, "src", "zynqmp", "client", "common")
                 ori_sdt_path = os.path.join(obj.sdt_folder, "sdt.dts")
+                #TODO: Update bsp.yaml before running the below command so that,
+                #      the default properties of lib get updated successfully.
                 lopper_cmd = f"lopper -O {dstdir} -f {ori_sdt_path} --  generate_config_object pm_cfg_obj.c {obj.proc}"
                 utils.runcmd(lopper_cmd, cwd = dstdir)
 
