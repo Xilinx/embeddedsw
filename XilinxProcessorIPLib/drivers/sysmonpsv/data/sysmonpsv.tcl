@@ -1,5 +1,6 @@
 ##############################################################################
 # Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -14,6 +15,7 @@
 # 		      are configured
 # 2.1   aad  03/29/21 Add supply names in string format.
 # 2.3   aad  07/15/21 Add support for SSIT devices
+# 4.2   cog  04/09/24 Handle secondary SLRs
 #
 ##############################################################################
 
@@ -168,15 +170,14 @@ proc generate_sysmon_config {drv_handle file_name drv_string args} {
     puts $config_file [format "%s_Config %s_ConfigTable\[%s\] =" $drv_string $drv_string $num_insts]
     puts $config_file "\{"
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
-    set start_comma ""
     foreach periph $periphs {
-        puts $config_file [format "%s\t\{" $start_comma]
+        puts $config_file "\t\{"
         set comma ""
 		set len [llength $args]
         foreach arg $args {
                 puts -nonewline $config_file [format "%s\t\t%s,\n" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
 	}
-	 puts $config_file [format "%s\t\t\t{" $start_comma]
+	 puts $config_file "\t\t\t{"
 	 for {set index 0} {$index < 160} {incr index} {
 		    set measid "C_MEAS_${index}"
 		    set value [::hsi::utils::get_param_value $drv_handle $measid ]
@@ -188,9 +189,8 @@ proc generate_sysmon_config {drv_handle file_name drv_string args} {
 			  }
 		   }
 	  }
-    puts $config_file [format "%s\t\t\t}" $start_comma]
-    puts $config_file "\n\t\}"
-    set start_comma ",\n"
+    puts $config_file "\t\t\t}"
+    puts $config_file "\n\t\},"
     }
     puts $config_file "\n\};"
     puts $config_file "\n";
@@ -220,7 +220,7 @@ proc generate_sysmon_config {drv_handle file_name drv_string args} {
 proc generate_sysmon_supplies {drv_handle file_name drv_string} {
     set filename [file join "src" $file_name]
     set config_file [open $filename w]
-    set periph [::hsi::utils::get_common_driver_ips $drv_handle]
+    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
     set comma ""
     ::hsi::utils::write_c_header $config_file "Enabled Supply List"
     puts $config_file "#ifndef XSYSMONPSV_SUPPLYLIST"
@@ -229,7 +229,8 @@ proc generate_sysmon_supplies {drv_handle file_name drv_string} {
     puts $config_file "* The supply configuration table for sysmon"
     puts $config_file "*/\n"
     puts $config_file "typedef enum \{"
-    for {set index 0} {$index < 160} {incr index} {
+    foreach periph $periphs {
+         for {set index 0} {$index < 160} {incr index} {
 	    set measid "C_MEAS_${index}"
             set value [::hsi::utils::get_param_value $drv_handle $measid]
             if {[llength $value] == 0} {
@@ -246,6 +247,8 @@ proc generate_sysmon_supplies {drv_handle file_name drv_string} {
 			break
 		}
 	    }
+         }
+	 break
     }
     puts $config_file [format "\} %s_Supply;\n" $drv_string]
     puts $config_file "#endif"
