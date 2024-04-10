@@ -42,6 +42,31 @@ def retarget_app(args):
             f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})\n',
         )
 
+    """
+    Delete the build folder in case of shared workspace
+    """
+    if args.get('build_dir'):
+        app_build_dir = utils.get_abs_path(args["build_dir"])
+        if utils.is_dir(app_build_dir):
+            compile_commands_file = os.path.join(app_build_dir, "compile_commands.json")
+            if utils.is_file(compile_commands_file):
+                build_data = utils.load_json(compile_commands_file)
+                if isinstance(build_data, list):
+                    if build_data[0].get('directory', {}):
+                        build_dir = build_data[0]["directory"]
+                        if os.name == "nt":
+                            build_dir = os.path.normpath(build_dir)
+                            build_dir = os.path.normcase(build_dir.replace('\\', '/'))
+                            app_build_dir = os.path.normcase(app_build_dir)
+                        if build_dir != app_build_dir:
+                            utils.remove(app_build_dir)
+            else:
+                """
+                In case build folder doesn't have compile_commands.json delete the
+                build folder for safer side.
+                """
+                utils.remove(app_build_dir)
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Use this script to change platform for a given application",
@@ -62,6 +87,12 @@ if __name__ == "__main__":
         action="store",
         help="App source directory",
         required=True,
+    )
+    parser.add_argument(
+        "-b",
+        "--build_dir",
+        action="store",
+        help="Specify the App Build Directory",
     )
     args = vars(parser.parse_args())
     retarget_app(args)
