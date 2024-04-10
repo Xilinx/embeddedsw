@@ -367,6 +367,10 @@ extern "C" {
 #define XPM_INT_ERR_PMC_SOC_ISO			0x3805U
 /* Error during NPI reset assert/release */
 #define XPM_INT_ERR_RST_NPI			0x3806U
+/* Error idling bus during NPD ScanClear workaround for xcvm2152 */
+#define XPM_INT_ERR_NPD_SCANCLEAR_BUS_IDLE	0x3807U
+/* Error activating bus during NPD ScanClear workaround for xcvm2152 */
+#define XPM_INT_ERR_NPD_SCANCLEAR_BUS_ACT	0x3808U
 
 /************************* Clock specific errors *****************************/
 /************************** (0x3900) - (0x39FF) ******************************/
