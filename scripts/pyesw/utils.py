@@ -14,6 +14,7 @@ import glob
 import fileinput
 import shutil
 import yaml
+import json
 import subprocess
 from pathlib import Path
 from distutils.dir_util import copy_tree
@@ -528,3 +529,21 @@ def get_high_precedence_path(repo_paths_list, file_type, *argv):
         print(f"[ERROR]: Couldnt find the {file_type} in any of esw paths passed")
         sys.exit(1)
     return path
+
+def load_json(filepath: str, silent_discard: bool = True) -> Optional[dict]:
+    """Read json file data and returns data in a dict format.
+
+    Args:
+        filepath: Path of the json file.
+        silent_discard: Ignore assertion if required.
+    Returns:
+        dict: Return Python dict if the file reading is successful.
+    """
+
+    try:
+        with open(filepath) as f:
+            data = json.load(f)
+        return data
+    except:
+        assert silent_discard, f"{filepath} reading failed"
+        return None
