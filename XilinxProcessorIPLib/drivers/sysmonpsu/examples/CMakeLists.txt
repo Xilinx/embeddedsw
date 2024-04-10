@@ -1,5 +1,4 @@
-
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 include(${CMAKE_CURRENT_SOURCE_DIR}/SysmonpsuExample.cmake)
@@ -9,7 +8,7 @@ find_package(common)
 enable_language(C ASM)
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)
-#collect(PROJECT_LIB_DEPS xiltimer)
+collect(PROJECT_LIB_DEPS xiltimer)
 collect(PROJECT_LIB_DEPS gcc)
 collect(PROJECT_LIB_DEPS c)
 collector_list (_deps PROJECT_LIB_DEPS)
