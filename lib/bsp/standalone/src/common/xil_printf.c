@@ -42,7 +42,7 @@ typedef struct params_s {
 #define MICROBLAZE32
 #endif
 
-#if (!defined(MICROBLAZE32)) && (!defined(ZYNQMP_R5_FSBL_BSP))
+#if (!defined(MICROBLAZE32)) && (!defined(ZYNQMP_R5_FSBL_BSP))  && (!defined(DISABLE_64BIT_PRINT))
 #define SUPPORT_64BIT_PRINT
 #endif
 
