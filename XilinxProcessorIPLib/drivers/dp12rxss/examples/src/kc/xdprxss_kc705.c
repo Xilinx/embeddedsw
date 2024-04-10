@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -2337,7 +2337,7 @@ int init_peripherals()
 #ifndef SDT
 	ConfigPtr_IIC = XIic_LookupConfig(IIC_DEVICE_ID);
 #else
-	ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_1_BASEADDR);
+	ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_0_BASEADDR);
 #endif
     if (ConfigPtr_IIC == NULL) {
             return XST_FAILURE;
@@ -3505,7 +3505,7 @@ int DpPt_SetupIntrSystem()
 	}
 
 	/* Initialize the IIC driver so that it is ready to use. */
-	ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_1_BASEADDR);
+	ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_0_BASEADDR);
 	if (!ConfigPtr_IIC)
 		return XST_FAILURE;
 
