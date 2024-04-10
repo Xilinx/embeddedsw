@@ -293,6 +293,25 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	if (PM_HOUSECLEAN_CHECK(NPD, SCAN)) {
 		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
+		/*
+		 * This is a workaround for xcvm2152. When NoC ScanClear runs
+		 * the NPI bus is corrupted, refer EDT-1070997.
+		 */
+		if (PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+			/* Idle the PMC-NPI AXI bus */
+			XPm_RMW32(PMC_INT_REGS_NPI_AXI, PMC_INT_REGS_NPI_AXI_POWER_IDLEREQ_MASK, PMC_INT_REGS_NPI_AXI_POWER_IDLEREQ_MASK);
+
+			/* Wait for bus to Idle, poll for power_idleack and power_idle */
+			Status = XPm_PollForMask(PMC_INT_REGS_NPI_AXI, PMC_INT_REGS_NPI_AXI_POWER_IDLE_MASK, XPM_POLL_TIMEOUT);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_NPD_SCANCLEAR_BUS_IDLE;
+				goto done;
+			}
+
+			/* Assert raw reset to reset the switch connect between PMC and NPI_AXI */
+			XPm_RMW32(PMC_INT_REGS_NPI_AXI, PMC_INT_REGS_NPI_AXI_RAW_RST_N_MASK, 0U);
+		}
+
 		PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
 			PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK,
 			PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK);
@@ -308,6 +327,23 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		/* 200 us is not enough and scan clear pass status is updated
 			after so increasing delay for scan clear to finish */
 		usleep(400);
+
+		/* NoC ScanClear workaround for xcvm2152 continued. */
+		if (PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+
+			/* Release PMC-NPI AXI bus reset */
+			XPm_RMW32(PMC_INT_REGS_NPI_AXI, PMC_INT_REGS_NPI_AXI_RAW_RST_N_MASK, PMC_INT_REGS_NPI_AXI_RAW_RST_N_MASK);
+
+			/* Clear PMC_NPI AXI idle req */
+			XPm_RMW32(PMC_INT_REGS_NPI_AXI, PMC_INT_REGS_NPI_AXI_POWER_IDLEREQ_MASK, 0U);
+
+			/* Wait for port to become active */
+			Status = XPm_PollForZero(PMC_INT_REGS_NPI_AXI, PMC_INT_REGS_NPI_AXI_POWER_IDLE_MASK, XPM_POLL_TIMEOUT);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_NPD_SCANCLEAR_BUS_ACT;
+				goto done;
+			}
+		}
 	} else {
 		/* ScanClear is skipped */
 		PmInfo("Skipping ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
