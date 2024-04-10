@@ -30,6 +30,7 @@
 *	vss  03/16/24 Fixed review comments of XOcp_DmeXppuConfig
 *	vss  03/21/24 Clearing memory buffer in XOcp_GetPcr
 *	vss  04/01/24 Fix for XOcp_GetSwPcrData
+*       kpt  03/28/24 Fix DME failure
 *
 * </pre>
 * @note
@@ -874,7 +875,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 				XOcp_DmeXppuCfgTable[Index].IsModified = FALSE;
 			}
 		} else {
-			Xil_Out32(XOcp_DmeXppuCfgTable[Index].IsModified, TRUE);
+			XOcp_DmeXppuCfgTable[Index].IsModified = TRUE;
 		}
 		/* Configure the XPPU Apertures with configuration */
 		Xil_Out32(XOcp_DmeXppuCfgTable[Index].XppuAperAddr,
@@ -883,8 +884,6 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 
 	/* Enabling Dynamic Reconfiguration */
 	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_EN, PMC_XPPU_DYNAMIC_RECONFIG_EN_DEFVAL);
-	/* XPPU */
-	Xil_Out32(PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
 
 	/* If XPPU is not enabled, enable XPPU */
 	RegVal = (Xil_In32(PMC_XPPU_CTRL) & PMC_XPPU_CTRL_ENABLE_MASK);
@@ -892,11 +891,15 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	if ((RegVal == XOCP_XPPU_DISABLED) || (RegValtmp == XOCP_XPPU_DISABLED)) {
 		Status = Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
 			XOCP_PMC_XPPU_CTRL_ENABLE_VAL);
-		if (Status == XST_SUCCESS) {
-			XppuEnabled = XOCP_XPPU_ENABLED;
-			XppuEnabledTmp = XOCP_XPPU_ENABLED;
+		if (Status != XST_SUCCESS) {
+			goto END;
 		}
+		XppuEnabled = XOCP_XPPU_ENABLED;
+		XppuEnabledTmp = XOCP_XPPU_ENABLED;
 	}
+
+	/* XPPU */
+	Xil_Out32(PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL);
 
 	/* Mention the Address and Size of DME structure for ROM service */
 	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE5, (u32)(UINTPTR)DmePtr);
