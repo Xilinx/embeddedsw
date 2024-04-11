@@ -114,6 +114,7 @@
 *       ng   01/26/2024 Updated minor error codes
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *       mss  03/13/2024 MISRA-C violation Rule 2.2 fixed
+*       jb   04/09/2024 Reduced log level for proc print
 *
 * </pre>
 *
@@ -1768,7 +1769,7 @@ int XPlmi_ExecuteProc(u32 ProcId)
 	XPlmi_BufferList *BufferList = NULL;
 	u32 BufferListType = XPLMI_PSM_BUFFER_LIST;
 	u64 BufAddr;
-	XPlmi_Printf(DEBUG_GENERAL, "Proc ID received: 0x%x\r\n", ProcId);
+	XPlmi_Printf(DEBUG_INFO, "Proc ID received: 0x%x\r\n", ProcId);
 
 	/** - If the ProcId has MSB set, then its in PMC RAM memory. */
 	if ((ProcId & XPLMI_PMC_RAM_PROC_ID_MASK) == XPLMI_PMC_RAM_PROC_ID_MASK) {
