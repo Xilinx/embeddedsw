@@ -48,6 +48,7 @@
 *       sk   02/18/2024 Added defines for DDRMC Calib Check Status RTCA Register
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 *       ma   03/05/2024 Define IOModule instance as static in XPlmi_GetIOModuleInst
+*       jb   04/11/2024 Added proc count for PSM and PMC procs
 * </pre>
 *
 * @note
@@ -73,6 +74,10 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_PLM_BANNER	"Xilinx Versal Platform Loader and Manager \n\r" /**< PLM banner */
+
+/* Maximum procs supported */
+#define XPLMI_MAX_PSM_BUFFERS		(10U)
+#define XPLMI_MAX_PMC_BUFFERS		(5U)
 
 #define XPLMI_RTCFG_BASEADDR			(0xF2014000U) /**< Runtime configuration base address */
 

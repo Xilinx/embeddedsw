@@ -57,6 +57,8 @@
 *                       minor errors enum
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *       mss  03/13/2024 MISRA-C violation Rule 8.6 fixed
+*       jb   04/11/2024 Moved proc count for PSM and PMC procs to platform
+*			specific files
 *
 * </pre>
 *
@@ -170,10 +172,6 @@ typedef struct {
 #define XPLMI_PSM_BUFFER_LIST		(0x0U)
 #define XPLMI_PMC_BUFFER_LIST		(0x1U)
 #define XPLMI_ADDR_BUFFER_LIST		(0x2U)
-
-/* Maximum procs supported */
-#define XPLMI_MAX_PSM_BUFFERS		(10U)
-#define XPLMI_MAX_PMC_BUFFERS		(5U)
 
 /* Proc related defines */
 #define XPLMI_PMC_RAM_PROC_ID_MASK	(0x80000000U) /** All procs which need to be
