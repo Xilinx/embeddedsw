@@ -130,6 +130,7 @@
 *       am   03/02/24 Added MH Optimization support
 *       kpt  03/15/24 Updated RSA KAT to use 2048-bit key
 *       sk   03/13/24 Fixed doxygen comments format
+*       har  04/12/24 Moved glitch checks after respective function calls
 *
 * </pre>
 *
@@ -2207,7 +2208,8 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 				XSECURE_AES_BH_KEY, XSECURE_AES_KEY_SIZE_256,
 					(UINTPTR)BootHdr->Kek);
 			if (Status != XST_SUCCESS) {
-				break;
+				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+				goto END;
 			}
 			DecryptBlkKey = (u32)TRUE;
 		}
@@ -2297,12 +2299,10 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		/* Aes Obfuscated Key is applicable only for versal_net */
 		Status = XLoader_AesObfusKeySelect(KeyDetails->PdiKeySrc,
 				*DecKeyMask, KeySrc);
-		break;
-	}
-
-	if (Status != XST_SUCCESS) {
-		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
-		goto END;
+		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+			goto END;
+		}
 	}
 
 	if ((KeyDetails->PdiKeySrc != PdiKeySrcTmp) || (*KeySrc == XSECURE_AES_INVALID_KEY)) {
