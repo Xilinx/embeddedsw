@@ -46,8 +46,6 @@ properties:
     description: flag to enable csi v2.
   xlnx,dphy-lanes:
     description: Number of dphy lanes.
-  xlnx,mipi-rx-phy-mode:
-    description: Phy mode either DPHY or CPHY.
   axii2c-present:
     description: Sub-core instance presence.
   axii2c-connected:
@@ -86,7 +84,6 @@ required:
     - xlnx,csi-en-activelanes
     - xlnx,en-csi-v2
     - xlnx,dphy-lanes
-    - xlnx,mipi-rx-phy-mode
     - axii2c-present
     - axii2c-connected: phandle
     - csirx-present
