@@ -1316,6 +1316,7 @@ int main() {
 #endif //SDT
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
+#ifndef SDT
 	/* HDCP 1.4 Cipher interrupt */
 	Status |= XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID,
@@ -1327,13 +1328,16 @@ int main() {
 			(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
 			(void *)&HdmiRxSs);
 #endif
+#endif
 
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
+#ifndef SDT
 	/* HDCP 2.2 Timer interrupt */
 	Status |= XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiRxSs);
+#endif
 #endif
 
 #else
@@ -1349,6 +1353,7 @@ int main() {
 #endif
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
+#ifndef SDT
 	/* HDCP 1.4 Cipher interrupt */
 	Status |= XIntc_Connect(&Intc,
 				XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID,
@@ -1361,18 +1366,22 @@ int main() {
 			(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
 			(void *)&HdmiRxSs);
 #endif
+#endif
 
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
+#ifndef SDT
 	/* HDCP 2.2 Timer interrupt */
 	Status |= XIntc_Connect(&Intc,
 			XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiRxSs);
 #endif
+#endif
 
 #endif //ARM64
-#ifndef SDT
+
 	if (Status == XST_SUCCESS) {
+#ifndef SDT
 #if defined(__arm__) || (__aarch64__)
 #ifndef USE_HDCP
 		XScuGic_Enable(&Intc,
@@ -1418,13 +1427,14 @@ int main() {
 #endif
 
 #endif
+#endif  /* SDT END */
 	} else {
 		xil_printf
 			("ERR:: Unable to register HDMI RX interrupt handler");
 		xil_printf("HDMI RX SS initialization error\r\n");
 		return XST_FAILURE;
 	}
-#endif  /* SDT END */
+
 
 	/* RX callback setup */
 	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
