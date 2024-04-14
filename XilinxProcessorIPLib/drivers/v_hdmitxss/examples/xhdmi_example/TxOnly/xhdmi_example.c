@@ -2166,8 +2166,8 @@ int main() {
 	/* Set the Application version in TXSs driver structure */
 	XV_HdmiTxSS_SetAppVersion(&HdmiTxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
-#if defined(__arm__) || (__aarch64__)
 #ifndef SDT
+#if defined(__arm__) || (__aarch64__)
 #ifndef USE_HDCP
 	Status |= XScuGic_Connect(&Intc,
 			XPAR_FABRIC_V_HDMITXSS_0_VEC_ID,
@@ -2178,7 +2178,6 @@ int main() {
 			XPAR_FABRIC_V_HDMITXSS_0_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
 			(void *)&HdmiTxSs);
-#endif
 #endif
 
 /* HDCP 1.4 */
@@ -2203,9 +2202,7 @@ int main() {
 			(XInterruptHandler)XV_HdmiTxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiTxSs);
 #endif
-
 #else
-#ifndef SDT
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
 	Status |= XIntc_Connect(&Intc,
 #if defined(USE_HDCP)
@@ -2215,7 +2212,6 @@ int main() {
 #endif
 			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
 			(void *)&HdmiTxSs);
-#endif
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -2239,12 +2235,10 @@ int main() {
 			(XInterruptHandler)XV_HdmiTxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiTxSs);
 #endif
-
 #endif
 
 	if (Status == XST_SUCCESS) {
 #if defined(__arm__) || (__aarch64__)
-#ifndef SDT
 #ifndef USE_HDCP
 		XScuGic_Enable(&Intc,
 			XPAR_FABRIC_V_HDMITXSS_0_VEC_ID);
@@ -2252,7 +2246,6 @@ int main() {
 		XScuGic_Enable(&Intc,
 			XPAR_FABRIC_V_HDMITXSS_0_IRQ_VEC_ID);
 #endif
-#endif  /* SDT END */
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 		/* HDCP 1.4 Cipher interrupt */
@@ -2269,9 +2262,7 @@ int main() {
 		XScuGic_Enable(&Intc,
 			XPAR_FABRIC_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
 #endif
-
 #else
-#ifndef SDT
 		XIntc_Enable(&Intc,
 #if defined(USE_HDCP)
 			XPAR_INTC_0_V_HDMITXSS_0_IRQ_VEC_ID
@@ -2279,7 +2270,6 @@ int main() {
 			XPAR_INTC_0_V_HDMITXSS_0_VEC_ID
 #endif
 			);
-#endif
 
 /* HDCP 1.4 */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -2297,7 +2287,6 @@ int main() {
 		XIntc_Enable(&Intc,
 			XPAR_INTC_0_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
 #endif
-
 #endif
 	} else {
 		xil_printf
@@ -2305,6 +2294,7 @@ int main() {
 		xil_printf("HDMI TX SS initialization error\r\n");
 		return XST_FAILURE;
 	}
+#endif /* SDT */
 	/* HDMI TX SS callback setup */
 	XV_HdmiTxSs_SetCallback(&HdmiTxSs,
 				XV_HDMITXSS_HANDLER_CONNECT,
@@ -2345,13 +2335,7 @@ int main() {
 				XV_HDMITXSS_HANDLER_STREAM_DOWN,
 				(void *)TxStreamDownCallback,
 				(void *)&HdmiTxSs);
-#ifdef SDT
-	Status = XSetupInterruptSystem(&HdmiTxSs,
-				XV_HdmiTxSS_HdmiTxIntrHandler,
-				XV_HdmiTxSs_ConfigPtr->IntrId[INTRNAME_HDMITX],
-				XV_HdmiTxSs_ConfigPtr->IntrParent,
-				XINTERRUPT_DEFAULT_PRIORITY);
-#endif
+
 #ifdef USE_HDCP
 	if (XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
 		/* Initialize the HDCP instance */
@@ -2490,7 +2474,19 @@ int main() {
 	}
 #endif
 #endif
-
+#ifdef SDT
+	Status = XSetupInterruptSystem(&HdmiTxSs,
+				XV_HdmiTxSS_HdmiTxIntrHandler,
+				XV_HdmiTxSs_ConfigPtr->IntrId[INTRNAME_HDMITX],
+				XV_HdmiTxSs_ConfigPtr->IntrParent,
+				XINTERRUPT_DEFAULT_PRIORITY);
+    if (Status != XST_SUCCESS) {
+		xil_printf
+			("ERR:: Unable to register HDMI TX interrupt handler");
+		xil_printf("HDMI TX SS initialization error\r\n");
+		return XST_FAILURE;
+    }
+#endif
 	xil_printf("---------------------------------\r\n");
 
 	/* Enable exceptions. */
