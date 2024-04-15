@@ -28,6 +28,7 @@
 * 5.3   kpt  12/13/23 Added XSECURE_API_RSA_SCA_RESISTANCE_PRIVATE_DECRYPT
 *       har  02/05/24 Added XSECURE_API_AES_OP_N_ZEROIZE_KEY
 * 5.3   mb   04/01/24 Updated minor version
+*       mb   04/15/24 Updated SHA2 minor version
 *
 * </pre>
 * @note
@@ -315,7 +316,7 @@ typedef struct {
 #define XSECURE_HMAC_MINOR_VERSION	3 /**< Minor version of HMAC */
 
 #define XSECURE_SHA2_MAJOR_VERSION	5 /**< Major version of SHA2 */
-#define XSECURE_SHA2_MINOR_VERSION	2 /**< Minor version of SHA2 */
+#define XSECURE_SHA2_MINOR_VERSION	3 /**< Minor version of SHA2 */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
