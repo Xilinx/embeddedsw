@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
+ *       am   04/10/24 Fixed doxygen warning
  *
  * </pre>
  *
@@ -62,6 +63,16 @@ typedef struct {
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
+/*****************************************************************************/
+/**
+ * @brief	This function prepares xilplmi command header
+ *
+ * @param	Len is Length of Payload
+ * @param	ApiId is to check the supported features
+ *
+ * @return	xilplmi command header
+ *
+ *****************************************************************************/
 static inline u32 PACK_XPLMI_HEADER(u32 Len, u32 ApiId)
 {
 	return ((Len << XPLMI_PAYLOAD_LEN_SHIFT) | XILPLMI_MODULE_ID_MASK | (ApiId));

@@ -114,6 +114,7 @@
 *       ng   01/26/2024 Updated minor error codes
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *       mss  03/13/2024 MISRA-C violation Rule 2.2 fixed
+*       am   04/04/2024 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -333,7 +334,8 @@ static int XPlmi_GetDeviceID(XPlmi_Cmd *Cmd)
  *		- Error Code
  *
  * @param	Cmd is pointer to the command structure
- * @param	Is64Bit is flag indicating if the address is 64-bit
+ * @param	Addr is address of mask poll
+ * @param	Type is flag indicating if the address is 64-bit
  *
  * @return
  * 			- XST_SUCCESS on success.

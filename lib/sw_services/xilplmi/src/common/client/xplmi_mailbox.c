@@ -17,6 +17,7 @@
   * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
+ *       am   04/04/24 Fixed doxygen warnings
  *
  * </pre>
  *
@@ -41,7 +42,7 @@
 /**
  * @brief	This function sends IPI request to the target module and gets the response from it
  *
- * @param	MailboxPtr	Pointer to mailbox instance
+ * @param	ClientPtr	Pointer to mailbox instance
  * @param	MsgPtr		Pointer to the payload message
  * @param	MsgLen		Length of the message
  *

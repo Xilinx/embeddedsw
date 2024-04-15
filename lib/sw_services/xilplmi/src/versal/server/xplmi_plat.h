@@ -48,6 +48,8 @@
 *       sk   02/18/2024 Added defines for DDRMC Calib Check Status RTCA Register
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 *       ma   03/05/2024 Define IOModule instance as static in XPlmi_GetIOModuleInst
+*       am   04/04/2024 Fixed doxygen warnings
+*
 * </pre>
 *
 * @note
@@ -193,7 +195,7 @@ extern "C" {
 /*
  * DDRMC Defines
  */
-#define MAX_DEV_DDRMC		(4U)
+#define MAX_DEV_DDRMC		(4U)	/**< Maximum device for Double Data Rate Memory Controller */
 
 /*
  * RTCA area KAT masks
