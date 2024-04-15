@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,7 +26,8 @@
 *  	adk      08/08/22 Added doxygen tags.
 *  1.2  adk	 22/12/22 Fixed doxygen style and indentation issues.
 *  1.3  gm	 21/07/23 Added Timer Release Callback function.
-*
+*  2.0  ml       28/03/24 added description and removed comments to
+*                         fix doxygen warnings.
 * </pre>
 ******************************************************************************/
 
@@ -113,8 +114,6 @@ void XilTimer_Sleep(unsigned long delay, XTimer_DelayType DelayType) {
 *
 * @return           none
 *
-* @note             none
-*
 *****************************************************************************/
 void __attribute__ ((constructor)) xtimerinit()
 {
@@ -155,8 +154,6 @@ void XTimer_SetHandler(XTimer_TickHandler FuncPtr, void *CallBackRef,
 /**
 *
 * This API releases the timer instance.
-*
-* @param            none
 *
 * @return           none
 *
