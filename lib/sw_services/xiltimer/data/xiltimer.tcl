@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -11,6 +12,7 @@
 # 1.0   adk   24/11/21 First release
 # 	adk   20/12/21 Fix TTC Device ID handling.
 # 1.1	adk   08/08/22 Added support for versal net.
+# 2.0   ml    08/04/24 Add support for sleep and tick timers
 #
 ##############################################################################
 
@@ -93,18 +95,40 @@ proc generate {lib_handle} {
         set sleep_timer_is_scutimer 0
 	set sleep_timer_is_default 0
 	set interval_timer_is_default 0
+	set value 0
+	set default_sleep 0
 
 	# check processor type
 	set proc_instance [hsi::get_sw_processor]
 	set hw_proc_handle [::hsi::get_cells -hier [common::get_property hw_instance $proc_instance]]
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
-	set sleep_timer [common::get_property CONFIG.sleep_timer $lib_handle]
-	set interval_timer [common::get_property CONFIG.interval_timer $lib_handle]
-        # for interval functionality interrupt connection is manadatory
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]]
+	set os [hsi::get_os]
+	set xiltimer_interval_timer [common::get_property CONFIG.xiltimer_interval_timer $lib_handle]
+	set xiltimer_sleep_timer [common::get_property CONFIG.xiltimer_sleep_timer $lib_handle]
+	# for interval functionality interrupt connection is manadatory
 	set ttc_ips [::hsi::get_mem_ranges -of_objects $hw_proc_handle [hsi::get_cells -hier -filter {IP_NAME == "psv_ttc"  || IP_NAME == "psu_ttc" || IP_NAME == "ps7_ttc" || IP_NAME == "psxl_ttc" || IP_NAME == "psx_ttc"}]]
 	set axitmr_ips [hsi::get_cells -hier -filter {IP_NAME == "axi_timer"}]
 	set scutmr_ips [hsi::get_cells -hier -filter {IP_NAME == "ps7_scutimer"}]
-	set timer_ips [concat $ttc_ips $axitmr_ips $scutmr_ips]
+	if { $os == "standalone" && $xiltimer_sleep_timer == "none" && ($proc_type == "psv_cortexr5" || $proc_type == "psu_cortexr5")} {
+		incr default_sleep
+		set max_number -1
+		set xiltimer_sleep_timer ""
+		foreach element $ttc_ips {
+			set number [string range $element 7 end]
+			if {$number > $max_number} {
+				set max_number $number
+				set xiltimer_sleep_timer $element
+			}
+		}
+	}
+	if {$proc_type == "ps7_cortexa9"} {
+		set timer_ips [concat $scutmr_ips $ttc_ips $axitmr_ips]
+	} elseif {$proc_type == "microblaze"} {
+		set timer_ips [concat $axitmr_ips $scutmr_ips $ttc_ips]
+	} else {
+		set timer_ips [concat $ttc_ips $axitmr_ips $scutmr_ips]
+	}
         set timer_len [llength $timer_ips]
 	set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
 	set cortexa53proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa53_0"}]
@@ -116,28 +140,12 @@ proc generate {lib_handle} {
 	} elseif {$proc_instance == "psu_cortexa53_0" && $is_zynqmp_fsbl_bsp == true} {
 		incr sleep_timer_is_default
 		incr interval_timer_is_default
-	} elseif { [expr [llength $timer_ips] >= 2] } {
-		if { $sleep_timer == "none"} {
-			set sleep_timer [lindex $timer_ips 0]
-			common::set_property CONFIG.sleep_timer $sleep_timer $lib_handle
+	} elseif { [expr [llength $timer_ips] != 0] } {
+		if { $xiltimer_sleep_timer == "none"} {
+			incr sleep_timer_is_default
 		}
-		if { $is_intervaltimer_en} {
-			if { $interval_timer == "none"} {
-				set interval_timer [lindex $timer_ips 1]
-				common::set_property CONFIG.interval_timer $interval_timer $lib_handle
-			}
-		} elseif { $interval_timer == "none"} {
-			incr interval_timer_is_default
-		}
-	} elseif {[expr [llength $timer_ips] != 0]} {
-		if { $is_intervaltimer_en} {
-		    set interval_timer [lindex $timer_ips 0]
-		    common::set_property CONFIG.interval_timer $interval_timer $lib_handle
-		    incr sleep_timer_is_default
-		} else {
-		    set sleep_timer [lindex $timer_ips 0]
-		    common::set_property CONFIG.sleep_timer $sleep_timer $lib_handle
-		    incr interval_timer_is_default
+		if { $os == "standalone" && $xiltimer_interval_timer == "none" } {
+                        incr interval_timer_is_default
 		}
 	} else {
 		incr sleep_timer_is_default
@@ -145,11 +153,6 @@ proc generate {lib_handle} {
 		puts "No timer IP's available in the design"
 	}
 
-	if { $sleep_timer != "none" && $interval_timer != "none"} {
-		if {$sleep_timer == $interval_timer} {
-		    error "ERROR: For sleep and interval functionality same timer instance got selected, please select different timers" "mdt_error"
-		}
-	}
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	puts $file_handle "\#define XPAR_XILTIMER_ENABLED"
 	close $file_handle
@@ -161,64 +164,106 @@ proc generate {lib_handle} {
 	puts $fd ""
 	puts $fd "#include \"xparameters.h\""
 	puts $fd ""
-	if {[llength $ttc_ips] != 0} {
-		if {[lsearch -exact $ttc_ips $sleep_timer] >= 0} {
-		      puts $fd "\#define XSLEEPTIMER_IS_TTCPS"
-		      set intsnum [string index $sleep_timer end]
-		      set device_id [expr {$intsnum * 3}]
-		      set inst_name [common::get_property NAME [hsi::get_cells -hier $sleep_timer]]
-		      set inst_name [string range $inst_name 0 end-2]
-		      set ipname [string toupper [format %s_%s $inst_name $device_id]]
-		      puts $fd "\#define XSLEEPTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
-		      incr sleep_timer_is_ttc
+	if { $default_sleep } {
+		if {[llength $ttc_ips] != 0} {
+			puts $fd "\#define XSLEEPTIMER_IS_TTCPS"
+			set intsnum [string index $xiltimer_sleep_timer end]
+			set device_id [expr {$intsnum * 3}]
+			set inst_name [common::get_property NAME [hsi::get_cells -hier $xiltimer_sleep_timer]]
+			set inst_name [string range $inst_name 0 end-2]
+			set ipname [string toupper [format %s_%s $inst_name $device_id]]
+			puts $fd "#define XSLEEPTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
+			puts $fd "#define SLEEP_TIMER_BASEADDR XPAR_${ipname}_BASEADDR"
+			puts $fd "#define SLEEP_TIMER_FREQUENCY XPAR_${ipname}_TTC_CLK_FREQ_HZ"
+			puts $fd "#define XSLEEP_TTC_INSTANCE $intsnum"
+			puts $fd "#define XTIMER_IS_DEFAULT_TIMER"
+			incr sleep_timer_is_default
 		}
-		if {[lsearch -exact $ttc_ips $interval_timer] >= 0} {
-		      puts $fd "\#define XTICKTIMER_IS_TTCPS"
-		      set intsnum [string index $interval_timer end]
-		      set device_id [expr {$intsnum * 3}]
-		      set inst_name [common::get_property NAME [hsi::get_cells -hier $interval_timer]]
-		      set inst_name [string range $inst_name 0 end-2]
-		      set ipname [string toupper [format %s_%s $inst_name $device_id]]
-		      puts $fd "\#define XTICKTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
-		      incr sleep_timer_is_ttc
+	} elseif {$sleep_timer_is_default != 0} {
+		puts $fd "\ /* Sleep Timer */"
+                puts $fd "\#define XTIMER_IS_DEFAULT_TIMER"
+        } else {
+		if {[llength $ttc_ips] != 0} {
+			if {[lsearch -exact $ttc_ips $xiltimer_sleep_timer] >= 0} {
+				puts $fd "\#define XSLEEPTIMER_IS_TTCPS"
+				set intsnum [string index $xiltimer_sleep_timer end]
+				set device_id [expr {$intsnum * 3}]
+				set inst_name [common::get_property NAME [hsi::get_cells -hier $xiltimer_sleep_timer]]
+				set inst_name [string range $inst_name 0 end-2]
+				set ipname [string toupper [format %s_%s $inst_name $device_id]]
+				puts $fd "\#define XSLEEPTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
+				incr sleep_timer_is_ttc
+			}
 		}
-	}
-	if {[llength $axitmr_ips] != 0} {
-		if {[lsearch -exact $axitmr_ips $sleep_timer] >= 0} {
-		      puts $fd "\#define XSLEEPTIMER_IS_AXITIMER"
-		      set ipname [string toupper $sleep_timer]
-		      puts $fd "\#define XSLEEPTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
-		      incr sleep_timer_is_axitimer
+		if {[llength $axitmr_ips] != 0} {
+			if {[lsearch -exact $axitmr_ips $xiltimer_sleep_timer] >= 0} {
+				puts $fd "\#define XSLEEPTIMER_IS_AXITIMER"
+				set ipname [string toupper $xiltimer_sleep_timer]
+				puts $fd "\#define XSLEEPTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
+				incr sleep_timer_is_axitimer
+			}
 		}
-		if {[lsearch -exact $axitmr_ips $interval_timer] >= 0} {
-		      puts $fd "\#define XTICKTIMER_IS_AXITIMER"
-		      set ipname [string toupper $interval_timer]
-		      puts $fd "\#define XTICKTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
-		      incr sleep_timer_is_axitimer
-		}
-	}
-	if {[llength $scutmr_ips] != 0} {
-		if {[lsearch -exact $scutmr_ips $sleep_timer] >= 0} {
-		      puts $fd "\#define XSLEEPTIMER_IS_SCUTIMER"
-		      set ipname [string toupper $sleep_timer]
-		      puts $fd "\#define XSLEEPTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
-		      incr sleep_timer_is_scutimer
-		}
-		if {[lsearch -exact $scutmr_ips $interval_timer] >= 0} {
-		      puts $fd "\#define XTICKTIMER_IS_SCUTIMER"
-		      set ipname [string toupper $interval_timer]
-		      puts $fd "\#define XTICKTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
-		      incr sleep_timer_is_scutimer
+		if {[llength $scutmr_ips] != 0} {
+			if {[lsearch -exact $scutmr_ips $xiltimer_sleep_timer] >= 0} {
+				puts $fd "\#define XSLEEPTIMER_IS_SCUTIMER"
+				set ipname [string toupper $xiltimer_sleep_timer]
+				puts $fd "\#define XSLEEPTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
+				incr sleep_timer_is_scutimer
+			}
 		}
 	}
-	if {$sleep_timer_is_default != 0} {
-		puts $fd "\#define XTIMER_IS_DEFAULT_TIMER"
-	}
-	if {$interval_timer_is_default != 0} {
-		puts $fd "\#define XTIMER_NO_TICK_TIMER"
+        if {$interval_timer_is_default != 0} {
+                puts $fd "\#define XTIMER_NO_TICK_TIMER"
+        } else {
+		if { $xiltimer_interval_timer == "none" } {
+			set xiltimer_interval_timer [lindex $timer_ips 0]
+			incr value
+			common::set_property CONFIG.xiltimer_interval_timer $xiltimer_interval_timer $lib_handle
+		}
+		if {[llength $ttc_ips] != 0} {
+			if {[lsearch -exact $ttc_ips $xiltimer_interval_timer] >= 0} {
+				puts $fd "\#define XTICKTIMER_IS_TTCPS"
+				set intsnum [string index $xiltimer_interval_timer end]
+				if { $value } {
+					set device_id 0
+				} else {
+					set device_id [expr {$intsnum * 3}]
+				}
+				set inst_name [common::get_property NAME [hsi::get_cells -hier $xiltimer_interval_timer]]
+				set inst_name [string range $inst_name 0 end-2]
+				set ipname [string toupper [format %s_%s $inst_name $device_id]]
+				puts $fd "\#define XTICKTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
+				incr sleep_timer_is_ttc
+			}
+		}
+		if {[llength $axitmr_ips] != 0} {
+			if {[lsearch -exact $axitmr_ips $xiltimer_interval_timer] >= 0} {
+				puts $fd "\#define XTICKTIMER_IS_AXITIMER"
+				set ipname [string toupper $xiltimer_interval_timer]
+				puts $fd "\#define XTICKTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
+				incr sleep_timer_is_axitimer
+			}
+		}
+		if {[llength $scutmr_ips] != 0} {
+			if {[lsearch -exact $scutmr_ips $xiltimer_interval_timer] >= 0} {
+				set lib [hsi::get_libs xiltimer]
+				common::set_property CONFIG.xiltimer_interval_timer ps7_scutimer_0 $lib
+				puts $fd "\#define XTICKTIMER_IS_SCUTIMER"
+				set ipname [string toupper $xiltimer_interval_timer]
+				puts $fd "\#define XTICKTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
+				incr sleep_timer_is_scutimer
+			}
+		}
 	}
 	puts $fd ""
 	puts $fd "\#endif /* XTIMER_CONFIG_H */"
 	close $fd
+
+        if { $xiltimer_sleep_timer != "none" && $xiltimer_interval_timer != "none"} {
+                if {$xiltimer_sleep_timer == $xiltimer_interval_timer} {
+                    error "ERROR: For sleep and interval functionality same timer instance got selected, please select different timers" "mdt_error"
+                }
+        }
+
 	xtimer_drc $lib_handle
 }
