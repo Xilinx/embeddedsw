@@ -49,6 +49,8 @@
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 *       ma   03/05/2024 Define IOModule instance as static in XPlmi_GetIOModuleInst
 *       jb   04/11/2024 Added proc count for PSM and PMC procs
+*       am   04/15/2024 Fixed doxygen warnings
+*
 * </pre>
 *
 * @note
@@ -198,7 +200,7 @@ extern "C" {
 /*
  * DDRMC Defines
  */
-#define MAX_DEV_DDRMC		(4U)
+#define MAX_DEV_DDRMC		(4U)	/**< Maximum device for Double Data Rate Memory Controller */
 
 /*
  * RTCA area KAT masks
