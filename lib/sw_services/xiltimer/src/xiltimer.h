@@ -27,7 +27,7 @@
 *  1.3  gm      21/07/23 Added Timer Release Callback function.
 *  1.4  ht      09/12/23 Added code for versioning of library.
 *  1.4  mus     15/02/24 Added correct APIs to set/get MB V frequency.
-*
+*  2.0  ml      28/03/24 Added description to fix doxygen warnings.
 * </pre>
 ******************************************************************************/
 #ifndef XILTIMER_H
@@ -58,8 +58,14 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/* Library version info */
+/**
+ * Library Major version info
+ */
 #define XTIMER_MAJOR_VERSION	1U
+
+/**
+ * Library Minor version info
+ */
 #define XTIMER_MINOR_VERSION	4U
 
 /**************************** Type Definitions *******************************/
@@ -113,22 +119,28 @@ typedef struct XTimerTag {
 					/**< Timer Release Callback function */
 #endif
 #ifdef XSLEEPTIMER_IS_AXITIMER
-	XTmrCtr AxiTimer_SleepInst;
+	XTmrCtr AxiTimer_SleepInst; /**< Instance of the AXI Timer used for
+				         sleep functionality. */
 #endif
 #ifdef XTICKTIMER_IS_AXITIMER
-	XTmrCtr AxiTimer_TickInst;
+	XTmrCtr AxiTimer_TickInst; /**< Instance of the AXI Timer used for
+				        Tick functionality. */
 #endif
 #ifdef XSLEEPTIMER_IS_TTCPS
-	XTtcPs TtcPs_SleepInst;
+	XTtcPs TtcPs_SleepInst; /**< Instance of the TTCPS used for sleep
+				     functionality. */
 #endif
 #ifdef XTICKTIMER_IS_TTCPS
-	XTtcPs TtcPs_TickInst;
+	XTtcPs TtcPs_TickInst; /**< Instance of the TTCPS used for Tick
+				    functionality. */
 #endif
 #ifdef XSLEEPTIMER_IS_SCUTIMER
-	XScuTimer ScuTimer_SleepInst;
+	XScuTimer ScuTimer_SleepInst; /**< Instance of the SCU Timer used for
+					   sleep functionality. */
 #endif
 #ifdef XTICKTIMER_IS_SCUTIMER
-	XScuTimer ScuTimer_TickInst;
+	XScuTimer ScuTimer_TickInst; /**< Instance of the SCU Timer used for
+				          Tick functionality. */
 #endif
 } XTimer;
 
