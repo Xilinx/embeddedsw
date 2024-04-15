@@ -115,6 +115,7 @@
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *       mss  03/13/2024 MISRA-C violation Rule 2.2 fixed
 *       jb   04/09/2024 Reduced log level for proc print
+*       am   04/15/2024 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -334,7 +335,8 @@ static int XPlmi_GetDeviceID(XPlmi_Cmd *Cmd)
  *		- Error Code
  *
  * @param	Cmd is pointer to the command structure
- * @param	Is64Bit is flag indicating if the address is 64-bit
+ * @param	Addr is address of mask poll
+ * @param	Type is flag indicating if the address is 64-bit
  *
  * @return
  * 			- XST_SUCCESS on success.

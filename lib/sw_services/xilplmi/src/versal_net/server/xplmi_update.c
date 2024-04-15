@@ -40,6 +40,7 @@
 * 2.0   ng   11/11/2023 Implemented user modules
 * 2.00  ng   01/26/2024 Updated minor error codes
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
+*       am   04/10/2024 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -108,23 +109,22 @@ EXPORT_GENERIC_DS(UpdatePdiAddr, XPLMI_UPDATE_PDIADDR_DS_ID,
 static u32 DbStartAddr; /** Db Start Address */
 static u32 DbEndAddr; /** Db End Address */
 
-/*****************************************************************************/
-
 /****************************************************************************/
 /**
-* @brief	This function will initialize In-Place Update related logic
-*
-* @param	CompatibilityHandler is the handler used for compatibility check
-*
-* @return
-* 			- XST_SUCCESS if success.
-* 			- XPLM_ERR_TASK_CREATE if failed to create a task.
-* 			- XPLMI_ERR_IPI_DRV_INIT if there is a failure in Ipi Driver Init
-* 			which is done after In-Place update.
-* 			- XPLMI_ERR_MEMSET_UPDATE_RESP if there is a failure in memset of
-* 			IPI response buffer used to ack the ipi after update.
-*
-****************************************************************************/
+ * @brief	This function will initialize In-Place Update related logic
+ *
+ * @param	CompatibilityHandler is the handler used for compatibility check
+ * @param	IsPdiAddrLookupHandler is the PDI address look-up handler
+ *
+ * @return
+ * 			- XST_SUCCESS if success.
+ * 			- XPLM_ERR_TASK_CREATE if failed to create a task.
+ * 			- XPLMI_ERR_IPI_DRV_INIT if there is a failure in Ipi Driver Init
+ * 			which is done after In-Place update.
+ * 			- XPLMI_ERR_MEMSET_UPDATE_RESP if there is a failure in memset of
+ * 			IPI response buffer used to ack the ipi after update.
+ *
+ ****************************************************************************/
 int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler,
 		XPlmi_IsPdiAddrLookup_t IsPdiAddrLookupHandler)
 {

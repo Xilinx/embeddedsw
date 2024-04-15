@@ -44,6 +44,7 @@
 *                       Enable EMSetAction process via IPI
 * 1.08  ma   09/27/2023 Add secure lockdown to EAM error actions list
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
+*       am   04/04/2024 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -62,8 +63,8 @@
 /************************** Constant Definitions *****************************/
 
 /* Error Module command Ids */
-#define XPLMI_CMD_ID_EM_FEATURES	(0U)
-#define XPLMI_CMD_ID_EM_SET_ACTION	(1U)
+#define XPLMI_CMD_ID_EM_FEATURES	(0U)	/**< Command Id of error module features */
+#define XPLMI_CMD_ID_EM_SET_ACTION	(1U)	/**< Command Id of set action error module */
 
 /**************************** Type Definitions *******************************/
 
