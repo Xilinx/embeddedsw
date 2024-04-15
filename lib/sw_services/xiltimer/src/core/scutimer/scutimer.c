@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -27,6 +27,7 @@
  *                      a decrementing counter.
  *                      Update XTimer_ScutimerTickInterval to add support for SDT
  *                      flow.
+ *  2.0  ml    28/03/24 Added description to fix doxygen warnings
  *</pre>
  *
  *@note
@@ -38,6 +39,10 @@
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * The ScuTimer typically operates with a 32-bit counter, and this value represents
+ * the maximum possible count that can be stored in that counter.
+ */
 #define MAX_COUNT 0xFFFFFFFFU
 
 /************************** Function Prototypes ******************************/
