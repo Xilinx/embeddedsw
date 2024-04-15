@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -25,7 +25,7 @@
  * 1.3   gm    21/07/23 Added Timer Release Callback function support.
  * 1.3   asa   08/09/23 Added macros to ensure that for Zynq/CortexA9
  *                      16 bit TTC counters are used.
- *
+ * 2.0   ml    29/03/24 Added description to fix doxygen warnings.
  *</pre>
  *
  *@note
@@ -38,10 +38,34 @@
 /**************************** Type Definitions *******************************/
 
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
+
+/**
+ * the shift amount used when concatenating two registers
+ * to form a 64-bit value. the shift amount is 32, indicating
+ * a 32-bit register width.
+ */
 #define REG_SHIFT  				32U
+
+/**
+ * the type used to represent the value of a timer counter.
+ * Depending on the architecture being targeted, it is a
+ * 32-bit unsigned integer (u32).
+ */
 #define XCntrVal 			    u32
 #else
+
+/**
+ * the shift amount used when concatenating two registers
+ * to form a 64-bit value. the shift amount is 32, indicating
+ * a 16-bit register width.
+ */
 #define REG_SHIFT  16U
+
+/**
+ * the type used to represent the value of a timer counter.
+ * Depending on the architecture being targeted, it is a
+ * 16-bit unsigned integer (u16).
+ */
 #define XCntrVal 			    u16
 #endif
 
@@ -283,7 +307,7 @@ static void XTickTimer_ClearTtcInterrupt(XTimer *InstancePtr)
  * This function configures the sleep interval using ttcps
  *
  * @param  InstancePtr is Pointer to the XTimer instance
- * @param  Delay is the delay interval
+ * @param  delay is the delay interval
  * @param  DelayType is the XTimer_DelayType
  *
  * @return	None
