@@ -31,6 +31,7 @@
 *	vss  03/21/24 Clearing memory buffer in XOcp_GetPcr
 *	vss  04/01/24 Fix for XOcp_GetSwPcrData
 *       kpt  03/28/24 Fix DME failure
+*       har  04/12/24 Fix size of buffer passed to XPlmi_MemSet
 *
 * </pre>
 * @note
@@ -954,7 +955,8 @@ END:
 	}
 RET:
 	if (Status != XST_SUCCESS) {
-		ClearStatus = XPlmi_MemSet((u64)(UINTPTR)&RomDmeInput, 0U, sizeof(XOcp_Dme));
+		ClearStatus = XPlmi_MemSet((u64)(UINTPTR)&RomDmeInput, 0U, sizeof(XOcp_Dme) /
+			XOCP_WORD_LEN);
 		if (ClearStatus != XST_SUCCESS) {
 			Status = Status | XLOADER_SEC_BUF_CLEAR_ERR;
 		}
