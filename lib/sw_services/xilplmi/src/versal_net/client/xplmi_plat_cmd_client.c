@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
+ *       am   04/04/24 Fixed doxygen warnings
  *
  * </pre>
  *
@@ -47,6 +48,7 @@ static int XPlmi_InPlacePlmUpdate(XPlmi_ClientInstance *InstancePtr,const u32 Fl
 /**
  * @brief	This function sends IPI request to In place plm update status
  *
+ * @param	InstancePtr	Pointer to XPlmi_ClientInstance
  * @param	Flag		To enable / disable jtag
  * @param	PdiValue	To select the pdi src
  *
@@ -87,6 +89,7 @@ END:
 /**
  * @brief	This function sends IPI request to In place plm update status
  *
+ * @param	Ptr	Pointer to XPlmi_ClientInstance
  * @param	Flag	To enable / disable jtag
  * @param	DDRAddr	Address of DDR
  *
@@ -106,8 +109,9 @@ int XPlmi_InPlacePlmUpdate_DDR(XPlmi_ClientInstance *Ptr,const u32 Flag, u32 DDR
 /**
  * @brief	This function sends IPI request to In place plm update status through Imgae store
  *
+ * @param	Ptr	Pointer to XPlmi_ClientInstance
  * @param	Flag	To enable / disable jtag
- * @param	pdi_id	Image store pdi id
+ * @param	PdiId	Image store pdi id
  *
  *  @return
  *			 - XST_SUCCESS on success.

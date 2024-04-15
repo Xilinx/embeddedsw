@@ -50,6 +50,7 @@
 * 2.00  ng   01/26/2024 Updated minor error codes
 *       sk   02/18/2024 Added defines for DDRMC Calib Check Status RTCA Register
 *       ma   03/05/2024 Fixed improper timestamp issue after In-place PLM update
+*       am   04/04/2024 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -98,8 +99,8 @@ extern "C" {
 #define XPLMI_RTCFG_VID_OVERRIDE				(XPLMI_RTCFG_BASEADDR + 0x2B0U) /**< VID override */
 #define XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR			(XPLMI_RTCFG_BASEADDR + 0x300U) /**< Skip DDRMC Calib Check */
 
-#define XPLMI_INVALID_PLM_RSVD_DDR_ADDR				(0x0U)
-#define XPLMI_INVALID_PLM_RSVD_DDR_SIZE				(0U)
+#define XPLMI_INVALID_PLM_RSVD_DDR_ADDR				(0x0U)	/**< Invalid reserved DDR address */
+#define XPLMI_INVALID_PLM_RSVD_DDR_SIZE				(0U)	/**< Invalid reserved DDR size */
 
 #define XPLMI_ROM_SERVICE_TIMEOUT			(1000000U) /**< ROM service timeout */
 
@@ -441,7 +442,7 @@ typedef enum {
 /*
  * DDRMC Defines
  */
-#define MAX_DEV_DDRMC		(8U)
+#define MAX_DEV_DDRMC		(8U)	/**< Maximum device for Double Data Rate Memory Controller */
 
 
 /*
