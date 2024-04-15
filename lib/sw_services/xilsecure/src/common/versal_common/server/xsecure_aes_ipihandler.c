@@ -237,7 +237,7 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 	XSecureAesInstPtr->IsResourceBusy = (u32)XSECURE_RESOURCE_BUSY;
 
-	if (XSecureAesInstPtr-> AesState == XSECURE_AES_UNINITIALIZED) {
+	if (XSecureAesInstPtr->AesState == XSECURE_AES_UNINITIALIZED) {
 		Status = XSecure_AesInit();
 		if (Status != XST_SUCCESS) {
 			goto END;
