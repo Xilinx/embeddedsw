@@ -490,10 +490,10 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		 * when in SDI SD,HD and 3G scenario there is no ST352 payload, we are setting
 		 * colorformat as YUV 422 10bpc. Resolution will be 1920x1080/2048x1080
 		 */
-		if (((InstancePtr->Transport.TMode == XSDIVID_MODE_3GA) ||
+		if (!valid && (((InstancePtr->Transport.TMode == XSDIVID_MODE_3GA) ||
 		    (InstancePtr->Transport.TMode == XSDIVID_MODE_3GB)) ||
 		    ((InstancePtr->Transport.TMode == XSDIVID_MODE_SD) ||
-		    (InstancePtr->Transport.TMode == XSDIVID_MODE_HD)) && !valid) {
+		    (InstancePtr->Transport.TMode == XSDIVID_MODE_HD)))) {
 
 			byte1 = 0;
 			active_luma = (InstancePtr->Transport.TFamily ==
