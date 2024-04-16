@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##############################################################################
 
@@ -11,7 +11,7 @@ BEGIN LIBRARY xilpm
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpm,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Platform Management API Library for ZynqMP and Versal";
-  OPTION VERSION = 5.2;
+  OPTION VERSION = 5.3;
   OPTION NAME = xilpm;
 
 PARAM name = rpu0_as_power_management_master, type = bool, default = true, desc = "true: RPU0 as power management master, false: Disable RPU0 as power management master", permit = user;
