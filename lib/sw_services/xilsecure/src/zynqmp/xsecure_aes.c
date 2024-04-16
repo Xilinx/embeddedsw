@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -61,6 +61,7 @@
 *                    XSecure_AesChunkDecrypt function
 * 5.2   ng  07/05/23 Added support for system device tree flow
 * 5.3	vss 10/18/23 Fixed INIT_TO_NULL coverity warning
+*	ss  04/05/24 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -738,11 +739,13 @@ END:
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	DecData		Pointer to a buffer in which decrypted data will
- *		be stored.
+ *				be stored.
  * @param	EncData		Pointer to the encrypted data which needs to be
- *		decrypted.
- * @param	Size		Size of data to be	decrypted in bytes, whereas
- *			the number of bytes should be multiples of 4.
+ *				decrypted.
+ * @param	Size		Size of data to be decrypted in bytes, whereas
+ *				the number of bytes should be multiples of 4.
+ * @param	GcmTagAddr	Pointer to a buffer in which GCM tag address will
+ *				be stored.
  *
  * @return	This API returns the status of GCM tag matching.
  *		- XSECURE_CSU_AES_GCM_TAG_MISMATCH: If GCM tag was mismatched
