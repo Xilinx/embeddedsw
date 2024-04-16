@@ -538,6 +538,12 @@ extern "C" {
 #define PM_CLK_APU_PLL1				(0x81040B2U)
 #define PM_CLK_APU_PLL2				(0x81040B3U)
 #define PM_CLK_FLX_PLL				(0x81040B4U)
+#define PM_CLK_FPD_WWDT0			(0x82080B5U)
+#define PM_CLK_FPD_WWDT1			(0x82080B6U)
+#define PM_CLK_FPD_WWDT2			(0x82080B7U)
+#define PM_CLK_FPD_WWDT3			(0x82080B8U)
+#define PM_CLK_LPD_WWDT0			(0x82080B9U)
+#define PM_CLK_LPD_WWDT1			(0x82080BAU)
 /** @} */
 
 /**
