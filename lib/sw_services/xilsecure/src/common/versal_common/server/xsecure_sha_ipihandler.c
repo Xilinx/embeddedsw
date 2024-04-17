@@ -33,6 +33,7 @@
 *	vss  09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
 * 5.3	mb    02/23/2024 Updated HASH length to words in XPlmi_DmaXfr
 *       kpt   03/22/2024 Fix MISRA C violation of Rule 10.3
+*	ss    04/05/2024 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -154,13 +155,13 @@ END:
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the input data
  * 				on which hash has to be calculated
- * 		SrcAddrHigh	- Higher 32 bit address of the input data
+ * @param	SrcAddrHigh	- Higher 32 bit address of the input data
  * 				on which hash has to be calculated
- * 		Size		- Size of the input data in bytes to be
+ * @param	Size		- Size of the input data in bytes to be
  * 				updated
- * 		DstAddrLow	- Lower 32 bit address of the output data
+ * @param	DstAddrLow	- Lower 32 bit address of the output data
  * 				where hash to be stored
- * 		DstAddrHigh	- Higher 32 bit address of the output data
+ * @param	DstAddrHigh	- Higher 32 bit address of the output data
  * 				where hash to be stored
  *
  * @return

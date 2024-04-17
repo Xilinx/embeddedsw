@@ -24,6 +24,7 @@
 *      dc    08/22/22 Fixed RSA key accesses address based on RSA key size
 * 5.1  yog   05/03/23 Fixed MISRA C violation of Rule 10.3
 * 5.3  kpt   03/22/24 Fixed Branch past initialization
+*      ss    04/05/24 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -104,11 +105,11 @@ END:
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the XSecure_RsaInParam
  * 				structure
- * 		SrcAddrHigh	- Higher 32 bit address of the XSecure_RsaInParam
+ * @param	SrcAddrHigh	- Higher 32 bit address of the XSecure_RsaInParam
  * 				structure
- * 		DstAddrLow	- Lower 32 bit address of the output data
+ * @param	DstAddrLow	- Lower 32 bit address of the output data
  * 				where encrypted data to be stored
- * 		DstAddrHigh	- Higher 32 bit address of the output data
+ * @param	DstAddrHigh	- Higher 32 bit address of the output data
  * 				where encrypted data to be stored
  *
  * @return
@@ -161,7 +162,7 @@ END:
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the
  * 				XSecure_RsaSignParams structure
- * 		SrcAddrHigh	- Higher 32 bit address of the
+ * @param	SrcAddrHigh	- Higher 32 bit address of the
  * 				XSecure_RsaSignParams structure
  *
  * @return

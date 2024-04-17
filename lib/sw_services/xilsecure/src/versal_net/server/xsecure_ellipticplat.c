@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 5.3   har  11/01/23 Updated core API for ECDH
 *       kpt  11/24/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *       kpt  01/09/24 Updated option for non-blocking trng reseed
+*	ss   04/05/24 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -237,6 +238,7 @@ RET:
 /**
  * @brief	This function generates the signature on provided hash using ecc.
  *
+ * @param	CrvType specifies the type of the ECC curve.
  * @param	Hash is the pointer to the hash of the data to be signed
  * @param	HashLen is the length of the hash.
  * @param	PrvtKey is the pointer to ECC private key.
