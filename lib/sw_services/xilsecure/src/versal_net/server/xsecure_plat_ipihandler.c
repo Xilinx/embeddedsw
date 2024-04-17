@@ -24,6 +24,7 @@
 *      dd    10/11/2023 MISRA-C violation Rule 8.13 fixed
 * 5.3  kpt   12/13/2023 Added RSA quiet mode support
 *      kpt   01/19/2023 Fix passing public exponent
+*      ss    04/05/2024 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -224,14 +225,14 @@ END:
  * @brief       This function handler calls XSecure_RsaInitialize and
  *              XSecure_RsaExp server API.
  *
- * @param   RsaParamAddrLow - Lower 32 bit address of the XSecure_RsaInParam
- *                            structure
- *          RsaParamAddrHigh - Higher 32 bit address of the XSecure_RsaInParam
+ * @param   RsaParamAddrLow  - Lower 32 bit address of the XSecure_RsaInParam
  *                             structure
- *          DstAddrLow - Lower 32 bit address of the output data
- *                       where decrypted data to be stored
- *          DstAddrHigh	- Higher 32 bit address of the output data
- *                        where decrypted data to be stored
+ * @param   RsaParamAddrHigh - Higher 32 bit address of the XSecure_RsaInParam
+ *                             structure
+ * @param   DstAddrLow 	     - Lower 32 bit address of the output data
+ *                             where decrypted data to be stored
+ * @param   DstAddrHigh	     - Higher 32 bit address of the output data
+ *                             where decrypted data to be stored
  *
  * @return
  *	-	XST_SUCCESS - If the Rsa decryption is successful

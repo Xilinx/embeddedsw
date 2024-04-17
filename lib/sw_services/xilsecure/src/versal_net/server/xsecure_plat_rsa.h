@@ -23,6 +23,7 @@
 *       kpt  12/13/23 Added RSA CRT support for keyunwrap
 * 5.3   ng   01/28/24 Added SDT support
 *       ng   03/26/24 Fixed header include in SDT flow
+*	ss   04/05/24 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -32,6 +33,7 @@
 #ifndef XSECURE_PLAT_RSA_H_
 #define XSECURE_PLAT_RSA_H_
 
+/** For compilation in C++ */
 #ifdef __cplusplus
 #define externC extern "C"
 #else
