@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -3419,7 +3419,7 @@ TxInputSourceType Exdes_DetermineTxSrc()
 void CloneTxEdid(void)
 {
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
-	u8 Buffer[512];
+	u8 Buffer[XV_HdmiRx1_DdcGetEdidWords(&HdmiRxSs)];
 	u32 Status;
 
 	/* Read TX edid */
@@ -5284,9 +5284,13 @@ void XV_Rx_HdmiTrigCb_CableConnectionChange(void *InstancePtr)
 		}
 
 		xhdmi_exdes_ctrlr.IsRxPresent = FALSE;
-		xhdmi_exdes_ctrlr.SystemEvent = TRUE;
+		if (xhdmi_exdes_ctrlr.ForceIndependent == FALSE) {
+			xhdmi_exdes_ctrlr.SystemEvent = TRUE;
+		} else {
+			xhdmi_exdes_ctrlr.SystemEvent = FALSE;
+		}
 		xil_printf("XV_Rx_HdmiTrigCb_CableConnectionChange - "
-			   "Disonnected\r\n");
+			   "Disconnected\r\n");
 	} else {
 		xhdmi_exdes_ctrlr.crop = FALSE;
 
