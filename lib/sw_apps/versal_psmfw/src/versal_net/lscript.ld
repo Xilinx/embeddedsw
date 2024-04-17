@@ -1,19 +1,22 @@
 /******************************************************************************
  * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x400;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x800;
-_PSM_UPDATE_MNG_SIZE = DEFINED(_PSM_UPDATE_MNG_SIZE) ? _PSM_UPDATE_MNG_SIZE : 0x200;
+_PSM_UPDATE_MNG_SIZE = 0x1000;
+_DATA_SAVED_MEM_SIZE = 0x2000;
+_PROC_RESERVED_MEM_SIZE = 0x2000;
 /* Define Memories in the system */
 
 MEMORY
 {
-   psmfw_Mem : ORIGIN = 0xEBC00000, LENGTH = (0x23000 - _PSM_UPDATE_MNG_SIZE)
+   psmfw_Mem : ORIGIN = 0xEBC00000, LENGTH = 0x23000
    update_mgr_Mem : ORIGIN = 0XEBC23000, LENGTH = _PSM_UPDATE_MNG_SIZE
-   proc_reserved_Mem : ORIGIN = 0xEBC26000, LENGTH = 0x2000
+   save_region_mem : ORIGIN = 0xEBC24000, LENGTH = _DATA_SAVED_MEM_SIZE
+   proc_reserved_Mem : ORIGIN = 0xEBC26000, LENGTH = _PROC_RESERVED_MEM_SIZE
 }
 
 /* Specify the default entry point to the program */
@@ -224,6 +227,12 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    __update_mgr_b_end = .;
 
 } > update_mgr_Mem
+
+.save_region (NOLOAD) : {
+   __psm_data_saved_start = .;
+   . += _DATA_SAVED_MEM_SIZE;
+   __psm_data_saved_end = .;
+} > save_region_mem
 
 .proc_reserved_memory (NOLOAD) : {
 	KEEP (*(.proc_reserved_memory))
