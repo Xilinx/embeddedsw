@@ -54,8 +54,10 @@ extern "C" {
 #define PSM_GLOBAL_REG_ERR1_TRIG_PSM_B_NCR_MASK PSMX_GLOBAL_REG_PSM_ERR1_TRIG_SRC3_MASK
 
 /** PSM update related save and restore region */
-#define XPSM_DATA_SAVED_START	(0XEBC24000)
-#define XPSM_DATA_SAVED_END	(0XEBC25FFC)
+extern u8 __psm_data_saved_start[];
+extern u8 __psm_data_saved_end[];
+#define XPSM_DATA_SAVED_START	((u32)(__psm_data_saved_start))
+#define XPSM_DATA_SAVED_END	((u32)(__psm_data_saved_end))
 
 XStatus XPsmfw_PwrUpHandler(void);
 XStatus XPsmfw_PwrDwnHandler(void);
