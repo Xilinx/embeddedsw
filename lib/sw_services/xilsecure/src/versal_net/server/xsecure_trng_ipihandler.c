@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 *       yog  09/04/2023 Replaced error code XSECURE_TRNG_INVALID_BUF_SIZE with
 *                       XTRNGPSX_INVALID_BUF_SIZE
 *       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
+*	ss   04/05/24 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -89,9 +90,9 @@ END:
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the random
  * 				data buffer address.
- * 		SrcAddrHigh	- Higher 32 bit address of the random
+ * @param	SrcAddrHigh	- Higher 32 bit address of the random
  * 				data buffer address.
- *		Size		- Number of random bytes needs to be generated.
+ * @param	Size		- Number of random bytes needs to be generated.
  *
  * @return	- XST_SUCCESS - If the generate is successful
  * 		- ErrorCode - If there is a failure

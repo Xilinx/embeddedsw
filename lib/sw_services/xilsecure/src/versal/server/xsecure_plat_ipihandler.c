@@ -17,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.3   kpt   03/12/24 Initial release
 *       kpt   03/30/24 Fixed Branch past initialization
+*	ss    04/05/24 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -89,11 +90,11 @@ END:
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the XSecure_RsaInParam
  * 				structure
- * 		SrcAddrHigh	- Higher 32 bit address of the XSecure_RsaInParam
+ * @param	SrcAddrHigh	- Higher 32 bit address of the XSecure_RsaInParam
  * 				structure
- * 		DstAddrLow	- Lower 32 bit address of the output data
+ * @param	DstAddrLow	- Lower 32 bit address of the output data
  * 				where decrypted data to be stored
- * 		DstAddrHigh	- Higher 32 bit address of the output data
+ * @param	DstAddrHigh	- Higher 32 bit address of the output data
  * 				where decrypted data to be stored
  *
  * @return
