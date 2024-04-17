@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +35,7 @@
 * 4.6   kal  08/11/21 Added EXPORT CONTROL eFuse check in RsaCfgInitialize
 *       am   09/17/21 Resolved compiler warnings
 * 4.7   am   11/26/21 Resolved doxygen warnings
+*	ss   04/05/24 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -109,9 +111,11 @@ END:
 *
 * @param	InstancePtr	Pointer to the XSecure_Rsa instance.
 * @param	Input		Pointer to the buffer which contains the input
-*		data to be decrypted.
+*				data to be decrypted.
 * @param	Result		Pointer to the buffer where resultant decrypted
-*		data to be stored		.
+*				data to be stored.
+* @param	EncDecFlag      Indicates encryption or decryption
+* @param	Size		Indicates key size
 *
 * @return	XST_SUCCESS on success.
 *

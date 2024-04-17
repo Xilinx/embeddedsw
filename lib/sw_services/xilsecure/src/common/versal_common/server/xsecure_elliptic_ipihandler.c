@@ -29,6 +29,7 @@
 *      ng    02/12/2024 optimised u8 vars to u32 for size reduction
 * 5.3  kpt   03/22/2024 Fix MISRA C violation of Rule 10.3
 *      kpt   03/22/2024 Fixed Branch past initialization
+*      ss    04/05/2024 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -125,13 +126,13 @@ END:
  * 		server API
  *
  * @param	CurveType	- Is a type of elliptic curve
- * 		SrcAddrLow	- Lower 32 bit address of the
+ * @param	SrcAddrLow	- Lower 32 bit address of the
  * 				static private key
- * 		SrcAddrHigh	- Higher 32 bit address of the
+ * @param	SrcAddrHigh	- Higher 32 bit address of the
  * 				static private key
- * 		DstAddrLow	- Lower 32 bit address of the public key
+ * @param	DstAddrLow	- Lower 32 bit address of the public key
  * 				to be stored
- * 		DstAddrHigh	- Higher 32 bit address of the public key
+ * @param	DstAddrHigh	- Higher 32 bit address of the public key
  * 				to be stored
  *
  * @return
@@ -184,14 +185,13 @@ END:
  * @brief       This function handler calls XSecure_EllipticGenerateSignature
  * 		server API
  *
- * @param
- * 		SrcAddrLow	- Lower 32 bit address of the
+ * @param	SrcAddrLow	- Lower 32 bit address of the
  * 				XSecure_EllipticSignGenParams structure
- * 		SrcAddrHigh	- Higher 32 bit address of the
+ * @param	SrcAddrHigh	- Higher 32 bit address of the
  * 				XSecure_EllipticSignGenParams structure
- * 		DstAddrLow	- Lower 32 bit address of the signature
+ * @param	DstAddrLow	- Lower 32 bit address of the signature
  * 				to be stored
- * 		DstAddrHigh	- Higher 32 bit address of the signature
+ * @param	DstAddrHigh	- Higher 32 bit address of the signature
  * 				to be stored
  *
  * @return
@@ -250,8 +250,8 @@ END:
  * 		server API
  *
  * @param	CurveType	- Is a type of elliptic curve
- * 		SrcAddrLow	- Lower 32 bit address of the public key
- * 		SrcAddrHigh	- Higher 32 bit address of the public key
+ * @param	SrcAddrLow	- Lower 32 bit address of the public key
+ * @param	SrcAddrHigh	- Higher 32 bit address of the public key
  *
  * @return
  *	-	XST_SUCCESS - If the elliptic key validation is successful
@@ -287,10 +287,9 @@ END:
  * @brief       This function handler calls XSecure_EllipticVerifySign
  * 		server API
  *
- * @param
- * 		SrcAddrLow	- Lower 32 bit address of the
+ * @param	SrcAddrLow	- Lower 32 bit address of the
  * 				XSecure_EllipticSignVerifyParams structure
- * 		SrcAddrHigh	- Higher 32 bit address of the
+ * @param	SrcAddrHigh	- Higher 32 bit address of the
  * 				XSecure_EllipticSignVerifyParams structure
  *
  * @return
