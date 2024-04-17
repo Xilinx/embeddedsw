@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@ extern "C" {
 /** PSM RAM Base address */
 #define XPM_PSM_RAM_BASE_ADDR		(0xEBC00000U)
 #define XPM_PSM_RAM_SIZE		(0x28000U)
+#define XPM_PSM_FW_RESERVED_SIZE	(0x5000U)
 
 #define IS_DEV_AIE(ID)			(0U != 0U)
 

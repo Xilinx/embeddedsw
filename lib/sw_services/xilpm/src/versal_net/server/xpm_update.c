@@ -891,6 +891,13 @@ XStatus XPmUpdate_ShutdownPsm() {
 		PmErr("PSMFW is not shutting down\n\r");
 		goto done;
 	}
+
+	/* Ecc initialize partial PSM RAM */
+	Status = XPlmi_EccInit(XPM_PSM_RAM_BASE_ADDR, XPM_PSM_RAM_SIZE - XPM_PSM_FW_RESERVED_SIZE);
+	if (XST_SUCCESS != Status) {
+		PmErr("PSM failed to clear memory.\n\r");
+		goto done;
+	}
 done:
 	return Status;
 
