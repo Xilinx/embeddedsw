@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -201,7 +201,7 @@ enum pm_query_id {
  * Please do not modify this!
  */
 /**
- *Pin Function IDs
+ * Pin Function IDs
  */
 enum PmPinFunIds {
 	PIN_FUNC_SD0 = 0,			/**< Pin function ID of SD0 */
@@ -209,39 +209,39 @@ enum PmPinFunIds {
 	PIN_FUNC_SMP = 2,			/**< Pin function ID of SMP */
 	PIN_FUNC_CAN0 = 3,			/**< Pin function ID of CAN0 */
 	PIN_FUNC_CAN1 = 4,			/**< Pin function ID of CAN1 */
-	PIN_FUNC_EMIO = 5,			/**< Pin function ID of EMIO */
-	PIN_FUNC_GEM0 = 6,			/**< Pin function ID of GEM0 */
-	PIN_FUNC_GEM1 = 7,			/**< Pin function ID of GEM1 */
-	PIN_FUNC_I2C0 = 8,			/**< Pin function ID of I2C0 */
-	PIN_FUNC_I2C1 = 9,			/**< Pin function ID of I2C1 */
-	PIN_FUNC_OSPI = 10,			/**< Pin function ID of OSPI */
-	PIN_FUNC_PCIE = 11,			/**< Pin function ID of PCIE */
-	PIN_FUNC_QSPI = 12,			/**< Pin function ID of QSPI */
-	PIN_FUNC_SMAP = 13,			/**< Pin function ID of SMAP */
-	PIN_FUNC_SPI0 = 14,			/**< Pin function ID of SPI0 */
-	PIN_FUNC_SPI1 = 15,			/**< Pin function ID of SPI1 */
-	PIN_FUNC_USB0 = 16,			/**< Pin function ID of USB0 */
-	PIN_FUNC_USB1 = 17,			/**< Pin function ID of USB1 */
-	PIN_FUNC_GPIO0 = 18,			/**< Pin function ID of GPIO0 */
-	PIN_FUNC_GPIO1 = 19,			/**< Pin function ID of GPIO1 */
-	PIN_FUNC_GPIO2 = 20,			/**< Pin function ID of GPIO2 */
-	PIN_FUNC_MDIO0 = 21,			/**< Pin function ID of MDIO0 */
-	PIN_FUNC_MDIO1 = 22,			/**< Pin function ID of MDIO1 */
-	PIN_FUNC_TRACE = 23,			/**< Pin function ID of TRACE */
-	PIN_FUNC_UART0 = 24,			/**< Pin function ID of UART0 */
-	PIN_FUNC_UART1 = 25,			/**< Pin function ID of UART1 */
-	PIN_FUNC_WWDT0 = 26,			/**< Pin function ID of WWDT0 */
-	PIN_FUNC_WWDT1 = 27,			/**< Pin function ID of WWDT1 */
-	PIN_FUNC_SD0_CD = 28,			/**< Pin function ID of SD0_CD */
-	PIN_FUNC_SD0_PC = 29,			/**< Pin function ID of SD0_PC */
-	PIN_FUNC_SD0_WP = 30,			/**< Pin function ID of SD0_WP */
-	PIN_FUNC_SD1_PC = 31,			/**< Pin function ID of SD1_PC */
-	PIN_FUNC_GEM_TSU = 32,			/**< Pin function ID of GEM_TSU */
-	PIN_FUNC_OSPI_SS = 33,			/**< Pin function ID of OSPI_SS */
-	PIN_FUNC_QSPI_SS = 34,			/**< Pin function ID of QSPI_SS */
-	PIN_FUNC_SD1_DQS = 35,			/**< Pin function ID of SD1_DQS */
-	PIN_FUNC_SPI0_SS = 36,			/**< Pin function ID of SPI0_SS */
-	PIN_FUNC_SPI1_SS = 37,			/**< Pin function ID of SPI1_SS */
+	PIN_FUNC_GEM0 = 5,			/**< Pin function ID of GEM0 */
+	PIN_FUNC_GEM1 = 6,			/**< Pin function ID of GEM1 */
+	PIN_FUNC_I2C0 = 7,			/**< Pin function ID of I2C0 */
+	PIN_FUNC_I2C1 = 8,			/**< Pin function ID of I2C1 */
+	PIN_FUNC_SPI0 = 9,			/**< Pin function ID of SPI0 */
+	PIN_FUNC_SPI1 = 10,			/**< Pin function ID of SPI1 */
+	PIN_FUNC_USB0 = 11,			/**< Pin function ID of USB0 */
+	PIN_FUNC_USB1 = 12,			/**< Pin function ID of USB1 */
+	PIN_FUNC_EMIO0 = 13,			/**< Pin function ID of EMIO0 */
+	PIN_FUNC_GPIO0 = 14,			/**< Pin function ID of GPIO0 */
+	PIN_FUNC_GPIO1 = 15,			/**< Pin function ID of GPIO1 */
+	PIN_FUNC_GPIO2 = 16,			/**< Pin function ID of GPIO2 */
+	PIN_FUNC_MDIO0 = 17,			/**< Pin function ID of MDIO0 */
+	PIN_FUNC_MDIO1 = 18,			/**< Pin function ID of MDIO1 */
+	PIN_FUNC_OSPI0 = 19,			/**< Pin function ID of OSPI0 */
+	PIN_FUNC_PCIE0 = 20,			/**< Pin function ID of PCIE0 */
+	PIN_FUNC_QSPI0 = 21,			/**< Pin function ID of QSPI0 */
+	PIN_FUNC_SMAP0 = 22,			/**< Pin function ID of SMAP0 */
+	PIN_FUNC_UART0 = 23,			/**< Pin function ID of UART0 */
+	PIN_FUNC_UART1 = 24,			/**< Pin function ID of UART1 */
+	PIN_FUNC_WWDT0 = 25,			/**< Pin function ID of WWDT0 */
+	PIN_FUNC_WWDT1 = 26,			/**< Pin function ID of WWDT1 */
+	PIN_FUNC_SD0_CD = 27,			/**< Pin function ID of SD0_CD */
+	PIN_FUNC_SD0_PC = 28,			/**< Pin function ID of SD0_PC */
+	PIN_FUNC_SD0_WP = 29,			/**< Pin function ID of SD0_WP */
+	PIN_FUNC_SD1_PC = 30,			/**< Pin function ID of SD1_PC */
+	PIN_FUNC_TRACE0 = 31,			/**< Pin function ID of TRACE0 */
+	PIN_FUNC_SD1_DQS = 32,			/**< Pin function ID of SD1_DQS */
+	PIN_FUNC_SPI0_SS = 33,			/**< Pin function ID of SPI0_SS */
+	PIN_FUNC_SPI1_SS = 34,			/**< Pin function ID of SPI1_SS */
+	PIN_FUNC_GEM_TSU0 = 35,			/**< Pin function ID of GEM_TSU0 */
+	PIN_FUNC_OSPI0_SS = 36,			/**< Pin function ID of OSPI0_SS */
+	PIN_FUNC_QSPI0_SS = 37,			/**< Pin function ID of QSPI0_SS */
 	PIN_FUNC_TEST_CLK = 38,			/**< Pin function ID of TEST_CLK */
 	PIN_FUNC_TTC0_CLK = 39,			/**< Pin function ID of TTC0_CLK */
 	PIN_FUNC_TTC0_WAV = 40,			/**< Pin function ID of TTC0_WAV */
@@ -252,15 +252,15 @@ enum PmPinFunIds {
 	PIN_FUNC_TTC3_CLK = 45,			/**< Pin function ID of TTC3_CLK */
 	PIN_FUNC_TTC3_WAV = 46,			/**< Pin function ID of TTC3_WAV */
 	PIN_FUNC_TEST_SCAN = 47,			/**< Pin function ID of TEST_SCAN */
-	PIN_FUNC_TRACE_CLK = 48,			/**< Pin function ID of TRACE_CLK */
-	PIN_FUNC_OSPI_RST_N = 49,			/**< Pin function ID of OSPI_RST_N */
-	PIN_FUNC_QSPI_FBCLK = 50,			/**< Pin function ID of QSPI_FBCLK */
-	PIN_FUNC_SYSMON_I2C = 51,			/**< Pin function ID of SYSMON_I2C */
-	PIN_FUNC_UART0_CTRL = 52,			/**< Pin function ID of UART0_CTRL */
-	PIN_FUNC_UART1_CTRL = 53,			/**< Pin function ID of UART1_CTRL */
-	PIN_FUNC_OSPI_ECC_FAIL = 54,			/**< Pin function ID of OSPI_ECC_FAIL */
-	PIN_FUNC_EXT_TAMPER_TRIG = 55,			/**< Pin function ID of EXT_TAMPER_TRIG */
-	PIN_FUNC_SYSMON_I2C_ALERT = 56,			/**< Pin function ID of SYSMON_I2C_ALERT */
+	PIN_FUNC_TRACE0_CLK = 48,			/**< Pin function ID of TRACE0_CLK */
+	PIN_FUNC_UART0_CTRL = 49,			/**< Pin function ID of UART0_CTRL */
+	PIN_FUNC_UART1_CTRL = 50,			/**< Pin function ID of UART1_CTRL */
+	PIN_FUNC_OSPI0_RST_N = 51,			/**< Pin function ID of OSPI0_RST_N */
+	PIN_FUNC_QSPI0_FBCLK = 52,			/**< Pin function ID of QSPI0_FBCLK */
+	PIN_FUNC_SYSMON_I2C0 = 53,			/**< Pin function ID of SYSMON_I2C0 */
+	PIN_FUNC_OSPI0_ECC_FAIL = 54,			/**< Pin function ID of OSPI0_ECC_FAIL */
+	PIN_FUNC_TAMPER_TRIGGER = 55,			/**< Pin function ID of TAMPER_TRIGGER */
+	PIN_FUNC_SYSMON_I2C0_ALRT = 56,			/**< Pin function ID of SYSMON_I2C0_ALRT */
 	MAX_FUNCTION = 57			/**< Max Pin function */
 };
 
