@@ -31,6 +31,7 @@
 *       mss  06/11/2023 Added XLOADER_ERR_INVALID_READBACK_PDI_DEST_ADDR error code macro
 * 2.00  ng   01/26/2024 Updated minor error codes
 *            02/21/2024 Added XLoader_CheckAndUpdateSecureState
+*       mss  04/15/2024 Added Xloader_DdrmcRegisters Structure
 *
 * </pre>
 *
@@ -231,6 +232,12 @@ enum {
 };
 
 /**************************** Type Definitions *******************************/
+
+/** Structure to store DDRMC registers and there memory offsets */
+typedef struct {
+	char *RegStr;
+	u32 Offset;
+}Xloader_DdrmcRegisters;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLOADER_GET_PDISRC_INFO()	{ \
