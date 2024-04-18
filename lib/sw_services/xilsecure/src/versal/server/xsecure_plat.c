@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +19,6 @@
 * 5.0   bm   07/06/22 Initial release
 * 5.2   yog  07/10/23 Added support of unaligned data sizes for Versal Net
 *	vss  09/11/2023 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS
-*	ss   04/05/2024 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -161,7 +160,6 @@ END:
  * @param       PmcDmaPtr       Pointer to the XPmcDma instance.
  * @param       AesDmaCfg       DMA SRC and DEST channel configuration
  * @param       Size            Size of data in bytes.
- * @param	BaseAddress     Not applicable for versal
  *
  * @return
  *	-	XST_SUCCESS on successful configuration

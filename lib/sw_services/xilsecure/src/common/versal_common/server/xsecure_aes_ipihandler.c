@@ -39,7 +39,6 @@
 *       vss   09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
 * 5.3	vss  10/03/23 Added single API support for AES AAD and GMAC operations
 *       mb    03/12/24   Added AES INIT call inside AES Operation INIT API
-*	ss    04/05/24   Fixed doxygen warnings
 *
 * </pre>
 *
@@ -222,7 +221,7 @@ END:
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the XSecure_AesInitOps
  * 				structure.
- * @param	SrcAddrHigh	- Higher 32 bit address of the XSecure_AesInitOps
+ * 		SrcAddrHigh	- Higher 32 bit address of the XSecure_AesInitOps
  * 				structure.
  *
  * @return
@@ -270,9 +269,9 @@ END:
  *				server API
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the AAD data
- * @param	SrcAddrHigh	- Higher 32 bit address of the AAD data
- * @param	Size		- AAD Size
- * @param     	IsGmacEn    	- User choice to enable/disable GMAC
+ * 		SrcAddrHigh	- Higher 32 bit address of the AAD data
+ *		Size		- AAD Size
+ *      IsGmacEn    - User choice to enable/disable GMAC
  *
  * @return
  *	-	XST_SUCCESS - If the AAD update is successful
@@ -310,11 +309,11 @@ END:
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the
  * 				XSecure_AesInParams structure.
- * @param	SrcAddrHigh	- Higher 32 bit address of the
+ * 		SrcAddrHigh	- Higher 32 bit address of the
  * 				XSecure_AesInParams structure.
- * @param	DstAddrLow	- Lower 32 bit address of the Output buffer
+ * 		DstAddrLow	- Lower 32 bit address of the Output buffer
  * 				where encrypted data to be stored
- * @param	DstAddrHigh	- Higher 32 bit address of the output buffer
+ * 		DstAddrHigh	- Higher 32 bit address of the output buffer
  * 				where encrypted data to be stored
  *
  * @return
@@ -359,7 +358,7 @@ END:
  *
  * @param	DstAddrLow	- Lower 32 bit address of the GCM-TAG
  * 				to be stored.
- * @param	DstAddrHigh	- Higher 32 bit address of the GCM-TAG
+ * 		DstAddrHigh	- Higher 32 bit address of the GCM-TAG
  * 				to be stored.
  *
  * @return
@@ -393,11 +392,11 @@ END:
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the
  * 				XSecure_AesInParams structure.
- * @param	SrcAddrHigh	- Higher 32 bit address of the
+ * 		SrcAddrHigh	- Higher 32 bit address of the
  * 				XSecure_AesInParams structure.
- * @param	DstAddrLow	- Lower 32 bit address of the Output buffer
+ * 		DstAddrLow	- Lower 32 bit address of the Output buffer
  * 				where decrypted data to be stored
- * @param	DstAddrHigh	- Higher 32 bit address of the output buffer
+ * 		DstAddrHigh	- Higher 32 bit address of the output buffer
  * 				where decrypted data to be stored
  *
  * @return
@@ -441,7 +440,7 @@ END:
  * @brief       This function handler calls XSecure_AesDecryptFinal server API
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the GCM-TAG
- * @param	SrcAddrHigh	- Higher 32 bit address of the GCM-TAG
+ * 		SrcAddrHigh	- Higher 32 bit address of the GCM-TAG
  *
  * @return
  *	-	XST_SUCCESS - If the decrypt final is successful
@@ -507,9 +506,9 @@ int XSecure_AesKeyZeroize(u32 KeySrc)
  * @brief       This function handler calls XSecure_AesWriteKey server API
  *
  * @param	KeySize		- Size of the key to specify 128/256 bit key
- * @param	KeySrc		- KeySrc to which key has to be written
- * @param	KeyAddrLow	- Lower 32 bit address of the Key
- * @param	KeyAddrHigh	- Higher 32 bit address of the Key
+ *		KeySrc		- KeySrc to which key has to be written
+ * 		KeyAddrLow	- Lower 32 bit address of the Key
+ * 		KeyAddrHigh	- Higher 32 bit address of the Key
  *
  * @return
  *	-	XST_SUCCESS - If the key write is successful
@@ -552,8 +551,8 @@ END:
  * @brief       This function handler calls XSecure_AesDecryptKek server API
  *
  * @param	KeyInfo		- KeyInfo contains KeySize, KeyDst and KeySrc
- * @param	IvAddrLow	- Lower 32 bit address of the IV
- * @param	IvAddrHigh	- Higher 32 bit address of the IV
+ * 		IvAddrLow	- Lower 32 bit address of the IV
+ * 		IvAddrHigh	- Higher 32 bit address of the IV
  *
  * @return
  *	-	XST_SUCCESS - If the decryption is successful
@@ -629,7 +628,7 @@ END:
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the XSecure_AesDataBlockParams
  * 				structure.
- * @param	SrcAddrHigh	- Higher 32 bit address of the XSecure_AesDataBlockParams
+ * 		SrcAddrHigh	- Higher 32 bit address of the XSecure_AesDataBlockParams
  * 				structure.
  *
  * @return

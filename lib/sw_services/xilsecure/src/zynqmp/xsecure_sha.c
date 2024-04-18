@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -53,7 +53,6 @@
 *       am   09/17/21 Resolved compiler warnings
 * 4.7   am   11/26/21 Resolved doxygen warnings
 * 5.2   ng   07/05/23 add SDT support
-* 	ss   04/05/24 Fixed doxygen warnings
 *
 * @note
 *
@@ -69,12 +68,12 @@
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS	(384U) /**< CSU SHA3 hash length in
-                                                        bits */
+                                                        * bits */
 #define XSECURE_CSU_SHA3_HASH_LENGTH_IN_WORDS	\
 	(XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS / 32U) /**< CSU SHA3 hash length in
-                                                      words */
+                                                      * words */
 
-/** Keccak and Nist padding masks */
+/* Keccak and Nist padding masks */
 #define XSECURE_CSU_SHA3_START_KECCAK_PADDING_MASK    (0x01U) /**< CSU SHA3 start Keccak padding mask */
 #define XSECURE_CSU_SHA3_END_KECCAK_PADDING_MASK      (0x80U) /**< CSU SHA3 end Keccak padding mask */
 #define XSECURE_CSU_SHA3_START_NIST_PADDING_MASK      (0x06U) /**< CSU SHA3 start Nist padding mask */
@@ -522,7 +521,6 @@ void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
  * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
  * @param	Data 		Pointer to the input data need to be transferred.
  * @param	Size 		Size of the input data in bytes.
- * @param	IsLast 		To indicate last transfer.
  *
  * @return	None
  *
@@ -566,7 +564,6 @@ ENDF:
  * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
  * @param	Data 		Pointer to the input data for hashing.
  * @param	Size 		Size of the input data in bytes.
- * @param       IsLastUpdate	To indicate last update
  *
  * @return	None
  *
