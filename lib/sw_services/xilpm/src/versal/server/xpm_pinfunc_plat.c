@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -247,7 +247,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 	},
 	[PIN_FUNC_TTC0_CLK] = {
 		.Id = (u8)PIN_FUNC_TTC0_CLK,
-		.Name = "tt0_clk",
+		.Name = "ttc0_clk",
 		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_0,
 		.LmioRegMask = 0x280,
 		.PmioRegMask = 0x280,
@@ -327,7 +327,7 @@ static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 	},
 	[PIN_FUNC_TTC2_CLK] = {
 		.Id = (u8)PIN_FUNC_TTC2_CLK,
-		.Name = "ttc2_wav",
+		.Name = "ttc2_clk",
 		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_2,
 		.LmioRegMask = 0x280,
 		.PmioRegMask = 0x280,
