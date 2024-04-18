@@ -37,6 +37,7 @@
 *       mss  03/06/2024 Removed code which was overwriting partition header
 *                       Destination Execution Address
 *       sk   03/13/24 Fixed doxygen comments format
+*       mss  04/12/24 Added code to dump DDRMC error logs
 *
 * </pre>
 *
@@ -71,11 +72,13 @@
  * @{
  * @cond DDR calibration errors
  */
-#define DDRMC_OFFSET_CALIB_ERR		(0x840CU)
-#define DDRMC_OFFSET_CALIB_ERR_NIBBLE_1	(0x8420U)
-#define DDRMC_OFFSET_CALIB_ERR_NIBBLE_2	(0x841CU)
-#define DDRMC_OFFSET_CALIB_ERR_NIBBLE_3	(0x8418U)
-#define DDRMC_OFFSET_CALIB_STAGE_PTR	(0x8400U)
+#define DDRMC_OFFSET_CALIB_PTR					(0x8400U)
+#define DDRMC_OFFSET_CALIB_ERR_SUB_STAGE		(0x8404U)
+#define DDRMC_OFFSET_CALIB_ERR_RANK				(0x8408U)
+#define DDRMC_OFFSET_CALIB_ERR					(0x840CU)
+#define DDRMC_OFFSET_CALIB_ERR_DATA_NIBBLE_1	(0x8410U)
+#define DDRMC_OFFSET_CALIB_ERR_DATA_NIBBLE_2	(0x8414U)
+#define	DDRMC_ARRAY_SIZE						(8U)
 /**
  * @}
  * @endcond
@@ -986,15 +989,10 @@ END:
 static int XLoader_DumpDdrmcRegisters(void)
 {
 	int Status = XST_FAILURE;
-	u32 PcsrStatus;
-	u32 CalibErr;
-	u32 CalibErrNibble1;
-	u32 CalibErrNibble2;
-	u32 CalibErrNibble3;
-	u32 CalibStage;
 	u32 PcsrCtrl;
 	u32 DevId;
 	u8 Ub = 0U;
+	u8 LoopCount;
 	u32 BaseAddr;
 	XPm_DeviceStatus DevStatus;
 
@@ -1017,6 +1015,7 @@ static int XLoader_DumpDdrmcRegisters(void)
 		if (DevStatus.Status != XPM_DEVSTATE_RUNNING) {
 			XPlmi_Printf(DEBUG_GENERAL, "DDRMC_%u is not enabled,"
 					" Skipping its dump...\n\r", Ub);
+			++Ub;
 			continue;
 		}
 		Status = XPm_GetDeviceBaseAddr(DevId, &BaseAddr);
@@ -1040,44 +1039,24 @@ static int XLoader_DumpDdrmcRegisters(void)
 			continue;
 		}
 
-		/** Read PCSR Status */
-		PcsrStatus = XPlmi_In32(BaseAddr + DDRMC_PCSR_STATUS_OFFSET);
-		/** Read Calibration Error */
-		CalibErr = XPlmi_In32(BaseAddr + DDRMC_OFFSET_CALIB_ERR);
-		/** Read Error Nibble 1 */
-		CalibErrNibble1 = XPlmi_In32(BaseAddr +
-				DDRMC_OFFSET_CALIB_ERR_NIBBLE_1);
-		/** Read Error Nibble 2 */
-		CalibErrNibble2 = XPlmi_In32(BaseAddr +
-				DDRMC_OFFSET_CALIB_ERR_NIBBLE_2);
-		/** Read Error Nibble 3 */
-		CalibErrNibble3 = XPlmi_In32(BaseAddr +
-				DDRMC_OFFSET_CALIB_ERR_NIBBLE_3);
-		/** Read calibration stage */
-		CalibStage = XPlmi_In32(BaseAddr +
-				DDRMC_OFFSET_CALIB_STAGE_PTR);
+	Xloader_DdrmcRegisters DdrmcRegisters[DDRMC_ARRAY_SIZE] = {
+		{"PCSR Status", DDRMC_PCSR_STATUS_OFFSET},
+		{"PCSR Control", DDRMC_PCSR_CONTROL_OFFSET},
+		{"CAL_PTR", DDRMC_OFFSET_CALIB_PTR},
+		{"CAL_ERR_SUB_STAGE", DDRMC_OFFSET_CALIB_ERR_SUB_STAGE},
+		{"CAL_ERR_RANK", DDRMC_OFFSET_CALIB_ERR_RANK},
+		{"CAL_ERR", DDRMC_OFFSET_CALIB_ERR},
+		{"CAL_ERROR_DATA_NIBBLE_1", DDRMC_OFFSET_CALIB_ERR_DATA_NIBBLE_1},
+		{"CAL_ERROR_DATA_NIBBLE_2", DDRMC_OFFSET_CALIB_ERR_DATA_NIBBLE_2}
+	};
 
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-				"PCSR Control: 0x%0x\n\r", PcsrCtrl);
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-				"PCSR Status: 0x%0x\n\r", PcsrStatus);
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-				"Calibration Error: 0x%0x\n\r", CalibErr);
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-				"Nibble Location 1: 0x%0x\n\r",
-				CalibErrNibble1);
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-				"Nibble Location 2: 0x%0x\n\r",
-				CalibErrNibble2);
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-				"Nibble Location 3: 0x%0x\n\r",
-				CalibErrNibble3);
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-				"Calibration Stage: 0x%0x\n\r", CalibStage);
+	for (LoopCount=0U ; LoopCount<DDRMC_ARRAY_SIZE ; LoopCount++) {
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,"%s : 0x%x\n\r", DdrmcRegisters[LoopCount].RegStr,
+		XPlmi_In32(BaseAddr + DdrmcRegisters[LoopCount].Offset));
+	}
+
 		++Ub;
 	}
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PMC Interrupt Status : 0x%0x\n\r",
-			XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS));
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "====DDRMC Register Dump End======\n\r");
 
 END:
