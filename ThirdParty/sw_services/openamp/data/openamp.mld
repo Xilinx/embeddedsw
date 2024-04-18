@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -21,6 +21,7 @@ BEGIN LIBRARY openamp
   OPTION supported_peripherals = (ps7_cortexa9 psu_cortexr5 psv_cortexr5 psx_cortexr52 psxl_cortexr52);
   OPTION DEPENDS = (libmetal_v2_7);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lmetal,-lopen_amp,-lgcc,-lc,--end-group";
+  OPTION APP_COMPILER_FLAGS = "-Os";
   OPTION DESC = "OpenAmp Library";
   OPTION VERSION = 1.10;
   OPTION NAME = openamp;
