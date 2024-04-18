@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -28,7 +28,6 @@
 *       am   03/08/22 Fixed MISRA C violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.2   yog  05/04/23 Fixed HIS COMF violations
-*	ss   04/05/24 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -55,7 +54,6 @@
  * @brief  This function sends IPI request to the target module and gets the
  * response from it
  *
- * @param	MailboxPtr      Pointer to XMailbox
  * @param	MsgPtr		Pointer to the payload message
  * @param	MsgLen		Length of the message
  *

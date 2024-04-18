@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -32,7 +32,6 @@
 *       am   03/21/23 Match the shared memory size in secure library to reuse for customer
 * 	yog  05/03/23 Fixed MISRA C violation of Rule 12.2
 *       kal  09/14/23 Added XSecure_SetSlrIndex function
-*	ss   04/05/24 Fixed doxygen warnings
 *
 * </pre>
 * @note
@@ -108,7 +107,7 @@ typedef enum{
  * @return	XST_SUCCESS	On valid input SlrIndex.
  *		XST_FAILURE	On invalid SlrIndex.
  *
- * @note	This function is applicable to only Versal
+ * @Note	This function is applicable to only Versal
  *
  *******************************************************************************/
 static inline int XSecure_SetSlrIndex(XSecure_ClientInstance *InstancePtr, u32 SlrIndex)

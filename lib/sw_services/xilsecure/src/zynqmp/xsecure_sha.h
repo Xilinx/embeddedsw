@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -51,7 +51,6 @@
 *                     Replaced function like macro with inline function
 *       ana  10/15/20 Updated doxygen tags
 * 5.2	mmd  07/09/23 Included header file for crypto algorithm information
-*	ss   04/05/24 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -131,29 +130,27 @@ typedef struct {
 @endcond */
 
 /***************************** Function Prototypes ***************************/
-/** SHA3 Initialization Function */
+/* Initialization */
 s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma *CsuDmaPtr);
 
-/** SHA3 Start Function */
 void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr);
 
-/** SHA3 Data Transfer Function */
+/* Data Transfer */
 u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 						const u32 Size);
-/** SHA3 Finish Function*/
 u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash);
 
-/** SHA3 Complete Digest Calculation Function */
+/* Complete SHA digest calculation */
 u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In,
 						const u32 Size, u8 *Out);
-/** SHA3 Read Hash Function */
+
 void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash);
-/** SHA3 Padding Selection Function */
+
 s32 XSecure_Sha3PadSelection(XSecure_Sha3 *InstancePtr,
 		XSecure_Sha3PadType Sha3PadType);
-/** SHA3 Last Update Call Function */
+
 s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
-/** SHA3 Wait To Complete Function */
+
 u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
 
 #ifdef __cplusplus

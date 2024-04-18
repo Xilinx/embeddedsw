@@ -16,7 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.3   kpt   03/12/24 Initial release
-*	ss    04/05/24 Fixed doxygen warnings
+*       kpt   03/30/24 Fixed Branch past initialization
 *
 * </pre>
 *
@@ -89,11 +89,11 @@ END:
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the XSecure_RsaInParam
  * 				structure
- * @param	SrcAddrHigh	- Higher 32 bit address of the XSecure_RsaInParam
+ * 		SrcAddrHigh	- Higher 32 bit address of the XSecure_RsaInParam
  * 				structure
- * @param	DstAddrLow	- Lower 32 bit address of the output data
+ * 		DstAddrLow	- Lower 32 bit address of the output data
  * 				where decrypted data to be stored
- * @param	DstAddrHigh	- Higher 32 bit address of the output data
+ * 		DstAddrHigh	- Higher 32 bit address of the output data
  * 				where decrypted data to be stored
  *
  * @return
@@ -107,6 +107,8 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
+	u64 Modulus;
+	u64 PrivateExp;
 	XSecure_RsaInParam RsaParams;
 	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
 
@@ -120,11 +122,11 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 		goto END;
 	}
 
-	u64 Modulus = RsaParams.KeyAddr;
-	u64 PublicExp = RsaParams.KeyAddr + RsaParams.Size;
+	Modulus = RsaParams.KeyAddr;
+	PrivateExp = RsaParams.KeyAddr + RsaParams.Size;
 
 	Status = XSecure_RsaInitialize_64Bit(XSecureRsaInstPtr, Modulus, 0U,
-			PublicExp);
+			PrivateExp);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
