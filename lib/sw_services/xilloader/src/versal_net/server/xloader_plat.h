@@ -39,6 +39,7 @@
 						XLOADER_ERR_INVALID_IMAGE_STORE_ADDRESS error code macro
 * 2.00  ng   01/26/2024 Updated minor error codes
 *       kpt  02/19/2024 Add support to extend secure state to SWPCR
+*       mss  04/12/2024 Added XLoader_DumpDdrmcRegisters function prototype
 *
 * </pre>
 *
@@ -256,6 +257,11 @@ enum {
 
 /**************************** Type Definitions *******************************/
 
+typedef struct {
+	char *RegStr;
+	u32 Offset;
+}Xloader_DdrmcRegisters;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLOADER_GET_PDISRC_INFO()	{\
 		{"SBI", XLOADER_SBI_INDEX}, /* SBI JTAG - 0 */\
@@ -391,6 +397,7 @@ int XLoader_StartImage(XilPdi *PdiPtr);
 int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 		u64 *PdiAddr);
 int XLoader_UpdateHandoffParam(XilPdi* PdiPtr);
+int XLoader_DumpDdrmcRegisters(void);
 int XLoader_ProcessDeferredError(void);
 int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams);
