@@ -14,6 +14,7 @@
 # 1.03  kpt  10/04/2021 Updated library version
 #       bsv  11/19/2021 Rectified library version
 #       dd   01/09/2024 Added user configurable parameter names
+# 1.04  sk   04/18/2024 Updated library version
 #
 ##############################################################################
 
@@ -26,7 +27,7 @@ BEGIN LIBRARY xilloader
   OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5 microblaze psxl_pmc psxl_cortexa78 psxl_cortexr52 psx_pmc psx_cortexa78 psx_cortexr52 );
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilloader,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Platform Loader Library";
-  OPTION VERSION = 2.0;
+  OPTION VERSION = 2.1;
   OPTION NAME = xilloader;
   PARAM name = xloader_mode, desc = "Enables server mode for PMC and client mode for APU, RPU and Microblaze", type = enum, values = (mode = "client", mode = "server"), default = "server";
   PARAM name = xloader_cache_disable, desc = "Enables/Disables Cache for XilLoader client library", type = bool, default = true;

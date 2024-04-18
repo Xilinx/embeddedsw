@@ -170,6 +170,8 @@
 *       bm   02/12/2024 Update XLoader_ReadAndValidateHdrs prototype
 *       ng   02/14/2024 removed int typecast for errors
 *       sk   02/18/2024 Added DDRMC Calib Check Status RTCA Register Init
+* 1.08  sk   04/18/2024 Enhance Restart Image to Support loading from
+*                       Boot PDI Present in Image Store
 *
 * </pre>
 *
@@ -1506,16 +1508,27 @@ int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 	int Index;
 	u64 PdiAddr;
 	XilBootPdiInfo *BootPdiInfo = XLoader_GetBootPdiInfo();
+	u32 IdString;
 
 
 	/**
 	 * - Scan through PdiList for the given ImageId and restart image from
 	 * that respective PDI if ImageId is found
 	 */
-	 PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
-	 PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
+	PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
 	for (Index = (int)PdiList->Count - 1; Index >= 0; Index--) {
 		PdiAddr = PdiList->ImgList[Index].PdiAddr;
+		IdString = XPlmi_In64(PdiAddr + XIH_BH_IMAGE_IDENT_OFFSET);
+		if (IdString == XIH_BH_IMAGE_IDENT) {
+			PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
+		}
+		else {
+			IdString = XPlmi_In64(PdiAddr + SMAP_BUS_WIDTH_LENGTH +
+				XIH_IHT_IDENT_STRING_OFFSET);
+			if (IdString == XIH_IHT_PPDI_IDENT_VAL) {
+				PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
+			}
+		}
 		Status = XLoader_PdiInit(PdiPtr, XLOADER_PDI_SRC_DDR, PdiAddr);
 		if (Status != XST_SUCCESS) {
 			goto END1;
