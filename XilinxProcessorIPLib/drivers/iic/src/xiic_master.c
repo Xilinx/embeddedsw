@@ -117,7 +117,7 @@ int XIic_MasterSend(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount)
 	InstancePtr->IsDynamic = FALSE;
 
 	/*
-	 * If the busy is busy, then exit the critical region and wait for the
+	 * If the bus is busy, then exit the critical region and wait for the
 	 * bus to not be busy, the function enables the bus not busy interrupt.
 	 */
 	if (IsBusBusy(InstancePtr)) {
