@@ -48,6 +48,7 @@
 *       mss  03/06/2024 Removed code which was overwriting partition header
 *                       Destination Execution Address
 *       sk   03/13/24 Fixed doxygen comments format
+*       mss  04/12/24 Added code to dump DDRMC error logs
 *
 * </pre>
 *
@@ -114,6 +115,25 @@
 #define XLOADER_CMD_EXTRACT_METAHDR_PDISRC_MASK		(0x1FU)
 	/**< Mask for PDI Src in Extract Metaheader command */
 
+/**
+ * @{
+ * @cond DDR calibration errors
+ */
+#define DDRMC_OFFSET_CAL_POINTER				(0x38280U)
+#define DDRMC_OFFSET_CAL_ERROR_SUB_STAGE		(0x38284U)
+#define DDRMC_OFFSET_CAL_ERROR_RANK				(0x38288U)
+#define DDRMC_OFFSET_CAL_ERROR					(0x3828CU)
+#define DDRMC_OFFSET_CAL_ERROR_DATA_OCTAD_8_0	(0x38290U)
+#define DDRMC_OFFSET_CAL_ERROR_DATA_OCTAD_11_9	(0x38294U)
+#define DDRMC_OFFSET_CAL_ERROR_PHY_OCTAD_8_0	(0x38298U)
+#define DDRMC_OFFSET_CAL_ERROR_PHY_OCTAD_11_9	(0x3829CU)
+#define DDRMC_OFFSET_CAL_ERROR_DATA_LOC_1		(0x382A0U)
+#define DDRMC_OFFSET_CAL_ERROR_PHY_LOC_1		(0x382C8U)
+#define DDRMC_ARRAY_SIZE						(10U)
+/**
+ * @}
+ * @endcond
+ */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -889,15 +909,122 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function prints DDRMC register details.
+ *
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_DumpDdrmcRegisters(void)
+{
+	int Status = XST_FAILURE;
+	u32 PcsrCtrl;
+	u32 DevId;
+	u8 Ub = 0U;
+	u8 LoopCount;
+	u32 BaseAddr;
+	XPm_DeviceStatus DevStatus;
+
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS,"====DDRMC Register Dump Start======\n\r");
+
+	Status = XLoader_DdrInit(XLOADER_PDI_SRC_DDR);
+	if (XST_SUCCESS != Status) {
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+				"Error  0x%0x in requesting DDR.\n\r", Status);
+		goto END;
+	}
+
+	for (DevId = PM_DEV_DDRMC_0; DevId <= PM_DEV_DDRMC_7; DevId++) {
+
+		if(DevId > PM_DEV_DDRMC_3 && DevId < PM_DEV_DDRMC_4){
+			continue;
+		}
+
+		DevStatus.Status = (u32)XPM_DEVSTATE_UNUSED;
+		/** Get DDRMC UB Base address */
+		Status = XPm_GetDeviceStatus(PM_SUBSYS_PMC, DevId, &DevStatus);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		if (DevStatus.Status != XPM_DEVSTATE_RUNNING) {
+			XPlmi_Printf(DEBUG_GENERAL, "DDRMC_%u is not enabled,"
+					" Skipping its dump...\n\r", Ub);
+			++Ub;
+			continue;
+		}
+		Status = XPm_GetDeviceBaseAddr(DevId, &BaseAddr);
+		if (XST_SUCCESS != Status) {
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+				"Error 0x%0x in getting DDRMC_%u addr\n",
+				Status, Ub);
+			goto END;
+		}
+
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+				"DDRMC_%u (UB 0x%08x)\n\r", Ub, BaseAddr);
+
+		/** Read PCSR Control */
+		PcsrCtrl = XPlmi_In32(BaseAddr + DDRMC_PCSR_CONTROL_OFFSET);
+
+		/** Skip DDRMC dump if PComplete is zero */
+		if (0U == (PcsrCtrl & DDRMC_PCSR_CONTROL_PCOMPLETE_MASK)) {
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PComplete not set\n\r");
+			++Ub;
+			continue;
+		}
+
+		Xloader_DdrmcRegisters DumpRegisters[DDRMC_ARRAY_SIZE] = {
+			{"PCSR Status", DDRMC_PCSR_STATUS_OFFSET},
+			{"PCSR Control", DDRMC_PCSR_CONTROL_OFFSET},
+			{"Calibration Pointer", DDRMC_OFFSET_CAL_POINTER},
+			{"Calibration Error Sub Stage", DDRMC_OFFSET_CAL_ERROR_SUB_STAGE},
+			{"Calibration Error Rank", DDRMC_OFFSET_CAL_ERROR_RANK},
+			{"Calibration Error", DDRMC_OFFSET_CAL_ERROR},
+			{"CalibErrOctadData_8_0", DDRMC_OFFSET_CAL_ERROR_DATA_OCTAD_8_0},
+			{"CalibErrOctadData_11_9", DDRMC_OFFSET_CAL_ERROR_DATA_OCTAD_11_9},
+			{"CalibErrOctadData_8_0", DDRMC_OFFSET_CAL_ERROR_PHY_OCTAD_8_0},
+			{"CalibErrOctadData_11_9", DDRMC_OFFSET_CAL_ERROR_PHY_OCTAD_11_9},
+		};
+
+		for (LoopCount=0U ; LoopCount<DDRMC_ARRAY_SIZE ; LoopCount++) {
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS,"%s : 0x%x\n\r", DumpRegisters[LoopCount].RegStr,
+			XPlmi_In32(BaseAddr + DumpRegisters[LoopCount].Offset));
+		}
+
+		for(LoopCount=0U; LoopCount<=9U; LoopCount++){
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS,"CalibErrorDataLoc%d: 0x%0x\n\r",LoopCount+1U,
+			XPlmi_In32(BaseAddr + DDRMC_OFFSET_CAL_ERROR_DATA_LOC_1 + (LoopCount * 0x4U)));
+		}
+		for(LoopCount=0U; LoopCount<=11U; LoopCount++){
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS,"CalibErrorPhyLoc%d: 0x%0x\n\r",LoopCount+1U,
+			XPlmi_In32(BaseAddr + DDRMC_OFFSET_CAL_ERROR_PHY_LOC_1 + (LoopCount * 0x4U)));
+		}
+	++Ub;
+	}
+
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "====DDRMC Register Dump End======\n\r");
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function checks if MJTAG workaround is required
  *
- * @return	Error Code of Deferred Error
+ * @return
+ * 			- XLOADER_ERR_DEFERRED_CDO_PROCESS on error while processing CDO but
+ * error is deferred till whole CDO processing is completed.
  *
  *****************************************************************************/
 int XLoader_ProcessDeferredError(void)
 {
-	/* TODO Add DDR5 dump if it is available */
-	return XPlmi_UpdateStatus(XLOADER_ERR_DEFERRED_CDO_PROCESS, 0U);
+	int Status = XST_FAILURE;
+
+	Status = XLoader_DumpDdrmcRegisters();
+	Status = XPlmi_UpdateStatus(XLOADER_ERR_DEFERRED_CDO_PROCESS, Status);
+
+	return Status;
 }
 
 /*****************************************************************************/
