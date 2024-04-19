@@ -26,6 +26,16 @@ elseif("${CMAKE_MACHINE}" STREQUAL "Zynq")
     set(PLATFORM_ZYNQ " ")
 endif()
 
+if ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
+	option(standalone_lockstep_mode_debug "Enable debug logic in non-JTAG boot mode, when Cortex R5 is configured in lockstep mode" OFF)
+    if(standalone_lockstep_mode_debug)
+	ADD_DEFINITIONS(-DLOCKSTEP_MODE_DEBUG=1)
+    else()
+	ADD_DEFINITIONS(-DLOCKSTEP_MODE_DEBUG=0)
+    endif()
+
+endif()
+
 if(("${CMAKE_MACHINE}" STREQUAL "VersalNet") AND
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78"))
     option(standalone_enable_minimal_xlat_tbl "Configures translation table only for initial 4 TB address space. Translation table size will be reduced by ~1 MB. It is applicable only for CortexA78 BSP. Enable it by default to fit executable in OCM memory, If users want to access peripheral/Memory mapped beyond 4 TB, it must be disabled." ON)
