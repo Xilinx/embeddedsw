@@ -99,7 +99,6 @@ proc generate {libhandle} {
 			set shared_lib_dir $::env(XILINX_sdk)
 		}
 
-		set ::env(LD_LIBRARY_PATH) "${shared_lib_dir}/tps/lnx64/cmake-3.3.2/libs/Ubuntu/x86_64-linux-gnu/:${ld_lib_path}"
 	}
 
 	# Run cmake to generate make file
