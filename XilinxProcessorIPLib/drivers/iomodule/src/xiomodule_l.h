@@ -50,6 +50,8 @@
 * 2.14  dp   08/08/22 Fix doxygen warnings.
 * 2.15  ml   02/27/23 Converted signed macros into unsigned macros to
 *                     Fix misra-c violations.
+* 2.16  asa  04/19/24 Ensure that for non-SDT flow, xio.h is included
+*                     only for MB and MB-V based platforms.
 * </pre>
 *
 ******************************************************************************/
@@ -70,7 +72,9 @@ extern "C" {
 #include "xstatus.h"
 #ifndef SDT
 #include "xparameters.h"
+#if defined (__MICROBLAZE__) || defined (__riscv)
 #include "xio.h"
+#endif
 #endif
 #include "xiomodule_io.h"
 
