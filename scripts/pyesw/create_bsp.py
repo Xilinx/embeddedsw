@@ -429,10 +429,19 @@ def create_domain(args):
     find_common_cmake_path = utils.get_high_precedence_path(
             obj.repo_paths_list, "Findcommon.cmake", "cmake", "Findcommon.cmake"
         )
+    find_common_domain_path = os.path.join(obj.domain_dir, "Findcommon.cmake")
     utils.copy_file(
         find_common_cmake_path,
-        os.path.join(obj.domain_dir, "Findcommon.cmake"),
+        find_common_domain_path,
         silent_discard=False,
+    )
+
+    # Below replace command is meant only for maintaining the backward compatibility
+    # with 2023.2
+    utils.replace_line(
+        find_common_domain_path,
+        'option(NON_YOCTO "Non Yocto embeddedsw FLOW" OFF)',
+        'option(NON_YOCTO "Non Yocto embeddedsw FLOW" ON)',
     )
 
     """
