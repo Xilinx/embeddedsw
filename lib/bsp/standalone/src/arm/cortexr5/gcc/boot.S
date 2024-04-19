@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -74,6 +74,7 @@
 * 9.0  mus  07/27/23  Removed dependency on XPAR_CPU_ID, updated logic to use
 *                     CPU affinity register to read CPU ID.
 * 9.0  mus  08/01/23  Enable low latency peripheral port for CortexR52.
+* 9.1  mus  04/19/24  Add support for lockstep_mode_debug handling in SDT flow
 * </pre>
 *
 ******************************************************************************/
@@ -129,13 +130,18 @@
 #else
 .global XCortexr52_ConfigTable
 #endif
-#endif
-
+#else
+#ifndef SDT
 /*
  * 0th bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone
  * setting for RPU address space
  */
 #define RPU_TZ_MASK	0x1
+#else
+.extern XCortexr5_ConfigTable
+.set RPU_TZ_MASK,       0x1
+#endif
+#endif
 
 .section .boot,"axS"
 
@@ -371,7 +377,16 @@ InitTCMDone:
 	mcr	p15, 0, r0, c7, c5, 0		/* invalidate icache */
 	mcr 	p15, 0, r0, c15, c5, 0      	/* Invalidate entire data cache*/
 	isb
-#if LOCKSTEP_MODE_DEBUG == 0 && (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK)
+
+#if ( (LOCKSTEP_MODE_DEBUG == 0) && ((defined (SDT) || (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK))))
+
+#ifdef SDT
+        ldr     r0,=XCortexr5_ConfigTable
+        ands    r0, r0, #RPU_TZ_MASK
+        TST     r0, #1
+        bne     init       /* Processor does not have access to RPU_GLBL_CNTL */
+#endif
+
 /* enable fault log for lock step */
 	ldr	r0,=RPU_GLBL_CNTL
 	ldr	r1, [r0]
