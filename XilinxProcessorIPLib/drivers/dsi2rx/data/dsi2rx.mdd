@@ -1,0 +1,16 @@
+###############################################################################
+# Copyright 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+#
+##############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN driver dsi2rx
+  OPTION supported_peripherals = (mipi_dsi2_rx_ctrl);
+  OPTION driver_state = ACTIVE;
+  OPTION copyfiles = all;
+  OPTION VERSION = 1.0;
+  OPTION DEPENDS = (video_common_v4_0);
+  OPTION NAME = dsi2rx;
+END driver

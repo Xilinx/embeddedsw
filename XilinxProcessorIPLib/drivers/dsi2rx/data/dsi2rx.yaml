@@ -1,0 +1,33 @@
+# Copyright 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for dsi controller Driver
+
+maintainers:
+  - Kunal Rane <kvrane@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,mipi-dsi2-rx-ctrl-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,dsi-datatype:
+    description: DSI control data type flag.
+  xlnx,dsi-pixels:
+    description: DSI control no of pixels.
+
+required:
+  - compatible
+  - reg
+  - xlnx,dsi-datatype
+  - xlnx,dsi-pixels
+
+config:
+  - XDsi2Rx_Config
+...
