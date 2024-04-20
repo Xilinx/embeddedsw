@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   dc     11/21/22 Initial version
 * 1.1   cog    07/18/23 Modify example for SDT flow
+* 1.2   cog    04/20/24 Configure si570 in Linux examples
 *
 * </pre>
 *
@@ -70,14 +71,12 @@ int main(void)
 {
 	printf("\r\n\nDFE Orthogonal Frequency Division Multiplexing (OFDM) Examples: Start\r\n");
 
-#ifdef __BAREMETAL__
 	if (XST_SUCCESS !=
 	    XDfeSi570_SetMgtOscillator(XDFESI570_CURRENT_FREQUENCY,
 				       XDFESI570_NEW_FREQUENCY)) {
 		printf("Setting MGT oscillator failed\r\n");
 		return XST_FAILURE;
 	}
-#endif
 
 	/*
 	 * Run the DFE OFDM AddCC example. For bare metal
