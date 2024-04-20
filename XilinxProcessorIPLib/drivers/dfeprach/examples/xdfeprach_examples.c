@@ -33,6 +33,7 @@
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     04/26/22 Add dynamic config example
 * 1.7   cog    19/02/24 SDT Support
+*       cog    04/20/24 Configure si570 in Linux examples
 *
 * </pre>
 *
@@ -79,14 +80,12 @@ int main(void)
 {
 	printf("\r\n\nDFE Prach (PRACH) Selftest Examples: Start\r\n");
 
-#ifdef __BAREMETAL__
 	if (XST_SUCCESS !=
 	    XDfeSi570_SetMgtOscillator(XDFESI570_CURRENT_FREQUENCY,
 				       XDFESI570_NEW_FREQUENCY)) {
 		printf("Setting MGT oscillator failed\r\n");
 		return XST_FAILURE;
 	}
-#endif
 
 	/*
 	 * Run the DFE Prach init/close example. Specify the Device ID
