@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xdsirxss_sinit.c
+* @file xdsi2rxss_sinit.c
 * @addtogroup dsirxss Overview
 * @{
 *
@@ -25,7 +25,7 @@
 
 /***************************** Include Files *********************************/
 
-#include "xdsirxss.h"
+#include "xdsi2rxss.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -41,14 +41,14 @@
 
 /************************** Variable Definitions *****************************/
 
-extern XDsiRxSs_Config XDsiRxSs_ConfigTable[];
+extern XDsi2RxSs_Config XDsi2RxSs_ConfigTable[];
 
 /************************** Function Definitions ******************************/
 
 /*****************************************************************************/
 /**
 * This function looks for the device configuration based on the unique device
-* ID. The table XDsiRxSs_ConfigTable[] contains the configuration information
+* ID. The table XDsi2RxSs_ConfigTable[] contains the configuration information
 * for each instance of the device in the system.
 *
 * @param	BaseAddress is the unique address of the device being looked up
@@ -59,15 +59,15 @@ extern XDsiRxSs_Config XDsiRxSs_ConfigTable[];
 * @note		None.
 *
 ******************************************************************************/
-XDsiRxSs_Config* XDsiRxSs_LookupConfig(UINTPTR BaseAddress)
+XDsi2RxSs_Config* XDsi2RxSs_LookupConfig(UINTPTR BaseAddress)
 {
-	XDsiRxSs_Config *CfgPtr = NULL;
+	XDsi2RxSs_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index = 0; XDsiRxSs_ConfigTable[Index].Name != NULL; Index++) {
+	for (Index = 0; XDsi2RxSs_ConfigTable[Index].Name != NULL; Index++) {
 
-		if ((XDsiRxSs_ConfigTable[Index].BaseAddr == BaseAddress) || !BaseAddress) {
-			CfgPtr = &XDsiRxSs_ConfigTable[Index];
+		if ((XDsi2RxSs_ConfigTable[Index].BaseAddr == BaseAddress) || !BaseAddress) {
+			CfgPtr = &XDsi2RxSs_ConfigTable[Index];
 			break;
 		}
 	}
@@ -87,12 +87,12 @@ XDsiRxSs_Config* XDsiRxSs_LookupConfig(UINTPTR BaseAddress)
 *
 *******************************************************************************/
 
-u32 XDsiRxSs_GetDrvIndex(XDsiRxSs *InstancePtr, UINTPTR BaseAddress)
+u32 XDsi2RxSs_GetDrvIndex(XDsi2RxSs *InstancePtr, UINTPTR BaseAddress)
 {
  u32 Index = 0;
 
- for (Index = 0U; XDsiRxSs_ConfigTable[Index].Name != NULL; Index++) {
-   if ((XDsiRxSs_ConfigTable[Index].BaseAddr == BaseAddress)) {
+ for (Index = 0U; XDsi2RxSs_ConfigTable[Index].Name != NULL; Index++) {
+   if ((XDsi2RxSs_ConfigTable[Index].BaseAddr == BaseAddress)) {
 	break;
    }
  }

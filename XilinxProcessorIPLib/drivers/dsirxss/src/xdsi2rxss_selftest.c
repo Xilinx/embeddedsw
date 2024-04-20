@@ -6,11 +6,11 @@
 /*****************************************************************************/
 /**
 *
-* @file xdsirxss_selftest.c
-* @addtogroup dsirxss Overview
+* @file xdsi2rxss_selftest.c
+* @addtogroup dsi2rxss Overview
 * @{
 *
-* This file contains self test function for the MIPI DSI Rx Subsystem
+* This file contains self test function for the MIPI DSI2 Rx Subsystem
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -25,7 +25,7 @@
 /***************************** Include Files *********************************/
 
 #include "xstatus.h"
-#include "xdsirxss.h"
+#include "xdsi2rxss.h"
 #include "xdebug.h"
 
 /************************** Constant Definitions *****************************/
@@ -39,7 +39,7 @@
 
 /************************** Function Prototypes ******************************/
 
-u32 XDsiRxSs_SelfTest(XDsiRxSs *InstancePtr);
+u32 XDsi2RxSs_SelfTest(XDsi2RxSs *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -51,7 +51,7 @@ u32 XDsiRxSs_SelfTest(XDsiRxSs *InstancePtr);
 *
 * This function performs self test on MIPI DSI Rx Subsystem sub-cores.
 *
-* @param	InstancePtr is a pointer to the XDsiRxSs core instance.
+* @param	InstancePtr is a pointer to the XDsi2RxSs core instance.
 *
 * @return
 *		- XST_SUCCESS if self test passed.
@@ -60,29 +60,20 @@ u32 XDsiRxSs_SelfTest(XDsiRxSs *InstancePtr);
 * @note		None.
 *
 ******************************************************************************/
-u32 XDsiRxSs_SelfTest(XDsiRxSs *InstancePtr)
+u32 XDsi2RxSs_SelfTest(XDsi2RxSs *InstancePtr)
 {
 	u32 Status;
 
 	/* Verify argument */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	if (InstancePtr->DsiPtr) {
-		Status = XDsi_SelfTest(InstancePtr->DsiPtr);
+	if (InstancePtr->Dsi2RxPtr) {
+		Status = XDsi2Rx_SelfTest(InstancePtr->Dsi2RxPtr);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
 				"ERR::DSI Self test failed\n\r");
 		}
 	}
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
-	if (InstancePtr->Config.DphyInfo.IsPresent && InstancePtr->DphyPtr) {
-		Status = XDphy_SelfTest(InstancePtr->DphyPtr);
-		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_ERROR,
-				"ERR::Dphy Self test failed\n\r");
-		}
-	}
-#endif
 
 	return XST_SUCCESS;
 }

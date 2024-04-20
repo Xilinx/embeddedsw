@@ -19,27 +19,21 @@ properties:
     description: Physical base address and size of the controller register map
   xlnx,highaddr:
     description: HighAddress is the physical MAX address of the subsystem address range
-  xlnx,dsi-lanes:
-    description: DSI no of lanes.
   xlnx,dsi-datatype:
     description: DSI data type.
-  xlnx,dsi-byte-fifo:
-    description: DSI byte FIFO size.
-  xlnx,dsi-crc-gen:
-    description: DSI CRC generate flag.
   xlnx,dsi-pixels:
     description: DSI no of pixels.
   xlnx,dphy-linerate:
     description: DPhy line rate.
   xlnx,dphy-en-reg-if:
     description: Dphy enable register interface.
-  xlnx,dphy-present:
+  dphy-present:
     description: Dphy is present.
-  xlnx,dphy-connected:
+  dphy-connected:
     description: Dphy is connected flag.
-  xlnx,dsi-rx-ctrl-present:
+  dsi-rx-present:
     description: DSI RX controller present flag.
-  xlnx,dsi-rx-ctrl-connected:
+  dsi-rx-connected:
     description: DSI RX controller present flag.
   interrupts:
     description: Interrupt number
@@ -50,28 +44,26 @@ required:
   - compatible
   - reg
   - xlnx,highaddr
-  - xlnx,dsi-lanes
   - xlnx,dsi-datatype
-  - xlnx,dsi-byte-fifo
-  - xlnx,dsi-crc-gen
   - xlnx,dsi-pixels
   - xlnx,dphy-linerate
   - xlnx,dphy-en-reg-if
-  - xlnx,dphy-present
-  - xlnx,dphy-connected: phandle
-  - xlnx,dsi-rx-ctrl-present
-  - xlnx,dsi-rx-ctrl-connected: phandle
+  - dphy-present
+  - dphy-connected: phandle
+  - dsi-rx-present
+  - dsi-rx-connected: phandle
   - interrupts
   - interrupt-parent
 
 config:
-  - XDsiRxSs_Config
+  - XDsi2RxSs_Config
 
 depends:
     video_common: []
+    dphy: []
 
 examples:
-  xdsirxss_selftest_example.c:
+  xdsi2rxss_selftest_example.c:
     - reg
     - interrupts
 ...
