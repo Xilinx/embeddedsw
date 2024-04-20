@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xdsirxss.c
+* @file xdsi2rxss.c
 * @addtogroup dsirxss Overview
 * @{
 *
@@ -25,13 +25,14 @@
 
 /***************************** Include Files *********************************/
 
+#include "xparameters.h"
 #include "xstatus.h"
 #include "xdebug.h"
-#include "xdsi.h"
+#include "xdsi2rx.h"
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 #include "xdphy.h"
 #endif
-#include "xdsirxss.h"
+#include "xdsi2rxss.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -42,23 +43,23 @@
  * This typedef declares the driver instances of all the cores in the subsystem
  */
 typedef struct {
-	XDsi DsiInst;
+	XDsi2Rx Dsi2RxInst;
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy DphyInst;
 #endif
-} XDsiRxSs_SubCores;
+} XDsi2Ss_SubCores;
 
 /**************************** Variable Definitions ***********************************/
-XDsiRxSs_SubCores DsiRxSsSubCores[];
+XDsi2Ss_SubCores Dsi2SsSubCores[];
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
 /************************** Function Prototypes ******************************/
 
-static void XDsiRxSs_GetIncludedSubCores(XDsiRxSs *DsiRxSsPtr);
-static s32 XDsiRxSs_SubCoreInitDsi(XDsiRxSs *DsiRxSsPtr);
+static void XDsi2RxSs_GetIncludedSubCores(XDsi2RxSs *Dsi2RxSsPtr);
+static s32 XDsi2RxSs_SubCoreInitDsi(XDsi2RxSs *Dsi2RxSsPtr);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
-static s32 XDsiRxSs_SubCoreInitDphy(XDsiRxSs *DsiRxSsPtr);
+static s32 XDsi2RxSs_SubCoreInitDphy(XDsi2RxSs *Dsi2RxSsPtr);
 #endif
 static s32 ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
 					u32 Offset, UINTPTR *BaseAddr);
@@ -87,7 +88,7 @@ static s32 ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
 * @note		None.
 *
 ******************************************************************************/
-s32 XDsiRxSs_CfgInitialize(XDsiRxSs *InstancePtr, XDsiRxSs_Config *CfgPtr,
+s32 XDsi2RxSs_CfgInitialize(XDsi2RxSs *InstancePtr, XDsi2RxSs_Config *CfgPtr,
 							UINTPTR EffectiveAddr)
 {
 	s32 Status;
@@ -104,10 +105,10 @@ s32 XDsiRxSs_CfgInitialize(XDsiRxSs *InstancePtr, XDsiRxSs_Config *CfgPtr,
 	/* Determine sub-cores included in the
 	 * provided instance of subsystem
 	 */
-	XDsiRxSs_GetIncludedSubCores(InstancePtr);
+	XDsi2RxSs_GetIncludedSubCores(InstancePtr);
 
-	if (InstancePtr->DsiPtr) {
-		Status = XDsiRxSs_SubCoreInitDsi(InstancePtr);
+	if (InstancePtr->Dsi2RxPtr) {
+		Status = XDsi2RxSs_SubCoreInitDsi(InstancePtr);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -115,7 +116,7 @@ s32 XDsiRxSs_CfgInitialize(XDsiRxSs *InstancePtr, XDsiRxSs_Config *CfgPtr,
 
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->DphyPtr != NULL) {
-		Status = XDsiRxSs_SubCoreInitDphy(InstancePtr);
+		Status = XDsi2RxSs_SubCoreInitDphy(InstancePtr);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -128,9 +129,9 @@ s32 XDsiRxSs_CfgInitialize(XDsiRxSs *InstancePtr, XDsiRxSs_Config *CfgPtr,
 
 /*****************************************************************************/
 /**
-* This function is used to configure the DSI default parameters that are to
-* be handled by the application. It will configure protocol register with
-* video mode, bllp mode,eotp
+* This function is used to configure the DSI2RX default parameters that are to
+* be handled by the application. It will configure protocol register with Pixel
+* mode.
 *
 * @param	InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
@@ -141,14 +142,14 @@ s32 XDsiRxSs_CfgInitialize(XDsiRxSs *InstancePtr, XDsiRxSs_Config *CfgPtr,
 * @note		None.
 *
 ******************************************************************************/
-u32 XDsiRxSs_DefaultConfigure(XDsiRxSs *InstancePtr)
+u32 XDsi2RxSs_DefaultConfigure(XDsi2RxSs *InstancePtr)
 {
 	u32 Status;
 
 	/* Verify argument */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	Status = XDsi_DefaultConfigure(InstancePtr->DsiPtr);
+	Status = XDsi2Rx_DefaultConfigure(InstancePtr->Dsi2RxPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -158,8 +159,8 @@ u32 XDsiRxSs_DefaultConfigure(XDsiRxSs *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function is used to activate the DSI Subsystem. Internally it activates
-* the DPHY and DSI. Enable/Disable IP core to start processing
+* This function is used to activate the DSI2RX Subsystem. Internally it activates
+* the DPHY and DSI2RX. Enable/Disable IP core to start processing
 *
 * @param	InstancePtr is a pointer to the Subsystem instance to be worked on.
 * @param	core is used to denote the subcore of subsystem
@@ -172,19 +173,19 @@ u32 XDsiRxSs_DefaultConfigure(XDsiRxSs *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-int XDsiRxSs_Activate(XDsiRxSs *InstancePtr, XDsiSS_Subcore core, u8 Flag)
+int XDsi2RxSs_Activate(XDsi2RxSs *InstancePtr, XDsi2RxSs_SubCore core, u8 Flag)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Flag <= XDSIRXSS_ENABLE);
-	Xil_AssertNonvoid(InstancePtr->DsiPtr != NULL);
+	Xil_AssertNonvoid(Flag <= XDSI2RXSS_ENABLE);
+	Xil_AssertNonvoid(InstancePtr->Dsi2RxPtr != NULL);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	Xil_AssertNonvoid(InstancePtr->DphyPtr != NULL);
 #endif
-	if (core == XDSIRXSS_DSI)
-		XDsi_Activate(InstancePtr->DsiPtr, Flag);
+	if (core == XDSI2RXSS_DSI)
+		XDsi2Rx_Activate(InstancePtr->Dsi2RxPtr, Flag);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
-	else if (core == XDSIRXSS_PHY)
+	else if (core == XDSI2RXSS_PHY)
 		XDphy_Activate(InstancePtr->DphyPtr, Flag);
 #endif
 	else
@@ -194,7 +195,7 @@ int XDsiRxSs_Activate(XDsiRxSs *InstancePtr, XDsiSS_Subcore core, u8 Flag)
 }
 /*****************************************************************************/
 /**
-* This function is used to reset the DSI Subsystem. Internally it resets
+* This function is used to reset the DSI2RX Subsystem. Internally it resets
 * the DPHY and DSI
 *
 * @param	InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -204,13 +205,13 @@ int XDsiRxSs_Activate(XDsiRxSs *InstancePtr, XDsiSS_Subcore core, u8 Flag)
 * @note		None.
 *
 ******************************************************************************/
-void XDsiRxSs_Reset(XDsiRxSs *InstancePtr)
+void XDsi2RxSs_Reset(XDsi2RxSs *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->DsiPtr);
+	Xil_AssertVoid(InstancePtr->Dsi2RxPtr);
 
-	XDsi_Reset(InstancePtr->DsiPtr);
+	XDsi2Rx_Reset(InstancePtr->Dsi2RxPtr);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->DphyPtr) {
 		XDphy_Reset(InstancePtr->DphyPtr);
@@ -229,17 +230,17 @@ void XDsiRxSs_Reset(XDsiRxSs *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void XDsiRxSs_ReportCoreInfo(XDsiRxSs *InstancePtr)
+void XDsi2RxSs_ReportCoreInfo(XDsi2RxSs *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->DsiPtr);
+	Xil_AssertVoid(InstancePtr->Dsi2RxPtr);
 
-	xdbg_printf(XDBG_DEBUG_GENERAL, "\n\r  ->MIPI DSI Subsystem Cores\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL, "\n\r  ->MIPI DSI2RX Subsystem Cores\n\r");
 
 	/* Report all the included cores in the subsystem instance */
-	if (InstancePtr->DsiPtr) {
-		xdbg_printf(XDBG_DEBUG_GENERAL, "  : DSI Tx Controller \n\r");
+	if (InstancePtr->Dsi2RxPtr) {
+		xdbg_printf(XDBG_DEBUG_GENERAL, "  : DSI2 Rx Controller \n\r");
 	}
 
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
@@ -258,67 +259,6 @@ void XDsiRxSs_ReportCoreInfo(XDsiRxSs *InstancePtr)
 
 /*****************************************************************************/
 /**
- * * This function sets the mode to send short packet.
- * *
- * * @param        InstancePtr is the XDsiRxSs instance to operate on
- * * @param        mode is the DSI mode (video or command) to operate on
- * *
- * * @return       None
- * *
- * * @note         None.
- * *
- * ****************************************************************************/
-int XDsiRxSs_SetDSIMode(XDsiRxSs *InstancePtr, XDsi_DsiModeType mode)
-{
-	/* Verify argument */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	return XDsi_SetMode(InstancePtr->DsiPtr, mode);
-}
-
-/*****************************************************************************/
-/**
- * * This function will send the short packet to controller in command mode
- * * Generic Short Packet Register and fill up the structure passed from caller.
- * *
- * * @param        InstancePtr is the XDsiRxSs instance to operate on
- * *
- * * @return
- *		   - XST_SUCCESS on successful packet transmission
- *		   - XST_FAILURE on failure in packet transmission
- * *
- * * @note         None.
- * *
- * ****************************************************************************/
-int XDsiRxSs_SendCmdModePacket(XDsiRxSs *InstancePtr)
-{
-	/* Verify argument */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	return XDsi_SendCmdModePkt(InstancePtr->DsiPtr, &InstancePtr->CmdPkt);
-}
-
-/*****************************************************************************/
-/**
-* This function will send the short packet to controller
-* Generic Short Packet Register and fill up the structure passed from caller.
-* like to turn on/off peripheral, change color mode
-*
-* @param	InstancePtr is the XDsiRxSs instance to operate on
-*
-* @return	None
-*
-* @note		None.
-*
-****************************************************************************/
-void XDsiRxSs_SendShortPacket(XDsiRxSs *InstancePtr)
-{
-	/* Verify argument */
-	Xil_AssertVoid(InstancePtr != NULL);
-
-	XDsi_SendShortPacket(InstancePtr->DsiPtr, &InstancePtr->SpktData);
-}
-
-/*****************************************************************************/
-/**
 * This function will get the information from the GUI settings
 *
 * @param	InstancePtr is the XDsi instance to operate on
@@ -328,31 +268,31 @@ void XDsiRxSs_SendShortPacket(XDsiRxSs *InstancePtr)
 * @note		None.
 *
 ****************************************************************************/
-void XDsiRxSs_GetConfigParams(XDsiRxSs *InstancePtr)
+void XDsi2RxSs_GetConfigParams(XDsi2RxSs *InstancePtr)
 {
 	/* Verify argument */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	XDsi_GetConfigParams(InstancePtr->DsiPtr, &InstancePtr->ConfigInfo);
+	XDsi2Rx_GetConfigParams(InstancePtr->Dsi2RxPtr, &InstancePtr->ConfigInfo);
 }
 
 /*****************************************************************************/
 /**
 * This function will get the information from the GUI settings
 *
-* @param	InstancePtr is the XDsiRxSs instance to operate on
+* @param	InstancePtr is the XDsi2RxSs instance to operate on
 *
 * @return 	Controller ready status
 *
 * @note		None.
 *
 ****************************************************************************/
-u32 XDsiRxSs_IsControllerReady(XDsiRxSs *InstancePtr)
+u32 XDsi2RxSs_IsControllerReady(XDsi2RxSs *InstancePtr)
 {
 	/* Verify argument */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	return XDsi_IsControllerReady(InstancePtr->DsiPtr);
+	return XDsi2Rx_IsControllerReady(InstancePtr->Dsi2RxPtr);
 }
 
 /****************************************************************************/
@@ -372,106 +312,12 @@ u32 XDsiRxSs_IsControllerReady(XDsiRxSs *InstancePtr)
 * @note		None
 *
 ****************************************************************************/
-u32 XDsiRxSs_GetPixelFormat(XDsiRxSs *InstancePtr)
+u32 XDsi2RxSs_GetPixelFormat(XDsi2RxSs *InstancePtr)
 {
 	/* Verify argument */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	return XDsi_GetPixelFormat(InstancePtr->DsiPtr);
-}
-
-/****************************************************************************/
-/**
-*
-* This function is used to get Command queue Vacancy
-*
-* @param	InstancePtr is a pointer to the DSITxSs Instance to be
-*		worked on.
-*
-* @return	Number of command queue entries can be safely written
-* 		to Command queue FIFO, before it goes full.
-*
-* @note		None
-*
-****************************************************************************/
-u32 XDsiRxSs_GetCmdQVacancy(XDsiRxSs *InstancePtr)
-{
-	/* Verify argument */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	return XDsi_GetCmdQVacancy(InstancePtr->DsiPtr);
-}
-
-/*****************************************************************************/
-/**
-* This function Set Timing mode and Resolution. As per user resolution
-* selection it will get populate Periperal Timing Parameters from video common
-* Library
-*
-* @param	InstancePtr is the XDsi instance to operate on
-* @param 	VideoMode Specifies mode of Interfacing
-* @param	Resolution sets the resolution
-* @param	BurstPacketSize sets the packet size
-*
-* @return
-*		- XST_SUCCESS is return Video interfacing set was successful
-*		- XST_INVALID_PARAM indicates an invalid parameter was
-*		specified.
-*
-* @note		None.
-*
-****************************************************************************/
-s32 XDsiRxSs_SetVideoInterfaceTiming(XDsiRxSs *InstancePtr,
-					XDsi_VideoMode VideoMode,
-					XVidC_VideoMode Resolution,
-					u16 BurstPacketSize)
-{
-	u32 Status;
-
-	/* Verify argument */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	Status = XDsi_SetVideoInterfaceTiming(InstancePtr->DsiPtr, VideoMode,
-						Resolution, BurstPacketSize);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "Set VideoInterface failed\r\n");
-	}
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-* This function Set Timning mode and Resolution as per user inputs
-*
-* @param	InstancePtr is the XDsi instance to operate on
-* @param 	VideoMode Specifies mode of Interfacing
-* @param	Timing Video Timing parameters
-*
-* @return
-*		- XST_SUCCESS is return Video interfacing was successfully set
-*		- XST_INVALID_PARAM indicates an invalid parameter was
-*		specified.
-*
-* @note		None
-*
-****************************************************************************/
-s32 XDsiRxSs_SetCustomVideoInterfaceTiming(XDsiRxSs *InstancePtr,
-		XDsi_VideoMode VideoMode, XDsi_VideoTiming  *Timing)
-{
-	u32 Status;
-
-	/* Verify arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Timing != NULL);
-
-	Status = XDsi_SetCustomVideoInterfaceTiming(InstancePtr->DsiPtr,
-							VideoMode, Timing);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "Set Custom VideoInterface failed\r\n");
-	}
-
-	return Status;
+	return XDsi2Rx_GetPixelFormat(InstancePtr->Dsi2RxPtr);
 }
 
 /*****************************************************************************/
@@ -481,75 +327,76 @@ s32 XDsiRxSs_SetCustomVideoInterfaceTiming(XDsiRxSs *InstancePtr,
 * the sub-core driver instance is binded with the subsystem sub-core driver
 * handle
 *
-* @param	DsiRxSsPtr is a pointer to the Subsystem instance
+* @param	Dsi2RxSsPtr is a pointer to the Subsystem instance
 *
 * @return	None
 *
 * @note		None
 *
 ******************************************************************************/
-static void XDsiRxSs_GetIncludedSubCores(XDsiRxSs *DsiRxSsPtr)
+static void XDsi2RxSs_GetIncludedSubCores(XDsi2RxSs *Dsi2RxSsPtr)
 {
 	/* Verify argument */
-	Xil_AssertVoid(DsiRxSsPtr != NULL);
+	Xil_AssertVoid(Dsi2RxSsPtr != NULL);
 	u32 Index = 0;
-	Index = XDsiRxSs_GetDrvIndex(DsiRxSsPtr, DsiRxSsPtr->Config.BaseAddr);
-	DsiRxSsPtr->DsiPtr = ((DsiRxSsPtr->Config.DsiInfo.IsPresent) ?
-				(&DsiRxSsSubCores[Index].DsiInst) : NULL);
+	Index = XDsi2RxSs_GetDrvIndex(Dsi2RxSsPtr, Dsi2RxSsPtr->Config.BaseAddr);
+
+	Dsi2RxSsPtr->Dsi2RxPtr = ((Dsi2RxSsPtr->Config.Dsi2RxInfo.IsPresent) ?
+				(&Dsi2SsSubCores[Index].Dsi2RxInst) : NULL);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
-	DsiRxSsPtr->DphyPtr = ((DsiRxSsPtr->Config.DphyInfo.IsPresent) ?
-				(&DsiRxSsSubCores[Index].DphyInst) : NULL);
+	Dsi2RxSsPtr->DphyPtr = ((Dsi2RxSsPtr->Config.DphyInfo.IsPresent) ?
+				(&Dsi2SsSubCores[Index].DphyInst) : NULL);
 #endif
 }
 
 /*****************************************************************************/
 /**
-* This function initializes the DSI sub-core initialization
+* This function initializes the DSI2 RX sub-core initialization
 *
-* @param	DsiRxSsPtr is a pointer to the Subsystem instance
+* @param	Dsi2RxSsPtr is a pointer to the Subsystem instance
 *
 * @return
-		- XST_SUCCESS on DSI sub core initialization
-		- XST_FAILURE on DSI fail initialization
+		- XST_SUCCESS on DSI2 RX sub core initialization
+		- XST_FAILURE on DSI2 RX fail initialization
 *
 * @note		None
 *
 ******************************************************************************/
-static s32 XDsiRxSs_SubCoreInitDsi(XDsiRxSs *DsiRxSsPtr)
+static s32 XDsi2RxSs_SubCoreInitDsi(XDsi2RxSs *Dsi2RxSsPtr)
 {
 	s32 Status;
 	UINTPTR AbsAddr;
-	XDsi_Config *ConfigPtr;
+	XDsi2Rx_Config *ConfigPtr;
 
-	if (!DsiRxSsPtr->DsiPtr) {
+	if (!Dsi2RxSsPtr->Dsi2RxPtr) {
 		return XST_FAILURE;
 	}
 
 	/* Get core configuration */
-	xdbg_printf(XDBG_DEBUG_GENERAL, ">Initializing DSI Tx Controller...\n\r");
-	ConfigPtr = XDsi_LookupConfig(DsiRxSsPtr->Config.DsiInfo.AddrOffset);
+	xdbg_printf(XDBG_DEBUG_GENERAL, ">Initializing DSI2 Rx Controller...\n\r");
+	ConfigPtr = XDsi2Rx_LookupConfig(Dsi2RxSsPtr->Config.Dsi2RxInfo.AddrOffset);
 	if (ConfigPtr == NULL) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "DSIRXSS ERR:: DSI not found\n\r");
+		xdbg_printf(XDBG_DEBUG_ERROR, "DSI2RXSS ERR:: DSI2 RX not found\n\r");
 		return XST_FAILURE;
 	}
 
 	/* Compute absolute base address */
 	AbsAddr = 0;
-	Status = ComputeSubCoreAbsAddr(DsiRxSsPtr->Config.BaseAddr,
-					DsiRxSsPtr->Config.HighAddr,
-					DsiRxSsPtr->Config.DsiInfo.AddrOffset,
+	Status = ComputeSubCoreAbsAddr(Dsi2RxSsPtr->Config.BaseAddr,
+					Dsi2RxSsPtr->Config.HighAddr,
+					Dsi2RxSsPtr->Config.Dsi2RxInfo.AddrOffset,
 					&AbsAddr);
 	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "DSIRXSS ERR:: DSI core base"
+		xdbg_printf(XDBG_DEBUG_ERROR, "DSI2RXSS ERR:: DSI2 RX core base"
 			"address (0x%x) invalid \n\r", AbsAddr);
 		return XST_FAILURE;
 	}
 
 	/* Initialize core */
-	Status = XDsi_CfgInitialize(DsiRxSsPtr->DsiPtr, ConfigPtr, AbsAddr);
+	Status = XDsi2Rx_CfgInitialize(Dsi2RxSsPtr->Dsi2RxPtr, ConfigPtr, AbsAddr);
 
 	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "DSIRXSS ERR:: DSI core"
+		xdbg_printf(XDBG_DEBUG_ERROR, "DSI2RXSS ERR:: DSI core"
 			"Initialization failed\n\r");
 		return XST_FAILURE;
 	}
@@ -562,7 +409,7 @@ static s32 XDsiRxSs_SubCoreInitDsi(XDsiRxSs *DsiRxSsPtr)
 /**
 * This function initializes the Dphy sub core
 *
-* @param	DsiRxSsPtr is a pointer to the Subsystem instance
+* @param	Dsi2RxSsPtr is a pointer to the Subsystem instance
 *
 * @return
 		- XST_SUCCESS on successful initialization of Dphy
@@ -571,20 +418,20 @@ static s32 XDsiRxSs_SubCoreInitDsi(XDsiRxSs *DsiRxSsPtr)
 * @note		None
 *
 ******************************************************************************/
-static s32 XDsiRxSs_SubCoreInitDphy(XDsiRxSs *DsiRxSsPtr)
+static s32 XDsi2RxSs_SubCoreInitDphy(XDsi2RxSs *Dsi2RxSsPtr)
 {
 	s32 Status;
 	UINTPTR AbsAddr;
 	XDphy_Config *ConfigPtr;
 
-	if (!DsiRxSsPtr->DphyPtr) {
+	if (!Dsi2RxSsPtr->DphyPtr) {
 		return XST_FAILURE;
 	}
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing DPHY ...\n\r");
 
-	ConfigPtr = XDphy_LookupConfig(DsiRxSsPtr->Config.DphyInfo.AddrOffset);
+	ConfigPtr = XDphy_LookupConfig(Dsi2RxSsPtr->Config.DphyInfo.AddrOffset);
 
 	if (!ConfigPtr) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "DSIRXSS ERR:: DPHY not found \n\r");
@@ -593,9 +440,9 @@ static s32 XDsiRxSs_SubCoreInitDphy(XDsiRxSs *DsiRxSsPtr)
 
 	/* Compute absolute base address */
 	AbsAddr = 0;
-	Status = ComputeSubCoreAbsAddr(DsiRxSsPtr->Config.BaseAddr,
-					DsiRxSsPtr->Config.HighAddr,
-					DsiRxSsPtr->Config.DphyInfo.AddrOffset,
+	Status = ComputeSubCoreAbsAddr(Dsi2RxSsPtr->Config.BaseAddr,
+					Dsi2RxSsPtr->Config.HighAddr,
+					Dsi2RxSsPtr->Config.DphyInfo.AddrOffset,
 					&AbsAddr);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "DSIRXSS ERR:: DPHY core base address "
@@ -604,7 +451,7 @@ static s32 XDsiRxSs_SubCoreInitDphy(XDsiRxSs *DsiRxSsPtr)
 	}
 
 	/* Initialize core */
-	Status = XDphy_CfgInitialize(DsiRxSsPtr->DphyPtr, ConfigPtr, AbsAddr);
+	Status = XDphy_CfgInitialize(Dsi2RxSsPtr->DphyPtr, ConfigPtr, AbsAddr);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "DSIRXSS ERR:: Dphy core Initialization "
 				"failed \n\r");

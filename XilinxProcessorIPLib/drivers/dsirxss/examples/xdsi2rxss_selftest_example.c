@@ -6,9 +6,9 @@
 /*****************************************************************************/
 /**
 *
-* @file xdsirxss_selftest_example.c
+* @file xdsi2rxss_selftest_example.c
 *
-* This file contains a design example using the XDsiRxSs driver. It performs a
+* This file contains a design example using the XDsi2RxSs driver. It performs a
 * self test on the MIPI DSI Rx Subsystem that will test its sub-cores
 * self test functions.
 *
@@ -20,22 +20,24 @@
 * Ver Who Date    Changes
 * --- --- ------- -------------------------------------------------------
 * 1.0 Kunal 12/2/24 Initial Release for MIPI DSI RX subsystem
+* 1.1 Kunal 18/4/24 Driver name changed to DSI2RXSS.
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
-#include "xdsirxss.h"
+#include "xdsi2rxss.h"
 #include "xil_printf.h"
 #include "xil_types.h"
+#include "xparameters.h"
 #include "xstatus.h"
 
 /************************** Constant Definitions *****************************/
 
-/* The unique base address of the MIPI DSI Rx Subsystem instance
+/* The unique base address of the MIPI DSI2 Rx Subsystem instance
  * to be used
  */
-#define XDSIRXSS_BASE		XPAR_XDSIRXSS_0_BASEADDR
+#define XDSI2RXSS_BASE		XPAR_XDSIRXSS_0_BASEADDR
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -45,11 +47,11 @@
 
 /************************** Function Prototypes ******************************/
 
-u32 DsiRxSs_SelfTestExample(u32 BaseAddr);
+u32 Dsi2RxSs_SelfTestExample(u32 BaseAddr);
 
 /************************** Variable Definitions *****************************/
 
-XDsiRxSs DsiRxSsInst;	/* The DSI RX Subsystem instance.*/
+XDsi2RxSs Dsi2RxSsInst;	/* The DSI RX Subsystem instance.*/
 
 /************************** Function Definitions *****************************/
 
@@ -68,21 +70,21 @@ XDsiRxSs DsiRxSsInst;	/* The DSI RX Subsystem instance.*/
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
-s32 main()
+int main()
 {
 	u32 Status;
 
 	xil_printf("---------------------------------------\n\r");
-	xil_printf("MIPI DSI RX Subsystem self test example\n\r");
+	xil_printf("MIPI DSI2 RX Subsystem self test example\n\r");
 	xil_printf("---------------------------------------\n\r\n\r");
 
-	Status = DsiRxSs_SelfTestExample(XDSIRXSS_BASE);
+	Status = Dsi2RxSs_SelfTestExample(XDSI2RXSS_BASE);
 	if (Status != XST_SUCCESS) {
-		xil_printf("MIPI DSI RX Subsystem self test example failed\n\r");
+		xil_printf("MIPI DSI2 RX Subsystem self test example failed\n\r");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Successfully ran MIPI DSI RX Subsystem self test example\n\r");
+	xil_printf("Successfully ran MIPI DSI2 RX Subsystem self test example\n\r");
 
 	return XST_SUCCESS;
 }
@@ -92,10 +94,10 @@ s32 main()
 /**
 *
 * This function is the main entry point for the self test example using the
-* XDsiRxSs driver. This function check whether or not its sub-core drivers
+* XDsi2RxSs driver. This function check whether or not its sub-core drivers
 * self test functions are in working state.
 *
-* @param	DeviceId is the unique device ID of the MIPI DSI RX
+* @param	BaseAddress is the unique Address of the MIPI DSI2 RX
 *.		Subsystem core.
 *
 * @return
@@ -107,13 +109,13 @@ s32 main()
 * @note		None.
 *
 ******************************************************************************/
-u32 DsiRxSs_SelfTestExample(u32 DeviceId)
+u32 Dsi2RxSs_SelfTestExample(u32 BaseAddr)
 {
 	u32 Status;
-	XDsiRxSs_Config *ConfigPtr;
+	XDsi2RxSs_Config *ConfigPtr;
 
 	/* Obtain the device configuration for the MIPI DSI RX Subsystem */
-	ConfigPtr = XDsiRxSs_LookupConfig(DeviceId);
+	ConfigPtr = XDsi2RxSs_LookupConfig(BaseAddr);
 	if (!ConfigPtr) {
 		return XST_FAILURE;
 	}
@@ -121,15 +123,15 @@ u32 DsiRxSs_SelfTestExample(u32 DeviceId)
 	/* Copy the device configuration into the DsiRxSsInst's Config
 	 * structure.
 	 */
-	Status = XDsiRxSs_CfgInitialize(&DsiRxSsInst, ConfigPtr,
+	Status = XDsi2RxSs_CfgInitialize(&Dsi2RxSsInst, ConfigPtr,
 					ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
-		xil_printf("MIPI DSI RX SS config initialization failed.\n\r");
+		xil_printf("MIPI DSI2 RX SS config initialization failed.\n\r");
 		return XST_FAILURE;
 	}
 
 	/* Run the self test. */
-	Status = XDsiRxSs_SelfTest(&DsiRxSsInst);
+	Status = XDsi2RxSs_SelfTest(&Dsi2RxSsInst);
 
 	return Status;
 }
