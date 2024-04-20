@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 * 1.3   dc     03/21/22 Add prefix to global variables
 * 1.6   cog    07/18/23 Modify example for SDT flow
+* 1.7   cog    04/20/24 Configure si570 in Linux examples
 *
 * </pre>
 *
@@ -81,14 +82,12 @@ int main(void)
 {
 	printf("\r\n\nDFE Mixer (MIX) Examples: Start\r\n");
 
-#ifdef __BAREMETAL__
 	if (XST_SUCCESS !=
 	    XDfeSi570_SetMgtOscillator(XDFESI570_CURRENT_FREQUENCY,
 				       XDFESI570_NEW_FREQUENCY)) {
 		printf("Setting MGT oscillator failed\r\n");
 		return XST_FAILURE;
 	}
-#endif
 
 	/*
 	 * Run the DFE Mixer init/close example. Specify the Device ID
