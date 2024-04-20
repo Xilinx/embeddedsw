@@ -6,16 +6,16 @@
 /*****************************************************************************/
 /**
 *
-* @file xdsirxss.h
+* @file xdsi2rxss.h
 * @addtogroup dsirxss Overview
 * @{
 * @details
 *
 * This is main header file of the Xilinx MIPI DSI Rx Subsystem driver
 *
-* <b>MIPI DSI Rx Subsystem Overview</b>
+* <b>MIPI DSI2 Rx Subsystem Overview</b>
 *
-* MIPI DSI Subsystem is collection of IP cores defines high speed serial
+* MIPI DSI2 Subsystem is collection of IP cores defines high speed serial
 * interface between display peripheral and host processor. DSI Subsystem
 * translate data received from a MIPI DSI Transmitter. The MIPI DSI Rx
 * Subsystem is a plug-in solution for interfacing with MIPI DSI core.
@@ -24,7 +24,7 @@
 *
 * <b>Subsystem Features</b>
 *
-* MIPI DSI Rx Subsystem supports following features
+* MIPI DSI2 Rx Subsystem supports following features
 *	- Ultrascale+ family support.
 *	- Support for 1 to 4 Data Lanes.
 *	- Line rates ranging from 80 to 2500 Mbps.
@@ -75,11 +75,6 @@
 * driver have to register this handler with the interrupt system and provide
 * the callback functions by using XDSiRxSsSetCallback API
 *
-* <b>Virtual Memory </b>
-*
-* This driver supports Virtual Memory. The RTOS is responsible for calculating
-* the correct device base address in Virtual Memory space.
-*
 * <b>Threads </b>
 *
 * This driver is not thread safe. Any needs for threads or thread mutual
@@ -103,8 +98,8 @@
 *
 ******************************************************************************/
 
-#ifndef XDSIRXSS_H_   /* prevent circular inclusions */
-#define XDSIRXSS_H_
+#ifndef XDSI2RXSS_H_   /* prevent circular inclusions */
+#define XDSI2RXSS_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -114,7 +109,7 @@ extern "C" {
 
 
 #include "xil_types.h"
-#include "xdsi.h"
+#include "xdsi2rx.h"
 #include "xparameters.h"
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 #include "xdphy.h"
@@ -136,23 +131,23 @@ typedef struct {
 			in the design */
 	UINTPTR AddrOffset; /* Address offset of the IP */
 
-} DsiRxSsSubCore;
+} Dsi2RxSsSubCores;
 
 /**
  * Subsystem Enable/Disable
  */
 typedef enum {
-	XDSIRXSS_DISABLE,  /* DSI RX subsystem Disable */
-	XDSIRXSS_ENABLE	   /* DSI RX subsystem Enable */
-} XDsiSS_Selection;
+	XDSI2RXSS_DISABLE,  /* DSI RX subsystem Disable */
+	XDSI2RXSS_ENABLE	   /* DSI RX subsystem Enable */
+} XDsi2RxSs_Selection;
 
 /**
  * Sub-Core Enable/Disable
  */
 typedef enum {
-	XDSIRXSS_DSI,	/* DSI Core */
-	XDSIRXSS_PHY	/* DPHY */
-} XDsiSS_Subcore;
+	XDSI2RXSS_DSI,	/* DSI Core */
+	XDSI2RXSS_PHY	/* DPHY */
+} XDsi2RxSs_SubCore;
 
 /**
  * MIPI DSI Rx Subsystem configuration structure.
@@ -166,20 +161,16 @@ typedef struct {
 			  *  address range */
 	UINTPTR HighAddr;	/**< HighAddress is the physical
 			  *  MAX address of the subsystem address range */
-	u8 DsiLanes;	/**< DSI supported lanes 1, 2, 3, 4 */
 	u8 DataType;	/**< RGB  type */
-	u32 DsiByteFifo;	/**< 128, 256, 512, 1024, 2048, 4096,
-				              8192, 16384 */
-	u8 CrcGen;		/**< CRC Generation enable or not */
 	u8 DsiPixel;	/**< Pixels per beat received on input stream */
 	u32 DphyLinerate;	/**< DPHY line rate */
 	u32 IsDphyRegIntfcPresent; /**< Flag for DPHY register
 				 *  interface presence */
-	DsiRxSsSubCore DphyInfo;	/**< Sub-core instance configuration */
-	DsiRxSsSubCore DsiInfo;	/**< Sub-core instance configuration */
+	Dsi2RxSsSubCores DphyInfo;	/**< Sub-core instance configuration */
+	Dsi2RxSsSubCores Dsi2RxInfo;	/**< Sub-core instance configuration */
 	u16 IntrId;		/* Interrupt ID */
 	UINTPTR IntrParent; 	/* Bit[0] Interrupt Parent */
-} XDsiRxSs_Config;
+} XDsi2RxSs_Config;
 
 /**
 *
@@ -197,62 +188,49 @@ typedef struct {
 * @note		None.
 *
  *****************************************************************************/
-typedef void (*XDsiRxSs_Callback) (void *CallbackRef, u32 Mask);
+typedef void (*XDsi2RxSs_Callback) (void *CallbackRef, u32 Mask);
 
 /**
- * The XDsiRxSs driver instance data. The user is required to allocate a variable
- * of this type for every XDsiRxSs device in the system. A pointer to a variable
+ * The XDsi2RxSs driver instance data. The user is required to allocate a variable
+ * of this type for every XDsi2RxSs device in the system. A pointer to a variable
  * of this type is then passed to the driver API functions.
  */
 typedef struct {
-	XDsiRxSs_Config Config;	/**< Hardware configuration */
+	XDsi2RxSs_Config Config;	/**< Hardware configuration */
 	u32 IsReady;		/**< Device and the driver instance are
 				  *  initialized */
-	XDsi  *DsiPtr;		/**< handle to sub-core driver instance */
+	XDsi2Rx  *Dsi2RxPtr;		/**< handle to sub-core driver instance */
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy *DphyPtr;		/**< handle to sub-core driver instance */
 #endif
-	XDsi_ShortPacket SpktData; /**< Short packet strucute to
-					send short packet */
-	XDsiRx_CmdModePkt CmdPkt; /**< DSI Command mode packet structure */
 
-	XDsi_ConfigParameters ConfigInfo;  /**< Configuration information
+	XDsi2Rx_ConfigParameters ConfigInfo;  /**< Configuration information
 						contains GUI parameters,
 						Timing parameters */
 
-	XDsiRxSs_Callback ErrorCallback; 	/**< Callback function for
+	XDsi2RxSs_Callback ErrorCallback; 	/**< Callback function for
 						rest all errors */
 	void *ErrRef;				/**< To be passed to the
 						Error Call back */
-} XDsiRxSs;
+} XDsi2RxSs;
 
 /************************** Function Prototypes ******************************/
-XDsiRxSs_Config* XDsiRxSs_LookupConfig(UINTPTR BaseAddress);
-u32 XDsiRxSs_GetDrvIndex(XDsiRxSs *InstancePtr, UINTPTR BaseAddress);
+XDsi2RxSs_Config* XDsi2RxSs_LookupConfig(UINTPTR BaseAddress);
+u32 XDsi2RxSs_GetDrvIndex(XDsi2RxSs *InstancePtr, UINTPTR BaseAddress);
 
-s32 XDsiRxSs_CfgInitialize(XDsiRxSs *InstancePtr, XDsiRxSs_Config *CfgPtr,
+s32 XDsi2RxSs_CfgInitialize(XDsi2RxSs *InstancePtr, XDsi2RxSs_Config *CfgPtr,
 							UINTPTR EffectiveAddr);
-u32 XDsiRxSs_DefaultConfigure(XDsiRxSs *InstancePtr);
-int XDsiRxSs_Activate(XDsiRxSs *InstancePtr, XDsiSS_Subcore core, u8 Flag);
-void XDsiRxSs_Reset(XDsiRxSs *InstancePtr);
-void XDsiRxSs_ReportCoreInfo(XDsiRxSs *InstancePtr);
-u32 XDsiRxSs_SelfTest(XDsiRxSs *InstancePtr);
-void XDsiRxSs_SendShortPacket(XDsiRxSs *InstancePtr);
-int XDsiRxSs_SetDSIMode(XDsiRxSs *InstancePtr, XDsi_DsiModeType mode);
-int XDsiRxSs_SendCmdModePacket(XDsiRxSs *InstancePtr);
-void XDsiRxSs_GetConfigParams(XDsiRxSs *InstancePtr);
-u32 XDsiRxSs_IsControllerReady(XDsiRxSs *InstancePtr);
-u32 XDsiRxSs_GetPixelFormat(XDsiRxSs *InstancePtr);
-u32 XDsiRxSs_GetCmdQVacancy(XDsiRxSs *InstancePtr);
-s32 XDsiRxSs_SetVideoInterfaceTiming(XDsiRxSs *InstancePtr,
-					XDsi_VideoMode VideoMode,
-					XVidC_VideoMode Resolution,
-					u16 BurstPacketSize);
-s32 XDsiRxSs_SetCustomVideoInterfaceTiming(XDsiRxSs *InstancePtr,
-		XDsi_VideoMode VideoMode, XDsi_VideoTiming  *Timing);
-u32 XDsiRxSs_SetCallback(XDsiRxSs *InstancePtr, u32 HandlerType,
+u32 XDsi2RxSs_DefaultConfigure(XDsi2RxSs *InstancePtr);
+int XDsi2RxSs_Activate(XDsi2RxSs *InstancePtr, XDsi2RxSs_SubCore core, u8 Flag);
+void XDsi2RxSs_Reset(XDsi2RxSs *InstancePtr);
+void XDsi2RxSs_ReportCoreInfo(XDsi2RxSs *InstancePtr);
+u32 XDsi2RxSs_SelfTest(XDsi2RxSs *InstancePtr);
+void XDsi2RxSs_GetConfigParams(XDsi2RxSs *InstancePtr);
+u32 XDsi2RxSs_IsControllerReady(XDsi2RxSs *InstancePtr);
+u32 XDsi2RxSs_GetPixelFormat(XDsi2RxSs *InstancePtr);
+u32 XDsi2RxSs_SetCallback(XDsi2RxSs *InstancePtr, u32 HandlerType,
 				void *CallbackFunc, void *CallbackRef);
-void XDsiRxSs_IntrHandler(void *InstancePtr);
+void XDsi2RxSs_IntrHandler(void *InstancePtr);
 
 /************************** Variable Declarations ****************************/
 
