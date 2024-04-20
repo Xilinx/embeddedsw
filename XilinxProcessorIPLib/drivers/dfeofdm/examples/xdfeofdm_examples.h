@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   dc     11/21/22 Initial version
 * 1.1   cog    07/18/23 Modify example for SDT flow
+* 1.2   cog    04/20/24 Configure si570 in Linux examples
 *
 * </pre>
 *
@@ -50,11 +51,11 @@
 #define XDFEOFDM_NODE1_NAME "a7e40000.xdfe_ofdm"
 #define XDFEOFDM_NODE1_BASE 0xa7e40000
 #endif
-#define XDFESI570_CURRENT_FREQUENCY 156.25
-#define XDFESI570_NEW_FREQUENCY 122.88
 #else
 #define XDFEOFDM_NODE1_NAME "a7e40000.xdfe_ofdm"
 #endif
+#define XDFESI570_CURRENT_FREQUENCY 156.25
+#define XDFESI570_NEW_FREQUENCY 122.88
 
 /************************** Function Prototypes *****************************/
 /************************** Variable Definitions ****************************/
