@@ -36,6 +36,7 @@
 *                     VERSAL_NET SoC.
 * 5.2   mus  07/27/23 Removed dependency on XPAR_CPU_ID.
 * 5.2   ml   02/21/24 Fix compilation error reported by C++ compiler.
+* 5.2   mus  04/33/34 Use interrupt wrapper APIs in case of SDT flow.
 * </pre>
 ******************************************************************************/
 
@@ -51,7 +52,12 @@
 #include "xil_types.h"
 #include "xscugic.h"
 #include "xil_util.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
+#if defined (VERSAL_NET)
 #include "xplatform_info.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -170,7 +176,7 @@ int ScuGicExample(u32 BaseAddr)
 #endif
 {
 	int Status;
-	u32 CoreId;
+	u32 CoreId, CpuId;
 #if defined (VERSAL_NET)
 	u32 ClusterId;
 #endif
@@ -181,9 +187,6 @@ int ScuGicExample(u32 BaseAddr)
 	 */
 #ifndef SDT
 	GicConfig = XScuGic_LookupConfig(DeviceId);
-#else
-	GicConfig = XScuGic_LookupConfig(BaseAddr);
-#endif
 	if (NULL == GicConfig) {
 		return XST_FAILURE;
 	}
@@ -229,7 +232,24 @@ int ScuGicExample(u32 BaseAddr)
 	 * interrupt so the handlers will be called
 	 */
 	XScuGic_Enable(&InterruptController, INTC_DEVICE_INT_ID);
+#else
+	u32 IntrId;
+	UINTPTR IntcBaseAddr;
 
+	Status = XGetEncodedIntrId(INTC_DEVICE_INT_ID,XINTR_IS_EDGE_TRIGGERED,XINTR_IS_SGI,XINTC_TYPE_IS_SCUGIC, &IntrId);
+
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+        }
+
+	IntcBaseAddr = XGetEncodedIntcBaseAddr(XPAR_XSCUGIC_0_BASEADDR, XINTC_TYPE_IS_SCUGIC);
+
+	Status =  XSetupInterruptSystem(&InterruptController, DeviceDriverHandler, IntrId, IntcBaseAddr, XINTERRUPT_DEFAULT_PRIORITY);
+
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+        }
+#endif
 	/*
 	 *  Simulate the Interrupt
 	 */
@@ -241,14 +261,20 @@ int ScuGicExample(u32 BaseAddr)
 	CoreId = (1 << CoreId);
 #endif
 
-	Status = XScuGic_SoftwareIntr(&InterruptController,
-				      INTC_DEVICE_INT_ID,
-				      ((ClusterId << XSCUGIC_CLUSTERID_SHIFT ) | CoreId));
+	CpuId = ((ClusterId << XSCUGIC_CLUSTERID_SHIFT ) | CoreId);
 #else
-	Status = XScuGic_SoftwareIntr(&InterruptController,
-				      INTC_DEVICE_INT_ID,
-				      (XSCUGIC_SPI_CPU0_MASK << CoreId));
+	CpuId = (XSCUGIC_SPI_CPU0_MASK << CoreId);
 #endif
+
+#ifndef SDT
+        Status = XScuGic_SoftwareIntr(&InterruptController,
+                                      INTC_DEVICE_INT_ID,
+                                      CpuId);
+#else
+        Status = XTriggerSoftwareIntr(IntrId, IntcBaseAddr,
+                                      CpuId);
+#endif
+
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
