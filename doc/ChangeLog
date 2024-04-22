@@ -1,5 +1,177 @@
 Changes for 2024.1
 ===============================
+
+audio_formatter_v1_3:
+Added CMake file to support compiling driver & its examples in Unified flow
+v_hdmitxss1_v3_5:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Fix compilation error in sdt flow
+Add xparameters.h to fix compilation errors
+xhdmi_example: Fix HDMIRX/HDMITX Interrupt registration out of platform
+dependency.
+Fix compilation issue with non HDCP design
+Update PassThrough example application for VCU118 platform
+Fix yaml for vck190 passthrough example application
+hdcp_key_utility:Update driver to support new system device-tree flow.
+xhdmi_example:Update application to support system device-tree flow.
+Update Yaml file to support multi-interrupts in system device-tree flow.
+Update HDCP Controlling Logic to support system device-tree flow.
+Add yaml changes to support import examples
+Fix absolute for VTC and Tx core in SDT flow
+Add support for SDT flow
+v_hdmitx1_v2_4:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Add support for SDT flow
+Declare XV_HdmiTx1_LookupVic function in header file
+v_hdmirxss1_v3_5:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Fix yaml file for pass-through app on vck190
+Fix compilation error in sdt flow
+xhdmi_example: Update HDCP logic to support system device-tree flow.
+Fix compilation issue with non HDCP design
+Update PassThrough example application for VCU118 platform
+Update PassThrough example application for VCU118 platform
+hdcp_key_utility: Update driver to support new system device-tree flow.
+Add Multiple interrupt support for new system device-tree flow.
+Update HDCP Controlling Logic to support system device-tree flow.
+Add yaml changes to support import examples
+Fix absolute address for Rx core in SDT flow
+example: Fix application compilation error in SDT flow
+Add support for SDT flow
+v_hdmirx1_v1_8:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Add support for SDT flow
+v_hdmitxss_v6_4:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Fix interrupt ID argument in interrupt setup function
+Update HDCP Repeater example to support SDT flow.
+xhdmi_example: Update HDCP logic to support system device-tree flow for versal
+boards.
+Fix compilation issue with non HDCP design
+Fix TxOnly application for microblaze platform
+Fix PassThrough application for vcu118 platform
+Fix example application build error with zc706 platform
+Add SDT flow support to I2S audio example application
+Fix interrupt ID argument in interrupt setup function
+Update HDCP Repeater example to support SDT flow.
+xhdmi_example: Update HDCP logic to support system device-tree flow for versal
+boards.
+Fix compilation issue with non HDCP design
+Fix TxOnly application for microblaze platform
+Fix PassThrough application for vcu118 platform
+Fix example application build error with zc706 platform
+Add SDT flow support to I2S audio example application
+Add SDT support in PT app for vck190 platform
+Correct application file name in yaml file
+xhdmi_example:PassThrough:Update HDCP initialization to support system
+device-tree flow.
+hdcp_key_utility: Update driver to support new system device-tree flow.
+Update HDCP Controlling Logic to support system device-tree flow.
+Add Multiple interrupt support for new system device-tree flow.
+Add yaml changes to support import examples
+Add support for SDT flow
+axicdma_v4_13:
+Added CMake file to support compiling driver examples in Yocto flow
+v_hdmitx_v2_7:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Add support for SDT flow
+axidma_v9_18:
+Added CMake file to support compiling driver examples in Yocto flow
+Add support for riscv
+v_hdmirxss_v6_5:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Fix interrupt ID argument in interrupt setup
+Update HDCP Repeater example to support SDT flow.
+xhdmi_example: Update HDCP logic to support system device-tree flow for versal
+boards.
+Fix compilation issue with non HDCP design
+Fix PassThrough application for vcu118 platform
+Fix RxOnly application for microblaze platform
+Fix example application build error with zc706 platform
+Add SDT support in PT app for vck190 platform
+Correct application file name in yaml file
+hdcp_key_utility: Update driver to support new system device-tree flow.
+Add Multiple interrupt support for new system device-tree flow.
+xhdmi_example: PassThrough: Update HDCP initialization to support system
+device-tree flow.
+Update HDCP Controlling Logic to support system device-tree flow.
+Fixed yaml to support import examples
+Add yaml changes to support import examples
+Update SDT flow in PassThrough example application
+Add support for SDT flow
+v_hdmirx_v2_8:
+Added CMake file to support compiling driver & its examples in Unified flow.
+v_hdmirx: Add support for SDT flow
+axiethernet_v5_17:
+Update CMakeLists.txt in examples folder to facilitate driver
+examples compilation in the Yocto flow.
+v_hdmiphy1_v2_8:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Add support for SDT flow
+Fix yaml file to pull the hdmiphy1 driver for ZU+ devices
+Add speedgrade variable in yaml
+Fix speedgrade member in XHdmiphy1_Config structure
+axipmon_v6_11	:
+Add support for compiling driver examples in Yocto flow
+Add SDT check to use interrupt wrapper API
+v_hdmi_common_v1_7:
+Added CMake file to support compiling driver in Unified flow.
+Add support for SDT flow
+sdiaud_v2_3:
+Added CMake file to support compiling driver & its examples in Unified flow.
+axis_switch_v1_7:
+Add support for compiling driver examples in Yocto flow
+v_sditx_v3_3:
+Added CMake file to support compiling driver & its examples in Unified flow.
+bram_v4_10:
+Add support for compiling driver examples in Yocto flow
+v_sdirx_v2_5:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Fixed the External screen has incorrect vertically when using the 3G SDI Level
+B with Dual link.
+Fixed the SDI - HD & SD modes should display default even though source is not
+an ST352 complaint.
+Fixed the UART trace message for no ST352 scenarios.
+can_v3_8:
+Add new member to config structure
+Modify XCan_InterruptEnable to enable only the interrupts passed as argument
+Add ECC enablement for CAN driver
+Update the interrupt example for ECC enablement
+Add support for compiling driver examples in Yocto flow
+lwip220_v1_1:
+Upgrade to lwip library version to 2.2.0
+Use constant time memcmp functions in lwip stack
+Update Ethernet peripheral dependent property list in yaml
+Fix compilation error in clock setup for GEM1 on Versal-net
+Add support RISC-V
+Fix emaclite lwip adapter support in SDT flow
+Add support for GEM + Soft PCS PMA systems in SDT flow
+Add support for ACD and DHCP with ACD check and enable it by default
+Fix IAR warnings, print message format specifier warning.
+xiltimer_v1_4:
+Implement new API to get the library version info
+Rename the NON_YOCTO variable to YOCTO
+Add support for Microblaze RISC-V
+Add microblaze_riscv_sleep.c in case of MB V
+Use rdtime for default sleep timer
+Fix compilation failures related to MB V default timer
+Properly initialize MB V default timer
+Update sleep timer for APU processors.
+Update the processor checks for VersalNet  platform
+canfd_v2_9:
+Add support for compiling driver examples in Yocto flow
+xilskey_v7_6:
+Update the CMakeLists.txt to support yocto flow
+Rename the NON_YOCTO variable to YOCTO
+Added API to get version info for xilskey library
+Added support to compile example in Yocto Flow
+Updated Efuse status bits of ultrascale devices
+canps_v3_8:
+Add initial support for Microblaze RISC-V
+Fix compilation warnings
+Update example to fix compilation error in Rigel flow
+Add support for compiling examples in Yocto flow
+
 New Files Added for 2024.1:
 
 SPDX-License-Identifier: MIT
