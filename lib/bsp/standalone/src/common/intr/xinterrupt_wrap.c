@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -21,6 +21,7 @@
 * 7.2   mus  22/11/21 First release of xil interrupt support
 * 9.0   adk  17/04/23 Added support for system device-tree flow
 * 9.0   adk  27/04/23 Use XScuGic_LookupConfigBaseAddr() API for xsct flow
+* 9.1   mus  16/04/24 Add support for software generated interrupts.
 * </pre>
 *
 ******************************************************************************/
@@ -452,4 +453,102 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 	Xil_ExceptionEnable();
 	return XST_SUCCESS;
 }
+
+/*****************************************************************************/
+/**
+*
+* @brief    Convert legacy interrupt id to encoded interrupt ID needed by
+*           interrupt wrapper layer.
+*
+* @param    LegacyIntrId Interrupt ID of specific peripheral/PL-PS interrupt
+*           port documented in TRM of targeted SoC.
+* @param  : TriggerType Trigger type for targted interrupt ID (documented in
+*           TRM of targeted SoC)
+* 		1 = low-to-high edge triggered
+*	        2 = high-to-low edge triggered
+*	        4 = active high level-sensitive
+*	        8 = active low level-sensitive
+*
+* @param    IntrType Interrupt type of targeted interrupt ID.
+* 		0 = SPI
+* 		1 = PPI (not applicable for AXI INTC)
+* 		2 = SGI
+* @param    IntcType Parent interrupt contoller of targeted interrupt ID
+* 		1 = AXI INTC
+* 		0 = GIC
+*
+* @param    IntrId Interrupt ID in encoded format compliant with interrupt
+*           wrapper layer. It is output parameter.
+* @return   XST_SUCCESS if LegacyIntrId is encoded successfully and copied to
+*                       IntrId
+*           XST_FAILURE in case of incorrect input parameter
+*
+* @note     None.
+*
+******************************************************************************/
+s32 XGetEncodedIntrId(u32 LegacyIntrId, u32 TriggerType, u8 IntrType, u8 IntcType, u32 *IntrId ) {
+	s32 Status = XST_FAILURE;
+
+	if (IntcType != XINTC_TYPE_IS_SCUGIC && IntcType != XINTC_TYPE_IS_INTC) {
+		return Status;
+	}
+	*IntrId = LegacyIntrId;
+
+	if (IntcType == XINTC_TYPE_IS_SCUGIC) {
+		if (IntrType == XSPI) {
+			*IntrId -= 32;
+		} else if (IntrType == XPPI) {
+			*IntrId -= 16;
+			*IntrId |= XINTC_INTR_TYPE_SHIFT;
+		} else if (IntrType == XSGI) {
+			*IntrId |= (1 << XINTC_IS_SGI_INTR_SHIFT);
+		} else {
+			return Status;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+	*IntrId |= ((TriggerType << XINTC_TRIGGER_SHIFT) & XINTC_TRIGGER_MASK);
+
+	return Status;
+
+}
+/*****************************************************************************/
+/**
+*
+* @brief    Trigger software interrupt
+*
+* @param    IntrId Targeted interrupt ID
+* @param    IntcType Parent interrupt controller base address in encoded format
+* @param    Cpu_Id List of CPUs to send the interrupt. NA for AXI INTC.
+*           For VERSAL_NET bits 0-7 specifies core ID to send the interrupt.
+*           bits 8-15 specifies the cluster id.
+
+* @return   XST_SUCCESS - Successful generation of software interrupt
+*           XST_FAILURE - in case of failure
+*
+* @note     None.
+*
+******************************************************************************/
+s32 XTriggerSoftwareIntr(u32 IntrId, UINTPTR IntcParent, u32 Cpu_Id)
+{
+	s32 Status = XST_SUCCESS;
+	u16 IntrNum = XGet_IntrId(IntrId);
+
+	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
+#if defined (XPAR_SCUGIC)
+		Status = XScuGic_SoftwareIntr(&XScuGicInstance, IntrNum, Cpu_Id);
+#endif
+	} else {
+#if defined (XPAR_AXI_INTC)
+		(void) Cpu_Id;
+		Status = XIntc_TriggerSwIntr(&XIntcInstance, IntrNum);
+#endif
+	}
+
+	return Status;
+
+}
+
 #endif
