@@ -410,6 +410,307 @@ Add initial support for Microblaze RISC-V
 Fix compilation warnings
 Update example to fix compilation error in Rigel flow
 Add support for compiling examples in Yocto flow
+xilsem_v1_9:
+
+Added support for A78 baremetal, Versal-Net PL MB client applications
+Optimized the GT bus hold time (releasing the GT arbitration
+immediately after reading GT registers)
+In previous releases, for SSIT client interface user needs to define
+"XILSEM_ENABLE_SSIT " macro. Now, from this release, updated XilSEM
+Vitis build scripts to enable the SSIT macro automatically based on
+device type.
+Added protection for error injection operations in XilSEM examples
+with "XILSEM_ERRINJ_ENABLE". This is mainly to avoid using the example
+as is in the user application
+In Vitis SDT flow, event notifications are not sent to user
+applications from PLM due to incorrect IPI base address macro. Fixed
+this notification issue by correcting the base address in SDT flow.
+Added an interface to read Total frames in CRAM for SSIT devices
+Device support for: VE1752, VE2802, VP2502, VP1902
+clk_wiz_v1_7:
+Fix internal Security review commentsAdd support for compiling driver
+examples in Yocto flow
+Add SDT check to use interrupt wrapper API
+xilsecure_v5_3:
+Build scripts cleanup
+Changed BSP options visibility
+Add support for SCR enabled RSA quiet mode
+Fixed MISRA-C violations and Coverity warnings
+Update the CMakeLists.txt to support yocto flow
+Rename the NON_YOCTO variable to YOCTO
+Added API to get version info for keyunwrap feature
+Updated API for ECDH
+Add input validations in all ipihandlers
+Add support to run KAT for xilocp and xilcert
+Replace Xil_SMemSet with Xil_SecureZeroize for critical parameters
+Provide inputs as string instead of byte array
+Clear AES Keys when RedKey clear is set in PMC RAM
+Added single API support for GMAC and update AAD support for GCM
+Fix status success assignment for invalid mod data
+Place PMC TRNG in reset
+Add client support XSecure_RsaExp
+Add RSA CRT support for keyunwrap
+Add SHA384 mgf support
+Fix logical issue in updating keyslot value
+Add option to support blocking or non-blocking reseed operation
+Corrected length of IntHash for zeroization
+Support for AES Operation and Zeroize Key
+Versal_net SDT support
+Updated return type for IsCryptoKatEn and IsFipsModeEn
+Update CMakeLists.txt for new files
+Update XPlmi_DmaXfr passing argument to word level
+Added enable configuration for ECC curve.
+Updated parameter description for XSecure_IsNonZeroBuffer
+Added support to compile example in Yocto Flow
+Optimization of AES initialization code
+Add support for non-word aligned data
+Fix RSA quiet mode issues and update KAT
+xilpuf_v2_3:
+
+Updated BSP options visibility
+Update the CMakeLists.txt to support yocto flow
+Rename the NON_YOCTO variable to YOCTO
+Deprecated server mode for versalnet
+Add input validations in all ipihandlers
+Added header file required for SDT flow
+Versal_net SDT support
+Added support to compile example in Yocto Flow
+Updated PUF client example to support only client mode
+clockps_v1_6:
+Add support for compiling driver examples in Yocto flow
+xilpm_v5_2:
+Versal
+
+Secure lockdown of all blocks in Versal family of devices
+Jyothee to fill HBM temp
+Versal Net
+In-place PLM update from Xilpm lib perspective
+xilplmi_v2_0:
+Enhanced Error Handling after In-Place PLM Update.
+Added secure lockdown with and without IO tri-state to EAM
+error actions list.
+Added support for In-place Update from PDI in Image Store.
+Enable Slave Error in PSM_GLOBAL to raise an exception in case
+of accessing unimplemented register.
+Add redundancy to TAMPER_RESP_0 and TAMPER_TRIG register
+writes during secure lockdown.
+Updated the CMakeLists.txt to support build yocto flow.
+Rename the NON_YOCTO variable to YOCTO.
+Added 5PPk support by default for new versal devices.
+Added API to get version info.
+Added support Trigger Error Out pins in case of PLM errors
+before going to Error State.
+Security COE review fixes: Added error code for default case
+in XLoader_StartImage.
+Update error action in Error Table to NONE while disabling the
+error.
+Updated validation checks to handle both internal modules and
+user modules.
+Added error support for OptionalDataLen Check.
+Disable Master interrupts for SSIT event.
+Fixed compilation warnings generated during
+write_device_image.
+Added code to Verify Address Range for the addresses coming
+from IPI commands.
+Added offsets to list IPI commands.
+Prints optimization, Reduced log level of less frequent print.
+PSM & PMC buffers DS are saved to handle IPU use case.
+Added PMC RAM address in Verify Address API.
+Added client support for xilplmi.
+Logstring and begin command logic enhancement.
+Updated XPlmi_SetPmcIroFreq function to handle 320MHz for
+production silicon.
+Addition of new line after printing string in Plmi_LogString,
+XPlmi_Begin functions.
+Enabled XilNvm & XilPuf libraries by default for Versalnet.
+Optimized u8 variables by changing it to u32, because each u8
+variable is using an additional instruction to convert word
+data to u8.
+Updated return type for IsCryptoKatEn and IsFipsModeEn.
+Added Client examples for xilloader and xilplmi.
+Converted major errors to minor based on usage.
+Fixed internal security review comments.
+Add logic to print the DDRMC list for which user selected to
+skip Calib Check.
+Removed XPm_IdleRestartHandler.
+Ack In-Place PLM Update request only after Done.
+Restore CUSTOM error actions handled by PLM after In-place PLM
+update.
+Make SD drive number logic order independent.
+Set LogCdoOffset by default in JTAG boot mode.
+Modification is done to consider error in S-SLR PMC CDO.
+Update prints to use correct format specifier for 32bit
+variables.
+Add Authentication Optimization support for MetaHeader.
+Fix improper PLM timestamp issue after In-place PLM update.
+Added CDO debug prints.
+Fixed MISRA-C violations.
+Correct configuration read format for VP1902 device.
+xilpki_v2_1:
+Correct the PKI_ECC_NIST_P384_KEY_PRIV_GEN_CMD value.
+
+Fixed error handling issues exists with XPki_DeQueueData()
+API.
+
+Fixed security issues relevant to instance pointer NULL check.
+
+Added option to support blocking or non-blocking reseed
+operation.
+xilpdi_v1_9:
+Enhance Extract Metaheader command to get optional data.
+Add Authentication Optimization support for MetaHeader.
+Fixed doxygen comments format.
+coresightps_dcc_v1_10:
+Fix compilation error for Microblaze RISC-V
+Fix compilation errors reported with -std=c2x compiler flag
+Fixed source code-format issue.
+remove references to pg flag from bsp if present
+Fix compilation errors reported by IAR
+Add device_type field in the driver yamls
+xilocp_v1_3:
+
+Handle the CDO command, whose payload is more than 8
+words on chunk boundary
+Added API to get version info for xilocp library
+Add support to run KAT for xilocp and xilcert
+Move handling of SetSwPcrConfig CDO
+Add input validation in XOcp_ProcessCmd
+Replace Xil_SMemSet with Xil_SecureZeroize for
+critical parameters
+Throw an error when data is in upper DDR if it is > 48
+bytes
+Versal_net SDT support
+Updated return type for IsCryptoKatEn and IsFipsModeEn
+Fix MISRA C violation
+Add support to extend secure state to SWPCR
+Add support for DME extension
+Clear memory buffer after calculating PCR
+Fix issue for getting swpcr data
+Fix DME failure
+csudma_v1_15:
+Added CMake file to support compiling driver examples
+in Yocto flow
+xilnvm_v3_3:
+Changed BSP options visibility
+Fixed MISRA-C violations
+Check if all required eFUSEs are programmed before
+programming Decrypt only eFUSEs
+Rename the NON_YOCTO variable to YOCTO
+Extend 5PPK support to new devices
+Deprecated server mode for versalnet
+
+Add input validations in all ipihandlers
+Support for reading and writing PMC_SC_EN and
+HWTSTBITS_DIS eFuse bits
+Added Microblaze support for versalnet
+Program the eFuse protection bits only once
+Validate the decrypt only puf helper data
+Program RoSwap only when it is non-zero
+Update IS_PUF_HD empty return status to XST_SUCCESS
+Extend secure state during efuse programming
+Added support to compile example in Yocto Flow
+Added support for eFuse programming from linux
+Update validation check during additional PPK
+programming
+ddrcpsu_v1_6:
+fixed compilation warnings.
+xilmailbox_v1_9:
+Implement new API to get the library version info
+Rename the NON_YOCTO variable to YOCTO
+Add microblaze-v platform check
+Add Versal Net specific processors wherever missing
+clear interrupt after calling user handler
+Add initial support for Microblaze RISC-V
+xilloader_v2_0:
+Run KAT during Authenticated Jtag message.
+Remove unnecessary SHA3 initializations during load
+PDI.
+Fix compilation warning when PLM_EN_ADD_PPKS macro is
+enabled.
+Added redundancy in XLoader_EnableJtag.
+Added error code for default case in
+XLoader_StartImage.
+Fixed SD macro check for selecting the drive number
+based on the number of SD controllers defined and
+supports in both XSCT and SDT flows.
+Clear AES Keys when RedKey clear is set in PMC RAM.
+Update PUF shutter value and Ring oscillator
+configuration from boot header.
+Added code to Verify Address Range for the addresses
+coming from IPI commands.
+During exception or an error during boot, place PMC
+TRNG in reset.
+Prints optimization, Reduced log level of less
+frequent print.
+Fixed compilation warning by removing unused macro.
+Clear AES keys during initial PDI and partial PDI
+failure.
+Add client support for xilloader.
+Support validation of authenticated PDI
+Add client API to validate authenticated PDI.
+Add required support in the server part of xilloader.
+Add example to demonstrate the use of the client API.
+Do delayed handoffs and subsystem activation after
+boot device is released.
+PLM will now give up the boot device as soon as it is
+done loading the images from a PDI. Once the device is
+released, each deferred subsystem will now get
+activated just before the first cpu handoff within
+that subsystem.
+Added IS25LX512M ospi flash support to versal.
+Optimized u8 variables by changing it to u32, because
+each u8 variable is using an additional instruction to
+convert word data to u8.
+Update XLoader_ReadAndValidateHdrs prototype to fix
+doxygen comments.
+Updated SD/eMMC logical partition comments in
+xloader_sd.c.
+Added client examples for xilloader.
+Converted major errors to minor based on usage.
+Converted major errors to minor errors, which are used
+in minor error position.
+Updated error comments.
+Added "FAILURE" and "INVALID_PARAM" minor errors with
+the same error number as XST errors.
+Add support PSMFW update:
+To support loading PSM.elf, we expose process
+partition function to public.
+Add extra PDI type: IPU (in-place update) type of PDI.
+Fixed internal security review comments.
+Add logic to print the DDRMC list for which user
+selected to skip Calib Check.
+Add support to extend secure state when DAP state
+change is detected and also during AuthJtag or unlock
+jtag request.
+Added enable configuration for ECC curve.
+Added support for Infineon S28HS02GTFPBHI050 OSPI
+flash part.
+Add support in Extract Metaheader command to get
+optional data from PDI(Full or Partial) which can be
+stored in either DDR or Image Store.
+Make SD drive number logic order independent.
+Added code to handle sub-partition for APU subsystem
+and resolved the issue related to ATFHandoff Params.
+Added support for Macronix 2G flash part -
+MX66UM2G45G.
+Add Authentication Optimization support for
+MetaHeader.
+Fixed doxygen warnings.
+Added support to configure the Die config in Spansion
+Flash.
+Remove releasing DDR from update psm.elf.
+Update RSA PSS KAT to use 2048-bit key.
+Fix unit design document review comments.
+dmaps_v2_10:
+Added CMake file to support compiling driver examples
+in Yocto flow.
+xilfpga_v6_6:
+Renamed the NON_YOCTO variable to YOCTO.
+Added proper validations checks for InstancePtr and
+BitstreamImageAddr parameters.
+Removed None parameter from description to fix doxygen
+warnings.
+Updated cmake and yaml files to support VersalNet platform.
 
 
 New Files Added for 2024.1:
