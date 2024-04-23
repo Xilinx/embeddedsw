@@ -1,5 +1,180 @@
 Changes for 2024.1
 ===============================
+csi2txss_1_6:
+Added support of yaml file for SDT file
+Added support of CMakelists.txt file
+Updated drivers under src directory to have support of SDT flow.
+Added support of _g.c structure as per new SDT flow.
+Updated ZCU102 platforms to add support of SDT flow.
+csi2tx_1_4:
+Add support of yaml file for subcore.
+Add SDT flow to driver.
+Add system device tree file support for the subcore.
+dsirxss_1_0:
+Added DSIRXSS driver only for Vitis unified flow.
+Added basic APIs that will support initialization of All subcores.
+Added device tree support for the IP and its all sub-cores.
+Added yaml support for the sub-system IP.
+Added selftest driver.
+Added selftest application for ZCU102 platform.
+dsi2rx_1_0:
+Add support of yaml file for subcore.
+Write driver to be supported only in new unified flow.
+Add system device tree file support for the subcore.
+Defined new HW file defining register map of the new IP.
+Added support for global interrupts.
+Created a selftest driver.
+dsitxss_2_4:
+Added support of yaml file for SDT file
+Added support of CMakelists.txt file
+Updated drivers under src directory to have support of SDT flow.
+Added support of _g.c structure as per new SDT flow.
+Updated ZCU102, VCK190 and VEK280 platforms to add support of SDT flow.
+Fix various issues reported during regression.
+Add support of import example designs for new unified Vitis tool.
+dsi_1_5:
+Add support of yaml file for subcore.
+Add SDT flow to driver.
+Add system device tree file support for the subcore.
+dphy_1_6:
+Add support of yaml file for subcore.
+Add SDT flow to driver.
+Add system device tree file support for the subcore.
+Add example _g.c file for dphy demo with both rx and tx connectivity.
+mipi-csi2-rx-ctrl-1.0:
+Add support of yaml file for subcore.
+Add SDT flow to driver.
+Add system device tree file support for the subcore.
+mipicsiss_1_11:
+Added support of yaml file for SDT file
+Added support of CMakelists.txt file
+Updated drivers under src directory to have support of SDT flow.
+Added support of _g.c structure as per new SDT flow.
+Updated ZCU102, VCK190 and VEK280 platforms to add support of SDT flow.
+Fix various issues reported during regression.
+Add support of import example designs for new unified Vitis tool.
+Add support of CPHY Subcore through CSI RXSS driver as well selftest
+application.
+Add system device tree tcl files to generate the device tree for the MIPICSISS
+vprocss_v2_13:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+
+Updated example application to support decoupling flow.
+
+Added import example support
+
+Added SDT changes to generate correct parameters in pl.dtsi file
+v_warp_init_v1_5:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+
+Updated example application to support decoupling flow.
+
+Corrected example to exit when warp vectors are not generated.
+
+Added import example support
+v_warp_filter_v1_4:
+vPorted driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+v_vscaler_v3_3:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+v_vcresampler_v3_3:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+v_tpg_v8_6:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+
+Updated example application to support decoupling flow.
+
+Added import example support
+
+Added SDT changes to generate correct parameters in pl.dtsi file
+v_scenechange_v1_5:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+
+Updated example application to support decoupling flow.
+
+Added import example support
+v_multi_scaler_v1_5:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+
+Updated example application to support decoupling flow.
+
+Added import example support
+Added SDT changes to generate correct parameters in pl.dtsi file
+v_letterbox_v2_4:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+v_hscaler_v3_5:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+v_hcresampler_v3_3:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+v_gamma_lut_v1_5:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+
+Updated example application to support decoupling flow.
+
+Added import example support
+Added import example support
+
+v_frmbuf_wr_v4_8:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+
+Added import example support
+v_frmbuf_rd_v4_8:
+
+Application fix to support decoupling flow
+
+Added import example support
+v_demosaic_v1_4:
+Added support for decoupling flow
+
+Updated example application to support decoupling flow.
+
+Added import example support
+v_deinterlacer_v7_3:
+
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+
+Updated example application to support decoupling flow.
+v_csc_v2_6:
+Added support for decoupling flow
+
+Updated example application to support decoupling flow.
+
+Fix for coefficients settings overridden.
+v_axi4s_remap_v1_4:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+
+Updated example application to support decoupling flow.
+
+Added import example support
+mipi_tx_phy_v1_0:
+New Driver for MIPI Tx combo phy
+
+Added source code, yaml file, mdd file and respective SDT modifications to git
+
+Added selftest example.
+mipi_rx_phy_v1_0:
+New Driver for MIPI Rx combo phy
+
+Added source code, yaml file, mdd file and respective SDT modifications to git
+
+Added selftest example.
+srio_v1_5:
+Nonfunctional changes, doxygen and code formatting.
+
 dp21_v2_2:
 Added CMake file to support compiling driver & its examples in Unified flow.
 Add support for unified flow
