@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -92,8 +92,11 @@ typedef struct
 
 /**************************** Local Global ***********************************/
 //Define Driver instance of all sub-core included in the design */
-//XVprocSs_SubCores subcoreRepo[XPAR_XVPROCSS_NUM_INSTANCES];
+#ifndef SDT
+XVprocSs_SubCores subcoreRepo[XPAR_XVPROCSS_NUM_INSTANCES];
+#else
 XVprocSs_SubCores subcoreRepo[];
+#endif
 
 static const char *XVprocSsIpStr[XVPROCSS_SUBCORE_MAX] =  {
     "VidOut",
