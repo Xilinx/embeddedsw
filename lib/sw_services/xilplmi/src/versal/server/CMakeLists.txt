@@ -3,7 +3,6 @@
 
 collect (PROJECT_LIB_HEADERS xplmi_plat.h)
 collect (PROJECT_LIB_HEADERS xplmi_hw.h)
-collect (PROJECT_LIB_HEADERS xplmi_error_node.h)
 collect (PROJECT_LIB_HEADERS xplmi_wdt.h)
 collect (PROJECT_LIB_HEADERS xplmi_config.h)
 collect (PROJECT_LIB_HEADERS xplmi_ssit.h)

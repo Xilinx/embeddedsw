@@ -62,6 +62,7 @@ cp -r $SERVICES_DIR/xilpdi/src/common/*.h $BSP_DIR/include/
 mkdir -p $BSP_DIR/libsrc/xilplmi/src
 cp -r $SERVICES_DIR/xilplmi/src/Makefile $BSP_DIR/libsrc/xilplmi/src
 cp -r $SERVICES_DIR/xilplmi/src/versal_net/server/* $BSP_DIR/libsrc/xilplmi/src/
+cp -r $SERVICES_DIR/xilplmi/src/versal_net/common/* $BSP_DIR/libsrc/xilplmi/src/
 cp -r $SERVICES_DIR/xilplmi/src/common/server/* $BSP_DIR/libsrc/xilplmi/src/
 cp -r $SERVICES_DIR/xilplmi/src/common/common/* $BSP_DIR/libsrc/xilplmi/src/
 cp -r $BSP_DIR/libsrc/xilplmi/src/*.h $BSP_DIR/include/
