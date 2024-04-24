@@ -108,6 +108,8 @@
 #cmakedefine SYS_DEBUG @SYS_DEBUG@
 #cmakedefine API_MSG_DEBUG @API_MSG_DEBUG@
 #cmakedefine PBUF_DEBUG @PBUF_DEBUG@
+#cmakedefine DHCP_DEBUG @DHCP_DEBUG@
+#cmakedefine ACD_DEBUG @ACD_DEBUG@
 #cmakedefine MEMP_DEBUG @MEMP_DEBUG@
 #cmakedefine OS_IS_FREERTOS @OS_IS_FREERTOS@
 #cmakedefine LWIP_PROVIDE_ERRNO @LWIP_PROVIDE_ERRNO@
