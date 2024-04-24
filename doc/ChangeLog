@@ -1,5 +1,49 @@
 Changes for 2024.1
 ===============================
+
+axipcie_v3_4:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
+file
+Updated example application to support decoupling flow.
+cpu_riscv_v1_1:
+Update makefile to fix compilation issues observed on windows
+intc_v3_18:
+Added support FAST interrupts for MB V
+iomodule_v2_16:
+Fixed compilation errors in peripheral tests
+pciepsu_v1_7:
+Fix the BAR allocation in pcie-psu driver based on endpoint request.
+Fix macro declaration for header type mask.
+Fix BAR allocation to consider maximum size of BAR region.
+Add properties to support SDT flow for Endpoint driver.
+Add Egress transfer support.
+scugic_v5_3:
+Ported driver examples to SDT flow
+Fixed compilation errors reported by C++ compiler
+Added support for compiling examples in Yocto flow
+
+usbps_v2_9:
+Fixed failures reported by CV test suite "Chapter 9 Tests [USB 2 devices] CV
+tests
+
+usbpsu_v1_15:
+Update FreeRTOS based examples to support SDT flow
+Fixed compilation errors reported with -std=c2x compiler flag
+standalone_v9_1:
+Update memory tests APIs in common/xil_testmem.c to  run tests with single
+pattern by default (it reduces execution time). All available patterns
+included if  XIL_ENABLE_MEMORY_STRESS_TEST is defined in compiler flags.
+Added support for MB V delay routines
+Added Xil_MemMap API for ARMv8 BSP
+Ported standalone/examples to SDT flow
+Added SDT flow support for MB V BSP
+Added support in xil_printf to print 64 bit variables from 32 bit platform
+freertos10_xilinx_v1_15:
+Upgrade kernel to 10.6.1
+Port interrupt example to SDT flow
+
+
+
 csi2txss_1_6:
 Added support of yaml file for SDT file
 Added support of CMakelists.txt file
