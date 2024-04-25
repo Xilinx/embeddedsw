@@ -25,6 +25,8 @@
 * 5.3  kpt   12/13/2023 Added RSA quiet mode support
 *      kpt   01/19/2023 Fix passing public exponent
 *      ss    04/05/2024 Fixed doxygen warnings
+*      vss   04/25/2024 Use XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK
+*      			instead of XPLMI_SECURE_RSA_KAT_MASK
 *
 * </pre>
 *
@@ -255,7 +257,7 @@ static int XSecure_RsaExpQOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh
 	u8 *Tot = NULL;
 	u32 PubModulus[XSECURE_RSA_4096_SIZE_WORDS];
 
-	if (XPlmi_IsKatRan(XPLMI_SECURE_RSA_KAT_MASK) != TRUE) {
+	if (XPlmi_IsKatRan(XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK) != TRUE) {
 		Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
 		goto END;
 	}
