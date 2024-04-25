@@ -1198,11 +1198,11 @@ Added support for system device-tree flow
 Added API to get crypto algorithm information
 Updated adapttestcutoff and reptestcutoff default values
 
-libmetal_v2_6:
-Added support for system device-tree flow
+libmetal_v2_7:
+lib: xlnx: Avoid mapping in MPU for region mapped by bsp
 
-openamp_v1_9:
-Added support for system device-tree flow
+openamp_v1_10:
+ThirdParty: Libmetal, OpenAMP: Ensure cleanup of SDT Flow directory occurs
 
 v_hdmitx1_v2_3:
 Added support for Configurable VTEM Packet in HDMI 2.1 Tx.
