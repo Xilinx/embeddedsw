@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xplmi.h"
@@ -239,7 +239,9 @@ static XStatus Pld_ReleaseChildren(XPm_PlDevice *PlDevice)
 
 	PlDevice->Child = NULL;
 	XPmPlDevice_ReleaseAieDevice(PlDevice);
-	Status = XST_SUCCESS;
+
+	/* Release any DDRMCs linked to this PLD */
+	Status = Pld_ReleaseMemCtrlr(PlDevice);
 
 done:
 	return Status;
@@ -698,17 +700,36 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 	u32 Offset = 2U;
 
 	if ((6U != NumArgs) && (10U != NumArgs)) {
-
 		Status = XST_INVALID_PARAM;
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		goto done;
 	}
 
-	/* PLD must be in an initializing state */
+	/*
+	 * Current PLD or one of parents from the tree must be in an initializing state
+	 *
+	 * This is because DDR modeling information for a given PLD can be present in
+	 * its own RM (partial) or a default RM present in one its parent RM or static image.
+	 */
 	if ((u8)XPM_DEVSTATE_INITIALIZING != PlDevice->Device.Node.State) {
-		Status = XPM_ERR_DEVICE_STATUS;
-		DbgErr = XPM_INT_ERR_INVALID_STATE;
-		goto done;
+		XPm_PlDevice *Parent = PlDevice->Parent;
+		while (NULL != Parent) {
+			if ((u8)XPM_DEVSTATE_INITIALIZING == Parent->Device.Node.State) {
+				Status = XST_SUCCESS;
+				break;
+			}
+			Parent = Parent->Parent;
+		}
+		/*
+		 * We can end up here in either of the two failure cases:
+		 *  1. No parent in the hierarchy is initializing
+		 *  2. PLD0 which is the root node is not initializing
+		 */
+		if (NULL == Parent) {
+			Status = XPM_ERR_DEVICE_STATUS;
+			DbgErr = XPM_INT_ERR_INVALID_STATE;
+			goto done;
+		}
 	}
 
 	/* Lookup DDRMC device based on provided address in args */
@@ -732,6 +753,7 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 		}
 	}
 	if (XST_SUCCESS != Status) {
+		Status = XST_INVALID_PARAM;
 		DbgErr = XPM_INT_ERR_PLDEVICE_FUNC_MEM_CTRLR_MAP;
 		goto done;
 	}
