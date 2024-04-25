@@ -1295,39 +1295,45 @@ Added support for system device-tree flow for driver and examples
 cpu_cortexa9_v2_12:
 Fix doxygen warnings
 
-dfeccf_v1_6:
-Remove immediate trigger
-Add system device-tree support
-Deprecate obsolete APIs
-Function comment update
+dfeccf_v1_7:
+Configure si570 in Linux examples
+Fix SDT flow number of instances
+CMakeLists dependencies
+Update version number in makefiles
+Support Baremetal SDT Yocto Flow
 
-dfeequ_v1_5:
-Add system device-tree support
+dfeequ_v1_6:
+Configure si570 in Linux examples
+Fix SDT flow number of instances
+CMakeLists dependencies
+Support Baremetal SDT Yocto Flow
 
-dfemix_v1_6:
-Remove immediate trigger
-Add system device-tree support
-Deprecate obsolete APIs
-Correct comment about gain
+dfemix_v1_7:
+Configure si570 in Linux examples
+Fix SDT flow number of instances
+CMakeLists dependencies
+Update version number in makefiles
+Support Baremetal SDT Yocto Flow
 
-dfeofdm_v1_1:
-Remove immediate trigger
-Add system device-tree support
-Deprecate obsolete APIs
-Antenna interleave delay reorder
-Output delay in ccid slots
-Add phase compensation calculation
-State and status upgrades
-Update documentation
+dfeofdm_v1_2:
+Configure si570 in Linux examples
+Update hw version in yamal
+Update hw version
+Fix SDT flow number of instances
+CMakeLists dependencies
+Correct sw major/minor version numbers
+Support Baremetal SDT Yocto Flow
+Support for FFT size 512
+Doxygen documenatation update
 
-dfeprach_v1_6:
-Remove immediate trigger
-Add system device-tree support
-Deprecate obsolete APIs
-Configure all trigger parameters in examples
-Support dynamic and static modes of operation
-Dual and single mode calculation fix
-Set NCO config for RCId=0 fix
+dfeprach_v1_7:
+Configure si570 in Linux examples
+Update device node name
+Correct order of RACH mapping steps
+CMakeLists dependencies
+Support Baremetal SDT Yocto Flow
+Correct memset destination address
+Add continuous scheduling
 
 emacps_v3_19:
 Added system device-tree flow support
