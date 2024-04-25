@@ -1,472 +1,14 @@
 Changes for 2024.1
 ===============================
 
-axipcie_v3_4:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-Updated example application to support decoupling flow.
-cpu_riscv_v1_1:
-Update makefile to fix compilation issues observed on windows
-intc_v3_18:
-Added support FAST interrupts for MB V
-iomodule_v2_16:
-Fixed compilation errors in peripheral tests
-pciepsu_v1_7:
-Fix the BAR allocation in pcie-psu driver based on endpoint request.
-Fix macro declaration for header type mask.
-Fix BAR allocation to consider maximum size of BAR region.
-Add properties to support SDT flow for Endpoint driver.
-Add Egress transfer support.
-scugic_v5_3:
-Ported driver examples to SDT flow
-Fixed compilation errors reported by C++ compiler
-Added support for compiling examples in Yocto flow
-
-usbps_v2_9:
-Fixed failures reported by CV test suite "Chapter 9 Tests [USB 2 devices] CV
-tests
-
-usbpsu_v1_15:
-Update FreeRTOS based examples to support SDT flow
-Fixed compilation errors reported with -std=c2x compiler flag
-standalone_v9_1:
-Update memory tests APIs in common/xil_testmem.c to  run tests with single
-pattern by default (it reduces execution time). All available patterns
-included if  XIL_ENABLE_MEMORY_STRESS_TEST is defined in compiler flags.
-Added support for MB V delay routines
-Added Xil_MemMap API for ARMv8 BSP
-Ported standalone/examples to SDT flow
-Added SDT flow support for MB V BSP
-Added support in xil_printf to print 64 bit variables from 32 bit platform
-freertos10_xilinx_v1_15:
-Upgrade kernel to 10.6.1
-Port interrupt example to SDT flow
-
-
-
-csi2txss_1_6:
-Added support of yaml file for SDT file
-Added support of CMakelists.txt file
-Updated drivers under src directory to have support of SDT flow.
-Added support of _g.c structure as per new SDT flow.
-Updated ZCU102 platforms to add support of SDT flow.
-csi2tx_1_4:
-Add support of yaml file for subcore.
-Add SDT flow to driver.
-Add system device tree file support for the subcore.
-dsirxss_1_0:
-Added DSIRXSS driver only for Vitis unified flow.
-Added basic APIs that will support initialization of All subcores.
-Added device tree support for the IP and its all sub-cores.
-Added yaml support for the sub-system IP.
-Added selftest driver.
-Added selftest application for ZCU102 platform.
-dsi2rx_1_0:
-Add support of yaml file for subcore.
-Write driver to be supported only in new unified flow.
-Add system device tree file support for the subcore.
-Defined new HW file defining register map of the new IP.
-Added support for global interrupts.
-Created a selftest driver.
-dsitxss_2_4:
-Added support of yaml file for SDT file
-Added support of CMakelists.txt file
-Updated drivers under src directory to have support of SDT flow.
-Added support of _g.c structure as per new SDT flow.
-Updated ZCU102, VCK190 and VEK280 platforms to add support of SDT flow.
-Fix various issues reported during regression.
-Add support of import example designs for new unified Vitis tool.
-dsi_1_5:
-Add support of yaml file for subcore.
-Add SDT flow to driver.
-Add system device tree file support for the subcore.
-dphy_1_6:
-Add support of yaml file for subcore.
-Add SDT flow to driver.
-Add system device tree file support for the subcore.
-Add example _g.c file for dphy demo with both rx and tx connectivity.
-mipi-csi2-rx-ctrl-1.0:
-Add support of yaml file for subcore.
-Add SDT flow to driver.
-Add system device tree file support for the subcore.
-mipicsiss_1_11:
-Added support of yaml file for SDT file
-Added support of CMakelists.txt file
-Updated drivers under src directory to have support of SDT flow.
-Added support of _g.c structure as per new SDT flow.
-Updated ZCU102, VCK190 and VEK280 platforms to add support of SDT flow.
-Fix various issues reported during regression.
-Add support of import example designs for new unified Vitis tool.
-Add support of CPHY Subcore through CSI RXSS driver as well selftest
-application.
-Add system device tree tcl files to generate the device tree for the MIPICSISS
-vprocss_v2_13:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-
-Updated example application to support decoupling flow.
-
-Added import example support
-
-Added SDT changes to generate correct parameters in pl.dtsi file
-v_warp_init_v1_5:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-
-Updated example application to support decoupling flow.
-
-Corrected example to exit when warp vectors are not generated.
-
-Added import example support
-v_warp_filter_v1_4:
-vPorted driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-v_vscaler_v3_3:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-v_vcresampler_v3_3:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-v_tpg_v8_6:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-
-Updated example application to support decoupling flow.
-
-Added import example support
-
-Added SDT changes to generate correct parameters in pl.dtsi file
-v_scenechange_v1_5:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-
-Updated example application to support decoupling flow.
-
-Added import example support
-v_multi_scaler_v1_5:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-
-Updated example application to support decoupling flow.
-
-Added import example support
-Added SDT changes to generate correct parameters in pl.dtsi file
-v_letterbox_v2_4:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-v_hscaler_v3_5:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-v_hcresampler_v3_3:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-v_gamma_lut_v1_5:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-
-Updated example application to support decoupling flow.
-
-Added import example support
-Added import example support
-
-v_frmbuf_wr_v4_8:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-
-Added import example support
-v_frmbuf_rd_v4_8:
-
-Application fix to support decoupling flow
-
-Added import example support
-v_demosaic_v1_4:
-Added support for decoupling flow
-
-Updated example application to support decoupling flow.
-
-Added import example support
-v_deinterlacer_v7_3:
-
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-
-Updated example application to support decoupling flow.
-v_csc_v2_6:
-Added support for decoupling flow
-
-Updated example application to support decoupling flow.
-
-Fix for coefficients settings overridden.
-v_axi4s_remap_v1_4:
-Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt
-file
-
-Updated example application to support decoupling flow.
-
-Added import example support
-mipi_tx_phy_v1_0:
-New Driver for MIPI Tx combo phy
-
-Added source code, yaml file, mdd file and respective SDT modifications to git
-
-Added selftest example.
-mipi_rx_phy_v1_0:
-New Driver for MIPI Rx combo phy
-
-Added source code, yaml file, mdd file and respective SDT modifications to git
-
-Added selftest example.
-srio_v1_5:
-Nonfunctional changes, doxygen and code formatting.
-
-dp21_v2_2:
-Added CMake file to support compiling driver & its examples in Unified flow.
-Add support for unified flow
-Add support for octa pixel mode
-Add high level API's to configure/read MSA parameters.
-xilflash_v4_11:
-Update the CMakeLists.txt to support yocto flow.
-Rename the NON_YOCTO variable to YOCTO.
-dp21rxss_v1_2:
-Added CMake file to support compiling driver & its examples in Unified flow.
-Add support for unified flow
-Add support for octa pixel mode
-Add high level API's to configure/read MSA parameters.
-xilffs_v5_2:
-Added new API to get library version.
-Added support for trim operation in SDT flow.
-Updated FATFS to latest version.
-Added support to use base address instead of device ID in SDT flow.
-Added MB-V platform support.
-Added versal net platform support.
-Fixed doxygen related warnings.
-Fixed build failure when default configuration of xilffs is changed.
-xilcert_v1_2:
-Updated Issuer field in DevAK Certificate
-Add support to run KAT for xilocp and xilcert
-Add Subject Alternative Name field
-Avoids infinite loop
-Versal_net SDT support
-Add support for DME extension
-
-Fixed calculation of hash in serial field
-dp21txss_v2_2:
-Added CMake file to support compiling driver & its examples in Unified flow.
-Add support for unified flow
-Add support for octa pixel mode
-Add high level API's to configure/read MSA parameters.
-dpdma_v1_6:
-Fixed MISRA-C violations
-zdma_v1_18:
-Added CMake file to support compiling driver examples in Yocto flow
-xxvethernet_v1_9:
-Update CMakeLists.txt in examples folder to facilitate driver.
-
-examples compilation in the Yocto flow.
-emaclite_v4_9:
-Common fixes - IAR warning fixes and device_type field
-wdttb_v5_8:
-Remove unneeded depends section from the yaml
-Remove compatible property check for winwdt examples
-Add initial support for Microblaze RISC-V
-Add support for compiling examples in Yocto flow
-Add SDT check to use interrupt wrapper API
-Add doxygen fixes
-wdtps_v3_7:
-Add support for compiling examples in Yocto flow
-emacps_v3_20:
-Added CMake file to support compiling driver examples in Yocto flow
-Fix mask in XEmacPs_BdGetBufAddr
-HwTail check fix in XEmacPs_BdRingFromHwRX  and XEmacPs_BdRingFromHwRX
-Allow clocking config parameter always in SDT flow
-Add support GEM + Soft PCS PMA designs in SDT flow
-Common fixes - IAR warning fixes and device_type field in SDT
-usbpsu_v1_15:
-Update FreeRTOS based examples to support SDT flow
-
-Fixed compilation errors reported with -std=c2x compiler flag
-usbps_v2_9:
-Fixed failures reported by CV test suite "Chapter 9 Tests [USB
-2 devices] CV tests"
-uartpsv_v1_10:
-Add initial support for Microblaze RISC-V
-Add support for compiling driver examples in Yocto flow
-Add SDT check to use interrupt wrapper API
-uartps_v3_14:
-Add initial support for Microblaze RISC-V
-Add support for compiling driver examples in Yocto flow
-Fix junk character at fsbl handoff
-Add SDT check to use interrupt wrapper API
-uartns550_v3_10:
-Add initial support for Microblaze RISC-V
-Add support for compiling driver examples in Yocto flow
-Fix compilation warning of interrupt example
-emc_v4_3:
-Update addtogroup to Overview.
-uartlite_v3_10:
-Remove references to pg flag from bsp if present
-Add initial support for Microblaze RISC-V
-Add SDT check to support interrupt example in SDT flow
-Add support for compiling driver examples in Yocto flow
-Add device_type field in the driver yamls
-ttcps_v3_19:
-Updated version to latest in examples/index.html for multiple
-drivers
-Add device_type field in the driver yamls
-Add examples support in SDT flow.
-Revert "ttcps: Add examples support in SDT flow."
-Add support for peripheral tests in SDT flow
-Add support for compiling examples in Yocto flow
-gpio_v4_11:
-Add IER and GIER to xgpio_intr_tapp_example in SDT flow
-Add initial support for Microblaze RISC-V
-Add support for compiling driver examples in Yocto flow
-Add SDT check to use interrupt wrapper API
-trngpsx_v1_2:
-
-Add support for non-blocking reseed operation
-Fix issue in PRNG set and reset
-trngpsv_v1_5:
-Updated yaml file
-trafgen_v4_6:
-Add support for compiling driver examples in Yocto
-flow
-
-Add SDT check to use interrupt wrapper API
-gpiops_v3_13	:
-Add support for compiling driver examples in Yocto
-flow
-Add multi-core interrupt support
-Fix compilation warning of XGpioPs_SelfTes
-tft_v6_5:
-Add support for compiling driver examples in Yocto
-flow
-i2srx_v2_3:
-Added CMake file to support compiling driver & its
-examples in Unified flow.
-C++ build compilation errors fixed.
-i2stx_v2_3:
-Added CMake file to support compiling driver & its
-examples in Unified flow
-i3cpsx_v1_3:
-Update the slave property
-Add support for system device-tree flow
-Add support for system device-tree flow for example
-Fix code formatting issues with checkpatch
-Add support for compiling driver examples in Yocto
-flow
-Add prints under debug
-Update the base address
-Update the compatible
-i3c_v1_0:
-Initial version
-Remove XI3c_ResetFifos from XI3C_BusInit and examples
-Remove repeated start check and update
-XI3c_MasterRecvPolled
-Add Read/write FIFO depth config parameter
-Add data comparison check and msb byte assignment in
-examples
-Correct byte count return type
-Add SCL configuration support
-Add Tx FIFO threshold configuration parameter
-Correct maximum data length value
-iic_v3_11:
-Update 10 bit address and gpo width parameters names
-in iic.yaml
-Add support for compiling driver examples in Yocto
-flow
-iicps_v3_19:
-Incremented driver version to 3.19
-Add support for compiling driver examples in Yocto
-flow
-ipipsu_v2_15:
-Fix compilation warning
-Update for the name change
-Add initial support for Microblaze RISC-V
-Add PSM, PMC related bitmask macros for versal-net
-Add support for compiling driver examples in Yocto
-flow
-Add Doxygen fixes
-Add device_type field in the driver yamls
-llfifo_v5_7:
-Add support for compiling driver examples in Yocto
-flow
-mbox_v4_7:
-Add microblaze-v platform check
-Add dependencies for the examples
-Add support for compiling examples in Yocto flow
-mcdma_v1_10:
-Added CMake file to support compiling driver examples
-in Yocto flow
-mutex_v4_8:
-Add support for compiling examples in yocto flow
-nandps_v2_9:
-Move stack based BBT array to global instance to
-avoid stack overflow.
-Add support for compiling examples in Yocto flow.
-nandpsu_v1_13:
-Add support for compiling examples in Yocto flow.
-Write BBT to correct location.
-Ensure block erasure is device relative.
-Mark correct reserved blocks.
-Ensure that missing BBTs are detected.
-Read correct BBT size.
-Always wrap page to device size.
-Avoid loop counter reset.
-Ensure buffer cache sync.
-ospipsv_v1_10:
-Add support for MX66UM2G45G Macronix flash part
-Add support for is25lx512m issi flash part
-Add support for compiling driver examples in Yocto
-flow
-Add OSPI controller reset for hardware pin reset
-Increase the hold time after device reset
-Update OSPI TX tap delay element to 0x26 for DDR mode
-Add support for Infineon flash part S28HS02GT
-qspips_v3_12:
-Add support for compiling examples in Yocto flow.
-Add missing parenthesis for macro expansions.
-qspipsu_v1_19:
-Add support for versal premium.
-Add microblaze-v platform check.
-Add support for W25Q256JW Winbond flash and IS25LP02G
-ISSI flash parts.
-Add nand examples in dependency and yaml file.
-Add support for compiling driver examples in yocto
-flow.
-Add support to set QSPI clock based on baud rate
-divisor.
-Revise the export feedback clock property logic in
-tcl.
-Add doxygen fixes.
-resetps_v1_7:
-Add support for compiling examples in Yocto flow
-rtcpsu_v1_14:
-Add support for compiling driver examples in yocto
-flow
-sdps_v4_3:
-Updated CMake file to support compiling driver
-examples in Yocto flow.
-Added support to read custom HS400 tap delay value
-from design.
-Added sanitize feature support for emmc.
-Added MB-V platform support.
-spi_v4_12:
-Add initial support for Microblaze RISC-V.
-Add support for compiling driver examples in Yocto
-flow.
-spdif_v1_2:
-Added CMake file to support compiling driver & its
-examples in Unified flow.
-C++ build compilation errors fixed.
 audio_formatter_v1_3:
 Added CMake file to support compiling driver & its examples in Unified flow
+
 v_hdmitxss1_v3_5:
 Added CMake file to support compiling driver & its examples in Unified flow.
 Fix compilation error in sdt flow
 Add xparameters.h to fix compilation errors
-xhdmi_example: Fix HDMIRX/HDMITX Interrupt registration out of platform
-dependency.
+xhdmi_example: Fix HDMIRX/HDMITX Interrupt registration out of platform dependency.
 Fix compilation issue with non HDCP design
 Update PassThrough example application for VCU118 platform
 Fix yaml for vck190 passthrough example application
@@ -477,10 +19,12 @@ Update HDCP Controlling Logic to support system device-tree flow.
 Add yaml changes to support import examples
 Fix absolute for VTC and Tx core in SDT flow
 Add support for SDT flow
+
 v_hdmitx1_v2_4:
 Added CMake file to support compiling driver & its examples in Unified flow.
 Add support for SDT flow
 Declare XV_HdmiTx1_LookupVic function in header file
+
 v_hdmirxss1_v3_5:
 Added CMake file to support compiling driver & its examples in Unified flow.
 Fix yaml file for pass-through app on vck190
@@ -496,15 +40,16 @@ Add yaml changes to support import examples
 Fix absolute address for Rx core in SDT flow
 example: Fix application compilation error in SDT flow
 Add support for SDT flow
+
 v_hdmirx1_v1_8:
 Added CMake file to support compiling driver & its examples in Unified flow.
 Add support for SDT flow
+
 v_hdmitxss_v6_4:
 Added CMake file to support compiling driver & its examples in Unified flow.
 Fix interrupt ID argument in interrupt setup function
 Update HDCP Repeater example to support SDT flow.
-xhdmi_example: Update HDCP logic to support system device-tree flow for versal
-boards.
+xhdmi_example: Update HDCP logic to support system device-tree flow for versal boards.
 Fix compilation issue with non HDCP design
 Fix TxOnly application for microblaze platform
 Fix PassThrough application for vcu118 platform
@@ -512,8 +57,7 @@ Fix example application build error with zc706 platform
 Add SDT flow support to I2S audio example application
 Fix interrupt ID argument in interrupt setup function
 Update HDCP Repeater example to support SDT flow.
-xhdmi_example: Update HDCP logic to support system device-tree flow for versal
-boards.
+xhdmi_example: Update HDCP logic to support system device-tree flow for versal boards.
 Fix compilation issue with non HDCP design
 Fix TxOnly application for microblaze platform
 Fix PassThrough application for vcu118 platform
@@ -521,27 +65,29 @@ Fix example application build error with zc706 platform
 Add SDT flow support to I2S audio example application
 Add SDT support in PT app for vck190 platform
 Correct application file name in yaml file
-xhdmi_example:PassThrough:Update HDCP initialization to support system
-device-tree flow.
+xhdmi_example:PassThrough:Update HDCP initialization to support system device-tree flow.
 hdcp_key_utility: Update driver to support new system device-tree flow.
 Update HDCP Controlling Logic to support system device-tree flow.
 Add Multiple interrupt support for new system device-tree flow.
 Add yaml changes to support import examples
 Add support for SDT flow
+
 axicdma_v4_13:
 Added CMake file to support compiling driver examples in Yocto flow
+
 v_hdmitx_v2_7:
 Added CMake file to support compiling driver & its examples in Unified flow.
 Add support for SDT flow
+
 axidma_v9_18:
 Added CMake file to support compiling driver examples in Yocto flow
 Add support for riscv
+
 v_hdmirxss_v6_5:
 Added CMake file to support compiling driver & its examples in Unified flow.
 Fix interrupt ID argument in interrupt setup
 Update HDCP Repeater example to support SDT flow.
-xhdmi_example: Update HDCP logic to support system device-tree flow for versal
-boards.
+xhdmi_example: Update HDCP logic to support system device-tree flow for versal boards.
 Fix compilation issue with non HDCP design
 Fix PassThrough application for vcu118 platform
 Fix RxOnly application for microblaze platform
@@ -550,52 +96,61 @@ Add SDT support in PT app for vck190 platform
 Correct application file name in yaml file
 hdcp_key_utility: Update driver to support new system device-tree flow.
 Add Multiple interrupt support for new system device-tree flow.
-xhdmi_example: PassThrough: Update HDCP initialization to support system
-device-tree flow.
+xhdmi_example: PassThrough: Update HDCP initialization to support system device-tree flow.
 Update HDCP Controlling Logic to support system device-tree flow.
 Fixed yaml to support import examples
 Add yaml changes to support import examples
 Update SDT flow in PassThrough example application
 Add support for SDT flow
+
 v_hdmirx_v2_8:
 Added CMake file to support compiling driver & its examples in Unified flow.
 v_hdmirx: Add support for SDT flow
+
 axiethernet_v5_17:
 Update CMakeLists.txt in examples folder to facilitate driver
 examples compilation in the Yocto flow.
+
 v_hdmiphy1_v2_8:
 Added CMake file to support compiling driver & its examples in Unified flow.
 Add support for SDT flow
 Fix yaml file to pull the hdmiphy1 driver for ZU+ devices
 Add speedgrade variable in yaml
 Fix speedgrade member in XHdmiphy1_Config structure
-axipmon_v6_11	:
+
+axipmon_v6_11   :
 Add support for compiling driver examples in Yocto flow
 Add SDT check to use interrupt wrapper API
+
 v_hdmi_common_v1_7:
 Added CMake file to support compiling driver in Unified flow.
 Add support for SDT flow
+
 sdiaud_v2_3:
 Added CMake file to support compiling driver & its examples in Unified flow.
+
 axis_switch_v1_7:
 Add support for compiling driver examples in Yocto flow
+
 v_sditx_v3_3:
 Added CMake file to support compiling driver & its examples in Unified flow.
+
 bram_v4_10:
 Add support for compiling driver examples in Yocto flow
+
 v_sdirx_v2_5:
 Added CMake file to support compiling driver & its examples in Unified flow.
-Fixed the External screen has incorrect vertically when using the 3G SDI Level
-B with Dual link.
-Fixed the SDI - HD & SD modes should display default even though source is not
-an ST352 complaint.
+Fixed the External screen has incorrect vertically when using the 3G SDI Level B with Dual link.
+Fixed the SDI - HD & SD modes should display default even though source is not an ST352 complaint.
 Fixed the UART trace message for no ST352 scenarios.
+
 can_v3_8:
 Add new member to config structure
 Modify XCan_InterruptEnable to enable only the interrupts passed as argument
 Add ECC enablement for CAN driver
 Update the interrupt example for ECC enablement
 Add support for compiling driver examples in Yocto flow
+
 lwip220_v1_1:
 Upgrade to lwip library version to 2.2.0
 Use constant time memcmp functions in lwip stack
@@ -606,6 +161,7 @@ Fix emaclite lwip adapter support in SDT flow
 Add support for GEM + Soft PCS PMA systems in SDT flow
 Add support for ACD and DHCP with ACD check and enable it by default
 Fix IAR warnings, print message format specifier warning.
+
 xiltimer_v1_4:
 Implement new API to get the library version info
 Rename the NON_YOCTO variable to YOCTO
@@ -616,40 +172,36 @@ Fix compilation failures related to MB V default timer
 Properly initialize MB V default timer
 Update sleep timer for APU processors.
 Update the processor checks for VersalNet  platform
+
 canfd_v2_9:
 Add support for compiling driver examples in Yocto flow
+
 xilskey_v7_6:
 Update the CMakeLists.txt to support yocto flow
 Rename the NON_YOCTO variable to YOCTO
 Added API to get version info for xilskey library
 Added support to compile example in Yocto Flow
 Updated Efuse status bits of ultrascale devices
+
 canps_v3_8:
 Add initial support for Microblaze RISC-V
 Fix compilation warnings
-Update example to fix compilation error in Rigel flow
+Update example to fix compilation error in decoupling flow
 Add support for compiling examples in Yocto flow
-xilsem_v1_9:
 
+xilsem_v1_9:
 Added support for A78 baremetal, Versal-Net PL MB client applications
-Optimized the GT bus hold time (releasing the GT arbitration
-immediately after reading GT registers)
-In previous releases, for SSIT client interface user needs to define
-"XILSEM_ENABLE_SSIT " macro. Now, from this release, updated XilSEM
-Vitis build scripts to enable the SSIT macro automatically based on
-device type.
-Added protection for error injection operations in XilSEM examples
-with "XILSEM_ERRINJ_ENABLE". This is mainly to avoid using the example
-as is in the user application
-In Vitis SDT flow, event notifications are not sent to user
-applications from PLM due to incorrect IPI base address macro. Fixed
-this notification issue by correcting the base address in SDT flow.
+Optimized the GT bus hold time (releasing the GT arbitration immediately after reading GT registers)
+In previous releases, for SSIT client interface user needs to define "XILSEM_ENABLE_SSIT " macro. Now, from this release, updated XilSEM Vitis build scripts to enable the SSIT macro automatically based on device type.
+Added protection for error injection operations in XilSEM examples with "XILSEM_ERRINJ_ENABLE". This is mainly to avoid using the example as is in the user application
+In Vitis SDT flow, event notifications are not sent to user applications from PLM due to incorrect IPI base address macro. Fixed this notification issue by correcting the base address in SDT flow.
 Added an interface to read Total frames in CRAM for SSIT devices
 Device support for: VE1752, VE2802, VP2502, VP1902
+
 clk_wiz_v1_7:
-Fix internal Security review commentsAdd support for compiling driver
-examples in Yocto flow
+Fix internal Security review commentsAdd support for compiling driver examples in Yocto flow
 Add SDT check to use interrupt wrapper API
+
 xilsecure_v5_3:
 Build scripts cleanup
 Changed BSP options visibility
@@ -684,8 +236,8 @@ Added support to compile example in Yocto Flow
 Optimization of AES initialization code
 Add support for non-word aligned data
 Fix RSA quiet mode issues and update KAT
-xilpuf_v2_3:
 
+xilpuf_v2_3:
 Updated BSP options visibility
 Update the CMakeLists.txt to support yocto flow
 Rename the NON_YOCTO variable to YOCTO
@@ -695,90 +247,74 @@ Added header file required for SDT flow
 Versal_net SDT support
 Added support to compile example in Yocto Flow
 Updated PUF client example to support only client mode
+
 clockps_v1_6:
 Add support for compiling driver examples in Yocto flow
-xilpm_v5_2:
-Versal
 
-Secure lockdown of all blocks in Versal family of devices
-Jyothee to fill HBM temp
-Versal Net
-In-place PLM update from Xilpm lib perspective
+xilpm_v5_2:
+	Versal
+		Secure lockdown of all blocks in Versal family of devices
+		Jyothee to fill HBM temp
+	Versal Net
+		In-place PLM update from Xilpm lib perspective
+
 xilplmi_v2_0:
 Enhanced Error Handling after In-Place PLM Update.
-Added secure lockdown with and without IO tri-state to EAM
-error actions list.
+Added secure lockdown with and without IO tri-state to EAM error actions list.
 Added support for In-place Update from PDI in Image Store.
-Enable Slave Error in PSM_GLOBAL to raise an exception in case
-of accessing unimplemented register.
-Add redundancy to TAMPER_RESP_0 and TAMPER_TRIG register
-writes during secure lockdown.
+Enable Slave Error in PSM_GLOBAL to raise an exception in case of accessing unimplemented register.
+Add redundancy to TAMPER_RESP_0 and TAMPER_TRIG register writes during secure lockdown.
 Updated the CMakeLists.txt to support build yocto flow.
 Rename the NON_YOCTO variable to YOCTO.
 Added 5PPk support by default for new versal devices.
 Added API to get version info.
-Added support Trigger Error Out pins in case of PLM errors
-before going to Error State.
-Security COE review fixes: Added error code for default case
-in XLoader_StartImage.
-Update error action in Error Table to NONE while disabling the
-error.
-Updated validation checks to handle both internal modules and
-user modules.
+Added support Trigger Error Out pins in case of PLM errors before going to Error State.
+Security COE review fixes: Added error code for default case in XLoader_StartImage.
+Update error action in Error Table to NONE while disabling the error.
+Updated validation checks to handle both internal modules and user modules.
 Added error support for OptionalDataLen Check.
 Disable Master interrupts for SSIT event.
-Fixed compilation warnings generated during
-write_device_image.
-Added code to Verify Address Range for the addresses coming
-from IPI commands.
+Fixed compilation warnings generated during write_device_image.
+Added code to Verify Address Range for the addresses coming from IPI commands.
 Added offsets to list IPI commands.
 Prints optimization, Reduced log level of less frequent print.
 PSM & PMC buffers DS are saved to handle IPU use case.
 Added PMC RAM address in Verify Address API.
 Added client support for xilplmi.
 Logstring and begin command logic enhancement.
-Updated XPlmi_SetPmcIroFreq function to handle 320MHz for
-production silicon.
-Addition of new line after printing string in Plmi_LogString,
-XPlmi_Begin functions.
+Updated XPlmi_SetPmcIroFreq function to handle 320MHz for production silicon.
+Addition of new line after printing string in Plmi_LogString, XPlmi_Begin functions.
 Enabled XilNvm & XilPuf libraries by default for Versalnet.
-Optimized u8 variables by changing it to u32, because each u8
-variable is using an additional instruction to convert word
-data to u8.
+Optimized u8 variables by changing it to u32, because each u8 variable is using an additional instruction to convert word data to u8.
 Updated return type for IsCryptoKatEn and IsFipsModeEn.
 Added Client examples for xilloader and xilplmi.
 Converted major errors to minor based on usage.
 Fixed internal security review comments.
-Add logic to print the DDRMC list for which user selected to
-skip Calib Check.
+Add logic to print the DDRMC list for which user selected to skip Calib Check.
 Removed XPm_IdleRestartHandler.
 Ack In-Place PLM Update request only after Done.
-Restore CUSTOM error actions handled by PLM after In-place PLM
-update.
+Restore CUSTOM error actions handled by PLM after In-place PLM update.
 Make SD drive number logic order independent.
 Set LogCdoOffset by default in JTAG boot mode.
 Modification is done to consider error in S-SLR PMC CDO.
-Update prints to use correct format specifier for 32bit
-variables.
+Update prints to use correct format specifier for 32bit variables.
 Add Authentication Optimization support for MetaHeader.
 Fix improper PLM timestamp issue after In-place PLM update.
 Added CDO debug prints.
 Fixed MISRA-C violations.
 Correct configuration read format for VP1902 device.
+
 xilpki_v2_1:
 Correct the PKI_ECC_NIST_P384_KEY_PRIV_GEN_CMD value.
-
-Fixed error handling issues exists with XPki_DeQueueData()
-API.
-
+Fixed error handling issues exists with XPki_DeQueueData() API.
 Fixed security issues relevant to instance pointer NULL check.
+Added option to support blocking or non-blocking reseed operation.
 
-Added option to support blocking or non-blocking reseed
-operation.
 xilpdi_v1_9:
 Enhance Extract Metaheader command to get optional data.
 Add Authentication Optimization support for MetaHeader.
 Fixed doxygen comments format.
+
 coresightps_dcc_v1_10:
 Fix compilation error for Microblaze RISC-V
 Fix compilation errors reported with -std=c2x compiler flag
@@ -786,18 +322,15 @@ Fixed source code-format issue.
 remove references to pg flag from bsp if present
 Fix compilation errors reported by IAR
 Add device_type field in the driver yamls
-xilocp_v1_3:
 
-Handle the CDO command, whose payload is more than 8
-words on chunk boundary
+xilocp_v1_3:
+Handle the CDO command, whose payload is more than 8 words on chunk boundary
 Added API to get version info for xilocp library
 Add support to run KAT for xilocp and xilcert
 Move handling of SetSwPcrConfig CDO
 Add input validation in XOcp_ProcessCmd
-Replace Xil_SMemSet with Xil_SecureZeroize for
-critical parameters
-Throw an error when data is in upper DDR if it is > 48
-bytes
+Replace Xil_SMemSet with Xil_SecureZeroize for critical parameters
+Throw an error when data is in upper DDR if it is > 48 bytes
 Versal_net SDT support
 Updated return type for IsCryptoKatEn and IsFipsModeEn
 Fix MISRA C violation
@@ -806,21 +339,19 @@ Add support for DME extension
 Clear memory buffer after calculating PCR
 Fix issue for getting swpcr data
 Fix DME failure
+
 csudma_v1_15:
-Added CMake file to support compiling driver examples
-in Yocto flow
+Added CMake file to support compiling driver examples in Yocto flow
+
 xilnvm_v3_3:
 Changed BSP options visibility
 Fixed MISRA-C violations
-Check if all required eFUSEs are programmed before
-programming Decrypt only eFUSEs
+Check if all required eFUSEs are programmed before programming Decrypt only eFUSEs
 Rename the NON_YOCTO variable to YOCTO
 Extend 5PPK support to new devices
 Deprecated server mode for versalnet
-
 Add input validations in all ipihandlers
-Support for reading and writing PMC_SC_EN and
-HWTSTBITS_DIS eFuse bits
+Support for reading and writing PMC_SC_EN and HWTSTBITS_DIS eFuse bits
 Added Microblaze support for versalnet
 Program the eFuse protection bits only once
 Validate the decrypt only puf helper data
@@ -829,10 +360,11 @@ Update IS_PUF_HD empty return status to XST_SUCCESS
 Extend secure state during efuse programming
 Added support to compile example in Yocto Flow
 Added support for eFuse programming from linux
-Update validation check during additional PPK
-programming
+Update validation check during additional PPK programming
+
 ddrcpsu_v1_6:
 fixed compilation warnings.
+
 xilmailbox_v1_9:
 Implement new API to get the library version info
 Rename the NON_YOCTO variable to YOCTO
@@ -840,97 +372,568 @@ Add microblaze-v platform check
 Add Versal Net specific processors wherever missing
 clear interrupt after calling user handler
 Add initial support for Microblaze RISC-V
+Fixed calculation of hash in serial field
+
+dp21txss_v2_2:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Add support for unified flow
+Add support for octa pixel mode
+Add high level API's to configure/read MSA parameters.
+
+dpdma_v1_6:
+Fixed MISRA-C violations
+
+zdma_v1_18:
+Added CMake file to support compiling driver examples in Yocto flow
+
+xxvethernet_v1_9:
+Update CMakeLists.txt in examples folder to facilitate driver.
+examples compilation in the Yocto flow.
+
+emaclite_v4_9:
+Common fixes - IAR warning fixes and device_type field
+
+wdttb_v5_8:
+Remove unneeded depends section from the yaml
+Remove compatible property check for winwdt examples
+Add initial support for Microblaze RISC-V
+Add support for compiling examples in Yocto flow
+Add SDT check to use interrupt wrapper API
+Add doxygen fixes
+
+wdtps_v3_7:
+Add support for compiling examples in Yocto flow
+
+emacps_v3_20:
+Added CMake file to support compiling driver examples in Yocto flow
+Fix mask in XEmacPs_BdGetBufAddr
+HwTail check fix in XEmacPs_BdRingFromHwRX  and XEmacPs_BdRingFromHwRX
+Allow clocking config parameter always in SDT flow
+Add support GEM + Soft PCS PMA designs in SDT flow
+Common fixes - IAR warning fixes and device_type field in SDT
+Fixed compilation errors reported with -std=c2x compiler flag
+Add SDT check to use interrupt wrapper API
+
+gpiops_v3_13:
+Add support for compiling driver examples in Yocto flow
+Add multi-core interrupt support
+Fix compilation warning of XGpioPs_SelfTes
+
+tft_v6_5:
+Add support for compiling driver examples in Yocto flow
+
+i2srx_v2_3:
+Added CMake file to support compiling driver & its examples in Unified flow.
+C++ build compilation errors fixed.
+
+i2stx_v2_3:
+Added CMake file to support compiling driver & its examples in Unified flow
+
+i3cpsx_v1_3:
+Update the slave property
+Add support for system device-tree flow
+Add support for system device-tree flow for example
+Fix code formatting issues with checkpatch
+Add support for compiling driver examples in Yocto flow
+Add prints under debug
+Update the base address
+Update the compatible
+
+i3c_v1_0:
+Initial version
+Remove XI3c_ResetFifos from XI3C_BusInit and examples
+Remove repeated start check and update XI3c_MasterRecvPolled
+Add Read/write FIFO depth config parameter
+Add data comparison check and msb byte assignment in examples
+Correct byte count return type
+Add SCL configuration support
+Add Tx FIFO threshold configuration parameter
+Correct maximum data length value
+
+iic_v3_11:
+Update 10 bit address and gpo width parameters names in iic.yaml
+Add support for compiling driver examples in Yocto flow
+
+iicps_v3_19:
+Incremented driver version to 3.19
+Add support for compiling driver examples in Yocto flow
+
+ipipsu_v2_15:
+Fix compilation warning
+Update for the name change
+Add initial support for Microblaze RISC-V
+Add PSM, PMC related bitmask macros for versal-net
+Add support for compiling driver examples in Yocto flow
+Add Doxygen fixes
+Add device_type field in the driver yamls
+
+llfifo_v5_7:
+Add support for compiling driver examples in Yocto flow
+
+mbox_v4_7:
+Add microblaze-v platform check
+Add dependencies for the examples
+Add support for compiling examples in Yocto flow
+
+mcdma_v1_10:
+Added CMake file to support compiling driver examples in Yocto flow
+
+mutex_v4_8:
+Add support for compiling examples in yocto flow
+
+nandps_v2_9:
+ Move stack based BBT array to global instance to avoid stack overflow.
+Add support for compiling examples in Yocto flow.
+
+nandpsu_v1_13:
+Add support for compiling examples in Yocto flow.
+Write BBT to correct location.
+Ensure block erasure is device relative.
+Mark correct reserved blocks.
+Ensure that missing BBTs are detected.
+Read correct BBT size.
+Always wrap page to device size.
+Avoid loop counter reset.
+Ensure buffer cache sync.
+
+ospipsv_v1_10:
+Add support for MX66UM2G45G Macronix flash part
+Add support for is25lx512m issi flash part
+Add support for compiling driver examples in Yocto flow
+Add OSPI controller reset for hardware pin reset
+Increase the hold time after device reset
+Update OSPI TX tap delay element to 0x26 for DDR mode
+Add support for Infineon flash part S28HS02GT
+
+qspips_v3_12:
+Add support for compiling examples in Yocto flow.
+Add missing parenthesis for macro expansions.
+
+qspipsu_v1_19:
+Add support for versal premium.
+Add microblaze-v platform check.
+Add support for W25Q256JW Winbond flash and IS25LP02G ISSI flash parts.
+Add nand examples in dependency and yaml file.
+Add support for compiling driver examples in yocto flow.
+Add support to set QSPI clock based on baud rate divisor.
+Revise the export feedback clock property logic in tcl.
+Add doxygen fixes.
+
+resetps_v1_7:
+Add support for compiling examples in Yocto flow
+
+rtcpsu_v1_14:
+Add support for compiling driver examples in yocto flow
+
+sdps_v4_3:
+Updated CMake file to support compiling driver examples in Yocto flow.
+Added support to read custom HS400 tap delay value from design.
+Added sanitize feature support for emmc.
+Added MB-V platform support.
+
+spi_v4_12:
+Add initial support for Microblaze RISC-V.
+Add support for compiling driver examples in Yocto flow.
+
+spdif_v1_2:
+Added CMake file to support compiling driver & its examples in Unified flow.
+C++ build compilation errors fixed.
+
+csi2txss_1_6:
+Added support of yaml file for SDT file
+Added support of CMakelists.txt file
+Updated drivers under src directory to have support of SDT flow.
+Added support of _g.c structure as per new SDT flow.
+Updated ZCU102 platforms to add support of SDT flow.
+
+csi2tx_1_4:
+Add support of yaml file for subcore.
+Add SDT flow to driver.
+Add system device tree file support for the subcore.
+
+dsirxss_1_0:
+Added DSIRXSS driver only for Vitis unified flow.
+Added basic APIs that will support initialization of All subcores.
+Added device tree support for the IP and its all sub-cores.
+Added yaml support for the sub-system IP.
+Added selftest driver.
+Added selftest application for ZCU102 platform.
+
+dsi2rx_1_0:
+Add support of yaml file for subcore.
+Write driver to be supported only in new unified flow.
+Add system device tree file support for the subcore.
+Defined new HW file defining register map of the new IP.
+Added support for global interrupts.
+Created a selftest driver.
+
+dsitxss_2_4:
+Added support of yaml file for SDT file
+Added support of CMakelists.txt file
+Updated drivers under src directory to have support of SDT flow.
+Added support of _g.c structure as per new SDT flow.
+Updated ZCU102, VCK190 and VEK280 platforms to add support of SDT flow.
+Fix various issues reported during regression.
+Add support of import example designs for new unified Vitis tool.
+
+dsi_1_5:
+Add support of yaml file for subcore.
+Add SDT flow to driver.
+Add system device tree file support for the subcore.
+
+dphy_1_6:
+Add support of yaml file for subcore.
+Add SDT flow to driver.
+Add system device tree file support for the subcore.
+Add example _g.c file for dphy demo with both rx and tx connectivity.
+mipi-csi2-rx-ctrl-1.0:
+Add support of yaml file for subcore.
+Add SDT flow to driver.
+Add system device tree file support for the subcore.
+
+mipicsiss_1_11:
+Added support of yaml file for SDT file
+Added support of CMakelists.txt file
+Updated drivers under src directory to have support of SDT flow.
+Added support of _g.c structure as per new SDT flow.
+Updated ZCU102, VCK190 and VEK280 platforms to add support of SDT flow.
+Fix various issues reported during regression.
+Add support of import example designs for new unified Vitis tool.
+Add support of CPHY Subcore through CSI RXSS driver as well selftest application.
+Add system device tree tcl files to generate the device tree for the MIPICSISS
+
+vprocss_v2_13:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+Updated example application to support decoupling flow.
+Added import example support
+Added SDT changes to generate correct parameters in pl.dtsi file
+
+v_warp_init_v1_5:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+Updated example application to support decoupling flow.
+Corrected example to exit when warp vectors are not generated.
+Added import example support
+
+v_warp_filter_v1_4:
+vPorted driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+
+v_vscaler_v3_3:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+
+v_vcresampler_v3_3:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+
+v_tpg_v8_6:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+Updated example application to support decoupling flow.
+Added import example support
+Added SDT changes to generate correct parameters in pl.dtsi file
+
+v_scenechange_v1_5:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+Updated example application to support decoupling flow.
+Added import example support
+
+v_multi_scaler_v1_5:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+Updated example application to support decoupling flow.
+Added import example support
+Added SDT changes to generate correct parameters in pl.dtsi file
+
+v_mix_v6_5:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+Updated example application to support decoupling flow.
+Added import example support
+Added SDT changes to generate correct parameters in pl.dtsi file
+
+v_letterbox_v2_4:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+
+v_hscaler_v3_5:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+
+v_hcresampler_v3_3:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+
+v_gamma_lut_v1_5:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+Updated example application to support decoupling flow.
+Added import example support
+Added import example support
+
+v_frmbuf_wr_v4_8:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+Added import example support
+
+v_frmbuf_rd_v4_8:
+Application fix to support decoupling flow
+Added import example support
+
+v_demosaic_v1_4:
+Added support for decoupling flow
+Updated example application to support decoupling flow.
+Added import example support
+
+v_deinterlacer_v7_3:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+Updated example application to support decoupling flow.
+
+v_csc_v2_6:
+Added support for decoupling flow
+Updated example application to support decoupling flow.
+Fix for coefficients settings overridden.
+
+v_axi4s_remap_v1_4:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+Updated example application to support decoupling flow.
+Added import example support
+
+mipi_tx_phy_v1_0:
+New Driver for MIPI Tx combo phy
+Added source code, yaml file, mdd file and respective SDT modifications to git
+Added selftest example.
+
+mipi_rx_phy_v1_0:
+New Driver for MIPI Rx combo phy
+Added source code, yaml file, mdd file and respective SDT modifications to git
+Added selftest example.
+
+srio_v1_5:
+Nonfunctional changes, doxygen and code formatting.
+
+axipcie_v3_4:
+Ported driver to support decoupling flow by adding yaml file, Cmakelists.txt file
+Updated example application to support decoupling flow.
+
+cpu_riscv_v1_1:
+Update makefile to fix compilation issues observed on windows
+
+intc_v3_18:
+Added support FAST interrupts for MB V
+
+iomodule_v2_16:
+Fixed compilation errors in peripheral tests
+
+pciepsu_v1_7:
+Fix the BAR allocation in pcie-psu driver based on endpoint request.
+Fix macro declaration for header type mask.
+Fix BAR allocation to consider maximum size of BAR region.
+Add properties to support SDT flow for Endpoint driver.
+Add Egress transfer support.
+
+scugic_v5_3:
+Ported driver examples to SDT flow
+Fixed compilation errors reported by C++ compiler
+Added support for compiling examples in Yocto flow
+
+usbps_v2_9:
+Fixed failures reported by CV test suite "Chapter 9 Tests [USB 2 devices] CV tests
+
+usbpsu_v1_15:
+Update FreeRTOS based examples to support SDT flow
+Fixed compilation errors reported with -std=c2x compiler flag
+
+standalone_v9_1:
+Update memory tests APIs in common/xil_testmem.c to  run tests with single pattern by default (it reduces execution time). All available patterns included if  XIL_ENABLE_MEMORY_STRESS_TEST is defined in compiler flags.
+Added support for MB V delay routines
+Added Xil_MemMap API for ARMv8 BSP
+Ported standalone/examples to SDT flow
+Added SDT flow support for MB V BSP
+Added support in xil_printf to print 64 bit variables from 32 bit platform
+
+freertos10_xilinx_v1_15:
+Upgrade kernel to 10.6.1
+Port interrupt example to SDT flow
+
+cframe_v1_6:
+Update the compatibility string for the cframe drivers to support the VersalNet platform.
+Add compatible strings for latest pmcps versions.
+Updated Overview for addtogroup for 2024.1
+
+cfupmc_v1_7:
+Update the compatibility string for the cfupmc drivers to support the VersalNet platform.
+Add compatible strings for latest pmcps versions.
+Updated Overview for addtogroup for 2024.1
+
+dfeequ_v1_6:
+Configure si570 in Linux examples
+Fix SDT flow number of instances
+CMakeLists dependencies
+Support Baremetal SDT Yocto Flow
+
+dfemix_v1_7:
+Configure si570 in Linux examples
+Fix SDT flow number of instances
+CMakeLists dependencies
+Update version number in makefiles
+Support Baremetal SDT Yocto Flow
+
+dfeofdm_v1_2:
+Configure si570 in Linux examples
+Update hw version in yamal
+Update hw version
+Fix SDT flow number of instances
+CMakeLists dependencies
+Correct sw major/minor version numbers
+Support Baremetal SDT Yocto Flow
+Support for FFT size 512
+Doxygen documenatation update
+
+dfeprach_v1_7:
+Configure si570 in Linux examples
+Update device node name
+Correct order of RACH mapping steps
+CMakeLists dependencies
+Support Baremetal SDT Yocto Flow
+Correct memset destination address
+Add continuous scheduling
+
+tmr_manager_v1_6:
+Remove the XTMR_Manager_InjectionTest API declaration as the declaration of the API doesn't exist
+
+tmrctr_v4_12:
+Update interrupt example to reduce execution time to 1 second.
+Fix compilation error in peripheral tests
+
 xilloader_v2_0:
-Run KAT during Authenticated Jtag message.
-Remove unnecessary SHA3 initializations during load
-PDI.
-Fix compilation warning when PLM_EN_ADD_PPKS macro is
-enabled.
-Added redundancy in XLoader_EnableJtag.
-Added error code for default case in
-XLoader_StartImage.
-Fixed SD macro check for selecting the drive number
-based on the number of SD controllers defined and
-supports in both XSCT and SDT flows.
-Clear AES Keys when RedKey clear is set in PMC RAM.
-Update PUF shutter value and Ring oscillator
-configuration from boot header.
-Added code to Verify Address Range for the addresses
-coming from IPI commands.
-During exception or an error during boot, place PMC
-TRNG in reset.
-Prints optimization, Reduced log level of less
-frequent print.
-Fixed compilation warning by removing unused macro.
-Clear AES keys during initial PDI and partial PDI
-failure.
-Add client support for xilloader.
-Support validation of authenticated PDI
-Add client API to validate authenticated PDI.
-Add required support in the server part of xilloader.
-Add example to demonstrate the use of the client API.
-Do delayed handoffs and subsystem activation after
-boot device is released.
-PLM will now give up the boot device as soon as it is
-done loading the images from a PDI. Once the device is
-released, each deferred subsystem will now get
-activated just before the first cpu handoff within
-that subsystem.
-Added IS25LX512M ospi flash support to versal.
-Optimized u8 variables by changing it to u32, because
-each u8 variable is using an additional instruction to
-convert word data to u8.
-Update XLoader_ReadAndValidateHdrs prototype to fix
-doxygen comments.
-Updated SD/eMMC logical partition comments in
-xloader_sd.c.
-Added client examples for xilloader.
-Converted major errors to minor based on usage.
-Converted major errors to minor errors, which are used
-in minor error position.
-Updated error comments.
-Added "FAILURE" and "INVALID_PARAM" minor errors with
-the same error number as XST errors.
-Add support PSMFW update:
-To support loading PSM.elf, we expose process
-partition function to public.
-Add extra PDI type: IPU (in-place update) type of PDI.
-Fixed internal security review comments.
-Add logic to print the DDRMC list for which user
-selected to skip Calib Check.
-Add support to extend secure state when DAP state
-change is detected and also during AuthJtag or unlock
-jtag request.
-Added enable configuration for ECC curve.
-Added support for Infineon S28HS02GTFPBHI050 OSPI
-flash part.
-Add support in Extract Metaheader command to get
-optional data from PDI(Full or Partial) which can be
-stored in either DDR or Image Store.
-Make SD drive number logic order independent.
-Added code to handle sub-partition for APU subsystem
-and resolved the issue related to ATFHandoff Params.
-Added support for Macronix 2G flash part -
-MX66UM2G45G.
-Add Authentication Optimization support for
-MetaHeader.
-Fixed doxygen warnings.
-Added support to configure the Die config in Spansion
-Flash.
-Remove releasing DDR from update psm.elf.
-Update RSA PSS KAT to use 2048-bit key.
-Fix unit design document review comments.
+Added glitch checks after function call.
+Added DDRMC registers Dump logs in Versal and Versal-Net.
+Enhance Restart Image to Support loading from Boot PDI Present in Image Store
+
+dfeccf_v1_7:
+Configure si570 in Linux examples
+Fix SDT flow number of instances
+CMakeLists dependencies
+Update version number in makefiles
+Support Baremetal SDT Yocto Flow
+
+axivdma_v6_15:
+Added CMake file to support compiling driver examples in Yocto flow
+
 dmaps_v2_10:
-Added CMake file to support compiling driver examples
-in Yocto flow.
+Added CMake file to support compiling driver examples in Yocto flow.
+
+dp21rxss_v1_2:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Add support for unified flow
+Add support for octa pixel mode
+Add high level API's to configure/read MSA parameters.
+
+dp21_v2_2:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Add support for unified flow
+Add support for octa pixel mode
+Add high level API's to configure/read MSA parameters.
+
+emc_v4_3:
+Update addtogroup to Overview.
+
+gpio_v4_11:
+Add IER and GIER to xgpio_intr_tapp_example in SDT flow
+Add initial support for Microblaze RISC-V
+Add support for compiling driver examples in Yocto flow
+Add SDT check to use interrupt wrapper API
+
+rfdc_v12_2:
+Add support for compiling examples in Yocto flow.
+Removed redundant code from examples
+Fixed issue with parsing of the NCOFreq parameter
+
+scutimer_v2_6:
+Fix compilation error in peripheral tests
+
+sysmon_v7_9:
+Add support for compiling examples in Yocto flow.
+
+sysmonpsu_v2_10:
+Add support for compiling examples in Yocto flow.
+
+sysmonpsv_v4_2:
+Add support for compiling examples in Yocto flow.
+Fixed issue where the first instance of sysmonpsv was not being selected by default in the cfginitialize API
+Config file generator tcl modified to handle when multiple instances of sysmonpsv are present.
+
+trafgen_v4_6:
+Add support for compiling driver examples in Yocto flow
+Add SDT check to use interrupt wrapper API
+
+trngpsv_v1_5:
+Updated yaml file
+
+trngpsx_v1_2:
+Add support for non-blocking reseed operation
+Fix issue in PRNG set and reset
+
+ttcps_v3_19:
+Updated version to latest in examples/index.html for multiple drivers
+Add device_type field in the driver yamls
+Add examples support in SDT flow.
+Revert "ttcps: Add examples support in SDT flow."
+Add support for peripheral tests in SDT flow
+Add support for compiling examples in Yocto flow
+
+uartlite_v3_10:
+Remove references to pg flag from bsp if present
+Add initial support for Microblaze RISC-V
+Add SDT check to support interrupt example in SDT flow
+Add support for compiling driver examples in Yocto flow
+Add device_type field in the driver yamls
+
+uartns550_v3_10:
+Add initial support for Microblaze RISC-V
+Add support for compiling driver examples in Yocto flow
+Fix compilation warning of interrupt example
+
+uartps_v3_14:
+Add initial support for Microblaze RISC-V
+Add support for compiling driver examples in Yocto flow
+Fix junk character at fsbl handoff
+Add SDT check to use interrupt wrapper API
+
+uartpsv_v1_10:
+Add initial support for Microblaze RISC-V
+Add support for compiling driver examples in Yocto flow
+Add SDT check to use interrupt wrapper API
+
+xilcert_v1_2:
+Updated Issuer field in DevAK Certificate
+Add support to run KAT for xilocp and xilcert
+Add Subject Alternative Name field
+Avoids infinite loop
+Versal_net SDT support
+Add support for DME extension
+Fixed calculation of hash in serial field
+
+xilffs_v5_2:
+Added new API to get library version.
+Added support for trim operation in SDT flow.
+Updated FATFS to latest version.
+Added support to use base address instead of device ID in SDT flow.
+Added MB-V platform support.
+Added versal net platform support.
+Fixed doxygen related warnings.
+Fixed build failure when default configuration of xilffs is changed.
+
+xilflash_v4_11:
+Update the CMakeLists.txt to support yocto flow.
+Rename the NON_YOCTO variable to YOCTO.
+
 xilfpga_v6_6:
 Renamed the NON_YOCTO variable to YOCTO.
-Added proper validations checks for InstancePtr and
-BitstreamImageAddr parameters.
-Removed None parameter from description to fix doxygen
-warnings.
+Added proper validations checks for InstancePtr and BitstreamImageAddr parameters.
+Removed None parameter from description to fix doxygen warnings.
 Updated cmake and yaml files to support VersalNet platform.
 
+v_sdirxss_v3_4:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Fixed the Import example applications GUI support. - ZU+, Versal, Kintex devices.
+
+v_sditxss_v4_4:
+Added CMake file to support compiling driver & its examples in Unified flow.
+
+sdi_common_v1_4:
+Added CMake file to support compiling driver & its examples in Unified flow.
+Fixed External screen has incorrect vertically when using the 3G SDI Level B with Dual link by changing 3G specific video timing values.
 
 New Files Added for 2024.1:
 
