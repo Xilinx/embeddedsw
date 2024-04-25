@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 import utils
 import argparse
@@ -54,6 +54,8 @@ def reconfig_bsp(args):
 
         utils.remove(build_metadata)
         utils.mkdir(build_metadata)
+        obj.cmake_paths_append = obj.cmake_paths_append.replace('\\','/')
+        obj.domain_path = obj.domain_path.replace('\\','/')
         utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.domain_path} -DSUBDIR_LIST="ALL" {obj.cmake_paths_append} {cmake_cmd_append}', cwd=build_metadata)
 
         utils.update_yaml(obj.domain_config_file, "path", "path", obj.domain_path, action="add")
