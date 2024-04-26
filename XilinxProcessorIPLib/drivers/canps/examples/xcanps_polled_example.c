@@ -28,7 +28,7 @@
 *       ht     07/10/23 Added support for peripheral test in SDT flow.
 * 3.8   rma    01/12/23 Update example code to fix compilation warnings.
 * 3.8   ht     01/19/24 Update example to fix peripheral test compilation warnings
-* 				and example compilation failure in rigel flow
+* 				and example compilation failure in SDT flow
 * </pre>
 *
 ******************************************************************************/
