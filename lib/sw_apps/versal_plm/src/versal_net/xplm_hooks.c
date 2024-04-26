@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,7 @@
 #include "xpm_psm_api.h"
 #include "xpm_update.h"
 #include "xloader_plat.h"
+#include "xpm_psm.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -106,13 +107,13 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 			goto END;
 		}
 
-		/* TODO: Check if PSM reset succesfull and report*/
-
 		/* Get PSM to PLM event address */
 		Status = XPm_GetPsmToPlmEventAddr();
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
+
+		Status = XPlmi_SetBufferList(PROC_LOCATION_ADDRESS, PROC_LOCATION_LENGTH);
 	}
 	else {
 		/*
