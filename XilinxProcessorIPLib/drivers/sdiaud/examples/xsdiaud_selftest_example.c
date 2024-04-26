@@ -20,7 +20,7 @@
  * 1.1   kar    04/25/18        Changed default value of the clk phase bit to 1.
  *                              Removed version register macro.
  *                              Removed get version API call from the self test.
- * 1.2	Dhanumjay 02/02/24	Ported the self test to rigel flow
+ * 1.2	Dhanumjay 02/02/24	Ported the self test to SDT flow
  * </pre>
  *
  ****************************************************************************/
