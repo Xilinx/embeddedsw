@@ -115,6 +115,10 @@
 #define XPLMI_PSM_BUFFER_DS_LCVER 	(1U) /**< PSM buffers Data structure LC version */
 #define XPLMI_PMC_BUFFER_DS_VER 	(1U) /**< PMC buffers Data structure version */
 #define XPLMI_PMC_BUFFER_DS_LCVER 	(1U) /**< PMC buffers Data structure LC version */
+#define XPLMI_PSM_BUFFER_LIST_DS_VER 	(1U) /**< PSM buffer list Data structure version */
+#define XPLMI_PSM_BUFFER_LIST_DS_LCVER 	(1U) /**< PSM buffer list Data structure LC version */
+#define XPLMI_PMC_BUFFER_LIST_DS_VER 	(1U) /**< PMC buffer list Data structure version */
+#define XPLMI_PMC_BUFFER_LIST_DS_LCVER 	(1U) /**< PMC buffer list Data structure LC version */
 
 /**************************** Type Definitions *******************************/
 
@@ -1193,6 +1197,11 @@ XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
 	EXPORT_GENERIC_DS(PmcBuffers, XPLMI_PMC_BUFFER_DS_ID, XPLMI_PMC_BUFFER_DS_VER, \
 			XPLMI_PMC_BUFFER_DS_LCVER, sizeof(PmcBuffers), (u32)(UINTPTR)PmcBuffers);
 
+	EXPORT_GENERIC_DS(PsmBufferList, XPLMI_PSM_BUFFER_LIST_DS_ID, XPLMI_PSM_BUFFER_LIST_DS_VER, \
+			XPLMI_PSM_BUFFER_LIST_DS_LCVER, sizeof(XPlmi_BufferList), (u32)(UINTPTR)&PsmBufferList);
+
+	EXPORT_GENERIC_DS(PmcBufferList, XPLMI_PMC_BUFFER_LIST_DS_ID, XPLMI_PMC_BUFFER_LIST_DS_VER, \
+			XPLMI_PMC_BUFFER_LIST_DS_LCVER, sizeof(XPlmi_BufferList), (u32)(UINTPTR)&PmcBufferList);
 	PsmBufferList.Data = PsmBuffers;
 	PsmBufferList.MaxBufferCount = XPLMI_MAX_PSM_BUFFERS;
 	PmcBufferList.Data = PmcBuffers;
