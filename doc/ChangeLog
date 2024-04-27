@@ -941,7 +941,14 @@ lib: xlnx: Avoid mapping in MPU for region mapped by bsp
 openamp_v1_10:
 ThirdParty: Libmetal, OpenAMP: Ensure cleanup of SDT Flow directory occurs
 
+xiltimer_v2_0 :
+Add a new API XTimer_GetLibVersion() to get information about library version.
+Add support for Microblaze-V platform
+Update default sleep timers to align with sleep timer when no xiltimer is
+enabled.
 
+cpu_cortexr5_v2_2 :
+Update tcl to generate new macro ZYNQMP_R5_FSBL_BSP if BSP is for R5 FSBL
 
 New Files Added for 2024.1:
 
