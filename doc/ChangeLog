@@ -935,6 +935,14 @@ sdi_common_v1_4:
 Added CMake file to support compiling driver & its examples in Unified flow.
 Fixed External screen has incorrect vertically when using the 3G SDI Level B with Dual link by changing 3G specific video timing values.
 
+libmetal_v2_7:
+lib: xlnx: Avoid mapping in MPU for region mapped by bsp
+
+openamp_v1_10:
+ThirdParty: Libmetal, OpenAMP: Ensure cleanup of SDT Flow directory occurs
+
+
+
 New Files Added for 2024.1:
 
 SPDX-License-Identifier: MIT
