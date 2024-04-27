@@ -1153,6 +1153,8 @@ lib/bsp/standalone/src/riscv/CMakeLists.txt
 lib/bsp/standalone/src/riscv/fstat.c
 lib/bsp/standalone/src/riscv/read.c
 lib/bsp/standalone/src/riscv/write.c
+lib/bsp/standalone/src/riscv/_open.c
+lib/bsp/standalone/src/riscv/close.c
 lib/bsp/standalone/src/riscv/xmicroblaze_riscv.h
 lib/bsp/standalone/src/riscv/xmicroblaze_riscv_config.h
 lib/sw_apps/imgsel/misc/som/psu_init.h
