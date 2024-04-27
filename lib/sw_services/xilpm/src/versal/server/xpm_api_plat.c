@@ -1394,7 +1394,7 @@ XStatus XPm_ForceHouseClean(u32 NodeId)
 	if ((NULL != PwrDomainNode->DomainOps) &&
 		(PwrDomainNode->InitFlag != PwrDomainNode->DomainOps->InitMask)) {
 		PmErr("Power domain is not initialized for the given Node Id\n\r");
-		Status = XPM_PM_NO_ACCESS;
+		Status = XST_SUCCESS;
 		goto done;
 	}
 

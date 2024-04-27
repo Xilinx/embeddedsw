@@ -24,12 +24,18 @@ static XStatus LpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 
 	(void)PwrDomain;
-	(void)Args;
-	(void)NumOfArgs;
 
 	const XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
+
+	/* Note: This is a temporary fix will be moved to CDO
+	*		 in the next release
+	*/
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		XPm_Out32(0xf1120000, 0xfffff);
+	}
 
 	/* Check vccint_pslp first to make sure power is on */
 	Status = XPmPower_CheckPower(VccintPslpRail,
@@ -277,6 +283,10 @@ static XStatus LpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	} else {
 		/* ScanClear is skipped */
 		PmInfo("Skipping ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+	}
+
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		goto done;
 	}
 
 	/*
