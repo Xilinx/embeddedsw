@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -24,8 +24,8 @@ properties:
     decription: Number of CCs per antenna
   xlnx,antenna-interleave:
     decription: Number of antenna slots
-  xlnx,switchable:
-    decription: If true DL/UL switching is supported
+  xlnx,switchable-int:
+    decription: If 1 DL/UL switching is supported
 
 config:
     - XDfeCcf_Config
@@ -36,7 +36,7 @@ required:
     - xlnx,num-antenna
     - xlnx,num-cc-per-antenna
     - xlnx,antenna-interleave
-    - xlnx,switchable
+    - xlnx,switchable-int
 
 examples:
     xdfeccf_examples.c:
