@@ -950,6 +950,9 @@ enabled.
 cpu_cortexr5_v2_2 :
 Update tcl to generate new macro ZYNQMP_R5_FSBL_BSP if BSP is for R5 FSBL
 
+xilrsa_v1_8:
+Rename the NON_YOCTO variable to YOCTO
+
 New Files Added for 2024.1:
 
 SPDX-License-Identifier: MIT
