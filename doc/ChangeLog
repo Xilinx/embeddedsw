@@ -1208,6 +1208,35 @@ ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/xlnx/microblaze_
 ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/xlnx/sys.c
 ThirdParty/sw_services/libmetal/src/libmetal/lib/system/generic/xlnx/sys.h
 
+zynqmp_fsbl:
+Update correct format specifier for 32bit variable prints in XFsbl_Printf function
+Fix build failure if no uarts enabled in the design
+Add support to enable address mirroring
+Fix junk character at fsbl handoff if debug detailed macro is enabled
+Add init and fini array sections in linker script to fix PSU Link-up issue in system device-tree flow
+Poll timeout function behaviour corrected
+
+zynqmp_pmufw:
+Updated FPGA config register status to use local buffer
+Added ipipsu driver dependency in metadata file
+Added SOM specific macros
+Fix MISRA-C violation for rule 10.4
+Removed unwanted code from PmKillBoardPower function
+Updated the value of DEFAULT_SECTIONS_NUM macro to 8 as the config object supports 8 sections
+Removed custom bool definition as this will no longer work in C23 compiler
+
+zynq_fsbl:
+Update correct format specifier for 32bit variable prints in fsbl_printf function
+
+imgsel:
+Added validation check if image A or B exist in partitions for SOM use case
+Fix zynqmp image selector app hang in usleep
+
+img_rcvry:
+Added system device-tree flow support
+Added lwip220 new library support
+Enabled dhcp capabilities
+Image recover GUI changes for default selection of radio button for System controller use case
 
 Changes for 2023.2
 ===============================
