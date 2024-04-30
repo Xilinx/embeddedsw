@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 2.2   am   03/09/23 Replaced xpuf payload lengths with xmailbox payload lengths
 *       vss  09/21/23 Fixed doxygen warnings
 * 2.3   ng   11/22/23 Fixed doxygen grouping
+* 2.4   ng   04/30/24 Fixed doxygen comments
 *
 * </pre>
 *
@@ -84,12 +85,13 @@ int XPuf_ClientInit(XPuf_ClientInstance* const InstancePtr, XMailbox* const Mail
 /**
  * @brief       This function sends IPI request for PUF registration
  *
- * @param	InstancePtr Pointer to the client instance
+ * @param	InstancePtr	Pointer to the client instance
  * @param	DataAddr	Address of the data structure which includes
  * 				        options to configure PUF
  *
- * @return	- XST_SUCCESS - If the PUF registration is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *		- XST_SUCCESS if the PUF registration is successful
+ *		- XST_FAILURE if there is a failure
  *
  ******************************************************************************/
 int XPuf_Registration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr)
@@ -98,7 +100,8 @@ int XPuf_Registration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE
+	 * if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -109,9 +112,8 @@ int XPuf_Registration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr
 	Payload[2U] = (u32)(DataAddr >> XPUF_ADDR_HIGH_SHIFT);
 
 	/**
-	 * Send an IPI request to the PLM by using the XPuf_Registration CDO command.
-	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.
+	 * Send an IPI request to the PLM by using the XPuf_Registration CDO
+	 * command and return the status of the IPI response.
 	 */
 	Status = XPuf_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
 				sizeof(Payload)/sizeof(u32));
@@ -127,12 +129,13 @@ END:
 /**
  * @brief       This function sends IPI request for PUF regeneration
  *
- * @param	InstancePtr Pointer to the client instance
+ * @param	InstancePtr	Pointer to the client instance
  * @param	DataAddr	Address of the data structure which includes
  * 				        options to configure PUF
  *
- * @return	- XST_SUCCESS - If the PUF regeneration is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *		- XST_SUCCESS if the PUF regeneration is successful
+ *		- XST_FAILURE if there is a failure
  *
  ******************************************************************************/
 int XPuf_Regeneration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr)
@@ -141,7 +144,8 @@ int XPuf_Regeneration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	/**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE
+	 * if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -152,9 +156,8 @@ int XPuf_Regeneration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr
 	Payload[2U] = (u32)(DataAddr >> XPUF_ADDR_HIGH_SHIFT);
 
 	/**
-	 * Send an IPI request to the PLM by using the XPuf_Regeneration CDO command.
-	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.
+	 * Send an IPI request to the PLM by using the XPuf_Regeneration CDO
+	 * command and return the status of the IPI response.
 	 */
 	Status = XPuf_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
 				sizeof(Payload)/sizeof(u32));
@@ -172,8 +175,9 @@ END:
  *
  * @param	InstancePtr	Pointer to the client instance
  *
- * @return	- XST_SUCCESS - If the PUF clear ID is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *		- XST_SUCCESS if the PUF clear ID is successful
+ *		- XST_FAILURE if there is a failure
  *
  ******************************************************************************/
 int XPuf_ClearPufID(const XPuf_ClientInstance *InstancePtr)
@@ -182,7 +186,8 @@ int XPuf_ClearPufID(const XPuf_ClientInstance *InstancePtr)
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_1U];
 
 	/**
-	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE
+	 * if input parameters are invalid.
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -191,9 +196,8 @@ int XPuf_ClearPufID(const XPuf_ClientInstance *InstancePtr)
 	Payload[0U] = PufHeader(0, (InstancePtr->SlrIndex<< XPUF_SLR_INDEX_SHIFT) | XPUF_PUF_CLEAR_PUF_ID);
 
 	/**
-	 * Send an IPI request to the PLM by using the XPuf_ClearPufID CDO command.
-	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * Send an IPI request to the PLM by using the XPuf_ClearPufID CDO
+	 * command and return the status of the IPI response.
 	 */
 	Status = XPuf_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
 						sizeof(Payload)/sizeof(u32));

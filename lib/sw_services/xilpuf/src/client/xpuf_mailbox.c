@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -23,13 +23,19 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 2.1   skg  11/07/22 Added In Body comments
 *       am   02/17/23 Fixed HIS_COMF violations
-*	kpt  08/03/23 Fix security review comments
+*       kpt  08/03/23 Fix security review comments
+* 2.4   ng   04/30/24 Fixed doxygen comments
 *
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
+
+/**
+ * @addtogroup xpuf_mailbox_apis XilPuf Mailbox APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
@@ -56,8 +62,8 @@
  * @param	MsgLen		Length of the message
  *
  * @return
- *	-	XST_SUCCESS - If the IPI send and receive is successful
- *	-	XST_FAILURE - If there is a failure
+ *		- XST_SUCCESS if the IPI send and receive is successful
+ *		- XST_FAILURE if there is a failure
  *
  * @note	Payload  consists of API id and call arguments to be written
  * 		in IPI buffer
@@ -68,9 +74,7 @@ int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	volatile int Status = XST_FAILURE;
 	u32 Response[RESPONSE_ARG_CNT] = {0xFFFFFFFFU};
 
-	/**
-	 *  Send CDO to PLM through IPI. Return XST_FAILURE if sending data failed
-	 */
+	/** Send CDO to PLM through IPI. Return XST_FAILURE if sending data failed. */
 	Status = (int)XMailbox_SendData(MailboxPtr, XPUF_TARGET_IPI_INT_MASK, MsgPtr, MsgLen,
 				XILMBOX_MSG_TYPE_REQ, TRUE);
 	if (Status != XST_SUCCESS) {
@@ -78,10 +82,7 @@ int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 		goto END;
 	}
 
-	/**
-	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
-	 */
+	/** Wait for IPI response from PLM and return the status of the IPI response. */
 	Status = (int)XMailbox_Recv(MailboxPtr, XPUF_TARGET_IPI_INT_MASK, Response, RESPONSE_ARG_CNT,
 				XILMBOX_MSG_TYPE_RESP);
 	if (Status != XST_SUCCESS) {
