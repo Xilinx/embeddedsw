@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,15 +21,12 @@
 * 2.2   am   03/09/23 Moved payload length macros to xilmailbox.h file
 *       kal  09/14/23 Added XPuf_SetSlrIndex function
 * 2.3   ng   11/22/23 Fixed doxygen grouping
+* 2.4   ng   04/30/24 Fixed doxygen comments
 *
 * </pre>
 *
 ******************************************************************************/
 
-/**
- * @addtogroup xpuf_mailbox_apis XilPuf Mailbox APIs
- * @{
- */
 
 #ifndef XPUF_MAILBOX_H
 #define XPUF_MAILBOX_H
@@ -44,9 +41,6 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-/**@cond xpuf_internal
- * @{
- */
 #define XILPUF_MODULE_ID			(12U)
 
 /* 1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC */
@@ -64,12 +58,12 @@ typedef struct {
 	u32 SlrIndex;
 } XPuf_ClientInstance;
 
-/**< Enumeration constants for SlrIndex*/
+/** Enumeration constants for SlrIndex*/
 typedef enum{
-	XPUF_SLR_INDEX_0 = 0,	/**< SLR_INDEX_0 */
-	XPUF_SLR_INDEX_1,	/**< SLR_INDEX_1 */
-	XPUF_SLR_INDEX_2,	/**< SLR_INDEX_2 */
-	XPUF_SLR_INDEX_3	/**< SLR_INDEX_3 */
+	XPUF_SLR_INDEX_0 = 0,	/** SLR_INDEX_0 */
+	XPUF_SLR_INDEX_1,	/** SLR_INDEX_1 */
+	XPUF_SLR_INDEX_2,	/** SLR_INDEX_2 */
+	XPUF_SLR_INDEX_3	/** SLR_INDEX_3 */
 } XPuf_SlrIndex;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -88,10 +82,11 @@ static inline u32 PufHeader(u32 Len, u32 ApiId)
  *
  * @param	SlrIndex 	Slr index to be set in instance
  *
- * @return	XST_SUCCESS	On valid input SlrIndex.
- *		XST_FAILURE	On invalid SlrIndex.
+ * @return
+ *		- XST_SUCCESS on valid input SlrIndex.
+ *		- XST_FAILURE on invalid SlrIndex.
  *
- * @Note	This function is applicable to only Versal
+ * @note	This function is applicable to only Versal
  *
  *******************************************************************************/
 static inline int XPuf_SetSlrIndex(XPuf_ClientInstance *InstancePtr, u32 SlrIndex)
@@ -99,7 +94,7 @@ static inline int XPuf_SetSlrIndex(XPuf_ClientInstance *InstancePtr, u32 SlrInde
 	int Status = XST_FAILURE;
 
 	if(SlrIndex <= (u32)XPUF_SLR_INDEX_3){
-		/**< Validate SlrIndex and assign it to instance pointer */
+		/** - Validate SlrIndex and assign it to instance pointer */
 		InstancePtr->SlrIndex = SlrIndex;
 		Status = XST_SUCCESS;
 	}
@@ -107,10 +102,6 @@ static inline int XPuf_SetSlrIndex(XPuf_ClientInstance *InstancePtr, u32 SlrInde
 	return Status;
 }
 
-/**
- * @}
- * @endcond
- */
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/

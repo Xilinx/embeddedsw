@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 2.1   am   02/13/2023 Fixed MISRA C violations
 * 2.2   kpt  08/14/2023 Renamed XPuf_IsRegistrationEnabled to XPuf_IsRegistrationDisabled
 * 2.3   ng   11/22/2023 Fixed doxygen grouping
+* 2.4   ng   04/30/2024 Fixed doxygen comments
 *
 * </pre>
 *
@@ -55,9 +56,12 @@
  * @brief	This function checks Global Variation Filter option
  *
  * @param	PufData - Pointer to XPuf_Data structure which includes options
- *			  to configure PUF
+ *		to configure PUF
  *
- * @return	Status
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- XPUF_SHUTTER_GVF_MISMATCH if MSB of PUF shutter value does
+ *		not match with Global Variation Filter option.
  *
  *****************************************************************************/
 int XPuf_CheckGlobalVariationFilter(const XPuf_Data *PufData)
@@ -86,20 +90,17 @@ int XPuf_CheckGlobalVariationFilter(const XPuf_Data *PufData)
 
 /*****************************************************************************/
 /**
- *
  * @brief	This function configures the RO_SWAP register in PUF as per the
  * 		user provided value.
  *
- * @param       PufData - Pointer to XPuf_Data structure which includes options
- *		to configure PUF
+ * @param	PufData Pointer to XPuf_Data structure which includes options
+ *		to configure PUF.
  *
  *****************************************************************************/
 void XPuf_SetRoSwap(const XPuf_Data *PufData)
 {
 #if defined (VERSAL_NET)
-	/**
-	 * Update PUF Ring Oscillator Swap setting
-	 */
+	/** Update PUF Ring Oscillator Swap setting. */
 	Xil_Out32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMX_GLOBAL_PUF_RO_SWP_OFFSET,
 		PufData->RoSwapVal);
 #else
@@ -112,8 +113,9 @@ void XPuf_SetRoSwap(const XPuf_Data *PufData)
  *
  * @brief	This function returns PUF registration disable status.
  *
- * @return	XPUF_PUF_REGIS_DIS  - When PUF registration is disabled.
- *		FALSE - When PUF registration is enabled or not supported incase of versal.
+ * @return
+ *		- XPUF_PUF_REGIS_DIS When PUF registration is disabled.
+ *		- FALSE when PUF registration is enabled or not supported in case of versal.
  *
  *****************************************************************************/
 u32 XPuf_IsRegistrationDisabled(void)
@@ -134,8 +136,9 @@ u32 XPuf_IsRegistrationDisabled(void)
  * @brief	This function checks if changing IRO frequency before
  * 		PUF operation is required or not.
  *
- * @return	TRUE - Changing IRO frequency is required
- * 		FALSE - Changing IRO frequency is not required
+ * @return
+ * 		- XPUF_IROFREQ_CHANGE_REQD if change in IRO frequency is required.
+ * 		- XPUF_IROFREQ_CHANGE_NOTREQD if change in IRO frequency is required.
  *
  * @note	In Versal, ROM always operates at PMC IRO frequency of 320 MHz.
  * 		For MP/HP devices, PLM updated the PMC IRO frequency to 400 MHz.
