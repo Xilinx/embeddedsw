@@ -32,6 +32,9 @@
 #include "xstatus.h"
 #include "xdebug.h"
 #include "xcsi.h"
+#if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
+#include "xmipi_rx_phy.h"
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 #include "xdphy.h"
 #endif
@@ -50,6 +53,9 @@
  */
 typedef struct {
 	XCsi CsiInst;
+#if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
+	XMipi_Rx_Phy MipiRxPhyInst;
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy DphyInst;
 #endif
@@ -157,7 +163,7 @@ u32 XCsiSs_CfgInitialize(XCsiSs *InstancePtr, XCsiSs_Config *CfgPtr,
 #elif (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
 	if (InstancePtr->Config.IsMipiRxPhyRegIntfcPresent && InstancePtr->MipiRxPhyPtr) {
 		Status = CsiSs_SubCoreInitMipiRxPhy(InstancePtr);
-		if (Status != XST_SUCESS) {
+		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 	}
@@ -276,8 +282,8 @@ u32 XCsiSs_Activate(XCsiSs *InstancePtr, u8 Flag)
 		return Status;
 
 #if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
-	if (InstancePtr->Config.IsMipiRxPhyRegIntfcPresent && InstancePtr->XMipiRxPhyPtr) {
-		XMipi_Rx_Phy_Activate(InstancePtr->XMipiRxPhyPtr, Flag);
+	if (InstancePtr->Config.IsMipiRxPhyRegIntfcPresent && InstancePtr->MipiRxPhyPtr) {
+		XMipi_Rx_Phy_Activate(InstancePtr->MipiRxPhyPtr, Flag);
 	}
 #endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
@@ -345,7 +351,7 @@ void XCsiSs_ReportCoreInfo(XCsiSs *InstancePtr)
 	}
 
 #if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
-	if (InstancePtr->XMipiRxPhyPtr) {
+	if (InstancePtr->MipiRxPhyPtr) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"    : XMipi Rx Phy ");
 		if (InstancePtr->Config.IsMipiRxPhyRegIntfcPresent) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"with ");
@@ -746,7 +752,7 @@ static u32 CsiSs_SubCoreInitMipiRxPhy(XCsiSs *CsiSsPtr)
 {
 	u32 Status;
 	UINTPTR AbsAddr;
-	XDphy_Config *ConfigPtr;
+	XMipi_Rx_Phy_Config *ConfigPtr;
 
 	/* Get core configuration */
 	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing MIPI RX PHY ...\n\r");
