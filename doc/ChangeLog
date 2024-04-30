@@ -796,9 +796,64 @@ Update interrupt example to reduce execution time to 1 second.
 Fix compilation error in peripheral tests
 
 xilloader_v2_0:
+Run KAT during Authenticated Jtag message.
+Remove unnecessary SHA3 initializations during load PDI.
+FixcompilationwarningwhenPLM_EN_ADD_PPKS macro is enabled.
+Added redundancy in XLoader_EnableJtag.
+Added error code for default case in XLoader_StartImage.
+Fixed SD macro check for selecting the drive number based on the number of SD
+controllers defined and supports in both XSCT and SDT flows.
+Clear AES Keys when RedKey clear is set in PMC RAM.
+Update PUF shutter value and Ring oscillator configuration from boot header.
+Added code to Verify Address Range for the addresses coming from IPI commands.
+During exception or an error during boot, place PMC TRNG in reset.
+Prints optimization, Reduced log level of less frequent print.
+Fixed compilation warning by removing unused macro.
+Clear AES keys during initial PDI and partial PDI failure.
+Add client support for xilloader.
+Support validation of authenticated PDI
+Add client API to validate authenticated PDI.
+Add required support in the server part of xilloader.
+Add example to demonstrate the use of the client API.
+Do delayed handoffs and subsystem activation after boot device is released.
+PLM will now give up the boot device as soon as it is done loading the images
+from a PDI. Once the device is released, each deferred subsystem will now get
+activated just before the first cpu handoff within that subsystem.
+Added IS25LX512M ospi flash support to versal.
+Optimized u8 variables by changing it to u32, because each u8 variable is
+using an additional instruction to convert word data to u8.
+Update XLoader_ReadAndValidateHdrs prototype to fix doxygen comments.
+Updated SD/eMMC logical partition comments in xloader_sd.c.
+Added client examples for xilloader.
+Converted major errors to minor based on usage.
+Converted major errors to minor errors, which are used in minor error
+position.
+Updated error comments.
+Added "FAILURE" and "INVALID_PARAM" minor errors with the same error number as
+XST errors.
+Add support PSMFW update:
+To support loading PSM.elf, we expose process partition function to public.
+Add extra PDI type: IPU (in-place update) type of PDI.
+Fixed internal security review comments.
+Add logic to print the DDRMC list for which user selected to skip Calib Check.
+Add support to extend secure state when DAP state change is detected and also
+during AuthJtag or unlock jtag request.
+Added enable configuration for ECC curve.
+Added support for Infineon S28HS02GTFPBHI050 OSPI flash part.
+Add support in Extract Metaheader command to get optional data from PDI(Full
+or Partial) which can be stored in either DDR or Image Store.
+Make SD drive number logic order independent.
+Added code to handle sub-partition for APU subsystem and resolved the issue
+related to ATFHandoff Params.
+Added support for Macronix 2G flash part - MX66UM2G45G.
+Add Authentication Optimization support for MetaHeader.
+Added support to configure the Die config in Spansion Flash.
+Remove releasing DDR from update psm.elf.
+Update RSA PSS KAT to use 2048-bit key.
+Fixed doxygen comments format.
 Added glitch checks after function call.
 Added DDRMC registers Dump logs in Versal and Versal-Net.
-Enhance Restart Image to Support loading from Boot PDI Present in Image Store
+Enhance Restart Image to Support loading from Boot PDI Present in Image Store.
 
 dfeccf_v1_7:
 Configure si570 in Linux examples
