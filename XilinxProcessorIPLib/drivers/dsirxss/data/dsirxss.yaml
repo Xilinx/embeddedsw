@@ -63,7 +63,6 @@ depends:
     dphy: []
 
 examples:
-  xdsi2rxss_selftest_example.c:
-    - reg
-    - interrupts
+    xdsi2rxss_selftest_example.c:
+        - reg
 ...
