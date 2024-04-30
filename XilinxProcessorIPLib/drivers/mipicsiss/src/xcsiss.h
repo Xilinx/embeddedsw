@@ -265,7 +265,7 @@ typedef struct {
 				  *  initialized */
 	XCsi  *CsiPtr;		/**< handle to sub-core driver instance */
 #if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
-	XMipi_Rx_Phy *XMipiRxPhyPtr;		/**< handle to sub-core driver instance */
+	XMipi_Rx_Phy *MipiRxPhyPtr;		/**< handle to sub-core driver instance */
 #endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy *DphyPtr;		/**< handle to sub-core driver instance */
