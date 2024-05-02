@@ -8,10 +8,7 @@
 /**
 *
 * @file xsecure_mailbox.h
-* @addtogroup xsecure_mailbox_apis XilSecure Mailbox APIs
-* @{
 *
-* @cond xsecure_internal
 * This file contains declarations of xilmailbox generic interface APIs
 *
 * <pre>
@@ -33,13 +30,17 @@
 * 	yog  05/03/23 Fixed MISRA C violation of Rule 12.2
 *       kal  09/14/23 Added XSecure_SetSlrIndex function
 *	ss   04/05/24 Fixed doxygen warnings
+* 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
-* @note
 *
-* @endcond
 ******************************************************************************/
 
+/**
+* @addtogroup xsecure_mailbox_apis XilSecure Mailbox APIs
+* @{
+
+*/
 #ifndef XSECURE_MAILBOX_H
 #define XSECURE_MAILBOX_H
 
@@ -52,7 +53,8 @@ extern "C" {
 #include "xparameters.h"
 
 /************************** Constant Definitions ****************************/
-/**@cond xsecure_internal
+/**
+ * @cond xsecure_internal
  * @{
  */
 #define XILSECURE_MODULE_ID			(0x05U)
@@ -78,12 +80,15 @@ extern "C" {
 					/**< Shared memory size */
 
 /**************************** Type Definitions *******************************/
+/**
+ * Data structure contains XMailbox pointer and SlrIndex
+ */
 typedef struct {
 	XMailbox *MailboxPtr;
 	u32 SlrIndex;
 } XSecure_ClientInstance;
 
-/**< Enumeration constants for SlrIndex*/
+/** Enumeration constants for SlrIndex*/
 typedef enum{
 	XSECURE_SLR_INDEX_0 = 0,/**< SLR_INDEX_0 */
 	XSECURE_SLR_INDEX_1,	/**< SLR_INDEX_1 */
@@ -105,8 +110,9 @@ typedef enum{
  *
  * @param	SlrIndex	Slr index to be set in instance
  *
- * @return	XST_SUCCESS	On valid input SlrIndex.
- *		XST_FAILURE	On invalid SlrIndex.
+ * @return
+ *	-	XST_SUCCESS - On valid input SlrIndex.
+ *	-	XST_FAILURE - On invalid SlrIndex.
  *
  * @note	This function is applicable to only Versal
  *

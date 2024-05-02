@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   kpt     06/20/23 Initial release
+* 5.4   yog     04/29/24 Fixed doxygen warnings.
 *
 * </pre>
 *
@@ -40,14 +41,14 @@ static int XSecure_AesEcbDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc
 /**
  * @brief	This function sets and initializes AES in ECB mode
  *
- * @param	InstancePtr	- Pointer to the XSecure_Aes instance
- * @param	KeySrc		- Key Source for decryption of the data
- * @param	KeySize		- Size of the AES key to be used for decryption is
+ * @param	InstancePtr	 Pointer to the XSecure_Aes instance
+ * @param	KeySrc		 Key Source for decryption of the data
+ * @param	KeySize		 Size of the AES key to be used for decryption is
  *		 		- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
  *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  *
  * @return
- *  -   XST_SUCCESS - On Success
+ *	-	XST_SUCCESS - On Success
  *	-	ErrorCode   - On Failure
  *
  *****************************************************************************/
@@ -71,10 +72,10 @@ END:
  * @brief	This function sets AES ECB mode
  *
  * @param	InstancePtr Pointer to the XSecure_Aes instance
- * @param   EcbModeFlag Flag to enable/disable ECB mode
+ * @param	EcbModeFlag Flag to enable/disable ECB mode
  *
  * @return
- *  -   XST_SUCCESS - On Success
+ *	-	XST_SUCCESS - On Success
  *	-	ErrorCode   - On Failure
  *
  *****************************************************************************/
@@ -112,9 +113,9 @@ END:
  * @brief	This function writes AES key into XSECURE_AES_USER_KEY_7 and decrypts the data
  *          in ECB mode
  *
- * @param	InstancePtr	- Pointer to the XSecure_Aes instance
- * @param	KeyAddr		- Address of the key to be programmed in XSECURE_AES_USER_KEY_7
- * @param	KeySize		- Size of the AES key to be used for decryption is
+ * @param	InstancePtr	 Pointer to the XSecure_Aes instance
+ * @param	KeyAddr		 Address of the key to be programmed in XSECURE_AES_USER_KEY_7
+ * @param	KeySize		 Size of the AES key to be used for decryption is
  *		 		- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
  *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  * @param	InDataAddr	Address of the encrypted data which needs to be
@@ -126,7 +127,7 @@ END:
  *                  - 4 byte aligned when the data is the last chunk
  *
  * @return
- *  -   XST_SUCCESS - On Success
+ *	-	XST_SUCCESS - On Success
  *	-	ErrorCode   - On Failure
  *
  *****************************************************************************/

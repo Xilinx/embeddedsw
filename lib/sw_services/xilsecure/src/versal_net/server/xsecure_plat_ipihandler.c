@@ -8,9 +8,7 @@
 /**
 *
 * @file xsecure_plat_ipihandler.c
-* @addtogroup xsecure_apis XilSecure versal net platform handler APIs
-* @{
-* @cond xsecure_internal
+*
 * This file contains the xilsecure versalnet IPI handlers implementation.
 *
 * <pre>
@@ -27,14 +25,16 @@
 *      ss    04/05/2024 Fixed doxygen warnings
 *      vss   04/25/2024 Use XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK
 *      			instead of XPLMI_SECURE_RSA_KAT_MASK
+* 5.4  yog   04/29/2024 Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
 *
-* @note
-* @endcond
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_helper_server_apis Xilsecure Helper Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_defs.h"
 #include "xil_util.h"
@@ -117,9 +117,9 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 /**
  * @brief   This function sets or clears Crypto bit mask of given NodeId
  *
- * @param   CryptoOp	   - Operation to set or clear crypto bit mask
- * @param   CryptoMask	   - Crypto Mask of the module
- * @param   CryptoVal      - Crypto value to be updated
+ * @param   CryptoOp	    Operation to set or clear crypto bit mask
+ * @param   CryptoMask	    Crypto Mask of the module
+ * @param   CryptoVal       Crypto value to be updated
  *
  * @return
 	-	XST_SUCCESS - If set or clear is successful
@@ -155,8 +155,8 @@ END:
  * @brief   The function returns the public key of RSA key pair generated for
  *          Key Wrap/Unwrap operation.
  *
- * @param   PubKeyAddrLow    - Lower address of the RsaPubKeyAddr structure.
- * @param   PubKeyAddrHigh   - Higher address of the RsaPubKeyAddr structure.
+ * @param   PubKeyAddrLow     Lower address of the RsaPubKeyAddr structure.
+ * @param   PubKeyAddrHigh    Higher address of the RsaPubKeyAddr structure.
  *
  * @return
 	-	XST_SUCCESS - On Success
@@ -197,8 +197,8 @@ END:
 /**
  * @brief   This function unwraps the input wrapped key and copies to secure shell.
  *
- * @param   KeyWrapAddrLow    - Lower address of the XSecure_KeyWrapData structure.
- * @param   KeyWrapAddrHigh   - Higher address of the XSecure_KeyWrapData structure.
+ * @param   KeyWrapAddrLow     Lower address of the XSecure_KeyWrapData structure.
+ * @param   KeyWrapAddrHigh    Higher address of the XSecure_KeyWrapData structure.
  *
  * @return
  *	-	XST_SUCCESS - On Success

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file xsecure_plat_kat_ipihandler.c
-* @addtogroup xsecure_apis XilSecure versal net KAT handler APIs
-* @{
-* @cond xsecure_internal
+*
 * This file contains the xilsecure KAT IPI handlers implementation.
 *
 * <pre>
@@ -26,14 +24,16 @@
 *       yog  08/07/2023 Replaced trng instance using trngpsx driver
 *       kpt  08/30/2023 Fix updating KAT mask for external modules
 *       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
+* 5.4   yog  04/29/2024 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-* @endcond
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_kat_server_apis Xilsecure Kat Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xplmi_dma.h"
 #include "xsecure_plat_kat.h"
@@ -99,8 +99,9 @@ END:
 /**
  * @brief       This function handler calls XSecure_TrngPreOperationalSelfTests Server API
  *
- * @return	- XST_SUCCESS - If the KAT is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the KAT is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_TrngKat(void)

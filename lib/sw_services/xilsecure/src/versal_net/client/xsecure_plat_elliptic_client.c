@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -12,15 +12,14 @@
 * This file contains the implementation of elliptic client interface APIs for
 * Versal Net.
 *
-* <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.2   har  06/15/23 Initial release
+* 5.4   yog  04/29/24 Fixed doxygen grouping.
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
 

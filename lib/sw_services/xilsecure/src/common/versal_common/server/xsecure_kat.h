@@ -9,9 +9,6 @@
 /**
 *
 * @file xsecure_kat.h
-* @addtogroup xsecure_kat_common_apis XilSecure KAT common APIs
-* @{
-* @cond xsecure_internal
 *
 * This file contains KAT interface APIs for versal and versalnet
 *
@@ -22,13 +19,16 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 5.0   kpt  07/15/2022 Initial release
 * 5.1   yog  05/03/2023 Fixed MISRA C violation of Rule 8.3
+* 5.4   yog  04/29/2024 Fixed doxygen grouping.
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
+
+/**
+* @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
+* @{
+*/
 #ifndef XSECURE_KAT_H_
 #define XSECURE_KAT_H_
 
@@ -87,4 +87,4 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3);
 }
 #endif
 
-#endif /* XSECURE_KAT_H_ *//* @} */
+#endif /* XSECURE_KAT_H_ */

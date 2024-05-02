@@ -29,6 +29,7 @@
 *       har  02/05/24 Added XSECURE_API_AES_OP_N_ZEROIZE_KEY
 * 5.3   mb   04/01/24 Updated minor version
 *       mb   04/15/24 Updated SHA2 minor version
+* 5.4   yog  04/29/24 Fixed doxygen warnings.
 *
 * </pre>
 * @note
@@ -280,18 +281,21 @@ typedef enum {
 	XSECURE_DEC_OP,		/**< Decryption operation */
 } XSecure_KeyOp;
 
+/** AES Key metadata for Key wrap unwrap */
 typedef struct {
 	XSecure_KeyOp KeyOp; /**< Key Operation */
 	u32 AesKeySize;      /**< AES Key size */
 	u8 KeyId[XSECURE_KEY_ID_LEN_IN_BYTES];      /**< Unique ID to identify key */
 } XSecure_KeyMetaData;
 
+/** Input and output parameters for Key wrap */
 typedef struct {
 	XSecure_KeyMetaData KeyMetaData; /**< Key Meta data */
 	u64 KeyWrapAddr;	/**< Key Wrap address */
 	u32 TotalWrappedKeySize; /**< Total Wrapped key size */
 } XSecure_KeyWrapData;
 
+/** Addresses of Input parameters of RSA */
 typedef struct {
 	u64 ModulusAddr;	/**< Modulus address */
 	u64 ExponentAddr;	/**< Exponent address */
@@ -327,8 +331,6 @@ typedef struct {
  *
  * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
  *
- * @return	None
- *
  ******************************************************************************/
 static __attribute__((always_inline)) inline
 void XSecure_HmacGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
@@ -343,8 +345,6 @@ void XSecure_HmacGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
  * This function returns the SHA2 crypto algorithm information.
  *
  * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
- *
- * @return	None
  *
  ******************************************************************************/
 static __attribute__((always_inline)) inline

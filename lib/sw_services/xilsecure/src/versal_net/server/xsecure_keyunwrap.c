@@ -24,6 +24,7 @@
 *       kpt     12/19/23 Fix logical issue in updating keyslot value
 * 5.3   ng      01/28/24 Added SDT support
 *       ng      03/26/24 Fixed header include in SDT flow
+* 5.4   yog     04/29/24 Fixed doxygen warnings.
 *
 * </pre>
 *
@@ -148,7 +149,7 @@ static void XSecure_MarkKeySlotOccupied(u32 KeySlotId,  u64 SharedKeyStoreAddr)
  *              with metadata in Shared address between PMC and secure shell.
  *
  * @param	KeyWrapData is pointer to the XSecure_KeyWrapData instance.
- * @param   DmaPtr is ponter to DMA instance which is used for AES and SHA
+ * @param	DmaPtr is ponter to DMA instance which is used for AES and SHA
  *
  * @return
  * 			- XST_SUCCESS on success.
@@ -196,7 +197,7 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 		goto END;
 	}
 
-	/* Get destination key slot address by using free key slot value */
+	/** Get destination key slot address by using free key slot value */
 	DstKeySlotAddr = (SharedKeyStoreAddr + sizeof(XSecure_KeyStoreHdr) + (KeySlotVal * sizeof(XSecure_KeyMetaData)) +
 				(KeySlotVal * XSECURE_AES_KEY_SIZE_256BIT_BYTES));
 
@@ -216,7 +217,7 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 		goto END;
 	}
 
-	/**< Unwrap the AES customer managed key using AES ephemeral key */
+	/** Unwrap the AES customer managed key using AES ephemeral key */
 	Status = XSecure_AesInitialize(AesInstPtr, DmaPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -231,13 +232,13 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_AesEcbDecrypt, AesInstPtr, (u64)(UINTPTR)EphAesKey,
 			       AesKeySize, KeyWrapAddr, DstKeySlotAddr, EncryptedKeySize);
 
-	/* Update the key slot with metadata */
+	/** Update the key slot with metadata */
 	DstKeySlotAddr += EncryptedKeySize;
 	XSecure_MemCpy64(DstKeySlotAddr, (u64)(UINTPTR)&KeyWrapData->KeyMetaData, sizeof(XSecure_KeyMetaData));
 	XSecure_MarkKeySlotOccupied(KeySlotVal, SharedKeyStoreAddr);
 
 END:
-	/* Clear the ephemeral AES key after the usage */
+	/** Clear the ephemeral AES key after the usage */
 	XSECURE_TEMPORAL_IMPL(SStatus, SStatusTmp, Xil_SecureZeroize, EphAesKey, XSECURE_AES_KEY_SIZE_256BIT_BYTES);
 	if ((SStatus != XST_SUCCESS) || (SStatusTmp != XST_SUCCESS)) {
 		if (Status == XST_SUCCESS) {

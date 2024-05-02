@@ -1,15 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
-*@file xsecure_rsaclient.h
-* @addtogroup xsecure_rsa_client_apis XilSecure RSA Versal Client APIs
-* @{
-* @cond xsecure_internal
+* @file xsecure_rsaclient.h
+*
 * This file Contains the client function prototypes, defines and macros for
 * the RSA hardware module.
 *
@@ -23,12 +21,15 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.0   kpt  07/24/22 Moved XSecure_RsaKat into xsecure_katclient.c
 * 5.2   mmd  07/09/23 Included header file for crypto algorithm information
+* 5.4   yog  04/29/24 Fixed doxygen grouping.
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_rsa_client_apis XilSecure RSA Client APIs
+* @{
+*/
 #ifndef XSECURE_RSA_CLIENT_H
 #define XSECURE_RSA_CLIENT_H
 

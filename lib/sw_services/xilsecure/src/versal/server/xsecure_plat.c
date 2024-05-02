@@ -20,6 +20,7 @@
 * 5.2   yog  07/10/23 Added support of unaligned data sizes for Versal Net
 *	vss  09/11/2023 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS
 *	ss   04/05/2024 Fixed doxygen warnings
+* 5.4   yog  04/29/2024 Fixed doxygen warnings.
 *
 * </pre>
 *
@@ -73,9 +74,9 @@ const XSecure_Sha3Config Sha3ConfigTable[XSECURE_SHA3_NUM_OF_INSTANCES] =
 /**
  * @brief	This function masks the secure stream switch value
  *
- * @param	InputSrc	- Input source to be selected for the resource
- * @param	OutputSrc	- Output source to be selected for the resource
- * @param   Value       - Register Value of SSS cfg register
+ * @param	InputSrc	Input source to be selected for the resource
+ * @param	OutputSrc	Output source to be selected for the resource
+ * @param	Value		Register Value of SSS cfg register
  *
  * @return
  *	-	Mask - Mask value of corresponding InputSrc and OutputSrc

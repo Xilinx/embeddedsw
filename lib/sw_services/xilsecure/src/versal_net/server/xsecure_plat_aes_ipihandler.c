@@ -8,9 +8,6 @@
 /**
 *
 * @file xsecure_plat_aes_ipihandler.h
-* @addtogroup xsecure_apis XilSecure Versal Net IPI Handler APIs
-* @{
-* @cond xsecure_internal
 * This file contains the Xilsecure Versal Net IPI Handler APIs
 *
 * <pre>
@@ -19,13 +16,16 @@
 * Ver   Who  Date        Changes
 * ----- ---- --------   -------------------------------------------------------
 * 5.3   har  02/05/2024 Initial release
+* 5.4   yog  04/29/2024 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-* @endcond
 *
 ******************************************************************************/
+/**
+* @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xsecure_plat_aes_ipihandler.h"

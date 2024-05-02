@@ -29,10 +29,9 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.2   yog  05/04/23 Fixed HIS COMF violations
 *	ss   04/05/24 Fixed doxygen warnings
+* 5.4   yog  04/29/24 Fixed doxygen warnings.
 *
 * </pre>
-*
-* @note
 *
 ******************************************************************************/
 
@@ -55,7 +54,7 @@
  * @brief  This function sends IPI request to the target module and gets the
  * response from it
  *
- * @param	MailboxPtr      Pointer to XMailbox
+ * @param	MailboxPtr	Pointer to XMailbox
  * @param	MsgPtr		Pointer to the payload message
  * @param	MsgLen		Length of the message
  *
@@ -106,8 +105,8 @@ END:
 * @param MailboxPtr Pointer to the mailbox instance
 *
 * @return
-* 	- XST_SUCCESS	On successful initialization
-* 	- XST_FAILURE	On failure
+* 	- XST_SUCCESS - On successful initialization
+* 	- XST_FAILURE - On failure
 *
 ******************************************************************************/
 int XSecure_ClientInit(XSecure_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr)

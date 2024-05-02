@@ -7,9 +7,7 @@
 /*****************************************************************************/
 /**
 * @file xsecure_aesclient.h
-* @addtogroup xsecure_aes_client_apis XilSecure AES Versal Client APIs
-* @{
-* @cond xsecure_internal
+*
 * This file Contains the client function prototypes, defines and macros for
 * the AES hardware module.
 *
@@ -29,12 +27,16 @@
 *	vss  09/21/23 Fixed doxygen warnings
 * 5.3	vss  10/03/23 Added single API support for AES AAD and GMAC operations
 *	vss  03/04/24 Removed code redundancy for AesPerformOperation API
+* 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
 
+/**
+* @addtogroup xsecure_aes_client_apis XilSecure AES Client APIs
+* @{
+*/
 #ifndef XSECURE_AES_CLIENT_H
 #define XSECURE_AES_CLIENT_H
 
@@ -49,9 +51,7 @@ extern "C" {
 #include "xsecure_aesalginfo.h"
 
 /**************************** Type Definitions *******************************/
-/**
- * For selecting the Key source to AES Core.
- */
+/** For selecting the Key source to AES Core. */
 typedef enum {
 	XSECURE_AES_BBRAM_KEY = 0, /**< Bbram key */
 	XSECURE_AES_BBRAM_RED_KEY, /**< Bbram red key */
@@ -77,6 +77,7 @@ typedef enum {
 	XSECURE_AES_ALL_KEYS, /**< All keys */
 } XSecure_AesKeySource;
 
+/** For selecting the Key size to AES Core. */
 typedef enum {
 	XSECURE_AES_KEY_SIZE_128 = 0,  /**< Key Length = 16 bytes = 128 bits */
 	XSECURE_AES_KEY_SIZE_256 = 2,  /**< Key Length = 32 bytes = 256 bits */

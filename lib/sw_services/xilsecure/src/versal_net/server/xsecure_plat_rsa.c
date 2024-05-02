@@ -24,6 +24,7 @@
 * 5.3   ng      01/28/24 Added SDT support
 *       ng      03/26/24 Fixed header include in SDT flow
 *       kpt     03/22/24 Fix MISRA C violation of Rule 10.3
+* 5.4   yog     04/29/24 Fixed doxygen warnings.
 *
 * </pre>
 *
@@ -375,7 +376,7 @@ END:
  * @brief	This function gets RSA private key.
  *
  * @return
- *        - Pointer to RSA private key or NULL otherwise.
+ *	-	Pointer to RSA private key or NULL otherwise.
  *
  ******************************************************************************/
 XSecure_RsaKey *XSecure_GetRsaPrivateKey(void)
@@ -464,7 +465,7 @@ XSecure_RsaKey *XSecure_GetRsaPrivateKey(void)
  * @brief	This function gets RSA public key.
  *
  * @return
- *		- Pointer to RSA public key or NULL otherwise
+ *	-	Pointer to RSA public key or NULL otherwise
  *
  ******************************************************************************/
 XSecure_RsaPubKey* XSecure_GetRsaPublicKey(void)
@@ -485,20 +486,20 @@ XSecure_RsaPubKey* XSecure_GetRsaPublicKey(void)
  * @brief	This function performs the RSA exponentiation using the
  *              Chinese remainder theorem(CRT).
  *
- * @param	Hash - is the Hash of the exponentiation.
- * @param	P    - is first factor, a positive integer.
- * @param	Q    - is second factor, a positive integer.
- * @param	Dp   - is first factor's CRT exponent, a positive integer.
- * @param	Dq   - is second factor's CRT exponent, a positive integer.
- * @param	Qinv - is (first) CRT coefficient, a positive integer.
- * @param	Pub  - is the public exponent to protect against the fault insertions.
- * @param	Mod  - is the public modulus (p*q), if NULL, calculated internally.
- * @param	Len  - is length of the full-length integer in bits.
- * @param	Res  - is result of exponentiation r = (h^e) mod n.
+ * @param	Hash  is the Hash of the exponentiation.
+ * @param	P     is first factor, a positive integer.
+ * @param	Q     is second factor, a positive integer.
+ * @param	Dp    is first factor's CRT exponent, a positive integer.
+ * @param	Dq    is second factor's CRT exponent, a positive integer.
+ * @param	Qinv  is (first) CRT coefficient, a positive integer.
+ * @param	Pub   is the public exponent to protect against the fault insertions.
+ * @param	Mod   is the public modulus (p*q), if NULL, calculated internally.
+ * @param	Len   is length of the full-length integer in bits.
+ * @param	Res   is result of exponentiation r = (h^e) mod n.
  *
  * @return
  *		- XST_SUCCESS on success.
- * 		- Error code on failure.
+ *		- Error code on failure.
  *
  ******************************************************************************/
 int XSecure_RsaExpCRT(unsigned char *Hash, unsigned char *P, unsigned char *Q,
@@ -529,19 +530,19 @@ END:
 /**
  * @brief	This function perofrms the RSA exponentiation.
  *
- * @param	Hash - is Hash of the exponentiation.
- * @param	Exp  - is exponent, a positive integer.
- * @param	Mod  - is public modulus (p*q), if NULL, calculated internally.
- * @param	P    - is first factor, a positive integer.
- * @param	Q    - is second factor, a positive integer.
- * @param	Pub  - is public exponent to protect against the fault insertions.
- * @param	Tot  - is totient, a secret value equal to (p-1)*(q-1).
- * @param	Len  - is length of the full-length integer in bits.
- * @param	Res  - is result of exponentiation r = (h^e) mod n.
+ * @param	Hash  is Hash of the exponentiation.
+ * @param	Exp   is exponent, a positive integer.
+ * @param	Mod   is public modulus (p*q), if NULL, calculated internally.
+ * @param	P     is first factor, a positive integer.
+ * @param	Q     is second factor, a positive integer.
+ * @param	Pub   is public exponent to protect against the fault insertions.
+ * @param	Tot   is totient, a secret value equal to (p-1)*(q-1).
+ * @param	Len   is length of the full-length integer in bits.
+ * @param	Res   is result of exponentiation r = (h^e) mod n.
  *
  * @return
  *		- XST_SUCCESS on success.
- * 		- Error code on failure.
+ *		- Error code on failure.
  *
  ******************************************************************************/
 int XSecure_RsaExp(unsigned char *Hash, unsigned char *Exp, unsigned char *Mod,

@@ -8,9 +8,7 @@
 /**
 *
 * @file xsecure_trng_ipihandler.c
-* @addtogroup xsecure_apis XilSecure Versal TRNG handler APIs
-* @{
-* @cond xsecure_internal
+*
 * This file contains the xilsecure TRNG IPI handlers implementation.
 *
 * <pre>
@@ -27,14 +25,17 @@
 *                       XTRNGPSX_INVALID_BUF_SIZE
 *       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
 *	ss   04/05/24 Fixed doxygen warnings
+* 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
 *
-* @note
-* @endcond
+*
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_trng_server_apis Xilsecure TRNG Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xplmi_dma.h"
 #include "xsecure_defs.h"
@@ -54,7 +55,8 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
  *
  * @param 	Cmd is pointer to the command structure
  *
- * @return	- XST_SUCCESS - If the handler execution is successful
+ * @return
+ * 		- XST_SUCCESS - If the handler execution is successful
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
@@ -88,13 +90,14 @@ END:
  * @brief       This function handler calls XSecure_TrngGenerate server API to
  *              generate random number
  *
- * @param	SrcAddrLow	- Lower 32 bit address of the random
+ * @param	SrcAddrLow	 Lower 32 bit address of the random
  * 				data buffer address.
- * @param	SrcAddrHigh	- Higher 32 bit address of the random
+ * @param	SrcAddrHigh	 Higher 32 bit address of the random
  * 				data buffer address.
- * @param	Size		- Number of random bytes needs to be generated.
+ * @param	Size		 Number of random bytes needs to be generated.
  *
- * @return	- XST_SUCCESS - If the generate is successful
+ * @return
+ * 		- XST_SUCCESS - If the generate is successful
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/

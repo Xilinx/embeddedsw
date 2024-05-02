@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -8,11 +8,7 @@
 /**
 *
 * @file xsecure_plat.h
-* @addtogroup xsecure_plat.h XilSecure Versal APIs
-* @{
-* @cond xsecure_internal
-*
-* @note
+* This file contains versal specific code for xilsecure server.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,13 +20,15 @@
 *       yog  09/04/23 Removed XSecure_ECCRandInit API definition
 * 5.3	vss  10/12/23 Removed XSECURE_SSS_IGNORE to fix MISRA-C Rule 18.1 violation
 		      and OVER_RUN coverity warning
+* 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
+/**
+* @addtogroup xsecure_helper_server_apis Xilsecure Helper Server APIs
+* @{
+*/
 #ifndef XSECURE_PLAT_H
 #define XSECURE_PLAT_H
 
@@ -57,9 +55,7 @@ extern "C" {
 #define XSECURE_DISABLE_BYTE_SWAP	(0x0U)	/**< Disables data swap in AES */
 
 /***************************** Type Definitions******************************/
-/*
- * Sources to be selected to configure secure stream switch.
- */
+/** Sources to be selected to configure secure stream switch. */
 typedef enum {
 	XSECURE_SSS_DMA0 = 0, /**< DMA0 */
 	XSECURE_SSS_DMA1, /**< DMA1 */
@@ -71,6 +67,7 @@ typedef enum {
 	XSECURE_SSS_INVALID /**< Invalid */
 }XSecure_SssSrc;
 
+/** This structure contains parameters to configure DMA for AES */
 typedef struct {
 	u64 SrcDataAddr;	/**< Address of source buffer */
 	u64 DestDataAddr;	/**< Address of destination buffer */
@@ -81,14 +78,24 @@ typedef struct {
 } XSecure_AesDmaCfg;
 
 /***************************** Function Prototypes ***************************/
+/**
+ * @cond xsecure_internal
+ * @{
+ */
 int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg *AesDmaCfg, u32 Size, UINTPTR BaseAddress);
 void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 	XPmcDma_Channel Channel, u8 EndianType);
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
-
+/**
+ * @}
+ * @endcond
+ */
 /*****************************************************************************/
 /**
  * @brief	This function is not applicable for versal
+ *
+ * @param	BaseAddress	 Base address of the core
+ * @param	Op		 To set or clear the bit
  *
  *****************************************************************************/
 static inline void XSecure_UpdateCryptoStatus(UINTPTR BaseAddress, u32 Op)
@@ -115,5 +122,3 @@ static inline void XSecure_SetRsaCryptoStatus(void)
 #endif
 
 #endif /** XSECURE_PLAT_H */
-
-/* @} */

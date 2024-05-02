@@ -7,9 +7,6 @@
 /**
 *
 * @file xsecure_plat_ipihandler.h
-* @addtogroup xsecure_apis XilSecure Versal plat ipi handler APIs
-* @{
-* @cond xsecure_internal
 * This file contains the xilsecure plat ipi Handler declaration.
 *
 * <pre>
@@ -18,14 +15,17 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.3   kpt  03/12/24 Initial release
+* 5.4   yog  04/29/24 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-* @endcond
 *
 ******************************************************************************/
 
+/**
+* @addtogroup xsecure_helper_server_apis Xilsecure Helper Server APIs
+* @{
+*/
 #ifndef XSECURE_PLAT_IPIHANDLER_H_
 #define XSECURE_PLAT_IPIHANDLER_H_
 

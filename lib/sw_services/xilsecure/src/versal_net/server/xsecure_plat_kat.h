@@ -9,9 +9,7 @@
 /**
 *
 * @file xsecure_plat_kat.h
-* @addtogroup xsecure_kat_apis XilSecure KAT APIs
-* @{
-* @cond xsecure_internal
+*
 *
 * This file contains KAT interface APIs for versal net
 *
@@ -23,13 +21,16 @@
 * 5.0   kpt  07/15/2022 Initial release
 * 5.2   kpt  07/12/2023 Add pairwise consistency for RSA
 * 5.3   kpt  12/13/2023 Added RSA CRT support for PWCT
+* 5.4   yog  04/29/2024 Fixed doxygen grouping.
 *
 * </pre>
 *
-* @note
-* @endcond
 *
 ******************************************************************************/
+/**
+* @addtogroup xsecure_kat_server_apis Xilsecure Kat Server APIs
+* @{
+*/
 #ifndef XSECURE_KAT_PLAT_H_
 #define XSECURE_KAT_PLAT_H_
 
@@ -47,7 +48,15 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
+/**
+ * @cond xsecure_internal
+ * @{
+ */
 int XSecure_HmacKat(XSecure_Sha3 *SecureSha3);
+/**
+ * @}
+ * @endcond
+ */
 int XSecure_Sha384Kat(void);
 #ifndef PLM_RSA_EXCLUDE
 int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaPubKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype);
@@ -58,4 +67,4 @@ int XSecure_RsaPrivateDecryptKat(void);
 }
 #endif
 
-#endif /* XSECURE_KAT_PLAT_H_ *//* @} */
+#endif /* XSECURE_KAT_PLAT_H_ */

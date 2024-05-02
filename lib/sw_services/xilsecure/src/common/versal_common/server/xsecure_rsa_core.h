@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file xsecure_rsa_core.h
-* @addtogroup xsecure_rsa_versal_apis XilSecure RSA Versal APIs
-* @{
-* @cond xsecure_internal
+*
 * This file contains Versal specific RSA core APIs.
 *
 * <pre>
@@ -33,12 +31,16 @@
 *       gm   07/16/21 Added 64-bit address support
 * 5.0   kpt  07/24/21 Moved XSecure_RsaPublicEncrypt KAT into xsecure_kat.c
 * 5.2   kpt  08/20/23 Added prototype XSecure_RsaEcdsaZeroizeAndVerifyRam
+* 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
 *
-* @endcond
 ******************************************************************************/
 
+/**
+* @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
+* @{
+*/
 #ifndef XSECURE_RSA_CORE_H
 #define XSECURE_RSA_CORE_H
 
@@ -88,27 +90,26 @@ extern "C" {
 #define XSECURE_RSA_CONTROL_EXP		(0x01U) /**< Exponentiation Opcode */
 #define XSECURE_RSA_CONTROL_EXP_PRE	(0x05U) /**< Expo. using R*R mod M */
 
-/**
- * Config registers values
+/** @name Config registers values
  * CFG0 is for Qsel and multiplication passes
  * CFG1 is for Mont digits
  * CFG2 is for location size
  * CFG5 is for No.of groups
  */
-#define XSECURE_ECDSA_RSA_CFG0_4096_VALUE	(0x0000006BU)
-#define XSECURE_ECDSA_RSA_CFG1_4096_VALUE	(0x00000081U)
-#define XSECURE_ECDSA_RSA_CFG2_4096_VALUE	(0x00000016U)
-#define XSECURE_ECDSA_RSA_CFG5_4096_VALUE	(0x00000015U)
+#define XSECURE_ECDSA_RSA_CFG0_4096_VALUE	(0x0000006BU) /**< CFG0 4096 value*/
+#define XSECURE_ECDSA_RSA_CFG1_4096_VALUE	(0x00000081U) /**< CFG1 4096 value*/
+#define XSECURE_ECDSA_RSA_CFG2_4096_VALUE	(0x00000016U) /**< CFG2 4096 value*/
+#define XSECURE_ECDSA_RSA_CFG5_4096_VALUE	(0x00000015U) /**< CFG3 4096 value*/
 
-#define XSECURE_ECDSA_RSA_CFG0_3072_VALUE	(0x000000A0U)
-#define XSECURE_ECDSA_RSA_CFG1_3072_VALUE	(0x00000061U)
-#define XSECURE_ECDSA_RSA_CFG2_3072_VALUE	(0x00000016U)
-#define XSECURE_ECDSA_RSA_CFG5_3072_VALUE	(0x00000010U)
+#define XSECURE_ECDSA_RSA_CFG0_3072_VALUE	(0x000000A0U) /**< CFG0 3072 value*/
+#define XSECURE_ECDSA_RSA_CFG1_3072_VALUE	(0x00000061U) /**< CFG1 3072 value*/
+#define XSECURE_ECDSA_RSA_CFG2_3072_VALUE	(0x00000016U) /**< CFG2 3072 value*/
+#define XSECURE_ECDSA_RSA_CFG5_3072_VALUE	(0x00000010U) /**< CFG3 3072 value*/
 
-#define XSECURE_ECDSA_RSA_CFG0_2048_VALUE	(0x00000016U)
-#define XSECURE_ECDSA_RSA_CFG1_2048_VALUE	(0x00000041U)
-#define XSECURE_ECDSA_RSA_CFG2_2048_VALUE	(0x00000016U)
-#define XSECURE_ECDSA_RSA_CFG5_2048_VALUE	(0x0000000AU)
+#define XSECURE_ECDSA_RSA_CFG0_2048_VALUE	(0x00000016U) /**< CFG0 2048 value*/
+#define XSECURE_ECDSA_RSA_CFG1_2048_VALUE	(0x00000041U) /**< CFG1 2048 value*/
+#define XSECURE_ECDSA_RSA_CFG2_2048_VALUE	(0x00000016U) /**< CFG2 2048 value*/
+#define XSECURE_ECDSA_RSA_CFG5_2048_VALUE	(0x0000000AU) /**< CFG3 2048 value*/
 
 /** @name RSA status Register
  *
@@ -120,11 +121,13 @@ extern "C" {
 #define XSECURE_RSA_STATUS_ERROR	(0x4U) 	/**< Error */
 /* @}*/
 
+/** Used for setting the state of RSA operation. */
 typedef enum {
 	XSECURE_RSA_UNINITIALIZED = 0x0,/**< 0x0 */
 	XSECURE_RSA_INITIALIZED			/**< 0x1 */
 } XSecure_RsaState;
 
+/** Used for selecting the RSA operation. */
 typedef enum {
 	XSECURE_RSA_SIGN_ENC = 0x0,		/**< 0x0 */
 	XSECURE_RSA_SIGN_DEC			/**< 0x1 */
@@ -169,5 +172,3 @@ int XSecure_RsaEcdsaZeroizeAndVerifyRam(u32 BaseAddress);
 #endif
 
 #endif /* XSECURE_RSA_CORE_H */
-
-/* @} */

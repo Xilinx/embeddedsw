@@ -8,9 +8,7 @@
 /**
 *
 * @file xsecure_sha_ipihandler.c
-* @addtogroup xsecure_apis XilSecure Versal APIs
-* @{
-* @cond xsecure_internal
+*
 * This file contains the XilSecure SHA3 IPI Handler definition.
 *
 * <pre>
@@ -34,14 +32,16 @@
 * 5.3	mb    02/23/2024 Updated HASH length to words in XPlmi_DmaXfr
 *       kpt   03/22/2024 Fix MISRA C violation of Rule 10.3
 *	ss    04/05/2024 Fixed doxygen warnings
+* 5.4   yog   04/29/2024 Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
 *
-* @note
-* @endcond
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_sha3_server_apis XilSecure SHA3 Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xplmi_dma.h"
 #include "xsecure_defs.h"
@@ -153,15 +153,15 @@ END:
  * @brief       This function handler calls XSecure_Sha3Update64Bit or
  * 		XSecure_Sha3Finish based on the Continue bit in the command
  *
- * @param	SrcAddrLow	- Lower 32 bit address of the input data
+ * @param	SrcAddrLow	 Lower 32 bit address of the input data
  * 				on which hash has to be calculated
- * @param	SrcAddrHigh	- Higher 32 bit address of the input data
+ * @param	SrcAddrHigh	 Higher 32 bit address of the input data
  * 				on which hash has to be calculated
- * @param	Size		- Size of the input data in bytes to be
+ * @param	Size		 Size of the input data in bytes to be
  * 				updated
- * @param	DstAddrLow	- Lower 32 bit address of the output data
+ * @param	DstAddrLow	 Lower 32 bit address of the output data
  * 				where hash to be stored
- * @param	DstAddrHigh	- Higher 32 bit address of the output data
+ * @param	DstAddrHigh	 Higher 32 bit address of the output data
  * 				where hash to be stored
  *
  * @return

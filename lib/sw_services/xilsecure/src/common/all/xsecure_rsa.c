@@ -52,10 +52,10 @@
 *       am   09/17/21 Resolved compiler warnings
 * 5.3   am   12/18/23 Fixed assignment of status to success for invalid mod data
 *       kpt  03/04/24 Updated parameter description for XSecure_IsNonZeroBuffer
+* 5.4   yog  04/29/24 Fixed doxygen warnings
 *
 * </pre>
 *
-* @note
 *
 ******************************************************************************/
 
@@ -85,14 +85,14 @@ static int XSecure_IsNonZeroBuffer(u8 *Data, const u32 Size);
  * 		default values located at a 64-bit address required for
  * 		operating the RSA cryptographic engine
  *
- * @param	InstancePtr - Pointer to the XSecure_Rsa instance
- * @param	Mod	    - Address of the key Modulus of key size
- * @param	ModExt	    - Address of the pre-calculated exponential
+ * @param	InstancePtr  Pointer to the XSecure_Rsa instance
+ * @param	Mod	     Address of the key Modulus of key size
+ * @param	ModExt	     Address of the pre-calculated exponential
  *			      (R^2 Mod N) value
  *			    - 0 - if user doesn't have pre-calculated
  *				     R^2 Mod N value, control will take care
  *				     of this calculation internally
- * @param	ModExpo	    - Address of the buffer which contains key exponent
+ * @param	ModExpo	     Address of the buffer which contains key exponent
  *
  * @return
  *	-	XST_SUCCESS - If initialization was successful
@@ -144,15 +144,15 @@ END:
  * @brief	This function initializes a a XSecure_Rsa structure with the
  * 		default values required for operating the RSA cryptographic engine
  *
- * @param	InstancePtr - Pointer to the XSecure_Rsa instance
- * @param	Mod	    - A character Pointer which contains the key
+ * @param	InstancePtr  Pointer to the XSecure_Rsa instance
+ * @param	Mod	     A character Pointer which contains the key
  *			      Modulus of key size
- * @param	ModExt	    - A Pointer to the pre-calculated exponential
+ * @param	ModExt	     A Pointer to the pre-calculated exponential
  *			      (R^2 Mod N) value
  *			    - NULL - if user doesn't have pre-calculated
  *				     R^2 Mod N value, control will take care
  *				     of this calculation internally
- * @param	ModExpo	    - Pointer to the buffer which contains key exponent
+ * @param	ModExpo	     Pointer to the buffer which contains key exponent
  *
  * @return
  *	-	XST_SUCCESS - If initialization was successful
@@ -176,12 +176,12 @@ int XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
  *  		64-bit address provided is either matching with the provided
  *  		expected hash by taking care of PKCS padding
  *
- * @param	Signature - Address of the buffer which holds the decrypted
+ * @param	Signature  Address of the buffer which holds the decrypted
  *			    RSA signature
- * @param	Hash	  - Address of the buffer which has the hash calculated
+ * @param	Hash	   Address of the buffer which has the hash calculated
  *		 	    on the data to be authenticated
- * @param	HashLen	  - Length of Hash used
- *			  - For SHA3 it should be 48 bytes
+ * @param	HashLen	   Length of Hash used
+ *			   For SHA3 it should be 48 bytes
  *
  * @return
  *	-	XST_SUCCESS - If decryption was successful
@@ -265,12 +265,12 @@ ENDF:
  *  		matching with the provided expected hash by taking care of PKCS
  *		padding
  *
- * @param	Signature - Pointer to the buffer which holds the decrypted
+ * @param	Signature  Pointer to the buffer which holds the decrypted
  *			    RSA signature
- * @param	Hash	  - Pointer to the buffer which has the hash calculated
+ * @param	Hash	   Pointer to the buffer which has the hash calculated
  *		 	    on the data to be authenticated
- * @param	HashLen	  - Length of Hash used
- *			  - For SHA3 it should be 48 bytes
+ * @param	HashLen	   Length of Hash used
+ *			   For SHA3 it should be 48 bytes
  *
  * @return
  *	-	XST_SUCCESS - If decryption was successful
@@ -395,15 +395,15 @@ int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input,
  *  		initializing the RSA cryptographic core with the
  *  		XSecure_RsaInitialize function
  *
- * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
- * @param	Input		- Address of the buffer which contains the input
+ * @param	InstancePtr	 Pointer to the XSecure_Rsa instance
+ * @param	Input		 Address of the buffer which contains the input
  *				  data to be decrypted
- * @param	Size		- Key size in bytes, Input size also should be same as
+ * @param	Size		 Key size in bytes, Input size also should be same as
  * 				  Key size mentioned. Inputs supported are
  * 				- XSECURE_RSA_4096_KEY_SIZE,
  * 				- XSECURE_RSA_2048_KEY_SIZE
  * 				- XSECURE_RSA_3072_KEY_SIZE
- * @param	Result		- Address of buffer where resultant decrypted
+ * @param	Result		 Address of buffer where resultant decrypted
  *				  data to be stored
  *
  * @return
@@ -487,15 +487,15 @@ END:
  * 		provided when initializing the RSA cryptographic core with the
  * 		XSecure_RsaInitialize function
  *
- * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
- * @param	Input		- Pointer to the buffer which contains the input
+ * @param	InstancePtr	 Pointer to the XSecure_Rsa instance
+ * @param	Input		 Pointer to the buffer which contains the input
  *				  data to be decrypted
- * @param	Size		- Key size in bytes, Input size also should be same as
+ * @param	Size		 Key size in bytes, Input size also should be same as
  * 				  Key size mentioned. Inputs supported are
  * 				- XSECURE_RSA_4096_KEY_SIZE,
  * 				- XSECURE_RSA_2048_KEY_SIZE
  * 				- XSECURE_RSA_3072_KEY_SIZE
- * @param	Result		- Pointer to the buffer where resultant decrypted
+ * @param	Result		 Pointer to the buffer where resultant decrypted
  *				  data to be stored
  *
  * @return

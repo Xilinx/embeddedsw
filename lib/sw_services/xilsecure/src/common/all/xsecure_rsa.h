@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -8,9 +8,6 @@
 /**
 *
 * @file xsecure_rsa.h
-* @addtogroup xsecure_rsa_common_apis XilSecure RSA Common APIs
-* @{
-* @cond xsecure_internal
 * This file contains hardware interface related information for RSA device
 *
 * This driver supports the following features:
@@ -64,11 +61,15 @@
 * 4.6   har  07/14/21 Fixed doxygen warnings
 *       gm   07/16/21 Added APIs to support 64-bit address
 * 5.2   mmd  07/09/23 Included header file for crypto algorithm information
+* 5.4   yog  04/29/24 Fixed doxygen grouping
 *
 * </pre>
 *
-* @endcond
 ******************************************************************************/
+/**
+* @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
+* @{
+*/
 
 #ifndef XSECURE_RSA_H_
 #define XSECURE_RSA_H_
@@ -128,4 +129,3 @@ int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 #endif
 
 #endif /* XSECURE_RSA_H_ */
-/* @} */

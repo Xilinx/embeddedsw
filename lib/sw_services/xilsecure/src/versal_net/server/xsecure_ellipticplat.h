@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -19,10 +19,10 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   dc   07/09/22 Initial version
 * 5.1   har  01/06/23 Added prototype for XSecure_EllipticGenerateEphemeralKey
+* 5.4   yog  04/29/24 Fixed doxygen warnings.
 *
 * </pre>
 *
-* @note
 *
 ******************************************************************************/
 #ifndef XSECURE_ELLIPTIC_PLAT_H_
@@ -42,7 +42,7 @@ extern "C" {
 /************************** Constant Definitions ****************************/
 
 /************************** Type Definitions ********************************/
-/* Ecc private key generation parameters */
+/**  Ecc private key generation parameters */
 typedef struct {
 	u32 SeedAddr;		/**< Address to the seed buffer*/
 	u32 SeedLength;		/**< Seed length */

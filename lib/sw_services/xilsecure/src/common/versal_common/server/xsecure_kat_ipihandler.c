@@ -8,9 +8,7 @@
 /**
 *
 * @file xsecure_kat_ipihandler.c
-* @addtogroup xsecure_apis XilSecure Versal KAT handler APIs
-* @{
-* @cond xsecure_internal
+*
 * This file contains the xilsecure KAT IPI handlers implementation.
 *
 * <pre>
@@ -25,13 +23,17 @@
 * 5.2   ng   07/13/2023 Added SDT support
 *       yog  08/07/2023 Removed trng init call in XSecure_EllipticSignGenKat API
 *                       since trng is being initialised in server API's
+* 5.4   yog  04/29/2024 Fixed doxygen grouping and doxygen warnings.
+*
 * </pre>
 *
-* @note
-* @endcond
 *
 ******************************************************************************/
 
+/**
+* @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xplmi_dma.h"
 #include "xsecure_kat.h"
@@ -143,7 +145,7 @@ END:
  *
  * @return
  *	-	XST_SUCCESS - If the KAT is successful
- * 	-	ErrorCode - If there is a failure
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesDecKat(void)
@@ -280,7 +282,7 @@ END:
  * @brief       This function handler calls XSecure_EllipticVerifySignKat
  * 		server API
  *
- * @param	CurveClass	- Is a class of elliptic curve
+ * @param	CurveClass	 Is a class of elliptic curve
  *
  * @return
  *	-	XST_SUCCESS - If the elliptic KAT is successful
@@ -306,7 +308,7 @@ static int XSecure_EllipticSignVerifyKat(XSecure_EccCrvClass CurveClass)
  * @brief       This function handler calls XSecure_EllipticSignGenerateKat
  * 		server API
  *
- * @param	CurveClass	- Is a class of elliptic curve
+ * @param	CurveClass	 Is a class of elliptic curve
  *
  * @return
  *	-	XST_SUCCESS - If the elliptic KAT is successful

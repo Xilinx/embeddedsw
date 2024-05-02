@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,10 +22,10 @@
 * 5.2   am   04/01/23 Added XST_INVALID_PARAM error code for invalid parameters
 *       am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *       am   07/31/23 Fixed typo for XSecure_TrngGenerareRandNum function
+* 5.4   yog  04/29/24 Fixed doxygen warnings.
 *
 * </pre>
 *
-* @note
 *
 ******************************************************************************/
 
@@ -38,7 +38,9 @@
  * @brief	This function sends IPI request to generate
  *              random number
  *
- * @param	InstancePtr - Pointer to the client instance
+ * @param	InstancePtr  Pointer to the client instance.
+ * @param	RandBufAddr  Rand Buffer address to store the generated random number.
+ * @param	Size  Number of random bytes needs to be generated.
  *
  * @return
  *	-	XST_SUCCESS - When KAT Pass

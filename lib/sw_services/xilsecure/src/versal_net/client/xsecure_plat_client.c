@@ -21,9 +21,9 @@
 *       am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *       kpt  07/09/23 Added APIs related to Key wrap and unwrap
 * 5.3   kpt  12/13/23 Add RSA quiet mode support
+* 5.4   yog  04/29/24 Fixed doxygen warnings.
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
 
@@ -49,8 +49,8 @@ static int XSecure_UpdateCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecu
  * @brief	This function sends IPI request to set crypto status bit of HNIC
  *
  * @param	InstancePtr  		Pointer to the client instance
- * @param   CryptoStatusOp		Operation to set or clear crypto status bit
- * @param   CryptoMask  		Mask to set or clear crypto status bit
+ * @param	CryptoStatusOp		Operation to set or clear crypto status bit
+ * @param	CryptoMask  		Mask to set or clear crypto status bit
  *
  * @return
  *	-	XST_SUCCESS - On Success
@@ -70,8 +70,8 @@ int XSecure_UpdateHnicCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_
  * @brief	This function sends IPI request to set crypto status bit of of CPM 5N
  *
  * @param	InstancePtr  		Pointer to the client instance
- * @param   CryptoStatusOp		Operation to set or clear crypto status bit
- * @param   CryptoMask  		Mask to set or clear crypto status bit
+ * @param	CryptoStatusOp		Operation to set or clear crypto status bit
+ * @param	CryptoMask  		Mask to set or clear crypto status bit
  *
  * @return
  *	-	XST_SUCCESS - On Success
@@ -91,8 +91,8 @@ int XSecure_UpdateCpm5NCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure
  * @brief	This function sends IPI request to set crypto status bit of PCIDE
  *
  * @param	InstancePtr  		Pointer to the client instance
- * @param   CryptoStatusOp		Operation to set or clear crypto status bit
- * @param   CryptoMask  		Mask to set or clear crypto status bit
+ * @param	CryptoStatusOp		Operation to set or clear crypto status bit
+ * @param	CryptoMask  		Mask to set or clear crypto status bit
  *
  * @return
  *	-	XST_SUCCESS - On Success
@@ -112,8 +112,8 @@ int XSecure_UpdatePcideCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure
  * @brief	This function sends IPI request to set crypto status bit of PKI
  *
  * @param	InstancePtr  		Pointer to the client instance
- * @param   CryptoStatusOp		Operation to set or clear crypto status bit
- * @param   CryptoMask  		Mask to set or clear crypto status bit
+ * @param	CryptoStatusOp		Operation to set or clear crypto status bit
+ * @param	CryptoMask  		Mask to set or clear crypto status bit
  *
  * @return
  *	-	XST_SUCCESS - On Success
@@ -133,8 +133,8 @@ int XSecure_UpdatePkiCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_C
  * @brief	This function sends IPI request to set crypto status bit(s) of module
  *
  * @param	InstancePtr  		Pointer to the client instance
- * @param   CryptoStatusOp		Operation to set or clear crypto status bit
- * @param   CryptoMask  		Mask to set or clear crypto status bit
+ * @param	CryptoStatusOp		Operation to set or clear crypto status bit
+ * @param	CryptoMask  		Mask to set or clear crypto status bit
  * @param	ApiId				API ID of the IPI command
  *
  * @return
@@ -174,8 +174,8 @@ END:
  *
  * @brief	This function sends IPI request to get RSA public key for key wrap.
  *
- * @param	InstancePtr - Pointer to the client instance
- * @param  	PubKey - Pointer to the XSecure_RsaPubKeyAddr instance
+ * @param	InstancePtr  Pointer to the client instance
+ * @param  	PubKey  Pointer to the XSecure_RsaPubKeyAddr instance
  *
  * @return
  *	-	XST_SUCCESS - On Success
@@ -210,8 +210,8 @@ END:
  *
  * @brief	This function sends IPI request to unwrap the wrapped AES key.
  *
- * @param	InstancePtr - Pointer to the client instance
- * @param  	KeyWrapData - Pointer to the XSecure_KeyWrapData instance
+ * @param	InstancePtr  Pointer to the client instance
+ * @param  	KeyWrapData  Pointer to the XSecure_KeyWrapData instance
  *
  * @return
  *	-	XST_SUCCESS - On Success

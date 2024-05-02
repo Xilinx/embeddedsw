@@ -51,8 +51,9 @@
 *	vss  09/11/2023 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS and MISRA-C Rule 10.1 violation
 *	vss  09/21/23 Fixed doxygen warnings
 *	vss  09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
+* 5.4   yog  04/29/24 Fixed doxygen warnings
+*
 * </pre>
-* @note
 *
 ******************************************************************************/
 
@@ -732,8 +733,8 @@ END:
  * @param	DeviceId Deviceid of the SHA3
  *
  * @return
- * 		XST_SUCCESS On successful initialization
- * 		XST_FAILURE On failure
+ *	-	XST_SUCCESS On successful initialization
+ *	-	XST_FAILURE On failure
  *
  ******************************************************************************/
 int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u32 DeviceId) {

@@ -7,10 +7,6 @@
 /*****************************************************************************/
 /**
 * @file xsecure_plat_aes_client.h
-* @addtogroup xsecure_plat_aes_client_apis XilSecure AES Client APIs
-* for Versal Net
-* @{
-* @cond xsecure_internal
 * This file contains the function prototypes for the AES client APIs for
 * Versal Net.
 *
@@ -20,12 +16,16 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.3   har  02/05/24 Initial release
+* 5.4   yog  04/29/24 Fixed doxygen grouping
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
 
+/**
+* @addtogroup xsecure_aes_client_apis XilSecure AES Client APIs
+* @{
+*/
 #ifndef XSECURE_PLAT_AES_CLIENT_H
 #define XSECURE_PLAT_AES_CLIENT_H
 

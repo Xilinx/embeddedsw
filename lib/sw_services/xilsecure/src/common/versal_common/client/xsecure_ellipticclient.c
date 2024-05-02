@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -29,9 +29,9 @@
 * 5.0   kpt  07/24/22 Moved XSecure_EllipticKat in to xsecure_katclient.c
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *	yog  05/04/23 Fixed HIS COMF violations
+* 5.4   yog  04/29/24 Fixed doxygen warnings.
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
 
@@ -44,13 +44,13 @@
  * 		for a given hash and curve type
  *
  * @param	InstancePtr	Pointer to the client instance
- * @param	CrvType		- Type of elliptic curve
- * @param	HashAddr	- Address of the hash for which sign has to be
+ * @param	CurveType	Type of elliptic curve
+ * @param	HashAddr	Address of the hash for which sign has to be
  * 				generated
- * @param	Size		- Length of the hash in bytes
- * @param	PrivKeyAddr	- Address of the static private key
- * @param	EPrivKeyAddr	- Address of the Ephemeral private key
- * @param	SignAddr	- Address of the signature buffer
+ * @param	Size		Length of the hash in bytes
+ * @param	PrivKeyAddr	Address of the static private key
+ * @param	EPrivKeyAddr	Address of the Ephemeral private key
+ * @param	SignAddr	Address of the signature buffer
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -120,9 +120,9 @@ END:
  * 		given curve type
  *
  * @param	InstancePtr	Pointer to the client instance
- * @param	CrvType		- Type of elliptic curve
- * @param	PrivKeyAddr	- Address of the static private key
- * @param	PubKeyAddr	- Address of the buffer where public key to be
+ * @param	CurveType	Type of elliptic curve
+ * @param	PrivKeyAddr	Address of the static private key
+ * @param	PubKeyAddr	Address of the buffer where public key to be
  * 				stored.
  *
  * @return
@@ -171,8 +171,8 @@ END:
  * 		a given curve type
  *
  * @param	InstancePtr	Pointer to the client instance
- * @param	CrvType		- Type of elliptic curve
- * @param	KeyAddr		- Address of the pubilc key to be validated
+ * @param	CurveType	Type of elliptic curve
+ * @param	KeyAddr		Address of the pubilc key to be validated
  *
  * @return
  *	-	XST_SUCCESS 			- On success
@@ -219,12 +219,12 @@ END:
  * 		given hash, key and curve type
  *
  * @param	InstancePtr	Pointer to the client instance
- * @param	CrvType		- Type of elliptic curve
- * @param	HashAddr	- Address of the hash for which sign has to be
+ * @param	CurveType	Type of elliptic curve
+ * @param	HashAddr	Address of the hash for which sign has to be
  * 				generated
- * @param	Size		- Length of the hash in bytes
- * @param	PubKeyAddr	- Address of the pubilc key
- * @param	SignAddr	- Address of the signature buffer
+ * @param	Size		Length of the hash in bytes
+ * @param	PubKeyAddr	Address of the pubilc key
+ * @param	SignAddr	Address of the signature buffer
 
  * @return
  *	-	XST_SUCCESS - On success
