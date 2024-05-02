@@ -33,6 +33,7 @@
 * 1.10  sb  11/21/23 Added support for Macronix flash mx66um2g45g.
 * 1.10  sb  01/04/24 Added support for ISSI flash is25lx512m.
 * 1.10  sb  02/09/24 Add support for Infineon flash part S28HS02G.
+* 1.11  sb  05/02/24 Add support for Macronix flash part mx66uw2g345gxrix0.
 *
 *</pre>
 *
@@ -108,6 +109,7 @@
 #define SPANSION_OCTAL_ID_BYTE0		0x34
 
 #define MICRON_BP_BITS_MASK		0x7C
+#define CONFIG_REG2_VOLATILE_ADDR_MX 	0x00000300
 
 /**************************** Type Definitions *******************************/
 
@@ -191,6 +193,13 @@ FlashInfo Flash_Config_Table[] = {
 	/*mx66um2g45g*/
 	{
 		0xc2803c, FLASH_SECTOR_SIZE_4KB, 0x10000, FLASH_PAGE_SIZE_256, 0x100000,
+		FLASH_DEVICE_SIZE_2G, 0xFFFFF000, 1,
+		(READ_CMD_OPI_MX << 8) | READ_CMD_4B, WRITE_CMD_4B,
+		(BULK_ERASE_CMD << 8) | SEC_ERASE_CMD_MX, READ_STATUS_CMD, 0
+	},
+	/*mx66uw2g345gxrix0*/
+	{
+		0xc2943c, FLASH_SECTOR_SIZE_4KB, 0x10000, FLASH_PAGE_SIZE_256, 0x100000,
 		FLASH_DEVICE_SIZE_2G, 0xFFFFF000, 1,
 		(READ_CMD_OPI_MX << 8) | READ_CMD_4B, WRITE_CMD_4B,
 		(BULK_ERASE_CMD << 8) | SEC_ERASE_CMD_MX, READ_STATUS_CMD, 0
