@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file xsecure_plat_elliptic_ipihandler.c
-* @addtogroup xsecure_apis XilSecure versal net platform handler APIs
-* @{
-* @cond xsecure_internal
+*
 * This file contains the xilsecure versalnet IPI handlers implementation.
 *
 * <pre>
@@ -20,14 +18,16 @@
 * ----- ---- --------   -------------------------------------------------------
 * 521   har  06/20/2023 Initial release
 *       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
+* 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
 *
-* @note
-* @endcond
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_plat_elliptic_ipihandler.h"
 
@@ -87,13 +87,13 @@ END:
  * @brief	This function handler calls XSecure_EcdhGetSecret server API to
  * 		generate the shared secret using ECDH.
  *
- * @param	CrvType - Type of elliptic curve
- * @param	PrvtKeyAddrLow - Lower 32 bit address of the private key buffer
- * @param	PrvtKeyAddrHigh - Upper 32 bit address of the private key buffer
- * @param	PubKeyAddrLow - Lower 32 bit address of the public key buffer
- * @param	PubKeyAddrHigh - Upper 32 bit address of the public key buffer
- * @param	SharedSecretAddrLow - Lower 32 bit address of the Shared Secret buffer
- * @param	SharedSecretAddrHigh - Upper 32 bit address of the Shared Secret buffer
+ * @param	CrvType  Type of elliptic curve
+ * @param	PrvtKeyAddrLow  Lower 32 bit address of the private key buffer
+ * @param	PrvtKeyAddrHigh  Upper 32 bit address of the private key buffer
+ * @param	PubKeyAddrLow  Lower 32 bit address of the public key buffer
+ * @param	PubKeyAddrHigh  Upper 32 bit address of the public key buffer
+ * @param	SharedSecretAddrLow  Lower 32 bit address of the Shared Secret buffer
+ * @param	SharedSecretAddrHigh  Upper 32 bit address of the Shared Secret buffer
  *
  * @return
  *		 - XST_SUCCESS  On Success

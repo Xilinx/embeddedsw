@@ -30,14 +30,15 @@
 * 5.3  kpt   03/22/2024 Fix MISRA C violation of Rule 10.3
 *      kpt   03/22/2024 Fixed Branch past initialization
 *      ss    04/05/2024 Fixed doxygen warnings
+* 5.4  yog   04/29/2024 Fixed doxygen warnings.
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
@@ -92,22 +93,22 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
 	/** Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):
-		/**   - @ref XSecure_EllipticGenKey */
+		/**   - XSecure_EllipticGenKey */
 		Status = XSecure_EllipticGenKey(Pload[0], Pload[1], Pload[2],
 				Pload[3], Pload[4]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_SIGN):
-		/**   - @ref XSecure_EllipticGenSign */
+		/**    - XSecure_EllipticGenSign */
 		Status = XSecure_EllipticGenSign(Pload[0], Pload[1], Pload[2],
 				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VALIDATE_KEY):
-		/**   - @ref XSecure_EllipticValidatePubKey */
+		/**    - XSecure_EllipticValidatePubKey */
 		Status = XSecure_EllipticValidatePubKey(Pload[0], Pload[1],
 				Pload[2]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
-		/**   - @ref XSecure_EllipticVerifySignature */
+		/**    - XSecure_EllipticVerifySignature */
 		Status = XSecure_EllipticVerifySignature(Pload[0], Pload[1]);
 		break;
 	default:
@@ -125,15 +126,11 @@ END:
  * @brief       This function handler calls XSecure_EllipticGenerateKey
  * 		server API
  *
- * @param	CurveType	- Is a type of elliptic curve
- * @param	SrcAddrLow	- Lower 32 bit address of the
- * 				static private key
- * @param	SrcAddrHigh	- Higher 32 bit address of the
- * 				static private key
- * @param	DstAddrLow	- Lower 32 bit address of the public key
- * 				to be stored
- * @param	DstAddrHigh	- Higher 32 bit address of the public key
- * 				to be stored
+ * @param	CurveType	Is a type of elliptic curve
+ * @param	SrcAddrLow	Lower 32 bit address of the static private key
+ * @param	SrcAddrHigh	Higher 32 bit address of the static private key
+ * @param	DstAddrLow	Lower 32 bit address of the public key to be stored
+ * @param	DstAddrHigh	Higher 32 bit address of the public key to be stored
  *
  * @return
  *	-	XST_SUCCESS - If the elliptic key generation is successful
@@ -185,14 +182,12 @@ END:
  * @brief       This function handler calls XSecure_EllipticGenerateSignature
  * 		server API
  *
- * @param	SrcAddrLow	- Lower 32 bit address of the
+ * @param	SrcAddrLow	Lower 32 bit address of the
  * 				XSecure_EllipticSignGenParams structure
- * @param	SrcAddrHigh	- Higher 32 bit address of the
+ * @param	SrcAddrHigh	Higher 32 bit address of the
  * 				XSecure_EllipticSignGenParams structure
- * @param	DstAddrLow	- Lower 32 bit address of the signature
- * 				to be stored
- * @param	DstAddrHigh	- Higher 32 bit address of the signature
- * 				to be stored
+ * @param	DstAddrLow	Lower 32 bit address of the signature to be stored
+ * @param	DstAddrHigh	Higher 32 bit address of the signature to be stored
  *
  * @return
  *	-	XST_SUCCESS - If the elliptic sign generation is successful
@@ -249,9 +244,9 @@ END:
  * @brief       This function handler calls XSecure_EllipticValidateKey
  * 		server API
  *
- * @param	CurveType	- Is a type of elliptic curve
- * @param	SrcAddrLow	- Lower 32 bit address of the public key
- * @param	SrcAddrHigh	- Higher 32 bit address of the public key
+ * @param	CurveType	Is a type of elliptic curve
+ * @param	SrcAddrLow	Lower 32 bit address of the public key
+ * @param	SrcAddrHigh	Higher 32 bit address of the public key
  *
  * @return
  *	-	XST_SUCCESS - If the elliptic key validation is successful
@@ -287,9 +282,9 @@ END:
  * @brief       This function handler calls XSecure_EllipticVerifySign
  * 		server API
  *
- * @param	SrcAddrLow	- Lower 32 bit address of the
+ * @param	SrcAddrLow	Lower 32 bit address of the
  * 				XSecure_EllipticSignVerifyParams structure
- * @param	SrcAddrHigh	- Higher 32 bit address of the
+ * @param	SrcAddrHigh	Higher 32 bit address of the
  * 				XSecure_EllipticSignVerifyParams structure
  *
  * @return

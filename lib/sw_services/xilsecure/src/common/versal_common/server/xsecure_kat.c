@@ -29,10 +29,10 @@
 * 5.3   kpt  12/07/23 Replace Xil_SMemSet with Xil_SecureZeroize
 *       yog  02/23/2024 Included P-521 related code under XSECURE_ECC_SUPPORT_NIST_P521 macro
 *       kpt  03/15/2024 Update RSA KAT to use 2048-bit key
+* 5.4   yog  04/29/2024 Fixed doxygen warnings.
 *
 * </pre>
 *
-* @note
 *
 ******************************************************************************/
 
@@ -999,7 +999,7 @@ END:
  * @param	SecureSha3 Pointer to the XSecure_Sha3 instance
  *
  * @return
- * 	-	XST_SUCCESS - When KAT Pass
+ *	-	XST_SUCCESS - When KAT Pass
  *	-	XSECURE_SHA3_INVALID_PARAM - On invalid argument
  *	-	XSECURE_SHA3_LAST_UPDATE_ERROR - Error when SHA3 last update fails
  *	-	XSECURE_SHA3_KAT_FAILED_ERROR - Error when SHA3 hash not matched with
@@ -1137,7 +1137,7 @@ END:
 /**
  * @brief	This function performs ECC sign verify known answer test(KAT) on ECC core
  *
- * @param	CrvClass - Type of ECC curve class either prime or binary curve
+ * @param	CrvClass  Type of ECC curve class either prime or binary curve
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -1179,7 +1179,7 @@ END:
 /**
  * @brief	This function performs ECC sign generate known answer test(KAT) on ECC core
  *
- * @param	CrvClass - Type of ECC curve class either prime or binary class
+ * @param	CrvClass  Type of ECC curve class either prime or binary class
  *
  * @return
  *	-	XST_SUCCESS - when KAT passes
@@ -1236,9 +1236,9 @@ END:
 /**
  * @brief	This function performs ECC pairwise consistency test on ECC core
  *
- * @param	Curvetype - Type of ECC curve used for authentication
- * @param	DAddr - Address of ECC private key
- * @param	PubKeyAddr - Address of ECC public key
+ * @param	Curvetype  Type of ECC curve used for authentication
+ * @param	DAddr  Address of ECC private key
+ * @param	PubKeyAddr  Address of ECC public key
  *
  * @return
  *	-	XST_SUCCESS - when KAT passes

@@ -94,10 +94,9 @@
 *       har  03/20/2024 Add support for non-word aligned data in XSecure_AesEncryptData
 *                       and XSecure_AesDecryptData
 *       kpt  03/22/2024 Fix overrun issue
+* 5.4   yog  04/29/2024 Fixed doxygen warnings.
 *
 * </pre>
-*
-* @note
 *
 ******************************************************************************/
 
@@ -440,8 +439,8 @@ END:
  * @brief	This function enables or disables DPA counter measures in AES engine
  * 		based on user input
  *
- * @param	InstancePtr - Pointer to the XSecure_Aes instance
- * @param	DpaCmCfg    - User choice to enable/disable DPA CM
+ * @param	InstancePtr  Pointer to the XSecure_Aes instance
+ * @param	DpaCmCfg     User choice to enable/disable DPA CM
  *			    - TRUE  - to enable AES DPA counter measure
  *				     (Default setting)
  *			    - FALSE - to disable AES DPA counter measure
@@ -506,8 +505,8 @@ END:
  * @brief	This function writes the key provided into the specified
  *		AES key registers
  *
- * @param	InstancePtr 	- Pointer to the XSecure_Aes instance
- * @param	KeySrc		- Key Source to be selected to which provided
+ * @param	InstancePtr 	 Pointer to the XSecure_Aes instance
+ * @param	KeySrc		 Key Source to be selected to which provided
  *				  key should be updated by
  *			  	- XSECURE_AES_USER_KEY_0
  *				- XSECURE_AES_USER_KEY_1
@@ -518,11 +517,11 @@ END:
  *				- XSECURE_AES_USER_KEY_6
  *				- XSECURE_AES_USER_KEY_7
  *				- XSECURE_AES_BH_KEY
- * @param	KeySize		- A variable of type XSecure_AesKeySize, which holds
+ * @param	KeySize		 A variable of type XSecure_AesKeySize, which holds
  *				  the size of the input key to be written by
  *			  	- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
  *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
- * @param	KeyAddr		- Address of a buffer which should contain the key
+ * @param	KeyAddr		 Address of a buffer which should contain the key
  * 				  to be written
  *
  * @return
@@ -620,9 +619,9 @@ END:
  * @brief	This function is used to update the AES engine with
 		Additional Authenticated Data(AAD).
  *
- * @param	InstancePtr	- Pointer to the XSecure_Aes instance
- * @param	AadAddr		- Address of the additional authenticated data
- * @param	AadSize		- Size of additional authenticated data in bytes,
+ * @param	InstancePtr	 Pointer to the XSecure_Aes instance
+ * @param	AadAddr		 Address of the additional authenticated data
+ * @param	AadSize		 Size of additional authenticated data in bytes,
  *				  whereas number of bytes provided should be
  *				  quad-word aligned(multiples of 16 bytes) for Versal
  *				  For Versal Net, byte aligned data is
@@ -852,12 +851,12 @@ END:
 /**
  * @brief	This function initializes the AES engine for decryption
  *
- * @param	InstancePtr	- Pointer to the XSecure_Aes instance
- * @param	KeySrc		- Key Source for decryption of the data
- * @param	KeySize		- Size of the AES key to be used for decryption is
+ * @param	InstancePtr	 Pointer to the XSecure_Aes instance
+ * @param	KeySrc		 Key Source for decryption of the data
+ * @param	KeySize		 Size of the AES key to be used for decryption is
  *		 		- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
  *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
- * @param	IvAddr		- Address to the buffer holding IV
+ * @param	IvAddr		 Address to the buffer holding IV
  *
  * @return
  *	-	XST_SUCCESS - On successful init
@@ -1527,11 +1526,11 @@ END:
  * @brief	This function sets AES engine to update key and IV during
  * 		decryption of secure header or footer of encrypted partition
  *
- * @param	InstancePtr - Pointer to the XSecure_Aes instance
- * @param	Config	    - XSECURE_AES_ENABLE_KUP_IV_UPDATE to enable KUP and
- *			      IV update
- *			    - XSECURE_AES_DISABLE_KUP_IV_UPDATE to disable KUP and
- *			      IV update
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
+ * @param	Config		XSECURE_AES_ENABLE_KUP_IV_UPDATE to enable KUP and
+ *				IV update,
+ *				XSECURE_AES_DISABLE_KUP_IV_UPDATE to disable KUP and
+ *				IV update
  *
  * @return
  *	-	XST_SUCCESS - On successful configuration
@@ -1715,15 +1714,15 @@ END:
  *
  * @return
  *	-	XST_SUCCESS - On success
- * 	-	XSECURE_AESKAT_INVALID_PARAM - Invalid Argument
- * 	-	XSECURE_AESDPACM_KAT_WRITE_KEY_FAILED_ERROR - Error when AESDPACM key
+ *	-	XSECURE_AESKAT_INVALID_PARAM - Invalid Argument
+ *	-	XSECURE_AESDPACM_KAT_WRITE_KEY_FAILED_ERROR - Error when AESDPACM key
  *							write fails
- * 	-	XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR - Error when AESDPACM key
+ *	-	XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR - Error when AESDPACM key
  *							load fails
- * 	-	XSECURE_AESDPACM_SSS_CFG_FAILED_ERROR - Error when AESDPACM sss
+ *	-	XSECURE_AESDPACM_SSS_CFG_FAILED_ERROR - Error when AESDPACM sss
  *							configuration fails
- * 	-	XSECURE_AESDPACM_KAT_FAILED_ERROR - Error when AESDPACM KAT fails
- * 	-	XST_FAILURE - On failure
+ *	-	XSECURE_AESDPACM_KAT_FAILED_ERROR - Error when AESDPACM KAT fails
+ *	-	XST_FAILURE - On failure
  *
  * @note
  *             This function is used during DPACM KAT where key and data are
@@ -1997,12 +1996,12 @@ static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr)
 /**
  * @brief	This function initializes AES engine for encryption or decryption
  *
- * @param	InstancePtr	- Pointer to the XSecure_Aes instance
- * @param	KeySrc		- Key Source for decryption of the data
- * @param	KeySize		- Size of the AES key to be used for decryption
- *              		- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
- *              		- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
- * @param	IvAddr		- Address to the buffer holding IV
+ * @param	InstancePtr	 Pointer to the XSecure_Aes instance
+ * @param	KeySrc		 Key Source for decryption of the data
+ * @param	KeySize		 Size of the AES key to be used for decryption
+ *              		 - XSECURE_AES_KEY_SIZE_128 for 128 bit key size
+ *              		 - XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param	IvAddr		 Address to the buffer holding IV
  *
  * @return
  *	-	XST_SUCCESS - On successful initialization
@@ -2039,8 +2038,8 @@ END:
 /**
  * @brief	This function transfers IV to AES engine
  *
- * @param	InstancePtr	- Pointer to the XSecure_Aes instance
- * @param	IvAddr		- Address to the buffer holding IV
+ * @param	InstancePtr	 Pointer to the XSecure_Aes instance
+ * @param	IvAddr		 Address to the buffer holding IV
  *
  * @return
  *	-	XST_SUCCESS - On successful transfer
@@ -2120,8 +2119,8 @@ END:
  * @brief
  * This function enables or disables the GMAC configuration
  *
- * @param	InstancePtr	- Pointer to the XSecure_Aes instance
- * @param	IsGmacEn    - User choice to enable/disable GMAC
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
+ * @param	IsGmacEn	User choice to enable/disable GMAC
  *
  * @return
  *	-	XST_SUCCESS on success

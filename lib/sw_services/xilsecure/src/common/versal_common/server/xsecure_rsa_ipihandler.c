@@ -25,14 +25,15 @@
 * 5.1  yog   05/03/23 Fixed MISRA C violation of Rule 10.3
 * 5.3  kpt   03/22/24 Fixed Branch past initialization
 *      ss    04/05/24 Fixed doxygen warnings
+* 5.4  yog   04/29/24 Fixed doxygen warnings.
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
@@ -80,12 +81,12 @@ int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd)
 	/** Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_RSA_PUBLIC_ENCRYPT):
-		/**   - @ref XSecure_RsaEncrypt */
+		/**    - XSecure_RsaEncrypt */
 		Status = XSecure_RsaEncrypt(Pload[0], Pload[1],
 						Pload[2], Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_RSA_SIGN_VERIFY):
-		/**   - @ref XSecure_RsaSignVerify */
+		/**    - XSecure_RsaSignVerify */
 		Status = XSecure_RsaSignVerify(Pload[0], Pload[1]);
 		break;
 	default:
@@ -103,13 +104,13 @@ END:
  * @brief       This function handler calls XSecure_RsaInitialize and
  * 		XSecure_RsaPublicEncrypt server APIs
  *
- * @param	SrcAddrLow	- Lower 32 bit address of the XSecure_RsaInParam
+ * @param	SrcAddrLow	 Lower 32 bit address of the XSecure_RsaInParam
  * 				structure
- * @param	SrcAddrHigh	- Higher 32 bit address of the XSecure_RsaInParam
+ * @param	SrcAddrHigh	 Higher 32 bit address of the XSecure_RsaInParam
  * 				structure
- * @param	DstAddrLow	- Lower 32 bit address of the output data
+ * @param	DstAddrLow	 Lower 32 bit address of the output data
  * 				where encrypted data to be stored
- * @param	DstAddrHigh	- Higher 32 bit address of the output data
+ * @param	DstAddrHigh	 Higher 32 bit address of the output data
  * 				where encrypted data to be stored
  *
  * @return
@@ -160,9 +161,9 @@ END:
  * @brief       This function handler calls XSecure_RsaSignVerification server
  * 		API
  *
- * @param	SrcAddrLow	- Lower 32 bit address of the
+ * @param	SrcAddrLow	Lower 32 bit address of the
  * 				XSecure_RsaSignParams structure
- * @param	SrcAddrHigh	- Higher 32 bit address of the
+ * @param	SrcAddrHigh	Higher 32 bit address of the
  * 				XSecure_RsaSignParams structure
  *
  * @return

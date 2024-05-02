@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file xsecure_elliptic.h
-* @addtogroup xsecure_elliptic_apis XilSecure Elliptic APIs
-* @{
-* @cond xsecure_internal
+* This file contains the interface functions for ECC engine.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -36,11 +34,15 @@
 *       mmd  07/09/23 Included header file for crypto algorithm information
 *       am   08/18/23 Added XSecure_EllipticGetCrvSize() prototype
 *	vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
+* 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
 *
-* @endcond
 ******************************************************************************/
+/**
+* @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
+* @{
+*/
 #ifndef XSECURE_ELLIPTIC_H_
 #define XSECURE_ELLIPTIC_H_
 
@@ -72,26 +74,34 @@ extern "C" {
 									/**< Operates APIs on little endian format */
 
 /***************************** Type Definitions ******************************/
+/** Structure for pointers of public key curve points. */
 typedef struct {
 	u8 *Qx;		/**< Public key curve point x */
 	u8 *Qy;		/**< Public key curve point y */
 } XSecure_EllipticKey;
 
+/** Structure for pointers of signature components. */
 typedef struct {
 	u8 *SignR;		/**< The signature component R */
 	u8 *SignS;		/**< The signature component S */
 } XSecure_EllipticSign;
 
+/** Structure for addresses of public key curve points. */
 typedef struct {
 	u64 Qx;		/**< Address of Public key curve point x */
 	u64 Qy;		/**< Address of Public key curve point y */
 } XSecure_EllipticKeyAddr;
 
+/** Structure for addresses of signature components */
 typedef struct {
 	u64 SignR;		/**< Address of the signature component R */
 	u64 SignS;		/**< Address of the signature component S */
 } XSecure_EllipticSignAddr;
 
+/**
+ * Structure for input parameters Hash and Length
+ * for Elliptic Sign generation.
+ */
 typedef struct {
 	u64 Addr;		/**< Address of the hash */
 	u32 Len;		/**< Length of the hash */
@@ -118,10 +128,18 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	const XSecure_EllipticHashData *HashInfo, const XSecure_EllipticKeyAddr *KeyAddr,
 	const XSecure_EllipticSignAddr *SignAddr);
+/**
+ * @cond xsecure_internal
+ * @{
+ */
 void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr);
 void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr);
 void XSecure_FixEndiannessNCopy(const u32 Size, u64 DstAddr, const u64 SrcAddr);
 u32 XSecure_EllipticGetCrvSize(const XSecure_EllipticCrvTyp CrvType);
+/**
+ * @}
+ * @endcond
+ */
 #endif
 
 #ifdef __cplusplus
@@ -129,4 +147,3 @@ u32 XSecure_EllipticGetCrvSize(const XSecure_EllipticCrvTyp CrvType);
 #endif
 
 #endif
-/* @} */

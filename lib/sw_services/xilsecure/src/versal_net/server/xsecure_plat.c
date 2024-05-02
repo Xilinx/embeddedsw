@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *       kpt     08/29/23 Added volatile keyword to avoid compiler optimization
 * 5.3   kpt     12/14/23 Place TRNG in reset when there is a failure
         kpt     01/09/24 Updated option for non-blocking trng reseed
+* 5.4   yog     04/29/24 Fixed doxygen warnings.
 *
 * </pre>
 *
@@ -93,9 +94,9 @@ static void XSecure_AesDataEndiannessChange(u64 Address, u32 Size);
 /**
  * @brief	This function masks the secure stream switch value
  *
- * @param	InputSrc	- Input source to be selected for the resource
- * @param	OutputSrc	- Output source to be selected for the resource
- * @param   Value       - Register Value of SSS cfg register
+ * @param	InputSrc	Input source to be selected for the resource
+ * @param	OutputSrc	Output source to be selected for the resource
+ * @param	Value		Register Value of SSS cfg register
  *
  * @return
  *	-	Mask - Mask value of corresponding InputSrc and OutputSrc
@@ -151,6 +152,8 @@ static void XSecure_AesDataEndiannessChange(u64 Address, u32 Size);
 /**
  * @brief	This function updates TRNG crypto indicator
  *
+ * @param	Op  To set or clear the bit
+ *
  *****************************************************************************/
 void XSecure_UpdateTrngCryptoStatus(u32 Op)
 {
@@ -177,8 +180,8 @@ void XSecure_SetRsaCryptoStatus()
 /**
  * @brief	This function updates the crypto indicator bit of AES, SHA and ECC
  *
- * @param	BaseAddress	- Base address of the core
- * @param   Op          - To set or clear the bit
+ * @param	BaseAddress	Base address of the core
+ * @param	Op		To set or clear the bit
  *
  *****************************************************************************/
 void XSecure_UpdateCryptoStatus(UINTPTR BaseAddress, u32 Op)
@@ -525,7 +528,7 @@ END:
  * @param	InstancePtr  Pointer to the XPmcDma instance
  * @param	Channel 	 Channel Type
  *			- XPMCDMA_SRC_CHANNEL
- *			 -XPMCDMA_DST_CHANNEL
+ *			- XPMCDMA_DST_CHANNEL
  * @param	EndianType
  *			- 1 : Enable Byte Swapping
  *			- 0 : Disable Byte Swapping
@@ -556,7 +559,7 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
  *
  * @return
  *	-	XST_SUCCESS - On Success
- *  -   XST_FAILURE - On Failure
+ *	-	XST_FAILURE - On Failure
  *
  *****************************************************************************/
 int XSecure_GetRandomNum(u8 *Output, u32 Size)
@@ -597,8 +600,8 @@ END:
  *          and it is applicable only for VersalNet
  *
  * @return
- *		- XST_SUCCESS On Successful initialization
- *      - XST_FAILURE On Failure
+ *	-	XST_SUCCESS On Successful initialization
+ *	-	XST_FAILURE On Failure
  *
  *****************************************************************************/
 int XSecure_ECCRandInit(void)

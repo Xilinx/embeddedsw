@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file xsecure_trngclient.h
-* @addtogroup xsecure_trng_client_apis XilSecure TRNG Versal Client APIs
-* @{
-* @cond xsecure_internal
+*
 * This file Contains the client function prototypes, defines and macros for
 * the TRNG hardware module.
 *
@@ -22,13 +20,15 @@
 * 5.0   am   06/13/22 Initial release
 *       kpt  07/24/22 moved XSecure_TrngKat into xsecure_katclient_plat.c
 * 5.2   am   07/31/23 Fixed typo for XSecure_TrngGenerareRandNum function
+* 5.4   yog  04/29/24 Fixed doxygen grouping.
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_trng_client_apis XilSecure TRNG Client APIs
+* @{
+*/
 #ifndef XSECURE_TRNGCLIENT_H
 #define XSECURE_TRNGCLIENT_H
 

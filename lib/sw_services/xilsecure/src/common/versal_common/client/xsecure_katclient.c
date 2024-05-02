@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -20,9 +20,9 @@
 * 1.0   kpt  07/18/22 Initial release
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *       am   06/19/23 Added error code for failure cases
+* 5.4   yog  04/29/24 Fixed doxygen warnings.
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
 
@@ -126,7 +126,7 @@ END:
  *
  * @brief	This function sends IPI request to PLM to perform RSA encrypt KAT
  *
- * @param	InstancePtr	- Pointer to the client instance
+ * @param	InstancePtr	 Pointer to the client instance
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -199,12 +199,12 @@ END:
  * @brief	This function sends IPI request to PLM to perform ECC sign verify KAT
  *
  * @param	InstancePtr	Pointer to the client instance
- * @param	CurveClass		- Type of elliptic curve class(Prime - 0, Binary - 1)
+ * @param	CurveClass	Type of elliptic curve class(Prime - 0, Binary - 1)
  *
  * @return
  *	-	XST_SUCCESS - On success
- * 	-	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR - When elliptic key
- * 							is not valid
+ *	-	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR - When elliptic key
+ *							is not valid
  *	-	XSECURE_ELLIPTIC_KAT_FAILED_ERROR - When elliptic KAT
  *							fails
  *
@@ -312,8 +312,8 @@ END:
  *
  * @return
  *	-	XST_SUCCESS - On success
- * 	-	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR - When elliptic key
- * 							is not valid
+ *	-	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR - When elliptic key
+ *							is not valid
  *	-	XSECURE_ELLIPTIC_KAT_FAILED_ERROR - When elliptic KAT
  *							fails
  *

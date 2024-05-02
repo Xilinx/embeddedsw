@@ -36,9 +36,9 @@
 *	yog  05/04/23 Fixed HIS COMF violations
 * 5.3	vss  10/03/23 Added single API support for AES AAD and GMAC operations
 *	vss  03/04/24 Removed code redundancy for AesPerformOperation API
+* 5.4   yog  04/29/24 Fixed doxygen warnings.
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
 
@@ -63,7 +63,7 @@
  * @param	InstancePtr	Pointer to the client instance
  * @return
  *	-	XST_SUCCESS - If the initialization is successful
- * 	-	XST_FAILURE - If there is a failure
+ *	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_AesInitialize(XSecure_ClientInstance *InstancePtr)
@@ -604,7 +604,7 @@ END:
  * 		KEK key form
  *
  * @param	InstancePtr	Pointer to the client instance
- * @param	IVAddr		Address of IV holding buffer for decryption
+ * @param	IvAddr		Address of IV holding buffer for decryption
  *				of the key
  * @param	DecKeySrc	Select key source which holds KEK and
  * 				needs to be decrypted
@@ -736,20 +736,20 @@ int XSecure_AesEncryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 		goto END;
 	}
 
-	/**<AES Init operation*/
+	/** <AES Init operation*/
 	AesParams->IvAddr = IvAddr;
 	AesParams->OperationId = (u32)XSECURE_ENCRYPT;
 	AesParams->KeySrc = (u32)KeySrc;
 	AesParams->KeySize = KeySize;
 
-	/**<AES Encrypt Update*/
+	/** <AES Encrypt Update*/
 	AesParams->InDataAddr = InDataAddr;
 	AesParams->Size = Size;
 	AesParams->IsLast = TRUE;
 	AesParams->OutDataAddr = OutDataAddr;
 	AesParams->IsUpdateAadEn = FALSE;
 
-	/**<AES Encrypt Final*/
+	/** <AES Encrypt Final*/
 	AesParams->GcmTagAddr = GcmTagAddr;
 
 	/**< AES GMAC operation*/
@@ -816,20 +816,20 @@ int XSecure_AesDecryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 		goto END;
 	}
 
-	/**<AES Decrypt Init operation*/
+	/** <AES Decrypt Init operation*/
 	AesParams->IvAddr = IvAddr;
 	AesParams->OperationId = (u32)XSECURE_DECRYPT;
 	AesParams->KeySrc = (u32)KeySrc;
 	AesParams->KeySize = KeySize;
 
-	/**<AES Decrypt Update*/
+	/** <AES Decrypt Update*/
 	AesParams->InDataAddr = InDataAddr;
 	AesParams->Size = Size;
 	AesParams->IsLast = TRUE;
 	AesParams->OutDataAddr = OutDataAddr;
 	AesParams->IsUpdateAadEn = FALSE;
 
-	/**<AES Decrypt Final*/
+	/** <AES Decrypt Final*/
 	AesParams->GcmTagAddr = GcmTagAddr;
 
 	/**< AES GMAC operation*/

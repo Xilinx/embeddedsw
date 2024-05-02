@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,9 +9,6 @@
 /**
 *
 * @file xsecure_aes.h
-* @addtogroup xsecure_aes_versal_apis XilSecure AES Versal APIs
-* @{
-* @cond xsecure_internal
 *
 * This file contains AES hardware interface APIs
 *
@@ -45,13 +42,16 @@
 *       kpt  07/20/2023 Renamed XSecure_AesDpaCmDecryptKat to XSecure_AesDpaCmDecryptData
 *	    vss  09/07/2023 Reverted the fix for NO_EFFECT coverity warning
 * 5.3   kpt  11/28/2023 Added XSECURE_AES_PUF_RED_EXPANDED_KEYS
+* 5.4   yog  04/29/2024 Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
+
+/**
+* @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
+* @{
+*/
 #ifndef XSECURE_AES_H_
 #define XSECURE_AES_H_
 
@@ -65,7 +65,8 @@ extern "C" {
 #include "xsecure_aesalginfo.h"
 
 /************************** Constant Definitions *****************************/
-/** @cond xsecure_internal
+/**
+ * @cond xsecure_internal
  * @{
  */
 
@@ -123,6 +124,7 @@ extern "C" {
  */
 
 /**************************** Type Definitions *******************************/
+/** Used for selecting the Key source of AES Core. */
 typedef enum {
 	XSECURE_AES_BBRAM_KEY = 0,		/**< BBRAM Key */
 	XSECURE_AES_BBRAM_RED_KEY,		/**< BBRAM Red Key */
@@ -150,22 +152,30 @@ typedef enum {
 	XSECURE_AES_INVALID_KEY,		/**< AES Invalid Key */
 } XSecure_AesKeySrc;
 
-
+/** Used for selecting the Key size of AES Core. */
 typedef enum {
 	XSECURE_AES_KEY_SIZE_128 = 0,	/**< Key Length = 32 bytes = 256 bits */
 	XSECURE_AES_KEY_SIZE_256 = 2,	/**< Key Length = 16 bytes = 128 bits */
 }XSecure_AesKeySize;
 
-/** @cond xsecure_internal
+/**
+ * @cond xsecure_internal
  * @{
  */
+
+/** Used to know the state of AES core. */
 typedef enum {
-	XSECURE_AES_UNINITIALIZED,
-	XSECURE_AES_INITIALIZED,
-	XSECURE_AES_ENCRYPT_INITIALIZED,
-	XSECURE_AES_DECRYPT_INITIALIZED
+	XSECURE_AES_UNINITIALIZED,		/**< Uninitialized state */
+	XSECURE_AES_INITIALIZED,		/**< Initialized state */
+	XSECURE_AES_ENCRYPT_INITIALIZED,	/**< Encrypt initialized state */
+	XSECURE_AES_DECRYPT_INITIALIZED		/**< Decrypt initialised state */
 } XSecure_AesState;
 
+/**
+ * The AES driver instance data structure. A pointer to an instance data
+ * structure is passed around by functions to refer to a specific driver
+ * instance.
+ */
 typedef struct {
 	UINTPTR BaseAddress;	   /**< AES Base address */
 	XPmcDma *PmcDmaPtr;	   /**< PMCDMA Instance Pointer */
@@ -183,9 +193,6 @@ typedef struct {
 	u32 IsEcbEn;           /**< ECB mode enable or disable */
 #endif
 } XSecure_Aes;
-/** @}
- * @endcond
- */
 
 /*****************************************************************************/
 /**
@@ -211,6 +218,10 @@ static INLINE u32 XSecure_AesIsEcbModeEn(const XSecure_Aes *InstancePtr)
 	return IsEcbModeEn;
 }
 
+/**
+ * @}
+ * @endcond
+ */
 /************************** Function Prototypes ******************************/
 int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr);
 
@@ -262,5 +273,3 @@ void XSecure_AesSetDataContext(XSecure_Aes *InstancePtr);
 #endif
 
 #endif /* XSECURE_AES_H_ */
-
-/* @} */

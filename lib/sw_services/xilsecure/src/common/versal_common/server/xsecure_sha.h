@@ -8,9 +8,7 @@
 /**
 *
 * @file xsecure_sha.h
-* @addtogroup xsecure_sha3_versal_apis XilSecure SHA3 Versal APIs
-* @{
-* @cond xsecure_internal
+*
 * This file Contains the function prototypes, defines and macros for
 * the SHA-384 hardware module.
 *
@@ -29,7 +27,6 @@
 * DMA will be used for data transfers to SHA module.
 *
 *
-* @note
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -51,13 +48,15 @@
 *       dc   08/26/22 Changed u8 to u32 type for size optimization
 * 5.1	mmd  07/09/23 Included header file for crypto algorithm information
 *		vss	 07/14/23 Added IsResourceBusy and IpiMask variables in Xsecure_Sha instance
+* 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
+/**
+* @addtogroup xsecure_sha3_server_apis XilSecure SHA3 Server APIs
+* @{
+*/
 #ifndef XSECURE_SHA_H
 #define XSECURE_SHA_H
 
@@ -72,7 +71,8 @@ extern "C" {
 #include "xsecure_sha3alginfo.h"
 
 /************************** Constant Definitions ****************************/
-/** @cond xsecure_internal
+/**
+ * @cond xsecure_internal
  * @{
  */
 
@@ -116,6 +116,7 @@ typedef enum {
 	XSECURE_SHA3_LOOKUP_CONFIG,
 } XSecure_Sha3State;
 
+/** Data structure for Sha3 configuration for devices */
 typedef struct {
 	XSecure_SssSrc SssShaCfg;
 	UINTPTR BaseAddress;
@@ -182,6 +183,4 @@ extern const XSecure_Sha3Config Sha3ConfigTable[XSECURE_SHA3_NUM_OF_INSTANCES];
 }
 #endif
 
-#endif /** XSECURE_SHA_H */
-
-/* @} */
+#endif /* XSECURE_SHA_H */

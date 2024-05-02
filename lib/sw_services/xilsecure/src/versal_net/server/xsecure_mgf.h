@@ -7,9 +7,7 @@
 /**
 *
 * @file xsecure_mgf.h
-* @addtogroup xsecure_mgf_apis XilSecure MGF APIs
-* @{
-* @cond xsecure_internal
+*
 * This file contains function declarations and enums related to mask generate function
 *
 * <pre>
@@ -20,12 +18,15 @@
 * 5.2   kpt  06/28/23 Initial release
 *	vss  09/21/23 Fixed doxygen warnings
 *	ss   04/05/2024 Fixed doxygen warnings
+* 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
 *
-* @endcond
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_mgf_server_apis XilSecure MGF Server APIs
+* @{
+*/
 #ifndef XSECURE_MGF_H_
 #define XSECURE_MGF_H_
 
@@ -42,12 +43,13 @@ extern "C" {
 #define XSECURE_SHA3_HASH_LENGTH_IN_BYTES  (48U) /**< SHA3 Hash length in bytes */
 
 /***************************** Type Definitions ******************************/
-
+/** Used for selecting the type of SHA. */
 typedef enum {
 	XSECURE_SHA3_384 = 0, /**< SHA3 384 */
 	XSECURE_SHA384, /**< SHA3 384 */
 } XSecure_ShaType;
 
+/** Structure for Hash Algorithm Info */
 typedef struct {
 	XSecure_ShaType Shatype; /**< SHA type for MGF */
 	u32 HashLen;             /**< Hash length for MGF */
@@ -57,6 +59,7 @@ typedef struct {
 	int (*ShaDigest)(XSecure_ShaType Shatype, void *InstancePtr, u64 InputDataAddr, u32 Size, u64 HashAddr); /**< Function pointer to SHA digest */
 } XSecure_HashAlgInfo;
 
+/** Structure has input and output parameters used for MGF */
 typedef struct {
 	u8 *Seed;      /**< Input seed on which mask should be generated */
 	u8 *Output;    /**< Buffer to store the mask */
@@ -77,4 +80,3 @@ XSecure_HashAlgInfo *XSecure_GetHashInstance(XSecure_ShaType Shatype);
 #endif
 
 #endif /* XSECURE_MGF_H_ */
-/* @} */

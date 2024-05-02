@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file xsecure_plat_elliptic_ipihandler.h
-* @addtogroup xsecure_apis XilSecure versal net Platform Handler APIs
-* @{
-* @cond xsecure_internal
+*
 * This file contains the xilsecure platform IPI handler declaration.
 *
 * <pre>
@@ -19,14 +17,16 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.2   har  06/20/23 Initial release
+* 5.4   yog  04/29/24 Fixed doxygen grouping.
 *
 * </pre>
 *
-* @note
-* @endcond
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
+* @{
+*/
 #ifndef XSECURE_PLAT_ELLIPTIC_IPIHANDLER_H_
 #define XSECURE_PLAT_ELLIPTIC_IPIHANDLER_H_
 

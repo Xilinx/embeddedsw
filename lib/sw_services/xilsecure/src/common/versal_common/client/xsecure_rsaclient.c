@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -28,9 +28,9 @@
 * 5.0   kpt  07/24/22 Moved XSecure_RsaKat into xsecure_katclient.c
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *	yog  05/04/23 Fixed HIS COMF violations
+* 5.4   yog  04/29/24 Fixed doxygen warnings.
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
 
@@ -42,20 +42,20 @@
  * @brief	This function sends IPI request to Perform RSA decryption with
  * 		private key.
  *
- * @param	InstancePtr	- Pointer to the client instance
- * @param	KeyAddr		- Address of the Key
- * @param	InDataAddr	- Address of the data which has to be decrypted
- * @param	Size		- Key size in bytes, Input size also should be
+ * @param	InstancePtr	 Pointer to the client instance
+ * @param	KeyAddr		 Address of the Key
+ * @param	InDataAddr	 Address of the data which has to be decrypted
+ * @param	Size		 Key size in bytes, Input size also should be
  * 				same as key size mentioned. Inputs supported are
  *				- XSECURE_RSA_4096_KEY_SIZE,
  *				- XSECURE_RSA_2048_KEY_SIZE
  *				- XSECURE_RSA_3072_KEY_SIZE
- * @param	OutDataAddr	- Address of the buffer where resultant decrypted
+ * @param	OutDataAddr	 Address of the buffer where resultant decrypted
  *				data to be stored
  *
  * @return
  *	-	XST_SUCCESS - If the update is successful
- * 	-	XST_FAILURE - If there is a failure
+ *	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyAddr,
@@ -113,16 +113,16 @@ END:
  * @brief	This function sends IPI request to Perform RSA encryption with
  * 		public key.
  *
- * @param	InstancePtr	- Pointer to the client instance
- * @param	KeyAddr		- Address of the Key
- * @param	InDataAddr	- Address of the data which has to be encrypted
+ * @param	InstancePtr	 Pointer to the client instance
+ * @param	KeyAddr		 Address of the Key
+ * @param	InDataAddr	 Address of the data which has to be encrypted
  * 				with public key
- * @param	Size		- Key size in bytes, Input size also should be
+ * @param	Size		 Key size in bytes, Input size also should be
  * 				same as key size mentioned. Inputs supported are
  *				- XSECURE_RSA_4096_KEY_SIZE,
  *				- XSECURE_RSA_2048_KEY_SIZE
  *				- XSECURE_RSA_3072_KEY_SIZE
- * @param	OutDataAddr	- Address of the buffer where resultant decrypted
+ * @param	OutDataAddr	 Address of the buffer where resultant decrypted
  *							data to be stored
  *
  * @return
@@ -185,11 +185,13 @@ END:
 /**
  * @brief	This function sends IPI request to Perform RSA sign verification
  *
- * @param	InstancePtr	- Pointer to the client instance
- * @param	SignAddr 	- Address of the buffer which holds the
+ * @param	InstancePtr	 Pointer to the client instance
+ * @param	SignAddr 	 Address of the buffer which holds the
  * 				decrypted RSA signature.
- * @param	HashAddr	- Address of the HashAddr which has the
+ * @param	HashAddr	 Address of the HashAddr which has the
  * 				hash calculated on the data to be authenticated
+ * @param	Size		 Length of Hash used
+ * 				 For SHA3 it should be 48 bytes
  *
  * @return
  *	-	XST_SUCCESS - If decryption was successful

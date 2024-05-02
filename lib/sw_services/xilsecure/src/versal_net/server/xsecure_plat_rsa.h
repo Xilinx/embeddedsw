@@ -7,9 +7,7 @@
 /**
 *
 * @file xsecure_plat_rsa.h
-* @addtogroup xsecure_plat_rsa_apis XilSecure Platform RSA APIs
-* @{
-* @cond xsecure_internal
+*
 * This file contains hardware interface related information for RSA device
 *
 * <pre>
@@ -24,12 +22,15 @@
 * 5.3   ng   01/28/24 Added SDT support
 *       ng   03/26/24 Fixed header include in SDT flow
 *	ss   04/05/24 Fixed doxygen warnings
+* 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
 *
-* @endcond
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_rsa_server_apis Xilsecure RSA Server APIs
+* @{
+*/
 #ifndef XSECURE_PLAT_RSA_H_
 #define XSECURE_PLAT_RSA_H_
 
@@ -65,7 +66,10 @@
 #define XSECURE_PRIME_FACTOR_Q_SIZE	(256U)  /**< 256 bytes size of first prime factor(Q) */
 
 /***************************** Type Definitions ******************************/
-
+/**
+ * Input and output parameters for RSA
+ * Optimal Asymmetric Encryption Padding scheme.
+ */
 typedef struct {
 	u64 InputDataAddr;       /**< Input data address */
 	u64 OutputDataAddr;      /**< Output data address */
@@ -77,6 +81,7 @@ typedef struct {
 	XSecure_ShaType ShaType; /**< SHA type for MGF */
 } XSecure_RsaOaepParam;
 
+/** Input parameters pointers for RSA. */
 typedef struct {
 	u8 *Modulus;  /**< Modulus */
 	u8 *P;        /**< Prime1 */
@@ -109,11 +114,6 @@ int XSecure_RsaOaepDecrypt(XSecure_RsaKey *PrivKey, XSecure_RsaOaepParam *OaepPa
 XSecure_RsaKey *XSecure_GetRsaPrivateKey(void);
 XSecure_RsaPubKey *XSecure_GetRsaPublicKey(void);
 
-/**
- * @name Wrapper function prototypes for IPCores RSA quiet mode APIs
- * @{
- */
-/**< Wrapper prototype declarations for IPCores APIs for RSA "quiet" operations */
 int XSecure_RsaExpCRT(unsigned char *Hash, unsigned char *P, unsigned char *Q,
 	unsigned char *Dp, unsigned char *Dq, unsigned char *Qinv, unsigned char *Pub,
 	unsigned char *Mod, int Len, unsigned char *Res);
@@ -121,9 +121,7 @@ int XSecure_RsaExpCRT(unsigned char *Hash, unsigned char *P, unsigned char *Q,
 int XSecure_RsaExp(unsigned char *Hash, unsigned char *Exp, unsigned char *Mod,
 	unsigned char *P, unsigned char *Q, unsigned char *Pub, unsigned char *Tot,
 	int Len, unsigned char *Res);
-/** @} */
 
 #endif	/* PLM_RSA_EXCLUDE_H_ */
 
 #endif /* XSECURE_PLAT_RSA_H_ */
-/* @} */

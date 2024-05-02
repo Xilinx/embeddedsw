@@ -8,9 +8,7 @@
 /**
 *
 * @file xsecure_aes_ipihandler.c
-* @addtogroup xsecure_apis XilSecure Versal AES handler APIs
-* @{
-* @cond xsecure_internal
+*
 * This file contains the xilsecure AES IPI handlers implementation.
 *
 * <pre>
@@ -40,14 +38,16 @@
 * 5.3	vss  10/03/23 Added single API support for AES AAD and GMAC operations
 *       mb    03/12/24   Added AES INIT call inside AES Operation INIT API
 *	ss    04/05/24   Fixed doxygen warnings
+* 5.4   yog   04/29/24   Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
 
+/**
+* @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xplmi_dma.h"
 #include "xsecure_aes.h"
@@ -220,9 +220,9 @@ END:
  * @brief       This function handler calls XSecure_AesEncryptInit or
  * 		XSecure_AesDecryptInit server API based on the Operation type
  *
- * @param	SrcAddrLow	- Lower 32 bit address of the XSecure_AesInitOps
+ * @param	SrcAddrLow	Lower 32 bit address of the XSecure_AesInitOps
  * 				structure.
- * @param	SrcAddrHigh	- Higher 32 bit address of the XSecure_AesInitOps
+ * @param	SrcAddrHigh	Higher 32 bit address of the XSecure_AesInitOps
  * 				structure.
  *
  * @return
@@ -269,10 +269,10 @@ END:
  * @brief       This function handler calls XSecure_AesGmacCfg and XSecure_AesUpdateAad
  *				server API
  *
- * @param	SrcAddrLow	- Lower 32 bit address of the AAD data
- * @param	SrcAddrHigh	- Higher 32 bit address of the AAD data
- * @param	Size		- AAD Size
- * @param	IsGmacEn    	- User choice to enable/disable GMAC
+ * @param	SrcAddrLow	Lower 32 bit address of the AAD data
+ * @param	SrcAddrHigh	Higher 32 bit address of the AAD data
+ * @param	Size		AAD Size
+ * @param	IsGmacEn	User choice to enable/disable GMAC
  *
  * @return
  *	-	XST_SUCCESS - If the AAD update is successful
@@ -308,13 +308,13 @@ END:
 /**
  * @brief       This function handler calls XSecure_AesEncryptUpdate server API
  *
- * @param	SrcAddrLow	- Lower 32 bit address of the
+ * @param	SrcAddrLow	Lower 32 bit address of the
  * 				XSecure_AesInParams structure.
- * @param	SrcAddrHigh	- Higher 32 bit address of the
+ * @param	SrcAddrHigh	Higher 32 bit address of the
  * 				XSecure_AesInParams structure.
- * @param	DstAddrLow	- Lower 32 bit address of the Output buffer
+ * @param	DstAddrLow	Lower 32 bit address of the Output buffer
  * 				where encrypted data to be stored
- * @param	DstAddrHigh	- Higher 32 bit address of the output buffer
+ * @param	DstAddrHigh	Higher 32 bit address of the output buffer
  * 				where encrypted data to be stored
  *
  * @return
@@ -357,9 +357,9 @@ END:
 /**
  * @brief       This function handler calls XSecure_AesEncryptFinal server API
  *
- * @param	DstAddrLow	- Lower 32 bit address of the GCM-TAG
+ * @param	DstAddrLow	Lower 32 bit address of the GCM-TAG
  * 				to be stored.
- * @param	DstAddrHigh	- Higher 32 bit address of the GCM-TAG
+ * @param	DstAddrHigh	Higher 32 bit address of the GCM-TAG
  * 				to be stored.
  *
  * @return
@@ -391,13 +391,13 @@ END:
 /**
  * @brief       This function handler calls XSecure_AesDecryptUpdate server API
  *
- * @param	SrcAddrLow	- Lower 32 bit address of the
+ * @param	SrcAddrLow	Lower 32 bit address of the
  * 				XSecure_AesInParams structure.
- * @param	SrcAddrHigh	- Higher 32 bit address of the
+ * @param	SrcAddrHigh	Higher 32 bit address of the
  * 				XSecure_AesInParams structure.
- * @param	DstAddrLow	- Lower 32 bit address of the Output buffer
+ * @param	DstAddrLow	Lower 32 bit address of the Output buffer
  * 				where decrypted data to be stored
- * @param	DstAddrHigh	- Higher 32 bit address of the output buffer
+ * @param	DstAddrHigh	Higher 32 bit address of the output buffer
  * 				where decrypted data to be stored
  *
  * @return
@@ -440,8 +440,8 @@ END:
 /**
  * @brief       This function handler calls XSecure_AesDecryptFinal server API
  *
- * @param	SrcAddrLow	- Lower 32 bit address of the GCM-TAG
- * @param	SrcAddrHigh	- Higher 32 bit address of the GCM-TAG
+ * @param	SrcAddrLow	Lower 32 bit address of the GCM-TAG
+ * @param	SrcAddrHigh	Higher 32 bit address of the GCM-TAG
  *
  * @return
  *	-	XST_SUCCESS - If the decrypt final is successful
@@ -471,7 +471,7 @@ END:
 /**
  * @brief       This function handler calls XSecure_AesKeyZero server API
  *
- * @param	KeySrc	- Key source to be zeroized
+ * @param	KeySrc	 Key source to be zeroized
  *
  * @return
  *	-	XST_SUCCESS - If the key zeroize is successful
@@ -506,10 +506,10 @@ int XSecure_AesKeyZeroize(u32 KeySrc)
 /**
  * @brief       This function handler calls XSecure_AesWriteKey server API
  *
- * @param	KeySize		- Size of the key to specify 128/256 bit key
- * @param	KeySrc		- KeySrc to which key has to be written
- * @param	KeyAddrLow	- Lower 32 bit address of the Key
- * @param	KeyAddrHigh	- Higher 32 bit address of the Key
+ * @param	KeySize		Size of the key to specify 128/256 bit key
+ * @param	KeySrc		KeySrc to which key has to be written
+ * @param	KeyAddrLow	Lower 32 bit address of the Key
+ * @param	KeyAddrHigh	Higher 32 bit address of the Key
  *
  * @return
  *	-	XST_SUCCESS - If the key write is successful
@@ -551,9 +551,9 @@ END:
 /**
  * @brief       This function handler calls XSecure_AesDecryptKek server API
  *
- * @param	KeyInfo		- KeyInfo contains KeySize, KeyDst and KeySrc
- * @param	IvAddrLow	- Lower 32 bit address of the IV
- * @param	IvAddrHigh	- Higher 32 bit address of the IV
+ * @param	KeyInfo		KeyInfo contains KeySize, KeyDst and KeySrc
+ * @param	IvAddrLow	Lower 32 bit address of the IV
+ * @param	IvAddrHigh	Higher 32 bit address of the IV
  *
  * @return
  *	-	XST_SUCCESS - If the decryption is successful
@@ -598,7 +598,7 @@ END:
 /**
  * @brief       This function handler calls XSecure_AesSetDpaCm server API
  *
- * @param	DpaCmCfg	- User DpaCmCfg configuration
+ * @param	DpaCmCfg	 User DpaCmCfg configuration
  *
  * @return
  *	-	XST_SUCCESS - If the Set DpaCm is successful
@@ -627,9 +627,9 @@ END:
  * @brief       This function handler calls XSecure_AesPerformOperation
  *
  *
- * @param	SrcAddrLow	- Lower 32 bit address of the XSecure_AesDataBlockParams
+ * @param	SrcAddrLow	Lower 32 bit address of the XSecure_AesDataBlockParams
  * 				structure.
- * @param	SrcAddrHigh	- Higher 32 bit address of the XSecure_AesDataBlockParams
+ * @param	SrcAddrHigh	Higher 32 bit address of the XSecure_AesDataBlockParams
  * 				structure.
  *
  * @return
@@ -698,7 +698,7 @@ END:
  * @brief       This function checks for valid KeySrc
  *
  *
- * @param	KeySrc	- Aes key source
+ * @param	KeySrc	 Aes key source
  *
  * @return
  *	-	XST_SUCCESS - If KeySrc is Valid

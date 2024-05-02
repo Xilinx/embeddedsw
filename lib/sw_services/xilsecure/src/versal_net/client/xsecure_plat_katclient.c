@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -20,9 +20,9 @@
 * 5.0   kpt  07/18/22 Initial release
 * 5.2   am   04/01/23 Added XST_INVALID_PARAM error code for invalid parameters
 *       am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
+* 5.4   yog  04/29/24 Fixed doxygen warnings.
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
 
@@ -80,10 +80,10 @@ END:
  * @brief	This function sends IPI request to PLM to set
  *          or clear kat mask of HNIC.
  *
- * @param	InstancePtr - Pointer to the client instance
- * @param   KatOp		- Operation to set or clear KAT mask
- * @param   KatMaskLen  -    Length of the KAT mask
- * @param   KatMask     - KAT mask
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KatOp		Operation to set or clear KAT mask
+ * @param	KatMaskLen	Length of the KAT mask
+ * @param	KatMask		KAT mask
  *
  * @return
  *	-	XST_SUCCESS - On Success
@@ -113,10 +113,10 @@ END:
  * @brief	This function sends IPI request to PLM to set
  *          or clear kat mask of CPM5N.
  *
- * @param	InstancePtr - Pointer to the client instance
- * @param   KatOp		- Operation to set or clear KAT mask
- * @param   KatMaskLen  -    Length of the KAT mask
- * @param   KatMask     - KAT mask
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KatOp		Operation to set or clear KAT mask
+ * @param	KatMaskLen	Length of the KAT mask
+ * @param	KatMask		KAT mask
  *
  * @return
  *	-	XST_SUCCESS - On Success
@@ -145,10 +145,10 @@ END:
  * @brief	This function sends IPI request to PLM to set
  *          or clear kat mask of PCIDE.
  *
- * @param	InstancePtr - Pointer to the client instance
- * @param   KatOp		- Operation to set or clear KAT mask
- * @param   KatMaskLen  - Length of the KAT mask
- * @param   KatMask     - KAT mask
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KatOp		Operation to set or clear KAT mask
+ * @param	KatMaskLen	Length of the KAT mask
+ * @param	KatMask		KAT mask
  *
  * @return
  *	-	XST_SUCCESS - On Success
@@ -175,10 +175,10 @@ END:
 /**
  * @brief       This function sets or clears KAT mask of PKI.
  *
- * @param	InstancePtr - Pointer to the client instance
- * @param   KatOp		- Operation to set or clear KAT mask
- * @param   KatMaskLen  - Length of the KAT mask
- * @param   KatMask     - Pointer to the KAT mask
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KatOp		Operation to set or clear KAT mask
+ * @param	KatMaskLen	Length of the KAT mask
+ * @param	KatMask		Pointer to the KAT mask
  *
  * @return
 	-	XST_SUCCESS - If set or clear is successful
@@ -207,11 +207,11 @@ END:
  * @brief	This function sends IPI request to PLM to set
  *          or clear kat mask of HNIC.
  *
- * @param	InstancePtr - Pointer to the client instance
- * @param   KatOp		- Operation to set or clear KAT mask
- * @param   KatMaskLen  - Length of the KAT mask
- * @param   KatMask     - KAT
- * @param	ApiId		- IPI request API ID
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KatOp		Operation to set or clear KAT mask
+ * @param	KatMaskLen	Length of the KAT mask
+ * @param	KatMask		KAT
+ * @param	ApiId		IPI request API ID
  *
  * @return
  *	-	XST_SUCCESS - On Success

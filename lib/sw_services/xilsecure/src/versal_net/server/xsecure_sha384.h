@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2023, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -10,7 +10,6 @@
 * @file xsecure_sha384.h
 * @cond xsecure_internal
 *
-* @note
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -18,10 +17,10 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   har  01/02/23  Initial release
+* 5.4   yog  04/29/24  Fixed doxygen grouping and doxygen warnings.
 *
 * </pre>
 *
-* @note
 * @endcond
 *
 ******************************************************************************/
@@ -32,7 +31,8 @@
 extern "C" {
 #endif
 
-/** @cond xsecure_internal
+/**
+ * @cond xsecure_internal
  * @{
  */
 /***************************** Include Files *********************************/
@@ -43,6 +43,7 @@ extern "C" {
 #define XSECURE_HASH_SIZE_IN_BYTES		(48U)
 
 /**************************** Type Definitions *******************************/
+/** Stores the resultant Hash. */
 typedef struct {
 	u8 Hash[XSECURE_HASH_SIZE_IN_BYTES];
 } XSecure_Sha2Hash;
@@ -57,6 +58,4 @@ int XSecure_Sha384Finish(XSecure_Sha2Hash *ResHash);
 }
 #endif
 
-#endif /** XSECURE_SHA384_H */
-
-/* @} */
+#endif /* XSECURE_SHA384_H */

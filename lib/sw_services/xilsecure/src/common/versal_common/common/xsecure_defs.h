@@ -32,9 +32,9 @@
 *       vss  09/11/23 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS
 * 5.3   ng   01/28/24 Added SDT support
 *       ng   03/26/24 Fixed header include in SDT flow
+* 5.4   yog  04/29/24 Fixed doxygen warnings.
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
 
@@ -111,18 +111,21 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+/** Structure for input parameters for RSA Encryption and Decrytion */
 typedef struct {
 	u64 KeyAddr;	/**< Key Address */
 	u64 DataAddr;	/**< Data Address */
 	u32 Size;	/**< Size of key */
 } XSecure_RsaInParam;
 
+/** Structure for input parameters for RSA Sign verification */
 typedef struct {
 	u64 SignAddr;	/**< RSA Signature Address */
 	u64 HashAddr;	/**< Hash Address */
 	u32 Size;	/**< Length of hash */
 } XSecure_RsaSignParams;
 
+/** Structure for input parameters for Ellitic Sign generation */
 typedef struct {
 	u64 HashAddr;	/**< Hash address */
 	u64 PrivKeyAddr;	/**< Static Private key Address */
@@ -131,6 +134,7 @@ typedef struct {
 	u32 Size;	/**< Length of hash */
 } XSecure_EllipticSignGenParams;
 
+/** Structure for input parameters for Ellitic Sign Verification */
 typedef struct {
 	u64 HashAddr;	/**< Hash address */
 	u64 PubKeyAddr;	/**< Public key Address */
@@ -139,6 +143,10 @@ typedef struct {
 	u32 Size;		/**< Length of hash */
 } XSecure_EllipticSignVerifyParams;
 
+/**
+ * Structure for input parameters for Initialisation of
+ * AES Encrytion and Decrytion
+ */
 typedef struct {
 	u64 IvAddr;	/**< IV address */
 	u32 OperationId;/**< Operation type - Encrypt or decrypt */
@@ -146,12 +154,17 @@ typedef struct {
 	u32 KeySize;	/**< Size of AES key*/
 } XSecure_AesInitOps;
 
+/** Structure for input parameters for AES Encryption and Decrytion */
 typedef struct {
 	u64 InDataAddr;	/**< Address of input data*/
 	u32 Size;	/**< Length of input data*/
 	u32 IsLast;	/**< Flag to indicate last update of data*/
 } XSecure_AesInParams;
 
+/**
+ * Structure for input parameters for AES
+ * Encryption and Decrytion of single block of data.
+ */
 typedef struct {
 	u64 IvAddr;	/**< IV address */
 	u64 InDataAddr;	 /**< Input data address*/

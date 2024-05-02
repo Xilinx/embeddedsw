@@ -28,6 +28,7 @@
 * 5.3   ng   01/28/24 Added SDT support
 *       kpt  03/15/24 Added RSA private decrypt KAT
 *       ng   03/26/24 Fixed header include in SDT flow
+* 5.4   yog  04/29/24 Fixed doxygen grouping.
 *
 * </pre>
 *
@@ -63,8 +64,9 @@
  *
  * @param SecureSha3 Pointer to SHA3 instance
  *
- * @return	returns the error codes
- *		returns XST_SUCCESS on success
+ * @return
+ *	-	Error codes on failure
+ *	-	XST_SUCCESS on success
  *
  *****************************************************************************/
 int XSecure_HmacKat(XSecure_Sha3 *SecureSha3)
@@ -126,8 +128,9 @@ END:
 /**
  * This function performs KAT on SHA-384.
  *
- * @return	returns the error codes
- *		returns XST_SUCCESS on success
+ * @return
+ *	-	Error codes on failure
+ *	-	XST_SUCCESS on success
  *
  *****************************************************************************/
 int XSecure_Sha384Kat(void)
@@ -183,8 +186,8 @@ END:
  * @param Shatype is SHA algorithm type used for MGF
  *
  * @return
- *        XST_SUCCESS - On Success
- *        ErrorCode   - On Failure
+ *	-	XST_SUCCESS - On Success
+ *	-	ErrorCode   - On Failure
  *
  *****************************************************************************/
 int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaPubKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype)

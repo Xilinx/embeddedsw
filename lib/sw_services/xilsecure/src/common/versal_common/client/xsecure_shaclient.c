@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -30,10 +30,10 @@
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *	yog  05/03/23 Fixed MISRA C violation of Rule 12.2
 *	yog  05/04/23 Fixed HIS COMF violations
+* 5.4   yog  04/29/24 Fixed doxygen warnings
 *
 * </pre>
 *
-* @note
 *
 ******************************************************************************/
 
@@ -59,7 +59,7 @@ static XSecure_ShaState Sha3State = XSECURE_SHA_UNINITIALIZED;
  *
  * @return
  *	-	XST_SUCCESS - If the Sha3 state is changed to initialized state
- * 	-	XST_FAILURE - If the Sha3 is not in uninitialized state
+ *	-	XST_FAILURE - If the Sha3 is not in uninitialized state
  *
  ******************************************************************************/
 int XSecure_Sha3Initialize(void)
@@ -86,7 +86,7 @@ int XSecure_Sha3Initialize(void)
  *
  * @return
  *	-	XST_SUCCESS - If the update is successful
- * 	-	XST_FAILURE - If there is a failure
+ *	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr, u32 Size)

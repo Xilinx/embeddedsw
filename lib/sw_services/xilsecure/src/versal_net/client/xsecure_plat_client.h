@@ -7,9 +7,7 @@
 /*****************************************************************************/
 /**
 * @file xsecure_plat_client.h
-* @addtogroup xsecure_plat_client_apis XilSecure Versal net Plat Client APIs
-* @{
-* @cond xsecure_internal
+*
 * This file Contains the client function prototypes, defines and macros for
 * the platform specific client APIs.
 *
@@ -22,12 +20,16 @@
 * 5.2   vns  07/07/23 Added separate IPI commands for Crypto Status update
 *       kpt  07/09/23 Added APIs related to Key wrap and unwrap
 * 5.3   kpt  12/13/23 Added RSA quiet mode support
+* 5.4   yog  04/29/24 Fixed doxygen grouping.
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
 
+/**
+* @addtogroup xsecure_helper_client_apis Xilsecure Helper Client APIs
+* @{
+*/
 #ifndef XSECURE_PLAT_CLIENT_H
 #define XSECURE_PLAT_CLIENT_H
 
@@ -56,9 +58,16 @@ int XSecure_UpdatePkiCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_C
 	 u32 CryptoMask);
 int XSecure_UpdatePcideCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp,
 	 u32 CryptoMask);
+/**
+ * @cond xsecure_internal
+ * @{
+ */
 int XSecure_GetRsaPublicKeyForKeyWrap(XSecure_ClientInstance *InstancePtr, XSecure_RsaPubKeyAddr *PubKey);
 int XSecure_KeyUnwrap(XSecure_ClientInstance *InstancePtr, XSecure_KeyWrapData *KeyWrapData);
-
+/**
+ * @}
+ * @endcond
+ */
 #ifdef __cplusplus
 }
 #endif

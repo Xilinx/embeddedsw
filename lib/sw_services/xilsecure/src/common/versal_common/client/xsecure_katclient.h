@@ -1,15 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xsecure_katclient.h
-* @addtogroup xsecure_kat_client_apis XilSecure KAT Versal Client APIs
-* @{
-* @cond xsecure_internal
+*
 * This file Contains the client function prototypes, defines and macros for
 * the KAT APIs.
 *
@@ -20,12 +18,16 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  07/19/22 Initial release
 * 5.1   yog  05/03/2023 Fixed MISRA C violation of Rule 8.3
+* 5.4   yog  04/29/24 Fixed doxygen grouping.
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
 
+/**
+* @addtogroup xsecure_kat_client_apis XilSecure KAT Client APIs
+* @{
+*/
 #ifndef XSECURE_KAT_CLIENT_H
 #define XSECURE_KAT_CLIENT_H
 
@@ -58,4 +60,4 @@ int XSecure_EllipticSignGenKat(XSecure_ClientInstance *InstancePtr, XSecure_EccC
 }
 #endif
 
-#endif  /* XSECURE_AES_CLIENT_H */
+#endif  /* XSECURE_KAT_CLIENT_H */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,10 +46,9 @@
 *       dc   08/26/22 Optimization of size by changing u8 to u32
 * 5.2   kpt  08/20/23 Added XSecure_RsaEcdsaZeroizeAndVerifyRam
 *	vss  09/18/23 Fixed compilation warning due to XSecure_RsaEcdsaZeroizeAndVerifyRam
+* 5.4   yog  04/29/24 Fixed doxygen warnings.
 *
 * </pre>
-*
-* @note
 *
 ******************************************************************************/
 
@@ -99,7 +98,7 @@ static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0, u32 
 /**
  * @brief	This function stores the base address of RSA core registers
  *
- * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
+ * @param	InstancePtr	 Pointer to the XSecure_Rsa instance
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -136,14 +135,14 @@ END:
  * @brief	This function handles the Public encryption and private decryption
  * 			of RSA operations with provided inputs
  *
- * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
- * @param	Input		- Address of the buffer which contains the input
+ * @param	InstancePtr	 Pointer to the XSecure_Rsa instance
+ * @param	Input		 Address of the buffer which contains the input
  *				  data to be encrypted/decrypted
- * @param	Result		- Address of buffer where resultant
+ * @param	Result		 Address of buffer where resultant
  *				  encrypted/decrypted data to be stored
- * @param	RsaOp		- Flag to inform the operation to be performed
+ * @param	RsaOp		 Flag to inform the operation to be performed
  * 				  is either encryption/decryption
- * @param	KeySize		- Size of the key in bytes
+ * @param	KeySize		 Size of the key in bytes
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -308,7 +307,7 @@ END:
  * @brief	This function writes all the RSA data used for decryption
  * 		(Modulus, Exponent) at the corresponding offsets in RSA RAM
  *
- * @param	InstancePtr - Pointer to the XSecure_Rsa instance
+ * @param	InstancePtr  Pointer to the XSecure_Rsa instance
  *
  ******************************************************************************/
 static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr)
@@ -335,8 +334,8 @@ static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr)
 /**
  * @brief	This function reads back the resulting data from RSA RAM
  *
- * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
- * @param	RdDataAddr	- Address of the location where RSA output data
+ * @param	InstancePtr	 Pointer to the XSecure_Rsa instance
+ * @param	RdDataAddr	 Address of the location where RSA output data
  *				  will be written
  *
  ******************************************************************************/
@@ -382,7 +381,7 @@ END: ;
  * @brief	This function calculates the MINV value and put it into RSA
  *		core registers
  *
- * @param	InstancePtr - Pointer to XSeure_Rsa instance
+ * @param	InstancePtr  Pointer to XSeure_Rsa instance
  *
  * @note	MINV is the 32-bit value of `-M mod 2**32`,
  *		where M is LSB 32 bits of the original modulus
@@ -420,9 +419,9 @@ static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr)
 /**
  * @brief	This function writes data to RSA RAM at a given offset
  *
- * @param	InstancePtr	- Pointer to the XSecure_Aes instance
- * @param	WrDataAddr	- Address of the data to be written to RSA RAM
- * @param	RamOffset	- Offset for the data to be written in RSA RAM
+ * @param	InstancePtr	 Pointer to the XSecure_Aes instance
+ * @param	WrDataAddr	 Address of the data to be written to RSA RAM
+ * @param	RamOffset	 Offset for the data to be written in RSA RAM
  *
  ******************************************************************************/
 static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
@@ -487,7 +486,7 @@ static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
  * 		stored exponent, modulus and exponentiation key components along
  *		with digest
  *
- * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
+ * @param	InstancePtr	 Pointer to the XSecure_Rsa instance
  *
  * @return
  *	-	XST_SUCCESS - On Success
@@ -518,11 +517,11 @@ END:
 /**
  * @brief	This function updates data length configuration.
  *
- * @param	InstancePtr	- Pointer to the XSecure_Rsa instance.
- * @param	Cfg0		- QSEL, Multiplication passes.
- * @param	Cfg1		- Number of Montgomery digits.
- * @param	Cfg2		- Memory location size.
- * @param	Cfg5		- Number of groups.
+ * @param	InstancePtr	 Pointer to the XSecure_Rsa instance.
+ * @param	Cfg0		 QSEL, Multiplication passes.
+ * @param	Cfg1		 Number of Montgomery digits.
+ * @param	Cfg2		 Memory location size.
+ * @param	Cfg5		 Number of groups.
  *
 ******************************************************************************/
 static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0,
@@ -565,7 +564,7 @@ u8* XSecure_RsaGetTPadding(void)
 /**
  * @brief	This function verifies whole RSA or ECDSA memory space.
  *
- * @param	BaseAddress	- BaseAddress of RSA or ECDSA controller.
+ * @param	BaseAddress	 BaseAddress of RSA or ECDSA controller.
  *
  * @return
  *	-	XST_SUCCESS - On Success
@@ -609,7 +608,7 @@ END:
 /**
  * @brief	This function clears and verifies whole RSA or ECDSA memory space.
  *
- * @param	BaseAddress	- BaseAddress of ECDSA or RSA controller.
+ * @param	BaseAddress	 BaseAddress of ECDSA or RSA controller.
  *
  * @return
  *	-	XST_SUCCESS - On Success

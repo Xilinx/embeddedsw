@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,10 +34,9 @@
  * 5.0   kpt  07/24/2022 Added error codes for KAT
  * 5.2   am   06/22/2023 Added KAT error code
  *       kpt  07/13/2023 Added XSECURE_AES_INVALID_MODE error code
+ * 5.4   yog  04/29/2024 Fixed doxygen warnings.
  *
  * </pre>
- *
- * @note
  *
  ******************************************************************************/
 #ifndef XSECURE_ERROR_H_
@@ -51,10 +50,8 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-/**
- * @addtogroup xilsecure_versal_error_codes XilSecure Error Codes
- * @{
- */
+
+/** Error codes of XilSecure for versal. */
 typedef enum {
 	XSECURE_SHA3_INIT_ERROR = 0x02,		/**< 0x02 - Error when SHA3
 						   init fails. */
@@ -196,9 +193,7 @@ typedef enum {
 												crypto kat efuse bit is enabled */
 
 } XSecure_ErrorCodes;
-/**
- * @}
-*/
+
 /************************** Function Prototypes ******************************/
 
 #ifdef __cplusplus
