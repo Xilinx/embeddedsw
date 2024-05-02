@@ -241,6 +241,7 @@ endif()
 endmacro()
 
 string(ASCII 27 Esc)
+set(ColourReset "${Esc}[m")
 set(BoldRed     "${Esc}[1;31m")
 set(BoldYellow  "${Esc}[1;33m")
 macro(cmake_error message)
