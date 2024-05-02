@@ -37,6 +37,7 @@
 * 1.9   sb  06/06/23 Added support for system device-tree flow.
 * 1.10  akm 01/31/24 Use OSPI controller reset for resetting flash device.
 * 1.10  sb  02/09/24 Add support for Infineon flash part S28HS02G.
+* 1.11  sb  05/02/24 Add support for Macronix flash part mx66uw2g345gxrix0.
 *
 *</pre>
 *
@@ -118,6 +119,7 @@ s32 InitCmd(XOspiPsv *OspiPsvInstancePtr);
 int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable);
 int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode);
 int SpansionSetEccMode(XOspiPsv *OspiPsvPtr);
+int MxConfigDummy(XOspiPsv *OspiPsvPtr);
 
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
@@ -321,6 +323,14 @@ int OspiPsvInterruptFlashExample(XOspiPsv *OspiPsvInstancePtr, UINTPTR BaseAddre
 	/* Configure Flash ECC mode */
 	if (FlashMake == SPANSION_OCTAL_ID_BYTE0) {
 		Status = SpansionSetEccMode(OspiPsvInstancePtr);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+
+	/* Configure Flash Dummy cycles in flash device */
+	if(FlashMake == MACRONIX_OCTAL_ID_BYTE0){
+		Status = MxConfigDummy(OspiPsvInstancePtr);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
@@ -2080,6 +2090,135 @@ int SpansionSetEccMode(XOspiPsv *OspiPsvPtr)
 		FlashMsg.ByteCount = 2;
 		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
 		FlashMsg.Addrsize = 4;
+	}
+
+	if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+	}
+	else if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
+		FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
+	}
+
+	TransferInProgress = TRUE;
+	Error = 0;
+	Status = XOspiPsv_IntrTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	while (TransferInProgress);
+	if (Error) {
+		return XST_FAILURE;
+	}
+
+	if (ConfigReg[0] != Data[0]) {
+		return XST_FAILURE;
+	}
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function configures the Dummy cycles in Flash device.
+ *
+ * @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
+ *
+ * @return	XST_SUCCESS or XST_FAILURE.
+ *
+ ******************************************************************************/
+int MxConfigDummy(XOspiPsv *OspiPsvPtr){
+
+	u8 ConfigReg[2] __attribute__ ((aligned(4)));
+	u8 Data[2] __attribute__ ((aligned(4)));
+	u32 RegAddr=CONFIG_REG2_VOLATILE_ADDR_MX;
+	u32 Status;
+	Data[0]=0x00;
+	Data[1]=0x00;
+
+	/*
+	 * Send the write enable command to the Flash so that it can be
+	 * written to, this needs to be sent as a separate transfer before
+	 * the write
+	 */
+	FlashMsg.Opcode = WRITE_ENABLE_CMD;
+	FlashMsg.Addrsize = 0;
+	FlashMsg.Addrvalid = 0;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = 0;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+	}
+
+	if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+	}
+	else if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
+		FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
+	}
+
+	TransferInProgress = TRUE;
+	Error = 0;
+	Status = XOspiPsv_IntrTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	while (TransferInProgress);
+	if (Error) {
+		return XST_FAILURE;
+	}
+
+	FlashMsg.Opcode = WRITE_CONFIG2_REG_MX;
+	FlashMsg.Addrsize = 4;
+	FlashMsg.Addrvalid = 1;
+	FlashMsg.TxBfrPtr = Data;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = 1;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.Dummy = OspiPsvPtr->Extra_DummyCycle;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	FlashMsg.Addr = RegAddr;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
+		FlashMsg.ByteCount = 2;
+	}
+	if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+	}
+	else if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_SAME) {
+		FlashMsg.ExtendedOpcode = (u8)(FlashMsg.Opcode);
+	}
+
+	TransferInProgress = TRUE;
+	Error = 0;
+	Status = XOspiPsv_IntrTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	while (TransferInProgress);
+	if (Error) {
+		return XST_FAILURE;
+	}
+
+	/* Read back the configuration register 2 */
+	FlashMsg.Opcode = READ_CONFIG2_REG_MX;
+	FlashMsg.Addrsize = 4;
+	FlashMsg.Addrvalid = 1;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = ConfigReg;
+	FlashMsg.ByteCount = 1;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	FlashMsg.Dummy = 4;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	FlashMsg.Addr = RegAddr;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_READ_8_8_8;
+		FlashMsg.ByteCount = 2;
 	}
 
 	if (OspiPsvPtr->DualByteOpcodeEn == XOSPIPSV_DUAL_BYTE_OP_ENABLE) {
