@@ -10,6 +10,7 @@
 #include "xpm_ams_trim.h"
 #define BITMASK_LOWER_15_BITS			(0x7fffU)
 #define BITMASK_UPPER_17_BITS			(0xffff8000U)
+/** The below macro is getting 4 bits from x offset of given array of 32-bits number */
 #define GET_DELTA_AT_OFFSET(array, x)		(0xfU & (array[(x) / 32U] >> ((x) % 32U)))
 
 static XStatus AmsTrim_CopyCache(u32 EfuseCacheBaseAddress,  u32 PowerDomainId,
@@ -60,9 +61,28 @@ static XStatus AmsTrim_CopyCache(u32 EfuseCacheBaseAddress,  u32 PowerDomainId,
 		*DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 12U);
 		Status = XST_SUCCESS;
 		break;
+	case (u32)XPM_NODEIDX_POWER_CPM5N:
+		/* Copy EFUSE_CACHE.TSENS_DELTA_243_240 to CPM5N_SYSMON.EFUSE_CONFIG0[15:12] */
+		*DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 240U);
+		Status = XST_SUCCESS;
+		break;
 	case (u32)XPM_NODEIDX_POWER_FPD:
-		/* Copy EFUSE_CACHE.TSENS_DELTA_11_8 to FPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
-		*DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 8U);
+		if (0U == SateliteIdx) {
+			/* Copy EFUSE_CACHE.TSENS_DELTA_11_8 to FPD_SYSMON_SAT.EFUSE_CONFIG0[15:12] */
+			*DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 8U);
+		} else if (1U == SateliteIdx) {
+			/* Copy EFUSE_CACHE.TSENS_DELTA_247_244 to FPD_SYSMON_SAT1.EFUSE_CONFIG0[15:12] */
+			*DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 244U);
+		} else if (2U == SateliteIdx) {
+			/* Copy EFUSE_CACHE.TSENS_DELTA_251_248 to FPD_SYSMON_SAT2.EFUSE_CONFIG0[15:12] */
+			*DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 248U);
+		} else if (3U == SateliteIdx) {
+			/* Copy EFUSE_CACHE.TSENS_DELTA_255_252 to FPD_SYSMON_SAT3.EFUSE_CONFIG0[15:12] */
+			*DeltaVal =  GET_DELTA_AT_OFFSET(Arr, 252U);
+		} else {
+			/* Required due to MISRA */
+			PmDbg("[%d] Invalid SateliteIdx\r\n", __LINE__);
+		}
 		Status = XST_SUCCESS;
 		break;
 	case (u32)XPM_NODEIDX_POWER_NOC:
