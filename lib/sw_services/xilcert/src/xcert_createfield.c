@@ -30,6 +30,7 @@
 *                       function
 *       am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
 *       kpt  02/21/2024 Added support for DME extension
+*       har  05/03/2024 Fixed size when it is of long form
 *
 * </pre>
 * @note
@@ -199,7 +200,10 @@ int XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStri
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Curr = Curr + ((*OctetStringLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+
+	if ((*OctetStringLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*OctetStringLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
 	*FieldLen = (u8)(Curr - DataBuf);
 
 END:
