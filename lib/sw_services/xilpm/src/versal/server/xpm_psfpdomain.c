@@ -13,6 +13,7 @@
 #include "xpm_device.h"
 #include "xpm_debug.h"
 #include "xpm_rail.h"
+#include "xpm_ams_trim.h"
 
 #define FPD_POLL_TIMEOUT 0x10000U
 
@@ -130,7 +131,7 @@ static XStatus FpdHcComplete(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	/* Copy sysmon data */
-	Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddr, PM_POWER_FPD, 0);
+	Status = XPm_ApplyAmsTrim(SysmonAddr, PM_POWER_FPD, 0);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_AMS_TRIM;
 		goto done;
