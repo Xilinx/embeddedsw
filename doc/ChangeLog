@@ -118,7 +118,7 @@ Fix yaml file to pull the hdmiphy1 driver for ZU+ devices
 Add speedgrade variable in yaml
 Fix speedgrade member in XHdmiphy1_Config structure
 
-axipmon_v6_11   :
+axipmon_v6_11:
 Add support for compiling driver examples in Yocto flow
 Add SDT check to use interrupt wrapper API
 
@@ -996,13 +996,13 @@ lib: xlnx: Avoid mapping in MPU for region mapped by bsp
 openamp_v1_10:
 ThirdParty: Libmetal, OpenAMP: Ensure cleanup of SDT Flow directory occurs
 
-xiltimer_v2_0 :
+xiltimer_v2_0:
 Add a new API XTimer_GetLibVersion() to get information about library version.
 Add support for Microblaze-V platform
 Update default sleep timers to align with sleep timer when no xiltimer is
 enabled.
 
-cpu_cortexr5_v2_2 :
+cpu_cortexr5_v2_2:
 Update tcl to generate new macro ZYNQMP_R5_FSBL_BSP if BSP is for R5 FSBL
 
 xilrsa_v1_8:
