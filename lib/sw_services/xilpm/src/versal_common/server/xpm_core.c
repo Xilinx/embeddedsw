@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -338,11 +338,16 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 		goto done;
 	}
 
+	Ack = Core->FrcPwrDwnReq.AckType;
+	IpiMask = Core->FrcPwrDwnReq.InitiatorIpiMask;
+	NodeState = Core->Device.Node.State;
+
 	Status = XPmCore_ForcePwrDwn(DeviceId);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
+	NodeState = Core->Device.Node.State;
 	/*clear pwr dwn status. this will make boot status as initial boot*/
 	if(XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)){
 		ApuCore = (XPm_ApuCore *)Core;
@@ -387,9 +392,6 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 					XPLMI_CMD_SECURE);
 		}
 	} else {
-		Ack = Core->FrcPwrDwnReq.AckType;
-		IpiMask = Core->FrcPwrDwnReq.InitiatorIpiMask;
-		NodeState = Core->Device.Node.State;
 		Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
 						   XPm_ForcePwrDwnCb, 0U,
 						   (void *)DeviceId);

@@ -717,6 +717,10 @@ XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
                 goto done;
         }
 
+	Ack = Subsystem->FrcPwrDwnReq.AckType;
+	IpiMask = Subsystem->FrcPwrDwnReq.InitiatorIpiMask;
+	NodeState = Subsystem->State;
+
         if ((u32)POWERED_OFF == Subsystem->State) {
                 Status = XST_SUCCESS;
                 goto done;
@@ -772,8 +776,6 @@ XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
                 goto done;
         }
 
-        Ack = Subsystem->FrcPwrDwnReq.AckType;
-        IpiMask = Subsystem->FrcPwrDwnReq.InitiatorIpiMask;
         NodeState = Subsystem->State;
         Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
                                            XPm_ForcePwrDwnCb, 0U,
