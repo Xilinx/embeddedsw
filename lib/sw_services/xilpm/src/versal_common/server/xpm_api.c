@@ -4176,6 +4176,7 @@ int XPm_ForcePwrDwnCb(void *Data)
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
+
 		if ((u8)PENDING_POWER_OFF != Subsystem->State) {
 			Status = XST_SUCCESS;
 			goto done;
@@ -4188,8 +4189,8 @@ int XPm_ForcePwrDwnCb(void *Data)
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
-		if ((u8)XPM_DEVSTATE_PENDING_PWR_DWN !=
-		    Core->Device.Node.State) {
+
+		if ((u8)XPM_DEVSTATE_PENDING_PWR_DWN != Core->Device.Node.State) {
 			Status = XST_SUCCESS;
 			goto done;
 		}
@@ -4283,7 +4284,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		PmOut32(IPI_PMC_IDR, IpiMask);
 	}
 
-	/*Validate access first */
+	/* Validate access first */
 	Status = XPm_IsForcePowerDownAllowed(SubsystemId, NodeId, CmdType);
 	if (XST_SUCCESS != Status) {
 		goto process_ack;
@@ -4320,26 +4321,29 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		Status = XPmPower_ForcePwrDwn(NodeId);
 		NodeState = Power->Node.State;
 	} else if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
+		/* Retrieve target subsystem */
 		Subsystem = XPmSubsystem_GetById(NodeId);
 		if (NULL == Subsystem) {
 			Status = XST_INVALID_PARAM;
 			goto process_ack;
 		}
-
 		Subsystem->FrcPwrDwnReq.AckType = Ack;
 		Subsystem->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
+		NodeState = Subsystem->State;
+
 		if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
 			Status = XPmSubsystem_SetState(Subsystem->Id,
 						       (u8)PENDING_POWER_OFF);
 			if (XST_SUCCESS != Status) {
-				goto done;
+				goto process_ack;
 			}
+			NodeState = Subsystem->State;
 
 			Status = XPm_SubsystemIdleCores(Subsystem);
 			if (XST_SUCCESS != Status) {
-				NodeState = Subsystem->State;
 				goto process_ack;
 			}
+
 			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
 							XPm_ForcePwrDwnCb,
 							NULL,
