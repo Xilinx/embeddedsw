@@ -40,6 +40,7 @@
 * 2.00  ng   01/26/2024 Updated minor error codes
 *       kpt  02/19/2024 Add support to extend secure state to SWPCR
 *       mss  04/12/2024 Added XLoader_DumpDdrmcRegisters function prototype
+*       mss  05/03/2024 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -257,9 +258,10 @@ enum {
 
 /**************************** Type Definitions *******************************/
 
+/** Structure to store DDRMC registers and there memory offsets */
 typedef struct {
-	char *RegStr;
-	u32 Offset;
+	char *RegStr;	/**< DDRMC Dump Resiter */
+	u32 Offset;		/**< Register Offset */
 }Xloader_DdrmcRegisters;
 
 /***************** Macros (Inline Functions) Definitions *********************/
