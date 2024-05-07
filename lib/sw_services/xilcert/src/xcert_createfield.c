@@ -31,12 +31,22 @@
 *       am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
 *       kpt  02/21/2024 Added support for DME extension
 *       har  05/03/2024 Fixed size when it is of long form
+* 1.3   har  05/07/2024 Added doxygen grouping and tags
 *
 * </pre>
 * @note
 *
 ******************************************************************************/
+/**
+ * @addtogroup xcert_apis XilCert APIs
+ * @{
+ */
 
+
+/**
+ * @cond xcert_internal
+ * @{
+ */
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
@@ -358,3 +368,8 @@ static u32 XCert_GetTrailingZeroesCount(u8 Data)
 	return Count;
 }
 #endif  /* PLM_OCP_KEY_MNGMT */
+
+/**
+ * @}
+ * @endcond
+ */
