@@ -25,6 +25,8 @@
   *       mb   08/09/23 Declare variables that are passed to server in data
   *	  vss	11/22/23 Added header file required for SDT flow
   * 2.3	  vss	03/06/24 Removed server related APIs
+  * 2.4   har   05/06/24 Fixed issue in case of regeneration from eFUSE cache
+  *
   *@note
   *
  *****************************************************************************/
@@ -241,6 +243,9 @@ static int XPuf_GeneratePufKekAndId(XPuf_ClientInstance PufClientInstance)
 			Aux = XPUF_AUX;
 			PufDataAddr.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
 			xil_printf("Reading helper data from DDR\r\n");
+		}
+		else if (PufDataAddr.ReadOption == XPUF_READ_FROM_EFUSE_CACHE) {
+			xil_printf("Reading helper data from eFUSE cache \r\n");
 		}
 		else {
 			xil_printf("Invalid read option for reading helper data\r\n");
