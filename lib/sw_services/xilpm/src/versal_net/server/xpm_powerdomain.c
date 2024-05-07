@@ -168,11 +168,24 @@ XStatus XPm_PowerUpPLD(XPm_Node *Node)
 XStatus XPm_PowerDwnPLD(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	/* TODO: Add Power down sequence for PLD */
 	(void)Node;
+
+	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	if (NULL == Pmc) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Unset CFG_POR_CNT_SKIP to enable PL_POR counting */
+	PmOut32(Pmc->PmcAnalogBaseAddr + PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET,
+		0U);
 	Status = XST_SUCCESS;
 
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
