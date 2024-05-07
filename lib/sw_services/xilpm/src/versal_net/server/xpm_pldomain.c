@@ -13,6 +13,7 @@
 #include "xcframe.h"
 #include "xpm_rail.h"
 #include "xpm_regs.h"
+#include "xpm_pmc.h"
 
 /* CFRAME Driver Instance */
 static XCframe CframeIns = {0};
@@ -137,6 +138,18 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	if ((XST_SUCCESS != RamRailPwrSts) || (XST_SUCCESS != AuxRailPwrSts) ||(XST_SUCCESS != SocRailPwrSts)) {
 		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 		goto done;
+	}
+
+	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	if (NULL == Pmc) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Skip PL release delay if using sysmon */
+	if ((NULL != VccintRail) && (XPM_PGOOD_SYSMON == VccintRail->Source)) {
+		PmOut32(Pmc->PmcAnalogBaseAddr + PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET, 1U);
 	}
 
 	/* Perform VID adjustment */

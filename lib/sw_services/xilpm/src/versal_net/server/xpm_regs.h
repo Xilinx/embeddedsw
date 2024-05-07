@@ -435,6 +435,13 @@ extern "C" {
 #define GTY_PCSR_STATUS_BISR_DONE_MASK				(0x00080000U)
 #define GTY_PCSR_STATUS_BISR_PASS_MASK				(0x00100000U)
 
+
+/**
+ * PMC Analog Registers
+ */
+#define PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET		    (0x00000030U)
+#define PMC_ANLG_CFG_POR_CNT_SKIP_OFFSET_VAL_MASK	    (0x00000001U)
+
 /**
  * SysMon Registers
  */
