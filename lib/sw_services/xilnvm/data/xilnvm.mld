@@ -27,7 +27,7 @@ BEGIN LIBRARY xilnvm
   OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5 microblaze psxl_pmc psxl_cortexa78 psxl_cortexr52 psx_pmc psx_cortexa78 psx_cortexr52);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilnvm,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx NVM Library provides interface to accessing eFUSE and BBRAM of Versal";
-  OPTION VERSION = 3.3;
+  OPTION VERSION = 3.4;
   OPTION NAME = xilnvm;
   PARAM name = xnvm_use_puf_hd_as_user_efuse, desc = "Enables API's to use PUF Helper data efuses as user efuses ", type = bool, default = false;
   PARAM name = xnvm_mode, desc = "Enables A72/R5 server and client mode support for XilNvm library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
