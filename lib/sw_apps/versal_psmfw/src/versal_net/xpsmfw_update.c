@@ -14,35 +14,34 @@
 extern u32 __update_mgr_b_start[];
 extern u8 __update_mgr_a_fn_start[];
 extern u8 __update_mgr_a_fn_end[];
-static int XPsmFw_PsmUpdateMgr(void) __attribute__((section(".update_mgr_a")));
+static void XPsmFw_PsmUpdateMgr(void) __attribute__((section(".update_mgr_a")));
 
-static int XPsmFw_PsmUpdateMgr(void) {
-	XStatus Status = XST_FAILURE;
-	u32 PsmUpdateState = PSM_UPDATE_STATE_SHUTDOWN_DONE;
-	void (*XPsm_ResetVector)(void) = (void (*)(void))XPSM_RESET_VECTOR;
-	{
-		u32 l_Val;
-		u32 RegAddress = PSM_GLOBAL_REG_GLOBAL_CNTRL;
-		u32 Mask = PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK;
-		u32 Value = 0;
-		l_Val = *((volatile u32 *)RegAddress);
-		l_Val = (l_Val & (~Mask)) | (Mask & Value);
-		*((volatile u32 *)RegAddress) =  l_Val;
-	}
+static void XPsmFw_PsmUpdateMgr(void) {
+
+	/** NOTE: this function is special.
+	 * It is relocated and called in 2 different contexts: old and new PSM code.
+	 * The stack is wiped out in between; Therefore no local variables are allowed.
+	*/
+
+	/** Clear FW_IS_PRESENT bit from  PSM_GLOBAL_REG_GLOBAL_CNTRL register*/
+	*((volatile u32 *)PSM_GLOBAL_REG_GLOBAL_CNTRL) = \
+		((*((volatile u32 *)PSM_GLOBAL_REG_GLOBAL_CNTRL)) \
+		& (~PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK));
+
 	*((volatile u32 *)PSM_UPDATE_REG_STATE) = PSM_UPDATE_STATE_SHUTDOWN_DONE;
 	/** Wait for Psm.elf loaded */
-	/** Note: we have to use Xil_In32 macro here not function call to XPsmFw_GetUpdateState
-	 * because of this function is relocated.
-	 **/
 	mb_sleep();
-	while (PSM_UPDATE_STATE_LOAD_ELF_DONE != PsmUpdateState) {
-		PsmUpdateState = *((volatile u32 *)PSM_UPDATE_REG_STATE);
-	}
+	while (PSM_UPDATE_STATE_LOAD_ELF_DONE != *((volatile u32 *)PSM_UPDATE_REG_STATE));
 	/** Reset PSM with new code */
-	XPsm_ResetVector();
-	/** Never reach here. */
-	Status = XST_SUCCESS;
-	return Status;
+	/** NOTE: We hardcoding asm here to make sure jumping to the reset vector
+	 * Else, depending on comipiler optimization,
+	 * it will set link register as in subroutine call.
+	 * */
+	__asm__ __volatile__ (
+		"addik r5, r0, %0\n"	// Move the value XPSM_RESET_VECTOR into register r5
+		"bra r5\n"	// Branch to the address in r5
+		:: "i" (XPSM_RESET_VECTOR) : "r5"	// Tell the compiler that r5 is being modified
+	);
 }
 
 inline u32 XPsmFw_GetUpdateState(void){
@@ -56,8 +55,8 @@ XStatus XPsm_DoShutdown(){
 
 	XStatus Status = XST_FAILURE;
 	u32 UpdMgrSize = (u32)__update_mgr_a_fn_end - (u32)__update_mgr_a_fn_start;
-	int (*XPsm_RelocatedFn)(void) =
-			(int (*)(void))__update_mgr_b_start;
+	void (*XPsm_RelocatedFn)(void) =
+			(void (*)(void))__update_mgr_b_start;
 
 	XPsmFw_DisableInterruptSystem();
 	/** Relocate PSM Update Manager to reserved safe location */
@@ -84,7 +83,7 @@ XStatus XPsm_DoShutdown(){
 	XPsmFw_StopIoModule();
 
 	/* Jump to relocated PLM Update Manager */
-	Status = XPsm_RelocatedFn();
+	(void) XPsm_RelocatedFn();
 	/** Never reach here */
 done:
 	return Status;
