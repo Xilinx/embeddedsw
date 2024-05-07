@@ -27,12 +27,16 @@
 * 1.2   am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
 *       kpt  02/21/2024 Add support for DME extension
 *       har  03/25/2024 Fix calculation of hash for serial
+* 1.3   har  05/02/2024 Added doxygen grouping and tags
 *
 * </pre>
 * @note
 *
 ******************************************************************************/
-
+/**
+ * @defgroup xcert_apis XilCert APIs
+ * @{
+ */
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
@@ -173,6 +177,206 @@ static int XCert_GenDmeExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeResponse
 static int XCert_GenDmePublicKeyAndStructExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeChallenge *Dme);
 
 /************************** Function Definitions *****************************/
+/*****************************************************************************/
+/**
+ * @brief	This function creates the X.509 Certificate/Certificate Signing Request(CSR)
+ *
+ * @param	X509CertAddr is the address of the X.509 Certificate buffer
+ * @param	MaxCertSize is the maximum size of the X.509 Certificate buffer
+ * @param	X509CertSize is the size of X.509 Certificate in bytes
+ * @param	Cfg is structure which includes configuration for the X.509 Certificate.
+ *
+ * @return
+ *		 - XST_SUCCESS  Successfully generated X.509 certificate/CSR
+ *		 - Error code  In case of failure
+ *
+ * @note	Certificate  ::=  SEQUENCE  {
+ *			tbsCertificate       TBSCertificate,
+ *			signatureAlgorithm   AlgorithmIdentifier,
+ *			signatureValue       BIT STRING  }
+ *
+ ******************************************************************************/
+int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config *Cfg)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	u8 X509CertBuf[1024];
+	u8* Start = X509CertBuf;
+	u8* Curr = Start;
+	u8* SequenceLenIdx;
+	u8* SequenceValIdx;
+	u32 DataLen = 0U;
+	u32 SignAlgoLen;
+	int HashCmpStatus = XST_FAILURE;
+	u32 SignLen = 0U;
+	u8 Sign[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U] = {0U};
+	u8 SignTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U] = {0U};
+	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
+	XCert_SignStore *SignStore = NULL;
+	u8 HashTmp[XCERT_HASH_SIZE_IN_BYTES] = {0U};
+	u8 *TbsCertStart;
+	(void)MaxCertSize;
+
+	if (Cfg == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
+	SequenceLenIdx = Curr++;
+	SequenceValIdx = Curr;
+
+	Status = XCert_UpdateUserCfg(Cfg);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	TbsCertStart = Curr;
+
+	/**
+	 * SHA 384 is used to calculate hash for Serial field and to calculate hash
+	 * for signature calculation. So run KAT for SHA384 before use
+	 */
+	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != (u8)TRUE) {
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XCERT_ERR_X509_KAT_FAILED, Status, StatusTmp, XSecure_Sha384Kat);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			goto END;
+		}
+		XPlmi_SetKatMask(XPLMI_SECURE_SHA384_KAT_MASK);
+	}
+
+	if (Cfg->AppCfg.IsCsr == TRUE) {
+		Status = XCert_GenCertReqInfo(Curr, Cfg, &DataLen);
+	}
+	else {
+		Status = XCert_GenTBSCertificate(Curr, Cfg, &DataLen);
+	}
+
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	else {
+		Curr = Curr + DataLen;
+	}
+
+	/**
+	 * Generate Sign Algorithm field
+	 */
+	Status = XCert_GenSignAlgoField(Curr, &SignAlgoLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + SignAlgoLen;
+
+	/**
+	 * Calculate SHA2 Digest of the TBS certificate
+	 */
+	Status = XSecure_Sha384Digest(TbsCertStart, DataLen, HashTmp);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XCERT_ERR_X509_GEN_TBSCERT_DIGEST;
+		goto END;
+	}
+
+	/**
+	 * Get the TBS certificate signature stored in Cert DB
+	 */
+	Status = XCert_GetSignStored(Cfg->SubSystemId, &SignStore);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XCERT_ERR_X509_GET_SIGN;
+		goto END;
+	}
+	/**
+	 * If the Signature is available, compare the hash stored with
+	 * the hash calculated to make sure nothing is changed.
+	 * if hash matches, copy the stored signature else generate
+	 * the signature again.
+	 */
+	if (SignStore->IsSignAvailable == XCERT_SIGN_AVAILABLE) {
+		HashCmpStatus = Xil_SMemCmp((void *)HashTmp, sizeof(HashTmp),
+				(void *)SignStore->Hash, sizeof(SignStore->Hash),
+				sizeof(HashTmp));
+		if (HashCmpStatus == XST_SUCCESS) {
+			Status = Xil_SMemCpy((void *)Sign, sizeof(Sign),
+				(void *)SignStore->Sign, sizeof(SignStore->Sign),
+				sizeof(Sign));
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+	}
+
+	/**
+	 * If the Signature is not available or Hash comparison from above fails,
+	 * regenerate the signature.
+	 */
+	if ((SignStore->IsSignAvailable != XCERT_SIGN_AVAILABLE) || (HashCmpStatus != XST_SUCCESS)) {
+		if (XPlmi_IsKatRan(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK) != TRUE) {
+			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp,
+				XSecure_EllipticSignGenerateKat, XSECURE_ECC_PRIME);
+			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+				goto END;
+			}
+			XPlmi_SetKatMask(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK);
+		}
+
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)Hash,
+					(u64)(UINTPTR)HashTmp);
+		/**
+		 * Calculate signature of the TBS certificate using the private key
+		 */
+		Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384, (const u8 *)Hash, sizeof(Hash),
+				Cfg->AppCfg.IssuerPrvtKey, SignTmp);
+		if (Status != XST_SUCCESS) {
+		Status = (int)XCERT_ERR_X509_CALC_SIGN;
+			goto END;
+		}
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+				(u64)(UINTPTR)Sign, (u64)(UINTPTR)SignTmp);
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+				(u64)(UINTPTR)(Sign + XSECURE_ECC_P384_SIZE_IN_BYTES),
+				(u64)(UINTPTR)(SignTmp + XSECURE_ECC_P384_SIZE_IN_BYTES));
+		/**
+		 * Copy the generated signature and hash into SignStore
+		 */
+		Status = Xil_SMemCpy(SignStore->Hash, sizeof(SignStore->Hash),
+				HashTmp, sizeof(HashTmp), sizeof(HashTmp));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = Xil_SMemCpy(SignStore->Sign, sizeof(SignStore->Sign),
+				Sign, sizeof(Sign), sizeof(Sign));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		SignStore->IsSignAvailable = XCERT_SIGN_AVAILABLE;
+	}
+	/**
+	 * Generate Signature field
+	 */
+	XCert_GenSignField(Curr, Sign, &SignLen);
+	Curr = Curr + SignLen;
+
+	/**
+	 * Update the encoded length in the X.509 certificate SEQUENCE
+	 */
+	Status = XCert_UpdateEncodedLength(SequenceLenIdx, (u32)(Curr - SequenceValIdx), SequenceValIdx);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
+		goto END;
+	}
+	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	*X509CertSize = Curr - Start;
+
+	XCert_CopyCertificate(*X509CertSize, (u8 *)X509CertBuf, X509CertAddr);
+
+END:
+	return Status;
+}
+
+/**
+ * @cond xcert_internal
+ * @{
+ */
 /*****************************************************************************/
 /**
  * @brief	This function provides the pointer to the X509 InfoStore database.
@@ -484,202 +688,6 @@ int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8*
 	}
 
 	Status = XST_SUCCESS;
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function creates the X.509 Certificate/Certificate Signing Request(CSR)
- *
- * @param	X509CertAddr is the address of the X.509 Certificate buffer
- * @param	MaxCertSize is the maximum size of the X.509 Certificate buffer
- * @param	X509CertSize is the size of X.509 Certificate in bytes
- * @param	Cfg is structure which includes configuration for the X.509 Certificate.
- *
- * @return
- *		 - XST_SUCCESS  Successfully generated X.509 certificate/CSR
- *		 - Error code  In case of failure
- *
- * @note	Certificate  ::=  SEQUENCE  {
- *			tbsCertificate       TBSCertificate,
- *			signatureAlgorithm   AlgorithmIdentifier,
- *			signatureValue       BIT STRING  }
- *
- ******************************************************************************/
-int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config *Cfg)
-{
-	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
-	u8 X509CertBuf[1024];
-	u8* Start = X509CertBuf;
-	u8* Curr = Start;
-	u8* SequenceLenIdx;
-	u8* SequenceValIdx;
-	u32 DataLen = 0U;
-	u32 SignAlgoLen;
-	int HashCmpStatus = XST_FAILURE;
-	u32 SignLen = 0U;
-	u8 Sign[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U] = {0U};
-	u8 SignTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U] = {0U};
-	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
-	XCert_SignStore *SignStore = NULL;
-	u8 HashTmp[XCERT_HASH_SIZE_IN_BYTES] = {0U};
-	u8 *TbsCertStart;
-	(void)MaxCertSize;
-
-	if (Cfg == NULL) {
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
-
-	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
-	SequenceLenIdx = Curr++;
-	SequenceValIdx = Curr;
-
-	Status = XCert_UpdateUserCfg(Cfg);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	TbsCertStart = Curr;
-
-	/**
-	 * SHA 384 is used to calculate hash for Serial field and to calculate hash
-	 * for signature calculation. So run KAT for SHA384 before use
-	 */
-	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != (u8)TRUE) {
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XCERT_ERR_X509_KAT_FAILED, Status, StatusTmp, XSecure_Sha384Kat);
-		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-			goto END;
-		}
-		XPlmi_SetKatMask(XPLMI_SECURE_SHA384_KAT_MASK);
-	}
-
-	if (Cfg->AppCfg.IsCsr == TRUE) {
-		Status = XCert_GenCertReqInfo(Curr, Cfg, &DataLen);
-	}
-	else {
-		Status = XCert_GenTBSCertificate(Curr, Cfg, &DataLen);
-	}
-
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	else {
-		Curr = Curr + DataLen;
-	}
-
-	/**
-	 * Generate Sign Algorithm field
-	 */
-	Status = XCert_GenSignAlgoField(Curr, &SignAlgoLen);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Curr = Curr + SignAlgoLen;
-
-	/**
-	 * Calculate SHA2 Digest of the TBS certificate
-	 */
-	Status = XSecure_Sha384Digest(TbsCertStart, DataLen, HashTmp);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XCERT_ERR_X509_GEN_TBSCERT_DIGEST;
-		goto END;
-	}
-
-	/**
-	 * Get the TBS certificate signature stored in Cert DB
-	 */
-	Status = XCert_GetSignStored(Cfg->SubSystemId, &SignStore);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XCERT_ERR_X509_GET_SIGN;
-		goto END;
-	}
-	/**
-	 * If the Signature is available, compare the hash stored with
-	 * the hash calculated to make sure nothing is changed.
-	 * if hash matches, copy the stored signature else generate
-	 * the signature again.
-	 */
-	if (SignStore->IsSignAvailable == XCERT_SIGN_AVAILABLE) {
-		HashCmpStatus = Xil_SMemCmp((void *)HashTmp, sizeof(HashTmp),
-				(void *)SignStore->Hash, sizeof(SignStore->Hash),
-				sizeof(HashTmp));
-		if (HashCmpStatus == XST_SUCCESS) {
-			Status = Xil_SMemCpy((void *)Sign, sizeof(Sign),
-				(void *)SignStore->Sign, sizeof(SignStore->Sign),
-				sizeof(Sign));
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
-		}
-	}
-
-	/**
-	 * If the Signature is not available or Hash comparison from above fails,
-	 * regenerate the signature.
-	 */
-	if ((SignStore->IsSignAvailable != XCERT_SIGN_AVAILABLE) || (HashCmpStatus != XST_SUCCESS)) {
-		if (XPlmi_IsKatRan(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK) != TRUE) {
-			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp,
-				XSecure_EllipticSignGenerateKat, XSECURE_ECC_PRIME);
-			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-				goto END;
-			}
-			XPlmi_SetKatMask(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK);
-		}
-
-		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)Hash,
-					(u64)(UINTPTR)HashTmp);
-		/**
-		 * Calculate signature of the TBS certificate using the private key
-		 */
-		Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384, (const u8 *)Hash, sizeof(Hash),
-				Cfg->AppCfg.IssuerPrvtKey, SignTmp);
-		if (Status != XST_SUCCESS) {
-		Status = (int)XCERT_ERR_X509_CALC_SIGN;
-			goto END;
-		}
-		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
-				(u64)(UINTPTR)Sign, (u64)(UINTPTR)SignTmp);
-		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
-				(u64)(UINTPTR)(Sign + XSECURE_ECC_P384_SIZE_IN_BYTES),
-				(u64)(UINTPTR)(SignTmp + XSECURE_ECC_P384_SIZE_IN_BYTES));
-		/**
-		 * Copy the generated signature and hash into SignStore
-		 */
-		Status = Xil_SMemCpy(SignStore->Hash, sizeof(SignStore->Hash),
-				HashTmp, sizeof(HashTmp), sizeof(HashTmp));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		Status = Xil_SMemCpy(SignStore->Sign, sizeof(SignStore->Sign),
-				Sign, sizeof(Sign), sizeof(Sign));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		SignStore->IsSignAvailable = XCERT_SIGN_AVAILABLE;
-	}
-	/**
-	 * Generate Signature field
-	 */
-	XCert_GenSignField(Curr, Sign, &SignLen);
-	Curr = Curr + SignLen;
-
-	/**
-	 * Update the encoded length in the X.509 certificate SEQUENCE
-	 */
-	Status = XCert_UpdateEncodedLength(SequenceLenIdx, (u32)(Curr - SequenceValIdx), SequenceValIdx);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
-		goto END;
-	}
-	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
-	*X509CertSize = Curr - Start;
-
-	XCert_CopyCertificate(*X509CertSize, (u8 *)X509CertBuf, X509CertAddr);
-
 END:
 	return Status;
 }
@@ -2321,3 +2329,8 @@ static void XCert_CopyCertificate(const u32 Size, const u8 *Src, const u64 DstAd
 	}
 }
 #endif  /* PLM_OCP_KEY_MNGMT */
+
+/**
+ * @}
+ * @endcond
+ */
