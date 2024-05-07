@@ -33,6 +33,7 @@
 *       kal  01/24/2024 Fixed doxygen warnings
 * 3.3	kpt  02/01/2024 XNvm_EfuseWriteRoSwapEn only when RoSwap is non-zero
 *	vss  04/01/2024 Fixed MISRA-C 12.1 violation and EXPRESSION_WITH_MAGIC_NUMBERS coverity warning
+* 3.4   kal  05/07/2024 Fixed issue in all DME keys programming
 *
 * </pre>
 *
@@ -111,6 +112,15 @@ static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32 *RegData);
 		/**< Mask for PUF_REGIS_DIS */
 #define XNVM_EFUSE_DME_KEY_SIZE_IN_BYTES	 (48U)
 			/**< DME key size in bytes */
+#define XNVM_EFUSE_DME_0_USER_EFUSE_CACHE_OFFSET	(0x240U)
+			/**< DME 0 corresponding User eFuse offset */
+#define XNVM_EFUSE_DME_1_USER_EFUSE_CACHE_OFFSET	(0x270U)
+			/**< DME 1 corresponding User eFuse offset */
+#define XNVM_EFUSE_DME_2_USER_EFUSE_CACHE_OFFSET	(0x2A0U)
+			/**< DME 2 corresponding User eFuse offset */
+#define XNVM_EFUSE_DME_3_USER_EFUSE_CACHE_OFFSET	(0x2D0U)
+			/**< DME 3 corresponding User eFuse offset */
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*************************** Function Prototypes ******************************/
@@ -2309,7 +2319,11 @@ static int XNvm_EfuseWriteRoSwapEn(u32 RoSwap)
  * @param	KeyType - DME UserKey0/1/2/3.
  * @param	EfuseKey - Pointer to the XNvm_DmeKey structure.
  *
- * @return	- XST_SUCCESS - On successful write.
+ * @return
+ * 		- XST_SUCCESS - On successful write.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid input parameter.
+ *		- XNVM_ERR_DME_KEY_ALREADY_PROGRAMMED - If requested DME key is
+ *				already programmed.
  *
  ******************************************************************************/
 static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *EfuseKey)
@@ -2318,7 +2332,8 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 Key[XNVM_DME_USER_KEY_SIZE_IN_WORDS] = {0U};
 	u32 RegData = 0x00U;
-	u32 Row;
+	u32 RdOffset;
+	u32 StartOffset;
 
 	if (KeyType == XNVM_EFUSE_DME_USER_KEY_0) {
 		EfusePrgmInfo.StartRow = XNVM_EFUSE_DME_USER_KEY_0_START_ROW;
@@ -2326,6 +2341,7 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 		EfusePrgmInfo.ColEnd = XNVM_EFUSE_DME_USER_KEY_0_END_COL_NUM;
 		EfusePrgmInfo.NumOfRows = XNVM_EFUSE_DME_USER_KEY_NUM_OF_ROWS;
 		EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
+		StartOffset = XNVM_EFUSE_DME_0_USER_EFUSE_CACHE_OFFSET;
 	}
 	else if (KeyType == XNVM_EFUSE_DME_USER_KEY_1) {
 		EfusePrgmInfo.StartRow = XNVM_EFUSE_DME_USER_KEY_1_START_ROW;
@@ -2333,6 +2349,7 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 		EfusePrgmInfo.ColEnd = XNVM_EFUSE_DME_USER_KEY_1_END_COL_NUM;
 		EfusePrgmInfo.NumOfRows = XNVM_EFUSE_DME_USER_KEY_NUM_OF_ROWS;
 		EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
+		StartOffset = XNVM_EFUSE_DME_1_USER_EFUSE_CACHE_OFFSET;
 	}
 	else if (KeyType == XNVM_EFUSE_DME_USER_KEY_2) {
 		EfusePrgmInfo.StartRow = XNVM_EFUSE_DME_USER_KEY_2_START_ROW;
@@ -2340,6 +2357,7 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 		EfusePrgmInfo.ColEnd = XNVM_EFUSE_DME_USER_KEY_2_END_COL_NUM;
 		EfusePrgmInfo.NumOfRows = XNVM_EFUSE_DME_USER_KEY_NUM_OF_ROWS;
 		EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
+		StartOffset = XNVM_EFUSE_DME_2_USER_EFUSE_CACHE_OFFSET;
 	}
 	else if (KeyType == XNVM_EFUSE_DME_USER_KEY_3) {
 		EfusePrgmInfo.StartRow = XNVM_EFUSE_DME_USER_KEY_3_START_ROW;
@@ -2347,6 +2365,7 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 		EfusePrgmInfo.ColEnd = XNVM_EFUSE_DME_USER_KEY_3_END_COL_NUM;
 		EfusePrgmInfo.NumOfRows = XNVM_EFUSE_DME_USER_KEY_NUM_OF_ROWS;
 		EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
+		StartOffset = XNVM_EFUSE_DME_3_USER_EFUSE_CACHE_OFFSET;
 	}
 	else {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
@@ -2354,16 +2373,14 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 	}
 
 	/* Check DME key eFuse if they are already programmed */
-	for (Row = EfusePrgmInfo.StartRow;
-		Row < (EfusePrgmInfo.StartRow + EfusePrgmInfo.NumOfRows); Row++) {
-		Status = XNvm_EfuseReadRow(EfusePrgmInfo.EfuseType, Row, &RegData);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	RdOffset = StartOffset;
+	while (RdOffset < (StartOffset + XNVM_EFUSE_DME_KEY_SIZE_IN_BYTES)) {
+		RegData  = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, RdOffset);
 		if (RegData != 0x00U) {
 			Status = (int)XNVM_ERR_DME_KEY_ALREADY_PROGRAMMED;
 			goto END;
 		}
+		RdOffset = RdOffset + XNVM_WORD_LEN;
 	}
 
 	Status = XNvm_EfuseChangeEndianness((u8 *)Key, (u8 *)EfuseKey->Key, sizeof(Key));
