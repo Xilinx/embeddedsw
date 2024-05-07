@@ -32,6 +32,7 @@
 * 2.00  ng   01/26/2024 Updated minor error codes
 *            02/21/2024 Added XLoader_CheckAndUpdateSecureState
 *       mss  04/15/2024 Added Xloader_DdrmcRegisters Structure
+*       mss  05/03/2024 Fixed doxygen warnings
 *
 * </pre>
 *
@@ -235,8 +236,8 @@ enum {
 
 /** Structure to store DDRMC registers and there memory offsets */
 typedef struct {
-	char *RegStr;
-	u32 Offset;
+	char *RegStr;	/**< DDRMC Dump Register */
+	u32 Offset;		/**< Register Offset */
 }Xloader_DdrmcRegisters;
 
 /***************** Macros (Inline Functions) Definitions *********************/
