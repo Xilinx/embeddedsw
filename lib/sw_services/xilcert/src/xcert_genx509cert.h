@@ -22,6 +22,8 @@
 * 1.2   har  12/08/2023 Add support for Subject Alternative Name field
 *       am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
 *       kpt  02/21/2024 Add support for DME extension
+* 1.3   har  05/02/2024 Fixed doxygen warnings
+*
 *
 * </pre>
 *
@@ -76,19 +78,31 @@ extern "C" {
 	/**< Length of DME measurement in words */
 
 /**************************** Type Definitions *******************************/
+/**
+ * This typedef contains enumeration of the fields of X.509 certificate
+ * which are configured by user
+ */
 typedef enum {
-	XCERT_ISSUER = 0U,	/**< 0U */
-	XCERT_SUBJECT,		/**< 1U */
-	XCERT_VALIDITY, 	/**< 2U */
-	XCERT_SUBALTNAME	/**< 3U */
+	XCERT_ISSUER = 0U,	/**< 0 - Issuer */
+	XCERT_SUBJECT,		/**< 1 - Subject */
+	XCERT_VALIDITY, 	/**< 2 - Validity */
+	XCERT_SUBALTNAME	/**< 3 - Subject Alternative Name */
 } XCert_UserCfgFields;
 
+/**
+ * This typedef contains information related to storing
+ * the signature of X.509 certificate
+ */
 typedef struct {
 	u8 Sign[XCERT_ECC_P384_PUBLIC_KEY_LEN]; /**< Signature of TBS certificate */
 	u8 Hash[XCERT_HASH_SIZE_IN_BYTES];	/**< Hash of the TBS certificate */
 	u8 IsSignAvailable;			/**< Flag to check if signature is available */
 } XCert_SignStore;
 
+/**
+ * This typedef contains information of the fields of X.509 certificate
+ * which is provided by user
+ */
 typedef struct {
 	u8 Issuer[XCERT_ISSUER_MAX_SIZE];	/**< DER encoded value of Issuer */
 	u32 IssuerLen;		/**< Length of DER encoded Issuer field */
@@ -101,14 +115,18 @@ typedef struct {
 	u32 SubAltNameLen;	/**< Length of DER encoded Subject Alt Name */
 } XCert_UserCfg;
 
+/**
+ * This typedef contains user configuration and information related to stored signature
+ * for given Subsystem ID
+ */
 typedef struct {
 	u32 SubsystemId;	/**< Subsystem Id */
 	XCert_UserCfg UserCfg;	/**< User configuration */
 	XCert_SignStore SignStore; /**< Signature store */
 } XCert_InfoStore;
 
-/*
- * DME
+/**
+ * This typedef contains the components of DME challenge
  */
 typedef struct {
 	u32 DeviceID[XCERT_DME_DEVICE_ID_SIZE_WORDS];	/**< Device ID */
@@ -116,8 +134,9 @@ typedef struct {
 	u32 Measurement[XCERT_DME_MEASURE_SIZE_WORDS];	/**< Measurement */
 } XCert_DmeChallenge;
 
-/*
- * DME response
+/**
+ * This typedef contains the components of DME response which is DME challenge
+ * and the signature generated using DME private key
  */
 typedef struct {
 	XCert_DmeChallenge Dme;                         /**< DME challenge */
@@ -125,6 +144,10 @@ typedef struct {
 	u32 DmeSignatureS[XCERT_ECC_P384_SIZE_WORDS];   /**< Signature comp S */
 } XCert_DmeResponse;
 
+/**
+ * This typedef contains the information required in the request to generate the
+ * X.509 certificate
+ */
 typedef struct {
 	u32 IsSelfSigned;	/**< Flag to check if self-signed certificate */
 	u32 IsCsr;		/**< Flag to check if Certificate Signing Request */
@@ -135,12 +158,18 @@ typedef struct {
 	XCert_DmeResponse* DmeResp; /**< DME configuration */
 }XCert_AppCfg;
 
+/**
+ * This typedef contains the configuration for X.509 certificate for given Subsystem ID
+ */
 typedef struct {
 	u32 SubSystemId;	/**< Subsystem ID */
 	XCert_UserCfg *UserCfg;		/**< Configuration from User */
 	XCert_AppCfg AppCfg;	/**< Configuration from application */
 }XCert_Config;
 
+/**
+ * Error codes from request to generate X.509 certificate/ Certificate Signing Request
+ */
 typedef enum {
 	XCERT_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD = 0x40,
 		/**< 0x40 TBS certificate public key info field */
