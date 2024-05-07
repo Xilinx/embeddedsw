@@ -32,6 +32,7 @@
 *       kpt  02/21/2024 Added support for DME extension
 *       har  05/03/2024 Fixed size when it is of long form
 * 1.3   har  05/07/2024 Added doxygen grouping and tags
+*			Fixed doxygen warnings
 *
 * </pre>
 * @note
@@ -91,6 +92,10 @@ static u32 XCert_GetTrailingZeroesCount(u8 Data);
  * @param	IntegerLen is the length of the value of the ASN.1 Integer
  * @param	FieldLen is the total length of the encoded ASN.1 Integer
  *
+ * @return
+ *		 - XST_SUCCESS  Successfully created DER encoded ASN.1 Integer
+ *		 - Error code  In case of failure
+ *
  * @note	ASN.1 tag for Integer is 0x02.
  *
  ******************************************************************************/
@@ -139,6 +144,10 @@ END:
  * 			- TRUE for Public Key
  * @param	FieldLen is the total length of the encoded ASN.1 BitString
  *
+ * @return
+ *		 - XST_SUCCESS  Successfully created DER encoded ASN.1 BitString
+ *		 - Error code  In case of failure
+ *
  * @note	ASN.1 tag for BitString is 0x03
  *
  ******************************************************************************/
@@ -185,6 +194,10 @@ END:
  * @param	OctetStringVal is the value of the ASN.1 OctetString
  * @param	OctetStringLen is the length of the value of the ASN.1 OctetString
  * @param	FieldLen is the total length of the encoded ASN.1 OctetString
+ *
+ * @return
+ *		 - XST_SUCCESS  Successfully created DER encoded ASN.1 OctetString
+ *		 - Error code  In case of failure
  *
  * @note	ASN.1 tag for OctetString is 0x04
  *
@@ -347,8 +360,8 @@ END:
  * 		be counted
  *
  * @return
- *      Number of trailing zeroes. In case the Data is 0 then number of
- *      trailing zeroes is 8
+ *		Number of trailing zeroes. In case the Data is 0 then number of
+ *		trailing zeroes is 8
  *
  ******************************************************************************/
 static u32 XCert_GetTrailingZeroesCount(u8 Data)
