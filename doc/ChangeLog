@@ -755,6 +755,13 @@ Update the compatibility string for the cfupmc drivers to support the VersalNet 
 Add compatible strings for latest pmcps versions.
 Updated Overview for addtogroup for 2024.1
 
+dfeccf_v1_7:
+Configure si570 in Linux examples
+Fix SDT flow number of instances
+CMakeLists dependencies
+Update version number in makefiles
+Support Baremetal SDT Yocto Flow
+
 dfeequ_v1_6:
 Configure si570 in Linux examples
 Fix SDT flow number of instances
@@ -854,13 +861,6 @@ Fixed doxygen comments format.
 Added glitch checks after function call.
 Added DDRMC registers Dump logs in Versal and Versal-Net.
 Enhance Restart Image to Support loading from Boot PDI Present in Image Store.
-
-dfeccf_v1_7:
-Configure si570 in Linux examples
-Fix SDT flow number of instances
-CMakeLists dependencies
-Update version number in makefiles
-Support Baremetal SDT Yocto Flow
 
 axivdma_v6_15:
 Added CMake file to support compiling driver examples in Yocto flow
@@ -1402,45 +1402,39 @@ Added support for system device-tree flow for driver and examples
 cpu_cortexa9_v2_12:
 Fix doxygen warnings
 
-dfeccf_v1_7:
-Configure si570 in Linux examples
-Fix SDT flow number of instances
-CMakeLists dependencies
-Update version number in makefiles
-Support Baremetal SDT Yocto Flow
+dfeccf_v1_6:
+Remove immediate trigger
+Add system device-tree support
+Deprecate obsolete APIs
+Function comment update
 
-dfeequ_v1_6:
-Configure si570 in Linux examples
-Fix SDT flow number of instances
-CMakeLists dependencies
-Support Baremetal SDT Yocto Flow
+dfeequ_v1_5:
+Add system device-tree support
 
-dfemix_v1_7:
-Configure si570 in Linux examples
-Fix SDT flow number of instances
-CMakeLists dependencies
-Update version number in makefiles
-Support Baremetal SDT Yocto Flow
+dfemix_v1_6:
+Remove immediate trigger
+Add system device-tree support
+Deprecate obsolete APIs
+Correct comment about gain
 
-dfeofdm_v1_2:
-Configure si570 in Linux examples
-Update hw version in yamal
-Update hw version
-Fix SDT flow number of instances
-CMakeLists dependencies
-Correct sw major/minor version numbers
-Support Baremetal SDT Yocto Flow
-Support for FFT size 512
-Doxygen documenatation update
+dfeofdm_v1_1:
+Remove immediate trigger
+Add system device-tree support
+Deprecate obsolete APIs
+Antenna interleave delay reorder
+Output delay in ccid slots
+Add phase compensation calculation
+State and status upgrades
+Update documentation
 
-dfeprach_v1_7:
-Configure si570 in Linux examples
-Update device node name
-Correct order of RACH mapping steps
-CMakeLists dependencies
-Support Baremetal SDT Yocto Flow
-Correct memset destination address
-Add continuous scheduling
+dfeprach_v1_6:
+Remove immediate trigger
+Add system device-tree support
+Deprecate obsolete APIs
+Configure all trigger parameters in examples
+Support dynamic and static modes of operation
+Dual and single mode calculation fix
+Set NCO config for RCId=0 fix
 
 emacps_v3_19:
 Added system device-tree flow support
