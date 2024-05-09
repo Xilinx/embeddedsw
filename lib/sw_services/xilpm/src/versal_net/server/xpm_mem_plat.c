@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,10 +40,6 @@ XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,
 	{
 		if (((PM_DEV_TCM_A_0A <= Id) && (PM_DEV_TCM_B_1C >= Id)) &&
 		     ((u8)XPM_DEVSTATE_RUNNING != Rpu0->Node.State)) {
-			Status = XPmRpuCore_Halt(Rpu0);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
 			Status = XPmRpuCore_Halt(Rpu0);
 			if (XST_SUCCESS != Status) {
 				goto done;
