@@ -334,6 +334,8 @@ int XPlm_PostPlmUpdate(void)
 	XPlmi_SetBootPdiDone();
 
 	XPlmi_Printf(DEBUG_GENERAL, "In-Place PLM Update Done\n\r");
+	XPlmi_Out32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF, XPLMI_INVALID_RESP_BUFF_ADDR);
+	XPlmi_Out32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK, XPLMI_INVALID_IPI_MASK);
 
 	/* Send Response to IPI request indicating PLM Update is Done */
 	if (PlmUpdateIpiMask != 0U) {

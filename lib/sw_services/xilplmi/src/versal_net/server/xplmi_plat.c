@@ -288,6 +288,8 @@ int XPlmi_PreInit(void)
 void XPlmi_RtcaPlatInit(void)
 {
 	/* Versal Net specific RTCA registers Init */
+	XPlmi_Out32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF, XPLMI_INVALID_RESP_BUFF_ADDR);
+	XPlmi_Out32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK, XPLMI_INVALID_IPI_MASK);
 	return;
 }
 

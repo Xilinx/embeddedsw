@@ -45,6 +45,7 @@
 *       pre  01/22/2024 Updated XPlmi_SetPmcIroFreq to support both ES1 and
 *                       production samples
 *       bm   03/02/2024 Make SD drive number logic order independent
+*       sk   05/07/2024 Added defines for WDT and IPI registers
 *
 * </pre>
 *
@@ -779,6 +780,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define EFUSE_CACHE_ROM_RSVD_IRO_SWAP_MASK	(0x00000100U)
 
 #define XPLMI_IPI_BASEADDR		(0xEB320000U)
+#define XPLMI_IPI_PMC_ISR_ADDR		(0xEB320010U)
 
 #ifndef SDT
 	#if defined(XPAR_XIPIPSU_0_DEVICE_ID) && (XPAR_XIPIPSU_0_BASE_ADDRESS == XPLMI_IPI_BASEADDR)
@@ -878,6 +880,9 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  * Definition for PMC WDT to be included
  */
 #define XPLMI_PMC_WDT_BASEADDR		(0xF03F0000U)
+#define XPLMI_PMC_GWDT_CNTRL_STATUS_REG	(0xF03F2000U)
+#define XPLMI_PMC_WDT_GWCSR_GWEN_MASK	(0x01U)
+
 #ifndef SDT
 	#if defined(XPAR_WDTTB_0_DEVICE_ID) && (XPAR_WDTTB_0_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
 			(XPAR_WDTTB_0_ENABLE_WINDOW_WDT == 0U)

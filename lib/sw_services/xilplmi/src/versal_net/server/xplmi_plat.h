@@ -52,6 +52,7 @@
 *       ma   03/05/2024 Fixed improper timestamp issue after In-place PLM update
 *       jb   04/11/2024 Added proc count for PSM and PMC procs
 *       am   04/15/2024 Fixed doxygen warnings
+*       sk   05/07/2024 Added support for In Place Update Error Notify
 *
 * </pre>
 *
@@ -102,13 +103,18 @@ extern "C" {
 #define XPLMI_RTCFG_PLM_RSVD_DDR_ADDR				(XPLMI_RTCFG_BASEADDR + 0x2A8U) /**< Baseadress of DDR region reserved for PLM */
 #define XPLMI_RTCFG_PLM_RSVD_DDR_SIZE				(XPLMI_RTCFG_BASEADDR + 0x2ACU) /**< Size of DDR region reserved for PLM */
 #define XPLMI_RTCFG_VID_OVERRIDE				(XPLMI_RTCFG_BASEADDR + 0x2B0U) /**< VID override */
+#define XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK			(XPLMI_RTCFG_BASEADDR + 0x2B4U)
+#define XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF		(XPLMI_RTCFG_BASEADDR + 0x2B8U)
+#define XPLMI_RTCFG_INPLACE_UPDATE_ERR_IPOR_TIMEOUT		(XPLMI_RTCFG_BASEADDR + 0x2BCU)
 #define XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR			(XPLMI_RTCFG_BASEADDR + 0x300U) /**< Skip DDRMC Calib Check */
-
+#define XPLMI_INVALID_RESP_BUFF_ADDR				(0xFFFFFFFFU)
+#define XPLMI_INVALID_IPI_MASK					(0x0U)
 #define XPLMI_INVALID_PLM_RSVD_DDR_ADDR				(0x0U)	/**< Invalid reserved DDR address */
 #define XPLMI_INVALID_PLM_RSVD_DDR_SIZE				(0U)	/**< Invalid reserved DDR size */
+#define XPLMI_REG_OFFSET_BYTE_4					(4U)
 
 #define XPLMI_ROM_SERVICE_TIMEOUT			(1000000U) /**< ROM service timeout */
-
+#define XPLMI_MILLI_SEC_TIME_MULTIPLIER 		(0x10000U) /**< factor for ~1msec for 320MHz to 400MHz range */
 #define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U) /**< PMC IRO frequency 320Mhz */
 
 /**************************** Type Definitions *******************************/
@@ -267,6 +273,9 @@ enum {
 
 	/** 0x20C - Invalid payload length received for the command */
 	XPLMI_ERR_INVALID_PAYLOAD_LEN,
+
+	/** 0x20D - ROM error during In Place Update */
+	XPLMI_ERR_INPLACE_UPDATE_ROM_ERROR,
 };
 
 typedef struct {
@@ -298,7 +307,7 @@ typedef enum {
 #define XPLMI_WDT_DS_ID			(0x01U) /**< WDT data structure Id */
 #define XPLMI_TRACELOG_DS_ID		(0x02U) /**< Trace log data structure Id */
 #define XPLMI_LPDINITIALIZED_DS_ID	(0x03U) /**< LPD intialized data structure Id */
-#define XPLMI_UPDATE_IPIMASK_DS_ID	(0x04U) /**< Update IPI mask data structure Id */
+#define XPLMI_RESERVED_DS_ID		(0x04U) /**< Update RESERVED DS ID */
 #define XPLMI_UART_BASEADDR_DS_ID	(0x05U) /**< UART base address data structure Id */
 #define XPLMI_ERROR_TABLE_DS_ID		(0x06U) /**< Error table data structure Id */
 #define XPLMI_IS_PSMCR_CHANGED_DS_ID	(0x07U) /**< PSMCR status check data structure Id */
@@ -524,7 +533,6 @@ typedef enum {
 #define GET_RTCFG_PSM_ERR_ADDR(Index)		(Index > 1U) ? \
 			(XPLMI_RTCFG_PSM_ERR3_STATUS_ADDR + ((Index - 2U) * 4U)) : \
 			(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PSM error address */
-
 /*****************************************************************************/
 /**
  * @brief	This function provides the Slr Type
@@ -628,6 +636,51 @@ static inline void XPlmi_InterSlrSldHandshake(void)
 {
 	/* Not Applicable for Versal Net */
 	return;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets ACK's the IPI request
+ *
+ * @param	PLmErr value of Plm error
+ * @param	RomErr value of ROM error
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static inline __attribute__((always_inline)) void XPlmi_AckIpi(u32 PlmErr, u32 RomErr)
+{
+	if ((XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF) == XPLMI_INVALID_RESP_BUFF_ADDR) ||
+		(XPlmi_In32(XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK) == XPLMI_INVALID_IPI_MASK)))
+	{
+		return;
+	}
+	XPlmi_Out32(XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF), PlmErr);
+	XPlmi_Out32(XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF) + XPLMI_REG_OFFSET_BYTE_4, RomErr);
+	XPlmi_Out32(XPLMI_IPI_PMC_ISR_ADDR, XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK));
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function waits for specified timeout before doing IPOR
+ *
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static inline __attribute__((always_inline)) void XPlmi_IpuErrIporWait(void)
+{
+	volatile u32 TimeOut = XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_ERR_IPOR_TIMEOUT);
+	volatile u32 TimeMsMultiplier = XPLMI_MILLI_SEC_TIME_MULTIPLIER; /* factor for ~1msec for 320MHz to 400MHz range */
+	u32 WdtCntrlStatusReg = XPlmi_In32(XPLMI_PMC_GWDT_CNTRL_STATUS_REG);
+
+	WdtCntrlStatusReg &=(~(u32)XPLMI_PMC_WDT_GWCSR_GWEN_MASK);
+	XPlmi_Out32(XPLMI_PMC_GWDT_CNTRL_STATUS_REG, WdtCntrlStatusReg);
+	/* Timeout multiple of milli sec */
+	while ((TimeOut--) > 0U) {
+		while(TimeMsMultiplier-- > 0U);
+		TimeMsMultiplier = XPLMI_MILLI_SEC_TIME_MULTIPLIER;
+	}
 }
 
 /************************** Function Prototypes ******************************/
