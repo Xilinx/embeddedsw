@@ -41,6 +41,7 @@
 * 2.00  ng   01/26/2024 Updated minor error codes
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 *       am   04/10/2024 Fixed doxygen warnings
+*       sk   05/07/2024 Added support for In Place Update Error Notify
 *
 * </pre>
 *
@@ -59,6 +60,8 @@
 #include "xil_util.h"
 #include "xplmi_task.h"
 #include "xplmi_scheduler.h"
+#include "xplmi_plat.h"
+#include "xipipsu_buf.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_RESET_VECTOR		(0xF0200000U) /**< Reset vector */
@@ -69,8 +72,8 @@
 #define XPLMI_UPDATE_DB_VERSION		(1U) /**< DB version update */
 #define XPLMI_DS_HDR_SIZE		(sizeof(XPlmi_DsHdr)) /**< Data structure header size */
 #define XPLMI_DS_CNT			(u32)(__data_struct_end - __data_struct_start) /**< Data structure count */
-#define XPLMI_UPDATE_IPIMASK_VER 	(2U) /**< IPI mask version update */
-#define XPLMI_UPDATE_IPIMASK_LCVER 	(2U) /**< IPI mask LC version update */
+#define XPLMI_UPDATE_PDIADDR_VER 	(2U) /**< PDI Address version update */
+#define XPLMI_UPDATE_PDIADDR_LCVER 	(2U) /**< PDI Address LC version update */
 #define XPLMI_UPDATE_TASK_ID		(0x120U) /**< Task Id update */
 #define XPLMI_UPDATE_FLAG_MASK		(0x1U) /**< In-Place Update flag Mask */
 #define XPLMI_UPDATE_PAYLOAD_LEN	(0x2U) /**< In-Place Update payload len */
@@ -99,12 +102,8 @@ extern u8 __update_mgr_a_fn_end[];
 static u8 PlmUpdateState;
 static u8 PlmUpdateStateTmp;
 static u32 UpdatePdiAddr = XPLMI_INVALID_UPDATE_ADDR;
-static u32 PlmUpdateIpiMask __attribute__ ((aligned(4U)));
-EXPORT_GENERIC_DS(PlmUpdateIpiMask, XPLMI_UPDATE_IPIMASK_DS_ID,
-	XPLMI_UPDATE_IPIMASK_VER, XPLMI_UPDATE_IPIMASK_LCVER,
-	sizeof(PlmUpdateIpiMask), (u32)(UINTPTR)&PlmUpdateIpiMask);
 EXPORT_GENERIC_DS(UpdatePdiAddr, XPLMI_UPDATE_PDIADDR_DS_ID,
-	XPLMI_UPDATE_IPIMASK_VER, XPLMI_UPDATE_IPIMASK_LCVER,
+	XPLMI_UPDATE_PDIADDR_VER, XPLMI_UPDATE_PDIADDR_LCVER,
 	sizeof(UpdatePdiAddr), (u32)(UINTPTR)&UpdatePdiAddr);
 static u32 DbStartAddr; /** Db Start Address */
 static u32 DbEndAddr; /** Db End Address */
@@ -235,6 +234,9 @@ static int XPlmi_PlmUpdateMgr(void)
 		{
 			while(TRUE);
 		}
+
+		XPlmi_AckIpi(XPLMI_ERR_INPLACE_UPDATE_ROM_ERROR, PmcBootErr);
+		XPlmi_IpuErrIporWait();
 		/* Boot Errors, perform IPOR */
 		RegVal = XPlmi_In32(CRP_RST_PS);
 		XPlmi_Out32(CRP_RST_PS, RegVal | CRP_RST_PS_PMC_POR_MASK);
@@ -614,6 +616,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	u32 PdiId;
 	u32 Flag;
 	u64 PdiAddr;
+	XIpiPsu *IpiInst;
 
 	Op.Mode = XPLMI_MODULE_NO_OPERATION;
 
@@ -704,7 +707,10 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	PlmUpdateIpiMask = Cmd->IpiMask;
+	IpiInst = XPlmi_GetIpiInstance();
+	XPlmi_Out32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK, Cmd->IpiMask);
+	XPlmi_Out32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF, (u32)XIpiPsu_GetBufferAddress(IpiInst,
+		IpiInst->Config.BitMask, Cmd->IpiMask, XIPIPSU_BUF_TYPE_RESP));
 	Cmd->AckInPLM = (u8)FALSE;
 
 	Task = XPlmi_GetTaskInstance(NULL, NULL, XPLMI_UPDATE_TASK_ID);
@@ -829,6 +835,9 @@ static int XPlmi_PlmUpdateTask(void *Arg)
 	}
 
 END:
+	XPlmi_AckIpi((u32)Status, 0x0U);
+	XPlmi_IpuErrIporWait();
+	XPlmi_PORHandler();
 	return Status;
 }
 
@@ -852,7 +861,7 @@ u32 XPlmi_GetUpdatePdiAddr(void){
  *****************************************************************************/
 u32 XPlmi_GetPlmUpdateIpiMask(void)
 {
-	return PlmUpdateIpiMask;
+	return XPlmi_In32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK);
 }
 
 /*****************************************************************************/
@@ -866,5 +875,5 @@ u32 XPlmi_GetPlmUpdateIpiMask(void)
  *****************************************************************************/
 void XPlmi_SetPlmUpdateIpiMask(u32 value)
 {
-	PlmUpdateIpiMask = value;
+	XPlmi_Out32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK, value);
 }

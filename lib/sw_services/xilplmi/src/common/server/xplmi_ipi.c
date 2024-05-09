@@ -80,6 +80,7 @@
  * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
  *       ng   01/28/2024 optimized u8 variables
  *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
+ * 2.01  sk   05/07/2024 Added support to get ipi instance
  *
  * </pre>
  *
@@ -724,4 +725,19 @@ static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload)
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns the IPI Instance pointer
+ *
+ *
+ * @return
+ * 			- Ipi Instance Pointer
+ *
+ *****************************************************************************/
+XIpiPsu* XPlmi_GetIpiInstance(void)
+{
+	return &IpiInst;
+}
+
 #endif /* XPLMI_IPI_DEVICE_ID */

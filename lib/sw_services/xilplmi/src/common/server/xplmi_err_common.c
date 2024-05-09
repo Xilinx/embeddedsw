@@ -142,6 +142,7 @@
 *                       in slave SLR if any error is encountered during boot
 *       ng   03/09/2024 Fixed format specifier for 32bit variables
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
+*       sk   05/07/2024 Added support for In Place Update Error Notify
 *
 * </pre>
 *
@@ -280,13 +281,17 @@ void XPlmi_ErrMgr(int ErrStatusVal)
 				}
 			}
 
+#ifdef VERSAL_NET
 			/*
 			 * In case of errors after In-Place PLM Update, perform IPOR.
 			 * This is applicable only for Versal Net
 			 */
-			if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+			if ((XPlmi_IsPlmUpdateDone() == (u8)TRUE)) {
+				XPlmi_AckIpi((u32)ErrStatusVal, 0x0U);
+				XPlmi_IpuErrIporWait();
 				XPlmi_PORHandler();
 			}
+#endif
 #ifndef PLM_DEBUG_MODE
 		   /**
 		    * - If Halt Boot eFuses are blown, then trigger secure lockdown.
