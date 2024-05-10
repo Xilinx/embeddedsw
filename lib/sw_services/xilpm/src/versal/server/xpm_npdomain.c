@@ -20,7 +20,6 @@
 #include "xpm_device.h"
 #include "xpm_mem.h"
 #include "xplmi.h"
-#include "xpm_ams_trim.h"
 
 #define XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN	XPM_NODEIDX_MONITOR_SYSMON_NPD_0
 #define XPM_NODEIDX_MEMIC_NSU_MIN1		XPM_NODEIDX_MEMIC_NSU_0
@@ -214,7 +213,7 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		/* Copy_trim< AMS_SAT_N> */
 		SysmonAddr = XPm_GetSysmonByIndex(i);
 		if (0U != SysmonAddr) {
-			Status = XPm_ApplyAmsTrim(SysmonAddr, PM_POWER_NOC, i-(u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN);
+			Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddr, PM_POWER_NOC, i-(u32)XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_AMS_TRIM;
 				goto done;

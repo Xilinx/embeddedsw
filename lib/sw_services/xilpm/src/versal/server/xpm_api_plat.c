@@ -47,7 +47,6 @@
 #include "xplmi_sysmon.h"
 #include "xpm_access.h"
 #include "xpm_noc_config.h"
-#include "xpm_ams_trim.h"
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
@@ -563,7 +562,7 @@ XStatus XPm_HookAfterPlmCdo(void)
 		goto done;
 	}
 
-	(void)XPm_ApplyAmsTrim(SysmonAddr, PM_POWER_PMC, 0);
+	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddr, PM_POWER_PMC, 0);
 
 	SysmonAddr = XPm_GetSysmonByIndex((u32)XPM_NODEIDX_MONITOR_SYSMON_PMC_1);
 	if (0U == SysmonAddr) {
@@ -571,7 +570,7 @@ XStatus XPm_HookAfterPlmCdo(void)
 		goto done;
 	}
 
-	(void)XPm_ApplyAmsTrim(SysmonAddr, PM_POWER_PMC, 1);
+	(void)XPmPowerDomain_ApplyAmsTrim(SysmonAddr, PM_POWER_PMC, 1);
 
 	PostTopologyHook();
 

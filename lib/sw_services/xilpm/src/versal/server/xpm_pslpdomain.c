@@ -15,7 +15,6 @@
 #include "xpm_debug.h"
 #include "xpm_rail.h"
 #include "xplmi.h"
-#include "xpm_ams_trim.h"
 
 #define NUM_LPD_MIO		26U
 #define LPD_IOU_SCLR_GPIO_MUX	0x40U
@@ -219,7 +218,7 @@ static XStatus LpdHcComplete(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	Status = XPm_ApplyAmsTrim(SysmonAddr, PM_POWER_LPD, 0);
+	Status = XPmPowerDomain_ApplyAmsTrim(SysmonAddr, PM_POWER_LPD, 0);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_AMS_TRIM;
 	}
