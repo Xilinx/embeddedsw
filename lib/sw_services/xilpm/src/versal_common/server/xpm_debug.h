@@ -120,8 +120,7 @@ extern "C" {
 #define XPM_INT_ERR_LPD_MBIST_CLK_NOT_FOUND	0x3126U
 /* CFU clock divider is in unexpected state */
 #define XPM_INT_ERR_CFU_CLK_DIVIDER		0x3127U
-/* Error during ams trim routine */
-#define XPM_INT_ERR_FUNC_AMS_TRIM		0x3128U
+
 /************************** LPD specific Errors ******************************/
 /************************** (0x3200) - (0x32FF) ******************************/
 /* Error during PMC-LPD DFX Isolation enable/disable */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -496,17 +496,8 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			DbgErr = XPM_INT_ERR_DOMAIN_ISO;
 			goto done;
 		}
+
 		Status = XST_SUCCESS;
-		break;
-	case (u32)FUNC_AMS_TRIM:
-		if (NULL != Ops->TrimAms) {
-			Status = Ops->TrimAms(PwrDomain, Args, NumArgs);
-			if (XST_SUCCESS != Status) {
-				DbgErr = XPM_INT_ERR_FUNC_AMS_TRIM;
-			}
-		} else {
-			Status = XST_SUCCESS;
-		}
 		break;
 	default:
 		DbgErr = XPM_INT_ERR_INVALID_FUNC;

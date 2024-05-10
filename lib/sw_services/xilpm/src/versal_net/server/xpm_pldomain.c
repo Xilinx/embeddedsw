@@ -176,7 +176,6 @@ done:
 static const struct XPm_PowerDomainOps PlDomainOps = {
 	.InitStart = PldInitStart,
 	.InitFinish = PldInitFinish,
-	.TrimAms = NULL
 };
 
 XStatus XPmPlDomain_RetriggerPlHouseClean(void)

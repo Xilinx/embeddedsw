@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,7 +12,6 @@
 #include "xpm_device.h"
 #include "xpm_debug.h"
 #include "xpm_rail.h"
-#include "xpm_ams_trim.h"
 
 
 static XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
@@ -56,44 +55,13 @@ static XStatus FpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)NumOfArgs;
 
 	Status = XST_SUCCESS;
-	return Status;
-}
 
-static XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
-		u32 NumOfArgs)
-{
-	XStatus Status = XST_FAILURE;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 SysmonAddr;
-
-	(void)PwrDomain;
-	(void)Args;
-	(void)NumOfArgs;
-
-	/* Copy FPD sysmon data */
-	for(u32 i = XPM_NODEIDX_MONITOR_SYSMON_FPD_0; i<= XPM_NODEIDX_MONITOR_SYSMON_FPD_3; i++){
-		SysmonAddr = XPm_GetSysmonByIndex(i);
-		if (0U == SysmonAddr) {
-			DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-			PmWarn("Warning Device XPM_NODEIDX_MONITOR_SYSMON_PS_FPD doest not exist at index 0x%x\n\r", i);
-			Status = XST_SUCCESS;
-			continue;
-		}
-		Status = XPm_ApplyAmsTrim(SysmonAddr, PM_POWER_FPD, i - XPM_NODEIDX_MONITOR_SYSMON_FPD_0);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_AMS_TRIM;
-			goto done;
-		}
-	}
-done:
-	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
 static struct XPm_PowerDomainOps FpdOps = {
 	.InitStart = FpdInitStart,
-	.InitFinish = FpdInitFinish,
-	.TrimAms = FpdAmsTrim
+	.InitFinish = FpdInitFinish
 };
 
 XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
