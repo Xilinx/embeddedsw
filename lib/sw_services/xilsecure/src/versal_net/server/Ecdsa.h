@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2022 IP Cores, Inc.  All rights reserved.
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 * API definitions
 */
 #ifndef ECDSA_H
-#define ECSDA_H
+#define ECDSA_H
 
 //#define NO_COMPACT_ECDSA_SUPPORT // If defined, the compact ECDSA code is disabled
 
