@@ -125,7 +125,6 @@ XStatus XPm_PowerDwnNoC(void);
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  const u32 *Args, u32 NumArgs);
 XStatus XPmPower_CheckPower(const XPm_Rail *Rail, u32 VoltageRailMask);
-XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx);
 XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State);
 XStatus XPmPowerDomain_SecureEfuseTransfer(const u32 NodeId);
 
