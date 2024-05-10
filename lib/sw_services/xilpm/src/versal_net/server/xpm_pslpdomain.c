@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,6 +13,7 @@
 #include "xpm_debug.h"
 #include "xpm_rail.h"
 #include "xplmi.h"
+#include "xpm_ams_trim.h"
 
 static XStatus LpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
@@ -48,9 +49,39 @@ static XStatus LpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = XST_SUCCESS;
 	return Status;
 }
+static XStatus LpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs){
+
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 SysmonAddr;
+
+	(void)PwrDomain;
+	(void)Args;
+	(void)NumOfArgs;
+
+	/* Copy LPD sysmon data */
+	SysmonAddr = XPm_GetSysmonByIndex((u32)XPM_NODEIDX_MONITOR_SYSMON_LPD);
+	if (0U == SysmonAddr) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		PmWarn("Warning Device XPM_NODEIDX_MONITOR_SYSMON_PS_LPD doest not exist\n\r");
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	Status = XPm_ApplyAmsTrim(SysmonAddr, PM_POWER_LPD, 0);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_AMS_TRIM;
+	}
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 static const struct XPm_PowerDomainOps LpdOps = {
 	.InitStart = LpdInitStart,
 	.InitFinish = LpdInitFinish,
+	.TrimAms = LpdAmsTrim
 };
 
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
