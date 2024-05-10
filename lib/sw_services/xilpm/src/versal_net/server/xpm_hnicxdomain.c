@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,7 @@ static XStatus HnicxInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args
 static const struct XPm_PowerDomainOps HnicxDomainOps = {
 	.InitStart = HnicxInitStart,
 	.InitFinish = HnicxInitFinish,
+	.TrimAms = NULL
 };
 
 XStatus XPmHnicxDomain_Init(XPm_HnicxDomain *Hnicxd, u32 Id, u32 BaseAddress,

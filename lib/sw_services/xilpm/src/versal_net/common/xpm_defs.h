@@ -343,7 +343,7 @@ enum XPmInitFunctions {
 	FUNC_HOUSECLEAN_COMPLETE,			/**< Function ID HOUSECLEAN_COMPLETE */
 	FUNC_MIO_FLUSH,					/**< Function ID MIO FLUSH */
 	FUNC_MEM_CTRLR_MAP,				/**< Function ID MEM_CTRLR_MAP */
-
+	FUNC_AMS_TRIM,
 	/* Should be last item */
 	FUNC_MAX_COUNT_PMINIT,				/**< Function ID MAX */
 };
