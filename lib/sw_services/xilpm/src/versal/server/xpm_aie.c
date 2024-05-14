@@ -1600,7 +1600,7 @@ done:
 		BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
 
 		/* Disable Shim Reset Per Column */
-		AieWrite64(BaseAddress + AIE_TILE_COL_SHIM_RST_OFFSET, 1U);
+		AieWrite64(BaseAddress + AIE_TILE_COL_SHIM_RST_OFFSET, 0U);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
