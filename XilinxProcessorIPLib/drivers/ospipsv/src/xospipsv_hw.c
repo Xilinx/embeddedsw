@@ -25,6 +25,7 @@
 * 1.4   sk   02/18/21 Added support for Dual byte opcode.
 * 1.6   sk  02/07/22 Replaced driver version in addtogroup with Overview.
 * 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
+* 1.11	akm  05/15/24 Added support for x2/x4 operations.
 *
 * </pre>
 *
@@ -243,6 +244,21 @@ void XOspiPsv_Setup_Dev_Write_Instr_Reg(const XOspiPsv *InstancePtr,
 			Addrxfer_Type = DQ0;
 			Instxfer_Type = DQ0;
 			break;
+		case XOSPIPSV_WRITE_1_1_2:
+			Dataxfer_Type = DQ0_1;
+			Addrxfer_Type = DQ0;
+			Instxfer_Type = DQ0;
+			break;
+		case XOSPIPSV_WRITE_1_1_4:
+			Dataxfer_Type = DQ0_3;
+			Addrxfer_Type = DQ0;
+			Instxfer_Type = DQ0;
+			break;
+		case XOSPIPSV_WRITE_4_4_4:
+			Dataxfer_Type = DQ0_3;
+			Addrxfer_Type = DQ0_3;
+			Instxfer_Type = DQ0_3;
+			break;
 		case XOSPIPSV_WRITE_1_1_8:
 			Dataxfer_Type = DQ0_7;
 			Addrxfer_Type = DQ0;
@@ -345,6 +361,21 @@ void XOspiPsv_Setup_Dev_Read_Instr_Reg(const XOspiPsv *InstancePtr,
 			Dataxfer_Type = DQ0;
 			Addrxfer_Type = DQ0;
 			Instxfer_Type = DQ0;
+			break;
+		case XOSPIPSV_READ_1_1_2:
+			Dataxfer_Type = DQ0_1;
+			Addrxfer_Type = DQ0;
+			Instxfer_Type = DQ0;
+			break;
+		case XOSPIPSV_READ_1_1_4:
+			Dataxfer_Type = DQ0_3;
+			Addrxfer_Type = DQ0;
+			Instxfer_Type = DQ0;
+			break;
+		case XOSPIPSV_READ_4_4_4:
+			Dataxfer_Type = DQ0_3;
+			Addrxfer_Type = DQ0_3;
+			Instxfer_Type = DQ0_3;
 			break;
 		case XOSPIPSV_READ_1_1_8:
 			Dataxfer_Type = DQ0_7;
