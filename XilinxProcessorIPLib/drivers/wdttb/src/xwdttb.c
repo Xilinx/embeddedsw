@@ -78,6 +78,7 @@
 * 5.0  sne   03/09/20 Fixed MISRA-C violations.
 * 5.7  sb    07/12/23 Added support for system device-tree flow.
 * 5.7  sb    09/13/23 Fix MISRA-C violation 12.1.
+* 5.9  ht    05/15/23 Port XWdtTb_Initialize() to SDT flow
 *
 * </pre>
 *
@@ -281,7 +282,11 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 *
 *
 ******************************************************************************/
+#ifndef SDT
 s32 XWdtTb_Initialize(XWdtTb *InstancePtr, u16 DeviceId)
+#else
+s32 XWdtTb_Initialize(XWdtTb *InstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	const XWdtTb_Config *ConfigPtr;
 	s32 Status;
@@ -300,7 +305,11 @@ s32 XWdtTb_Initialize(XWdtTb *InstancePtr, u16 DeviceId)
 		goto End;
 	}
 
+#ifndef SDT
 	ConfigPtr = XWdtTb_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XWdtTb_LookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		Status = (s32)XST_DEVICE_NOT_FOUND;
 		goto End;
