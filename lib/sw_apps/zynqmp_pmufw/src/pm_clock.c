@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -1691,7 +1691,7 @@ static PmClockGen pmClockCpuR5 = {
 	},
 	.parent = NULL,
 	.users = NULL,
-	.mux = &iordMux,
+	.mux = &riodMux,
 	.ctrlAddr = CRL_APB_CPU_R5_CTRL,
 	.ctrlVal = 0U,
 	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1,

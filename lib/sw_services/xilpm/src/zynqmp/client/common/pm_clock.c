@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -734,7 +735,7 @@ static XPmClockModel pmClockCan1Ref = {
 
 static XPmClockModel pmClockCpuR5 = {
 	.id = PM_CLOCK_CPU_R5,
-	.mux = &iordMux,
+	.mux = &riodMux,
 	.type = PM_CLOCK_TYPE_DIV0 | PM_CLOCK_TYPE_DIV1,
 	.next = &pmClockCan1Ref,
 };
