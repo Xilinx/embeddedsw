@@ -103,6 +103,7 @@
 * 5.5	sne  05/07/22 Added XWdtTb_SetGenericWdtWindowTimeOut API to configure
 *		      generic watchdog window.
 * 5.7	sb   07/12/23 Added support for system device-tree flow.
+* 5.9   ht   05/15/24 Port XWdtTb_Initialize() to SDT flow
 *
 * </pre>
 *
@@ -675,7 +676,11 @@ static inline void XWdtTb_DisableQAMode(XWdtTb *InstancePtr)
 s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 			 UINTPTR EffectiveAddr);
 
+#ifndef SDT
 s32 XWdtTb_Initialize(XWdtTb *InstancePtr, u16 DeviceId);
+#else
+s32 XWdtTb_Initialize(XWdtTb *InstancePtr, UINTPTR BaseAddress);
+#endif
 
 void XWdtTb_Start(XWdtTb *InstancePtr);
 
