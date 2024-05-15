@@ -57,6 +57,7 @@
 * 1.10	akm  01/31/24 Use OSPI controller reset for resetting flash device.
 * 1.10	akm  02/06/24 Increase the delay after device reset.
 * 1.10	akm  02/01/24 Update OSPI TX tap delay element to 0x26 for DDR mode.
+* 1.11	akm  05/15/24 Added support for x2/x4 operations.
 *
 * </pre>
 *
@@ -239,19 +240,25 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * Macros to select Read and Write prototype.
  */
 #define XOSPIPSV_READ_1_1_1	0U
+#define XOSPIPSV_READ_1_1_2	1U
+#define XOSPIPSV_READ_1_1_4	2U
 #define XOSPIPSV_READ_1_1_8	3U
 #define XOSPIPSV_READ_1_8_8	4U
 #define XOSPIPSV_READ_8_8_8	5U
 #define XOSPIPSV_READ_8_0_8	6U
+#define XOSPIPSV_READ_4_4_4	7U
 
 #define XOSPIPSV_WRITE_1_1_1	0U
 #define XOSPIPSV_WRITE_1_0_1	1U
+#define XOSPIPSV_WRITE_1_1_2	2U
 #define XOSPIPSV_WRITE_1_1_8	3U
 #define XOSPIPSV_WRITE_1_8_8	4U
 #define XOSPIPSV_WRITE_8_8_8	5U
 #define XOSPIPSV_WRITE_8_0_0	6U
 #define XOSPIPSV_WRITE_8_8_0	7U
 #define XOSPIPSV_WRITE_8_0_8	8U
+#define XOSPIPSV_WRITE_1_1_4	9U
+#define XOSPIPSV_WRITE_4_4_4	10U
 /** @} */
 
 /**
