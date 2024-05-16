@@ -654,10 +654,20 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			}
 
 			if ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE == IsoIdx) {
-				/* Select AXI lite clock from PL */
-				XPm_RMW32(XRAM_SLCR_BASEADDR + XRAM_SLCR_APB_CLK_OFFSET,
-					  XRAM_SLCR_APB_CLK_SRC_AXI_LITE_CLK_MASK,
-					  XRAM_SLCR_APB_CLK_SRC_AXI_LITE_CLK_MASK);
+				/*
+				 * Vivado does not support XRAM AXI-lite for VE2302/VM1102 ES1 devices.
+				 * Skip AXI-lite clock source selection for these devices.
+				 */
+				if (!((((u32)PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion()) &&
+				       (PMC_TAP_IDCODE_DEV_SBFMLY_VE2302 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) ||
+				      (((u32)PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion()) &&
+				       (PMC_TAP_IDCODE_DEV_SBFMLY_VM1102 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))))) {
+
+					/* Select AXI lite clock from PL */
+					XPm_RMW32(XRAM_SLCR_BASEADDR + XRAM_SLCR_APB_CLK_OFFSET,
+						  XRAM_SLCR_APB_CLK_SRC_AXI_LITE_CLK_MASK,
+						  XRAM_SLCR_APB_CLK_SRC_AXI_LITE_CLK_MASK);
+				}
 			}
 		} else {
 			if (((u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0 <= IsoIdx) &&
