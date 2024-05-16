@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,12 +44,17 @@
 *       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
 *                       XPLMI_IPI_DEVICE_ID
 * 1.09  ng   11/11/2022 Updated doxygen comments
+* 1.11  ng   04/30/2024 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xplm_apis Versal PLM APIs
+ * @{
+ * @cond xplm_internal
+ */
 
 /***************************** Include Files *********************************/
 #include "xplm_pm.h"
@@ -97,8 +102,6 @@ static int XPlm_KeepAliveTask(void *Arg);
 * @param	Payload is pointer to the Data that needs to be sent to the IPI
 * 		master
 *
-* @return	None
-*
 *****************************************************************************/
 static void XPlm_PmRequestCb(const u32 IpiMask, const XPmApiCbId_t EventId, u32 *Payload)
 {
@@ -131,7 +134,8 @@ static void XPlm_PmRequestCb(const u32 IpiMask, const XPmApiCbId_t EventId, u32 
 /**
 * @brief It calls the XilPm initialization API to initialize its structures.
 *
-* @return	Status as defined in xplmi_status.h
+* @return
+*		- Status as defined in xplmi_status.h
 *
 *****************************************************************************/
 int XPlm_PmInit(void)
@@ -156,7 +160,8 @@ int XPlm_PmInit(void)
 *
 * @param	Arg Not used in the function
 *
-* @return	Status as defined in xplmi_status.h
+* @return
+*		- Status as defined in xplmi_status.h
 *
 *****************************************************************************/
 int XPlm_ProcessPmcCdo(void *Arg)
@@ -238,7 +243,8 @@ END:
 /**
 * @brief	This function sends keep alive IPI event to PSM
 *
-* @return	Status as defined in xplmi_status.h
+* @return
+*		- Status as defined in xplmi_status.h
 *
 *****************************************************************************/
 static int XPlm_SendKeepAliveEvent(void)
@@ -267,7 +273,8 @@ static int XPlm_SendKeepAliveEvent(void)
 *
 * @param	Arg Not used in the function currently
 *
-* @return	Status as defined in xplmi_status.h
+* @return
+*		- Status as defined in xplmi_status.h
 *
 *****************************************************************************/
 static int XPlm_KeepAliveTask(void *Arg)

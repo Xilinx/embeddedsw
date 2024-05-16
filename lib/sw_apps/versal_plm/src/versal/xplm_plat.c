@@ -1,9 +1,8 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 
 /*****************************************************************************/
 /**
@@ -22,12 +21,17 @@
 *                       XPLMI_IPI_DEVICE_ID
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *			 03/16/2023 Misra-C violation Rule 8.4 fixed
+* 1.11  ng   04/30/2024 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xplm_apis Versal PLM APIs
+ * @{
+ * @cond xplm_internal
+ */
 
 /***************************** Include Files *********************************/
 #include "xplm_pm.h"
@@ -43,7 +47,6 @@
 #define XPLM_NOCPLL_CFG_VAL		(0x7E5DCC65U)
 
 /**
- * @{
  * XPLM_NOCPLL_CTRL_VAL    NPLL CTRL params
  * POST_SRC[26:24]=0x0, PRE_SRC[22:20]=0x0, CLKOUTDIV[17:16]=0x3,
  * FBDIV[15:8]=0x48, BYPASS[3]=0x1, RESET[0]=0x1
@@ -51,7 +54,6 @@
  */
 #define XPLM_NOCPLL_CTRL_VAL		(0x34809U)
 #define NOCPLL_TIMEOUT			(100000U)
-/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -102,8 +104,6 @@ END:
 /*****************************************************************************/
 /**
 * @brief	This function enables SLVERR for PMC related modules
-*
-* @return	None
 *
 *****************************************************************************/
 void XPlm_EnablePlatformSlaveErrors(void)

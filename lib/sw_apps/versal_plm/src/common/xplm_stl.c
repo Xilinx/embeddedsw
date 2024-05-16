@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,12 +22,17 @@
 * 1.02  bsv  08/13/2021 Remove unwanted header file
 *       bsv  08/13/2021 Removed unwanted goto statements
 * 1.03  rama 01/18/2022 Included xplmi_status.h to fix compilation failure
+* 1.11  ng   04/30/2024 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xplm_apis Versal PLM APIs
+ * @{
+ * @cond xplm_internal
+ */
 
 /***************************** Include Files *********************************/
 #ifdef PLM_ENABLE_STL
@@ -52,7 +58,8 @@ static int XPlm_ChangeStlPeriodicity(u32 FttiTime);
  *
  * @param	FttiTime New FTTI time
  *
- * @return	XST_SUCCESS or error code in case of failure
+ * @return
+ *		- XST_SUCCESS or error code in case of failure
  *
  *****************************************************************************/
 static int XPlm_ChangeStlPeriodicity(u32 FttiTime)
@@ -80,7 +87,8 @@ END:
  * @brief This function initializes the STL module and registers the
  * STL handler.
  *
- * @return	Status as defined in xplmi_status.h
+ * @return
+ *		- Status as defined in xplmi_status.h
  *
  *****************************************************************************/
 int XPlm_StlInit(void)
@@ -97,9 +105,10 @@ int XPlm_StlInit(void)
 
 /*****************************************************************************/
 /**
- * @brief This function is used as a hook to run PLM STLs periodically
+ * @brief	This function is used as a hook to run PLM STLs periodically
  *
- * @return	Status as defined in xplmi_status.h
+ * @return
+ *		- Status as defined in xplmi_status.h
  *
  *****************************************************************************/
 int XPlm_PeriodicStlHook(void)

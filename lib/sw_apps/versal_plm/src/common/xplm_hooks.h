@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +9,6 @@
 *
 * @file xplm_hooks.h
 *
-* @addtogroup xplm_apis XPlm Versal APIs
-* @{
-* @cond xplm_internal
 * This file contains the declarations for the hooks provided in PLM
 *
 * <pre>
@@ -25,11 +23,9 @@
 *       kc   03/23/2020 Minor code cleanup
 *       ana  10/19/2020 Added doxygen comments
 * 1.03  bm   01/08/2021 Updated PmcCdo hook function name
+* 1.11  ng   04/30/2024 Fixed doxygen grouping
 *
 * </pre>
-*
-* @note
-* @endcond
 *
 ******************************************************************************/
 #ifndef XPLM_HOOK_H
@@ -60,4 +56,3 @@ int XPlm_HookAfterBootPdi(void *Arg);
 
 #endif  /* XPLM_HOOK_H */
 
-/* @} */

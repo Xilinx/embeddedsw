@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,12 +58,17 @@
 *       rama 02/23/2024 Changed PDI load status print to DEBUG_ALWAYS to support
 *                       XilSEM use case.
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
+* 1.11  ng   04/30/2024 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xplm_apis Versal PLM APIs
+ * @{
+ * @cond xplm_internal
+ */
 
 /***************************** Include Files *********************************/
 #include "xplm_loader.h"
@@ -86,7 +91,7 @@
 
 /*****************************************************************************/
 /**
-* @brief It loads the boot PDI
+* @brief	Load Boot PDI.
 *
 * @param	Arg Not used in the function currently.
 *
@@ -113,7 +118,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");
 
 	/**
-	 * Read Boot mode register and multiboot offset register.
+	 * - Read Boot mode register and multiboot offset register.
 	 * Load subsystem present in PDI
 	 */
 	PdiInstPtr->SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
@@ -125,10 +130,7 @@ int XPlm_LoadBootPdi(void *Arg)
 		BootMode = XLOADER_PDI_SRC_SBI;
 	}
 
-	/**
-	 * In case of JTAG boot mode and jtag mode is not SBI,
-	 * no PDI gets loaded
-	 */
+	/** - If bootmode is set to JTAG and it's not in SBI mode, then do not load PDI. */
 	if ((BootMode == XLOADER_PDI_SRC_JTAG) &&
 	    (XLoader_IsJtagSbiMode() == (u8)FALSE)) {
 		Status = XST_SUCCESS;
