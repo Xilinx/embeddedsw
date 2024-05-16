@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,12 +48,17 @@
 *       dd   03/16/2023 Misra-C violation Rule 17.7 fixed
 *       sk   08/28/2023 Added EAM error's check after processing
 *                       of PMC cdo
+* 1.11  ng   04/30/2024 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xplm_apis Versal PLM APIs
+ * @{
+ * @cond xplm_internal
+ */
 
 /***************************** Include Files *********************************/
 #include "xplm_startup.h"
@@ -88,11 +93,12 @@ static int XPlm_PreBootTasks(void *Arg);
 
 /*****************************************************************************/
 /**
- * @brief This function call all the init functions of all the different
- * modules. As a part of init functions, modules can register the
- * command handlers, interrupt handlers with the interface layer.
+ * @brief	This function call all the init functions of all the different
+ *		modules. As a part of init functions, modules can register the
+ *		command handlers, interrupt handlers with the interface layer.
  *
- * @return	Status as defined in xplmi_status.h
+ * @return
+ *		- Status as defined in xplmi_status.h
  *
  *****************************************************************************/
 int XPlm_AddStartUpTasks(void)
@@ -106,11 +112,11 @@ int XPlm_AddStartUpTasks(void)
 
 	/**
 	 * Add the following tasks to startup list.
-     *  - PreBoot
-     *  - Load Boot PDI
-     *  - Hook after boot PDI
-     *  - Keep alive task
-     *  - SEM scan init
+	 *  - PreBoot
+	 *  - Load Boot PDI
+	 *  - Hook after boot PDI
+	 *  - Keep alive task
+	 *  - SEM scan init
 	 */
 	const StartupTaskHandler StartUpTaskList[] = {
 		{XPlm_PreBootTasks, NULL},
@@ -148,8 +154,6 @@ END:
 /*****************************************************************************/
 /**
 * @brief	This function enables SLVERR for PMC related modules
-*
-* @return	None
 *
 *****************************************************************************/
 static void XPlm_EnableSlaveErrors(void)
@@ -210,7 +214,8 @@ static void XPlm_EnableSlaveErrors(void)
 *
 * @param	Arg is the argument passed to pre boot tasks
 *
-* @return	Status as defined in xplmi_status.h
+* @return
+*		- Status as defined in xplmi_status.h
 *
 *****************************************************************************/
 static int XPlm_PreBootTasks(void* Arg)

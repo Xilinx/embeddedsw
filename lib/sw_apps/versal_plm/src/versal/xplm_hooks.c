@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,12 +27,16 @@
 * 1.05  ng   11/11/2022 Fixed doxygen file name error
 * 1.06  rama 04/28/2023 Added start-up STL invocation after PMC CDO is done
 *       bm   09/07/2023 Allow loading of ELFs into XRAM
+* 1.11  ng   04/30/2024 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xplm_apis Versal PLM APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplm_hooks.h"

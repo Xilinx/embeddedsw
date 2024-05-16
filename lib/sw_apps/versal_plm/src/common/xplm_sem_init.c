@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
-* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,12 +29,17 @@
 *       rb   03/09/2021 Updated Sem Init API call
 * 1.03  ga   05/03/2023 Removed XPlm_SemInit function and updated
 *                       copyright information
+* 1.10  ng   11/20/2023 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xplm_apis Versal PLM APIs
+ * @{
+ * @cond xplm_internal
+ */
 
 /***************************** Include Files *********************************/
 
@@ -58,13 +63,13 @@
 /*****************************************************************************/
 /**
  * @brief	This function calls the scan init functions of XilSEM.
- *		As a part of this, XilSEM library can initiate
- *		scan on both CRAM and NPI.
- *		Scan will be decided based on the CIPS params in xparameters.h.
+ * As a part of this, XilSEM library can initiate scan on both CRAM and NPI.
+ * Scan will be decided based on the CIPS params in xparameters.h.
  *
  * @param	Arg is not used
  *
- * @return	Status as defined in XilSEM library
+ * @return
+ *		- Status as defined in XilSEM library
  *
  *****************************************************************************/
 int XPlm_SemScanInit(void *Arg)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022, Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,12 +52,17 @@
 * 1.10  am   01/31/2024 Fixed internal security review comments of XilOcp library
 *       kpt  02/21/2024 Add support to extend secure state
 *       jb   02/22/2024 Removed XPm_IdleRestartHandler from XPlmi_EmInit
+* 1.11  ng   04/30/2024 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xplm_apis Versal PLM APIs
+ * @{
+ * @cond xplm_internal
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
@@ -107,13 +112,14 @@
 
 /*****************************************************************************/
 /**
- * @brief This function call all the init functions of all the different
- * modules. As a part of init functions, modules can register the
- * command handlers, interrupt handlers with the interface layer.
+ * @brief	This function call all the init functions of all the different
+ *		modules. As a part of init functions, modules can register the
+ *		command handlers, interrupt handlers with the interface layer.
  *
  * @param	Arg is not used
  *
- * @return	Status as defined in xplmi_status.h
+ * @return
+ *		- Status as defined in xplmi_status.h
  *
  *****************************************************************************/
 int XPlm_ModuleInit(void *Arg)
@@ -183,7 +189,7 @@ int XPlm_ModuleInit(void *Arg)
 		goto END;
 	}
 #endif
-/* OCP module is applicable only for Versalnet */
+	/* OCP module is applicable only for Versalnet */
 #ifdef PLM_OCP
 #ifdef PLM_OCP_KEY_MNGMT
 	XSECURE_TEMPORAL_CHECK(END, Status, XOcp_GenerateDevIKKeyPair);

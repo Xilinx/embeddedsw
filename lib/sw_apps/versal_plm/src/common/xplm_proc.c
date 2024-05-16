@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,12 +33,17 @@
 * 1.07  bm   07/17/2023 Removed XPlm_InitProc function
 *       rama 08/10/2023 Changed exception handler print to DEBUG_ALWAYS for
 *                       debug level_0 option
+* 1.11  ng   04/30/2024 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xplm_apis Versal PLM APIs
+ * @{
+ * @cond xplm_internal
+ */
 
 /***************************** Include Files *********************************/
 #include "xplm_proc.h"
@@ -63,8 +68,6 @@ extern u32 _stack_end;
 /**
  * @brief This function enables the exceptions and interrupts
  * Enable interrupts from the hardware
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlm_ExceptionInit(void)
@@ -94,8 +97,6 @@ void XPlm_ExceptionInit(void)
  * @param	Data Pointer to Error Status that needs to be updated in
  * Error Register. Status is initialized during exception initialization
  * having Index and exception error code.
- *
- * @return	None
  *
  *****************************************************************************/
 static void XPlm_ExceptionHandler(void *Data)

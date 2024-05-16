@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,11 +42,17 @@
 * 1.07  ng   11/11/2022 Updated doxygen comments
 * 1.08  bm   07/17/2023 Moved Exception Init early in the code flow
 * 1.09  sk   09/26/2023 Added Support for In-Place Update from Image Store
+* 1.11  ng   04/30/2024 Fixed doxygen grouping
+*
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xplm_apis Versal PLM APIs
+ * @{
+ * @cond xplm_internal
+ */
 
 /***************************** Include Files *********************************/
 #include "xplm_proc.h"
@@ -75,8 +81,8 @@ static int XPlm_Init(void);
 /**
  * @brief This is PLM main function
  *
- * @return	Ideally should not return, in case if it reaches end,
- *		error is returned
+ * @return
+ *	- Ideally should not return, in case if it reaches end, error is returned.
  *
  *****************************************************************************/
 int main(void)
@@ -90,7 +96,7 @@ int main(void)
 		XPlmi_ErrMgr(Status);
 	}
 
-    /** Print PLM banner since timestamps are enabled now */
+	/** Print PLM banner since timestamps are enabled now */
 	XPlmi_PrintPlmBanner();
 
 	/** Initialize the start up events */
@@ -114,10 +120,11 @@ int main(void)
 
 /*****************************************************************************/
 /**
- * @brief This function initializes DMA, Run Time Config area, the processor
- * 		and task list structures.
+ * @brief	This function initializes DMA, Run Time Config area, the processor
+ *		and task list structures.
  *
- * @return	Status as defined in xplmi_status.h
+ * @return
+ *		- Status as defined in xplmi_status.h
  *
  *****************************************************************************/
 static int XPlm_Init(void)

@@ -1,9 +1,8 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 
 /*****************************************************************************/
 /**
@@ -24,15 +23,20 @@
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       dd   03/28/2023 Updated doxygen comments
 * 1.02  sk   05/22/2023 Added redundancy for validate checksum
-*       mss  12/06/2023 Added ErrorCode in XPlm_CompatibilityCheck API
+* 1.10  mss  12/06/2023 Added ErrorCode in XPlm_CompatibilityCheck API
 *                       for OptionalDataLen Check
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
+* 1.11  ng   04/30/2024 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xplm_apis Versal PLM APIs
+ * @{
+ * @cond xplm_internal
+ */
 
 /***************************** Include Files *********************************/
 #include "xplm_pm.h"
