@@ -1,6 +1,6 @@
 ###############################################################################
-# Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -372,7 +372,7 @@ proc define_addr_params_versal_net {drv_handle file_name} {
 			xddrpsv_handle_address_details $i $periph $block_name $is_ddr_low_1 $ddr_region_id
 			set is_ddr_low_1 1
 
-		} elseif {[string match "C*_DDR_CH0_HIGH0*" $block_name]} {
+		} elseif {[string match "C*_DDR_CH0_HIGH_0*" $block_name]} {
 			#
 			# ddr_region_id specifies index of base_addr_list/high_addr_list
 			# for this DDR region
@@ -382,7 +382,7 @@ proc define_addr_params_versal_net {drv_handle file_name} {
 
 			set is_ddr_low_2 1
 
-		} elseif {[string match "C*_DDR_CH0_HIGH1*" $block_name]} {
+		} elseif {[string match "C*_DDR_CH0_HIGH_1*" $block_name]} {
 			#
 			# ddr_region_id specifies index of base_addr_list/high_addr_list
 			# for this DDR region
