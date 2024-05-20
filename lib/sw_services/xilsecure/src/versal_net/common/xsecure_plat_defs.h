@@ -30,6 +30,7 @@
 * 5.3   mb   04/01/24 Updated minor version
 *       mb   04/15/24 Updated SHA2 minor version
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
+*       kpt  05/14/24 Fix backward compatabilty issue
 *
 * </pre>
 * @note
@@ -103,8 +104,9 @@ typedef enum {
 	XSECURE_API_GEN_SHARED_SECRET,		/**< 33U */
 	XSECURE_API_GET_KEY_WRAP_RSA_PUBLIC_KEY,	/**< 34U */
 	XSECURE_API_KEY_UNWRAP,                 	/**< 35U */
-	XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,/**< 36U */
-	XSECURE_API_MAX,				/**< 37U */
+	XSECURE_API_RESERVED, /**< 36U */
+	XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,/**< 37U */
+	XSECURE_API_MAX,				/**< 38U */
 } XSecure_ApiId;
 
 /**< XilSecure KAT ids */
