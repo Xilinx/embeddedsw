@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -146,9 +146,9 @@ typedef enum {
 ******************************************************************************/
 #define XCsuDma_PmcReset(DmaType)  \
 	Xil_Out32(((u32)(XPS_CRP_BASEADDRESS) + (u32)(XCRP_PMCDMA_RESET_OFFSET)), \
-			(u32)(XCSUDMA_RESET_SET_MASK << (DmaType - 1))); \
+			((u32)XCSUDMA_RESET_SET_MASK << ((u32)DmaType - 1U))); \
 	Xil_Out32(((u32)(XPS_CRP_BASEADDRESS) + (u32)(XCRP_PMCDMA_RESET_OFFSET)), \
-			(u32)(XCSUDMA_RESET_UNSET_MASK << (DmaType - 1)));
+			((u32)XCSUDMA_RESET_UNSET_MASK << ((u32)DmaType - 1U)));
 #endif
 
 /*****************************************************************************/
@@ -165,7 +165,7 @@ typedef enum {
 * @return	None.
 *
 * @note		This function should be called after XCsuDma_Transfer in polled
-*		mode  to wait until the data gets transfered completely.
+*		mode  to wait until the data gets transferred completely.
 *		C-style signature:
 *		void XCsuDma_WaitForDone(XCsuDma *InstancePtr,
 *						XCsuDma_Channel Channel)
@@ -346,7 +346,7 @@ typedef struct {
 typedef struct {
 	u8 SssFifoThesh;	/**< SSS FIFO threshold value */
 	u8 ApbErr;		/**< ABP invalid access error */
-	u8 EndianType;		/**< Type of endianess */
+	u8 EndianType;		/**< Type of endianness */
 	u8 AxiBurstType;	/**< Type of AXI bus */
 	u32 TimeoutValue;	/**< Time out value */
 	u8 FifoThresh;		/**< FIFO threshold value */
