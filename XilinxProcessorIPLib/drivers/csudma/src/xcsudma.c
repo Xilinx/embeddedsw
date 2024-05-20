@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -589,7 +589,7 @@ u32 XCsuDma_GetCheckSum(XCsuDma *InstancePtr)
 * @return	The sum of all the data read from memory.
 *
 * @note		Before the transfer starts, clear this register to get
-*		correct sum. Oherwise, it adds to previous value which results
+*		correct sum. Otherwise, it adds to previous value which results
 *		in an incorrect output.
 *
 ******************************************************************************/
@@ -948,7 +948,6 @@ void XCsuDma_ByteAlignedTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Addr != 0x0UL);
 	Xil_AssertVoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
 		       (Channel == (XCSUDMA_DST_CHANNEL)));
 	Xil_AssertVoid(Size <= (u32)(XCSUDMA_SIZE_MAX));
