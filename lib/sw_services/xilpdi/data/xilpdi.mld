@@ -12,6 +12,7 @@
 # 1.8   har 02/15/23  Updated library version for 2023.2
 #       ng  08/16/23  Fixed SUPPORTED_PERIPHERALS
 # 1.10  ng  11/23/23  Update library version for 2024.2
+#       bm  05/20/24  Add freertos10_xilinx support
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -19,7 +20,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilpdi
   OPTION drc = pdi_drc;
   OPTION copyfiles = all;
-  OPTION REQUIRES_OS = (standalone);
+  OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION SUPPORTED_PERIPHERALS = (psv_pmc psxl_pmc psx_pmc);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpdi,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Programmable Device Image (PDI) Library ";

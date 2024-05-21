@@ -21,3 +21,4 @@ supported_processors:
 
 supported_os:
   - standalone
+  - freertos10_xilinx

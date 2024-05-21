@@ -21,6 +21,7 @@
 #       ng   11/11/2023 Added option to set number of user modules
 #       dd   01/09/2024 Added user configurable parameter names
 # 2.1   jb   04/10/2024 Update library version for 2024.2
+#       bm   05/20/2024 Add freertos10_xilinx support
 #
 ##############################################################################
 
@@ -29,7 +30,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilplmi
   OPTION drc = plmi_drc;
   OPTION copyfiles = all;
-  OPTION REQUIRES_OS = (standalone);
+  OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5 microblaze psxl_pmc psxl_cortexa78 psxl_cortexr52 psx_pmc psx_cortexa78 psx_cortexr52);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilplmi,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Platform Loader and Manager Interface Library";
