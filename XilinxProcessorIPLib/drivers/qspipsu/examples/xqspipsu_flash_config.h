@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -33,6 +33,7 @@
 *           in flash erase API.
 * 1.19  sb  11/10/23 Add support for Winbond flash w25q256jw
 * 1.19  sb  11/10/23 Add support for ISSI flash is25lp02g
+* 1.20  sb  05/20/24 Add support for ISSI flash is25lp01gg
 *
 *</pre>
 *
@@ -418,6 +419,11 @@ FlashInfo Flash_Config_Table[] = {
 	/*is25lp01g*/
 	{
 		0x9d601b, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
+		0x80000, 0x8000000, 1
+	},
+	/*is25lp01gg*/
+	{
+		0x9d6021, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
 		0x80000, 0x8000000, 1
 	},
 	/*is25wp01g*/
