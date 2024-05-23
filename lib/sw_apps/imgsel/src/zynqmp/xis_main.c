@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020-2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,7 +75,7 @@ int main(void)
 	}
 #endif
 
-	XIs_Printf(DEBUG_PRINT_ALWAYS, "ImageSelector boot Started\r\n");
+	XIs_Printf(DEBUG_PRINT_ALWAYS, "Image Selector boot Started\r\n");
 
 #if defined(XIS_GET_BOARD_PARAMS)
 	Status = XIs_ImageSelBoardParam();

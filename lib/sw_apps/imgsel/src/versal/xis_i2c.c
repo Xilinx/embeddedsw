@@ -55,27 +55,6 @@ static int XIs_IicPsConfig(void);
 
 /*****************************************************************************/
 /**
-* This API gives a XIs_Delay in microseconds
-*
-* @param	useconds requested
-*
-* @return	None
-*
-*
-****************************************************************************/
-static void XIs_Delay(unsigned int useconds)
-{
-	int i,j;
-
-	for(j = 0U; j < useconds; j++) {
-		for(i = 0U; i < 15U; i++) {
-			asm("nop");
-		}
-	}
-}
-
-/*****************************************************************************/
-/**
  * This function writes a buffer of data to the IIC serial EEPROM.
  *
  * @param	IicInstance Pointer to IIC instance
@@ -91,7 +70,6 @@ static void XIs_Delay(unsigned int useconds)
 static int XIs_EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
 {
 	int Status = XST_FAILURE;
-	u32 Timeout = XIICPS_POLL_DEFAULT_TIMEOUT_VAL;
 
 	/*
 	 * Send the Data.
@@ -106,17 +84,7 @@ static int XIs_EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (Timeout != 0U) {
-		if(XIicPs_BusIsBusy(IicInstance) == FALSE ) {
-			break;
-		}
-		XIs_Delay(XIS_DELAY);
-		Timeout--;
-		if(!Timeout) {
-			Status = XIS_IICPS_TIMEOUT;
-			goto END;
-		}
-	}
+	while(XIicPs_BusIsBusy(IicInstance));
 
 END:
 	return Status;
@@ -137,7 +105,6 @@ int XIs_EepromReadData(u8 *BufferPtr, u16 ReadAddress, u16 ByteCount,
 {
 	int Status = XST_FAILURE;
 	AddressType Address = ReadAddress;
-	u32 Timeout = XIICPS_POLL_DEFAULT_TIMEOUT_VAL;
 
 	/*
 	 * Position the Pointer in EEPROM.
@@ -149,6 +116,7 @@ int XIs_EepromReadData(u8 *BufferPtr, u16 ReadAddress, u16 ByteCount,
 		Status = XIS_EEPROM_WRITE_ERROR;
 		goto END;
 	}
+
 	/*
 	 * Receive the Data.
 	 */
@@ -162,17 +130,7 @@ int XIs_EepromReadData(u8 *BufferPtr, u16 ReadAddress, u16 ByteCount,
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (Timeout != 0U) {
-		if(XIicPs_BusIsBusy(&IicInstance) == FALSE ) {
-			break;
-		}
-		XIs_Delay(XIS_DELAY);
-		Timeout--;
-		if(!Timeout) {
-			Status = XIS_IICPS_TIMEOUT;
-			goto END;
-		}
-	}
+	while(XIicPs_BusIsBusy(&IicInstance));
 
 END:
 	return Status;
@@ -194,22 +152,11 @@ static int XIs_MuxInitChannel(u16 MuxIicAddr, u8 Channel)
 {
 	int Status = XST_FAILURE;
 	u8 Buffer = 0U;
-	u32 Timeout = XIICPS_POLL_DEFAULT_TIMEOUT_VAL;
 
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (Timeout != 0U) {
-		if(XIicPs_BusIsBusy(&IicInstance) == FALSE ) {
-			break;
-		}
-		XIs_Delay(XIS_DELAY);
-		Timeout--;
-		if(!Timeout) {
-			Status = XIS_IICPS_TIMEOUT;
-			goto END;
-		}
-	}
+	while(XIicPs_BusIsBusy(&IicInstance));
 
 	/*
 	 * Send the Data.
@@ -221,22 +168,10 @@ static int XIs_MuxInitChannel(u16 MuxIicAddr, u8 Channel)
 		goto END;
 	}
 
-	Timeout = XIICPS_POLL_DEFAULT_TIMEOUT_VAL;
-
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (Timeout != 0U) {
-		if(XIicPs_BusIsBusy(&IicInstance) == FALSE ) {
-			break;
-		}
-		XIs_Delay(XIS_DELAY);
-		Timeout--;
-		if(!Timeout) {
-			Status = XIS_IICPS_TIMEOUT;
-			goto END;
-		}
-	}
+	while(XIicPs_BusIsBusy(&IicInstance));
 
 	/*
 	 * Receive the Data.
@@ -247,22 +182,10 @@ static int XIs_MuxInitChannel(u16 MuxIicAddr, u8 Channel)
 		goto END;
 	}
 
-	Timeout = XIICPS_POLL_DEFAULT_TIMEOUT_VAL;
-
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-	while (Timeout != 0U) {
-		if(XIicPs_BusIsBusy(&IicInstance) == FALSE ) {
-			break;
-		}
-		XIs_Delay(XIS_DELAY);
-		Timeout--;
-		if(!Timeout) {
-			Status = XIS_IICPS_TIMEOUT;
-			goto END;
-		}
-	}
+	 while(XIicPs_BusIsBusy(&IicInstance));
 
 END:
 	return Status;

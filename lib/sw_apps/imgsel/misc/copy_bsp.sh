@@ -37,14 +37,6 @@ SERVICES_DIR=$EMBEDDED_SW_DIR/lib/sw_services
 
 BSP_SEQUENTIAL_MAKEFILES=
 
-# Copy psu_init.c file from SOM folder
-if [ $BOARD = "som" ]; then
-	cp $WORKING_DIR/$BOARD/psu_init.c .
-	cp $WORKING_DIR/$BOARD/psu_init.h .
-elif [ $BOARD = "zynqmp" ]; then
-	cp $WORKING_DIR/$BOARD/psu_init.c .
-	cp $WORKING_DIR/$BOARD/psu_init.h .
-fi
 # creation of BSP folders required
 if [ -d $BSP_DIR ]; then
 	echo "BSP directory already exists"

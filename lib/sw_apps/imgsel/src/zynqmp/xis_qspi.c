@@ -106,7 +106,7 @@ static int XIs_FlashReadID(XQspiPsu *QspiPsuPtr)
 	FlashMsg[1U].Flags = XQSPIPSU_MSG_FLAG_RX;
 
 	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, &FlashMsg[0U], 2U);
-	if (Status != XIS_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto END;
 	}
@@ -535,7 +535,7 @@ int XIs_QspiInit(void)
 
 	Status = XQspiPsu_CfgInitialize(&QspiPsuInstance, QspiConfig,
 			QspiConfig->BaseAddress);
-	if (Status != XIS_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XIS_QSPI_CONFIG_INIT_ERROR;
 		XIs_Printf(DEBUG_GENERAL, "XIS_QSPI_CONFIG_INIT_ERROR\r\n");
 		goto END;
@@ -545,7 +545,7 @@ int XIs_QspiInit(void)
 	 * Set Manual Start
 	 */
 	Status = XQspiPsu_SetOptions(&QspiPsuInstance, XQSPIPSU_MANUAL_START_OPTION);
-	if (Status != XIS_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XIS_QSPI_MANUAL_START_ERROR;
 		XIs_Printf(DEBUG_GENERAL, "XIS_QSPI_MANUAL_START_ERROR\r\n");
 		goto END;
@@ -554,7 +554,7 @@ int XIs_QspiInit(void)
 	 * Set the pre-scaler for QSPI clock
 	 */
 	Status = XQspiPsu_SetClkPrescaler(&QspiPsuInstance, XQSPIPSU_CLK_PRESCALE_8);
-	if (Status != XIS_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XIS_QSPI_PRESCALER_CLK_ERROR;
 		XIs_Printf(DEBUG_GENERAL, "XIS_QSPI_PRESCALER_CLK_ERROR\r\n");
 		goto END;
@@ -583,7 +583,7 @@ int XIs_QspiInit(void)
 					"XIS_INVALID_QSPI_CONNECTION_ERROR\r\n");
 			break;
 	}
-	if(Status != XIS_SUCCESS) {
+	if(Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -607,7 +607,7 @@ int XIs_QspiInit(void)
 					"XIS_INVALID_QSPI_CONNECTION_ERROR\r\n");
 			break;
 	}
-	if(Status != XIS_SUCCESS) {
+	if(Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -615,7 +615,7 @@ int XIs_QspiInit(void)
 	 * Read Flash ID and extract Manufacture and Size information
 	 */
 	Status = XIs_FlashReadID(&QspiPsuInstance);
-	if (Status != XIS_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -630,7 +630,7 @@ int XIs_QspiInit(void)
 					XQSPIPSU_SELECT_FLASH_CS_BOTH,
 					XQSPIPSU_SELECT_FLASH_BUS_BOTH);
 			Status = XIs_MacronixEnable4B(&QspiPsuInstance);
-			if (Status != XIS_SUCCESS) {
+			if (Status != XST_SUCCESS) {
 				Status = XST_FAILURE;
 				goto END;
 			}
@@ -639,7 +639,7 @@ int XIs_QspiInit(void)
 					XQSPIPSU_SELECT_FLASH_CS_LOWER,
 					XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 			Status = XIs_MacronixEnable4B(&QspiPsuInstance);
-			if (Status != XIS_SUCCESS) {
+			if (Status != XST_SUCCESS) {
 				Status = XST_FAILURE;
 				goto END;
 			}
@@ -649,7 +649,7 @@ int XIs_QspiInit(void)
 						XQSPIPSU_SELECT_FLASH_CS_UPPER,
 						XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 				Status = XIs_MacronixEnable4B(&QspiPsuInstance);
-				if (Status != XIS_SUCCESS) {
+				if (Status != XST_SUCCESS) {
 					Status = XST_FAILURE;
 					goto END;
 				}
@@ -678,7 +678,7 @@ END:
  *
  * @param	QspiPsuPtr Pointer to QSPI instance.
  *
- * @return	XIS_SUCCESS if success, otherwise XST_FAILURE.
+ * @return	XST_SUCCESS if success, otherwise XST_FAILURE.
  *
  ******************************************************************************/
 static int XIs_MacronixEnable4B(XQspiPsu *QspiPsuPtr)
@@ -696,7 +696,7 @@ static int XIs_MacronixEnable4B(XQspiPsu *QspiPsuPtr)
 	FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, &FlashMsg[0U], 1U);
-	if (Status != XIS_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -709,7 +709,7 @@ static int XIs_MacronixEnable4B(XQspiPsu *QspiPsuPtr)
 	FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, &FlashMsg[0U], 1U);
-	if (Status != XIS_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -726,7 +726,7 @@ END:
  * @param	QspiPsuPtr Pointer to QSPI instance.
  * @param    Enable valid values are 0 (disable) and 1 (enable).
  *
- * @return	XIS_SUCCESS if success, otherwise XIS_QSPI_READ_ERROR.
+ * @return	XST_SUCCESS if success, otherwise XIS_QSPI_READ_ERROR.
  *
  ******************************************************************************/
 static int XIs_MacronixEnableQPIMode(XQspiPsu *QspiPsuPtr, int Enable)
@@ -746,7 +746,7 @@ static int XIs_MacronixEnableQPIMode(XQspiPsu *QspiPsuPtr, int Enable)
 	FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 	Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0U], 1U);
-	if (Status != XIS_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XIS_QSPI_READ_ERROR;
 		XIs_Printf(DEBUG_GENERAL, "XIS_QSPI_READ_ERROR\r\n");
 		goto END;
@@ -768,7 +768,7 @@ static int XIs_MacronixEnableQPIMode(XQspiPsu *QspiPsuPtr, int Enable)
 	FlashMsg[0U].Flags = XQSPIPSU_MSG_FLAG_TX;
 
 	Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0U], 1U);
-	if (Status != XIS_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		Status = XIS_QSPI_READ_ERROR;
 		XIs_Printf(DEBUG_GENERAL, "XIS_QSPI_READ_ERROR\r\n");
 		goto END;
@@ -789,7 +789,7 @@ END:
  * 			should copy to
  * @param	Length Length of the bytes to be copied
  *
- * @return	XIS_SUCCESS for successful copy
+ * @return	XST_SUCCESS for successful copy
  * 			errors as mentioned in xis_error.h
  *
  *****************************************************************************/
@@ -845,7 +845,7 @@ int XIs_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length)
 				(QspiPsuInstance.Config.BusWidth == XIS_QSPI_BUSWIDTH_FOUR)) {
 			/* Enable QPI mode */
 			Status = XIs_MacronixEnableQPIMode(&QspiPsuInstance, ENABLE_QPI);
-			if (Status != XIS_SUCCESS) {
+			if (Status != XST_SUCCESS) {
 				Status = XIS_QSPI_4BYTE_ENETER_ERROR;
 				XIs_Printf(DEBUG_GENERAL, "XIS_QSPI_4BYTE_ENETER_ERROR\r\n");
 				goto END;
@@ -897,7 +897,7 @@ int XIs_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length)
 			}
 
 			Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0U], 4U);
-			if (Status != XIS_SUCCESS) {
+			if (Status != XST_SUCCESS) {
 				Status = XIS_QSPI_READ_ERROR;
 				XIs_Printf(DEBUG_GENERAL,"XIS_QSPI_READ_ERROR\r\n");
 				goto END;
@@ -905,7 +905,7 @@ int XIs_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length)
 
 			/* Disable QPI mode */
 			Status = XIs_MacronixEnableQPIMode(&QspiPsuInstance, DISABLE_QPI);
-			if (Status != XIS_SUCCESS) {
+			if (Status != XST_SUCCESS) {
 				Status = XIS_QSPI_4BYTE_ENETER_ERROR;
 				XIs_Printf(DEBUG_GENERAL, "XIS_QSPI_4BYTE_ENETER_ERROR\r\n");
 				goto END;
@@ -984,7 +984,7 @@ int XIs_QspiRead(u32 SrcAddress, u8* DestAddress, u32 Length)
 			 * receive the specified number of bytes of data in the data buffer
 			 */
 			Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0U], 3U);
-			if (Status != XIS_SUCCESS) {
+			if (Status != XST_SUCCESS) {
 				Status = XIS_QSPI_READ_ERROR;
 				XIs_Printf(DEBUG_GENERAL, "XIS_QSPI_READ_ERROR\r\n");
 				goto END;

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020-2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.00  Ana  07/02/20 First release
+* 2.00  sd   05/17/24 Removed redundant macro
 *
 * </pre>
 *
@@ -38,7 +39,6 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XIS_SUCCESS				(0x0U)
 #define XIS_PRINT_VAL			(0U)
 #define XIS_DEBUG_VAL			(0U)
 #define XIS_DEBUG_DETAILED_VAL	(0U)
@@ -81,7 +81,7 @@ extern "C" {
 #define XImgSelDbgCurrentTypes (0U)
 #endif
 #define XIs_Printf(DebugType,...) \
-		if(((DebugType) & XImgSelDbgCurrentTypes)!=XIS_SUCCESS) {xil_printf (__VA_ARGS__); }
+		if(((DebugType) & XImgSelDbgCurrentTypes)!=XST_SUCCESS) {xil_printf (__VA_ARGS__); }
 
 #ifdef __cplusplus
 }
