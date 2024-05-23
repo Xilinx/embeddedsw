@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020-2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.00  Ana  10/11/20 First release
+* 2.00  sd   05/17/24 Added SDT support
 *
 * </pre>
 *
@@ -36,7 +37,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define GPIO_DEVICE_ID		XPAR_XGPIOPS_0_DEVICE_ID
+#ifndef SDT
+#define XIS_GPIO_DEVICE		XPAR_XGPIOPS_0_DEVICE_ID
+#else
+#define XIS_GPIO_DEVICE		XPAR_XGPIOPS_0_BASEADDR
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -63,7 +68,7 @@ int GpioInit(void)
 	XGpioPs_Config *ConfigPtr;
 
 	/* Initialize the GPIO driver. */
-	ConfigPtr = XGpioPs_LookupConfig(GPIO_DEVICE_ID);
+	ConfigPtr = XGpioPs_LookupConfig(XIS_GPIO_DEVICE);
 	if (ConfigPtr == NULL) {
 		Status = XIS_GPIO_LKP_CONFIG_ERROR;
 		goto END;

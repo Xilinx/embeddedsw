@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020-2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.00  Ana  18/06/20 First release
+* 2.00  sd   05/17/24 Added SDT support
 *
 * </pre>
 *
@@ -36,7 +37,13 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define QSPI_DEVICE_ID		XPAR_XQSPIPSU_0_DEVICE_ID
+#ifndef SDT
+#define XIS_QSPI_DEVICE			XPAR_XQSPIPSU_0_DEVICE_ID
+#define XIS_QSPI_CONN_MODE		XPAR_PSU_QSPI_0_QSPI_MODE
+#else
+#define XIS_QSPI_DEVICE			XPAR_XQSPIPSU_0_BASEADDR
+#define XIS_QSPI_CONN_MODE		XPAR_XQSPIPSU_0_CONNECTION_MODE
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -519,7 +526,7 @@ int XIs_QspiInit(void)
 	/**
 	 * Initialize the QSPI driver so that it's ready to use
 	 */
-	QspiConfig = XQspiPsu_LookupConfig(QSPI_DEVICE_ID);
+	QspiConfig = XQspiPsu_LookupConfig(XIS_QSPI_DEVICE);
 	if (NULL == QspiConfig) {
 		Status = XIS_QSPI_CONFIG_ERROR;
 		XIs_Printf(DEBUG_GENERAL, "XIS_QSPI_CONFIG_ERROR\r\n");
@@ -559,7 +566,7 @@ int XIs_QspiInit(void)
 	 * Configure the qspi in linear mode if running in XIP
 	 * TBD
 	 */
-	switch ((u32)XPAR_PSU_QSPI_0_QSPI_MODE) {
+	switch ((u32)XIS_QSPI_CONN_MODE) {
 		case XQSPIPSU_CONNECTION_MODE_SINGLE:
 			XIs_Printf(DEBUG_INFO, "QSPI is in single flash connection\r\n");
 			break;
