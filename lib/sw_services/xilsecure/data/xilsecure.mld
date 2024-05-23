@@ -40,6 +40,7 @@
 #       yog 02/23/24  Added xsecure_elliptic_p521_support parameter to enable/disable P521 curve
 # 5.4   yog 04/29/24  Updated library version for 2024.2
 #       mb  05/23/24  Added xsecure_elliptic_p192_support parameter to enable/disable P192 curve
+#       mb  05/23/24  Added xsecure_elliptic_p224_support parameter to enable/disable P224 curve
 #
 ##############################################################################
 
@@ -69,4 +70,5 @@ BEGIN LIBRARY xilsecure
   PARAM name = nonsecure_ipi_access, state = DEPRECATED, desc = "Deprecated in 2023.2 release", type = bool, default = false;
   PARAM name = xsecure_elliptic_p521_support, desc = "Enables/Disables P-521 curve support", type = enum, values = (xsecure_elliptic_p521_support = "true", xsecure_elliptic_p521_support = "false"), default = "true";
   PARAM name = xsecure_elliptic_p192_support, desc = "Enables/Disables P-192 curve support", type = enum, values = (xsecure_elliptic_p192_support = "true", xsecure_elliptic_p192_support = "false"), default = "false";
+  PARAM name = xsecure_elliptic_p224_support, desc = "Enables/Disables P-224 curve support", type = enum, values = (xsecure_elliptic_p224_support = "true", xsecure_elliptic_p224_support = "false"), default = "false";
 END LIBRARY

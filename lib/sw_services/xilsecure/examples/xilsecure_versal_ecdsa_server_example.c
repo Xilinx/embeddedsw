@@ -32,6 +32,7 @@
 *       yog  08/07/23 Removed trng initialisation
 *       am   08/18/23 Updated Hash size to 48bytes for P521 curve
 * 5.4   mb   04/13/24 Added support for P-192 Curve
+*       mb   04/13/24 Added support for P-224 Curve
 *
 * </pre>
 *
@@ -54,6 +55,7 @@
 #define TEST_NIST_P521
 #define TEST_NIST_P256
 #define TEST_NIST_P192
+#define TEST_NIST_P224
 
 #define XSECURE_MINOR_ERROR_MASK 0xFFU
 #define XSECURE_ELLIPTIC_NON_SUPPORTED_CRV 0xC2U
@@ -71,7 +73,9 @@ static int XSecure_TestP256();
 #ifdef TEST_NIST_P192
 static int XSecure_TestP192();
 #endif
-
+#ifdef TEST_NIST_P224
+static int XSecure_TestP224();
+#endif
  int main()
 {
 	int Status = XST_FAILURE;
@@ -125,6 +129,18 @@ static int XSecure_TestP192();
 	}
 #endif
 
+#ifdef TEST_NIST_P224
+	xil_printf("Test P-224 curve started \r\n");
+	Status = XSecure_TestP224();
+	if (Status != XST_SUCCESS) {
+		if((Status & XSECURE_MINOR_ERROR_MASK) == XSECURE_ELLIPTIC_NON_SUPPORTED_CRV) {
+			xil_printf("Ecdsa example failed for P-224 with Status:%08x\r\n", Status);
+		}
+		else {
+			goto END;
+		}
+	}
+#endif
 	xil_printf("Successfully ran Ecdsa example \r\n");
 
 END:
@@ -611,6 +627,119 @@ int XSecure_TestP192()
 	}
 	else {
 		xil_printf("Successfully tested P-192 curve \r\n");
+	}
+
+END:
+	return Status;
+}
+#endif
+
+/*****************************************************************************/
+/**
+*
+* This function test elliptic curve P-224
+*
+* @return
+*		- XST_SUCCESS On success
+*		- XST_FAILURE if the test for elliptic curve P-224 failed.
+*
+******************************************************************************/
+#ifdef TEST_NIST_P224
+int XSecure_TestP224()
+{
+	int Status = XST_FAILURE;
+	u8 Qx[XSECURE_ECC_P224_SIZE_IN_BYTES] = {0U};
+	u8 Qy[XSECURE_ECC_P224_SIZE_IN_BYTES] = {0U};
+	u8 R[XSECURE_ECC_P224_SIZE_IN_BYTES] = {0U};
+	u8 S[XSECURE_ECC_P224_SIZE_IN_BYTES] = {0U};
+	XSecure_EllipticKey Key = { Qx, Qy };
+	XSecure_EllipticSign GeneratedSign = { R, S };
+#if  (XSECURE_ELLIPTIC_ENDIANNESS == XSECURE_ELLIPTIC_LITTLE_ENDIAN)
+	const u8 Hash[] = {
+		0xFDU, 0xB2U, 0x04U, 0x5FU, 0xB3U, 0xA4U, 0xDBU, 0x08U,
+		0x80U, 0x77U, 0x3FU, 0xD2U, 0x07U, 0xD8U, 0xF3U, 0xEEU,
+		0x8FU, 0xA2U, 0xC5U, 0xCFU, 0xFCU, 0x6CU, 0x92U, 0x92U,
+		0xF8U, 0x1CU, 0x1EU, 0x1FU,
+};
+
+	const u8 D[] = {
+		0xE8U, 0x81U, 0x74U, 0x77U, 0xAAU, 0x72U, 0xCAU, 0x11U,
+		0xAEU, 0x69U, 0xECU, 0x34U, 0x60U, 0xBEU, 0x90U, 0x8DU,
+		0x1FU, 0x52U, 0xEEU, 0x0FU, 0xBEU, 0x80U, 0x7CU, 0x98U,
+		0x8EU, 0x48U, 0x0CU, 0x3FU,
+};
+
+	const u8 K[] = {
+		0x37U, 0x49U, 0xB8U, 0x8EU, 0x90U, 0x32U, 0xECU, 0x46U,
+		0xA1U, 0xBBU, 0xBCU, 0x43U, 0x51U, 0x02U, 0x6DU, 0xE3U,
+		0xF0U, 0x3FU, 0xDEU, 0x0CU, 0xC4U, 0x17U, 0xDFU, 0x79U,
+		0x3BU, 0x80U, 0x48U, 0xA5U,
+	};
+#else
+	const u8 Hash[] = {
+		0x1FU, 0x1EU, 0x1CU, 0xF8U, 0x92U, 0x92U, 0x6CU, 0xFCU,
+		0xCFU, 0xC5U, 0xA2U, 0x8FU, 0xEEU, 0xF3U, 0xD8U, 0x07U,
+		0xD2U, 0x3FU, 0x77U, 0x80U, 0x08U, 0xDBU, 0xA4U, 0xB3U,
+		0x5FU, 0x04U, 0xB2U, 0xFDU,
+	};
+
+	const u8 D[] = {
+		0x3FU, 0x0CU, 0x48U, 0x8EU, 0x98U, 0x7CU, 0x80U, 0xBEU,
+		0x0FU, 0xEEU, 0x52U, 0x1FU, 0x8DU, 0x90U, 0xBEU, 0x60U,
+		0x34U, 0xECU, 0x69U, 0xAEU, 0x11U, 0xCAU, 0x72U, 0xAAU,
+		0x77U, 0x74U, 0x81U, 0xE8U,
+	};
+
+	const u8 K[] = {
+		0xA5U, 0x48U, 0x80U, 0x3BU, 0x79U, 0xDFU, 0x17U, 0xC4U,
+		0x0CU, 0xDEU, 0x3FU, 0xF0U, 0xE3U, 0x6DU, 0x02U, 0x51U,
+		0x43U, 0xBCU, 0xBBU, 0xA1U, 0x46U, 0xECU, 0x32U, 0x90U,
+		0x8EU, 0xB8U, 0x49U, 0x37U,
+	};
+#endif
+	Status = XSecure_EllipticGenerateKey(XSECURE_ECC_NIST_P224, D, &Key);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Key generation failed for P-224 curve, Status = %x \r\n", Status);
+		goto END;
+	}
+
+	xil_printf("Hash :\r\n");
+	XSecure_ShowData(Hash, XSECURE_ECC_P224_SIZE_IN_BYTES);
+	xil_printf("Generated Key\r\n");
+	xil_printf("Qx :");
+	XSecure_ShowData(Key.Qx, XSECURE_ECC_P224_SIZE_IN_BYTES);
+	xil_printf("\r\n");
+	xil_printf("Qy :");
+	XSecure_ShowData(Key.Qy, XSECURE_ECC_P224_SIZE_IN_BYTES);
+	xil_printf("\r\n");
+
+	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P224, Hash,
+		XSECURE_ECC_P224_SIZE_IN_BYTES, D, K, &GeneratedSign);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Sign generation failed for P-224 curve, Status = %x \r\n", Status);
+		goto END;
+	}
+
+	xil_printf("Generated Sign\r\n");
+	xil_printf("R :");
+	XSecure_ShowData(GeneratedSign.SignR, XSECURE_ECC_P224_SIZE_IN_BYTES);
+	xil_printf("\r\n S :");
+	XSecure_ShowData(GeneratedSign.SignS, XSECURE_ECC_P224_SIZE_IN_BYTES);
+	xil_printf("\r\n");
+
+	Status = XSecure_EllipticValidateKey(XSECURE_ECC_NIST_P224, &Key);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Key validation failed for P-224 curve, Status =  %x \r\n", Status);
+		goto END;
+	}
+
+	Status = XSecure_EllipticVerifySign(XSECURE_ECC_NIST_P224, Hash,
+		XSECURE_ECC_P224_SIZE_IN_BYTES, &Key, &GeneratedSign);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Sign verification failed for P-224 curve, Status = %x \r\n", Status);
+	}
+	else {
+		xil_printf("Successfully tested P-224 curve \r\n");
 	}
 
 END:

@@ -74,6 +74,7 @@
 *       yog  07/28/2023 Added support to handle endianness
 *       am   08/18/2023 Updated Hash size to 48bytes for P521 curve
 * 5.4   mb   04/13/24 Added support for P-192 Curve
+*       mb   04/13/24 Added support for P-224 Curve
 *
 * </pre>
 *
@@ -100,11 +101,13 @@
 #define TEST_NIST_P521
 #define TEST_NIST_P256
 #define TEST_NIST_P192
+#define TEST_NIST_P224
 
 #define XSECURE_ECC_P384_SIZE_IN_BYTES	(48U)
 #define XSECURE_ECC_P521_SIZE_IN_BYTES	(66U)
 #define XSECURE_ECC_P256_SIZE_IN_BYTES	(32U)
 #define XSECURE_ECC_P192_SIZE_IN_BYTES	(24U)
+#define XSECURE_ECC_P224_SIZE_IN_BYTES	(28U)
 
 #define XSECURE_ECC_P521_WORD_ALIGN_BYTES (2U)
 
@@ -117,7 +120,8 @@
 						XSECURE_ECC_P256_SIZE_IN_BYTES)
 #define P192_KEY_SIZE				(XSECURE_ECC_P192_SIZE_IN_BYTES + \
 						XSECURE_ECC_P192_SIZE_IN_BYTES)
-
+#define P224_KEY_SIZE				(XSECURE_ECC_P224_SIZE_IN_BYTES + \
+						XSECURE_ECC_P224_SIZE_IN_BYTES)
 #define XSECURE_SHARED_TOTAL_MEM_SIZE	(XSECURE_SHARED_MEM_SIZE + \
 					P521_KEY_SIZE + P521_KEY_SIZE)
 
@@ -146,6 +150,29 @@ static const u8 K_P192[] __attribute__ ((section (".data.K_P192"))) = {
 		0x47U, 0xD8U, 0x69U, 0x0AU, 0xF8U, 0xC0U, 0xA9U, 0xDEU,
 		0xEEU, 0x6DU, 0x6BU, 0xA0U, 0x8AU, 0xF0U, 0x44U, 0x07U,
 		0x8BU, 0x70U, 0x2FU, 0xEFU, 0xA0U, 0xB0U, 0x6CU, 0xD0U,
+};
+#endif
+
+#ifdef TEST_NIST_P224
+static const u8 Hash_P224[] __attribute__ ((section (".data.Hash_P224"))) = {
+		0xFDU, 0xB2U, 0x04U, 0x5FU, 0xB3U, 0xA4U, 0xDBU, 0x08U,
+		0x80U, 0x77U, 0x3FU, 0xD2U, 0x07U, 0xD8U, 0xF3U, 0xEEU,
+		0x8FU, 0xA2U, 0xC5U, 0xCFU, 0xFCU, 0x6CU, 0x92U, 0x92U,
+		0xF8U, 0x1CU, 0x1EU, 0x1FU,
+};
+
+static const u8 D_P224[] __attribute__ ((section (".data.D_P224"))) = {
+		0xE8U, 0x81U, 0x74U, 0x77U, 0xAAU, 0x72U, 0xCAU, 0x11U,
+		0xAEU, 0x69U, 0xECU, 0x34U, 0x60U, 0xBEU, 0x90U, 0x8DU,
+		0x1FU, 0x52U, 0xEEU, 0x0FU, 0xBEU, 0x80U, 0x7CU, 0x98U,
+		0x8EU, 0x48U, 0x0CU, 0x3FU,
+};
+
+static const u8 K_P224[] __attribute__ ((section (".data.K_P224"))) = {
+		0x37U, 0x49U, 0xB8U, 0x8EU, 0x90U, 0x32U, 0xECU, 0x46U,
+		0xA1U, 0xBBU, 0xBCU, 0x43U, 0x51U, 0x02U, 0x6DU, 0xE3U,
+		0xF0U, 0x3FU, 0xDEU, 0x0CU, 0xC4U, 0x17U, 0xDFU, 0x79U,
+		0x3BU, 0x80U, 0x48U, 0xA5U,
 };
 #endif
 
@@ -255,6 +282,28 @@ static const u8 K_P192[] __attribute__ ((section (".data.K_P384"))) = {
 		0xDEU, 0xA9U, 0xC0U, 0xF8U, 0x0AU, 0x69U, 0xD8U, 0x47U,
 };
 #endif
+#ifdef TEST_NIST_P224
+static const u8 Hash_P224[] __attribute__ ((section (".data.Hash_P224"))) = {
+		0x1FU, 0x1EU, 0x1CU, 0xF8U, 0x92U, 0x92U, 0x6CU, 0xFCU,
+		0xCFU, 0xC5U, 0xA2U, 0x8FU, 0xEEU, 0xF3U, 0xD8U, 0x07U,
+		0xD2U, 0x3FU, 0x77U, 0x80U, 0x08U, 0xDBU, 0xA4U, 0xB3U,
+		0x5FU, 0x04U, 0xB2U, 0xFDU,
+};
+
+static const u8 D_P224[] __attribute__ ((section (".data.D_P224"))) = {
+		0x3FU, 0x0CU, 0x48U, 0x8EU, 0x98U, 0x7CU, 0x80U, 0xBEU,
+		0x0FU, 0xEEU, 0x52U, 0x1FU, 0x8DU, 0x90U, 0xBEU, 0x60U,
+		0x34U, 0xECU, 0x69U, 0xAEU, 0x11U, 0xCAU, 0x72U, 0xAAU,
+		0x77U, 0x74U, 0x81U, 0xE8U,
+};
+
+static const u8 K_P224[] __attribute__ ((section (".data.K_P224"))) = {
+		0xA5U, 0x48U, 0x80U, 0x3BU, 0x79U, 0xDFU, 0x17U, 0xC4U,
+		0x0CU, 0xDEU, 0x3FU, 0xF0U, 0xE3U, 0x6DU, 0x02U, 0x51U,
+		0x43U, 0xBCU, 0xBBU, 0xA1U, 0x46U, 0xECU, 0x32U, 0x90U,
+		0x8EU, 0xB8U, 0x49U, 0x37U,
+};
+#endif
 #ifdef TEST_NIST_P384
 static const u8 Hash_P384[] __attribute__ ((section (".data.Hash_P384"))) = {
 	0x5AU, 0xEAU, 0x18U, 0x7DU, 0x1CU, 0x4FU, 0x6EU, 0x1BU,
@@ -354,6 +403,9 @@ static int XSecure_TestP256(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R);
 #endif
 #ifdef TEST_NIST_P192
 static int XSecure_TestP192(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R);
+#endif
+#ifdef TEST_NIST_P224
+static int XSecure_TestP224(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R);
 #endif
 
 /*****************************************************************************/
@@ -471,6 +523,22 @@ int main()
 	}
 #endif
 
+#ifdef TEST_NIST_P224
+	xil_printf("Test P-224 curve started \r\n");
+	Q = &SharedMem[0U];
+	R = &Q[P224_KEY_SIZE];
+
+	Status = XSecure_TestP224(&SecureClientInstance, Q, R);
+	if (Status != XST_SUCCESS) {
+		if((Status & XSECURE_MINOR_ERROR_MASK) == XSECURE_ELLIPTIC_NON_SUPPORTED_CRV) {
+			xil_printf("Ecdsa example failed for P-224 with Status:%08x\r\n", Status);
+		}
+		else {
+			goto END;
+		}
+	}
+#endif
+
 END:
 	Status |= XMailbox_ReleaseSharedMem(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
@@ -564,6 +632,94 @@ int XSecure_TestP192(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R)
 	}
 	else {
 		xil_printf("Successfully tested P-192 curve \r\n");
+	}
+
+END:
+	return Status;
+}
+#endif
+
+/*****************************************************************************/
+/**
+*
+* This function test elliptic curve P-224
+*
+* @param	InstancePtr pointer to client instance
+* @param	Q pointer to public key
+* @param	R pointer to signature
+*
+* @return
+*		- XST_SUCCESS On success
+*		- XST_FAILURE if the test for elliptic curve P-224 failed.
+*
+******************************************************************************/
+#ifdef TEST_NIST_P224
+int XSecure_TestP224(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R)
+{
+	int Status = XST_FAILURE;
+
+	Xil_DCacheFlushRange((UINTPTR)Hash_P224, sizeof(Hash_P224));
+	Xil_DCacheFlushRange((UINTPTR)D_P224, sizeof(D_P224));
+	Xil_DCacheFlushRange((UINTPTR)K_P224, sizeof(K_P224));
+
+	Xil_DCacheInvalidateRange((UINTPTR)Q, XSECURE_ECC_P224_SIZE_IN_BYTES +
+				XSECURE_ECC_P224_SIZE_IN_BYTES);
+
+	Status = XSecure_EllipticGenerateKey(InstancePtr, XSECURE_ECC_NIST_P224, (UINTPTR)&D_P224,
+							(UINTPTR)Q);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Key generation failed for P-224 curve, Status = %x \r\n", Status);
+		goto END;
+	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)Q, XSECURE_ECC_P224_SIZE_IN_BYTES +
+			XSECURE_ECC_P224_SIZE_IN_BYTES);
+
+	xil_printf("Hash : \r\n");
+	XSecure_ShowData(Hash_P224, sizeof(Hash_P224));
+	xil_printf("Generated Key\r\n");
+	xil_printf("Qx :");
+	XSecure_ShowData(Q, XSECURE_ECC_P224_SIZE_IN_BYTES);
+	xil_printf("\r\n");
+	xil_printf("Qy :");
+	XSecure_ShowData(Q + XSECURE_ECC_P224_SIZE_IN_BYTES,
+				XSECURE_ECC_P224_SIZE_IN_BYTES);
+	xil_printf("\r\n");
+
+	Xil_DCacheInvalidateRange((UINTPTR)R, XSECURE_ECC_P224_SIZE_IN_BYTES +
+				XSECURE_ECC_P224_SIZE_IN_BYTES);
+
+	Status = XSecure_EllipticGenerateSign(InstancePtr, XSECURE_ECC_NIST_P224, (UINTPTR)&Hash_P224,
+		sizeof(Hash_P224), (UINTPTR)&D_P224, (UINTPTR)&K_P224, (UINTPTR)R);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Sign generation failed for P-224 curve, Status = %x \r\n", Status);
+		goto END;
+	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)R, XSECURE_ECC_P224_SIZE_IN_BYTES +
+				XSECURE_ECC_P224_SIZE_IN_BYTES);
+
+	xil_printf("Generated Sign\r\n");
+	xil_printf("R :");
+	XSecure_ShowData(R, XSECURE_ECC_P224_SIZE_IN_BYTES);
+	xil_printf("\r\n S :");
+	XSecure_ShowData(R + XSECURE_ECC_P224_SIZE_IN_BYTES,
+					XSECURE_ECC_P224_SIZE_IN_BYTES);
+	xil_printf("\r\n");
+
+	Status = XSecure_EllipticValidateKey(InstancePtr, XSECURE_ECC_NIST_P224, (UINTPTR)Q);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Key validation failed for P-224 curve, Status = %x \r\n", Status);
+		goto END;
+	}
+
+	Status = XSecure_EllipticVerifySign(InstancePtr, XSECURE_ECC_NIST_P224, (UINTPTR)&Hash_P224,
+		sizeof(Hash_P224), (UINTPTR)Q, (UINTPTR)R);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Sign verification failed for P-224 curve, Status = %x \r\n", Status);
+	}
+	else {
+		xil_printf("Successfully tested P-224 curve \r\n");
 	}
 
 END:

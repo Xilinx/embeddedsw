@@ -58,6 +58,7 @@
 * 5.3   kpt  03/22/24 Fixed Branch past initialization
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
 *       mb   05/23/24 Added P192 curve support
+*       mb   05/23/24 Added P224 urve support
 *
 * </pre>
 *
@@ -213,7 +214,8 @@ int XSecure_EllipticGenerateKey(XSecure_EllipticCrvTyp CrvType, const u8* D,
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 		(CrvType != XSECURE_ECC_NIST_P521) &&
 		(CrvType != XSECURE_ECC_NIST_P256) &&
-		(CrvType != XSECURE_ECC_NIST_P192)) {
+		(CrvType != XSECURE_ECC_NIST_P192) &&
+		(CrvType != XSECURE_ECC_NIST_P224)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
@@ -418,7 +420,8 @@ int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType,
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 		(CrvType != XSECURE_ECC_NIST_P521) &&
 		(CrvType != XSECURE_ECC_NIST_P256) &&
-		(CrvType != XSECURE_ECC_NIST_P192)) {
+		(CrvType != XSECURE_ECC_NIST_P192) &&
+		(CrvType != XSECURE_ECC_NIST_P224)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
@@ -566,7 +569,8 @@ int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 		(CrvType != XSECURE_ECC_NIST_P521) &&
 		(CrvType != XSECURE_ECC_NIST_P256) &&
-		(CrvType != XSECURE_ECC_NIST_P192)) {
+		(CrvType != XSECURE_ECC_NIST_P192) &&
+		(CrvType != XSECURE_ECC_NIST_P224)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
@@ -763,7 +767,8 @@ int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 		(CrvType != XSECURE_ECC_NIST_P521) &&
 		(CrvType != XSECURE_ECC_NIST_P256) &&
-		(CrvType != XSECURE_ECC_NIST_P192)) {
+		(CrvType != XSECURE_ECC_NIST_P192) &&
+		(CrvType != XSECURE_ECC_NIST_P224)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
@@ -815,7 +820,8 @@ EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp)
 	if ((CrvTyp != XSECURE_ECC_NIST_P384) &&
 		(CrvTyp != XSECURE_ECC_NIST_P521) &&
 		(CrvTyp != XSECURE_ECC_NIST_P256) &&
-		(CrvTyp != XSECURE_ECC_NIST_P192)) {
+		(CrvTyp != XSECURE_ECC_NIST_P192) &&
+		(CrvTyp != XSECURE_ECC_NIST_P224)) {
 		goto END;
 	}
 
