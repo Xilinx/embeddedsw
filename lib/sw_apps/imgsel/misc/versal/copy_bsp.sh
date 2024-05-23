@@ -29,7 +29,6 @@ STANDALONE_DIR=$EMBEDDED_SW_DIR/lib/bsp/standalone/src
 
 # libraries dir
 SERVICES_DIR=$EMBEDDED_SW_DIR/lib/sw_services
-BSP_SEQUENTIAL_MAKEFILES=
 
 # creation of BSP folders required
 if [ -d $BSP_DIR ]; then
@@ -52,7 +51,6 @@ fi
 mkdir -p $BSP_DIR/libsrc/xilffs
 cp -r $SERVICES_DIR/xilffs/src $BSP_DIR/libsrc/xilffs/
 cp -r $SERVICES_DIR/xilffs/src/include/* $BSP_DIR/include/
-BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilffs/src/Makefile"
 
 mkdir -p $BSP_DIR/libsrc/xilpdi/src
 cp -r $SERVICES_DIR/xilpdi/src/Makefile $BSP_DIR/libsrc/xilpdi/src
@@ -60,22 +58,20 @@ cp -r $SERVICES_DIR/xilpdi/src/versal/* $BSP_DIR/libsrc/xilpdi/src/
 cp -r $SERVICES_DIR/xilpdi/src/versal/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilpdi/src/common/* $BSP_DIR/libsrc/xilpdi/src/
 cp -r $SERVICES_DIR/xilpdi/src/common/*.h $BSP_DIR/include/
-BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilpdi/src/Makefile"
 
 mkdir -p $BSP_DIR/libsrc/xilplmi/src
 cp -r $SERVICES_DIR/xilplmi/src/Makefile $BSP_DIR/libsrc/xilplmi/src
 cp -r $SERVICES_DIR/xilplmi/src/versal/server/* $BSP_DIR/libsrc/xilplmi/src/
+cp -r $SERVICES_DIR/xilplmi/src/versal/common/* $BSP_DIR/libsrc/xilplmi/src/
 cp -r $SERVICES_DIR/xilplmi/src/common/server/* $BSP_DIR/libsrc/xilplmi/src/
 cp -r $SERVICES_DIR/xilplmi/src/common/common/* $BSP_DIR/libsrc/xilplmi/src/
 cp -r $BSP_DIR/libsrc/xilplmi/src/*.h $BSP_DIR/include/
-BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilplmi/src/Makefile"
 
 mkdir -p $BSP_DIR/libsrc/xilpuf/src
 cp -r $SERVICES_DIR/xilpuf/src/Makefile $BSP_DIR/libsrc/xilpuf/src
 cp -r $SERVICES_DIR/xilpuf/src/common/* $BSP_DIR/libsrc/xilpuf/src
 cp -r $SERVICES_DIR/xilpuf/src/server/* $BSP_DIR/libsrc/xilpuf/src
 cp -r $BSP_DIR/libsrc/xilpuf/src/*.h $BSP_DIR/include/
-BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilpuf/src/Makefile"
 
 mkdir -p $BSP_DIR/libsrc/xilloader/src
 cp -r $SERVICES_DIR/xilloader/src/Makefile $BSP_DIR/libsrc/xilloader/src
@@ -83,7 +79,6 @@ cp -r $SERVICES_DIR/xilloader/src/versal/server/* $BSP_DIR/libsrc/xilloader/src/
 cp -r $SERVICES_DIR/xilloader/src/common/server/* $BSP_DIR/libsrc/xilloader/src/
 cp -r $SERVICES_DIR/xilloader/src/common/common/* $BSP_DIR/libsrc/xilloader/src/
 cp -r $BSP_DIR/libsrc/xilloader/src/*.h $BSP_DIR/include/
-BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilloader/src/Makefile"
 
 mkdir -p $BSP_DIR/libsrc/xilpm/src/
 cp -r $SERVICES_DIR/xilpm/src/versal/common/* $BSP_DIR/libsrc/xilpm/src/
@@ -94,7 +89,7 @@ cp -r $SERVICES_DIR/xilpm/src/versal_common/server/* $BSP_DIR/libsrc/xilpm/src/
 cp -r $SERVICES_DIR/xilpm/src/versal_common/server/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilpm/src/versal_common/common/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilpm/src/versal_common/common/* $BSP_DIR/libsrc/xilpm/src/
-BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilpm/src/versal/common/Makefile"
+
 
 mkdir -p $BSP_DIR/libsrc/xilsecure/src
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src
@@ -106,7 +101,6 @@ cp -r $SERVICES_DIR/xilsecure/src/versal/common/* $BSP_DIR/libsrc/xilsecure/src/
 cp $BSP_DIR/libsrc/xilsecure/src/*.h $BSP_DIR/include/
 mv $BSP_DIR/libsrc/xilsecure/src/libxilsecure_pmc.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
 rm -f $BSP_DIR/libsrc/xilsecure/src/libxilsecure_*.a
-BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilsecure/src/Makefile"
 
 # copy bsp standalone code
 cp -r $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
@@ -119,6 +113,7 @@ cp $WORKING_DIR/microblaze_interrupts_g.c $BSP_DIR/libsrc/standalone/src/
 cp $WORKING_DIR/../bspconfig.h  $BSP_DIR/include/
 cp $WORKING_DIR/Makefile $BSP_DIR/../
 cp $WORKING_DIR/dep.mk $BSP_DIR/../
+cp $WORKING_DIR/xsysmonpsv_supplylist.h $BSP_DIR/include/
 
 # copy the bsp drivers
 while read line
@@ -134,7 +129,6 @@ do
     cp -r $DRIVERS_DIR/$line/src/*.h $BSP_DIR/include/
 # copy all the HSM generated driver files DRIVER_g.c
 	cp $WORKING_DIR/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
-	BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/$line/src/Makefile"
 done < $DRIVERS_LIST
 
 #copy the processor code.
@@ -157,6 +151,3 @@ cp $WORKING_DIR/xsdps_g.c $BSP_DIR/libsrc/sdps/src/
 cp $STANDALONE_DIR/common/*.h  $BSP_DIR/include/
 cp $STANDALONE_DIR/common/clocking/*.h  $BSP_DIR/include/
 cp $STANDALONE_DIR/microblaze/*.h  $BSP_DIR/include/
-cp $WORKING_DIR/xsysmonpsv_supplylist.h $BSP_DIR/libsrc/sysmonpsv/src/
-
-export BSP_SEQUENTIAL_MAKEFILES
