@@ -32,6 +32,14 @@
 #define XPM_NODEIDX_DEV_BFRB_MIN		XPM_NODEIDX_DEV_BFRB_0
 #define XPM_NODEIDX_DEV_BFRB_MAX		XPM_NODEIDX_DEV_BFRB_11
 
+/* The current number of ADC devices. Used to run housecleaning for each. */
+#define XPM_NODEIDX_DEV_ADC_MIN		XPM_NODEIDX_DEV_ADC_0
+#define XPM_NODEIDX_DEV_ADC_MAX		XPM_NODEIDX_DEV_ADC_3
+
+/* The current number of DAC devices. Used to run housecleaning for each. */
+#define XPM_NODEIDX_DEV_DAC_MIN		XPM_NODEIDX_DEV_DAC_0
+#define XPM_NODEIDX_DEV_DAC_MAX		XPM_NODEIDX_DEV_DAC_3
+
 #define PLHCLEAN_EARLY_BOOT 0U
 #define PLHCLEAN_INIT_NODE  1U
 
@@ -1059,6 +1067,292 @@ done:
 	return Status;
 }
 
+static XStatus DacMbist(const u32 *DacAddresses, u32 ArrLen, u32 PollTimeOut){
+
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 i = 0;
+
+	/* Trigger Mem Clear for each DAC */
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == DacAddresses[i]) {
+			continue;
+		}
+
+		/* Unlock PCSR */
+		XPm_UnlockPcsr(DacAddresses[i]);
+
+		/* Assert Mem Clear Trigger */
+		Status = XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PCSR_MEM_CLEAR_TRIGGER_MASK,
+				DAC_NPI_PCSR_MEM_CLEAR_TRIGGER_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER;
+			goto done;
+		}
+	}
+
+	/* Wait for MemClear done and check for MemClear pass for each DAC */
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == DacAddresses[i]) {
+			continue;
+		}
+
+		/* Wait for Mem Clear DONE */
+		Status = XPm_PollForMask(DacAddresses[i] + NPI_PCSR_STATUS_OFFSET,
+					DAC_NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK, PollTimeOut);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
+			goto done;
+		}
+
+		/* Check Mem Clear Pass */
+		if (DAC_NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
+				(XPm_In32(DacAddresses[i] + NPI_PCSR_STATUS_OFFSET) & DAC_NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK)) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS;
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+	/* Set Status to SUCCESS in case DAC is not present */
+	Status = XST_SUCCESS;
+
+done:
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == DacAddresses[i]) {
+			continue;
+		}
+
+		/* Lock PCSR */
+		XPm_LockPcsr(DacAddresses[i]);
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+    return Status;
+
+}
+
+
+static XStatus DacScanClear(const u32 *DacAddresses, u32 ArrLen, u32 PollTimeOut){
+
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 i = 0;
+
+	/* Trigger ScanClear for each DAC */
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == DacAddresses[i]) {
+			continue;
+		}
+
+		/* Unlock PCSR */
+		XPm_UnlockPcsr(DacAddresses[i]);
+
+		/* Trigger Scan Clear */
+		Status = XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
+				DAC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER;
+			goto done;
+		}
+	}
+
+	/* Wait for ScanClear done and check ScanClear PASS for each DAC */
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == DacAddresses[i]) {
+			continue;
+		}
+
+		/* Wait for Scan Clear DONE */
+		Status = XPm_PollForMask(DacAddresses[i] + NPI_PCSR_STATUS_OFFSET,
+					DAC_NPI_PCSR_STATUS_SCAN_CLEAR_DONE_MASK, PollTimeOut);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
+			goto done;
+		}
+
+		/* Check Scan Clear PASS */
+		if (DAC_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_MASK !=
+				(XPm_In32(DacAddresses[i] + NPI_PCSR_STATUS_OFFSET) & DAC_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_MASK)) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_PASS;
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+
+	/* Set Status to SUCCESS in case DAC is not present */
+	Status = XST_SUCCESS;
+
+done:
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == DacAddresses[i]) {
+			continue;
+		}
+
+		/* Lock PCSR */
+		XPm_LockPcsr(DacAddresses[i]);
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+    return Status;
+
+}
+
+static XStatus AdcScanClear(const u32 *AdcAddresses, u32 ArrLen, u32 PollTimeOut){
+
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 i = 0;
+
+	/* Trigger ScanClear for each ADC */
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == AdcAddresses[i]) {
+			continue;
+		}
+
+		/* Unlock PCSR */
+		XPm_UnlockPcsr(AdcAddresses[i]);
+
+		/* Trigger Scan Clear */
+		Status = XPm_PcsrWrite(AdcAddresses[i], ADC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
+				ADC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER;
+			goto done;
+		}
+	}
+
+	/* Wait for ScanClear done and check ScanClear PASS for each ADC */
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == AdcAddresses[i]) {
+			continue;
+		}
+
+		/* Wait for Scan Clear DONE */
+		Status = XPm_PollForMask(AdcAddresses[i] + NPI_PCSR_STATUS_OFFSET,
+					ADC_NPI_PCSR_STATUS_SCAN_CLEAR_DONE_MASK, PollTimeOut);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
+			goto done;
+		}
+
+		/* Check Scan Clear PASS */
+		if (ADC_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_MASK !=
+				(XPm_In32(AdcAddresses[i] + NPI_PCSR_STATUS_OFFSET) & ADC_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_MASK)) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_PASS;
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+
+	/* Set Status to SUCCESS in case ADC is not present */
+	Status = XST_SUCCESS;
+
+done:
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == AdcAddresses[i]) {
+			continue;
+		}
+
+		/* Lock PCSR */
+		XPm_LockPcsr(AdcAddresses[i]);
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+    return Status;
+
+
+}
+
+static XStatus InitAdcDacAddrArr(u32 *AdcAddresses, u32 *DacAddresses, const u32 AdcArrLen, const u32 DacArrLen)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Device *Device;
+	u32 i;
+	u32 AdcIdx = 0, DacIdx = 0;
+
+	if ((NULL == AdcAddresses) || (NULL == DacAddresses)){
+		goto done;
+	}
+
+	for (i = (u32)XPM_NODEIDX_DEV_ADC_MIN; i <= (u32)XPM_NODEIDX_DEV_DAC_MAX; i++) {
+		Device = XPmDevice_GetByIndex(i);
+		if ((NULL == Device) || (((u32)XPM_NODETYPE_DEV_ADC != NODETYPE(Device->Node.Id))
+			&& ((u32)XPM_NODETYPE_DEV_DAC != NODETYPE(Device->Node.Id)))) {
+			continue;
+		}
+
+		if ((NULL == Device->Power) || ((u32)PM_POWER_PLD != Device->Power->Node.Id)) {
+			continue;
+		}
+
+		if ((AdcIdx >= AdcArrLen) || (DacIdx >= DacArrLen)){
+			DbgErr = XPM_INT_ERR_ADC_INIT;
+			goto done;
+		}
+
+		if((u32)XPM_NODETYPE_DEV_ADC != NODETYPE(Device->Node.Id)){
+			AdcAddresses[AdcIdx] = Device->Node.BaseAddress;
+			AdcIdx++;
+		}else {
+			DacAddresses[DacIdx] = Device->Node.BaseAddress;
+			DacIdx++;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus AdcDacHouseClean(u32 PollTimeOut)
+{
+	XStatus Status = XST_FAILURE;
+	XStatus StatusTmp = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 DacAddresses[XPM_NODEIDX_DEV_DAC_MAX - XPM_NODEIDX_DEV_DAC_MIN + 1] = {0};
+	u32 AdcAddresses[XPM_NODEIDX_DEV_ADC_MAX - XPM_NODEIDX_DEV_ADC_MIN + 1] = {0};
+
+	/* Initialize array with addresses for each ADC/DAC devices */
+	Status = InitAdcDacAddrArr(AdcAddresses, DacAddresses, ARRAY_SIZE(AdcAddresses), ARRAY_SIZE(DacAddresses));
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/*TBD: add Bisr support for DAC*/
+
+	/* Run MBIST for each DAC */
+	XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (DacMbist),
+			(DacAddresses), ARRAY_SIZE(DacAddresses), (PollTimeOut));
+	/* Copy volatile to local to avoid MISRA */
+	XStatus LocalStatus = StatusTmp;
+	/* Required for redundancy */
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
+		DbgErr = XPM_INT_ERR_DAC_MBIST;
+		goto done;
+	}
+
+	/* Run scan clear for each DAC */
+	Status = DacScanClear(DacAddresses, ARRAY_SIZE(DacAddresses), PollTimeOut);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_DAC_SCAN_CLEAR;
+		goto done;
+	}
+
+	/* Run scan clear for each ADC */
+	Status = AdcScanClear(AdcAddresses, ARRAY_SIZE(AdcAddresses), PollTimeOut);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_ADC_SCAN_CLEAR;
+		goto done;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 /*
  * The top 2 SLRs on xcvp1902 require Laguna housecleaning which initializes
  * type-6 CLR to all one.
@@ -1618,6 +1912,13 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = BfrbHouseClean(PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_BFRB_HC;
+		goto fail;
+	}
+
+	/* Run houseclean sequence for ADC/DAC */
+	Status = AdcDacHouseClean(PollTimeOut);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_ADC_DAC_HC;
 		goto fail;
 	}
 
