@@ -748,6 +748,19 @@ extern "C" {
 /* Error when asserting BFRB INITSTATE */
 #define XPM_INT_ERR_BFRB_INITSTATE_ASSERT	0x5206U
 
+/*************************** ADC/DAC Specific Errors ****************************/
+/************************** (0x5400) - (0x54FF) ******************************/
+/* Error during ADC init */
+#define XPM_INT_ERR_ADC_INIT			0x5400U
+/* Error running DAC Mem Clear */
+#define XPM_INT_ERR_DAC_MBIST 	0x5401U
+/* Error running DAC Scan Clear */
+#define XPM_INT_ERR_DAC_SCAN_CLEAR 0x5402U
+/* Error running ADC Scan Clear */
+#define XPM_INT_ERR_ADC_SCAN_CLEAR 0x5403U
+/* Error running ADC/DAC houseclean */
+#define XPM_INT_ERR_ADC_DAC_HC	0x5404U
+
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
 
