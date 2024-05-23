@@ -35,6 +35,7 @@
 *       am   08/18/23 Added XSecure_EllipticGetCrvSize() prototype
 *	vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
+*       mb   05/23/24 Added support for P-192 Curve
 *
 * </pre>
 *
@@ -65,7 +66,8 @@ extern "C" {
 									/**< Size of NIST P-521 curve in bytes */
 #define XSECURE_ECC_P256_SIZE_IN_BYTES	(32U)
 									/**< Size of NIST P-256 curve in bytes */
-
+#define XSECURE_ECC_P192_SIZE_IN_BYTES	(24U)
+									/**< Size of NIST P-192 curve in bytes */
 #define XSECURE_ECDSA_P521_ALIGN_BYTES	(2U)
 				/**< Size of NIST P-521 curve is 66 bytes. This macro is used
 				to make the address word aligned */

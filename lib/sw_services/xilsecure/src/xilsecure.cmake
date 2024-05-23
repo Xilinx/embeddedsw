@@ -11,6 +11,11 @@ if(XILSECURE_tpm_support)
   set(XSECURE_TPM_ENABLE " ")
 endif()
 
+option(XILSECURE_elliptic_p192_support "Enables/Disables P-192 curve support" OFF)
+if(XILSECURE_elliptic_p192_support)
+  set(XSECURE_ECC_SUPPORT_NIST_P192 " ")
+endif()
+
 option(XILSECURE_elliptic_p256_support "Enables/Disables P-256 curve support" OFF)
 if(XILSECURE_elliptic_p256_support)
   set(XSECURE_ECC_SUPPORT_NIST_P256 " ")

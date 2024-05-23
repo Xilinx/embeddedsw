@@ -33,6 +33,7 @@
 * 5.3   ng   01/28/24 Added SDT support
 *       ng   03/26/24 Fixed header include in SDT flow
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
+*       mb   05/23/24 Added support for P-192 Curve
 *
 * </pre>
 *
@@ -187,6 +188,7 @@ typedef enum {
 } XSecure_AesOp;
 
 typedef enum {
+      XSECURE_ECC_NIST_P192 = 1,              /**< NIST P-192 curve value in Ecdsa.h */
       XSECURE_ECC_NIST_P256 = 3,	      /**< NIST P-256 curve value in Ecdsa.h */
       XSECURE_ECC_NIST_P384 = 4,              /**< NIST P-384 curve value in Ecdsa.h */
       XSECURE_ECC_NIST_P521 = 5               /**< NIST P-521 curve value in Ecdsa.h */
