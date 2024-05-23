@@ -31,6 +31,7 @@
 *       kpt  03/15/2024 Update RSA KAT to use 2048-bit key
 * 5.4   yog  04/29/2024 Fixed doxygen warnings.
 *       mb   05/23/2024 Added support for P-192
+*       mb   05/23/2024 Added support for P-224
 *
 * </pre>
 *
@@ -266,7 +267,7 @@ static const u8 K_P384[XSECURE_ECC_P384_SIZE_IN_BYTES] = {
 	0xE5, 0x90, 0xB1, 0x38, 0x00, 0x25, 0x04, 0x04
 };
 #if defined(XSECURE_ECC_SUPPORT_NIST_P256) || defined(XSECURE_ECC_SUPPORT_NIST_P521) \
-	|| defined(XSECURE_ECC_SUPPORT_NIST_P192)
+	|| defined(XSECURE_ECC_SUPPORT_NIST_P192) || defined(XSECURE_ECC_SUPPORT_NIST_P224)
 static const u8 K_P521[XSECURE_ECC_P521_SIZE_IN_BYTES] = {
 	0x00, 0x00, 0xC9, 0x1E, 0x23, 0x49, 0xEF, 0x6C,
 	0xA2, 0x2D, 0x2D, 0xE3, 0x9D, 0xD5, 0x18, 0x19,
@@ -343,7 +344,7 @@ static const u8 K_P384[XSECURE_ECC_P384_SIZE_IN_BYTES] = {
 	0x7FU, 0x7EU, 0xC1U, 0xEBU, 0xFAU, 0xC0U, 0x2EU, 0x00U
 };
 #if defined(XSECURE_ECC_SUPPORT_NIST_P256) || defined(XSECURE_ECC_SUPPORT_NIST_P521) \
-	|| defined(XSECURE_ECC_SUPPORT_NIST_P192)
+	|| defined(XSECURE_ECC_SUPPORT_NIST_P192) || defined(XSECURE_ECC_SUPPORT_NIST_P224)
 static const u8 K_P521[XSECURE_ECC_P521_SIZE_IN_BYTES] = {
 	0x04U, 0x04U, 0x31U, 0xA2U, 0xA6U, 0x47U, 0x31U, 0x70U,
 	0xB8U, 0x16U, 0x6DU, 0x33U, 0x25U, 0x06U, 0xBEU, 0x62U,
@@ -601,9 +602,9 @@ u8* XSecure_GetKatEccEphimeralKey(XSecure_EllipticCrvTyp CrvType) {
 		K = (u8*)K_P384;
 	}
 #if defined(XSECURE_ECC_SUPPORT_NIST_P256) || defined(XSECURE_ECC_SUPPORT_NIST_P521) \
-	|| defined(XSECURE_ECC_SUPPORT_NIST_P192)
+	|| defined(XSECURE_ECC_SUPPORT_NIST_P192) || defined(XSECURE_ECC_SUPPORT_NIST_P224)
 	else if ((CrvType == XSECURE_ECC_NIST_P521) || (CrvType == XSECURE_ECC_NIST_P256) ||
-		(CrvType == XSECURE_ECC_NIST_P192)) {
+		(CrvType == XSECURE_ECC_NIST_P192) || (CrvType == XSECURE_ECC_NIST_P224)) {
 		K = (u8*)K_P521;
 	}
 #endif
@@ -1271,6 +1272,9 @@ int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_El
 	}
 	else if (Curvetype == XSECURE_ECC_NIST_P192) {
 		Size = XSECURE_ECC_P192_SIZE_IN_BYTES;
+	}
+	else if (Curvetype == XSECURE_ECC_NIST_P224) {
+		Size = XSECURE_ECC_P224_SIZE_IN_BYTES;
 	}
 	else {
 		Status = (int)XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR;
