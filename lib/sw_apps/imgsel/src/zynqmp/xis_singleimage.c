@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020-2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,6 +90,7 @@ int XIs_GetBoardName(u16 ReadAddress, u16 *Offset,u32 WrBfrOffset)
 		if(strncmp((char *)ReadBuffer, Board[BoardIndex].Name,
 				XIS_BOARDNAME_SIZE) == 0U) {
 			*Offset = Board[BoardIndex].Offset;
+            XIs_Printf(DEBUG_GENERAL, "Board Found: %s\r\n", Board[BoardIndex].Name);
 			goto END;
 		}
 	}
@@ -126,7 +127,7 @@ int XIs_ImageSelBoardParam(void)
 		Status = XIs_GetBoardName(XIS_EEPROM_BOARD_ADDR_OFFSET_2,
 					&BoardOffset, XIS_EEPROM_OFFSET_2_WRITE_BYTES);
 		if(Status != XST_SUCCESS) {
-			XIs_Printf(DEBUG_GENERAL, "Board Name NotFound\r\n");
+			XIs_Printf(DEBUG_GENERAL, "Board Not Found\r\n");
 			goto END;
 		}
 	}
