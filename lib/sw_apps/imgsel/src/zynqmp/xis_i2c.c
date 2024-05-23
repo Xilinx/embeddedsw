@@ -19,6 +19,7 @@
  * ----- ---- -------- ---------------------------------------------------------
  * 1.00  Ana  07/02/20 First release
  * 2.00  sd   02/15/24 Removed delay function
+ * 3.00  sd   05/17/24 Add SDT support
  * </pre>
  *
  ******************************************************************************/
@@ -33,11 +34,18 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #if (XPAR_XIICPS_NUM_INSTANCES == 2U)
-#define XIS_I2C_EEPROM_INDEX (1U)
+#ifndef SDT
+#define XIS_I2C_EEPROM_DEVICE (1U)
 #else
-#define XIS_I2C_EEPROM_INDEX (0U)
+#define XIS_I2C_EEPROM_DEVICE (XPAR_XIICPS_1_BASEADDR)
 #endif
-
+#else
+#ifndef SDT
+#define XIS_I2C_EEPROM_DEVICE (0U)
+#else
+#define XIS_I2C_EEPROM_DEVICE (XPAR_XIICPS_0_BASEADDR)
+#endif
+#endif
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -47,7 +55,7 @@ XIicPs IicInstance;
 /************************** Function Definitions *****************************/
 static int XIs_EepromWriteData(XIicPs *IicInstance, u16 ByteCount);
 static int XIs_MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer);
-static int XIs_IicPsConfig(u16 DeviceId);
+static int XIs_IicPsConfig(void);
 
 /*****************************************************************************/
 /**
@@ -196,7 +204,7 @@ END:
  * @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
  *
  ****************************************************************************/
-static int XIs_IicPsConfig(u16 DeviceId)
+static int XIs_IicPsConfig(void)
 {
 	int Status = XST_FAILURE;
 	XIicPs_Config *ConfigPtr;	/* Pointer to configuration data */
@@ -204,7 +212,7 @@ static int XIs_IicPsConfig(u16 DeviceId)
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
-	ConfigPtr = XIicPs_LookupConfig(DeviceId);
+	ConfigPtr = XIicPs_LookupConfig(XIS_I2C_EEPROM_DEVICE);
 	if (ConfigPtr == NULL) {
 		Status = XIS_IICPS_LKP_CONFIG_ERROR;
 		goto END;
@@ -244,16 +252,14 @@ END:
 int XIs_IicPsMuxInit(void)
 {
 	int Status = XST_FAILURE;
-	u8 MuxChannel = XIS_I2C_MUX_INDEX;
-	u16 DeviceId = XIS_I2C_EEPROM_INDEX;
 
-	Status = XIs_IicPsConfig(DeviceId);
+	Status = XIs_IicPsConfig();
 	if (Status != XST_SUCCESS) {
 		Status = XIS_IICPS_CONFIG_ERROR;
 		goto END;
 	}
 
-	Status = XIs_MuxInitChannel(XIS_MUX_ADDR, MuxChannel);
+	Status = XIs_MuxInitChannel(XIS_MUX_ADDR, XIS_I2C_MUX_INDEX);
 	if (Status != XST_SUCCESS) {
 		XIs_Printf(DEBUG_INFO,"Failed to enable the MUX channel\r\n");
 		Status = XIS_IICPS_MUX_ERROR;

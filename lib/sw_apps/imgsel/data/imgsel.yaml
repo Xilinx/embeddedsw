@@ -1,0 +1,37 @@
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: Image Selector
+
+maintainers:
+  - Dasari, Sharath Kumar <sharathk@amd.com>
+  - Kundella, Sreedhar <sreedhar.kundella@amd.com>
+
+type: apps
+
+description: Image Selector for ZynqMP and Versal devices.
+
+supported_processors:
+  - psv_pmc
+  - psu_cortexa53
+
+supported_os:
+  - standalone
+
+depends_libs:
+  xiltimer: {}
+  xilffs:
+    XILFFS_read_only: ON
+    XILFFS_use_mkfs : OFF
+    XILFFS_word_access : OFF
+    XILFFS_enable_multi_partition : ON
+    XILFFS_num_logical_vol : 10
+  xilpdi: {}
+  xilplmi: {}
+  xilloader: {}
+  xilpm: {}
+  xilsecure: {}
+  xilpuf: {}
+...
