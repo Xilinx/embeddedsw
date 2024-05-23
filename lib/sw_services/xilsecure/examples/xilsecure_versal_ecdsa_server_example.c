@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 *       yog  07/28/23 Added support to handle endianness
 *       yog  08/07/23 Removed trng initialisation
 *       am   08/18/23 Updated Hash size to 48bytes for P521 curve
+* 5.4   mb   04/13/24 Added support for P-192 Curve
 *
 * </pre>
 *
@@ -52,6 +53,7 @@
 #define TEST_NIST_P384
 #define TEST_NIST_P521
 #define TEST_NIST_P256
+#define TEST_NIST_P192
 
 #define XSECURE_MINOR_ERROR_MASK 0xFFU
 #define XSECURE_ELLIPTIC_NON_SUPPORTED_CRV 0xC2U
@@ -65,6 +67,9 @@ static int XSecure_TestP521();
 #endif
 #ifdef TEST_NIST_P256
 static int XSecure_TestP256();
+#endif
+#ifdef TEST_NIST_P192
+static int XSecure_TestP192();
 #endif
 
  int main()
@@ -107,12 +112,35 @@ static int XSecure_TestP256();
 	}
 #endif
 
+#ifdef TEST_NIST_P192
+	xil_printf("Test P-192 curve started \r\n");
+	Status = XSecure_TestP192();
+	if (Status != XST_SUCCESS) {
+		if((Status & XSECURE_MINOR_ERROR_MASK) == XSECURE_ELLIPTIC_NON_SUPPORTED_CRV) {
+			xil_printf("Ecdsa example failed for P-192 with Status:%08x\r\n", Status);
+		}
+		else {
+			goto END;
+		}
+	}
+#endif
+
 	xil_printf("Successfully ran Ecdsa example \r\n");
 
 END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+*
+* This function test elliptic curve P-384
+*
+* @return
+*		- XST_SUCCESS On success
+*		- XST_FAILURE if the test for elliptic curve P-384 failed.
+*
+******************************************************************************/
 #ifdef TEST_NIST_P384
 int XSecure_TestP384()
 {
@@ -228,6 +256,16 @@ END:
 }
 #endif
 
+/*****************************************************************************/
+/**
+*
+* This function test elliptic curve P-521
+*
+* @return
+*		- XST_SUCCESS On success
+*		- XST_FAILURE if the test for elliptic curve P-521 failed.
+*
+******************************************************************************/
 #ifdef TEST_NIST_P521
 int XSecure_TestP521()
 {
@@ -360,6 +398,16 @@ END:
 }
 #endif
 
+/*****************************************************************************/
+/**
+*
+* This function test elliptic curve P-256
+*
+* @return
+*		- XST_SUCCESS On success
+*		- XST_FAILURE if the test for elliptic curve P-256 failed.
+*
+******************************************************************************/
 #ifdef TEST_NIST_P256
 int XSecure_TestP256()
 {
@@ -456,6 +504,113 @@ int XSecure_TestP256()
 	}
 	else {
 		xil_printf("Successfully tested P-256 curve \r\n");
+	}
+
+END:
+	return Status;
+}
+#endif
+
+/*****************************************************************************/
+/**
+*
+* This function test elliptic curve P-192
+*
+* @return
+*		- XST_SUCCESS On success
+*		- XST_FAILURE if the test for elliptic curve P-192 failed.
+*
+******************************************************************************/
+#ifdef TEST_NIST_P192
+int XSecure_TestP192()
+{
+	int Status = XST_FAILURE;
+	u8 Qx[XSECURE_ECC_P192_SIZE_IN_BYTES] = {0U};
+	u8 Qy[XSECURE_ECC_P192_SIZE_IN_BYTES] = {0U};
+	u8 R[XSECURE_ECC_P192_SIZE_IN_BYTES] = {0U};
+	u8 S[XSECURE_ECC_P192_SIZE_IN_BYTES] = {0U};
+	XSecure_EllipticKey Key = { Qx, Qy };
+	XSecure_EllipticSign GeneratedSign = { R, S };
+#if  (XSECURE_ELLIPTIC_ENDIANNESS == XSECURE_ELLIPTIC_LITTLE_ENDIAN)
+	const u8 Hash[] = {
+		0xDBU, 0x25U, 0x48U, 0x37U, 0x0AU, 0x4BU, 0x65U, 0xEEU,
+		0xBAU, 0x31U, 0xEBU, 0xEEU, 0x5CU, 0x61U, 0x5CU, 0x73U,
+		0x0BU, 0x6FU, 0x37U, 0x1BU,
+	};
+
+	const u8 D[] = {
+		0x5BU, 0x46U, 0xA7U, 0x23U, 0x99U, 0x50U, 0xD2U, 0x64U,
+		0xE5U, 0xCCU, 0x47U, 0x1FU, 0x4BU, 0xB4U, 0x36U, 0xF6U,
+		0x57U, 0x80U, 0xFDU, 0x32U, 0x60U, 0x68U, 0x91U, 0x78U,
+	};
+
+	const u8 K[] = {
+		0x47U, 0xD8U, 0x69U, 0x0AU, 0xF8U, 0xC0U, 0xA9U, 0xDEU,
+		0xEEU, 0x6DU, 0x6BU, 0xA0U, 0x8AU, 0xF0U, 0x44U, 0x07U,
+		0x8BU, 0x70U, 0x2FU, 0xEFU, 0xA0U, 0xB0U, 0x6CU, 0xD0U,
+	};
+#else
+	const u8 Hash[] = {
+		0x1BU, 0x37U, 0x6FU, 0x0BU, 0x73U, 0x5CU, 0x61U, 0x5CU,
+		0xEEU, 0xEBU, 0x31U, 0xBAU, 0xEEU, 0x65U, 0x4BU, 0x0AU,
+		0x37U, 0x48U, 0x25U, 0xDBU,
+	};
+
+	const u8 D[] = {
+		0x78U, 0x91U, 0x68U, 0x60U, 0x32U, 0xFDU, 0x80U, 0x57U,
+		0xF6U, 0x36U, 0xB4U, 0x4BU, 0x1FU, 0x47U, 0xCCU, 0xE5U,
+		0x64U, 0xD2U, 0x50U, 0x99U, 0x23U, 0xA7U, 0x46U, 0x5BU,
+	};
+
+	const u8 K[] = {
+		0xD0U, 0x6CU, 0xB0U, 0xA0U, 0xEFU, 0x2FU, 0x70U, 0x8BU,
+		0x07U, 0x44U, 0xF0U, 0x8AU, 0xA0U, 0x6BU, 0x6DU, 0xEEU,
+		0xDEU, 0xA9U, 0xC0U, 0xF8U, 0x0AU, 0x69U, 0xD8U, 0x47U,
+	};
+#endif
+	Status = XSecure_EllipticGenerateKey(XSECURE_ECC_NIST_P192, D, &Key);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Key generation failed for P-192 curve, Status = %x \r\n", Status);
+		goto END;
+	}
+
+	xil_printf("Hash :\r\n");
+	XSecure_ShowData(Hash, XSECURE_ECC_P192_SIZE_IN_BYTES);
+	xil_printf("Generated Key\r\n");
+	xil_printf("Qx :");
+	XSecure_ShowData(Key.Qx, XSECURE_ECC_P192_SIZE_IN_BYTES);
+	xil_printf("\r\n");
+	xil_printf("Qy :");
+	XSecure_ShowData(Key.Qy, XSECURE_ECC_P192_SIZE_IN_BYTES);
+	xil_printf("\r\n");
+
+	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P192, Hash,
+		XSECURE_ECC_P192_SIZE_IN_BYTES, D, K, &GeneratedSign);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Sign generation failed for P-192 curve, Status = %x \r\n", Status);
+		goto END;
+	}
+
+	xil_printf("Generated Sign\r\n");
+	xil_printf("R :");
+	XSecure_ShowData(GeneratedSign.SignR, XSECURE_ECC_P192_SIZE_IN_BYTES);
+	xil_printf("\r\n S :");
+	XSecure_ShowData(GeneratedSign.SignS, XSECURE_ECC_P192_SIZE_IN_BYTES);
+	xil_printf("\r\n");
+
+	Status = XSecure_EllipticValidateKey(XSECURE_ECC_NIST_P192, &Key);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Key validation failed for P-192 curve, Status =  %x \r\n", Status);
+		goto END;
+	}
+
+	Status = XSecure_EllipticVerifySign(XSECURE_ECC_NIST_P192, Hash,
+		XSECURE_ECC_P192_SIZE_IN_BYTES, &Key, &GeneratedSign);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Sign verification failed for P-192 curve, Status = %x \r\n", Status);
+	}
+	else {
+		xil_printf("Successfully tested P-192 curve \r\n");
 	}
 
 END:

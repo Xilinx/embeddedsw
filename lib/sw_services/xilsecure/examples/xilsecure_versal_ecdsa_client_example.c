@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -73,6 +73,7 @@
 *       yog  06/07/2023 Added support for P-256 Curve
 *       yog  07/28/2023 Added support to handle endianness
 *       am   08/18/2023 Updated Hash size to 48bytes for P521 curve
+* 5.4   mb   04/13/24 Added support for P-192 Curve
 *
 * </pre>
 *
@@ -98,10 +99,12 @@
 #define TEST_NIST_P384
 #define TEST_NIST_P521
 #define TEST_NIST_P256
+#define TEST_NIST_P192
 
 #define XSECURE_ECC_P384_SIZE_IN_BYTES	(48U)
 #define XSECURE_ECC_P521_SIZE_IN_BYTES	(66U)
 #define XSECURE_ECC_P256_SIZE_IN_BYTES	(32U)
+#define XSECURE_ECC_P192_SIZE_IN_BYTES	(24U)
 
 #define XSECURE_ECC_P521_WORD_ALIGN_BYTES (2U)
 
@@ -112,8 +115,12 @@
 						XSECURE_ECC_P521_WORD_ALIGN_BYTES)
 #define P256_KEY_SIZE				(XSECURE_ECC_P256_SIZE_IN_BYTES + \
 						XSECURE_ECC_P256_SIZE_IN_BYTES)
+#define P192_KEY_SIZE				(XSECURE_ECC_P192_SIZE_IN_BYTES + \
+						XSECURE_ECC_P192_SIZE_IN_BYTES)
+
 #define XSECURE_SHARED_TOTAL_MEM_SIZE	(XSECURE_SHARED_MEM_SIZE + \
 					P521_KEY_SIZE + P521_KEY_SIZE)
+
 #define XSECURE_MINOR_ERROR_MASK	0xFFU
 #define XSECURE_ELLIPTIC_NON_SUPPORTED_CRV 0xC2U
 /************************** Variable Definitions *****************************/
@@ -122,6 +129,26 @@ static u8 SharedMem[XSECURE_SHARED_TOTAL_MEM_SIZE] __attribute__((aligned(64U)))
 			__attribute__ ((section (".data.SharedMem")));
 
 #if (XSECURE_ECC_ENDIANNESS == XSECURE_LITTLE_ENDIAN)
+#ifdef TEST_NIST_P192
+static const u8 Hash_P192[] __attribute__ ((section (".data.Hash_P192"))) = {
+		0xDBU, 0x25U, 0x48U, 0x37U, 0x0AU, 0x4BU, 0x65U, 0xEEU,
+		0xBAU, 0x31U, 0xEBU, 0xEEU, 0x5CU, 0x61U, 0x5CU, 0x73U,
+		0x0BU, 0x6FU, 0x37U, 0x1BU,
+};
+
+static const u8 D_P192[] __attribute__ ((section (".data.D_P192"))) = {
+		0x5BU, 0x46U, 0xA7U, 0x23U, 0x99U, 0x50U, 0xD2U, 0x64U,
+		0xE5U, 0xCCU, 0x47U, 0x1FU, 0x4BU, 0xB4U, 0x36U, 0xF6U,
+		0x57U, 0x80U, 0xFDU, 0x32U, 0x60U, 0x68U, 0x91U, 0x78U,
+};
+
+static const u8 K_P192[] __attribute__ ((section (".data.K_P192"))) = {
+		0x47U, 0xD8U, 0x69U, 0x0AU, 0xF8U, 0xC0U, 0xA9U, 0xDEU,
+		0xEEU, 0x6DU, 0x6BU, 0xA0U, 0x8AU, 0xF0U, 0x44U, 0x07U,
+		0x8BU, 0x70U, 0x2FU, 0xEFU, 0xA0U, 0xB0U, 0x6CU, 0xD0U,
+};
+#endif
+
 #ifdef TEST_NIST_P384
 static const u8 Hash_P384[] __attribute__ ((section (".data.Hash_P384"))) = {
 	0x89U, 0x1EU, 0x78U, 0x0AU, 0x0EU, 0xF7U, 0x8AU, 0x2BU,
@@ -209,6 +236,25 @@ static const u8 K_P256[] __attribute__ ((section (".data.K_P256"))) = {
 };
 #endif
 #else
+#ifdef TEST_NIST_P192
+static const u8 Hash_P192[] __attribute__ ((section (".data.Hash_P384"))) = {
+		0x1BU, 0x37U, 0x6FU, 0x0BU, 0x73U, 0x5CU, 0x61U, 0x5CU,
+		0xEEU, 0xEBU, 0x31U, 0xBAU, 0xEEU, 0x65U, 0x4BU, 0x0AU,
+		0x37U, 0x48U, 0x25U, 0xDBU,
+};
+
+static const u8 D_P192[] __attribute__ ((section (".data.D_P192"))) = {
+		0x78U, 0x91U, 0x68U, 0x60U, 0x32U, 0xFDU, 0x80U, 0x57U,
+		0xF6U, 0x36U, 0xB4U, 0x4BU, 0x1FU, 0x47U, 0xCCU, 0xE5U,
+		0x64U, 0xD2U, 0x50U, 0x99U, 0x23U, 0xA7U, 0x46U, 0x5BU,
+};
+
+static const u8 K_P192[] __attribute__ ((section (".data.K_P384"))) = {
+		0xD0U, 0x6CU, 0xB0U, 0xA0U, 0xEFU, 0x2FU, 0x70U, 0x8BU,
+		0x07U, 0x44U, 0xF0U, 0x8AU, 0xA0U, 0x6BU, 0x6DU, 0xEEU,
+		0xDEU, 0xA9U, 0xC0U, 0xF8U, 0x0AU, 0x69U, 0xD8U, 0x47U,
+};
+#endif
 #ifdef TEST_NIST_P384
 static const u8 Hash_P384[] __attribute__ ((section (".data.Hash_P384"))) = {
 	0x5AU, 0xEAU, 0x18U, 0x7DU, 0x1CU, 0x4FU, 0x6EU, 0x1BU,
@@ -305,6 +351,9 @@ static int XSecure_TestP521(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R);
 #endif
 #ifdef TEST_NIST_P256
 static int XSecure_TestP256(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R);
+#endif
+#ifdef TEST_NIST_P192
+static int XSecure_TestP192(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R);
 #endif
 
 /*****************************************************************************/
@@ -406,6 +455,22 @@ int main()
 	}
 #endif
 
+#ifdef TEST_NIST_P192
+	xil_printf("Test P-192 curve started \r\n");
+	Q = &SharedMem[0U];
+	R = &Q[P192_KEY_SIZE];
+
+	Status = XSecure_TestP192(&SecureClientInstance, Q, R);
+	if (Status != XST_SUCCESS) {
+		if((Status & XSECURE_MINOR_ERROR_MASK) == XSECURE_ELLIPTIC_NON_SUPPORTED_CRV) {
+			xil_printf("Ecdsa example failed for P-192 with Status:%08x\r\n", Status);
+		}
+		else {
+			goto END;
+		}
+	}
+#endif
+
 END:
 	Status |= XMailbox_ReleaseSharedMem(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
@@ -421,7 +486,95 @@ END:
 /*****************************************************************************/
 /**
 *
-* This function test ecdsa curve P-384
+* This function test elliptic curve P-192
+*
+* @param	InstancePtr pointer to client instance
+* @param	Q pointer to public key
+* @param	R pointer to signature
+*
+* @return
+*		- XST_SUCCESS On success
+*		- XST_FAILURE if the test for elliptic curve P-192 failed.
+*
+******************************************************************************/
+#ifdef TEST_NIST_P192
+int XSecure_TestP192(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R)
+{
+	int Status = XST_FAILURE;
+
+	Xil_DCacheFlushRange((UINTPTR)Hash_P192, sizeof(Hash_P192));
+	Xil_DCacheFlushRange((UINTPTR)D_P192, sizeof(D_P192));
+	Xil_DCacheFlushRange((UINTPTR)K_P192, sizeof(K_P192));
+
+	Xil_DCacheInvalidateRange((UINTPTR)Q, XSECURE_ECC_P192_SIZE_IN_BYTES +
+				XSECURE_ECC_P192_SIZE_IN_BYTES);
+
+	Status = XSecure_EllipticGenerateKey(InstancePtr, XSECURE_ECC_NIST_P192, (UINTPTR)&D_P192,
+							(UINTPTR)Q);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Key generation failed for P-192 curve, Status = %x \r\n", Status);
+		goto END;
+	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)Q, XSECURE_ECC_P192_SIZE_IN_BYTES +
+			XSECURE_ECC_P192_SIZE_IN_BYTES);
+
+	xil_printf("Hash : \r\n");
+	XSecure_ShowData(Hash_P192, sizeof(Hash_P192));
+	xil_printf("Generated Key\r\n");
+	xil_printf("Qx :");
+	XSecure_ShowData(Q, XSECURE_ECC_P192_SIZE_IN_BYTES);
+	xil_printf("\r\n");
+	xil_printf("Qy :");
+	XSecure_ShowData(Q + XSECURE_ECC_P192_SIZE_IN_BYTES,
+				XSECURE_ECC_P192_SIZE_IN_BYTES);
+	xil_printf("\r\n");
+
+	Xil_DCacheInvalidateRange((UINTPTR)R, XSECURE_ECC_P192_SIZE_IN_BYTES +
+				XSECURE_ECC_P192_SIZE_IN_BYTES);
+
+	Status = XSecure_EllipticGenerateSign(InstancePtr, XSECURE_ECC_NIST_P192, (UINTPTR)&Hash_P192,
+		sizeof(Hash_P192), (UINTPTR)&D_P192, (UINTPTR)&K_P192, (UINTPTR)R);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Sign generation failed for P-192 curve, Status = %x \r\n", Status);
+		goto END;
+	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)R, XSECURE_ECC_P192_SIZE_IN_BYTES +
+				XSECURE_ECC_P192_SIZE_IN_BYTES);
+
+	xil_printf("Generated Sign\r\n");
+	xil_printf("R :");
+	XSecure_ShowData(R, XSECURE_ECC_P192_SIZE_IN_BYTES);
+	xil_printf("\r\n S :");
+	XSecure_ShowData(R + XSECURE_ECC_P192_SIZE_IN_BYTES,
+					XSECURE_ECC_P192_SIZE_IN_BYTES);
+	xil_printf("\r\n");
+
+	Status = XSecure_EllipticValidateKey(InstancePtr, XSECURE_ECC_NIST_P192, (UINTPTR)Q);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Key validation failed for P-192 curve, Status = %x \r\n", Status);
+		goto END;
+	}
+
+	Status = XSecure_EllipticVerifySign(InstancePtr, XSECURE_ECC_NIST_P192, (UINTPTR)&Hash_P192,
+		sizeof(Hash_P192), (UINTPTR)Q, (UINTPTR)R);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Sign verification failed for P-192 curve, Status = %x \r\n", Status);
+	}
+	else {
+		xil_printf("Successfully tested P-192 curve \r\n");
+	}
+
+END:
+	return Status;
+}
+#endif
+
+/*****************************************************************************/
+/**
+*
+* This function test elliptic curve P-384
 *
 * @param	InstancePtr pointer to client instance
 * @param	Q pointer to public key
@@ -509,7 +662,7 @@ END:
 /*****************************************************************************/
 /**
 *
-* This function test ecdsa curve P-521
+* This function test elliptic curve P-521
 *
 * @param	InstancePtr pointer to client instance
 * @param	Q pointer to public key
@@ -601,7 +754,7 @@ END:
 /*****************************************************************************/
 /**
 *
-* This function test ecdsa curve P-256
+* This function test elliptic curve P-256
 *
 * @param	InstancePtr pointer to client instance
 * @param	Q pointer to public key
