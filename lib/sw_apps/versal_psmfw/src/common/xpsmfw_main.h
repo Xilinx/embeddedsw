@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,7 +35,7 @@ extern "C" {
 /**************************Include Files**************************/
 
 /* PSM Firmware version: SDK_RELEASE.QUARTER_RELEASE */
-#define versal_PSMFW_VERSION "2024.1"
+#define versal_PSMFW_VERSION "2024.2"
 
 #ifdef __cplusplus
 }
