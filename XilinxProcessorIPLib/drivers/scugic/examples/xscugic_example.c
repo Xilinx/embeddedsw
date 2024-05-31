@@ -55,9 +55,7 @@
 #ifdef SDT
 #include "xinterrupt_wrap.h"
 #endif
-#if defined (VERSAL_NET)
 #include "xplatform_info.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 
