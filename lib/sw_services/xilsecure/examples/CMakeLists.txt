@@ -27,7 +27,7 @@ if("${CMAKE_MACHINE}" STREQUAL "Versal")
     endif()
 elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
     SET(COMMON_EXAMPLES xilsecure_versal_aes_client_example.c;xilsecure_versal_ecdsa_client_example.c;xilsecure_versal_rsa_client_example.c;xilsecure_versal_sha_client_example.c;
-    xilsecure_versal_net_ecdh_client_example.c;xilsecure_versal_net_keyunwrap_client_example.c;xilsecure_versal_net_trng_client_example.c;)
+    xilsecure_versal_net_ecdh_client_example.c;xilsecure_versal_net_keyunwrap_client_example.c;xilsecure_versal_net_trng_client_example.c;xilsecure_versal_net_rsa_client_example.c;)
 elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
     SET(COMMON_EXAMPLES xilsecure_aes_example.c;xilsecure_rsa_example.c;xilsecure_rsa_generic_example.c;xilsecure_sha_example.c;xilsecure_simple_aes_example.c;)
 endif()

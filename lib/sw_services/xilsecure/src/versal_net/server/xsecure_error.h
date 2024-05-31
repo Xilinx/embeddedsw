@@ -215,8 +215,9 @@ typedef enum {
 	XSECURE_AES_KAT_BUSY,			/**< 0xF3 - AES busy with earlier operation,
 						Kat can't be executed */
 	XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED, /**< 0xF4 - Crypto Accelerators are disabled */
-	XSECURE_ERR_KAT_NOT_EXECUTED		    /**< 0xF5 - Error when KAT is not executed when
+	XSECURE_ERR_KAT_NOT_EXECUTED,		    /**< 0xF5 - Error when KAT is not executed when
 							crypto kat efuse bit is enabled */
+	XSECURE_RSA_GEN_SIGN_FAILED_ERROR      /**< 0xF6 - Error when RSA sign generation is failed */
 } XSecure_ErrorCodes;
 
 /************************** Function Prototypes ******************************/

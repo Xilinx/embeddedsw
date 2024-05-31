@@ -31,6 +31,7 @@
 *       mb   04/15/24 Updated SHA2 minor version
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
 *       kpt  05/14/24 Fix backward compatabilty issue
+*       kpt  05/26/2024 Add support for RSA CRT and RRN operation
 *
 * </pre>
 * @note
@@ -106,7 +107,9 @@ typedef enum {
 	XSECURE_API_KEY_UNWRAP,                 	/**< 35U */
 	XSECURE_API_RESERVED, /**< 36U */
 	XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,/**< 37U */
-	XSECURE_API_MAX,				/**< 38U */
+	XSECURE_API_RSA_SCA_RESISTANCE_PRIVATE_CRT_DECRYPT, /**< 38U */
+	XSECURE_API_RSA_SCA_RESISTANCE_PRIVATE_RRN_DECRYPT, /**< 39U */
+	XSECURE_API_MAX,				/**< 40U */
 } XSecure_ApiId;
 
 /**< XilSecure KAT ids */
@@ -303,19 +306,32 @@ typedef struct {
 	u64 ExponentAddr;	/**< Exponent address */
 } XSecure_RsaPubKeyAddr;
 
+typedef enum {
+	XSECURE_RSA_EXPQ_MODE = 0, /**< RSA EXPQ mode */
+	XSECURE_RSA_CRT_MODE,      /**< RSA CRT mode */
+	XSECURE_RSA_EXPOPT_MODE    /**< RSA expopt mode */
+} XSecure_RsaOperationMode;
+
 typedef struct {
-	u64 ExpAddr;	     /**< Exponent address */
-	u64 ModAddr;	     /**< Modulus address */
-	u64 PAddr;           /**< First factor address */
-	u64 QAddr;           /**< Second factor address */
-	u64 TotAddr;         /**< Totient address */
-	u32 PSize;	     	/**< Size of first factor(P) in bytes */
-	u32 QSize;	     	/**< Size of first factor(Q) in bytes */
-	u32 PubExp;         /**< Public exponent */
-	u32 IsTotAvail;  	/**< Totient Available */
-	u32 IsPubExpAvail; 	/**< Public exponent available */
-	u32 IsPrimeAvail; 	/**< Prime number available */
-} XSecure_RsaExpKeyParam;
+	u64 ExpAddr;		/**< Exponent address */
+	u64 ModAddr;		/**< Modulus address */
+	u64 PAddr;			/**< First factor address */
+	u64 QAddr;			/**< Second factor address */
+	u64 DPAddr;			/**< Private exponent 1 */
+	u64 DQAddr;			/**< Private exponent 2 */
+	u64 QInvAddr;		/**< Q inverse address */
+	u64 TotAddr;		/**< Totient address */
+	u64 RNAddr;			/**< R address */
+	u64 RRNAddr;		/**< RR address */
+	u32 PSize;			/**< Size of first factor(P) in bytes */
+	u32 QSize;			/**< Size of first factor(Q) in bytes */
+	u32 PubExp;			/**< Public exponent */
+	u32 IsPrimeAvail;	/**< Prime number available */
+	u32 IsPrivExpAvail; /**< Private exponent available i.e. DP and DQ */
+	u32 IsTotAvail;		/**< Totient Available */
+	u32 IsPubExpAvail;	/**< Public exponent available */
+	XSecure_RsaOperationMode OpMode; /**< RSA operation mode */
+} XSecure_RsaKeyParam;
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_HMAC_MAJOR_VERSION	5 /**< Major version of HMAC */
