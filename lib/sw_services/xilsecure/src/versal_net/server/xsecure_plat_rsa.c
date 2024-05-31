@@ -25,6 +25,7 @@
 *       ng      03/26/24 Fixed header include in SDT flow
 *       kpt     03/22/24 Fix MISRA C violation of Rule 10.3
 * 5.4   yog     04/29/24 Fixed doxygen warnings.
+*       kpt     05/26/24 Added RSA Expopt API.
 *
 * </pre>
 *
@@ -502,9 +503,8 @@ XSecure_RsaPubKey* XSecure_GetRsaPublicKey(void)
  *		- Error code on failure.
  *
  ******************************************************************************/
-int XSecure_RsaExpCRT(unsigned char *Hash, unsigned char *P, unsigned char *Q,
-	unsigned char *Dp, unsigned char *Dq, unsigned char *Qinv, unsigned char *Pub,
-	unsigned char *Mod, int Len, unsigned char *Res)
+int XSecure_RsaExpCRT(u8 *Hash, u8 *P, u8 *Q, u8 *Dp, u8 *Dq, u8 *Qinv, u8 *Pub,
+	u8 *Mod, int Len, u8 *Res)
 {
 	volatile int Status = XST_FAILURE;
 
@@ -545,9 +545,8 @@ END:
  *		- Error code on failure.
  *
  ******************************************************************************/
-int XSecure_RsaExp(unsigned char *Hash, unsigned char *Exp, unsigned char *Mod,
-	unsigned char *P, unsigned char *Q, unsigned char *Pub, unsigned char *Tot,
-	int Len, unsigned char *Res)
+int XSecure_RsaExp(u8 *Hash, u8 *Exp, u8 *Mod, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
+	int Len, u8 *Res)
 {
 	volatile int Status = XST_FAILURE;
 
@@ -560,6 +559,50 @@ int XSecure_RsaExp(unsigned char *Hash, unsigned char *Exp, unsigned char *Mod,
 	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 0U);
 
 	Status = RSA_ExpQ(Hash, Exp, Mod, P, Q, Pub, Tot, Len, Res);
+
+	/** Reset the RSA engine */
+	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 1U);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function perofrms the RSA exponentiation using pre-calculated modulus.
+ *
+ * @param	Hash - is Hash of the exponentiation.
+ * @param	Exp  - is exponent, a positive integer.
+ * @param	Mod  - is public modulus (p*q), if NULL, calculated internally.
+ * @param	RN   - is pre-calculated modulus RmodN
+ * @param	RRN  - is pre-calculated modulus RRmodN
+ * @param	P    - is first factor, a positive integer.
+ * @param	Q    - is second factor, a positive integer.
+ * @param	Pub  - is public exponent to protect against the fault insertions.
+ * @param	Tot  - is totient, a secret value equal to (p-1)*(q-1).
+ * @param	Len  - is length of the full-length integer in bits.
+ * @param	Res  - is result of exponentiation r = (h^e) mod n.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+ ******************************************************************************/
+int XSecure_RsaExpopt(u8 *Hash, u8 *Exp, u8 *Mod, u8 *RN, u8 *RRN, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
+	int Len, u8 *Res)
+{
+	volatile int Status = XST_FAILURE;
+
+	if ((Hash == NULL) || (Exp == NULL) || (Mod == NULL) || (Res == NULL) || (RN == NULL)
+		|| (RRN == NULL)) {
+		Status = (int)XSECURE_RSA_EXPONENT_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Release the RSA engine from reset */
+	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 0U);
+
+	Status = RSA_ExpoptQ(Hash, Exp, Mod, RN, RRN, P, Q, Pub, Tot, Len, Res);
 
 	/** Reset the RSA engine */
 	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 1U);

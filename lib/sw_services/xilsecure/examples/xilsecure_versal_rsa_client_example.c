@@ -514,7 +514,7 @@ static u32 Size = XSECURE_RSA_SIZE;
 static u8 SharedMem[XSECURE_SHARED_BUF_SIZE] __attribute__((aligned(64U)))
 										__attribute__ ((section (".data.SharedMem")));
 #ifdef VERSAL_NET
-XSecure_RsaExpKeyParam RsaKeyParam __attribute__((aligned(64U))) __attribute__ ((section (".data.RsaKeyParam")));
+XSecure_RsaKeyParam RsaKeyParam __attribute__((aligned(64U))) __attribute__ ((section (".data.RsaKeyParam")));
 u8 Mod[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Mod")));
 u8 Exp[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Exp")));
 u8 Prime1[XSECURE_PRIME_FACTOR_P_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Prime1")));
@@ -614,6 +614,7 @@ static u32 SecureRsaExample(void)
 	RsaKeyParam.IsPubExpAvail = TRUE;
 	RsaKeyParam.TotAddr = (u64)(UINTPTR)&Totient;
 	RsaKeyParam.IsTotAvail = FALSE;
+	RsaKeyParam.OpMode = XSECURE_RSA_EXPQ_MODE;
 
 	KeyAddr = (u64)(UINTPTR)&RsaKeyParam;
 	InputMsg = (u8*)(UINTPTR)&InputData;

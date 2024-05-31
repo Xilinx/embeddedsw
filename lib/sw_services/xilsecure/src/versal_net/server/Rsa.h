@@ -31,6 +31,10 @@ externC int RSA_ExpCrtQ(unsigned char* base, unsigned char* p, unsigned char* q,
 	unsigned char* dp, unsigned char* dq, unsigned char* qinv, unsigned char* pub,
 	unsigned char* mod, int len, unsigned char* res);
 
+externC int RSA_ExpoptQ(unsigned char* base, unsigned char* exp, unsigned char* mod,
+	unsigned char* r, unsigned char* rr, unsigned char* p, unsigned char* q,
+	unsigned char* pub, unsigned char *tot, int len, unsigned char* res);
+
 /** @} */
 
 #endif  /* RSA_H_ */

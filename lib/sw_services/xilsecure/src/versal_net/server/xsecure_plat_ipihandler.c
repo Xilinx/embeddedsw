@@ -26,6 +26,7 @@
 *      vss   04/25/2024 Use XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK
 *      			instead of XPLMI_SECURE_RSA_KAT_MASK
 * 5.4  yog   04/29/2024 Fixed doxygen grouping and doxygen warnings.
+*      kpt   05/26/2024 Add support for RSA CRT and RRN operation
 *
 * </pre>
 *
@@ -43,6 +44,7 @@
 #include "xsecure_keyunwrap.h"
 #include "xsecure_plat_rsa.h"
 #include "xsecure_error.h"
+#include "Rsa.h"
 
 /************************** Constant Definitions *****************************/
 #ifndef PLM_RSA_EXCLUDE
@@ -55,7 +57,7 @@ static int XSecure_UpdateCryptoMask(XSecure_CryptoStatusOp CryptoOp, u32 CryptoM
 #ifndef PLM_RSA_EXCLUDE
 static int XSecure_GetRsaPublicKeyIpi(u32 PubKeyAddrLow, u32 PubKeyAddrHigh);
 static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh);
-static int XSecure_RsaExpQOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
+static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
 #endif
 
@@ -97,7 +99,7 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 		Status = XSecure_KeyUnwrapIpi(Pload[0U], Pload[1U]);
 		break;
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
-		Status = XSecure_RsaExpQOperationIpi(Pload[0U], Pload[1U], Pload[2U], Pload[3U]);
+		Status = XSecure_RsaPrivateOperationIpi(Pload[0U], Pload[1U], Pload[2U], Pload[3U]);
 		break;
 #endif
 	default:
@@ -166,7 +168,7 @@ END:
  static int XSecure_GetRsaPublicKeyIpi(u32 PubKeyAddrLow, u32 PubKeyAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
-	u64 PubKeyAddr = ((u64)PubKeyAddrHigh << 32U) | (u64)PubKeyAddrLow;
+	u64 PubKeyAddr = ((u64)PubKeyAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)PubKeyAddrLow;
 	const XSecure_RsaPubKey *RsaPubKey =  XSecure_GetRsaPublicKey();
 	XSecure_RsaPubKeyAddr RsaPubKeyAddr = {0U};
 	u32 PubExp = 0U;
@@ -209,7 +211,7 @@ static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(0U);
-	u64 KeyWrapAddr = ((u64)KeyWrapAddrHigh << 32U) | (u64)KeyWrapAddrLow;
+	u64 KeyWrapAddr = ((u64)KeyWrapAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)KeyWrapAddrLow;
 	XSecure_KeyWrapData KeyWrapData = {0U};
 
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&KeyWrapData, KeyWrapAddr, sizeof(XSecure_KeyWrapData));
@@ -241,16 +243,16 @@ END:
  *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_RsaExpQOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
+static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
-	u64 RsaParamAddr = ((u64)RsaParamAddrHigh << 32U) | (u64)RsaParamAddrLow;
-	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
+	u64 RsaParamAddr = ((u64)RsaParamAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)RsaParamAddrLow;
+	u64 DstAddr = ((u64)DstAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)DstAddrLow;
 	XSecure_RsaInParam RsaParams;
-	XSecure_RsaExpKeyParam RsaKeyParam;
-	XSecure_RsaExpOperationParam *RsaOperationParamPtr = (XSecure_RsaExpOperationParam *)(UINTPTR)XSECURE_RSA_KEY_ADDRESS;
-	u8 *OutDataPtr = (u8 *)(UINTPTR)(XSECURE_RSA_KEY_ADDRESS + sizeof(XSecure_RsaExpOperationParam));
+	XSecure_RsaKeyParam RsaKeyParam;
+	XSecure_RsaOperationParam *RsaOperationParamPtr = (XSecure_RsaOperationParam*)(UINTPTR)XSECURE_RSA_KEY_ADDRESS;
+	u8 *OutDataPtr = (u8 *)(UINTPTR)(XSECURE_RSA_KEY_ADDRESS + sizeof(XSecure_RsaOperationParam));
 	u8 *PubExponentPtr = NULL;
 	u8 *P = NULL;
 	u8 *Q = NULL;
@@ -267,15 +269,22 @@ static int XSecure_RsaExpQOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh
 		goto END;
 	}
 
-	Status = Xil_SMemSet(RsaOperationParamPtr, sizeof(XSecure_RsaExpOperationParam), 0U, sizeof(XSecure_RsaExpOperationParam));
+	Status = Xil_SMemSet(RsaOperationParamPtr, sizeof(XSecure_RsaOperationParam), 0U, sizeof(XSecure_RsaOperationParam));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XPlmi_MemCpy64((UINTPTR)&RsaKeyParam, RsaParams.KeyAddr, sizeof(XSecure_RsaExpKeyParam));
+	Status = XPlmi_MemCpy64((UINTPTR)&RsaKeyParam, RsaParams.KeyAddr, sizeof(XSecure_RsaKeyParam));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	if ((RsaKeyParam.OpMode != XSECURE_RSA_CRT_MODE) &&
+		(RsaKeyParam.OpMode != XSECURE_RSA_EXPOPT_MODE) &&
+		(RsaKeyParam.OpMode != XSECURE_RSA_EXPQ_MODE)) {
+			Status = (int)XST_INVALID_PARAM;
+			goto END;
+		}
 
 	Status = XPlmi_MemCpy64((UINTPTR)RsaOperationParamPtr->InData, RsaParams.DataAddr,
 		RsaParams.Size);
@@ -288,12 +297,50 @@ static int XSecure_RsaExpQOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh
 		goto END;
 	}
 
-	Status = XPlmi_MemCpy64((UINTPTR)RsaOperationParamPtr->Exp, RsaKeyParam.ExpAddr, RsaParams.Size);
-	if (Status != XST_SUCCESS) {
-		goto END;
+	if (RsaKeyParam.OpMode == XSECURE_RSA_CRT_MODE) {
+		Status = XPlmi_MemCpy64((UINTPTR)RsaOperationParamPtr->DP, RsaKeyParam.DPAddr, RsaKeyParam.PSize);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status = XPlmi_MemCpy64((UINTPTR)RsaOperationParamPtr->DQ, RsaKeyParam.DQAddr, RsaKeyParam.QSize);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status = XPlmi_MemCpy64((UINTPTR)RsaOperationParamPtr->QInv, RsaKeyParam.QInvAddr, RsaKeyParam.QSize);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	else {
+		Status = XPlmi_MemCpy64((UINTPTR)RsaOperationParamPtr->Exp, RsaKeyParam.ExpAddr, RsaParams.Size);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		if (RsaKeyParam.OpMode == XSECURE_RSA_EXPOPT_MODE) {
+			Status = XPlmi_MemCpy64((UINTPTR)RsaOperationParamPtr->RN, RsaKeyParam.RNAddr, RsaParams.Size);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+
+			Status = XPlmi_MemCpy64((UINTPTR)RsaOperationParamPtr->RRN, RsaKeyParam.RRNAddr, RsaParams.Size);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+
+		if (RsaKeyParam.IsTotAvail == TRUE) {
+			Status = XPlmi_MemCpy64((UINTPTR)RsaOperationParamPtr->Tot, RsaKeyParam.TotAddr, RsaParams.Size);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			Tot = RsaOperationParamPtr->Tot;
+		}
 	}
 
-	if (RsaKeyParam.IsPrimeAvail == TRUE) {
+	if ((RsaKeyParam.IsPrimeAvail == TRUE) || (RsaKeyParam.OpMode == XSECURE_RSA_CRT_MODE)) {
 		Status = XPlmi_MemCpy64((UINTPTR)RsaOperationParamPtr->P, RsaKeyParam.PAddr, RsaKeyParam.PSize);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -308,14 +355,6 @@ static int XSecure_RsaExpQOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh
 		Q = RsaOperationParamPtr->Q;
 	}
 
-	if (RsaKeyParam.IsTotAvail == TRUE) {
-		Status = XPlmi_MemCpy64((UINTPTR)RsaOperationParamPtr->Tot, RsaKeyParam.TotAddr, RsaParams.Size);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		Tot = RsaOperationParamPtr->Tot;
-	}
-
 	if (RsaKeyParam.IsPubExpAvail == TRUE) {
 		Status = Xil_SMemSet(&PubModulus, XSECURE_RSA_4096_KEY_SIZE, 0U, XSECURE_RSA_4096_KEY_SIZE);
 		if (Status != XST_SUCCESS) {
@@ -325,10 +364,24 @@ static int XSecure_RsaExpQOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh
 		PubExponentPtr = (u8*)(UINTPTR)PubModulus;
 	}
 
-	Status = XSecure_RsaExp((unsigned char *)(UINTPTR)RsaOperationParamPtr->InData,
-		RsaOperationParamPtr->Exp, RsaOperationParamPtr->Mod, P, Q, PubExponentPtr,
-		Tot, (int)(RsaParams.Size * 8U), OutDataPtr);
+	if (RsaKeyParam.OpMode == XSECURE_RSA_EXPQ_MODE) {
+		Status = XSecure_RsaExp((unsigned char *)(UINTPTR)RsaOperationParamPtr->InData,
+			RsaOperationParamPtr->Exp, RsaOperationParamPtr->Mod, P, Q, PubExponentPtr,
+			Tot, (int)(RsaParams.Size * 8U), OutDataPtr);
+	}
+	else if (RsaKeyParam.OpMode == XSECURE_RSA_CRT_MODE) {
+		Status = XSecure_RsaExpCRT((unsigned char *)(UINTPTR)RsaOperationParamPtr->InData,
+			RsaOperationParamPtr->P, RsaOperationParamPtr->Q, RsaOperationParamPtr->DP,
+			RsaOperationParamPtr->DQ, RsaOperationParamPtr->QInv, PubExponentPtr,
+			RsaOperationParamPtr->Mod, (int)(RsaParams.Size * 8U), OutDataPtr);
+	}
+	else {
+		Status = XSecure_RsaExpopt((unsigned char *)(UINTPTR)RsaOperationParamPtr->InData,
+			RsaOperationParamPtr->Exp, RsaOperationParamPtr->Mod, RsaOperationParamPtr->RN, RsaOperationParamPtr->RRN, P, Q, PubExponentPtr,
+			Tot, (int)(RsaParams.Size * 8U), OutDataPtr);
+	}
 	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_GEN_SIGN_FAILED_ERROR;
 		goto END;
 	}
 

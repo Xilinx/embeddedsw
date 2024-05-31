@@ -21,8 +21,9 @@
 *       kpt  12/13/23 Added RSA CRT support for keyunwrap
 * 5.3   ng   01/28/24 Added SDT support
 *       ng   03/26/24 Fixed header include in SDT flow
-*	ss   04/05/24 Fixed doxygen warnings
+*       ss   04/05/24 Fixed doxygen warnings
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
+*       kpt  05/26/24 Added support RSA CRT and Expopt operation.
 *
 * </pre>
 *
@@ -101,11 +102,16 @@ typedef struct {
 	u8 InData[XSECURE_RSA_SIZE_IN_BYTES];  /**< Input data */
 	u8 Exp[XSECURE_RSA_SIZE_IN_BYTES];     /**< Exponent */
 	u8 Mod[XSECURE_RSA_SIZE_IN_BYTES];     /**< Modulus */
-	u8 Tot[XSECURE_RSA_SIZE_IN_BYTES];     /**< Totient */
 	u8 P[XSECURE_PRIME_FACTOR_P_SIZE];     /**< Prime1 */
 	u8 Q[XSECURE_PRIME_FACTOR_Q_SIZE];     /**< Prime2 */
+	u8 DP[XSECURE_PRIME_FACTOR_P_SIZE];     /**< Prime1 */
+	u8 DQ[XSECURE_PRIME_FACTOR_Q_SIZE];     /**< Prime2 */
+	u8 QInv[XSECURE_PRIME_FACTOR_P_SIZE];   /**< Q inverse */
+	u8 Tot[XSECURE_RSA_SIZE_IN_BYTES];     /**< Totient */
+	u8 RN[XSECURE_RSA_SIZE_IN_BYTES];     /**< Precalculated modulus */
+	u8 RRN[XSECURE_RSA_SIZE_IN_BYTES];     /**< Precalculated modulus */
 	u32 PubExp;                            /**< Public Exponent */
-} XSecure_RsaExpOperationParam;
+} XSecure_RsaOperationParam;
 
 /***************************** Function Prototypes ***************************/
 
@@ -113,14 +119,12 @@ int XSecure_RsaOaepEncrypt(XSecure_Rsa *InstancePtr, XSecure_RsaOaepParam *OaepP
 int XSecure_RsaOaepDecrypt(XSecure_RsaKey *PrivKey, XSecure_RsaOaepParam *OaepParam);
 XSecure_RsaKey *XSecure_GetRsaPrivateKey(void);
 XSecure_RsaPubKey *XSecure_GetRsaPublicKey(void);
-
-int XSecure_RsaExpCRT(unsigned char *Hash, unsigned char *P, unsigned char *Q,
-	unsigned char *Dp, unsigned char *Dq, unsigned char *Qinv, unsigned char *Pub,
-	unsigned char *Mod, int Len, unsigned char *Res);
-
-int XSecure_RsaExp(unsigned char *Hash, unsigned char *Exp, unsigned char *Mod,
-	unsigned char *P, unsigned char *Q, unsigned char *Pub, unsigned char *Tot,
-	int Len, unsigned char *Res);
+int XSecure_RsaExpCRT(u8 *Hash, u8 *P, u8 *Q, u8 *Dp, u8 *Dq, u8 *Qinv, u8 *Pub,
+	u8 *Mod, int Len, u8 *Res);
+int XSecure_RsaExp(u8 *Hash, u8 *Exp, u8 *Mod, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
+	int Len, u8 *Res);
+int XSecure_RsaExpopt(u8 *Hash, u8 *Exp, u8 *Mod, u8 *RN, u8 *RRN, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
+	int Len, u8 *Res);
 
 #endif	/* PLM_RSA_EXCLUDE_H_ */
 
