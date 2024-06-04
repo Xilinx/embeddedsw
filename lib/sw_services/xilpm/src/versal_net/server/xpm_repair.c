@@ -10,6 +10,9 @@
 #define NUM_OF_BISR_CACHE_DATA_REGIONS          5U
 #define BISR_CACHE_SUB_SIZE                     16U
 
+/*HNICX Repair*/
+#define HNICX_LCS_INDIRECT_NPI_BISR_CACHE_DATA0 (0x0009C074U)
+
 XStatus XPmRepair_Lpx(u32 EfuseTagAddr, u32 TagSize,
 			u32 TagOptional, u32 *TagDataAddr)
 {
@@ -281,18 +284,19 @@ static XStatus XPmRepair_WriteIndirectNpi(u32 addr, u32 val)
 	return XPm_PollForMask(HNICX_NPI_0_NPI_CSR_WR_STATUS, HNICX_NPI_0_NPI_CSR_WR_STATUS_BVALID_MASK, XPM_POLL_TIMEOUT);
 }
 
-static XStatus XPmRepair_CopyIndirectNpi(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestAddr, u32 *TagDataAddr)
+static u32 XPmRepair_CopyIndirectNpi(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestAddr)
 {
 	u32 TagData;
 	XStatus Status = XST_FAILURE;
 	u32 EfuseCacheBaseAddr;
 	u32 EfuseTagBitS1Addr;
 	u32 EfuseTagBitS2Addr;
+	u32 TagDataAddr;
 
 	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	if (NULL == EfuseCache) {
 		/* Return max possible address so error can be identified by caller */
-		*TagDataAddr = ~0U;
+		TagDataAddr = ~0U;
 		goto done;
 	}
 
@@ -301,26 +305,58 @@ static XStatus XPmRepair_CopyIndirectNpi(u32 EfuseTagAddr, u32 TagSize, u64 Bisr
 	EfuseTagBitS2Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET);
 
 	/*EFUSE tag data start pos */
-	*TagDataAddr = (u32)(EfuseTagAddr + 4U);
+	TagDataAddr = (u32)(EfuseTagAddr + 4U);
 
 	/* Collect repair data from EFUSE and write to NPI indirect address */
 	for (u32 TagRow = 0; TagRow<TagSize; TagRow++)
 	{
-		if ((*TagDataAddr == EfuseTagBitS1Addr) || (*TagDataAddr == EfuseTagBitS2Addr))
+		if ((TagDataAddr == EfuseTagBitS1Addr) || (TagDataAddr == EfuseTagBitS2Addr))
 		{
-			*TagDataAddr += 4U;
+			TagDataAddr += 4U;
 		}
-		TagData = XPm_In32(*TagDataAddr);
+		TagData = XPm_In32(TagDataAddr);
 		u64 TmpAddr = BisrDataDestAddr + ((u64)TagRow<<2);
 		Status = XPmRepair_WriteIndirectNpi((u32)TmpAddr, TagData);
 		if (XST_SUCCESS != Status) {
 			break;
 		}
-		*TagDataAddr += 4U;
+		TagDataAddr += 4U;
 	}
 
 done:
-	return Status;
+	return TagDataAddr;
+}
+
+XStatus XPmRepair_Hnicx_Lcs(u32 EfuseTagAddr, u32 TagSize,
+            u32 TagOptional, u32 *TagDataAddr)
+{
+    XStatus Status = XST_FAILURE;
+    u32 RegValue;
+    u64 BisrDataDestAddr = HNICX_LCS_INDIRECT_NPI_BISR_CACHE_DATA0;
+
+    /* Unused argument */
+    (void)TagOptional;
+
+    /* Copy repair data */
+    *TagDataAddr = XPmRepair_CopyIndirectNpi(EfuseTagAddr, TagSize, BisrDataDestAddr);
+
+    /* Trigger BISR */
+    XPm_RMW32(HNICX_NPI_0_BISR_CACHE_CNTRL, HNICX_NPI_0_BISR_CACHE_CNTRL_BISR_TRIGGER_LCS_MASK, HNICX_NPI_0_BISR_CACHE_CNTRL_BISR_TRIGGER_LCS_MASK);
+
+    /* Wait for BISR to finish */
+    Status = XPm_PollForMask(HNICX_NPI_0_BISR_CACHE_STATUS, HNICX_NPI_0_BISR_CACHE_STATUS_BISR_DONE_LCS_MASK, XPM_POLL_TIMEOUT);
+    if (XST_SUCCESS != Status) {
+        goto done;
+    }
+
+    /* Check for BISR pass */
+    RegValue = XPm_In32(HNICX_NPI_0_BISR_CACHE_STATUS);
+    if ((RegValue & (u32)HNICX_NPI_0_BISR_CACHE_STATUS_BISR_PASS_LCS_MASK) != (u32)HNICX_NPI_0_BISR_CACHE_STATUS_BISR_PASS_LCS_MASK) {
+        Status = XST_FAILURE;
+    }
+
+done:
+    return Status;
 }
 
 XStatus XPmRepair_Hnicx_Dpu(u32 EfuseTagAddr, u32 TagSize,
@@ -334,10 +370,7 @@ XStatus XPmRepair_Hnicx_Dpu(u32 EfuseTagAddr, u32 TagSize,
 	(void)TagOptional;
 
 	/* Copy repair data */
-	Status = XPmRepair_CopyIndirectNpi(EfuseTagAddr, TagSize, BisrDataDestAddr, TagDataAddr);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	*TagDataAddr = XPmRepair_CopyIndirectNpi(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
 	/* Trigger BISR */
 	XPm_RMW32(HNICX_NPI_0_BISR_CACHE_CNTRL, HNICX_NPI_0_BISR_CACHE_CNTRL_BISR_TRIGGER_DPU_MASK, HNICX_NPI_0_BISR_CACHE_CNTRL_BISR_TRIGGER_DPU_MASK);
