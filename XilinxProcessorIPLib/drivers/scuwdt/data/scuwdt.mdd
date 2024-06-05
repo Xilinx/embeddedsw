@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -11,7 +11,7 @@ BEGIN driver scuwdt
   OPTION supported_peripherals = (ps7_scuwdt);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.5;
+  OPTION VERSION = 2.6;
   OPTION NAME = scuwdt;
 
 END driver
