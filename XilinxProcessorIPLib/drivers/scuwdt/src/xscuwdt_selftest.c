@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * ----- --- -------- ---------------------------------------------
 * 1.00a sdm 01/15/10 First release
 * 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
+* 2.6 	ht  06/03/24 Fix HIS_COMF violations
 * </pre>
 *
 ******************************************************************************/
@@ -91,6 +92,7 @@ s32 XScuWdt_SelfTest(XScuWdt *InstancePtr)
 	Register = XScuWdt_ReadReg((InstancePtr)->Config.BaseAddr,
 				   XSCUWDT_COUNTER_OFFSET);
 
+	/* Restore control register and watchdog load register */
 	XScuWdt_LoadWdt(InstancePtr, LoadOrig);
 	XScuWdt_SetControlReg(InstancePtr, CtrlOrig);
 
