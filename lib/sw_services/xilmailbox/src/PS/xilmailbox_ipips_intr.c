@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.8   ht   07/24/23    Restructure the code for more modularity
+ * 1.10  ht   06/05/24    Register GIC handler using device id
  *
  *  *</pre>
  *
@@ -130,8 +131,8 @@ XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 	 * hardware interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				     IntcInstancePtr);
+				     (Xil_ExceptionHandler)XScuGic_DeviceInterruptHandler,
+				     (void *)IntcInstancePtr->Config->DeviceId);
 
 	Status = XScuGic_Connect(IntcInstancePtr, IpiIntrId,
 				 (Xil_InterruptHandler) XIpiPs_IntrHandler,
