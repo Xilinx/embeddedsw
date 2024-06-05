@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ##############################################################################
 #
@@ -14,6 +14,7 @@
 # 1.7  sd    11/09/22 Added psx processors in supported peripherals"
 # 1.8  am    09/03/23 Updated library version for 2023.2
 # 1.9  ht    09/12/23 Added code for versioning of library.
+# 1.10 ht    06/05/24 Register GIC handler using device id
 #
 ##############################################################################
 
@@ -26,6 +27,6 @@ BEGIN LIBRARY xilmailbox
   OPTION SUPPORTED_PERIPHERALS = (psv_cortexa72 psx_cortexa78 psv_cortexr5 psu_cortexa72 psu_cortexa53 psu_cortexr5 psx_cortexr52 psu_pmu psu_pmc psv_pmc psx_pmc microblaze microblaze_riscv);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilmailbox,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx IPI Mailbox Library";
-  OPTION VERSION = 1.9;
+  OPTION VERSION = 1.10;
   OPTION NAME = xilmailbox;
 END LIBRARY
