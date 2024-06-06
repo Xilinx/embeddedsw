@@ -118,6 +118,7 @@
 *       mss  03/06/2024 Added ClearAtfHandoff member in XilPdi structure and
 *                       ClearATFHandoffParams function prototype
 *       har  03/12/2024 Fixed doxygen warnings
+*       kal  06/04/2024 Added ImagePrtnId to XilPdi structure
 *
 * </pre>
 *
@@ -333,7 +334,8 @@ typedef struct {
 	u32 DecKeySrc; /**< Decryption Key Source */
 	u32 PpdiKatStatus; /**< PPDI Known Answer Test Status */
 #endif
-	u32 DigestIndex;	/**< Digest index for data measurement */
+	u32 DigestIndex; /**< Digest index for data measurement */
+	u32 ImagePrtnId; /**< Partition number in the Image */
 } XilPdi;
 
 /*
@@ -450,7 +452,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl);
 void Xloader_SaveBootPdiInfo(XilPdi *BootPdiPtr);
 int XLoader_EnableJtag(u32 CfgState);
 int XLoader_DisableJtag(void);
-int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex);
+int XLoader_ProcessPrtn(XilPdi* PdiPtr);
 int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr, u64 SrcAddr, u64 DestAddr, u32 DestSize);
 
 /************************** Variable Definitions *****************************/
