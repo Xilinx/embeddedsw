@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -70,6 +71,13 @@ extern "C" {
 #define XPSMFW_DEBUG_DETAILED
 #endif
 
+/**
+ * PSMFW Date and Time enable/disable option
+ */
+#ifndef XPSMFW_DATE_TIME_EXCLUDE_VAL
+#define	XPSMFW_DATE_TIME_EXCLUDE_VAL	(0U)
+#endif
+
 /*
  * PSM Firmware code include options
  *
@@ -78,7 +86,10 @@ extern "C" {
  * User can modify these flags to enable or disable any functionality
  */
 
-/* TODO: List all PSM build flags here */
+/* List all PSM build flags here */
+#if (XPSMFW_DATE_TIME_EXCLUDE_VAL) && (!defined(XPSMFW_DATE_TIME_EXCLUDE))
+#define XPSMFW_DATE_TIME_EXCLUDE
+#endif
 
 #ifdef __cplusplus
 }

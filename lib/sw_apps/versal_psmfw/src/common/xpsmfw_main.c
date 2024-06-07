@@ -52,8 +52,12 @@ int main(void)
 	}
 #endif
 
+#ifdef XPSMFW_DATE_TIME_EXCLUDE
+	XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "PSM Firmware version: %s \r\n", versal_PSMFW_VERSION);
+#else
 	XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "PSM Firmware version: %s "
 			"[Build: %s %s ] \r\n",	versal_PSMFW_VERSION, __DATE__, __TIME__);
+#endif
 
 	Status = XPsmFw_Init();
 	/* Init IOModule and connect interrupts */
