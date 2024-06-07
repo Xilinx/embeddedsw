@@ -47,8 +47,9 @@
 *       kpt  01/22/2024 Added support to extend secure state to SWPCR
 *       mss  03/06/2024 Removed code which was overwriting partition header
 *                       Destination Execution Address
-*       sk   03/13/24 Fixed doxygen comments format
-*       mss  04/12/24 Added code to dump DDRMC error logs
+*       sk   03/13/2024 Fixed doxygen comments format
+*       mss  04/12/2024 Added code to dump DDRMC error logs
+*       har  06/07/2024 Updated condition to check if optional data is not found
 *
 * </pre>
 *
@@ -1853,7 +1854,7 @@ int XLoader_ExtractOptionalData(XPlmi_Cmd* Cmd, u32 *TotalDataSize)
 
 	OptDataAddr = XilPdi_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr,
 		DataId);
-	if (OptDataAddr > OptionalDataEndAddr) {
+	if (OptDataAddr >= OptionalDataEndAddr) {
 		Status = XLOADER_ERR_OPT_DATA_NOT_FOUND;
 		goto END;
 	}
