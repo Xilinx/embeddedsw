@@ -31,6 +31,7 @@
 * 1.4	nsk    04/10/18    Added ICCARM compiler support.
 * 1.10	akm    01/05/22    Remove assert checks form static and internal APIs.
 * 1.13  akm    02/13/24    Update BBT writing logic.
+* 1.14  sb     05/28/24    Fix BBT mapping functions.
 * </pre>
 *
 ******************************************************************************/
@@ -321,54 +322,14 @@ Out:
 ******************************************************************************/
 static void XNandPsu_ConvertBbt(XNandPsu *InstancePtr, u8 *Buf, u32 Target)
 {
-	u32 BlockOffset;
-	u8 BlockShift;
-	u32 Data;
-	u8 BlockType;
-	u32 BlockIndex;
+	u32 BbtOffset = Target * InstancePtr->Geometry.NumTargetBlocks /
+			XNANDPSU_BBT_ENTRY_NUM_BLOCKS;
 	u32 BbtLen = InstancePtr->Geometry.NumTargetBlocks >>
 		     XNANDPSU_BBT_BLOCK_SHIFT;
-	u32 StartBlock = Target * InstancePtr->Geometry.NumTargetBlocks;
 
-	for (BlockOffset = StartBlock; BlockOffset < (StartBlock + BbtLen);
-	     BlockOffset++) {
-		Data = *(Buf + BlockOffset);
-		/* Clear the RAM based Bad Block Table(BBT) contents */
-		InstancePtr->Bbt[BlockOffset] = 0x0U;
-		/* Loop through the every 4 blocks in the bitmap */
-		for (BlockIndex = 0U; BlockIndex < XNANDPSU_BBT_ENTRY_NUM_BLOCKS;
-		     BlockIndex++) {
-			BlockShift = XNandPsu_BbtBlockShift(BlockIndex);
-			BlockType = (u8) ((Data >> BlockShift) &
-					  XNANDPSU_BLOCK_TYPE_MASK);
-			switch (BlockType) {
-				case XNANDPSU_FLASH_BLOCK_FAC_BAD:
-					/* Factory bad block */
-					InstancePtr->Bbt[BlockOffset] |=
-						(u8)
-						(XNANDPSU_BLOCK_FACTORY_BAD <<
-						 BlockShift);
-					break;
-				case XNANDPSU_FLASH_BLOCK_RESERVED:
-					/* Reserved block */
-					InstancePtr->Bbt[BlockOffset] |=
-						(u8)
-						(XNANDPSU_BLOCK_RESERVED <<
-						 BlockShift);
-					break;
-				case XNANDPSU_FLASH_BLOCK_BAD:
-					/* Bad block due to wear */
-					InstancePtr->Bbt[BlockOffset] |=
-						(u8)(XNANDPSU_BLOCK_BAD <<
-						     BlockShift);
-					break;
-				default:
-					/* Good block */
-					/* The BBT entry already defaults to
-					 * zero */
-					break;
-			}
-		}
+	for(u32 BbtIndex = 0; BbtIndex < BbtLen; BbtIndex++) {
+		/* Invert the byte to convert from in-flash BBT to in-memory BBT */
+		InstancePtr->Bbt[BbtIndex + BbtOffset] = ~Buf[BbtIndex];
 	}
 }
 
@@ -612,31 +573,16 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 	u8 SpareBuf[XNANDPSU_MAX_SPARE_SIZE] __attribute__ ((aligned(64))) = {0U};
 #endif
 
-	u8 Mask[4] = {0x00U, 0x01U, 0x02U, 0x03U};
-	u8 Data;
-	u32 BlockOffset;
-	u8 BlockShift;
 	s32 Status;
-	u32 BlockIndex;
 	u32 Index;
-	u8 BlockType;
-	u32 BbtLen = InstancePtr->Geometry.NumBlocks >>
+	u32 BbtLen = InstancePtr->Geometry.NumTargetBlocks >>
 		     XNANDPSU_BBT_BLOCK_SHIFT;
 	/* Find a valid block to write the Bad Block Table(BBT) */
 	if ((!Desc->Valid) != 0U) {
 		for (Index = 0U; Index < Desc->MaxBlocks; Index++) {
 			Block  = (EndBlock - Index);
-			BlockOffset = Block >> XNANDPSU_BBT_BLOCK_SHIFT;
-			BlockShift = XNandPsu_BbtBlockShift(Block);
-			BlockType = (InstancePtr->Bbt[BlockOffset] >>
-				     BlockShift) & XNANDPSU_BLOCK_TYPE_MASK;
-			switch (BlockType) {
-				case XNANDPSU_BLOCK_BAD:
-				case XNANDPSU_BLOCK_FACTORY_BAD:
-					continue;
-				default:
-					/* Good Block */
-					break;
+			if (XNandPsu_IsBlockBad(InstancePtr, Block) != XST_FAILURE) {
+				continue;
 			}
 			Desc->PageOffset[Target] = Block *
 						   InstancePtr->Geometry.PagesPerBlock;
@@ -665,18 +611,11 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 	/* Convert the memory based BBT to flash based table */
 	(void)memset(Buf, 0xff, BbtLen);
 
-	/* Loop through the number of blocks */
-	for (BlockOffset = 0U; BlockOffset < BbtLen; BlockOffset++) {
-		Data = InstancePtr->Bbt[BlockOffset];
-		/* Calculate the bit mask for 4 blocks at a time in loop */
-		for (BlockIndex = 0U; BlockIndex < XNANDPSU_BBT_ENTRY_NUM_BLOCKS;
-		     BlockIndex++) {
-			BlockShift = XNandPsu_BbtBlockShift(BlockIndex);
-			Buf[BlockOffset] &= ~(Mask[Data &
-						   XNANDPSU_BLOCK_TYPE_MASK] <<
-					      BlockShift);
-			Data >>= XNANDPSU_BBT_BLOCK_SHIFT;
-		}
+	u32 BbtTargetOffset = BbtLen * Target;
+	/* Loop through the BBT entries */
+	for(u32 BbtIndex = 0U; BbtIndex < BbtLen; BbtIndex++) {
+		/* Invert byte to convert from in-memory BBT to in-flash BBT */
+		Buf[BbtIndex] = ~InstancePtr->Bbt[BbtIndex + BbtTargetOffset];
 	}
 	/* Write the Bad Block Table(BBT) to flash */
 	Status = XNandPsu_EraseBlock(InstancePtr, Target,
