@@ -22,6 +22,7 @@
 #       dd   01/09/2024 Added user configurable parameter names
 # 2.1   jb   04/10/2024 Update library version for 2024.2
 #       bm   05/20/2024 Add freertos10_xilinx support
+#       sk   06/05/2024 Added config for User Defined PLM Version
 #
 ##############################################################################
 
@@ -58,4 +59,5 @@ BEGIN LIBRARY xilplmi
   PARAM name = user_modules_count, desc = "Number of User Modules", type = int, default = 0;
   PARAM name = xplmi_mode, desc = "Enables server mode for PMC and client mode for APU, RPU and Microblaze", type = enum, values = (mode = "client", mode = "server"), default = "server";
   PARAM name = xplmi_cache_disable, desc = "Enables/Disables Cache for XilPlmi client library", type = bool, default = true;
+  PARAM name = plm_version_user_defined, desc = "User defined PLM version", type = int, default = 0;
 END LIBRARY

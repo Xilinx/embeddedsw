@@ -50,6 +50,7 @@
 *       ma   03/05/2024 Define IOModule instance as static in XPlmi_GetIOModuleInst
 *       jb   04/11/2024 Added proc count for PSM and PMC procs
 *       am   04/15/2024 Fixed doxygen warnings
+* 2.01  sk   06/05/2024 Added defines for PLM Version in RTCA register
 *
 * </pre>
 *
@@ -76,6 +77,9 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_PLM_BANNER	"Xilinx Versal Platform Loader and Manager \n\r" /**< PLM banner */
+#define XPLMI_PLM_PLAT_RC_VERSION	0U
+
+#define XPLMI_PLM_USER_DEFINED_VERSION		XPAR_PLM_VERSION_USER_DEFINED
 
 /* Maximum procs supported */
 #define XPLMI_MAX_PSM_BUFFERS		(10U)

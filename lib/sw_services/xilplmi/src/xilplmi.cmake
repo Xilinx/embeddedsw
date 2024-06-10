@@ -142,4 +142,7 @@ endif()
 set(XILPLMI_user_modules_count "0" CACHE STRING "Number of User Modules.")
 set(XILPLMI_USER_MODULES_COUNT "${XILPLMI_user_modules_count}")
 
+set(XILPLMI_plm_version_user_defined "0" CACHE STRING "User defined PLM version.")
+set(XILPLMI_PLM_VERSION_USER_DEFINED "${XILPLMI_plm_version_user_defined}")
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xplmi_bsp_config.h.in ${CMAKE_BINARY_DIR}/include/xplmi_bsp_config.h)

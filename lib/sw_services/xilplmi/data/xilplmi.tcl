@@ -24,6 +24,7 @@
 #                       for VP1902 decive.
 #       gm   03/28/2024 Modified read format of configurable parameter
 #                       for VP1902 device.
+# 2.1   sk   06/05/2024 Added config for User Defined PLM Version
 #
 ##############################################################################
 
@@ -442,6 +443,11 @@ proc xgen_opts_file {libhandle} {
 	set value [common::get_property CONFIG.user_modules_count $libhandle]
 	puts $file_handle "\n/* Number of User Modules */"
 	puts $file_handle [format %s%d%s "#define XPAR_MAX_USER_MODULES " [expr $value]  "U"]
+
+	# Get plm_version_user_defined set by user, by default it is 0
+	set value [common::get_property CONFIG.plm_version_user_defined $libhandle]
+	puts $file_handle "\n/* plm version user defined */"
+	puts $file_handle [format %s%d%s "#define XPAR_PLM_VERSION_USER_DEFINED " [expr $value]  "U"]
 
 	puts $file_handle "\n"
 	close $file_handle
