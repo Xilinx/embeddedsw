@@ -1848,5 +1848,8 @@
 /* Number of user modules. */
 #define XPAR_MAX_USER_MODULES 0U
 
+/* Customer Defined PLM Version */
+#define XPAR_PLM_VERSION_USER_DEFINED 0U
+
 #define XPAR_XILPM_ENABLED
 #endif  /* end of protection macro */

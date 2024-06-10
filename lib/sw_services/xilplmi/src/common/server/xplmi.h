@@ -63,6 +63,7 @@
 * 1.11  dd   10/18/2023 Updated SDK release year and SDK release quarter
 *       ng   02/12/2024 optimised u8 vars to u32 for size reduction
 *       sk   02/18/2024 Added define for DDRMC Calib Check Status RTCA Reg init
+* 1.12  sk   06/05/2024 Added defines for PLM Version in RTCA register
 * </pre>
 *
 * @note
@@ -83,6 +84,14 @@ extern "C" {
 /* SDK release version */
 #define SDK_RELEASE_YEAR	"2024" /**< Specifies the SDK release year */
 #define SDK_RELEASE_QUARTER	"1"    /**< Specifies the SDK release quarter */
+
+#define XPLMI_PLM_MAJOR_VERSION		24U
+#define XPLMI_PLM_MINOR_VERSION		1U
+#define XPLMI_PLM_RC_VERSION		XPLMI_PLM_PLAT_RC_VERSION
+
+#define XPLMI_PLM_MAJOR_VERSION_SHIFT	24U
+#define XPLMI_PLM_MINOR_VERSION_SHIFT	16U
+#define XPLMI_PLM_RC_VERSION_SHIFT	 8U
 
 /*
  * Device Copy flag related macros
@@ -184,7 +193,7 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 #define XPLMI_RTCFG_SECURE_STATE_ADDR	(XPLMI_RTCFG_BASEADDR + 0x16CU)
 #define XPLMI_RTCFG_PMC_FW_ERR_VAL_ADDR	(XPLMI_RTCFG_BASEADDR + 0x184U)
 #define XPLMI_RTCFG_TAMPER_RESP			(XPLMI_RTCFG_BASEADDR + 0x18CU)
-
+#define XPLMI_RTCFG_PLM_VERSION_ADDR		(XPLMI_RTCFG_BASEADDR + 0x320U)
 #define XPLMI_RTCFG_PLM_KAT_ADDR 		(XPLMI_RTCFG_SECURE_STATE_PLM_ADDR)
 
 #define XPLMI_RTCFG_DBG_LOG_BUF_OFFSET	(0x10U)

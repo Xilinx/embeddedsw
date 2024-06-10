@@ -60,6 +60,7 @@
 *       ng   01/28/2024 optimized u8 variables
 *       sk   02/18/2024 Added DDRMC Calib Check Status RTCA Register Init
 *       ng   03/20/2024 Added print to UART on log buffer full after LPD init
+* 1.10  sk   06/05/2024 Added code to populate PLM version in RTCA Reg
 *
 * </pre>
 *
@@ -128,6 +129,7 @@ int XPlmi_RunTimeConfigInit(void)
 {
 	int Status = XST_FAILURE;
 	u32 DevSecureState = XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2);
+	u32 PlmVersion;
 
 	/* In-Place PLM Update is applicable only for versalnet */
 	if ((XPlmi_IsPlmUpdateDone() == (u8)TRUE) || (XPlmi_IsPlmUpdateDoneTmp() == (u8)TRUE)) {
@@ -186,6 +188,12 @@ int XPlmi_RunTimeConfigInit(void)
 		(u8)XPlmiDbgCurrentTypes;
 
 END:
+	PlmVersion = ((XPLMI_PLM_MAJOR_VERSION << XPLMI_PLM_MAJOR_VERSION_SHIFT) |
+			(XPLMI_PLM_MINOR_VERSION << XPLMI_PLM_MINOR_VERSION_SHIFT) |
+			(XPLMI_PLM_RC_VERSION << XPLMI_PLM_RC_VERSION_SHIFT) |
+			(XPLMI_PLM_USER_DEFINED_VERSION));
+
+	XPlmi_Out32(XPLMI_RTCFG_PLM_VERSION_ADDR, PlmVersion);
 	return Status;
 }
 
