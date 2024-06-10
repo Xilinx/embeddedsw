@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *                     present in design
 * 6.0   bsv  08/03/22 Fix ECC error count for R5 FSBL
 * 6.1   ng   07/13/23 Added SDT support
+* 6.2   ng   06/05/24 Fixed the WDT mask macro
 *
 * </pre>
 *
@@ -821,24 +822,31 @@ extern "C" {
 /**
  * Definition for WDT to be included
  */
-#ifndef SDT
-	#if (!defined(FSBL_WDT_EXCLUDE) && defined(XPAR_PSU_WDT_0_DEVICE_ID))
+#ifndef FSBL_WDT_EXCLUDE
+	/*
+	 * LPD WDT is preferred for healthy boot, even when the FSBL is running on the APU
+	 * core and both WDTs are enabled in the design.
+	 *
+	 * In SDT flow, XPAR_XWDTPS_0_BASEADDR is utilized because the LPD WDT is preferred,
+	 * in a design that enables both LPD_WDT and FPD_WDT. If only one WDT is enabled
+	 * in the design, the WDT index will be "0" in its canonical form.
+	 */
+	#if defined(XPAR_XWDTPS_0_BASEADDR)
 		#define XFSBL_WDT_PRESENT
-		#define XFSBL_WDT_DEVICE_ID	XPAR_PSU_WDT_0_DEVICE_ID
-	#elif (!defined(FSBL_WDT_EXCLUDE) && defined(XPAR_PSU_WDT_1_DEVICE_ID))
-		#define XFSBL_WDT_PRESENT
-		#define XFSBL_WDT_DEVICE_ID	XPAR_PSU_WDT_1_DEVICE_ID
-	#endif
-#else
-	#if (!defined(FSBL_WDT_EXCLUDE) && defined(XPAR_XWDTPS_0_BASEADDR))
-		#define XFSBL_WDT_PRESENT
-		#define XFSBL_WDT_DEVICE_ID	XPAR_XWDTPS_0_BASEADDR
-	#elif (!defined(FSBL_WDT_EXCLUDE) && defined(XPAR_XWDTPS_1_BASEADDR))
-		#define XFSBL_WDT_PRESENT
-		#define XFSBL_WDT_DEVICE_ID	XPAR_XWDTPS_1_BASEADDR
+
+		#ifdef SDT
+			#define XFSBL_WDT_DEVICE_ID	XPAR_XWDTPS_0_BASEADDR
+		#else
+			#define XFSBL_WDT_DEVICE_ID	XPAR_XWDTPS_0_DEVICE_ID
+		#endif
+
+		#if (XPAR_XWDTPS_0_BASEADDR == 0xFF150000)
+			#define XFSBL_WDT_MASK	PMU_GLOBAL_ERROR_SRST_EN_1_LPD_SWDT_MASK
+		#else
+			#define XFSBL_WDT_MASK	PMU_GLOBAL_ERROR_SRST_EN_1_FPD_SWDT_MASK
+		#endif
 	#endif
 #endif
-#define XFSBL_WDT_MASK		PMU_GLOBAL_ERROR_SRST_EN_1_FPD_SWDT_MASK
 
 /**
  * Definitions for SD to be included
