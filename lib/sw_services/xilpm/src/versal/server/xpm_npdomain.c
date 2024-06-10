@@ -86,11 +86,13 @@ static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	/*
-	 * If device is xcvm2152, DDRMC5 has crypto blcok so set local flag.
+	 * If device is xcvm2152/xcvr1602/xcvr1652, DDRMC5 has crypto blcok so set local flag.
 	 * NOTE: This is a temporary solution until topology support is
 	 * available.
 	 */
-	if (PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+	if ((PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VR1602 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VR1652 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
 		IsCrypto = 1U;
 	}
 
@@ -295,10 +297,12 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		/*
-		 * This is a workaround for xcvm2152. When NoC ScanClear runs
+		 * This is a workaround for xcvm2152, xcvr1602, xcvr1652. When NoC ScanClear runs
 		 * the NPI bus is corrupted, refer EDT-1070997.
 		 */
-		if (PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+		if ((PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) ||
+			(PMC_TAP_IDCODE_DEV_SBFMLY_VR1602 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) ||
+			(PMC_TAP_IDCODE_DEV_SBFMLY_VR1652 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
 			/* Idle the PMC-NPI AXI bus */
 			XPm_RMW32(PMC_INT_REGS_NPI_AXI, PMC_INT_REGS_NPI_AXI_POWER_IDLEREQ_MASK, PMC_INT_REGS_NPI_AXI_POWER_IDLEREQ_MASK);
 
