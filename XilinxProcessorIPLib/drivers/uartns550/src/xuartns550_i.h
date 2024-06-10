@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,43 +53,6 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-
-/****************************************************************************
-*
-* This macro updates the status based upon a specified line status register
-* value. The stats that are updated are based upon bits in this register. It
-* also keeps the last errors instance variable updated. The purpose of this
-* macro is to allow common processing between the modules of the component
-* with less overhead than a function in the required module.
-*
-* @param	InstancePtr is a pointer to the XUartNs550 instance .
-* @param	CurrentLsr contains the Line Status Register value to
-*		be used for the update.
-*
-* @return 	None.
-*
-* @note 	C-Style signature:
-*
-* void XUartNs550_UpdateStats(XUartNs550 *InstancePtr, u8 CurrentLsr)
-*
-*****************************************************************************/
-#define XUartNs550_UpdateStats(InstancePtr, CurrentLsr)	\
-{								\
-	InstancePtr->LastErrors |= CurrentLsr;			\
-								\
-	if (CurrentLsr & XUN_LSR_OVERRUN_ERROR) {		\
-		InstancePtr->Stats.ReceiveOverrunErrors++;	\
-	}							\
-	if (CurrentLsr & XUN_LSR_PARITY_ERROR) {		\
-		InstancePtr->Stats.ReceiveParityErrors++;	\
-	}							\
-	if (CurrentLsr & XUN_LSR_FRAMING_ERROR) {		\
-		InstancePtr->Stats.ReceiveFramingErrors++;	\
-	}							\
-	if (CurrentLsr & XUN_LSR_BREAK_INT) {			\
-		InstancePtr->Stats.ReceiveBreakDetected++;	\
-	}							\
-}
 
 /************************** Function Prototypes ******************************/
 
