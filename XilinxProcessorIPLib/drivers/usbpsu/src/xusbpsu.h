@@ -53,6 +53,7 @@
 * 1.14	pm    21/06/23 Added support for system device-tree flow.
 * 1.15  ml    11/16/23 Fix compilation errors reported with -std=c2x compiler flag
 * 1.15  np    26/03/24 Add doxygen and editorial fixes
+* 1.16   dn    17/05/24 Fix compilation error
 * </pre>
 *
 *****************************************************************************/
@@ -88,7 +89,7 @@ extern "C" {
 #endif
 
 #ifndef SDT
-#ifdef __MICROBLAZE__
+#if defined (__MICROBLAZE__)  && !defined(XPAR_XILTIMER_ENABLED)
 #include "microblaze_sleep.h"
 #endif
 #endif
