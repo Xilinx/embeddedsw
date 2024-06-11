@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -18,7 +18,7 @@ properties:
           - cdns,spi-r1p6
   reg:
     description: Physical base address and size of the controller register map
-  xlnx,clock-freq:
+  xlnx,spi-clk-freq-hz:
     description: Input clock frequency
 
 config:
@@ -27,7 +27,7 @@ config:
 required:
     - compatible
     - reg
-    - xlnx,clock-freq
+    - xlnx,spi-clk-freq-hz
     - interrupts
     - interrupt-parent
 
