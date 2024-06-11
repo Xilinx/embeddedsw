@@ -639,7 +639,7 @@ typedef struct {
  */
 typedef struct {
 	XVidC_VideoTimingMode Vtm;	/**< The video timing. */
-	u32 PixelClockHz;		/**< The pixel clock of the stream (in
+	u64 PixelClockHz;		/**< The pixel clock of the stream (in
 						Hz). */
 	u32 HStart;			/**< Horizontal blank start (in
 						pixels). */

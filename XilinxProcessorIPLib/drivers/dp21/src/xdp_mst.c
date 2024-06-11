@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1451,16 +1451,23 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 {
 	u32 Status;
 	u8 StreamIndex;
-	XDp_TxMainStreamAttributes *MsaConfig;
+	u8 StartTs = 0;
 	XDp_TxMstStream *MstStream;
+	XDp_TxMainStreamAttributes *MsaConfig;
+	XDp_TxTopology *Msatopology;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Msatopology = &InstancePtr->TxInstance.Topology;
 
 	/* Allocate the payload table for each stream in both the DisplayPort TX
 	 * and RX device. */
+
+	StartTs =
+	(InstancePtr->TxInstance.LinkConfig.TrainingMode != XDP_TX_TRAINING_MODE_DP21) ? 1 : 0;
+
 	for (StreamIndex = 0; StreamIndex < InstancePtr->TxInstance.NumOfMstStreams;
 			StreamIndex++) {
 		if (!XDp_TxMstStreamIsEnabled(InstancePtr,
@@ -1468,7 +1475,7 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 			continue;
 		}
 		MsaConfig = &InstancePtr->TxInstance.MsaConfig[StreamIndex];
-		MstStream = &InstancePtr->TxInstance.MstStreamConfig[StreamIndex];
+		MsaConfig->StartTs = StartTs;
 
 		Status = XDp_TxAllocatePayloadVcIdTable(InstancePtr,
 			StreamIndex + XDP_TX_STREAM_ID1,
@@ -1477,7 +1484,7 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 		if (Status != XST_SUCCESS)
 			return Status;
 
-		MsaConfig->StartTs += MsaConfig->TransferUnitSize;
+		StartTs += MsaConfig->TransferUnitSize;
 
 		/* Generate an ACT event. */
 		Status = XDp_TxSendActTrigger(InstancePtr);
