@@ -99,7 +99,7 @@ static void XDp_TxSetLineReset(XDp *InstancePtr, u8 Stream,
 void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 {
 	u32 MinBytesPerTu;
-	u32 VideoBw;
+	u64 VideoBw;
 	u32 LinkBw;
 	u32 WordsPerLine;
 	u8 LinkRate;
@@ -883,7 +883,7 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 	u32 StreamOffset[4] = {0, XDP_TX_STREAM2_MSA_START_OFFSET,
 					XDP_TX_STREAM3_MSA_START_OFFSET,
 					XDP_TX_STREAM4_MSA_START_OFFSET};
-	u32 DP2xVfreq;
+	u64 DP2xVfreq;
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -981,11 +981,31 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 	/*update vfreq for each stream*/
 	DP2xVfreq = (MsaConfig->PixelClockHz) & 0x00FFFFFF;
 
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_VFREQ_STREAM1, DP2xVfreq);
+	if ((Stream) == XDP_TX_STREAM_ID1) {
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_VFREQ_STREAM1_LOW, DP2xVfreq);
 
-	DP2xVfreq = (MsaConfig->PixelClockHz) & 0xFF000000;
-	DP2xVfreq = (DP2xVfreq >> 24);
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_VFREQ_STREAM2, DP2xVfreq);
+		DP2xVfreq = (MsaConfig->PixelClockHz) & 0xFF000000;
+		DP2xVfreq = (DP2xVfreq >> 24);
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_VFREQ_STREAM1_HIGH, DP2xVfreq);
+	} else if ((Stream) == XDP_TX_STREAM_ID2) {
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_VFREQ_STREAM2_LOW, DP2xVfreq);
+
+		DP2xVfreq = (MsaConfig->PixelClockHz) & 0xFF000000;
+		DP2xVfreq = (DP2xVfreq >> 24);
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_VFREQ_STREAM2_HIGH, DP2xVfreq);
+	} else if ((Stream) == XDP_TX_STREAM_ID3) {
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_VFREQ_STREAM3_LOW, DP2xVfreq);
+
+		DP2xVfreq = (MsaConfig->PixelClockHz) & 0xFF000000;
+		DP2xVfreq = (DP2xVfreq >> 24);
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_VFREQ_STREAM3_HIGH, DP2xVfreq);
+	} else if ((Stream) == XDP_TX_STREAM_ID4) {
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_VFREQ_STREAM4_LOW, DP2xVfreq);
+
+		DP2xVfreq = (MsaConfig->PixelClockHz) & 0xFF000000;
+		DP2xVfreq = (DP2xVfreq >> 24);
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_VFREQ_STREAM4_HIGH, DP2xVfreq);
+	}
 }
 
 /******************************************************************************/

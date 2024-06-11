@@ -3007,10 +3007,17 @@ extern "C" {
 #define XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_128B_132B_MASK	0x02
 
 #define XDP_TX_TP_SET_TRAINING_AUX_RD_INTERVAL 0x6CC	/**< Link Training AUX read interval.*/
-#define XDP_TX_VFREQ_STREAM1 0x6D0	/**< Vfreq for MST stream1. */
-#define XDP_TX_VFREQ_STREAM2 0x6D4	/**< Vfreq for MST stream2. */
-#define XDP_TX_VFREQ_STREAM3 0x6D8	/**< Vfreq for MST stream3. */
-#define XDP_TX_VFREQ_STREAM4 0x6DC	/**< Vfreq for MST stream4. */
+#define XDP_TX_VFREQ_STREAM1_LOW 0x6D0	/**< Vfreq for MST stream1. */
+#define XDP_TX_VFREQ_STREAM1_HIGH 0x6D4	/**< Vfreq for MST stream1. */
+
+#define XDP_TX_VFREQ_STREAM2_LOW 0x6E4	/**< Vfreq for MST stream2. */
+#define XDP_TX_VFREQ_STREAM2_HIGH 0x6E8	/**< Vfreq for MST stream2. */
+
+#define XDP_TX_VFREQ_STREAM3_LOW 0x6EC	/**< Vfreq for MST stream3. */
+#define XDP_TX_VFREQ_STREAM3_HIGH 0x6F0	/**< Vfreq for MST stream3. */
+
+#define XDP_TX_VFREQ_STREAM4_LOW 0x6F4	/**< Vfreq for MST stream4. */
+#define XDP_TX_VFREQ_STREAM4_HIGH 0x6F8	/**< Vfreq for MST stream4. */
 
 #define XDP_TX_V2_0_CONFIG 0x6E0	/**< DP v2.1 Config Params */
 #define XDP_TX_V2_0_CONFIG_RESET_MASK	0x1003F
