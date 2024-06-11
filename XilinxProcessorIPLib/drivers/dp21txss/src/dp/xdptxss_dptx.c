@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -887,7 +887,7 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 	if ((MstCapable != XST_SUCCESS) ||
 				(InstancePtr->TxInstance.MstEnable == 0)) {
 		u32 TransferUnitSize = 64;
-		u32 VideoBw;
+		u64 VideoBw;
 
 		/* Check video mode */
 		if (VidMode != XVIDC_VM_CUSTOM){
@@ -1085,7 +1085,7 @@ static XVidC_VideoMode Dp_GetPreferredVm(u8 *EdidPtr)
 	u8 *Ptm;
 	u16 HBlank;
 	u16 VBlank;
-	u32 PixelClockHz;
+	u64 PixelClockHz;
 	XVidC_FrameRate FrameRate;
 	XVidC_VideoTiming Timing;
 	XVidC_VideoMode VmId;
