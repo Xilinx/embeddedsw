@@ -212,6 +212,7 @@
 #define XLOADER_IMAGE_INFO_TBL_MAX_NUM	(XPLMI_IMAGE_INFO_TBL_BUFFER_LEN / \
 		sizeof(XLoader_ImageInfo)) /**< Maximum number of image info
 					     tables in the available buffer */
+#define XLOADER_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)
 
 /************************** Function Prototypes ******************************/
 static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr);
@@ -1415,6 +1416,7 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 	/* Update current subsystem ID for EM */
 	XPlmi_SetEmSubsystemId(&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 
+	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
 	ImageMeasureInfo.PcrInfo = PcrInfo;
 	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
 	ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;

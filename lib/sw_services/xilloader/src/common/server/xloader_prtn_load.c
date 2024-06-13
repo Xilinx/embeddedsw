@@ -106,6 +106,8 @@
 *       mss  11/02/2023 Added VerifyAddr check for destination address of
 *                       Raw Partition Loading
 *       sk   02/18/2024 Added logic to print DDRMC Calib Check Status
+*       kal  06/04/2024 Moved XLoader_SecureConfigMeasurement call to
+*       		XLoader_ProcessAuthEncPrtn
 * </pre>
 *
 * @note
@@ -233,7 +235,8 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		/**
 		 * - Otherwise process the partition.
 		 */
-		Status = XLoader_ProcessPrtn(PdiPtr, PrtnIndex);
+		PdiPtr->ImagePrtnId = PrtnIndex;
+		Status = XLoader_ProcessPrtn(PdiPtr);
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
@@ -640,10 +643,9 @@ END:
  * 			PCIE, or JTAG to PMC RAM.
  *
  *****************************************************************************/
-int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
+int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 {
 	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
 	XLoader_SecureParams SecureParams;
 	XLoader_PrtnParams PrtnParams;
 	u32 PrtnType;
@@ -652,7 +654,6 @@ int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
 	u32 PrtnNum = PdiPtr->PrtnNum;
 	/* Assign the partition header to local variable */
 	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
-	u32 PcrInfo = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PcrInfo;
 
 	/** Read Partition Type */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
@@ -734,22 +735,6 @@ int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
 		XPlmi_Printf(DEBUG_INFO, "Copying data partition\n\r");
 		/* Partition Copy */
 		Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams.DeviceCopy, &SecureParams);
-	}
-	/* In case of Authentication enabled, it is mandatory to use
-	 * same SPK for all partitions of an image. Hence secure config extend is
-	 * called only for the first partition of an image.
-	 */
-	if ((Status == XST_SUCCESS) && (PrtnIndex == 0x00U)) {
-		if (PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureConfigMeasurement,
-					&SecureParams, PcrInfo, &PdiPtr->DigestIndex, TRUE);
-		} else {
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureConfigMeasurement,
-					&SecureParams, PcrInfo, &PdiPtr->DigestIndex, FALSE);
-		}
-		if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-			Status |= StatusTmp;
-		}
 	}
 
 END:

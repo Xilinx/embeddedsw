@@ -131,6 +131,8 @@
 *       kpt  03/15/24 Updated RSA KAT to use 2048-bit key
 *       sk   03/13/24 Fixed doxygen comments format
 *       har  04/12/24 Moved glitch checks after respective function calls
+*       kal  06/04/24 Added XLoader_SecureConfigMeasurement call in
+*                     XLoader_ProcessAuthEncPrtn after Block 0 processing is success
 *
 * </pre>
 *
@@ -3697,6 +3699,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	static u64 ProcessTime;
 	XPlmi_PerfTime PerfTime;
 #endif
+	u32 PcrInfo = SecurePtr->PdiPtr->MetaHdr.ImgHdr[SecurePtr->PdiPtr->ImageNum].PcrInfo;
 
 	XPlmi_Printf(DEBUG_INFO,
 			"Processing Block %u\n\r", SecurePtr->BlockNum);
@@ -3797,7 +3800,24 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	}
 
 	XPlmi_Printf(DEBUG_INFO, "Authentication/Decryption of Block %u is "
-			"successful\r\n", SecurePtr->BlockNum);
+		"successful\r\n", SecurePtr->BlockNum);
+	/* In case of Authentication enabled, it is mandatory to use
+	 * same SPK for all partitions of an image. Hence secure config extend is
+	 * called only for the first partition of an image for Block 0.
+	 */
+	if ((SecurePtr->BlockNum == 0x0U) &&
+		(SecurePtr->PdiPtr->ImagePrtnId == 0x00U)) {
+		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
+			XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_SecureConfigMeasurement,
+					SecurePtr, PcrInfo, &SecurePtr->PdiPtr->DigestIndex, TRUE);
+		} else {
+			XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_SecureConfigMeasurement,
+					SecurePtr, PcrInfo, &SecurePtr->PdiPtr->DigestIndex, FALSE);
+		}
+		if ((XST_SUCCESS != Status) || (XST_SUCCESS != SStatus)) {
+			Status |= SStatus;
+		}
+	}
 
 	SecurePtr->NextBlkAddr = SrcAddr + TotalSize;
 	SecurePtr->ProcessedLen = TotalSize;
