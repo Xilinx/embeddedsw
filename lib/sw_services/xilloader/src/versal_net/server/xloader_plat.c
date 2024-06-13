@@ -1762,8 +1762,7 @@ int XLoader_LoadPsmElf()
 
 	PdiPtr->ImageNum = XLOADER_FIRST_IMAGE_NUM;
 	PdiPtr->PrtnNum = XLOADER_SECOND_PRTN_NUM;
-	PdiPtr->ImagePrtnId = PdiPtr->PrtnNum - 1U;
-	Status = XLoader_ProcessPrtn(PdiPtr);
+	Status = XLoader_ProcessPrtn(PdiPtr,PdiPtr->PrtnNum - 1U);
 	if (XST_SUCCESS != Status){
 		PmErr("XLoader_ProcessPrtn failed with Status=%x\n\r", Status);
 		goto END;
