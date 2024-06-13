@@ -213,6 +213,10 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 		goto done;
 	}
 
+	/* In force power down or subsystem restart case core state will be
+	 * XPM_DEVSTATE_PENDING_PWR_DWN so execute pending power down if state
+	 * is not XPM_DEVSTATE_SUSPENDING.
+	 */
 	if ((u8)XPM_DEVSTATE_SUSPENDING != Core->Device.Node.State) {
 		/**
 		 * Call direct power down for Versal NET since it needs to be call from

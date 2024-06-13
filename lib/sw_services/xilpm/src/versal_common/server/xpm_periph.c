@@ -245,7 +245,8 @@ static int HbMon_Scheduler(void *data)
 
 		if (HbMon_TimeoutList[Idx] <= HbMon_SchedFreq) {
 			Device = XPmDevice_GetHbMonDeviceByIndex(Idx);
-			if (((u8)PENDING_RESTART == Device->Requirements->Subsystem->State) &&
+			if ((((u8)PENDING_RESTART == Device->Requirements->Subsystem->State) ||
+			    ((u8)PENDING_POWER_OFF == Device->Requirements->Subsystem->State)) &&
 			    (1U == Device->Requirements->Allocated) &&
 			    (0U == IsIdleCbSent)) {
 				IsIdleCbSent = 1U;

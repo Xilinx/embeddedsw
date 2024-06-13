@@ -919,6 +919,10 @@ extern "C" {
 #define PM_DEV_HB_MON_1				(0x18250001U)
 #define PM_DEV_HB_MON_2				(0x18250002U)
 #define PM_DEV_HB_MON_3				(0x18250003U)
+#define PM_DEV_HB_MON_4				(0x18250004U)
+#define PM_DEV_HB_MON_5				(0x18250005U)
+#define PM_DEV_HB_MON_6				(0x18250006U)
+#define PM_DEV_HB_MON_7				(0x18250007U)
 /** @} */
 
 /**
