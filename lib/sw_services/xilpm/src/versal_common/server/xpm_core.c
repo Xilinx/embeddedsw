@@ -342,6 +342,7 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 	IpiMask = Core->FrcPwrDwnReq.InitiatorIpiMask;
 	NodeState = Core->Device.Node.State;
 
+	/* Powerdown core forcefully */
 	Status = XPmCore_ForcePwrDwn(DeviceId);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -362,6 +363,7 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 		goto done;
 	}
 
+	/* Check any of core is pending power down in subsystem */
 	Reqm = Subsystem->Requirements;
 	while (NULL != Reqm) {
 		if ((1U == Reqm->Allocated) &&
@@ -374,10 +376,17 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 	}
 
 	if ((u8)PENDING_POWER_OFF == Subsystem->State) {
+		/* Process pending subsystem force power down if all cores are
+		 * powered off.
+		 */
 		if (NULL == Reqm) {
+			Subsystem->Flags = 0U;
 			Status = XPmSubsystem_ForcePwrDwn(Subsystem->Id);
 		}
 	} else if ((u8)PENDING_RESTART == Subsystem->State) {
+		/* Process pending subsystem restart if all cores are powered
+		 * off.
+		 */
 		if (NULL == Reqm) {
 			/*
 			 * Control reached here means the idle notification is already sent

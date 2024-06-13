@@ -4166,36 +4166,20 @@ done:
 int XPm_ForcePwrDwnCb(void *Data)
 {
 	int Status = XST_FAILURE;
-	const XPm_Subsystem *Subsystem;
 	u32 NodeId = (u32)Data;
 	const XPm_Core *Core;
 
-	if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
-		Subsystem = XPmSubsystem_GetById(NodeId);
-		if (NULL == Subsystem) {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-
-		if ((u8)PENDING_POWER_OFF != Subsystem->State) {
-			Status = XST_SUCCESS;
-			goto done;
-		}
-
-		Status = XPmSubsystem_ForcePwrDwn(NodeId);
-	} else {
-		Core = (XPm_Core *)XPmDevice_GetById(NodeId);
-		if (NULL == Core) {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-
-		if ((u8)XPM_DEVSTATE_PENDING_PWR_DWN != Core->Device.Node.State) {
-			Status = XST_SUCCESS;
-			goto done;
-		}
-		Status = XPmCore_ProcessPendingForcePwrDwn(NodeId);
+	Core = (XPm_Core *)XPmDevice_GetById(NodeId);
+	if (NULL == Core) {
+		Status = XST_INVALID_PARAM;
+		goto done;
 	}
+
+	if ((u8)XPM_DEVSTATE_PENDING_PWR_DWN != Core->Device.Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+	Status = XPmCore_ProcessPendingForcePwrDwn(NodeId);
 
 done:
 	return Status;
@@ -4250,6 +4234,34 @@ done:
 	(void)NodeId;
 	(void)NodeState;
 #endif /* XPLMI_IPI_DEVICE_ID */
+}
+
+static XStatus XPm_RequestHBMonDevice(const u32 SubsystemId, const u32 CmdType)
+{
+	u32 DeviceIdx;
+	XStatus Status = XST_DEVICE_NOT_FOUND;
+	const XPm_Device *Device;
+	const XPm_Requirement *Reqm = NULL;
+
+	/* Request run time Healthy Boot Monitor node if it is added */
+	for (DeviceIdx = (u32)XPM_NODEIDX_DEV_HB_MON_0;
+	     DeviceIdx < (u32)XPM_NODEIDX_DEV_HB_MON_MAX; DeviceIdx++) {
+		Device = XPmDevice_GetHbMonDeviceByIndex(DeviceIdx);
+		if (NULL == Device) {
+			continue;
+		}
+		Reqm = XPmDevice_FindRequirement(Device->Node.Id, SubsystemId);
+		/* Skip if boot time healthy boot monitor node found */
+		if ((NULL == Reqm) || (1U == PREALLOC((u32)Reqm->Flags))) {
+			continue;
+		}
+		Status = XPm_RequestDevice(SubsystemId, Device->Node.Id,
+					   (u32)PM_CAP_ACCESS, Reqm->PreallocQoS,
+					   0U, CmdType);
+		break;
+	}
+
+	return Status;
 }
 
 /****************************************************************************/
@@ -4332,6 +4344,19 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		NodeState = Subsystem->State;
 
 		if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
+			Status = XPm_RequestHBMonDevice(NodeId, CmdType);
+			if (XST_DEVICE_NOT_FOUND == Status) {
+				PmWarn("Add runtime HB_MON node for recovery\r\n");
+			} else if (XST_SUCCESS != Status) {
+				/*
+				 * Error while requesting run time Healthy Boot
+				 * Monitor node
+				 */
+				goto done;
+			} else {
+				/* Required by MISRA */
+			}
+
 			Status = XPmSubsystem_SetState(Subsystem->Id,
 						       (u8)PENDING_POWER_OFF);
 			if (XST_SUCCESS != Status) {
@@ -4343,14 +4368,6 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 			if (XST_SUCCESS != Status) {
 				goto process_ack;
 			}
-
-			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
-							XPm_ForcePwrDwnCb,
-							NULL,
-							XPM_PWR_DWN_TIMEOUT,
-							XPLM_TASK_PRIORITY_1,
-							(void *)NodeId,
-							XPLMI_NON_PERIODIC_TASK);
 			goto done;
 		} else {
 			Status = XPmSubsystem_ForcePwrDwn(NodeId);
@@ -4377,26 +4394,6 @@ done:
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}
-	return Status;
-}
-
-static XStatus XPm_RequestHBMonDevice(const u32 SubsystemId, const u32 CmdType)
-{
-	u32 DeviceId;
-	XStatus Status = XST_FAILURE;
-	const XPm_Requirement *Reqm = NULL;
-
-	/* Request Healthy Boot Monitor node if it is added */
-	for (DeviceId = PM_DEV_HB_MON_0; DeviceId <= PM_DEV_HB_MON_3; DeviceId++) {
-		Reqm = XPmDevice_FindRequirement(DeviceId, SubsystemId);
-		if (NULL != Reqm) {
-			Status = XPm_RequestDevice(SubsystemId, DeviceId,
-						   (u32)PM_CAP_ACCESS, Reqm->PreallocQoS,
-						   0U, CmdType);
-			break;
-		}
-	}
-
 	return Status;
 }
 
@@ -4463,9 +4460,16 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 	case PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
 		if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
 			Status = XPm_RequestHBMonDevice(SubsystemId, CmdType);
-			if (XST_SUCCESS != Status) {
-				PmWarn("Subsystem recovery is not supported "
-				       "because of missing healthy boot node\n");
+			if (XST_DEVICE_NOT_FOUND == Status) {
+				PmWarn("Add runtime HB_MON node for recovery\r\n");
+			} else if (XST_SUCCESS != Status) {
+				/*
+				 * Error while requesting run time Healthy Boot
+				 * Monitor node
+				 */
+				goto done;
+			} else {
+				/* Required by MISRA */
 			}
 
 			Status = XPmSubsystem_SetState(SubsystemId, (u8)PENDING_RESTART);
