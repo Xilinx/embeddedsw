@@ -1,0 +1,28 @@
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for xilpki library.
+
+maintainers:
+  - Manne, Nava kishore <nava.kishore.manne@amd.com>
+
+type: library
+
+version: 2.2
+
+description: Xilpki library provides an interface to the PKI engine to perform the secure operations.
+
+supported_processors:
+  - psx_cortexa78
+
+supported_os:
+  - standalone
+
+examples:
+    Xilpki_ecdsa_example.c:
+        - supported_platforms:
+            - VersalNet
+    Xilpki_ecdsa_keypair_example.c:
+        - supported_platforms:
+            - VersalNet

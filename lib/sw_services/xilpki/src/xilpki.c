@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
  *                       status for CopyEcdsa* operations.
  * 2.1   Nava  01/03/24  Fixed security issues relevant to instance pointer NULL check.
  * 2.2   kpt   01/09/24  Updated option for non-blocking trng reseed
+ * 2.2   Nava  06/12/24  Added support for system device-tree flow.
  *
  *</pre>
  *
@@ -48,6 +49,9 @@
 #define XPKI_ADDR_WORD_ALIGN_MASK	(0x3U)
 
 #define XPKI_TRNG_INSTANCE		1U
+#ifdef SDT
+#define XPKI_TRNG_OFFSET		0x200U
+#endif
 #define XPKI_TRNG_BUF_SIZE		32U
 #define XPKI_MAX_PRIV_KEY_LEN		96U
 
@@ -557,6 +561,9 @@ static XTrngpsx_Instance *XPki_Get_Trng_InstancePtr(u8 DeviceId)
 static int XPki_TrngInit(void)
 {
 	volatile int Status = XST_FAILURE;
+#ifdef SDT
+	UINTPTR BaseAddr = XPAR_XTRNGPSX_1_BASEADDR;
+#endif
 	XTrngpsx_Config *Config;
 	XTrngpsx_Instance *Trngpsx;
 	XTrngpsx_UserConfig UsrCfg = {
@@ -573,7 +580,12 @@ static int XPki_TrngInit(void)
 		 * Initialize the TRNGPSX driver so that it's ready to use look up
 		 * configuration in the config table, then initialize it.
 		 */
+#ifndef SDT
 		Config = XTrngpsx_LookupConfig(DeviceId);
+#else
+		Config = XTrngpsx_LookupConfig(BaseAddr);
+		BaseAddr += XPKI_TRNG_OFFSET;
+#endif
 		if (NULL == Config) {
 			goto END;
 		}
@@ -2008,7 +2020,11 @@ static int XPki_SetupInterruptSystem(XPki_Instance *InstancePtr)
 	 * Initialize the interrupt controller driver so that it is ready to
 	 * use.
 	 */
+#ifndef SDT
 	IntcConfig = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
+#else
+	IntcConfig = XScuGic_LookupConfig(XPAR_XSCUGIC_0_BASEADDR);
+#endif
 	if (NULL == IntcConfig) {
 		return XST_FAILURE;
 	}
