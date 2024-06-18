@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * ----- ------ -------- ---------------------------------------------
 * 1.00a sdm    05/27/11 First release
 * 3.6   sb     06/27/23 Added support for system device-tree flow.
+* 3.8   ht     06/18/24 Modify instance name to avoid multiple definition error.
 *</pre>
 ******************************************************************************/
 
@@ -58,7 +59,7 @@ int WdtPsSelfTestExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XWdtPs Watchdog;		/* Instance of WatchDog Timer  */
+XWdtPs WdtPsInstance;		/* Instance of WatchDog Timer  */
 
 /*****************************************************************************/
 /**
@@ -136,7 +137,7 @@ int WdtPsSelfTestExample(UINTPTR BaseAddress)
 	 * This is where the virtual address would be used, this example
 	 * uses physical address.
 	 */
-	Status = XWdtPs_CfgInitialize(&Watchdog, ConfigPtr,
+	Status = XWdtPs_CfgInitialize(&WdtPsInstance, ConfigPtr,
 				      ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -145,7 +146,7 @@ int WdtPsSelfTestExample(UINTPTR BaseAddress)
 	/*
 	 * Run the SelfTest
 	 */
-	Status = XWdtPs_SelfTest(&Watchdog);
+	Status = XWdtPs_SelfTest(&WdtPsInstance);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
