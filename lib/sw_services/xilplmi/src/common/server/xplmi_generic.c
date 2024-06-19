@@ -116,6 +116,7 @@
 *       mss  03/13/2024 MISRA-C violation Rule 2.2 fixed
 *       jb   04/09/2024 Reduced log level for proc print
 *       am   04/15/2024 Fixed doxygen warnings
+* 2.01  kpt  06/19/2024 Trigger secure lockdown immediately when requested through CDO
 *
 * </pre>
 *
@@ -2265,6 +2266,7 @@ static int XPlmi_TamperTrigger(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	volatile u32 TamperResp = Cmd->Payload[0U];
 	volatile u32 TamperRespTmp = Cmd->Payload[0U];
+	u32 Flag = XPLMI_TRIGGER_TAMPER_IMMEDIATE;
 
 	/* Check if the Tamper Response input is valid */
 	if (((TamperResp & XPLMI_SLD_AND_SRST_TAMPER_RESP_MASK) == 0x0U) &&
@@ -2275,11 +2277,17 @@ static int XPlmi_TamperTrigger(XPlmi_Cmd *Cmd)
 	}
 
 	/* Execute secure lockdown */
-	XPlmi_TriggerTamperResponse(TamperResp, XPLMI_TRIGGER_TAMPER_TASK);
-
-	if (Cmd->IpiMask != 0) {
-		Status = XST_SUCCESS;
+	if (Cmd->IpiMask != 0U) {
+		Flag = XPLMI_TRIGGER_TAMPER_TASK;
 	}
+	else {
+		Flag = XPLMI_TRIGGER_TAMPER_IMMEDIATE;
+	}
+
+	/* Trigger tamper response */
+	XPlmi_TriggerTamperResponse(TamperResp, Flag);
+
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
