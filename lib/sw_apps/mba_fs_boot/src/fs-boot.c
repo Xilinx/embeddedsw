@@ -288,7 +288,9 @@ static unsigned long copy_image_from_flash(unsigned long image_addrflash)
 	debug_fsprint_integer("", ")\r\n", image_size_save);
 #endif
 	XCACHE_FLUSH_DCACHE_RANGE(image_ptr_save, image_size_save);
+#if (XPAR_MICROBLAZE_USE_ICACHE == 1)
 	XCACHE_INVALIDATE_ICACHE();
+#endif
 	return (unsigned long) (image_ptr_save + jump_offset);
 }
 
@@ -346,7 +348,9 @@ static unsigned long copy_image_from_flash(unsigned long image_addrflash)
 		return REASON_BAD_ADDRESS;
 	}
 	XCACHE_FLUSH_DCACHE_RANGE(image_ptr, image_size);
+#if (XPAR_MICROBLAZE_USE_ICACHE == 1)
 	XCACHE_INVALIDATE_ICACHE();
+#endif
 	return *mem;
 
 }
