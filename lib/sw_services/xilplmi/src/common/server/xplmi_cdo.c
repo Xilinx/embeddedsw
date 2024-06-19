@@ -90,8 +90,11 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /**< Maximum recursive CDO processing allowed */
+#ifdef VERSAL_NET
+#define XPLMI_MAX_RECURSIVE_CDO_PROCESS (4U)
+#else
 #define XPLMI_MAX_RECURSIVE_CDO_PROCESS (2U)
-
+#endif
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
