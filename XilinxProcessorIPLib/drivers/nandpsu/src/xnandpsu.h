@@ -407,6 +407,8 @@ typedef struct {
 	XNandPsu_BadBlockPattern BbPattern;	/**< Bad block pattern to
 						  search */
 	u8 Bbt[XNANDPSU_MAX_BLOCKS >> 2];	/**< Bad block table array */
+	u8 FlashBbt[XNANDPSU_MAX_BLOCKS >> 2];	/**< BBT buffer for partial read/write
+						  from/to flash */
 } XNandPsu;
 
 /******************* Macro Definitions (Inline Functions) *******************/
