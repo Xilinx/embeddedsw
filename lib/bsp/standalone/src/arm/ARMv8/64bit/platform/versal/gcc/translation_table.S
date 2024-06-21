@@ -102,7 +102,9 @@
 * 9.1   oh   11/03/23 Updated translation table to support versal net in system
 *                     device-tree flow. xparameter macro has to be used for the
 *                     DDR regions after the last change.
-* 9.2   ml   01/23/24 Updated lower DDR mapping calculation for MMUTableL2.
+* 9.1   ml   01/23/24 Updated lower DDR mapping calculation for MMUTableL2.
+* 9.2   ml   06/19/24 Add support to allow memory mapping for the DDR_CH_0 in
+*                     versal platform.
 *
 ******************************************************************************/
 #include "bspconfig.h"
@@ -1237,9 +1239,15 @@ MMUTableL2:
 .set SECT, 0
 
 .set UNDEF_START, 0
+#if defined(XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) || defined(XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR)
 #ifdef XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
 .set DDR_0_START, XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
 .set DDR_0_END, XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR
+
+#elif defined(XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR)
+.set DDR_0_START, XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR
+.set DDR_0_END, XPAR_AXI_NOC2_DDR_LOW_0_HIGHADDR
+#endif
 
 .if DDR_0_START > DDR_LOW_0_REGION_START_ADDR
 .set UNDEF_START, (DDR_0_START - DDR_LOW_0_REGION_START_ADDR)
