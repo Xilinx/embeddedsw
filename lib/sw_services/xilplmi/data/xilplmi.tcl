@@ -439,6 +439,16 @@ proc xgen_opts_file {libhandle} {
 		}
 	}
 
+	# Get timestamp_disable value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.timestamp_en $libhandle]
+	if {$value == false} {
+		if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
+			set file_handle [hsi::utils::open_include_file "xparameters.h"]
+			puts $file_handle "\n/* Time Stamp Disable */"
+			puts $file_handle "#define PLM_BANNER_TIMESTAMP_EXCLUDE"
+		}
+	}
+
 	# Get user_modules count set by user, by default it is 0
 	set value [common::get_property CONFIG.user_modules_count $libhandle]
 	puts $file_handle "\n/* Number of User Modules */"
