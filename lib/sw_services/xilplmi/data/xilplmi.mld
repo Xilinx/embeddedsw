@@ -60,4 +60,5 @@ BEGIN LIBRARY xilplmi
   PARAM name = xplmi_mode, desc = "Enables server mode for PMC and client mode for APU, RPU and Microblaze", type = enum, values = (mode = "client", mode = "server"), default = "server";
   PARAM name = xplmi_cache_disable, desc = "Enables/Disables Cache for XilPlmi client library", type = bool, default = true;
   PARAM name = plm_version_user_defined, desc = "User defined PLM version", type = int, default = 0;
+  PARAM name = timestamp_en, desc = "Enables or Disables Time Stamp prints", type = bool, default = true;
 END LIBRARY

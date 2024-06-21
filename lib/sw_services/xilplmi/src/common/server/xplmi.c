@@ -61,6 +61,7 @@
 *       sk   02/18/2024 Added DDRMC Calib Check Status RTCA Register Init
 *       ng   03/20/2024 Added print to UART on log buffer full after LPD init
 * 1.10  sk   06/05/2024 Added code to populate PLM version in RTCA Reg
+*       mss  06/13/2024 Added timestamp banner conditionally
 *
 * </pre>
 *
@@ -258,8 +259,13 @@ void XPlmi_PrintPlmBanner(void)
 		"****************************************\n\r");
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, XPLMI_PLM_BANNER);
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-		"Release %s.%s   %s  -  %s\n\r",
-		SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER, __DATE__, __TIME__);
+		"Release %s.%s",SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER);
+	#ifndef PLM_BANNER_TIMESTAMP_EXCLUDE
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "   %s  -  %s",
+					__DATE__, __TIME__);
+	#endif
+
+	XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "\n\r");
 
 	/* For versal, PLM Update is not applicable, and this API returns FALSE */
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
@@ -281,8 +287,8 @@ void XPlmi_PrintPlmBanner(void)
 			(PsVersion >> XPLMI_PMC_VERSION_SHIFT),
 			(PsVersion & XPLMI_PMC_VERSION_MASK));
 		XPlmi_PrintRomVersion();
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "BOOTMODE: 0x%x, MULTIBOOT: 0x%x"
-				"\n\r", BootMode, MultiBoot);
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "BOOTMODE: 0x%x, MULTIBOOT: 0x%x\n\r"
+				, BootMode, MultiBoot);
 	}
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 		"****************************************\n\r");

@@ -139,6 +139,11 @@ if (NOT XILPLMI_plm_rsa_en)
   set(PLM_RSA_EXCLUDE " ")
 endif()
 
+option(XILPLMI_timestamp_en "Enables or Disables Timestamp prints" ON)
+if (NOT XILPLMI_timestamp_en)
+  set(PLM_BANNER_TIMESTAMP_EXCLUDE " ")
+endif()
+
 set(XILPLMI_user_modules_count "0" CACHE STRING "Number of User Modules.")
 set(XILPLMI_USER_MODULES_COUNT "${XILPLMI_user_modules_count}")
 
