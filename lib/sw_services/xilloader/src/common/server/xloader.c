@@ -450,6 +450,8 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr)
 	 */
 	PdiPtr->MetaHdr.DeviceCopy = DeviceOps[PdiPtr->PdiIndex].Copy;
 
+	PdiPtr->MetaHdr.DmaCopy = XPlmi_MemCpy64;
+
 	/**
 	 * - Read and validate all the headers in the PDI.
 	*/
