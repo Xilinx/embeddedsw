@@ -67,6 +67,8 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#define	XLOADER_WRITE_BUFFER_OFFSET	0xA
+
 /************************** Function Prototypes ******************************/
 static int FlashReadID(XQspiPsu *QspiPsuPtr);
 
@@ -101,7 +103,7 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 	int Status = XST_FAILURE;
 	XQspiPsu_Msg FlashMsg[2U] = {0U,};
 	u8 TxBfr;
-	u8 ReadBuffer[4U] __attribute__ ((aligned(32U)));
+	u8 *ReadBuffer = (u8 *)XPLMI_COPY_OPTIMIZATION_QSPI_FLASHREADID_BUFFER;
 
 	/**
 	 * - Read ID.
@@ -388,7 +390,7 @@ END:
 int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress)
 {
 	int Status = XST_FAILURE;
-	u32 QspiWidthBuffer[4U];
+	u32 *QspiWidthBuffer = (u32 *)XPLMI_COPY_OPTIMIZATION_QSPIBUSWIDTH_BUFFER;
 
 	/* Qspi width detection for 1x, 2x and 4x */
 	/** - Update the flash ReadCommand. */
@@ -407,7 +409,7 @@ int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress)
 	/** - Detect the QSPI bus width from the boot header. */
 	Status = XLoader_QspiCopy((ImageOffsetAddress +
 				XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
-				(u64)(UINTPTR)(&QspiWidthBuffer),
+				(u64)(UINTPTR)QspiWidthBuffer,
 				XLOADER_QSPI_BUSWIDTH_LENGTH, 0U);
 
 	if ((Status == XST_SUCCESS) &&
@@ -424,7 +426,7 @@ int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress)
 		QspiBusWidth = XQSPIPSU_SELECT_MODE_DUALSPI;
 		Status = XLoader_QspiCopy((ImageOffsetAddress +
 					XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
-					(u64)(UINTPTR)(&QspiWidthBuffer),
+					(u64)(UINTPTR)(QspiWidthBuffer),
 					XLOADER_QSPI_BUSWIDTH_LENGTH, 0U);
 		if((Status == XST_SUCCESS) && (QspiWidthBuffer[0U] ==
 			XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
@@ -440,7 +442,7 @@ int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress)
 			QspiBusWidth = XQSPIPSU_SELECT_MODE_SPI;
 			Status = XLoader_QspiCopy((ImageOffsetAddress +
 					XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
-					(u64)(UINTPTR)(&QspiWidthBuffer),
+					(u64)(UINTPTR)(QspiWidthBuffer),
 					XLOADER_QSPI_BUSWIDTH_LENGTH, 0U);
 			if ((Status == XST_SUCCESS) && (QspiWidthBuffer[0U] ==
 					XLOADER_QSPI_BUSWIDTH_DETECT_VALUE)){
@@ -547,9 +549,13 @@ static int SendBankSelect(u32 BankSel)
 	int Status =  XST_FAILURE;
 	XQspiPsu_Msg FlashMsg[2U] = {0U,};
 	u8 TxBfr;
-	u8 ReadBuffer[10U] __attribute__ ((aligned(32U))) = {0U};
-	u8 WriteBuffer[10U] __attribute__ ((aligned(32U)));
+	u8 *ReadBuffer = (u8 *)XPLMI_COPY_OPTIMIZATION_QSPI_SEND_BANK_READ_BUFFER;
+	u8 *WriteBuffer = (u8 *)XPLMI_COPY_OPTIMIZATION_QSPI_WRITE_BUFFER;
 
+	Status = XPlmi_MemSet(XPLMI_COPY_OPTIMIZATION_QSPI_SEND_BANK_READ_BUFFER, 0U, XLOADER_WRITE_BUFFER_OFFSET/4U);
+	if (Status != XST_SUCCESS){
+		goto END;
+	}
 	/*
 	 * Bank select commands for Micron and Spansion are different.
 	 * Macronix bank select is same as Micron.

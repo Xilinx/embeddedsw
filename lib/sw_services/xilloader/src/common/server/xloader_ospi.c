@@ -113,7 +113,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 {
 	int Status =  XST_FAILURE;
 	u32 Index;
-	u8 ReadBuffer[XLOADER_READ_ID_BYTES] __attribute__ ((aligned(32U)));
+	u8 *ReadBuffer = (u8 *)XPLMI_COPY_OPTIMIZATION_OSPI_FLASHREADID_BUFFER;
 	XOspiPsv_Msg FlashMsg = {0U};
 	u32 TempVal;
 
