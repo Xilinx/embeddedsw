@@ -322,6 +322,7 @@ typedef struct {
 	u32 MetaHdrOfst; /**< Offset to the start of meta header */
 	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length,
 			u32 Flags); /**< Function pointer for device copy */
+	int (*DmaCopy) (u64 DestAddr, u64 SrcAddr, u32 Length); /** Function pointer for DMA copy*/
 	u32 DigestTableSize; /**< Digest table size in bytes */
 	u32 IsAuthOptimized; /**< Authentication optimization enabled or disabled by the user */
 } XilPdi_MetaHdr __attribute__ ((aligned(16U)));

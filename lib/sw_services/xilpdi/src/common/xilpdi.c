@@ -70,6 +70,7 @@
 #include "xilpdi.h"
 #include "xil_io.h"
 #include "xil_util.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -290,12 +291,14 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	 * - Read the Img header table of 64 bytes
 	 * and update the Image Header Table structure
 	 */
-	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-			MetaHdrPtr->MetaHdrOfst,
-			(u64)(UINTPTR)SmapBusWidthCheck,
-			SMAP_BUS_WIDTH_LENGTH, 0x0U);
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + MetaHdrPtr->MetaHdrOfst, XPLMI_PMCRAM_CHUNK_MEMORY, SMAP_BUS_WIDTH_LENGTH, 0x0U);
 	if (XST_SUCCESS != Status) {
-		XilPdi_Printf("Device Copy Failed \n\r");
+		XilPdi_Printf("Device Copy Failed to copy from Boot device to PMC RAM\n\r");
+		goto END;
+	}
+	Status = MetaHdrPtr->DmaCopy((u64)(UINTPTR)SmapBusWidthCheck, XPLMI_PMCRAM_CHUNK_MEMORY, SMAP_BUS_WIDTH_LENGTH);
+	if (XST_SUCCESS != Status) {
+		XilPdi_Printf("Device Copy Failed to copy from PMC RAM to PPU RAM \n\r");
 		goto END;
 	}
 
@@ -318,12 +321,17 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	}
 
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-			MetaHdrPtr->MetaHdrOfst +
-			SMAP_BUS_WIDTH_LENGTH,
-			(u64)(UINTPTR)&MetaHdrPtr->ImgHdrTbl + Offset,
+			MetaHdrPtr->MetaHdrOfst + SMAP_BUS_WIDTH_LENGTH,
+			XPLMI_PMCRAM_CHUNK_MEMORY,
 			XIH_IHT_LEN - Offset, 0x0U);
 	if (XST_SUCCESS != Status) {
-		XilPdi_Printf("Device Copy Failed \n\r");
+		XilPdi_Printf("Device Copy Failed to copy from boot device to PMC RAM \n\r");
+	}
+
+	Status = MetaHdrPtr->DmaCopy((u64)(UINTPTR)&MetaHdrPtr->ImgHdrTbl + Offset, XPLMI_PMCRAM_CHUNK_MEMORY, XIH_IHT_LEN - Offset);
+	if (XST_SUCCESS != Status) {
+		XilPdi_Printf("Device Copy Failed to copy from PMC RAM to PPU RAM \n\r");
+		goto END;
 	}
 
 END:
@@ -566,8 +574,19 @@ int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 			((u64)MetaHdrPtr->ImgHdrTbl.ImgHdrAddr * XIH_PRTN_WORD_LEN),
-			(u64)(UINTPTR)MetaHdrPtr->ImgHdr, TotalLen, 0x0U);
+			XPLMI_PMCRAM_CHUNK_MEMORY, TotalLen, 0x0U);
+	if (XST_SUCCESS != Status) {
+		XilPdi_Printf("Device Copy Failed to copy from boot device to PMC RAM \n\r");
+		goto END;
+	}
 
+	Status = MetaHdrPtr->DmaCopy((u64)(UINTPTR)MetaHdrPtr->ImgHdr, XPLMI_PMCRAM_CHUNK_MEMORY, TotalLen);
+	if (XST_SUCCESS != Status) {
+		XilPdi_Printf("Device Copy Failed to copy from PMC RAM to PPU RAM \n\r");
+		goto END;
+	}
+
+END:
 	return Status;
 }
 
@@ -593,8 +612,19 @@ int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 			((u64)MetaHdrPtr->ImgHdrTbl.PrtnHdrAddr * XIH_PRTN_WORD_LEN),
-			(u64)(UINTPTR)MetaHdrPtr->PrtnHdr, TotalLen, 0x0U);
+			XPLMI_PMCRAM_CHUNK_MEMORY, TotalLen, 0x0U);
+	if (XST_SUCCESS != Status) {
+		XilPdi_Printf("Device Copy Failed to copy from boot device to PMC RAM \n\r");
+		goto END;
+	}
 
+	Status = MetaHdrPtr->DmaCopy((u64)(UINTPTR)MetaHdrPtr->PrtnHdr, XPLMI_PMCRAM_CHUNK_MEMORY, TotalLen);
+	if (XST_SUCCESS != Status) {
+		XilPdi_Printf("Device Copy Failed to copy from PMC RAM to PPU RAM \n\r");
+		goto END;
+	}
+
+END:
 	return Status;
 }
 

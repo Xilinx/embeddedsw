@@ -440,7 +440,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	u32 ChunkAddrTemp;
 	u8 LastChunk = (u8)FALSE;
 	u8 Flags;
-	u8 DevCopyOptimization = (u8)(XPlmi_In32(XPLMI_RTCFG_SECURE_CTRL_ADDR) &
+	u32 DevCopyOptimization = (u32)(XPlmi_In32(XPLMI_RTCFG_SECURE_CTRL_ADDR) &
 											XLOADER_DEVICE_COPY_OPTIMIZATION_MASK);
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 #ifdef PLM_PRINT_PERF_CDO_PROCESS
