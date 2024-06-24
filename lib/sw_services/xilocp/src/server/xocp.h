@@ -23,6 +23,7 @@
 * 1.3   am   01/31/2024 Fixed wrong XOcp_ExtendSwPcr() prototype parameter
 * 1.3   kpt  01/22/2024 Added support to extend secure state into SWPCR
 *       kpt  02/21/2024 Add support for DME CSR extension
+* 1.4   har  06/10/2024 Add data structure IDs for OCP module
 *
 * </pre>
 *
@@ -103,6 +104,12 @@ extern "C" {
 #define XOCP_SW_PCR_NUM_0  (0U)    /**< SW PCR number 0 */
 #define XOCP_SW_PCR_NUM_1  (1U)    /**< SW PCR number 1 */
 #define XOCP_SW_PCR_SEC_STATE_MEASUREMENT_IDX  (0U) /**< Measurement index for secure state extension */
+
+/* XilOcp Module Data Structure Ids*/
+#define XOCP_DEVAK_SUBSYS_HASH_DS_ID		(1U)	/**< DevAk Subsystem Hash data structure ID */
+#define XOCP_SWPCR_CONFIG_DS_ID			(2U)	/**< SW PCR config data structure ID */
+#define XOCP_SWPCR_STORE_DS_ID			(3U)	/**< SW PCR store data structure ID */
+#define XOCP_HWPCR_LOG_DS_ID			(4U)	/**< HW PCR log data structure ID */
 
 /**************************** Type Definitions *******************************/
 /*

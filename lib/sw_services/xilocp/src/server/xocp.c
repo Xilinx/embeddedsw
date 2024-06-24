@@ -32,6 +32,7 @@
 *	vss  04/01/24 Fix for XOcp_GetSwPcrData
 *       kpt  03/28/24 Fix DME failure
 *       har  04/12/24 Fix size of buffer passed to XPlmi_MemSet
+*       har  06/10/24 Support to retain PCR log after In Place PLM update
 *
 * </pre>
 * @note
@@ -82,12 +83,12 @@
 #define XOCP_HW_PCR                     (0x0U)  /**< HW PCR type */
 #define XOCP_SW_PCR                     (0x1U)  /**< SW PCR type */
 
-#define XOCP_SWPCR_CONFIG_DS_ID      (1U)   /**< SW PCR data structure id */
-#define XOCP_SWPCR_CONFIG_LCVERSION  (1U)   /**< SW PCR LC version */
-#define XOCP_SWPCR_CONFIG_VERSION    (1U)   /**< SW PCR version */
-#define XOCP_SWPCR_STORE_DS_ID       (1U)   /**< SW PCR store data structure id */
-#define XOCP_SWPCR_STORE_LCVERSION   (1U)   /**< SW PCR store LC version */
-#define XOCP_SWPCR_STORE_VERSION     (1U)   /**< SW PCR store version */
+#define XOCP_SWPCR_CONFIG_LCVERSION	(1U)   /**< SW PCR LC version */
+#define XOCP_SWPCR_CONFIG_VERSION	(1U)   /**< SW PCR version */
+#define XOCP_SWPCR_STORE_LCVERSION	(1U)   /**< SW PCR store LC version */
+#define XOCP_SWPCR_STORE_VERSION	(1U)   /**< SW PCR store version */
+#define XOCP_HWPCR_LOG_LCVERSION	(1U)   /**< HW PCR log LC version */
+#define XOCP_HWPCR_LOG_VERSION		(1U)   /**< HW PCR log version */
 
 /**************************** Type Definitions *******************************/
 static XOcp_DmeXppuCfg XOcp_DmeXppuCfgTable[XOCP_XPPU_MAX_APERTURES] =
@@ -123,7 +124,7 @@ static XOcp_DmeXppuCfg XOcp_DmeXppuCfgTable[XOCP_XPPU_MAX_APERTURES] =
 	{PMC_XPPU_APERPERM_386, XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL, 0U, 0U},
 	/* Configure [23:16] bits of Aperture_049 address */
 	{PMC_XPPU_DYNAMIC_RECONFIG_APER_ADDR, XOCP_XPPU_DYNAMIC_RECONFIG_APER_SET_VALUE, 0U, 0U},
-	/* Configure PPU0 to enable reconfiguration and PPU1 to configure XPPU registers after DME operation*/
+	/* Configure PPU0 to enable reconfiguration and PPU1 to configure XPPU registers after DME operation */
 	{PMC_XPPU_DYNAMIC_RECONFIG_APER_PERM, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL, 0U, 0U},
 	/* MASTER ID 00 */
 	{PMC_XPPU_MASTER_ID00, XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL, 0U, 0U},
@@ -155,11 +156,9 @@ static void XOcp_ReadTapConfig(XOcp_SecureTapConfig* TapConfig);
 static int XOcp_CheckAndUpdateSecConfigState(u32 *MeasureSecureConfig);
 static int XOcp_CheckAndUpdateTapConfigState(u32 *MeasureTapConfig);
 static int XOcp_MeasureSecureState(void);
+static XOcp_HwPcrLog *XOcp_GetHwPcrLogInstance(void);
 
 /************************** Variable Definitions *****************************/
-
-/**< HW PCR log structure */
-static XOcp_HwPcrLog HwPcrLog = {0U};
 
 /**< Secure state hash */
 static XOcp_SecureStateHash SecureStateHash;
@@ -170,8 +169,11 @@ static XOcp_SecureConfig SecureConfig;
 /**< Secure tap configuration */
 static XOcp_SecureTapConfig SecureTapConfig;
 
-/*< DME challenge available */
+/**< DME challenge available */
 static u32 IsDmeChlAvail = FALSE;
+
+/**< Is this first request to extend the PCR */
+static u32 FirstExtendReq = FALSE;
 
 /************************** Function Definitions *****************************/
 
@@ -285,19 +287,20 @@ int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntr
 	u32 RemHwPcrLogEvents = 0U;
 	u32 TotalRdHwPcrLogEvents = 0U;
 	u64 HwPcrEventsAddrTmp = HwPcrEventsAddr;
+	XOcp_HwPcrLog *HwPcrLog = XOcp_GetHwPcrLogInstance();
 
 	if (ReqHwPcrLogEntries > XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
 		Status = (int)XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST;
 		goto END;
 	}
 
-	if ((HwPcrLog.LogInfo.RemainingHwPcrEvents == 0U) || (ReqHwPcrLogEntries == 0U)) {
+	if ((HwPcrLog->LogInfo.RemainingHwPcrEvents == 0U) || (ReqHwPcrLogEntries == 0U)) {
 		Status = XST_SUCCESS;
 		goto END1;
 	}
 
-	if (ReqHwPcrLogEntries > HwPcrLog.LogInfo.RemainingHwPcrEvents) {
-		ReqHwPcrLogEntries = HwPcrLog.LogInfo.RemainingHwPcrEvents;
+	if (ReqHwPcrLogEntries > HwPcrLog->LogInfo.RemainingHwPcrEvents) {
+		ReqHwPcrLogEntries = HwPcrLog->LogInfo.RemainingHwPcrEvents;
 	}
 
 	TotalRdHwPcrLogEvents = ReqHwPcrLogEntries;
@@ -306,38 +309,38 @@ int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntr
 	 * then copy log entries from TailIndex to XOCP_MAX_NUM_OF_HWPCR_EVENTS and update
 	 * log entries and TailIndex.
 	 */
-	if ((HwPcrLog.TailIndex + ReqHwPcrLogEntries) >= XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
-		RemHwPcrLogEvents = XOCP_MAX_NUM_OF_HWPCR_EVENTS - HwPcrLog.TailIndex;
-		Status = XPlmi_MemCpy64(HwPcrEventsAddrTmp, (u64)(UINTPTR)&HwPcrLog.Buffer[HwPcrLog.TailIndex],
+	if ((HwPcrLog->TailIndex + ReqHwPcrLogEntries) >= XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
+		RemHwPcrLogEvents = XOCP_MAX_NUM_OF_HWPCR_EVENTS - HwPcrLog->TailIndex;
+		Status = XPlmi_MemCpy64(HwPcrEventsAddrTmp, (u64)(UINTPTR)&HwPcrLog->Buffer[HwPcrLog->TailIndex],
 				(RemHwPcrLogEvents * sizeof(XOcp_HwPcrEvent)));
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 		/* Update HWPCR events and log entries to handle remaining entries */
-		HwPcrLog.LogInfo.RemainingHwPcrEvents -= RemHwPcrLogEvents;
+		HwPcrLog->LogInfo.RemainingHwPcrEvents -= RemHwPcrLogEvents;
 		ReqHwPcrLogEntries -= RemHwPcrLogEvents;
 		HwPcrEventsAddrTmp += (u64)RemHwPcrLogEvents * sizeof(XOcp_HwPcrEvent);
-		HwPcrLog.TailIndex = 0U;
+		HwPcrLog->TailIndex = 0U;
     }
 
 	if (ReqHwPcrLogEntries != 0U) {
-		Status = XPlmi_MemCpy64(HwPcrEventsAddrTmp, (u64)(UINTPTR)&HwPcrLog.Buffer[HwPcrLog.TailIndex],
+		Status = XPlmi_MemCpy64(HwPcrEventsAddrTmp, (u64)(UINTPTR)&HwPcrLog->Buffer[HwPcrLog->TailIndex],
 			(ReqHwPcrLogEntries * sizeof(XOcp_HwPcrEvent)));
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		HwPcrLog.LogInfo.RemainingHwPcrEvents -= ReqHwPcrLogEntries;
-		XOcp_UpdateHwPcrIndex(&HwPcrLog.TailIndex, ReqHwPcrLogEntries);
+		HwPcrLog->LogInfo.RemainingHwPcrEvents -= ReqHwPcrLogEntries;
+		XOcp_UpdateHwPcrIndex(&HwPcrLog->TailIndex, ReqHwPcrLogEntries);
 	}
 END1:
 	/* Update current HWPCR log status */
-	HwPcrLog.LogInfo.HwPcrEventsRead = TotalRdHwPcrLogEvents;
-	Status = XPlmi_MemCpy64(HwPcrLogInfoAddr, (u64)(UINTPTR)&HwPcrLog.LogInfo,
+	HwPcrLog->LogInfo.HwPcrEventsRead = TotalRdHwPcrLogEvents;
+	Status = XPlmi_MemCpy64(HwPcrLogInfoAddr, (u64)(UINTPTR)&HwPcrLog->LogInfo,
 				sizeof(XOcp_HwPcrLogInfo));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	HwPcrLog.LogInfo.OverflowCntSinceLastRd = 0U;
+	HwPcrLog->LogInfo.OverflowCntSinceLastRd = 0U;
 END:
 	return Status;
 }
@@ -486,6 +489,7 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 	XOcp_SwPcrStore *SwPcr = XOcp_GetSwPcrInstance();
 	XOcp_SwPcrConfig *SwPcrConfig = XOcp_GetSwPcrConfigInstance();
 	u32 DigestIdxInLog = 0U;
+	FirstExtendReq = TRUE;
 
 	/* If SW PCR number is more than 7, throw and error */
 	if (PcrNum > (u32)XOCP_PCR_7) {
@@ -726,9 +730,11 @@ int XOcp_GetSwPcrLog(u64 Addr)
 	/* Calculate intermediate Hash values for all the SW PCRs in
 	 * the log.
 	 */
-	Status = XOcp_DigestMeasurementAndUpdateLog(Log.PcrNum);
-	if (Status != XST_SUCCESS) {
-		goto END;
+	if (FirstExtendReq == TRUE) {
+		Status = XOcp_DigestMeasurementAndUpdateLog(Log.PcrNum);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	/* Copy number of digests extended to requested SW PCR into
@@ -1637,22 +1643,23 @@ static u32 XOcp_GetPcrOffsetInLog(u32 PcrNum)
 static int XOcp_UpdateHwPcrLog(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
 {
 	volatile int Status = XST_FAILURE;
+	XOcp_HwPcrLog *HwPcrLog = XOcp_GetHwPcrLogInstance();
 
 	/* If number of PCR events is greater than XOCP_MAX_NUM_OF_HWPCR_EVENTS
 	 * update overflow count as true and  decrement number of PCR events for
 	 * new update and update the tail index.
 	 */
-	if (HwPcrLog.LogInfo.RemainingHwPcrEvents >= XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
-		HwPcrLog.LogInfo.OverflowCntSinceLastRd++;
-		if (HwPcrLog.HeadIndex == HwPcrLog.TailIndex) {
-			XOcp_UpdateHwPcrIndex(&HwPcrLog.TailIndex, 1U);
+	if (HwPcrLog->LogInfo.RemainingHwPcrEvents >= XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
+		HwPcrLog->LogInfo.OverflowCntSinceLastRd++;
+		if (HwPcrLog->HeadIndex == HwPcrLog->TailIndex) {
+			XOcp_UpdateHwPcrIndex(&HwPcrLog->TailIndex, 1U);
 		}
-		HwPcrLog.LogInfo.RemainingHwPcrEvents--;
+		HwPcrLog->LogInfo.RemainingHwPcrEvents--;
 	}
 
-	HwPcrLog.Buffer[HwPcrLog.HeadIndex].PcrNo = (u8)PcrNum;
+	HwPcrLog->Buffer[HwPcrLog->HeadIndex].PcrNo = (u8)PcrNum;
 	Status = XOcp_MemCopy(ExtHashAddr,
-		(u64)(UINTPTR)HwPcrLog.Buffer[HwPcrLog.HeadIndex].Hash,
+		(u64)(UINTPTR)HwPcrLog->Buffer[HwPcrLog->HeadIndex].Hash,
 		DataSize / XOCP_WORD_LEN, XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
 		if (Status == XST_SUCCESS) {
@@ -1663,7 +1670,7 @@ static int XOcp_UpdateHwPcrLog(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
 
 	Status = XOcp_MemCopy(((u64)(UINTPTR)XOCP_PMC_GLOBAL_PCR_0_0 +
 		((u64)PcrNum * XOCP_PCR_SIZE_BYTES)),
-		(u64)(UINTPTR)HwPcrLog.Buffer[HwPcrLog.HeadIndex].PcrValue,
+		(u64)(UINTPTR)HwPcrLog->Buffer[HwPcrLog->HeadIndex].PcrValue,
 		XOCP_PCR_SIZE_WORDS, XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
 		if (Status == XST_SUCCESS) {
@@ -1672,9 +1679,9 @@ static int XOcp_UpdateHwPcrLog(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
 		goto END;
 	}
 
-	HwPcrLog.LogInfo.RemainingHwPcrEvents++;
-	HwPcrLog.LogInfo.TotalHwPcrLogEvents++;
-	XOcp_UpdateHwPcrIndex(&HwPcrLog.HeadIndex, 1U);
+	HwPcrLog->LogInfo.RemainingHwPcrEvents++;
+	HwPcrLog->LogInfo.TotalHwPcrLogEvents++;
+	XOcp_UpdateHwPcrIndex(&HwPcrLog->HeadIndex, 1U);
 
 	XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
 			XIL_EVENT_ERROR_PCR_LOG_UPDATE);
@@ -1720,7 +1727,7 @@ static XOcp_SwPcrStore *XOcp_GetSwPcrInstance(void)
 {
 	static XOcp_SwPcrStore SwPcr __attribute__ ((aligned(4U))) = {0U};
 
-	EXPORT_OCP_DS(SwPcrConfig, XOCP_SWPCR_STORE_DS_ID,
+	EXPORT_OCP_DS(SwPcr, XOCP_SWPCR_STORE_DS_ID,
 		XOCP_SWPCR_STORE_VERSION, XOCP_SWPCR_STORE_LCVERSION,
 		sizeof(SwPcr), (u32)(UINTPTR)&SwPcr);
 
@@ -1904,4 +1911,26 @@ static int XOcp_MeasureSecureState(void)
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief       This function provides the pointer to the XOcp_HwPcrLog
+ *		instance which has to be used across the file to store the
+ *		HW PCR log.
+ *
+ * @return
+ *		Pointer to the XOcp_HwPcrLog instance
+ *
+ ******************************************************************************/
+static XOcp_HwPcrLog *XOcp_GetHwPcrLogInstance(void)
+{
+	static XOcp_HwPcrLog HwPcrLog __attribute__ ((aligned(4U))) = {0U};
+
+	EXPORT_OCP_DS(HwPcrLog, XOCP_HWPCR_LOG_DS_ID,
+		XOCP_HWPCR_LOG_VERSION, XOCP_HWPCR_LOG_LCVERSION,
+		sizeof(HwPcrLog), (u32)(UINTPTR)&HwPcrLog);
+
+	return &HwPcrLog;
+}
+
 #endif /* PLM OCP */

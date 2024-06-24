@@ -24,6 +24,7 @@
 *       vns  07/06/2023   Added DEVAK regenerate support and Data clear before shutdown
 *       am   07/20/2023   Added macro XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK
 * 1.3   am   01/31/2024   Fixed internal security review comments
+* 1.4   har  06/10/2024   Moved XOCP_DEVAK_SUBSYS_HASH_DS_ID macro to xocp.h
 *
 * </pre>
 *
@@ -67,7 +68,6 @@ extern "C" {
 							/**< Invalid DEVAK index value*/
 #define XOCP_INVALID_USR_CFG_INDEX			(0xFFFFFFFFU)
 							/**< Invalid user configuration index */
-#define XOCP_DEVAK_SUBSYS_HASH_DS_ID		(1U) /**< XilOCP Module Data Structure Ids */
 
 /**************************** Type Definitions *******************************/
 /**
