@@ -119,6 +119,7 @@
 *                       ClearATFHandoffParams function prototype
 *       har  03/12/2024 Fixed doxygen warnings
 *       kal  06/04/2024 Added ImagePrtnId to XilPdi structure
+*       mss  04/05/2024 Added XLOADER_DEVICE_COPY_OPTIMIZATION_MASK macro
 *
 * </pre>
 *
@@ -149,6 +150,7 @@ extern "C" {
 #define XLOADER_DMA_LEN_ALIGN		(0x10U)		/**< 16 bytes alignment*/
 #define XLOADER_DMA_LEN_ALIGN_MASK	(0xFU)		/**< Mask for 16 bytes alignment */
 #define XLOADER_IMAGE_SEARCH_OFFSET	(0x8000U)	/**< 32K */
+#define XLOADER_DEVICE_COPY_OPTIMIZATION_MASK	(0x30U) /** Mask to extract copy optimization bits of RTCA SecureCtrl registers */
 
 /**
  * @name  Subsystem related macros
