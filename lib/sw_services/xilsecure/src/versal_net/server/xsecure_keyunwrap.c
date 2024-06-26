@@ -49,12 +49,12 @@
 #include "xsecure_error.h"
 #include "xplmi_plat.h"
 #include "xplmi_dma.h"
+#include "xsecure_plat_defs.h"
 
 /************************** Constant Definitions *****************************/
 
 #define XSECURE_AES_256BIT_KEY_BLOCK_SIZE    (40U)            /**< AES 256-bit key block size */
 #define XSECURE_AES_128BIT_KEY_BLOCK_SIZE    (24U)            /**< AES 128-bit key block size */
-#define XSECURE_KEY_STORE_ADDR                 (0x10000000U)  /**< Key store address */
 #define XSECURE_SHARED_KEY_STORE_SIZE_OFFSET   (8U)           /**< Key size offset */
 #define XSECURE_SHARED_KEY_STORE_BITMAP_OFFSET (12U)          /**< Bitmap offset */
 #define XSECURE_KEY_STORE_BITMAP_MASK        (0xFFFFFFFFU)    /**< Bitmap mask */

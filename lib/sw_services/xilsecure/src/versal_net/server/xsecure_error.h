@@ -209,6 +209,7 @@ typedef enum {
 	XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED,    /**< 0xE3 - AES key size is not supported */
 	XSECURE_ERR_RSA_KEY_PAIR_NOT_AVAIL,        /**< 0xE4 - RSA key pair is not available */
 	XSECURE_ERR_AES_KEY_UNWRAP_FAILED_ERROR,   /**< 0xE5 - Error when AES key unwrap is failed */
+	XSECURE_ERR_INVALID_KEY_STORE_ADDR,        /**< 0xE6 - Error when key store address is not provided */
 
 	XSECURE_ERR_CODE_RESERVED = 0xF0,	/**< 0xF0 -
 	                    Till 2022.1 - No tamper response when tamper interrupt is detected

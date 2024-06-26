@@ -216,6 +216,11 @@ static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh)
 	u64 KeyWrapAddr = ((u64)KeyWrapAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)KeyWrapAddrLow;
 	XSecure_KeyWrapData KeyWrapData = {0U};
 
+	if (XSECURE_KEY_STORE_ADDR == 0U) {
+		Status = (int)XSECURE_ERR_INVALID_KEY_STORE_ADDR;
+		goto END;
+	}
+
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&KeyWrapData, KeyWrapAddr, sizeof(XSecure_KeyWrapData));
 	if (Status != XST_SUCCESS) {
 		goto END;

@@ -32,6 +32,7 @@
 #       yog  02/23/24 Added support to enable/disable P521 curve
 # 5.4   mb   04/23/24 Added xsecure_elliptic_p192_support parameter to enable/disable P192 curve
 #       mb   04/23/24 Added xsecure_elliptic_p224_support parameter to enable/disable P224 curve
+#       kpt  06/13/24 Added xsecure_key_slot_addr
 #
 ##############################################################################
 
@@ -356,6 +357,12 @@ proc xgen_opts_file {libhandle} {
 			set keysize 512
 		}
 		puts $file_handle [format %s%d%s "#define XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES " [expr $keysize] "U"]
+
+		set value [common::get_property CONFIG.xsecure_key_slot_addr $libhandle]
+		puts $file_handle "\n/* Key slot address */"
+		puts $file_handle [format %s0x%x%s "#define XSECURE_KEY_SLOT_ADDR " [expr $value] "U"]
+		puts $file_handle "\n"
+
 		close $file_handle
 	}
 }
