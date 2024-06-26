@@ -31,7 +31,8 @@
 *       mb   04/15/24 Updated SHA2 minor version
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
 *       kpt  05/14/24 Fix backward compatabilty issue
-*       kpt  05/26/2024 Add support for RSA CRT and RRN operation
+*       kpt  05/26/24 Add support for RSA CRT and RRN operation
+*       kpt  06/13/24 Add support for XSECURE_API_RSA_RELEASE_KEY
 *
 * </pre>
 * @note
@@ -107,9 +108,8 @@ typedef enum {
 	XSECURE_API_KEY_UNWRAP,                 	/**< 35U */
 	XSECURE_API_RESERVED, /**< 36U */
 	XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,/**< 37U */
-	XSECURE_API_RSA_SCA_RESISTANCE_PRIVATE_CRT_DECRYPT, /**< 38U */
-	XSECURE_API_RSA_SCA_RESISTANCE_PRIVATE_RRN_DECRYPT, /**< 39U */
-	XSECURE_API_MAX,				/**< 40U */
+	XSECURE_API_RSA_RELEASE_KEY,/**< 38U */
+	XSECURE_API_MAX,				/**< 39U */
 } XSecure_ApiId;
 
 /**< XilSecure KAT ids */

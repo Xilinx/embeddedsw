@@ -25,6 +25,7 @@
 * 5.3   ng      01/28/24 Added SDT support
 *       ng      03/26/24 Fixed header include in SDT flow
 * 5.4   yog     04/29/24 Fixed doxygen warnings.
+*       kpt     06/13/24 Added RSA key generation support.
 *
 * </pre>
 *
@@ -167,7 +168,8 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 	XSecure_AesKeySize AesKeySize;
 	XSecure_RsaOaepParam OaepParam = {0U};
 	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
-	XSecure_RsaKey *PrivKey = XSecure_GetRsaPrivateKey();
+	u32 KeyInUseIdx = XSecure_GetRsaKeyInUseIdx();
+	XSecure_RsaPrivKey *PrivKey = XSecure_GetRsaPrivateKey(KeyInUseIdx);
 	u64 SharedKeyStoreAddr = XSecure_GetKeyStoreAddr();
 	u8 EphAesKey[XSECURE_AES_KEY_SIZE_256BIT_BYTES];
 	u32 KeySlotVal = 0U;

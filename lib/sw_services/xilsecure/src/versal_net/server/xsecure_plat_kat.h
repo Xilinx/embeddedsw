@@ -22,6 +22,7 @@
 * 5.2   kpt  07/12/2023 Add pairwise consistency for RSA
 * 5.3   kpt  12/13/2023 Added RSA CRT support for PWCT
 * 5.4   yog  04/29/2024 Fixed doxygen grouping.
+*       kpt  06/13/2024 Add support for RSA key generation.
 *
 * </pre>
 *
@@ -59,7 +60,7 @@ int XSecure_HmacKat(XSecure_Sha3 *SecureSha3);
  */
 int XSecure_Sha384Kat(void);
 #ifndef PLM_RSA_EXCLUDE
-int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaPubKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype);
+int XSecure_RsaPwct(XSecure_RsaPrivKey *PrivKey, XSecure_RsaPubKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype);
 int XSecure_RsaPrivateDecryptKat(void);
 #endif
 

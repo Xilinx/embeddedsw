@@ -40,6 +40,7 @@
  *       yog  09/04/2023 Removed TRNG error codes
  * 5.3   am   09/28/2023 Added error code XSECURE_RSA_EXPONENT_INVALID_PARAM
  * 5.4   yog  04/29/2024 Fixed doxygen warnings.
+ *       kpt  06/13/2024 Added XSECURE_ERR_RSA_KEY_PAIR_NOT_AVAIL
  *
  * </pre>
  *
@@ -205,6 +206,7 @@ typedef enum {
 	XSECURE_ERR_NO_FREE_KEY_SLOT,              /**< 0xE1 - No free key slot available to store the key */
 	XSECURE_ERR_KEY_WRAP_SIZE_MISMATCH,        /**< 0xE2 - Key size mismatch between wrap and unwrap */
 	XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED,    /**< 0xE3 - AES key size is not supported */
+	XSECURE_ERR_RSA_KEY_PAIR_NOT_AVAIL,        /**< 0xE4 - RSA key pair is not available */
 	XSECURE_ERR_CODE_RESERVED = 0xF0,	/**< 0xF0 -
 	                    Till 2022.1 - No tamper response when tamper interrupt is detected
 	                    From 2022.2 - Reserved */
