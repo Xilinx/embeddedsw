@@ -66,7 +66,7 @@ extern "C" {
 #define XSECURE_KEY_ID_LEN_IN_BYTES (128U) /**< Key id length in bytes */
 
 #define XSECURE_SHARED_KEY_STORE_SIZE_OFFSET   (8U)           /**< Key size offset */
-#define XSECURE_SHARED_KEY_STORE_BITMAP_OFFSET (12U)          /**< Bitmap offset */
+#define XSECURE_SHARED_KEY_SLOT_STATUS_START_OFFSET (12U)     /**< Bitmap offset */
 
 /************************** Variable Definitions *****************************/
 

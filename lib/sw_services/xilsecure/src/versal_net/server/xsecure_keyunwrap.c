@@ -27,6 +27,7 @@
 * 5.4   yog     04/29/24 Fixed doxygen warnings.
 *       kpt     06/13/24 Added RSA key generation support.
 *       kpt     06/13/24 Added AES key unwrap with padding support.
+*       kpt     06/13/24 Updated keyvault map.
 *
 * </pre>
 *
@@ -53,18 +54,26 @@
 
 /************************** Constant Definitions *****************************/
 
-#define XSECURE_AES_256BIT_KEY_BLOCK_SIZE    (40U)            /**< AES 256-bit key block size */
-#define XSECURE_AES_128BIT_KEY_BLOCK_SIZE    (24U)            /**< AES 128-bit key block size */
-#define XSECURE_SHARED_KEY_STORE_SIZE_OFFSET   (8U)           /**< Key size offset */
-#define XSECURE_SHARED_KEY_STORE_BITMAP_OFFSET (12U)          /**< Bitmap offset */
-#define XSECURE_KEY_STORE_BITMAP_MASK        (0xFFFFFFFFU)    /**< Bitmap mask */
-#define XSECURE_MAX_KEY_STORE_CAPACTIY       (32U)            /**< Maximum key store capacity */
+#define XSECURE_MAX_KEY_STORE_CAPACTIY			(32U)            /**< Maximum key store capacity */
+#define XSECURE_SHARED_KEY_STORE_SIZE_OFFSET	(8U)           /**< Key size offset */
+#define XSECURE_KEY_STORE_KEY_OFFSET			(4U)             /**< Key offset from key slot status */
+#define XSECURE_AES_256BIT_KEY_BLOCK_SIZE		(40U)            /**< AES 256-bit key block size */
+#define XSECURE_AES_128BIT_KEY_BLOCK_SIZE		(24U)            /**< AES 128-bit key block size */
+#define XSECURE_AES_KEY_SLOT_STATUS_FULL		(0x973AFB51U)		  /**< AES key status is full */
+#define XSECURE_KEY_SLOT_KEY_STATUS_ADDR	 (XSECURE_KEY_STORE_ADDR + \
+											 sizeof(XSecure_KeyStoreHdr))
+											 /* Key slot status address */
+#define XSECURE_KEY_SLOT_KEY_ADDR			 (XSECURE_KEY_SLOT_KEY_STATUS_ADDR + \
+											 XSECURE_KEY_STORE_KEY_OFFSET) /* Key address */
+
+#define XSECURE_KEY_STORE_KEY_WRAP_DATA_SIZE (XSECURE_KEY_STORE_KEY_OFFSET + \
+											 sizeof(XSecure_KeyMetaData) + XSECURE_AES_KEY_SIZE_256BIT_BYTES)
+											/* key wrap data size */
 
 /************************** Function Prototypes ******************************/
 
-static int XSecure_GetFreeKeySlot(u32 *KeySlotPtr, u64 SharedKeyStoreAddr);
-static void XSecure_MarkKeySlotOccupied(u32 KeySlotId, u64 SharedKeyStoreAddr);
-static u32 XSecure_GetKeyStoreAddr(void);
+static int XSecure_UpdateKeySlotStatusAddr(void);
+static void XSecure_MarkKeySlotOccupied(u64 KeySlotStatusAddr);
 
 /************************** Variable Definitions *****************************/
 
@@ -72,62 +81,62 @@ typedef struct {
 	u32 KeyStoreTag; /**< Key store tag */
 	u32 VersionNum;  /**< Version number */
 	u32 KeyStoreCapacity; /**< Key store capacity */
-	u32 BitMap; /**< Bitmap to indicate free key slot */
 }XSecure_KeyStoreHdr;
+
+static u32 UpdatedFreeKeySlot = 0U;
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
- * @brief	This function returns key store address
- *
- ******************************************************************************/
-static u32 XSecure_GetKeyStoreAddr(void)
-{
-	return XSECURE_KEY_STORE_ADDR;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function returns the free key slot id from shared key store address
- *
- * @param	KeySlotPtr is pointer to the keyslot where key and metadata needs to be stored.
- * @param	SharedKeyStoreAddr is address of shared key store between secure shell and PMC.
+ * @brief	This function updates the key free slot status address
  *
  * @return
  * 			- XST_SUCCESS on success.
  * 			- Error code on failure.
  *
  ******************************************************************************/
-static int XSecure_GetFreeKeySlot(u32 *KeySlotPtr, u64 SharedKeyStoreAddr)
+static int XSecure_UpdateKeySlotStatusAddr(void)
 {
 	int Status = XST_FAILURE;
-	static u32 UpdateKeyFreeSlot = 0U;
-	u32 BitMap = XSecure_In64(SharedKeyStoreAddr + XSECURE_SHARED_KEY_STORE_BITMAP_OFFSET);
-	u32 KeyStoreSize = XSecure_In64(SharedKeyStoreAddr + XSECURE_SHARED_KEY_STORE_SIZE_OFFSET);
-	u32 BitMapMask = 0U;
+	u64 KeySlotStatusAddr = XSECURE_KEY_SLOT_KEY_STATUS_ADDR;
+	u32 KeyStoreSize = XSecure_In64(XSECURE_KEY_STORE_ADDR + XSECURE_SHARED_KEY_STORE_SIZE_OFFSET);
+	u32 KeySlotCnt = 0U;
+	u32 KeySlotStatus = 0U;
 
-
+	/* Check if the key store size is valid */
 	if ((KeyStoreSize > XSECURE_MAX_KEY_STORE_CAPACTIY) || (KeyStoreSize == 0U)) {
 		Status = (int)XSECURE_ERR_KEY_STORE_SIZE;
 		goto END;
 	}
 
-	BitMapMask = ~(u32)((u64)XSECURE_KEY_STORE_BITMAP_MASK << KeyStoreSize);
-	if ((BitMap & BitMapMask) == BitMapMask) {
+	/* Calculate the starting address of the free key slot status */
+	KeySlotStatusAddr = (u64)(XSECURE_KEY_SLOT_KEY_STATUS_ADDR +
+					(UpdatedFreeKeySlot * XSECURE_KEY_STORE_KEY_WRAP_DATA_SIZE));
+
+	/* Iterate through the key slots to find a free slot */
+	while (KeySlotCnt < KeyStoreSize) {
+		KeySlotStatus = XSecure_In64(KeySlotStatusAddr);
+		if (KeySlotStatus != XSECURE_AES_KEY_SLOT_STATUS_FULL) {
+			break;
+		}
+
+		/* Move to the next slot */
+		KeySlotStatusAddr = KeySlotStatusAddr + XSECURE_KEY_STORE_KEY_WRAP_DATA_SIZE;
+		UpdatedFreeKeySlot++;
+
+		/* Wrap around if the end of the key store is reached */
+		if (UpdatedFreeKeySlot >= KeyStoreSize) {
+			UpdatedFreeKeySlot = 0U;
+			KeySlotStatusAddr = (u64)XSECURE_KEY_SLOT_KEY_STATUS_ADDR;
+		}
+		KeySlotCnt++;
+	}
+
+	if (KeySlotCnt >= KeyStoreSize) {
 		Status = (int)XSECURE_ERR_NO_FREE_KEY_SLOT;
 		goto END;
 	}
-
-	if (UpdateKeyFreeSlot >= KeyStoreSize) {
-		UpdateKeyFreeSlot = 0U;
-	}
-
-	while (((BitMap >> UpdateKeyFreeSlot) & 0x01U) != 0x00U) {
-		UpdateKeyFreeSlot++;
-	}
-
-	*KeySlotPtr = UpdateKeyFreeSlot++;
 	Status = XST_SUCCESS;
 END:
 	return Status;
@@ -135,18 +144,20 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function updates the KEY slot id as in use
+ * @brief	This function updates the key slot id as in use
  *
- * @param	KeySlotId is key slot id that needs to be updated in bitmap.
- * @param	SharedKeyStoreAddr is address of shared key store between secure shell and PMC.
+ * @param   KeySlotStatusAddr Key slot status address to be updated
  *
  ******************************************************************************/
-static void XSecure_MarkKeySlotOccupied(u32 KeySlotId,  u64 SharedKeyStoreAddr)
+static void XSecure_MarkKeySlotOccupied(u64 KeySlotStatusAddr)
 {
-	u32 BitMap = XSecure_In64(SharedKeyStoreAddr + XSECURE_SHARED_KEY_STORE_BITMAP_OFFSET);
+	u32 KeyStoreSize = XSecure_In64(XSECURE_KEY_STORE_ADDR + XSECURE_SHARED_KEY_STORE_SIZE_OFFSET);
 
-	BitMap |= (1U << KeySlotId);
-	XSecure_Out64(SharedKeyStoreAddr + XSECURE_SHARED_KEY_STORE_BITMAP_OFFSET, BitMap);
+	XSecure_Out64(KeySlotStatusAddr, XSECURE_AES_KEY_SLOT_STATUS_FULL);
+	UpdatedFreeKeySlot = UpdatedFreeKeySlot + 1U;
+	if (UpdatedFreeKeySlot >= KeyStoreSize) {
+		UpdatedFreeKeySlot = 0U;
+	}
 }
 
 /*****************************************************************************/
@@ -169,17 +180,16 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 	volatile int SStatus = XST_FAILURE;
 	u64 KeyWrapAddr = 0U;
 	u64 DstKeySlotAddr = 0U;
+	u64 KeySlotStatusAddr = 0U;
 	u32 EncryptedKeySize = 0U;
 	XSecure_AesKeySize AesKeySize;
 	XSecure_RsaOaepParam OaepParam = {0U};
 	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
 	u32 KeyInUseIdx = XSecure_GetRsaKeyInUseIdx();
 	XSecure_RsaPrivKey *PrivKey = XSecure_GetRsaPrivateKey(KeyInUseIdx);
-	u64 SharedKeyStoreAddr = XSecure_GetKeyStoreAddr();
 	u8 WrapRsaKey[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];
 	u8 EphAesKey[XSECURE_AES_KEY_SIZE_256BIT_BYTES];
 	u8 WrapAesKey[XSECURE_AES_256BIT_KEY_BLOCK_SIZE];
-	u32 KeySlotVal = 0U;
 
 	if ((KeyWrapData == NULL) || (PrivKey == NULL)) {
 		Status = (int)XST_INVALID_PARAM;
@@ -200,15 +210,12 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 
 	KeyWrapAddr = KeyWrapData->KeyWrapAddr;
 
-	/** Check for free key slot */
-	Status = XSecure_GetFreeKeySlot(&KeySlotVal, SharedKeyStoreAddr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	/** Check for free key slot and update Key slot status address */
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_UpdateKeySlotStatusAddr);
 
-	/** Get destination key slot address by using free key slot value */
-	DstKeySlotAddr = (SharedKeyStoreAddr + sizeof(XSecure_KeyStoreHdr) + (KeySlotVal * sizeof(XSecure_KeyMetaData)) +
-				(KeySlotVal * XSECURE_AES_KEY_SIZE_256BIT_BYTES));
+	/* Get destination key slot address by using free key slot value */
+	DstKeySlotAddr = (u64)(XSECURE_KEY_SLOT_KEY_ADDR + (UpdatedFreeKeySlot * XSECURE_KEY_STORE_KEY_WRAP_DATA_SIZE));
+	KeySlotStatusAddr = DstKeySlotAddr - XSECURE_KEY_STORE_KEY_OFFSET;
 
 	/* Copy wrapped rsa key to local buffer */
 	XSecure_MemCpy64((u64)(UINTPTR)WrapRsaKey, KeyWrapAddr, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
@@ -250,7 +257,7 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 	/** Update the key slot with metadata */
 	DstKeySlotAddr += (u64)(EncryptedKeySize - XSECURE_AES_64BIT_BLOCK_SIZE);
 	XSecure_MemCpy64(DstKeySlotAddr, (u64)(UINTPTR)&KeyWrapData->KeyMetaData, sizeof(XSecure_KeyMetaData));
-	XSecure_MarkKeySlotOccupied(KeySlotVal, SharedKeyStoreAddr);
+	XSecure_MarkKeySlotOccupied(KeySlotStatusAddr);
 
 END:
 	/** Clear the ephemeral AES key after the usage */
