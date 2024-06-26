@@ -22,6 +22,7 @@
 *       kpt  07/09/23 Added APIs related to Key wrap and unwrap
 * 5.3   kpt  12/13/23 Add RSA quiet mode support
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
+*       kpt  06/13/24 Added XSecure_ReleaseRsaKey
 *
 * </pre>
 *
@@ -234,6 +235,37 @@ int XSecure_KeyUnwrap(XSecure_ClientInstance *InstancePtr, XSecure_KeyWrapData *
 	Payload[0U] = HEADER(0U, XSECURE_API_KEY_UNWRAP);
 	Payload[1U] = (u32)KeyWrapAddr;
 	Payload[2U] = (u32)(KeyWrapAddr >> 32U);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function releases the RSA key that is in use.
+ *
+ * @param	InstancePtr - Pointer to the client instance
+ *
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *	-	Errorcode - On failure
+ *
+ ******************************************************************************/
+int XSecure_ReleaseRsaKey(XSecure_ClientInstance *InstancePtr)
+{
+	int Status = XST_FAILURE;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_1U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_RSA_RELEASE_KEY);
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 

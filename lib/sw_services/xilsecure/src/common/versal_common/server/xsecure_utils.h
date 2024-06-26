@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 5.1   kpt     01/13/23 Initial Release
 * 5.1   yog     05/03/23 Fixed MISRA C violation of Rule 2.5
+* 5.4   kpt     06/24/24 Added XSECURE_BYTE_IN_BITS
 *
 * </pre>
 *
@@ -42,7 +43,8 @@ extern "C" {
 #define XSECURE_RESET_UNSET			(0U) /**< To take the core out of reset */
 #define XSECURE_WORD_SIZE			(4U) /**< WORD size in BYTES */
 #define XSECURE_QWORD_SIZE			(16U) /**< QWORD size in BYTES */
-#define XSECURE_WORD_IN_BITS			(32U)/**< WORD size in BITS */
+#define XSECURE_WORD_IN_BITS		(32U) /**< WORD size in BITS */
+#define XSECURE_BYTE_IN_BITS		(8U)  /**< Byte size in BITS */
 #define XSECURE_WORD_ALIGN_MASK			(XSECURE_WORD_SIZE - 1U)/**< WORD alignment */
 #define XSECURE_SET_BIT				(0x0U) /**< To set bit */
 #define XSECURE_CLEAR_BIT			(0xFFFFFFFFU) /**< To clear bit */

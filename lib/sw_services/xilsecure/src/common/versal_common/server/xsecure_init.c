@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 4.7   ma  07/08/2022 Added support for secure lockdown
 * 5.1   dc  12/27/2022 Added SHA1 instance
 * 5.2   yog 08/07/2023 Moved Trng init API to xsecure_plat.c
+* 5.4   kpt 06/23/2024 Added XSecure_AddRsaKeyPairGenerationToScheduler
 *
 * </pre>
 *
@@ -40,6 +41,7 @@
 #include "xsecure_cmd.h"
 #ifdef VERSAL_NET
 #include "xsecure_plat_kat.h"
+#include "xsecure_plat_rsa.h"
 #include "xplmi.h"
 #endif
 
@@ -55,10 +57,11 @@
 
 /*****************************************************************************/
 /**
- * @brief	This function registers the handler for tamper interrupt
+ * @brief	This function registers the handlers for XilSecure IPI commands
  *
  * @return
- *	-	XST_SUCCESS - Always returns success
+ *	-	XST_SUCCESS - On success
+ *  -   ErrorCode   - On failure
  *
  *****************************************************************************/
 int XSecure_Init(void)
@@ -66,7 +69,12 @@ int XSecure_Init(void)
 	int Status = XST_FAILURE;
 
 	XSecure_CmdsInit();
+#if defined (VERSAL_NET) && !defined(PLM_RSA_EXCLUDE)
+	/* Add keypair generation to scheduler for versalnet */
+	Status = XSecure_AddRsaKeyPairGenerationToScheduler();
+#else
 	Status = XST_SUCCESS;
+#endif
 
 	return Status;
 }

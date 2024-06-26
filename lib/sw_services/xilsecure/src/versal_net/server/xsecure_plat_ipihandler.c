@@ -27,6 +27,7 @@
 *      			instead of XPLMI_SECURE_RSA_KAT_MASK
 * 5.4  yog   04/29/2024 Fixed doxygen grouping and doxygen warnings.
 *      kpt   05/26/2024 Add support for RSA CRT and RRN operation
+*      kpt   06/13/2024 Add support for RSA key generation.
 *
 * </pre>
 *
@@ -101,6 +102,9 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
 		Status = XSecure_RsaPrivateOperationIpi(Pload[0U], Pload[1U], Pload[2U], Pload[3U]);
 		break;
+	case XSECURE_API(XSECURE_API_RSA_RELEASE_KEY):
+		Status = XSecure_RsaDestroyKeyInUse();
+		break;
 #endif
 	default:
 		CryptoMask = 0U;
@@ -169,28 +173,26 @@ END:
 {
 	volatile int Status = XST_FAILURE;
 	u64 PubKeyAddr = ((u64)PubKeyAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)PubKeyAddrLow;
-	const XSecure_RsaPubKey *RsaPubKey =  XSecure_GetRsaPublicKey();
+	u32 KeyInUseIdx = XSecure_GetRsaKeyInUseIdx();
+	const XSecure_RsaPubKey *RsaPubKey =  XSecure_GetRsaPublicKey(KeyInUseIdx);
 	XSecure_RsaPubKeyAddr RsaPubKeyAddr = {0U};
-	u32 PubExp = 0U;
 
 	if (RsaPubKey == NULL) {
+		Status = (int)XSECURE_ERR_RSA_KEY_PAIR_NOT_AVAIL;
 		goto END;
 	}
-
-	/**< TODO- Need to check whether public key is generated */
 
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)&RsaPubKeyAddr, PubKeyAddr, sizeof(XSecure_RsaPubKeyAddr));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XPlmi_MemCpy64(RsaPubKeyAddr.ModulusAddr, (u64)(UINTPTR)RsaPubKey->Modulus, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+	Status = XPlmi_MemCpy64(RsaPubKeyAddr.ModulusAddr, (u64)(UINTPTR)RsaPubKey->Mod, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	PubExp = Xil_In32((u32)(UINTPTR)RsaPubKey->Exponent);
-	XPlmi_Out64(RsaPubKeyAddr.ExponentAddr, PubExp);
+	XPlmi_Out64(RsaPubKeyAddr.ExponentAddr, RsaPubKey->PubExp[0U]);
 END:
 	return Status;
 }

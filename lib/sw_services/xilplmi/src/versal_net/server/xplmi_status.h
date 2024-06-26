@@ -750,6 +750,12 @@ typedef enum {
 			up or cfg fails*/
 	XOCP_ERR_INVALID_XPPU_CONFIGURATION,
 		/**< 0x6CC Invalid XPPU configuration */
+
+	XSECURE_ERR_ADD_TASK_SCHEDULER = 0x6E0,  /**< 0x6E0 Error while adding task to
+						the scheduler */
+	XSECURE_ERR_REMOVE_TASK_SCHEDULER, /**< 0x6E0 Error while Removing task from
+						the scheduler */
+		/**< */
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
 		 * [12:8] contains Module ID, [7:0] contains API ID.

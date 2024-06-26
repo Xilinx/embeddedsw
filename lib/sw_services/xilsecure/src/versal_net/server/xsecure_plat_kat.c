@@ -29,6 +29,7 @@
 *       kpt  03/15/24 Added RSA private decrypt KAT
 *       ng   03/26/24 Fixed header include in SDT flow
 * 5.4   yog  04/29/24 Fixed doxygen grouping.
+*       kpt  06/13/24 Add support for RSA key generation.
 *
 * </pre>
 *
@@ -190,7 +191,7 @@ END:
  *	-	ErrorCode   - On Failure
  *
  *****************************************************************************/
-int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaPubKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype)
+int XSecure_RsaPwct(XSecure_RsaPrivKey *PrivKey, XSecure_RsaPubKey *PubKey, void *ShaInstancePtr, XSecure_ShaType Shatype)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
@@ -199,8 +200,20 @@ int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaPubKey *PubKey, void *Sh
 	XSecure_RsaOaepParam OaepParam = {0U};
 	u8 EncOutput[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];
 	u8 DecOutput[XSECURE_KAT_MSG_LEN_IN_BYTES];
+	u32 PubExp = 0U;
 
-	Status = XSecure_RsaInitialize(&RsaInstance, PubKey->Modulus,PubKey->ModExt, PubKey->Exponent);
+	if ((PrivKey == NULL) || (PubKey == NULL)) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = Xil_SChangeEndiannessAndCpy((u8*)&PubExp, XSECURE_RSA_PUB_EXP_SIZE, (u8*)PubKey->PubExp, XSECURE_RSA_PUB_EXP_SIZE,
+				XSECURE_RSA_PUB_EXP_SIZE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_RsaInitialize(&RsaInstance, PubKey->Mod, NULL, (u8*)&PubExp);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -211,6 +224,11 @@ int XSecure_RsaPwct(XSecure_RsaKey *PrivKey, XSecure_RsaPubKey *PubKey, void *Sh
 	OaepParam.ShaInstancePtr = (void*)ShaInstancePtr;
 	OaepParam.ShaType = Shatype;
 	Status = XSecure_RsaOaepEncrypt(&RsaInstance, &OaepParam);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xil_SReverseData(EncOutput, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

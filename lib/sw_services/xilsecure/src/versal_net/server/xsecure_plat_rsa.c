@@ -26,6 +26,7 @@
 *       kpt     03/22/24 Fix MISRA C violation of Rule 10.3
 * 5.4   yog     04/29/24 Fixed doxygen warnings.
 *       kpt     05/26/24 Added RSA Expopt API.
+*       kpt     06/13/24 Add support for RSA key generation.
 *
 * </pre>
 *
@@ -45,6 +46,11 @@
 #include "xsecure_sha.h"
 #include "xsecure_plat.h"
 #include "xsecure_error.h"
+#include "xsecure_plat_kat.h"
+#include "xsecure_defs.h"
+#include "xplmi.h"
+#include "xplmi_tamper.h"
+#include "xplmi_scheduler.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -59,37 +65,15 @@
 
 static int XSecure_RsaOaepEncode(XSecure_RsaOaepParam *OaepParam, u64 OutputAddr);
 static int XSecure_RsaOaepDecode(XSecure_RsaOaepParam *OaepParam, u64 InputDataAddr);
+static XSecure_RsaKeyMgmt* XSecure_GetRsaKeyMgmtInstance(void);
+static int XSecure_GetRsaKeySlotIdx(u32 *RsaKeyIdx, u32 RsaKeyStatus);
+static XSecure_RsaKeyGenParam* XSecure_GetRsaKeyGenParam(void);
+static int XSecure_RsaKeyGenInit(XSecure_RsaKeyGenParam* RsaParam, XSecure_RsaKeyPtr* KeyPairState, u32 RsaKeyLen);
+static int XSecure_RsaKeyGenerate(XSecure_RsaKeyPtr *KeyPairState, u32 QuantSize);
+static int XSecure_RemoveRsaKeyPairGenerationFromScheduler(void);
+static int XSecure_GenerateRsaKeyPair(void* arg);
 
 /************************** Variable Definitions *****************************/
-
-#if (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES == XSECURE_RSA_3072_KEY_SIZE)
-static u8 Modulus[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES] = {
-		0xA5, 0x1E, 0xB7, 0x46, 0x95, 0x2D, 0x4A, 0x19, 0x7C, 0xA9, 0x18, 0x44, 0xF3, 0xB6, 0xBB, 0xE1,
-		0xAD, 0x63, 0x47, 0x38, 0x02, 0x6C, 0x81, 0xA5, 0x3C, 0x4A, 0x00, 0xFF, 0x97, 0x8F, 0xFC, 0x52,
-		0xDD, 0x44, 0x61, 0x6E, 0x87, 0xC4, 0x31, 0x38, 0xFF, 0x38, 0xA5, 0xFE, 0x2A, 0xAA, 0x47, 0xE2,
-		0xA3, 0xF5, 0xA9, 0x53, 0x66, 0xD5, 0xFA, 0xFA, 0x17, 0x5B, 0xBC, 0x5D, 0x49, 0xC3, 0xFD, 0x86,
-		0xDA, 0xBD, 0xF5, 0x32, 0x2D, 0x63, 0x0B, 0xEC, 0x89, 0xC6, 0x31, 0x25, 0xFF, 0x0B, 0xF9, 0x5F,
-		0x6A, 0x1F, 0x39, 0x26, 0x87, 0x29, 0xF6, 0x3B, 0xD7, 0x2A, 0xA8, 0x02, 0x94, 0xA6, 0x1E, 0x2C,
-		0x62, 0x4C, 0x6F, 0x58, 0xD0, 0xE7, 0xB6, 0x7D, 0x1E, 0xCE, 0x65, 0xB0, 0x50, 0x05, 0x5F, 0xC1,
-		0x3F, 0xC3, 0x57, 0x7E, 0x28, 0xEA, 0x8E, 0x79, 0x1B, 0xFD, 0xEA, 0x09, 0xF5, 0x18, 0x84, 0x08,
-		0x9A, 0x38, 0x8A, 0x76, 0x76, 0x14, 0xD5, 0x3A, 0x28, 0xD6, 0xD9, 0xC2, 0x0B, 0x46, 0xEC, 0x9E,
-		0xEE, 0xDA, 0x57, 0xBB, 0xF1, 0x30, 0x7B, 0x99, 0x61, 0x4C, 0x9A, 0x4F, 0x26, 0xFA, 0xB6, 0xE9,
-		0xEC, 0x4C, 0xCE, 0xF7, 0x62, 0x1B, 0x9D, 0x6A, 0xC0, 0x9A, 0x65, 0x19, 0xDC, 0xF3, 0x4E, 0x21,
-		0x09, 0x36, 0x39, 0x43, 0x3C, 0xFC, 0x7C, 0x38, 0x46, 0x11, 0x99, 0xC2, 0x7B, 0x2E, 0x09, 0x17,
-		0xFB, 0x99, 0x6A, 0xBE, 0xE1, 0xFC, 0xDB, 0x4A, 0xDC, 0xFC, 0x84, 0x59, 0xA2, 0xA9, 0x16, 0xE1,
-		0xCB, 0x20, 0x6E, 0x7F, 0x4F, 0xF1, 0x02, 0xBF, 0xD6, 0xBA, 0x1F, 0x63, 0xB2, 0x04, 0x43, 0xF1,
-		0xD6, 0x26, 0x0E, 0x41, 0xCD, 0x51, 0x81, 0x81, 0xF9, 0x90, 0xD6, 0x69, 0xDA, 0x1D, 0xEC, 0x90,
-		0x75, 0x8F, 0xA4, 0xB2, 0x9B, 0x22, 0x8E, 0x1B, 0xCD, 0x83, 0xAD, 0x57, 0x2A, 0xBC, 0x23, 0x29,
-		0x73, 0x22, 0xE0, 0x5D, 0x8A, 0xF9, 0x79, 0xC4, 0x93, 0xF8, 0x8F, 0x5D, 0x6A, 0x87, 0x5D, 0xE3,
-		0xB3, 0x8A, 0x70, 0x54, 0x4C, 0x46, 0x6C, 0xCA, 0x55, 0x8A, 0x7E, 0x07, 0x45, 0x7E, 0x45, 0x24,
-		0x56, 0x40, 0x43, 0x6B, 0x4E, 0x32, 0x2F, 0x16, 0x9E, 0x65, 0x49, 0x77, 0x25, 0xFC, 0x62, 0x58,
-		0xFE, 0x20, 0x7D, 0xBD, 0x63, 0xD6, 0x6F, 0x81, 0x92, 0x54, 0x22, 0x1B, 0xD4, 0x6B, 0xEC, 0x44,
-		0xB8, 0x3F, 0x31, 0x00, 0x4A, 0xB3, 0xDA, 0x3E, 0x4E, 0x2A, 0xF7, 0x92, 0x42, 0x01, 0x45, 0x5F,
-		0x14, 0x92, 0xA7, 0x99, 0xF8, 0xA5, 0x51, 0xB3, 0x30, 0x63, 0x55, 0x74, 0x62, 0xDE, 0x79, 0x6F,
-		0xB9, 0xD9, 0x35, 0xBD, 0x85, 0xD3, 0xD3, 0x5F, 0xD5, 0x7F, 0x36, 0x8B, 0x0A, 0x82, 0x46, 0x98,
-		0x46, 0xAE, 0x7A, 0xD2, 0x16, 0x3B, 0xCF, 0xA2, 0x2E, 0xB6, 0x98, 0x3D, 0x04, 0xC2, 0x10, 0xE5
-};
-#endif
 
 /************************** Function Definitions *****************************/
 
@@ -333,7 +317,7 @@ END:
 /**
  * @brief	This function decodes the given message and decrypts it using RSA OAEP.
  *
- * @param	PrivKey is pointer to the XSecure_RsaKey instance.
+ * @param	PrivKey is pointer to the XSecure_RsaPrivKey instance.
  * @param	OaepParam is pointer to the XSecure_RsaOaepParam instance.
  *
  * @return
@@ -341,29 +325,26 @@ END:
  * 			- Error code on failure.
  *
  ******************************************************************************/
-int XSecure_RsaOaepDecrypt(XSecure_RsaKey *PrivKey, XSecure_RsaOaepParam *OaepParam)
+int XSecure_RsaOaepDecrypt(XSecure_RsaPrivKey *PrivKey, XSecure_RsaOaepParam *OaepParam)
 {
 	volatile int Status = XST_FAILURE;
 	u8 Output[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES] = {0U};
-	u8 Data;
-	u32 Index;
 
 	if ((PrivKey == NULL) || (OaepParam == NULL)) {
 		Status = (int)XSECURE_RSA_OAEP_INVALID_PARAM;
 		goto END;
 	}
 
-
 	Status = XSecure_RsaExpCRT((u8*)(UINTPTR)OaepParam->InputDataAddr, PrivKey->P, PrivKey->Q, PrivKey->DP, PrivKey->DQ, PrivKey->QInv, NULL,
-					PrivKey->Modulus, (int)(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES * 8U), (u8*)(UINTPTR)Output);
+					PrivKey->Mod, (int)(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES * XSECURE_BYTE_IN_BITS), (u8*)(UINTPTR)Output);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	for (Index = 0U; Index < (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES/2U); Index++) {
-		Data = Output[Index];
-		Output[Index] = Output[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES - Index - 1U];
-		Output[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES - Index - 1U] = Data;
+	/* Reverse Output of CRT function */
+	Status = Xil_SReverseData(Output, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	Status = XSecure_RsaOaepDecode(OaepParam, (u64)(UINTPTR)Output);
@@ -374,118 +355,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function gets RSA private key.
- *
- * @return
- *	-	Pointer to RSA private key or NULL otherwise.
- *
- ******************************************************************************/
-XSecure_RsaKey *XSecure_GetRsaPrivateKey(void)
-{
-	static XSecure_RsaKey RsaPrivKey = {0U};
-#if (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES == XSECURE_RSA_3072_KEY_SIZE)
-	static u8 P[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES/2U] = {
-		0xE5, 0x15, 0x60, 0xAE, 0x8E, 0xAB, 0x44, 0x48, 0x9F, 0xD7, 0x54, 0x98, 0xA5, 0x6D, 0xD8, 0x8C,
-		0x29, 0x85, 0x1E, 0x9E, 0x52, 0xDB, 0x04, 0xC1, 0x50, 0x17, 0x43, 0xFF, 0xE9, 0x5C, 0xFA, 0x9F,
-		0x84, 0x9E, 0xAC, 0x8B, 0x95, 0xB3, 0x35, 0xD3, 0x7F, 0x06, 0x76, 0x6E, 0x45, 0x28, 0x47, 0x83,
-		0x9F, 0x24, 0x98, 0x51, 0xF9, 0xFB, 0x18, 0xA1, 0xDE, 0x06, 0x65, 0x4C, 0xD0, 0xAE, 0xE5, 0xE8,
-		0x82, 0x4C, 0x6A, 0x57, 0x64, 0xCC, 0xD5, 0xFE, 0x95, 0x8C, 0x2A, 0x36, 0x5C, 0x53, 0x1B, 0xCF,
-		0xB6, 0x3A, 0x79, 0xB0, 0xFC, 0x1C, 0xE9, 0x39, 0x26, 0xCB, 0x41, 0x17, 0x8D, 0x42, 0x9A, 0x65,
-		0x2D, 0x9E, 0xE3, 0xDC, 0x43, 0xA3, 0x5D, 0xE8, 0x4B, 0xC4, 0x50, 0xEA, 0xFE, 0x5E, 0x18, 0x64,
-		0x91, 0x3F, 0xF6, 0x6C, 0x81, 0x6F, 0xF7, 0x02, 0xBC, 0xCE, 0x87, 0x5C, 0xA4, 0x2C, 0x22, 0xCC,
-		0x68, 0x6F, 0xEF, 0x66, 0x48, 0x27, 0x88, 0xB0, 0xDD, 0xBD, 0x7A, 0xCD, 0xAE, 0x69, 0xD7, 0x74,
-		0x2B, 0x71, 0x51, 0x58, 0xD5, 0x57, 0x22, 0x08, 0xA4, 0x9B, 0x5D, 0xD5, 0x79, 0x82, 0x77, 0x6B,
-		0x86, 0x05, 0x41, 0xDA, 0x97, 0x82, 0x15, 0x93, 0x0A, 0x96, 0x90, 0xF0, 0xC5, 0xE2, 0x5F, 0x04,
-		0x62, 0xA6, 0xB6, 0x79, 0xB7, 0xD6, 0x10, 0x47, 0x7E, 0xB8, 0x1F, 0x5E, 0x04, 0xC5, 0xF5, 0xF9};
-	static u8 Q[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES/2U] = {
-		0xC1, 0x59, 0x62, 0x7B, 0x4B, 0xDB, 0xB8, 0xA6, 0xC4, 0x65, 0x74, 0x4E, 0x0C, 0xAF, 0xDD, 0xF6,
-		0x80, 0xF3, 0xD9, 0x55, 0xF5, 0x33, 0x86, 0x6E, 0x62, 0x0A, 0xF3, 0x76, 0x2B, 0xA8, 0x53, 0x15,
-		0x59, 0x20, 0xDE, 0xE4, 0x10, 0xFD, 0x40, 0x9B, 0xD0, 0xA6, 0x91, 0xCC, 0x08, 0x42, 0xDE, 0x2F,
-		0x7E, 0xCE, 0x23, 0xB8, 0x2B, 0xB6, 0x10, 0x2C, 0x3F, 0x64, 0x1E, 0x9F, 0x21, 0x42, 0xBF, 0xD4,
-		0x02, 0xF5, 0xB5, 0x6F, 0xB1, 0xBD, 0xAB, 0x09, 0xF0, 0x13, 0xBF, 0xCC, 0x31, 0x0E, 0x7C, 0x8F,
-		0x42, 0x78, 0x13, 0x1C, 0x7E, 0xF1, 0x5F, 0x1C, 0x37, 0x97, 0x20, 0xAC, 0x9B, 0xD8, 0xC5, 0x58,
-		0xB7, 0xDD, 0x76, 0x5A, 0xBD, 0x9B, 0xEB, 0xBF, 0xB3, 0xE2, 0xFD, 0xD5, 0x27, 0x51, 0xE7, 0x34,
-		0x22, 0x11, 0x21, 0x7A, 0x20, 0xCA, 0xF2, 0xE9, 0x1F, 0xD0, 0x63, 0xDA, 0xFA, 0xEE, 0xCF, 0x08,
-		0x07, 0x5E, 0x3C, 0xD6, 0xA5, 0xDD, 0xAB, 0x9B, 0xC2, 0xFD, 0x7A, 0xE4, 0x8B, 0x39, 0xE2, 0x64,
-		0x94, 0xB1, 0xF1, 0x88, 0x13, 0xB1, 0xF4, 0x47, 0xF3, 0x2D, 0x55, 0x9F, 0x24, 0x42, 0x5C, 0xFE,
-		0xA9, 0x4B, 0x68, 0xF3, 0x46, 0x2D, 0xC6, 0xF0, 0x03, 0x85, 0x82, 0xD6, 0xCD, 0xC0, 0xC7, 0xF6,
-		0x01, 0xDA, 0x1C, 0xEC, 0xA3, 0x73, 0x84, 0x33, 0x07, 0x69, 0x36, 0xFC, 0x7D, 0xBC, 0x99, 0xEA};
-	static u8 DP[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES/2U] = {
-		0x59, 0x65, 0x49, 0x6E, 0xA8, 0x50, 0xD4, 0x5B, 0x95, 0x91, 0x38, 0xDE, 0x48, 0x6F, 0xD1, 0x2C,
-		0xC2, 0xD8, 0x5C, 0x84, 0x3C, 0xA1, 0xF4, 0x5C, 0xEF, 0x0C, 0x64, 0x72, 0xA4, 0xC7, 0x06, 0x86,
-		0xE1, 0x44, 0x12, 0x08, 0x52, 0x19, 0x39, 0x2E, 0x64, 0x1D, 0x59, 0xA0, 0x4E, 0xC3, 0x7A, 0x50,
-		0x03, 0x0F, 0xF1, 0x5C, 0x48, 0x75, 0x57, 0x17, 0x5C, 0x2B, 0xB5, 0x61, 0xE0, 0x0D, 0xE0, 0xD0,
-		0x91, 0x01, 0xB2, 0x86, 0x18, 0x9B, 0x5D, 0x11, 0x70, 0xEC, 0x80, 0x5B, 0xC5, 0x77, 0x54, 0x97,
-		0x90, 0x8A, 0xAB, 0xB4, 0x22, 0x73, 0x8C, 0xEA, 0xBF, 0xB6, 0x7B, 0x8D, 0x8A, 0x42, 0xC2, 0xEC,
-		0xEA, 0x88, 0x9D, 0xCA, 0x82, 0x05, 0xFE, 0xAA, 0x56, 0x56, 0x8E, 0x87, 0xA9, 0x88, 0xFB, 0xB5,
-		0x1D, 0x29, 0x84, 0xEE, 0xA0, 0x4D, 0xD6, 0x07, 0x62, 0xC0, 0xAE, 0x70, 0xBC, 0x15, 0x5B, 0x97,
-		0xE4, 0x95, 0x53, 0x33, 0x4C, 0x7B, 0xE8, 0xE3, 0xB4, 0x95, 0x3D, 0xC4, 0x78, 0x12, 0xAF, 0x5A,
-		0x43, 0x5D, 0x54, 0x7E, 0x29, 0x7D, 0x56, 0xB2, 0x7A, 0xBA, 0x5C, 0xFF, 0x6D, 0x8A, 0xA2, 0x89,
-		0x36, 0x44, 0x30, 0x99, 0x4B, 0x4B, 0x8B, 0xCD, 0x9E, 0x2D, 0x7E, 0xD9, 0xB5, 0x78, 0xAB, 0x3F,
-		0x4D, 0x92, 0xB1, 0x70, 0x83, 0xC1, 0x24, 0xB4, 0x42, 0xD1, 0xC4, 0xC7, 0xDF, 0x01, 0xD4, 0x98};
-	static u8 DQ[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES/2U] = {
-		0x81, 0x03, 0xED, 0x07, 0x3F, 0xB0, 0xC0, 0xF7, 0xAE, 0x34, 0x4F, 0xA2, 0x80, 0x18, 0x5E, 0x76,
-		0x5E, 0xB3, 0x98, 0x63, 0xA9, 0xFC, 0x22, 0xD7, 0xFC, 0x9F, 0x01, 0x03, 0xFE, 0xF3, 0xC3, 0x1B,
-		0xBD, 0xDD, 0xD1, 0x57, 0x2D, 0x85, 0x25, 0xC8, 0xD2, 0x87, 0x06, 0x14, 0xE4, 0xBC, 0xDF, 0x64,
-		0x2A, 0xE6, 0x7A, 0x24, 0x7E, 0x99, 0xB8, 0xC2, 0x11, 0xAA, 0xBF, 0xDC, 0x26, 0x51, 0x2F, 0x6B,
-		0x93, 0x1C, 0x1A, 0xF4, 0xAB, 0x3D, 0xF6, 0xCA, 0x49, 0xD7, 0x98, 0xB6, 0x81, 0xB9, 0xD1, 0x6B,
-		0xC8, 0x64, 0xE4, 0xA8, 0x19, 0x1B, 0x16, 0x5C, 0x4C, 0x66, 0xA2, 0x6D, 0x4B, 0xE1, 0xC8, 0x3A,
-		0x6A, 0x1C, 0x2A, 0x73, 0xB2, 0xD5, 0x0D, 0x39, 0x1C, 0x89, 0x0F, 0x3E, 0x8F, 0x66, 0xFE, 0x7D,
-		0xA5, 0xF0, 0xA7, 0x4F, 0x1A, 0x2D, 0x88, 0x71, 0x2E, 0x38, 0x0A, 0xC8, 0x60, 0xF1, 0x06, 0x31,
-		0x16, 0xAE, 0x5D, 0x49, 0xE6, 0x82, 0xCC, 0x3E, 0xD6, 0xC4, 0xE5, 0x16, 0x0E, 0x53, 0x25, 0x96,
-		0x83, 0x5E, 0x2E, 0x05, 0x7E, 0xFD, 0x24, 0x1E, 0x70, 0x5B, 0x44, 0x49, 0x0C, 0xDF, 0x45, 0x6E,
-		0x79, 0x77, 0x37, 0x6F, 0x49, 0x70, 0x9B, 0x13, 0x63, 0x4F, 0xD0, 0xE6, 0xF1, 0x49, 0xF5, 0xCF,
-		0x7A, 0xAF, 0x73, 0x2D, 0xB8, 0x07, 0x8B, 0xEE, 0xB8, 0x62, 0x6F, 0x73, 0x8D, 0x11, 0xA6, 0x9A};
-	static u8 QInv[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES/2U] = {
-		0x66, 0x3E, 0xF3, 0xB9, 0x77, 0xC9, 0xE9, 0x65, 0x83, 0x1B, 0xE8, 0xBB, 0x9B, 0xEB, 0x64, 0xBD,
-		0xC8, 0xF2, 0x30, 0x06, 0xFA, 0x9F, 0x2E, 0x91, 0xB3, 0x12, 0xA0, 0x5A, 0x05, 0xD3, 0x7A, 0x01,
-		0x6D, 0x71, 0x9E, 0xB6, 0xBD, 0xCB, 0x74, 0x93, 0x74, 0x3F, 0xE1, 0x89, 0xED, 0xD6, 0x3C, 0x3B,
-		0xF6, 0xBB, 0x98, 0x57, 0x5E, 0x91, 0x09, 0xE1, 0xE2, 0x07, 0x6F, 0xFB, 0x34, 0xC5, 0x86, 0x67,
-		0xB9, 0xB3, 0xDA, 0x62, 0x43, 0xF5, 0xC7, 0x3F, 0x38, 0xD6, 0x44, 0xB6, 0xAE, 0xDB, 0xE3, 0x92,
-		0xA6, 0x2C, 0x90, 0x9C, 0x2D, 0xA0, 0x80, 0x9E, 0x4A, 0x57, 0x63, 0x24, 0x1B, 0x6F, 0x72, 0x0A,
-		0x08, 0x00, 0x5A, 0x3C, 0xEE, 0xFC, 0x62, 0x23, 0x4A, 0x06, 0xA5, 0x16, 0x3A, 0x90, 0x61, 0x8C,
-		0xB3, 0xC8, 0x7A, 0xA4, 0xED, 0xAE, 0xCA, 0x98, 0x31, 0xD4, 0xAD, 0xAB, 0x75, 0x30, 0xE1, 0x0C,
-		0xCA, 0xF4, 0xA4, 0x31, 0x1E, 0x67, 0x02, 0x27, 0x7D, 0x05, 0x33, 0x1D, 0xF0, 0x54, 0x9D, 0x83,
-		0x37, 0xC4, 0xBE, 0x43, 0x95, 0x01, 0x30, 0x0F, 0xF7, 0x43, 0x47, 0x33, 0xA8, 0xC4, 0xC2, 0xC9,
-		0x7A, 0x82, 0x6E, 0x66, 0x11, 0xD6, 0x32, 0x7E, 0x51, 0xD9, 0xAB, 0xEA, 0xE0, 0x15, 0xCB, 0xC4,
-		0x56, 0x92, 0x36, 0x99, 0xDC, 0xB0, 0x4C, 0x4B, 0x4A, 0x93, 0x26, 0xC3, 0x7E, 0xD6, 0x69, 0x85};
-
-	RsaPrivKey.Modulus = Modulus;
-	RsaPrivKey.P = P;
-	RsaPrivKey.Q = Q;
-	RsaPrivKey.DP = DP;
-	RsaPrivKey.DQ = DQ;
-	RsaPrivKey.QInv = QInv;
-#endif
-
-	return &RsaPrivKey;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function gets RSA public key.
- *
- * @return
- *	-	Pointer to RSA public key or NULL otherwise
- *
- ******************************************************************************/
-XSecure_RsaPubKey* XSecure_GetRsaPublicKey(void)
-{
-	static u32 PublicExp = 0x1000100U;
-	static XSecure_RsaPubKey RsaPubKey = {0U};
-
-#if (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES == XSECURE_RSA_3072_KEY_SIZE)
-	RsaPubKey.Modulus = Modulus;
-	RsaPubKey.Exponent = (u8 *)&PublicExp;
-#endif
-
-	return &RsaPubKey;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function performs the RSA exponentiation using the
- *              Chinese remainder theorem(CRT).
  *
  * @param	Hash  is the Hash of the exponentiation.
  * @param	P     is first factor, a positive integer.
@@ -609,6 +478,414 @@ int XSecure_RsaExpopt(u8 *Hash, u8 *Exp, u8 *Mod, u8 *RN, u8 *RRN, u8 *P, u8 *Q,
 
 END:
 	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function adds periodic task of generation RSA key pair to scheduler.
+ *
+ * @return	XST_SUCCESS on success.
+ * @return	XSECURE_ERR_ADD_TASK_SCHEDULER if failed to add task to scheduler.
+ *
+ ******************************************************************************/
+int XSecure_AddRsaKeyPairGenerationToScheduler(void)
+{
+	volatile int Status = XST_FAILURE;
+
+	Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILSECURE_ID,
+					XSecure_GenerateRsaKeyPair, NULL,
+					XSECURE_KEY_PAIR_GEN_POLL_INTERVAL,
+					XPLM_TASK_PRIORITY_1, NULL, XPLMI_PERIODIC_TASK);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XSECURE_ERR_ADD_TASK_SCHEDULER, 0);
+	}
+	else {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL,"RSA key pair generation task added successfully\r\n");
+	}
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function removes keypair generation task from scheduler.
+ *
+ * @return	XST_SUCCESS on success.
+ * 	        XSECURE_ERR_REMOVE_TASK_SCHEDULER if failed to remove task from scheduler.
+ *
+ ******************************************************************************/
+static int XSecure_RemoveRsaKeyPairGenerationFromScheduler(void)
+{
+	volatile int Status = XST_FAILURE;
+
+	/* Remove key pair generation task from scheduler */
+	Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILSECURE_ID,
+			XSecure_GenerateRsaKeyPair, 0U, NULL);
+	if (XST_SUCCESS != Status) {
+		Status = XPlmi_UpdateStatus(XSECURE_ERR_REMOVE_TASK_SCHEDULER, 0);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function performs the RSA key initialization.
+ *
+ * @param	RsaParam - is the pointer to XSecure_RsaKeyGenParam.
+ * @param   KeyPairState - is the pointer to XSecure_RsaKeyPtr which holds the state of
+ *                         key that needs to be generated.
+ * @param	RsaKeyLen   - Length of RSA key length in bytes.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+ ******************************************************************************/
+static int XSecure_RsaKeyGenInit(XSecure_RsaKeyGenParam* RsaParam, XSecure_RsaKeyPtr* KeyPairState, u32 RsaKeyLen)
+{
+	volatile int Status = XST_FAILURE;
+
+	if ((KeyPairState == NULL) || (RsaParam == NULL)) {
+		Status = (int)XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	if (RsaKeyLen == XSECURE_RSA_2048_KEY_SIZE) {
+		RsaParam->QuantSize = XSECURE_RSA_2048_QUANT_SIZE;
+	}
+	else if (RsaKeyLen == XSECURE_RSA_3072_KEY_SIZE) {
+		RsaParam->QuantSize = XSECURE_RSA_3072_QUANT_SIZE;
+	}
+	else if (RsaKeyLen == XSECURE_RSA_4096_KEY_SIZE) {
+		RsaParam->QuantSize = XSECURE_RSA_4096_QUANT_SIZE;
+	}
+	else {
+		Status = (int)XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/**< Initialize private key components to KeyPairState*/
+	KeyPairState->D = RsaParam->KeyPair.PrivKey->Exp;
+	KeyPairState->DP = RsaParam->KeyPair.PrivKey->DP;
+	KeyPairState->DQ = RsaParam->KeyPair.PrivKey->DQ;
+	KeyPairState->P = RsaParam->KeyPair.PrivKey->P;
+	KeyPairState->Q = RsaParam->KeyPair.PrivKey->Q;
+	KeyPairState->iQ = RsaParam->KeyPair.PrivKey->QInv;
+	KeyPairState->M = RsaParam->KeyPair.PrivKey->Mod;
+
+	/**< Initialize Public key components to KeyPairState */
+	Status = Xil_SMemSet(RsaParam->KeyPair.PubKey->PubExp, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES, 0U,
+				XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	RsaParam->KeyPair.PubKey->PubExp[0U] = XSECURE_RSA_PUBLIC_EXPONENT;
+
+	KeyPairState->E = (u8*)(UINTPTR)RsaParam->KeyPair.PubKey->PubExp;
+
+	/** Release the RSA engine from reset */
+	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 0U);
+
+	Status = rsaprvkeyinit_Q(RsaKeyLen * XSECURE_BYTE_IN_BITS, NULL, KeyPairState);
+
+	/** Reset the RSA engine */
+	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 1U);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function performs the RSA key generation in steps.
+ *
+ * @param	KeyPairState - is pointer to the XSecure_RsaKeyPtr.
+ * @param	QuantSize    - Size of the key generation steps in terms of quant size
+ *                         i.e. Half-size RSA key.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+ ******************************************************************************/
+static int XSecure_RsaKeyGenerate(XSecure_RsaKeyPtr *KeyPairState, u32 QuantSize)
+{
+	volatile int Status = XSECURE_RSA_INVALID_PARAM;
+
+	if ((KeyPairState == NULL) || (QuantSize == 0U)) {
+		Status = (int)XSECURE_RSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Release the RSA engine from reset */
+	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 0U);
+
+	Status = rsaprvkeystep_Q(QuantSize, KeyPairState);
+
+	/** Reset the RSA engine */
+	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 1U);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns RSA key inuse index.
+ *
+ * @return
+ *		KeyInUse to indicate the key that is in use
+ *
+ ******************************************************************************/
+u32 XSecure_GetRsaKeyInUseIdx(void)
+{
+	XSecure_RsaKeyMgmt* RsaKeyMgmt = XSecure_GetRsaKeyMgmtInstance();
+
+	if (RsaKeyMgmt->KeyInUse == 0xFFFFFFFFU) {
+		(void)XSecure_GetRsaKeySlotIdx(&RsaKeyMgmt->KeyInUse, XSECURE_RSA_KEY_AVAIL);
+	}
+
+	return RsaKeyMgmt->KeyInUse;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function destroys the RSA key in use.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+ ******************************************************************************/
+int XSecure_RsaDestroyKeyInUse(void)
+{
+	volatile int Status = XST_FAILURE;
+	XSecure_RsaKeyMgmt* RsaKeyMgmt = XSecure_GetRsaKeyMgmtInstance();
+
+	if (RsaKeyMgmt->KeyInUse < XSECURE_RSA_MAX_KEY_GEN_SUPPORT) {
+		/*< Clear RSA private and public keys */
+		Status = Xil_SMemSet(RsaKeyMgmt->Key[RsaKeyMgmt->KeyInUse].KeyPair.PrivKey, sizeof(XSecure_RsaPrivKey),
+			0U, sizeof(XSecure_RsaPrivKey));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status = Xil_SMemSet(RsaKeyMgmt->Key[RsaKeyMgmt->KeyInUse].KeyPair.PubKey, sizeof(XSecure_RsaPubKey),
+			0U, sizeof(XSecure_RsaPubKey));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status = Xil_SMemSet(&RsaKeyMgmt->Key[RsaKeyMgmt->KeyInUse], sizeof(XSecure_RsaKeyGenParam),
+			0U,  sizeof(XSecure_RsaKeyGenParam));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		RsaKeyMgmt->KeyInUse = 0xFFFFFFFFU;
+		Status = XSecure_AddRsaKeyPairGenerationToScheduler();
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function performs the RSA key generation.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+ ******************************************************************************/
+static int XSecure_GenerateRsaKeyPair(void* arg)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	static XSecure_RsaKeyOpState RsaKeyGenState = XSECURE_RSA_KEY_DEFAULT_STATE;
+	static XSecure_RsaKeyGenParam* RsaKeyParam = NULL;
+	static 	XSecure_RsaKeyPtr RsaKeyPairState = {0U};
+
+	(void)arg;
+	/* State machine for RSA key generation
+	 * Note: RSA key generation operation is non-reentrant
+	 * hence state is maintained for whole operation
+	 */
+	if (RsaKeyGenState == XSECURE_RSA_KEY_DEFAULT_STATE) {
+		/* Get free RSA key param */
+		RsaKeyParam = XSecure_GetRsaKeyGenParam();
+		if (RsaKeyParam == NULL) {
+			Status = XSecure_RemoveRsaKeyPairGenerationFromScheduler();
+			goto END;
+		}
+		RsaKeyGenState = XSECURE_RSA_KEY_INIT_STATE;
+	}
+
+	if (RsaKeyGenState == XSECURE_RSA_KEY_INIT_STATE) {
+		/*
+		 * Key generation init internally uses TRNG to generate
+		 * random numbers for prime number generation i.e. P and Q
+		 */
+		Status = XSecure_RsaKeyGenInit(RsaKeyParam, &RsaKeyPairState, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+		if (Status != XST_SUCCESS) {
+			RsaKeyGenState = XSECURE_RSA_KEY_INIT_STATE;
+			goto END;
+		}
+		RsaKeyGenState = XSECURE_RSA_KEY_GEN_STATE;
+	} else if (RsaKeyGenState == XSECURE_RSA_KEY_GEN_STATE) {
+		/*
+		 * Key generate process uses Rabin miller primality test
+		 * to determine the prime number that is closer to the
+		 * random number.
+		 */
+		Status = XSecure_RsaKeyGenerate(&RsaKeyPairState, RsaKeyParam->QuantSize);
+		if (Status != XSECURE_RSA_KEY_STATUS_WAIT) {
+			if (Status != XST_SUCCESS) {
+				RsaKeyGenState = XSECURE_RSA_KEY_INIT_STATE;
+				goto END;
+			}
+			RsaKeyGenState = XSECURE_RSA_KEY_READY_STATE;
+		}
+		Status = XST_SUCCESS;
+	} else if (RsaKeyGenState == XSECURE_RSA_KEY_READY_STATE) {
+		Status = Xil_SChangeEndiannessAndCpy((u8*)RsaKeyParam->KeyPair.PubKey->Mod, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES,
+				(u8*)RsaKeyParam->KeyPair.PrivKey->Mod ,XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		/* RSA pair wise consistency test */
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp,
+			XSecure_RsaPwct, RsaKeyParam->KeyPair.PrivKey, RsaKeyParam->KeyPair.PubKey,
+			NULL, XSECURE_SHA384);
+		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
+			RsaKeyGenState = XSECURE_RSA_KEY_INIT_STATE;
+			goto END;
+		}
+		RsaKeyParam->IsRsaKeyAvail = XSECURE_RSA_KEY_AVAIL;
+		RsaKeyGenState = XSECURE_RSA_KEY_DEFAULT_STATE;
+	} else {
+		/* for MISRA-C violation */
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns pointer to XSecure_RsaKeyMgmt instance.
+ *
+ * @return	RsaKeyMgmt - is pointer to the XSecure_RsaKeyMgmt instances.
+ *
+ ******************************************************************************/
+static XSecure_RsaKeyMgmt* XSecure_GetRsaKeyMgmtInstance(void) {
+	static XSecure_RsaKeyMgmt RsaKeyMgmt = {.KeyInUse = 0xFFFFFFFFU};
+
+	return &RsaKeyMgmt;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns RSA private key.
+ *
+ * @return
+ *		- Pointer to XSecure_RsaPrivKey or NULL otherwise.
+ *
+ ******************************************************************************/
+XSecure_RsaPrivKey* XSecure_GetRsaPrivateKey(u32 RsaIdx)
+{
+	static XSecure_RsaPrivKey RsaPrivateKey[XSECURE_RSA_MAX_KEY_GEN_SUPPORT];
+	XSecure_RsaPrivKey* PrivKey = NULL;
+
+	if (RsaIdx < XSECURE_RSA_MAX_KEY_GEN_SUPPORT) {
+		PrivKey =  &RsaPrivateKey[RsaIdx];
+	}
+
+	return PrivKey;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns RSA public key.
+ *
+ * @return
+ *		- Pointer to XSecure_RsaPubKey or NULL otherwise.
+ *
+ ******************************************************************************/
+XSecure_RsaPubKey* XSecure_GetRsaPublicKey(u32 RsaIdx)
+{
+	static XSecure_RsaPubKey RsaPublicKey[XSECURE_RSA_MAX_KEY_GEN_SUPPORT];
+	XSecure_RsaPubKey* PubKey = NULL;
+
+	if (RsaIdx < XSECURE_RSA_MAX_KEY_GEN_SUPPORT) {
+		PubKey =  &RsaPublicKey[RsaIdx];
+	}
+
+	return PubKey;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns RSA key index based on RsaKeyStatus.
+ *
+ * @param	RsaKeyIdx - is pointer to the variable containing RSA free index.
+ * @param   RsaKeyStatus  -  Key status to be checked.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+ ******************************************************************************/
+static int XSecure_GetRsaKeySlotIdx(u32 *RsaKeyIdx, u32 RsaKeyStatus)
+{
+	volatile int Status = XST_FAILURE;
+	XSecure_RsaKeyMgmt* RsaKeyMgmt = XSecure_GetRsaKeyMgmtInstance();
+	u32 Idx = 0U;
+
+	while (Idx < XSECURE_RSA_MAX_KEY_GEN_SUPPORT) {
+		if (RsaKeyMgmt->Key[Idx].IsRsaKeyAvail == RsaKeyStatus) {
+			*RsaKeyIdx = Idx;
+			Status = XST_SUCCESS;
+			break;
+		}
+		Idx++;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns RSA free key generation param.
+ *
+ * @return
+ *		- Pointer to XSecure_RsaKeyGenParam or NULL otherwise.
+ *
+ ******************************************************************************/
+static XSecure_RsaKeyGenParam* XSecure_GetRsaKeyGenParam(void)
+{
+	volatile int Status = XST_FAILURE;
+	XSecure_RsaKeyMgmt* RsaKeyMgmt = XSecure_GetRsaKeyMgmtInstance();
+	XSecure_RsaKeyGenParam* RsaKeyParam = NULL;
+	u32 RsaKeyIndex = 0U;
+
+	Status = XSecure_GetRsaKeySlotIdx(&RsaKeyIndex, XSECURE_RSA_KEY_FREE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (RsaKeyIndex < XSECURE_RSA_MAX_KEY_GEN_SUPPORT) {
+		RsaKeyParam = &RsaKeyMgmt->Key[RsaKeyIndex];
+		RsaKeyParam->KeyPair.PrivKey = XSecure_GetRsaPrivateKey(RsaKeyIndex);
+		RsaKeyParam->KeyPair.PubKey = XSecure_GetRsaPublicKey(RsaKeyIndex);
+	}
+
+END:
+	return RsaKeyParam;
 }
 
 #endif

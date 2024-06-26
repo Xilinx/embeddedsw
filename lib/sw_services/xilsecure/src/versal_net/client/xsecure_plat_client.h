@@ -21,6 +21,7 @@
 *       kpt  07/09/23 Added APIs related to Key wrap and unwrap
 * 5.3   kpt  12/13/23 Added RSA quiet mode support
 * 5.4   yog  04/29/24 Fixed doxygen grouping.
+*       kpt  06/13/24 Added XSecure_ReleaseRsaKey
 *
 * </pre>
 *
@@ -64,10 +65,13 @@ int XSecure_UpdatePcideCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure
  */
 int XSecure_GetRsaPublicKeyForKeyWrap(XSecure_ClientInstance *InstancePtr, XSecure_RsaPubKeyAddr *PubKey);
 int XSecure_KeyUnwrap(XSecure_ClientInstance *InstancePtr, XSecure_KeyWrapData *KeyWrapData);
+int XSecure_ReleaseRsaKey(XSecure_ClientInstance *InstancePtr);
 /**
  * @}
  * @endcond
  */
+
+
 #ifdef __cplusplus
 }
 #endif
