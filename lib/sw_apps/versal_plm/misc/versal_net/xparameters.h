@@ -1707,4 +1707,7 @@
 
 /* Xilinx Secure library ecdsa endianness Settings */
 #define XSECURE_ELLIPTIC_ENDIANNESS	0U	/* 0: Little Endian and 1: Big endian */
+
+#define XSECURE_KEY_SLOT_ADDR 0x00000000U /* Key slot address to store unwrapped keys */
+
 #endif  /* end of protection macro */
