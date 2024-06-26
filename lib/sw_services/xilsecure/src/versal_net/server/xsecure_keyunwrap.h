@@ -17,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.2   kpt  06/30/23 Initial release
 * 5.4   yog  04/29/24 Fixed doxygen grouping.
+*       kpt  06/13/24 Added AES key unwrap with padding support.
 *
 * </pre>
 *
