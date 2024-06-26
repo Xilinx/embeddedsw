@@ -54,6 +54,7 @@
 *       am   04/15/2024 Fixed doxygen warnings
 *       sk   05/07/2024 Added support for In Place Update Error Notify
 *       sk   06/05/2024 Added defines for PLM Version in RTCA register
+* 2.1   har  06/24/2024 Incremented XPLMI_PLM_PLAT_RC_VERSION
 *
 * </pre>
 *
@@ -79,7 +80,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 #define XPLMI_PLM_BANNER	"Xilinx Versal Net Platform Loader and Manager\n\r" /**< PLM banner */
-#define XPLMI_PLM_PLAT_RC_VERSION	4U
+#define XPLMI_PLM_PLAT_RC_VERSION	5U
 
 #define XPLMI_PLM_USER_DEFINED_VERSION		XPAR_PLM_VERSION_USER_DEFINED
 
