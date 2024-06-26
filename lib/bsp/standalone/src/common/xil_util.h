@@ -66,6 +66,7 @@
 *      ml        09/13/23 Replaced numerical types (int) with proper typedefs(s32) to
 *                         fix MISRA-C violations for Rule 4.6
 * 9.1  kpt       02/21/24 Added Xil_SChangeEndiannessAndCpy function
+* 9.2  kpt       06/24/24 Added Xil_SReverseData function
 *
 * </pre>
 *
@@ -331,6 +332,9 @@ s32 Xil_SecureRMW32(UINTPTR Addr, u32 Mask, u32 Value);
 /**< Changes byte endianness of source buffer and copies it into destination */
 s32 Xil_SChangeEndiannessAndCpy(void *Dest, const u32 DestSize,
 		const void *Src, const u32 SrcSize, const u32 CopyLen);
+
+/**< Changes byte endianness of buffer and copies it into the same buffer */
+s32 Xil_SReverseData(void *Buf, u32 Size);
 
 #ifdef __cplusplus
 }
