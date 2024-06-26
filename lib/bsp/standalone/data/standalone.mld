@@ -12,7 +12,7 @@ OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lgcc,-lc,--end-group";
 OPTION DESC = "Standalone is a simple, low-level software layer. It provides access to basic processor features such as caches, interrupts and exceptions as well as the basic features of a hosted environment, such as standard input and output, profiling, abort and exit.";
 OPTION copyfiles = all;
 OPTION OS_STATE = ACTIVE;
-OPTION VERSION = 9.1;
+OPTION VERSION = 9.2;
 OPTION NAME = standalone;
 
 PARAM name = zynqmp_fsbl_bsp, type = bool, default = false, desc = "Disable or Enable Optimization for FSBL's BSP. ZynqMP FSBL will set this to true";

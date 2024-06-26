@@ -90,6 +90,7 @@
 * 9.0   ml       09/13/23 Replaced numerical types (int) with proper typedefs(s32) to
 *                         fix MISRA-C violations for Rule 4.6
 * 9.1   kpt      02/21/24 Added Xil_SChangeEndiannessAndCpy function
+* 9.2   kpt      06/24/24 Added Xil_SReverseData function
 *
 * </pre>
 *
@@ -1408,5 +1409,45 @@ s32 Xil_SChangeEndiannessAndCpy(void *Dest, const u32 DestSize,
 		}
 	}
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function changes the endianness of given buffer.
+ *
+ * @param	Buf - is pointer to the variable containing data.
+ * @param   Size  -  Size of the data.
+ *
+ * @return
+ *		XST_SUCCESS - Copy is successful
+ * 		XST_INVALID_PARAM - Invalid inputs
+ *      XST_FAILURE       - On failure
+ *
+ ******************************************************************************/
+s32 Xil_SReverseData(void *Buf, u32 Size)
+{
+	s32 Status = XST_FAILURE;
+	volatile u32 Index = 0U;
+	u8 *Buffer = (u8 *)Buf;
+	u8 Data= 0U;
+	u32 LoopCnt = 0U;
+
+	if ((Buf == NULL) || (Size == 0U)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	LoopCnt =  Size/2U;
+	for (Index = 0U; Index < LoopCnt; Index++) {
+		Data = Buffer[Size - Index - 1U];
+		Buffer[Size - Index - 1U] = Buffer[Index];
+		Buffer[Index] = Data;
+	}
+	if (Index == LoopCnt) {
+		Status = XST_SUCCESS;
+	}
+
+END:
 	return Status;
 }
