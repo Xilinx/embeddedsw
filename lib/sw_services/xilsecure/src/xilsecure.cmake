@@ -80,6 +80,8 @@ if("${CMAKE_MACHINE}" STREQUAL "VersalNet")
   elseif("${XILSECURE_rsa_key_size_keywrap}" STREQUAL "RSA_4096_KEY_SIZE")
     set(XILSECURE_RSA_KEY_SIZE_KEYWRAP_VAL "512")
   endif()
+  set(XILSECURE_key_slot_addr "0x00000000U" CACHE STRING "Key slot address to store unwrapped keys")
+  set(XSECURE_KEY_SLOT_ADDR "${XILSECURE_key_slot_addr}")
 endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xsecure_config.h.in ${CMAKE_BINARY_DIR}/include/xsecure_config.h)

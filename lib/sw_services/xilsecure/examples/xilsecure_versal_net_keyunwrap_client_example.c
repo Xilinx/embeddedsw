@@ -299,8 +299,7 @@ int main(void)
 	}
 
 	/* Update key store size and bit map */
-	Xil_Out32(0x10000008, 32);
-	Xil_Out32(0x1000000C, 0U);
+	Xil_Out32((XSECURE_KEY_SLOT_ADDR + XSECURE_SHARED_KEY_STORE_SIZE_OFFSET), 32U);
 
 	KeyWrapData.KeyWrapAddr = (u64)(UINTPTR)WrappedKey;
 	KeyWrapData.TotalWrappedKeySize = XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES + XSECURE_AES_CMK_SIZE_IN_BYTES;

@@ -42,6 +42,12 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
+#ifndef XSECURE_KEY_SLOT_ADDR
+#define XSECURE_KEY_STORE_ADDR				   (0x00000000U) /**< Key store address */
+#else
+#define XSECURE_KEY_STORE_ADDR                 (XSECURE_KEY_SLOT_ADDR)  /**< Key store address */
+#endif
+
 /***************************** Type Definitions ******************************/
 
 /***************************** Function Prototypes ***************************/
