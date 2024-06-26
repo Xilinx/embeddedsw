@@ -26,6 +26,7 @@
 *       ng      03/26/24 Fixed header include in SDT flow
 * 5.4   yog     04/29/24 Fixed doxygen warnings.
 *       kpt     06/13/24 Added RSA key generation support.
+*       kpt     06/13/24 Added AES key unwrap with padding support.
 *
 * </pre>
 *
@@ -46,9 +47,13 @@
 #include "xsecure_keyunwrap.h"
 #include "xsecure_init.h"
 #include "xsecure_error.h"
+#include "xplmi_plat.h"
+#include "xplmi_dma.h"
 
 /************************** Constant Definitions *****************************/
 
+#define XSECURE_AES_256BIT_KEY_BLOCK_SIZE    (40U)            /**< AES 256-bit key block size */
+#define XSECURE_AES_128BIT_KEY_BLOCK_SIZE    (24U)            /**< AES 128-bit key block size */
 #define XSECURE_KEY_STORE_ADDR                 (0x10000000U)  /**< Key store address */
 #define XSECURE_SHARED_KEY_STORE_SIZE_OFFSET   (8U)           /**< Key size offset */
 #define XSECURE_SHARED_KEY_STORE_BITMAP_OFFSET (12U)          /**< Bitmap offset */
@@ -171,7 +176,9 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 	u32 KeyInUseIdx = XSecure_GetRsaKeyInUseIdx();
 	XSecure_RsaPrivKey *PrivKey = XSecure_GetRsaPrivateKey(KeyInUseIdx);
 	u64 SharedKeyStoreAddr = XSecure_GetKeyStoreAddr();
+	u8 WrapRsaKey[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];
 	u8 EphAesKey[XSECURE_AES_KEY_SIZE_256BIT_BYTES];
+	u8 WrapAesKey[XSECURE_AES_256BIT_KEY_BLOCK_SIZE];
 	u32 KeySlotVal = 0U;
 
 	if ((KeyWrapData == NULL) || (PrivKey == NULL)) {
@@ -185,8 +192,8 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 	}
 
 	EncryptedKeySize = KeyWrapData->TotalWrappedKeySize - XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES;
-	if ((EncryptedKeySize != XSECURE_AES_KEY_SIZE_256BIT_BYTES) &&
-		(EncryptedKeySize != XSECURE_AES_KEY_SIZE_128BIT_BYTES)) {
+	if ((EncryptedKeySize != XSECURE_AES_256BIT_KEY_BLOCK_SIZE) &&
+		(EncryptedKeySize != XSECURE_AES_128BIT_KEY_BLOCK_SIZE)) {
 		Status = (int)XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED;
 		goto END;
 	}
@@ -203,7 +210,14 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 	DstKeySlotAddr = (SharedKeyStoreAddr + sizeof(XSecure_KeyStoreHdr) + (KeySlotVal * sizeof(XSecure_KeyMetaData)) +
 				(KeySlotVal * XSECURE_AES_KEY_SIZE_256BIT_BYTES));
 
-	OaepParam.InputDataAddr = KeyWrapAddr;
+	/* Copy wrapped rsa key to local buffer */
+	XSecure_MemCpy64((u64)(UINTPTR)WrapRsaKey, KeyWrapAddr, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+	Status = Xil_SReverseData(WrapRsaKey, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	OaepParam.InputDataAddr = (u64)(UINTPTR)WrapRsaKey;
 	OaepParam.OutputDataAddr = (u64)(UINTPTR)EphAesKey;
 	OaepParam.ShaInstancePtr = NULL;
 	OaepParam.ShaType = XSECURE_SHA384;
@@ -219,29 +233,36 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 		goto END;
 	}
 
-	/** Unwrap the AES customer managed key using AES ephemeral key */
+	KeyWrapAddr = KeyWrapAddr + XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES;
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)WrapAesKey, KeyWrapAddr, XSECURE_AES_256BIT_KEY_BLOCK_SIZE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XSecure_AesInitialize(AesInstPtr, DmaPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	KeyWrapAddr = KeyWrapAddr + XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES;
-	if (OaepParam.OutputDataSize != EncryptedKeySize) {
-		Status = (int)XSECURE_ERR_KEY_WRAP_SIZE_MISMATCH;
-		goto END;
-	}
-
-	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_AesEcbDecrypt, AesInstPtr, (u64)(UINTPTR)EphAesKey,
-			       AesKeySize, KeyWrapAddr, DstKeySlotAddr, EncryptedKeySize);
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_AesKeyUnwrap, AesInstPtr, EphAesKey,
+			       AesKeySize, WrapAesKey, DstKeySlotAddr, EncryptedKeySize);
 
 	/** Update the key slot with metadata */
-	DstKeySlotAddr += EncryptedKeySize;
+	DstKeySlotAddr += (u64)(EncryptedKeySize - XSECURE_AES_64BIT_BLOCK_SIZE);
 	XSecure_MemCpy64(DstKeySlotAddr, (u64)(UINTPTR)&KeyWrapData->KeyMetaData, sizeof(XSecure_KeyMetaData));
 	XSecure_MarkKeySlotOccupied(KeySlotVal, SharedKeyStoreAddr);
 
 END:
 	/** Clear the ephemeral AES key after the usage */
 	XSECURE_TEMPORAL_IMPL(SStatus, SStatusTmp, Xil_SecureZeroize, EphAesKey, XSECURE_AES_KEY_SIZE_256BIT_BYTES);
+	if ((SStatus != XST_SUCCESS) || (SStatusTmp != XST_SUCCESS)) {
+		if (Status == XST_SUCCESS) {
+			Status = (SStatus | SStatusTmp);
+		}
+	}
+
+		/* Clear the ephemeral AES key after the usage */
+	XSECURE_TEMPORAL_IMPL(SStatus, SStatusTmp, Xil_SecureZeroize, WrapAesKey, XSECURE_AES_256BIT_KEY_BLOCK_SIZE);
 	if ((SStatus != XST_SUCCESS) || (SStatusTmp != XST_SUCCESS)) {
 		if (Status == XST_SUCCESS) {
 			Status = (SStatus | SStatusTmp);

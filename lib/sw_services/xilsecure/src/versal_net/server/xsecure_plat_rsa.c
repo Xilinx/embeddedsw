@@ -328,6 +328,7 @@ END:
 int XSecure_RsaOaepDecrypt(XSecure_RsaPrivKey *PrivKey, XSecure_RsaOaepParam *OaepParam)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	u8 Output[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES] = {0U};
 
 	if ((PrivKey == NULL) || (OaepParam == NULL)) {
@@ -338,17 +339,22 @@ int XSecure_RsaOaepDecrypt(XSecure_RsaPrivKey *PrivKey, XSecure_RsaOaepParam *Oa
 	Status = XSecure_RsaExpCRT((u8*)(UINTPTR)OaepParam->InputDataAddr, PrivKey->P, PrivKey->Q, PrivKey->DP, PrivKey->DQ, PrivKey->QInv, NULL,
 					PrivKey->Mod, (int)(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES * XSECURE_BYTE_IN_BITS), (u8*)(UINTPTR)Output);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 
 	/* Reverse Output of CRT function */
 	Status = Xil_SReverseData(Output, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 
 	Status = XSecure_RsaOaepDecode(OaepParam, (u64)(UINTPTR)Output);
 
+END_RST:
+	SStatus = Xil_SecureZeroize(Output, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
+		Status = SStatus;
+	}
 END:
 	return Status;
 }
