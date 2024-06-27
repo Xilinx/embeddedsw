@@ -40,6 +40,14 @@ int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd);
 
 XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs);
 
+maybe_unused static inline XStatus XPm_PlatAddNodePeriph(const u32 *Args, u32 PowerId)
+{
+	/*unused function in versal net*/
+	(void)Args;
+	(void)PowerId;
+	return XST_FAILURE;
+}
+
 maybe_unused static inline XStatus XPm_PlatAddDevice(const u32 *Args, u32 NumArgs)
 {
 	(void)Args;
