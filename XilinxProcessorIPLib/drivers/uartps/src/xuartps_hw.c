@@ -167,7 +167,7 @@ void XUartPs_ResetHw(u32 BaseAddress)
 void XUartPs_WaitTransmitDone(u32 BaseAddress)
 {
 	/* Wait until Transmitter FIFO is empty */
-	while (!XUartPs_IsTransmitEmpty(BaseAddress)) {
+	while (!XUartPs_IsTransmitFifoEmpty(BaseAddress)) {
 		;
 	}
 	/* Wait until Transmitter state machine is In-Active */

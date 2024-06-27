@@ -418,10 +418,10 @@ extern "C" {
 * @return	TRUE if the TX FIFO is empty, FALSE if Tx FIFO is not empty
 *
 * @note		C-Style signature:
-*		u32 XUartPs_IsTransmitEmpty(u32 BaseAddress)
+*		u32 XUartPs_IsTransmitFifoEmpty(u32 BaseAddress)
 *
 ******************************************************************************/
-#define XUartPs_IsTransmitEmpty(BaseAddress)			 \
+#define XUartPs_IsTransmitFifoEmpty(BaseAddress)			 \
 	((Xil_In32((BaseAddress) + XUARTPS_SR_OFFSET) & 	\
 	 (u32)XUARTPS_SR_TXEMPTY) == (u32)XUARTPS_SR_TXEMPTY)
 
