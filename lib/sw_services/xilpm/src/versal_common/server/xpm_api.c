@@ -1995,6 +1995,8 @@ static XStatus AddPeriphDevice(const u32 *Args, u32 PowerId)
 		}
 
 		Status = XPmHbMonDev_Init(Device, DeviceId, Power);
+	} else if ((u32)XPM_NODEIDX_DEV_AIE == NODEINDEX(DeviceId)) {
+		Status = XPm_PlatAddNodePeriph(Args, PowerId);
 	} else {
 		PeriphDevice = (XPm_Periph *)XPm_AllocBytes(sizeof(XPm_Periph));
 		if (NULL == PeriphDevice) {

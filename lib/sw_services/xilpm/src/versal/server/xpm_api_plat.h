@@ -39,6 +39,7 @@ XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs);
 XStatus XPm_PlatAddDevice(const u32 *Args, u32 NumArgs);
 XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version);
 XStatus IsOnSecondarySLR(u32 SubsystemId);
+XStatus XPm_PlatAddNodePeriph(const u32 *Args, u32 PowerId);
 void XPm_DisableSkipHC(void);
 
 maybe_unused static inline XStatus XPm_PlatRequestDevice(const u32 DeviceId)
