@@ -29,6 +29,16 @@ def reconfig_bsp(args):
     else:
         bsp_domain_path = obj.domain_path
         utils.remove(build_metadata)
+
+    """
+    From 2024.1 release on wards cmake default generator moved to ninja as a part
+    of performance enhancment in case of old release workspace delete the build folder.
+    """
+    if os.name == "nt":
+        is_ninja_build = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp", "build.ninja")
+        if not utils.is_file(is_ninja_build):
+            utils.remove(build_metadata)
+
     """
     Recreate the build folder and run cmake configuration for the below use cases
     1. Shared platform use case.
