@@ -59,6 +59,14 @@ class BSP:
         self.lib_config = domain_data["lib_config"]
         self.template = domain_data["template"]
         self.cmake_generator = utils.get_cmake_generator()
+        # Below replace command is meant only for maintaining the backward compatibility
+        # with 2023.2
+        find_common_domain_path = os.path.join(self.domain_path, "Findcommon.cmake")
+        utils.replace_line(
+            find_common_domain_path,
+            'option(NON_YOCTO "Non Yocto embeddedsw FLOW" OFF)',
+            'option(NON_YOCTO "Non Yocto embeddedsw FLOW" ON)',
+        )
 	#Below code was added for backward compatibility.
         try:
             self.config = domain_data["config"]
