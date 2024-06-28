@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +46,8 @@
 * 9.0    mus 03/28/23 Added new API XGetBootStatus for VERSAL_NET. It can be
 *                     used to identify type of boot (cold/warm).
 * 9.0    mus 07/27/23 Updated XGetCoreId API to support A9, R5 and A53 processor.
+* 9.1    mus 06/28/24 Fix typo in XGetCoreId, due to this XGetCoreId
+*                     always returns 0 in case of A78 processor CR#1204077.
 * </pre>
 *
 ******************************************************************************/
@@ -173,8 +175,8 @@ u8 XGetCoreId(void)
 #elif (defined (__aarch64__) && defined (VERSAL_NET))
 	/* CortexA78 */
 	CoreId = (mfcp(MPIDR_EL1) & XREG_MPIDR_MASK);
-	CoreId = ((CoreId & XREG_MPIDR_AFFINITY0_MASK) >> \
-		  XREG_MPIDR_AFFINITY0_SHIFT);
+	CoreId = ((CoreId & XREG_MPIDR_AFFINITY1_MASK) >> \
+		  XREG_MPIDR_AFFINITY1_SHIFT);
 #else
 	/* CortexA9, CortexR5 and CortexR52 */
 #ifdef __GNUC__
