@@ -33,6 +33,8 @@
 *       kpt  03/28/24 Fix DME failure
 *       har  04/12/24 Fix size of buffer passed to XPlmi_MemSet
 *       har  06/10/24 Support to retain PCR log after In Place PLM update
+*       kal  06/27/24 Clearing first measurement in XOcp_GetSwPcrLog
+*
 *
 * </pre>
 * @note
@@ -1578,6 +1580,15 @@ static int XOcp_DigestMeasurementAndUpdateLog(u32 PcrNum)
 		/* Start the Sha2-384 */
 		XSecure_Sha384Start();
 
+		/**
+		 * For first measurement calculation for a PCR, the N-1 measurement shall be zeros.
+		 */
+		if (IsPrevIdxUpdated == FALSE) {
+			Status = Xil_SecureZeroize(SwPcr->Data[PrevIdx].Measurement.MeasuredData, XOCP_PCR_SIZE_BYTES);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
 		/* Extend previous digest PCR measurement */
 		Status = XSecure_Sha384Update(
 			(u8 *)(UINTPTR)&SwPcr->Data[PrevIdx].Measurement.MeasuredData,
