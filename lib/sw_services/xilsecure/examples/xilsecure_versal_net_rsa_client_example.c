@@ -57,6 +57,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.0   kpt    05/22/24 Initial release.
+*       kpt    06/28/24 Fix compilation failure and remove unused varialbe
 *
 * </pre>
 ******************************************************************************/
@@ -548,7 +549,7 @@ static u32 SecureRsaExample(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = Xil_SChangeEndiannessAndCpy((u8*)&PubExp, 4U, (u8*)&PublicExp,, 4U,
+	Status = Xil_SChangeEndiannessAndCpy((u8*)&PubExp, 4U, (u8*)&PublicExp, 4U,
 			4U);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -643,7 +644,6 @@ static int XSecure_RsaCrtTest(XSecure_ClientInstance *SecureClientInstance)
 	u32 Status = XST_FAILURE;
 	u32 Index;
 	u8 *Signature = &SharedMem[0U];
-	u8 SignatureTmp;
 
 	/* RSA parameters for CRT operation */
 	RsaKeyParam.ModAddr = (u64)(UINTPTR)&Mod;
