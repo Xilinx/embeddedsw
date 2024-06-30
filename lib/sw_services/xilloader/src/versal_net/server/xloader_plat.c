@@ -50,6 +50,7 @@
 *       sk   03/13/2024 Fixed doxygen comments format
 *       mss  04/12/2024 Added code to dump DDRMC error logs
 *       har  06/07/2024 Updated condition to check if optional data is not found
+*       kal  06/29/2024 Update InPlace update to load LPD and PSM
 *
 * </pre>
 *
@@ -100,8 +101,6 @@
 #define XLOADER_DDR_PERF_MON_CNT1_OFFSET (0X86CU)   /**< Counter 1 offset */
 #define XLOADER_DDR_PERF_MON_CNT2_OFFSET (0X870U)   /**< Counter 2 offset */
 #define XLOADER_DDR_PERF_MON_CNT3_OFFSET (0X874U)   /**< Counter 3 offset */
-#define XLOADER_FIRST_IMAGE_NUM				(0x1U) /**< First image */
-#define XLOADER_SECOND_PRTN_NUM				(0x2U) /**< Second partition */
 #ifndef PLM_SECURE_EXCLUDE
 #define XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_INDEX	(0U)
         /**< Index in the Payload of ConfigureJtagState command where JTAG state flag is present */
@@ -1740,19 +1739,27 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This Function will load the PSM ELF file from DDR to PSM.
+ * @brief	This function will load the LPD and PSM ELF file from DDR.
  *
  * @return
  * 		- XST_SUCCESS on success.
  * 		- Error code on failure
  *
 *****************************************************************************/
-int XLoader_LoadPsmElf()
+int XLoader_LoadLpdAndPsmElf()
 {
 	int Status = XST_FAILURE;
 	u64 PdiAddr = (u64)(XPlmi_GetUpdatePdiAddr());
 	XilPdi *PdiPtr = XLoader_GetPdiInstance();
 
+	/** Memset the PDI instance. */
+	Status = XPlmi_MemSetBytes(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, XLOADER_ERR_MEMSET_PDIPTR);
+		goto END;
+	}
+
+	/** Initialize the PDI to load the LPD subsystem from DDR. */
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_IPU;
 	Status = XLoader_PdiInit(PdiPtr, XLOADER_PDI_SRC_DDR, PdiAddr);
 
@@ -1761,16 +1768,25 @@ int XLoader_LoadPsmElf()
 		goto END;
 	}
 
-	PdiPtr->ImageNum = XLOADER_FIRST_IMAGE_NUM;
-	PdiPtr->PrtnNum = XLOADER_SECOND_PRTN_NUM;
-	PdiPtr->ImagePrtnId = PdiPtr->PrtnNum - 1U;
-	Status = XLoader_ProcessPrtn(PdiPtr);
-	if (XST_SUCCESS != Status){
-		PmErr("XLoader_ProcessPrtn failed with Status=%x\n\r", Status);
+	/**
+	 * Check if LPD is present in InPlacePLM PDI and get the
+	 * Image number and Partition number.
+	 * If LPD is not found, return error.
+	 */
+	Status = XLoader_GetImageAndPrtnInfo(PdiPtr, PM_POWER_LPD);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND, 0);
 		goto END;
 	}
-	/* We need to reset NoOfHandOffCpus here because we don't call StartImage routine */
+
+	/** Load the LPD image. */
+	Status = XLoader_LoadImage(PdiPtr);
+	if (XST_SUCCESS != Status){
+		goto END;
+	}
+	/** We need to reset NoOfHandOffCpus here because we don't call StartImage routine */
 	PdiPtr->NoOfHandoffCpus = 0U;
+
 END:
 	return Status;
 }
