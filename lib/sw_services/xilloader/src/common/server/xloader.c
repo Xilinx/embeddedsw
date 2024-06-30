@@ -172,6 +172,7 @@
 *       sk   02/18/2024 Added DDRMC Calib Check Status RTCA Register Init
 * 1.08  sk   04/18/2024 Enhance Restart Image to Support loading from
 *                       Boot PDI Present in Image Store
+*       kal  06/29/2024 Make XLoader_LoadImage as a non-static function
 *
 * </pre>
 *
@@ -222,7 +223,6 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr);
 static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo);
 static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChild);
 static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount);
-static int XLoader_LoadImage(XilPdi *PdiPtr);
 static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID);
 static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo);
 static int XLoader_ClearKeys(XilPdi * PdiPtr);
@@ -1378,7 +1378,7 @@ END:
  * 			- XLOADER_ERR_SEM_INIT if unable to start the SEM scan.
  *
  *****************************************************************************/
-static int XLoader_LoadImage(XilPdi *PdiPtr)
+int XLoader_LoadImage(XilPdi *PdiPtr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 NodeId = NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
@@ -1423,7 +1423,8 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
 	ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 	ImageMeasureInfo.DigestIndex = &PdiPtr->DigestIndex;
-	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
+	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) ||
+		(PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU)) {
 		ImageMeasureInfo.OverWrite = TRUE;
 	}
 	else {
@@ -1622,19 +1623,10 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 	u32 PdiSrc = PdiPtr->PdiSrc;
 	u8 PdiIndex = PdiPtr->PdiIndex;
 	u8 PdiType = PdiPtr->PdiType;
-	u8 PrtnNum = 0U;
-	u8 Index;
 
-	for (Index = 0U; Index < (u8)PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
-		++Index) {
-		if (PdiPtr->MetaHdr.ImgHdr[Index].ImgID == ImageId) {
-			PdiPtr->ImageNum = Index;
-			PdiPtr->PrtnNum = PrtnNum;
-			break;
-		}
-		PrtnNum += (u8)PdiPtr->MetaHdr.ImgHdr[Index].NoOfPrtns;
-	}
-	if (Index == PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs) {
+
+	Status = XLoader_GetImageAndPrtnInfo(PdiPtr, ImageId);
+	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND, 0);
 		goto END;
 	}
@@ -2172,5 +2164,43 @@ int XLoader_ClearATFHandoffParams(XilPdi* PdiPtr){
 	Status = XST_SUCCESS;
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides Image number and partition number of a
+ *		given ImgID in the PDI instance
+ *
+ * @param	PdiPtr		Pdi instance pointer
+ * @param	ImgID		Image id of a subsystem
+ *
+ * @return	- XST_SUCCESS on success
+ *		- XST_FAILURE on failure
+ *
+ *****************************************************************************/
+int XLoader_GetImageAndPrtnInfo(XilPdi *PdiPtr, u32 ImageId)
+{
+	int Status = XST_FAILURE;
+	u8 PrtnNum = 0U;
+	u8 Index;
+
+	/** Check if the given ImageId matches with any Images present in PDI. */
+	for (Index = 0U; Index < (u8)PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs; ++Index) {
+		if (PdiPtr->MetaHdr.ImgHdr[Index].ImgID == ImageId) {
+			PdiPtr->ImageNum = Index;
+			PdiPtr->PrtnNum = PrtnNum;
+			break;
+		}
+		PrtnNum += (u8)PdiPtr->MetaHdr.ImgHdr[Index].NoOfPrtns;
+	}
+
+	/** If not matched return error, else success. */
+	if (Index == PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs) {
+		Status = XST_FAILURE;
+	} else {
+		Status = XST_SUCCESS;
+	}
+
 	return Status;
 }

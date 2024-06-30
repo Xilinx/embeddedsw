@@ -147,6 +147,7 @@
 static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr* PrtnHdr, u32 PrtnNum);
 static int XLoader_ProcessCdo (const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 	XLoader_SecureParams* SecureParams);
+static int XLoader_ProcessPrtn(XilPdi* PdiPtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -559,10 +560,12 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 #ifdef PLM_PRINT_PERF_CDO_PROCESS
 		CdoProcessTimeStart = XPlmi_GetTimerValue();
 #endif
-		/** Process the chunk */
-		Status = XPlmi_ProcessCdo(&Cdo);
-		if (Status != XST_SUCCESS) {
-			goto END;
+		if (PdiPtr->PdiType != XLOADER_PDI_TYPE_IPU) {
+			/** Process the chunk */
+			Status = XPlmi_ProcessCdo(&Cdo);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 		}
 #ifdef PLM_PRINT_PERF_CDO_PROCESS
 		CdoProcessTimeEnd = XPlmi_GetTimerValue();
@@ -585,11 +588,12 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 				Cdo.Cmd.KeyHoleParams.ExtraWords = 0x0U;
 				Cdo.Cmd.KeyHoleParams.SrcAddr = DeviceCopy->SrcAddr;
 				Cdo.Cmd.KeyHoleParams.IsNextChunkCopyStarted = (u8)FALSE;
-				Status = XPlmi_ProcessCdo(&Cdo);
-				if (Status != XST_SUCCESS) {
-					goto END;
+				if (PdiPtr->PdiType != XLOADER_PDI_TYPE_IPU) {
+					Status = XPlmi_ProcessCdo(&Cdo);
+					if (Status != XST_SUCCESS) {
+						goto END;
+					}
 				}
-
 				if (Cdo.Cmd.KeyHoleParams.ExtraWords != 0x0U) {
 					Cdo.Cmd.KeyHoleParams.ExtraWords <<= XPLMI_WORD_LEN_SHIFT;
 					DeviceCopy->Len -= Cdo.Cmd.KeyHoleParams.ExtraWords;
@@ -649,7 +653,7 @@ END:
  * 			PCIE, or JTAG to PMC RAM.
  *
  *****************************************************************************/
-int XLoader_ProcessPrtn(XilPdi* PdiPtr)
+static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 {
 	volatile int Status = XST_FAILURE;
 	XLoader_SecureParams SecureParams;

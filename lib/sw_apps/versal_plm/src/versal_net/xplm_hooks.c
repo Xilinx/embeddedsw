@@ -102,7 +102,7 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
-		Status = XLoader_LoadPsmElf();
+		Status = XLoader_LoadLpdAndPsmElf();
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}

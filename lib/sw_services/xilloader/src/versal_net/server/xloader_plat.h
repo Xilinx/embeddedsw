@@ -41,6 +41,7 @@
 *       kpt  02/19/2024 Add support to extend secure state to SWPCR
 *       mss  04/12/2024 Added XLoader_DumpDdrmcRegisters function prototype
 *       mss  05/03/2024 Fixed doxygen warnings
+*       kal  06/29/2024 Rename XLoader_LoadPsmElf to XLoader_LoadLpdAndPsmElf
 *
 * </pre>
 *
@@ -413,7 +414,7 @@ XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
 int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
 int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd);
-int XLoader_LoadPsmElf(void);
+int XLoader_LoadLpdAndPsmElf(void);
 int XLoader_CheckAndUpdateSecureState(void);
 int XLoader_ExtractOptionalData(XPlmi_Cmd* Cmd, u32 *TotalDataSize);
 

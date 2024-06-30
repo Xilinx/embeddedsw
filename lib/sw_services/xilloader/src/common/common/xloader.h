@@ -437,6 +437,8 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr);
 int XLoader_ReadImageStoreCfg(void);
 int XLoader_IsPdiAddrLookup(u32 PdiId, u64 *PdiAddr);
 int XLoader_ClearATFHandoffParams(XilPdi* PdiPtr);
+int XLoader_LoadImage(XilPdi *PdiPtr);
+int XLoader_GetImageAndPrtnInfo(XilPdi *PdiPtr, u32 ImageId);
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr);
@@ -454,7 +456,6 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl);
 void Xloader_SaveBootPdiInfo(XilPdi *BootPdiPtr);
 int XLoader_EnableJtag(u32 CfgState);
 int XLoader_DisableJtag(void);
-int XLoader_ProcessPrtn(XilPdi* PdiPtr);
 int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr, u64 SrcAddr, u64 DestAddr, u32 DestSize);
 
 /************************** Variable Definitions *****************************/
