@@ -123,7 +123,6 @@
 * 2.00  ng   01/26/2024 Updated minor error codes
 *       am   03/02/2024 Added XLOADER_ERR_ZEROIZE_DIGEST_TABLE error code
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
-* 2.1   mb   06/21/2024 Added error code for AES initialization fail
 *
 * </pre>
 *
@@ -754,8 +753,6 @@ typedef enum {
 		/**< 0x637 Error while storing digest table */
 	XLOADER_ERR_ZEROIZE_DIGEST_TABLE,
 		/**< 0x638 Error while zeroizing digest table */
-	XLOADER_ERR_SEC_AES_INIT_FAIL,
-		/**< 0x639 Error when AES initialization is failed */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED = 0x6A0,
