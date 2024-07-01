@@ -19,6 +19,7 @@
 * 1.3 sd  4/7/20 Initial version for Clock Wizard Example
 * 1.4 sd  5/20/20 Use Macros and use readReg API
 * 1.6 sd  7/7/23  Add SDT support.
+* 1.8 sd  6/26/24 Update the device name and Baseaddress.
 * </pre>
 *
 ******************************************************************************/
@@ -40,7 +41,7 @@
 * needed device IDs in one place.
 */
 #ifndef SDT
-#define XCLK_WIZARD_DEVICE_ID		XPAR_TX_SUBSYSTEM_VID_CLK_RST_HIER_CLK_WIZARD_1_DEVICE_ID
+#define XCLK_WIZARD_DEVICE_ID		XPAR_CLK_WIZ_0_DEVICE_ID
 #endif
 
 /*
@@ -130,7 +131,7 @@ int main()
 #ifndef SDT
 	Status = ClkWiz_Example(&ClkWiz_Dynamic, XCLK_WIZARD_DEVICE_ID);
 #else
-	Status = ClkWiz_Example(&ClkWiz_Dynamic, XPAR_CLK_WIZ_0_BASEADDR);
+	Status = ClkWiz_Example(&ClkWiz_Dynamic, XPAR_XCLK_WIZ_0_BASEADDR);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("CLK_WIZARD Monitor interrupt example Failed");
