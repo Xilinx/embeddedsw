@@ -35,7 +35,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_ELLIPTIC_MAJOR_VERSION	5 /**< Major version of ELLIPTIC */
-#define XSECURE_ELLIPTIC_MINOR_VERSION	4 /**< Minor version of ELLIPTIC */
+#define XSECURE_ELLIPTIC_MINOR_VERSION	5 /**< Minor version of ELLIPTIC */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
