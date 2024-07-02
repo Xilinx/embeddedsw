@@ -3816,7 +3816,8 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	 */
 	if ((SecurePtr->BlockNum == 0x0U) &&
 		(SecurePtr->PdiPtr->ImagePrtnId == 0x00U)) {
-		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
+		if ((SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) ||
+			(SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU)) {
 			XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_SecureConfigMeasurement,
 					SecurePtr, PcrInfo, &SecurePtr->PdiPtr->DigestIndex, TRUE);
 		} else {
