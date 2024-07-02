@@ -25,6 +25,8 @@
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *       kpt  05/26/24 Added support RSA CRT and Expopt operation.
 *       kpt  06/13/24 Add support for RSA key generation.
+*       kpt  06/30/24 Added XSECURE_PRIME_FACTOR_MAX_P_SIZE and
+*                     XSECURE_PRIME_FACTOR_MAX_Q_SIZE
 *
 * </pre>
 *
@@ -65,8 +67,10 @@
 #define XSECURE_RSA_KEY_GEN_SIZE_IN_WORDS (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES / 4U) /**< RSA key generation size in words */
 #define XSECURE_ECDSA_RSA_SOFT_RESET		(0xF1200040U) /**< ECDSA/RSA soft reset address */
 #define XSECURE_RSA_SIZE_IN_BYTES		(512U)	      /**< 512 bytes for 4096 bit data */
-#define XSECURE_PRIME_FACTOR_P_SIZE	(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES/2U)  /**< 256 bytes size of first prime factor(P) */
-#define XSECURE_PRIME_FACTOR_Q_SIZE	(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES/2U)  /**< 256 bytes size of first prime factor(Q) */
+#define XSECURE_PRIME_FACTOR_P_SIZE	(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES >> 1U)  /**< size of first prime factor(P) */
+#define XSECURE_PRIME_FACTOR_Q_SIZE	(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES >> 1U)  /**< size of first prime factor(Q) */
+#define XSECURE_PRIME_FACTOR_MAX_P_SIZE (XSECURE_RSA_SIZE_IN_BYTES >> 1U)      /**< 256 bytes size of first prime factor(P) */
+#define XSECURE_PRIME_FACTOR_MAX_Q_SIZE (XSECURE_RSA_SIZE_IN_BYTES >> 1U)      /**< 256 bytes size of first prime factor(Q) */
 
 #define XSECURE_RSA_MAX_KEY_GEN_SUPPORT	(2U) /**< Maximum keys that needs to be generated */
 #define XSECURE_RSA_KEY_STATUS_WAIT     (1U)          /**< RSA key status wait */
@@ -122,11 +126,11 @@ typedef struct {
 	u8 InData[XSECURE_RSA_SIZE_IN_BYTES];  /**< Input data */
 	u8 Exp[XSECURE_RSA_SIZE_IN_BYTES];     /**< Exponent */
 	u8 Mod[XSECURE_RSA_SIZE_IN_BYTES];     /**< Modulus */
-	u8 P[XSECURE_PRIME_FACTOR_P_SIZE];     /**< Prime1 */
-	u8 Q[XSECURE_PRIME_FACTOR_Q_SIZE];     /**< Prime2 */
-	u8 DP[XSECURE_PRIME_FACTOR_P_SIZE];     /**< Prime1 */
-	u8 DQ[XSECURE_PRIME_FACTOR_Q_SIZE];     /**< Prime2 */
-	u8 QInv[XSECURE_PRIME_FACTOR_P_SIZE];   /**< Q inverse */
+	u8 P[XSECURE_PRIME_FACTOR_MAX_P_SIZE];     /**< Prime1 */
+	u8 Q[XSECURE_PRIME_FACTOR_MAX_Q_SIZE];     /**< Prime2 */
+	u8 DP[XSECURE_PRIME_FACTOR_MAX_P_SIZE];     /**< Prime1 */
+	u8 DQ[XSECURE_PRIME_FACTOR_MAX_Q_SIZE];     /**< Prime2 */
+	u8 QInv[XSECURE_PRIME_FACTOR_MAX_P_SIZE];   /**< Q inverse */
 	u8 Tot[XSECURE_RSA_SIZE_IN_BYTES];     /**< Totient */
 	u8 RN[XSECURE_RSA_SIZE_IN_BYTES];     /**< Precalculated modulus */
 	u8 RRN[XSECURE_RSA_SIZE_IN_BYTES];     /**< Precalculated modulus */

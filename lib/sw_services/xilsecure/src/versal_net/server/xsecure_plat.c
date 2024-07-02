@@ -24,6 +24,7 @@
 * 5.3   kpt     12/14/23 Place TRNG in reset when there is a failure
         kpt     01/09/24 Updated option for non-blocking trng reseed
 * 5.4   yog     04/29/24 Fixed doxygen warnings.
+*       kpt     06/30/24 Added XSecure_MemCpyAndChangeEndianness
 *
 * </pre>
 *
@@ -630,6 +631,39 @@ int XSecure_ECCRandInit(void)
 	Status = XST_SUCCESS;
 END:
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function can copy the content of memory from 64-bit address
+ *          to 32-bit address and change endianness of destination data
+ *
+ * @param	DestAddress is the address of the destination where content of
+ * 			SrcAddr memory should be copied.
+ *
+ * @param	SrcAddress is the address of the source where copy should
+ * 			start from.
+ *
+ * @param	Length is size of memory to be copied in bytes.
+ *
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length)
+{
+	volatile int Status = XST_FAILURE;
+	u8 *Buf = (u8*)(UINTPTR)DestAddress;
+
+	Status = XPlmi_MemCpy64(DestAddress, SrcAddress, Length);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xil_SReverseData(Buf, Length);
+
+END:
 	return Status;
 }
 

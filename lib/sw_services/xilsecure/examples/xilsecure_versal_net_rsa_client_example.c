@@ -57,7 +57,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.0   kpt    05/22/24 Initial release.
-*       kpt    06/28/24 Fix compilation failure and remove unused varialbe
+* 5.4   kpt    06/28/24 Fix compilation failure and remove unused varialbe
+*       kpt    06/30/24 Removed endianness changes
 *
 * </pre>
 ******************************************************************************/
@@ -438,28 +439,15 @@ static u32 SecureRsaExample(void);
 static int XSecure_RsaCrtTest(XSecure_ClientInstance *SecureClientInstance);
 static int XSecure_RsaExpoptTest(XSecure_ClientInstance *SecureClientInstance);
 static int XSecure_RsaPublicEncryptTest(XSecure_ClientInstance *SecureClientInstance);
-void ReverseArr(u8 *Data, u32 Size);
 
 /************************** Variable Definitions *****************************/
 
 static u32 Size = XSECURE_RSA_SIZE;
-static u32 PubExp;
 
 /* shared memory allocation */
 static u8 SharedMem[XSECURE_SHARED_BUF_SIZE] __attribute__((aligned(64U)))
 										__attribute__ ((section (".data.SharedMem")));
 XSecure_RsaKeyParam RsaKeyParam __attribute__((aligned(64U))) __attribute__ ((section (".data.RsaKeyParam")));
-u8 InputData[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.InputData")));
-u8 Mod[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Mod")));
-u8 Exp[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Exp")));
-u8 Prime1[XSECURE_PRIME_FACTOR_P_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Prime1")));
-u8 Prime2[XSECURE_PRIME_FACTOR_Q_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Prime2")));
-u8 Totient[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Totient")));
-u8 dp[XSECURE_PRIME_FACTOR_P_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.dp")));
-u8 dq[XSECURE_PRIME_FACTOR_Q_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.dq")));
-u8 qinv[XSECURE_PRIME_FACTOR_P_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.qinv")));
-u8 rn[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.rn")));
-u8 rrn[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.rrn")));
 
 /*****************************************************************************/
 /**
@@ -518,79 +506,17 @@ static u32 SecureRsaExample(void)
 	XSecure_ClientInstance SecureClientInstance;
 	u8 *Key = (u8*)(UINTPTR)&SharedMem[0U] + XSECURE_RSA_SIZE + XSECURE_RSA_SIZE;
 
-	/* Convert RSA paramteres to little endian */
-	Status = Xil_SChangeEndiannessAndCpy(InputData, XSECURE_RSA_SIZE, Data, XSECURE_RSA_SIZE,
-			XSECURE_RSA_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SChangeEndiannessAndCpy(Mod, XSECURE_RSA_SIZE, Modulus, XSECURE_RSA_SIZE,
-			XSECURE_RSA_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SChangeEndiannessAndCpy(Exp, XSECURE_RSA_SIZE, PrivateExp, XSECURE_RSA_SIZE,
-			XSECURE_RSA_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SChangeEndiannessAndCpy(Prime1, XSECURE_PRIME_FACTOR_P_SIZE, P, XSECURE_PRIME_FACTOR_P_SIZE,
-			XSECURE_PRIME_FACTOR_P_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SChangeEndiannessAndCpy(Prime2, XSECURE_PRIME_FACTOR_Q_SIZE, Q, XSECURE_PRIME_FACTOR_Q_SIZE,
-			XSECURE_PRIME_FACTOR_Q_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SChangeEndiannessAndCpy(Totient, XSECURE_RSA_SIZE, Tot, XSECURE_RSA_SIZE,
-			XSECURE_RSA_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SChangeEndiannessAndCpy((u8*)&PubExp, 4U, (u8*)&PublicExp, 4U,
-			4U);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SChangeEndiannessAndCpy(dp, XSECURE_PRIME_FACTOR_P_SIZE, DP, XSECURE_PRIME_FACTOR_P_SIZE,
-			XSECURE_PRIME_FACTOR_P_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SChangeEndiannessAndCpy(dq, XSECURE_PRIME_FACTOR_Q_SIZE, DQ, XSECURE_PRIME_FACTOR_Q_SIZE,
-			XSECURE_PRIME_FACTOR_Q_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SChangeEndiannessAndCpy(qinv, XSECURE_PRIME_FACTOR_Q_SIZE, QInv, XSECURE_PRIME_FACTOR_Q_SIZE,
-			XSECURE_PRIME_FACTOR_Q_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SChangeEndiannessAndCpy(rn, XSECURE_RSA_SIZE, RN, XSECURE_RSA_SIZE,
-			XSECURE_RSA_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SChangeEndiannessAndCpy(rrn, XSECURE_RSA_SIZE, RRN, XSECURE_RSA_SIZE,
-			XSECURE_RSA_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Xil_DCacheFlushRange((UINTPTR)InputData, XSECURE_RSA_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)Mod, XSECURE_RSA_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)Exp, XSECURE_RSA_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)Prime1, XSECURE_PRIME_FACTOR_P_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)Prime2, XSECURE_PRIME_FACTOR_Q_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)Totient, XSECURE_RSA_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)dp, XSECURE_PRIME_FACTOR_P_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)dq, XSECURE_PRIME_FACTOR_Q_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)qinv, XSECURE_PRIME_FACTOR_P_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)rn, XSECURE_RSA_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)rrn, XSECURE_RSA_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)Data, XSECURE_RSA_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)Modulus, XSECURE_RSA_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)PrivateExp, XSECURE_RSA_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)P, XSECURE_PRIME_FACTOR_P_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)Q, XSECURE_PRIME_FACTOR_Q_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)Tot, XSECURE_RSA_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)DP, XSECURE_PRIME_FACTOR_P_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)DQ, XSECURE_PRIME_FACTOR_Q_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)QInv, XSECURE_PRIME_FACTOR_P_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)RN, XSECURE_RSA_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)RRN, XSECURE_RSA_SIZE);
 
 	Status = XMailbox_Initialize(&MailboxInstance, 0U);
 	if (Status != XST_SUCCESS) {
@@ -610,6 +536,11 @@ static u32 SecureRsaExample(void)
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n shared memory initialization failed");
 		goto END;
+	}
+
+	Status = XSecure_RsaPrivateDecKat(&SecureClientInstance);
+	if (Status != XST_SUCCESS) {
+		xil_printf("RSA private decrypt KAT failed\n\r");
 	}
 
 	/* RSA decrypt with private key using CRT */
@@ -646,20 +577,20 @@ static int XSecure_RsaCrtTest(XSecure_ClientInstance *SecureClientInstance)
 	u8 *Signature = &SharedMem[0U];
 
 	/* RSA parameters for CRT operation */
-	RsaKeyParam.ModAddr = (u64)(UINTPTR)&Mod;
-	RsaKeyParam.PAddr   = (u64)(UINTPTR)&Prime1;
+	RsaKeyParam.ModAddr = (u64)(UINTPTR)&Modulus;
+	RsaKeyParam.PAddr   = (u64)(UINTPTR)&P;
 	RsaKeyParam.PSize   = XSECURE_PRIME_FACTOR_P_SIZE;
-	RsaKeyParam.QAddr   = (u64)(UINTPTR)&Prime2;
+	RsaKeyParam.QAddr   = (u64)(UINTPTR)&Q;
 	RsaKeyParam.QSize   = XSECURE_PRIME_FACTOR_Q_SIZE;
-	RsaKeyParam.DPAddr = (u64)(UINTPTR)&dp;
-	RsaKeyParam.DQAddr = (u64)(UINTPTR)&dq;
-	RsaKeyParam.QInvAddr = (u64)(UINTPTR)&qinv;
-	RsaKeyParam.PubExp  = PubExp;
+	RsaKeyParam.DPAddr = (u64)(UINTPTR)&DP;
+	RsaKeyParam.DQAddr = (u64)(UINTPTR)&DQ;
+	RsaKeyParam.QInvAddr = (u64)(UINTPTR)&QInv;
+	RsaKeyParam.PubExp  = PublicExp;
 	RsaKeyParam.IsPubExpAvail = TRUE;
 	RsaKeyParam.OpMode = XSECURE_RSA_CRT_MODE;
 
 	KeyAddr = (u64)(UINTPTR)&RsaKeyParam;
-	InputMsgAddr = (u64)(UINTPTR)&InputData;
+	InputMsgAddr = (u64)(UINTPTR)&Data;
 
 	/* RSA signature decrypt with private key */
 	Status = XSecure_RsaPrivateDecrypt(SecureClientInstance, KeyAddr, InputMsgAddr,
@@ -670,9 +601,6 @@ static int XSecure_RsaCrtTest(XSecure_ClientInstance *SecureClientInstance)
 	}
 
 	Xil_DCacheInvalidateRange((UINTPTR)Signature, XSECURE_RSA_SIZE);
-
-	/* Reverse the signature */
-	ReverseArr(Signature, Size);
 
 	xil_printf("\r\n Decrypted Signature with private key\r\n ");
 	for(Index = 0; Index < Size; Index++) {
@@ -721,23 +649,23 @@ static int XSecure_RsaExpoptTest(XSecure_ClientInstance *SecureClientInstance)
 	u8 *Signature = &SharedMem[0U];
 
 	/* RSA parameters for RRN operation */
-	RsaKeyParam.ExpAddr = (u64)(UINTPTR)&Exp;
-	RsaKeyParam.ModAddr = (u64)(UINTPTR)&Mod;
-	RsaKeyParam.PAddr   = (u64)(UINTPTR)&Prime1;
+	RsaKeyParam.ExpAddr = (u64)(UINTPTR)&PrivateExp;
+	RsaKeyParam.ModAddr = (u64)(UINTPTR)&Modulus;
+	RsaKeyParam.PAddr   = (u64)(UINTPTR)&P;
 	RsaKeyParam.PSize   = XSECURE_PRIME_FACTOR_P_SIZE;
-	RsaKeyParam.QAddr   = (u64)(UINTPTR)&Prime2;
+	RsaKeyParam.QAddr   = (u64)(UINTPTR)&Q;
 	RsaKeyParam.QSize   = XSECURE_PRIME_FACTOR_Q_SIZE;
-	RsaKeyParam.RNAddr = (u64)(UINTPTR)&rn;
-	RsaKeyParam.RRNAddr = (u64)(UINTPTR)&rrn;
+	RsaKeyParam.RNAddr = (u64)(UINTPTR)&RN;
+	RsaKeyParam.RRNAddr = (u64)(UINTPTR)&RRN;
 	RsaKeyParam.IsPrimeAvail = TRUE;
-	RsaKeyParam.PubExp  = PubExp;
+	RsaKeyParam.PubExp  = PublicExp;
 	RsaKeyParam.IsPubExpAvail = TRUE;
-	RsaKeyParam.TotAddr = (u64)(UINTPTR)&Totient;
+	RsaKeyParam.TotAddr = (u64)(UINTPTR)&Tot;
 	RsaKeyParam.IsTotAvail = FALSE;
 	RsaKeyParam.OpMode = XSECURE_RSA_EXPOPT_MODE;
 
 	KeyAddr = (u64)(UINTPTR)&RsaKeyParam;
-	InputMsgAddr = (u64)(UINTPTR)&InputData;
+	InputMsgAddr = (u64)(UINTPTR)&Data;
 
 	/* RSA signature decrypt with private key */
 	Status = XSecure_RsaPrivateDecrypt(SecureClientInstance, KeyAddr, InputMsgAddr,
@@ -748,9 +676,6 @@ static int XSecure_RsaExpoptTest(XSecure_ClientInstance *SecureClientInstance)
 	}
 
 	Xil_DCacheInvalidateRange((UINTPTR)Signature, XSECURE_RSA_SIZE);
-
-	/* Reverse the signature */
-	ReverseArr(Signature, Size);
 
 	xil_printf("\r\n Decrypted Signature with private key\r\n ");
 	for(Index = 0; Index < Size; Index++) {
@@ -846,26 +771,6 @@ static int XSecure_RsaPublicEncryptTest(XSecure_ClientInstance *SecureClientInst
 
 END:
 	return Status;
-}
-/****************************************************************************/
-/**
-*
-* This function reverses given array.
-*
-* @param	Data	- Pointer to given data
-* @param	Size	- size of the given data
-*
-****************************************************************************/
-void ReverseArr(u8 *Data, u32 Size)
-{
-	u32 Index;
-	u8 DataTmp;
-
-	for (Index = 0U; Index < Size/2U; Index++) {
-		DataTmp = Data[Index];
-		Data[Index] = Data[Size - Index - 1U];
-		Data[Size - Index - 1U] = DataTmp;
-	}
 }
 
 /** //! [RSA generic example] */

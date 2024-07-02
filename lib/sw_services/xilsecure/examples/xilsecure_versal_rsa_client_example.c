@@ -69,6 +69,7 @@
 * 5.2   am     05/03/23 Added KAT before crypto usage
 * 5.3   kpt    12/13/23 Add RSA quiet mode support
 *       kpt    01/19/23 Enable totient calculation and PWCT for XSecure_RsaExpQOperation
+* 5.4   kpt    06/30/24 Removed endianness changes
 *
 * </pre>
 ******************************************************************************/
@@ -515,12 +516,6 @@ static u8 SharedMem[XSECURE_SHARED_BUF_SIZE] __attribute__((aligned(64U)))
 										__attribute__ ((section (".data.SharedMem")));
 #ifdef VERSAL_NET
 XSecure_RsaKeyParam RsaKeyParam __attribute__((aligned(64U))) __attribute__ ((section (".data.RsaKeyParam")));
-u8 Mod[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Mod")));
-u8 Exp[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Exp")));
-u8 Prime1[XSECURE_PRIME_FACTOR_P_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Prime1")));
-u8 Prime2[XSECURE_PRIME_FACTOR_Q_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Prime2")));
-u8 Totient[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.Totient")));
-u8 InputData[XSECURE_RSA_SIZE] __attribute__((aligned(64U))) __attribute__ ((section (".data.InputData")));
 #endif
 
 /*****************************************************************************/
@@ -585,43 +580,32 @@ static u32 SecureRsaExample(void)
 	XMailbox MailboxInstance;
 	XSecure_ClientInstance SecureClientInstance;
 #ifdef VERSAL_NET
-	u8 SignatureTmp;
-	u32 PubExp = 0U;
 
-	ReverseArr((u8*)Data, InputData, XSECURE_RSA_SIZE);
-	ReverseArr((u8*)Modulus, Mod, XSECURE_RSA_SIZE);
-	ReverseArr((u8*)PrivateExp, Exp, XSECURE_RSA_SIZE);
-	ReverseArr((u8*)P, Prime1, XSECURE_PRIME_FACTOR_P_SIZE);
-	ReverseArr((u8*)Q, Prime2, XSECURE_PRIME_FACTOR_Q_SIZE);
-	ReverseArr((u8*)Tot, Totient, XSECURE_RSA_SIZE);
-	ReverseArr((u8*)&PublicExp, (u8*)&PubExp, 4U);
+	Xil_DCacheFlushRange((UINTPTR)Data, XSECURE_RSA_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)Modulus, XSECURE_RSA_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)PrivateExp, XSECURE_RSA_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)P, XSECURE_PRIME_FACTOR_P_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)Q, XSECURE_PRIME_FACTOR_Q_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)Tot, XSECURE_RSA_SIZE);
 
-	Xil_DCacheFlushRange((UINTPTR)InputData, XSECURE_RSA_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)Mod, XSECURE_RSA_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)Exp, XSECURE_RSA_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)Prime1, XSECURE_PRIME_FACTOR_P_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)Prime2, XSECURE_PRIME_FACTOR_Q_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)Totient, XSECURE_RSA_SIZE);
-
-	RsaKeyParam.ExpAddr = (u64)(UINTPTR)&Exp;
-	RsaKeyParam.ModAddr = (u64)(UINTPTR)&Mod;
-	RsaKeyParam.PAddr   = (u64)(UINTPTR)&Prime1;
+	RsaKeyParam.ExpAddr = (u64)(UINTPTR)&PrivateExp;
+	RsaKeyParam.ModAddr = (u64)(UINTPTR)&Modulus;
+	RsaKeyParam.PAddr   = (u64)(UINTPTR)&P;
 	RsaKeyParam.PSize   = XSECURE_PRIME_FACTOR_P_SIZE;
-	RsaKeyParam.QAddr   = (u64)(UINTPTR)&Prime2;
+	RsaKeyParam.QAddr   = (u64)(UINTPTR)&Q;
 	RsaKeyParam.QSize   = XSECURE_PRIME_FACTOR_Q_SIZE;
 	RsaKeyParam.IsPrimeAvail = TRUE;
-	RsaKeyParam.PubExp  = PubExp;
+	RsaKeyParam.PubExp  = PublicExp;
 	RsaKeyParam.IsPubExpAvail = TRUE;
-	RsaKeyParam.TotAddr = (u64)(UINTPTR)&Totient;
+	RsaKeyParam.TotAddr = (u64)(UINTPTR)&Tot;
 	RsaKeyParam.IsTotAvail = FALSE;
 	RsaKeyParam.OpMode = XSECURE_RSA_EXPQ_MODE;
 
 	KeyAddr = (u64)(UINTPTR)&RsaKeyParam;
-	InputMsg = (u8*)(UINTPTR)&InputData;
 #else
 	KeyAddr = (u64)(UINTPTR)Key;
-	InputMsg = (u8*)(UINTPTR)&Data;
 #endif
+	InputMsg = (u8*)(UINTPTR)&Data;
 
 	Status = XMailbox_Initialize(&MailboxInstance, 0U);
 	if (Status != XST_SUCCESS) {
@@ -679,13 +663,7 @@ static u32 SecureRsaExample(void)
 
 	Xil_DCacheInvalidateRange((UINTPTR)Signature, XSECURE_RSA_SIZE);
 	xil_printf("\r\n Decrypted Signature with private key\r\n ");
-#ifdef VERSAL_NET
-	for (Index = 0; Index < Size/2; Index++) {
-		SignatureTmp = Signature[Index];
-		Signature[Index] = Signature[Size - Index -1U];
-		Signature[Size - Index -1U] = SignatureTmp;
-	}
-#endif
+
 	for(Index = 0; Index < Size; Index++) {
 		xil_printf(" %02x ", Signature[Index]);
 	}
@@ -745,27 +723,6 @@ END:
 	Status |= XMailbox_ReleaseSharedMem(&MailboxInstance);
 	return Status;
 }
-
-#ifdef VERSAL_NET
-/****************************************************************************/
-/**
-*
-* This function reverses array and copies in to destination array.
-*
-* @param	Arr		- Pointer to source array
-* @param	dst		- Pointer to destination array
-* @param	Size	- size of the given array
-*
-****************************************************************************/
-void ReverseArr(u8 *Arr, u8 *dst, u32 Size)
-{
-	u32 Index;
-
-	for (Index = 0U; Index < Size; Index++) {
-		dst[Index] = Arr[Size - Index - 1U];
-	}
-}
-#endif
 
 /** //! [RSA generic example] */
 /** @} */
