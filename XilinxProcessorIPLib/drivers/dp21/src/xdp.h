@@ -505,6 +505,29 @@ typedef enum {
 } XDp_Tx_HandlerType;
 
 /**
+ * This typedef enumerates the mode of LTTPR.
+ */
+typedef enum {
+	XDP_TX_LTTPR_TRANSPARENT = 0x55,
+	XDP_TX_LTTPR_NON_TRANSPARENT = 0xAA
+} XDp_Tx_LttprMode;
+
+/**
+ * This typedef enumerates the LTTPR count.
+ */
+typedef enum {
+	XDP_TX_LTTPR_NONE = 0x00,
+	XDP_TX_LTTPR_1 = 0x80,
+	XDP_TX_LTTPR_2 = 0x40,
+	XDP_TX_LTTPR_3 = 0x20,
+	XDP_TX_LTTPR_4 = 0x10,
+	XDP_TX_LTTPR_5 = 0x08,
+	XDP_TX_LTTPR_6 = 0x04,
+	XDP_TX_LTTPR_7 = 0x02,
+	XDP_TX_LTTPR_8 = 0x01,
+} XDp_Tx_LttprCount;
+
+/**
  * This typedef contains configuration information for the DisplayPort core.
  */
 typedef struct {
@@ -572,12 +595,12 @@ typedef struct {
 				 *forward equalization values used for adjusting link rate
 				 */
 	u32 AuxReadInterval;	/* dp link status/adjust read interval during training period */
-	u32 LaneEqAlignStatus[2];	/*This is a raw read of the RX device's
+	u8 LaneEqAlignStatus[6];	/*This is a raw read of the RX device's
 					 *lane equalization align status registers.This bits ensures
 					 *receiver is properly detected and  aligned to 128B/132B
 					 *boudaries
 					 */
-	u32 CdsAlignStatus[2];	/*This is a raw read of the RX device's
+	u8 CdsAlignStatus[6];	/*This is a raw read of the RX device's
 				 *cds align status registers.This bits ensures the
 				 *receiver is properly detected and aligned to 128B/132B
 				 *boudaries.
@@ -631,7 +654,38 @@ typedef struct {
 					 */
 	u8 TrainingMode;	/**< The Current Training protocol*/
 	u8 ExtendedCapPresent;	/**< Availability of Extended capabilities*/
+	u8 IsDsRepeater;	/**< Downstream detected as Repeater*/
+	u8 OverrideLinkrate;	/**< If set to 1, the value stored for
+				  * LinkRate will get Overwrite with user LinkRates.
+				  */
+	u8 OverrideLinkCount;	/**< If set to 1, the value stored for
+				  * LinkCount will get Overwrite with user LinkCount.
+				  */
+	u8 OverrideRepeaterMode; /**< If set to 1, the value stored for
+				   * LinkCount will get Overwrite with user LinkCount.
+				   */
+	u8 ActiveRepeaterCount;
+	u8 LttprMode;
+	u8 OverrideLttprMode;
 } XDp_TxLinkConfig;
+
+/**
+ * This typedef contains configuration information about the main link settings.
+ */
+typedef struct {
+	u8 RevId;			/**< The LTTPR Capability and ID Field */
+	u8 MaxLinkRate_8B;			/**< The maximum link rate for 8B LTTPR encoding */
+	u8 RepeaterCnt;	/**< Indicates the number of LTTPR's that are present. */
+	u8 RepeaterMode;	/**< LTTPR repeater mode */
+	u8 MaxLaneCount;	/**< The maximum lane count of LTTPR */
+	u8 ExtendTimeOut;	/**< The Repeater Extended timeout */
+	u8 ChannelCoding;	/**< The Main Link channel coding of LTTPR */
+	u8 MaxLinkRate_128B;	/**< LTTPR Linkrate for 128B channel encoding*/
+	u8 EqDone;			/**< Equiliation Done per LTTPR*/
+	u8 AlpmCapabilities;	/**< AUX-Less ALPM Capabilities */
+	u8 TotalRptCnt;		/**< Total LTTPR count */
+	u8 reserved_bytes[6];		/**< Reserved */
+} XDp_TxLttprConfig;
 
 /**
  * This typedef contains the main stream attributes which determine how the
@@ -986,6 +1040,9 @@ typedef struct {
 	u8 ColorimetryThroughVsc;		/**< Enable / Disable of sending
                                                         colorimetry information
                                                         through VSC packet */
+	XDp_TxLttprConfig LttprConfig;	/**< Configuration structure
+					  * for the Lttpr.
+					  */
 	XDp_TxSinkConfig RxConfig;		/**< Configuration structure for
 							the RX device. */
 	XDp_TxLinkConfig LinkConfig;		/**< Configuration structure for
@@ -1697,6 +1754,8 @@ void XDp_TxWriteGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u8 *Guid);
 void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u8 *Guid);
+u8 XDp_TxGet_LttprRepeaterCount(u8 RepeaterCount);
+u8 XDp_Tx_GetRepeaterStatus(XDp_TxLttprConfig *LttprConfig);
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
@@ -1737,6 +1796,7 @@ void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxOverrideSyncPolarity(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
+u32 XDp_TxSetRepeaterMode(XDp *InstancePtr, XDp_Tx_LttprMode mode);
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
