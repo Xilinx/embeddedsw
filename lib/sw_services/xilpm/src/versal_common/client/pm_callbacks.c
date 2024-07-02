@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -143,12 +144,18 @@ void XPm_NotifierProcessEvent(const u32 Node, const u32 Event,
 			if (NULL != Notifier->callback) {
 				Notifier->callback(Notifier);
 
+#ifndef XILPM_AUTO_REREGISTRATION_EAM_ERR_NOTIFY_DIS
+				/* Automatic re-registration of the EAM error events, enabled */
 				if ((u32)XPM_NODECLASS_EVENT == NODECLASS(Node)) {
 					Status = XPm_RegisterNotifier(Notifier);
 				        if ((s32)XST_SUCCESS != Status) {
 						xil_printf("Re-registration failed Status = %d\n", Status);
 					}
 				}
+#else /* XILPM_AUTO_REREGISTRATION_EAM_ERR_NOTIFY_DIS */
+				(void)Status;
+				/* Automatic re-registration of the EAM error events, disabled (skipping) */
+#endif /* XILPM_AUTO_REREGISTRATION_EAM_ERR_NOTIFY_DIS */
 			}
 			/* There could be multiple pairs with different notifiers */
 		}
