@@ -552,20 +552,6 @@ static inline int XPlmi_CheckAndUpdateFipsState(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function is not applicable for versal
- *
- * @return 	None
- *
- *****************************************************************************/
-static inline u8 XPlmi_IsKatRan(u32 PlmKatMask)
-{
-	/*Not Applicable for Versal*/
-	(void)PlmKatMask;
-	return TRUE;
-}
-
-/*****************************************************************************/
-/**
 * @brief	This function provides the Iro Frequency used in ROM
 *
 * @return	XPLMI_PMC_IRO_FREQ_320_MHZ

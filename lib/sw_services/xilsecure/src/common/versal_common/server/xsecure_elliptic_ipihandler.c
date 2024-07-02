@@ -205,11 +205,6 @@ static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_EllipticSignAddr SignAddr;
 	u32 Size = 0U;
 
-	if (XPlmi_IsKatRan(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK) != TRUE) {
-		Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
-		goto END;
-	}
-
 	Status = XPlmi_MemCpy64((UINTPTR)&EcdsaParams, SrcAddr, sizeof(EcdsaParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -301,11 +296,6 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 	XSecure_EllipticHashData HashInfo;
 	XSecure_EllipticSignAddr SignAddr;
 	u32 Size = 0U;
-
-	if (XPlmi_IsKatRan(XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK) != TRUE) {
-		Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
-		goto END;
-	}
 
 	Status = XPlmi_MemCpy64((UINTPTR)&EcdsaParams, Addr, sizeof(EcdsaParams));
 	if (Status != XST_SUCCESS) {
