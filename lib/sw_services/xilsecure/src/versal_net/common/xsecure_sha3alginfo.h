@@ -17,6 +17,7 @@
 * 5.2   mmd     07/04/23 Initial Release
 *	vss	09/21/23 Fixed doxygen warnings
 * 5.3   mb      04/01/24 Updated minor version
+* 5.4   kpt     06/30/24 Updated version number
 *
 * </pre>
 *
@@ -35,7 +36,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_SHA3_MAJOR_VERSION	5 /**< Major version of SHA3 */
-#define XSECURE_SHA3_MINOR_VERSION	3 /**< Minor version of SHA3 */
+#define XSECURE_SHA3_MINOR_VERSION	5 /**< Minor version of SHA3 */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

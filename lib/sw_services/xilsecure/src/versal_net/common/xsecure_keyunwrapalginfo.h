@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.3   mss     10/19/23 Initial Release
+* 5.4   kpt     06/30/24 Updated version number
 *
 * </pre>
 *
@@ -33,7 +34,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_KEYUNWRAP_MAJOR_VERSION	5U /**< Major version of Keyunwrap */
-#define XSECURE_KEYUNWRAP_MINOR_VERSION	3U /**< Minor version of Keyunwrap */
+#define XSECURE_KEYUNWRAP_MINOR_VERSION	5U /**< Minor version of Keyunwrap */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

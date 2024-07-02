@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   mss     12/10/23 Initial Release
+* 5.4   kpt     06/30/24 Updated version number
 *
 * </pre>
 *
@@ -33,7 +34,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_ECDH_MAJOR_VERSION	5 /**< Major version of ECDH */
-#define XSECURE_ECDH_MINOR_VERSION	3 /**< Minor version of ECDH */
+#define XSECURE_ECDH_MINOR_VERSION	5 /**< Minor version of ECDH */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
