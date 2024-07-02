@@ -105,10 +105,10 @@ static inline int XPuf_WaitForPufSynWordRdy(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function waits till Puf done bit is set.
+ * @brief	This function waits until PUF done bit is set.
  *
  * @return
- *		- XST_SUCCESS on successful Puf Operation.
+ *		- XST_SUCCESS on successful PUF Operation.
  *		- XST_FAILURE if timeout occurred.
  *
  *****************************************************************************/
@@ -158,7 +158,7 @@ static inline u8 XPuf_ReadIroFreq(void)
 /*****************************************************************************/
 /**
  *
- * @brief       This function writes the IRO frequency value in to register
+ * @brief       This function writes the IRO frequency value into register
  *
  * @param       IroFreq IRO frequency to be set.
  *
@@ -203,7 +203,7 @@ static int XPuf_ChangeIroFreq(u32 IroFreq, u8 *IroFreqUpdated);
  *		- XST_FAILURE  Unexpected event
  *
  * @note	Helper data will be available in PufData->SyndromeData,
- *		PufData->Chash, PufData->Aux
+ *		PufData->Chash, PufData->Aux.
  *		PUF is only supported when using a nominal VCC_PMC of 0.70V or
  *		IRO frequency of 320 MHz
  *
@@ -216,7 +216,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 	u8 IroFreqUpdated = FALSE;
 
 	/**
-	 * perform input parameters validation,
+	 * Perform input parameters validation,
 	 * return XPUF_ERROR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (PufData == NULL) {
@@ -236,7 +236,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 	/**
 	 * When registering the PUF, the PMC internal ring oscillator (IRO) frequency must be set
 	 * to 320 MHz. When the Versal ACAP boots, it always uses the default frequency of
-	 * 320 MHz for -LP devices and 400 MHZ for -MP,-HP devices. If the IRO frequency at boot
+	 * 320 MHz for -LP devices and 400 MHz for -MP,-HP devices. If the IRO frequency at boot
 	 * does not match the IRO frequency during registration, there is a potential of reduced
 	 * stability which can impact the PUFs ability to regenerate properly.
 	 */
@@ -326,7 +326,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 
 END:
 	/**
-	 * If IRO frequency is updated to 320MHZ then set frequency back to 400MHZ and
+	 * If IRO frequency is updated to 320MHz then set frequency back to 400MHz and
 	 * if the frequency is not set then return XPUF_IRO_FREQ_WRITE_MISMATCH.
 	 * else, return Status.
 	 */
@@ -407,7 +407,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	/**
 	 * When registering the PUF, the PMC internal ring oscillator (IRO) frequency must be set
 	 * to 320 MHz. When the Versal ACAP boots, it always uses the default frequency of
-	 * 320 MHz for -LP devices and 400 MHZ for -MP,-HP devices. If the IRO frequency at boot
+	 * 320 MHz for -LP devices and 400 MHz for -MP,-HP devices. If the IRO frequency at boot
 	 * does not match the IRO frequency during registration, there is a potential of reduced
 	 * stability which can impact the PUFs ability to regenerate properly.
 	 */
@@ -502,7 +502,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 
 END:
 	/**
-	 * If IRO frequency is updated to 320MHZ then set frequency back to 400MHZ and if the frequency
+	 * If IRO frequency is updated to 320MHz then set frequency back to 400MHz and if the frequency
 	 * is not set then return XPUF_IRO_FREQ_WRITE_MISMATCH else,
 	 * Return status.
 	 */
@@ -522,7 +522,7 @@ END:
  *
  * @return
  * 		 - XST_SUCCESS if PUF ID is cleared successfully
- * 		 - XPUF_ERROR_PUF_ID_ZERO_TIMEOUT if timedout while clearing PUF ID
+ * 		 - XPUF_ERROR_PUF_ID_ZERO_TIMEOUT if time out while clearing PUF ID
  *
  *****************************************************************************/
 int XPuf_ClearPufID(void)
@@ -538,7 +538,7 @@ int XPuf_ClearPufID(void)
 
 	/**
 	 * The API waits for ID_ZERO bit to be set in PUF Status register.
-	 * If id zero bit is not set within 1 second then returns XPUF_ERROR_PUF_ID_ZERO_TIMEOUT
+	 * If ID zero bit is not set within 1 second then returns XPUF_ERROR_PUF_ID_ZERO_TIMEOUT
 	 * else returns XST_SUCCESS.
 	 */
 	WaitStatus = (int)Xil_WaitForEvent((UINTPTR)(XPUF_PMC_GLOBAL_BASEADDR +
@@ -684,7 +684,7 @@ static int XPuf_UpdateHelperData(const XPuf_Data *PufData)
 	u32 PufAux;
 
 	/**
-	 * If Readoption is from RAM.
+	 * If Read option is from RAM.
 	 */
 	if (PufData->ReadOption == XPUF_READ_FROM_RAM) {
 		PufChash = PufData->Chash;
@@ -701,12 +701,12 @@ static int XPuf_UpdateHelperData(const XPuf_Data *PufData)
 			goto END;
 		}
 		/**
-		 * Write auxiliary data(PUF Helper Data) in PUF_AUX register.
+		 * Write auxiliary data (PUF Helper Data) in PUF_AUX register.
 		 */
 		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_AUX_OFFSET,
 			PufAux);
 		/**
-		 * Write CHASH data(PUF Helper Data) in PUF_CHASH register.
+		 * Write CHASH data (PUF Helper Data) in PUF_CHASH register.
 		 */
 		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
 			XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET, PufChash);
@@ -718,7 +718,7 @@ static int XPuf_UpdateHelperData(const XPuf_Data *PufData)
 		Status = XST_SUCCESS;
 	}
 	/**
-	 * If Readoption is from eFUSE cache, write PUF Syndrome Data Address in PUF_SYN_ADDR register
+	 * If Read option is from eFUSE cache, write PUF Syndrome Data Address in PUF_SYN_ADDR register
 	 * else, return XPUF_ERROR_INVALID_READ_HD_INPUT.
 	 */
 	else if (PufData->ReadOption == XPUF_READ_FROM_EFUSE_CACHE) {
@@ -736,8 +736,8 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function triggers PUF Regeneration by configuring type of
- *              regeneration provided by the user. It regenerates PUF Key and ID
+ * @brief       This function triggers PUF Regeneration by configuring the type of
+ *              regeneration provided by the user. It regenerates the PUF Key and ID
  *              depending on the type of regeneration using the helper data
  *
  * @param	PufData Pointer to XPuf_Data structure which includes options
@@ -1071,8 +1071,9 @@ int XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 		}
 	}
 	/**
-	 * Use the above mentioned logic to trim the data and copy the trimmed data in EfuseSynData array in the instance pointer.
-	 * and return XST_SUCCESS.
+	 * Use the above mentioned logic to trim the data and copy the trimmed
+	 * data in EfuseSynData array in the instance pointer and
+	 * return XST_SUCCESS.
 	 */
 	PufData->EfuseSynData[XPUF_LAST_WORD_OFFSET] &=
 						XPUF_LAST_WORD_MASK;
@@ -1086,7 +1087,7 @@ END:
 /**
  *
  * @brief	This function sets the IRO frequency.IRO frequency can be set
- *		to 320 MHZ or 400 MHZ
+ *		to 320 MHz or 400 MHz
  *
  * @param	IroFreq IRO frequency to be set.
  * @param	IroFreqUpdated Flag to indicate whether IRO frequency is updated.
@@ -1106,7 +1107,7 @@ static int XPuf_ChangeIroFreq(u32 IroFreq, u8 *IroFreqUpdated)
 	*IroFreqUpdated = FALSE;
 	/**
 	 * Read IRO frequeny, If IRO frequency is different from required frequency,
-	 * then set the IRO frequency to required frequency(either 320 MHZ or 400 MHZ).
+	 * then set the IRO frequency to required frequency(either 320 MHz or 400 MHz).
 	 */
 	ReadIroFreq = XPuf_ReadIroFreq();
 	if (ReadIroFreq != IroFreq) {
