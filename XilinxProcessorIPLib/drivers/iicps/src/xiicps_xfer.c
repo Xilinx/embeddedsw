@@ -82,7 +82,16 @@ s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role)
 	 * Set up master, AckEn, nea and also clear fifo.
 	 */
 	ControlReg |= (u32)XIICPS_CR_ACKEN_MASK | (u32)XIICPS_CR_CLR_FIFO_MASK |
-		(u32)XIICPS_CR_NEA_MASK | (u32)XIICPS_CR_MS_MASK;
+		      (u32)XIICPS_CR_MS_MASK;
+
+	/*
+	 * Check if 10 bit address option is set. Clear/Set NEA accordingly.
+	 */
+	if (InstancePtr->Is10BitAddr == 1) {
+		ControlReg &= (u32)(~XIICPS_CR_NEA_MASK);
+	} else {
+		ControlReg |= (u32)(XIICPS_CR_NEA_MASK);
+	}
 
 	if (Role == RECVING_ROLE) {
 		ControlReg |= (u32)XIICPS_CR_RD_WR_MASK;
