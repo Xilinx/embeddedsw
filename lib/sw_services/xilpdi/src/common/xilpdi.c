@@ -56,6 +56,7 @@
 *       am   03/02/2024 Updated MH optimization changes to XilPdi_StoreDigestTable
 *       sk   03/13/2024 Fixed doxygen comments format
 * 1.10  ng   04/30/2024 Fixed doxygen grouping
+*       ng   07/02/2024 Removed dependency on xilplmi library
 *
 * </pre>
 *
@@ -70,7 +71,6 @@
 #include "xilpdi.h"
 #include "xil_io.h"
 #include "xil_util.h"
-#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -78,6 +78,11 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XILPDI_PDI_TYPE_PARTIAL_METAHEADER		(0x5U)
+
+#define XILPDI_PMCRAM_BASEADDR			(0xF2000000U)
+
+/* Loader chunk memory */
+#define XILPDI_PMCRAM_CHUNK_MEMORY		(XILPDI_PMCRAM_BASEADDR + 0x20U)
 
 /************************** Function Prototypes ******************************/
 
@@ -291,12 +296,12 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	 * - Read the Img header table of 64 bytes
 	 * and update the Image Header Table structure
 	 */
-	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + MetaHdrPtr->MetaHdrOfst, XPLMI_PMCRAM_CHUNK_MEMORY, SMAP_BUS_WIDTH_LENGTH, 0x0U);
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + MetaHdrPtr->MetaHdrOfst, XILPDI_PMCRAM_CHUNK_MEMORY, SMAP_BUS_WIDTH_LENGTH, 0x0U);
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed to copy from Boot device to PMC RAM\n\r");
 		goto END;
 	}
-	Status = MetaHdrPtr->DmaCopy((u64)(UINTPTR)SmapBusWidthCheck, XPLMI_PMCRAM_CHUNK_MEMORY, SMAP_BUS_WIDTH_LENGTH);
+	Status = MetaHdrPtr->DmaCopy((u64)(UINTPTR)SmapBusWidthCheck, XILPDI_PMCRAM_CHUNK_MEMORY, SMAP_BUS_WIDTH_LENGTH);
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed to copy from PMC RAM to PPU RAM \n\r");
 		goto END;
@@ -322,13 +327,13 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 			MetaHdrPtr->MetaHdrOfst + SMAP_BUS_WIDTH_LENGTH,
-			XPLMI_PMCRAM_CHUNK_MEMORY,
+			XILPDI_PMCRAM_CHUNK_MEMORY,
 			XIH_IHT_LEN - Offset, 0x0U);
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed to copy from boot device to PMC RAM \n\r");
 	}
 
-	Status = MetaHdrPtr->DmaCopy((u64)(UINTPTR)&MetaHdrPtr->ImgHdrTbl + Offset, XPLMI_PMCRAM_CHUNK_MEMORY, XIH_IHT_LEN - Offset);
+	Status = MetaHdrPtr->DmaCopy((u64)(UINTPTR)&MetaHdrPtr->ImgHdrTbl + Offset, XILPDI_PMCRAM_CHUNK_MEMORY, XIH_IHT_LEN - Offset);
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed to copy from PMC RAM to PPU RAM \n\r");
 		goto END;
@@ -574,13 +579,13 @@ int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 			((u64)MetaHdrPtr->ImgHdrTbl.ImgHdrAddr * XIH_PRTN_WORD_LEN),
-			XPLMI_PMCRAM_CHUNK_MEMORY, TotalLen, 0x0U);
+			XILPDI_PMCRAM_CHUNK_MEMORY, TotalLen, 0x0U);
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed to copy from boot device to PMC RAM \n\r");
 		goto END;
 	}
 
-	Status = MetaHdrPtr->DmaCopy((u64)(UINTPTR)MetaHdrPtr->ImgHdr, XPLMI_PMCRAM_CHUNK_MEMORY, TotalLen);
+	Status = MetaHdrPtr->DmaCopy((u64)(UINTPTR)MetaHdrPtr->ImgHdr, XILPDI_PMCRAM_CHUNK_MEMORY, TotalLen);
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed to copy from PMC RAM to PPU RAM \n\r");
 		goto END;
@@ -612,13 +617,13 @@ int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 			((u64)MetaHdrPtr->ImgHdrTbl.PrtnHdrAddr * XIH_PRTN_WORD_LEN),
-			XPLMI_PMCRAM_CHUNK_MEMORY, TotalLen, 0x0U);
+			XILPDI_PMCRAM_CHUNK_MEMORY, TotalLen, 0x0U);
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed to copy from boot device to PMC RAM \n\r");
 		goto END;
 	}
 
-	Status = MetaHdrPtr->DmaCopy((u64)(UINTPTR)MetaHdrPtr->PrtnHdr, XPLMI_PMCRAM_CHUNK_MEMORY, TotalLen);
+	Status = MetaHdrPtr->DmaCopy((u64)(UINTPTR)MetaHdrPtr->PrtnHdr, XILPDI_PMCRAM_CHUNK_MEMORY, TotalLen);
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed to copy from PMC RAM to PPU RAM \n\r");
 		goto END;
