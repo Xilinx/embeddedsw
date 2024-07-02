@@ -24,6 +24,7 @@
 * 5.3	vss  10/12/23 Removed XSECURE_SSS_IGNORE to fix MISRA-C Rule 18.1 violation
 		      and OVER_RUN coverity warning
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
+*       kpt  06/30/24 Added XSecure_MemCpyAndChangeEndianness
 *
 * </pre>
 *
@@ -121,6 +122,7 @@ int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
 int XSecure_ECCRandInit(void);
 int XSecure_TrngInitNCfgHrngMode(void);
 XTrngpsx_Instance *XSecure_GetTrngInstance(void);
+int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length);
 
 /***************************** Variable Prototypes  ***************************/
 

@@ -218,8 +218,7 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 	KeySlotStatusAddr = DstKeySlotAddr - XSECURE_KEY_STORE_KEY_OFFSET;
 
 	/* Copy wrapped rsa key to local buffer */
-	XSecure_MemCpy64((u64)(UINTPTR)WrapRsaKey, KeyWrapAddr, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
-	Status = Xil_SReverseData(WrapRsaKey, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
+	Status = XSecure_MemCpyAndChangeEndianness((u64)(UINTPTR)WrapRsaKey, KeyWrapAddr, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
