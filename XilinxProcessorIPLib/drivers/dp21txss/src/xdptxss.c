@@ -1073,6 +1073,41 @@ static u8 DpTxSs_EncodeLinkBandwidth(XDpTxSs *InstancePtr, u8 LinkRate)
 
 /*****************************************************************************/
 /**
+ *
+ * This function sets the Repeater mode to be used by the DisplayPort TX Subsystem
+ * core.
+ *
+ * @param	InstancePtr is a pointer to the XDpTxSs instance.
+ * @param	RepeaterMode is the rate at which link needs to be driven.
+ *		- XDP_TX_LTTPR_TRANSPARENT
+ *		- XDP_TX_LTTPR_NON_TRANSPARENT
+ *
+ * @return
+ *		- XST_SUCCESS if setting the new lane rate was successful.
+ *		- XST_FAILURE otherwise.
+ *
+ *
+ ******************************************************************************/
+u32 DpTxSs_SetRepeaterMode(XDpTxSs *InstancePtr, XDp_Tx_LttprMode RepeaterMode)
+{
+	u32 Status;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Set link rate */
+	Status = XDp_TxSetRepeaterMode(InstancePtr->DpPtr, RepeaterMode);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+				    "SS ERR: Setting Repeater Mode is failed.\n\r");
+		Status = XST_FAILURE;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
 *
 * This function sets the data rate to be used by the DisplayPort TX Subsystem
 * core.
@@ -1125,7 +1160,7 @@ u32 XDpTxSs_SetLinkRate(XDpTxSs *InstancePtr, u8 LinkRate)
 			  LinkRateSw == XDPTXSS_LINK_BW_SET_135GBPS);
 
 		/* Set link rate */
-		Status = XDp_TxSetLinkRate(InstancePtr->DpPtr, LinkRateSw);
+		Status = XDp_TxOverrideSetLinkRate(InstancePtr->DpPtr, LinkRateSw);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
 				    "SS ERR: Setting link rate failed.\n\r");
