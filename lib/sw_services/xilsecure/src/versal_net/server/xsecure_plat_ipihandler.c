@@ -267,11 +267,6 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 	u8 *Tot = NULL;
 	u32 PubModulus[XSECURE_RSA_4096_SIZE_WORDS];
 
-	if (XPlmi_IsKatRan(XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK) != TRUE) {
-		Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
-		goto END;
-	}
-
 	Status = XPlmi_MemCpy64((UINTPTR)&RsaParams, RsaParamAddr, sizeof(XSecure_RsaInParam));
 	if (Status != XST_SUCCESS) {
 		goto END;

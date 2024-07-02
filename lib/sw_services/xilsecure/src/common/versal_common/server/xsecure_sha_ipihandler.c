@@ -133,15 +133,11 @@ static int XSecure_ShaInitialize(void)
 		goto END;
 	}
 
-	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != TRUE) {
-		Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
-		goto END;
-	}
-
 	Status = XSecure_Sha3Initialize(XSecureSha3InstPtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
 	Status = XSecure_Sha3Start(XSecureSha3InstPtr);
 
 END:
@@ -243,10 +239,7 @@ static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd)
 		if (NULL == PmcDmaInstPtr) {
 			goto END;
 		}
-		if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != TRUE) {
-			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
-			goto END;
-		}
+
 		/* Initializes a XSecure_Sha3 structure for operating the SHA3 engine */
 		Status = XSecure_Sha3Initialize(XSecureSha3InstPtr,
 				PmcDmaInstPtr);

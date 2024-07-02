@@ -610,16 +610,11 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	if (XPlmi_IsKatRan(XPLMI_SECURE_AES_CMKAT_MASK) != TRUE) {
-		Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
-		goto END;
-	}
-
 	Status = XSecure_AesSetDpaCm(XSecureAesInstPtr, DpaCmCfg);
-END:
 	if (Status != XST_SUCCESS) {
 		XSecure_MakeAesFree();
 	}
+
 	return Status;
 }
 /*****************************************************************************/
@@ -781,23 +776,12 @@ static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAdd
 
 	/**< Selecting the AES Encryption/Decryption operation */
 	if (OperationId == (u32)XSECURE_ENCRYPT) {
-		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_ENC_KAT_MASK) != TRUE) {
-			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
-			goto END;
-		}
 		Status = XSecure_AesEncryptInit(XSecureAesInstPtr,
 					(XSecure_AesKeySrc)KeySrc,
 					(XSecure_AesKeySize)KeySize,
 					IvAddr);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 	}
 	else {
-		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_DEC_KAT_MASK) != TRUE) {
-			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
-			goto END;
-		}
 		Status = XSecure_AesDecryptInit(XSecureAesInstPtr,
 				(XSecure_AesKeySrc)KeySrc,
 				(XSecure_AesKeySize)KeySize,
