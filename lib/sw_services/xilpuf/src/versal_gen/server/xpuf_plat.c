@@ -138,12 +138,12 @@ u32 XPuf_IsRegistrationDisabled(void)
  *
  * @return
  * 		- XPUF_IROFREQ_CHANGE_REQD if change in IRO frequency is required.
- * 		- XPUF_IROFREQ_CHANGE_NOTREQD if change in IRO frequency is required.
+ * 		- XPUF_IROFREQ_CHANGE_NOTREQD if change in IRO frequency is not required.
  *
  * @note	In Versal, ROM always operates at PMC IRO frequency of 320 MHz.
  * 		For MP/HP devices, PLM updated the PMC IRO frequency to 400 MHz.
  * 		Since the IRO frequency at which PUF operates needs to be in
- * 		sync with ROM, so it is mandatory to update IRO frequency to 320 MHz
+ * 		sync with ROM, it is mandatory to update IRO frequency to 320 MHz
  * 		for Versal MP/HP devices before any PUF operation.
  * 		In case of Versal Net, ROM can also operate at 400 MHz IRO frequency.
  * 		So it might not always be required to change the frequency before
