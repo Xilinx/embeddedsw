@@ -133,7 +133,6 @@
 *       har  04/12/24 Moved glitch checks after respective function calls
 *       kal  06/04/24 Added XLoader_SecureConfigMeasurement call in
 *                     XLoader_ProcessAuthEncPrtn after Block 0 processing is success
-*       mb   06/21/24 Fixed AES Decryption issue when KAT is enabled
 *
 * </pre>
 *
@@ -338,7 +337,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 
 	/** - Check if encryption is enabled */
 	if (PrtnHdr->EncStatus != 0x00U) {
-		XPlmi_Printf(DEBUG_INFO, "Encryption is enabled\n\r");
+		 XPlmi_Printf(DEBUG_INFO, "Encryption is enabled\n\r");
 		SecurePtr->IsEncrypted = (u8)TRUE;
 		SecureTempParams->IsEncrypted = (u8)TRUE;
 		SecurePtr->SecureEn = (u8)TRUE;
@@ -362,13 +361,6 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 	}
 
 	SecurePtr->AesInstPtr = XSecure_GetAesInstance();
-	/* - Initialize AES driver */
-	Status = XSecure_AesInitialize(SecurePtr->AesInstPtr, SecurePtr->PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_INFO, "Failed at XSecure_AesInitialize\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_AES_INIT_FAIL, Status);
-		goto END;
-	}
 	/**
 	 * - Run AES Kat test if the image is encrypted
 	 * and metaheader is not encrypted
