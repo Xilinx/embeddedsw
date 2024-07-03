@@ -133,6 +133,7 @@
 *       har  04/12/24 Moved glitch checks after respective function calls
 *       kal  06/04/24 Added XLoader_SecureConfigMeasurement call in
 *                     XLoader_ProcessAuthEncPrtn after Block 0 processing is success
+*       mb   06/30/24 Fixed AES Decryption issue when KAT is enabled
 *
 * </pre>
 *
@@ -367,6 +368,14 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 	 */
 	if ((SecurePtr->IsEncrypted == (u8)TRUE) ||
 		(SecureTempParams->IsEncrypted == (u8)TRUE)) {
+		/* - Initialize AES driver */
+		Status = XSecure_AesInitialize(SecurePtr->AesInstPtr, SecurePtr->PmcDmaInstPtr);
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_INFO, "Failed at XSecure_AesInitialize\n\r");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_AES_INIT_FAIL, Status);
+			goto END;
+		}
+
 		Status = XLoader_AesKatTest(SecurePtr);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO, "AES KAT test failed\n\r");
