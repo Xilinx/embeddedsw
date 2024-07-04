@@ -37,6 +37,7 @@
  *       ms   04/05/17 Added tabspace for return statements in functions for
  *                     proper documentation while generating doxygen.
  * 4.5   sd   07/18/23 Fix the disable interrupt
+ * 4.7   ar   03/07/24 Fix the interrupt ID sequence in the SDT flow.
  * </pre>
  *
  * ***************************************************************************
@@ -390,11 +391,11 @@ int XTrafGenInterruptExample(XTrafGen *InstancePtr, UINTPTR BaseAddress)
 	Status = SetupIntrSystem(&Intc, InstancePtr, CMP_INTR_ID, ERR_INTR_ID);
 #else
 	Status = XSetupInterruptSystem(InstancePtr, &MasterCompleteIntrHandler,
-			               InstancePtr->Config.IntId[0],
+			               InstancePtr->Config.IntId[MASTER_INTRID],
 				       InstancePtr->Config.IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 	Status = XSetupInterruptSystem(InstancePtr, &ErrIntrHandler,
-			               InstancePtr->Config.IntId[1],
+			               InstancePtr->Config.IntId[ERROR_INTRID],
 				       InstancePtr->Config.IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif

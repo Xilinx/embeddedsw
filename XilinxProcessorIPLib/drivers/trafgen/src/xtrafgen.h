@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -182,6 +182,7 @@
 * 4.2   ms  04/18/17 Modified tcl file to add suffix U for all macros
 *                    definitions of trafgen in xparameters.h
 * 4.4   sd   09/03/20 Updated makefile for parallel execution.
+* 4.7   ar   03/07/24 Modified trafgen intr examples added macro for Interrupt ID.
 * </pre>
 ******************************************************************************/
 
@@ -230,6 +231,12 @@ extern "C" {
 #define XTG_PARAM_RAM_SIZE	0x800	/**< Parameter RAM (2KB) */
 #define XTG_COMMAND_RAM_SIZE	0x2000	/**< Command RAM (8KB) */
 #define XTG_MASTER_RAM_SIZE	0x2000	/**< Master RAM (8KB) */
+
+/* Interrupt ID Index */
+
+#define ERROR_INTRID  0		/**< Error Interrupt Handler */
+#define MASTER_INTRID 1		/**< Master Complete Interrupt Handler */
+
 
 /************************** Type Definitions *****************************/
 
