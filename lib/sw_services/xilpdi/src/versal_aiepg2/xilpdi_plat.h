@@ -1,10 +1,7 @@
 /******************************************************************************
-* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
-
 /*****************************************************************************/
 /**
 *
@@ -18,16 +15,7 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  bm   07/06/2022 Initial release
-*       bm   07/13/2022 Added compatibility check for In-Place PLM Update
-*       bm   09/13/2022 Added macros for maximum number of partitions and images
-* 1.01  har  11/17/2022 Added macros for Signed Image attribute in Bootheader
-*       ng   11/23/2022 Fixed doxygen file name error
-*       sk   01/11/2023 Added macro for Image Store as SBD
-* 1.02  ng   04/27/2023 Added support for cluster flags in ATF handoff params
-*       sk   07/09/2023 Added defines for TCM Boot Enable Bit, Mask
-*       am   07/10/2023 Moved IHT OP data macros to common xilpdi.h file
-*       kpt  12/04/2023 Added XilPdi_BootHdr
+* 1.10  kal  24/07/2024 Initial release
 *
 * </pre>
 *
@@ -161,9 +149,22 @@ extern "C" {
 #define XIH_OPT_DATA_NON_DATA_LEN	(8U)
 
 #define XIH_OPT_DATA_STRUCT_INFO_ID	(2U)
+/**
+ * Offset to the metaheader offset field present in boot header
+ */
+#define XIH_BH_META_HDR_OFFSET		(0x2D0U)
+
+/**
+ * Boot header address in PRAM copied by ROM
+ */
+#define XIH_BH_PRAM_ADDR			(0xF201EEC0U)
+
+/**
+ * MetaHeader HashBlock address in PRAM copied by ROM
+ */
+#define XIH_HASH_BLOCK_1_HASH_OFFSET		(0xF201ED60U)
 
 /**************************** Type Definitions *******************************/
-
 /**
  * Structure to store the Boot Header PMC FW fields
  */
@@ -181,8 +182,8 @@ typedef struct {
 	u32 ImgIden;  /**< Image Identification */
 	u32 EncStatus;  /**< Encryption Status */
 	u32 DpiSrcOfst;  /**< Source Offset of PMC FW in DPI */
-	u32 DpiStartOfst;  /**< PMC FW start offset in RAM */
-	u32 DataPrtnLen;  /**< Data Partition Length */
+	u32 DataPrtnOfst; /**< Data Partition Offset */
+	u32 DataPrtnLen; /**< Data Partition Length */
 	u32 TotalDataPrtnLen;  /**< Total Data Partition length */
 	u32 PlmLen;  /**< PLM Length */
 	u32 TotalPlmLen;  /**< Total PLM length */
@@ -191,11 +192,51 @@ typedef struct {
 	u32 KekIv[3U];  /**< Key Iv */
 	u32 SecureHdrIv[3U];  /**< Secure Header IV */
 	u32 PufShutterVal; /**< PUF Shutter Value */
-	u32 DpSecureHdrIv[3U]; /**< Data partition secure header IV */
 	u32 PufRingOscConfig; /**< PUF ring oscillator configuration */
-	u32 RomRsvd[16U]; /**< ROM Reserved */
+	u32 EncRevokeId; /**< Encryption RevokeID */
+	u32 UserData[129U]; /**< User Data */
+	u32 AuthenticationHdr; /**< Authentication Header */
+	u32 HashBlockSize; /**< HashBlock Size in words */
+	u32 TotalPpkSize; /**< Total PPK size including alignment */
+	u32 ActualPpkSize; /**< Actual PPK size */
+	u32 TotalHBSignSize; /**< Total HashBlock signature size */
+	u32 ActualHBSignSize; /**< Actual HashBlock signature size */
+	u32 RomRsvd[14U]; /**< ROM Reserved */
 	XilPdi_BootHdrFwRsvd BootHdrFwRsvd; /**< FW reserved fields */
 } XilPdi_BootHdr __attribute__ ((aligned(16U)));
+
+/**
+ * Structure to store the image header table details.
+ * It contains all the information of image header table in order.
+ */
+typedef struct {
+	u32 Version; /**< PDI version used  */
+	u32 NoOfImgs; /**< No of images present  */
+	u32 ImgHdrAddr; /**< Address to start of 1st Image header*/
+	u32 NoOfPrtns; /**< No of partitions present  */
+	u32 PrtnHdrAddr; /**< Address to start of 1st partition header*/
+	u32 SBDAddr; /**< Secondary Boot device address */
+	u32 Idcode; /**< Device ID Code */
+	u32 Attr; /**< Attributes */
+	u32 PdiId; /**< PDI ID */
+	u32 Rsrvd[3U]; /**< Reserved for future use */
+	u32 TotalHdrLen; /**< Total size of Meta header AC + encryption overload */
+	u32 IvMetaHdr[3U]; /**< Iv for decrypting SH of meta header */
+	u32 EncKeySrc; /**< Encryption key source for decrypting SH of headers */
+	u32 ExtIdCode;  /**< Extended ID Code */
+	u32 AcOffset; /**< AC offset of Meta header */
+	u32 KekIv[3U]; /**< Kek IV for meta header decryption */
+	u32 OptionalDataLen; /**< Len in words of OptionalData */
+	u32 AuthenticationHdr; /**< Authentication Header */
+	u32 HashBlockSize; /**< HashBlock Size in words */
+	u32 HashBlockOffset; /**< HashBlock word offset */
+	u32 TotalPpkSize; /**< Total PPK size including alignment */
+	u32 ActualPpkSize; /**< Actual PPK size */
+	u32 TotalHBSignSize; /**< Total HashBlock signature size */
+	u32 ActualHBSignSize; /**< Actual HashBlock signature size */
+	u32 Rsvd[8U]; /**< Reserved */
+	u32 Checksum; /**< Checksum of the image header table */
+} XilPdi_ImgHdrTbl __attribute__ ((aligned(16U)));
 
 /**
  * Structure to store the partition header details.
@@ -220,7 +261,14 @@ typedef struct {
 	u32 EncStatus; /**< Encryption Status/Key Selection */
 	u32 KekIv[3U]; /**< KEK IV for partition decryption */
 	u32 EncRevokeID; /**< Revocation ID of partition for encrypted partition */
-	u32 Reserved[9U]; /**< Reserved */
+	u32 AuthenticationHdr; /**< Authentication Header */
+	u32 HashBlockSize; /**< HashBlock Size in words */
+	u32 HashBlockOffset; /**< HashBlock word offset */
+	u32 TotalPpkSize; /**< Total PPK size including alignment */
+	u32 ActualPpkSize; /**< Actual PPK size */
+	u32 TotalHBSignSize; /**< Total HashBlock signature size */
+	u32 ActualHBSignSize; /**< Actual HashBlock signature size */
+	u32 Reserved[2U]; /**< Reserved */
 	u32 Checksum; /**< checksum of the partition header */
 } XilPdi_PrtnHdr __attribute__ ((aligned(16U)));
 

@@ -134,6 +134,16 @@ extern "C" {
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_0		(0x00U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A72_1		(0x20U)
 
+/**
+ * Offset to the metaheader offset field present in boot header
+ */
+#define XIH_BH_META_HDR_OFFSET		(0xC4U)
+
+/**
+ * Boot header address in PRAM copied by ROM
+ */
+#define XIH_BH_PRAM_ADDR			(0xF201E000U)
+
 /**************************** Type Definitions *******************************/
 
 /**
@@ -166,6 +176,32 @@ typedef struct {
 	u32 RomRsvd[20U]; /**< ROM Reserved */
 	XilPdi_BootHdrFwRsvd BootHdrFwRsvd; /**< FW reserved fields */
 } XilPdi_BootHdr __attribute__ ((aligned(16U)));
+
+/**
+ * Structure to store the image header table details.
+ * It contains all the information of image header table in order.
+ */
+typedef struct {
+	u32 Version; /**< PDI version used  */
+	u32 NoOfImgs; /**< No of images present  */
+	u32 ImgHdrAddr; /**< Address to start of 1st Image header*/
+	u32 NoOfPrtns; /**< No of partitions present  */
+	u32 PrtnHdrAddr; /**< Address to start of 1st partition header*/
+	u32 SBDAddr; /**< Secondary Boot device address */
+	u32 Idcode; /**< Device ID Code */
+	u32 Attr; /**< Attributes */
+	u32 PdiId; /**< PDI ID */
+	u32 Rsrvd[3U]; /**< Reserved for future use */
+	u32 TotalHdrLen; /**< Total size of Meta header AC + encryption overload */
+	u32 IvMetaHdr[3U]; /**< Iv for decrypting SH of meta header */
+	u32 EncKeySrc; /**< Encryption key source for decrypting SH of headers */
+	u32 ExtIdCode;  /**< Extended ID Code */
+	u32 AcOffset; /**< AC offset of Meta header */
+	u32 KekIv[3U]; /**< Kek IV for meta header decryption */
+	u32 OptionalDataLen; /**< Len in words of OptionalData */
+	u32 Rsvd[8U]; /**< Reserved */
+	u32 Checksum; /**< Checksum of the image header table */
+} XilPdi_ImgHdrTbl __attribute__ ((aligned(16U)));
 
 /**
  * Structure to store the partition header details.

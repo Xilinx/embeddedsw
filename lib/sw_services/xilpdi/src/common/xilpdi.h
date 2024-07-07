@@ -105,16 +105,6 @@ extern "C" {
 #define XIH_BH_IMAGE_IDENT_OFFSET	(0x14U)
 
 /**
- * Offset to the metaheader offset field present in boot header
- */
-#define XIH_BH_META_HDR_OFFSET		(0xC4U)
-
-/**
- * Boot header address in PRAM copied by ROM
- */
-#define XIH_BH_PRAM_ADDR		(0xF201E000U)
-
-/**
  * Boot header Key source field
  */
 #define XIH_BH_AES_KEYSRC_OFFSET	(0x08U)
@@ -264,32 +254,6 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * Structure to store the image header table details.
- * It contains all the information of image header table in order.
- */
-typedef struct {
-	u32 Version; /**< PDI version used  */
-	u32 NoOfImgs; /**< No of images present  */
-	u32 ImgHdrAddr; /**< Address to start of 1st Image header*/
-	u32 NoOfPrtns; /**< No of partitions present  */
-	u32 PrtnHdrAddr; /**< Address to start of 1st partition header*/
-	u32 SBDAddr; /**< Secondary Boot device address */
-	u32 Idcode; /**< Device ID Code */
-	u32 Attr; /**< Attributes */
-	u32 PdiId; /**< PDI ID */
-	u32 Rsrvd[3U]; /**< Reserved for future use */
-	u32 TotalHdrLen; /**< Total size of Meta header AC + encryption overload */
-	u32 IvMetaHdr[3U]; /**< Iv for decrypting SH of meta header */
-	u32 EncKeySrc; /**< Encryption key source for decrypting SH of headers */
-	u32 ExtIdCode;  /**< Extended ID Code */
-	u32 AcOffset; /**< AC offset of Meta header */
-	u32 KekIv[3U]; /**< Kek IV for meta header decryption */
-	u32 OptionalDataLen; /**< Len in words of OptionalData */
-	u32 Rsvd[8U]; /**< Reserved */
-	u32 Checksum; /**< Checksum of the image header table */
-} XilPdi_ImgHdrTbl __attribute__ ((aligned(16U)));
-
-/**
  * Structure to store the Image header details.
  * It contains all the information of Image header in order.
  */
@@ -309,6 +273,24 @@ typedef struct {
 } XilPdi_ImgHdr __attribute__ ((aligned(16U)));
 
 /**
+ * Partition hash entry information
+ */
+typedef struct {
+	u32 PrtnNum; /**< Partition Number */
+	u8 PrtnHash[XIPLDI_SHA3_HASH_SIZE_IN_BYTES]; /**< Partition hash */
+} XilPdi_PrtnHashInfo;
+
+#ifdef VERSAL_AIEPG2
+/**
+ * HashBlock Definition
+ */
+typedef struct {
+	XilPdi_PrtnHashInfo HashData[XIH_MAX_PRTNS + 1U];
+} XilPdi_HashBlock;
+
+#endif
+
+/**
  * Structure of the image header which contains
  * information of image header table and
  * partition headers.
@@ -318,6 +300,9 @@ typedef struct {
 	XilPdi_ImgHdrTbl ImgHdrTbl; /**< Img header table structure */
 	XilPdi_ImgHdr ImgHdr[XIH_MAX_IMGS]; /**< Image header */
 	XilPdi_PrtnHdr PrtnHdr[XIH_MAX_PRTNS]; /**< Prtn header */
+#ifdef VERSAL_AIEPG2
+	XilPdi_HashBlock HashBlock; /**< HashBlock containing partition hashes */
+#endif
 	u64 FlashOfstAddr; /**< Start of DPI start address in Flash */
 	u32 MetaHdrOfst; /**< Offset to the start of meta header */
 	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length,
@@ -344,14 +329,6 @@ typedef struct {
 	XilPdi_PrtnEntry Entry[XILPDI_MAX_ENTRIES_FOR_ATF]; /**< Structure
 							corresponding to each entry */
 } XilPdi_ATFHandoffParams __attribute__ ((aligned(16U)));
-
-/**
- * Partition hash entry information
- */
-typedef struct {
-	u32 PrtnNum; /**< Partition Number */
-	u8 PrtnHash[XIPLDI_SHA3_HASH_SIZE_IN_BYTES]; /**< Partition hash */
-}XilPdi_PrtnHashInfo __attribute__ ((aligned(16U)));
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef XILPDI_DEBUG
