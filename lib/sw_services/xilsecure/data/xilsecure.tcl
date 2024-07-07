@@ -33,6 +33,7 @@
 # 5.4   mb   04/23/24 Added xsecure_elliptic_p192_support parameter to enable/disable P192 curve
 #       mb   04/23/24 Added xsecure_elliptic_p224_support parameter to enable/disable P224 curve
 #       kpt  06/13/24 Added xsecure_key_slot_addr
+#       kal  07/24/24 Code refactoring for versal_aiepg2 plaform
 #
 ##############################################################################
 
@@ -47,45 +48,103 @@ proc secure_drc {libhandle} {
 	set mode [common::get_property CONFIG.mode $libhandle]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set os_type [hsi::get_os];
-	set common "src/common/"
 	set zynqmp "src/zynqmp/"
-	set versal "src/versal/"
-	set versal_net "src/versal_net/"
-	set common_all "$common/all"
-	set versal_common "$common/versal_common"
+	set versal_gen "src/versal_gen/"
 
-	foreach entry [glob -nocomplain -types f [file join $common_all *]] {
-			file copy -force $entry "./src"
-	}
+	set is_versal_net [hsi::get_cells -hier -filter {IP_NAME=="psxl_cortexr52" ||
+		IP_NAME=="psx_cortexr52" || IP_NAME=="psxl_cortexa78" || IP_NAME=="psx_cortexa78"}]
+	set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psv_cortexr5" ||
+		IP_NAME=="psu_cortexr5" || IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
 
 	if {$proc_type == "psu_cortexa53" ||
 		$proc_type == "psu_cortexr5" || $proc_type == "psu_pmu"} {
 			foreach entry [glob -nocomplain -types f [file join $zynqmp *]] {
 				file copy -force $entry "./src"
 			}
-	} elseif {$proc_type == "psu_pmc" || $proc_type == "psv_pmc" ||
-		$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
-		$proc_type == "psv_cortexr5" || $proc_type == "psv_cortexr5" ||
-		$proc_type == "microblaze"} {
+	} else {
 		# Versal Server and Client for allowed CPU mode
 		if {$proc_type == "microblaze" && $mode == "server"} {
 			error "ERROR: XilSecure library is not supported for selected
 			$proc_type processor and $mode mode";
 			return;
 		}
-		foreach entry [glob -nocomplain -types f [file join "$versal_common/common" *]] {
+		foreach entry [glob -nocomplain -types f [file join "$versal_gen/common/core" *]] {
 			file copy -force $entry "./src"
 		}
-		foreach entry [glob -nocomplain -types f [file join "$versal/common" *]] {
-			file copy -force $entry "./src"
-		}
+
 		if {$mode == "server"} {
-			foreach entry [glob -nocomplain -types f [file join "$versal_common/server" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/aes" *]] {
 				file copy -force $entry "./src"
 			}
-			foreach entry [glob -nocomplain -types f [file join "$versal/server" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/rsa" *]] {
 				file copy -force $entry "./src"
 			}
+			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/ecdsa" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/crypto_kat" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/generic" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/util" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/sha" *]] {
+					file copy -force $entry "./src"
+			}
+			if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc" ||
+				$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
+				$proc_type == "psu_cortexr5" || $proc_type == "psv_cortexr5"} {
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/sha/sha_pmx" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/versal" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/common/versal" *]] {
+					file copy -force $entry "./src"
+				}
+			} elseif {$proc_type == "psx_pmc" || $proc_type == "psxl_pmc" ||
+				$proc_type == "psxl_cortexa78" || $proc_type == "psx_cortexa78" ||
+                                $proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexr52"} {
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/sha/sha_pmx" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/hmac" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/ecc_keypair" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/key_zeroize" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/key_unwrap" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/trng" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/versal_net" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/softsha2-384" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/common/versal_net" *]] {
+					file copy -force $entry "./src"
+				}
+			} else {
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/sha/sha_pmxc" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/versal_aiepg2" *]] {
+					file copy -force $entry "./src"
+				}
+			}
+
 			if {[string compare -nocase $compiler "mb-gcc"] == 0} {
 				file delete -force ./src/libxilsecure_a72_64.a
 				file delete -force ./src/libxilsecure_r5.a
@@ -104,7 +163,9 @@ proc secure_drc {libhandle} {
 				}
 			}
 			if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
-				$proc_type == "psv_cortexr5" || $proc_type == "psv_cortexr5"} {
+				$proc_type == "psv_cortexr5" || $proc_type == "psv_cortexr5" ||
+				$proc_type == "psxl_cortexa78" || $proc_type == "psx_cortexa78" ||
+                                $proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexr52"} {
 				file delete -force ./src/xsecure_rsa_ipihandler.c
 				file delete -force ./src/xsecure_rsa_ipihandler.h
 				file delete -force ./src/xsecure_elliptic_ipihandler.c
@@ -127,70 +188,58 @@ proc secure_drc {libhandle} {
 			if { [llength $librarylist] == 0 } {
 				error "This library requires xilmailbox library in the Board Support Package.";
 			}
-			foreach entry [glob -nocomplain -types f [file join "$versal_common/client" *]] {
+
+			foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/aes" *]] {
 				file copy -force $entry "./src"
 			}
-			set is_versal_net [hsi::get_cells -hier -filter {IP_NAME=="psxl_cortexr52" || IP_NAME=="psx_cortexr52" ||
-				IP_NAME=="psxl_cortexa78" || IP_NAME=="psx_cortexa78"}]
-			if {$proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
-				$proc_type == "psx_cortexr52" || ($proc_type == "microblaze" && [llength $is_versal_net] > 0)} {
-				foreach entry [glob -nocomplain -types f [file join "$versal_net/client" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/rsa" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/ecdsa" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/crypto_kat" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/mailbox" *]] {
+				file copy -force $entry "./src"
+			}
+			if {($proc_type == "microblaze" && [llength $is_versal] > 0) ||
+				$proc_type == "psu_pmc" || $proc_type == "psv_pmc" ||
+				$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
+				$proc_type == "psv_cortexr5" || $proc_type == "psv_cortexr5"} {
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/common/versal" *] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_net/common" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/sha/sha_pmx" *]] {
+                                        file copy -force $entry "./src"
+                                }
+			} elseif {($proc_type == "microblaze" && [llength $is_versal_net] > 0) ||
+				$proc_type == "psx_pmc" || $proc_type == "psxl_pmc" ||
+				$proc_type == "psxl_cortexa78" || $proc_type == "psx_cortexa78" ||
+				$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexr52"} {
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/common/versal_net" *]] {
 					file copy -force $entry "./src"
 				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/versal_net" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/sha/sha_pmx" *]] {
+                                        file copy -force $entry "./src"
+                                }
 			} else {
-				foreach entry [glob -nocomplain -types f [file join "$versal/common" *]] {
-					file copy -force $entry "./src"
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/common/versal_aiepg2" *]] {				file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/versal_aiepg2" *]] {				file copy -force $entry "./src"
 				}
 			}
-			file delete -force ./src/xsecure_rsa.c
-			file delete -force ./src/xsecure_rsa.h
+		} else {
+			error "ERROR: XilSecure library is not supported for selected $proc_type processor and $mode mode.";
+			return;
 		}
-	} elseif {($mode == "server") && ($proc_type == "psx_pmc" || $proc_type == "psxl_pmc")} {
-		# VersalNet Server mode for pmc processor
-		foreach entry [glob -nocomplain -types f [file join "$versal_common/server" *]] {
-			file copy -force $entry "./src"
-		}
-		foreach entry [glob -nocomplain -types f [file join "$versal_common/common" *]] {
-			file copy -force $entry "./src"
-		}
-		foreach entry [glob -nocomplain -types f [file join "$versal_net/server" *]] {
-			file copy -force $entry "./src"
-		}
-		foreach entry [glob -nocomplain -types f [file join "$versal_net/common" *]] {
-			file copy -force $entry "./src"
-		}
-		if {[string compare -nocase $compiler "mb-gcc"] == 0} {
-			file rename -force ./src/libxilsecure_pmc.a ./src/libxilsecure.a
-	        }
-	} elseif {($mode == "client") && ($proc_type == "psxl_cortexa78" ||
-		$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
-		$proc_type == "psx_cortexr52")} {
-		# VersalNet Client mode for a78 and r52 processors
-		set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
-		if { [llength $librarylist] == 0 } {
-			error "This library requires xilmailbox library in the Board Support Package.";
-		}
-		foreach entry [glob -nocomplain -types f [file join "$versal_common/client" *]] {
-			file copy -force $entry "./src"
-		}
-		foreach entry [glob -nocomplain -types f [file join "$versal_common/common" *]] {
-			file copy -force $entry "./src"
-		}
-		foreach entry [glob -nocomplain -types f [file join "$versal_net/client" *]] {
-			file copy -force $entry "./src"
-		}
-		foreach entry [glob -nocomplain -types f [file join "$versal_net/common" *]] {
-			file copy -force $entry "./src"
-		}
-		file delete -force ./src/xsecure_rsa.c
-		file delete -force ./src/xsecure_rsa.h
-	} else {
-		error "ERROR: XilSecure library is not supported for selected $proc_type processor and $mode mode.";
-		return;
 	}
+	file delete -force $versal_gen
+	file delete -force $zynqmp
 }
 
 proc generate {libhandle} {
