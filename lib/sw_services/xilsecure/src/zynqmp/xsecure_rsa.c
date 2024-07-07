@@ -53,6 +53,8 @@
 * 5.3   am   12/18/23 Fixed assignment of status to success for invalid mod data
 *       kpt  03/04/24 Updated parameter description for XSecure_IsNonZeroBuffer
 * 5.4   yog  04/29/24 Fixed doxygen warnings
+*       kal  07/29/24 Code refactoring for versal_aiepg2, seperated xsecure_rsa
+*                     for zynqmp and versal_gen.
 *
 * </pre>
 *

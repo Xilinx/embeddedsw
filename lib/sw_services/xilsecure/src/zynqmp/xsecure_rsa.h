@@ -62,6 +62,8 @@
 *       gm   07/16/21 Added APIs to support 64-bit address
 * 5.2   mmd  07/09/23 Included header file for crypto algorithm information
 * 5.4   yog  04/29/24 Fixed doxygen grouping
+*       kal  07/29/24 Code refactoring for versal_aiepg2, seperated xsecure_rsa
+*                     for zynqmp and versal_gen.
 *
 * </pre>
 *
