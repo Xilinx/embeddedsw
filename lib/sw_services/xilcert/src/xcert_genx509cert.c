@@ -30,7 +30,7 @@
 * 1.3   har  05/02/2024 Added doxygen grouping and tags
 *			Fixed doxygen warnings
 *       har  06/07/2024 Added support to store and get user config for key index
-*
+*	kal  07/24/2024 Code refactoring updates for versal_aiepg2
 *
 * </pre>
 * @note
@@ -1076,7 +1076,7 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicK
 	u8* OctetStrValIdx;
 	u32 OidLen;
 	u32 FieldLen;
-	XSecure_Sha3 *ShaInstancePtr = XSecure_GetSha3Instance();
+	XSecure_Sha3 *ShaInstancePtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	XSecure_Sha3Hash Sha3Hash;
 
@@ -1091,12 +1091,13 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicK
 	}
 	Curr = Curr + OidLen;
 
-	Status = XSecure_Sha3Initialize(ShaInstancePtr, PmcDmaInstPtr);
+	Status = XSecure_ShaInitialize(ShaInstancePtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_Sha3Digest(ShaInstancePtr, (UINTPTR)SubjectPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, &Sha3Hash);
+	Status = XSecure_ShaDigest(ShaInstancePtr, XSECURE_SHA3_384,
+		(UINTPTR)SubjectPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, (u64)(UINTPTR)&Sha3Hash, sizeof(Sha3Hash));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1159,7 +1160,7 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublic
 	u8* KeyIdSequenceValIdx;
 	u32 OidLen;
 	u32 FieldLen;
-	XSecure_Sha3 *ShaInstancePtr = XSecure_GetSha3Instance();
+	XSecure_Sha3 *ShaInstancePtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	XSecure_Sha3Hash Sha3Hash;
 
@@ -1174,12 +1175,13 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublic
 	}
 	Curr = Curr + OidLen;
 
-	Status = XSecure_Sha3Initialize(ShaInstancePtr, PmcDmaInstPtr);
+	Status = XSecure_ShaInitialize(ShaInstancePtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_Sha3Digest(ShaInstancePtr, (UINTPTR)IssuerPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, &Sha3Hash);
+	Status = XSecure_ShaDigest(ShaInstancePtr, XSECURE_SHA3_384,
+			(UINTPTR)IssuerPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, (u64)(UINTPTR)&Sha3Hash, sizeof(Sha3Hash));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

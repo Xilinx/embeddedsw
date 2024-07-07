@@ -21,10 +21,9 @@ if(("${XILSECURE_mode}" STREQUAL "server") AND
 endif()
 
 add_subdirectory(common)
-if("${CMAKE_MACHINE}" STREQUAL "Versal")
-  add_subdirectory(versal)
-elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
-  add_subdirectory(versal_net)
+if(("${CMAKE_MACHINE}" STREQUAL "Versal") OR
+	("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
+  add_subdirectory(versal_gen)
 elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
   add_subdirectory(zynqmp)
 endif()

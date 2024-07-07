@@ -1,0 +1,18 @@
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+add_subdirectory(aes)
+add_subdirectory(rsa)
+add_subdirectory(ecdsa)
+add_subdirectory(crypto_kat)
+add_subdirectory(generic)
+add_subdirectory(util)
+add_subdirectory(sha)
+if(("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
+  add_subdirectory(hmac)
+  add_subdirectory(ecc_keypair)
+  add_subdirectory(key_zeroize)
+  add_subdirectory(key_unwrap)
+  add_subdirectory(trng)
+  add_subdirectory(softsha2-384)
+endif()

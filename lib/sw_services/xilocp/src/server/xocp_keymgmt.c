@@ -940,7 +940,7 @@ static int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr,
 	XSecure_Sha3 Sha3Instance = {0U};
 	XSecure_Hmac HmacInstance;
 
-	Status = XSecure_Sha3Initialize(&Sha3Instance, PmcDmaPtr);
+	Status = XSecure_ShaInitialize(&Sha3Instance, PmcDmaPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

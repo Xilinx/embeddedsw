@@ -34,6 +34,7 @@
 *       har  04/12/24 Fix size of buffer passed to XPlmi_MemSet
 *       har  06/10/24 Support to retain PCR log after In Place PLM update
 *       kal  06/27/24 Clearing first measurement in XOcp_GetSwPcrLog
+*       kal  07/24/2024 Code refactoring updates for versal_aiepg2
 *
 *
 * </pre>
@@ -1918,24 +1919,28 @@ END:
 static int XOcp_MeasureSecureState(void)
 {
 	int Status = XST_FAILURE;
-	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
+	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 
-	Status = XSecure_Sha3Initialize(Sha3InstPtr, PmcDmaPtr);
+	Status = XSecure_ShaInitialize(Sha3InstPtr, PmcDmaPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	/* Calculate secure efuse configuration hash */
-	Status = XSecure_Sha3Digest(Sha3InstPtr, (UINTPTR)&SecureConfig, sizeof(XOcp_SecureConfig),
-					(XSecure_Sha3Hash*)(UINTPTR)&SecureStateHash.SecureConfigHash);
+	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384,
+				(UINTPTR)&SecureConfig, sizeof(XOcp_SecureConfig),
+				(u64)(UINTPTR)(XSecure_Sha3Hash*)&SecureStateHash.SecureConfigHash,
+				sizeof(SecureStateHash.SecureConfigHash));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	/* Calculate secure tap configuration hash */
-	Status = XSecure_Sha3Digest(Sha3InstPtr, (UINTPTR)&SecureTapConfig, sizeof(XOcp_SecureTapConfig),
-					(XSecure_Sha3Hash*)(UINTPTR)&SecureStateHash.TapConfigHash);
+	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384,
+				(UINTPTR)&SecureTapConfig, sizeof(XOcp_SecureTapConfig),
+				(u64)(UINTPTR)(XSecure_Sha3Hash*)&SecureStateHash.TapConfigHash,
+				sizeof(SecureStateHash.TapConfigHash));
 
 END:
 	return Status;
