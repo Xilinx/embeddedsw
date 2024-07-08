@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +20,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a hbm  07/14/09 Initial release
 * 6.0   kvn  05/31/16 Make Xil_AsserWait a global variable
+* 9.2   bm   07/08/24 Disable Xil_AssertCallbackRoutine usage for PLM
 * </pre>
 *
 ******************************************************************************/
@@ -27,6 +29,11 @@
 
 #include "xil_types.h"
 #include "xil_assert.h"
+#ifndef SDT
+#include "xparameters.h"
+#else
+#include "bspconfig.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -73,10 +80,15 @@ static Xil_AssertCallback Xil_AssertCallbackRoutine = NULL;
 ******************************************************************************/
 void Xil_Assert(const char8 *File, s32 Line)
 {
+#ifdef VERSAL_PLM
+	(void)File;
+	(void)Line;
+#else
 	/* if the callback has been set then invoke it */
 	if (Xil_AssertCallbackRoutine != 0) {
 		(*Xil_AssertCallbackRoutine)(File, Line);
 	}
+#endif
 
 	/* if specified, wait indefinitely such that the assert will show up
 	 * in testing
