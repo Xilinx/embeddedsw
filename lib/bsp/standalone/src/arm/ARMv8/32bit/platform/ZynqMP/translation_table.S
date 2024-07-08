@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -45,6 +46,7 @@
 * 5.2	pkp  28/05/15 First release
 * 5.4	pkp  18/12/15 Updated the address map according to proper address map
 * 6.0   mus  20/07/16 Added warning for ddrless HW design CR-954977
+* 9.2   adk  04/07/24 Added support for SDT flow.
 * </pre>
 *
 *
@@ -65,6 +67,16 @@ MMUTable:
 #ifdef XPAR_PSU_DDR_0_S_AXI_BASEADDR
 .set DDR_START, XPAR_PSU_DDR_0_S_AXI_BASEADDR
 .set DDR_END, XPAR_PSU_DDR_0_S_AXI_HIGHADDR
+.set DDR_SIZE, (DDR_END - DDR_START)+1
+.if DDR_SIZE > 0x80000000
+/* If DDR size is larger than 2GB, truncate to 2GB */
+.set DDR_REG, 0x800
+.else
+.set DDR_REG, DDR_SIZE/0x100000
+.endif
+#elif defined(XPAR_PSU_DDR_0_BASEADDRESS)
+.set DDR_START, XPAR_PSU_DDR_0_BASEADDRESS
+.set DDR_END, XPAR_PSU_DDR_0_HIGHADDRESS
 .set DDR_SIZE, (DDR_END - DDR_START)+1
 .if DDR_SIZE > 0x80000000
 /* If DDR size is larger than 2GB, truncate to 2GB */

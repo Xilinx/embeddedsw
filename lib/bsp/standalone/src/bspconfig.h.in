@@ -10,7 +10,7 @@
 @XPAR_PS_INCLUDE@
 @FREERTOS_UARTCONFIG_INCLUDE@
 
-#if defined (__aarch64__)
+#if defined (__aarch64__) || defined (ARMA53_32)
 #cmakedefine01 EL3 @EL3@
 #cmakedefine01 EL1_NONSECURE @EL1_NONSECURE@
 #cmakedefine01 HYP_GUEST @HYP_GUEST@

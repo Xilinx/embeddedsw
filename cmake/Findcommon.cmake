@@ -93,11 +93,16 @@ function (linker_gen path)
         if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72")
           OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78")
           OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53")
-          OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53-32")
           OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "aarch64"))
             configure_file(${path}/lscript_a53.ld.in ${CMAKE_SOURCE_DIR}/lscript.ld)
             list(APPEND LINKER_FILE_PATH ${path}/lscript_a53.ld.in)
             list(APPEND LINKER_FILE lscript_a53.ld.in)
+        endif()
+
+        if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53-32")
+            configure_file(${path}/lscript_a53_32.ld.in ${CMAKE_SOURCE_DIR}/lscript.ld)
+            list(APPEND LINKER_FILE_PATH ${path}/lscript_a53_32.ld.in)
+            list(APPEND LINKER_FILE lscript_a53_32.ld.in)
         endif()
 
         if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR

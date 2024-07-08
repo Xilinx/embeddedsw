@@ -38,6 +38,8 @@ aux_source_directory(${CMAKE_SOURCE_DIR} _sources)
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53")
   set(S_SOURCES xfsbl_exit.S xfsbl_translation_table_a53_64.S)
+elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53-32")
+  set(S_SOURCES xfsbl_exit.S xfsbl_translation_table_a53_32.S)
 else()
   set(S_SOURCES xfsbl_exit.S)
 endif()
