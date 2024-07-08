@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
@@ -14,6 +14,21 @@ endif()
 option(XILNVM_use_puf_hd_as_user_efuse "Enables API's to use PUF Helper data efuses as user efuses." OFF)
 if(XILNVM_use_puf_hd_as_user_efuse)
   set(XNVM_ACCESS_PUF_USER_DATA " ")
+endif()
+
+option(XILNVM_en_write_sec_crit_efuse "Enables write operation for Security Critical eFuses." OFF)
+if(XILNVM_en_write_sec_crit_efuse)
+  set(XNVM_WRITE_SECURITY_CRITICAL_EFUSE " ")
+endif()
+
+option(XILNVM_en_write_user_efuse "Enables write operation for User eFuses." OFF)
+if(XILNVM_en_write_user_efuse)
+  set(XNVM_WRITE_USER_EFUSE " ")
+endif()
+
+option(XILNVM_en_write_key_management_efuse "Enables write operation for Key Management eFuses." OFF)
+if(XILNVM_en_write_key_management_efuse)
+  set(XNVM_WRITE_KEY_MANAGEMENT_EFUSE " ")
 endif()
 
 option(XILNVM_cache_disable "Enables/Disables Cache for XilNvm client library." ON)

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XILNVM_BSP_CONFIG_H
@@ -11,5 +11,13 @@
 /* Enable Additional PPKs for M50 design */
 #cmakedefine XNVM_EN_ADD_PPKS
 
+/* Enable to write Security Critical eFuses */
+#cmakedefine XNVM_WRITE_SECURITY_CRITICAL_EFUSE
+
+/* Enable to write User eFuses */
+#cmakedefine XNVM_WRITE_USER_EFUSE
+
+/* Enable to write Key Management eFuses */
+#cmakedefine XNVM_WRITE_KEY_MANAGEMENT_EFUSE
 
 #endif /* XILNVM_BSP_CONFIG_H */
