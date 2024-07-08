@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -36,6 +37,7 @@
 * 6.0	pkp	07/25/16 Program the counter frequency
 * 6.4   mus     07/25/17 Set VFP enable bit in FPEXC register, to support
 *                        hard floating point in BSP
+* 9.2   adk     07/04/24 Added support for SDT flow.
 * </pre>
 *
 *
@@ -54,6 +56,9 @@
 .global __fiq_stack
 .global __undef_stack
 .global _vector_table
+#ifdef SDT
+.global XARMv8_ConfigTable
+#endif
 
 .set PSS_L2CC_BASE_ADDR, 0xF8F02000
 .set PSS_SLCR_BASE_ADDR, 0xF8000000
@@ -63,7 +68,9 @@
 .set LRemap,		0xFE00000F		/* set the base address of the peripheral block as not shared */
 
 .set CRValMmuCac,	0b01000000000001	/* Enable IDC, and MMU */
+#ifndef SDT
 .set counterfreq,	XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ
+#endif
 
 /* Stack Pointer locations for boot code */
 .set Undef_stack,	__undef_stack
@@ -150,8 +157,14 @@ OKToRun:
 	ldr	r13,=SYS_stack			/* SYS stack pointer */
 
 	/* program the timer counter frequency */
+#ifndef SDT
 	ldr	r0,=counterfreq
 	mcr	15,0,r0,c14,c0,0
+#else
+	ldr     r0,=XARMv8_ConfigTable
+	ldr     r1,[r0]
+	mcr	15,0,r1,c14,c0,0
+#endif
 
 	mov	r0,#0
 	mcr 	15,0,r0,c2,c0,2			/* N = 0 to use ttbr0 */

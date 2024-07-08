@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -23,6 +23,7 @@
  *  	 adk  25/03/22 Fix compilation errors for a72 processor.
  * 1.1	 adk  08/08/22 Added support for versal net.
  *  	 adk  08/08/22 Added doxygen tags.
+ * 2.0   adk  04/07/24 Update the checks for A53 32-bit configuration.
  *</pre>
  *
  *@note
@@ -54,6 +55,14 @@ static void XGlobalTimer_Start(XTimer *InstancePtr);
 static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
 					XTimer_DelayType DelayType);
 
+#if defined(ARMA53_32)
+static inline u64 arch_counter_get_cntvct(void)
+ {
+          u64 cval;
+          __asm__ __volatile__("mrrc p15, 1, %Q0, %R0, c14" : "=r" (cval));
+          return cval;
+  }
+#endif
 /****************************************************************************/
 /**
  * Initialize the global timer sleep timer
@@ -68,7 +77,7 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 	InstancePtr->XTimer_ModifyInterval = XGlobalTimer_ModifyInterval;
 	InstancePtr->XSleepTimer_Stop = NULL;
 
-#ifdef SDT
+#if defined(SDT) && !defined(ARMA53_32)
 	u32 TimerStampFreq = XGet_TimeStampFreq();
 	mtcp(CNTFRQ_EL0, TimerStampFreq);
 #endif
@@ -149,10 +158,18 @@ static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
 		XGlobalTimer_Start(InstancePtr);
 		IsSleepTimerStarted = TRUE;
 	}
+#if defined(ARMA53_32)
+	tCur = arch_counter_get_cntvct();
+#else
 	tCur = mfcp(CNTPCT_EL0);
+#endif
 	tEnd = tCur + (((XTime) delay) * (iterpersec / DelayType));
         do {
+#if defined(ARMA53_32)
+                tCur = arch_counter_get_cntvct();
+#else
                 tCur = mfcp(CNTPCT_EL0);
+#endif
         } while (tCur < tEnd);
 
 }
@@ -171,7 +188,11 @@ static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
  ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
 {
+#if defined(ARMA53_32)
+	*Xtime_Global = arch_counter_get_cntvct();
+#else
 	*Xtime_Global = mfcp(CNTPCT_EL0);
+#endif
 }
 
 #endif /* XTIMER_IS_DEFAULT_TIMER */

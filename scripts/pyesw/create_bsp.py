@@ -43,6 +43,7 @@ class Domain(Repo):
         self.repo_paths_list = self.repo_schema['paths']
         self.drv_info = {}
         self.os_info = {}
+        self.proc_mode = args["mode"]
         utils.mkdir(self.domain_dir)
         self.proc_ip_name = self._validate_inputs()
 
@@ -87,6 +88,14 @@ class Domain(Repo):
                 f"[ERROR]: Please pass a valid processor name. Valid Processor Names for the given SDT are: {list(avail_cpu_data.keys())}"
             )
             sys.exit(1)
+
+        if "a53" not in self.proc and self.proc_mode == "32-bit":
+            utils.remove(self.domain_dir)
+            print(
+                f"[ERROR]: Invalid mode configuration, 32-bit mode configuration is applicable only for ZynqMP A53 processors"
+            )
+            sys.exit(1)
+
         validate_obj = ValidateHW(
             self.domain_dir, self.proc, self.os, self.sdt,
             self.app, self.repo_yaml_path
@@ -210,6 +219,13 @@ class Domain(Repo):
                 f'set( CMAKE_MACHINE "{self.family}")',
             )
 
+        if "a53" in self.proc and self.proc_mode == "32-bit":
+            utils.replace_line(
+                toolchain_file_copy,
+                'CMAKE_SYSTEM_PROCESSOR "cortexa53"',
+                'set( CMAKE_SYSTEM_PROCESSOR "cortexa53-32")',
+            )
+
         # freertos needs a separate CMAKE_SYSTEM_NAME
         if "freertos" in self.os:
             utils.add_newline(toolchain_file_copy, "set( CMAKE_SYSTEM_NAME FreeRTOS)")
@@ -314,11 +330,17 @@ class Domain(Repo):
             compiler_flags (str): returns the new compiler flags that were set.
         """
         compiler_flags = ""
-        if app_name == "zynqmp_fsbl":
-            if "a53" in proc:
-                compiler_flags = "-Os -flto -ffat-lto-objects -DARMA53_64"
-            if "r5" in proc:
-                compiler_flags = "-Os -flto -ffat-lto-objects -DARMR5"
+        if app_name == "zynqmp_fsbl" or self.proc_mode == "32-bit":
+            if app_name == "zynqmp_fsbl":
+                if "a53" in proc:
+                    if self.proc_mode == "64-bit":
+                        compiler_flags = "-Os -flto -ffat-lto-objects -DARMA53_64"
+                    else:
+                        compiler_flags = "-Os -flto -ffat-lto-objects -DARMA53_32 -march=armv7-a -mfpu=vfpv3 -mfloat-abi=hard"
+                if "r5" in proc:
+                    compiler_flags = "-Os -flto -ffat-lto-objects -DARMR5"
+            else:
+                compiler_flags = "-march=armv7-a -DARMA53_32 -mfpu=vfpv3 -mfloat-abi=hard"
 
             utils.add_newline(
                 toolchain_file,
@@ -786,6 +808,14 @@ if __name__ == "__main__":
         action="store",
         help="Specify the .repo.yaml absolute path to use the set repo info",
         default='.repo.yaml',
+    )
+    parser.add_argument(
+        "-m",
+        "--mode",
+        action="store",
+        default="64-bit",
+        help="Specify the processor mode (Default: 64-bit)",
+        choices=["32-bit", "64-bit"],
     )
 
 
