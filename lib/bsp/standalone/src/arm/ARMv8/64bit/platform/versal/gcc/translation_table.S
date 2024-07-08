@@ -105,6 +105,9 @@
 * 9.1   ml   01/23/24 Updated lower DDR mapping calculation for MMUTableL2.
 * 9.2   ml   06/19/24 Add support to allow memory mapping for the DDR_CH_0 in
 *                     versal platform.
+* 9.2   mus  07/08/24 Fixed typo, replaced XPAR_AXI_NOC_DDR_LOW_2_HIGHADDR with
+*                     XPAR_AXI_NOC2_DDR_LOW_2_HIGHADDR. It Fixes specific HW
+                      designs where DDR is mapped at 0xC0_0000_0000.
 *
 ******************************************************************************/
 #include "bspconfig.h"
@@ -250,7 +253,7 @@ MMUTableL1:
 
 #ifdef XPAR_AXI_NOC2_DDR_LOW_2_BASEADDR
 .set DDR_START, XPAR_AXI_NOC2_DDR_LOW_2_BASEADDR
-.set DDR_END, XPAR_AXI_NOC_DDR_LOW_2_HIGHADDR
+.set DDR_END, XPAR_AXI_NOC2_DDR_LOW_2_HIGHADDR
 
 .if DDR_START > DDRMC0_REGION2_START_ADDR
 .set UNDEF_START, (DDR_START - DDRMC0_REGION2_START_ADDR)
