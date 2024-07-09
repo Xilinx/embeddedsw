@@ -221,21 +221,27 @@ void XPlmi_LpdInit(void)
 #endif
 	/* For versal, PLM Update is not applicable, and this API returns FALSE */
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+	#ifndef VERSAL_AIEPG2
 		Status = XPlmi_PsEmInit();
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+	#endif
 		XPlmi_SetLpdInitialized(LPD_INITIALIZED);
+	#ifndef VERSAL_AIEPG2
 		/**
 		 * Enable Slave Error for PSM Global
 		 */
 		XPlmi_UtilRMW(PSM_GLOBAL_REG_BASEADDR,
 				PSM_GLOBAL_REG_GLOBAL_CNTRL_SLVERR_ENABLE_MASK,
 				PSM_GLOBAL_REG_GLOBAL_CNTRL_SLVERR_ENABLE_MASK);
+	#endif
 		XPlmi_PrintEarlyLog();
 	}
 
+#ifndef VERSAL_AIEPG2
 END:
+#endif
 	return;
 }
 

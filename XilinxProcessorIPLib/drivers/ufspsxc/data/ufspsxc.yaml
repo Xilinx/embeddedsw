@@ -1,0 +1,44 @@
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for UFSPSXC controller
+
+maintainers:
+  - Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+      - const: xlnx,telluride-ufshc
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,ufs-clk-freq-hz:
+    description: UFS Host Input clock frequency
+  xlnx,cfg-clk-freq-hz:
+    description: M-PHY configuration clock frequency
+  xlnx,ref-pad-clk-freq-hz:
+    description: UFS reference pad clock frequency
+  xlnx,is-cache-coherent:
+    description: Present if dma operations are coherent
+    type: boolean
+
+config:
+    - XUfsPsxc_Config
+
+required:
+    - compatible
+    - reg: 1
+    - xlnx,ufs-clk-freq-hz
+    - xlnx,cfg-clk-freq-hz
+    - xlnx,ref-pad-clk-freq-hz
+    - xlnx,is-cache-coherent
+    - interrupts
+    - interrupt-parent
+
+examples:
+   xufspsxc_setluncfg_example.c:
+    - reg
+...

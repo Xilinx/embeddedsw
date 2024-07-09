@@ -186,6 +186,9 @@
 #include "xloader_qspi.h"
 #include "xloader_sbi.h"
 #include "xloader_sd.h"
+#ifdef VERSAL_AIEPG2
+#include "xloader_ufs.h"
+#endif
 #include "xloader_usb.h"
 #include "xloader_ddr.h"
 #include "xloader_ospi.h"
@@ -262,6 +265,9 @@ static const XLoader_DeviceOps DeviceOps[] =
 	{XLoader_UsbInit, XLoader_UsbCopy, XLoader_UsbRelease}, /* USB */
 #else
 	{NULL, NULL, NULL},
+#endif
+#ifdef XLOADER_UFS
+	{XLoader_UfsInit, XLoader_UfsCopy, XLoader_UfsRelease},
 #endif
 };
 
@@ -1882,6 +1888,11 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 					}
 					PdiSrc = XLOADER_PDI_SRC_DDR;
 					break;
+#ifdef VERSAL_AIEPG2
+				case XIH_IHT_ATTR_SBD_UFS:
+					PdiSrc = XLOADER_PDI_SRC_UFS;
+					break;
+#endif
 				default:
 					Status = XLoader_GetSDPdiSrcNAddr(SecBootMode,
 							PdiPtr, &PdiSrc, &PdiAddr);
