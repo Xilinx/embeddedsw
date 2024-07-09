@@ -762,6 +762,29 @@ static inline void XI3c_ResetFifos(XI3c *InstancePtr)
 	usleep(10);
 }
 
+/*****************************************************************************/
+/**
+*
+* @brief
+* Calculates the Odd parity for the dynamic address.
+*
+* @param        Addr is a dynamic address.
+*
+* @return       - 0 if Addr has odd parity.
+* 		- 1 if Addr has even parity.
+*
+* @note         None.
+*
+******************************************************************************/
+static inline u8 XI3c_GetOddParity(u8 Addr)
+{
+	Addr = (Addr & XI3C_4BITS_MASK) ^ ((Addr >> 4) & XI3C_4BITS_MASK);
+	Addr = (Addr & XI3C_2BITS_MASK) ^ ((Addr >> 2) & XI3C_2BITS_MASK);
+	Addr = (Addr & XI3C_1BIT_MASK) ^ ((Addr >> 1) & XI3C_1BIT_MASK);
+
+	return !(Addr & 1);
+}
+
 #ifdef __cplusplus
 }
 #endif

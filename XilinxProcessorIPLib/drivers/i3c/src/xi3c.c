@@ -314,7 +314,7 @@ s32 XI3c_DynaAddrAssign(XI3c *InstancePtr, u8 DynaAddr[], u8 DevCount)
 	}
 
 	for(Index = 0; (Index < DevCount) && (Index < XI3C_MAXDAACOUNT); Index++) {
-		Addr = DynaAddr[Index] << 1;
+		Addr = (DynaAddr[Index] << 1) | (XI3c_GetOddParity(DynaAddr[Index]));
 
 		InstancePtr->SendBufferPtr = &Addr;
 		InstancePtr->SendByteCount = 1;
