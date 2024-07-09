@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -113,68 +113,6 @@ void XPm_PsmModuleInit(void)
 		XPlmi_PsmCmds[Idx].Handler = XPm_ProcessPsmCmd;
 	}
 	XPlmi_ModuleRegister(&XPlmi_Psm);
-}
-
-/****************************************************************************/
-/**
- * @brief This Function will power up processor by sending IPI to PSM for
- *       performing direct power up operation.
- *
- * @param DeviceId	Device ID of processor
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
- *
- * @note none
- *
- ****************************************************************************/
-XStatus XPm_DirectPwrUp(const u32 DeviceId)
-{
-	XStatus Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
-
-	Payload[0] = PSM_API_DIRECT_PWR_UP;
-	Payload[1] = DeviceId;
-
-	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
-
-done:
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief This Function will power down processor by sending IPI to PSM for
- *       performing direct power down operation.
- *
- * @param DeviceId	Device ID of processor
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
- *
- * @note none
- *
- ****************************************************************************/
-XStatus XPm_DirectPwrDwn(const u32 DeviceId)
-{
-	XStatus Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
-
-	Payload[0] = PSM_API_DIRECT_PWR_DWN;
-	Payload[1] = DeviceId;
-
-	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
-
-done:
-	return Status;
 }
 
 /****************************************************************************/

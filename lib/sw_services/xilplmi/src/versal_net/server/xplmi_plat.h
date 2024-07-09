@@ -8,9 +8,9 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplmi_plat.h
+* @file versal_aiepg2/xplmi_plat.h
 *
-* This file contains declarations for versal_net specific APIs
+* This file contains declarations for versal_aiepg2 specific APIs
 *
 * <pre>
 * MODIFICATION HISTORY:

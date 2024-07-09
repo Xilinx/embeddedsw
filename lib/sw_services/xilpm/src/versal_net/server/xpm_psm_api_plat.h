@@ -36,7 +36,7 @@ extern "C" {
 #endif
 
 /*******************************************************/
-
+#ifndef VERSAL_AIEPG2
 enum ProcDeviceId {
 	ACPU_0,
 	ACPU_1,
@@ -61,6 +61,9 @@ enum ProcDeviceId {
 	PROC_DEV_MAX,
 };
 
+XStatus XPm_DirectPwrUp(const u32 DeviceId);
+XStatus XPm_DirectPwrDwn(const u32 DeviceId);
+#endif
 maybe_unused static inline XStatus ReleaseDeviceLpd(void)
 {
 	return XST_SUCCESS;

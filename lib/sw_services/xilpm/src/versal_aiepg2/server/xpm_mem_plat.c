@@ -1,6 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +18,10 @@ XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,
 	XPm_RpuGetOperMode(Rpu0->Node.Id, &Mode);
 	if (XPM_RPU_MODE_SPLIT == Mode) {
 		if ((((PM_DEV_TCM_A_0A <= Id) && (PM_DEV_TCM_A_0C >= Id)) ||
-			((PM_DEV_TCM_B_0A <= Id) && (PM_DEV_TCM_B_0C >= Id))) &&
+			((PM_DEV_TCM_B_0A <= Id) && (PM_DEV_TCM_B_0C >= Id)) ||
+			((PM_DEV_TCM_C_0A <= Id) && (PM_DEV_TCM_C_0C >= Id)) ||
+			((PM_DEV_TCM_D_0A <= Id) && (PM_DEV_TCM_D_0C >= Id)) ||
+			((PM_DEV_TCM_E_0A <= Id) && (PM_DEV_TCM_E_0C >= Id))) &&
 			((u8)XPM_DEVSTATE_RUNNING != Rpu0->Node.State)) {
 			Status = XPmRpuCore_Halt(Rpu0);
 			if (XST_SUCCESS != Status) {
@@ -27,7 +29,10 @@ XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,
 			}
 		}
 		if ((((PM_DEV_TCM_A_1A <= Id) && (PM_DEV_TCM_A_1C >= Id)) ||
-			((PM_DEV_TCM_B_1A <= Id) && (PM_DEV_TCM_B_1C >= Id)) ) &&
+			((PM_DEV_TCM_B_1A <= Id) && (PM_DEV_TCM_B_1C >= Id)) ||
+			((PM_DEV_TCM_C_1A <= Id) && (PM_DEV_TCM_C_1C >= Id)) ||
+			((PM_DEV_TCM_D_1A <= Id) && (PM_DEV_TCM_D_1C >= Id)) ||
+			((PM_DEV_TCM_E_1A <= Id) && (PM_DEV_TCM_E_1C >= Id))) &&
 		    ((u8)XPM_DEVSTATE_RUNNING !=  Rpu1->Node.State)) {
 			Status = XPmRpuCore_Halt(Rpu1);
 			if (XST_SUCCESS != Status) {
@@ -38,7 +43,7 @@ XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,
 
 	if (XPM_RPU_MODE_LOCKSTEP == Mode)
 	{
-		if (((PM_DEV_TCM_A_0A <= Id) && (PM_DEV_TCM_B_1C >= Id)) &&
+		if (((PM_DEV_TCM_A_0A <= Id) && (PM_DEV_TCM_E_1C >= Id)) &&
 		     ((u8)XPM_DEVSTATE_RUNNING != Rpu0->Node.State)) {
 			Status = XPmRpuCore_Halt(Rpu0);
 			if (XST_SUCCESS != Status) {
@@ -57,20 +62,25 @@ done:
 XStatus XPm_GetRpuDevice(const XPm_Device **Rpu0Device,const XPm_Device **Rpu1Device,
 		const u32 Id){
 	XStatus Status = XST_FAILURE;
-	const XPm_Device *RpuA0Device = XPmDevice_GetById(PM_DEV_RPU_A_0);
-	const XPm_Device *RpuA1Device = XPmDevice_GetById(PM_DEV_RPU_A_1);
-	const XPm_Device *RpuB0Device = XPmDevice_GetById(PM_DEV_RPU_B_0);
-	const XPm_Device *RpuB1Device = XPmDevice_GetById(PM_DEV_RPU_B_1);
 	/*warning fix*/
 	(void)Rpu0Device;
 	(void)Rpu1Device;
 
-	if ((PM_DEV_TCM_A_0A <= Id) && (PM_DEV_TCM_A_1C >= Id)){
-		*Rpu0Device = RpuA0Device;
-		*Rpu1Device = RpuA1Device;
+	if ((PM_DEV_TCM_A_0A <= Id) && (PM_DEV_TCM_A_1C >= Id)) {
+		*Rpu0Device = XPmDevice_GetById(PM_DEV_RPU_A_0);
+		*Rpu1Device = XPmDevice_GetById(PM_DEV_RPU_A_1);
 	} else if ((PM_DEV_TCM_B_0A <= Id) && (PM_DEV_TCM_B_1C >= Id)) {
-		*Rpu0Device = RpuB0Device;
-		*Rpu1Device = RpuB1Device;
+		*Rpu0Device = XPmDevice_GetById(PM_DEV_RPU_B_0);
+		*Rpu1Device = XPmDevice_GetById(PM_DEV_RPU_B_1);
+	} else if ((PM_DEV_TCM_C_0A <= Id) && (PM_DEV_TCM_C_1C >= Id)) {
+		*Rpu0Device = XPmDevice_GetById(PM_DEV_RPU_C_0);
+                *Rpu1Device = XPmDevice_GetById(PM_DEV_RPU_C_1);
+	} else if ((PM_DEV_TCM_D_0A <= Id) && (PM_DEV_TCM_D_1C >= Id)) {
+		*Rpu0Device = XPmDevice_GetById(PM_DEV_RPU_D_0);
+                *Rpu1Device = XPmDevice_GetById(PM_DEV_RPU_D_1);
+	} else if ((PM_DEV_TCM_E_0A <= Id) && (PM_DEV_TCM_E_1C >= Id)) {
+		*Rpu0Device = XPmDevice_GetById(PM_DEV_RPU_E_0);
+                *Rpu1Device = XPmDevice_GetById(PM_DEV_RPU_E_1);
 	} else {
 		Status = XST_INVALID_PARAM;
 		goto done;

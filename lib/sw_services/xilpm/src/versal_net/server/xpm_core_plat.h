@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,10 @@ XStatus ResetAPUGic(const u32 DeviceId);
 void EnableWake(const struct XPm_Core *Core);
 void DisableWake(const struct XPm_Core *Core);
 XStatus XPm_PlatSendDirectPowerDown(XPm_Core *Core);
+XStatus XPmCore_StoreResumeAddr(const XPm_Core *Core, u64 Address);
+XStatus XPmCore_HasResumeAddr(const XPm_Core *Core);
+XStatus XPmCore_SetCPUIdleFlag(const XPm_Core *Core, u32 CpuIdleFlag);
+XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, u32 *CpuIdleFlag);
 maybe_unused static inline XStatus XPmCore_PlatClkReq(const XPm_ClockHandle *ClkHandles)
 {
 	(void)ClkHandles;

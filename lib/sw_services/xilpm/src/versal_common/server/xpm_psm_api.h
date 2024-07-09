@@ -10,7 +10,11 @@
 
 #include "xil_types.h"
 #include "xstatus.h"
+#ifndef VERSAL_AIEPG2
 #include "xpm_psm_api_plat.h"
+#else
+#include "xpm_plat_proc.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,8 +51,6 @@ struct PsmToPlmEvent_t {
 void XPm_PsmModuleInit(void);
 XStatus XPm_PwrDwnEvent(const u32 DeviceId);
 XStatus XPm_WakeUpEvent(const u32 DeviceId);
-XStatus XPm_DirectPwrUp(const u32 DeviceId);
-XStatus XPm_DirectPwrDwn(const u32 DeviceId);
 XStatus XPm_GetPsmToPlmEventAddr(void);
 
 #ifdef __cplusplus
