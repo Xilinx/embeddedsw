@@ -544,6 +544,17 @@ typedef struct {
 } XI3c_Cmd;
 
 /**
+ * The XI3c slave data. XI3c driver reads from slave devices during DAA
+ * and fills these values.
+ */
+typedef struct {
+	u8 DynaAddr;	/**< Dynamic Address */
+	u64 Id;		/**< Slave Id */
+	u8 Bcr;		/**< Bus Characteristic Register */
+	u8 Dcr;		/**< Device Characteristic Register */
+} XI3c_SlaveInfo;
+
+/**
  * The XI3c driver instance data. The user is required to allocate a
  * variable of this type for each I3C device in the system. A pointer
  * to a variable of this type is then passed to the driver API functions.
@@ -558,21 +569,11 @@ typedef struct {
 	u8 Error;		/**< Error value */
 	u8 DeviceCount;		/**< Number of devices connected */
 	XI3c_IntrHandler StatusHandler;  /**< Event handler function */
+	XI3c_SlaveInfo XI3c_SlaveInfoTable[XI3C_MAXDAACOUNT]; /**< Slave info table */
 } XI3c;
-
-/**
- * The XI3c slave data. XI3c driver reads from slave devices during DAA
- * and fills these values.
- */
-typedef struct {
-	u64 Id;		/**< Slave Id */
-	u8 Bcr;		/**< Bus Characteristic Register */
-	u8 Dcr;		/**< Device Characteristic Register */
-} XI3c_SlaveInfo;
 
 /************************** Variable Definitions *****************************/
 extern XI3c_Config XI3c_ConfigTable[];	/**< Configuration table */
-extern XI3c_SlaveInfo XI3c_SlaveInfoTable[XI3C_MAXDAACOUNT]; /**< Slave info table */
 
 /************************** Function Prototypes ******************************/
 

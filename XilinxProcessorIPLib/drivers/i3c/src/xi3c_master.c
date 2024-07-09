@@ -136,8 +136,8 @@ s32 XI3c_MasterSend(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
 	/*
          * Assert validates the input arguments.
          */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Cmd != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Cmd != NULL);
 
 	if (MsgPtr == NULL)
 		return XST_NO_DATA;
@@ -201,8 +201,8 @@ s32 XI3c_MasterRecv(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
 	/*
          * Assert validates the input arguments.
          */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Cmd != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Cmd != NULL);
 
 	if (MsgPtr == NULL)
 		return XST_NO_DATA;

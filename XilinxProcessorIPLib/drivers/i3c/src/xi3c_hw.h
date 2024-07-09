@@ -140,7 +140,9 @@ extern "C" {
 #define  XI3C_RESP_RW_SHIFT		4
 #define  XI3C_RESP_CODE_SHIFT		5
 #define  XI3C_RESP_BYTES_SHIFT		9
+#define  XI3C_RESP_LVL_SHIFT		16
 
+#define  XI3C_CMD_LVL_SHIFT		16
 
 /**
  * @name bit masks
@@ -251,7 +253,7 @@ extern "C" {
 #define XI3c_CmdFifoLevel(InstancePtr)					\
         (u16)((XI3c_ReadReg(InstancePtr->Config.BaseAddress,		\
 			    XI3C_FIFO_LVL_STATUS_OFFSET) &		\
-	      XI3C_MSB_16BITS_MASK) >> XI3C_16BITS_MASK)
+	      XI3C_MSB_16BITS_MASK) >> XI3C_CMD_LVL_SHIFT)
 
 /*****************************************************************************/
 /**
@@ -287,7 +289,7 @@ extern "C" {
 #define XI3c_RespFifoLevel(InstancePtr)					\
         (u16)((XI3c_ReadReg(InstancePtr->Config.BaseAddress,		\
 			    XI3C_FIFO_LVL_STATUS_1_OFFSET) &		\
-                            XI3C_MSB_16BITS_MASK) >> XI3C_16BITS_MASK)
+                            XI3C_MSB_16BITS_MASK) >> XI3C_RESP_LVL_SHIFT)
 
 /*****************************************************************************/
 /**
@@ -303,8 +305,10 @@ extern "C" {
 *               u16 XI3c_EnableREInterrupts(XI3c *InstancePtr, u32 IntrMask)
 *
 ******************************************************************************/
-#define XI3c_EnableREInterrupts(BaseAddress, IntrMask) \
-	XI3c_WriteReg((BaseAddress), XI3C_INTR_RE_OFFSET, (IntrMask))
+#define XI3c_EnableREInterrupts(BaseAddress, IntrMask) 			    \
+	XI3c_WriteReg((BaseAddress), XI3C_INTR_RE_OFFSET,		    \
+			((XI3c_ReadReg(BaseAddress, XI3C_INTR_RE_OFFSET)) | \
+			(IntrMask)))
 
 /*****************************************************************************/
 /**
@@ -320,8 +324,10 @@ extern "C" {
 *               u16 XI3c_EnableFEInterrupts(XI3c *InstancePtr, u32 IntrMask)
 *
 ******************************************************************************/
-#define XI3c_EnableFEInterrupts(BaseAddress, IntrMask) \
-	XI3c_WriteReg((BaseAddress), XI3C_INTR_FE_OFFSET, (IntrMask))
+#define XI3c_EnableFEInterrupts(BaseAddress, IntrMask) 			    \
+	XI3c_WriteReg((BaseAddress), XI3C_INTR_FE_OFFSET,		    \
+			((XI3c_ReadReg(BaseAddress, XI3C_INTR_FE_OFFSET)) | \
+			(IntrMask)))
 
 /*****************************************************************************/
 /**
