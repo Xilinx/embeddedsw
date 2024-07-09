@@ -29,13 +29,6 @@
 
 /************************** Variable Prototypes ******************************/
 
-/**
- * This table contains slave devices information for each I3C slave
- * in the system.
- */
-
-XI3c_SlaveInfo XI3c_SlaveInfoTable[XI3C_MAXDAACOUNT]; /**< Slave info table */
-
 /*****************************************************************************/
 /**
 *
@@ -69,7 +62,7 @@ void XI3C_BusInit(XI3c *InstancePtr)
 	Status = XI3c_SendTransferCmd(InstancePtr, &Cmd,
 				      (u8)XI3C_CCC_BRDCAST_DISEC);
 	if (Status != XST_SUCCESS) {
-		return Status;
+		return;
 	}
 
 	Cmd.SlaveAddr = XI3C_BROADCAST_ADDRESS;
@@ -81,7 +74,7 @@ void XI3C_BusInit(XI3c *InstancePtr)
 	Status = XI3c_SendTransferCmd(InstancePtr, &Cmd,
 				      (u8)XI3C_CCC_BRDCAST_ENEC);
 	if (Status != XST_SUCCESS) {
-		return Status;
+		return;
 	}
 
 	Cmd.SlaveAddr = XI3C_BROADCAST_ADDRESS;
@@ -93,7 +86,7 @@ void XI3C_BusInit(XI3c *InstancePtr)
 	Status = XI3c_SendTransferCmd(InstancePtr, &Cmd,
 				      (u8)XI3C_CCC_BRDCAST_RSTDAA);
 	if (Status != XST_SUCCESS) {
-		return Status;
+		return;
 	}
 }
 
@@ -338,16 +331,18 @@ s32 XI3c_DynaAddrAssign(XI3c *InstancePtr, u8 DynaAddr[], u8 DevCount)
 		}
 
 		/**< ID - RecvBuffer[0] to RecvBuffer[5] */
-		XI3c_SlaveInfoTable[Index].Id = (((u64)RecvBuffer[0] << 40)|
-						 ((u64)RecvBuffer[1] << 32)|
-						 ((u64)RecvBuffer[2] << 24)|
-						 ((u64)RecvBuffer[3] << 16)|
-						 ((u64)RecvBuffer[4] << 8) |
-						 ((u64)RecvBuffer[5] << 0));
+		InstancePtr->XI3c_SlaveInfoTable[Index].Id = (((u64)RecvBuffer[0] << 40)|
+							      ((u64)RecvBuffer[1] << 32)|
+							      ((u64)RecvBuffer[2] << 24)|
+							      ((u64)RecvBuffer[3] << 16)|
+							      ((u64)RecvBuffer[4] << 8) |
+							      ((u64)RecvBuffer[5]));
 		/**< BCR - RecvBuffer[6] */
-		XI3c_SlaveInfoTable[Index].Bcr = RecvBuffer[6];
+		InstancePtr->XI3c_SlaveInfoTable[Index].Bcr = RecvBuffer[6];
 		/**< DCR - RecvBuffer[7] */
-		XI3c_SlaveInfoTable[Index].Dcr = RecvBuffer[7];
+		InstancePtr->XI3c_SlaveInfoTable[Index].Dcr = RecvBuffer[7];
+		/**< Dynamic address */
+		InstancePtr->XI3c_SlaveInfoTable[Index].DynaAddr = DynaAddr[Index];
 	}
 	return XST_SUCCESS;
 }

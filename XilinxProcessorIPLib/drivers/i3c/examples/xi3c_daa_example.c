@@ -150,9 +150,9 @@ int I3cMasterDaaExample(UINTPTR BaseAddress)
 
 	for (Index = 0; Index < I3C_SLAVES_COUNT; Index++) {
 		xil_printf("Slave %d details:\n", Index);
-		xil_printf("ID  = 0x%lx\n", XI3c_SlaveInfoTable[Index].Id);
-		xil_printf("BCR = 0x%d\n", XI3c_SlaveInfoTable[Index].Bcr);
-		xil_printf("DCR = 0x%d\n", XI3c_SlaveInfoTable[Index].Dcr);
+		xil_printf("ID  = 0x%lx\n", InstancePtr->XI3c_SlaveInfoTable[Index].Id);
+		xil_printf("BCR = 0x%d\n", InstancePtr->XI3c_SlaveInfoTable[Index].Bcr);
+		xil_printf("DCR = 0x%d\n", InstancePtr->XI3c_SlaveInfoTable[Index].Dcr);
 	}
 
 	/*
