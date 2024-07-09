@@ -509,7 +509,7 @@ done:
 	return Status;
 }
 
-void XPm_GetRpuDevice(const XPm_Device **Rpu0Device,const XPm_Device **Rpu1Device,
+XStatus XPm_GetRpuDevice(const XPm_Device **Rpu0Device,const XPm_Device **Rpu1Device,
 	const u32 Id){
 	/*warning fix*/
 	(void)Id;
@@ -517,7 +517,8 @@ void XPm_GetRpuDevice(const XPm_Device **Rpu0Device,const XPm_Device **Rpu1Devic
 	(void)Rpu1Device;
 	*Rpu0Device = XPmDevice_GetById(PM_DEV_RPU0_0);
 	*Rpu1Device = XPmDevice_GetById(PM_DEV_RPU0_1);
-	return;
+
+	return XST_SUCCESS;
 }
 
 u32 XPm_CombTcm(const u32 Id, const u32 Mode)

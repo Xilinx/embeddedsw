@@ -253,11 +253,12 @@ extern "C" {
 #define XLOADER_SBI_INDEX		(0U)
 #define XLOADER_QSPI_INDEX		(1U)
 #define XLOADER_SD_INDEX		(2U)
-#define XLOADER_SD_RAW_INDEX		(3U)
+#define XLOADER_SD_RAW_INDEX	(3U)
 #define XLOADER_DDR_INDEX		(4U)
 #define XLOADER_OSPI_INDEX		(5U)
 #define XLOADER_USB_INDEX		(6U)
-#define XLOADER_INVALID_INDEX		(7U)
+#define XLOADER_UFS_INDEX		(7U)
+#define XLOADER_INVALID_INDEX	(8U)
 /** @} */
 
 #define PdiSrc_t			u32	/**< Alias for u32 */

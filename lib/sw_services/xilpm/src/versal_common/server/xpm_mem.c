@@ -89,12 +89,17 @@ static XStatus HandleTcmDeviceState(XPm_Device* const Device, u32 const NextStat
 	u32 Id = Device->Node.Id;
 	u32 Mode;
 
-	XPm_GetRpuDevice(&Rpu0Device,&Rpu1Device,Id);
+	Status = XPm_GetRpuDevice(&Rpu0Device, &Rpu1Device, Id);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	if ((NULL == Rpu0Device) || (NULL == Rpu1Device))
 	{
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
+
 	switch (Device->Node.State) {
 	case (u8)XPM_DEVSTATE_UNUSED:
 		if ((u32)XPM_DEVSTATE_RUNNING == NextState) {

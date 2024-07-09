@@ -47,6 +47,7 @@
 #include "xpm_pldevice.h"
 #include "xpm_rail.h"
 #include "xpm_regulator.h"
+#include "xpm_plat_proc.h"
 #ifdef VERSAL_NET
 #include "xpm_update.h"
 #endif
@@ -846,7 +847,7 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 	/* Register command handlers with eFSBL */
 	for (i = 1; i < XPlmi_Pm.CmdCnt; i++) {
 		XPlmi_PmCmds[i].Handler = XPm_ProcessCmd;
-#ifdef VERSAL_NET
+#if defined(VERSAL_NET) && ! defined(VERSAL_AIEPG2)
 		/* Short term fix for CR-1204873; limited to RC5 */
 		if (PM_API(PM_INIT_NODE) == i) {
 			XPlmi_PmCmds[i].Handler = XPm_InitNodeCmdHandler;
@@ -1947,7 +1948,7 @@ static XStatus AddProcDevice(const u32 *Args, u32 PowerId)
 		Status = XPmPmc_Init(Pmc, DeviceId, 0, BaseAddr, Power, NULL, NULL);
 		break;
 	default:
-		Status = XST_INVALID_PARAM;
+		Status = XPmPlatAddProcDevice(DeviceId, Ipi, BaseAddr, Power);
 		break;
 	}
 
@@ -2676,6 +2677,7 @@ static XStatus XPm_AddNodeMonitor(const u32 *Args, u32 NumArgs)
 	if ((((u32)XPM_NODETYPE_MONITOR_SYSMON_PMC != NodeType) &&
 	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_PS != NodeType) &&
 	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_CPM5N != NodeType) &&
+	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_MMI != NodeType) &&
 	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_NPD != NodeType)) ||
 	    ((u32)XPM_NODEIDX_MONITOR_MAX <= NODEINDEX(NodeId))) {
 		Status = XST_INVALID_PARAM;
