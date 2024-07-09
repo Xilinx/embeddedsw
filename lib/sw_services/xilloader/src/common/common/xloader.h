@@ -284,6 +284,8 @@ typedef struct {
 #define XLOADER_SD_MAX_BOOT_FILES_LIMIT		(8192U)
 			/**< Maximum limit of boot files in SD filesystem */
 
+#define XLOADER_UFS_MAX_BOOT_FILES_LIMIT	(8192U)
+			/**< Maximum limit of boot files in UFS filesystem */
 #define XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL	(1000U)
 			/**< Polling interval for checking Authenticated JTAG interrupt status*/
 #define XLOADER_SHA3_LEN				(48U)	/**< SHA3 hash length in bytes */
@@ -295,6 +297,11 @@ typedef struct {
 #define XLOADER_SD_ADDR_SHIFT		(0x4U)
 #endif
 
+#if defined(XLOADER_UFS)
+#define XLOADER_UFS_ADDR_MASK		(0xFFFFU)
+#define XLOADER_UFS_ADDR_SHIFT		(0x4U)
+
+#endif
 /**************************** Type Definitions *******************************/
 /*
  * This stores the handoff Address of the different cpu's

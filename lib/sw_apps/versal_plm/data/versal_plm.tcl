@@ -1,6 +1,6 @@
 #/******************************************************************************
 #* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-#* Copyright (c) 2023, Advanced Micro Devices, Inc.  All rights reserved.
+#* Copyright (c) 2023 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -83,6 +83,7 @@ proc swapp_generate {} {
 
 	set versal_net "versal_net/"
 	set versal "versal/"
+	set versal_aiepg2 "versal_aiepg2/"
 	set common "common/"
 
 	foreach entry [glob -nocomplain -types f [file join . *]] {
@@ -105,6 +106,7 @@ proc swapp_generate {} {
 	file delete -force $versal_net
 	file delete -force $common
 	file delete -force $versal
+	file delete -force $versal_aiepg2
 
 	# disable global optimizations through --no-relax flag
 	set def_link_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]

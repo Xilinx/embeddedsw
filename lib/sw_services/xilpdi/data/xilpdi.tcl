@@ -18,6 +18,7 @@ proc pdi_drc {libhandle} {
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set versal_net "src/versal_net/"
 	set versal "src/versal/"
+	set versal_aiepg2 "src/versal_aiepg2/"
 	set common "src/common/"
 
 	foreach entry [glob -nocomplain -types f [file join ./src/ *]] {
@@ -43,6 +44,7 @@ proc pdi_drc {libhandle} {
 
 	file delete -force $versal_net
 	file delete -force $versal
+	file delete -force $versal_aiepg2
 	file delete -force $common
 }
 
