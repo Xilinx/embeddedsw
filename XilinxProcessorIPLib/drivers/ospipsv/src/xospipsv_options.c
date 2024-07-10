@@ -26,6 +26,7 @@
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
 * 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
 * 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
+* 1.11  sb   07/09/24 Limit dummy value range in XOspiPsv_ConfigureAutoPolling().
 *
 * </pre>
 *
@@ -436,6 +437,15 @@ void XOspiPsv_ConfigureAutoPolling(const XOspiPsv *InstancePtr, u32 FlashMode)
 	Dummy = InstancePtr->Extra_DummyCycle;
 	if (FlashMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 		Dummy += XOSPIPSV_DDR_STATS_REG_DUMMY;
+	}
+	/*
+	 * Limit the dummy value to stay within the range of
+	 * device_status_nb_dummy to prevent it from exceeding the allowed range
+	 */
+	if (Dummy >= (XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_MASK >>
+				XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_SHIFT)) {
+		Dummy = XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_MASK >>
+				XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_SHIFT;
 	}
 	ReadReg |= ((u32)Dummy <<
 		XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_SHIFT);
