@@ -27,6 +27,7 @@
 * 5.4   yog     04/29/24 Fixed doxygen warnings.
 *       kpt     05/26/24 Added RSA Expopt API.
 *       kpt     06/13/24 Add support for RSA key generation.
+*       kpt     07/04/24 Add major error code for RSA key pair generation.
 *
 * </pre>
 *
@@ -717,6 +718,7 @@ static int XSecure_GenerateRsaKeyPair(void* arg)
 	static 	XSecure_RsaKeyPtr RsaKeyPairState = {0U};
 
 	(void)arg;
+
 	/* State machine for RSA key generation
 	 * Note: RSA key generation operation is non-reentrant
 	 * hence state is maintained for whole operation
@@ -778,6 +780,10 @@ static int XSecure_GenerateRsaKeyPair(void* arg)
 	}
 
 END:
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XSECURE_ERR_RSA_KEY_PAIR_GEN_SCHEDULER, Status);
+	}
+
 	return Status;
 }
 

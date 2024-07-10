@@ -755,8 +755,9 @@ typedef enum {
 
 	XSECURE_ERR_ADD_TASK_SCHEDULER = 0x6E0,  /**< 0x6E0 Error while adding task to
 						the scheduler */
-	XSECURE_ERR_REMOVE_TASK_SCHEDULER, /**< 0x6E0 Error while Removing task from
+	XSECURE_ERR_REMOVE_TASK_SCHEDULER, /**< 0x6E1 Error while Removing task from
 						the scheduler */
+	XSECURE_ERR_RSA_KEY_PAIR_GEN_SCHEDULER, /**< 0x6E2 Error in RSA key pair generation task */
 		/**< */
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.
