@@ -846,6 +846,12 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 	/* Register command handlers with eFSBL */
 	for (i = 1; i < XPlmi_Pm.CmdCnt; i++) {
 		XPlmi_PmCmds[i].Handler = XPm_ProcessCmd;
+#ifdef VERSAL_NET
+		/* Short term fix for CR-1204873; limited to RC5 */
+		if (PM_API(PM_INIT_NODE) == i) {
+			XPlmi_PmCmds[i].Handler = XPm_InitNodeCmdHandler;
+		}
+#endif
 	}
 	XPlmi_ModuleRegister(&XPlmi_Pm);
 
