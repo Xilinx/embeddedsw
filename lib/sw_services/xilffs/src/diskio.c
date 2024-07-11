@@ -70,6 +70,7 @@
 * 5.1   ro   06/12/23 Added support for system device-tree flow.
 * 5.2   ap   12/05/23 Add SDT check to fix bug in disk_initialize.
 *       ap   01/11/24 Fix Doxygen warnings.
+*       sk   07/11/24 Add UFS interface support.
 *
 * </pre>
 *
@@ -86,14 +87,24 @@
 #endif
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
+#ifdef XPAR_XSDPS_NUM_INSTANCES
 #include "xsdps.h"		/* SD device driver */
+#endif
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+#include "xufspsxc.h"
+#endif
 #endif
 #include "sleep.h"
 #include "xil_printf.h"
 #include "xil_util.h"
 
+#ifdef XPAR_XSDPS_NUM_INSTANCES
 #define SD_CD_DELAY		10000U		/**< SD card detection delay */
+#endif
+
 #define XSDPS_NUM_INSTANCES	2		/**< Number of SD instances */
+
+#define XUFSPSXC_START_INDEX	3	/**< Start index of UFS instances */
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
 #include "xparameters.h"
@@ -114,15 +125,31 @@ static char *dataramfs = NULL;
 /*
  * Global variables
  */
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+static DSTATUS Stat[XSDPS_NUM_INSTANCES + 33U] =
+{ STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT,
+  STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT,
+  STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT,
+  STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT};	/* Disk status */
+#else
 static DSTATUS Stat[XSDPS_NUM_INSTANCES] = {STA_NOINIT, STA_NOINIT};	/* Disk status */
+#endif
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
+#ifdef XPAR_XSDPS_NUM_INSTANCES
 static XSdPs SdInstance[XSDPS_NUM_INSTANCES];
 static UINTPTR BaseAddress[XSDPS_NUM_INSTANCES];
 static u32 CardDetect[XSDPS_NUM_INSTANCES];
 static u32 WriteProtect[XSDPS_NUM_INSTANCES];
 static u32 SlotType[XSDPS_NUM_INSTANCES];
 static u8 HostCntrlrVer[XSDPS_NUM_INSTANCES];
+#endif
+
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+#define XUFS_BLUN_PDRV	2U
+
+static XUfsPsxc UfsInstance;
+#endif
 #endif
 
 /*-----------------------------------------------------------------------*/
@@ -153,80 +180,93 @@ DSTATUS disk_status (
 {
 	DSTATUS s = Stat[pdrv];
 #ifdef FILE_SYSTEM_INTERFACE_SD
+#ifdef XPAR_XSDPS_NUM_INSTANCES
 	u32 StatusReg;
 	u32 DelayCount = 0;
+#endif
 
-	if (SdInstance[pdrv].Config.BaseAddress == (u32)0) {
-		XSdPs_Config *SdConfig;
+	if (pdrv < XSDPS_NUM_INSTANCES) {		/* SD/eMMC interface */
+#ifdef XPAR_XSDPS_NUM_INSTANCES
+		if (SdInstance[pdrv].Config.BaseAddress == (u32)0) {
+			XSdPs_Config *SdConfig;
 
 #ifndef SDT
-		SdConfig = XSdPs_LookupConfig((u16)pdrv);
+			SdConfig = XSdPs_LookupConfig((u16)pdrv);
 #else
-		if (pdrv < XPAR_XSDPS_NUM_INSTANCES) {
-			SdConfig = XSdPs_LookupConfig(XSdPs_ConfigTable[pdrv].BaseAddress);
-		}
-		else {
-			SdConfig = NULL;
-		}
+			if (pdrv < XPAR_XSDPS_NUM_INSTANCES) {
+				SdConfig = XSdPs_LookupConfig(XSdPs_ConfigTable[pdrv].BaseAddress);
+			}
+			else {
+				SdConfig = NULL;
+			}
 #endif
-		if (NULL == SdConfig) {
+			if (NULL == SdConfig) {
+				s |= STA_NOINIT;
+				return s;
+			}
+
+			BaseAddress[pdrv] = SdConfig->BaseAddress;
+			CardDetect[pdrv] = SdConfig->CardDetect;
+			WriteProtect[pdrv] = SdConfig->WriteProtect;
+
+			HostCntrlrVer[pdrv] = (u8)(XSdPs_ReadReg16(BaseAddress[pdrv],
+						   XSDPS_HOST_CTRL_VER_OFFSET) & XSDPS_HC_SPEC_VER_MASK);
+			if (HostCntrlrVer[pdrv] == XSDPS_HC_SPEC_V3) {
+				SlotType[pdrv] = XSdPs_ReadReg(BaseAddress[pdrv],
+								   XSDPS_CAPS_OFFSET) & XSDPS_CAPS_SLOT_TYPE_MASK;
+			}
+			else {
+				SlotType[pdrv] = 0;
+			}
+		}
+
+		/* If SD is not powered up then mark it as not initialized */
+		if ((XSdPs_ReadReg8(BaseAddress[pdrv], XSDPS_POWER_CTRL_OFFSET) &
+			 XSDPS_PC_BUS_PWR_MASK) == 0U) {
 			s |= STA_NOINIT;
-			return s;
 		}
 
-		BaseAddress[pdrv] = SdConfig->BaseAddress;
-		CardDetect[pdrv] = SdConfig->CardDetect;
-		WriteProtect[pdrv] = SdConfig->WriteProtect;
-
-		HostCntrlrVer[pdrv] = (u8)(XSdPs_ReadReg16(BaseAddress[pdrv],
-					   XSDPS_HOST_CTRL_VER_OFFSET) & XSDPS_HC_SPEC_VER_MASK);
-		if (HostCntrlrVer[pdrv] == XSDPS_HC_SPEC_V3) {
-			SlotType[pdrv] = XSdPs_ReadReg(BaseAddress[pdrv],
-						       XSDPS_CAPS_OFFSET) & XSDPS_CAPS_SLOT_TYPE_MASK;
-		}
-		else {
-			SlotType[pdrv] = 0;
-		}
-	}
-
-	/* If SD is not powered up then mark it as not initialized */
-	if ((XSdPs_ReadReg8(BaseAddress[pdrv], XSDPS_POWER_CTRL_OFFSET) &
-	     XSDPS_PC_BUS_PWR_MASK) == 0U) {
-		s |= STA_NOINIT;
-	}
-
-	StatusReg = XSdPs_GetPresentStatusReg(BaseAddress[pdrv]);
-	if (SlotType[pdrv] != XSDPS_CAPS_EMB_SLOT) {
-		if (CardDetect[pdrv]) {
-			while ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
-				if (DelayCount == 500U) {
-					s = STA_NODISK | STA_NOINIT;
+		StatusReg = XSdPs_GetPresentStatusReg(BaseAddress[pdrv]);
+		if (SlotType[pdrv] != XSDPS_CAPS_EMB_SLOT) {
+			if (CardDetect[pdrv]) {
+				while ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
+					if (DelayCount == 500U) {
+						s = STA_NODISK | STA_NOINIT;
+						goto Label;
+					}
+					else {
+						/* Wait for 10 msec */
+						usleep(SD_CD_DELAY);
+						DelayCount++;
+						StatusReg = XSdPs_GetPresentStatusReg(BaseAddress[pdrv]);
+					}
+				}
+			}
+			s &= ~STA_NODISK;
+			if (WriteProtect[pdrv]) {
+				if ((StatusReg & XSDPS_PSR_WPS_PL_MASK) == 0U) {
+					s |= STA_PROTECT;
 					goto Label;
 				}
-				else {
-					/* Wait for 10 msec */
-					usleep(SD_CD_DELAY);
-					DelayCount++;
-					StatusReg = XSdPs_GetPresentStatusReg(BaseAddress[pdrv]);
-				}
 			}
+			s &= ~STA_PROTECT;
 		}
-		s &= ~STA_NODISK;
-		if (WriteProtect[pdrv]) {
-			if ((StatusReg & XSDPS_PSR_WPS_PL_MASK) == 0U) {
-				s |= STA_PROTECT;
-				goto Label;
-			}
+		else {
+			s &= ~STA_NODISK & ~STA_PROTECT;
 		}
-		s &= ~STA_PROTECT;
-	}
-	else {
-		s &= ~STA_NODISK & ~STA_PROTECT;
-	}
 
 
 Label:
-	Stat[pdrv] = s;
+		Stat[pdrv] = s;
+#endif
+	} else {		/* UFS interface */
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+		s &= ~STA_NODISK;
+		s &= ~STA_PROTECT;
+
+		Stat[pdrv] = s;
+#endif
+	}
 #endif
 
 	return s;
@@ -261,7 +301,12 @@ DSTATUS disk_initialize (
 	DSTATUS s;
 #ifdef FILE_SYSTEM_INTERFACE_SD
 	s32 Status = XST_FAILURE;
+#ifdef XPAR_XSDPS_NUM_INSTANCES
 	XSdPs_Config *SdConfig;
+#endif
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+	XUfsPsxc_Config *UfsConfig;
+#endif
 #endif
 
 	s = disk_status(pdrv);
@@ -275,52 +320,82 @@ DSTATUS disk_initialize (
 	}
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
-	if (CardDetect[pdrv]) {
+	if (pdrv < XSDPS_NUM_INSTANCES) {
+#ifdef XPAR_XSDPS_NUM_INSTANCES
+		if (CardDetect[pdrv]) {
+			/*
+			 * Card detection check
+			 * If the HC detects the No Card State, power will be cleared
+			 */
+			while (!((XSDPS_PSR_CARD_DPL_MASK |
+				  XSDPS_PSR_CARD_STABLE_MASK |
+				  XSDPS_PSR_CARD_INSRT_MASK) ==
+				 (XSdPs_GetPresentStatusReg(BaseAddress[pdrv]) &
+				  (XSDPS_PSR_CARD_DPL_MASK |
+				   XSDPS_PSR_CARD_STABLE_MASK |
+				   XSDPS_PSR_CARD_INSRT_MASK))));
+		}
+
 		/*
-		 * Card detection check
-		 * If the HC detects the No Card State, power will be cleared
+		 * Initialize the host controller
 		 */
-		while (!((XSDPS_PSR_CARD_DPL_MASK |
-			  XSDPS_PSR_CARD_STABLE_MASK |
-			  XSDPS_PSR_CARD_INSRT_MASK) ==
-			 (XSdPs_GetPresentStatusReg(BaseAddress[pdrv]) &
-			  (XSDPS_PSR_CARD_DPL_MASK |
-			   XSDPS_PSR_CARD_STABLE_MASK |
-			   XSDPS_PSR_CARD_INSRT_MASK))));
-	}
-
-	/*
-	 * Initialize the host controller
-	 */
 #ifndef SDT
-	SdConfig = XSdPs_LookupConfig((u16)pdrv);
+		SdConfig = XSdPs_LookupConfig((u16)pdrv);
 #else
-	if (pdrv < XPAR_XSDPS_NUM_INSTANCES) {
-		SdConfig = XSdPs_LookupConfig(XSdPs_ConfigTable[pdrv].BaseAddress);
-	} else {
-		SdConfig = NULL;
-	}
+		if (pdrv < XPAR_XSDPS_NUM_INSTANCES) {
+			SdConfig = XSdPs_LookupConfig(XSdPs_ConfigTable[pdrv].BaseAddress);
+		} else {
+			SdConfig = NULL;
+		}
 #endif
-	if (NULL == SdConfig) {
-		s |= STA_NOINIT;
-		return s;
+		if (NULL == SdConfig) {
+			s |= STA_NOINIT;
+			return s;
+		}
+
+		SdInstance[pdrv].IsReady = 0U;
+
+		Status = XSdPs_CfgInitialize(&SdInstance[pdrv], SdConfig,
+						 SdConfig->BaseAddress);
+		if (Status != XST_SUCCESS) {
+			s |= STA_NOINIT;
+			return s;
+		}
+
+		Status = XSdPs_CardInitialize(&SdInstance[pdrv]);
+		if (Status != XST_SUCCESS) {
+			s |= STA_NOINIT;
+			return s;
+		}
+#endif
+	} else {
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+		UfsConfig = XUfsPsxc_LookupConfig(XUfsPsxc_ConfigTable[0].BaseAddress);
+		if (NULL == UfsConfig) {
+			s |= STA_NOINIT;
+			return s;
+		}
+
+		UfsInstance.IsReady = 0U;
+
+		XUfsPsxc_CfgInitialize(&UfsInstance, UfsConfig);
+
+		Status = XUfsPsxc_Initialize(&UfsInstance);
+		if (Status != XST_SUCCESS) {
+			s |= STA_NOINIT;
+			return s;
+		}
+
+		if (pdrv == XUFS_BLUN_PDRV)	{		/* B-LUN drive number used by PLM */
+			Status = XUfsPsxc_CheckBootReq(&UfsInstance);
+			if (Status != XST_SUCCESS) {
+				s |= STA_NOINIT;
+				return s;
+			}
+		}
+
+#endif
 	}
-
-	SdInstance[pdrv].IsReady = 0U;
-
-	Status = XSdPs_CfgInitialize(&SdInstance[pdrv], SdConfig,
-				     SdConfig->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
-	Status = XSdPs_CardInitialize(&SdInstance[pdrv]);
-	if (Status != XST_SUCCESS) {
-		s |= STA_NOINIT;
-		return s;
-	}
-
 
 	/*
 	 * Disk is initialized.
@@ -389,14 +464,32 @@ DRESULT disk_read (
 	}
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
-	/* Convert LBA to byte address if needed */
-	if ((SdInstance[pdrv].HCS) == 0U) {
-		LocSector *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
-	}
+	if (pdrv < XSDPS_NUM_INSTANCES) {
+#ifdef XPAR_XSDPS_NUM_INSTANCES
+		/* Convert LBA to byte address if needed */
+		if ((SdInstance[pdrv].HCS) == 0U) {
+			LocSector *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
+		}
 
-	Status  = XSdPs_ReadPolled(&SdInstance[pdrv], (u32)LocSector, count, buff);
-	if (Status != XST_SUCCESS) {
-		return RES_ERROR;
+		Status  = XSdPs_ReadPolled(&SdInstance[pdrv], (u32)LocSector, count, buff);
+		if (Status != XST_SUCCESS) {
+			return RES_ERROR;
+		}
+#endif
+	} else {
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+		u32 LunId;
+
+		if (pdrv == XUFS_BLUN_PDRV)	/* Well known B-LUN drive number */
+			LunId = XUFSPSXC_BLUN_ID;
+		else
+			LunId = pdrv - XUFSPSXC_START_INDEX;
+
+		Status  = XUfsPsxc_ReadPolled(&UfsInstance, LunId, (u32)LocSector, count, buff);
+		if (Status != XST_SUCCESS) {
+			return RES_ERROR;
+		}
+#endif
 	}
 #endif
 
@@ -447,6 +540,10 @@ DRESULT disk_ioctl (
 #ifdef FILE_SYSTEM_INTERFACE_SD
 	void *LocBuff = buff;
 	DWORD *SendBuff = (DWORD *)(void *)buff;
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+	u32 Status = XST_FAILURE;
+#endif
+
 	if ((disk_status(pdrv) & STA_NOINIT) != 0U) {	/* Check if card is in the socket */
 		return RES_NOTRDY;
 	}
@@ -457,7 +554,27 @@ DRESULT disk_ioctl (
 			break;
 
 		case (BYTE)GET_SECTOR_COUNT : /* Get number of sectors on the disk (DWORD) */
-			(*((DWORD *)(void *)LocBuff)) = (DWORD)SdInstance[pdrv].SectorCount;
+			if (pdrv < XSDPS_NUM_INSTANCES) {
+#ifdef XPAR_XSDPS_NUM_INSTANCES
+				(*((DWORD *)(void *)LocBuff)) = (DWORD)SdInstance[pdrv].SectorCount;
+#endif
+			} else {
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+				u32 LunId;
+
+				if (pdrv == XUFS_BLUN_PDRV) {	/* B-LUN drive number */
+					if (UfsInstance.BootLunEn == XUFSPSXC_BLUN_A) {
+						LunId = UfsInstance.BLunALunId;
+					} else {
+						LunId = UfsInstance.BLunBLunId;
+					}
+				} else {
+					LunId = pdrv - XUFSPSXC_START_INDEX;
+				}
+
+				(*((DWORD *)(void *)LocBuff)) = (DWORD)((UfsInstance.LUNInfo[LunId].LUNSize * 1024U * 1024U) / UfsInstance.LUNInfo[LunId].BlockSize);
+#endif
+			}
 			res = RES_OK;
 			break;
 
@@ -467,14 +584,67 @@ DRESULT disk_ioctl (
 			break;
 
 		case (BYTE)CTRL_TRIM :	/* Erase the data */
-			if ((SdInstance[pdrv].HCS) == 0U) {
-				SendBuff[0] *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
-				SendBuff[1] *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
+			if (pdrv < XSDPS_NUM_INSTANCES) {
+#ifdef XPAR_XSDPS_NUM_INSTANCES
+				if ((SdInstance[pdrv].HCS) == 0U) {
+					SendBuff[0] *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
+					SendBuff[1] *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
+				}
+				(void)XSdPs_Erase(&SdInstance[pdrv], SendBuff[0], SendBuff[1]);
+#endif
 			}
-			(void)XSdPs_Erase(&SdInstance[pdrv], SendBuff[0], SendBuff[1]);
 			res = RES_OK;
 			break;
 
+		case (BYTE)GET_SECTOR_SIZE : /* Get sector size on the disk (DWORD) */
+			if (pdrv < XSDPS_NUM_INSTANCES) {
+#ifdef XPAR_XSDPS_NUM_INSTANCES
+				(*((DWORD*)((void *)buff))) = ((DWORD)512U);
+#endif
+			} else {
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+				u32 LunId;
+
+				if (pdrv == XUFS_BLUN_PDRV) {	/* B-LUN drive number */
+					if (UfsInstance.BootLunEn == XUFSPSXC_BLUN_A) {
+						LunId = UfsInstance.BLunALunId;
+					} else {
+						LunId = UfsInstance.BLunBLunId;
+					}
+				} else {
+					LunId = pdrv - XUFSPSXC_START_INDEX;
+				}
+
+				(*((DWORD*)((void *)buff))) = ((DWORD)UfsInstance.LUNInfo[LunId].BlockSize);
+#endif
+			}
+			res = RES_OK;
+			break;
+
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+		case (BYTE)XUFSPSXC_SWITCH_BLUN :
+			Status = XUfsPsxc_SwitchBootLUN(&UfsInstance);
+			if (Status != XST_SUCCESS) {
+				res = RES_OK;
+				break;
+			}
+
+			res = RES_OK;
+			break;
+
+		case (BYTE)XUFSPSXC_SPEED_CHANGE :
+			DWORD PowerMode;
+
+			PowerMode = *((DWORD *)((void *)buff));
+			Status = XUfsPsxc_ConfigureSpeedGear(&UfsInstance, PowerMode);
+			if (Status != XST_SUCCESS) {
+				res = RES_ERROR;
+				break;
+			}
+
+			res = RES_OK;
+			break;
+#endif
 		default:
 			res = RES_PARERR;
 			break;
@@ -578,14 +748,33 @@ DRESULT disk_write (
 	}
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
-	/* Convert LBA to byte address if needed */
-	if ((SdInstance[pdrv].HCS) == 0U) {
-		LocSector *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
-	}
+	if (pdrv < XSDPS_NUM_INSTANCES) {
+#ifdef XPAR_XSDPS_NUM_INSTANCES
+		/* Convert LBA to byte address if needed */
+		if ((SdInstance[pdrv].HCS) == 0U) {
+			LocSector *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
+		}
 
-	Status  = XSdPs_WritePolled(&SdInstance[pdrv], (u32)LocSector, count, buff);
-	if (Status != XST_SUCCESS) {
-		return RES_ERROR;
+		Status  = XSdPs_WritePolled(&SdInstance[pdrv], (u32)LocSector, count, buff);
+		if (Status != XST_SUCCESS) {
+			return RES_ERROR;
+		}
+#endif
+	} else {
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+		u32 LunId;
+
+		if (pdrv == XUFS_BLUN_PDRV) {	/* Well known B-LUN drive number */
+			LunId = XUFSPSXC_BLUN_ID;
+		} else {
+			LunId = pdrv - XUFSPSXC_START_INDEX;
+		}
+
+		Status  = XUfsPsxc_WritePolled(&UfsInstance, LunId, (u32)LocSector, count, buff);
+		if (Status != XST_SUCCESS) {
+			return RES_ERROR;
+		}
+#endif
 	}
 
 #endif

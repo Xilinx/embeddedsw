@@ -32,6 +32,9 @@
 * 4.7   sk   11/11/21 Add DCache invalidate for last unaligned byte count
 *                     (< 512 bytes) in f_read().
 * 5.1   ro   06/12/23 Added support for system device-tree flow.
+* 5.2   sk   07/11/24 Add f_ioctl interface to perform UFS specific configs.
+*       sk   07/11/24 Update drive number calculation logic to support multiple
+*                     digit drive numbers.
 ******************************************************************************/
 #include "xparameters.h"
 #include "xstatus.h"
@@ -45,6 +48,9 @@
 #include "diskio.h"		/* Declarations of device I/O functions */
 #include "xil_printf.h"
 #include "xil_cache.h"
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+#include <stdlib.h>
+#endif
 #include <string.h>
 
 
@@ -482,7 +488,7 @@ typedef struct {
 /* File/Volume controls           */
 /*--------------------------------*/
 
-#if FF_VOLUMES < 1 || FF_VOLUMES > 10
+#if FF_VOLUMES < 1 || FF_VOLUMES > 175
 #error Wrong FF_VOLUMES setting
 #endif
 static FATFS *FatFs[FF_VOLUMES];	/* Pointer to the filesystem objects (logical drives) */
@@ -628,16 +634,187 @@ static const BYTE DbcTbl[] = MKCVTBL(TBL_DC, FF_CODE_PAGE);
 
 #if FF_MULTI_PARTITION
 PARTITION VolToPart[] = {
+	/* SD0/SD1 */
 	{0, 0},     /* Logical drive 0 ==> Physical drive 0, 0th partition */
 	{0, 1},     /* Logical drive 1 ==> Physical drive 0, 1st partition */
 	{0, 2},     /* Logical drive 2 ==> Physical drive 0, 2nd partition */
 	{0, 3},     /* Logical drive 3 ==> Physical drive 0, 3rd partition */
 	{0, 4},     /* Logical drive 4 ==> Physical drive 0, 4th partition */
+	/* SD1 */
 	{1, 0},     /* Logical drive 5 ==> Physical drive 1, 0th partition */
 	{1, 1},     /* Logical drive 6 ==> Physical drive 1, 1st partition */
 	{1, 2},     /* Logical drive 7 ==> Physical drive 1, 2nd partition */
 	{1, 3},     /* Logical drive 8 ==> Physical drive 1, 3rd partition */
-	{1, 4}      /* Logical drive 9 ==> Physical drive 1, 4th partition */
+	{1, 4},      /* Logical drive 9 ==> Physical drive 1, 4th partition */
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+	/* UFS Boot-Lun */
+	{2, 0},      /* Logical drive 10 ==> Physical drive 2, 0th partition */
+	{2, 1},      /* Logical drive 11 ==> Physical drive 2, 1st partition */
+	{2, 2},      /* Logical drive 12 ==> Physical drive 2, 2nd partition */
+	{2, 3},      /* Logical drive 13 ==> Physical drive 2, 3rd partition */
+	{2, 4},      /* Logical drive 14 ==> Physical drive 2, 4th partition */
+	/* UFS */
+	{3, 0},      /* Logical drive 15 ==> Physical drive 3, 0th partition */
+	{3, 1},      /* Logical drive 16 ==> Physical drive 3, 1st partition */
+	{3, 2},      /* Logical drive 17 ==> Physical drive 3, 2nd partition */
+	{3, 3},      /* Logical drive 18 ==> Physical drive 3, 3rd partition */
+	{3, 4},      /* Logical drive 19 ==> Physical drive 3, 4th partition */
+	{4, 0},      /* Logical drive 20 ==> Physical drive 4, 0th partition */
+	{4, 1},      /* Logical drive 21 ==> Physical drive 4, 1st partition */
+	{4, 2},      /* Logical drive 22 ==> Physical drive 4, 2nd partition */
+	{4, 3},      /* Logical drive 23 ==> Physical drive 4, 3rd partition */
+	{4, 4},      /* Logical drive 24 ==> Physical drive 4, 4th partition */
+	{5, 0},      /* Logical drive 25 ==> Physical drive 5, 0th partition */
+	{5, 1},      /* Logical drive 26 ==> Physical drive 5, 1st partition */
+	{5, 2},      /* Logical drive 27 ==> Physical drive 5, 2nd partition */
+	{5, 3},      /* Logical drive 28 ==> Physical drive 5, 3rd partition */
+	{5, 4},      /* Logical drive 29 ==> Physical drive 5, 4th partition */
+	{6, 0},      /* Logical drive 30 ==> Physical drive 6, 0th partition */
+	{6, 1},      /* Logical drive 31 ==> Physical drive 6, 1st partition */
+	{6, 2},      /* Logical drive 32 ==> Physical drive 6, 2nd partition */
+	{6, 3},      /* Logical drive 33 ==> Physical drive 6, 3rd partition */
+	{6, 4},      /* Logical drive 34 ==> Physical drive 6, 4th partition */
+	{7, 0},      /* Logical drive 35 ==> Physical drive 7, 0th partition */
+	{7, 1},      /* Logical drive 36 ==> Physical drive 7, 1st partition */
+	{7, 2},      /* Logical drive 37 ==> Physical drive 7, 2nd partition */
+	{7, 3},      /* Logical drive 38 ==> Physical drive 7, 3rd partition */
+	{7, 4},      /* Logical drive 39 ==> Physical drive 7, 4th partition */
+	{8, 0},      /* Logical drive 40 ==> Physical drive 8, 0th partition */
+	{8, 1},      /* Logical drive 41 ==> Physical drive 8, 1st partition */
+	{8, 2},      /* Logical drive 42 ==> Physical drive 8, 2nd partition */
+	{8, 3},      /* Logical drive 43 ==> Physical drive 8, 3rd partition */
+	{8, 4},      /* Logical drive 44 ==> Physical drive 8, 4th partition */
+	{9, 0},      /* Logical drive 45 ==> Physical drive 9, 0th partition */
+	{9, 1},      /* Logical drive 46 ==> Physical drive 9, 1st partition */
+	{9, 2},      /* Logical drive 47 ==> Physical drive 9, 2nd partition */
+	{9, 3},      /* Logical drive 48 ==> Physical drive 9, 3rd partition */
+	{9, 4},      /* Logical drive 49 ==> Physical drive 9, 4th partition */
+	{10, 0},      /* Logical drive 50 ==> Physical drive 10, 0th partition */
+	{10, 1},      /* Logical drive 51 ==> Physical drive 10, 1st partition */
+	{10, 2},      /* Logical drive 52 ==> Physical drive 10, 2nd partition */
+	{10, 3},      /* Logical drive 53 ==> Physical drive 10, 3rd partition */
+	{10, 4},      /* Logical drive 54 ==> Physical drive 10, 4th partition */
+	{11, 0},      /* Logical drive 55 ==> Physical drive 11, 0th partition */
+	{11, 1},      /* Logical drive 56 ==> Physical drive 11, 1st partition */
+	{11, 2},      /* Logical drive 57 ==> Physical drive 11, 2nd partition */
+	{11, 3},      /* Logical drive 58 ==> Physical drive 11, 3rd partition */
+	{11, 4},      /* Logical drive 59 ==> Physical drive 11, 4th partition */
+	{12, 0},      /* Logical drive 60 ==> Physical drive 12, 0th partition */
+	{12, 1},      /* Logical drive 61 ==> Physical drive 12, 1st partition */
+	{12, 2},      /* Logical drive 62 ==> Physical drive 12, 2nd partition */
+	{12, 3},      /* Logical drive 63 ==> Physical drive 12, 3rd partition */
+	{12, 4},      /* Logical drive 64 ==> Physical drive 12, 4th partition */
+	{13, 0},      /* Logical drive 65 ==> Physical drive 13, 0th partition */
+	{13, 1},      /* Logical drive 66 ==> Physical drive 13, 1st partition */
+	{13, 2},      /* Logical drive 67 ==> Physical drive 13, 2nd partition */
+	{13, 3},      /* Logical drive 68 ==> Physical drive 13, 3rd partition */
+	{13, 4},      /* Logical drive 69 ==> Physical drive 13, 4th partition */
+	{14, 0},      /* Logical drive 70 ==> Physical drive 14, 0th partition */
+	{14, 1},      /* Logical drive 71 ==> Physical drive 14, 1st partition */
+	{14, 2},      /* Logical drive 72 ==> Physical drive 14, 2nd partition */
+	{14, 3},     /* Logical drive 73 ==> Physical drive 14, 3rd partition */
+	{14, 4},      /* Logical drive 74 ==> Physical drive 14, 4th partition */
+	{15, 0},      /* Logical drive 75 ==> Physical drive 15, 0th partition */
+	{15, 1},     /* Logical drive 76 ==> Physical drive 15, 1st partition */
+	{15, 2},      /* Logical drive 77 ==> Physical drive 15, 2nd partition */
+	{15, 3},      /* Logical drive 78 ==> Physical drive 15, 3rd partition */
+	{15, 4},      /* Logical drive 79 ==> Physical drive 15, 4th partition */
+	{16, 0},      /* Logical drive 80 ==> Physical drive 16, 0th partition */
+	{16, 1},      /* Logical drive 81 ==> Physical drive 16, 1st partition */
+	{16, 2},      /* Logical drive 82 ==> Physical drive 16, 2nd partition */
+	{16, 3},      /* Logical drive 83 ==> Physical drive 16, 3rd partition */
+	{16, 4},      /* Logical drive 84 ==> Physical drive 16, 4th partition */
+	{17, 0},      /* Logical drive 85 ==> Physical drive 17, 0th partition */
+	{17, 1},      /* Logical drive 86 ==> Physical drive 17, 1st partition */
+	{17, 2},      /* Logical drive 87 ==> Physical drive 17, 2nd partition */
+	{17, 3},      /* Logical drive 88 ==> Physical drive 17, 3rd partition */
+	{17, 4},      /* Logical drive 89 ==> Physical drive 17, 4th partition */
+	{18, 0},      /* Logical drive 90 ==> Physical drive 18, 0th partition */
+	{18, 1},      /* Logical drive 91 ==> Physical drive 18, 1st partition */
+	{18, 2},      /* Logical drive 92 ==> Physical drive 18, 2nd partition */
+	{18, 3},      /* Logical drive 93 ==> Physical drive 18, 3rd partition */
+	{18, 4},      /* Logical drive 94 ==> Physical drive 18, 4th partition */
+	{19, 0},      /* Logical drive 95 ==> Physical drive 19, 0th partition */
+	{19, 1},      /* Logical drive 96 ==> Physical drive 19, 1st partition */
+	{19, 2},      /* Logical drive 97 ==> Physical drive 19, 2nd partition */
+	{19, 3},      /* Logical drive 98 ==> Physical drive 19, 3rd partition */
+	{19, 4},      /* Logical drive 99 ==> Physical drive 19, 4th partition */
+	{20, 0},      /* Logical drive 100 ==> Physical drive 20, 0th partition */
+	{20, 1},      /* Logical drive 101 ==> Physical drive 20, 1st partition */
+	{20, 2},      /* Logical drive 102 ==> Physical drive 20, 2nd partition */
+	{20, 3},      /* Logical drive 103 ==> Physical drive 20, 3rd partition */
+	{20, 4},      /* Logical drive 104 ==> Physical drive 20, 4th partition */
+	{21, 0},      /* Logical drive 105 ==> Physical drive 21, 0th partition */
+	{21, 1},      /* Logical drive 106 ==> Physical drive 21, 1st partition */
+	{21, 2},      /* Logical drive 107 ==> Physical drive 21, 2nd partition */
+	{21, 3},      /* Logical drive 108 ==> Physical drive 21, 3rd partition */
+	{21, 4},      /* Logical drive 109 ==> Physical drive 21, 4th partition */
+	{22, 0},      /* Logical drive 110 ==> Physical drive 22, 0th partition */
+	{22, 1},      /* Logical drive 111 ==> Physical drive 22, 1st partition */
+	{22, 2},      /* Logical drive 112 ==> Physical drive 22, 2nd partition */
+	{22, 3},      /* Logical drive 113 ==> Physical drive 22, 3rd partition */
+	{22, 4},      /* Logical drive 114 ==> Physical drive 22, 4th partition */
+	{23, 0},      /* Logical drive 115 ==> Physical drive 23, 0th partition */
+	{23, 1},      /* Logical drive 116 ==> Physical drive 23, 1st partition */
+	{23, 2},      /* Logical drive 117 ==> Physical drive 23, 2nd partition */
+	{23, 3},      /* Logical drive 118 ==> Physical drive 23, 3rd partition */
+	{23, 4},      /* Logical drive 119 ==> Physical drive 23, 4th partition */
+	{24, 0},      /* Logical drive 120 ==> Physical drive 24, 0th partition */
+	{24, 1},      /* Logical drive 121 ==> Physical drive 24, 1st partition */
+	{24, 2},      /* Logical drive 122 ==> Physical drive 24, 2nd partition */
+	{24, 3},      /* Logical drive 123 ==> Physical drive 24, 3rd partition */
+	{24, 4},      /* Logical drive 124 ==> Physical drive 24, 4th partition */
+	{25, 0},      /* Logical drive 125 ==> Physical drive 25, 0th partition */
+	{25, 1},      /* Logical drive 126 ==> Physical drive 25, 1st partition */
+	{25, 2},      /* Logical drive 127 ==> Physical drive 25, 2nd partition */
+	{25, 3},      /* Logical drive 128 ==> Physical drive 25, 3rd partition */
+	{25, 4},      /* Logical drive 129 ==> Physical drive 25, 4th partition */
+	{26, 0},      /* Logical drive 130 ==> Physical drive 26, 0th partition */
+	{26, 1},      /* Logical drive 131 ==> Physical drive 26, 1st partition */
+	{26, 2},      /* Logical drive 132 ==> Physical drive 26, 2nd partition */
+	{26, 3},      /* Logical drive 133 ==> Physical drive 26, 3rd partition */
+	{26, 4},      /* Logical drive 134 ==> Physical drive 26, 4th partition */
+	{27, 0},      /* Logical drive 135 ==> Physical drive 27, 0th partition */
+	{27, 1},      /* Logical drive 136 ==> Physical drive 27, 1st partition */
+	{27, 2},      /* Logical drive 137 ==> Physical drive 27, 2nd partition */
+	{27, 3},      /* Logical drive 138 ==> Physical drive 27, 3rd partition */
+	{27, 4},      /* Logical drive 139 ==> Physical drive 27, 4th partition */
+	{28, 0},      /* Logical drive 140 ==> Physical drive 28, 0th partition */
+	{28, 1},      /* Logical drive 141 ==> Physical drive 28, 1st partition */
+	{28, 2},      /* Logical drive 142 ==> Physical drive 28, 2nd partition */
+	{28, 3},      /* Logical drive 143 ==> Physical drive 28, 3rd partition */
+	{28, 4},      /* Logical drive 144 ==> Physical drive 28, 4th partition */
+	{29, 0},      /* Logical drive 145 ==> Physical drive 29, 0th partition */
+	{29, 1},      /* Logical drive 146 ==> Physical drive 29, 1st partition */
+	{29, 2},      /* Logical drive 147 ==> Physical drive 29, 2nd partition */
+	{29, 3},      /* Logical drive 148 ==> Physical drive 29, 3rd partition */
+	{29, 4},      /* Logical drive 149 ==> Physical drive 29, 4th partition */
+	{30, 0},      /* Logical drive 150 ==> Physical drive 30, 0th partition */
+	{30, 1},      /* Logical drive 151 ==> Physical drive 30, 1st partition */
+	{30, 2},      /* Logical drive 152 ==> Physical drive 30, 2nd partition */
+	{30, 3},      /* Logical drive 153 ==> Physical drive 30, 3rd partition */
+	{30, 4},      /* Logical drive 154 ==> Physical drive 30, 4th partition */
+	{31, 0},      /* Logical drive 155 ==> Physical drive 31, 0th partition */
+	{31, 1},      /* Logical drive 156 ==> Physical drive 31, 1st partition */
+	{31, 2},      /* Logical drive 157 ==> Physical drive 31, 2nd partition */
+	{31, 3},      /* Logical drive 158 ==> Physical drive 31, 3rd partition */
+	{31, 4},      /* Logical drive 159 ==> Physical drive 31, 4th partition */
+	{32, 0},      /* Logical drive 160 ==> Physical drive 32, 0th partition */
+	{32, 1},      /* Logical drive 161 ==> Physical drive 32, 1st partition */
+	{32, 2},      /* Logical drive 162 ==> Physical drive 32, 2nd partition */
+	{32, 3},      /* Logical drive 163 ==> Physical drive 32, 3rd partition */
+	{32, 4},      /* Logical drive 164 ==> Physical drive 32, 4th partition */
+	{33, 0},      /* Logical drive 165 ==> Physical drive 33, 0th partition */
+	{33, 1},      /* Logical drive 166 ==> Physical drive 33, 1st partition */
+	{33, 2},      /* Logical drive 167 ==> Physical drive 33, 2nd partition */
+	{33, 3},      /* Logical drive 168 ==> Physical drive 33, 3rd partition */
+	{33, 4},      /* Logical drive 169 ==> Physical drive 33, 4th partition */
+	{34, 0},      /* Logical drive 170 ==> Physical drive 34, 0th partition */
+	{34, 1},      /* Logical drive 171 ==> Physical drive 34, 1st partition */
+	{34, 2},      /* Logical drive 172 ==> Physical drive 34, 2nd partition */
+	{34, 3},      /* Logical drive 173 ==> Physical drive 34, 3rd partition */
+	{34, 4},      /* Logical drive 174 ==> Physical drive 34, 4th partition */
+#endif
 };
 #endif
 
@@ -3799,6 +3976,10 @@ static int get_ldnumber (	/* Returns logical drive number (-1:invalid drive numb
 	const TCHAR *tp;
 	const TCHAR *tt;
 	TCHAR tc;
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+	TCHAR vol_id[4];
+	int index = 0;
+#endif
 	int i;
 	int vol = -1;
 #if FF_STR_VOLUME_ID		/* Find string volume ID */
@@ -3812,14 +3993,25 @@ static int get_ldnumber (	/* Returns logical drive number (-1:invalid drive numb
 	}
 	do {					/* Find a colon in the path */
 		tc = *tt++;
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+		vol_id[index] = tc;
+		index++;
+#endif
 	}
 	while (!IsTerminator(tc) && tc != ':');
 
 	if (tc == ':') {	/* DOS/Windows style volume ID? */
 		i = FF_VOLUMES;
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+		if (index <= 4) {
+			vol_id[index - 1] = '\0';
+			i = atoi(vol_id);
+		}
+#else
 		if (IsDigit(*tp) && tp + 2 == tt) {	/* Is there a numeric volume ID + colon? */
 			i = (int) * tp - '0';	/* Get the LD number */
 		}
+#endif
 #if FF_STR_VOLUME_ID == 1	/* Arbitrary string is enabled */
 		else {
 			i = 0;
@@ -8638,5 +8830,29 @@ FRESULT f_setcp (
 	return FR_OK;
 }
 #endif	/* FF_CODE_PAGE == 0 */
+
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+/*---------------------------------------------------------------------------*/
+/* Interface used to access the Low level device for specific functionality  */
+/*---------------------------------------------------------------------------*/
+FRESULT f_ioctl (const TCHAR *path, BYTE Cmd, void *buff)
+{
+	int vol;
+	FATFS *fs;
+
+	vol = get_ldnumber(&path);					/* Get target logical drive */
+	if (vol < 0) {
+		return FR_INVALID_DRIVE;
+	}
+
+	fs = FatFs[vol];
+
+	if (disk_ioctl(fs->pdrv, Cmd, buff) != RES_OK) {
+		return FR_DISK_ERR;
+	}
+
+	return FR_OK;
+}
+#endif
 
 #endif /* (defined FILE_SYSTEM_INTERFACE_SD) || (defined FILE_SYSTEM_INTERFACE_RAM) */

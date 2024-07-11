@@ -354,6 +354,9 @@ int f_putc (TCHAR c, FIL* fp);										/* Put a character to the file */
 int f_puts (const TCHAR* str, FIL* cp);								/* Put a string to the file */
 int f_printf (FIL* fp, const TCHAR* str, ...);						/* Put a formatted string to the file */
 TCHAR* f_gets (TCHAR* buff, int len, FIL* fp);						/* Get a string from the file */
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+FRESULT f_ioctl (const TCHAR *path, BYTE Cmd, void *buff);			/* Perform device specific operations */
+#endif
 
 /* Some API functions are implemented as macro */
 
@@ -440,6 +443,11 @@ void ff_mutex_give (int vol);		/* Unlock sync object */
 #define AM_DIR	0x10	/* Directory */
 #define AM_ARC	0x20	/* Archive */
 
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+/* Device specific functionality commands */
+#define XUFSPSXC_SPEED_CHANGE		100U
+#define XUFSPSXC_SWITCH_BLUN		101U
+#endif
 
 #ifdef __cplusplus
 }
