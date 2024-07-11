@@ -215,28 +215,7 @@ extern "C" {
 /*---------------------------------------------------------------------------/
 / Drive/Volume Configurations
 /---------------------------------------------------------------------------*/
-
-#if FILE_SYSTEM_NUM_LOGIC_VOL == 1
-#define FF_VOLUMES 1U
-#elif FILE_SYSTEM_NUM_LOGIC_VOL == 2
-#define FF_VOLUMES 2U
-#elif FILE_SYSTEM_NUM_LOGIC_VOL == 3
-#define FF_VOLUMES 3U
-#elif FILE_SYSTEM_NUM_LOGIC_VOL == 4
-#define FF_VOLUMES 4U
-#elif FILE_SYSTEM_NUM_LOGIC_VOL == 5
-#define FF_VOLUMES 5U
-#elif FILE_SYSTEM_NUM_LOGIC_VOL == 6
-#define FF_VOLUMES 6U
-#elif FILE_SYSTEM_NUM_LOGIC_VOL == 7
-#define FF_VOLUMES 7U
-#elif FILE_SYSTEM_NUM_LOGIC_VOL == 8
-#define FF_VOLUMES 8U
-#elif FILE_SYSTEM_NUM_LOGIC_VOL == 9
-#define FF_VOLUMES 9U
-#else
-#define FF_VOLUMES 10U
-#endif
+#define FF_VOLUMES		FILE_SYSTEM_NUM_LOGIC_VOL
 /* Number of volumes (logical drives) to be used. (1-10) */
 
 
@@ -268,7 +247,15 @@ extern "C" {
 
 
 #define FF_MIN_SS		512
+#ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+#ifdef SDT
+#define FF_MAX_SS		FILE_SYSTEM_MAX_SECTOR_SIZE
+#else
+#define FF_MAX_SS               4096
+#endif
+#else
 #define FF_MAX_SS		512
+#endif
 /* This set of options configures the range of sector size to be supported. (512,
 /  1024, 2048 or 4096) Always set both 512 for most systems, generic memory card and
 /  harddisk, but a larger value may be required for on-board flash memory and some
