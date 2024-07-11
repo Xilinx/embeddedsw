@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -292,6 +292,7 @@
 * 12.1  cog    07/04/23 Add support for SDT.
 *       cog    07/14/23 Fix issues with SDT flow.
 *       cog    07/27/23 Add NCO frequency to config structures.
+* 12.3  cog    07/09/24 Corrected GEN3 maximum ADC VCO frequency.
 *
 * </pre>
 *
@@ -990,7 +991,7 @@ typedef struct {
 #define VCO_RANGE_MIN 8500U
 #define VCO_RANGE_MAX 13200U
 #define VCO_RANGE_ADC_MIN 8500U
-#define VCO_RANGE_ADC_MAX 12800U
+#define VCO_RANGE_ADC_MAX 13200U
 #define VCO_RANGE_DAC_MIN 7800U
 #define VCO_RANGE_DAC_MAX 13800U
 #define XRFDC_PLL_LPF1_VAL 0x6U
