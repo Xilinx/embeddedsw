@@ -9,17 +9,30 @@
 #include "xpm_debug.h"
 #include "xplmi_update.h"
 #include "xpm_update_data.h"
-#ifdef CPPUTEST
-#define MAX_BYTEBUFFER_SIZE	(52U * 1024U)
+
+#define STR2(x)	#x
+#define STR(x)	STR2(x)
+
+/* XILPM_BYTEBUFFER_SIZE_IN_KB is a configurable compiler option for XilPM */
+#if defined(XILPM_BYTEBUFFER_SIZE_IN_KB) && XILPM_BYTEBUFFER_SIZE_IN_KB > 0
+	#define MAX_BYTEBUFFER_SIZE	((XILPM_BYTEBUFFER_SIZE_IN_KB) * 1024U)
+	#pragma message("XilPM ByteBuffer size is set to " STR(MAX_BYTEBUFFER_SIZE) " bytes")
 #else
-#define MAX_BYTEBUFFER_SIZE	(48U * 1024U)
+	#ifdef CPPUTEST
+		#define MAX_BYTEBUFFER_SIZE	(52U * 1024U)
+	#else
+		#define MAX_BYTEBUFFER_SIZE	(64U * 1024U)
+	#endif
+	#pragma message("XILPM_BYTEBUFFER_SIZE_IN_KB is <= 0 or not defined, using default size " STR(MAX_BYTEBUFFER_SIZE) " bytes")
 #endif
 
 #ifdef CPPUTEST
-u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
+	u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 #else
-static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
+	static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 #endif
+
+/* Free Bytes Pointer */
 static u8 *FreeBytes = ByteBuffer;
 
 /* Saved ByteBuffer Address */
