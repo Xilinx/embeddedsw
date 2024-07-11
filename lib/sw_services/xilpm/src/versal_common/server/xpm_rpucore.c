@@ -144,7 +144,7 @@ XStatus XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 		    ((u8)ONLINE == DefSubsystem->State)) {
 			if (Mode == XPM_RPU_MODE_SPLIT) {
 				Status = XPmDevice_Request(PM_SUBSYS_DEFAULT, Rpu1,
-							   (u32)PM_CAP_ACCESS,
+							   (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE,
 							   XPM_MAX_QOS,
 							   XPLMI_CMD_SECURE);
 				if (XST_SUCCESS != Status) {
