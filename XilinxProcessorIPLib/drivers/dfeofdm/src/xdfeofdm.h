@@ -55,6 +55,7 @@
 * 1.2   dc     10/16/23 Doxygen documenatation update
 *       dc     10/17/23 Support for FFT size 512
 *       cog    02/21/24 Fixed SDT runtime issue
+* 1.3   dc     06/18/24 Add FR1 and FR2 frequency range
 *
 * </pre>
 * @endcond
@@ -279,6 +280,9 @@ typedef struct {
  */
 typedef struct {
 	u32 CCSequenceLength; /**< CC Sequence Length */
+	u32 FrequencyRange; /**< [0, 1] Frequency ranges:
+				     - 0 = FR1 (default)
+				     - 1 = FR2 */
 } XDfeOfdm_Init;
 
 /**
@@ -422,6 +426,9 @@ typedef struct {
 	XDfeOfdm_StateId StateId; /**< StateId */
 	s32 NotUsedCCID; /**< Not used CCID */
 	u32 CCSequenceLength; /**< Exact sequence length */
+	u32 FrequencyRange; /**< [0, 1] Frequency ranges:
+				     - 0 = FR1 (default)
+				     - 1 = FR2 */
 	char NodeName[XDFEOFDM_NODE_NAME_MAX_LENGTH]; /**< Node name */
 	struct metal_io_region *Io; /**< Libmetal I/O structure */
 	struct metal_device *Device; /**< Libmetal device structure */

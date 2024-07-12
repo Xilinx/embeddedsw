@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *       dc     10/17/23 Support for FFT size 512
 *       dc     02/29/24 Correct sw major/minor version numbers
 *       dc     03/22/24 Update hw version
+* 1.3   dc     06/18/24 Add FR1 and FR2 frequency range
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -59,13 +60,16 @@
 * @endcond
 */
 #define XDFEOFDM_DRIVER_VERSION_MINOR                                          \
-	(2U) /**< Minor version number of driver */
+	(3U) /**< Minor version number of driver */
 #define XDFEOFDM_DRIVER_VERSION_MAJOR                                          \
 	(1U) /**< Major version number of driver */
 
 #define XDFEOFDM_PHASE_COMPENSATION_REG_STEP                                   \
 	8U /**< Address space step between
 	space for phase compensation on one carrier */
+
+#define XDFEOFDM_FREQUENCY_RANGE_1 0U /**< [15, 30, 60] kHz (default) */
+#define XDFEOFDM_FREQUENCY_RANGE_2 1U /**< [60, 120, 240, 480, 960] kHz */
 
 /************************** Function Prototypes *****************************/
 
@@ -504,11 +508,12 @@ static void XDfeOfdm_SetNextFTSequence(XDfeOfdm_CCCfg *CCCfg,
 *           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-static u32 XDfeOfdm_CheckFTSequenceLength(XDfeOfdm_CCCfg *NextCCCfg,
+static u32 XDfeOfdm_CheckFTSequenceLength(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *NextCCCfg,
 					  u32 NewFTLength)
 {
 	u32 Index;
 	u32 CurrentFTLength = 0;
+	Xil_AssertVoid(InstancePtr->FrequencyRange <= XDFEOFDM_FREQUENCY_RANGE_2);
 
 	/* Calculate expected FT sequence length */
 	for (Index = 0; Index < XDFEOFDM_CC_SEQ_LENGTH_MAX; Index++) {
@@ -517,32 +522,44 @@ static u32 XDfeOfdm_CheckFTSequenceLength(XDfeOfdm_CCCfg *NextCCCfg,
 			continue;
 		}
 
-		/* Is numerology value 15 or 30kHz */
-		switch (NextCCCfg->CarrierCfg[Index].Numerology) {
-		case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_15kHz:
-			CurrentFTLength += 1U;
-			break;
-		case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_30kHz:
-			CurrentFTLength += 2U;
-			break;
-		case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_60kHz:
-			CurrentFTLength += 4U;
-			break;
-		case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_120kHz:
-			CurrentFTLength += 8U;
-			break;
-		case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_240kHz:
-			CurrentFTLength += 16U;
-			break;
-		case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_480kHz:
-			CurrentFTLength += 32U;
-			break;
-		case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_960kHz:
-			CurrentFTLength += 64U;
-			break;
-		default:
-			metal_log(METAL_LOG_ERROR,
-				  "Wrong Numerology on CCID %d\n", Index);
+		if(InstancePtr->FrequencyRange == XDFEOFDM_FREQUENCY_RANGE_1) {
+			switch (NextCCCfg->CarrierCfg[Index].Numerology) {
+			case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_15kHz:
+				CurrentFTLength += 1U;
+				break;
+			case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_30kHz:
+				CurrentFTLength += 2U;
+				break;
+			case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_60kHz:
+				CurrentFTLength += 4U;
+				break;
+			default:
+				metal_log(METAL_LOG_ERROR,
+					  "Wrong Numerology on CCID %d\n", Index);
+				return XST_FAILURE;
+			}
+		} else {
+			switch (NextCCCfg->CarrierCfg[Index].Numerology) {
+			case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_60kHz:
+				CurrentFTLength += 1U;
+				break;
+			case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_120kHz:
+				CurrentFTLength += 2U;
+				break;
+			case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_240kHz:
+				CurrentFTLength += 4U;
+				break;
+			case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_480kHz:
+				CurrentFTLength += 8U;
+				break;
+			case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_960kHz:
+				CurrentFTLength += 16U;
+				break;
+			default:
+				metal_log(METAL_LOG_ERROR,
+					  "Wrong Numerology on CCID %d\n", Index);
+				return XST_FAILURE;
+			}
 		}
 	}
 
@@ -1114,6 +1131,7 @@ void XDfeOfdm_Initialize(XDfeOfdm *InstancePtr, XDfeOfdm_Init *Init)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEOFDM_STATE_CONFIGURED);
 	Xil_AssertVoid(Init != NULL);
+	Xil_AssertVoid(Init->FrequencyRange <= XDFEOFDM_FREQUENCY_RANGE_2);
 
 	/* Enable OFDM */
 	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_STATE_OFDM_ENABLE_OFFSET,
@@ -1124,6 +1142,7 @@ void XDfeOfdm_Initialize(XDfeOfdm *InstancePtr, XDfeOfdm_Init *Init)
 	   can be understood as length 0 or 1 */
 	InstancePtr->NotUsedCCID = 0;
 	InstancePtr->CCSequenceLength = Init->CCSequenceLength;
+	InstancePtr->FrequencyRange = Init->FrequencyRange;
 
 	/* Write 0 to FT Sequence length */
 	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_FT_SEQUENCE_LENGTH_NEXT_OFFSET,
@@ -1403,7 +1422,7 @@ u32 XDfeOfdm_AddCCtoCCCfg(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg,
 
 	/* Check FT sequence length */
 	if (XST_FAILURE ==
-	    XDfeOfdm_CheckFTSequenceLength(CCCfg, FTSeq->Length)) {
+	    XDfeOfdm_CheckFTSequenceLength(InstancePtr, CCCfg, FTSeq->Length)) {
 		metal_log(METAL_LOG_ERROR, "Wrong FT sequence length in %s\n",
 			  __func__);
 		XDfeOfdm_RemoveCCID(InstancePtr, CCID, &CCCfg->CCSequence);
@@ -1514,7 +1533,7 @@ u32 XDfeOfdm_RemoveCCfromCCCfg(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg,
 
 	/* Check FT sequence length */
 	if (XST_FAILURE ==
-	    XDfeOfdm_CheckFTSequenceLength(CCCfg, FTSeq->Length)) {
+	    XDfeOfdm_CheckFTSequenceLength(InstancePtr, CCCfg, FTSeq->Length)) {
 		metal_log(METAL_LOG_ERROR, "Wrong FT sequence length in %s\n",
 			  __func__);
 		return XST_FAILURE;
@@ -1594,7 +1613,7 @@ u32 XDfeOfdm_UpdateCCinCCCfg(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *CCCfg,
 
 	/* Check FT sequence length */
 	if (XST_FAILURE ==
-	    XDfeOfdm_CheckFTSequenceLength(CCCfg, FTSeq->Length)) {
+	    XDfeOfdm_CheckFTSequenceLength(InstancePtr, CCCfg, FTSeq->Length)) {
 		metal_log(METAL_LOG_ERROR, "Wrong FT sequence length in %s\n",
 			  __func__);
 		return XST_FAILURE;
@@ -1890,7 +1909,7 @@ u32 XDfeOfdm_AddCC(XDfeOfdm *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 
 	/* Check FT sequence length */
 	if (XST_FAILURE ==
-	    XDfeOfdm_CheckFTSequenceLength(&CCCfg, FTSeq->Length)) {
+	    XDfeOfdm_CheckFTSequenceLength(InstancePtr, &CCCfg, FTSeq->Length)) {
 		metal_log(METAL_LOG_ERROR, "Wrong FT sequence length in %s\n",
 			  __func__);
 		return XST_FAILURE;
@@ -1948,7 +1967,7 @@ u32 XDfeOfdm_RemoveCC(XDfeOfdm *InstancePtr, s32 CCID,
 
 	/* Check FT sequence length */
 	if (XST_FAILURE ==
-	    XDfeOfdm_CheckFTSequenceLength(&CCCfg, FTSeq->Length)) {
+	    XDfeOfdm_CheckFTSequenceLength(InstancePtr, &CCCfg, FTSeq->Length)) {
 		metal_log(METAL_LOG_ERROR, "Wrong FT sequence length in %s\n",
 			  __func__);
 		return XST_FAILURE;
@@ -2040,7 +2059,7 @@ u32 XDfeOfdm_UpdateCC(XDfeOfdm *InstancePtr, s32 CCID,
 
 	/* Check FT sequence length */
 	if (XST_FAILURE ==
-	    XDfeOfdm_CheckFTSequenceLength(&CCCfg, FTSeq->Length)) {
+	    XDfeOfdm_CheckFTSequenceLength(InstancePtr, &CCCfg, FTSeq->Length)) {
 		metal_log(METAL_LOG_ERROR, "Wrong FT sequence length in %s\n",
 			  __func__);
 		return XST_FAILURE;
