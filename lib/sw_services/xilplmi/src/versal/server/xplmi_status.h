@@ -124,6 +124,7 @@
 *       am   03/02/2024 Added XLOADER_ERR_ZEROIZE_DIGEST_TABLE error code
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 * 2.1   mb   06/21/2024 Added error code for AES initialization fail
+*       pre  07/11/2024 Implemented secure PLM to PLM communication
 *
 * </pre>
 *
@@ -350,7 +351,17 @@ typedef enum {
 	XPLMI_ERR_SSIT_MSG_EVENT_NO_ACCESS, /**< 0x1AD - Error when the IPI message event
 					received by Slave SLR is not permitted due to
 					access permission violation */
-
+	XPLMI_SSIT_SECURE_COMM_INVALID_SRCADDR, /**< 0X1AE - Error if configure secure
+	                communication has invalid source address in payload */
+    XPLMI_SSIT_SECURE_COMM_FAIL_AT_MASTER_ENCRYPTION, /**< 0x1AF - Error if secure plm
+	                to plm communication fails at encryption on master side*/
+	XPLMI_SSIT_SECURE_COMM_FAIL_AT_MASTER_DECRYPTION, /**< 0x1B0 - Error if secure plm
+	                to plm communication fails at decryption on master side*/
+	XPLMI_SSIT_SECURE_COMM_FAIL_AT_SLAVE_ENCRYPTION, /**< 0x1B1 - Error if secure plm
+	                to plm communication fails at encryption on slave side*/
+	XPLMI_SSIT_SECURE_COMM_FAIL_AT_SLAVE_DECRYPTION, /**< 0x1B2 - Error if secure plm
+	                to plm communication fails at decryption on slave side*/
+	XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS, /**< 0x1B3 - Error when IPI request size exceeds */
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create

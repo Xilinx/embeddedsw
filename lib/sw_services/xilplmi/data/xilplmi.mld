@@ -23,6 +23,8 @@
 # 2.1   jb   04/10/2024 Update library version for 2024.2
 #       bm   05/20/2024 Add freertos10_xilinx support
 #       sk   06/05/2024 Added config for User Defined PLM Version
+#       pre  07/11/2024 Added configurable option for SSIT secure PLM to PLM
+#                       communication feature
 #
 ##############################################################################
 
@@ -53,6 +55,7 @@ BEGIN LIBRARY xilplmi
   PARAM name = plm_ocp_en, desc = "Enables or Disables OCP", type = bool, default = true;
   PARAM name = plm_add_ppks_en, desc = "Enables or Disables additional PPKs", type = bool, default = false;
   PARAM name = ssit_plm_to_plm_comm_en, desc = "Enables or Disables SSIT PLM to PLM communication (valid only for Versal)", type = bool, default = true;
+  PARAM name = ssit_secure_plm_to_plm_comm_en, desc = "Enables or Disables SSIT secure PLM to PLM communication (valid only for Versal)", type = bool, default = false;
   PARAM name = plm_ecdsa_en, desc = "Enables or Disables ECDSA handlers", type = bool, default = true;
   PARAM name = plm_rsa_en, desc = "Enables or Disables RSA handlers", type = bool, default = true;
   PARAM name = sem_override_dbg_lvl, desc = "Overrides plm_dbg_lvl as 0 for XilSEM designs if enabled (1) ", type = bool, default = true;

@@ -25,6 +25,8 @@
 #       gm   03/28/2024 Modified read format of configurable parameter
 #                       for VP1902 device.
 # 2.1   sk   06/05/2024 Added config for User Defined PLM Version
+#       pre  07/11/2024 Added configurable option for SSIT secure PLM to PLM
+#                       communication feature
 #
 ##############################################################################
 
@@ -403,6 +405,12 @@ proc xgen_opts_file {libhandle} {
 		if {($value == true) && ($SlrCount > 1)} {
 			puts $file_handle "\n/* SSIT PLM to PLM Communication enable */"
 			puts $file_handle "#define PLM_ENABLE_PLM_TO_PLM_COMM"
+			# Get ssit_secure_plm_to_plm_comm_en value set by user, by default it is FALSE(Valid only for Versal)
+			set value [common::get_property CONFIG.ssit_secure_plm_to_plm_comm_en $libhandle]
+			if {$value == true} {
+				puts $file_handle "\n/* SSIT secure PLM to PLM Communication enable */"
+				puts $file_handle "#define PLM_ENABLE_SECURE_PLM_TO_PLM_COMM"
+			}
 		}
 
 		#Enable Additional PPKs for M50 or later designs

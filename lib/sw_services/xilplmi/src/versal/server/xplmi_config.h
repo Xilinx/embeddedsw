@@ -48,6 +48,7 @@
 * 1.09  ng   11/11/2022 Fixed doxygen file name error
 * 1.10  ng   06/21/2023 Added support for system device-tree flow
 *       ng   03/20/2024 Added CDO debug prints
+*       pre  07/11/2024 Implemented secure PLM to PLM communication
 * </pre>
 *
 * @note
@@ -214,10 +215,16 @@ extern "C" {
 					between high and low states of toggle */
 
 /**
- * Enable the below define to enable PLM - PLM communication for
- * SSIT devices.
+ * Enable the below define to enable PLM - PLM communication
+ * for SSIT devices.
  */
 //#define PLM_ENABLE_PLM_TO_PLM_COMM
+
+/**
+ * Enable the below define to enable secure PLM - PLM communication
+ * for SSIT devices.
+ */
+//#define PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
 
 /************************** Function Prototypes ******************************/
 

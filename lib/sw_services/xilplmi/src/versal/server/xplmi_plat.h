@@ -51,6 +51,7 @@
 *       jb   04/11/2024 Added proc count for PSM and PMC procs
 *       am   04/15/2024 Fixed doxygen warnings
 * 2.01  sk   06/05/2024 Added defines for PLM Version in RTCA register
+*       pre  07/11/2024 Implemented secure PLM to PLM communication
 *
 * </pre>
 *
@@ -105,6 +106,14 @@ extern "C" {
 #define XPLMI_RTCFG_IMG_STORE_SIZE		(XPLMI_RTCFG_BASEADDR + 0x290U) /**< Image store size */
 #define XPLMI_RTCFG_SSIT_TEMP_PROPAGATION	(XPLMI_RTCFG_BASEADDR + 0x298U) /**< SSIT temperature prop config */
 #define XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR	(XPLMI_RTCFG_BASEADDR + 0x300U) /**< Skip DDRMC Calib Check */
+#ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+#define XPLMI_RTCFG_SSLR1_IV_ADDR  (XPLMI_RTCFG_BASEADDR + 0x324U) /**< Base address of IV of SSLR1 in master for secure comm*/
+#define XPLMI_RTCFG_SSLR2_IV_ADDR  (XPLMI_RTCFG_BASEADDR + 0x334U) /**< Base address of IV of SSLR2 in master for secure comm*/
+#define XPLMI_RTCFG_SSLR3_IV_ADDR  (XPLMI_RTCFG_BASEADDR + 0x344U) /**< Base address of IV of SSLR3 in master for secure comm*/
+#define XPLMI_SLR_CURRENTIV_ADDR   XPLMI_RTCFG_SSLR1_IV_ADDR /**< Base address of current IV in slave for secure comm*/
+#define XPLMI_SLR_NEWIV_ADDR       XPLMI_RTCFG_SSLR2_IV_ADDR /**< Base address of new IV in slave for secure comm*/
+#define XPLMI_SLR_NEWKEY_ADDR      XPLMI_RTCFG_SSLR3_IV_ADDR  /**< Base address of new key in slave for secure comm*/
+#endif
 
 /* Masks of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_PLM_MJTAG_WA_IS_ENABLED_MASK	(0x00000001U) /**< MJTAG word aligner enable status check mask */
@@ -350,6 +359,38 @@ enum {
 
 	/** 0x201 - Error when SSIT master times out waiting for slaves sync point */
 	XPLMI_ERR_SSIT_SLAVE_SYNC,
+
+	/**< 0x202 - Minor error if copy to msg buffer fails at master side */
+	XPLMI_SSIT_COPYTOSSITBUF_FAILED,
+
+	/**< 0x203 - Minor error if copy from resp buffer fails at master side */
+	XPLMI_SSIT_COPYFROMSSITBUF_FAILED,
+
+	/**<
+	 * 0x204 - Minor error if DMA initialization returns NULL during secure plm to plm
+	 * communication
+	 */
+	XPLMI_SSIT_INAVLID_DMA,
+
+	/**<
+	 * 0x205 - Minor error if AES initialization fails during secure plm to plm communication
+	 */
+	XPLMI_SSIT_AES_INIT_FAIL,
+
+	/**<
+	 * 0x206 - Minor error if encryption/decryption initialization fails during secure plm to
+	 * plm communication
+	 */
+	XPLMI_SSIT_ENCDEC_INIT_FAIL,
+
+	/**< 0x207 - Minor error if AAD updation fails during encryption/decryption operation */
+	XPLMI_SSIT_AAD_UPDATE_FAIL,
+
+	/**< 0x208 - Minor error if data updation fails during encryption/decryption operation */
+	XPLMI_SSIT_DATA_UPDATE_FAIL,
+
+	/**< 0x209 - Minor error if tag generation fails during encryption/decryption operation */
+	XPLMI_SSIT_TAG_GENERATION_FAIL,
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/
