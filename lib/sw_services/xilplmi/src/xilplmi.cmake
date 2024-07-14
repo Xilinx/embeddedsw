@@ -111,8 +111,12 @@ endif()
 
 if("${CMAKE_MACHINE}" STREQUAL "Versal")
   option(XILPLMI_ssit_plm_to_plm_comm_en "Enables or Disables SSIT PLM to PLM communication (valid only for Versal)" ON)
+  option(XILPLMI_ssit_secure_plm_to_plm_comm_en "Enables or Disables SSIT secure PLM to PLM communication (valid only for Versal)" OFF)
   if (XILPLMI_ssit_plm_to_plm_comm_en)
     set(PLM_ENABLE_PLM_TO_PLM_COMM " ")
+    if (XILPLMI_ssit_secure_plm_to_plm_comm_en)
+    set(PLM_ENABLE_SECURE_PLM_TO_PLM_COMM " ")
+  endif()
   endif()
 endif()
 

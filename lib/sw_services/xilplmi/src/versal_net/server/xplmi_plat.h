@@ -55,6 +55,7 @@
 *       sk   05/07/2024 Added support for In Place Update Error Notify
 *       sk   06/05/2024 Added defines for PLM Version in RTCA register
 * 2.1   har  06/24/2024 Incremented XPLMI_PLM_PLAT_RC_VERSION
+*       pre  07/11/2024 Implemented secure PLM to PLM communication
 *
 * </pre>
 *
@@ -302,7 +303,7 @@ typedef int (*XPlmi_UpdateHandler_t)(XPlmi_ModuleOp Op);
 /* ROM interrupt services */
 typedef enum {
 	XPLMI_DME_CHL_SIGN_GEN = 0U,	/**< DME channel signature generation */
-	XPLMI_PCR_OP,			/**< PCR extenstion */
+	XPLMI_PCR_OP,			/**< PCR extension */
 	XPLMI_SHA2_HASH_GEN,		/**< SHA2 hash calculation */
 	XPLMI_PLM_UPDT_REQ,		/**< In place PLM update */
 	XPLMI_INVALID_INT		/**< Invalid interrupt */
@@ -311,7 +312,7 @@ typedef enum {
 /* PLMI GENERIC MODULE Data Structures IDs */
 #define XPLMI_WDT_DS_ID			(0x01U) /**< WDT data structure Id */
 #define XPLMI_TRACELOG_DS_ID		(0x02U) /**< Trace log data structure Id */
-#define XPLMI_LPDINITIALIZED_DS_ID	(0x03U) /**< LPD intialized data structure Id */
+#define XPLMI_LPDINITIALIZED_DS_ID	(0x03U) /**< LPD initialized data structure Id */
 #define XPLMI_RESERVED_DS_ID		(0x04U) /**< Update RESERVED DS ID */
 #define XPLMI_UART_BASEADDR_DS_ID	(0x05U) /**< UART base address data structure Id */
 #define XPLMI_ERROR_TABLE_DS_ID		(0x06U) /**< Error table data structure Id */
@@ -459,6 +460,7 @@ typedef enum {
 #define XPlmi_SsitSyncMaster	NULL /**< SSIT sync master */
 #define XPlmi_SsitSyncSlaves	NULL /**< SSIT sync slaves */
 #define XPlmi_SsitWaitSlaves	NULL /**< SSIT wait slaves */
+#define XPlmi_SsitCfgSecComm    NULL /**< SSIT configure secure communication */
 
 /*
  * DDRMC Defines

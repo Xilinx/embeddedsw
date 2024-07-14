@@ -30,11 +30,12 @@
 *       is   07/10/2022 Added support for XPlmi_SsitSendMsgEventAndGetResp API
 *       ma   08/10/2022 Added dummy PLM to PLM communication APIs to be used
 *                       by other components when the feature is not enabled
-* 1.06  skg  10/04/2022 Added logic to handle invalid commads
+* 1.06  skg  10/04/2022 Added logic to handle invalid commands
 *       ng   11/11/2022 Fixed doxygen file name error
 *       is   12/19/2022 Added support for XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX
 *       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
 *       dd   03/28/2023 Updated doxygen comments
+*       pre  07/11/2024 Implemented secure PLM to PLM communication
 *
 * </pre>
 *
@@ -67,6 +68,13 @@ extern "C" {
 #define PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK	(4U)
 #define PMC_GLOBAL_SSIT_ERR_MASK		(0xE0000000U)
 
+/* Slave SLR0 Event Buffer Address in Master SLR */
+#define XPLMI_SLAVE_SLR0_EVENT_BUFFER_ADDR			0xF2015A00U
+/* Event Response Buffer Address in Slave SLRs */
+#define XPLMI_SLR_EVENT_RESP_BUFFER_ADDR			0xF2015A00U
+/* Space between SLR event buffers */
+#define XPLMI_SLR_REQ_AND_RESP_MAX_SIZE_IN_WORDS	0x80U
+
 /**
  * SSIT SLR Masks
  */
@@ -94,7 +102,18 @@ typedef int (*XPlmi_EventHandler_t)(void *Data);
 /* SSIT Maximum events per each array index*/
 #define XPLMI_SSIT_MAX_BITS					32U
 /* SSIT Maximum message length */
+#ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+#define XPLMI_IV_SIZE_WORDS        (4U) /**< IV size in words */
+#define XPLMI_IV_SIZE_BYTES        (XPLMI_IV_SIZE_WORDS * XPLMI_WORD_LEN) /**< IV size in bytes */
+#define HEADER_OFFSET              (0U) /**< Offset of header in command */
+#define PAYLOAD_OFFSET             (1U) /**< Offset of payload in command */
+#define LEN_BYTES_SHIFT            (16U) /**< Shift value to extract length bytes */
+#define IV2_OFFSET_INCMD           (6U) /**< Offset of IV2 in command */
+#define SECCOMM_SLAVE_INDEX        (1U) /**< Index of slave SLR */
+#define XPLMI_SSIT_MAX_MSG_LEN	    0x20U /**< Maximum length of SSIT msg */
+#else
 #define XPLMI_SSIT_MAX_MSG_LEN		0x8U
+#endif
 /**
  * SSIT SLR global base addresses
  *  - PMC Local Address - 0xF0000000U
@@ -106,6 +125,9 @@ typedef int (*XPlmi_EventHandler_t)(void *Data);
 #define XPLMI_PMC_BASEADDR					(0xF0000000U)
 #define XPLMI_SSIT_MASTER_SLR_BASEADDR		(0x100000000UL)
 #define XPLMI_SSIT_SLR_ADDR_DIFF			(0x8000000U)
+
+#define XPLMI_MODULE_AND_APIDMASK  (XPLMI_CMD_MODULE_ID_MASK | XPLMI_CMD_API_ID_MASK)
+                                   /**< Mask to extract module and api ID together */
 
 /**
  * Event ID for SSIT sync event which is the first event
@@ -155,11 +177,15 @@ enum SsitEventIndex {
 #define XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_TRIG	(PMC_GLOBAL_PMC_ERR1_TRIG)
 
 /**************************** Type Definitions *******************************/
+#define XPLMI_GET_MSGBUFF_ADDR(SlrIndex)	(XPLMI_SLAVE_SLR0_EVENT_BUFFER_ADDR + \
+					(((u32)SlrIndex - 1U) * \
+					XPLMI_SLR_REQ_AND_RESP_MAX_SIZE_IN_WORDS * XPLMI_WORD_LEN))
+
 /*
  * SSIT events related structure definitions
  */
 typedef struct {
-	u32 EventOrigin; /**< Event orgin */
+	u32 EventOrigin; /**< Event origin */
 	XPlmi_EventHandler_t EventHandler; /**< Event handler */
 }XPlmi_SsitEvents_t;
 
@@ -180,11 +206,32 @@ typedef struct {
 	u32 Events32[XPLMI_SSIT_MAX_EVENT32_INDEX]; /**< Array of SSIT maximum events 32 */
 }XPlmi_SsitEventVectorTable_t;
 
+#ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+typedef enum
+{
+	NOTESTABLISHED = 0,
+	ESTABLISHED,
+} XPlmi_SecCommEstFlag;
+#endif
+
+typedef enum{
+	ENCRYPTION = 0,
+	DECRYPTION,
+} XPlmi_Operation;
+
+typedef struct
+{
+	int (*SendMessage)(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd);
+	int (*ReceiveMessage)(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd);
+	int (*AesKeyWrite)(u32 SlrIndex, u32 KeyAddr);
+	int (*KeyIvUpdate)(XPlmi_Cmd *Cmd);
+}XPlmi_SsitCommFunctions;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 /* Functions related to SSIT events between SLRs */
-int XPlmi_SsitEventsInit(void);
+int XPlmi_SsitEventsInit(XPlmi_SsitCommFunctions *XPlm_SsitCommFuncs);
 u8 XPlmi_SsitIsIntrEnabled(void);
 void XPlmi_SsitSetIsIntrEnabled(u8 Value);
 void XPlmi_SsitErrHandler(void *Data);
@@ -207,11 +254,18 @@ int XPlmi_SsitSendMsgEventAndGetResp(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize,
 		u32 *RespBuf, u32 RespBufSize, u32 WaitForEventCompletion);
 int XPlmi_SendIpiCmdToSlaveSlr(u32 * Payload, u32 * RespBuf);
 int XPlmi_SsitSingleEamEventHandler(void *Data);
+int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd);
 
 /* SSIT Sync Related functions */
 int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd);
 int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd);
 int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd);
+
+#ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+XPlmi_SecCommEstFlag XPlmi_SsitGetSecCommEstFlag(u32 SlrIndex);
+void XPlmi_SsitSetCommEstFlag(u32 SlrIndex);
+#endif
+
 #ifdef __cplusplus
 }
 #endif

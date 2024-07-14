@@ -60,6 +60,7 @@
 *                       SSIT event
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 * 2.00  ng   01/26/2024 Updated minor error codes
+*       pre  07/11/2024 Implemented secure PLM to PLM communication
 *
 * </pre>
 *
@@ -77,6 +78,8 @@
 #include "xplmi_util.h"
 #include "xplmi_proc.h"
 #include "xplmi_tamper.h"
+#include "xplmi_plat.h"
+#include "xplmi_defs.h"
 
 /************************** Function Prototypes ******************************/
 static u32 XPlmi_SsitGetSlaveErrorMask(void);
@@ -97,12 +100,6 @@ static u32 XPlmi_SsitGetSlaveErrorMask(void);
 #define XPLMI_SSIT_EVENTS_HANDLER_STRUCT_ADDR		0xF2015000U
 /* Event vector table address */
 #define XPLMI_SSIT_EVENT_VECTOR_TABLE_ADDR			0xF2015800U
-/* Slave SLR0 Event Buffer Address in Master SLR */
-#define XPLMI_SLAVE_SLR0_EVENT_BUFFER_ADDR			0xF2015A00U
-/* Event Response Buffer Address in Slave SLRs */
-#define XPLMI_SLR_EVENT_RESP_BUFFER_ADDR			0xF2015A00U
-/* Space between SLR event buffers */
-#define XPLMI_SLR_REQ_AND_RESP_MAX_SIZE_IN_WORDS	0x80U
 
 /* Timeout to wait for Slave SLRs ack during SLD Handshake - 1ms */
 #define XPLMI_WAIT_FOR_SLAVE_SLRS_ACK_TIMEOUT	(1000U)
@@ -116,10 +113,40 @@ static u32 XPlmi_SsitGetSlaveErrorMask(void);
 /**************************** Type Definitions *******************************/
 #define XPLMI_GET_EVENT_ARRAY_INDEX(EventIndex)		(u8)(EventIndex/XPLMI_SSIT_MAX_BITS)
 
-#define XPLMI_GET_MSGBUFF_ADDR(SlrIndex)	(XPLMI_SLAVE_SLR0_EVENT_BUFFER_ADDR + \
-					(((u32)SlrIndex - 1U) * \
-					XPLMI_SLR_REQ_AND_RESP_MAX_SIZE_IN_WORDS * XPLMI_WORD_LEN))
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+#define XPLMI_KEY_SIZE_BYTES             (32U) /**< Key size in bytes */
+#define XPLMI_ADDRESS_HIGH_OFFSET        (1U) /**< Offset of high address in payload */
+#define XPLMI_ADDRESS_LOW_OFFSET         (2U) /**< Offset of low address in payload */
+#define XPLMI_IV1_OFFSET_INCMD           (2U) /**< Offset of IV1 in command */
+#define XPLMI_SSITCFG_CMD_PAYLOAD_LEN    (17U) /**< Length of SSIT CfgSecComm Cmd payload */
+#define XPLMI_IV2_OFFSET_INCMD           (6U) /**< Offset of IV2 in command */
+#define XPLMI_KEY_OFFSET_INCMD           (10U) /**< Offset of key in command */
+#define XPLMI_IV2_OFFSET_INPAYLOAD       (5U) /**< Offset of IV2 in payload */
+#define XPLMI_KEY_OFFSET_INPAYLOAD       (9U) /**< Offset of key in payload */
+#define XPLMI_NOOF_IVS                   (2U) /**< Numbers of IVs in configure secure
+                                            communication command */
+#endif
+#define XPLMI_MODULE_ID_VALUE 	         (XPLMI_MODULE_GENERIC_ID << XPLMI_CMD_MODULE_ID_SHIFT)
+                                              /**< XPLMI module ID value in header */
+
+/****************************************************************************/
+/**
+* @brief    This function is used to check if the command is confgure secure
+*           communication command
+*
+* @param	Header Header field of the command
+*
+* @return   TRUE, if configure secure communication command
+*           FALSE, otherwise
+*
+****************************************************************************/
+static inline u32 XPlmi_CheckCfgSecCommCmd(u32 Header)
+{
+	return ((Header & XPLMI_MODULE_AND_APIDMASK) == (XPLMI_MODULE_ID_VALUE |
+	                                        XPLMI_SSIT_CFG_SEC_COMM_CMD_ID));
+}
+
 
 /************************** Function Prototypes ******************************/
 static XPlmi_TaskNode *XPlmi_SsitCreateTask(u8 SlrIndex);
@@ -131,11 +158,17 @@ static void XPlmi_GetEventTableIndex(u8 SlrIndex, u8 *LocalEvTableIndex,
 		u8 *RemoteEvTableIndex);
 static u32 XPlmi_IsSldNotification(void);
 
+static XPlmi_SsitCommFunctions *XPlmi_SsitCommPtr;
+
 /************************** Variable Definitions *****************************/
 static XPlmi_SsitEventStruct_t *SsitEvents =
-		(XPlmi_SsitEventStruct_t *)(UINTPTR)XPLMI_SSIT_EVENTS_HANDLER_STRUCT_ADDR;;
+		(XPlmi_SsitEventStruct_t *)(UINTPTR)XPLMI_SSIT_EVENTS_HANDLER_STRUCT_ADDR;
 static XPlmi_SsitEventVectorTable_t *EventVectorTable =
 		(XPlmi_SsitEventVectorTable_t *)(UINTPTR)XPLMI_SSIT_EVENT_VECTOR_TABLE_ADDR;
+#ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+static XPlmi_SecCommEstFlag SecCommEstFlag[XPLMI_SSIT_MAX_SLAVE_SLRS] =
+                                                          { NOTESTABLISHED };
+#endif
 
 /****************************************************************************/
 /**
@@ -235,13 +268,16 @@ END:
 * @brief	This function is used to initialize the event structure and create
 * 			tasks for the events between Master and Slave SLRs
 *
+* @param    XPlm_SsitCommFuncs contains pointers to call back functions for
+*           encryption, decryption, keywrite and key-IV updation functionalities
+*
 * @return
 * 			- Returns XST_SUCCESS if success.
 * 			- XPLMI_INVALID_SLR_TYPE on invalid SLR type.
 * 			- XPLM_ERR_TASK_CREATE if failed to create a task.
 *
 ****************************************************************************/
-int XPlmi_SsitEventsInit(void)
+int XPlmi_SsitEventsInit(XPlmi_SsitCommFunctions *XPlm_SsitCommFuncs)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Idx;
@@ -350,6 +386,8 @@ int XPlmi_SsitEventsInit(void)
 	Status = XPlmi_SsitRegisterEvent(XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX,
 			XPlmi_SsitSingleEamEventHandler, XPLMI_SSIT_ALL_SLAVE_SLRS_MASK);
 
+    XPlmi_SsitCommPtr = XPlm_SsitCommFuncs;
+
 END:
 	return Status;
 }
@@ -419,7 +457,6 @@ int XPlmi_SsitWriteEventBufferAndTriggerMsgEvent(u8 SlrIndex, u32* ReqBuf,
 		u32 ReqBufSize)
 {
 	int Status = XST_FAILURE;
-	u32 SlrAddr = 0x0U;
 
 	/**
 	 * - Writing to an event buffer can be done only if
@@ -446,23 +483,51 @@ int XPlmi_SsitWriteEventBufferAndTriggerMsgEvent(u8 SlrIndex, u32* ReqBuf,
 		goto END;
 	}
 
-	/** - Get the Message Buffer address of the corresponding Slave SLR */
-	SlrAddr = XPLMI_GET_MSGBUFF_ADDR(SlrIndex);
-
-	/** - Write the given data to event buffer */
-	Status = XPlmi_MemCpy64((u64)SlrAddr, (u64)(u32)ReqBuf,
-			(ReqBufSize * XPLMI_WORD_LEN));
-
+    Status =(XPlmi_SsitCommPtr->SendMessage)(ReqBuf, ReqBufSize, SlrIndex,
+	                                  XPlmi_CheckCfgSecCommCmd(ReqBuf[0]));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	/** - Trigger the Message Event */
 	Status = XPlmi_SsitTriggerEvent(SlrIndex, XPLMI_SLRS_MESSAGE_EVENT_INDEX);
-
 END:
 	return Status;
 }
+
+#ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+/*****************************************************************************/
+/**
+* @brief    This function is used to get the SecKeyIVEstablished flag
+*           for the given SLR index
+
+* @param    SlrIndex is the index of slr for which SecKeyIVEstablished flag
+*           is needed
+*
+* @return   -None
+*
+******************************************************************************/
+XPlmi_SecCommEstFlag XPlmi_SsitGetSecCommEstFlag(u32 SlrIndex)
+{
+    return SecCommEstFlag[SlrIndex - 1U];
+}
+
+/*****************************************************************************/
+/**
+* @brief    This function is used to set the SecKeyIVEstablished flag
+*           for the given SLR index
+
+* @param    SlrIndex is the index of slr for which SecKeyIVEstablished flag
+*           is to be set
+*
+* @return   -None
+*
+******************************************************************************/
+void XPlmi_SsitSetCommEstFlag(u32 SlrIndex)
+{
+    SecCommEstFlag[SlrIndex - 1U] = ESTABLISHED;
+}
+#endif
 
 /****************************************************************************/
 /**
@@ -484,6 +549,7 @@ int XPlmi_SsitReadEventBuffer(u32* ReqBuf, u32 ReqBufSize)
 	int Status = XST_FAILURE;
 	u64 SlrAddr;
 	u32 BufAddr;
+	u32 Header;
 
 	/**
 	 * - This API is applicable to be called only in Slave SLRs.
@@ -496,7 +562,7 @@ int XPlmi_SsitReadEventBuffer(u32* ReqBuf, u32 ReqBufSize)
 		goto END;
 	}
 
-	/** - Get the message buffer address of the corresponding Slave SLR */
+	/** - Get the message buffer address of the corresponding slave SLR */
 	BufAddr = XPLMI_GET_MSGBUFF_ADDR(SsitEvents->SlrIndex);
 	SlrAddr = XPlmi_SsitGetSlrAddr(BufAddr, XPLMI_SSIT_MASTER_SLR_INDEX);
 
@@ -506,13 +572,13 @@ int XPlmi_SsitReadEventBuffer(u32* ReqBuf, u32 ReqBufSize)
 		goto END;
 	}
 
-	/** - Read the Event Buffer written by Master in Slave SLRs */
-	Status = XPlmi_MemCpy64((u64)(u32)ReqBuf, SlrAddr,
-			(ReqBufSize * XPLMI_WORD_LEN));
-
+	Header = XPlmi_In64(SlrAddr);
+	Status = (XPlmi_SsitCommPtr->ReceiveMessage)(ReqBuf, ReqBufSize, (u32)SsitEvents->SlrIndex,
+	                                       XPlmi_CheckCfgSecCommCmd(Header));
 END:
 	return Status;
 }
+
 
 /****************************************************************************/
 /**
@@ -825,10 +891,7 @@ int XPlmi_SsitReadResponse(u8 SlrIndex, u32* RespBuf, u32 RespBufSize)
 		goto END;
 	}
 
-	/* Read the response to the given RespBuf */
-	Status = XPlmi_MemCpy64((u64)(u32)RespBuf, SlrAddr,
-			(RespBufSize * XPLMI_WORD_LEN));
-
+    Status = (XPlmi_SsitCommPtr->ReceiveMessage)(RespBuf, RespBufSize, SlrIndex, 0U);
 END:
 	return Status;
 }
@@ -877,10 +940,7 @@ int XPlmi_SsitWriteResponseAndAckMsgEvent(u32 *RespBuf, u32 RespBufSize)
 		goto END;
 	}
 
-	/** - Write the response to the response buffer in the Slave SLRs memory */
-	Status = XPlmi_MemCpy64((u64)XPLMI_SLR_EVENT_RESP_BUFFER_ADDR,
-			(u64)(u32)RespBuf, (RespBufSize * XPLMI_WORD_LEN));
-
+    Status = (XPlmi_SsitCommPtr->SendMessage)(RespBuf, RespBufSize, 0U, 0U);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1073,12 +1133,11 @@ static int XPlmi_SsitMsgEventHandler(void *Data)
 	Cmd.CmdId = MsgBuf[0U];
 
 	Cmd.Len = (Cmd.CmdId >> 16U) & 255U;
-	if (Cmd.Len > XPLMI_MAX_IPI_CMD_LEN) {
-		Cmd.Len = MsgBuf[1U];
-		Cmd.Payload = (u32 *)&MsgBuf[2U];
-	} else {
-		Cmd.Payload = (u32 *)&MsgBuf[1U];
+	if (Cmd.Len > XPLMI_SSIT_MAX_MSG_LEN) {
+		Status = XPLMI_SSIT_BUF_SIZE_EXCEEDS;
+		goto END;
 	}
+	Cmd.Payload = (u32 *)&MsgBuf[1U];
 
 	/*
 	 * Use Subsystem Id as 0U - to indicate this command is likely
@@ -1087,7 +1146,12 @@ static int XPlmi_SsitMsgEventHandler(void *Data)
 	Cmd.SubsystemId = 0U;
 	Cmd.IpiReqType = (Cmd.CmdId & IPI_CMD_HDR_SECURE_BIT_MASK) >>
 				IPI_CMD_HDR_SECURE_BIT_SHIFT;
-
+#ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+	if((Cmd.IpiReqType == XPLMI_CMD_SECURE) &&
+	   (XPlmi_SsitGetSecCommEstFlag(SECCOMM_SLAVE_INDEX) != ESTABLISHED)) {
+		Cmd.IpiReqType = XPLMI_CMD_NON_SECURE;
+	}
+#endif
 	/* Check Access permission of the ssit event */
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPlmi_ValidateIpiCmd,
 			&Cmd, XPLMI_SSIT_EVENT_IPI_INDEX);
@@ -1105,7 +1169,11 @@ END:
 	Cmd.Response[0U] = (u32)Status;
 	Status = XPlmi_SsitWriteResponseAndAckMsgEvent(Cmd.Response,
 			XPLMI_SSIT_MAX_MSG_LEN);
-
+#ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+	if (Status == XST_SUCCESS) {
+		Status = (XPlmi_SsitCommPtr->KeyIvUpdate)(&Cmd);
+	}
+#endif
 	return Status;
 }
 
@@ -2036,4 +2104,111 @@ void XPlmi_InterSlrSldHandshake(void)
 END:
 #endif
 	return;
+}
+
+/*****************************************************************************/
+/**
+* @brief   This function provides SSIT config secure communication command
+           execution.
+*                     Command payload parameters are
+*          * SLR number, base address of buffer which consists of
+             IV1,IV2,Key in master
+*          * IV1(128-bit), IV2(128-bit) and Key(256-bit) in slave
+*
+* @param      Cmd is pointer to the command structure
+*
+* @return
+*                     - Returns the Status of SSIT config secure communication command
+*
+*****************************************************************************/
+int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+#ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+	u32 TempBuf[XPLMI_SSIT_MAX_MSG_LEN] = { 0U };
+    u32 SlrType= XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK;
+	u32 RespBuf[XPLMI_CMD_RESP_SIZE] = { 0U };
+	u32 SlrIndex;
+	u32 *IvAddr;
+	u64 SrcAddr = ((u64)Cmd->Payload[XPLMI_ADDRESS_HIGH_OFFSET] << 32U) |
+	               Cmd->Payload[XPLMI_ADDRESS_LOW_OFFSET];
+
+    if (SlrType == XPLMI_SSIT_MONOLITIC) {
+		Status = XPLMI_INVALID_SLR_TYPE;
+		goto END;
+    }
+
+    if (SlrType == XPLMI_SSIT_MASTER_SLR) {
+		if (Cmd->Payload == NULL) {
+			Status = XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR;
+			goto END;
+		}
+
+		/* Get slr number from received payload */
+        SlrIndex = Cmd->Payload[0U] & XPLMI_SSIT_MAX_SLAVE_SLRS;
+		if(SlrIndex == 0U) {
+			Status = XPLMI_INVALID_SLR_TYPE;
+			goto END;
+		}
+
+		Status = XPlmi_VerifyAddrRange(SrcAddr, SrcAddr + sizeof(XPlmi_SsitSecComm));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+        XPlmi_SecCommEstFlag SecKeyIVEstablished =
+		                          XPlmi_SsitGetSecCommEstFlag(SlrIndex);
+
+        /* IV address loading based on slr index */
+        IvAddr = (u32 *)(XPLMI_RTCFG_SSLR1_IV_ADDR +
+		                (XPLMI_IV_SIZE_BYTES * (SlrIndex - 1U)));
+
+        /* Update IV1 as IV if it is 1st CfgSecComm Cmd */
+        if (SecKeyIVEstablished != ESTABLISHED) {
+            XPlmi_MemCpy64((u64)(UINTPTR)IvAddr, SrcAddr, XPLMI_IV_SIZE_BYTES);
+        }
+
+        /* Frame full command with IV1,IV2,Key as payload */
+        TempBuf[HEADER_OFFSET] = (Cmd->CmdId & ~XPLMI_CMD_LEN_MASK) |
+		                         (XPLMI_SSITCFG_CMD_PAYLOAD_LEN << LEN_BYTES_SHIFT);
+        TempBuf[PAYLOAD_OFFSET] = SlrIndex;
+        XPlmi_MemCpy64((u64)(UINTPTR)&TempBuf[XPLMI_IV1_OFFSET_INCMD], SrcAddr,
+			  (XPLMI_IV_SIZE_BYTES * XPLMI_NOOF_IVS + XPLMI_KEY_SIZE_BYTES));
+
+        /* Trigger message event to SLR given and get response */
+        Status = XPlmi_SsitSendMsgEventAndGetResp((u8)SlrIndex, TempBuf,
+		         XPLMI_SSIT_MAX_MSG_LEN, RespBuf, XPLMI_CMD_RESP_SIZE,
+				XPLMI_SLV_EVENT_TIMEOUT);
+        if (Status != XST_SUCCESS) {
+            goto END;
+        }
+
+        /**
+		 * Update IV and key with IV2 and key on success response and
+		 * also set SecKeyIVEstablished flag
+		 */
+        if (RespBuf[0] == XST_SUCCESS) {
+            XPlmi_MemCpy64((u64)(UINTPTR)IvAddr, (u64)(UINTPTR)&TempBuf[XPLMI_IV2_OFFSET_INCMD],
+			                XPLMI_IV_SIZE_BYTES);
+            (XPlmi_SsitCommPtr->AesKeyWrite)(SlrIndex, (u32)&TempBuf[XPLMI_KEY_OFFSET_INCMD]);
+			if (SecKeyIVEstablished != ESTABLISHED) {
+				XPlmi_Printf(DEBUG_PRINT_ALWAYS,"\n\rSecure communication established for SLR%02x",SlrIndex);
+			}
+            XPlmi_SsitSetCommEstFlag(SlrIndex);
+        }
+      }
+      else {
+		/* update new IV and new key with IV2 and key */
+        XPlmi_MemCpy64((u64)XPLMI_SLR_NEWIV_ADDR, (u64)(UINTPTR)&Cmd->Payload[XPLMI_IV2_OFFSET_INPAYLOAD],
+		       XPLMI_IV_SIZE_BYTES);
+        XPlmi_MemCpy64((u64)XPLMI_SLR_NEWKEY_ADDR, (u64)(UINTPTR)&Cmd->Payload[XPLMI_KEY_OFFSET_INPAYLOAD],
+		       XPLMI_KEY_SIZE_BYTES);
+        Status = XST_SUCCESS;
+       }
+END:
+#else
+	(void)Cmd;
+	Status = XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR;
+#endif
+    return Status;
 }

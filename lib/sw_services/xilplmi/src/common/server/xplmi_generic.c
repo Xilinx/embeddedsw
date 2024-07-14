@@ -117,6 +117,7 @@
 *       jb   04/09/2024 Reduced log level for proc print
 *       am   04/15/2024 Fixed doxygen warnings
 * 2.01  kpt  06/19/2024 Trigger secure lockdown immediately when requested through CDO
+*       pre  07/11/2024 Implemented secure PLM to PLM communication
 *
 * </pre>
 *
@@ -377,7 +378,7 @@ int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u64 Addr, u32 Type)
 		goto END;
 	}
 
-	/* Disable MinTimeout for Success and break flags. Also disable if explicity requested using MSB */
+	/* Disable MinTimeout for Success and break flags. Also disable if explicitly requested using MSB */
 	if (Cmd->Len >= ExtLen) {
 		Flags = Cmd->Payload[XPLMI_MASKPOLL_FLAGS_INDEX + Offset] & XPLMI_MASKPOLL_FLAGS_MASK;
 		if ((Flags == XPLMI_MASKPOLL_FLAGS_BREAK) || (Flags == XPLMI_MASKPOLL_FLAGS_SUCCESS) ||
@@ -818,7 +819,7 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	u64 Dest = DestAddr;
 	u64 Src = SrcAddr;
 
-	/** - Check if Readback Dest Addr is Overriden. */
+	/** - Check if Readback Dest Addr is Overridden. */
 	if ((XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) && (XPLMI_SBI_DEST_ADDR != Dest)) {
 		Dest = ReadBackPtr->DestAddr;
 		if ((Len + ReadBackPtr->ProcessedLen) > ReadBackPtr->MaxSize) {
@@ -1126,7 +1127,7 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 	 * to set the SBI mode correctly.
 	*/
 	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
-		/* Check if Readback Dest Addr is Overriden */
+		/* Check if Readback Dest Addr is Overridden */
 		if (XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) {
 			DestAddr = ReadBackPtr->DestAddr;
 			if ((Len + ReadBackPtr->ProcessedLen) >
@@ -2356,6 +2357,7 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_ListWrite),
 		XPLMI_MODULE_COMMAND(XPlmi_ListMaskWrite),
 		XPLMI_MODULE_COMMAND(XPlmi_ListMaskPoll),
+		XPLMI_MODULE_COMMAND(XPlmi_SsitCfgSecComm),
 	};
 
 	/* Buffer to store access permissions of xilplmi generic module */
@@ -2407,6 +2409,11 @@ void XPlmi_GenericInit(void)
 		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_LIST_WRITE_CMD_ID),
 		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_LIST_MASK_WRITE_CMD_ID),
 		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_LIST_MASK_POLL_CMD_ID),
+#ifdef VERSAL_NET
+        XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SSIT_CFG_SEC_COMM_CMD_ID),
+#else
+		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_SSIT_CFG_SEC_COMM_CMD_ID),
+#endif
 	};
 
 	/* This is to store CMD_END in xplm_modules section */

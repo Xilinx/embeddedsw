@@ -53,6 +53,7 @@
 *       am   03/02/2024 Added XLOADER_ERR_ZEROIZE_DIGEST_TABLE error code
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 * 2.1   mb   06/21/2024 Added error code for AES initialization fail
+*       pre  07/14/2024 Added error code for exceeding IPI buffer size
 *
 * </pre>
 *
@@ -300,6 +301,7 @@ typedef enum {
 	XPLMI_ERR_RETRY_SHUTDOWN_LATER, /**< 0x1BB - Error when a module cannot be shutdown currently and request to
 						retry later */
 	XPLMI_ERR_STORE_DATA_BACKUP,	/**< 0x1BC - Error when data structure storing fails */
+	XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS, /**< 0x1BD - Error when IPI request size exceeds */
 
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */

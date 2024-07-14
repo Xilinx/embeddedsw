@@ -38,6 +38,7 @@
 
 #if ((defined(NUMBER_OF_SLRS)) && (NUMBER_OF_SLRS > 1))
 #cmakedefine    PLM_ENABLE_PLM_TO_PLM_COMM
+#cmakedefine    PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
 #endif
 
 #cmakedefine XPLMI_CACHE_DISABLE

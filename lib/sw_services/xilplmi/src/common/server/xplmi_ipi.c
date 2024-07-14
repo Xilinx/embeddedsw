@@ -81,6 +81,7 @@
  *       ng   01/28/2024 optimized u8 variables
  *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
  * 2.01  sk   05/07/2024 Added support to get ipi instance
+ *       pre  07/11/2024 Throwing error if IPI request length is greater than XPLMI_MAX_IPI_CMD_LEN
  *
  * </pre>
  *
@@ -350,11 +351,10 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 
 		Cmd.Len = (Cmd.CmdId >> 16U) & 255U;
 		if (Cmd.Len > XPLMI_MAX_IPI_CMD_LEN) {
-			Cmd.Len = Payload[1U];
-			Cmd.Payload = (u32 *)&Payload[2U];
-		} else {
-			Cmd.Payload = (u32 *)&Payload[1U];
+			Status = XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS;
+			goto END;
 		}
+		Cmd.Payload = (u32 *)&Payload[1U];
 
 		/* Ack PSM IPIs before running handlers */
 		if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
