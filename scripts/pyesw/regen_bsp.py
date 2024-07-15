@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module re creates the bsp for a given domain and system device-tree.
@@ -22,6 +22,11 @@ class RegenBSP(BSP, Library):
     def __init__(self, args):
         self.domain_path = utils.get_abs_path(args.get("domain_path"))
         BSP.__init__(self, args)
+        domain_data = utils.fetch_yaml_data(self.domain_config_file, "domain")
+        if "mode" in domain_data:
+            self.proc_mode = domain_data["mode"]
+        else:
+            self.proc_mode = "64-bit"
         if args.get('sdt'):
             self.sdt = utils.get_abs_path(args["sdt"])
         if utils.is_file(os.path.join(self.domain_path, ".repo.yaml")):
@@ -47,7 +52,8 @@ class RegenBSP(BSP, Library):
             'os':self.os,
             'template':self.template,
             'sdt':self.sdt,
-            'repo_info':self.repo_info
+            'repo_info':self.repo_info,
+            'mode': self.proc_mode
         })
 
         # Remove existing folder structure
