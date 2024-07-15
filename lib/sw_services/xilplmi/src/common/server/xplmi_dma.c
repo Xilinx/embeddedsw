@@ -51,6 +51,7 @@
 *       am   08/23/2023 Fixed doxygen comment for XPlmi_DmaXfr Len in words
 *       ng   01/28/2024 optimized u8 variables
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
+*       bm   07/15/2024 Fixed Memset logic by using source buffer in PPU RAM
 *
 * </pre>
 *
@@ -868,10 +869,11 @@ int XPlmi_EccInit(u64 Addr, u32 Len)
 int XPlmi_MemSet(u64 DestAddress, u32 Val, u32 Len)
 {
 	int Status = XST_FAILURE;
+	u32 Src[XPLMI_SET_CHUNK_SIZE];
 	u32 Count;
 	u32 Index;
 	u64 DestAddr = DestAddress;
-	u64 SrcAddr = DestAddress;
+	u64 SrcAddr = (u64)(UINTPTR)Src;
 	u32 ChunkSize;
 
 	if (Len == 0U) {
@@ -890,20 +892,19 @@ int XPlmi_MemSet(u64 DestAddress, u32 Val, u32 Len)
 		}
 
 		for (Index = 0U; Index < ChunkSize; ++Index) {
-			XPlmi_Out64(DestAddr, Val);
-			DestAddr += XPLMI_WORD_LEN;
+			Src[Index] = Val;
 		}
 
-		Count = Len / XPLMI_SET_CHUNK_SIZE ;
+		Count = Len / ChunkSize ;
 
 		/* DMA in chunks of 512 Bytes */
-		for (Index = 1U; Index < Count; ++Index) {
+		for (Index = 0U; Index < Count; ++Index) {
 			Status = XPlmi_DmaXfr(SrcAddr, DestAddr,
-					XPLMI_SET_CHUNK_SIZE, XPLMI_PMCDMA_0);
+					ChunkSize, XPLMI_PMCDMA_0);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			DestAddr += (XPLMI_SET_CHUNK_SIZE * XPLMI_WORD_LEN);
+			DestAddr += (ChunkSize * XPLMI_WORD_LEN);
 		}
 
 		/* DMA of residual bytes */

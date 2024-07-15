@@ -1,11 +1,11 @@
 /******************************************************************************
  *
  * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
-_STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x1400;
+_STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x1800;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x100;
 _USER_CODE_SIZE = DEFINED(_USER_CODE_SIZE) ? _USER_CODE_SIZE : 0x0;
 /* Define Memories in the system */
