@@ -696,6 +696,9 @@ endfunction(_my_hook_end_of_configure)
             obj.family = cmake_config['cmake']['CMAKE_MACHINE']['value']
             utils.update_yaml(obj.domain_config_file, "domain", "family", obj.family)
 
+    if "a53" in obj.proc and obj.proc_mode == "32-bit":
+        utils.update_yaml(obj.domain_config_file, "domain", "mode", obj.proc_mode)
+
     utils.update_yaml(obj.domain_config_file, "domain", "os_config", os_config)
     utils.update_yaml(obj.domain_config_file, "domain", "proc_config", proc_config)
     utils.update_yaml(obj.domain_config_file, "domain", "os_info", obj.os_info)
