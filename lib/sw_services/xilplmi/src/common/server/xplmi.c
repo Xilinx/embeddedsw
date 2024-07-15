@@ -62,6 +62,7 @@
 *       ng   03/20/2024 Added print to UART on log buffer full after LPD init
 * 1.10  sk   06/05/2024 Added code to populate PLM version in RTCA Reg
 *       mss  06/13/2024 Added timestamp banner conditionally
+*       bm   07/15/2024 Fixed timestamp print in banner
 *
 * </pre>
 *
@@ -261,7 +262,7 @@ void XPlmi_PrintPlmBanner(void)
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 		"Release %s.%s",SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER);
 	#ifndef PLM_BANNER_TIMESTAMP_EXCLUDE
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "   %s  -  %s",
+		XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "   %s  -  %s",
 					__DATE__, __TIME__);
 	#endif
 
