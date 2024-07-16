@@ -27,6 +27,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   02/13/24 Initial release
+ *       pre  07/10/24 Added SSIT support
  *
  * </pre>
  *
@@ -96,6 +97,12 @@ int main(void)
 	Status = XPlmi_ClientInit(&PlmiClientInstance, &MailboxInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
+	}
+
+	Status = XPlmi_InputSlrIndex(&PlmiClientInstance, XPLMI_SLR_INDEX_0);
+	if (Status != XST_SUCCESS) {
+			xil_printf("\r\ninvalid SlrIndex");
+			goto END;
 	}
 
     Status = EventLogging(&PlmiClientInstance);

@@ -16,6 +16,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
+ *       pre  07/10/24 Added support for configure secure communication command and also added
+ *                     SSIT support
  *
  * </pre>
  *
@@ -31,8 +33,7 @@
 #include "xplmi_client.h"
 
 /************************************ Constant Definitions ***************************************/
-
-#define XPLMI_ADDR_HIGH_SHIFT (32U) /**< Shift value to get higher 32 bit address */
+#define XPLMI_ADDR_HIGH_SHIFT              (32U) /**< Shift value to get higher 32 bit address */
 
 /************************************** Type Definitions *****************************************/
 
@@ -190,7 +191,8 @@ int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Addr,
 		goto END;
 	}
 
-	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_4, (u32)XPLMI_EVENT_LOGGING_CMD_ID);
+    Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_4, (InstancePtr->SlrIndex <<
+	                              XPLMI_SLR_INDEX_SHIFT) | (u32)XPLMI_EVENT_LOGGING_CMD_ID);
     Payload[1U] = sub_cmd;
     Payload[2U] = (u32)(Addr >> XPLMI_ADDR_HIGH_SHIFT);
 	Payload[3U] = (u32)(Addr);
@@ -204,5 +206,67 @@ int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Addr,
 	 */
 	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends IPI request to configure secure communication
+ *
+ * @param	InstancePtr             Pointer to the client instance
+ * @param	SsitSecCommDataPtr      Pointer to structure which contains SLR index, IV1, IV2 and key
+ *
+ * @return
+ *			 - XST_SUCCESS on success.
+ *			 - XST_FAILURE on failure.
+ *
+ *************************************************************************************************/
+int XPlmi_ConfigSecureComm(XPlmi_ClientInstance *InstancePtr, XPlmi_SsitSecComm *SsitSecCommDataPtr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+
+    /**
+	 * - Performs input parameters validation. Return error code if input parameters are invalid
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) ||
+	    (SsitSecCommDataPtr == NULL)) {
+		goto END;
+	}
+
+	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_3, (u32)XPLMI_CONFIG_SECCOMM_CMD_ID);
+    Payload[1U] = SsitSecCommDataPtr->SlrIndex;
+    Payload[2U] = (u32)((u64)&SsitSecCommDataPtr->IVsandKey >> XPLMI_ADDR_HIGH_SHIFT);
+	Payload[3U] = (u32)((u64)&SsitSecCommDataPtr->IVsandKey);
+
+	/**
+	 * - Send an IPI request to the PLM by using the XPlmi_SsitCfgSecComm CDO command
+	 * Wait for IPI response from PLM with a timeout.
+	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
+	 * response.
+	 */
+	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Adds the SLR Index.
+ *
+ * @param  InstancePtr is a pointer to instance XPlmi_ClientInstance
+ * @param  SlrIndex - SLR index number
+ *
+ * @return	- XST_SUCCESS - On valid input SlrIndex.
+ *		    - XST_FAILURE - On non valid input SlrIndex
+ *
+ *************************************************************************************************/
+int XPlmi_InputSlrIndex(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex)
+{
+	int Status = XST_FAILURE;
+	if(SlrIndex >= XPLMI_SLR_INDEX_0 && SlrIndex <= XPLMI_SLR_INDEX_3){
+		InstancePtr->SlrIndex = SlrIndex;
+	    Status = XST_SUCCESS;
+	}
 	return Status;
 }

@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
  *       am   04/04/24 Fixed doxygen warnings
+ *       pre  07/10/24 Added SSIT support
  *
  * </pre>
  *
@@ -105,6 +106,7 @@ int XPlmi_ClientInit(XPlmi_ClientInstance* InstancePtr, XMailbox* MailboxPtr)
 	 */
 	if (InstancePtr != NULL) {
 			InstancePtr->MailboxPtr = MailboxPtr;
+			InstancePtr->SlrIndex = 0U;
 			Status = XST_SUCCESS;
 	}
 

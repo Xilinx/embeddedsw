@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
+ *       pre  07/10/24 Added support for configure secure communication command
  *
  * </pre>
  *
@@ -79,6 +80,7 @@ extern "C" {
 #define XPLMI_LIST_WRITE_CMD_ID		    (40U) /**< command id for list write */
 #define XPLMI_LIST_MASK_WRITE_CMD_ID	(41U) /**< command id for list mask write */
 #define XPLMI_LIST_MASK_POLL_CMD_ID	    (42U) /**< command id for list mask poll */
+#define XPLMI_CONFIG_SECCOMM_CMD_ID     (43U) /**< command id for secure communication configuration */
 #define XPLMI_CDO_END_CMD_ID		    (0xFFU) /**< command id for CDO end */
 
 #define XPLMI_HEADER_LEN_0			(0U) /**< Header Length 0 */
@@ -87,7 +89,19 @@ extern "C" {
 #define XPLMI_HEADER_LEN_3			(3U) /**< Header Length 3 */
 #define XPLMI_HEADER_LEN_4			(4U) /**< Header Length 4 */
 
+#define XPLMI_KEY_SIZE_WORDS (8U) /**< Key size in words */
+#define XPLMI_KEY_SIZE_BYTES (32U) /**< Key size in bytes */
+
 /************************************** Type Definitions *****************************************/
+typedef struct {
+	u32 IVs[XPLMI_KEY_SIZE_WORDS]; /**< IV1 and IV2 */
+    u32 Key[XPLMI_KEY_SIZE_WORDS]; /**< Key */
+}XPlmi_IVsandKey;
+
+typedef struct {
+	u32 SlrIndex; /**< SLR index number */
+    XPlmi_IVsandKey IVsandKey; /**< Ivs and key */
+}XPlmi_SsitSecComm;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

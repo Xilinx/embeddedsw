@@ -43,4 +43,7 @@ examples:
   xilplmi_in_place_plm_update_client_example.c:
    - supported_platforms:
       - VersalNet
+  xplmi_configure_secure_comm_example.c:
+   - supported_platforms:
+      - Versal
 ...
