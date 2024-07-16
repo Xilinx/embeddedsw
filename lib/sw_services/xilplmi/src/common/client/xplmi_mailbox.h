@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
  *       am   04/10/24 Fixed doxygen warning
+ *       pre  07/10/24 Added SLR index in client data structure
  *
  * </pre>
  *
@@ -59,6 +60,7 @@ extern "C" {
 typedef struct {
 	XMailbox *MailboxPtr; /**< pointer to mailbox for IPI communication*/
 	u32 Response[RESPONSE_ARG_CNT]; /**< Response payload */
+	u32 SlrIndex; /**< SLR index number */
 } XPlmi_ClientInstance; /**< xilplmi client instance*/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

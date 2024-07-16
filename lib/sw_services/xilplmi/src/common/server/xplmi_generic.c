@@ -118,6 +118,7 @@
 *       am   04/15/2024 Fixed doxygen warnings
 * 2.01  kpt  06/19/2024 Trigger secure lockdown immediately when requested through CDO
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
+*       pre  07/16/2024 Added command routing to slave SLRs
 *
 * </pre>
 *
@@ -2294,6 +2295,25 @@ END:
 	return Status;
 }
 
+#ifndef VERSAL_NET
+/*****************************************************************************/
+/**
+ * @brief  This function calls the handler for invalid commands
+ *
+ *
+ * @param  Payload is pointer to payload data
+ *
+ * @param  RespBuf buffer to store response of slaves
+ *
+ * @return XST_SUCCESS on successful communication
+ *         error code On failure
+ *
+ *****************************************************************************/
+static int XPlmi_InvalidCmdHandler(u32 *Payload, u32 *RespBuf){
+       return XPlmi_SendIpiCmdToSlaveSlr(Payload, RespBuf);
+}
+#endif
+
 /**
  * @{
  * @cond xplmi_internal
@@ -2424,6 +2444,9 @@ void XPlmi_GenericInit(void)
 	XPlmi_Generic.CmdAry = XPlmi_GenericCmds;
 	XPlmi_Generic.CmdCnt = XPLMI_ARRAY_SIZE(XPlmi_GenericCmds);
 	XPlmi_Generic.AccessPermBufferPtr = XPlmi_GenericAccessPermBuff;
+#ifndef VERSAL_NET
+       XPlmi_Generic.InvalidCmdHandler = XPlmi_InvalidCmdHandler;
+#endif
 #ifdef VERSAL_NET
 	XPlmi_Generic.UpdateHandler = XPlmi_GenericHandler;
 #endif

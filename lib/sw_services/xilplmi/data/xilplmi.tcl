@@ -28,6 +28,8 @@
 #       pre  07/11/2024 Added configurable option for SSIT secure PLM to PLM
 #                       communication feature
 #
+#       pre  07/16/2024 Corrected typo
+
 ##############################################################################
 
 #---------------------------------------------
@@ -37,13 +39,12 @@ proc plmi_drc {libhandle} {
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set compiler [common::get_property CONFIG.compiler $proc_instance]
-	set mode [common::get_property CONFIG.xplmir_mode $libhandle]
+	set mode [common::get_property CONFIG.xplmi_mode $libhandle]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set os_type [hsi::get_os];
 	set versal_net "src/versal_net/"
 	set versal "src/versal/"
 	set common "src/common/"
-
 	set versal_client "$versal/client"
 	set versal_server "$versal/server"
 	set versal_common "$versal/common"
