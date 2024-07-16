@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -379,6 +379,38 @@ proc get_ddr_config_info {drv_handle file_name} {
 					puts $file_handle "#define XPAR_PSU_DDRC_0_BRC_MAPPING 1"
 				}
 			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__BANK_ADDR_COUNT"] >= 0} {
+				set bang_bits [get_property CONFIG.PSU__DDRC__BANK_ADDR_COUNT [get_cells -hier $periph]]
+				if {[string match -nocase $bang_bits "NA"]} {
+					puts $file_handle "#define XPAR_PSU_DDRC_0_BANK_ADDR_BITS 0"
+				} else {
+					puts $file_handle "#define XPAR_PSU_DDRC_0_BANK_ADDR_BITS $bang_bits"
+				}
+			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__COL_ADDR_COUNT"] >= 0} {
+				set col_bits [get_property CONFIG.PSU__DDRC__COL_ADDR_COUNT [get_cells -hier $periph]]
+				if {[string match -nocase $col_bits "NA"]} {
+					puts $file_handle "#define XPAR_PSU_DDRC_0_COL_ADDR_BITS 0"
+				} else {
+					puts $file_handle "#define XPAR_PSU_DDRC_0_COL_ADDR_BITS $col_bits"
+				}
+			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__ROW_ADDR_COUNT"] >= 0} {
+				set row_bits [get_property CONFIG.PSU__DDRC__ROW_ADDR_COUNT [get_cells -hier $periph]]
+				if {[string match -nocase $row_bits "NA"]} {
+					puts $file_handle "#define XPAR_PSU_DDRC_0_ROW_ADDR_BITS 0"
+				} else {
+					puts $file_handle "#define XPAR_PSU_DDRC_0_ROW_ADDR_BITS $row_bits"
+				}
+			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__BG_ADDR_COUNT"] >= 0} {
+				set bg_bits [get_property CONFIG.PSU__DDRC__BG_ADDR_COUNT [get_cells -hier $periph]]
+				if {[string match -nocase $bg_bits "NA"]} {
+					puts $file_handle "#define XPAR_PSU_DDRC_0_BG_ADDR_BITS 0"
+				} else {
+					puts $file_handle "#define XPAR_PSU_DDRC_0_BG_ADDR_BITS $bg_bits"
+				}
+			}
 		}
 	}
 	set ips [::hsi::utils::get_common_driver_ips $drv_handle]
@@ -511,6 +543,38 @@ proc get_ddr_config_info_canonical {drv_handle file_name} {
 					puts $file_handle "#define XPAR_DDRCPSU_0_BRC_MAPPING 0"
 				} else {
 					puts $file_handle "#define XPAR_DDRCPSU_0_BRC_MAPPING 1"
+				}
+			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__BANK_ADDR_COUNT"] >= 0} {
+				set bang_bits [get_property CONFIG.PSU__DDRC__BANK_ADDR_COUNT [get_cells -hier $periph]]
+				if {[string match -nocase $bang_bits "NA"]} {
+					puts $file_handle "#define XPAR_DDRCPSU_0_BANK_ADDR_BITS 0"
+				} else {
+					puts $file_handle "#define XPAR_DDRCPSU_0_BANK_ADDR_BITS $bang_bits"
+				}
+			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__COL_ADDR_COUNT"] >= 0} {
+				set col_bits [get_property CONFIG.PSU__DDRC__COL_ADDR_COUNT [get_cells -hier $periph]]
+				if {[string match -nocase $col_bits "NA"]} {
+					puts $file_handle "#define XPAR_DDRCPSU_0_COL_ADDR_BITS 0"
+				} else {
+					puts $file_handle "#define XPAR_DDRCPSU_0_COL_ADDR_BITS $col_bits"
+				}
+			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__ROW_ADDR_COUNT"] >= 0} {
+				set row_bits [get_property CONFIG.PSU__DDRC__ROW_ADDR_COUNT [get_cells -hier $periph]]
+				if {[string match -nocase $row_bits "NA"]} {
+					puts $file_handle "#define XPAR_DDRCPSU_0_ROW_ADDR_BITS 0"
+				} else {
+					puts $file_handle "#define XPAR_DDRCPSU_0_ROW_ADDR_BITS $row_bits"
+				}
+			}
+			if {[lsearch -nocase $avail_param "CONFIG.PSU__DDRC__BG_ADDR_COUNT"] >= 0} {
+				set bg_bits [get_property CONFIG.PSU__DDRC__BG_ADDR_COUNT [get_cells -hier $periph]]
+				if {[string match -nocase $bg_bits "NA"]} {
+					puts $file_handle "#define XPAR_DDRCPSU_0_BG_ADDR_BITS 0"
+				} else {
+					puts $file_handle "#define XPAR_DDRCPSU_0_BG_ADDR_BITS $bg_bits"
 				}
 			}
 		}
