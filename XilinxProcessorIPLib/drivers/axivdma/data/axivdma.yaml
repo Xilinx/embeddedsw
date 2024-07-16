@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -103,7 +103,7 @@ required:
     - xlnx,include-internal-genlock
     - xlnx,s2mm-sof-enable
     - xlnx,mm2s-tdata-width
-    - xlnx,s2mm-data-width
+    - xlnx,s2mm-tdata-width
     - xlnx,enable-debug-info-1
     - xlnx,enable-debug-info-5
     - xlnx,enable-debug-info-6
