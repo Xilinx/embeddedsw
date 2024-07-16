@@ -188,6 +188,8 @@
 
 #define XFSBL_DDRPHY_BASE_ADDR		0xFD080000U
 
+#define XFSBL_ADDRMAP0_BASE		0x6
+
 #ifdef SDT
 #define XFSBL_DBI_INFO			XPAR_XDDRCPSU_0_DDRC_DATA_MASK_AND_DBI
 
@@ -196,6 +198,14 @@
 #define XFSBL_BRCMAPPING		XPAR_XDDRCPSU_0_BRC_MAPPING
 
 #define XFSBL_DDR4ADDRMAPPING		XPAR_XDDRCPSU_0_ADDR_MAPPING
+
+#define XFSBL_BGADDRBITS		XPAR_XDDRCPSU_0_BG_ADDR_BITS
+
+#define XFSBL_BANKADDRBITS		XPAR_XDDRCPSU_0_BANK_ADDR_BITS
+
+#define XFSBL_COLADDRBITS		XPAR_XDDRCPSU_0_COL_ADDR_BITS
+
+#define XFSBL_ROWADDRBITS		XPAR_XDDRCPSU_0_ROW_ADDR_BITS
 #else
 #define XFSBL_DBI_INFO			XPAR_PSU_DDRC_0_DDR_DATA_MASK_AND_DBI
 
@@ -204,6 +214,14 @@
 #define XFSBL_BRCMAPPING		XPAR_PSU_DDRC_0_BRC_MAPPING
 
 #define XFSBL_DDR4ADDRMAPPING		XPAR_PSU_DDRC_0_DDR4_ADDR_MAPPING
+
+#define XFSBL_BGADDRBITS		XPAR_PSU_DDRC_0_BG_ADDR_BITS
+
+#define XFSBL_BANKADDRBITS		XPAR_PSU_DDRC_0_BANK_ADDR_BITS
+
+#define XFSBL_COLADDRBITS		XPAR_PSU_DDRC_0_COL_ADDR_BITS
+
+#define XFSBL_ROWADDRBITS		XPAR_PSU_DDRC_0_ROW_ADDR_BITS
 #endif
 /**************************** Type Definitions *******************************/
 
@@ -1297,8 +1315,11 @@ static void XFsbl_DdrCalcAddrMap(struct DdrcInitData *DdrDataPtr)
 	/* Calculate Bank Group Address Map based on HIF Addresses */
 	XFsbl_DdrCalcBgAddr(DdrDataPtr, HifAddr);
 
-	/* Rank Width is 0U for the New DIMM */
-	DdrDataPtr->AddrMapCsBit0 = 0x1FU;
+	/* Calculate Rank bit for the DIMM */
+	if (PDimmPtr->NRanks != 2U)
+		DdrDataPtr->AddrMapCsBit0 = 0x1FU;
+	else
+		DdrDataPtr->AddrMapCsBit0 = XFSBL_BGADDRBITS + XFSBL_BANKADDRBITS + XFSBL_COLADDRBITS + XFSBL_ROWADDRBITS - XFSBL_ADDRMAP0_BASE;
 
 	/* Address Map Register 0U */
 	RegVal[0U] = ((DdrDataPtr->AddrMapCsBit0 & 0x1FU) << 0U);

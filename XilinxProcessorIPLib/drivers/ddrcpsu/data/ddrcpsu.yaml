@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -39,4 +39,8 @@ required:
     - xlnx,ddrc-fine-granularity-refresh-mode
     - xlnx,ddrc-self-refresh-abort
     - xlnx,ddrc-max-operating-temparature
+    - xlnx,row-addr-bits
+    - xlnx,col-addr-bits
+    - xlnx,bank-addr-bits
+    - xlnx,bg-addr-bits
 ...
