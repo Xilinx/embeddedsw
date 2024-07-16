@@ -654,8 +654,8 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 int XPm_InitNodeCmdHandler(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 Pload[16U] = {0U};
-	u32 Len = 0U;
+	static u32 Pload[16U] = {0U};
+	static u32 Len = 0U;
 	const u32 *PloadPtr = Pload;
 	u32 PloadLen = Len;
 
@@ -669,40 +669,39 @@ int XPm_InitNodeCmdHandler(XPlmi_Cmd *Cmd)
 			goto process_cmd;
 		}
 
-		/* Copy the first payload chunk to resume data */
-		if (Cmd->PayloadLen <= ARRAY_SIZE(Cmd->ResumeData)) {
-			for (u32 i = 0U; i < Cmd->PayloadLen; i++) {
-				Cmd->ResumeData[i] = Cmd->Payload[i];
+		/* Reset the final payload before using */
+		memset(Pload, 0U, sizeof(Pload));
+		Len = 0U;
+
+		/* Copy the first payload chunk to final payload */
+		if (Cmd->PayloadLen <= ARRAY_SIZE(Pload)) {
+			for (Len = 0U; Len < Cmd->PayloadLen; Len++) {
+				Pload[Len] = Cmd->Payload[Len];
 			}
 		} else {
-			PmErr("Payload too big for resume data\r\n");
+			PmErr("Payload too big to resume, size 0x%x (given) > 0x%x (max)\r\n",
+				Cmd->PayloadLen, ARRAY_SIZE(Pload));
 			Cmd->ResumeHandler = NULL;
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
 
+		/* Store the index of next payload in resume data */
+		Cmd->ResumeData[0U] = Cmd->PayloadLen;	/* Here, Len == Cmd->PayloadLen */
+
 		/* Partially processed, to be resumed after */
 		Status = XST_SUCCESS;
 		goto done;
 	} else {
-		/* Copy the resume data to final payload */
-		if (Cmd->ProcessedLen <= ARRAY_SIZE(Cmd->ResumeData)) {
-			for (Len = 0U; Len < Cmd->ProcessedLen; Len++) {
-				Pload[Len] = Cmd->ResumeData[Len];
-			}
-		} else {
-			PmErr("Resume data too big for payload\r\n");
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-
-		/* Copy next payload chunk to final payload after resume data */
-		if (Cmd->ProcessedLen + Cmd->PayloadLen <= ARRAY_SIZE(Pload)) {
+		/* Append next payload chunk to final payload */
+		if ((Cmd->ResumeData[0] == Cmd->ProcessedLen) &&
+		    (Cmd->ProcessedLen + Cmd->PayloadLen <= ARRAY_SIZE(Pload))) {
 			for (Len = Cmd->ProcessedLen; Len < Cmd->ProcessedLen + Cmd->PayloadLen; Len++) {
 				Pload[Len] = Cmd->Payload[Len - Cmd->ProcessedLen];
 			}
 		} else {
-			PmErr("Payload too big for final payload\r\n");
+			PmErr("Payload too big for final payload, size 0x%x (given) > 0x%x (max)\r\n",
+				Cmd->ProcessedLen + Cmd->PayloadLen, ARRAY_SIZE(Pload));
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
