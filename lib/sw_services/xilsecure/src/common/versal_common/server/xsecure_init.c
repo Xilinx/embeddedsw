@@ -29,6 +29,7 @@
 * 5.1   dc  12/27/2022 Added SHA1 instance
 * 5.2   yog 08/07/2023 Moved Trng init API to xsecure_plat.c
 * 5.4   kpt 06/23/2024 Added XSecure_AddRsaKeyPairGenerationToScheduler
+*       kpt 07/17/2024 Remove RSA keypair generation support on QEMU
 *
 * </pre>
 *
@@ -69,9 +70,15 @@ int XSecure_Init(void)
 	int Status = XST_FAILURE;
 
 	XSecure_CmdsInit();
+
 #if defined (VERSAL_NET) && !defined(PLM_RSA_EXCLUDE)
-	/* Add keypair generation to scheduler for versalnet */
-	Status = XSecure_AddRsaKeyPairGenerationToScheduler();
+	if (XPLMI_PLATFORM != PMC_TAP_VERSION_QEMU) {
+		/* Add keypair generation to scheduler for versalnet */
+		Status = XSecure_AddRsaKeyPairGenerationToScheduler();
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
 #else
 	Status = XST_SUCCESS;
 #endif
