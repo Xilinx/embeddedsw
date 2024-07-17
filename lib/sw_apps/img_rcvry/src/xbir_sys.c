@@ -31,6 +31,7 @@
 * 5.00  skd   05/02/23   Added Image recovery support for KD240 board
 * 5.01  ng    07/21/23   Added SDT support
 * 6.00  sd    01/27/23   Clean up
+* 7.00  sd    07/17/24   Added Image recovery support for SC on L20 board
 *
 * </pre>
 *
@@ -1147,7 +1148,7 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	u32 MaxSize = sizeof(SysInfo.UUID);
 	Xbir_SysBoardEepromData SysBoardEepromData = {0U};
 	u8 BoardIndex = 0U;
-	char *BoardList[] = {"SM-", "SMK", "VPK", "VHK", "VEK"};
+	char *BoardList[] = {"SM-", "SMK", "VPK", "VHK", "VEK", "VM-"};
 	u8 BoardNum = sizeof(BoardList)/sizeof(char*);
 
 	Status = Xbir_IicEepromReadData((u8 *)&SysBoardEepromData,
