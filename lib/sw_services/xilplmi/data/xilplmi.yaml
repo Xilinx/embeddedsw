@@ -40,6 +40,7 @@ examples:
   xplmi_get_board_client_example.c: []
   xplmi_get_device_id_client_example.c: []
   xplmi_tamper_trigger_client_example.c: []
+  xplmi_glitch_detector_example.c: []
   xilplmi_in_place_plm_update_client_example.c:
    - supported_platforms:
       - VersalNet

@@ -20,6 +20,8 @@
  * Ver   Who  Date        Changes
  * ----- ---- ---------- --------------------------------------------------------------------------
  * 1.00  pre  06/09/2024 Initial release
+ *       pre  07/17/2024 Used register node to access PMC analog registers and fixed
+ *                       misrac warnings
  *
  * </pre>
  *
@@ -63,9 +65,6 @@
 /************************** Function Prototypes **************************************************/
 
 /************************** Variable Definitions *************************************************/
-XScuGic InterruptController; /* Instance of the Interrupt Controller */
-XScuGic_Config *GicConfig; /* The configuration parameters of the
-                           controller */
 
 /*************************************************************************************************/
 /**
@@ -84,13 +83,16 @@ int XPlmi_WriteReg32(u32 Offset, u32 Data)
 	u32 Payload[XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE];
 	u32 Response;
 
+	/* Frame payload */
 	Payload[0] = Offset;
 	Payload[1] = XGLITCHDETECTOR_SECURE_WRITE_DEFAULT;
 	Payload[2] = Data;
-	Status = XPm_DevIoctl2(PM_DEV_PMC_PROC, IOCTL_MASK_WRITE_REG, Payload,
+	/* Send PM command */
+	Status = XPm_DevIoctl2(PM_REG_PMC_ANALOG_ID, IOCTL_MASK_WRITE_REG, Payload,
 			XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE, &Response,
 			XGLITCHDETECTOR_SECURE_DEFAULT_RESPONSE_SIZE);
 #else
+	/* Write value to register */
 	Xil_Out32(PMC_ANALOG_BASE_ADDR + Offset, Data);
 	Status = XST_SUCCESS;
 #endif
@@ -108,22 +110,27 @@ int XPlmi_WriteReg32(u32 Offset, u32 Data)
  * @return  XST_SUCCESS on success
  *          error code on failure
 **************************************************************************************************/
-int XPlmi_UpdateReg32(u32 Offset, u32 Mask, u32 Data)
+static int XPlmi_UpdateReg32(u32 Offset, u32 Mask, u32 Data)
 {
 	int Status = XST_FAILURE;
 #ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
 	u32 Payload[XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE];
 	u32 Response;
 
+    /* Frame payload */
 	Payload[0] = Offset;
 	Payload[1] = Mask;
 	Payload[2] = Data;
-	Status = XPm_DevIoctl2(PM_DEV_PMC_PROC, IOCTL_MASK_WRITE_REG, Payload,
+	/* Send PM command */
+	Status = XPm_DevIoctl2(PM_REG_PMC_ANALOG_ID, IOCTL_MASK_WRITE_REG, Payload,
 			XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE, &Response,
 			XGLITCHDETECTOR_SECURE_DEFAULT_RESPONSE_SIZE);
 #else
+    /* Read register value */
 	u32 RegVal = Xil_In32(PMC_ANALOG_BASE_ADDR + Offset);
+	/* Modify with mask */
 	RegVal = (RegVal & (~Mask)) | (Mask & Data);
+	/* Write modified value to register */
 	Xil_Out32(PMC_ANALOG_BASE_ADDR + Offset, RegVal);
 	Status = XST_SUCCESS;
 #endif
@@ -143,13 +150,16 @@ void XPlmi_ReadReg32(u32 Offset, u32 *Data)
 #ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
 	u32 Payload[XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE];
 
+    /* Frame payload */
 	Payload[0] = Offset;
 	Payload[1] = XGLITCHDETECTOR_SECURE_READ_DEFAULT;
 	Payload[2] = XGLITCHDETECTOR_SECURE_READ_DEFAULT;
-	XPm_DevIoctl2(PM_DEV_PMC_PROC, IOCTL_READ_REG, Payload,
+	/* Send PM command */
+	(void)XPm_DevIoctl2(PM_REG_PMC_ANALOG_ID, IOCTL_READ_REG, Payload,
 			XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE, Data,
 			XGLITCHDETECTOR_SECURE_DEFAULT_RESPONSE_SIZE);
 #else
+	/* Read register value */
 	*Data = Xil_In32(PMC_ANALOG_BASE_ADDR + Offset);
 #endif
 }
@@ -175,13 +185,15 @@ int XPlmi_ConfigureGlitchDetector(u8 Depth, u8 Width, u8 RefVoltage, u8 UserRegV
 {
 	int Status = XST_FAILURE;
 	u32 Data = 0;
+	/* Caclculate offset based on glitch detector number */
 	u32 Offset = (u32)(GD_FUSE_CTRL0_OFFSET + (XPLMI_WORD_LEN * GlitchDetectorNum));
 
+	/* Frame data to be written */
 	Data = (((RefVoltage & XPLMI_REFVOL_MSBIT_MASK) << XPLMI_REFVOL_MSBIT_SHIFT) |
 	        ((RefVoltage & XPLMI_REFVOL_3LSBITS_MASK) << XPLMI_REFVOL_3LSBITS_SHIFT));
 	Data |= (((Depth & XPLMI_DEPTH_2MSBITS_MASK) << XPLMI_DEPTH_2MSBITS_SHIFT)|
 	        ((Depth & XPLMI_DEPTH_3LSBITS_MASK) << XPLMI_DEPTH_3LSBITS_SHIFT));
-	Data |=  (Width << XPLMI_WIDTH_BITS_SHIFT);
+	Data |=  ((u32)Width << XPLMI_WIDTH_BITS_SHIFT);
 	Data |= UserRegVal;
 
 	Status = XPlmi_WriteReg32(Offset, Data);
@@ -207,10 +219,12 @@ int XPlmi_ChangeGlitchDetectorState(u8 GlitchDetectorNum,eStatus EnableStatus)
 	u32 Mask = 1U << (GlitchDetectorNum * XPLMI_GD1_STATUS_POS);
 	u32 Data = 0;
 
+	/* Frame data to be written */
 	if(EnableStatus == DISABLE) {
 		Data = 1U << (GlitchDetectorNum * XPLMI_GD1_STATUS_POS);
 	}
 
+	/* Update GD_CTRL register */
 	Status = XPlmi_UpdateReg32(GD_CTRL_OFFSET, Mask, Data);
 
 	return Status;
@@ -229,7 +243,7 @@ int XPlmi_ChangeGlitchDetectorState(u8 GlitchDetectorNum,eStatus EnableStatus)
 u8 XPlmi_GlitchDetectorStatus(u8 GlitchDetectorNum)
 {
 	u8 Status;
-	u32 RegVal;
+	u32 RegVal = 0;
 
 	XPlmi_ReadReg32(GD_CTRL_OFFSET, &RegVal);
 	Status = (RegVal >> (GlitchDetectorNum * XPLMI_GD1_STATUS_POS)) & 0x01;

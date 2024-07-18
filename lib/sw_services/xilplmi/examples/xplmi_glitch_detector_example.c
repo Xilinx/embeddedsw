@@ -16,6 +16,7 @@
  *
  * Procedure to run the example.
  * ------------------------------------------------------------------------------------------------
+ * Generate pdi with glitch_detection_overlay cdo.
  * Load the Pdi.
  * Select the target.
  * Download the example elf into the target.
@@ -34,6 +35,7 @@
  * Ver   Who  Date       Changes
  * ----- ---- ---------- --------------------------------------------------------------------------
  * 1.00  pre  06/09/2024 Initial release
+ *       pre  07/15/2024 Added support for SDT flow and fixed misrac warnings
  *
  * </pre>
  *
@@ -57,6 +59,7 @@
 #endif
 
 /************************************ Constant Definitions ***************************************/
+#define GD_STATUS_OFFSET         0x00004 /**< GD_STATUS register offset */
 #define RESET_GD_STATUS_VAL      0x02000200U /**< Value to reset glitch detectors */
 #define GD_IRQ_STATUS_CLEAR      0x80000000U /**< Value to clear IRQ status of glitch detector */
 #define GD0_TEST_GLITCH_GENVALUE 0x00F800FEU /**< Value to generate test glitch on
@@ -75,6 +78,9 @@
 #define XPLMI_SET                (1U) /**< Set value */
 #define XPLMI_RESET              (0U) /**< Reset value */
 
+#define GICP4_IRQ_STATUS_ADDR    0xF1140050 /**< GICP4_IRQ_STATUS register address */
+#define DEVICE_INT_ID            191U /* when using for PL,change interrupt ID here */
+
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -86,8 +92,8 @@ static void GlitchDetectorISR(void);
 static u8 GlitchDetected0; /* Flag to indicate glitch detection on glitch detector0 */
 static u8 GlitchDetected1; /* Flag to indicate glitch detection on glitch detector1 */
 
-extern XScuGic InterruptController; /* Instance of the Interrupt Controller */
-extern XScuGic_Config *GicConfig; /* The configuration parameters of the controller */
+static XScuGic InterruptController; /* Instance of the Interrupt Controller */
+static XScuGic_Config *GicConfig; /* The configuration parameters of the controller */
 
 /*************************************************************************************************/
 /**
@@ -154,7 +160,7 @@ int main()
     int Status = XST_FAILURE;
 	/**
 	 * To generate glitch using test mode, configure glitch detectors with default values.
-	 * To configure glitch detector to detect glitch of atleast 5% depth, 1ns width with 0.7V
+	 * To configure glitch detector to detect glitch of at least 5% depth, 1ns width with 0.7V
 	 * reference voltage, provide Depth = 0x0E, Width = 0x01, RefVoltage = 0x04.To select the
 	 * register values instead of efuse values, provide UserRegVal = 0x01
 	 */
@@ -169,7 +175,11 @@ int main()
 	XIpiPsu_Config *IpiCfgPtr;
 
 	/* Look Up the config data */
+#ifndef SDT
 	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
+#else
+	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_BASEADDR);
+#endif
 	if (NULL == IpiCfgPtr) {
 		Status = XST_FAILURE;
 		xil_printf("IPI lookup config failed\n");
@@ -202,7 +212,11 @@ int main()
 	}
 #endif
 
+#ifndef SDT
 	GicConfig = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
+#else
+	GicConfig = XScuGic_LookupConfig(XPAR_XSCUGIC_0_BASEADDR);
+#endif
 	if (NULL == GicConfig) {
 		xil_printf("SCU GIC lookup configuration failed\r\n");
 		goto END;

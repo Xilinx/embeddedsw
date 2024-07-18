@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- ---------------------------------------------------------------------------
 * 1.00  pre  06/09/2024 Initial release
+*       pre  07/17/2024 Used register node to access PMC analog registers and fixed misrac warnings
 *
 * </pre>
 *
@@ -40,12 +41,10 @@ extern "C" {
 
 /************************** Constant Definitions *************************************************/
 #define XPLMI_GLITCHDETECTOR_SECURE_MODE /* Comment this to access in server mode */
+#define PM_REG_PMC_ANALOG_ID     0x30100002 /**< PMC analog register node ID */
 #define PMC_ANALOG_BASE_ADDR     0xF1160000 /**< PMC analog base address */
 #define GD_CTRL_OFFSET              0x00000 /**< GD_CTRL register offset */
-#define GD_STATUS_OFFSET            0x00004 /**< GD_STATUS register offset */
 #define GD_FUSE_CTRL0_OFFSET        0x00020 /**< GD_FUSE_CTRL0 register offset */
-#define GD_FUSE_CTRL1_OFFSET        0x00024 /**< GD_FUSE_CTRL1 register offset */
-#define GICP4_IRQ_STATUS_ADDR    0xF1140050 /**< GICP4_IRQ_STATUS register address */
 #ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
 #define XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE  (3U) /**< Payload size of command in
                                                           secure mode*/
@@ -53,8 +52,6 @@ extern "C" {
 #define XGLITCHDETECTOR_SECURE_WRITE_DEFAULT         0xFFFFFFFF /**< Default write mask*/
 #define XGLITCHDETECTOR_SECURE_READ_DEFAULT          0x00 /**< Default read mask */
 #endif
-
-#define DEVICE_INT_ID 191 /* when using for PL,change interrupt ID here */
 
 /**************************** Type Definitions ***************************************************/
 typedef enum
@@ -71,7 +68,6 @@ int XPlmi_ConfigureGlitchDetector(u8 Depth, u8 Width, u8 RefVoltage, u8 UserRegV
 int XPlmi_ChangeGlitchDetectorState(u8 GlitchDetectorNum,eStatus EnableStatus);
 u8 XPlmi_GlitchDetectorStatus(u8 GlitchDetectorNum);
 int XPlmi_WriteReg32(u32 Offset, u32 Data);
-int XPlmi_UpdateReg32(u32 Offset, u32 Mask, u32 Data);
 void XPlmi_ReadReg32(u32 Offset, u32 *Data);
 
 /************************** Variable Definitions *************************************************/
