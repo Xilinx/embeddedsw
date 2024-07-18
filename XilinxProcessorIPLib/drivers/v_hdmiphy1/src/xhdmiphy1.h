@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -699,13 +699,13 @@ typedef struct {
     u8  UseGtAsTxTmdsClk;   /**< Use 4th GT channel as TX TMDS clock */
     u8  RxMaxRate;          /**< Max rate of RX */
     u8  TxMaxRate;          /**< Max rate of TX */
+    XHdmiphy1_ClkPrimitive TxClkPrimitive;      /**< TX Clock Primitive */
+    XHdmiphy1_ClkPrimitive RxClkPrimitive;      /**< RX Clock Primitive */
 #ifdef SDT
     char *speedgrade;		/**< FPGA device speed grade */
     u16 IntrId; 		    /**< Interrupt ID */
     UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 #endif
-    XHdmiphy1_ClkPrimitive TxClkPrimitive; /* TX Clock Primitive */
-    XHdmiphy1_ClkPrimitive RxClkPrimitive; /* RX Clock Primitive */
 } XHdmiphy1_Config;
 
 /* Forward declaration. */
