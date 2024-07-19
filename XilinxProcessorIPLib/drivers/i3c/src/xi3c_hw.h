@@ -75,10 +75,11 @@ extern "C" {
 #define XI3C_TSU_STOP_OFFSET			0x50	/**< I3C STOP Setup Register  */
 #define XI3C_OD_SCL_HIGH_TIME_OFFSET		0x54	/**< I3C OD SCL HIGH Register */
 #define XI3C_OD_SCL_LOW_TIME_OFFSET		0x58	/**< I3C OD SCL LOW  Register */
+#define XI3C_TARGET_ADDR_BCR			0x60	/**< I3C Target dynamic Address and BCR Register */
 /* @} */
 
 /**
- * @name Status Register  (SR) mask(s)
+ * @name Reset Register mask(s)
  * @{
  */
 
@@ -97,19 +98,33 @@ extern "C" {
 #define  XI3C_CR_EN_MASK		0x00000001   /**< BIT 0 - Core Enable */
 #define  XI3C_CR_ABORT_MASK		0x00000002   /**< BIT 1 - Abort Transaction */
 #define  XI3C_CR_RESUME_MASK		0x00000004   /**< BIT 2 - Resume Operation  */
+#define  XI3C_CR_IBI_MASK		0x00000008   /**< BIT 3 - IBI Enable */
+#define  XI3C_CR_HJ_MASK		0x00000010   /**< BIT 4 - Hot Join Enable */
+#define  XI3C_CR_ACCEPT_CTRL_ROLE_REQ	0x00000020   /**< BIT 5 - Generate ACK for secondary controller role request IBI */
 
 /**
  * @name Status Register  (SR) mask(s)
  * @{
  */
 
-#define  XI3C_SR_BUS_BUSY_MASK		0x00000001	/**< BIT 0 - Bus Busy */
-#define  XI3C_SR_CLK_STALL_MASK		0x00000002	/**< BIT 1 - Clock Stall */
-#define  XI3C_SR_CMD_FULL_MASK		0x00000004	/**< BIT 2 - Cmd Fifo Full  */
-#define  XI3C_SR_RESP_FULL_MASK		0x00000008	/**< BIT 3 - Resp Fifo Full */
-#define  XI3C_SR_RESP_NOT_EMPTY_MASK	0x00000010	/**< BIT 4 - Resp Fifo not empty */
-#define  XI3C_SR_WR_FULL_MASK		0x00000020	/**< BIT 5 - Write Fifo Full */
-#define  XI3C_SR_RD_FULL_MASK		0x00000040	/**< BIT 6 - Read Fifo Full */
+#define  XI3C_SR_BUS_BUSY_MASK			0x00000001	/**< BIT 0 - Bus Busy */
+#define  XI3C_SR_CLK_STALL_MASK			0x00000002	/**< BIT 1 - Clock Stall */
+#define  XI3C_SR_CMD_FULL_MASK			0x00000004	/**< BIT 2 - Cmd Fifo Full  */
+#define  XI3C_SR_RESP_FULL_MASK			0x00000008	/**< BIT 3 - Resp Fifo Full */
+#define  XI3C_SR_RESP_NOT_EMPTY_MASK		0x00000010	/**< BIT 4 - Resp Fifo not empty */
+#define  XI3C_SR_WR_FULL_MASK			0x00000020	/**< BIT 5 - Write Fifo Full */
+#define  XI3C_SR_RD_FULL_MASK			0x00000040	/**< BIT 6 - Read Fifo Full */
+#define  XI3C_SR_IBI_MASK			0x00000080	/**< BIT 7 - IBI */
+#define  XI3C_SR_HJ_MASK			0x00000100	/**< BIT 8 - Hot join */
+#define  XI3C_SR_CTRL_ROLE_REQUEST_MASK		0x00000200	/**< BIT 9 - Received control role request */
+#define  XI3C_SR_ERROR_TYPE_CE3_MASK		0x00000400	/**< BIT 10 - This field will be set if there
+								is no START coming from the new Controller
+								that has took over the Role.   */
+#define  XI3C_SR_RETURN_ROLE_REQ_ACK_MASK	0x00000800	/**< BIT 11 - Received ACK on controller role request back */
+#define  XI3C_SR_RD_FIFO_ALMOST_FULL_MASK	0x00001000	/**< BIT 12 - Read Fifo almost Full */
+#define  XI3C_SR_CMD_FIFO_NOT_EMPTY_MASK	0x00002000	/**< BIT 13 - CMD FIFO empty */
+#define  XI3C_SR_WR_FIFO_NOT_EMPTY_MASK		0x00004000	/**< BIT 14 - Write FIFO empty */
+#define  XI3C_SR_RD_FIFO_NOT_EMPTY_MASK		0x00008000	/**< BIT 15 - Read FIFO empty */
 
 /**
  * @name Status Register  (SR) Shifts(s)
@@ -184,6 +199,17 @@ extern "C" {
 #define  XI3C_INTR_WR_FIFO_ALMOST_FULL_MASK	0x00000020	/**< BIT 5 - Write Fifo Full */
 #define  XI3C_INTR_RD_FULL_MASK			0x00000040	/**< BIT 6 - Read Fifo Full */
 #define  XI3C_ALL_INTR_MASK			0x0000007F	/**< 6:0 BITS */
+#define  XI3C_INTR_IBI_MASK			0x00000080	/**< BIT 7 - IBI */
+#define  XI3C_INTR_HJ_MASK			0x00000100	/**< BIT 8 - Hot join */
+#define  XI3C_INTR_CTRL_ROLE_REQUEST_MASK	0x00000200	/**< BIT 9 - Received control role request */
+#define  XI3C_INTR_ERROR_TYPE_CE3_MASK		0x00000400	/**< BIT 10 - This field will be set if there
+								is no START coming from the new Controller
+								that has took over the Role.   */
+#define  XI3C_INTR_RETURN_ROLE_REQ_ACK_MASK	0x00000800	/**< BIT 11 - Received ACK on controller role request back */
+#define  XI3C_INTR_RD_FIFO_ALMOST_FULL_MASK	0x00001000	/**< BIT 12 - Read Fifo almost Full */
+#define  XI3C_INTR_CMD_FIFO_NOT_EMPTY_MASK	0x00002000	/**< BIT 13 - CMD FIFO empty */
+#define  XI3C_INTR_WR_FIFO_NOT_EMPTY_MASK	0x00004000	/**< BIT 14 - Write FIFO empty */
+#define  XI3C_INTR_RD_FIFO_NOT_EMPTY_MASK	0x00008000	/**< BIT 15 - Read FIFO empty */
 
 /****************************************************************************/
 /**
@@ -290,6 +316,43 @@ extern "C" {
         (u16)((XI3c_ReadReg(InstancePtr->Config.BaseAddress,		\
 			    XI3C_FIFO_LVL_STATUS_1_OFFSET) &		\
                             XI3C_MSB_16BITS_MASK) >> XI3C_RESP_LVL_SHIFT)
+
+/*****************************************************************************/
+/**
+*
+* Check Read FIFO empty status
+*
+* @param        InstancePtr is a pointer to the XI3c core instance.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               u32 XI3c_RxFifoNotEmpty(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_RxFifoNotEmpty(InstancePtr)				\
+        (u32)(XI3c_ReadReg(InstancePtr->Config.BaseAddress,		\
+			    XI3C_SR_OFFSET) &				\
+                            XI3C_SR_RD_FIFO_NOT_EMPTY_MASK)
+
+
+/*****************************************************************************/
+/**
+*
+* Check Response FIFO empty status
+*
+* @param        InstancePtr is a pointer to the XI3c core instance.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               u32 XI3c_RespFifoNotEmpty(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_RespFifoNotEmpty(InstancePtr)				\
+        (u32)(XI3c_ReadReg(InstancePtr->Config.BaseAddress,		\
+			    XI3C_SR_OFFSET) &				\
+                            XI3C_SR_RESP_NOT_EMPTY_MASK)
 
 /*****************************************************************************/
 /**

@@ -532,6 +532,8 @@ typedef struct {
 	u8 RwFifoDepth;		/**< Read and write fifo depth */
 	u8 WrThreshold;		/**< Write fifo programmable threshold byte count */
 	u8 DeviceCount;		/**< Number of devices connected */
+	u8 IbiCapable;		/**< IBI Capability */
+	u8 HjCapable;		/**< Hot Join Capability */
 } XI3c_Config;
 
 typedef struct {
@@ -576,6 +578,8 @@ typedef struct {
 /************************** Variable Definitions *****************************/
 extern XI3c_Config XI3c_ConfigTable[];	/**< Configuration table */
 
+extern u8 XI3C_DynaAddrList[];
+
 /************************** Function Prototypes ******************************/
 
 /*
@@ -613,6 +617,8 @@ s32 XI3c_MasterRecv(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount)
 s32 XI3c_MasterSendPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount);
 s32 XI3c_MasterRecvPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 ByteCount);
 void XI3c_MasterInterruptHandler(XI3c *InstancePtr);
+s32 XI3c_IbiRecv(XI3c *InstancePtr, u8 *MsgPtr);
+s32 XI3c_IbiRecvPolled(XI3c *InstancePtr, u8 *MsgPtr);
 
 /************************** Inline Function Definitions **********************/
 /*****************************************************************************/
@@ -697,6 +703,84 @@ static inline void XI3c_Resume(XI3c *InstancePtr)
         Data = XI3c_ReadReg(InstancePtr->Config.BaseAddress, XI3C_CR_OFFSET);
         Data |= XI3C_CR_RESUME_MASK;
         XI3c_WriteReg(InstancePtr->Config.BaseAddress, XI3C_CR_OFFSET, Data);
+}
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Enable IBI capability
+*
+* @param	InstancePtr is a pointer to the XI3c instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static inline void XI3c_EnableIbi(XI3c *InstancePtr)
+{
+	u32 Data;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	Data = XI3c_ReadReg(InstancePtr->Config.BaseAddress, XI3C_CR_OFFSET);
+	Data |= XI3C_CR_IBI_MASK;
+	XI3c_WriteReg(InstancePtr->Config.BaseAddress, XI3C_CR_OFFSET, Data);
+}
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Enable Hot Join capability
+*
+* @param	InstancePtr is a pointer to the XI3c instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static inline void XI3c_EnableHotjoin(XI3c *InstancePtr)
+{
+	u32 Data;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	Data = XI3c_ReadReg(InstancePtr->Config.BaseAddress, XI3C_CR_OFFSET);
+	Data |= XI3C_CR_HJ_MASK;
+	XI3c_WriteReg(InstancePtr->Config.BaseAddress, XI3C_CR_OFFSET, Data);
+}
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Update the slave address and BCR register values of available device
+* to the controller RAM.
+*
+* @param	InstancePtr is a pointer to the XI3c instance.
+* @param	Slave device index of XI3c_SlaveInfoTable.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static inline void XI3c_UpdateAddrBcr(XI3c *InstancePtr, u16 DevIndex)
+{
+	u32 AddrBcr;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	AddrBcr = InstancePtr->XI3c_SlaveInfoTable[DevIndex].DynaAddr & XI3C_7BITS_MASK;   /**< Dynamic address: 0 to 6 bits */
+	AddrBcr |= (u32)(InstancePtr->XI3c_SlaveInfoTable[DevIndex].Bcr & XI3C_8BITS_MASK) << 8;/**< BCR: 8 to 15 bits */
+
+	XI3c_WriteReg(InstancePtr->Config.BaseAddress, XI3C_TARGET_ADDR_BCR, AddrBcr);
 }
 
 /*****************************************************************************/

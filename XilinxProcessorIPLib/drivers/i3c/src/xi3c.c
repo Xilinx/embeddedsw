@@ -27,7 +27,25 @@
 #include "xi3c.h"
 #include "xi3c_hw.h"
 
-/************************** Variable Prototypes ******************************/
+/************************** Function Prototypes ******************************/
+
+void XI3c_ConfigIbi(XI3c *InstancePtr, u8 DevCount);
+
+/************************** Variable Definitions *****************************/
+/*
+ * 108 dynamic addresses are available for I3C
+ */
+u8 XI3C_DynaAddrList[] = { 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf, 0x10, 0x11,
+			   0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b,
+			   0x1c, 0x1d, 0x1e, 0x1f, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25,
+			   0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
+			   0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39,
+			   0x3a, 0x3b, 0x3c, 0x3d, 0x3f, 0x40, 0x41, 0x42, 0x43, 0x44,
+			   0x45, 0x46, 0x47, 0x48, 0x49, 0x4a, 0x4b, 0x4c, 0x4d, 0x4e,
+			   0x4f, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58,
+			   0x59, 0x5a, 0x5b, 0x5c, 0x5d, 0x5f, 0x60, 0x61, 0x62, 0x63,
+			   0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x6d,
+			   0x6f, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x77 };
 
 /*****************************************************************************/
 /**
@@ -142,7 +160,10 @@ s32 XI3c_CfgInitialize(XI3c *InstancePtr, XI3c_Config *ConfigPtr,
 	 */
 	InstancePtr->Config.WrThreshold = ConfigPtr->WrThreshold * WORD_TO_BYTE;
 	InstancePtr->Config.DeviceCount = ConfigPtr->DeviceCount;
+	InstancePtr->Config.IbiCapable = ConfigPtr->IbiCapable;
+	InstancePtr->Config.HjCapable = ConfigPtr->HjCapable;
 
+	InstancePtr->CurDeviceCount = 0;
 	/*
 	 * Indicate the instance is now ready to use, initialized without error
 	 */
@@ -157,12 +178,30 @@ s32 XI3c_CfgInitialize(XI3c *InstancePtr, XI3c_Config *ConfigPtr,
 	XI3c_Reset(InstancePtr);
 	XI3c_ResetFifos(InstancePtr);
 
+	if (InstancePtr->Config.IbiCapable)
+		XI3c_EnableIbi(InstancePtr);
+
+	if (InstancePtr->Config.HjCapable)
+		XI3c_EnableHotjoin(InstancePtr);
+
 	/*
 	 *  Enable I3C controller
 	 */
 	XI3c_Enable(InstancePtr, 1);
 
 	XI3C_BusInit(InstancePtr);
+
+	if (InstancePtr->Config.IbiCapable && InstancePtr->Config.DeviceCount) {
+		XI3c_DynaAddrAssign(InstancePtr, XI3C_DynaAddrList, InstancePtr->Config.DeviceCount);
+		XI3c_ConfigIbi(InstancePtr, InstancePtr->Config.DeviceCount);
+	}
+
+	/*
+	 * Enable Hot join raising edge interrupt.
+	 */
+	if (InstancePtr->Config.HjCapable)
+		XI3c_EnableREInterrupts(InstancePtr->Config.BaseAddress,
+					XI3C_INTR_HJ_MASK);
 
 	return XST_SUCCESS;
 }
@@ -332,18 +371,46 @@ s32 XI3c_DynaAddrAssign(XI3c *InstancePtr, u8 DynaAddr[], u8 DevCount)
 		}
 
 		/**< ID - RecvBuffer[0] to RecvBuffer[5] */
-		InstancePtr->XI3c_SlaveInfoTable[Index].Id = (((u64)RecvBuffer[0] << 40)|
-							      ((u64)RecvBuffer[1] << 32)|
-							      ((u64)RecvBuffer[2] << 24)|
-							      ((u64)RecvBuffer[3] << 16)|
-							      ((u64)RecvBuffer[4] << 8) |
-							      ((u64)RecvBuffer[5]));
+		InstancePtr->XI3c_SlaveInfoTable[InstancePtr->CurDeviceCount].Id = (((u64)RecvBuffer[0] << 40)|
+										    ((u64)RecvBuffer[1] << 32)|
+										    ((u64)RecvBuffer[2] << 24)|
+										    ((u64)RecvBuffer[3] << 16)|
+										    ((u64)RecvBuffer[4] << 8) |
+										    ((u64)RecvBuffer[5]));
 		/**< BCR - RecvBuffer[6] */
-		InstancePtr->XI3c_SlaveInfoTable[Index].Bcr = RecvBuffer[6];
+		InstancePtr->XI3c_SlaveInfoTable[InstancePtr->CurDeviceCount].Bcr = RecvBuffer[6];
 		/**< DCR - RecvBuffer[7] */
-		InstancePtr->XI3c_SlaveInfoTable[Index].Dcr = RecvBuffer[7];
+		InstancePtr->XI3c_SlaveInfoTable[InstancePtr->CurDeviceCount].Dcr = RecvBuffer[7];
 		/**< Dynamic address */
-		InstancePtr->XI3c_SlaveInfoTable[Index].DynaAddr = DynaAddr[Index];
+		InstancePtr->XI3c_SlaveInfoTable[InstancePtr->CurDeviceCount].DynaAddr = DynaAddr[Index];
+
+		InstancePtr->CurDeviceCount++;
 	}
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This configure target address and BCR register values of available devices
+* to the controller RAM.
+*
+* @param	InstancePtr is a pointer to the XI3c instance.
+* @param	DevCount is the number of slave devices present.
+*
+* @return	None.
+*
+* @note         None.
+*
+******************************************************************************/
+void XI3c_ConfigIbi(XI3c *InstancePtr, u8 DevCount)
+{
+	u16 Index;
+
+	/* Assert the arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	for(Index = 0; (Index < DevCount) && (Index < XI3C_MAXDAACOUNT); Index++)
+		XI3c_UpdateAddrBcr(InstancePtr, Index);
 }
