@@ -364,6 +364,31 @@ s32 XI3c_MasterRecvPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 Byte
 
 /*****************************************************************************/
 /**
+* @brief
+* This function reads the Rx Fifo during IBI.
+*
+* @param	InstancePtr is a pointer to the XI3c instance.
+*
+* @return	None
+*
+* @note
+*
+****************************************************************************/
+static void XI3c_IbiReadRxFifo(XI3c *InstancePtr)
+{
+	u16 DataIndex;
+	u16 RxDataAvailable;
+
+	RxDataAvailable = XI3c_RdFifoLevel(InstancePtr);
+
+	for (DataIndex = 0; DataIndex < RxDataAvailable; DataIndex++) {
+		InstancePtr->RecvByteCount = 4;
+		XI3c_ReadRxFifo(InstancePtr);
+	}
+}
+
+/*****************************************************************************/
+/**
 *
 * @brief
 * This function sets the status handler, which the driver calls when it
@@ -420,6 +445,7 @@ void XI3c_MasterInterruptHandler(XI3c *InstancePtr)
 	u16 DataIndex;
 	u16 RxDataAvailable;
 	u32 ResponseData;
+	u8 DynaAddr[1];
 
 	/*
 	 * Assert validates the input arguments.
@@ -436,6 +462,32 @@ void XI3c_MasterInterruptHandler(XI3c *InstancePtr)
 	 * missed while processing this interrupt.
 	 */
 	XI3c_WriteReg(InstancePtr->Config.BaseAddress, (u32)XI3C_INTR_STATUS_OFFSET, IntrStatusReg);
+
+	/*
+	 * Hot Join
+	 */
+	if (IntrStatusReg & XI3C_INTR_HJ_MASK) {
+		if(InstancePtr->CurDeviceCount <= XI3C_MAXDAACOUNT) {
+			DynaAddr[0] = XI3C_DynaAddrList[InstancePtr->CurDeviceCount];
+			XI3c_DynaAddrAssign(InstancePtr, DynaAddr, 1);
+			XI3c_UpdateAddrBcr(InstancePtr, InstancePtr->CurDeviceCount-1);
+		}
+		/*
+		 * Clear fifos, as data in fifos unused in hot join case.
+		 */
+		XI3c_ResetFifos(InstancePtr);
+	}
+
+	/*
+	 * IBI
+	 */
+	if (IntrStatusReg & XI3C_INTR_IBI_MASK) {
+		while (XI3c_RxFifoNotEmpty(InstancePtr) || !XI3c_RespFifoNotEmpty(InstancePtr))
+			XI3c_IbiReadRxFifo(InstancePtr);
+
+		XI3c_DisableREInterrupts(InstancePtr->Config.BaseAddress, XI3C_INTR_IBI_MASK);
+	}
+
 
 	/* Tx empty */
 	if (IntrStatusReg & XI3C_INTR_WR_FIFO_ALMOST_FULL_MASK) {
@@ -473,6 +525,11 @@ void XI3c_MasterInterruptHandler(XI3c *InstancePtr)
 				XI3c_ReadRxFifo(InstancePtr);
 			}
 		}
+		/*
+		 * Check and read if Rx FIFO has any data during IBI
+		 */
+		if (InstancePtr->Config.IbiCapable)
+			XI3c_IbiReadRxFifo(InstancePtr);
 
 		ResponseData = XI3c_ReadReg(InstancePtr->Config.BaseAddress, XI3C_RESP_STATUS_FIFO_OFFSET);
 		InstancePtr->Error = ((ResponseData & XI3C_RESP_CODE_MASK) >> XI3C_RESP_CODE_SHIFT);
@@ -486,6 +543,119 @@ void XI3c_MasterInterruptHandler(XI3c *InstancePtr)
 
 		InstancePtr->StatusHandler(InstancePtr->Error);
 	}
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function setup for receive during IBI in interrupt mode.
+*
+* It enables the required interrupts for performing read operation during IBI.
+*
+* @param	InstancePtr is a pointer to the XI3c instance.
+* @param	MsgPtr is the pointer to the recv buffer.
+*
+* @return
+*		- XST_SUCCESS if everything went well.
+*		- XST_NO_DATA if message buffer is NULL.
+*
+* @note		None.
+*
+****************************************************************************/
+s32 XI3c_IbiRecv(XI3c *InstancePtr, u8 *MsgPtr)
+{
+	/*
+         * Assert validates the input arguments.
+         */
+        Xil_AssertNonvoid(InstancePtr != NULL);
+        Xil_AssertNonvoid(MsgPtr != NULL);
+
+	if (MsgPtr == NULL)
+		return XST_NO_DATA;
+
+	InstancePtr->RecvBufferPtr = MsgPtr;
+
+	/*
+	 * Enable response fifo not empty and read fifo not empty
+	 * raising edge interrupts.
+	 */
+	XI3c_EnableREInterrupts(InstancePtr->Config.BaseAddress,
+				XI3C_INTR_IBI_MASK		|
+				XI3C_INTR_RESP_NOT_EMPTY_MASK);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function receives data during IBI in polled mode.
+*
+* It polls the data register for data to come in during IBI.
+* If master fails to read data due to any error, it will return with status.
+*
+* @param	InstancePtr is a pointer to the XI3c instance.
+* @param	MsgPtr is the pointer to the recv buffer.
+*
+* @return
+*		- XST_SUCCESS if everything went well.
+*		- XST_RECV_ERROR if any error.
+*
+* @note		None.
+*
+****************************************************************************/
+s32 XI3c_IbiRecvPolled(XI3c *InstancePtr, u8 *MsgPtr)
+{
+	s32 Status;
+	u16 DataIndex;
+	u16 RxDataAvailable;
+
+	/*
+         * Assert validates the input arguments.
+         */
+        Xil_AssertNonvoid(InstancePtr != NULL);
+        Xil_AssertNonvoid(MsgPtr != NULL);
+
+	if (MsgPtr == NULL)
+		return XST_NO_DATA;
+
+	InstancePtr->RecvBufferPtr = MsgPtr;
+
+	/*
+	 * Wait till Rx Fifo has data with timeout
+	 */
+	Status = (int)Xil_WaitForEvent(((InstancePtr->Config.BaseAddress) +
+					XI3C_SR_OFFSET),
+				       XI3C_SR_RD_FIFO_NOT_EMPTY_MASK, XI3C_SR_RD_FIFO_NOT_EMPTY_MASK,
+				       TIMEOUT_COUNTER*10);
+	if (Status != XST_SUCCESS) {
+		goto out;
+	}
+
+	while (XI3c_RxFifoNotEmpty(InstancePtr) || !XI3c_RespFifoNotEmpty(InstancePtr)) {
+		RxDataAvailable = XI3c_RdFifoLevel(InstancePtr);
+
+		for (DataIndex = 0; DataIndex < RxDataAvailable; DataIndex++) {
+			InstancePtr->RecvByteCount = 4;
+			XI3c_ReadRxFifo(InstancePtr);
+		}
+	}
+
+	/*
+	 * Check and read if Rx FIFO has any data during response
+	 */
+	RxDataAvailable = XI3c_RdFifoLevel(InstancePtr);
+
+	for (DataIndex = 0; DataIndex < RxDataAvailable; DataIndex++) {
+		InstancePtr->RecvByteCount = 4;
+		XI3c_ReadRxFifo(InstancePtr);
+	}
+
+out:
+	if (XI3c_GetResponse(InstancePtr))
+		return XST_RECV_ERROR;
+	else
+		return XST_SUCCESS;
 }
 
 /** @} */

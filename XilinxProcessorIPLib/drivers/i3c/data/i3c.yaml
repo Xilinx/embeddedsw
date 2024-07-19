@@ -25,6 +25,10 @@ properties:
       Write fifo programmable threshold
   xlnx,num-targets:
       Number of target devices connected to I3C bus
+  xlnx,ibi-capable:
+      IBI capability
+  xlnx,hj-capable:
+      Hot join capability
 
 config:
     - XI3c_Config
@@ -38,6 +42,8 @@ required:
     - xlnx,wr-rd-fifo-depth
     - xlnx,wr-fifo-prog-full-threshold
     - xlnx,num-targets
+    - xlnx,ibi-capable
+    - xlnx,hj-capable
 
 examples:
     xi3c_intr_example.c:
