@@ -168,6 +168,8 @@ int I3cMasterIntrExample(UINTPTR BaseAddress)
 	}
 	XI3c_CfgInitialize(InstancePtr, CfgPtr, CfgPtr->BaseAddress);
 
+	XI3C_BusInit(InstancePtr);
+
 	/*
 	 * Setup the Interrupt System.
 	 */

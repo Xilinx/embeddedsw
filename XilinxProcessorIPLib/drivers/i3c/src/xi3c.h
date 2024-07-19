@@ -602,6 +602,7 @@ void XI3c_ReadRxFifo(XI3c *InstancePtr);
 s32 XI3c_SendTransferCmd(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 Data);
 s32 XI3c_DynaAddrAssign(XI3c *InstancePtr, u8 DynaAddr[], u8 DevCount);
 s32 XI3c_SetSClk(XI3c *InstancePtr, u32 SclkHz, u8 Mode);
+void XI3C_BusInit(XI3c *InstancePtr);
 
 /*
  * Functions for interrupts, in XI3c_master.c

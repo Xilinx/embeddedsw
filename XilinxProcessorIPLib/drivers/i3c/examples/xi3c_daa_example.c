@@ -135,6 +135,8 @@ int I3cMasterDaaExample(UINTPTR BaseAddress)
 	}
 	XI3c_CfgInitialize(InstancePtr, CfgPtr, CfgPtr->BaseAddress);
 
+	XI3C_BusInit(InstancePtr);
+
 	/*
 	 * Assign dynamic addresses to slave devices
 	 */
