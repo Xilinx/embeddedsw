@@ -531,6 +531,7 @@ typedef struct {
 	u32 InputClockHz;	/**< Input clock frequency */
 	u8 RwFifoDepth;		/**< Read and write fifo depth */
 	u8 WrThreshold;		/**< Write fifo programmable threshold byte count */
+	u8 DeviceCount;		/**< Number of devices connected */
 } XI3c_Config;
 
 typedef struct {
@@ -567,8 +568,8 @@ typedef struct {
 	u16 SendByteCount;	/**< Number of bytes still expected to send */
 	u16 RecvByteCount;	/**< Number of bytes still expected to receive */
 	u8 Error;		/**< Error value */
-	u8 DeviceCount;		/**< Number of devices connected */
-	XI3c_IntrHandler StatusHandler;  /**< Event handler function */
+	u8 CurDeviceCount;		/**< Current number of devices on the bus */
+	XI3c_IntrHandler StatusHandler;	/**< Event handler function */
 	XI3c_SlaveInfo XI3c_SlaveInfoTable[XI3C_MAXDAACOUNT]; /**< Slave info table */
 } XI3c;
 
