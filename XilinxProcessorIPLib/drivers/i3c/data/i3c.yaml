@@ -23,6 +23,8 @@ properties:
       Read write fifo depth
   xlnx,wr-fifo-prog-full-threshold:
       Write fifo programmable threshold
+  xlnx,num-targets:
+      Number of target devices connected to I3C bus
 
 config:
     - XI3c_Config
@@ -35,6 +37,7 @@ required:
     - xlnx,axi-clk-freq
     - xlnx,wr-rd-fifo-depth
     - xlnx,wr-fifo-prog-full-threshold
+    - xlnx,num-targets
 
 examples:
     xi3c_intr_example.c:

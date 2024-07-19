@@ -141,6 +141,7 @@ s32 XI3c_CfgInitialize(XI3c *InstancePtr, XI3c_Config *ConfigPtr,
 	 * so convert to bytes.
 	 */
 	InstancePtr->Config.WrThreshold = ConfigPtr->WrThreshold * WORD_TO_BYTE;
+	InstancePtr->Config.DeviceCount = ConfigPtr->DeviceCount;
 
 	/*
 	 * Indicate the instance is now ready to use, initialized without error
