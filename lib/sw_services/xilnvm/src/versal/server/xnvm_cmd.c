@@ -28,6 +28,7 @@
 * 3.2   bm   06/23/2023 Added access permissions for IPI commands
 * 3.3   kpt  02/21/2024 Added generic handler
 *	vss  02/23/2024	Added IPI support for eFuse read and write
+*	vss  05/20/24 Added IPI support for AES key write
 *
 * </pre>
 *
@@ -95,6 +96,7 @@ static XPlmi_AccessPerm_t XNvm_AccessPermBuff[XNVM_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_MISC_CTRL),
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_SECURITY_CTRL),
 	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC0_CTRL),
+	XPLMI_ALL_IPI_FULL_ACCESS(XNVM_API_ID_EFUSE_WRITE_AES_KEYS),
 };
 
 static XPlmi_Module XPlmi_Nvm =
@@ -164,6 +166,7 @@ static int XNvm_FeaturesCmd(u32 ApiId)
 		case XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY:
 		case XNVM_API_ID_EFUSE_READ_DNA:
 		case XNVM_API_ID_EFUSE_READ_CACHE:
+		case XNVM_API_ID_EFUSE_WRITE_AES_KEYS:
 #ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
 		case XNVM_API_ID_EFUSE_WRITE_IV:
 		case XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC1:
@@ -266,6 +269,7 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 		case XNVM_API(XNVM_API_ID_EFUSE_WRITE_ANLG_TRIM):
 		case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_DATA):
 		case XNVM_API(XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC0_CTRL):
+		case XNVM_API(XNVM_API_ID_EFUSE_WRITE_AES_KEYS):
 #endif
 #ifdef XNVM_WRITE_KEY_MANAGEMENT_EFUSE
 		case XNVM_API(XNVM_API_ID_EFUSE_WRITE_OFF_CHIP_ID):
@@ -282,8 +286,8 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 #if (defined(XNVM_WRITE_KEY_MANAGEMENT_EFUSE)) || (defined(XNVM_WRITE_SECURITY_CRITICAL_EFUSE)) || \
 	(defined (XNVM_WRITE_USER_EFUSE))
 			Status = XNvm_EfuseWriteAccess(Cmd, Pload[0U], Pload[1U], Pload[2U]);
-#endif
 			break;
+#endif
 		default:
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 			Status = XST_INVALID_PARAM;

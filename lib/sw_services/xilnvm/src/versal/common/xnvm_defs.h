@@ -31,6 +31,7 @@
 *                     by rearranging the structure elements
 * 3.1   skg  10/28/22 Added comments
 * 3.3	vss  02/23/24 Added IPI support for eFuse read and write
+*	vss  05/20/24 Added IPI support for AES key write
 *
 * </pre>
 * @note
@@ -161,6 +162,7 @@ typedef enum {
 	XNVM_API_ID_EFUSE_WRITE_MISC_CTRL,
 	XNVM_API_ID_EFUSE_WRITE_SECURITY_CTRL,
 	XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC0_CTRL,
+	XNVM_API_ID_EFUSE_WRITE_AES_KEYS,
 	XNVM_API_MAX,
 } XNvm_ApiId;
 

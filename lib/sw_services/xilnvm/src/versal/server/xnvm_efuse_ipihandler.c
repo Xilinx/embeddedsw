@@ -31,6 +31,7 @@
 * 3.1   skg  10/25/2022 Added in body comments for APIs
 *       skg  12/07/2022 Added Additional PPKs support
 * 3.3	vss  02/23/2024	Added IPI support for eFuse read and write
+*	vss  05/20/2024 Added IPI support for AES key write
 *
 * </pre>
 *
@@ -103,6 +104,7 @@ static int XNvm_EfuseAnlgTrimWriteAccess(u64 Addr, u8 EnvMonitorDis);
 static int XNvm_EfuseBootEnvCtrlWriteAccess(u64 Addr, u8 EnvMonitorDis);
 static int XNvm_EfusePufWriteAccess(u64 Addr, u8 EnvMonitorDis);
 static int XNvm_EfuseSecMisc0WriteAccess(u64 Addr, u8 EnvMonitorDis);
+static int XNvm_EfuseAesKeysWriteAccess(u64 Addr, u8 EnvMonitorDis);
 #endif
 
 /*************************** Function Definitions *****************************/
@@ -1089,6 +1091,9 @@ int XNvm_EfuseWriteAccess(const XPlmi_Cmd *Cmd, u32 AddrLow, u32 AddrHigh, u8 En
 		case XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC0_CTRL:
 			Status = XNvm_EfuseSecMisc0WriteAccess(Addr, EnvMonitorDis);
 			break;
+		case XNVM_API(XNVM_API_ID_EFUSE_WRITE_AES_KEYS):
+			Status = XNvm_EfuseAesKeysWriteAccess(Addr, EnvMonitorDis);
+			break;
 #endif
 
 #ifdef XNVM_WRITE_USER_EFUSE
@@ -1429,6 +1434,47 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function is used to write Aeskeys eFuse
+ *
+ * @param 	Addr 	Address of the data to be written
+ *
+ * @param 	EnvMonitorDis	Environmental Disable variable
+ *
+ *
+ * @return	- XST_SUCCESS - If the copy is successful
+ * 		- Error Code - Corresponding error code on failure
+ *
+ *****************************************************************************/
+static int XNvm_EfuseAesKeysWriteAccess(u64 Addr, u8 EnvMonitorDis)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseAesKeys AesKeys = {0U};
+	XNvm_EfuseData EfuseData = {0U};
+
+	Status = XPlmi_VerifyAddrRange(Addr, Addr + sizeof(AesKeys) - 1U);
+	if(Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE;
+		goto END;
+	}
+
+	EfuseData.EnvMonitorDis = EnvMonitorDis;
+	if (EfuseData.EnvMonitorDis == FALSE) {
+		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+	}
+
+	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&AesKeys, sizeof(AesKeys));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData.AesKeys = &AesKeys;
+	Status = XNvm_EfuseWrite(&EfuseData);
+
+END:
+	return Status;
+}
 #endif
 
 #ifdef XNVM_WRITE_KEY_MANAGEMENT_EFUSE
