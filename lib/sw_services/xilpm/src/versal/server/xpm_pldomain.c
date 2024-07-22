@@ -1307,7 +1307,7 @@ done:
 	return Status;
 }
 
-static XStatus AdcDacHouseClean(u32 PollTimeOut)
+static XStatus AdcDacHouseClean(u32 SecLockDownInfo, u32 PollTimeOut)
 {
 	XStatus Status = XST_FAILURE;
 	XStatus StatusTmp = XST_FAILURE;
@@ -1331,14 +1331,14 @@ static XStatus AdcDacHouseClean(u32 PollTimeOut)
 	/* Required for redundancy */
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 		DbgErr = XPM_INT_ERR_DAC_MBIST;
-		goto done;
+		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
 
 	/* Run scan clear for each DAC */
 	Status = DacScanClear(DacAddresses, ARRAY_SIZE(DacAddresses), PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_DAC_SCAN_CLEAR;
-		goto done;
+		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
 
 	/* Run scan clear for each ADC */
@@ -1916,7 +1916,7 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	/* Run houseclean sequence for ADC/DAC */
-	Status = AdcDacHouseClean(PollTimeOut);
+	Status = AdcDacHouseClean(SecLockDownInfo, PollTimeOut);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_ADC_DAC_HC;
 		goto fail;
