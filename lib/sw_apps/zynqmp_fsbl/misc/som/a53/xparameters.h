@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
@@ -283,6 +283,10 @@
 #define XPAR_PSU_DDRC_0_DDR_FREQ_MHZ 1066.656006
 #define XPAR_PSU_DDRC_0_VIDEO_BUFFER_SIZE 0
 #define XPAR_PSU_DDRC_0_BRC_MAPPING 0
+#define XPAR_PSU_DDRC_0_BANK_ADDR_BITS 2
+#define XPAR_PSU_DDRC_0_COL_ADDR_BITS 10
+#define XPAR_PSU_DDRC_0_ROW_ADDR_BITS 15
+#define XPAR_PSU_DDRC_0_BG_ADDR_BITS 2
 #define XPAR_PSU_DDRC_0_DDR_MEMORY_TYPE 4
 #define XPAR_PSU_DDRC_0_DDR_MEMORY_ADDRESS_MAP 0
 #define XPAR_PSU_DDRC_0_DDR_DATA_MASK_AND_DBI 7
@@ -309,6 +313,10 @@
 #define XPAR_DDRCPSU_0_DDR_FREQ_MHZ 1066.656006
 #define XPAR_DDRCPSU_0_VIDEO_BUFFER_SIZE 0
 #define XPAR_DDRCPSU_0_BRC_MAPPING 0
+#define XPAR_DDRCPSU_0_BANK_ADDR_BITS 2
+#define XPAR_DDRCPSU_0_COL_ADDR_BITS 10
+#define XPAR_DDRCPSU_0_ROW_ADDR_BITS 15
+#define XPAR_DDRCPSU_0_BG_ADDR_BITS 2
 #define XPAR_DDRCPSU_0_DDR_MEMORY_TYPE 4
 #define XPAR_DDRCPSU_0_DDR_MEMORY_ADDRESS_MAP 0
 #define XPAR_DDRCPSU_0_DDR_DATA_MASK_AND_DBI 7
