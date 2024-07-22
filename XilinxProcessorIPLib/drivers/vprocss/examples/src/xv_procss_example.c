@@ -646,7 +646,7 @@ int main(void)
 
 	vpssVideo *thisCase;
 	int status, cnt;
-	u32 Timeout;
+	u32 Timeout, errors;
 	static int Lock = FALSE;
 
 	/* Bind instance pointer with definition */
@@ -669,7 +669,7 @@ int main(void)
 	 * the video input and output formats are chosen.
 	 */
 
-	status = 0;
+	status = errors = 0;
 	cnt = 0;
 	while (cnt < USECASE_COUNT) {
 		xil_printf("--------------------------------------------------------\r\n");
@@ -803,12 +803,12 @@ int main(void)
 		}
 
 		if (!Timeout) {
+			errors++;
 			xil_printf("\r\nERROR:: Test Failed\r\n");
 		} else {
-			xil_printf("\r\nTest Completed Successfully\r\n\r\n");
+			xil_printf("\r\nTest Completed Successfully\r\n");
 		}
 
-		xil_printf("Stop... ");
 		XVprocSs_Stop(VpssPtr);
 
 		// In the Deint-only configuration, it is necessary to allow
@@ -826,11 +826,15 @@ int main(void)
 		XVprocSs_LogDisplay(VpssPtr);
 #endif
 
-		xil_printf ("End testing this use case.\r\n");
+		xil_printf ("End testing this use case %d.\r\n\r\n", (cnt+1));
 		Lock = FALSE;
 		cnt++;
 	}
-	xil_printf ("VPSS Exdes Test completed\r\n");
+
+	if (errors)
+		xil_printf ("VPSS Exdes Test Failed\r\n");
+	else
+		xil_printf ("VPSS Exdes Test Passed\r\n");
 
 INFINITE_LOOP:
 	while (1) {
