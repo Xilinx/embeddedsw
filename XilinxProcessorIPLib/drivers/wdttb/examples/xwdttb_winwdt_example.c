@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 5.0	sne  03/11/20 Added XWdtTb_ConfigureWDTMode api to configure
 *		      mode.
 * 5.7	sb   07/12/23 Added support for system device-tree flow.
+* 5.9	ht   07/22/24 Add support for peripheral tests in SDT flow.
 *
 * </pre>
 *
@@ -91,13 +92,13 @@
 #ifndef SDT
 int WinWdtTbExample(u16 DeviceId);
 #else
-int WinWdtTbExample(UINTPTR BaseAddress);
+int WinWdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
 #endif
 
 /************************** Variable Definitions *****************************/
 
 /* The instance of the Watchdog Time Base */
-XWdtTb WatchdogTimebase;
+XWdtTb WindowWatchdogTimebase;
 
 /*****************************************************************************/
 /**
@@ -124,7 +125,7 @@ int main(void)
 #ifndef SDT
 	Status = WinWdtTbExample(WDTTB_DEVICE_ID);
 #else
-	Status = WinWdtTbExample(XPAR_XWDTTB_0_BASEADDR);
+	Status = WinWdtTbExample(&WindowWatchdogTimebase, XPAR_XWDTTB_0_BASEADDR);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Window WDT example failed\n\r");
@@ -163,7 +164,7 @@ int main(void)
 #ifndef SDT
 int WinWdtTbExample(u16 DeviceId)
 #else
-int WinWdtTbExample(UINTPTR BaseAddress)
+int WinWdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	int Status;
@@ -187,151 +188,151 @@ int WinWdtTbExample(UINTPTR BaseAddress)
 	 * Initialize the watchdog timer and timebase driver so that
 	 * it is ready to use.
 	 */
-	Status = XWdtTb_CfgInitialize(&WatchdogTimebase, Config,
+	Status = XWdtTb_CfgInitialize(&WindowWatchdogTimebase, Config,
 				      Config->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 #ifndef SDT
-	if (!WatchdogTimebase.Config.IsPl) {
+	if (!WindowWatchdogTimebase.Config.IsPl) {
 #else
-	if (!(strcmp(WatchdogTimebase.Config.Name, "xlnx,versal-wwdt-1.0"))) {
+	if (!(strcmp(WindowWatchdogTimebase.Config.Name, "xlnx,versal-wwdt-1.0"))) {
 #endif
 		/*Enable Window Watchdog Feature in WWDT */
-		XWdtTb_ConfigureWDTMode(&WatchdogTimebase, XWT_WWDT);
+		XWdtTb_ConfigureWDTMode(&WindowWatchdogTimebase, XWT_WWDT);
 	}
 
 	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly
 	 */
-	Status = XWdtTb_SelfTest(&WatchdogTimebase);
+	Status = XWdtTb_SelfTest(&WindowWatchdogTimebase);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 #if (WDTTB_EN_WDP)
 	/* Enable extra protection */
-	XWdtTb_EnableExtraProtection(&WatchdogTimebase);
+	XWdtTb_EnableExtraProtection(&WindowWatchdogTimebase);
 #else
 	/* Disable extra protection */
-	XWdtTb_DisableExtraProtection(&WatchdogTimebase);
+	XWdtTb_DisableExtraProtection(&WindowWatchdogTimebase);
 #endif /* End of WDP */
 
 	/* Configure first and second window */
-	XWdtTb_SetWindowCount(&WatchdogTimebase, WDTTB_FW_COUNT,
+	XWdtTb_SetWindowCount(&WindowWatchdogTimebase, WDTTB_FW_COUNT,
 			      WDTTB_SW_COUNT);
 
 #if (WDTTB_EN_SST)
 	/* Configure Second sequence timer */
 #ifndef SDT
-	if (!WatchdogTimebase.Config.IsPl) {
+	if (!WindowWatchdogTimebase.Config.IsPl) {
 #else
-	if (!(strcmp(WatchdogTimebase.Config.Name, "xlnx,versal-wwdt-1.0"))) {
+	if (!(strcmp(WindowWatchdogTimebase.Config.Name, "xlnx,versal-wwdt-1.0"))) {
 #endif
-		XWdtTb_SetSSTWindow(&WatchdogTimebase, WDTTB_SST_COUNT);
+		XWdtTb_SetSSTWindow(&WindowWatchdogTimebase, WDTTB_SST_COUNT);
 	}
 #endif
 	/* Set interrupt position */
-	XWdtTb_SetByteCount(&WatchdogTimebase, WDTTB_BYTE_COUNT);
-	XWdtTb_SetByteSegment(&WatchdogTimebase, WDTTB_BYTE_SEGMENT);
+	XWdtTb_SetByteCount(&WindowWatchdogTimebase, WDTTB_BYTE_COUNT);
+	XWdtTb_SetByteSegment(&WindowWatchdogTimebase, WDTTB_BYTE_SEGMENT);
 
 #if (WDTTB_EN_SST)
 	/* Enable Secondary Sequence Timer (SST) */
-	XWdtTb_EnableSst(&WatchdogTimebase);
+	XWdtTb_EnableSst(&WindowWatchdogTimebase);
 #else
 	/* Disable Secondary Sequence Timer (SST) */
-	XWdtTb_DisableSst(&WatchdogTimebase);
+	XWdtTb_DisableSst(&WindowWatchdogTimebase);
 #endif /* End of SST */
 
 #if (WDTTB_EN_PSM)
 	/* Enable Program Sequence Monitor (PSM) */
-	XWdtTb_EnablePsm(&WatchdogTimebase);
+	XWdtTb_EnablePsm(&WindowWatchdogTimebase);
 
 	/* Write TSR0 with signature */
 #ifndef SDT
-	if (WatchdogTimebase.Config.IsPl) {
+	if (WindowWatchdogTimebase.Config.IsPl) {
 #else
-	if (!(strcmp(WatchdogTimebase.Config.Name, "xlnx,versal-wwdt-1.0"))) {
+	if (!(strcmp(WindowWatchdogTimebase.Config.Name, "xlnx,versal-wwdt-1.0"))) {
 #endif
-		XWdtTb_WriteReg(WatchdogTimebase.Config.BaseAddr, XWT_TSR0_OFFSET,
+		XWdtTb_WriteReg(WindowWatchdogTimebase.Config.BaseAddr, XWT_TSR0_OFFSET,
 				WDTTB_TSR_VAL);
 	} else {
-		XWdtTb_WriteReg(WatchdogTimebase.Config.BaseAddr, XWT_TSR0_WWDT_OFFSET,
+		XWdtTb_WriteReg(WindowWatchdogTimebase.Config.BaseAddr, XWT_TSR0_WWDT_OFFSET,
 				WDTTB_TSR_VAL);
 	}
 #else
 	/* Disable Program Sequence Monitor (PSM) */
-	XWdtTb_DisablePsm(&WatchdogTimebase);
+	XWdtTb_DisablePsm(&WindowWatchdogTimebase);
 #endif /* End of PSM */
 
 #if (WDTTB_EN_FC)
 	/* Enable Fail Counter */
-	XWdtTb_EnableFailCounter(&WatchdogTimebase);
+	XWdtTb_EnableFailCounter(&WindowWatchdogTimebase);
 #else
 	/* Disable Fail Counter */
-	XWdtTb_DisableFailCounter(&WatchdogTimebase);
+	XWdtTb_DisableFailCounter(&WindowWatchdogTimebase);
 #endif /* End of FC */
 
 	/*
 	 * Start the watchdog timer, the timebase is automatically reset
 	 * when this occurs.
 	 */
-	XWdtTb_Start(&WatchdogTimebase);
+	XWdtTb_Start(&WindowWatchdogTimebase);
 
 	while (1) {
 		xil_printf(".");
 
 		/* Check for interrupt programmed point */
-		if (XWdtTb_GetIntrStatus(&WatchdogTimebase)) {
+		if (XWdtTb_GetIntrStatus(&WindowWatchdogTimebase)) {
 			/* Set register space to writable */
-			XWdtTb_SetRegSpaceAccessMode(&WatchdogTimebase, 1);
+			XWdtTb_SetRegSpaceAccessMode(&WindowWatchdogTimebase, 1);
 
 			/* Clear interrupt point */
-			XWdtTb_IntrClear(&WatchdogTimebase);
+			XWdtTb_IntrClear(&WindowWatchdogTimebase);
 
 			/* Set register space to read-only */
-			XWdtTb_SetRegSpaceAccessMode(&WatchdogTimebase, 0);
+			XWdtTb_SetRegSpaceAccessMode(&WindowWatchdogTimebase, 0);
 #if (WDTTB_EN_PSM)
 			/* Set register space to writable */
-			XWdtTb_SetRegSpaceAccessMode(&WatchdogTimebase, 1);
+			XWdtTb_SetRegSpaceAccessMode(&WindowWatchdogTimebase, 1);
 
 			/* Write TSR1 with signature */
 #ifndef SDT
-			if (WatchdogTimebase.Config.IsPl) {
+			if (WindowWatchdogTimebase.Config.IsPl) {
 #else
-			if (!(strcmp(WatchdogTimebase.Config.Name, "xlnx,versal-wwdt-1.0"))) {
+			if (!(strcmp(WindowWatchdogTimebase.Config.Name, "xlnx,versal-wwdt-1.0"))) {
 #endif
-				XWdtTb_WriteReg(WatchdogTimebase.Config.BaseAddr,
+				XWdtTb_WriteReg(WindowWatchdogTimebase.Config.BaseAddr,
 						XWT_TSR1_OFFSET, WDTTB_TSR_VAL);
 			} else {
-				XWdtTb_WriteReg(WatchdogTimebase.Config.BaseAddr,
+				XWdtTb_WriteReg(WindowWatchdogTimebase.Config.BaseAddr,
 						XWT_TSR1_WWDT_OFFSET, WDTTB_TSR_VAL);
 			}
 			/* Set register space to read-only */
-			XWdtTb_SetRegSpaceAccessMode(&WatchdogTimebase, 0);
+			XWdtTb_SetRegSpaceAccessMode(&WindowWatchdogTimebase, 0);
 #endif
 			/* Set register space to writable */
-			XWdtTb_SetRegSpaceAccessMode(&WatchdogTimebase, 1);
+			XWdtTb_SetRegSpaceAccessMode(&WindowWatchdogTimebase, 1);
 
 			/*
 			 * Restart the watchdog timer as a normal application
 			 * would
 			 */
-			XWdtTb_RestartWdt(&WatchdogTimebase);
+			XWdtTb_RestartWdt(&WindowWatchdogTimebase);
 			Count++;
 			xil_printf("\n\rRestart kick %d\n\r", Count);
 		}
 
 		/* Check for last event */
-		if (XWdtTb_GetLastEvent(&WatchdogTimebase) !=
+		if (XWdtTb_GetLastEvent(&WindowWatchdogTimebase) !=
 		    XWDTTB_NO_BAD_EVENT) {
 			/* Set register space to writable */
-			XWdtTb_SetRegSpaceAccessMode(&WatchdogTimebase, 1);
+			XWdtTb_SetRegSpaceAccessMode(&WindowWatchdogTimebase, 1);
 
 			/* Stop the watchdog timer */
-			XWdtTb_Stop(&WatchdogTimebase);
+			XWdtTb_Stop(&WindowWatchdogTimebase);
 			return XST_FAILURE;
 		}
 
@@ -342,7 +343,7 @@ int WinWdtTbExample(UINTPTR BaseAddress)
 		 */
 		if (Count == 2) {
 #if (!WDTTB_EN_SST && !WDTTB_EN_FC && !WDTTB_EN_PSM &&!WDTTB_EN_WDP)
-			XWdtTb_Stop(&WatchdogTimebase);
+			XWdtTb_Stop(&WindowWatchdogTimebase);
 #endif
 			break;
 		}
@@ -351,23 +352,23 @@ int WinWdtTbExample(UINTPTR BaseAddress)
 #if (WDTTB_EN_SST)
 	/* Wait for SST counter start */
 	xil_printf("Waiting for SST to start .");
-	while (!XWdtTb_IsResetPending(&WatchdogTimebase)) {
+	while (!XWdtTb_IsResetPending(&WindowWatchdogTimebase)) {
 		xil_printf(".");
 	}
 
 	/* Clear reset pending */
-	XWdtTb_ClearResetPending(&WatchdogTimebase);
+	XWdtTb_ClearResetPending(&WindowWatchdogTimebase);
 #ifndef SDT
-	if (WatchdogTimebase.Config.IsPl) {
+	if (WindowWatchdogTimebase.Config.IsPl) {
 #else
-	if (!(strcmp(WatchdogTimebase.Config.Name, "xlnx,versal-wwdt-1.0"))) {
+	if (!(strcmp(WindowWatchdogTimebase.Config.Name, "xlnx,versal-wwdt-1.0"))) {
 #endif
 		xil_printf("\n\rSST counter value is 0x%x\n\r",
-			   XWdtTb_ReadReg(WatchdogTimebase.Config.BaseAddr,
+			   XWdtTb_ReadReg(WindowWatchdogTimebase.Config.BaseAddr,
 					  XWT_STR_OFFSET));
 	} else {
 		xil_printf("\n\rSST counter value is 0x%x\n\r",
-			   XWdtTb_ReadReg(WatchdogTimebase.Config.BaseAddr,
+			   XWdtTb_ReadReg(WindowWatchdogTimebase.Config.BaseAddr,
 					  XWT_STR_WWDT_OFFSET));
 	}
 #endif

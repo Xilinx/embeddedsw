@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *                     initialization.
 * 4.5   nsk 08/07/19  Add macro to support testapp generation for polled mode
 * 5.7   sb  07/12/23  Added support for system device-tree flow.
+* 5.9   ht  07/22/24  Add support for peripheral tests in SDT flow.
 *</pre>
 ******************************************************************************/
 
@@ -65,7 +66,7 @@
 #ifndef SDT
 int WdtTbExample(u16 DeviceId);
 #else
-int WdtTbExample(UINTPTR BaseAddress);
+int WdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -96,7 +97,7 @@ int main(void)
 #ifndef SDT
 	Status = WdtTbExample(WDTTB_DEVICE_ID);
 #else
-	Status = WdtTbExample(XPAR_XWDTTB_0_BASEADDR);
+	Status = WdtTbExample(&WatchdogTimebase, XPAR_XWDTTB_0_BASEADDR);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("WDTTB example failed\n\r");
@@ -137,7 +138,7 @@ int main(void)
 #ifndef SDT
 int WdtTbExample(u16 DeviceId)
 #else
-int WdtTbExample(UINTPTR BaseAddress)
+int WdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	int Status;
