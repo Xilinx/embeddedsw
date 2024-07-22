@@ -228,10 +228,7 @@ void XPeriph_ConfigTpg(XPeriph *InstancePtr)
   //Stop TPG
   XV_tpg_DisableAutoRestart(pTpg);
 
-  if (InstancePtr->TpgConfig.IsInterlaced)
-    XV_tpg_Set_height(pTpg, InstancePtr->TpgConfig.Height*2);
-  else
-    XV_tpg_Set_height(pTpg, InstancePtr->TpgConfig.Height);
+  XV_tpg_Set_height(pTpg, InstancePtr->TpgConfig.Height);
 
   XV_tpg_Set_width(pTpg,  InstancePtr->TpgConfig.Width);
   XV_tpg_Set_colorFormat(pTpg, InstancePtr->TpgConfig.ColorFmt);
