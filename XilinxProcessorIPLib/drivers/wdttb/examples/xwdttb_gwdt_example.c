@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 5.0	sne   01/31/20 Removed compare value registers write while configuring
 *		       Generic watchdog window.
 * 5.7	sb    07/12/23 Added support for system device-tree flow.
+* 5.9	ht    07/22/24 Add support for peripheral tests in SDT flow.
 *
 * </pre>
 *
@@ -53,7 +54,7 @@
 #ifndef SDT
 int GWdtTbExample(u16 DeviceId);
 #else
-int GWdtTbExample(UINTPTR BaseAddress);
+int GWdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
 #endif
 /************************** Variable Definitions *****************************/
 
@@ -85,7 +86,7 @@ int main(void)
 #ifndef SDT
 	Status = GWdtTbExample(WDTTB_DEVICE_ID);
 #else
-	Status = GWdtTbExample(XPAR_XWDTTB_0_BASEADDR);
+	Status = GWdtTbExample(&GWatchdog, XPAR_XWDTTB_0_BASEADDR);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Generic WdtTb example failed\n\r");
@@ -119,7 +120,7 @@ int main(void)
 #ifndef SDT
 int GWdtTbExample(u16 DeviceId)
 #else
-int GWdtTbExample(UINTPTR BaseAddress)
+int GWdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 #endif
 {
 	int Status;

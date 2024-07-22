@@ -28,6 +28,7 @@
 * 5.0	sne  03/26/20 Updated example to support versal platform.
 * 5.7	sb   06/27/23 Correct the interrupt ID for Versal-net platform.
 * 5.7	sb   07/12/23 Added support for system device-tree flow.
+* 5.9	ht   07/22/24 Add support for peripheral tests in SDT flow
 * </pre>
 *
 ******************************************************************************/
@@ -120,7 +121,7 @@ static void WdtTbDisableIntrSystem(INTC *IntcInstancePtr,
 /************************** Variable Definitions *****************************/
 
 #ifndef TESTAPP_GEN
-XWdtTb WdtTbInstance;	/* Instance of Time Base WatchDog Timer */
+XWdtTb WinWdtTbInstance;	/* Instance of Time Base WatchDog Timer */
 #ifndef SDT
 INTC IntcInstance;	/* Instance of the Interrupt Controller */
 #endif
@@ -151,11 +152,11 @@ int main(void)
 	 */
 #ifndef SDT
 	Status = WinWdtIntrExample(&IntcInstance,
-				   &WdtTbInstance,
+				   &WinWdtTbInstance,
 				   WDTTB_DEVICE_ID,
 				   WDTTB_IRPT_INTR);
 #else
-	Status = WinWdtIntrExample(&WdtTbInstance, XPAR_XWDTTB_0_BASEADDR);
+	Status = WinWdtIntrExample(&WinWdtTbInstance, XPAR_XWDTTB_0_BASEADDR);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Window WDT interrupt example failed.\n\r");

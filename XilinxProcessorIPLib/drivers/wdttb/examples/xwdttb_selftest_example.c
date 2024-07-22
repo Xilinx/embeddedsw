@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 *		      WWDT.
 * 5.0	sne  03/11/20 Added XWdtTb_ConfigureWDTMode api to configure mode.
 * 5.7	sb   07/12/23 Added support for system device-tree flow.
+* 5.9	ht   07/22/24 Add support for peripheral tests in SDT flow.
 *
 * </pre>
 *
@@ -67,7 +68,7 @@ int WdtTbSelfTestExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XWdtTb WatchdogTimebase; /* The instance of the WatchDog Time Base */
+XWdtTb WatchdogTimebaseInstance; /* The instance of the WatchDog Time Base */
 
 /*****************************************************************************/
 /**
@@ -159,7 +160,7 @@ int WdtTbSelfTestExample(UINTPTR BaseAddress)
 	 * Initialize the watchdog timer and timebase driver so that
 	 * it is ready to use.
 	 */
-	Status = XWdtTb_CfgInitialize(&WatchdogTimebase, Config,
+	Status = XWdtTb_CfgInitialize(&WatchdogTimebaseInstance, Config,
 				      Config->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -167,18 +168,18 @@ int WdtTbSelfTestExample(UINTPTR BaseAddress)
 
 	/*Enable Window Watchdog Feature in WWDT*/
 #ifndef SDT
-	if (!WatchdogTimebase.Config.IsPl) {
+	if (!WatchdogTimebaseInstance.Config.IsPl) {
 #else
-	if (!(strcmp(WatchdogTimebase.Config.Name, "xlnx,versal-wwdt-1.0"))) {
+	if (!(strcmp(WatchdogTimebaseInstance.Config.Name, "xlnx,versal-wwdt-1.0"))) {
 #endif
-		XWdtTb_ConfigureWDTMode(&WatchdogTimebase, XWT_WWDT);
+		XWdtTb_ConfigureWDTMode(&WatchdogTimebaseInstance, XWT_WWDT);
 	}
 
 	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly
 	 */
-	Status = XWdtTb_SelfTest(&WatchdogTimebase);
+	Status = XWdtTb_SelfTest(&WatchdogTimebaseInstance);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

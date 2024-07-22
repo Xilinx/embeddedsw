@@ -1,11 +1,11 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
 title: Bindings for WDTTB controller
 
 maintainers:
-  - Srikanth Boyapally <srikanth.boyapally@amd.com>
+  - Harini T <harini.t@amd.com>
 
 type: driver
 
@@ -61,4 +61,34 @@ examples:
    xwdttb_winwdt_intr_example.c:
     - xlnx,winwdt-example : 1
     - interrupts
+
+tapp:
+        xwdttb_selftest_example.c:
+                declaration: WdtTbSelfTestExample
+                hwproperties:
+                        - reg
+        xwdttb_gwdt_example.c:
+                declaration: GWdtTbExample
+                hwproperties:
+                        - compatible : xlnx,versal-wwdt-1.0
+        xwdttb_intr_example.c:
+                declaration: WdtTbIntrExample
+                hwproperties:
+                        - xlnx,enable-window-wdt : 0
+                        - compatible : xlnx,axi-timebase-wdt-3.0
+                        - interrupts
+        xwdttb_winwdt_example.c:
+                declaration: WinWdtTbExample
+                hwproperties:
+                        - xlnx,winwdt-example : 1
+        xwdttb_winwdt_intr_example.c:
+                declaration: WinWdtIntrExample
+                hwproperties:
+                        - xlnx,winwdt-example : 1
+                        - interrupts
+        xwdttb_example.c:
+                declaration: WdtTbExample
+                hwproperties:
+                        - xlnx,enable-window-wdt : 0
+                        - compatible : xlnx,axi-timebase-wdt-3.0
 ...
