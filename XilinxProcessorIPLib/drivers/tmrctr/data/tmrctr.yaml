@@ -57,4 +57,4 @@ tapp:
         declaration: TmrCtrIntrExample
         hwproperties:
             - reg
-            - interrupt
+            - interrupts
