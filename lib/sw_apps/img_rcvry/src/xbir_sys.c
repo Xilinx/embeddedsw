@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *                        system controllers
 *       skd   01/31/23   Added debug print levels
 * 5.00  skd   05/02/23   Added Image recovery support for KD240 board
+* 6.00  sd    07/17/24   Added Image recovery support for SC on L20 board
 *
 * </pre>
 *
@@ -1139,7 +1140,7 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	u32 MaxSize = sizeof(SysInfo.UUID);
 	Xbir_SysBoardEepromData SysBoardEepromData = {0U};
 	u8 BoardIndex = 0U;
-	char *BoardList[] = {"SM-", "SMK", "VPK", "VHK", "VEK"};
+	char *BoardList[] = {"SM-", "SMK", "VPK", "VHK", "VEK", "VM-"};
 	u8 BoardNum = sizeof(BoardList)/sizeof(char*);
 #if defined(XPS_BOARD_K26I) || defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
 	|| defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
