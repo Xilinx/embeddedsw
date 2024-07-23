@@ -121,7 +121,11 @@ typedef struct {
 
 
 int Vfmc_I2cMuxSelect(XVfmc *VfmcPtr);
+#ifndef SDT
 u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
+#else
+u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
+#endif
 		XVfmc_Location Loc);
 int Vfmc_PowerDownTiLMK03318(XVfmc *VfmcPtr, u8 Powerdown);
 void Vfmc_Gpio_Led_On(XVfmc *VfmcPtr, XVfmc_Gpio_Led Led, u8 On);
