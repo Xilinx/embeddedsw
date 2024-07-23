@@ -57,12 +57,16 @@ class Domain(Repo):
         """
         with open(self.sdt, "r") as file:
             content = file.read()
-            if "cpus_a53" in content:
+            if "cpus_a53" in content or 'family = "ZynqMP";' in content:
                 return "ZynqMP"
-            elif "cpus_a72" in content:
+            elif "cpus_a72" in content or 'family = "Versal";' in content:
                 return "Versal"
-            elif "cpus_a9" in content:
+            elif "cpus_a9" in content or 'family = "Zynq";' in content:
                 return "Zynq"
+            elif 'family = "VersalNet";' in content:
+                return "VersalNet"
+            elif 'family = "VersalGen2";' in content:
+                return "VersalGen2"
             elif "cpus_a78" in content:
                 return "VersalNet"
 
@@ -212,7 +216,7 @@ class Domain(Repo):
                 "-mcpu=v11.0")
             utils.add_newline(toolchain_file_copy, "ADD_DEFINITIONS(-Dversal -DVERSAL_NET)")
 
-        if "r5" in self.proc:
+        if "r5" in self.proc and "ZynqMP" in self.family:
             utils.replace_line(
                 toolchain_file_copy,
                 'CMAKE_MACHINE "Versal',
@@ -224,6 +228,13 @@ class Domain(Repo):
                 toolchain_file_copy,
                 'CMAKE_SYSTEM_PROCESSOR "cortexa53"',
                 'set( CMAKE_SYSTEM_PROCESSOR "cortexa53-32")',
+            )
+
+        if self.family == "VersalGen2":
+            utils.replace_line(
+                toolchain_file_copy,
+                'CMAKE_SUBMACHINE "VersalNet',
+                f'set( CMAKE_SUBMACHINE "VersalGen2" CACHE STRING "cmake submachine" FORCE)',
             )
 
         # freertos needs a separate CMAKE_SYSTEM_NAME
