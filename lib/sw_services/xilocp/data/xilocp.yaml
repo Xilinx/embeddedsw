@@ -17,8 +17,11 @@ description: Xilinx Open Compute Platform(OCP) support Library. Supported only f
 
 supported_processors:
   - psx_pmc
+  - pmc
   - psx_cortexa78
+  - cortexa78
   - psx_cortexr52
+  - cortexr52
 
 supported_os:
   - standalone

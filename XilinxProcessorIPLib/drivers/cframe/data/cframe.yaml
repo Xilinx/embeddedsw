@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
@@ -24,6 +24,7 @@ properties:
           - xlnx,psv-pmc-cfi-cframe-1.0
           - xlnx,psv-pmc-cfi-cframe-11.0
           - xlnx,psx-pmc-cfi-cframe-11.0
+          - xlnx,pmc-cfi-cframe-11.0
   reg:
     description: Physical base address and size of the controller register map
 

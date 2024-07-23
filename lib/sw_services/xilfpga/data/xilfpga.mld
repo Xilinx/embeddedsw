@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -61,6 +61,8 @@
 #                      bitstream in secure boot platform.
 # 6.4 Nava   01/23/23  Added psx processors in supported peripherals
 # 6.5 Nava   05/04/23  Added support for system device-tree flow.
+# 6.6  adk   10/19/23  Added changes for NON_YOCTO variable specific to SDT flow
+# 6.7  oh    07/24/24  Added Versal Gen2 specific processor in dependency list
 #
 ##############################################################################
 
@@ -73,7 +75,7 @@ BEGIN LIBRARY xilfpga
   OPTION SUPPORTED_PERIPHERALS = (psv_cortexa72 psx_cortexa78 psv_cortexr5 psu_cortexa53 psu_cortexr5 psx_cortexr52 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "XilFPGA library provides an interface to the Linux or bare-metal users for configuring the PL over PCAP from PS";
-  OPTION VERSION = 6.6;
+  OPTION VERSION = 6.7;
   OPTION NAME = xilfpga;
 PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type = bool, default = true;
 PARAM name = debug_mode, desc = "Which is used to Enable the Debug messages in the library", type = bool, default = false;

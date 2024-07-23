@@ -23,7 +23,7 @@ BEGIN LIBRARY openamp
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lmetal,-lopen_amp,-lgcc,-lc,--end-group";
   OPTION APP_COMPILER_FLAGS = "-Os";
   OPTION DESC = "OpenAmp Library";
-  OPTION VERSION = 1.10;
+  OPTION VERSION = 1.11;
   OPTION NAME = openamp;
 
   PARAM NAME = WITH_PROXY, type = bool, default = true, desc = "Add support for proxy", permit = all_users;

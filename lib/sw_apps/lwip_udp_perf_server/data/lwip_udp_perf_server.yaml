@@ -18,7 +18,9 @@ properties:
     description: Interrupt property of the controller
 supported_processors:
   - psx_cortexa78
+  - cortexa78
   - psx_cortexr52
+  - cortexr52
   - psu_cortexa53
   - psu_cortexr5
   - psv_cortexa72

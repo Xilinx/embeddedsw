@@ -39,7 +39,9 @@ supported_processors:
   - psv_cortexa72
   - psv_cortexr5
   - psx_cortexa78
+  - cortexa78
   - psx_cortexr52
+  - cortexr52
   - ps7_cortexa9
   - microblaze
 supported_os: [freertos10_xilinx]
