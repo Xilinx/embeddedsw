@@ -361,7 +361,11 @@ int Vfmc_I2cMuxSelect(XVfmc *VfmcPtr)
 * @note   None.
 *
 ******************************************************************************/
+#ifndef SDT
 u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
+#else
+u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
+#endif
 		XVfmc_Location Loc)
 {
 	int Status;
@@ -396,7 +400,11 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 
 	/* Initialize GPIO for VFMC */
 	Gpio_Vfmc_ConfigPtr =
+#ifndef SDT
 		XGpio_LookupConfig(GpioDeviceId);
+#else
+		XGpio_LookupConfig(GpioBaseAddr);
+#endif
 
 	if(Gpio_Vfmc_ConfigPtr == NULL) {
 		VfmcPtr->Gpio.IsReady = 0;
