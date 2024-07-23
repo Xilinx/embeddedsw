@@ -71,6 +71,7 @@
 * 5.1   mus  02/15/23 Added support for VERSAL_NET APU and RPU GIC.
 * 5.2   ml   03/02/23 Add description to fix Doxygen warnings.
 * 5.2   mus  03/26/23 Fixed calculation for XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC.
+* 5.4   ksr  07/23/24 Added support for Versal Gen2
 * </pre>
 *
 ******************************************************************************/
@@ -114,6 +115,10 @@ extern "C" {
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    95U /**< Maximum number of
                                                 interrupt defined by
                                                 Zynq */
+#elif defined (VERSAL_AIEPG2)
+#define XSCUGIC_MAX_NUM_INTR_INPUTS     288U /**< Maximum number of
+                                                  interrupt sources in
+                                                  VersalGen2 */
 #elif defined (VERSAL_NET)
 #define XSCUGIC_MAX_NUM_INTR_INPUTS     256U /**< Maximum number of
                                                   interrupt sources in
