@@ -25,6 +25,7 @@ supported_processors:
   - psv_psm
   - psx_psm
   - psxl_psm
+  - psm
 
 supported_os:
   - standalone

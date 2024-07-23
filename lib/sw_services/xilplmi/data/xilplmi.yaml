@@ -18,6 +18,7 @@ description: Xilinx Versal Platform Loader and Manager Interface Library.
 supported_processors:
   - psv_pmc
   - psx_pmc
+  - pmc
   - psxl_pmc
   - psu_cortexa72
   - psv_cortexa72
@@ -26,7 +27,9 @@ supported_processors:
   - psxl_cortexa78
   - psxl_cortexr52
   - psx_cortexa78
+  - cortexa78
   - psx_cortexr52
+  - cortexr52
 
 supported_os:
   - standalone

@@ -17,6 +17,7 @@ supported_processors:
   - psv_pmc
   - psx_pmc
   - psxl_pmc
+  - pmc
 
 supported_os:
   - standalone

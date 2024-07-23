@@ -13,7 +13,7 @@ BEGIN LIBRARY lwip220
   OPTION desc = "lwip220 library: lwIP (light weight IP) is an open source TCP/IP stack configured for Xilinx hard and soft Ethernet MACs";
   OPTION app_linker_flags = "-Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group";
   OPTION requires_os = (standalone freertos10_xilinx);
-  OPTION VERSION = 1.0;
+  OPTION VERSION = 1.1;
   OPTION NAME = lwip220;
 
   PARAM name = api_mode, desc = "Mode of operation for lwIP (RAW API/Sockets API)", type = enum, values = ("RAW API" = RAW_API, "SOCKET API" = SOCKET_API), default = RAW_API;
