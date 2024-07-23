@@ -49,6 +49,8 @@
 * 3.0   cog    03/20/24 Refactored XSysMonPsu_UpdateAdcClkDivisor for more
 *                       robust error handling, this required the API protoype
 *                       to be chnaged.
+*       se     07/22/24 Alarm threshold set and get functions updated to adapt
+*                       of Lower alarm registers thresholds mode bit masking.
 *
 * </pre>
 *
@@ -1788,6 +1790,7 @@ void XSysMonPsu_SetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 		u16 Value, u32 SysmonBlk)
 {
 	UINTPTR EffectiveBaseAddress;
+	u32 Offset;
 
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1802,9 +1805,23 @@ void XSysMonPsu_SetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 			XSysMonPsu_GetEffBaseAddress(InstancePtr->Config.BaseAddress,
 					SysmonBlk);
 
+	/* Calculate the offset to the alarm threshold register */
+	Offset = XSYSMONPSU_ALRM_TEMP_UPR_OFFSET + ((u32)AlarmThrReg << 2U);
+
+	/*
+	* Lower alarm threshold registers has control bit for threshold mode
+	* Alarm Temp Lower, Alarm OT Lower and Alarm Remote Temp Lower threshold
+	* values should be written to 15:1 bits.
+	* LSB(0.) bit is reserved for threshold mode control.
+	*/
+	if((Offset == XSYSMONPSU_ALRM_TEMP_LWR_OFFSET) ||
+			(Offset == XSYSMONPSU_ALRM_OT_LWR_OFFSET) ||
+			(Offset == XSYSMONPSU_ALRM_TREMOTE_LWR_OFFSET)) {
+        Value |= ((u16)XSysmonPsu_ReadReg(EffectiveBaseAddress + Offset) &
+					(~XSYSMONPSU_ALRM_TEMP_LWR_MASK));
+	}
 	/* Write the value into the specified Alarm Threshold Register. */
-	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_ALRM_TEMP_UPR_OFFSET +
-			((u32)AlarmThrReg << 2U), Value);
+	XSysmonPsu_WriteReg(EffectiveBaseAddress + Offset, Value);
 }
 
 /****************************************************************************/
@@ -1830,6 +1847,7 @@ u16 XSysMonPsu_GetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 {
 	u16 AlarmThreshold;
 	UINTPTR EffectiveBaseAddress;
+	u32 Offset;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1844,12 +1862,26 @@ u16 XSysMonPsu_GetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 			XSysMonPsu_GetEffBaseAddress(InstancePtr->Config.BaseAddress,
 					SysmonBlk);
 
+	/* Calculate the offset to the alarm threshold register */
+	Offset = XSYSMONPSU_ALRM_TEMP_UPR_OFFSET + ((u32)AlarmThrReg << 2);
+
 	/*
 	 * Read the specified Alarm Threshold Register and return
 	 * the value.
 	 */
-	AlarmThreshold = (u16) XSysmonPsu_ReadReg(EffectiveBaseAddress +
-			XSYSMONPSU_ALRM_TEMP_UPR_OFFSET + ((u32)AlarmThrReg << 2));
+	AlarmThreshold = (u16) XSysmonPsu_ReadReg(EffectiveBaseAddress + Offset);
+
+	/*
+	* Lower alarm threshold registers has control bit for threshold mode
+	* Alarm Temp Lower, Alarm OT Lower and Alarm Remote Temp Lower threshold
+	* values should be read only by 15:1 bits.
+	* LSB(0.) bit is reserved for threshold mode control.
+	*/
+	if((Offset == XSYSMONPSU_ALRM_TEMP_LWR_OFFSET) ||
+			(Offset == XSYSMONPSU_ALRM_OT_LWR_OFFSET) ||
+			(Offset == XSYSMONPSU_ALRM_TREMOTE_LWR_OFFSET)) {
+		AlarmThreshold &= (u16)XSYSMONPSU_ALRM_TEMP_LWR_MASK;
+	}
 
 	return AlarmThreshold;
 }
