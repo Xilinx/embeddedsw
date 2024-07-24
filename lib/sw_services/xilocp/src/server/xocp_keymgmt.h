@@ -26,6 +26,7 @@
 * 1.3   am   01/31/2024   Fixed internal security review comments
 * 1.4   har  06/10/2024   Moved XOCP_DEVAK_SUBSYS_HASH_DS_ID macro to xocp.h
 * 1.4   har  26/04/2024   Add support to store personalization string for additional DevAk
+*                         Renamed XOCP_GenSubSysDevAk to XOcp_GenSubSysDevAk
 *
 * </pre>
 *
@@ -65,6 +66,12 @@ extern "C" {
 							/**< Zeorize status done mask */
 
 #define XOCP_MAX_DEVAK_SUPPORT				(4U) /**< Maximum DEVAK support */
+#define XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM		(2U)
+				/**< Maximum number of DevAk key pairs supported for each subsystem */
+#define XOCP_DEFAULT_DEVAK_KEY_INDEX			(0U)
+				/**< Index of default DevAk for each subsystem */
+#define XOCP_KEYWRAP_DEVAK_KEY_INDEX			(1U)
+				/**< Index of Key wrap DevAk for each subsystem */
 #define XOCP_INVALID_DEVAK_INDEX			(0xFFFFFFFFU)
 							/**< Invalid DEVAK index value*/
 #define XOCP_INVALID_USR_CFG_INDEX			(0xFFFFFFFFU)
@@ -111,14 +118,14 @@ typedef struct {
 /************************** Variable Definitions *****************************/
 int XOcp_GenerateDevIKKeyPair(void);
 int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString, u32 KeyIndex);
-u32 XOcp_GetSubSysDevAkIndex(u32 SubSystemId);
+int XOcp_GetSubSysDevAkIndex(u32 SubSystemId, u32* DevAkIndex);
 int XOcp_GenerateDevAk(u32 SubSystemId);
 int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId);
 int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId);
 u32 XOcp_IsDevIkReady(void);
 int XOcp_RegenSubSysDevAk(void);
 int XOcp_ShutdownHandler(XPlmi_ModuleOp Op);
-int XOCP_GenSubSysDevAk(u32 SubsystemID, u64 InHash);
+int XOcp_GenSubSysDevAk(u32 SubsystemID, u64 InHash);
 int XOcp_GenSharedSecretwithDevAk(u32 SubSystemId, u64 PubKeyAddr, u64 SharedSecretAddr);
 #ifdef __cplusplus
 }

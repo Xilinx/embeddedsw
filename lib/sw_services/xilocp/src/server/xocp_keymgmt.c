@@ -30,6 +30,8 @@
 *       ng   02/12/24 optimised u8 vars to u32 for size reduction
 *       am   02/14/24 Fixed internal security review comments
 *       kpt  02/21/24 Add support for DME CSR extension
+* 1.4   har  06/04/2024   Add support to store personalization string for additional DevAk
+*                     Add support to generate additional DevAk for key wrap
 *
 * </pre>
 * @note
@@ -69,6 +71,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XOcp_MemSet					XPlmi_MemSet
 
 /************************** Function Prototypes ******************************/
 static int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr,
@@ -319,7 +322,7 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatusTmp = XST_FAILURE;
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
-	u32 DevAkIndex = XOcp_GetSubSysDevAkIndex(SubSystemId);
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
 	u8 Seed[XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES];
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
 	XSecure_EllipticKeyAddr PubKeyAddr;
@@ -329,71 +332,78 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 	volatile u32 CryptoKatEn = TRUE;
 	volatile u32 CryptoKatEnTmp = TRUE;
 	XOcp_SubSysHash *SubSysHashDs = XOcp_GetSubSysHash();
-	SubSysHashDs = SubSysHashDs + DevAkIndex;
+	u32 KeyIndex = 0U;
 
-	if (DevAkIndex == XOCP_INVALID_DEVAK_INDEX) {
-		Status = (int)XOCP_ERR_INVALID_DEVAK_REQ;
-		goto END;
-	}
-	XOcp_Printf(DEBUG_INFO, "Generating DEV AK of subsystem ID %x\n\r", SubSystemId);
-
-	DevAkData = DevAkData + DevAkIndex;
-	DevAkData->IsDevAkKeyReady = FALSE;
-
-	XSECURE_TEMPORAL_CHECK(END, Status, XOcp_KeyGenDevAkSeed, XOCP_PMC_GLOBAL_DICE_CDI_SEED_0,
-		XOCP_CDI_SIZE_IN_BYTES, (u32)(UINTPTR)DevAkData->SubSysHash, XSECURE_HASH_SIZE_IN_BYTES,
-		(XSecure_HmacRes *)(UINTPTR)Seed);
-
-	/* Generate the DEV AK public and private keys */
-	KeyGenParams.SeedAddr = (u32)(UINTPTR)Seed;
-	KeyGenParams.SeedLength = XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES;
-	KeyGenParams.PerStringAddr = (u32)(UINTPTR)DevAkData->PerString;
-	KeyGenParams.KeyOutPutAddr = (u32)(UINTPTR)DevAkData->EccPrvtKey;
-	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_EllipticPrvtKeyGenerate, XSECURE_ECC_NIST_P384,
-						   &KeyGenParams);
-
-	PubKeyAddr.Qx = (u64)(UINTPTR)EccX;
-	PubKeyAddr.Qy = (u64)(UINTPTR)EccY;
-	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_EllipticGenerateKey_64Bit, XSECURE_ECC_NIST_P384,
-						   (u64)(UINTPTR)DevAkData->EccPrvtKey, &PubKeyAddr);
-
-	CryptoKatEn = XPlmi_IsCryptoKatEn();
-	CryptoKatEnTmp = CryptoKatEn;
-	if ((CryptoKatEn == (u32)TRUE) || (CryptoKatEnTmp == (u32)TRUE)) {
-		XPlmi_ClearKatMask(XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK);
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, SStatusTmp, XSecure_EllipticPwct,
-			XSECURE_ECC_NIST_P384, (u64)(UINTPTR)DevAkData->EccPrvtKey, &PubKeyAddr);
-		if ((Status != XST_SUCCESS) || (SStatusTmp != XST_SUCCESS)) {
-			goto END;
-		}
-		XPlmi_SetKatMask(XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK);
-	}
-	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)DevAkData->EccX,
-						(u64)(UINTPTR)EccX);
-	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)DevAkData->EccY,
-						(u64)(UINTPTR)EccY);
-
-	DevAkData->IsDevAkKeyReady = TRUE;
-	/* Store hash of the sub-system */
-	SubSysHashDs->ValidData = FALSE;
-	SubSysHashDs->SubSystemId = DevAkData->SubSystemId;
-	Status = Xil_SMemCpy((void *)(UINTPTR)SubSysHashDs->SubSysHash, XSECURE_HASH_SIZE_IN_BYTES,
-				(const void *)(UINTPTR)DevAkData->SubSysHash,
-				XSECURE_HASH_SIZE_IN_BYTES,
-				XSECURE_HASH_SIZE_IN_BYTES);
+	Status = XOcp_GetSubSysDevAkIndex(SubSystemId, DevAkIndex);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	else {
-		SubSysHashDs->ValidData = TRUE;
-	}
 
-	XPlmi_PrintArray(DEBUG_DETAILED, (u64)(UINTPTR)DevAkData->EccPrvtKey,
-		XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PRVT KEY");
-	XPlmi_PrintArray(DEBUG_INFO, (u64)(UINTPTR)DevAkData->EccX,
-		XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY X");
-	XPlmi_PrintArray(DEBUG_INFO, (u64)(UINTPTR)DevAkData->EccY,
-		XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY Y");
+	while ((KeyIndex < XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM) &&
+		(DevAkIndex[KeyIndex] != XOCP_INVALID_DEVAK_INDEX)) {
+		XOcp_Printf(DEBUG_INFO, "Generating DEV AK of subsystem ID %x\n\r", SubSystemId);
+
+		SubSysHashDs = SubSysHashDs + DevAkIndex[KeyIndex];
+		DevAkData = DevAkData + DevAkIndex[KeyIndex];
+		DevAkData->IsDevAkKeyReady = FALSE;
+
+		XSECURE_TEMPORAL_CHECK(END, Status, XOcp_KeyGenDevAkSeed, XOCP_PMC_GLOBAL_DICE_CDI_SEED_0,
+			XOCP_CDI_SIZE_IN_BYTES, (u32)(UINTPTR)DevAkData->SubSysHash, XSECURE_HASH_SIZE_IN_BYTES,
+			(XSecure_HmacRes *)(UINTPTR)Seed);
+
+		/* Generate the DEV AK public and private keys */
+		KeyGenParams.SeedAddr = (u32)(UINTPTR)Seed;
+		KeyGenParams.SeedLength = XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES;
+		KeyGenParams.PerStringAddr = (u32)(UINTPTR)DevAkData->PerString;
+		KeyGenParams.KeyOutPutAddr = (u32)(UINTPTR)DevAkData->EccPrvtKey;
+		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_EllipticPrvtKeyGenerate, XSECURE_ECC_NIST_P384,
+							&KeyGenParams);
+
+		PubKeyAddr.Qx = (u64)(UINTPTR)EccX;
+		PubKeyAddr.Qy = (u64)(UINTPTR)EccY;
+		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_EllipticGenerateKey_64Bit, XSECURE_ECC_NIST_P384,
+							(u64)(UINTPTR)DevAkData->EccPrvtKey, &PubKeyAddr);
+
+		CryptoKatEn = XPlmi_IsCryptoKatEn();
+		CryptoKatEnTmp = CryptoKatEn;
+		if ((CryptoKatEn == (u32)TRUE) || (CryptoKatEnTmp == (u32)TRUE)) {
+			XPlmi_ClearKatMask(XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK);
+			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, SStatusTmp, XSecure_EllipticPwct,
+				XSECURE_ECC_NIST_P384, (u64)(UINTPTR)DevAkData->EccPrvtKey, &PubKeyAddr);
+			if ((Status != XST_SUCCESS) || (SStatusTmp != XST_SUCCESS)) {
+				goto END;
+			}
+			XPlmi_SetKatMask(XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK);
+		}
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)DevAkData->EccX,
+							(u64)(UINTPTR)EccX);
+		XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)DevAkData->EccY,
+							(u64)(UINTPTR)EccY);
+
+		DevAkData->IsDevAkKeyReady = TRUE;
+		/* Store hash of the sub-system */
+		SubSysHashDs->ValidData = FALSE;
+		SubSysHashDs->SubSystemId = DevAkData->SubSystemId;
+		Status = Xil_SMemCpy((void *)(UINTPTR)SubSysHashDs->SubSysHash, XSECURE_HASH_SIZE_IN_BYTES,
+					(const void *)(UINTPTR)DevAkData->SubSysHash,
+					XSECURE_HASH_SIZE_IN_BYTES,
+					XSECURE_HASH_SIZE_IN_BYTES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		else {
+			SubSysHashDs->ValidData = TRUE;
+		}
+
+		XPlmi_PrintArray(DEBUG_DETAILED, (u64)(UINTPTR)DevAkData->EccPrvtKey,
+			XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PRVT KEY");
+		XPlmi_PrintArray(DEBUG_INFO, (u64)(UINTPTR)DevAkData->EccX,
+			XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY X");
+		XPlmi_PrintArray(DEBUG_INFO, (u64)(UINTPTR)DevAkData->EccY,
+			XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY Y");
+
+		KeyIndex++;
+	}
 
 END:
 	ClrStatus = Xil_SecureZeroize(Seed, XOCP_CDI_SIZE_IN_BYTES);
@@ -412,32 +422,41 @@ END:
  *		index is requested.
  *
  * @return
- *	-	Index of XOcp_DevAkData array
- *	-	XOCP_INVALID_DEVAK_INDEX
+ *		- XST_SUCCESS in case of success
+ *		- Error code in case of failure
  *
  ******************************************************************************/
-u32 XOcp_GetSubSysDevAkIndex(u32 SubSystemId)
+int XOcp_GetSubSysDevAkIndex(u32 SubSystemId, u32* DevAkIndex)
 {
-	u32 DevAkIndex = XOCP_INVALID_DEVAK_INDEX;
+	int Status = XST_FAILURE;
 	XOcp_KeyMgmt *KeyMgmtInstance = XOcp_GetKeyMgmtInstance();
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
 	u32 Index = 0U;
+	u32 KeyIndex = 0;
+
+	XOcp_MemSet((u64)(UINTPTR)DevAkIndex, XOCP_INVALID_DEVAK_INDEX,
+		(sizeof(DevAkIndex) * XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM) / XOCP_WORD_LEN);
 
 	/* Returns invalid DEVAK index if no device key is supported */
 	if (KeyMgmtInstance->KeyMgmtReady != TRUE) {
+		Status = XST_SUCCESS;
 		goto END;
 	}
 	while (Index < KeyMgmtInstance->DevAkInputIndex) {
 		if (SubSystemId == DevAkData->SubSystemId) {
-			DevAkIndex = Index;
-			break;
+			DevAkIndex[KeyIndex] = Index;
 		}
+		KeyIndex++;
 		Index++;
 		DevAkData++;
 	}
 
+	if (Index == KeyMgmtInstance->DevAkInputIndex) {
+		Status = XST_SUCCESS;
+	}
+
 END:
-	return DevAkIndex;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1005,26 +1024,34 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XOCP_GenSubSysDevAk(u32 SubsystemID, u64 InHash)
+int XOcp_GenSubSysDevAk(u32 SubsystemID, u64 InHash)
 {
 	int Status = XST_FAILURE;
-	u32 DevAkIndex = XOcp_GetSubSysDevAkIndex(SubsystemID);
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
+	u32 KeyIndex = 0U;
 
-	if (DevAkIndex != XOCP_INVALID_DEVAK_INDEX)  {
-		DevAkData = DevAkData + DevAkIndex;
+	Status = XOcp_GetSubSysDevAkIndex(SubsystemID, DevAkIndex);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	while ((KeyIndex < XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM) &&
+		(DevAkIndex[KeyIndex] != XOCP_INVALID_DEVAK_INDEX)) {
+		DevAkData = DevAkData + DevAkIndex[KeyIndex];
 		Status = XPlmi_MemCpy64((u64)(UINTPTR)DevAkData->SubSysHash,
 					InHash, XOCP_CDI_SIZE_IN_BYTES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XOcp_GenerateDevAk(SubsystemID);
-		XOcp_Printf(DEBUG_DETAILED, "DEV AK of subsystem is generated %x\n\r",
-					SubsystemID);
+
+		KeyIndex++;
 	}
-	else {
-		XOcp_Printf(DEBUG_DETAILED, "DEV AK of subsystem is not generated \n\r");
-		Status = XST_SUCCESS;
+
+	Status = XOcp_GenerateDevAk(SubsystemID);
+	if (Status != XST_SUCCESS) {
+		XOcp_Printf(DEBUG_DETAILED, "DEV AK of subsystem is not generated %x\n\r",
+		SubsystemID);
 	}
 
 END:
