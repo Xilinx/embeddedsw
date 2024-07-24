@@ -66,7 +66,6 @@
 #define XOCP_DEVAK_SUBSYS_HASH_VERSION 			(1U) /**< DEVAK subsys hash version list */
 #define XOCP_DEVAK_SUBSYS_HASH_LCVERSION 		(1U) /**< DEVAK subsys lowest compatible
 							      * version list */
-#define XOCP_SUBSYSTEM_ID_0				(0U) /**< SubSystem Id zero */
 
 /**************************** Type Definitions *******************************/
 
@@ -82,6 +81,7 @@ static XOcp_KeyMgmt *XOcp_GetKeyMgmtInstance(void);
 static XOcp_SubSysHash *XOcp_GetSubSysHash(void);
 static int XOcp_ValidateDiceCdi(void);
 static XOcp_DevAkData *XOcp_GetDevAkData(void);
+static int XOcp_Attestation(XOcp_Attest *AttestationInfoPtr, u32 DevAkIndex);
 
 /************************** Variable Definitions *****************************/
 
@@ -548,7 +548,7 @@ END:
  *		the user as input. The PLM uses ECC P-384 DevAK private
  *		key to sign the input hash.
  *
- * @param   	AttestWithDevAkPtr - Address of XOcp_AttestWithDevAk structure.
+ * @param   	AttestationInfoPtr - Address of XOcp_AttestWithDevAk structure.
  * @param	SubSystemId holds the image ID.
  *
  * @return
@@ -556,24 +556,111 @@ END:
  *		- XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId)
+int XOcp_AttestWithDevAk(XOcp_Attest *AttestationInfoPtr, u32 SubSystemId)
+{
+	int Status = XST_FAILURE;
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
+
+	if (AttestationInfoPtr == NULL) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XOcp_GetSubSysDevAkIndex(SubSystemId, DevAkIndex);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX] == XOCP_INVALID_DEVAK_INDEX) {
+		Status = (int)XOCP_ERR_INVALID_DEVAK_REQ;
+		goto END;
+	}
+
+	Status = XOcp_Attestation(AttestationInfoPtr, DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX]);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function allows user to provide a buffer which has the key
+ * 		wrap public key embedded in it. The function calculates the hash
+ * 		of the buffer using SHA-384 and signs it using ECC P-384 DevAk private key
+ *
+ * @param	AttestationInfoPtr - Address of XOcp_AttestWithDevAk structure.
+ * @param	SubSystemId holds the image ID.
+ * @param	AttnPloadAddr - Address of the buffer which holds the key wrap public key
+ * @param	AttnPloadSize - Size of the Key Wrap buffer in bytes
+ *
+ * @return
+ *		- XST_SUCCESS - Upon successful attestation
+ *		- XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+int XOcp_AttestWithKeyWrapDevAk(XOcp_Attest *AttestationInfoPtr, u32 SubSystemId,
+	u64 AttnPloadAddr, u32 AttnPloadSize)
+{
+	int Status = XST_FAILURE;
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
+
+	if (AttestationInfoPtr == NULL) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XOcp_GetSubSysDevAkIndex(SubSystemId, DevAkIndex);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX] == XOCP_INVALID_DEVAK_INDEX) {
+		Status = (int)XOCP_ERR_INVALID_DEVAK_REQ;
+		goto END;
+	}
+
+	Status = XSecure_Sha384Digest((u8*)(UINTPTR)AttnPloadAddr, AttnPloadSize,
+		(u8*)(UINTPTR)AttestationInfoPtr->HashAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	AttestationInfoPtr->HashLen = XSECURE_HASH_SIZE_IN_BYTES;
+
+	Status = XOcp_Attestation(AttestationInfoPtr, DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX]);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function signs the provided hash with the DevAk private key
+ * 		available at provided DevAkIndex
+ *
+ * @param   	AttestationInfoPtr - Address of XOcp_AttestWithDevAk structure.
+ * @param	DevAkIndex - Index of the DevAk private key in XOcp_DevAkData structure
+ *
+ * @return
+ *		- XST_SUCCESS - Upon successful attestation
+ *		- XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+static int XOcp_Attestation(XOcp_Attest *AttestationInfoPtr, u32 DevAkIndex)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	u32 DevAkIndex;
 	XOcp_DevAkData *DevAkData = NULL;
 	u8 Hash[XSECURE_ECC_P384_SIZE_IN_BYTES];
 	u8 Signature[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
 
-	if ((SubSystemId == XOCP_SUBSYSTEM_ID_0) ||
-		(AttestWithDevAkPtr->HashAddr == 0x0U) ||
-		(AttestWithDevAkPtr->SignatureAddr == 0x0U)) {
-		goto END;
-	}
-
-	DevAkIndex = XOcp_GetSubSysDevAkIndex(SubSystemId);
-	if (DevAkIndex == XOCP_INVALID_DEVAK_INDEX) {
-		Status = (int)XOCP_ERR_INVALID_DEVAK_REQ;
+	if ((DevAkIndex == XOCP_INVALID_DEVAK_INDEX) || (AttestationInfoPtr == NULL)) {
 		goto END;
 	}
 
@@ -595,18 +682,18 @@ int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId)
 	}
 
 	/* Covert hash to little endian */
-	XSecure_FixEndiannessNCopy(AttestWithDevAkPtr->HashLen,
-		(u64)(UINTPTR)Hash, AttestWithDevAkPtr->HashAddr);
+	XSecure_FixEndiannessNCopy(AttestationInfoPtr->HashLen,
+		(u64)(UINTPTR)Hash, AttestationInfoPtr->HashAddr);
 	/* Generate the signature using DEVAK */
 	Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384, Hash,
-			AttestWithDevAkPtr->HashLen,
+			AttestationInfoPtr->HashLen,
 			(u8 *)(UINTPTR)DevAkData->EccPrvtKey,
 			Signature);
 	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
-			AttestWithDevAkPtr->SignatureAddr,
+			AttestationInfoPtr->SignatureAddr,
 				(u64)(UINTPTR)Signature);
 	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
-		AttestWithDevAkPtr->SignatureAddr + XSECURE_ECC_P384_SIZE_IN_BYTES,
+		AttestationInfoPtr->SignatureAddr + XSECURE_ECC_P384_SIZE_IN_BYTES,
 		(u64)(UINTPTR)(Signature + XSECURE_ECC_P384_SIZE_IN_BYTES));
 
 END:

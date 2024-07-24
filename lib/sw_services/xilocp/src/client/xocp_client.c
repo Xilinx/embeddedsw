@@ -458,6 +458,48 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function sends IPI request to calculate the hash of the
+ * 		Key Wrap buffer and attest with Key Wrap DevAk private key.
+ *
+ * @param	InstancePtr - Pointer to the client instance
+ * @param	AttnPloadAddr - Address of the buffer which should be attested
+ * @param	AttnPloadSize - Size of buffer in bytes
+ * @param	PubKeyOffset - Offset in provided buffer where public key needs to be stored
+ * @param	SignatureAddr - Address of the signature after attestation
+ *
+ * @return
+ *		- XST_SUCCESS - Successfully hashed and attested the data with Key Wrap DevAk private key
+ *		- XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+int XOcp_ClientAttestWithKeyWrapDevAk(XOcp_ClientInstance *InstancePtr,
+				u64 AttnPloadAddr, u32 AttnPloadSize, u32 PubKeyOffset, u64 SignatureAddr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XOCP_PAYLOAD_LEN_7U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	/** Fill IPI Payload */
+	Payload[0U] = OcpHeader(0U, XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK);
+	Payload[1U] = (u32)AttnPloadAddr;
+	Payload[2U] = (u32)(AttnPloadAddr >> XOCP_ADDR_HIGH_SHIFT);
+	Payload[3U] = AttnPloadSize;
+	Payload[4U] = PubKeyOffset;
+	Payload[5U] = (u32)SignatureAddr;
+	Payload[6U] = (u32)(SignatureAddr >> XOCP_ADDR_HIGH_SHIFT);
+
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
+			sizeof(Payload)/sizeof(u32));
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  *
  * @brief	This function sends IPI request to generate shared secret using
  * 		Elliptic Curve Diffie–Hellman Key Exchange (ECDH). The private
@@ -477,7 +519,7 @@ END:
  *		 - Errorcode  On failure
  *
  ******************************************************************************/
-int XSecure_GenSharedSecretwithDevAk(XOcp_ClientInstance *InstancePtr, const u8* PubKey, u8 *SharedSecret)
+int XOcp_GenSharedSecretWithDevAk(XOcp_ClientInstance *InstancePtr, const u8* PubKey, u8 *SharedSecret)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
