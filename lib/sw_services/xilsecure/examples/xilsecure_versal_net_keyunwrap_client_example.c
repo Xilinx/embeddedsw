@@ -67,6 +67,7 @@
 #include "xsecure_plat_client.h"
 #include "xsecure_katclient.h"
 #include "xsecure_rsaclient.h"
+#include "xocp_client.h"
 
 #ifdef SDT
 #include "xsecure_config.h"
@@ -74,18 +75,29 @@
 
 /************************** Constant Definitions *****************************/
 
-/**************************** Type Definitions *******************************/
-
-/***************** Macros (Inline Functions) Definitions *********************/
-
-#define XSECURE_AES_CMK_SIZE_IN_BYTES (40U) /**< customer managed key that was wrapped */
+#define XSECURE_AES_CMK_SIZE_IN_BYTES (40U) /**< CMK size in bytes */
 
 #define XSECURE_AES_CMK_WRAP_DATA	   "e3c2ee8876b89396ddbe1409a7b5cd0e9030eb1dfaa1a8898d6d0d97f72f00ebe8017b69a4ba48f3"
 											/**< Wrapped CMK key using AES */
 
 #define XSECURE_RSA_PUB_EXP_SIZE	  (4U) /**< Public exponent size */
 
+#define XSECURE_KEY_WRAP_PUB_KEY_OFFSET (0U) /** Public key offset */
+
+#define XSECURE_ECC_SIGN_TOTAL_LEN		(96U) /** ECC signature length */
+
+/**************************** Type Definitions *******************************/
+
+typedef struct {
+	u8 PubKey[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES + XSECURE_RSA_PUB_EXP_SIZE]; /* Public Key */
+	u8 CertBuf[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES]; /* Cerificate buffer which will be provided by user */
+} XSecure_KeyWrapBuf;
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
 /************************** Function Prototypes ******************************/
+
+static void XSecure_PrintData(const u8 *Data, u32 Size);
 
 /************************** Variable Definitions *****************************/
 
@@ -188,14 +200,13 @@ static u8 WrappedKey[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES +
 		XSECURE_AES_CMK_SIZE_IN_BYTES] __attribute__ ((aligned (64)))
 __attribute__ ((section (".data.WrappedKey")));
 
-static XSecure_RsaPubKeyAddr RsaPubKeyAddr __attribute__ ((aligned (64)))
-__attribute__ ((section (".data.RsaPubKeyAddr")));
-
-static u8 PubKey[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES + XSECURE_RSA_PUB_EXP_SIZE] __attribute__ ((aligned (64)))
-__attribute__ ((section (".data.PubKey")));
+static XSecure_KeyWrapBuf KeyWrapBuf __attribute__ ((aligned (64)))
+__attribute__ ((section (".data.KeyWrapBuf")));
 
 static u8 AesWrappedKey[XSECURE_AES_CMK_SIZE_IN_BYTES]  __attribute__ ((aligned (64)))
 __attribute__ ((section (".data.AesWrappedKey")));
+
+static u8 Signature[XSECURE_ECC_SIGN_TOTAL_LEN] __attribute__ ((section (".data.Signature")));
 
 /* shared memory allocation */
 static u8 SharedMem[XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
@@ -219,6 +230,7 @@ int main(void)
 	int Status = XST_FAILURE;
 	XMailbox MailboxInstance;
 	XSecure_ClientInstance SecureClientInstance;
+	XOcp_ClientInstance OcpClientInstance;
 	u32 Index = 0U;
 
 #ifdef XSECURE_CACHE_DISABLE
@@ -233,7 +245,13 @@ int main(void)
 
 	Status = XSecure_ClientInit(&SecureClientInstance, &MailboxInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Client initialize failed:%08x \r\n", Status);
+		xil_printf("Secure client initialize failed:%08x \r\n", Status);
+		goto END;
+	}
+
+	Status = XOcp_ClientInit(&OcpClientInstance, &MailboxInstance);
+	if (Status != XST_SUCCESS) {
+		xil_printf("OCP client initialize failed:%08x \r\n", Status);
 		goto END;
 	}
 
@@ -242,23 +260,28 @@ int main(void)
 		goto END;
 	}
 
-	RsaPubKeyAddr.ModulusAddr = (u64)(UINTPTR)PubKey;
-	RsaPubKeyAddr.ExponentAddr = (u64)(UINTPTR)&PubKey[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];
-	Status = XSecure_GetRsaPublicKeyForKeyWrap(&SecureClientInstance, &RsaPubKeyAddr);
+	Status = XOcp_ClientAttestWithKeyWrapDevAk(&OcpClientInstance, (u64)(UINTPTR)&KeyWrapBuf, sizeof(KeyWrapBuf),
+			 XSECURE_KEY_WRAP_PUB_KEY_OFFSET, (u64)(UINTPTR)Signature);
 	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n Get RSA public key failed");
+		xil_printf("\r\n Attest and get RSA public key failed with status:%02x",Status);
 		goto END;
 	}
+
+	xil_printf("\r\n Attestation signature using keywrap DevAK:");
+	xil_printf("\r\n Signature R:");
+	XSecure_PrintData(Signature, XSECURE_ECC_SIGN_TOTAL_LEN/2);
+	xil_printf("\r\n Signature S:");
+	XSecure_PrintData(Signature, XSECURE_ECC_SIGN_TOTAL_LEN/2);
 
 	xil_printf("\r\n RSA Public key:");
 	xil_printf("\r\n Modulus:");
 	for (Index = 0U; Index < XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES; Index++) {
-		xil_printf("%02x", PubKey[Index]);
+		xil_printf("%02x", KeyWrapBuf.PubKey[Index]);
 	}
 
 	xil_printf("\r\n Exponent:");
 	for (; Index < (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES + XSECURE_RSA_PUB_EXP_SIZE); Index++) {
-		xil_printf("%02x", PubKey[Index]);
+		xil_printf("%02x", KeyWrapBuf.PubKey[Index]);
 	}
 
 	Status = XSecure_RsaPublicEncKat(&SecureClientInstance);
@@ -274,13 +297,13 @@ int main(void)
 		goto END;
 	}
 
-	Status = Xil_SMemCpy(PubKey + XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES, 4U, &PublicExp, 4U, 4U);
+	Status = Xil_SMemCpy(KeyWrapBuf.PubKey + XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES, 4U, &PublicExp, 4U, 4U);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	/* Wrap ephemeral key with RSA public key */
-	Status = XSecure_RsaPublicEncrypt(&SecureClientInstance, (UINTPTR)PubKey, (UINTPTR)RsaEncodedData,
+	Status = XSecure_RsaPublicEncrypt(&SecureClientInstance, (UINTPTR)KeyWrapBuf.PubKey, (UINTPTR)RsaEncodedData,
 			XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES, (UINTPTR)WrappedKey);
 	if(XST_SUCCESS != Status)	{
 		xil_printf("\r\nFailed at RSA signature encryption\n\r");
@@ -288,9 +311,7 @@ int main(void)
 	}
 
 	xil_printf("\r\n Wrapped Key:");
-	for (Index = 0U; Index < XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES; Index++) {
-		xil_printf("%02x", WrappedKey[Index]);
-	}
+	XSecure_PrintData(WrappedKey, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
 
 	Status = Xil_SMemCpy(&WrappedKey[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES], XSECURE_AES_CMK_SIZE_IN_BYTES, AesWrappedKey, XSECURE_AES_CMK_SIZE_IN_BYTES,
 				XSECURE_AES_CMK_SIZE_IN_BYTES);
@@ -314,6 +335,25 @@ END:
 	}
 
 	return Status;
+}
+
+/****************************************************************************/
+/**
+* @brief   This function prints the given data on the console
+*
+* @param   Data - Pointer to any given data buffer
+*
+* @param   Size - Size of the given buffer
+*
+****************************************************************************/
+static void XSecure_PrintData(const u8 *Data, u32 Size)
+{
+	u32 Index;
+
+	for (Index = 0U; Index < Size; Index++) {
+		xil_printf("%02x", Data[Index]);
+	}
+	xil_printf("\r\n");
 }
 
 /** @} */
