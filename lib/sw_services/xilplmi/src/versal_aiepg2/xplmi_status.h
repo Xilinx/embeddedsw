@@ -731,24 +731,51 @@ typedef enum {
 		/**< 0x637 Error while storing digest table */
 	XLOADER_ERR_ZEROIZE_DIGEST_TABLE,
 		/**< 0x638 Error while zeroizing digest table */
-	XLOADER_ERR_UFS_F_OPEN,		/**< 0x638 - Error when UFS file open
+	XLOADER_ERR_UFS_F_OPEN,		/**< 0x639 - Error when UFS file open
 					  fails. This can happen when file is
 					  not present or read from UFS fails.
 					  File system error code is present in
 					  PLM minor code */
-	XLOADER_ERR_UFS_F_LSEEK,		/**< 0x639 - Error when f_seek fails
+	XLOADER_ERR_UFS_F_LSEEK,	/**< 0x63A - Error when f_seek fails
 					  while reading from UFS card */
-	XLOADER_ERR_UFS_F_READ,		/**< 0x63a - Error while reading from
+	XLOADER_ERR_UFS_F_READ,		/**< 0x63B - Error while reading from
 					  UFS card */
-	XLOADER_ERR_UFS_F_CLOSE,	/**< 0x63b - Error on closure of file in UFS
+	XLOADER_ERR_UFS_F_CLOSE,	/**< 0x63C - Error on closure of file in UFS
 							filesystem modes */
-	XLOADER_ERR_UFS_UMOUNT,		/**< 0X63c - Error on unmounting filesystem */
+	XLOADER_ERR_UFS_UMOUNT,		/**< 0X63D - Error on unmounting filesystem */
 
 	XLOADER_ERR_SEC_AES_INIT_FAIL,
-		/**< 0x639 Error when AES initialization is failed */
-	XLOADER_ERR_UFS_MAX_BOOT_FILES_LIMIT,	/**< 0x63d - Error code returned when search
+		/**< 0x63E Error when AES initialization is failed */
+	XLOADER_ERR_UFS_MAX_BOOT_FILES_LIMIT,	/**< 0x63F - Error code returned when search
 							for bootable file crosses max limit */
-	XLOADER_ERR_UFS_INIT,
+	XLOADER_ERR_UFS_INIT,/**< 0x640 - Error in calculating HashBlock
+						hash */
+	XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL, /**< 0x641 - Error in calculating HashBlock
+						hash */
+	XLOADER_ERR_HASH_BLOCK_HASH_COMPARE_FAIL,
+					/**< 0x642 - Error in HashBlock hash comparision */
+	XLOADER_ERR_MH_HASH_CALC_FAIL, /**< 0x643 - Error in calculating MetaHeader hash */
+	XLOADER_ERR_META_HDR_HASH_COMPARE_FAIL,
+					/**< 0x644 - Error in MetaHeader hash comparision */
+	XLOADER_ERR_HASH_BLOCK_AAD_VALIDATE, /**< 0x645 - Error in HashBlock AAD validation */
+	XLOADER_ERR_PPK_HASH_CALC_FAIL, /**< 0x646 - Error in PPK hash calculation */
+	XLOADER_ERR_SPK_HASH_CALC_FAIL, /**< 0x647 - Error in SPK hash calculation */
+	XLOADER_ERR_PPK_COPY_FAIL, /**< 0x648 - Error in PPK copy */
+	XLOADER_ERR_SPK_HEADER_COPY_FAIL, /**< 0x649 - Error in SPK Header copy */
+	XLOADER_ERR_SPK_HEADER_VALIDATE_FAIL, /**< 0x650 - Error in SPK Header validation
+*/
+	XLOADER_ERR_SPK_COPY_FAIL, /**< 0x651 - Error in SPK copy */
+	XLOADER_ERR_SPK_SIGN_COPY_FAIL, /**< 0x652 - Error in SIGN SIGN copy */
+	XLOADER_ERR_HASH_BLOCK_COPY_FAIL, /**< 0x653 - Error in HashBlock copy */
+	XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL, /**< 0x654 - Error in HashBlock sign copy */
+	XLOADER_ERR_HASH_BLOCK_TAG_COPY_FAIL, /**< 0x655 - Error in HashBlock tag copy */
+	XLOADER_ERR_GET_LMS_ALGO_FAILED, /**< 0x656 - Error in getting LMS hash algorithm */
+	XLOADER_ERR_MH_GET_DMA, /**< 0x657 Failed to get DMA instance for MetaHeader authentication */
+	XLOADER_ERR_SHAKE_GET_DMA, /**< 0x658 Failed to get DMA instance for SHAKE KAT */
+	XLOADER_ERR_SHA2_GET_DMA, /**< 0x659 Failed to get DMA instance for SHA2 KAT */
+	XLOADER_ERR_LMS_HSS_GET_DMA, /**< 0x660 Failed to get DMA instance for LMS_HSS KAT */
+	XLOADER_ERR_LMS_GET_DMA, /**< 0x661 Failed to get DMA instance for LMS KAT */
+
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XOCP_PCR_ERR_SWPCR_DUP_CONFIG = 0x6A0, /**< 0x6A0 Duplicate Pcr configuration provided */
 	XOCP_PCR_ERR_IN_SWPCR_CONFIG, /**< 0x6A1 Error in SwPcr configuration */
