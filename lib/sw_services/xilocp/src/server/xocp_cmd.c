@@ -26,6 +26,7 @@
 *       har  11/03/23 Moved handling of SW PCR Config CDO command from xocp_ipihandler.c to this file
 *       am   01/31/24 Moved key Management operations under PLM_OCP_KEY_MNGMT macro
 *       kpt  02/20/24 Added support to extend secure state into SWPCR
+*       har  06/04/24 Added support to get Key Index as part of DevAkInput CDO command
 *
 * </pre>
 *
@@ -60,6 +61,11 @@
 			/**< Shift for Field in Payload of Get Certificate User Cfg CDO command*/
 #define XOCP_CERT_USERIN_LEN_MASK			(0x0000FFFFU)
 			/**< Mask for Length in Payload of Get Certificate User Cfg CDO command*/
+#define XOCP_DEV_AK_INPUT_PLOAD_KEYIDX_INDEX			(1U + 12U)
+		/**< Index of KeyIdx in Payload of DevAkInput comamnd
+		 * Payload -> Subsystem ID (1 word) + Personlization string(12 words) + KeyIdx*/
+#define XOCP_DEV_AK_INPUT_KEYIDX_MASK				(0x3U)
+			/**< Mask for KeyIdx in Payload of DevAkInput CDO command */
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -285,12 +291,15 @@ static int XOcp_DevAkInput(const XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
+	u32 KeyIndex;
 
 	if (Cmd->ProcessedLen != 0U) {
 		Status = (int)XOCP_ERR_CHUNK_BOUNDARY_CROSSED;
 	}
 	else {
-		Status = XOcp_DevAkInputStore(Pload[0], (u8 *)(UINTPTR)&Pload[1]);
+		KeyIndex = Pload[XOCP_DEV_AK_INPUT_PLOAD_KEYIDX_INDEX] & XOCP_DEV_AK_INPUT_KEYIDX_MASK;
+		Status = XOcp_DevAkInputStore(Pload[0], (u8 *)(UINTPTR)&Pload[1],
+			KeyIndex);
 	}
 
 	return Status;

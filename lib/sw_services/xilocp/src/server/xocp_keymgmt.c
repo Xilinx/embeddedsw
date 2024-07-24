@@ -259,13 +259,15 @@ END:
  * @param	SubSystemId of which DEVAK shall be generated.
  * @param	PerString holds 48 byte personalised string to the corresponding
  *		subsystem ID.
+ * @param	KeyIndex is the index of the DevAk key of the subsystem for which
+ * 		personalization string is provided
  *
  * @return
  *		- XST_SUCCESS - If whole operation is success
  *		- XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString)
+int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString, u32 KeyIndex)
 {
 	int Status = XST_FAILURE;
 	XOcp_KeyMgmt *KeyMgmtInstance = XOcp_GetKeyMgmtInstance();
@@ -285,6 +287,7 @@ int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString)
 	}
 
 	DevAkData[KeyMgmtInstance->DevAkInputIndex].SubSystemId = SubSystemId;
+	DevAkData[KeyMgmtInstance->DevAkInputIndex].KeyIndex = KeyIndex;
 
 	Status = XPlmi_MemCpy64(
 			(u64)(UINTPTR)DevAkData[KeyMgmtInstance->DevAkInputIndex].PerString,

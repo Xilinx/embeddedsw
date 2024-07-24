@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -25,6 +25,7 @@
 *       am   07/20/2023   Added macro XOCP_PMC_GLOBAL_ZEROIZE_CTRL_ZEROIZE_CLEAR_MASK
 * 1.3   am   01/31/2024   Fixed internal security review comments
 * 1.4   har  06/10/2024   Moved XOCP_DEVAK_SUBSYS_HASH_DS_ID macro to xocp.h
+* 1.4   har  26/04/2024   Add support to store personalization string for additional DevAk
 *
 * </pre>
 *
@@ -63,7 +64,7 @@ extern "C" {
 #define XOCP_PMC_GLOBAL_ZEROIZE_STATUS_DONE_MASK	(0x00000001U)
 							/**< Zeorize status done mask */
 
-#define XOCP_MAX_DEVAK_SUPPORT				(3U) /**< Maximum DEVAK support */
+#define XOCP_MAX_DEVAK_SUPPORT				(4U) /**< Maximum DEVAK support */
 #define XOCP_INVALID_DEVAK_INDEX			(0xFFFFFFFFU)
 							/**< Invalid DEVAK index value*/
 #define XOCP_INVALID_USR_CFG_INDEX			(0xFFFFFFFFU)
@@ -94,11 +95,12 @@ typedef struct {
  */
 typedef struct {
 	u32 SubSystemId;	/**< Corresponding Sub system ID */
-	u8 PerString[XTRNGPSX_PERS_STRING_LEN_IN_BYTES];/**< Personalised string */
+	u32 KeyIndex;		/**< Index of DevAk for the subsystem */
+	u8 PerString[XTRNGPSX_PERS_STRING_LEN_IN_BYTES];/**< Personalization string */
 	u8 SubSysHash[XSECURE_HASH_SIZE_IN_BYTES]; /**< Hash of the subsystem */
-	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES]; /**< ECC DEV AK private key */
-	u8 EccX[XOCP_ECC_P384_SIZE_BYTES];	/**< ECC DEVAK publick key X */
-	u8 EccY[XOCP_ECC_P384_SIZE_BYTES];	/**< ECC DEVAK publick key Y */
+	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES]; /**< ECC DevAK private key */
+	u8 EccX[XOCP_ECC_P384_SIZE_BYTES];	/**< ECC DevAK public key X */
+	u8 EccY[XOCP_ECC_P384_SIZE_BYTES];	/**< ECC DevAK public key Y */
 	u32 IsDevAkKeyReady; /**< Indicates Dev AK availability */
 } XOcp_DevAkData;
 
@@ -108,7 +110,7 @@ typedef struct {
 
 /************************** Variable Definitions *****************************/
 int XOcp_GenerateDevIKKeyPair(void);
-int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString);
+int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString, u32 KeyIndex);
 u32 XOcp_GetSubSysDevAkIndex(u32 SubSystemId);
 int XOcp_GenerateDevAk(u32 SubSystemId);
 int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId);
