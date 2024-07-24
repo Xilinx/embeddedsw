@@ -2919,21 +2919,6 @@ int main() {
 	/* Set the Application version in TXSs driver structure */
 	XV_HdmiTxSS_SetAppVersion(&HdmiTxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
 
-#ifdef SDT
-	Status = XSetupInterruptSystem(&HdmiTxSs,
-				XV_HdmiTxSS_HdmiTxIntrHandler,
-				XV_HdmiTxSs_ConfigPtr->IntrId[INTRNAME_HDMITX],
-				XV_HdmiTxSs_ConfigPtr->IntrParent,
-				XINTERRUPT_DEFAULT_PRIORITY);
-	if (Status != XST_SUCCESS) {
-		xil_printf
-		("ERR:: HDMI TX Interrupt Initialization failed %d\r\n",
-		Status);
-		return XST_FAILURE;
-	}
-#endif
-
-	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
 #if defined(__arm__) || (__aarch64__)
 #ifndef SDT
 #ifndef USE_HDCP
@@ -3641,6 +3626,21 @@ int main() {
 #endif
 #endif
 
+/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+#ifdef SDT
+	Status = XSetupInterruptSystem(&HdmiTxSs,
+				XV_HdmiTxSS_HdmiTxIntrHandler,
+				XV_HdmiTxSs_ConfigPtr->IntrId[INTRNAME_HDMITX],
+				XV_HdmiTxSs_ConfigPtr->IntrParent,
+				XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:: Unable to register HDMI TX interrupt handler");
+		xil_printf("HDMI TX SS initialization error\r\n");
+		return XST_FAILURE;
+	}
+#endif
+#endif
 	xil_printf("---------------------------------\r\n");
 
 	/* Enable exceptions. */
