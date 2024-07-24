@@ -61,6 +61,10 @@
 			/**< Shift for Field in Payload of Get Certificate User Cfg CDO command*/
 #define XOCP_CERT_USERIN_LEN_MASK			(0x0000FFFFU)
 			/**< Mask for Length in Payload of Get Certificate User Cfg CDO command*/
+#define XOCP_CERT_USER_IN_KEYINDEX_MASK				(0x3000000U)
+			/**< Mask for Key Index in Payload of Get Certificate User Cfg CDO command*/
+#define XOCP_CERT_USER_IN_KEYINDEX_SHIFT				(24U)
+			/**< Shift for Key Index in Payload of Get Certificate User Cfg CDO command*/
 #define XOCP_DEV_AK_INPUT_PLOAD_KEYIDX_INDEX			(1U + 12U)
 		/**< Index of KeyIdx in Payload of DevAkInput comamnd
 		 * Payload -> Subsystem ID (1 word) + Personlization string(12 words) + KeyIdx*/
@@ -334,13 +338,14 @@ static int XOcp_GetCertUserCfg(const XPlmi_Cmd *Cmd)
 	u32 FieldType = (Pload[1] & XOCP_CERT_USERIN_FIELD_MASK) >>
 				XOCP_CERT_USERIN_FIELD_SHIFT;
 	u32 LenInBytes = Pload[1] & XOCP_CERT_USERIN_LEN_MASK;
+	u32 KeyIndex = (Pload[1] & XOCP_CERT_USER_IN_KEYINDEX_MASK) >> XOCP_CERT_USER_IN_KEYINDEX_SHIFT;
 
 	if (Cmd->ProcessedLen != 0U) {
 		Status = (int)XOCP_ERR_CHUNK_BOUNDARY_CROSSED;
 	}
 	else {
 		Status = XCert_StoreCertUserInput(SubsystemId, (XCert_UserCfgFields)FieldType,
-			(u8 *)(UINTPTR)&Pload[2], LenInBytes);
+			(u8 *)(UINTPTR)&Pload[2], LenInBytes, KeyIndex);
 	}
 
 	return Status;

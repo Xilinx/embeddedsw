@@ -23,6 +23,7 @@
 *       am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
 *       kpt  02/21/2024 Add support for DME extension
 * 1.3   har  05/02/2024 Fixed doxygen warnings
+*       har  06/07/2023 Added support for Key index
 *
 *
 * </pre>
@@ -121,6 +122,7 @@ typedef struct {
  */
 typedef struct {
 	u32 SubsystemId;	/**< Subsystem Id */
+	u32 KeyIndex;		/**< Key Index for given Subsystem Id */
 	XCert_UserCfg UserCfg;	/**< User configuration */
 	XCert_SignStore SignStore; /**< Signature store */
 } XCert_InfoStore;
@@ -163,6 +165,7 @@ typedef struct {
  */
 typedef struct {
 	u32 SubSystemId;	/**< Subsystem ID */
+	u32 KeyIndex;		/**< Key Index */
 	XCert_UserCfg *UserCfg;		/**< Configuration from User */
 	XCert_AppCfg AppCfg;	/**< Configuration from application */
 }XCert_Config;
@@ -191,7 +194,7 @@ typedef enum {
 
 /************************** Function Prototypes ******************************/
 int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config *Cfg);
-int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8* Val, u32 Len);
+int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8* Val, u32 Len, u32 KeyIndex);
 
 
 #ifdef __cplusplus
