@@ -51,6 +51,7 @@
 *       mss  04/12/2024 Added code to dump DDRMC error logs
 *       har  06/07/2024 Updated condition to check if optional data is not found
 *       kal  06/29/2024 Update InPlace update to load LPD and PSM
+*       har  07/02/2024 Added support to generate additional DevAk
 *
 * </pre>
 *
@@ -108,7 +109,7 @@
 #define XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE		(0x03U) /**< Value of JTAG state flag if enabled */
 #define XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE		(0x00U) /**< Value of JTAG state flag if disabled */
 #endif
-#ifdef PLM_OCP
+#ifdef PLM_OCP_KEY_MNGMT
 #define XLOADER_INVALID_DEVAK_INDEX			(0xFFFFFFFFU) /**< INVALID DEVAK INDEX */
 #endif
 
@@ -1244,27 +1245,32 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	XSecure_Sha3 *Sha3Instance = XLoader_GetSha3Engine1Instance();
 	XSecure_Sha3Hash Sha3Hash;
 	u32 PcrNo;
-	u32 DevAkIndex = XLOADER_INVALID_DEVAK_INDEX;
 #ifndef PLM_SECURE_EXCLUDE
 	XilPdi* PdiPtr = XLoader_GetPdiInstance();
-#endif
+#endif /* PLM_SECURE_EXCLUDE */
 
 #ifdef PLM_OCP_KEY_MNGMT
-	DevAkIndex = XOcp_GetSubSysDevAkIndex(ImageInfo->SubsystemID);
-#endif
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
+
+	Status = XOcp_GetSubSysDevAkIndex(ImageInfo->SubsystemID, DevAkIndex);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	if ((ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) &&
-		(DevAkIndex == XLOADER_INVALID_DEVAK_INDEX)) {
+		((DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX] == XLOADER_INVALID_DEVAK_INDEX) &&
+		(DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX] == XLOADER_INVALID_DEVAK_INDEX))) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
-	PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
+#endif /* PLM_OCP_KEY_MNGMT */
 
 #ifndef PLM_SECURE_EXCLUDE
 	Status = XLoader_RunSha3Engine1Kat(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-#endif
+#endif /* PLM_SECURE_EXCLUDE */
 
 	switch(ImageInfo->Flags) {
 	case XLOADER_MEASURE_START:
@@ -1287,16 +1293,19 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 
 	if (ImageInfo->Flags == XLOADER_MEASURE_FINISH) {
 #ifdef PLM_OCP_KEY_MNGMT
-		if (DevAkIndex != XLOADER_INVALID_DEVAK_INDEX) {
+		if ((DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX] != XLOADER_INVALID_DEVAK_INDEX) ||
+			(DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX] != XLOADER_INVALID_DEVAK_INDEX)) {
 			/* Generate DEVAK */
-			Status = XOCP_GenSubSysDevAk(ImageInfo->SubsystemID,
+			Status = XOcp_GenSubSysDevAk(ImageInfo->SubsystemID,
 						(u64)(UINTPTR)Sha3Hash.Hash);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 		}
-#endif
+#endif /* PLM_OCP_KEY_MNGMT */
+
 		if (ImageInfo->PcrInfo != XOCP_PCR_INVALID_VALUE) {
+			PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
 			/* Extend HW PCR */
 			Status = XOcp_ExtendHwPcr(PcrNo,(u64)(UINTPTR)&Sha3Hash.Hash,
 				XLOADER_SHA3_LEN);
@@ -1317,7 +1326,7 @@ END:
 #else
 	(void)ImageInfo;
 	Status = XST_SUCCESS;
-#endif
+#endif	/* PLM_OCP */
 
 	return Status;
 }
