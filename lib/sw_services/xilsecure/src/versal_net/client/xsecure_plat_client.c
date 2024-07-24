@@ -173,42 +173,6 @@ END:
 /*****************************************************************************/
 /**
  *
- * @brief	This function sends IPI request to get RSA public key for key wrap.
- *
- * @param	InstancePtr  Pointer to the client instance
- * @param  	PubKey  Pointer to the XSecure_RsaPubKeyAddr instance
- *
- * @return
- *	-	XST_SUCCESS - On Success
- *	-	Errorcode - On failure
- *
- ******************************************************************************/
-int XSecure_GetRsaPublicKeyForKeyWrap(XSecure_ClientInstance *InstancePtr, XSecure_RsaPubKeyAddr *PubKey)
-{
-	int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
-	u64 PubKeyAddr;
-
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PubKey == NULL)) {
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
-
-	PubKeyAddr = (u64)(UINTPTR)PubKey;
-	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_GET_KEY_WRAP_RSA_PUBLIC_KEY);
-	Payload[1U] = (u32)PubKeyAddr;
-	Payload[2U] = (u32)(PubKeyAddr >> 32U);
-
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- *
  * @brief	This function sends IPI request to unwrap the wrapped AES key.
  *
  * @param	InstancePtr  Pointer to the client instance

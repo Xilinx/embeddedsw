@@ -57,7 +57,6 @@
 /************************** Function Prototypes *****************************/
 static int XSecure_UpdateCryptoMask(XSecure_CryptoStatusOp CryptoOp, u32 CryptoMask, u32 CryptoVal);
 #ifndef PLM_RSA_EXCLUDE
-static int XSecure_GetRsaPublicKeyIpi(u32 PubKeyAddrLow, u32 PubKeyAddrHigh);
 static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh);
 static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
@@ -94,9 +93,6 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 		CryptoMask = XPLMI_SECURE_PKI_CRYPTO_MASK;
 		break;
 #ifndef PLM_RSA_EXCLUDE
-	case XSECURE_API(XSECURE_API_GET_KEY_WRAP_RSA_PUBLIC_KEY):
-		Status = XSecure_GetRsaPublicKeyIpi(Pload[0U], Pload[1U]);
-		break;
 	case XSECURE_API(XSECURE_API_KEY_UNWRAP):
 		Status = XSecure_KeyUnwrapIpi(Pload[0U], Pload[1U]);
 		break;
@@ -156,47 +152,6 @@ END:
 }
 
 #ifndef PLM_RSA_EXCLUDE
-
-/*****************************************************************************/
-/**
- * @brief   The function returns the public key of RSA key pair generated for
- *          Key Wrap/Unwrap operation.
- *
- * @param   PubKeyAddrLow     Lower address of the RsaPubKeyAddr structure.
- * @param   PubKeyAddrHigh    Higher address of the RsaPubKeyAddr structure.
- *
- * @return
-	-	XST_SUCCESS - On Success
- *	-	ErrorCode - On failure
- *
- ******************************************************************************/
- static int XSecure_GetRsaPublicKeyIpi(u32 PubKeyAddrLow, u32 PubKeyAddrHigh)
-{
-	volatile int Status = XST_FAILURE;
-	u64 PubKeyAddr = ((u64)PubKeyAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)PubKeyAddrLow;
-	u32 KeyInUseIdx = XSecure_GetRsaKeyInUseIdx();
-	const XSecure_RsaPubKey *RsaPubKey =  XSecure_GetRsaPublicKey(KeyInUseIdx);
-	XSecure_RsaPubKeyAddr RsaPubKeyAddr = {0U};
-
-	if (RsaPubKey == NULL) {
-		Status = (int)XSECURE_ERR_RSA_KEY_PAIR_NOT_AVAIL;
-		goto END;
-	}
-
-	Status = XPlmi_MemCpy64((u64)(UINTPTR)&RsaPubKeyAddr, PubKeyAddr, sizeof(XSecure_RsaPubKeyAddr));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XPlmi_MemCpy64(RsaPubKeyAddr.ModulusAddr, (u64)(UINTPTR)RsaPubKey->Mod, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	XPlmi_Out64(RsaPubKeyAddr.ExponentAddr, RsaPubKey->PubExp[0U]);
-END:
-	return Status;
-}
 
 /*****************************************************************************/
 /**

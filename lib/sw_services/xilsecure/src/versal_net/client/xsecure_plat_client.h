@@ -63,7 +63,6 @@ int XSecure_UpdatePcideCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure
  * @cond xsecure_internal
  * @{
  */
-int XSecure_GetRsaPublicKeyForKeyWrap(XSecure_ClientInstance *InstancePtr, XSecure_RsaPubKeyAddr *PubKey);
 int XSecure_KeyUnwrap(XSecure_ClientInstance *InstancePtr, XSecure_KeyWrapData *KeyWrapData);
 int XSecure_ReleaseRsaKey(XSecure_ClientInstance *InstancePtr);
 /**
