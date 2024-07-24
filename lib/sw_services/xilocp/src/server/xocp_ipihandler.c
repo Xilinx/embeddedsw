@@ -25,6 +25,8 @@
 *       am   01/31/24 Moved key Management operations under PLM_OCP_KEY_MNGMT macro
 *       kpt  02/24/24 Return error when DME response is already generated and DME request
 *                     is made
+*       har  06/11/24 Add support to handle IPI request to hash and attest with
+*                     key wrap DevAk
 *
 * </pre>
 *
@@ -50,6 +52,14 @@
 #include "xsecure_defs.h"
 #include "xsecure_ellipticplat.h"
 #include "xsecure_elliptic.h"
+#ifndef PLM_RSA_EXCLUDE
+#include "xsecure_plat_rsa.h"
+#endif
+
+/************************** Constant Definitions *****************************/
+
+#define XOCP_KEY_WRAP_ATTEST_PAYLOAD_ADDRESS    (0xF2008000U) /**< Attestation payload address to store keywrap buffer */
+#define XOCP_KEY_WRAP_MAX_BUF_SIZE				(4096U) /**< Keywrap maximum buffer size */
 
 /************************** Function Prototypes *****************************/
 static int XOcp_ExtendHwPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHigh, u32 Size);
@@ -60,6 +70,10 @@ static int XOcp_GenDmeRespIpi(u32 NonceAddrLow, u32 NonceAddrHigh, u32 DmeStruct
 #ifdef PLM_OCP_KEY_MNGMT
 static int XOcp_GetX509CertificateIpi(u32 GetX509CertAddrLow, u32 GetX509CertAddrHigh, u32 SubSystemID);
 static int XOcp_AttestWithDevAkIpi(u32 AttestWithDevAkLow, u32 AttestWithDevAkHigh, u32 SubSystemID);
+#ifndef PLM_RSA_EXCLUDE
+static int XOcp_AttestWithKeyWrapDevAkIpi(u32 AttnPloadAddrLow, u32 AttnPloadAddrHigh, u32 AttnPloadSize,
+	u32 PubKeyOffset, u32 SignatureAddrLow, u32 SignatureAddrHigh, u32 SubSystemID);
+#endif
 static int XOcp_GenSharedSecretWithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, u32 PubKeyAddrHigh,
 	u32 SharedSecretAddrLow, u32 SharedSecretAddrHigh);
 #endif
@@ -116,6 +130,12 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 			Status = XOcp_GenSharedSecretWithDevAkIpi(Cmd->SubsystemId, Pload[0], Pload[1],
 				Pload[2], Pload[3]);
 			break;
+#ifndef PLM_RSA_EXCLUDE
+		case XOCP_API(XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK):
+			Status = XOcp_AttestWithKeyWrapDevAkIpi(Pload[0], Pload[1],
+				Pload[2], Pload[3], Pload[4], Pload[5], Cmd->SubsystemId);
+			break;
+#endif
 #endif
 		case XOCP_API(XOCP_API_EXTEND_SWPCR):
 			Status = XOcp_ExtendSwPcrIpi(Pload[0], Pload[1]);
@@ -358,6 +378,85 @@ static int XOcp_GenSharedSecretWithDevAkIpi(u32 SubSystemId, u32 PubKeyAddrLow, 
 
 	return Status;
 }
+
+#ifndef PLM_RSA_EXCLUDE
+/*****************************************************************************/
+/**
+ * @brief	This function handler calls XOcp_AttestWithKeyWrapDevAk server API to
+ *		calculate hash of the key wrap buffer and attest it with DevAk private key.
+ *
+ * @param	AttnPloadAddrLow - Lower 32 bit address of the buffer which should be attested
+ * @param	AttnPloadAddrHigh - Higher 32 bit address of the buffer which should be attested
+ * @param	AttnPloadSize - Size of attestation payload in bytes
+ * @param	PubKeyOffset - Offset in provided buffer where public key needs to be stored
+ * @param	SignatureAddrLow - Lower 32-bit address of the signature after attestation
+ * @param	SignatureAddrHigh - Higher 32-bit address of the signature after attestation
+ * @param	SubSystemID - Subsystem ID to get the corresponding DevAk keys
+ *
+ * @return
+ *          - XST_SUCCESS - Upon success
+ *          - ErrorCode - Upon any failure
+ ******************************************************************************/
+static int XOcp_AttestWithKeyWrapDevAkIpi(u32 AttnPloadAddrLow, u32 AttnPloadAddrHigh, u32 AttnPloadSize,
+	u32 PubKeyOffset, u32 SignatureAddrLow, u32 SignatureAddrHigh, u32 SubSystemID)
+{
+	volatile int Status = XST_FAILURE;
+	u64 SignatureAddr = ((u64)SignatureAddrHigh << XOCP_ADDR_HIGH_SHIFT) |
+			(u64)SignatureAddrLow;
+	XOcp_Attest AttestInstance __attribute__ ((aligned (32U)));
+	u64 AttnPloadAddr = ((u64)AttnPloadAddrHigh << XOCP_ADDR_HIGH_SHIFT) |
+			(u64)AttnPloadAddrLow;
+	u32 KeyInUseIdx = XSecure_GetRsaKeyInUseIdx();
+	const XSecure_RsaPubKey *RsaPubKey =  XSecure_GetRsaPublicKey(KeyInUseIdx);
+	u8 *AttnPloadBuf = (u8*)(UINTPTR)XOCP_KEY_WRAP_ATTEST_PAYLOAD_ADDRESS;
+	u8 Hash[XSECURE_HASH_SIZE_IN_BYTES];
+
+	if ((AttnPloadSize == 0U) || (AttnPloadSize > XOCP_KEY_WRAP_MAX_BUF_SIZE)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if (RsaPubKey == NULL) {
+		Status = (int)XOCP_ERR_PUB_KEY_NOT_AVAIL;
+		goto END;
+	}
+
+	if (AttnPloadSize <= (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES + XSECURE_RSA_PUB_EXP_SIZE + PubKeyOffset)) {
+		Status = (int)XOCP_ERR_INVALID_ATTEST_BUF_SIZE;
+		goto END;
+	}
+
+	/* Copy KeyWrap attestation buffer to local buffer */
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)AttnPloadBuf, AttnPloadAddr, AttnPloadSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Copy public key in local buffer */
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)(AttnPloadBuf + PubKeyOffset), (u64)(UINTPTR)RsaPubKey, sizeof(XSecure_RsaPubKey));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	AttestInstance.HashAddr = (u64)(UINTPTR)Hash;
+	AttestInstance.SignatureAddr = SignatureAddr;
+
+	Status = XST_FAILURE;
+	Status = XOcp_AttestWithKeyWrapDevAk(&AttestInstance, SubSystemID, (u64)(UINTPTR)AttnPloadBuf,
+		AttnPloadSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Copy public key in given KeyWrap buffer */
+	Status = XPlmi_MemCpy64((AttnPloadAddr + PubKeyOffset), (u64)(UINTPTR)RsaPubKey,
+				sizeof(XSecure_RsaPubKey));
+
+END:
+	return Status;
+}
+
+#endif
 #endif /* PLM_OCP_KEY_MNGMT */
 
 /*****************************************************************************/

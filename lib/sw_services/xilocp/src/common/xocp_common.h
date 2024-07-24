@@ -221,8 +221,12 @@ typedef enum {
 	XOCP_ERR_SECURE_STATE_MEASUREMENT,	/**< 0x2B Error when calculating secure state hash */
 	XOCP_ERR_DME_RESP_ALREADY_GENERATED,	/**< 0x2C Error when DME challenge request is made
 	                                             when DME response is already generated */
-	XOCP_ERR_DME_RESP_NOT_GENERATED			/**< 0x2D Error when DME response not generated
+	XOCP_ERR_DME_RESP_NOT_GENERATED,		/**< 0x2D Error when DME response not generated
 	                                             and CSR is requested */
+	XOCP_ERR_PUB_KEY_NOT_AVAIL,             /**< 0x2E Error when public key is not available during
+	                                             keywrap attestation request */
+	XOCP_ERR_INVALID_ATTEST_BUF_SIZE        /**< 0x2F Error when invalid buffer size is provided during
+	                                             keywrap attestation request */
 }XOcp_OcpErrorStatus;
 
 /***************** Macros (Inline Functions) Definitions *********************/

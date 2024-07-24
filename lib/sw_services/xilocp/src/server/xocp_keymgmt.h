@@ -122,6 +122,8 @@ int XOcp_GetSubSysDevAkIndex(u32 SubSystemId, u32* DevAkIndex);
 int XOcp_GenerateDevAk(u32 SubSystemId);
 int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId);
 int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId);
+int XOcp_AttestWithKeyWrapDevAk(XOcp_Attest *AttestationInfoPtr, u32 SubSystemId,
+	u64 AttnPloadAddr, u32 AttnPloadSize);
 u32 XOcp_IsDevIkReady(void);
 int XOcp_RegenSubSysDevAk(void);
 int XOcp_ShutdownHandler(XPlmi_ModuleOp Op);

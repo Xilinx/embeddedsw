@@ -23,6 +23,7 @@
 *       am   01/10/23 Added XOCP_DME_NONCE_SIZE_IN_BITS macro for dme
 * 1.2   kal  05/28/23 Added SW PCR API IDs
 * 1.3   ng   01/28/24 Added SDT support
+* 1.4   har  06/11/24 Added XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK API ID
 *
 * </pre>
 * @note
@@ -103,7 +104,8 @@ typedef enum {
 	XOCP_API_GET_SWPCRLOG,	/**< 12U */
 	XOCP_API_GET_SWPCRDATA,	/**< 13U */
 	XOCP_API_GEN_SHARED_SECRET, /**< 14U*/
-	XOCP_API_MAX		/**< 15U */
+	XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK, /**< 15U */
+	XOCP_API_MAX		/**< 16U */
 } XOcp_ApiId;
 /** @} */
 
