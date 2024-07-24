@@ -368,7 +368,9 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 	XLoader_SecureParams *SecureParams = (XLoader_SecureParams *)SecureParamsPtr;
 	u32 PrtnNum = PdiPtr->PrtnNum;
+#ifndef VERSAL_AIEPG2
 	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+#endif
 	u32 PcrInfo = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PcrInfo;
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 
@@ -401,8 +403,13 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 		XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed\n\r");
 	}
 	else {
+#ifndef VERSAL_AIEPG2
 		ImageMeasureInfo.DataAddr = DeviceCopy->DestAddr;
 		ImageMeasureInfo.DataSize = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
+#else
+		ImageMeasureInfo.DataAddr = (u64)(UINTPTR)&SecureParams->PdiPtr->MetaHdr.HashBlock.HashData[PrtnNum].PrtnHash;
+                ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN << XPLMI_WORD_LEN_SHIFT;
+#endif
 		ImageMeasureInfo.PcrInfo = PcrInfo;
 		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 		ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
@@ -609,8 +616,13 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			}
 		}
 		else {
+#ifndef VERSAL_AIEPG2
 			ImageMeasureInfo.DataAddr = (u64)(UINTPTR)Cdo.BufPtr;
 			ImageMeasureInfo.DataSize = ChunkLenTemp;
+#else
+			ImageMeasureInfo.DataAddr = (u64)(UINTPTR)&SecureParams->PdiPtr->MetaHdr.HashBlock.HashData[SecureParams->PdiPtr->PrtnNum].PrtnHash;
+			ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN << XPLMI_WORD_LEN_SHIFT;
+#endif
 			ImageMeasureInfo.PcrInfo = PcrInfo;
 			ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
 			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;

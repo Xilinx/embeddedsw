@@ -173,6 +173,7 @@
 * 1.08  sk   04/18/2024 Enhance Restart Image to Support loading from
 *                       Boot PDI Present in Image Store
 *       kal  06/29/2024 Make XLoader_LoadImage as a non-static function
+*       kal  07/24/2024 Code refactoring for versal_aiepg2 updates.
 *
 * </pre>
 *
@@ -229,6 +230,8 @@ static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount);
 static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID);
 static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo);
 static int XLoader_ClearKeys(XilPdi * PdiPtr);
+static int XLoader_ReadIHsAndPHs(XLoader_SecureParams *SecurePtr);
+static int XLoader_VerifyIHsAndPHs(XLoader_SecureParams *SecurePtr);
 
 /************************** Variable Definitions *****************************/
 /*****************************************************************************/
@@ -622,6 +625,24 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 			PdiPtr->MetaHdr.ImgHdrTbl.Idcode);
 	XPlmi_Printf(DEBUG_INFO, "Attributes: 0x%x\n\r",
 			PdiPtr->MetaHdr.ImgHdrTbl.Attr);
+#ifdef VERSAL_AIEPG2
+	XPlmi_Printf(DEBUG_INFO, "AutheticationHdr: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.AuthenticationHdr);
+	XPlmi_Printf(DEBUG_INFO, "HashBlockSize: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.HashBlockSize);
+	XPlmi_Printf(DEBUG_INFO, "HashBlockOffset: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.HashBlockOffset);
+	XPlmi_Printf(DEBUG_INFO, "TotalPpkSize: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.TotalPpkSize);
+	XPlmi_Printf(DEBUG_INFO, "ActualPpkSize: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.ActualPpkSize);
+	XPlmi_Printf(DEBUG_INFO, "TotalHBSignSize: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.TotalHBSignSize);
+	XPlmi_Printf(DEBUG_INFO, "ActualHBSignSize: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.ActualHBSignSize);
+	XPlmi_Printf(DEBUG_INFO, "AcOffset: 0x%x\n\r",
+			PdiPtr->MetaHdr.ImgHdrTbl.AcOffset);
+#endif
 	if ((Status != XST_SUCCESS) || (StatusTemp != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Image Header Table Validation "
 					"failed\n\r");
@@ -636,6 +657,9 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		DebugLog->LogLevel |= (DebugLog->LogLevel >> XPLMI_LOG_LEVEL_SHIFT);
 	}
 
+	/**
+	 * Read the IHT and Optional data from Metaheader
+	 */
 	Status = XilPdi_ReadIhtAndOptionalData(&PdiPtr->MetaHdr, PdiPtr->PdiType);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_READ_IHT_OPTIONAL_DATA, Status);
@@ -695,6 +719,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		}
 	}
 
+#ifndef VERSAL_AIEPG2
 	/* Secure flow is not supported for PDI versions older than v4 */
 	if ((SecureParams.SecureEn == (u8)TRUE) &&
 	   ((PdiPtr->MetaHdr.ImgHdrTbl.Version == XLOADER_PDI_VERSION_1) ||
@@ -702,7 +727,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_PDI_VER, 0);
 		goto END;
 	}
-
+#endif
 	/**
 	 * Validate if authentication/encryption is compulsory
 	 */
@@ -714,13 +739,18 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	}
 
 	/**
-	 * Authenticate Image Header Table
+	 * Authenticate Image Header Table, this is applicable for only Versal and VersalNet
+	 * platforms. For Versal_Aiepg2 platform whole MetaHeader is autheticated with
+	 * HashBlock signature.
 	 */
+#ifndef VERSAL_AIEPG2
 	if ((SecureParams.IsAuthenticated == (u8)TRUE) ||
 		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
-		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ImgHdrTblAuth,
-			&SecureParams);
+			XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ImgHdrTblAuth,
+				&SecureParams);
 	}
+#endif
+
 #else
 	IsAuthenticated = XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
 	IsEncrypted = XilPdi_IsEncEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
@@ -751,32 +781,46 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	 * Read and verify image headers and partition headers
 	 */
 	if (SecureParams.SecureEn != (u8)TRUE) {
-		/* Read IHT and PHT to structures and verify checksum */
-		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Image Headers\n\r",
-				PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs);
-		Status = XilPdi_ReadImgHdrs(&PdiPtr->MetaHdr);
-		if (XST_SUCCESS != Status) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR, Status);
-			goto END;
-		}
-		Status = XilPdi_VerifyImgHdrs(&PdiPtr->MetaHdr);
-		if (XST_SUCCESS != Status) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR, Status);
+		Status = XLoader_ReadIHsAndPHs(&SecureParams);
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Partition Headers\n\r",
-			PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns);
-		Status = XilPdi_ReadPrtnHdrs(&PdiPtr->MetaHdr);
-		if (XST_SUCCESS != Status) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTNHDR, Status);
-			goto END;
-		}
-		Status = XilPdi_VerifyPrtnHdrs(&PdiPtr->MetaHdr);
+		Status = XLoader_VerifyIHsAndPHs(&SecureParams);
 		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTNHDR, Status);
 			goto END;
 		}
+
+#ifdef VERSAL_AIEPG2
+		/**
+		 * This is applicable for Versal_AiePg2 only.
+		 * Hashblock is a array of partition's hashes.
+		 * One partition integrity will be verified
+		 * with corresponding hash present in HashBlock.
+		 * HashBlock 0 is for BootHeader and HashBlock 1 is for MetaHeader.
+		 * HashBlock 0 contains BootHeader hash and PLM + PMC_DATA hash and HashBlock 1 hash.
+		 * HashBlock 1 contains MetaHeader hash and all partitions hashes.
+		 * Validate HashBlock 1 integrity, that is read and calculate
+		 * HashBlock1 hash and compare it with hash present in HashBlock 0.
+		 */
+		Status = XST_FAILURE;
+		Status = XLoader_ValidateHashBlock1Integrity(&SecureParams);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		/**
+		 * This is applicable for Versal_AiePg2 only.
+		 * After HashBlock 1 integrity is verified above, verify MetaHeader integrity by
+		 * calculating IHT + IH's + PH's hash and compare it with MetaHeader hash
+		 * present in HashBlock 1.
+		 */
+		Status = XST_FAILURE;
+		Status = XLoader_ValidateMetaHdrIntegrity(&SecureParams);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+#endif
 	}
 #ifndef PLM_SECURE_EXCLUDE
 	else {
@@ -2213,5 +2257,69 @@ int XLoader_GetImageAndPrtnInfo(XilPdi *PdiPtr, u32 ImageId)
 		Status = XST_SUCCESS;
 	}
 
+	return Status;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function reads the Image Headers and Partition Headers.
+*
+* @param	SecurePtr is pointer to XLoader_SecureParams
+*
+* @return	XST_SUCCESS on successful read.
+* @return	XST_FAILURE on unsuccessful read.
+*
+*****************************************************************************/
+static int XLoader_ReadIHsAndPHs(XLoader_SecureParams *SecurePtr)
+{
+	int Status = XST_FAILURE;
+	XilPdi_MetaHdr *MetaHdrPtr = &SecurePtr->PdiPtr->MetaHdr;
+
+	XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Image Headers\n\r",
+			MetaHdrPtr->ImgHdrTbl.NoOfImgs);
+	Status = XilPdi_ReadImgHdrs(MetaHdrPtr);
+	if (XST_SUCCESS != Status) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR, Status);
+		goto END;
+	}
+
+	XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Partition Headers\n\r",
+			MetaHdrPtr->ImgHdrTbl.NoOfPrtns);
+	Status = XilPdi_ReadPrtnHdrs(MetaHdrPtr);
+	if (XST_SUCCESS != Status) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTNHDR, Status);
+	}
+
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function verifies Image headers and Partition headers.
+*
+* @param	SecurePtr is pointer to XLoader_SecureParams
+*
+* @return	XST_SUCCESS on successful verification.
+* @return	XST_FAILURE on unsuccessful verification.
+*
+*****************************************************************************/
+static int XLoader_VerifyIHsAndPHs(XLoader_SecureParams *SecurePtr)
+{
+	int Status = XST_FAILURE;
+	XilPdi_MetaHdr *MetaHdrPtr = &SecurePtr->PdiPtr->MetaHdr;
+
+	Status = XilPdi_VerifyImgHdrs(MetaHdrPtr);
+	if (XST_SUCCESS != Status) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR, Status);
+		goto END;
+	}
+
+	Status = XilPdi_VerifyPrtnHdrs(MetaHdrPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTNHDR, Status);
+	}
+
+END:
 	return Status;
 }

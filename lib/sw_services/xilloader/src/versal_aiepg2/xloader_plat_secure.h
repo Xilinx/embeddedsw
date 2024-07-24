@@ -157,6 +157,10 @@ typedef enum {
 		/**<0x34 Error when partition hash is not present for respective partition */
 	XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR,
 		/**<0x35 Error when partition hash comparison is failed */
+	XLOADER_SEC_AES_AAD_OPERATION_FAILED,
+		/**<0x36 - Error in AES AAD Operation */
+        XLOADER_SEC_LMS_SIGN_VERIFY_FAIL,
+		/**<0x37 - Error in LMS sign verification */
 } XLoader_SecErrCodes;
 
 /**< KEK info */

@@ -141,7 +141,6 @@
 /************************** Function Prototypes ******************************/
 static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu,
 	const u32 DstnCluster);
-static int XLoader_InitSha3Instance1(void);
 static int XLoader_InitTrngInstance(void);
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams,
@@ -151,7 +150,6 @@ static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha
 static int XLoader_ExtendSpkId(XSecure_Sha3Hash* SpkIdHash, u32 PcrInfo, u32 DigestIndex, u32 PdiType);
 static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash);
 static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrInfo, u32 DigestIndex, u32 PdiType);
-static int XLoader_RunSha3Engine1Kat(XilPdi* PdiPtr);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -1143,13 +1141,8 @@ int XLoader_PlatInit(void)
 {
 	int Status = XST_FAILURE;
 
-	Status = XLoader_InitSha3Instance1();
-	if(Status != XST_SUCCESS){
-		goto END;
-	}
 	Status = XLoader_InitTrngInstance();
 
-END:
 	return Status;
 }
 
@@ -1250,13 +1243,10 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	int Status = XLOADER_ERR_DATA_MEASUREMENT;
 
 #ifdef PLM_OCP
-	XSecure_Sha3 *Sha3Instance = XLoader_GetSha3Engine1Instance();
+	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XSecure_Sha3Hash Sha3Hash;
 	u32 PcrNo;
 	u32 DevAkIndex = XLOADER_INVALID_DEVAK_INDEX;
-#ifndef PLM_SECURE_EXCLUDE
-	XilPdi* PdiPtr = XLoader_GetPdiInstance();
-#endif
 
 #ifdef PLM_OCP_KEY_MNGMT
 	DevAkIndex = XOcp_GetSubSysDevAkIndex(ImageInfo->SubsystemID);
@@ -1268,23 +1258,16 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	}
 	PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
 
-#ifndef PLM_SECURE_EXCLUDE
-	Status = XLoader_RunSha3Engine1Kat(PdiPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-#endif
-
 	switch(ImageInfo->Flags) {
 	case XLOADER_MEASURE_START:
-		Status = XSecure_Sha3Start(Sha3Instance);
+		Status = XSecure_ShaStart(Sha3InstPtr, XSECURE_SHA3_384);
 		break;
 	case XLOADER_MEASURE_UPDATE:
-		Status = XSecure_Sha3Update64Bit(Sha3Instance,
+		Status = XSecure_ShaUpdate(Sha3InstPtr,
 				ImageInfo->DataAddr, ImageInfo->DataSize);
 		break;
 	case XLOADER_MEASURE_FINISH:
-		Status = XSecure_Sha3Finish(Sha3Instance, &Sha3Hash);
+		Status = XSecure_ShaFinish(Sha3InstPtr, (UINTPTR)&Sha3Hash, XLOADER_SHA3_LEN);
 		break;
 	default:
 		break;
@@ -1328,37 +1311,6 @@ END:
 	Status = XST_SUCCESS;
 #endif
 
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function initializes the SHA1 instance.
- *
- * @return
- * 			- XST_SUCCESS on success.
- * 			- XLOADER_ERR_SHA1_INIT if SHA1 initialization fails.
- *
- *****************************************************************************/
-static int XLoader_InitSha3Instance1(void)
-{
-	int Status = XLOADER_ERR_SHA3_1_INIT;
-#ifdef PLM_OCP
-	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
-	XSecure_Sha3 *Sha3Instance = XLoader_GetSha3Engine1Instance();
-
-	Status = XSecure_Sha3LookupConfig(Sha3Instance, XLOADER_SHA3_1_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = XSecure_Sha3Initialize(Sha3Instance, PmcDmaPtr);
-END:
-	if (Status != XST_SUCCESS) {
-		Status = XLOADER_ERR_SHA3_1_INIT;
-	}
-#else
-	Status = XST_SUCCESS;
-#endif
 	return Status;
 }
 
@@ -1463,19 +1415,19 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
 	XSecure_Sha3Hash* Sha3Hash)
 {
 	int Status = XST_FAILURE;
-	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
+	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	u32 AuthType;
 	u32 SpkLen = 0U;
 
 	AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
 
-	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
+	Status = XSecure_ShaInitialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
-		SpkLen = XLOADER_SPK_SIZE - XOCP_WORD_LEN;
+		SpkLen = XLOADER_SPK_SIZE;
 	}
 	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
 		SpkLen = (XLOADER_ECDSA_P384_KEYSIZE + XLOADER_ECDSA_P384_KEYSIZE);
@@ -1484,8 +1436,8 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
 		SpkLen = (XLOADER_ECDSA_P521_KEYSIZE + XLOADER_ECDSA_P521_KEYSIZE);
 	}
 
-	Status = XSecure_Sha3Digest(Sha3InstPtr, (UINTPTR)&SecurePtr->AcPtr->Spk,
-			SpkLen, Sha3Hash);
+	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384, (UINTPTR)&SecurePtr->AcPtr->Spk,
+			SpkLen, (UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
 
 END:
 	return Status;
@@ -1533,15 +1485,15 @@ END:
 static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash)
 {
 	int Status = XST_FAILURE;
-	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
+	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
-	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
+	Status = XSecure_ShaInitialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_Sha3Digest(Sha3InstPtr, (UINTPTR)&SecurePtr->AcPtr->SpkId,
-			sizeof(SecurePtr->AcPtr->SpkId), Sha3Hash);
+	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384, (UINTPTR)&SecurePtr->AcPtr->SpkId,
+			sizeof(SecurePtr->AcPtr->SpkId), (UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
 END:
 	return Status;
 }
@@ -1588,15 +1540,15 @@ END:
 static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash)
 {
 	int Status = XST_FAILURE;
-	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
+	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
-	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
+	Status = XSecure_ShaInitialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_Sha3Digest(Sha3InstPtr, (UINTPTR)&SecurePtr->PrtnHdr->EncRevokeID,
-			sizeof(SecurePtr->PrtnHdr->EncRevokeID), Sha3Hash);
+	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384, (UINTPTR)&SecurePtr->PrtnHdr->EncRevokeID,
+			sizeof(SecurePtr->PrtnHdr->EncRevokeID), (UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
 END:
 	return Status;
 }
@@ -1702,49 +1654,6 @@ static int XLoader_InitTrngInstance(void)
 END:
 	return Status;
 }
-
-#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
-/*****************************************************************************/
-/**
- * @brief	This Function does the following:
- *		- It clears KAT Status before loading PPDI
- *		- It runs KAT for SHA3 Instance 1 if it is not already run.
- *		- It updates KAT status in PdiPtr and also RTCA.
- *
- * @param	PdiPtr is PDI Instance pointer
- *
- * @return
- * 		- XST_SUCCESS on success.
- * 		- Error code on failure
- *
-*****************************************************************************/
-int XLoader_RunSha3Engine1Kat(XilPdi* PdiPtr)
-{
-	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
-	XSecure_Sha3 *Sha3Instance = XLoader_GetSha3Engine1Instance();
-
-	XLoader_ClearKatOnPPDI(PdiPtr, XPLMI_SECURE_SHA3_1_KAT_MASK);
-
-	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_1_KAT_MASK) != (u8)TRUE) {
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
-			XSecure_Sha3Kat, Sha3Instance);
-		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-			goto END;
-		}
-
-		PdiPtr->PlmKatStatus |= XPLMI_SECURE_SHA3_1_KAT_MASK;
-
-		/* Update KAT status */
-		XPlmi_UpdateKatStatus(PdiPtr->PlmKatStatus);
-	}
-
-	Status = XST_SUCCESS;
-
-END:
-	return Status;
-}
-#endif
 
 /*****************************************************************************/
 /**

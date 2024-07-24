@@ -170,8 +170,6 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 	const XilPdi_PrtnHdr *PrtnHdr);
 static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	u64 DestAddr, u32 BlockSize, u8 Last);
-static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
-	u64 DataAddr, u32 Size, u8 Last);
 
 /************************** Variable Definitions *****************************/
 
@@ -255,10 +253,10 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 		}
 		goto END;
 	}
-
+#ifndef VERSAL_AIEPG2
 	/** - Initialize the authentication. */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SecureAuthInit, SecurePtr, PrtnHdr);
-
+#endif
 	/** - Initialize the encryption. */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SecureEncInit, SecurePtr, PrtnHdr);
 #else
@@ -440,12 +438,12 @@ END:
  * 			- XLOADER_ERR_PRTN_HASH_COMPARE_FAIL on partition comparison fail.
  *
  ******************************************************************************/
-static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
+int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u64 DataAddr, u32 Size, u8 Last)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
+	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XSecure_Sha3Hash BlkHash;
 	u32 HashAddr = SecurePtr->ChunkAddr + Size;
 	u32 DataLen = Size;
@@ -461,21 +459,29 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	}
 
 	/** Calculate Sha3 digest */
-	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
+	Status = XSecure_ShaInitialize(ShaInstPtr, SecurePtr->PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
 				Status);
 		goto END;
 	}
 
-	Status = XSecure_Sha3Start(Sha3InstPtr);
+	Status = XSecure_ShaStart(ShaInstPtr, XSECURE_SHA3_384);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
 			Status);
 		goto END;
 	}
-
-	Status = XSecure_Sha3Update64Bit(Sha3InstPtr, DataAddr, DataLen);
+#ifdef VERSAL_AIEPG2
+	if ((Last == (u8)TRUE) || (SecurePtr->IsCdo == (u8)TRUE)) {
+		Status = XSecure_ShaLastUpdate(ShaInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
+			goto END;
+		}
+	}
+#endif
+	Status = XSecure_ShaUpdate(ShaInstPtr, DataAddr, DataLen);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
 		goto END;
@@ -483,7 +489,14 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 
 	/* Update next chunk's hash from pmc ram */
 	if ((Last != (u8)TRUE) && (SecurePtr->IsCdo != (u8)TRUE)) {
-		Status = XSecure_Sha3Update64Bit(Sha3InstPtr,
+#ifdef VERSAL_AIEPG2
+		Status = XSecure_ShaLastUpdate(ShaInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
+			goto END;
+		}
+#endif
+		Status = XSecure_ShaUpdate(ShaInstPtr,
 				(u64)HashAddr, XLOADER_SHA3_LEN);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
@@ -491,7 +504,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		}
 	}
 
-	Status = XSecure_Sha3Finish(Sha3InstPtr, &BlkHash);
+	Status = XSecure_ShaFinish(ShaInstPtr, (u64)(UINTPTR)&BlkHash, XLOADER_SHA3_LEN);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
 		goto END;
@@ -546,7 +559,9 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 {
 	int Status = XST_FAILURE;
 	u32 ChecksumType;
+#ifndef VERSAL_AIEPG2
 	u64 ChecksumOffset;
+#endif
 
 	ChecksumType = XilPdi_GetChecksumType(PrtnHdr);
 	/** - Verify if checksum is enabled */
@@ -564,14 +579,31 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 				XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE, 0);
 			goto END;
 		}
-
+#ifndef VERSAL_AIEPG2
 		/** - Copy checksum hash */
 		ChecksumOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
 				((u64)SecurePtr->PrtnHdr->ChecksumWordOfst *
 					XIH_PRTN_WORD_LEN);
 		Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(ChecksumOffset,
 			(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, SecurePtr->DmaFlags);
-
+#else
+		if (SecurePtr->PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) {
+			Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
+				SecurePtr->PdiPtr->MetaHdr.HashBlock.HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
+				XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
+		}
+		else {
+			/* For a partial PDI in the absence of PLM, the partition number
+			 * starts with 0, but in HashBlock at index 0 MetaHeader
+			 * hash is present, partion hashes start from index 1
+			 * Hence it is always PrtnNum + 1 indicates the corresponding
+			 * partition hash in HashBlock
+			 */
+			Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
+				SecurePtr->PdiPtr->MetaHdr.HashBlock.HashData[SecurePtr->PdiPtr->PrtnNum + 1U].PrtnHash,
+                                XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
+		}
+#endif
 		if (Status != XST_SUCCESS){
 			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_INIT_CHECKSUM_COPY_FAIL, Status);
