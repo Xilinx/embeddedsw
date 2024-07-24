@@ -119,13 +119,7 @@ extern "C" {
 /** @} */
 #define XLOADER_RSA_4096_KEY_SIZE	(4096U/8U) /**< RSA 4096 key size */
 
-#define XLOADER_SPK_SIZE		(XLOADER_RSA_4096_KEY_SIZE + \
-						XLOADER_RSA_4096_KEY_SIZE \
-						+ 4U +4U)
-/**< Size of Secondary Public Key(in bytes) in Authentication Certificate */
-#define XLOADER_PPK_SIZE		(XLOADER_RSA_4096_KEY_SIZE + \
-						XLOADER_RSA_4096_KEY_SIZE \
-						+ 4U +12U)
+
 /**< Size of Primary Public Key(in bytes) in Authentication Certificate */
 #define XLOADER_SPK_SIG_SIZE		XLOADER_RSA_4096_KEY_SIZE
 /**< Size of SPK signature(in bytes) in Authentication Certificate */
@@ -140,16 +134,6 @@ extern "C" {
 #define XLOADER_AUTH_CERT_USER_DATA	((u32)64U - XLOADER_AUTH_HEADER_SIZE)
 	/**< Size of User Data(in bytes) in Authentication Certificate */
 
-#define XLOADER_AUTH_CERT_MIN_SIZE	(XLOADER_AUTH_HEADER_SIZE \
-						+ XLOADER_AUTH_CERT_USER_DATA \
-						+ XLOADER_PPK_SIZE  \
-						+ XLOADER_SPK_SIZE \
-						+ XLOADER_SPK_SIG_SIZE \
-						+ 8U \
-						+ XLOADER_BHDR_SIG_SIZE \
-						+ XLOADER_PARTITION_SIG_SIZE)
-		/**< Minimum Size of Authentication Certificate(in bytes) */
-
 #define XLOADER_OPTIMIZED_AUTH_CERT_MIN_SIZE	(XLOADER_AUTH_HEADER_SIZE \
 						+ XLOADER_AUTH_CERT_USER_DATA \
 						+ XLOADER_PPK_SIZE  \
@@ -157,19 +141,8 @@ extern "C" {
 						+ XLOADER_SPK_SIG_SIZE \
 						+ 8U)
 		/**< Minimum Size of Optimized Authentication Certificate(in bytes) */
-
-#define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0xF0U)
-		/**< Mask for Public Strength in Authentication Certificate */
 #define XLOADER_AC_AH_REVOKE_ID_MASK		(0xFFU)
-		/**< Mask for Revocation ID in Authentication Certificate */
-#define XLOADER_AC_AH_PUB_STRENGTH_SHIFT	(0x4U)
-		/**< Shift for Public Strength in Authentication Certificate */
-#define XLOADER_PUB_STRENGTH_ECDSA_P384		(0x0U)
-	/**< Value of ECDSA P-384 as Public Strength in Authentication Certificate */
-#define XLOADER_PUB_STRENGTH_RSA_4096		(0x1U)
-	/**< Value of RSA 4096 as Public Strength in Authentication Certificate */
-#define XLOADER_PUB_STRENGTH_ECDSA_P521		(0x2U)
-	/**< Value of ECDSA P-521 as Public Strength in Authentication Certificate */
+
 
 #define XLOADER_ECDSA_P384_KEYSIZE		(48U)
 			/**< Key size(in bytes) for ECDSA P-384 curve */
@@ -389,14 +362,86 @@ extern "C" {
 
 #define XLOADER_NOLOAD_VAL			(0xFFFFFFFFU)	/**< To indicate no load */
 
+#ifndef VERSAL_AIEPG2
+#define XLOADER_SPK_SIZE		(XLOADER_RSA_4096_KEY_SIZE + \
+						XLOADER_RSA_4096_KEY_SIZE \
+						+ 4U +4U)
+/**< Size of Secondary Public Key(in bytes) in Authentication Certificate */
+#define XLOADER_PPK_SIZE		(XLOADER_RSA_4096_KEY_SIZE + \
+						XLOADER_RSA_4096_KEY_SIZE \
+						+ 4U +12U)
+/**< Size of Primary Public Key(in bytes) in Authentication Certificate */
+#define XLOADER_AUTH_CERT_MIN_SIZE	(XLOADER_AUTH_HEADER_SIZE \
+						+ XLOADER_AUTH_CERT_USER_DATA \
+						+ XLOADER_PPK_SIZE  \
+						+ XLOADER_SPK_SIZE \
+						+ XLOADER_SPK_SIG_SIZE \
+						+ 8U \
+						+ XLOADER_BHDR_SIG_SIZE \
+						+ XLOADER_PARTITION_SIG_SIZE)
+		/**< Minimum Size of Authentication Certificate(in bytes) */
+#define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0xF0U)
+		/**< Mask for Public Strength in Authentication Certificate */
+#define XLOADER_AC_AH_PUB_STRENGTH_SHIFT	(0x4U)
+		/**< Shift for Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_ECDSA_P384		(0x0U)
+	/**< Value of ECDSA P-384 as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_RSA_4096		(0x1U)
+	/**< Value of RSA 4096 as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_ECDSA_P521		(0x2U)
+	/**< Value of ECDSA P-521 as Public Strength in Authentication Certificate */
+
+#else
+#define XLOADER_SPK_SIZE		(XLOADER_RSA_4096_KEY_SIZE + \
+                                                XLOADER_RSA_4096_KEY_SIZE \
+                                                + 4U)
+/**< Size of Secondary Public Key(in bytes) in Authentication Certificate */
+#define XLOADER_PPK_SIZE		(XLOADER_RSA_4096_KEY_SIZE + \
+                                                XLOADER_RSA_4096_KEY_SIZE \
+                                                + 4U)
+/**< Size of Primary Public Key(in bytes) in Authentication Certificate */
+#define XLOADER_AUTH_CERT_MIN_SIZE		(0xA40)
+/**< Minimum Size of Authentication Certificate(in bytes) */
+#define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0x0FU)
+	/**< Mask for Public Strength in Authentication Certificate */
+#define XLOADER_AC_AH_PUB_STRENGTH_SHIFT	(0x0U)
+	/**< Shift for Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_RSA_4096		(0x1U)
+	/**< Value of RSA 4096 as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_ECDSA_P384		(0x2U)
+	/**< Value of ECDSA P-521 as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_ECDSA_P521		(0x3U)
+	/**< Value of ECDSA P-521 as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_LMS_HSS		(0x4U)
+	/**< Value of LMS as Public Strength in Authentication Certificate */
+#define XLOADER_PUB_STRENGTH_LMS		(0x5U)
+	/**< Value of LMS as Public Strength in Authentication Certificate */
+#define XLOADER_MAX_TOTAL_SIGN_SIZE		(9952U)
+	/** Maximum Signature size including padding */
+#define XLOADER_AUTH_ATTR_HASH_ALGO_MASK	(0x000000F0U)
+	/**< Value of HashAlgo mask in Authentication Header */
+#define XLOADER_AUTH_ATTR_HASH_ALGO_SHIFT	(4U)
+	/**< Value of HashAlgo shift in Authentication Header */
+#define XLOADER_SPK_HEADER_SIZE			(32U)
+	/**< SPK header size */
+#define XLOADER_HASH_ALGO_SHA2_384		(0U)
+	/**< Hash algorithm type SHA2-384 */
+#define XLOADER_HASH_ALGO_SHA3_384		(1U)
+	/**< Hash algorithm type SHA3-384 */
+
+#endif
 /**************************** Type Definitions *******************************/
 /**< RSA Key */
 typedef struct {
 	u32 PubModulus[128U];	/**< Public Modulus */
 	u32 PubModulusExt[128U];	/**< Public Modulus Extension */
 	u32 PubExponent;	/**< Public Exponent */
+#ifdef VERSAL_AIEPG2
+	u32 Reserved[3U];
+#endif
 } XLoader_RsaKey;
 
+#ifndef VERSAL_AIEPG2
 /**< Authentication Certificate */
 typedef struct {
 	u32 AuthHdr;	/**< Authentication Header */
@@ -412,10 +457,61 @@ typedef struct {
 	u32 ImgSignature[128U];	/**< Image signature */
 } XLoader_AuthCertificate;
 
+#else
+/**< Type definition for Authentication Header struct */
+typedef struct {
+        u32 AuthAttributes;
+} XLoader_AuthHeader;
+
+typedef struct {
+        u32 TotalSPKSize;
+        u32 SPKSize;
+        u32 TotalSignatureSize;
+        u32 SignatureSize;
+        u32 SPKId;
+        u32 SPKPriv;
+        u32 Reserved[2];
+} XLoader_SpkHeader;
+
+typedef struct {
+	XLoader_RsaKey Ppk;
+	XLoader_SpkHeader SpkHeader;
+	XLoader_RsaKey Spk;
+	u8 SPKSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];
+	u8 HBSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];
+	u32 AuthHdr;
+	u32 SpkId;
+} XLoader_HBAuthCertificate;
+
+typedef struct {
+	u32 ReadOffset;
+	u32 TotalPpkSize;
+	u32 ActualPpkSize;
+	u32 TotalHBSignSize;
+	u32 ActualHBSignSize;
+	u32 HBSize;
+	u32 AuthHdr;
+} XLoader_HBSignParams;
+
+typedef struct {
+	u32 HashBlockOffset;
+	u32 HashBlockSize;
+	XSecure_AesKeySrc KeySrc;
+	u8 *IvPtr;
+} XLoader_HBAesParams;
+
+typedef XLoader_HBAuthCertificate XLoader_AuthCertificate;
+
+#endif
+
 /**< Authentication Type */
 typedef enum {
 	XLOADER_ECDSA,	/**< 0x0 - ECDSA */
-	XLOADER_RSA		/**< 0x1 - RSA */
+	XLOADER_RSA,	/**< 0x1 - RSA */
+#ifdef VERSAL_AIEPG2
+	XLOADER_LMS_HSS,/**< 0x2 - LMS_HSS */
+	XLOADER_LMS	/**< 0x3 - LMS*/
+#endif
 } XLoader_AuthType;
 
 /**< PPK selection type */
@@ -481,6 +577,9 @@ typedef struct XLoader_SecureParams {
 #ifndef PLM_SECURE_EXCLUDE
 	XLoader_AuthType SigType;	/**< Signature type */
 	XLoader_AuthCertificate *AcPtr;/**< Authentication certificate pointer */
+#ifdef VERSAL_AIEPG2
+	XilPdi_HashBlock HashBlock; /**< HashBlock containing partition hashes */
+#endif
 	XSecure_Aes *AesInstPtr;	/**< AES instance pointer */
 	XLoader_AuthJtagMessage* AuthJtagMessagePtr;
 					/**< Auth JTAG message pointer */
@@ -488,6 +587,8 @@ typedef struct XLoader_SecureParams {
 	u8 IsAuthenticated;	/**< Authentication enabled or disabled */
 	u32 NoLoad;		/**< No Load */
 #endif
+	XSecure_ShaMode SignHashAlgo; /**< Hash algorithm used for signature */
+	u32 HashDigestLen; /**< Hash output size in bytes */
 } XLoader_SecureParams;
 
 /* To reduce stack usage, instances of XLoader_AuthCertificate and XPufData
@@ -549,7 +650,6 @@ static INLINE u32 XLoader_GetAuthPubAlgo(const u32 *AuthHdrPtr)
 }
 
 /***************************** Function Prototypes ***************************/
-int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
 int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr);
 int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr);
@@ -573,8 +673,14 @@ int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 
 int XLoader_ClearAesKey(u32 *DecKeySrc);
 #endif
 int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
+#ifndef VERSAL_AIEPG2
+int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
 int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);
+#else
+int XLoader_ValidateHashBlock1Integrity(XLoader_SecureParams *SecurePtr);
+int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr);
+#endif
 
 #ifdef __cplusplus
 }

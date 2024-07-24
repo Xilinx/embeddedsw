@@ -120,6 +120,8 @@ u32 XLoader_GetAHWRoT(const u32* AHWRoTPtr);
 u32 XLoader_GetSHWRoT(const u32* SHWRoTPtr);
 int XLoader_SetSecureState(void);
 XLoader_SecureTempParams* XLoader_GetTempParams(void);
+int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
+        u64 DataAddr, u32 Size, u8 Last);
 
 #ifdef __cplusplus
 }

@@ -55,7 +55,6 @@
 #ifndef PLM_SECURE_EXCLUDE
 #include "xsecure_init.h"
 #include "xsecure_error.h"
-#include "xsecure_mgf.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_EFUSE_OBFUS_KEY		(0xA5C3C5A7U) /**< eFuse obfuscated key */
@@ -354,6 +353,26 @@ END:
 
 	return Status;
 }
+#endif
+/*****************************************************************************/
+/**
+ * @brief	This function converts a non-negative integer to an octet string of a
+ * 			specified length.
+ *
+ * @param	Integer is the variable in which input should be provided.
+ * @param	Size holds the required size.
+ * @param	Convert is a pointer in which output will be updated.
+ *
+ * @return
+ * 			- None
+ *
+ ******************************************************************************/
+static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert)
+{
+	if (Integer < XLOADER_I2OSP_INT_LIMIT) {
+		Convert[Size - 1U] = (u8)Integer;
+	}
+}
 
 /*****************************************************************************/
 /**
@@ -370,21 +389,79 @@ END:
  * 			- Errorcode on failure.
  *
  ******************************************************************************/
-int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
+int XLoader_MaskGenFunc(XSecure_Sha *ShaInstancePtr,
 	u8 * Out, u32 OutLen, u8 *Input)
 {
 	int Status = XST_FAILURE;
-	XSecure_MgfInput MgfInput;
+	int ClearStatus = XST_FAILURE;
+	u32 Counter = 0U;
+	u32 HashLen = XLOADER_SHA3_LEN;
+	u8 HashStore[XLOADER_SHA3_LEN];
+	u8 Convert[XIH_PRTN_WORD_LEN] = {0U};
+	u32 Size = XLOADER_SHA3_LEN;
+	u8 *OutTmp;
 
-	MgfInput.Seed = Input;
-	MgfInput.SeedLen = XLOADER_SHA3_LEN;
-	MgfInput.Output = Out;
-	MgfInput.OutputLen = OutLen;
-	Status = XSecure_MaskGenFunc(XSECURE_SHA3_384, Sha3InstancePtr, &MgfInput);
+	if ((ShaInstancePtr == NULL) || (Out == NULL) ||
+		(Input == NULL)) {
+		goto END;
+	}
+
+	if (OutLen == 0U) {
+		goto END;
+	}
+
+	OutTmp = Out;
+	while (Counter <= (OutLen / HashLen)) {
+		XLoader_I2Osp(Counter, XIH_PRTN_WORD_LEN, Convert);
+
+		Status = XSecure_ShaStart(ShaInstancePtr, XSECURE_SHA3_384);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XSecure_ShaUpdate(ShaInstancePtr, (UINTPTR)Input, HashLen);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XSecure_ShaLastUpdate(ShaInstancePtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XSecure_ShaUpdate(ShaInstancePtr, (UINTPTR)Convert,
+					XIH_PRTN_WORD_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XSecure_ShaFinish(ShaInstancePtr, (u64)(UINTPTR)&HashStore, sizeof(HashStore));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		if (Counter == (OutLen / HashLen)) {
+			/*
+			 * Only 463 bytes are required but the chunklen is 48 bytes.
+			 * The extra bytes are discarded by the modulus operation below.
+			 */
+			 Size = (OutLen % HashLen);
+		}
+		Status = Xil_SMemCpy(OutTmp, Size, HashStore, Size, Size);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		OutTmp = &OutTmp[XLOADER_SHA3_LEN];
+		Counter = Counter + 1U;
+	}
+
+END:
+	ClearStatus = XPlmi_MemSetBytes(Convert, sizeof(Convert), 0U,
+                        sizeof(Convert));
+	ClearStatus |= XPlmi_MemSetBytes(&HashStore, XLOADER_SHA3_LEN, 0U,
+                        XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
 
 	return Status;
 }
-#endif
+
 
 /*****************************************************************************/
 /**
