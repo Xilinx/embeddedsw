@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -28,6 +28,7 @@
 *       kpt  02/21/2024 Added error codes related to secure state
 *       kpt  02/21/2024 Added XOCP_ERR_DME_RESP_ALREADY_GENERATED and
 *                       XOCP_ERR_DME_RESP_NOT_GENERATED
+*       har  06/07/2024 Added XOCP_KEY_WRAP_DEVAK in XOcp_DevKey
 *
 * </pre>
 *
@@ -73,7 +74,8 @@ extern "C" {
 
 typedef enum {
 	XOCP_DEVIK = 0, /**< Device Identity key */
-	XOCP_DEVAK		/**< Device attestation key */
+	XOCP_DEVAK,	/**< Device attestation key */
+	XOCP_KEY_WRAP_DEVAK /**< Key wrap Device attestation key */
 }XOcp_DevKey;
 
 /*

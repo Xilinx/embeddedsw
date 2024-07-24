@@ -59,6 +59,7 @@
 #include "xcert_genx509cert.h"
 #include "xsecure_defs.h"
 #include "xplmi_update.h"
+#include "xsecure_sha384.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -475,13 +476,14 @@ END:
 int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 {
 	volatile int Status = XST_FAILURE;
-	u32 DevAkIndex;
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
 	XOcp_DevAkData *DevAkData = NULL;
 	XCert_Config CertConfig;
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
 
-	if ((XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVIK) &&
-			(XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVAK)) {
+	if (((XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVIK) &&
+			(XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVAK)) &&
+			(XOcp_GetX509CertPtr->DevKeySel != XOCP_KEY_WRAP_DEVAK)) {
 		Status = (int)XST_INVALID_PARAM;
 		goto END;
 	}
@@ -494,6 +496,7 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 
 	if (XOcp_GetX509CertPtr->DevKeySel == XOCP_DEVIK) {
 		CertConfig.SubSystemId = XOCP_PMC_SUBSYSTEM_ID;
+		CertConfig.KeyIndex = 0U;
 		CertConfig.AppCfg.IsSelfSigned = TRUE;
 		CertConfig.AppCfg.SubjectPublicKey =
 				(u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
@@ -513,20 +516,32 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 		}
 	}
 	else {
-		DevAkIndex = XOcp_GetSubSysDevAkIndex(SubSystemId);
-		if (DevAkIndex == XOCP_INVALID_DEVAK_INDEX) {
-			Status = (int)XOCP_ERR_INVALID_DEVAK_REQ;
+		Status = XOcp_GetSubSysDevAkIndex(SubSystemId, DevAkIndex);
+		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
 		DevAkData = XOcp_GetDevAkData();
-		DevAkData = DevAkData + DevAkIndex;
+		if ((XOcp_GetX509CertPtr->DevKeySel == XOCP_DEVAK) &&
+				(DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX] != XOCP_INVALID_DEVAK_INDEX)) {
+			DevAkData = DevAkData + DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX];
+		}
+		else if ((XOcp_GetX509CertPtr->DevKeySel == XOCP_KEY_WRAP_DEVAK) &&
+				(DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX] != XOCP_INVALID_DEVAK_INDEX)) {
+			DevAkData = DevAkData + DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX];
+		}
+		else {
+			Status = XOCP_ERR_INVALID_DEVAK_REQ;
+			goto END;
+		}
+
 		if (DevAkData->IsDevAkKeyReady != TRUE) {
 			XOcp_Printf(DEBUG_DETAILED, "Device Attestation key is not generated\n\r");
 			Status = (int)XOCP_ERR_DEVAK_NOT_READY;
 			goto END;
 		}
 		CertConfig.SubSystemId = SubSystemId;
+		CertConfig.KeyIndex = DevAkData->KeyIndex;
 		CertConfig.AppCfg.IsSelfSigned = FALSE;
 		CertConfig.AppCfg.SubjectPublicKey = (u8 *)(UINTPTR)DevAkData->EccX;
 		CertConfig.AppCfg.IssuerPrvtKey = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
@@ -1058,17 +1073,21 @@ int XOcp_GenSharedSecretwithDevAk(u32 SubSystemId, u64 PubKeyAddr, u64 SharedSec
 	volatile int Status = XST_FAILURE;
 	volatile int ClrStatus = XST_FAILURE;
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
-	u32 DevAkIndex;
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
 	u64 PrvtKeyAddr;
 	u8 PubKeyTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
 	u8 SharedSecretTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
 
-	DevAkIndex = XOcp_GetSubSysDevAkIndex(SubSystemId);
-	if (DevAkIndex == XOCP_INVALID_DEVAK_INDEX) {
+	Status = XOcp_GetSubSysDevAkIndex(SubSystemId, DevAkIndex);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX] == XOCP_INVALID_DEVAK_INDEX) {
 		Status = (int)XOCP_ERR_INVALID_DEVAK_REQ;
 		goto END;
 	}
-	DevAkData = DevAkData + DevAkIndex;
+	DevAkData = DevAkData + DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX];
 
 	if (DevAkData->IsDevAkKeyReady == TRUE) {
 		PrvtKeyAddr = (u64)(UINTPTR)DevAkData->EccPrvtKey;

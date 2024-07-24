@@ -66,6 +66,7 @@
 *       kal    02/01/23 Moved configurable parameters from input.h file to
 *	                this file
 * 1.3   ng     01/28/24 Added SDT support
+*       har    06/07/24 Added support to generate X.509 certificate for Key Wrap DevAk
 *
 * </pre>
 * @note
@@ -253,6 +254,23 @@ static int XOcp_GetX509DevAK(XOcp_ClientInstance *OcpClientInsPtr)
 						ActualCertSize);
 		XOcp_PrintData((u8 *)X509Cert, ActualCertSize);
 		xil_printf("\n\rSuccessfully generated  DEV AK X509 certificate\n\r");
+	}
+
+
+	DataX509.DevKeySel = XOCP_KEY_WRAP_DEVAK;
+	DataX509.CertAddr = (u64)(UINTPTR)X509Cert;
+	DataX509.CertSize = XOCP_X509_CERT_BUF_SIZE;
+	DataX509.ActualLenAddr = (u64)(UINTPTR)&ActualCertSize;
+
+	Status = XOcp_GetX509Cert(OcpClientInsPtr, (u64)(UINTPTR)&DataX509);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Generation of Key Wrap DEV AK X509 certificate is failed\n\r");
+	}
+	else {
+		xil_printf(" Key Wrap DEV AK X.509 Certificate of length %d bytes\n\r",
+						ActualCertSize);
+		XOcp_PrintData((u8 *)X509Cert, ActualCertSize);
+		xil_printf("\n\rSuccessfully generated  Key Wrap DEV AK X509 certificate\n\r");
 	}
 
 	return Status;

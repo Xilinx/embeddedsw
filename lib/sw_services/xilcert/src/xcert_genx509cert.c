@@ -29,6 +29,7 @@
 *       har  03/25/2024 Fix calculation of hash for serial
 * 1.3   har  05/02/2024 Added doxygen grouping and tags
 *			Fixed doxygen warnings
+*       har  06/07/2024 Added support to store and get user config for key index
 *
 *
 * </pre>
@@ -89,8 +90,8 @@ static const u8 Oid_DmeStructExtn[] = {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U,
 			/**< Signature available in SignStore */
 #define XCERT_BYTE_MASK					(0xFFU)
 			/**< Mask to get byte */
-#define XCERT_MAX_CERT_SUPPORT				(4U)
-	/**< Number of supported certificates is 4 -> 1 DevIK certificate and 3 DevAK certificates */
+#define XCERT_MAX_CERT_SUPPORT				(5U)
+	/**< Number of supported certificates is 4 -> 1 DevIK certificate and 4 DevAK certificates */
 #define XCERT_SUB_KEY_ID_VAL_LEN			(20U)
 			/**< Length of value of Subject Key ID */
 #define XCERT_AUTH_KEY_ID_VAL_LEN			(20U)
@@ -148,7 +149,7 @@ typedef enum {
 static XCert_InfoStore *XCert_GetCertDB(void);
 static u32* XCert_GetNumOfEntriesInUserCfgDB(void);
 static int XCert_IsBufferNonZero(u8* Buffer, u32 BufferLen);
-static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg);
+static int XCert_GetUserCfg(u32 SubsystemId, u32 KeyIndex, XCert_UserCfg **UserCfg);
 static int XCert_UpdateUserCfg(XCert_Config *Cfg);
 static void XCert_GenVersionField(u8* TBSCertBuf, XCert_Config *Cfg, u32 *VersionLen);
 static int XCert_GenSerialField(u8* TBSCertBuf, u8* DataHash, u32 *SerialLen);
@@ -459,8 +460,8 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function finds the provided Subsystem ID in UserCfg DB and
- *		returns the pointer to the corresponding entry in DB
+ * @brief	This function finds the provided Subsystem ID and Key Index in
+ * 		Certificate DB and returns the pointer to the corresponding entry in DB
  *		if all the other fields are valid.
  *
  * @param	SubsystemId - Subsystem ID for which user configuration is requested
@@ -471,7 +472,7 @@ END:
  *		 - Error Code  Upon any failure
  *
  ******************************************************************************/
-static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg)
+static int XCert_GetUserCfg(u32 SubsystemId, u32 KeyIndex, XCert_UserCfg **UserCfg)
 {
 	int Status = XST_FAILURE;
 	XCert_InfoStore *CertDB = XCert_GetCertDB();
@@ -479,10 +480,10 @@ static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg)
 	u32 Idx;
 
 	/**
-	 * Search for given Subsystem ID in the UserCfg DB
+	 * Search for given Subsystem ID and KeyIndex  in the UserCfg DB
 	 */
 	for (Idx = 0; Idx < *NumOfEntriesInUserCfgDB; Idx++) {
-		if (CertDB[Idx].SubsystemId == SubsystemId) {
+		if ((CertDB[Idx].SubsystemId == SubsystemId) && (CertDB[Idx].KeyIndex == KeyIndex)) {
 			/**
 			 * If Subsystem ID is found then check that Subject,
 			 * Issuer and Validity for that Subsystem ID is non-zero.
@@ -545,13 +546,13 @@ static int XCert_UpdateUserCfg(XCert_Config* Cfg)
 	int Status = XST_FAILURE;
 	XCert_UserCfg* DevIKUserCfg;
 
-	Status = XCert_GetUserCfg(Cfg->SubSystemId, &Cfg->UserCfg);
+	Status = XCert_GetUserCfg(Cfg->SubSystemId, Cfg->KeyIndex, &Cfg->UserCfg);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	if (Cfg->AppCfg.IsSelfSigned == FALSE) {
-		Status = XCert_GetUserCfg(XCERT_PMC_SUBSYSTEM_ID, &DevIKUserCfg);
+		Status = XCert_GetUserCfg(XCERT_PMC_SUBSYSTEM_ID, 0U, &DevIKUserCfg);
 		if (Status == XST_SUCCESS) {
 			Status = Xil_SMemSet(Cfg->UserCfg->Issuer, XCERT_ISSUER_MAX_SIZE, 0U,
 				Cfg->UserCfg->IssuerLen);
@@ -626,7 +627,7 @@ END:
  *		 - XST_FAILURE  Upon any failure
  *
  ******************************************************************************/
-int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8* Val, u32 Len)
+int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8* Val, u32 Len, u32 KeyIndex)
 {
 	int Status = XST_FAILURE;
 	u32 IdxToBeUpdated;
@@ -654,7 +655,7 @@ int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8*
 	 * new subsystem.
 	*/
 	for (Idx = 0; Idx < *NumOfEntriesInUserCfgDB; Idx++) {
-		if (CertDB[Idx].SubsystemId == SubSystemId) {
+		if ((CertDB[Idx].SubsystemId == SubSystemId) && (CertDB[Idx].KeyIndex == KeyIndex)) {
 			IdxToBeUpdated = Idx;
 			IsSubsystemIdPresent = TRUE;
 			break;
@@ -668,6 +669,7 @@ int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8*
 			goto END;
 		}
 		CertDB[IdxToBeUpdated].SubsystemId = SubSystemId;
+		CertDB[IdxToBeUpdated].KeyIndex = KeyIndex;
 		*NumOfEntriesInUserCfgDB = (*NumOfEntriesInUserCfgDB) + 1U;
 	}
 
