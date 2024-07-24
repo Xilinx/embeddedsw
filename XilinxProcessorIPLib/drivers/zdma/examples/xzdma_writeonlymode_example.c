@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,11 +45,16 @@
 
 #include "xzdma.h"
 #include "xparameters.h"
+#ifndef SDT
+#ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
+#else
 #include "xscugic.h"
-#include "xil_util.h"
-#ifdef SDT
+#endif
+#else
 #include "xinterrupt_wrap.h"
 #endif
+#include "xil_util.h"
 
 /************************** Function Prototypes ******************************/
 
