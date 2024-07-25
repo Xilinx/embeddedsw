@@ -1,5 +1,5 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2021 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -50,24 +50,36 @@ examples:
         - interrupts
     xaxicdma_example_sg_intr.c:
         - interrupts
-        - xlnx,include-sg: 1
+        - xlnx,include-sg
     xaxicdma_example_sg_poll.c:
-        - xlnx,include-sg: 1
+        - reg
+        - xlnx,include-sg
     xaxicdma_example_hybrid_intr.c:
         - interrupts
-        - xlnx,include-sg: 1
+        - xlnx,include-sg
     xaxicdma_example_hybrid_poll.c:
-        - xlnx,include-sg: 1
+        - reg
+        - xlnx,include-sg
     xaxicdma_example_simple_poll.c:
         - reg
 
 tapp:
     xaxicdma_example_simple_intr.c:
         declaration: XAxiCdma_SimpleIntrExample
+        hwproperties:
+            - interrupts
     xaxicdma_example_sg_intr.c:
         declaration: XAxiCdma_SgIntrExample
+        hwproperties:
+            - interrupts
+            - xlnx,include-sg
     xaxicdma_example_sg_poll.c:
         declaration: XAxiCdma_SgPollExample
+        hwproperties:
+            - reg
+            - xlnx,include-sg
     xaxicdma_example_simple_poll.c:
         declaration: XAxiCdma_SimplePollExample
+        hwproperties:
+            - reg
 ...
