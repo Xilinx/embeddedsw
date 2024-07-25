@@ -1166,7 +1166,7 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 			XV_frmbufrd_LookupConfig(XPAR_XV_FRMBUFRD_0_DEVICE_ID);
 #else
 	FrameBufRd_ConfigPtr =
-			XV_frmbufrd_LookupConfig(XPAR_XV_FRMBUFRD_0_BASEADDR);
+			XV_frmbufrd_LookupConfig(XPAR_XV_FRMBUF_RD_0_BASEADDR);
 #endif
 
 	if (FrameBufRd_ConfigPtr == NULL) {
@@ -1190,6 +1190,7 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 		return(XST_FAILURE);
 	}
 
+#ifndef SDT
 #if defined(__arm__) || (__aarch64__)
 	/* Register Video Frame Buffer Read Interrupt Handler
 	 *  with Interrupt Controller
@@ -1207,12 +1208,21 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 				(XInterruptHandler)XVFrmbufRd_InterruptHandler,
 				(void *)RdInstancePtr);
 #endif
+#else
+	Status = XSetupInterruptSystem(RdInstancePtr,
+				       (XInterruptHandler)XVFrmbufRd_InterruptHandler,
+				       RdInstancePtr->FrmbufRd.Config.IntrId,
+				       RdInstancePtr->FrmbufRd.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 
 	if (Status == XST_SUCCESS) {
+#ifndef SDT
 #if defined(__arm__) || (__aarch64__)
 		XScuGic_Enable(&Intc, XPAR_FABRIC_V_FRMBUF_RD_0_VEC_ID);
 #else
 		XIntc_Enable(&Intc, XPAR_INTC_0_V_FRMBUF_RD_0_VEC_ID);
+#endif
 #endif
 	} else {
 		xil_printf("ERR:: Unable to register Vid. Frame "
@@ -1234,7 +1244,7 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 			XV_frmbufwr_LookupConfig(XPAR_XV_FRMBUFWR_0_DEVICE_ID);
 #else
 	FrameBufWr_ConfigPtr =
-			XV_frmbufwr_LookupConfig(XPAR_XV_FRMBUFWR_0_BASEADDR);
+			XV_frmbufwr_LookupConfig(XPAR_XV_FRMBUF_WR_0_BASEADDR);
 #endif
 
 	if (FrameBufWr_ConfigPtr == NULL) {
@@ -1253,6 +1263,7 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 	}
 
 
+#ifndef SDT
 #if defined(__arm__) || (__aarch64__)
 	/* Register Video Frame Buffer Write Interrupt Handler
 	 *  with Interrupt Controller
@@ -1270,12 +1281,21 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 				(XInterruptHandler)XVFrmbufWr_InterruptHandler,
 				(void *)WrInstancePtr);
 #endif
+#else
+	Status = XSetupInterruptSystem(WrInstancePtr,
+				       (XInterruptHandler)XVFrmbufRd_InterruptHandler,
+				       WrInstancePtr->FrmbufWr.Config.IntrId,
+				       WrInstancePtr->FrmbufWr.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 
 	if (Status == XST_SUCCESS) {
+#ifndef SDT
 #if defined(__arm__) || (__aarch64__)
 		XScuGic_Enable(&Intc, XPAR_FABRIC_V_FRMBUF_WR_0_VEC_ID);
 #else
 		XIntc_Enable(&Intc, XPAR_INTC_0_V_FRMBUF_WR_0_VEC_ID);
+#endif
 #endif
 	} else {
 		xil_printf("ERR:: Unable to register Vid. Frame "
@@ -1296,7 +1316,7 @@ u32 Exdes_FBInitialize(XV_FrmbufWr_l2 *WrInstancePtr,
 #ifndef SDT
 			XGpioPs_LookupConfig(XPAR_PSU_GPIO_0_DEVICE_ID);
 #else
-			XGpioPs_LookupConfig(XPAR_PSU_GPIO_0_DEVICE_ID);
+			XGpioPs_LookupConfig(XPAR_GPIO_BASEADDR);
 #endif
 
 	if (Gpio_VFRB_resetn_ConfigPtr == NULL) {
@@ -6531,7 +6551,7 @@ u32 Exdes_RemapInitialize(u32 inremap_deviceid, u32 outremap_baseaddr)
 #ifndef SDT
 u32 Exdes_TpgInitialize(u32 Gpio_tpg_resetn_deviceid, u32 tpg_deviceid)
 #else
-u32 Exdes_TpgInitialize(u32 Gpio_tpg_resetn_baseaddr, u32 tpg_baseaddr)
+u32 Exdes_TpgInitialize(UINTPTR Gpio_tpg_resetn_baseaddr, UINTPTR tpg_baseaddr)
 #endif
 {
 	u32 Status = XST_SUCCESS;
