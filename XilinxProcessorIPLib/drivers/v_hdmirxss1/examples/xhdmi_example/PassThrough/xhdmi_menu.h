@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -80,6 +80,10 @@ extern "C" {
 #include "xiic.h"
 #endif
 #include "xvidc_edid_ext.h"
+#ifdef SDT
+#define XPAR_XV_FRMBUFWR_NUM_INSTANCES XPAR_XV_FRMBUF_RD_NUM_INSTANCES
+#define XPAR_XV_FRMBUFRD_NUM_INSTANCES XPAR_XV_FRMBUF_RD_NUM_INSTANCES
+#endif
 #if defined (XPAR_XV_FRMBUFRD_NUM_INSTANCES) && \
 		      (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
 #include "xv_frmbufwr_l2.h"
