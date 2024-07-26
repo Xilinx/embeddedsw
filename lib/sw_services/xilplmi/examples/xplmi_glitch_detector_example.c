@@ -36,6 +36,7 @@
  * ----- ---- ---------- --------------------------------------------------------------------------
  * 1.00  pre  06/09/2024 Initial release
  *       pre  07/15/2024 Added support for SDT flow and fixed misrac warnings
+ *       pre  07/26/2024 Corrected base address for SDT flow
  *
  * </pre>
  *
@@ -215,7 +216,7 @@ int main()
 #ifndef SDT
 	GicConfig = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
 #else
-	GicConfig = XScuGic_LookupConfig(XPAR_XSCUGIC_0_BASEADDR);
+	GicConfig = XScuGic_LookupConfig(XPAR_SCUGIC_DIST_BASEADDR);
 #endif
 	if (NULL == GicConfig) {
 		xil_printf("SCU GIC lookup configuration failed\r\n");
