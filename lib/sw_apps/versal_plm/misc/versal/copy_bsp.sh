@@ -100,11 +100,17 @@ cp $BSP_DIR/libsrc/xilnvm/src/*.h $BSP_DIR/include/
 
 mkdir -p $BSP_DIR/libsrc/xilsecure/src
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src
-cp -r $SERVICES_DIR/xilsecure/src/common/all/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/common/versal_common/server/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/common/versal_common/common/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/versal/server/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/versal/common/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/common/core/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/aes/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/rsa/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/ecdsa/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/crypto_kat/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/generic/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/util/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/sha/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/sha/sha_pmx/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/versal/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/common/versal/* $BSP_DIR/libsrc/xilsecure/src/
 cp $BSP_DIR/libsrc/xilsecure/src/*.h $BSP_DIR/include/
 mv $BSP_DIR/libsrc/xilsecure/src/libxilsecure_pmc.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
 rm -f $BSP_DIR/libsrc/xilsecure/src/libxilsecure_*.a

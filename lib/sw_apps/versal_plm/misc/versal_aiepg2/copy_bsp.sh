@@ -115,11 +115,22 @@ cp -r $SERVICES_DIR/xilcert/src/* $BSP_DIR/libsrc/xilcert/src/
 
 mkdir -p $BSP_DIR/libsrc/xilsecure/src
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src
-cp -r $SERVICES_DIR/xilsecure/src/common/all/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/common/versal_common/server/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/common/versal_common/common/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/versal_net/server/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/versal_net/common/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/common/core/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/aes/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/rsa/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/ecdsa/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/crypto_kat/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/generic/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/util/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/sha/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/sha/sha_pmxc/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/hmac/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/softsha2-384/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/ecc_keypair/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/key_zeroize/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/trng/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/common/versal_aiepg2/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/versal_aiepg2/* $BSP_DIR/libsrc/xilsecure/src/
 cp $BSP_DIR/libsrc/xilsecure/src/*.h $BSP_DIR/include/
 mv $BSP_DIR/libsrc/xilsecure/src/libxilsecure_pmc.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
 rm -f $BSP_DIR/libsrc/xilsecure/src/libxilsecure_*.a
