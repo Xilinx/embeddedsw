@@ -18,6 +18,7 @@
 * ----- ---- ---------- ---------------------------------------------------------------------------
 * 1.00  pre  06/09/2024 Initial release
 *       pre  07/17/2024 Used register node to access PMC analog registers and fixed misrac warnings
+*       pre  07/26/2024 Enabled server mode as default mode
 *
 * </pre>
 *
@@ -40,7 +41,7 @@ extern "C" {
  */
 
 /************************** Constant Definitions *************************************************/
-#define XPLMI_GLITCHDETECTOR_SECURE_MODE /* Comment this to access in server mode */
+//#define XPLMI_GLITCHDETECTOR_SECURE_MODE /* Enable this to access in client mode */
 #define PM_REG_PMC_ANALOG_ID     0x30100002 /**< PMC analog register node ID */
 #define PMC_ANALOG_BASE_ADDR     0xF1160000 /**< PMC analog base address */
 #define GD_CTRL_OFFSET              0x00000 /**< GD_CTRL register offset */
