@@ -334,6 +334,7 @@ void XEmacPs_SetMdioDivisor(XEmacPs *InstancePtr, XEmacPs_MdcDiv Divisor);
 int main(void)
 {
 	LONG Status;
+	u32 regval;
 
 	xil_printf("Entering into main() \r\n");
 
@@ -349,6 +350,11 @@ int main(void)
 				      &EmacPsInstance,
 				      EMACPS_DEVICE_ID);
 #endif
+	regval = XEmacPs_ReadReg(EmacPsInstance.Config.BaseAddress, XEMACPS_TXCNT_OFFSET);
+	xil_printf("Total Packets sent: %d\n", regval);
+	regval = XEmacPs_ReadReg(EmacPsInstance.Config.BaseAddress, XEMACPS_RXCNT_OFFSET);
+	xil_printf("Total Packets received: %d\n", regval);
+
 	if (Status != XST_SUCCESS) {
 		EmacPsUtilErrorTrap("Emacps intr dma Example Failed\r\n");
 		return XST_FAILURE;
