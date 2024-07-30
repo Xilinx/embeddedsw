@@ -51,7 +51,8 @@
 *                       to be chnaged.
 *       se     07/22/24 Alarm threshold set and get functions updated to adapt
 *                       of Lower alarm registers thresholds mode bit masking.
-*
+*       se     07/30/24 OT Upper Alarm threshold requires 12-bit value update
+*                       to enable over-temperature default value override.
 * </pre>
 *
 ******************************************************************************/
@@ -1820,6 +1821,17 @@ void XSysMonPsu_SetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
         Value |= ((u16)XSysmonPsu_ReadReg(EffectiveBaseAddress + Offset) &
 					(~XSYSMONPSU_ALRM_TEMP_LWR_MASK));
 	}
+
+	/*
+	* OT Upper alarm needs 12-bit MSBs value.
+	* 3h value has to be written to 4 LSB to enable over temperature
+	* default value override.
+	*/
+	if(Offset == XSYSMONPSU_ALRM_OT_UPR_OFFSET) {
+		Value = (u16)((Value << XSYSMONPSU_ALRM_OT_UPR_TEMP_SHIFT) |
+			XSYSMONPSU_ALRM_OT_UPR_TEMP_OVERRIDE);
+	}
+
 	/* Write the value into the specified Alarm Threshold Register. */
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + Offset, Value);
 }
@@ -1881,6 +1893,14 @@ u16 XSysMonPsu_GetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 			(Offset == XSYSMONPSU_ALRM_OT_LWR_OFFSET) ||
 			(Offset == XSYSMONPSU_ALRM_TREMOTE_LWR_OFFSET)) {
 		AlarmThreshold &= (u16)XSYSMONPSU_ALRM_TEMP_LWR_MASK;
+	}
+
+	/*
+	* OT Upper alarm has 12-bit MSBs value.
+	*/
+	if(Offset == XSYSMONPSU_ALRM_OT_UPR_OFFSET) {
+		AlarmThreshold = (u16)((AlarmThreshold >> XSYSMONPSU_ALRM_OT_UPR_TEMP_SHIFT) &
+				XSYSMONPSU_ALRM_OT_UPR_TEMP_MASK);
 	}
 
 	return AlarmThreshold;
