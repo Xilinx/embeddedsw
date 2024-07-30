@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 		      interrupts and excpetion disable and enable declarations
 * 		      to fix misra_c_2012_rule_8_5 violations.
 * 9.0   ml   03/03/23 Add description to fix doxygen warnings.
+* 9.2   mus  07/30/24 Fix bug in microblaze_disable_interrupts API in SDT flow.
 * </pre>
 *
 ******************************************************************************/
@@ -227,7 +228,7 @@ void microblaze_disable_interrupts(void) {
                 msrclr(XIL_INTERRUPTS_MASK);
         } else {
                 val = mfmsr();
-                mtmsr(val | (~XIL_INTERRUPTS_MASK));
+                mtmsr(val & (~XIL_INTERRUPTS_MASK));
         }
 
 }
