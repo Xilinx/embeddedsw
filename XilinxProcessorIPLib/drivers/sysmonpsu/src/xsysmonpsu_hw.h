@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +24,8 @@
 *                        SEQ_CH2 and SEQ_AVG2 offsets and bit masks
 * 2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
 * 2.9   cog    07/20/23 Added support for SDT flow.
-*
+* 3.0   se     07/30/24 OT Upper Alarm threshold requires 12-bit value update
+*                       to enable over-temperature default value override.
 * </pre>
 *
 ******************************************************************************/
@@ -1809,9 +1810,11 @@ extern "C" {
 #define XSYSMONPSU_ALRM_OT_UPR_OFFSET   0x0000014CU
 #define XSYSMONPSU_ALRM_OT_UPR_RSTVAL   0x00000000U
 
-#define XSYSMONPSU_ALRM_OT_UPR_TEMP_SHIFT   0U
-#define XSYSMONPSU_ALRM_OT_UPR_TEMP_WIDTH   16U
-#define XSYSMONPSU_ALRM_OT_UPR_TEMP_MASK    0x0000ffffU
+#define XSYSMONPSU_ALRM_OT_UPR_TEMP_SHIFT   4U
+#define XSYSMONPSU_ALRM_OT_UPR_TEMP_WIDTH   12U
+#define XSYSMONPSU_ALRM_OT_UPR_TEMP_MASK    0x00000fffU
+
+#define XSYSMONPSU_ALRM_OT_UPR_TEMP_OVERRIDE   0x3U
 
 /**
  * Register: XSysmonPsuAlrmTempLwr

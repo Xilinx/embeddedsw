@@ -162,6 +162,8 @@
 * 3.0   cog    03/20/24 Refactored XSysMonPsu_UpdateAdcClkDivisor for more
 *                       robust error handling, this required the API protoype
 *                       to be chnaged.
+*       se     07/30/24 OT Upper Alarm threshold requires 12-bit value update
+*                       to enable over-temperature default value override.
 *
 * </pre>
 *
@@ -438,6 +440,23 @@ typedef struct {
 /****************************************************************************/
 /**
 *
+* This macro converts System Monitor 12-bit OT Raw Data to Temperature(centigrades)
+* for On-Chip Sensors.
+*
+* @param	AdcData is the SysMon 12-bit Raw ADC Data.
+*
+* @return 	The Temperature in centigrades.
+*
+* @note		C-Style signature:
+*		float XSysMonPsu_RawToTemperature_OT_OnChip(u32 AdcData)
+*
+*****************************************************************************/
+#define XSysMonPsu_RawToTemperature_OT_OnChip(AdcData)				\
+	((((float)(AdcData)/4096.0f)/0.00196342531f ) - 280.2309f)
+
+/****************************************************************************/
+/**
+*
 * This macro converts System Monitor Raw Data to Temperature(centigrades)
 * for external reference.
 *
@@ -452,6 +471,22 @@ typedef struct {
 #define XSysMonPsu_RawToTemperature_ExternalRef(AdcData)			\
 	((((float)(AdcData)/65536.0f)/0.00197008621f ) - 279.4266f)
 
+/****************************************************************************/
+/**
+*
+* This macro converts System Monitor 12-bit OT Raw Data to Temperature(centigrades)
+* for external reference.
+*
+* @param	AdcData is the SysMon 12-bit Raw ADC Data.
+*
+* @return 	The Temperature in centigrades.
+*
+* @note		C-Style signature:
+*		float XSysMonPsu_RawToTemperature_OT_ExternalRef(u32 AdcData)
+*
+*****************************************************************************/
+#define XSysMonPsu_RawToTemperature_OT_ExternalRef(AdcData)			\
+	((((float)(AdcData)/4096.0f)/0.00197008621f ) - 279.4266f)
 /****************************************************************************/
 /**
 *
@@ -524,6 +559,24 @@ typedef struct {
 /****************************************************************************/
 /**
 *
+* This macro converts Temperature in centigrades to System Monitor 12-bit OT Raw Data
+* for On-Chip Sensors.
+*
+* @param	Temperature is the Temperature in centigrades to be
+*		converted to System Monitor ADC 12-bit Raw Data.
+*
+* @return 	The System Monitor ADC 12-bit Raw Data.
+*
+* @note		C-Style signature:
+*		int XSysMonPsu_TemperatureToRaw_OT_OnChip(float Temperature)
+*
+*****************************************************************************/
+#define XSysMonPsu_TemperatureToRaw_OT_OnChip(Temperature)			\
+	((s32)(((Temperature) + 280.2309f)*4096.0f*0.00196342531f))
+
+/****************************************************************************/
+/**
+*
 * This macro converts Temperature in centigrades to System Monitor Raw Data
 * for external reference.
 *
@@ -539,6 +592,23 @@ typedef struct {
 #define XSysMonPsu_TemperatureToRaw_ExternalRef(Temperature)		\
 	((s32)(((Temperature) + 279.4266f)*65536.0f*0.00197008621f))
 
+/****************************************************************************/
+/**
+*
+* This macro converts Temperature in centigrades to System Monitor 12-bit OT Raw Data
+* for external reference.
+*
+* @param	Temperature is the Temperature in centigrades to be
+*		converted to System Monitor ADC 12-bit Raw Data.
+*
+* @return 	The System Monitor ADC 12-bit Raw Data.
+*
+* @note		C-Style signature:
+*		int XSysMonPsu_TemperatureToRaw_OT_ExternalRef(float Temperature)
+*
+*****************************************************************************/
+#define XSysMonPsu_TemperatureToRaw_OT_ExternalRef(Temperature)		\
+	((s32)(((Temperature) + 279.4266f)*4096.0f*0.00197008621f))
 /****************************************************************************/
 /**
 *
