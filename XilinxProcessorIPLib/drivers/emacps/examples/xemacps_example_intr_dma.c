@@ -431,19 +431,16 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 	    (EmacPsInstancePtr->Config.BaseAddress == VERSAL_EMACPS_0_BASEADDR) ||
 	    (EmacPsInstancePtr->Config.BaseAddress == VERSAL_NET_EMACPS_0_BASEADDR)) {
 		EmacPsIntrId = XPS_GEM0_INT_ID;
-	}
-	else if ((EmacPsInstancePtr->Config.BaseAddress == ZYNQ_EMACPS_1_BASEADDR) ||
-		 (EmacPsInstancePtr->Config.BaseAddress == ZYNQMP_EMACPS_1_BASEADDR) ||
-		 (EmacPsInstancePtr->Config.BaseAddress == VERSAL_EMACPS_1_BASEADDR) ||
-		 (EmacPsInstancePtr->Config.BaseAddress == VERSAL_NET_EMACPS_1_BASEADDR)) {
+	} else if ((EmacPsInstancePtr->Config.BaseAddress == ZYNQ_EMACPS_1_BASEADDR) ||
+		   (EmacPsInstancePtr->Config.BaseAddress == ZYNQMP_EMACPS_1_BASEADDR) ||
+		   (EmacPsInstancePtr->Config.BaseAddress == VERSAL_EMACPS_1_BASEADDR) ||
+		   (EmacPsInstancePtr->Config.BaseAddress == VERSAL_NET_EMACPS_1_BASEADDR)) {
 		EmacPsIntrId = XPS_GEM1_INT_ID;
-	}
-	else if (EmacPsInstancePtr->Config.BaseAddress == ZYNQMP_EMACPS_2_BASEADDR) {
+	} else if (EmacPsInstancePtr->Config.BaseAddress == ZYNQMP_EMACPS_2_BASEADDR) {
 #ifdef XPS_GEM2_INT_ID
 		EmacPsIntrId = XPS_GEM2_INT_ID;
 #endif
-	}
-	else if (EmacPsInstancePtr->Config.BaseAddress == ZYNQMP_EMACPS_3_BASEADDR) {
+	} else if (EmacPsInstancePtr->Config.BaseAddress == ZYNQMP_EMACPS_3_BASEADDR) {
 #ifdef XPS_GEM3_INT_ID
 		EmacPsIntrId = XPS_GEM3_INT_ID;
 #endif
@@ -454,8 +451,7 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 
 	if (GemVersion == GEMVERSION_VERSAL) {
 		Platform = Xil_In32(VERSAL_VERSION);
-	}
-	else if (GemVersion > 2) {
+	} else if (GemVersion > 2) {
 		Platform = Xil_In32(CSU_VERSION);
 	}
 	/* Enable jumbo frames for zynqmp */
@@ -825,8 +821,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	XEmacPs_SetQueuePtr(EmacPsInstancePtr, EmacPsInstancePtr->RxBdRing.BaseBdAddr, 0, XEMACPS_RECV);
 	if (GemVersion > 2) {
 		XEmacPs_SetQueuePtr(EmacPsInstancePtr, EmacPsInstancePtr->TxBdRing.BaseBdAddr, 1, XEMACPS_SEND);
-	}
-	else {
+	} else {
 		XEmacPs_SetQueuePtr(EmacPsInstancePtr, EmacPsInstancePtr->TxBdRing.BaseBdAddr, 0, XEMACPS_SEND);
 	}
 
@@ -899,8 +894,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	if (GemVersion > 2) {
 		/* API to get correct RX frame size - jumbo or otherwise */
 		RxFrLen = XEmacPs_GetRxFrameSize(EmacPsInstancePtr, BdRxPtr);
-	}
-	else {
+	} else {
 		RxFrLen = XEmacPs_BdGetLength(BdRxPtr);
 	}
 	if (RxFrLen != TxFrameLength) {
@@ -1433,8 +1427,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			*(volatile unsigned int *)(SLCR_GEM0_CLK_CTRL_ADDR) =
 				ClkCntrl;
 #endif
-		}
-		else if (BaseAddress == ZYNQ_EMACPS_1_BASEADDR) {
+		} else if (BaseAddress == ZYNQ_EMACPS_1_BASEADDR) {
 #ifdef XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1
 			/* GEM1 1G clock configuration*/
 			ClkCntrl =
@@ -1514,7 +1507,8 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 		if (BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
 			/* GEM0 1G clock configuration*/
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
-			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM0_REF), 0, 0, 0, 0, 0, 0);
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM0_REF), 0,
+				0, 0, 0, 0, 0);
 #else
 			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM0_REF_CTRL);
 			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
@@ -1526,7 +1520,8 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 
 			/* GEM1 1G clock configuration*/
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
-			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM1_REF), 0, 0, 0, 0, 0, 0);
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM1_REF), 0,
+				0, 0, 0, 0, 0);
 #else
 			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM1_REF_CTRL);
 			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
@@ -1540,7 +1535,8 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 		if (BaseAddress == VERSAL_NET_EMACPS_0_BASEADDR) {
 			/* GEM0 1G clock configuration*/
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
-			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM0_REF), 0, 0, 0, 0, 0, 0);
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM0_REF), 0,
+				0, 0, 0, 0, 0);
 #else
 			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM0_REF_CTRL);
 			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
@@ -1552,7 +1548,8 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 
 			/* GEM1 1G clock configuration*/
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
-			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM1_REF), 0, 0, 0, 0, 0, 0);
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM1_REF), 0,
+				0, 0, 0, 0, 0);
 #else
 			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM1_REF_CTRL);
 			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
