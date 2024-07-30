@@ -82,6 +82,7 @@
  *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
  * 2.01  sk   05/07/2024 Added support to get ipi instance
  *       pre  07/11/2024 Throwing error if IPI request length is greater than XPLMI_MAX_IPI_CMD_LEN
+ *       pre  07/30/2024 Fixed misrac violation
  *
  * </pre>
  *
@@ -351,7 +352,7 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 
 		Cmd.Len = (Cmd.CmdId >> 16U) & 255U;
 		if (Cmd.Len > XPLMI_MAX_IPI_CMD_LEN) {
-			Status = XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS;
+			Status = (int)XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS;
 			goto END;
 		}
 		Cmd.Payload = (u32 *)&Payload[1U];
