@@ -20,6 +20,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- ---------------------------------------------------------------------------
 * 1.00  pre  07/11/2024 Initial release
+*       pre  07/30/2024 Fixed misrac and coverity violations
 *
 * </pre>
 *
@@ -28,15 +29,15 @@
 **************************************************************************************************/
 
 /***************************** Include Files *****************************************************/
-#include "xil_types.h"
 #include "xplm_ssitcomm.h"
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+#include "xil_types.h"
 #include "xplmi_status.h"
-#include "xplmi_plat.h"
 #include "xplmi_hw.h"
+#ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+#include "xplmi_plat.h"
 #include "xsecure_init.h"
 
-#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-#ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
 /************************** Constant Definitions *************************************************/
 #define XPLMI_ZERO                       (0U) /**< Zero value */
 #define XPLMI_BYTE_MASK                  0XFF /**< Mask for extracting byte */
@@ -55,9 +56,39 @@
 										                from header */
 #define XPLM_MODULE_AND_CFG_SEC_COMMCMD (0x12B) /**< module and API ID for config secure
                                     communictaion command */
-#endif
 
 /**************************** Type Definitions ***************************************************/
+typedef enum{
+	ENCRYPTION = 0, /**< Encryption operation */
+	DECRYPTION, /**< Decryption operation */
+} XPlmi_Operation;
+
+typedef struct
+{
+	int (*Init)(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
+	           XSecure_AesKeySize KeySize, u64 IvAddr); /**< AES operation Initialization */
+	int (*UpdateAad)(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize); /**< AAD update */
+	int (*UpdateData)(XSecure_Aes *InstancePtr, u64 InDataAddr,
+	           u64 OutDataAddr, u32 Size, u8 IsLastChunk); /**< Data Update */
+	int (*Final)(XSecure_Aes *InstancePtr, u64 GcmTagAddr); /**< GCM tag generation/verification */
+} XPlm_SsitCommOps;
+
+typedef struct
+{
+	u64 AadAddr; /**< Address of AAD */
+	u64 InDataAddr; /**< Input data address */
+	u64 TagAddr; /**< Address of GCM tag */
+	u32 *IvPtr; /**< Pointer to IV */
+	u32 *OutDataPtr; /**< Pointer to Output buffer which contains output data */
+	u32 AADLen; /**< Length of AAD */
+	u32 DataLen; /**< Length of Data */
+	XSecure_AesKeySrc KeySrc; /**< Key Source */
+	XPlmi_Operation OperationFlag; /**< Operation */
+	u32 SlrIndex; /**< SLR index */
+	u32 IsCfgSecCommCmd; /**< Configure secure communication command or not */
+	u32 TempRespBuf[XPLMI_CMD_RESP_SIZE]; /**< Temporary buffer for response */
+} XPlm_SsitCommParams;
+#endif
 
 /***************** Macros (Inline Functions) Definitions *****************************************/
 
@@ -151,26 +182,15 @@ static inline void XPlm_SsitCommSetAad(u64 DestAddr, u64 SrcAddr)
 }
 
 /************************** Function Prototypes **************************************************/
+static int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd);
+static int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd);
+static int XPlm_SsitCommAesKeyWrite(u32 SlrIndex, u32 KeyAddr);
+static int XPlm_SsitCommKeyIvUpdate(XPlmi_Cmd *Cmd);
 
 /************************** Variable Definitions *************************************************/
 static u32 XPlm_SsitCommIV[XPLMI_IV_SIZE_WORDS];
 
-static XPlm_SsitCommOps XPlm_SsitCommAesOps[XPLM_NUM_OF_AES_OP] = {
-	[ENCRYPTION] = {
-		.Init = XSecure_AesEncryptInit,
-		.UpdateAad = XSecure_AesUpdateAad,
-		.UpdateData = XSecure_AesEncryptUpdate,
-		.Final = XSecure_AesEncryptFinal
-	},
-	[DECRYPTION] = {
-		.Init = XSecure_AesDecryptInit,
-		.UpdateAad = XSecure_AesUpdateAad,
-		.UpdateData = XSecure_AesDecryptUpdate,
-		.Final = XSecure_AesDecryptFinal
-	}
-};
-
-XPlmi_SsitCommFunctions XPlm_SsitCommFuncs = {.SendMessage = XPlm_SsitCommSendMessage,
+static XPlmi_SsitCommFunctions XPlm_SsitCommFuncs = {.SendMessage = XPlm_SsitCommSendMessage,
 											.ReceiveMessage = XPlm_SsitCommReceiveMessage,
 											.AesKeyWrite = XPlm_SsitCommAesKeyWrite,
 											.KeyIvUpdate = XPlm_SsitCommKeyIvUpdate
@@ -226,7 +246,22 @@ static int XPlm_SsitCommPerformAesOperation(XPlm_SsitCommParams *EncDecParamPtr)
 	/* Get AES instance and DMA instance*/
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
-	XPlm_SsitCommOps *OpsPtr = &XPlm_SsitCommAesOps[EncDecParamPtr->OperationFlag];
+	const XPlm_SsitCommOps XPlm_SsitCommAesOps[XPLM_NUM_OF_AES_OP] = {
+		[ENCRYPTION] = {
+			.Init = XSecure_AesEncryptInit,
+			.UpdateAad = XSecure_AesUpdateAad,
+			.UpdateData = XSecure_AesEncryptUpdate,
+			.Final = XSecure_AesEncryptFinal
+		},
+		[DECRYPTION] = {
+			.Init = XSecure_AesDecryptInit,
+			.UpdateAad = XSecure_AesUpdateAad,
+			.UpdateData = XSecure_AesDecryptUpdate,
+			.Final = XSecure_AesDecryptFinal
+		}
+	};
+
+	const XPlm_SsitCommOps *OpsPtr = &XPlm_SsitCommAesOps[EncDecParamPtr->OperationFlag];
 
 	/* Validate DMA instance pointer */
 	if (NULL == PmcDmaInstPtr) {
@@ -288,7 +323,7 @@ END:
 * @return Status of encryption operation
 *
 **************************************************************************************************/
-static u32 XPlm_SsitCommEncryptMsg(XPlm_SsitCommParams *EncParam)
+static int XPlm_SsitCommEncryptMsg(XPlm_SsitCommParams *EncParam)
 {
 	EncParam->OperationFlag = ENCRYPTION;
 	return XPlm_SsitCommPerformAesOperation(EncParam);
@@ -303,7 +338,7 @@ static u32 XPlm_SsitCommEncryptMsg(XPlm_SsitCommParams *EncParam)
 * @return Status of decryption operation
 *
 **************************************************************************************************/
-static u32 XPlm_SsitCommDecryptMsg(XPlm_SsitCommParams *DecParam)
+static int XPlm_SsitCommDecryptMsg(XPlm_SsitCommParams *DecParam)
 {
 	DecParam->OperationFlag = DECRYPTION;
 	return XPlm_SsitCommPerformAesOperation(DecParam);
@@ -336,7 +371,7 @@ static void XPlm_SsitCommPrepareEncParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
 		 */
 		if ((EncParams->IsCfgSecCommCmd == TRUE) && (SecSsitCommEst != ESTABLISHED)) {
 			XPlm_SsitComm1stSecCfgCmdSetAad(SsitBufAddr, (u64)(UINTPTR)Buf);
-			EncParams->InDataAddr = (u64)(UINTPTR)&Buf[IV2_OFFSET_INCMD];
+			EncParams->InDataAddr = (u64)(UINTPTR)&Buf[XPLMI_IV2_OFFSET_INCMD];
 			EncParams->DataLen = XPLM_IV2_AND_KEY_SIZE_BYTES;
 		}
 		else {
@@ -425,7 +460,7 @@ static void XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
 			                (SsitBufAddr + XPLM_IV_OFFSET_IN_ENCRYPTED_CMD), XPLMI_IV_SIZE_BYTES);
 
 			/* Take start address of buf to place decrypted data */
-			DecParams->OutDataPtr = &Buf[IV2_OFFSET_INCMD];
+			DecParams->OutDataPtr = &Buf[XPLMI_IV2_OFFSET_INCMD];
 		}
 		else {
 			XPlm_SsitCommSetAad((u64)(UINTPTR)Buf, SsitBufAddr);
@@ -468,10 +503,10 @@ static void XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
  *	-	Error code - On failure
  *
  *************************************************************************************************/
-int XPlm_SsitCommAesKeyWrite(u32 SlrIndex, u32 KeyAddr)
+static int XPlm_SsitCommAesKeyWrite(u32 SlrIndex, u32 KeyAddr)
 {
 	XSecure_AesKeySrc KeySrc = XSECURE_AES_USER_KEY_0 + (SlrIndex - 1U);
-	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+	const XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 	return XSecure_AesWriteKey(XSecureAesInstPtr, KeySrc, XSECURE_AES_KEY_SIZE_256, (u64)KeyAddr);
 }
 
@@ -486,10 +521,11 @@ int XPlm_SsitCommAesKeyWrite(u32 SlrIndex, u32 KeyAddr)
  *		- Error code on failure
  *
  *************************************************************************************************/
-int XPlm_SsitCommKeyIvUpdate(XPlmi_Cmd *Cmd)
+static int XPlm_SsitCommKeyIvUpdate(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 
+	/* Check response status and command ID */
     if ((Cmd->Response[0U] == XST_SUCCESS) && ((Cmd->CmdId & XPLMI_MODULE_AND_APIDMASK) ==
 	    XPLM_MODULE_AND_CFG_SEC_COMMCMD)) {
 		/**
@@ -502,11 +538,13 @@ int XPlm_SsitCommKeyIvUpdate(XPlmi_Cmd *Cmd)
 			goto END;
 		}
 
+		/* Write key */
 		Status = XPlm_SsitCommAesKeyWrite(SECCOMM_SLAVE_INDEX, XPLMI_SLR_NEWKEY_ADDR);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
+		/* Set secure communication established flag and increment IV */
 		XPlmi_SsitSetCommEstFlag(SECCOMM_SLAVE_INDEX);
 		XPlmi_SsitIvIncrement((u8 *)XPLMI_SLR_CURRENTIV_ADDR, 1U);
 	}
@@ -532,15 +570,16 @@ END:
 *         error code on failure
 *
 **************************************************************************************************/
-int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd)
+static int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd)
 {
-	u64 SsitBufAddr;
+	u32 SsitBufAddr;
 	XPlmi_SecCommEstFlag SecSsitCommEst;
 	XPlm_SsitCommParams EncParams;
 	u32 MsgType;
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	/* Fetch SLR type */
 	u32 SlrType = XPlm_SsitCommGetSlrType();
+	u32 IsCfgSecCommCmdTemp = IsCfgSecCommCmd;
 
 	/* Fetch secure communication status, SSIT buffer address based on SLR type */
 	if (SlrType == XPLMI_SSIT_MASTER_SLR) {
@@ -551,17 +590,17 @@ int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCo
 		SsitBufAddr = XPLMI_SLR_EVENT_RESP_BUFFER_ADDR;
 		SecSsitCommEst = XPlmi_SsitGetSecCommEstFlag(SECCOMM_SLAVE_INDEX);
 		/* Keeping it as false to nullify effect of this flag in slave */
-		IsCfgSecCommCmd = FALSE;
+		IsCfgSecCommCmdTemp = FALSE;
 	}
 
 	/* Decide message type */
-	MsgType = XPlm_SsitCommGetMsgType(SecSsitCommEst, IsCfgSecCommCmd);
+	MsgType = XPlm_SsitCommGetMsgType(SecSsitCommEst, IsCfgSecCommCmdTemp);
 
 	/* Prepare parameters to encrypt data based on message type */
 	if (MsgType == XPLM_SSIT_COMM_SECURE_MSG) {
 		EncParams.SlrIndex = SlrIndex;
-		EncParams.IsCfgSecCommCmd = IsCfgSecCommCmd;
-		XPlm_SsitCommPrepareEncParams(SecSsitCommEst, &EncParams, SsitBufAddr, Buf);
+		EncParams.IsCfgSecCommCmd = IsCfgSecCommCmdTemp;
+		XPlm_SsitCommPrepareEncParams(SecSsitCommEst, &EncParams, (u64)SsitBufAddr, Buf);
 		Status = XPlm_SsitCommEncryptMsg(&EncParams);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -569,7 +608,7 @@ int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCo
 	}
 	else {
 		/* Copy data from buf to SSIT buf */
-		Status = XPlmi_MemCpy64(SsitBufAddr, (u64)(UINTPTR)Buf,
+		Status = XPlmi_MemCpy64((u64)SsitBufAddr, (u64)(UINTPTR)Buf,
 		                       (BufSize * XPLMI_WORD_LEN));
 		if (Status != XST_SUCCESS) {
 			Status =  XPLMI_SSIT_COPYTOSSITBUF_FAILED;
@@ -589,7 +628,7 @@ END:
 
 /*************************************************************************************************/
 /**
-* @brief This function recieves the message/response with or without decryption
+* @brief This function receives the message/response with or without decryption
 *        using key and IV of given SlrNum based on CfgSecCommCmdFlag,SecSsitCommEst
 *        flag and writes the received message/response to Buf
 *
@@ -603,23 +642,24 @@ END:
 *         error code  on failure
 *
 **************************************************************************************************/
-int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd)
+static int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd)
 {
 	u32 BufAddr;
 	u64 SsitBufAddr;
 	XPlmi_SecCommEstFlag SecSsitCommEst;
 	XPlm_SsitCommParams DecParams;
 	u32 MsgType;
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	/* Fetch SLR type */
 	u32 SlrType = XPlm_SsitCommGetSlrType();
+	u32 IsCfgSecCommCmdTemp = IsCfgSecCommCmd;
 
 	/* Fetch secure communication status, SSIT buffer address based on SLR type */
 	if (SlrType == XPLMI_SSIT_MASTER_SLR) {
-		SsitBufAddr = XPlmi_SsitGetSlrAddr(XPLMI_SLR_EVENT_RESP_BUFFER_ADDR, SlrIndex);
+		SsitBufAddr = XPlmi_SsitGetSlrAddr(XPLMI_SLR_EVENT_RESP_BUFFER_ADDR, (u8)SlrIndex);
 		SecSsitCommEst = XPlmi_SsitGetSecCommEstFlag(SlrIndex);
 		/* Keeping it as false to nullify effect of this in master */
-		IsCfgSecCommCmd = FALSE;
+		IsCfgSecCommCmdTemp = FALSE;
 	}
 	else {
 		BufAddr = XPLMI_GET_MSGBUFF_ADDR(SlrIndex);
@@ -628,12 +668,12 @@ int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSe
 	}
 
 	/* Decide message type */
-	MsgType = XPlm_SsitCommGetMsgType(SecSsitCommEst, IsCfgSecCommCmd);
+	MsgType = XPlm_SsitCommGetMsgType(SecSsitCommEst, IsCfgSecCommCmdTemp);
 
 	/* Prepare parameters to encrypt data based on message type*/
 	if (MsgType == XPLM_SSIT_COMM_SECURE_MSG) {
 		DecParams.SlrIndex = SlrIndex;
-		DecParams.IsCfgSecCommCmd = IsCfgSecCommCmd;
+		DecParams.IsCfgSecCommCmd = IsCfgSecCommCmdTemp;
 		XPlm_SsitCommPrepareDecParams(SecSsitCommEst, &DecParams, SsitBufAddr, Buf);
 		Status = XPlm_SsitCommDecryptMsg(&DecParams);
 		if (Status != XST_SUCCESS) {
@@ -664,7 +704,12 @@ END:
 	return Status;
 }
 #else
-XPlmi_SsitCommFunctions XPlm_SsitCommFuncs = {.SendMessage = XPlm_SsitCommSendMessage,
+/************************** Function Prototypes **************************************************/
+static int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd);
+static int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd);
+
+/************************** Variable Definitions *************************************************/
+static XPlmi_SsitCommFunctions XPlm_SsitCommFuncs = {.SendMessage = XPlm_SsitCommSendMessage,
 											.ReceiveMessage = XPlm_SsitCommReceiveMessage,
 											};
 
@@ -683,10 +728,10 @@ XPlmi_SsitCommFunctions XPlm_SsitCommFuncs = {.SendMessage = XPlm_SsitCommSendMe
 *         error code on failure
 *
 **************************************************************************************************/
-int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd)
+static int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd)
 {
-	u64 SsitBufAddr;
-	u32 Status = XST_FAILURE;
+	u32 SsitBufAddr;
+	int Status = XST_FAILURE;
 	/* Fetch SLR type */
 	u32 SlrType = XPlm_SsitCommGetSlrType();
 	(void)IsCfgSecCommCmd;
@@ -700,7 +745,7 @@ int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCo
 	}
 
 	/* Copy data from buf to SSIT buf */
-	Status = XPlmi_MemCpy64(SsitBufAddr, (u64)(UINTPTR)Buf,
+	Status = XPlmi_MemCpy64((u64)SsitBufAddr, (u64)(UINTPTR)Buf,
 		                    (BufSize * XPLMI_WORD_LEN));
 	return Status;
 }
@@ -708,7 +753,7 @@ int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCo
 
 /*************************************************************************************************/
 /**
-* @brief This function recieves the message/response with or without decryption
+* @brief This function receives the message/response with or without decryption
 *        using key and IV of given SlrNum based on CfgSecCommCmdFlag,SecSsitCommEst
 *        flag and writes the received message/response to Buf
 *
@@ -722,18 +767,18 @@ int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCo
 *         error code  on failure
 *
 **************************************************************************************************/
-int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd)
+static int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd)
 {
 	u32 BufAddr;
 	u64 SsitBufAddr;
-	u32 Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	/* Fetch SLR type */
 	u32 SlrType = XPlm_SsitCommGetSlrType();
 	(void)IsCfgSecCommCmd;
 
 	/* Fetch secure communication status, SSIT buffer address based on SLR type */
 	if (SlrType == XPLMI_SSIT_MASTER_SLR) {
-		SsitBufAddr = XPlmi_SsitGetSlrAddr(XPLMI_SLR_EVENT_RESP_BUFFER_ADDR, SlrIndex);
+		SsitBufAddr = XPlmi_SsitGetSlrAddr(XPLMI_SLR_EVENT_RESP_BUFFER_ADDR, (u8)SlrIndex);
 	}
 	else {
 		BufAddr = XPLMI_GET_MSGBUFF_ADDR(SlrIndex);
@@ -758,6 +803,7 @@ int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSe
  *************************************************************************************************/
 XPlmi_SsitCommFunctions *XPlm_SsitCommGetFuncsPtr(void)
 {
+	/* Returning address of XPlm_SsitCommFuncs */
 	return (&XPlm_SsitCommFuncs);
 }
 #endif

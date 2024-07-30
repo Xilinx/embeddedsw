@@ -61,6 +61,7 @@
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 * 2.00  ng   01/26/2024 Updated minor error codes
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
+*       pre  07/30/2024 Fixed misrac violations
 *
 * </pre>
 *
@@ -120,7 +121,6 @@ static u32 XPlmi_SsitGetSlaveErrorMask(void);
 #define XPLMI_ADDRESS_LOW_OFFSET         (2U) /**< Offset of low address in payload */
 #define XPLMI_IV1_OFFSET_INCMD           (2U) /**< Offset of IV1 in command */
 #define XPLMI_SSITCFG_CMD_PAYLOAD_LEN    (17U) /**< Length of SSIT CfgSecComm Cmd payload */
-#define XPLMI_IV2_OFFSET_INCMD           (6U) /**< Offset of IV2 in command */
 #define XPLMI_KEY_OFFSET_INCMD           (10U) /**< Offset of key in command */
 #define XPLMI_IV2_OFFSET_INPAYLOAD       (5U) /**< Offset of IV2 in payload */
 #define XPLMI_KEY_OFFSET_INPAYLOAD       (9U) /**< Offset of key in payload */
@@ -1134,7 +1134,7 @@ static int XPlmi_SsitMsgEventHandler(void *Data)
 
 	Cmd.Len = (Cmd.CmdId >> 16U) & 255U;
 	if (Cmd.Len > XPLMI_SSIT_MAX_MSG_LEN) {
-		Status = XPLMI_SSIT_BUF_SIZE_EXCEEDS;
+		Status = (int)XPLMI_SSIT_BUF_SIZE_EXCEEDS;
 		goto END;
 	}
 	Cmd.Payload = (u32 *)&MsgBuf[1U];
@@ -1147,7 +1147,7 @@ static int XPlmi_SsitMsgEventHandler(void *Data)
 	Cmd.IpiReqType = (Cmd.CmdId & IPI_CMD_HDR_SECURE_BIT_MASK) >>
 				IPI_CMD_HDR_SECURE_BIT_SHIFT;
 #ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
-	if((Cmd.IpiReqType == XPLMI_CMD_SECURE) &&
+	if ((Cmd.IpiReqType == XPLMI_CMD_SECURE) &&
 	   (XPlmi_SsitGetSecCommEstFlag(SECCOMM_SLAVE_INDEX) != ESTABLISHED)) {
 		Cmd.IpiReqType = XPLMI_CMD_NON_SECURE;
 	}
@@ -2130,26 +2130,28 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
 	u32 RespBuf[XPLMI_CMD_RESP_SIZE] = { 0U };
 	u32 SlrIndex;
 	u32 *IvAddr;
-	u64 SrcAddr = ((u64)Cmd->Payload[XPLMI_ADDRESS_HIGH_OFFSET] << 32U) |
-	               Cmd->Payload[XPLMI_ADDRESS_LOW_OFFSET];
+	u64 SrcAddr;
 
     if (SlrType == XPLMI_SSIT_MONOLITIC) {
-		Status = XPLMI_INVALID_SLR_TYPE;
+		Status = (int)XPLMI_INVALID_SLR_TYPE;
 		goto END;
     }
 
     if (SlrType == XPLMI_SSIT_MASTER_SLR) {
 		if (Cmd->Payload == NULL) {
-			Status = XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR;
+			Status = (int)XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR;
 			goto END;
 		}
 
 		/* Get slr number from received payload */
         SlrIndex = Cmd->Payload[0U] & XPLMI_SSIT_MAX_SLAVE_SLRS;
-		if(SlrIndex == 0U) {
-			Status = XPLMI_INVALID_SLR_TYPE;
+		if (SlrIndex == 0U) {
+			Status = (int)XPLMI_INVALID_SLR_TYPE;
 			goto END;
 		}
+
+		SrcAddr = ((u64)Cmd->Payload[XPLMI_ADDRESS_HIGH_OFFSET] << 32U) |
+		           Cmd->Payload[XPLMI_ADDRESS_LOW_OFFSET];
 
 		Status = XPlmi_VerifyAddrRange(SrcAddr, SrcAddr + sizeof(XPlmi_SsitSecComm));
 		if (Status != XST_SUCCESS) {
@@ -2165,22 +2167,28 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
 
         /* Update IV1 as IV if it is 1st CfgSecComm Cmd */
         if (SecKeyIVEstablished != ESTABLISHED) {
-            XPlmi_MemCpy64((u64)(UINTPTR)IvAddr, SrcAddr, XPLMI_IV_SIZE_BYTES);
+           Status = XPlmi_MemCpy64((u64)(UINTPTR)IvAddr, SrcAddr, XPLMI_IV_SIZE_BYTES);
+		   if (Status != XST_SUCCESS) {
+				goto END;
+		    }
         }
 
         /* Frame full command with IV1,IV2,Key as payload */
         TempBuf[HEADER_OFFSET] = (Cmd->CmdId & ~XPLMI_CMD_LEN_MASK) |
-		                         (XPLMI_SSITCFG_CMD_PAYLOAD_LEN << LEN_BYTES_SHIFT);
+		                         ((u32)XPLMI_SSITCFG_CMD_PAYLOAD_LEN << LEN_BYTES_SHIFT);
         TempBuf[PAYLOAD_OFFSET] = SlrIndex;
-        XPlmi_MemCpy64((u64)(UINTPTR)&TempBuf[XPLMI_IV1_OFFSET_INCMD], SrcAddr,
-			  (XPLMI_IV_SIZE_BYTES * XPLMI_NOOF_IVS + XPLMI_KEY_SIZE_BYTES));
+        Status = XPlmi_MemCpy64((u64)(UINTPTR)&TempBuf[XPLMI_IV1_OFFSET_INCMD], SrcAddr,
+			  ((XPLMI_IV_SIZE_BYTES * XPLMI_NOOF_IVS) + XPLMI_KEY_SIZE_BYTES));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 
         /* Trigger message event to SLR given and get response */
         Status = XPlmi_SsitSendMsgEventAndGetResp((u8)SlrIndex, TempBuf,
 		         XPLMI_SSIT_MAX_MSG_LEN, RespBuf, XPLMI_CMD_RESP_SIZE,
 				XPLMI_SLV_EVENT_TIMEOUT);
         if (Status != XST_SUCCESS) {
-            goto END;
+			goto END;
         }
 
         /**
@@ -2188,9 +2196,17 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
 		 * also set SecKeyIVEstablished flag
 		 */
         if (RespBuf[0] == XST_SUCCESS) {
-            XPlmi_MemCpy64((u64)(UINTPTR)IvAddr, (u64)(UINTPTR)&TempBuf[XPLMI_IV2_OFFSET_INCMD],
+             Status = XPlmi_MemCpy64((u64)(UINTPTR)IvAddr, (u64)(UINTPTR)&TempBuf[XPLMI_IV2_OFFSET_INCMD],
 			                XPLMI_IV_SIZE_BYTES);
-            (XPlmi_SsitCommPtr->AesKeyWrite)(SlrIndex, (u32)&TempBuf[XPLMI_KEY_OFFSET_INCMD]);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+
+            Status = (XPlmi_SsitCommPtr->AesKeyWrite)(SlrIndex, (u32)&TempBuf[XPLMI_KEY_OFFSET_INCMD]);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+
 			if (SecKeyIVEstablished != ESTABLISHED) {
 				XPlmi_Printf(DEBUG_PRINT_ALWAYS,"\n\rSecure communication established for SLR%02x",SlrIndex);
 			}
@@ -2199,16 +2215,22 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
       }
       else {
 		/* update new IV and new key with IV2 and key */
-        XPlmi_MemCpy64((u64)XPLMI_SLR_NEWIV_ADDR, (u64)(UINTPTR)&Cmd->Payload[XPLMI_IV2_OFFSET_INPAYLOAD],
+        Status = XPlmi_MemCpy64((u64)XPLMI_SLR_NEWIV_ADDR, (u64)(UINTPTR)&Cmd->Payload[XPLMI_IV2_OFFSET_INPAYLOAD],
 		       XPLMI_IV_SIZE_BYTES);
-        XPlmi_MemCpy64((u64)XPLMI_SLR_NEWKEY_ADDR, (u64)(UINTPTR)&Cmd->Payload[XPLMI_KEY_OFFSET_INPAYLOAD],
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+        Status = XPlmi_MemCpy64((u64)XPLMI_SLR_NEWKEY_ADDR, (u64)(UINTPTR)&Cmd->Payload[XPLMI_KEY_OFFSET_INPAYLOAD],
 		       XPLMI_KEY_SIZE_BYTES);
-        Status = XST_SUCCESS;
+		if (Status != XST_SUCCESS) {
+			goto END;
+        }
        }
 END:
 #else
 	(void)Cmd;
-	Status = XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR;
+	Status = (int)XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR;
 #endif
     return Status;
 }

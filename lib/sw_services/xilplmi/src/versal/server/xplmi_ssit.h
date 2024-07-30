@@ -36,6 +36,7 @@
 *       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
 *       dd   03/28/2023 Updated doxygen comments
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
+*       pre  07/30/2024 Fixed misrac violations
 *
 * </pre>
 *
@@ -108,7 +109,7 @@ typedef int (*XPlmi_EventHandler_t)(void *Data);
 #define HEADER_OFFSET              (0U) /**< Offset of header in command */
 #define PAYLOAD_OFFSET             (1U) /**< Offset of payload in command */
 #define LEN_BYTES_SHIFT            (16U) /**< Shift value to extract length bytes */
-#define IV2_OFFSET_INCMD           (6U) /**< Offset of IV2 in command */
+#define XPLMI_IV2_OFFSET_INCMD     (6U) /**< Offset of IV2 in command */
 #define SECCOMM_SLAVE_INDEX        (1U) /**< Index of slave SLR */
 #define XPLMI_SSIT_MAX_MSG_LEN	    0x20U /**< Maximum length of SSIT msg */
 #else
@@ -213,11 +214,6 @@ typedef enum
 	ESTABLISHED,
 } XPlmi_SecCommEstFlag;
 #endif
-
-typedef enum{
-	ENCRYPTION = 0,
-	DECRYPTION,
-} XPlmi_Operation;
 
 typedef struct
 {
