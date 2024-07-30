@@ -161,6 +161,7 @@
 
 #define RXBD_CNT       32	/* Number of RxBDs to use */
 #define TXBD_CNT       32	/* Number of TxBDs to use */
+#define NUM_PACKETS    12	/* Total number of packets to be transmitted */
 
 /*
  * SLCR setting
@@ -295,7 +296,7 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 			  XEmacPs *EmacPsInstancePtr,
 			  u16 EmacPsDeviceId);
 #endif
-LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr);
+LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet);
 
 /*
  * Interrupt setup and Callbacks for examples
@@ -388,6 +389,7 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 	XEmacPs_Config *Config;
 	XEmacPs_Bd BdTemplate;
 	u16 EmacPsIntrId;
+	u16 i;
 
 	/*************************************/
 	/* Setup device for first-time usage */
@@ -520,164 +522,164 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 	RxBdSpacePtr = &(bd_space[0]);
 	TxBdSpacePtr = &(bd_space[0x10000]);
 
-	/*
-	 * Setup RxBD space.
-	 *
-	 * We have already defined a properly aligned area of memory to store
-	 * RxBDs at the beginning of this source code file so just pass its
-	 * address into the function. No MMU is being used so the physical
-	 * and virtual addresses are the same.
-	 *
-	 * Setup a BD template for the Rx channel. This template will be
-	 * copied to every RxBD. We will not have to explicitly set these
-	 * again.
-	 */
-	XEmacPs_BdClear(&BdTemplate);
-
-	/*
-	 * Create the RxBD ring
-	 */
-	Status = XEmacPs_BdRingCreate(&(XEmacPs_GetRxRing
-					(EmacPsInstancePtr)),
-				      (UINTPTR) RxBdSpacePtr,
-				      (UINTPTR) RxBdSpacePtr,
-				      XEMACPS_BD_ALIGNMENT,
-				      RXBD_CNT);
-	if (Status != XST_SUCCESS) {
-		EmacPsUtilErrorTrap
-		("Error setting up RxBD space, BdRingCreate");
-		return XST_FAILURE;
-	}
-
-	Status = XEmacPs_BdRingClone(&(XEmacPs_GetRxRing(EmacPsInstancePtr)),
-				     &BdTemplate, XEMACPS_RECV);
-	if (Status != XST_SUCCESS) {
-		EmacPsUtilErrorTrap
-		("Error setting up RxBD space, BdRingClone");
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Setup TxBD space.
-	 *
-	 * Like RxBD space, we have already defined a properly aligned area
-	 * of memory to use.
-	 *
-	 * Also like the RxBD space, we create a template. Notice we don't
-	 * set the "last" attribute. The example will be overriding this
-	 * attribute so it does no good to set it up here.
-	 */
-	XEmacPs_BdClear(&BdTemplate);
-	XEmacPs_BdSetStatus(&BdTemplate, XEMACPS_TXBUF_USED_MASK);
-
-	/*
-	 * Create the TxBD ring
-	 */
-	Status = XEmacPs_BdRingCreate(&(XEmacPs_GetTxRing
-					(EmacPsInstancePtr)),
-				      (UINTPTR) TxBdSpacePtr,
-				      (UINTPTR) TxBdSpacePtr,
-				      XEMACPS_BD_ALIGNMENT,
-				      TXBD_CNT);
-	if (Status != XST_SUCCESS) {
-		EmacPsUtilErrorTrap
-		("Error setting up TxBD space, BdRingCreate");
-		return XST_FAILURE;
-	}
-	Status = XEmacPs_BdRingClone(&(XEmacPs_GetTxRing(EmacPsInstancePtr)),
-				     &BdTemplate, XEMACPS_SEND);
-	if (Status != XST_SUCCESS) {
-		EmacPsUtilErrorTrap
-		("Error setting up TxBD space, BdRingClone");
-		return XST_FAILURE;
-	}
-
-	if (GemVersion > 2) {
+	/* Iterate for multiple packets */
+	for (i = 1; i <= NUM_PACKETS; i++) {
 		/*
-		 * This version of GEM supports priority queuing and the current
-		 * driver is using tx priority queue 1 and normal rx queue for
-		 * packet transmit and receive. The below code ensure that the
-		 * other queue pointers are parked to known state for avoiding
-		 * the controller to malfunction by fetching the descriptors
-		 * from these queues.
+		 * Setup RxBD space.
+		 *
+		 * We have already defined a properly aligned area of memory to store
+		 * RxBDs at the beginning of this source code file so just pass its
+		 * address into the function. No MMU is being used so the physical
+		 * and virtual addresses are the same.
+		 *
+		 * Setup a BD template for the Rx channel. This template will be
+		 * copied to every RxBD. We will not have to explicitly set these
+		 * again.
 		 */
-		XEmacPs_BdClear(&BdRxTerminate);
-		XEmacPs_BdSetAddressRx(&BdRxTerminate, (XEMACPS_RXBUF_NEW_MASK |
-							XEMACPS_RXBUF_WRAP_MASK));
-		XEmacPs_Out32((Config->BaseAddress + XEMACPS_RXQ1BASE_OFFSET),
-			      (UINTPTR)&BdRxTerminate);
-		XEmacPs_BdClear(&BdTxTerminate);
-		XEmacPs_BdSetStatus(&BdTxTerminate, (XEMACPS_TXBUF_USED_MASK |
-						     XEMACPS_TXBUF_WRAP_MASK));
-		XEmacPs_Out32((Config->BaseAddress + XEMACPS_TXQBASE_OFFSET),
-			      (UINTPTR)&BdTxTerminate);
-		if (Config->IsCacheCoherent == 0) {
-			Xil_DCacheFlushRange((UINTPTR)(&BdTxTerminate), 64);
-		}
-	}
+		XEmacPs_BdClear(&BdTemplate);
 
-	/*
-	 * Set emacps to phy loopback
-	 */
-	if (GemVersion == 2) {
-		XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
-		EmacpsDelay(1);
-		EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
-		XEmacPs_SetOperatingSpeed(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
-	}
-	else {
-		if ((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALEMU) {
-			XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_8);
+		/*
+		 * Create the RxBD ring
+		 */
+		Status = XEmacPs_BdRingCreate(&(XEmacPs_GetRxRing
+						(EmacPsInstancePtr)),
+					      (UINTPTR) RxBdSpacePtr,
+					      (UINTPTR) RxBdSpacePtr,
+					      XEMACPS_BD_ALIGNMENT,
+					      RXBD_CNT);
+		if (Status != XST_SUCCESS) {
+			EmacPsUtilErrorTrap
+			("Error setting up RxBD space, BdRingCreate");
+			return XST_FAILURE;
 		}
-		else {
+
+		Status = XEmacPs_BdRingClone(&(XEmacPs_GetRxRing(EmacPsInstancePtr)),
+					     &BdTemplate, XEMACPS_RECV);
+		if (Status != XST_SUCCESS) {
+			EmacPsUtilErrorTrap
+			("Error setting up RxBD space, BdRingClone");
+			return XST_FAILURE;
+		}
+
+		/*
+		 * Setup TxBD space.
+		 *
+		 * Like RxBD space, we have already defined a properly aligned area
+		 * of memory to use.
+		 *
+		 * Also like the RxBD space, we create a template. Notice we don't
+		 * set the "last" attribute. The example will be overriding this
+		 * attribute so it does no good to set it up here.
+		 */
+		XEmacPs_BdClear(&BdTemplate);
+		XEmacPs_BdSetStatus(&BdTemplate, XEMACPS_TXBUF_USED_MASK);
+
+		/*
+		 * Create the TxBD ring
+		 */
+		Status = XEmacPs_BdRingCreate(&(XEmacPs_GetTxRing
+						(EmacPsInstancePtr)),
+					      (UINTPTR) TxBdSpacePtr,
+					      (UINTPTR) TxBdSpacePtr,
+					      XEMACPS_BD_ALIGNMENT,
+					      TXBD_CNT);
+		if (Status != XST_SUCCESS) {
+			EmacPsUtilErrorTrap
+			("Error setting up TxBD space, BdRingCreate");
+			return XST_FAILURE;
+		}
+		Status = XEmacPs_BdRingClone(&(XEmacPs_GetTxRing(EmacPsInstancePtr)),
+					     &BdTemplate, XEMACPS_SEND);
+		if (Status != XST_SUCCESS) {
+			EmacPsUtilErrorTrap
+			("Error setting up TxBD space, BdRingClone");
+			return XST_FAILURE;
+		}
+
+		if (GemVersion > 2) {
+			/*
+			 * This version of GEM supports priority queuing and the current
+			 * driver is using tx priority queue 1 and normal rx queue for
+			 * packet transmit and receive. The below code ensure that the
+			 * other queue pointers are parked to known state for avoiding
+			 * the controller to malfunction by fetching the descriptors
+			 * from these queues.
+			 */
+			XEmacPs_BdClear(&BdRxTerminate);
+			XEmacPs_BdSetAddressRx(&BdRxTerminate, (XEMACPS_RXBUF_NEW_MASK |
+								XEMACPS_RXBUF_WRAP_MASK));
+			XEmacPs_Out32((Config->BaseAddress + XEMACPS_RXQ1BASE_OFFSET),
+				      (UINTPTR)&BdRxTerminate);
+			XEmacPs_BdClear(&BdTxTerminate);
+			XEmacPs_BdSetStatus(&BdTxTerminate, (XEMACPS_TXBUF_USED_MASK |
+							     XEMACPS_TXBUF_WRAP_MASK));
+			XEmacPs_Out32((Config->BaseAddress + XEMACPS_TXQBASE_OFFSET),
+				      (UINTPTR)&BdTxTerminate);
+			if (Config->IsCacheCoherent == 0) {
+				Xil_DCacheFlushRange((UINTPTR)(&BdTxTerminate), 64);
+			}
+		}
+
+		/*
+		 * Set emacps to phy loopback
+		 */
+		if (GemVersion == 2) {
 			XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
-		}
-
-		if (((Platform & PLATFORM_MASK) == PLATFORM_SILICON) ||
-		    ((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALSIL)) {
+			EmacpsDelay(1);
 			EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
 			XEmacPs_SetOperatingSpeed(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
+		} else {
+			if ((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALEMU) {
+				XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_8);
+			} else {
+				XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
+			}
+
+			if (((Platform & PLATFORM_MASK) == PLATFORM_SILICON) ||
+			    ((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALSIL)) {
+				EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
+				XEmacPs_SetOperatingSpeed(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
+			} else {
+				EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED);
+				XEmacPs_SetOperatingSpeed(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED);
+			}
 		}
-		else {
-			EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED);
-			XEmacPs_SetOperatingSpeed(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED);
+
+		/*
+		 * Setup the interrupt controller and enable interrupts
+		 */
+#ifdef SDT
+		Status = XSetupInterruptSystem(EmacPsInstancePtr, &XEmacPs_IntrHandler,
+					       EmacPsInstancePtr->Config.IntrId,
+					       EmacPsInstancePtr->Config.IntrParent,
+					       XINTERRUPT_DEFAULT_PRIORITY);
+#else
+		Status = EmacPsSetupIntrSystem(IntcInstancePtr,
+					       EmacPsInstancePtr, EmacPsIntrId);
+#endif
+		/*
+		 * Run the EmacPs DMA Single Frame Interrupt example
+		 */
+		Status = EmacPsDmaSingleFrameIntrExample(EmacPsInstancePtr, i);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
 		}
-	}
 
-	/*
-	 * Setup the interrupt controller and enable interrupts
-	 */
+		/*
+		 * Disable the interrupts for the EmacPs device
+		 */
 #ifdef SDT
-	Status = XSetupInterruptSystem(EmacPsInstancePtr, &XEmacPs_IntrHandler,
-				       EmacPsInstancePtr->Config.IntrId,
-				       EmacPsInstancePtr->Config.IntrParent,
-				       XINTERRUPT_DEFAULT_PRIORITY);
+		XDisconnectInterruptCntrl(EmacPsInstancePtr->Config.IntrId,
+					  EmacPsInstancePtr->Config.IntrParent);
 #else
-	Status = EmacPsSetupIntrSystem(IntcInstancePtr,
-				       EmacPsInstancePtr, EmacPsIntrId);
+		EmacPsDisableIntrSystem(IntcInstancePtr, EmacPsIntrId);
 #endif
-	/*
-	 * Run the EmacPs DMA Single Frame Interrupt example
-	 */
-	Status = EmacPsDmaSingleFrameIntrExample(EmacPsInstancePtr);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+		/*
+		 * Stop the device
+		 */
+		XEmacPs_Stop(EmacPsInstancePtr);
+
 	}
-
-	/*
-	 * Disable the interrupts for the EmacPs device
-	 */
-#ifdef SDT
-	XDisconnectInterruptCntrl(EmacPsInstancePtr->Config.IntrId,
-				  EmacPsInstancePtr->Config.IntrParent);
-#else
-	EmacPsDisableIntrSystem(IntcInstancePtr, EmacPsIntrId);
-#endif
-	/*
-	 * Stop the device
-	 */
-	XEmacPs_Stop(EmacPsInstancePtr);
-
 	return XST_SUCCESS;
 }
 
@@ -692,16 +694,17 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 *
 * @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs
 *		driver.
+* @param	packet is the count of current transmitted/received packet
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
 *
 * @note		None.
 *
 *****************************************************************************/
-LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
+LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 {
 	LONG Status;
-	u32 PayloadSize = 1000;
+	u32 PayloadSize = (packet) * 64 % 1500;
 	u32 NumRxBuf = 0;
 	u32 RxFrLen;
 	XEmacPs_Bd *Bd1Ptr;
@@ -717,6 +720,9 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	if (GemVersion > 2) {
 		PayloadSize = (JUMBO_FRAME_SIZE - FRAME_HDR_SIZE);
 	}
+	/* Print packet count and payload size */
+	xil_printf("Packet: %d\tPayload size: %d\n", packet, PayloadSize);
+
 	/*
 	 * Calculate the frame length (not including FCS)
 	 */
