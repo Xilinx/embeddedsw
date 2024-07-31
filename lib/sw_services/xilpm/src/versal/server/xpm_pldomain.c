@@ -1286,15 +1286,18 @@ static XStatus InitAdcDacAddrArr(u32 *AdcAddresses, u32 *DacAddresses, const u32
 			continue;
 		}
 
-		if ((AdcIdx >= AdcArrLen) || (DacIdx >= DacArrLen)){
-			DbgErr = XPM_INT_ERR_ADC_INIT;
-			goto done;
-		}
-
-		if((u32)XPM_NODETYPE_DEV_ADC != NODETYPE(Device->Node.Id)){
+		if((u32)XPM_NODETYPE_DEV_ADC == NODETYPE(Device->Node.Id)){
+			if (AdcIdx >= AdcArrLen){
+				DbgErr = XPM_INT_ERR_ADC_INIT;
+				goto done;
+			}
 			AdcAddresses[AdcIdx] = Device->Node.BaseAddress;
 			AdcIdx++;
 		}else {
+			if (DacIdx >= DacArrLen){
+				DbgErr = XPM_INT_ERR_DAC_INIT;
+				goto done;
+			}
 			DacAddresses[DacIdx] = Device->Node.BaseAddress;
 			DacIdx++;
 		}
