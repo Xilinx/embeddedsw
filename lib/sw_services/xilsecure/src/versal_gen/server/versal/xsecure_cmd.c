@@ -31,6 +31,8 @@
 * 5.2   bm   06/23/2023 Added access permissions for IPI commands
 *       bm   07/05/2023 Added crypto check in features command
 *       ng   07/05/2023 Added support for system device tree flow
+*       mb   07/31/2024 Added the check to validate Payload for NULL pointer
+*
 * </pre>
 *
 * @note
@@ -206,7 +208,14 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	u32 *Pload = NULL;
+
+	if (Cmd == NULL || Cmd->Payload == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
 
 	/** Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
@@ -267,6 +276,7 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		break;
 	}
 
+END:
 	return Status;
 }
 

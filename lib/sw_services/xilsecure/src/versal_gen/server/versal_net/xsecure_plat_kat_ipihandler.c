@@ -25,6 +25,7 @@
 *       kpt  08/30/2023 Fix updating KAT mask for external modules
 *       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
 * 5.4   yog  04/29/2024 Fixed doxygen grouping
+*       mb   07/31/2024 Added the check to validate Payload for NULL pointer
 *
 * </pre>
 *
@@ -72,7 +73,7 @@ int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = NULL;
 
-	if (NULL == Cmd) {
+	if (Cmd == NULL || Cmd->Payload == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
