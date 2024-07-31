@@ -28,6 +28,7 @@
 * 5.4  yog   04/29/2024 Fixed doxygen grouping and doxygen warnings.
 *      kpt   05/26/2024 Add support for RSA CRT and RRN operation
 *      kpt   06/13/2024 Add support for RSA key generation.
+*      mb    07/31/2024 Added the check to validate Payload and command for NULL pointer
 *
 * </pre>
 *
@@ -76,9 +77,15 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	const u32 *Pload = Cmd->Payload;
+	const u32 *Pload = NULL;
 	u32 CryptoMask = 0U;
 
+	if (Cmd == NULL || Cmd->Payload == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_UPDATE_HNIC_CRYPTO_STATUS):
 		CryptoMask = XPLMI_SECURE_HNIC_AES_MASK;
@@ -113,6 +120,7 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 					CryptoMask, (Pload[1U] & CryptoMask));
 	}
 
+END:
 	return Status;
 }
 

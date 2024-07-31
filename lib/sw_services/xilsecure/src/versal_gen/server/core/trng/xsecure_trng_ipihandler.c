@@ -26,6 +26,7 @@
 *       dd   10/11/23 MISRA-C violation Rule 8.13 fixed
 *	ss   04/05/24 Fixed doxygen warnings
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
+*       mb   07/31/2024 Added the check to validate Payload for NULL pointer
 *
 * </pre>
 *
@@ -65,7 +66,7 @@ int XSecure_TrngIpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = NULL;
 
-	if (NULL == Cmd) {
+	if (Cmd == NULL || Cmd->Payload == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}

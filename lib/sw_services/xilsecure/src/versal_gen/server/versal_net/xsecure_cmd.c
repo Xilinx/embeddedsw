@@ -35,6 +35,7 @@
 *       dd   10/11/2023 MISRA-C violation Rule 8.13 fixed
 * 5.3   har  02/06/2024 Added support for AES operation and zeroize key
 * 5.4   kpt  06/13/2024 Added XSECURE_API_RSA_RELEASE_KEY
+*       mb   07/31/2024 Added the check to validate Payload for NULL pointer
 *
 * </pre>
 *
@@ -211,7 +212,14 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	const u32 *Pload = Cmd->Payload;
+	u32 *Pload = NULL;
+
+	if (Cmd == NULL || Cmd->Payload == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_FEATURES):
@@ -288,6 +296,7 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		break;
 	}
 
+END:
 	return Status;
 }
 

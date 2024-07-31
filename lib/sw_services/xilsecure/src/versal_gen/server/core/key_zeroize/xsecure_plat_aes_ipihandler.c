@@ -17,6 +17,7 @@
 * ----- ---- --------   -------------------------------------------------------
 * 5.3   har  02/05/2024 Initial release
 * 5.4   yog  04/29/2024 Fixed doxygen grouping
+*       mb   07/31/2024 Added the check to validate Payload for NULL pointer
 *
 * </pre>
 *
@@ -54,7 +55,7 @@ int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = NULL;
 
-	if (NULL == Cmd) {
+	if (Cmd == NULL || Cmd->Payload == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
