@@ -461,7 +461,47 @@ u8 XDp_Tx_DecodeLinkBandwidth(XDp *InstancePtr)
 
 	return LinkRate;
 }
+/******************************************************************************/
+/**
+ * This function retrieves the RX device's capabilities from the Sink device's
+ * DisplayPort Configuration Data (DPCD).
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @SinkCap Downstream Capabilities.
+ * @SinkExtendedCap Downstream Extended Capabilities.
+ *
+ * @return
+ *		- XST_SUCCESS if the DisplayPort Configuration Data was read
+ *		  successfully.
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+ *******************************************************************************/
+u32 XDp_TxGetSinkCapabilities(XDp *InstancePtr, u8 *SinkCap, u8 *SinkExtendedCap)
+{
+	u32 Status;
+	u8 *Dpcd = SinkCap;
+	u8 *Dpcd_ext = SinkExtendedCap;
 
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(SinkCap != NULL);
+	Xil_AssertNonvoid(SinkExtendedCap != NULL);
+
+	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_EXT_DPCD_REV, 16, Dpcd_ext);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	/* Read sink capabilities */
+	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_RECEIVER_CAP_FIELD_START,
+			       16, Dpcd);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
+
+	return XST_SUCCESS;
+}
 /******************************************************************************/
 /**
  * This function retrieves the RX device's capabilities from the RX device's
