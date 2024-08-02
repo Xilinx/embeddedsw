@@ -77,6 +77,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xloader.h"
+#include "xsecure_sha_common.h"
 #ifndef PLM_SECURE_EXCLUDE
 #ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa.h"
