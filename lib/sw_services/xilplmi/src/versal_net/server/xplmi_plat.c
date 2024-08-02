@@ -747,6 +747,20 @@ static void XPlmi_DisableClearIOmodule(void)
 	XIomodule_Out32(IOModule->BaseAddress + XIN_IAR_OFFSET, 0xFFFFFFFFU);
 }
 
+/****************************************************************************/
+/**
+* @brief    This function will disable the IOmodule interrupts
+*
+* @return   None
+*
+****************************************************************************/
+static void XPlmi_DisableIOmodule(void)
+{
+	XIOModule *IOModule = XPlmi_GetIOModuleInst();
+
+	XIomodule_Out32(IOModule->BaseAddress + XIN_IER_OFFSET, 0U);
+}
+
 /*****************************************************************************/
 /**
 * @brief	This function returns the current enabled interrupt mask of
@@ -938,17 +952,22 @@ int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq)
 		microblaze_disable_interrupts();
 		/* Storing current interrupt enable mask of IOModule's IER */
 		IoMask = XPlmi_GetIoIntrMask();
-		XPlmi_DisableClearIOmodule();
+		XPlmi_DisableIOmodule();
 		mb_sleep();
+		Status = (int)Xil_WaitForEvent((UINTPTR)PMC_GLOBAL_PPU_1_RST_MODE,
+			PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK,
+			PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK,
+			XPLMI_ROM_SERVICE_TIMEOUT);
+		XPlmi_PpuWakeUpDis();
+		XPlmi_SetIoIntrMask(IoMask);
+		microblaze_enable_interrupts();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 	Status = (int)Xil_WaitForEvent((UINTPTR)PMC_GLOBAL_ROM_INT_REASON,
 		IntrMask, IntrMask, XPLMI_ROM_SERVICE_TIMEOUT);
 
-	if (RomServiceReq == XPLMI_DME_CHL_SIGN_GEN) {
-		XPlmi_SetIoIntrMask(IoMask);
-		microblaze_enable_interrupts();
-		XPlmi_PpuWakeUpDis();
-	}
 
 	XPlmi_Out32(PMC_GLOBAL_ROM_INT_REASON, IntrMask);
 END:

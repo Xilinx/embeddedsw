@@ -802,6 +802,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
+	volatile int XppuStatus = XST_FAILURE;
 	volatile u32 RegVal = XOCP_XPPU_ENABLED;
 	volatile u32 RegValtmp = XOCP_XPPU_ENABLED;
 	int ClearStatus = XST_FAILURE;
@@ -840,7 +841,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 		if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != TRUE) {
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, SStatus, XSecure_Sha384Kat);
 			if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
-				goto END;
+				goto RET;
 			}
 			XPlmi_SetKatMask(XPLMI_SECURE_SHA384_KAT_MASK);
 		}
@@ -870,22 +871,21 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	/* Store the XPPU registers initial configuration */
 	Status = XOcp_DmeStoreXppuDefaultConfig();
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto RET;
 	}
 
 	for (Index = 0U; Index < XOCP_XPPU_MAX_APERTURES; Index++) {
-		if (Index == XOCP_XPPU_MASTER_ID_0) {
-			if (XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL == Xil_In32(PMC_XPPU_MASTER_ID00)) {
-				XOcp_DmeXppuCfgTable[Index].IsModified = FALSE;
-			}
+		if ((Index == XOCP_XPPU_MASTER_ID_0) &&
+			(XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL != Xil_In32(PMC_XPPU_MASTER_ID00))) {
+			XOcp_DmeXppuCfgTable[Index].IsModified = TRUE;
 		}
-		else if (Index == XOCP_XPPU_MASTER_ID_1) {
-			if (XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL == Xil_In32(PMC_XPPU_MASTER_ID01)) {
-				XOcp_DmeXppuCfgTable[Index].IsModified = FALSE;
-			}
+		else if ((Index == XOCP_XPPU_MASTER_ID_1) &&
+			(XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL != Xil_In32(PMC_XPPU_MASTER_ID01))) {
+			XOcp_DmeXppuCfgTable[Index].IsModified = TRUE;
 		} else {
 			XOcp_DmeXppuCfgTable[Index].IsModified = TRUE;
 		}
+
 		/* Configure the XPPU Apertures with configuration */
 		Xil_Out32(XOcp_DmeXppuCfgTable[Index].XppuAperAddr,
 				XOcp_DmeXppuCfgTable[Index].XppuAperWriteCfgVal);
@@ -926,26 +926,47 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 		Status = (int)XOCP_DME_ROM_ERROR;
 		goto END;
 	}
+
 	/* Copy the contents to user DME response structure */
-	Status = Xil_SChangeEndiannessAndCpy((u8*)(UINTPTR)DmeResponse->DmeSignatureR, XOCP_ECC_P384_SIZE_BYTES,
-					(const u8 *)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_R_0, XOCP_ECC_P384_SIZE_BYTES,
-					XOCP_ECC_P384_SIZE_BYTES);
+	Status = Xil_SChangeEndiannessAndCpy((u8*)(UINTPTR)DmeResponse->DmeSignatureR,
+				XOCP_ECC_P384_SIZE_BYTES,
+				(const u8 *)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_R_0,
+				XOCP_ECC_P384_SIZE_BYTES,
+				XOCP_ECC_P384_SIZE_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = Xil_SChangeEndiannessAndCpy((u8*)(UINTPTR)DmeResponse->DmeSignatureS, XOCP_ECC_P384_SIZE_BYTES,
-					(const u8 *)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_S_0, XOCP_ECC_P384_SIZE_BYTES,
-					XOCP_ECC_P384_SIZE_BYTES);
+	Status = Xil_SChangeEndiannessAndCpy((u8*)(UINTPTR)DmeResponse->DmeSignatureS,
+				XOCP_ECC_P384_SIZE_BYTES,
+				(const u8 *)XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_S_0,
+				XOCP_ECC_P384_SIZE_BYTES,
+				XOCP_ECC_P384_SIZE_BYTES);
 END:
-	Status = XOcp_DmeRestoreXppuDefaultConfig();
-	if (Status != XST_SUCCESS) {
-		goto END;
+	if ((RegVal == PMC_XPPU_CTRL_ENABLE_MASK) &&
+		(RegValtmp == PMC_XPPU_CTRL_ENABLE_MASK)) {
+		XppuStatus = XOcp_DmeRestoreXppuDefaultConfig();
+		if (XppuStatus != XST_SUCCESS) {
+			if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
+				Status = XppuStatus | XOCP_DME_ERR;
+			}
+			goto RET;
+		}
 	}
 
-	 if ((XppuEnabled == XOCP_XPPU_ENABLED) && (XppuEnabledTmp == XOCP_XPPU_ENABLED)) {
-		Status = Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
+	Xil_Out32(PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
+	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_EN, XOCP_XPPU_DISABLED);
+	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_EN, XOCP_XPPU_DISABLED);
+
+	if ((XppuEnabled == XOCP_XPPU_ENABLED) && (XppuEnabledTmp == XOCP_XPPU_ENABLED)) {
+		XppuStatus = Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
 			XOCP_PMC_XPPU_CTRL_DISABLE_VAL);
+		if (XppuStatus != XST_SUCCESS) {
+			if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
+				Status = XppuStatus | XOCP_DME_ERR;
+			}
+			goto RET;
+		}
 	}
 
 	if (Status == XST_SUCCESS) {
@@ -1140,7 +1161,6 @@ static int XOcp_DmeRestoreXppuDefaultConfig(void)
 {
 	volatile u32 Index;
 	int Status = XST_FAILURE;
-	volatile u32 XppuDynamicReconfigDis = XOCP_XPPU_DISABLED;
 
 	/* Restore XPPU registers to their previous state */
 	for (Index = 0U; Index < XOCP_XPPU_MAX_APERTURES; Index++) {
@@ -1149,9 +1169,7 @@ static int XOcp_DmeRestoreXppuDefaultConfig(void)
 				XOcp_DmeXppuCfgTable[Index].XppuAperReadCfgVal);
 		}
 	}
-	Xil_Out32(PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
-	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_EN, XppuDynamicReconfigDis);
-	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_EN, XppuDynamicReconfigDis);
+
 	if (Index == XOCP_XPPU_MAX_APERTURES) {
 		Status = XST_SUCCESS;
 	}
