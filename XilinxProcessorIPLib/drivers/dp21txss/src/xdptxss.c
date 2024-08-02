@@ -1317,6 +1317,37 @@ u32 XDpTxSs_GetRxCapabilities(XDpTxSs *InstancePtr)
 
 /*****************************************************************************/
 /**
+ *
+ * This function retrieves the Sink device's capabilities from the RX device's
+ * DisplayPort Configuration Data (DPCD).
+ *
+ * @param			InstancePtr is a pointer to the XDp instance.
+ * @SinkCap			Downstream Capabilities.
+ * @SinkExtendedCap	Downstream Extended Capabilities.
+ *
+ * @return
+ *		- XST_SUCCESS if the DisplayPort Configuration Data was read
+ *		 successfully.
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
+u32 XDpTxSs_GetSinkCapabilities(XDpTxSs *InstancePtr, u8 *SinkCap, u8 *SinkExtendedCap)
+{
+	u32 Status;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Get RX device capabilities */
+	Status = XDp_TxGetSinkCapabilities(InstancePtr->DpPtr, SinkCap, SinkExtendedCap);
+
+	return Status;
+}
+/*****************************************************************************/
+/**
 *
 * This function retrieves an immediately connected RX device's Extended Display
 * Identification Data (EDID) structure.
