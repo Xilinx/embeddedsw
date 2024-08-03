@@ -43,7 +43,37 @@ include (options)
 include (depends)
 
 if (_AMD_GENERATED_)
-  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_AMD_GENERATED_=1" )
+  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_AMD_GENERATED_" )
+endif()
+
+if (${CMAKE_SYSTEM_NAME} STREQUAL "FreeRTOS")
+  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DUSE_FREERTOS" )
+endif()
+
+set_property (GLOBAL PROPERTY HAS_SYSTEM_DT ON)
+
+check_symbol_exists(VERSAL_NET "bspconfig.h" IS_VERSAL_NET)
+check_symbol_exists(VERSAL "bspconfig.h" IS_VERSAL)
+
+if (IS_VERSAL_NET)
+  set_property(GLOBAL PROPERTY SOC "VERSAL_NET")
+elseif(IS_VERSAL)
+  set_property(GLOBAL PROPERTY SOC "VERSAL")
+else()
+  set_property(GLOBAL PROPERTY SOC "ZYNQMP")
+endif()
+
+get_property (SOC GLOBAL PROPERTY SOC)
+message("OpenAMP: SOC in build is: ${SOC}")
+
+# Lopper plugin can generate linker meta data in below file
+# This can define RSC_TABLE so include before
+file (GLOB LINKER_METADATA_FILE "${CMAKE_SOURCE_DIR}/*Example.cmake")
+if (EXISTS ${LINKER_METADATA_FILE})
+  set_property(GLOBAL PROPERTY LINKER_METADATA_FILE ${LINKER_METADATA_FILE})
+  message("OpenAMP: Linker will be configured using file: ${LINKER_METADATA_FILE}")
+else()
+  message("OpenAMP: Linker will be configured using static linker script for ${SOC}")
 endif()
 
 add_subdirectory (apps)
