@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module builds an already created app. It doesn't contain any members
@@ -56,15 +56,6 @@ def build_app(args):
     obj.app_build_dir = obj.app_build_dir.replace('\\', '/')
 
     app_name = utils.fetch_yaml_data(obj.app_config_file, "template")["template"]
-    bsp_obj = BSP(args)
-    overlay_path = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'domain.yaml')
-    if app_name in ['openamp_echo_test', 'openamp_matrix_multiply', 'openamp_rpc_demo'] and is_file(overlay_path):
-        bsp_obj = BSP(args)
-        original_sdt = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'sdt.dts')
-        print('Domain YAML is found. Passing this in to a OpenAMP Lopper run to generate platform info header.')
-
-        openamp_lopper_run(overlay_path, original_sdt, obj.app_src_dir, obj.proc)
-        obj.cmake_paths_append += " -D_AMD_GENERATED_=ON "
 
     domain_data = utils.fetch_yaml_data(obj.domain_config_file, "domain")
     # in case of library update link libraries

@@ -1,0 +1,101 @@
+definitions:
+    OpenAMP:
+         openamp_channel_0_access_srams: &openamp_channel_0_access_srams # used for access in each domain
+             - dev: psv_r5_0_atcm_global
+               flags: 0
+             - dev: psv_r5_0_btcm_global
+               flags: 0
+
+         rproc0: &rproc0
+             - start: 0x3ed00000
+               size: 0x60000
+               no-map: 1
+
+         rpu0vdev0vring0: &rpu0vdev0vring0
+             - start: 0x3ed60000
+               size: 0x4000
+               no-map: 1
+
+         rpu0vdev0vring1: &rpu0vdev0vring1
+             - start: 0x3ed64000
+               size: 0x4000
+               no-map: 1
+
+         rpu0vdev0buffer: &rpu0vdev0buffer
+             - start: 0x3ed68000
+               size: 0x100000
+               no-map: 1
+
+domains:
+    openamp_a72_0_cluster: # host in channel from a72-0 to r5-1 over channel 0
+        compatible:
+            - "openamp,domain-v1"
+        cpus:
+            - cluster: cpus_a72
+              cpumask: 0x1
+              mode:
+                 secure: true
+                 el: 0x3
+        access:
+            # if we want to have a list merge, it should be in a list
+            - dev: ipi3  # used for Open AMP RPMsg IPC
+              flags: 0
+            - <<+: *openamp_channel_0_access_srams
+
+        reserved-memory:
+            ranges: true
+            # if we want an object / node merge, it should be like this (a map)
+            <<+: [ *rpu0vdev0vring1, *rpu0vdev0vring0, *rpu0vdev0buffer, *rproc0 ]
+
+        domain-to-domain:
+            compatible: openamp,domain-to-domain-v1
+            remoteproc-relation:
+                compatible: openamp,remoteproc-v1
+                remote:
+                     - openamp_r5_0_cluster
+                elfload:
+                    - psv_r5_0_atcm_global
+                    - psv_r5_0_btcm_global
+                    - rproc0
+
+            rpmsg-relation:
+                compatible: openamp,rpmsg-v1
+                openamp-xlnx-native: false # use native OpenAMP implementation
+                remote:
+                     - openamp_r5_0_cluster
+                mbox:
+                     - ipi3
+                carveouts:
+                     - rpu0vdev0vring0
+                     - rpu0vdev0vring1
+                     - rpu0vdev0buffer
+
+    openamp_r5_0_cluster:
+        compatible:
+            - "openamp,domain-v1"
+        cpus:
+            - cluster: cpus_r5_0
+              cpumask: 0x1
+              mode:
+              secure: true
+        access:
+            - dev:
+                - ipi1 # used for Open AMP RPMsg IPC
+              flags: 0
+            - <<+: *openamp_channel_0_access_srams # TCM banks used for firmware memory
+        reserved-memory:
+            ranges: true
+            <<+: [ *rpu0vdev0vring1, *rpu0vdev0vring0, *rpu0vdev0buffer, *rproc0 ]
+
+        domain-to-domain:
+             compatible: openamp,domain-to-domain-v1
+             rpmsg-relation:
+                 compatible: openamp,rpmsg-v1
+                 host:
+                     - openamp_a72_0_cluster
+                 mbox:
+                     - ipi1
+                 carveouts:
+                     - rpu0vdev0vring0
+                     - rpu0vdev0vring1
+                     - rpu0vdev0buffer

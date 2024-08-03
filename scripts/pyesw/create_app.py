@@ -12,7 +12,7 @@ import os
 from build_bsp import BSP
 from repo import Repo
 from validate_bsp import Validation
-from open_amp import create_openamp_app, open_amp_app_name
+from open_amp import create_openamp_app, open_amp_app_name, copy_openamp_app_overlay, openamp_lopper_run
 from open_amp import create_libmetal_app
 from validate_hw import ValidateHW
 
@@ -122,6 +122,20 @@ def create_app(args):
     linker_cmd = (
         f"lopper -O {obj.app_src_dir} {obj.sdt} -- baremetallinker_xlnx {obj.proc} {srcdir}"
     )
+    bsp_obj = BSP(args)
+    overlay_path = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'domain.yaml')
+
+    if obj.template in ['openamp_echo_test', 'openamp_matrix_multiply', 'openamp_rpc_demo']:
+        copy_openamp_app_overlay(obj, esw_app_dir)
+
+        bsp_obj = BSP(args)
+        original_sdt = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'sdt.dts')
+
+        # Note that lopper command to generate linker script will be updated
+        # here to use OpenAMP SDT. To generate OpenAMP SDT, need original SDT
+        linker_cmd = openamp_lopper_run(overlay_path, original_sdt, obj.sdt, obj.app_src_dir, obj.proc, linker_cmd)
+        obj.cmake_paths_append += " -D_AMD_GENERATED_=ON "
+
     if obj.template == "memory_tests":
         utils.runcmd(f"{linker_cmd} memtest")
     else:

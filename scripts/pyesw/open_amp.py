@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module enables utilities for OpenAMP and Libmetal. This includes
@@ -205,7 +205,8 @@ def create_libmetal_app(obj, esw_app_dir):
 
     create_app(new_file_mappings, obj, esw_app_dir)
 
-def openamp_lopper_run(openamp_overlay, original_sdt, app_src_dir, proc):
+def openamp_lopper_run(openamp_overlay, original_sdt, bsp_sdt,
+                       app_src_dir, proc, linker_cmd):
     """
     Run Lopper upon OpenAMP YAML information if present.
     Args:
@@ -216,8 +217,7 @@ def openamp_lopper_run(openamp_overlay, original_sdt, app_src_dir, proc):
     Returns:
         None
     """
-
-    # here do lopper openamp stuff...
+    # Map proc to lopper targets
     if len(openamp_overlay) == 0:
         print('No overlay provided for OpenAMP app. Exiting Build.')
         sys.exit(1)
@@ -249,7 +249,8 @@ def openamp_lopper_run(openamp_overlay, original_sdt, app_src_dir, proc):
     for lop in lops:
         lopper_cmd += " -i " + lops_dir + "/" + lop
     # add remote role for this Lopper run after the lop-openamp-versal.dts lop
-    lopper_cmd += " -O . " + original_sdt + " openamp_output.dts "
+    output_sdt = os.path.join(app_src_dir, "openamp_output.dts")
+    lopper_cmd += " -O . " + original_sdt + " " + output_sdt
     lopper_cmd += " -- openamp --openamp_role=remote "
     lopper_cmd += " --openamp_host=" + host[proc]
     lopper_cmd += " --openamp_remote=" + remote[proc]
@@ -259,7 +260,40 @@ def openamp_lopper_run(openamp_overlay, original_sdt, app_src_dir, proc):
         utils.copy_file('amd_platform_info.h', os.path.join(app_src_dir, 'apps',
                         'machine', 'zynqmp_r5', 'amd_platform_info.h'))
         utils.remove('amd_platform_info.h')
+
+        # Change out SDT to use OpenAMP SDT here
+        linker_cmd = linker_cmd.replace(bsp_sdt, output_sdt)
+
+        # Add flag at the end to denote this is for OpenAMP case
+        linker_cmd += " openamp "
+
+        return linker_cmd
     else:
         print('OpenAMP Lopper run failed.')
         sys.exit(1)
     return 0
+
+def copy_openamp_app_overlay(obj, esw_app_dir):
+    """
+    Copy relevant default OpenAMP Overlay YAML to BSP area
+    Args:
+        obj (App): App object that contains Takes all the user inputs in a dictionary.
+        overlay_dst (str): Path in BSP to place overlay
+    Returns:
+        None
+    """
+    core_soc_map = {
+        'psx_cortexr52_0' : 'versal-net',
+        'psx_cortexr52_1' : 'versal-net',
+        'psx_cortexr52_2' : 'versal-net',
+        'psx_cortexr52_3' : 'versal-net',
+        'psv_cortexr5_0' : 'versal',
+        'psv_cortexr5_1' : 'versal',
+        'psu_cortexr5_0' : 'zynqmp',
+        'psu_cortexr5_1' : 'zynqmp',
+    }
+
+    new_src = os.path.join(esw_app_dir, '..', 'openamp_sdt_common', 'src', 'sdt')
+    overlay_src = os.path.join(new_src, 'openamp-overlay-' + core_soc_map[obj.proc] + '.yaml')
+    overlay_dst = os.path.join(obj.domain_path, 'hw_artifacts', 'domain.yaml')
+    utils.copy_file(overlay_src, overlay_dst)

@@ -1,0 +1,178 @@
+definitions:
+    OpenAMP:
+         openamp_channel_0_access_srams: &openamp_channel_0_access_srams # used for access in each domain
+             - dev: psx_wizard_0_psxl_0_psx_r52_0a_atcm_global
+               flags: 0
+             - dev: psx_wizard_0_psxl_0_psx_r52_0a_btcm_global
+               flags: 0
+             - dev: psx_wizard_0_psxl_0_psx_r52_0a_ctcm_global
+               flags: 0
+
+         rproc0: &rproc0
+             - start: 0x3ed00000
+               size: 0x60000
+               no-map: 1
+
+         rpu0vdev0vring0: &rpu0vdev0vring0
+             - start: 0x3ed60000
+               size: 0x2000
+               no-map: 1
+
+         rpu0vdev0vring1: &rpu0vdev0vring1
+             - start: 0x3ed64000
+               size: 0x4000
+               no-map: 1
+
+         rpu0vdev0buffer: &rpu0vdev0buffer
+             - start: 0x3ed68000
+               size: 0x40000
+               no-map: 1
+
+         openamp_channel_1_access_srams: &openamp_channel_1_access_srams # used for access in each domain
+             - dev: psx_wizard_0_psxl_0_psx_r52_1a_atcm_global
+               flags: 0
+             - dev: psx_wizard_0_psxl_0_psx_r52_1a_btcm_global
+               flags: 0
+             - dev: psx_wizard_0_psxl_0_psx_r52_1a_ctcm_global
+               flags: 0
+
+         rproc1: &rproc1
+             - start: 0x3ef00000
+               size: 0x60000
+               no-map: 1
+
+         rpu1vdev0vring0: &rpu1vdev0vring0
+             - start: 0x3ef60000
+               size: 0x2000
+               no-map: 1
+
+         rpu1vdev0vring1: &rpu1vdev0vring1
+             - start: 0x3ef64000
+               size: 0x4000
+               no-map: 1
+
+         rpu1vdev0buffer: &rpu1vdev0buffer
+             - start: 0x3ef68000
+               size: 0x40000
+               no-map: 1
+
+domains:
+    openamp_a78_0_cluster: # host in channel from a78-0 to r52-0 and r52-1 over IPI 3
+        compatible:
+            - "openamp,domain-v1"
+        cpus:
+            - cluster: cpus_a78
+              cpumask: 0x1
+              mode:
+                 secure: true
+                 el: 0x3
+        access:
+            # if we want to have a list merge, it should be in a list
+            - dev:
+                - ipi3
+                - ipi3  # used for Open AMP RPMsg IPC
+              flags:
+                - 0
+                - 0
+            - <<+: *openamp_channel_0_access_srams
+            - <<+: *openamp_channel_1_access_srams
+
+        reserved-memory:
+            ranges: true
+            # if we want an object / node merge, it should be like this (a map)
+            <<+: [ *rpu0vdev0vring1, *rpu0vdev0vring0, *rpu0vdev0buffer, *rproc0, *rpu1vdev0vring1, *rpu1vdev0vring0, *rpu1vdev0buffer, *rproc1 ]
+
+        domain-to-domain:
+            compatible: openamp,domain-to-domain-v1
+            remoteproc-relation:
+                compatible: openamp,remoteproc-v1
+                remote:
+                    - openamp_r52_0_cluster
+                    - openamp_r52_1_cluster
+                elfload:
+                    - psx_wizard_0_psxl_0_psx_r52_0a_atcm_global
+                    - psx_wizard_0_psxl_0_psx_r52_0a_btcm_global
+                    - psx_wizard_0_psxl_0_psx_r52_0a_ctcm_global
+                    - rproc0
+                    - psx_wizard_0_psxl_0_psx_r52_1a_atcm_global
+                    - psx_wizard_0_psxl_0_psx_r52_1a_btcm_global
+                    - psx_wizard_0_psxl_0_psx_r52_1a_ctcm_global
+                    - rproc1
+
+            rpmsg-relation:
+                compatible: openamp,rpmsg-v1
+                openamp-xlnx-native: [ false, false ] # use native OpenAMP implementation
+                remote:
+                    - openamp_r52_0_cluster
+                    - openamp_r52_1_cluster
+                carveouts:
+                     - rpu0vdev0vring0
+                     - rpu0vdev0vring1
+                     - rpu0vdev0buffer
+                     - rpu1vdev0vring0
+                     - rpu1vdev0vring1
+                     - rpu1vdev0buffer
+                mbox:
+                    - ipi3
+                    - ipi3
+
+    openamp_r52_1_cluster:
+        compatible:
+            - "openamp,domain-v1"
+        cpus:
+            - cluster: cpus_r52_1
+              cpumask: 0x2
+              mode: 0x1
+              secure: true
+        access:
+            - dev:
+                - ipi2 # used for Open AMP RPMsg IPC
+              flags:
+                  - 0
+            - <<+: *openamp_channel_1_access_srams # TCM banks used for firmware memory
+        reserved-memory:
+            ranges: true
+            <<+: [ *rpu1vdev0vring1, *rpu1vdev0vring0, *rpu1vdev0buffer, *rproc1 ]
+
+        domain-to-domain:
+             compatible: openamp,domain-to-domain-v1
+             rpmsg-relation:
+                 compatible: openamp,rpmsg-v1
+                 host:
+                     - openamp_a78_0_cluster
+                 mbox:
+                     - ipi2
+                 carveouts:
+                     - rpu1vdev0vring0
+                     - rpu1vdev0vring1
+                     - rpu1vdev0buffer
+
+    openamp_r52_0_cluster:
+        compatible:
+            - "openamp,domain-v1"
+        cpus:
+            - cluster: cpus_r52_0
+              cpumask: 0x1
+              mode:
+              secure: true
+        access:
+            - dev:
+                - ipi1 # used for Open AMP RPMsg IPC
+              flags: 0
+            - <<+: *openamp_channel_0_access_srams # TCM banks used for firmware memory
+        reserved-memory:
+            ranges: true
+            <<+: [ *rpu0vdev0vring1, *rpu0vdev0vring0, *rpu0vdev0buffer, *rproc0 ]
+
+        domain-to-domain:
+             compatible: openamp,domain-to-domain-v1
+             rpmsg-relation:
+                 compatible: openamp,rpmsg-v1
+                 host:
+                     - openamp_a78_0_cluster
+                 mbox:
+                     - ipi1
+                 carveouts:
+                     - rpu0vdev0vring0
+                     - rpu0vdev0vring1
+                     - rpu0vdev0buffer
