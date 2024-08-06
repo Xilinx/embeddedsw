@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2014 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -40,6 +40,10 @@
 /* Standard includes. */
 #include <string.h>
 
+#if defined(XPAR_XILTIMER_ENABLED) || defined(SDT)
+#include "bspconfig.h"
+#include "xinterrupt_wrap.h"
+#endif
 /* Hardware includes. */
 #include <xintc_i.h>
 #include <xil_exception.h>
@@ -77,7 +81,6 @@ volatile uint32_t ulHighFrequencyTimerTicks;
 
 /*-----------------------------------------------------------*/
 
-#ifndef XPAR_XILTIMER_ENABLED
 /*
  * Initialise the interrupt controller instance.
  */
@@ -87,7 +90,6 @@ static int32_t prvInitialiseInterruptController( void );
  * used, and that the initialisation only happens once.
  */
 static int32_t prvEnsureInterruptControllerIsInitialised( void );
-#endif
 
 /*-----------------------------------------------------------*/
 
@@ -113,8 +115,10 @@ volatile uint32_t ulTaskSwitchRequested = 0UL;
 
 /* The instance of the interrupt controller used by this port.  This is required
 by the Xilinx library API functions. */
-#ifndef XPAR_XILTIMER_ENABLED
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 static XIntc xInterruptControllerInstance;
+#else
+uintptr_t IntrControllerAddr = configINTERRUPT_CONTROLLER_BASE_ADDRESS;
 #endif
 
 /*
@@ -344,8 +348,11 @@ static void prvTaskExitError( void )
 }
 /*-----------------------------------------------------------*/
 
-#ifndef XPAR_XILTIMER_ENABLED
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 void vPortEnableInterrupt( uint8_t ucInterruptID )
+#else
+void vPortEnableInterrupt( uint32_t ucInterruptID )
+#endif
 {
 int32_t lReturn;
 
@@ -358,7 +365,11 @@ int32_t lReturn;
 		XIntc_Enable(). */
 		portENTER_CRITICAL();
 		{
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 			XIntc_Enable( &xInterruptControllerInstance, ucInterruptID );
+#else
+			XEnableIntrId(ucInterruptID, IntrControllerAddr | XINTC_TYPE_IS_INTC);
+#endif
 		}
 		portEXIT_CRITICAL();
 	}
@@ -367,7 +378,11 @@ int32_t lReturn;
 }
 /*-----------------------------------------------------------*/
 
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 void vPortDisableInterrupt( uint8_t ucInterruptID )
+#else
+void vPortDisableInterrupt( uint32_t ucInterruptID )
+#endif
 {
 	int32_t lReturn;
 
@@ -377,14 +392,22 @@ void vPortDisableInterrupt( uint8_t ucInterruptID )
     lReturn = prvEnsureInterruptControllerIsInitialised();
 
 	if ( lReturn == pdPASS ) {
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 		XIntc_Disable( &xInterruptControllerInstance, ucInterruptID );
+#else
+		XDisableIntrId(ucInterruptID, IntrControllerAddr | XINTC_TYPE_IS_INTC);
+#endif
 	}
 
 	configASSERT( lReturn );
 }
 /*-----------------------------------------------------------*/
 
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 BaseType_t xPortInstallInterruptHandler( uint8_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef )
+#else
+BaseType_t xPortInstallInterruptHandler( uint32_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef )
+#endif
 {
 int32_t lReturn;
 
@@ -394,7 +417,11 @@ int32_t lReturn;
     lReturn = prvEnsureInterruptControllerIsInitialised();
 
 	if ( lReturn == pdPASS ) {
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 		lReturn = XIntc_Connect( &xInterruptControllerInstance, ucInterruptID, pxHandler, pvCallBackRef );
+#else
+		lReturn = XConnectToInterruptCntrl(ucInterruptID, pxHandler, pvCallBackRef, IntrControllerAddr | XINTC_TYPE_IS_INTC);
+#endif
 	}
 
 	if ( lReturn == XST_SUCCESS ) {
@@ -406,8 +433,11 @@ int32_t lReturn;
     return lReturn;
 }
 /*-----------------------------------------------------------*/
-
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 BaseType_t xPortInstallFastInterruptHandler( uint8_t ucInterruptID, XFastInterruptHandler pxHandler)
+#else
+BaseType_t xPortInstallFastInterruptHandler( uint32_t ucInterruptID, XFastInterruptHandler pxHandler)
+#endif
 {
 int32_t lReturn;
 
@@ -417,7 +447,11 @@ int32_t lReturn;
     lReturn = prvEnsureInterruptControllerIsInitialised();
 
 	if ( lReturn == pdPASS ) {
-		lReturn = XIntc_ConnectFastHandler( &xInterruptControllerInstance, ucInterruptID, pxHandler );
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
+		lReturn = XIntc_ConnectFastHandler( &xInterruptControllerInstance, ucInterruptID, pxHandler);
+#else
+		lReturn = XConnectToFastInterruptCntrl(ucInterruptID, pxHandler, IntrControllerAddr | XINTC_TYPE_IS_INTC);
+#endif
 	}
 
 	if ( lReturn == XST_SUCCESS ) {
@@ -450,7 +484,6 @@ int32_t lReturn;
 
 	return lReturn;
 }
-#endif
 /*-----------------------------------------------------------*/
 
 /*
@@ -506,15 +539,11 @@ void vPortTickISR( void *pvUnused, u32 TmrCtrNumber)
 }
 /*-----------------------------------------------------------*/
 
-#ifndef XPAR_XILTIMER_ENABLED
 static int32_t prvInitialiseInterruptController( void )
 {
 	int32_t lStatus;
-
-    lStatus = XIntc_Initialize( &xInterruptControllerInstance, configINTERRUPT_CONTROLLER_TO_USE );
-
-    if( lStatus == XST_SUCCESS )
-    {
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
+	lStatus = XIntc_Initialize( &xInterruptControllerInstance, configINTERRUPT_CONTROLLER_TO_USE );
         /* Initialise the exception table. */
         Xil_ExceptionInit();
 
@@ -533,20 +562,25 @@ static int32_t prvInitialiseInterruptController( void )
 		/* Start the interrupt controller.  Interrupts are enabled when the
 		scheduler starts. */
 		lStatus = XIntc_Start( &xInterruptControllerInstance, XIN_REAL_MODE );
-
+#else
+		lStatus = XConfigInterruptCntrl(IntrControllerAddr | XINTC_TYPE_IS_INTC);
+#endif
 		if ( lStatus == XST_SUCCESS ) {
 			lStatus = pdPASS;
+#if defined(XPAR_XILTIMER_ENABLED) || defined(SDT)
+			XRegisterInterruptHandler(NULL, IntrControllerAddr | XINTC_TYPE_IS_INTC);
+                        Xil_ExceptionInit();
+                        Xil_ExceptionEnable();
+#endif
 		}
 		else {
 			lStatus = pdFAIL;
 		}
-	}
 
 	configASSERT( lStatus == pdPASS );
 
 	return lStatus;
 }
-#endif
 
 #if( configGENERATE_RUN_TIME_STATS == 1 )
 /*

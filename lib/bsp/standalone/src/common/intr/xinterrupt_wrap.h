@@ -21,6 +21,7 @@
 * 		      fix misra_c_2012_rule_7_2 violation.
 * 9.0   ml   03/03/23 Add description to fix doxygen warnings.
 * 9.1   mus  16/04/24 Add support for software generated interrupts.
+* 9.2   ml   05/08/24 Add Support for connecting fast interrupt for intc.
 * </pre>
 *
 ******************************************************************************/
@@ -103,6 +104,9 @@ enum XIntrType {
 
 extern int XConfigInterruptCntrl(UINTPTR IntcParent);
 extern int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, UINTPTR IntcParent);
+#if defined (__MICROBLAZE__) || defined(__riscv)
+extern int XConnectToFastInterruptCntrl(u32 IntrId, void *IntrHandler, UINTPTR IntcParent);
+#endif
 extern int XDisconnectInterruptCntrl(u32 IntrId, UINTPTR IntcParent);
 extern int XStartInterruptCntrl(u32 Mode, UINTPTR IntcParent);
 extern void XEnableIntrId( u32 IntrId, UINTPTR IntcParent);
