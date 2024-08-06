@@ -55,6 +55,9 @@
 *                    interrupts.
 * 3.18 mus  01/25/24 Update XIntc_Initialize to initialize IVAR registers based on
 *                    mtvec register in case of Microblaze RISC-V.
+* 3.19 adk  08/05/24 In SDT flow inorder to loop over config table use the
+* 		     XPAR_INTC_NUM_DRV_INSTANCES define instead of config table
+* 		     to reduce the size.
 *
 * </pre>
 *
@@ -334,7 +337,7 @@ int XIntc_Start(XIntc *InstancePtr, u8 Mode)
 #ifndef SDT
 		for (Index = 1; Index <= XPAR_XINTC_NUM_INSTANCES - 1; Index++)
 #else
-		for (Index = 1; XIntc_ConfigTable[Index].Name != NULL; Index++)
+		for (Index = 1;  Index <=XPAR_INTC_NUM_DRV_INSTANCES - 1; Index++)
 #endif
 		{
 			CfgPtr = XIntc_LookupConfig(Index);
@@ -773,7 +776,7 @@ XIntc_Config *XIntc_LookupConfig(UINTPTR BaseAddr)
 	XIntc_Config *CfgPtr = NULL;
 	int Index;
 
-	for (Index = 0; XIntc_ConfigTable[Index].Name != NULL; Index++) {
+	for (Index = 0;  Index < XPAR_INTC_NUM_DRV_INSTANCES; Index++) {
 		/*
 		 * If BaseAddress is 0, return Configuration for 0th instance of
 		 * AXI INTC device.
@@ -1122,7 +1125,7 @@ static void XIntc_InitializeSlaves(XIntc *InstancePtr)
 	for (Index = 1; Index <= XPAR_XINTC_NUM_INSTANCES - 1; Index++) {
 		CfgPtr = XIntc_LookupConfig(Index);
 #else
-	for (Index = 1; XIntc_ConfigTable[Index].Name != NULL; Index++) {
+	for (Index = 1; Index <=XPAR_INTC_NUM_DRV_INSTANCES  - 1; Index++) {
 		CfgPtr = XIntc_LookupConfig(XIntc_ConfigTable[Index].BaseAddress);
 #endif
 		if (CfgPtr == NULL) {

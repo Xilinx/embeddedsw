@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,9 @@
 * 2.00a ktn  10/20/09 Updated to use HAL Processor APIs
 * 2.06a bss  01/28/13 To support Cascade mode:
 *		      Modified XIntc_SetOptions API.
+* 3.19  adk  08/05/24 In SDT flow inorder to loop over config table use the
+* 		      XPAR_INTC_NUM_DRV_INSTANCES define instead of config table
+* 		      to reduce the size.
 * </pre>
 *
 ******************************************************************************/
@@ -93,7 +96,7 @@ int XIntc_SetOptions(XIntc *InstancePtr, u32 Options)
 				CfgPtr->Options = Options;
 			}
 #else
-			for (Index = 1; XIntc_ConfigTable[Index].Name != NULL;
+			for (Index = 1; Index <= XPAR_INTC_NUM_DRV_INSTANCES - 1;
 			     Index++) {
 				CfgPtr = XIntc_LookupConfig(XIntc_ConfigTable[Index].BaseAddress);
 				CfgPtr->Options = Options;

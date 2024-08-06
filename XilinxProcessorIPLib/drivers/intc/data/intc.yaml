@@ -48,9 +48,8 @@ required:
     - xlnx,addr-width
     - options
     - xlnx,intctype
-    - interrupts
-    - interrupt-parent
     - Handler-table
+    - xlnx,num-sw-intr
 
 examples:
     xintc_example.c:

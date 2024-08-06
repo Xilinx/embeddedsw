@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -201,6 +201,8 @@
 * 3.11   adk  10/03/20 Fix race condition for designs where interrupt pin is
 *                      connected to cascade slices.
 * 3.13   mus  12/22/20 Updated source code comments. It fixes CR#1080821
+* 3.19   adk  08/02/24 In SDT flow Sync the driver yaml required section entries
+* 		       with config structure entries.
 * </pre>
 *
 ******************************************************************************/
@@ -220,6 +222,8 @@ extern "C" {
 #include "xstatus.h"
 #ifndef SDT
 #include "xparameters.h"
+#else
+#include "xintc_drv_config.h"
 #endif
 #include "xintc_l.h"
 
@@ -273,10 +277,6 @@ extern "C" {
 
 #define XINTC_STANDARD_VECTOR_ADDRESS_WIDTH	32U
 /*@}*/
-
-#ifdef SDT
-#define XPAR_INTC_MAX_NUM_INTR_INPUTS 32
-#endif
 
 /**************************** Type Definitions *******************************/
 
