@@ -141,8 +141,10 @@ def create_app(args):
 
     # Generate the CMake file specifically for peripheral app
     if obj.template == "peripheral_tests":
+        if domain_data['os_config'][obj.os]:
+            stdin = domain_data['os_config'][obj.os][f'{obj.os}_stdin']['value']
         utils.runcmd(
-            f"lopper -O {obj.app_src_dir} {obj.sdt} -- baremetal_gentestapp_xlnx {obj.proc} {obj.repo_yaml_path}"
+            f"lopper -O {obj.app_src_dir} {obj.sdt} -- baremetal_gentestapp_xlnx {obj.proc} {obj.repo_yaml_path} {stdin}"
         )
 
     # Copy psu_init* files for zynq and zynqmp fsbl app
