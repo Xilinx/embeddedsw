@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -28,6 +28,8 @@
 * 2.3   aad    9/28/21  Force generate of interrupt.
 * 3.0   cog    03/25/21 Driver Restructure
 * 4.0   se     11/10/22 Secure and Non-Secure mode integration
+* 5.0   se     08/01/24 Added new APIs to enable, set and get averaging for
+*                       voltage supplies and temperature satellites.
 *
 * </pre>
 *
