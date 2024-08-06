@@ -26,6 +26,7 @@
 *                     check for PTRNG mode during generate
 *       kpt  01/09/24 Added option for blocking or non-blocking reseed support
 *       kpt  02/14/24 Use correct offset during PRNG set and reset
+*	vss  08/02/24 Fixed comments on security best practices
 *
 * </pre>
 *
@@ -511,11 +512,9 @@ int XTrngpsx_Instantiate(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u32 See
 	if ((UserCfg->Mode == XTRNGPSX_DRNG_MODE) ||
 		(UserCfg->Mode == XTRNGPSX_HRNG_MODE)) {
 		Status = XST_FAILURE;
-		Status = XTrngpsx_ReseedInternal(InstancePtr, Seed, InstancePtr->UserCfg.DFLength,
-				PersStr, UserCfg->IsBlocking);
-		if ((Status != XST_SUCCESS) || (InstancePtr->State != XTRNGPSX_RESEED_STATE)) {
-			goto END;
-		}
+
+		XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_ReseedInternal, InstancePtr,
+								Seed, InstancePtr->UserCfg.DFLength, PersStr, UserCfg->IsBlocking);
 	}
 
 	Status = XST_SUCCESS;
@@ -665,6 +664,7 @@ int XTrngpsx_Generate(XTrngpsx_Instance *InstancePtr, u8 *RandBuf, u32 RandBufSi
 
 	if ((PredResistance != TRUE) && (PredResistance != FALSE)) {
 		Status = XTRNG_PSX_INVALID_PREDRES_VALUE;
+		goto END;
 	}
 
 	if ((InstancePtr->UserCfg.Mode == XTRNGPSX_PTRNG_MODE) && (PredResistance == TRUE)) {
