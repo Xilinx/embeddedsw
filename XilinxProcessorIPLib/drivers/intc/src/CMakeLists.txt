@@ -1,15 +1,30 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 project(intc)
 
 find_package(common)
+set(INTC_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+find_package(INTC QUIET)
+set(defs "")
+list(APPEND defs "#ifndef XINTC_DRV_CONFIG_H_\n")
+list(APPEND defs "#define XINTC_DRV_CONFIG_H_\n\n")
+if ((EXISTS "${INTC_DIR}/INTCConfig.cmake") AND
+    DRIVER_INSTANCES)
+    list(GET DRIVER_PROP_0_LIST  5 max_intr)
+    list(LENGTH DRIVER_INSTANCES drv_instances)
+    list(APPEND defs "#define XPAR_INTC_MAX_NUM_INTR_INPUTS ${max_intr}\n")
+    list(APPEND defs "#define XPAR_INTC_NUM_DRV_INSTANCES ${drv_instances}\n")
+endif()
+list(APPEND defs "\n#endif")
+file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/xintc_drv_config.h ${defs})
 collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories(${CMAKE_BINARY_DIR}/include)
 collect (PROJECT_LIB_SOURCES xintc.c)
 collect (PROJECT_LIB_HEADERS xintc.h)
+collect (PROJECT_LIB_HEADERS xintc_drv_config.h)
 collect (PROJECT_LIB_SOURCES xintc_g.c)
 collect (PROJECT_LIB_HEADERS xintc_i.h)
 collect (PROJECT_LIB_SOURCES xintc_intr.c)

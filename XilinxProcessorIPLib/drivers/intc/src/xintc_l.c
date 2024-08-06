@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,6 +60,9 @@
 *                     in case of microbalze. It fixes CR#1120158.
 * 3.16  mus  10/04/22 Fixed warnings reported with "-Wundef" compiler flag.
 *                     It fixes CR#1142085.
+* 3.19  adk  08/05/24 In SDT flow inorder to loop over config table use the
+* 		      XPAR_INTC_NUM_DRV_INSTANCES define instead of config table
+* 		      to reduce the size.
 *
 * </pre>
 *
@@ -361,7 +364,7 @@ void XIntc_SetIntrSvcOption(UINTPTR BaseAddress, int Option)
 				CfgPtr->Options = Option;
 			}
 #else
-			for (Index = 1;  XIntc_ConfigTable[Index].Name != NULL;
+			for (Index = 1;  Index <= XPAR_INTC_NUM_DRV_INSTANCES - 1;
 			     Index++) {
 				CfgPtr = XIntc_LookupConfig(XIntc_ConfigTable[Index].BaseAddress);
 				CfgPtr->Options = Option;
@@ -461,7 +464,7 @@ XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
 #ifndef SDT
 	for (Index = 0; Index < XPAR_XINTC_NUM_INSTANCES; Index++) {
 #else
-	for (Index = 0; XIntc_ConfigTable[Index].Name != NULL; Index++) {
+	for (Index = 0; Index < XPAR_INTC_NUM_DRV_INSTANCES; Index++) {
 #endif
 		if (XIntc_ConfigTable[Index].BaseAddress == BaseAddress) {
 			CfgPtr = &XIntc_ConfigTable[Index];
