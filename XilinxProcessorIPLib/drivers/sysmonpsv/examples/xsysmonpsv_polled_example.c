@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +29,8 @@
 * 2.0   aad    10/29/20 Graceful exit when no supplies enabled
 * 3.0   cog    03/25/22 Driver Restructure
 * 3.1   cog    04/09/22 Fix supply iterator
+* 5.0   se     08/01/24 Added new APIs to enable, set and get averaging for
+*                       voltage supplies and temperature satellites.
 *
 * </pre>
 *

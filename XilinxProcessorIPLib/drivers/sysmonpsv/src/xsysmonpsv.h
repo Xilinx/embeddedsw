@@ -38,6 +38,8 @@
 * 3.1   cog    04/09/22 Remove GIC standalone related functionality for
 *                       arch64 architecture
 * 4.0   se     10/04/22 Update return value definitions
+* 5.0   se     08/01/24 Added new APIs to enable, set and get averaging for
+*                       voltage supplies and temperature satellites.
 *
 * </pre>
 *
@@ -332,6 +334,13 @@ int XSysMonPsv_GetSupplyThresholdUpper(XSysMonPsv *InstancePtr, u32 Supply,
 				       u32 *Val);
 int XSysMonPsv_GetSupplyThresholdLower(XSysMonPsv *InstancePtr, u32 Supply,
 				       u32 *Val);
+void XSysMonPsv_EnableTempAverage(XSysMonPsv *InstancePtr, int SatId, u8 Enable);
+void XSysMonPsv_SetTempAverageRate(XSysMonPsv *InstancePtr, u8 AverageRate);
+int XSysMonPsv_GetTempAverageRate(XSysMonPsv *InstancePtr, u8 *AverageRate);
+int XSysMonPsv_EnableSupplyAverage(XSysMonPsv *InstancePtr,
+				   XSysMonPsv_Supply Supply, u8 Enable);
+void XSysMonPsv_SetSupplyAverageRate(XSysMonPsv *InstancePtr, u8 AverageRate);
+int XSysMonPsv_GetSupplyAverageRate(XSysMonPsv *InstancePtr, u8 *AverageRate);
 
 #if defined (ARMR5) || defined (__aarch64__)
 int XSysMonPsv_RegisterDeviceTempOps(XSysMonPsv *InstancePtr,

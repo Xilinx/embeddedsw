@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,7 +32,10 @@
 * 3.1   cog    04/09/22 Remove GIC standalone related functionality for
 *                       arch64 architecture
 * 4.0   se     10/04/22 Update return value definitions
-*		se	   11/10/22 Secure and Non-Secure mode integration
+*       se     11/10/22 Secure and Non-Secure mode integration
+* 5.0   se     08/01/24 Added new APIs to enable, set and get averaging for
+*                       voltage supplies and temperature satellites.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -1279,6 +1282,205 @@ int XSysMonPsv_GetSupplyThresholdLower(XSysMonPsv *InstancePtr, u32 Supply,
 	Offset = XSysMonPsv_SupplyThreshOffset(InstancePtr, Supply,
 					       XSYSMONPSV_EV_DIR_FALLING);
 	XSysMonPsv_ReadReg32(InstancePtr, Offset, Val);
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * Enables or Disables temperature satellites averaging.
+ *
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	SatId Temperature Satellite id, indexed from 1 to 64.
+ * @param	Enable Enable/Disable flag.
+ *
+ * @return	None
+ *
+ *
+*******************************************************************************/
+void XSysMonPsv_EnableTempAverage(XSysMonPsv *InstancePtr, int SatId, u8 Enable)
+{
+	u32 Shift, Offset, Mask, Data;
+
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((SatId >= 1) && (SatId <= 64));
+	Xil_AssertVoid(Enable <= 1U);
+
+	Offset = 4U * ((SatId-1) / 32U);
+	Shift = (SatId-1) % 32U;
+
+	Mask = (u32)1U << Shift;
+	Data = (u32)Enable << Shift;
+
+	XSysMonPsv_UpdateReg32(InstancePtr, Offset + XSYSMONPSV_EN_AVG_REG8,
+			       Mask, Data);
+}
+
+/******************************************************************************/
+/**
+ * Sets temperature satellites average sampling rate value.
+ *
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	AverageRate Average Sampling Rate Value to be set.
+ *
+ * @return	None
+ *
+ *
+*******************************************************************************/
+void XSysMonPsv_SetTempAverageRate(XSysMonPsv *InstancePtr, u8 AverageRate)
+{
+	u32 Data;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(AverageRate == XSYSMONPSV_AVERAGE_0_SAMPLES ||
+		       AverageRate == XSYSMONPSV_AVERAGE_2_SAMPLES ||
+		       AverageRate == XSYSMONPSV_AVERAGE_4_SAMPLES ||
+		       AverageRate == XSYSMONPSV_AVERAGE_8_SAMPLES ||
+		       AverageRate == XSYSMONPSV_AVERAGE_16_SAMPLES);
+
+	Data = (u32)AverageRate << XSYSMONPSV_CONFIG0_TEMP_AVERAGE_SHIFT;
+
+	XSysMonPsv_UpdateReg32(InstancePtr, XSYSMONPSV_CONFIG0,
+			       XSYSMONPSV_CONFIG0_TEMP_AVERAGE_MASK, Data);
+}
+
+/******************************************************************************/
+/**
+ * Gets temperature satellites average sampling rate value.
+ *
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	AverageRate Average Sampling Rate Value to be read.
+ *
+ * @return
+ *          - XSYSMONPSV_INVALID if invalid value read.
+ *          - XST_SUCCESS if successful.
+ *
+ *
+*******************************************************************************/
+int XSysMonPsv_GetTempAverageRate(XSysMonPsv *InstancePtr, u8 *AverageRate)
+{
+	u32 RegVal;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(AverageRate != NULL);
+
+	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_CONFIG0, &RegVal);
+
+	*AverageRate = (u8)((RegVal & XSYSMONPSV_CONFIG0_TEMP_AVERAGE_MASK) >>
+			   XSYSMONPSV_CONFIG0_TEMP_AVERAGE_SHIFT);
+
+	if(*AverageRate != XSYSMONPSV_AVERAGE_0_SAMPLES &&
+	   *AverageRate != XSYSMONPSV_AVERAGE_2_SAMPLES &&
+	   *AverageRate != XSYSMONPSV_AVERAGE_4_SAMPLES &&
+	   *AverageRate != XSYSMONPSV_AVERAGE_8_SAMPLES &&
+	   *AverageRate != XSYSMONPSV_AVERAGE_16_SAMPLES) {
+		return XSYSMONPSV_INVALID;
+	}
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * Enables or Disables voltage supplies averaging.
+ *
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	Supply Voltage supply.
+ * @param	Enable Enable/Disable flag.
+ *
+ * @return
+ *          - XSYSMONPSV_INVALID if invalid supply given.
+ *          - XST_SUCCESS if successful.
+ *
+ *
+*******************************************************************************/
+int XSysMonPsv_EnableSupplyAverage(XSysMonPsv *InstancePtr,
+				   XSysMonPsv_Supply Supply, u8 Enable)
+{
+	u32 SupplyReg;
+	u32 Shift, Offset, Mask, Data;
+
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Enable <= 1U);
+	if (InstancePtr->Config.Supply_List[Supply] ==
+	    XSYSMONPSV_INVALID_SUPPLY) {
+		return XSYSMONPSV_INVALID;
+	}
+
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	Offset = 4U * (SupplyReg / 32U);
+	Shift = SupplyReg % 32U;
+
+	Mask = (u32)1U << Shift;
+	Data = (u32)Enable << Shift;
+
+	XSysMonPsv_UpdateReg32(InstancePtr, Offset + XSYSMONPSV_EN_AVG_REG0,
+			       Mask, Data);
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * Sets voltage supplies average sampling rate value.
+ *
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	AverageRate Average Sampling Rate Value to be set.
+ *
+ * @return	None
+ *
+ *
+*******************************************************************************/
+void XSysMonPsv_SetSupplyAverageRate(XSysMonPsv *InstancePtr, u8 AverageRate)
+{
+	u32 Data;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(AverageRate == XSYSMONPSV_AVERAGE_0_SAMPLES ||
+		       AverageRate == XSYSMONPSV_AVERAGE_2_SAMPLES ||
+		       AverageRate == XSYSMONPSV_AVERAGE_4_SAMPLES ||
+		       AverageRate == XSYSMONPSV_AVERAGE_8_SAMPLES ||
+		       AverageRate == XSYSMONPSV_AVERAGE_16_SAMPLES);
+
+	Data = (u32)AverageRate << XSYSMONPSV_CONFIG0_SUPPLY_AVERAGE_SHIFT;
+
+	XSysMonPsv_UpdateReg32(InstancePtr, XSYSMONPSV_CONFIG0,
+			       XSYSMONPSV_CONFIG0_SUPPLY_AVERAGE_MASK, Data);
+}
+
+/******************************************************************************/
+/**
+ * Gets voltage supplies average sampling rate value.
+ *
+ * @param	InstancePtr Pointer to the driver instance.
+ * @param	AverageRate Average Sampling Rate Value to be read.
+ *
+ * @return
+ *          - XSYSMONPSV_INVALID if invalid value read.
+ *          - XST_SUCCESS if successful.
+ *
+ *
+*******************************************************************************/
+int XSysMonPsv_GetSupplyAverageRate(XSysMonPsv *InstancePtr, u8 *AverageRate)
+{
+	u32 RegVal;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_CONFIG0, &RegVal);
+
+	*AverageRate = (u8)((RegVal & XSYSMONPSV_CONFIG0_SUPPLY_AVERAGE_MASK) >>
+			    XSYSMONPSV_CONFIG0_SUPPLY_AVERAGE_SHIFT);
+
+	if(*AverageRate != XSYSMONPSV_AVERAGE_0_SAMPLES &&
+	   *AverageRate != XSYSMONPSV_AVERAGE_2_SAMPLES &&
+	   *AverageRate != XSYSMONPSV_AVERAGE_4_SAMPLES &&
+	   *AverageRate != XSYSMONPSV_AVERAGE_8_SAMPLES &&
+	   *AverageRate != XSYSMONPSV_AVERAGE_16_SAMPLES) {
+		return XSYSMONPSV_INVALID;
+	}
 
 	return XST_SUCCESS;
 }
