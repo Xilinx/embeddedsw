@@ -71,6 +71,7 @@
 * 1.14  asa  06/23/23  Update the timer interrupt id to support use
 *                      cases where xiltimer or SDT is enabled.
 * 1.15  dp   01/30/24  Update the example to support SDT flow.
+* 1.16  ml   07/26/24  Add support for SDT flow.
 * </pre>
 ******************************************************************************/
 
@@ -242,7 +243,11 @@ static void prvTimerTask( void *pvParameters )
 
 	const unsigned char ucTickTimerCounterNumber = ( unsigned char ) 0U;
 	const unsigned char ucRunTimeStatsCounterNumber = ( unsigned char ) 1U;
+#ifdef SDT
+	const unsigned long ulCounterValue = ( ( XPAR_XTMRCTR_1_CLOCK_FREQUENCY / configTICK_RATE_HZ / 5) - 1UL );
+#else
 	const unsigned long ulCounterValue = ( ( XPAR_TMRCTR_1_CLOCK_FREQ_HZ / configTICK_RATE_HZ / 5) - 1UL );
+#endif
 	extern void vPortTickISR( void *pvUnused );
 
 	/* Initialise the timer/counter. */
@@ -256,7 +261,7 @@ static void prvTimerTask( void *pvParameters )
 
 #ifdef SDT
 		/* Register the AXI Timer interrupt handler with interrupt controller */
-		xStatus = xPortInstallInterruptHandler(&xTickTimerInstance->Config.IntrId,
+		xStatus = xPortInstallInterruptHandler(xTickTimerInstance.Config.IntrId,
                                              (XInterruptHandler)XTmrCtr_InterruptHandler,
                                              &xTickTimerInstance );
 #else
@@ -272,7 +277,7 @@ static void prvTimerTask( void *pvParameters )
 	if ( xStatus == pdPASS ) {
 		/* Enable interrupt for timer peripheral */
 #ifdef SDT
-		vPortEnableInterrupt(&xTickTimerInstance->Config.IntrId);
+		vPortEnableInterrupt(xTickTimerInstance.Config.IntrId);
 #else
 		vPortEnableInterrupt( TIMER_INTR_ID );
 #endif
