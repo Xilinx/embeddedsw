@@ -55,8 +55,7 @@ enum XIntrType {
 	XSGI
 };
 
-
-#define XINTERRUPT_DEFAULT_PRIORITY     0xA0U /* AXI INTC doesnt support priority setting, it is default priority for GIC interrupts */
+#define XINTERRUPT_DEFAULT_PRIORITY     0xA0U /* AXI INTC doesn't support priority setting, it is default priority for GIC interrupts */
 #define XINTC_TYPE_IS_SCUGIC		0U
 #define XINTC_TYPE_IS_INTC		1U
 #define XINTR_IS_EDGE_TRIGGERED		3U
@@ -103,7 +102,8 @@ enum XIntrType {
 #define XGetEncodedIntcBaseAddr(IntParent, IntcType)	(IntParent | IntcType)
 
 extern int XConfigInterruptCntrl(UINTPTR IntcParent);
-extern int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, UINTPTR IntcParent);
+extern int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef,
+				    UINTPTR IntcParent);
 #if defined (__MICROBLAZE__) || defined(__riscv)
 extern int XConnectToFastInterruptCntrl(u32 IntrId, void *IntrHandler, UINTPTR IntcParent);
 #endif
@@ -115,9 +115,11 @@ extern void XSetPriorityTriggerType( u32 IntrId, u8 Priority, UINTPTR IntcParent
 extern void XGetPriorityTriggerType( u32 IntrId, u8 *Priority, u8 *Trigger, UINTPTR IntcParent);
 extern void XStopInterruptCntrl( UINTPTR IntcParent);
 extern void XRegisterInterruptHandler( void *IntrHandler, UINTPTR IntcParent);
-extern int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  UINTPTR IntcParent,
+extern int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,
+				 UINTPTR IntcParent,
 				 u16 Priority);
-extern s32 XGetEncodedIntrId(u32 LegacyIntrId, u32 TriggerType, u8 IntrType, u8 IntcType, u32 *IntrId);
+extern s32 XGetEncodedIntrId(u32 LegacyIntrId, u32 TriggerType, u8 IntrType, u8 IntcType,
+			     u32 *IntrId);
 extern s32 XTriggerSoftwareIntr(u32 IntrId, UINTPTR IntcParent, u32 Cpu_Id);
 #endif
 

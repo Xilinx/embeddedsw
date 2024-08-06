@@ -170,8 +170,8 @@ int XConnectToFastInterruptCntrl(u32 IntrId, void *IntrHandler, UINTPTR IntcPare
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_INTC) {
 #if defined (XPAR_AXI_INTC)
 		u16 IntrNum = XGet_IntrId(IntrId);
-        Status = XIntc_ConnectFastHandler(&XIntcInstance, IntrNum, \
-				       (XFastInterruptHandler)IntrHandler);
+		Status = XIntc_ConnectFastHandler(&XIntcInstance, IntrNum, \
+						  (XFastInterruptHandler)IntrHandler);
 		return Status;
 #else
 		return XST_FAILURE;
@@ -450,7 +450,7 @@ void XRegisterInterruptHandler(void *IntrHandler,  UINTPTR IntcParent)
 * @brief    Setup the interrupt system.
 *
 * @param    DriverInstance: Driver instance pointer.
-* @param    IntrHandler: Interrupt handler funtion pointer.
+* @param    IntrHandler: Interrupt handler function pointer.
 * @param    IntrId: Interrupt Id.
 * @param    IntcParent: Interrupt controller baseaddress and type.
 * @param    Priority: Interrupt priority.
@@ -461,7 +461,8 @@ void XRegisterInterruptHandler(void *IntrHandler,  UINTPTR IntcParent)
 * @note     None.
 *
 ******************************************************************************/
-int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  UINTPTR IntcParent, u16 Priority)
+int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  UINTPTR IntcParent,
+			  u16 Priority)
 {
 	int Status;
 
@@ -507,7 +508,7 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 * 		0 = SPI
 * 		1 = PPI (not applicable for AXI INTC)
 * 		2 = SGI
-* @param    IntcType Parent interrupt contoller of targeted interrupt ID
+* @param    IntcType Parent interrupt controller of targeted interrupt ID
 * 		1 = AXI INTC
 * 		0 = GIC
 *
@@ -520,7 +521,8 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 * @note     None.
 *
 ******************************************************************************/
-s32 XGetEncodedIntrId(u32 LegacyIntrId, u32 TriggerType, u8 IntrType, u8 IntcType, u32 *IntrId ) {
+s32 XGetEncodedIntrId(u32 LegacyIntrId, u32 TriggerType, u8 IntrType, u8 IntcType, u32 *IntrId )
+{
 	s32 Status = XST_FAILURE;
 
 	if (IntcType != XINTC_TYPE_IS_SCUGIC && IntcType != XINTC_TYPE_IS_INTC) {
