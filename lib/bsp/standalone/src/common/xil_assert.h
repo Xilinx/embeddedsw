@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +25,9 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a hbm  07/14/09 First release
 * 6.0   kvn  05/31/16 Make Xil_AsserWait a global variable
+* 9.2   adk  08/05/24 Define __FILENAME__ macro in cmake which points to
+* 		      just name of file instead of full file path, replace
+* 		      __FILE__ with __FILENAME__ in assert APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -46,6 +50,9 @@ extern "C" {
 
 
 /************************** Constant Definitions *****************************/
+#if ! defined(SDT)
+#define __FILENAME__	__FILE__
+#endif
 
 #define XIL_ASSERT_NONE     0U
 #define XIL_ASSERT_OCCURRED 1U
@@ -88,7 +95,7 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
     if (Expression) {                              \
         Xil_AssertStatus = XIL_ASSERT_NONE;       \
     } else {                                       \
-        Xil_Assert(__FILE__, __LINE__);            \
+        Xil_Assert(__FILENAME__, __LINE__);            \
         Xil_AssertStatus = XIL_ASSERT_OCCURRED;   \
         return;                                    \
     }                                              \
@@ -113,7 +120,7 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
     if (Expression) {                              \
         Xil_AssertStatus = XIL_ASSERT_NONE;       \
     } else {                                       \
-        Xil_Assert(__FILE__, __LINE__);            \
+        Xil_Assert(__FILENAME__, __LINE__);            \
         Xil_AssertStatus = XIL_ASSERT_OCCURRED;   \
         return 0;                                  \
     }                                              \
@@ -130,7 +137,7 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
 ******************************************************************************/
 #define Xil_AssertVoidAlways()                   \
 {                                                  \
-   Xil_Assert(__FILE__, __LINE__);                 \
+   Xil_Assert(__FILENAME__, __LINE__);                 \
    Xil_AssertStatus = XIL_ASSERT_OCCURRED;        \
    return;                                         \
 }
@@ -147,7 +154,7 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
 ******************************************************************************/
 #define Xil_AssertNonvoidAlways()                \
 {                                                  \
-   Xil_Assert(__FILE__, __LINE__);                 \
+   Xil_Assert(__FILENAME__, __LINE__);                 \
    Xil_AssertStatus = XIL_ASSERT_OCCURRED;        \
    return 0;                                       \
 }

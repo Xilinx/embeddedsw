@@ -240,6 +240,10 @@ class Domain(Repo):
         # freertos needs a separate CMAKE_SYSTEM_NAME
         if "freertos" in self.os:
             utils.add_newline(toolchain_file_copy, "set( CMAKE_SYSTEM_NAME FreeRTOS)")
+        if os.name == "nt":
+            utils.add_newline(toolchain_file_copy, "set( CMAKE_HOST_NAME Windows)")
+        else:
+            utils.add_newline(toolchain_file_copy, "set( CMAKE_HOST_NAME Linux)")
         # Do the gic pruning in the sdt for APU/RPU.
         if self.sdt != out_dts_path:
             iss_file = utils.find_file("*.iss", utils.get_dir_path(self.sdt))
