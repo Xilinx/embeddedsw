@@ -22,6 +22,7 @@
 * 9.0   adk  17/04/23 Added support for system device-tree flow
 * 9.0   adk  27/04/23 Use XScuGic_LookupConfigBaseAddr() API for xsct flow
 * 9.1   mus  16/04/24 Add support for software generated interrupts.
+* 9.2   ml   05/08/24 Add Support for connecting fast interrupt for intc.
 * </pre>
 *
 ******************************************************************************/
@@ -145,6 +146,39 @@ int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, U
 	}
 }
 
+/*****************************************************************************/
+/**
+*
+* @brief    connects to the Fast interrupt controller.
+*
+* @param    IntrId: Interrupt Id.
+* @param    IntrHandler: Interrupt handler.
+* @param    IntcParent: Interrupt controller baseaddress and type.
+*
+* @return   XST_SUCCESS if initialization was successful
+* 	    XST_FAILURE in case of failure
+*
+* @note     None.
+*
+******************************************************************************/
+#if defined (__MICROBLAZE__) || defined(__riscv)
+int XConnectToFastInterruptCntrl(u32 IntrId, void *IntrHandler, UINTPTR IntcParent)
+{
+	int Status;
+	int Doconnect = FALSE;
+
+	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_INTC) {
+#if defined (XPAR_AXI_INTC)
+		u16 IntrNum = XGet_IntrId(IntrId);
+        Status = XIntc_ConnectFastHandler(&XIntcInstance, IntrNum, \
+				       (XFastInterruptHandler)IntrHandler);
+		return Status;
+#else
+		return XST_FAILURE;
+#endif
+	}
+}
+#endif
 /*****************************************************************************/
 /**
 *

@@ -1,6 +1,7 @@
 /*
  * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -269,7 +270,11 @@ typedef struct PORT_REGISTER_DUMP
  * pdPASS is returned if the function executes successfully.  Any other value
  * being returned indicates that the function did not execute correctly.
  */
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 BaseType_t xPortInstallInterruptHandler( uint8_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef );
+#else
+BaseType_t xPortInstallInterruptHandler( uint32_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef );
+#endif
 
 
 /*
@@ -299,7 +304,11 @@ BaseType_t xPortInstallInterruptHandler( uint8_t ucInterruptID, XInterruptHandle
  * pdPASS is returned if the function executes successfully.  Any other value
  * being returned indicates that the function did not execute correctly.
  */
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 BaseType_t xPortInstallFastInterruptHandler( uint8_t ucInterruptID, XFastInterruptHandler pxHandler);
+#else
+BaseType_t xPortInstallFastInterruptHandler( uint32_t ucInterruptID, XFastInterruptHandler pxHandler);
+#endif
 
 /*
  * Enables the interrupt, within the interrupt controller, for the peripheral
@@ -319,7 +328,11 @@ BaseType_t xPortInstallFastInterruptHandler( uint8_t ucInterruptID, XFastInterru
  * XPAR_INTC_0_GPIO_1_VEC_ID      -  for the button inputs.
  *
  */
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 void vPortEnableInterrupt( uint8_t ucInterruptID );
+#else
+void vPortEnableInterrupt( uint32_t ucInterruptID );
+#endif
 
 /*
  * Disables the interrupt, within the interrupt controller, for the peripheral
@@ -339,7 +352,11 @@ void vPortEnableInterrupt( uint8_t ucInterruptID );
  * XPAR_INTC_0_GPIO_1_VEC_ID      -  for the button inputs.
  *
  */
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 void vPortDisableInterrupt( uint8_t ucInterruptID );
+#else
+void vPortDisableInterrupt( uint32_t ucInterruptID );
+#endif
 
 /*
  * This is an application defined callback function used to install the tick
