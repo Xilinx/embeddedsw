@@ -38,7 +38,7 @@
 * be demonstrated through AXI Timer IP, and for other processors, it
 * would be demonstrated through TTC1.
 *
-* This appplication consist of only 1 user defined task "prvTimerTask".
+* This application consist of only 1 user defined task "prvTimerTask".
 * prvTimerTask task would configure timer device, register it's interrupt
 * handler, with interrupt controller initialized by porting layer.
 * Once timer is kicked off, prvTimerTask would wait for semaphore.
@@ -46,7 +46,7 @@
 * Once semaphore is obtained, task would display success message and
 * delete itself.
 *
-* Follownig are HW design dependencies for defferent platforms,
+* Following are HW design dependencies for different platforms,
 
 * --------------------------------------------------
 * Processor          |       HW design dependency  |
@@ -172,7 +172,6 @@ int main( void )
 			tskIDLE_PRIORITY,			/* The task runs at the idle priority. */
 			&xTimerTask );
 
-
 	/* Start the tasks and timer running. */
 	vTaskStartScheduler();
 
@@ -188,7 +187,6 @@ int main( void )
 static void prvTimerTask( void *pvParameters )
 {
 	const TickType_t x1second = pdMS_TO_TICKS( DELAY_1_SECOND );
-
 
 	const TickType_t x100mseconds = pdMS_TO_TICKS( DELAY_100_MILISEC );
 	int xStatus;
@@ -206,7 +204,7 @@ static void prvTimerTask( void *pvParameters )
 #ifdef SDT
 	pxTimerConfig = XTtcPs_LookupConfig( XPAR_XTTCPS_3_BASEADDR );
 #else
-   pxTimerConfig = XTtcPs_LookupConfig( TIMER_DEVICE_ID );
+	pxTimerConfig = XTtcPs_LookupConfig( TIMER_DEVICE_ID );
 #endif
 
 	xStatus = XTtcPs_CfgInitialize( &xTimerInstance, pxTimerConfig, pxTimerConfig->BaseAddress );
@@ -221,14 +219,14 @@ static void prvTimerTask( void *pvParameters )
 	}
 	XTtcPs_SetOptions( &xTimerInstance, XTTCPS_OPTION_INTERVAL_MODE | XTTCPS_OPTION_WAVE_DISABLE );
 
-
 	XTtcPs_CalcIntervalFromFreq( &xTimerInstance, configTICK_RATE_HZ * 2, &usInterval, &ucPrescaler );
 	XTtcPs_SetInterval( &xTimerInstance, usInterval );
 	XTtcPs_SetPrescaler( &xTimerInstance, ucPrescaler );
 	XTtcPs_EnableInterrupts( &xTimerInstance, XTTCPS_IXR_INTERVAL_MASK );
 	/* Register the ttcps Timer interrupt handler with interrupt controller */
 #ifdef SDT
-	xPortInstallInterruptHandler( pxTimerConfig->IntrId[0], (Xil_ExceptionHandler)TtcHandler, &xTimerInstance );
+	xPortInstallInterruptHandler( pxTimerConfig->IntrId[0], (Xil_ExceptionHandler)TtcHandler,
+				      &xTimerInstance );
 	/* Enable interrupt for TTC1 instance */
 	vPortEnableInterrupt(pxTimerConfig->IntrId[0]);
 
@@ -244,9 +242,11 @@ static void prvTimerTask( void *pvParameters )
 	const unsigned char ucTickTimerCounterNumber = ( unsigned char ) 0U;
 	const unsigned char ucRunTimeStatsCounterNumber = ( unsigned char ) 1U;
 #ifdef SDT
-	const unsigned long ulCounterValue = ( ( XPAR_XTMRCTR_1_CLOCK_FREQUENCY / configTICK_RATE_HZ / 5) - 1UL );
+	const unsigned long ulCounterValue = ( ( XPAR_XTMRCTR_1_CLOCK_FREQUENCY / configTICK_RATE_HZ / 5) -
+					       1UL );
 #else
-	const unsigned long ulCounterValue = ( ( XPAR_TMRCTR_1_CLOCK_FREQ_HZ / configTICK_RATE_HZ / 5) - 1UL );
+	const unsigned long ulCounterValue = ( ( XPAR_TMRCTR_1_CLOCK_FREQ_HZ / configTICK_RATE_HZ / 5) -
+					       1UL );
 #endif
 	extern void vPortTickISR( void *pvUnused );
 
@@ -262,12 +262,12 @@ static void prvTimerTask( void *pvParameters )
 #ifdef SDT
 		/* Register the AXI Timer interrupt handler with interrupt controller */
 		xStatus = xPortInstallInterruptHandler(xTickTimerInstance.Config.IntrId,
-                                             (XInterruptHandler)XTmrCtr_InterruptHandler,
-                                             &xTickTimerInstance );
+						       (XInterruptHandler)XTmrCtr_InterruptHandler,
+						       &xTickTimerInstance );
 #else
 		xStatus = xPortInstallInterruptHandler(TIMER_INTR_ID,
-                                             (XInterruptHandler)XTmrCtr_InterruptHandler,
-                                             &xTickTimerInstance );
+						       (XInterruptHandler)XTmrCtr_InterruptHandler,
+						       &xTickTimerInstance );
 
 #endif
 		XTmrCtr_SetHandler(&xTickTimerInstance, TmrctrHandler,
@@ -300,7 +300,8 @@ static void prvTimerTask( void *pvParameters )
 		return XST_FAILURE;
 	}
 
-	xil_printf("Successfully ran FreeRTOS interrupt example, FreeRTOS tick count is %x \n", xTaskGetTickCount());
+	xil_printf("Successfully ran FreeRTOS interrupt example, FreeRTOS tick count is %x \n",
+		   xTaskGetTickCount());
 	vTaskDelete( xTimerTask );
 
 }
