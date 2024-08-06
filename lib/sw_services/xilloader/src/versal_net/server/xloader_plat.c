@@ -1347,6 +1347,11 @@ static int XLoader_InitSha3Instance1(void)
 	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	XSecure_Sha *Sha3Instance = XSecure_GetSha3Instance(XSECURE_SHA_1_DEVICE_ID);;
 
+	Status = XSecure_ShaLookupConfig(Sha3Instance, XSECURE_SHA_1_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XSecure_ShaInitialize(Sha3Instance, PmcDmaPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XLOADER_ERR_SHA3_1_INIT;
@@ -1354,6 +1359,8 @@ static int XLoader_InitSha3Instance1(void)
 #else
 	Status = XST_SUCCESS;
 #endif
+
+END:
 	return Status;
 }
 

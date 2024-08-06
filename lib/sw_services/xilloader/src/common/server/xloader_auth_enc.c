@@ -3378,8 +3378,9 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 
 	if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
-		/** - Verify hash */
+
 #ifndef VERSAL_AIEPG2
+		/** - Verify hash */
 		XSECURE_TEMPORAL_CHECK(END, Status,
 					XLoader_VerifyAuthHashNUpdateNext,
 					SecurePtr, TotalSize, Last);
@@ -3407,6 +3408,9 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 			(SecureTempParams->IsAuthenticated != (u8)TRUE)) {
 			SecurePtr->SecureData = SecurePtr->ChunkAddr;
 
+#ifndef VERSAL_AIEPG2
+			SecurePtr->SecureDataLen = TotalSize;
+#else
 			if (Last != (u8)TRUE) {
 				SecurePtr->SecureDataLen = TotalSize - XLOADER_SHA3_LEN;
 			}
@@ -3417,6 +3421,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 			/** Verify hash on the data */
 			XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyHashNUpdateNext,
 			SecurePtr, SecurePtr->SecureData, SecurePtr->SecureDataLen, Last);
+#endif
 
 		}
 
