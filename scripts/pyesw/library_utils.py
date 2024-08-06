@@ -320,6 +320,8 @@ class Library(Repo):
                         if value in bool_match:
                             value = bool_match[value]
                         cmake_cmd_append += f" -D{key}={value}"
+        if app_name == "zynqmp_fsbl":
+            cmake_cmd_append += " -Dstandalone_zynqmp_fsbl_bsp=ON"
         if schema and schema.get("os_config", {}):
             if schema.get("os_config", {})[self.os]:
                 self.os_config = schema.get("os_config", {})[self.os]
