@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2004 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -150,7 +150,7 @@
 .extern XMicroblaze_ConfigTable
 
 
-#if defined(MICROBLAZE_EXCEPTIONS_ENABLED) || defined(SDT)
+#if defined(MICROBLAZE_EXCEPTIONS_ENABLED)
 
 /*
  * hw_exception_handler - Handler for unaligned exceptions
@@ -484,7 +484,7 @@ ex_sw_end:                                              /* Exception handling of
         BRI     ex_handler_done;
 #endif  /* !NO_UNALIGNED_EXCEPTIONS */
 
-#if (defined (MICROBLAZE_FP_EXCEPTION_ENABLED) && defined (MICROBLAZE_FP_EXCEPTION_DECODE)) || defined(SDT)
+#if (defined (MICROBLAZE_FP_EXCEPTION_ENABLED) && defined (MICROBLAZE_FP_EXCEPTION_DECODE))
 handle_fp_ex:
         ADDIK   r3, r17, -4;                            /* r17 contains (addr of exception causing FP instruction + 4) */
         lw      r4, r0, r3;                             /* We might find ourselves in a spot here. Unguaranteed load   */
@@ -549,7 +549,7 @@ ex_handler_unhandled:
         bri 0                                           /* UNHANDLED. TRAP HERE */
 .end _hw_exception_handler
 
-#if !defined(NO_UNALIGNED_EXCEPTIONS) || defined(SDT)
+#if !defined(NO_UNALIGNED_EXCEPTIONS)
 
 /*
  * hw_exception_handler Jump Table
@@ -655,7 +655,7 @@ ex_reg_op:
 
 #endif /* ! NO_UNALIGNED_EXCEPTIONS */
 
-#if (defined (MICROBLAZE_FP_EXCEPTION_ENABLED) && defined (MICROBLAZE_FP_EXCEPTION_DECODE)) || defined(SDT)
+#if (defined (MICROBLAZE_FP_EXCEPTION_ENABLED) && defined (MICROBLAZE_FP_EXCEPTION_DECODE))
 /*
  * FP exception decode jump table.
  * - Contains code snippets for each register that could have been a source operand for an excepting FP instruction
@@ -736,7 +736,7 @@ opb_r31: FP_EX_OPB_SAVE (31);
 
 #endif  /* defined (MICROBLAZE_FP_EXCEPTION_ENABLED) && defined (MICROBLAZE_FP_EXCEPTION_DECODE) */
 
-#if (defined(MICROBLAZE_FP_EXCEPTION_ENABLED) && defined(MICROBLAZE_FP_EXCEPTION_DECODE)) || defined(SDT)
+#if (defined(MICROBLAZE_FP_EXCEPTION_ENABLED) && defined(MICROBLAZE_FP_EXCEPTION_DECODE))
 /* This is where we store the opA and opB of the last excepting FP instruction */
 .section .data
 .align DATAALIGN
@@ -748,7 +748,7 @@ mb_fpex_op_b:
         INTPTR_DATAITEM 0
 #endif /* defined (MICROBLAZE_FP_EXCEPTION_ENABLED) && defined (MICROBLAZE_FP_EXCEPTION_DECODE) */
 
-#if (defined(XPAR_MICROBLAZE_USE_STACK_PROTECTION) && (XPAR_MICROBLAZE_USE_STACK_PROTECTION == 1)) || defined(SDT)
+#if (defined(XPAR_MICROBLAZE_USE_STACK_PROTECTION) && (XPAR_MICROBLAZE_USE_STACK_PROTECTION == 1))
 /* This is where we store the register used to check which exception occurred */
 	.section .data
 	.align DATAALIGN

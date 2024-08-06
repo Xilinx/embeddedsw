@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023  - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,8 +28,6 @@
 extern "C" {
 #endif
 
-#define MICROBLAZE_EXCEPTIONS_ENABLED   1 /**< exceptions are enabled in
-                                               the processor */
 
 #ifdef __cplusplus
 }
