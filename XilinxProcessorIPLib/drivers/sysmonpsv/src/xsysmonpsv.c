@@ -1479,6 +1479,7 @@ int XSysMonPsv_GetSupplyAverageRate(XSysMonPsv *InstancePtr, u8 *AverageRate)
 	u32 RegVal;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(AverageRate != NULL);
 
 	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_CONFIG0, &RegVal);
 
