@@ -22,7 +22,7 @@ BEGIN LIBRARY xiltimer
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxiltimer,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xiltimer library provides generic timer interface for the timer IP's";
-  OPTION VERSION = 2.0;
+  OPTION VERSION = 2.1;
   OPTION NAME = xiltimer;
   PARAM name = xiltimer_sleep_timer, type = peripheral_instance, range = (psv_ttc, psu_ttc, psx_ttc, ps7_ttc, axi_timer, ps7_scutimer), default=none, desc = "This parameter is used to select specific timer for sleep functionality", permit = user;
   PARAM name = xiltimer_interval_timer, type = peripheral_instance, range = (psv_ttc, psu_ttc, psx_ttc, ps7_ttc, axi_timer, ps7_scutimer), default=none, desc = "This parameter is used to select specific timer for interval timer functionality", permit = user;
