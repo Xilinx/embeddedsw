@@ -53,6 +53,8 @@
 *                       of Lower alarm registers thresholds mode bit masking.
 *       se     07/30/24 OT Upper Alarm threshold requires 12-bit value update
 *                       to enable over-temperature default value override.
+*       se     08/08/24 Missing null pointer assert check added on
+*                       XSysMonPsu_UpdateAdcClkDivisor.
 * </pre>
 *
 ******************************************************************************/
@@ -1217,6 +1219,7 @@ u32 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk, u8 *D
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((SysmonBlk == XSYSMON_PS)||(SysmonBlk == XSYSMON_PL));
+	Xil_AssertNonvoid(DivCode != NULL);
 
 	/* Calculate the effective baseaddress based on the Sysmon instance. */
 	EffectiveBaseAddress =
