@@ -20,7 +20,7 @@ if(("${XILSECURE_mode}" STREQUAL "server") AND
   message(FATAL_ERROR "XilSecure library is not supported for selected ${CMAKE_SYSTEM_PROCESSOR} processor in ${XILSECURE_mode} mode")
 endif()
 
-add_subdirectory(common)
+collect (PROJECT_LIB_HEADERS xsecure_ver.h)
 if(("${CMAKE_MACHINE}" STREQUAL "Versal") OR
 	("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
   add_subdirectory(versal_gen)
