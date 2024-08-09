@@ -622,6 +622,36 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
  */
 
 /*
+ * Multi Queue helper macro's using indexing.
+ */
+#define XEMACPS_TXQIBASE_OFFSET (u32[]) { XEMACPS_TXQBASE_OFFSET, \
+					  XEMACPS_TXQ1BASE_OFFSET }
+#define XEMACPS_RXQIBASE_OFFSET (u32[]){ XEMACPS_RXQBASE_OFFSET, \
+					 XEMACPS_RXQ1BASE_OFFSET }
+/* Q0 size is configured in DMA_CFG */
+#define XEMACPS_DMA_RXQI_BUFSIZE_OFFSET (u32[]) { 		\
+				0,				\
+				XEMACPS_DMA_RXQ1_BUFSIZE_OFFSET }
+
+#define XEMACPS_INTQI_STS_OFFSET (u32[]) { 			\
+					XEMACPS_ISR_OFFSET,	\
+					XEMACPS_INTQ1_STS_OFFSET }
+#define XEMACPS_INTQISR_RXCOMPL_MASK (u32[]) {			\
+				XEMACPS_IXR_FRAMERX_MASK,	\
+				XEMACPS_INTQ1SR_RXCOMPL_MASK }
+#define XEMACPS_INTQISR_TXCOMPL_MASK (u32[]) {			\
+				XEMACPS_IXR_TXCOMPL_MASK,	\
+				XEMACPS_INTQ1SR_TXCOMPL_MASK }
+#define XEMACPS_INTQSR_TXERR_MASK	XEMACPS_INTQ1SR_TXERR_MASK
+#define XEMACPS_INTQ_IXR_ALL_MASK	XEMACPS_INTQ1_IXR_ALL_MASK
+#define XEMACPS_INTQI_IER_OFFSET (u32[]) {			\
+				0,				\
+				XEMACPS_INTQ1_IER_OFFSET }
+#define XEMACPS_INTQI_IDR_OFFSET (u32[]) {			\
+				0,				\
+				XEMACPS_INTQ1_IDR_OFFSET }
+
+/*
  * Define appropriate I/O access method to memory mapped I/O or other
  * interface if necessary.
  */
