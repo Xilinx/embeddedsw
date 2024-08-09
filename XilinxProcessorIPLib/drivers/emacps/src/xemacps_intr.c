@@ -125,8 +125,9 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
 	u32 RegISR;
 	u32 RegSR;
 	u32 RegCtrl;
-	u32 RegQ1ISR = 0U;
 	XEmacPs *InstancePtr = (XEmacPs *) XEmacPsPtr;
+	u32 RegQiISR[32] = {0};		/* Max queues possible */
+	u8 i = 0;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
@@ -139,52 +140,44 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
 	RegISR = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 				   XEMACPS_ISR_OFFSET);
 
-	/* Read Transmit Q1 ISR */
-
-	if (InstancePtr->Version > 2)
-		RegQ1ISR = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
-				   XEMACPS_INTQ1_STS_OFFSET);
+	/* Read all queues ISR */
+	/* Iterate over all queues and get status in array */
+	for (i=0; i < InstancePtr->MaxQueues; i++)
+		RegQiISR[i] = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+					      XEMACPS_INTQI_STS_OFFSET[i]);
 
 	/* Clear the interrupt status register */
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_ISR_OFFSET,
-			   RegISR);
+			 RegQiISR[0]);
 
-	/* Receive complete interrupt */
-	if ((RegISR & XEMACPS_IXR_FRAMERX_MASK) != 0x00000000U) {
-		/* Clear RX status register RX complete indication but preserve
-		 * error bits if there is any */
-		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+	for(i=0; i < InstancePtr->MaxQueues;  i++)
+		if ( RegQiISR[i]  & XEMACPS_INTQISR_RXCOMPL_MASK[i]) {
+			/* Clear RX status register RX complete indication but preserve
+			 * error bits if there is any */
+			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+				   XEMACPS_INTQI_STS_OFFSET[i],
+				   XEMACPS_INTQISR_RXCOMPL_MASK[i]);
+			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 				   XEMACPS_RXSR_OFFSET,
 				   ((u32)XEMACPS_RXSR_FRAMERX_MASK |
 				   (u32)XEMACPS_RXSR_BUFFNA_MASK));
-		InstancePtr->RecvHandler(InstancePtr->RecvRef);
-	}
+			InstancePtr->RecvHandler(InstancePtr->RecvRef);
+		}
 
 	/* Transmit Q1 complete interrupt */
-	if ((InstancePtr->Version > 2) &&
-			((RegQ1ISR & XEMACPS_INTQ1SR_TXCOMPL_MASK) != 0x00000000U)) {
-		/* Clear TX status register TX complete indication but preserve
-		 * error bits if there is any */
-		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-				   XEMACPS_INTQ1_STS_OFFSET,
-				   XEMACPS_INTQ1SR_TXCOMPL_MASK);
-		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+	for(i=0; i < InstancePtr->MaxQueues;  i++)
+		if ( RegQiISR[i]  & XEMACPS_INTQISR_RXCOMPL_MASK[i] ) {
+			/* Clear TX status register TX complete indication but preserve
+			 * error bits if there is any */
+			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+				   XEMACPS_INTQI_STS_OFFSET[i],
+				   XEMACPS_INTQISR_TXCOMPL_MASK[i]);
+			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 				   XEMACPS_TXSR_OFFSET,
 				   ((u32)XEMACPS_TXSR_TXCOMPL_MASK |
 				   (u32)XEMACPS_TXSR_USEDREAD_MASK));
-		InstancePtr->SendHandler(InstancePtr->SendRef);
-	}
-
-	/* Transmit complete interrupt */
-	if ((RegISR & XEMACPS_IXR_TXCOMPL_MASK) != 0x00000000U) {
-		/* Clear TX status register TX complete indication but preserve
-		 * error bits if there is any */
-		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-				   XEMACPS_TXSR_OFFSET,
-				   ((u32)XEMACPS_TXSR_TXCOMPL_MASK |
-				   (u32)XEMACPS_TXSR_USEDREAD_MASK));
-		InstancePtr->SendHandler(InstancePtr->SendRef);
-	}
+			InstancePtr->SendHandler(InstancePtr->SendRef);
+		}
 
 	/* Receive error conditions interrupt */
 	if ((RegISR & XEMACPS_IXR_RX_ERR_MASK) != 0x00000000U) {
@@ -216,20 +209,20 @@ void XEmacPs_IntrHandler(void *XEmacPsPtr)
          * will be asserted the same time.
          * Have to distinguish this bit to handle the real error condition.
          */
-	/* Transmit Q1 error conditions interrupt */
-        if ((InstancePtr->Version > 2) &&
-			((RegQ1ISR & XEMACPS_INTQ1SR_TXERR_MASK) != 0x00000000U) &&
-            ((RegQ1ISR & XEMACPS_INTQ1SR_TXCOMPL_MASK) != 0x00000000U)) {
+	/* Transmit Q1,2,.. error conditions interrupt */
+	for(i=1; i < InstancePtr->MaxQueues;  i++)
+		if(((RegQiISR[i] & XEMACPS_INTQSR_TXERR_MASK) != 0x00000000U) &&
+		   ((RegQiISR[i] & XEMACPS_INTQISR_TXCOMPL_MASK[i]) != 0x00000000U)) {
 			/* Clear Interrupt Q1 status register */
 			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-				   XEMACPS_INTQ1_STS_OFFSET, RegQ1ISR);
+					 XEMACPS_INTQI_STS_OFFSET[i], RegQiISR[i]);
 			InstancePtr->ErrorHandler(InstancePtr->ErrorRef, XEMACPS_SEND,
-					  RegQ1ISR);
-	   }
+						  RegQiISR[i]);
+		}
 
 	/* Transmit error conditions interrupt */
-        if (((RegISR & XEMACPS_IXR_TX_ERR_MASK) != 0x00000000U) &&
-            ((!(RegISR & XEMACPS_IXR_TXCOMPL_MASK)) != 0x00000000U)) {
+	if (((RegISR & XEMACPS_IXR_TX_ERR_MASK) != 0x00000000U) &&
+	    ((!(RegISR & XEMACPS_IXR_TXCOMPL_MASK)) != 0x00000000U)) {
 		/* Clear TX status register */
 		RegSR = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 					  XEMACPS_TXSR_OFFSET);
