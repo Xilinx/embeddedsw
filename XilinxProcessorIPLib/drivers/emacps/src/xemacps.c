@@ -152,6 +152,7 @@ LONG XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
 void XEmacPs_Start(XEmacPs *InstancePtr)
 {
 	u32 Reg;
+	u8 i;
 
 	/* Assert bad arguments and conditions */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -205,14 +206,14 @@ void XEmacPs_Start(XEmacPs *InstancePtr)
 		}
 	}
 
-        /* Enable TX and RX interrupts */
-        XEmacPs_IntEnable(InstancePtr, (XEMACPS_IXR_TX_ERR_MASK |
-	XEMACPS_IXR_RX_ERR_MASK | (u32)XEMACPS_IXR_FRAMERX_MASK |
-	(u32)XEMACPS_IXR_TXCOMPL_MASK));
+	/* Enable TX and RX interrupts */
+	XEmacPs_IntEnable(InstancePtr, (XEMACPS_IXR_TX_ERR_MASK |
+			  XEMACPS_IXR_RX_ERR_MASK | (u32)XEMACPS_IXR_FRAMERX_MASK |
+			  (u32)XEMACPS_IXR_TXCOMPL_MASK));
 
-	/* Enable TX Q1 Interrupts */
-	if (InstancePtr->Version > 2)
-		XEmacPs_IntQ1Enable(InstancePtr, XEMACPS_INTQ1_IXR_ALL_MASK);
+	/* Enable TX & RX Interrupts of all queues */
+	for (i=1; i < InstancePtr->MaxQueues; i++)
+		XEmacPs_IntQiEnable(InstancePtr, i, XEMACPS_INTQ_IXR_ALL_MASK);
 
 	/* Mark as started */
 	InstancePtr->IsStarted = XIL_COMPONENT_IS_STARTED;
@@ -370,6 +371,11 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 				(u32)XEMACPS_DMACR_RXSIZE_MASK |
 				(u32)XEMACPS_DMACR_TXSIZE_MASK);
 
+	/* Setup DMA Rx Buffer size for remaining queues */
+	for (i=1; i< InstancePtr->MaxQueues; i++)
+			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+					XEMACPS_DMA_RXQI_BUFSIZE_OFFSET[i],
+					(u32)XEMACPS_RX_BUF_SIZE_JUMBO / (u32)XEMACPS_RX_BUF_UNIT);
 
 	if (InstancePtr->Version > 2) {
 		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET,
@@ -472,22 +478,15 @@ void XEmacPs_SetQueuePtr(XEmacPs *InstancePtr, UINTPTR QPtr, u8 QueueNum,
                 return;
         }
 
-	if (QueueNum == 0x00U) {
-		if (Direction == XEMACPS_SEND) {
-			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-				XEMACPS_TXQBASE_OFFSET,
-				(QPtr & ULONG64_LO_MASK));
-		} else {
-			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-				XEMACPS_RXQBASE_OFFSET,
-				(QPtr & ULONG64_LO_MASK));
-		}
-	}
-	 else {
+	if (Direction == XEMACPS_SEND)
 		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XEMACPS_TXQ1BASE_OFFSET,
+			XEMACPS_TXQIBASE_OFFSET[QueueNum],
 			(QPtr & ULONG64_LO_MASK));
-	}
+	else
+		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+			XEMACPS_RXQIBASE_OFFSET[QueueNum],
+			(QPtr & ULONG64_LO_MASK));
+
 #ifdef __aarch64__
 	if (Direction == XEMACPS_SEND) {
 		/* Set the MSB of TX Queue start address */
