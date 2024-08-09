@@ -329,6 +329,14 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 					XEMACPS_HDR_VLAN_SIZE;
 	InstancePtr->RxBufMask = XEMACPS_RXBUF_LEN_MASK;
 
+	/* Get the number of queues */
+	InstancePtr->MaxQueues = 1;
+	if (InstancePtr->Version > 2) {
+		Reg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+				      XEMACPS_DCFG6_OFFSET);
+		InstancePtr->MaxQueues += GET_NUM_SET_BITS(Reg & 0xFF);
+	}
+
 	/* Setup hardware with default values */
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 			XEMACPS_NWCTRL_OFFSET,
