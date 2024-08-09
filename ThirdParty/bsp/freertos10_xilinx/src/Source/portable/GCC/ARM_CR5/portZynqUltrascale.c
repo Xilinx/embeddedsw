@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2014 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -100,8 +100,6 @@ XScuGic_Config *pxInterruptControllerConfig;
 								( Xil_ExceptionHandler ) XScuGic_InterruptHandler,
 								&xInterruptController);
 
-	/* Enable interrupts in the ARM. */
-	Xil_ExceptionEnable();
 
 	/* Connect to the interrupt controller. */
 	XScuGic_Connect( &xInterruptController,
@@ -140,6 +138,8 @@ XScuGic_Config *pxInterruptControllerConfig;
 	XScuGic_EnableIntr( configINTERRUPT_CONTROLLER_BASE_ADDRESS, configTIMER_INTERRUPT_ID );
 	XTtcPs_EnableInterrupts( &xTimerInstance, XTTCPS_IXR_INTERVAL_MASK );
 	XTtcPs_Start( &xTimerInstance );
+	/* Enable interrupts in the ARM. */
+	Xil_ExceptionEnable();
 
 }
 #else
