@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -458,6 +458,17 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	if (IsoIdx >= (u32)XPM_NODEIDX_ISO_MAX)
 	{
 		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * There are some scenarios where isolation commands are sent for nodes
+	 * which have not been initialized. These scenarios are considered
+	 * No-OP, so return SUCCESS and exit.
+	 */
+	if (0U == XPmDomainIso_List[IsoIdx].Node.BaseAddress) {
+		PmInfo("%x Isolation Node is No-OP\r\n", IsoIdx);
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
