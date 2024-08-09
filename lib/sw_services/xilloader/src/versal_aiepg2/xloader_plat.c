@@ -108,7 +108,7 @@
 #define XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE		(0x03U) /**< Value of JTAG state flag if enabled */
 #define XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE		(0x00U) /**< Value of JTAG state flag if disabled */
 #endif
-#ifdef PLM_OCP
+#ifdef PLM_OCP_KEY_MNGMT
 #define XLOADER_INVALID_DEVAK_INDEX			(0xFFFFFFFFU) /**< INVALID DEVAK INDEX */
 #endif
 
@@ -1246,17 +1246,23 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XSecure_Sha3Hash Sha3Hash;
 	u32 PcrNo;
-	u32 DevAkIndex = XLOADER_INVALID_DEVAK_INDEX;
+
 
 #ifdef PLM_OCP_KEY_MNGMT
-	DevAkIndex = XOcp_GetSubSysDevAkIndex(ImageInfo->SubsystemID);
-#endif
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
+
+	Status = XOcp_GetSubSysDevAkIndex(ImageInfo->SubsystemID, DevAkIndex);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	if ((ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) &&
-		(DevAkIndex == XLOADER_INVALID_DEVAK_INDEX)) {
+		((DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX] == XLOADER_INVALID_DEVAK_INDEX) &&
+		(DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX] == XLOADER_INVALID_DEVAK_INDEX))) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
-	PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
+#endif /* PLM_OCP_KEY_MNGMT */
 
 	switch(ImageInfo->Flags) {
 	case XLOADER_MEASURE_START:
@@ -1279,16 +1285,19 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 
 	if (ImageInfo->Flags == XLOADER_MEASURE_FINISH) {
 #ifdef PLM_OCP_KEY_MNGMT
-		if (DevAkIndex != XLOADER_INVALID_DEVAK_INDEX) {
+		if ((DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX] != XLOADER_INVALID_DEVAK_INDEX) ||
+			(DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX] != XLOADER_INVALID_DEVAK_INDEX)) {
 			/* Generate DEVAK */
-			Status = XOCP_GenSubSysDevAk(ImageInfo->SubsystemID,
+			Status = XOcp_GenSubSysDevAk(ImageInfo->SubsystemID,
 						(u64)(UINTPTR)Sha3Hash.Hash);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 		}
-#endif
+#endif /* PLM_OCP_KEY_MNGMT */
+
 		if (ImageInfo->PcrInfo != XOCP_PCR_INVALID_VALUE) {
+			PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
 			/* Extend HW PCR */
 			Status = XOcp_ExtendHwPcr(PcrNo,(u64)(UINTPTR)&Sha3Hash.Hash,
 				XLOADER_SHA3_LEN);
