@@ -564,6 +564,7 @@ typedef struct XEmacPs_Instance {
 	u32 MaxMtuSize;
 	u32 MaxFrameSize;
 	u32 MaxVlanFrameSize;
+	u32 MaxQueues;
 
 } XEmacPs;
 
