@@ -36,6 +36,10 @@
 #ifndef __ARCH_CC_H__
 #define __ARCH_CC_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -79,5 +83,9 @@ typedef unsigned long mem_ptr_t;
 
 #define LWIP_PLATFORM_ASSERT(x)
 #define LWIP_PLATFORM_DIAG(x) do { xil_printf x; } while(0)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __ARCH_CC_H__ */

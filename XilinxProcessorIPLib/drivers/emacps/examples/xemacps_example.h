@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,9 @@
 #ifndef XEMACPS_EXAMPLE_H
 #define XEMACPS_EXAMPLE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /***************************** Include Files ********************************/
 
@@ -123,5 +126,8 @@ extern XEmacPs EmacPsInstance;	/* Device instance used throughout examples */
 extern char EmacPsMAC[];	/* Local MAC address */
 extern u32 Platform;
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XEMACPS_EXAMPLE_H */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,9 @@
 #ifndef XXXVETHERNET_EXAMPLE_H
 #define XXXVETHERNET_EXAMPLE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /***************************** Include Files *********************************/
 
@@ -82,5 +85,9 @@ int XxvEthernetUtilUsxgmiiSetupBypassAN(XXxvEthernet *XxvEthernetInstancePtr, u3
 extern char XxvEthernetMAC[];		/* Local MAC address */
 extern char MacAddr[];
 extern char DestAddr[];
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XXXVETHERNET_EXAMPLE_H */

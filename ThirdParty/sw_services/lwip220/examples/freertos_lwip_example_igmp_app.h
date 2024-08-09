@@ -30,11 +30,19 @@
 #ifndef __IGMP_APP_H_
 #define __IGMP_APP_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define IGMP_THREAD_STACKSIZE 1024
 
 #define BUF_SIZE 1000
 #define IGMP_MULTICAST_IP_ADDRESS "224.10.10.3"
 #define IGMP_MULTICAST_PORT 5001
 #define IGMP_MULTICAST_RXPKT_COUNT 100
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __IGMP_APP_H_ */

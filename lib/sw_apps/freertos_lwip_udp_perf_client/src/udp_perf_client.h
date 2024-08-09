@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 - 2019 Xilinx, Inc.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,6 +29,10 @@
 
 #ifndef __UDP_PERF_CLIENT_H_
 #define __UDP_PERF_CLIENT_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "lwipopts.h"
 #include "lwip/ip_addr.h"
@@ -111,5 +116,9 @@ struct perf_stats {
 
 /* Sleep in microseconds in case of UDP send errors */
 #define ERROR_SLEEP 100
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __UDP_PERF_CLIENT_H_ */

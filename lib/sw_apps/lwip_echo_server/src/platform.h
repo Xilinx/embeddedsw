@@ -30,6 +30,10 @@
 #ifndef __PLATFORM_H_
 #define __PLATFORM_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Platform timer is calibrated for 50 ms, so kept interval value 20 to call
  * eth_link_detect() at every one second
  */
@@ -49,5 +53,10 @@ void timer_callback();
 #endif
 void platform_setup_timer();
 void platform_enable_interrupts();
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif
 

@@ -30,6 +30,10 @@
 #ifndef __WEBSERVER_H__
 #define __WEBSERVER_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "lwip/tcp.h"
 #include "ff.h"
 
@@ -63,5 +67,9 @@ void pfree_arg(http_arg *);
 	tcp_sent(tpcb, NULL); \
 	tcp_close(tpcb); \
 }
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

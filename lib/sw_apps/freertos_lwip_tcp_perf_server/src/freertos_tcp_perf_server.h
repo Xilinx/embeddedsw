@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2018 - 2019 Xilinx, Inc.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,6 +29,10 @@
 
 #ifndef __FREERTOS_TCP_SERVER_APP_H_
 #define __FREERTOS_TCP_SERVER_APP_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "lwipopts.h"
 #include "lwip/tcp.h"
@@ -92,5 +97,9 @@ struct perf_stats {
 
 /* seconds between periodic bandwidth reports */
 #define INTERIM_REPORT_INTERVAL 5
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __FREERTOS_TCP_SERVER_APP_H_ */

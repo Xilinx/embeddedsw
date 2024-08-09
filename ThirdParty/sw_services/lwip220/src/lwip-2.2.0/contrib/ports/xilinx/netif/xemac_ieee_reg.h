@@ -32,6 +32,10 @@
 #ifndef __XEMAC_IEEE_REGS_H_
 #define __XEMAC_IEEE_REGS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Advertisement control register. */
 #define ADVERTISE_10HALF            0x0020  /* Try for 10mbps half-duplex  */
 #define ADVERTISE_1000XFULL         0x0020  /* Try for 1000BASE-X full-duplex */
@@ -98,5 +102,9 @@
 #define IEEE_MMD_ACCESS_CTRL_DEVAD_MASK            0x1F
 #define IEEE_MMD_ACCESS_CTRL_PIDEVAD_MASK          0x801F
 #define IEEE_MMD_ACCESS_CTRL_NOPIDEVAD_MASK        0x401F
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __XEMAC_IEEE_REGS_H_ */

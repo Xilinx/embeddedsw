@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,6 +9,10 @@
 #include "xil_types.h"
 
 #include "xparameters.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
@@ -22,3 +26,7 @@ int AxiEthernetSgDmaIntrExample(INTC * IntcInstancePtr,
 				u16 AxiEthernetDeviceId,
 				u16 AxiDmaDeviceId,
 				u16 AxiEthernetIntrId);
+
+#ifdef __cplusplus
+}
+#endif

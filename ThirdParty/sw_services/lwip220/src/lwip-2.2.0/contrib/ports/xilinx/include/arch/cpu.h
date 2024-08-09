@@ -36,6 +36,10 @@
 #ifndef __ARCH_CPU_H__
 #define __ARCH_CPU_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "lwipopts.h"
 
 #ifndef BYTE_ORDER
@@ -44,6 +48,10 @@
 #else
 #define BYTE_ORDER BIG_ENDIAN
 #endif
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* __ARCH_CPU_H__ */
