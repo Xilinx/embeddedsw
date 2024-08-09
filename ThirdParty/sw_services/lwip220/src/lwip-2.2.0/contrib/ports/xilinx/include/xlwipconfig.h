@@ -33,8 +33,16 @@
 #ifndef __XLWIPCONFIG_H_
 #define __XLWIPCONFIG_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* this is a generated file: do not modify */
 
 #define XLWIP_CONFIG_INCLUDE_EMACLITE 1
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

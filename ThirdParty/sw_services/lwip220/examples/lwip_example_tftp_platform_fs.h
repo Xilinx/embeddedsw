@@ -30,6 +30,14 @@
 #ifndef __PLATFORM_FS_H_
 #define __PLATFORM_FS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int platform_init_fs();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

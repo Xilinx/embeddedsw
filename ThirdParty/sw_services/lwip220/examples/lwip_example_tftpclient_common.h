@@ -30,6 +30,10 @@
 #ifndef __TFTP_COMMON_H_
 #define __TFTP_COMMON_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "ff.h"
 #include "lwip/ip.h"
 
@@ -119,5 +123,9 @@ typedef struct {
 	/* file counter for number of files to transfer */
 	u8_t file_count;
 } tftp_cli_connection_args;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __TFTP_COMMON_H_ */

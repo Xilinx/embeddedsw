@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2009 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -30,6 +30,10 @@
 #ifndef __PLATFORM_H_
 #define __PLATFORM_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void init_platform();
 void cleanup_platform();
 #ifdef SDT
@@ -42,4 +46,9 @@ void timer_callback();
 void platform_setup_timer();
 void platform_enable_interrupts();
 u64_t get_time_ms();
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif

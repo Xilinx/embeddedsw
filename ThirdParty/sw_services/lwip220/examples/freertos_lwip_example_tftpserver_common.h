@@ -30,6 +30,10 @@
 #ifndef __TFTP_COMMON_H_
 #define __TFTP_COMMON_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "ff.h"
 #include "lwip/ip.h"
 
@@ -125,5 +129,9 @@ typedef struct {
 	char data[TFTP_MAX_MSG_LEN];
 	struct sockaddr_in from;
 } tftp_connection_args;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __TFTP_COMMON_H_ */

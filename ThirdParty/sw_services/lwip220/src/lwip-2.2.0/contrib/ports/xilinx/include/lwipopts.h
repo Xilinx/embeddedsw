@@ -35,6 +35,10 @@
 #ifndef __LWIPOPTS_H__
 #define __LWIPOPTS_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define NO_SYS 1
 #define SYS_LIGHTWEIGHT_PROT 1
 #define LWIP_CALLBACK_API 1
@@ -199,5 +203,9 @@ a lot of data that needs to be copied, this should be set high. */
 #define CHECKSUM_GEN_TCP                1
 #define CHECKSUM_CHECK_IP               1
 #define CHECKSUM_CHECK_TCP              1
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __LWIPOPTS_H__ */

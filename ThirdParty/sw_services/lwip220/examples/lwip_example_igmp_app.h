@@ -30,8 +30,16 @@
 #ifndef __IGMP_APPS_H_
 #define __IGMP_APPS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define IGMP_MULTICAST_IP_ADDRESS "224.10.10.3"
 #define IGMP_MULTICAST_PORT 5001
 #define IGMP_MULTICAST_RXPKT_COUNT 100
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __IGMP_APPS_H_ */

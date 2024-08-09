@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,9 @@
 #ifndef XAXIETHERNET_EXAMPLE_H
 #define XAXIETHERNET_EXAMPLE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /***************************** Include Files *********************************/
 
@@ -105,4 +108,9 @@ int AxiEtherentConfigureTIPhy(XAxiEthernet *AxiEthernetInstancePtr,
 extern char AxiEthernetMAC[];		/* Local MAC address */
 extern volatile int Padding;
 extern volatile int ExternalLoopback;
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* XAXIETHERNET_EXAMPLE_H */

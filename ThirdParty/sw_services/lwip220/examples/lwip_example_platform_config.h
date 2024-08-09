@@ -30,6 +30,10 @@
 #ifndef __PLATFORM_CONFIG_H_
 #define __PLATFORM_CONFIG_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define SELECT_TFTPAPP
 
 #ifdef SELECT_TFTPAPP
@@ -70,6 +74,10 @@
 #endif
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
 #define PLATFORM_ZYNQMP
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* __PLATFORM_CONFIG_H_ */

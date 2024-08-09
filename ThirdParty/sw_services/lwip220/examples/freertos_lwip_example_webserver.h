@@ -30,6 +30,10 @@
 #ifndef __WEBSERVER_H__
 #define __WEBSERVER_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define MAX_FILENAME 256
 #define HTTP_PORT    80
 
@@ -47,5 +51,9 @@ int is_cmd_print(char *buf);
 
 int generate_response(int sd, char *http_req, int http_req_len);
 int generate_http_header(char *buf, char *fext, int fsize);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
