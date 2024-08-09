@@ -327,6 +327,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
+#include "xil_util.h"
 #include "xemacps_hw.h"
 #include "xemacps_bd.h"
 #include "xemacps_bdring.h"
@@ -648,44 +649,48 @@ typedef struct XEmacPs_Instance {
 /****************************************************************************/
 /**
 *
-* Enable interrupts specified in <i>Mask</i>. The corresponding interrupt for
-* each bit set to 1 in <i>Mask</i>, will be enabled.
+* Enable interrupts of queue <i>Queue</i> specified in <i>Mask</i>.
+* The corresponding interrupt for each bit set to 1 in <i>Mask</i>,
+* will be enabled.
 *
 * @param InstancePtr is a pointer to the instance to be worked on.
+* @param Indx of Queue, it should be from 1.
 * @param Mask contains a bit mask of interrupts to enable. The mask can
 *        be formed using a set of bitwise or'd values.
 *
 * @note
 * The state of the transmitter and receiver are not modified by this function.
 * C-style signature
-*     void XEmacPs_IntQ1Enable(XEmacPs *InstancePtr, u32 Mask)
+*     void XEmacPs_IntQiEnable(XEmacPs *InstancePtr, u8 Queue, u32 Mask)
 *
 *****************************************************************************/
-#define XEmacPs_IntQ1Enable(InstancePtr, Mask)                            \
+#define XEmacPs_IntQiEnable(InstancePtr, Queue, Mask)                       \
 	XEmacPs_WriteReg((InstancePtr)->Config.BaseAddress,             \
-			 XEMACPS_INTQ1_IER_OFFSET,                                \
-			 ((Mask) & XEMACPS_INTQ1_IXR_ALL_MASK));
+			 XEMACPS_INTQI_IER_OFFSET[Queue],                   \
+			 ((Mask) & XEMACPS_INTQ_IXR_ALL_MASK));
 
 /****************************************************************************/
 /**
 *
-* Disable interrupts specified in <i>Mask</i>. The corresponding interrupt for
-* each bit set to 1 in <i>Mask</i>, will be enabled.
+* Disable interrupts of queue <i>Queue</i> specified in <i>Mask</i>.
+* The corresponding interrupt for each bit set to 1 in <i>Mask</i>,
+* will be enabled.
 *
 * @param InstancePtr is a pointer to the instance to be worked on.
+* @param Index of Queue, it should be from 1.
 * @param Mask contains a bit mask of interrupts to disable. The mask can
 *        be formed using a set of bitwise or'd values.
 *
 * @note
 * The state of the transmitter and receiver are not modified by this function.
 * C-style signature
-*     void XEmacPs_IntDisable(XEmacPs *InstancePtr, u32 Mask)
+*     void XEmacPs_IntDisable(XEmacPs *InstancePtr, u8 Queue, u32 Mask)
 *
 *****************************************************************************/
-#define XEmacPs_IntQ1Disable(InstancePtr, Mask)                           \
+#define XEmacPs_IntQiDisable(InstancePtr, Queue, Mask)                      \
 	XEmacPs_WriteReg((InstancePtr)->Config.BaseAddress,             \
-			 XEMACPS_INTQ1_IDR_OFFSET,                               \
-			 ((Mask) & XEMACPS_INTQ1_IXR_ALL_MASK));
+			 XEMACPS_INTQI_IDR_OFFSET[Queue],			\
+			 ((Mask) & XEMACPS_INTQ_IXR_ALL_MASK));
 
 /****************************************************************************/
 /**
