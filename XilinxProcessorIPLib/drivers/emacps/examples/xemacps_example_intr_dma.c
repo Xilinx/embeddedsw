@@ -602,30 +602,6 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 			return XST_FAILURE;
 		}
 
-		if (GemVersion > 2) {
-			/*
-			 * This version of GEM supports priority queuing and the current
-			 * driver is using tx priority queue 1 and normal rx queue for
-			 * packet transmit and receive. The below code ensure that the
-			 * other queue pointers are parked to known state for avoiding
-			 * the controller to malfunction by fetching the descriptors
-			 * from these queues.
-			 */
-			XEmacPs_BdClear(&BdRxTerminate);
-			XEmacPs_BdSetAddressRx(&BdRxTerminate, (XEMACPS_RXBUF_NEW_MASK |
-								XEMACPS_RXBUF_WRAP_MASK));
-			XEmacPs_Out32((Config->BaseAddress + XEMACPS_RXQ1BASE_OFFSET),
-				      (UINTPTR)&BdRxTerminate);
-			XEmacPs_BdClear(&BdTxTerminate);
-			XEmacPs_BdSetStatus(&BdTxTerminate, (XEMACPS_TXBUF_USED_MASK |
-							     XEMACPS_TXBUF_WRAP_MASK));
-			XEmacPs_Out32((Config->BaseAddress + XEMACPS_TXQBASE_OFFSET),
-				      (UINTPTR)&BdTxTerminate);
-			if (Config->IsCacheCoherent == 0) {
-				Xil_DCacheFlushRange((UINTPTR)(&BdTxTerminate), 64);
-			}
-		}
-
 		/*
 		 * Set emacps to phy loopback
 		 */
@@ -715,6 +691,8 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 	u32 RxFrLen;
 	XEmacPs_Bd *Bd1Ptr;
 	XEmacPs_Bd *BdRxPtr;
+	u32 queue;
+	u8 i;
 
 	/*
 	 * Clear variables shared with callbacks
@@ -726,8 +704,12 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 	if (GemVersion > 2) {
 		PayloadSize = (JUMBO_FRAME_SIZE - FRAME_HDR_SIZE);
 	}
+
+	/* Excercise all available queues */
+	queue = packet % (EmacPsInstancePtr->MaxQueues);
+
 	/* Print packet count and payload size */
-	xil_printf("Packet: %d\tPayload size: %d\n", packet, PayloadSize);
+	xil_printf("Packet: %d\tQueue: %d\tPayload size: %d\n", packet, queue, PayloadSize);
 
 	/*
 	 * Calculate the frame length (not including FCS)
@@ -828,14 +810,47 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 		Xil_DCacheFlushRange((UINTPTR)Bd1Ptr, 64);
 	}
 	/*
-	 * Set the Queue pointers
+	 * Set the Queue pointers and Tie-off unsed queue pointers.
 	 */
-	XEmacPs_SetQueuePtr(EmacPsInstancePtr, EmacPsInstancePtr->RxBdRing.BaseBdAddr, 0, XEMACPS_RECV);
-	if (GemVersion > 2) {
-		XEmacPs_SetQueuePtr(EmacPsInstancePtr, EmacPsInstancePtr->TxBdRing.BaseBdAddr, 1, XEMACPS_SEND);
-	} else {
-		XEmacPs_SetQueuePtr(EmacPsInstancePtr, EmacPsInstancePtr->TxBdRing.BaseBdAddr, 0, XEMACPS_SEND);
+	if (EmacPsInstancePtr->MaxQueues > 1) {
+		/*
+		 * This version of GEM supports priority queuing and the current
+		 * driver is using tx priority queue 1 and normal rx queue for
+		 * packet transmit and receive. The below code ensure that the
+		 * other queue pointers are parked to known state for avoiding
+		 * the controller to malfunction by fetching the descriptors
+		 * from these queues.
+		 */
+
+		XEmacPs_BdClear(&BdRxTerminate);
+		XEmacPs_BdSetAddressRx(&BdRxTerminate, (XEMACPS_RXBUF_NEW_MASK |
+							XEMACPS_RXBUF_WRAP_MASK));
+		XEmacPs_BdClear(&BdTxTerminate);
+		XEmacPs_BdSetStatus(&BdTxTerminate, (XEMACPS_TXBUF_USED_MASK |
+						     XEMACPS_TXBUF_WRAP_MASK));
+
+		/* Tie-off unsed queues */
+		for (i=0; i < EmacPsInstancePtr->MaxQueues; i++ ) {
+			if ( i != queue ) {
+				XEmacPs_SetQueuePtr(EmacPsInstancePtr, (UINTPTR)&BdRxTerminate,
+					i, XEMACPS_RECV);
+				XEmacPs_SetQueuePtr(EmacPsInstancePtr, (UINTPTR)&BdTxTerminate,
+					i, XEMACPS_SEND);
+			}
+		}
+		if (EmacPsInstancePtr->Config.IsCacheCoherent == 0) {
+			Xil_DCacheFlushRange((UINTPTR)(&BdTxTerminate), 64);
+			Xil_DCacheFlushRange((UINTPTR)(&BdRxTerminate), 64);
+		}
 	}
+	XEmacPs_SetQueuePtr(EmacPsInstancePtr, EmacPsInstancePtr->RxBdRing.BaseBdAddr,
+			    queue, XEMACPS_RECV);
+	XEmacPs_SetQueuePtr(EmacPsInstancePtr, EmacPsInstancePtr->TxBdRing.BaseBdAddr,
+			    queue, XEMACPS_SEND);
+
+	/* Setup screening type2 register */
+	XEmacPs_WriteReg(EmacPsInstancePtr->Config.BaseAddress,
+				XEMACPS_SCREEN_TYPE2_REG0, XEMACPS_CMPA_ENABLE_MASK | queue);
 
 	/*
 	 * Start the device
@@ -1284,7 +1299,7 @@ static void XEmacPsSendHandler(void *Callback)
 	XEmacPs_IntDisable(EmacPsInstancePtr, (XEMACPS_IXR_TXCOMPL_MASK |
 					       XEMACPS_IXR_TX_ERR_MASK));
 	if (GemVersion > 2) {
-		XEmacPs_IntQ1Disable(EmacPsInstancePtr, XEMACPS_INTQ1_IXR_ALL_MASK);
+		XEmacPs_IntQiDisable(EmacPsInstancePtr, 1, XEMACPS_INTQ1_IXR_TX_MASK);
 	}
 	/*
 	 * Increment the counter so that main thread knows something
@@ -1328,6 +1343,7 @@ static void XEmacPsRecvHandler(void *Callback)
 		if (EmacPsInstancePtr->Config.IsCacheCoherent == 0) {
 			Xil_DCacheInvalidateRange((UINTPTR)RxBdSpacePtr, 64);
 		}
+		XEmacPs_IntQiDisable(EmacPsInstancePtr, 1, XEMACPS_INTQ1_IXR_RX_MASK);
 	}
 }
 
