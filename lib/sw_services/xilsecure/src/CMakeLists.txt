@@ -20,6 +20,11 @@ if(("${XILSECURE_mode}" STREQUAL "server") AND
   message(FATAL_ERROR "XilSecure library is not supported for selected ${CMAKE_SYSTEM_PROCESSOR} processor in ${XILSECURE_mode} mode")
 endif()
 
+if(("${XILSECURE_mode}" STREQUAL "client") AND
+ 	(NOT ("xilmailbox" IN_LIST BSP_LIBSRC_SUBDIRS)))
+    message(WARNING "XilSecure library requires xilmailbox library in client mode.")
+endif()
+
 collect (PROJECT_LIB_HEADERS xsecure_ver.h)
 if(("${CMAKE_MACHINE}" STREQUAL "Versal") OR
 	("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
