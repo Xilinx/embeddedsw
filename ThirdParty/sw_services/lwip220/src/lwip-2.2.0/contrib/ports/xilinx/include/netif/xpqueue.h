@@ -36,7 +36,7 @@
 extern "C" {
 #endif
 
-#include "debug.h"
+#include "lwip/debug.h"
 
 #define PQ_QUEUE_SIZE 4096
 
