@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -122,7 +122,17 @@
 #define APP_MIN_VERSION 4
 
 #ifdef SDT
+#ifdef USE_HDCP
+#define INTRNAME_HDMIRX 4
+#define INTRNAME_HDCP1XRX 0
+#define INTRNAME_HDCP1XRX_TIMER 1
+#define INTRNAME_HDCP2XRX_TIMER   3
+#else
 #define INTRNAME_HDMIRX 0
+#define INTRNAME_HDCP1XRX 1
+#define INTRNAME_HDCP1XRX_TIMER 2
+#define INTRNAME_HDCP2XRX_TIMER   3
+#endif
 #endif
 /**************************** Type Definitions *******************************/
 
@@ -1291,8 +1301,8 @@ int main() {
 
 	/* Set the Application version in RXSs driver structure */
 	XV_HdmiRxSS_SetAppVersion(&HdmiRxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
-
 	/* Register HDMI RX SS Interrupt Handler with Interrupt Controller */
+
 #if defined(__arm__) || (__aarch64__)
 #ifndef SDT
 #ifndef USE_HDCP
@@ -1306,13 +1316,6 @@ int main() {
 			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
 			(void *)&HdmiRxSs);
 #endif
-
-#else
-	Status = XSetupInterruptSystem(&HdmiRxSs,
-				       (XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-				       HdmiRxSs.Config.IntrId[INTRNAME_HDMIRX],
-				       HdmiRxSs.Config.IntrParent,
-				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif //SDT
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -1327,6 +1330,30 @@ int main() {
 			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
 			(void *)&HdmiRxSs);
+#else
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDCP1XRX],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI RX HDCP1X Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
+
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDCP1XRX_TIMER],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI RX HDCP1X Timer Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
 #endif
 #endif
 
@@ -1337,6 +1364,18 @@ int main() {
 			XPAR_FABRIC_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiRxSs);
+#else
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDCP2XRX_TIMER],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI RX HDCP2X Timer Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
 #endif
 #endif
 
@@ -1375,6 +1414,18 @@ int main() {
 			XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
 			(void *)&HdmiRxSs);
+#else
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDCP2XRX_TIMER],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI RX HDCP2X Timer Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
 #endif
 #endif
 
@@ -1563,12 +1614,27 @@ int main() {
 					(void *)&Vphy);
 #endif
 
+#ifdef SDT
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDMIRX],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+			("ERR:: Unable to register HDMI RX interrupt handler");
+		xil_printf("HDMI RX SS initialization error\r\n");
+		return XST_FAILURE;
+	}
+#endif
 
 	xil_printf("---------------------------------\r\n");
 
 	/* Enable exceptions. */
+#ifndef SDT
 	Xil_AssertSetCallback((Xil_AssertCallback) Xil_AssertCallbackRoutine);
 	Xil_ExceptionEnable();
+#endif
 
 	/* Initialize menu */
 	XHdmi_MenuInitialize(&HdmiMenu, UART_BASEADDR);
