@@ -67,6 +67,7 @@
 *                         fix MISRA-C violations for Rule 4.6
 * 9.1  kpt       02/21/24 Added Xil_SChangeEndiannessAndCpy function
 * 9.2  kpt       06/24/24 Added Xil_SReverseData function
+* 9.2  vk        08/12/24 Added bit helper functions
 *
 * </pre>
 *
@@ -224,6 +225,14 @@ extern "C" {
 	}
 
 #endif
+/******************************************************************************/
+#define BIT(n)			(1U << n)
+#define SET_BIT(x, n)		(x | BIT(n))
+#define GET_BIT(x, n)		((x >> n) & 1U)
+#define CLEAR_BIT(x, n)		(x & (~BIT(n)))
+#define GENMASK(h, l) 		(((~0U) << (l)) & \
+				(~0U >> (sizeof(int) * 8 - 1 - (h))))
+#define GET_NUM_SET_BITS(n)	__builtin_popcount(n)
 /*************************** Function Prototypes ******************************/
 /**< Ceils the provided float value */
 s32 Xil_Ceil(float Value);
