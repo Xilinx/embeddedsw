@@ -31,6 +31,8 @@
 *			Fixed doxygen warnings
 *       har  06/07/2024 Added support to store and get user config for key index
 *	kal  07/24/2024 Code refactoring updates for versal_aiepg2
+*       har  08/08/2024 Added TCB Info extension in DevIk CSR
+*
 *
 * </pre>
 * @note
@@ -2040,6 +2042,12 @@ static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Ex
 	Curr = Curr + Len;
 
 	Status = XCert_GenExtKeyUsageField(Curr, Cfg, &Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + Len;
+
+	Status = XCert_GenTcbInfoExtnField(Curr, Cfg, &Len);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
