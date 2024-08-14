@@ -30,8 +30,9 @@
 *       ng   02/12/24 optimised u8 vars to u32 for size reduction
 *       am   02/14/24 Fixed internal security review comments
 *       kpt  02/21/24 Add support for DME CSR extension
-* 1.4   har  06/04/2024   Add support to store personalization string for additional DevAk
+* 1.4   har  06/04/24 Add support to store personalization string for additional DevAk
 *                     Add support to generate additional DevAk for key wrap
+*       har  07/19/24 Fixed issue in generating certificates for multiple subsystem
 *
 * </pre>
 * @note
@@ -446,8 +447,8 @@ int XOcp_GetSubSysDevAkIndex(u32 SubSystemId, u32* DevAkIndex)
 	while (Index < KeyMgmtInstance->DevAkInputIndex) {
 		if (SubSystemId == DevAkData->SubSystemId) {
 			DevAkIndex[KeyIndex] = Index;
+			KeyIndex++;
 		}
-		KeyIndex++;
 		Index++;
 		DevAkData++;
 	}
