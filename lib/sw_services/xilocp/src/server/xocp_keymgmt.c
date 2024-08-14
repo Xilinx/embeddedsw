@@ -33,6 +33,7 @@
 * 1.4   har  06/04/24 Add support to store personalization string for additional DevAk
 *                     Add support to generate additional DevAk for key wrap
 *       har  07/19/24 Fixed issue in generating certificates for multiple subsystem
+*       har  08/08/24 Update FwHash for both DevIk certificate and DevIk CSR
 *
 * </pre>
 * @note
@@ -503,9 +504,9 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 				(u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
 		CertConfig.AppCfg.IssuerPrvtKey = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
 		CertConfig.AppCfg.IssuerPublicKey = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
+		CertConfig.AppCfg.FwHash = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_PMC_FW_AUTH_HASH_0;
 		if (XOcp_GetX509CertPtr->IsCsr != TRUE) {
 			CertConfig.AppCfg.IsCsr = FALSE;
-			CertConfig.AppCfg.FwHash = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_PMC_FW_AUTH_HASH_0;
 		}
 		else {
 			if (XOcp_IsDmeChlAvail() != TRUE) {
