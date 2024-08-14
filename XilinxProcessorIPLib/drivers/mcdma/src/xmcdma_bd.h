@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,10 @@
 
 #ifndef XMCDMA_BD_H_
 #define XMCDMA_BD_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xil_types.h"
 
@@ -420,5 +424,9 @@ typedef u32 XMcdma_Bd[16];
  *
  *****************************************************************************/
 #define XMcdma_BdGetSwId(BdPtr) (XMcdma_BdRead((BdPtr), XMCDMA_BD_SW_ID_OFFSET))
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
