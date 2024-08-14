@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,7 +14,7 @@
 * This example attempts to send a known message through the mailbox from
 * the processor identified as 0 (XPAR_CPU_ID=0) to the other processor.
 * The message is received by the receiver and the test passes.
-* Since the application is running on two seperate processors, the
+* Since the application is running on two separate processors, the
 * initiator declares success when the message is sent and the receiver
 * declares success when the message is received. There is no feedback
 * to the initiator so a terminal is required for each processor to verify
@@ -53,6 +53,8 @@
 *       ms   04/05/17 Added tabspace for return statements in functions for
 *                     proper documentation while generating doxygen.
 * 4.6   ht   07/07/23 Added support for system device-tree flow.
+* 4.8   ht   08/08/24 Optimize wait time with timeout reduction and usleep()
+*                     inclusion.
 *</pre>
 *****************************************************************************/
 
@@ -79,7 +81,9 @@
 
 #define HELLO_SIZE	40
 
-#define TIMEOUT_MAX_COUNT	0xF0000000  /* Max count to wait for the message */
+#define TIMEOUT_MAX_COUNT	2000	/* Max count to wait for the message */
+
+#define XMBOX_SLEEP_IN_US	1000U	/* Sleep for 1000Us */
 
 /*
  * The following constants map to the XPAR parameters created in the
@@ -289,12 +293,14 @@ static int MailboxExample_Receive(XMbox *MboxInstancePtr, int CPU_Id)
 			Nbytes += BytesRcvd;
 		}
 
+		usleep(XMBOX_SLEEP_IN_US);
+
 		if (Timeout++ > TIMEOUT_MAX_COUNT) {
 			return XST_FAILURE;
 		}
 	}
 
-	/* Compare the recieved the message is the same as we expect */
+	/* Compare the received the message is the same as we expect */
 	if (memcmp(RecvMsg, ProducerHello, HELLO_SIZE)) {
 		return XST_FAILURE;
 	} else {
