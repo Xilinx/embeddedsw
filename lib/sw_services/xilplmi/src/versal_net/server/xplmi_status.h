@@ -148,9 +148,7 @@ typedef enum {
 					 handler is registered by module
 					  for CDO CMD */
 	XPLMI_ERR_RESERVED_109,		/**< 0x109 - XPLMI_ERR_RESERVED_109 */
-	XPLMI_ERR_RESUME_HANDLER,	/**< 0x10A - Error returned by the CDO
-					  CMD resume handler. For error returned
-					  by the CMD, check the PLM minor code*/
+	XPLMI_ERR_RESERVED_10A,		/**< 0x10A - XPLMI_ERR_RESERVED_10A*/
 
 	XPLMI_ERR_CDO_HDR_ID,		/**< 0x10B - Error when valid CDO header
 					  ID is not present in CDO header. Can

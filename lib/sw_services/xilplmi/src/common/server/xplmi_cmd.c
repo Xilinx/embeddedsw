@@ -29,6 +29,7 @@
 * 1.05  bm   06/13/2023 Add API to just log PLM error
 * 2.0   ng   11/11/2023 Implemented user modules
 *       mss  03/13/2024 Fix MISRA-C violation 10.3
+*       bs   07/15/2024 Updated Cmd Resume to return errror in 0x2XXX format
 * </pre>
 *
 * @note
@@ -46,12 +47,34 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/**
+ * @brief	Inline function to determine the Cdo error type based on the
+ * 			command Id
+ *
+ * @param	CmdId is the Command ID
+ *
+ * @return 	CDO Error Type in
+ * 			 - 0x2xyz format for CDO Error
+ * 			 - 0x3xyz format for User Module CDO Error
+ *
+ *****************************************************************************/
+static inline u32 XPlmi_GetCdoErr(u32 CmdId) {
+	u32 CdoErrType = (u32)XPLMI_ERR_CDO_CMD;
 
+#if ( XPAR_MAX_USER_MODULES > 0U )
+	u32 ModuleId = (CmdId & XPLMI_CMD_MODULE_ID_MASK) >> XPLMI_CMD_MODULE_ID_SHIFT;
+		if ( ModuleId >= XPLMI_USER_MODULE_START_INDEX ) {
+			CdoErrType = XPLMI_ERR_USER_MODULE_CDO_CMD;
+		}
+#endif
+		return (CdoErrType + (CmdId & XPLMI_ERR_CDO_CMD_MASK));
+}
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
+
 /*****************************************************************************/
 /**
  * @brief	This function will call the command handler registered with the
@@ -71,8 +94,6 @@
 int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 {
 	int Status = XST_FAILURE;
-	u32 CdoErr;
-	u32 CdoErrType = (u32)XPLMI_ERR_CDO_CMD;
 	u32 ModuleId = (CmdPtr->CmdId & XPLMI_CMD_MODULE_ID_MASK) >> XPLMI_CMD_MODULE_ID_SHIFT;
 	u32 ApiId = CmdPtr->CmdId & XPLMI_CMD_API_ID_MASK;
 	const XPlmi_Module *Module = NULL;
@@ -105,14 +126,9 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 	/** - Execute the API. */
 	Status = ModuleCmd->Handler(CmdPtr);
 	if (Status != XST_SUCCESS) {
-#if ( XPAR_MAX_USER_MODULES > 0U )
-		if ( ModuleId >= XPLMI_USER_MODULE_START_INDEX ) {
-			CdoErrType = XPLMI_ERR_USER_MODULE_CDO_CMD;
-		}
-#endif
-		CdoErr = CdoErrType + (CmdPtr->CmdId & XPLMI_ERR_CDO_CMD_MASK);
 
-		Status = XPlmi_UpdateStatus((XPlmiStatus_t)CdoErr, Status);
+		Status = XPlmi_UpdateStatus((XPlmiStatus_t)XPlmi_GetCdoErr(CmdPtr->CmdId), Status);
+
 		if (CmdPtr->DeferredError != (u8)TRUE) {
 			goto END;
 		}
@@ -151,9 +167,11 @@ int XPlmi_CmdResume(XPlmi_Cmd * CmdPtr)
 
 	XPlmi_Printf(DEBUG_DETAILED, "CMD Resume \n\r");
 	Xil_AssertNonvoid(CmdPtr->ResumeHandler != NULL);
+
 	Status = CmdPtr->ResumeHandler(CmdPtr);
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_RESUME_HANDLER, Status);
+
+		Status = XPlmi_UpdateStatus((XPlmiStatus_t)XPlmi_GetCdoErr(CmdPtr->CmdId), Status);
 		goto END;
 	}
 
