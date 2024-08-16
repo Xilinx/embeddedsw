@@ -60,7 +60,7 @@
 *       mmd      02/28/22 Added Xil_SMemMove function
 * 8.0	sk	 03/02/22 Add explicit parentheses to fix misra_c_2012_rule_12_1
 * 			  violation.
-* 8.0	sk	 03/02/22 Add const qualifier to varaibles to fix misra_c_2012_rule_
+* 8.0	sk	 03/02/22 Add const qualifier to variables to fix misra_c_2012_rule_
 * 			  11_8 violation.
 * 8.0	sk	 03/02/22 Typecast expression with unsigned int to fix
 * 			  misra_c_2012_rule_10_7 violation.
@@ -70,7 +70,7 @@
 * 			  _rule_8_13 violation.
 * 8.0	sk	 03/02/22 Typecast the function with void as return type is
 * 			  not used and fix misra_c_2012_rule_17_7 violation.
-* 8.0	sk	 03/02/22 Remove increment operations during comparision to
+* 8.0	sk	 03/02/22 Remove increment operations during comparison to
 * 			  fix misra_c_2012_rule_13_3 violation.
 * 8.0	sk	 03/02/22 Update values from signed to unsigned to fix
 * 			  misra_c_2012_rule_10_4 violation.
@@ -91,6 +91,7 @@
 *                         fix MISRA-C violations for Rule 4.6
 * 9.1   kpt      02/21/24 Added Xil_SChangeEndiannessAndCpy function
 * 9.2   kpt      06/24/24 Added Xil_SReverseData function
+*       pre      08/16/24 Added Xil_MemCpy64 function
 *
 * </pre>
 *
@@ -99,9 +100,14 @@
 /****************************** Include Files *********************************/
 #include "xil_util.h"
 #include "sleep.h"
+#ifdef SDT
+#include "bspconfig.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 #define MAX_NIBBLES	8U /**< maximum nibbles */
+#define XIL_WORD_SIZE		    (4U) /**< WORD size in BYTES */
+#define XIL_WORD_ALIGN_MASK		(XIL_WORD_SIZE - 1U)/**< WORD alignment */
 
 /************************** Function Prototypes *****************************/
 void (*fptr)(void) = NULL;
@@ -756,7 +762,7 @@ END:
  *			This function is a secure implementation of memcpy
  *
  * @param	DestPtr is pointer to destination address
- * @param	DestPtrLen is the memory alloted to the destination buffer
+ * @param	DestPtrLen is the memory allotted to the destination buffer
  * @param	SrcPtr is pointer to source address
  * @param	Len is number of bytes to be copied
  *
@@ -1062,7 +1068,7 @@ s32 Xil_SMemSet(void *Dest, const u32 DestSize,
  *		write to out of bound area.
  *
  * @param	DestStr  - Pointer to destination string
- * @param	DestSize - Maximum string size that detination can hold
+ * @param	DestSize - Maximum string size that destination can hold
  * @param	SrcStr   - Pointer to source string
  * @param	SrcSize  - Maximum string size that source can hold
  *
@@ -1203,7 +1209,7 @@ END:
  *		write to out of bound area.
  *
  * @param	DestStr  - Pointer to destination string
- * @param	DestSize - Maximum string size that detination can hold
+ * @param	DestSize - Maximum string size that destination can hold
  * @param	SrcStr   - Pointer to source string
  * @param	SrcSize  - Maximum string size that source can hold
  *
@@ -1274,7 +1280,7 @@ s32 Xil_SMemMove(void *Dest, const u32 DestSize,
 
 /****************************************************************************/
 /*
- * Waits for the event to be set with in timeout and returns error incase
+ * Waits for the event to be set with in timeout and returns error in case
  * event was not set in specified time out.
  *
  * @param   Timeout     - Max number of microseconds to wait for an event,
@@ -1450,4 +1456,47 @@ s32 Xil_SReverseData(void *Buf, u32 Size)
 
 END:
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function copies data from 64 bit address Src to 64 bit
+ * address Dst
+ *
+ * @param	DstAddr is the 64 bit destination address
+ * @param	SrcAddr is the 64 bit source address
+ * @param	Cnt is the number of bytes of data to be copied
+ *
+ *************************************************************************************************/
+void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
+{
+#if defined(VERSAL_PLM) || (defined(__MICROBLAZE__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32) &&\
+    (XPAR_MICROBLAZE_DATA_SIZE == 32))
+
+	u64 Dst = DstAddr;
+	u64 Src = SrcAddr;
+	u32 Count = Cnt;
+
+	/* Checking for overlap */
+	if (((SrcAddr < DstAddr) && (SrcAddr + Cnt <= DstAddr)) ||
+	    ((DstAddr < SrcAddr) && (DstAddr + Cnt <= SrcAddr))) {
+			if (((Dst & XIL_WORD_ALIGN_MASK) == 0U) &&
+			    ((Src & XIL_WORD_ALIGN_MASK) == 0U)) {
+					while (Count >= sizeof (int)) {
+						swea(Dst, lwea(Src));
+						Dst += sizeof(int);
+						Src += sizeof(int);
+						Count -= (u32)sizeof(int);
+					}
+			}
+			while (Count > 0U) {
+				sbea(Dst, lbuea(Src));
+				Dst += 1U;
+				Src += 1U;
+				Count -= 1U;
+			}
+		}
+#else
+	memcpy((void *)DstAddr, (void *)SrcAddr, Cnt);
+#endif
 }

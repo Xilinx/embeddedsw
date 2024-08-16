@@ -52,6 +52,8 @@
 *       am   04/15/2024 Fixed doxygen warnings
 * 2.01  sk   06/05/2024 Added defines for PLM Version in RTCA register
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
+*       pre  08/16/2024 Removed XPLMI_SSIT_COPYTOSSITBUF_FAILED,XPLMI_SSIT_COPYFROMSSITBUF_FAILED
+*                       error codes
 *
 * </pre>
 *
@@ -360,36 +362,30 @@ enum {
 	/** 0x201 - Error when SSIT master times out waiting for slaves sync point */
 	XPLMI_ERR_SSIT_SLAVE_SYNC,
 
-	/**< 0x202 - Minor error if copy to msg buffer fails at master side */
-	XPLMI_SSIT_COPYTOSSITBUF_FAILED,
-
-	/**< 0x203 - Minor error if copy from resp buffer fails at master side */
-	XPLMI_SSIT_COPYFROMSSITBUF_FAILED,
-
 	/**<
-	 * 0x204 - Minor error if DMA initialization returns NULL during secure plm to plm
+	 * 0x202 - Minor error if DMA initialization returns NULL during secure plm to plm
 	 * communication
 	 */
 	XPLMI_SSIT_INAVLID_DMA,
 
 	/**<
-	 * 0x205 - Minor error if AES initialization fails during secure plm to plm communication
+	 * 0x203 - Minor error if AES initialization fails during secure plm to plm communication
 	 */
 	XPLMI_SSIT_AES_INIT_FAIL,
 
 	/**<
-	 * 0x206 - Minor error if encryption/decryption initialization fails during secure plm to
+	 * 0x204 - Minor error if encryption/decryption initialization fails during secure plm to
 	 * plm communication
 	 */
 	XPLMI_SSIT_ENCDEC_INIT_FAIL,
 
-	/**< 0x207 - Minor error if AAD updation fails during encryption/decryption operation */
+	/**< 0x205 - Minor error if AAD updation fails during encryption/decryption operation */
 	XPLMI_SSIT_AAD_UPDATE_FAIL,
 
-	/**< 0x208 - Minor error if data updation fails during encryption/decryption operation */
+	/**< 0x206 - Minor error if data updation fails during encryption/decryption operation */
 	XPLMI_SSIT_DATA_UPDATE_FAIL,
 
-	/**< 0x209 - Minor error if tag generation fails during encryption/decryption operation */
+	/**< 0x207 - Minor error if tag generation fails during encryption/decryption operation */
 	XPLMI_SSIT_TAG_GENERATION_FAIL,
 };
 

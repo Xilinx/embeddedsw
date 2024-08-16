@@ -30,6 +30,7 @@
 * 5.2   yog  05/04/23 Fixed HIS COMF violations
 *	ss   04/05/24 Fixed doxygen warnings
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
+*       pre  08/16/24 Added API to use SSIT support
 *
 * </pre>
 *
@@ -48,6 +49,28 @@
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
+
+/*****************************************************************************/
+/**
+ * @brief	Adds the SLR Index.
+ *
+ * @param  InstancePtr is a pointer to instance XSecure_ClientInstance
+ *
+ * @param   SlrIndex - Number for slrId
+ *
+ *@return	- XST_SUCCESS - On valid input SlrIndex.
+ *		    - XST_FAILURE - On non valid input SlrIndex
+ *
+ ******************************************************************************/
+int XSecure_InputSlrIndex(XSecure_ClientInstance *InstancePtr, u32 SlrIndex)
+{
+	int Status = XST_FAILURE;
+	if(SlrIndex >= XSECURE_SLR_INDEX_0 && SlrIndex <= XSECURE_SLR_INDEX_3){
+		InstancePtr->SlrIndex = SlrIndex;
+	    Status =  XST_SUCCESS;
+	}
+	return  Status;
+}
 
 /****************************************************************************/
 /**

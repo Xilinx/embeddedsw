@@ -21,6 +21,7 @@
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *       am   06/19/23 Added error code for failure cases
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
+*       pre  08/16/24 Added SSIT support
 *
 * </pre>
 *
@@ -71,7 +72,7 @@ int XSecure_AesDecryptKat(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_KAT);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
 	Payload[1U] = (u32)XSECURE_API_AES_DECRYPT_KAT;
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
@@ -112,7 +113,7 @@ int XSecure_AesDecryptCmKat(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_KAT);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
 	Payload[1U] = (u32)XSECURE_API_AES_DECRYPT_CM_KAT;
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
@@ -146,7 +147,7 @@ int XSecure_RsaPublicEncKat(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_KAT);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
 	Payload[1U] = (u32)XSECURE_API_RSA_PUB_ENC_KAT;
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
@@ -184,7 +185,7 @@ int XSecure_Sha3Kat(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_KAT);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
 	Payload[1U] = (u32)XSECURE_API_SHA3_KAT;
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
@@ -220,7 +221,7 @@ int XSecure_EllipticSignVerifyKat(XSecure_ClientInstance *InstancePtr, XSecure_E
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_KAT);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
 	Payload[1U] = (u32)XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT;
 	Payload[2U] = CurveClass;
 
@@ -259,7 +260,7 @@ int XSecure_AesEncryptKat(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_KAT);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
 	Payload[1U] = (u32)XSECURE_API_AES_ENCRYPT_KAT;
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
@@ -293,7 +294,7 @@ int XSecure_RsaPrivateDecKat(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_KAT);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
 	Payload[1U] = (u32)XSECURE_API_RSA_PRIVATE_DEC_KAT;
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
@@ -329,7 +330,7 @@ int XSecure_EllipticSignGenKat(XSecure_ClientInstance *InstancePtr, XSecure_EccC
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_KAT);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_KAT);
 	Payload[1U] = (u32)XSECURE_API_ELLIPTIC_SIGN_GEN_KAT;
 	Payload[2U] = CurveClass;
 

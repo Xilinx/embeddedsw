@@ -125,6 +125,8 @@
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 * 2.1   mb   06/21/2024 Added error code for AES initialization fail
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
+*       pre  08/16/2024 Added XPLMI_SSIT_NO_PENDING_EVENTS,XPLMI_SSIT_SECURE_COMM_KEYWRITE_FAILURE
+*                       error codes
 *
 * </pre>
 *
@@ -362,6 +364,10 @@ typedef enum {
 	XPLMI_SSIT_SECURE_COMM_FAIL_AT_SLAVE_DECRYPTION, /**< 0x1B2 - Error if secure plm
 	                to plm communication fails at decryption on slave side*/
 	XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS, /**< 0x1B3 - Error when IPI request size exceeds */
+	XPLMI_SSIT_NO_PENDING_EVENTS, /**<  0x1B4 - Error when there are no pending events and
+	                 the task is triggered to handle an event */
+	XPLMI_SSIT_SECURE_COMM_KEYWRITE_FAILURE, /**< 0x1B5 - Error if key write fails during
+	                 secure plm to plm communication establishment */
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
