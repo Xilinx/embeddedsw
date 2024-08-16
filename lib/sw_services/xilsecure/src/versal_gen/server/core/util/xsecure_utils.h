@@ -18,6 +18,7 @@
 * 5.1   kpt     01/13/23 Initial Release
 * 5.1   yog     05/03/23 Fixed MISRA C violation of Rule 2.5
 * 5.4   kpt     06/24/24 Added XSECURE_BYTE_IN_BITS
+*       pre     08/16/24 Added XSecure_MemCpy64 macro
 *
 * </pre>
 *
@@ -37,6 +38,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xil_assert.h"
 #include "xil_mem.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions ****************************/
 #define XSECURE_RESET_SET			(1U) /**< To set the core into reset */
@@ -53,6 +55,7 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSecure_MemCpy			Xil_MemCpy /**< Backward compatibility */
+#define XSecure_MemCpy64        Xil_MemCpy64 /**< Backward compatibility */
 
 /**
  * @name  Definition of asserts if macro is defined
@@ -108,7 +111,7 @@ static inline void XSecure_WriteReg(UINTPTR BaseAddress,
 
 /*****************************************************************************/
 /**
- * @brief        This function reads data from 64-bit addresss
+ * @brief        This function reads data from 64-bit address
  *
  * @param        Addr is the address
  *
@@ -201,7 +204,6 @@ static inline void XSecure_OutByte64(u64 Addr, u8 Data)
 /************************** Function Prototypes ******************************/
 void XSecure_SetReset(UINTPTR BaseAddress, u32 Offset);
 void XSecure_ReleaseReset(UINTPTR BaseAddress, u32 Offset);
-void XSecure_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt);
 
 #ifdef __cplusplus
 }

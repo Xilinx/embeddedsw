@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2023 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,7 +27,7 @@
 * ------------------------------------------------------------------------------------------------------------
 * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
 * any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
-* which is acccessible to both client and server.
+* which is accessible to both client and server.
 *
 * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
 *
@@ -68,6 +68,7 @@
 * 4.7   kpt    01/13/22 Added support for PL microblaze
 *       kpt    03/16/22 Removed IPI related code and added mailbox support
 * 5.2   am     05/03/23 Added KAT before crypto usage
+*       pre    08/16/24 Added SSIT support
 *
 * </pre>
 ******************************************************************************/
@@ -80,7 +81,7 @@
 
 /************************** Constant Definitions *****************************/
 
-/* Harcoded KUP key for encryption of data */
+/* Hardcoded KUP key for encryption of data */
 #define	XSECURE_AES_KEY	\
 	"F878B838D8589818E868A828C8488808F070B030D0509010E060A020C0408000"
 
@@ -151,8 +152,6 @@ static u8 Aad[XSECURE_AAD_SIZE];
 #endif
 
 /************************** Function Definitions ******************************/
-
-
 
 /*****************************************************************************/
 /**
@@ -236,6 +235,12 @@ int main(void)
 	Xil_DCacheFlushRange((UINTPTR)SharedMem, XSECURE_IV_SIZE + XSECURE_KEY_SIZE);
 	Xil_DCacheFlushRange((UINTPTR)Data, XSECURE_DATA_SIZE);
 	Xil_DCacheFlushRange((UINTPTR)Aad, XSECURE_AAD_SIZE);
+
+	Status = XSecure_InputSlrIndex(&SecureClientInstance, XSECURE_SLR_INDEX_0);
+	if (Status != XST_SUCCESS) {
+			xil_printf("\r\nInvalid SlrIndex\r\n");
+			goto END;
+	}
 
 	/* Encryption and decryption of the data */
 	Status = SecureAesExample(&SecureClientInstance, Key, Iv);

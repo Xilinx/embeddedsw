@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022-2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.1   kpt     01/12/23 Initial release
+*       pre     08/16/24 Removed XSecure_MemCpy64 Function
 *
 * </pre>
 *
@@ -63,37 +64,4 @@ void XSecure_SetReset(UINTPTR BaseAddress, u32 Offset)
 
 	/* Clear bit when crypto is not in use */
 	XSecure_UpdateCryptoStatus(BaseAddress, XSECURE_CLEAR_BIT);
-}
-
-/***************************************************************************/
-/**
- * @brief	This function copies data from 64 bit address Src to 64 bit
- * address Dst
- *
- * @param	DstAddr is the 64 bit destination address
- * @param	SrcAddr is the 64 bit source address
- * @param	Cnt is the number of bytes of data to be copied
- *
- ******************************************************************************/
-void XSecure_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
-{
-	u64 Dst = DstAddr;
-	u64 Src = SrcAddr;
-	u32 Count = Cnt;
-
-	if (((Dst & XSECURE_WORD_ALIGN_MASK) == 0U) &&
-		((Src & XSECURE_WORD_ALIGN_MASK) == 0U)) {
-		while (Count >= sizeof (int)) {
-			XSecure_Out64(Dst, XSecure_In64(Src));
-			Dst += sizeof(int);
-			Src += sizeof(int);
-			Count -= (u32)sizeof(int);
-		}
-	}
-	while (Count > 0U) {
-		XSecure_OutByte64(Dst, XSecure_InByte64(Src));
-		Dst += 1U;
-		Src += 1U;
-		Count -= 1U;
-	}
 }

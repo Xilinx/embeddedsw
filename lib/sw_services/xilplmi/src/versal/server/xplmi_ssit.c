@@ -62,6 +62,7 @@
 * 2.00  ng   01/26/2024 Updated minor error codes
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  07/30/2024 Fixed misrac violations
+*       pre  08/16/2024 Replaced XPlmi_MemCpy64 with Xil_MemCpy64 at required places
 *
 * </pre>
 *
@@ -81,6 +82,7 @@
 #include "xplmi_tamper.h"
 #include "xplmi_plat.h"
 #include "xplmi_defs.h"
+#include "xil_util.h"
 
 /************************** Function Prototypes ******************************/
 static u32 XPlmi_SsitGetSlaveErrorMask(void);
@@ -558,7 +560,7 @@ int XPlmi_SsitReadEventBuffer(u32* ReqBuf, u32 ReqBufSize)
 
 	if (SsitEvents->SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX) {
 		/* Invalid SLR Type */
-		Status = (int)XPLMI_INVALID_SLR_TYPE;
+		Status = XPlmi_UpdateStatus(XPLMI_INVALID_SLR_TYPE, 0U);
 		goto END;
 	}
 
@@ -568,13 +570,14 @@ int XPlmi_SsitReadEventBuffer(u32* ReqBuf, u32 ReqBufSize)
 
 	/** - Maximum allowed message buffer data is 8 words */
 	if (ReqBufSize > XPLMI_SSIT_MAX_MSG_LEN) {
-		Status = (int)XPLMI_SSIT_BUF_SIZE_EXCEEDS;
+		Status = XPlmi_UpdateStatus(XPLMI_SSIT_BUF_SIZE_EXCEEDS, 0U);
 		goto END;
 	}
 
 	Header = XPlmi_In64(SlrAddr);
 	Status = (XPlmi_SsitCommPtr->ReceiveMessage)(ReqBuf, ReqBufSize, (u32)SsitEvents->SlrIndex,
 	                                       XPlmi_CheckCfgSecCommCmd(Header));
+
 END:
 	return Status;
 }
@@ -920,13 +923,13 @@ int XPlmi_SsitWriteResponseAndAckMsgEvent(u32 *RespBuf, u32 RespBufSize)
 
 	/** - This API can be called only in Slave SLRs */
 	if (SsitEvents->SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX) {
-		Status = (int)XPLMI_INVALID_SLR_TYPE;
+		Status = XPlmi_UpdateStatus(XPLMI_INVALID_SLR_TYPE, 0U);
 		goto END;
 	}
 
 	/** - Maximum allowed response buffer data is 8 words */
 	if (RespBufSize > XPLMI_SSIT_MAX_MSG_LEN) {
-		Status = (int)XPLMI_SSIT_BUF_SIZE_EXCEEDS;
+		Status = XPlmi_UpdateStatus(XPLMI_SSIT_BUF_SIZE_EXCEEDS, 0U);
 		goto END;
 	}
 
@@ -979,7 +982,7 @@ int XPlmi_SsitAcknowledgeEvent(u8 SlrIndex, u32 EventIndex)
 		SlrEvIndex = (SlrIndex - (u8)1U);
 	} else {
 		/** - If SLR Type is neither Master nor Slave SLR, return an error */
-		Status = (int)XPLMI_INVALID_SLR_TYPE;
+		Status = XPlmi_UpdateStatus(XPLMI_INVALID_SLR_TYPE, 0U);
 		goto END;
 	}
 
@@ -1071,8 +1074,10 @@ static int XPlmi_SsitEventHandler(void *Data)
 			sizeof(XPlmi_SsitEventVectorTable_t));
 
 	/* Read the Event Table of the remote SLR */
-	Status = XPlmi_MemCpy64((u64)(u32)&RemoteEventTable, RemoteEventTableAddr,
-			sizeof(XPlmi_SsitEventVectorTable_t));
+	Xil_MemCpy64((u64)(u32)&RemoteEventTable, RemoteEventTableAddr,
+	              sizeof(XPlmi_SsitEventVectorTable_t));
+
+	Status = XPlmi_UpdateStatus(XPLMI_SSIT_NO_PENDING_EVENTS, 0U);
 
 	/* Loop through the event table and execute the pending event handlers */
 	for ( ; Index < XPLMI_SSIT_MAX_EVENT32_INDEX; ++Index) {
@@ -1118,13 +1123,13 @@ static int XPlmi_SsitMsgEventHandler(void *Data)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	u32 MsgBuf[XPLMI_SSIT_MAX_MSG_LEN] = {0U};
+	volatile u32 MsgBuf[XPLMI_SSIT_MAX_MSG_LEN] = {0U};
 	XPlmi_Cmd Cmd = {0U};
 
 	(void)Data;
 
 	/* Read the event buffer */
-	Status = XPlmi_SsitReadEventBuffer(MsgBuf, XPLMI_SSIT_MAX_MSG_LEN);
+	Status = XPlmi_SsitReadEventBuffer((u32 *)MsgBuf, XPLMI_SSIT_MAX_MSG_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1134,7 +1139,7 @@ static int XPlmi_SsitMsgEventHandler(void *Data)
 
 	Cmd.Len = (Cmd.CmdId >> 16U) & 255U;
 	if (Cmd.Len > XPLMI_SSIT_MAX_MSG_LEN) {
-		Status = (int)XPLMI_SSIT_BUF_SIZE_EXCEEDS;
+		Status = XPlmi_UpdateStatus(XPLMI_SSIT_BUF_SIZE_EXCEEDS, 0U);
 		goto END;
 	}
 	Cmd.Payload = (u32 *)&MsgBuf[1U];
@@ -1163,7 +1168,6 @@ static int XPlmi_SsitMsgEventHandler(void *Data)
 
 	/* Call the received command handler */
 	Status = XPlmi_CmdExecute(&Cmd);
-
 END:
 	/* Write the response to the response buffer */
 	Cmd.Response[0U] = (u32)Status;
@@ -1194,7 +1198,7 @@ int XPlmi_SsitSingleEamEventHandler(void *Data)
 
 	/** - This API can be called only in Master SLR */
 	if (SsitEvents->SlrIndex != XPLMI_SSIT_MASTER_SLR_INDEX) {
-		Status = (int)XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR;
+		Status = XPlmi_UpdateStatus(XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR, 0U);
 		goto END;
 	}
 
@@ -2167,21 +2171,16 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
 
         /* Update IV1 as IV if it is 1st CfgSecComm Cmd */
         if (SecKeyIVEstablished != ESTABLISHED) {
-           Status = XPlmi_MemCpy64((u64)(UINTPTR)IvAddr, SrcAddr, XPLMI_IV_SIZE_BYTES);
-		   if (Status != XST_SUCCESS) {
-				goto END;
-		    }
+            Xil_MemCpy64((u64)(UINTPTR)IvAddr, SrcAddr, XPLMI_IV_SIZE_BYTES);
         }
 
         /* Frame full command with IV1,IV2,Key as payload */
         TempBuf[HEADER_OFFSET] = (Cmd->CmdId & ~XPLMI_CMD_LEN_MASK) |
 		                         ((u32)XPLMI_SSITCFG_CMD_PAYLOAD_LEN << LEN_BYTES_SHIFT);
         TempBuf[PAYLOAD_OFFSET] = SlrIndex;
-        Status = XPlmi_MemCpy64((u64)(UINTPTR)&TempBuf[XPLMI_IV1_OFFSET_INCMD], SrcAddr,
+
+        Xil_MemCpy64((u64)(UINTPTR)&TempBuf[XPLMI_IV1_OFFSET_INCMD], SrcAddr,
 			  ((XPLMI_IV_SIZE_BYTES * XPLMI_NOOF_IVS) + XPLMI_KEY_SIZE_BYTES));
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 
         /* Trigger message event to SLR given and get response */
         Status = XPlmi_SsitSendMsgEventAndGetResp((u8)SlrIndex, TempBuf,
@@ -2196,11 +2195,8 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
 		 * also set SecKeyIVEstablished flag
 		 */
         if (RespBuf[0] == XST_SUCCESS) {
-             Status = XPlmi_MemCpy64((u64)(UINTPTR)IvAddr, (u64)(UINTPTR)&TempBuf[XPLMI_IV2_OFFSET_INCMD],
+            Xil_MemCpy64((u64)(UINTPTR)IvAddr, (u64)(UINTPTR)&TempBuf[XPLMI_IV2_OFFSET_INCMD],
 			                XPLMI_IV_SIZE_BYTES);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
 
             Status = (XPlmi_SsitCommPtr->AesKeyWrite)(SlrIndex, (u32)&TempBuf[XPLMI_KEY_OFFSET_INCMD]);
 			if (Status != XST_SUCCESS) {
@@ -2215,17 +2211,11 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
       }
       else {
 		/* update new IV and new key with IV2 and key */
-        Status = XPlmi_MemCpy64((u64)XPLMI_SLR_NEWIV_ADDR, (u64)(UINTPTR)&Cmd->Payload[XPLMI_IV2_OFFSET_INPAYLOAD],
+        Xil_MemCpy64((u64)XPLMI_SLR_NEWIV_ADDR, (u64)(UINTPTR)&Cmd->Payload[XPLMI_IV2_OFFSET_INPAYLOAD],
 		       XPLMI_IV_SIZE_BYTES);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-        Status = XPlmi_MemCpy64((u64)XPLMI_SLR_NEWKEY_ADDR, (u64)(UINTPTR)&Cmd->Payload[XPLMI_KEY_OFFSET_INPAYLOAD],
+        Xil_MemCpy64((u64)XPLMI_SLR_NEWKEY_ADDR, (u64)(UINTPTR)&Cmd->Payload[XPLMI_KEY_OFFSET_INPAYLOAD],
 		       XPLMI_KEY_SIZE_BYTES);
-		if (Status != XST_SUCCESS) {
-			goto END;
-        }
+		Status = XST_SUCCESS;
        }
 END:
 #else

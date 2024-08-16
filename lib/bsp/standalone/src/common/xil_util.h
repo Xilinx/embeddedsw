@@ -68,6 +68,7 @@
 * 9.1  kpt       02/21/24 Added Xil_SChangeEndiannessAndCpy function
 * 9.2  kpt       06/24/24 Added Xil_SReverseData function
 * 9.2  vk        08/12/24 Added bit helper functions
+*      pre       08/16/24 Added Xil_MemCpy64 function
 *
 * </pre>
 *
@@ -344,6 +345,9 @@ s32 Xil_SChangeEndiannessAndCpy(void *Dest, const u32 DestSize,
 
 /**< Changes byte endianness of buffer and copies it into the same buffer */
 s32 Xil_SReverseData(void *Buf, u32 Size);
+
+/**< Copies data from 64 bit address Src to 64 bit address Dst */
+void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt);
 
 #ifdef __cplusplus
 }
