@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -779,7 +779,7 @@ static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 	}
 
 	u32 PufCtrlBits = (PUF_REGEN_DIS << XPUF_PUF_REGEN_DIS_SHIFT) | (PUF_HD_INVLD << XPUF_PUF_HD_INVLD_SHIFT) | (PUF_REGIS_DIS << XPUF_PUF_REGIS_DIS_SHIFT);
-	Status = XNvm_EfuseWritePufCtrlBits(InstancePtr, PufCtrlBits);
+	Status = XNvm_EfuseWritePufCtrlBits(InstancePtr, PufCtrlBits, XPUF_ENV_MONITOR_DISABLE);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in programming PUF Control bits %x\r\n", Status);
 	}

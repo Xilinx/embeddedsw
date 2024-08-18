@@ -54,6 +54,8 @@ static int XNvm_EfuseWriteIvFromCdoPload(u32 EnvDisFlag, XNvm_IvType IvType, XNv
 static int XNvm_EfuseWriteAesKeys(u32 EnvDisFlag, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseWritePpk(u32 EnvDisFlag, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseWriteIvs(u32 EnvDisFlag, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseWriteDiceUds(u32 EnvDisFlag, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseWriteDmeKey(u32 EnvDisFlag, u32 DmeKeyType, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseRead(u16 RegCount, u16 StartOffset, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseCacheLoadNPrgmProtBits(void);
 static int XNvm_EfuseWriteGlitchConfiguration(u32 EnvDisFlag, u32 GlitchConfig);
@@ -65,7 +67,7 @@ static int XNvm_EfuseWriteSecCtrl(u32 EnvDisFlag, u32 SecCtrlBits);
 static int XNvm_EfuseWriteMisc1Ctrl(u32 EnvDisFlag, u32 Misc1CtrlBits);
 static int XNvm_EfuseWriteBootEnvCtrl(u32 EnvDisFlag, u32 BootEnvCtrlBits);
 static int XNvm_EfuseWriteFipsInfoFuses(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion);
-static int XNvm_EfuseWriteDiceUds(u32 EnvDisFlag, XNvm_Uds *Uds);
+static int XNvm_EfuseWriteDiceUdsFromPload(u32 EnvDisFlag, XNvm_Uds *Uds);
 static int XNvm_EfuseWriteDmeKeyFromPload(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeKey *Key);
 static int XNvm_EfuseWriteDmeRevokeBits(u32 EnvDisFlag, u32 DmeRevokeNum);
 static int XNvm_EfuseWritePlmUpdate(u32 EnvDisFlag);
@@ -120,6 +122,8 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	XNvm_RomRsvdBitsWritePload *RomRsvd = NULL;
 	XNvm_PufHDInfoDirectPload *PufData = NULL;
 	XNvm_PufCtrlDirectPload *PufSecData = NULL;
+	XNvm_UdsWritePload *UdsWrPload = NULL;
+	XNvm_DmeKeyWritePload *DmeKeyWrPload = NULL;
 	static XNvm_CdoChunk CdoChunkData;
 	u32 PloadLen = 0;
 	XNvm_OcpHandler OcpHandler;
@@ -272,7 +276,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		}
 		if ((Cmd->ProcessedLen + Cmd->PayloadLen) == Cmd->Len) {
 			DiceUds = (XNvm_UdsDirectPload *)&CdoChunkData.Keys.UdsKey;
-			Status = XNvm_EfuseWriteDiceUds((u32)DiceUds->EnvDisFlag, &DiceUds->EfuseUds);
+			Status = XNvm_EfuseWriteDiceUdsFromPload((u32)DiceUds->EnvDisFlag, &DiceUds->EfuseUds);
 			CdoChunkData.MemClear = TRUE;
 		}
 		break;
@@ -347,6 +351,16 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS):
 		PufSecData = (XNvm_PufCtrlDirectPload *)Cmd->Payload;
 		Status = XNvm_EfuseWritePufCtrlBitsFromPload(PufSecData);
+		break;
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_UDS):
+		UdsWrPload = (XNvm_UdsWritePload *)Cmd->Payload;
+		Status = XNvm_EfuseWriteDiceUds((u32)UdsWrPload->EnvDisFlag,
+				UdsWrPload->AddrLow, UdsWrPload->AddrHigh);
+		break;
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_KEY):
+		DmeKeyWrPload = (XNvm_DmeKeyWritePload *)Cmd->Payload;
+		Status = XNvm_EfuseWriteDmeKey((u32)DmeKeyWrPload->EnvDisFlag, (u32)DmeKeyWrPload->DmeKeyType,
+				DmeKeyWrPload->AddrLow, DmeKeyWrPload->AddrHigh);
 		break;
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -684,6 +698,69 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief       This function programs DICE UDS received via IPI into eFUSEs.
+ *
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
+ * @param	AddrLow		Lower Address of the UDS buffer
+ * @param	AddrHigh	Higher Address of the UDS buffer
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- ErrorCode - If there is a failure
+ *
+ ******************************************************************************/
+static int XNvm_EfuseWriteDiceUds(u32 EnvDisFlag, u32 AddrLow, u32 AddrHigh)
+{
+	volatile int Status = XST_FAILURE;
+	XNvm_Uds Uds __attribute__ ((aligned (32U))) = {0U};
+	u64 UdsAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
+
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&Uds, UdsAddr, sizeof(Uds));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XNvm_EfuseWriteUds(EnvDisFlag, &Uds);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function programs DME key received via IPI into eFUSEs.
+ *
+ * @param	EnvDisFlag	Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
+ * @param	DmeKeyType	Type of DME private key
+ * @param	AddrLow		Lower Address of the DME Key buffer
+ * @param	AddrHigh	Higher Address of the DME Key buffer
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- ErrorCode - If there is a failure
+ *
+ ******************************************************************************/
+static int XNvm_EfuseWriteDmeKey(u32 EnvDisFlag, u32 DmeKeyType, u32 AddrLow, u32 AddrHigh)
+{
+	volatile int Status = XST_FAILURE;
+	XNvm_DmeKey DmeKey __attribute__ ((aligned (32U))) = {0U};
+	u64 DmeKeyAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
+
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&DmeKey, DmeKeyAddr, sizeof(DmeKey));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XNvm_EfuseWriteDmeUserKey(EnvDisFlag, (XNvm_DmeKeyType)DmeKeyType, &DmeKey);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  ** @brief       This function programs Misc1Ctrl eFuses
  *
  * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
@@ -761,7 +838,7 @@ static int XNvm_EfuseWriteFipsInfoFuses(u32 EnvDisFlag, u32 FipsMode, u32 FipsVe
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteDiceUds(u32 EnvDisFlag, XNvm_Uds *Uds)
+static int XNvm_EfuseWriteDiceUdsFromPload(u32 EnvDisFlag, XNvm_Uds *Uds)
 {
 	volatile int Status = XST_FAILURE;
 

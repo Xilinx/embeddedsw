@@ -49,19 +49,6 @@ extern "C" {
 
 /*************************** Constant Definitions *****************************/
 /**
- *  @name Enable printfs
- */
-/**< Enable printfs by setting XNVM_DEBUG to 1 */
-#define XNVM_DEBUG	(0U)
-
-#if (XNVM_DEBUG)
-#define XNVM_DEBUG_GENERAL (1U)
-#else
-#define XNVM_DEBUG_GENERAL (0U)
-#endif
-/** @} */
-
-/**
  *  @name eFuse ctrls constants
  */
 /**< Macros for eFUSE CTRL WRITE LOCKED and UNLOCKED */

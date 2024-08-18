@@ -437,7 +437,7 @@ extern "C" {
 #define XNVM_EFUSE_PUF_AUX_NUM_OF_ROWS			(1U)
 #define XNVM_EFUSE_IV_NUM_OF_ROWS			(3U)
 #define XNVM_EFUSE_DNA_NUM_OF_ROWS			(4U)
-#define XNVM_EFUSE_BOOT_ENV_CTRL_NUM_OF_ROWS		(1U)
+#define XNVM_EFUSE_BOOT_ENV_CTRL_NUM_OF_ROWS		(4U)
 /** @} */
 
 #ifdef __cplusplus

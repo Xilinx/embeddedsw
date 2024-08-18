@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -148,6 +149,42 @@
  * Encryption of DME private key 2 	=	IV + 0x4
  * Encryption of DME private key 3 	=	IV + 0x5
  *
+ * (IV) Program encrypted UDS, encrypted DME private keys and DME mode
+ *
+ * #define XPUF_ENV_MONITOR_DISABLE		(FALSE)
+ *
+ * TRUE will disable the temparature and voltage checks before eFuse programming.
+ * FALSE will not disable the temparature and voltage checks before eFuse programming.
+ * By default the value will be FALSE.
+ *
+ * #define XPUF_PRGM_UDS			(FALSE)
+ * If set as TRUE, the encrypted UDS will be programmed into eFuses.
+ * By default the value is set to FALSE
+ *
+ * #define XPUF_PRGM_ENC_DME_PRIV_KEY_0		(FALSE)
+ * If set as TRUE, the encrypted DME private key 0 will be programmed into eFuses.
+ * By default the value is set to FALSE
+ *
+ * #define XPUF_PRGM_ENC_DME_PRIV_KEY_1		(FALSE)
+ * If set as TRUE, the encrypted DME private key 1 will be programmed into eFuses.
+ * By default the value is set to FALSE
+ *
+ * #define XPUF_PRGM_ENC_DME_PRIV_KEY_2		(FALSE)
+ * If set as TRUE, the encrypted DME private key 2 will be programmed into eFuses.
+ * By default the value is set to FALSE
+ *
+ * #define XPUF_PRGM_ENC_DME_PRIV_KEY_3		(FALSE)
+ * If set as TRUE, the encrypted DME private key 3 will be programmed into eFuses.
+ * By default the value is set to FALSE
+ *
+ * #define XPUF_PRGM_DME_MODE			(FALSE)
+ * If set as TRUE, the DME mode specified in XPUF_DME_MODE_VAL will be programmed into eFuses.
+ * FALSE will ignore the value provided in XPUF_DME_MODE_VAL.
+ *
+ * #define XPUF_DME_MODE_VAL			(0x0)
+ * The value of DME mode which should be programmed into eFuses. The maximum allowed
+ * value of DME mode is 0xF.
+ *
  ******************************************************************************/
 #ifndef XILPUF_VERSAL_NET_EXAMPLE_H
 #define XILPUF_VERSAL_NET_EXAMPLE_H
@@ -211,6 +248,18 @@ extern "C" {
 	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 
 #define XPUF_IV					"000000000000000000000000"
+
+#define XPUF_ENV_MONITOR_DISABLE		(FALSE)
+
+#define XPUF_PRGM_UDS				(FALSE)
+#define XPUF_PRGM_ENC_DME_PRIV_KEY_0		(FALSE)
+#define XPUF_PRGM_ENC_DME_PRIV_KEY_1		(FALSE)
+#define XPUF_PRGM_ENC_DME_PRIV_KEY_2		(FALSE)
+#define XPUF_PRGM_ENC_DME_PRIV_KEY_3		(FALSE)
+#define XPUF_PRGM_DME_MODE			(FALSE)
+
+#define XPUF_DME_MODE_VAL			(0x0)
+
 /**************************** Type Definitions *******************************/
 
 #ifdef __cplusplus

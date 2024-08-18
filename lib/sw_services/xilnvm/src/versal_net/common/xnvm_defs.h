@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -73,6 +73,18 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 typedef struct {
+	u8 PlmUpdate;
+	u8 AuthKeysToHash;
+	u8 IroSwap;
+	u8 RomSwdtUsage;
+} XNvm_EfuseRomRsvdBits;
+
+typedef struct {
+	u8 FipsMode;
+	u8 FipsVersion;
+} XNvm_EfuseFipsInfoBits;
+
+typedef struct {
 	u16 StartOffset;
 	u16 RegCount;
 	u32 AddrLow;
@@ -119,6 +131,30 @@ typedef struct {
 	u32 CdoHdr;
 	XNvm_IvWritePload Pload;
 } XNvm_IvWriteCdo;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	u32 AddrLow;
+	u32 AddrHigh;
+} XNvm_UdsWritePload;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_UdsWritePload Pload;
+} XNvm_UdsWriteCdo;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 DmeKeyType;
+	u32 AddrLow;
+	u32 AddrHigh;
+} XNvm_DmeKeyWritePload;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_DmeKeyWritePload Pload;
+} XNvm_DmeKeyWriteCdo;
 
 typedef struct {
 	u16 EnvDisFlag;
@@ -270,6 +306,16 @@ typedef enum {
 
 typedef struct {
 	u32 EnvMonitorDis;
+	u32 DmeMode;
+} XNvm_DmeModeWritePload;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_DmeModeWritePload Pload;
+} XNvm_DmeModeWriteCdo;
+
+typedef struct {
+	u32 EnvMonitorDis;
 	u32 SecCtrlBits;
 } XNvm_SecCtrlBitsWritePload;
 
@@ -319,6 +365,51 @@ typedef struct {
 } XNvm_PufWriteCdo;
 
 typedef struct {
+	u32 CdoHdr;
+	XNvm_Misc1CtrlBits Pload;
+} XNvm_SecMisc1BitsCdo;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_DisPlmUpdate Pload;
+} XNvm_DisPlmUpdateCdo;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_DecOnly Pload;
+} XNvm_DecOnlyCdo;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_RevodeId Pload;
+} XNvm_RevokeIdCdo;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_OffChipId Pload;
+} XNvm_OffChipIdCdo;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_BootModeDis Pload;
+} XNvm_BootModeDisCdo;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_FipsInfo Pload;
+} XNvm_FipsInfoCdo;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_GlitchConfig Pload;
+} XNvm_GlitchConfigCdo;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_BootEnvCtrlBits Pload;
+} XNvm_BootEnvCtrlBitsCdo;
+
+typedef struct {
 	u32 PufSecCtrlBits;
 	u32 PrgmPufHelperData;
 	u32 EnvMonitorDis;
@@ -327,6 +418,13 @@ typedef struct {
 	u32 Aux;
 	u32 RoSwap;
 } XNvm_EfusePufHdAddr;
+
+typedef struct {
+	u64 EnvMonDisFlag;
+	u64 AesKeyAddr;
+	u64 PpkHashAddr;
+	u64 IvAddr;
+} XNvm_EfuseWriteDataAddr;
 
 /* XilNVM API ids */
 typedef enum {
@@ -365,6 +463,8 @@ typedef enum {
 	XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS,
 	XNVM_API_ID_EFUSE_READ_CACHE,
 	XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS,
+	XNVM_API_ID_EFUSE_WRITE_UDS,
+	XNVM_API_ID_EFUSE_WRITE_DME_KEY,
 	XNVM_API_MAX,
 } XNvm_ApiId;
 
