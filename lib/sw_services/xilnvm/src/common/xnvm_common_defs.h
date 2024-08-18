@@ -154,6 +154,9 @@ typedef struct {
 	u8 PmcScEn;
 	u8 BootEnvWrLk;
 	u8 RegInitDis;
+#if defined (VERSAL_NET)
+	u8 UdsWrLk;
+#endif
 } XNvm_EfuseSecCtrlBits;
 
 typedef struct {
@@ -162,6 +165,9 @@ typedef struct {
 	u8 PufTest2Dis;
 	u8 PufDis;
 	u8 PufSynLk;
+#if defined (VERSAL_NET)
+	u8 PufRegisDis;
+#endif
 } XNvm_EfusePufSecCtrlBits;
 
 typedef struct {
