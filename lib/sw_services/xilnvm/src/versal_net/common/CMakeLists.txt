@@ -3,5 +3,7 @@
 
 collect (PROJECT_LIB_HEADERS xnvm_defs.h)
 collect (PROJECT_LIB_HEADERS xnvm_validate.h)
+collect (PROJECT_LIB_HEADERS xnvm_efuse_error_plat.h)
+collect (PROJECT_LIB_HEADERS xnvm_efuse_hw.h)
 
 collect (PROJECT_LIB_SOURCES xnvm_validate.c)

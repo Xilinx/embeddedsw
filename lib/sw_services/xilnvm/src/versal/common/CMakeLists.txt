@@ -2,3 +2,4 @@
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS xnvm_defs.h)
+collect (PROJECT_LIB_HEADERS xnvm_efuse_error_plat.h)

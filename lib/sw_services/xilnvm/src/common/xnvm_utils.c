@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -49,13 +49,21 @@
 #include "xnvm_utils.h"
 #include "xstatus.h"
 #include "xil_util.h"
-#include "xnvm_temp.h"
+#include "xnvm_efuse_error.h"
+#include "xnvm_efuse_common_hw.h"
 
 /*************************** Constant Definitions *****************************/
 
 /**< Polynomial used for CRC calculation */
 #define REVERSE_POLYNOMIAL	(0x82F63B78U)
 
+/**
+ *  @name eFuse ctrls constants
+ */
+/**< Macros for eFUSE CTRL WRITE LOCKED and UNLOCKED */
+#define XNVM_EFUSE_CTRL_WR_LOCKED	(0x01U)
+#define XNVM_EFUSE_CTRL_WR_UNLOCKED	(0x00U)
+/** @} */
 
 /***************************** Type Definitions *******************************/
 

@@ -4,7 +4,6 @@
 collect (PROJECT_LIB_HEADERS xnvm_bbram.h)
 collect (PROJECT_LIB_HEADERS xnvm_bbram_hw.h)
 collect (PROJECT_LIB_HEADERS xnvm_efuse_common.h)
-collect (PROJECT_LIB_HEADERS xnvm_efuse_common_hw.h)
 
 collect (PROJECT_LIB_SOURCES xnvm_bbram.c)
 collect (PROJECT_LIB_SOURCES xnvm_efuse_common.c)
