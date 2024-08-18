@@ -155,6 +155,25 @@ typedef enum {
 	XNVM_EFUSE_ERROR_SECURE_STATE_MEASUREMENT = 0xF500,/**<0xF500 - Error
 						* during secure state measurement */
 
+	XNVM_EFUSE_ERR_DEC_ONLY_METAHEADER_IV_MUST_BE_PRGMD = 0xF600,/**<0xF600 - Error
+						* METAHEADER IV should be programmed for
+						* DEC_ONLY eFuse programming */
+
+	XNVM_EFUSE_ERR_DEC_ONLY_PLM_IV_MUST_BE_PRGMD = 0xF700,/**<0xF700 - Error
+						* PLM IV should be programmed for
+						* DEC_ONLY eFuse programming */
+
+	XNVM_EFUSE_ERR_DEC_ONLY_DATA_PARTITION_IV_MUST_BE_PRGMD = 0xF800,/**<0xF800 - Error
+						* DATA_PARTITION IV should be programmed for
+						* DEC_ONLY eFuse programming */
+
+	XNVM_EFUSE_ERR_DEC_ONLY_PUF_HD_MUST_BE_PRGMD = 0xF900,/**<0xF900 - Error
+						* PUF HELPER DATA should be programmed for
+						* DEC_ONLY eFuse programming */
+
+	XNVM_EFUSE_ERROR_DME_MODE_SET = 0xFA00,/**<0xFA00 - Error
+						* occured when DME Mode is set and
+						* trying to read User fuses */
 } XNvm_EfuseVersalNetErrorCodes;
 
 #ifdef __cplusplus

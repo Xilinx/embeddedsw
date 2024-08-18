@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS xnvm_efuse.h)
-collect (PROJECT_LIB_HEADERS xnvm_efuse_error_plat.h)
 collect (PROJECT_LIB_HEADERS xnvm_efuse_hw.h)
 
 collect (PROJECT_LIB_SOURCES xnvm_efuse.c)

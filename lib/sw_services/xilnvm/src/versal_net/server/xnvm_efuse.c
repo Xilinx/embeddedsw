@@ -809,8 +809,8 @@ int XNvm_EfuseWriteMiscCtrlBits(u32 EnvDisFlag, u32 MiscCtrlBits)
 	 */
 	Status = XNvm_EfuseComputeProgrammableBits(&MiscCtrlBits,
 				&RdMiscCtrlBits,
-				XNVM_EFUSE_CACHE_MISC_CTRL_CACHE_OFFSET,
-				XNVM_EFUSE_CACHE_MISC_CTRL_CACHE_OFFSET);
+				XNVM_EFUSE_CACHE_MISC_CTRL_OFFSET,
+				XNVM_EFUSE_CACHE_MISC_CTRL_OFFSET);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
 		goto END;
@@ -889,8 +889,8 @@ int XNvm_EfuseWriteSecCtrlBits(u32 EnvDisFlag, u32 SecCtrlBits)
 	 *  compute programmable bits
 	 */
 	Status = XNvm_EfuseComputeProgrammableBits(&SecCtrlBits, &RdSecCtrlBits,
-				XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET,
-				XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET);
+				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET,
+				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
 		goto END;
@@ -970,8 +970,8 @@ int XNvm_EfuseWriteMisc1Bits(u32 EnvDisFlag, u32 Misc1Bits)
 	 *  compute programmable bits
 	 */
 	Status = XNvm_EfuseComputeProgrammableBits(&Misc1Bits, &RdMisc1Bits,
-				XNVM_EFUSE_CACHE_SEC_MISC_1_OFFSET,
-				XNVM_EFUSE_CACHE_SEC_MISC_1_OFFSET);
+				XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET,
+				XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
 		goto END;
@@ -1226,7 +1226,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	 *  Read directly from cache offset of the SecCtrl to fill the SecCtrlBits structure
 	 */
 	SecCtrlBits = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-			XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET);
+			XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
 
 	if ((SecCtrlBits & XNVM_EFUSE_CACHE_SECURITY_CONTROL_UDS_WR_LK_MASK) != 0U) {
 		Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
@@ -2510,9 +2510,9 @@ static int XNvm_EfusePrgmProtectionBits(void)
 	volatile u32 ProtectionBitMask = XNVM_EFUSE_PROTECTION_BIT_CLEAR;
 
 	RowData  = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET);
+				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
 	RowDataTmp =  XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET);
+				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
 	if ((RowData != 0x00U) || (RowDataTmp != 0x00U)) {
 		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_SECURITY_CONTROL_MASK);
 		if (ProtectionBitMask == XNVM_EFUSE_PROTECTION_BIT_CLEAR) {
@@ -2567,7 +2567,7 @@ static int XNvm_EfusePrgmProtectionBits(void)
 		}
 	}
 
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PPK0_HASH_OFFSET,
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PPK0_HASH_0_OFFSET,
 				XNVM_EFUSE_PPK_HASH_NUM_OF_CACHE_ROWS * 3U);
 	if (Status != XST_SUCCESS) {
 		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_PPK_0_HASH_MASK);
@@ -2593,7 +2593,7 @@ static int XNvm_EfusePrgmProtectionBits(void)
 		}
 	}
 
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET,
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_0_OFFSET,
 				XNVM_EFUSE_METAHEADER_IV_NUM_OF_ROWS);
 	if (Status != XST_SUCCESS) {
 		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_META_HEADER_IV_MASK);
@@ -2671,10 +2671,10 @@ static int XNvm_EfusePrgmProtectionBits(void)
 	}
 
 	RowData = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-			XNVM_EFUSE_CACHE_SEC_MISC_1_OFFSET) &
+			XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET) &
 			XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK;
 	RowDataTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-			XNVM_EFUSE_CACHE_SEC_MISC_1_OFFSET) &
+			XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET) &
 			XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK;
 	if ((RowData != 0x00U) || (RowDataTmp != 0x00U)) {
 		ProtectionBitMask = XNvm_EfuseReadProtectionBits(XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_1_MASK);
@@ -2747,9 +2747,9 @@ static int XNvm_EfuseProtectionChecks(void)
 
 	if((ProtVal != 0x0U) || (ProtValTmp != 0x0U)) {
 		RowVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET);
+				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
 		RowValTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET);
+				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
 
 		if ((RowVal != RowValTmp) || (RowVal == 0x0U)) {
 			Status = (int)XNVM_EFUSE_ERR_IN_PROTECTION_CHECK;
@@ -2785,10 +2785,10 @@ static int XNvm_EfuseProtectionChecks(void)
 		for (Index = 0U; Index < XNVM_EFUSE_TOTAL_PPK_HASH_ROWS;
 			Index++) {
 			RowVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-					XNVM_EFUSE_CACHE_PPK0_HASH_OFFSET +
+					XNVM_EFUSE_CACHE_PPK0_HASH_0_OFFSET +
 					(Index * XNVM_WORD_LEN));
 			RowValTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-					XNVM_EFUSE_CACHE_PPK0_HASH_OFFSET +
+					XNVM_EFUSE_CACHE_PPK0_HASH_0_OFFSET +
 					(Index * XNVM_WORD_LEN));
 			if ((RowVal != 0x0U) || (RowValTmp != 0x0U)) {
 				break;
@@ -2809,10 +2809,10 @@ static int XNvm_EfuseProtectionChecks(void)
 
 		for (Index = 0U; Index < XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS; Index++) {
 			RowVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET +
+				XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_0_OFFSET +
 				(Index * XNVM_WORD_LEN));
 			RowValTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET +
+				XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_0_OFFSET +
 				(Index * XNVM_WORD_LEN));
 
 			if ((RowVal != 0x0U) || (RowValTmp != 0x0U)) {
@@ -2863,9 +2863,9 @@ static int XNvm_EfuseProtectionChecks(void)
 
 	if((ProtVal != 0x0U) || (ProtValTmp != 0x0U)) {
 		RowVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_SEC_MISC_1_OFFSET);
+				XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET);
 		RowValTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_SEC_MISC_1_OFFSET);
+				XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET);
 
 		if ((RowVal != RowValTmp) ||
 			((RowVal & XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK) == 0x0U)) {
@@ -2948,7 +2948,7 @@ static int XNvm_EfusePrgmIv(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 
 	if (IvType == XNVM_EFUSE_META_HEADER_IV_RANGE) {
 		IvTypeTmp = XNVM_EFUSE_META_HEADER_IV_RANGE;
-		IvOffset = XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET;
+		IvOffset = XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_0_OFFSET;
 		Row = XNVM_EFUSE_META_HEADER_IV_START_ROW;
 		StartColNum = XNVM_EFUSE_METAHEADER_IV_RANGE_START_COL_NUM;
 		EndColNum = XNVM_EFUSE_METAHEADER_IV_RANGE_END_COL_NUM;
@@ -2956,7 +2956,7 @@ static int XNvm_EfusePrgmIv(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	}
 	else if (IvType == XNVM_EFUSE_BLACK_IV) {
 		IvTypeTmp = XNVM_EFUSE_BLACK_IV;
-		IvOffset = XNVM_EFUSE_CACHE_BLACK_IV_OFFSET;
+		IvOffset = XNVM_EFUSE_CACHE_BLACK_IV_0_OFFSET;
 		Row = XNVM_EFUSE_BLACK_IV_START_ROW;
 		StartColNum = XNVM_EFUSE_BLACK_IV_START_COL_NUM;
 		EndColNum = XNVM_EFUSE_BLACK_IV_END_COL_NUM;
@@ -2964,7 +2964,7 @@ static int XNvm_EfusePrgmIv(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	}
 	else if (IvType == XNVM_EFUSE_PLM_IV_RANGE) {
 		IvTypeTmp = XNVM_EFUSE_PLM_IV_RANGE;
-		IvOffset = XNVM_EFUSE_CACHE_PLM_IV_RANGE_OFFSET;
+		IvOffset = XNVM_EFUSE_CACHE_PLM_IV_RANGE_0_OFFSET;
 		Row = XNVM_EFUSE_PLM_IV_START_ROW;
 		StartColNum = XNVM_EFUSE_PLM_IV_RANGE_START_COL_NUM;
 		EndColNum = XNVM_EFUSE_PLM_IV_RANGE_END_COL_NUM;
@@ -2972,7 +2972,7 @@ static int XNvm_EfusePrgmIv(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	}
 	else if (IvType == XNVM_EFUSE_DATA_PARTITION_IV_RANGE) {
 		IvTypeTmp = XNVM_EFUSE_DATA_PARTITION_IV_RANGE;
-		IvOffset = XNVM_EFUSE_CACHE_DATA_PARTITION_IV_OFFSET;
+		IvOffset = XNVM_EFUSE_CACHE_DATA_PARTITION_IV_RANGE_0_OFFSET;
 		Row = XNVM_EFUSE_DATA_PARTITION_IV_START_ROW;
 		StartColNum = XNVM_EFUSE_DATA_PARTITION_IV_START_COL_NUM;
 		EndColNum = XNVM_EFUSE_DATA_PARTITION_IV_END_COL_NUM;

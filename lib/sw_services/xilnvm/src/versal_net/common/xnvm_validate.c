@@ -37,7 +37,8 @@
 #include "xnvm_defs.h"
 #include "xnvm_utils.h"
 #include "xstatus.h"
-#include "xnvm_temp.h"
+#include "xnvm_efuse_error.h"
+#include "xnvm_efuse_hw.h"
 
 /**************************** Type Definitions *******************************/
 
@@ -85,7 +86,7 @@ int XNvm_EfuseValidateAesKeyWriteReq(XNvm_AesKeyType KeyType)
 	 *  Read the security control bits at offset of SECURITY_CTRL
 	 */
 	SecCtrlBits = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET);
+				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
 
 	if (KeyType == XNVM_EFUSE_AES_KEY) {
 		CrcRegOffset = XNVM_EFUSE_AES_CRC_REG_OFFSET;
@@ -164,17 +165,17 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
 	 *  Read the security control bits at offset of SECURITY_CTRL
 	 */
 	SecCtrlBits = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET);
+				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
 	if (PpkType == XNVM_EFUSE_PPK0) {
-		PpkOffset = XNVM_EFUSE_CACHE_PPK0_HASH_OFFSET;
+		PpkOffset = XNVM_EFUSE_CACHE_PPK0_HASH_0_OFFSET;
 		WrLkMask = XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK0_WR_LK_MASK;
 	}
 	else if (PpkType == XNVM_EFUSE_PPK1) {
-		PpkOffset = XNVM_EFUSE_CACHE_PPK1_HASH_OFFSET;
+		PpkOffset = XNVM_EFUSE_CACHE_PPK1_HASH_0_OFFSET;
 		WrLkMask = XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK1_WR_LK_MASK;
 	}
 	else if (PpkType == XNVM_EFUSE_PPK2) {
-		PpkOffset = XNVM_EFUSE_CACHE_PPK2_HASH_OFFSET;
+		PpkOffset = XNVM_EFUSE_CACHE_PPK2_HASH_0_OFFSET;
 		WrLkMask = XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK2_WR_LK_MASK;
 	}
 	else {
@@ -186,7 +187,7 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
 	 *  Check for zeros in eFuse. Return XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD if not success
 	 */
 	Status = XNvm_EfuseCheckZeros(PpkOffset,
-			XNVM_EFUSE_PPK_HASH_NUM_OF_CACHE_ROWS);
+			XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD +
 			(PpkType << XNVM_EFUSE_ERROR_NIBBLE_SHIFT);
@@ -235,22 +236,22 @@ int XNvm_EfuseValidateIvWriteReq(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 		/**
 		 *   Check Zeros at offset of Black_Iv. Return XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD if not success
 		 */
-		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_BLACK_IV_OFFSET,
-				XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
+		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_BLACK_IV_0_OFFSET,
+				XNVM_EFUSE_IV_NUM_OF_ROWS);
 		if (Status != XST_SUCCESS) {
 			Status = (int)XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD;
 			goto END;
 		}
-		IvOffset = XNVM_EFUSE_CACHE_BLACK_IV_OFFSET;
+		IvOffset = XNVM_EFUSE_CACHE_BLACK_IV_0_OFFSET;
 	}
 	else if (IvType == XNVM_EFUSE_META_HEADER_IV_RANGE) {
-		IvOffset = XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET;
+		IvOffset = XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_0_OFFSET;
 	}
 	else if (IvType == XNVM_EFUSE_PLM_IV_RANGE) {
-		IvOffset = XNVM_EFUSE_CACHE_PLM_IV_RANGE_OFFSET;
+		IvOffset = XNVM_EFUSE_CACHE_PLM_IV_RANGE_0_OFFSET;
 	}
 	else if (IvType == XNVM_EFUSE_DATA_PARTITION_IV_RANGE) {
-		IvOffset = XNVM_EFUSE_CACHE_DATA_PARTITION_IV_OFFSET;
+		IvOffset = XNVM_EFUSE_CACHE_DATA_PARTITION_IV_RANGE_0_OFFSET;
 	}
 	else {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
@@ -423,29 +424,29 @@ static int XNvm_EfuseAreAllIvsProgrammed(void)
 {
 	int Status = XST_FAILURE;
 
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET,
-					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_0_OFFSET,
+					XNVM_EFUSE_IV_NUM_OF_ROWS);
 	if (Status == XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_METAHEADER_IV_MUST_BE_PRGMD;
 		goto END;
 	}
 
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_BLACK_IV_OFFSET,
-					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_BLACK_IV_0_OFFSET,
+					XNVM_EFUSE_IV_NUM_OF_ROWS);
 	if (Status == XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
 		goto END;
 	}
 
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PLM_IV_RANGE_OFFSET,
-					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PLM_IV_RANGE_0_OFFSET,
+					XNVM_EFUSE_IV_NUM_OF_ROWS);
 	if (Status == XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_PLM_IV_MUST_BE_PRGMD;
 		goto END;
 	}
 
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_DATA_PARTITION_IV_OFFSET,
-					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
+	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_DATA_PARTITION_IV_RANGE_0_OFFSET,
+					XNVM_EFUSE_IV_NUM_OF_ROWS);
 	if (Status == XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_DATA_PARTITION_IV_MUST_BE_PRGMD;
 		goto END;
