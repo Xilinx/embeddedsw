@@ -313,18 +313,10 @@ XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 				u32 ReqFlags, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 SubClass = NODESUBCLASS(DeviceId);
 	u32 PreallocCaps, PreallocQoS;
 	XPm_Device *Device = NULL;
 	u32 Flags = ReqFlags;
 	u32 DevType = NODETYPE(DeviceId);
-
-
-	/* TODO: Memory region node support is yet to be added */
-	if ((u32)XPM_NODESUBCL_DEV_MEM_REGN == SubClass) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
 
 	switch (DevType) {
 	case (u32)XPM_NODETYPE_DEV_GGS:
@@ -2176,6 +2168,46 @@ done:
 	return Status;
 }
 
+static XStatus AddMemRegnDevice(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 DeviceId;
+	u32 Type;
+	u32 Index;
+	u64 Address;
+	u64 size;
+
+	if (5U != NumArgs) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	DeviceId = Args[0];
+	Type = NODETYPE(DeviceId);
+	Index = NODEINDEX(DeviceId);
+
+	Address = ((u64)Args[1]) | (((u64)Args[2]) << 32);
+	size = ((u64)Args[3]) | (((u64)Args[4]) << 32);
+
+	if ((u32)XPM_NODEIDX_DEV_MEM_REGN_MAX < Index) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	if (NULL != XPmDevice_GetById(DeviceId)) {
+		Status = XST_DEVICE_BUSY;
+		goto done;
+	}
+
+	if ((u32)XPM_NODETYPE_DEV_MEM_REGN == Type) {
+		Status = XPm_AddMemRegnDevice(DeviceId, Address, size);
+	} else {
+		Status = XST_INVALID_PARAM;
+	}
+
+done:
+	return Status;
+}
 
 /****************************************************************************/
 /**
@@ -2300,8 +2332,7 @@ static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 		Status = AddMemCtrlrDevice(Args, PowerId);
 		break;
 	case (u32)XPM_NODESUBCL_DEV_MEM_REGN:
-		/* TODO: Memory region node support is yet to be added */
-		Status = XST_SUCCESS;
+		Status = AddMemRegnDevice(Args, NumArgs);
 		break;
 	default:
 		Status = XPm_PlatAddDevice(Args, NumArgs);

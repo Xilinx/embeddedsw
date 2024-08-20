@@ -61,9 +61,11 @@ static XPm_Device *PmPlDevices[(u32)XPM_NODEIDX_DEV_PLD_MAX];
 static XPm_Device *PmAieDevices[(u32)XPM_NODEIDX_DEV_AIE_MAX];
 static XPm_Device *PmVirtualDevices[(u32)XPM_NODEIDX_DEV_VIRT_MAX];
 static XPm_Device *PmHbMonDevices[(u32)XPM_NODEIDX_DEV_HB_MON_MAX];
+static XPm_Device *PmMemRegnDevices[(u32)XPM_NODEIDX_DEV_MEM_REGN_MAX];
 static u32 PmNumPlDevices;
 static u32 PmNumVirtualDevices;
 static u32 PmNumHbMonDevices;
+static u32 PmNumMemRegnDevices;
 static u32 PmNumAieDevices;
 static u32 PmSysmonAddresses[(u32)XPM_NODEIDX_MONITOR_MAX];
 static u32 PmNumDevices;
@@ -161,6 +163,20 @@ static XStatus SetHbMonDeviceNode(u32 Id, XPm_Device *Device)
 	if ((NULL != Device) && ((u32)XPM_NODEIDX_DEV_HB_MON_MAX > NodeIndex)) {
 		PmHbMonDevices[NodeIndex] = Device;
 		PmNumHbMonDevices++;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+static XStatus SetMemRegnDeviceNode(u32 Id, XPm_Device *Device)
+{
+	XStatus Status = XST_INVALID_PARAM;
+	u32 NodeIndex = NODEINDEX(Id);
+
+	if ((NULL != Device) && ((u32)XPM_NODEIDX_DEV_MEM_REGN_MAX > NodeIndex)) {
+		PmMemRegnDevices[NodeIndex] = Device;
+		PmNumMemRegnDevices++;
 		Status = XST_SUCCESS;
 	}
 
@@ -1288,6 +1304,13 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 			DbgErr = XPM_INT_ERR_SET_AIE_DEV;
 			goto done;
 		}
+	} else if (((u32)XPM_NODESUBCL_DEV_MEM_REGN == NODESUBCLASS(Id)) &&
+			((u32)XPM_NODETYPE_DEV_MEM_REGN == NODETYPE(Id))) {
+		Status = SetMemRegnDeviceNode(Id, Device);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SET_MEM_REGN_DEV;
+			goto done;
+		}
 	} else {
 		Status = SetDeviceNode(Id, Device);
 		if (XST_SUCCESS != Status) {
@@ -1546,6 +1569,12 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 			goto done;
 		}
 		DevicesHandle = PmAieDevices;
+	} else if (((u32)XPM_NODESUBCL_DEV_MEM_REGN == NODESUBCLASS(DeviceId)) &&
+			((u32)XPM_NODETYPE_DEV_MEM_REGN == NODETYPE(DeviceId))) {
+		if ((u32)XPM_NODEIDX_DEV_MEM_REGN_MAX < NODEINDEX(DeviceId)) {
+			goto done;
+		}
+		DevicesHandle = PmMemRegnDevices;
 	} else {
 		if ((u32)XPM_NODEIDX_DEV_MAX <= NODEINDEX(DeviceId)) {
 			goto done;

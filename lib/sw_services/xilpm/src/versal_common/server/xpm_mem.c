@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -193,4 +194,47 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 
 done:
 	return Status;
+}
+
+static XStatus XPmMemRegnDevice_Init(XPm_MemRegnDevice *MemRegnDevice, u32 Id,
+			     u64 Address, u64 Size)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Power *Power;
+	const u32 PowerId = PM_POWER_NOC;
+
+	Power = XPmPower_GetById(PowerId);
+	if (NULL == Power) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	Status = XPmDevice_Init(&MemRegnDevice->Device, Id, 0U, Power,
+				NULL, NULL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	MemRegnDevice->AddrRegion.Address = Address;
+	MemRegnDevice->AddrRegion.Size = Size;
+
+done:
+	return Status;
+}
+
+XStatus XPm_AddMemRegnDevice(u32 DeviceId, u64 Address, u64 Size)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_MemRegnDevice *MemRegnDevice;
+
+	MemRegnDevice  = (XPm_MemRegnDevice *)XPm_AllocBytes(sizeof(XPm_MemRegnDevice));
+	if (NULL == MemRegnDevice) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+	Status = XPmMemRegnDevice_Init(MemRegnDevice, DeviceId, Address, Size);
+
+done:
+	return Status;
+
 }
