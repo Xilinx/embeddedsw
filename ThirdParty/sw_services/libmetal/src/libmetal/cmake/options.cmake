@@ -79,7 +79,6 @@ if ("${PROJECT_MACHINE}" STREQUAL "zynqmp_a53" OR
     "${PROJECT_MACHINE}" STREQUAL "zynqmp_a72" OR
     "${PROJECT_MACHINE}" STREQUAL "zynqmp_a78" OR
     "${PROJECT_MACHINE}" STREQUAL "zynqmp_r5"  OR
-    "${PROJECT_MACHINE}" STREQUAL "microblaze_generic"  OR
-    "${PROJECT_MACHINE}" STREQUAL "zynq7")
+    "${PROJECT_MACHINE}" STREQUAL "microblaze_generic")
   add_definitions( -DXLNX_PLATFORM )
 endif()

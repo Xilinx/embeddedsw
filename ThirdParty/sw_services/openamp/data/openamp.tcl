@@ -19,10 +19,10 @@ proc openamp_drc {libhandle} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]]
-    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) && ( $proc_type != "psv_cortexr5" ) &&
+    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "psv_cortexr5" ) &&
          ( $proc_type != "psx_cortexr52" ) && ( $proc_type != "psxl_cortexr52" )    } {
 
-                error "ERROR: This library is supported only for CortexR5 and CortexA9 processors."
+                error "ERROR: This library is supported only for CortexR5 processors."
                 return
     }
 
@@ -86,9 +86,6 @@ proc generate {libhandle} {
         if { "${proc_type}" == "psu_cortexr5" || "${proc_type}" == "psv_cortexr5" || "${proc_type}" == "psx_cortexr52" || "${proc_type}" == "psxl_cortexr52" } {
 		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
 		puts $fd "set (MACHINE \"zynqmp_r5\")"
-	} elseif { "${proc_type}" == "ps7_cortexa9" } {
-		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
-		puts $fd "set (MACHINE \"zynq7\")"
 	}
 	puts $fd "set (CROSS_PREFIX \"${crosscompile}\" CACHE STRING \"\")"
 	puts $fd "set (CMAKE_C_FLAGS \"${c_flags} ${extra_flags_oamp}\" CACHE STRING \"\")"
