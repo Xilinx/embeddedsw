@@ -25,6 +25,7 @@
 /* this needs to be global to run the unit tests independently*/
 XPm_Subsystem *PmSubsystems;
 static u32 MaxSubsysIdx;
+static u8 IsOverlayCdo;
 
 XStatus XPmSubsystem_AddPermission(const XPm_Subsystem *Host,
                                    XPm_Subsystem *Target,
@@ -969,4 +970,14 @@ XStatus XPmSubsystem_NotifyHealthyBoot(const u32 SubsystemId)
 	Status = XST_SUCCESS;
 done:
 	return Status;
+}
+
+void XPm_SetOverlayCdoFlag(u8 value)
+{
+	IsOverlayCdo = value;
+}
+
+u8 XPm_GetOverlayCdoFlag(void)
+{
+	return IsOverlayCdo;
 }

@@ -7,6 +7,7 @@
 #include "xpm_pldevice.h"
 #include "xpm_debug.h"
 #include "xpm_defs.h"
+#include "xpm_requirement.h"
 
 #define PWR_DOMAIN_UNUSED_BITMASK		0U
 #define PWR_DOMAIN_NOC_BITMASK			BIT(0)
@@ -677,6 +678,54 @@ done:
 	return Status;
 }
 
+static XStatus XPm_AddMemRegnForDefaultSubsystem(const XPm_MemCtrlrDevice *MCDev)
+{
+	XStatus Status = XST_FAILURE;
+	u32 AddReqMemRegnPayload[6U];
+	u32 SubsystemId = PM_SUBSYS_DEFAULT;
+	XPm_Subsystem *Subsystem;
+	static u32 MemRegnIndex = 0U;
+	u32 DeviceId;
+	u64 Address;
+	u64 Size;
+
+	DeviceId = MCDev->Device.Node.Id;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	for (u32 Cnt = 0U; Cnt < MCDev->RegionCount; Cnt++) {
+		DeviceId = MEMREGN_DEVID(MemRegnIndex);
+		Address = MCDev->Region[Cnt].Address;
+		Size = MCDev->Region[Cnt].Size;
+
+		Status = XPm_AddMemRegnDevice(DeviceId, Address, Size);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		AddReqMemRegnPayload[4] = (u32)PM_CAP_ACCESS;
+		AddReqMemRegnPayload[5] = XPM_DEF_QOS;
+
+		Status = XPm_AddDevRequirement(Subsystem, DeviceId,
+						(u32)REQUIREMENT_FLAGS(1U,
+						(u32)REQ_ACCESS_SECURE_NONSECURE,
+						(u32)REQ_NO_RESTRICTION),
+						AddReqMemRegnPayload, 6U);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		MemRegnIndex++;
+	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+
+}
+
 /****************************************************************************/
 /**
  * @brief  DDRMC mapping/annotation for PlDevice
@@ -800,6 +849,9 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 		Status = XPM_ERR_DEVICE_REQ;
 		DbgErr = XPM_INT_ERR_PLDEVICE_MEM_CTRLR_REQUEST;
 		goto done;
+	}
+	if (1U == XPm_GetOverlayCdoFlag()) {
+		Status = XPm_AddMemRegnForDefaultSubsystem(MCDev);
 	}
 
 done:
