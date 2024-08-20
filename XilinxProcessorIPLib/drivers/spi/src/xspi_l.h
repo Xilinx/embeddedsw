@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2001 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2001 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -219,6 +219,7 @@ extern "C" {
 								assert */
 #define XSP_CR_TRANS_INHIBIT_MASK  0x00000100 /**< Master transaction
 								inhibit */
+#define XSP_CR_RESET_DONE_MASK	   0x00000000 /**< FIFO reset complete */
 
 /**
  * LSB/MSB first data format select. The default data format is MSB first.

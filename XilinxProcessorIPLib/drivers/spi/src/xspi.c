@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2001 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2001 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -83,6 +83,7 @@
 *                     disabled.
 * 4.10  akm  02/21/23 Avoid data loss in interrupt mode with TX HALF EMPTY
 *                     Interrupt enabled.
+* 4.13  ap   08/20/24 Added logic to wait for FIFO reset to complete.
 * </pre>
 *
 ******************************************************************************/
@@ -152,6 +153,8 @@ int XSpi_CfgInitialize(XSpi *InstancePtr, XSpi_Config *Config,
 	u8  Buffer[3];
 	u32 ControlReg;
 	u32 StatusReg;
+	u32 Status;
+	u32 Timeout = 1000U;
 	
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -223,6 +226,14 @@ int XSpi_CfgInitialize(XSpi *InstancePtr, XSpi_Config *Config,
 				XSP_CR_ENABLE_MASK | XSP_CR_MASTER_MODE_MASK ;
 		XSpi_SetControlReg(InstancePtr, ControlReg);
 		
+		/* Wait for Tx and Rx FIFO reset to complete */
+		Status = Xil_WaitForEvent(InstancePtr->BaseAddr + XSP_CR_OFFSET,
+				XSP_CR_TXFIFO_RESET_MASK | XSP_CR_RXFIFO_RESET_MASK,
+				XSP_CR_RESET_DONE_MASK, Timeout);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
 		/* 
 		 * Initiate Read command to get the ID. This Read command is for
 		 * Numonyx flash.
@@ -293,6 +304,8 @@ int XSpi_CfgInitialize(XSpi *InstancePtr, XSpi_Config *Config,
 int XSpi_Start(XSpi *InstancePtr)
 {
 	u32 ControlReg;
+	u32 Status;
+	u32 Timeout = 1000U;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -325,6 +338,14 @@ int XSpi_Start(XSpi *InstancePtr)
 	ControlReg |= XSP_CR_TXFIFO_RESET_MASK | XSP_CR_RXFIFO_RESET_MASK |
 			XSP_CR_ENABLE_MASK;
 	XSpi_SetControlReg(InstancePtr, ControlReg);
+
+	/* Wait for Tx and Rx FIFO reset to complete */
+	Status = Xil_WaitForEvent(InstancePtr->BaseAddr + XSP_CR_OFFSET,
+			XSP_CR_TXFIFO_RESET_MASK | XSP_CR_RXFIFO_RESET_MASK,
+			XSP_CR_RESET_DONE_MASK, Timeout);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	/*
 	 * Enable the Global Interrupt Enable just after we start.
@@ -1348,6 +1369,8 @@ void XSpi_InterruptHandler(void *InstancePtr)
 void XSpi_Abort(XSpi *InstancePtr)
 {
 	u16 ControlReg;
+	u32 Status;
+	u32 Timeout = 1000U;
 
 	/*
 	 * Deselect the slave on the SPI bus to abort a transfer, this must be
@@ -1375,6 +1398,13 @@ void XSpi_Abort(XSpi *InstancePtr)
 	}
 
 	XSpi_SetControlReg(InstancePtr, ControlReg);
+
+	/* Wait for Tx and Rx FIFO reset to complete */
+	if (InstancePtr->HasFifos) {
+		Status = Xil_WaitForEvent(InstancePtr->BaseAddr + XSP_CR_OFFSET,
+				XSP_CR_TXFIFO_RESET_MASK | XSP_CR_RXFIFO_RESET_MASK,
+				XSP_CR_RESET_DONE_MASK, Timeout);
+	}
 
 	InstancePtr->RemainingBytes = 0;
 	InstancePtr->RequestedBytes = 0;

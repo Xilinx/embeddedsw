@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2001 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2001 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -289,6 +289,7 @@
 * 4.10  akm  02/21/23 Avoid data loss in interrupt mode with TX HALF EMPTY
 *                     Interrupt enabled.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
+* 4.13  ap   08/20/24 Added logic to wait for FIFO reset to complete.
 * </pre>
 *
 ******************************************************************************/
