@@ -58,6 +58,7 @@
 * 1.10	akm  02/06/24 Increase the delay after device reset.
 * 1.10	akm  02/01/24 Update OSPI TX tap delay element to 0x26 for DDR mode.
 * 1.11	akm  05/15/24 Added support for x2/x4 operations.
+* 1.11  ng  08/20/24 Add spartanup device support
 *
 * </pre>
 *
@@ -401,6 +402,12 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
 
 /**< Macro used for more than 32-bit address */
 #define XOSPIPSV_RXADDR_OVER_32BIT	0x100000000U
+
+/**
+ * Minimum frequency for Tap grain selection.
+ */
+#define XOSPIPSV_TAP_GRAN_SEL_MIN_FREQ	120000000U
+
 
 /* Initialization and reset */
 #ifndef SDT

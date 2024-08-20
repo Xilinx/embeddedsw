@@ -46,6 +46,7 @@
 * 1.10	akm  01/31/24 Use OSPI controller reset for resetting flash device.
 * 1.10	akm  02/06/24 Increase the delay after device reset.
 * 1.10	sb   02/09/24 Add support for Infineon flash part S28HS02G.
+* 1.11  ng  08/20/24 Add spartanup device support
 *
 * </pre>
 *
@@ -62,10 +63,6 @@
 
 #define SILICON_VERSION_1	0x10U	/**< Silicon version */
 
-/**
- * Minimum frequency for Tap grain selection.
- */
-#define XOSPIPSV_TAP_GRAN_SEL_MIN_FREQ	120000000U
 #define READ_ID		0x9FU	/**< Read Id opcode */
 
 /**************************** Type Definitions *******************************/
@@ -135,7 +132,7 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		InstancePtr->DllMode = XOSPIPSV_DLL_BYPASS_MODE;
 		InstancePtr->DualByteOpcodeEn = 0U;
 
-#if defined (versal) && !defined (VERSAL_NET)
+#if defined (versal) && !defined (VERSAL_NET) && !defined (SPARTANUP)
 		if (XGetPSVersion_Info() != SILICON_VERSION_1) {
 #endif
 			InstancePtr->DllMode = XOSPIPSV_DLL_MASTER_MODE;
@@ -144,7 +141,7 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 				XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 						XOSPIPSV_ECO_REG, 0x1);
 			}
-#if defined (versal) && !defined (VERSAL_NET)
+#if defined (versal) && !defined (VERSAL_NET) && !defined (SPARTANUP)
 		}
 #endif
 

@@ -27,6 +27,7 @@
 * 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
 * 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
 * 1.11  sb   07/09/24 Limit dummy value range in XOspiPsv_ConfigureAutoPolling().
+* 1.11  ng  08/20/24 Add spartanup device support
 *
 * </pre>
 *
@@ -135,6 +136,9 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 					Xil_Smc(PM_IOCTL_SMC_FID, (((u64)PM_IOCTL_OSPI_MUX_SELECT << 32) | OSPI_NODE_ID) , PM_OSPI_MUX_SEL_LINEAR, 0,0,0,0,0);
 					/* Release OSPI node */
 					Xil_Smc(PM_RELEASE_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0,0,0,0,0);
+					#elif defined(SPARTANUP)
+					XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, OSPI_AXI_MODE_SEL,
+						OSPI_AXI_MODE_SEL_AXIS_MODE_SEL_MASK);
 					#else
 					XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR,
 						XPMC_IOU_SLCR_OSPI_MUX_SEL,
@@ -155,6 +159,9 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 						Xil_Smc(PM_IOCTL_SMC_FID, (((u64)PM_IOCTL_OSPI_MUX_SELECT << 32) | OSPI_NODE_ID), PM_OSPI_MUX_SEL_DMA, 0, 0, 0, 0, 0);
 						/* Release OSPI node */
 						Xil_Smc(PM_RELEASE_DEVICE_SMC_FID,OSPI_NODE_ID, 0, 0, 0, 0, 0, 0);
+						#elif defined(SPARTANUP)
+						XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, OSPI_AXI_MODE_SEL,
+							~(u32)OSPI_AXI_MODE_SEL_AXIS_MODE_SEL_MASK);
 						#else
 						XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR,
 							XPMC_IOU_SLCR_OSPI_MUX_SEL,
@@ -180,6 +187,9 @@ u32 XOspiPsv_SetOptions(XOspiPsv *InstancePtr, u32 Options)
 						Xil_Smc(PM_IOCTL_SMC_FID, (((u64)PM_IOCTL_OSPI_MUX_SELECT << 32) | OSPI_NODE_ID) , PM_OSPI_MUX_SEL_DMA, 0,0,0,0,0);
 						/* Release OSPI node */
 						Xil_Smc(PM_RELEASE_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0,0,0,0,0);
+						#elif defined(SPARTANUP)
+						XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, OSPI_AXI_MODE_SEL,
+							~(u32)OSPI_AXI_MODE_SEL_AXIS_MODE_SEL_MASK);
 						#else
 						XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR,
 							XPMC_IOU_SLCR_OSPI_MUX_SEL,
