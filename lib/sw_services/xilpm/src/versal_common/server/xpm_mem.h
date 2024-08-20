@@ -22,6 +22,10 @@ extern "C" {
 					 ((u32)XPM_NODETYPE_DEV_EFUSE == (Type)) || \
 					 ((u32)XPM_NODETYPE_DEV_HBM == (Type)))
 
+#define MEMREGN_DEVID(IDX)		NODEID((u32)XPM_NODECLASS_DEVICE, \
+					(u32)XPM_NODESUBCL_DEV_MEM_REGN, \
+					(u32)XPM_NODETYPE_DEV_MEM_REGN, (IDX))
+
 typedef struct XPm_MemCtrlrDevice XPm_MemCtrlrDevice;
 typedef struct XPm_MemRegnDevice XPm_MemRegnDevice;
 typedef struct XPm_AddrRegion XPm_AddrRegion;

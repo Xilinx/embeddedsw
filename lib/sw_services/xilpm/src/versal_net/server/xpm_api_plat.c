@@ -375,8 +375,11 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		Req = Req->NextDevice;
 	}
 	if (XST_SUCCESS ==  Status) {
+		XPm_SetOverlayCdoFlag(0U);
 		goto done;
 	}
+
+	XPm_SetOverlayCdoFlag(1U);
 
 	for (i = 0; i < (u32)XPM_NODEIDX_DEV_MAX; i++) {
 		/*
