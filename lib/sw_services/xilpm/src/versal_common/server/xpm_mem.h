@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,8 @@ extern "C" {
 					 ((u32)XPM_NODETYPE_DEV_HBM == (Type)))
 
 typedef struct XPm_MemCtrlrDevice XPm_MemCtrlrDevice;
+typedef struct XPm_MemRegnDevice XPm_MemRegnDevice;
+typedef struct XPm_AddrRegion XPm_AddrRegion;
 
 /* Generic memory device with associated memory address */
 struct XPm_MemDevice {
@@ -34,6 +36,11 @@ struct XPm_MemDevice {
 struct XPm_AddrRegion {
 	u64 Address;
 	u64 Size;
+};
+/* DDR Memory regions device */
+struct XPm_MemRegnDevice {
+    XPm_Device Device;		/**< Device: Base class */
+    XPm_AddrRegion AddrRegion;	/**< Memory regions */
 };
 
 /* DDR Memory controller device */
@@ -54,6 +61,7 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		u32 BaseAddress,
 		XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset,
 		u32 MemStartAddress, u32 MemEndAddress);
+XStatus XPm_AddMemRegnDevice(u32 DeviceId, u64 Address, u64 Size);
 XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,
 			   const u32 Id, u32 *RpuMode);
 XStatus XPm_GetRpuDevice(const XPm_Device **Rpu0Device,const XPm_Device **Rpu1Device,

@@ -197,6 +197,8 @@ extern "C" {
 #define XPM_INT_ERR_SET_AIE_DEV		0x3316U
 /* Error during request GPIO device node */
 #define XPM_INT_ERR_REQ_GPIO		0x3317U
+/* Error during request memory region device node */
+#define XPM_INT_ERR_SET_MEM_REGN_DEV	0x3318U
 
 /************************* Reset specific Errors *****************************/
 /************************** (0x3400) - (0x34FF) ******************************/
