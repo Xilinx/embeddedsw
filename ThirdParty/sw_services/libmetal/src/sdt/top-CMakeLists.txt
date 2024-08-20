@@ -15,12 +15,6 @@ list (APPEND CMAKE_MODULE_PATH
       "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules"
       "${CMAKE_CURRENT_SOURCE_DIR}/cmake/platforms")
 
-string(REGEX MATCH "a9" a9 "${CMAKE_SYSTEM_PROCESSOR}")
-if (a9)
-  set(MACHINE "zynq7" CACHE STRING "" FORCE)
-  set (CMAKE_SYSTEM_PROCESSOR "arm" CACHE STRING "" FORCE)
-endif()
-
 string(REGEX MATCH "a53" a53 "${CMAKE_SYSTEM_PROCESSOR}")
 if (a53)
   set(MACHINE "zynqmp_a53" CACHE STRING "" FORCE)
