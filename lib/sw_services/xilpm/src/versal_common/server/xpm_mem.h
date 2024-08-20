@@ -9,6 +9,7 @@
 
 #include "xpm_device.h"
 #include "xpm_mem_plat.h"
+#include "xpm_requirement.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -71,6 +72,11 @@ XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,
 XStatus XPm_GetRpuDevice(const XPm_Device **Rpu0Device,const XPm_Device **Rpu1Device,
 				const u32 Id);
 u32 XPm_CombTcm(const u32 Id, const u32 Mode);
+XStatus XPm_GetAddrRegnForSubsystem(const u32 SubsystemId,
+				    XPm_AddrRegion *AddrRegnArray,
+				    u32 AddrRegnArrayLen, u32 *NumOfRegions);
+XStatus XPm_IsAddressInSubsystem(const u32 SubsystemId, u64 AddressofSubsystem,
+				 u8 *IsValidAddress);
 
 #ifdef __cplusplus
 }
