@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,8 @@
 * 9.0    mus 07/27/23 Updated XGetCoreId API to support A9, R5 and A53 processor
 * 9.0    ml  09/14/23 Added U to numerical to fix MISRA-C violation for Rule
 *                     10.1 and 10.4
+* 9.2    ng  08/20/24 Added SpartanUP device support
+*
 * </pre>
 *
 ******************************************************************************/
@@ -61,7 +63,12 @@ extern "C" {
 #include "xil_types.h"
 
 /************************** Constant Definitions *****************************/
-#if defined (versal)
+#if defined(SPARTANUP)
+#define XPAR_PMC_TAP_BASEADDR 0x040C0000U
+#define XPAR_PMC_TAP_VERSION_OFFSET 0x00000004U
+#define XPLAT_PS_VERSION_ADDRESS (XPAR_PMC_TAP_BASEADDR + \
+				  XPAR_PMC_TAP_VERSION_OFFSET)
+#elif defined (versal)
 #define XPAR_PMC_TAP_BASEADDR 0xF11A0000U
 #define XPAR_PMC_TAP_VERSION_OFFSET 0x00000004U
 #define XPLAT_PS_VERSION_ADDRESS (XPAR_PMC_TAP_BASEADDR + \
@@ -84,7 +91,7 @@ extern "C" {
 #define XPS_VERSION_2 0x1
 #define XPLAT_INFO_MASK (0xFU)
 
-#if defined (versal)
+#if defined (versal) || defined(SPARTANUP)
 #define XPS_VERSION_INFO_MASK 0xFF00U
 #define XPS_VERSION_INFO_SHIFT 0x8U
 #define XPLAT_INFO_SHIFT 0x18U
