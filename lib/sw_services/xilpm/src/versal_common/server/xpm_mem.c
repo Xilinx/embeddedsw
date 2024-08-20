@@ -236,5 +236,159 @@ XStatus XPm_AddMemRegnDevice(u32 DeviceId, u64 Address, u64 Size)
 
 done:
 	return Status;
+}
 
+XStatus XPm_IsAddressInSubsystem(const u32 SubsystemId, u64 AddressofSubsystem,
+				 u8 *IsValidAddress)
+{
+	XStatus Status = XST_FAILURE;
+	u64 StartAddress;
+	u64 EndAddress;
+	u32 DeviceId;
+	u32 SubClass;
+	u32 Type;
+	const XPm_Subsystem *Subsystem;
+	const XPm_Requirement *Reqm;
+	const XPm_MemRegnDevice *MemRegnDevice;
+	const XPm_MemCtrlrDevice *MCDev;
+	const XPm_MemDevice *MemDevice;
+
+	*IsValidAddress = 0U;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	Reqm = Subsystem->Requirements;
+
+	while (NULL != Reqm) {
+		DeviceId = Reqm->Device->Node.Id;
+		SubClass = NODESUBCLASS(DeviceId);
+		Type = NODETYPE(DeviceId);
+		if ((u32)XPM_NODESUBCL_DEV_MEM_REGN == SubClass) {
+			MemRegnDevice  = (XPm_MemRegnDevice *)Reqm->Device;
+			StartAddress = MemRegnDevice->AddrRegion.Address;
+			EndAddress = MemRegnDevice->AddrRegion.Address +
+				     MemRegnDevice->AddrRegion.Size;
+			if ((AddressofSubsystem >= StartAddress) &&
+				(AddressofSubsystem < EndAddress)) {
+				for (u32 i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN;
+				     i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
+#ifdef XPM_NODEIDX_DEV_DDRMC_MAX_INT_1
+					if (((u32)XPM_NODEIDX_DEV_DDRMC_MAX_INT_1 + 1U) == i) {
+						i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN_INT_2;
+					}
+#endif
+					MCDev = (XPm_MemCtrlrDevice *)XPmDevice_GetById(DDRMC_DEVID(i));
+					if (NULL == MCDev) {
+						continue;
+					}
+
+					for (u32 Cnt = 0U; Cnt < MCDev->RegionCount; Cnt++) {
+						StartAddress = MCDev->Region[Cnt].Address;
+						EndAddress = MCDev->Region[Cnt].Address +
+								MCDev->Region[Cnt].Size;
+						if ((AddressofSubsystem >= StartAddress) &&
+						    (AddressofSubsystem < EndAddress)) {
+							if ((u8)XPM_DEVSTATE_RUNNING !=
+							    MCDev->Device.Node.State) {
+								*IsValidAddress = 0U;
+								Status = XST_SUCCESS;
+								goto done;
+							}
+							*IsValidAddress = 1U;
+							break;
+						}
+					}
+					if ((1U == *IsValidAddress) &&
+					    (0U == MCDev->IntlvIndex)) {
+						break;
+					}
+				}
+				Status = XST_SUCCESS;
+				goto done;
+			}
+		} else if (((u32)XPM_NODESUBCL_DEV_MEM == SubClass) &&
+			   ((u32)XPM_NODETYPE_DEV_OCM == Type)) {
+				MemDevice  = (XPm_MemDevice *)Reqm->Device;
+				StartAddress = (u64)MemDevice->StartAddress;
+				EndAddress = (u64)MemDevice->EndAddress;
+				if ((AddressofSubsystem >= StartAddress) &&
+					(AddressofSubsystem < EndAddress)) {
+					if ((u8)XPM_DEVSTATE_RUNNING ==
+						MemDevice->Device.Node.State) {
+						*IsValidAddress = 1U;
+					}
+					Status = XST_SUCCESS;
+					goto done;
+				}
+		} else {
+			/* Required by MISRA */
+		}
+		Reqm = Reqm->NextDevice;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+XStatus XPm_GetAddrRegnForSubsystem(const u32 SubsystemId, XPm_AddrRegion *AddrRegnArray,
+				    u32 AddrRegnArrayLen, u32 *NumOfRegions)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Subsystem *Subsystem;
+	const XPm_Requirement *Reqm;
+	const XPm_MemRegnDevice *MemRegnDevice;
+	const XPm_MemDevice *MemDevice;
+	u32 DeviceId;
+	u32 SubClass;
+	u32 Type;
+
+	*NumOfRegions = 0U;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+	if (0U >= AddrRegnArrayLen) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Reqm = Subsystem->Requirements;
+
+	while (NULL != Reqm) {
+		DeviceId = Reqm->Device->Node.Id;
+		SubClass = NODESUBCLASS(DeviceId);
+		Type = NODETYPE(DeviceId);
+		if ((u32)XPM_NODESUBCL_DEV_MEM_REGN == SubClass) {
+			MemRegnDevice  = (XPm_MemRegnDevice *)Reqm->Device;
+			AddrRegnArray[*NumOfRegions].Address = MemRegnDevice->AddrRegion.Address;
+			AddrRegnArray[*NumOfRegions].Size = MemRegnDevice->AddrRegion.Size;
+			(*NumOfRegions)++;
+		} else if (((u32)XPM_NODESUBCL_DEV_MEM == SubClass) &&
+			   ((u32)XPM_NODETYPE_DEV_OCM == Type)) {
+			MemDevice  = (XPm_MemDevice *)Reqm->Device;
+			AddrRegnArray[*NumOfRegions].Address = (u64)MemDevice->StartAddress;
+			AddrRegnArray[*NumOfRegions].Size = (u64)MemDevice->EndAddress -
+							    (u64)MemDevice->StartAddress;
+			(*NumOfRegions)++;
+		} else {
+			/* Required by MISRA */
+		}
+		if (AddrRegnArrayLen < *NumOfRegions) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Reqm = Reqm->NextDevice;
+	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
