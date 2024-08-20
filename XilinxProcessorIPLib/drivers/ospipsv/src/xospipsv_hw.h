@@ -23,6 +23,7 @@
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
 * 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
 * 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
+* 1.11  ng  08/20/24 Add spartanup device support
 *
 * </pre>
 *
@@ -2240,6 +2241,20 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_FUTURE_ECO_VAL_WIDTH   32
 #define XOSPIPSV_OSPIDMA_FUTURE_ECO_VAL_MASK    0XFFFFFFFFU
 /** @} */
+
+/**
+ * Register: OSPI_AXI_MODE_SEL
+ */
+#define OSPI_AXI_MODE_SEL  0x00002004U
+#define OSPI_AXI_MODE_SEL_FULLMASK 0x00000001U
+#define OSPI_AXI_MODE_SEL_FULLRWMASK 0x00000001U
+#define OSPI_AXI_MODE_SEL_DEFVAL 0x0U
+
+/* access_type: rw */
+#define OSPI_AXI_MODE_SEL_AXIS_MODE_SEL_SHIFT 0U
+#define OSPI_AXI_MODE_SEL_AXIS_MODE_SEL_WIDTH 1U
+#define OSPI_AXI_MODE_SEL_AXIS_MODE_SEL_MASK 0x00000001U
+#define OSPI_AXI_MODE_SEL_AXIS_MODE_SEL_DEFVAL 0x0U
 
 /**
  * @name Macros for Default configurations
