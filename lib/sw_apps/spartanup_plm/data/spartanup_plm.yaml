@@ -1,0 +1,21 @@
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: SpartanUP PLM
+
+maintainers:
+  - Mulagondla, Bharath <bharath.mulagondla@amd.com>
+  - Nandanikhil, Gajulapally <nandanikhil.gajulapally@amd.com>
+
+type: apps
+
+description: Platform Loader and Manager for SpartanUP.
+
+supported_processors:
+  - psxl_pmc
+
+supported_os:
+  - standalone
+...
