@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -62,6 +62,8 @@ extern "C" {
 
 /******************** Macros (Inline Functions) Definitions *******************/
 #define ARRAY_SIZE(x)	sizeof(x) / sizeof(x[0])
+#define MAX_BARS 6   /**< No BAR allocation for Bridge */
+#define REQ_SIZE (MAX_BARS * sizeof(unsigned long)) /**< Required size for BAR Alignment */
 
 /****************************** Type Definitions ******************************/
 
@@ -106,7 +108,7 @@ typedef struct {
 	u32 MaxSupportedBusNo;		/**< If this is RC IP, Max Number of  Buses */
 } XPciePsu;
 
-/***************************** Variable defintions ****************************/
+/***************************** Variable definitions ****************************/
 extern XPciePsu_Config XPciePsu_ConfigTable[];
 extern size_t XPciePsu_ConfigTableSize;
 

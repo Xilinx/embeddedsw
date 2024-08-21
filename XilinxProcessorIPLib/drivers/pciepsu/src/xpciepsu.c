@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -24,9 +24,15 @@
 #include "xpciepsu.h"
 #include "xpciepsu_common.h"
 #include "sleep.h"
+#include <stdlib.h>
 /**************************** Constant Definitions ****************************/
 
 /****************************** Type Definitions ******************************/
+/* Structure for to sort the Data */
+typedef struct {
+        u32 BarAdd;
+        u32 BarNo;
+} XPciePsu_BarAlloc;
 
 /******************** Macros (Inline Functions) Definitions *******************/
 
@@ -520,21 +526,20 @@ static u32 XPciePsu_PositionRightmostSetbit(u64 Size)
 * This function reserves bar memory address.
 *
 * @param   InstancePtr pointer to XPciePsu Instance Pointer
-* @param   mem_type type of bar memory. address mem or IO.
-* @param   mem_as bar memory tpye 32 or 64 bit
-* @param   size	u64 size to increase
+* @param   BarType differentiate 32 or 64 bit bar type
+* @param   Size of the Bar Request
 *
 * @return  bar address
 *
 *******************************************************************************/
 #if defined(__aarch64__) || defined(__arch64__)
 static u64 XPciePsu_ReserveBarMem(XPciePsu *InstancePtr,
-				  u8 MemBarArdSize, u64 Size)
+				  u8 BarType, u64 Size)
 {
 	u64 Ret = 0;
 
-        if (MemBarArdSize & XPCIEPSU_BAR_MEM_TYPE_64) {
-                if (MemBarArdSize & (XPCIEPSU_BAR_MEM_TYPE_64 << 1)) {
+        if (BarType & XPCIEPSU_BAR_MEM_TYPE_64) {
+                if (BarType & (XPCIEPSU_BAR_MEM_TYPE_64 << 1)) {
                         Ret = InstancePtr->Config.PMemBaseAddr;
                         InstancePtr->Config.PMemBaseAddr = InstancePtr->Config.PMemBaseAddr
                                                                 + Size;
@@ -574,6 +579,249 @@ static u32 XPciePsu_ReserveBarMem(XPciePsu *InstancePtr, u32 Size)
 #endif
 /******************************************************************************/
 /**
+* This function Compare two different sizes
+*
+* @param   FirstReqSize is First Variable to compare size
+* @param   SecondReqSize is Second Variable to compare size
+
+* @return  Difference of sizes, Zero for Equal
+*
+*******************************************************************************/
+
+int XPciePsu_CompareSizes(const void* FirstReqSize, const void* SecondReqSize)
+{
+	u32 FirstSizeAddr = ((XPciePsu_BarAlloc*)FirstReqSize) ->BarAdd;
+	u32 SecondSizeAddr = ((XPciePsu_BarAlloc*)SecondReqSize) ->BarAdd;
+	/* Compare in descending order (return reverse result) */
+	return SecondSizeAddr - FirstSizeAddr;
+}
+
+/******************************************************************************/
+/**
+* This function Aligns BAR Resources
+*
+* @param   Value Combination of Location and Offset value
+* @param   MaxBars Maximum Requested BARs
+* @param   Index is a Bar Numbers
+*
+* @return  void
+*
+*******************************************************************************/
+
+static void XPciePsu_AlignBarResources(u64* Value,u8 MaxBars, u32* Index)
+{
+
+	XPciePsu_BarAlloc BarAllocs[REQ_SIZE];
+
+	for (u8 Num = 0; Num < MaxBars; Num++) {
+		BarAllocs[Num].BarAdd = Value[Num];
+		BarAllocs[Num].BarNo = Index[Num];
+	}
+
+	/* Sort based on Sizes */
+	qsort(BarAllocs, MaxBars, sizeof(XPciePsu_BarAlloc), XPciePsu_CompareSizes);
+
+	for (u8 Num = 0; Num < MaxBars; Num++) {
+		Value[Num] = BarAllocs[Num].BarAdd;
+		Index[Num] = BarAllocs[Num].BarNo;
+	}
+}
+
+/******************************************************************************/
+/**
+* This function Allocates Bar Memory
+*
+* @param   InstancePtr pointer to XPciePsu Instance Pointer
+* @param   Bus
+* @param   Device
+* @param   Function
+* @param   Value is a Combination of Location and Offset value
+* @param   MaxBars Maximum Requested BARs,6 for EP and 2 for bridge
+* @param   Index is a BAR Number
+* @param   Size of the Bar Request
+* @param   BarAllocControl is to differentiate Unsorted and Sorted Bar Sizes
+*
+* @return  Void
+*
+*******************************************************************************/
+static void XPciePsu_BarMemoryAlloc(XPciePsu *InstancePtr, u8 Bus,u8 Device,u8 Function,
+				u64* Value, u8 MaxBars, u32* Index, u64* Size, u8 BarAllocControl)
+{
+	u32 Data = DATA_MASK_32;
+	u32 Location = 0, Location_1 = 0;
+	u32 TestWrite;
+	u32 Size_1 = 0;
+	u8 BarNo = 0;
+	u64 MaxBarSize = 0;
+#if defined(__aarch64__) || defined(__arch64__)
+	u64 BarAddr;
+	u8 MemAs;
+#else
+	u32 BarAddr;
+#endif
+	u64 Tmp;
+	u8 BarIndex;
+	u64 Prefetchable_Size;
+
+	for (BarIndex = 0; BarIndex < MaxBars; BarIndex++) {
+
+		if (BarAllocControl != 0) {
+			BarNo = Index[BarIndex];
+
+		} else {
+
+			BarNo = BarIndex;
+		}
+
+		/* Compose function configuration space location */
+		Location = XPciePsu_ComposeExternalConfigAddress(
+			Bus, Device, Function,
+			XPCIEPSU_CFG_BAR_BASE_OFFSET + (u16)BarNo);
+
+		if (BarAllocControl == 0) {
+			Index[BarNo] = BarNo;
+		}
+
+		/* Write Data to that location */
+		XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location, Data);
+
+		Size[BarNo] = XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location);
+
+		if ((Size[BarNo] & XPCIEPSU_CFG_BAR_MEM_AS_MASK ) && (Size[BarNo] != (~((u64)0x0)))) {
+
+			Location_1 = XPciePsu_ComposeExternalConfigAddress(
+				Bus, Device, Function,
+				XPCIEPSU_CFG_BAR_BASE_OFFSET + ((u16)BarNo + 1U));
+
+			XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location_1, Data);
+
+			Size_1 = XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location_1);
+			Prefetchable_Size = (((u64)Size_1 << 32) | Size[BarNo]);
+			Size[BarNo] = Prefetchable_Size;
+		}
+
+		/* return saying that BAR is not implemented */
+		if ((Size[BarNo] & (~((u64)0xfU))) == 0x00U) {
+			continue;
+		}
+
+		/* check for IO space or memory space */
+		if ((Size[BarNo] & XPCIEPSU_CFG_BAR_MEM_TYPE_MASK) ==
+			XPCIEPSU_BAR_MEM_TYPE_IO) {
+			continue;
+		}
+
+		 /* check for 32 bit AS or 64 bit AS  */
+		if ((Size[BarNo] & XPCIEPSU_CFG_BAR_MEM_AS_MASK) != 0U) {
+#if defined(__aarch64__) || defined(__arch64__)
+			/* 64 bit AS is required */
+			MemAs = Size[BarNo];
+
+			MaxBarSize = InstancePtr->Config.PMemMaxAddr - InstancePtr->Config.PMemBaseAddr;
+			TestWrite = XPciePsu_PositionRightmostSetbit(Size[BarNo]);
+
+			/* Store the Data into Array */
+			Value[BarNo] = 2 << (TestWrite-1);
+
+			if (BarAllocControl != 0) {
+				if(Value[BarNo] > MaxBarSize) {
+
+					XPciePsu_Dbg(
+						"Requested BAR size of %uK for bus: %d, dev: %d, "
+						"function: %d is out of range \n",
+						(Value[BarNo] / 1024),Bus,Device,Function);
+
+					return XST_SUCCESS;
+				}
+				/* actual bar size is 2 << TestWrite */
+				BarAddr =
+					XPciePsu_ReserveBarMem(
+						InstancePtr, MemAs,
+						((u64)2 << (TestWrite - 1U)));
+
+				Tmp = (u32)BarAddr;
+
+				/* Write actual bar address here */
+				XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location,
+						Tmp);
+
+				Tmp = (u32)(BarAddr >> 32U);
+
+				/* Write actual bar address here */
+				XPciePsu_WriteReg((InstancePtr->Config.Ecam),
+					Location_1, Tmp);
+
+			}
+#else
+			TestWrite = XPciePsu_PositionRightmostSetbit(Size[BarNo]);
+			Value[BarNo] = 2 << (TestWrite-1);
+
+			if (BarAllocControl != 0) {
+			/* actual bar size is 2 << TestWrite */
+			BarAddr =
+				XPciePsu_ReserveBarMem(
+						InstancePtr,
+						((u32)2U << (TestWrite - 1U)));
+
+			Tmp = (u32)BarAddr;
+
+			/* Write actual bar address here */
+			XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location,
+					Tmp);
+		}
+#endif
+		} else {
+
+			MaxBarSize = InstancePtr->Config.NpMemMaxAddr - InstancePtr->Config.NpMemBaseAddr;
+			TestWrite = XPciePsu_PositionRightmostSetbit(Size[BarNo]);
+			Value[BarNo] = 2 << (TestWrite-1);
+
+#if defined(__aarch64__) || defined(__arch64__)
+
+			/* 32 bit AS is required */
+			MemAs = Size[BarNo];
+
+			if (BarAllocControl != 0) {
+				if(Value[BarNo] > MaxBarSize) {
+
+					XPciePsu_Dbg(
+						"Requested BAR size of %uK for bus: %d, dev: %d, "
+						"function: %d is out of range \n",
+						(Value[BarNo] / 1024),Bus,Device,Function);
+					return XST_SUCCESS;
+				}
+
+			/* actual bar size is 2 << TestWrite */
+			BarAddr =
+				XPciePsu_ReserveBarMem(
+					InstancePtr, MemAs,
+					((u64)2U << (TestWrite - 1U)));
+			}
+#else
+			if (BarAllocControl != 0 ) {
+			/* actual bar size is 2 << TestWrite */
+			BarAddr =
+				XPciePsu_ReserveBarMem(
+					InstancePtr,
+					((u32)2U << (TestWrite - 1U)));
+			}
+#endif
+			if (BarAllocControl != 0) {
+				Tmp = (u32)BarAddr;
+
+				/* Write actual bar address here */
+				XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location,
+						Tmp);
+			}
+		}
+		/* no need to probe next bar if present BAR requires 64 bit AS */
+		if ((Size[BarNo] & XPCIEPSU_CFG_BAR_MEM_AS_MASK) != 0U) {
+			BarIndex = BarIndex + 1U;
+		}
+	}
+}
+/******************************************************************************/
+/**
 * This function Composes configuration space location
 *
 * @param   InstancePtr pointer to XPciePsu Instance Pointer
@@ -589,25 +837,32 @@ static u32 XPciePsu_ReserveBarMem(XPciePsu *InstancePtr, u32 Size)
 static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
                            u8 Device, u8 Function)
 {
-	u32 Data = DATA_MASK_32;
-	u32 Location = 0;
-	u32 Size = 0, TestWrite;
-	u64 ReqBar = 0;
-	u64 MaxBarSize = 0;
-#if defined(__aarch64__) || defined(__arch64__)
-	u64 BarAddr;
-	u32 Size_1 = 0, *PPtr;
-	u32 Location_1 = 0;
-	u8 MemAs;
-#else
-	u32 BarAddr;
-#endif
-	u32 Tmp;
-	u8 BarNo;
-
+	u8 BarAllocControl = 0;
 	u8 MaxBars = 0;
+	u64 ReqSize;
+	u32 Location;
+	u32 Position;
+#if defined(__aarch64__) || defined(__arch64__)
+	u64 BarAddr, ReqAddr;
+	u32 Location_1;
+	u32 *PPtr;
+	u64 ReqBar, ReqBar_1;
+	u64 MaxBarSize;
+#else
+	u32 ReqAddr;
+	u32 MaxBarSize;
+#endif
 
-	MaxBarSize = InstancePtr->Config.NpMemMaxAddr - InstancePtr->Config.NpMemBaseAddr;
+	/*Static array declarations for BAR Alignment */
+	u64 Value[REQ_SIZE];
+	u32 Index[REQ_SIZE];
+	u64 Size[REQ_SIZE];
+
+	/* Initialize memory with 0*/
+	(void)memset(Value, 0, sizeof(Value));
+	(void)memset(Index, 0, sizeof(Index));
+	(void)memset(Size, 0, sizeof(Size));
+
 	if (Headertype == XPCIEPSU_CFG_HEADER_O_TYPE) {
 		/* For endpoints */
 		MaxBars = 6;
@@ -616,158 +871,97 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 		MaxBars = 2;
 	}
 
-	for (BarNo = 0; BarNo < MaxBars; BarNo++) {
-		/* Compose function configuration space location */
-		Location = XPciePsu_ComposeExternalConfigAddress(
-			Bus, Device, Function,
-			XPCIEPSU_CFG_BAR_BASE_OFFSET + (u16)BarNo);
+	/* get original memory allocation based on location and Size */
+	XPciePsu_BarMemoryAlloc(InstancePtr, Bus, Device, Function, Value,
+			MaxBars, Index, Size, BarAllocControl);
 
-		/* Write data to that location */
-		XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location, Data);
+	/* align values and index */
+	XPciePsu_AlignBarResources(Value, MaxBars , Index);
 
-		Size = XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location);
-		if ((Size & (~(0xfU))) == 0x00U) {
-			/* return saying that BAR is not implemented */
+	/* differentiate sorted sizes and unsorted sizes */
+	BarAllocControl = 1;
+
+	/* allocates bar address after sorted, based on Index and Size */
+	XPciePsu_BarMemoryAlloc(InstancePtr, Bus, Device, Function, Value,
+			MaxBars, Index, Size, BarAllocControl);
+
+	/* prints all BARs that have been allocated memory */
+	for (u8 Bar=0 ; Bar < MaxBars; Bar++ ) {
+
+		if ((Size[Bar] & (~((u64)0xfU))) == 0x00U) {
+		   /* return saying that BAR is not implemented */
 			XPciePsu_Dbg(
 				"bus: %d, device: %d, function: %d: BAR %d is "
 				"not implemented\r\n",
-				Bus, Device, Function, BarNo);
+				Bus, Device, Function, Bar);
 			continue;
 		}
 
 		/* check for IO space or memory space */
-		if ((Size & XPCIEPSU_CFG_BAR_MEM_TYPE_MASK) ==
+		if ((Size[Bar] & XPCIEPSU_CFG_BAR_MEM_TYPE_MASK) ==
 				XPCIEPSU_BAR_MEM_TYPE_IO) {
 			/* Device required IO address space */
 			XPciePsu_Dbg(
 				"bus: %d, device: %d, function: %d: BAR %d "
 				"required IO space; it is unassigned\r\n",
-				Bus, Device, Function, BarNo);
+				Bus, Device, Function, Bar);
 			continue;
 		}
 
 		/* check for 32 bit AS or 64 bit AS */
-
-		if (Size & XPCIEPSU_BAR_MEM_TYPE_64) {
+		if ((Size[Bar] & XPCIEPSU_CFG_BAR_MEM_AS_MASK) != 0U) {
 #if defined(__aarch64__) || defined(__arch64__)
-			/* 64 bit AS is required */
-			MemAs = Size;
-			/* Compose function configuration space location */
-			Location_1 = XPciePsu_ComposeExternalConfigAddress(
-				Bus, Device, Function,
-				XPCIEPSU_CFG_BAR_BASE_OFFSET + ((u16)BarNo + 1U));
 
-			/* Write data to that location */
-			XPciePsu_WriteReg((InstancePtr->Config.Ecam),
-						Location_1, Data);
+			MaxBarSize = InstancePtr->Config.PMemMaxAddr - InstancePtr->Config.PMemBaseAddr;
+			Location = XPciePsu_ComposeExternalConfigAddress(Bus, Device, Function,
+					XPCIEPSU_CFG_BAR_BASE_OFFSET + (u16)Bar);
 
-			/* get next bar if 64 bit address is required */
-			Size_1 = XPciePsu_ReadReg((InstancePtr->Config.Ecam),
-						Location_1);
+			ReqBar = XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location);
+
+			Location_1 = XPciePsu_ComposeExternalConfigAddress(Bus, Device, Function,
+					XPCIEPSU_CFG_BAR_BASE_OFFSET + ((u16)Bar + 1U));
+
+			ReqBar_1 = XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location_1);
 
 			/* Merge two bars for size */
 			PPtr = (u32 *)&BarAddr;
-			*PPtr = Size;
-			*(PPtr + 1) = Size_1;
+			*PPtr = ReqBar;
+			*(PPtr + 1) = ReqBar_1;
+			ReqAddr = BarAddr;
+			ReqAddr = ReqAddr & (~0xF);
 
-			TestWrite = XPciePsu_PositionRightmostSetbit(BarAddr);
-			ReqBar = (2 << (TestWrite - 1));
+			Position = XPciePsu_PositionRightmostSetbit(Size[Bar]);
+			ReqSize = (2 << (Position -1));
 
-                        if(ReqBar > MaxBarSize) {
-                              XPciePsu_Dbg(
-					"Requested BAR size of %uK for bus: %d, dev: %d, "
-					"function: %d is out of range \n",
-					((2 << (TestWrite - 1))/1024),Bus,Device,Function);
-                                return XST_SUCCESS;
-                        }
-
-			/* actual bar size is 2 << TestWrite */
-			BarAddr =
-				XPciePsu_ReserveBarMem(
-						InstancePtr, MemAs,
-						((u64)2 << (TestWrite - 1U)));
-
-			Tmp = (u32)BarAddr;
-
-			/* Write actual bar address here */
-			XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location,
-					  Tmp);
-
-			Tmp = (u32)(BarAddr >> 32U);
-
-			/* Write actual bar address here */
-			XPciePsu_WriteReg((InstancePtr->Config.Ecam),
-						Location_1, Tmp);
-			XPciePsu_Dbg(
-				"bus: %d, device: %d, function: %d: BAR %d, "
-				"ADDR: 0x%p size : %dK\r\n",
-				Bus, Device, Function, BarNo, BarAddr,
-				((2UL << (TestWrite - 1UL)) / 1024UL));
-#else
-			TestWrite = XPciePsu_PositionRightmostSetbit(Size);
-
-			/* actual bar size is 2 << TestWrite */
-			BarAddr =
-				XPciePsu_ReserveBarMem(
-						InstancePtr,
-						((u32)2U << (TestWrite - 1U)));
-
-			Tmp = (u32)BarAddr;
-
-			/* Write actual bar address here */
-			XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location,
-					Tmp);
-			XPciePsu_Dbg(
-				"bus: %d, device: %d, function: %d: BAR %d, "
-				"ADDR: 0x%p size : %dK\r\n",
-				Bus, Device, Function, BarNo, BarAddr,
-				((2UL << (TestWrite - 1UL)) / 1024UL));
+			/* Compare Bar request size with max Bar size */
+			if(ReqSize > MaxBarSize) {
+				return XST_SUCCESS;
+			}
 #endif
 		} else {
 
-			TestWrite = XPciePsu_PositionRightmostSetbit(Size);
+			MaxBarSize = InstancePtr->Config.NpMemMaxAddr - InstancePtr->Config.NpMemBaseAddr;
+			Position = XPciePsu_PositionRightmostSetbit(Size[Bar]);
+			ReqSize = (2 << (Position -1));
+			Location = XPciePsu_ComposeExternalConfigAddress(Bus, Device, Function,
+						XPCIEPSU_CFG_BAR_BASE_OFFSET + (u16)Bar);
 
-#if defined(__aarch64__) || defined(__arch64__)
-			/* 32 bit AS is required */
-			MemAs = Size;
-			ReqBar = (2 << (TestWrite - 1));
+			ReqAddr = XPciePsu_ReadReg((InstancePtr->Config.Ecam), Location);
+			ReqAddr = ReqAddr & (~0xF);
 
-                        if(ReqBar > MaxBarSize) {
-                                XPciePsu_Dbg(
-					"Requested BAR size of %uK for bus: %d, dev: %d, "
-					"function: %d is out of range \n",
-					((2 << (TestWrite - 1))/1024),Bus,Device,Function);
-                                return XST_SUCCESS;
-                        }
+			/* Compare Bar request size with max Bar size */
+			if(ReqSize > MaxBarSize) {
+				return XST_SUCCESS;
+			}
 
-			/* actual bar size is 2 << TestWrite */
-			BarAddr =
-				XPciePsu_ReserveBarMem(
-						InstancePtr, MemAs,
-						((u64)2U << (TestWrite - 1U)));
-#else
-			/* actual bar size is 2 << TestWrite */
-			BarAddr =
-				XPciePsu_ReserveBarMem(
-						InstancePtr,
-						((u32)2U << (TestWrite - 1U)));
-#endif
-
-			Tmp = (u32)BarAddr;
-
-			/* Write actual bar address here */
-			XPciePsu_WriteReg((InstancePtr->Config.Ecam), Location,
-					Tmp);
-			XPciePsu_Dbg(
-				"bus: %d, device: %d, function: %d: BAR %d, "
-				"ADDR: 0x%p size : %dK\r\n",
-				Bus, Device, Function, BarNo, BarAddr,
-				((2UL << (TestWrite - 1UL)) / 1024UL));
 		}
-		/* no need to probe next bar if present BAR requires 64 bit AS
-		 */
-		if ((Size & XPCIEPSU_CFG_BAR_MEM_AS_MASK) == XPCIEPSU_BAR_MEM_TYPE_64) {
-			BarNo = BarNo + 1U;
+
+		XPciePsu_Dbg("bus: %d, device: %d, function: %d: BAR %d, "
+				"ADDR: 0x%p size : %dK\r\n",
+				Bus, Device, Function, Bar, ReqAddr, (ReqSize / 1024UL));
+
+		if ((Size[Bar] & XPCIEPSU_CFG_BAR_MEM_AS_MASK) != 0U) {
+			Bar = Bar + 1U;
 		}
 	}
 
