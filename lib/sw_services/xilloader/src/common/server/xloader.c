@@ -174,6 +174,7 @@
 *                       Boot PDI Present in Image Store
 *       kal  06/29/2024 Make XLoader_LoadImage as a non-static function
 *       kal  07/24/2024 Code refactoring for versal_aiepg2 updates.
+*       mb   08/10/2024 Added support for loading cdo after secure boot.
 *
 * </pre>
 *
@@ -1875,9 +1876,24 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 	} else {
 		XPlmi_Printf(DEBUG_INFO, "+++Configuring Secondary Boot "
 				"Device\n\r");
-		if (SecBootMode == XIH_IHT_ATTR_SBD_PCIE) {
-			Status = XLoader_SbiInit((u32)XLOADER_PDI_SRC_PCIE);
-		} else {
+		if (SecBootMode == XIH_IHT_ATTR_SBD_PCIE || XIH_IHT_ATTR_SBD_JTAG || XLOADER_PDI_SRC_SMAP) {
+			switch(SecBootMode)
+			{
+				case XIH_IHT_ATTR_SBD_PCIE:
+					PdiSrc = XLOADER_PDI_SRC_PCIE;
+					break;
+				case XIH_IHT_ATTR_SBD_SMAP:
+					PdiSrc = XLOADER_PDI_SRC_SMAP;
+					break;
+				case XIH_IHT_ATTR_SBD_JTAG:
+					PdiSrc = XLOADER_PDI_SRC_JTAG;
+					break;
+				default:
+					break;
+			}
+			Status = XLoader_SbiInit((u32)PdiSrc);
+		}
+		else {
 			switch(SecBootMode)
 			{
 				case XIH_IHT_ATTR_SBD_QSPI32:
@@ -1903,9 +1919,6 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 				case XIH_IHT_ATTR_SBD_USB:
 					PdiSrc = XLOADER_PDI_SRC_USB;
 					PdiAddr = 0U;
-					break;
-				case XIH_IHT_ATTR_SBD_SMAP:
-					PdiSrc = XLOADER_PDI_SRC_SMAP;
 					break;
 				case XIH_IHT_ATTR_SBD_EMMC_RAW:
 					PdiSrc = XLOADER_SD_RAWBOOT_VAL | XLOADER_PDI_SRC_EMMC1;

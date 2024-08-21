@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *       ng   11/23/2022 Fixed doxygen file name error
 *       sk   01/11/2023 Added macro for Image Store as SBD
 * 1.02  kpt  12/04/2023 Added XilPdi_BootHdr
+* 2.01  mb   08/10/2024 Added macro for JTAG as SBD.
 *
 * </pre>
 *
@@ -73,6 +74,7 @@ extern "C" {
 #define XIH_IHT_ATTR_SBD_PCIE	        (0xAU)
 #define XIH_IHT_ATTR_SBD_OSPI			(0xCU)
 #define XIH_IHT_ATTR_SBD_SMAP			(0xDU)
+#define XIH_IHT_ATTR_SBD_JTAG			(0xEU)
 #define XIH_IHT_ATTR_SBD_SD_0_RAW		(0xFU)
 #define XIH_IHT_ATTR_SBD_SD_1_RAW		(0x10U)
 #define XIH_IHT_ATTR_SBD_SD_LS_RAW		(0x11U)
