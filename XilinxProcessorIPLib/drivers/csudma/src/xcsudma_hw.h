@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 1.11	sk     03/03/22 Update Overview section based on review comments.
 * 1.11	sk     03/03/22 Add cond INTERNAL to avoid internal macros.
 * 1.12	sk     03/03/22 Added support for VERSAL NET.
+* 1.16  ng     08/20/24 Added spartanup device support
 * </pre>
 *
 ******************************************************************************/
@@ -83,6 +84,17 @@ extern "C" {
 #define XPS_CRP_BASEADDRESS	0xF1260000U	/**< CRP Base Address */
 #endif
 /*@}*/
+
+#if defined(SPARTANUP)
+/** @name PMCL DMA, base address, reset offset and reset set mask
+ * @{
+ */
+#define PMC_GLOBAL_BASEADDR	(0x040A0000U)
+#define PMC_GLOBAL_RST_DMA	(PMC_GLOBAL_BASEADDR + 0x00000054U)
+#define PMC_GLOBAL_RST_DMA_RESET_SET_MASK	(0x00000001U)
+#define PMC_GLOBAL_RST_DMA_RESET_UNSET_MASK	(0x00000000U)
+/*@}*/
+#endif
 
 /** @name CRP PMC_DMA reset offset
  * @{

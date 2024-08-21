@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -84,7 +84,8 @@
 *						 function from u32 to int
 * 1.9   bm      01/13/21 Update PmcDmaTransfer argument to u64
 * 1.14	ab	03/13/22 Add byte-wise transfer API for Versal-Net
-* 1.14  ng  07/13/23 Added macro to detect if dma type is invalid.
+* 1.14  ng      07/13/23 Added macro to detect if dma type is invalid.
+* 1.16  ng      08/20/24 Added spartanup device support
 *
 * </pre>
 *
@@ -99,17 +100,24 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xcsudma.h"
-#if defined (versal)
+#if defined (versal) || defined(SPARTANUP)
 
 /************************** Constant Definitions *****************************/
 /** Ranges of Size */
-
-#ifndef SDT
-#define PMCDMA_0_DEVICE_ID      XPAR_XCSUDMA_0_DEVICE_ID /* PMCDMA device Id */
-#define PMCDMA_1_DEVICE_ID      XPAR_XCSUDMA_1_DEVICE_ID /* PMCDMA device Id */
+#if defined(SPARTANUP)
+	#ifndef SDT
+	#define PMCDMA_0_DEVICE_ID      XPAR_XCSUDMA_0_DEVICE_ID /* PMCDMA device Id */
+	#else
+	#define PMCDMA_0_DEVICE_ID      XPAR_XCSUDMA_0_BASEADDR /* PMCDMA device Id */
+	#endif
 #else
-#define PMCDMA_0_DEVICE_ID      XPAR_XCSUDMA_0_BASEADDR /* PMCDMA device Id */
-#define PMCDMA_1_DEVICE_ID      XPAR_XCSUDMA_1_BASEADDR /* PMCDMA device Id */
+	#ifndef SDT
+	#define PMCDMA_0_DEVICE_ID      XPAR_XCSUDMA_0_DEVICE_ID /* PMCDMA device Id */
+	#define PMCDMA_1_DEVICE_ID      XPAR_XCSUDMA_1_DEVICE_ID /* PMCDMA device Id */
+	#else
+	#define PMCDMA_0_DEVICE_ID      XPAR_XCSUDMA_0_BASEADDR /* PMCDMA device Id */
+	#define PMCDMA_1_DEVICE_ID      XPAR_XCSUDMA_1_BASEADDR /* PMCDMA device Id */
+	#endif
 #endif
 #define PMCDMA_LOOPBACK_CFG     (0x0000000FU)   /* LOOP BACK configuration */
 
@@ -190,7 +198,21 @@ typedef XCsuDma XPmcDma;
 typedef XCsuDma_Configure XPmcDma_Configure;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+#ifdef SPARTANUP
+/*****************************************************************************/
+/**
+*
+* This function resets the PMC_DMA core.
+*
+* @return	None.
+*
+******************************************************************************/
+static INLINE void XPmcDma_Reset(void)
+{
+	Xil_Out32(((u32)PMC_GLOBAL_RST_DMA), (u32)(PMC_GLOBAL_RST_DMA_RESET_SET_MASK));
+	Xil_Out32(((u32)PMC_GLOBAL_RST_DMA), (u32)(PMC_GLOBAL_RST_DMA_RESET_UNSET_MASK));
+}
+#else
 /*****************************************************************************/
 /**
 *
@@ -206,6 +228,7 @@ static INLINE void XPmcDma_Reset(u32 DmaType)
 {
 	XCsuDma_PmcReset(DmaType);
 }
+#endif
 
 /*****************************************************************************/
 /**
