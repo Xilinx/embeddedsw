@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -15,7 +15,7 @@ BEGIN driver xdmapcie
  OPTION supported_peripherals = (xdma psv_pciea_attrib pcie_dma_versal qdma psv_noc_pcie_0 psv_noc_pcie_1 psv_noc_pcie_2);
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
- OPTION VERSION = 1.7;
+ OPTION VERSION = 2.0;
  OPTION NAME = xdmapcie;
 
 END driver
