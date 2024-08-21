@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -79,6 +79,8 @@ extern "C" {
  * point or as a root complex
  */
 #define XDMAPCIE_IS_RC		0x01
+#define MAX_BARS 6   /**< No BAR allocation for Bridge */
+#define REQ_SIZE (MAX_BARS * sizeof(unsigned long)) /**< Required size for BAR Alignment */
 
 /*
  * 4KB alignment
@@ -281,7 +283,7 @@ void XDmaPcie_GetPendingInterrupts(XDmaPcie *InstancePtr, u32 *PendingMaskPtr);
 void XDmaPcie_ClearPendingInterrupts(XDmaPcie *InstancePtr, u32 ClearMask);
 
 /*
- * Capabilites Functions.
+ * Capabilities Functions.
  * This API is implemented in xdmapcie_caps.c
  */
 u8 XDmaPcie_HasCapability(XDmaPcie *InstancePtr, u8 Bus, u8 Device,

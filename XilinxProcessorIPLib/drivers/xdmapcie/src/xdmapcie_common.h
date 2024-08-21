@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -64,7 +64,7 @@ extern "C" {
 
 #define XDMAPCIE_CFG_BAR_MEM_TYPE_MASK 	0x1	/* Memory or IO request */
 
-#define XDMAPCIE_CFG_BAR_MEM_AS_MASK	0x6	/* 32b or 64b address space */
+#define XDMAPCIE_CFG_BAR_MEM_AS_MASK	0x8	/* 32b or 64b address space */
 
 /* PCIe Base Addr */
 #define XDMAPCIE_CFG_BAR_BASE_OFFSET 	0x0004
