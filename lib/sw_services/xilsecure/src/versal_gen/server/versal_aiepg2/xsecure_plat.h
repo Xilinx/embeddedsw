@@ -19,6 +19,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.4   kal  07/24/24 Initial release
+*       sk   08/22/24 Added defines for key transfer to ASU
 *
 * </pre>
 *
@@ -76,15 +77,15 @@ extern "C" {
 #define XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF XTRNGPSX_USER_CFG_REP_TEST_CUTOFF
 								/**< Rep test cutoff */
 #endif
-#define XSECURE_AES_KTE_GO_ADDRESS	(0xF11E0234U)	/**< AES KTE GO address */
-#define XSECURE_AES_KTE_RESTART_ADDRESS	(0xF11E0238U)	/**< AES Key Transfer Engine Restart register */
-#define XSECURE_AES_KTE_DONE_ADDRESS	(0xF11E023CU)	/**< AES Key Transfer Engine Done */
-#define XSECURE_AES_KTE_CNT_ADDRESS	(0xF11E0240U)	/**< AES Key Transfer Engine Count address */
-#define XSECURE_AES_KTE_GO_ENABLE	(0x1U)		/**< AES KTE GO enable */
-#define XSECURE_AES_KTE_GO_DISABLE	(0x0U)		/**< AES KTE GO disable */
-#define XSECURE_AES_KTE_DONE_MASK	(0x1U) 		/**< AES Key Transfer Engine Done mask */
-#define XSECURE_AES_KTE_CNT_MASK	(0x6U)		/**< AES Key Transfer Engine Count value */
-
+#define XSECURE_AES_KTE_GO_ADDRESS		(0xF11E0234U)	/**< AES KTE GO address */
+#define XSECURE_AES_KTE_RESTART_ADDRESS		(0xF11E0238U)	/**< AES Key Transfer Engine Restart register */
+#define XSECURE_AES_KTE_DONE_ADDRESS		(0xF11E023CU)	/**< AES Key Transfer Engine Done */
+#define XSECURE_AES_KTE_CNT_ADDRESS		(0xF11E0240U)	/**< AES Key Transfer Engine Count address */
+#define XSECURE_AES_KTE_GO_ENABLE		(0x1U)		/**< AES KTE GO enable */
+#define XSECURE_AES_KTE_GO_DISABLE		(0x0U)		/**< AES KTE GO disable */
+#define XSECURE_AES_KTE_DONE_MASK		(0x1U) 		/**< AES Key Transfer Engine Done mask */
+#define XSECURE_AES_KTE_CNT_MASK		(0x6U)		/**< AES Key Transfer Engine Count value */
+#define XSECURE_AES_KTE_DONE_POLL_TIMEOUT	(4000U)		/**< AES Key Transfer complete poll timeout */
 /***************************** Type Definitions******************************/
 /*
  * Sources to be selected to configure secure stream switch.
@@ -125,7 +126,7 @@ int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
 int XSecure_ECCRandInit(void);
 int XSecure_TrngInitNCfgHrngMode(void);
 XTrngpsx_Instance *XSecure_GetTrngInstance(void);
-
+int XSecure_InitiateASUKeyTransfer(void);
 /***************************** Variable Prototypes  ***************************/
 
 #ifdef __cplusplus

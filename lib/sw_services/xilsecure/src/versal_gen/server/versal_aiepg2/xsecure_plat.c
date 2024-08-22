@@ -16,6 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.4   kal      07/24/24 Initial release
+*       sk       08/22/24 Added support for key transfer to ASU
 *
 * </pre>
 *
@@ -27,6 +28,7 @@
 #include "xsecure_aes.h"
 #include "xsecure_init.h"
 #include "xplmi.h"
+#include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -505,4 +507,38 @@ XTrngpsx_Instance *XSecure_GetTrngInstance(void)
 	static XTrngpsx_Instance TrngInstance = {0U};
 
 	return &TrngInstance;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initiates the key transfer to ASU
+ *
+ * @return
+ * 		- XST_SUCCESS on successfull key transfer to ASU
+ * 		- XSECURE_ERR_ASU_KTE_DONE_NOT_SET on transfer failure
+ *
+ *****************************************************************************/
+int XSecure_InitiateASUKeyTransfer(void)
+{
+	volatile int Status = XST_FAILURE;
+
+	/** Initiate the key transfer */
+	XSecure_Out32(XSECURE_AES_KTE_GO_ADDRESS, XSECURE_AES_KTE_GO_ENABLE);
+
+	/** Wait for 4msec for AES KTE DONE bit to set */
+        Status = (int)Xil_WaitForEvent(XSECURE_AES_KTE_DONE_ADDRESS,
+		XSECURE_AES_KTE_DONE_MASK, XSECURE_AES_KTE_DONE_MASK, XSECURE_AES_KTE_DONE_POLL_TIMEOUT);
+        if (Status !=  XST_SUCCESS){
+                XSecure_Printf(DEBUG_PRINT_ALWAYS, "Key Transfer Count-0x%x\r\n",
+                                XSecure_In32(XSECURE_AES_KTE_CNT_ADDRESS));
+                Status =  (int)XSECURE_ERR_ASU_KTE_DONE_NOT_SET;
+                goto END;
+        }
+
+	Status =  XST_SUCCESS;
+
+END:
+	/** Disable the key transfer */
+	XSecure_Out32(XSECURE_AES_KTE_GO_ADDRESS, XSECURE_AES_KTE_GO_DISABLE);
+	return Status;
 }
