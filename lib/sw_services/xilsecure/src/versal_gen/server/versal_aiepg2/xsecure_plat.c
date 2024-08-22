@@ -480,6 +480,7 @@ int XSecure_TrngInitNCfgHrngMode(void)
 	UsrCfg.RepCountTestCutoff = XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF;
 	UsrCfg.DFLength = XSECURE_TRNG_USER_CFG_DF_LENGTH ;
 	UsrCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE ;
+	UsrCfg.IsBlocking = FALSE;
 	Status = XTrngpsx_Instantiate(TrngInstance, NULL, 0U, NULL, &UsrCfg);
 	if (Status != XST_SUCCESS) {
 		(void)XTrngpsx_Uninstantiate(TrngInstance);

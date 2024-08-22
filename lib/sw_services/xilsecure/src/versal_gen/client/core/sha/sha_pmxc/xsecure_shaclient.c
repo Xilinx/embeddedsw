@@ -30,7 +30,6 @@
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
@@ -203,8 +202,6 @@ int XSecure_ShaDigest(XSecure_ClientInstance *InstancePtr, XSecure_ShaMode ShaMo
 	const u64 InDataAddr, const u64 OutDataAddr, u32 DataSize, u32 HashSize)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Sha3InitializeMask = 0U;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
 
 	/**
 	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
@@ -213,33 +210,17 @@ int XSecure_ShaDigest(XSecure_ClientInstance *InstancePtr, XSecure_ShaMode ShaMo
 		goto END;
 	}
 
-	Status = XSecure_ShaInitialize(ShaMode);
+	Status = XSecure_ShaInitialize(InstancePtr, ShaMode);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_ShaUpdate(InDataAddr, DataSize, TRUE);
+	Status = XSecure_ShaUpdate(InstancePtr, InDataAddr, DataSize, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_ShaFinish(OutDataAddr, HashSize);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
-	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
-				sizeof(Payload)/sizeof(u32));
-
-	if (Status != XST_SUCCESS) {
-		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Sha Digest Failed \r\n");
-		goto END;
-	}
+	Status = XSecure_ShaFinish(InstancePtr, OutDataAddr, HashSize);
 
 END:
 	return Status;

@@ -42,6 +42,17 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+/* Sha modes */
+typedef enum {
+        XSECURE_SHA_INVALID_MODE = -1,
+        XSECURE_SHA3_384,
+        XSECURE_SHA2_384,
+        XSECURE_SHA2_256,
+        XSECURE_SHAKE_256,
+        XSECURE_SHA2_512,
+        XSECURE_SHA3_256,
+        XSECURE_SHA3_512
+} XSecure_ShaMode;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
