@@ -59,6 +59,7 @@
 *       mss  03/13/2024 MISRA-C violation Rule 8.6 fixed
 *       jb   04/11/2024 Moved proc count for PSM and PMC procs to platform
 *			specific files
+*       pre  08/22/2024 Modified XPlmi_GetReadbackLen for external linkage
 *
 * </pre>
 *
@@ -193,6 +194,7 @@ int XPlmi_StoreBuffer(XPlmi_Cmd *Cmd, u32 BufferId, XPlmi_BufferList *BufferList
 int XPlmi_SearchBufferList(XPlmi_BufferList *BufferList, u32 BufferId,
 		u64 *BufAddr, u32 *BufLen);
 int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u64 Addr, u32 Type);
+u32 XPlmi_GetReadbackLen(u32 Len);
 
 /* xplmi_plat.c definitions */
 XPlmi_BoardParams *XPlmi_GetBoardParams(void);

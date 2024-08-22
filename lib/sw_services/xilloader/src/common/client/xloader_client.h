@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
  *       har  03/05/24 Fixed doxygen warnings
+ *       pre  08/22/24 Added XLoader_CfiSelectiveReadback, XLoader_InputSlrIndex functions
  *
  * </pre>
  *
@@ -36,6 +37,14 @@ extern "C" {
 #include "xloader_defs.h"
 
 /************************************ Constant Definitions ***************************************/
+/**< shift constant to place slr id*/
+#define XLOADER_SLR_INDEX_SHIFT (6U)
+
+/**< SlrIndexs constants*/
+#define XLOADER_SLR_INDEX_0 (0U) /**< SLR Index 0 */
+#define XLOADER_SLR_INDEX_1 (1U) /**< SLR Index 1 */
+#define XLOADER_SLR_INDEX_2 (2U) /**< SLR Index 2 */
+#define XLOADER_SLR_INDEX_3 (3U) /**< SLR Index 3 */
 
 /************************************** Type Definitions *****************************************/
 
@@ -65,6 +74,14 @@ typedef enum {
 		XLOADER_FLASH_RAW_BP2, /**< 3 */
 } XLoader_FlashType; /**< Flash types */
 
+typedef struct {
+        u64 DestAddr; /**< Destination address */
+        u32 Row; /**< Row number */
+        u32 Blocktype; /**< Block type */
+        u32 FrameAddr; /**< Frame address */
+        u32 FrameCnt; /**< Frame count */
+} XLoader_CfiSelReadbackParams;
+
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
@@ -87,6 +104,9 @@ int XLoader_AddImageStorePdi(XLoader_ClientInstance *InstancePtr, u32 PdiId,
 int XLoader_RemoveImageStorePdi(XLoader_ClientInstance *InstancePtr, u32 PdiId);
 int XLoader_GetATFHandOffParams(XLoader_ClientInstance * InstancePtr, u64 BuffAddr, u32 Size,
 		 u32 *BufferSize);
+int XLoader_CfiSelectiveReadback(XLoader_ClientInstance *InstancePtr,
+                                 XLoader_CfiSelReadbackParams *SelectiveReadbackPtr);
+int XLoader_InputSlrIndex(XLoader_ClientInstance *InstancePtr, u32 SlrIndex);
 
 /************************************ Variable Definitions ***************************************/
 

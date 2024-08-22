@@ -120,6 +120,7 @@
 *       har  03/12/2024 Fixed doxygen warnings
 *       kal  06/04/2024 Added ImagePrtnId to XilPdi structure
 *       mss  04/05/2024 Added XLOADER_DEVICE_COPY_OPTIMIZATION_MASK macro
+*       pre  08/22/2024 Added XLoader_CfiSelectiveRead function
 *
 * </pre>
 *
@@ -447,6 +448,7 @@ int XLoader_IsPdiAddrLookup(u32 PdiId, u64 *PdiAddr);
 int XLoader_ClearATFHandoffParams(XilPdi* PdiPtr);
 int XLoader_LoadImage(XilPdi *PdiPtr);
 int XLoader_GetImageAndPrtnInfo(XilPdi *PdiPtr, u32 ImageId);
+int XLoader_CfiSelectiveRead(XPlmi_Cmd *Cmd);
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr);

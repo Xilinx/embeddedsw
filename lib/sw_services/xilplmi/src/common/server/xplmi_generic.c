@@ -119,6 +119,7 @@
 * 2.01  kpt  06/19/2024 Trigger secure lockdown immediately when requested through CDO
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  07/16/2024 Added command routing to slave SLRs
+*       pre  08/22/2024 Modified XPlmi_GetReadbackLen for external linkage
 *
 * </pre>
 *
@@ -1067,7 +1068,7 @@ static int XPlmi_InitSeq(XPlmi_Cmd *Cmd)
  * @return	Readback length
  *
  *****************************************************************************/
-static u32 XPlmi_GetReadbackLen(u32 Len)
+u32 XPlmi_GetReadbackLen(u32 Len)
 {
 	u32 ReadLen;
 

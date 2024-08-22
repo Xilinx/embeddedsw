@@ -86,6 +86,7 @@
 *       ng   01/28/2024 u8 variables optimization
 *       ng   02/14/2024 removed int typecast for errors
 *       sk   03/13/24 Fixed doxygen comments format
+*       pre  08/22/2024 Additions for XLoader_CfiSelectiveRead
 *
 * </pre>
 *
@@ -112,6 +113,9 @@
 #include "xloader_defs.h"
 #include "xloader_auth_enc.h"
 #include "xloader_secure.h"
+#if (!defined(VERSAL_NET) && !defined(VERSAL_AIEPG2))
+#include "xplmi_ssit.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -293,7 +297,7 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 	PdiAddr = ((u64)(Cmd->Payload[XLOADER_CMD_LOAD_PDI_PDIADDR_LOW_INDEX]) |
 			(PdiAddr << 32U));
 
-	/** Validate PDI soruce */
+	/** Validate PDI source */
 	if (!((PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
 		(PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
 		(PdiSrc == XLOADER_PDI_SRC_OSPI) ||
@@ -709,7 +713,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 	if (Index < PdiList->Count) {
 		XPlmi_Printf(DEBUG_DETAILED, "Image Store PdiId:0x%x exists... updating\n\r",PdiId);
 		FreeImgStoreSpace += (u32)(PdiList->ImgList[Index + 1U].PdiAddr - PdiList->ImgList[Index].PdiAddr);
-		/* Check if free space to accomodate new PDI */
+		/* Check if free space to accommodate new PDI */
 		if ((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
 			Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 			goto END;
@@ -1213,10 +1217,9 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_WriteImageStorePdi),
 	XPLMI_MODULE_COMMAND(XLoader_ConfigureJtagState),
 	XPLMI_MODULE_COMMAND(XLoader_ReadDdrCryptoPerfCounters),
-        XPLMI_MODULE_COMMAND(XLoader_MbPmcI2cHandshake),
-#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET) && !(defined(VERSAL_AIEPG2)))
+    XPLMI_MODULE_COMMAND(XLoader_MbPmcI2cHandshake),
 	XPLMI_MODULE_COMMAND(XLoader_VerifyDataAuth),
-#endif
+	XPLMI_MODULE_COMMAND(XLoader_CfiSelectiveRead),
 };
 
 /*****************************************************************************/
@@ -1251,8 +1254,29 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
 #else
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_READ_DDR_CRYPTO_COUNTERS),
 #endif
-XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_I2C_HANDSHAKE),
+	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_I2C_HANDSHAKE),
+    XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CFI_SEL_READBACK_ID),
 };
+
+#if (!defined(VERSAL_NET) && !defined(VERSAL_AIEPG2))
+/*****************************************************************************/
+/**
+ * @brief	This function calls the handler for invalid commands
+ *
+ *
+ * @param	Payload	   is pointer to IPI payload data
+ *
+ * @param   RespBuf buffer to store response of slaves
+ *
+ * @return 	XST_SUCCESS		    on successful communication
+ * 		    error code      	On failure
+ *
+ *****************************************************************************/
+static int XLoader_InvalidCmdHandler(u32 *Payload, u32 *RespBuf)
+{
+	return XPlmi_SendIpiCmdToSlaveSlr(Payload, RespBuf);
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -1264,7 +1288,11 @@ static XPlmi_Module XPlmi_Loader =
 	XPLMI_MODULE_LOADER_ID,
 	XLoader_Cmds,
 	XPLMI_ARRAY_SIZE(XLoader_Cmds),
+#if (!defined(VERSAL_NET) && !defined(VERSAL_AIEPG2))
+	XLoader_InvalidCmdHandler,
+#else
 	NULL,
+#endif
 	XLoader_AccessPermBuff,
 #ifdef VERSAL_NET
 	XLoader_UpdateHandler

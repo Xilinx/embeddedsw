@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
  *       har  03/05/24 Fixed doxygen warnings
+ *       pre  08/22/24 Added XLoader_CfiSelectiveReadback, XLoader_InputSlrIndex functions
  *
  * </pre>
  *
@@ -35,6 +36,12 @@
 
 #define XLOADER_ADDR_HIGH_SHIFT 		(32U) /**< Shift value to get higher 32 bit address */
 #define XLOADER_MSB_MASK 				(0x80000000) /**< Mask for MSB bit */
+
+#define XLOADER_SELREADBACK_ROW_START_POS     (23U) /**< Row field start bit position */
+#define XLOADER_SELREADBACK_BLKTYPE_START_POS (20U) /**< Block type field start bit position */
+#define XLOADER_SELREADBACK_ROW_MASK          (0x7800000U) /**< Mask for row */
+#define XLOADER_SLEREADBACK_BLKTYPE_MASK      (0X700000U) /**< Mask for block type */
+#define XLOADER_SLEREADBACK_FRAMEADDR_MASK    (0xFFFFFU) /**< Mask for frame address */
 
 /************************************** Type Definitions *****************************************/
 
@@ -520,5 +527,76 @@ int XLoader_GetATFHandOffParams(XLoader_ClientInstance *InstancePtr, u64 BuffAdd
 	*BufferSize = InstancePtr->Response[1];
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends IPI request to read selective frames from configuration memory
+ *
+ * @param	InstancePtr             Pointer to the client instance
+ * @param	SelectiveReadbackPtr    Pointer to structure which contains parameters of CFI selective
+ *                                  readback command
+ *
+ * @return
+ *			 - XST_SUCCESS on success.
+ *			 - XST_FAILURE on failure.
+ *
+ *************************************************************************************************/
+int XLoader_CfiSelectiveReadback(XLoader_ClientInstance *InstancePtr,
+                                 XLoader_CfiSelReadbackParams *SelectiveReadbackPtr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
+
+    /**
+	 * - Performs input parameters validation. Return error code if input parameters are invalid
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) ||
+	    (SelectiveReadbackPtr == NULL)) {
+		goto END;
+	}
+
+	Payload[0U] = PACK_XLOADER_HEADER(XLOADER_HEADER_LEN_4, (InstancePtr->SlrIndex <<
+	                                XLOADER_SLR_INDEX_SHIFT) | (u32)XLOADER_CFI_SEL_READBACK_ID);
+    Payload[1U] = ((SelectiveReadbackPtr->Row << XLOADER_SELREADBACK_ROW_START_POS) & XLOADER_SELREADBACK_ROW_MASK)|
+	              ((SelectiveReadbackPtr->Blocktype << XLOADER_SELREADBACK_BLKTYPE_START_POS) & XLOADER_SLEREADBACK_BLKTYPE_MASK) |
+				  ((SelectiveReadbackPtr->FrameAddr) & XLOADER_SLEREADBACK_FRAMEADDR_MASK);
+    Payload[2U] = SelectiveReadbackPtr->FrameCnt;
+	Payload[3U] = (u32)(SelectiveReadbackPtr->DestAddr >> XLOADER_ADDR_HIGH_SHIFT);
+	Payload[4U] = (u32)SelectiveReadbackPtr->DestAddr;
+
+	/**
+	 * - Send an IPI request to the PLM by using the XLoader_CfiSelectiveReadback CDO command
+	 * Wait for IPI response from PLM with a timeout.
+	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
+	 * response.
+	 */
+	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Adds the SLR Index.
+ *
+ * @param  InstancePtr is a pointer to instance XLoader_ClientInstance
+ * @param  SlrIndex - SLR index number
+ *
+ * @return	- XST_SUCCESS - On valid input SlrIndex.
+ *		    - XST_FAILURE - On non valid input SlrIndex
+ *
+ *************************************************************************************************/
+int XLoader_InputSlrIndex(XLoader_ClientInstance *InstancePtr, u32 SlrIndex)
+{
+	int Status = XST_FAILURE;
+
+	if(SlrIndex >= XLOADER_SLR_INDEX_0 && SlrIndex <= XLOADER_SLR_INDEX_3){
+		InstancePtr->SlrIndex = SlrIndex;
+	    Status = XST_SUCCESS;
+	}
+
 	return Status;
 }

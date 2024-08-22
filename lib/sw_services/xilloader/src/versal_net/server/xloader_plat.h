@@ -42,6 +42,7 @@
 *       mss  04/12/2024 Added XLoader_DumpDdrmcRegisters function prototype
 *       mss  05/03/2024 Fixed doxygen warnings
 *       kal  06/29/2024 Rename XLoader_LoadPsmElf to XLoader_LoadLpdAndPsmElf
+*       pre  08/22/2024 Added error codes related to XLoader_CfiSelectiveRead command
 *
 * </pre>
 *
@@ -232,6 +233,20 @@ enum {
 
 	/** 0x26 - Error when copy of optional data to destination buffer failed */
 	XLOADER_ERR_OPT_DATA_COPY_FAILED,
+
+	/**< 0x27 - Error when row is invalid */
+	XLOADER_ERR_INVALID_ROW,
+
+	/**< 0x28 - Error when block type is invalid */
+	XLOADER_ERR_INVALID_BLOCK_TYPE,
+
+	/**< 0x29 - Error when frame address is not in the range */
+	XLOADER_INVALID_FRAME_ADDRESS,
+
+	/**< 0x2A - Error when frame count added with start frame address exceeds last frame
+	 * address
+	 */
+	XLOADER_FRAME_COUNT_EXCEEDS_LASTFRAME,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
 	/** 0x100 - Invalid JTAG/DAP config request */

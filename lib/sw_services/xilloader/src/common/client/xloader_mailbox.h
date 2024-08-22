@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
  *       har  03/05/24 Fixed doxygen warnings
+ *       pre  08/21/24 Added SlrIndex in XLoader_ClientInstance structure
  *
  * </pre>
  *
@@ -60,6 +61,7 @@ extern "C" {
 typedef struct {
 	XMailbox *MailboxPtr; /**< Pointer to mailbox for IPI communication */
 	u32 Response[RESPONSE_ARG_CNT];		/**< Buffer to store the response of the IPI */
+	u32 SlrIndex; /**< SLR index number */
 } XLoader_ClientInstance; /**< Xilloader client instance */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
