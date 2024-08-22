@@ -1043,6 +1043,12 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 		goto END_RST;
 	}
 
+#ifdef VERSAL_AIEPG2
+	Status = XSecure_ShaLastUpdate(SecureSha3);
+        if (Status != XST_SUCCESS) {
+                goto END_RST;
+        }
+#endif
 	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
 
 	Status = XSecure_ShaUpdate(SecureSha3, (UINTPTR)KatMessage,

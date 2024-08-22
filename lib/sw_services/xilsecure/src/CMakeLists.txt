@@ -26,11 +26,10 @@ if(("${XILSECURE_mode}" STREQUAL "client") AND
 endif()
 
 collect (PROJECT_LIB_HEADERS xsecure_ver.h)
-if(("${CMAKE_MACHINE}" STREQUAL "Versal") OR
-	("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
-  add_subdirectory(versal_gen)
-elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
+if("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
   add_subdirectory(zynqmp)
+else ()
+  add_subdirectory(versal_gen)
 endif()
 
 collector_list (_sources PROJECT_LIB_SOURCES)
