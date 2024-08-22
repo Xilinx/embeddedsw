@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,8 @@
 *       mss  09/04/2023 Fixed MISRA-C violation 7.2
 *       mss  09/04/2023 Fixed MISRA-C violation 4.6
 *       mss  09/04/2023 Fixed MISRA-C violation 8.13
+*       pre  08/22/2024 Added XCframe_GetLastFrameAddr function and modified
+*                       XCframe_SetReadParam function
 *
 * </pre>
 *
@@ -39,8 +41,47 @@
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+typedef enum
+{
+	BLOCKTYPE0 = 0, /**< Blocktype - 0 */
+	BLOCKTYPE1,  /**< Blocktype - 1 */
+	BLOCKTYPE2,  /**< Blocktype - 2 */
+	BLOCKTYPE3,  /**< Blocktype - 3 */
+	BLOCKTYPE4,  /**< Blocktype - 4 */
+	BLOCKTYPE5,  /**< Blocktype - 5 */
+	BLOCKTYPE6,  /**< Blocktype - 6 */
+} XCframe_Blktype;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XCFRAME_LAST_FRAME_BOT_OFFSET         (0x220U) /**< Offset of LAST_FRAME_BOT register */
+#define XCFRAME_MAX_BLKTYPE_IN_FAR_BOT        (4U) /**< Maximum value of block type in FAR_BOT
+                                                  register*/
+#define XCFRAME_FAR_TOP_OFFSET_WRT_BOT        (0x10U) /**< Offset of CFRAME_FAR_TOP regiter w.r.t
+                                                    CFRAME_FAR_BOT*/
+#define XCFRAME_128BIT_IN_WORDS               (4U) /**< Size of 128bit in words */
+#define XCFRAME_BLKTYPE0_MASK                 (0xFFFFFU) /**< Mask to read blocktype 0 values */
+#define XCFRAME_BLKTYPE1_WORD0_SHIFT          (20U) /**< Shift value to read blocktype1 value from
+                                                 word0 */
+#define XCFRAME_BLKTYPE1_WORD0_MASK           (0xFFFU) /**< Mask to read blocktype1 value
+                                                     from word0 */
+#define XCFRAME_BLKTYPE1_WORD1_SHIFT          (12U) /**< Shift value to read blocktype1 value from
+                                                  word1 */
+#define XCFRAME_BLKTYPE1_WORD1_MASK           (0xFFU) /**< Mask to read blocktype1 value from
+                                                    word1 */
+#define XCFRAME_BLKTYPE2_WORD1_SHIFT          (8U) /**< Shift value to read blocktype2 value from
+                                                  word1 */
+#define XCFRAME_BLKTYPE2_WORD1_MASK           (0xFFFFFU) /**< Mask to read blocktype1 value from
+                                                       word1 */
+#define XCFRAME_BLKTYPE3_WORD1_SHIFT          (28U) /**< Shift value to read blocktype3 value from
+                                                   word1 */
+#define XCFRAME_BLKTYPE3_WORD1_MASK           (0xFU) /**< Mask to read blocktype3 value from word1 */
+#define XCFRAME_BLKTYPE3_WORD2_SHIFT          (4U) /**< Shift value to read blocktype3 value from
+                                                 word2 */
+#define XCFRAME_BLKTYPE3_WORD2_MASK           (0xFFFFU) /**< Mask to read blocktype3 value from
+                                                      word2 */
+#define XCFRAME_WORD0_OFFSET                  (0U) /**< Offset of word0 */
+#define XCFRAME_WORD1_OFFSET                  (1U) /**< Offset of word1 */
+#define XCFRAME_WORD2_OFFSET                  (2U) /**< Offset of word2 */
 
 /************************** Function Prototypes ******************************/
 
@@ -300,21 +341,24 @@ void XCframe_UramTrim(const XCframe *InstancePtr, u32 TrimValue)
  * This function sets the CFRAME read parameters with mentioned CFRAME length
  * and frame number.
  *
- * @param       InstancePtr is a pointer to the XCframe instance.
+ * @param   InstancePtr is a pointer to the XCframe instance.
  * @param	CframeNo is the index of frame
- * @param       CframeLen is total length of Cframes
+ * @param   CframeLen is total length of Cframes
+ * @param   FrameAddr is frame address
  *
  * @return	None
  *
  ******************************************************************************/
 void XCframe_SetReadParam(const XCframe *InstancePtr,
-		XCframe_FrameNo CframeNo, u32 CframeLen)
+		XCframe_FrameNo CframeNo, u32 CframeLen, u32 FrameAddr)
 {
 	Xuint128 Value128={0};
 
 	/* Enable ROWON, READ_CFR, CFRM_CNT */
 	XCframe_WriteCmd(InstancePtr, CframeNo,	XCFRAME_CMD_REG_ROWON);
 	XCframe_WriteCmd(InstancePtr, CframeNo,	XCFRAME_CMD_REG_RCFG);
+
+	Value128.Word0 = FrameAddr;
 	XCframe_WriteReg(InstancePtr, XCFRAME_FAR_OFFSET, CframeNo, &Value128);
 
 	Value128.Word0=CframeLen/4U;
@@ -342,4 +386,53 @@ void XCframe_ClearCframeErr(const XCframe *InstancePtr)
 		XCframe_WriteReg(InstancePtr, XCFRAME_CFRM_ISR_OFFSET, CframeNo++,
 															&Value128);
 	}
+}
+
+/*****************************************************************************/
+/**
+ * This function returns the last Cframe address of given cframeno and blocktype
+ *
+ * @param	InstancePtr is a pointer to the XCframe instance
+ * @param   BlockType is block type
+ * @param   CframeNo is the index of cframe
+ *
+ * @return	Last Frame Address
+ *
+ ******************************************************************************/
+u32 XCframe_GetLastFrameAddr(XCframe *InstancePtr, u32 BlockType, XCframe_FrameNo CframeNo)
+{
+	u32 LastFrameData[XCFRAME_128BIT_IN_WORDS] = {0};
+	u32 LastFrameAddr = 0;
+
+	XCframe_ReadReg(InstancePtr, (XCFRAME_LAST_FRAME_BOT_OFFSET +
+	                (BlockType / XCFRAME_MAX_BLKTYPE_IN_FAR_BOT) *
+					XCFRAME_FAR_TOP_OFFSET_WRT_BOT),
+					(XCframe_FrameNo)CframeNo, LastFrameData);
+
+	switch ((XCframe_Blktype)BlockType) {
+		case BLOCKTYPE0:
+		case BLOCKTYPE4:
+		LastFrameAddr = LastFrameData[XCFRAME_WORD0_OFFSET] & XCFRAME_BLKTYPE0_MASK;
+		break;
+		case BLOCKTYPE1:
+		case BLOCKTYPE5:
+		LastFrameAddr = ((LastFrameData[XCFRAME_WORD0_OFFSET] >> XCFRAME_BLKTYPE1_WORD0_SHIFT) &
+		                  XCFRAME_BLKTYPE1_WORD0_MASK) | ((LastFrameData[XCFRAME_WORD1_OFFSET] &
+		                  XCFRAME_BLKTYPE1_WORD1_MASK) << XCFRAME_BLKTYPE1_WORD1_SHIFT);
+		break;
+		case BLOCKTYPE2:
+		case BLOCKTYPE6:
+        LastFrameAddr = (LastFrameData[XCFRAME_WORD1_OFFSET] >> XCFRAME_BLKTYPE2_WORD1_SHIFT) &
+                         XCFRAME_BLKTYPE2_WORD1_MASK;
+        break;
+        case BLOCKTYPE3:
+        LastFrameAddr = ((LastFrameData[XCFRAME_WORD1_OFFSET] >> XCFRAME_BLKTYPE3_WORD1_SHIFT) &
+                          XCFRAME_BLKTYPE3_WORD1_MASK) | ((LastFrameData[XCFRAME_WORD2_OFFSET] &
+                          XCFRAME_BLKTYPE3_WORD2_MASK) << XCFRAME_BLKTYPE3_WORD2_SHIFT);
+        break;
+		default:
+		break;
+    }
+
+	return LastFrameAddr;
 }

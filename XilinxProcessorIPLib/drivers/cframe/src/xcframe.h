@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,8 @@
 * 1.04  ng   06/30/23   Added support for system device tree flow
 * 1.5   mss  09/04/2023 Fixed MISRA-C violation 4.6
 *       mss  09/04/2023 Fixed MISRA-C violation 8.13
+*       pre  08/22/2024 Added XCframe_GetLastFrameAddr function and modified
+*                       XCframe_SetReadParam function
 *
 * </pre>
 *
@@ -166,12 +168,13 @@ void XCframe_CramTrim(const XCframe *InstancePtr,	u32 TrimValue);
 void XCframe_BramTrim(const XCframe *InstancePtr, u32 TrimValue);
 void XCframe_UramTrim(const XCframe *InstancePtr, u32 TrimValue);
 void XCframe_SetReadParam(const XCframe *InstancePtr,
-			XCframe_FrameNo CframeNo, u32 CframeLen);
+		XCframe_FrameNo CframeNo, u32 CframeLen, u32 FrameAddr);
 void XCframe_ReadReg(const XCframe *InstancePtr, u32 AddrOffset,
 			XCframe_FrameNo FrameNo, u32* ValPtr);
 void XCframe_ClearCframeErr(const XCframe *InstancePtr);
 s32 XCframe_SafetyWriteReg(const XCframe *InstancePtr, u32 AddrOffset,
 		XCframe_FrameNo FrameNo,const Xuint128 *Val);
+u32 XCframe_GetLastFrameAddr(XCframe *InstancePtr, u32 BlockType, XCframe_FrameNo CframeNo);
 #ifdef __cplusplus
 }
 #endif

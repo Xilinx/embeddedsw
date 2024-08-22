@@ -66,4 +66,5 @@ examples:
   xilloader_get_opt_data_example.c:
     - supported platforms:
       - VersalNet
+  xilloader_cfi_selective_readback_example.c: []
 ...

@@ -44,6 +44,8 @@
 * 1.10  ng    06/26/2023 Added support for system device tree flow
 * 2.00  ng    01/26/2024 Added header file for minor error codes
 *       sk    03/13/24 Fixed doxygen comments format
+*       pre   08/22/2024 Added XLoader_CfiSelectiveRead command execution
+*
 * </pre>
 *
 * @note
@@ -58,6 +60,9 @@
 #include "xplmi_util.h"
 #include "xplmi_config.h"
 #include "xloader_plat.h"
+#include "xplmi_dma.h"
+#include "xplmi_generic.h"
+#include "xloader_defs.h"
 
 /************************** Constant Definitions *****************************/
 /* CFRAM related register defines */
@@ -78,6 +83,17 @@
 #ifndef PLM_DEBUG_MODE
 #define PMC_GLOBAL_PMC_ERR2_STATUS_CFI_SHIFT	(16U) /**< CFI Non-Correctable
                                                        * Error shift */
+
+/* Defines related to selective cfi readback */
+#define XLOADER_SELREADBACK_ROW_BIT_POS       (23U) /**< Start position of row bits */
+#define XLOADER_SELREADBACK_ROW_MASK          (0x1FU) /**< Mask to read row bits */
+#define XLOADER_SELREADBACK_BLKTYPE_BIT_POS   (20U) /**< Start position of block type bits */
+#define XLOADER_SELREADBACK_BLKTYPE_MASK      (0x07U) /**< Mask to read block type */
+#define XLOADER_SELREADBACK_FRAMEADDR_MASK    (0xFFFFFU) /**< Mask to read frame address */
+#define XLOADER_SELREADBACK_FRAMECNT_MASK     (0xFFFFFU) /**< Mask to read frame count */
+#define XLOADER_25_QUAD_WORD_SIZE             (100U) /**< Size of 25 quad words in words */
+#define XLOADER_CFU_MAX_BLOCKTYPE             (6U) /**< Maximum value of block type */
+#define XLOADER_CFU_ROW_RANGE_ADDR            (0xF12B006C) /**< Address of CFU_ROW_RANGE register */
 
 /************************** Function Prototypes ******************************/
 static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr);
@@ -319,6 +335,122 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 	CframeData.Word0 = XPLMI_ZERO;
 	XCframe_WriteReg(&XLoader_CframeIns, CFRAME_BCAST_REG_TESTMODE_OFFSET,
 			XCFRAME_FRAME_BCAST, &CframeData);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides CFI SELECTIVE READ command execution.
+ *  		Command payload parameters are
+ *      - Row, block type and Start frame address
+ *		- Frame count to be read from CFU(1frame = 25Quadwords)
+ *		- High Dest Addr
+ *		- Low Dest Addr
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- Error code on failure
+ *
+ *****************************************************************************/
+int XLoader_CfiSelectiveRead(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 LastFrameAddr;
+	u64 SrcAddr;
+	u32 ReadLen;
+	u32 NoOfRows;
+	u32 Row = (Cmd->Payload[0U] >> XLOADER_SELREADBACK_ROW_BIT_POS) & XLOADER_SELREADBACK_ROW_MASK;
+	u32 BlockType = (Cmd->Payload[0U] >> XLOADER_SELREADBACK_BLKTYPE_BIT_POS) &
+	                 XLOADER_SELREADBACK_BLKTYPE_MASK;
+	u32 FrameAddr = Cmd->Payload[0U] & XLOADER_SELREADBACK_FRAMEADDR_MASK;
+	u32 FrameCnt = Cmd->Payload[1U] & XLOADER_SELREADBACK_FRAMECNT_MASK;
+	u64 DestAddr = ((u64)Cmd->Payload[2U] << 32U) | (u64)Cmd->Payload[3U];
+	u32 Len = FrameCnt * XLOADER_25_QUAD_WORD_SIZE;
+
+	XPLMI_EXPORT_CMD(XLOADER_CFI_SEL_READBACK_ID, XPLMI_MODULE_LOADER_ID,
+		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
+
+	Status = XLoader_CframeInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Row validation */
+	NoOfRows = Xil_In32(XLOADER_CFU_ROW_RANGE_ADDR) & XLOADER_SELREADBACK_ROW_MASK;
+
+	if (Row >= NoOfRows) {
+		Status = XLOADER_ERR_INVALID_ROW;
+		goto END;
+	}
+
+	/* Block type validation */
+	if (BlockType > XLOADER_CFU_MAX_BLOCKTYPE) {
+		Status = XLOADER_ERR_INVALID_BLOCK_TYPE;
+		goto END;
+	}
+
+	/* Read cframe_far and lastframe_far registers */
+	LastFrameAddr = XCframe_GetLastFrameAddr(&XLoader_CframeIns, BlockType, Row);
+
+	/* Frame address validation */
+	if (FrameAddr > LastFrameAddr) {
+		Status = XLOADER_INVALID_FRAME_ADDRESS;
+		goto END;
+	}
+
+	/* Frame count validation */
+	if ((FrameAddr + FrameCnt) > (LastFrameAddr + 1U)) {
+		Status = XLOADER_FRAME_COUNT_EXCEEDS_LASTFRAME;
+		goto END;
+	}
+
+	/* Address range verification */
+	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + Len);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Read the destination interface and destination address */
+	SrcAddr = CFU_FDRO_2_ADDR;
+	ReadLen = XPlmi_GetReadbackLen(Len);
+
+	/** Set MaxOutCommands of PMC_DMA1 to 1 */
+	XPlmi_SetMaxOutCmds(XPLMI_MAXOUT_CMD_MIN_VAL);
+
+	/* Setting up DMA to read */
+	Status = XPlmi_DmaXfr(SrcAddr, DestAddr, ReadLen, XPLMI_PMCDMA_1 | XPLMI_DMA_SRC_NONBLK);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Set MaxOutCommands of PMC_DMA1 to 8 */
+	XPlmi_SetMaxOutCmds(XPLMI_MAXOUT_CMD_DEF_VAL);
+
+	/* Appending blocktype to frame address */
+	FrameAddr |= (BlockType << XLOADER_SELREADBACK_BLKTYPE_BIT_POS);
+
+	/* Writing commands to CFU registers to read from CFrames */
+	XCframe_SetReadParam(&XLoader_CframeIns, (XCframe_FrameNo)Row, Len, FrameAddr);
+
+	Status = XPlmi_WaitForNonBlkDma(XPLMI_PMCDMA_1);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Len -= ReadLen;
+	while (Len > 0U) {
+		DestAddr += ((u64)ReadLen * XPLMI_WORD_LEN);
+		ReadLen = XPlmi_GetReadbackLen(Len);
+		Status = XPlmi_DmaXfr(SrcAddr, DestAddr, ReadLen, XPLMI_PMCDMA_1);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Len -= ReadLen;
+	}
 
 END:
 	return Status;
