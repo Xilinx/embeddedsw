@@ -16,6 +16,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- ---------- -------------------------------------------------------
  * 5.4   kal  07/24/2024 Initial release
+*       sk   08/22/24 Added error code for key transfer to ASU
  *
  * </pre>
  *
@@ -249,8 +250,9 @@ typedef enum {
 	XSECURE_AES_KAT_BUSY,			/**< 0xF3 - AES busy with earlier operation,
 						Kat can't be executed */
 	XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED, /**< 0xF4 - Crypto Accelerators are disabled */
-	XSECURE_ERR_KAT_NOT_EXECUTED		    /**< 0xF5 - Error when KAT is not executed when
+	XSECURE_ERR_KAT_NOT_EXECUTED,		    /**< 0xF5 - Error when KAT is not executed when
 							crypto kat efuse bit is enabled */
+	XSECURE_ERR_ASU_KTE_DONE_NOT_SET,	/**< 0xF6 - Error in Key Transfer to ASU */
 } XSecure_ErrorCodes;
 
 #define XSECURE_SHA3_KAT_FAILED_ERROR		XSECURE_SHA_KAT_FAILED_ERROR

@@ -83,6 +83,7 @@
  * 2.01  sk   05/07/2024 Added support to get ipi instance
  *       pre  07/11/2024 Throwing error if IPI request length is greater than XPLMI_MAX_IPI_CMD_LEN
  *       pre  07/30/2024 Fixed misrac violation
+ *       am   08/22/2024 Fixed IPI acknowledgement prior to executing handlers
  *
  * </pre>
  *
@@ -291,7 +292,9 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
 	u32 MaskIndex;
 	XPlmi_Cmd Cmd = {0U};
+#ifndef VERSAL_AIEPG2
 	u32 PendingPsmIpi = (u32)FALSE;
+#endif
 
 	for (MaskIndex = 0U; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
 		if (IpiInst.Config.TargetList[MaskIndex].BufferIndex == (u32)Data) {
@@ -307,9 +310,11 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 		Cmd.AckInPLM = (u8)TRUE;
 		Cmd.IpiReqType = XPLMI_CMD_NON_SECURE;
 		Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
+#ifndef VERSAL_AIEPG2
 		if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
 			PendingPsmIpi = (u32)TRUE;
 		}
+#endif
 
 		/**
 		 * Read the IPI command and arguments
@@ -357,12 +362,14 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 		}
 		Cmd.Payload = (u32 *)&Payload[1U];
 
+#ifndef VERSAL_AIEPG2
 		/* Ack PSM IPIs before running handlers */
 		if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
 			PendingPsmIpi = (u32)FALSE;
 			XPlmi_Out32(IPI_PMC_ISR,
 				IPI_PMC_ISR_PSM_BIT_MASK);
 		}
+#endif
 
 		/**
 		 * Execute the IPI command
@@ -385,10 +392,14 @@ END:
 			 * Ack all IPIs
 			 */
 			if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
+#ifndef VERSAL_AIEPG2
 				if ((IPI_PMC_ISR_PSM_BIT_MASK != Cmd.IpiMask) ||
 				    (PendingPsmIpi == (u32)TRUE)) {
 					XPlmi_Out32(IPI_PMC_ISR, Cmd.IpiMask);
 				}
+#else
+				XPlmi_Out32(IPI_PMC_ISR, Cmd.IpiMask);
+#endif
 				XPlmi_Out32(IPI_PMC_IER, Cmd.IpiMask);
 			}
 		}
