@@ -397,7 +397,7 @@ typedef enum {
 	XVIDC_PPC_2 = 2,
 	XVIDC_PPC_4 = 4,
 	XVIDC_PPC_8 = 8,
-	XVIDC_PPC_NUM_SUPPORTED = 4,
+	XVIDC_PPC_NUM_SUPPORTED = 4
 } XVidC_PixelsPerClock;
 
 /**
@@ -452,6 +452,7 @@ typedef enum {
 	XVIDC_CSF_MEM_Y_U_V8_420,   // [15:0] Y:Y 8:8, [7:0] U:8, [7:0] V:8
 	XVIDC_CSF_MEM_Y_U_V8,       // [7:0] Y:8, [7:0] U:8, [7:0] V:8
 	XVIDC_CSF_MEM_Y_U_V10,      // [9:0] Y:10, [9:0] U:10, [9:0] V:10
+	XVIDC_CSF_MEM_Y_U_V12,      // [11:0] Y:12, [11:0] U:12, [11:0] V:12
 	XVIDC_CSF_MEM_END,          // End of memory formats
 
 	/* Streaming formats with components re-ordered */
@@ -468,6 +469,14 @@ typedef enum {
 	XVIDC_CSF_NUM_MEM    = (XVIDC_CSF_MEM_END - XVIDC_CSF_MEM_START)
 } XVidC_ColorFormat;
 
+/**
+ * Tile Size in Tile format.
+ */
+typedef enum {
+	XVIDC_TILE_32 = 32,
+	XVIDC_TILE_64 = 64,
+	XVIDC_TILE_NUM_SUPPORTED = 2
+} XVidC_TileSize;
 
 /**
  * Image Aspect Ratio.
