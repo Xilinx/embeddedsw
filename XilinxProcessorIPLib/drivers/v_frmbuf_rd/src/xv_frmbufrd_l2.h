@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017-2023 Xilinx, Inc. All Rights Reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -234,6 +234,21 @@ typedef struct {
 ******************************************************************************/
 #define XVFrmbufRd_IsY_U_V10Enabled(InstancePtr) \
                                  ((InstancePtr)->FrmbufRd.Config.Y_U_V10En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y_U_V12 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufRd_IsY_U_V12Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufRd.Config.Y_U_V12En)
 
 /*****************************************************************************/
 /**

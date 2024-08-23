@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017-2023 Xilinx, Inc. All Rights Reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -164,6 +164,9 @@ XVidC_ColorFormat RdMemory2Live(XVidC_ColorFormat MemFmt)
             break;
         case XVIDC_CSF_MEM_Y_U_V8_420 :
             StrmFmt = XVIDC_CSF_YCRCB_420;
+            break;
+		case XVIDC_CSF_MEM_Y_U_V12 :
+            StrmFmt = XVIDC_CSF_YCRCB_444;
             break;
 		default:
 			StrmFmt = (XVidC_ColorFormat)~0;
@@ -433,21 +436,6 @@ int XVFrmbufRd_SetMemFormat(XV_FrmbufRd_l2 *InstancePtr,
                   FmtValid = TRUE;
                 }
                 break;
-            case XVIDC_CSF_MEM_Y_U_V8 :
-                if (XVFrmbufRd_IsY_U_V8Enabled(InstancePtr)) {
-				   FmtValid = TRUE;
-				}
-				break;
-            case XVIDC_CSF_MEM_Y_U_V8_420 :
-                if (XVFrmbufRd_IsY_U_V8_420Enabled(InstancePtr)) {
-				   FmtValid = TRUE;
-				}
-		break;
-			case XVIDC_CSF_MEM_Y_U_V10 :
-                if (XVFrmbufRd_IsY_U_V10Enabled(InstancePtr)) {
-				   FmtValid = TRUE;
-				}
-				break;
 			case XVIDC_CSF_MEM_YUVX8 :
 				if (XVFrmbufRd_IsYUVX8Enabled(InstancePtr)) {
 					FmtValid = TRUE;
@@ -586,6 +574,26 @@ int XVFrmbufRd_SetMemFormat(XV_FrmbufRd_l2 *InstancePtr,
 			case XVIDC_CSF_MEM_Y16 :
 				if (XVFrmbufRd_IsY16Enabled(InstancePtr)) {
 					FmtValid = TRUE;
+				}
+				break;
+            case XVIDC_CSF_MEM_Y_U_V8 :
+                if (XVFrmbufRd_IsY_U_V8Enabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_U_V10 :
+                if (XVFrmbufRd_IsY_U_V10Enabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+            case XVIDC_CSF_MEM_Y_U_V8_420 :
+                if (XVFrmbufRd_IsY_U_V8_420Enabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_U_V12 :
+                if (XVFrmbufRd_IsY_U_V12Enabled(InstancePtr)) {
+				   FmtValid = TRUE;
 				}
 				break;
 			default :
@@ -998,7 +1006,9 @@ void XVFrmbufRd_DbgReportStatus(XV_FrmbufRd_l2 *InstancePtr)
 	xil_printf("Y_U_V8 Enabled:             %d\r\n", InstancePtr->FrmbufRd.Config.Y_U_V8En);
 	xil_printf("Y_U_V10 Enabled:            %d\r\n", InstancePtr->FrmbufRd.Config.Y_U_V10En);
 	xil_printf("Y_U_V8_420 Enabled:         %d\r\n", InstancePtr->FrmbufRd.Config.Y_U_V8_420En);
+	xil_printf("Y_U_V12 Enabled:            %d\r\n", InstancePtr->FrmbufRd.Config.Y_U_V12En);
 	xil_printf("Interlaced Enabled:         %d\r\n", InstancePtr->FrmbufRd.Config.Interlaced);
+	xil_printf("Tile format Enabled:        %d\r\n", InstancePtr->FrmbufRd.Config.IsTileFormat);
 
 	xil_printf("Control Reg:                0x%x\r\n", ctrl);
 	xil_printf("Width:                      %d\r\n",   XV_frmbufrd_Get_HwReg_width(&InstancePtr->FrmbufRd));
@@ -1007,6 +1017,7 @@ void XVFrmbufRd_DbgReportStatus(XV_FrmbufRd_l2 *InstancePtr)
 	xil_printf("Video Format:               %d\r\n",   XV_frmbufrd_Get_HwReg_video_format(&InstancePtr->FrmbufRd));
 	xil_printf("Buffer Address:             0x%x\r\n", XV_frmbufrd_Get_HwReg_frm_buffer_V(&InstancePtr->FrmbufRd));
 	xil_printf("Chroma Buffer Address:      0x%x\r\n", XV_frmbufrd_Get_HwReg_frm_buffer2_V(&InstancePtr->FrmbufRd));
+	xil_printf("VChroma Buffer Address:     0x%x\r\n", XV_frmbufrd_Get_HwReg_frm_buffer3_V(&InstancePtr->FrmbufRd));
 }
 
 /** @} */
