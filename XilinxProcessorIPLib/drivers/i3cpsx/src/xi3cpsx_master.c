@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,10 +62,15 @@ s32 XI3cPsx_SetDynamicAddr(XI3cPsx *InstancePtr, u32 *Addr, u32 Devices)
 }
 /*****************************************************************************/
 /**
-* The Bus initialisation code.
+* @brief
+* Initializes the I3c bus by configuring the device address table,
+* resets and assigns the dynamic address to the slave devices.
 *
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
 *
-* @return	None.
+* @return
+*		- XST_SUCCESS if everything went well.
+*		- XST_FAILURE if any error.
 *
 * @note 	None.
 *
@@ -95,7 +100,8 @@ s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr)
 
 	/* Write self address */
 	tmp = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_ADDR);
-	tmp = ((0x45 << XI3CPSX_DEVICE_ADDR_DYNAMIC_ADDR_SHIFT) | XI3CPSX_DEVICE_ADDR_DYNAMIC_ADDR_VALID_MASK);
+	tmp = ((XI3CPSX_DEVICE_ADDR_SELF_DYNAMIC_ADDR << XI3CPSX_DEVICE_ADDR_DYNAMIC_ADDR_SHIFT) |
+	       XI3CPSX_DEVICE_ADDR_DYNAMIC_ADDR_VALID_MASK);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_ADDR, tmp);
 
 	/* Initialize Device address table (DAT) */
@@ -105,10 +111,6 @@ s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr)
 	tmp = 0x26 << XI3CPSX_DEV_ADDR_TABLE_LOC1_DEV_DYNAMIC_ADDR_SHIFT;
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 			 XI3CPSX_DEV_ADDR_TABLE_LOC2, tmp);
-
-#ifdef DEBUG
-	xil_printf("DEV_ADDR_TABLE_LOC(0x2c0, 0) 0x%x\n", tmp);
-#endif
 
 	/* Enable the controller */
 	tmp = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL);
@@ -152,7 +154,7 @@ void XI3cPsx_WrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen)
 	}
 }
 
-static void XI3cPsixl_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd)
+void XI3cPsx_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd)
 {
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
 			 XI3CPSX_COMMAND_QUEUE_PORT, Cmd->TransCmd);
@@ -160,7 +162,7 @@ static void XI3cPsixl_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd)
 			 XI3CPSX_COMMAND_QUEUE_PORT, Cmd->TransArg);
 }
 
-static void XI3cPsx_RdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
+void XI3cPsx_RdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
 {
 	u16 NoWords = RxLen / 4;
 	u32 Val;
@@ -170,16 +172,11 @@ static void XI3cPsx_RdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
 	for (i = 0; i < NoWords; i++) {
 		RxBuf[i] = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 					   XI3CPSX_TX_RX_DATA_PORT);
-#ifdef DEBUG
-		xil_printf("Data word 0x%x\tData 0x%x\n", i, RxBuf[i]);
-#endif
 	}
 	if (RxLen & 3) {
 		Val = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 				      XI3CPSX_TX_RX_DATA_PORT);
-#ifdef DEBUG
-		xil_printf("Data word 0x%x\tData 0x%x\n", i, Val);
-#endif
+
 		memcpy(RxBuf + (RxLen & (~3)), &Val, RxLen & 3);
 	}
 }
@@ -213,9 +210,10 @@ void XI3cPsx_PrintDCT(XI3cPsx *InstancePtr)
 * @param	InstancePtr is a pointer to the XI3cPsx instance.
 * @param	MsgPtr is the pointer to the send buffer.
 * @param	ByteCount is the number of bytes to be sent.
-* @param	SlaveAddr is the address of the slave we are sending to.
+* @param	Cmds is the instance of XI3cPsx_Cmd.
 *
-* @return	None.
+* @return
+*		- XST_SUCCESS if everything went well.
 *
 * @note		This send routine is for interrupt-driven transfer only.
 *
@@ -235,7 +233,7 @@ s32 XI3cPsx_MasterSend(XI3cPsx *InstancePtr, u8 *MsgPtr,
 
 	/* Send command part to controller. It triggers the transfer */
 
-	XI3cPsixl_WrCmdFifo(InstancePtr, &Cmds);
+	XI3cPsx_WrCmdFifo(InstancePtr, &Cmds);
 	return XST_SUCCESS;
 }
 
@@ -250,9 +248,11 @@ s32 XI3cPsx_MasterSend(XI3cPsx *InstancePtr, u8 *MsgPtr,
 * @param	InstancePtr is a pointer to the XI3cPsx instance.
 * @param	MsgPtr is the pointer to the receive buffer.
 * @param	ByteCount is the number of bytes to be received.
-* @param	SlaveAddr is the address of the slave we are receiving from.
+* @param	Cmds is a pointer to the XI3cPsx_Cmd instance.
 *
-* @return	None.
+* @return
+*		- XST_SUCCESS if everything went well.
+*		- XST_FAILURE if any error.
 *
 * @note		This receive routine is for interrupt-driven transfer only.
 *
@@ -262,7 +262,6 @@ s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
 		       s32 ByteCount, XI3cPsx_Cmd *Cmds)
 {
 	u32 Rbuf_level = 0;
-	u32 Intr_status = 0;
 	u32 IntrStatusReg;
 
 	XI3cPsx_EnableInterrupts(InstancePtr->Config.BaseAddress, (u32)0xB77F);
@@ -274,7 +273,8 @@ s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	InstancePtr->RecvByteCount  = ByteCount;
 
 	/* Send command part to controller. It triggers the transfer */
-	XI3cPsixl_WrCmdFifo(InstancePtr, Cmds);
+	XI3cPsx_WrCmdFifo(InstancePtr, Cmds);
+
 	/* Wait until response buffer is filled up */
 	Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >>
 		     XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
@@ -314,12 +314,10 @@ s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
 * @param	InstancePtr is a pointer to the XI3cPsx instance.
 * @param	MsgPtr is the pointer to the send buffer.
 * @param	ByteCount is the number of bytes to be sent.
-* @param	SlaveAddr is the address of the slave we are sending to.
+* @param	Cmds is a pointer to the XI3cPsx_Cmd instance.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
-*		- XST_FAILURE if timed out.
-*		- XST_IIC_ARB_LOST if arbitration lost
 *
 * @note		This send routine is for polled mode transfer only.
 *
@@ -334,7 +332,7 @@ s32 XI3cPsx_MasterSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	}
 
 	/* Send command part to controller. It triggers the transfer */
-	XI3cPsixl_WrCmdFifo(InstancePtr, &Cmds);
+	XI3cPsx_WrCmdFifo(InstancePtr, &Cmds);
 
 	return XST_SUCCESS;
 }
@@ -353,12 +351,11 @@ s32 XI3cPsx_MasterSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 * @param	InstancePtr is a pointer to the XI3cPsx instance.
 * @param	MsgPtr is the pointer to the receive buffer.
 * @param	ByteCount is the number of bytes to be received.
-* @param	Cmds is the address of the slave we are receiving from.
+* @param	Cmds is a pointer to the XI3cPsx_Cmd instance.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
-*		- XST_FAILURE if timed out.
-*		- XST_IIC_ARB_LOST if arbitration lost
+*		- XST_FAILURE if any error.
 *
 * @note		This receive routine is for polled mode transfer only.
 *
@@ -379,7 +376,7 @@ s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 				     XI3CPSX_QUEUE_STATUS_LEVEL);
 
 	/* Send command part to controller. It triggers the transfer */
-	XI3cPsixl_WrCmdFifo(InstancePtr, Cmds);
+	XI3cPsx_WrCmdFifo(InstancePtr, Cmds);
 
 	/* Wait until response buffer is filled up */
 	Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >>

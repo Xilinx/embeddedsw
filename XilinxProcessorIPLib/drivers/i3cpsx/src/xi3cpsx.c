@@ -1,7 +1,7 @@
 
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -104,9 +104,6 @@ s32 XI3cPsx_SendTransferCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC)
 		DAA_Cmd[0].TransArg |= COMMAND_PORT_READ_TRANSFER;	/* 28 - For read */
 	}
 
-#ifdef DEBUG
-	xil_printf("E Arg 0x%x\t Cmd 0x%x\n", DAA_Cmd[0].TransCmd, DAA_Cmd[0].TransArg);
-#endif
 	if (CmdCCC->RxLen) {
 		ret = XI3cPsx_MasterRecvPolled(InstancePtr, CmdCCC->RxBuff, CmdCCC->RxLen, &DAA_Cmd[0]);
 	} else {
@@ -145,9 +142,7 @@ s32 XI3cPsx_SendAddrAssignCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC)
 			       COMMAND_PORT_ADDR_ASSGN_CMD |	/* 0 - 2 */
 			       COMMAND_PORT_TOC |	/* 30 */
 			       COMMAND_PORT_ROC);	/* 26 */
-#ifdef DEBUG
-	xil_printf("E Arg 0x%x\t Cmd 0x%x\n", DAA_Cmd[0].TransCmd, DAA_Cmd[0].TransArg);
-#endif
+
 	ret = XI3cPsx_MasterSendPolled(InstancePtr, NULL, 0, DAA_Cmd[0]);
 
 	return ret;

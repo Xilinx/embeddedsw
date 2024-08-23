@@ -1,7 +1,7 @@
 
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,7 +52,7 @@ s32 XI3cPsx_SetSClk(XI3cPsx *InstancePtr)
 	CoreRate = InstancePtr->Config.InputClockHz;
 	BaseAddress = InstancePtr->Config.BaseAddress;
 
-	CorePeriod = XI3CPSX_CEIL_DIV(1000000000, CoreRate);
+	CorePeriod = XI3CPSX_CEIL_DIV(XI3CPSX_NS_1SEC, CoreRate);
 
 	Hcnt = XI3CPSX_CEIL_DIV(I3C_BUS_THIGH_MAX_NS, CorePeriod) - 1;
 	if (Hcnt < SCL_I3C_TIMING_CNT_MIN) {

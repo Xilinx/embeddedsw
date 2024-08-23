@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -127,8 +127,9 @@ extern "C" {
 #define XI3CPSX_CEIL_DIV(a, b)        ((a + b - 1) / b)
 
 
-#define XI3CPSX_DATA_LEN			0x00FFU  /**< Data length */
-#define XI3CPSX_TRANSFER_ERROR			0xF0000000U  /**< Error */
+#define XI3CPSX_DATA_LEN			0x00FFU		/**< Data length */
+#define XI3CPSX_TRANSFER_ERROR			0xF0000000U	/**< Error */
+#define XI3CPSX_TIMEOUT_COUNTER         	2000000U 	/**< Wait for 2 sec in worst case */
 /**************************** Type Definitions *******************************/
 
 /**
@@ -292,6 +293,8 @@ void XI3cPsx_ResetFifos(XI3cPsx *InstancePtr);
 
 s32 XI3cPsx_BusIsBusy(XI3cPsx *InstancePtr);
 s32 XI3cPsx_TransmitFifoFill(XI3cPsx *InstancePtr);
+void XI3cPsx_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd);
+void XI3cPsx_RdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen);
 s32 XI3cPsx_SendTransferCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC);
 s32 XI3cPsx_SendAddrAssignCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC);
 s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr);

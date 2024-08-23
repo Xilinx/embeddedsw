@@ -1,7 +1,7 @@
 
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -26,6 +26,7 @@
 ******************************************************************************/
 
 #include "xi3cpsx.h"
+#include "sleep.h"
 /*****************************************************************************/
 /**
 *
@@ -47,8 +48,11 @@
 ******************************************************************************/
 void XI3cPsx_Reset(XI3cPsx *InstancePtr)
 {
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_RESET_CTRL, 0x1);
-	while (XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_RESET_CTRL));
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_RESET_CTRL,
+			 XI3CPSX_RESET_CTRL_SOFT_RST_VAL);
+
+	(void)Xil_WaitForEvent(((InstancePtr->Config.BaseAddress) + XI3CPSX_RESET_CTRL),
+			       XI3CPSX_RESET_CTRL_SOFT_RST_VAL, 0, XI3CPSX_TIMEOUT_COUNTER);
 }
 /*****************************************************************************/
 /**
@@ -76,15 +80,13 @@ void XI3cPsx_ResetFifos(XI3cPsx *InstancePtr)
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
 	/*
-	 * Abort any transfer that is in progress.
-	 */
-
-	/*
 	 * Reset any values so the software state matches the hardware device.
 	 */
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_RESET_CTRL, 0x1E);
-	while (XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_RESET_CTRL));
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_RESET_CTRL,
+			 XI3CPSX_RESET_CTRL_ALL_FIFOS_RST_VAL);
 
+	(void)Xil_WaitForEvent(((InstancePtr->Config.BaseAddress) + XI3CPSX_RESET_CTRL),
+			       XI3CPSX_RESET_CTRL_ALL_FIFOS_RST_VAL, 0, XI3CPSX_TIMEOUT_COUNTER);
 }
 
 /** @} */
