@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017-2023 Xilinx Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,101 +66,113 @@ XVidC_ColorFormat WrMemory2Live(XVidC_ColorFormat MemFmt);
 ******************************************************************************/
 XVidC_ColorFormat WrMemory2Live(XVidC_ColorFormat MemFmt)
 {
-    XVidC_ColorFormat StrmFmt;
+	XVidC_ColorFormat StrmFmt;
 
-    switch(MemFmt) {
-        case XVIDC_CSF_MEM_RGBX8 :
-            StrmFmt = XVIDC_CSF_RGB;
-            break;
-        case XVIDC_CSF_MEM_YUVX8 :
-            StrmFmt = XVIDC_CSF_YCRCB_444;
-            break;
-       case XVIDC_CSF_MEM_YUYV8 :
-            StrmFmt = XVIDC_CSF_YCRCB_422;
-            break;
-        case XVIDC_CSF_MEM_RGBX10 :
-            StrmFmt = XVIDC_CSF_RGB;
-            break;
-        case XVIDC_CSF_MEM_YUVX10 :
-            StrmFmt = XVIDC_CSF_YCRCB_444;
-            break;
-        case XVIDC_CSF_MEM_Y_UV8 :
-            StrmFmt = XVIDC_CSF_YCRCB_422;
-            break;
-        case XVIDC_CSF_MEM_Y_UV8_420 :
-            StrmFmt = XVIDC_CSF_YCRCB_420;
-            break;
-        case XVIDC_CSF_MEM_RGB8 :
-            StrmFmt = XVIDC_CSF_RGB;
-            break;
-        case XVIDC_CSF_MEM_YUV8 :
-            StrmFmt = XVIDC_CSF_YCRCB_444;
-            break;
-        case XVIDC_CSF_MEM_Y_UV10 :
-            StrmFmt = XVIDC_CSF_YCRCB_422;
-            break;
-        case XVIDC_CSF_MEM_Y_UV10_420 :
-            StrmFmt = XVIDC_CSF_YCRCB_420;
-            break;
-        case XVIDC_CSF_MEM_Y8 :
-            StrmFmt = XVIDC_CSF_YONLY;
-            break;
-        case XVIDC_CSF_MEM_Y10 :
-            StrmFmt = XVIDC_CSF_YONLY;
-            break;
-        case XVIDC_CSF_MEM_BGRX8 :
-            StrmFmt = XVIDC_CSF_RGB;
-            break;
-       case XVIDC_CSF_MEM_UYVY8 :
-            StrmFmt = XVIDC_CSF_YCRCB_422;
-            break;
-       case XVIDC_CSF_MEM_BGR8 :
-            StrmFmt = XVIDC_CSF_RGB;
-            break;
-       case XVIDC_CSF_MEM_RGBX12 :
-            StrmFmt = XVIDC_CSF_RGB;
-            break;
-       case XVIDC_CSF_MEM_YUVX12 :
-            StrmFmt = XVIDC_CSF_YCRCB_444;
-            break;
-       case XVIDC_CSF_MEM_Y_UV12 :
-            StrmFmt = XVIDC_CSF_YCRCB_422;
-            break;
-       case XVIDC_CSF_MEM_Y_UV12_420 :
-            StrmFmt = XVIDC_CSF_YCRCB_420;
-            break;
-       case XVIDC_CSF_MEM_Y12 :
-            StrmFmt = XVIDC_CSF_YONLY;
-            break;
-       case XVIDC_CSF_MEM_RGB16 :
-            StrmFmt = XVIDC_CSF_RGB;
-            break;
-       case XVIDC_CSF_MEM_YUV16 :
-            StrmFmt = XVIDC_CSF_YCRCB_444;
-            break;
-       case XVIDC_CSF_MEM_Y_UV16 :
-            StrmFmt = XVIDC_CSF_YCRCB_422;
-            break;
-       case XVIDC_CSF_MEM_Y_UV16_420 :
-            StrmFmt = XVIDC_CSF_YCRCB_420;
-            break;
-       case XVIDC_CSF_MEM_Y16 :
-            StrmFmt = XVIDC_CSF_YONLY;
-            break;
-       case XVIDC_CSF_MEM_Y_U_V8 :
-            StrmFmt = XVIDC_CSF_YCRCB_444;
-            break;
-       case XVIDC_CSF_MEM_Y_U_V10 :
-            StrmFmt = XVIDC_CSF_YCRCB_444;
-            break;
-       case XVIDC_CSF_MEM_Y_U_V8_420 :
-            StrmFmt = XVIDC_CSF_YCRCB_420;
-            break;
-       default:
-            StrmFmt = (XVidC_ColorFormat)~0;
-            break;
-    }
-    return(StrmFmt);
+	switch(MemFmt) {
+		case XVIDC_CSF_MEM_RGBX8 :
+			StrmFmt = XVIDC_CSF_RGB;
+			break;
+		case XVIDC_CSF_MEM_YUVX8 :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		case XVIDC_CSF_MEM_YUYV8 :
+			StrmFmt = XVIDC_CSF_YCRCB_422;
+			break;
+		case XVIDC_CSF_MEM_RGBA8 :
+			StrmFmt = XVIDC_CSF_RGBA;
+			break;
+		case XVIDC_CSF_MEM_YUVA8 :
+			StrmFmt = XVIDC_CSF_YCRCBA_444;
+			break;
+		case XVIDC_CSF_MEM_BGRA8 :
+			StrmFmt = XVIDC_CSF_RGBA;
+			break;
+		case XVIDC_CSF_MEM_RGBX10 :
+			StrmFmt = XVIDC_CSF_RGB;
+			break;
+		case XVIDC_CSF_MEM_YUVX10 :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		case XVIDC_CSF_MEM_Y_UV8 :
+			StrmFmt = XVIDC_CSF_YCRCB_422;
+			break;
+		case XVIDC_CSF_MEM_Y_UV8_420 :
+			StrmFmt = XVIDC_CSF_YCRCB_420;
+			break;
+		case XVIDC_CSF_MEM_RGB8 :
+			StrmFmt = XVIDC_CSF_RGB;
+			break;
+		case XVIDC_CSF_MEM_YUV8 :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		case XVIDC_CSF_MEM_Y_UV10 :
+			StrmFmt = XVIDC_CSF_YCRCB_422;
+			break;
+		case XVIDC_CSF_MEM_Y_UV10_420 :
+			StrmFmt = XVIDC_CSF_YCRCB_420;
+			break;
+		case XVIDC_CSF_MEM_Y8 :
+			StrmFmt = XVIDC_CSF_YONLY;
+			break;
+		case XVIDC_CSF_MEM_Y10 :
+			StrmFmt = XVIDC_CSF_YONLY;
+			break;
+		case XVIDC_CSF_MEM_BGRX8 :
+			StrmFmt = XVIDC_CSF_RGB;
+			break;
+		case XVIDC_CSF_MEM_UYVY8 :
+			StrmFmt = XVIDC_CSF_YCRCB_422;
+			break;
+		case XVIDC_CSF_MEM_BGR8 :
+			StrmFmt = XVIDC_CSF_RGB;
+			break;
+		case XVIDC_CSF_MEM_RGBX12 :
+			StrmFmt = XVIDC_CSF_RGB;
+			break;
+		case XVIDC_CSF_MEM_YUVX12 :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		case XVIDC_CSF_MEM_Y_UV12 :
+			StrmFmt = XVIDC_CSF_YCRCB_422;
+			break;
+		case XVIDC_CSF_MEM_Y_UV12_420 :
+			StrmFmt = XVIDC_CSF_YCRCB_420;
+			break;
+		case XVIDC_CSF_MEM_Y12 :
+			StrmFmt = XVIDC_CSF_YONLY;
+			break;
+		case XVIDC_CSF_MEM_RGB16 :
+			StrmFmt = XVIDC_CSF_RGB;
+			break;
+		case XVIDC_CSF_MEM_YUV16 :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		case XVIDC_CSF_MEM_Y_UV16 :
+			StrmFmt = XVIDC_CSF_YCRCB_422;
+			break;
+		case XVIDC_CSF_MEM_Y_UV16_420 :
+			StrmFmt = XVIDC_CSF_YCRCB_420;
+			break;
+		case XVIDC_CSF_MEM_Y16 :
+			StrmFmt = XVIDC_CSF_YONLY;
+			break;
+		case XVIDC_CSF_MEM_Y_U_V8 :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		case XVIDC_CSF_MEM_Y_U_V10 :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		case XVIDC_CSF_MEM_Y_U_V8_420 :
+			StrmFmt = XVIDC_CSF_YCRCB_420;
+			break;
+		case XVIDC_CSF_MEM_Y_U_V12 :
+			StrmFmt = XVIDC_CSF_YCRCB_444;
+			break;
+		default:
+			StrmFmt = (XVidC_ColorFormat)~0;
+			break;
+	}
+	return(StrmFmt);
 }
 
 /*****************************************************************************/
@@ -429,6 +441,21 @@ int XVFrmbufWr_SetMemFormat(XV_FrmbufWr_l2 *InstancePtr,
            FmtValid = TRUE;
          }
          break;
+      case XVIDC_CSF_MEM_RGBA8 :
+         if (XVFrmbufWr_IsRGBA8Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
+      case XVIDC_CSF_MEM_YUVA8 :
+         if (XVFrmbufWr_IsYUVA8Enabled(InstancePtr)) {
+				FmtValid = TRUE;
+         }
+         break;
+      case XVIDC_CSF_MEM_BGRA8 :
+         if (XVFrmbufWr_IsBGRA8Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
       case XVIDC_CSF_MEM_RGBX10 :
          if (XVFrmbufWr_IsRGBX10Enabled(InstancePtr)) {
            FmtValid = TRUE;
@@ -549,13 +576,18 @@ int XVFrmbufWr_SetMemFormat(XV_FrmbufWr_l2 *InstancePtr,
            FmtValid = TRUE;
          }
          break;
-	  case XVIDC_CSF_MEM_Y_U_V10 :
+      case XVIDC_CSF_MEM_Y_U_V10 :
          if (XVFrmbufWr_IsY_U_V10Enabled(InstancePtr)) {
            FmtValid = TRUE;
          }
          break;
       case XVIDC_CSF_MEM_Y_U_V8_420 :
          if (XVFrmbufWr_IsY_U_V8_420Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
+      case XVIDC_CSF_MEM_Y_U_V12 :
+         if (XVFrmbufWr_IsY_U_V12Enabled(InstancePtr)) {
            FmtValid = TRUE;
          }
          break;
@@ -802,6 +834,9 @@ void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr)
   xil_printf("RGBX8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.RGBX8En);
   xil_printf("BGRX8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.BGRX8En);
   xil_printf("YUVX8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.YUVX8En);
+  xil_printf("RGBA8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.RGBA8En);
+  xil_printf("BGRA8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.BGRA8En);
+  xil_printf("YUVA8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.YUVA8En);
   xil_printf("YUYV8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.YUYV8En);
   xil_printf("UYVY8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.UYVY8En);
   xil_printf("RGBX10 Enabled:             %d\r\n", InstancePtr->FrmbufWr.Config.RGBX10En);
@@ -828,7 +863,9 @@ void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr)
   xil_printf("Y_U_V8 Enabled:             %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V8En);
   xil_printf("Y_U_V10 Enabled:            %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V10En);
   xil_printf("Y_U_V8_420 Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V8_420En);
+  xil_printf("Y_U_V12 Enabled:            %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V12En);
   xil_printf("Interlaced Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Interlaced);
+  xil_printf("Tile format Enabled:        %d\r\n", InstancePtr->FrmbufWr.Config.IsTileFormat);
 
   xil_printf("Control Reg:                0x%x\r\n", ctrl);
   xil_printf("Width:                      %d\r\n", XV_frmbufwr_Get_HwReg_width(&InstancePtr->FrmbufWr));
@@ -837,6 +874,7 @@ void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr)
   xil_printf("Video Format:               %d\r\n", XV_frmbufwr_Get_HwReg_video_format(&InstancePtr->FrmbufWr));
   xil_printf("Buffer Address:             0x%x\r\n", XV_frmbufwr_Get_HwReg_frm_buffer_V(&InstancePtr->FrmbufWr));
   xil_printf("Chroma Buffer Address:      0x%x\r\n", XV_frmbufwr_Get_HwReg_frm_buffer2_V(&InstancePtr->FrmbufWr));
+  xil_printf("VChroma Buffer Address:     0x%x\r\n", XV_frmbufwr_Get_HwReg_frm_buffer3_V(&InstancePtr->FrmbufWr));
 }
 
 /** @} */
