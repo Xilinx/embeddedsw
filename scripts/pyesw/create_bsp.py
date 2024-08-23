@@ -369,19 +369,6 @@ class Domain(Repo):
                 toolchain_file,
                 f'set( CMAKE_ASM_FLAGS "${{TOOLCHAIN_ASM_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} {compiler_flags} -I${{CMAKE_INCLUDE_PATH}}")',
             )
-        else:
-            utils.add_newline(
-                toolchain_file,
-                f'set( CMAKE_C_FLAGS "${{TOOLCHAIN_C_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} -I${{CMAKE_INCLUDE_PATH}}" CACHE STRING "CFLAGS")',
-            )
-            utils.add_newline(
-                toolchain_file,
-                f'set( CMAKE_CXX_FLAGS "${{TOOLCHAIN_CXX_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} -I${{CMAKE_INCLUDE_PATH}}" CACHE STRING "CXXFLAGS")',
-            )
-            utils.add_newline(
-                toolchain_file,
-                f'set( CMAKE_ASM_FLAGS "${{TOOLCHAIN_ASM_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} -I${{CMAKE_INCLUDE_PATH}}" CACHE STRING "ASMFLAGS")',
-            )
         return compiler_flags
 
 def lop_create_target(lop_cmds):
