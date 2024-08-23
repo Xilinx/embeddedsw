@@ -50,8 +50,9 @@ maybe_unused static inline XStatus XPm_PlatRequestDevice(const u32 DeviceId)
 maybe_unused static inline void XPm_ClearScanClear(void)
 {
 }
-maybe_unused static inline XStatus XPm_PlatCmnFlushWorkaround(void)
+maybe_unused static inline XStatus XPm_PlatCmnFlush(const u32 SubsystemId)
 {
+	(void)SubsystemId;
 	return XST_SUCCESS;
 }
 XStatus XPm_EnableDdrSr(const u32 SubsystemId);

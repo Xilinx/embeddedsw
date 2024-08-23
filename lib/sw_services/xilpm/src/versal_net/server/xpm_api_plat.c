@@ -83,38 +83,43 @@
 	(1ULL << (u64)IOCTL_READ_REG) | \
 	(1ULL << (u64)IOCTL_MASK_WRITE_REG))
 
-XStatus XPm_PlatCmnFlushWorkaround(void)
+#define MAX_PLAT_OCM_COUNT 8U
+
+XStatus XPm_PlatCmnFlush(const u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Idx, MemAddr[4] = {0xF8100000U, 0xF8900000U, 0xF9100000U, 0xF9900000U};
-
+	u32 Idx;
+	const u32 MemAddr[4] = {0xF8100000U, 0xF8900000U, 0xF9100000U, 0xF9900000U};
+	XPm_AddrRegion AddrRegionarray[XPM_NODEIDX_DEV_MEM_REGN_MAX + MAX_PLAT_OCM_COUNT];
+	u32 NumberOfRegions = 0U;
 	/**
-	 * Flush DDR addresses using ABF (Address based flush) for NID8, NID72,
+	 * Flush DDR and OCM addresses using ABF (Address based flush) for NID8, NID72,
 	 * NID136 and NID200.
 	 */
-	for (Idx = 0U; Idx < 4U; Idx++) {
-		XPm_Out32(MemAddr[Idx] + 0xF50U, 0x0U);
-		XPm_Out32(MemAddr[Idx] + 0xF58U, 0x80000000U);
-		XPm_Out32(MemAddr[Idx] + 0xF60U, 0x1U);
-		Status = XPm_PollForMask(MemAddr[Idx] + 0xF68U, 0x1U,
-					 XPM_POLL_TIMEOUT);
-		if (XST_SUCCESS != Status) {
+	Status = XPm_GetAddrRegnForSubsystem(SubsystemId, AddrRegionarray,
+					     ARRAY_SIZE(AddrRegionarray), &NumberOfRegions);
+	if (XST_SUCCESS != Status) {
 			goto done;
-		}
 	}
 
-	/**
-	 * Flush OCM addresses using ABF (Address based flush) for NID8, NID72,
-	 * NID136 and NID200.
-	 */
-	for (Idx = 0U; Idx < 4U; Idx++) {
-		XPm_Out32(MemAddr[Idx] + 0xF50U, 0xBBF00000U);
-		XPm_Out32(MemAddr[Idx] + 0xF58U, 0xBC000000U);
-		XPm_Out32(MemAddr[Idx] + 0xF60U, 0x1U);
-		Status = XPm_PollForMask(MemAddr[Idx] + 0xF68U, 0x1U,
-					 XPM_POLL_TIMEOUT);
-		if (XST_SUCCESS != Status) {
-			goto done;
+	for (u32 i = 0; i < NumberOfRegions; i++) {
+		for (Idx = 0U; Idx < 4U; Idx++) {
+			XPm_Out32(MemAddr[Idx] + 0xF50U,
+				  (u32)AddrRegionarray[i].Address);
+			XPm_Out32(MemAddr[Idx] + 0xF54U,
+				  (u32)(AddrRegionarray[i].Address >> 32));
+			XPm_Out32(MemAddr[Idx] + 0xF58U,
+				  (u32)(AddrRegionarray[i].Address
+				   + AddrRegionarray[i].Size));
+			XPm_Out32(MemAddr[Idx] + 0xF5CU,
+				  (u32)((AddrRegionarray[i].Address
+				   + AddrRegionarray[i].Size) >> 32));
+			XPm_Out32(MemAddr[Idx] + 0xF60U, 0x1U);
+			Status = XPm_PollForMask(MemAddr[Idx] + 0xF68U, 0x1U,
+						 XPM_POLL_TIMEOUT);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
 	}
 
