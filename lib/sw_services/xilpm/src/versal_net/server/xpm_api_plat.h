@@ -28,7 +28,7 @@ typedef struct XPm_Subsystem XPm_Subsystem;
 int XPm_RegisterWakeUpHandlers(void);
 
 
-XStatus XPm_PlatCmnFlushWorkaround(void);
+XStatus XPm_PlatCmnFlush(const u32 SubsystemId);
 XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs);
 XStatus XPm_HookAfterPlmCdo(void);
 
