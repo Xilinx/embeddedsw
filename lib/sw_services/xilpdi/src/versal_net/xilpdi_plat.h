@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,7 +75,6 @@ extern "C" {
 #define XIH_IHT_ATTR_SBD_PCIE	        (0xAU)
 #define XIH_IHT_ATTR_SBD_OSPI			(0xCU)
 #define XIH_IHT_ATTR_SBD_SMAP			(0xDU)
-#define XIH_IHT_ATTR_SBD_JTAG			(0xEU)
 #define XIH_IHT_ATTR_SBD_SDLS_B0_RAW		(0xFU)
 #define XIH_IHT_ATTR_SBD_SD_B1_RAW		(0x10U)
 #define XIH_IHT_ATTR_SBD_SDLS_B1_RAW		(0x11U)

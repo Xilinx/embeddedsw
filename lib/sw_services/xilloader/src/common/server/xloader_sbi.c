@@ -36,7 +36,6 @@
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 * 1.07  ng   11/11/2022 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
-* 2.1   mb   08/20/2024 Masked JCONFIG bit when bootmode is SBI JTAG
 *
 * </pre>
 *
@@ -98,9 +97,6 @@ int XLoader_SbiInit(u32 DeviceFlags)
 		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 				SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
 				XLOADER_SBI_CTRL_INTERFACE_JTAG);
-		XPlmi_UtilRMW(XLOADER_PMC_TAP_INST_MASK_0_OFFSET,
-				PMC_TAP_INST_MASK_0_JCONFIG_MASK,
-				PMC_TAP_INST_MASK_0_JCONFIG_ENABLE);
 	} else if (DeviceFlags == XLOADER_PDI_SRC_PCIE) {
 		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 				SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
