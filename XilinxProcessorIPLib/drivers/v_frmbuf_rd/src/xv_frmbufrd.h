@@ -1,6 +1,6 @@
 // ==============================================================
 // Copyright (c) 1986 - 2023 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -87,7 +87,9 @@ typedef struct {
   u16 Y_U_V8En;             /**< Y_U_V8 support */
   u16 Y_U_V10En;            /**< Y_U_V10 support */
   u16 Y_U_V8_420En;         /**< Y_U_V8_420   support */
+  u16 Y_U_V12En;            /**< Y_U_V12 support */
   u16 Interlaced;           /**< Interlaced support */
+  u16 IsTileFormat;           /**< Interlaced support */
 #ifdef SDT
   u16 IntrId; 		    /**< Interrupt ID */
   UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
