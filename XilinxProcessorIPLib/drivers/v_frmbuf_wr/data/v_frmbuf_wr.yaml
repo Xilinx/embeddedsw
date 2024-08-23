@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -15,6 +15,8 @@ properties:
       - items:
         - enum:
           - xlnx,v-frmbuf-wr-2.5
+	  - xlnx,v-frmbuf-wr-3.0
+
   reg:
     description: Physical base address and size of the controller register map
   xlnx,samples-per-clock:
@@ -39,6 +41,8 @@ properties:
     description: rgba8 support
   xlnx,has-yuva8:
     description: yuva8 support
+  xlnx,has-bgra8:
+    description: bgra8 support
   xlnx,has-rgbx10:
     description: rgbx10 support
   xlnx,has-yuvx10:
@@ -59,8 +63,6 @@ properties:
     description: y8 support
   xlnx,has-y10:
     description: y10 support
-  xlnx,has-bgra8:
-    description: bgra8 support
   xlnx,has-bgrx8:
     description: bgrx8 support
   xlnx,has-uyvy8:
@@ -95,6 +97,8 @@ properties:
     description: y-u-v8-420 3 planar support
   xlnx,has-interlaced:
     description: Interlaced support
+  xlnx,is-tile-format:
+    description: tileformat support
   interrupts:
     description: Interrupt number
   interrupt-parent:
@@ -112,6 +116,9 @@ required:
     - xlnx,has-rgbx8
     - xlnx,has-yuvx8
     - xlnx,has-yuyv8
+    - xlnx,has-rgba8
+    - xlnx,has-yuva8
+    - xlnx,has-bgra8
     - xlnx,has-rgbx10
     - xlnx,has-yuvx10
     - xlnx,has-y-uv8
@@ -138,7 +145,9 @@ required:
     - xlnx,has-y-u-v8
     - xlnx,has-y-u-v10
     - xlnx,has-y-u-v8-420
+    - xlnx,has-y-u-v12
     - xlnx,has-interlaced
+    - xlnx,is-tile-format
     - interrupts
     - interrupt-parent
 
