@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,100 +64,44 @@ void XI3cPsx_SetupSlave(XI3cPsx *InstancePtr, u16 SlaveAddr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
-	reg = SlaveAddr | (1 << XI3CPSX_DEVICE_ADDR_STATIC_ADDR_VALID_SHIFT);
+	reg = SlaveAddr | XI3CPSX_DEVICE_ADDR_STATIC_ADDR_VALID_MASK;
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_ADDR, reg);
 
-	reg =  (1 << XI3CPSX_QUEUE_THLD_CTRL_CMD_EMPTY_BUF_THLD_SHIFT);
+	reg = XI3CPSX_QUEUE_THLD_CTRL_CMD_EMPTY_BUF_THLD_DEFVAL;
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_QUEUE_THLD_CTRL, reg);
 
-	reg = ( 1 << XI3CPSX_DATA_BUFFER_THLD_CTRL_RX_START_THLD_SHIFT ) | 1 <<
-	      XI3CPSX_DATA_BUFFER_THLD_CTRL_TX_EMPTY_BUF_THLD_SHIFT;
+	reg = (XI3CPSX_DATA_BUFFER_THLD_CTRL_RX_START_THLD_DEFVAL <<
+	       XI3CPSX_DATA_BUFFER_THLD_CTRL_RX_START_THLD_SHIFT)	|
+	      XI3CPSX_DATA_BUFFER_THLD_CTRL_TX_EMPTY_BUF_THLD_DEFVAL;
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DATA_BUFFER_THLD_CTRL, reg);
 
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_BUS_FREE_AVAIL_TIMING, 0x00a00020);
-	reg =  1 << XI3CPSX_DEVICE_CTRL_ENABLE_SHIFT;
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL, reg);
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_BUS_FREE_AVAIL_TIMING,
+			 (XI3CPSX_BUS_FREE_AVAIL_TIMING_BUS_AVAILABLE_TIME_VAL <<
+			  XI3CPSX_BUS_FREE_AVAIL_TIMING_BUS_AVAILABLE_TIME_SHIFT) |
+			 XI3CPSX_BUS_FREE_AVAIL_TIMING_BUS_FREE_TIME_DEFVAL);
+
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL,
+			 XI3CPSX_DEVICE_CTRL_ENABLE_MASK);
 	/* Set the mode to slave */
 	reg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_QUEUE_THLD_CTRL);
-	reg = reg | 1 << XI3CPSX_DEVICE_CTRL_EXTENDED_DEV_OPERATION_MODE_SHIFT ;
+	reg = reg | XI3CPSX_DEVICE_CTRL_EXTENDED_DEV_OPERATION_MODE_SLAVE ;
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL_EXTENDED, reg);
 
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_STATUS_EN, 0xffffffff);
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_SIGNAL_EN, 0xffffffff);
-	reg =  1 << XI3CPSX_SLV_CHAR_CTRL_MAX_DATA_SPEED_LIMIT_SHIFT |
-	       1 << XI3CPSX_SLV_CHAR_CTRL_IBI_REQUEST_CAPABLE_SHIFT |
-	       1 << XI3CPSX_SLV_CHAR_CTRL_HDR_CAPABLE_SHIFT |
-	       0xC4 << XI3CPSX_SLV_CHAR_CTRL_DCR_SHIFT |
-	       1 << XI3CPSX_SLV_CHAR_CTRL_HDR_CAP_SHIFT;
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_STATUS_EN,
+			 XI3CPSX_INTR_STATUS_EN_FULLMASK);
+	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_SIGNAL_EN,
+			 XI3CPSX_INTR_SIGNAL_EN_FULLMASK);
+
+	reg = (XI3CPSX_SLV_CHAR_CTRL_HDR_CAP_DEFVAL << XI3CPSX_SLV_CHAR_CTRL_HDR_CAP_SHIFT)|
+	      (XI3CPSX_SLV_CHAR_CTRL_DCR_VAL << XI3CPSX_SLV_CHAR_CTRL_DCR_SHIFT)	   |
+	      XI3CPSX_SLV_CHAR_CTRL_HDR_CAPABLE_MASK					   |
+	      XI3CPSX_SLV_CHAR_CTRL_IBI_REQUEST_CAPABLE_MASK				   |
+	      XI3CPSX_SLV_CHAR_CTRL_MAX_DATA_SPEED_LIMIT_MASK;
 
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_SLV_CHAR_CTRL, reg);
+
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_SLV_MIPI_ID_VALUE,
-			 0x2 << XI3CPSX_SLV_MIPI_ID_VALUE_SLV_PROV_ID_SEL_SHIFT );
-
-}
-
-static void XI3cPsx_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd)
-{
-#ifdef DEBUG
-	xil_printf("Writing Command - Arg: 0x%x\t Cmd: 0x%x\n", Cmd->TransCmd, Cmd->TransArg);
-#endif
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-			 XI3CPSX_COMMAND_QUEUE_PORT, Cmd->TransCmd);
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-			 XI3CPSX_COMMAND_QUEUE_PORT, Cmd->TransArg);
-}
-
-void XI3cPsx_SlvWrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen)
-{
-	u16 NoWords = TxLen / 4;
-	u32 Val;
-	u16 i;
-
-	/* FIFO is word based, so pack the data accordingly */
-	for (i = 0; i < NoWords; i++) {
-		Val = TxBuf[i];
-		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-				 XI3CPSX_TX_RX_DATA_PORT, Val);
-	}
-	if (TxLen & 3) {
-		memcpy(&Val, TxBuf , TxLen & 3);
-		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-				 XI3CPSX_TX_RX_DATA_PORT, Val);
-	}
-}
-
-/*****************************************************************************/
-/**
-* @brief
-* This function setup a slave  send. It set the repeated
-* start for the device is the transfer size is larger than FIFO depth.
-* Data processing for the send is initiated by the interrupt handler.
-*
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
-*
-* @return	None.
-*
-* @note		This send routine is for interrupt-driven transfer only.
-*
-****************************************************************************/
-static void XI3cPsx_SlvRdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
-{
-	u16 NoWords = RxLen / 4;
-	u32 Val;
-	u16 i;
-
-	/* FIFO is word base, so read the data accordingly */
-	for (i = 0; i < NoWords; i++) {
-		RxBuf[i] = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-					   XI3CPSX_TX_RX_DATA_PORT);
-	}
-	if (RxLen & 3) {
-		Val = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
-				      XI3CPSX_TX_RX_DATA_PORT);
-		memcpy(RxBuf + (RxLen & (~3)), &Val, RxLen & 3);
-	}
+			 XI3CPSX_SLV_MIPI_ID_VALUE_SLV_PROV_ID_SEL_VAL);
 }
 
 /*****************************************************************************/
@@ -195,6 +139,7 @@ void XI3cPsx_SlaveRecv(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 * @param	InstancePtr is a pointer to the XI3cPsx instance.
 * @param	MsgPtr is the pointer to the send buffer.
 * @param	ByteCount is the number of bytes to be sent.
+* @param	Cmds is the instance of XI3cPsx_Cmd.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
@@ -213,10 +158,8 @@ s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 
-	if (ByteCount) {
-		XI3cPsx_SlvWrTxFifo(InstancePtr, (u32 *)MsgPtr,
-				    ByteCount);
-	}
+	if (ByteCount)
+		XI3cPsx_WrTxFifo(InstancePtr, (u32 *)MsgPtr, ByteCount);
 
 	/* Send command part to controller. It triggers the transfer */
 	XI3cPsx_WrCmdFifo(InstancePtr, &Cmds);
@@ -231,7 +174,6 @@ s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 *
 * @param	InstancePtr is a pointer to the XI3cPsx instance.
 * @param	MsgPtr is the pointer to the receive buffer.
-* @param	ByteCount is the number of bytes to be received.
 *
 * @return
 *		- XST_SUCCESS if everything went well.
@@ -273,8 +215,7 @@ s32 XI3cPsx_SlaveRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr)
 
 	Reg = Reg & XI3CPSX_DATA_LEN;
 
-	XI3cPsx_SlvRdRxFifo(InstancePtr, (u32 *)MsgPtr,
-			    Reg);
+	XI3cPsx_RdRxFifo(InstancePtr, (u32 *)MsgPtr, Reg);
 
 	return (s32)XST_SUCCESS;
 }

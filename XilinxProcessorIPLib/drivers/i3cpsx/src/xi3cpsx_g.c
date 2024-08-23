@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,13 +53,13 @@ XI3cPsx_Config XI3cPsx_ConfigTable[XPAR_XI3CPSX_NUM_INSTANCES] = {
 		(u16)XPAR_XI3CPSX_0_DEVICE_ID, /* Device ID for instance */
 		(u32)XPAR_XI3CPSX_0_BASEADDR,  /* Device base address */
 		(u32)XPAR_XI3CPSX_0_I3C_CLK_FREQ_HZ, /* Device input clock frequency */
-		(u32)XPAR_XI3CPSX_0_SLAVES  /* Device input clock frequency */
+		(u32)XPAR_XI3CPSX_0_SLAVES  /* Slave devices count */
 	},
 	{
 		(u16)XPAR_XI3CPSX_1_DEVICE_ID, /* Device ID for instance */
 		(u32)XPAR_XI3CPSX_1_BASEADDR,  /* Device base address */
 		(u32)XPAR_XI3CPSX_1_I3C_CLK_FREQ_HZ, /* Device input clock frequency */
-		(u32)XPAR_XI3CPSX_1_SLAVES,  /* Device input clock frequency */
+		(u32)XPAR_XI3CPSX_1_SLAVES,  /* Slave devices count */
 	}
 };
 /** @} */
