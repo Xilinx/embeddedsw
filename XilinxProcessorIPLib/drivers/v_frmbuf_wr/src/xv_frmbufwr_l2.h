@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017-2023 Xilinx Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -238,6 +238,21 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
+* This macro returns if Video Format Y_U_V12 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsY_U_V12Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.Y_U_V12En)
+
+/*****************************************************************************/
+/**
+*
 * This macro returns if Video Format Y_U_V8_420 is available
 *
 * @param    InstancePtr is a pointer to the core instance.
@@ -264,6 +279,51 @@ typedef struct {
 ******************************************************************************/
 #define XVFrmbufWr_IsYUYV8Enabled(InstancePtr) \
                                  ((InstancePtr)->FrmbufWr.Config.YUYV8En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format RGBA8 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsRGBA8Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.RGBA8En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format YUVA8 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsYUVA8Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.YUVA8En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format BGRA8 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsBGRA8Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.BGRA8En)
 
 /*****************************************************************************/
 /**
@@ -624,6 +684,22 @@ typedef struct {
 ******************************************************************************/
 #define XVFrmbufWr_InterlacedEnabled(InstancePtr) \
                                      ((InstancePtr)->FrmbufWr.Config.Interlaced)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format Y16 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsTileFormatEnabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.IsTileFormat)
+
 
 /**************************** Function Prototypes *****************************/
 #ifndef SDT
