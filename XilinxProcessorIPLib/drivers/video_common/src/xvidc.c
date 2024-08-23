@@ -844,6 +844,8 @@ const char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 		case XVIDC_CSF_MEM_R_G_B8:     return ("R_G_B8");
 		case XVIDC_CSF_MEM_Y_U_V8_420: return ("Y_U_V8_420");
 		case XVIDC_CSF_MEM_Y_U_V8:     return ("Y_U_V8");
+		case XVIDC_CSF_MEM_Y_U_V10:     return ("Y_U_V10");
+		case XVIDC_CSF_MEM_Y_U_V12:     return ("Y_U_V12");
 		default:
 			return ("Color space format not supported");
 	}
