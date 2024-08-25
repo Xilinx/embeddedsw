@@ -153,7 +153,7 @@
 #define NUM_CLOCK_REGS                  6
 
 #ifdef versal
-#define GT_QUAD_BASE  				XPAR_GT_QUAD_HIER_0_GT_QUAD_BASE_BASEADDR
+#define GT_QUAD_BASE  				XPAR_GT_QUAD_HIER_0_GTWIZ_VERSAL_0_BASEADDR
 #define TXCLKDIV_REG				0x3694
 #define	DIV3 						0x00000278
 #define	DIV 						0x00000260

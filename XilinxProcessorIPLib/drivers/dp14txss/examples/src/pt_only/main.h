@@ -234,7 +234,7 @@ XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY
 
 #ifdef versal
 #define XVPHY_DEVICE_ID					0
-#define GT_QUAD_BASE                    XPAR_GT_QUAD_GT_QUAD_BASE_BASEADDR
+#define GT_QUAD_BASE                    XPAR_GT_QUAD_GTWIZ_VERSAL_0_BASEADDR
 #define CH1CLKDIV_REG					0x3694
 #define DIV 							0x00000260
 #define	DIV3 						    0x00000278
