@@ -46,6 +46,7 @@
 *                       production samples
 *       bm   03/02/2024 Make SD drive number logic order independent
 *       sk   05/07/2024 Added defines for WDT and IPI registers
+* 2.10  mb   08/14/2024 Added Mask values for PMC_TAP_INST_MASK_0 register
 *
 * </pre>
 *
@@ -717,6 +718,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 #define PMC_TAP_SLVERR_CTRL		(PMC_TAP_BASEADDR + 0X0000001CU)
 #define XPLMI_SILICON_ES1_VAL	(0x10U)
+
+#define XLOADER_PMC_TAP_INST_MASK_0_OFFSET		(0xF11B0000U)
+				/**< Instruction Mask 0 register address */
+#define PMC_TAP_INST_MASK_0_JCONFIG_MASK	(0x20U) /**< Mask for enable JCONFIG bit*/
+#define PMC_TAP_INST_MASK_0_JCONFIG_ENABLE	(0x0U) /**< Value to be written in JCONFIG Register*/
 
 /*
  * PMC RAM Memory usage:

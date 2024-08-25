@@ -174,6 +174,7 @@
 *                       Boot PDI Present in Image Store
 *       kal  06/29/2024 Make XLoader_LoadImage as a non-static function
 *       kal  07/24/2024 Code refactoring for versal_aiepg2 updates.
+*       mb   08/10/2024 Added support for loading cdo after secure boot.
 *
 * </pre>
 *
@@ -1861,7 +1862,7 @@ END:
 static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 {
 	int Status = XST_FAILURE;
-	u32 PdiSrc;
+	u32 PdiSrc = 0U;
 	u64 PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
 	u32 SecBootMode = XilPdi_GetSBD(&(PdiPtr->MetaHdr.ImgHdrTbl)) >>
 		XIH_IHT_ATTR_SBD_SHIFT;
@@ -1875,9 +1876,31 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 	} else {
 		XPlmi_Printf(DEBUG_INFO, "+++Configuring Secondary Boot "
 				"Device\n\r");
-		if (SecBootMode == XIH_IHT_ATTR_SBD_PCIE) {
-			Status = XLoader_SbiInit((u32)XLOADER_PDI_SRC_PCIE);
-		} else {
+#ifdef VERSAL_AIEPG2
+		if ((SecBootMode == XIH_IHT_ATTR_SBD_PCIE) || (SecBootMode == XIH_IHT_ATTR_SBD_SMAP)) {
+#else
+		if ((SecBootMode == XIH_IHT_ATTR_SBD_PCIE) || (SecBootMode == XIH_IHT_ATTR_SBD_SMAP) ||
+			(SecBootMode == XIH_IHT_ATTR_SBD_JTAG)) {
+#endif
+			switch(SecBootMode)
+			{
+				case XIH_IHT_ATTR_SBD_PCIE:
+					PdiSrc = XLOADER_PDI_SRC_PCIE;
+					break;
+				case XIH_IHT_ATTR_SBD_SMAP:
+					PdiSrc = XLOADER_PDI_SRC_SMAP;
+					break;
+#ifndef VERSAL_AIEPG2
+				case XIH_IHT_ATTR_SBD_JTAG:
+					PdiSrc = XLOADER_PDI_SRC_JTAG;
+					break;
+#endif
+				default:
+					break;
+			}
+			Status = XLoader_SbiInit((u32)PdiSrc);
+		}
+		else {
 			switch(SecBootMode)
 			{
 				case XIH_IHT_ATTR_SBD_QSPI32:
@@ -1903,9 +1926,6 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 				case XIH_IHT_ATTR_SBD_USB:
 					PdiSrc = XLOADER_PDI_SRC_USB;
 					PdiAddr = 0U;
-					break;
-				case XIH_IHT_ATTR_SBD_SMAP:
-					PdiSrc = XLOADER_PDI_SRC_SMAP;
 					break;
 				case XIH_IHT_ATTR_SBD_EMMC_RAW:
 					PdiSrc = XLOADER_SD_RAWBOOT_VAL | XLOADER_PDI_SRC_EMMC1;
