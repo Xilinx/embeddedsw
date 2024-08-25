@@ -32,6 +32,7 @@
 *       har  06/07/2024 Added support to store and get user config for key index
 *	kal  07/24/2024 Code refactoring updates for versal_aiepg2
 *       har  08/08/2024 Added TCB Info extension in DevIk CSR
+*       har  08/23/2024 Removed HwType field in Extended Key usage extension for Versal Gen2 devices
 *
 *
 * </pre>
@@ -72,7 +73,9 @@ static const u8 Oid_UeidExtn[]		= {0x06U, 0x06U, 0x67U, 0x81U, 0x05U, 0x05U, 0x0
 static const u8 Oid_KeyUsageExtn[]	= {0x06U, 0x03U, 0x55U, 0x1DU, 0x0FU};
 static const u8 Oid_EkuExtn[]		= {0x06U, 0x03U, 0x55U, 0x1DU, 0x25U};
 static const u8 Oid_EkuClientAuth[]	= {0x06U, 0x08U, 0x2BU, 0x06U, 0x01U, 0x05U, 0x05U, 0x07U, 0x03U, 0x02U};
+#ifndef VERSAL_AIEPG2
 static const u8 Oid_EkuHwType[]		= {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U, 0x01U, 0x82U, 0x37U, 0x66U, 0x01U, 0x0CU, 0x01U};
+#endif
 static const u8 Oid_BasicConstraintExtn[] = {0x06U, 0x03U, 0x55U, 0x1DU, 0x13U};
 static const u8 Oid_ExtnRequest[]	= {0x06U, 0x09U, 0x2AU, 0x86U, 0x48U, 0x86U, 0xF7U, 0x0DU, 0x01U, 0x09U, 0x0EU};
 static const u8 Oid_Sha3_384[]		= {0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U, 0x02U, 0x09U};
@@ -1545,6 +1548,10 @@ static int XCert_GenExtKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Eku
 	u32 OidLen;
 	u32 FieldLen;
 
+#ifdef VERSAL_AIEPG2
+	(void)Cfg;
+#endif
+
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
@@ -1573,6 +1580,7 @@ static int XCert_GenExtKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Eku
 	}
 	Curr = Curr + OidLen;
 
+#ifndef VERSAL_AIEPG2
 	if (Cfg->AppCfg.IsCsr == TRUE) {
 		Status = XCert_CreateRawDataFromByteArray(Curr, Oid_EkuHwType, sizeof(Oid_EkuHwType), &OidLen);
 		if (Status != XST_SUCCESS) {
@@ -1580,6 +1588,7 @@ static int XCert_GenExtKeyUsageField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Eku
 		}
 		Curr = Curr + OidLen;
 	}
+#endif
 
 	*EkuSequenceLenIdx = (u8)(Curr - EkuSequenceValIdx);
 	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
