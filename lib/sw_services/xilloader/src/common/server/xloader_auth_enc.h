@@ -276,8 +276,6 @@ extern "C" {
 			/**< Authenticated JTAG Data start register address */
 #define XLOADER_PMC_TAP_DAP_CFG_OFFSET			(0xF11B0008U)
 				/**< DAP CFG register address */
-#define XLOADER_PMC_TAP_INST_MASK_0_OFFSET		(0xF11B0000U)
-				/**< Instruction Mask 0 register address */
 #define XLOADER_PMC_TAP_INST_MASK_1_OFFSET		(0xF11B0004U)
 				/**< Instruction Mask 1 register address */
 #define XLOADER_PMC_TAP_DAP_SECURITY_OFFSET		(0xF11B000CU)
