@@ -43,6 +43,7 @@
 *       mss  05/03/2024 Fixed doxygen warnings
 *       kal  06/29/2024 Rename XLoader_LoadPsmElf to XLoader_LoadLpdAndPsmElf
 *       pre  08/22/2024 Added error codes related to XLoader_CfiSelectiveRead command
+*       pre  08/25/2024 Defined XLoader_VerifyDataAuth for PLM_SECURE_EXCLUDE mode
 *
 * </pre>
 *
@@ -281,6 +282,10 @@ typedef struct {
 }Xloader_DdrmcRegisters;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifdef PLM_SECURE_EXCLUDE
+#define XLoader_VerifyDataAuth NULL
+#endif
+
 #define XLOADER_GET_PDISRC_INFO()	{\
 		{"SBI", XLOADER_SBI_INDEX}, /* SBI JTAG - 0 */\
 		{"QSPI24", XLOADER_QSPI_INDEX}, /* QSPI24 - 1 */\

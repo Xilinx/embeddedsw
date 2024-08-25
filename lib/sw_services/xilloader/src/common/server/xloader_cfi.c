@@ -45,6 +45,7 @@
 * 2.00  ng    01/26/2024 Added header file for minor error codes
 *       sk    03/13/24 Fixed doxygen comments format
 *       pre   08/22/2024 Added XLoader_CfiSelectiveRead command execution
+*       pre   08/25/2024 Fixed build issue for PLM_DEBUG_MODE
 *
 * </pre>
 *
@@ -77,12 +78,6 @@
 #define CFRAME_CRC_POLL_TIMEOUT				(0xFFFFU) /**< CRC poll time out*/
 
 #define XLOADER_CFRAME_DATACLEAR_CHECK_CMD_ID	(0xCU) /**< Data clear check command Id */
-/**************************** Type Definitions *******************************/
-
-/***************** Macros (Inline Functions) Definitions *********************/
-#ifndef PLM_DEBUG_MODE
-#define PMC_GLOBAL_PMC_ERR2_STATUS_CFI_SHIFT	(16U) /**< CFI Non-Correctable
-                                                       * Error shift */
 
 /* Defines related to selective cfi readback */
 #define XLOADER_SELREADBACK_ROW_BIT_POS       (23U) /**< Start position of row bits */
@@ -93,7 +88,15 @@
 #define XLOADER_SELREADBACK_FRAMECNT_MASK     (0xFFFFFU) /**< Mask to read frame count */
 #define XLOADER_25_QUAD_WORD_SIZE             (100U) /**< Size of 25 quad words in words */
 #define XLOADER_CFU_MAX_BLOCKTYPE             (6U) /**< Maximum value of block type */
-#define XLOADER_CFU_ROW_RANGE_ADDR            (0xF12B006C) /**< Address of CFU_ROW_RANGE register */
+#define XLOADER_CFU_ROW_RANGE_ADDR            (0xF12B006CU) /**< Address of CFU_ROW_RANGE
+                                                            register */
+
+/**************************** Type Definitions *******************************/
+
+/***************** Macros (Inline Functions) Definitions *********************/
+#ifndef PLM_DEBUG_MODE
+#define PMC_GLOBAL_PMC_ERR2_STATUS_CFI_SHIFT	(16U) /**< CFI Non-Correctable
+                                                       * Error shift */
 
 /************************** Function Prototypes ******************************/
 static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr);
@@ -394,7 +397,7 @@ int XLoader_CfiSelectiveRead(XPlmi_Cmd *Cmd)
 	}
 
 	/* Read cframe_far and lastframe_far registers */
-	LastFrameAddr = XCframe_GetLastFrameAddr(&XLoader_CframeIns, BlockType, Row);
+	LastFrameAddr = XCframe_GetLastFrameAddr(&XLoader_CframeIns, BlockType, (XCframe_FrameNo)Row);
 
 	/* Frame address validation */
 	if (FrameAddr > LastFrameAddr) {
