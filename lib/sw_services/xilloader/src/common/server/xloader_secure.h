@@ -98,6 +98,8 @@ extern "C" {
 			/**< DEC_ONLY fuse mask in Security Misc0 register */
 #define XLOADER_EFUSE_MISC_CTRL_OFFSET			(0xF12500A0U)
 			/**< Misc CTRL register */
+#define XLOADER_BBRAM_CL_INCREMENT_COUNT		(0xFFFFFFFFU)
+#define XLOADER_BBRAM_CL_DECREMENT_COUNT		(0x0U)
 
 /**************************** Type Definitions *******************************/
 typedef struct {

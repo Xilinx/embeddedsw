@@ -775,6 +775,8 @@ typedef enum {
 	XLOADER_ERR_SHA2_GET_DMA, /**< 0x659 Failed to get DMA instance for SHA2 KAT */
 	XLOADER_ERR_LMS_HSS_GET_DMA, /**< 0x660 Failed to get DMA instance for LMS_HSS KAT */
 	XLOADER_ERR_LMS_GET_DMA, /**< 0x661 Failed to get DMA instance for LMS KAT */
+	XLOADER_ERR_CONFIG_LIMIT_EXCEEDED, /**< 0x662 Error when the configuration limit is exceeded */
+	XLOADER_ERR_UPDATE_CONFIG_LIMITER_CNT_FAILED, /**< 0x663 Error when the configuration limiter update failed */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XOCP_PCR_ERR_SWPCR_DUP_CONFIG = 0x6A0, /**< 0x6A0 Duplicate Pcr configuration provided */
@@ -799,6 +801,7 @@ typedef enum {
 						the scheduler */
 	XSECURE_ERR_REMOVE_TASK_SCHEDULER, /**< 0x6E0 Error while Removing task from
 						the scheduler */
+
 		/**< */
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

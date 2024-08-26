@@ -63,6 +63,18 @@ extern "C" {
 #define XLOADER_JTAG_SEC_GATE_OPEN			(0x01U) /**< JTAG secure gate open */
 
 #define XLOADER_DEVICE_STATE_POLL_INTERVAL	(1000U) /**< Device state poll interval */
+
+
+#define XLOADER_BBRAM_8_ADDRESS				(0xF11F0030U)	/**< Address of Configuration Limiter register */
+#define XLOADER_BBRAM_CL_COUNTER_MASK			(0x0FFFFFFFU)
+			/**< Mask to get the value of counter in Configuration Limiter register */
+#define XLOADER_BBRAM_CL_MODE_MASK			(0x30000000U)
+			/**< Mask to get the value of mode in Configuration Limiter register */
+#define XLOADER_BBRAM_CL_FEATURE_EN_MASK		(0xC0000000U)
+			/**< Mask to get the value of Feature enable in Configuration Limiter register */
+#define XLOADER_BBRAM_CL_FAILED_CONFIGS_MODE		(0x0U)
+#define XLOADER_BBRAM_CL_FEATURE_ENABLE			(0x3U)
+
 /**************************** Type Definitions *******************************/
 typedef enum {
 	/* Add platform specific error codes from 0xA0 */
@@ -181,6 +193,7 @@ u32 XLoader_GetKekSrc(void);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr);
 int XLoader_AddDeviceStateChangeToScheduler(void);
 int XLoader_CheckDeviceStateChange(void *Arg);
+int XLoader_UpdateCfgLimitCount(u32 UpdateFlag);
 #ifndef PLM_RSA_EXCLUDE
 int XLoader_RsaKat(XPmcDma *PmcDmaPtr);
 int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
